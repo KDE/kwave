@@ -29,6 +29,7 @@
 #include <qstringlist.h>
 #include <qspinbox.h>
 
+#include <kapplication.h> // for invokeHelp
 #include <kfiledialog.h>
 
 #include "MemoryDialog.h"
@@ -52,6 +53,8 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
             this, SLOT(virtualMemoryEnabled(bool)));
     connect(btSearch, SIGNAL(clicked()),
             this, SLOT(searchSwapDir()));
+    connect(btHelp, SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // initialize all controls
     chkLimitPhysical->setChecked(physical_limited);
@@ -125,6 +128,12 @@ void MemoryDialog::searchSwapDir()
     QString dir = KFileDialog::getExistingDirectory(
 	edDirectory->text(), this);
     if (dir.length()) edDirectory->setText(dir);
+}
+
+//***************************************************************************
+void MemoryDialog::invokeHelp()
+{
+    kapp->invokeHelp("memory-setup");
 }
 
 //***************************************************************************

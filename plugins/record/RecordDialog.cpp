@@ -25,6 +25,7 @@
 #include <qprogressbar.h>
 #include <qslider.h>
 
+#include <kapplication.h> // for invokeHelp
 #include <kcombobox.h>
 #include <kglobal.h>
 #include <klocale.h>
@@ -214,6 +215,10 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     // timer for updating the buffer progress bar
     connect(&m_buffer_progress_timer, SIGNAL(timeout()),
             this, SLOT(updateBufferProgressBar()));
+
+    // help button
+    connect(btHelp, SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // set the initial state of the dialog to "Reset/Empty"
     setState(REC_EMPTY);
@@ -678,9 +683,9 @@ void RecordDialog::setState(RecordState state)
 
     // enable disable all controls (groups) for setup
     chkRecordPre->setEnabled(enable_settings);
-    sbRecordPre->setEnabled(enable_settings && 
+    sbRecordPre->setEnabled(enable_settings &&
                             chkRecordPre->isChecked());
-    
+
     chkRecordTime->setEnabled(enable_settings);
     sbRecordTime->setEnabled(enable_settings &&
                              chkRecordTime->isChecked());
@@ -728,7 +733,7 @@ void RecordDialog::preRecordingChecked(bool enabled)
     m_params.pre_record_enabled = enabled;
     emit sigPreRecordingChanged(enabled);
 }
-    
+
 //***************************************************************************
 void RecordDialog::preRecordingTimeChanged(int time)
 {
@@ -771,7 +776,7 @@ void RecordDialog::displayLevelMeterChecked(bool enabled)
     Q_ASSERT(level_meter);
     if (!level_meter) return;
     if (!enabled) {
-	level_meter->setTracks(0);    
+	level_meter->setTracks(0);
 	level_meter->reset();
     }
     level_meter->setEnabled(enabled);
@@ -818,10 +823,16 @@ void RecordDialog::updateRecordButton()
 
     // enabled if not disabled by status and also not limited or
     // less than the limit has been recorded
-    new_enable = m_record_enabled && (!m_params.record_time_limited || 
+    new_enable = m_record_enabled && (!m_params.record_time_limited ||
         (m_samples_recorded < m_params.record_time * m_params.sample_rate));
 
     if (new_enable != old_enable) btRecord->setEnabled(new_enable);
+}
+
+//***************************************************************************
+void RecordDialog::invokeHelp()
+{
+    kapp->invokeHelp("recording");
 }
 
 //***************************************************************************

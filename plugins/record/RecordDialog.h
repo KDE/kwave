@@ -151,7 +151,7 @@ signals:
 
     /** emitted when the prerecording has been enabled/disabled */
     void sigPreRecordingChanged(bool enabled);
-    
+
 public slots:
 
     /** updates the number of recorded samples */
@@ -194,10 +194,10 @@ private slots:
 
     /** prerecording has been enabled/disabled */
     void preRecordingChecked(bool enabled);
-    
+
     /** the prerecording time has been changed */
     void preRecordingTimeChanged(int time);
-    
+
     /** record time has been enabled/disabled */
     void recordTimeChecked(bool limited);
 
@@ -213,6 +213,9 @@ private slots:
     /** display: level meter enabled/disabled */
     void displayLevelMeterChecked(bool enabled);
 
+    /** invoke the online help */
+    void invokeHelp();
+
 private:
 
     /**
@@ -223,12 +226,12 @@ private:
      */
     double string2rate(const QString &rate) const;
 
-    /** 
+    /**
      * enabled or disables the record button by evaluating
      * m_record_enabled and m_seconds_recording
      */
     void updateRecordButton();
-    
+
 private:
 
     /** state of the record plugin */
@@ -248,12 +251,12 @@ private:
 
     /** timer for slowly updating the buffer progress bar */
     QTimer m_buffer_progress_timer;
-    
+
     /** determines if recording is to be enabled by the current state */
     bool m_record_enabled;
-    
-    /** 
-     * holds the recorded samples for comparing with the recording 
+
+    /**
+     * holds the recorded samples for comparing with the recording
      * time limit, for determining if recording should be enabled
      * or not. Only of interest if recording time is limit.
      */

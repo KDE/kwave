@@ -96,6 +96,9 @@ private slots:
     /** called if the slider for the length has been moved */
     void setLengthPercentage(int percent);
 
+    /** invoke the online help */
+    void invokeHelp();
+
 private:
 
     /** Returns true if all pointers of the dialog are valid */

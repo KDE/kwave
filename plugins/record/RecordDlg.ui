@@ -65,7 +65,7 @@
                                     <string>enable pre-recording</string>
                                 </property>
                                 <property name="whatsThis" stdset="0">
-                                    <string>When using &lt;b&gt;pre-recording&lt;/b&gt;, Kwave already internall records before the real recording starts. This feature is useful if you want some few seconds before you press on the record button to be recorded too.</string>
+                                    <string>When using &lt;b&gt;pre-recording&lt;/b&gt;, Kwave already internall records before the real recording starts. This feature is useful if you want some few seconds before you press on the record button to be recorded too. &lt;i&gt;(for example when recording from radio)&lt;/i&gt;</string>
                                 </property>
                             </widget>
                             <widget class="QCheckBox" row="1" column="0">
@@ -1349,13 +1349,13 @@
                 </property>
                 <widget class="QPushButton">
                     <property name="name">
-                        <cstring>pushButton3</cstring>
-                    </property>
-                    <property name="enabled">
-                        <bool>false</bool>
+                        <cstring>btHelp</cstring>
                     </property>
                     <property name="text">
                         <string>&amp;Help</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+H</string>
                     </property>
                 </widget>
                 <spacer>
@@ -1604,7 +1604,7 @@
 </connections>
 <tabstops>
     <tabstop>btRecord</tabstop>
-    <tabstop>pushButton3</tabstop>
+    <tabstop>btHelp</tabstop>
     <tabstop>btClose</tabstop>
     <tabstop>tabRecord</tabstop>
     <tabstop>chkRecordPre</tabstop>

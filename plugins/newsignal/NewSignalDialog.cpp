@@ -32,6 +32,7 @@
 
 #include <klocale.h>
 #include <knuminput.h>
+#include <kapplication.h> // for invokeHelp
 
 #include "NewSignalDialog.h"
 
@@ -87,6 +88,10 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
     // selection by percentage of maximum possible length
     connect(edSamples, SIGNAL(valueChanged(int)),
             this, SLOT(samplesChanged(int)));
+
+    // help button
+    connect(btHelp, SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // pre-initialize the size
     setMaximumHeight(sizeHint().height());
@@ -383,6 +388,12 @@ void NewSignalDialog::setHMS(const double &samples)
     sbHours->setValue(hours);
     sbMinutes->setValue(minutes);
     sbSeconds->setValue(seconds);
+}
+
+//***************************************************************************
+void NewSignalDialog::invokeHelp()
+{
+    kapp->invokeHelp("newfile");
 }
 
 //***************************************************************************

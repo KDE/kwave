@@ -25,7 +25,7 @@
 class QStringList;
 
 class MemoryDialog : public MemDlg
-{ 
+{
     Q_OBJECT
 
 public:
@@ -61,6 +61,9 @@ protected slots:
 
     /** Connected to the Search button to select a new swap directory */
     void searchSwapDir();
+
+    /** invoke the online help */
+    void invokeHelp();
 
 };
 

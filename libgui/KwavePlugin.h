@@ -198,7 +198,7 @@ public:
      * @return the number of selected samples (right-left+1) [1..length]
      */
     virtual unsigned int selection(unsigned int *left=0,unsigned int *right=0,
-                                   bool expand_if_empty = true);
+                                   bool expand_if_empty = false);
 
     /**
      * Returns a set of opened SampleReader objects for reading from

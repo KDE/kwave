@@ -90,6 +90,9 @@ double Interpolation::singleInterpolation(double input)
     unsigned int degree = 0;
     unsigned int count = this->count();
 
+    if (input < 0.0) input = 0.0;
+    if (input > 1.0) input = 1.0;
+
     switch (m_type) {
 	case INTPOL_LINEAR:
 	    {
@@ -127,9 +130,9 @@ double Interpolation::singleInterpolation(double input)
 	    }
 	case INTPOL_SAH:     //Sample and hold
 	    {
-		int i = 1;
-		// ### range checking ???
-		while (m_x[i] < input) i++;
+		unsigned int i = 1;
+		while ((m_x[i] < input) && (i < count))
+		    i++;
 		return m_y[i-1];
 	    }
 	case INTPOL_POLYNOMIAL3:
@@ -149,8 +152,9 @@ double Interpolation::singleInterpolation(double input)
 	QArray<double> ax(7);
 	QArray<double> ay(7);
 	
-	int i = 1;
-	while (m_x[i] < input) i++;
+	unsigned int i = 1;
+	while ((m_x[i] < input) && (i < count))
+	    i++;
 	
 	createPolynom(m_curve, ax, ay, i - 1 - degree/2, degree);
 	
@@ -297,10 +301,8 @@ QArray<double> Interpolation::interpolation(Curve *points, unsigned int len)
 	    }
 	case INTPOL_POLYNOMIAL3:
 	    if (!degree) degree = 3;
-	    // ### ??? and now ???
 	case INTPOL_POLYNOMIAL5:
 	    if (!degree) degree = 5;
-	    // ### ??? and now ???
 	case INTPOL_POLYNOMIAL7:
 	    {
 		if (!degree) degree = 7;

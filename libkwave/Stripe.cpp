@@ -197,7 +197,7 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
 #endif
     }
 
-    debug("Stripe::append(): resized to %d", m_samples.size());
+//  debug("Stripe::append(): resized to %d", m_samples.size());
 
     // something has been added to the end
     if (appended) emit sigSamplesInserted(*this, old_length, appended);

@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <strings.h> // for bzero
+#include <signal.h>
 
 #include "RecordDevice.h"
 #include "RecordThread.h"
@@ -162,10 +163,10 @@ void RecordThread::run()
 		// file open has failed
 		interrupted = true;
 		break;
-	    } else if (result == -EAGAIN) {
+	    } else if (result == -EINTR) {
 		// thread was interrupted, received signal?
-		qWarning("RecordThread::run(): read returned -EAGAIN, INT?");
-		continue;
+		interrupted = true;
+		break;
 	    } else if (result < 1) {
 		// something went wrong !?
 		qWarning("RecordThread::run(): read returned %d", result);

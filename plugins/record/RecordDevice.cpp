@@ -104,13 +104,19 @@ int RecordDevice::read(char *buffer, unsigned int length)
 	retval = select(m_fd+1, &rfds, 0, 0, &tv);
 
 	if (retval == -1) {
-	    qWarning("RecordDevice::read() - select() failed");
-	    return -EAGAIN;
+	    if (errno == EINTR)
+		return -errno; // return without warning
+	
+	    qWarning("RecordDevice::read() - select() failed errno=%d (%s)",
+	             errno, strerror(errno));
+	    return -errno;
 	} else if (retval) {
 	    int res = ::read(m_fd, buffer, length);
+	    if ((res == -1) && (errno == EINTR))
+		return -errno; // interrupted, return without warning
+		
 	    if ((res == -1) && (errno == EAGAIN))
 		continue;
-		// return -EAGAIN; // interrupted ?
 
 	    if (res < 0) {
 		qWarning("RecordDevice::read() - read error %d (%s)",

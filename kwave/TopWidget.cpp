@@ -491,6 +491,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	    "<a href=http://www.arts-project.org>"\
 	    "http://www.arts-project.org</a>."
 	));
+	qApp->exit();
 	return;
     };
 

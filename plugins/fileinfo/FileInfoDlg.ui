@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>751</width>
-            <height>505</height>
+            <width>802</width>
+            <height>495</height>
         </rect>
     </property>
     <property name="minimumSize">
@@ -804,7 +804,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>0</width>
-                                <height>20</height>
+                                <height>70</height>
                             </size>
                         </property>
                     </spacer>
@@ -823,11 +823,41 @@
                                 <cstring>unnamed</cstring>
                             </property>
                             <property name="margin">
-                                <number>0</number>
+                                <number>10</number>
                             </property>
                             <property name="spacing">
                                 <number>10</number>
                             </property>
+                            <widget class="BitrateWidget" row="2" column="2" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>abrLowestBitrate</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
+                            <widget class="Line" row="3" column="1" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>Line1</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>HLine</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Sunken</enum>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                            </widget>
+                            <widget class="BitrateWidget" row="1" column="2" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>abrHighestBitrate</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
                             <widget class="QRadioButton" row="0" column="0">
                                 <property name="name">
                                     <cstring>rbCompressionABR</cstring>
@@ -835,10 +865,97 @@
                                 <property name="text">
                                     <string>ABR:</string>
                                 </property>
+                                <property name="checked">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Average Bitrate Mode</string>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Average Bitrate Mode&lt;/b&gt;&lt;br&gt;
+Bitrate is set to an average value, 
+with optional upper and lower limit.</string>
+                                </property>
                             </widget>
-                            <widget class="KIntSpinBox" row="3" column="2">
+                            <widget class="QCheckBox" row="2" column="1">
                                 <property name="name">
-                                    <cstring>KIntSpinBox5_5</cstring>
+                                    <cstring>chkLowestBitrate</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>lowest</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="1" column="1">
+                                <property name="name">
+                                    <cstring>chkHighestBitrate</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>highest</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="1">
+                                <property name="name">
+                                    <cstring>lblCompression_2_2_2_2</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>MShape</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>MShadow</enum>
+                                </property>
+                                <property name="text">
+                                    <string>Nominal Bitrate</string>
+                                </property>
+                            </widget>
+                            <widget class="BitrateWidget" row="0" column="2" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>abrBitrate</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton" row="4" column="0">
+                                <property name="name">
+                                    <cstring>rbCompressionVBR</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>VBR:</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Variable Bitrate Mode</string>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Variable Bitrate Mode&lt;/b&gt;&lt;br&gt;
+The bitrate is selected by an average quality.</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="4" column="1">
+                                <property name="name">
+                                    <cstring>lblCompression_2_2_3</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>MShape</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>MShadow</enum>
+                                </property>
+                                <property name="text">
+                                    <string>Base Quality</string>
+                                </property>
+                            </widget>
+                            <widget class="KIntSpinBox" row="4" column="2">
+                                <property name="name">
+                                    <cstring>sbBaseQuality</cstring>
                                 </property>
                                 <property name="enabled">
                                     <bool>false</bool>
@@ -861,217 +978,42 @@
                                     <number>100</number>
                                 </property>
                                 <property name="minValue">
-                                    <number>-1</number>
-                                </property>
-                                <property name="value">
-                                    <number>-1</number>
-                                </property>
-                            </widget>
-                            <widget class="QLabel" row="3" column="1">
-                                <property name="name">
-                                    <cstring>lblCompression_2_2_3</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="frameShape">
-                                    <enum>MShape</enum>
-                                </property>
-                                <property name="frameShadow">
-                                    <enum>MShadow</enum>
-                                </property>
-                                <property name="text">
-                                    <string>Base Quality</string>
-                                </property>
-                            </widget>
-                            <widget class="QCheckBox" row="2" column="1">
-                                <property name="name">
-                                    <cstring>CheckBox9_2_2</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="text">
-                                    <string>lowest</string>
-                                </property>
-                            </widget>
-                            <widget class="QCheckBox" row="1" column="1">
-                                <property name="name">
-                                    <cstring>CheckBox9_3</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="text">
-                                    <string>highest</string>
-                                </property>
-                            </widget>
-                            <widget class="KIntSpinBox" row="1" column="2">
-                                <property name="name">
-                                    <cstring>KIntSpinBox5_3_2</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="specialValueText">
-                                    <string>no limit</string>
-                                </property>
-                                <property name="maxValue">
-                                    <number>100</number>
-                                </property>
-                                <property name="minValue">
                                     <number>0</number>
+                                </property>
+                                <property name="lineStep">
+                                    <number>10</number>
                                 </property>
                                 <property name="value">
                                     <number>0</number>
                                 </property>
-                            </widget>
-                            <widget class="QSlider" row="0" column="3">
-                                <property name="name">
-                                    <cstring>Slider1_2_2</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>200</width>
-                                        <height>0</height>
-                                    </size>
-                                </property>
-                                <property name="maxValue">
-                                    <number>100</number>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="tickmarks">
-                                    <enum>Right</enum>
-                                </property>
-                                <property name="tickInterval">
+                                <property name="base">
                                     <number>10</number>
                                 </property>
                             </widget>
-                            <widget class="QLabel" row="0" column="1">
+                            <widget class="QSlider" row="4" column="3">
                                 <property name="name">
-                                    <cstring>lblCompression_2_2_2_2</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="frameShape">
-                                    <enum>MShape</enum>
-                                </property>
-                                <property name="frameShadow">
-                                    <enum>MShadow</enum>
-                                </property>
-                                <property name="text">
-                                    <string>Nominal Bitrate</string>
-                                </property>
-                            </widget>
-                            <widget class="KIntSpinBox" row="0" column="2">
-                                <property name="name">
-                                    <cstring>KIntSpinBox5_2_2</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="maxValue">
-                                    <number>100</number>
-                                </property>
-                            </widget>
-                            <widget class="QSlider" row="2" column="3">
-                                <property name="name">
-                                    <cstring>Slider1_4_2</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="maxValue">
-                                    <number>100</number>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="tickmarks">
-                                    <enum>Right</enum>
-                                </property>
-                                <property name="tickInterval">
-                                    <number>10</number>
-                                </property>
-                            </widget>
-                            <widget class="QRadioButton" row="3" column="0">
-                                <property name="name">
-                                    <cstring>rbCompressionVBR</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>VBR:</string>
-                                </property>
-                            </widget>
-                            <widget class="QSlider" row="3" column="3">
-                                <property name="name">
-                                    <cstring>Slider1_5</cstring>
+                                    <cstring>slBaseQuality</cstring>
                                 </property>
                                 <property name="enabled">
                                     <bool>false</bool>
                                 </property>
                                 <property name="minValue">
-                                    <number>-1</number>
+                                    <number>0</number>
                                 </property>
                                 <property name="maxValue">
                                     <number>100</number>
                                 </property>
-                                <property name="value">
-                                    <number>-1</number>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="tickmarks">
-                                    <enum>Right</enum>
-                                </property>
-                                <property name="tickInterval">
+                                <property name="lineStep">
                                     <number>10</number>
                                 </property>
-                            </widget>
-                            <widget class="KIntSpinBox" row="2" column="2">
-                                <property name="name">
-                                    <cstring>KIntSpinBox5_4_2</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="specialValueText">
-                                    <string>no limit</string>
-                                </property>
-                                <property name="maxValue">
-                                    <number>100</number>
-                                </property>
-                                <property name="minValue">
-                                    <number>0</number>
+                                <property name="pageStep">
+                                    <number>20</number>
                                 </property>
                                 <property name="value">
                                     <number>0</number>
                                 </property>
-                            </widget>
-                            <widget class="QSlider" row="1" column="3">
-                                <property name="name">
-                                    <cstring>Slider1_3_2</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="maxValue">
-                                    <number>100</number>
-                                </property>
                                 <property name="orientation">
                                     <enum>Horizontal</enum>
-                                </property>
-                                <property name="tickmarks">
-                                    <enum>Right</enum>
-                                </property>
-                                <property name="tickInterval">
-                                    <number>10</number>
                                 </property>
                             </widget>
                         </grid>
@@ -2729,6 +2671,22 @@
         </sizepolicy>
         <pixmap>image0</pixmap>
     </customwidget>
+    <customwidget>
+        <class>BitrateWidget</class>
+        <header location="local">BitrateWidget.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>1</container>
+        <sizepolicy>
+            <hordata>5</hordata>
+            <verdata>5</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
 </customwidgets>
 <images>
     <image name="image0">
@@ -2755,18 +2713,6 @@
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
-        <sender>rbCompressionABR</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>CheckBox9_3</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>rbCompressionABR</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>CheckBox9_2_2</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
         <sender>rbCompressionVBR</sender>
         <signal>toggled(bool)</signal>
         <receiver>lblCompression_2_2_3</receiver>
@@ -2775,98 +2721,32 @@
     <connection>
         <sender>rbCompressionVBR</sender>
         <signal>toggled(bool)</signal>
-        <receiver>KIntSpinBox5_5</receiver>
+        <receiver>sbBaseQuality</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
         <sender>rbCompressionVBR</sender>
         <signal>toggled(bool)</signal>
-        <receiver>Slider1_5</receiver>
+        <receiver>slBaseQuality</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
-        <sender>CheckBox9_3</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>KIntSpinBox5_3_2</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>CheckBox9_3</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>Slider1_3_2</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>CheckBox9_2_2</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>KIntSpinBox5_4_2</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>CheckBox9_2_2</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>Slider1_4_2</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>KIntSpinBox5_5</sender>
+        <sender>sbBaseQuality</sender>
         <signal>valueChanged(int)</signal>
-        <receiver>Slider1_5</receiver>
+        <receiver>slBaseQuality</receiver>
         <slot>setValue(int)</slot>
     </connection>
     <connection>
-        <sender>Slider1_5</sender>
+        <sender>slBaseQuality</sender>
         <signal>valueChanged(int)</signal>
-        <receiver>KIntSpinBox5_5</receiver>
+        <receiver>sbBaseQuality</receiver>
         <slot>setValue(int)</slot>
     </connection>
     <connection>
         <sender>rbCompressionABR</sender>
         <signal>toggled(bool)</signal>
-        <receiver>Slider1_2_2</receiver>
+        <receiver>abrBitrate</receiver>
         <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>rbCompressionABR</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>KIntSpinBox5_2_2</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>KIntSpinBox5_4_2</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>Slider1_4_2</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>Slider1_4_2</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>KIntSpinBox5_4_2</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>KIntSpinBox5_3_2</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>Slider1_3_2</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>Slider1_3_2</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>KIntSpinBox5_3_2</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>KIntSpinBox5_2_2</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>Slider1_2_2</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>Slider1_2_2</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>KIntSpinBox5_2_2</receiver>
-        <slot>setValue(int)</slot>
     </connection>
 </connections>
 <tabstops>
@@ -2883,17 +2763,11 @@
     <tabstop>cbSampleFormat</tabstop>
     <tabstop>cbCompression</tabstop>
     <tabstop>rbCompressionABR</tabstop>
-    <tabstop>KIntSpinBox5_2_2</tabstop>
-    <tabstop>Slider1_2_2</tabstop>
-    <tabstop>CheckBox9_3</tabstop>
-    <tabstop>KIntSpinBox5_3_2</tabstop>
-    <tabstop>Slider1_3_2</tabstop>
-    <tabstop>CheckBox9_2_2</tabstop>
-    <tabstop>KIntSpinBox5_4_2</tabstop>
-    <tabstop>Slider1_4_2</tabstop>
+    <tabstop>chkHighestBitrate</tabstop>
+    <tabstop>chkLowestBitrate</tabstop>
     <tabstop>rbCompressionVBR</tabstop>
-    <tabstop>KIntSpinBox5_5</tabstop>
-    <tabstop>Slider1_5</tabstop>
+    <tabstop>sbBaseQuality</tabstop>
+    <tabstop>slBaseQuality</tabstop>
     <tabstop>cbMpegLayer</tabstop>
     <tabstop>cbMpegVersion</tabstop>
     <tabstop>cbMpegBitrate</tabstop>

@@ -55,6 +55,9 @@ private slots:
     /** auto-generate the list of keywords */
     void autoGenerateKeywords();
 
+    /** compression tab: (de)selected ABR mode */
+    void compressionSelectABR(bool checked);
+
 protected:
 
     /**

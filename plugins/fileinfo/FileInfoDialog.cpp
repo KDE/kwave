@@ -15,16 +15,21 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+#include <stdlib.h> // for abs()
+
 #include <qcheckbox.h>
 #include <qdatetime.h>
 #include <qdialog.h>
 #include <qfileinfo.h>
+#include <qarray.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qlistbox.h>
 #include <qcombobox.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
+#include <qslider.h>
 #include <qspinbox.h>
 #include <qstring.h>
 #include <qstringlist.h>
@@ -43,6 +48,7 @@
 #include "libkwave/SampleFormat.h"
 #include "libgui/KwavePlugin.h"
 
+#include "BitrateWidget.h"
 #include "FileInfoDialog.h"
 #include "KeywordWidget.h"
 #include "SelectDateDialog.h"
@@ -225,21 +231,82 @@ void FileInfoDialog::setupCompressionTab()
     if (m_is_mpeg || m_is_ogg) cbCompression->setEnabled(false);
 
     if (m_is_mpeg) {
-	// MPEG file    
+	// MPEG file -> not supported yet
+	rbCompressionABR->setEnabled(false);
+	rbCompressionVBR->setEnabled(false);
     } else if (m_is_ogg) {
-	// Ogg/Vorbis file    
+	// Ogg/Vorbis file
+	rbCompressionVBR->setEnabled(true);
+	rbCompressionABR->setEnabled(true);
     } else {
 	// other...    
 	rbCompressionABR->setEnabled(false);
 	rbCompressionVBR->setEnabled(false);
     }
 
+    // use well-known bitrates from MP3
+    QValueList<int> rates;
+    rates.append(  8000);
+    rates.append( 16000);
+    rates.append( 24000);
+    rates.append( 32000);
+    rates.append( 40000);
+    rates.append( 56000);
+    rates.append( 64000);
+    rates.append( 80000);
+    rates.append( 96000);
+    rates.append(112000);
+    rates.append(128000);
+    rates.append(144000);
+    rates.append(160000);
+    rates.append(176000);
+    rates.append(192000);
+    rates.append(224000);
+    rates.append(256000);
+    rates.append(288000);
+    rates.append(320000);
+    rates.append(352000);
+    rates.append(384000);
+    rates.append(416000);
+    rates.append(448000);
+    abrBitrate->allowRates(rates);
+
+    int bitrate = m_info.contains(INF_BITRATE_NOMINAL) ?
+                  QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt() : 64000;
+    abrBitrate->setValue(bitrate);
+    abrHighestBitrate->setSpecialValueText(i18n("no limit"));
+    abrLowestBitrate->setSpecialValueText(i18n("no limit"));
+
+    connect(rbCompressionABR, SIGNAL(toggled(bool)),
+            this, SLOT(compressionSelectABR(bool)));
+    
 //    // this is not visible, not implemented yet...
 //    InfoTab->setCurrentPage(5);
 //    QWidget *page = InfoTab->currentPage();
 //    InfoTab->removePage(page);
 //    InfoTab->setCurrentPage(0);
 //    return;
+}
+
+//***************************************************************************
+//void FileInfoDialog::sampleRateChanged(int)
+//{
+//    int rate = (int)m_info.rate();
+//    switch (rate) {
+//	 8000:
+//	11025:
+//	22050:
+//	32000:
+//	44100:
+//    }
+//}
+
+//***************************************************************************
+void FileInfoDialog::compressionSelectABR(bool checked)
+{
+    checked = false; // ### <- not implemented yet
+    abrHighestBitrate->setEnabled(checked && chkHighestBitrate->isChecked());
+    abrLowestBitrate->setEnabled( checked && chkLowestBitrate->isChecked());
 }
 
 //***************************************************************************
@@ -592,6 +659,11 @@ void FileInfoDialog::accept()
     m_info.set(INF_COMPRESSION, (compression != AF_COMPRESSION_NONE) ?
         QVariant(compression) : QVariant());
 
+    /* bitrate in Ogg/Vorbis mode */
+    if (m_is_ogg) {
+	m_info.set(INF_BITRATE_NOMINAL, QVariant(abrBitrate->value()));
+    }
+    
     /* name, subject, version, genre, title, author, organization,
        copyright */
     acceptEdit(INF_NAME,         edName->text());

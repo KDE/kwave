@@ -318,8 +318,11 @@ private:
     /** Color for interpolated samples */
     QColor m_color_interpolated;
 
-    /** Color for the zero line */
+    /** Color for the zero line, used areas */
     QColor m_color_zero;
+
+    /** Color of the zero line, unused areas */
+    QColor m_color_zero_unused;
 
 };
 

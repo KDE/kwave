@@ -2,8 +2,6 @@
 o test for afOpenVirtualFile() in configure script and check if
   system libaudiofile can be used
 
-o Save/Selection needs to be tested/fixed, seems to be buggy!
-
 o storage/handling of extra info (labels, cue list, author etc...)
 
 o plugins for import/export of different file formats (e.g. MP3)
@@ -17,10 +15,9 @@ o audible/silent mode of tracks (speakers)
 
 o virtual memory: multiple swap directories
 
-o install a new_handler() for cases in which we run out of memory
+o gui access to file saving parameters
 
-o when pressing cancel during save, ask if the file should be deleted
-  or fixed instead of only truncated
+o install a new_handler() for cases in which we run out of memory
 
 o implementation of locking, see SampleLock
 
@@ -28,8 +25,6 @@ o menu entries for playback control
 
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
-
-o display zero line in dark green if range is deleted/not present
 
 o hourglass and process indicators for longer processes
 

@@ -179,11 +179,17 @@
             <para>0.6.4 [2002-06-??]</para>
             <itemizedlist>
                 <listitem><para>
-                    support for different file formats
+                    support for different file formats / integrated libaudiofile
                 </para></listitem>
                 <listitem><para>
                     drag&drop bugfix: dropping into the same signal left from
                       the selection removed wrong range
+                </para></listitem>
+                <listitem><para>
+                    auto-repair for structurally damaged wav files
+                </para></listitem>
+                <listitem><para>
+                    bugfix: save selection works again
                 </para></listitem>
             </itemizedlist>
         </listitem>

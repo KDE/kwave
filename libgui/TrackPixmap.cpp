@@ -56,6 +56,7 @@ TrackPixmap::TrackPixmap(Track &track)
     m_color_sample       = white;
     m_color_interpolated = lightGray;
     m_color_zero         = green;
+    m_color_zero_unused  = darkGray;
 
     // connect all the notification signals of the track
     connect(&track, SIGNAL(sigSamplesInserted(Track&,unsigned int,
@@ -406,8 +407,15 @@ void TrackPixmap::repaint()
 	}
 	
 	// draw the zero-line
+	int last = samples2pixels(m_track.length()-1);
 	p.setPen(m_color_zero);
-	p.drawLine(0, h>>1, w-1, h>>1);
+	if (last >= w) {
+	    p.drawLine(0, h>>1, w-1, h>>1);
+	} else {
+	    p.drawLine(0, h>>1, last, h>>1);
+	    p.setPen(m_color_zero_unused);
+	    p.drawLine(last, h>>1, w, h>>1);
+	}
     }
 
     // now we are no longer "modified"

@@ -230,11 +230,11 @@ int SignalManager::save(const KURL &url, unsigned int bits, bool selection)
 
     if (selection) {
 	// zero-length -> nothing to do
-	if (m_selection.length() == 0) return 0;
 	ofs = m_selection.offset();
 	len = m_selection.length();
 	tracks = selectedTracks().count();
     }
+    debug("ofs=%u, len=%u, tracks=%u",ofs,len,tracks);
 
     if (!tracks || !len) {
 	KMessageBox::error(m_parent_widget,
@@ -255,9 +255,9 @@ int SignalManager::save(const KURL &url, unsigned int bits, bool selection)
 	
 	MultiTrackReader src;
 	if (selection) {
-	    openMultiTrackReader(src, selectedTracks(), ofs, len);
+	    openMultiTrackReader(src, selectedTracks(), ofs, ofs+len-1);
 	} else {
-	    openMultiTrackReader(src, allTracks(), ofs, len);
+	    openMultiTrackReader(src, allTracks(), ofs, ofs+len-1);
 	}
 	
 	// create file information

@@ -893,7 +893,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //    gettimeofday(&t_start,0);
 //#endif
 
-    unsigned int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
+    unsigned int n_tracks = /*m_signal_manager.isClosed() ? 0 :*/ tracks();
     bool update_pixmap = false;
 
     m_layer_rop[LAYER_SIGNAL] = CopyROP;
@@ -930,7 +930,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
 	p.begin(m_layer[LAYER_SIGNAL]);
 
-	p.setPen(white);
+//	p.setPen(white);
 	p.setRasterOp(CopyROP);
 	p.fillRect(0, 0, width, height, black);
 

@@ -45,13 +45,15 @@ TrackPixmap::TrackPixmap(Track &track)
     m_valid(0), m_lock_buffer(),
     m_interpolation_order(0), m_interpolation_alpha(0)
 {
-    debug("TrackPixmap::TrackPixmap()"); // ###
+    m_color_background = black;
+    m_color_sample = white;
+    m_color_interpolated = lightGray;
+    m_color_zero = green;
 }
 
 //***************************************************************************
 TrackPixmap::~TrackPixmap()
 {
-    debug("TrackPixmap::~TrackPixmap()"); // ###
     MutexGuard lock(m_lock_buffer);
 
     if (m_interpolation_alpha) delete[] m_interpolation_alpha;
@@ -62,9 +64,7 @@ TrackPixmap::~TrackPixmap()
 void TrackPixmap::setOffset(unsigned int offset)
 {
     MutexGuard lock(m_lock_buffer);
-
     if (offset == m_offset) return; // no change
-    debug("TrackPixmap::setOffset(%u)", offset);
 
     unsigned int diff;
     unsigned int src;
@@ -76,7 +76,15 @@ void TrackPixmap::setOffset(unsigned int offset)
 	// one buffer element = one screen pixel
 	ASSERT(buflen == m_min_buffer.size() == m_max_buffer.size());
 
-	if (offset > m_offset) {
+	// check for misaligned offset
+	if (offset % pixels2samples(1)) {
+	    warning("TrackPixmap::setOffset(): oh nooo, "\
+	    	"offset %u is misaligned by %u sample(s), please fix this!",
+	    	offset, offset % pixels2samples(1));
+	    warning("TrackPixmap::setOffset(): "\
+	    	"now I have to throw away the whole buffer :-((");
+	    invalidateBuffer();
+	} else if (offset > m_offset) {
 	    // move left
 	    diff = samples2pixels(offset - m_offset);
 	    for (src = diff, dst = 0; src < buflen; ++dst, ++src) {
@@ -126,22 +134,16 @@ void TrackPixmap::setOffset(unsigned int offset)
 //***************************************************************************
 void TrackPixmap::resizeBuffer()
 {
-    debug("TrackPixmap::resizeBuffer()"); // ###
-
     unsigned int buflen;
-    unsigned int oldlen;
+    unsigned int oldlen = m_valid.size();
     if (m_minmax_mode) {
 	// one buffer index == one screen pixel
 	buflen = width();
-	oldlen = m_valid.size();
-	ASSERT(m_min_buffer.size() == m_max_buffer.size() == oldlen);
 	m_min_buffer.resize(buflen);
 	m_max_buffer.resize(buflen);
     } else {
 	// one buffer index == one sample
 	buflen = pixels2samples(width());
-	oldlen = m_valid.size();
-	ASSERT(m_sample_buffer.size() == oldlen);
 	m_sample_buffer.resize(buflen);
     }
     m_valid.resize(buflen);
@@ -154,17 +156,18 @@ void TrackPixmap::setZoom(double zoom)
     MutexGuard lock(m_lock_buffer);
 
     if (zoom == m_zoom) return; // no change
-    debug("TrackPixmap::setZoom(%0.3f)", zoom);
 
-    if ((m_zoom > 1.0) && !m_minmax_mode) {
+    if ((zoom > 1.0) && !m_minmax_mode) {
 	// switch to min/max mode
-	debug("TrackPixmap::validateBuffer(): switch to min/max mode");
+	debug("TrackPixmap::setZoom(): switch to min/max mode");
 	invalidateBuffer();
+	resizeBuffer();
 	m_minmax_mode = true;
-    } else if ((m_zoom <= 1.0) && m_minmax_mode) {
+    } else if ((zoom <= 1.0) && m_minmax_mode) {
 	// switch to normal mode
-	debug("TrackPixmap::validateBuffer(): switch to normal mode");
+	debug("TrackPixmap::setZoom(): switch to normal mode");
 	invalidateBuffer();
+	resizeBuffer();
 	m_minmax_mode = false;
     }
 
@@ -212,27 +215,83 @@ void TrackPixmap::resize(int width, int height)
 //***************************************************************************
 void TrackPixmap::invalidateBuffer()
 {
-    debug("TrackPixmap::invalidateBuffer()"); // ###
     for (unsigned int i=0; i < m_valid.size(); ++i) {
 	m_valid.clearBit(i);
     }
 }
 
 //***************************************************************************
-void TrackPixmap::validateBuffer()
+bool TrackPixmap::validateBuffer()
 {
-//    unsigned int length = pixels2samples(width());
+    unsigned int first = 0;
+    unsigned int last = 0;
+    unsigned int buflen = m_valid.size();
 
-    debug("TrackPixmap::validateBuffer()");
+    if (m_minmax_mode) {
+	ASSERT(m_min_buffer.size() == buflen);
+	ASSERT(m_max_buffer.size() == buflen);
+    } else {
+	ASSERT(m_sample_buffer.size() == buflen);
+    }
 
-//    {
-//	// lock the range that we need for shared read-only access
-//	SampleLock lock(m_track, m_offset, length,
-//	                SampleLock::ReadShared);
-//	
-//	// fill our array(s) with fresh sample data
-//	// ###
-//    }
+    while (first < buflen) {
+	// find the first invalid index
+	for (first=last; (first < buflen) && m_valid.testBit(first);
+		++first);
+	
+	// break if the first index is out of range
+	if (first >= buflen) return false; // buffer is already ok
+	
+	// find the last invalid index
+	for (last=first; (last < buflen) && !m_valid.testBit(last);
+		++last);
+	if (last != first) --last;
+	
+	unsigned int offset;
+	unsigned int length;
+	if (m_minmax_mode) {
+	    // one index == one pixel
+	    offset = m_offset + pixels2samples(first);
+	    length = pixels2samples(last-first+1);
+	} else {
+	    // one index == one sample
+	    offset = m_offset + first;
+	    length = last-first+1;
+	}
+	
+	{   // lock the range that we need for shared read-only access
+	    SampleLock lock(m_track, offset, length,
+	                SampleLock::ReadShared);
+
+	    // fill our array(s) with fresh sample data
+	    // ###
+	    debug("TrackPixmap::validateBuffer(): locked at %u, %u samples",
+	    	offset, length);
+	    	
+	    if (m_minmax_mode) {
+	    } else {
+	    }
+	
+	    unsigned int pos;
+	    for (pos = 0; pos < m_valid.size(); pos++) {
+		double v = (1 << 23) * sin((double)pos*2.0*3.1415926535 /
+			(double)m_valid.size());
+		if (m_minmax_mode) {
+		    m_min_buffer[pos] = (sample_t)(-v);
+		    m_max_buffer[pos] = (sample_t)(+v);
+		} else {
+		    m_sample_buffer[pos] = (sample_t)v;
+		}
+	    }
+	
+	    // make the buffer valid
+	    for (;first<=last;m_valid.setBit(first++));
+	}
+
+        ++last;
+    }
+
+    return true;
 }
 
 //***************************************************************************
@@ -245,18 +304,22 @@ void TrackPixmap::repaint()
 
     QPainter p(this);
     p.setRasterOp(CopyROP);
-    p.fillRect(0, 0, w, h, black);
+    p.fillRect(0, 0, w, h, m_color_background);
 
     if (m_zoom ) {
 	// first make the buffer valid
 	validateBuffer();
 	
 	// then draw the samples
+	if (m_minmax_mode) {
+	    drawOverview(h>>1, h, 0, w-1);
+	} else {
+	}
 	// ###
 	debug("TrackPixmap::repaint()");
 	
 	// draw the green zero-line
-	p.setPen(green);
+	p.setPen(m_color_zero);
 	p.drawLine(0, h>>1, w-1, h>>1);
     }
 
@@ -265,27 +328,27 @@ void TrackPixmap::repaint()
 }
 
 //***************************************************************************
-void TrackPixmap::drawOverviewSignal(int /*channel*/, int /*middle*/, int /*height*/,
-                                     int /*first*/, int /*last*/)
+void TrackPixmap::drawOverview(int middle, int height, int first, int last)
 {
-////    debug("TrackPixmap::drawOverviewSignal()");
-//
-//    float scale_y;
-//    int step, max = 0, min = 0;
-//
-//    ASSERT(signalmanage);
-//    if (!signalmanage) return;
-//
-//    // scale_y: pixels per unit
-//    scale_y = height * zoomy / (1 << 24);
-//
-//    for (int i = 0; i < width; i++) {
-//	step = m_offset + pixels2samples(i);
-//	signalmanage->getMaxMin(channel, max, min, step, pixels2samples(1));
-//	max = (int)(max * scale_y);
-//	min = (int)(min * scale_y);
-//	p.drawLine(i, middle - max, i, middle - min);
-//    }
+    ASSERT(m_minmax_mode);
+    ASSERT(width() <= (int)m_min_buffer.size());
+    ASSERT(width() <= (int)m_max_buffer.size());
+
+    debug("TrackPixmap::drawOverview()");
+
+    // scale_y: pixels per unit
+    double scale_y = (double)height / (1 << 24);
+    int max = 0, min = 0;
+
+    QPainter p(this);
+    p.setPen(m_color_sample);
+    for (int i = first; i <= last; i++) {
+	max = (int)(m_max_buffer[i] * scale_y);
+	min = (int)(m_min_buffer[i] * scale_y);
+	p.drawLine(i, middle - max, i, middle - min);
+    }
+
+    p.end();
 }
 
 //***************************************************************************

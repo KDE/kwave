@@ -69,6 +69,7 @@ void *SwapFile::allocate(size_t size, const QString &filename)
 
     m_address = mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED,
 	m_file.handle(), 0);
+    if (m_address == (void*)(-1)) m_address = 0;
     if (m_address) m_size = size;
 
     debug("SwapFile::allocate(%d MB) at %p",size>>20, m_address);

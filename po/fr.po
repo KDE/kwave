@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-01-07 23:11+0100\n"
-"PO-Revision-Date: 2002-01-20 14:37GMT\n"
+"PO-Revision-Date: 2002-01-21 06:59GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
-"Language-Team: Français <fr@li.org>\n"
+"Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -366,7 +366,7 @@ msgstr "(%2 échantillons)"
 #: kwave/TopWidget.cpp:933
 #, c-format
 msgid "Mode: %u bit@%0.3f kHz"
-msgstr "Format: %u bit@%0.3f kHz"
+msgstr "Format : %u bits@%0.3f kHz"
 
 #: kwave/TopWidget.cpp:967
 #, ycp-format

@@ -1155,3 +1155,11 @@ plugins/codec_flac/FlacDecoder.cpp
 plugins/codec_flac/FlacDecoder.h
 plugins/codec_flac/FlacEncoder.cpp
 plugins/codec_flac/FlacEncoder.h
+libkwave/byteswap.h
+libkwave/cputest.c
+libkwave/cputest.h
+libkwave/memcpy.c
+libkwave/memcpy.h
+libkwave/ppcasm_string.h
+libkwave/ppcasm_string.S
+libkwave/ppc_asm.tmpl

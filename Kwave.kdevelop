@@ -7,8 +7,8 @@
     <projectmanagement>KDevCustomProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <ignoreparts>
-      <part>ClearCase-Unterstützung (KDevelop)</part>
-      <part>Perforce-Unterstützung (KDevelop)</part>
+      <part>Unterstützung für ClearCase (KDevelop)</part>
+      <part>KDevCTags2</part>
     </ignoreparts>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
@@ -36,15 +36,20 @@
     </build>
     <make>
       <abortonerror>true</abortonerror>
-      <numberofjobs>1</numberofjobs>
+      <numberofjobs>2</numberofjobs>
       <dontact>false</dontact>
       <makebin/>
       <environments>
         <default>
-          <envvar value="localhost " name="DISTCC_HOSTS" />
+          <envvar value="ccache gcc" name="CC" />
+          <envvar value="distcc" name="CCACHE_PREFIX" />
+          <envvar value="ccache g++" name="CXX" />
+          <envvar value="/home/the/.distcc" name="DISTCC_DIR" />
         </default>
       </environments>
       <selectedenvironment>default</selectedenvironment>
+      <prio>0</prio>
+      <makeoptions/>
     </make>
   </kdevcustomproject>
   <kdevdebugger>
@@ -63,6 +68,7 @@
     <display>
       <staticmembers>false</staticmembers>
       <demanglenames>true</demanglenames>
+      <outputradix>10</outputradix>
     </display>
   </kdevdebugger>
   <kdevfilecreate>
@@ -147,4 +153,11 @@
     <recursivewhencommitremove>true</recursivewhencommitremove>
     <revertoptions>-C</revertoptions>
   </kdevcvsservice>
+  <kdevdocumentation>
+    <projectdoc>
+      <docsystem/>
+      <docurl/>
+      <usermanualurl/>
+    </projectdoc>
+  </kdevdocumentation>
 </kdevelop>

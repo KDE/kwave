@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: help_fr\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2003-11-23 08:56+0100\n"
+"PO-Revision-Date: 2003-11-27 21:55+0100\n"
 "Last-Translator: Gilles Caulier <caulier.gilles@free.fr>\n"
 "Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -326,6 +326,8 @@ msgid ""
 "bugfix: handling of persistent and unique plugins was wrong, which caused "
 "playback to work only in the first main window instance"
 msgstr ""
+"Correction de bogue : le drapeau d'activation des modules externes était mauvais. "
+"Une seule instance de Kwave était possible."
 
 #: index.docbook:187
 #, no-c-format

@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>460</width>
-            <height>375</height>
+            <height>390</height>
         </rect>
     </property>
     <property name="caption">
@@ -100,6 +100,14 @@
             <property name="value">
                 <number>99999</number>
             </property>
+            <property name="toolTip" stdset="0">
+                <string>center frequency</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;center frequency&lt;/b&gt;
+Determines the center of the frequency range that
+should be removed.</string>
+            </property>
         </widget>
         <widget class="QSlider" row="1" column="1">
             <property name="name">
@@ -115,7 +123,15 @@
                 <enum>Right</enum>
             </property>
             <property name="tickInterval">
-                <number>1000</number>
+                <number>2000</number>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>center frequency</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;center frequency&lt;/b&gt;
+Determines the center of the frequency range that
+should be removed.</string>
             </property>
         </widget>
         <widget class="QSlider" row="2" column="1">
@@ -135,7 +151,15 @@
                 <enum>Right</enum>
             </property>
             <property name="tickInterval">
-                <number>100</number>
+                <number>2000</number>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>bandwidth</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;bandwidth&lt;/b&gt;
+Determines the width of the frequency range that
+should be removed.</string>
             </property>
         </widget>
         <widget class="KIntSpinBox" row="2" column="0">
@@ -150,6 +174,14 @@
             </property>
             <property name="value">
                 <number>99999</number>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>bandwidth</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;bandwidth&lt;/b&gt;
+Determines the width of the frequency range that
+should be removed.</string>
             </property>
         </widget>
         <widget class="QFrame" row="3" column="0" rowspan="1" colspan="2">
@@ -297,15 +329,12 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
         </sizepolicy>
-        <pixmap>image1</pixmap>
+        <pixmap>image0</pixmap>
     </customwidget>
 </customwidgets>
 <images>
     <image name="image0">
         <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
-    </image>
-    <image name="image1">
-        <data format="XPM.GZ" length="45">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade6523250004143a55a6b2e0026630c4f</data>
     </image>
 </images>
 <connections>

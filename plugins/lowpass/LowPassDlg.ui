@@ -44,6 +44,14 @@
             <property name="tickInterval">
                 <number>1000</number>
             </property>
+            <property name="toolTip" stdset="0">
+                <string>cutoff frequency</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;cutoff frequency&lt;/b&gt;
+Determines the highest audible frequency, higher
+frequencies will be cut off.</string>
+            </property>
         </widget>
         <widget class="QFrame" row="2" column="0" rowspan="1" colspan="2">
             <property name="name">
@@ -74,6 +82,14 @@
             </property>
             <property name="value">
                 <number>99999</number>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>cutoff frequency</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;cutoff frequency&lt;/b&gt;
+Determines the highest audible frequency, higher
+frequencies will be cut off.</string>
             </property>
         </widget>
         <widget class="QLayoutWidget" row="0" column="0" rowspan="1" colspan="2">

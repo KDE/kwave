@@ -124,7 +124,7 @@ SelectRangeDialog::SelectRangeDialog(QWidget *widget,
 	    samplesChanged(0);
 	    break;
 	case SelectRangePlugin::byPercents:
-	    percentsChanged(m_range);
+	    percentsChanged((int)m_range);
 	    break;
     }
 

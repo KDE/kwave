@@ -67,6 +67,22 @@ bool RIFFParser::isValidName(const char *name)
 }
 
 //***************************************************************************
+RIFFChunk::ChunkType RIFFParser::guessType(const QCString &name)
+{
+    if (!isValidName(name)) return RIFFChunk::Garbage;
+    return (m_main_chunk_names.grep(name).count()) ?
+        RIFFChunk::Main : RIFFChunk::Sub;
+}
+
+//***************************************************************************
+bool RIFFParser::isKnownName(const QCString &name)
+{
+    if (m_main_chunk_names.grep(name).count()) return true;
+    if (m_sub_chunk_names.grep(name).count()) return true;
+    return false;
+}
+
+//***************************************************************************
 void RIFFParser::detectEndianness()
 {
     QValueList<u_int32_t> riff_offsets = scanForName("RIFF",
@@ -145,6 +161,18 @@ void RIFFParser::detectEndianness()
 }
 
 //***************************************************************************
+QCString RIFFParser::read4ByteString(u_int32_t offset)
+{
+    char s[5];
+
+    m_dev.at(offset);
+    m_dev.readBlock(&s[0], 4);
+    s[4]=0;
+
+    return QCString(s);
+}
+
+//***************************************************************************
 bool RIFFParser::parse()
 {
     // first of all we have to find out the endianness of our source
@@ -168,14 +196,14 @@ RIFFChunk *RIFFParser::addChunk(RIFFChunk *parent, const QCString &name,
 {
     // do not add anything to garbage, use the garbage's parent instead
     while (parent && (parent->type() == RIFFChunk::Garbage)) {
-        debug("parenting '%s' to '%s'", name.data(),
-            parent->parent() ? parent->parent()->name().data() : "");
+//        debug("parenting '%s' to '%s'", name.data(),
+//            parent->parent() ? parent->parent()->name().data() : "");
         parent = parent->parent();
     }
 
     // if no parent found, use root
     if (!parent) {
-        debug("parenting chunk at 0x%08X to root", phys_offset);
+//        debug("parenting chunk at 0x%08X to root", phys_offset);
         parent = &m_root;
     }
     ASSERT(parent);
@@ -186,13 +214,28 @@ RIFFChunk *RIFFParser::addChunk(RIFFChunk *parent, const QCString &name,
     ASSERT(chunk);
     if (!chunk) return 0;
 
-    debug("new chunk, name='%s', len=%u, ofs=0x%08X, phys_len=%u, root=%p '%s'",
-          name.data(),length,phys_offset,phys_length, parent,
-          parent ? parent->name().data() : ""
-    );
+//    debug("new chunk, name='%s', len=%u, ofs=0x%08X, phys_len=%u, root=%p '%s'",
+//          name.data(),length,phys_offset,phys_length, parent,
+//          parent ? parent->name().data() : ""
+//    );
 
     chunk->setType(type);
-    parent->subChunks().append(chunk);
+
+    // sort the chunk into the parent, order by physical start
+    RIFFChunkList &chunks = parent->subChunks();
+    QListIterator<RIFFChunk> it(chunks);
+    RIFFChunk *before = 0;
+    for (; it.current(); ++it) {
+	RIFFChunk *c = it.current();
+	u_int32_t pos = c->physStart();
+	if (pos > phys_offset) {
+	    before = c;
+	    break;
+	}
+    }
+
+    unsigned int index = (before) ? chunks.find(before) : chunks.count();
+    chunks.insert(index, chunk);
 
     return chunk;
 }
@@ -234,7 +277,6 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     if (!parent) return false;
 
     do {
-        ASSERT(error==false);
 //        debug("RIFFParser::parse(offset=0x%08X, length=%u)", offset, length);
 
         // make sure that we are still in the source (file)
@@ -264,15 +306,13 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         m_dev.at(offset);
 
         // get the chunk name
-        char name[5];
-        m_dev.readBlock(&name[0], 4);
-        name[4]=0;
+        QCString name = read4ByteString(m_dev.at());
 
         // check if the name really contains only ASCII characters
         if (!isValidName(name)) {
-            warning("invalid chunk name at offset 0x%08X", offset);
+//            warning("invalid chunk name at offset 0x%08X", offset);
             // unreadable name -> make it a "garbage" chunk
-            debug("addGarbageChunk(offset=0x%08X, length=%u)",offset,length);
+//            debug("addGarbageChunk(offset=0x%08X, length=%u)",offset,length);
             addGarbageChunk(parent, offset, length);
             error = true;
             break;
@@ -284,19 +324,24 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
             // length information present
             m_dev.readBlock((char*)(&len), 4);
             if (m_endianness != SYSTEM_ENDIANNES) len = bswap_32(len);
-        } else {
+        }
+        if (len == 0) {
             // valid name but no length information -> badly truncated
             // -> make it a zero-length chunk
-            debug("empty chunk at 0x%08X", offset);
+            debug("empty chunk '%s' at 0x%08X", name.data(), offset);
             addEmptyChunk(parent, name, offset);
+
+            if (length > 8) {
+                // there's some garbage behind
+                offset += 8;
+                length -= 8;
+            }
             error = true;
-            break;
+            continue;
         }
 
         // read the format if present
-        char format[5];
-        memset(format, 0x00, sizeof(format));
-        if (length >= 12) m_dev.readBlock(&format[0], 4);
+        QCString format = read4ByteString(m_dev.at());
 
         // calculate the physical length of the chunk
         u_int32_t phys_len = (length-8 < len) ? (length-8) : len;
@@ -321,7 +366,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     for (; it.current(); ++it) {
 	RIFFChunk *chunk = it.current();
 	
-	if ( (m_main_chunk_names.grep(chunk->name()).count()) &&
+	if ( (guessType(chunk->name()) == RIFFChunk::Main) &&
 	     (chunk->dataLength() >= 4) )
 	{
             chunk->setType(RIFFChunk::Main);
@@ -474,26 +519,33 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
 //***************************************************************************
 void RIFFParser::repair()
 {
-    // clear all main chunks that contain only garbage and convert them
-    // into garbage chunks
-    simplifyGarbage();
+    bool one_more_pass = true;
 
-    // resolve overlaps
-    resolveOverlaps();
+    while (one_more_pass) {
+        // crawl in garbage for all known chunks and sub-chunks
+        // crawlInGarbage();
 
-    // join garbage to truncated chunks
-    joinGarbage();
+        // clear all main chunks that contain only garbage and convert them
+        // into garbage chunks. maybe they were only false hits in a previous
+        // search in garbage
+        collectGarbage();
 
-    // crawl in garbage for known chunks
-    // crawlInGarbage();
+        // join garbage to empty chunks
+        if (joinGarbageToEmpty()) continue;
 
-    // throw away all remaining garbage
-    discardGarbage();
+        // resolve overlaps
+        fixGarbageEnds();
 
+        // throw away all remaining garbage
+        discardGarbage();
+
+        // done, no more passes needed
+        one_more_pass = false;
+    }
 }
 
 //***************************************************************************
-void RIFFParser::simplifyGarbage()
+void RIFFParser::collectGarbage()
 {
     // clear all main chunks that contain only garbage and convert them
     // into garbage chunks
@@ -522,10 +574,13 @@ void RIFFParser::simplifyGarbage()
             }
 
             if (subchunks.count() && contains_only_garbage) {
-                debug("chunk at 0x%08X contains only garbage!",
-                    chunk->physStart());
+                u_int32_t start = chunk->physStart();
+                u_int32_t end   = chunk->physEnd();
+
+                debug("chunk at 0x%08X contains only garbage!", start);
                 // -> convert into a garbage chunk !
                 chunk->setType(RIFFChunk::Garbage);
+                chunk->setLength(end - start + 8);
                 subchunks.setAutoDelete(true);
                 subchunks.clear();
                 chunks.clear();
@@ -539,15 +594,116 @@ void RIFFParser::simplifyGarbage()
 }
 
 //***************************************************************************
-void RIFFParser::resolveOverlaps()
+void RIFFParser::fixGarbageEnds()
 {
-    debug("resolving overlaps...");
+    debug("fixing ends of garbage chunks...");
+
+    RIFFChunkList chunks;
+    listAllChunks(m_root, chunks);
+    QListIterator<RIFFChunk> it1(chunks);
+    QListIterator<RIFFChunk> it2(chunks);
+
+    // try all combinations of chunks
+    for (++it1; it1.current(); ++it1) {
+        for (it2 = it1, ++it2; it2.current(); ++it2) {
+            RIFFChunk *c1 = it1.current();
+            RIFFChunk *c2 = it2.current();
+
+            // children always overlap their parents
+            if (c2->isChildOf(c1)) continue;
+
+            // get ranges
+            u_int32_t s1 = c1->physStart();
+            u_int32_t e1 = c1->physEnd();
+            u_int32_t s2 = c2->physStart();
+            u_int32_t e2 = c2->physEnd();
+
+            // check for overlaps
+            if ((s2 <= e1) && (e2 >= s1)) {
+                debug("overlap detected:");
+                debug("    at 0x%08X...0x%08X '%s'",
+                    s1, e1, c1->name().data());
+                debug("    at 0x%08X...0x%08X '%s'",
+                    s2, e2, c2->name().data());
+
+//                if ((c1->type() == c2->type() == RIFFChunk::Garbage)) {
+//                    debug("shortening garbage to %u bytes", len);
+//                }
+
+                if ((c1->type() == RIFFChunk::Garbage) && (s1 < s2)) {
+                    // shorten garbage
+                    e1 = s2 - 1;
+                    u_int32_t len = e1 - s1 + 1;
+                    debug("shortening garbage to %u bytes", len);
+                    c1->setLength(len);
+                }
+            }
+        }
+    }
+
 }
 
 //***************************************************************************
-void RIFFParser::joinGarbage()
+bool RIFFParser::joinGarbageToEmpty()
 {
-    debug("joining garbage...");
+    debug("joining garbage to empty chunks (and to garbage)...");
+
+    RIFFChunkList chunks;
+    listAllChunks(m_root, chunks);
+    QListIterator<RIFFChunk> it1(chunks);
+    QListIterator<RIFFChunk> it2(chunks);
+
+    // join garbage to empty chunks
+    for (++it2; it2.current() && it1.current(); ++it1, ++it2) {
+        RIFFChunk *chunk = it1.current();
+        RIFFChunk *next = it2.current();
+        bool join = false;
+
+        if ( ((chunk->type() == RIFFChunk::Empty) ||
+              (chunk->dataLength() == 0)) &&
+             ((next->type() == RIFFChunk::Garbage) ||
+                (!isKnownName(next->name())) ) )
+        {
+            // join garbage and unknown stuff to empty
+            join = true;
+        }
+
+        if ( (chunk->type() == RIFFChunk::Garbage) &&
+             (next->type() == RIFFChunk::Garbage) )
+        {
+            // join garbage to garbage
+            join = true;
+        }
+
+        if (join) {
+            if ((next->type() == RIFFChunk::Garbage) ||
+                (!isKnownName(next->name())) )
+            {
+                u_int32_t len = next->physLength() + 4;
+                debug("joining garbage to empty chunk '%s' at 0x%08X, %u bytes",
+                    chunk->name().data(), chunk->physStart(), len);
+                chunk->setLength(len);
+                chunk->setType(guessType(chunk->name()));
+
+                // remove the garbage chunk, it's no longer needed
+                chunks.removeRef(next);
+                if (next->parent())
+                    next->parent()->subChunks().removeRef(next);
+                delete next;
+
+                if (chunk->type() == RIFFChunk::Main) {
+                    // was joined to a main chunk -> parse again!
+                    chunk->setFormat(read4ByteString(chunk->physStart()+8));
+                    parse(chunk, chunk->dataStart(), chunk->dataLength());
+                }
+
+                // need_one_more_pass !
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 //***************************************************************************

@@ -41,7 +41,7 @@ RIFFChunk::~RIFFChunk()
 u_int32_t RIFFChunk::physEnd()
 {
     u_int32_t end = m_phys_offset + m_phys_length;
-    if (m_phys_length) --end;
+    if (end) --end;
     if ((m_type != Root) && (m_type != Garbage)) end += 8;
     return end;
 }
@@ -56,6 +56,22 @@ u_int32_t RIFFChunk::dataStart()
 u_int32_t RIFFChunk::dataLength()
 {
     return m_chunk_length - ((m_type == Main) ? 4 : 0);
+}
+
+//***************************************************************************
+void RIFFChunk::setLength(u_int32_t length)
+{
+    m_chunk_length = length;
+    m_phys_length  = length;
+}
+
+//***************************************************************************
+bool RIFFChunk::isChildOf(RIFFChunk *chunk)
+{
+    if (!chunk) return (m_type == Root); // only root has null as parent
+    if (chunk == m_parent) return true;
+    if (m_parent) return m_parent->isChildOf(chunk);
+    return false;
 }
 
 //***************************************************************************
@@ -76,7 +92,7 @@ void RIFFChunk::dumpStructure()
     if (m_type == Main) p += " (" + m_format + ")";
 
     debug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
-          physStart(), physEnd(), physLength(), length(),
+          m_phys_offset, physEnd(), physLength(), length(),
           t.data(), p.data()
     );
 

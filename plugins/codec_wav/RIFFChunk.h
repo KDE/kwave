@@ -46,7 +46,7 @@ public:
     typedef enum {
         Root,    /**< virtual root node of the RIFF structure */
         Main,    /**< contains sub-chunks */
-        Sub,     /**< valid/sane */
+        Sub,     /**< valid/sane sub-chunk */
         Garbage, /**< no or invalid name */
         Empty    /**< valid name, but no size */
     } ChunkType;
@@ -86,6 +86,9 @@ public:
      */
     inline const QCString &format() { return m_format; };
 
+    /** Sets the format to a new value, without any error checking */
+    inline void setFormat(const QCString &format) { m_format = format; };
+
     /** Returns the pointer to the parent node */
     inline RIFFChunk *parent() { return m_parent; };
 
@@ -105,6 +108,12 @@ public:
      * head of the chunk. Includes the format when it's a main chunk.
      */
     inline u_int32_t length() { return m_chunk_length; };
+
+    /**
+     * Sets the data and physical length of the chunk both to a
+     * new value.
+     */
+    void setLength(u_int32_t length);
 
     /**
      * Returns the offset in the source (file) where the
@@ -127,6 +136,11 @@ public:
      * Returns a reference to the list of sub-chunks.
      */
     inline RIFFChunkList &subChunks() { return m_sub_chunks; };
+
+    /**
+     * Returns true if the given chunk is a parent of us.
+     */
+    bool isChildOf(RIFFChunk *chunk);
 
     /**
      * Dumps the structure of this chunks and all sub-chunks,

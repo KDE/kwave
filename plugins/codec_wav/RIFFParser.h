@@ -88,17 +88,40 @@ public:
 
     /**
      * Tries to repair the RIFF file by solving inconsistencies
-     * @see simplifyGarbage()
-     * @see resolveOverlaps()
-     * @see joinGarbage()
+     * @see collectGarbage()
+     * @see joinGarbageToEmpty()
+     * @see fixGarbageEnds()
      * @see discardGarbage()
      */
     void repair();
 
 protected:
 
+    /**
+     * Reads a 4-byte string from the source device at a given
+     * offset. The current source position will be set to 4 bytes
+     * after the given offset afterwards.
+     * @param offset position within the source, no range checks!
+     * @return string with 4 bytes
+     */
+    QCString read4ByteString(u_int32_t offset);
+
+    /**
+     * Tries to find the chunk name in the list of known main
+     * chunk names and returns RIFFChunk::Main if successful.
+     * Otherwise returns RIFFChunk::Sub or RIFFChunk::Garbage
+     * if the chunk name is not valid.
+     * @param name the name of the chunk
+     * @return RIFFChunk::Main or RIFFChunk::Sub or
+     *         RIFFChunk::Garbage
+     */
+    RIFFChunk::ChunkType guessType(const QCString &name);
+
     /** Returns true if the given chunk name is valid */
     bool isValidName(const char *name);
+
+    /** Returns true if the given chunk name is known as main or sub chunk */
+    bool isKnownName(const QCString &name);
 
     /**
      * Tries to detect the endianness of the source. If successful, the
@@ -179,13 +202,17 @@ private:
      * clear all main chunks that contain only garbage and
      * convert them into garbage chunks
      */
-    void simplifyGarbage();
+    void collectGarbage();
 
-    /** Resolves overlapping areas */
-    void resolveOverlaps();
+    /**
+     * joins garbage to previous empty chunks. If a chunk follows a previously
+     * empty chunk with an unknown name it will be joined too.
+     * @return true if it needs an additional pass
+     */
+    bool joinGarbageToEmpty();
 
-    /** Joins garbage after truncated chunks to the chunk */
-    void joinGarbage();
+    /** fixes the end of garbage chunks to no longer overlap valid chunks */
+    void fixGarbageEnds();
 
     /** Discards all garbage chunks */
     void discardGarbage();

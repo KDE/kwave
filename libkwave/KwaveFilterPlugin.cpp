@@ -20,6 +20,7 @@
 #include <qobject.h>
 #include <qdialog.h>
 #include <qglobal.h>
+#include <qprogressdialog.h>
 #include <qstringlist.h>
 
 #include <klocale.h>
@@ -29,19 +30,26 @@
 #include "libkwave/ArtsMultiTrackFilter.h"
 #include "libkwave/KwaveFilterPlugin.h"
 
+#include "libgui/ConfirmCancelProxy.h"
+
 #include "kwave/PluginManager.h"
 #include "kwave/UndoTransactionGuard.h"
 
 //***************************************************************************
 KwaveFilterPlugin::KwaveFilterPlugin(PluginContext &context)
     :KwavePlugin(context), m_params(),
-     m_stop(false), m_listen(false)
+     m_stop(false), m_listen(false), m_progress(0), m_spx_progress(0),
+     m_confirm_cancel(0), m_pause(false)
 {
+    m_spx_progress = new SignalProxy1< unsigned int >
+	(this, SLOT(updateProgress()), 2);
 }
 
 //***************************************************************************
 KwaveFilterPlugin::~KwaveFilterPlugin()
 {
+    if (!m_progress) delete m_progress;
+    m_progress = 0;
 }
 
 //***************************************************************************
@@ -93,7 +101,8 @@ void KwaveFilterPlugin::run(QStringList params)
     dispatcher->lock();
 
     UndoTransactionGuard *undo_guard = 0;
-    m_stop = false;
+    m_pause = false;
+    m_stop  = false;
 
     if (!interpreteParameters(params)) m_params = params;
 
@@ -137,6 +146,31 @@ void KwaveFilterPlugin::run(QStringList params)
 	return;
     }
 
+    // create a progress dialog when in processing (not pre-listen) mode
+    if (!m_listen) {
+	Q_ASSERT(!m_progress);
+	Q_ASSERT(!m_confirm_cancel);
+	m_progress = new QProgressDialog(parentWidget(), name(), true);
+	Q_ASSERT(m_progress);
+	if (m_progress) {
+	    m_progress->setMinimumDuration(1000);
+	    m_progress->setTotalSteps((last-first+1)*tracks);
+	    m_progress->setAutoClose(true);
+	    m_progress->setProgress(0);
+	    m_progress->setLabelText(
+	        i18n("applying '%1' ...").arg(name()));
+	    m_progress->setFixedSize(m_progress->sizeHint());
+	
+	    connect(&source, SIGNAL(progress(unsigned int)),
+	            this,    SLOT(forwardProgress(unsigned int)));
+	    connect(m_progress, SIGNAL(cancelled()),
+	            this,       SLOT(forwardCancel()));
+	    m_confirm_cancel = new ConfirmCancelProxy(m_progress,
+	            0, 0, this, SLOT(cancel()));
+	    Q_ASSERT(m_confirm_cancel);
+	}
+    }
+    
     // force initial update of the filter settings
     updateFilter(filter, true);
 
@@ -151,6 +185,12 @@ void KwaveFilterPlugin::run(QStringList params)
 
     // transport the samples
     while (!m_stop && (!arts_source.done() || m_listen)) {
+	// this lets the process wait if the user pressed cancel
+	// and the confirm_cancel dialog is active
+	while (m_pause)
+	    sleep(1);
+
+	// process one step
 	arts_sink->goOn();
 
 	// watch out for changed parameters when in
@@ -176,9 +216,38 @@ void KwaveFilterPlugin::run(QStringList params)
     dispatcher->unlock();
 
     delete arts_sink;
+    if (m_progress) m_progress->deleteLater();
+    m_progress = 0;
+    if (m_confirm_cancel) m_confirm_cancel->deleteLater();
+    m_confirm_cancel = 0;
 
     if (undo_guard) delete undo_guard;
     close();
+}
+
+//***************************************************************************
+void KwaveFilterPlugin::forwardCancel()
+{
+    m_pause = true;
+    if (m_confirm_cancel) m_confirm_cancel->cancel();
+    m_pause = false;
+}
+
+//***************************************************************************
+void KwaveFilterPlugin::forwardProgress(unsigned int progress)
+{
+    if (m_spx_progress) m_spx_progress->enqueue(progress);
+}
+
+//***************************************************************************
+void KwaveFilterPlugin::updateProgress()
+{
+    if (!m_progress || !m_spx_progress) return;
+
+    unsigned int *progress = m_spx_progress->dequeue();
+    if (!progress) return;
+    m_progress->setProgress(*progress);
+    delete progress;
 }
 
 //***************************************************************************
@@ -221,6 +290,12 @@ void KwaveFilterPlugin::stopPreListen()
 QString KwaveFilterPlugin::actionName()
 {
     return this->name();
+}
+
+//***************************************************************************
+void KwaveFilterPlugin::cancel()
+{
+    m_stop = true;
 }
 
 //***************************************************************************

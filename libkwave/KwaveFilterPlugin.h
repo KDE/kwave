@@ -21,10 +21,13 @@
 #include "config.h"
 #include <qobject.h>
 #include <qstring.h>
+#include "mt/SignalProxy.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/KwavePluginSetupDialog.h"
 
 class ArtsMultiTrackFilter;
+class ConfirmCancelProxy;
+class QProgressDialog;
 class QStringList;
 class QWidget;
 
@@ -86,7 +89,16 @@ public:
      * the undo action a readable name.
      */
     virtual QString actionName();
-    
+
+signals:
+
+    /**
+     * emitted when the user pressed the cancel button
+     * of the progress dialog
+     * @internal
+     */
+    void sigCancelPressed();
+
 protected slots:
 
     /** Start the pre-listening */
@@ -94,6 +106,22 @@ protected slots:
 
     /** Stop the pre-listening */
     void stopPreListen();
+
+    /** forward changes of the progress dialog to a signal proxy */
+    void forwardProgress(unsigned int progress);
+
+    /** forward press of the cancel button int the progress dialog */
+    void forwardCancel();
+
+    /** update the progress dialog */
+    void updateProgress();
+
+    /**
+     * called when the user has pressed "Cancel" in the progress
+     * dialog and also has confirmed the cancel confirmation
+     * message box.
+     */
+    void cancel();
     
 private:    
     /** List of parameters */
@@ -104,6 +132,22 @@ private:
 
     /** flag for indicating pre-listen mode */
     bool m_listen;
+
+    /** a progress dialog, if the audio processing takes longer... */
+    QProgressDialog *m_progress;
+
+    /** signal proxy for the progress / dialog */
+    SignalProxy1< unsigned int > *m_spx_progress;
+
+    /**
+     * proxy dialog that asks for configmation if the user
+     * pressed cancel in the progress dialog
+     */
+    ConfirmCancelProxy *m_confirm_cancel;
+
+    /** flag for pausing the process */
+    bool m_pause;
+    
 };
 
 #endif /* _KWAVE_FILTER_PLUGIN_H_ */

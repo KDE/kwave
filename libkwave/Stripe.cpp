@@ -349,23 +349,25 @@ void Stripe::overwrite(unsigned int offset, const QArray<sample_t> &samples,
 unsigned int Stripe::read(QArray<sample_t> &buffer, unsigned int dstoff,
 	unsigned int offset, unsigned int length)
 {
-    unsigned int count = 0;
 
     MutexGuard lock(m_lock_samples);
+
+    unsigned int len = m_samples.size();
+    if (offset > len) return 0;
+    if (offset+length > len) length = len - offset;
+    if (!length) return 0;
+
 #ifdef STRICTLY_QT
+    unsigned int count = length;
     while (length--) {
 	buffer[dstoff++] = m_samples[offset++];
-	count++;
     }
-#else
-    if (length) {
-	count = length;
-	memmove(&(buffer[dstoff]), &(m_samples[offset]),
-	        count * sizeof(sample_t));
-    }
-#endif
-
     return count;
+#else
+    memmove(&(buffer[dstoff]), &(m_samples[offset]),
+	length * sizeof(sample_t));
+    return length;
+#endif
 }
 
 //***************************************************************************

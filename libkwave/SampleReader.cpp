@@ -60,24 +60,28 @@ void SampleReader::fillBuffer()
     if (m_eof) return;
 
     QListIterator<Stripe> it(m_stripes);
-    unsigned int length = m_buffer.size();
+    unsigned int rest = m_buffer.size();
 
     for (; it.current(); ++it) {
 	Stripe *s = it.current();
 	unsigned int st = s->start();
 	unsigned int len = s->length();
-	if (!len) continue; // skip zero-length tracks
+	if (!len) continue; // skip zero-length sripes
 	
 	if (m_position >= st+len) continue; // after our range
 	
 	if (m_position >= st) {
 	    unsigned int offset = m_position - st;
+	    unsigned int length = rest;
 	    if (offset+length > len) length = len - offset;
 	
 	    // read from the stripe
 	    unsigned int cnt = s->read(m_buffer, 0, offset, length);
+	    ASSERT(cnt <= rest);
 	    m_buffer_used += cnt;
 	    m_position += cnt;
+	    rest -= cnt;
+	    if (!rest) break; // done, nothing left
 	}
     }
 
@@ -98,16 +102,17 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
     unsigned int count = 0;
     unsigned int rest = length;
 
-    // first try to read out the current buffer
-    if (m_buffer_used) {
+    // first try to read from the current buffer
+    if (m_buffer_position < m_buffer_used) {
 	unsigned int cnt = rest;
-	unsigned int src = 0;
+	unsigned int src = m_buffer_position;
 	unsigned int dst = dstoff;
-	if (cnt > m_buffer_used) cnt = m_buffer_used;
+	
+	if (m_buffer_position + cnt > m_buffer_used)
+	    cnt = m_buffer_used - m_buffer_position;
 	
 	m_buffer_position += cnt;
-	m_buffer_used -= cnt;
-	count += cnt;
+	count = cnt;
 	rest -= cnt;
 	dstoff += cnt;
 #ifdef STRICTLY_QT
@@ -117,11 +122,13 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
 #else
 	memmove(&(buffer[dst]), &(m_buffer[src]), cnt*sizeof(sample_t));
 #endif
-	if (!rest) return count;
+	
+	if (m_buffer_position >= m_buffer_used) {
+	    // buffer is empty now
+	    m_buffer_position = m_buffer_used = 0;
+	}
+	if (!rest) return count; // done
     }
-
-    // abort if eof reached
-    if (m_eof) return count;
 
     // take the rest directly out of the stripe(s)
     QListIterator<Stripe> it(m_stripes);
@@ -129,7 +136,7 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
 	Stripe *s = it.current();
 	unsigned int st = s->start();
 	unsigned int len = s->length();
-	if (!len) continue; // skip zero-length tracks
+	if (!len) continue; // skip zero-length stripes
 	
 	if (m_position >= st+len) break; // end of range reached
 	
@@ -150,6 +157,7 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
 
     // if something remained, we have reached eof
     if (rest) m_eof = true;
+    if (m_position > m_last) m_eof = true;
 
     return count;
 }
@@ -165,6 +173,7 @@ void SampleReader::skip(unsigned int count)
 	m_buffer_position = m_buffer_used;
 	count -= m_buffer_used;
 	m_position += count;
+	if (m_position > m_last) m_eof = true;
     }
 }
 

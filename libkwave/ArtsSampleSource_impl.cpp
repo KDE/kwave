@@ -44,6 +44,8 @@ void ArtsSampleSource_impl::calculateBlock(unsigned long samples)
     unsigned long i;
     sample_t sample = 0;
 	
+    debug("ArtsSampleSource_impl::calculateBlock(%lu), first=%lu, last=%lu, pos=%lu, eof=%d",
+    	samples, m_reader->first(), m_reader->last(), m_reader->pos(), m_reader->eof());
     if (m_reader && !(m_reader->eof())) {
 	for (i=0;i < samples;i++) {
 	    *m_reader >> sample;
@@ -58,8 +60,9 @@ void ArtsSampleSource_impl::calculateBlock(unsigned long samples)
 	source[i++] = 0;
     }
 	
-    if (!m_reader || m_reader->eof()) {
+    if ((!m_reader) || (m_reader->eof())) {
 	m_done = true;
+	debug("ArtsSampleSource_impl::calculateBlock is done");
     }
 }
 

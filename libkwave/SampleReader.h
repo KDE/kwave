@@ -75,7 +75,17 @@ public:
      * Returns the current read position.
      */
     unsigned int pos();
-	
+
+    /** Returns the first sample */
+    inline unsigned int first() const {
+	return m_first;
+    };
+
+    /** Returns the last sample */
+    inline unsigned int last() const {
+	return m_last;
+    };
+
     /**
      * Reads one single sample.
      */
@@ -103,7 +113,12 @@ private:
     /** lock for the needed range of samples */
     SampleLock* m_lock;
 
-    /** current sample position */
+    /**
+     * Current sample position, related to the source of the samples. Does
+     * not reflect the position of the next sample to be read out due to
+     * internal buffering.
+     * @see pos() for the output position
+     */
     unsigned int m_position;
 
     /** first sample index */

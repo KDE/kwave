@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-03 14:37+0100\n"
+"POT-Creation-Date: 2005-01-11 23:51-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -495,9 +495,9 @@ msgstr ""
 msgid "modify samples"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:202
-#: plugins/record/RecordPlugin.cpp:587 plugins/record/RecordPlugin.cpp:605
-#: plugins/record/RecordPlugin.cpp:660
+#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:218
+#: plugins/record/RecordPlugin.cpp:660 plugins/record/RecordPlugin.cpp:678
+#: plugins/record/RecordPlugin.cpp:733
 msgid "Out of memory"
 msgstr ""
 
@@ -724,7 +724,7 @@ msgid ""
 "Do you still want to continue?"
 msgstr ""
 
-#: kwave/SignalManager.cpp:376 plugins/record/RecordPlugin.cpp:679
+#: kwave/SignalManager.cpp:376 plugins/record/RecordPlugin.cpp:752
 msgid " for KDE "
 msgstr ""
 
@@ -3073,17 +3073,17 @@ msgstr ""
 msgid "no"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:519 plugins/record/RecordDialog.cpp:381
+#: plugins/fileinfo/FileInfoDialog.cpp:519 plugins/record/RecordDialog.cpp:384
 #: plugins/newsignal/NewSignalDialog.cpp:323
 msgid "(Mono)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:522 plugins/record/RecordDialog.cpp:384
+#: plugins/fileinfo/FileInfoDialog.cpp:522 plugins/record/RecordDialog.cpp:387
 #: plugins/newsignal/NewSignalDialog.cpp:326
 msgid "(Stereo)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:525 plugins/record/RecordDialog.cpp:387
+#: plugins/fileinfo/FileInfoDialog.cpp:525 plugins/record/RecordDialog.cpp:390
 #: plugins/newsignal/NewSignalDialog.cpp:329
 msgid "(Quadro)"
 msgstr ""
@@ -3552,31 +3552,31 @@ msgstr ""
 msgid "Select Record Device"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:621
+#: plugins/record/RecordDialog.cpp:626
 msgid "(empty)"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:630
+#: plugins/record/RecordDialog.cpp:635
 msgid "buffering..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:639
+#: plugins/record/RecordDialog.cpp:644
 msgid "prerecording..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:648
+#: plugins/record/RecordDialog.cpp:653
 msgid "waiting for trigger..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:657
+#: plugins/record/RecordDialog.cpp:662
 msgid "recording..."
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:666
+#: plugins/record/RecordDialog.cpp:671
 msgid "paused"
 msgstr ""
 
-#: plugins/record/RecordDialog.cpp:675
+#: plugins/record/RecordDialog.cpp:680
 msgid "done."
 msgstr ""
 
@@ -3584,82 +3584,95 @@ msgstr ""
 msgid "record"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:218
+#: plugins/record/RecordPlugin.cpp:231
+msgid "You have not yet selected a recording device."
+msgstr ""
+
+#: plugins/record/RecordPlugin.cpp:236
+msgid "The device %1 seems not to exist."
+msgstr ""
+
+#: plugins/record/RecordPlugin.cpp:240
+msgid ""
+"You do not have sufficient permissions to open the device %1 for reading."
+msgstr ""
+
+#: plugins/record/RecordPlugin.cpp:249
 msgid "The device %1 seems to be in use by another application."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:231
+#: plugins/record/RecordPlugin.cpp:259
 msgid "Opening the device %1 failed, please select a different one."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:238
+#: plugins/record/RecordPlugin.cpp:265
 msgid "Opening the device %1 failed, reverting to %2."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:253
+#: plugins/record/RecordPlugin.cpp:281
 msgid ""
 "The record device '%1' does not work properly, determining the number of "
 "supported channels failed."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:291
+#: plugins/record/RecordPlugin.cpp:330
 msgid "Recording with %1 track(s) failed, using %2 track(s) instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:325
+#: plugins/record/RecordPlugin.cpp:372
 msgid "The sample rate %1Hz is not supported, using %2Hz instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:339
+#: plugins/record/RecordPlugin.cpp:386
 msgid "Setting the sample rate %1Hz failed, using %2Hz instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:374
+#: plugins/record/RecordPlugin.cpp:429
 msgid "The compression '%1' is not supported, using '%2' instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:390
+#: plugins/record/RecordPlugin.cpp:445
 msgid "Setting the compression type %1 failed, using %2 instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:422
+#: plugins/record/RecordPlugin.cpp:485
 msgid ""
 "The resolution %1 bits per sample is not supported, using %2 bits per sample "
 "instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:434
+#: plugins/record/RecordPlugin.cpp:497
 msgid ""
 "Setting the resolution %1 bits per sample failed, using %2 bits per sample "
 "instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:464
+#: plugins/record/RecordPlugin.cpp:534
 msgid "The sample format '%1' is not supported, using '%2' instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:479
+#: plugins/record/RecordPlugin.cpp:549
 msgid "Setting the sample format '%1' failed, using '%2' instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:571
+#: plugins/record/RecordPlugin.cpp:644
 msgid "The current sample format is not supported!"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:581
+#: plugins/record/RecordPlugin.cpp:654
 msgid "The current compression type is not supported!"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:706
+#: plugins/record/RecordPlugin.cpp:779
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:710
+#: plugins/record/RecordPlugin.cpp:783
 msgid "The recording device seems to be busy!"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:713
+#: plugins/record/RecordPlugin.cpp:786
 msgid "Reading from the recording device failed, error number = %1 (%2)"
 msgstr ""
 

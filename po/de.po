@@ -1,3 +1,4 @@
+# translation of de.po to 
 # translation of de.po to
 # translation of de.po to Deutsch
 # translation of de.po to español
@@ -7,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-03 14:37+0100\n"
-"PO-Revision-Date: 2005-01-03 14:38+0100\n"
-"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
-"Language-Team: Deutsch <de@li.org>\n"
+"POT-Creation-Date: 2005-01-11 23:51-0300\n"
+"PO-Revision-Date: 2005-01-11 23:39-0300\n"
+"Last-Translator: \n"
+"Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -503,9 +504,9 @@ msgstr "Track einfügen"
 msgid "modify samples"
 msgstr "Samples ändern"
 
-#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:202
-#: plugins/record/RecordPlugin.cpp:587 plugins/record/RecordPlugin.cpp:605
-#: plugins/record/RecordPlugin.cpp:660
+#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:218
+#: plugins/record/RecordPlugin.cpp:660 plugins/record/RecordPlugin.cpp:678
+#: plugins/record/RecordPlugin.cpp:733
 msgid "Out of memory"
 msgstr "Zu wenig Speicher"
 
@@ -688,7 +689,8 @@ msgstr ""
 
 #: kwave/TopWidget.cpp:911
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr ""
+"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: kwave/TopWidget.cpp:1067
 msgid "Length: %1"
@@ -743,7 +745,7 @@ msgstr ""
 "%1\n"
 "Wollen Sie trotzdem fortsetzen?"
 
-#: kwave/SignalManager.cpp:376 plugins/record/RecordPlugin.cpp:679
+#: kwave/SignalManager.cpp:376 plugins/record/RecordPlugin.cpp:752
 msgid " for KDE "
 msgstr " für KDE "
 
@@ -753,7 +755,8 @@ msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
 #: kwave/SignalManager.cpp:421
 msgid "The file has been truncated and might be corrupted!"
-msgstr "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
+msgstr ""
+"Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
 #: kwave/SignalManager.cpp:428
 msgid "Sorry, the file type is not supported!"
@@ -1145,7 +1148,8 @@ msgstr "Copyright"
 
 #: libkwave/FileInfo.cpp:85
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr "Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
+msgstr ""
+"Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
 
 #: libkwave/FileInfo.cpp:88
 msgid "Date"
@@ -2365,7 +2369,8 @@ msgstr "bei Veränderungen"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:197
 msgid "automatically update the sonagram <br>if the signal data has changed"
-msgstr "aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
+msgstr ""
+"aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:198
 msgid "follow selection"
@@ -3227,17 +3232,17 @@ msgstr "Bänder 16 bis 31"
 msgid "no"
 msgstr "Nein"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:519 plugins/record/RecordDialog.cpp:381
+#: plugins/fileinfo/FileInfoDialog.cpp:519 plugins/record/RecordDialog.cpp:384
 #: plugins/newsignal/NewSignalDialog.cpp:323
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:522 plugins/record/RecordDialog.cpp:384
+#: plugins/fileinfo/FileInfoDialog.cpp:522 plugins/record/RecordDialog.cpp:387
 #: plugins/newsignal/NewSignalDialog.cpp:326
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:525 plugins/record/RecordDialog.cpp:387
+#: plugins/fileinfo/FileInfoDialog.cpp:525 plugins/record/RecordDialog.cpp:390
 #: plugins/newsignal/NewSignalDialog.cpp:329
 msgid "(Quadro)"
 msgstr "(Quadro)"
@@ -3756,31 +3761,31 @@ msgstr "Anderes Wiedergabegerät (*)"
 msgid "Select Record Device"
 msgstr "Auswahl des Aufnahmegeräts"
 
-#: plugins/record/RecordDialog.cpp:621
+#: plugins/record/RecordDialog.cpp:626
 msgid "(empty)"
 msgstr "(leer)"
 
-#: plugins/record/RecordDialog.cpp:630
+#: plugins/record/RecordDialog.cpp:635
 msgid "buffering..."
 msgstr "buffern..."
 
-#: plugins/record/RecordDialog.cpp:639
+#: plugins/record/RecordDialog.cpp:644
 msgid "prerecording..."
 msgstr "Vorab-Aufnahme..."
 
-#: plugins/record/RecordDialog.cpp:648
+#: plugins/record/RecordDialog.cpp:653
 msgid "waiting for trigger..."
 msgstr "warte auf Trigger..."
 
-#: plugins/record/RecordDialog.cpp:657
+#: plugins/record/RecordDialog.cpp:662
 msgid "recording..."
 msgstr "Aufnahme läuft..."
 
-#: plugins/record/RecordDialog.cpp:666
+#: plugins/record/RecordDialog.cpp:671
 msgid "paused"
 msgstr "Angehalten"
 
-#: plugins/record/RecordDialog.cpp:675
+#: plugins/record/RecordDialog.cpp:680
 msgid "done."
 msgstr "Fertig."
 
@@ -3788,21 +3793,37 @@ msgstr "Fertig."
 msgid "record"
 msgstr "Aufnahme"
 
-#: plugins/record/RecordPlugin.cpp:218
-msgid "The device %1 seems to be in use by another application."
-msgstr "Das Gerät %1 scheint bereits von einem anderen Programm geöffnet zu sein."
-
 #: plugins/record/RecordPlugin.cpp:231
+msgid "You have not yet selected a recording device."
+msgstr "Sie haben noch kein Aufnahmegerät ausgewählt."
+
+#: plugins/record/RecordPlugin.cpp:236
+msgid "The device %1 seems not to exist."
+msgstr "Das Gerät %1 scheint nicht zu exisitieren."
+
+#: plugins/record/RecordPlugin.cpp:240
+msgid ""
+"You do not have sufficient permissions to open the device %1 for reading."
+msgstr ""
+"Sie haben keine ausreichende Berechtigung um das Gerät %1 zum Lesen zu "
+"öffnen."
+
+#: plugins/record/RecordPlugin.cpp:249
+msgid "The device %1 seems to be in use by another application."
+msgstr ""
+"Das Gerät %1 scheint bereits von einem anderen Programm geöffnet zu sein."
+
+#: plugins/record/RecordPlugin.cpp:259
 msgid "Opening the device %1 failed, please select a different one."
 msgstr ""
 "Öffnen des Gerätes '%1' ist fehlgeschlagen. Bitte wählen Sie eine andere "
 "Aufnahmequelle."
 
-#: plugins/record/RecordPlugin.cpp:238
+#: plugins/record/RecordPlugin.cpp:265
 msgid "Opening the device %1 failed, reverting to %2."
 msgstr "Das Öffnen des Gerätes '%1' ist fehlgeschlagen, verwende wieder '%2'."
 
-#: plugins/record/RecordPlugin.cpp:253
+#: plugins/record/RecordPlugin.cpp:281
 msgid ""
 "The record device '%1' does not work properly, determining the number of "
 "supported channels failed."
@@ -3810,33 +3831,34 @@ msgstr ""
 "Das Aufnahmegerät '%1' funktioniert nicht ordnungsgemäss; die Anzahl der "
 "unterstützten Kanäle konnte nicht bestimmt werden."
 
-#: plugins/record/RecordPlugin.cpp:291
+#: plugins/record/RecordPlugin.cpp:330
 msgid "Recording with %1 track(s) failed, using %2 track(s) instead."
 msgstr "Aufnahme mit %1 Tracks ist fehlgeschlagen, verwende %2 Tracks."
 
-#: plugins/record/RecordPlugin.cpp:325
+#: plugins/record/RecordPlugin.cpp:372
 msgid "The sample rate %1Hz is not supported, using %2Hz instead."
 msgstr ""
 "Aufnahme mit Sample-Rate %1 Hz wird nicht unterstützt, verwende %2Hz "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:339
+#: plugins/record/RecordPlugin.cpp:386
 msgid "Setting the sample rate %1Hz failed, using %2Hz instead."
 msgstr ""
 "Die Sample-Rate %1Hz konnte nicht eingestellt werden, verwende %2Hz "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:374
+#: plugins/record/RecordPlugin.cpp:429
 msgid "The compression '%1' is not supported, using '%2' instead."
-msgstr "Die Kompressionsart '%1' wird nicht unterstützt, verwende '%2' stattdessen."
+msgstr ""
+"Die Kompressionsart '%1' wird nicht unterstützt, verwende '%2' stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:390
+#: plugins/record/RecordPlugin.cpp:445
 msgid "Setting the compression type %1 failed, using %2 instead."
 msgstr ""
 "Die Kompressionsart '%1' konnte nicht eingestellt werden, verwende '%2' "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:422
+#: plugins/record/RecordPlugin.cpp:485
 msgid ""
 "The resolution %1 bits per sample is not supported, using %2 bits per sample "
 "instead."
@@ -3844,7 +3866,7 @@ msgstr ""
 "Die Auflösung %1 Bits pro Sample wird nicht unterstützt, verwende %2 Bits "
 "pro Sample stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:434
+#: plugins/record/RecordPlugin.cpp:497
 msgid ""
 "Setting the resolution %1 bits per sample failed, using %2 bits per sample "
 "instead."
@@ -3852,35 +3874,37 @@ msgstr ""
 "Die Auflösung %1 Bit pro Sample konnte nicht eingestellt werden, verwende %2 "
 "Bit pro Sample stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:464
+#: plugins/record/RecordPlugin.cpp:534
 msgid "The sample format '%1' is not supported, using '%2' instead."
-msgstr "Das Sample-Format '%1' wird nicht unterstützt, verwende '%2' stattdessen."
+msgstr ""
+"Das Sample-Format '%1' wird nicht unterstützt, verwende '%2' stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:479
+#: plugins/record/RecordPlugin.cpp:549
 msgid "Setting the sample format '%1' failed, using '%2' instead."
 msgstr ""
 "Das Sample-Format '%1' konnte nicht eingestellt werden, verwende '%2' "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:571
+#: plugins/record/RecordPlugin.cpp:644
 msgid "The current sample format is not supported!"
 msgstr "Das aktuelle Sample-Format wird nicht unterstützt!"
 
-#: plugins/record/RecordPlugin.cpp:581
+#: plugins/record/RecordPlugin.cpp:654
 msgid "The current compression type is not supported!"
 msgstr "Die aktuelle Kompressionsart wird nicht unterstützt!"
 
-#: plugins/record/RecordPlugin.cpp:706
-msgid "Buffer overrun. Please increase the number and/or size of the record buffers."
+#: plugins/record/RecordPlugin.cpp:779
+msgid ""
+"Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder vergrößern "
 "Sie die Buffergrösse."
 
-#: plugins/record/RecordPlugin.cpp:710
+#: plugins/record/RecordPlugin.cpp:783
 msgid "The recording device seems to be busy!"
 msgstr "Das Aufnahmegerät scheint belegt zu sein!"
 
-#: plugins/record/RecordPlugin.cpp:713
+#: plugins/record/RecordPlugin.cpp:786
 msgid "Reading from the recording device failed, error number = %1 (%2)"
 msgstr "Vom Aufnahmegerät konnte nicht gelesen werden, Fehler Nummer %1 (%2)"
 
@@ -3988,7 +4012,8 @@ msgstr "Dateiende vor dem Einlesen aller Vorbis-Header!"
 
 #: plugins/codec_ogg/OggDecoder.cpp:351
 msgid "Corrupt or missing data in bitstream; continuing..."
-msgstr "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
+msgstr ""
+"Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
 
 #: plugins/codec_ogg/OggCodecPlugin.cpp:33
 msgid "codec_ogg"
@@ -4344,7 +4369,8 @@ msgstr "Maximum"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:329
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+msgstr ""
+"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
 
 #: plugins/newsignal/NewSignalDialog.cpp:354
 msgid "(Resulting file size: %1 MB)"
@@ -4353,4 +4379,3 @@ msgstr "(Resultierende Dateigröße: %1 MB)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "Neues Signal"
-

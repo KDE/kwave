@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-11-02</date>
-<releaseinfo>0.6.5</releaseinfo>
+<date>2003-02-24</date>
+<releaseinfo>0.6.6</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -185,6 +185,39 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.6.6 [2003-03-??]</para>
+            <itemizedlist>
+                <listitem><para>
+                    many improvements on the build system. Now compiles under Debian,
+                      Mandrake, RedHat, Gentoo and SuSE
+                </para></listitem>
+                <listitem><para>
+                    starting up with last window size
+                </para></listitem>
+                <listitem><para>
+                    Xt toolkit option for geometry works again, including workaround
+                      for bug in KDE3's geometry management.
+                      example: "kwave -geometry 800x600"
+                </para></listitem>
+                <listitem><para>
+                    bugfix: select to left selected one sample less then needed
+                </para></listitem>
+                <listitem><para>
+                    volume plugin: simple clipping
+                </para></listitem>
+                <listitem><para>
+                    volume plugin: mode for "multiply with /divide through factor"
+                </para></listitem>
+                <listitem><para>
+                    newsignal and selectrange plugin: got rid of KDoubleNumInput and
+                      it's weird display and entry behaviour
+                </para></listitem>
+                <listitem><para>
+                    selectrange plugin: also select start position of selection
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.6.5 [2002-11-09]</para>
             <itemizedlist>
@@ -1455,12 +1488,12 @@
 	them to the &kapp; <link linkend="mailing-list">mailing list</link>.
     </para>
     <note><para>
-	If you have a system with old Qt-1 libraries you might get
+	If you have a system with old Qt-1 or Qt-2 libraries you might get
 	problems when compiling. Then you should set the following
 	environment variable to specify the correct paths of your
 	Qt installation and try again:
 <screen width="30" format="linespecific">
-<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>
+<prompt>% </prompt><command>export QTDIR=/usr/lib/qt3</command>
 </screen>
     </para></note>
 

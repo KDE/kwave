@@ -442,11 +442,22 @@ void TrackPixmap::drawOverview(QPainter &p, int middle, int height,
     int max = 0, min = 0;
 
     p.setPen(m_color_sample);
+    int last_min = (int)(m_min_buffer[first] * scale_y);
+    int last_max = (int)(m_max_buffer[first] * scale_y);
     for (int i = first; i <= last; i++) {
 	Q_ASSERT(m_valid[i]);
 	max = (int)(m_max_buffer[i] * scale_y);
 	min = (int)(m_min_buffer[i] * scale_y);
+
+	// make sure there is a connection between this
+	// section and the one before, avoid gaps
+	if (min > last_max) min = last_max;
+	if (max < last_min) max = last_min;
+
 	p.drawLine(i, middle - max, i, middle - min);
+
+	last_min = min;
+	last_max = max;
     }
 }
 
@@ -668,13 +679,19 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 	points->setPoint(i++, x, middle - y);
     }
 
-    // show the poly-line
-    p.setPen(darkGray);
-    p.drawPolyline(*points, 0, i);
+    if (m_zoom >= 1.0) {
+	// show only poly-line (bright)
+	p.setPen(white);
+	p.drawPolyline(*points, 0, i);
+    } else {
+	// show the poly-line (dark)
+	p.setPen(darkGray);
+	p.drawPolyline(*points, 0, i);
 
-    // show the original points
-    p.setPen(white);
-    p.drawPoints(*points, 0, n);
+	// show the original points (bright)
+	p.setPen(white);
+	p.drawPoints(*points, 0, n);
+    }
 
     delete points;
 }

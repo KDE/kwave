@@ -186,8 +186,10 @@ MainWidget::MainWidget(QWidget *parent)
 	    this, SLOT(forwardZoomChanged(double)));
     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(forwardCommand(const QString &)));
-    connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,double)),
-	    this, SLOT(forwardSelectedTimeInfo(unsigned int, double)));
+    connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,
+            unsigned int, double)),
+	    this, SLOT(forwardSelectedTimeInfo(unsigned int,
+            unsigned int, double)));
     connect(&m_signal_widget, SIGNAL(sigTrackInserted(unsigned int)),
 	    this, SLOT(slotTrackInserted(unsigned int)));
     connect(&m_signal_widget, SIGNAL(sigTrackDeleted(unsigned int)),
@@ -283,9 +285,10 @@ void MainWidget::forwardZoomChanged(double zoom)
 }
 
 //***************************************************************************
-void MainWidget::forwardSelectedTimeInfo(unsigned int samples, double ms)
+void MainWidget::forwardSelectedTimeInfo(unsigned int offset,
+                                         unsigned int length, double rate)
 {
-    emit selectedTimeInfo(samples, ms);
+    emit selectedTimeInfo(offset, length, rate);
 }
 
 //***************************************************************************

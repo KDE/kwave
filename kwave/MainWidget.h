@@ -166,7 +166,8 @@ private slots:
      * Forwards the selectedTimeInfo signal of the internal view window
      * by emitting selectedTimeInfo.
      */
-    void forwardSelectedTimeInfo(unsigned int samples, double ms);
+    void forwardSelectedTimeInfo(unsigned int offset, unsigned int length,
+                                 double rate);
 
     /**
      * Forwards the sigMouseChanged signal of the internal view window
@@ -210,10 +211,11 @@ signals:
     void sigZoomChanged(double zoom);
 
     /**
-     * Emits the length of the current selection in samples
-     * and in milliseconds
+     * Emits the offset and length of the current selection and the
+     * sample rate for converting it into milliseconds
      */
-    void selectedTimeInfo(unsigned int samples, double ms);
+    void selectedTimeInfo(unsigned int offset, unsigned int length,
+                          double rate);
 
     /** Emits the current number of tracks */
     void sigTrackCount(unsigned int tracks);

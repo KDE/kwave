@@ -347,10 +347,11 @@ signals:
                   unsigned int length);
 
     /**
-     * Emits the length of the current selection in
-     * samples and in milliseconds
+     * Emits the offset and length of the current selection and the
+     * sample rate for converting it into milliseconds
      */
-    void selectedTimeInfo(unsigned int samples, double ms);
+    void selectedTimeInfo(unsigned int offset, unsigned int length,
+                          double rate);
 
     /**
      * Emits a command to be processed by the next higher instance.

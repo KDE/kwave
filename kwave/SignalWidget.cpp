@@ -371,10 +371,7 @@ void SignalWidget::slotSelectionChanged(unsigned int offset,
 {
     m_signal_manager.selectRange(offset, length);
     refreshSelection();
-
-    unsigned int samples = m_signal_manager.selection().length();
-    double ms = samples2ms(samples);
-    emit selectedTimeInfo(samples, ms);
+    emit selectedTimeInfo(offset, length, m_signal_manager.rate());
 }
 
 //***************************************************************************

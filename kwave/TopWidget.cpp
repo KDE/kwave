@@ -217,8 +217,10 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
             this, SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(selectedTimeInfo(unsigned int, double)),
-            this, SLOT(setSelectedTimeInfo(unsigned int, double)));
+    connect(m_main_widget, SIGNAL(selectedTimeInfo(unsigned int,
+            unsigned int, double)),
+            this, SLOT(setSelectedTimeInfo(unsigned int, unsigned int,
+            double)));
     connect(m_main_widget, SIGNAL(sigTrackCount(unsigned int)),
             this, SLOT(setTrackInfo(unsigned int)));
     connect(m_main_widget, SIGNAL(sigMouseChanged(int)),
@@ -483,7 +485,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     setStatusInfo(0,0,0,0);
     setUndoRedoInfo(0,0);
-    setSelectedTimeInfo(0,0);
+    setSelectedTimeInfo(0,0,0);
 
     // check if the aRts dispatcher is functional. if not, we better
     // should exit now, as most of the plugins would not work
@@ -1047,28 +1049,33 @@ void TopWidget::setTrackInfo(unsigned int tracks)
 }
 
 //***************************************************************************
-void TopWidget::setSelectedTimeInfo(unsigned int samples, double ms)
+void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
+                                    double rate)
 {
     ASSERT(statusBar());
     if (!statusBar()) return;
 
-    if (samples > 1) {
-// new version:
-// setSelectedTimeInfo(unsigned int offset, unsigned int length, double rate)
+    if (length > 1) {
 // show offset and length
-// Selected: 02:00...05:00 (3 min), samples 1000...2000 (1000 samples)
-//	unsigned int last = offset + (length) ? length-1 : 0;
-//	double ms_first = (rate != 0) ? (offset / rate) : 0;
-//	double ms_last  = (rate != 0) ? (last   / rate) : 0;
-//	double ms = (rate != 0) ? (length / rate) : 0;
-//	QString txt = " "+i18n("Selected: %1...%2 (%3) - "
-//                             "samples %3...%4 (%4 samples)").arg(
-//	    KwavePlugin::ms2string(ms_first)).arg(
-//	    KwavePlugin::ms2string(ms_last)).arg(
-//	    KwavePlugin::ms2string(ms)).arg(
-//	    offset).arg(last).arg(length)+" ";
-	QString txt = " "+i18n("Selected: %1 (%2 samples)").arg(
-	    KwavePlugin::ms2string(ms)).arg(samples)+" ";
+// Selected: 02:00...05:00 (3 min)
+// Selected: 2000...3000 (1000 samples)
+	bool sample_mode = false;
+	
+	unsigned int last = offset + ((length) ? length-1 : 0);
+	if (rate == 0) sample_mode = true; // force sample mode if rate==0
+	QString txt = " "+i18n("Selected")+": %1...%2 (%3) ";
+	if (sample_mode) {
+	    txt = txt.arg(offset).arg(last).arg(
+	          QString::number(length) + " " + i18n("samples"));
+	} else {
+	    double ms_first = offset * 1E3 / rate;
+	    double ms_last  = last   * 1E3 / rate;
+	    double ms = (ms_last - ms_first);
+	    txt = txt.arg(KwavePlugin::ms2string(ms_first)).arg(
+		KwavePlugin::ms2string(ms_last)).arg(
+		KwavePlugin::ms2string(ms));
+	}
+	
 	statusBar()->message(txt, 4000);
 	m_menu_manager->setItemEnabled("@SELECTION", true);
     } else {
@@ -1132,11 +1139,10 @@ void TopWidget::mouseChanged(int mode)
 	case (SignalWidget::MouseAtSelectionBorder) :
 	case (SignalWidget::MouseInSelection) :
 	{
-	    double rate = signalManager().rate();
-	    if (!rate) break;
-	    unsigned int samples = signalManager().selection().length();
-	    double ms = samples * 1E3 / rate;
-	    setSelectedTimeInfo(samples, ms);
+	    double rate         = signalManager().rate();
+	    unsigned int offset = signalManager().selection().offset();
+	    unsigned int length = signalManager().selection().length();
+	    setSelectedTimeInfo(offset, length, rate);
 	    break;
 	}
 	default: ;

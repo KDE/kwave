@@ -154,10 +154,12 @@ private slots:
 
     /**
      * Updates the number of selected samples in the status bar.
-     * @param samples number of selected samples
-     * @param ms length of the selected range [milliseconds]
+     * @param offset index of the first selected sample
+     * @param length number of selected samples
+     * @param rate sample rate [samples/second] for converting to time
      */
-    void setSelectedTimeInfo(unsigned int samples, double ms);
+    void setSelectedTimeInfo(unsigned int offset, unsigned int length,
+                             double rate);
 
     /**
      * Sets the descriptions of the last undo and redo action. If the

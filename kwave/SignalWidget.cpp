@@ -281,7 +281,7 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	if (len > ofs) len = ofs;
 	selectRange(ofs-len, len);
     CASE_COMMAND("selecttoleft")
-	selectRange(0, m_signal_manager.selection().last());
+	selectRange(0, m_signal_manager.selection().last()+1);
     CASE_COMMAND("selecttoright")
 	selectRange(m_signal_manager.selection().first(),
 	    m_signal_manager.length()-m_signal_manager.selection().first()

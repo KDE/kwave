@@ -108,7 +108,8 @@ msgstr "Introduction"
 
 #: index.docbook:64
 #, no-c-format
-msgid "This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
 msgstr ""
 "\"&kapp;\" est un éditeur de pistes sonores pour l'environnement de bureau "
 "KDE. Il inclu les fonctionnalités suivantes :"
@@ -155,7 +156,8 @@ msgstr ""
 #: index.docbook:64
 #, no-c-format
 msgid "extendible through an easy-to-use plugin interface"
-msgstr "L'extension facile des carractérisques du programme par l'ajout de plugins."
+msgstr ""
+"L'extension facile des carractérisques du programme par l'ajout de plugins."
 
 #: index.docbook:64
 #, no-c-format
@@ -288,7 +290,8 @@ msgstr "0.6.4 [2002-03-??]"
 #: index.docbook:181
 #, no-c-format
 msgid "support for different file formats / integrated libaudiofile"
-msgstr "Support pour différents formats de fichiers / intrégration de libaudiofile."
+msgstr ""
+"Support pour différents formats de fichiers / intrégration de libaudiofile."
 
 #: index.docbook:181
 #, no-c-format
@@ -325,7 +328,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "menu entries for playback control"
-msgstr "Entrées dans le menu pour le contrôle de la lecture d'une piste sonore."
+msgstr ""
+"Entrées dans le menu pour le contrôle de la lecture d'une piste sonore."
 
 #: index.docbook:181
 #, no-c-format
@@ -334,7 +338,8 @@ msgstr "Quelques icônes supplémentaires dans les menus."
 
 #: index.docbook:181
 #, no-c-format
-msgid "replaced KFileDialog with subclass KwaveFileDialog (fixes some bugs in KDE)"
+msgid ""
+"replaced KFileDialog with subclass KwaveFileDialog (fixes some bugs in KDE)"
 msgstr ""
 "Remplacement de 'KFileDialog' par la sous-classe 'KwaveFileDialog' (corrige "
 "quelques bogues avec KDE)."
@@ -342,7 +347,9 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "added a little chapter about digital audio basics to online help"
-msgstr "Ajout d'un petit chapitre dans l'aide sur les rudiments des enregistrements audios numériques."
+msgstr ""
+"Ajout d'un petit chapitre dans l'aide sur les rudiments des enregistrements "
+"audios numériques."
 
 #: index.docbook:181
 #, no-c-format
@@ -421,7 +428,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "bugfix: problem with TSS in TSS_Object cleanup"
-msgstr "Correction de bogue : problème avec TSS dans la libération de TSS_Object."
+msgstr ""
+"Correction de bogue : problème avec TSS dans la libération de TSS_Object."
 
 #: index.docbook:181
 #, no-c-format
@@ -519,7 +527,8 @@ msgstr "Architecture interne revue et corrigé complètement."
 #: index.docbook:181
 #, no-c-format
 msgid "plugins can be located in a user directory"
-msgstr "Les plugins peuvent être installés dans les répertoires des utilisateurs."
+msgstr ""
+"Les plugins peuvent être installés dans les répertoires des utilisateurs."
 
 #: index.docbook:181
 #, no-c-format
@@ -594,7 +603,8 @@ msgstr "Ajout d'une barre d'outils comme dans toute application standard."
 #: index.docbook:181
 #, no-c-format
 msgid "fixed some bugs concerning selection with the mouse"
-msgstr "Correction de quelques bogues concernant les selections avec la souris."
+msgstr ""
+"Correction de quelques bogues concernant les selections avec la souris."
 
 #: index.docbook:181
 #, no-c-format
@@ -665,18 +675,22 @@ msgstr ""
 
 #: index.docbook:181
 #, no-c-format
-msgid "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
-msgstr "Sonagramme : suppression de SonagramContainer, utilisé dans QGridLayout."
+msgid ""
+"sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
+msgstr ""
+"Sonagramme : suppression de SonagramContainer, utilisé dans QGridLayout."
 
 #: index.docbook:181
 #, no-c-format
 msgid "moved SignalProxy to the mt subdirectory"
-msgstr "Déplacement de SignalProxy dans le répertoire contenant les classes mt."
+msgstr ""
+"Déplacement de SignalProxy dans le répertoire contenant les classes mt."
 
 #: index.docbook:181
 #, no-c-format
 msgid "fixed X11 synchronzation problem with SignalProxy"
-msgstr "Correction de problèmes de synchronisation avec X11 concernant SignalProxy."
+msgstr ""
+"Correction de problèmes de synchronisation avec X11 concernant SignalProxy."
 
 #: index.docbook:181
 #, no-c-format
@@ -686,7 +700,8 @@ msgstr "Ajout du support de TSS (Thread-Specific-Storage) dans les classes mt."
 #: index.docbook:181
 #, no-c-format
 msgid "added some multithreading support classes: Thread, AsynchObject, ..."
-msgstr "Ajout de quelques classes pour le multithreading : Thread, AsynchObject, ..."
+msgstr ""
+"Ajout de quelques classes pour le multithreading : Thread, AsynchObject, ..."
 
 #: index.docbook:181
 #, no-c-format
@@ -715,7 +730,8 @@ msgstr ""
 
 #: index.docbook:181
 #, no-c-format
-msgid "bugfix: selection and playpointer will not be drawn if no signal is loaded"
+msgid ""
+"bugfix: selection and playpointer will not be drawn if no signal is loaded"
 msgstr ""
 "Correction de bogue : La selection et le curseur de lecture ne seront pas "
 "dessinés  si aucun fichier n'est chargé."
@@ -786,12 +802,14 @@ msgstr "0.5.4-1 [2000-07-29]"
 #: index.docbook:181
 #, no-c-format
 msgid "fixed layout of playback dialog"
-msgstr "Correction de la présentation de la boîte de dialogue des options de lecture."
+msgstr ""
+"Correction de la présentation de la boîte de dialogue des options de lecture."
 
 #: index.docbook:181
 #, no-c-format
 msgid "started to implement a new plugin interface"
-msgstr "Commencement de l'implémentation d'une nouvelle interface pour les plugins."
+msgstr ""
+"Commencement de l'implémentation d'une nouvelle interface pour les plugins."
 
 #: index.docbook:181
 #, no-c-format
@@ -810,7 +828,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "plugins can now consist of multiple source files"
-msgstr "Les plugins peuvent maintenant être constitués de plusieurs fichiers sources."
+msgstr ""
+"Les plugins peuvent maintenant être constitués de plusieurs fichiers sources."
 
 #: index.docbook:181
 #, no-c-format
@@ -825,7 +844,8 @@ msgstr "Quelques petites corrections dans les Makefiles."
 #: index.docbook:181
 #, no-c-format
 msgid "split the documentation output into \"de\" and \"en\" part"
-msgstr "Séparation de la documentation en deux parties distinctes : \"de\" et \"en\"."
+msgstr ""
+"Séparation de la documentation en deux parties distinctes : \"de\" et \"en\"."
 
 #: index.docbook:181
 #, no-c-format
@@ -918,12 +938,14 @@ msgstr "Lecture audio pour seulement les canaux sélectionnés."
 #: index.docbook:181
 #, no-c-format
 msgid "rework of the settings/playback dialog (plugin)"
-msgstr "Restructuration de la boite de dialogue des paramètres de lecture (plugin)."
+msgstr ""
+"Restructuration de la boite de dialogue des paramètres de lecture (plugin)."
 
 #: index.docbook:181
 #, no-c-format
 msgid "heavy reword on the playback code"
-msgstr "Long travail de restructuration du code correspondant à la lecture audio."
+msgstr ""
+"Long travail de restructuration du code correspondant à la lecture audio."
 
 #: index.docbook:181
 #, no-c-format
@@ -1107,7 +1129,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "doesn't show any zoom factor if no signal is loaded"
-msgstr "Pas d'affichage du facteur de zoom si aucun fichier sonore n'est chargé."
+msgstr ""
+"Pas d'affichage du facteur de zoom si aucun fichier sonore n'est chargé."
 
 #: index.docbook:181
 #, no-c-format
@@ -1118,7 +1141,8 @@ msgstr ""
 
 #: index.docbook:181
 #, no-c-format
-msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
+msgid ""
+"changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
 "Changement de quelques variables et paramêtres en \"unsigned\" (pour "
 "simplifier la vérification des étendues de valeurs)."
@@ -1155,14 +1179,16 @@ msgstr ""
 
 #: index.docbook:181
 #, no-c-format
-msgid "globals.app will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"globals.app will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "'globals.app' n'est maintenant plus utilisée (obsolete, sera retirée de la "
 "bibliothéque libkwave)."
 
 #: index.docbook:181
 #, no-c-format
-msgid "MessagePort will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"MessagePort will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "'MessagePort' n'est maintenant plus utilisée (obsolete, sera retirée de la "
 "bibliothéque libkwave)."
@@ -1170,7 +1196,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "multiple toplevel windows are possible"
-msgstr "L'ouverture de plusieurs instances de l'application est maintenant possible."
+msgstr ""
+"L'ouverture de plusieurs instances de l'application est maintenant possible."
 
 #: index.docbook:181
 #, no-c-format
@@ -1273,7 +1300,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "some bugfixes in menu handling / cleanups"
-msgstr "Quelques corrrections de bogues dans le menu de sélection / déselection."
+msgstr ""
+"Quelques corrrections de bogues dans le menu de sélection / déselection."
 
 #: index.docbook:181
 #, no-c-format
@@ -1420,7 +1448,8 @@ msgstr "0.5.1-2 [2000-03-16]"
 #: index.docbook:181
 #, no-c-format
 msgid "converted many \"klocale->translate(...)\"s into \"i18n(...)\""
-msgstr "Convertion de plusieurs \"klocale->translate(...)\"s dans \"i18n(...)\""
+msgstr ""
+"Convertion de plusieurs \"klocale->translate(...)\"s dans \"i18n(...)\""
 
 #: index.docbook:181
 #, no-c-format
@@ -1429,7 +1458,8 @@ msgstr "La cible \"make messages\" fonctionne maintenant."
 
 #: index.docbook:181
 #, no-c-format
-msgid "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
+msgid ""
+"converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 msgstr ""
 "Convertion de menus.config pour la création d'une maquette d'un fichier .ccp "
 "qui sera utilisé  pour l'internationalisation."
@@ -1488,7 +1518,8 @@ msgstr "Les menus NumberedMenu et MenuCommand ont été supprimé."
 #: index.docbook:181
 #, no-c-format
 msgid "new classes: MenuNode, MenuItem, MenuSub, MenuToplevel and MenuRoot"
-msgstr "Nouvelles classes : MenuNode, MenuItem, MenuSub, MenuToplevel et MenuRoot."
+msgstr ""
+"Nouvelles classes : MenuNode, MenuItem, MenuSub, MenuToplevel et MenuRoot."
 
 #: index.docbook:181
 #, no-c-format
@@ -1498,7 +1529,8 @@ msgstr "Les items des menus peuvent avoir des icones."
 #: index.docbook:181
 #, no-c-format
 msgid "menu nodes can have unique string ids"
-msgstr "Les liens des menus n'ont qu'un seul indentifiant de chaîne de caractères."
+msgstr ""
+"Les liens des menus n'ont qu'un seul indentifiant de chaîne de caractères."
 
 #: index.docbook:181
 #, no-c-format
@@ -1561,7 +1593,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "added the \"crop\" command to the edit menu"
-msgstr "Ajout de la fonction de \"couper à la sélection\" dans le menu édition."
+msgstr ""
+"Ajout de la fonction de \"couper à la sélection\" dans le menu édition."
 
 #: index.docbook:181
 #, no-c-format
@@ -1586,7 +1619,8 @@ msgstr "1999-12-18 (par mwilz@ernie.mi.uni-koeln.de)"
 #: index.docbook:181
 #, no-c-format
 msgid "changed filenames to reflect class names"
-msgstr "Changement des noms de fichiers en correspondance avec les noms des classes."
+msgstr ""
+"Changement des noms de fichiers en correspondance avec les noms des classes."
 
 #: index.docbook:181
 #, no-c-format
@@ -1672,7 +1706,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "bugfix: selected resolution takes effect"
-msgstr "Correction de bogue : la sélection d'une résolution fonctionne maintenant."
+msgstr ""
+"Correction de bogue : la sélection d'une résolution fonctionne maintenant."
 
 #: index.docbook:181
 #, no-c-format
@@ -1717,7 +1752,8 @@ msgstr "Le support du débuggage est maintenant facile à utiliser."
 #: index.docbook:181
 #, no-c-format
 msgid "\"configure --enable-debug=yes\" (-g and -DDEBUG compiler flags)"
-msgstr "\"configure --enable-debug=yes\" (options de compilation -g et -DDEBUG)."
+msgstr ""
+"\"configure --enable-debug=yes\" (options de compilation -g et -DDEBUG)."
 
 #: index.docbook:181
 #, no-c-format
@@ -1800,7 +1836,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "connected many functions via the new string-based way of invocation"
-msgstr "Raccordement de plusieurs fonctions par une chaîne de caractères commune."
+msgstr ""
+"Raccordement de plusieurs fonctions par une chaîne de caractères commune."
 
 #: index.docbook:181
 #, no-c-format
@@ -1840,7 +1877,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "moved gui functions into a new library (libkwavegui)"
-msgstr "Déplacement des fontions graphiques dans une nouvelle librarie (libkwavegui)."
+msgstr ""
+"Déplacement des fontions graphiques dans une nouvelle librarie (libkwavegui)."
 
 #: index.docbook:181
 #, no-c-format
@@ -1879,7 +1917,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "io functions and playback adapted to SignalManager"
-msgstr "Les fonctions d'entrées/sorties et de lecture sont adaptées à SignalManager."
+msgstr ""
+"Les fonctions d'entrées/sorties et de lecture sont adaptées à SignalManager."
 
 #: index.docbook:181
 #, no-c-format
@@ -2002,7 +2041,8 @@ msgstr "0.29.2"
 #: index.docbook:181
 #, no-c-format
 msgid "moved clipboard functionality to its own class"
-msgstr "Déplacement des fonctionnalités du presse-papier dans une classe dédiée."
+msgstr ""
+"Déplacement des fonctionnalités du presse-papier dans une classe dédiée."
 
 #: index.docbook:181
 #, no-c-format
@@ -2023,7 +2063,8 @@ msgstr "0.29.1"
 
 #: index.docbook:181
 #, no-c-format
-msgid "Bugfix for multichannel save. Now the saved files should work with other prgs"
+msgid ""
+"Bugfix for multichannel save. Now the saved files should work with other prgs"
 msgstr ""
 "Correction de bogues pour la sauvegarde de canaux multiples. Maintenant, la "
 "sauvegarde de  fichiers doit fonctionner avec d'autres programmes."
@@ -2085,7 +2126,8 @@ msgstr ""
 
 #: index.docbook:181
 #, no-c-format
-msgid "added possibility of different display modes in Frequency representation"
+msgid ""
+"added possibility of different display modes in Frequency representation"
 msgstr ""
 "Ajout de différentes possibilités d'affichage en fonction de la "
 "représentation des fréquences."
@@ -2122,7 +2164,8 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "First use of multiple threads (pthreads) in some functions"
-msgstr "Première utilisation du multithreading (pthreads) dans quelques fonctions."
+msgstr ""
+"Première utilisation du multithreading (pthreads) dans quelques fonctions."
 
 #: index.docbook:181
 #, no-c-format
@@ -2158,11 +2201,13 @@ msgstr ""
 #: index.docbook:181
 #, no-c-format
 msgid "New ScaleWidget gives the user more information"
-msgstr "Nouvelle classe ScaleWidget qui donne plus d'informations à l'utilisateur."
+msgstr ""
+"Nouvelle classe ScaleWidget qui donne plus d'informations à l'utilisateur."
 
 #: index.docbook:181
 #, no-c-format
-msgid "Improved ProgressDialog and Interpolation class to allow multiple threads"
+msgid ""
+"Improved ProgressDialog and Interpolation class to allow multiple threads"
 msgstr ""
 "Ajout des classes ProgressDialog et Interpolation pour permettre le "
 "multithreading."
@@ -2184,7 +2229,8 @@ msgstr "Changement dans la classe curvewidget."
 
 #: index.docbook:181
 #, no-c-format
-msgid "sorting of labels now works without overwriting of QGList::compareItems."
+msgid ""
+"sorting of labels now works without overwriting of QGList::compareItems."
 msgstr ""
 "Le tri des lablels fonctionne maintenant sans écraser les opérations de "
 "QGList::compareItems."
@@ -2202,7 +2248,8 @@ msgstr "Ajout d'une fonction de sauvegarde d'une sélection."
 #: index.docbook:181
 #, no-c-format
 msgid "signal finding function in markers.cpp: gui improved."
-msgstr "Fonction de recherche de signaux dans markers.cpp : interface graphique."
+msgstr ""
+"Fonction de recherche de signaux dans markers.cpp : interface graphique."
 
 #: index.docbook:181
 #, no-c-format
@@ -2340,7 +2387,8 @@ msgstr ""
 #: index.docbook:1340
 #, no-c-format
 msgid "If you intend to compile &kapp; from the sources, you will also need:"
-msgstr "Si vous désirez compiler &kapp; à partir des sources, vous avez besoin :"
+msgstr ""
+"Si vous désirez compiler &kapp; à partir des sources, vous avez besoin :"
 
 #: index.docbook:1340
 #, no-c-format
@@ -3348,10 +3396,10 @@ msgid ""
 msgstr ""
 "L'échantillonage peut être fait à des distances temporelles arbitraires ou à "
 "des intervalles constants. La derniére méthode est la plus facile à "
-"utiliser. Elle utilise un taux constant que l'on l'appelle "
-"<emphasis>période d'échantillonage</emphasis>. Normalement, ce taux est de "
-"8000, 11025, 22050,  ou 44100 échantillons par seconde. Dans la pratique, "
-"les périodes d'échantillonage donnent aussi des fréquences en Hz ou en kHz."
+"utiliser. Elle utilise un taux constant que l'on l'appelle <emphasis>période "
+"d'échantillonage</emphasis>. Normalement, ce taux est de 8000, 11025, "
+"22050,  ou 44100 échantillons par seconde. Dans la pratique, les périodes "
+"d'échantillonage donnent aussi des fréquences en Hz ou en kHz."
 
 #: index.docbook:1967
 #, no-c-format
@@ -3479,8 +3527,8 @@ msgid ""
 "quite easy and very fast to handle (computers are fast in calculating with "
 "fixed point numbers)."
 msgstr ""
-"En plus que la numérisation du signal fait perdre de la précision, il y "
-"a génération d'un bruit parasite, que l'on appel <emphasis>bruit de "
+"En plus que la numérisation du signal fait perdre de la précision, il y a "
+"génération d'un bruit parasite, que l'on appel <emphasis>bruit de "
 "numérisation</emphasis>. La partie la plus importante de ce bruit a une "
 "influence sur les basses amplitudes. Cette méthode de stockage des "
 "échantillons n'est pas optimale mais elle est facile et rapide à mettre en "
@@ -3530,8 +3578,8 @@ msgid ""
 "Here is a little screenshot of the &kapp; main window, so that you get an "
 "impression what &kapp; looks like..."
 msgstr ""
-"Voici une petite capture d'écran de la fenêtre principale de &kapp;, qui vous "
-"donnera une première impression sur le programme..."
+"Voici une petite capture d'écran de la fenêtre principale de &kapp;, qui "
+"vous donnera une première impression sur le programme..."
 
 #: index.docbook:2093
 #, no-c-format
@@ -3715,7 +3763,8 @@ msgstr "Ouverture et sauvegarde de fichiers"
 
 #: index.docbook:2208
 #, no-c-format
-msgid "Opening files with &kapp; works like in most other applications, you can"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "L'ouverture des fichiers avec &kapp; fonctionne comme dans toutes les autres "
 "applications de KDE. Vous pouvez :"
@@ -3934,7 +3983,8 @@ msgstr "Un témoin rouge indique que le canal est \"inactif\"."
 
 #: index.docbook:2417
 #, no-c-format
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Si le canal est déselectionné, il ne sera pas écoutable lors d'une lecture "
 "des pistes sonores !"
@@ -4060,7 +4110,8 @@ msgstr ""
 #: index.docbook:2452
 #, no-c-format
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
-msgstr "(Astuce : utiliser la touche \"<keycap>+</keycap>\" du clavier numérique !)"
+msgstr ""
+"(Astuce : utiliser la touche \"<keycap>+</keycap>\" du clavier numérique !)"
 
 #: index.docbook:2452
 #, no-c-format
@@ -4080,7 +4131,8 @@ msgstr ""
 #: index.docbook:2452
 #, no-c-format
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
-msgstr "(Astuce : utiliser la touche \"<keycap>-</keycap>\" du clavier numérique !)"
+msgstr ""
+"(Astuce : utiliser la touche \"<keycap>-</keycap>\" du clavier numérique !)"
 
 #: index.docbook:2452
 #, no-c-format
@@ -4272,7 +4324,8 @@ msgstr ""
 #: index.docbook:2765
 #, no-c-format
 msgid "What if I have files with a format not supported by &kapp;?"
-msgstr "Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
+msgstr ""
+"Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
 
 #: index.docbook:2771
 #, no-c-format
@@ -4291,7 +4344,8 @@ msgstr ""
 #: index.docbook:2783
 #, no-c-format
 msgid "I get errors when I want to do playback?"
-msgstr "J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
+msgstr ""
+"J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
 
 #: index.docbook:2788
 #, no-c-format
@@ -4329,7 +4383,8 @@ msgstr ""
 #: index.docbook:2817
 #, no-c-format
 msgid "Some files are played with half-speed?"
-msgstr "Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
+msgstr ""
+"Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
 
 #: index.docbook:2822
 #, no-c-format
@@ -4391,7 +4446,8 @@ msgstr ""
 
 #: index.docbook:2879
 #, no-c-format
-msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
+msgid ""
+"What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
 "Qu'en est-il de la lecture de fichiers sonores sur 24 et 32 bits par "
 "échantillons ou avec plus de  2 pistes sonores ?"
@@ -4460,7 +4516,8 @@ msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
 #: index.docbook:2943
 #, no-c-format
-msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
+msgid ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en "
 "Allemand)"
@@ -4468,17 +4525,21 @@ msgstr ""
 #: index.docbook:2943
 #, no-c-format
 msgid "Ralf Waspe <email>rwaspe@web.de</email> (Help/About plugin)"
-msgstr "Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue 'A propos de')"
+msgstr ""
+"Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue 'A propos de')"
 
 #: index.docbook:2943
 #, no-c-format
-msgid "Caulier Gilles <email>caulier.gilles@free.fr</email> (french translation)"
-msgstr "Caulier Gilles <email>caulier.gilles@free.fr</email> (Traductions Françaises)"
+msgid ""
+"Caulier Gilles <email>caulier.gilles@free.fr</email> (french translation)"
+msgstr ""
+"Caulier Gilles <email>caulier.gilles@free.fr</email> (Traductions Françaises)"
 
 #: index.docbook:2943
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
-msgstr "Martin Kuball <email>makube@user.sourceforge.net</email> (béta testeur)"
+msgstr ""
+"Martin Kuball <email>makube@user.sourceforge.net</email> (béta testeur)"
 
 #: index.docbook:2943
 #, no-c-format
@@ -4544,7 +4605,8 @@ msgstr "Klaus Hendrik Lorenz"
 #: index.docbook:3007
 #, no-c-format
 msgid "my girlfriend Ximena González<emphasis> (for her patience)</emphasis>"
-msgstr "Ma petite amie Ximena González<emphasis> (pour toute sa patience)</emphasis>"
+msgstr ""
+"Ma petite amie Ximena González<emphasis> (pour toute sa patience)</emphasis>"
 
 #: index.docbook:3045
 #, no-c-format
@@ -4771,4 +4833,3 @@ msgstr ""
 
 #~ msgid "Eero"
 #~ msgstr "Eero"
-

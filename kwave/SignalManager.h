@@ -519,8 +519,8 @@ protected:
      *         the undo buffer would be exceeded. The return value
      *         will also be false if the action is null.
      * @note If undo is currently not enabled, the passed UndoAction
-     *       will be immediately deleted and the return value would
-     *       be true. So it is safer not to call this function if
+     *       will be ignored and not freed, the return value will
+     *       be false. So it is safer not to call this function if
      *       undo is not enabled.
      */
     bool registerUndoAction(UndoAction *action);

@@ -341,6 +341,15 @@ bool SignalWidget::executeCommand(const QString &command)
 void SignalWidget::selectRange(unsigned int offset, unsigned int length)
 {
     m_signal_manager.selectRange(offset, length);
+
+    // if the selection has been changed through a command we also
+    // have to update the mouse selection
+    if ( (m_selection->left()  != m_signal_manager.selection().first()) ||
+         (m_selection->right() != m_signal_manager.selection().last()))
+    {
+	m_selection->set(m_signal_manager.selection().first(),
+	                 m_signal_manager.selection().last());
+    }
 }
 
 //***************************************************************************
@@ -704,12 +713,12 @@ bool SignalWidget::isSelectionBorder(int x)
     int tol = m_width / 50;
 
     unsigned int first = m_signal_manager.selection().first();
-    if ((first > m_offset) && (x < samples2pixels(first-m_offset)+tol) &&
-        (x+tol > samples2pixels(first-m_offset))) return true;
+    if ((first >= m_offset) && (x <= samples2pixels(first-m_offset)+tol) &&
+        (x+tol >= samples2pixels(first-m_offset))) return true;
 
     unsigned int last = m_signal_manager.selection().last();
-    if ((last > m_offset) && (x < samples2pixels(last-m_offset)+tol) &&
-        (x+tol > samples2pixels(last-m_offset))) return true;
+    if ((last >= m_offset) && (x <= samples2pixels(last-m_offset)+tol) &&
+        (x+tol >= samples2pixels(last-m_offset))) return true;
 
     return false;
 }
@@ -727,8 +736,8 @@ bool SignalWidget::isInSelection(int x)
     unsigned int last = m_signal_manager.selection().last();
 
     ASSERT(first <= last);
-    if ((last > m_offset) && (x < samples2pixels(last-m_offset)+tol) &&
-        (x+tol > samples2pixels(first-m_offset))) return true;
+    if ((last >= m_offset) && (x <= samples2pixels(last-m_offset)+tol) &&
+        (x+tol >= samples2pixels(first-m_offset))) return true;
 
     return false;
 }

@@ -16,46 +16,49 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <stdlib.h>
 #include "MouseMark.h"
 
 //****************************************************************************
 MouseMark::MouseMark()
 {
-    initial = -1;
-    last = -1;
+    initial = 0;
+    last = 0;
 }
 
 //****************************************************************************
-void MouseMark::set(int l, int r)
+void MouseMark::set(unsigned int l, unsigned int r)
 {
     initial = l;
     last = r;
 }
 
 //****************************************************************************
-int MouseMark::left()
+unsigned int MouseMark::left()
 {
     return (initial < last) ? initial : last;
 }
 
 //****************************************************************************
-int MouseMark::right()
+unsigned int MouseMark::right()
 {
     return (initial > last) ? initial : last;
 }
 
 //****************************************************************************
-void MouseMark::grep(int x)
+void MouseMark::grep(unsigned int x)
 {
-    if (abs((last - x)) > abs((initial - x))) {
+    double d_last  = (double)last    - (double)x;
+    double d_first = (double)initial - (double)x;
+    d_last  *= d_last;
+    d_first *= d_first;
+    if (d_last > d_first) {
 	initial = last;
     }
     last = x;
 }
 
 //****************************************************************************
-void MouseMark::update(int x)
+void MouseMark::update(unsigned int x)
 {
     last = x;
 }

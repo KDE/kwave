@@ -38,7 +38,7 @@ public:
      * @param l start position
      * @param r end position
      */
-    void set(int l, int r);
+    void set(unsigned int l, unsigned int r);
 
     /**
      * Update the last known position of the mouse. This should be
@@ -46,31 +46,31 @@ public:
      * movement.
      * @param x new last position
      */
-    void update(int x);
+    void update(unsigned int x);
 
     /**
      * Re-enters the selection process at a new position. The last
      * position will be set to the left or the right margin, depending
      * on which side is nearer.
      */
-    void grep(int x);
+    void grep(unsigned int x);
 
     /**
      * Returns the left border of the selection.
      */
-    int left();
+    unsigned int left();
 
     /**
      * Returns the right border of the selection.
      */
-    int right();
+    unsigned int right();
 
 private:
     /** initial position of the mouse */
-    int initial;
+    unsigned int initial;
 
     /** last known position of the mouse */
-    int last;
+    unsigned int last;
 }
 ;
 //***********************************************************

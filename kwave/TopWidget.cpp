@@ -472,6 +472,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     setStatusInfo(0,0,0,0);
     setUndoRedoInfo(0,0);
+    setSelectedTimeInfo(0,0);
 
     // check if the aRts dispatcher is functional. if not, we better
     // should exit now, as most of the plugins would not work

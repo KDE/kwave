@@ -151,7 +151,7 @@ QString CodecManager::encodingFilter()
 	QListIterator<KMimeType> ti(types);
 	for (; ti.current(); ++ti) {
 	    KMimeType *type = ti.current();
-	    QString extensions = type->patterns().join("; ");
+	    QString extensions = type->patterns().join(" ");
 	
 	    // skip if extensions are already known/present
 	    if (list.join("\n").contains(extensions)) continue;

@@ -70,39 +70,27 @@ private:
 
 //***************************************************************************
 SonagramPlugin::SonagramPlugin(PluginContext &c)
-    :KwavePlugin(c)
+    :KwavePlugin(c), m_sonagram_window(0), m_selected_channels(),
+     m_first_sample(0), m_last_sample(0), m_stripes(0), m_fft_points(0),
+     m_window_type(0), m_color(true), m_track_changes(true),
+     m_follow_selection(false), m_image(0), m_overview_cache(0),
+     m_cmd_shutdown(false)
 {
-    m_cmd_shutdown = false; // ###
-    m_color = true;
-    m_fft_points = 0;
-    m_first_sample = 0;
-    m_follow_selection = false;
-    m_image = 0;
-    m_last_sample = 0;
-    m_sonagram_window = 0;
-    m_spx_insert_stripe = 0;
-    m_stripes = 0;
     m_spx_insert_stripe = new SignalProxy1< StripeInfoPrivate >
 	(this, SLOT(insertStripe()));
-    m_track_changes = false;
 }
 
 //***************************************************************************
 SonagramPlugin::~SonagramPlugin()
 {
-//    debug("SonagramPlugin::~SonagramPlugin()");
-
     if (m_sonagram_window) delete m_sonagram_window;
     m_sonagram_window = 0;
 
-//    debug("SonagramPlugin::~SonagramPlugin() --1--");
     if (m_spx_insert_stripe) delete m_spx_insert_stripe;
     m_spx_insert_stripe = 0;
-//    debug("SonagramPlugin::~SonagramPlugin() --2--");
 
     if (m_image) delete m_image;
     m_image = 0;
-//    debug("SonagramPlugin::~SonagramPlugin() done");
 }
 
 //***************************************************************************
@@ -204,22 +192,29 @@ int SonagramPlugin::start(QStringList &params)
     // create a new empty image
     createNewImage(m_stripes, m_fft_points/2);
 
-    // activate the window with an initial image
-    // and all necessary informations
+    // set the overview
     m_selected_channels = selectedTracks();
-//    m_sonagram_window->setOverView(overview(
-//	2*m_sonagram_window->width(), 40, m_first_sample,
-//	m_last_sample-m_first_sample+1));
-
     SignalManager &sig_mgr = manager().topWidget().signalManager();
     QArray<unsigned int> tracks = sig_mgr.selectedTracks();
-    OverViewCache cache(sig_mgr,
+    m_overview_cache = new OverViewCache(sig_mgr,
         m_first_sample, m_last_sample-m_first_sample+1,
         tracks.isEmpty() ? 0 : &tracks);
-    QBitmap overview = cache.getOverView(
-        2*m_sonagram_window->width(), 40);
-    m_sonagram_window->setOverView(&overview);
+    ASSERT(m_overview_cache);
+    if (!m_overview_cache) return -ENOMEM;
 
+    refreshOverview();
+    if (m_track_changes) {
+	// stay informed about changes in the signal
+	connect(m_overview_cache, SIGNAL(changed()),
+	        this, SLOT(refreshOverview()));
+    } else {
+	// overview cache is no longer needed
+	delete m_overview_cache;
+	m_overview_cache = 0;
+    }
+
+    // activate the window with an initial image
+    // and all necessary informations
     m_sonagram_window->setColorMode((m_color) ? 1 : 0);
     m_sonagram_window->setImage(m_image);
     m_sonagram_window->setPoints(m_fft_points);
@@ -440,6 +435,16 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     m_image->fill(0xFF);
 
 //    debug("SonagramPlugin::createNewImage(): done.");
+}
+
+//***************************************************************************
+void SonagramPlugin::refreshOverview()
+{
+    if (!m_overview_cache || !m_sonagram_window) return;
+
+    QBitmap overview = m_overview_cache->getOverView(
+        2*m_sonagram_window->width(), 40);
+    m_sonagram_window->setOverView(&overview);
 }
 
 //***************************************************************************

@@ -25,6 +25,7 @@
 #include "libkwave/WindowFunction.h"
 #include "libgui/KwavePlugin.h"
 
+class OverViewCache;
 class QImage;
 class QStringList;
 class MultiTrackReader;
@@ -74,6 +75,11 @@ private slots:
      */
     void insertStripe();
 
+    /**
+     * Updates the overview image under the sonagram
+     */
+    void refreshOverview();
+
 protected:
 
     /**
@@ -109,6 +115,8 @@ private:
     void calculateStripe(MultiTrackReader &source, const unsigned int points,
 	QByteArray &output);
 
+private:
+
     /** the main view of the plugin, a SonagramWindow */
     SonagramWindow *m_sonagram_window;
 
@@ -141,6 +149,9 @@ private:
 
     /** stores the image that is currently in process */
     QImage *m_image;
+
+    /** cache with the current signal overview */
+    OverViewCache *m_overview_cache;
 
     /**
      * signal proxy for synchronously inserting stripes of

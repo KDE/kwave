@@ -1,5 +1,5 @@
 /***************************************************************************
-          AboutPlugin.h  -  plugin that shows the Kwave's about dialog
+              AboutDialog.h  -  dialog for Kwave's "Help-About"
                              -------------------
     begin                : Sun Oct 29 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -15,33 +15,37 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ABOUT_PLUGIN_
-#define _ABOUT_PLUGIN_
+#ifndef _ABOUT_DIALOG_H_
+#define _ABOUT_DIALOG_H_
 
-#include <qarray.h>
-#include <qstring.h>
-#include <libgui/KwavePlugin.h>
+#include <qdialog.h>
 
-class QStrList;
-class PluginContext;
+class LogoWidget;
+class QMultiLineEdit;
+class QPushButton;
+class QResizeEvent;
 
-class AboutPlugin: public KwavePlugin
-{
+//**********************************************************
+class AboutDialog : public QDialog {
     Q_OBJECT
 
 public:
 
     /** Constructor */
-    AboutPlugin(PluginContext &c);
+    AboutDialog(QWidget *parent);
 
-    /**
-     * shows the about dialog,
-     * @see KwavePlugin::start()
-     */
-    virtual int start(QStrList &params);
+    /** destructor */
+    virtual ~AboutDialog();
 
+private:
+    /** the text area on the right side */
+    QMultiLineEdit *m_abouttext;
+
+    /** the animated logo on the left side */
+    LogoWidget *m_logo;
+
+    /** the OK button at the buttom */
+    QPushButton *m_ok;
 };
 
-#endif /* _ABOUT_PLUGIN_H_ */
-
-/* end of AboutPlugin.h */
+#endif  /* _ABOUT_DIALOG_H_ */

@@ -1,5 +1,5 @@
 /***************************************************************************
-          AboutPlugin.h  -  plugin that shows the Kwave's about dialog
+         LogoWidget.h  -  widget with the animated Kwave logo
                              -------------------
     begin                : Sun Oct 29 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -15,33 +15,63 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ABOUT_PLUGIN_
-#define _ABOUT_PLUGIN_
+#ifndef _LOGO_WIDGET_H_
+#define _LOGO_WIDGET_H_
 
-#include <qarray.h>
-#include <qstring.h>
-#include <libgui/KwavePlugin.h>
+#include <qpainter.h>
+#include <qwidget.h>
 
-class QStrList;
-class PluginContext;
+class QPaintEvent;
+class QPixmap;
+class QTimer;
 
-class AboutPlugin: public KwavePlugin
+#define MAXSIN 5
+
+//**********************************************************
+class LogoWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-
     /** Constructor */
-    AboutPlugin(PluginContext &c);
+    LogoWidget(QWidget *parent);
 
-    /**
-     * shows the about dialog,
-     * @see KwavePlugin::start()
-     */
-    virtual int start(QStrList &params);
+    /** Destructor */
+    virtual ~LogoWidget();
 
+public slots:
+    /** animates the next step of the logo */
+    void doAnim();
+
+protected:
+    /** repaints */
+    void paintEvent(QPaintEvent *);
+
+private:
+    /** width of the widget */
+    int m_width;
+
+    /** height of the widget */
+    int m_height;
+
+    /** set to true for repaint */
+    bool m_repaint;
+
+    /** phase of sinus for animation */
+    double m_deg[MAXSIN];
+
+    /** pixmap for output */
+    QPixmap *m_pixmap;
+
+    /** additional pixmap to avoid flicker */
+    QPixmap *m_buffer;
+
+    /** image with the logo */
+    QPixmap *m_img;
+
+    /** timer for refresh */
+    QTimer *m_timer;
 };
 
-#endif /* _ABOUT_PLUGIN_H_ */
+#endif  /* _LOGO_WIDGET_H_ */
 
-/* end of AboutPlugin.h */

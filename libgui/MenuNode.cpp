@@ -208,7 +208,7 @@ void MenuNode::setEnabled(bool enable)
 	
 	// notify our parent that our enabled state has changed
 	emit sigChildEnableChanged(m_id, new_enable);
-	
+
 	// notify all child nodes that our enable has changed
 	emit sigParentEnableChanged();
     }
@@ -413,7 +413,7 @@ int MenuNode::insertNode(const QString &name, const QString &position,
 	    // a leaf with this name already exists
 	    // -> maybe we want to set new properties
 	    if (key) sub->setKey(key);
-	
+
 	    if (uid.length()) sub->setUID(uid);
 
 	    if (p[0] == '#') sub->specialCommand(p);
@@ -456,8 +456,9 @@ int MenuNode::insertNode(const QString &name, const QString &position,
 MenuNode *MenuNode::leafToBranch(MenuNode *node)
 {
     Q_ASSERT(node);
+    Q_ASSERT(node != this);
 //    qDebug("MenuNode::leafToBranch(%s)", node->getName());
-    if (!node) return 0;
+    if (!node || (node==this)) return 0;
     MenuNode *sub = node;
 
     // get the old properties
@@ -480,12 +481,15 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
 	for (; it != old_groups.end(); ++it) {
 	    sub->joinGroup(*it);
 	}
-	
+
 	// set the old icon
 	if (!old_icon.isNull()) sub->setIcon(old_icon);
     }
 
-    delete node;    // free the old node
+    // free the old node later.
+    // IMPORTANT: we must not call "delete node" now, because we need
+    //            to call leafToBranch(this) !
+    node->deleteLater();
 
     return sub;
 }

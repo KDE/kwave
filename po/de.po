@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-21 21:15+0200\n"
-"PO-Revision-Date: 2004-04-20 20:36+0200\n"
+"POT-Creation-Date: 2004-04-24 20:09+0200\n"
+"PO-Revision-Date: 2004-04-24 18:04+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -526,7 +526,7 @@ msgstr "Leiter des Projekts seit 2000, Entwicklung der Kernapplikation"
 
 #: kwave/main.cpp:64
 msgid "creator of the project, development 1998-2000"
-msgstr "Gründer des Projekts, Entwicklung von 1988-2000"
+msgstr "Gründer des Projekts, Entwicklung von 1998-2000"
 
 #: kwave/main.cpp:68
 msgid "creator of this dialog"
@@ -2501,74 +2501,21 @@ msgstr "Amplitude: %d %%"
 msgid "about"
 msgstr "Über"
 
-#: plugins/about/AboutKwaveDialog.cpp:53
+#: plugins/about/AboutKwaveDialog.cpp:55
 msgid " (Using KDE %1)"
 msgstr " (für KDE-%1)"
 
-#: plugins/about/AboutKwaveDialog.cpp:89
+#: plugins/about/AboutKwaveDialog.cpp:91
 msgid "name"
 msgstr "Name"
 
-#: plugins/about/AboutKwaveDialog.cpp:90
+#: plugins/about/AboutKwaveDialog.cpp:92
 msgid "version"
 msgstr "Version"
 
-#: plugins/about/AboutKwaveDialog.cpp:91
+#: plugins/about/AboutKwaveDialog.cpp:93
 msgid "authors"
 msgstr "Autoren"
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:154
-msgid "About Kwave"
-msgstr "Über Kwave"
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:155
-msgid "<h1>Kwave - a sound editor for KDE</h1>"
-msgstr "<h1>Kwave - Ein Sound-Editor für KDE</h1>"
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:156
-msgid ""
-" <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
-"h2><br>\n"
-"With Kwave you can edit many sorts of \n"
-"wav-files including multi-channel files. \n"
-"You are able to alter and play back each \n"
-"channel on its own.<br>\n"
-"Kwave also includes many plugins (most \n"
-"are still under development) to transform \n"
-"the wave-file in several ways and presents \n"
-"a graphical view with a complete zoom- \n"
-"and scroll capability."
-msgstr ""
-"<h2>Kwave ist ein Sound-Editor für die KDE Desktop-Umgebung.</h2><br>\n"
-"Mit Kwave können Sie viele Arten von wav-Dateien \n"
-"bearbeiten, auch solche mit vielen Tracks. \n"
-"Sie können jeden Track einzeln verändern \n"
-"und abspielen.<br>\n"
-"Kwave enthält ebenfalls viele Plugins (von denen\n"
-"die meisten noch in Entwicklung sind) um die \n"
-"wave-Datei auf verschiedene Arten zu transformieren \n"
-"und eine graphische Ansicht mit ausgereiften Zoom- und "
-"Navigationsmöglichkeiten."
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:167
-msgid "Authors"
-msgstr "Autoren"
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:168
-msgid "Thanks To"
-msgstr "Dank an"
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:170
-msgid "Plugins found:"
-msgstr "gefundene Plugins:"
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:171
-msgid "Plugins info"
-msgstr "Plugin-Informationen"
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:172
-msgid "License agreement"
-msgstr "Lizenzbestimmungen"
 
 #: plugins/noise/NoisePlugin.cpp:49
 msgid "noise"
@@ -4328,6 +4275,51 @@ msgstr "(Resultierende Dateigröße: %1 MB)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "Neues Signal"
+
+#~ msgid "About Kwave"
+#~ msgstr "Über Kwave"
+
+#~ msgid "<h1>Kwave - a sound editor for KDE</h1>"
+#~ msgstr "<h1>Kwave - Ein Sound-Editor für KDE</h1>"
+
+#~ msgid ""
+#~ " <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
+#~ "h2><br>\n"
+#~ "With Kwave you can edit many sorts of \n"
+#~ "wav-files including multi-channel files. \n"
+#~ "You are able to alter and play back each \n"
+#~ "channel on its own.<br>\n"
+#~ "Kwave also includes many plugins (most \n"
+#~ "are still under development) to transform \n"
+#~ "the wave-file in several ways and presents \n"
+#~ "a graphical view with a complete zoom- \n"
+#~ "and scroll capability."
+#~ msgstr ""
+#~ "<h2>Kwave ist ein Sound-Editor für die KDE Desktop-Umgebung.</h2><br>\n"
+#~ "Mit Kwave können Sie viele Arten von wav-Dateien \n"
+#~ "bearbeiten, auch solche mit vielen Tracks. \n"
+#~ "Sie können jeden Track einzeln verändern \n"
+#~ "und abspielen.<br>\n"
+#~ "Kwave enthält ebenfalls viele Plugins (von denen\n"
+#~ "die meisten noch in Entwicklung sind) um die \n"
+#~ "wave-Datei auf verschiedene Arten zu transformieren \n"
+#~ "und eine graphische Ansicht mit ausgereiften Zoom- und "
+#~ "Navigationsmöglichkeiten."
+
+#~ msgid "Authors"
+#~ msgstr "Autoren"
+
+#~ msgid "Thanks To"
+#~ msgstr "Dank an"
+
+#~ msgid "Plugins found:"
+#~ msgstr "gefundene Plugins:"
+
+#~ msgid "Plugins info"
+#~ msgstr "Plugin-Informationen"
+
+#~ msgid "License agreement"
+#~ msgstr "Lizenzbestimmungen"
 
 #~ msgid "no limit"
 #~ msgstr "nicht begrenzt"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-21 21:15+0200\n"
+"POT-Creation-Date: 2004-04-24 20:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2385,63 +2385,20 @@ msgstr ""
 msgid "about"
 msgstr ""
 
-#: plugins/about/AboutKwaveDialog.cpp:53
+#: plugins/about/AboutKwaveDialog.cpp:55
 msgid " (Using KDE %1)"
 msgstr ""
 
-#: plugins/about/AboutKwaveDialog.cpp:89
+#: plugins/about/AboutKwaveDialog.cpp:91
 msgid "name"
 msgstr ""
 
-#: plugins/about/AboutKwaveDialog.cpp:90
+#: plugins/about/AboutKwaveDialog.cpp:92
 msgid "version"
 msgstr ""
 
-#: plugins/about/AboutKwaveDialog.cpp:91
+#: plugins/about/AboutKwaveDialog.cpp:93
 msgid "authors"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:154
-msgid "About Kwave"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:155
-msgid "<h1>Kwave - a sound editor for KDE</h1>"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:156
-msgid ""
-" <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
-"h2><br>\n"
-"With Kwave you can edit many sorts of \n"
-"wav-files including multi-channel files. \n"
-"You are able to alter and play back each \n"
-"channel on its own.<br>\n"
-"Kwave also includes many plugins (most \n"
-"are still under development) to transform \n"
-"the wave-file in several ways and presents \n"
-"a graphical view with a complete zoom- \n"
-"and scroll capability."
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:167
-msgid "Authors"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:168
-msgid "Thanks To"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:170
-msgid "Plugins found:"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:171
-msgid "Plugins info"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:172
-msgid "License agreement"
 msgstr ""
 
 #: plugins/noise/NoisePlugin.cpp:49

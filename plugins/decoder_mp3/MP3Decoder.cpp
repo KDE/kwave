@@ -171,14 +171,12 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
     if (header.emphasis > 0)
         m_info.set(INF_MPEG_EMPHASIS, header.emphasis);
 
-   
-    debug("framesize=%d", header.framesize);
+//  debug("framesize=%d", header.framesize);
+//  debug("frames = %u", header.frames);
     
-    debug("frames = %u", header.frames);
-    
-    m_info.set(INF_PRIVATE, header.privatebit);
-    m_info.set(INF_COPYRIGHTED, header.copyrighted);
-    m_info.set(INF_ORIGINAL, header.original);
+    if (header.privatebit)  m_info.set(INF_PRIVATE, header.privatebit);
+    if (header.copyrighted) m_info.set(INF_COPYRIGHTED, header.copyrighted);
+    if (header.original)    m_info.set(INF_ORIGINAL, header.original);
 
     m_info.setRate(header.frequency); // sample rate
     m_info.setBits(SAMPLE_BITS);      // fake Kwave's default resolution

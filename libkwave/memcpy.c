@@ -430,7 +430,7 @@ static struct {
   { NULL, NULL, 0, 0 }
 };
 
-#if defined(ARCH_X86) && defined(HAVE_SYS_TIMES_H)
+#if (defined(ARCH_X86) || defined(ARCH_X86_64)) && defined(HAVE_SYS_TIMES_H)
 static unsigned long long int rdtsc(int config_flags)
 {
   unsigned long long int x;

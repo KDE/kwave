@@ -18,8 +18,9 @@
 #include "config.h"
 #include "FileInfo.h"
 
-#define FP_INTERNAL 0x0001
-#define FP_READONLY 0x0002
+#define FP_INTERNAL     0x0001
+#define FP_READONLY     0x0002
+#define FP_NO_LOAD_SAVE 0x0004
 
 /***************************************************************************/
 void FileInfo::PropertyTypesMap::fill()
@@ -69,7 +70,7 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Shows the name of the engineer who worked on the file. "
              "If there are multiple engineers, separate the names by "
              "a semicolon and a blank."));
-    append(INF_FILENAME, FP_INTERNAL,
+    append(INF_FILENAME, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Filename"),
         i18n("Name of the opened file"));
     append(INF_GENRE, 0,
@@ -98,9 +99,9 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Specifies the name or the title the file was originally "
              "intended for."
              "\nExample: 'Linux audio collection'"));
-    append(INF_SAMPLE_FORMAT, FP_INTERNAL,
+    append(INF_SAMPLE_FORMAT, FP_INTERNAL | FP_NO_LOAD_SAVE,
              "sample_fmt", 0);
-    append(INF_SAMPLE_FORMAT_NAME, 0,
+    append(INF_SAMPLE_FORMAT_NAME, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Sample Format"),
         i18n("Format used for storing the digitized audio samples."
              "\nExample: '32-bit IEEE floating-point'"));
@@ -129,7 +130,7 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Identifies the technican who digitized the subject file. "
              "\nExample: 'Torvalds, Linus'"));
 
-    // please do not always extend here, sort in alphabetically instead...
+    // please do not extend here, sort in alphabetically instead...
 
 }
 
@@ -175,6 +176,13 @@ bool FileInfo::isInternal(FileProperty key)
 {
     int flags = m_property_map.data(key);
     return (flags & FP_INTERNAL);
+}
+
+/***************************************************************************/
+bool FileInfo::canLoadSave(FileProperty key)
+{
+    int flags = m_property_map.data(key);
+    return !(flags & FP_NO_LOAD_SAVE);
 }
 
 /***************************************************************************/

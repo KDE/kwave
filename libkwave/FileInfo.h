@@ -110,7 +110,7 @@ public:
      * @param key identifies the property
      * @param value a QVariant with the new value
      */
-    virtual void set(FileProperty key, const QVariant &value);
+    void set(FileProperty key, const QVariant &value);
 
     /**
      * Returns the value of a property. If the property does not exist,
@@ -118,15 +118,35 @@ public:
      * @param key identifies the property
      * @return value of the property or empty if not found
      */
-    virtual const QVariant &get(FileProperty key) const;
+    const QVariant &get(FileProperty key) const;
 
     /**
      * Returns true if a property is only internal.
      */
-    virtual bool isInternal(FileProperty key);
+    bool isInternal(FileProperty key);
+
+    /**
+     * Returns true if a property is intended to be saved into or
+     * loaded from a file.
+     */
+    bool canLoadSave(FileProperty key);
+
+    /**
+     * Returns the name of a property.
+     */
+    inline QString name(FileProperty key) {
+	return m_property_map.name(key);
+    };
+
+    /**
+     * Returns the localized description of a property.
+     */
+    inline QString description(FileProperty key) {
+	return m_property_map.description(key, false);
+    };
 
     /** Returns a reference to the list of non-standard properties */
-    virtual const QMap<FileProperty, QVariant> &properties() const {
+    const QMap<FileProperty, QVariant> &properties() const {
 	return m_properties;
     };
 

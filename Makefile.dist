@@ -32,7 +32,7 @@ KDEMAJOR=$(shell echo "${KDEVERSION}" | cut -d "." -f 1)
 
 KDEQTVER=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --version | grep "Qt:" | \
 	cut -d ":" -f 2 | sed s-^\ --g)
-QTDIRVER=$(shell cat ${QTDIR}/include/qglobal.h | \
+QTDIRVER=$(shell cat ${QTDIR}/include/qglobal.h 2>/dev/null | \
 	grep "\#define" | grep "QT_VERSION_STR" | \
 	cut -d \" -f 2 )
 
@@ -62,11 +62,12 @@ logged:
 	    echo "";\
 	    exit -1; \
 	);
-	-rm -f config.h
-	-rm -f config.cache
-	-rm -f config.status
-	-rm -fv `find . -name Makefile.in -o -name Makefile`
-	@-rm -f KDE-VERSION QT-DIR
+	@ -rm -f config.h
+	@ -rm -f config.cache
+	@ -rm -f config.status
+	@ -rm -f `find . -name Makefile.in -o -name Makefile`
+	@ -rm -Rf `find . -name \.deps -o -name .depend`
+	@ -rm -f KDE-VERSION QT-DIR
 	@ -touch -c doc/help_{de,fr}.po      2>/dev/null 1>/dev/null
 	@ -touch -c doc/help_{de,fr}.docbook 2>/dev/null 1>/dev/null
 	@ echo "" ; echo "your system uses:"

@@ -9,14 +9,17 @@ SGMLDIR=$(kde_datadir)/ksgmltools2
 DOCDIR = $(DESTDIR)${kde_htmldir}
 
 de/index.html: help_de.docbook
-	cd de ; \
-	meinproc --check ../help_de.docbook ; \
-	ln -s ${DOCDIR}/de/common .
+	cd de ; meinproc --check ../help_de.docbook
+	rm -Rf de/common
+	mkdir -p de/common
+	cp -R ${DOCDIR}/de/common/* de/common/
 
 en/index.html: help_en.docbook
-	cd en ; \
-	meinproc --check ../help_en.docbook ; \
-	ln -s ${DOCDIR}/de/common .
+	cd en ; meinproc --check ../help_en.docbook
+	rm -Rf en/common
+	mkdir -p en/common
+	cp -R ${DOCDIR}/en/common/* en/common/
+	cd en/common ; mv gpl-license.html gpl-translated.html
 
 help_en.pot: help_en.docbook
 	xml2pot help_en.docbook > help_en.pot
@@ -34,10 +37,12 @@ doc: help_de.docbook
 
 html-doc: en/index.html de/index.html
 
-all: doc
+html-clean:
+	for lang in ${LANGUAGES}; do { \
+	    rm -Rfv $${lang}/*.html; rm -Rf $${lang}/common; \
+	}; done
 
-doc-clean:
-	for lang in ${LANGUAGES}; do { rm -fv $${lang}/*.html; }; done
+all: doc
 
 install-data-local:
 	echo installing docs in $(DOCDIR)

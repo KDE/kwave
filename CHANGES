@@ -1,11 +1,12 @@
 
-0.6.2 [2001-??-??]
+0.6.2 [2001-10-??]
 
- * ...
+ * changed documentation to XML / Docbook-4.1
  * recovery of damaged files if non-zero file length but data length
    entry in the wav header is zero (e.g. happens when krecord crashes
    during recording)
  * bugfix: freeing virtual memory fixed in MemoryManager
+ * bugfix: problem with TSS in TSS_Object cleanup
 
 0.6.1-1 [2001-09-01]
 

@@ -2,6 +2,7 @@
 o plugin interface for aRts support
 
 o plugins for import/export of different file formats (e.g. MP3)
+  -> through aRts ?
 
 o audible/silent mode of tracks (speakers)
 
@@ -47,10 +48,13 @@ o resample signal before inserting into a signal with a different sample
 o channel mixing dialog
 
 o amplifymax does not work
+  -> aRts ?
 
 o amplifyclip does not work
+  -> aRts ?
 
 o feature "pulse train" is not yet implemented
+  -> aRts ?
 
 o move label handling to class LabelManager
 
@@ -71,13 +75,13 @@ o in CurveWidget: something goes wrong when mirroring to left
 o rework of the FFTWidget
 
 o bugfix: crash on "additive synthesis"
+  -> aRts ?
 
 o some commands do not work: fft, averagefft, distort
+  -> aRts ?
 
 o bugfix: channel mixer dialog causes segmentation fault -> disabled
-
-o amplifyfree: interpolation type is ignored (by SignalManager ?), always
-  uses linear interpolation
+  -> aRts ?
 
 o use standard KDE accelerators (see KStdAccel)
 
@@ -87,6 +91,8 @@ o import of multi-channel ASCII files
 
 o label handling doesn't work (currently disabled), work on LabelManager
   has not been started
+
+o use namespace "Kwave" for all Kwave components
 
 o splitting of i18n for kwave and each plugin
 

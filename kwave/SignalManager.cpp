@@ -178,8 +178,8 @@ unsigned int SignalManager::length()
 //***************************************************************************
 const QArray<unsigned int> SignalManager::selectedChannels()
 {
-    unsigned int channel;
-    unsigned int count = 0;
+//    unsigned int channel;
+//    unsigned int count = 0;
     QArray<unsigned int> list(0); // signal.count());
 
 //    for (channel=0; channel < signal.count(); channel++) {
@@ -1324,6 +1324,7 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
                                   unsigned int channels, int rate,
                                   int bufbase)
 {
+    return 0;
 //    const char *trouble = i18n("playback problem");
 //
 //    debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\

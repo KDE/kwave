@@ -69,20 +69,20 @@
 MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
                        KStatusBar &status)
     :QWidget(parent),
+     keys(0),
+     m_slider(0),
+     signalview(0),
      status(status),
-     menu(manage)
+     menu(manage),
+     frmChannelControls(0),
+     frmSignal(0),
+     scrollbar(0),
+     lamps(),
+     speakers(),
+     lastChannels(0)
 {
 //    debug("MainWidget::MainWidget()");
     int s[3];
-    MultiStateWidget *msw;
-
-    frmChannelControls = 0;
-    frmSignal = 0;
-    keys = 0;
-    lastChannels = 0;
-    scrollbar = 0;
-    signalview = 0;
-    m_slider = 0;
 
     // create the layout objects
     QGridLayout *topLayout = new QGridLayout(this, 3, 2, 0);
@@ -122,7 +122,8 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     lamps.setAutoDelete(true);
     lamps.clear();
-    msw = new MultiStateWidget(frmChannelControls, 0);
+    MultiStateWidget *msw =
+	new MultiStateWidget(frmChannelControls, 0);
     ASSERT(msw);
     if (!msw) return;
     lamps.append(msw);

@@ -1,6 +1,7 @@
 dnl without this order in this file, autoconf will not work!
 dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
+
 AC_INIT(acinclude.m4)
 
 AC_CONFIG_AUX_DIR(admin)
@@ -40,7 +41,7 @@ AC_PATH_KDE
 AC_ARG_PROGRAM
 
 dnl make $KDEDIR the default for the installation
-AC_PREFIX_DEFAULT(${KDEDIR:-/usr})
+dnl AC_PREFIX_DEFAULT(${KDEDIR:-/usr})
 
 dnl Checks for programs.
 AC_PROG_LN_S

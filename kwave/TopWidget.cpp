@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -105,10 +106,9 @@ TopWidget::ZoomListPrivate::ZoomListPrivate()
 static TopWidget::ZoomListPrivate zoom_factors;
 
 //***************************************************************************
-TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
+TopWidget::TopWidget(KwaveApp &main_app)
     :KMainWindow(),
-    m_app(main_app),
-    recentFiles(recent_files)
+    m_app(main_app)
 {
     int id=1000; // id of toolbar items
 
@@ -812,9 +812,12 @@ void TopWidget::updateRecentFiles()
     if (!menu) return;
 
     menu->clearNumberedMenu("ID_FILE_OPEN_RECENT");
-    for (unsigned int i = 0 ; i < recentFiles.count(); i++)
-	menu->addNumberedMenuEntry("ID_FILE_OPEN_RECENT",
-	    recentFiles.at(i));
+
+    QStringList &recent_files = m_app.recentFiles();
+    QStringList::Iterator it;
+    for (it = recent_files.begin(); it != recent_files.end(); ++it) {
+	menu->addNumberedMenuEntry("ID_FILE_OPEN_RECENT", *it);
+    }
 }
 
 //***************************************************************************
@@ -823,10 +826,8 @@ void TopWidget::updateMenu()
     ASSERT(menu);
     if (!menu) return;
 
-    char buffer[128];
-    const char *format = "ID_FILE_SAVE_RESOLUTION_%d";
-    snprintf(buffer, sizeof(buffer), format, bits);
-    menu->selectItem("@BITS_PER_SAMPLE", (const char *)buffer);
+    QString bps = QString("ID_FILE_SAVE_RESOLUTION_%1").arg(bits);
+    menu->selectItem("@BITS_PER_SAMPLE", bps);
 }
 
 //***************************************************************************

@@ -46,11 +46,7 @@ int main( int argc, char **argv )
 #endif // UNIQUE_APP
 
     KwaveApp app;
-//	app.connect(&app, SIGNAL(lastWindowClosed()),
-//	            &app, SLOT(quit()) );
     app.exec();
-
-    return 0;
 }
 
 //***************************************************************************

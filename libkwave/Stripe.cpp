@@ -94,7 +94,7 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
     if (count > samples.size()) count = samples.size();
 
     MutexGuard lock(m_lock_samples);
-    debug("Stripe::append << : adding %d samples", samples.count());
+//    debug("Stripe::append: adding %d samples", samples.count());
 
     unsigned int old_size = m_samples.size();
     unsigned int newlength = old_size + count;
@@ -108,6 +108,7 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
 	m_samples[old_size++] = samples[appended++];
     }
 
+    debug("Stripe::append(): resized to %d", m_samples.size());
     return appended;
 }
 

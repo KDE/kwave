@@ -3,7 +3,7 @@
 #define _KWAVE_APP_H_
 
 #include <qlist.h>
-#include <qstrlist.h>
+#include <qstringlist.h>
 
 #include <kuniqueapp.h>
 #include <kapp.h>
@@ -69,13 +69,13 @@ public:
     bool closeWindow(TopWidget *todel);
 
     /** Returns a reference to the list of recent files */
-    inline QStrList &getRecentFiles() {
-	return recentFiles;
+    QStringList &recentFiles() {
+	return m_recent_files;
     };
 
     /** Returns a reference to the current playback parameters */
-    static inline playback_param_t &getPlaybackParams() {
-	return playback_params;
+    static playback_param_t &getPlaybackParams() {
+	return m_playback_params;
     };
 
     /** Returns a reference to Kwave's clipboard */
@@ -121,13 +121,13 @@ private:
      * with the global list of recent files stored in the libkwave
      * library whenever there is a change.
      */
-    QStrList recentFiles;
+    QStringList m_recent_files;
 
     /** list of toplevel widgets */
-    QList<TopWidget> topwidgetlist;
+    QList<TopWidget> m_topwidget_list;
 
     /** parameters for audio playback */
-    static playback_param_t playback_params;
+    static playback_param_t m_playback_params;
 
     /** Kwave's clipboard */
     static ClipBoard &m_clipboard;

@@ -24,7 +24,7 @@
 
 class QCloseEvent;
 class QDir;
-class QStrList;
+class QStringList;
 class QTimer;
 class KCombo;
 class KDNDDropZone;
@@ -46,9 +46,8 @@ public:
      * Constructor. Creates a new toplevel widget including menu bar,
      * buttons, working are an s on.
      * @param main_app reference to the main kwave aplication object
-     * @param recent_files reference to the global list of recent files
      */
-    TopWidget(KwaveApp &main_app, QStrList &recent_files);
+    TopWidget(KwaveApp &main_app);
 
     /**
      * Returns true if this instance was successfully initialized, or
@@ -205,7 +204,7 @@ private:
      */
     class ZoomListPrivate: public QStringList
     {
-    public:
+	public:
 	ZoomListPrivate();
 	virtual ~ZoomListPrivate() {};
     };
@@ -214,7 +213,7 @@ private:
     KwaveApp &m_app;
 
     /** reference to the application's list of recent files */
-    QStrList &recentFiles;
+    // QStrList &recentFiles;
 
     /** our internal plugin manager */
     PluginManager *plugin_manager;

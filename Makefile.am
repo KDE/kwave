@@ -15,7 +15,7 @@
 #                                                                          #
 ############################################################################
 
-AUTOMAKE_OPTIONS = 1.6.1   # Require Automake 1.6.1 or better.
+AUTOMAKE_OPTIONS = 1.7.1   # Require Automake 1.7.1 or better.
 
 .PHONY: doc version-labels
 
@@ -26,11 +26,18 @@ ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
 SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
 SUBDIRS  	 = @LIBAUDIOFILE_SUBDIR@ mt libgui libkwave kwave plugins po doc
-
+EBUILD		 = kwave-@RPM_SHORT_VERSION@.ebuild
 CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
 
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
-	`find . -type l` autom4*.cache/*
+	`find . -type l` autom4*.cache/* ${EBUILD}
+
+nodist_pkgdata_DATA = ${EBUILD}
+
+${EBUILD}: VERSION kwave.ebuild
+	@ cp -v kwave.ebuild ${EBUILD}
+
+ebuild: ${EBUILD}
 
 configure.in: VERSION
 	$(srcdir)/bin/set_version.sh $(srcdir) \

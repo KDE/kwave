@@ -480,12 +480,6 @@ private:
     void refreshLayer(int layer);
 
     /**
-     * (re)starts the timer that is responsible for redrawing
-     * the playpointer if we are in playback mode.
-     */
-    void playback_startTimer();
-
-    /**
      * Converts a sample index into a pixel offset using the current zoom
      * value. Always rounds up or downwards. If the number of pixels or the
      * current zoom is less than zero, the return value will be zero.
@@ -557,9 +551,6 @@ private:
 
     /** our signal manager */
     SignalManager m_signal_manager;
-
-    /** timer for delayed screen refreshes (don't refresh too often) */
-    QTimer m_refresh_timer;
 
     /** list of track pixmaps */
     QList<TrackPixmap> m_track_pixmaps;

@@ -99,7 +99,6 @@ SignalWidget::SignalWidget(QWidget *parent)
     :QWidget(parent),
     m_inhibit_repaint(0),
     m_signal_manager(this),
-    m_refresh_timer(),
     m_track_pixmaps(),
     m_mouse_mode(MouseNormal),
     m_mouse_down_x(0)
@@ -203,8 +202,6 @@ bool SignalWidget::isOK()
 SignalWidget::~SignalWidget()
 {
     close();
-
-    m_refresh_timer.stop();
 
     if (m_pixmap == 0) delete m_pixmap;
     m_pixmap = 0;
@@ -1118,9 +1115,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
 //	t_elapsed); // ###
 //#endif
-
-//    // restart the timer for refreshing the playpointer
-//    if (m_playback_controller.running()) playback_startTimer();
 }
 
 //***************************************************************************

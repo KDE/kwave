@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-14 17:45GMT\n"
-"Last-Translator: G caulier <caulier@drfc.cad.cea.fr>\n"
-"Language-Team: français <de@li.org>\n"
+"PO-Revision-Date: 2002-01-18 23:59GMT\n"
+"Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
+"Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -316,96 +316,108 @@ msgid ""
 "fixed that weird layout behavior in dialogs, seems that Qt has problems with "
 "complex nested layouts :("
 msgstr ""
+"Correction du comportement étrange de l'affichage dans les boîtes de dialogues, depuis que la "
+" librairie Qt a des problèmes avec la contruction de boîte de dialogues complexes :("
 
 #: index.docbook:210
 msgid "0.6.1 [2001-08-24]"
-msgstr ""
+msgstr "0.6.1 [2001-08-24]"
 
 #: index.docbook:210
 msgid "USE OF VIRTUAL MEMORY"
-msgstr ""
+msgstr "UTILISATION DE LA MEMOIRE VIRTUELLE"
 
 #: index.docbook:210
 msgid ""
 "changed Makefiles: html docu stays in distribution due to too much trouble "
 "with the KDE documentation tools"
 msgstr ""
+"changement des Makefiles: la documentation html restant dans la distribution "
+" de l'application provoque des dysfonctionnement avec les outils de contruction de "
+"la documention pour KDE."
 
 #: index.docbook:210
 msgid ""
 "when inserting from clipboard into a signal with a different number of "
 "tracks, the result will be mixed (still not optimized/slow)"
 msgstr ""
+"quand on insére des données issues du presse papier vers un nombre de "
+" pistes sonnores non cohérent, le résultat est mixé (opération non optimisée / lente)."
 
 #: index.docbook:210
 msgid "fixed compile problem with gcc-2.96 / gcc-3.0"
-msgstr ""
+msgstr "correction de problème pour la compilation avec gcc-2.96 / gcc-3.0."
 
 #: index.docbook:210
 msgid "fixed missing header file in NewSigDlg.ui"
-msgstr ""
+msgstr "correction de l'oubli d'un fichier d'entête dans NewSigDlg.ui."
 
 #: index.docbook:210
 msgid "the RPM should be relocateable again"
-msgstr ""
+msgstr "le RPM doit pouvoir être relogeable lors de l'installation."
 
 #: index.docbook:210
 msgid ""
 "fixed bug in shutdown sequence, now clipboard is flushed before the "
 "application closes."
 msgstr ""
+"correction d'un bug dans les séquences de fermeture de l'application. "
+" Le presse papier est alors vidé de son contenu."
 
 #: index.docbook:210
 msgid "0.6.0 [2001-07-29]"
-msgstr ""
+msgstr "0.6.0 [2001-07-29]"
 
 #: index.docbook:210
 msgid "PORTED TO QT-2 AND KDE2"
-msgstr ""
+msgstr "PORTAGE VERS QT-2 ET KDE2"
 
 #: index.docbook:210
 msgid "completely new internal architecture"
-msgstr ""
+msgstr "architecture interne revue et corrigé complètement."
 
 #: index.docbook:210
 msgid "plugins can be located in a user directory"
-msgstr ""
+msgstr "Les plugins peuvent être instalés dans les répertoires des utilisateurs."
 
 #: index.docbook:210
 msgid ""
 "libkwave is included and no longer supported (at least by me) as a separate "
 "package"
-msgstr ""
+msgstr "libkwave est inclue dans le programme alors qu'elle était avant un package séparée."
 
 #: index.docbook:210
 msgid "playback via aRts"
-msgstr ""
+msgstr "écoute des pistes audios via le module sonore aRts."
 
 #: index.docbook:210
 msgid "many more bugfixes, too many to mention here..."
-msgstr ""
+msgstr "nombreuses correction de bogues."
 
 #: index.docbook:210
 msgid "0.5.5-1 [2001-02-23]"
-msgstr ""
+msgstr "0.5.5-1 [2001-02-23]"
 
 #: index.docbook:210
 msgid "bugfix: selection across end of file no longer possible"
-msgstr ""
+msgstr "correction de bogues : impossible de sélectionner jusqu'à la fin des pistes sonores."
 
 #: index.docbook:210
 msgid ""
 "bugfix: no overflow in wav header when saving large wav files above 268MB "
 "(bug reported by Sven-Steffen Arndt, ssa29@gmx.de )"
 msgstr ""
+"correction de bogues : plus de débordement mémoire dans le traitement des entêtes "
+" wav lors de la sauvegarde de fichiers de plus de 268Mo (bogue reporté par "
+"Sven-Steffen Arndt, ssa29@gmx.de)."
 
 #: index.docbook:210
 msgid "0.5.5 [2000-12-01]"
-msgstr ""
+msgstr "0.5.5 [2000-12-01]"
 
 #: index.docbook:210
 msgid "new playback handling, allows pause/continue"
-msgstr ""
+msgstr "nouvelle gestion de la lecture de pistes sonore avec les fonctions pause et continuer."
 
 #: index.docbook:210
 msgid ""
@@ -413,6 +425,9 @@ msgid ""
 "problems (system hang) with small playback buffers with 16..64 bytes (might "
 "be a hardware problem)"
 msgstr ""
+"limitation de la taille buffer de lecture à une valeur comprise entre 256 et 65536 octets. "
+" il ya avait quelques problèmes avec de petits buffers de lecture dont la taille était "
+" comprise entre 16 et 64 octets (peut être liés à des dysfonctionnements matèriels)."
 
 #: index.docbook:210
 msgid "introduced a toolbar for some standard operations"

@@ -212,7 +212,7 @@
             <para>0.6.3 [2002-??-??]</para>
             <itemizedlist>
                 <listitem><para>
-                    support for french translation
+                    support for french and italian translation
                 </para></listitem>
                 <listitem><para>
                     handling of "signal modified"
@@ -1790,7 +1790,7 @@
     <para>
 	For all optimized versions I used pgcc-2.95.3. For informations on
 	obtaining the pgcc compiler, visit the Homepage of the
-	the <ulink url="http://pgcc.deu.edu.tr/">Pentium Compiler Group</ulink>. They also have binaries
+	the <ulink url="http://www.goof.com/pcg/">Pentium Compiler Group</ulink>. They also have binaries
 	for most common platforms. The compiler does not only work for all
 	known Pentium derivates
 	from <ulink url="http://www.intel.com/">Intel</ulink> but also for
@@ -1799,6 +1799,7 @@
     </para>
     </sect2>
 
+    <!-- disabled, the homepage is dead or moved to nowhere, project is dead ???
     <sect2 id="optimize_athlon">
     <title>AMD Athlon</title>
     <para>
@@ -1809,6 +1810,7 @@
 	for the K6, K6-II, K6-III and maybe some others.
     </para>
     </sect2>
+    -->
 
     </sect1>
 

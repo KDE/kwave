@@ -22,11 +22,17 @@ o open file dialog: add a preview widget that shows info about the file
 
 o display zero line in dark green if range is deleted
 
+o speaker controls for "audible" mode
+
+o hourglass and process indicators for longer processes
+
 o ruler that shows the current cursor position as time
 
 o use time instead of zoom factor (e.g. set zoom to "1 minute")
 
 o extend the selection with the shift-button
+
+o context menu for the SignalWidget with Copy/Paste etc.
 
 o support for compressed wav files, like those found on www.montypython.net
 
@@ -48,7 +54,7 @@ o MainWidget: re-enable accelerator keys for 0..9
 
 o use a MenuManager in the plugins (e.g. sonagram)
 
-o resample signal before inserting into a signal with a different sample 
+o resample signal before inserting into a signal with a different sample
   rate (when doing copy/paste)
 
 o channel mixing dialog
@@ -102,8 +108,6 @@ o splitting of i18n for kwave and each plugin
 
 o more complete i18n
 
-o internationalization for other languages than german
-
 o use the KDE's clipboard
 
 o support for KDE's session management
@@ -114,7 +118,7 @@ o find the reason for that short noise at the end of playback
 o fix bug in Fx->Periodic Silence (segmentation fault)
 
 o pluginize/ put into library  the following files in src/ :
-  mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h 
+  mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h
 
 o context menu for right mouse button in SignalWidget
 

@@ -1,7 +1,7 @@
 
 0.6.3 [2002-??-??]
 
- * support for french translation
+ * support for french and italian translation
  * handling of "signal modified"
  * shows error message and aborts if loading failed
 

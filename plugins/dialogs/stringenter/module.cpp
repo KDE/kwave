@@ -8,12 +8,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="stringenter";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new StringEnterDialog(operation->getName(),operation->isModal());
 }
 //**********************************************************
-StringEnterDialog::StringEnterDialog (const char *text,bool modal): KwaveDialog(modal)
+StringEnterDialog::StringEnterDialog (const char *text,bool modal): Dialog(modal)
 {
   if (name) setCaption (klocale->translate(text));
   setCaption (klocale->translate(text));

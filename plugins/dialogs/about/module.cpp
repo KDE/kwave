@@ -13,7 +13,7 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="about";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new AboutDialog(operation->getGlobals(),operation->isModal());
 }
@@ -63,7 +63,7 @@ along with this program; if not, write to the Free Software\n\
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.\n\
 ";
 //**********************************************************
-AboutDialog::AboutDialog (const Global *globals,bool modal): KwaveDialog(modal)
+AboutDialog::AboutDialog (const Global *globals,bool modal): Dialog(modal)
 {
   resize 	(480,200);
   setCaption	("About KWave");

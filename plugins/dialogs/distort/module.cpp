@@ -3,22 +3,21 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include "module.h"
-#include <libkwave/kwavestring.h>
+#include <libkwave/String.h>
 #include <kapp.h>
-
 
 const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="distort";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new DistortDialog(operation->isModal());
 }
 //**********************************************************
 static const char *symtext[]={"symmetric","upper","lower",0}; 
 //**********************************************************
-DistortDialog::DistortDialog (bool modal): KwaveDialog(modal)
+DistortDialog::DistortDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose Line of distortion :"));

@@ -8,19 +8,19 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="fadein";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new FadeDialog(operation->isModal(),operation->getLength());
 }
 //**********************************************************
-FadeDialog::FadeDialog (bool modal,int ms): KwaveDialog(modal)
+FadeDialog::FadeDialog (bool modal,int ms): Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose fading degree :"));
 
   ok	 =new QPushButton (OK,this);
   cancel =new QPushButton (CANCEL,this);
-  slider =new KwaveSlider (-100,100,1,0,KwaveSlider::Horizontal,this);     
+  slider =new Slider      (-100,100,1,0,Slider::Horizontal,this);     
   fade   =new FaderWidget (this,1);
 
   x=new ScaleWidget (this,0,ms,"ms");

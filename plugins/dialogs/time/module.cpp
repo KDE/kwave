@@ -9,12 +9,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="time";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new TimeDialog(operation->isModal(),operation->getRate());
 }
 //**********************************************************
-TimeDialog::TimeDialog (bool modal,int rate): KwaveDialog(modal)
+TimeDialog::TimeDialog (bool modal,int rate): Dialog(modal)
 {
   comstr=0;
   resize 	(320,200);

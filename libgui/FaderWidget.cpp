@@ -4,8 +4,8 @@
 #include <qpainter.h>
 #include <math.h>
 #include <limits.h>
-#include <libkwave/kwavestring.h>
-#include "faderwidget.h"
+#include <libkwave/String.h>
+#include "FaderWidget.h"
 
 //****************************************************************************
 FaderWidget::FaderWidget (QWidget *parent,int dir) : QWidget

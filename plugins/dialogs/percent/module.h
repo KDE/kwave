@@ -3,13 +3,13 @@
 
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
-#include "../../../libgui/slider.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
+#include "../../../libgui/Slider.h"
 #include <kintegerline.h>
 
 //*****************************************************************************
-class PercentDialog : public KwaveDialog
+class PercentDialog : public Dialog
 {
  Q_OBJECT
 
@@ -27,7 +27,7 @@ class PercentDialog : public KwaveDialog
  void resizeEvent (QResizeEvent *);
 
  private:
- KwaveSlider  *slider;
+ Slider      *slider;
  QLabel      *label; 
  QPushButton *ok,*cancel;
  char        *comstr;

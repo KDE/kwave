@@ -3,7 +3,7 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include <qcombobox.h>
-#include <libkwave/interpolation.h>
+#include <libkwave/Interpolation.h>
 #include  "module.h"
 #include <kapp.h>
 
@@ -12,19 +12,19 @@ const char *author="Martin Wilz";
 const char *name="envelope";
 
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new EnvelopeDialog (operation->isModal());
 }
 //**********************************************************
-EnvelopeDialog::EnvelopeDialog (bool modal): KwaveDialog(modal)
+EnvelopeDialog::EnvelopeDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   Interpolation interpolation(0);
 
   setCaption	(klocale->translate("Choose Envelope Parameters"));
   timelabel	=new QLabel	(klocale->translate("Points are taken 20 times/s"),this);
-  timeslider	=new KwaveSlider (1,1000,1,10,KwaveSlider::Horizontal,this);     
+  timeslider	=new Slider     (1,1000,1,10,Slider::Horizontal,this);     
   typelabel	=new QLabel	(klocale->translate("Type of Interpolation :"),this);
   typebox	=new QComboBox  (true,this);
   typebox->insertStrList (interpolation.getTypes(),-1);

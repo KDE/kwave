@@ -9,9 +9,9 @@ const char *version="";
 const char *author="";
 const char *name="";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
-  return new KwaveDialog(operation->isModal());
+  return new Dialog(operation->isModal());
 }
 //**********************************************************
 

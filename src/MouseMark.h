@@ -1,6 +1,8 @@
 #ifndef _KWAVEMOUSEMARK_H_
 #define _KWAVEMOUSEMARK_H_ 1
+
 #include <qobject.h>
+
 class QWidget;
 class MouseMark:public QObject
 {

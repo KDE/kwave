@@ -10,13 +10,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="mix";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new ChannelMixDialog(operation->isModal(),operation->getChannels());
 }
 //**********************************************************
-ChannelMixDialog::ChannelMixDialog (bool modal,int channels)
-:KwaveDialog(modal)
+ChannelMixDialog::ChannelMixDialog (bool modal,int channels) : Dialog(modal)
 {
   dbmode=true;
   tflag=false;
@@ -30,7 +29,7 @@ ChannelMixDialog::ChannelMixDialog (bool modal,int channels)
   channelname=new QLabel *[channels]; 
   value=new double[channels];
   valuebox=new FloatLine *[channels];
-  slider=new KwaveSlider *[channels];
+  slider=new Slider *[channels];
   
   tochannellabel=new QLabel (klocale->translate("mix to channel :"),this);
   tochannel=new QComboBox (this);
@@ -45,7 +44,7 @@ ChannelMixDialog::ChannelMixDialog (bool modal,int channels)
 	char buf [32];
 	sprintf (buf,"Channel %d :",i+1);
 	channelname[i]=new QLabel (buf,this);
-	slider[i]=new KwaveSlider (0,25*60,1,0,KwaveSlider::Horizontal,this);
+	slider[i]=new Slider (0,25*60,1,0,Slider::Horizontal,this);
 	valuebox[i]=new FloatLine (this);
 	connect (valuebox[i],SIGNAL(textChanged(const char *)),this,SLOT(setValue(const char *)));
 

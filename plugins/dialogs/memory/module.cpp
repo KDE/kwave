@@ -9,12 +9,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="memory";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new MemoryDialog(operation->isModal());
 }
 //**********************************************************
-MemoryDialog::MemoryDialog (bool modal): KwaveDialog(modal)
+MemoryDialog::MemoryDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   setCaption (klocale->translate("Memory Options :"));

@@ -7,7 +7,7 @@
 
 #include "../libgui/curvewidget.h"
 #include "../libgui/curvewidget.h"
-#include "../libgui/scale.h"
+#include "../libgui/ScaleWidget.h"
 #include "../libgui/slider.h"
 
 #include <kintegerline.h>

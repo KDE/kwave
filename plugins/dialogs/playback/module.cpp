@@ -12,12 +12,12 @@ const char *author="Martin Wilz";
 const char *name="playback";
 static const char *devicetext[]={"/dev/dsp","/dev/dio",0}; 
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new PlayBackDialog(operation->isModal());
 }
 //**********************************************************
-PlayBackDialog::PlayBackDialog (bool modal): KwaveDialog (modal)
+PlayBackDialog::PlayBackDialog (bool modal): Dialog (modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Playback Options :"));
@@ -44,7 +44,7 @@ PlayBackDialog::PlayBackDialog (bool modal): KwaveDialog (modal)
   vbox->addWidget(b8);
   b8->setMinimumSize( b8->sizeHint() );
  
-  buffersize=new QSlider (4,16,1,5,QSlider::Horizontal,this);
+  buffersize=new Slider (4,16,1,5,Slider::Horizontal,this);
   bufferlabel=new QLabel ("",this); 
   setBufferSize (5);
   QToolTip::add( buffersize, klocale->translate("This is the size of the buffer used for communication with the sound driver\nIf your computer is rather slow select a big buffer"));

@@ -1,8 +1,8 @@
 #include <qlist.h>
-#include "mainwidget.h"
+#include "MainWidget.h"
 #include <drag.h>
-#include "kwaveapp.h"
-#include "../libgui/menumanager.h"
+#include "KwaveApp.h"
+#include "../libgui/MenuManager.h"
 
 class TopWidget : public KTMainWindow
 {

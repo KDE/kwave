@@ -1,15 +1,15 @@
-#ifndef _SONAGRAM_H_
-#define _SONAGRAM_H_ 1
+#ifndef _SONAGRAM_WINDOW_H_
+#define _SONAGRAM_WINDOW_H_ 1
 
-#include <qpixmap.h>
-#include <qimage.h>
 #include <qtimer.h>
 #include <qpushbt.h>
 #include <qstring.h>
-#include <qwidget.h>
 #include <qpainter.h>
-#include "../libgui/overview.h"
-#include "../libgui/scale.h"
+#include <qimage.h>
+#include <qpixmap.h>
+
+#include "../libgui/OverViewWidget.h"
+#include "../libgui/ScaleWidget.h"
 
 #include <kapp.h>
 #include <ktopwidget.h>
@@ -17,61 +17,8 @@
 #include <kstatusbar.h>  
 
 #include <libkwave/gsl_fft.h>
-//***********************************************************************
-class ImageView : public QWidget
-{
- Q_OBJECT
- public:
- 	ImageView	(QWidget *parent=0);
- 	~ImageView	();
- void	mouseMoveEvent	(QMouseEvent * );
- void 	setImage	(QImage *image);
- int    getWidth        ();
- int    getOffset       ();
-
- public slots:
-
- void 	setOffset		(int);
-
- signals:
-
- void   viewInfo(int,int,int);
- void   info (double,double);
-
- protected:
-
- void	paintEvent(QPaintEvent *);
-
- private:
- int            height,width;
- int            offset;
- int            lh,lw;
- QImage         *image;
- QPixmap        map;
-};
-//***********************************************************************
-class SonagramContainer : public QWidget
-{
- Q_OBJECT
- public:
- 	SonagramContainer	(QWidget *parent);
- 	~SonagramContainer	();
- void 	setObjects	(ImageView *view,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner,OverViewWidget *overview=0);
-
- public slots:
-
- signals:
-
- protected:
-
- void	resizeEvent	(QResizeEvent *);
-
- private:
- ImageView     *view;
- ScaleWidget   *xscale,*yscale;
- CornerPatchWidget *corner;
- OverViewWidget *overview;
-};
+class ImageView;
+class SonagramContainer;
 //***********************************************************************
 class SonagramWindow : public KTopLevelWidget
 {

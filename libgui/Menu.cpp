@@ -1,26 +1,16 @@
 #include <stdio.h>
-#include "kwavemenu.h"
-#include <libkwave/parser.h>
-#include <libkwave/kwavestring.h>
-#include <libkwave/globals.h>
-#include <libkwave/messageport.h>
+#include <libkwave/Parser.h>
+#include <libkwave/String.h>
+#include <libkwave/Global.h>
+#include <libkwave/MessagePort.h>
 #include <kapp.h>
+#include "Menu.h"
+#include "MenuCommand.h"
 
 extern struct Global globals;
 static int unique_menu_id=0;
 //*****************************************************************************
-MenuCommand::MenuCommand (const char *command,int id)
-{
-  this->command=duplicateString(command);
-  this->id=id;
-};
-//*****************************************************************************
-MenuCommand::~MenuCommand ()
-{
-  if (command) deleteString (command);
-}
-//*****************************************************************************
-int KwavePopMenu::getUniqueId ()
+int Menu::getUniqueId ()
 {
   int x=unique_menu_id;
   unique_menu_id++;
@@ -28,7 +18,7 @@ int KwavePopMenu::getUniqueId ()
   return x;
 }
 //*****************************************************************************
-int KwavePopMenu::getIdRange (int num)
+int Menu::getIdRange (int num)
 {
   int x=unique_menu_id;
   unique_menu_id+=num;
@@ -36,7 +26,7 @@ int KwavePopMenu::getIdRange (int num)
   return x;
 }
 //*****************************************************************************
-KwavePopMenu::KwavePopMenu (const char *name,int id): QPopupMenu()
+Menu::Menu (const char *name,int id): QPopupMenu()
 {
   this->name=duplicateString (name);
   this->id=id;
@@ -47,19 +37,19 @@ KwavePopMenu::KwavePopMenu (const char *name,int id): QPopupMenu()
   com=0;
 }
 //*****************************************************************************
-void KwavePopMenu::setCommand (const char *com)
+void Menu::setCommand (const char *com)
   //enables checking of menu entries
 {
   this->com=duplicateString (com);
 }
 //*****************************************************************************
-void KwavePopMenu::numberable ()
+void Menu::numberable ()
   //enables checking of menu entries
 {
   numberItems=true;
 }
 //*****************************************************************************
-void KwavePopMenu::checkable ()
+void Menu::checkable ()
   //enables checking of menu entries
 {
   checkItems=true;
@@ -68,7 +58,7 @@ void KwavePopMenu::checkable ()
   checked=-1; 
 }
 //*****************************************************************************
-int KwavePopMenu::insertEntry (const char *name,const char *command, int keycode)
+int Menu::insertEntry (const char *name,const char *command, int keycode)
 {
   int id=getUniqueId();
   int key;
@@ -78,7 +68,7 @@ int KwavePopMenu::insertEntry (const char *name,const char *command, int keycode
   return key; // return the real id of the menu entry
 }
 //*****************************************************************************
-void KwavePopMenu::selected (int num)
+void Menu::selected (int num)
 {
   if (numberItems)
     {
@@ -110,7 +100,7 @@ void KwavePopMenu::selected (int num)
     }
 }
 //*****************************************************************************
-void KwavePopMenu::check ()
+void Menu::check ()
   //checks currently checked menu item
 {
   if (checkItems)
@@ -120,7 +110,7 @@ void KwavePopMenu::check ()
     }
 }
 //*****************************************************************************
-void KwavePopMenu::check (int num)
+void Menu::check (int num)
   //checkmarks a new item, removes check from old item
 {
   if (checkItems)
@@ -131,15 +121,15 @@ void KwavePopMenu::check (int num)
     }
 }
 //*****************************************************************************
-void KwavePopMenu::insertMenu (KwavePopMenu *entry)
+void Menu::insertMenu (Menu *entry)
 {
   children.append (entry);
   this->insertItem (klocale->translate(entry->getName()),entry);
 }
 //*****************************************************************************
-void KwavePopMenu::removeMenu (const char *name)
+void Menu::removeMenu (const char *name)
 {
-  KwavePopMenu *menu=findMenu(name);
+  Menu *menu=findMenu(name);
   if (menu)
     {
       int index=menu->getId();
@@ -149,9 +139,9 @@ void KwavePopMenu::removeMenu (const char *name)
     }
 }
 //*****************************************************************************
-KwavePopMenu *KwavePopMenu::findMenu (const char *name)
+Menu *Menu::findMenu (const char *name)
 {
-  KwavePopMenu *tmp=children.first();
+  Menu *tmp=children.first();
 
   while (tmp)
     {
@@ -161,7 +151,7 @@ KwavePopMenu *KwavePopMenu::findMenu (const char *name)
   return 0;
 }
 //*****************************************************************************
-KwavePopMenu::~KwavePopMenu ()
+Menu::~Menu ()
 {
   deleteString (name);
   deleteString (com);

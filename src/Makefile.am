@@ -24,21 +24,32 @@ INCLUDES= @all_includes@
 ####### This part is very kwave specific
 bin_PROGRAMS  = kwave
 
-SINGLE_DIALOG_SRC=dialog_progress.cpp \
- dialog_sweep.cpp dialog_frequency.cpp dialog_fixedfreq.cpp
 
-SINGLE_DIALOGS=mdialog_progress.cpp \
- mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp
- 
+
+# conversion to modules to do for the following files:
+# mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h
+
 # Which sources should be compiled for kwave.
-kwave_SOURCES =  $(SINGLE_DIALOGS) $(SINGLE_DIALOG_SRC) \
- signalview.cpp main.cpp mainwidget.cpp signalio.cpp signalplay.cpp \
- fftview.cpp addsynth.cpp sonagram.cpp signalmanager.cpp labels.cpp\
- pitchwidget.cpp filterwidget.cpp clipboard.cpp mousemark.cpp kwaveapp.cpp\
- mmain.cpp msignalview.cpp mmainwidget.cpp \
- maddsynth.cpp mfftview.cpp msonagram.cpp\
- mmousemark.cpp mfilterwidget.cpp mkwaveapp.cpp\
- mpitchwidget.cpp
+
+kwave_SOURCES =\
+ main.cpp\
+ ClipBoard.cpp\
+ FFTContainer.cpp\
+ FFTWindow.cpp\
+ ImageView.cpp\
+ KwaveApp.cpp\
+ MainWidget.cpp\
+ MouseMark.cpp\
+ PitchContainer.cpp\
+ PitchWidget.cpp\
+ PitchWindow.cpp\
+ ProgressDialog.cpp\
+ SignalManager.cpp\
+ SignalWidget.cpp\
+ SonagramContainer.cpp\
+ SonagramWindow.cpp\
+ TopWidget.cpp\
+ mFFTContainer.cpp mFFTWindow.cpp mImageView.cpp mMouseMark.cpp mKwaveApp.cpp mMainWidget.cpp mPitchContainer.cpp mPitchWidget.cpp mPitchWindow.cpp  mProgressDialog.cpp mSignalWidget.cpp mSonagramContainer.cpp mSonagramWindow.cpp mTopWidget.cpp
 
 # the library search path
 kwave_LDFLAGS = @all_libraries@ -L$(topdir)/libgui/.libs
@@ -48,10 +59,8 @@ kwave_LDFLAGS = @all_libraries@ -L$(topdir)/libgui/.libs
 kwave_LDADD   = -lkfm -lkdeui -lkdecore -lkwavegui -lqt -lX11 -lXext \
 -lkwave -lpthread -ldl
 
-# just to make sure, automake makes them 
- BUILTSOURCES =	 $(SINGLE_DIALOGS) mmain.cpp msignalview.cpp \
- maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp mkwaveapp.cpp\
- mpitchwidget.cpp mmainwidget.cpp mmousemark.cpp
+# BUILTSOURCES =\
+ mFFTContainer.cpp mFFTWindow.cpp mImageView.cpp mMouseMark.cpp mKwaveApp.cpp mMainWidget.cpp mPitchContainer.cpp mPitchWidget.cpp mPitchWindow.cpp  mProgressDialog.cpp mSignalWidget.cpp mSonagramContainer.cpp mSonagramWindow.cpp mTopWidget.cpp
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
@@ -93,46 +102,32 @@ uninstall-local:
 
 # add a dependency for every moc file to be full portable
 
-main.cpp: mmain.cpp
-mmain.cpp: main.h
-	$(MOC) -o mmain.cpp main.h
-mkwaveapp.cpp: kwaveapp.h
-	$(MOC) -o mkwaveapp.cpp kwaveapp.h
-msignalview.cpp: signalview.h
-	$(MOC) -o msignalview.cpp signalview.h
-mmainwidget.cpp: mainwidget.h
-	$(MOC) -o mmainwidget.cpp mainwidget.h
-maddsynth.cpp: addsynth.h
-	$(MOC) -o maddsynth.cpp addsynth.h
-mfilterwidget.cpp: filterwidget.h
-	$(MOC) -o mfilterwidget.cpp filterwidget.h
-mfftview.cpp: fftview.h
-	$(MOC) -o mfftview.cpp fftview.h
-msonagram.cpp: sonagram.h
-	$(MOC) -o msonagram.cpp sonagram.h
-mmousemark.cpp: mousemark.h
-	$(MOC) -o mmousemark.cpp mousemark.h
-mpitchwidget.cpp: pitchwidget.h
-	$(MOC) -o mpitchwidget.cpp pitchwidget.h
-
-#single dialogs
-mdialog_progress.cpp: dialog_progress.h
-	$(MOC) -o mdialog_progress.cpp dialog_progress.h
-mdialog_frequency.cpp: dialog_frequency.h
-	$(MOC) -o mdialog_frequency.cpp dialog_frequency.h
-mdialog_sweep.cpp: dialog_sweep.h
-	$(MOC) -o mdialog_sweep.cpp dialog_sweep.h
-mdialog_fixedfreq.cpp: dialog_fixedfreq.h
-	$(MOC) -o mdialog_fixedfreq.cpp dialog_fixedfreq.h
-
-
-
-
-
-
-
-
-
-
-
+mFFTWindow.cpp: FFTWindow.h
+	$(MOC) -o mFFTWindow.cpp FFTWindow.h
+mFFTContainer.cpp: FFTContainer.h
+	$(MOC) -o mFFTContainer.cpp FFTContainer.h
+mImageView.cpp: ImageView.h
+	$(MOC) -o mImageView.cpp ImageView.h
+mKwaveApp.cpp: KwaveApp.h
+	$(MOC) -o mKwaveApp.cpp KwaveApp.h
+mMainWidget.cpp: MainWidget.h
+	$(MOC) -o mMainWidget.cpp MainWidget.h
+mMouseMark.cpp: MouseMark.h
+	$(MOC) -o mMouseMark.cpp MouseMark.h
+mPitchWidget.cpp: PitchWidget.h
+	$(MOC) -o mPitchWidget.cpp PitchWidget.h
+mPitchContainer.cpp: PitchContainer.h
+	$(MOC) -o mPitchContainer.cpp PitchContainer.h
+mPitchWindow.cpp: PitchWindow.h
+	$(MOC) -o mPitchWindow.cpp PitchWindow.h
+mProgressDialog.cpp: ProgressDialog.h
+	$(MOC) -o mProgressDialog.cpp ProgressDialog.h
+mSignalWidget.cpp: SignalWidget.h
+	$(MOC) -o mSignalWidget.cpp SignalWidget.h
+mSonagramContainer.cpp: SonagramContainer.h
+	$(MOC) -o mSonagramContainer.cpp SonagramContainer.h
+mSonagramWindow.cpp: SonagramWindow.h
+	$(MOC) -o mSonagramWindow.cpp SonagramWindow.h
+mTopWidget.cpp: TopWidget.h
+	$(MOC) -o mTopWidget.cpp TopWidget.h
 

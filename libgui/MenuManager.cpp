@@ -1,72 +1,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <qstack.h>
-#include "menumanager.h"
-#include <libkwave/parser.h>
-#include <libkwave/kwavestring.h>
+#include "Menu.h"
+#include "MenuManager.h"
+#include "NumberedMenu.h"
+#include <libkwave/Parser.h>
+#include <libkwave/String.h>
 #include <kapp.h>
 #include <klocale.h>
 
-NumberedMenu::NumberedMenu (const char *name)
-{
-  objname=duplicateString (name);
-}
-//*****************************************************************************
-void NumberedMenu::clear ()
-{
-  entries.clear ();
-  refresh ();
-}
-//*****************************************************************************
-void NumberedMenu::notifyMenu (KwavePopMenu *menu)
-{
-  notifymenus.append (menu);
-}
-//*****************************************************************************
-void NumberedMenu::addEntry (const char *entry)
-{
-  entries.append (duplicateString (entry));
-  refresh ();
-}
-//*****************************************************************************
-void NumberedMenu::refresh ()
-{
-  //refresh of menus already in menu tree
-  KwavePopMenu *tmp=notifymenus.first();
-
-  while (tmp)
-    {
-      tmp->clear();  //clear menu
-      int itemcnt=0;
-      int id=tmp->getMemberId();
-
-      const char *entry=entries.first();  //and insert all entries from scratch
-
-      while ((entry)&&(itemcnt<MENUMAX))
-	{
-	  tmp->insertItem (entry,id+itemcnt);
-	  entry=entries.next();
-	  itemcnt++;
-	}
-
-      tmp->check(); //call just in case an update of the checkmark is needed
-
-      tmp=notifymenus.next();
-    }
-}
-//*****************************************************************************
-const char *NumberedMenu::name ()
-{
-  return objname;
-}
-//*****************************************************************************
-NumberedMenu::~NumberedMenu ()
-{
-  entries.setAutoDelete (true);
-  entries.clear();
-  notifymenus.clear();
-  delete objname;
-}
 //*****************************************************************************
 MenuManager::MenuManager (QWidget *parent,KMenuBar *bar):QObject (parent)
 {
@@ -75,9 +17,9 @@ MenuManager::MenuManager (QWidget *parent,KMenuBar *bar):QObject (parent)
   numberedMenus.clear ();
 }
 //*****************************************************************************
-KwavePopMenu  *MenuManager::findMenu (const char *name)
+Menu  *MenuManager::findMenu (const char *name)
 {
-  KwavePopMenu *tmp=toplevelmenus.first();
+  Menu *tmp=toplevelmenus.first();
   while (tmp)
     {
       if (strcmp(tmp->getName(),name)==0) return tmp;
@@ -86,7 +28,7 @@ KwavePopMenu  *MenuManager::findMenu (const char *name)
   return 0;
 }
 //*****************************************************************************
-void MenuManager::deleteMenus (KwaveMenuItem *newmenus)
+void MenuManager::deleteMenus (MenuItem *newmenus)
 {
 }
 //*****************************************************************************
@@ -130,7 +72,7 @@ void MenuManager::setCommand (const char *command)
   if (bar)
     {
       //      printf  ("%s\n",command);
-      KwaveParser parser(command);
+      Parser parser(command);
 
       const char *tmp;
       char *pos=0;
@@ -148,8 +90,8 @@ void MenuManager::setCommand (const char *command)
 
       if (pos) //if position of menu is given
 	{
-	  KwavePopMenu *parentmenu=0;
-	  KwavePopMenu *newmenu=0;
+	  Menu *parentmenu=0;
+	  Menu *newmenu=0;
 
 	  int len=strlen(pos);
 	  int cnt=0;
@@ -169,7 +111,7 @@ void MenuManager::setCommand (const char *command)
 		    if ((strncmp (&pos[begin],"listmenu",8)==0))
 		      {
 			//create a numbered Menu and connect it to the parent
-			KwaveParser getname(&pos[begin]);
+			Parser getname(&pos[begin]);
 			NumberedMenu *newmenu=
 			  addNumberedMenu (getname.getFirstParam());
 			if (newmenu)
@@ -211,7 +153,7 @@ void MenuManager::setCommand (const char *command)
 
 	      if (!newmenu) //if menu is not already known, create a new menu
 		{
-		  newmenu=new KwavePopMenu (&pos[begin],KwavePopMenu::getUniqueId());
+		  newmenu=new Menu (&pos[begin],Menu::getUniqueId());
 		  if (newmenu)
 		    {
 //		      debug("new menu='%s'", pos+begin); // ###
@@ -244,13 +186,13 @@ void MenuManager::setCommand (const char *command)
   else debug ("Menumanager:no menu bar, somthing went wrong !\n");
 }
 //*****************************************************************************
-void MenuManager::appendMenus (KwaveMenuItem *newmenus)
+void MenuManager::appendMenus (MenuItem *newmenus)
 {
   if (bar)
     {
       int cnt=0;
 
-      KwavePopMenu *menu=0;
+      Menu *menu=0;
       while (newmenus[cnt].type!=0)
 	{
 	  switch (newmenus[cnt].type)
@@ -259,7 +201,7 @@ void MenuManager::appendMenus (KwaveMenuItem *newmenus)
 	      {
 		if (menu)
 		  {
-		    if (newmenus[cnt].id==-1) newmenus[cnt].id=KwavePopMenu::getIdRange (MENUMAX);
+		    if (newmenus[cnt].id==-1) newmenus[cnt].id=Menu::getIdRange (MENUMAX);
 		    //get known numberedMenu
 		    NumberedMenu *nummenu=findNumberedMenu ((char *)newmenus[cnt].name);
 
@@ -281,7 +223,7 @@ void MenuManager::appendMenus (KwaveMenuItem *newmenus)
 	      {
 		if (menu)
 		  {
-		    if (newmenus[cnt].id==-1) newmenus[cnt].id=KwavePopMenu::getUniqueId ();
+		    if (newmenus[cnt].id==-1) newmenus[cnt].id=Menu::getUniqueId ();
 
 		    menu->insertItem ("My guess is there is a bug in qtlib/setAccel !",newmenus[cnt].id);
 		    if (newmenus[cnt].shortcut!=-1) //check for existence qt shortcut code
@@ -306,7 +248,7 @@ void MenuManager::appendMenus (KwaveMenuItem *newmenus)
 void MenuManager::checkMenuEntry (const char *name,bool check)
 {
 
-  KwavePopMenu *top=toplevelmenus.first();
+  Menu *top=toplevelmenus.first();
   while (top)
     {
 //      fprintf(stderr, "toplevel menu name='%s'\n", top->getName()); // ###
@@ -314,8 +256,6 @@ void MenuManager::checkMenuEntry (const char *name,bool check)
 	{
 	  debug("menu found!\n");
 	}
-
-//      KwavePopMenu *child = top->
 
       top=toplevelmenus.next();
     }

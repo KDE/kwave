@@ -1,124 +1,20 @@
 #include <qdir.h>
-#include <qpainter.h>
 #include <math.h>
 #include <limits.h>
-#include <qcursor.h>
 
-#include "dialog_progress.h"
-#include "main.h"
-#include "sonagram.h"
-#include "signalmanager.h"
-
-#include <libkwave/kwavesignal.h>
-#include <libkwave/windowfunction.h>
+#include <qfiledialog.h>
+#include "ProgressDialog.h"
+#include "SonagramWindow.h"
+#include "ImageView.h"
+#include "SignalManager.h"
+#include "SonagramContainer.h"
+#include "TopWidget.h"
+#include <libkwave/Signal.h>
+#include <libkwave/WindowFunction.h>
 #include <kmsgbox.h>
 
 extern KApplication *app;
 extern char *mstotimec (int ms); 
-//****************************************************************************
-ImageView::ImageView	(QWidget *parent) : QWidget (parent)
-{
-  image=0;
-  lh=-1;
-  lw=-1;
-  offset=0;
-  setCursor (crossCursor);
-}
-//****************************************************************************
-ImageView::~ImageView ()
-{
-}
-//****************************************************************************
-void ImageView::mouseMoveEvent	(QMouseEvent *e)
-{
-  int x=e->pos().x();
-  if ((x<width)&&(x>=0))
-    {
-      int y=e->pos().y();
-
-      if ((y>=0)&&(y<height))
-	emit info ((double)x/width,(double)(height-y)/height);
-    }
-}
-//****************************************************************************
-int  ImageView::getOffset () {return offset;}
-int  ImageView::getWidth () {return width;}
-void ImageView::setImage (QImage *image)
-{
-  this->image=image;
-  repaint ();
-}
-//****************************************************************************
-void ImageView::setOffset (int offset)
-{
-  if (this->offset!=offset)
-    {
-      this->offset=offset;
-      repaint ();
-    }
-}
-//****************************************************************************
-void ImageView::paintEvent (QPaintEvent *)
-{
-  height=rect().height();
-  width=rect().width();
-
-  if (image)
-    {
-      if ((lh!=height)||((lw!=width)&&(image->width()<width)))
-	{
-	  if (offset>image->width()-width) offset=image->width()-width;
-	  QWMatrix matrix;
-	  QPixmap newmap;
-	  newmap.convertFromImage (*image,0);
-
-	  if (image->width()<width)
-	    {
-	      offset=0; 
-	      matrix.scale (((float)width)/image->width(),((float)height)/image->height());
-	    }
-	  else
-	    matrix.scale (1,((float)height)/image->height());
-
-	  map=(newmap.xForm (matrix));
-	  lh=height;
-	  lw=width;
-	}
-      emit viewInfo	(offset,width,image->width());
-      bitBlt (this,0,0,&map,offset,0,width,height);
-    }
-}
-//****************************************************************************
-SonagramContainer::SonagramContainer (QWidget *parent): QWidget (parent)
-{
-  this->view=0;
-}
-//****************************************************************************
-void SonagramContainer::setObjects (ImageView *view,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner,OverViewWidget *overview)
-{
-  this->view=view;
-  this->xscale=x;
-  this->yscale=y;
-  this->corner=corner;
-  this->overview=overview;
-}
-//****************************************************************************
-SonagramContainer::~SonagramContainer ()
-{
-}
-//****************************************************************************
-void SonagramContainer::resizeEvent	(QResizeEvent *)
-{
-  if (view)
-    {
-      int bsize=(QPushButton("test",this).sizeHint()).height();
-      view->setGeometry	(bsize,0,width()-bsize,height()-bsize*2);  
-      xscale->setGeometry	(bsize,height()-bsize*2,width()-bsize,bsize);  
-      overview->setGeometry	(bsize,height()-bsize,width()-bsize,bsize);  
-      yscale->setGeometry	(0,0,bsize,height()-bsize*2);
-      corner->setGeometry	(0,height()-bsize*2,bsize,bsize);  
-    }
-}
 //****************************************************************************
 SonagramWindow::SonagramWindow (QString *name) : KTopLevelWidget ()
 {
@@ -305,7 +201,7 @@ void  SonagramWindow::toSignal ()
 
   if (win)
     {
-      KwaveSignal *newsig=new KwaveSignal (length,rate);
+      Signal *newsig=new Signal (length,rate);
       //assure 10 Hz for correction signal, this should not be audible
       int slopesize=rate/10;
 

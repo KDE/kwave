@@ -7,11 +7,11 @@
 #include <qradiobutton.h> 
 #include <qbuttongroup.h>
 
-#include "../../../libgui/slider.h"
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Slider.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 //*****************************************************************************
-class PlayBackDialog : public KwaveDialog
+class PlayBackDialog : public Dialog
 {
  Q_OBJECT
 
@@ -32,7 +32,7 @@ class PlayBackDialog : public KwaveDialog
  private:
 
  QLabel		*bufferlabel;
- KwaveSlider    *buffersize;
+ Slider         *buffersize;
  QLabel         *devicelabel;
  QComboBox      *devicebox;
  QCheckBox      *stereo;

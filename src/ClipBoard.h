@@ -1,6 +1,6 @@
 #ifndef _KWAVECLIPBOARD_H_
 #define _KWAVECLIPBOARD_H_ 1
-#include "signalmanager.h"
+#include "SignalManager.h"
 
 class KwaveSignal;
 
@@ -12,7 +12,7 @@ class ClipBoard
   ClipBoard::~ClipBoard ();
 
   void toWindow ();
-  void appendChannel  (KwaveSignal *);
+  void appendChannel  (Signal *);
 
   inline SignalManager *getSignal () {return signal;};
   inline int            getLength ()

@@ -1,5 +1,5 @@
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 
 #include <qdialog.h>
 #include <qdir.h>
@@ -7,14 +7,14 @@
 #include <qcombobox.h>
 #include <qradiobt.h>
 
-#include "../../../libgui/slider.h"
-#include <libkwave/filter.h>
-#include "../../../libgui/fftwidget.h"
-#include "../../../libgui/scale.h"
+#include "../../../libgui/Slider.h"
+#include <libkwave/Filter.h>
+#include "../../../libgui/FFTWidget.h"
+#include "../../../libgui/ScaleWidget.h"
 #include <kintegerline.h>
 
 //*****************************************************************************
-class FilterDialog : public KwaveDialog
+class FilterDialog : public Dialog
 {
  Q_OBJECT
 
@@ -48,7 +48,7 @@ class FilterDialog : public KwaveDialog
  KIntegerLine*      taps;
 
  QLabel**           label;
- KwaveSlider**      mult;
+ Slider**           mult;
  KIntegerLine**     offset;
 
  QPushButton*       load;

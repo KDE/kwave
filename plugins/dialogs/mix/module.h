@@ -5,12 +5,13 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include "../../../libgui/slider.h"
-#include "../../../libgui/guiitems.h"
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Slider.h"
+#include "../../../libgui/FloatLine.h"
+#include "../../../libgui/TimeLine.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 
-class ChannelMixDialog : public KwaveDialog
+class ChannelMixDialog : public Dialog
 {
  Q_OBJECT
 
@@ -34,7 +35,7 @@ class ChannelMixDialog : public KwaveDialog
 
  QLabel         **channelname;
  FloatLine      **valuebox;
- KwaveSlider    **slider;
+ Slider         **slider;
  QPushButton	*ok,*cancel;
  QLabel         *tochannellabel;
  QComboBox      *tochannel;

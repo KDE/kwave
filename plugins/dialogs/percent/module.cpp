@@ -9,17 +9,17 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="percent";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new PercentDialog(operation->isModal(),operation->getName());
 }
 //**********************************************************
-PercentDialog::PercentDialog (bool modal,const char *title): KwaveDialog(modal)
+PercentDialog::PercentDialog (bool modal,const char *title) : Dialog(modal)
 {
   comstr=0;
   setCaption	(title);
 
-  slider=new KwaveSlider (1,1000,1,500,KwaveSlider::Horizontal,this);
+  slider=new Slider (1,1000,1,500,Slider::Horizontal,this);
   label =new QLabel ("",this);
   setValue  (500);
 

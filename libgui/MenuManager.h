@@ -5,27 +5,12 @@
 #include <qwidget.h>
 #include <qlist.h>
 #include <qkeycode.h>
-#include <kmenubar.h>
-#include <qpopmenu.h>
-#include "../libgui/kwavemenu.h"
-#include <libkwave/menuitem.h>
+//#include <qpopmenu.h>
+#include "../libgui/Menu.h"
+#include <libkwave/MenuItem.h>
 
-class NumberedMenu
-{
- public:
-  NumberedMenu          (const char *name);
-  ~NumberedMenu         ();
-  void       clear      ();
-  void       notifyMenu (KwavePopMenu *menu);
-  void       addEntry   (const char *name);
-  void       refresh    ();
-  const char *name      ();
-
- private:
-  const char       *  objname;
-  QList<char> entries;
-  QList<KwavePopMenu> notifymenus;
-};
+class KMenuBar;
+class NumberedMenu;
 //*****************************************************************************
 class MenuManager:public QObject
 {
@@ -37,12 +22,12 @@ class MenuManager:public QObject
  
  void setCommand                (const char *);
 
- void appendMenus               (KwaveMenuItem *);               //adds menus
- void deleteMenus               (KwaveMenuItem *);               //delete menus
+ void appendMenus               (MenuItem *);               //adds menus
+ void deleteMenus               (MenuItem *);               //delete menus
  NumberedMenu *findNumberedMenu (const char *);                  //return id
  NumberedMenu *addNumberedMenu  (const char *);           
  void clearNumberedMenu         (const char *);
- //delete all entries of a numbered Menu
+ //deletes all entries of a numbered Menu
  void addNumberedMenuEntry      (const char *name,const char *entry);
  //add Entrys to numbered Window
  void checkMenuEntry		(const char *name,bool check);
@@ -57,14 +42,14 @@ class MenuManager:public QObject
 
  protected:
 
- KwavePopMenu              *findMenu (const char *name);
- int  getIdRange           (int);
+ Menu                *findMenu (const char *name);
+ int                  getIdRange (int);
 
  private:
 
  KMenuBar            *bar;          //visible bar to which all toplevel menus
                                     //get attached
- QList<KwavePopMenu> toplevelmenus; //list of all top-level menus
+ QList<Menu>         toplevelmenus; //list of all top-level menus
  QList<NumberedMenu> numberedMenus; //list of special menus, that allow
                                     //dynamical appending (for presets,
                                     //file list,etc)

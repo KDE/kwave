@@ -2,14 +2,12 @@
 #define _FFTVIEW_H_ 1
 
 #include <libkwave/gsl_fft.h>
-#include <qpushbt.h>
 #include <qstring.h>
 #include <qwidget.h>
-#include <qpainter.h>
 #include <qpixmap.h>
 #include <qtimer.h>
-#include "../libgui/scale.h"
-#include "../libgui/fftwidget.h"
+#include "../libgui/FFTWidget.h"
+#include "FFTContainer.h"
 #include <kapp.h>
 #include <kselect.h>
 #include <ktopwidget.h>
@@ -17,27 +15,6 @@
 #include <kbuttonbox.h>
 #include <kstatusbar.h>  
 
-class FFTContainer : public QWidget
-{
- Q_OBJECT
- public:
-	FFTContainer    (QWidget *parent);
-	~FFTContainer   ();
- void   setObjects      (FFTWidget *fftview,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner);
-
- public slots:
-
- signals:
-
- protected:
-
- void   resizeEvent     (QResizeEvent *);
-
- private:
- FFTWidget     *view;
- ScaleWidget   *xscale,*yscale;
- CornerPatchWidget *corner;
-};
 //***********************************************************************
 class FFTWindow : public KTopLevelWidget
 {

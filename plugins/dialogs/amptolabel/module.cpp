@@ -4,8 +4,8 @@
 #include <qtooltip.h>
 #include <qcombobox.h>
 #include <qkeycode.h>
-#include <libkwave/markers.h>
-#include <libkwave/globals.h>
+#include <libkwave/Label.h>
+#include <libkwave/Global.h>
 #include "module.h"
 #include <kapp.h>
 
@@ -13,12 +13,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="amptolabel";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new MarkSignalDialog(operation->getGlobals(),operation->getRate(),operation->isModal());
 }
 //**********************************************************
-MarkSignalDialog::MarkSignalDialog (const Global *globals,int rate,bool modal): KwaveDialog(modal)
+MarkSignalDialog::MarkSignalDialog (const Global *globals,int rate,bool modal): Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose labeling criteria"));
@@ -35,13 +35,13 @@ MarkSignalDialog::MarkSignalDialog (const Global *globals,int rate,bool modal): 
   QToolTip::add( time, klocale->translate("this is the timespan below the defined sound level\nthat is assumed to separate two signals ..."));
   time->setMs (400);
   ampllabel=new QLabel (klocale->translate("Max. silence level in %"),this);
-  amplslider=new KwaveSlider (1,1000,1,100,KwaveSlider::Horizontal,this);
+  amplslider=new Slider (1,1000,1,100,Slider::Horizontal,this);
   ampl=new FloatLine (this);
   ampl->setText ("10.0");
 
   marktype1=new QComboBox (false,this);
   marktype2=new QComboBox (false,this);
-  const MarkerType *act;
+  const LabelType *act;
   int cnt=0;
 
   for (act=(globals->markertypes).first();act;act=(globals->markertypes).next())

@@ -9,12 +9,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="menus";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new MenuDialog(operation->getGlobals(),operation->isModal());
 }
 //**********************************************************
-MenuDialog::MenuDialog (Global *globals,bool modal): KwaveDialog(modal)
+MenuDialog::MenuDialog (Global *globals,bool modal): Dialog(modal)
 {
   this->globals=globals;
   setCaption	(klocale->translate ("Choose menu layout :"));

@@ -5,7 +5,6 @@
 #include <qlayout.h>
 #include "../libgui/guiitems.h"
 #include "addsynth.h"
-#include "fftview.h"
 #include <libkwave/kwavesignal.h>
 #include <libkwave/functions.h>
 #include <libkwave/dialogoperation.h>

@@ -15,9 +15,11 @@
 #include <kmenubar.h>
 #include <kbuttonbox.h>
 #include <kstatusbar.h>  
+#include <libkwave/Curve.h>
+#include <libkwave/PointSet.h>
 #include <libkwave/gsl_fft.h>
-#include <libkwave/curve.h>
 
+class Curve;
 class CurveWidget : public QWidget
 {
   Q_OBJECT

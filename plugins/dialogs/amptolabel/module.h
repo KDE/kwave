@@ -3,15 +3,16 @@
 
 #include <qdialog.h>
 #include <qlabel.h>
-#include "../../../libgui/guiitems.h"
-#include "../../../libgui/slider.h"
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/TimeLine.h"
+#include "../../../libgui/FloatLine.h"
+#include "../../../libgui/Slider.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 
 struct Global;
 //*****************************************************************************
-class MarkSignalDialog : public KwaveDialog
+class MarkSignalDialog : public Dialog
 {
  Q_OBJECT
 
@@ -36,7 +37,7 @@ class MarkSignalDialog : public KwaveDialog
  QLabel         *timelabel,*ampllabel;
  FloatLine      *ampl;
  TimeLine	*time;
- KwaveSlider    *amplslider;
+ Slider         *amplslider;
  QLabel         *mark1,*mark2;
  QComboBox	*marktype1,*marktype2;
  QPushButton	*ok,*cancel;

@@ -1,8 +1,8 @@
 #include <qpainter.h>
 #include <qkeycode.h>
 #include <math.h>
-#include "formantwidget.h"
-#include "fftwidget.h"
+#include "FormantWidget.h"
+#include "FFTWidget.h"
 
 //Formant modell according to G. Fant, acoustic theory of speech production,
 //published by Moutom & Co,Netherlands, 1960, p. 48ff

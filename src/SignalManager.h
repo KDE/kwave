@@ -3,21 +3,21 @@
 
 #define MAXCHANNELS 64
 
-#include "sampleop.h"
-#include "addsynth.h"
-#include <libkwave/filter.h>
-#include <libkwave/kwavesignal.h>
+#include <stdio.h>
+#include <libkwave/Filter.h>
+#include <libkwave/Signal.h>
 
 #define processid	0
 #define stopprocess	1
 #define samplepointer	2
 
 class KwaveSignal;
+class QWidget;
 //**********************************************************************
 class SignalManager
 {
  public:
-	SignalManager	(KwaveSignal *);
+	SignalManager	(Signal *);
 	SignalManager	(QWidget *parent,const char *filename,int type=0);
 	SignalManager	(QWidget *parent,int length,int rate,int channel=1);
   	~SignalManager	();
@@ -40,9 +40,9 @@ class SignalManager
  inline int	getLMarker	() {return lmarker;};
  inline int	getRMarker	() {return rmarker;}; 
  inline int	getPlayPosition () {return msg[samplepointer];};
- inline KwaveSignal *getSignal	() {return signal[0];};
- inline KwaveSignal *getSignal	(int channel) {return signal[channel];};
- inline int    getSingleSample  (int channel,int offset)
+ inline Signal *getSignal	() {return signal[0];};
+ inline Signal *getSignal	(int channel) {return signal[channel];};
+ inline int     getSingleSample  (int channel,int offset)
    {return signal[channel] ? signal[channel]->getSingleSample(offset) : 0;};
  inline void   setParent        (QWidget *par)
    {parent=par;};
@@ -56,7 +56,7 @@ class SignalManager
  void	save	        (const char *filename,int bits,bool selection=false);
 
 
- void   appendChannel        (KwaveSignal *);
+ void   appendChannel        (Signal *);
  void   setRange             (int,int);
  bool   promoteCommand       (const char *command);
 
@@ -69,7 +69,7 @@ class SignalManager
  int    newChannel      (int);
  void   rateChange      ();
  void   addChannel      ();
- void   appendChanneltoThis   (KwaveSignal *);
+ void   appendChanneltoThis   (Signal *);
 
  void	play		(bool);
  void	stopplay	();
@@ -85,9 +85,9 @@ class SignalManager
 
  private: 
 
- char           *name;
- QWidget        *parent;
- KwaveSignal    *signal[MAXCHANNELS];
+ char          *name;
+ QWidget       *parent;
+ Signal        *signal[MAXCHANNELS];
  bool           selected[MAXCHANNELS];
  int            lmarker,rmarker;
  int            channels;

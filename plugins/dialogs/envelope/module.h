@@ -2,12 +2,12 @@
 #define _DIALOGS_ENVELOPE_H 1
 
 #include <qlabel.h>
-#include "../../../libgui/slider.h"
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Slider.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 //*****************************************************************************
-class EnvelopeDialog : public KwaveDialog
+class EnvelopeDialog : public Dialog
 {
  Q_OBJECT
 
@@ -28,7 +28,7 @@ class EnvelopeDialog : public KwaveDialog
 
  private:
 
- KwaveSlider	*timeslider;
+ Slider 	*timeslider;
  QLabel		*timelabel;
  QLabel		*typelabel;
  QComboBox	*typebox;

@@ -17,16 +17,47 @@
 INCLUDES= @all_includes@
 
 # Which sources should be compiled for kwave.
-libkwavegui_la_SOURCES =guiitems.cpp multistateimage.cpp scale.cpp \
-curvewidget.cpp kwavedialog.cpp faderwidget.cpp fftwidget.cpp \
-formantwidget.cpp overview.cpp kwavemenu.cpp menumanager.cpp\
-mguiitems.cpp mmultistateimage.cpp mscale.cpp mcurvewidget.cpp \
-mkwavedialog.cpp mfaderwidget.cpp mfftwidget.cpp mformantwidget.cpp \
-moverview.cpp mkwavemenu.cpp mmenumanager.cpp
+libkwavegui_la_SOURCES =\
+ CurveWidget.cpp\
+ FaderWidget.cpp\
+ FFTWidget.cpp\
+ FloatLine.cpp\
+ FormantWidget.cpp\
+ Dialog.cpp\
+ Menu.cpp\
+ MenuManager.cpp\
+ MenuCommand.cpp\
+ MultiStateImage.cpp\
+ NumberedMenu.cpp\
+ OverViewWidget.cpp\
+ ScaleWidget.cpp\
+ TimeLine.cpp\
+ mTimeLine.cpp\
+ mFloatLine.cpp\
+ mMultiStateImage.cpp\
+ mScaleWidget.cpp\
+ mCurveWidget.cpp\
+ mDialog.cpp\
+ mFaderWidget.cpp\
+ mFFTWidget.cpp\
+ mFormantWidget.cpp\
+ mOverViewWidget.cpp\
+ mMenu.cpp\
+ mMenuManager.cpp
 
-BUILTSOURCES=mguiitems.cpp mmultistateimage.cpp mscale.cpp mcurvewidget.cpp \
-mfaderwidget.cpp mfftwidget.cpp mformantwidget.cpp moverview.cpp \
-mmenumanager.cpp
+BUILTSOURCES=\
+ mTimeLine.cpp\
+ mFloatLine.cpp\
+ mMultiStateImage.cpp\
+ mScaleWidget.cpp\
+ mCurveWidget.cpp\
+ mDialog.cpp\
+ mFaderWidget.cpp\
+ mFFTWidget.cpp\
+ mFormantWidget.cpp\
+ mOverViewWidget.cpp\
+ mMenu.cpp\
+ mMenuManager.cpp
 
 lib_LTLIBRARIES = libkwavegui.la
 
@@ -34,30 +65,30 @@ lib_LTLIBRARIES = libkwavegui.la
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/*
 
-mguiitems.cpp: guiitems.h
-	$(MOC) guiitems.h -o mguiitems.cpp
-mkwavedialog.cpp: kwavedialog.h
-	$(MOC) kwavedialog.h -o mkwavedialog.cpp
-mmultistateimage.cpp: multistateimage.h
-	$(MOC) multistateimage.h -o mmultistateimage.cpp
-mscale.cpp: scale.h
-	$(MOC) scale.h -o mscale.cpp
-moverview.cpp: overview.h
-	$(MOC) overview.h -o moverview.cpp
-mfftwidget.cpp: fftwidget.h
-	$(MOC) fftwidget.h -o mfftwidget.cpp
-mfaderwidget.cpp: faderwidget.h
-	$(MOC) faderwidget.h -o mfaderwidget.cpp
-mcurvewidget.cpp: curvewidget.h
-	$(MOC) curvewidget.h -o mcurvewidget.cpp
-mformantwidget.cpp: formantwidget.h
-	$(MOC) formantwidget.h -o mformantwidget.cpp
-mkwavemenu.cpp: kwavemenu.h
-	$(MOC) kwavemenu.h -o mkwavemenu.cpp
-mmenumanager.cpp: menumanager.h
-	$(MOC) -o mmenumanager.cpp menumanager.h 
-
-
+mDialog.cpp: Dialog.h
+	$(MOC) Dialog.h -o mDialog.cpp
+mMultiStateImage.cpp: MultiStateImage.h
+	$(MOC) MultiStateImage.h -o mMultiStateImage.cpp
+mScaleWidget.cpp: ScaleWidget.h
+	$(MOC) ScaleWidget.h -o mScaleWidget.cpp
+mOverViewWidget.cpp: OverViewWidget.h
+	$(MOC) OverViewWidget.h -o mOverViewWidget.cpp
+mFFTWidget.cpp: FFTWidget.h
+	$(MOC) FFTWidget.h -o mFFTWidget.cpp
+mFaderWidget.cpp: FaderWidget.h
+	$(MOC) FaderWidget.h -o mFaderWidget.cpp
+mCurveWidget.cpp: CurveWidget.h
+	$(MOC) CurveWidget.h -o mCurveWidget.cpp
+mFormantWidget.cpp: FormantWidget.h
+	$(MOC) FormantWidget.h -o mFormantWidget.cpp
+mMenu.cpp: Menu.h
+	$(MOC) Menu.h -o mMenu.cpp
+mMenuManager.cpp: MenuManager.h
+	$(MOC) -o mMenuManager.cpp MenuManager.h 
+mFloatLine.cpp: FloatLine.h
+	$(MOC) FloatLine.h -o mFloatLine.cpp
+mTimeLine.cpp: TimeLine.h
+	$(MOC) TimeLine.h -o mTimeLine.cpp
 
 
 

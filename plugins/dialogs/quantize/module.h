@@ -1,14 +1,14 @@
 #ifndef _DIALOGS_QUANTISE_H_
 #define _DIALOGS_QUANTISE_H 1
 
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <kintegerline.h>
 
 //*****************************************************************************
-class QuantiseDialog : public KwaveDialog
+class QuantiseDialog : public Dialog
 {
  Q_OBJECT
 

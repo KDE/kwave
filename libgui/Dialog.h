@@ -5,14 +5,14 @@
 #define OK     klocale->translate ("&Ok")
 #define CANCEL klocale->translate ("&Cancel")
 
-class KwaveDialog : public QDialog
+class Dialog : public QDialog
 {
  Q_OBJECT
  public:
 
-  KwaveDialog (bool=false);
-  KwaveDialog (const char *,bool=false);
-  ~KwaveDialog ();
+  Dialog (bool=false);
+  Dialog (const char *,bool=false);
+  ~Dialog ();
   public slots:
 
    void accept ();

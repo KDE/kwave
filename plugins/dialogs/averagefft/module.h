@@ -3,13 +3,13 @@
 
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "../../../libgui/guiitems.h"
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/TimeLine.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 
 //*****************************************************************************
-class AverageFFTDialog : public KwaveDialog
+class AverageFFTDialog : public Dialog
 {
  Q_OBJECT
 

@@ -3,12 +3,12 @@
 #include <qlist.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
-#include "../../../libgui/curvewidget.h"
-#include "../../../libgui/scale.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
+#include "../../../libgui/CurveWidget.h"
+#include "../../../libgui/ScaleWidget.h"
 //*****************************************************************************
-class DistortDialog : public KwaveDialog
+class DistortDialog : public Dialog
 {
   Q_OBJECT
 

@@ -3,14 +3,14 @@
 
 #include <qlabel.h>
 #include <qlineedit.h>
-#include "../../../libgui/kwavedialog.h"
-#include "../../../lib/dialogoperation.h"
-#include "../../../lib/globals.h"
+#include "../../../libgui/Dialog.h"
+#include "../../../lib/DialogOperation.h"
+#include "../../../lib/Globals.h"
 #include <kintegerline.h>
 #include <ktreelist.h>
 
 //*****************************************************************************
-class MenuDialog : public KwaveDialog
+class MenuDialog : public Dialog
 {
  Q_OBJECT
 

@@ -1,10 +1,9 @@
-
 #include <stdio.h>
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qdir.h>
 #include <kapp.h>
-#include "scale.h"
+#include "ScaleWidget.h"
 
 #define FONTSIZE 6
 QPixmap *scalefont=0;

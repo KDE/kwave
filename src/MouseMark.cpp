@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <qpainter.h>
-#include "mousemark.h"
+#include "MouseMark.h"
 
 MouseMark::MouseMark (QWidget *parent):QObject ()
 {

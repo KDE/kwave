@@ -1,6 +1,6 @@
-#include "clipboard.h"
-#include "main.h"
-#include <libkwave/globals.h>
+#include "ClipBoard.h"
+#include "TopWidget.h"
+#include <libkwave/Global.h>
 
 extern Global globals;
 //*****************************************************************************
@@ -14,7 +14,7 @@ ClipBoard::ClipBoard (SignalManager *signal)
   this->signal=signal;
 }
 //*****************************************************************************
-void ClipBoard::appendChannel (KwaveSignal *channel)
+void ClipBoard::appendChannel (Signal *channel)
 {
   if (signal) signal->appendChannel (channel);
   else

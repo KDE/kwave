@@ -9,9 +9,9 @@
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qtimer.h>
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
-#include <libkwave/globals.h>
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
+#include <libkwave/Global.h>
 #include <kapp.h>
 
 #define VERSION "0.5.0"
@@ -46,7 +46,7 @@ class LogoWidget : public QWidget
  QTimer   *timer;
 };
 //**********************************************************
-class AboutDialog : public KwaveDialog
+class AboutDialog : public Dialog
 {
  Q_OBJECT
 

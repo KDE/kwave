@@ -3,8 +3,7 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include <qcombobox.h>
-#include <libkwave/markers.h>
-#include <libkwave/globals.h>
+#include <libkwave/Label.h>
 #include "module.h"
 #include <kapp.h>
 #include <kmsgbox.h>
@@ -13,12 +12,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="saveblock";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new SaveBlockDialog(operation->getGlobals(),operation->isModal());
 }
 //**********************************************************
-SaveBlockDialog::SaveBlockDialog (Global *globals,bool modal): KwaveDialog(modal)
+SaveBlockDialog::SaveBlockDialog (Global *globals,bool modal) : Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose Labels to be used for dividing signal:"));
@@ -43,7 +42,7 @@ SaveBlockDialog::SaveBlockDialog (Global *globals,bool modal): KwaveDialog(modal
   marktype1=new QComboBox (false,this);
   marktype2=new QComboBox (false,this);
 
-  MarkerType *act;
+  LabelType *act;
   int cnt=0;
 
   for (act=globals->markertypes.first();act;act=globals->markertypes.next())

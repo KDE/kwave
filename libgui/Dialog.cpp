@@ -1,21 +1,22 @@
-#include "kwavedialog.h"
-#include <libkwave/globals.h>
+#include "Dialog.h"
+#include <libkwave/MessagePort.h>
+#include <libkwave/Global.h>
 #include <stdio.h>
 
 extern struct Global globals;
 
-KwaveDialog::KwaveDialog (bool modal):QDialog (0,0,modal)
+Dialog::Dialog (bool modal):QDialog (0,0,modal)
 {
   this->modal=modal;
 }
 //**********************************************************************
-KwaveDialog::KwaveDialog (const char *name,bool modal):QDialog (0,name,modal)
+Dialog::Dialog (const char *name,bool modal):QDialog (0,name,modal)
 {
   if (name) setCaption (name);
   this->modal=modal;
 }
 //**********************************************************************
-void KwaveDialog::accept ()
+void Dialog::accept ()
 {
   hide ();
 
@@ -29,13 +30,13 @@ void KwaveDialog::accept ()
   setResult (true);
 }
 //**********************************************************************
-void KwaveDialog::reject ()
+void Dialog::reject ()
 {
   hide ();
   if (!modal) delete this;
   setResult (false);
 }
 //**********************************************************************
-KwaveDialog::~KwaveDialog ()
+Dialog::~Dialog ()
 {
 }

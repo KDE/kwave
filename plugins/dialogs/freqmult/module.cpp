@@ -8,12 +8,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="freqmult";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new FrequencyMultDialog(operation->getRate(),operation->isModal());
 }
 //**********************************************************
-FrequencyMultDialog::FrequencyMultDialog (int rate,bool modal): KwaveDialog(modal)
+FrequencyMultDialog::FrequencyMultDialog (int rate,bool modal): Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Select Function :"));

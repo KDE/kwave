@@ -13,12 +13,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="filter";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new FilterDialog(operation->isModal(),operation->getRate());
 }
 //**********************************************************
-FilterDialog::FilterDialog (bool modal,int rate): KwaveDialog (modal)
+FilterDialog::FilterDialog (bool modal,int rate): Dialog (modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose filter parameters:"));
@@ -217,7 +217,7 @@ void FilterDialog::saveFilter ()
 //**********************************************************
 void FilterDialog::getNTaps (int newnum)
 {
-  QSlider **newmult=new QSlider* [newnum];
+  Slider **newmult=new Slider* [newnum];
   KIntegerLine **newoffset=new KIntegerLine*[newnum];
   QLabel **newlabel=new QLabel*[newnum];
 
@@ -247,7 +247,7 @@ void FilterDialog::getNTaps (int newnum)
 	{
 	  label[i]=new QLabel ("0.00",this);
 	  offset[i]=new KIntegerLine (this);
-	  mult[i]=new QSlider (0,2000,1,0,QSlider::Vertical,this);
+	  mult[i]=new Slider (0,2000,1,0,Slider::Vertical,this);
 	  label[i]->show();
 	  mult[i]->show();
 	  offset[i]->show();

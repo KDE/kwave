@@ -7,43 +7,32 @@
 #include <qkeycode.h>
 #include <kmenubar.h>
 #include <qpopmenu.h>
-#include <libkwave/menuitem.h>
+#include <libkwave/MenuItem.h>
 
 //maximum number of menuitem in numberedmenus, e.g. presets, channels
 #define MENUMAX 100
 //maximum number of top level menus...
 #define TOPMENUMAX 16
-
-class MenuCommand
-{
- public:
-  MenuCommand::MenuCommand (const char *,int);
-  MenuCommand::~MenuCommand ();
-  inline int           getId       () const {return id;};  
-  inline const char   *getCommand  () const {return command;};
- private:
-  char *command;
-  int  id;
-};
+class MenuCommand;
 //*****************************************************************************
-class KwavePopMenu: public QPopupMenu
+class Menu: public QPopupMenu
 //class used to keep track of allocated menus
 {
   Q_OBJECT
   public:
-  KwavePopMenu             (const char *name,int id);
-  ~KwavePopMenu            ();
+  Menu                             (const char *name,int id);
+  ~Menu                            ();
   inline const char   *getName     () const {return name;};
   inline int           getId       () const {return id;};
   inline int           getMemberId () const {return memberId;};
   inline void          setMemberId (int id) {memberId=id;};
   static int           getUniqueId (); 
   static int           getIdRange  (int); 
-         void          insertMenu  (KwavePopMenu *);
+         void          insertMenu  (Menu *);
 	 void          setCommand  (const char *);
          int           insertEntry (const char *name,const char *com, int key);
          void          removeMenu  (const char *name);
-         KwavePopMenu *findMenu    (const char *name);
+         Menu         *findMenu    (const char *name);
          void          check       ();
          void          checkable   ();
          void          numberable  ();
@@ -58,7 +47,7 @@ class KwavePopMenu: public QPopupMenu
  void          selected    (int);
 
  private:
-  QList<KwavePopMenu> children;          //list of pointers to children menus
+  QList<Menu>         children;          //list of pointers to children menus
   QList<MenuCommand>  commands;          //list of pointers to children menus
   int                 id;
   int                 memberId;          //id of members in the case items of

@@ -1,10 +1,11 @@
-#include "kwaveapp.h"
-#include <libkwave/globals.h>
-#include <libkwave/kwavestring.h>
-#include <libkwave/dynamicloader.h>
-#include <libkwave/parser.h>
+#include "KwaveApp.h"
+#include <libkwave/Global.h>
+#include <libkwave/String.h>
+#include <libkwave/Parser.h>
+#include <libkwave/MessagePort.h>
+#include <libkwave/DynamicLoader.h>
 #include <qdir.h>
-#include "main.h"
+#include "TopWidget.h"
 
 extern struct Global globals;     
 extern QStrList      recentFiles; 
@@ -221,7 +222,7 @@ void KwaveApp::readConfig()
       QString name=config->readEntry (buf);
       if (!name.isEmpty())
 	{
-	  MarkerType *marker=new MarkerType(name.data());
+	  LabelType *marker=new LabelType(name.data());
 	  globals.markertypes.append (marker);
 	}
     }

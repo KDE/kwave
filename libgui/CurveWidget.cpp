@@ -7,10 +7,11 @@
 #include <qfiledlg.h>
 #include <math.h>
 #include <limits.h>
-#include <libkwave/interpolation.h>
-#include <libkwave/fileloader.h>
-#include <libkwave/globals.h>
-#include "curvewidget.h"
+#include <libkwave/Interpolation.h>
+#include <libkwave/FileLoader.h>
+#include <libkwave/Curve.h>
+#include <libkwave/Global.h>
+#include "CurveWidget.h"
 
 int knobcount=0;
 QPixmap *knob=0;

@@ -9,12 +9,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="formant";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new FormantDialog(operation->isModal(),operation->getRate());
 }
 //**********************************************************
-FormantDialog::FormantDialog (bool modal,int rate): KwaveDialog(modal)
+FormantDialog::FormantDialog (bool modal,int rate): Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose formant positions and widths :"));
@@ -113,16 +113,16 @@ void FormantDialog::getWidgets (int num)
   int i;
   
   KIntegerLine **newpos=    new KIntegerLine*[num];
-  KwaveSlider  **newslider= new KwaveSlider *[num];
+  Slider  **newslider= new Slider *[num];
   KIntegerLine **newwidth=  new KIntegerLine*[num];
-  KwaveSlider  **newwslider=new KwaveSlider *[num];
+  Slider  **newwslider=new Slider *[num];
 
   for (i=0;i<num;i++)
     {
       newpos[i]=new KIntegerLine (this);
-      newslider[i]=new KwaveSlider (100,5000,1,500+1000*i,KwaveSlider::Horizontal,this);
+      newslider[i]=new Slider (100,5000,1,500+1000*i,Slider::Horizontal,this);
       newwidth [i]=new KIntegerLine (this);
-      newwslider[i]=new KwaveSlider (20,500,1,80+10*i,KwaveSlider::Horizontal,this);
+      newwslider[i]=new Slider (20,500,1,80+10*i,Slider::Horizontal,this);
       connect  (newslider[i],SIGNAL(valueChanged(int)),SLOT(posChanged(int)));
       connect  (newpos[i],   SIGNAL(textChanged(const char *)),SLOT(posChanged(const char *)));
       connect  (newwslider[i],SIGNAL(valueChanged(int)),SLOT(widthChanged(int)));

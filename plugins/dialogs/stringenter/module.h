@@ -2,10 +2,10 @@
 #define _DIALOGS_STRING_H 1
 
 #include <qlineedit.h>
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 //*****************************************************************************
-class StringEnterDialog : public KwaveDialog
+class StringEnterDialog : public Dialog
 {
  Q_OBJECT
 

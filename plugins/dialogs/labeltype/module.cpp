@@ -9,12 +9,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="labeltype";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new MarkerTypeDialog(operation->isModal());
 }
 //**********************************************************
-MarkerTypeDialog::MarkerTypeDialog (bool modal): KwaveDialog(modal)
+MarkerTypeDialog::MarkerTypeDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   setCaption (klocale->translate ("Choose new label type"));

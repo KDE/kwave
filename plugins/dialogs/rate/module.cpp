@@ -10,14 +10,14 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="rate";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new RateDialog(operation->isModal());
 }
 //**********************************************************
 const char *ratetext[]={"48000","44100","32000","22050","16000","12000","10000",0}; 
 //**********************************************************
-RateDialog::RateDialog (bool modal): KwaveDialog(modal)
+RateDialog::RateDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose New Rate :"));

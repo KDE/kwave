@@ -9,12 +9,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="pitch";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new PitchDialog(operation->isModal(),operation->getLength());
 }
 //**********************************************************
-PitchDialog::PitchDialog (bool modal,int time): KwaveDialog(modal)
+PitchDialog::PitchDialog (bool modal,int time): Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Select frequency range :"));

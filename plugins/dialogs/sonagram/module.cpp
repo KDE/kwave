@@ -5,14 +5,14 @@
 #include <qtooltip.h>
 #include <qcombobox.h>
 #include "module.h"
-#include <libkwave/windowfunction.h>
+#include <libkwave/WindowFunction.h>
 #include <kapp.h>
 
 const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="sonagram";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new SonagramDialog(operation->isModal(),operation->getLength(),operation->getRate());
 }
@@ -20,7 +20,7 @@ KwaveDialog *getDialog (DialogOperation *operation)
 const char *FFT_Sizes[]={"64","128","256","512","1024","2048","4096",0};
 //**********************************************************
 SonagramDialog::SonagramDialog (bool modal,int len,int rate)
-: KwaveDialog(modal)
+: Dialog(modal)
 {
   comstr=0;
   WindowFunction w(0);
@@ -39,7 +39,7 @@ SonagramDialog::SonagramDialog (bool modal,int len,int rate)
   
   windowlabel	=new QLabel	("",this);
   bitmaplabel	=new QLabel	("",this);
-  pointslider	=new KwaveSlider (2,(len/16),1,5,KwaveSlider::Horizontal,this);
+  pointslider	=new Slider (2,(len/16),1,5,Slider::Horizontal,this);
   windowtypelabel=new QLabel	(klocale->translate("Window Function :"),this);
 
   setPoints (50);

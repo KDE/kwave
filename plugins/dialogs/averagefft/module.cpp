@@ -5,21 +5,20 @@
 #include <qcombobox.h>
 #include <qtooltip.h>
 #include "module.h"
-#include <libkwave/kwavestring.h>
-#include <libkwave/windowfunction.h>
+#include <libkwave/String.h>
+#include <libkwave/WindowFunction.h>
 #include <kapp.h>
 
 const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="averagefft";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new AverageFFTDialog(operation->getRate(),operation->isModal());
 }
 //**********************************************************
-AverageFFTDialog::AverageFFTDialog (int rate,bool modal):
-  KwaveDialog(modal)
+AverageFFTDialog::AverageFFTDialog (int rate,bool modal) : Dialog(modal)
 {
   WindowFunction w(0);
   this->rate=rate;

@@ -1,5 +1,13 @@
 this Development Version
 
+(19991218) [by mwilz@ernie.mi.uni-koeln.de]
+
+changed filenames to reflect class names
+
+one class per file is now the standard
+
+stripped leading "Kwave" in Classnames for most Classes
+
 (19991210) [by Thomas.Eschenbacher@gmx.de]
 
 removed -Werror compiler option (caused trouble with configure script)

@@ -1,13 +1,13 @@
 #ifndef _DIALOGS_MARKSAVE_H_
 #define _DIALOGS_MARKSAVE_H 1
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
-#include <libkwave/globals.h>
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
+#include <libkwave/Global.h>
 #include <qlabel.h>
 #include <qlistbox.h>
 
 //*****************************************************************************
-class MarkSaveDialog : public KwaveDialog
+class MarkSaveDialog : public Dialog
 {
  Q_OBJECT
 

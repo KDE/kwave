@@ -1,10 +1,10 @@
-#include "../../../libgui/kwavedialog.h"
-#include "../../../libgui/faderwidget.h"
-#include "../../../libgui/scale.h"
-#include "../../../libgui/slider.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Dialog.h"
+#include "../../../libgui/FaderWidget.h"
+#include "../../../libgui/ScaleWidget.h"
+#include "../../../libgui/Slider.h"
+#include <libkwave/DialogOperation.h>
 
-class FadeDialog : public KwaveDialog
+class FadeDialog : public Dialog
 {
  Q_OBJECT
 
@@ -22,7 +22,7 @@ class FadeDialog : public KwaveDialog
  ScaleWidget       *x,*y;
  CornerPatchWidget *corner;
  QPushButton	*ok,*cancel;
- KwaveSlider	*slider;
+ Slider 	*slider;
  FaderWidget	*fade;
  char           *comstr;
 };

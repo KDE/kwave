@@ -9,14 +9,14 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="newsignal";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new NewSampleDialog(operation->isModal());
 }
 //**********************************************************
 const char *ratetext[]={"48000","44100","32000","22050","16000","12000","10000",0}; 
 //**********************************************************
-NewSampleDialog::NewSampleDialog (bool modal): KwaveDialog(modal)
+NewSampleDialog::NewSampleDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose Length and Rate :"));

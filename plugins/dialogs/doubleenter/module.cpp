@@ -11,13 +11,13 @@ const char *name="doubleenter";
 
 const char *allow_double="-0123456789.";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new DoubleEnterDialog(operation->getName(),operation->isModal());
 }
 //**********************************************************
 DoubleEnterDialog::DoubleEnterDialog (const char *name,bool modal):
-KwaveDialog(name,modal)
+Dialog(name,modal)
 {
   char buf[64];
   setCaption	(klocale->translate("Enter a value"));

@@ -1,6 +1,6 @@
 #include <qwidget.h>
-#include "../src/mainwidget.h"
-#include "overview.h"
+#include "../src/MainWidget.h" //this has to be changed sometimes
+#include "OverViewWidget.h"
 
 OverViewWidget::OverViewWidget (QWidget *parent,const char *name)
   : QWidget (parent,name)

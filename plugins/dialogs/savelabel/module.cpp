@@ -3,19 +3,19 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include "module.h"
-#include <libkwave/markers.h>
+#include <libkwave/Label.h>
 #include <kapp.h>
 
 const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="savelabel";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new MarkSaveDialog(operation->getGlobals(),operation->isModal());
 }
 //**********************************************************
-MarkSaveDialog::MarkSaveDialog (Global *globals,bool modal): KwaveDialog(modal)
+MarkSaveDialog::MarkSaveDialog (Global *globals,bool modal) : Dialog(modal)
   //dialog of markertypes to be selected...
 {
   selectall=false;
@@ -25,7 +25,7 @@ MarkSaveDialog::MarkSaveDialog (Global *globals,bool modal): KwaveDialog(modal)
   this->globals=globals;
   save=new QListBox (this);
 
-  MarkerType *act;
+  LabelType *act;
   maxcnt=0;
   //traverse all markertypes, add them to widget, selection state set to  false
   for (act=globals->markertypes.first();act;act=globals->markertypes.next())

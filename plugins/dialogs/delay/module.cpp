@@ -3,19 +3,19 @@
 #include "module.h"
 #include <qpushbutton.h>
 #include <qkeycode.h>
-#include <libkwave/kwavestring.h>
+#include <libkwave/String.h>
 #include <kapp.h>
 
 const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="delay";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
  return new DelayDialog(operation->getRate(),operation->isModal());
 }
 //**********************************************************
-DelayDialog::DelayDialog (int rate,bool modal): KwaveDialog(modal)
+DelayDialog::DelayDialog (int rate,bool modal): Dialog(modal)
 {
   comstr=0;
   resize (320,200);
@@ -25,7 +25,7 @@ DelayDialog::DelayDialog (int rate,bool modal): KwaveDialog(modal)
   delay->setMs (200);
 
   ampllabel  =new QLabel	(klocale->translate("Amplitude of delayed signal :50 %"),this);
-  amplslider =new KwaveSlider (1,200,1,10,KwaveSlider::Horizontal,this);
+  amplslider =new Slider (1,200,1,10,Slider::Horizontal,this);
   recursive  =new QCheckBox  (klocale->translate("do recursive delaying"),this);   
 
   ok=new QPushButton (OK,this);

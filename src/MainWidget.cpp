@@ -1,10 +1,11 @@
-#include "mainwidget.h"
+#include "MainWidget.h"
 #include <qkeycode.h>
 #include <qframe.h>
 #include <qimage.h>
 #include <qaccel.h>
 #include "sampleop.h"
-#include "signalmanager.h"
+#include "SignalManager.h"
+#include <libkwave/String.h>
 
 static const int keys[10]={Key_1,Key_2,Key_3,Key_4,Key_5,Key_6,Key_7,Key_8,Key_9,Key_0};
 
@@ -171,10 +172,10 @@ void MainWidget::parseKey  (int key)
     }
 }
 //*****************************************************************************
-#include <libkwave/dynamicloader.h>
-#include <libkwave/dialogoperation.h>
-#include <libkwave/parser.h>
-#include "../libgui/kwavedialog.h"
+#include <libkwave/DynamicLoader.h>
+#include <libkwave/DialogOperation.h>
+#include <libkwave/Parser.h>
+#include "../libgui/Dialog.h"
 //*****************************************************************************
 int MainWidget::doCommand (const char *str)
 {
@@ -187,14 +188,14 @@ int MainWidget::doCommand (const char *str)
   else
   if (matchCommand (str,"setplayback"))
     {
-      KwaveParser parser (str);
+      Parser parser (str);
       playbit=parser.toInt();
       bufbase=parser.toInt();
     }
   else
     if (matchCommand (str,"setmemory"))
       {
-	KwaveParser parser (str);
+	Parser parser (str);
 
 	mmap_threshold=parser.toInt();
 	mmap_dir=strdup(parser.getNextParam());

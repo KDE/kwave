@@ -3,7 +3,7 @@
 
 #include <qdialog.h>
 #include <qtimer.h>
-#include <libkwave/timeoperation.h>
+#include <libkwave/TimeOperation.h>
 
 class ProgressDialog : public QDialog
 {

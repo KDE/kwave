@@ -1,8 +1,3 @@
-
-o change to one-file-per-class
-
-o make filename==class name (with same case)
-
 o find the reason for the warnings about multiple definitions of
   QString when linking
 
@@ -23,3 +18,8 @@ o check dependencies/Makefiles
 o fix bug in Fx->Periodic Silence (segmentation fault)
 
 o take a look at CORBA
+
+o pluginize/ put into library  the following files in src/ :
+  mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h 
+
+

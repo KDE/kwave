@@ -5,12 +5,12 @@
 #include <qcheckbox.h>
 #include <kintegerline.h>
 #include <kcolordlg.h>
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
-#include <libkwave/color.h>
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
+#include <libkwave/Color.h>
 
 //*****************************************************************************
-class MarkerTypeDialog : public KwaveDialog
+class MarkerTypeDialog : public Dialog
 {
  Q_OBJECT
 

@@ -3,15 +3,15 @@
 
 #include <qpushbt.h>
 #include <qlabel.h>
-#include "../../../libgui/kwavedialog.h"
-#include "../../../libgui/scale.h"
-#include "../../../libgui/slider.h"
-#include "../../../libgui/formantwidget.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Dialog.h"
+#include "../../../libgui/ScaleWidget.h"
+#include "../../../libgui/Slider.h"
+#include "../../../libgui/FormantWidget.h"
+#include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 
 //***********************************************************************
-class FormantDialog : public KwaveDialog
+class FormantDialog : public Dialog
 {
  Q_OBJECT
 
@@ -43,8 +43,8 @@ class FormantDialog : public KwaveDialog
  KIntegerLine   *num;
  KIntegerLine   **pos;
  KIntegerLine   **widths;
- KwaveSlider    **widthslider;
- KwaveSlider    **posslider;
+ Slider         **widthslider;
+ Slider         **posslider;
  QLabel         *poslabel;
  QLabel         *numlabel;
  QPushButton	*ok,*cancel;

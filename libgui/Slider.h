@@ -5,7 +5,7 @@
 //useless when used with big value ranges
 
 #include <qslider.h>
-#define  KwaveSlider QSlider
+#define  Slider QSlider
 
 //#include <kslider.h>
 //#define  KwaveSlider KSlider

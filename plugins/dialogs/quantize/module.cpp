@@ -10,12 +10,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="quantize";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new QuantiseDialog (operation->isModal());
 }
 //**********************************************************
-QuantiseDialog::QuantiseDialog (bool modal): KwaveDialog(modal)
+QuantiseDialog::QuantiseDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   resize  (320,200);

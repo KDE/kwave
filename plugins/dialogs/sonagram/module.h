@@ -3,12 +3,12 @@
 
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "../../../libgui/slider.h"
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Slider.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 //*****************************************************************************
-class SonagramDialog : public KwaveDialog
+class SonagramDialog : public Dialog
 {
  Q_OBJECT
 
@@ -27,7 +27,7 @@ class SonagramDialog : public KwaveDialog
 
  private:
 
- KwaveSlider	*pointslider;
+ Slider 	*pointslider;
  QLabel		*pointlabel;
  QLabel		*windowlabel;
  QLabel		*bitmaplabel;

@@ -5,10 +5,11 @@
 #include <qfiledlg.h>
 #include <qwidget.h>
 #include <qtimer.h>
-#include "mousemark.h"
-#include "../libgui/multistateimage.h"
-#include "../libgui/menumanager.h"
-#include <libkwave/markers.h>
+#include "MouseMark.h"
+#include "../libgui/MultiStateImage.h"
+#include "../libgui/MenuManager.h"
+#include <libkwave/Label.h>
+#include <libkwave/LabelList.h>
 #include <kapp.h>
 #include <kselect.h>
 #include <kstatusbar.h>  
@@ -36,7 +37,7 @@ class SignalWidget : public QWidget
  int    checkPosition	        (int);
  void 	drawSelection		(int,int);
 
- void   addLabelType            (MarkerType *);
+ void   addLabelType            (LabelType *);
  void   addLabelType            (const char *);
  int	doCommand	        (const char *);
  int    getSignalCount          ();
@@ -107,14 +108,14 @@ class SignalWidget : public QWidget
  int	playpointer,lastplaypointer;	 
  int	playing;		//flag if playing task is running...
  int	redraw;		        //flag for redrawing pixmap
- MouseMark      *select;
- SignalManager	*signalmanage;
- QTimer		*timer;
+ MouseMark     *select;
+ SignalManager *signalmanage;
+ QTimer	       *timer;
  QPainter       p;
- QPixmap	*pixmap;	//pixmap to be blitted to screen
- MarkerList     *labels;        //linked list of markers
- MarkerType     *markertype;    //selected marker type
- MenuManager    *manage;
+ QPixmap       *pixmap;	//pixmap to be blitted to screen
+ LabelList     *labels;        //linked list of markers
+ LabelType     *markertype;    //selected marker type
+ MenuManager   *manage;
 };
 
 #endif //_KWAVESIGNALVIEW_H_

@@ -27,7 +27,7 @@
 #define ADDCHANNEL      107
 #define ALLCHANNEL      108
 #define INVERTCHANNEL   109
-#define TOGGLECHANNEL   110 //
+#define TOGGLECHANNEL   110 
 #define DELETECHANNEL   500 //leave MAXMENU space
 #define NEW     	999
 

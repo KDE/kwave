@@ -4,11 +4,11 @@
 #include <qdir.h>
 #include <qlineedit.h>
 #include <qlabel.h>
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
-#include <libkwave/globals.h>
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
+#include <libkwave/Global.h>
 
-class SaveBlockDialog : public KwaveDialog
+class SaveBlockDialog : public Dialog
 {
  Q_OBJECT
 

@@ -8,15 +8,14 @@
 #include <qpixmap.h>
 #include <qtimer.h>
 
-#include "../libgui/scale.h"
+#include "../libgui/ScaleWidget.h"
 
 #include <kapp.h>
 #include <kselect.h>
-#include <ktopwidget.h>
 #include <kmenubar.h>
 #include <kbuttonbox.h>
-#include <kstatusbar.h>  
 
+//***********************************************************************
 class PitchWidget : public QWidget
 {
  Q_OBJECT
@@ -53,54 +52,6 @@ class PitchWidget : public QWidget
  QPixmap  *pixmap;	 //pixmap to be blitted to screen
 };
 //***********************************************************************
-class PitchContainer : public QWidget
-{
- Q_OBJECT
- public:
- 	PitchContainer	(QWidget *parent);
- 	~PitchContainer	();
-	void 	setObjects	(PitchWidget *view,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner);
-
- public slots:
-
- signals:
-
- protected:
-
- void	resizeEvent	(QResizeEvent *);
-
- private:
- PitchWidget       *view;
- ScaleWidget       *xscale,*yscale;
- CornerPatchWidget *corner;
-};
-//***********************************************************************
-class PitchWindow : public KTopLevelWidget
-{
- Q_OBJECT
- public:
- 	PitchWindow	(const char *name);
- 	~PitchWindow	();
- void 	setSignal	(float *,int,int);
-
- public slots:
-
- void freqRange (float,float);
- void showPitch (float);
- void showTime  (float);
-
- signals:
-
- protected:
-
- private:
- PitchWidget       *view;
- PitchContainer    *mainwidget;
- ScaleWidget       *xscale,*yscale;
- KStatusBar        *status;
- CornerPatchWidget *corner;
- int rate;
-};
 #endif
 
 

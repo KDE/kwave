@@ -2,14 +2,14 @@
 #include <math.h>
 #include <stdlib.h>
 #include <qpixmap.h>
-#include "fftwidget.h"
-#include <libkwave/dynamicloader.h>
-#include <libkwave/dialogoperation.h>
-#include <libkwave/parser.h>
-#include <libkwave/interpolation.h>
-#include <libkwave/curve.h>
-#include <libkwave/kwavesignal.h>
-#include "kwavedialog.h"
+#include <libkwave/DynamicLoader.h>
+#include <libkwave/DialogOperation.h>
+#include <libkwave/Parser.h>
+#include <libkwave/Interpolation.h>
+#include <libkwave/Curve.h>
+#include <libkwave/Signal.h>
+#include "Dialog.h"
+#include "FFTWidget.h"
 
 __inline void  getMaxMinPower (complex *sample,int len,double *max,double *min)
 {
@@ -197,7 +197,7 @@ void FFTWidget::refresh()
 //****************************************************************************
 void FFTWidget::formant()
 {
-  KwaveDialog *dialog =
+  Dialog *dialog =
     DynamicLoader::getDialog ("formant",new DialogOperation(rate));
 
   if ((dialog)&&(dialog->exec()))
@@ -238,7 +238,7 @@ void FFTWidget::formant()
 //****************************************************************************
 void FFTWidget::smooth()
 {
-  KwaveDialog *dialog =
+  Dialog *dialog =
     DynamicLoader::getDialog ("movingaverage",new DialogOperation(rate));
 
   if ((dialog)&&(dialog->exec()))
@@ -294,12 +294,12 @@ void FFTWidget::smooth()
 //****************************************************************************
 void FFTWidget::amplify()
 {
-  KwaveDialog *dialog =
+  Dialog *dialog =
     DynamicLoader::getDialog ("movingaverage",new DialogOperation(rate));
 
   if ((dialog)&&(dialog->exec()))
     {
-      KwaveParser parser(dialog->getCommand());
+      Parser parser(dialog->getCommand());
       Interpolation interpolation;
 
       Curve *points=new Curve(parser.getFirstParam());
@@ -356,7 +356,7 @@ void FFTWidget::iFFT()
 
       if (0==1)
 	{
-	  KwaveSignal *newsig=new KwaveSignal (fftsize,rate);
+	  Signal *newsig=new Signal (fftsize,rate);
 
 	  //	  win->show();
 	  if (newsig)

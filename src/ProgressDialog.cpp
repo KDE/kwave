@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <qpainter.h>
 #include <qpixmap.h>
-#include "dialog_progress.h"
+#include "ProgressDialog.h"
 
-#include <libkwave/globals.h>
+#include <libkwave/Global.h>
+#include <libkwave/MessagePort.h>
 
 extern Global globals;
 //uncomment this to get a rather fancy Progress indicator, which shows that I've to

@@ -2,11 +2,11 @@
 #define _DIALOGS_DENTER_H 1
 
 #include <kintegerline.h>
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 
 //*****************************************************************************
-class DoubleEnterDialog : public KwaveDialog
+class DoubleEnterDialog : public Dialog
 {
  Q_OBJECT
 

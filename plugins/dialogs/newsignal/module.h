@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <qcombobox.h>
 #include <qlabel.h>
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
-#include "../../../libgui/guiitems.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
+#include "../../../libgui/TimeLine.h"
 #include <kintegerline.h>
 //*****************************************************************************
-class NewSampleDialog : public KwaveDialog
+class NewSampleDialog : public Dialog
 {
  Q_OBJECT
 

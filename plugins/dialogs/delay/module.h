@@ -3,13 +3,13 @@
 
 #include <qlabel.h>
 #include <qcheckbox.h>
-#include "../../../libgui/slider.h"
-#include "../../../libgui/guiitems.h"
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Slider.h"
+#include "../../../libgui/TimeLine.h"
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 
 //****************************************************************************
-class DelayDialog : public KwaveDialog
+class DelayDialog : public Dialog
 {
  Q_OBJECT
 
@@ -32,7 +32,7 @@ const char *getCommand();
 
  TimeLine       *delay;
  QLabel		*delaylabel;
- KwaveSlider	*amplslider;
+ Slider  	*amplslider;
  QLabel		*ampllabel;
  QCheckBox	*recursive;
  QPushButton	*ok,*cancel;

@@ -9,12 +9,12 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="gap";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new GapDialog (operation->getRate(),operation->isModal());
 }
 //**********************************************************
-GapDialog::GapDialog (int rate,bool modal): KwaveDialog(modal)
+GapDialog::GapDialog (int rate,bool modal): Dialog(modal)
 {
   resize  (320,200);
   setCaption	(klocale->translate("Set Length of Gap & Signal"));

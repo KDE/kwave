@@ -12,12 +12,12 @@ const char *name="movingaverage";
 
 static const char *typetext[]={"Lowpass filter","Highpass filter",0}; 
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new AverageDialog (operation->isModal());
 }
 //**********************************************************
-AverageDialog::AverageDialog (bool modal): KwaveDialog(modal)
+AverageDialog::AverageDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   resize  (320,200);

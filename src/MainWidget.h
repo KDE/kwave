@@ -12,10 +12,10 @@
 #include <qpixmap.h>
 #include <qtimer.h>
 #include <qframe.h>
-#include "../libgui/multistateimage.h"
-#include "../libgui/overview.h"
-#include "signalview.h"
-#include "../libgui/menumanager.h"
+#include "../libgui/MultiStateImage.h"
+#include "../libgui/OverViewWidget.h"
+#include "SignalWidget.h"
+#include "../libgui/MenuManager.h"
 #include <kapp.h>
 #include <kselect.h>
 #include <ktopwidget.h>

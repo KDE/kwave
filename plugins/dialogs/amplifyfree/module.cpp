@@ -3,20 +3,20 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include "module.h"
-#include <libkwave/kwavestring.h>
+#include <libkwave/String.h>
 #include <kapp.h>
 
 const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="amplifyfree";
 //**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
+Dialog *getDialog (DialogOperation *operation)
 {
   return new AmplifyCurveDialog(operation->getLength(),operation->isModal());
 }
 //**********************************************************
 AmplifyCurveDialog::AmplifyCurveDialog (int time,bool modal):
-KwaveDialog(modal)
+Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose Amplification Curve :"));

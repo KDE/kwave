@@ -3,7 +3,7 @@
 #include <qdir.h>
 #include <kapp.h>
 #include <qimage.h>
-#include "multistateimage.h"
+#include "MultiStateImage.h"
 
 QList<QPixmap> *pixmaps=0;
 QStrList *pixnames=0;

@@ -3,11 +3,11 @@
 
 #include <qlabel.h>
 #include <qlineedit.h>
-#include "../../../libgui/kwavedialog.h"
-#include <libkwave/dialogoperation.h>
+#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 //*****************************************************************************
-class MemoryDialog : public KwaveDialog
+class MemoryDialog : public Dialog
 {
  Q_OBJECT
 

@@ -21,10 +21,10 @@
 
 ## Process this file with automake to produce Makefile.in
 
-lib_LTLIBRARIES =	libmad.la
-include_HEADERS =	mad.h
-
-EXTRA_DIST =		COPYRIGHT mad.h.sed
+noinst_LTLIBRARIES =	libmad.la
+# include_HEADERS =	mad.h
+# 
+# EXTRA_DIST =		COPYRIGHT mad.h.sed
 
 exported_headers =  \
 	version.h fixed.h bit.h timer.h stream.h frame.h synth.h decoder.h
@@ -52,50 +52,14 @@ INCLUDES =	$(FPM) $(ASO)
 BUILT_SOURCES =		mad.h
 CLEANFILES =		mad.h
 
-## From the libtool documentation on library versioning:
-##
-## CURRENT
-##      The most recent interface number that this library implements.
-##
-## REVISION
-##      The implementation number of the CURRENT interface.
-##
-## AGE
-##      The difference between the newest and oldest interfaces that this
-##      library implements.  In other words, the library implements all the
-##      interface numbers in the range from number `CURRENT - AGE' to
-##      `CURRENT'.
-##
-##    If two libraries have identical CURRENT and AGE numbers, then the
-## dynamic linker chooses the library with the greater REVISION number.
-##
-##   1. Start with version information of `0:0:0' for each libtool library.
-##
-##   2. Update the version information only immediately before a public
-##      release of your software.  More frequent updates are unnecessary,
-##      and only guarantee that the current interface number gets larger
-##      faster.
-##
-##   3. If the library source code has changed at all since the last
-##      update, then increment REVISION (`C:R:A' becomes `C:r+1:A').
-##
-##   4. If any interfaces have been added, removed, or changed since the
-##      last update, increment CURRENT, and set REVISION to 0.
-##
-##   5. If any interfaces have been added since the last public release,
-##      then increment AGE.
-##
-##   6. If any interfaces have been removed since the last public release,
-##      then set AGE to 0.
-
-version_current =	1
-version_revision =	0
-version_age =		1
-
-version_info =		$(version_current):$(version_revision):$(version_age)
-
-libmad_la_LDFLAGS =		-version-info $(version_info)
-##				-release $(VERSION)
+# version_current =	1
+# version_revision =	0
+# version_age =		1
+# 
+# version_info =		$(version_current):$(version_revision):$(version_age)
+# 
+# libmad_la_LDFLAGS =		-version-info $(version_info)
+# ##				-release $(VERSION)
 
 mad.h: config.status config.h Makefile.am  \
 		$(srcdir)/COPYRIGHT $(srcdir)/mad.h.sed $(exported_headers)
@@ -121,12 +85,12 @@ mad.h: config.status config.h Makefile.am  \
 	echo '}';  \
 	echo "# endif") | cat -s >$@
 
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-.c.s:
-	$(COMPILE) -S $<
-
-again: clean all
-
-.PHONY: again
+# libtool: $(LIBTOOL_DEPS)
+# 	$(SHELL) ./config.status --recheck
+# 
+# .c.s:
+# 	$(COMPILE) -S $<
+# 
+# again: clean all
+# 
+# .PHONY: again

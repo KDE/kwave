@@ -21,14 +21,15 @@
 
 ## Process this file with automake to produce Makefile.in
 
-lib_LTLIBRARIES =	libid3tag.la
-include_HEADERS =	id3tag.h
+noinst_LTLIBRARIES =	libid3tag.la
 
-version_current =	1
-version_revision =	0
-version_age =		1
-
-version_info =		$(version_current):$(version_revision):$(version_age)
+# include_HEADERS =	id3tag.h
+# 
+# version_current =	1
+# version_revision =	0
+# version_age =		1
+# 
+# version_info =		$(version_current):$(version_revision):$(version_age)
 
 EXTRA_DIST =		COPYRIGHT genre.dat.sed
 
@@ -50,7 +51,7 @@ EXTRA_libid3tag_la_SOURCES =  \
 			frametype.gperf compat.gperf genre.dat.in  \
 			debug.c debug.h
 
-libid3tag_la_LDFLAGS =	-version-info $(version_info)
+# libid3tag_la_LDFLAGS =	-version-info $(version_info)
 
 BUILT_SOURCES =		frametype.c compat.c genre.dat
 
@@ -66,9 +67,3 @@ $(srcdir)/genre.dat: $(srcdir)/genre.dat.in $(srcdir)/genre.dat.sed Makefile.am
 	sed -n -f $(srcdir)/genre.dat.sed $< |  \
 	sed -e '/\$$''Id: /s/\$$//g' >$@
 
-libtool: $(LIBTOOL_DEPS)
-	$(SHELL) ./config.status --recheck
-
-again: clean all
-
-.PHONY: again

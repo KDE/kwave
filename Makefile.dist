@@ -81,7 +81,7 @@ logged:
 		cd $$dir; \
 		aclocal ; \
 		autoheader ; \
-		automake --foreign --add-missing --include-deps ; \
+		automake --foreign --add-missing --copy --include-deps ; \
 		autoconf ; \
 		cd - ; \
 	}; done;

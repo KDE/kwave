@@ -901,7 +901,7 @@ with optional upper and lower limit.</string>
                             </widget>
                             <widget class="QLabel" row="0" column="1">
                                 <property name="name">
-                                    <cstring>lblCompression_2_2_2_2</cstring>
+                                    <cstring>lblCompressionNominalBitrate</cstring>
                                 </property>
                                 <property name="frameShape">
                                     <enum>MShape</enum>
@@ -2709,7 +2709,7 @@ The bitrate is selected by an average quality.</string>
     <connection>
         <sender>rbCompressionABR</sender>
         <signal>toggled(bool)</signal>
-        <receiver>lblCompression_2_2_2_2</receiver>
+        <receiver>lblCompressionNominalBitrate</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>

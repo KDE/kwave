@@ -58,7 +58,8 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
     :FileInfoDlg(parent), m_info(info)
 {
     QString mimetype = QVariant(m_info.get(INF_MIMETYPE)).toString();
-
+    if (!mimetype.length()) mimetype = "audio/x-wav"; // default mimetype
+    
     m_is_mpeg = ((mimetype == "audio/x-mpga") ||
         (mimetype == "audio/x-mp2") || (mimetype == "audio/x-mp3") ||
         (mimetype == "audio/mpeg"));
@@ -234,14 +235,20 @@ void FileInfoDialog::setupCompressionTab()
 	// MPEG file -> not supported yet
 	rbCompressionABR->setEnabled(false);
 	rbCompressionVBR->setEnabled(false);
+	abrBitrate->setEnabled(false);
+	lblCompressionNominalBitrate->setEnabled(false);
     } else if (m_is_ogg) {
 	// Ogg/Vorbis file
-	rbCompressionVBR->setEnabled(true);
+	rbCompressionVBR->setEnabled(false); // not supported yet
 	rbCompressionABR->setEnabled(true);
+	abrBitrate->setEnabled(true);
+	lblCompressionNominalBitrate->setEnabled(true);
     } else {
 	// other...    
 	rbCompressionABR->setEnabled(false);
 	rbCompressionVBR->setEnabled(false);
+	abrBitrate->setEnabled(false);
+	lblCompressionNominalBitrate->setEnabled(false);
     }
 
     // use well-known bitrates from MP3

@@ -1,0 +1,600 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>FileInfoDlg</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>FileInfoDlg</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>540</width>
+            <height>337</height>
+        </rect>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>540</width>
+            <height>300</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>File Info</string>
+    </property>
+    <property name="sizeGripEnabled">
+        <bool>true</bool>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>11</number>
+        </property>
+        <property name="spacing">
+            <number>6</number>
+        </property>
+        <widget class="QTabWidget">
+            <property name="name">
+                <cstring>InfoTab</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Standard</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
+                        <number>11</number>
+                    </property>
+                    <property name="spacing">
+                        <number>6</number>
+                    </property>
+                    <widget class="QLabel" row="0" column="0">
+                        <property name="name">
+                            <cstring>TextLabel1_3</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Filename:</string>
+                        </property>
+                    </widget>
+                    <spacer row="0" column="1">
+                        <property name="name">
+                            <cstring>Spacer95_3_3</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QLineEdit" row="0" column="2" rowspan="1" colspan="2">
+                        <property name="name">
+                            <cstring>edFilename</cstring>
+                        </property>
+                        <property name="readOnly">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                    <spacer row="8" column="2">
+                        <property name="name">
+                            <cstring>Spacer2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                    </spacer>
+                    <widget class="QFrame" row="7" column="0" rowspan="1" colspan="4">
+                        <property name="name">
+                            <cstring>Frame3_2</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>HLine</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Sunken</enum>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="6" column="0">
+                        <property name="name">
+                            <cstring>lblTracks</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Tracks:</string>
+                        </property>
+                    </widget>
+                    <spacer row="5" column="1">
+                        <property name="name">
+                            <cstring>Spacer95_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <spacer row="4" column="1">
+                        <property name="name">
+                            <cstring>Spacer95</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>21</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QLabel" row="5" column="0">
+                        <property name="name">
+                            <cstring>lblResolution</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Resolution:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLayoutWidget" row="6" column="3">
+                        <property name="name">
+                            <cstring>Layout15</cstring>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>0</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>lblTracksVerbose</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>%1</string>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>Spacer99_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                            </spacer>
+                        </hbox>
+                    </widget>
+                    <widget class="QFrame" row="2" column="0" rowspan="1" colspan="4">
+                        <property name="name">
+                            <cstring>Frame3</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>HLine</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Sunken</enum>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="3" column="0" rowspan="2" colspan="1">
+                        <property name="name">
+                            <cstring>lblRate</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Sample Rate:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLayoutWidget" row="5" column="3">
+                        <property name="name">
+                            <cstring>Layout14_2</cstring>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>0</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>lblBits_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>bit</string>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>Spacer100_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                            </spacer>
+                        </hbox>
+                    </widget>
+                    <widget class="QLayoutWidget" row="3" column="3" rowspan="2" colspan="1">
+                        <property name="name">
+                            <cstring>Layout13</cstring>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>0</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>lblSamplesPerSecond_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>samples per second</string>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>Spacer98_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                            </spacer>
+                        </hbox>
+                    </widget>
+                    <widget class="QSpinBox" row="6" column="2">
+                        <property name="name">
+                            <cstring>sbTracks</cstring>
+                        </property>
+                        <property name="minValue">
+                            <number>1</number>
+                        </property>
+                        <property name="value">
+                            <number>2</number>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks of the new signal. If you are not sure now, you can add or delete tracks later in the program.</string>
+                        </property>
+                    </widget>
+                    <widget class="QSpinBox" row="5" column="2">
+                        <property name="name">
+                            <cstring>sbResolution</cstring>
+                        </property>
+                        <property name="maxValue">
+                            <number>24</number>
+                        </property>
+                        <property name="minValue">
+                            <number>8</number>
+                        </property>
+                        <property name="lineStep">
+                            <number>8</number>
+                        </property>
+                        <property name="value">
+                            <number>16</number>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as it's own internal resolution to give the best results when processing the audio data.</string>
+                        </property>
+                    </widget>
+                    <widget class="QComboBox" row="3" column="2" rowspan="2" colspan="1">
+                        <item>
+                            <property name="text">
+                                <string>8000</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>10000</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>11025</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>12000</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>16000</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>22050</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>32000</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>44100</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>48000</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>96000</string>
+                            </property>
+                        </item>
+                        <property name="name">
+                            <cstring>cbSampleRate</cstring>
+                        </property>
+                        <property name="editable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="currentItem">
+                            <number>7</number>
+                        </property>
+                        <property name="whatsThis" stdset="0">
+                            <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
+                        </property>
+                    </widget>
+                    <spacer row="6" column="1">
+                        <property name="name">
+                            <cstring>Spacer95_3</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QLabel" row="1" column="0">
+                        <property name="name">
+                            <cstring>TextLabel2_2</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>MShape</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>MShadow</enum>
+                        </property>
+                        <property name="text">
+                            <string>Length:</string>
+                        </property>
+                    </widget>
+                    <spacer row="1" column="1">
+                        <property name="name">
+                            <cstring>Spacer95_3_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QLayoutWidget" row="1" column="2" rowspan="1" colspan="2">
+                        <property name="name">
+                            <cstring>Layout13</cstring>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>0</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QLineEdit">
+                                <property name="name">
+                                    <cstring>txtLength</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>3</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignLeft</set>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                        </hbox>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Content</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
+                        <number>11</number>
+                    </property>
+                    <property name="spacing">
+                        <number>0</number>
+                    </property>
+                    <widget class="QFrame">
+                        <property name="name">
+                            <cstring>Frame5</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>StyledPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Raised</enum>
+                        </property>
+                        <property name="lineWidth">
+                            <number>0</number>
+                        </property>
+                    </widget>
+                </vbox>
+            </widget>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>Layout1</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>10</number>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>btHelp</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Help</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>Spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>btOK</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;OK</string>
+                    </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>btCancel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Cancel</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>btOK</sender>
+        <signal>clicked()</signal>
+        <receiver>FileInfoDlg</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>btCancel</sender>
+        <signal>clicked()</signal>
+        <receiver>FileInfoDlg</receiver>
+        <slot>reject()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>btOK</tabstop>
+    <tabstop>btCancel</tabstop>
+    <tabstop>InfoTab</tabstop>
+    <tabstop>edFilename</tabstop>
+    <tabstop>txtLength</tabstop>
+    <tabstop>cbSampleRate</tabstop>
+    <tabstop>sbResolution</tabstop>
+    <tabstop>sbTracks</tabstop>
+    <tabstop>btHelp</tabstop>
+</tabstops>
+<includes>
+    <include location="global" impldecl="in declaration">klocale.h</include>
+</includes>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

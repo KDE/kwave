@@ -18,7 +18,6 @@
 #include "config.h"
 
 #include <qdatastream.h>
-#include <qfile.h> // ###
 
 #include "libkwave/FileFormat.h"
 #include "libkwave/KwaveDrag.h"
@@ -73,7 +72,6 @@ bool KwaveDrag::canDecode(const QMimeSource* e)
 bool KwaveDrag::encode(unsigned int rate, unsigned int bits,
                        MultiTrackReader &src)
 {
-    debug("KwaveDrag::encode(...)");
     data = QByteArray();
 
     /* first get and check some header information */
@@ -86,7 +84,6 @@ bool KwaveDrag::encode(unsigned int rate, unsigned int bits,
     const unsigned int datalen = bytes * length * tracks;
     const unsigned int array_size = datalen + sizeof(wav_header_t) + 4 + 4;
 
-    debug("KwaveDrag::encode(): array size=%d",array_size);
     data.resize(array_size);
     if (data.size() != array_size) {
 	debug("KwaveDrag::encode(): out of memory!");
@@ -137,8 +134,6 @@ bool KwaveDrag::encode(unsigned int rate, unsigned int bits,
     const unsigned int shift = 24-bits;
 
     // loop for writing data
-    debug("KwaveDrag::encode(): writing %d samples, %d bit, %d tracks...",
-	length, bits, tracks);
     for (unsigned int pos = 0; pos < length; pos++) {
 	for (unsigned int track = 0; track < tracks; track++) {
 	    SampleReader *stream = src[track];
@@ -162,15 +157,6 @@ bool KwaveDrag::encode(unsigned int rate, unsigned int bits,
 	    }
 	}
     }
-
-    /* this produces a correct file !? */
-    /* but saving clipboard content to file fails !!! */
-//    QFile f("/tmp/test-1.wav");
-//    f.open(IO_WriteOnly);
-//    f.writeBlock(data);
-//    f.close();
-
-    debug("KwaveDrag::encode(): done, %d bytes", dst_pos);
     return true;
 }
 
@@ -208,7 +194,6 @@ bool KwaveDrag::decode(const QMimeSource *e, Signal &sig,
                        unsigned int &rate, unsigned int &bits)
 {
     if (!KwaveDrag::canDecode(e)) return false;
-    debug("KwaveDrag::decode(...)");
 
     // get the encoded block of data from the mime source
     QByteArray data(e->encodedData(e->format()));

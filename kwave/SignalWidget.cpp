@@ -1741,7 +1741,19 @@ void SignalWidget::startDragging()
     }
 
     // start drag&drop, mode is determined automatically
-    d->drag();
+    InhibitRepaintGuard inhibit(*this);
+    UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
+    if (d->drag()) {
+	// deleting also affects the selection !
+	const unsigned int f = m_signal_manager.selection().first();
+	const unsigned int l = m_signal_manager.selection().last();
+	const unsigned int len = l-f+1;
+	m_signal_manager.deleteRange(first, len,
+		m_signal_manager.selectedTracks());
+		
+	// restore the new selection
+	selectRange((first < f) ? f-len : f, len);
+    }
 }
 
 //***************************************************************************
@@ -1759,8 +1771,6 @@ void SignalWidget::dragLeaveEvent(QDragLeaveEvent *)
 //***************************************************************************
 void SignalWidget::dropEvent(QDropEvent* event)
 {
-    debug("SignalWidget::dropEvent(%s)", event->format(0));
-
     if (KwaveDrag::canDecode(event)) {
 	UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
 	MultiTrackReader src;
@@ -1774,30 +1784,18 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	    unsigned int pos = m_offset + pixels2samples(event->pos().x());
 	    unsigned int len = sig.length();
 	
-	    if ((event->source() == this) /*&&
-	        (event->action() == QDropEvent::Move)*/)
-	    {
-		const unsigned int left =
-		    m_signal_manager.selection().first();
-		const unsigned int right =
-		    m_signal_manager.selection().last();
-		if (pos > right) {
-		    m_signal_manager.deleteRange(left, right-left+1,
-			m_signal_manager.selectedTracks());
-		    pos -= (right-left+1);
-		}
-	    }
-	
 	    sig.openMultiTrackReader(src, sig.allTracks(), 0, len-1);
 	    m_signal_manager.openMultiTrackWriter(dst,
 		m_signal_manager.selectedTracks(), Insert,
 		pos, pos+len-1);
+	    /** @todo add a converter if rate does not match */
 	    dst << src;
 	
 	    // set selection to the new area where the drop was done
 	    selectRange(pos, len);
 	} else {
 	    debug("SignalWidget::dropEvent(%s): failed !", event->format(0));
+	    /** @todo abort the current undo transaction */
 	}
     }
 

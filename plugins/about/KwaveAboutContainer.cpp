@@ -1,6 +1,5 @@
 /***************************************************************************
-    KwaveAboutContainer.cpp  -  Base class for the authors and thanks field in
-            the kwave about dialog
+KwaveAboutContainer.cpp  -  Authors and thanks field in the about dialog
                               -------------------
     begin                : Sat Mar 9 2002
     copyright            : (C) 2002 by Ralf Waspe
@@ -16,13 +15,15 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qnamespace.h>
 #include <kapp.h>
 
 #include "KwaveAboutContainer.h"
 
 //***************************************************************************
 KwaveAboutContainer::KwaveAboutContainer(QWidget* parent, const char* name)
-    :KAboutContainer(parent,name,10,10,0,0)
+    :KAboutContainer(parent, name, 0, 0, (Qt::AlignTop | Qt::AlignLeft),
+     (Qt::AlignTop | Qt::AlignLeft))
 {
     connect(this, SIGNAL(urlClick(const QString &)),
             this, SLOT(openURL(const QString &)));

@@ -36,7 +36,7 @@ public:
     /** Constructor */
     AboutKwaveDialog(QWidget *parent);
 
-    /** destructor */
+    /** Destructor */
     virtual ~AboutKwaveDialog();
 
 };

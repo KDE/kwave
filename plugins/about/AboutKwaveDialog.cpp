@@ -17,8 +17,10 @@
 
 #include <qlabel.h>
 #include <qframe.h>
+#include <qscrollview.h>
 #include <qstring.h>
 #include <qtextview.h>
+#include <qhbox.h>
 
 #include <kaboutdialog.h>
 #include <kapp.h>
@@ -47,21 +49,28 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
     header->setText(header_text);
 
     /* the frame containing the developer information */
+    QHBox *author_layout = new QHBox(authorframe->viewport());
+    authorframe->addChild(author_layout);
+    KAboutContainer* about = new KwaveAboutContainer(author_layout);
+
     QValueList<KAboutPerson>::ConstIterator it;
-    KAboutContainer* about = new KwaveAboutContainer(authorframe);
     for (it = about_data->authors().begin();
         it != about_data->authors().end();++it){
             about->addPerson((*it).name(),(*it).emailAddress(),
             (*it).webAddress(),(*it).task());
     }
+    authorframe->setResizePolicy(QScrollView::AutoOneFit);
 
     /* the frame containing the thanks to .. */
-    KAboutContainer* contrib = new KwaveAboutContainer(thanksframe);
+    QHBox *thanks_layout = new QHBox(thanksframe->viewport());
+    thanksframe->addChild(thanks_layout);
+    KAboutContainer* contrib = new KwaveAboutContainer(thanks_layout);
     for (it = about_data->credits().begin();
         it != about_data->credits().end(); ++it){
         contrib->addPerson((*it).name(),(*it).emailAddress(),
             (*it).webAddress(),i18n((*it).task()));
     }
+    thanksframe->setResizePolicy(QScrollView::AutoOneFit);
 
     /* set the url of the kwave homepage */
     kwave_url_label->setText(about_data->homepage());

@@ -1,6 +1,5 @@
 /***************************************************************************
-    kwaveaboutcontainer.h  -  Base class for the authors and thanks field in
-            the kwave about dialog
+  KwaveAboutContainer.h  -  Authors and thanks field in the about dialog
                              -------------------
     begin                : Sat Mar 9 2002
     copyright            : (C) 2002 by Ralf Waspe
@@ -16,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KWAVEABOUTCONTAINER_H
-#define KWAVEABOUTCONTAINER_H
+#ifndef _KWAVE_ABOUT_CONTAINER_H_
+#define _KWAVE_ABOUT_CONTAINER_H_
 
 #include "config.h"
 #include <kaboutdata.h>
@@ -25,30 +24,33 @@
 #include <qwidget.h>
 
 /**
-  *@author Ralf Waspe
-  */
-
+ *@author Ralf Waspe
+ */
 class KwaveAboutContainer : public KAboutContainer
 {
     Q_OBJECT
 
 public:
     /** Constructor */
-    	KwaveAboutContainer(QWidget* parent = 0, const char* name = "");
-    /** destructor */
-    ~KwaveAboutContainer();
+    KwaveAboutContainer(QWidget *parent = 0, const char *name = "");
+
+    /** Destructor */
+    virtual ~KwaveAboutContainer();
 
 public slots:
-    /** open webpage if url is clicked
-      * connect to :
-      * void  urlClick(const QString &url)
-      */
+
+    /**
+     * open webpage if url is clicked
+     * connect to :
+     * void  urlClick(const QString &url)
+     */
     void openURL(const QString &url);
     /** send email if email address is clicked
       * connect to :
       * void  mailClick(const QString &name,const QString &address)
       */
     void sendMail(const QString &name,const QString &address);
+
 };
 
-#endif
+#endif /* _KWAVE_ABOUT_CONTAINER_H_ */

@@ -9,7 +9,8 @@ SRC_PREFIX 	 = ${PACKAGE}
 SUBDIRS  	 = mt libgui libkwave kwave plugins po doc
 
 CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
-DISTCLEANFILES 	 = config.cache config.log config.h ${CLEANFILES}
+DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
+	stamp-h stamp-h[0-9]* aclocal.m4 config.h.in configure
 
 .PHONY: doc version-labels
 
@@ -32,26 +33,11 @@ clean-generic:
 	-rm -fv `find . -name \*.uih.h`
 	-rm -fv `find . -name \*.uic.cpp`
 	-rm -rfv `find . -name .\* | grep -v "^\.\.$$" | grep -v "^\.$$"`
-
-distclean-generic: clean-generic clean
-	-rm -f $(CONFIG_CLEAN_FILES)
-	-rm -f stamp-h stamp-h[0-9]*
-	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 	-rm -Rf doc/api
-
-reallyclean: clean clean-generic distclean-generic distclean
-	-rm -f config.h.in
-	-rm -f config.cache
-	-rm -f config.log
-	-rm -fv aclocal.m4
-	-rm -fv `find . -type l`
-	-rm -fv `find . -name Makefile.in`
-	-rm -fv `find ./doc -name \*.html`
-	-rm -fv `find . -name Makefile`
 
 backup: ${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
-	${MAKE} reallyclean ; \
+	${MAKE} distclean ; \
 	mv ${PACKAGE}.spec.saved ${PACKAGE}.spec ; \
 	(cd ${srcdir}/..; \
 	tar -czh -f ${ARCHIVE_DIR}/${PACKAGE}-${VERSION}-backup.tgz \
@@ -60,7 +46,7 @@ backup: ${PACKAGE}.spec
 
 patch:	${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
-	${MAKE} reallyclean ; \
+	${MAKE} distclean ; \
 	mv ${PACKAGE}.spec.saved ${PACKAGE}.spec ; \
 	(cd ${srcdir}/..; \
 	tar -czh -f ${ARCHIVE_DIR}/${PACKAGE}-${VERSION}.tar.gz ${SRC_PREFIX} ) && \

@@ -1,6 +1,7 @@
 
 MAINTAINERCLEANFILES = de/*.html en/*.html
 CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook
+DISTCLEANFILES = Makefile.in Makefile
 
 LANGUAGES = en de
 SUFFIXES = .docbook

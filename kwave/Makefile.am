@@ -11,8 +11,6 @@
 # kde_toolbardir    Where general toolbar icons should go to.
 # kde_wallpaperdir  Where general wallpapers should go to.
 
-# just set the variable
-
 APPSDIR= $(DESTDIR)$(kde_appsdir)/Multimedia
 CONFDIR= $(DESTDIR)$(kde_datadir)/$(PACKAGE)
 PIXDIR = $(DESTDIR)$(kde_datadir)/$(PACKAGE)/pics
@@ -112,7 +110,7 @@ kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt -lkfile -lkdeui -lkdecore -lqt \
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
-DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* doc/*~
+DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* doc/*~ Makefile.in Makefile
 
 $(APPSDIR)/kwave.desktop:
 

@@ -1,3 +1,4 @@
+
 INCLUDES= @all_includes@
 
 BUILTSOURCES=\
@@ -39,7 +40,7 @@ lib_LTLIBRARIES = libkwave.la
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
 
-DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/*
+DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
 
 %moc.cpp: %h
 	${MOC} $< -o $@

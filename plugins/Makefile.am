@@ -3,6 +3,8 @@
 # dirs=`find . -type d | grep -v ./template | grep -v CVS | grep -v \\\.$$ | \
 #	sed s°^\\\.\\\/°°g | sort`
 
+DISTCLEANFILES = Makefile.in Makefile
+
 dirs="about memory newsignal playback sonagram zero"
 
 distclean-generic:
@@ -26,4 +28,7 @@ install uninstall clean distclean all rpm:
 	(cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$target) \
 	|| case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
 	done && test -z "$$fail"
-    
+	if test x$@ == xdistclean; then \
+	    rm -fv `find . -name Makefile.in -o -name Makefile` \
+	; fi;
+

@@ -141,7 +141,52 @@ export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"
 
 Then go to chapter 1 and do ./configure / make / make install...
 
-5. REQUIREMENTS:
+5. REQUIREMENTS FOR THE ONLINE HELP:
+===================================
+
+First of all, read the instructions there:
+"http://i18n.kde.org/doc/install/index.html"
+
+for SuSE 7.2:
+-------------
+
+* sgml-skel
+* sp
+* sp_libs
+* jade_dsl
+* sgmltool
+* docbook-utils (contains jw)
+* docbktls
+* docbook-dsssl-stylesheets
+* docbook-xsl-stylesheets
+* docbook_3
+* docbook_4
+* html-dtd
+* iso_ent
+
+rpm -Uvh docbook-dtd31-sgml-1.0-6.noarch.rpm
+rpm -Uvh sgml-common-0.6.1-1.noarch.rpm
+rpm -Uvh docbook-dtd31-sgml-1.0-6.noarch.rpm
+rpm -Uvh docbook-utils-0.6.6-1.noarch.rpm
+rpm -Uvh docbook-style-dsssl-1.61-1.noarch.rpm
+
+all other distributions:
+------------------------
+
+try to install the following packages,
+e.g. from ftp://ftp.kde.org/pub/kde/devel/docbook/
+
+* jade-1.2.1-6
+* perl-SGMLSpm-1.03ii-3
+* sgml-common-0.6.1-1
+* sgmltool-1.0.9-278
+* jadetex-2.20-6
+* docbook-dtd31-sgml-1.0-6
+* docbook-utils-0.6.6-1
+* docbook-style-dsssl-1.61-1
+
+
+6. REQUIREMENTS:
 ===============
 
 For compilation you need a working autoconf/automake environment, a good
@@ -167,17 +212,6 @@ packets should be sufficient for building:
 * kdelibs-(devel-)2.1.2-0            (the KDE2 base libraries)
 * kdemultimedia-(devel-)2.1.1-6      (multimedia/aRts support)
 * kdesdk-2.1.1-7                     (some additional tools)
-
-And for generating the online help:
-
-* jade-1.2.1-6
-* docbook-dtd31-sgml-1.0-6
-* docbook-utils-0.6.6-1
-* docbook-style-dsssl-1.61-1
-* jadetex-2.20-6
-* perl-SGMLSpm-1.03ii-3
-* sgml-common-0.6.1-1
-* sgmltool-1.0.9-278
 
 known distributions / architectures:
 ------------------------------------
@@ -211,7 +245,7 @@ Not tested is libc5 with linuxthreads, if someone succeeds with this
 combination please notify me !
 (Note that linuxthreads has requirements for specific libc versions)
 
-5. SOME HISTORY:
+7. SOME HISTORY:
 ===============
 
 This project has been started by Martin Wilz in summer 1998 and has been

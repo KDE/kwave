@@ -27,6 +27,7 @@ MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 
 CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm .depend *.uih.h *.uic.cpp
+DISTCLEANFILES	 = Makefile.in Makefile
 
 ui_files	:= $(shell find . -name \*.ui)
 uih_files	:= $(ui_files:.ui=.uih.h)

@@ -3,6 +3,7 @@ GMOFILES = $(POFILES:.po=.gmo)
 
 localedir = $(DESTDIR)$(kde_locale)
 
+DISTCLEANFILES = Makefile.in Makefile
 MAINTAINERCLEANFILES = $(GMOFILES)
 
 GMSGFMT = @GMSGFMT@

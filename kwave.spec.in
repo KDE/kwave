@@ -27,17 +27,11 @@ Obsoletes: 	libkwave
 
 %setup -n kwave-@RPM_VERSION@
 rm -rf "$RPM_BUILD_ROOT"
-rm -f config.h
-rm -f config.cache
-rm -f config.status
-rm -f config.log
-rm -f `find . -name Makefile`
-rm -fv  `find . -type l`
-touch configure.in
 DESTDIR=""
 unset DESTDIR
-./configure --with-install-root=$RPM_BUILD_ROOT \
-	--enable-static=no --enable-shared=yes --enable-debug=no
+CONFIGURE_OPTS="--with-install-root=$RPM_BUILD_ROOT \
+	--enable-static=no --enable-shared=yes --enable-debug=no"
+make -f Makefile.dist 
 
 %build -n kwave-@RPM_VERSION@
 DESTDIR=""

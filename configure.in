@@ -90,15 +90,6 @@ AC_SUBST(KDE_VERSION_SPECIFIC_LIBS)
 
 AC_PATH_KDE
 
-dnl get the correct aRts include directories
-AC_MSG_CHECKING(for aRts includes)
-ac_arts_inc1="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include"
-ac_arts_inc2="`${ARTSCCONFIG} --cflags | sed s.//./.g`"
-ac_arts_inc3="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include/arts"
-eval "ARTS_INCLUDES=\"`echo ${ac_arts_inc1} ${ac_arts_inc2}  ${ac_arts_inc3}`\""
-AC_MSG_RESULT(${ARTS_INCLUDES})
-AC_SUBST(ARTS_INCLUDES)
-
 KDE_FIND_PATH(xml2pot, XML2POT, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(xml2pot)])
 AC_SUBST(XML2POT)
 
@@ -114,6 +105,13 @@ AC_PROG_LN_S
 AC_PATH_PROG(CONVERT,convert)
 AC_PATH_PROG(MSGMERGE, msgmerge)
 AC_PATH_PROG(MSGFMT, msgfmt)
+AC_PATH_PROG(XGETTEXT, xgettext)
+
+dnl check for the file with KDE's built-in translations
+AC_MSG_CHECKING(for kde.pot)
+eval "KDE_POT_FILE=\"`echo ${includedir}/kde.pot`\""
+AC_SUBST(KDE_POT_FILE)
+AC_MSG_RESULT(${KDE_POT_FILE})
 
 dnl checks, if the debug code is wanted
 dnl ### AC_CHECK_FLAGS
@@ -141,6 +139,14 @@ dnl   -g -ansi  -U__i486__ -U__i586__ -U__i686__ -DMEMCHECK -D_REENTRANT -D_XOPE
 dnl   -Wbad-function-cast -Wcast-align -Wundef -Wconversion -fno-exceptions \
 dnl   -fcheck-new -Wall -pedantic -W -Wpointer-arith -Wmissing-prototypes \
 dnl   -Wwrite-strings -Wno-long-long -Wnon-virtual-dtor -fno-builtin "
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_TIME
+
+dnl check if the compiler has bool
+AC_CHECK_BOOL
+dnl check if the system needs some #defines
+AC_CHECK_GNU_EXTENSIONS
 
 dnl check if the c++ compiler is new enough to support references to functions
 AC_MSG_CHECKING(whether $CXX supports references to functions)
@@ -252,23 +258,22 @@ AC_CHECK_FUNC(geteuid, AC_DEFINE(HAVE_GETEUID))
 AC_CHECK_FUNC(mkstemp, AC_DEFINE(HAVE_MKSTEMP))
 AC_CHECK_FUNC(unlink,  AC_DEFINE(HAVE_UNLINK))
 
+dnl get the correct aRts include directories
+AC_MSG_CHECKING(for aRts includes)
+ac_arts_inc1="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include"
+ac_arts_inc2="`${ARTSCCONFIG} --cflags | sed s.//./.g`"
+ac_arts_inc3="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include/arts"
+eval "ARTS_INCLUDES=\"`echo ${ac_arts_inc1} ${ac_arts_inc2}  ${ac_arts_inc3}`\""
+AC_MSG_RESULT(${ARTS_INCLUDES})
+AC_SUBST(ARTS_INCLUDES)
+
 dnl Checks for libraries.
-dnl AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' X11
-dnl AC_SUBST(LIBSOCKET)
 
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
 
 AC_CHECK_LIB(audiofile, main, [LIBAUDIOFILE="-laudiofile"])
 AC_SUBST(LIBAUDIOFILE)
-
-dnl Checks for typedefs, structures, and compiler characteristics.
-AC_HEADER_TIME
-
-dnl check if the compiler has bool
-AC_CHECK_BOOL
-dnl check if the system needs some #defines
-AC_CHECK_GNU_EXTENSIONS
 
 dnl output files
 topdir=`pwd`
@@ -311,5 +316,5 @@ AC_SUBST(RPM_BUILDROOT)
 AC_SUBST(LD_VERSION_INFO)
 
 dnl add here all your Makefiles
-dnl      (Makefile libaudiofile/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
+dnl      (Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
 AC_OUTPUT(Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)

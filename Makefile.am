@@ -73,7 +73,7 @@ release:
 messages:
 	rm -f po/*.gmo
 	(cd kwave ; ${MAKE} menus_config_i18n.cpp )
-	/usr/bin/xgettext -C -ki18n -x ${KDEDIR}/include/kde.pot \
+	@XGETTEXT@ -C -ki18n -x @KDE_POT_FILE@ \
 	`find . -name \*.h -o -name \*.cpp` -o ./po/${PACKAGE}.pot
 	(cd po ; ${MAKE} merge )
 

@@ -24,6 +24,7 @@
 #include <errno.h>
 
 #include <qarray.h>
+#include <qfile.h>
 #include <qvector.h>
 #include <qstring.h>
 
@@ -61,7 +62,7 @@ KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 /** Pattern for recognizing that aRts playback is selected */
 #define MAGIC_ARTS "aRts"
 
-///** Mutex for the aRts daemon, it seems to be not threadsafe */
+/** Mutex for the aRts daemon, it seems to be not threadsafe */
 static Mutex *g_arts_lock;
 
 #ifndef min
@@ -91,11 +92,17 @@ PlayBackPlugin::PlayBackPlugin(PluginContext &context)
     m_playback_params.bufbase = 10;
 
     m_spx_playback_pos.setLimit(8); // limit for the queue
+
+    // register as a factory for playback devices
+    manager().registerPlaybackDeviceFactory(this);
 }
 
 //***************************************************************************
 PlayBackPlugin::~PlayBackPlugin()
 {
+    // unregister from the list playback factories
+    manager().unregisterPlaybackDeviceFactory(this);
+
     // close the device now if it accidentally is still open
     MutexGuard lock_for_delete(m_lock_device);
     m_stop = true;
@@ -175,62 +182,89 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
-void PlayBackPlugin::openDevice()
+bool PlayBackPlugin::supportsDevice(const QString &name)
 {
-    MutexGuard lock_for_delete(m_lock_device);
+    // we know about the "default" device !
+    if (name == "") return true; 
 
-    // remove the old device if still one exists
-    if (m_device) {
-	warning("PlayBackPlugin::openDevice(): removing stale instance");
-	delete m_device;
+    // we support aRts playback
+    if (name.contains(MAGIC_ARTS)) return true;
+
+    // if it is a device name -> suggest OSS/ALSA output
+    QFile file(name);
+    if (file.exists()) return true;
+    
+    // default: not supported by us
+    return false;
+}
+
+//***************************************************************************
+PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
+    const PlayBackParam *playback_params)
+{
+    QString device_name = name;
+    PlayBackParam params;
+    PlayBackDevice *device = 0;
+
+    if (!playback_params) {
+	// use default parameters if none given
+	params          = m_playback_params;
+	params.rate     = fileInfo().rate();
+	params.channels = selectedTracks().count();
+    } else {
+	// use given parameters
+	params = *playback_params;
     }
 
-    // create the playback device
-
+    // use default device if no name is given
+    if (!device_name.length()) device_name = params.device;
+    
     // here comes the switch for different playback devices...
-    if (m_playback_params.device.contains(MAGIC_ARTS)) {
+    if (device_name.contains(MAGIC_ARTS)) {
 	ThreadsafeX11Guard x11_guard;
-
+	
 	// if no mutex exists: make a new one, parent is the global app!
 	/** @todo this mutex is actually never deleted ! */
 	if (!g_arts_lock) g_arts_lock = new Mutex();
 	ASSERT(g_arts_lock);
 	
-	m_device = new PlayBackArts(*g_arts_lock);
+	device = new PlayBackArts(*g_arts_lock);
     } else {
 	// default is OSS or similar device
-	m_device = new PlayBackOSS();
+	device = new PlayBackOSS();
     }
 
-    ASSERT(m_device);
-    if (!m_device) {
+    ASSERT(device);
+    if (!device) {
 	warning("PlayBackPlugin::openDevice(): "\
 		"creating device failed.");
-	return;
+	return 0;
     }
 
     // open and initialize the device
-    QString result = m_device->open(
-	m_playback_params.device,
-	m_playback_params.rate,
-	m_playback_params.channels,
-	m_playback_params.bits_per_sample,
-	m_playback_params.bufbase
+    QString result = device->open(
+	params.device,
+	params.rate,
+	params.channels,
+	params.bits_per_sample,
+	params.bufbase
     );
     ASSERT(!result.length());
     if (result.length()) {
 	warning("PlayBackPlugin::openDevice(): "\
 	        "opening the device failed.");
-
+	
 	// delete the device if it did not open
-	delete m_device;
-	m_device = 0;
-
+	delete device;
+	device = 0;
+	
 	// show an error message box
 	KMessageBox::error(parentWidget(), result,
 	    i18n("unable to open '%1'").arg(
-	    m_playback_params.device));
+	    params.device));
     }
+
+    return device;    
 }
 
 //***************************************************************************
@@ -251,8 +285,17 @@ void PlayBackPlugin::startDevicePlayBack()
     // set the real sample rate for playback from the signal itself
     m_playback_params.rate = signalRate();
 
+    MutexGuard lock_for_delete(m_lock_device);
+
+    // remove the old device if still one exists
+    if (m_device) {
+	warning("PlayBackPlugin::openDevice(): removing stale instance");
+	delete m_device;
+    }
+
     // open the device and abort if not possible
-    openDevice();
+    debug("PlayBackPlugin::startDevicePlayBack(), device='%s'", m_playback_params.device.data());
+    m_device = openDevice(m_playback_params.device, &m_playback_params);
     if (!m_device) {
 	// simulate a "playback done" on errors
 	playbackDone();
@@ -305,7 +348,7 @@ void PlayBackPlugin::startDevicePlayBack()
     m_stop = false;
 
     QStringList empty_list;
-    use(); // ###
+    use();
     execute(empty_list);
 }
 
@@ -426,10 +469,7 @@ void PlayBackPlugin::run(QStringList)
 	// maybe we loop. in this case the playback starts
 	// again from the left marker
 	if (m_playback_controller.loop() && !m_stop) {
-	    for (x=0; x < audible_count; x++) {
-		SampleReader *stream = input[x];
-		if (stream) stream->reset();
-	    }
+	    input.reset();
 	    pos = m_playback_controller.startPos();
 	}
 

@@ -57,7 +57,7 @@ static const char *devicetext[] = {
 };
 
 //***************************************************************************
-PlayBackDialog::PlayBackDialog(KwavePlugin &p, const playback_param_t &params)
+PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     :KDialog(p.parentWidget(), i18n("playback"), true),
     m_playback_params(params)
 {

@@ -21,7 +21,7 @@
 #include "config.h"
 #include <kdialog.h>
 
-#include "PlayBackParam.h" // for playback_param_t
+#include "PlayBackParam.h"
 
 class QButtonGroup;
 class QComboBox;
@@ -40,7 +40,7 @@ class PlayBackDialog : public KDialog
 
 public:
     /** Constructor */
-    PlayBackDialog(KwavePlugin &p, const playback_param_t &params);
+    PlayBackDialog(KwavePlugin &p, const PlayBackParam &params);
 
     /** Destructor */
     virtual ~PlayBackDialog();
@@ -60,7 +60,7 @@ private slots:
 
 private:
     /** all parameters needed for playback */
-    playback_param_t m_playback_params;
+    PlayBackParam m_playback_params;
 
     QLabel *m_buffer_label;
     QSlider *m_buffer_size;

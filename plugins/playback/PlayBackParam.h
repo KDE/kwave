@@ -1,5 +1,5 @@
 /***************************************************************************
-        PlayBackParam.h -  typedef for a struct with parameters for playback
+         PlayBackParam.h -  class with parameters for playback
 			     -------------------
     begin                : Tue May 15 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -21,10 +21,20 @@
 #include <qstring.h>
 
 /**
- * The playback_param_t struct contains all necessary parameters for
+ * A class that contains all necessary parameters for
  * setting up (initializing) a playback device.
  */
-typedef struct {
+class PlayBackParam
+{
+public:    
+    /** Default constructor */
+    PlayBackParam()
+        :rate(44100), channels(2), bits_per_sample(16),
+        device("/dev/dsp"), bufbase(10)
+    {
+	
+    };
+    
     /** Sample rate [samples/second] */
     double rate;
 
@@ -39,7 +49,6 @@ typedef struct {
 
     /** base of the buffer size (buffer size will be 2^bufbase) */
     unsigned int bufbase;
-
-} playback_param_t;
+};
 
 #endif /* _PLAY_BACK_PARAM_H_ */

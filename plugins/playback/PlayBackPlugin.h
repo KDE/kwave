@@ -24,15 +24,15 @@
 #include "mt/Mutex.h"
 #include "mt/SignalProxy.h"
 #include "libkwave/KwavePlugin.h"
-
-#include "PlayBackParam.h" // for struct playback_param_t
+#include "libkwave/PlaybackDeviceFactory.h"
+#include "PlayBackParam.h"
 
 class QStringList;
 class PlaybackController;
 class PluginContext;
 class PlayBackDevice;
 
-class PlayBackPlugin: public KwavePlugin
+class PlayBackPlugin: public KwavePlugin, public PlaybackDeviceFactory
 {
     Q_OBJECT
 public:
@@ -62,7 +62,7 @@ public:
      * Does playback in a thread.
      */
     virtual void run(QStringList);
-
+    
 public slots:
 
     /**
@@ -103,12 +103,29 @@ protected:
 
     /**
      * Opens and initializes the playback device. If the initialization
-     * worked, m_device holds a valid pointer. On any errors m_device
+     * worked, it returns a valid pointer. On any errors m_device
      * will be 0. If a device was open before, it will be closed.
-     * @see m_device
+     * @param name the name of the logical playback device or the name
+     *             of the lowlevel device. If null or zero-length, the
+     *             default device will be used.
+     * @param playback_params points to a class that holds all playback
+     *                        parameters. If null, the default parameters
+     *                        of the current signal will be used
+     * @return a pointer to an opened PlayBackDevice or null if something
+     *         failed
      * @see PlayBackDevice
      */
-    void openDevice();
+    PlayBackDevice *openDevice(const QString &name,
+	const PlayBackParam *playback_params);
+
+    /**
+     * Returns true if the given device name is supported
+     * and can be used for openDevice.
+     * @param name the name of a playback device
+     * @return true if supported
+     * @see openDevice
+     */
+    virtual bool supportsDevice(const QString &name);
 
     /**
      * Closes the playback device, deletes the instance of the
@@ -127,7 +144,7 @@ private:
     Mutex m_lock_device;
 
     /** the parameters used for playback */
-    playback_param_t m_playback_params;
+    PlayBackParam m_playback_params;
 
     /** reference to the playback controller */
     PlaybackController &m_playback_controller;

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-11-03 22:08+0100\n"
-"PO-Revision-Date: 2002-11-05 14:13GMT\n"
+"PO-Revision-Date: 2002-11-05 16:37GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -316,7 +316,7 @@ msgid ""
 "Example: 'Copyright Linux community 2002'"
 msgstr ""
 "Enregistre les informations de droits d'auteur pour le fichier.\n"
-"S'il y a plusieurs droits d'auteur, séparés les par un point virgule\n"
+"S'il y a plusieurs droits d'auteur, séparés les par un point-virgule\n"
 "suivi d'un espace.\n"
 "Exemple : «Copyright Linux community 2002»"
 
@@ -423,8 +423,7 @@ msgid ""
 msgstr ""
 "Informations sur la licence, tel que «Tous droits réservés»,\n"
 "«Toutes utilisations permises», une URL vers une licence ou\n"
-"la «EFF Open Audio License» (distribué sous les termes de la\n"
-"licence Open Audio. Voir l'adresse\n"
+"la «licence EFF Open Audio» (voir l'adresse\n"
 "http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
 "pour plus de détails)."
 
@@ -1193,7 +1192,7 @@ msgstr "Le fichier a été ecrasé et peut être corrompu !"
 
 #: kwave/SignalManager.cpp:381
 msgid "Sorry, the file type is not supported!"
-msgstr "Désolé, le type de fichier n'est pas supporté !"
+msgstr "Désolé, le type de fichier n'est pas pris en charge !"
 
 #: kwave/SignalManager.cpp:595
 msgid "cut"
@@ -1384,7 +1383,7 @@ msgstr "insérer"
 
 #: kwave/PluginManager.cpp:161
 msgid "oops, plugin '%1' is unknown or invalid!"
-msgstr "oops, le plugin «%1» est inconnu ou invalide !"
+msgstr "Oops, le plugin «%1» est inconnu ou non valable !"
 
 #: kwave/PluginManager.cpp:164 kwave/PluginManager.cpp:176
 msgid "error on loading plugin"
@@ -1517,7 +1516,7 @@ msgstr "Signal &Centré"
 
 #: kwave/menus_config_i18n.cpp:25
 msgid "&Change rate"
-msgstr "&Changer le taux"
+msgstr "&Changer la période"
 
 #: kwave/menus_config_i18n.cpp:26
 msgid "&Choose type"
@@ -1925,7 +1924,7 @@ msgstr "Longueur : "
 
 #: libgui/FileProgress.cpp:92
 msgid "sample rate: "
-msgstr "Taux d'échantillonnage : "
+msgstr "Période d'échantillonnage : "
 
 #: libgui/FileProgress.cpp:93
 msgid "%1 samples per second"
@@ -2045,7 +2044,7 @@ msgid ""
 "settings and try again..."
 msgstr ""
 "Un ou plusieurs paramètres pour l'encodeur ne sont pas supportés. "
-"Veuillez modifier le paramètrage en réessayer..."
+"Veuillez modifier le paramètrage et réessayer..."
 
 #: plugins/codec_ogg/OggEncoder.cpp:213 plugins/codec_wav/WavEncoder.cpp:144
 msgid "Unable to open the file for saving!"
@@ -2065,7 +2064,7 @@ msgstr "Erreur de lecture de la première page de données du flux «Ogg»."
 
 #: plugins/codec_ogg/OggDecoder.cpp:124
 msgid "Error reading initial header packet."
-msgstr "Erreur lors de la lecture du paquet correspondant à l'entête du fichier."
+msgstr "Erreur lors de la lecture du paquet correspondant à l'en-tête du fichier."
 
 #: plugins/codec_ogg/OggDecoder.cpp:131
 msgid "This Ogg bitstream does not contain Vorbis audio data."
@@ -2125,7 +2124,7 @@ msgstr ""
 "l'utilise actuellement. Vous devriez essayer ultérieurement. \n"
 "(suggestion : vous pouvez trouver le numéro d'identification du processus \n"
 "du programme correspondant en saisisant la ligne de commande «fuser -v %1» "
-"sur une ligne de commande du système.)"
+"sur une ligne de commande du système)."
 
 #: plugins/playback/PlayBack-OSS.cpp:110
 msgid "The device '%1' cannot be opened in the correct mode."
@@ -2141,7 +2140,7 @@ msgstr "La lecture en stéréo n'est pas disponible"
 
 #: plugins/playback/PlayBack-OSS.cpp:130
 msgid "playback rate %1 Hz is not supported"
-msgstr "la lecture à un taux de %1 Hz n'est pas disponible"
+msgstr "la lecture à une fréquence de %1 Hz n'est pas disponible"
 
 #: plugins/playback/PlayBack-OSS.cpp:139
 msgid "unusable buffer size: %1"
@@ -2188,7 +2187,7 @@ msgid ""
 "not supported by all sound hardware !"
 msgstr ""
 "Paramètre le mode de lecture en 16 Bits (qualité CD)\n"
-"Ce mode n'est pas supporté par tous les périphériques sonores !"
+"Ce mode n'est pas disponible pour tous les périphériques sonores !"
 
 #: plugins/playback/PlayBackDialog.cpp:145
 msgid "2&4 Bit"
@@ -2294,9 +2293,7 @@ msgstr "Le flux de sortie aRts n'est pas valable."
 msgid ""
 "aRts output is not available because the initialization of the aRts output "
 "has failed or not been done."
-msgstr ""
-"Le flux de sortie de aRts n'est pas valide. L'initialisation de aRts a "
-"échoué."
+msgstr "Le flux de sortie de aRts n'est pas disponible. L'initialisation de aRts a échoué."
 
 #: plugins/playback/PlayBack-aRts.cpp:219
 msgid ""
@@ -2492,7 +2489,7 @@ msgstr ""
 "comme extension à la mémoire physique. Cela permettra de travailler sur des "
 "fichiers sonores dont la taille est supérieure à votre mémoire physique.\n"
 "<br>\n"
-"    Bien sr vous pouvez aussi paramètrer une limite à la taille totale de "
+"Bien sur vous pouvez aussi paramètrer une limite à la taille totale de "
 "votre mémoire virtuelle."
 
 #: plugins/memory/MemDlg.uic.cpp:89
@@ -2610,7 +2607,7 @@ msgid ""
 "Should Kwave try to repair it?"
 msgstr ""
 "Le fichier a une structure qui est endomagée ou n'est pas un fichier «."
-"wav».\n"
+"WAV».\n"
 "Voulez vous que Kwave essaye de le réparer ?"
 
 #: plugins/codec_wav/WavDecoder.cpp:159
@@ -2629,7 +2626,7 @@ msgid ""
 "It makes no sense to continue now..."
 msgstr ""
 "Le fichier n'est pas un fichier «.WAV» ou est endomagé :\n"
-"Il n'y a pas assez de données sonores valides.\n"
+"Il n'y a pas assez de données sonores valables.\n"
 "\n"
 "Il est impossible de continuer..."
 
@@ -2647,9 +2644,8 @@ msgstr ""
 "Le fichier «WAV» doit être endomagé : \n"
 "quelques portions du fichier sont en double ou sont manquantes !\n"
 "\n"
-"Kwave utilisera les premiéres portions du fichier qui sont valides et "
-"ignorera\n"
-"les autres. Cela peut vous faire perdre des données.\n"
+"Kwave utilisera les premiéres portions du fichier qui sont valables et \n"
+"ignorera les autres. Cela peut vous faire perdre des données.\n"
 "Si vous voulez réparer complètement votre fichier endomagé,\n"
 "envoyé un courrier électronique à la liste de diffusion de Kwave.\n"
 "Nous essayerons de vous aider..."
@@ -2683,7 +2679,7 @@ msgid ""
 "The file has an invalid checksum.\n"
 "Do you still want to continue?"
 msgstr ""
-"Le fichier a une somme de contrôle invalide.\n"
+"Le fichier a une somme de contrôle non valable.\n"
 "Voulez-vous vraiment continuer ?"
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:144
@@ -2691,7 +2687,7 @@ msgid ""
 "The file contains an invalid channel mode 0x%1\n"
 "Assuming Mono..."
 msgstr ""
-"Le fichier contient un canal invalide dans le mode 0x%1\n"
+"Le fichier contient un canal non valable dans le mode 0x%1\n"
 "Le flux de données sera traité en mono..."
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:409
@@ -2712,7 +2708,7 @@ msgstr "Perte de synchronisation"
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:499
 msgid "file contains invalid data"
-msgstr "Le fichier contient des données invalides"
+msgstr "Le fichier contient des données non valables"
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:502
 #, c-format
@@ -3238,11 +3234,11 @@ msgstr "&Convertir"
 
 #: plugins/fileinfo/FileInfoPlugin.cpp:81
 msgid "&Set Rate"
-msgstr "&Paramétrer le taux"
+msgstr "&Paramétrer la période"
 
 #: plugins/sonagram/SonagramWindow.cpp:126
 msgid "&Export to Bitmap ..."
-msgstr "&Exporter vers un Bitmap ..."
+msgstr "&Exporter vers un fichier bitmap..."
 
 #: plugins/sonagram/SonagramWindow.cpp:135
 msgid "Time: ------ ms"
@@ -3375,7 +3371,7 @@ msgid ""
 "automatically update the sonagram if the selection\n"
 "has been enlarged, reduced or moved"
 msgstr ""
-"met à jour automatiquement le sonogramme si la sélection\n"
+"met à jour automatiquement le sonogramme si la sélection \n"
 "a été élargie, réduite, ou déplacée."
 
 #: plugins/sonagram/SonagramDialog.cpp:419

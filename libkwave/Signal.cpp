@@ -29,43 +29,6 @@
 
 #define MAXPRIME 512
 
-////***************************************************************************
-////***************************************************************************
-//
-////extern void *mmapalloc (int);
-////extern void mmapfree   (void *);
-////extern long mmap_threshold; //thresholf for using memory mapped to files
-//
-////**********************************************************
-//int *Signal::getNewMem(int size)
-////these are internal methods replacing new and delete if file-mapped
-////memory is desired
-//{
-//    sample_t *mem;
-//    //  if (size>(mmap_threshold<<20))
-//    //   {
-//    //    mapped=true;
-//    //   mem=(int *) mmapalloc(size*sizeof(int));
-//    //  }
-//    //  else
-//    mapped = false;
-//    mem = (sample_t*)malloc(size * sizeof(sample_t));
-//    if (mem) {
-//	printf("Signal::getNewMem(%d): allocated at %p\r\n", size, mem);
-//    } else {
-//	printf("Signal::getNewMem(%d): failed, out of memory\r\n", size);
-//    }
-//    return mem;
-//}
-//
-////**********************************************************
-//void Signal::getridof(int *mem) {
-//    if (mem)
-//	//    if (mapped) mmapfree (mem);
-//	// else
-//	free(mem);
-//}
-
 //**********************************************************
 //void Signal::getMaxMin (int &max, int &min, int begin, int len) {
 //    int c, first, last;
@@ -130,9 +93,22 @@ Track *Signal::appendTrack(unsigned int length)
 
     Track *t = new Track(length);
     ASSERT(t);
-    if (t) {
-	m_tracks.append(t);
-    };
+    if (!t) return 0;
+
+    m_tracks.append(t);
+
+    // connect to the track's signals
+    connect(t, SIGNAL(sigSamplesDeleted(Track&, unsigned int, unsigned int)),
+	this, SLOT(slotSamplesDeleted(Track&, unsigned int,
+	unsigned int)));
+    connect(t, SIGNAL(sigSamplesInserted(Track&, unsigned int, unsigned int)),
+	this, SLOT(slotSamplesInserted(Track&, unsigned int, unsigned int)));
+    connect(t, SIGNAL(sigSamplesModified(Track&, unsigned int, unsigned int)),
+	this, SLOT(slotSamplesModified(Track&, unsigned int, unsigned int)));
+
+    // track has been inserted at the end
+    emit sigTrackInserted(m_tracks.count()-1);
+
     return t;
 }
 
@@ -610,6 +586,37 @@ unsigned int Signal::length()
 //    setMarkers(lmarker, rmarker);
 //}
 
+//***************************************************************************
+unsigned int Signal::trackIndex(const Track &track)
+{
+    int index = m_tracks.findRef(&track);
+    ASSERT(index >= 0);
+    return (index >= 0) ? index : m_tracks.count();
+}
 
+//***************************************************************************
+void Signal::slotSamplesInserted(Track &src, unsigned int offset,
+                                 unsigned int length)
+{
+    unsigned int track = trackIndex(src);
+    emit sigSamplesInserted(track, offset, length);
+}
 
-//**********************************************************
+//***************************************************************************
+void Signal::slotSamplesDeleted(Track &src, unsigned int offset,
+                                unsigned int length)
+{
+    unsigned int track = trackIndex(src);
+    emit sigSamplesDeleted(track, offset, length);
+}
+
+//***************************************************************************
+void Signal::slotSamplesModified(Track &src, unsigned int offset,
+                                 unsigned int length)
+{
+    unsigned int track = trackIndex(src);
+    emit sigSamplesModified(track, offset, length);
+}
+
+//***************************************************************************
+//***************************************************************************

@@ -123,6 +123,26 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     connect(&m_playback_controller, SIGNAL(sigPlaybackPos(unsigned int)),
             this, SLOT(updatePlaybackPointer(unsigned int)));
 
+    // connect to the track's signals
+    Signal *sig = &(m_signal_manager.signal());
+
+    connect(sig, SIGNAL(sigTrackInserted(unsigned int)),
+            this, SLOT(slotTrackInserted(unsigned int)));
+
+    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
+	unsigned int)),
+	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
+	unsigned int)));
+    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, unsigned int,
+	unsigned int)),
+	this, SLOT(slotSamplesInserted(unsigned int, unsigned int,
+	unsigned int)));
+    connect(sig, SIGNAL(sigSamplesModified(unsigned int, unsigned int,
+	unsigned int)),
+	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
+	unsigned int)));
+
+
 //    labels = new LabelList();
 //    ASSERT(labels);
 //    if (!labels) return;
@@ -201,7 +221,7 @@ void SignalWidget::saveSignal(const char *filename, int bits,
 }
 
 //****************************************************************************
-QBitmap *SignalWidget::overview(unsigned int width, unsigned int height)
+QBitmap *SignalWidget::overview(unsigned int /*width*/, unsigned int /*height*/)
 {
     return 0;
 //    return (signalmanage) ?
@@ -210,7 +230,7 @@ QBitmap *SignalWidget::overview(unsigned int width, unsigned int height)
 }
 
 //****************************************************************************
-void SignalWidget::toggleChannel(int channel)
+void SignalWidget::toggleChannel(int /*channel*/)
 {
 //    ASSERT(signalmanage);
 //    if (signalmanage) signalmanage->toggleChannel(channel);
@@ -367,17 +387,6 @@ bool SignalWidget::executeCommand(const QString &command)
 ////}
 
 //****************************************************************************
-void SignalWidget::showMessage(const char *caption, const char *text,
-			       int flags)
-{
-    debug("SignalWidget::showMessage(...)");
-    ASSERT(caption);
-    ASSERT(text);
-    if (!caption || !text) return;
-    KMessageBox::error(this, caption, text, flags);
-}
-
-//****************************************************************************
 void SignalWidget::playback_startTimer()
 {
 ////    debug("void SignalWidget::playback_startTimer()");
@@ -442,7 +451,7 @@ void SignalWidget::selectRange()
 }
 
 //****************************************************************************
-void SignalWidget::selectRange(int left, int right)
+void SignalWidget::selectRange(int /*left*/, int /*right*/)
 {
 ////    debug("SignalWidget::selectRange(%d,%d)",left,right);
 //
@@ -461,24 +470,6 @@ void SignalWidget::selectRange(int left, int right)
 void SignalWidget::forwardCommand(const QString &command)
 {
     emit sigCommand(command);
-}
-
-//****************************************************************************
-void SignalWidget::forwardSignalChanged(int left, int right)
-{
-    emit signalChanged(left, right);
-}
-
-//****************************************************************************
-void SignalWidget::forwardChannelAdded(unsigned int channel)
-{
-    emit sigChannelAdded(channel);
-}
-
-//****************************************************************************
-void SignalWidget::forwardChannelDeleted(unsigned int channel)
-{
-    emit sigChannelDeleted(channel);
 }
 
 //****************************************************************************
@@ -508,7 +499,7 @@ SignalManager &SignalWidget::signalManager()
 }
 
 //****************************************************************************
-void SignalWidget::createSignal(const char *str)
+void SignalWidget::createSignal(const char */*str*/)
 {
 //    closeSignal();
 //
@@ -541,7 +532,7 @@ void SignalWidget::estimateRange(int l, int r)
 }
 
 //****************************************************************************
-void SignalWidget::setSignal(SignalManager *sigs)
+void SignalWidget::setSignal(SignalManager */*sigs*/)
 {
 //    closeSignal();
 //    if (!sigs) return ;
@@ -565,7 +556,7 @@ void SignalWidget::loadFile(const QString &filename, int type)
     // load a new signal
     m_signal_manager.loadFile(filename, type);
     ASSERT(m_signal_manager.length());
-    if (m_signal_manager.closed()) {
+    if (m_signal_manager.isClosed()) {
 	warning("SignalWidget::loadFile() failed:"\
 		" zero-length or out of memory?");
 	close();
@@ -732,7 +723,7 @@ void SignalWidget::zoomRange()
 }
 
 //****************************************************************************
-void SignalWidget::resizeEvent(QResizeEvent *e)
+void SignalWidget::resizeEvent(QResizeEvent *)
 {
 //    int maxofs = pixels2samples(width - 1) + 1;
 //    int length = (signalmanage) ? signalmanage->getLength() : 0;
@@ -779,7 +770,7 @@ void SignalWidget::refreshLayer(int layer)
 }
 
 //****************************************************************************
-void SignalWidget::slot_setOffset(int new_offset)
+void SignalWidget::slot_setOffset(int /*new_offset*/)
 {
 //    if (new_offset != offset) {
 //	setOffset(new_offset);
@@ -798,7 +789,7 @@ bool SignalWidget::checkPosition(int x)
 }
 
 //****************************************************************************
-void SignalWidget::mousePressEvent(QMouseEvent *e)
+void SignalWidget::mousePressEvent(QMouseEvent *)
 {
 //    ASSERT(e);
 //    ASSERT(select);
@@ -821,7 +812,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 }
 
 //****************************************************************************
-void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
+void SignalWidget::mouseReleaseEvent(QMouseEvent */*e*/)
 {
 //    ASSERT(e);
 //    ASSERT(select);
@@ -845,7 +836,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 }
 
 //****************************************************************************
-void SignalWidget::mouseMoveEvent( QMouseEvent *e )
+void SignalWidget::mouseMoveEvent( QMouseEvent */*e*/ )
 {
 //    ASSERT(e);
 //    ASSERT(select);
@@ -895,8 +886,8 @@ void SignalWidget::mouseMoveEvent( QMouseEvent *e )
 }
 
 //****************************************************************************
-void SignalWidget::drawOverviewSignal(int channel, int middle, int height,
-				      int first, int last)
+void SignalWidget::drawOverviewSignal(int /*channel*/, int /*middle*/, int /*height*/,
+				      int /*first*/, int /*last*/)
 {
 ////    debug("SignalWidget::drawOverviewSignal()");
 //
@@ -978,7 +969,7 @@ void SignalWidget::calculateInterpolation()
 }
 
 //****************************************************************************
-void SignalWidget::drawInterpolatedSignal(int channel, int middle, int height)
+void SignalWidget::drawInterpolatedSignal(int /*channel*/, int /*middle*/, int /*height*/)
 {
 //    register float y;
 //    register float *sig;
@@ -1080,7 +1071,7 @@ void SignalWidget::drawInterpolatedSignal(int channel, int middle, int height)
 }
 
 //****************************************************************************
-void SignalWidget::drawPolyLineSignal(int channel, int middle, int height)
+void SignalWidget::drawPolyLineSignal(int /*channel*/, int /*middle*/, int /*height*/)
 {
 //    float scale_y;
 //    int y;
@@ -1162,7 +1153,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //    gettimeofday(&t_start,0);
 //#endif
 
-    unsigned int channels = m_signal_manager.closed() ? 0 : tracks();
+    unsigned int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
     bool update_pixmap = false;
 
     m_layer_rop[LAYER_SIGNAL] = CopyROP;
@@ -1206,23 +1197,25 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	// check and correct m_zoom and offset
 	fixZoomAndOffset();
 
-	int chanheight = (channels) ? (height / channels) : 0;
-	int zero = chanheight / 2;
+	int track_height = (n_tracks) ? (height / n_tracks) : 0;
+	int zero = (track_height >> 1);
 
-	for (unsigned int i = 0; i < channels; i++) {
-	    if (m_zoom < 0.1) {
-		drawInterpolatedSignal(i, zero, chanheight);
-	    } else if (m_zoom <= 1.0)
-		drawPolyLineSignal(i, zero, chanheight);
-	    else
-		drawOverviewSignal(i, zero, chanheight,
-		                   0, m_zoom*width);
+	for (unsigned int i = 0; i < n_tracks; i++) {
+	    if (!m_signal_manager.isEmpty()) {
+		if (m_zoom < 0.1) {
+		    drawInterpolatedSignal(i, zero, track_height);
+		} else if (m_zoom <= 1.0)
+		    drawPolyLineSignal(i, zero, track_height);
+		else
+		    drawOverviewSignal(i, zero, track_height,
+		                       0, m_zoom*width);
+	    }
 
 	    // draw the baseline
 	    p.setPen(green);
 	    p.drawLine(0, zero, width, zero);
 	    p.setPen(white);
-	    zero += chanheight;
+	    zero += track_height;
 	}
 
 	p.flush();
@@ -1265,7 +1258,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	p.fillRect(0, 0, width, height, black);
 	p.setRasterOp(CopyROP);
 	
-	if (select && channels) {
+	if (select && n_tracks) {
 	    int left  = select->left();
 	    int right = select->right();
 	    if ((right > offset) && (left < offset+pixels2samples(width))) {
@@ -1316,7 +1309,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     playpointer = samples2pixels(
 	m_playback_controller.currentPos() - offset);
 
-    if (channels) {
+    if (n_tracks) {
 	p.begin(pixmap);
 	p.setPen(yellow);
 	p.setRasterOp(XorROP);
@@ -1368,7 +1361,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //float weighttable[AUTOKORRWIN];
 
 //****************************************************************************
-int SignalWidget::ms2samples(double ms)
+int SignalWidget::ms2samples(double /*ms*/)
 {
 //    ASSERT(signalmanage);
 //    if (!signalmanage) return 0;
@@ -1378,7 +1371,7 @@ int SignalWidget::ms2samples(double ms)
 }
 
 //****************************************************************************
-double SignalWidget::samples2ms(int samples)
+double SignalWidget::samples2ms(int /*samples*/)
 {
 //    if (!signalmanage) return 0.0;
 //    return (double)samples*1000.0 / (double)signalmanage->getRate();
@@ -1400,13 +1393,13 @@ int SignalWidget::samples2pixels(int samples)
 }
 
 //****************************************************************************
-void selectMarkers(const char *command)
+void selectMarkers(const char */*command*/)
 {
 //    Parser parser(command);
 }
 
 //****************************************************************************
-LabelType *findMarkerType (const char *txt)
+LabelType *findMarkerType (const char */*txt*/)
 {
 //    int cnt = 0;
 //    LabelType *act;
@@ -1419,7 +1412,7 @@ LabelType *findMarkerType (const char *txt)
     return 0;
 }
 //****************************************************************************
-void SignalWidget::signalinserted (int start, int len)
+void SignalWidget::signalinserted(int /*start*/, int /*len*/)
 {
 //    Label *tmp;
 //    for (tmp = labels->first(); tmp; tmp = labels->next())
@@ -1429,7 +1422,7 @@ void SignalWidget::signalinserted (int start, int len)
 }
 
 //****************************************************************************
-void SignalWidget::signaldeleted (int start, int len)
+void SignalWidget::signaldeleted(int /*start*/, int /*len*/)
 {
 //    Label *tmp;
 //    for (tmp = labels->first(); tmp; tmp = labels->next()) {
@@ -1976,9 +1969,41 @@ void SignalWidget::playback_time()
 }
 
 //***************************************************************************
-void SignalWidget::updatePlaybackPointer(unsigned int pos)
+void SignalWidget::updatePlaybackPointer(unsigned int /*pos*/)
 {
     if (timer && !timer->isActive()) playback_startTimer();
 }
 
+//***************************************************************************
+void SignalWidget::slotTrackInserted(unsigned int track)
+{
+    debug("SignalWidget(): slotTrackInserted(%u)", track);
+}
+
+//***************************************************************************
+void SignalWidget::slotSamplesInserted(unsigned int track,
+    unsigned int offset, unsigned int length)
+{
+    debug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
+	offset, length);
+}
+
+//***************************************************************************
+void SignalWidget::slotSamplesDeleted(unsigned int track,
+    unsigned int offset, unsigned int length)
+{
+    debug("SignalManager(): slotSamplesDeleted(%u, %u,%u)", track,
+	offset, length);
+}
+
+//***************************************************************************
+void SignalWidget::slotSamplesModified(unsigned int track,
+    unsigned int offset, unsigned int length)
+{
+    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
+	offset, length);
+}
+
+//***************************************************************************
+//***************************************************************************
 /* end of src/SignalWidget.cpp */

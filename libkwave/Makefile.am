@@ -1,9 +1,12 @@
 INCLUDES= @all_includes@
 
-BUILTSOURCES=""
+BUILTSOURCES=\
+ Signal.moc.cpp\
+ Stripe.moc.cpp\
+ Track.moc.cpp
 
 # Which sources should be compiled for kwave.
-libkwave_la_SOURCES =\
+libkwave_la_SOURCES=\
  Curve.cpp\
  Filter.cpp\
  FileLoader.cpp\

@@ -18,6 +18,7 @@
 #ifndef _STRIPE_H_
 #define _STRIPE_H_
 
+#include <qobject.h>
 #include <qarray.h>
 
 #include "mt/Mutex.h"
@@ -25,8 +26,9 @@
 #include "libkwave/Sample.h"
 
 //***************************************************************************
-class Stripe
+class Stripe: public QObject
 {
+    Q_OBJECT
 public:
 
     /**
@@ -35,11 +37,10 @@ public:
     Stripe();
 
     /**
-     * Constructor. Creates a stripe with specified length.
+     * Constructor. Creates a new zero-length stripe.
      * @param start position within the track
-     * @param length number of samples
      */
-    Stripe(unsigned int start, unsigned int length);
+    Stripe(unsigned int start);
 
     /**
      * Constructor. Creates a stripe that already contains samples.
@@ -103,6 +104,37 @@ public:
      * end of the stripe.
      */
     Stripe &operator << (const QArray<sample_t> &samples);
+
+signals:
+
+    /**
+     * Emitted if the stripe has grown. This implies a modification of
+     * the inserted data, so no extra sigSamplesModified is emitted.
+     * @param src source stripe of the signal (*this)
+     * @param offset position from which the data was inserted
+     * @param length number of samples inserted
+     * @see sigSamplesModified
+     */
+    void sigSamplesInserted(Stripe &src, unsigned int offset,
+                            unsigned int length);
+
+    /**
+     * Emitted if data has been removed from the stripe.
+     * @param src source stripe of the signal (*this)
+     * @param offset position from which the data was removed
+     * @param length number of samples deleted
+     */
+    void sigSamplesDeleted(Stripe &src, unsigned int offset,
+                           unsigned int length);
+
+    /**
+     * Emitted if some data within the stripe has been modified.
+     * @param src source stripe of the signal (*this)
+     * @param offset position from which the data was modified
+     * @param length number of samples modified
+     */
+    void sigSamplesModified(Stripe &src, unsigned int offset,
+                            unsigned int length);
 
 private:
 

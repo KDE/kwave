@@ -134,9 +134,6 @@ public slots:
     /** calls zoomNormal() of the signal widget */
     void zoomNormal();
 
-    /** Connected to the signal widget's signalChanged() signal */
-    void slot_SignalChanged(int left,int right);
-
 private slots:
 
     /**
@@ -145,23 +142,23 @@ private slots:
      */
     void forwardZoomChanged(double zoom);
 
-    /**
+    /* *
      * Called if a channel has been added. Updates the display by
      * resizing/re-positioning the channel controls and the signal
      * display.
      * @see #channelDeleted()
      * @param channel index of the added channel [0..n]
      */
-    void channelAdded(unsigned int channel);
+    // void channelAdded(unsigned int channel);
 
-    /**
+    /* *
      * Called if a channel has been deleted. Updates the display by
      * resizing/re-positioning the channel controls and the signal
      * display.
      * @param #channelAdded()
      * @param channel index of the added channel [0..n]
      */
-    void channelDeleted(unsigned int channel);
+    // void channelDeleted(unsigned int channel);
 
     /**
      * Connected to the vertical scrollbar and called if the value

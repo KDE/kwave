@@ -18,6 +18,7 @@
 #ifndef _TRACK_H_
 #define _TRACK_H_
 
+#include <qobject.h>
 #include <qlist.h>
 
 #include "mt/Mutex.h"
@@ -28,8 +29,9 @@
 class SampleInputStream;
 
 //***************************************************************************
-class Track
+class Track: public QObject
 {
+    Q_OBJECT
 public:
     /**
      * Default constructor. Creates a new and empty track with
@@ -71,14 +73,78 @@ public:
     SampleInputStream *openInputStream(InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
 
-protected:
+signals:
 
+    /**
+     * Emitted if the track has grown. This implies a modification of
+     * the inserted data, so no extra sigSamplesModified is emitted.
+     * @param src source track of the signal (*this)
+     * @param offset position from which the data was inserted
+     * @param length number of samples inserted
+     * @see sigSamplesModified
+     */
+    void sigSamplesInserted(Track &src, unsigned int offset,
+                            unsigned int length);
+
+    /**
+     * Emitted if data has been removed from the track.
+     * @param src source track of the signal (*this)
+     * @param offset position from which the data was removed
+     * @param length number of samples deleted
+     */
+    void sigSamplesDeleted(Track &src, unsigned int offset,
+                           unsigned int length);
+
+    /**
+     * Emitted if some data within the track has been modified.
+     * @param src source track of the signal (*this)
+     * @param offset position from which the data was modified
+     * @param length number of samples modified
+     */
+    void sigSamplesModified(Track &src, unsigned int offset,
+                            unsigned int length);
+
+protected:
 friend class SampleIputStream;
 
     /** returns the mutex for access to the whole track. */
     inline Mutex &mutex() {
 	return m_lock;
     };
+
+private slots:
+
+    /**
+     * Connected to each stripe's sigSamplesInserted.
+     * @param src source stripe of the signal (*this)
+     * @param offset position from which the data was inserted
+     * @param length number of samples inserted
+     * @see Stripe::sigSamplesInserted
+     * @internal
+     */
+    void slotSamplesInserted(Stripe &src, unsigned int offset,
+                             unsigned int length);
+
+    /**
+     * Connected to each stripe's sigSamplesDeleted.
+     * @param src source stripe of the signal
+     * @param offset position from which the data was removed
+     * @param length number of samples deleted
+     * @see Stripe::sigSamplesDeleted
+     * @internal
+     */
+    void slotSamplesDeleted(Stripe &src, unsigned int offset,
+                            unsigned int length);
+
+    /**
+     * Connected to each stripe's sigSamplesModified
+     * @param src source stripe of the signal
+     * @param offset position from which the data was modified
+     * @param length number of samples modified
+     * @internal
+     */
+    void slotSamplesModified(Stripe &src, unsigned int offset,
+                             unsigned int length);
 
 private:
     /**

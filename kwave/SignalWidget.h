@@ -147,26 +147,6 @@ public slots:
 
     void forwardCommand(const QString &command);
 
-    /**
-     * Forwards signalChanged.
-     * @see signalChanged()
-     */
-    void forwardSignalChanged(int lmarker, int rmarker);
-
-    /**
-     * Forwards sigChannelAdded()
-     * @param channel index of the new channel [0...N-1]
-     */
-    void forwardChannelAdded(unsigned int channel);
-
-    /**
-     * Forwards sigChannelDeleted()
-     * @param channel index of the deleted channel [0...N-1]
-     */
-    void forwardChannelDeleted(unsigned int channel);
-
-    void showMessage(const char *caption, const char *text, int flags);
-
     void signalinserted(int, int);
     void signaldeleted(int, int);
     void estimateRange(int, int);
@@ -228,6 +208,47 @@ public slots:
 
 private slots:
 
+    /**
+     * Connected to the signal's sigTrackInserted.
+     * @param track index of the inserted track
+     * @see Signal::trackInserted
+     * @internal
+     */
+    void slotTrackInserted(unsigned int track);
+
+    /**
+     * Connected to the signal's sigSamplesInserted.
+     * @param track index of the source track [0...tracks-1]
+     * @param offset position from which the data was inserted
+     * @param length number of samples inserted
+     * @see Signal::sigSamplesInserted
+     * @internal
+     */
+    void slotSamplesInserted(unsigned int track, unsigned int offset,
+                             unsigned int length);
+
+    /**
+     * Connected to the signal's sigSamplesDeleted.
+     * @param track index of the source track [0...tracks-1]
+     * @param offset position from which the data was removed
+     * @param length number of samples deleted
+     * @see Signal::sigSamplesDeleted
+     * @internal
+     */
+    void slotSamplesDeleted(unsigned int track, unsigned int offset,
+                            unsigned int length);
+
+    /**
+     * Connected to the signal's sigSamplesModified
+     * @param track index of the source track [0...tracks-1]
+     * @param offset position from which the data was modified
+     * @param length number of samples modified
+     * @see Signal::sigSamplesModified
+     * @internal
+     */
+    void slotSamplesModified(unsigned int track, unsigned int offset,
+                             unsigned int length);
+
     void updatePlaybackPointer(unsigned int pos);
 
     void refreshSelection();
@@ -255,28 +276,6 @@ signals:
      * @param zoom value [samples/pixel]
      */
     void zoomInfo(double zoom);
-
-    /**
-     * Indicates that the signal data within a range
-     * has changed.
-     * @param lmarker leftmost sample or -1 for "up to the left"
-     * @param rmarker rightmost sample or -1 for "up to the right"
-     */
-    void signalChanged(int lmarker, int rmarker);
-
-    /**
-     * Signals that a channel has been added/inserted. The channels
-     * at and after this position (if any) have moved to channel+1.
-     * @param channel index of the new channel [0...N-1]
-     */
-    void sigChannelAdded(unsigned int channel);
-
-    /**
-     * Signals that a channel has been deleted. All following channels
-     * are shifted one channel down.
-     * @param channel index of the deleted channel [0...N-1]
-     */
-    void sigChannelDeleted(unsigned int channel);
 
 protected:
     /**

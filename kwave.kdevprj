@@ -186,11 +186,11 @@ install_location=
 type=HEADER
 [kwave/Makefile.am]
 dist=true
-files=kwave/TopWidget.cpp,kwave/TopWidget.h,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/MainWidget.cpp,kwave/MainWidget.h,kwave/MouseMark.cpp,kwave/MouseMark.h,kwave/PluginManager.cpp,kwave/PluginManager.h,kwave/ProgressDialog.cpp,kwave/ProgressDialog.h,kwave/SignalManager.cpp,kwave/SignalManager.h,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/SignalWidget.cpp,kwave/SignalWidget.h,kwave/main.cpp,kwave/menus.config,kwave/Makefile.am
+files=kwave/TopWidget.cpp,kwave/TopWidget.h,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/MainWidget.cpp,kwave/MainWidget.h,kwave/MouseMark.cpp,kwave/MouseMark.h,kwave/PluginManager.cpp,kwave/PluginManager.h,kwave/ProgressDialog.cpp,kwave/ProgressDialog.h,kwave/SignalManager.cpp,kwave/SignalManager.h,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/SignalWidget.cpp,kwave/SignalWidget.h,kwave/main.cpp,kwave/menus.config,kwave/Makefile.am,kwave/PlaybackController.cpp,kwave/PlaybackController.h
 install=false
 install_location=
 sub_dirs=
-type=DATA
+type=static_library
 [kwave/MouseMark.cpp]
 dist=true
 install=false

@@ -29,9 +29,8 @@
  */
 
 /**
- * \class   Asynchronous_Object
- * \inherit Thread
- * \brief   Template classes for making methods asynchronously callable 
+ * \class    Asynchronous_Object
+ * \brief    Template classes for making methods asynchronously callable
  */
 
 #ifndef _ASYNCHRONOUS_OBJECT_H_

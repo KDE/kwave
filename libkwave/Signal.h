@@ -17,19 +17,17 @@ class SampleInputStream;
 class Track;
 
 //**********************************************************************
-class Signal
+class Signal: public QObject
 {
+    Q_OBJECT
+
 public:
+
     /**
      * Default Constructor. Creates an empty signal with
      * zero-length and no tracks
      */
     Signal();
-
-    /**
-     * Copy constructor.
-     */
-//    Signal(const Signal &sig);
 
     /**
      * Constructor. Creates an empty signal with a specified
@@ -41,7 +39,7 @@ public:
     /**
      * Destructor.
      */
-    ~Signal ();
+    ~Signal();
 
     /**
      * Closes the signal by removing all tracks.
@@ -129,18 +127,88 @@ public:
 //    void setMarkers (int, int);
 //    void resample (const char *);   //int
 
+signals:
+
+    /**
+     * Signals that a track has been inserted.
+     * @param track index of the new track [0...tracks()-1]
+     */
+    void sigTrackInserted(unsigned int track);
+
+    /**
+     * Emitted if samples have been inserted into a track. This implies
+     * a modification of the inserted data, so no extra sigSamplesModified
+     * is emitted.
+     * @param track index of the track
+     * @param offset position from which the data was inserted
+     * @param length number of samples inserted
+     * @see sigSamplesModified
+     */
+    void sigSamplesInserted(unsigned int track, unsigned int offset,
+                            unsigned int length);
+
+    /**
+     * Emitted if samples have been removed from a track.
+     * @param track index of the track
+     * @param offset position from which the data was removed
+     * @param length number of samples deleted
+     */
+    void sigSamplesDeleted(unsigned int track, unsigned int offset,
+                           unsigned int length);
+
+    /**
+     * Emitted if samples within a track have been modified.
+     * @param track index of the track
+     * @param offset position from which the data was modified
+     * @param length number of samples modified
+     */
+    void sigSamplesModified(unsigned int track, unsigned int offset,
+                            unsigned int length);
+
+private slots:
+
+    /**
+     * Connected to each track's sigSamplesInserted.
+     * @param src source track
+     * @param offset position from which the data was inserted
+     * @param length number of samples inserted
+     * @see Track::sigSamplesInserted
+     * @internal
+     */
+    void slotSamplesInserted(Track &src, unsigned int offset,
+                             unsigned int length);
+
+    /**
+     * Connected to each track's sigSamplesDeleted.
+     * @param src source track
+     * @param offset position from which the data was removed
+     * @param length number of samples deleted
+     * @see Track::sigSamplesDeleted
+     * @internal
+     */
+    void slotSamplesDeleted(Track &src, unsigned int offset,
+                            unsigned int length);
+
+    /**
+     * Connected to each track's sigSamplesModified
+     * @param src source track
+     * @param offset position from which the data was modified
+     * @param length number of samples modified
+     * @see Track::sigSamplesModified
+     * @internal
+     */
+    void slotSamplesModified(Track &src, unsigned int offset,
+                             unsigned int length);
+
 private:
 
-//    //memory management
-//
-//    void noMemory ();
-//    void getridof (int *mem);
-//    int *getNewMem (int size);
-//
-//    //attribute modifying functions
-//
-//    void changeRate (int);
-//
+    /**
+     * Looks up the index of a trackin the track list
+     * @param track reference to the trac to be looked up
+     * @returns index of the track [0...tracks()-1] or tracks() if not found
+     */
+    unsigned int trackIndex(const Track &track);
+
 //    //signal modifying functions
 //    void replaceStutter (int, int);
 //    void delayRecursive (int, int);
@@ -151,8 +219,6 @@ private:
 //
 //    void fft (int, bool);
 //    void averageFFT (int points, window_function_t windowtype);
-
-private:
 
     /** list of tracks */
     QList<Track> m_tracks;

@@ -119,7 +119,7 @@ void PlaybackController::playbackStop()
 }
 
 //***************************************************************************
-void PlaybackController::updatePlaybackPos(const unsigned int pos)
+void PlaybackController::updatePlaybackPos(unsigned int pos)
 {
     m_playback_position = pos;
     emit sigPlaybackPos(m_playback_position);

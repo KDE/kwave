@@ -218,12 +218,6 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     connect(signalview, SIGNAL(timeInfo(double)),
 	    this, SLOT(setTimeInfo(double)));
 
-    connect(signalview, SIGNAL(signalChanged(int,int)),
-            this, SLOT(slot_SignalChanged(int,int)));
-    connect(signalview, SIGNAL(sigChannelAdded(unsigned int)),
-            this, SLOT(channelAdded(unsigned int)));
-    connect(signalview, SIGNAL(sigChannelDeleted(unsigned int)),
-            this, SLOT(channelDeleted(unsigned int)));
 
     refreshChannelControls();
     refreshControls();
@@ -415,29 +409,6 @@ void MainWidget::zoomAll()
 void MainWidget::zoomNormal()
 {
     if (signalview) signalview->zoomNormal();
-}
-
-//*****************************************************************************
-void MainWidget::slot_SignalChanged(int left, int right)
-{
-    debug("MainWidget::slot_SignalChanged(%d, %d)", left, right);
-    if (m_slider) refreshOverView();
-}
-
-//*****************************************************************************
-void MainWidget::channelAdded(unsigned int channel)
-{
-    debug("MainWidget::channelAdded(%u)", channel);
-    refreshChannelControls();
-}
-
-//*****************************************************************************
-void MainWidget::channelDeleted(unsigned int channel)
-{
-    debug("MainWidget::channelDeleted(%u)", channel);
-    lamps.remove(channel);
-    speakers.remove(channel);
-    refreshChannelControls();
 }
 
 //*****************************************************************************

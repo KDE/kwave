@@ -54,9 +54,25 @@ Stripe *Track::appendStripe(unsigned int length)
     MutexGuard lock(m_lock_stripes);
 
     unsigned int last = unlockedLength();
-    Stripe *s = new Stripe(last, length);
+    Stripe *s = new Stripe(last, 0);
     ASSERT(s);
-    if (s) m_stripes.append(s);
+    if (s) {
+	m_stripes.append(s);
+	connect(s, SIGNAL(sigSamplesDeleted(Stripe&, unsigned int,
+	    unsigned int)),
+	    this, SLOT(slotSamplesDeleted(Stripe&, unsigned int,
+	    unsigned int)));
+	connect(s, SIGNAL(sigSamplesInserted(Stripe&, unsigned int,
+	    unsigned int)),
+	    this, SLOT( slotSamplesInserted(Stripe&, unsigned int,
+	    unsigned int)));
+	connect(s, SIGNAL(sigSamplesModified(Stripe&, unsigned int,
+	    unsigned int)),
+	    this, SLOT(slotSamplesModified(Stripe&, unsigned int,
+	    unsigned int)));
+
+	s->resize(length);
+    }
     debug("Track::appendStripe(%d): new stripe at %p", length, s);
 
     return s;
@@ -77,38 +93,6 @@ unsigned int Track::unlockedLength()
     if (s) len = s->start() + s->length();
     return len;
 }
-
-//***************************************************************************
-//void Track::appendSamples(const QArray<sample_t> &samples)
-//{
-//    if (!samples.size()) return; // nothing to do
-//
-//    // find the last stripe
-//    MutexGuard lock(m_lock_stripes);
-//    Stripe *s = 0;
-//    if (m_stripes.count() == 0) {
-//	// no stripe yet, add a new one
-//	s = new Stripe(samples);
-//	ASSERT(s);
-//	if (!s || (s->length() < samples.count()) ) {
-//	    warning("allocating first stripe of track failed.");
-//	    return;
-//	}
-//    } else {
-//	// get the last stripe
-//	s = m_stripes.last();
-//    }
-//
-//    ASSERT(s);
-//    if (!s) {
-//	warning("no last stripe for appending data?");
-//	return;
-//    }
-//
-//    // append samples to the last stripe
-//    *s << samples;
-//
-//}
 
 //***************************************************************************
 SampleInputStream *Track::openInputStream(InsertMode mode,
@@ -164,6 +148,27 @@ SampleInputStream *Track::openInputStream(InsertMode mode,
 
     return new SampleInputStream(*this, stripes,
 	stripe_locks, mode, left, right);
+}
+
+//***************************************************************************
+void Track::slotSamplesInserted(Stripe &src, unsigned int offset,
+                                unsigned int length)
+{
+    emit sigSamplesInserted(*this, src.start()+offset, length);
+}
+
+//***************************************************************************
+void Track::slotSamplesDeleted(Stripe &src, unsigned int offset,
+                               unsigned int length)
+{
+    emit sigSamplesDeleted(*this, src.start()+offset, length);
+}
+
+//***************************************************************************
+void Track::slotSamplesModified(Stripe &src, unsigned int offset,
+                                unsigned int length)
+{
+    emit sigSamplesModified(*this, src.start()+offset, length);
 }
 
 //***************************************************************************

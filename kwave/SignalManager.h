@@ -68,8 +68,18 @@ public:
     void close();
 
     /** Returns true if the signal is closed */
-    inline bool closed() {
+    inline bool isClosed() {
 	return m_closed;
+    };
+
+    /** Returns true if the signal is empty. */
+    inline bool isEmpty() {
+	return m_empty;
+    };
+
+    /** Returns a reference to the signal */
+    inline Signal &signal() {
+	return m_signal;
     };
 
     bool executeCommand(const QString &command);
@@ -227,28 +237,6 @@ signals:
     void sigCommand(const QString &command);
 
     /**
-     * Indicates that the signal data within a range
-     * has changed.
-     * @param lmarker leftmost sample or -1 for "up to the left"
-     * @param rmarker rightmost sample or -1 for "up to the right"
-     */
-    void signalChanged(int lmarker, int rmarker);
-
-    /**
-     * Signals that a channel has been added/inserted. The channels
-     * at and after this position (if any) have moved to channel+1.
-     * @param channel index of the new channel [0...N-1]
-     */
-    void sigChannelAdded(unsigned int channel);
-
-    /**
-     * Signals that a channel has been deleted. All following channels
-     * are shifted one channel down.
-     * @param channel index of the deleted channel [0...N-1]
-     */
-    void sigChannelDeleted(unsigned int channel);
-
-    /**
      * Indicates a change in the position of the playback pointer
      * during playback.
      */
@@ -258,6 +246,13 @@ signals:
      * Indicates that playback is done.
      */
     void sigPlaybackDone();
+
+    /**
+     * Signals that a track has been inserted.
+     * @param track index of the new track [0...tracks()-1]
+     */
+    void sigTrackInserted(unsigned int track);
+
 
 private slots:
 
@@ -279,11 +274,6 @@ private slots:
     void forwardPlaybackDone();
 
 private:
-
-    void initialize();
-
-    ProgressDialog *createProgressDialog(TimeOperation *operation,
-                                         const char *caption);
 
     /**
      * Try to find a chunk within a RIFF file. If the chunk
@@ -356,8 +346,11 @@ private:
     /** name of the signal, normally equal to the filename */
     QString m_name;
 
-    /** true if the signal is closed / nothing loaded */
+    /** true if the signal is closed */
     bool m_closed;
+
+    /** true if the signal is completely empty */
+    bool m_empty;
 
     /** signal with multiple tracks */
     Signal m_signal;

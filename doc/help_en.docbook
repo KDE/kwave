@@ -55,7 +55,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2001-01-31</DATE>
+    <DATE>2001-03-17</DATE>
     <RELEASEINFO>0.5.99-3</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -237,6 +237,19 @@
                 </PARA></LISTITEM>
                 <LISTITEM><PARA>
                     many many more bugfixes, too much to be mentioned here...
+                </PARA></LISTITEM>
+            </ITEMIZEDLIST>
+        </LISTITEM>
+        <LISTITEM>
+            <PARA>0.5.5-1 [2001-02-23]</PARA>
+            <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    bugfix: selection across end of file no longer possible
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    bugfix: no overflow in wav header when saving large wav
+                      files above 268MB
+                      (bug reported by Sven-Steffen Arndt, ssa29@gmx.de )
                 </PARA></LISTITEM>
             </ITEMIZEDLIST>
         </LISTITEM>
@@ -2421,7 +2434,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2001-01-31</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2001-03-17</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

@@ -739,7 +739,7 @@ const QString &TopWidget::getSignalName()
 }
 
 //***************************************************************************
-void TopWidget::selectZoom(int index)
+void TopWidget::selectZoom(int /*index*/)
 {
 //    ASSERT(m_main_widget);
 //    if (!m_main_widget) return;
@@ -756,7 +756,7 @@ void TopWidget::selectZoom(int index)
 }
 
 //***************************************************************************
-void TopWidget::setZoom(double zoom)
+void TopWidget::setZoom(double /*zoom*/)
 {
 ////    debug("void TopWidget::setZoom(%0.5f)", zoom);
 //    ASSERT(zoom > 0);

@@ -26,11 +26,9 @@ Stripe::Stripe()
 }
 
 //***************************************************************************
-Stripe::Stripe(unsigned int start, unsigned int length)
+Stripe::Stripe(unsigned int start)
     :m_lock(), m_start(start), m_samples(), m_lock_samples()
 {
-    m_samples.resize(length);
-    ASSERT(m_samples.size() == length);
 }
 
 //***************************************************************************
@@ -70,23 +68,37 @@ unsigned int Stripe::length()
 //***************************************************************************
 unsigned int Stripe::resize(unsigned int length)
 {
-    MutexGuard lock(m_lock_samples);
+    unsigned int old_length;
+    {
+	MutexGuard lock(m_lock_samples);
 
-    unsigned int old_size = m_samples.size();
-    if (old_size == length) return old_size; // nothing to do
+	old_length = m_samples.size();
+	if (old_length == length) return old_length; // nothing to do
 
-    debug("resizing stripe from %d to %d samples", old_size, length);
-    m_samples.resize(length);
-    ASSERT(length = m_samples.size());
-    if (length < m_samples.size()) {
-	warning("resize failed, out of memory ?");
+	debug("Stripe::resize() from %d to %d samples", old_length, length);
+	m_samples.resize(length);
+	ASSERT(length = m_samples.size());
+	if (length < m_samples.size()) {
+	    warning("Stripe::resize(%u) failed, out of memory ?", length);
+	}
+
+	length = m_samples.size();
+
+	// fill new samples with zero
+	unsigned int pos = old_length;
+	while (pos < length) {
+	    m_samples[pos++] = 0;
+	}
     }
 
-    length = m_samples.size();
-
-    // fill new samples with zero
-    while (old_size < length) {
-	m_samples[old_size++] = 0;
+    if (length < old_length) {
+	// something has been deleted from the end
+	unsigned int change = old_length - length;
+	emit sigSamplesDeleted(*this, length, change);
+    } else if (length > old_length) {
+	// something has been added to the end
+	unsigned int change = length - old_length;
+	emit sigSamplesInserted(*this, old_length, change);
     }
 
     return length;
@@ -96,27 +108,36 @@ unsigned int Stripe::resize(unsigned int length)
 unsigned int Stripe::append(const QArray<sample_t> &samples,
 	unsigned int count)
 {
-    MutexGuard lock(m_lock_samples);
-
-    if (!count || !samples.size()) return 0; // nothing to do
-    ASSERT(count <= samples.size());
-    if (count > samples.size()) count = samples.size();
-
-//    debug("Stripe::append: adding %d samples", samples.count());
-
-    unsigned int old_size = m_samples.size();
-    unsigned int newlength = old_size + count;
-    m_samples.resize(newlength);
-    ASSERT(m_samples.size() == newlength);
-    newlength = m_samples.size();
-
-    // append to the end of the area
+    unsigned int old_length;
     unsigned int appended = 0;
-    while (old_size < newlength) {
-	m_samples[old_size++] = samples[appended++];
+
+    {
+	MutexGuard lock(m_lock_samples);
+
+	if (!count || !samples.size()) return 0; // nothing to do
+	ASSERT(count <= samples.size());
+	if (count > samples.size()) count = samples.size();
+
+//	debug("Stripe::append: adding %d samples", samples.count());
+
+	old_length = m_samples.size();
+	unsigned int newlength = old_length + count;
+	m_samples.resize(newlength);
+	ASSERT(m_samples.size() == newlength);
+	newlength = m_samples.size();
+
+	// append to the end of the area
+	unsigned int pos = old_length;
+	while (pos < newlength) {
+	    m_samples[pos++] = samples[appended++];
+	}
     }
 
     debug("Stripe::append(): resized to %d", m_samples.size());
+
+    // something has been added to the end
+    emit sigSamplesInserted(*this, old_length, appended);
+
     return appended;
 }
 
@@ -124,10 +145,17 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
 void Stripe::overwrite(unsigned int offset, const QArray<sample_t> &samples,
     	unsigned int srcoff, unsigned int srclen)
 {
-    MutexGuard lock(m_lock_samples);
-    while (srclen--) {
-	m_samples[offset++] = samples[srcoff++];
+    unsigned int count = 0;
+    {
+	MutexGuard lock(m_lock_samples);
+	unsigned int pos = offset;
+	while (srclen--) {
+	    m_samples[pos++] = samples[srcoff++];
+	    count++;
+	}
     }
+
+    emit sigSamplesModified(*this, offset, count);
 }
 
 //***************************************************************************

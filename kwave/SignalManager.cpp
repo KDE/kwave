@@ -70,55 +70,28 @@
 #define CASE_COMMAND(x) } else if (QString(command) == x) {
 
 //***************************************************************************
-//void threadStub(TimeOperation *)
-//{
-//    debug("thread started");
-//
-//    ASSERT(obj);
-//    if (obj) {
-//	ASSERT(obj->getSignal());
-//	if (obj->getSignal()) {
-//	    (obj->getSignal())->command(obj);
-//	}
-//    }
-//    debug("thread done");
-//}
-//
-//***************************************************************************
 SignalManager::SignalManager(QWidget *parent)
     :QObject(),
     m_parent_widget(parent),
     m_closed(true),
+    m_empty(true),
     m_signal(),
     m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
     m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
 {
-    initialize();
-}
+    m_name = "";
+    lmarker = 0;
+    rmarker = 0;
+    rate = 0;
+//    for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
+//	msg[i] = 0;
 
-//***************************************************************************
-//SignalManager::SignalManager(unsigned int numsamples,
-//                             int rate, unsigned int channels)
-//    :QObject(),
-//    m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
-//    m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
-//{
-//    initialize();
-//    this->rate = rate;
-//    m_name = i18n("noname");
-//
-//    for (unsigned int i = 0; i < channels; i++) {
-//	Signal *new_signal = 0; // new Signal(numsamples, rate);
-//	ASSERT(new_signal);
-//	appendChannel(new_signal);
-//    }
-//
-//}
+    m_spx_playback_pos.setLimit(32); // limit for the queue
+}
 
 //***************************************************************************
 void SignalManager::loadFile(const QString &filename, int type)
 {
-    initialize();
     ASSERT(filename.length());
     m_name = filename;
 
@@ -136,30 +109,18 @@ void SignalManager::loadFile(const QString &filename, int type)
 }
 
 //***************************************************************************
-void SignalManager::initialize()
-{
-    m_name = "";
-    lmarker = 0;
-    rmarker = 0;
-    rate = 0;
-//    for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
-//	msg[i] = 0;
-
-    m_spx_playback_pos.setLimit(32); // limit for the queue
-}
-
-//***************************************************************************
 void SignalManager::close()
 {
     debug("SignalManager::close()");
-    m_closed = true;
+    m_empty = true;
     m_name = "";
     m_signal.close();
+    m_closed = true;
 }
 
 //***************************************************************************
-void SignalManager::getMaxMin(unsigned int channel, int &max, int &min,
-                              unsigned int begin, unsigned int len)
+void SignalManager::getMaxMin(unsigned int /*channel*/, int &/*max*/, int &/*min*/,
+                              unsigned int /*begin*/, unsigned int /*len*/)
 {
 //    ASSERT(channel < signal.count());
 //    if (channel >= signal.count()) return;
@@ -202,7 +163,7 @@ const QArray<unsigned int> SignalManager::selectedChannels()
 }
 
 //***************************************************************************
-int SignalManager::singleSample(unsigned int channel, unsigned int offset)
+int SignalManager::singleSample(unsigned int /*channel*/, unsigned int /*offset*/)
 {
 //    ASSERT(channel < signal.count());
 //    if (channel >= signal.count()) return 0;
@@ -213,8 +174,8 @@ int SignalManager::singleSample(unsigned int channel, unsigned int offset)
 }
 
 //***************************************************************************
-int SignalManager::averageSample(unsigned int offset,
-                                 const QArray<unsigned int> *channels)
+int SignalManager::averageSample(unsigned int /*offset*/,
+                                 const QArray<unsigned int> */*channels*/)
 {
 //    unsigned int count = 0;
 //    unsigned int channel;
@@ -243,8 +204,8 @@ int SignalManager::averageSample(unsigned int offset,
 }
 
 //****************************************************************************
-QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
-                                 unsigned int offset, unsigned int length)
+QBitmap *SignalManager::overview(unsigned int /*width*/, unsigned int /*height*/,
+                                 unsigned int /*offset*/, unsigned int /*length*/)
 {
     return 0;
 //    QBitmap *overview = new QBitmap(width, height);
@@ -306,30 +267,17 @@ int SignalManager::getBitsPerSample()
 }
 
 //***************************************************************************
-void SignalManager::deleteChannel(unsigned int channel)
+void SignalManager::deleteChannel(unsigned int /*channel*/)
 {
-//    ASSERT(m_channels);
-//    if (m_channels <= 1) return; // deleting the last channel is forbidden!
-//
-//    signal.setAutoDelete(true);
-//    signal.remove(channel);
-//    signal.setAutoDelete(false);
-//
-//    m_channels--;                 //decrease number of channels...
-//
-//    emit sigChannelDeleted(channel);
-//    emit signalChanged( -1, -1);
 }
 
 //***************************************************************************
 void SignalManager::addChannel()
 {
-//    if (!getLength()) return ;
-//    appendChannel(new Signal(getLength(), rate)); ###
 }
 
 //***************************************************************************
-void SignalManager::toggleChannel(const unsigned int channel)
+void SignalManager::toggleChannel(const unsigned int /*channel*/)
 {
 //    ASSERT(channel < signal.count());
 //    if (channel >= signal.count()) return;
@@ -342,7 +290,7 @@ void SignalManager::toggleChannel(const unsigned int channel)
 }
 
 //***************************************************************************
-bool SignalManager::executeCommand(const QString &command)
+bool SignalManager::executeCommand(const QString &/*command*/)
 {
 //    ASSERT(command);
 //    if (!command) return false;
@@ -383,7 +331,6 @@ bool SignalManager::executeCommand(const QString &command)
 //	    }
 //	}
 //	rmarker = lmarker;
-//	emit signalChanged(getLMarker(), -1);
 //    CASE_COMMAND("crop")
 //	if (globals.clipboard) delete globals.clipboard;
 //	globals.clipboard = new ClipBoard();
@@ -394,14 +341,12 @@ bool SignalManager::executeCommand(const QString &command)
 //		if (signal.at(i)) (signal.at(i)->cropRange());
 //	    }
 //	}
-//	emit signalChanged( -1, -1);
 //    CASE_COMMAND("delete")
 //	for (unsigned int i = 0; i < m_channels; i++) {
 //	    ASSERT(signal.at(i));
 //	    if (signal.at(i)) signal.at(i)->deleteRange();
 //	}
 //	rmarker = lmarker;
-//	emit signalChanged(getLMarker(), -1);
 //    CASE_COMMAND("paste")
 //	if (globals.clipboard) {
 //	    SignalManager *toinsert = globals.clipboard->getSignal();
@@ -427,7 +372,6 @@ bool SignalManager::executeCommand(const QString &command)
 //		    rmarker = lmarker;
 //		}
 //	    }
-//	    emit signalChanged(getLMarker(), -1);
 //	}
 //    CASE_COMMAND("mixpaste")
 //	if (globals.clipboard) {
@@ -449,7 +393,6 @@ bool SignalManager::executeCommand(const QString &command)
 //		    sourcechan %= clipchan;
 //		}
 //	    }
-//	    emit signalChanged(getLMarker(), -1);
 //	}
 //    CASE_COMMAND("addchannel")
 //	addChannel();
@@ -465,7 +408,6 @@ bool SignalManager::executeCommand(const QString &command)
 //	    toggleChannel(i);
 //    } else {
 //	bool result = promoteCommand(command);
-//	emit signalChanged( -1, -1);
 //	return result;
 //    }
 
@@ -473,7 +415,7 @@ bool SignalManager::executeCommand(const QString &command)
 }
 
 //***************************************************************************
-bool SignalManager::promoteCommand(const QString &command)
+bool SignalManager::promoteCommand(const QString &/*command*/)
 {
 //    debug("SignalManager::promoteCommand(%s)", command.data());    // ###
 //
@@ -566,7 +508,6 @@ bool SignalManager::promoteCommand(const QString &command)
 void SignalManager::commandDone()
 {
     debug("SignalManager::commandDone()");    // ###
-    emit signalChanged( -1, -1);
 }
 
 //***************************************************************************
@@ -576,7 +517,7 @@ SignalManager::~SignalManager()
 }
 
 //***************************************************************************
-void SignalManager::setRange(unsigned int l, unsigned int r)
+void SignalManager::setRange(unsigned int /*l*/, unsigned int /*r*/)
 {
 //    for (unsigned int i = 0; i < m_channels; i++) {
 //	ASSERT(signal.at(i));
@@ -588,19 +529,6 @@ void SignalManager::setRange(unsigned int l, unsigned int r)
 //	lmarker = signal.at(0)->getLMarker();
 //	rmarker = signal.at(0)->getRMarker();
 //    }
-}
-
-//***************************************************************************
-ProgressDialog *SignalManager::createProgressDialog(TimeOperation *operation,
-                                                    const char *caption)
-{
-////    ProgressDialog *dialog = new ProgressDialog (operation, caption);
-////    ASSERT(dialog);
-////    if (dialog) {
-////	dialog->show();
-////	return dialog;
-////    }
-    return 0;
 }
 
 //**********************************************************
@@ -674,10 +602,13 @@ int SignalManager::loadWav()
     __uint32_t num;
     __uint32_t length;
 
+    ASSERT(m_closed);
+    ASSERT(m_empty);
+
     QFile sigfile(m_name);
     if (!sigfile.open(IO_ReadOnly)) {
 	KMessageBox::error(m_parent_widget,
-		i18n("File does not exist !"), i18n("Error"), 2);
+		i18n("File does not exist !"));
 	return -ENOENT;
     }
 
@@ -686,12 +617,11 @@ int SignalManager::loadWav()
     length = findChunk(sigfile, "RIFF", 0);
     if ((length == 0) || (sigfile.at() != 8)) {
 	KMessageBox::error(m_parent_widget,
-	    i18n("File is no RIFF File !"), i18n("Warning"), 2);
+	    i18n("File is no RIFF File !"));
 	// maybe recoverable...
     } else if (length+8 != num) {
 	KMessageBox::error(m_parent_widget,
-	    i18n("File has incorrect length! (maybe truncated?)"),
-	    i18n("Warning"), 2);
+	    i18n("File has incorrect length! (maybe truncated?)"));
 	// maybe recoverable...
     } else {
 	// check if the chunk data contains "WAVE"
@@ -699,8 +629,7 @@ int SignalManager::loadWav()
 	num = sigfile.readBlock((char*)(&file_type), 4);
 	if ((num != 4) || strncmp("WAVE", file_type, 4)) {
 	    KMessageBox::error(m_parent_widget,
-		i18n("File is no WAVE File !"),
-		i18n("Warning"), 2);
+		i18n("File is no WAVE File !"));
 	    // maybe recoverable...
 	}
     }
@@ -711,8 +640,7 @@ int SignalManager::loadWav()
     if (num != sizeof(fmt_header)) {
 	debug("SignalManager::loadWav(): length of fmt chunk = %d", num);
 	KMessageBox::error(m_parent_widget,
-	    i18n("File does not contain format information!"),
-	    i18n("Error"), 2);
+	    i18n("File does not contain format information!"));
 	return -EMEDIUMTYPE;
     }
     num = sigfile.readBlock((char*)(&fmt_header), sizeof(fmt_header));
@@ -737,8 +665,7 @@ int SignalManager::loadWav()
     length = findChunk(sigfile, "data");
     if (!length) {
 	KMessageBox::error(m_parent_widget,
-	    i18n("File does not contain data!"),
-	    i18n("Error"), 2);
+	    i18n("File does not contain data!"));
 	return -EMEDIUMTYPE;
     }
 
@@ -747,6 +674,10 @@ int SignalManager::loadWav()
 	case 8:
 	case 16:
 	case 24:
+	    ASSERT(m_empty);
+	    // currently the signal should be closed and empty
+	    // now make it opened but empty
+	    m_closed = false;
 	    result = loadWavChunk(sigfile, length,
 				  fmt_header.channels,
 				  fmt_header.bitspersample);
@@ -760,7 +691,6 @@ int SignalManager::loadWav()
 
     if (result == 0) {
 	debug("SignalManager::loadWav(): successfully opened");
-	m_closed = false;
     }
 
     return result;
@@ -772,7 +702,7 @@ int SignalManager::loadWav()
 // The corresponding header should have already been written to the file before
 // invocation of this methods
 //***************************************************************************
-void SignalManager::exportAscii(const char *name)
+void SignalManager::exportAscii(const char */*name*/)
 {
 //    ASSERT(name);
 //    if (!name) return ;
@@ -837,8 +767,8 @@ void SignalManager::exportAscii(const char *name)
 }
 
 //***************************************************************************
-int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
-                                 unsigned int length, int bits)
+int SignalManager::writeWavChunk(FILE */*sigout*/, unsigned int/* begin*/,
+                                 unsigned int /*length*/, int /*bits*/)
 {
 // ### not ported yet ###
 //    unsigned int bufsize = 16 * 1024 * sizeof(int);
@@ -940,7 +870,7 @@ int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
 }
 
 //***************************************************************************
-void SignalManager::save(const char *filename, int bits, bool selection)
+void SignalManager::save(const char */*filename*/, int /*bits*/, bool /*selection*/)
 {
 // ### not ported yet ###
 //    debug("SignalManager::save(): %d Bit to %s ,%d", bits, filename, selection);
@@ -1112,24 +1042,25 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
     QList<SampleInputStream> samples;
     samples.setAutoDelete(true);
 
-    for (unsigned int channel = 0; channel < channels; channel++) {
+    for (unsigned int track = 0; track < channels; track++) {
 	Track *new_track = m_signal.appendTrack(length);
 	ASSERT(new_track);
 	if (!new_track) {
-	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"),
-	    	i18n("Warning"), 2);
+	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"));
 	    return -ENOMEM;
 	}
 
-	SampleInputStream *s = m_signal.openInputStream(channel, Overwrite);
+	SampleInputStream *s = m_signal.openInputStream(track, Overwrite);
 	ASSERT(s);
 	if (!s) {
-	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"),
-	    	i18n("Warning"), 2);
+	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"));
 	    return -ENOMEM;
 	}
 	samples.append(s);
     }
+
+    // now the signal is considered not to be empty
+    m_empty = false;
 
     //prepare and show the progress dialog
     FileProgress *dialog = new FileProgress(m_parent_widget,
@@ -1256,7 +1187,7 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 //}
 
 //***************************************************************************
-void SignalManager::startplay(unsigned int start, bool loop)
+void SignalManager::startplay(unsigned int /*start*/, bool /*loop*/)
 {
 //    msg[processid] = 1;
 //    msg[stopprocess] = false;
@@ -1293,9 +1224,9 @@ void SignalManager::stopplay()
 }
 
 //***************************************************************************
-int SignalManager::setSoundParams(int audio, int bitspersample,
-                                  unsigned int channels, int rate,
-                                  int bufbase)
+int SignalManager::setSoundParams(int /*audio*/, int /*bitspersample*/,
+                                  unsigned int /*channels*/, int /*rate*/,
+                                  int /*bufbase*/)
 {
     return 0;
 //    const char *trouble = i18n("playback problem");
@@ -1375,9 +1306,9 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
 }
 
 //***************************************************************************
-void SignalManager::playback(int device, playback_param_t &param,
-                             unsigned char *buffer, unsigned int bufsize,
-                             unsigned int start, bool loop)
+void SignalManager::playback(int /*device*/, playback_param_t &/*param*/,
+                             unsigned char */*buffer*/, unsigned int /*bufsize*/,
+                             unsigned int /*start*/, bool /*loop*/)
 {
 //    ASSERT(buffer);
 //    ASSERT(bufsize);

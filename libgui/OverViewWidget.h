@@ -51,6 +51,7 @@ public:
 
 protected:
 
+    void resizeEvent(QResizeEvent *e);
     void mousePressEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);

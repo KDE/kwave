@@ -43,6 +43,11 @@
 //#include <kmenubar.h>
 //#include <kstatusbar.h>
 
+/**
+ * delay between two screen updates [ms]
+ */
+#define REFRESH_DELAY 100
+
 #ifndef min
 #define min(x,y) (( (x) < (y) ) ? (x) : (y) )
 #endif
@@ -319,7 +324,7 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
     }
 
     if (!m_refresh_timer.isActive()) {
-	m_refresh_timer.start(100, true);
+	m_refresh_timer.start(REFRESH_DELAY, true);
     }
 }
 

@@ -407,7 +407,8 @@ MainWidget::~MainWidget()
 void MainWidget::resizeEvent(QResizeEvent *)
 {
     refreshChannelControls();
-    refreshOverView();
+//    debug("void MainWidget::resizeEvent(QResizeEvent *)"); // ###
+//    refreshOverView();
 }
 
 //*****************************************************************************

@@ -34,8 +34,6 @@ o SonagramWindow::toSignal()
 
 o in CurveWidget: something goes wrong when mirroring to left
 
-o re-enable the OverViewWidget: use signal/slot mechanism
-
 o possible memory leaks due to controls/menus in CurveWidget, FFTWindow
 
 o possible memory leak in MultiStateWidget: when do the images get released ?
@@ -108,7 +106,7 @@ o positioning the cursor to start/end of the file with Pos1 / End
 
 o >>> COMPLETE DOCUMENTATION OF THE WHOLE API <<<
 
-o globally use the data types from sys/times.h instead of just "int"
+o globally use the data types from sys/types.h instead of just "int"
 
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width

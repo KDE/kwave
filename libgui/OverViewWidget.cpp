@@ -113,19 +113,48 @@ void OverViewWidget::mouseReleaseEvent(QMouseEvent *)
 //****************************************************************************
 int OverViewWidget::offset2pixels(int offset)
 {
-    int max_offset = m_view_length-m_view_width;
-    if (!max_offset) return 0;
-    int max_pixel = m_width - m_slider_width;
-    return (int)((float)offset * (float)max_pixel / (float)max_offset);
+    int res;
+    // how big would the slider be with normal translation
+    int slider_width = (m_view_length) ? (int)((float)(m_view_width) *
+	(float)(m_width) / (float)(m_view_length)) : 0;
+
+    if ((slider_width) >= MIN_SLIDER_WIDTH) {
+	// slider is big enough -> normal translation
+	
+	//    0...view_length-1]        [width - 1]        [view_length-1]
+	res=(int)((float)offset*(float)(m_width-1)/(float)(m_view_length-1));
+    } else {
+	// slider is at minimum size -> special translation
+	int max_pixel  = (m_width - MIN_SLIDER_WIDTH);
+	int max_offset = (m_view_length - m_view_width);
+	if (max_offset <= 1) return (m_width-1); // zoomed to all
+
+	//   [0...view_length-1]
+ 	res=(int)((float)offset*(float)(max_pixel-1)/(float)(max_offset-1));
+    }
+
+    return min(res, m_width-1);
 }
 
 //****************************************************************************
 int OverViewWidget::pixels2offset(int pixels)
 {
-    int max_pixel = m_width - m_slider_width;
-    if (!max_pixel) return 0;
-    int max_offset = m_view_length-m_view_width;
-    return (int)((float)pixels * (float)max_offset / (float)max_pixel);
+    int res;
+    if (m_width <= 1) return 0;
+
+    int slider_width = (m_view_length) ? (int)((float)m_view_width *
+	(float)m_width / (float)m_view_length) : 0;
+	
+    if ((slider_width) >= MIN_SLIDER_WIDTH) {
+	res = (int)((float)pixels*(float)(m_view_length-1)/(float)(m_width-1));
+    } else {
+	int max_pixel  = (m_width - MIN_SLIDER_WIDTH);
+	int max_offset = (m_view_length - m_view_width);
+	if (max_pixel <= 1) return 0;
+	res = (int)((float)pixels * (float)(max_offset-1) / (float)(max_pixel-1));
+    }
+
+    return min(res, m_view_length-1);
 }
 
 //****************************************************************************
@@ -161,6 +190,12 @@ void OverViewWidget::setOverView(QBitmap *overview)
 }
 
 //*****************************************************************************
+void OverViewWidget::resizeEvent(QResizeEvent *e)
+{
+    setRange(m_view_offset, m_view_width, m_view_length);
+}
+
+//*****************************************************************************
 void OverViewWidget::setRange(int new_pos, int new_width, int new_length)
 {
     if ( (new_pos == m_view_offset) && (new_length == m_view_length) &&
@@ -170,14 +205,15 @@ void OverViewWidget::setRange(int new_pos, int new_width, int new_length)
 	m_view_offset = new_pos;
 	repaint(false);
     } else {
-	m_view_width = new_width;
-	m_view_offset = new_pos;
+//	debug("OverViewWidget::setRange(%d,%d,%d)",new_pos,new_width,new_length); // ###
+	m_width = width();
+	m_view_width = min(new_width, new_length);
+	m_view_offset = min(new_pos, new_length-new_width);
 	m_view_length = new_length;
-	m_slider_width = 0;
 	m_slider_width = offset2pixels(m_view_width);
+//	debug("OverViewWidget::setRange(): slider_width=%d",m_slider_width); // ###
 	m_slider_width = max(m_slider_width, MIN_SLIDER_WIDTH);
-	m_slider_width = min(m_slider_width, m_width);
-	
+	m_slider_width = min(m_slider_width, m_width-1);
 	m_redraw=true;
 	repaint(false);
     }
@@ -199,9 +235,7 @@ void OverViewWidget::paintEvent (QPaintEvent *)
     QPainter p;
 
     // if pixmap has to be resized ...
-    if ((rect().height() != m_height) || (rect().width() != m_width) ||
-        m_redraw)
-    {
+    if ((height() != m_height) || (width() != m_width) || m_redraw) {
 	m_redraw = false;
 	m_height = rect().height();
 	m_width = rect().width();

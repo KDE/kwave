@@ -721,6 +721,8 @@ void SignalWidget::fixZoomAndOffset()
     double max_zoom;
     double min_zoom;
     int length;
+    double last_zoom = zoom;
+    unsigned int last_offset = offset;
 
     if (!signalmanage) return ;
     length = signalmanage->getLength();
@@ -760,16 +762,21 @@ void SignalWidget::fixZoomAndOffset()
 	zoom = max_zoom;
     }
 
-    // adjust the zoom factor in order to make a whole number
-    // of samples fit into the current window
-    int samples = pixels2samples(width - 1) + 1;
-    zoom = (double)(samples - 1) / (double)(width - 1);
+//    // adjust the zoom factor in order to make a whole number
+//    // of samples fit into the current window
+//    debug("SignalWidget::fixZoomAndOffset(): --1--: zoom=%0.5f",zoom); // ###
+//    int samples = pixels2samples(width) + 1;
+//
+//    debug("width=%d, samples=%d", width, samples);
+//
+//    zoom = (double)(samples) / (double)(width - 1);
+//    debug("SignalWidget::fixZoomAndOffset(): --2--: zoom=%0.5f",zoom); // ###
 
     // do some final range checking
     if (zoom < min_zoom) zoom = min_zoom;
     if (zoom > max_zoom) zoom = max_zoom;
 
-    emit zoomInfo(zoom);
+    if ((zoom != last_zoom) || (offset != last_offset)) emit zoomInfo(zoom);
 }
 
 //****************************************************************************
@@ -821,6 +828,14 @@ void SignalWidget::zoomRange()
 	setZoom(((double)(rmarker - lmarker)) / (double)(width - 1));
 	refreshAllLayers();
     }
+}
+
+//****************************************************************************
+void SignalWidget::resizeEvent(QResizeEvent *e)
+{
+    int maxofs = pixels2samples(width - 1) + 1;
+    int length = (signalmanage) ? signalmanage->getLength() : 0;
+    emit viewInfo(offset, maxofs, length);
 }
 
 //****************************************************************************

@@ -460,7 +460,7 @@ void TopWidget::openFile()
 //*****************************************************************************
 void TopWidget::importAsciiFile()
 {
-    loadFile(KFileDialog::getOpenFileName(0, "*.*", this), WAV);
+    loadFile(KFileDialog::getOpenFileName(0, "*.*", this), ASCII);
 }
 
 //*****************************************************************************

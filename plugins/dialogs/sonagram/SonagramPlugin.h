@@ -154,4 +154,4 @@ private:
 
 #endif /* _SONAGRAM_PLUGIN_H_ */
 
-/* end of module.h */
+/* end of SonagramPlugin.h */

@@ -31,6 +31,10 @@
     </AUTHORGROUP>
 
     <COPYRIGHT>
+	<YEAR>2000</YEAR>
+	<HOLDER>Thomas Eschenbacher</HOLDER>
+    </COPYRIGHT>
+    <COPYRIGHT>
 	<YEAR>1998-2000</YEAR>
 	<HOLDER>Martin Wilz</HOLDER>
     </COPYRIGHT>
@@ -51,7 +55,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-10-22</DATE>
+    <DATE>2000-10-25</DATE>
     <RELEASEINFO>0.5.4-4</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -1669,10 +1673,7 @@
 
 <CHAPTER ID="USING-KAPP"><TITLE>Using Kwave</TITLE>
 
-    <!-- This chapter should tell the user how to use your app. You 
-    should use as many sections (Chapter, Sect1, Sect3, etc...) as 
-    is necessary to fully document your application. -->
-
+<!--
     <PARA>
 	<INLINEMEDIAOBJECT>
 	<IMAGEOBJECT>
@@ -1680,16 +1681,17 @@
 	</IMAGEOBJECT>
 	<TEXTOBJECT> <PHRASE>under construction</PHRASE> </TEXTOBJECT>
 	</INLINEMEDIAOBJECT>
-     </PARA>
+    </PARA>
     <PARA>
 	... is quite simple. In addition to this I don't have enough time
 	to both improve the program itself <EMPHASIS>and</EMPHASIS> to
 	write some documentation.
     </PARA>
+-->
+
     <PARA>
-	Sorry, this chapter still has many sections to be written. OK, here 
-	is a little screenshot so that you might get an impression what 
-	&kapp; looks like...
+	Here is a little screenshot of the &kapp; main window, so that you 
+	get an impression what &kapp; looks like...
     </PARA>
 
     <PARA>
@@ -1749,9 +1751,9 @@
 
     <PARA>
     Please note that if you drop a file into a &kapp; window that already
-    contains an opened file, that file will be closed first and then the 
-    file you dropped will be opened in it. If you don't want that, you should
-    open a new empty &kapp; window first.
+    contains an opened file, the currently opened file will be closed first 
+    and then the file you dropped will be opened in it. If you don't want that, 
+    you should open a new empty &kapp; window first.
     </PARA>
 
     </SECT1>
@@ -1793,19 +1795,312 @@
 
     </SECT1>
 
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Opening and Saving files                              +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <SECT1 ID="OPEN_AND_SAVE"><TITLE>Opening and Saving files</TITLE>
+
+    <PARA>
+    Opening files with &kapp; works like in most other applications, you
+    can 
+    <ITEMIZEDLIST>
+    <LISTITEM><PARA>specify a list of files on the 
+    <LINK LINKEND="COMMAND_LINE">command line</LINK> when starting &kapp;,</PARA></LISTITEM>
+    <LISTITEM><PARA>open an empty &kapp; window (for example with
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>W</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>New...</GUIMENUITEM>
+	</MENUCHOICE>
+    ) and put a file into it via
+    <LINK LINKEND="DRAG_AND_DROP">drag and drop</LINK>,
+      or you can </PARA></LISTITEM>
+    <LISTITEM><PARA>open a file through the menu with
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>O</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Open</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	or one of the last recently opened files under
+	<MENUCHOICE>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Open Recent</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	save the current file with
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>S</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Save</GUIMENUITEM>
+	</MENUCHOICE>,
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	save under a different name with 
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>Ctrl</KEYCAP><KEYCAP>S</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Save</GUIMENUITEM><GUIMENUITEM>As</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	or only the current selection with
+	<MENUCHOICE>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Save</GUIMENUITEM><GUIMENUITEM>Selection</GUIMENUITEM>
+	</MENUCHOICE> 
+    </PARA></LISTITEM>
+
+    </ITEMIZEDLIST>
+    </PARA>
+
+    <SECT2 ID="FILE_FORMATS"><TITLE>Supported File formats</TITLE>
+	<PARA>
+            The fovourite file format of &kapp; is (like you can guess from the
+            name) ".wav". This format is very common to other "operating systems"
+            but also is used within the KDE environment.
+        </PARA>
+
+        <PARA>
+            The second format that &kapp; supports is "ASCII". You can import from
+            and export to ASCII, but always be aware that storing in this format
+            might produce very large files! Currently &kapp; only supports
+            ASCII files with only one channel (mono), support for multiple channels
+            will be added in some future version. The file format will be described
+	    <LINK LINKEND="ASCII_FORMAT">below</LINK>.
+        </PARA>
+    </SECT2>
+
+    <SECT2 ID="CONVERTING_TO_AND_FROM_WAV">
+    <TITLE>Converting to and from .wav</TITLE>
+
+	<PARA>
+	    For the moment, the best way to work with formats other than 
+	    <LITERAL>.wav</LITERAL> is to use an external converter program.
+	    A good set of tools for this is in the
+	    <ULINK URL="http://home.sprynet.com/~cbagwell/sox.html">SoX</ULINK>
+	   package, they have also some nice documentation! Take a look at
+	   <ULINK URL="http://home.sprynet.com/~cbagwell/sox.html"><!--
+	   -->http://home.sprynet.com/~cbagwell/sox.html</ULINK>.
+	</PARA>
+
+	<PARA>
+	    The plans for future include support for import filters for other 
+	    formats and maybe some filter that uses a user-defineable script
+	    with a call to an external filter, so that even formats not supported 
+	    by <LITERAL>SoX</LITERAL> (like MP3) can be read and/or written.
+        </PARA>
+    </SECT2>
+
+    <SECT2 ID="ASCII_FORMAT"><TITLE>Format of ASCII files</TITLE>
+	<PARA>
+	    The ASCII format is quite useful for scientific and educational 
+	    purposes. 
+	    Due to it's simple format, you can either write simple
+	    files on your own with a text editor or you can use the output 
+	    of an other application and convert it into ASCII. As the format is 
+	    <EMPHASIS>really</EMPHASIS> simple, you
+	    should not have big problems in writing a converter and most scientific
+	    applications use to have some kind of their own ASCII format for
+	    export.
+	</PARA>
+
+        <PARA>
+            The format of an ASCII file is quite simple and has the following rules:
+            <ORDEREDLIST>
+            <LISTITEM><PARA>
+		Each line represents one sample.
+	    </PARA></LISTITEM>
+            <LISTITEM><PARA>
+		Lines might end with a carriage return and/or a line feed 
+		character (so DOS files are supported too). But when saving, 
+		files will always be saved with line feed character as the 
+		end of the line.
+	    </PARA></LISTITEM>
+            <LISTITEM><PARA>
+		Empty lines are ignored.
+	    </PARA></LISTITEM>
+            <LISTITEM><PARA>
+		Values can be are given in any format that the C library of
+		your system is able to read and interprete as a floating
+		point or integer number. But when saving, &kapp; will save
+		as in signed floating point format with 9 decimals.
+		</PARA><PARA>Example: <LITERAL>-7.06999982e-01</LITERAL>
+            </PARA></LISTITEM>
+            <LISTITEM><PARA>
+		All values are expected to be in signed format. So if you
+		import a file with only positive values, you will only see
+		samples that are above the zero line.
+            </PARA></LISTITEM>
+            <LISTITEM><PARA>
+		Values can be specified in any range, &kapp; always
+		does a first pass over the file to get the highest absolute
+		value and defines that value as "100%" before really reading
+		in the file.
+            </PARA></LISTITEM>
+            <LISTITEM><PARA>
+		Internally all values are stored with 24 bit precision (signed).
+            </PARA></LISTITEM>
+	    </ORDEREDLIST>
+        </PARA>
+
+	<PARA>
+	    Here is an example of a simple ASCII file that represents a
+	    sine wave with nine samples:
+	    <EXAMPLE>
+		<TITLE>content of an ASCII file with a single sine wave</TITLE>
+		<SCREEN>
+ 0.000
+ 0.707
+ 1.000
+ 0.707
+ 0.000
+-0.707
+-1.000
+-0.707
+ 0.000
+		</SCREEN>
+	    </EXAMPLE>
+	</PARA>
+    </SECT2>
+
+
+    </SECT1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: How to select                                         +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <SECT1 ID="SELECTING"><TITLE>How to select</TITLE>
 
     <PARA>
-    - about the selected range    
+    &kapp; allows you to select a continuous range of samples as well as any 
+    combination of channels (if you edit a multi-channel file). By selecting
+    a range of samples (time scope) all following commands will be limited to
+    that range and by de-selecting a channel it's content will not be changed.
+    </PARA>
+
+    <SECT2 ID="SELECTING_CHANNELS"><TITLE>Selecting channels</TITLE>
+    <PARA>
+    Selecting or de-selecting a channel is quite simple. Just click on the
+    lamp symbol on the left side of the signal to toggle it's state:
+    </PARA>
+    <PARA>
+    <INLINEMEDIAOBJECT>
+	<IMAGEOBJECT>
+	<IMAGEDATA fileref="common/light_on.png" format="png"> 
+	</IMAGEOBJECT>
+	<TEXTOBJECT> <PHRASE>green lamb</PHRASE> </TEXTOBJECT>
+    </INLINEMEDIAOBJECT>
+    a green lamb means "enabled", whereas
+    </PARA>
+    <PARA>
+    <INLINEMEDIAOBJECT>
+	<IMAGEOBJECT>
+	<IMAGEDATA fileref="common/light_off.png" format="png"> 
+	</IMAGEOBJECT>
+	<TEXTOBJECT> <PHRASE>gred lamb</PHRASE> </TEXTOBJECT>
+    </INLINEMEDIAOBJECT>
+    means "disabled".
+    </PARA>
+    
+    <NOTE><PARA>
+    Note: If a channel is de-selected it will also not be audible for playback!
+    </PARA></NOTE>
+    </SECT2>
+
+    <SECT2 ID="SELECTING_SAMPLES"><TITLE>Selecting samples</TITLE>
+
+    <PARA>
+    If you select a range of samples in &kapp;, that range will be
+    <EMPHASIS>inclusive</EMPHASIS>. That means that the first and the last
+    selected sample both belong to the selection and will be used for the
+    following actions. So even if you not selected a <EMPHASIS>range</EMPHASIS>
+    but only a single sample, the selection will never be really "empty". So for
+    example if you see no selected range, the "delete" function applies to that
+    single sample.
+    </PARA>
+    
+    <PARA>
+    The easiest way of selecting a range of samples is just to do that
+    with mouse. It works like you are used from other applications: just press
+    the left mouse button at the point you want to let the selection start
+    and release the button where you want it to end.
+    </PARA>
+    <PARA>
+    If you want to move or adjust the selection's start or end, you can move the
+    mouse cursor near to the start or the end of the selection until it changes
+    from the standard arrow cursor into the left-right arrow cursor and then
+    press the left mouse button and adjust.
     </PARA>
 
     <PARA>
-    - with mouse
+    There are also some functions available via the menu and of course some 
+    keyboard shortcuts:
+    <ITEMIZEDLIST>
+    <LISTITEM><PARA>
+	select the whole signal:
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>A</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>Edit</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>All</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	a range of samples, starting at the current cursor position:
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>R</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Range</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	the currently visible area:
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>V</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Visible</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	the next block of samples, starting one sample after the end of the current
+	selection and with the same length:
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>+</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Next</GUIMENUITEM>
+	</MENUCHOICE> 
+    </PARA>
+    <PARA>
+	(Hint: use the "<KEYCAP>+</KEYCAP>" key from the numeric keypad!)
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	the previous block of samples, ending one sample before the start of the current
+	selection and with the same length:
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>-</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Previous</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA>
+    <PARA>
+	(Hint: use the "<KEYCAP>-</KEYCAP>" key from the numeric keypad!)
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	expand the selection to the start of the signal (first sample):
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>Home</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>to start</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	expand the selection to the end of the signal (last sample):
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>End</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>to end</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	remove any selection and select "nothing":
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>N</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Nothing</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    </ITEMIZEDLIST>
     </PARA>
 
-    <PARA>
-    - with keyboard
-    </PARA>
+    </SECT2>
 
     </SECT1>
 
@@ -2001,7 +2296,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-10-22</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-10-25</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

@@ -243,7 +243,7 @@ QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
     unsigned int right;
     unsigned int x;
     unsigned int channels = getChannelCount();
-    double samples_per_pixel = (length-1) / (width-1);
+    float samples_per_pixel = (float)(length-1) / (float)(width-1);
     int min;
     int max;
     float scale_y = (float)height / (float)(1 << 24);
@@ -257,8 +257,14 @@ QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
     for (x=0; x < width; x++) {
 	right = offset + (unsigned int)((x+1) * samples_per_pixel);
         // find minimum and maximum over all channels
+        min = (1<<24);
+        max = -(1<<24);
         for (channel = 0; channel < channels; channel++) {
-	    getMaxMin(channel, max, min, left, right-left+1);
+	    int min2 = (1<<24);
+	    int max2 = -(1<<24);
+	    getMaxMin(channel, max2, min2, left, right-left+1);
+	    if (min2 < min) min = min2;
+	    if (max2 > max) max = max2;
         }
 
         // transform min/max into pixel coordinates
@@ -635,7 +641,7 @@ int SignalManager::loadAscii()
     // scan for number of channels
     channels = 1;
 
-    // loop over all samples in file to get maximum and minimum
+    // loop over all samples in file to get maximum value
     while (!feof(sigin)) {
 	if (fscanf (sigin, "%e\n", &value) == 1) {
 	    if ( value > max) max = value;

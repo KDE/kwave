@@ -13,8 +13,8 @@ REL="UP"
 TITLE="Using Kwave"
 HREF="using-kapp.html"><LINK
 REL="PREVIOUS"
-TITLE="Command Line"
-HREF="command_line.html"><LINK
+TITLE="Opening and Saving files"
+HREF="open_and_save.html"><LINK
 REL="NEXT"
 TITLE="Developer's Guide to Kapp"
 HREF="developers.html"><META
@@ -61,7 +61,7 @@ CLASS="NAVBAR"
 HREF="developers.html"
 >Next</A
 > <A
-HREF="command_line.html"
+HREF="open_and_save.html"
 >Prev</A
 > <A
 HREF="index.html"
@@ -74,17 +74,320 @@ CLASS="SECT1"
 CLASS="SECT1"
 ><A
 NAME="SELECTING"
->3.4. How to select</A
+>3.5. How to select</A
 ></H1
 ><P
->    - about the selected range    
+>    <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> allows you to select a continuous range of samples as well as any 
+    combination of channels (if you edit a multi-channel file). By selecting
+    a range of samples (time scope) all following commands will be limited to
+    that range and by de-selecting a channel it's content will not be changed.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SELECTING_CHANNELS"
+>3.5.1. Selecting channels</A
+></H2
+><P
+>    Selecting or de-selecting a channel is quite simple. Just click on the
+    lamp symbol on the left side of the signal to toggle it's state:
     </P
 ><P
->    - with mouse
+>    <SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="common/light_on.png"
+ALT="green lamb"
+></IMG
+></SPAN
+>
+    a green lamb means "enabled", whereas
     </P
 ><P
->    - with keyboard
+>    <SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="common/light_off.png"
+ALT="gred lamb"
+></IMG
+></SPAN
+>
+    means "disabled".
     </P
+><DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>    Note: If a channel is de-selected it will also not be audible for playback!
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SELECTING_SAMPLES"
+>3.5.2. Selecting samples</A
+></H2
+><P
+>    If you select a range of samples in <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+>, that range will be
+    <I
+CLASS="EMPHASIS"
+>inclusive</I
+>. That means that the first and the last
+    selected sample both belong to the selection and will be used for the
+    following actions. So even if you not selected a <I
+CLASS="EMPHASIS"
+>range</I
+>
+    but only a single sample, the selection will never be really "empty". So for
+    example if you see no selected range, the "delete" function applies to that
+    single sample.
+    </P
+><P
+>    The easiest way of selecting a range of samples is just to do that
+    with mouse. It works like you are used from other applications: just press
+    the left mouse button at the point you want to let the selection start
+    and release the button where you want it to end.
+    </P
+><P
+>    If you want to move or adjust the selection's start or end, you can move the
+    mouse cursor near to the start or the end of the selection until it changes
+    from the standard arrow cursor into the left-right arrow cursor and then
+    press the left mouse button and adjust.
+    </P
+><P
+>    There are also some functions available via the menu and of course some 
+    keyboard shortcuts:
+    <UL
+><LI
+><P
+>	select the whole signal:
+	<SPAN
+CLASS="GUIMENU"
+>Edit</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Selection</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>All</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Ctrl</B
+>-<B
+CLASS="KEYCAP"
+>A</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>	a range of samples, starting at the current cursor position:
+	<SPAN
+CLASS="GUIMENU"
+>File</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Selection</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Range</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>R</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>	the currently visible area:
+	<SPAN
+CLASS="GUIMENU"
+>File</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Selection</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Visible</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>V</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>	the next block of samples, starting one sample after the end of the current
+	selection and with the same length:
+	<SPAN
+CLASS="GUIMENU"
+>File</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Selection</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Next</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Shift</B
+>-<B
+CLASS="KEYCAP"
+>+</B
+></B
+>) 
+    </P
+><P
+>	(Hint: use the "<B
+CLASS="KEYCAP"
+>+</B
+>" key from the numeric keypad!)
+    </P
+></LI
+><LI
+><P
+>	the previous block of samples, ending one sample before the start of the current
+	selection and with the same length:
+	<SPAN
+CLASS="GUIMENU"
+>File</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Selection</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Previous</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Shift</B
+>-<B
+CLASS="KEYCAP"
+>-</B
+></B
+>)
+    </P
+><P
+>	(Hint: use the "<B
+CLASS="KEYCAP"
+>-</B
+>" key from the numeric keypad!)
+    </P
+></LI
+><LI
+><P
+>	expand the selection to the start of the signal (first sample):
+	<SPAN
+CLASS="GUIMENU"
+>File</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Selection</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>to start</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Shift</B
+>-<B
+CLASS="KEYCAP"
+>Home</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>	expand the selection to the end of the signal (last sample):
+	<SPAN
+CLASS="GUIMENU"
+>File</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Selection</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>to end</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Shift</B
+>-<B
+CLASS="KEYCAP"
+>End</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>	remove any selection and select "nothing":
+	<SPAN
+CLASS="GUIMENU"
+>File</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Selection</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Nothing</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>N</B
+></B
+>)
+    </P
+></LI
+></UL
+>
+    </P
+></DIV
 ></DIV
 ><DIV
 ALIGN="RIGHT"
@@ -94,7 +397,7 @@ CLASS="NAVBAR"
 HREF="developers.html"
 >Next</A
 > <A
-HREF="command_line.html"
+HREF="open_and_save.html"
 >Prev</A
 > <A
 HREF="index.html"

@@ -41,7 +41,7 @@
 
 KWAVE_PLUGIN(SonagramPlugin,"sonagram","Thomas Eschenbacher");
 
-#define MAX_QUEUE_USAGE 8
+#define MAX_QUEUE_USAGE 16
 
 /**
  * simple private container class for stripe number and data (TSS-safe)

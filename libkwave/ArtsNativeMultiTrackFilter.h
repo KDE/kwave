@@ -26,6 +26,7 @@
 #include <arts/artsflow.h>
 #include <arts/connect.h>
 #include <arts/objectmanager.h>
+#include <arts/dynamicrequest.h>
 
 #include "libkwave/ArtsMultiTrackFilter.h"
 
@@ -125,7 +126,7 @@ public:
 	const std::string &input_name = "input",
 	const std::string &output_name = "output")
     {
-	for (unsigned i=0; i < m_count; ++i)
+	for (unsigned int i=0; i < m_count; ++i)
 	    Arts::connect(*(m_filter[i]), output_name,
 	                  *(sink[i]),     input_name);
     };
@@ -139,9 +140,29 @@ public:
 	const std::string &input_name,
 	const float value)
     {
-	for (unsigned i=0; i < m_count; ++i)
+	for (unsigned int i=0; i < m_count; ++i)
 	    Arts::setValue(*(m_filter[i]), input_name, value);
     };
+
+    /**
+     * Set all attributes of the filters to the same constant value.
+     * @param attribute name of the attribute to set
+     * @param value float value to be set
+     */
+    virtual void setAttribute(
+	const std::string &attribute,
+	const float value)
+    {
+	std::string command;
+	command = "_set_";
+	command += attribute;
+	for (unsigned int i=0; i < m_count; ++i) {
+	    Arts::Object &object(*(m_filter[i]));
+	    Arts::DynamicRequest(object).method(
+	        command).param(value).invoke();
+	}
+    };
+ 
 
     /** Starts all filters. */
     virtual void start() {

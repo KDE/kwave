@@ -417,7 +417,8 @@ int SignalWidget::loadFile(const KURL &url)
 		reason = i18n("Out of memory");
 		break;
 	    case -EIO:
-		reason = i18n("unable to open '%1'").arg(url.prettyURL());
+		reason = i18n("unable to open '%1'").arg(
+		    url.prettyURL());
 		break;
 	    case -EMEDIUMTYPE:
 		reason = i18n("invalid or unknown file type: '%1'").arg(
@@ -1262,7 +1263,7 @@ LabelType *findMarkerType (const char */*txt*/)
 //    QString name = KFileDialog::getSaveFileName (0, "*.label", this);
 //    if (!name.isNull()) {
 //	FILE *out;
-//	out = fopen (name.latin1(), "w");
+//	out = fopen (name.local8Bit(), "w");
 //
 //	Parser parser (typestring);
 //	Label *tmp;
@@ -1399,7 +1400,7 @@ LabelType *findMarkerType (const char */*txt*/)
 //
 //	    QString name = KFileDialog::getSaveFileName (0, "*.dat", this);
 //	    if (!name.isNull()) {
-//		QFile out(name.latin1());
+//		QFile out(name.local8Bit());
 //		char buf[160];
 //		float freq = 0, time, lastfreq = 0;
 //		out.open (IO_WriteOnly);

@@ -120,7 +120,7 @@ void RIFFChunk::fixSize()
 	u_int32_t old_length = m_phys_length;
 	m_phys_length = 0;
 	if (m_type == Main) m_phys_length += 4;
-	
+
 	for (it.toFirst(); it.current(); ++it) {
 	    u_int32_t len = it.current()->physEnd() -
 	                    it.current()->physStart() + 1;
@@ -139,7 +139,7 @@ void RIFFChunk::fixSize()
 	    m_phys_length++;
 	    qDebug("%s: rounding up size to %u", path().data(), m_phys_length);
 	}
-	
+
 	// adjust chunk size to physical size if not long enough
 	if ((m_chunk_length+1 != m_phys_length) &&
 	    (m_chunk_length != m_phys_length))
@@ -148,7 +148,7 @@ void RIFFChunk::fixSize()
 	        path().data(), m_chunk_length, m_phys_length);
 	    m_chunk_length = m_phys_length;
 	}
-	
+
     }
 
 }
@@ -172,7 +172,7 @@ void RIFFChunk::dumpStructure()
 
     qDebug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
           m_phys_offset, physEnd(), physLength(), length(),
-          t.latin1(), p.data()
+          t.local8Bit().data(), p.data()
     );
 
     // recursively dump all sub-chunks

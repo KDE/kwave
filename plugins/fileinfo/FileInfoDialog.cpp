@@ -74,7 +74,7 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
                 (mimetype == "application/x-ogg") ||
                 (mimetype == "application/ogg"));
 
-    qDebug("mimetype = %s",mimetype.latin1());
+    qDebug("mimetype = %s",mimetype.local8Bit().data());
 
     connect(btHelp, SIGNAL(clicked()),
             this,   SLOT(invokeHelp()));
@@ -168,12 +168,12 @@ void FileInfoDialog::setupFileInfoTab()
 //        lblFileFormat->text().length()-1),
 //        i18n("Format of the file from which the\n"
 //             "audio data was loaded from"));
-//    qDebug("mimetype='%s'",mimetype.latin1()); // ###
+//    qDebug("mimetype='%s'",mimetype.local8Bit().data()); // ###
 //    KMimeType::Ptr mime = KMimeType::mimeType(mimetype);
 //    QString format =
 //       (mime != KMimeType::mimeType(KMimeType::defaultMimeType())) ?
 //        mime->comment() : mimetype;
-//    qDebug("comment='%s'",mime->comment().latin1()); // ###
+//    qDebug("comment='%s'",mime->comment().local8Bit().data()); // ###
 //    edFileFormat->setText(format);
 
     // use mimetype instead

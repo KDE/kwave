@@ -171,7 +171,7 @@ void PluginManager::loadAllPlugins()
 	} else {
 	    // loading failed => remove it from the list
 	    qWarning("PluginManager::loadAllPlugins(): removing '%s' "\
-	            "from list", name.latin1());
+	            "from list", name.data());
 	    m_plugin_files.remove(name);
 	}
     }
@@ -371,7 +371,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 	    }
 	    delete params;
 	    command += ")";
-	    qDebug("PluginManager: command='%s'",command.latin1()); // ###
+	    qDebug("PluginManager: command='%s'",command.data()); // ###
 	}
     }
 
@@ -397,7 +397,8 @@ void PluginManager::sync()
 	for (; it.current(); ++it) {
 	    KwavePlugin *plugin = it.current();
 	    if (plugin->isRunning()) {
-		qDebug("waiting for plugin '%s'", plugin->name().latin1());
+		qDebug("waiting for plugin '%s'",
+		       plugin->name().local8Bit().data());
 		one_is_running = true;
 		break;
 	    }
@@ -465,8 +466,8 @@ QStringList PluginManager::loadPluginDefaults(const QString &name,
     if (!(def_version == version)) {
 	qDebug("PluginManager::loadPluginDefaults: "\
 	    "plugin '%s': defaults for version '%s' not loaded, found "\
-	    "old ones of version '%s'.", name.latin1(), version.latin1(),
-	    def_version.latin1());
+	    "old ones of version '%s'.", name.local8Bit().data(),
+	    version.local8Bit().data(), def_version.local8Bit().data());
 	return list;
     }
 
@@ -776,7 +777,7 @@ void PluginManager::findPlugins()
 
 	    dlclose (handle);
 	} else {
-	    qWarning(i18n("error in '%s':\n\t %s"), file.latin1(),
+	    qWarning(i18n("error in '%s':\n\t %s"), file.data(),
 		dlerror());
 	}
     }

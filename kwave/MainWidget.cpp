@@ -331,8 +331,6 @@ void MainWidget::forwardCommand(const QString &command)
 //***************************************************************************
 bool MainWidget::executeCommand(const QString &command)
 {
-//    qDebug("MainWidget::executeCommand(%s)", command);
-
     if (!command.length()) return false;
     Parser parser(command);
 
@@ -378,14 +376,12 @@ void MainWidget::refreshChannelControls()
 	m_scrollbar->show();
 	w -= b;
 	scrollbar_visible = true;
-	qDebug(" - scrollbar shown");
     } else if (!need_scrollbar && scrollbar_visible) {
 	// -- hide the scrollbar --
 	m_scrollbar->hide();
 	m_scrollbar->setFixedWidth(0);
 	w += b;
 	scrollbar_visible = false;
-	qDebug(" - scrollbar hidden");
     }
 
     if (scrollbar_visible) {
@@ -393,7 +389,7 @@ void MainWidget::refreshChannelControls()
 	int min = m_scrollbar->minValue();
 	int max = m_scrollbar->maxValue();
 	double val = (m_scrollbar->value()-(double)min) / (double)(max-min);
-	
+
 	min = 0;
 	max = h-m_signal_frame.height();
 	m_scrollbar->setRange(min, max);
@@ -461,7 +457,7 @@ void MainWidget::refreshChannelControls()
 	y = (i*h)/max(channels,1);
 	m_lamps.at(i)->setGeometry(x, y+5, 20, 20);
 //	m_speakers.at(i)->setGeometry(x, y+25, 20, 20);
-	
+
 	m_lamps.at(i)->show();
 //	m_speakers.at(i)->show();
     }

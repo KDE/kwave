@@ -108,7 +108,6 @@ bool KwaveApp::isOK()
 //***************************************************************************
 bool KwaveApp::executeCommand(const QString &command)
 {
-//    qDebug("KwaveApp::executeCommand(%s)", command);    // ###
     Parser parser(command);
     if (parser.command() == "newwindow") {
 	newWindow(0);
@@ -218,7 +217,7 @@ void KwaveApp::saveRecentFiles()
     QString num;
     for (unsigned int i = 0 ; i < m_recent_files.count(); i++) {
 	num.setNum(i);
-	cfg->writeEntry(num, m_recent_files[i]);
+	cfg->writeEntry(num, m_recent_files[i].utf8().data());
     }
 
     cfg->sync();
@@ -244,9 +243,12 @@ void KwaveApp::readConfig()
     cfg->setGroup("Recent Files");
     for (unsigned int i = 0 ; i < 20; i++) {
 	key = QString::number(i);        // generate number
-	result = cfg->readEntry(key);    // and read corresponding entry
+
+	// read corresponding entry, which is stored in UTF-8
+	result = QString::fromUtf8(cfg->readEntry(key));
 	if (result.length()) {
 	    QFile file(result);
+
 	    //check if file exists and insert it if not already present
 	    if (file.exists() && (m_recent_files.contains(result) == 0))
 		m_recent_files.append(result);
@@ -276,16 +278,16 @@ void KwaveApp::initArts()
 {
     arts_init();
 
-    if (!Arts::Dispatcher::the()) { 
+    if (!Arts::Dispatcher::the()) {
 	qWarning("aRts daemon isn't running. Starting it...");
 
 	QString path;
 	QStringList args;
-	
-	path = QFile::encodeName(KStandardDirs::findExe(
-	 	       		 QString::fromLatin1("kcminit")));
-	
-	args.append(QString::fromLatin1("arts"));
+
+	path = QFile::encodeName(KStandardDirs::findExe("kcminit"));
+	if (!path.length()) path = "kcminit";
+
+	args.append("arts");
 
 	kdeinitExec(path, args);
 

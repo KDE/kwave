@@ -107,7 +107,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     AFfilehandle fh = m_src_adapter->handle();
     if (!fh || (m_src_adapter->lastError() >= 0)) {
 	QString reason;
-	
+
 	switch (m_src_adapter->lastError()) {
 	    case AF_BAD_NOT_IMPLEMENTED:
 	        reason = i18n("format or function is not implemented");
@@ -133,11 +133,11 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 	    default:
 		reason = reason.number(m_src_adapter->lastError());
 	}
-	
+
 	QString text= i18n("An error occurred while opening the "\
 	    "file:\n'%1'").arg(reason);
 	KMessageBox::error(widget, text);
-	
+
 	return false;
     }
 
@@ -179,7 +179,8 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("rate        = %0.0f", info().rate());
     qDebug("bits/sample = %d", info().bits());
     qDebug("length      = %d samples", info().length());
-    qDebug("format      = %d (%s)", sample_format, sample_format_name.latin1());
+    qDebug("format      = %d (%s)", sample_format,
+                                    sample_format_name.local8Bit().data());
     qDebug("-------------------------");
 
     // set up libaudiofile to produce Kwave's internal sample format
@@ -223,12 +224,12 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	if (frames > rest) frames = rest;
 	unsigned int buffer_used = afReadFrames(fh,
 	    AF_DEFAULT_TRACK, (char *)buffer, frames);
-	
-	// break if eof reached	
+
+	// break if eof reached
 	Q_ASSERT(buffer_used);
 	if (!buffer_used) break;
 	rest -= buffer_used;
-	
+
 	// split into the tracks
 	int32_t *p = buffer;
 	unsigned int count = buffer_used;
@@ -246,7 +247,7 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 		*(dst[track]) << static_cast<sample_t>(s);
 	    }
 	}
-	
+
 	// abort if the user pressed cancel
 	if (dst.isCancelled()) break;
     }

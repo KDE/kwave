@@ -60,7 +60,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
                           unsigned int bufbase)
 {
     qDebug("PlayBackOSS::open(device=%s,rate=%f,channels=%u,"\
-	"bits=%u, bufbase=%u)", device.latin1(), rate, channels,
+	"bits=%u, bufbase=%u)", device.local8Bit().data(), rate, channels,
 	bits, bufbase);
 
     m_device_name = device;
@@ -74,7 +74,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
 
     // prepeare for playback by opening the sound device
     // and initializing with the proper settings
-    m_handle = ::open(m_device_name.latin1(), O_WRONLY | O_NONBLOCK);
+    m_handle = ::open(m_device_name.local8Bit(), O_WRONLY | O_NONBLOCK);
     qDebug("PlayBackOSS::open(): file descriptor=%u", m_handle);
     if (m_handle == -1) {
 	QString reason;
@@ -161,7 +161,7 @@ int PlayBackOSS::write(QMemArray<sample_t> &samples)
     unsigned int channel;
     for (channel=0; channel < m_channels; channel++) {
 	sample_t sample = samples[channel];
-	
+
 	switch (m_bits) {
 	    case 8:
 		sample += 1 << 23;

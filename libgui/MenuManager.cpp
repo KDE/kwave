@@ -47,7 +47,7 @@ int MenuManager::parseToKeyCode(const QString &key_name)
     while (key.length()) {
 	int pos = key.find('+');
 	if (pos <= 0) pos=key.length();
-	
+
 	QString name = key.left(pos);
 	key.remove(0, pos+1);
 
@@ -162,9 +162,11 @@ void MenuManager::addNumberedMenuEntry(const QString &uid,
     if (node) {
 	QString cmd = node->getCommand();
 	QString command = cmd.contains("%1") ? cmd.arg(entry) : cmd;
+
 	node->insertLeaf(entry, command, 0, 0, -1);
     } else
-	qWarning("MenuManager: could not find numbered Menu '%s'", uid.latin1());
+	qWarning("MenuManager: could not find numbered Menu '%s'",
+	         uid.local8Bit().data());
 
 }
 
@@ -174,27 +176,28 @@ void MenuManager::selectItem(const QString &group, const QString &uid)
     Q_ASSERT(m_menu_root);
 
     if (!group || !*group) {
-	qWarning("MenuManager::selectItem('','%s'): no group!?", uid.latin1());
+	qWarning("MenuManager::selectItem('','%s'): no group!?",
+	         uid.local8Bit().data());
 	return ;
     }
 
     if (*group != '@') {
 	qWarning("MenuManager::selectItem('%s','%s'): "\
 		"invalid group name, does not start with '@'!",
-		group.latin1(), uid.latin1());
+		group.local8Bit().data(), uid.local8Bit().data());
 	return ;
     }
 
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(group) : 0;
     if (!node) {
 	qWarning("MenuManager::selectItem(): group '%s' not found!",
-	    group.latin1());
+	    group.local8Bit().data());
 	return ;
     }
 
     if (!node->inherits("MenuGroup")) {
 	qWarning("MenuManager::selectItem(): '%s' is not a group!",
-	    group.latin1());
+	    group.local8Bit().data());
 	return ;
     }
 
@@ -221,12 +224,10 @@ void MenuManager::setItemText(const QString &uid, const QString &text)
 void MenuManager::setItemEnabled(const QString &uid, bool enable)
 {
     Q_ASSERT(m_menu_root);
-
-//    qDebug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setEnabled(enable);
     else qWarning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
-		     uid.latin1(), enable);
+		  uid.local8Bit().data(), enable);
 }
 
 //***************************************************************************

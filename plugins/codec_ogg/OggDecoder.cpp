@@ -67,7 +67,7 @@ void OggDecoder::parseTag(const char *tag, FileProperty property)
     for (int i=0; i < count; ++i) {
 	char *text = vorbis_comment_query(&m_vc, (char*)tag, i);
 	if (i) value += "; ";
-	value += text;
+	value += QString::fromUtf8(text);
     }
     m_info.set(property, value);
 }
@@ -86,7 +86,7 @@ int OggDecoder::parseHeader(QWidget *widget)
     m_buffer = ogg_sync_buffer(&m_oy, 4096);
     Q_ASSERT(m_buffer);
     if (!m_buffer) return -1;
-    
+
     unsigned int bytes = m_source->readBlock(m_buffer,4096);
     Q_ASSERT(bytes);
     if (!bytes && (!m_source->at())) {
@@ -100,7 +100,7 @@ int OggDecoder::parseHeader(QWidget *widget)
     if (ogg_sync_pageout(&m_oy, &m_og) != 1) {
 	// have we simply run out of data?  If so, we're done.
 	if (bytes < 4096) return 0;
-	
+
 	// error case.  Must not be Vorbis data
 	KMessageBox::error(widget, i18n(
 	     "Input does not appear to be an Ogg bitstream."));
@@ -216,7 +216,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 
     // take over the source
     m_source = &src;
-    
+
     /********** Decode setup ************/
     qDebug("--- OggDecoder::open() ---");
     ogg_sync_init(&m_oy); // Now we can read pages
@@ -238,7 +238,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	m_info.set(INF_BITRATE_LOWER, QVariant((int)m_vi.bitrate_lower));
     if (m_vi.bitrate_upper > 0)
 	m_info.set(INF_BITRATE_UPPER, QVariant((int)m_vi.bitrate_upper));
-    
+
     // the first comment sometimes is used for the software version
     {
 	char **ptr = m_vc.user_comments;
@@ -264,7 +264,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	if (date.isValid()) m_info.set(INF_CREATION_DATE, date);
     }
 
-    // parse all other (simple) properties    
+    // parse all other (simple) properties
     parseTag("TITLE",        INF_NAME);
     parseTag("VERSION",      INF_VERSION);
     parseTag("ALBUM",        INF_ALBUM);
@@ -298,12 +298,12 @@ static inline int decodeFrame(float **pcm, unsigned int size,
     for (track=0; track < tracks; track++) {
 	float *mono = pcm[track];
 	int bout = size;
-	
+
 	while (bout--) {
 	    // scale, use some primitive noise shaping
 	    sample_t s = static_cast<sample_t>(
 		*(mono++) * (float)SAMPLE_MAX + drand48() - 0.5f);
-	
+
 	    // might as well guard against clipping
 	    if (s > SAMPLE_MAX) {
 		s = SAMPLE_MIN;
@@ -347,10 +347,10 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 		        ));
 		} else {
 		    // can safely ignore errors at this point
-		    ogg_stream_pagein(&m_os,&m_og); 
+		    ogg_stream_pagein(&m_os,&m_og);
 		    while (1) {
 			result = ogg_stream_packetout(&m_os, &m_op);
-			
+
 			if (result == 0) break; // need more data
 			if (result < 0) {
 			    // missing or corrupt data at this page position
@@ -359,7 +359,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 			    // we have a packet.  Decode it
 			    float **pcm;
 			    int samples;
-			
+
 			    // test for success!
 			    if (vorbis_synthesis(&m_vb, &m_op) == 0)
 			        vorbis_synthesis_blockin(&m_vd, &m_vb);
@@ -387,7 +387,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 		    if (ogg_page_eos(&m_og) || dst.isCancelled()) eos = 1;
 		}
 	    }
-	
+
 	    if (!eos) {
 		m_buffer = ogg_sync_buffer(&m_oy, 4096);
 		unsigned int bytes = m_source->readBlock(m_buffer, 4096);
@@ -395,7 +395,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 		if (!bytes) eos = 1;
 	    }
 	}
-	
+
 	// clean up this logical bitstream; before exit we see if we're
 	// followed by another [chained]
 	ogg_stream_clear(&m_os);
@@ -425,7 +425,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 
 	const unsigned int samples = dst.last();
 	int bitrate = DEFAULT_BITRATE;
-	
+
 	if ((int)m_info.rate() && samples) {
 	    // guess bitrates from the stream
 	    const unsigned int stream_end_pos = m_source->at();
@@ -444,7 +444,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 	}
 	m_info.set(INF_BITRATE_NOMINAL, QVariant((int)bitrate));
     }
-   
+
     // return with a valid Signal, even if the user pressed cancel !
     return true;
 }

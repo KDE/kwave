@@ -145,18 +145,18 @@ QString CodecManager::encodingFilter()
     QStringList list;
     for (; it.current(); ++it) {
 	Encoder *e = it.current();
-	
+
 	// loop over all mime types that the encoder supports
 	QPtrList<KMimeType> types = e->mimeTypes();
 	QPtrListIterator<KMimeType> ti(types);
 	for (; ti.current(); ++ti) {
 	    KMimeType *type = ti.current();
 	    QString extensions = type->patterns().join(" ");
-	
+
 	    // skip if extensions are already known/present
 	    if (list.join("\n").contains(extensions)) continue;
 
-	    // otherwise append to the list	
+	    // otherwise append to the list
 	    QString entry = extensions;
 	    QString comment = type->comment().replace(QRegExp("/"), ",");
 	    entry += "|" + comment;
@@ -167,7 +167,8 @@ QString CodecManager::encodingFilter()
     QString str_list = list.join("\n");
     Q_ASSERT(!str_list.contains('/'));
     if (str_list.contains('/')) {
-	qWarning("CodecManager::encodingFilter() -> '%s'", str_list.latin1());
+	qWarning("CodecManager::encodingFilter() -> '%s'",
+	         str_list.data());
     }
 
     return str_list;
@@ -179,18 +180,18 @@ QString CodecManager::decodingFilter()
     QStringList list;
     for (; it.current(); ++it) {
 	Decoder *d = it.current();
-	
+
 	// loop over all mime types that the decoder supports
 	QPtrList<KMimeType> types = d->mimeTypes();
 	QPtrListIterator<KMimeType> ti(types);
 	for (; ti.current(); ++ti) {
 	    KMimeType *type = ti.current();
 	    QString extensions = type->patterns().join(" ");
-	
+
 	    // skip if extensions are already known/present
 	    if (list.join("\n").contains(extensions)) continue;
-	
-	    // otherwise append to the list	
+
+	    // otherwise append to the list
 	    QString entry = extensions;
 	    QString comment = type->comment().replace(QRegExp("/"), ",");
 	    entry += "|" + comment;
@@ -201,7 +202,8 @@ QString CodecManager::decodingFilter()
     QString str_list = list.join("\n");
     Q_ASSERT(!str_list.contains('/'));
     if (str_list.contains('/')) {
-	qWarning("CodecManager::decodingFilter() -> '%s'", str_list.latin1());
+	qWarning("CodecManager::decodingFilter() -> '%s'",
+	         str_list.data());
     }
 
     return str_list;

@@ -283,7 +283,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     qDebug("-------------------------");
     qDebug("wav header:");
-    qDebug("mode        = 0x%04X, (%s)", header.min.format, format_name.latin1());
+    qDebug("mode        = 0x%04X, (%s)", header.min.format,
+                                         format_name.local8Bit().data());
     qDebug("channels    = %d", header.min.channels);
     qDebug("rate        = %u", header.min.samplerate);
     qDebug("bytes/s     = %u", header.min.bytespersec);
@@ -296,7 +297,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	QPtrList<RecoverySource> *repair_list = new QPtrList<RecoverySource>();
 	Q_ASSERT(repair_list);
 	if (!repair_list) return false;
-	
+
 	RIFFChunk *root = (riff_chunk) ? riff_chunk : parser.findChunk("");
 	parser.dumpStructure();
 //	qDebug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
@@ -315,7 +316,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     AFfilehandle fh = m_src_adapter->handle();
     if (!fh || (m_src_adapter->lastError() >= 0)) {
 	QString reason;
-	
+
 	switch (m_src_adapter->lastError()) {
 	    case AF_BAD_NOT_IMPLEMENTED:
 	        reason = i18n("format or function is not implemented") +
@@ -343,11 +344,11 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    default:
 		reason = reason.number(m_src_adapter->lastError());
 	}
-	
+
 	QString text= i18n("An error occurred while opening the "\
 	    "file:\n'%1'").arg(reason);
 	KMessageBox::error(widget, text);
-	
+
 	return false;
     }
 
@@ -377,7 +378,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	for (; it.current(); ++it) {
 	    RIFFChunk &chunk = (*it.current());
 	    if (!m_property_map.contains(chunk.name())) continue;
-	
+
 	    // read the content into a QString
 	    FileProperty prop = m_property_map[chunk.name()];
 	    unsigned int offset = chunk.dataStart();
@@ -385,14 +386,14 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    char *buffer = (char*)malloc(length+1);
 	    Q_ASSERT(buffer);
 	    if (!buffer) continue;
-	
+
 	    src.at(offset);
 	    src.readBlock(buffer, length);
 	    buffer[length] = 0;
 	    QString value;
 	    value = QString::fromUtf8(buffer);
 	    info().set(prop, value);
-	
+
 	    delete buffer;
 	}
     }
@@ -440,30 +441,30 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	if (frames > rest) frames = rest;
 	unsigned int buffer_used = afReadFrames(fh,
 	    AF_DEFAULT_TRACK, (char *)buffer, frames);
-	
-	// break if eof reached	
+
+	// break if eof reached
 	Q_ASSERT(buffer_used);
 	if (!buffer_used) break;
 	rest -= buffer_used;
-	
+
 	// split into the tracks
 	int32_t *p = buffer;
 	unsigned int count = buffer_used;
 	while (count--) {
 	    for (unsigned int track = 0; track < tracks; track++) {
 		int32_t s = *p++;
-		
+
 		// adjust precision
 		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
 		    s /= (1 << (SAMPLE_STORAGE_BITS-SAMPLE_BITS));
 		}
-		
+
 		// the following cast is only necessary if
 		// sample_t is not equal to a u_int32_t
 		*(dst[track]) << static_cast<sample_t>(s);
 	    }
 	}
-	
+
 	// abort if the user pressed cancel
 	if (dst.isCancelled()) break;
     }
@@ -525,7 +526,7 @@ bool WavDecoder::repairChunk(QPtrList<RecoverySource> *repair_list,
 	Q_ASSERT(repair);
 	if (!repair) return false;
 	repair_list->append(repair);
-	
+
 	offset += chunk->physLength();
     }
 
@@ -583,7 +584,7 @@ bool WavDecoder::repair(QPtrList<RecoverySource> *repair_list,
 	    if (chunk->name() == "RIFF") continue;
 	    if (chunk->type() == RIFFChunk::Empty) continue;
 	    if (chunk->type() == RIFFChunk::Garbage) continue;
-	
+
 	    new_root.subChunks().append(chunk);
 	}
     }

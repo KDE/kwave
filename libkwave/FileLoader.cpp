@@ -27,12 +27,12 @@
 FileLoader::FileLoader(const QString &name)
 {
     m_buf = 0;
-    FILE *in = fopen(name.latin1(), "r");
+    FILE *in = fopen(name.local8Bit().data(), "r");
     if (in) {
 	fseek (in, 0, SEEK_END);
 	unsigned int size = ftell (in);
 	fseek (in, 0, SEEK_SET);
-	
+
 	m_buf.resize(size + 1);
 	m_buf.fill(0x00);
 

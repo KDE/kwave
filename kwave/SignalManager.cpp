@@ -29,6 +29,7 @@
 #include <qstring.h>
 #include <qtimer.h>
 
+#include <kaboutdata.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmimetype.h>
@@ -133,8 +134,9 @@ int SignalManager::loadFile(const KURL &url)
     disableUndo();
 
     QString mimetype = CodecManager::whatContains(url);
-    qDebug("SignalManager::loadFile(%s) - [%s]", url.prettyURL().latin1(),
-          mimetype.latin1());
+    qDebug("SignalManager::loadFile(%s) - [%s]",
+           url.prettyURL().local8Bit().data(),
+           mimetype.local8Bit().data());
     Decoder *decoder = CodecManager::decoder(mimetype);
     while (decoder) {
 	// be sure that the current signal is really closed
@@ -144,7 +146,9 @@ int SignalManager::loadFile(const KURL &url)
 	QString filename = url.path();
 	QFile src(filename);
 	if (!(res = decoder->open(m_parent_widget, src))) {
-	    qWarning("unable to open source: '%s'", url.prettyURL().latin1());
+	    qWarning("unable to open source: '%s'",
+	             url.prettyURL().local8Bit().data());
+	    res = -EIO;
 	    break;
 	}
 
@@ -297,7 +301,8 @@ int SignalManager::save(const KURL &url, bool selection)
     QString mimetype_name;
     mimetype_name = CodecManager::whatContains(url);
     qDebug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
-	url.prettyURL().latin1(), mimetype_name.latin1(), bits, selection);
+	url.prettyURL().local8Bit().data(), mimetype_name.data(),
+	bits, selection);
 
     Encoder *encoder = CodecManager::encoder(mimetype_name);
     if (encoder) {
@@ -316,7 +321,7 @@ int SignalManager::save(const KURL &url, bool selection)
                  (m_file_info.canLoadSave(it.key())) )
 	    {
 		qWarning("SignalManager::save(): unsupported property '%s'",
-		    m_file_info.name(it.key()).latin1());
+		    m_file_info.name(it.key()).data());
 		all_supported = false;
 		lost_properties += m_file_info.name(it.key()) + "\n";
 	    }
@@ -353,6 +358,34 @@ int SignalManager::save(const KURL &url, bool selection)
 	m_file_info.setBits(bits);
 	m_file_info.setTracks(tracks);
 	m_file_info.set(INF_FILENAME, filename);
+
+	if (!m_file_info.contains(INF_SOFTWARE) &&
+	    encoder->supportedProperties().contains(INF_SOFTWARE))
+	{
+	    // add our Kwave Software tag
+	    const KAboutData *about_data = KGlobal::instance()->aboutData();
+	    QString software = about_data->programName() + "-" +
+	                       about_data->version() +
+	                       i18n(" for KDE ") +
+			       i18n(QString::fromLatin1(KDE_VERSION_STRING));
+	    qDebug("adding software tag: '%s'",
+	           software.local8Bit().data());
+	    m_file_info.set(INF_SOFTWARE, software);
+	}
+
+	if (!m_file_info.contains(INF_CREATION_DATE) &&
+	    encoder->supportedProperties().contains(INF_CREATION_DATE))
+	{
+	    // add a date tag
+	    QDate now(QDate::currentDate());
+	    QString date;
+	    date = date.sprintf("%04d-%02d-%02d",
+	    now.year(), now.month(), now.day());
+	    QVariant value = date.utf8();
+	    qDebug("adding date tag: '%s'",
+	           date.local8Bit().data());
+	    m_file_info.set(INF_CREATION_DATE, value);
+	}
 
 	//prepare and show the progress dialog
 	FileProgress *dialog = new FileProgress(m_parent_widget,
@@ -502,7 +535,8 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
     UndoAction *action = 0;
     switch (mode) {
 	case Append:
-	    qDebug("SignalManager::openSampleWriter(): NO UNDO FOR APPEND YET !");
+	    qDebug("SignalManager::openSampleWriter(): "\
+	           "NO UNDO FOR APPEND YET !");
 	    break;
 	case Insert:
 	    action = new UndoInsertAction(track, left, right-left+1);
@@ -577,8 +611,6 @@ void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
 //***************************************************************************
 bool SignalManager::executeCommand(const QString &command)
 {
-//    qDebug("SignalManager::executeCommand(%s)", command.latin1());    // ###
-
     unsigned int offset = m_selection.offset();
     unsigned int length = m_selection.length();
     double rate = m_file_info.rate();
@@ -925,7 +957,7 @@ int SignalManager::loadAscii()
     float amp;
     int *sample = 0;
 
-    FILE *sigin = fopen(m_name.latin1(), "r");
+    FILE *sigin = fopen(m_name.local8Bit(), "r");
     if (!sigin) {
 	KMessageBox::error(0, i18n("File does not exist !"), i18n("Info"), 2);
 	return -ENOENT;

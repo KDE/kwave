@@ -26,7 +26,6 @@
 #include <kmimetype.h>
 #include <kapp.h>
 #include <kglobal.h>
-#include <kaboutdata.h>
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
@@ -115,10 +114,8 @@ void FlacEncoder::VorbisCommentContainer::add(const QString &tag,
     Q_ASSERT(m_vc);
     if (!m_vc) return;
 
-
     QString s;
     s = tag+"="+value;
-//     qDebug("FlacEncoder::VorbisCommentContainer::add(%s)", s.data());
 
     // make a plain C string out of it, containing UTF-8
     QCString val = s.utf8();
@@ -145,28 +142,6 @@ FLAC__StreamMetadata *FlacEncoder::VorbisCommentContainer::data()
 void FlacEncoder::encodeMetaData(FileInfo &info,
     QPtrVector<FLAC__StreamMetadata> &flac_metadata)
 {
-    // append some missing standard properties if they are missing
-    if (!info.contains(INF_SOFTWARE)) {
-        // add our Kwave Software tag
-	const KAboutData *about_data = KGlobal::instance()->aboutData();
-	QString software = about_data->programName() + "-" +
-	    about_data->version() +
-	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-	qDebug("FlacEncoder: adding software tag: '%s'", software.latin1());
-	info.set(INF_SOFTWARE, software);
-    }
-
-    if (!info.contains(INF_CREATION_DATE)) {
-	// add a date tag
-	QDate now(QDate::currentDate());
-	QString date;
-	date = date.sprintf("%04d-%02d-%02d",
-	    now.year(), now.month(), now.day());
-	QVariant value = date.utf8();
-	qDebug("FlacEncoder: adding date tag: '%s'", date.latin1());
-	info.set(INF_CREATION_DATE, value);
-    }
-
     // encode all Vorbis comments
     VorbisCommentMap::ConstIterator it;
     VorbisCommentContainer vc;
@@ -177,7 +152,7 @@ void FlacEncoder::encodeMetaData(FileInfo &info,
 	if (!info.contains(it.data())) continue; // not present -> skip
 
 	QString value = info.get(it.data()).toString();
-	vc.add(it.key(), value.utf8());
+	vc.add(it.key(), value);
     }
 
     flac_metadata.resize(flac_metadata.size()+1);

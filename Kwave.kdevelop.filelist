@@ -1147,3 +1147,11 @@ libgui/InhibitRepaintGuard.h
 libgui/InhibitRepaintGuard.cpp
 libkwave/SampleFIFO.h
 libkwave/SampleFIFO.cpp
+plugins/codec_flac/VorbisCommentMap.h
+plugins/codec_flac/VorbisCommentMap.cpp
+plugins/codec_flac/FlacCodecPlugin.cpp
+plugins/codec_flac/FlacCodecPlugin.h
+plugins/codec_flac/FlacDecoder.cpp
+plugins/codec_flac/FlacDecoder.h
+plugins/codec_flac/FlacEncoder.cpp
+plugins/codec_flac/FlacEncoder.h

@@ -64,7 +64,7 @@ QString Filter::command()
     s += ',';
     s += (m_fir ? "fir" : "iir");
     s += ',' + QString::number(count());
-			
+
     for (unsigned int i = 0; i < count(); i++) {
 	s += ',';
 	s += QString::number(m_delay[i]);
@@ -173,7 +173,7 @@ void Filter::load(const QString &filename)
     while (!in.atEnd()) {
 	line = in.readLine().simplifyWhiteSpace();
 	linenr++;
-	
+
 	if (line.isEmpty() || line.isNull()) continue;
 	if ((line[0] == '#') || (line[0] == '/')) continue;
 	break;
@@ -192,7 +192,7 @@ void Filter::load(const QString &filename)
     while (!in.atEnd()) {
 	line = in.readLine().simplifyWhiteSpace();
 	linenr++;
-	
+
 	if (line.isEmpty() || line.isNull()) continue;
 	if ((line[0] == '#') || (line[0] == '/')) continue;
 
@@ -201,12 +201,12 @@ void Filter::load(const QString &filename)
 	if (ok) m_delay[i] = line.left(spacepos).toUInt(&ok);
 	line.remove(0, spacepos);
 	if (ok) m_coeff[i] = line.toDouble(&ok);
-	
+
 	if (ok) {
 	    i++;
 	} else {
 	    qDebug("Filter::load(%s): syntax error in line %d",
-		filename.latin1(), linenr);
+		filename.local8Bit().data(), linenr);
 	}
     }
 }

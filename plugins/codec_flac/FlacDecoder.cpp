@@ -167,7 +167,7 @@ void FlacDecoder::parseVorbisComments(
 		entry.get_field(),
 		entry.get_field_length());
 	m_info.set(INF_SOFTWARE, s);
-	qDebug("Encoded by: '%s'\n\n", s.data());
+	qDebug("Encoded by: '%s'\n\n", s.local8Bit().data());
     }
 
 

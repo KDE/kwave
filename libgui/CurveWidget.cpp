@@ -173,7 +173,7 @@ void CurveWidget::savePreset()
     QFile out(name);
     out.open(IO_WriteOnly);
     QString cmd = m_curve.getCommand();
-    out.writeBlock(cmd.latin1(), cmd.length()+1);
+    out.writeBlock(cmd.local8Bit().data(), cmd.length()+1);
 
     // reload the list of known presets
     loadPresetList();
@@ -411,7 +411,7 @@ void CurveWidget::paintEvent(QPaintEvent *)
     for (pt = m_curve.first(); (pt); pt = m_curve.next(pt)) {
 	lx = (int)(pt->x * (m_width-1));
 	ly = (m_height-1) - (int)(pt->y * (m_height-1));
-	
+
 	if ((pt == m_current) || (!m_down && (pt == m_last)) )
 	    bitBlt(this, lx - (kw >> 1), ly - (kh >> 1),
 	           &m_selected_knob, 0, 0, kw, kh);

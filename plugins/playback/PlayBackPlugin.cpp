@@ -186,7 +186,7 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
 bool PlayBackPlugin::supportsDevice(const QString &name)
 {
     // we know about the "default" device !
-    if (name == "") return true; 
+    if (name == "") return true;
 
     // we support aRts playback
     if (name.contains(MAGIC_ARTS)) return true;
@@ -194,7 +194,7 @@ bool PlayBackPlugin::supportsDevice(const QString &name)
     // if it is a device name -> suggest OSS/ALSA output
     QFile file(name);
     if (file.exists()) return true;
-    
+
     // default: not supported by us
     return false;
 }
@@ -219,16 +219,16 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 
     // use default device if no name is given
     if (!device_name.length()) device_name = params.device;
-    
+
     // here comes the switch for different playback devices...
     if (device_name.contains(MAGIC_ARTS)) {
 	ThreadsafeX11Guard x11_guard;
-	
+
 	// if no mutex exists: make a new one, parent is the global app!
 	/** @todo this mutex is actually never deleted ! */
 	if (!g_arts_lock) g_arts_lock = new Mutex();
 	Q_ASSERT(g_arts_lock);
-	
+
 	device = new PlayBackArts(*g_arts_lock);
     } else {
 	// default is OSS or similar device
@@ -254,18 +254,18 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
     if (result.length()) {
 	qWarning("PlayBackPlugin::openDevice(): "\
 	        "opening the device failed.");
-	
+
 	// delete the device if it did not open
 	delete device;
 	device = 0;
-	
+
 	// show an error message box
 	KMessageBox::error(parentWidget(), result,
 	    i18n("unable to open '%1'").arg(
 	    params.device));
     }
 
-    return device;    
+    return device;
 }
 
 //***************************************************************************
@@ -296,7 +296,7 @@ void PlayBackPlugin::startDevicePlayBack()
 
     // open the device and abort if not possible
     qDebug("PlayBackPlugin::startDevicePlayBack(), device='%s'",
-          m_playback_params.device.latin1());
+          m_playback_params.device.local8Bit().data());
     m_device = openDevice(m_playback_params.device, &m_playback_params);
     if (!m_device) {
 	// simulate a "playback done" on errors

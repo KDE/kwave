@@ -160,8 +160,9 @@ void MenuNode::setIcon(const QPixmap icon)
 //*****************************************************************************
 void MenuNode::setItemIcon(int id, const QPixmap &icon)
 {
-    qDebug("MenuNode(%s)::setItemIcon(%d, %p)", getName().latin1(), id,
-          (void*)&icon);
+    qDebug("MenuNode(%s)::setItemIcon(%d, %p)",
+           getName().local8Bit().data(), id,
+           (void*)&icon);
 }
 
 //*****************************************************************************
@@ -182,7 +183,8 @@ bool MenuNode::isEnabled()
 	    if (group && group->inherits("MenuGroup")) {
 		if (!((MenuGroup*)group)->isEnabled()) {
 		    qDebug("MenuNode(%s).isEnabled(): group %s is disabled",
-			  getName().latin1(), group_name.latin1());
+			   getName().local8Bit().data(),
+			   group_name.local8Bit().data());
 		    return false;
 		}
 	    }
@@ -205,7 +207,7 @@ void MenuNode::setEnabled(bool enable)
 
     if (new_enable != m_last_enabled) { // on changes:
 	m_last_enabled = new_enable;
-	
+
 	// notify our parent that our enabled state has changed
 	emit sigChildEnableChanged(m_id, new_enable);
 
@@ -362,8 +364,9 @@ MenuNode *MenuNode::insertBranch(const QString &name,
 	const QString &/*command*/, int /*key*/, const QString &/*uid*/,
 	int /*index*/)
 {
-    qDebug("!!! MenuNode(%s): insertBranch(%s) !!!", m_name.latin1(),
-          name.latin1());
+    qDebug("!!! MenuNode(%s): insertBranch(%s) !!!",
+          m_name.local8Bit().data(),
+          name.local8Bit().data());
     return 0;
 }
 
@@ -372,8 +375,9 @@ MenuNode *MenuNode::insertLeaf(const QString &name,
 	const QString &/*command*/, int /*key*/, const QString &/*uid*/,
 	int /*index*/)
 {
-    qDebug("!!! MenuNode(%s): insertLeaf(%s) !!!", m_name.latin1(),
-          name.latin1());
+    qDebug("!!! MenuNode(%s): insertLeaf(%s) !!!",
+          m_name.local8Bit().data(),
+          name.local8Bit().data());
     return 0;
 }
 
@@ -457,7 +461,7 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
 {
     Q_ASSERT(node);
     Q_ASSERT(node != this);
-//    qDebug("MenuNode::leafToBranch(%s)", node->getName());
+
     if (!node || (node==this)) return 0;
     MenuNode *sub = node;
 

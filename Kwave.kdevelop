@@ -12,7 +12,7 @@
     </ignoreparts>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
-    <description/>
+    <description></description>
     <secondaryLanguages>
       <language>Bash</language>
       <language>C</language>
@@ -20,41 +20,45 @@
   </general>
   <kdevcustomproject>
     <run>
-      <mainprogram>kwave/kwave</mainprogram>
-      <programargs/>
+      <mainprogram>kwave/.libs/lt-kwave</mainprogram>
+      <programargs></programargs>
       <terminal>false</terminal>
-      <envvars/>
+      <envvars>
+        <envvar value="libkwave/.libs:mt/.libs:libgui/.libs" name="LD_LIBRARY_PATH" />
+      </envvars>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
       <autocompile>true</autocompile>
     </run>
     <build>
       <buildtool>make</buildtool>
-      <builddir/>
+      <builddir></builddir>
     </build>
     <make>
-      <abortonerror>false</abortonerror>
-      <numberofjobs>2</numberofjobs>
+      <abortonerror>true</abortonerror>
+      <numberofjobs>4</numberofjobs>
       <dontact>false</dontact>
-      <makebin/>
+      <makebin></makebin>
       <environments>
-        <default/>
+        <default>
+          <envvar value="localhost 192.168.2.99" name="DISTCC_HOSTS" />
+        </default>
       </environments>
       <selectedenvironment>default</selectedenvironment>
     </make>
   </kdevcustomproject>
   <kdevdebugger>
     <general>
-      <dbgshell/>
-      <programargs/>
-      <gdbpath/>
+      <dbgshell></dbgshell>
+      <programargs></programargs>
+      <gdbpath>/usr/bin/gdb</gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -126,7 +130,7 @@
       <includeGlobalFunctions>true</includeGlobalFunctions>
       <includeTypes>true</includeTypes>
       <includeEnums>true</includeEnums>
-      <includeTypedefs>false</includeTypedefs>
+      <includeTypedefs>true</includeTypedefs>
       <automaticCodeCompletion>true</automaticCodeCompletion>
       <automaticArgumentsHint>true</automaticArgumentsHint>
       <codeCompletionDelay>250</codeCompletionDelay>

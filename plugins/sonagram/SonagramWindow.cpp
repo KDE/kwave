@@ -210,9 +210,9 @@ void SonagramWindow::load()
 {
 //    if (image) {
 //	QString filename = KFileDialog::getOpenFileName("", "*.bmp", this);
-//	printf ("loading %s\n", filename.latin1());
+//	printf ("loading %s\n", filename.local8Bit().data());
 //	if (!filename.isNull()) {
-//	    printf ("loading %s\n", filename.latin1());
+//	    printf ("loading %s\n", filename.local8Bit().data());
 //	    QImage *newimage = new QImage (filename);
 //	    Q_ASSERT(newimage);
 //	    if (newimage) {
@@ -499,11 +499,9 @@ void SonagramWindow::setName(const QString &name)
 {
     QString windowname;
     windowname += i18n("Sonagram of ");
-
-    setCaption(windowname);
     windowname += name.length() ? name : QString(i18n("<nothing>"));
 
-    setCaption(windowname.latin1());
+    setCaption(windowname);
 }
 
 //****************************************************************************

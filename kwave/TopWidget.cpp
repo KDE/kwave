@@ -587,7 +587,7 @@ int TopWidget::executeCommand(const QString &line)
     bool use_recorder = true;
     QString command = line;
 
-//    qDebug("TopWidget::executeCommand(%s)", command.latin1()); // ###
+//  qDebug("TopWidget::executeCommand(%s)", command.local8Bit().data()); // ###
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.stripWhiteSpace().startsWith("#")) return 0; // only a comment
 
@@ -601,10 +601,10 @@ int TopWidget::executeCommand(const QString &line)
 	    Q_ASSERT(!result);
 	    if (result) {
 		qWarning("macro execution of '%s' failed: %d",
-		        (*it).latin1(), result);
+		        (*it).data(), result);
 		return result; // macro failed :-(
 	    }
-	
+
 	    // wait until the command has completed !
 	    Q_ASSERT(m_plugin_manager);
 	    if (m_plugin_manager) m_plugin_manager->sync();
@@ -633,11 +633,13 @@ int TopWidget::executeCommand(const QString &line)
 	    Q_ASSERT(params);
 	    while (params && cnt--) {
 		const QString &par = parser.nextParam();
-		qDebug("TopWidget::executeCommand(): %s", par.latin1());
+		qDebug("TopWidget::executeCommand(): %s",
+		    par.local8Bit().data());
 		params->append(par);
 	    }
 	}
-	qDebug("TopWidget::executeCommand(): loading plugin '%s'",name.latin1());
+	qDebug("TopWidget::executeCommand(): loading plugin '%s'",
+	       name.local8Bit().data());
 	qDebug("TopWidget::executeCommand(): with %d parameter(s)",
 		(params) ? params->count() : 0);
 	Q_ASSERT(m_plugin_manager);
@@ -889,7 +891,7 @@ int TopWidget::saveFileAs(bool selection)
     if (!url.isEmpty()) {
 	QString name = url.path();
 	QFileInfo path(name);
-	
+
 	// add the correct extension if necessary
 	if (!path.extension(false).length()) {
 	    QString ext = dlg.selectedExtension();
@@ -899,7 +901,7 @@ int TopWidget::saveFileAs(bool selection)
 	    path = name;
 	    url.setPath(name);
 	}
-	
+
 	// check if the file exists and ask before overwriting it
 	// if it is not the old filename
 	if ((name != signalName()) && (path.exists())) {
@@ -910,25 +912,25 @@ int TopWidget::saveFileAs(bool selection)
 		return -1;
 	    }
 	}
-	
+
 	m_url = url;
-	
+
 	// maybe we now have a new mime type
 	QString previous_mimetype_name = signalManager().fileInfo().get(
 	    INF_MIMETYPE).toString();
-	
+
 	QString new_mimetype_name;
 	new_mimetype_name = CodecManager::whatContains(m_url);
-	
+
 	if (new_mimetype_name != previous_mimetype_name) {
 	    // saving to a different mime type
 	    // now we have to do as if the mime type and file name
 	    // has already been selected to satisfy the fileinfo
 	    // plugin
 	    qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
-		m_url.prettyURL().latin1(), new_mimetype_name.latin1(),
-		previous_mimetype_name.latin1() );
-	
+		m_url.prettyURL().data(), new_mimetype_name.data(),
+		previous_mimetype_name.data() );
+
 	    // set the new mimetype
 	    signalManager().fileInfo().set(INF_MIMETYPE,
 	        new_mimetype_name);
@@ -937,22 +939,22 @@ int TopWidget::saveFileAs(bool selection)
 	        INF_FILENAME).toString();
 	    signalManager().fileInfo().set(INF_FILENAME,
 	        m_url.prettyURL());
-	
+
 	    // now call the fileinfo plugin with the new filename and
 	    // mimetype
 	    Q_ASSERT(m_plugin_manager);
 	    res = (m_plugin_manager) ?
 	        res = m_plugin_manager->setupPlugin("fileinfo") : -1;
-	
+
 	    // restore the mime type and the filename
 	    signalManager().fileInfo().set(INF_MIMETYPE,
 	        previous_mimetype_name);
 	    signalManager().fileInfo().set(INF_FILENAME,
 	        m_url.prettyURL());
 	}
-	
+
 	if (!res) res = m_main_widget->saveFile(m_url, selection);
-	
+
 	updateCaption();
 	m_app.addRecentFile(signalName());
 	updateMenu();
@@ -1027,7 +1029,7 @@ void TopWidget::setZoomInfo(double zoom)
 	    double ms = m_main_widget->displaySamples()*1E3/(double)rate;
 	    int s = (int)floor(ms / 1000.0);
 	    int m = (int)floor(s / 60.0);
-	
+
 	    if (m >= 1) {
 		strZoom = strZoom.sprintf("%02d:%02d min", m, s % 60);
 	    } else if (s >= 1) {
@@ -1107,7 +1109,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 // Selected: 02:00...05:00 (3 min)
 // Selected: 2000...3000 (1000 samples)
 	bool sample_mode = false;
-	
+
 	unsigned int last = offset + ((length) ? length-1 : 0);
 	if (rate == 0) sample_mode = true; // force sample mode if rate==0
 	QString txt = " "+i18n("Selected")+": %1...%2 (%3) ";
@@ -1123,7 +1125,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 		KwavePlugin::ms2string(ms_last)).arg(
 		KwavePlugin::ms2string(ms));
 	}
-	
+
 	statusBar()->message(txt, 4000);
 	m_menu_manager->setItemEnabled("@SELECTION", true);
     } else {
@@ -1262,15 +1264,15 @@ void TopWidget::updatePlaybackControls()
 	m_pause_timer->stop();
 	delete m_pause_timer;
 	m_pause_timer = 0;
-	
+
 	// NOTE: working with toolbar->getButton is ugly and NOT
 	//       recommended, but the only way this works in KDE3 :-(
 	KToolBarButton *button = m_toolbar->getButton(m_id_pause);
 	Q_ASSERT(button);
 	if (!button) return;
-	
+
 	QIconSet set;
-	set.setPixmap(QPixmap(xpm_pause), QIconSet::Automatic, 
+	set.setPixmap(QPixmap(xpm_pause), QIconSet::Automatic,
 	              QIconSet::Normal);
 	button->setIconSet(set);
     }
@@ -1324,9 +1326,9 @@ void TopWidget::blinkPause()
     KToolBarButton *button = m_toolbar->getButton(m_id_pause);
     Q_ASSERT(button);
     if (!button) return;
-    
+
     QIconSet set;
-    set.setPixmap(m_blink_on ? QPixmap(xpm_pause2) : QPixmap(xpm_pause), 
+    set.setPixmap(m_blink_on ? QPixmap(xpm_pause2) : QPixmap(xpm_pause),
         QIconSet::Automatic, QIconSet::Normal);
     button->setIconSet(set);
 

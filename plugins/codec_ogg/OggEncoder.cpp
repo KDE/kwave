@@ -110,8 +110,8 @@ void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
 	const char *tag = supported_properties[i].name;
 	if (!tag) continue;
 
-	QString value = info.get(property).toString();
-	vorbis_comment_add_tag(vc, (char*)tag, (char*)value.latin1());
+	QCString value = info.get(property).toString().utf8();
+	vorbis_comment_add_tag(vc, (char *)tag, value.data());
     }
 }
 
@@ -245,28 +245,6 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	KMessageBox::error(widget,
 	    i18n("Unable to open the file for saving!"));
 	return false;
-    }
-
-    // append some missing standard properties if they are missing
-    if (!info.contains(INF_SOFTWARE)) {
-        // add our Kwave Software tag
-	const KAboutData *about_data = KGlobal::instance()->aboutData();
-	QString software = about_data->programName() + "-" +
-	    about_data->version() +
-	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-	qDebug("OggEncoder: adding software tag: '%s'", software.latin1());
-	info.set(INF_SOFTWARE, software);
-    }
-
-    if (!info.contains(INF_CREATION_DATE)) {
-	// add a date tag
-	QDate now(QDate::currentDate());
-	QString date;
-	date = date.sprintf("%04d-%02d-%02d",
-	    now.year(), now.month(), now.day());
-	QVariant value = date.utf8();
-	qDebug("OggEncoder: adding date tag: '%s'", date.latin1());
-	info.set(INF_CREATION_DATE, value);
     }
 
     // add all supported properties as file comments

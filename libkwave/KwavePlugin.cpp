@@ -59,10 +59,10 @@
    2. WITH a plugin thread
       main thread:    new --- use --- start --- release
       plugin thread:                     --- run --- release
-      
+
       The plugin can be unloaded either in the main thread or in the
       context of the plugin's thread, depending on what occurs first.
-      
+
  */
 
 //***************************************************************************
@@ -132,9 +132,10 @@ int KwavePlugin::stop()
     if (m_thread && m_thread->running() &&
 	(pthread_self() == m_thread->threadID())) {
 	qWarning("KwavePlugin::stop(): plugin '%s' called stop() from "\
-	        "within it's own worker thread (from run() ?). "\
-	        "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
-	        name().latin1(), author().latin1());
+	         "within it's own worker thread (from run() ?). "\
+	         "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
+	         name().local8Bit().data(),
+		 author().local8Bit().data());
 
 #ifdef DEBUG
 	qDebug("pthread_self()=%08X, tid=%08X", (unsigned int)pthread_self(),
@@ -246,7 +247,7 @@ void KwavePlugin::release()
 {
     bool finished = false;
 
-    {    
+    {
 	MutexGuard lock(m_usage_lock);
 	Q_ASSERT(m_usage_count);
 	if (m_usage_count) {
@@ -384,7 +385,7 @@ QString KwavePlugin::ms2string(double ms, int precision)
     } else {
 	int s = (int)round(ms / 1000.0);
 	int m = (int)floor(s / 60.0);
-	
+
 	if (m < 1) {
 	    char format[128];
 	    int digits = (int)ceil((double)(precision+1) - log10(ms));

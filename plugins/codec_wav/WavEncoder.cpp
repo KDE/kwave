@@ -22,7 +22,6 @@
 #include <kmimetype.h>
 #include <kapp.h>
 #include <kglobal.h>
-#include <kaboutdata.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -116,28 +115,6 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	}
     }
 
-    // append some missing standard properties if they are missing
-    QMap<FileProperty, QVariant> properties(info.properties());
-    if (!properties.contains(INF_SOFTWARE)) {
-        // add our Kwave Software tag
-	const KAboutData *about_data = KGlobal::instance()->aboutData();
-	QString software = about_data->programName() + "-" +
-	    about_data->version() +
-	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-	qDebug("WavEncoder: adding software tag: '%s'", software.latin1());
-	properties.insert(INF_SOFTWARE, software);
-    }
-    if (!properties.contains(INF_CREATION_DATE)) {
-	// add a date tag
-	QDate now(QDate::currentDate());
-	QString date;
-	date = date.sprintf("%04d-%02d-%02d",
-	    now.year(), now.month(), now.day());
-	QVariant value = date.utf8();
-	qDebug("WavEncoder: adding date tag: '%s'", date.latin1());
-	properties.insert(INF_CREATION_DATE, value);
-    }
-
     // open the output device
     if (!dst.open(IO_ReadWrite | IO_Truncate)) {
 	KMessageBox::error(widget,
@@ -158,7 +135,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     AFfilehandle fh = outfile.handle();
     if (!fh || (outfile.lastError() >= 0)) {
 	QString reason;
-	
+
 	switch (outfile.lastError()) {
 	    case AF_BAD_NOT_IMPLEMENTED:
 	        reason = i18n("format or function is not implemented") /*+
@@ -186,11 +163,11 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    default:
 		reason = reason.number(outfile.lastError());
 	}
-	
+
 	QString text= i18n("An error occurred while opening the "\
 	    "file:\n'%1'").arg(reason);
 	KMessageBox::error(widget, text);
-	
+
 	return false;
     }
 
@@ -218,13 +195,13 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	int32_t *p = buffer;
 	unsigned int count = buffer_frames;
 	if (rest < count) count = rest;
-	
+
 	for (unsigned int pos=0; pos < count; pos++) {
 	    for (unsigned int track = 0; track < tracks; track++) {
 		SampleReader *stream = src[track];
 		sample_t sample;
 		(*stream) >> sample;
-	
+
 		// the following cast is only necessary if
 		// sample_t is not equal to a 32bit int
 		register __uint32_t act = static_cast<__uint32_t>(sample);
@@ -233,16 +210,16 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		p++;
 	    }
 	}
-	
+
 	// write out through libaudiofile
 	count = afWriteFrames(fh, AF_DEFAULT_TRACK, buffer, count);
-	
+
 	// break if eof reached or disk full
 	Q_ASSERT(count);
 	if (!count) break;
-	
+
 	rest -= count;
-	
+
 	// abort if the user pressed cancel
 	// --> this would leave a corrupted file !!!
 	if (src.isCancelled()) break;
@@ -253,13 +230,14 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     outfile.close();
 
     // create a list of chunk names and properties for the INFO chunk
+    QMap<FileProperty, QVariant> properties(info.properties());
     QMap<QCString, QCString> info_chunks;
     unsigned int info_size = 0;
     QMap<FileProperty, QVariant>::Iterator it;
     for (it=properties.begin(); it!=properties.end(); ++it) {
 	FileProperty property = it.key();
 	if (!m_property_map.containsProperty(property)) continue;
-	
+
 	QCString chunk_id = m_property_map.findProperty(property);
 	QCString value = QVariant(properties[property]).asString().utf8();
 	info_chunks.insert(chunk_id, value);
@@ -270,7 +248,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     // if there are properties to save, create a LIST chunk
     if (!info_chunks.isEmpty()) {
 	u_int32_t size;
-	
+
 	// enlarge the main RIFF chunk by the size of the LIST chunk
 	info_size += 4 + 4 + 4; // add the size of LIST(INFO)
 	dst.at(4);
@@ -282,7 +260,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 #endif
 	dst.at(4);
 	dst.writeBlock((char*)&size, 4);
-	
+
 	// add the LIST(INFO) chunk itself
 	dst.at(dst.size());
 	dst.writeBlock("LIST", 4);
@@ -293,13 +271,13 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 #endif
 	dst.writeBlock((char*)&size, 4);
 	dst.writeBlock("INFO", 4);
-	
+
 	// append the chunks to the end of the file
 	QMap<QCString, QCString>::Iterator it;
 	for (it=info_chunks.begin(); it != info_chunks.end(); ++it) {
 	    QCString name  = it.key();
 	    QCString value = it.data();
-	
+
 	    dst.writeBlock(name.data(), 4); // chunk name
 	    u_int32_t size = value.length(); // length of the chunk
 	    if (size & 0x01) size++;

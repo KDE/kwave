@@ -38,7 +38,7 @@ QString LineParser::nextLine()
     unsigned int size = m_buffer.size();
     if (!size) return QString(0);
 
-    QString line = "";
+    QCString line = "";
     while ((m_pos < size) && !line.length()) {
 	line = "";
 	while ((m_pos < size) && (m_buffer[m_pos] != 0x0D) &&
@@ -49,7 +49,8 @@ QString LineParser::nextLine()
 	line = line.stripWhiteSpace();
 	m_pos++;
     }
-    return line;
+
+    return QString::fromUtf8(line);
 }
 
 //***************************************************************************

@@ -70,14 +70,14 @@ MenuNode *MenuSub::insertLeaf(const QString &name, const QString &command,
                               int key, const QString &uid, int /*index*/) {
     int new_id;
     Q_ASSERT(name.length());
-    if ( !name.length() ) return 0;
+    if (!name.length() ) return 0;
 
     MenuItem *item = new MenuItem(this, name, command, key, uid);
     Q_ASSERT(item);
     if (!item) return 0;
 
     new_id = registerChild(item);
-    m_menu.insertItem(i18n(name), new_id);
+    m_menu.insertItem(i18n(name.local8Bit().data()), new_id);
     m_menu.setAccel(key, new_id);
 
     return item;
@@ -101,10 +101,8 @@ bool MenuSub::specialCommand(const QString &command)
     if (!command.length()) return false;
 
     if (command.startsWith("#exclusive")) {
-	// qDebug("MenuSub(%s) >> exclusive <<", getName());
 	return true;
     } else if (command.startsWith("#number")) {
-	// qDebug("MenuSub(%s) >> number <<", getName());
 	return true;
     } else if (command.startsWith("#separator")) {
 	m_menu.insertSeparator( -1);

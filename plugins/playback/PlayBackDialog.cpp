@@ -59,6 +59,8 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     connect(cbDevice, SIGNAL(activated(const QString &)),
             SLOT(setDevice(const QString &)));
 
+    connect(cbBitsPerSample, SIGNAL(textChanged(const QString &)),
+            SLOT(bitsPerSampleSelected(const QString &)));
     connect(cbBitsPerSample, SIGNAL(activated(const QString &)),
             SLOT(bitsPerSampleSelected(const QString &)));
 
@@ -232,10 +234,8 @@ void PlayBackDialog::setSupportedBits(const QValueList<unsigned int> &bits)
 
     if (!bits.contains(current_bits) && bits.count())
 	current_bits = bits.last();
-    if (bits.contains(current_bits) && bits.count())
-        txt.setNum(current_bits);
 
-    cbBitsPerSample->setCurrentText(txt);
+    setBitsPerSample(current_bits);
     cbBitsPerSample->setEnabled(bits.count() > 0);
 }
 

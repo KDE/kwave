@@ -150,9 +150,6 @@ public:
      */
     int tracks();
 
-    /** returns the number of bits per sample of the current signal */
-    unsigned int bits();
-
     /** returns the signal manager of the current signal */
     SignalManager &signalManager();
 
@@ -176,6 +173,7 @@ public slots:
      */
     void selectRange(unsigned int offset, unsigned int length);
 
+    /** forward a sigCommand to the next layer */
     void forwardCommand(const QString &command);
 
     /**
@@ -442,10 +440,19 @@ protected:
      */
     double getFullZoom();
 
+    /** slot for detecting resizing of the widget */
     void resizeEvent(QResizeEvent *);
+
+    /** slot for mouse press, used for selection and drag&drop */
     void mousePressEvent(QMouseEvent *);
+
+    /** slot for mouse release, used for selection and drag&drop */
     void mouseReleaseEvent(QMouseEvent *);
+
+    /** slot for mouse moves, used for selection and drag&drop */
     void mouseMoveEvent(QMouseEvent *);
+
+    /** slot for repainting the widget or portions of it */
     void paintEvent(QPaintEvent *);
 
 //    void loadLabel ();
@@ -457,7 +464,6 @@ protected:
 //    void markSignal (const char *);
 //    void markPeriods (const char *);
 //    void savePeriods ();
-
 //    bool executeLabelCommand(const QString &command);
 
     /**
@@ -527,19 +533,33 @@ private:
      */
     unsigned int m_offset;
 
+    /** width of the widget in pixels, cached value */
     int m_width;
-    int m_height;            //of this widget
-    int lastWidth;
-    int lastHeight;
+
+    /** height of the widget in pixels, cached value */
+    int m_height;
+
+    /** last/previous width of the widget, for detecting size changes */
+    int m_last_width;
+
+    /** last/previous height of the widget, for detecting size changes */
+    int m_last_height;
 
     /** number of samples per pixel */
     double m_zoom;
 
-    //vertical line on the screen
-    int playpointer, lastplaypointer;
+    /**
+     * position of the vertical line that indicates the current
+     * playback position in [pixels] from 0...m_width-1. If no playback
+     * is running the value is negative.
+     */
+    int m_playpointer;
 
-    // flag for redrawing pixmap
-    bool redraw;
+    /** last/previous value of m_playpointer, for detecting changes */
+    int m_last_playpointer;
+
+    /** if set, m_pixmap has to be redrawn */
+    bool m_redraw;
 
     /**
      * Counter for inhibiting repaints. If not zero, repaints should

@@ -100,24 +100,15 @@ public:
 //***************************************************************************
 SignalWidget::SignalWidget(QWidget *parent)
     :QWidget(parent),
-    m_inhibit_repaint(0),
+    m_offset(0), m_width(0), m_height(0), m_last_width(0), m_last_height(0),
+    m_zoom(0.0), m_playpointer(-1), m_last_playpointer(-1), m_redraw(false),
+    m_inhibit_repaint(0), m_selection(0),
     m_signal_manager(this),
-    m_track_pixmaps(),
+    m_track_pixmaps(), m_pixmap(0),
     m_mouse_mode(MouseNormal),
     m_mouse_down_x(0)
 {
 //    qDebug("SignalWidget::SignalWidget()");
-    m_height = 0;
-    lastHeight = 0;
-    lastplaypointer = -1;
-    lastWidth = 0;
-    m_offset = 0;
-    m_pixmap = 0;
-    playpointer = -1;
-    redraw = false;
-    m_selection = 0;
-    m_width = 0;
-    m_zoom = 0.0;
 
     for (int i=0; i < 3; i++) {
 	m_layer[i] = 0;
@@ -173,8 +164,8 @@ SignalWidget::SignalWidget(QWidget *parent)
 
     setBackgroundColor(black);
     setBackgroundMode(NoBackground); // this avoids flicker :-)
-    setMouseTracking(true);
 
+    setMouseTracking(true);
     setAcceptDrops(true); // enable drag&drop
 
     setZoom(0.0);
@@ -387,12 +378,6 @@ void SignalWidget::forwardCommand(const QString &command)
 int SignalWidget::tracks()
 {
     return m_signal_manager.tracks();
-}
-
-//***************************************************************************
-unsigned int SignalWidget::bits()
-{
-    return m_signal_manager.bits();
 }
 
 //***************************************************************************
@@ -743,7 +728,7 @@ void SignalWidget::refreshAllLayers()
 	m_update_layer[i] = true;
     }
 
-    redraw = true;
+    m_redraw = true;
 }
 
 //***************************************************************************
@@ -757,7 +742,7 @@ void SignalWidget::refreshLayer(int layer)
 
     m_update_layer[layer] = true;
 
-    redraw = true;
+    m_redraw = true;
 }
 
 //***************************************************************************
@@ -772,7 +757,6 @@ int SignalWidget::selectionPosition(const int x)
     const unsigned int first = m_signal_manager.selection().first();
     const unsigned int last  = m_signal_manager.selection().last();
     const unsigned int ofs   = m_offset;
-    const unsigned int w     = pixels2samples(w);
     Q_ASSERT(first <= last);
 
     // get pixel coordinates
@@ -985,7 +969,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //    qDebug("SignalWidget::paintEvent(): width=%d, height=%d",m_width,m_height);
 
     // --- detect size changes and refresh the whole display ---
-    if ((m_width != lastWidth) || (m_height != lastHeight)) {
+    if ((m_width != m_last_width) || (m_height != m_last_height)) {
 //	qDebug("SignalWidget::paintEvent(): window size changed from "
 //	      "%dx%d to %dx%d",lastWidth,lastHeight,m_width,m_height);
 	for (int i=0; i<3; i++) {
@@ -996,10 +980,10 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	if (!m_pixmap) delete m_pixmap;
 	m_pixmap = 0;
 	update_pixmap = true;
-	
-	lastWidth = m_width;
-	lastHeight = m_height;
-	
+
+	m_last_width = m_width;
+	m_last_height = m_height;
+
 	// check and correct m_zoom and m_offset
 	setZoom(m_zoom);
     }
@@ -1010,7 +994,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	     m_layer[LAYER_SIGNAL] = new QPixmap(size());
 	Q_ASSERT(m_layer[LAYER_SIGNAL]);
 	if (!m_layer[LAYER_SIGNAL]) return;
-	
+
 //	qDebug("SignalWidget::paintEvent(): - redraw of signal layer -");
 	p.begin(m_layer[LAYER_SIGNAL]);
 	p.setRasterOp(CopyROP);
@@ -1039,7 +1023,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	
 	    top += track_height;
 	}
-	
+
 	p.end();
 
 	m_update_layer[LAYER_SIGNAL] = false;
@@ -1119,31 +1103,31 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    bitBlt(m_pixmap, 0, 0, m_layer[i], 0, 0,
 		m_width, m_height, m_layer_rop[i]);
 	}
-	lastplaypointer = -2;
+	m_last_playpointer = -2;
     }
 
     // --- redraw the playpointer if a signal is present ---
-    playpointer = samples2pixels(
+    m_playpointer = samples2pixels(
 	m_signal_manager.playbackController().currentPos() - m_offset);
 
     if (n_tracks) {
 	p.begin(m_pixmap);
 	p.setPen(yellow);
 	p.setRasterOp(XorROP);
-	
-	if (lastplaypointer >= 0) p.drawLine(lastplaypointer, 0,
-	                                     lastplaypointer, m_height);
-	
+
+	if (m_last_playpointer >= 0)
+	    p.drawLine(m_last_playpointer, 0, m_last_playpointer, m_height);
+
 	if ( (m_signal_manager.playbackController().running() ||
 	      m_signal_manager.playbackController().paused() ) &&
-	     ((playpointer >= 0) && (playpointer < m_width)) )
+	     ((m_playpointer >= 0) && (m_playpointer < m_width)) )
 	{
-	    p.drawLine(playpointer, 0, playpointer, m_height);
-	    lastplaypointer = playpointer;
+	    p.drawLine(m_playpointer, 0, m_playpointer, m_height);
+	    m_last_playpointer = m_playpointer;
 	} else {
-	    lastplaypointer = -1;
+	    m_last_playpointer = -1;
 	}
-	
+
 	p.end();
     }
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-24 23:28GMT\n"
+"PO-Revision-Date: 2002-01-27 09:46GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -931,54 +931,67 @@ msgid ""
 "rpm package should now be installable without conflicts and compile without "
 "any previous installation of kwave"
 msgstr ""
+"Le pakage RPM peut être maintenant installé sans confilts et compilé sans "
+" une installation préalable de Kwave."
 
 #: index.docbook:210
 msgid ""
 "removed the \"${KDEDIR}/share/doc/HTML/default\" directory from the rpm so "
 "that it doesn't conflict with the already existing one"
 msgstr ""
+"Suppression du répertoire \"${KDEDIR}/share/doc/HTML/default\" du RPM pour qu'il "
+" n'y ai pas de conflit avec une version de ce répertoire déjà existante."
 
 #: index.docbook:210
 msgid ""
 "shift+Home/shift+End selects from the current left/right position up to the "
 "start/end of the signal"
 msgstr ""
+"shift+Home / shift+End permettent la sélection de la position courrante jusqu'au "
+" début / fin du fichier sonore."
 
 #: index.docbook:210
 msgid "bugfix in display of signal: signal is no longer inverted"
 msgstr ""
+"Correction de bogues dans l'affichage du fichier sonore : il n'est plus inversé "
+" dans sa longueur."
 
 #: index.docbook:210
 msgid "selectrange() works now"
-msgstr ""
+msgstr "La fonction selectrange() fonctionne correctement maintenant."
 
 #: index.docbook:210
 msgid "the zoom factor combo box reflects the current \"real\" zoom factor"
-msgstr ""
+msgstr "Le champs de sélection du facteur de zoom donne une valeur \"réelle\" du facteur zoom."
 
 #: index.docbook:210
 msgid "some bugfixes in menu handling / cleanups"
-msgstr ""
+msgstr "Quelques corrrections de bogues dans le menu de sélection / déselection."
 
 #: index.docbook:210
 msgid "complete rework of zoom and offset handling:"
-msgstr ""
+msgstr "Restructuration complète des fonctions de zoom et de sélection :"
 
 #: index.docbook:210
 msgid ""
 "simple poly-lines instead of lowpass interpolation if zoom factor has less "
 "than 10 pixels per sample"
 msgstr ""
+"Polynome simpleau lieu de d'une interpolation passe-bas si le facteur de zoom est "
+" moins de 10 pixels par échantillons."
 
 #: index.docbook:210
 msgid "lowpass interpolation if more than 10 pixels per sample"
-msgstr ""
+msgstr "Interpolation passe-bas si on a plus de 10 pixels par échantillons."
 
 #: index.docbook:210
 msgid ""
 "bugfix in KWaveApp: now sets globals.app to this if it was null before, now "
 "doesn't crash if it loads a file specified at cmdline"
 msgstr ""
+"Correction de bogues dans KWaveApp : maintenant les parramètres généraux (globals.app) "
+" sont sauvegardés si il n'existait pas avant. Il n'y a plus de crash si on charge un fichier "
+" spécifié dans la ligne de commande."
 
 #: index.docbook:210
 msgid "0.5.1-4"
@@ -989,20 +1002,26 @@ msgid ""
 "now compiles and runns under RedHat 6.1 / Halloween IV as well as under SuSE "
 "6.2"
 msgstr ""
+"La compilation fonctionnae maintenant sous RedHat 6.1 / Halloween IV comme pour SuSE "
+"6.2."
 
 #: index.docbook:210
 msgid "version info of libkwavegui.so is set to the package's version"
 msgstr ""
+"L'information de version de libkwavegui.so est maintenant renseigné à partir de la version du "
+" pakage."
 
 #: index.docbook:210
 msgid ""
 "bugfix in plugins/template/Makefile.am: will not create .moc files on make "
 "distclean and other targets"
 msgstr ""
+"Correction de bogues dans plugins/template/Makefile.am : on ne créé pas de fichiers .moc "
+" lorsqu'il y a une l'éxécution d'un nettoyage des compilations ou d'une nouvelle construction."
 
 #: index.docbook:210
 msgid "compiler flags are passed through to plugin compilation"
-msgstr ""
+msgstr "Les drapeaux de compilation sont passés comme paramètres lors de la compilation d'un plugin."
 
 #: index.docbook:210
 msgid ""
@@ -1010,30 +1029,40 @@ msgid ""
 "libraries of RedHat that seem to contain no rtti. As a side effect all "
 "warnings on linking programs/libs disappeared :-)"
 msgstr ""
+"La compilation s'effectue avec l'option --no-rtti. Ceci est necessaire pour compiler l'application "
+" pour tenir compte des librairies KDE fournies avec une RedHat car celle ci n'ont pas été "
+" compilées avec cette option. Cela à un éffet important lors de la compilation : tous les "
+" warnings lors du linkage du programme et des libraries ont disparus."
 
 #: index.docbook:210
 msgid "configure-parameter --enable-debug has effect again"
-msgstr ""
+msgstr "Le script .configure positionne l'option --enable-debug."
 
 #: index.docbook:210
 msgid "ASCII import and export works now (mono only)"
 msgstr ""
+"L'imporation et l'exportation de l'ASCII fonctionne correctement maintenant (en mono "
+" seulement)."
 
 #: index.docbook:210
 msgid "bugfixes in some plugins, all compile now without warnings/errors"
 msgstr ""
+"Corrections de bogues dans quelques plugins. Toutes les compilation sont sans warnings "
+" et sans erreurs."
 
 #: index.docbook:210
 msgid "plugins are processed in alphabetical order"
-msgstr ""
+msgstr "Les plugins sont maintenant compilés dans un ordre alphabétique."
 
 #: index.docbook:210
 msgid "all plugins are automatically found and compiled"
-msgstr ""
+msgstr "Tous les plugins sont automatiquement trouvés et compilés."
 
 #: index.docbook:210
 msgid "new target \"make src.rpm\" makes only the source rpm"
 msgstr ""
+"Une nouvelle construction est disponible par la commande \"make src.rpm\". Elle permet "
+" la fabrication d'un RPM de source."
 
 #: index.docbook:210
 msgid "0.5.1-3"
@@ -1044,10 +1073,14 @@ msgid ""
 "display will be scrolled left or zoomed if something from the end of the "
 "signal is deleted"
 msgstr ""
+"L'affichage est déplacé à gauche ou il est zoomé si on supprime quelquechose à la fin du "
+" fichier sonore."
 
 #: index.docbook:210
 msgid "curve parameters of fade in / fade out work again"
 msgstr ""
+"Le paramètrage des courbes pour une amplification croissante ou décroissante "
+" fonctionne maintenant."
 
 #: index.docbook:210
 msgid "0.5.1-2 [2000-03-16]"
@@ -1055,15 +1088,17 @@ msgstr "0.5.1-2 [2000-03-16]"
 
 #: index.docbook:210
 msgid "converted many \"klocale->translate(...)\"s into \"i18n(...)\""
-msgstr ""
+msgstr "Convertion de plusieurs \"klocale->translate(...)\"s dans \"i18n(...)\""
 
 #: index.docbook:210
 msgid "target \"make messages\" works again"
-msgstr ""
+msgstr "La cible \"make messages\" fonctionne maintenant."
 
 #: index.docbook:210
 msgid "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 msgstr ""
+"Convertion de menus.config pour la création d'une maquette d'un fichier .ccp qui sera utilisé "
+" pour l'internationalisation."
 
 #: index.docbook:210
 msgid "0.5.1-1 [2000-03-13]"
@@ -1071,11 +1106,13 @@ msgstr "0.5.1-1 [2000-03-13]"
 
 #: index.docbook:210
 msgid "new target \"make rpm\" creates binary and source RPM packages"
-msgstr ""
+msgstr "Nouvelle cible \"make rpm\" pour la création d'un exécutable et d'un pakage RPM."
 
 #: index.docbook:210
 msgid "fixed the shared-library-problem in the build system"
 msgstr ""
+"Correction de problèmes concernant le partage de bibliothéques dans la construction "
+" du programme."
 
 #: index.docbook:210
 msgid "0.5.1 [2000-02-28]"
@@ -1083,47 +1120,47 @@ msgstr "0.5.1 [2000-02-28]"
 
 #: index.docbook:210
 msgid "menu items can belong to groups"
-msgstr ""
+msgstr "Les items des menus peuvent appartenir à des sous-groupes."
 
 #: index.docbook:210
 msgid "renamed SignalWidget::info to \"refresh\""
-msgstr ""
+msgstr "Renomage de SignalWidget::info en \"refresh\""
 
 #: index.docbook:210
 msgid "many cleanups in the header-Files in src and libgui"
-msgstr ""
+msgstr "Plusieurs suppressions dans les fichiers d'entête dans les répertoires src et libgui."
 
 #: index.docbook:210
 msgid "the menu management has completely been rewritten:"
-msgstr ""
+msgstr "Le contrôle des menus a été complètement réécrit :"
 
 #: index.docbook:210
 msgid "Menu, NumberedMenu and MenuCommand classes are deleted"
-msgstr ""
+msgstr "Les menus NumberedMenu et MenuCommand ont été supprimé."
 
 #: index.docbook:210
 msgid "new classes: MenuNode, MenuItem, MenuSub, MenuToplevel and MenuRoot"
-msgstr ""
+msgstr "Nouvelles classes : MenuNode, MenuItem, MenuSub, MenuToplevel et MenuRoot."
 
 #: index.docbook:210
 msgid "menu items can have icons"
-msgstr ""
+msgstr "Les items des menus peuvent avoir des icones."
 
 #: index.docbook:210
 msgid "menu nodes can have unique string ids"
-msgstr ""
+msgstr "Les liens des menus n'ont qu'un seul indentifiant de chaîne de carractère."
 
 #: index.docbook:210
 msgid "special menu commands start with a \"#\""
-msgstr ""
+msgstr "Les commandes spéciales des menus commencent par un \"#\"."
 
 #: index.docbook:210
 msgid "first attempts for internationalization"
-msgstr ""
+msgstr "Premiére introduction de l'internationalisation."
 
 #: index.docbook:210
 msgid "list of recent files is sorted by time of last usage"
-msgstr ""
+msgstr "La liste des fichiers réçemments ouverts est triée par la date de leur derniére utilisation."
 
 #: index.docbook:210
 msgid "0.5.0-1 [1999-12-27]"
@@ -1131,11 +1168,11 @@ msgstr "0.5.0-1 [1999-12-27]"
 
 #: index.docbook:210
 msgid "moved my modifications from the Makefiles to Makefile.am"
-msgstr ""
+msgstr "Déplacement de mes modifications du fichier Makefiles dans le fichier Makefile.am."
 
 #: index.docbook:210
 msgid "included targets \"make release\", \"make patchlevel\" and some scripts"
-msgstr ""
+msgstr "Ajout des cibles \"make release\", \"make patchlevel\", et quelques autres scripts."
 
 #: index.docbook:210
 msgid "1999-12-19 (by Thomas.Eschenbacher@gmx.de)"
@@ -1146,24 +1183,31 @@ msgid ""
 "remade my modifications of some Makefiles and of the configure script that "
 "were lost during Martin's changes"
 msgstr ""
+"Reconstruction de mes modifications pour quelques Makefiles et pour le script .configure qui ont "
+" été perdues lors des changements réalisées par Martin."
 
 #: index.docbook:210
 msgid "changed shortcut for mixpaste from CTRL-SHIFT-X to CTRL-SHIFT-C"
 msgstr ""
+"Changement des raccourçis clavier CTRL-SHIFT-X en CTRL-SHIFT-C pour les "
+" opérations de mixages."
 
 #: index.docbook:210
 msgid "added the \"crop\" command to the edit menu"
-msgstr ""
+msgstr "Ajout de la fonction de \"couper à la sélection\" dans le menu édition."
 
 #: index.docbook:210
 msgid "made the \"mixpaste\" command work"
-msgstr ""
+msgstr "Construction de la fonction de \"mixage par copier/coller\"."
 
 #: index.docbook:210
 msgid ""
 "corrected the call of \"delete\", now really deletes instead of cutting and "
 "copying the selection to the clipboard (saves clipboard content)"
 msgstr ""
+"Correction de l'appel \"supprimer\", qui maintenant supprime réellement quelquechose "
+" au lieu de couper et copier la sélection dans le presse-papier (sauvegarde du contenu du "
+" presse-papier)."
 
 #: index.docbook:210
 msgid "1999-12-18 (by mwilz@ernie.mi.uni-koeln.de)"

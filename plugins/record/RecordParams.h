@@ -69,6 +69,7 @@ public:
     unsigned int bits_per_sample;	/**< resolution in bits per sample */
     int sample_format;			/**< sample format index */
 
+    unsigned int buffer_count;		/**< number of buffers */
     unsigned int buffer_size;		/**< power of the record buffer size */
 
     bool display_level_meter;		/**< enable level meter display */

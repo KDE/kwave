@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include <qstringlist.h>
+#include <qtimer.h>
 #include <qvaluelist.h>
 #include "RecordController.h"
 #include "RecordDlg.uih.h"
@@ -103,6 +104,13 @@ public:
      */
     void setSampleFormat(int sample_format);
 
+    /**
+     * updates the progress bar with the buffer fill state.
+     * @param filled number of filled/available buffers
+     * @param total maximum amount of buffers
+     */
+    void updateBufferState(unsigned int count, unsigned int total);
+
 signals:
 
     /** emitted when a new record device has been selected */
@@ -125,8 +133,11 @@ signals:
 
 private slots:
 
+    /** updates the record buffer count */
+    void sourceBufferCountChanged(int value);
+
     /** updates the record buffer size */
-    void sourceBufferChanged(int value);
+    void sourceBufferSizeChanged(int value);
 
     /** show a "file open" dialog for selecting a record device */
     void selectRecordDevice();
@@ -152,6 +163,9 @@ private slots:
     /** sets a new state of the dialog, enable/disable controls etc... */
     void setState(RecordState state);
 
+    /** updates the buffer progress bar */
+    void updateBufferProgressBar();
+
 private:
 
     /**
@@ -172,7 +186,15 @@ private:
 
     /** a list with supported bits per sample */
     QValueList<unsigned int> m_supported_resolutions;
-};
 
+    /** accumulated current buffer progress */
+    unsigned int m_buffer_progress_count;
+
+    /** accumulated total buffer progress */
+    unsigned int m_buffer_progress_total;
+
+    /** timer for slowly updating the buffer progress bar */
+    QTimer m_buffer_progress_timer;
+};
 
 #endif /* _RECORD_PLUGIN_H_ */

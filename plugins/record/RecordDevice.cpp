@@ -62,12 +62,23 @@ int RecordDevice::open(const QString &dev)
 }
 
 //***************************************************************************
-int RecordDevice::read(unsigned char *buffer, unsigned int length)
+int RecordDevice::read(char *buffer, unsigned int length)
 {
     Q_ASSERT(m_fd >= 0);
     Q_ASSERT(buffer);
     if (m_fd < 0) return -EBADF; // file not opened
     if (!buffer) return -EINVAL; // buffer is null pointer
+
+//     int blocksize = length;
+//     int err = ioctl(m_fd, SNDCTL_DSP_GETBLKSIZE, &blocksize);
+//     Q_ASSERT(!err);
+//     qDebug("blocksize = %u", blocksize);
+//     if (err) {
+// 	blocksize = length;
+//     }
+//
+//     int blocksize = (127 << 16) + 6;
+//     err = ioctl(m_fd, SNDCTL_DSP_SETFRAGMENT, &blocksize);
 
     return ::read(m_fd, buffer, length);
 }

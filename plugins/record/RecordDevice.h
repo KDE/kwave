@@ -45,7 +45,7 @@ public:
      * @param length size of the buffer
      * @return number of bytes read, zero or negative if failed
      */
-    virtual int read(unsigned char *buffer, unsigned int length);
+    virtual int read(char *buffer, unsigned int length);
 
 
     /** Close the device */

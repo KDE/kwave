@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>RecordDlg</class>
 <widget class="QDialog">
     <property name="name">
@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>751</width>
-            <height>485</height>
+            <height>487</height>
         </rect>
     </property>
     <property name="caption">
@@ -367,7 +367,7 @@
                                     <enum>Horizontal</enum>
                                 </property>
                                 <property name="tickmarks">
-                                    <enum>Right</enum>
+                                    <enum>NoMarks</enum>
                                 </property>
                                 <property name="tickInterval">
                                     <number>3</number>
@@ -467,7 +467,7 @@
                                     <enum>Horizontal</enum>
                                 </property>
                                 <property name="tickmarks">
-                                    <enum>Right</enum>
+                                    <enum>NoMarks</enum>
                                 </property>
                                 <property name="tickInterval">
                                     <number>50</number>
@@ -997,58 +997,6 @@
                                     <string>Device:</string>
                                 </property>
                             </widget>
-                            <widget class="QLabel" row="1" column="0">
-                                <property name="name">
-                                    <cstring>textLabel2</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Buffer Size:</string>
-                                </property>
-                            </widget>
-                            <widget class="QLayoutWidget" row="1" column="1">
-                                <property name="name">
-                                    <cstring>layout5</cstring>
-                                </property>
-                                <hbox>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <widget class="QLabel">
-                                        <property name="name">
-                                            <cstring>txtSourceBuffer</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>%1 samples</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QSlider">
-                                        <property name="name">
-                                            <cstring>slSourceBuffer</cstring>
-                                        </property>
-                                        <property name="minValue">
-                                            <number>8</number>
-                                        </property>
-                                        <property name="maxValue">
-                                            <number>16</number>
-                                        </property>
-                                        <property name="pageStep">
-                                            <number>1</number>
-                                        </property>
-                                        <property name="value">
-                                            <number>12</number>
-                                        </property>
-                                        <property name="orientation">
-                                            <enum>Horizontal</enum>
-                                        </property>
-                                        <property name="tickmarks">
-                                            <enum>Right</enum>
-                                        </property>
-                                        <property name="tickInterval">
-                                            <number>1</number>
-                                        </property>
-                                    </widget>
-                                </hbox>
-                            </widget>
                             <widget class="QLayoutWidget" row="0" column="1">
                                 <property name="name">
                                     <cstring>layout4</cstring>
@@ -1088,6 +1036,106 @@
                                         </property>
                                     </spacer>
                                 </hbox>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1_4</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Buffer Count:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="0">
+                                <property name="name">
+                                    <cstring>textLabel2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Buffer Size:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLayoutWidget" row="1" column="1" rowspan="2" colspan="1">
+                                <property name="name">
+                                    <cstring>layout10</cstring>
+                                </property>
+                                <grid>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QSlider" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>slSourceBufferSize</cstring>
+                                        </property>
+                                        <property name="minValue">
+                                            <number>10</number>
+                                        </property>
+                                        <property name="maxValue">
+                                            <number>18</number>
+                                        </property>
+                                        <property name="pageStep">
+                                            <number>1</number>
+                                        </property>
+                                        <property name="value">
+                                            <number>12</number>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="tickmarks">
+                                            <enum>NoMarks</enum>
+                                        </property>
+                                        <property name="tickInterval">
+                                            <number>1</number>
+                                        </property>
+                                    </widget>
+                                    <widget class="QSlider" row="0" column="1">
+                                        <property name="name">
+                                            <cstring>slSourceBufferCount</cstring>
+                                        </property>
+                                        <property name="minValue">
+                                            <number>4</number>
+                                        </property>
+                                        <property name="maxValue">
+                                            <number>64</number>
+                                        </property>
+                                        <property name="lineStep">
+                                            <number>10</number>
+                                        </property>
+                                        <property name="value">
+                                            <number>32</number>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="tickmarks">
+                                            <enum>Below</enum>
+                                        </property>
+                                        <property name="tickInterval">
+                                            <number>5</number>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>txtSourceBuffer</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>%1 samples</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QSpinBox" row="0" column="0">
+                                        <property name="name">
+                                            <cstring>sbSourceBuffer</cstring>
+                                        </property>
+                                        <property name="maxValue">
+                                            <number>64</number>
+                                        </property>
+                                        <property name="minValue">
+                                            <number>4</number>
+                                        </property>
+                                        <property name="value">
+                                            <number>32</number>
+                                        </property>
+                                    </widget>
+                                </grid>
                             </widget>
                         </grid>
                     </widget>
@@ -1170,10 +1218,16 @@
                 </widget>
                 <widget class="QProgressBar" row="0" column="1">
                     <property name="name">
-                        <cstring>progressBar2</cstring>
+                        <cstring>progress_bar</cstring>
+                    </property>
+                    <property name="totalSteps">
+                        <number>1</number>
                     </property>
                     <property name="progress">
-                        <number>42</number>
+                        <number>0</number>
+                    </property>
+                    <property name="percentageVisible">
+                        <bool>false</bool>
                     </property>
                 </widget>
                 <widget class="QLabel" row="0" column="0">
@@ -1189,7 +1243,7 @@
                         <cstring>progressBar2_2</cstring>
                     </property>
                     <property name="progress">
-                        <number>70</number>
+                        <number>0</number>
                     </property>
                     <property name="percentageVisible">
                         <bool>false</bool>
@@ -1466,6 +1520,18 @@
         <receiver>sbRecordTime</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
+    <connection>
+        <sender>sbSourceBuffer</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>slSourceBufferCount</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>slSourceBufferCount</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>sbSourceBuffer</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>btRecord</tabstop>
@@ -1500,7 +1566,9 @@
     <tabstop>cbFormatSampleFormat</tabstop>
     <tabstop>cbSourceDevice</tabstop>
     <tabstop>btSourceSelect</tabstop>
-    <tabstop>slSourceBuffer</tabstop>
+    <tabstop>sbSourceBuffer</tabstop>
+    <tabstop>slSourceBufferCount</tabstop>
+    <tabstop>slSourceBufferSize</tabstop>
     <tabstop>chkDisplayLevelMeter</tabstop>
     <tabstop>chkDisplayOscilloscope</tabstop>
     <tabstop>chkDisplayFFT</tabstop>

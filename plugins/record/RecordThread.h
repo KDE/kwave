@@ -19,6 +19,7 @@
 #define _RECORD_THREAD_H_
 
 #include "config.h"
+#include <qcstring.h>
 #include <qptrqueue.h>
 #include "mt/SignalProxy.h"
 #include "mt/Thread.h"
@@ -54,10 +55,20 @@ public:
      */
     int setBuffers(unsigned int count, unsigned int size);
 
+    /** Returns the amount of remaining empty buffers */
+    unsigned int remainingBuffers();
+
+    /** Returns the number of queued filled buffers */
+    unsigned int queuedBuffers();
+
 signals:
 
-    /** emitted when the recording starts (before the first buffer is full) */
-    void started();
+    /**
+     * emitted when a buffer was full and has been de-queued
+     * with dequeue()
+     * @param buffer the buffer with recorded raw bytes
+     */
+    void bufferFull(QByteArray buffer);
 
     /**
      * emitted when the recording stops or aborts
@@ -68,11 +79,18 @@ signals:
 
 private slots:
 
-    /** forwards the "started" signal to outside the thread */
-    void forwardStarted();
+    /** forwards a "buffer full" signal to outside the thread */
+    void forwardBufferFull();
 
     /** forwards the "stopped" signal to outside the thread */
     void forwardStopped();
+
+protected:
+
+    /**
+     * De-queues a buffer from the list of filled buffers.
+     */
+    QByteArray dequeue();
 
 private:
 
@@ -80,10 +98,10 @@ private:
     RecordDevice *m_device;
 
     /** queue with empty buffers for raw input data */
-    QPtrQueue<unsigned char>m_empty_queue;
+    QPtrQueue<char>m_empty_queue;
 
     /** queue with filled buffers with raw input data */
-    QPtrQueue<unsigned char>m_full_queue;
+    QPtrQueue<char>m_full_queue;
 
     /** number of buffers to allocate */
     unsigned int m_buffer_count;
@@ -91,11 +109,8 @@ private:
     /** size of m_buffer in bytes */
     unsigned int m_buffer_size;
 
-    /** signals the thread that it should close if set */
-    bool m_should_close;
-
-    /** threadsafe proxy for forwarding the "started" signal */
-    SignalProxy<void> m_spx_started;
+    /** threadsafe proxy for forwarding the "bufferFull" signal */
+    SignalProxy<void> m_spx_buffer_full;
 
     /** threadsafe proxy for forwarding the "stopped" signal */
     SignalProxy1<int> m_spx_stopped;

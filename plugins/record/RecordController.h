@@ -59,7 +59,7 @@ public slots:
     void deviceTriggerReached();
 
     /** The device has stopped recording */
-    void deviceRecordStopped();
+    void deviceRecordStopped(int);
 
 signals:
 

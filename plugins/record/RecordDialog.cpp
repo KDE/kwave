@@ -22,6 +22,7 @@
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qpixmap.h>
+#include <qprogressbar.h>
 #include <qslider.h>
 
 #include <kcombobox.h>
@@ -81,7 +82,8 @@ static const char *well_known_devices[] = {
 RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
                            RecordController *controller)
     :RecordDlg(parent,0), m_state(REC_EMPTY), m_params(),
-     m_supported_resolutions()
+     m_supported_resolutions(), m_buffer_progress_count(0),
+     m_buffer_progress_total(0), m_buffer_progress_timer(this)
 {
     /* get initial parameters */
     m_params.fromList(params);
@@ -118,9 +120,12 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     // sample rate, bits per sample, track
     // -> will be initialized later, by the plugin
 
+    // number of buffers
+    slSourceBufferCount->setValue(m_params.buffer_count);
+
     // power of buffer size
-    slSourceBuffer->setValue(m_params.buffer_size);
-    sourceBufferChanged(m_params.buffer_size);
+    slSourceBufferSize->setValue(m_params.buffer_size);
+    sourceBufferSizeChanged(m_params.buffer_size);
 
     // various displays: level meter, oscilloscope, FFT, Overview
     chkDisplayLevelMeter->setChecked(m_params.display_level_meter);
@@ -132,9 +137,13 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     /* --- connect some missing lowlevel gui functionality --- */
 
-    // record buffer size
-    connect(slSourceBuffer, SIGNAL(valueChanged(int)),
-            this, SLOT(sourceBufferChanged(int)));
+    // record buffer size and count
+    slSourceBufferCount->setValue(m_params.buffer_count);
+    slSourceBufferSize->setValue(m_params.buffer_size);
+    connect(slSourceBufferSize, SIGNAL(valueChanged(int)),
+            this, SLOT(sourceBufferSizeChanged(int)));
+    connect(slSourceBufferCount, SIGNAL(valueChanged(int)),
+            this, SLOT(sourceBufferCountChanged(int)));
 
     // device combo box
     cbSourceDevice->setEditable(true);
@@ -182,6 +191,10 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(controller, SIGNAL(stateChanged(RecordState)),
             this, SLOT(setState(RecordState )));
 
+    // timer for updating the buffer progress bar
+    connect(&m_buffer_progress_timer, SIGNAL(timeout()),
+            this, SLOT(updateBufferProgressBar()));
+
     // set the initial state of the dialog to "Reset/Empty"
     setState(REC_EMPTY);
 }
@@ -189,6 +202,7 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 //***************************************************************************
 RecordDialog::~RecordDialog()
 {
+    updateBufferState(0,0);
 }
 
 //***************************************************************************
@@ -198,10 +212,24 @@ const RecordParams &RecordDialog::params() const
 }
 
 //***************************************************************************
-void RecordDialog::sourceBufferChanged(int value)
+void RecordDialog::sourceBufferCountChanged(int value)
 {
-    if (value < 8)  value = 8;
-    if (value > 20) value = 20;
+    Q_ASSERT(value >=  4);
+    Q_ASSERT(value <= 64);
+    if (value < 4)  value = 4;
+    if (value > 64) value = 64;
+
+    // take the value into our struct
+    m_params.buffer_count = value;
+}
+
+//***************************************************************************
+void RecordDialog::sourceBufferSizeChanged(int value)
+{
+    Q_ASSERT(value >= 10);
+    Q_ASSERT(value <= 18);
+    if (value < 10) value = 10;
+    if (value > 18) value = 18;
 
     // take the value into our struct
     m_params.buffer_size = value;
@@ -248,6 +276,9 @@ void RecordDialog::setDevice(const QString &dev)
 {
     m_params.device_name = dev;
     cbSourceDevice->setEditText(dev);
+
+    // update the state, maybe we changed from invalid to valid
+    setState(m_state);
 }
 
 //***************************************************************************
@@ -566,9 +597,9 @@ void RecordDialog::setState(RecordState state)
 	    enable_settings = true;
 	    break;
 	case REC_BUFFERING:
-	    lbl_state->setText(i18n(""));
+	    lbl_state->setText(i18n("buffering..."));
 	    enable_new      = true; /* throw away current FIFO content */
-	    enable_pause    = true;
+	    enable_pause    = false;
 	    enable_stop     = true;
 	    enable_record   = true; /* acts as "trigger now" */
 	    enable_settings = false;
@@ -624,8 +655,42 @@ void RecordDialog::setState(RecordState state)
     // enable disable all controls (groups) for setup
     grpFormat->setEnabled(enable_settings);
     grpSource->setEnabled(enable_settings);
+}
 
+//***************************************************************************
+void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
+{
+    Q_ASSERT(progress_bar);
+    if (!progress_bar) return;
 
+    if (total == 0) {
+	// we are done: stop update timer and reset buffer percentage
+	m_buffer_progress_timer.stop();
+	progress_bar->setPercentageVisible(false);
+	progress_bar->setTotalSteps(1);
+	progress_bar->setProgress(0);
+    } else {
+	if (!m_buffer_progress_timer.isActive()) {
+	    m_buffer_progress_count = count;
+	    m_buffer_progress_total = total;
+	    m_buffer_progress_timer.start(300, true);
+	} else {
+	    m_buffer_progress_count += count;
+	    m_buffer_progress_total += total;
+	}
+    }
+
+}
+
+//***************************************************************************
+void RecordDialog::updateBufferProgressBar()
+{
+//     qDebug("RecordDialog::updateBufferProgressBar(): %u/%u",
+//            m_buffer_progress_count, m_buffer_progress_total);
+
+    progress_bar->setPercentageVisible(true);
+    progress_bar->setTotalSteps(m_buffer_progress_total);
+    progress_bar->setProgress(m_buffer_progress_count);
 }
 
 //***************************************************************************

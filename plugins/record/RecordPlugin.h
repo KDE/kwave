@@ -19,6 +19,7 @@
 #define _RECORD_PLUGIN_H_
 
 #include "config.h"
+#include <qcstring.h>
 #include "libkwave/KwavePlugin.h"
 #include "RecordController.h"
 #include "RecordParams.h"
@@ -51,12 +52,6 @@ signals:
     /** emitted when the trigger level has been reached */
     void sigTriggerReached();
 
-    /** emitted when the recording has started */
-    void sigStarted();
-
-    /** emitted when the recording has been stopped */
-    void sigStopped();
-
 protected slots:
 
     /**
@@ -75,6 +70,9 @@ protected slots:
      * signalled with sigStopped()
      */
     void stopRecording();
+
+    /** called when the recording stopped (for detecting aborts only) */
+    void recordStopped(int reason);
 
     /**
      * called when the recording engine has changed it's state
@@ -103,6 +101,14 @@ private slots:
     /** select a new sample format */
     void changeSampleFormat(int new_format);
 
+    /** process a raw audio buffer */
+    void processBuffer(QByteArray buffer);
+
+private:
+
+    /** update the buffer progress bar */
+    void updateBufferProgressBar();
+
 private:
 
     /** global state of the plugin */
@@ -119,6 +125,12 @@ private:
 
     /** the thread for recording */
     RecordThread *m_thread;
+
+    /**
+     * number of recorded buffers since start or continue or the number of
+     * buffers in the queue if recording stopped
+     */
+    unsigned int m_buffers_recorded;
 
 };
 

@@ -28,12 +28,13 @@ RecordParams::RecordParams()
     agc_enabled(false),            agc_decay(50),
     fade_in_enabled(false),        fade_in_time(5),
     fade_out_enabled(false),       fade_out_time(5),
-    device_name("[aRts sound daemon]"),
+    device_name("/dev/dsp"),
     tracks(2),
     sample_rate(44100.0),
     compression(0),
     bits_per_sample(16),
     sample_format(0),
+    buffer_count(16),
     buffer_size(10), /* (1 << 10) == 1024 bytes */
     display_level_meter(false),
     display_oscilloscope(false),
@@ -57,7 +58,7 @@ int RecordParams::fromList(const QStringList &list)
 {
     bool ok;
 
-    if (list.size() != 25) return -EINVAL;
+    if (list.size() != 26) return -EINVAL;
 
     // pre-record
     GET( 0, pre_record_enabled, toUInt);
@@ -97,14 +98,15 @@ int RecordParams::fromList(const QStringList &list)
     GET(18, bits_per_sample, toUInt);
     GET(19, sample_format, toUInt);
 
-    // power of buffer size
-    GET(20, buffer_size, toUInt);
+    // buffer count and power of buffer size
+    GET(20, buffer_count, toUInt);
+    GET(21, buffer_size, toUInt);
 
     // various displays: level meter, oscilloscope, FFT, Overview
-    GET(21, display_level_meter, toUInt);
-    GET(22, display_oscilloscope, toUInt);
-    GET(23, display_fft, toUInt);
-    GET(24, display_overview, toUInt);
+    GET(22, display_level_meter, toUInt);
+    GET(23, display_oscilloscope, toUInt);
+    GET(24, display_fft, toUInt);
+    GET(25, display_overview, toUInt);
 
     return 0;
 }
@@ -155,7 +157,8 @@ QStringList RecordParams::toList() const
     PUT(bits_per_sample);
     PUT(sample_format);
 
-    // power of buffer size
+    // buffer count and power of buffer size
+    PUT(buffer_count);
     PUT(buffer_size);
 
     // various displays: level meter, oscilloscope, FFT, Overview

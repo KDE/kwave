@@ -56,7 +56,7 @@ public:
 //***************************************************************************
 RecordPlugin::RecordPlugin(PluginContext &context)
     :KwavePlugin(context), m_state(REC_EMPTY), m_device(0),
-     m_dialog(0), m_thread(0)
+     m_dialog(0), m_thread(0), m_buffers_recorded(0)
 {
     i18n("record");
 }
@@ -104,7 +104,7 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     connect(m_dialog, SIGNAL(sigSampleFormatChanged(int)),
             this, SLOT(changeSampleFormat(int)));
 
-    // connect the record controller
+    // connect the record controller and this
     connect(&controller, SIGNAL(sigReset()),
             this, SLOT(resetRecording()));
     connect(&controller, SIGNAL(sigStartRecord()),
@@ -114,14 +114,22 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     connect(&controller, SIGNAL(stateChanged(RecordState)),
             this, SLOT(stateChanged(RecordState)));
 
-    connect(this, SIGNAL(sigStarted()),
-            &controller, SLOT(deviceRecordStarted()));
-    connect(this, SIGNAL(sigBufferFull()),
+/*    connect(this,        SIGNAL(sigBufferFull()),
             &controller, SLOT(deviceBufferFull()));
     connect(this, SIGNAL(sigTriggerReached()),
-            &controller, SLOT(deviceTriggerReached()));
-    connect(this, SIGNAL(sigStopped()),
-            &controller, SLOT(deviceRecordStopped()));
+            &controller, SLOT(deviceTriggerReached()));*/
+
+    // connect record controller and record thread
+    connect(&controller, SIGNAL(sigStartRecord()),
+            &controller, SLOT(deviceRecordStarted()));
+    connect(m_thread,    SIGNAL(stopped(int)),
+            &controller, SLOT(deviceRecordStopped(int)));
+
+    // connect us to the record thread
+    connect(m_thread, SIGNAL(stopped(int)),
+           this,      SLOT(recordStopped(int)));
+    connect(m_thread, SIGNAL(bufferFull(QByteArray)),
+            this,     SLOT(processBuffer(QByteArray)));
 
     // select the record device
     changeDevice(m_dialog->params().device_name);
@@ -440,7 +448,7 @@ void RecordPlugin::resetRecording()
     qDebug("RecordPlugin::resetRecording()");
 
     // delete all recorded threads and start again...
-
+    m_buffers_recorded = 0;
 }
 
 //***************************************************************************
@@ -461,19 +469,15 @@ void RecordPlugin::startRecording()
     if (m_thread->running()) m_thread->stop();
     Q_ASSERT(!m_thread->running());
 
-    // start the recording thread
+    // set up the record thread
     m_thread->setRecordDevice(m_device);
-    m_thread->setBuffers(32, 65536);
+    unsigned int buf_count = m_dialog->params().buffer_count;
+    unsigned int buf_size  = (1 << m_dialog->params().buffer_size);
+    m_thread->setBuffers(buf_count, buf_size);
+
+    // start the recording thread
     m_thread->start();
 
-    // do the recording stuff...
-    // ### TODO ###
-    // while (!stopped) {
-    //    record
-    // }
-
-    // update the file info
-    // ### TODO ###
 }
 
 //***************************************************************************
@@ -488,9 +492,93 @@ void RecordPlugin::stopRecording()
 }
 
 //***************************************************************************
+void RecordPlugin::recordStopped(int reason)
+{
+    qDebug("RecordPlugin::recordStopped(%d)", reason);
+    if (reason >= 0) return; // nothing to do
+
+    // recording was aborted
+    QString description;
+    switch (reason) {
+	case -ENOBUFS:
+	    description = i18n("Buffer overrun. Please increase the "\
+	                       "number and/or size of the record buffers.");
+	    break;
+	case -EBUSY:
+	    description = i18n("The recording device seems to be busy!");
+	    break;
+	default:
+	    description = i18n("Reading from the recording device failed, "\
+	                       "error number = %1 (%2)").arg(-reason).arg(
+			       strerror(-reason));
+    }
+    KMessageBox::error(m_dialog, description);
+}
+
+//***************************************************************************
 void RecordPlugin::stateChanged(RecordState state)
 {
     qDebug("RecordPlugin::stateChanged(%d)", (int)state);
+
+    m_state = state;
+    switch (m_state) {
+	case REC_EMPTY:
+	case REC_PAUSED:
+	case REC_DONE:
+	    // reset buffer status
+	    m_buffers_recorded = 0;
+	    m_dialog->updateBufferState(0,0);
+	    break;
+	default:
+	    ;
+    }
+}
+
+//***************************************************************************
+void RecordPlugin::updateBufferProgressBar()
+{
+    Q_ASSERT(m_dialog);
+    Q_ASSERT(m_thread);
+    if (!m_dialog || !m_thread) return;
+
+    unsigned int buffers_total = m_dialog->params().buffer_count;
+
+    // if we are still recording: update the progress bar
+    if ((m_state != REC_EMPTY) && (m_state != REC_PAUSED) &&
+        (m_state != REC_DONE))
+    {
+	// count up the number of recorded buffers
+	m_buffers_recorded++;
+
+	if (m_buffers_recorded <= buffers_total) {
+	    // buffers are just in progress of getting filled
+	    m_dialog->updateBufferState(m_buffers_recorded, buffers_total);
+	} else {
+	    // we have remaining+1 buffers (one is currently filled)
+	    unsigned int remaining = m_thread->remainingBuffers() + 1;
+	    if (remaining > buffers_total) remaining = buffers_total;
+	    m_dialog->updateBufferState(remaining, buffers_total);
+	}
+    } else {
+	// no longer recording: count the buffer downwards
+	unsigned int queued = m_thread->queuedBuffers();
+	if (!queued) buffers_total = 0;
+	m_dialog->updateBufferState(queued, buffers_total);
+    }
+}
+
+//***************************************************************************
+void RecordPlugin::processBuffer(QByteArray buffer)
+{
+    Q_ASSERT(m_dialog);
+    Q_ASSERT(m_thread);
+    if (!m_dialog || !m_thread) return;
+
+    // qDebug("RecordPlugin::processBuffer([%u bytes])", buffer.size());
+
+    // we received a buffer -> update the progress bar
+    updateBufferProgressBar();
+
 }
 
 //***************************************************************************

@@ -29,6 +29,7 @@ KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
 RecordPlugin::RecordPlugin(PluginContext &context)
     :KwavePlugin(context)
 {
+i18n("record");
 }
 
 //***************************************************************************

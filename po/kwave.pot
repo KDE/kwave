@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-08-26 08:46+0200\n"
+"POT-Creation-Date: 2003-08-27 07:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3351,6 +3351,10 @@ msgstr ""
 
 #: plugins/record/RecordDlg.uic.cpp:805
 msgid "Buffer:"
+msgstr ""
+
+#: plugins/record/RecordPlugin.cpp:32
+msgid "record"
 msgstr ""
 
 #: plugins/volume/VolumePlugin.cpp:114

@@ -24,9 +24,9 @@
 typedef int sample_t;
 
 /** lowest sample value */
-#define SAMPLE_MIN (-(1<<23))
+#define SAMPLE_MIN (-(1<<23)+1)
 
 /** highest sample value */
-#define SAMPLE_MAX (+(1<<23))
+#define SAMPLE_MAX (+(1<<23)-1)
 
 #endif /* _SAMPLE_H_ */

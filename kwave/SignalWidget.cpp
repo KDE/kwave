@@ -156,6 +156,12 @@ void SignalWidget::refreshSelection()
 }
 
 //***************************************************************************
+void SignalWidget::refreshSignalLayer()
+{
+    refreshLayer(LAYER_SIGNAL);
+}
+
+//***************************************************************************
 bool SignalWidget::isOK()
 {
 ////    ASSERT(labels);
@@ -1728,7 +1734,7 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
     if (!pix) return;
 
     // connect all signals
-    // ###
+    connect(pix, SIGNAL(sigModified()), this, SLOT(refreshSignalLayer()));
 
     // emit the signal sigTrackInserted now, so that the signal widget
     // gets resized if needed, but the new pixmap is still empty

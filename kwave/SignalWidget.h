@@ -53,7 +53,8 @@ public:
      */
     virtual bool isOK();
 
-    ~SignalWidget();
+    /** Destructor */
+    virtual ~SignalWidget();
 
     /**
      * Converts a time in milliseconds to a number of samples, based
@@ -262,6 +263,12 @@ private slots:
     void updatePlaybackPointer(unsigned int pos);
 
     void refreshSelection();
+
+    /**
+     * Refreshes the signal layer. Shortcut to refreshLayer(LAYER_SIGNAL).
+     * @see #refreshLayer()
+     */
+    void refreshSignalLayer();
 
 signals:
 

@@ -130,7 +130,7 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
     debug("Stripe::append(): resized to %d", m_samples.size());
 
     // something has been added to the end
-    emit sigSamplesInserted(*this, old_length, appended);
+    if (appended) emit sigSamplesInserted(*this, old_length, appended);
 
     return appended;
 }
@@ -149,7 +149,7 @@ void Stripe::overwrite(unsigned int offset, const QArray<sample_t> &samples,
 	}
     }
 
-    emit sigSamplesModified(*this, offset, count);
+    if (count) emit sigSamplesModified(*this, offset, count);
 }
 
 //***************************************************************************

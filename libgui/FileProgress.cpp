@@ -88,13 +88,13 @@ FileProgress::FileProgress(QWidget *parent,
     if (!addInfoLabel(info_layout, text, 1, 1)) return;
 
     // label with "rate:"
-    if (!addInfoLabel(info_layout, i18n("rate: "), 2, 0)) return;
-    text.setNum(rate);
+    if (!addInfoLabel(info_layout, i18n("sample rate: "), 2, 0)) return;
+    text = i18n("%1 samples per second").arg(rate);
     if (!addInfoLabel(info_layout, text, 2, 1)) return;
 
     // label with "resolution:"
     if (!addInfoLabel(info_layout, i18n("resolution: "), 3, 0)) return;
-    text.setNum(bits);
+    text = i18n("%1 bits per sample").arg(bits);
     if (!addInfoLabel(info_layout, text, 3, 1)) return;
 
     // label with "tracks:"

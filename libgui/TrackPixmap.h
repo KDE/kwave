@@ -62,6 +62,11 @@ public:
      */
     void resize(int width, int height);
 
+signals:
+
+    /** Emitted if the content of the pixmap was modified. */
+    void sigModified();
+
 public slots:
 
     /**
@@ -78,6 +83,41 @@ public slots:
      * the current view.
      */
     void setZoom(double zoom);
+
+private slots:
+
+    /**
+     * Connected to the track's sigSamplesInserted.
+     * @param src source track
+     * @param offset position from which the data was inserted
+     * @param length number of samples inserted
+     * @see Track::sigSamplesInserted
+     * @internal
+     */
+    void slotSamplesInserted(Track &src, unsigned int offset,
+                             unsigned int length);
+
+    /**
+     * Connected to the track's sigSamplesDeleted.
+     * @param src source track
+     * @param offset position from which the data was removed
+     * @param length number of samples deleted
+     * @see Track::sigSamplesDeleted
+     * @internal
+     */
+    void slotSamplesDeleted(Track &src, unsigned int offset,
+                            unsigned int length);
+
+    /**
+     * Connected to the track's sigSamplesModified
+     * @param src source track
+     * @param offset position from which the data was modified
+     * @param length number of samples modified
+     * @see Track::sigSamplesModified
+     * @internal
+     */
+    void slotSamplesModified(Track &src, unsigned int offset,
+                             unsigned int length);
 
 private:
 
@@ -129,25 +169,25 @@ private:
      * Draws the signal and interpolates the pixels between the
      * samples. The interpolation is done by using a simple FIR
      * lowpass filter.
-     * @param channel the index of the channel [0..channels-1]
+     * @param width the width of the pixmap in pixels
      * @param middle the y position of the zero line in the drawing
      *               area [pixels]
      * @param height the height of the drawing are [pixels]
      * @see #calculateInterpolation()
      */
-    void drawInterpolatedSignal(int channel, int middle, int height);
+    void drawInterpolatedSignal(int width, int middle, int height);
 
     /**
      * Draws the signal and connects the pixels between the samples
      * by using a simple poly-line. This gets used if the current zoom
      * factor is not suitable for either an overview nor an interpolated
      * signal display.
-     * @param channel the index of the channel [0..channels-1]
+     * @param width the width of the pixmap in pixels
      * @param middle the y position of the zero line in the drawing
      *               area [pixels]
      * @param height the height of the drawing are [pixels]
      */
-    void drawPolyLineSignal(int channel, int middle, int height);
+    void drawPolyLineSignal(int width, int middle, int height);
 
     /**
      * Converts a pixel offset into a sample offset.
@@ -165,13 +205,28 @@ private:
     }
 
     /**
+     * Converts the offset and length of an overlapping region into buffer
+     * indices, depending on the current mode. If the given region does
+     * not overlap at all, the length of the area will be set to zero.
+     * The length will be truncated to the end of the current buffer(s).
+     * @note If the resulting or given length is zero, the offset value
+     *       is not necessarily valid and should be ignored!
+     * @param offset reference to the source sample index, will be converted
+     *               into buffer index
+     * @param length reference to the length in samples, will be converted
+     *               to the number of buffer indices
+     */
+    void convertOverlap(unsigned int &offset, unsigned int &length);
+
+    /**
      * Reference to the track with our sample data.
      */
     Track &m_track;
 
     /**
      * Index of the first sample. Needed for converting pixel
-     * positions into absolute sample numbers.
+     * positions into absolute sample numbers. This is always
+     * in units of samples, independend of the current mode!
      */
     unsigned int m_offset;
 

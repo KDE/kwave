@@ -73,10 +73,10 @@ void FrequencyResponseWidget::setFilter(TransmissionFunction *func)
 //***************************************************************************
 void FrequencyResponseWidget::paintEvent(QPaintEvent*)
 {
-    const int base = 10;
+//  const int base = 10;
+//  const double m_frequency = m_f_max * 2/3;
     const int width  = this->width();
     const int height = this->height();
-    const double m_frequency = m_f_max * 2/3;
     
     ASSERT(width > 0);
     ASSERT(height > 0);

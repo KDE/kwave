@@ -16,14 +16,16 @@
  ***************************************************************************/
 
 #include <dlfcn.h>
- 
+
 #include <qlabel.h>
 #include <qframe.h>
 #include <qscrollview.h>
+#include <qsizepolicy.h>
 #include <qstring.h>
 #include <qtextview.h>
 #include <qlistview.h>
 #include <qhbox.h>
+#include <qvbox.h>
 
 #include <kaboutdialog.h>
 #include <kapp.h>
@@ -54,30 +56,30 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
     header->setText(header_text);
 
     /* the frame containing the developer information */
-    QHBox *author_layout = new QHBox(authorframe->viewport());
+    QVBox *author_layout = new QVBox(authorframe->viewport());
     authorframe->addChild(author_layout);
-    KAboutContainer* about = new KwaveAboutContainer(author_layout);
+    KAboutContainer *about = new KwaveAboutContainer(author_layout);
 
     QValueList<KAboutPerson>::ConstIterator it;
     for (it = about_data->authors().begin();
         it != about_data->authors().end();++it)
-          {
-            about->addPerson((*it).name(),(*it).emailAddress(),
-            (*it).webAddress(),(*it).task());
-          }
+    {
+        about->addPerson((*it).name(),(*it).emailAddress(),
+        (*it).webAddress(),(*it).task());
+    }
     authorframe->setResizePolicy(QScrollView::AutoOneFit);
 
     /* the frame containing the thanks to ... */
     QHBox *thanks_layout = new QHBox(thanksframe->viewport());
     thanksframe->addChild(thanks_layout);
     KAboutContainer* contrib = new KwaveAboutContainer(thanks_layout);
-    
+
     for (it = about_data->credits().begin();
         it != about_data->credits().end(); ++it)
-        {
+    {
         contrib->addPerson((*it).name(),(*it).emailAddress(),
             (*it).webAddress(),(*it).task());
-        }
+    }
     thanksframe->setResizePolicy(QScrollView::AutoOneFit);
 
     /* the frame containing the plugins info */
@@ -93,34 +95,34 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
     pluginsinfo->setShowSortIndicator (false);
     pluginsinfo->setSorting (0);
 
-    QStringList files = KGlobal::dirs()->findAllResources("data", "kwave/plugins/*", false, true);
+    QStringList files = KGlobal::dirs()->findAllResources(
+        "data", "kwave/plugins/*", false, true);
     QStringList::Iterator it_file;
-    for (it_file=files.begin(); it_file != files.end(); ++it_file)
-      {
-	    QString file = *it_file;
-	    void *handle = dlopen(file, RTLD_NOW);
+    for (it_file=files.begin(); it_file != files.end(); ++it_file) {
+	QString file = *it_file;
+	void *handle = dlopen(file, RTLD_NOW);
 
-      if (handle)
-        {
-	      const char **name    = (const char **)dlsym(handle, "name");
-	      const char **version = (const char **)dlsym(handle, "version");
-	      const char **author  = (const char **)dlsym(handle, "author");
+        if (handle) {
+	     const char **name    = (const char **)dlsym(handle, "name");
+	     const char **version = (const char **)dlsym(handle, "version");
+	     const char **author  = (const char **)dlsym(handle, "author");
 
-	      // skip it if something is missing or null
-	      if (!name || !version || !author) continue;
-	      if (!*name || !*version || !*author) continue;
+	     // skip it if something is missing or null
+	     if (!name || !version || !author) continue;
+	     if (!*name || !*version || !*author) continue;
 
-        QListViewItem *PluginsItem;
-        PluginsItem = new QListViewItem (pluginsinfo, i18n(*name), *version, *author);
-	      dlclose (handle);
+	     QListViewItem *plugins_item;
+	     plugins_item = new QListViewItem(pluginsinfo, i18n(*name),
+	         *version, *author);
+	     dlclose (handle);
         }
-     }
+    }
 
-    QString NumbPlugIns;
-    NumbPlugIns.setNum(pluginsinfo->childCount());
-    pluginsnumval->setText (NumbPlugIns);
+    QString num_plugins;
+    num_plugins.setNum(pluginsinfo->childCount());
+    pluginsnumval->setText(num_plugins);
     pluginsinfoframe->setResizePolicy(QScrollView::AutoOneFit);
-    
+
     /* set the url of the kwave homepage */
     kwave_url_label->setText(about_data->homepage());
     kwave_url_label->setURL(about_data->homepage());

@@ -154,9 +154,9 @@ void KwaveFilterPlugin::run(QStringList params)
     // create a progress dialog when in processing (not pre-listen) mode
     if (!m_listen) {
 	Q_ASSERT(!m_progress);
-	Q_ASSERT(!m_confirm_cancel);
-	m_progress = new QProgressDialog(parentWidget(), actionName(), true);
-	Q_ASSERT(m_progress);
+//	Q_ASSERT(!m_confirm_cancel);
+//	m_progress = new QProgressDialog(parentWidget(), actionName(), true);
+//	Q_ASSERT(m_progress);
 	if (m_progress) {
 	    m_progress->setMinimumDuration(1000);
 	    m_progress->setTotalSteps((last-first+1)*tracks);

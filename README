@@ -122,7 +122,7 @@ For example: you got the binary rpm from a friend who has a SuSE system
 on RedHat (where the KDE base dir is /usr). Then just give a different
 prefix when installing the rpm:
 
-rpm -ivh --prefix=/usr kwave-0.6.5.i386.rpm
+rpm -Uvh --prefix=/usr kwave-0.6.7.i386.rpm
 
 This modifies the path where the program is installed and it is strongly
 recommended that this is a directory that is contained in the KDEDIRS
@@ -187,11 +187,11 @@ the better it will work.
 
 For compilation you need a working autoconf/automake environment, a good
 C/C++ compiler, the qt and the kde libraries. I am currently developing
-under a SuSE-8.1 distribution (i386 architecture) using at least the
+under a SuSE-8.2 distribution (i386 architecture) using at least the
 following packages:
 
-* autoconf-2.53-129                  always good for making trouble :-(
-* automake-1.6.3
+* autoconf-2.57-129                  always good for making trouble :-(
+* automake-1.7.32
 * libtool-1.4.2-325                  (needed for configure)
 * gcc-3.2-36                         (the C / C++ compiler)
 
@@ -227,11 +227,14 @@ packets should be sufficient for building:
 known distributions / architectures:
 ------------------------------------
 
+* SuSE-8.2 / i386, i586, athlon-xp (with KDE-3.1.2)
+  [works for me, my current development system]
+
 * SuSE-8.1 / i386, i686, athlon, k7 (with KDE-3.0 and KDE-3.1)
-  [works for me, needs libart_lgpl-devel for getting KDE-3.1 to work]
+  [should still work, needs libart_lgpl-devel for getting KDE-3.1 to work]
 
 * SuSE-8.0 / i386 (with KDE3 updated to v3.0.3)
-  [works, with gcc-2.95.3, updated to automake-1.6.3/autoconf-2.53]
+  [should still work, with gcc-2.95.3, updated to automake-1.6.3/autoconf-2.53]
 
 * Debian on alpha, arm, i386, ia64, m68k, mips, mipsel, powerpc, s390
   and sparc (packages provided by Aurelien Jarno <aurelien@aurel32.net>)
@@ -285,8 +288,9 @@ made running and what I had to install additionally:
          patch, imagemagick, recode, kdemultimedia, kdesdk, media-libs
          (manual install of id3lib >= 3.8.1)
 
-* RedHat-8.0:
+* RedHat-8.0 / 9.0:
          ImageMagick, recode, id3lib, audiofile, audiofile-devel
+	 needs "export QTDIR=/usr/lib/qt-3.1" to compile
 
 * Mandrake-9.0:
          kdelibs, kdelibs-devel, libqt3, libqt3-devel, libarts, libarts-devel,
@@ -296,7 +300,7 @@ made running and what I had to install additionally:
          libogg0, libogg0-devel, libvorbis0, libvorbis0-devel, libvorbisfile3,
          libvorbisenc2
 
-(not finished yet: Slackware 8.1)
+(not finished yet: Slackware 8.1 / 9.0)
 
 
 7. KNOWN PROBLEMS:

@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2003-06-21</date>
-<releaseinfo>0.6.6</releaseinfo>
+<date>2003-06-28</date>
+<releaseinfo>0.6.7</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -186,19 +186,22 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.6.7 [2003-06-xx]</para>
+            <para>0.6.7 [2003-06-28]</para>
             <itemizedlist>
                 <listitem><para>
                     new plugin: "pitch_shift"
+                </para></listitem>
+                <listitem><para>
+                    new plugin: "lowpass"
+                </para></listitem>
+                <listitem><para>
+                    new plugin: "notch_filter", contrinuted by Dave Flogeras
                 </para></listitem>
                 <listitem><para>
                     included a bugfixed version of the synth_pitch_shift aRts plugin
                 </para></listitem>
                 <listitem><para>
                     new feature: "pre-listen", first implementation in pitch_shift plugin
-                </para></listitem>
-                <listitem><para>
-                    new plugin: "lowpass"
                 </para></listitem>
                 <listitem><para>
                     ported to work with Qt-3.1 without Qt-2 compatibility,
@@ -1521,7 +1524,7 @@
 	If you have a system with old Qt-1 or Qt-2 libraries you might get
 	problems when compiling. Then you should set the following
 	environment variable to specify the correct paths of your
-	Qt installation and try again:
+	Qt installation and try again. For example:
 <screen width="30" format="linespecific">
 <prompt>% </prompt><command>export QTDIR=/usr/lib/qt3</command>
 </screen>
@@ -1582,14 +1585,6 @@
 	and says something like "spec file not found", then go on and
 	read the rest of this section.
     </para>
-
-    <caution><para>
-	The support for the <command>rpm -ta ...</command> might be
-	broken on some versions of rpm. The rpm program originally
-	shipped with SuSE-6.4 (rpm-3.0.4) didn't work. You
-	should update your rpm package, e.g. from
-	<ulink url="ftp://ftp.suse.com/pub/suse_update/">the SuSE ftp server</ulink>.
-    </para></caution>
 
     </sect2>
 
@@ -1804,7 +1799,7 @@
 	<filename>/opt/kde3</filename>). Then just
         give a different prefix when installing the rpm. Example:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.6.5.i386.rpm</replaceable></command>
+<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.6.7.i386.rpm</replaceable></command>
 </screen>
     </para>
 
@@ -1894,7 +1889,7 @@
 	For example:
 
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>export RPM_OPT_FLAGS="-O3 -march=athlon-xp -mcpu=athlon-xp -fomit-frame-pointer"</command>
+<prompt>% </prompt><command>export RPM_OPT_FLAGS="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe -fomit-frame-pointer"</command>
 </screen>
     </para>
 
@@ -1923,7 +1918,7 @@
 	the flags need to be specidied before the call
 	to <command>make -f Makefile.dist</command>. This might look like this:
 <screen>
-<prompt>% </prompt><command><symbol>RPM_OPT_FLAGS</symbol>="-march=athlon-xp -mcpu=athlon-xp" make -f Makefile.dist</command></screen>
+<prompt>% </prompt><command><symbol>RPM_OPT_FLAGS</symbol>="-O4 -march=athlon-xp -mcpu=athlon-xp -pipe" make -f Makefile.dist</command></screen>
     </para>
     <para>
 	If you re-build &kapp; from a source rpm package, please follow
@@ -2821,7 +2816,7 @@
 		    Read in the
 		    <link linkend="requirements">chapter</link>
 		    mentioned before. It compiles with
-		    gcc and egcs as well.
+		    gcc-2.95 and gcc-3.3 as well.
 		</para>
 	    </answer>
 	</qandaentry>
@@ -3104,6 +3099,13 @@
 		    Gilles Caulier
 		    <email>caulier.gilles@free.fr</email>
 		    (french translation)
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para>
+		    Dave Flogeras
+		    <email>dflogera@nbnet.nb.ca</email>
+		    (Notch Filter plugin)
 		</para>
 	    </listitem>
 	    <listitem>

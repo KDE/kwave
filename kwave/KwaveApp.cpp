@@ -61,6 +61,9 @@ KwaveApp::KwaveApp()
     // load the list of plugins
     PluginManager::findPlugins();
 
+    // close when the last window closed
+    connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
+
 #ifndef UNIQUE_APP
     newInstance();
 #endif
@@ -78,10 +81,9 @@ int KwaveApp::newInstance()
     } else {
 	// open a window for each file specified in the
 	// command line an load it
-	QString filename;
 	for (unsigned int i = 0; i < argc; i++) {
-	    filename = QFile::decodeName(args->arg(i));
-	    newWindow(filename);
+	    QFileInfo file(args->arg(i));
+	    newWindow(file.absFilePath());
 	}
     }
     if (args) args->clear();

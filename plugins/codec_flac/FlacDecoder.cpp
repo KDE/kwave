@@ -306,6 +306,7 @@ bool FlacDecoder::decode(QWidget * /* widget */, MultiTrackWriter &dst)
     process_until_end_of_stream();
 
     m_dest = 0;
+    m_info.setLength(dst.last() ? dst.last()+1 : 0);
 
     // return with a valid Signal, even if the user pressed cancel !
     return true;

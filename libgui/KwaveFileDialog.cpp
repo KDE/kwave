@@ -15,11 +15,13 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qregexp.h>
 #include <qstring.h>
 #include <qstringlist.h>
 
 #include <kapplication.h>
 #include <kconfig.h>
+#include <kfilefiltercombo.h>
 
 #include "KwaveFileDialog.h"
 
@@ -96,7 +98,21 @@ void KwaveFileDialog::saveConfig()
     QFileInfo file(selectedURL().fileName());
     QString extension = file.extension(false);
     if (extension.length()) {
+	// simple case: file extension
 	m_last_ext = "*."+extension;
+    } else {
+	// tricky case: filename mask
+	QString filename = selectedURL().fileName();
+	QString filter = filterWidget->currentFilter();
+	QStringList masks = QStringList::split(" ", filter);
+	QStringList::Iterator it;
+	for (it = masks.begin(); it != masks.end(); ++it) {
+	    QRegExp mask((*it), true, true);
+	    if (mask.match(filename, 0) >= 0) {
+		m_last_ext = (*it);
+		break;
+	    }
+	}
     }
 
     cfg->setGroup(m_config_group);

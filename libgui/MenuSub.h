@@ -18,18 +18,24 @@
 #ifndef MENUSUB_H
 #define MENUSUB_H
 
-#include "MenuItem.h"
+#include "MenuNode.h"
+
+class QPopupMenu;
 
 /**
  * This is the class for submenu entries in a Menu. It is normally owned by a
  * root menu node, a toplevel menu or an other submenu.
  * @author Thomas Eschenbacher
  */
-class MenuSub : public MenuItem
+class MenuSub : public MenuNode
 {
   Q_OBJECT
 
 public: // Public methods
+    MenuSub (const char *name);
+
+private:
+    QPopupMenu *menu;
 
 };
 

@@ -1,43 +1,29 @@
 
 #include <stdio.h>
-/*
-#include <stdlib.h>
-#include <string.h>
-#include <qstack.h>
+
+// #include <stdlib.h>
+// #include <string.h>
+
+// #include <qstack.h>
+#include <qkeycode.h>
+
 #include <kapp.h>
 #include <klocale.h>
 
 #include <libkwave/Parser.h>
 #include <libkwave/String.h>
 
-#include "NumberedMenu.h"
+// #include "NumberedMenu.h"
 #include "MenuNode.h"
 #include "MenuRoot.h"
-*/
-
+#include "MenuSub.h" // ###
 #include "MenuManager.h"
 
 //*****************************************************************************
 MenuManager::MenuManager (QWidget *parent, KMenuBar &bar)
-  :QObject(parent)
+  :QObject(parent) , menu_root(*(new MenuRoot(bar)))
 {
     debug("MenuManager::MenuManager(%p,%p)", parent, &bar);
-// ###  this->bar=bar;
-// ###  toplevelmenus.setAutoDelete(true);
-// ###  numberedMenus.setAutoDelete(true);
-// ###  menuIDs.setAutoDelete(true);
-// ###    menu_root = new MenuRoot(*bar);
-}
-/* ###
-MenuNode  *MenuManager::findTopLevelMenu (const char *name)
-{
-  MenuNode *tmp=toplevelmenus.first();
-  while (tmp)
-    {
-      if (strcmp(tmp->getName(),name)==0) return tmp;
-      tmp=toplevelmenus.next();
-    }
-  return 0;
 }
 
 //*****************************************************************************
@@ -75,71 +61,44 @@ int parseToKeyCode (char *key)
       }
   return keycode;
 }
-/* ###
-void MenuManager::registerID (const char *id, MenuNode *menu)
-{
-  if (!menu) return;
-//  debug("register '%s'", id);
-
-  if (!id)
-    {
-      char *unknown_id = new char[128];
-      sprintf(unknown_id, "unknown/%s/%d", menu->getName(), menu->getId());
-      menuIDs.insert(unknown_id, menu);
-//      debug("register unknown: '%s'", unknown_id);
-    }
-  else
-    menuIDs.insert(duplicateString(id), menu);
-}
 
 void MenuManager::setCommand (const char *command)
 {
-/*
-//  debug("MenuManager::setCommand(%s)",command); // ###
+    debug("MenuManager::setCommand(%s)",command); // ###
 
-/ * ###
-  // exit if no menu bar present
-  if (! bar)
-    {
-      debug ("Menumanager:no menu bar, something went wrong !\n");
-      return;
-    }
-* /
+    Parser parser(command);
 
-  Parser parser(command);
+    const char *tmp;
+    char *com=0;
+    char *pos=0;
+    char *key=0; // keyboard shortcut (optional)
+    char *id=0;  // string id (optional)
 
-  const char *tmp;
-  char *com=0;
-  char *pos=0;
-  char *key=0; // keyboard shortcut (optional)
-  char *id=0;  // string id (optional)
+    tmp=parser.getFirstParam ();
+    if (tmp) com=duplicateString (tmp);
 
-  tmp=parser.getFirstParam ();
-  if (tmp) com=duplicateString (tmp);
+    tmp=parser.getNextParam ();
+    if (tmp) pos=duplicateString (tmp);
 
-  tmp=parser.getNextParam ();
-  if (tmp) pos=duplicateString (tmp);
-
-  // bail out if no menu position is found
-  if (!pos)
-    {
-      debug ("no position field !\n");
-      if (com) delete com;
-      return;
+    // bail out if no menu position is found
+    if (!pos) {
+	debug ("no position field !\n");
+	if (com) delete com;
+	return;
     }
 
-  tmp=parser.getNextParam();
-  if (tmp) key=duplicateString(tmp);
+    tmp=parser.getNextParam();
+    if (tmp) key=duplicateString(tmp);
 
-  tmp=parser.getNextParam();
-  if (tmp) id=duplicateString(tmp);
+    tmp=parser.getNextParam();
+    if (tmp) id=duplicateString(tmp);
 
-//  debug("com='%s', pos='%s', key='%s', id='%s'", com, pos, key, id); // ###
+    debug("com='%s', pos='%s', key='%s', id='%s'", com, pos, key, id); // ###
 
-  MenuNode *parentmenu=0;
-  MenuNode *newmenu=0;
-  int len=strlen(pos);
-  int cnt;
+    MenuNode *parentmenu=0;
+    MenuNode *newmenu=0;
+    int len=strlen(pos);
+    int cnt;
 
   //parse the string pos into menu structure and insert accordingly
   for (cnt=0; cnt<len; cnt++)
@@ -167,13 +126,13 @@ void MenuManager::setCommand (const char *command)
 // ###	      MenuNode::getIdRange(MENUMAX);
 	    }
 	  else
-/ * ###	  if ((strcmp (&pos[begin],"exclusive")==0))
+/* ###	  if ((strcmp (&pos[begin],"exclusive")==0))
 	    parentmenu->setCheckable ();
 	  else
 	  if ((strcmp (&pos[begin],"number")==0))
 	    parentmenu->setNumberable ();
 	  else
-* /
+*/
 	  if (strcmp (&pos[begin],"separator")==0)
 	    {
 // ###	      parentmenu->insertSeparator();
@@ -198,17 +157,17 @@ void MenuManager::setCommand (const char *command)
 		      int keycode=0;
 		      if (key) keycode=parseToKeyCode(key);
 
-/ * ###
+/* ###
 //		      debug("new entry='%s'", pos+begin); // ###
 		      int numeric_id = parentmenu->insertEntry(
 		        klocale->translate(&pos[begin]),
 			com, keycode, MenuNode::getUniqueId());
-*
+
 		      // register the <string_id:menuItem> pair
 		      MenuNode *entry = new MenuNode((const char *)0, numeric_id);
 		      entry->setParent(parentmenu);
 		      registerID(id, entry);
-* /		    }
+*/		    }
 		}
 	      else
 		newmenu=0; // ### parentmenu->findMenu(&pos[begin]);
@@ -264,19 +223,20 @@ void MenuManager::setCommand (const char *command)
   if (pos) deleteString(pos);
   if (key) deleteString(key);
   if (id)  deleteString(id);
-
 }
+
+
 //*****************************************************************************
 void MenuManager::clearNumberedMenu (const char *name)
 {
 /* ###
   NumberedMenu *menu=findNumberedMenu (name);
   if (menu) menu->clear();
-* /
+*/
 }
 //*****************************************************************************
 NumberedMenu* MenuManager::addNumberedMenu (const char *name)
-{/ * ###
+{/* ###
   debug("MenuManager::addNumberedMenu(%s)", name); // ###
   NumberedMenu *newmenu=findNumberedMenu (name);
 
@@ -284,7 +244,7 @@ NumberedMenu* MenuManager::addNumberedMenu (const char *name)
 
   newmenu=new NumberedMenu (name);
   numberedMenus.append (newmenu);
-  return newmenu;  * /
+  return newmenu;  */
   return 0;
 }
 //*****************************************************************************
@@ -294,12 +254,12 @@ void MenuManager::addNumberedMenuEntry (const char *name,const char *entry)
   NumberedMenu *menu=findNumberedMenu (name);
   if (menu) menu->addEntry (entry);
   else debug ("could not find numbered Menu %s\n",name);
-* /
+*/
 }
 //*****************************************************************************
 void MenuManager::selectItemChecked(const char *id)
 {
-/ * ###
+/* ###
   debug("MenuManager::selectItemChecked('%s')", id);
   MenuNode *menu = menuIDs.find(id);
   if (menu)
@@ -307,12 +267,12 @@ void MenuManager::selectItemChecked(const char *id)
       MenuNode *parent = menu->getParent();
       if (parent) parent->checkEntry(menu->getId());
     }
-* /
+*/
 }
 //*****************************************************************************
 void MenuManager::setItemChecked(const char *id, bool check)
 {
-/ * ###
+/* ###
   debug("MenuManager::setItemChecked('%s', %d)", id, check);
   MenuNode *menu = menuIDs.find(id);
   if (menu)
@@ -320,29 +280,29 @@ void MenuManager::setItemChecked(const char *id, bool check)
       MenuNode *parent = menu->getParent();
       if (parent) parent->checkEntry(menu->getId(), check);
     }
-* /
+*/
 }
 //*****************************************************************************
 void MenuManager::setItemEnabled(const char *id, bool enable)
 {
-/ * ###
+/* ###
   debug("MenuManager::setItemEnabled('%s', %d)", id, enable);
   MenuNode *menu = menuIDs.find(id);
   if (menu) menu->setEnabled(enable);
-* /
+*/
 }
 //*****************************************************************************
 NumberedMenu *MenuManager::findNumberedMenu (const char *name)
 {
   //straight forward linear search
-/ * ###
+/* ###
   NumberedMenu *tmp=numberedMenus.first();
   while (tmp)
     {
       if (strcmp(tmp->name(),name)==0) return tmp;
       tmp=numberedMenus.next();
     }
-### * /
+### */
     return 0;
 }
 //*****************************************************************************
@@ -356,7 +316,7 @@ MenuManager::~MenuManager ()
 // ###  toplevelmenus.clear();
 // ###  numberedMenus.clear();
 // ###  menuIDs.clear();
+    menu_root.clear();
 }
 
-*/
-
+/* end of MenuManager.cpp */

@@ -21,9 +21,9 @@
 #include <qobject.h>
 #include <qwidget.h>
 #include <qlist.h>
-#include <qkeycode.h>
-#include <kmenubar.h>
-#include <qpopmenu.h>
+// #include <qkeycode.h>
+// #include <kmenubar.h>
+// #include <qpopmenu.h>
 
 //maximum number of menuitem in numberedmenus, e.g. presets, channels
 #define MENUMAX 100
@@ -37,17 +37,16 @@ class MenuCommand;
  * @author Thomas Eschenbacher
  */
 class MenuNode: public QObject {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-  MenuNode();
-  MenuNode             (const char *name);
-  virtual ~MenuNode    ();
+    MenuNode             (const char *name);
+    virtual ~MenuNode    ();
 
-  inline const char   *getName     () const {return name;};
+    inline const char   *getName     () const {return name;};
 
-  inline int           getId()       {return this->id;};
-  inline void          setId(int id) {this->id=id;};
+    inline int           getId()       {return this->id;};
+    inline void          setId(int id) {this->id=id;};
 
 /* ###
   inline bool          isTopLevel  () { return toplevel;};
@@ -77,23 +76,23 @@ public:
          void          setNumberable();
 ### */
 
-  /** removes all entries from the menu */
-  virtual void clear();
+    /** removes all entries from the menu */
+    virtual void clear();
 
-  /** sets a new pointer to the node's parent */
-  virtual void setParent(MenuNode *newParent);
+    /** sets a new pointer to the node's parent */
+    virtual void setParent(MenuNode *newParent);
 
-  /** returns a pointer to the menu's parent node */
-  virtual MenuNode * getParentNode();
+    /** returns a pointer to the menu's parent node */
+    virtual MenuNode * getParentNode();
 
-  /** Returns the number of ids a menu needs */
-  virtual int getNeededIDs();
+    /** Returns the number of ids a menu needs */
+    virtual int getNeededIDs();
 
-  /** Enables or disables an item of the current menu */
-  virtual bool setItemEnabled(const int item, const bool enable);
+    /** Enables or disables an item of the current menu */
+    virtual bool setItemEnabled(const int item, const bool enable);
 
-  /** Inserts a new child node into the current structure. */
-  virtual int insertNode(MenuNode *node);
+    /** Inserts a new child node into the current structure. */
+    virtual int insertNode(MenuNode *node);
 
 signals: // Signals
 
@@ -128,8 +127,8 @@ signals: // Signals
                                          //this is the case, they should also
                                          //be exclusive
 */
-  /** parent of this entry */
-  MenuNode* parentNode;
+    /** parent of this entry */
+    MenuNode* parentNode;
 };
 
 #endif

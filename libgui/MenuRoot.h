@@ -20,6 +20,8 @@
 
 #include "MenuNode.h"
 
+class KMenuBar;
+
 /**
  * This is the class for the root of a Menu (e.g. a MenuBar) that contains
  * all toplevel menues of a menu hierarchy.
@@ -39,7 +41,7 @@ public: // Public methods
 private: // Private attributes
 
   /** reference to a KMenuBar */
-  KMenuBar& menu_bar;
+  KMenuBar &menu_bar;
 
 };
 

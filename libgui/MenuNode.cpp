@@ -48,6 +48,7 @@ int MenuNode::getIdRange (int num)
 */
 
 MenuNode::MenuNode (const char *name)
+    :QObject()
 {
   this->parentNode=0;
   this->name=duplicateString (name);

@@ -28,7 +28,6 @@ QStrList           recentFiles;
 //*****************************************************************************
 void TopWidget::setOp (const char *str)
 {
-/* ###
   if (matchCommand (str,"menu")) menumanage->setCommand (str);
   else
   if (matchCommand (str,"open")) openFile();
@@ -51,7 +50,6 @@ void TopWidget::setOp (const char *str)
   else
   if (matchCommand(str,"quit")) globals.app->closeWindow (this);
   else mainwidget->doCommand (str);
-  ### */
 }
 //*****************************************************************************
 void TopWidget::loadBatch (const char *str)
@@ -92,51 +90,33 @@ TopWidget::TopWidget ()
   status->insertItem (klocale->translate("selected: 0 ms        "),4);
   status->insertItem (klocale->translate("Clipboard: 0 ms      "),5);
 
-  debug("--1--"); // ###
-  KMenuBar *bar = 0; // ### new KMenuBar(this);
-
-// ###  menumanage = new MenuManager(this, bar);
-  menumanage = new MenuManager((QWidget *)this,*bar);
-  debug("menumanage=%p", menumanage); // ###
+  KMenuBar *bar = new KMenuBar(this);
+  menumanage = new MenuManager(this, *bar);
 
   //connect clicked menu entries with main communication channel of kwave
   connect(menumanage, SIGNAL(command(const char *)),
 	  this, SLOT(setOp(const char *)));
 
-  debug("--2a--"); // ###
-
   //enable drop of local files onto kwave window
   KDNDDropZone *dropZone = new KDNDDropZone( this ,DndURL);
-  debug("--2b--"); // ###
   connect( dropZone, SIGNAL( dropAction( KDNDDropZone *)),
            this, SLOT( dropEvent( KDNDDropZone *)));        
-  debug("--2c--"); // ###
 
   //read menus and create them...
   QDir configDir (globals.globalconfigDir);
-  debug("--2d--"); // ###
 
   FileLoader loader (configDir.absFilePath("menus.config"));  
-  debug("--2e--"); // ###
   parseCommands (loader.getMem());
-  debug("--2f--"); // ###
 
   updateRecentFiles ();
 
-  debug("--3--"); // ###
   mainwidget=new MainWidget (this,menumanage,status);
-  debug("--4--"); // ###
   setView (mainwidget);
-  debug("--5--"); // ###
 
   setMenu (bar);
-  debug("--6--"); // ###
   setStatusBar (status);
-  debug("--7--"); // ###
 
   updateMenu();
-  debug("--done--"); // ###
-
 }
 
 //*****************************************************************************

@@ -16,7 +16,14 @@
  ***************************************************************************/
 
 #include <stdio.h>
-#include "MenuCommand.h"
+#include <qpopupmenu.h>
+#include <kapp.h>
+
 #include "MenuNode.h"
 #include "MenuSub.h"
 
+MenuSub::MenuSub (const char *name)
+    :MenuNode(name)
+{
+    menu = new QPopupMenu(0, klocale->translate(getName()));
+}

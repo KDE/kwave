@@ -81,9 +81,10 @@ private :
     QSocketNotifier *m_sn;
 
     /**
-     * Mutex for securing the SyncHandler
+     * Mutex for securing the creation/destruction, which seems
+     * to be NOT threadsafe !!!???
      */
-    Mutex m_lock;
+    static Mutex m_lock;
 
 };
 

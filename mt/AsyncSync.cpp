@@ -29,6 +29,9 @@
 #include "mt/MutexGuard.h"
 #include "mt/AsyncSync.h"
 
+/** global lock for creating/deleting socket notifiers */
+Mutex AsyncSync::m_lock;
+
 //*****************************************************************************
 AsyncSync::AsyncSync()
     :QObject()

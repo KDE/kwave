@@ -1,167 +1,145 @@
-<!DOCTYPE UI><UI>
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
 <class>KwaveAboutDialogBase</class>
-<include location="global">klocale.h</include>
-<widget>
-    <class>QDialog</class>
-    <property stdset="1">
-        <name>name</name>
+<widget class="QDialog">
+    <property name="name">
         <cstring>KwaveAboutDialogBase</cstring>
     </property>
-    <property stdset="1">
-        <name>geometry</name>
+    <property name="geometry">
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>665</width>
-            <height>574</height>
+            <width>663</width>
+            <height>527</height>
         </rect>
     </property>
-    <property stdset="1">
-        <name>sizePolicy</name>
+    <property name="sizePolicy">
         <sizepolicy>
             <hsizetype>3</hsizetype>
             <vsizetype>3</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
         </sizepolicy>
     </property>
-    <property stdset="1">
-        <name>caption</name>
+    <property name="caption">
         <string>About Kwave</string>
     </property>
-    <property stdset="1">
-        <name>sizeGripEnabled</name>
+    <property name="sizeGripEnabled">
         <bool>true</bool>
     </property>
-    <property>
-        <name>layoutMargin</name>
+    <property name="layoutMargin" stdset="0">
     </property>
-    <property>
-        <name>layoutSpacing</name>
+    <property name="layoutSpacing" stdset="0">
     </property>
     <vbox>
-        <property stdset="1">
-            <name>margin</name>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
             <number>11</number>
         </property>
-        <property stdset="1">
-            <name>spacing</name>
+        <property name="spacing">
             <number>6</number>
         </property>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
+        <widget class="QLabel">
+            <property name="name">
                 <cstring>header</cstring>
             </property>
-            <property stdset="1">
-                <name>sizePolicy</name>
+            <property name="sizePolicy">
                 <sizepolicy>
                     <hsizetype>7</hsizetype>
                     <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
                 </sizepolicy>
             </property>
-            <property stdset="1">
-                <name>frameShape</name>
+            <property name="frameShape">
                 <enum>NoFrame</enum>
             </property>
-            <property stdset="1">
-                <name>text</name>
+            <property name="text">
                 <string>&lt;h1&gt;Kwave - a sound editor for KDE&lt;/h1&gt;</string>
             </property>
         </widget>
-        <widget>
-            <class>QTabWidget</class>
-            <property stdset="1">
-                <name>name</name>
+        <widget class="QTabWidget">
+            <property name="name">
                 <cstring>tabwidget</cstring>
             </property>
-            <property stdset="1">
-                <name>margin</name>
+            <property name="margin">
                 <number>0</number>
             </property>
-            <widget>
-                <class>QWidget</class>
-                <property stdset="1">
-                    <name>name</name>
+            <widget class="QWidget">
+                <property name="name">
                     <cstring>about_tab</cstring>
                 </property>
-                <attribute>
-                    <name>title</name>
+                <attribute name="title">
                     <string>About</string>
                 </attribute>
                 <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
                         <number>11</number>
                     </property>
-                    <property stdset="1">
-                        <name>spacing</name>
+                    <property name="spacing">
                         <number>6</number>
                     </property>
-                    <widget>
-                        <class>QFrame</class>
-                        <property stdset="1">
-                            <name>name</name>
+                    <widget class="QFrame">
+                        <property name="name">
                             <cstring>logoframe</cstring>
                         </property>
-                        <property stdset="1">
-                            <name>sizePolicy</name>
+                        <property name="sizePolicy">
                             <sizepolicy>
                                 <hsizetype>3</hsizetype>
                                 <vsizetype>7</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
                             </sizepolicy>
                         </property>
-                        <property stdset="1">
-                            <name>minimumSize</name>
+                        <property name="minimumSize">
                             <size>
                                 <width>150</width>
                                 <height>200</height>
                             </size>
                         </property>
-                        <property stdset="1">
-                            <name>maximumSize</name>
+                        <property name="maximumSize">
                             <size>
                                 <width>400</width>
                                 <height>32767</height>
                             </size>
                         </property>
-                        <property stdset="1">
-                            <name>frameShape</name>
+                        <property name="frameShape">
                             <enum>StyledPanel</enum>
                         </property>
-                        <property stdset="1">
-                            <name>frameShadow</name>
+                        <property name="frameShadow">
                             <enum>Raised</enum>
                         </property>
-                        <property>
-                            <name>layoutMargin</name>
+                        <property name="layoutMargin" stdset="0">
                         </property>
-                        <property>
-                            <name>layoutSpacing</name>
+                        <property name="layoutSpacing" stdset="0">
                         </property>
                         <vbox>
-                            <property stdset="1">
-                                <name>margin</name>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
                                 <number>3</number>
                             </property>
-                            <property stdset="1">
-                                <name>spacing</name>
+                            <property name="spacing">
                                 <number>3</number>
                             </property>
-                            <widget>
-                                <class>LogoWidget</class>
-                                <property stdset="1">
-                                    <name>name</name>
+                            <widget class="LogoWidget">
+                                <property name="name">
                                     <cstring>logo_widget</cstring>
                                 </property>
-                                <property stdset="1">
-                                    <name>sizePolicy</name>
+                                <property name="sizePolicy">
                                     <sizepolicy>
                                         <hsizetype>7</hsizetype>
                                         <vsizetype>7</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
                                     </sizepolicy>
                                 </property>
-                                <property stdset="1">
-                                    <name>maximumSize</name>
+                                <property name="maximumSize">
                                     <size>
                                         <width>400</width>
                                         <height>32767</height>
@@ -170,51 +148,45 @@
                             </widget>
                         </vbox>
                     </widget>
-                    <widget>
-                        <class>QLayoutWidget</class>
-                        <property stdset="1">
-                            <name>name</name>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
                             <cstring>Layout6</cstring>
                         </property>
                         <vbox>
-                            <property stdset="1">
-                                <name>margin</name>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
                                 <number>0</number>
                             </property>
-                            <property stdset="1">
-                                <name>spacing</name>
+                            <property name="spacing">
                                 <number>6</number>
                             </property>
-                            <widget>
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
+                            <widget class="QLabel">
+                                <property name="name">
                                     <cstring>abouttext</cstring>
                                 </property>
-                                <property stdset="1">
-                                    <name>sizePolicy</name>
+                                <property name="sizePolicy">
                                     <sizepolicy>
                                         <hsizetype>7</hsizetype>
                                         <vsizetype>3</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
                                     </sizepolicy>
                                 </property>
-                                <property stdset="1">
-                                    <name>minimumSize</name>
+                                <property name="minimumSize">
                                     <size>
                                         <width>400</width>
                                         <height>300</height>
                                     </size>
                                 </property>
-                                <property stdset="1">
-                                    <name>frameShape</name>
+                                <property name="frameShape">
                                     <enum>MShape</enum>
                                 </property>
-                                <property stdset="1">
-                                    <name>frameShadow</name>
+                                <property name="frameShadow">
                                     <enum>MShadow</enum>
                                 </property>
-                                <property stdset="1">
-                                    <name>text</name>
+                                <property name="text">
                                     <string> &lt;h2&gt;Kwave is a sound editor designed for the KDE-Desktop Environment. &lt;/h2&gt;&lt;br&gt;
 With Kwave you can edit many sorts of 
 wav-files including multi-channel files. 
@@ -226,36 +198,27 @@ the wave-file in several ways and presents
 a graphical view with a complete zoom- 
 and scroll capability.</string>
                                 </property>
-                                <property stdset="1">
-                                    <name>textFormat</name>
+                                <property name="textFormat">
                                     <enum>RichText</enum>
                                 </property>
-                                <property stdset="1">
-                                    <name>scaledContents</name>
+                                <property name="scaledContents">
                                     <bool>false</bool>
                                 </property>
-                                <property stdset="1">
-                                    <name>alignment</name>
+                                <property name="alignment">
                                     <set>WordBreak|AlignVCenter|AlignLeft</set>
                                 </property>
-                                <property>
-                                    <name>hAlign</name>
+                                <property name="hAlign" stdset="0">
                                 </property>
-                                <property>
-                                    <name>vAlign</name>
+                                <property name="vAlign" stdset="0">
                                 </property>
-                                <property>
-                                    <name>wordwrap</name>
+                                <property name="wordwrap" stdset="0">
                                 </property>
                             </widget>
-                            <widget>
-                                <class>KURLLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
+                            <widget class="KURLLabel">
+                                <property name="name">
                                     <cstring>kwave_url_label</cstring>
                                 </property>
-                                <property stdset="1">
-                                    <name>minimumSize</name>
+                                <property name="minimumSize">
                                     <size>
                                         <width>200</width>
                                         <height>20</height>
@@ -266,213 +229,172 @@ and scroll capability.</string>
                     </widget>
                 </hbox>
             </widget>
-            <widget>
-                <class>QWidget</class>
-                <property stdset="1">
-                    <name>name</name>
+            <widget class="QWidget">
+                <property name="name">
                     <cstring>authors_tab</cstring>
                 </property>
-                <attribute>
-                    <name>title</name>
+                <attribute name="title">
                     <string>Authors</string>
                 </attribute>
                 <vbox>
-                    <property stdset="1">
-                        <name>margin</name>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
                         <number>11</number>
                     </property>
-                    <property stdset="1">
-                        <name>spacing</name>
+                    <property name="spacing">
                         <number>6</number>
                     </property>
-                    <widget>
-                        <class>QFrame</class>
-                        <property stdset="1">
-                            <name>name</name>
+                    <widget class="QFrame">
+                        <property name="name">
                             <cstring>authorframe</cstring>
                         </property>
-                        <property stdset="1">
-                            <name>sizePolicy</name>
+                        <property name="sizePolicy">
                             <sizepolicy>
                                 <hsizetype>7</hsizetype>
                                 <vsizetype>7</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
                             </sizepolicy>
                         </property>
-                        <property stdset="1">
-                            <name>frameShape</name>
+                        <property name="frameShape">
                             <enum>NoFrame</enum>
                         </property>
-                        <property stdset="1">
-                            <name>frameShadow</name>
+                        <property name="frameShadow">
                             <enum>Raised</enum>
                         </property>
                     </widget>
                 </vbox>
             </widget>
-            <widget>
-                <class>QWidget</class>
-                <property stdset="1">
-                    <name>name</name>
+            <widget class="QWidget">
+                <property name="name">
                     <cstring>thanks_tab</cstring>
                 </property>
-                <attribute>
-                    <name>title</name>
+                <attribute name="title">
                     <string>Thanks To</string>
                 </attribute>
                 <vbox>
-                    <property stdset="1">
-                        <name>margin</name>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
                         <number>11</number>
                     </property>
-                    <property stdset="1">
-                        <name>spacing</name>
+                    <property name="spacing">
                         <number>6</number>
                     </property>
-                    <widget>
-                        <class>QFrame</class>
-                        <property stdset="1">
-                            <name>name</name>
+                    <widget class="QFrame">
+                        <property name="name">
                             <cstring>thanksframe</cstring>
                         </property>
-                        <property stdset="1">
-                            <name>sizePolicy</name>
+                        <property name="sizePolicy">
                             <sizepolicy>
                                 <hsizetype>3</hsizetype>
                                 <vsizetype>3</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
                             </sizepolicy>
                         </property>
-                        <property stdset="1">
-                            <name>frameShape</name>
+                        <property name="frameShape">
                             <enum>NoFrame</enum>
                         </property>
-                        <property stdset="1">
-                            <name>frameShadow</name>
+                        <property name="frameShadow">
                             <enum>Raised</enum>
                         </property>
                     </widget>
                 </vbox>
             </widget>
-            <widget>
-                <class>QWidget</class>
-                <property stdset="1">
-                    <name>name</name>
+            <widget class="QWidget">
+                <property name="name">
                     <cstring>license_tab</cstring>
                 </property>
-                <attribute>
-                    <name>title</name>
+                <attribute name="title">
                     <string>License agreement</string>
                 </attribute>
                 <vbox>
-                    <property stdset="1">
-                        <name>margin</name>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
                         <number>11</number>
                     </property>
-                    <property stdset="1">
-                        <name>spacing</name>
+                    <property name="spacing">
                         <number>6</number>
                     </property>
-                    <widget>
-                        <class>QTextView</class>
-                        <property stdset="1">
-                            <name>name</name>
+                    <widget class="QTextView">
+                        <property name="name">
                             <cstring>licenseframe</cstring>
                         </property>
                     </widget>
                 </vbox>
             </widget>
         </widget>
-        <widget>
-            <class>QLayoutWidget</class>
-            <property stdset="1">
-                <name>name</name>
+        <widget class="QLayoutWidget">
+            <property name="name">
                 <cstring>Layout3</cstring>
             </property>
             <hbox>
-                <property stdset="1">
-                    <name>margin</name>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
                     <number>0</number>
                 </property>
-                <property stdset="1">
-                    <name>spacing</name>
+                <property name="spacing">
                     <number>6</number>
                 </property>
                 <spacer>
-                    <property>
-                        <name>name</name>
+                    <property name="name">
                         <cstring>Spacer1</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>orientation</name>
+                    <property name="orientation">
                         <enum>Horizontal</enum>
                     </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
+                    <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
                 </spacer>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
+                <widget class="QPushButton">
+                    <property name="name">
                         <cstring>okbutton</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>sizePolicy</name>
+                    <property name="sizePolicy">
                         <sizepolicy>
                             <hsizetype>5</hsizetype>
                             <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
                         </sizepolicy>
                     </property>
-                    <property stdset="1">
-                        <name>minimumSize</name>
+                    <property name="minimumSize">
                         <size>
                             <width>0</width>
                             <height>30</height>
                         </size>
                     </property>
-                    <property stdset="1">
-                        <name>cursor</name>
+                    <property name="cursor">
                         <cursor>0</cursor>
                     </property>
-                    <property stdset="1">
-                        <name>text</name>
+                    <property name="text">
                         <string>&amp;Close</string>
                     </property>
-                    <property stdset="1">
-                        <name>autoResize</name>
+                    <property name="autoResize">
                         <bool>true</bool>
                     </property>
-                    <property stdset="1">
-                        <name>default</name>
+                    <property name="default">
                         <bool>true</bool>
                     </property>
                 </widget>
                 <spacer>
-                    <property>
-                        <name>name</name>
+                    <property name="name">
                         <cstring>Spacer2</cstring>
                     </property>
-                    <property stdset="1">
-                        <name>orientation</name>
+                    <property name="orientation">
                         <enum>Horizontal</enum>
                     </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
+                    <property name="sizeType">
                         <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
                     </property>
                 </spacer>
             </hbox>
@@ -491,27 +413,14 @@ and scroll capability.</string>
         <sizepolicy>
             <hordata>5</hordata>
             <verdata>5</verdata>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
-    <customwidget>
-        <class>KURLLabel</class>
-        <header location="global">kurllabel.h</header>
-        <sizehint>
-            <width>-1</width>
-            <height>-1</height>
-        </sizehint>
-        <container>0</container>
-        <sizepolicy>
-            <hordata>5</hordata>
-            <verdata>5</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
         </sizepolicy>
         <pixmap>image0</pixmap>
     </customwidget>
 </customwidgets>
 <images>
-    <image>
-        <name>image0</name>
+    <image name="image0">
         <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
     </image>
 </images>
@@ -522,11 +431,17 @@ and scroll capability.</string>
         <receiver>KwaveAboutDialogBase</receiver>
         <slot>accept()</slot>
     </connection>
-    <slot access="protected">closeDialog()</slot>
 </connections>
 <tabstops>
     <tabstop>okbutton</tabstop>
     <tabstop>tabwidget</tabstop>
     <tabstop>licenseframe</tabstop>
 </tabstops>
+<includes>
+    <include location="global" impldecl="in declaration">klocale.h</include>
+</includes>
+<slots>
+    <slot access="protected">closeDialog()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
 </UI>

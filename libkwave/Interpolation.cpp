@@ -35,6 +35,10 @@ void Interpolation::InterpolationMap::fill()
     i18n("3-polynom");
     i18n("5-polynom");
     i18n("7-polynom");
+    i18n("polynom, nth degree");
+    i18n("polynom, 3rd degree");
+    i18n("polynom, 5th degree");
+    i18n("polynom, 7th degree");
     i18n("sample and hold");
 #endif
 }

@@ -613,6 +613,7 @@ void RecordDialog::setState(RecordState state)
     bool enable_stop = false;
     bool enable_record = false;
     bool enable_settings = false;
+    bool enable_trigger = false;
 
     m_state = state;
     switch (state) {
@@ -623,6 +624,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_stop     = false;
 	    enable_record   = m_params.device_name.length();
 	    enable_settings = true;
+	    enable_trigger  = true;
 	    break;
 	case REC_BUFFERING:
 	    lbl_state->setText(i18n("buffering..."));
@@ -631,6 +633,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_stop     = true;
 	    enable_record   = true; /* acts as "trigger now" */
 	    enable_settings = false;
+	    enable_trigger  = true;
 	    break;
 	case REC_PRERECORDING:
 	    lbl_state->setText(i18n("prerecording..."));
@@ -639,6 +642,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_stop     = true;
 	    enable_record   = true;
 	    enable_settings = false;
+	    enable_trigger  = true;
 	    break;
 	case REC_WAITING_FOR_TRIGGER:
 	    lbl_state->setText(i18n("waiting for trigger..."));
@@ -647,6 +651,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_stop     = true;
 	    enable_record   = true; /* acts as "trigger now" */
 	    enable_settings = false;
+	    enable_trigger  = true;
 	    break;
 	case REC_RECORDING:
 	    lbl_state->setText(i18n("recording..."));
@@ -655,6 +660,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_stop     = true;
 	    enable_record   = false;
 	    enable_settings = false;
+	    enable_trigger  = false;
 	    break;
 	case REC_PAUSED:
 	    lbl_state->setText(i18n("paused"));
@@ -663,6 +669,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_stop     = true;
 	    enable_record   = true; /* used for "continue" */
 	    enable_settings = false;
+	    enable_trigger  = false;
 	    break;
 	case REC_DONE:
 	    lbl_state->setText(i18n("done."));
@@ -671,6 +678,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_stop     = false;
 	    enable_record   = true;
 	    enable_settings = true;
+	    enable_trigger  = true;
 	    break;
     }
 
@@ -685,17 +693,19 @@ void RecordDialog::setState(RecordState state)
     chkRecordPre->setEnabled(enable_settings);
     sbRecordPre->setEnabled(enable_settings &&
                             chkRecordPre->isChecked());
+    slRecordPre->setEnabled(enable_settings &&
+                            chkRecordPre->isChecked());
 
     chkRecordTime->setEnabled(enable_settings);
     sbRecordTime->setEnabled(enable_settings &&
                              chkRecordTime->isChecked());
     chkRecordTrigger->setEnabled(enable_settings);
 
-// it is not really necessary to disable these ;-)
-//     sbRecordTrigger->setEnabled(enable_settings &&
-//                                 chkRecordTrigger->isChecked());
-//     slRecordTrigger->setEnabled(enable_settings &&
-//                                 chkRecordTrigger->isChecked());
+    // it is not really necessary to disable these ;-)
+    sbRecordTrigger->setEnabled(enable_trigger &&
+                                chkRecordTrigger->isChecked());
+    slRecordTrigger->setEnabled(enable_trigger &&
+                                chkRecordTrigger->isChecked());
 
     grpFormat->setEnabled(enable_settings);
     grpSource->setEnabled(enable_settings);

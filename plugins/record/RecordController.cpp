@@ -213,16 +213,16 @@ void RecordController::deviceBufferFull()
 	    // -> will change to "REC_BUFFERING" soon...
 	    break;
 	case REC_BUFFERING:
-	    if (m_trigger_set) {
-		// trigger was set
-		qDebug("RecordController::deviceBufferFull "\
-		       "-> REC_WAITING_FOR_TRIGGER");
-		m_state = REC_WAITING_FOR_TRIGGER;
-	    } else if (m_enable_prerecording) {
+	    if (m_enable_prerecording) {
 		// prerecording was set
 		qDebug("RecordController::deviceBufferFull "\
 		       "-> REC_PRERECORDING");
 		m_state = REC_PRERECORDING;
+	    } else if (m_trigger_set) {
+		// trigger was set
+		qDebug("RecordController::deviceBufferFull "\
+		       "-> REC_WAITING_FOR_TRIGGER");
+		m_state = REC_WAITING_FOR_TRIGGER;
 	    } else {
 		// default: just start recording
 		qDebug("RecordController::deviceBufferFull "\
@@ -252,7 +252,6 @@ void RecordController::deviceTriggerReached()
     switch (m_state) {
 	case REC_EMPTY:
 	case REC_BUFFERING:
-	case REC_PRERECORDING:
 	case REC_RECORDING:
 	case REC_PAUSED:
 	case REC_DONE:
@@ -260,9 +259,12 @@ void RecordController::deviceTriggerReached()
 	    qWarning("RecordController::deviceTriggerReached(): "
 	             "state = %s ???", state2str(m_state));
 	    break;
+	case REC_PRERECORDING:
 	case REC_WAITING_FOR_TRIGGER:
 	    Q_ASSERT(m_trigger_set);
-	    if (m_enable_prerecording) {
+	    if ((m_enable_prerecording) &&
+	        (m_state == REC_WAITING_FOR_TRIGGER))
+	    {
 		// prerecording was set
 		qDebug("RecordController::deviceTriggerReached "\
 		       "-> REC_PRERECORDING");

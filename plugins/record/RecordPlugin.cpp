@@ -975,7 +975,9 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     // check for trigger
     // note: this might change the state, which affects the
     //       processing all tracks !
-    if (m_state == REC_WAITING_FOR_TRIGGER) {
+    if ((m_state == REC_WAITING_FOR_TRIGGER) ||
+        ((m_state == REC_PRERECORDING) && (params.record_trigger_enabled)))
+    {
 	for (unsigned int track=0; track < tracks; ++track) {
 	    // split off and decode buffer with current track
 	    split(buffer, buf, bytes_per_sample, track, tracks);

@@ -89,7 +89,10 @@ int KwaveApp::newInstance()
 	// open a window for each file specified in the
 	// command line an load it
 	for (unsigned int i = 0; i < argc; i++) {
-	    QFileInfo file(args->arg(i));
+	    QString name;
+	    name = QString::fromLocal8Bit(args->arg(i));
+	    QFileInfo file(name);
+
 	    newWindow(file.absFilePath());
 	}
     }

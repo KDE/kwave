@@ -159,8 +159,12 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 	list = 0;
     }
 
-    if (m_dialog) delete m_dialog;
-    m_dialog = 0;
+    if (m_dialog) {
+	fileInfo().setLength(signalLength());
+	fileInfo().setTracks(m_dialog->params().tracks);
+	delete m_dialog;
+	m_dialog = 0;
+    }
 
     if (m_thread) delete m_thread;
     m_thread = 0;

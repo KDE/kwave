@@ -247,6 +247,9 @@ int SignalManager::loadFile(const KURL &url)
 	    unsigned int new_length = writers.last();
 	    if (new_length) new_length++;
 	    m_file_info.setLength(new_length);
+	} else {
+	    m_file_info.setLength(this->length());
+	    m_file_info.setTracks(tracks);
 	}
 
 	// update the length info in the progress dialog if needed
@@ -457,10 +460,12 @@ void SignalManager::newSignal(unsigned int samples, double rate,
     m_empty = false;
 
     // add all empty tracks
+    m_file_info.setTracks(tracks);
     while (tracks--) m_signal.appendTrack(samples);
 
     // remember the last length
     m_last_length = samples;
+    m_file_info.setLength(length());
 
     // from now on, undo is enabled
     enableUndo();

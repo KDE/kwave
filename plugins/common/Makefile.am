@@ -102,14 +102,16 @@ DISTCLEANFILES	 = Makefile.in Makefile
 	@echo plugin \"$(MODNAME)\": extracting code with MOC for $<
 	@ @MOC@ -nw $< -o $@
 
-        # make the right order: first build the .d/.dm files then the .o
-# ${OUT_FILES}: ${DEP_FILES}
+        # make the right order: first build the .uih files,
+        # then the .d/.dm files then the .o
+${DEP_FILES}: ${uih_files}
+${OUT_FILES}: ${DEP_FILES}
 
 ${idl_header}: ${idl_files}
 
 ${idl_impl}: ${idl_files}
 
-.depend: ${uih_files} ${DEP_FILES}
+.depend: ${DEP_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@
 	@ cat ${DEP_FILES} > $@
 
@@ -124,11 +126,11 @@ ${idl_impl}: ${idl_files}
 
 dep depend: .depend
 
-$(MODNAME): ${uih_files} ${uic_files} ${moc_files} .depend ${OUT_FILES}
+$(MODNAME): depend ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
 	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
 
-all: $(MODNAME)
+all: depend $(MODNAME)
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

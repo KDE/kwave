@@ -22,25 +22,43 @@
 #include <qmap.h>
 #include <qstring.h>
 #include <qvariant.h>
+#include "libkwave/TypesMap.h"
 
-/** name of the file */
-#define INF_FILENAME "filename"
+/**
+ * @enum FileProperty
+ * Enumeration type that lists all file properties. If you extend this list,
+ * please don't forget to add a verbose name and a description it in
+ * FileInfo.cpp
+ */
+typedef enum {
+    INF_FILENAME = 0,        /**< name of the file */
+    INF_MIMETYPE,            /**< mime type of the file format */
+    INF_NAME,                /**< name of the song or whatever */
+    INF_AUTHOR,              /**< name of the author/artist */
+    INF_ANNOTATION,          /**< annotation/comment */
+    INF_ARCHIVAL,            /**< archival location */
+    INF_ARTIST,              /**< name ot the artist */
+    INF_COMMISSIONED,        /**< commissioned */
+    INF_COMMENTS,            /**< comments */
+    INF_COPYRIGHT,           /**< copyright */
+    INF_CREATION_DATE,       /**< creation date */
+    INF_ENGINEER,            /**< engineer */
+    INF_GENRE,               /**< genre */
+    INF_KEYWORDS,            /**< keywords */
+    INF_MEDIUM,              /**< medium */
+    INF_PRODUCT,             /**< product */
+    INF_SOFTWARE,            /**< software */
+    INF_SOURCE_FORM,         /**< source form */
+    INF_TECHNICAN,           /**< technican */
+    INF_SUBJECT,             /**< subject */
+    INF_SAMPLE_FORMAT,       /**< sample format */
+    INF_SAMPLE_FORMAT_NAME   /**< verbose name of the sample format */
+} FileProperty;
 
-/** mime type describing the file format */
-#define INF_MIMETYPE "mimetype"
-
-/** name of the song, file or whatever */
-#define INF_NAME "name"
-
-/** name of the author/artist */
-#define INF_AUTHOR "author"
-
-/** copyright string */
-#define INF_COPYRIGHT "copyright"
-
-/** annotation/comment */
-#define INF_ANNOTATION "annotation"
-
+/**
+ * @class FileInfo
+ * Holds various properties of a file.
+ */
 class FileInfo
 {
 public:
@@ -79,26 +97,26 @@ public:
     inline void setTracks(unsigned int tracks) { m_tracks = tracks; };
 
     /** Returns true if the given property exists */
-    inline bool contains(const QString &name) {
-	return m_properties.contains(name);
+    inline bool contains(const FileProperty property) {
+	return m_properties.contains(property);
     };
 
     /**
      * Sets a property to a new value. If the property does not already
      * exist, a new one will be added to the info. If an empty value is
      * passed, the property will be removed if exists.
-     * @param name string with the property's name, case-sensitive
+     * @param key identifies the property
      * @param value a QVariant with the new value
      */
-    virtual void set(const QString &name, const QVariant &value);
+    virtual void set(FileProperty key, const QVariant &value);
 
     /**
      * Returns the value of a property. If the property does not exist,
      * an empty value will be returned.
-     * @param name string with the property's name, case-sensitive
+     * @param key identifies the property
      * @return value of the property or empty if not found
      */
-    virtual const QVariant &get(const QString &name);
+    virtual const QVariant &get(FileProperty key);
 
     /** Clears the list of all properties. */
     virtual void clear();
@@ -123,7 +141,21 @@ protected:
 protected: /* needed by copy constructor */
 
     /** list of properties */
-    QMap<QString, QVariant> m_properties;
+    QMap<FileProperty, QVariant> m_properties;
+
+private:
+
+    /**
+     * Pre-filled map with property names and descriptions
+     */
+    class PropertyTypesMap: public TypesMap<FileProperty, int>
+    {
+    public:
+        virtual void fill();
+    };
+
+    /** map with properties and their names and descriptions */
+    PropertyTypesMap m_property_map;
 
 };
 

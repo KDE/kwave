@@ -52,10 +52,61 @@ extern "C" {
 #define CHECK(cond) ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
 //***************************************************************************
+void WavDecoder::addProperty(const FileProperty property,
+                             const QCString &chunk_name)
+{
+    m_known_chunks.append(chunk_name);
+    m_property_map[property] = chunk_name;
+}
+
+//***************************************************************************
 WavDecoder::WavDecoder()
-    :Decoder(), m_source(0), m_src_adapter(0)
+    :Decoder(), m_source(0), m_src_adapter(0)/*, m_known_chunks(),
+     m_property_map()*/
 {
     LOAD_MIME_TYPES;
+
+    // native WAVE chunk names
+    m_known_chunks.append("cue "); /* Markers */
+    m_known_chunks.append("data"); /* Sound Data */
+    m_known_chunks.append("fmt "); /* Format */
+    m_known_chunks.append("inst"); /* Instrument */
+    m_known_chunks.append("labl"); /* label */
+    m_known_chunks.append("ltxt"); /* labeled text */
+    m_known_chunks.append("note"); /* note chunk */
+    m_known_chunks.append("plst"); /* Play List */
+    m_known_chunks.append("smpl"); /* Sampler */
+
+    // some sub-chunks from the LIST chunk
+//    addProperty("IARL", INF_ARCHIVAL);
+    m_known_chunks.append("IARL"); // archival location
+    m_known_chunks.append("IART"); // artist
+    m_known_chunks.append("ICMS"); // commissioned
+    m_known_chunks.append("ICMT"); // comments
+    m_known_chunks.append("ICOP"); // copyright
+    m_known_chunks.append("ICRD"); // creation date (iso)
+    m_known_chunks.append("IENG"); // engineer
+    m_known_chunks.append("IGNR"); // genre
+    m_known_chunks.append("IKEY"); // keywords
+    m_known_chunks.append("IMED"); // medium
+    m_known_chunks.append("INAM"); // name
+    m_known_chunks.append("IPRD"); // product
+    m_known_chunks.append("ISFT"); // software
+    m_known_chunks.append("ISRC"); // source
+    m_known_chunks.append("ISRF"); // source form
+    m_known_chunks.append("ITCH"); // technican
+    m_known_chunks.append("ISBJ"); // subject
+
+    // some chunks known from AIFF format
+    m_known_chunks.append("FVER");
+    m_known_chunks.append("COMM");
+    m_known_chunks.append("wave");
+    m_known_chunks.append("SSND");
+
+    // chunks of .lbm image files, IFF format
+    m_known_chunks.append("BMHD");
+    m_known_chunks.append("CMAP");
+    m_known_chunks.append("BODY");
 }
 
 //***************************************************************************
@@ -92,45 +143,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     main_chunks.append("LIST"); /* additional information */
     main_chunks.append("adtl"); /* Associated Data */
 
-    QStringList known_chunks;
-
-    // native WAVE chunk names
-    known_chunks.append("cue "); /* Markers */
-    known_chunks.append("data"); /* Sound Data */
-    known_chunks.append("fmt "); /* Format */
-    known_chunks.append("inst"); /* Instrument */
-    known_chunks.append("labl"); /* label */
-    known_chunks.append("ltxt"); /* labeled text */
-    known_chunks.append("note"); /* note chunk */
-    known_chunks.append("plst"); /* Play List */
-    known_chunks.append("smpl"); /* Sampler */
-
-    // some sub-chunks from the LIST chunk
-    known_chunks.append("IART");
-    known_chunks.append("ICMT");
-    known_chunks.append("ICOP");
-    known_chunks.append("IENG");
-    known_chunks.append("IGNR");
-    known_chunks.append("IKEY");
-    known_chunks.append("IMED");
-    known_chunks.append("INAM");
-    known_chunks.append("ISRC");
-    known_chunks.append("ITCH");
-    known_chunks.append("ISBJ");
-    known_chunks.append("ISRF");
-
-    // some chunks known from AIFF format
-    known_chunks.append("FVER");
-    known_chunks.append("COMM");
-    known_chunks.append("wave");
-    known_chunks.append("SSND");
-
-    // chunks of .lbm image files, IFF format
-    known_chunks.append("BMHD");
-    known_chunks.append("CMAP");
-    known_chunks.append("BODY");
-
-    RIFFParser parser(src, main_chunks, known_chunks);
+    RIFFParser parser(src, main_chunks, m_known_chunks);
 
     // prepare a progress dialog
     QProgressDialog progress(widget, "Auto-Repair", true);
@@ -385,8 +398,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info().setBits(bits);
     info().setTracks(tracks);
     info().setLength(length);
-    info().set("sample format", sample_format);
-    info().set("sample format name", sample_format_name);
+    info().set(INF_SAMPLE_FORMAT, sample_format);
+    info().set(INF_SAMPLE_FORMAT_NAME, sample_format_name);
 
     // set up libaudiofile to produce Kwave's internal sample format
 #if defined(IS_BIG_ENDIAN)

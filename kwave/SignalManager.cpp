@@ -264,17 +264,18 @@ int SignalManager::save(const KURL &url, unsigned int bits, bool selection)
 	    openMultiTrackReader(src, allTracks(), ofs, ofs+len-1);
 	}
 	
-	// create file information
-	FileInfo info;
-	info.setLength(len);
-	info.setRate(rate());
-	info.setBits(bits);
-	info.setTracks(tracks);
+	// update the file information
+	m_file_info.setLength(len);
+	m_file_info.setRate(rate());
+	m_file_info.setBits(bits);
+	m_file_info.setTracks(tracks);
+	m_file_info.set(INF_FILENAME, filename);
 	
 	//prepare and show the progress dialog
 	FileProgress *dialog = new FileProgress(m_parent_widget,
-	    filename, info.tracks()*info.length(), info.length(),
-	    info.rate(), info.bits(), info.tracks());
+	    filename, m_file_info.tracks()*m_file_info.length(),
+	    m_file_info.length(), m_file_info.rate(), m_file_info.bits(),
+	    m_file_info.tracks());
 	ASSERT(dialog);
 	QObject::connect(&src,   SIGNAL(progress(unsigned int)),
 	                 dialog, SLOT(setValue(unsigned int)));
@@ -282,7 +283,7 @@ int SignalManager::save(const KURL &url, unsigned int bits, bool selection)
 	                 &src,   SLOT(cancel()));
 	
 	// invoke the encoder...
-	if (!encoder->encode(m_parent_widget, src, dst, info)) {
+	if (!encoder->encode(m_parent_widget, src, dst, m_file_info)) {
 	    KMessageBox::error(m_parent_widget,
 	        i18n("An error occurred while reading the file!"));
 	    res = -1;

@@ -20,13 +20,17 @@
 
 #include "config.h"
 #include <qlist.h>
+#include <qstring.h>
+#include <qstringlist.h>
 #include <qobject.h>
 #include "libkwave/Decoder.h"
+#include "libkwave/FileInfo.h"
 
 class RecoverySource;
 class RIFFChunk;
 class RIFFParser;
 class VirtualAudioFile;
+class QCString;
 
 class WavDecoder: public Decoder
 {
@@ -81,11 +85,23 @@ protected:
 
 private:
 
+    /** adds an entry to m_known_chunks and to m_property_map */
+    void addProperty(const FileProperty property, const QCString &chunk_name);
+
+private:
+
     /** source of the audio data */
     QIODevice *m_source;
 
     /** adapter for libaudiofile */
     VirtualAudioFile *m_src_adapter;
+
+    /** list of all known chunk names */
+    QStringList m_known_chunks;
+
+    /** map for translating chunk names to FileInfo properties */
+    QMap<FileProperty, QCString> m_property_map;
+
 };
 
 #endif /* _WAV_DECODER_H_ */

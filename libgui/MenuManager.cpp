@@ -21,9 +21,10 @@
 
 //*****************************************************************************
 MenuManager::MenuManager (QWidget *parent, KMenuBar &bar)
-  :QObject(parent) , menu_root(*(new MenuRoot(bar)))
+  :QObject(parent)
 {
     debug("MenuManager::MenuManager(%p,%p)", parent, &bar);
+    menu_root = new MenuRoot(bar);
 }
 
 //*****************************************************************************
@@ -64,7 +65,7 @@ int parseToKeyCode (char *key)
 
 void MenuManager::setCommand (const char *command)
 {
-    debug("MenuManager::setCommand(%s)",command); // ###
+//    debug("MenuManager::setCommand(%s)",command); // ###
 
     Parser parser(command);
 
@@ -93,8 +94,7 @@ void MenuManager::setCommand (const char *command)
     tmp=parser.getNextParam();
     if (tmp) id=duplicateString(tmp);
 
-    ((MenuNode*)(&menu_root))->insertNode((const char*)com, (char*)0, pos,
-	(const char *)key, (const char *)id); // ###
+    menu_root->insertNode(com, 0, pos, key, id); // ###
 /* ###
 
     debug("com='%s', pos='%s', key='%s', id='%s'", com, pos, key, id); // ###
@@ -321,7 +321,8 @@ MenuManager::~MenuManager ()
 // ###  toplevelmenus.clear();
 // ###  numberedMenus.clear();
 // ###  menuIDs.clear();
-    menu_root.clear();
+// ###    menu_root->clear();
+    delete menu_root;
 }
 
 /* end of MenuManager.cpp */

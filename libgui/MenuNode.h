@@ -36,17 +36,22 @@ class MenuCommand;
  * the ToplevelMenu class.
  * @author Thomas Eschenbacher
  */
-class MenuNode: public QObject {
+class MenuNode: virtual public QObject {
     Q_OBJECT
 
 public:
     MenuNode             (const char *name);
-    virtual ~MenuNode    ();
+    virtual ~MenuNode();
 
     inline const char   *getName     () const {return name;};
 
     inline int           getId()       {return this->id;};
     inline void          setId(int id) {this->id=id;};
+
+    virtual int getIndex() {return -1;};
+    virtual int getChildIndex(const int id);
+
+    virtual bool isBranch() {return false;};
 
 /* ###
   inline bool          isTopLevel  () { return toplevel;};
@@ -94,18 +99,26 @@ public:
     /** Tries to find a child node by it's name */
     MenuNode *findChild(const char *name);
 
-    virtual MenuNode *insertBranch(char *name, const char *key,
-                                   const char *uid);
 
-    virtual int insertLeaf(const char *command, char *name,
-                           const char *key, const char *uid);
+    MenuNode *findChild(const int id);
+
+    virtual void removeChild(const int id);
+
+    virtual MenuNode *insertBranch(char *name, const char *key,
+                                   const char *uid, const int index=-1);
+
+    virtual MenuNode *insertLeaf(const char *command, char *name,
+                                 const char *key, const char *uid,
+                                 const int index=-1);
 
     /** Inserts a new child node into the current menu node. */
-    virtual int insertNode(MenuNode *node);
+    virtual int registerChild(MenuNode *node);
 
     /** Inserts a new child node into the structure (also children) */
     virtual int insertNode(const char *command, char *name, char *position,
 	                   const char *key, const char *uid);
+
+    virtual bool specialCommand(const char *command);
 
 signals: // Signals
 

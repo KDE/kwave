@@ -44,7 +44,7 @@ class MenuManager: public QObject
 
  private:
     /** root node of the menu structure */
-    MenuRoot &menu_root;
+    MenuRoot *menu_root;
 };
 
 #endif

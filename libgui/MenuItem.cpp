@@ -24,3 +24,9 @@ MenuItem::MenuItem(const char *name)
   :MenuNode(name)
 {
 }
+
+int MenuItem::getIndex()
+{
+    MenuNode *parent = getParentNode();
+    return (parent) ? parent->getChildIndex(getId()) : -1;
+}

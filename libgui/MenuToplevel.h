@@ -32,6 +32,7 @@ class MenuToplevel : public MenuSub
 public: // Public methods
     MenuToplevel (const char *name);
     // virtual bool setEnabled();
+
 };
 
 #endif

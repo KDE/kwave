@@ -15,8 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <kapp.h>
 #include <kmenubar.h>
 
+#include "MenuItem.h"
+#include "MenuToplevel.h"
 #include "MenuRoot.h"
 
 /**
@@ -24,31 +27,47 @@
  * @param bar reference to a KMenuBar
  */
 MenuRoot::MenuRoot(KMenuBar &bar)
-    :MenuNode(0), menu_bar(bar)
+    :MenuNode("(root)"), menu_bar(bar)
 {
 }
 
-/**
- * Inserts a menu node into the menu bar (if not null)
- * @param node pointer to a MenuNode object, normally this is a
- *             toplevel menu.
- * @return the unique id of the item or -1 on errors
- */
-int MenuRoot::insertNode(MenuNode *node)
+int MenuRoot::getChildIndex(const int id)
 {
-    if (!node) return -1;
-
-    int new_id = MenuNode::insertNode(node);
-    menu_bar.insertItem(node->getName(), new_id);
-
-    return new_id;
+    for (unsigned int i=0; i < menu_bar.count(); i++) {
+	if (menu_bar.idAt(i) == id) return i;
+    }
+    return -1;
 }
 
-MenuNode *MenuRoot::insertBranch(char *name, const char *key, const char *uid)
+MenuNode *MenuRoot::insertBranch(char *name, const char *key,
+                                 const char *uid, const int index)
 {
-    MenuNode *node = new MenuNode(name);
-    insertNode(node);
+    MenuToplevel *node = new MenuToplevel(name);
+    int new_id = registerChild(node);
+    int retval=menu_bar.insertItem(klocale->translate(name),
+	node->getPopupMenu(), new_id, index);
+    debug("MenuRoot::insertBranch(%s): retval=%d, new_id=%d", name, retval, new_id);
     return node;
+}
+
+MenuNode *MenuRoot::insertLeaf(const char *command, char *name,
+                               const char *key, const char *uid,
+                               const int index)
+{
+    MenuItem *item = new MenuItem(name);
+    int new_id = registerChild(item);
+    int retval = menu_bar.insertItem(klocale->translate(name),
+	new_id, index);
+
+    debug("MenuRoot::insertLeaf(%s): retval=%d, new_id=%d", name, retval, new_id);
+    return item;
+}
+
+void MenuRoot::removeChild(const int id)
+{
+    debug("MenuRoot::removeChild(%d)", id);
+    MenuNode::removeChild(id);
+    menu_bar.removeItem(id);
 }
 
 /* end of MenuRoot.cpp */

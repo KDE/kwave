@@ -31,6 +31,7 @@ class MenuItem : public MenuNode {
 public: // Public methods
 
     MenuItem(const char *name);
+    virtual int getIndex();
 
 };
 

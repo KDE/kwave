@@ -35,11 +35,16 @@ public: // Public methods
 
     MenuRoot(KMenuBar &bar);
 
-    /** Inserts a new child node into the current structure. */
-    virtual int insertNode(MenuNode *node);
+    virtual int getChildIndex(const int id);
 
     virtual MenuNode *insertBranch(char *name, const char *key,
-                                   const char *uid);
+                                   const char *uid, const int index=-1);
+
+    virtual MenuNode *insertLeaf(const char *command, char *name,
+                                 const char *key, const char *uid,
+                                 const int index=-1);
+
+    virtual void removeChild(const int id);
 
 private: // Private attributes
 

@@ -34,6 +34,22 @@ class MenuSub : public MenuNode
 public: // Public methods
     MenuSub (const char *name);
 
+    virtual int getChildIndex(const int id);
+    virtual bool isBranch() {return true;};
+
+    virtual MenuNode *insertBranch(char *name, const char *key,
+                                   const char *uid, const int index=-1);
+
+    virtual MenuNode *insertLeaf(const char *command, char *name,
+                                 const char *key, const char *uid,
+                                 const int index=-1);
+
+    virtual QPopupMenu *getPopupMenu();
+
+    virtual void removeChild(const int id);
+
+    virtual bool specialCommand(const char *command);
+
 private:
     QPopupMenu *menu;
 

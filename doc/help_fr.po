@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-02-06 23:48GMT\n"
+"PO-Revision-Date: 2002-02-07 00:24GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2770,9 +2770,9 @@ msgid ""
 "\">Ctrl</keycap> key you can modify this and drag in <emphasis>copy</"
 "emphasis> mode instead."
 msgstr ""
-"Vous pouvez aussi faire une sélection dans un fichier sonore et faire un tirer / lacher à un "
+"Vous pouvez aussi faire une sélection dans un fichier sonore et faire un tirer / déposer à un "
 " autre endroit dans l'espace de travail de &kapp;. Par defaut, la sélection est <emphasis>déplacée</emphasis> "
-" de son emplacement d'origine et elle est insérée à l'emplacement ou on la lache. En appuyant "
+" de son emplacement d'origine et elle est insérée à l'emplacement ou on la dépose. En appuyant "
 " sur la touche <keycap moreinfo=\"none\">Ctrl</keycap> vous pouvez modifier ce comportement "
 " pour <emphasis>copier</emphasis> la sélection."
 
@@ -2875,7 +2875,7 @@ msgstr ""
 "keycombo> </shortcut><guimenu>Fichier</guimenu><guimenuitem>Nouveau...</"
 "guimenuitem> </menuchoice>) et mettre un fichier sonore dans l'espace de "
 "travail de cette fenêtre via le  <link linkend=\"drag_and_drop\">tirer / "
-"lacher</link>."
+"déposer</link>."
 
 #: index.docbook:1961
 msgid ""
@@ -3234,7 +3234,7 @@ msgid ""
 msgstr ""
 "Selectionner entiérement la piste sonore : <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
 "keycap><keycap>A</keycap></keycombo></shortcut> <guimenu>Edition</"
-"guimenu><guimenuitem>Sélection</guimenuitem><guimenuitem>Tout</guimenuitem> </"
+"guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Tout</guimenuitem> </"
 "menuchoice>"
 
 #: index.docbook:2194
@@ -3246,7 +3246,7 @@ msgid ""
 msgstr ""
 "Une plage d'échantillons, commençant à la postion courante du curseur : <menuchoice> "
 "<shortcut><keycombo><keycap>R</keycap></keycombo></shortcut> <guimenu>Edition</"
-"guimenu><guimenuitem>Sélection</guimenuitem><guimenuitem>Plage</guimenuitem> "
+"guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Plage</guimenuitem> "
 "</menuchoice>"
 
 #: index.docbook:2194
@@ -3256,7 +3256,7 @@ msgid ""
 "guimenuitem><guimenuitem>Visible</guimenuitem> </menuchoice>"
 msgstr ""
 "La zone visible courante : <menuchoice> <shortcut><keycombo><keycap>V</"
-"keycap></keycombo></shortcut> <guimenu>Edition</guimenu><guimenuitem>Sélection</"
+"keycap></keycombo></shortcut> <guimenu>Edition</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Région visible</guimenuitem> </menuchoice>"
 
 #: index.docbook:2194
@@ -3270,7 +3270,7 @@ msgstr ""
 "Le prochain block d'échantillons, commençant au premier échantillon aprés la fin de la sélection "
 " courrante et avec la même largeur : <menuchoice> <shortcut><keycombo><keycap>Shift</keycap>"
 "<keycap>+</keycap></keycombo></shortcut><guimenu>Editon</guimenu><guimenuitem>"
-"Sélection</guimenuitem><guimenuitem>Suivant</guimenuitem></menuchoice>"
+"Selection</guimenuitem><guimenuitem>Suivant</guimenuitem></menuchoice>"
 
 #: index.docbook:2194
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
@@ -3287,7 +3287,7 @@ msgstr ""
 "Le précédent block d'échantillons, finisant au premier échantillon avant le début de la sélection "
 " courrante et avec la même largeur : <menuchoice><shortcut><keycombo><keycap>Shift</keycap> "
 "<keycap>-</keycap></keycombo></shortcut><guimenu>Editon</guimenu><guimenuitem> "
-"Sélection</guimenuitem><guimenuitem>Précédent</guimenuitem></menuchoice>"
+"Selection</guimenuitem><guimenuitem>Précédent</guimenuitem></menuchoice>"
 
 #: index.docbook:2194
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
@@ -3300,6 +3300,10 @@ msgid ""
 "shortcut> <guimenu>File</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>to start</guimenuitem> </menuchoice>"
 msgstr ""
+"Etendre la sélection jusqu'au début de la piste sonore (premier échantillon) : <menuchoice>"
+"<shortcut><keycombo><keycap>Shift</keycap><keycap>Home</keycap></keycombo></shortcut>"
+"<guimenu>Edition</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem> "
+"Au début</guimenuitem></menuchoice>"
 
 #: index.docbook:2194
 msgid ""
@@ -3310,7 +3314,7 @@ msgid ""
 msgstr ""
 "Etendre la sélection jusqu'à la fin de la piste sonore (dernier échantillon) : <menuchoice>"
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>End</keycap></keycombo></shortcut>"
-"<guimenu>Edition</guimenu><guimenuitem>Sélection</guimenuitem><guimenuitem>A la fin"
+"<guimenu>Edition</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>A la fin"
 "</guimenuitem></menuchoice>"
 
 #: index.docbook:2194
@@ -3321,7 +3325,7 @@ msgid ""
 "guimenuitem> </menuchoice>"
 msgstr ""
 "Retirer la sélection et ne \"rien\" sélectionner : <menuchoice><shortcut><keycombo><keycap>N"
-"</keycap></keycombo></shortcut> <guimenu>Editon</guimenu><guimenuitem>Sélection"
+"</keycap></keycombo></shortcut> <guimenu>Editon</guimenu><guimenuitem>Selection"
 "</guimenuitem><guimenuitem>Rien</guimenuitem></menuchoice>"
 
 #: index.docbook:2396
@@ -3341,6 +3345,12 @@ msgid ""
 "time for writing a tool that converts the doxygen output into something we "
 "can include into the docbook source (the source this page has been built of)."
 msgstr ""
+"Désolé, mais ce chapitre n'est pas encore écrit... pour le moment, le code source "
+" n'est pas encore documenté avec des anotations écrites avec les outils de rédaction de "
+" documentation fournis avec KDE. Nous préférons utiliser le logiciel <ulink url=\"http://www.stack."
+"nl/~dimitri/doxygen\">doxygen</ulink>. Peut être que dans quelques temps un utilitaire pourra "
+" convertir les annotations faites avec doxygen vers un document au format docbook "
+" (Le source de cette aide à été faite de cette maniére)."
 
 #: index.docbook:2419
 msgid ""
@@ -3349,14 +3359,18 @@ msgid ""
 "of the authors directly and / or subscribe to the &kapp; <link linkend="
 "\"mailing-list\">mailing list</link>. Help is always welcome!"
 msgstr ""
+"Si vous voulez écrire un plugin, contribuer au projet (ou peut être écrire un outil de conversion "
+" mentionné précédement), veuillez prendre contact directement avec un des auteurs et / ou "
+" vous enregistrer à la <link linkend=\"mailing-list\">liste de diffusion</link> de &kapp;. "
+" De l'aide est toujours la bien venue !"
 
 #: index.docbook:2436
 msgid "Questions and Answers"
-msgstr ""
+msgstr "Foire aux questions"
 
 #: index.docbook:2438
 msgid "<para></para>"
-msgstr ""
+msgstr "<para></para>"
 
 #: index.docbook:2444
 msgid "What do I need to compile &kapp;?"

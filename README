@@ -60,17 +60,17 @@ Installing the rpm package normally requires root permissions.
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
 
-Simply get the source archive (for example kwave-0.6.0.tar.gz) and
+Simply get the source archive (for example kwave-0.6.2.tar.gz) and
 then type:
 
 export QTDIR=/usr/lib/qt2
 export KDEDIR=/opt/kde2
-rpm -ta kwave-0.6.0.tar.gz
+rpm -ta kwave-0.6.2.tar.gz
 
 If you want to build for a different architecture than your current, you
 might want to add the parameter "--target=...", for example:
 
-rpm -ta --target=i586 kwave-0.6.0.tar.gz
+rpm -ta --target=i586 kwave-0.6.2.tar.gz
 
 compiles for pentium architecture.
 
@@ -110,7 +110,7 @@ For example: you got the binary rpm from a friend who has a SuSE system
 the KDE2 base dir is /usr). Then just give a different prefix when installing
 the rpm:
 
-rpm -ivh --prefix=/usr kwave-0.6.0.i386.rpm
+rpm -ivh --prefix=/usr kwave-0.6.2.i386.rpm
 
 This modifies the path where the program is installed and it is strongly
 recommended that this is a directory that is contained in the KDEDIRS
@@ -154,55 +154,19 @@ Then go to chapter 1 and do ./configure / make / make install...
 tar.gz archive or source RPM - but it is the only way to get the
 online help if you checked out via CVS)
 
-First of all, read the instructions there:
-"http://i18n.kde.org/doc/install/index.html"
+Since version 0.6.2 you do no longer need those docbook utils :)
+Instead you will need
 
-for SuSE 7.2 you might need:
-----------------------------
-
-* sgml-skel
-* sp
-* sp_libs
-* jade_dsl
-* sgmltool
-* docbook-utils (this one contains the "jw")
-* docbktls
-* docbook-dsssl-stylesheets
-* docbook-xsl-stylesheets
-* docbook_3
-* docbook_4
-* html-dtd
-* iso_ent
-
-I got it working with those packages (order is important!!!):
-rpm -Uvh --force --nodeps docbook-dtd31-sgml-1.0-6.noarch.rpm
-rpm -Uvh --force --nodeps sgml-common-0.6.1-1.noarch.rpm
-rpm -Uvh --force --nodeps docbook-dtd31-sgml-1.0-6.noarch.rpm
-rpm -Uvh --force --nodeps docbook-utils-0.6.6-1.noarch.rpm
-rpm -Uvh --force --nodeps docbook-style-dsssl-1.61-1.noarch.rpm
-
-all other distributions:
-------------------------
-
-try to install the following packages,
-e.g. from ftp://ftp.kde.org/pub/kde/devel/docbook/
-
-* jade-1.2.1-6
-* perl-SGMLSpm-1.03ii-3
-* sgml-common-0.6.1-1
-* sgmltool-1.0.9-278
-* jadetex-2.20-6
-* docbook-dtd31-sgml-1.0-6
-* docbook-utils-0.6.6-1
-* docbook-style-dsssl-1.61-1
-
+- po2xml and xml2pot (included in the "kdesdk-2.2.x" package)
+- msgmerge (included in the "gettext" package)
+- kbabel (also included in kdesdk-2.2.x)
 
 6. REQUIREMENTS:
 ===============
 
 For compilation you need a working autoconf/automake environment, a good
 C/C++ compiler, the qt2 and the kde2 libraries. I am currently developing
-under a SuSE-7.1 distribution (i386 architecture) using at least the
+under a SuSE-7.2 distribution (i386 architecture) using at least the
 following packages:
 
 * autoconf-2.13-283
@@ -220,14 +184,14 @@ packets should be sufficient for building:
 
 * qt-2.3.0-13 + qt-devel-2.4.0-13    (the Qt-2 library)
 * qt-designer-2.3.0-10               (for designing new-style dialogue windows)
-* kdelibs-(devel-)2.1.2-0            (the KDE2 base libraries)
-* kdemultimedia-(devel-)2.1.1-6      (multimedia/aRts support)
-* kdesdk-2.1.1-7                     (some additional tools)
+* kdelibs-(devel-)2.2.x              (the KDE2 base libraries)
+* kdemultimedia-(devel-)2.2.x        (multimedia/aRts support)
+* kdesdk-2.2.x                       (some additional tools)
 
 known distributions / architectures:
 ------------------------------------
 
-* SuSE-7.2 / i386, i686
+* SuSE-7.2 / i386, i686 (also with KDE-2.2 from ftp.kde.org)
   [where I currently develop]
 
 * SuSE-7.1 / i386, i586

@@ -46,6 +46,38 @@ private slots:
     /** updates the verbose description of the number of tracks */
     void tracksChanged(int tracks);
 
+protected:
+
+    /**
+     * Sets the tooltip and "what's this" of a widget.
+     * @param widget any QWidget derived widget
+     * @param name of the setting, normally equal to it's label
+     * @param description verbose descriptive text that says
+     *        what can be set
+     */
+    void describeWidget(QWidget *widget, const QString &name,
+                        const QString &description);
+
+    /**
+     * Sets the text of the label to the name of a file property and
+     * initializes the tool tip of the corresponding edit/display control.
+     * @param label the label to be set
+     * @param widget the control to get the tool tip
+     * @param property the file property which it belongs to
+     */
+    void initInfo(QLabel *label, QWidget *widget, FileProperty property);
+
+    /**
+     * Same as initInfo, but works only for text edit controls and sets
+     * the current text
+     */
+    void initInfoText(QLabel *label, QLineEdit *edit, FileProperty property);
+
+private:
+
+    /** initializes the "File" tab */
+    void setupFileInfo();
+
 private:
 
     /** FileInfo to be edited */

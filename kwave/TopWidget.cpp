@@ -207,7 +207,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 
     // --- set up the toolbar ---
 
-    m_toolbar = new KToolBar(this, i18n("toolbar"));
+    m_toolbar = new KToolBar(this, "toolbar");
     ASSERT(m_toolbar);
     if (!m_toolbar) return;
     m_toolbar->setBarPos(KToolBar::Top);

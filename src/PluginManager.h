@@ -21,6 +21,8 @@
 #include "qobject.h"
 #include "qlist.h"
 
+#include "libgui/SignalProxy.h"
+
 class KwavePlugin;
 class QStrList;
 class TopWidget;
@@ -55,11 +57,41 @@ public:
      */
     virtual ~PluginManager();
 
-
     /**
      * Executes a plugin in the context of a given parent widget.
      */
     void executePlugin(const char *name, QStrList *params);
+
+    /**
+     * Returns the length of the current signal in samples.
+     * If no signal is present the return value will be 0.
+     */
+    unsigned int getSignalLength();
+
+    /**
+     * Returns the current sample rate in samples per second.
+     * If no signal is present the return value will be 0.
+     */
+    unsigned int getSignalRate();
+
+    /**
+     * Returns the start of the selection. If nothing is currently
+     * selected this will be the first sample (0).
+     */
+    unsigned int getSelectionStart();
+
+    /**
+     * Returns the end of the selection. If nothing is currently
+     * selected this will be the last sample (length-1).
+     */
+    unsigned int getSelectionEnd();
+
+    /**
+     * Returns the value of one single sample of a specified channel.
+     * If the channel does not exist or the index of the sample is
+     * out of range the return value will be zero.
+     */
+    int getSingleSample(unsigned int channel, unsigned int offset);
 
 signals:
     /**
@@ -95,7 +127,14 @@ public slots:
      */
     void setSignalName(const QString &name);
 
+private slots:
+    /** emits sigSignalNameChanged to the plugins (threadsafe) */
+    void emitNameChanged();
+
 private:
+
+    /** threadsafe signal proxy for setSignalName / sigSignalNameChanged */
+    SignalProxy1<const QString> *spx_name_changed;
 
     /** connects all signals of and for a plugin */
     void connectPlugin(KwavePlugin *plugin);

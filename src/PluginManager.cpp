@@ -26,14 +26,15 @@
 #include <libkwave/LineParser.h>
 #include <libkwave/Global.h>
 #include <libkwave/FileLoader.h>
-
 #include <libkwave/Plugin.h>
+
+#include "libgui/SignalProxy.h"
+#include "libgui/KwavePlugin.h"
+#include "libgui/PluginContext.h"
 
 #include "KwaveApp.h"
 #include "TopWidget.h"
-#include "libgui/AsyncSyncGuard.h"
-#include "libgui/KwavePlugin.h"
-#include "libgui/PluginContext.h"
+#include "SignalManager.h"
 
 #include "PluginManager.h"
 
@@ -43,21 +44,21 @@ extern Global globals;
 //****************************************************************************
 
 PluginManager::PluginManager(TopWidget &parent)
-:top_widget(parent)
+    :top_widget(parent)
 {
+    spx_name_changed = new SignalProxy1<const QString>(
+	this, SLOT(emitNameChanged()));
 }
 
 //****************************************************************************
 bool PluginManager::isOK()
 {
-    return true;
+    return true;//(spx_name_changed);
 }
 
 //****************************************************************************
 PluginManager::~PluginManager()
 {
-    AsyncSyncGuard sync;
-
     // inform all plugins and client windows that we close now
     emit sigClosed();
 
@@ -140,7 +141,6 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 	    0, // LabelManager  *label_mgr,
 	    0, // MenuManager   *menu_mgr,
 	    top_widget,
-	    0, // SignalManager *signal_mgr,
 	    handle
 	);
 
@@ -211,6 +211,7 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 			}
 			delete params;
 			command += ")";
+			debug("PluginManager: command='%s'",command.data()); // ###
 		    }
 		}
 		
@@ -232,7 +233,42 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
     if (!command.isNull()) emit sigCommand(command);
 }
 
-//**********************************************************
+//***************************************************************************
+unsigned int PluginManager::getSignalLength()
+{
+    SignalManager *sig = top_widget.getSignalManager();
+    return ((sig) ? sig->getLength() : 0);
+}
+
+//***************************************************************************
+unsigned int PluginManager::getSignalRate()
+{
+    SignalManager *sig = top_widget.getSignalManager();
+    return ((sig) ? sig->getRate() : 0);
+}
+
+//***************************************************************************
+unsigned int PluginManager::getSelectionStart()
+{
+    SignalManager *sig = top_widget.getSignalManager();
+    return (sig) ? sig->getLMarker() : 0;
+}
+
+//***************************************************************************
+unsigned int PluginManager::getSelectionEnd()
+{
+    SignalManager *sig = top_widget.getSignalManager();
+    return (sig) ? sig->getRMarker() : 0;
+}
+
+//***************************************************************************
+int PluginManager::getSingleSample(unsigned int channel, unsigned int offset)
+{
+    SignalManager *sig = top_widget.getSignalManager();
+    return (sig) ? sig->getSingleSample(channel, offset) : 0;
+}
+
+//***************************************************************************
 void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
 {
     ASSERT(p);
@@ -279,8 +315,6 @@ void PluginManager::connectPlugin(KwavePlugin *plugin)
 
     connect(this, SIGNAL(sigClosed()),
 	    plugin, SLOT(close()));
-    connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
-            plugin, SLOT(setSignalName(const QString &)));
 
     connect(plugin, SIGNAL(sigClosed(KwavePlugin *,bool)),
 	    this, SLOT(pluginClosed(KwavePlugin *,bool)));
@@ -295,20 +329,30 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
 
     disconnect(this, SIGNAL(sigClosed()),
 	       plugin, SLOT(close()));
-    disconnect(this, SIGNAL(sigSignalNameChanged(const QString &)),
-               plugin, SLOT(setSignalName(const QString &)));
 
     disconnect(plugin, SIGNAL(sigClosed(KwavePlugin *,bool)),
 	       this, SLOT(pluginClosed(KwavePlugin *,bool)));
 
 }
 
+void PluginManager::emitNameChanged()
+{
+    const QString *name = spx_name_changed->dequeue();
+    ASSERT(name);
+    if (name) {
+	emit sigSignalNameChanged(*name);
+	delete name;
+    }
+}
+
 //****************************************************************************
 void PluginManager::setSignalName(const QString &name)
 {
-    AsyncSyncGuard sync;
-    debug("PluginManager::setSignalName(%s)",name.data());
-    emit sigSignalNameChanged(name);
+    debug("PluginManager::setSignalName('%s')",name.data());
+
+    spx_name_changed->enqueue(name);
+
+    debug("PluginManager::setSignalName(): done.");
 }
 
 //****************************************************************************

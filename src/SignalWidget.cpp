@@ -157,7 +157,7 @@ bool SignalWidget::isOK()
 //****************************************************************************
 SignalWidget::~SignalWidget()
 {
-    debug("SignalWidget::~SignalWidget()");
+//    debug("SignalWidget::~SignalWidget()");
     ASSERT(KApplication::getKApplication());
 
     if (timer) delete timer;
@@ -183,7 +183,7 @@ SignalWidget::~SignalWidget()
 	layer[i] = 0;
     }
 
-    debug("SignalWidget::~SignalWidget(): done");
+//    debug("SignalWidget::~SignalWidget(): done");
 }
 
 //****************************************************************************
@@ -1380,7 +1380,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	p.setBrush(yellow);
 	p.setPen(yellow);
 	p.setRasterOp(CopyROP);
-	if (select) select->drawSelection(&p, width, height);
+	if (select && channels) select->drawSelection(&p, width, height);
 
 	p.flush();
 	p.end();
@@ -1408,8 +1408,8 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	lastplaypointer = -1;
     }
 
-    // --- redraw the playpointer ---
-    if (lastplaypointer != playpointer) {
+    // --- redraw the playpointer if a signal is present ---
+    if (channels && (lastplaypointer != playpointer)) {
 	p.begin(pixmap);
 	p.setPen(yellow);
 	p.setRasterOp(XorROP);

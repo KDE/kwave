@@ -70,28 +70,49 @@ public:
     void playback(int device, playback_param_t &param,
                   unsigned char *buffer, unsigned int bufsize, bool loop);
 
+    /**
+     * Determines the maximum and minimum values of a given range
+     * of samples.
+     * @param channel index of the channel
+     * @param max receives the highest sample value (most positive)
+     * @param min receives the lowest sample value (most negative)
+     * @param begin start of the sample range (inclusive)
+     * @param len number of samples to inspect
+     */
     void getMaxMin(unsigned int channel, int &max, int& min,
                    unsigned int begin, unsigned int len);
 
     int getBitsPerSample();
 
+    /** Returns the current sample rate in samples per second */
     inline int getRate()
     {
 	return rate;
     };
 
+    /** Returns the current number of channels */
     inline unsigned int getChannelCount()
     {
 	return channels;
     };
 
+    /**
+     * Returns the number of samples in the current signal. Will be
+     * zero if no signal is loaded.
+     */
     unsigned int getLength();
 
+    /**
+     * Returns the start of the selection (inclusive).
+     */
     inline unsigned int getLMarker()
     {
 	return lmarker;
     };
 
+    /**
+     * Returns the end of the selection (inclusive).
+     */
     inline unsigned int getRMarker()
     {
 	return rmarker;

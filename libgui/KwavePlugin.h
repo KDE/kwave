@@ -109,24 +109,36 @@ public:
     const QString &getSignalName();
 
     /**
-     * Returns the left and right sample of the current selection
-     * in samples from 0 to (size-1). This should normally only be
-     * needed at initialization time. The left and right samples
-     * are included in the selection and might be equal. The left
-     * is always less or equal than the right. Note that there is
-     * always at least one sample selected!
-     * @param left receives the first selected sample (optional or null-pointer)
-     * @param right receives the last seleted sample (optional or null-pointer)
-     * @return the number of selected samples (right-left+1)
+     * Returns the length of the current signal in samples. If no signal is
+     * present the return value will be zero.
      */
-    virtual unsigned int getSelection(unsigned int *left=0,
-                                      unsigned int *right=0);
+    virtual unsigned int getSignalLength();
 
     /**
      * Returns the sample rate of the current signal. If no signal is
      * present the return value will be zero.
      */
-    virtual int getRate();
+    virtual unsigned int getSignalRate();
+
+    /**
+     * Returns the left and right sample of the current selection
+     * in samples from 0 to (size-1). The left and right samples
+     * are included in the selection and might be equal. The left
+     * is always less or equal than the right. Note that there is
+     * always at least one sample selected!
+     * @param left receives the first selected sample (optional or null-pointer)
+     * @param right receives the last seleted sample (optional or null-pointer)
+     * @return the number of selected samples (right-left+1) [1..length]
+     */
+    virtual unsigned int getSelection(unsigned int *left=0,
+                                      unsigned int *right=0);
+
+    /**
+     * Returns the value of one single sample of a specified channel.
+     * If the channel does not exist or the index of the sample is
+     * out of range the return value will be zero.
+     */
+    virtual int getSingleSample(unsigned int channel, unsigned int offset);
 
     /**
      * Converts a zoom factor into a string. The number of decimals

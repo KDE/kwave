@@ -19,14 +19,11 @@
  *                                                                         *
  ***************************************************************************/
 
-// System includes
 #include <unistd.h> // for pipe
 #include <stdio.h>
 
-// QT includes
 #include <qsocknot.h>
 
-// JBIIS includes
 #include "AsyncSync.h"
 
 //*****************************************************************************
@@ -38,14 +35,14 @@ AsyncSync::AsyncSync()
 	fds[0] = fds[1] = -1;
     }
 
-    // Create new socket notifier to monitory when data is ready to be
+    // Create new socket notifier to monitor when data is ready to be
     // read from pipe
     sn = new QSocketNotifier( fds[0], QSocketNotifier::Read );
     ASSERT(sn);
 
-    // Connect up the socket notifier's activated routine to the dequeue
+    // Connect up the socket notifier's activated routine to dequeue
     // any new clients added to Database
-    if (sn) connect( sn, SIGNAL(activated(int)), SLOT(SyncHandler()) );
+    if (sn) connect( sn, SIGNAL(activated(int)), this, SLOT(SyncHandler()) );
 }
 
 //*****************************************************************************

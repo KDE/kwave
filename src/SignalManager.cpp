@@ -95,7 +95,6 @@ SignalManager::SignalManager(unsigned int numsamples,
 SignalManager::SignalManager(const char *name, int type)
     :QObject()
 {
-    debug("KMsgBox::message(...)");
     initialize();
     ASSERT(name);
     this->name = duplicateString(name);
@@ -609,8 +608,8 @@ int SignalManager::loadWav()
 #if defined(IS_BIG_ENDIAN)
 		    length = bswap_32(length);
 #endif
-		    debug("SignalManager::loadWav():length is %d,res is %d",
-			  length, res);
+//		    debug("SignalManager::loadWav():length is %d,res is %d",
+//			  length, res);
 
 		    length = (length/(header.bitspersample/8))/header.channels;
 		    switch (header.bitspersample) {

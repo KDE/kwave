@@ -56,6 +56,12 @@ public:
     void parseCommands(const char *);
     void loadBatch(const char *);
 
+    /**
+     * Returns a pointer to the current signal manager or zero if
+     * no signal is loaded.
+     */
+    SignalManager *getSignalManager();
+
 public slots:
 
     void executeCommand(const char *command);

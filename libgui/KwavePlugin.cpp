@@ -29,7 +29,7 @@
 #include <libgui/PluginContext.h>
 
 #include "../src/TopWidget.h"
-#include "../src/SignalManager.h"
+#include "../src/PluginManager.h"
 
 //***************************************************************************
 KwavePlugin::KwavePlugin(PluginContext &c)
@@ -100,28 +100,32 @@ const QString &KwavePlugin::getSignalName()
 }
 
 //***************************************************************************
+unsigned int KwavePlugin::getSignalLength()
+{
+    return getManager().getSignalLength();
+}
+
+//***************************************************************************
+unsigned int KwavePlugin::getSignalRate()
+{
+    return getManager().getSignalRate();
+}
+
+//***************************************************************************
 unsigned int KwavePlugin::getSelection(unsigned int *left,
                                        unsigned int *right)
 {
-    int l = 0;
-    int r = 0;
-
-    ASSERT(context.signal_manager);
-    if (context.signal_manager) {
-	l = context.signal_manager->getLMarker();
-	r = context.signal_manager->getRMarker();
-    }
-
+    int l = getManager().getSelectionStart();
+    int r = getManager().getSelectionEnd();
     if (left)  *left  = l;
     if (right) *right = r;
     return r-l+1;
 }
 
 //***************************************************************************
-int KwavePlugin::getRate()
+int KwavePlugin::getSingleSample(unsigned int channel, unsigned int offset)
 {
-    ASSERT(context.signal_manager);
-    return context.signal_manager ? context.signal_manager->getRate() : 0;
+    return getManager().getSingleSample(channel, offset);
 }
 
 //***************************************************************************

@@ -22,7 +22,6 @@ class KwaveApp;
 class PluginManager;
 class MenuManager;
 class TopWidget;
-class SignalManager;
 class LabelManager;
 
 class PluginContext
@@ -35,15 +34,13 @@ public:
 	LabelManager  *label_mgr,
 	MenuManager   *menu_mgr,
 	TopWidget     &topwidget,
-	SignalManager *signal_mgr,
 	void *mod_handle
     )
     :kwave_app(app),
     manager(plugin_mgr),
     label_manager(label_mgr),
     menu_manager(menu_mgr),
-    top_widget(topwidget),
-    signal_manager(signal_mgr)
+    top_widget(topwidget)
     {};
 
     KwaveApp      &kwave_app;
@@ -51,7 +48,6 @@ public:
     LabelManager  *label_manager;
     MenuManager   *menu_manager;
     TopWidget     &top_widget;
-    SignalManager *signal_manager;
 
     void *handle;
 };

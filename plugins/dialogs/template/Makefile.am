@@ -62,7 +62,7 @@ DEP_FILES	:= $(cpp_sources:.cpp=.d) $(h_files:.h=.dm)
 	@ @MOC@ $< -o $@
 
         # make the right order: first build the .d/.dm files then the .o
-${OUT_FILES}: ${DEP_FILES}
+# ${OUT_FILES}: ${DEP_FILES}
 
 .depend: ${DEP_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@

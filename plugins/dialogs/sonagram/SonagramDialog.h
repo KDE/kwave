@@ -24,6 +24,7 @@ class Slider;
 class QComboBox;
 class QLabel;
 class QPushButton;
+class QStrList;
 class KwavePlugin;
 
 //*****************************************************************************
@@ -33,9 +34,16 @@ class SonagramDialog : public QDialog
 
 public:
     SonagramDialog(KwavePlugin &p);
-    virtual ~SonagramDialog ();
+    ~SonagramDialog();
 
-    const char * getCommand ();
+    /**
+     * Fills the current parameters into a parameter list.
+     * The list always is cleared before it gets filled.
+     * The first parameter will contain the number of fft points [1...n]
+     * The second parameter will contain the id of a window function
+     * or zero if no window function was selected ("<none>").
+     */
+    void getParameters(QStrList &list);
 
 public slots:
     void setPoints (int);

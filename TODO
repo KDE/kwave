@@ -1,4 +1,6 @@
 
+o use a MenuManager in the plugins (e.g. sonagram)
+
 o resample signal before inserting into a signal with a different sample 
   rate (when doing copy/paste)
 
@@ -18,12 +20,6 @@ o check at program startup: does the help directory exist? If not, show
   a message and make a symbolic link
 
 o make the SonagramWindow work
-
-o plugin "playback": bug in geometry management of the "test" button
-
-o plugin "playback": dialog should have fixed size ?
-
-o find out how to get the "topdir" of rpm for "make rpm"
 
 o look at CurveWidget::CurveWidget()
 o ProgressDialog::timedProgress()
@@ -45,9 +41,6 @@ o review all calls to DynamicLoader::getDialog, in: FFTWidget
 
 o ClipBoard::appendChannel should append a _copy_ of the channel instead
   of the channel instead of itself (problem if channel gets deleted!)
-
-o resizing of the TopWidget if channels have been added
-  -> adjust minimum window size
 
 o search for plugins and other files only in the global directory,
   use the .kde structure in the user's home directory too
@@ -96,10 +89,6 @@ o if an incompatible version of libgui is installed, the linking of the
   kwave program fails during "make". Thus the libgui directory should be
   added to the linker's directory list (-L../libgui ?) during make of the
   kwave main program and the plugins
-
-o get the plugins working with compilers other than egcs
-
-o playback in stereo
 
 o fix bug in Fx->Periodic Silence (segmentation fault)
 

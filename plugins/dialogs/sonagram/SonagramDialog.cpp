@@ -22,6 +22,7 @@
 #include <qdialog.h>
 #include <qpushbutton.h>
 #include <qkeycode.h>
+#include <qstrlist.h>
 #include <qtooltip.h>
 #include <qlayout.h>
 #include <qcombobox.h>
@@ -53,7 +54,10 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     int w;
     int i;
     length = p.getSelection();
-    rate   = p.getRate();
+    rate   = p.getSignalRate();
+
+    // if nothing selected, select all
+    if (length <= 1) length = p.getSignalLength();
 
     debug("SonagramDialog(): constructor");
 
@@ -185,19 +189,31 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 
     ok->setAccel (Key_Return);
     cancel->setAccel(Key_Escape);
-    ok->setFocus ();
-    connect (ok , SIGNAL(clicked()), SLOT (accept()));
-    connect (cancel , SIGNAL(clicked()), SLOT (reject()));
-    connect (pointslider, SIGNAL(valueChanged(int)), SLOT(setPoints(int)));
-    connect (pointbox, SIGNAL (activated(int)) , SLOT(setBoxPoints(int)));
+    ok->setFocus();
+
+    connect(ok ,         SIGNAL(clicked()),         SLOT(accept()));
+    connect(cancel ,     SIGNAL(clicked()),         SLOT(reject()));
+    connect(pointslider, SIGNAL(valueChanged(int)), SLOT(setPoints(int)));
+    connect(pointbox,    SIGNAL(activated(int)),    SLOT(setBoxPoints(int)));
 }
 
 //***************************************************************************
-const char *SonagramDialog::getCommand()
+void SonagramDialog::getParameters(QStrList &list)
 {
-    //  return windowtypebox->currentText();
-    // return comstr;
-    return "sonagram()";
+    QString param;
+
+    list.setAutoDelete(true);
+    list.clear();
+
+    // parameter #1: number of fft points
+    ASSERT(pointbox);
+    param = pointbox ? pointbox->currentText() : 0;
+    list.append(param);
+
+    // parameter #2: index of the window function
+    ASSERT(windowtypebox);
+    param.setNum(windowtypebox ? windowtypebox->currentItem() : 0);
+    list.append(param);
 }
 
 //***************************************************************************

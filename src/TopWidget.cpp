@@ -329,6 +329,12 @@ void TopWidget::loadBatch(const char *str)
 }
 
 //*****************************************************************************
+SignalManager *TopWidget::getSignalManager()
+{
+    return (mainwidget) ? mainwidget->getSignalManager() : 0;
+}
+
+//*****************************************************************************
 void TopWidget::parseCommands(const char *str)
 //parses a list a of commands separated by newlines
 {

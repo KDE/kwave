@@ -22,10 +22,23 @@ class SonagramWindow : public KTMainWindow
 public:
     SonagramWindow(const QString &);
     ~SonagramWindow();
-    void setSignal(double*, int, int, int, int);
+
+
+    /**
+     * Sets a new signal and displays it.
+     * @param input array of samples in float format, normed
+     *              between [-1.0 and 1.0]
+     * @param size number of samples in the input array
+     * @points
+     * @windowtype selects a window function for fft
+     * @rate sample rate in samples per seconds
+     */
+    void setSignal(double *input, int size, int points,
+	           int windowtype, int rate);
 
 public slots:
 
+    void close();
     void save();
     void load();
     void toSignal();
@@ -48,8 +61,11 @@ private:
     SonagramContainer *mainwidget;
     ScaleWidget *xscale, *yscale;
     CornerPatchWidget *corner;
-    int points, rate, length;
-    int x, y;
+    int points;
+    int rate;
+    int length;
+    int image_width;
+    int y;
     complex **data;
     double max;
 };

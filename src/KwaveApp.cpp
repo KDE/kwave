@@ -33,7 +33,6 @@ playback_param_t KwaveApp::playback_params = {
     5
 };
 
-
 //*****************************************************************************
 KwaveApp::KwaveApp(int argc, char **argv)
     :KApplication(argc, argv),
@@ -157,7 +156,7 @@ bool KwaveApp::executeCommand(const char* command)
 //****************************************************************************
 void KwaveApp::addRecentFile(const char* newfile)
 {
-    debug("KwaveApp::addRecentFile(%s)", newfile);
+//    debug("KwaveApp::addRecentFile(%s)", newfile);
 
     int old = recentFiles.find(newfile);
 

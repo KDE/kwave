@@ -145,7 +145,7 @@ void MenuManager::clearNumberedMenu (const char *uid)
 //*****************************************************************************
 void MenuManager::slotMenuCommand(const char *command)
 {
-    debug("MenuManager::slotMenuCommand(%s)", command);    // ###
+//    debug("MenuManager::slotMenuCommand(%s)", command);    // ###
     emit sigMenuCommand(command);
 }
 
@@ -203,7 +203,7 @@ void MenuManager::setItemChecked(const char *uid, bool check)
 {
     ASSERT(menu_root);
 
-    debug("MenuManager::setItemChecked('%s', %d)", uid, check);
+//    debug("MenuManager::setItemChecked('%s', %d)", uid, check);
     MenuNode *node = (menu_root) ? menu_root->findUID(uid) : 0;
     if (node) node->setChecked(check);
 }

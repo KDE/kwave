@@ -33,7 +33,7 @@ INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@ @GSL_CFLAGS@
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
 
-CXXFLAGS  = @CXXFLAGS@ @GSL_CFLAGS@ -fPIC
+CXXFLAGS  += @GSL_CFLAGS@ -fPIC @CPPFLAGS@
 LD_FLAGS  = -shared -fPIC -rdynamic
 
 CFLAGS    = $(filter-out -Wnon-virtual-dtor ,  \

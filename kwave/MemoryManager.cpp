@@ -33,6 +33,7 @@
 #include <sys/resource.h> // for getrlimit()
 #endif
 
+#include "libkwave/memcpy.h"
 #include "KwaveApp.h"
 #include "MemoryManager.h"
 #include "SwapFile.h"
@@ -472,6 +473,72 @@ void MemoryManager::unmap(void *block)
 	         reinterpret_cast<SwapFile *>(block)));
     }
 
+}
+
+//***************************************************************************
+int MemoryManager::readFrom(void *block, unsigned int offset,
+                            void *buffer, unsigned int length)
+{
+    Q_ASSERT(block);
+    if (!block) return 0;
+
+    // simple case: memcpy from physical memory
+    if (m_physical_size.contains(block)) {
+        MEMCPY(buffer, reinterpret_cast<char *>(block) + offset, length);
+        return length;
+    }
+
+    // make sure it's not mmapped
+    unmapFromCache(block);
+    if (m_mapped_swap.containsRef(reinterpret_cast<SwapFile *>(block))) {
+	Q_ASSERT(m_mapped_swap.containsRef(
+	         reinterpret_cast<SwapFile *>(block)));
+        return 0;
+    }
+
+    // now it must be in unmapped swap
+    Q_ASSERT(m_unmapped_swap.containsRef(reinterpret_cast<SwapFile *>(block)));
+    if (!m_unmapped_swap.containsRef(reinterpret_cast<SwapFile *>(block))) {
+	return 0;
+    }
+
+    SwapFile *swap = reinterpret_cast<SwapFile *>(block);
+    swap->read(offset, buffer, length);
+
+    return length;
+}
+
+//***************************************************************************
+int MemoryManager::writeTo(void *block, unsigned int offset,
+                           void *buffer, unsigned int length)
+{
+    Q_ASSERT(block);
+    if (!block) return 0;
+
+    // simple case: memcpy to physical memory
+    if (m_physical_size.contains(block)) {
+        MEMCPY(reinterpret_cast<char *>(block) + offset, buffer, length);
+        return length;
+    }
+
+    // make sure it's not mmapped
+    unmapFromCache(block);
+    if (m_mapped_swap.containsRef(reinterpret_cast<SwapFile *>(block))) {
+	Q_ASSERT(m_mapped_swap.containsRef(
+	         reinterpret_cast<SwapFile *>(block)));
+        return 0;
+    }
+
+    // now it must be in unmapped swap
+    Q_ASSERT(m_unmapped_swap.containsRef(reinterpret_cast<SwapFile *>(block)));
+    if (!m_unmapped_swap.containsRef(reinterpret_cast<SwapFile *>(block))) {
+	return 0;
+    }
+
+    SwapFile *swap = reinterpret_cast<SwapFile *>(block);
+    swap->write(offset, buffer, length);
+
+    return length;
 }
 
 //***************************************************************************

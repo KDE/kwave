@@ -117,6 +117,32 @@ public:
      */
     void unmap(void *block);
 
+    /**
+     * Read from a memory block into a buffer
+     *
+     * @param block pointer to the object that identifies the
+     *        memory block
+     * @param offset offset within the object [bytes]
+     * @param buffer pointer to a buffer that is to be filled
+     * @param length number of bytes to read
+     * @return number of read bytes or < 0 if failed
+     */
+    int readFrom(void *block, unsigned int offset,
+                 void *buffer, unsigned int length);
+
+    /**
+     * Write a buffer into a memory block
+     *
+     * @param block pointer to the object that identifies the
+     *        memory block
+     * @param offset offset within the object [bytes]
+     * @param buffer pointer to a buffer that is to be written
+     * @param length number of bytes to write
+     * @return number of written bytes or < 0 if failed
+     */
+    int writeTo(void *block, unsigned int offset,
+                void *buffer, unsigned int length);
+
 protected:
 
     /** Returns the currently allocated physical memory */

@@ -86,7 +86,7 @@ help_it.docbook: help_en.docbook help_en.pot
 
 changes.docbook: ../CHANGES ../bin/changes-to-docbook.sh
 	cat ../CHANGES | sed s/\>\>\>//g | sed s/\<\<\<//g | \
-	../bin/changes-to-docbook.sh | recode lat1..utf-8 > changes.docbook
+	../bin/changes-to-docbook.sh | @RECODE@ lat1..utf-8 > changes.docbook
 
 help_en.docbook: ../bin/insert-changes.sh ../VERSION ../CHANGES
 	${MAKE} changes.docbook

@@ -22,10 +22,10 @@ BUILTSOURCES=\
  CurveWidget.moc.cpp\
  FileProgress.moc.cpp\
  FrequencyResponseWidget.moc.cpp\
- HMSTimeWidget.moc.cpp\
  HMSTimeWidgetBase.uih.h\
  HMSTimeWidgetBase.uih.moc.cpp\
  HMSTimeWidgetBase.uic.cpp\
+ HMSTimeWidget.moc.cpp\
  IntValidatorProxy.moc.cpp\
  InvertableSpinBox.moc.cpp\
  KwaveFileDialog.moc.cpp\
@@ -38,10 +38,10 @@ BUILTSOURCES=\
  MultiStateWidget.moc.cpp\
  OverViewCache.moc.cpp\
  OverViewWidget.moc.cpp\
- SelectTimeWidget.moc.cpp\
  SelectTimeWidgetBase.uih.h \
  SelectTimeWidgetBase.uih.moc.cpp \
  SelectTimeWidgetBase.uic.cpp \
+ SelectTimeWidget.moc.cpp\
  TrackPixmap.moc.cpp
 
 # Which sources should be compiled for libgui.
@@ -73,6 +73,8 @@ libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
 	--dynamic --export-dynamic
 
 lib_LTLIBRARIES = libkwavegui.la
+
+CLEANFILES:=$(CLEANFILES) $(BUILTSOURCES)
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

@@ -26,6 +26,7 @@
 #include <kmessagebox.h>
 #include <kmimetype.h>
 
+#include "libkwave/CompressionType.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
@@ -220,6 +221,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     m_info.setBits(SAMPLE_BITS); // use Kwave's internal resolution
     m_info.setTracks(m_vi.channels);
     m_info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
+    m_info.set(INF_COMPRESSION, CompressionType::OGG_VORBIS);
     m_info.set(INF_SOURCE, QString(m_vc.vendor));
     if (m_vi.bitrate_nominal > 0)
 	m_info.set(INF_BITRATE_NOMINAL, QVariant((int)m_vi.bitrate_nominal));
@@ -270,7 +272,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     parseTag("LOCATION",     INF_SOURCE);
     parseTag("CONTACT",      INF_CONTACT);
     parseTag("ISRC",         INF_ISRC);
-    parseTag("ENCODE",       INF_SOFTWARE);
+    parseTag("ENCODER",      INF_SOFTWARE);
 
     return true;
 }

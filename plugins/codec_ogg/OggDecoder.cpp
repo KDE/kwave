@@ -35,6 +35,8 @@
 #include "OggCodecPlugin.h"
 #include "OggDecoder.h"
 
+/** bitrate to be used when no bitrate has been decoded */
+#define DEFAULT_BITRATE 128000
 
 //***************************************************************************
 OggDecoder::OggDecoder()
@@ -165,6 +167,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 			return -1;
 		    }
 		    vorbis_synthesis_headerin(&m_vi, &m_vc, &m_op);
+		    qDebug("counter=%d, bitrate=%ld",counter,m_vi.bitrate_nominal); // ###
 		    counter++;
 		}
 	    }
@@ -249,8 +252,6 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	QDate date;
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
-	    qWarning("invalid date: '%s', interpreting as year...",
-	        str_date.latin1());
 	    int year = str_date.toInt();
 	    date.setYMD(year, 1, 1);
 	}
@@ -273,6 +274,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     parseTag("CONTACT",      INF_CONTACT);
     parseTag("ISRC",         INF_ISRC);
     parseTag("ENCODER",      INF_SOFTWARE);
+    parseTag("VBR_QUALITY",  INF_VBR_QUALITY);
 
     return true;
 }
@@ -323,6 +325,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
     if (!m_source) return false;
 
     int eos = 0;
+    unsigned int stream_start_pos = m_source->at();
 
     // we repeat if the bitstream is chained
     while (!dst.isCancelled()) {
@@ -386,7 +389,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 		if (!bytes) eos = 1;
 	    }
 	}
-
+	
 	// clean up this logical bitstream; before exit we see if we're
 	// followed by another [chained]
 	ogg_stream_clear(&m_os);
@@ -408,6 +411,31 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
     // signal the current position
     emit sourceProcessed(m_source->at());
 
+    if (!m_info.contains(INF_BITRATE_NOMINAL) &&
+        !m_info.contains(INF_VBR_QUALITY))
+    {
+	qWarning("file contains neither nominal bitrate (ABR mode) "\
+	         "nor quality (VBR mode)");
+
+	const unsigned int samples = dst.last();
+	int bitrate = DEFAULT_BITRATE;
+	
+	if ((int)m_info.rate() && samples) {
+	    // guess bitrates from the stream
+	    const unsigned int stream_end_pos = m_source->at();
+	    const unsigned int stream_read = stream_end_pos -
+	                                     stream_start_pos + 1;
+	    double bits = (double)stream_read * 8.0;
+	    double seconds = (double)samples / (double)m_info.rate();
+	    bitrate = (unsigned int)(bits / seconds);
+	    qDebug("-> using guessed bitrate %d bits/sec", bitrate);
+	} else {
+	    // guessing not possible -> use default
+	    qDebug("-> using default %d kBits/sec", bitrate);
+	}
+	m_info.set(INF_BITRATE_NOMINAL, QVariant((int)bitrate));
+    }
+   
     // return with a valid Signal, even if the user pressed cancel !
     return true;
 }

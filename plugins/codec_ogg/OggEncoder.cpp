@@ -61,6 +61,7 @@ static const struct {
 	{ INF_ISRC,         "ISRC" },
 	{ INF_SOFTWARE,     "ENCODER" },
 	{ INF_CREATION_DATE,"DATE" },
+	{ INF_VBR_QUALITY,  "VBR_QUALITY" },
 	{ INF_MIMETYPE,     0 }
 };
 
@@ -104,10 +105,11 @@ void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
 	FileProperty property = supported_properties[i].property;
 	
 	if (!info.contains(property)) continue; // skip if not present
-	if (!info.canLoadSave(property)) continue;
 
 	// encode the property as string
 	const char *tag = supported_properties[i].name;
+	if (!tag) continue;
+	
 	QString value = info.get(property).toString();
 	vorbis_comment_add_tag(vc, (char*)tag, (char*)value.latin1());
     }
@@ -135,6 +137,8 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     // get info: tracks, sample rate, bitrate(s)
     const unsigned int tracks = info.tracks();
     const long sample_rate = (long)info.rate();
+
+    // ABR bitrates
     unsigned int bitrate_nominal = info.contains(INF_BITRATE_NOMINAL) ?
         QVariant(info.get(INF_BITRATE_NOMINAL)).toUInt() : 0;
     unsigned int bitrate_lower = info.contains(INF_BITRATE_LOWER) ?
@@ -142,15 +146,22 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     unsigned int bitrate_upper = info.contains(INF_BITRATE_UPPER) ?
         QVariant(info.get(INF_BITRATE_UPPER)).toUInt() : bitrate_nominal;
 
-    if (!bitrate_nominal || !(bitrate_lower && bitrate_upper)) {
-	// no bitrate given -> complain !
+    // VBR quality
+    int vbr_quality = info.contains(INF_VBR_QUALITY) ?
+        QVariant(info.get(INF_VBR_QUALITY)).toInt() : 0;
+
+    qDebug("OggEncoder: ABR=%d...%d...%d Bits/s, VBR=%d%%",
+           bitrate_lower,bitrate_nominal,bitrate_upper,vbr_quality);
+
+    if (!vbr_quality && (!bitrate_nominal || !(bitrate_lower && bitrate_upper))) {
+	// no quality and no bitrate given -> complain !
 	if (KMessageBox::warningContinueCancel(widget,
 	    i18n("You have not selected any bitrate for the encoding. "
 	         "Do you want to continue and encode with %1 kBit/s "
 	         "or cancel and choose a different bitrate?").arg(
 	         DEFAULT_BITRATE/1000)) !=
 	    KMessageBox::Continue)
-	return false; // <- Cancelled
+	    return false; // <- Cancelled
 	
 	bitrate_nominal = DEFAULT_BITRATE;
 	bitrate_lower = bitrate_nominal;
@@ -164,18 +175,34 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     /********** Encode setup ************/
     vorbis_info_init(&vi);
 
-    /** @todo encode using quality mode */
     if (bitrate_lower != bitrate_upper) {
-	// Encoding using a VBR quality mode.
+	// Encoding using ABR mode.
 	bitrate_nominal = (bitrate_upper + bitrate_lower) / 2;
 	ret = vorbis_encode_init(&vi, tracks, sample_rate,
 	                         bitrate_upper,
 	                         bitrate_nominal,
 	                         bitrate_lower);
+	qDebug("OggEncoder: ABR with %d...%d...%d Bits/s",
+	       bitrate_lower, bitrate_nominal, bitrate_upper);
+    } else if (!vbr_quality && bitrate_nominal) {
+	// Encoding using constant bitrate in ABR mode
+	ret = (vorbis_encode_setup_managed(&vi, tracks, sample_rate,
+	      -1, bitrate_nominal, -1) ||
+              vorbis_encode_ctl(&vi,OV_ECTL_RATEMANAGE_AVG,NULL) ||
+              vorbis_encode_setup_init(&vi));
+	qDebug("OggEncoder: CBR with %d Bits/s", bitrate_nominal);
+    } else if (vbr_quality) {
+	// Encoding using VBR mode.
+	ret = vorbis_encode_init_vbr(&vi, tracks, sample_rate,
+	                             (float)vbr_quality / 100.0);
+	qDebug("OggEncoder: VBR with %d%%", vbr_quality);
     } else {
-	// Encoding using an average bitrate mode (ABR).
-	ret = vorbis_encode_init(&vi, tracks, sample_rate,
-	                         -1, bitrate_nominal, -1);
+	// unknown setup !?
+	qWarning("unknown Ogg/Vorbis setup: VBR quality=%d%%, "\
+	         "ABR lower=%d, ABR highest=%d, ABR nominal=%d",
+	         vbr_quality, bitrate_lower, bitrate_upper,
+	         bitrate_nominal);
+	return false;    
     }
     
     /*********************************************************************

@@ -62,9 +62,6 @@ CompressionWidget::CompressionWidget(QWidget *parent, const char *name)
     abrHighestBitrate->allowRates(rates);
     abrLowestBitrate->allowRates(rates);
     
-//    abrHighestBitrate->setSpecialValueText(i18n("no limit"));
-//    abrLowestBitrate->setSpecialValueText(i18n("no limit"));
-
     connect(rbABR, SIGNAL(toggled(bool)),
             this,  SLOT(selectABR(bool)));
     connect(chkLowestBitrate, SIGNAL(toggled(bool)),

@@ -1,27 +1,125 @@
-#ifndef _KWAVE_FILTER_H
-#define _KWAVE_FILTER_H 1
+#include <qlayout.h>
+#include <qtooltip.h>
+#include <qdir.h>
+#include <qwidget.h>
+#include <qlabel.h>
+#include <qbutton.h>
+#include <qcombo.h>
+#include <qdialog.h>
+#include <qbttngrp.h>
+#include <qchkbox.h>
+#include <qradiobt.h>
+
+#include "slider.h"
+#include "gsl_fft.h"
+#include "fftview.h"
+#include "curvewidget.h"
+
+#include <krestrictedline.h>
+#include <kintegerline.h>
+#include <kmsgbox.h>
 
 //*****************************************************************************
 class Filter
 {
  public:
-  Filter      (int rate);
-  Filter      (const char *);
-  ~Filter     ();
-
-  const char *getCommand ();
-
+  Filter ();
+  ~Filter ();
   int  resize (int);
-  void save   (const char *);
-  void load   (const char *);
+  void save   (QString *);
+  void load   (QString *);
 
-  int      num;                //number of taps
-  bool     fir;                //boolean if filter is fir or iir
-  double * mult;               //array of coefficients, used according to
-  int*     offset;             //array of delay times in samples
+  int rate;
+  int num;                //number of taps
+  int fir;                //boolean if filter is fir or iir
+  double *mult;           //array of coefficients, used according to
+  int *offset;            //array of delay times in samples
+};
+//*****************************************************************************
+class FilterDialog : public QDialog
+{
+ Q_OBJECT
+
+ public:
+ 	FilterDialog 	(QWidget *parent=0,int =48000);
+ 	~FilterDialog 	();
+ void	refreshView ();
+
+ public slots:
+
+ void setTaps      (const char *);
+ void setOffset    (const char *);
+ void setMult      (int);
+ void refresh      ();
+ void loadFilter   ();
+ void saveFilter   ();
+
+ struct Filter *getFilter();
+
+ protected:
+
+ void resizeEvent (QResizeEvent *);
+ void getNTaps         (int);
+ 
+ private:
+
+ int w,h;
+ Filter filter;
+
+ int          oldnum;
+ QLabel       *taplabel;
+ KIntegerLine *taps;
+
+ QLabel       **label;
+ KwaveSlider  **mult;
+ KIntegerLine **offset;
+
+ QPushButton	*load,*save;
+
+ QLabel		*iirlabel,firlabel;
+ QButtonGroup	*bg;
+ QRadioButton	*fir,*iir;
+ 
+ QPushButton	*ok,*cancel;
+ QPushButton	*dofilter;
+ FFTWidget	*filterwidget;
+ FFTWidget	*phasewidget;
+ ScaleWidget    *ampx,*ampy;
+ ScaleWidget    *phasex,*phasey;
+ CornerPatchWidget *phasecorner;
+ CornerPatchWidget *ampcorner;
+};
+//*****************************************************************************
+class MovingFilterDialog : public QDialog
+{
+  Q_OBJECT
+
+    public:
+  MovingFilterDialog 	(QWidget *parent=0,int num=1);
+  ~MovingFilterDialog 	();
+  QList<CPoint> *getPoints ();
+  int   getType ();
+  int   getState ();
+  int   getTap();
+  int   getLow();  //for getting lower bound and
+  int   getHigh(); //higher bound
+  public slots:
+
+    void toggleState();
+    void checkTap(const char *);
+
+ protected:
+
+  void resizeEvent (QResizeEvent *);
 
  private:
-  char *   comstr;
-  int      rate;
+
+  int num;
+  QCheckBox     *usecurve;
+  KRestrictedLine  *low,*high;
+  KIntegerLine  *tap;
+  QLabel        *lowlabel,*highlabel;
+  QPushButton	*ok,*cancel;
+  CurveWidget	*curve;
 };
-#endif
+

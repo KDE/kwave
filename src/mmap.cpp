@@ -141,7 +141,7 @@ void mmapfree(void *mmapaddr)
     }
   if (m->mmapaddr == mmapaddr)
     {
-      munmap((void *)m->mmapaddr,(size_t) m->mmapsize);
+      (void) munmap(m->mmapaddr,m->mmapsize);
       if (unlink(m->filename) == -1)
 	fprintf(stderr,"mmapfree: cannot unlink the file\n");
       free(m->filename);
@@ -150,14 +150,6 @@ void mmapfree(void *mmapaddr)
       free(m);
     }
 }
-
-
-
-
-
-
-
-
 
 
 

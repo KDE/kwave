@@ -71,17 +71,7 @@ dnl output files
 topdir=`pwd`
 AC_SUBST(topdir)
 
-AM_PROG_LIBTOOL
-
 dnl add here all your Makefiles
 AC_OUTPUT(Makefile \
-	lib/Makefile \
-	libgui/Makefile \
 	src/Makefile \
-	plugins/Makefile \
-	plugins/time/Makefile \
-	plugins/time/template/Makefile \
-	plugins/dialogs/Makefile \
-	plugins/dialogs/template/Makefile \
 	po/Makefile)
-

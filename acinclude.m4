@@ -539,8 +539,8 @@ fi
 AC_DEFUN(AC_SET_NODEBUG,
 [
 if  test "x$ac_use_gcc_flags" = "xyes"; then
- test "$CFLAGS" = "" && CFLAGS="-Wall"
- test "$CXXFLAGS" = "" && CXXFLAGS="-Wall"
+ test "$CFLAGS" = "" && CFLAGS="-O2 -Wall"
+ test "$CXXFLAGS" = "" && CXXFLAGS="-O2 -Wall"
  test "$LDFLAGS" = "" && LDFLAGS="-s"
 fi
 ])

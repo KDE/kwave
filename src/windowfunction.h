@@ -1,12 +1,11 @@
-#ifndef _WINDOW_FUNCTION_H_
-#define _WINDOW_FUNCTION_H_ 1
+#ifndef _WINDOWFUNC_H_
+#define _WINDOWFUNC_H_ 1
 
 #define FUNC_NONE       0
 #define FUNC_HAMMING    1
 #define FUNC_HANNING    2
 #define FUNC_BLACKMAN   3
 #define FUNC_TRIANGULAR 4
-
 class WindowFunction
 {
  public:
@@ -30,5 +29,5 @@ class WindowFunction
   int count;             // number of points
   int usagecount;        // number of threads using this object
 };
-#endif /*windowfunction.h*/
+#endif /*interpolation.h*/
 

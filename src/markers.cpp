@@ -1,55 +1,62 @@
 //This File includes methods of class SignalWidget that deal with markers
 //it also contains methods of Marker and MarkerType class.
 
-#include <math.h>
-#include <limits.h>
 #include <qobject.h>
 #include <qpainter.h>
+#include <math.h>
+#include <limits.h>
 #include "signalview.h"
-#include "dialog_progress.h"
+#include "markers.h"
+#include "dialogs.h"
 #include "pitchwidget.h"
-#include "signalmanager.h"
-#include "../lib/parser.h"
-#include "../lib/markers.h"
-#include "../lib/globals.h"
-#include "../lib/dialogoperation.h"
-#include "../lib/dynamicloader.h"
-#include "../libgui/kwavedialog.h"
-
-extern Global globals;
 
 #define	AUTOKORRWIN 320 
 //windowsize for autocorellation, propably a little bit to short for
-//lower frequencies, but this will get configurable somewhere in another
-//dimension or for those of you who can't zap to other dimensions, it will
-//be done in future
+//lower frequencies, but this will get configurable in future
 
+extern QList<MarkerType> markertypes;
 int findNextRepeat       (int *,int);
 int findNextRepeatOctave (int *,int,double =1.005);
 int findFirstMark  (int *,int);
-
 float autotable  [AUTOKORRWIN];
 float weighttable[AUTOKORRWIN];
-
-
 //****************************************************************************
-void selectMarkers (const char *command)
+Marker::Marker ()
 {
-  KwaveParser parser(command);
-} 
+  name=0;
+}
 //****************************************************************************
-MarkerType *findMarkerType (const char *txt)
+Marker::~Marker ()
 {
-  MarkerType *act;
-  int cnt=0;
-
-  for (act=globals.markertypes.first();act;act=globals.markertypes.next())
-    {
-      if (strcmp (act->name->data(),txt)==0) return act;
-      cnt++;
-    }
-  debug ("could not find Markertype %s\n",txt);
-  return 0;
+  if (name) delete name;
+}
+//****************************************************************************
+MarkerList::MarkerList ()
+{
+}
+//****************************************************************************
+MarkerList::~MarkerList ()
+{
+  clear();
+}
+//****************************************************************************
+int MarkerList::compareItems (GCI a,GCI b)
+{
+  Marker *c = (Marker *)a;
+  Marker *d = (Marker *)b;
+  return c->pos-d->pos;
+}
+//****************************************************************************
+MarkerType::MarkerType ()
+{
+  name=0;
+  color=0;
+}
+//****************************************************************************
+MarkerType::~MarkerType ()
+{
+  if (name) delete name;
+  if (color)delete color;
 }
 //****************************************************************************
 void SignalWidget::signalinserted (int start, int len)
@@ -79,11 +86,11 @@ void SignalWidget::signaldeleted (int start, int len)
 //****************************************************************************
 void SignalWidget::deleteMarks ()
 {
-  if (signalmanage)
+  if (signal)
     {
       Marker *tmp;
-      int l=signalmanage->getLMarker();
-      int r=signalmanage->getRMarker();
+      int l=signal->getLMarker();
+      int r=signal->getRMarker();
 
       for (tmp=markers->first();tmp;tmp=markers->next())  
 	if ((tmp->pos>=l)&&(tmp->pos<r))
@@ -114,7 +121,7 @@ void SignalWidget::appendMarks ()
 	MarkerType *act;
 	while ((strncmp (buf,"Labels",6)!=0)&&(in.readLine(buf,120)>0));
 
-	for (act=globals.markertypes.first();act;act=globals.markertypes.next()) act->selected=-1;
+	for (act=markertypes.first();act;act=markertypes.next()) act->selected=-1;
 
 	while (in.readLine (buf,120)>0)
 	  {
@@ -126,7 +133,7 @@ void SignalWidget::appendMarks ()
 		int r,g,b;
 		int set=false;
 		sscanf (buf,"Type %d %s %d %d %d %d",&num,&name[0],&named,&r,&g,&b);
-		for (act=globals.markertypes.first();act;act=globals.markertypes.next()) //linear search for label type ...
+		for (act=markertypes.first();act;act=markertypes.next()) //linear search for label type ...
 		  if (strcmp (act->name->data(),name)==0)
 		    {
 		      set=true;
@@ -165,16 +172,16 @@ void SignalWidget::appendMarks ()
 	      {
 		newmark->pos=pos;
 
-		if (globals.markertypes.current())
+		if (markertypes.current())
 		  {
-		    if (globals.markertypes.current()->selected!=num)
-		      for (act=globals.markertypes.first();act->selected!=num;act=globals.markertypes.next());   
+		    if (markertypes.current()->selected!=num)
+		      for (act=markertypes.first();act->selected!=num;act=markertypes.next());   
 		  }
 		else
-		  for (act=globals.markertypes.first();act->selected!=num;act=globals.markertypes.next());   
-		newmark->type=globals.markertypes.current();
+		  for (act=markertypes.first();act->selected!=num;act=markertypes.next());   
+		newmark->type=markertypes.current();
 
-		if (globals.markertypes.current()->named)
+		if (markertypes.current()->named)
 		  if (name[0]!=0) newmark->name=new QString (name);
 		  else newmark->name=0;
 
@@ -188,13 +195,10 @@ void SignalWidget::appendMarks ()
 //****************************************************************************
 void SignalWidget::saveMarks ()
 {
-  KwaveDialog *dialog =
-    DynamicLoader::getDialog ("marksave",new DialogOperation(&globals,signalmanage->getRate(),0,0));
-
-  if ((dialog)&&(dialog->exec()))
-    {   
-      selectMarkers (dialog->getCommand());
-
+  MarkSaveDialog dialog(this);
+  if (dialog.exec())
+    {
+      dialog.getSelection();
       QString name=QFileDialog::getSaveFileName (0,"*.label",this);
       if (!name.isNull())
 	{
@@ -206,7 +210,7 @@ void SignalWidget::saveMarks ()
 	  Marker     *tmp;
 	  MarkerType *act;
 
-	  for (act=globals.markertypes.first();act;act=globals.markertypes.next())
+	  for (act=markertypes.first();act;act=markertypes.next())
 	    //write out all label types
 	    if (act->selected)
 	      {
@@ -230,22 +234,19 @@ void SignalWidget::saveMarks ()
 //****************************************************************************
 void SignalWidget::addMark ()
 {
-  if (signalmanage&&markertype)
+  if (signal&&markertype)
     {
       Marker *newmark=new Marker;
 
-      newmark->pos=signalmanage->getLMarker();
+      newmark->pos=signal->getLMarker();
       newmark->type=markertype;
       if (markertype->named)
 	{
-	  KwaveDialog *dialog =
-	    DynamicLoader::getDialog ("command",new DialogOperation("Enter name of label :",true));
-
-	  if ((dialog)&&(dialog->exec()))
+	  StringEnterDialog dialog(this,"Please Enter Name :");
+	  if (dialog.exec())
 	    {   
-	      newmark->name=new QString (dialog->getCommand());
+	      newmark->name=new QString (dialog.getString());
 	      markers->inSort (newmark);
-	      delete dialog;
 	    }
 	  else delete newmark;
 	}
@@ -264,9 +265,9 @@ void SignalWidget::jumptoLabel ()
 // if lmarker <  rmarker (range is selected) lmarker jumps to next lower label or zero
 // rmarker jumps to next higher label or end
 {
-  if (signalmanage)
+  if (signal)
     {
-      int lmarker=signalmanage->getLMarker(), rmarker=signalmanage->getRMarker();
+      int lmarker=signal->getLMarker(), rmarker=signal->getRMarker();
       bool RangeSelected = (rmarker - lmarker) > 0;
       if (markers)
       {
@@ -279,13 +280,13 @@ void SignalWidget::jumptoLabel ()
 	}
 	else if (abs(lmarker-position)>abs(lmarker-tmp->pos)) position = tmp->pos;
 	lmarker = position;
-	position = signalmanage->getLength();
+	position = signal->getLength();
 	for (tmp=markers->first();tmp;tmp=markers->next())
 	  if (tmp->pos > rmarker)
 	    if (abs(rmarker-position)>abs(rmarker-tmp->pos)) position = tmp->pos;
 	rmarker = position;
-	if (RangeSelected) signalmanage->setMarkers (lmarker,rmarker);
-	else signalmanage->setMarkers (lmarker,lmarker);
+	if (RangeSelected) signal->setMarkers (lmarker,rmarker);
+	else signal->setMarkers (lmarker,lmarker);
 	refresh ();
       }
     }
@@ -293,19 +294,16 @@ void SignalWidget::jumptoLabel ()
 //****************************************************************************
 void SignalWidget::savePeriods ()
 {
-  if (signalmanage)
+  if (signal)
     {
-      KwaveDialog *dialog =
-	DynamicLoader::getDialog ("marksave",new DialogOperation(&globals,signalmanage->getRate(),0,0));
-
-      if ((dialog)&&(dialog->exec()))
-	{   
-	  selectMarkers (dialog->getCommand());
-
+      MarkSaveDialog dialog (this,"Select label, which periodities are to be saved:",false);
+      if (dialog.exec())
+	{
+	  dialog.getSelection();
 	  MarkerType *act;
 	  Marker *tmp;
 	  int last=0;
-	  int rate=signalmanage->getRate ();
+	  int rate=signal->getRate ();
 
 	  QString name=QFileDialog::getSaveFileName (0,"*.dat",this);
 	  if (!name.isNull())
@@ -316,7 +314,7 @@ void SignalWidget::savePeriods ()
 	      out.open (IO_WriteOnly);
 	      int first=true;
 
-	      for (act=globals.markertypes.first();act;act=globals.markertypes.next())
+	      for (act=markertypes.first();act;act=markertypes.next())
 		//write only selected label type
 		if (act->selected)
 		  //traverse list of all labels
@@ -355,26 +353,21 @@ void SignalWidget::savePeriods ()
 //****************************************************************************
 void SignalWidget::saveBlocks (int bit)
 {
-    if (signalmanage)
+    if (signal)
     {
-      KwaveDialog *dialog =
-	DynamicLoader::getDialog ("saveblock",new DialogOperation(&globals,signalmanage->getRate(),0,0));
-
-      if ((dialog)&&(dialog->exec()))
-	{   
-	  KwaveParser parser (dialog->getCommand());
-
-	  QString filename=parser.getFirstParam();
-	  QDir *savedir=new QDir (parser.getNextParam());
-
-	  struct MarkerType *start=findMarkerType(parser.getNextParam());
-	  struct MarkerType *stop=findMarkerType (parser.getNextParam());
+      QString filename;
+      SaveBlockDialog dialog (this);
+      if (dialog.exec ())
+	{
+	  struct MarkerType *start=markertypes.at(dialog.getType1());
+	  struct MarkerType *stop=markertypes.at(dialog.getType2());
+	  QDir *savedir=dialog.getDir();
 	  
 	  struct Marker *tmp;
 	  struct Marker *tmp2;
 	  int count=0;
-	  int l=signalmanage->getLMarker(); //save old marker positions...
-	  int r=signalmanage->getRMarker(); //
+	  int l=signal->getLMarker(); //save old marker positions...
+	  int r=signal->getRMarker(); //
 
 	  for (tmp=markers->first();tmp;tmp=markers->next())  //traverse list of markers
 	    {
@@ -384,106 +377,93 @@ void SignalWidget::saveBlocks (int bit)
 		    if (tmp2->type==stop)
 		      {
 			char buf[128];
-			sprintf (buf,"%s%04d.wav",filename.data(),count);
+			sprintf (buf,"%s%04d.wav",dialog.getName(),count);
 			//lets hope noone tries to save more than 10000 blocks...
 
-			signalmanage->setMarkers (tmp->pos,tmp2->pos);
+			signal->setMarkers (tmp->pos,tmp2->pos);
 			filename=savedir->absFilePath(buf);
-			signalmanage->save (&filename,bit,true);  //save selected range...
+			signal->save (&filename,bit,true);  //save selected range...
 			count++;
 			break;
 		      }
 		}
 	    }
-	  signalmanage->setMarkers (l,r);
+	  signal->setMarkers (l,r);
 	}
     }
 }
 //****************************************************************************
 void SignalWidget::markSignal ()
 {
-  if (signalmanage)
+  if (signal)
     {
-
       Marker *newmark;
+      MarkSignalDialog dialog (this,signal->getRate());
+      if (dialog.exec ())
+	{
+	  int level=(int) ((((double)dialog.getLevel ())*(1<<23))/100);
+	  int time= dialog.getTime ();
+	  int len=signal->getLength();
+	  int *sam=signal->getSample();
+	  struct MarkerType *start=markertypes.at(dialog.getType1());
+	  struct MarkerType *stop=markertypes.at (dialog.getType2());
 
-      KwaveDialog *dialog =
-	DynamicLoader::getDialog ("mark",new DialogOperation(signalmanage->getRate(),true));
+	  newmark=new Marker();  //generate initial marker
+	  newmark->pos=0;
+	  newmark->type=start;
+	  newmark->name=0;
+	  markers->inSort (newmark);
 
-      if ((dialog)&&(dialog->exec()))
-	{   
-	  KwaveParser parser (dialog->getCommand());
-	  
-	  int level=(int) (parser.toDouble()*(1<<23)/100);
-
-	  int len=signalmanage->getLength();
-	  int *sam=signalmanage->getSignal()->getSample();
-	  struct MarkerType *start=findMarkerType(parser.getNextParam());
-	  struct MarkerType *stop=findMarkerType (parser.getNextParam());
-	  int time=(int) (parser.toDouble ()*signalmanage->getRate());
-
-	  if (start&&stop)
+	  for (int i=0;i<len;i++)
 	    {
-	      newmark=new Marker();  //generate initial marker
-	      newmark->pos=0;
-	      newmark->type=start;
-	      newmark->name=0;
-	      markers->inSort (newmark);
-
-	      for (int i=0;i<len;i++)
+	      if (abs(sam[i])<level)
 		{
-		  if (abs(sam[i])<level)
+		  int j=i;
+		  while ((i<len) &&(abs(sam[i])<level)) i++;
+		  if (i-j>time)
 		    {
-		      int j=i;
-		      while ((i<len) &&(abs(sam[i])<level)) i++;
-		      if (i-j>time)
+		      //insert markers...
+		      newmark=new Marker();
+		      newmark->pos=i;
+		      newmark->type=start;
+		      newmark->name=0;
+		      markers->inSort (newmark);
+
+		      if (start!=stop)
 			{
-			  //insert markers...
 			  newmark=new Marker();
-			  newmark->pos=i;
-			  newmark->type=start;
+			  newmark->pos=j;
+			  newmark->type=stop;
 			  newmark->name=0;
 			  markers->inSort (newmark);
-
-			  if (start!=stop)
-			    {
-			      newmark=new Marker();
-			      newmark->pos=j;
-			      newmark->type=stop;
-			      newmark->name=0;
-			      markers->inSort (newmark);
-			    }
 			}
 		    }
 		}
-
-	      newmark=new Marker();
-	      newmark->pos=len-1;
-	      newmark->type=stop;
-	      newmark->name=0;
-	      markers->inSort (newmark);
-
-	      refresh ();
 	    }
+
+	  newmark=new Marker();  //generate final marker
+	  newmark->pos=len-1;
+	  newmark->type=stop;
+	  newmark->name=0;
+	  markers->inSort (newmark);
+
+
+	  refresh ();
 	}
     }
 }
 //****************************************************************************
 void SignalWidget::markPeriods ()
 {
-  if (signalmanage)
+  if (signal)
     {
-      KwaveDialog *dialog =
-	DynamicLoader::getDialog ("mark",new DialogOperation(signalmanage->getRate(),true));
-
-      if ((dialog)&&(dialog->exec()))
-	{   
-	  KwaveParser parser (dialog->getCommand());
-
-	  int high   =signalmanage->getRate()/parser.toInt();
-	  int low    =signalmanage->getRate()/parser.toInt();
-	  int octave =parser.toBool ("true");
-	  double adjust=parser.toDouble ();
+      PitchDialog dialog (this,signal->getRate()) ;
+      if (dialog.exec())
+	{
+	  int high   =signal->getRate()/dialog.getHigh();
+	  int low    =signal->getRate()/dialog.getLow();
+	  int octave =dialog.getOctave();
+	  double adjust=1+((double)dialog.getAdjust()/1000);
 
 	  for (int i=0;i<AUTOKORRWIN;i++)
 	    autotable[i]=1-(((double)i*i*i)/(AUTOKORRWIN*AUTOKORRWIN*AUTOKORRWIN)); //generate static weighting function
@@ -492,8 +472,8 @@ void SignalWidget::markPeriods ()
 
 	  Marker *newmark;
 	  int next;
-	  int len=signalmanage->getLength();
-	  int *sam=signalmanage->getSignal()->getSample();
+	  int len=signal->getLength();
+	  int *sam=signal->getSample();
 	  struct MarkerType *start=markertype;
 	  int cnt=findFirstMark (sam,len);
 
@@ -651,42 +631,48 @@ void SignalWidget::setMarkType  (int num)
 //*****************************************************************************
 void SignalWidget::addMarkType (struct MarkerType *marker)
 {
-  globals.markertypes.append (marker);
-  if (manage) manage->addNumberedMenuEntry ("Globals.Markertypes",marker->name->data());
+  markertypes.append (marker);
+  if (manage) manage->addNumberedMenuEntry ("MarkerTypes",marker->name->data());
 }
 //*****************************************************************************
 void SignalWidget::addMarkType ()
 {
-  KwaveDialog *dialog = DynamicLoader::getDialog ("marktype",new DialogOperation(signalmanage->getRate(),true));
+  MarkerTypeDialog dialog (this);
 
-  if ((dialog)&&(dialog->exec()))
-    {   
-      MarkerType *marker=new MarkerType(dialog->getCommand());
-      if (marker) addMarkType (marker);
+  if (dialog.exec())
+    {
+      MarkerType *marker=new MarkerType();
+
+      marker->name=new QString (dialog.getName());
+      if (!marker->name->isEmpty())
+	{
+	  marker->named=dialog.getIndividual();
+	  marker->color=new QColor(dialog.getColor());
+
+	  addMarkType (marker);
+	}
+      else delete marker;
     }
 }
 //*****************************************************************************
 void SignalWidget::convertMarkstoPitch ()
 {
-  if (signalmanage)
+  if (signal)
     {
-      KwaveDialog *dialog =
-	DynamicLoader::getDialog ("marksave",new DialogOperation(&globals,signalmanage->getRate(),0,0));
-
-      if ((dialog)&&(dialog->exec()))
-	{   
-	  selectMarkers (dialog->getCommand());
-
+      MarkSaveDialog dialog (this,"Select type of labels to be converted :",false);
+      if (dialog.exec())
+	{
+	  dialog.getSelection ();
 	  MarkerType *act;
 	  Marker     *tmp;
-	  int   len=signalmanage->getLength()/2;
+	  int   len=signal->getLength()/2;
 	  float *data=new float[len];
 	  float freq;
-	  float rate=(float)signalmanage->getRate();
+	  float rate=(float)signal->getRate();
 
 	  for (int i=0;i<len;data[i++]=0);
 
-	  for (act=globals.markertypes.first();act;act=globals.markertypes.next())
+	  for (act=markertypes.first();act;act=markertypes.next())
 	    {
 	      if (act->selected)
 		{
@@ -707,7 +693,7 @@ void SignalWidget::convertMarkstoPitch ()
 			  last=tmp->pos;
 			}
 		    }
-		  PitchWindow *window=new PitchWindow (signalmanage->getName());
+		  PitchWindow *window=new PitchWindow (signal->getName());
 		  window->show ();
 		  if (window) window->setSignal (data,len,rate/2);
 		}

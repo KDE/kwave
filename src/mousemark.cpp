@@ -43,10 +43,9 @@ void MouseMark::grep (int x)
   if (abs((int)(last-x*zoom-offset))>abs((int)(initial-x*zoom-offset)))
     initial=last;
 
-  last=(int)(x*zoom+offset);
+  last=x;
   
   emit refresh ();
-
   if (initial<last) emit selection (initial,last);
   else emit selection (last,initial);
 }

@@ -9,7 +9,9 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <endian.h>
-#include <bytesex.h>
+//#include <bytesex.h>
+//seems to obsolete by Redhat 6.0... if __BYTE_ORDER is 
+//no properly defined, you'll habe to enable this, or set it manually...
 #include <limits.h>
 #include "dialogs.h"
 
@@ -26,7 +28,7 @@ struct SaveInfo
   QFile *sigout;
   int begin;
   int end;
-  int *samples;
+  int **samples;
   int channels;
 };
 
@@ -39,22 +41,32 @@ const char *sounddevice={"/dev/dsp"};
 // now some helper functions... somewhere in c-lib there should be something
 // compareable. But as long the reinvented wheel works there is no need for
 // change 
-int swapEndian (int s)
+
+#ifdef IS_BIG_ENDIAN
+static int swapEndian (int s)
   //yes you guessed it only for sizeof(int)==4 this
   //works as it should do ...
 {
  return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
 }
 //**********************************************************
-long swapEndian (long s)
+static int swapEndian (unsigned int s)
+  //yes you guessed it only for sizeof(int)==4 this
+  //works as it should do ...
 {
  return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
 }
 //**********************************************************
-short int swapEndian (short int s)	//sizeof (short int ) must be 2
+static long swapEndian (long s)
+{
+ return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
+}
+//**********************************************************
+static short int swapEndian (short int s)	//sizeof (short int ) must be 2
 {
  return ((s&0xff)<<8)|((s&0xff00)>>8);
 }
+#endif
 //**********************************************************
 //following are the playback routines 
 void MSignal::stopplay ()
@@ -493,16 +505,20 @@ void MSignal::loadWav (QString *name, int channel)
 // specified by names little/big endian problems are dealt with at compile time
 // The corresponding header should have already been written to the file before
 // invocation of this methods
-void writeData8Bit (QFile *sigout, int begin, int end, SignalManager *manage)
+void writeData8Bit (SaveInfo *saveinfo)
 {
-  int channels=manage->getChannels();
+  QFile *sigout=saveinfo->sigout;
+  int begin=saveinfo->begin;
+  int end=saveinfo->end;
+  int **samples=saveinfo->samples;
+  int channels=saveinfo->channels;
 
   char o;
   for (int i=begin;i<end;i++)
     {
       for (int j=0;j<channels;j++)
 	{
-	  o=128+(char)(manage->getSignal[j]->getSingleSample(i)/65536);
+	  o=128+(char)(samples[j][i]/65536);
 	  sigout->putch (o);
 	}
     }
@@ -661,7 +677,7 @@ void  MSignal::save (QString *filename,int bit,int selection)
       switch (bit)
 	{
 	case 8:
-	  writeData8Bit (sigout,begin,endp,this);
+	  writeData8Bit (&saveinfo);
 	  break;
 	case 16:
 	  writeData16Bit (&saveinfo);

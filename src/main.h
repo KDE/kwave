@@ -8,22 +8,24 @@ class TopWidget : public KTopLevelWidget
  Q_OBJECT
  public:
 
- 	TopWidget	  ();
-	~TopWidget	  ();
- void   closeWindow       ();
- void	setSignal	  (QString name);
- void	setSignal	  (SignalManager *);
- void   addRecentFile     (char *);
+ 	TopWidget	();
+	~TopWidget	();
+ void   closeWindow     ();
+ void	setSignal	(QString name);
+ void	setSignal	(MSignal *);
+ void   addRecentFile   (char *);
  void   updateRecentFiles ();
- void   parseBatch        (const char *);
 
  public slots:
- void 	setOp             (const char *);
+
  void	dropEvent	(KDNDDropZone *);
+ void 	setOp           (int);
 
  protected:
 
  void	newInstance();
+ void 	getHelp();
+ void	about();
  void	revert();
  void	openFile();
  void   importAsciiFile();
@@ -39,7 +41,7 @@ class TopWidget : public KTopLevelWidget
  KMenuBar	*bar;
  KStatusBar	*status;      //global status bar
  QString	name;         //filename
- MenuManager    *menumanage;  //menu manager object...
+ MenuManager    *manage;      //menu manager object...
  int            bit;          //bit resolution to save with
 };
 

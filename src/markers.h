@@ -1,8 +1,7 @@
-#ifndef _KWAVE_MARKERS_H_
-#define _KWAVE_MARKERS_H_ 1
+#ifndef _KWAVEMARKERS_H_
+#define _KWAVEMARKERS_H_ 1
 
 #include <qstring.h>
-#include <qcolor.h>
 #include <qlist.h>
 
 class MarkerType
@@ -10,12 +9,11 @@ class MarkerType
 {
  public:
   MarkerType ();
-  MarkerType (const char *);
   ~MarkerType();
 
   QString*name;         //pointer to name
   QColor *color;        //color
-  bool    named;        //boolean if named
+  bool    named;         //boolean if named
   bool    selected;
 };
 //***********************************************************

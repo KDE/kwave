@@ -1,34 +1,38 @@
 #include "clipboard.h"
 #include "main.h"
 #include "menumanager.h"
-#include "../lib/globals.h"
+#include "sample.h"
 
 #define FLUSHCLIP 1
 #define TOWINDOW  2
 
-KwaveMenuItem clip_menus[]=
+KWaveMenuItem clip_menus[]=
 {
   //internalID    ,name                 ,type  ,id  ,shortcut
-  {0            ,0             ,"&Edit"              ,KMENU ,-1   ,KSHARED},
-  {0            ,0             ,0                    ,KSEP  ,KSEP ,-1},
-  {FLUSHCLIP    ,"flush ()"    ,"&Flush Clipboard"   ,KITEM ,-1   ,-1},
-  {0            ,0             ,"&Clipboard"         ,KMENU ,-1   ,KEXCLUSIVE},
-  {TOWINDOW     ,"cliptonew ()","&to new Window"     ,KITEM ,-1   ,-1},
-  {0            ,0             ,0                    ,KEND  ,KEND ,-1},
-  {0            ,0             ,0                    ,KEND  ,KEND ,-1},
-  {0,0,0,0,0,0}
+  {0              ,"&Edit"              ,KMENU ,-1   ,KSHARED},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},
+  {FLUSHCLIP      ,"&Flush Clipboard"   ,KITEM ,-1   ,-1},
+  {0              ,"&Clipboard"         ,KMENU ,-1   ,KEXCLUSIVE},
+  {TOWINDOW       ,"&to new Window"     ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+  {0,0,0,0,0}
 };
 
 QList<MenuManager> clipmenulist;    //list of all registered Menus
                                     //used for appending clipboard menus
-extern Global globals;
+extern QList<TopWidget> topwidget; 
+extern KApplication     *app;
+extern ClipBoard        *clipboard;
 //*****************************************************************************
 ClipBoard::ClipBoard () {signal=0,hasmenu=false;}
 //*****************************************************************************
-ClipBoard::ClipBoard (SignalManager *signal)
+ClipBoard::ClipBoard (MSignal *signal)
 {
   this->signal=signal;
   
+  if (signal) signal->setMenuManager (0); //detach from previous menu context
+
   MenuManager *tmp=clipmenulist.first();
   while (tmp)
     {
@@ -43,7 +47,7 @@ void ClipBoard::registerMenu (MenuManager *manage)
   if (clipmenulist.findRef(manage)<0)
     {
       clipmenulist.append (manage);
-      if (globals.clipboard) manage->appendMenus (clip_menus);
+      if (clipboard) manage->appendMenus (clip_menus);
     }
 }
 //*****************************************************************************
@@ -52,14 +56,12 @@ void ClipBoard::unregisterMenu (MenuManager *manage)
   clipmenulist.removeRef (manage);
 }
 //*****************************************************************************
-void ClipBoard::appendChannel (KwaveSignal *channel)
+void ClipBoard::appendChannel (MSignal *channel)
 {
-  if (signal) signal->appendChannel (channel);
-  else
-    signal=new SignalManager (channel);
+  signal->appendChannel (channel);
 }
 //*****************************************************************************
-SignalManager *ClipBoard::getSignal ()
+MSignal *ClipBoard::getSignal ()
 {
   return signal;
 }
@@ -69,8 +71,20 @@ int ClipBoard::getLength ()
   return signal->getLength();
 }
 //*****************************************************************************
-void ClipBoard::setOp (const char *)
+void ClipBoard::setOp (int op)
 {
+  MenuManager *manage=clipmenulist.first();
+
+  if (manage) op=manage->translateId (clip_menus,op);
+  switch (op)
+    {
+    case TOWINDOW:
+      toWindow ();
+      break;
+    case FLUSHCLIP:
+      delete this;
+      break;
+    }
 }
 //*****************************************************************************
 void ClipBoard::toWindow ()
@@ -79,7 +93,9 @@ void ClipBoard::toWindow ()
    {
     TopWidget *tnew=new TopWidget();
 
+    topwidget.append (tnew);
     tnew->setSignal (signal);
+
     tnew->show();
     tnew->setCaption (klocale->translate("Clipboard"));
     signal=0; //detach signal
@@ -101,6 +117,6 @@ ClipBoard::~ClipBoard ()
 	  tmp=clipmenulist.next();
 	}
     }
-  globals.clipboard=0;
+  clipboard=0; //using the knowledge there exists only on clipboard
 }
 //*****************************************************************************

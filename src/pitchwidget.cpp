@@ -4,6 +4,8 @@
 
 #include <math.h>
 #include <limits.h>
+
+#include "dialogs.h"
 #include "pitchwidget.h"
 #include "fftview.h"
 #include "main.h"
@@ -144,7 +146,7 @@ void PitchContainer::resizeEvent (QResizeEvent *)
     }
 }
 //****************************************************************************
-PitchWindow::PitchWindow (const char *name) : KTopLevelWidget ()
+PitchWindow::PitchWindow (QString *name) : KTopLevelWidget ()
 {
   QPopupMenu *pitch=	new QPopupMenu ();
   KMenuBar   *bar=	new KMenuBar (this); 
@@ -170,7 +172,7 @@ PitchWindow::PitchWindow (const char *name) : KTopLevelWidget ()
   connect (view,SIGNAL(pitch(float)),this,SLOT(showPitch(float)));
   connect (view,SIGNAL(timeSamples(float)),this,SLOT(showTime(float)));
  
-  QString *windowname=new QString (QString ("Pitch of ")+QString(name));
+  QString *windowname=new QString (QString ("Pitch of ")+QString(name->data()));
   setCaption (windowname->data()); 
   setMinimumSize (320,200);
 }

@@ -13,46 +13,48 @@
 
 # just set the variable
 
-APPSDIR= $(kde_appsdir)/Multimedia
-CONFDIR= $(kde_datadir)/$(PACKAGE)
+APPSDIR = $(kde_appsdir)/Multimedia
 PIXDIR = $(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
-INCLUDES= @all_includes@
+INCLUDES= @all_includes@ 
 
 # claim, which subdirectories you want to install
 
 ####### This part is very kwave specific
 bin_PROGRAMS  = kwave
 
-SINGLE_DIALOG_SRC=dialog_progress.cpp \
- dialog_sweep.cpp dialog_frequency.cpp dialog_fixedfreq.cpp
-
-SINGLE_DIALOGS=mdialog_progress.cpp \
- mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp
- 
 # Which sources should be compiled for kwave.
-kwave_SOURCES =  $(SINGLE_DIALOGS) $(SINGLE_DIALOG_SRC) \
- signalview.cpp main.cpp mainwidget.cpp signalio.cpp signalplay.cpp \
- fftview.cpp addsynth.cpp sonagram.cpp signalmanager.cpp markers.cpp\
- pitchwidget.cpp filterwidget.cpp menumanager.cpp clipboard.cpp mousemark.cpp\
- mmain.cpp msignalview.cpp mmainwidget.cpp \
- maddsynth.cpp mfftview.cpp msonagram.cpp\
- mmousemark.cpp mfilterwidget.cpp \
- mpitchwidget.cpp mmenumanager.cpp msignalmanager.cpp
+kwave_SOURCES = signalview.cpp main.cpp sample.cpp mainwidget.cpp sampleio.cpp\
+ about.cpp fftview.cpp gsl_fft.cpp mmap.cpp dialogs.cpp configdialogs.cpp\
+ curvewidget.cpp interpolation.cpp sampleedit.cpp filter.cpp scale.cpp\
+ multistateimage.cpp addsynth.cpp functions.cpp sonagram.cpp markers.cpp\
+ formantwidget.cpp faderwidget.cpp pitchwidget.cpp windowfunction.cpp\
+ menumanager.cpp clipboard.cpp mousemark.cpp guiitems.cpp\
+ mmain.cpp msignalview.cpp mmainwidget.cpp msample.cpp mabout.cpp\
+ mconfigdialogs.cpp moverview.cpp mguiitems.cpp\
+ mformantwidget.cpp maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
+ mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp mmousemark.cpp\
+ mfilter.cpp mscale.cpp mpitchwidget.cpp mmenumanager.cpp
 
 # the library search path
-kwave_LDFLAGS = @all_libraries@ -L$(topdir)/lib/.lib -L$(topdir)/libgui/.lib
+kwave_LDFLAGS = @all_libraries@
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kwave_LDADD   = -lkfm -lkdeui -lkdecore -lkwavegui -lqt -lX11 -lXext \
--lkwave -lpthread -ldl
+kwave_LDADD   = -lkfm -lkdeui -lkdecore -lqt -lX11 -lXext -lpthread
 
+# this option you can leave out. Just, if you use "make dist", you need it
+noinst_HEADERS =  signalview.h mainwidget.h sample.h main.h about.h fftview.h\
+ gsl_fft.h faderwidget.h curvewidget.h interpolation.h mousemark.h\
+ multistateimage.h addsynth.h functions.h clipboard.h\
+ sonagram.h filter.h scale.h menumanager.h overview.h markers.h slider.h\
+ $(DIALOGDIR)dialogs.h $(DIALOGDIR)configdialogs.h
 # just to make sure, automake makes them 
- BUILTSOURCES =	 $(SINGLE_DIALOGS) mmain.cpp msignalview.cpp \
- maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
- mpitchwidget.cpp mmenumanager.cpp \
- mmainwidget.cpp mmousemark.cpp msignalmanager.cpp
+BUILTSOURCES =	mmain.cpp msignalview.cpp msample.cpp mabout.cpp maddsynth.cpp\
+ mconfigdialogs.cpp mdialogs.cpp mfftview.cpp msonagram.cpp mformantwidget.cpp\
+ mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp mscale.cpp\
+ mpitchwidget.cpp mmenumanager.cpp mmainwidget.cpp moverview.cpp mmarker.cpp\
+ mmousemark.cpp
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
@@ -82,8 +84,6 @@ install-data-local:
 	$(INSTALL_DATA) images/rspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) images/lspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) images/font.xpm $(PIXDIR)
-	$(mkinstalldirs) $(CONFDIR)
-	$(INSTALL_DATA) menus.config $(CONFDIR)
 	$(mkinstalldirs) $(kde_htmldir)/default/$(PACKAGE)
 	$(INSTALL_DATA) doc/* $(kde_htmldir)/default/$(PACKAGE)
 
@@ -97,37 +97,48 @@ uninstall-local:
 main.cpp: mmain.cpp
 mmain.cpp: main.h
 	$(MOC) -o mmain.cpp main.h
+mmarkers.cpp: markers.h
+	$(MOC) -o mmarkers.cpp markers.h
 msignalview.cpp: signalview.h
 	$(MOC) -o msignalview.cpp signalview.h
 mmainwidget.cpp: mainwidget.h
 	$(MOC) -o mmainwidget.cpp mainwidget.h
+moverview.cpp: overview.h
+	$(MOC) -o moverview.cpp overview.h
+msample.cpp: sample.h
+	$(MOC) -o msample.cpp sample.h
+mabout.cpp: about.h
+	$(MOC) -o mabout.cpp about.h
 maddsynth.cpp: addsynth.h
 	$(MOC) -o maddsynth.cpp addsynth.h
-mfilterwidget.cpp: filterwidget.h
-	$(MOC) -o mfilterwidget.cpp filterwidget.h
+mfilter.cpp: filter.h
+	$(MOC) -o mfilter.cpp filter.h
 mfftview.cpp: fftview.h
 	$(MOC) -o mfftview.cpp fftview.h
 msonagram.cpp: sonagram.h
 	$(MOC) -o msonagram.cpp sonagram.h
 mmousemark.cpp: mousemark.h
 	$(MOC) -o mmousemark.cpp mousemark.h
+mfaderwidget.cpp: faderwidget.h
+	$(MOC) -o mfaderwidget.cpp faderwidget.h
 mpitchwidget.cpp: pitchwidget.h
 	$(MOC) -o mpitchwidget.cpp pitchwidget.h
+mformantwidget.cpp: formantwidget.h
+	$(MOC) -o mformantwidget.cpp formantwidget.h
+mcurvewidget.cpp: curvewidget.h
+	$(MOC) -o mcurvewidget.cpp curvewidget.h
+mmultistateimage.cpp: multistateimage.h
+	$(MOC) -o mmultistateimage.cpp multistateimage.h 
 mmenumanager.cpp: menumanager.h
 	$(MOC) -o mmenumanager.cpp menumanager.h 
-msignalmanager.cpp: signalmanager.h
-	$(MOC) -o msignalmanager.cpp signalmanager.h
-#single dialogs
-mdialog_progress.cpp: dialog_progress.h
-	$(MOC) -o mdialog_progress.cpp dialog_progress.h
-mdialog_frequency.cpp: dialog_frequency.h
-	$(MOC) -o mdialog_frequency.cpp dialog_frequency.h
-mdialog_sweep.cpp: dialog_sweep.h
-	$(MOC) -o mdialog_sweep.cpp dialog_sweep.h
-mdialog_fixedfreq.cpp: dialog_fixedfreq.h
-	$(MOC) -o mdialog_fixedfreq.cpp dialog_fixedfreq.h
-
-
+mscale.cpp: scale.h
+	$(MOC) -o mscale.cpp scale.h 
+mguiitems.cpp: guiitems.h
+	$(MOC) -o mguiitems.cpp guiitems.h
+mdialogs.cpp: dialogs.h
+	$(MOC) -o mdialogs.cpp dialogs.h
+mconfigdialogs.cpp: configdialogs.h
+	$(MOC) -o mconfigdialogs.cpp configdialogs.h
 
 
 

@@ -8,7 +8,7 @@
 #include <qpixmap.h>
 #include <qtimer.h>
 
-#include "../libgui/scale.h"
+#include "scale.h"
 
 #include <kapp.h>
 #include <kselect.h>
@@ -79,7 +79,7 @@ class PitchWindow : public KTopLevelWidget
 {
  Q_OBJECT
  public:
- 	PitchWindow	(const char *name);
+ 	PitchWindow	(QString *name);
  	~PitchWindow	();
  void 	setSignal	(float *,int,int);
 
@@ -94,10 +94,10 @@ class PitchWindow : public KTopLevelWidget
  protected:
 
  private:
- PitchWidget       *view;
- PitchContainer    *mainwidget;
- ScaleWidget       *xscale,*yscale;
- KStatusBar        *status;
+ PitchWidget     *view;
+ PitchContainer  *mainwidget;
+ ScaleWidget     *xscale,*yscale;
+ KStatusBar      *status;
  CornerPatchWidget *corner;
  int rate;
 };

@@ -7,6 +7,9 @@
 #include <qpixmap.h>
 #include <qtimer.h>
 #include <qframe.h>
+
+#include "slider.h"
+
 #include <kselect.h>
 #include <ktopwidget.h>
 #include <kbuttonbox.h>

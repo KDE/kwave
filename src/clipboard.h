@@ -1,29 +1,25 @@
 #ifndef _KWAVECLIPBOARD_H_
 #define _KWAVECLIPBOARD_H_ 1
 
-#include "signalmanager.h"
-
-class KwaveSignal;
+class MSignal;
 class MenuManager;
-
 class ClipBoard
 {
  public:
   ClipBoard::ClipBoard  ();
-  ClipBoard::ClipBoard  (SignalManager *signal);
+  ClipBoard::ClipBoard  (MSignal *signal);
   ClipBoard::~ClipBoard ();
-
   void toWindow ();
   int  getLength ();
-  void appendChannel  (KwaveSignal *);
+  void appendChannel  (MSignal *);
   void registerMenu   (MenuManager *);
   void unregisterMenu (MenuManager *);
-  void setOp          (const char *);
+  void setOp          (int);
 
-  SignalManager *getSignal ();
+  MSignal *getSignal ();
 
  private:
-  SignalManager *signal;
+  MSignal *signal;
   bool hasmenu;
 };
 #endif

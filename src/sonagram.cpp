@@ -1,18 +1,14 @@
 #include <qdir.h>
+#include "sonagram.h"
 #include <qpainter.h>
 #include <math.h>
 #include <limits.h>
 #include <qcursor.h>
-
-#include "dialog_progress.h"
-#include "main.h"
-#include "sonagram.h"
-#include "signalmanager.h"
-
 #include <kmsgbox.h>
-
-#include "../lib/kwavesignal.h"
-#include "../lib/windowfunction.h"
+#include "dialogs.h"
+#include "sample.h"
+#include "main.h"
+#include "windowfunction.h"
 
 extern KApplication *app;
 extern char *mstotimec (int ms); 
@@ -306,10 +302,8 @@ void  SonagramWindow::toSignal ()
 
   if (win)
     {
-      KwaveSignal *newsig=new KwaveSignal (length,rate);
-      //assure 10 Hz for correction signal, this should not be audible
-      int slopesize=rate/10;
-
+      MSignal *newsig=new MSignal (win,length,rate);
+      int slopesize=rate/10;           //assure 10 Hz for correction signal, this should not be audible
       double *slope=new double [slopesize];
       
       if (slope&&newsig)
@@ -342,7 +336,7 @@ void  SonagramWindow::toSignal ()
 		  if (dif<2)
 		  for (int j=0;j<max;j++) output[i*points+j]+=(int) (slope[j]*dif);		}
 
-	      win->setSignal (new SignalManager (newsig));
+	      win->setSignal (newsig);
 
 	      if (tmp) delete tmp;
 	    }

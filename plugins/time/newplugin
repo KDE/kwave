@@ -1,8 +1,0 @@
-#!/bin/sh
-
-mkdir $1
-ln -s ../template/Makefile.in $1/
-ln -s ../template/Makefile.am $1/
-ln -s ../template/Makefile    $1/
-cp template/module.cpp $1/
-

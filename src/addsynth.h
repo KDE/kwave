@@ -5,14 +5,14 @@
 #include <qstring.h>
 #include <qwidget.h>
 
-#include "../libgui/curvewidget.h"
-#include "../libgui/curvewidget.h"
-#include "../libgui/scale.h"
-#include "../libgui/slider.h"
+#include "curvewidget.h"
+#include "curvewidget.h"
+#include "scale.h"
+#include "slider.h"
 
 #include <kintegerline.h>
 
-class KwaveSignal;
+class MSignal;
 class TimeLine;
 
 class AddSynthWidget : public QWidget
@@ -51,7 +51,7 @@ class AddSynthDialog : public QDialog
   AddSynthDialog 	(QWidget *parent=0,int rate=48000,int time=0,char *name="Choose Signal Components :");
   ~AddSynthDialog 	();
 
-  KwaveSignal *getSignal();
+  MSignal *getSignal();
 
   public slots:
 
@@ -87,7 +87,7 @@ class AddSynthDialog : public QDialog
   
  private:
 
-  Curve             *times;
+  QList<CPoint> *times;
 
   AddSynthWidget    *view;
   ScaleWidget       *x,*y;
@@ -105,7 +105,7 @@ class AddSynthDialog : public QDialog
 
   QPushButton   *freqbutton;
   QPushButton   *calculate;
-  KwaveSignal   *test;           //for hearing not yet done...
+  MSignal       *test;           //for hearing not yet done...
 
   QComboBox	*functype;
   QPopupMenu*   menu;
@@ -130,7 +130,7 @@ class PulseDialog : public QDialog
   PulseDialog 	(QWidget *parent=0,int rate=48000,int time=0,char *name="Choose pulse properties :");
   ~PulseDialog 	();
 
-  KwaveSignal *getSignal();
+  MSignal *getSignal();
 
   public slots:
 
@@ -152,11 +152,11 @@ class PulseDialog : public QDialog
 
   QPushButton   *freqbutton;
   QPushButton   *hear;
-  KwaveSignal   *test;           //for hearing...
+  MSignal       *test;           //for hearing...
 
 
   QPushButton	*ok,*cancel;
   int rate;     //sampling rate
-  Curve         *times;
+  QList<CPoint> *times;
 };
 #endif

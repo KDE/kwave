@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <qimage.h>
 #include <qpainter.h>
 #include <qcursor.h>
@@ -7,26 +6,56 @@
 #include <qfiledlg.h>
 #include <math.h>
 #include <limits.h>
-#include "../lib/interpolation.h"
-#include "../lib/fileloader.h"
-#include "../lib/globals.h"
+#include "interpolation.h"
 #include "curvewidget.h"
+
+struct Curve
+{
+  QString name;
+  QList<CPoint> *points;
+  int type;
+};
 
 int knobcount=0;
 QPixmap *knob=0;
 QPixmap *selectedknob=0;
 
-extern Global globals;
+extern QDir *configDir;
+extern KApplication *app;
+
 //****************************************************************************
-CurveWidget::CurveWidget (QWidget *parent,const char *init,int keepborder) : QWidget (parent)
+CurveWidget::CurveWidget (QWidget *parent,const char *name,QList<CPoint> *init,int keepborder) : QWidget (parent,name)
 {
+  Interpolation ask(0);
   last=0;
 
   this->keepborder=keepborder;
 
-  if (init) points=new Curve (init);
-  else points=new Curve ("curve (linear,0,0,1,1)");
+  points=new QList<CPoint> ();
+  points->setAutoDelete (true);
 
+  if (init)
+    {
+      CPoint *tmp;
+      init->setAutoDelete (false);
+      for (tmp=init->first();tmp;tmp=init->first())
+	{
+	  init->removeRef (tmp);
+	  points->append (tmp);
+	}
+   }
+  else
+   {
+      CPoint *first=new CPoint;
+      CPoint *last=new CPoint;
+      first->x=0;
+      first->y=0;
+      last->x=1;
+      last->y=1;
+      points->append (first);
+      points->append (last);
+    }
+ 
   setBackgroundColor (black);
 
   menu=new QPopupMenu ();
@@ -53,37 +82,34 @@ CurveWidget::CurveWidget (QWidget *parent,const char *init,int keepborder) : QWi
   del->insertItem (klocale->translate ("recently selected Point"),this,SLOT(deleteLast()));
   del->insertItem (klocale->translate ("every 2nd Point"),this,SLOT(deleteSecond()));
 
-  presetDir=new QDir(globals.localconfigDir);
+  presetDir=new QDir(configDir->path());
 
-  if (presetDir)
+  if (!presetDir->cd ("presets"))
     {
-      if (!presetDir->cd ("presets"))
-	{
-	  presetDir->mkdir ("presets");
-	  presetDir->cd ("presets");
-	}
-      if (!presetDir->cd ("curves"))
-	{
-	  presetDir->mkdir ("curves");
-	  presetDir->cd ("curves");
-	}
-
-      presetDir->setNameFilter ("*.curve");
-
-      namelist=(QStrList *)presetDir->entryList ();
-
-      for (char *tmp=namelist->first();tmp;tmp=namelist->next())
-	{
-	  char buf[strlen(tmp)-5];
-	  strncpy (buf,tmp,strlen(tmp)-6);
-	  buf[strlen(tmp)-6]=0;
-	  presets->insertItem (buf);
-	}
-
-      connect( presets, SIGNAL(activated(int)), SLOT(loadPreset(int)) ); 
+      presetDir->mkdir ("presets");
+      presetDir->cd ("presets");
+    }
+  if (!presetDir->cd ("curves"))
+    {
+      presetDir->mkdir ("curves");
+      presetDir->cd ("curves");
     }
 
-  char **names=(char **) Interpolation::getTypes();
+  presetDir->setNameFilter ("*.curve");
+
+  namelist=(QStrList *)presetDir->entryList ();
+
+  for (char *tmp=namelist->first();tmp!=0;tmp=namelist->next())
+    {
+      char buf[strlen(tmp)-5];
+      strncpy (buf,tmp,strlen(tmp)-6);
+      buf[strlen(tmp)-6]=0;
+      presets->insertItem (buf);
+    }
+
+  connect( presets, SIGNAL(activated(int)), SLOT(loadPreset(int)) ); 
+
+  char **names=(char **) ask.getTypes();
   int i=0;
 
   while (names[i]!=NULL)
@@ -91,12 +117,12 @@ CurveWidget::CurveWidget (QWidget *parent,const char *init,int keepborder) : QWi
 
   connect( interpolation, SIGNAL(activated(int)), SLOT(setType(int)) ); 
 
-  act=0;                           //set active point to none
-  interpolationtype=0;             //default interpolation type
+  act=0; //set active point to none
+  interpolationtype=INTPOL_LINEAR; //linear interpolation
   
   if (knob==0)
     {
-      QString dirname=globals.app->kde_datadir ();
+      QString dirname=app->kde_datadir ();
       QDir dir (dirname.data());
       dir.cd ("kwave");
       dir.cd ("pics");
@@ -132,69 +158,152 @@ CurveWidget::~CurveWidget ()
   if (menu) delete menu;
 }
 //****************************************************************************
-void CurveWidget::setCurve (const char *next)
+QList<CPoint> *CurveWidget::getPoints ()
 {
-  if (points) delete points;
-  points=new Curve (next);
+  return points;
+}
+//****************************************************************************
+void CurveWidget::setCurve (QList<CPoint> *curve)
+{
+  //make deep copy of list
+  points->clear();
+  CPoint *tmp;
+
+  for (tmp=curve->first();tmp;tmp=curve->next())
+    {
+      CPoint *newpoint=new CPoint;
+      newpoint->x=tmp->x;
+      newpoint->y=tmp->y;
+      points->append (newpoint);
+    }
 }
 //****************************************************************************
 void CurveWidget::setType(int type)
 {
-  points->setInterpolationType (Interpolation::getTypes()[type]);
+  interpolationtype=type;
   repaint ();
 }
 //****************************************************************************
 void CurveWidget::savePreset()
 {
+  CPoint *tmp;
+  char buf[80];
   QString name=QFileDialog::getSaveFileName (presetDir->path(),"*.curve",this);
-
   if (name.find (".curve")==-1) name.append (".curve");
   QFile out(name.data());
   out.open (IO_WriteOnly);
-  const char *buf=points->getCommand();
-  out.writeBlock (buf,strlen(buf));
+  sprintf (buf,"Type = %d\n",interpolationtype);
+  out.writeBlock (&buf[0],strlen(buf));
+
+  for ( tmp=points->first(); tmp != 0; tmp=points->next() )
+    {
+      sprintf (buf,"%e %e\n",tmp->x,tmp->y);
+      out.writeBlock (&buf[0],strlen(buf));
+    }
 }
 //****************************************************************************
 void CurveWidget::loadPreset(int num)
 {
   char *name=namelist->at(num);
 
-  FileLoader loader (presetDir->absFilePath(name));
+  char buf[120];
 
-  if (points) delete points;
-  points=new Curve (loader.getMem());
+  QFile *in=new QFile (presetDir->absFilePath(name));
+  if ((in)&&(in->open (IO_ReadOnly)))
+    {
+      CPoint *newpoint;
+      QList<CPoint> *newlist=new QList<CPoint>;
+      newlist->setAutoDelete (true);
+
+      in->readLine(buf,120);
+      sscanf (buf,"Type = %d",&interpolationtype);
+      while (in->readLine(buf,120)>0)
+	{
+	  float x,y;
+	  newpoint=new CPoint;
+	  sscanf (buf,"%f %f\n",&x,&y);
+
+	  newpoint->x=x;
+	  newpoint->y=y;
+	  if (newpoint->x>1) newpoint->x=1;
+	  if (newpoint->y>1) newpoint->y=1;
+	  if (newpoint->x<0) newpoint->x=0;
+	  if (newpoint->y<0) newpoint->y=0;
+
+	  newlist->append (newpoint);
+	}
+      delete in;
+
+      if (newlist->count()>=2)
+	{
+	  if (points) delete points;
+	  points=newlist;
+	}
+    }
+  else printf ("could not open file !\n");
 
   repaint ();
 }
 //****************************************************************************
+void CurveWidget::doDouble ()
+{
+}
+//****************************************************************************
 void CurveWidget::secondHalf ()
 {
-  points->secondHalf ();
-  last=0;
+  struct CPoint *tmp;
+  
+  for ( tmp=points->first(); tmp != 0; tmp=points->next() )
+    tmp->x=.5+tmp->x/2;
+
+  tmp=points->first();
+  CPoint *newpoint=new CPoint;
+  newpoint->x=0;
+  newpoint->y=tmp->y;
+  points->insert (0,newpoint);
   repaint();
 }
 //****************************************************************************
 void CurveWidget::firstHalf ()
 {
-  points->firstHalf ();
-  last=0;
+  struct CPoint *tmp;
+  
+  for ( tmp=points->first(); tmp != 0; tmp=points->next() )
+    tmp->x=tmp->x/2;
 
+  tmp=points->last();
+  CPoint *newpoint=new CPoint;
+  newpoint->x=1;
+  newpoint->y=tmp->y;
+  points->append (newpoint);
   repaint();
 }
 //****************************************************************************
 void CurveWidget::deleteSecond ()
 {
-  points->deleteSecondPoint();
+  struct CPoint *tmp;
+  
+  for ( tmp=points->first(); tmp != 0; tmp=points->next() )
+    {
+      tmp=points->next();
+      if (tmp&&tmp!=points->last())
+	{
+	  points->removeRef(tmp);
+	  tmp=points->prev();
+	}
+      //points is autodelete... no delete for object is required
+    }
   last=0;
-
   repaint ();
 }
 //****************************************************************************
 void CurveWidget::deleteLast ()
 {
-  if (last)
+  if ((last)&&(last!=points->first())&&(last!=points->last()))
+  //inhibit removal of first/last element
     {
-      points->deletePoint (last,false);
+      points->removeRef(last);
+      //points is autodelete... no delete for object is required
       last=0;
       repaint ();
     }
@@ -202,33 +311,108 @@ void CurveWidget::deleteLast ()
 //****************************************************************************
 void CurveWidget::HFlip ()
 {
-  points->HFlip();
+  CPoint *tmp;
+  QList<CPoint> *newlist=new QList<CPoint>;
+
+  for ( tmp=points->last(); tmp != 0; tmp=points->prev() )
+    {
+      tmp->x=1-tmp->x;
+      newlist->append (tmp);
+    }
+
+  points->setAutoDelete (false);
+  delete points;
+
+  points=newlist;
+  points->setAutoDelete (true);
   repaint ();
 }
 //****************************************************************************
 void CurveWidget::VFlip ()
 {
-  points->VFlip();
+  CPoint *tmp;
+  for ( tmp=points->first(); tmp != 0; tmp=points->next() ) tmp->y=1-tmp->y;
   repaint ();
+}
+//****************************************************************************
+int  CurveWidget::getInterpolationType()
+{
+ return interpolationtype;
 }
 //****************************************************************************
 void CurveWidget::scaleFit()
 {
-  points->scaleFit ();
-  repaint ();
+  struct CPoint *tmp;
+  double min=1000,max=0;
+
+  tmp=points->first();
+  if (tmp!=0)
+    {
+      Interpolation interpolation(interpolationtype);
+
+      double *y=interpolation.getInterpolation (points,1024);
+      for (int i=0;i<1024;i++)
+	{
+	  if (y[i]>max) max=y[i];
+	  if (y[i]<min) min=y[i];
+	}
+
+      max-=min;
+      tmp=points->first();
+      for (;tmp!=0;tmp=points->next())
+	{
+	  tmp->y-=min;	  
+	  tmp->y/=max;
+	}
+      repaint ();
+    }
 }
 //****************************************************************************
 void CurveWidget::addPoint (double newx,double newy)
 {
-  points->addPoint (newx,newy);
+  CPoint *tmp;
+
+  act=new CPoint;
+  act->x=newx;
+  act->y=newy;
+
+  tmp=points->first();
+
+  while ((tmp)&&(tmp->x<act->x)) tmp=points->next();
+
+  if (tmp!=0) points->insert (points->at(), act);
   last=0;
   repaint ();
 }
 //****************************************************************************
-Point *CurveWidget::findPoint (int sx,int sy)
+CPoint *CurveWidget::findPoint (int sx,int sy)
   // checks, if given coordinates fit to a control point in the list...
 {
-  return points->findPoint (((double)sx)/width,((double)height-sy)/height);
+  double maxx=(double) (sx)/width+.05;
+  double minx=(double) (sx)/width-.05;
+  double maxy=(double) (height-sy)/height+.05;
+  double miny=(double) (height-sy)/height-.05;
+  CPoint *tmp;
+  CPoint *act=0;
+  double x,y;
+  
+  for ( tmp=points->first(); tmp != 0; tmp=points->next() )
+    {
+      x=tmp->x;
+      y=tmp->y;
+
+      if (x>maxx) break;
+      //the list is sorted, a match cannot be
+      //found anymore, because x is already to big
+
+      if ((x>=minx)&&(x<=maxx)&&(y>=miny)&&(y<=maxy))
+	{
+	  act=tmp;
+	  last=0;
+	  break;
+	}
+    }
+  return act;
 }
 //****************************************************************************
 void CurveWidget::mousePressEvent( QMouseEvent *e)
@@ -243,12 +427,7 @@ void CurveWidget::mousePressEvent( QMouseEvent *e)
       act=findPoint (e->pos().x(),e->pos().y());
 
       if (act==0) //so, no matching point is found -> generate a new one !
-	{
-	  addPoint ((double) (e->pos().x())/width,
-		  (double) (height-e->pos().y())/height);
-	  act=findPoint (e->pos().x(),e->pos().y());
-	}
-      repaint ();
+	addPoint ((double) (e->pos().x())/width,(double) (height-e->pos().y())/height);
     }
 }
 //****************************************************************************
@@ -275,12 +454,19 @@ void CurveWidget::mouseMoveEvent( QMouseEvent *e )
       if (act->x>1) act->x=1;
       if (act->y>1) act->y=1;
 
-      Point *prev=points->previous(act);
-      Point *next=points->next(act);
+      if (points->find (act)!=-1)
+	{
+	  CPoint *prev=points->prev();
+	  if (prev) points->next();  //item no first item
+	  else points->first();     
+	  CPoint *next=points->next();
 
-      if (prev) if (act->x<prev->x) act->x=prev->x+(1/(double) width);
-      if (next) if (act->x>next->x) act->x=next->x-(1/(double) width);
-
+	  if (prev) if (act->x<prev->x) act->x=prev->x+(1/(double) width);
+	  if (next) if (act->x>next->x) act->x=next->x-(1/(double) width);
+	}
+      if (act==points->first()) act->x=0;
+      if (act==points->last())  act->x=1;
+            
       repaint ();
     }
   else
@@ -290,46 +476,46 @@ void CurveWidget::mouseMoveEvent( QMouseEvent *e )
 //****************************************************************************
 void CurveWidget::paintEvent  (QPaintEvent *)
 {
-  Point *tmp;
+  CPoint *tmp;
+  Interpolation interpolation (interpolationtype);
 
   height=rect().height();
   width=rect().width();
 
   p.begin (this);
+  p.setPen (darkGray);
+
+  /*  p.drawLine (0,height/4,width,height/4);
+  p.drawLine (0,height*3/4,width,height*3/4);
+  p.drawLine (width/4,0,width/4,height);
+  p.drawLine (width*3/4,0,width*3/4,height);
+  */
   p.setPen (white);
 
   int kw=knob->width();
   int kh=knob->height();
   int lx,ly,ay;
 
-  if (points)
+  double *y=interpolation.getInterpolation (points,width);
+
+  ly=height-(int)(points->first()->y*height);
+
+  for (int i=1;i<width;i++)
     {
-      double *y=points->getInterpolation (width);
-      if (y)
-	{
-	  ly=height-(int)(y[0]*height);
-
-	  for (int i=1;i<width;i++)
-	    {
-	      ay=height-(int)(y[i]*height);
-	      p.drawLine (i-1,ly,i,ay);
-	      ly=ay;
-	    }
-
-	  for ( tmp=points->first(); tmp ; tmp=points->next(tmp) )
-	    {
-	      lx=(int)(tmp->x*width);
-	      ly=height-(int)(tmp->y*height);
-
-	      if ((tmp==act)||(tmp==last)) bitBlt (this,lx-kw/2,ly-kh/2,selectedknob,0,0,kw,kh);
-	      else bitBlt (this,lx-kw/2,ly-kh/2,knob,0,0,kw,kh);
-
-	    }
-	}
-      else debug ("CurveWidget: could not get Interpolation !\n");
-      p.end();
+      ay=height-(int)(y[i]*height);
+      p.drawLine (i-1,ly,i,ay);
+      ly=ay;
     }
-  else debug ("CurveWidget: nothing to be drawn !\n");
+
+  for ( tmp=points->first(); tmp != 0; tmp=points->next() )
+    {
+      lx=(int)(tmp->x*width);
+      ly=height-(int)(tmp->y*height);
+
+      if ((tmp==act)||(tmp==last)) bitBlt (this,lx-kw/2,ly-kh/2,selectedknob,0,0,kw,kh);
+      else bitBlt (this,lx-kw/2,ly-kh/2,knob,0,0,kw,kh);
+    }
+  p.end();
 }
 //****************************************************************************
 

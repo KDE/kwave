@@ -15,8 +15,12 @@
 #include <kmenubar.h>
 #include <kbuttonbox.h>
 #include <kstatusbar.h>  
-#include "../lib/gsl_fft.h"
-#include "../lib/curve.h"
+#include "gsl_fft.h"
+
+struct CPoint
+{
+ double x,y;
+};
 
 class CurveWidget : public QWidget
 {
@@ -24,13 +28,14 @@ class CurveWidget : public QWidget
 
     public:
 
-  CurveWidget	(QWidget *parent=0,const char *init=0,int=false);
+  CurveWidget	(QWidget *parent=0,const char *name=0,QList<CPoint>*d=0,int=false);
   ~CurveWidget	 ();
-
-  inline const char* getCommand ()             {return points->getCommand();};
-         void        setCurve   (const char *);
-         void        addPoint   (double,double);
-         Point*      findPoint  (int,int);
+  QList<CPoint> *getPoints ();
+  int   getInterpolationType  ();
+  void  setType  (char *);
+  void  setCurve (QList<CPoint> *);
+  void  addPoint (double,double);
+  CPoint*  findPoint (int,int);
 
   public slots:
 
@@ -41,6 +46,7 @@ class CurveWidget : public QWidget
   void  deleteLast   ();
   void  deleteSecond ();
   void  firstHalf    ();
+  void  doDouble     ();
   void  secondHalf   ();
   void  savePreset   ();
   void  loadPreset   (int);
@@ -61,10 +67,10 @@ class CurveWidget : public QWidget
   int   keepborder;             //flag denying acces to first and last point...e
   double x[7],y[7];		//buffer for polynomial coefficients
 
-  Curve         *points; 	//Points set by User
+  QList<CPoint> *points; 	//Points set by User
   QPopupMenu    *menu;
-  Point         *act;
-  Point         *last;	        //last Point clicked remembered for deleting
+  CPoint        *act;
+  CPoint        *last;	        //last Point clicked remembered for deleting
   QPainter 	p;
   QPixmap	*pixmap;	//pixmap to be blitted to screen
   QDir          *presetDir;     //directory for Presets

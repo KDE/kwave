@@ -35,7 +35,6 @@ FloatLine::~FloatLine ()
 //**********************************************************
 TimeLine::TimeLine (QWidget *parent,int rate):KRestrictedLine (parent)
 {
-  comstr=0;
   this->rate=rate;
   mode=1;
   menu=new QPopupMenu ();
@@ -59,20 +58,6 @@ TimeLine::TimeLine (QWidget *parent,int rate):KRestrictedLine (parent)
 int TimeLine::getValue ()
 {
   return value;
-}
-//**********************************************************
-double TimeLine::getMs ()
-{
-  return ((double(value))*1000/rate);
-}
-//**********************************************************
-const char *TimeLine::getMsStr ()
-{
-  char buf[128];
-  sprintf (buf,"%f",((double(value))*1000/rate));
-  if (comstr) free(comstr);
-  comstr=strdup (buf);
-  return comstr;
 }
 //**********************************************************
 void TimeLine::setRate (int newrate)
@@ -208,7 +193,6 @@ void TimeLine::mousePressEvent( QMouseEvent *e)
 //**********************************************************
 TimeLine::~TimeLine ()
 {
-  if (comstr) free(comstr);
 };
 
 

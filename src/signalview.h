@@ -7,9 +7,11 @@
 #include <qwidget.h>
 #include <qtimer.h>
 #include "mousemark.h"
-#include "../libgui/multistateimage.h"
+#include "multistateimage.h"
+#include "overview.h"
 #include "menumanager.h"
-#include "../lib/markers.h"
+#include "markers.h"
+#include "sample.h"
 #include <kapp.h>
 #include <kselect.h>
 #include <kstatusbar.h>  
@@ -36,7 +38,6 @@
 #define ADDMARKTYPE 	 7010
 #define SELECTMARK	 7100 //leave #MAXMENU Items space behind !
 
-class SignalManager;
 //***********************************************************
 class SignalWidget : public QWidget
 //this class is mainly responsible for displaying signals in the time-domain
@@ -51,15 +52,15 @@ class SignalWidget : public QWidget
  void 	saveSignal		(QString *filename,int,int=false);
  void 	saveBlocks		(int);
  void 	saveSelectedSignal	(QString *filename,int,int=false);
- void 	setSignal		(SignalManager *signal);
+ void 	setSignal		(MSignal *signal);
  void	setZoom			(double);
+ void	setRange		(int,int);
  unsigned char   *getOverview   (int);
  int    checkPosition	        (int);
  void 	drawSelection		(int,int);
- void   setMarkType             (int);
- void   addMarkType             ();
- void   addMarkType             (struct MarkerType *marker);
- int	doCommand	        (const char *);
+ void   setMarkType(int);
+ void   addMarkType();
+ void   addMarkType (struct MarkerType *marker);
 
  public slots:
 
@@ -85,16 +86,12 @@ class SignalWidget : public QWidget
 
  protected:
 
-
- void	setRange		(int,int);
- void	selectRange		();
-
  void	mousePressEvent		(QMouseEvent * );
  void	mouseReleaseEvent	(QMouseEvent * );  
  void	mouseMoveEvent		(QMouseEvent * );  
  void	paintEvent	        (QPaintEvent *);
- void	drawInterpolatedSignal	(int,int,int);
- void	drawOverviewSignal	(int,int,int);
+ void	drawInterpolatedSignal	(int *,int,int);
+ void	drawOverviewSignal	(int *,int,int);
 
  void	calcTimeInfo	();
  void   loadMarks       ();
@@ -122,7 +119,7 @@ class SignalWidget : public QWidget
  int	playing;		//flag if playing task is running...
  int	redraw;		        //flag for redrawing pixmap
  MouseMark      *select;
- SignalManager	*signalmanage;
+ MSignal	*signal;
  QTimer		*timer;
  QPainter       p;
  QPixmap	*pixmap;	//pixmap to be blitted to screen

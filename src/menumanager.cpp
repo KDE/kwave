@@ -1,16 +1,102 @@
-#include <stdlib.h>
-#include <string.h>
 #include <qstack.h>
 #include "menumanager.h"
-#include "../lib/parser.h"
 #include <kapp.h>
 #include <klocale.h>
 
-//#define BUG
+static int unique_menu_id=1<<16; //this should be greater than any id sampleop.h and other internal ids
 
-NumberedMenu::NumberedMenu (const char *name)
+KWavePopMenu::KWavePopMenu (const char *name,int id,bool checkItems):QPopupMenu()
 {
-  objname=duplicateString (name);
+  this->name=new QString (name);
+  this->id=id;
+  this->memberId=0;
+  this->checkItems=checkItems;
+
+  if (checkItems)
+    {
+      QObject::connect (this,SIGNAL(activated(int)),this,SLOT(check(int)));
+      setCheckable (true);
+      checked=-1; 
+    }
+}
+//*****************************************************************************
+const char *KWavePopMenu::getName ()
+{
+  return name->data();
+}
+//*****************************************************************************
+void KWavePopMenu::check ()
+{
+  if (checkItems)
+    {
+      if (checked<0) checked=idAt (0);
+      setItemChecked (checked,true);  
+    }
+}
+//*****************************************************************************
+void KWavePopMenu::check (int num)
+{
+  if (checkItems)
+    {
+      setItemChecked (checked,false);
+      checked=num;
+      check ();
+    }
+}
+//*****************************************************************************
+int KWavePopMenu::getId ()
+{
+  return id;
+}
+//*****************************************************************************
+void KWavePopMenu::insertMenu (KWavePopMenu *entry)
+{
+  children.append (entry);
+  this->insertItem (klocale->translate(entry->getName()),entry);
+}
+//*****************************************************************************
+void KWavePopMenu::setMemberId (int id)
+{
+  memberId=id;
+}
+//*****************************************************************************
+int KWavePopMenu::getMemberId ()
+{
+  return memberId;
+}
+//*****************************************************************************
+void KWavePopMenu::removeMenu (const char *name)
+{
+  KWavePopMenu *menu=findMenu(name);
+  if (menu)
+    {
+      int index=menu->getId();
+      removeItem(index);
+      children.removeRef (menu);
+      delete menu;
+    }
+}
+//*****************************************************************************
+KWavePopMenu *KWavePopMenu::findMenu (const char *name)
+{
+  KWavePopMenu *tmp=children.first();
+
+  while (tmp)
+    {
+      if (strcmp (tmp->getName(),name)==0) return tmp;
+      tmp=children.next();
+    }
+  return 0;
+}
+//*****************************************************************************
+KWavePopMenu::~KWavePopMenu ()
+{
+  delete name;
+}
+//*****************************************************************************
+NumberedMenu::NumberedMenu (char *name)
+{
+  objname=new QString (name);
 }
 //*****************************************************************************
 void NumberedMenu::clear ()
@@ -19,14 +105,14 @@ void NumberedMenu::clear ()
   refresh ();
 }
 //*****************************************************************************
-void NumberedMenu::notifyMenu (KwavePopMenu *menu)
+void NumberedMenu::notifyMenu (KWavePopMenu *menu)
 {
   notifymenus.append (menu);
 }
 //*****************************************************************************
-void NumberedMenu::addEntry (const char *entry)
+void NumberedMenu::addEntry (char *entry)
 {
-  entries.append (duplicateString (entry));
+  entries.append (new QString (entry));
   refresh ();
 }
 //*****************************************************************************
@@ -35,7 +121,7 @@ void NumberedMenu::refresh ()
   //refresh of menus already in menu tree
   //printf ("refreshing numberedMenu %s\n",objname->data());
 
-  KwavePopMenu *tmp=notifymenus.first();
+  KWavePopMenu *tmp=notifymenus.first();
 
   while (tmp)
     {
@@ -43,11 +129,11 @@ void NumberedMenu::refresh ()
       int itemcnt=0;
       int id=tmp->getMemberId();
 
-      const char *entry=entries.first();  //and append all entries from scratch
+      QString *entry=entries.first();  //and append all entries from scratch
 
       while ((entry)&&(itemcnt<MENUMAX))
 	{
-	  tmp->insertItem (entry,id+itemcnt);
+	  tmp->insertItem (entry->data(),id+itemcnt);
 	  entry=entries.next();
 	  itemcnt++;
 	}
@@ -58,9 +144,9 @@ void NumberedMenu::refresh ()
     }
 }
 //*****************************************************************************
-const char *NumberedMenu::name ()
+char *NumberedMenu::name ()
 {
-  return objname;
+  return objname->data();
 }
 //*****************************************************************************
 NumberedMenu::~NumberedMenu ()
@@ -78,9 +164,17 @@ MenuManager::MenuManager (QWidget *parent,KMenuBar *bar):QObject (parent)
   numberedMenus.clear ();
 }
 //*****************************************************************************
-KwavePopMenu  *MenuManager::findMenu (const char *name)
+int MenuManager::getUniqueId ()
 {
-  KwavePopMenu *tmp=toplevelmenus.first();
+  int x=unique_menu_id;
+  unique_menu_id++;
+
+  return x;
+}
+//*****************************************************************************
+KWavePopMenu  *MenuManager::findMenu (const char *name)
+{
+  KWavePopMenu *tmp=toplevelmenus.first();
   while (tmp)
     {
       if (strcmp(tmp->getName(),name)==0) return tmp;
@@ -89,165 +183,147 @@ KwavePopMenu  *MenuManager::findMenu (const char *name)
   return 0;
 }
 //*****************************************************************************
-void MenuManager::deleteMenus (KwaveMenuItem *newmenus)
+void MenuManager::deleteMenus (KWaveMenuItem *newmenus)
 {
-}
-//*****************************************************************************
-int parseToCode (char *key)
-  //parse the key string into qt keycode
-{
-  int keycode=0;
-  int len=strlen(key);
   int cnt=0;
-  if (len==1) keycode=Key_A+key[0]-'A';
-  else
-    while (cnt<len)
-      {
-	int pos=cnt;
-	while ((key[cnt])&&(key[cnt]!='+')) cnt++;		    
-	if (cnt<len) key[cnt]=0;
-	if (strlen(&key[pos])==1)
-	  {
-	    if ((key[pos]>='A')&&(key[pos]<='Z'))	keycode+=Key_A+key[pos]-'A';
-	  }			  
-	if (strcmp (&key[pos],"PLUS")==0) keycode+=Key_Plus;
-	if (strcmp (&key[pos],"MINUS")==0) keycode+=Key_Minus;
-	if (strcmp (&key[pos],"SPACE")==0) keycode+=Key_Space;
-	if (strcmp (&key[pos],"CTRL")==0) keycode+=CTRL;
-	if (strcmp (&key[pos],"PAGEUP")==0) keycode+=Key_PageUp;
-	if (strcmp (&key[pos],"PAGEDOWN")==0) keycode+=Key_PageDown;
-	if (strcmp (&key[pos],"UP")==0) keycode+=Key_Up;
-	if (strcmp (&key[pos],"DEL")==0) keycode+=Key_Delete;
-	if (strcmp (&key[pos],"DOWN")==0) keycode+=Key_Down;
-	if (strcmp (&key[pos],"LEFT")==0) keycode+=Key_Left;
-	if (strcmp (&key[pos],"RIGHT")==0) keycode+=Key_Right;
-	if (strcmp (&key[pos],"SHIFT")==0) keycode+=SHIFT;
 
-	cnt++;
-      }
-  return keycode;
-}
-//*****************************************************************************
-void MenuManager::setCommand (const char *command)
-{
-  if (bar)
+  KWavePopMenu *menu=0;
+  QStack <KWavePopMenu> *stack=new QStack<KWavePopMenu>();
+
+  while (newmenus[cnt].type!=0)
     {
-      printf  ("%s\n",command);
-      KwaveParser parser(command);
-
-      const char *tmp;
-      char *pos=0;
-      char *key=0;
-      char *com=0;
-#ifndef BUG
-      tmp=parser.getFirstParam ();
-      if (tmp) com=duplicateString (tmp);
-
-      tmp=parser.getNextParam ();
-      if (tmp) pos=duplicateString (tmp);
-      tmp=parser.getNextParam ();
-      if (tmp) key=duplicateString (tmp);
-
-      printf ("%p\n",pos);
-
-      if (pos) //if position of menu is given
+      switch (newmenus[cnt].type)
 	{
+	case KCHECK:
+	case KMENU:
+	  {
+	    //deleting is only possible if exclusive rights are available
+	    if (newmenus[cnt].shortcut==KEXCLUSIVE)
+	      {
+		if (menu) //simple submenu
+		  menu->removeMenu (newmenus[cnt].name);
+		else      //toplevel menu needs special handling
+		  {
+		    bar->removeItem(newmenus[cnt].id);
 
+		    KWavePopMenu *tmp=findMenu (newmenus[cnt].name);
 
-	  KwavePopMenu *parentmenu=0;
-	  KwavePopMenu *newmenu=0;
-
-	  int len=strlen(pos);
-	  int cnt=0;
-
-	  //parse the string pos into menu structure and insert accordingly
-
-	  while (cnt<len)
-	    {
-	      int begin=cnt;
-	      while ((pos[cnt])&&(pos[cnt]!='/')) cnt++;
-	      if (cnt<len) pos[cnt]=0;
-
-	      if (parentmenu)
-		{
-		  if ((strcmp (&pos[begin],"exclusive")==0))
-		    parentmenu->checkable ();
-		  else
-		    if (strcmp (&pos[begin],"separator")==0)
+		    if (tmp)
 		      {
-			parentmenu->insertSeparator ();
-			cnt=len;
+			toplevelmenus.removeRef (tmp);
+			delete tmp;	
 		      }
-		    else
-		      if (cnt+1>=len)
-			{
-			  int keycode=0;
+		  }
+		//skip all submenus in KWaveMenuItems structure that
+		//belong to the deleted menu entry
+		//because they are deleted with their parent
+		int dep=1;
+		while (dep>0)
+		  {
+		    cnt++;
+		    if (newmenus[cnt].type==KMENU) dep++;
+		    if (newmenus[cnt].type==KEND) dep--;
+		    if (newmenus[cnt].type==0) break;
+		  }
+		if (newmenus[cnt].type!=0) cnt--;
+	      }
+	    else
+	      {
+		//menu can't be deleted, because of permissions
+		//but perhaps submenus have to be deleted->push menu.
+		KWavePopMenu *newmenu;
 
-			  if (key) keycode=parseToCode (key);
-			  
-			  printf ("code is %d\n",keycode);
+		if (menu) newmenu =menu->findMenu (newmenus[cnt].name);
+		else newmenu=this->findMenu (newmenus[cnt].name);
 
-			  // insert the entry into the current parent menu
-			  if (parentmenu)
-			    parentmenu->insertEntry (&pos[begin],com,keycode);
-			}
-		      else
-			newmenu=parentmenu->findMenu (&pos[begin]);
-		}
-	      else //is a top-level window ?
-		newmenu=this->findMenu (&pos[begin]);
-
-	      if (!newmenu) //if menu is not already known, create a new menu
-		{
-		  newmenu=new KwavePopMenu (&pos[begin],KwavePopMenu::getUniqueId());
-		  if (newmenu)
-		    {
-		      if (parentmenu) parentmenu->insertMenu (newmenu);
-		      else
-			{
-			  bar->insertItem (klocale->translate(&pos[begin]),newmenu);
-			  connect (newmenu,SIGNAL(command(const char *)),
-				   this,SLOT(deliverCommand(const char *)));
-
-			  toplevelmenus.append (newmenu);
-			  //append to known list of top-level menus
-			}
-		    }
-		  else debug ("creation of menu failed !\n");
-		}
-
-	      parentmenu=newmenu;
-
-	      cnt++;
+		if (newmenu)
+		  {
+		    stack->push(menu);
+		    menu=newmenu;
+		  }
+		else debug ("menu %s not found for deleting !\n",newmenus[cnt].name);
+	      }
+	  }
+	  break;
+	case KITEM:
+	  {
+	    if (menu) menu->removeItem(newmenus[cnt].id);	    
+	    else debug ("error : deleting Item %s at top level\n",newmenus[cnt].name);
+	  }
+	  break;
+	case KSEP:
+	  if (menu) //no separators at top level
+	    {
+	      int index=menu->indexOf (newmenus[cnt+1].id); 
+	      if (index>1) menu->removeItemAt (index-1);  //remove separator...
+	      //does there exist another way of deleting ?
+	      //I guess not, since separators may not have ID's
+	      //but as long as it works...
 	    }
-
+	  break;
+	case KEND:
+	  {
+	    if (stack->isEmpty()) menu=0;
+	    else menu=stack->pop();
+	  }
+	  break;
 	}
-      else debug ("no position field !\n");
-#endif
-      if (com) deleteString (com);
-      if (pos) deleteString (pos);
-      if (key) deleteString (key);
-
+      cnt++;
     }
-  else debug ("Menumanager:no menu bar, somthing went wrong !\n");
 }
 //*****************************************************************************
-void MenuManager::appendMenus (KwaveMenuItem *newmenus)
+void MenuManager::appendMenus (KWaveMenuItem *newmenus)
 {
   if (bar)
     {
+      int num=bar->count();
       int cnt=0;
 
-      KwavePopMenu *menu=0;
+      KWavePopMenu *menu=0;
+      QStack <KWavePopMenu> *stack=new QStack<KWavePopMenu>();
+
       while (newmenus[cnt].type!=0)
 	{
 	  switch (newmenus[cnt].type)
 	    {
+	    case KCHECK:
+	    case KMENU:
+	      {
+		KWavePopMenu *newmenu=0;
+
+		if (menu) newmenu=menu->findMenu (newmenus[cnt].name);
+		else
+		  //is a top-level window
+		  newmenu=this->findMenu (newmenus[cnt].name);
+
+		if (newmenu) if (newmenus[cnt].id==-1) newmenus[cnt].id=newmenu->getId();
+
+		if (!newmenu) //if menu is not already known, create a new menu
+		  {
+		    newmenu=new KWavePopMenu (newmenus[cnt].name,getUniqueId(),newmenus[cnt].type==KCHECK);
+		    if (newmenu)
+		      {
+			if (newmenus[cnt].id==-1) newmenus[cnt].id=newmenu->getId();
+			if (menu) menu->insertMenu (newmenu);
+			else
+			  {
+	     		    bar->insertItem (klocale->translate(newmenus[cnt].name),newmenu,newmenus[cnt].id,num-2);
+
+			    toplevelmenus.append (newmenu); //append to known list of top-level menus
+			  }
+			connect (newmenu,SIGNAL(activated(int)),this,SLOT(map(int)));
+		      }
+		  }
+
+		stack->push(menu);
+		menu=newmenu;
+	      }
+	      break;
 	    case KREF:
 	      {
 		if (menu)
 		  {
-		    if (newmenus[cnt].id==-1) newmenus[cnt].id=KwavePopMenu::getIdRange (MENUMAX);
+		    if (newmenus[cnt].id==-1) newmenus[cnt].id=getIdRange (MENUMAX);
 		    //get known numberedMenu
 		    NumberedMenu *nummenu=findNumberedMenu ((char *)newmenus[cnt].name);
 
@@ -265,11 +341,15 @@ void MenuManager::appendMenus (KwaveMenuItem *newmenus)
 		else debug ("Menu structure error : References may not be top level\n");
 	      }
 	      break;
+	    case KSEP:
+	      if (menu) menu->insertSeparator ();	
+	      break;
+
 	    case KITEM:
 	      {
 		if (menu)
 		  {
-		    if (newmenus[cnt].id==-1) newmenus[cnt].id=KwavePopMenu::getUniqueId ();
+		    if (newmenus[cnt].id==-1) newmenus[cnt].id=getUniqueId ();
 
 		    menu->insertItem ("My guess is there is a bug in qtlib/setAccel !",newmenus[cnt].id);
 		    if (newmenus[cnt].shortcut!=-1) //check for existence qt shortcut code
@@ -282,6 +362,13 @@ void MenuManager::appendMenus (KwaveMenuItem *newmenus)
 		    //this replies the value given to setaccel. 
 		  }
 		else debug ("Menu Structure Error : Items may not be top level\n");
+	      }
+	      break;
+
+	    case KEND:
+	      {
+		if (stack->isEmpty()) menu=0;
+		else menu=stack->pop();
 	      }
 	      break;
 	    }
@@ -333,18 +420,48 @@ NumberedMenu *MenuManager::findNumberedMenu (char *name)
     return 0;
 }
 //*****************************************************************************
-void MenuManager::deliverCommand (const char *c)
+void MenuManager::map (int op)
 {
-  emit command(c);
+  emit id(op);
+}
+//*****************************************************************************
+int MenuManager::translateId (KWaveMenuItem *menus,int id)
+{
+  int cnt=0;
+
+  while (menus[cnt].type!=0)
+    {
+      switch  (menus[cnt].type)
+	{
+	case KITEM:
+	  if (menus[cnt].id==id)
+	    {
+	      id=menus[cnt].internalID;
+	      break;
+	    }
+	  break;
+	case KREF:
+	  if ((menus[cnt].id<=id)&&(menus[cnt].id+MENUMAX>id))
+	    {
+	      id=menus[cnt].internalID+id-menus[cnt].id;
+	      break;
+	    }
+	  break;
+	}
+      cnt++;
+    }
+  return id;
+}
+//*****************************************************************************
+int MenuManager::getIdRange (int num)
+{
+  int x=unique_menu_id;
+  unique_menu_id+=num;
+
+  return x;
 }
 //*****************************************************************************
 MenuManager::~MenuManager ()
 {
 }
-
-
-
-
-
-
 

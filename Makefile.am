@@ -1,7 +1,4 @@
-SUBDIRS = lib libgui src plugins po
+SUBDIRS = src po
 
 # not a GNU package.
-AUTOMAKE_OPTIONS = foreign
-
-DISTCLEANFILES = *~
-
+AUTOMAKE_OPTIONS = foreign 

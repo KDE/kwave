@@ -1,26 +1,14 @@
-#include <math.h>
-
+#include "about.h"
 #include <qaccel.h>
 #include <qpntarry.h>
 #include <qdir.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <qpushbutton.h>
-#include <qkeycode.h>
-#include "module.h"
+#include <math.h>
 #include <kapp.h>
 
-const char *version="1.0";
-const char *author="Martin Wilz";
-const char *name="about";
-//**********************************************************
-KwaveDialog *getDialog (DialogOperation *operation)
-{
-  return new AboutDialog(operation->getGlobals(),operation->isModal());
-}
-//**********************************************************
-char about_text[]="\nKwave Version 0.29.4 alpha release\n\
+extern KApplication *app;
+char about_text[]="\nKwave Version 0.29.7 alpha release\n\
 (c) 1998-99 by Martin Wilz (mwilz@ernie.mi.uni-koeln.de)\n\n\
+send bug reports to kwave-list@fs.spinfo.uni-koeln.de\n\n\
 \nFFT-Code by GNU gsl-Project, library version 0.3 beta\n\
 (GSL-Library may be retrieved from ftp://alpha.gnu.org/gnu/)\n\n\
 Memory Mapping routines by Juhana Kouhia\n\n\
@@ -58,18 +46,17 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n\
 GNU General Public License for more details.\n\n\
 You should have received a copy of the GNU General Public License\n\
 along with this program; if not, write to the Free Software\n\
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.\n\
-";
-//**********************************************************
-AboutDialog::AboutDialog (const Global *globals,bool modal): KwaveDialog(modal)
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.\n";
+
+AboutDialog::AboutDialog (QWidget *par=NULL): QDialog(par, "Choose Length and Rate",true)
 {
-  resize 	(480,200);
+  resize 		(480,200);
   setCaption	("About KWave");
 
   abouttext=new QMultiLineEdit (this);
   ok		=new QPushButton ("Ok",this);
 
-  logo=new LogoWidget (this,globals->app);
+  logo=new LogoWidget (this);
 
   abouttext->setText(about_text);
   abouttext->setReadOnly(TRUE);
@@ -93,16 +80,11 @@ void AboutDialog::resizeEvent (QResizeEvent *)
   ok->setGeometry	(width()/20,height()-bsize*5/4,width()*18/20,bsize);  
 }
 //**********************************************************
-const char *AboutDialog::getCommand ()
-{
-  return 0; //about does nothing
-}
-//**********************************************************
 AboutDialog::~AboutDialog ()
 {
 }
 //**********************************************************
-LogoWidget::LogoWidget (QWidget *parent,KApplication *app): QWidget (parent)
+LogoWidget::LogoWidget (QWidget *parent): QWidget (parent)
 {
   for (int i=0;i<MAXSIN;deg[i++]=0);
   height=-1;
@@ -203,16 +185,3 @@ void LogoWidget::paintEvent  (QPaintEvent *)
       bitBlt (this,0,0,pixmap,0,0,width,height,XorROP);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

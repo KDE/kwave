@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2001-12-22</date>
-<releaseinfo>0.6.2</releaseinfo>
+<date>2002-03-01</date>
+<releaseinfo>0.6.3</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -176,7 +176,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.6.3 [2002-02-24]</para>
+            <para>0.6.3 [2002-03-01]</para>
             <itemizedlist>
                 <listitem><para>
                     simple drag and drop

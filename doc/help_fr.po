@@ -251,8 +251,8 @@ msgstr ""
 "partie du logiciel et a consacré beaucoup de temps pour les améliorer."
 
 #: index.docbook:177
-msgid "0.6.3 [2002-02-24]"
-msgstr "0.6.3 [2002-02-24]"
+msgid "0.6.3 [2002-03-01]"
+msgstr "0.6.3 [2002-03-01]"
 
 #: index.docbook:177
 msgid "simple drag and drop"

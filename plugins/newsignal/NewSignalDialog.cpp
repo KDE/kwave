@@ -21,6 +21,7 @@
 
 #include <qcombobox.h>
 #include <qlabel.h>
+#include <qlayout.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qslider.h>
@@ -115,8 +116,10 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
     checkTimeAndLengthInfo(0);
 
     // that dialog is big enough, limit it to it's optimal size
-    setFixedSize(sizeHint().width(), sizeHint().height());
+    setFixedHeight(sizeHint().height());
+    setFixedWidth(sizeHint().width());
 }
+
 
 //***************************************************************************
 int NewSignalDialog::exec()

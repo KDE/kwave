@@ -1,6 +1,5 @@
 <!DOCTYPE UI><UI>
 <class>NewSigDlg</class>
-<include location="global">knuminput.h</include>
 <widget>
     <class>QDialog</class>
     <property stdset="1">
@@ -13,12 +12,12 @@
             <x>0</x>
             <y>0</y>
             <width>500</width>
-            <height>507</height>
+            <height>512</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>New File...</string>
+        <string>Form1</string>
     </property>
     <vbox>
         <property stdset="1">
@@ -33,7 +32,7 @@
             <class>QGroupBox</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>GroupBox1</cstring>
+                <cstring>GroupBox1_2</cstring>
             </property>
             <property stdset="1">
                 <name>title</name>
@@ -276,7 +275,7 @@
                     <class>QLayoutWidget</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>Layout14</cstring>
+                        <cstring>Layout14_2</cstring>
                     </property>
                     <hbox>
                         <property stdset="1">
@@ -422,15 +421,11 @@
             <class>QGroupBox</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>GroupBox2</cstring>
+                <cstring>GroupBox1</cstring>
             </property>
             <property stdset="1">
                 <name>title</name>
                 <string>Length</string>
-            </property>
-            <property>
-                <name>whatsThis</name>
-                <string>&lt;b&gt;Length of the signal&lt;/b&gt;&lt;br&gt;You can select the length of the signal either by time or directly by the number of samples. The length will be limited by the maximum file size and the available memory.</string>
             </property>
             <vbox>
                 <property stdset="1">
@@ -442,442 +437,130 @@
                     <number>6</number>
                 </property>
                 <widget>
-                    <class>QLayoutWidget</class>
+                    <class>QFrame</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>Layout15</cstring>
+                        <cstring>Frame3</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShape</name>
+                        <enum>StyledPanel</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShadow</name>
+                        <enum>Raised</enum>
                     </property>
                     <grid>
                         <property stdset="1">
                             <name>margin</name>
-                            <number>0</number>
+                            <number>11</number>
                         </property>
                         <property stdset="1">
                             <name>spacing</name>
                             <number>6</number>
                         </property>
-                        <spacer row="2"  column="2" >
-                            <property>
-                                <name>name</name>
-                                <cstring>Spacer55</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>orientation</name>
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property stdset="1">
-                                <name>sizeType</name>
-                                <enum>Expanding</enum>
-                            </property>
-                            <property>
-                                <name>sizeHint</name>
-                                <size>
-                                    <width>20</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                        </spacer>
-                        <widget row="2"  column="1" >
-                            <class>KDoubleNumInput</class>
+                        <widget row="1"  column="0" >
+                            <class>QRadioButton</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>edSamples</cstring>
+                                <cstring>rbTime</cstring>
                             </property>
                             <property stdset="1">
-                                <name>enabled</name>
-                                <bool>false</bool>
+                                <name>text</name>
+                                <string>Time</string>
+                            </property>
+                            <property>
+                                <name>toolTip</name>
+                                <string>select this to set the length of the file by time</string>
                             </property>
                         </widget>
-                        <widget row="3"  column="0"  rowspan="1"  colspan="3" >
-                            <class>Line</class>
+                        <widget row="1"  column="1" >
+                            <class>QSpinBox</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>Line3</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>minimumSize</name>
-                                <size>
-                                    <width>0</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                            <property stdset="1">
-                                <name>orientation</name>
-                                <enum>Horizontal</enum>
+                                <cstring>sbHours</cstring>
                             </property>
                         </widget>
-                        <spacer row="1"  column="0" >
-                            <property>
-                                <name>name</name>
-                                <cstring>Spacer22</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>orientation</name>
-                                <enum>Vertical</enum>
-                            </property>
-                            <property stdset="1">
-                                <name>sizeType</name>
-                                <enum>Expanding</enum>
-                            </property>
-                            <property>
-                                <name>sizeHint</name>
-                                <size>
-                                    <width>20</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                        </spacer>
-                        <widget row="0"  column="0" >
-                            <class>QLayoutWidget</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>Layout22</cstring>
-                            </property>
-                            <grid>
-                                <property stdset="1">
-                                    <name>margin</name>
-                                    <number>0</number>
-                                </property>
-                                <property stdset="1">
-                                    <name>spacing</name>
-                                    <number>6</number>
-                                </property>
-                                <spacer row="1"  column="2" >
-                                    <property>
-                                        <name>name</name>
-                                        <cstring>Spacer19</cstring>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>orientation</name>
-                                        <enum>Vertical</enum>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>sizeType</name>
-                                        <enum>Expanding</enum>
-                                    </property>
-                                    <property>
-                                        <name>sizeHint</name>
-                                        <size>
-                                            <width>20</width>
-                                            <height>20</height>
-                                        </size>
-                                    </property>
-                                </spacer>
-                                <spacer row="0"  column="1"  rowspan="1"  colspan="2" >
-                                    <property>
-                                        <name>name</name>
-                                        <cstring>Spacer20</cstring>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>orientation</name>
-                                        <enum>Horizontal</enum>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>sizeType</name>
-                                        <enum>Expanding</enum>
-                                    </property>
-                                    <property>
-                                        <name>sizeHint</name>
-                                        <size>
-                                            <width>20</width>
-                                            <height>20</height>
-                                        </size>
-                                    </property>
-                                </spacer>
-                                <widget row="1"  column="0"  rowspan="1"  colspan="2" >
-                                    <class>QRadioButton</class>
-                                    <property stdset="1">
-                                        <name>name</name>
-                                        <cstring>rbTime</cstring>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>text</name>
-                                        <string>Time</string>
-                                    </property>
-                                    <property>
-                                        <name>toolTip</name>
-                                        <string>select this to set the length of the file by time</string>
-                                    </property>
-                                </widget>
-                                <spacer row="0"  column="0" >
-                                    <property>
-                                        <name>name</name>
-                                        <cstring>Spacer21</cstring>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>orientation</name>
-                                        <enum>Horizontal</enum>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>sizeType</name>
-                                        <enum>Expanding</enum>
-                                    </property>
-                                    <property>
-                                        <name>sizeHint</name>
-                                        <size>
-                                            <width>20</width>
-                                            <height>20</height>
-                                        </size>
-                                    </property>
-                                </spacer>
-                            </grid>
-                        </widget>
-                        <spacer row="0"  column="2" >
-                            <property>
-                                <name>name</name>
-                                <cstring>Spacer54</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>orientation</name>
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property stdset="1">
-                                <name>sizeType</name>
-                                <enum>Expanding</enum>
-                            </property>
-                            <property>
-                                <name>sizeHint</name>
-                                <size>
-                                    <width>20</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                        </spacer>
                         <widget row="0"  column="1" >
-                            <class>QLayoutWidget</class>
+                            <class>QLabel</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>Layout23</cstring>
+                                <cstring>lblHours</cstring>
                             </property>
-                            <hbox>
-                                <property stdset="1">
-                                    <name>margin</name>
-                                    <number>0</number>
-                                </property>
-                                <property stdset="1">
-                                    <name>spacing</name>
-                                    <number>6</number>
-                                </property>
-                                <widget>
-                                    <class>QLayoutWidget</class>
-                                    <property stdset="1">
-                                        <name>name</name>
-                                        <cstring>Layout17</cstring>
-                                    </property>
-                                    <hbox>
-                                        <property stdset="1">
-                                            <name>margin</name>
-                                            <number>0</number>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>spacing</name>
-                                            <number>6</number>
-                                        </property>
-                                        <widget>
-                                            <class>QLayoutWidget</class>
-                                            <property stdset="1">
-                                                <name>name</name>
-                                                <cstring>Layout13</cstring>
-                                            </property>
-                                            <vbox>
-                                                <property stdset="1">
-                                                    <name>margin</name>
-                                                    <number>0</number>
-                                                </property>
-                                                <property stdset="1">
-                                                    <name>spacing</name>
-                                                    <number>6</number>
-                                                </property>
-                                                <widget>
-                                                    <class>QLabel</class>
-                                                    <property stdset="1">
-                                                        <name>name</name>
-                                                        <cstring>lblHours</cstring>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>text</name>
-                                                        <string>Hours</string>
-                                                    </property>
-                                                </widget>
-                                                <widget>
-                                                    <class>QSpinBox</class>
-                                                    <property stdset="1">
-                                                        <name>name</name>
-                                                        <cstring>sbHours</cstring>
-                                                    </property>
-                                                </widget>
-                                            </vbox>
-                                        </widget>
-                                        <spacer>
-                                            <property>
-                                                <name>name</name>
-                                                <cstring>Spacer10</cstring>
-                                            </property>
-                                            <property stdset="1">
-                                                <name>orientation</name>
-                                                <enum>Horizontal</enum>
-                                            </property>
-                                            <property stdset="1">
-                                                <name>sizeType</name>
-                                                <enum>Expanding</enum>
-                                            </property>
-                                            <property>
-                                                <name>sizeHint</name>
-                                                <size>
-                                                    <width>20</width>
-                                                    <height>20</height>
-                                                </size>
-                                            </property>
-                                        </spacer>
-                                        <widget>
-                                            <class>QLayoutWidget</class>
-                                            <property stdset="1">
-                                                <name>name</name>
-                                                <cstring>Layout14</cstring>
-                                            </property>
-                                            <vbox>
-                                                <property stdset="1">
-                                                    <name>margin</name>
-                                                    <number>0</number>
-                                                </property>
-                                                <property stdset="1">
-                                                    <name>spacing</name>
-                                                    <number>6</number>
-                                                </property>
-                                                <widget>
-                                                    <class>QLabel</class>
-                                                    <property stdset="1">
-                                                        <name>name</name>
-                                                        <cstring>lblMinutes</cstring>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>text</name>
-                                                        <string>Minutes</string>
-                                                    </property>
-                                                </widget>
-                                                <widget>
-                                                    <class>QSpinBox</class>
-                                                    <property stdset="1">
-                                                        <name>name</name>
-                                                        <cstring>sbMinutes</cstring>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>wrapping</name>
-                                                        <bool>true</bool>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>maxValue</name>
-                                                        <number>60</number>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>minValue</name>
-                                                        <number>-1</number>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>value</name>
-                                                        <number>4</number>
-                                                    </property>
-                                                </widget>
-                                            </vbox>
-                                        </widget>
-                                        <spacer>
-                                            <property>
-                                                <name>name</name>
-                                                <cstring>Spacer10_2</cstring>
-                                            </property>
-                                            <property stdset="1">
-                                                <name>orientation</name>
-                                                <enum>Horizontal</enum>
-                                            </property>
-                                            <property stdset="1">
-                                                <name>sizeType</name>
-                                                <enum>Expanding</enum>
-                                            </property>
-                                            <property>
-                                                <name>sizeHint</name>
-                                                <size>
-                                                    <width>20</width>
-                                                    <height>20</height>
-                                                </size>
-                                            </property>
-                                        </spacer>
-                                        <widget>
-                                            <class>QLayoutWidget</class>
-                                            <property stdset="1">
-                                                <name>name</name>
-                                                <cstring>Layout15</cstring>
-                                            </property>
-                                            <vbox>
-                                                <property stdset="1">
-                                                    <name>margin</name>
-                                                    <number>0</number>
-                                                </property>
-                                                <property stdset="1">
-                                                    <name>spacing</name>
-                                                    <number>6</number>
-                                                </property>
-                                                <widget>
-                                                    <class>QLabel</class>
-                                                    <property stdset="1">
-                                                        <name>name</name>
-                                                        <cstring>lblSeconds</cstring>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>text</name>
-                                                        <string>Seconds</string>
-                                                    </property>
-                                                </widget>
-                                                <widget>
-                                                    <class>QSpinBox</class>
-                                                    <property stdset="1">
-                                                        <name>name</name>
-                                                        <cstring>sbSeconds</cstring>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>wrapping</name>
-                                                        <bool>true</bool>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>maxValue</name>
-                                                        <number>60</number>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>minValue</name>
-                                                        <number>-1</number>
-                                                    </property>
-                                                    <property stdset="1">
-                                                        <name>value</name>
-                                                        <number>30</number>
-                                                    </property>
-                                                </widget>
-                                            </vbox>
-                                        </widget>
-                                    </hbox>
-                                </widget>
-                            </hbox>
+                            <property stdset="1">
+                                <name>text</name>
+                                <string>Hours</string>
+                            </property>
                         </widget>
-                        <spacer row="1"  column="1" >
-                            <property>
+                        <widget row="1"  column="2" >
+                            <class>QSpinBox</class>
+                            <property stdset="1">
                                 <name>name</name>
-                                <cstring>Spacer23</cstring>
+                                <cstring>sbMinutes</cstring>
                             </property>
                             <property stdset="1">
-                                <name>orientation</name>
-                                <enum>Vertical</enum>
+                                <name>wrapping</name>
+                                <bool>true</bool>
                             </property>
                             <property stdset="1">
-                                <name>sizeType</name>
-                                <enum>Expanding</enum>
+                                <name>maxValue</name>
+                                <number>60</number>
                             </property>
-                            <property>
-                                <name>sizeHint</name>
-                                <size>
-                                    <width>20</width>
-                                    <height>20</height>
-                                </size>
+                            <property stdset="1">
+                                <name>minValue</name>
+                                <number>-1</number>
                             </property>
-                        </spacer>
-                        <widget row="2"  column="0" >
+                            <property stdset="1">
+                                <name>value</name>
+                                <number>4</number>
+                            </property>
+                        </widget>
+                        <widget row="0"  column="2" >
+                            <class>QLabel</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>lblMinutes</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>text</name>
+                                <string>Minutes</string>
+                            </property>
+                        </widget>
+                        <widget row="0"  column="3" >
+                            <class>QLabel</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>lblSeconds</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>text</name>
+                                <string>Seconds</string>
+                            </property>
+                        </widget>
+                        <widget row="1"  column="3" >
+                            <class>QSpinBox</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>sbSeconds</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>wrapping</name>
+                                <bool>true</bool>
+                            </property>
+                            <property stdset="1">
+                                <name>maxValue</name>
+                                <number>60</number>
+                            </property>
+                            <property stdset="1">
+                                <name>minValue</name>
+                                <number>-1</number>
+                            </property>
+                            <property stdset="1">
+                                <name>value</name>
+                                <number>30</number>
+                            </property>
+                        </widget>
+                        <widget row="3"  column="0" >
                             <class>QRadioButton</class>
                             <property stdset="1">
                                 <name>name</name>
@@ -892,7 +575,57 @@
                                 <string>select this to enter the number of samples directly</string>
                             </property>
                         </widget>
+                        <widget row="3"  column="1"  rowspan="1"  colspan="3" >
+                            <class>KDoubleNumInput</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>edSamples</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>enabled</name>
+                                <bool>false</bool>
+                            </property>
+                        </widget>
+                        <spacer row="2"  column="2" >
+                            <property>
+                                <name>name</name>
+                                <cstring>Spacer23</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>orientation</name>
+                                <enum>Vertical</enum>
+                            </property>
+                            <property stdset="1">
+                                <name>sizeType</name>
+                                <enum>Fixed</enum>
+                            </property>
+                            <property>
+                                <name>sizeHint</name>
+                                <size>
+                                    <width>20</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
                     </grid>
+                </widget>
+                <widget>
+                    <class>Line</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Line3</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>minimumSize</name>
+                        <size>
+                            <width>0</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property stdset="1">
+                        <name>orientation</name>
+                        <enum>Horizontal</enum>
+                    </property>
                 </widget>
                 <widget>
                     <class>QSlider</class>
@@ -1048,7 +781,7 @@
                 <spacer>
                     <property>
                         <name>name</name>
-                        <cstring>Spacer2_2_2</cstring>
+                        <cstring>Spacer2_2_2_2</cstring>
                     </property>
                     <property stdset="1">
                         <name>orientation</name>
@@ -1070,7 +803,7 @@
                     <class>QLayoutWidget</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>Layout11</cstring>
+                        <cstring>Layout11_2</cstring>
                     </property>
                     <hbox>
                         <property stdset="1">
@@ -1097,7 +830,7 @@
                 <spacer>
                     <property>
                         <name>name</name>
-                        <cstring>Spacer2_2</cstring>
+                        <cstring>Spacer2_2_3</cstring>
                     </property>
                     <property stdset="1">
                         <name>orientation</name>
@@ -1116,17 +849,6 @@
                     </property>
                 </spacer>
             </hbox>
-        </widget>
-        <widget>
-            <class>Line</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Line6</cstring>
-            </property>
-            <property stdset="1">
-                <name>orientation</name>
-                <enum>Horizontal</enum>
-            </property>
         </widget>
         <widget>
             <class>QLayoutWidget</class>
@@ -1211,39 +933,27 @@
 </widget>
 <connections>
     <connection>
-        <sender>btOK</sender>
-        <signal>clicked()</signal>
-        <receiver>NewSigDlg</receiver>
-        <slot>accept()</slot>
-    </connection>
-    <connection>
         <sender>btCancel</sender>
         <signal>clicked()</signal>
         <receiver>NewSigDlg</receiver>
         <slot>reject()</slot>
     </connection>
     <connection>
-        <sender>rbTime</sender>
+        <sender>btOK</sender>
+        <signal>clicked()</signal>
+        <receiver>NewSigDlg</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>rbSamples</sender>
         <signal>toggled(bool)</signal>
-        <receiver>sbHours</receiver>
+        <receiver>edSamples</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
         <sender>rbTime</sender>
         <signal>toggled(bool)</signal>
-        <receiver>sbMinutes</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>rbTime</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>sbSeconds</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>rbTime</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>lblHours</receiver>
+        <receiver>lblSeconds</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
@@ -1255,29 +965,26 @@
     <connection>
         <sender>rbTime</sender>
         <signal>toggled(bool)</signal>
-        <receiver>lblSeconds</receiver>
+        <receiver>lblHours</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
-        <sender>rbSamples</sender>
+        <sender>rbTime</sender>
         <signal>toggled(bool)</signal>
-        <receiver>edSamples</receiver>
+        <receiver>sbSeconds</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>rbTime</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbMinutes</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>rbTime</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbHours</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
 </connections>
-<tabstops>
-    <tabstop>cbSampleRate</tabstop>
-    <tabstop>sbResolution</tabstop>
-    <tabstop>sbTracks</tabstop>
-    <tabstop>rbTime</tabstop>
-    <tabstop>sbHours</tabstop>
-    <tabstop>sbMinutes</tabstop>
-    <tabstop>sbSeconds</tabstop>
-    <tabstop>rbSamples</tabstop>
-    <tabstop>edSamples</tabstop>
-    <tabstop>slideLength</tabstop>
-    <tabstop>btHelp</tabstop>
-    <tabstop>btOK</tabstop>
-    <tabstop>btCancel</tabstop>
-</tabstops>
 </UI>

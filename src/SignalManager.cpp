@@ -1,11 +1,14 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <sys/ioctl.h>
-#include <linux/soundcard.h>
+#include <errno.h>
 #include <endian.h>
+#include <byteswap.h>
 #include <limits.h>
 #include <math.h>
+
+#include <sys/ioctl.h>
+#include <linux/soundcard.h>
 
 #include <kmsgbox.h>
 
@@ -22,13 +25,20 @@
 
 #include "ClipBoard.h"
 #include "ProgressDialog.h"
-
 #include "SignalManager.h"
 #include "SignalWidget.h"
 
 extern int play16bit;
 extern int bufbase;
 extern Global globals;
+
+#if __BYTE_ORDER==__BIG_ENDIAN
+#define IS_BIG_ENDIAN
+#endif
+
+#define processid	0
+#define stopprocess	1
+#define samplepointer	2
 
 //**********************************************************
 void SignalManager::getMaxMin (int channel,int&max, int &min,int begin,int len)
@@ -48,7 +58,10 @@ void SignalManager::getMaxMin (int channel,int&max, int &min,int begin,int len)
     }
 
   sig_len = signal[channel]->getLength();
-  if (begin+len >= sig_len) len=sig_len-begin;
+  if (begin < 0) begin = 0;
+  if (len < 0) len = 0;
+  if (begin+len > sig_len) len=sig_len-begin;
+
   signal[channel]->getMaxMin (max,min,begin,len);
 }
 
@@ -61,8 +74,8 @@ int SignalManager::getLength()
 //**********************************************************
 int SignalManager::getSingleSample(int channel,int offset)
 {
-  return signal[channel] ?
-    signal[channel]->getSingleSample(offset) : 0;
+    return signal[channel] ?
+	signal[channel]->getSingleSample(offset) : 0;
 }
 
 //**********************************************************
@@ -136,15 +149,17 @@ void SignalManager::setOp (int id)
 
   if ((id>=TOGGLECHANNEL)&&(id<TOGGLECHANNEL+10)) toggleChannel (id-TOGGLECHANNEL);
 }
+
 //**********************************************************
 void threadStub (TimeOperation *obj)
 {
   (obj->getSignal())->command (obj);
 }
+
 //**********************************************************
 int SignalManager::doCommand (const char *str)
 {
-  debug("SignalManager::doCommand(%s)\n", str); // ###
+  debug("SignalManager::doCommand(%s)", str); // ###
 
   if (matchCommand(str,"copy"))
     {
@@ -240,14 +255,15 @@ int SignalManager::doCommand (const char *str)
 
   return true;
 }
+
 //**********************************************************
 bool SignalManager::promoteCommand (const char *command)
 {
   int i;
   for (i=0;i<channels;i++)       //for all channels
     {
-      if (!signal[i])   debug("signal[%d]==0\n", i);   // ###
-      if (!selected[i]) debug("selected[%d]==0\n", i); // ###
+      if (!signal[i])   warning("signal[%d]==0", i);
+      if (!selected[i]) warning("selected[%d]==0", i);
       if ((signal[i])&&(selected[i]))  //that exist and are selected
 	{
 	  int begin, len;
@@ -287,17 +303,17 @@ bool SignalManager::promoteCommand (const char *command)
 				      (void *(*)(void *))(threadStub),
 				      (void *)operation)!=0)
 		    {
-		      debug ("thread creation failed\n");
+		      warning("thread creation failed");
 		      delete dialog;
 		      return false;
 		    }
 		}
-	      else debug ("out of memory: could not allocate ProgressDialog\n");
+	      else warning("out of memory: could not allocate ProgressDialog");
 #else /* DISABLE_THREADS */
 	      signal[i]->command(operation);
 #endif /* DISABLE_THREADS */
 	    }
-	  else debug ("out of memory: could not allocate TimeOperation\n");
+	  else warning("out of memory: could not allocate TimeOperation");
 	}
     }
 
@@ -305,12 +321,14 @@ bool SignalManager::promoteCommand (const char *command)
   //could not promote command to modules or an error occured
   else return true;
 }
+
 //**********************************************************
 void SignalManager::refresh ()
 {
   globals.port->putMessage ("refreshchannels()");
   globals.port->putMessage ("refresh()");
 }
+
 //**********************************************************
 void SignalManager::initialize()
 {
@@ -327,6 +345,7 @@ void SignalManager::initialize()
       selected[i]=false;
     }
 }
+
 //**********************************************************
 SignalManager::SignalManager (Signal *sample)
 {
@@ -340,6 +359,7 @@ SignalManager::SignalManager (Signal *sample)
       selected[0]=true;
     }
 }
+
 //**********************************************************
 SignalManager::SignalManager (QWidget *parent,int numsamples,int rate,int channels)
 {
@@ -356,6 +376,7 @@ SignalManager::SignalManager (QWidget *parent,int numsamples,int rate,int channe
       selected[i]=true;
     }
 }
+
 //**********************************************************
 SignalManager::~SignalManager ()
 {
@@ -367,6 +388,7 @@ SignalManager::~SignalManager ()
     }
   if (name) delete name;
 }
+
 //**********************************************************
 void SignalManager::setRange (int l,int r )
   //this one sets the internal markers and promotes them to all channels
@@ -376,58 +398,18 @@ void SignalManager::setRange (int l,int r )
       if (signal[i])
 	signal[i]->setMarkers (l,r);
       else
-	warning("WARNING: channel[%d] is null", i);
+	warning("SignalManager::setRange(): channel[%d] is null", i);
     }
   lmarker=signal[0]->getLMarker();
   rmarker=signal[0]->getRMarker();
 }
+
 //**********************************************************
 //below are all methods of Class SignalManager that deal with I/O
-//such as loading and saving. audio playback is now in signalplay.cpp
-#if __BYTE_ORDER==__BIG_ENDIAN
-#define IS_BIG_ENDIAN
-#endif
-
-#define processid	0
-#define stopprocess	1
-#define samplepointer	2
-
-extern Global globals;
-//**********************************************************
-// now some helper functions... somewhere in c-lib there should be something
-// compareable. But as long the reinvented wheel works there is no need for
-// change 
-static inline unsigned int swapEndian (unsigned int s)
-  //yes you guessed it only for sizeof(int)==4 this
-  //works as it should do ...
-{
- return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
-}
+//such as loading and saving.
 
 //**********************************************************
-// now some helper functions... somewhere in c-lib there should be something
-// compareable. But as long the reinvented wheel works there is no need for
-// change 
-static inline int swapEndian (int s)
-  //yes you guessed it only for sizeof(int)==4 this
-  //works as it should do ...
-{
- return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
-}
-//**********************************************************
-static inline long swapEndian (long s)
-{
- return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
-}
-//**********************************************************
-static inline short int swapEndian (short int s)
-//sizeof (short int ) must be 2
-{
- return ((s&0xff)<<8)|((s&0xff00)>>8);
-}
-//**********************************************************
-SignalManager::SignalManager (QWidget *par,const char *name,int type)
-// constructor that loads a signal file to memory 
+SignalManager::SignalManager(QWidget *par,const char *name,int type)
 {
   initialize();
   parent=par;
@@ -446,7 +428,7 @@ SignalManager::SignalManager (QWidget *par,const char *name,int type)
 }
 
 //**********************************************************
-void SignalManager::loadAscii()
+int SignalManager::loadAscii()
 {
     float value;
     int cnt=0;
@@ -456,8 +438,8 @@ void SignalManager::loadAscii()
 
     FILE *sigin=fopen(name,"r");
     if (!sigin) {
-	printf ("File does not exist !\n");
-	return;
+	warning("SignalManager::loadAscii(): File does not exist !");
+	return -ENOENT;
     }
 
     //loop over all samples in file to get maximum and minimum
@@ -468,10 +450,11 @@ void SignalManager::loadAscii()
 	    cnt++;
 	}
     }
-    debug("reading ascii file with %d samples", cnt); // ###
+    debug("SignalManager::loadAscii(): reading ascii file with %d samples",
+	cnt); // ###
 
     // get the maximum and the scale
-    amp = ((1<<23)-1) / max;
+    amp = (float)((1<<23)-1) / max;
     rate=10000;     //will be asked in requester
     channels=1;
 
@@ -489,81 +472,92 @@ void SignalManager::loadAscii()
     }
 
     fclose (sigin);
+    return 0;
 }
+
 //**********************************************************
-void SignalManager::loadWav ()
+int SignalManager::loadWav()
 {
-  FILE *sigfile=fopen (name,"r");
+    int result = 0;
+    __uint32_t length = 0;
+    wavheader header;
 
-  if (sigfile)
-    {
-      union
-      {
-	char      rheader[sizeof(struct wavheader)];
-	wavheader header;
-      };
-      union 
-      {
-	char     rlength [4];
-	int	 length;
-      };
+    FILE *sigfile = fopen(name,"r");
 
-      int num=fread (rheader,1,sizeof(wavheader),sigfile);
-      printf ("%d %d\n",num,sizeof(wavheader));
+    if (!sigfile) {
+	KMsgBox::message(parent,"Info",i18n("File does not exist !"),2);
+	return -ENOENT;
+    }
 
-      if (num==sizeof(struct wavheader))
+    int num=fread(&header,1,sizeof(wavheader),sigfile);
+    debug("SignalManager::loadWav(): %d %d",num,sizeof(wavheader));
+
+    if (num==sizeof(struct wavheader)) {
+
+	if ( (strncmp("RIFF", (char*)&(header.riffid),4) == 0) &&
+	     (strncmp("WAVE", (char*)&(header.wavid),4) == 0) &&
+	     (strncmp("fmt ", (char*)&(header.fmtid),4)==0) )
 	{
-	  if ((strncmp("RIFF",header.riffid,4)==0)&&
-	      (strncmp("WAVE",header.wavid,4)==0)&&(strncmp("fmt ",header.fmtid,4)==0))
-	    {
 #if defined(IS_BIG_ENDIAN)
-	      header.mode 	= swapEndian (header.mode);
-	      header.rate 	= swapEndian (header.rate);
-	      header.channels = swapEndian (header.channels);
-	      header.bitspersample = swapEndian (header.bitspersample);
+	    header.mode          = bswap_16(header.mode);
+	    header.rate          = bswap_32(header.rate);
+	    header.channels      = bswap_16(header.channels);
+	    header.bitspersample = bswap_16(header.bitspersample);
+	    length=bswap_32(length);	
 #endif
-	      if (header.mode==1)
-		{
-		  rate=header.rate;
-		  int res=findDatainFile (sigfile);
-		  if (res==0) printf("File contains no data chunk!\n");
-		  else
-		    {
-		      fseek (sigfile,res,SEEK_SET);           //seek after DATA
-		      fread (rlength,1,sizeof (int),sigfile); //load length of data chunk
+	    if (header.mode==1) {
+		rate = header.rate;
+		int res = findDatainFile(sigfile);
+		if (res==0) {
+		    debug("SignalManager::loadWav(): File has no data chunk!");
+		    result = -ENODATA;
+		} else {
+		    fseek(sigfile,res,SEEK_SET);           //seek after DATA
+		    //load length of data chunk
+		    fread(&length,1,sizeof(__uint32_t),sigfile);
 #if defined(IS_BIG_ENDIAN)
-		      length=swapEndian (length);	
+		    length=bswap_32(length);	
 #endif
-		      debug ("length is %d,res is %d",length,res);
+		    debug("SignalManager::loadWav():length is %d,res is %d",
+		        length, res);
 
-		      length=(length/(header.bitspersample/8))/header.channels;
-		      switch (header.bitspersample)
-			{
+		    length=(length/(header.bitspersample/8))/header.channels;
+		    switch (header.bitspersample) {
 			case 8:
 			case 16:
 			case 24:
-			  loadWavChunk(sigfile,length, header.channels,header.bitspersample);
+			  result = loadWavChunk(sigfile, length,
+			               header.channels,header.bitspersample);
 			  break;
 			default:
 			  KMsgBox::message
 			    (parent,"Info",
 			    i18n("Sorry only 8/16/24 Bits per Sample are supported !"),2);
+			  result = -EMEDIUMTYPE;
 			  break;	
-			}
-		      channels=header.channels;
-
 		    }
+		    channels=header.channels;
 		}
-	      else KMsgBox::message (parent,"Info",i18n("File must be uncompressed (Mode 1) !"),2);
+	    } else {
+		KMsgBox::message(parent,i18n("Info"),
+			i18n("File must be uncompressed (Mode 1) !"),2);
+		result = -EMEDIUMTYPE;
 	    }
-	  else  KMsgBox::message (parent,"Info",i18n("File is no RIFF Wave File !"),2);
-
-	}
-      else  KMsgBox::message (parent,"Info",i18n("File does not contain enough data !"),2);
-      fclose(sigfile);
+	} else {
+	    KMsgBox::message(parent,i18n("Info"),
+	    	i18n("File is no RIFF Wave File !"),2);
+	    result = -EMEDIUMTYPE;
+        }
+    } else {
+	KMsgBox::message(parent,i18n("Info"),
+	    i18n("File does not contain enough data !"),2);
+	result = -ENODATA;
     }
-  else  KMsgBox::message (parent,"Info",i18n("File does not exist !"),2);
+    fclose(sigfile);
+
+    return result;
 }
+
 //**********************************************************
 // the following routines are for loading and saving in dataformats
 // specified by names little/big endian problems are dealt with at compile time
@@ -580,14 +574,15 @@ void SignalManager::exportAscii(const char *name)
     int *sample = signal[0]->getSample();
     if (sample) {
 	for (int i=0; i<length ;i++) {
-	    fprintf(sigout,"%0.8e\n", (double)sample[i]/(double)((1<<23)-1));
+	    fprintf(sigout,"%0.8e\n", (float)sample[i]/(float)((1<<23)-1));
 	}
     }
 
     fclose(sigout);
 }
+
 //**********************************************************
-void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
+int SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
 {
   unsigned int bufsize=16*1024*sizeof(int);
   unsigned char *savebuffer = 0;
@@ -604,7 +599,7 @@ void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
       if (bufsize<1024)
 	{
 	  debug("SignalManager::writeWavSignal:not enough memory for buffer");
-	  return;
+	  return -ENOMEM;
 	}
       savebuffer = new unsigned char[bufsize];
       if (!savebuffer)
@@ -679,11 +674,13 @@ void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
   if (sample) delete sample;
   if (dialog) delete dialog;
   if (savebuffer) delete savebuffer;
+  return 0;
 }
+
 //**********************************************************
-void  SignalManager::save(const char *filename, int bits, bool selection)
+void SignalManager::save(const char *filename, int bits, bool selection)
 {
-  printf ("saving %d Bit to %s ,%d\n",bits,filename,selection);
+  debug("SignalManager::save(): %d Bit to %s ,%d", bits, filename, selection);
   int begin=0;
   int length=this->getLength();
   struct wavheader header;
@@ -702,9 +699,9 @@ void  SignalManager::save(const char *filename, int bits, bool selection)
     {
       fseek (sigout,0,SEEK_SET);
 
-      strncpy (header.riffid,"RIFF",4);
-      strncpy (header.wavid,"WAVE",4);
-      strncpy (header.fmtid,"fmt ",4);
+      strncpy ((char*)&(header.riffid),"RIFF",4);
+      strncpy ((char*)&(header.wavid),"WAVE",4);
+      strncpy ((char*)&(header.fmtid),"fmt ",4);
       header.fmtlength=16;
       header.filelength=(length*bits/8*channels+sizeof(struct wavheader));
       header.mode=1;
@@ -717,14 +714,14 @@ void  SignalManager::save(const char *filename, int bits, bool selection)
       int datalen=length*header.channels*header.bitspersample/8;
 
 #if defined(IS_BIG_ENDIAN)
-      header.mode 		= swapEndian (header.mode);
-      header.rate 		= swapEndian (header.rate);
-      header.channels		= swapEndian (header.channels);
-      header.bitspersample	= swapEndian (header.bitspersample);
-      header.AvgBytesPerSec	= swapEndian (header.AvgBytesPerSec);
-      header.fmtlength	= swapEndian (header.fmtlength);
-      header.filelength	= swapEndian (header.filelength);
-      datalen= swapEndian (datalen);
+      header.mode            = bswap_16(header.mode);
+      header.rate            = bswap_32(header.rate);
+      header.channels        = bswap_16(header.channels);
+      header.bitspersample   = bswap_16(header.bitspersample);
+      header.AvgBytesPerSec  = bswap_32(header.AvgBytesPerSec);
+      header.fmtlength	     = bswap_32(header.fmtlength);
+      header.filelength      = bswap_32(header.filelength);
+      datalen                = bswap_32(datalen);
 #endif
 
       fwrite ((char *) &header,1,sizeof (struct wavheader),sigout);
@@ -747,20 +744,10 @@ void  SignalManager::save(const char *filename, int bits, bool selection)
       fclose(sigout);
     }
 }
+
 //**********************************************************
-/**
- * Reads in the wav data chunk from a .wav-file. It creates
- * a new empty Signal for each channel and fills it with
- * data read from an opened file. The file's actual position
- * must already be set to the correct position.
- * <p>
- * \param sigfile FILE* pointer to the already opened file
- * \param channels int number of channels [1,2,...]
- * \param bits resolution in bits [8,16,24]
- */
-void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
+int SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
 {
-//int bufsize=PROGRESS_SIZE*sizeof(int) << 1;
   unsigned int bufsize=16*1024*sizeof(int);
   unsigned char *loadbuffer = 0;
   int **sample=0; // array of pointers to samples
@@ -772,8 +759,8 @@ void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
     {
       if (bufsize<1024)
 	{
-	  debug("SignalManager::loadWavSignal:not enough memory for buffer");
-	  return;
+	  debug("SignalManager::loadWavChunk:not enough memory for buffer");
+	  return -ENOMEM;
 	}
       loadbuffer = new unsigned char[bufsize];
       if (!loadbuffer) bufsize>>=1;
@@ -783,24 +770,37 @@ void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
   for (int channel=0; channel<channels; channel++)
     {
       signal[channel]=new Signal (length,rate);
+      if (!signal[channel]) {
+	  warning("SignalManager::loadWavChunk: out of memory: "\
+	  	"could not allocate Signal instance");
+	  return -ENOMEM;
+      }
       signal[channel]->setBits(bits);
       selected[channel]=true;
       sample[channel]=signal[channel]->getSample();
+
+      if (!sample[channel] || signal[channel]->getLength() < length) {
+          delete signal[channel];
+          signal[channel] = 0;
+	  warning("SignalManager::loadWavChunk: not enough memory for signal");
+	  return -ENOMEM;
+      }
+
     }
 
   //prepare and show the progress dialog
   char progress_title[64];
   char str_channels[32];
   if (channels==1)
-    strcpy((char *)&str_channels,"Mono");
+    strcpy((char *)&str_channels,i18n("Mono"));
   else if (channels==2)
-    strcpy((char *)&str_channels,"Stereo");
+    strcpy((char *)&str_channels,i18n("Stereo"));
   else
-    sprintf((char *)&str_channels,"%d-channel", channels);
+    sprintf((char *)&str_channels,i18n("%d-channel"), channels);
 
-  sprintf((char *)&progress_title,"Loading %d-Bit-%s File :",
+  sprintf((char *)&progress_title,i18n("Loading %d-Bit-%s File :"),
     bits, str_channels);
-  char *title = duplicateString(i18n(progress_title));
+  char *title = duplicateString(progress_title);
   ProgressDialog *dialog=new ProgressDialog (100,title);
   delete title;
 
@@ -826,7 +826,7 @@ void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
       // debug("read %d samples", read_samples);
       if (read_samples<=0)
 	{
-	  debug("SignalManager::loadWavChunk:EOF reached?"\
+	  warning("SignalManager::loadWavChunk:EOF reached?"\
 	    " (at sample %ld, expected length=%d",
 	    ftell(sigfile)/bytes_per_sample-start_offset, length);
 	  break;
@@ -862,7 +862,9 @@ void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
   if (dialog) delete dialog;
   if (loadbuffer) delete loadbuffer;
   if (sample) delete sample;
+  return 0;
 }
+
 //**********************************************************
 int SignalManager::findDatainFile (FILE *sigin)
   //help function for finding data chunk in wav files
@@ -889,6 +891,7 @@ int SignalManager::findDatainFile (FILE *sigin)
 
   return 0;
 }
+
 /***************************************************************************/
 //below  all methods of Class SignalManager that deal with sound playback
 
@@ -914,6 +917,7 @@ void playThread (struct Play *par)
   
   delete par;
 }
+
 //**********************************************************
 void SignalManager::play (bool loop)
 {
@@ -926,6 +930,7 @@ void SignalManager::play (bool loop)
 
   pthread_create (&thread,0,(void *  (*) (void *))playThread,par);
 }
+
 //**********************************************************
 void SignalManager::stopplay ()
 {
@@ -947,15 +952,16 @@ int SignalManager::setSoundParams (int audio,int bitspersample,int channels,int 
 		  ioctl(audio,SNDCTL_DSP_GETBLKSIZE,&size);
 		  return size;
 		}
-	      else debug ("unusable buffer size\n");
+	      else warning("unusable buffer size");
 	    }
-	  else debug ("unusable rate\n");
+	  else warning("unusable rate");
 	}
-      else debug ("wrong number of channels\n");
+      else warning("wrong number of channels");
     }
-  else debug ("number of bits per samples not supported\n");
+  else warning("number of bits per samples not supported");
   return 0;
 }
+
 //**********************************************************
 void SignalManager::play8 (bool loop)
 {

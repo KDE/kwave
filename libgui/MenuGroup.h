@@ -30,7 +30,18 @@ class MenuGroup : public MenuNode
 
 public: // Public methods
 
+    /**
+     * Constructor.
+     * @param parent pointer to the group's parent (might be 0)
+     * @param name the unique name of the group
+     */
     MenuGroup(MenuNode *parent, char *name);
+
+    /**
+     * Destructor. cleans up.
+     * @see #clear()
+     */
+    virtual ~MenuGroup();
 
     /**
      * Registers a node as a child of the current node.
@@ -42,6 +53,8 @@ public: // Public methods
     /**
      * Removes a child node of the curren node. If the child
      * was not found or is already removed this does nothing.
+     * The child's leaveGroup() function is called so that it
+     * does no longer belong to this group.
      * @param child pointer to the child node
      */
     virtual void removeChild(MenuNode *child);
@@ -60,6 +73,12 @@ public: // Public methods
      * @param uid the unique id string of the member to be selected or 0
      */
     virtual void selectItem(const char *uid);
+
+    /**
+     * Deregisteres all child nodes from us and removes them from
+     * our internal list of child nodes.
+     */
+    virtual void clear();
 
 };
 

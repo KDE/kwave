@@ -2,7 +2,8 @@ Hi,
 
 This is the kwave source distribution, a simple soundeditor for KDE.
 
-Use kwave with care (save often, and to different files...), since it has not left ALPHA-State yet.
+Use kwave with care (save often, and to different files...), since it has not 
+left BETA-State yet.
 
 Since I didn't get the Makefiles right yet, it is necessary first to compile
 and install the libraries. Then you can compile the binary and the plugins...
@@ -36,14 +37,3 @@ combination please notify me !
 Good Luck, and if not, mail me about the bugs...
 
 Martin Wilz
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,4 @@
 
-// #include <qwidget.h>
 #include <qpainter.h>
 
 #include "../src/MainWidget.h" //this has to be changed sometimes
@@ -33,12 +32,12 @@ OverViewWidget::~OverViewWidget ()
 //*****************************************************************************
 void OverViewWidget::mousePressEvent( QMouseEvent *e)
 {
-  int x1=(int)(((double)act)*width/len);
-  int x2=(int)(((double)max)*width/len);
+  int x1=(int)(((double)slider_pos)*width/slider_length);
+  int x2=(int)(((double)slider_width)*width/slider_length);
   if (x2<8) x2=8;
   if (e->x()>x1+x2)
     {
-      dir=max/2;
+      dir=slider_width/2;
       timer=new QTimer (this);
       connect (timer,SIGNAL(timeout()),this,SLOT(increase()));
       timer->start( 50); 
@@ -46,7 +45,7 @@ void OverViewWidget::mousePressEvent( QMouseEvent *e)
   else
   if (e->x()<x1)
     {
-      dir=-max/2;
+      dir=-slider_width/2;
       timer=new QTimer (this);
       connect (timer,SIGNAL(timeout()),this,SLOT(increase()));
       timer->start( 50); 
@@ -56,11 +55,12 @@ void OverViewWidget::mousePressEvent( QMouseEvent *e)
 //****************************************************************************
 void OverViewWidget::increase()
 {
-  act+=dir;
-  if (act<0) act=0;
-  if (act>len-max) act=len-max;
+  slider_pos+=dir;
+  if (slider_pos<0) slider_pos=0;
+  if (slider_pos>slider_length-slider_width)
+     slider_pos=slider_length-slider_width;
   repaint (false);
-  emit valueChanged (act);
+  emit valueChanged (slider_pos);
 }
 //****************************************************************************
 void OverViewWidget::mouseReleaseEvent( QMouseEvent *)
@@ -81,10 +81,11 @@ void OverViewWidget::mouseMoveEvent( QMouseEvent *e)
       int pos=e->x()-grabbed;
       if (pos <0) pos=0;
       if (pos>width) pos=width;
-      act=(int)(((double) len)*pos/width);
-      if (act>len-max) act=len-max;
+      slider_pos=(int)(((double) slider_length)*pos/width);
+      if (slider_pos>slider_length-slider_width)
+          slider_pos=slider_length-slider_width;
       repaint (false);
-      emit valueChanged (act);
+      emit valueChanged (slider_pos);
     }
 }
 //*****************************************************************************
@@ -93,31 +94,31 @@ void OverViewWidget::refresh  ()
   redraw=true;
   repaint (false);
 }
+
 //*****************************************************************************
-void OverViewWidget::setRange  (int newval,int x,int y)
+void OverViewWidget::setRange(int new_pos, int new_width, int new_length)
 {
-  if ((newval!=act)||(len!=y)||(x!=max))
+    if ( (new_pos != slider_pos) ||
+         (slider_length != new_length) ||
+         (slider_width != new_width) )
     {
-      if ((len==y)&&(x==max))
-	{
-	  act=newval;
-	  repaint (false);
-	}
-      else
-	{
-	  act=newval;
-	  max=x;
-	  len=y;
-	  refresh ();
+	if ( (slider_length == new_length) && (slider_width == new_width) ) {
+	    slider_pos = new_pos;
+	    repaint(false);
+	} else {
+	    slider_pos = new_pos;
+	    slider_width = new_width;
+	    slider_length = new_length;
+	    refresh();
 	}
     }
 }
 //*****************************************************************************
 void OverViewWidget::setValue  (int newval)
 {
-  if (act!=newval)
+  if (slider_pos!=newval)
     {
-      act=newval;
+      slider_pos=newval;
       repaint (false);
     }
 }
@@ -157,8 +158,8 @@ void OverViewWidget::paintEvent  (QPaintEvent *)
 
   p.begin (this);
 
-  int x1=(int)(((double)act)*width/len);
-  int x2=(int)(((double)max)*width/len);
+  int x1=(int)(((double)slider_pos)*width/slider_length);
+  int x2=(int)(((double)slider_width)*width/slider_length);
   if (x2<8) x2=8;   //so there is at least something
 
   p.setPen (colorGroup().light());

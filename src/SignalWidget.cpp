@@ -2,6 +2,8 @@
 //methods concerning markers may be found in markers.cpp
 
 #include <math.h>
+#include <stdlib.h>
+
 #include <qobject.h>
 #include <qtimer.h>
 #include <qfiledlg.h>
@@ -29,60 +31,85 @@
 
 #include "sampleop.h"
 
+/**
+ * math.h didn't define PI :-(
+ */
+#define PI 3.14159265358979323846264338327
+
+/**
+ * This factor determines how many times the order is over than
+ * the minimum required order. Higher values give less problems with
+ * aliasing but some amplitude errors. Lower values make less
+ * amplitude errors but more aliasing problems.
+ * This should be a good compromise...
+ */
+#define INTERPOLATION_PRECISION 4
+
+/**
+ * Limits the zoom to a minimum number of samples visible in one
+ * screen.
+ */
+#define MINIMUM_SAMPLES_PER_SCREEN 5
+
 extern Global globals;
+
 //****************************************************************************
 ProgressDialog *createProgressDialog (TimeOperation *operation,const char *caption)
 {
   ProgressDialog *dialog=new ProgressDialog (operation,caption);
   if (dialog)
     {
-      dialog->show ();
+      dialog->show();
       return dialog;
     }
   return 0;
 }
+
 //****************************************************************************
-SignalWidget::SignalWidget (QWidget *parent,MenuManager *manage) : QWidget (parent)
+SignalWidget::SignalWidget(QWidget *parent,MenuManager *manage)
+:QWidget(parent)
 {
-  playing=false;
-  redraw=false;
+    this->manage=manage;
 
-  this->manage=manage;
+    playing=false;
+    redraw=false;
+    timer=0;
+    signalmanage=0;
+    down=false;
+    playpointer=-1;
+    lastplaypointer=-1;
+    pixmap=0;
+    interpolation_order=0;
+    interpolation_alpha=0;
+    offset=0;
+    zoom=getFullZoom();
+    zoomy=1;
 
-  manage->clearNumberedMenu("ID_LABELS_TYPE");
-  for (LabelType *tmp=globals.markertypes.first();tmp;tmp=globals.markertypes.next())
-    manage->addNumberedMenuEntry ("ID_LABELS_TYPE", (char *)tmp->name);
+    select=new MouseMark (this);
+    labels=new LabelList;
+    labels->setAutoDelete (true);
 
-  timer=0;
-  signalmanage=0;
-  offset=0;
-  zoom=1.0;
-  zoomy=1;
-  down=false;
+    manage->clearNumberedMenu("ID_LABELS_TYPE");
+    for (LabelType *tmp=globals.markertypes.first();tmp;tmp=globals.markertypes.next())
+	manage->addNumberedMenuEntry ("ID_LABELS_TYPE", (char *)tmp->name);
+	
+    markertype=globals.markertypes.first();
 
-  select=new MouseMark (this);
+    setBackgroundColor (black);
+    setMouseTracking (true);
 
-  playpointer=-1;
-  lastplaypointer=-1;
-  pixmap=0;
+    connect (this,SIGNAL(channelReset()),this->parent(),SLOT(resetChannels()));
 
-  labels=new LabelList;
-  labels->setAutoDelete (true);
-
-  markertype=globals.markertypes.first();
-
-  setBackgroundColor (black);
-
-  setMouseTracking (true);
-
-  connect (this,SIGNAL(channelReset()),this->parent(),SLOT(resetChannels()));
+    zoomAll();
 }
+
 //****************************************************************************
 SignalWidget::~SignalWidget ()
 {
   if (pixmap==0)    delete pixmap;
   if (signalmanage) delete signalmanage;
-  if (labels)      delete labels;
+  if (labels)       delete labels;
+  if (interpolation_alpha)  delete interpolation_alpha;
 }
 //****************************************************************************
 void SignalWidget::saveSignal(const char *filename, int bits,
@@ -95,6 +122,7 @@ void SignalWidget::saveSignal(const char *filename, int bits,
 	signalmanage->save(filename, bits, selection);
     }
 }
+
 //****************************************************************************
 unsigned char *SignalWidget::getOverview (int size)
 {
@@ -106,15 +134,15 @@ unsigned char *SignalWidget::getOverview (int size)
 
   if (overview&&signalmanage)
     {
-      double zoom=((double) signalmanage->getLength())/size;
+      double z=((double)(signalmanage->getLength()))/size;
       int channels=signalmanage->getChannelCount ();
 
       for (int c=0;c<channels;c++)
       	{
 	  for (int i=0;i<size;i++)
 	    {
-	      step=((int) (((double)i)*zoom));
-	      signalmanage->getMaxMin (c,max,min,step,(int) zoom+2);
+	      step=((int) (((double)i)*z));
+	      signalmanage->getMaxMin (c,max,min,step,(int) z+2);
 	      if (-min>max) max=-min;
 	      overview[i]+=max/65536;
 	    }
@@ -122,83 +150,65 @@ unsigned char *SignalWidget::getOverview (int size)
     }
   return overview;
 }
+
 //****************************************************************************
 void SignalWidget::toggleChannel (int channel)
 {
   if (signalmanage) signalmanage->toggleChannel (channel);
 }
+
 //****************************************************************************
 bool SignalWidget::checkForNavigationCommand (const char *str)
 {
-  if (matchCommand (str,"zoomin")) zoomIn ();
-  else
-    if (matchCommand (str,"zoomout")) zoomOut ();
-    else
-      if (matchCommand (str,"zoomrange")) zoomRange ();
-      else
-	if (signalmanage)
-	  {
-	    if (matchCommand (str,"scrollright"))
-	      {
-		offset+=int (zoom*width)/10;
-		if (offset>(int)(signalmanage->getLength()-width*zoom))
-		  offset=(int)(signalmanage->getLength()-width*zoom);
-		refresh();
-	      }
-	    else
-	      if (matchCommand (str,"viewnext"))
-		{
-		  offset+=int (zoom*width);
-		  if (offset>(int)(signalmanage->getLength()-width*zoom))
-		    offset=(int)(signalmanage->getLength()-width*zoom);
-		  refresh();
-		}
-	      else
-		if (matchCommand (str,"viewprev"))
-		  {
-		    offset-=int (zoom*width);
-		    if (offset<0) offset=0;
-		    refresh();
-		  }
-		else
-		  if (matchCommand (str,"scrollleft"))
-		    {
-		      offset-=int (zoom*width)/10;
-		      if (offset<0) offset=0;
-		      refresh();
-		    }
-		  else
-		    if (matchCommand (str,"selectall"))
-		      setRange (0,signalmanage->getLength());
-		    else
-		      if (matchCommand (str,"selectnext"))
-			{
-			  int r=signalmanage->getRMarker();
-			  int l=signalmanage->getLMarker();
-			  
-			  setRange (r+1,r+1+(r-l));
-			}
-		      else
-			if (matchCommand (str,"selectprev"))
-			  {
-			    int r=signalmanage->getRMarker();
-			    int l=signalmanage->getLMarker();
-			    setRange (l-(r-l)-1,l-1);
-			  }
-			else
-			  if (matchCommand (str,"selectvisible"))  
-			    setRange (offset,(int)((double)width*zoom));
-			  else
-			    if (matchCommand (str,"selectnone"))	
-			      setRange (offset,offset);
-			    else
-			      if (matchCommand (str,"selectrange"))	
-				selectRange ();
-			      else return false;
-	  }
-  
-  return true;
+    if (!signalmanage) return false;
+
+    if (matchCommand(str,"zoomin"))
+	zoomIn();
+    else if (matchCommand(str,"zoomout"))
+	zoomOut();
+    else if (matchCommand(str,"zoomrange"))
+	zoomRange();
+    else if (matchCommand(str,"scrollright")) {
+	setOffset(offset + pixels2samples(width/10));
+	refresh();
+    } else if (matchCommand(str,"scrollleft")) {
+	setOffset(offset - pixels2samples(width/10));
+	refresh();
+    } else if (matchCommand(str,"viewnext")) {
+	setOffset(offset + pixels2samples(width));
+	refresh();
+    } else if (matchCommand(str,"viewprev")) {
+	setOffset(offset - pixels2samples(width));
+	refresh();
+    } else if (matchCommand(str,"selectall")) {
+	setRange (0,signalmanage->getLength()-1);
+    } else if (matchCommand(str,"selectnext")) {
+	int r=signalmanage->getRMarker();
+	int l=signalmanage->getLMarker();
+	setRange (r+1,r+1+(r-l));
+    } else if (matchCommand(str,"selectprev")) {
+	int r=signalmanage->getRMarker();
+	int l=signalmanage->getLMarker();
+	setRange (l-(r-l)-1,l-1);
+    } else if (matchCommand(str,"selecttoleft")) {
+	int l = 0;
+	int r = signalmanage->getRMarker();
+	setRange(l,r);
+    } else if (matchCommand(str,"selecttoright")) {
+	int l = signalmanage->getLMarker();
+	int r = signalmanage->getLength()-1;
+	setRange(l,r);
+    } else if (matchCommand(str,"selectvisible")) {
+	setRange(offset, offset+pixels2samples(width)-1);
+    } else if (matchCommand(str,"selectnone"))	{
+	setRange(offset,offset);
+    } else if (matchCommand(str,"selectrange"))	
+	selectRange();
+    else return false;
+
+    return true;
 }
+
 //****************************************************************************
 bool SignalWidget::checkForLabelCommand (const char *str)
 {
@@ -237,10 +247,12 @@ bool SignalWidget::checkForLabelCommand (const char *str)
 
   return true;
 }
+
 //****************************************************************************
-int SignalWidget::doCommand (const char *str)
+int SignalWidget::doCommand(const char *str)
 {
-  printf ("%s\n",str);
+//  debug("SignalWidget::doCommand(%s)", str);
+
   if (matchCommand (str,"dialog"))
     {
       Parser parser (str);
@@ -267,6 +279,7 @@ int SignalWidget::doCommand (const char *str)
 	    return signalmanage->doCommand (str);
   return false;
 }
+
 //**********************************************************
 void SignalWidget::showDialog (const char *name)
 {
@@ -338,27 +351,30 @@ void SignalWidget::setOp (int op)
 //****************************************************************************
 void SignalWidget::selectRange ()
 {
-  if (signalmanage)
-    {
-      int rate=signalmanage->getRate();
+    if (!signalmanage) return;
 
-      Dialog *dialog = DynamicLoader::getDialog
-	("time",new DialogOperation (rate,true));
-      if ((dialog)&&(!dialog->exec()))
-	{
-	  int l=signalmanage->getLMarker();
+    int rate=signalmanage->getRate();
 
-	  Parser parser (dialog->getCommand());
-  
-	  double ms=parser.toDouble ();
-	  int len=(int)(ms*rate/1000);
-	  int siglen=signalmanage->getLength();
-	  if ((l+len)>siglen) setRange (l,siglen); //overflow check
-	  else
-	    setRange (l,l+len);
-	}
+    Dialog *dialog = DynamicLoader::getDialog
+	("time", new DialogOperation (rate,true));
+    if (!dialog) return;
+
+    if ( (dialog) && (dialog->exec() != 0) ) {
+	int l=signalmanage->getLMarker();
+
+	Parser parser(dialog->getCommand());
+
+	double ms=parser.toDouble ();
+	int len=(int)(ms*(double)rate/(double)1000.0);
+	int siglen=signalmanage->getLength();
+
+	if ((l+len) >= siglen)
+	    setRange(l,siglen-1); //overflow check
+	else
+	    setRange(l,l+len);
     }
 }
+
 //****************************************************************************
 void SignalWidget::connectSignal ()
 {
@@ -380,16 +396,19 @@ void SignalWidget::connectSignal ()
 
   signalmanage->refresh();
 }
+
 //****************************************************************************
 int SignalWidget::getSignalCount ()
 {
   return (signalmanage) ? signalmanage->getChannelCount() : 0;
 }
+
 //****************************************************************************
 int SignalWidget::getBitsPerSample ()
 {
   return (signalmanage) ? signalmanage->getBitsPerSample() : 0;
 }
+
 //****************************************************************************
 void SignalWidget::createSignal (const char *str)
 {
@@ -404,14 +423,11 @@ void SignalWidget::createSignal (const char *str)
   labels->clear ();	  
 
   signalmanage=new SignalManager (this,numsamples,rate,1);
-
-  if (signalmanage) 
+  if (signalmanage)
     {
       connectSignal ();
-      emit	channelReset	();
-      // ### emit checkMenu("bits(8)", true);
-      setZoom (100);
-      refresh ();
+      emit channelReset();
+      zoomAll();
     }
 }
 //****************************************************************************
@@ -422,6 +438,7 @@ void SignalWidget::estimateRange  (int l,int r)
 //****************************************************************************
 void SignalWidget::setRange  (int l,int r,bool set)
 {
+  debug("SignalWidget::setRange(%d,%d,%d)",l,r,set);
   if (set)  select->set (((l-offset)/zoom),((r-offset)/zoom));
   if (signalmanage)
     {
@@ -440,28 +457,36 @@ void SignalWidget::setSignal  (SignalManager *sigs)
   if ((signalmanage)&&(signalmanage->getLength()))
     {
       connectSignal ();
+      zoomAll();
       emit channelReset	();
-      // ### debug("emit checkMenu(bits(8), true);\n");
-      // ### emit checkMenu("bits(8)", true);
     }
 }
+
 //****************************************************************************
-void SignalWidget::setSignal  (const char *filename,int type)
+void SignalWidget::setSignal(const char *filename,int type)
 {
-  if (signalmanage) delete signalmanage;  //get rid of old signal
-  signalmanage=new SignalManager (this,filename,type);
-  labels->clear ();
+    labels->clear ();
+    offset=0;
 
-  if (signalmanage)
-    {
-      offset=0;
+    if (signalmanage) delete signalmanage;  //get rid of old signal
 
-      connectSignal ();
-      setRange (0,0);
-
-      emit channelReset	();
-      // ### emit checkMenu("bits(8)", true);
+    signalmanage=new SignalManager (this,filename,type);
+    if (!signalmanage) {
+	warning("SignalWidget::setSignal() failed, out of memory?");
+	return;
     }
+
+    if (signalmanage->getLength() <= 0) {
+	warning("SignalWidget::setSignal() failed, zero-length or out of memory?");
+	delete signalmanage;
+	signalmanage=0;
+	return;
+    }
+
+    connectSignal();
+    setRange(0,0);
+    zoomAll();
+    emit channelReset();
 }
 //****************************************************************************
 void SignalWidget::time ()
@@ -483,90 +508,175 @@ void SignalWidget::time ()
   if (signalmanage->getPlayPosition()==0)
     emit playingfinished();
 }
-//****************************************************************************
-void SignalWidget::setZoom (double zoom)
-{
-  if (signalmanage) this->zoom=(((double) signalmanage->getLength())/width)*(zoom/100);
-  else this->zoom=1.0;
-  
-  if (offset+zoom*width>signalmanage->getLength())
-    zoom=((double)signalmanage->getLength()-offset)/width;
 
-  refresh();
-}
 //****************************************************************************
-void SignalWidget::zoomNormal	()
+void SignalWidget::setOffset(int new_offset)
 {
-  zoom=1;
-  refresh();
+    offset = new_offset;
 }
-//****************************************************************************
-void SignalWidget::zoomOut		()
-{
-  offset-=int (zoom*width);
-  if (offset<0) offset=0;
-  zoom*=3;
 
-  if (offset+zoom*width>signalmanage->getLength())
-    zoom=((double)signalmanage->getLength()-offset)/width;
-
-  refresh();
-}
 //****************************************************************************
-void SignalWidget::zoomIn		()
+double SignalWidget::getFullZoom()
 {
-  offset+=int (zoom*width/2);
-  zoom/=3;
-  offset-=int (zoom*width/2);
-  refresh();
+    if (!signalmanage) return 0.0; // no zoom if no signal
+
+    // example: width = 100 and length=3
+    //          -> samples should be at positions 0, 49.5 and 99
+    //          -> 49.5 [pixels / sample]
+    //          -> zoom = 1 / 49.5 [samples / pixel]
+    // => full zoom [samples/pixel] = (length-1) / (width-1)
+    return (double)(signalmanage->getLength()-1) / (double)(width-1);
 }
+
+//****************************************************************************
+void SignalWidget::setZoom(double new_zoom)
+{
+    zoom = new_zoom;
+}
+
+//****************************************************************************
+void SignalWidget::fixZoomAndOffset()
+{
+    double max_zoom;
+    double min_zoom;
+    int length;
+
+    if (!signalmanage) return;
+
+    length=signalmanage->getLength();
+
+    // ensure that offset is [0...length-1]
+    if (offset < 0) offset = 0;
+    if (offset > length-1) offset = length-1;
+
+    // ensure that the zoom is in a proper range
+    max_zoom = getFullZoom();
+    min_zoom = (double)MINIMUM_SAMPLES_PER_SCREEN / (double)width;
+    if (zoom < min_zoom) zoom = min_zoom;
+    if (zoom > max_zoom) zoom = max_zoom;
+
+    // try to correct the offset if there is not enough data to fill
+    // the current window
+    // example: width=100 [pixel], length=3 [samples],
+    //          offset=1 [sample], zoom=1/49.5 [samples/pixel] (full)
+    //          -> current last displayed sample = length-offset
+    //             = 3 - 1 = 2
+    //          -> available space = pixels2samples(width-1) + 1
+    //             = (99/49.5) + 1 = 3
+    //          -> decrease offset by 3 - 2 = 1
+    if ( (offset > 0) && (pixels2samples(width-1)+1 > length-offset)) {
+	// there is space after the signal -> move offset left
+	offset -= pixels2samples(width-1)+1 - (length-offset);
+	if (offset < 0) offset = 0;
+    }
+
+    // if reducing the offset was not enough, zoom in
+    if (pixels2samples(width-1)+1 > length-offset) {
+	// there is still space after the signal -> zoom in
+	// (this should never happen as the zoom has been limited before)
+	zoom = max_zoom;
+    }
+
+    // adjust the zoom factor in order to make a whole number
+    // of samples fit into the current window
+    int samples = pixels2samples(width-1)+1;
+    zoom = (double)(samples-1) / (double)(width-1);
+
+    // do some final range checking
+    if (zoom < min_zoom) zoom = min_zoom;
+    if (zoom > max_zoom) zoom = max_zoom;
+
+    emit zoomInfo(zoom);
+}
+
+//****************************************************************************
+void SignalWidget::zoomAll()
+{
+    if (!signalmanage) return;
+    setZoom(getFullZoom());
+    refresh();
+}
+
+//****************************************************************************
+void SignalWidget::zoomNormal()
+{
+    if (!signalmanage) return;
+    setOffset(offset+pixels2samples(width)/2);
+    setZoom(1.0);
+    setOffset(offset-pixels2samples(width)/2);
+    refresh();
+}
+
+//****************************************************************************
+void SignalWidget::zoomOut()
+{
+    setOffset(offset+pixels2samples(width)/2);
+    setZoom(zoom*3);
+    setOffset(offset-pixels2samples(width)/2);
+    refresh();
+}
+
+//****************************************************************************
+void SignalWidget::zoomIn()
+{
+    setOffset(offset+pixels2samples(width)/2);
+    setZoom(zoom/3);
+    setOffset(offset-pixels2samples(width)/2);
+    refresh();
+}
+
 //****************************************************************************
 void SignalWidget::zoomRange()
 {
-  if (signalmanage)
-    {
-      int lmarker=signalmanage->getLMarker();
-      int rmarker=signalmanage->getRMarker();
+    if (!signalmanage) return;
 
-      if (lmarker!=rmarker)
-	{
-	  offset=lmarker;
-	  zoom=(((double)(rmarker-lmarker))/width);
-	  refresh();
-	}
+    int lmarker = signalmanage->getLMarker();
+    int rmarker = signalmanage->getRMarker();
+
+    if (lmarker != rmarker) {
+	setOffset(lmarker);
+	setZoom(((double)(rmarker-lmarker))/(double)(width-1));
+	refresh();
     }
 }
+
 //****************************************************************************
 void SignalWidget::refresh()
 {
   if (signalmanage)
     {
+      fixZoomAndOffset();
+
       int rate=signalmanage->getRate();
       int length=signalmanage->getLength();
 
-      if (rate==0)
-	{
-	  debug("SignalWidget::refresh:rate==0");
-	  // return; // ###
-	}
-
-      select->setOffset (offset);
-      select->setLength (length);
-      select->setZoom (zoom);
+      select->setOffset(offset);
+      select->setLength(length);
+      select->setZoom(zoom);
 
       if (rate) emit timeInfo((int)(((long long)(length))*10000/rate));
       if (rate) emit rateInfo (rate);
-      emit lengthInfo (length);
+
+      int maxofs = pixels2samples(width-1)+1;
+      emit viewInfo(offset, maxofs, signalmanage->getLength());
+      emit lengthInfo(length);
     }
+
   redraw=true;
-  repaint (false);
+  repaint(false);
+  emit zoomInfo(zoom);
+
 };
+
 //****************************************************************************
-void SignalWidget::setOffset	(int no)
+void SignalWidget::slot_setOffset(int new_offset)
 {
-  offset=no;
-  refresh ();
+    if (new_offset != offset) {
+	setOffset(new_offset);
+	refresh();
+    }
 }
+
 //****************************************************************************
 int SignalWidget::checkPosition (int x)
   //returns given x coordinates is within bonds of area,
@@ -657,53 +767,227 @@ void SignalWidget::mouseMoveEvent( QMouseEvent *e )
 void SignalWidget::drawOverviewSignal (int channel,int middle, int height,
 	int first, int last)
 {
+    float scale_y;
     int step,max=0,min=0;
 
-    int div=65536;
-    div=(int)((double)div/zoomy); // == 65536/zoomy
-//  int scale_y = (int)(height*zoomy);
+    // scale_y: pixels per unit
+    scale_y = height * zoomy / (1 << 24);
 
-    for (int i=0;i<width;i++) {
-	step=((int) (((double)i)*zoom))+offset;
-
-	signalmanage->getMaxMin (channel,max,min,step,(int) zoom+2);
-
-	max=(max/256)*height/div;
-	min=(min/256)*height/div;
-
-//      max=((max>>16)*scale_y) >> 8;
-//      min=((min>>16)*scale_y) >> 8;
-
-	p.drawLine (i,middle+max,i,middle+min);
+    for (int i=0; i < width; i++) {
+	step=offset + pixels2samples(i);
+	signalmanage->getMaxMin(channel,max,min,step,pixels2samples(1));
+	max = (int)(max * scale_y);
+	min = (int)(min * scale_y);
+	p.drawLine (i,middle-max,i,middle-min);
     }
 }
 
 //****************************************************************************
-void SignalWidget::drawInterpolatedSignal (int channel,int begin, int height)
+void SignalWidget::calculateInterpolation()
 {
-//  debug("SignalWidget::drawInterpolatedSignal(channel=%d,begin=%d,height=%d)",
-//    channel, begin, height); // ###
-  double f;
-  int 	j,lx,x,x1,x2;
-  int div=65536;
+    float f;
+    float Fg;
+    int k;
+    int N;
 
-  div=(int)((double)div/zoomy);
-
-  lx=begin+(signalmanage->getSingleSample(channel,offset)/256)*height/div;
-  for (int i=0; i<width; i++)
-    {
-      j=(int) floor((double) i*zoom);
-      f=(i*zoom)-j;
-			
-      x1=(signalmanage->getSingleSample(channel,offset+j)/256)*height/div;
-      x2=(signalmanage->getSingleSample(channel,offset+j+1)/256)*height/div;
-
-      x=begin+(int)(x2*f+x1*(1-f));
-
-      p.drawLine (i,lx,i+1,x);
-      lx=x;
+    // remove all previous coefficents and signal buffer
+    if (interpolation_alpha != 0) {
+	delete interpolation_alpha;
+	interpolation_alpha = 0;
     }
+
+    // offset: index of first visible sample (left) [0...length-1]
+    // zoom: number of samples / pixel
+
+    // approximate the 3dB frequency of the low pass as
+    // Fg = f_g / f_a
+    // f_a: current "sample rate" of display (pixels) = 1.0
+    // f_g: signal rate = (zoom/2)
+    Fg = zoom/2;
+
+    // N: order of the filter, at least 2 * (1/zoom)
+    N = (int)(INTERPOLATION_PRECISION / zoom);
+    N |= 0x01; // make N an odd number !
+
+    // allocate a buffer for the coefficients
+    interpolation_alpha = new float[N+1];
+    interpolation_order = N;
+
+    // calculate the raw coefficients and
+    // apply a Hamming window
+    //
+    //                    sin( (2k-N) * Pi * Fg )                       2kPi
+    // alpha_k = 2 * Fg * ----------------------- * [ 0,54 - 0,46 * cos ---- ]
+    //                      (2k - N) * Pi * Fg                            N
+    //
+    f=0.0; // (store the sum of all coefficients in "f")
+    for (k=0; k<=N; k++) {
+	interpolation_alpha[k] = sin((2*k-N)*PI*Fg) / ((2*k-N)*PI*Fg);
+	interpolation_alpha[k] *= (0.54 - 0.46 * cos(2*k*PI/N));
+	f += interpolation_alpha[k];
+    }
+    // norm the coefficients to 1.0 / zoom
+    f *= zoom;
+    for (k=0; k<=N; k++)
+	interpolation_alpha[k] /= f;
+
 }
+
+//****************************************************************************
+void SignalWidget::drawInterpolatedSignal(int channel,int middle, int height)
+{
+    register float y;
+    register float *sig;
+    float *sig_buffer;
+    float scale_y;
+    int i;
+    register int k;
+    int N;
+    int length;
+    int sample;
+    int x;
+
+//    debug("SignalWidget::drawInterpolatedSignal");
+
+    // scale_y: pixels per unit
+    scale_y = height * zoomy / (1 << 24);
+
+    // N: order of the filter, at least 2 * (1/zoom)
+    N = INTERPOLATION_PRECISION * samples2pixels(1);
+    N |= 0x01; // make N an odd number !
+
+    // re-calculate the interpolation's filter and buffers
+    // if the current order has changed
+    if (interpolation_order != N) {
+	calculateInterpolation();
+	N = interpolation_order;
+    }
+
+    // buffer for intermediate resampled data
+    sig_buffer = new float[width+N+2];
+
+    // array with sample points
+    QPointArray *points = new QPointArray(width);
+
+    length = signalmanage->getLength();
+
+    // fill the sample buffer with zeroes
+    for (i=0; i < width+N+2; i++)
+	sig_buffer[i] = 0.0;
+
+    // resample
+    sample = -2; // start some samples left of the window
+    x = samples2pixels(sample);
+    sig = sig_buffer + (N/2);
+    while (x <= width+N/2) {
+	if ((x >= -N/2) && (offset+sample < length)) {
+	    sig[x] = signalmanage->getSingleSample(channel, offset+sample) *
+		scale_y;
+	}
+	sample++;
+	x = samples2pixels(sample);
+    }
+
+    // pass the signal data through the filter
+    for (i=0; i<width; i++) {
+	sig = sig_buffer + (i+N);
+	y = 0.0;
+	for (k=0; k<=N; k++)
+	    y += *(sig--) * interpolation_alpha[k];
+
+	points->setPoint(i, i, middle-(int)y);
+    }
+
+    // display the filter's interpolated output
+    p.setPen(darkGray);
+    p.drawPolyline(*points, 0, i);
+
+    // display the original samples
+    sample=0;
+    x=samples2pixels(sample);
+    sig = sig_buffer + (N/2);
+    p.setPen(white);
+    i=0;
+    while (x < width) {
+	if ((x >= 0) && (x < width)) {
+	    // mark original samples
+	    points->setPoint(i++, x, middle-(int)sig[x]);
+	}
+	sample++;
+	x=samples2pixels(sample);
+    }
+    p.drawPoints(*points, 0, i);
+
+    delete sig_buffer;
+    delete points;
+}
+
+//****************************************************************************
+void SignalWidget::drawPolyLineSignal(int channel,int middle, int height)
+{
+    float scale_y;
+    int y;
+    int i;
+    int n;
+    int sample;
+    int x;
+
+//    debug("SignalWidget::drawPolyLineSignal");
+
+    // scale_y: pixels per unit
+    scale_y = height * zoomy / (1 << 24);
+
+    // array with sample points
+    QPointArray *points = new QPointArray(width+1);
+
+    // display the original samples
+    sample=0;
+    x=samples2pixels(sample);
+    i=0;
+    while (x < width) {
+	// mark original samples
+	y = (int)(signalmanage->getSingleSample(channel, offset+sample) *
+	    scale_y);
+	points->setPoint(i++, x, middle-y);
+
+	sample++;
+	x=samples2pixels(sample);
+    }
+
+    // set "n" to the number of displayed original samples
+    n = i;
+
+    // interpolate the rest of the display if necessary
+    if (samples2pixels(sample-1) < width-1) {
+	int x1;
+	int x2;
+	float y1;
+	float y2;
+
+	x1 = samples2pixels(sample-1);
+	x2 = samples2pixels(sample);
+	y1 = (int)(signalmanage->getSingleSample(channel, offset+sample-1) *
+	    scale_y);
+	y2 = (int)(signalmanage->getSingleSample(channel, offset+sample) *
+	    scale_y);
+
+	x = width-1;
+	y = (int)((float)(x-x1) * (float)(y2-y1) / (float)(x2-x1));
+	
+	points->setPoint(i++, x, middle-y);
+    }
+
+    // show the poly-line
+    p.setPen(darkGray);
+    p.drawPolyline(*points, 0, i);
+
+    // show the original points
+    p.setPen(white);
+    p.drawPoints(*points, 0, n);
+
+    delete points;
+}
+
 //****************************************************************************
 void SignalWidget::paintEvent  (QPaintEvent *event)
 {
@@ -721,8 +1005,6 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
       pixmap->fill (this,0,0);
       updateall=true;
     }
-
-  debug("width=%d, height=%d", width, height); // ###
 
   if (pixmap) //final security check for the case of low memory (->rare thing)
     {
@@ -745,26 +1027,19 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 	      int chanheight=height/channels;
 	      int begin=+chanheight/2;
 
-	      //check and correction of current begin if needed
-	      if ((int)(offset+zoom*width) > signalmanage->getLength())
-		{
-		  offset-=(int)(offset+zoom*width-signalmanage->getLength());
-		  if (offset < 0) offset=0;
-		}
+	      //check and correct zoom and offset
+	      fixZoomAndOffset();
 
-	      //check and correction of current zoom value if needed
-	      if ((int)(zoom*width) > signalmanage->getLength())
-		{
-		  zoom=((double)signalmanage->getLength ())/width;
-		  select->setZoom (zoom); //notify selection
-		}
 	      for (int i=0;i<channels;i++)
 		{
 		  if (!signalmanage->getSignal(i)) continue; // skip non-existent signals
-		  if (zoom<=1)
+
+		  if (zoom < 0.1) {
 		    drawInterpolatedSignal(i,begin,chanheight);
-		  else if (zoom>1)
-		    drawOverviewSignal (i,begin,chanheight,0,zoom*width);
+		  } else if (zoom <= 1.0)
+		    drawPolyLineSignal(i,begin,chanheight);
+		  else
+		    drawOverviewSignal(i,begin,chanheight,0,zoom*width);
 
 		  p.setPen (green);
 		  p.drawLine (0,begin,width,begin);
@@ -773,7 +1048,7 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 		}
 
 	      // show selected range ...
-	      select->drawSelection (&p,width,height);
+	      select->drawSelection(&p,width,height);
 	      updateall=true;
 	    }
 	  lastplaypointer=-1;
@@ -850,11 +1125,6 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 
       if (updateall)
 	{
-	  if (signalmanage)
-	    {
-	      int maxofs=((int) (((double)width)*zoom+.5));
-	      emit viewInfo	(offset,maxofs,signalmanage->getLength());
-	    }
 	  bitBlt (this,0,0,pixmap);
 	}
       else
@@ -888,6 +1158,19 @@ int SignalWidget::mstosamples (double ms)
 {
   return   (int)(ms*signalmanage->getRate()/1000);
 }
+
+//****************************************************************************
+int SignalWidget::pixels2samples(int pixels)
+{
+    return (int)floor(pixels*zoom);
+}
+
+//****************************************************************************
+int SignalWidget::samples2pixels(int samples)
+{
+    return (int)floor(samples/zoom);
+}
+
 //****************************************************************************
 void selectMarkers (const char *command)
 {
@@ -953,6 +1236,7 @@ void SignalWidget::deleteLabel ()
       refresh ();
     }
 }
+
 //****************************************************************************
 void SignalWidget::loadLabel ()
 {
@@ -960,6 +1244,7 @@ void SignalWidget::loadLabel ()
 
   appendLabel ();
 }
+
 //****************************************************************************
 void SignalWidget::appendLabel ()
 {
@@ -971,6 +1256,7 @@ void SignalWidget::appendLabel ()
     }
   refresh ();
 }
+
 //****************************************************************************
 void SignalWidget::saveLabel (const char *typestring)
 {
@@ -1015,6 +1301,7 @@ void SignalWidget::saveLabel (const char *typestring)
       fclose (out);
     }
 }
+
 //****************************************************************************
 void SignalWidget::addLabel (const char *params)
 {
@@ -1071,6 +1358,7 @@ void SignalWidget::addLabel (const char *params)
 	}
     }
 }
+
 //****************************************************************************
 void SignalWidget::jumptoLabel ()
 // another fine function contributed by Gerhard Zintel
@@ -1104,6 +1392,7 @@ void SignalWidget::jumptoLabel ()
       }
     }
 }   
+
 //****************************************************************************
 void SignalWidget::savePeriods ()
 {
@@ -1166,6 +1455,7 @@ void SignalWidget::savePeriods ()
 	}
     }
 }
+
 //****************************************************************************
 void SignalWidget::saveBlocks (int bit)
 {
@@ -1213,6 +1503,7 @@ void SignalWidget::saveBlocks (int bit)
 	}
     }
 }
+
 //****************************************************************************
 void SignalWidget::markSignal (const char *str)
 {
@@ -1275,6 +1566,7 @@ void SignalWidget::markSignal (const char *str)
 	}
     }
 }
+
 //****************************************************************************
 void SignalWidget::markPeriods (const char *str)
 {
@@ -1339,6 +1631,7 @@ void SignalWidget::markPeriods (const char *str)
 	}
     }
 }
+
 //*****************************************************************************
 int findNextRepeat (int *sample,int high)
   //autocorellation of a windowed part of the sample
@@ -1369,6 +1662,7 @@ int findNextRepeat (int *sample,int high)
     }
   return maxpos;
 } 
+
 //*****************************************************************************
 int findNextRepeatOctave (int *sample,int high,double adjust=1.005)
   //autocorellation of a windowed part of the sample
@@ -1420,6 +1714,7 @@ int findNextRepeatOctave (int *sample,int high,double adjust=1.005)
 
   return maxpos;
 } 
+
 //*****************************************************************************
 int findFirstMark (int *sample,int len)
   //finds first sample that is non-zero, or one that preceeds a zero crossing
@@ -1439,6 +1734,7 @@ int findFirstMark (int *sample,int len)
       }
   return i;
 }
+
 //*****************************************************************************
 void SignalWidget::addLabelType (LabelType *marker)
 {

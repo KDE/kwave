@@ -1,4 +1,6 @@
 
+#include <math.h>
+
 #include <qkeycode.h>
 #include <qframe.h>
 #include <qimage.h>
@@ -26,7 +28,7 @@
 
 static const int keys[10]={Key_1,Key_2,Key_3,Key_4,Key_5,Key_6,Key_7,Key_8,Key_9,Key_0};
 
-const char *zoomtext[]={"100 %","33 %","10 %","3 %","1 %","0.1 %"};
+const char *zoomtext[]={"400 %","200 %","100 %","33 %","10 %","3 %","1 %","0.1 %"};
 int         playbit;
 extern int  bufbase;
 int         mmap_threshold;
@@ -86,16 +88,25 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
     signalview,SLOT(toggleChannel(int))
   );
 
-  zoomselect->insertStrList (zoomtext,6);
-  connect       (slider,SIGNAL(valueChanged(int)),signalview,SLOT(setOffset(int)));
-  connect	(signalview,SIGNAL(viewInfo(int,int,int)),
-			 slider,SLOT(setRange(int,int,int)));
-  connect 	(signalview,SIGNAL(playingfinished()),
-			 this,SLOT(stop()));
-  connect	(zoomselect,SIGNAL(activated(int)),
-			 this,SLOT(selectedZoom(int)));
-  connect	(this,SIGNAL(setOperation(int)),
-			 signalview,SLOT(setOp(int)));
+  zoomselect->insertStrList (zoomtext,sizeof(zoomtext) / sizeof(char *));
+  connect(slider,SIGNAL(valueChanged(int)),
+	  signalview,SLOT(slot_setOffset(int)));
+  			
+  connect(signalview,SIGNAL(viewInfo(int,int,int)),
+	  slider,SLOT(setRange(int,int,int)));
+			
+  connect(signalview,SIGNAL(zoomInfo(double)),
+	  this,SLOT(slot_ZoomChanged(double)));
+
+  connect(signalview,SIGNAL(playingfinished()),
+	  this,SLOT(stop()));
+			
+  connect(zoomselect,SIGNAL(activated(int)),
+	  this,SLOT(selectedZoom(int)));
+			
+  connect(this,SIGNAL(setOperation(int)),
+	  signalview,SLOT(setOp(int)));
+			
 
   buttons->addStretch	();
   this->connect	(playbutton=buttons->addButton	(i18n("Play")),SIGNAL(pressed()),
@@ -115,6 +126,8 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   this->connect	( minusbutton=buttons->addButton  ("-"),SIGNAL(pressed()),
 		  signalview,SLOT(zoomOut()));
   minusbutton->setAccel (Key_Minus);
+  this->connect ( zoomallbutton=buttons->addButton(i18n("All")), SIGNAL(pressed()),
+		  signalview,SLOT(zoomAll()));
   this->connect	( nozoombutton=buttons->addButton("1:1"),SIGNAL(pressed()),
 		  signalview,SLOT(zoomNormal()));
 
@@ -155,8 +168,6 @@ void MainWidget::saveSignal(const char *filename,int bits,int type, bool selecti
 void MainWidget::setSignal  (const char *filename,int type)
 {
   signalview->setSignal	(filename,type);
-// ###  if (signal) setBitsPerSample(signal->getBitsPerSample());
-  signalview->setZoom 	(100.0);
   slider->refresh();
   updateMenu();
 }
@@ -164,8 +175,6 @@ void MainWidget::setSignal  (const char *filename,int type)
 void MainWidget::setSignal  (SignalManager *signal)
 {
   signalview->setSignal	(signal);
-// ###  if (signal) setBitsPerSample(signal->getBitsPerSample());
-  signalview->setZoom 	(100.0);
   updateMenu();
 }
 //*****************************************************************************
@@ -183,12 +192,43 @@ void MainWidget::setLengthInfo (int len)
   status->changeItem (buf,3);
 }
 //*****************************************************************************
-void MainWidget::selectedZoom (int num)
+void MainWidget::selectedZoom(int num)
 {
-  if (num<6) signalview->setZoom (strtod(zoomtext[num],0));
+    debug("MainWidget::selectedZoom(%d)", num);
+    double new_zoom;
+    if ((num >= 0) && (num < (int)(sizeof(zoomtext)/sizeof(char *)))) {
+	debug("zoomtext[%d]=%s", num, zoomtext[num]); // ###
+	new_zoom = 100.0 / (double)strtod(zoomtext[num],0);
+	debug("new zoom (relative) = %0.3f", new_zoom); // ###
+	signalview->setZoom(new_zoom);
+	signalview->refresh();
+    }
 }
+
 //*****************************************************************************
-unsigned char *MainWidget::getOverView	(int val)
+void MainWidget::slot_ZoomChanged(double zoom)
+{
+    double percent = 100.0/zoom;
+    char buf[64];
+
+    if (percent < 1.0) {
+	char format[16];
+	int digits = (int)ceil(1.0 - log10(percent));
+
+	sprintf(format, "%%0.%df %%%%", digits);
+	sprintf(buf, format, percent);
+    } else if (percent < 10.0) {
+	sprintf(buf, "%0.1f %%", percent);
+    } else if (percent < 1000.0) {
+	sprintf(buf, "%0.0f %%", percent);
+    } else {
+	sprintf(buf, "x %d", (int)(percent / 100.0));
+    }
+    zoomselect->setEditText(buf);
+}
+
+//*****************************************************************************
+unsigned char *MainWidget::getOverView(int val)
 {
   return signalview->getOverview(val);
 }

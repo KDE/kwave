@@ -47,6 +47,7 @@ class MainWidget : public QWidget
  void stop		();
  void halt		();
  void loop		();
+ void slot_ZoomChanged  (double zoom);
 
  signals:
 
@@ -66,6 +67,7 @@ class MainWidget : public QWidget
  SignalWidget 	  *signalview;
  QPushButton	  *plusbutton,*minusbutton;
  QPushButton	  *zoombutton,*nozoombutton;
+ QPushButton      *zoomallbutton;
  QPushButton	  *playbutton,*loopbutton;
  QComboBox	  *zoomselect;
  KStatusBar	  *status;

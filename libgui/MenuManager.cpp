@@ -57,18 +57,20 @@ int MenuManager::parseToKeyCode(const char *key_name)
 	}
 
 	// other known keys
-	if (!strcmp (&key[pos],"PLUS")) keycode+=Key_Plus;
-	if (!strcmp (&key[pos],"MINUS")) keycode+=Key_Minus;
-	if (!strcmp (&key[pos],"SPACE")) keycode+=Key_Space;
-	if (!strcmp (&key[pos],"CTRL")) keycode+=CTRL;
-	if (!strcmp (&key[pos],"PAGEUP")) keycode+=Key_PageUp;
-	if (!strcmp (&key[pos],"PAGEDOWN")) keycode+=Key_PageDown;
-	if (!strcmp (&key[pos],"UP")) keycode+=Key_Up;
-	if (!strcmp (&key[pos],"DEL")) keycode+=Key_Delete;
-	if (!strcmp (&key[pos],"DOWN")) keycode+=Key_Down;
-	if (!strcmp (&key[pos],"LEFT")) keycode+=Key_Left;
-	if (!strcmp (&key[pos],"RIGHT")) keycode+=Key_Right;
-	if (!strcmp (&key[pos],"SHIFT")) keycode+=SHIFT;
+	if (!strcmp(&key[pos],"PLUS")) keycode+=Key_Plus;
+	if (!strcmp(&key[pos],"MINUS")) keycode+=Key_Minus;
+	if (!strcmp(&key[pos],"SPACE")) keycode+=Key_Space;
+	if (!strcmp(&key[pos],"CTRL")) keycode+=CTRL;
+	if (!strcmp(&key[pos],"PAGEUP")) keycode+=Key_PageUp;
+	if (!strcmp(&key[pos],"PAGEDOWN")) keycode+=Key_PageDown;
+	if (!strcmp(&key[pos],"UP")) keycode+=Key_Up;
+	if (!strcmp(&key[pos],"DEL")) keycode+=Key_Delete;
+	if (!strcmp(&key[pos],"DOWN")) keycode+=Key_Down;
+	if (!strcmp(&key[pos],"LEFT")) keycode+=Key_Left;
+	if (!strcmp(&key[pos],"RIGHT")) keycode+=Key_Right;
+	if (!strcmp(&key[pos],"SHIFT")) keycode+=SHIFT;
+	if (!strcmp(&key[pos],"HOME")) keycode+=Key_Home;
+	if (!strcmp(&key[pos],"END")) keycode+=Key_End;
 
 	cnt++;
     }

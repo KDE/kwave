@@ -79,13 +79,44 @@ class SignalManager
  /**
   * Imports ascii file with one sample per line and only one
   * channel. Everything that cannot be parsed by strod will be ignored.
+  * @return 0 if succeeded or error number if failed
   */
- void	loadAscii();
- void	loadWav	        ();
- void	loadWavChunk	(FILE *sigin,int length,int channels,int bits);
- void	writeWavChunk	(FILE *sigout,int begin,int length,int bits);
+ int loadAscii();
+
+ /**
+  * Loads a .wav-File.
+  * @return 0 if succeeded or a negative error number if failed:
+  *           -ENOENT if file does not exist,
+  *           -ENODATA if the file has no data chunk or is zero-length,
+  *           -EMEDIUMTYPE if the file has an invalid/unsupported format
+  */
+ int loadWav();
 
  private: 
+
+ /**
+  * Reads in the wav data chunk from a .wav-file. It creates
+  * a new empty Signal for each channel and fills it with
+  * data read from an opened file. The file's actual position
+  * must already be set to the correct position.
+  * @param sigin pointer to the already opened file
+  * @param length number of samples to be read
+  * @param channels number of channels [1..n]
+  * @param number of bits per sample [8,16,24,...]
+  * @return 0 if succeeded or error number if failed
+  */
+ int loadWavChunk(FILE *sigin,int length,int channels,int bits);
+
+ /**
+  * Writes the chunk with the signal to a .wav file (not including
+  * the header!).
+  * @param sigout pointer to the already opened file
+  * @param length number of samples to be written
+  * @param channels number of channels [1..n]
+  * @param number of bits per sample [8,16,24,...]
+  * @return 0 if succeeded or error number if failed
+  */
+ int writeWavChunk(FILE *sigout,int begin,int length,int bits);
 
  char          *name;
  QWidget       *parent;

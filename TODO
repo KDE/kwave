@@ -1,8 +1,24 @@
 
-o inconsistence between drawing and mouse selection, probably a numeric
-  problem, abt. +/-10 pixels difference (only x-axis)
+o bugfix: crash on "additive synthesis"
 
-o error on program shutdown: "QMenuData::removeItem: Index -1 out of range"
+o some commands do not work: fft, averagefft, sonagram, options/menu,
+  options/memory
+
+o error handling in SignalWidget/Manager needs complete rework !
+
+o at least show an error message if input file was invalid
+
+o load and automatically repair files recorded with "arecord"
+
+o range checking in SignalManager::getMaxMin()
+
+o re-enable usage of memory mapped files
+
+o bugfix: crash if a loaded file is not in RIFF format
+
+o support for import/export of ASCII files with multiple channels
+
+o Edit->Selection->"expand to beginning/end of file"
 
 o add <project_root>/libgui/.libs to the -L parameter when making
   in src and plugins
@@ -10,6 +26,8 @@ o add <project_root>/libgui/.libs to the -L parameter when making
 o label handling doesn't work
 
 o Segmentation fault after "Could not find labeltype"
+
+o make use of the libX11 parameter --geometry
 
 o the clipboard does not work between other kwave instances
 
@@ -44,3 +62,15 @@ o fix bug in Fx->Periodic Silence (segmentation fault)
 o pluginize/ put into library  the following files in src/ :
   mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h 
 
+o context menu for right mouse button
+
+o a nice toolbar
+
+o icons for the buttons
+
+o positioning the cursor to start/end of the file with Pos1 / End
+
+o use the data types from sys/times.h instead of just "int"
+
+o somewhere in far future: compile on architectures with a different
+  size of int (not 32-bit), handle data in original data width

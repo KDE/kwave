@@ -71,12 +71,12 @@ kwave_SOURCES =\
  $(BUILTSOURCES)
 
 # the library search path
-kwave_LDFLAGS = @all_libraries@ -L$(topdir)/libgui/.libs
+kwave_LDFLAGS = -dy -L$(topdir)/libgui/.libs @all_libraries@ --export-dynamic
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kwave_LDADD   =  -lkwavegui -lkfm -lkdeui -lkdecore -lqt -lX11 -lXext \
--lkwave -lpthread -ldl
+kwave_LDADD   =  -lkwavegui -lkwave -lkfm -lkdeui -lkdecore \
+	-lqt -lX11 -lXext -lpthread -ldl
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
@@ -110,6 +110,7 @@ install-data-local:
 	$(INSTALL_DATA) images/rspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) images/lspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) images/font.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/exit.xpm $(PIXDIR)
 	$(INSTALL_DATA) images/filesave.xpm $(PIXDIR)
 	$(mkinstalldirs) $(CONFDIR)
 	$(INSTALL_DATA) menus.config $(CONFDIR)

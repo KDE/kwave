@@ -20,6 +20,7 @@
 
 #include <qobject.h>
 #include <qlist.h>
+#include <qstrlist.h>
 
 class QPixmap;
 class MenuSub;
@@ -293,7 +294,6 @@ public:
      */
     virtual void actionChildEnableChanged(int id, bool enable);
 
-protected:
     /**
      * Adds the node to a group. If it is already a member of the
      * group this function will do nothing. It recursively calls
@@ -309,6 +309,8 @@ protected:
      * @param group name of the group
      */
     void leaveGroup(const char *group);
+
+protected:
 
     /**
      * Returns the address of the root node of the menu structure.
@@ -352,7 +354,7 @@ protected:
     QList<MenuNode> children;
 
     /** list of group names the item belongs to */
-    QList<const char> groups;
+    QStrList *groups;
 
 private:
     /** numeric id in the menu */

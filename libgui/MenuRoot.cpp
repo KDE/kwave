@@ -64,8 +64,9 @@ MenuNode *MenuRoot::insertLeaf(char *name, char *command,
 void MenuRoot::removeChild(MenuNode *child)
 {
     if (!child) return;
-    MenuNode::removeChild(child);
+    if (children.findRef(child) == -1) return;
     menu_bar.removeItem(child->getId());
+    MenuNode::removeChild(child);
 }
 
 //*****************************************************************************

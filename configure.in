@@ -9,6 +9,9 @@ AC_ARG_PROGRAM
 dnl You have to change this
 AM_INIT_AUTOMAKE(kwave,`cat ./VERSION`)
 
+AM_DISABLE_STATIC
+AM_ENABLE_SHARED
+
 dnl make $KDEDIR the default for the installation
 AC_PREFIX_DEFAULT(${KDEDIR:-/usr})
 

@@ -66,7 +66,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.\n\
 //**********************************************************
 AboutDialog::AboutDialog (const Global *globals,bool modal): Dialog(modal)
 {
-  resize 	(480,200);
+  resize 	(600,400);
   setCaption	("About KWave");
 
   abouttext=new QMultiLineEdit (this);

@@ -34,8 +34,16 @@ class OverViewWidget : public QWidget
 
  public slots:
 
- void setRange		(int,int,int);
- void increase ();
+    /*
+     * Sets new range parameters of the slider, using a scale that is calculated
+     * out of the slider's maximum position.
+     * @param new_val position of the slider (left or top of the bar)
+     * @param new_width width of the slider (bar)
+     * @param new_length size of the slider's area
+     */
+    void setRange(int new_pos, int new_width, int new_length);
+
+    void increase ();
 
  signals:
 
@@ -49,9 +57,9 @@ class OverViewWidget : public QWidget
 
  int        width,height;
  int        grabbed;
- int        max;
- int        len;
- int        act;
+ int        slider_width;
+ int        slider_length;
+ int        slider_pos;
  int        dir;        //addup for direction...
  int	    redraw;	//flag for redrawing pixmap
  MainWidget *mparent;

@@ -24,8 +24,8 @@
 #include "MainWidget.h"
 #include "TopWidget.h"
 
-extern Global globals;
-QStrList           recentFiles;
+extern   Global   globals;
+extern   QStrList recentFiles;
 
 //*****************************************************************************
 void TopWidget::setOp (const char *str)
@@ -81,18 +81,17 @@ TopWidget::TopWidget ()
   :KTMainWindow()
 {
   bits=16;
-
   saveDir=0;
   loadDir=0;
   name=0;
 
   status=new KStatusBar (this);
-
   status->insertItem (i18n("Length: 0 ms           "),1);
   status->insertItem (i18n("Rate: 0 kHz         "),2);
   status->insertItem (i18n("Samples: 0             "),3);
   status->insertItem (i18n("selected: 0 ms        "),4);
   status->insertItem (i18n("Clipboard: 0 ms      "),5);
+  setStatusBar (status);
 
   KMenuBar *bar = new KMenuBar(this);
   menumanage = new MenuManager(this, *bar);
@@ -111,16 +110,12 @@ TopWidget::TopWidget ()
 
   FileLoader loader (configDir.absFilePath("menus.config"));  
   parseCommands (loader.getMem());
-
+  setMenu (bar);
+  updateMenu();
   updateRecentFiles ();
 
   mainwidget=new MainWidget (this,menumanage,status);
   setView (mainwidget);
-
-  setMenu (bar);
-  setStatusBar (status);
-
-  updateMenu();
 }
 
 //*****************************************************************************
@@ -259,12 +254,12 @@ void TopWidget::saveFileAs (bool selection)
 //*****************************************************************************
 void TopWidget::setSignal (const char *newname)
 {
-  if (name) deleteString (name);
-  this->name=duplicateString (newname);
-  mainwidget->setSignal (name);
-  globals.app->addRecentFile (name);
-  setCaption (name);
-  updateMenu();
+    if (name) deleteString (name);
+    name=duplicateString (newname);
+    mainwidget->setSignal(name);
+    globals.app->addRecentFile(name);
+    setCaption (name);
+    updateMenu();
 }
 //*****************************************************************************
 void TopWidget::setSignal (SignalManager *signal)

@@ -21,6 +21,7 @@ INCLUDES= @all_includes@ -I${topdir}
 PLUGINDIR=$(kde_datadir)/kwave/modules/dialogs
 
 CXXFLAGS  = @CXXFLAGS@ -shared -fPIC -rdynamic -nostartfiles -nostdlib
+
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 

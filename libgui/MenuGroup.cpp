@@ -29,6 +29,12 @@ MenuGroup::MenuGroup(MenuNode *parent, char *name)
 }
 
 //*****************************************************************************
+MenuGroup::~MenuGroup()
+{
+    clear();
+}
+
+//*****************************************************************************
 int MenuGroup::registerChild(MenuNode *child)
 {
     if (!child) return -1;
@@ -47,24 +53,24 @@ int MenuGroup::registerChild(MenuNode *child)
 //*****************************************************************************
 void MenuGroup::removeChild(MenuNode *child)
 {
-
-    // notification for the childs that our enable state changed
-    QObject::disconnect(
-	this, SIGNAL(sigParentEnableChanged()),
-	child, SLOT(slotParentEnableChanged())    	
-    );
-
     int index = children.find(child);
     if (index != -1) {
-	children.remove(index);
+	// notification for the childs that our enable state changed
+	QObject::disconnect(
+	    this, SIGNAL(sigParentEnableChanged()),
+	    child, SLOT(slotParentEnableChanged())    	
+	);
+
+	children.setAutoDelete(false);
+	children.remove(child);
+
+	child->leaveGroup(getName());
     }
 }
 
 //*****************************************************************************
 void MenuGroup::setEnabled(bool enable)
 {
-    debug("MenuGroup(%s)::setEnabled(%d)", getName(), enable);
-    // MenuNode::setEnabled(enable);
     MenuNode *child = children.first();
     while (child) {
 	int pos = children.at();
@@ -77,8 +83,6 @@ void MenuGroup::setEnabled(bool enable)
 //*****************************************************************************
 void MenuGroup::selectItem(const char *uid)
 {
-    debug("MenuGroup(%s)::selectItem(%s)", getName(), uid);
-
     MenuNode *new_selection = 0;
     MenuNode *child = children.first();
     while (child) {
@@ -95,6 +99,17 @@ void MenuGroup::selectItem(const char *uid)
     // select the new one if found
     if (new_selection) new_selection->setChecked(true);
 
+}
+
+//*****************************************************************************
+void MenuGroup::clear()
+{
+    // deregister all child nodes from us
+    MenuNode *child = children.first();
+    while (child) {
+	removeChild(child);
+	child = children.first();
+    }
 }
 
 /* end of libgui/MenuGroup.cpp */

@@ -12,9 +12,9 @@
 #include "TopWidget.h"
 #include "KwaveApp.h"
 
-extern struct Global globals;     
+extern struct Global globals;
 
-extern QStrList recentFiles;
+QStrList recentFiles;
 
 //*****************************************************************************
 void findDirectories ()
@@ -73,6 +73,9 @@ void findDirectories ()
 //*****************************************************************************
 KwaveApp::KwaveApp (int argc, char **argv): KApplication (argc,argv)
 {
+  // register us in the globals
+  if (!globals.app) globals.app = this;
+
   findDirectories (); //puts directory pointers into Global structure
 
   globals.markertypes.setAutoDelete (true);
@@ -164,7 +167,7 @@ extern int play16bit;      //flag for playing 16 Bit
 extern int bufbase;        //log of bufferrsize for playback... 
 extern int mmap_threshold; //threshold in MB for using mmapping
 extern char *mmap_dir;     //storage of dir name
-extern char *mmapallocdir; //really used directory
+/* ### extern ### */ char *mmapallocdir; //really used directory
 //*****************************************************************************
 /**
  * Saves the list of recent files to the kwave configuration file

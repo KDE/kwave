@@ -60,7 +60,8 @@ libkwavegui_la_SOURCES =\
 
 lib_LTLIBRARIES = libkwavegui.la
 
-libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@
+libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
+	--export-dynamic -shared
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

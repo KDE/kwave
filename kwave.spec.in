@@ -28,19 +28,25 @@ rm -f config.cache
 	--enable-shared=yes --enable-static=no --enable-debug=no
 
 %build
-(cd libgui && make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="")
-(
-    export LD_LIBRARY_PATH="$RPM_BUILD_ROOT"/libgui/.libs:${LD_LIBRARY_PATH}
-    make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT=""
-)
+cd libgui
+make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT=""
+cd ..
+export LD_LIBRARY_PATH=`pwd`/libgui/.libs:${LD_LIBRARY_PATH}
+make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT=""
 
 %install
 rm -rf "$RPM_BUILD_ROOT"
+cd libgui
+make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
+cd ..
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 cd "$RPM_BUILD_ROOT"
 find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' > "$RPM_BUILD_DIR"/%{filelist}
 find . -type f | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
 find . -type l | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
+# remove files/directories that should not get into the package
+cp "$RPM_BUILD_DIR"/%{filelist} /tmp/files.lst.$$$
+cat /tmp/files.lst.$$$ | grep -v /default$ > "$RPM_BUILD_DIR"/%{filelist}
 
 %files -f file.list.%{name}
 

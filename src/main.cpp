@@ -3,18 +3,16 @@
 #include <libkwave/Global.h>
 #include "KwaveApp.h"
 
-extern Global globals;
+extern struct Global globals;
 //*****************************************************************************
 int main( int argc, char **argv )
 {
-  globals.app=new KwaveApp (argc, argv);
-
-  if (globals.app)
-    {
-      int result=globals.app->exec();
-      return result;
+    globals.app=new KwaveApp (argc, argv);
+    if (globals.app) {
+	int result=globals.app->exec();
+	return result;
     }
-  return -1;
+    return -1;
 }
 
 

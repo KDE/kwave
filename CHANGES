@@ -1,5 +1,30 @@
 this Development Version
 
+rpm package should now be installable without conflicts and compile
+without any previous installation of kwave
+
+removed the "${KDEDIR}/share/doc/HTML/default" directory from the rpm
+so that it doesn't conflict with the already existing one
+
+shift+Home/shift+End selects from the current left/right position
+up to the start/end of the signal
+
+bugfix in display of signal: signal is no longer inverted
+
+selectrange() works now
+
+the zoom factor combo box reflects the current "real" zoom factor
+
+some bugfixes in menu handling / cleanups
+
+complete rework of zoom and offset handling:
+- simple poly-lines instead of lowpass interpolation if zoom factor
+  has less than 10 pixels per sample
+- lowpass interpolation if more than 10 pixels per sample
+
+bugfix in KWaveApp: now sets globals.app to this if it was null before, 
+now doesn't crash if it loads a file specified at cmdline
+
 0.5.1-4 [by Thomas.Eschenbacher@gmx.de]
 
 >>> now compiles and runns under RedHat 6.1 / Halloween IV <<<
@@ -18,7 +43,7 @@ all warnings on linking programs/libs disappeared.
 
 configure-parameter --enable-debug has effect again
 
->>> ASCII import and export works now <<<
+>>> ASCII import and export works now (mono only) <<<
 
 bugfixes in some plugins, all compile now without warnings/errors
 

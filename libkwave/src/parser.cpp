@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "kwavestring.h"
 #include "parser.h"
 
 //**********************************************************
@@ -9,28 +10,6 @@ bool matchCommand (const char *com,const char *comp)
   KwaveParser parser(com);
   //printf ("comparing %s to %s\n",parser.getCommand(),comp);
   return (strcmp (parser.getCommand(),comp)==0);
-}
-//**********************************************************
-char *duplicateString (const char *str)
-{
-  char  *buf=0;
-  if (str)
-    {
-      int   len=strlen(str);
-      buf=new char [len+1];
-      if (buf)
-	{
-	  for (int i=0;i<len;i++) buf[i]=str[i];
-	  buf[len]=0;
-	}
-      else printf ("duplicateString allocation failed !\n");
-    }
-  return buf;
-}
-//**********************************************************
-void deleteString (char *str)
-{
-  if (str) delete [] str;
 }
 //**********************************************************
 KwaveParser::KwaveParser (const char *init)

@@ -2,6 +2,29 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+//**********************************************************
+char *duplicateString (const char *str)
+{
+  char  *buf=0;
+  if (str)
+    {
+      int   len=strlen(str);
+      buf=new char [len+1];
+      if (buf)
+	{
+	  for (int i=0;i<len;i++) buf[i]=str[i];
+	  buf[len]=0;
+	}
+      else printf ("duplicateString allocation failed !\n");
+    }
+  return buf;
+}
+//**********************************************************
+void deleteString (char *str)
+{
+  if (str) delete [] str;
+}
+//**********************************************************
 char *mstotimec (int ms)
 {
   static char buf[32];

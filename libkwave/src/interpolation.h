@@ -18,6 +18,7 @@ class Interpolation
  public:
 
          Interpolation                 (int type=0);
+         Interpolation                 (const char *);
          ~Interpolation                ();
   void   incUsage                      ();
   void   decUsage                      ();
@@ -28,8 +29,7 @@ class Interpolation
   double getSingleLimitedInterpolation (double pos);
   double getSingleInterpolation        (double pos);
   static const char** getTypes         ();
-  //  int    getCount                      ();
-  inline void setType (int t) {type=t;};
+  inline void setType (int t)          {type=t;};
 
  private:
   Curve     *points;        // List of points to be interpolated

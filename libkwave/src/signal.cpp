@@ -1,17 +1,12 @@
-// In this file you will find methods for changing time-domain signals
-// cut/copy/paste functions are included in sampleedit.cpp
-
 // I/O Functions such as loading/saving are in sampleio.cpp
 
 //Here choose biggest prime factor to be tolerated before
 //popping up a requester, when doing a fft
-#define MAXPRIME 512 
-
-#include <dlfcn.h>
-#include <limits.h>
 #include <math.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <dlfcn.h>
 #include "kwavesignal.h"
 #include "parser.h"
 #include "gsl_fft.h"
@@ -23,9 +18,11 @@
 #include "windowfunction.h"
 #include "dynamicloader.h"
 
-extern void *mmapalloc (int);
-extern void mmapfree   (void *);
-extern long mmap_threshold; //thresholf for using memory mapped to files
+#define MAXPRIME 512 
+
+//extern void *mmapalloc (int);
+//extern void mmapfree   (void *);
+//extern long mmap_threshold; //thresholf for using memory mapped to files
 extern Global globals;
 //**********************************************************
 int *KwaveSignal::getNewMem (int size)
@@ -33,20 +30,24 @@ int *KwaveSignal::getNewMem (int size)
   //memory is desired  
 {
   int *mem;
-  if (size>(mmap_threshold<<20)) 
-    {
-      mapped=true;
-      mem=(int *) mmapalloc(size*sizeof(int));
-    }
-  else mem=new int[size];
+  //  if (size>(mmap_threshold<<20)) 
+  //   {
+  //    mapped=true;
+  //   mem=(int *) mmapalloc(size*sizeof(int));
+  //  }
+  //  else
+  mapped=false;
+  mem=new int[size];
+  printf ("allocated %d ints at %p\n",size,mem);
   return mem;
 }
 //**********************************************************
 void KwaveSignal::getridof (int *mem)
 {
   if (mem)
-    if (mapped) mmapfree (mem);
-    else delete [] mem;
+    //    if (mapped) mmapfree (mem);
+    // else
+    delete [] mem;
 }
 //**********************************************************
 void  KwaveSignal::getMaxMin (int &max,int &min,int begin,int len)
@@ -82,28 +83,25 @@ KwaveSignal::KwaveSignal (int numsamples,int rate)
   this->rate=rate;
   this->length=numsamples;
 
-  mapped=false;
   sample=getNewMem (length);
 
   if (sample)
     {
       //erase, because memory is not cleared by default
-      for (int i=0;i<length;sample[i++]=0);
+      //      for (int i=0;i<length;sample[i++]=0);
 
       //initialise attributes
 
       locked=0;
       lmarker=0;
       rmarker=0;
-      
-      
     }
-  else noMemory ();
+  else printf ("out of Memory !\n");
 }
 //**********************************************************
 KwaveSignal::~KwaveSignal ()
 {
-  if (sample!=0)
+  if (sample)
     {
       getridof (sample);
       sample=0;
@@ -122,72 +120,6 @@ void KwaveSignal::setMarkers (int l,int r )
 }
 // now follow the various editing and effects functions
 //**********************************************************
-void KwaveSignal::fadeOut(const char *)
-{
-  int *sample=&(this->sample[lmarker]);
-  int i=0;
-  int curve=0;
-
-  counter=0;
-
-  if (curve==0)
-    for (;i<len;i++)
-      {
-	sample[i]=
-	  (int)(((long long) (sample[i]))*(len-i)/len);
-	counter=i;
-      }
-  else if (curve<0)
-    for (;i<len;i++)
-      {
-	sample[i]=
-	  (int)((double)sample[i]*
-		log10(1+(-curve*((double)len-i)/len))/log10(1-curve));
-	counter=i;
-      }
-  else 
-    for (;i<len;i++)
-      {
-	sample[i]=
-	  (int)((double)sample[i]*
-		(1-log10(1+(curve*((double)i)/len))/log10(1+curve)));
-	counter=i;
-      }
-  counter=-1;   //signal progress that action is performed...
-}
-//**********************************************************
-void KwaveSignal::fadeIn (const char *)
-{
-  int *sample=&(this->sample[lmarker]);
-  int curve=0;
-
-  int i=0;
-  if (curve==0)
-    for (;i<len;i++)
-      {
-	sample[i]=
-	  (int)(((long long) (sample[i]))*i/len);
-	counter=i;
-      }
-  else if (curve<0)
-    for (;i<len;i++)
-      {
-	sample[i]=
-	  (int)((double)sample[i]*
-		log10(1+(-curve*((double)i)/len))/log10(1-curve));
-	counter=i;
-      }
-  else 
-    {
-      for (;i<len;i++)
-	sample[i]=
-	  (int)((double)sample[i]*
-		(1-log10(1+(curve*((double)len-i)/len))/log10(1+curve)));
-      counter=i;
-    }
-  counter=-1;   //signal progress that action is performed...
-}
-//**********************************************************
 int KwaveSignal::getChannelMaximum ()
 {
   int max=0;
@@ -197,94 +129,6 @@ int KwaveSignal::getChannelMaximum ()
   return max;
 }
 //**********************************************************
-void KwaveSignal::delayRecursive (int delay,int ampl)
-{
-  int j;
-  if (lmarker-delay<0) lmarker=delay;
-
-  counter=0;
-  for (int i=lmarker;i<rmarker;)
-    {
-      if (i<rmarker-PROGRESS_SIZE) j=i+PROGRESS_SIZE;
-      else j=rmarker;
-
-      for (;i<j;i++)
-	sample[i]=(sample[i]+(sample[i-delay]*ampl/100))/2;
-
-      counter=i;
-    }
-  counter=-1;
-}
-//*********************************************************
-void KwaveSignal::delay (int delay,int ampl)
-{
-  int j;
-
-  counter=0;
-  if (lmarker-delay<0) lmarker=delay;
-
-  for (int i=rmarker-1;i>=lmarker;)
-    {
-      if (i>lmarker+PROGRESS_SIZE) j=i-PROGRESS_SIZE;
-      else j=lmarker;
-
-      for (;i>=j;i--)
-	sample[i]=(sample[i]+(sample[i-delay]*ampl/100))/2;
-
-      counter=len-i;
-    }
-  counter=-1;
-}
-//*********************************************************
-void KwaveSignal::hullCurve (int time,int type)
-{
-  int max=0;
-
-  int chunksize=rate*10/time;
-  Interpolation interpolation (type);
-  Curve *points=new Curve;
-
-  if (chunksize<len)
-    {
-      for (int i=0;i<chunksize/2;i++)
-	{
-	  int act=sample[begin+i];
-	  if (max<act) max=act;
-	  if (max<-act) max=-act;
-	}
-
-      points->append (0,(double) max);
-
-      int pos=begin;
-      while (pos<begin+len-chunksize)
-	{
-	  max=0;
-
-	  for (int i=0;i<chunksize;i++)
-	    {
-	      int act=sample[pos++]; 
-	      if (max<act) max=act;
-	      if (max<-act) max=-act;
-	    }
-    	  points->append ((double) (pos-chunksize/2-begin)/len,(double) max);
-	}
-
-      max=0;
-      for (int i=len-chunksize/2;i<len;i++)
-	{
-	  int act=sample[begin+i];
-	  if (max<act) max=act;
-	  if (max<-act) max=-act;
-	}
-      points->append (1,(double) max);
-
-      double *y=interpolation.getInterpolation (points,len);
-	      
-      for (int i=0;i<len;i++) sample[begin+i]=(int)y[i];
-
-    }
-}
-//*********************************************************
 void KwaveSignal::changeRate (int newrate)
 {
   rate=newrate;
@@ -409,32 +253,6 @@ void KwaveSignal::fft (int windowtype,bool accurate)
     }
 }
 //*********************************************************
-void KwaveSignal::average (const char *)
-{
-  int taps=3;
-  int *sample=&(this->sample[lmarker]);
-
-  int b=taps/2;
-  long int newsam;
-  int i,j;
-
-  int *sam=new int[len];
-  if (sam)
-    {
-      for (i=b;i<len-b;i++)
-	{
-	  newsam=0;
-	  for (j=-b;j<b;j++) newsam+=sample[i+j];
-	  newsam/=taps;
-	  sam[i]=newsam;
-	  counter=i;
-	}
-      memcpy (&sample[b],&sam[b],(len-taps)*sizeof(int));
-      delete sam;
-    }
-  counter=-1;
-}
-//*********************************************************
 void KwaveSignal::sonagram (int points,int windowtype)
 {
   int length=((len/(points/2))*points/2)+points/2; //round up length
@@ -533,53 +351,6 @@ void KwaveSignal::averageFFT (int points,int windowtype)
     }
 }
 //*********************************************************
-void KwaveSignal::filter (Filter *filter)
-{
-  double val;
-  double addup=0;
-  int max=0;
-  for (int j=0;j<filter->num;j++)
-    {
-      addup+=fabs(filter->mult[j]);
-      if (max<filter->offset[j]) max=filter->offset[j]; //find maximum offset
-    }
-
-  if (filter->fir)
-    {
-      for (int i=begin+len-1;i>=begin+max;i--)
-	{
-	  val=filter->mult[0]*sample[i];
-	  for (int j=1;j<filter->num;j++)
-	    val+=filter->mult[j]*sample[i-filter->offset[j]];
-	  sample[i]=(int)(val/addup);    //renormalize
-	}
-      for (int i=begin+max-1;i>=begin;i--)  //slower routine because of check, needed only in this range...
-	{
-	  val=filter->mult[0]*sample[i];
-	  for (int j=1;j<filter->num;j++)
-	    if (i-filter->offset[j]>0) val+=filter->mult[j]*sample[i-filter->offset[j]];
-	  sample[i]=(int)(val/addup);    //renormalize
-	}
-    }
-  else //basically the same,but the loops go viceversa
-    {
-      for (int i=begin;i<begin+max;i++)  //slower routine because of check, needed only in this range...
-	{
-	  val=filter->mult[0]*sample[i];
-	  for (int j=1;j<filter->num;j++)
-	    if (i-filter->offset[j]>0) val+=filter->mult[j]*sample[i-filter->offset[j]];
-	  sample[i]=(int)(val/addup);    //renormalize
-	}
-      for (int i=begin+max;i<begin+len;i++)
-	{
-	  val=filter->mult[0]*sample[i];
-	  for (int j=1;j<filter->num;j++)
-	    val+=filter->mult[j]*sample[i-filter->offset[j]];
-	  sample[i]=(int)(val/addup);    //renormalize
-	}
-    }
-}
-//*********************************************************
 void KwaveSignal::movingFilter (Filter *filter,int tap, Curve *points,int low,int high)
 {
   Interpolation interpolation (0);
@@ -655,23 +426,6 @@ void KwaveSignal::replaceStutter (int len1,int len2)
   counter=-1;
 }
 //*********************************************************
-void KwaveSignal::quantize (const char *)
-{
-  int bits=4;
-  int *sample=&(this->sample[lmarker]);
-
-  double a;
-  for (int j=0;j<len;j++)
-    {
-      a=(double)(sample[j]+(1<<23))/(1<<24);
-      a=floor(a*bits+.5);
-      a/=bits;
-      sample[j]=(int)((a-.5)*((1<<24)-1));   //24 because of double range (no more signed)
-      counter=j;
-    }
-  counter=-1;   //signal progress that action is performed...
-}
-//*********************************************************
 void KwaveSignal::lockRead ()
 {
   locked++;
@@ -692,7 +446,7 @@ void KwaveSignal::unlockWrite ()
   locked=0;
 }
 //*********************************************************
-void KwaveSignal::command (TimeOperation *operation)
+bool KwaveSignal::command (TimeOperation *operation)
 {
   const char *command=operation->getCommand();
 
@@ -724,8 +478,7 @@ void KwaveSignal::command (TimeOperation *operation)
       while ((globals.timeplugins[cnt])&&(!done))
 	{
 	  if (strcmp(parse.getCommand(),
-		     globals.timeplugins[cnt]->getName()
-		     )==0)
+		     globals.timeplugins[cnt]->getName())==0)
 	    {
 	      void *handle=dlopen(globals.timeplugins[cnt]->getFileName(),
 				  RTLD_NOW);
@@ -748,6 +501,12 @@ void KwaveSignal::command (TimeOperation *operation)
 	    }
 	  else cnt++;
 	}
+      if (done) return true;
+      else
+	printf ("command not found, nothing done\n");
     }
   else printf ("no timeplugins known...\n");
+
+	  operation->done();
+  return false;
 }

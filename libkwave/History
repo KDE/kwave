@@ -1,5 +1,15 @@
 newer Versions still to come
 
+Version 0.3.5
+
+filter, quantize, fadein, fadeout and envelope pluginized
+(there are still some flaws)
+
+interpolation class constructor by string, changed names of interpolation to
+lower case
+
+failure indicator for kwavesignal->command
+
 Version 0.3.4
 
 changed Marker/Markerlist code. They're now more functional classes...

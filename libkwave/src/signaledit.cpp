@@ -43,6 +43,7 @@ void KwaveSignal::insertPaste (KwaveSignal *signal)
 
 	  delete []sample;
 	  sample=newsam;
+	  length=length+pastelength;
 	}
       else noMemory ();
     }

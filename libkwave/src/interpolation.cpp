@@ -5,13 +5,13 @@
 #define INT_COUNT 7
 const char *interpolationnames[]=
 {
-  "Linear",
-  "Spline",
-  "N-Polynom",
-  "3-Polynom",
-  "5-Polynom",
-  "7-Polynom",
-  "Sample and Hold",
+  "linear",
+  "spline",
+  "n-polynom",
+  "3-polynom",
+  "5-polynom",
+  "7-polynom",
+  "sample and hold",
   0
 };
 //****************************************************************************
@@ -100,6 +100,22 @@ void createFullPolynom  (Curve *points,double *x,double *y)
   for (int k=0;k<count;k++)
       for (int j=k-1;j>=0;j--)
 	  y[j]=(y[j]-y[j+1])/(x[j]-x[k]);
+}
+//****************************************************************************
+Interpolation::Interpolation (const char *tname)
+{
+  y_out=0;
+  x=0;
+  y=0;
+  der=0;
+  count=0;
+  usagecount=0;
+
+  int cnt=0;
+  while ((interpolationnames[cnt])&&
+		(strcmp(interpolationnames[cnt],tname)!=0)) cnt++;
+  if (interpolationnames[cnt]) type=cnt;
+  else type=0; //use linear as default
 }
 //****************************************************************************
 Interpolation::Interpolation (int type)

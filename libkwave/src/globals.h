@@ -2,8 +2,8 @@
 #define GLOBALS_H 1
 
 #include <qlist.h>
+#include "markers.h"
 
-class MarkerType;
 class ClipBoard;
 class KwavePlugin;
 class KApplication;

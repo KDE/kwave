@@ -40,12 +40,8 @@ class KwaveSignal
 
   int    getLockState        ();  //returns lock-state of signal
 
-  void  command              (TimeOperation *);
+  bool  command              (TimeOperation *);
   void  setMarkers           (int,int);
-  void	fadeIn     	     (const char *); //int
-  void	fadeOut              (const char *); //int
-  void 	quantize             (const char *); //int
-  void  average              (const char *); //int
   void  resample             (const char *); //int
 
  protected:
@@ -68,11 +64,9 @@ class KwaveSignal
   void	changeRate      (int);
 
   //signal modifying functions
-  void   hullCurve            (int,int);
   void   replaceStutter       (int,int);
   void   delayRecursive       (int,int);
   void   delay        	      (int,int);
-  void   filter               (Filter *filter);
   void   movingFilter         (Filter *filter,int tap, Curve *points,int low,int high);
 
   //functions creating a new Object

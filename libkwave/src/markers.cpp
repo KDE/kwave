@@ -7,8 +7,16 @@ Marker::Marker (int pos,MarkerType *type,const char *name)
 {
   this->pos=pos;
   this->type=type;
-  if (name) this->name=duplicateString (name);
-  else name=0;
+
+  if (name)
+    this->name=duplicateString (name);
+  else
+    this->name=0;
+}
+//****************************************************************************
+void Marker::setName (const char *name)
+{
+  this->name=duplicateString (name);
 }
 //****************************************************************************
 Marker::~Marker ()

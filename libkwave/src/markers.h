@@ -7,6 +7,7 @@
 
 class MarkerType
 //Type Information for Markers mainly information concerning the outlook
+//of the particular type
 {
  public:
   MarkerType ();
@@ -28,8 +29,12 @@ class Marker
  public:
   Marker (int,MarkerType *,const char *name=0);
   ~Marker();
+  void setName (const char *);
+  inline const char *getName () {return name;};
+  inline MarkerType *getType () {return type;};
 
   int         pos;                         //position
+ private:
   char*       name;                        //pointer to name
   MarkerType *type;                        //pointer to type
 };

@@ -14,7 +14,8 @@ class Filter
   int  resize (int);
   void save   (const char *);
   void load   (const char *);
-
+  inline int getRate () {return rate;};
+  
   int      num;                //number of taps
   bool     fir;                //boolean if filter is fir or iir
   double * mult;               //array of coefficients, used according to

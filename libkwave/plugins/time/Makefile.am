@@ -1,5 +1,7 @@
 # make sure all subdirs get a makefile....
-dirs = noise zero flip center reverse distort amplify amplifyfree amplifytomax
+dirs = envelope noise zero flip center reverse distort amplify amplifyfree \
+amplifytomax fadein fadeout quantize average filter delay
+
 clean distclean all install:
 	echo linking Makefiles
 	$(foreach dir,$(dirs),$(shell ln -sf ../template/Makefile $(dir)))

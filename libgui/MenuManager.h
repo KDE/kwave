@@ -23,8 +23,6 @@ class MenuManager:public QObject
  
  void setCommand                (const char *);
 
- void appendMenus               (MenuItem *);               //adds menus
- void deleteMenus               (MenuItem *);               //delete menus
  NumberedMenu *findNumberedMenu (const char *);                  //return id
  NumberedMenu *addNumberedMenu  (const char *);           
  //deletes all entries of a numbered Menu
@@ -32,6 +30,7 @@ class MenuManager:public QObject
  //add Entrys to numbered Window
  void addNumberedMenuEntry      (const char *name,const char *entry);
 
+ void selectItemChecked		(const char *id);
  void setItemChecked		(const char *id, bool check);
  void setItemEnabled		(const char *id, bool enable);
 

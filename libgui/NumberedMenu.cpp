@@ -32,8 +32,8 @@ void NumberedMenu::refresh ()
   while (tmp)
     {
       tmp->clear();  //clear menu
-      int itemcnt=0;
-      int id=tmp->getMemberId();
+      int itemcnt=1;
+      int id=tmp->getId();
 
       const char *entry=entries.first();  //and insert all entries from scratch
 
@@ -44,7 +44,8 @@ void NumberedMenu::refresh ()
 	  itemcnt++;
 	}
 
-      tmp->check(); //call just in case an update of the checkmark is needed
+      //call just in case an update of the checkmark is needed
+      tmp->checkEntry(tmp->getCheckedId());
 
       tmp=notifymenus.next();
     }
@@ -57,8 +58,10 @@ const char *NumberedMenu::name ()
 //*****************************************************************************
 NumberedMenu::~NumberedMenu ()
 {
-  entries.setAutoDelete (true);
+  entries.setAutoDelete(true);
   entries.clear();
+
+  notifymenus.setAutoDelete(false);
   notifymenus.clear();
   delete objname;
 }

@@ -266,14 +266,7 @@ void TopWidget::updateMenu ()
 
   format = "ID_FILE_SAVE_RESOLUTION_%d";
   sprintf(buffer, format, bits);
-  menumanage->setItemChecked(buffer, true);
-  for (int res=8; res <= 24; res+=8)
-    {
-      sprintf(buffer, format, res);
-      menumanage->setItemChecked(buffer, false);
-    }
-  sprintf(buffer, format, bits);
-  menumanage->setItemChecked(buffer, true);
+  menumanage->selectItemChecked(buffer);
 
   delete buffer;
 }

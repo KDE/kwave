@@ -13,7 +13,7 @@ class NumberedMenu
   const char *name      ();
 
  private:
-  const char       *  objname;
+  const char *objname;
   QList<char> entries;
   QList<Menu> notifymenus;
 };

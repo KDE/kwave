@@ -22,25 +22,27 @@ class Menu: public QPopupMenu
   public:
   Menu                             (const char *name,int id, bool toplevel=false);
   ~Menu                            ();
-  inline Menu         *getParent   () { return (Menu*)parentMenu;};
-  inline void          setParent   (Menu *parent) { this->parentMenu = parent;};
+  inline Menu         *getParent   () { return parent_menu;};
+  inline void          setParent   (Menu *parent) { this->parent_menu = parent;};
   inline const char   *getName     () const {return name;};
   inline bool          isTopLevel  () { return toplevel;};
   inline void          setTopLevel (bool toplevel) { this->toplevel=toplevel;};
   inline int           getId       () const {return id;};
   inline void          setId       (int id) {this->id=id;};
-  inline int           getMemberId () const {return memberId;};
-  inline void          setMemberId (int id) {memberId=id;};
   static int           getUniqueId ();
   static int           getIdRange  (int); 
          int           insertMenu  (Menu *);
-         int           insertEntry (const char *name,const char *com, int key);
+         int           insertEntry (const char *name,const char *com,
+                                    int key, int id);
 	 void          setCommand  (const char *);
          void          removeMenu  (const char *name);
          Menu         *findMenu    (const char *name);
          void          setEnabled  (const bool enable);
          void          setTopLevelEnabled(const bool enable);
-         void          check       ();
+         void          checkEntry  (const int id);
+         void          checkEntry  (const int id, const bool check);
+         int           getCheckedId() { return checked; };
+         void          setCheckedId(const int id) { this->checked = id;};
          void          checkable   ();
          void          numberable  ();
 
@@ -52,15 +54,15 @@ class Menu: public QPopupMenu
 
  void          check       (int);
  void          selected    (int);
+ void          hilight     (int);
 
  private:
+  Menu                *parent_menu;
   QList<Menu>         children;          //list of pointers to children menus
   QList<MenuCommand>  commands;          //list of pointers to children menus
   bool                toplevel;          //true for toplevel menu
   bool                toplevelEnabled;   //toplevel menu is enabled
   int                 id;
-  int                 memberId;          //id of members in the case items of
-                                         //a numberedMenu are used in this
   char*               name;              //name of this menu as used internally
   char*               com;               //command template used if numbered
   int                 comcnt;
@@ -71,7 +73,7 @@ class Menu: public QPopupMenu
 
   bool                checkItems;        //flag if menuitems may be checked, if
                                          //this is the case, they should also
-                                         //be exclusiv
+                                         //be exclusive
 };
 //*****************************************************************************
 #endif

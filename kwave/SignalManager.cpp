@@ -222,6 +222,11 @@ int SignalManager::loadFile(const KURL &url)
 	if (!decoder->decode(m_parent_widget, writers)) {
 	    qWarning("decoding failed.");
 	    res = -EIO;
+	} else {
+	    // read information back from the decoder, some settings
+	    // might have become available during the decoding process
+	    m_file_info = decoder->info();
+	    m_file_info.dump();
 	}
 	
 	decoder->close();
@@ -289,7 +294,7 @@ int SignalManager::save(const KURL &url, bool selection)
     }
 
     QString mimetype_name;
-    mimetype_name = KMimeType::findByURL(url)->name();
+    mimetype_name = CodecManager::whatContains(url);
     qDebug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
 	url.prettyURL().latin1(), mimetype_name.latin1(), bits, selection);
 

@@ -15,7 +15,7 @@ dnl Perform program name transformation
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(kwave,0.6.5-cvs)
+AM_INIT_AUTOMAKE(kwave,0.6.4)
 
 KDE_SET_PREFIX
 
@@ -272,6 +272,16 @@ AC_LANG_POP(C++)
 LDFLAGS="$saved_libs"
 dnl ***                                          ***
 dnl ************************************************
+
+dnl check for libvorbis support
+AC_CHECK_HEADER(vorbis/codec.h,,[AC_MSG_ERROR([
+
+    your system lacks support for at least libvorbis-devel!
+    please visit "http://vorbis.com" for obtainig a current version
+    of libogg and libvorbis plus the -devel packages if your
+    distribution does not include them.
+
+    ])])
 
 dnl AC_CHECK_HEADERS(utility string,,AC_MSG_ERROR(""
 dnl "    "

@@ -35,26 +35,48 @@ KDE_PROG_LIBTOOL
 dnl Checks for some programs/tools
 AC_PROG_INSTALL
 AC_PROG_LN_S
-AC_PATH_PROG(CONVERT,convert,,AC_MSG_ERROR(convert / ImageMagick is not installed))
-AC_PATH_PROG(MSGMERGE, msgmerge)
-AC_PATH_PROG(MSGFMT, msgfmt)
-AC_PATH_PROG(XGETTEXT, xgettext)
-AC_PATH_PROG(RECODE, recode)
-AC_PATH_PROG(SED, sed)
-AC_PATH_PROG(EXPAND, expand)
-AC_PATH_PROG(CAT, cat)
-AC_PATH_PROG(SORT, sort)
-AC_PATH_PROG(UNIQ, uniq)
-AC_PATH_PROG(FIND, find)
-AC_PATH_PROG(AWK,awk)
 
-dnl CXXFLAGS="$(CXXFLAGS) -fno-check-new"
-dnl CFLAGS="${CFLAGS}     -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
-dnl CXXFLAGS="${CXXFLAGS} -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
-dnl CFLAGS="${CFLAGS}     -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
-dnl CXXFLAGS="${CXXFLAGS} -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
-dnl CXXFLAGS="$(CXXFLAGS) -fexceptions -g"
-dnl
+AC_DEFUN(KWAVE_NEEDS_PROGRAM,
+[
+    KDE_FIND_PATH($2, $1, , [AC_MSG_ERROR([$2 is not installed])])
+])
+
+KWAVE_NEEDS_PROGRAM(CONVERT, convert)
+AC_SUBST(CONVERT)
+
+KWAVE_NEEDS_PROGRAM(MSGMERGE, msgmerge)
+AC_SUBST(MSGMERGE)
+
+KWAVE_NEEDS_PROGRAM(MSGFMT, msgfmt)
+AC_SUBST(MSGFMT)
+
+KWAVE_NEEDS_PROGRAM(XGETTEXT, xgettext)
+AC_SUBST(XGETTEXT)
+
+KWAVE_NEEDS_PROGRAM(RECODE, recode)
+AC_SUBST(RECODE)
+
+KWAVE_NEEDS_PROGRAM(SED, sed)
+AC_SUBST(SED)
+
+KWAVE_NEEDS_PROGRAM(EXPAND, expand)
+AC_SUBST(EXPAND)
+
+KWAVE_NEEDS_PROGRAM(CAT, cat)
+AC_SUBST(CAT)
+
+KWAVE_NEEDS_PROGRAM(SORT, sort)
+AC_SUBST(SORT)
+
+KWAVE_NEEDS_PROGRAM(UNIQ, uniq)
+AC_SUBST(UNIQ)
+
+KWAVE_NEEDS_PROGRAM(FIND, find)
+AC_SUBST(FIND)
+
+KWAVE_NEEDS_PROGRAM(AWK,awk)
+AC_SUBST(AWK)
+
 dnl AC_DEFUN(AC_CHECK_WITH_INSURE,
 dnl [
 dnl     ac_use_insure=no
@@ -256,12 +278,11 @@ AC_MSG_ERROR([
     id3lib seems not to be installed or too old !
 
     You can download id3lib from http://id3lib.sourceforge.net/
-    or from http://kwave.sf.net/id3lib/
     and fetch the latest version from there. If you download the
     rpm package, please don't forget to fetch id3tag-devel too,
     it is needed for compiling Kwave!
 
-    Note: at least version 3.8.0-21 is needed.
+    Note: at least version 3.8.1 is needed.
 
     ])
 fi

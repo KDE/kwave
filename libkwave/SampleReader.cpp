@@ -5,10 +5,6 @@
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
 
-    $Log$
-    Revision 1.3  2001/05/08 20:19:25  the
-    loading/saving in wav format works again
-
  ***************************************************************************/
 
 /***************************************************************************

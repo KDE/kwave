@@ -53,7 +53,7 @@ MP3Decoder::MP3Decoder()
 
     // NOTE: all mime types above should be recognized in the
     //       fileinfo plugin!
-    
+
 }
 
 //***************************************************************************
@@ -79,7 +79,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 	         "Do you still want to continue?"))
 	             != KMessageBox::Continue) return false;
     }
-   
+
     /* MPEG layer */
     switch (header.layer) {
 	case MPEGLAYER_I:
@@ -173,7 +173,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 
 //  qDebug("framesize=%d", header.framesize);
 //  qDebug("frames = %u", header.frames);
-    
+
     if (header.privatebit)  m_info.set(INF_PRIVATE, header.privatebit);
     if (header.copyrighted) m_info.set(INF_COPYRIGHTED, header.copyrighted);
     if (header.original)    m_info.set(INF_ORIGINAL, header.original);
@@ -198,10 +198,10 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    //ID3FID_AUDIOCRYPTO       // Audio encryption.
 	    //ID3FID_PICTURE           // Attached picture.
 	    //ID3FID_AUDIOSEEKPOINT    // Audio seek point index.
-	
+
 	    case ID3FID_COMMENT: // Comments.
 		parseId3Frame(frame, INF_COMMENTS); break;
-	
+
 	    //ID3FID_COMMERCIAL        // Commercial frame.
 	    //ID3FID_CRYPTOREG         // Encryption method registration.
 	    //ID3FID_EQUALIZATION2     // Equalisation (2).
@@ -213,7 +213,7 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    //ID3FID_LINKEDINFO        // Linked information.
 	    //ID3FID_CDID              // Music CD identifier.
 	    //ID3FID_MPEGLOOKUP        // MPEG location lookup table.
-	    
+
 	    case ID3FID_OWNERSHIP:     // Ownership frame.
 		parseId3Frame(frame, INF_CONTACT); break;
 
@@ -229,7 +229,7 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    //ID3FID_SIGNATURE         // Signature frame.
 	    //ID3FID_SYNCEDLYRICS      // Synchronized lyric/text.
 	    //ID3FID_SYNCEDTEMPO       // Synchronized tempo codes.
- 
+
 	    case ID3FID_ALBUM:         // Album/Movie/Show title.
 		parseId3Frame(frame, INF_ALBUM); break;
 
@@ -245,7 +245,7 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    }
 	    case ID3FID_COPYRIGHT:     // Copyright message.
 		parseId3Frame(frame, INF_COPYRIGHT); break;
-        
+
 	    //ID3FID_DATE              // Date.
 	    //ID3FID_ENCODINGTIME      // Encoding time.
 	    //ID3FID_PLAYLISTDELAY     // Playlist delay.
@@ -287,13 +287,13 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 
 	    case ID3FID_ORIGARTIST:   // Original artist(s)/performer(s).
 		parseId3Frame(frame, INF_AUTHOR); break;
-	    
+
 	    //ID3FID_ORIGYEAR         // Original release year.
 	    case ID3FID_FILEOWNER:    // File owner/licensee.
 		parseId3Frame(frame, INF_LICENSE); break;
 	    case ID3FID_LEADARTIST:   // Lead performer(s)/Soloist(s).
 		parseId3Frame(frame, INF_PERFORMER); break;
-	    
+
 	    //ID3FID_BAND             // Band/orchestra/accompaniment.
 	    //ID3FID_CONDUCTOR        // Conductor/performer refinement.
 	    case ID3FID_MIXARTIST:    // Interpreted, remixed, or otherwise
@@ -323,7 +323,7 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 
 	    //ID3FID_ENCODERSETTINGS  // Software/Hardware and settings
 	                              // used for encoding.
-	                              
+
 	    case ID3FID_SETSUBTITLE:  // Set subtitle.
 		parseId3Frame(frame, INF_VERSION); break;
 	    case ID3FID_USERTEXT:     // User defined text information.
@@ -355,7 +355,7 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	}
 
     }
-    
+
     return true;
 }
 
@@ -385,7 +385,7 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 	qWarning("unable to open source in read-only mode!");
 	return false;
     }
-    
+
     /* read all available ID3 tags */
     ID3_Tag tag;
     ID3_QIODeviceReader adapter(src);
@@ -396,11 +396,11 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     qDebug("HasLyrics = %d", tag.HasLyrics());
     qDebug("HasV1Tag = %d",  tag.HasV1Tag());
     qDebug("HasV2Tag = %d",  tag.HasV2Tag());
-                            
+
     m_prepended_bytes = tag.GetPrependedBytes();
     m_appended_bytes  = tag.GetAppendedBytes();
     qDebug("prepended=%u, appended=%u",m_prepended_bytes, m_appended_bytes);
-    
+
     const Mp3_Headerinfo *mp3hdr = tag.GetMp3HeaderInfo();
     if (!mp3hdr) {
 	KMessageBox::sorry(widget,
@@ -414,7 +414,7 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 
     /* parse the ID3 tags */
     if (!parseID3Tags(tag)) return false;
-    
+
     /* accept the source */
     m_source = &src;
     m_info.set(INF_MIMETYPE, "audio/mpeg");
@@ -423,10 +423,10 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     // allocate a transfer buffer with 128 kB
     if (m_buffer) delete m_buffer;
     m_buffer_size = (128 << 10);
-    
+
     m_buffer = (unsigned char*)malloc(m_buffer_size);
     if (!m_buffer) return false; // out of memory :-(
-    
+
     return true;
 }
 
@@ -529,7 +529,7 @@ enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
 
     // check if the user pressed cancel
     if (m_dest->isCancelled()) return MAD_FLOW_STOP;
-    
+
     // preserve the remaining bytes from the last pass
     int rest = stream->bufend - stream->next_frame;
     if (rest) memmove(m_buffer, stream->next_frame, rest);
@@ -549,7 +549,7 @@ enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
 	(char*)m_buffer+rest, bytes_to_read);
     if (!size) return MAD_FLOW_STOP; // no more data
 
-    // buffer is filled -> process it    
+    // buffer is filled -> process it
     mad_stream_buffer(stream, m_buffer, size);
 
     return MAD_FLOW_CONTINUE;
@@ -633,20 +633,22 @@ enum mad_flow MP3Decoder::processOutput(void */*data*/,
 {
     struct audio_dither dither;
     int32_t sample;
+    QArray<sample_t> buffer(pcm->length);
 
     // loop over all tracks
     const unsigned int tracks = m_dest->count();
     for (unsigned int track = 0; track < tracks; ++track) {
-	register int nsamples = pcm->length;
+	unsigned int nsamples = pcm->length;
 	mad_fixed_t const *p = pcm->samples[track];
+	unsigned int ofs = 0;
 
 	// and render samples into Kwave's internal format
-	/** @todo mp3 import could be speeded up by blockwise operation */
 	while (nsamples--) {
 	    sample = (int32_t)audio_linear_dither(SAMPLE_BITS,
 	             (mad_fixed_t)(*p++), &dither);
-	    *(*m_dest)[track] << static_cast<sample_t>(sample);
+	    buffer[ofs++] = static_cast<sample_t>(sample);
 	}
+	*(*m_dest)[track] << buffer;
     }
 
     return MAD_FLOW_CONTINUE;
@@ -663,11 +665,13 @@ bool MP3Decoder::decode(QWidget *widget, MultiTrackWriter &dst)
     m_dest = &dst;
     m_failures = 0;
     m_parent_widget = widget;
-    
+
     // setup the decoder
     struct mad_decoder decoder;
     mad_decoder_init(&decoder, this,
-                     _input_adapter, 0 /* header */, 0 /* filter */,
+                     _input_adapter,
+		     0 /* header */,
+		     0 /* filter */,
                      _output_adapter,
                      _error_adapter, 0 /* message */);
 

@@ -474,12 +474,19 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	}
     }
 
+    // load previous window size
+    KConfig *cfg = KGlobal::config();
+    cfg->setGroup(settingsGroup());
+    restoreWindowSize(cfg);
+
     // set a nice initial size
     w = wmax;
     w = max(w, m_main_widget->minimumSize().width());
     w = max(w, m_main_widget->sizeHint().width());
     w = max(w, m_toolbar->sizeHint().width());
+    w = max(w, width());
     h = max(m_main_widget->sizeHint().height(), w*6/10);
+    h = max(h, height());
     resize(w, h);
 
     setStatusInfo(0,0,0,0);
@@ -513,6 +520,21 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // layout is finished, remove dummy/placeholder zoom entry
     m_zoomselect->removeItem(m_zoomselect->count()-1);
+
+    // make sure that everything of our window is visible
+    QRect desk = qApp->desktop()->rect();
+    QRect g    = this->geometry();
+    if (!desk.contains(g)) {
+	// KDE's stupid geometry management has failed ?
+	// this happens when one passes "-geometry <WIDTH>x<HEIGTH>" without
+	// specifying a target position!?
+	// passing "-geometry <WIDTH>x<HEIGHT>-<LEFT>-<TOP>" works...
+	g = desk.intersect(g);
+	setGeometry(g);
+    }
+
+    // enable saving of window size and position for next startup
+    setAutoSaveSettings();
 }
 
 //***************************************************************************
@@ -533,6 +555,11 @@ bool TopWidget::isOK()
 TopWidget::~TopWidget()
 {
     ThreadsafeX11Guard x11_guard;
+
+    // save the window size
+    KConfig *cfg = KGlobal::config();
+    cfg->setGroup(settingsGroup());
+    saveWindowSize(cfg);
 
     // close the current file (no matter what the user wants)
     closeFile();

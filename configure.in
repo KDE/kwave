@@ -252,7 +252,7 @@ AC_DEFUN(AC_REQUIRE_ARTS,
     )
 
     dnl setup variables
-    dnl ARTSDIR=[`$ARTSC_CONFIG --arts-prefix`]
+    ARTSDIR=[`$ARTSC_CONFIG --arts-prefix`]
     ARTS_CFLAGS="-I$ARTSDIR/include/arts"
     dnl ARTS_LIBS="-L$ARTSDIR/lib -lmcop"
     ARTS_LIBS="`$ARTSC_CONFIG --libs`"
@@ -270,32 +270,6 @@ LDLAGS="$LDLAGS `$ARTSC_CONFIG --libs`"
 #####################################
 ###########   CSL END    ############
 #####################################
-
-dnl ##########################################################################
-dnl ### check for the jade wrapper "jw", it's needed for creating the docu ###
-dnl ###                                                                    ###
-dnl Need pkg-config first
-AC_PATH_PROG(JW, jw, false)
-dnl if test x$JW == xfalse ; then
-dnl     AC_MSG_ERROR(
-dnl     the jade wrapper jw is not installed on your system. Please go to
-dnl     ftp://ftp.kde.org/pub/kde/devel/docbook/ and make sure that the
-dnl     following packages are installed:
-dnl     - jade
-dnl     - jadetex
-dnl     - perl-SGMLSpm
-dnl     - sgml-common
-dnl     - sgmltool
-dnl     - docbook-dtd31-sgml
-dnl     - docbook-utils
-dnl     - docbook-style-dsssl
-dnl     NOTE: order is important !!!
-dnl     )
-dnl fi
-
-dnl MISSING:
-dnl a check for ksgmltools
-dnl /opt/kde2/share/apps/ksgmltools/catalog
 
 dnl output files
 topdir=`pwd`

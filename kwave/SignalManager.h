@@ -19,6 +19,7 @@
 #define _SIGNAL_MANAGER_H_
 
 #include "config.h"
+#include <limits.h>
 #include <stdio.h>
 
 #include <qobject.h>

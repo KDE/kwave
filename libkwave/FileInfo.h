@@ -31,28 +31,30 @@
  * FileInfo.cpp
  */
 typedef enum {
-    INF_FILENAME = 0,        /**< name of the file */
-    INF_MIMETYPE,            /**< mime type of the file format */
-    INF_NAME,                /**< name of the song or whatever */
-    INF_AUTHOR,              /**< name of the author/artist */
-    INF_ANNOTATION,          /**< annotation/comment */
+    // please sort in new items alphabetically...
+    INF_ANNOTATION = 0,      /**< annotation/comment */
     INF_ARCHIVAL,            /**< archival location */
     INF_ARTIST,              /**< name ot the artist */
+    INF_AUTHOR,              /**< name of the author/artist */
     INF_COMMISSIONED,        /**< commissioned */
     INF_COMMENTS,            /**< comments */
     INF_COPYRIGHT,           /**< copyright */
     INF_CREATION_DATE,       /**< creation date */
     INF_ENGINEER,            /**< engineer */
+    INF_FILENAME,            /**< name of the file */
     INF_GENRE,               /**< genre */
     INF_KEYWORDS,            /**< keywords */
     INF_MEDIUM,              /**< medium */
+    INF_MIMETYPE,            /**< mime type of the file format */
+    INF_NAME,                /**< name of the song or whatever */
     INF_PRODUCT,             /**< product */
-    INF_SOFTWARE,            /**< software */
-    INF_SOURCE_FORM,         /**< source form */
-    INF_TECHNICAN,           /**< technican */
-    INF_SUBJECT,             /**< subject */
     INF_SAMPLE_FORMAT,       /**< sample format */
-    INF_SAMPLE_FORMAT_NAME   /**< verbose name of the sample format */
+    INF_SAMPLE_FORMAT_NAME,  /**< verbose name of the sample format */
+    INF_SOFTWARE,            /**< software */
+    INF_SOURCE,              /**< source */
+    INF_SOURCE_FORM,         /**< source form */
+    INF_SUBJECT,             /**< subject */
+    INF_TECHNICAN            /**< technican */
 } FileProperty;
 
 /**

@@ -23,7 +23,7 @@ author=Thomas Eschenbacher
 configure_args=--enable-debug=yes
 email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
-lfv_open_groups=
+lfv_open_groups=Dialoge,GNU
 make_options=-w -j1
 makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am
 modifyMakefiles=false
@@ -1592,23 +1592,35 @@ sub_dirs=
 type=static_library
 
 [plugins/memory/Makefile.am]
-files=plugins/memory/MemoryDialog.ui,plugins/memory/MemorySettings.cpp,plugins/memory/MemorySettings.h
+files=plugins/memory/MemoryDialog.cpp,plugins/memory/MemoryDialog.h,plugins/memory/MemDlg.ui,plugins/memory/MemoryPlugin.cpp,plugins/memory/MemoryPlugin.h
 sub_dirs=
 type=static_library
 
-[plugins/memory/MemoryDialog.ui]
+[plugins/memory/MemDlg.ui]
 dist=true
 install=false
 install_location=
 type=SOURCE
 
-[plugins/memory/MemorySettings.cpp]
+[plugins/memory/MemoryDialog.cpp]
 dist=true
 install=false
 install_location=
 type=SOURCE
 
-[plugins/memory/MemorySettings.h]
+[plugins/memory/MemoryDialog.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/memory/MemoryPlugin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/memory/MemoryPlugin.h]
 dist=true
 install=false
 install_location=

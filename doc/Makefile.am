@@ -36,13 +36,13 @@ help_de.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
 
 doc.en:
 	rm -f en/*.html
-	jw -o en -c ${SGMLDIR}/catalog \
+	${JW} -o en -c ${SGMLDIR}/catalog \
 	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
 	help_en.docbook
 
 doc.de:
 	rm -f de/*.html
-	jw -o de -c ${SGMLDIR}/catalog \
+	${JW} -o de -c ${SGMLDIR}/catalog \
 	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
 	help_de.docbook
 

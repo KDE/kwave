@@ -55,8 +55,8 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2001-07-29</DATE>
-    <RELEASEINFO>0.6.0-alpha</RELEASEINFO>
+    <DATE>2001-08-05</DATE>
+    <RELEASEINFO>0.6.0-1</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
     <ABSTRACT>
@@ -219,10 +219,30 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <PARA><ITEMIZEDLIST>
         <LISTITEM>
-            <PARA>0.6.0 [2001-??-??]</PARA>
+            <PARA>0.6.0-1 [2001-08-02]</PARA>
+            <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    workaround for gcc-2.96 / gcc-3.0
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    fixed missing header file in NewSigDlg.ui
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    cleanup for config.h
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    the RPM should be relocateable again
+                </PARA></LISTITEM>
+            </ITEMIZEDLIST>
+        </LISTITEM>
+        <LISTITEM>
+            <PARA>0.6.0 [2001-07-29]</PARA>
             <ITEMIZEDLIST>
                 <LISTITEM><PARA>
                     >>> PORTED TO QT-2.X AND KDE2 <<<
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    completely new internal architecture
                 </PARA></LISTITEM>
                 <LISTITEM><PARA>
                     plugins can be located in a user directory
@@ -2371,7 +2391,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2001-07-29</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2001-08-05</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

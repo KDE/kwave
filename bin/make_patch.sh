@@ -167,10 +167,10 @@ DIFF_ROOT=${SRC_DIR:0:$((${#SRC_DIR}-${#SRC_PREFIX}-1))}
 PATCH_FILE=$ARCHIVE_DIR/$PROJECT-$VERSION.diff.gz
 echo -e "\tpatch file="$PATCH_FILE
 echo -e "\tpatch root="$DIFF_ROOT
-echo -e "\t\told="/tmp/$PROJECT-$PREV_VERSION/$SRC_PREFIX
+echo -e "\t\told="/tmp/$PROJECT-$PREV_VERSION
 echo -e "\t\tnew="$DIFF_ROOT"/"$SRC_PREFIX
 cd $DIFF_ROOT
-diff -Naur /tmp/$PROJECT-$PREV_VERSION/$SRC_PREFIX \
+diff -Naur /tmp/$PROJECT-$PREV_VERSION \
 		       $SRC_PREFIX \
 		       | sed s°^---\ /tmp/°---\ °g \
 		       | sed s°^diff\ -Naur\ /tmp/°diff\ -Naur\ °g \

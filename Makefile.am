@@ -40,6 +40,7 @@ distclean-generic: clean-generic clean
 	-rm -Rf doc/api
 
 reallyclean: clean clean-generic distclean-generic distclean
+	-rm -f config.h.in
 	-rm -f config.cache
 	-rm -f config.log
 	-rm -fv aclocal.m4

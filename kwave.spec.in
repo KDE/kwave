@@ -11,13 +11,14 @@ Source0: 	kwave-@RPM_VERSION@.tar.gz
 Group:  	@RPM_GROUP@
 Copyright:	@RPM_COPYRIGHT@
 URL:     @RPM_URL@
-Vendor: @RPM_VENDOR@
+Vendor: 	@RPM_VENDOR@
 BuildRoot: 	@RPM_BUILDROOT@
-Provides: @RPM_NAME@
-Requires: qt >= 2.2
-Requires: kdelibs >= 2.0
-Conflicts: libkwave
-Obsoletes: libkwave
+Prefix:   	@prefix@
+Provides:@RPM_NAME@
+Requires: 	qt >= 2.2
+Requires: 	kdelibs >= 2.0
+Conflicts: 	libkwave
+Obsoletes: 	libkwave
 
 %description
 @RPM_DESCRIPTION@
@@ -26,6 +27,7 @@ Obsoletes: libkwave
 
 %setup -n kwave-@RPM_VERSION@
 rm -rf "$RPM_BUILD_ROOT"
+rm -f config.h
 rm -f config.cache
 rm -f config.status
 rm -f config.log

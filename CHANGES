@@ -1,7 +1,15 @@
 
-0.6.0 [2001-??-??]
+0.6.0-1 [2001-08-02]
+
+ * workaround for gcc-2.96 / gcc-3.0
+ * fixed missing header file in NewSigDlg.ui
+ * cleanup for config.h
+ * the RPM should be relocateable again
+
+0.6.0 [2001-07-29]
 
  * >>> PORTED TO QT-2.X AND KDE2 <<<
+ * completely new internal architecture
  * plugins can be located in a user directory
  * libkwave is included and no longer supported (at least by me) as
    a separate package

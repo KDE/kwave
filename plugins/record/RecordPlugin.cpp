@@ -20,17 +20,32 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <qdatetime.h>
 #include <qstringlist.h>
 #include <qvaluelist.h>
+#include <qvariant.h>
+#include <kapplication.h>
+#include <kaboutdata.h>
+#include <kglobal.h>
 #include <kmessagebox.h>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/FileInfo.h"
+#include "libkwave/InsertMode.h"
+#include "libkwave/Sample.h"
 #include "libkwave/SampleFormat.h"
+#include "libkwave/SampleWriter.h"
+
+#include "kwave/PluginManager.h"
+#include "kwave/SignalManager.h"
+#include "kwave/TopWidget.h"
 
 #include "RecordDevice.h"
 #include "RecordDialog.h"
 #include "RecordPlugin.h"
 #include "RecordThread.h"
+#include "SampleDecoder.h"
+#include "SampleDecoderLinear.h"
 
 KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
 
@@ -56,7 +71,8 @@ public:
 //***************************************************************************
 RecordPlugin::RecordPlugin(PluginContext &context)
     :KwavePlugin(context), m_state(REC_EMPTY), m_device(0),
-     m_dialog(0), m_thread(0), m_buffers_recorded(0)
+     m_dialog(0), m_thread(0), m_decoder(), m_writers(),
+     m_buffers_recorded(0)
 {
     i18n("record");
 }
@@ -120,7 +136,7 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             &controller, SLOT(deviceTriggerReached()));*/
 
     // connect record controller and record thread
-    connect(&controller, SIGNAL(sigStartRecord()),
+    connect(this,        SIGNAL(sigStarted()),
             &controller, SLOT(deviceRecordStarted()));
     connect(m_thread,    SIGNAL(stopped(int)),
             &controller, SLOT(deviceRecordStopped(int)));
@@ -461,8 +477,76 @@ void RecordPlugin::startRecording()
 
     qDebug("RecordPlugin::startRecording()");
 
-    // create new and empty tracks
-    // ### TODO ###
+    // create a decoder for the current sample format
+    switch (m_dialog->params().compression) {
+	case CompressionType::MPEG_LAYER_II:
+	case AF_COMPRESSION_G711_ALAW:
+	case AF_COMPRESSION_G711_ULAW:
+	case AF_COMPRESSION_MS_ADPCM:
+	case AF_COMPRESSION_NONE:
+	    switch (m_dialog->params().sample_format) {
+		case AF_SAMPFMT_UNSIGNED:
+		case AF_SAMPFMT_TWOSCOMP:
+		    // decoder for all linear formats
+		    m_decoder = new SampleDecoderLinear(
+			m_dialog->params().sample_format,
+			m_dialog->params().bits_per_sample
+		    );
+		    break;
+		default:
+		    qWarning("SAMPLE FORMAT NOT SUPPORTED!!!???");
+		    break;
+	    }
+	    break;
+	default:
+	    qWarning("COMPRESSION TYPE NOT SUPPORTED !!??");
+	    return;
+    }
+    Q_ASSERT(m_decoder);
+    if (!m_decoder) return;
+
+    // create a new and empty signal
+    unsigned int samples = 0;
+    double rate = m_dialog->params().sample_rate;
+    unsigned int bits = m_dialog->params().bits_per_sample;
+    unsigned int tracks = m_dialog->params().tracks;
+    TopWidget &topwidget = this->manager().topWidget();
+    topwidget.newSignal(samples, rate, bits, tracks);
+
+    // we do not need UNDO here
+    signalManager().disableUndo();
+
+    // create a sink for our audio data
+    manager().openMultiTrackWriter(m_writers, Append);
+    Q_ASSERT(m_writers.count() == tracks);
+    if (m_writers.count() != tracks) {
+	KMessageBox::sorry(m_dialog, i18n("Out of memory"));
+	return;
+    }
+
+    // initialize the file information
+    fileInfo().setRate(rate);
+    fileInfo().setBits(bits);
+    fileInfo().setTracks(tracks);
+    fileInfo().setLength(0);
+    fileInfo().set(INF_MIMETYPE, "audio/vnd.wave");
+    fileInfo().set(INF_SAMPLE_FORMAT, m_dialog->params().sample_format);
+    fileInfo().set(INF_COMPRESSION, m_dialog->params().compression);
+
+    // add our Kwave Software tag
+    const KAboutData *about_data = KGlobal::instance()->aboutData();
+    QString software = about_data->programName() + "-" +
+	about_data->version() +
+	i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
+    fileInfo().set(INF_SOFTWARE, software);
+
+    // add a date tag
+    QDate now(QDate::currentDate());
+    QString date;
+    date = date.sprintf("%04d-%02d-%02d",
+        now.year(), now.month(), now.day());
+    QVariant value = date.utf8();
+    fileInfo().set(INF_CREATION_DATE, value);
 
     // stop the device if necessary (should never happen)
     Q_ASSERT(!m_thread->running());
@@ -475,9 +559,11 @@ void RecordPlugin::startRecording()
     unsigned int buf_size  = (1 << m_dialog->params().buffer_size);
     m_thread->setBuffers(buf_count, buf_size);
 
+    // now the recording can be considered to be started
+    emit sigStarted();
+
     // start the recording thread
     m_thread->start();
-
 }
 
 //***************************************************************************
@@ -513,6 +599,10 @@ void RecordPlugin::recordStopped(int reason)
 			       strerror(-reason));
     }
     KMessageBox::error(m_dialog, description);
+
+    m_writers.flush();
+    qDebug("RecordPlugin::recordStopped(): wrote %u samples",
+           m_writers.last());
 }
 
 //***************************************************************************
@@ -568,16 +658,68 @@ void RecordPlugin::updateBufferProgressBar()
 }
 
 //***************************************************************************
+void RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
+                         unsigned int bytes_per_sample,
+                         unsigned int track,
+                         unsigned int tracks)
+{
+    unsigned int samples = raw_data.size() / bytes_per_sample;
+    const unsigned int increment = (tracks-1) * bytes_per_sample;
+    char *src = raw_data.data();
+    char *dst = dest.data();
+    src += (track * bytes_per_sample);
+    while (samples--) {
+	for (unsigned int byte=0; byte < bytes_per_sample; byte++) {
+	    *(dst++) = *(src++);
+	}
+	src += increment;
+    }
+}
+
+//***************************************************************************
 void RecordPlugin::processBuffer(QByteArray buffer)
 {
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
-    if (!m_dialog || !m_thread) return;
-
-    // qDebug("RecordPlugin::processBuffer([%u bytes])", buffer.size());
+    Q_ASSERT(m_decoder);
+    if (!m_dialog || !m_thread || !m_decoder) return;
 
     // we received a buffer -> update the progress bar
     updateBufferProgressBar();
+
+    qDebug("RecordPlugin::processBuffer([%u bytes])", buffer.size());
+
+    // split into several single buffers
+    const RecordParams &params = m_dialog->params();
+    unsigned int tracks = params.tracks;
+    unsigned int bits = params.bits_per_sample;
+    unsigned int bytes_per_sample = (bits + 7) >> 3;
+    unsigned int samples = buffer.size() / bytes_per_sample;
+
+    QByteArray buf;
+    buf.resize(bytes_per_sample * samples);
+    Q_ASSERT(buf.size() == bytes_per_sample * samples);
+    if (buf.size() != bytes_per_sample * samples) return;
+
+    QMemArray<sample_t> decoded;
+    decoded.resize(samples);
+    Q_ASSERT(decoded.size() == samples);
+    if (decoded.size() != samples) return;
+
+    for (unsigned int track=0; track < tracks; ++track) {
+	SampleWriter *writer = m_writers[track];
+	Q_ASSERT(writer);
+	if (!writer) continue;
+
+	// split off a buffer with only one track
+	split(buffer, buf, bytes_per_sample, track, tracks);
+
+	// decode from raw data to samples
+	m_decoder->decode(buf, decoded);
+
+	// put the decoded track data into the buffer
+	(*writer) << decoded;
+    }
 
 }
 

@@ -21,6 +21,7 @@
 #include "config.h"
 #include <qcstring.h>
 #include "libkwave/KwavePlugin.h"
+#include "libkwave/MultiTrackWriter.h"
 #include "RecordController.h"
 #include "RecordParams.h"
 #include "RecordState.h"
@@ -29,6 +30,7 @@ class QStringList;
 class RecordDevice;
 class RecordDialog;
 class RecordThread;
+class SampleDecoder;
 
 class RecordPlugin: public KwavePlugin
 {
@@ -45,6 +47,9 @@ public:
     virtual QStringList *setup(QStringList &previous_params);
 
 signals:
+
+    /** emitted when the recording has been started */
+    void sigStarted();
 
     /** emitted when the record buffer has been filled */
     void sigBufferFull();
@@ -109,6 +114,19 @@ private:
     /** update the buffer progress bar */
     void updateBufferProgressBar();
 
+    /**
+     * Split off one track from a raw buffer with multiple tracks into
+     * a separate buffer
+     * @param raw_data the raw buffer with multiple tracks
+     * @param bytes_per_sample number of bytes for each sample
+     * @param track index of the track to split off [1...n-1]
+     * @param tracks number of total tracks
+     */
+    void split(QByteArray &raw_data, QByteArray &dest,
+               unsigned int bytes_per_sample,
+               unsigned int track,
+               unsigned int tracks);
+
 private:
 
     /** global state of the plugin */
@@ -125,6 +143,12 @@ private:
 
     /** the thread for recording */
     RecordThread *m_thread;
+
+    /** decoder for converting raw data to samples */
+    SampleDecoder *m_decoder;
+
+    /** sink for the audio data */
+    MultiTrackWriter m_writers;
 
     /**
      * number of recorded buffers since start or continue or the number of

@@ -32,7 +32,7 @@
 
 #include "RecordDevice.h"
 
-#define MAX_CHANNELS 32
+#define MAX_CHANNELS 2
 
 //***************************************************************************
 RecordDevice::RecordDevice()

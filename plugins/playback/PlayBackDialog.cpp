@@ -130,16 +130,28 @@ void PlayBackDialog::setSupportedDevices(QStringList devices)
     } else {
 	btSelectDevice->setEnabled(false);
     }
-
-    QString current_device = m_playback_params.device;
     cbDevice->clear();
     cbDevice->insertStringList(devices);
-    cbDevice->setCurrentText(current_device);
 
-    if (!cbDevice->currentText().length() && cbDevice->editable())
-	cbDevice->setEditText(current_device);
+    QString current_device = m_playback_params.device;
+    if (devices.contains(current_device)) {
+	// current device is in the list
+	cbDevice->setCurrentText(current_device);
+    } else {
+	if (cbDevice->editable()) {
+	    // user defined device name
+	    cbDevice->setEditText(current_device);
+	} else if (devices.count()) {
+	    // one or more other possibilities -> take the first one
+	    cbDevice->setCurrentItem(0);
+	} else {
+	    // empty list of possibilities
+	    cbDevice->clear();
+	    cbDevice->clearEdit();
+	}
+    }
 
-    cbDevice->setEnabled(devices.count() > 0);
+    cbDevice->setEnabled(devices.count() > 1);
 }
 
 //***************************************************************************
@@ -148,9 +160,9 @@ void PlayBackDialog::setDevice(const QString &device)
     Q_ASSERT(cbDevice);
     if (!cbDevice) return;
 
+    cbDevice->setEditText(device);
     if (m_playback_params.device != device) {
 	m_playback_params.device = device;
-	cbDevice->setEditText(device);
 	emit sigDeviceChanged(device);
     }
 }
@@ -256,6 +268,15 @@ void PlayBackDialog::setSupportedChannels(unsigned int min, unsigned int max)
 void PlayBackDialog::setChannels(int channels)
 {
     m_playback_params.channels = channels;
+
+    QString txt;
+    switch (channels) {
+	case 1: txt = i18n("(mono)");   break;
+	case 2: txt = i18n("(stereo)"); break;
+	case 4: txt = i18n("(quadro)"); break;
+	default: txt = "";
+    }
+    lblChannels->setText(txt);
 }
 
 //***************************************************************************

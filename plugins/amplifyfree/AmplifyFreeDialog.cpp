@@ -33,7 +33,7 @@ AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
     xScale->setUnit(i18n("ms"));
 
     yScale->setMinimumSize( 30, 150);
-    yScale->setMinMax(100, 0);
+    yScale->setMinMax(0, 100);
     yScale->setLogMode(false);
     yScale->setUnit(i18n("%"));
 

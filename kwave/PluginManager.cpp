@@ -49,6 +49,12 @@
 //extern const char *cplus_mangle_opname PARAMS ((const char
 //	*opname, int options));
 
+#include <pthread.h>
+#include "qobject.h"
+#include "mt/TSS_Object.h"
+#include "mt/ThreadCondition.h"
+#include "mt/ThreadsafeX11Guard.h"
+
 //****************************************************************************
 //****************************************************************************
 
@@ -438,6 +444,8 @@ QBitmap *PluginManager::overview(unsigned int width, unsigned int height,
 SampleWriter *PluginManager::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {
+    ThreadsafeX11Guard x11_guard; // ###
+
     SignalManager &manager = m_top_widget.signalManager();
     UndoTransactionGuard guard(manager, 0);
 
@@ -516,6 +524,7 @@ void PluginManager::openSampleWriterSet(QVector<SampleWriter> &writers,
 	    writers.insert(i, s);
 	} else {
 	    // out of memory or aborted
+	    debug("PluginManager::openSampleWriterSet: out of memory or aborted");
 	    writers.clear();
 	    return;
 	}

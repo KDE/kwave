@@ -36,8 +36,8 @@ ZeroPlugin::ZeroPlugin(PluginContext &context)
 //***************************************************************************
 void ZeroPlugin::run(QStringList)
 {
-    m_stop = false;
     UndoTransactionGuard(*this, i18n("silence"));
+    m_stop = false;
 
     QVector<SampleWriter> writers;
     manager().openSampleWriterSet(writers, Overwrite);

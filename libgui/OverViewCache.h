@@ -22,6 +22,7 @@
 #include <qbitmap.h>
 #include <qcstring.h>
 #include <qlist.h>
+#include <qmemarray.h>
 #include <qobject.h>
 #include <qvaluelist.h>
 
@@ -181,10 +182,10 @@ private:
     SignalManager &m_signal;
 
     /** list of minimum value arrays, one array per track */
-    QList<QByteArray> m_min;
+    QList< QMemArray <signed char> > m_min;
 
     /** list of maximum value arrays, one array per track */
-    QList<QByteArray> m_max;
+    QList< QMemArray <signed char> > m_max;
 
     /** bitmask for "validity" of the min/max values */
     QList< QArray <CacheState> > m_state;

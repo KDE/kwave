@@ -108,19 +108,19 @@ void OverViewCache::scaleUp()
         ASSERT(count <= CACHE_SIZE);
 	
 	// source pointers
-	char *smin = m_min.at(t)->data();
-	char *smax = m_max.at(t)->data();
+	signed char *smin = m_min.at(t)->data();
+	signed char *smax = m_max.at(t)->data();
 	CacheState *sstate = m_state.at(t)->data();
 	
 	// destination pointers
-	char *dmin = smin;
-	char *dmax = smax;
+	signed char *dmin = smin;
+	signed char *dmax = smax;
 	CacheState *dstate = sstate;
 	
 	// loop over all entries to be shrinked
 	while (dst < count) {
-	    char min = +127;
-	    char max = -127;
+	    signed char min = +127;
+	    signed char max = -127;
 	    CacheState state = Unused;
 	    for (unsigned int i = 0; i < shrink; ++i) {
 		if (*smin < min) min = *smin;
@@ -234,8 +234,8 @@ void OverViewCache::slotTrackInserted(unsigned int index, Track &)
     }
 
     QArray<CacheState> *state = new QArray<CacheState>(CACHE_SIZE);
-    QByteArray *min = new QByteArray(CACHE_SIZE);
-    QByteArray *max = new QByteArray(CACHE_SIZE);
+    QMemArray<signed char> *min = new QMemArray<signed char>(CACHE_SIZE);
+    QMemArray<signed char> *max = new QMemArray<signed char>(CACHE_SIZE);
 
     if (!state || !min || !max) {
 	ASSERT(state);
@@ -451,8 +451,8 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	unsigned int count = length / m_scale;
 	if (count > CACHE_SIZE) count = 0;
 	
-	char *min = m_min.at(t)->data();
-	char *max = m_max.at(t)->data();
+	signed char *min = m_min.at(t)->data();
+	signed char *max = m_max.at(t)->data();
 	CacheState *state = m_state.at(t)->data();
 	SampleReader *reader = src[t];
 	
@@ -504,8 +504,8 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	for (; index <= last_index; ++index) {
 	    // loop over all tracks
 	    for (unsigned int t=0; t < m_state.count(); ++t) {
-		char *min = m_min.at(t)->data();
-		char *max = m_max.at(t)->data();
+		signed char *min = m_min.at(t)->data();
+		signed char *max = m_max.at(t)->data();
 		CacheState *state = m_state.at(t)->data();
 		ASSERT(state);
 		if (!state) continue;

@@ -25,7 +25,7 @@ email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
 lfv_open_groups=
 make_options=\s-j1
-makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am,plugins/amplifyfree/Makefile.am,plugins/noise/Makefile.am,plugins/codec_wav/Makefile.am,plugins/common/Makefile.am,plugins/codec_audiofile/Makefile.am
+makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am,plugins/amplifyfree/Makefile.am,plugins/noise/Makefile.am,plugins/codec_wav/Makefile.am,plugins/common/Makefile.am,plugins/codec_audiofile/Makefile.am,plugins/selectrange/Makefile.am
 modifyMakefiles=false
 project_name=Kwave
 project_type=normal_kde
@@ -1744,7 +1744,7 @@ dist=true
 files=plugins/Makefile.am
 install=false
 install_location=
-sub_dirs=dialogs,sonagram,playback,zero,memory,newsignal,template,amplifyfree,noise,about,codec_wav,common,codec_audiofile
+sub_dirs=dialogs,sonagram,playback,zero,memory,newsignal,template,amplifyfree,noise,about,codec_wav,common,codec_audiofile,selectrange
 type=DATA
 
 [plugins/about/AboutDialog.cpp]
@@ -2190,6 +2190,49 @@ install_location=
 type=SOURCE
 
 [plugins/playback/PlayBackPlugin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/selectrange/IntValidatorProxy.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/selectrange/IntValidatorProxy.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/selectrange/Makefile.am]
+files=plugins/selectrange/SelectRangeDialog.cpp,plugins/selectrange/SelectRangeDialog.h,plugins/selectrange/SelectRangePlugin.cpp,plugins/selectrange/SelectRangePlugin.h,plugins/selectrange/IntValidatorProxy.h,plugins/selectrange/IntValidatorProxy.cpp
+sharedlib_LDFLAGS=-version-info 0:0:1
+sharedlib_rootname=selectrange
+sub_dirs=
+type=static_library
+
+[plugins/selectrange/SelectRangeDialog.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/selectrange/SelectRangeDialog.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/selectrange/SelectRangePlugin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/selectrange/SelectRangePlugin.h]
 dist=true
 install=false
 install_location=

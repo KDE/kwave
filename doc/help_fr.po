@@ -90,7 +90,8 @@ msgid "Introduction"
 msgstr "Introduction"
 
 #: index.docbook:64
-msgid "This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
 msgstr ""
 "\"&kapp;\" est un éditeur de pistes sonores pour l'environnement de bureau "
 "KDE. Il inclu les fonctionnalités suivantes :"
@@ -129,15 +130,16 @@ msgstr ""
 
 #: index.docbook:64
 msgid "extendible through an easy-to-use plugin interface"
-msgstr "L'extension facile des carractérisques du programme par l'ajout de plugins."
+msgstr ""
+"L'extension facile des carractérisques du programme par l'ajout de plugins."
 
 #: index.docbook:64
 msgid ""
 "import/export of other audio formats through <ulink url=\"http://oss.sgi.com/"
 "projects/audiofile/\">libaudiofile</ulink>"
 msgstr ""
-"Importation/exportation d'autre formats audios à l'aide de <ulink url=\"http://oss.sgi.com/"
-"projects/audiofile/\">libaudiofile</ulink>"
+"Importation/exportation d'autre formats audios à l'aide de <ulink url="
+"\"http://oss.sgi.com/projects/audiofile/\">libaudiofile</ulink>"
 
 #: index.docbook:109
 msgid ""
@@ -248,15 +250,17 @@ msgstr "0.6.4 [2002-03-??]"
 
 #: index.docbook:181
 msgid "support for different file formats / integrated libaudiofile"
-msgstr "Support pour différents formats de fichiers / intrégration de libaudiofile."
+msgstr ""
+"Support pour différents formats de fichiers / intrégration de libaudiofile."
 
 #: index.docbook:181
 msgid ""
 "drag and drop bugfix: dropping into the same signal left from the selection "
 "removed wrong range"
 msgstr ""
-"Correction de bogues pour le tirer / déposer : le lachement dans un même signal audio à gauche "
-" d'une sélection supprime une mauvaise partie du signal."
+"Correction de bogues pour le tirer / déposer : le lachement dans un même "
+"signal audio à gauche  d'une sélection supprime une mauvaise partie du "
+"signal."
 
 #: index.docbook:181
 msgid "auto-repair for structurally damaged wav files"
@@ -272,23 +276,32 @@ msgstr "Intégration de 'libkwavemt' dans 'libkwave'."
 
 #: index.docbook:181
 msgid "using time instead of zoom factor (e.g. set zoom to \"1 minute\")"
-msgstr "Utilisation du temps à la place du facteur de zoom (tel que lorsque le zoom correspond à \"1 minute\")."
+msgstr ""
+"Utilisation du temps à la place du facteur de zoom (tel que lorsque le zoom "
+"correspond à \"1 minute\")."
 
 #: index.docbook:181
 msgid "menu entries for playback control"
-msgstr "Entrées dans le menu pour le contrôle de la lecture d'une piste sonore."
+msgstr ""
+"Entrées dans le menu pour le contrôle de la lecture d'une piste sonore."
 
 #: index.docbook:181
 msgid "some more icons in the menues"
 msgstr "Quelques icônes supplémentaires dans les menus."
 
 #: index.docbook:181
-msgid "replaced KFileDialog with subclass KwaveFileDialog (fixes some bugs in KDE)"
-msgstr "Remplacement de 'KFileDialog' par la sous-classe 'KwaveFileDialog' (corrige quelques bogues avec KDE)."
+msgid ""
+"replaced KFileDialog with subclass KwaveFileDialog (fixes some bugs in KDE)"
+msgstr ""
+"Remplacement de 'KFileDialog' par la sous-classe 'KwaveFileDialog' (corrige "
+"quelques bogues avec KDE)."
 
 #: index.docbook:181
-msgid "added a little chapter about digital audio basics"
-msgstr "Ajout d'un petit chapitre sur les rudiments des enregistrements audios numériques."
+#, fuzzy
+msgid "added a little chapter about digital audio basics to online help"
+msgstr ""
+"Ajout d'un petit chapitre sur les rudiments des enregistrements audios "
+"numériques."
 
 #: index.docbook:181
 msgid "0.6.3 [2002-03-01]"
@@ -354,7 +367,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "bugfix: problem with TSS in TSS_Object cleanup"
-msgstr "Correction de bogue : problème avec TSS dans la libération de TSS_Object."
+msgstr ""
+"Correction de bogue : problème avec TSS dans la libération de TSS_Object."
 
 #: index.docbook:181
 msgid "0.6.1-1 [2001-09-01]"
@@ -437,7 +451,8 @@ msgstr "Architecture interne revue et corrigé complètement."
 
 #: index.docbook:181
 msgid "plugins can be located in a user directory"
-msgstr "Les plugins peuvent être installés dans les répertoires des utilisateurs."
+msgstr ""
+"Les plugins peuvent être installés dans les répertoires des utilisateurs."
 
 #: index.docbook:181
 msgid ""
@@ -501,7 +516,8 @@ msgstr "Ajout d'une barre d'outils comme dans toute application standard."
 
 #: index.docbook:181
 msgid "fixed some bugs concerning selection with the mouse"
-msgstr "Correction de quelques bogues concernant les selections avec la souris."
+msgstr ""
+"Correction de quelques bogues concernant les selections avec la souris."
 
 #: index.docbook:181
 msgid "rework of the overview widget (used in main window and sonagram)"
@@ -560,16 +576,20 @@ msgstr ""
 "OverViewWidget"
 
 #: index.docbook:181
-msgid "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
-msgstr "Sonagramme : suppression de SonagramContainer, utilisé dans QGridLayout."
+msgid ""
+"sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
+msgstr ""
+"Sonagramme : suppression de SonagramContainer, utilisé dans QGridLayout."
 
 #: index.docbook:181
 msgid "moved SignalProxy to the mt subdirectory"
-msgstr "Déplacement de SignalProxy dans le répertoire contenant les classes mt."
+msgstr ""
+"Déplacement de SignalProxy dans le répertoire contenant les classes mt."
 
 #: index.docbook:181
 msgid "fixed X11 synchronzation problem with SignalProxy"
-msgstr "Correction de problèmes de synchronisation avec X11 concernant SignalProxy."
+msgstr ""
+"Correction de problèmes de synchronisation avec X11 concernant SignalProxy."
 
 #: index.docbook:181
 msgid "added TSS (thread-specific-storage) support to the mt classes"
@@ -577,7 +597,8 @@ msgstr "Ajout du support de TSS (Thread-Specific-Storage) dans les classes mt."
 
 #: index.docbook:181
 msgid "added some multithreading support classes: Thread, AsynchObject, ..."
-msgstr "Ajout de quelques classes pour le multithreading : Thread, AsynchObject, ..."
+msgstr ""
+"Ajout de quelques classes pour le multithreading : Thread, AsynchObject, ..."
 
 #: index.docbook:181
 msgid ""
@@ -602,7 +623,8 @@ msgstr ""
 "changer)."
 
 #: index.docbook:181
-msgid "bugfix: selection and playpointer will not be drawn if no signal is loaded"
+msgid ""
+"bugfix: selection and playpointer will not be drawn if no signal is loaded"
 msgstr ""
 "Correction de bogue : La selection et le curseur de lecture ne seront pas "
 "dessinés  si aucun fichier n'est chargé."
@@ -662,11 +684,13 @@ msgstr "0.5.4-1 [2000-07-29]"
 
 #: index.docbook:181
 msgid "fixed layout of playback dialog"
-msgstr "Correction de la présentation de la boîte de dialogue des options de lecture."
+msgstr ""
+"Correction de la présentation de la boîte de dialogue des options de lecture."
 
 #: index.docbook:181
 msgid "started to implement a new plugin interface"
-msgstr "Commencement de l'implémentation d'une nouvelle interface pour les plugins."
+msgstr ""
+"Commencement de l'implémentation d'une nouvelle interface pour les plugins."
 
 #: index.docbook:181
 msgid "geometry/layout management for the sonagram settings dialog"
@@ -682,7 +706,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "plugins can now consist of multiple source files"
-msgstr "Les plugins peuvent maintenant être constitués de plusieurs fichiers sources."
+msgstr ""
+"Les plugins peuvent maintenant être constitués de plusieurs fichiers sources."
 
 #: index.docbook:181
 msgid "0.5.4 [2000-07-12]"
@@ -694,7 +719,8 @@ msgstr "Quelques petites corrections dans les Makefiles."
 
 #: index.docbook:181
 msgid "split the documentation output into \"de\" and \"en\" part"
-msgstr "Séparation de la documentation en deux parties distinctes : \"de\" et \"en\"."
+msgstr ""
+"Séparation de la documentation en deux parties distinctes : \"de\" et \"en\"."
 
 #: index.docbook:181
 msgid ""
@@ -774,11 +800,13 @@ msgstr "Lecture audio pour seulement les canaux sélectionnés."
 
 #: index.docbook:181
 msgid "rework of the settings/playback dialog (plugin)"
-msgstr "Restructuration de la boite de dialogue des paramètres de lecture (plugin)."
+msgstr ""
+"Restructuration de la boite de dialogue des paramètres de lecture (plugin)."
 
 #: index.docbook:181
 msgid "heavy reword on the playback code"
-msgstr "Long travail de restructuration du code correspondant à la lecture audio."
+msgstr ""
+"Long travail de restructuration du code correspondant à la lecture audio."
 
 #: index.docbook:181
 msgid ""
@@ -938,7 +966,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "doesn't show any zoom factor if no signal is loaded"
-msgstr "Pas d'affichage du facteur de zoom si aucun fichier sonore n'est chargé."
+msgstr ""
+"Pas d'affichage du facteur de zoom si aucun fichier sonore n'est chargé."
 
 #: index.docbook:181
 msgid "handling of channel add/delete: selection/speakers are shifted"
@@ -947,7 +976,8 @@ msgstr ""
 "décalée."
 
 #: index.docbook:181
-msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
+msgid ""
+"changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
 "Changement de quelques variables et paramêtres en \"unsigned\" (pour "
 "simplifier la vérification des étendues de valeurs)."
@@ -979,20 +1009,23 @@ msgstr ""
 "configuration avant la compilation."
 
 #: index.docbook:181
-msgid "globals.app will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"globals.app will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "'globals.app' n'est maintenant plus utilisée (obsolete, sera retirée de la "
 "bibliothéque libkwave)."
 
 #: index.docbook:181
-msgid "MessagePort will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"MessagePort will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "'MessagePort' n'est maintenant plus utilisée (obsolete, sera retirée de la "
 "bibliothéque libkwave)."
 
 #: index.docbook:181
 msgid "multiple toplevel windows are possible"
-msgstr "L'ouverture de plusieurs instances de l'application est maintenant possible."
+msgstr ""
+"L'ouverture de plusieurs instances de l'application est maintenant possible."
 
 #: index.docbook:181
 msgid "made X toolkit parameters work (especially \"-geometry\")"
@@ -1081,7 +1114,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "some bugfixes in menu handling / cleanups"
-msgstr "Quelques corrrections de bogues dans le menu de sélection / déselection."
+msgstr ""
+"Quelques corrrections de bogues dans le menu de sélection / déselection."
 
 #: index.docbook:181
 msgid "complete rework of zoom and offset handling:"
@@ -1207,14 +1241,16 @@ msgstr "0.5.1-2 [2000-03-16]"
 
 #: index.docbook:181
 msgid "converted many \"klocale->translate(...)\"s into \"i18n(...)\""
-msgstr "Convertion de plusieurs \"klocale->translate(...)\"s dans \"i18n(...)\""
+msgstr ""
+"Convertion de plusieurs \"klocale->translate(...)\"s dans \"i18n(...)\""
 
 #: index.docbook:181
 msgid "target \"make messages\" works again"
 msgstr "La cible \"make messages\" fonctionne maintenant."
 
 #: index.docbook:181
-msgid "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
+msgid ""
+"converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 msgstr ""
 "Convertion de menus.config pour la création d'une maquette d'un fichier .ccp "
 "qui sera utilisé  pour l'internationalisation."
@@ -1263,7 +1299,8 @@ msgstr "Les menus NumberedMenu et MenuCommand ont été supprimé."
 
 #: index.docbook:181
 msgid "new classes: MenuNode, MenuItem, MenuSub, MenuToplevel and MenuRoot"
-msgstr "Nouvelles classes : MenuNode, MenuItem, MenuSub, MenuToplevel et MenuRoot."
+msgstr ""
+"Nouvelles classes : MenuNode, MenuItem, MenuSub, MenuToplevel et MenuRoot."
 
 #: index.docbook:181
 msgid "menu items can have icons"
@@ -1271,7 +1308,8 @@ msgstr "Les items des menus peuvent avoir des icones."
 
 #: index.docbook:181
 msgid "menu nodes can have unique string ids"
-msgstr "Les liens des menus n'ont qu'un seul indentifiant de chaîne de caractères."
+msgstr ""
+"Les liens des menus n'ont qu'un seul indentifiant de chaîne de caractères."
 
 #: index.docbook:181
 msgid "special menu commands start with a \"#\""
@@ -1324,7 +1362,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "added the \"crop\" command to the edit menu"
-msgstr "Ajout de la fonction de \"couper à la sélection\" dans le menu édition."
+msgstr ""
+"Ajout de la fonction de \"couper à la sélection\" dans le menu édition."
 
 #: index.docbook:181
 msgid "made the \"mixpaste\" command work"
@@ -1345,7 +1384,8 @@ msgstr "1999-12-18 (par mwilz@ernie.mi.uni-koeln.de)"
 
 #: index.docbook:181
 msgid "changed filenames to reflect class names"
-msgstr "Changement des noms de fichiers en correspondance avec les noms des classes."
+msgstr ""
+"Changement des noms de fichiers en correspondance avec les noms des classes."
 
 #: index.docbook:181
 msgid "one class per file is now the standard"
@@ -1417,7 +1457,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "bugfix: selected resolution takes effect"
-msgstr "Correction de bogue : la sélection d'une résolution fonctionne maintenant."
+msgstr ""
+"Correction de bogue : la sélection d'une résolution fonctionne maintenant."
 
 #: index.docbook:181
 msgid ""
@@ -1456,7 +1497,8 @@ msgstr "Le support du débuggage est maintenant facile à utiliser."
 
 #: index.docbook:181
 msgid "\"configure --enable-debug=yes\" (-g and -DDEBUG compiler flags)"
-msgstr "\"configure --enable-debug=yes\" (options de compilation -g et -DDEBUG)."
+msgstr ""
+"\"configure --enable-debug=yes\" (options de compilation -g et -DDEBUG)."
 
 #: index.docbook:181
 msgid "rewritten big parts of Makefile.in for the plugins"
@@ -1524,7 +1566,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "connected many functions via the new string-based way of invocation"
-msgstr "Raccordement de plusieurs fonctions par une chaîne de caractères commune."
+msgstr ""
+"Raccordement de plusieurs fonctions par une chaîne de caractères commune."
 
 #: index.docbook:181
 msgid ""
@@ -1558,7 +1601,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "moved gui functions into a new library (libkwavegui)"
-msgstr "Déplacement des fontions graphiques dans une nouvelle librarie (libkwavegui)."
+msgstr ""
+"Déplacement des fontions graphiques dans une nouvelle librarie (libkwavegui)."
 
 #: index.docbook:181
 msgid "new Classes: Parser DynamicLoader Filter (prevously was a struct)"
@@ -1592,7 +1636,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "io functions and playback adapted to SignalManager"
-msgstr "Les fonctions d'entrées/sorties et de lecture sont adaptées à SignalManager."
+msgstr ""
+"Les fonctions d'entrées/sorties et de lecture sont adaptées à SignalManager."
 
 #: index.docbook:181
 msgid "Introduction of SignalManager class for multiple channel management"
@@ -1696,7 +1741,8 @@ msgstr "0.29.2"
 
 #: index.docbook:181
 msgid "moved clipboard functionality to its own class"
-msgstr "Déplacement des fonctionnalités du presse-papier dans une classe dédiée."
+msgstr ""
+"Déplacement des fonctionnalités du presse-papier dans une classe dédiée."
 
 #: index.docbook:181
 msgid "dynamic allocation of menu entries used by all classes but TopWidget"
@@ -1713,7 +1759,8 @@ msgid "0.29.1"
 msgstr "0.29.1"
 
 #: index.docbook:181
-msgid "Bugfix for multichannel save. Now the saved files should work with other prgs"
+msgid ""
+"Bugfix for multichannel save. Now the saved files should work with other prgs"
 msgstr ""
 "Correction de bogues pour la sauvegarde de canaux multiples. Maintenant, la "
 "sauvegarde de  fichiers doit fonctionner avec d'autres programmes."
@@ -1766,7 +1813,8 @@ msgstr ""
 "curseur."
 
 #: index.docbook:181
-msgid "added possibility of different display modes in Frequency representation"
+msgid ""
+"added possibility of different display modes in Frequency representation"
 msgstr ""
 "Ajout de différentes possibilités d'affichage en fonction de la "
 "représentation des fréquences."
@@ -1798,7 +1846,8 @@ msgstr ""
 
 #: index.docbook:181
 msgid "First use of multiple threads (pthreads) in some functions"
-msgstr "Première utilisation du multithreading (pthreads) dans quelques fonctions."
+msgstr ""
+"Première utilisation du multithreading (pthreads) dans quelques fonctions."
 
 #: index.docbook:181
 msgid "Pitch generation now independent of additive synthesis"
@@ -1828,10 +1877,12 @@ msgstr ""
 
 #: index.docbook:181
 msgid "New ScaleWidget gives the user more information"
-msgstr "Nouvelle classe ScaleWidget qui donne plus d'informations à l'utilisateur."
+msgstr ""
+"Nouvelle classe ScaleWidget qui donne plus d'informations à l'utilisateur."
 
 #: index.docbook:181
-msgid "Improved ProgressDialog and Interpolation class to allow multiple threads"
+msgid ""
+"Improved ProgressDialog and Interpolation class to allow multiple threads"
 msgstr ""
 "Ajout des classes ProgressDialog et Interpolation pour permettre le "
 "multithreading."
@@ -1849,7 +1900,8 @@ msgid "changes in curvewidget (recent point has another pixmap)."
 msgstr "Changement dans la classe curvewidget."
 
 #: index.docbook:181
-msgid "sorting of labels now works without overwriting of QGList::compareItems."
+msgid ""
+"sorting of labels now works without overwriting of QGList::compareItems."
 msgstr ""
 "Le tri des lablels fonctionne maintenant sans écraser les opérations de "
 "QGList::compareItems."
@@ -1864,7 +1916,8 @@ msgstr "Ajout d'une fonction de sauvegarde d'une sélection."
 
 #: index.docbook:181
 msgid "signal finding function in markers.cpp: gui improved."
-msgstr "Fonction de recherche de signaux dans markers.cpp : interface graphique."
+msgstr ""
+"Fonction de recherche de signaux dans markers.cpp : interface graphique."
 
 #: index.docbook:181
 msgid "some smaller bug fixes."
@@ -1986,7 +2039,8 @@ msgstr ""
 
 #: index.docbook:1340
 msgid "If you intend to compile &kapp; from the sources, you will also need:"
-msgstr "Si vous désirez compiler &kapp; à partir des sources, vous avez besoin :"
+msgstr ""
+"Si vous désirez compiler &kapp; à partir des sources, vous avez besoin :"
 
 #: index.docbook:1340
 msgid ""
@@ -2736,10 +2790,11 @@ msgid ""
 "be a bit incomplete, but if you have questions, you can ask at the &kapp; "
 "mailing list or consult some further literature."
 msgstr ""
-"Ce chapitre présente une courte introduction sur les rudiments des enregistrements "
-"audios, sans rentrer trop dans les détails. Bien sur, celapeut être incomplet, mais si vous "
-"avez des questions, vous pouvez dans la liste de diffusion de &kapp; ou consulter diverses "
-"autres littératures sur le sujet."
+"Ce chapitre présente une courte introduction sur les rudiments des "
+"enregistrements audios, sans rentrer trop dans les détails. Bien sur, "
+"celapeut être incomplet, mais si vous avez des questions, vous pouvez dans "
+"la liste de diffusion de &kapp; ou consulter diverses autres littératures "
+"sur le sujet."
 
 #: index.docbook:1844
 msgid "The analogue world"
@@ -2753,10 +2808,13 @@ msgid ""
 "from digital to analogue normally is the reversion of the way from analogue "
 "to digital, we only describe the way from analogue to digital."
 msgstr ""
-"Tout d'abord, la premiére chose à savoir est que le monde qui nous entoure est <emphasis>analogique</emphasis> "
-" alors que l'ordinateur travail en <emphasis>numérique</emphasis>. Il existe de nombreuses méthodes pour convertir le son "
-"analogique en données numériques et vice versa. Comme la méthode de conversion du numérique vers l'analogique est "
-" normalement l'inverse de la méthode pour passer de l'analogique au numérique, nous ne décrirons que cette dernière."
+"Tout d'abord, la premiére chose à savoir est que le monde qui nous entoure "
+"est <emphasis>analogique</emphasis>  alors que l'ordinateur travail en "
+"<emphasis>numérique</emphasis>. Il existe de nombreuses méthodes pour "
+"convertir le son analogique en données numériques et vice versa. Comme la "
+"méthode de conversion du numérique vers l'analogique est  normalement "
+"l'inverse de la méthode pour passer de l'analogique au numérique, nous ne "
+"décrirons que cette dernière."
 
 #: index.docbook:1855 index.docbook:1863
 msgid "Conversion from sound to bits"
@@ -2774,13 +2832,16 @@ msgid ""
 "sources of audio. And the \"amplifier\" can be the one that is integrated "
 "into your sound card, where you normally can't see it."
 msgstr ""
-"Avant de continuer, le son analogique doit être transformé en un signal électrique qui pourra être traité par "
-"l'ordinateur. Un des procédés les plus utilisés pour cela est l'utilisation d'un microphone et d'un amplificateur. "
-"Cette combinaison donne une tension qui est proportionnelle aux changements de la pression dans l'air. "
-"Les amplitudes les plus grandes des changements de pression donnerons les tensions avec la plus grande "
-"amplitude à la sortie de l'amplificateur. Cette sortie est aussi appelée un <emphasis>'signal'</emphasis>. "
-"A la place d'un microphone on peut imaginer d'autre source de capture sonore. L'\"amplificateur\" peut être intégré "
-"directement dans la carte son de votre ordinateur et vous ne pouvez pas le voir."
+"Avant de continuer, le son analogique doit être transformé en un signal "
+"électrique qui pourra être traité par l'ordinateur. Un des procédés les plus "
+"utilisés pour cela est l'utilisation d'un microphone et d'un amplificateur. "
+"Cette combinaison donne une tension qui est proportionnelle aux changements "
+"de la pression dans l'air. Les amplitudes les plus grandes des changements "
+"de pression donnerons les tensions avec la plus grande amplitude à la sortie "
+"de l'amplificateur. Cette sortie est aussi appelée un <emphasis>'signal'</"
+"emphasis>. A la place d'un microphone on peut imaginer d'autre source de "
+"capture sonore. L'\"amplificateur\" peut être intégré directement dans la "
+"carte son de votre ordinateur et vous ne pouvez pas le voir."
 
 #: index.docbook:1877 index.docbook:1885
 msgid "Conversion to electronic signal"
@@ -2791,8 +2852,8 @@ msgid ""
 "At this stage, the electrical signal has three limitations that one should "
 "keep in mind:"
 msgstr ""
-"A ce stade, le signal électrique présente trois limitations dont une doit être "
-"bien présente à l'esprit :"
+"A ce stade, le signal électrique présente trois limitations dont une doit "
+"être bien présente à l'esprit :"
 
 #: index.docbook:1887
 msgid ""
@@ -2803,10 +2864,12 @@ msgid ""
 "<emphasis>clipped</emphasis>, which means that the electrical signal will "
 "run against it's margins and the result will be disturbed."
 msgstr ""
-"L'<emphasis>amplitude</emphasis> (volume) est limitée à un niveau maximum. Ceci est la conséquence "
-" de l'électronique (amplificateurs) qui peuvent seulement traiter des tensions suivant des plages bien spécifiques. "
-"Cela ne pose pas de problème tant que les sons ne sont pas trop forts. Dans ce cas, le signal sera "
-"<emphasis>saturé</emphasis>, et une partie sera tronquée au niveau les plus forts."
+"L'<emphasis>amplitude</emphasis> (volume) est limitée à un niveau maximum. "
+"Ceci est la conséquence  de l'électronique (amplificateurs) qui peuvent "
+"seulement traiter des tensions suivant des plages bien spécifiques. Cela ne "
+"pose pas de problème tant que les sons ne sont pas trop forts. Dans ce cas, "
+"le signal sera <emphasis>saturé</emphasis>, et une partie sera tronquée au "
+"niveau les plus forts."
 
 #: index.docbook:1887
 msgid ""
@@ -2821,15 +2884,18 @@ msgid ""
 "where the human ear is no longer able to hear their results and thus get out "
 "of interest. The human ear normally is not able to hear sound above 20 kHz."
 msgstr ""
-"La <emphasis>plage de fréquences</emphasis> est aussi limitée. Cela est du à des "
-"contraintes mécaniques des microphones et aux limitations des plages de fréquences des "
-"amplificateurs. Il n'y as pas de casures nettes au niveau fréquenciel pour lesquelles le son disparait. "
-"Généralement, le son est atténué progressivement dans les basses fréquences et dans les hautes fréquences. "
-"L'existance d'une fréquence maximale peut être facilement comprise en associant cette hypothése aux limites "
-"de temps de monté et descente du signal électrique dans les composants électroniques. En utilisant un "
-"amplificateur et un microphone de haute qualité, ces limites peuvent être repoussées dans des plages de "
-"fréquences inaudibles pour des êtres humains. Un homme entend normalement les sons jusqu'à une "
-"fréquence de 20 kHz."
+"La <emphasis>plage de fréquences</emphasis> est aussi limitée. Cela est du à "
+"des contraintes mécaniques des microphones et aux limitations des plages de "
+"fréquences des amplificateurs. Il n'y as pas de casures nettes au niveau "
+"fréquenciel pour lesquelles le son disparait. Généralement, le son est "
+"atténué progressivement dans les basses fréquences et dans les hautes "
+"fréquences. L'existance d'une fréquence maximale peut être facilement "
+"comprise en associant cette hypothése aux limites de temps de monté et "
+"descente du signal électrique dans les composants électroniques. En "
+"utilisant un amplificateur et un microphone de haute qualité, ces limites "
+"peuvent être repoussées dans des plages de fréquences inaudibles pour des "
+"êtres humains. Un homme entend normalement les sons jusqu'à une fréquence de "
+"20 kHz."
 
 #: index.docbook:1887
 msgid ""
@@ -2844,13 +2910,16 @@ msgid ""
 "better the sound's quality will be. Sounds that have lower volume than the "
 "noise cannot be heart."
 msgstr ""
-"Le signal contient du <emphasis>bruit</emphasis>. Le bruit est l'ennemi le plus nefaste. Il marque le signal "
-"à tous les niveaux. Typiquement, le bruit est un effet analogique qui perturbe le signal. Il est toujours présent "
-"et ne peut pas être supprimé. On peut seulement essayer d'utiliser des composants électroniques de haute qualité "
-"qui produise un bruit de faible amplitude que l'on ne peut pas ditinguer. Normalement le bruit a un certain volume qui "
-" doit être le plus négligeable possible par rapport au signal utile. On appele cela le <emphasis>rapport signal sur bruit "
-"(SNR)</emphasis>. Une valeur élevé de ce rapport donne une bonne qualité de sons. Le son qui ont un faible "
-"volume on un bruit qui ne peut pas être entendu."
+"Le signal contient du <emphasis>bruit</emphasis>. Le bruit est l'ennemi le "
+"plus nefaste. Il marque le signal à tous les niveaux. Typiquement, le bruit "
+"est un effet analogique qui perturbe le signal. Il est toujours présent et "
+"ne peut pas être supprimé. On peut seulement essayer d'utiliser des "
+"composants électroniques de haute qualité qui produise un bruit de faible "
+"amplitude que l'on ne peut pas ditinguer. Normalement le bruit a un certain "
+"volume qui  doit être le plus négligeable possible par rapport au signal "
+"utile. On appele cela le <emphasis>rapport signal sur bruit (SNR)</"
+"emphasis>. Une valeur élevé de ce rapport donne une bonne qualité de sons. "
+"Le son qui ont un faible volume on un bruit qui ne peut pas être entendu."
 
 #: index.docbook:1935
 msgid "Digitalization"
@@ -2863,9 +2932,10 @@ msgid ""
 "<emphasis>digitalization</emphasis>. It converts an electronic signal into a "
 "sequence of digital values."
 msgstr ""
-"Quand nous voulons enregistrer et jouer une piste audio sur un ordinateur, nous devons d'abords convertir le "
-"signal analogique en données numériques. Ce procédé est appelé <emphasis>numérisation</emphasis> Il converti "
-"un signal électronique en une séquence de valeurs numériques."
+"Quand nous voulons enregistrer et jouer une piste audio sur un ordinateur, "
+"nous devons d'abords convertir le signal analogique en données numériques. "
+"Ce procédé est appelé <emphasis>numérisation</emphasis> Il converti un "
+"signal électronique en une séquence de valeurs numériques."
 
 #: index.docbook:1943 index.docbook:1951
 msgid "Digitalization of the electronic signal"
@@ -2877,9 +2947,10 @@ msgid ""
 "electonic signal's value at certain time, thus taking a <emphasis>sample</"
 "emphasis> of the signal. The result is then encoded as a digital value."
 msgstr ""
-"La conversion peut être comprise comme des mesures répétitives des valeurs du signal électronique à un "
-"certain temps. On appelle cela <emphasis>l'échantillonage</emphasis> du signal. Le résultat est alors encodé "
-"en valeurs digitales."
+"La conversion peut être comprise comme des mesures répétitives des valeurs "
+"du signal électronique à un certain temps. On appelle cela "
+"<emphasis>l'échantillonage</emphasis> du signal. Le résultat est alors "
+"encodé en valeurs digitales."
 
 #: index.docbook:1959
 msgid ""
@@ -2889,11 +2960,12 @@ msgid ""
 "sample rates are 8000, 11025, 22050, and 44100 samples per second. In "
 "practice sample rates are also given as frequencies, in Hz or kHz."
 msgstr ""
-"L'échantillonage peut être fait à des distances temporelles arbitraires ou a des intervalles constants. "
-"La derniére méthode est la plus facile à utiliser. Elle utilise un taux constant que l'on l'appelle "
-" <emphasis>période d'échantillonage</emphasis>. Normalement, ce taux est de 8000, 11025, 22050, "
-" ou 44100 échantillons par seconde. Dans la pratique, les périodes d'échantillonage donnent aussi "
-"des fréquences en Hz ou en kHz."
+"L'échantillonage peut être fait à des distances temporelles arbitraires ou a "
+"des intervalles constants. La derniére méthode est la plus facile à "
+"utiliser. Elle utilise un taux constant que l'on l'appelle  "
+"<emphasis>période d'échantillonage</emphasis>. Normalement, ce taux est de "
+"8000, 11025, 22050,  ou 44100 échantillons par seconde. Dans la pratique, "
+"les périodes d'échantillonage donnent aussi des fréquences en Hz ou en kHz."
 
 #: index.docbook:1967
 msgid ""
@@ -2919,8 +2991,9 @@ msgid ""
 "<emphasis>samples</emphasis>. One sample is a digital representation of a "
 "signal's value at a certain time."
 msgstr ""
-"Le résultat d'un processus d'échantillonage numérique est une séquence de simple <emphasis>échantillons</emphasis>. "
-"Un échantillon est une représentation numérique du signal à un temps donné."
+"Le résultat d'un processus d'échantillonage numérique est une séquence de "
+"simple <emphasis>échantillons</emphasis>. Un échantillon est une "
+"représentation numérique du signal à un temps donné."
 
 #: index.docbook:1995
 msgid ""
@@ -2997,11 +3070,11 @@ msgid ""
 "reserves for internal calculations, as only 24 bits are normally used."
 msgstr ""
 "&kapp; utilise en interne <emphasis>des entiers signés</emphasis> avec une "
-"précision de 24 bits, stockés dans des entiers de 32 bits. Ceci à le désavantage "
-"d'utiliser plus de mémoire lors du traitement des fichiers ayant une définition plus basse "
-"(tel que 8 bits), mais les calculs sur des nombres codés sur 32 bits sont beaucoup plus "
-"rapides et prennent moins de resources système qu'avec des entiers codés directement "
-"sur 24 bits."
+"précision de 24 bits, stockés dans des entiers de 32 bits. Ceci à le "
+"désavantage d'utiliser plus de mémoire lors du traitement des fichiers ayant "
+"une définition plus basse (tel que 8 bits), mais les calculs sur des nombres "
+"codés sur 32 bits sont beaucoup plus rapides et prennent moins de resources "
+"système qu'avec des entiers codés directement sur 24 bits."
 
 #: index.docbook:2088
 msgid "Using &kapp;"
@@ -3178,7 +3251,8 @@ msgid "Opening and Saving files"
 msgstr "Ouverture et sauvegarde de fichiers"
 
 #: index.docbook:2208
-msgid "Opening files with &kapp; works like in most other applications, you can"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "L'ouverture des fichiers avec &kapp; fonctionne comme dans toutes les autres "
 "applications de KDE. Vous pouvez :"
@@ -3283,11 +3357,12 @@ msgid ""
 "filename> (NeXT,Sun Audio), <filename>*.aiff</filename> (Audio Interchange "
 "Format) and <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format)."
 msgstr ""
-"En plus, &kapp; supporte plusieurs autres formats audios trés communs via la biblothéque <ulink "
-"url=\"http://oss.sgi.com/projects/audiofile/\">audiofile</ulink>. Vous pouvez "
-"importer les fichiers du type <filename>*.au</filename> et <filename>*.snd</"
-"filename> (NeXT,Sun Audio), <filename>*.aiff</filename> (Audio Interchange "
-"Format) and <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format)."
+"En plus, &kapp; supporte plusieurs autres formats audios trés communs via la "
+"biblothéque <ulink url=\"http://oss.sgi.com/projects/audiofile/\">audiofile</"
+"ulink>. Vous pouvez importer les fichiers du type <filename>*.au</filename> "
+"et <filename>*.snd</filename> (NeXT,Sun Audio), <filename>*.aiff</filename> "
+"(Audio Interchange Format) and <filename>*.sf</filename> (Berkeley,IRCAM,"
+"Carl Sound Format)."
 
 #: index.docbook:2285
 msgid "Converting to and from .wav"
@@ -3322,8 +3397,9 @@ msgstr ""
 "formats et peut être quelques filtres qui utiliseront des scripts "
 "définissables par les utilisateurs avec des appels à des outils de "
 "convertion externes pour le traitement en écriture ou en lecture des formats "
-"de fichiers non supportés par <literal>SoX</literal> (comme le MP3). Actuellement, "
-"&kapp; peut seulement sauvegarder les fichiers au format <filename>.wav</filename>."
+"de fichiers non supportés par <literal>SoX</literal> (comme le MP3). "
+"Actuellement, &kapp; peut seulement sauvegarder les fichiers au format "
+"<filename>.wav</filename>."
 
 #: index.docbook:2384
 msgid "How to select"
@@ -3373,7 +3449,8 @@ msgid "a red lamb means \"disabled\"."
 msgstr "Un témoin rouge indique que le canal est \"inactif\"."
 
 #: index.docbook:2417
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Si le canal est déselectionné, il ne sera pas écoutable lors d'une lecture "
 "des pistes sonores !"
@@ -3489,7 +3566,8 @@ msgstr ""
 
 #: index.docbook:2452
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
-msgstr "(Astuce : utiliser la touche \"<keycap>+</keycap>\" du clavier numérique !)"
+msgstr ""
+"(Astuce : utiliser la touche \"<keycap>+</keycap>\" du clavier numérique !)"
 
 #: index.docbook:2452
 msgid ""
@@ -3507,7 +3585,8 @@ msgstr ""
 
 #: index.docbook:2452
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
-msgstr "(Astuce : utiliser la touche \"<keycap>-</keycap>\" du clavier numérique !)"
+msgstr ""
+"(Astuce : utiliser la touche \"<keycap>-</keycap>\" du clavier numérique !)"
 
 #: index.docbook:2452
 msgid ""
@@ -3674,12 +3753,13 @@ msgid ""
 msgstr ""
 "&kapp; supporte actuellement les fichiers .wav codés en 8, 16 et 24 bits par "
 "échantillons, avec plusieurs canaux sonores (cela inclue le mono et le "
-"stéréo). En plus, il peut importer tous les types de fichiers supportés par la "
-"bibliothéque 'libaudiofile'."
+"stéréo). En plus, il peut importer tous les types de fichiers supportés par "
+"la bibliothéque 'libaudiofile'."
 
 #: index.docbook:2765
 msgid "What if I have files with a format not supported by &kapp;?"
-msgstr "Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
+msgstr ""
+"Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
 
 #: index.docbook:2771
 msgid ""
@@ -3696,7 +3776,8 @@ msgstr ""
 
 #: index.docbook:2783
 msgid "I get errors when I want to do playback?"
-msgstr "J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
+msgstr ""
+"J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
 
 #: index.docbook:2788
 msgid ""
@@ -3730,7 +3811,8 @@ msgstr ""
 
 #: index.docbook:2817
 msgid "Some files are played with half-speed?"
-msgstr "Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
+msgstr ""
+"Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
 
 #: index.docbook:2822
 msgid "Try choosing a different sound playback device."
@@ -3784,7 +3866,8 @@ msgstr ""
 "les drivers ALSA."
 
 #: index.docbook:2879
-msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
+msgid ""
+"What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
 "Qu'en est-il de la lecture de fichiers sonores sur 24 et 32 bits par "
 "échantillons ou avec plus de  2 pistes sonores ?"
@@ -3807,8 +3890,8 @@ msgid ""
 "Not for the moment, but maybe MP3 import / export already is on the TODO "
 "list at a very high position."
 msgstr ""
-"Pas pour le moment, mais peut être que l'importation / exportation est déjà and la liste 'TODO' "
-"à un niveau de priorité important."
+"Pas pour le moment, mais peut être que l'importation / exportation est déjà "
+"and la liste 'TODO' à un niveau de priorité important."
 
 #: index.docbook:2930
 msgid "Credits and License"
@@ -3843,28 +3926,35 @@ msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
 #: index.docbook:2943
-msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
-msgstr "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en Allemand)"
+msgid ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
+msgstr ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en "
+"Allemand)"
 
 #: index.docbook:2943
 msgid "Ralf Waspe <email>rwaspe@web.de</email> (Help/About plugin)"
-msgstr "Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue 'A propos de')"
+msgstr ""
+"Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue 'A propos de')"
 
 #: index.docbook:2943
-msgid "Caulier Gilles <email>caulier.gilles@free.fr</email> (french translation)"
-msgstr "Caulier Gilles <email>caulier.gilles@free.fr</email> (Traductions Françaises)"
+msgid ""
+"Caulier Gilles <email>caulier.gilles@free.fr</email> (french translation)"
+msgstr ""
+"Caulier Gilles <email>caulier.gilles@free.fr</email> (Traductions Françaises)"
 
 #: index.docbook:2943
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
-msgstr "Martin Kuball <email>makube@user.sourceforge.net</email> (béta testeur)"
+msgstr ""
+"Martin Kuball <email>makube@user.sourceforge.net</email> (béta testeur)"
 
 #: index.docbook:2943
 msgid ""
 "Aurelien Jarno <email>aurel32@debian.org</email> (<ulink url=\"http://www."
 "debian.org\">debian</ulink> packager)"
 msgstr ""
-"Aurelien Jarno <email>aurel32@debian.org</email> (Paquetage pour la distribution <ulink url=\"http://www."
-"debian.org\">debian</ulink>)"
+"Aurelien Jarno <email>aurel32@debian.org</email> (Paquetage pour la "
+"distribution <ulink url=\"http://www.debian.org\">debian</ulink>)"
 
 #: index.docbook:3007
 msgid "Thanks to (in alphabetical order):"
@@ -3883,8 +3973,8 @@ msgid ""
 "Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
 "url=\"http://www.zip.com.au/~erikd/libsndfile/\">sndfile library </ulink>)"
 msgstr ""
-"Erik de Castro Lopo <email>erikd@zip.com.au</email> (auteur de la <ulink "
-"url=\"http://www.zip.com.au/~erikd/libsndfile/\">bibliothéque sndfile</ulink>)"
+"Erik de Castro Lopo <email>erikd@zip.com.au</email> (auteur de la <ulink url="
+"\"http://www.zip.com.au/~erikd/libsndfile/\">bibliothéque sndfile</ulink>)"
 
 #: index.docbook:3007
 msgid "Carsten Jacobi"
@@ -3912,7 +4002,8 @@ msgstr "Klaus Hendrik Lorenz"
 
 #: index.docbook:3007
 msgid "my girlfriend Ximena González<emphasis> (for her patience)</emphasis>"
-msgstr "Ma petite amie Ximena González<emphasis> (pour toute sa patience)</emphasis>"
+msgstr ""
+"Ma petite amie Ximena González<emphasis> (pour toute sa patience)</emphasis>"
 
 #: index.docbook:3045
 msgid ""
@@ -3939,9 +4030,10 @@ msgid ""
 "libaudiofile, found at <ulink url=\"http://oss.sgi.com/projects/audiofile/"
 "\">http://oss.sgi.com/projects/audiofile/</ulink>."
 msgstr ""
-"Importer/exporter des fichiers sonores est faisable via une copie modifiée de la bibliothéque "
-"'libaudiofile', disponible sur <ulink url=\"http://oss.sgi.com/projects/audiofile/ "
-"\">http://oss.sgi.com/projects/audiofile/</ulink>."
+"Importer/exporter des fichiers sonores est faisable via une copie modifiée "
+"de la bibliothéque 'libaudiofile', disponible sur <ulink url=\"http://oss."
+"sgi.com/projects/audiofile/ \">http://oss.sgi.com/projects/audiofile/</"
+"ulink>."
 
 #~ msgid "simple filter design tools"
 #~ msgstr "Des outils de manipulation du son sous forme de filtres."
@@ -4135,4 +4227,3 @@ msgstr ""
 
 #~ msgid "Eero"
 #~ msgstr "Eero"
-

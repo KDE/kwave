@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-10 22:08+0200\n"
+"POT-Creation-Date: 2002-06-16 15:24+0200\n"
 "PO-Revision-Date: 2002-02-22 08:48GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
@@ -361,7 +361,7 @@ msgstr "Un éditeur de sons pour KDE"
 msgid "selection"
 msgstr "selection"
 
-#: kwave/SignalWidget.cpp:1783 kwave/SignalWidget.cpp:1822
+#: kwave/SignalWidget.cpp:1777 kwave/SignalWidget.cpp:1816
 msgid "drag and drop"
 msgstr "tirer et lacher"
 
@@ -1381,6 +1381,11 @@ msgstr "faire un retard récurssif"
 #, c-format
 msgid "Amplitude of delayed signal :%d %%"
 msgstr "Amplitude du signal retardé :%d %%"
+
+#: plugins/selectrange/SelectRangePlugin.cpp:123
+#, fuzzy
+msgid "select range"
+msgstr "selection"
 
 #: plugins/saveblock/module.cpp:21
 msgid "Choose Labels to be used for dividing signal:"

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-06-09</date>
+<date>2002-06-16</date>
 <releaseinfo>0.6.4</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -212,7 +212,7 @@
                       bugs in KDE)
                 </para></listitem>
                 <listitem><para>
-                    added a little chapter about digital audio basics
+                    added a little chapter about digital audio basics to online help
                 </para></listitem>
             </itemizedlist>
         </listitem>

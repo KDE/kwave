@@ -263,10 +263,11 @@ I have currently installed some distributions for testing purposes and
 for getting an impression how Kwave builds/behaves on them. Here what I
 made running and what I had to install additionally:
 
-* Debian-3.01 (supported by Aurelien Jarno):
-         xlibs-dev, automake1.6, zlib1g, zlib1g-dev, libjpeg-mmx-dev
-         libqt3-dev, libqt3-mt-dev, kdelibs4-dev, poxml
-         (manual install of id3lib-3.8.2)
+* Debian / Sid (supported by Aurelien Jarno):
+	 make imagemagick gettext gcc g++ recode libtool automake1.6
+         xlibs-dev kdelibs4-dev kdemultimedia-dev poxml
+	 khelpcenter
+	 (had to do: 'apt-get install -t testing libid3-3.8.3-dev')
 
 * Gentoo-1.4_rc2:
          patch, imagemagick, recode, kdemultimedia, kdesdk, id3lib

@@ -36,7 +36,6 @@
 #include "libkwave/Parser.h"
 
 #include "libgui/Dialog.h"
-#include "libgui/MenuManager.h"
 #include "libgui/MultiStateWidget.h"
 #include "libgui/OverViewWidget.h"
 #include "libgui/KwavePlugin.h" // for some helper functions
@@ -65,10 +64,10 @@
 #define MIN_PIXELS_PER_CHANNEL 50
 
 //***************************************************************************
-MainWidget::MainWidget(QWidget *parent, MenuManager &manage)
+MainWidget::MainWidget(QWidget *parent)
     :QWidget(parent), keys(0), m_slider(0), m_signal_frame(this),
-     m_signal_widget(&m_signal_frame, manage),
-     menu(manage), frmChannelControls(0),
+     m_signal_widget(&m_signal_frame),
+     frmChannelControls(0),
      scrollbar(0), lamps(), speakers(), lastChannels(0)
 {
 //    debug("MainWidget::MainWidget()");
@@ -191,8 +190,8 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage)
 	    this, SLOT(forwardZoomChanged(double)));
     connect(&m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(forwardCommand(const QString &)));
-    connect(&m_signal_widget, SIGNAL(selectedTimeInfo(double)),
-	    this, SLOT(forwardSelectedTimeInfo(double)));
+    connect(&m_signal_widget, SIGNAL(selectedTimeInfo(unsigned int,double)),
+	    this, SLOT(forwardSelectedTimeInfo(unsigned int, double)));
     connect(&m_signal_widget, SIGNAL(sigTrackInserted(unsigned int)),
 	    this, SLOT(slotTrackInserted(unsigned int)));
     connect(&m_signal_widget, SIGNAL(sigTrackDeleted(unsigned int)),
@@ -202,6 +201,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage)
 	    this, SLOT(forwardMouseChanged(int)));
 
     refreshChannelControls();
+
 //    debug("MainWidget::MainWidget(): done.");
 }
 
@@ -248,36 +248,14 @@ void MainWidget::slotTrackInserted(unsigned int /*track*/)
 {
 
     refreshChannelControls();
-
-    // update the list of deletable tracks
-    menu.clearNumberedMenu("ID_EDIT_TRACK_DELETE");
-    QString buf;
-    for (unsigned int i = 0; i < tracks(); i++) {
-	menu.addNumberedMenuEntry("ID_EDIT_TRACK_DELETE", buf.setNum(i));
-    }
-
-    // enable/disable all items that depend on having a signal
-    bool have_signal = (tracks() != 0);
-    menu.setItemEnabled("@SIGNAL", have_signal);
-
+    emit sigTrackCount(tracks());
 }
 
 //***************************************************************************
 void MainWidget::slotTrackDeleted(unsigned int /*track*/)
 {
-
     refreshChannelControls();
-
-    // update the list of deletable tracks
-    menu.clearNumberedMenu("ID_EDIT_TRACK_DELETE");
-    QString buf;
-    for (unsigned int i = 0; i < tracks(); i++) {
-	menu.addNumberedMenuEntry("ID_EDIT_TRACK_DELETE", buf.setNum(i));
-    }
-
-    // enable/disable all items that depend on having a signal
-    bool have_signal = (tracks() != 0);
-    menu.setItemEnabled("@SIGNAL", have_signal);
+    emit sigTrackCount(tracks());
 }
 
 //***************************************************************************
@@ -329,9 +307,9 @@ void MainWidget::forwardZoomChanged(double zoom)
 }
 
 //***************************************************************************
-void MainWidget::forwardSelectedTimeInfo(double ms)
+void MainWidget::forwardSelectedTimeInfo(unsigned int samples, double ms)
 {
-    emit selectedTimeInfo(ms);
+    emit selectedTimeInfo(samples, ms);
 }
 
 //***************************************************************************

@@ -46,9 +46,8 @@ public:
     /**
      * Constructor.
      * @param parent parent widget
-     * @param manage menu manager
      */
-    MainWidget (QWidget *parent, MenuManager &manage);
+    MainWidget (QWidget *parent);
 
     /**
      * Returns true if this instance was successfully initialized, or
@@ -157,7 +156,7 @@ private slots:
      * Forwards the selectedTimeInfo signal of the internal view window
      * by emitting selectedTimeInfo.
      */
-    void forwardSelectedTimeInfo(double ms);
+    void forwardSelectedTimeInfo(unsigned int samples, double ms);
 
     /**
      * Forwards the sigMouseChanged signal of the internal view window
@@ -200,8 +199,14 @@ signals:
      */
     void sigZoomChanged(double zoom);
 
-    /** Emits the length of the current selection [milliseconds] */
-    void selectedTimeInfo(double ms);
+    /**
+     * Emits the length of the current selection in samples
+     * and in milliseconds
+     */
+    void selectedTimeInfo(unsigned int samples, double ms);
+
+    /** Emits the current number of tracks */
+    void sigTrackCount(unsigned int tracks);
 
     /**
      * Emits a change in the mouse cursor. This can be used to change
@@ -228,9 +233,6 @@ private:
 
     /** the widget that shows the signal */
     SignalWidget m_signal_widget;
-
-    /** reference to the enu manager. */
-    MenuManager &menu;
 
     QFrame *frmChannelControls;
 

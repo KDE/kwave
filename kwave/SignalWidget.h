@@ -28,7 +28,6 @@
 
 class LabelList;
 class LabelType;
-class MenuManager;
 class MouseMark;
 class QBitmap;
 class SignalManager;
@@ -57,7 +56,7 @@ public:
     };
 
     /** Constructor */
-    SignalWidget(QWidget *parent, MenuManager &menu_manage);
+    SignalWidget(QWidget *parent);
 
     /**
      * Returns true if this instance was successfully initialized, or
@@ -327,8 +326,11 @@ signals:
     void viewInfo(unsigned int offset, unsigned int width,
                   unsigned int length);
 
-    /** Emits the length of the current selection [milliseconds] */
-    void selectedTimeInfo(double ms);
+    /**
+     * Emits the length of the current selection in
+     * samples and in milliseconds
+     */
+    void selectedTimeInfo(unsigned int samples, double ms);
 
     /**
      * Emits a command to be processed by the next higher instance.
@@ -532,9 +534,6 @@ private:
 
 //    LabelList *labels;           //linked list of markers
 //    LabelType *markertype;       //selected marker type
-
-    /** reference to the toplevel widget's menu manager */
-    MenuManager &m_menu_manager;
 
     /** mode of the mouse cursor */
     MouseMode m_mouse_mode;

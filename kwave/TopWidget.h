@@ -140,10 +140,17 @@ private slots:
                        unsigned int rate, unsigned int bits);
 
     /**
+     * Called if the number of tracks has changed and updates
+     * the menu.
+     */
+    void setTrackInfo(unsigned int tracks);
+
+    /**
      * Updates the number of selected samples in the status bar.
+     * @param samples number of selected samples
      * @param ms length of the selected range [milliseconds]
      */
-    void setSelectedTimeInfo(double ms);
+    void setSelectedTimeInfo(unsigned int samples, double ms);
 
     /**
      * Sets the descriptions of the last undo and redo action. If the

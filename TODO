@@ -1,45 +1,27 @@
 
-o fix INSTALL procedure in RPM, it currently does not install files
-  with $(INSTALL_DATA)
+o check menu enry enable/disable conditions: Save/As works even 
+  when nothing is loaded
 
-o use sgml/docbook file instead of html help
-
-o undo and redo
-
-o clipboard
+o when pressing cancel during save, ask if the file should be deleted
+  or fixed instead of only truncating
 
 o implementation of locking, see SampleLock
 
-o warning before overwriting an existing file in SaveAs()
-
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
-
-o cancel button does not have any effect when saving
 
 o i18n for strings in main.cpp
 
 o get Xt toolkit options working again (like -geometry)
 
-o libkwave: memory mapping does not compile under some circumstances
-
 o Filter: class needs to be tested
 
 o Signal::resample should use lowpass interpolation instead of spline
-
-o libkwave/kwave: po/Makefile.am:  substitution for @USE_NLS@ did not work
 
 o TopWidget: re-enable drag&drop
 
 o check of all MessageBoxes
 
 o MainWidget: re-enable accelerator keys for 0..9
-
-o in MenuItem: re-enable Icons, usage of IconLoader has changed
-
-o when playback is active: mouse click changes start position for
-  next playback
-
-o create a ThreadCondition class for synchronizing
 
 o use a MenuManager in the plugins (e.g. sonagram)
 
@@ -61,15 +43,8 @@ o SignalProxy1 and SignalProxy should be merged
 o SignalProxy1 implementation is very inefficient for simple data types
   like bool, char, int etc. Uses to much new/delete.
 
-o links to the kwave help: do recursive cleanup in rpm's %postun section
-
 o check at program startup: does the help directory exist? If not, show
   a message and make a symbolic link
-
-o in some rare cases there are deadlocks if a plugin's thread does not
-  respond to stop() and has to be shut down. This blocks the whole
-  application. However, this should never happen if all plugins can
-  shut down synchronously / per stop()
 
 o look at CurveWidget::CurveWidget()
 o SignalWidget::appendLabel()
@@ -78,17 +53,7 @@ o SonagramWindow::toSignal()
 
 o in CurveWidget: something goes wrong when mirroring to left
 
-o possible memory leaks due to controls/menus in CurveWidget, FFTWindow
-
-o possible memory leak in MultiStateWidget: when do the images get released ?
-
 o rework of the FFTWidget
-
-o ClipBoard::appendChannel should append a _copy_ of the channel instead
-  of the channel itself (problem if channel gets deleted!)
-
-o search for plugins and other files only in the global directory,
-  use the .kde structure in the user's home directory too
 
 o bugfix: crash on "additive synthesis"
 

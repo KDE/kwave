@@ -67,13 +67,12 @@
 #endif
 
 //***************************************************************************
-SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
+SignalWidget::SignalWidget(QWidget *parent)
     :QWidget(parent),
     m_inhibit_repaint(0),
     m_signal_manager(this),
     m_refresh_timer(),
     m_track_pixmaps(),
-    m_menu_manager(menu_manager),
     m_mouse_mode(MouseNormal)
 {
 //    debug("SignalWidget::SignalWidget()");
@@ -341,8 +340,9 @@ void SignalWidget::slotSelectionChanged(unsigned int offset,
     m_signal_manager.selectRange(offset, length);
     refreshSelection();
 
-    emit selectedTimeInfo(samples2ms(
-	m_signal_manager.selection().length()));
+    unsigned int samples = m_signal_manager.selection().length();
+    double ms = samples2ms(samples);
+    emit selectedTimeInfo(samples, ms);
 }
 
 //***************************************************************************

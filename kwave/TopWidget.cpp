@@ -165,17 +165,18 @@ TopWidget::TopWidget(KwaveApp &main_app)
 //    connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
 //	    m_plugin_manager, SLOT(setSignalName(const QString &)));
 
+    // connect clicked menu entries with main communication channel of kwave
+    connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
+	    this, SLOT(executeCommand(const QString &)));
+
+
     KStatusBar *status_bar = statusBar();
     ASSERT(status_bar);
     if (!status_bar) return;
     status_bar->insertItem("", STATUS_ID_SIZE);
     status_bar->insertItem("", STATUS_ID_MODE);
     status_bar->insertItem("", STATUS_ID_SELECTED);
-    setStatusInfo(SAMPLE_MAX,99,196000,24);
-
-    // connect clicked menu entries with main communication channel of kwave
-    connect(m_menu_manager, SIGNAL(sigMenuCommand(const QString &)),
-	    this, SLOT(executeCommand(const QString &)));
+    setStatusInfo(SAMPLE_MAX,99,196000,24); // affects the menu !
 
 //    //enable drop of local files onto kwave window
 //    dropZone = new KDNDDropZone( this , DndURL);
@@ -193,7 +194,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     updateRecentFiles();
 
-    m_main_widget = new MainWidget(this, *m_menu_manager);
+    m_main_widget = new MainWidget(this);
     ASSERT(m_main_widget);
     if (!m_main_widget) return;
     if (!(m_main_widget->isOK())) {
@@ -205,11 +206,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
-	    this, SLOT(executeCommand(const QString &)));
-    connect(m_main_widget, SIGNAL(selectedTimeInfo(double)),
-	    this, SLOT(setSelectedTimeInfo(double)));
+            this, SLOT(executeCommand(const QString &)));
+    connect(m_main_widget, SIGNAL(selectedTimeInfo(unsigned int, double)),
+            this, SLOT(setSelectedTimeInfo(unsigned int, double)));
+    connect(m_main_widget, SIGNAL(sigTrackCount(unsigned int)),
+            this, SLOT(setTrackInfo(unsigned int)));
     connect(m_main_widget, SIGNAL(sigMouseChanged(int)),
-	    this, SLOT(mouseChanged(int)));
+            this, SLOT(mouseChanged(int)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -476,7 +479,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
     m_plugin_manager->loadAllPlugins();
     statusBar()->message(i18n("Ready."), 1000);
 
-    debug("TopWidget::TopWidget(): done."); // ###
+    setTrackInfo(0);
+    updateMenu();
 }
 
 //***************************************************************************
@@ -496,8 +500,6 @@ bool TopWidget::isOK()
 //***************************************************************************
 TopWidget::~TopWidget()
 {
-//    debug("TopWidget::~TopWidget()");
-
     // close the current file (no matter what the user wants)
     closeFile();
 
@@ -515,8 +517,6 @@ TopWidget::~TopWidget()
     m_menu_manager=0;
 
     m_app.closeWindow(this);
-
-//    debug("TopWidget::~TopWidget(): done.");
 }
 
 //***************************************************************************
@@ -544,8 +544,7 @@ void TopWidget::executeCommand(const QString &command)
 		params->append(par);
 	    }
 	}
-	debug("TopWidget::executeCommand(): loading plugin '%s'",
-            name.data());
+	debug("TopWidget::executeCommand(): loading plugin '%s'",name.data());
 	debug("TopWidget::executeCommand(): with %d parameter(s)",
 		(params) ? params->count() : 0);
 	ASSERT(m_plugin_manager);
@@ -647,7 +646,6 @@ void TopWidget::resolution(const QString &str)
 
     if ( (bps >= 0) && (bps <= 24) && (bps % 8 == 0)) {
 	m_save_bits = bps;
-	debug("m_save_bits=%d", m_save_bits);    // ###
     }
     else warning("out of range");
 }
@@ -666,8 +664,10 @@ bool TopWidget::closeFile()
     setCaption(0);
     m_zoomselect->clearEdit();
     emit sigSignalNameChanged(m_filename);
+
     updateMenu();
     updateToolbar();
+    setTrackInfo(0);
 
     return true;
 }
@@ -872,7 +872,6 @@ void TopWidget::selectZoom(int index)
 //***************************************************************************
 void TopWidget::setZoomInfo(double zoom)
 {
-//    debug("void TopWidget::setZoomInfo(%0.5f)", zoom);
     ASSERT(zoom >= 0);
     ASSERT(m_zoomselect);
 
@@ -895,7 +894,8 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
                               unsigned int rate, unsigned int bits)
 {
     ASSERT(statusBar());
-    if (!statusBar()) return;
+    ASSERT(m_menu_manager);
+    if (!statusBar() || !m_menu_manager) return;
     double ms;
     QString txt;
 
@@ -914,25 +914,44 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 	txt = txt.sprintf(txt, bits, (double)rate *1E-3);
     } else txt = "";
     statusBar()->changeItem(txt, STATUS_ID_MODE);
+
 }
 
 //***************************************************************************
-void TopWidget::setSelectedTimeInfo(double ms)
+void TopWidget::setTrackInfo(unsigned int tracks)
+{
+    ASSERT(m_menu_manager);
+    if (!m_menu_manager) return;
+
+    // update the list of deletable tracks
+    m_menu_manager->clearNumberedMenu("ID_EDIT_TRACK_DELETE");
+    QString buf;
+    for (unsigned int i = 0; i < tracks; i++) {
+	m_menu_manager->addNumberedMenuEntry("ID_EDIT_TRACK_DELETE",
+	                                     buf.setNum(i));
+    }
+
+    // enable/disable all items that depend on having a signal
+    bool have_signal = (tracks != 0);
+    m_menu_manager->setItemEnabled("@SIGNAL", have_signal);
+
+}
+
+//***************************************************************************
+void TopWidget::setSelectedTimeInfo(unsigned int samples, double ms)
 {
     ASSERT(statusBar());
     if (!statusBar()) return;
 
-    QString txt = " "+i18n("Selected: %1").arg(
-	KwavePlugin::ms2string(ms))+" ";
+    QString txt = " "+i18n("Selected: %1 (%2 samples)").arg(
+	KwavePlugin::ms2string(ms)).arg(samples)+" ";
 
-    unsigned int rate = signalManager().rate();
-    unsigned int samples = 0;
-    if (rate) {
-	samples = (unsigned int)(ms*1E-3* rate);
-	txt += i18n("(%2 samples)")+" ";
-	txt = txt.arg(samples);
+    if (samples != 1) {
+	statusBar()->message(txt, 4000);
+	m_menu_manager->setItemEnabled("@SELECTION", false);
+    } else {
+	m_menu_manager->setItemEnabled("@SELECTION", true);
     }
-    if (samples != 1) statusBar()->message(txt, 4000);
 }
 
 //***************************************************************************
@@ -995,8 +1014,9 @@ void TopWidget::mouseChanged(int mode)
 	{
 	    unsigned int rate = signalManager().rate();
 	    if (!rate) break;
-	    double ms = signalManager().selection().length() * 1E3 / rate;
-	    setSelectedTimeInfo(ms);
+	    unsigned int samples = signalManager().selection().length();
+	    double ms = samples * 1E3 / rate;
+	    setSelectedTimeInfo(samples, ms);
 	    break;
 	}
     }
@@ -1027,6 +1047,10 @@ void TopWidget::updateMenu()
 
     QString bps = QString("ID_FILE_SAVE_RESOLUTION_%1").arg(m_save_bits);
     m_menu_manager->selectItem("@BITS_PER_SAMPLE", bps);
+
+    // enable/disable all items that depend on having a filel
+    bool have_file = (m_filename.length() != 0);
+    m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);
 }
 
 //***************************************************************************

@@ -54,13 +54,13 @@ public:
     };
 
     /** returns a reference to the firstelement */
-    inline T1 &first()  { return m_first;  };
+    inline const T1 &first() const { return m_first;  };
 
     /** returns a reference to the second element */
-    inline T2 &second() { return m_second; };
+    inline const T2 &second() const { return m_second; };
 
     /** returns a reference to the third element */
-    inline T3 &third()  { return m_third;  };
+    inline const T3 &third()  const { return m_third;  };
 
 private:
     /** first element */

@@ -61,8 +61,8 @@ MultiTrackWriter &MultiTrackWriter::operator << (
     if (src_tracks != dst_tracks) {
 	// create a mixer matrix and pass everything through
 
-	// ### ALPHA: process sample per sample           ###
-	// ### still using the sampe code as in playback  ###
+	// ### ALPHA: process sample per sample          ###
+	// ### still using the same code as in playback  ###
 
 	// create a translation matrix for mixing up/down to the desired
 	// number of output channels

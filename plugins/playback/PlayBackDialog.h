@@ -22,15 +22,15 @@
 
 #include "PlayBackParam.h" // for playback_param_t
 
-class QLabel;
-class QFrame;
+class QButtonGroup;
 class QComboBox;
 class QCheckBox;
+class QFrame;
+class QLabel;
 class QRadioButton;
-class QButtonGroup;
+class QSlider;
 
 class KwavePlugin;
-class Slider;
 
 //*****************************************************************************
 class PlayBackDialog : public KDialog
@@ -62,7 +62,7 @@ private:
     playback_param_t m_playback_params;
 
     QLabel *m_buffer_label;
-    Slider *m_buffer_size;
+    QSlider *m_buffer_size;
     QLabel *m_device_label;
     QComboBox *m_device_box;
     QCheckBox *m_stereo;

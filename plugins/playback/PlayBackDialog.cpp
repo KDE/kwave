@@ -25,6 +25,7 @@
 #include <qradiobutton.h>
 #include <qbuttongroup.h>
 #include <qpushbutton.h>
+#include <qslider.h>
 #include <qkeycode.h>
 #include <qlayout.h>
 #include <qtooltip.h>
@@ -33,8 +34,6 @@
 #include <klocale.h>
 
 #include "libgui/KwavePlugin.h"
-#include "libgui/Slider.h"
-
 #include "PlayBackDialog.h"
 
 #ifndef max
@@ -183,7 +182,7 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const playback_param_t &params)
     //        OSS/Free only supports up to 16 bits :-(
 
     // -- buffer size --
-    m_buffer_size = new Slider(8, 16, 1, 5, Slider::Horizontal, this);
+    m_buffer_size = new QSlider(8, 16, 1, 5, QSlider::Horizontal, this);
     ASSERT(m_buffer_size);
     if (!m_buffer_size) return;
     m_buffer_size->setValue(m_playback_params.bufbase);

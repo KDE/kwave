@@ -21,7 +21,7 @@
 #include <qdialog.h>
 #include "libkwave/WindowFunction.h"
 
-class Slider;
+class QSlider;
 class QCheckBox;
 class QComboBox;
 class QLabel;
@@ -70,7 +70,7 @@ public slots:
     void setBoxPoints(int num);
 
 private:
-    Slider *m_pointslider;
+    QSlider *m_pointslider;
     QLabel *m_pointlabel;
     QLabel *m_windowlabel;
     QLabel *m_bitmaplabel;

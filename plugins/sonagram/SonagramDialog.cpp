@@ -29,13 +29,12 @@
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
+#include <qslider.h>
 #include <qstrlist.h>
 #include <qtooltip.h>
 
 #include "libkwave/WindowFunction.h"
-
 #include "libgui/KwavePlugin.h"
-#include "libgui/Slider.h"
 
 #include <klocale.h>
 
@@ -150,8 +149,8 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     ASSERT(m_bitmaplabel);
     if (!m_bitmaplabel) return;
 
-    m_pointslider = new Slider (2, (m_length / 16), 1, 5,
-	Slider::Horizontal, fft_frame);
+    m_pointslider = new QSlider (2, (m_length / 16), 1, 5,
+	QSlider::Horizontal, fft_frame);
     ASSERT(m_pointslider);
     if (!m_pointslider) return;
 

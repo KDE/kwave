@@ -107,9 +107,9 @@ DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
 	${MOC} $< -o $@
 
 %cc: %idl
-	${MCOPIDL} @ARTS_INCLUDES@ $<
+	${MCOPIDL} @MCOPIDL_INCLUDES@ $<
 
 %h: %idl
-	${MCOPIDL} @ARTS_INCLUDES@ $<
+	${MCOPIDL} @MCOPIDL_INCLUDES@ $<
 
 # end of Makefile.am

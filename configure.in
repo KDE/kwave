@@ -380,15 +380,21 @@ dnl AC_CHECK_FUNC(geteuid, AC_DEFINE(HAVE_GETEUID, 1, [geteuid]))
 AC_CHECK_FUNC(mkstemp, AC_DEFINE(HAVE_MKSTEMP, 1, [used for creating swap files]))
 AC_CHECK_FUNC(unlink,  AC_DEFINE(HAVE_UNLINK, 1, [used for unlinking swap files]))
 
-dnl get the correct aRts include directories...
-AC_MSG_CHECKING(for aRts includes)
+dnl get the correct aRts and mcopidl include directories...
+AC_MSG_CHECKING(for mcopidl includes)
 ac_arts_inc1="-I`$ARTSCCONFIG --arts-prefix | $SED s./\$..g`/include"
 ac_arts_inc2="-I`$ARTSCCONFIG --arts-prefix | $SED s./\$..g`/include/arts"
-ac_arts_inc3="`${ARTSCCONFIG} --cflags      | $SED s./\$..g`"
-ac_arts_inc4="`${ARTSCCONFIG} --cflags      | $SED s./\$..g | $SED s/artsc/arts/g `"
 
 dnl ...concatenate and eliminate duplicate entries...
-eval "ac_arts_includes=\"`echo -en ${ac_arts_inc1}\\\n${ac_arts_inc2}\\\n${ac_arts_inc3}\\\n${ac_arts_inc4} | $SED s.//./.g  | $SORT | $UNIQ`\""
+eval "ac_arts_includes=\"`echo -en ${ac_arts_inc1}\\\n${ac_arts_inc2} | $SED s.//./.g | $SORT | $UNIQ`\""
+eval "MCOPIDL_INCLUDES=\"`for dir in \`echo $ac_arts_includes\`; do { echo -n $dir " "; }; done `\""
+AC_MSG_RESULT(${MCOPIDL_INCLUDES})
+AC_SUBST(MCOPIDL_INCLUDES)
+
+AC_MSG_CHECKING(for aRts includes)
+ac_arts_inc3="`${ARTSCCONFIG} --cflags      | $SED s./\$..g`"
+ac_arts_inc4="`${ARTSCCONFIG} --cflags      | $SED s./\$..g | $SED s/artsc/arts/g `"
+eval "ac_arts_includes=\"`echo -en ${ac_arts_inc1}\\\n${ac_arts_inc2}\\\n${ac_arts_inc3}\\\n${ac_arts_inc4} | $SED s.//./.g | $SORT | $UNIQ`\""
 eval "ARTS_INCLUDES=\"`for dir in \`echo $ac_arts_includes\`; do { echo -n $dir " "; }; done `\""
 AC_MSG_RESULT(${ARTS_INCLUDES})
 AC_SUBST(ARTS_INCLUDES)

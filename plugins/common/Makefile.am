@@ -95,11 +95,11 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 
 %.cc: %.idl
 	@echo plugin \"$(MODNAME)\": creating idl implementation "'"$<"'"
-	@ ${MCOPIDL} @ARTS_INCLUDES@ $<
+	@ ${MCOPIDL} @MCOPIDL_INCLUDES@ $<
 
 %.h: %.idl
 	@echo plugin \"$(MODNAME)\": creating idl header "'"$<"'"
-	@ ${MCOPIDL} @ARTS_INCLUDES@ $<
+	@ ${MCOPIDL} @MCOPIDL_INCLUDES@ $<
 
 %.uih.h: %.ui
 	@echo plugin \"$(MODNAME)\": generating header from $<

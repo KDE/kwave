@@ -100,7 +100,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    qDebug("TrackPixmap::setOffset(): min_buffer : %u", m_min_buffer.size());
 	    qDebug("TrackPixmap::setOffset(): max_buffer : %u", m_max_buffer.size());
 	}
-	
+
 	// check for misaligned offset changes
 	if ((  offset % (unsigned int)ceil(m_zoom)) !=
 	    (m_offset % (unsigned int)ceil(m_zoom))) {
@@ -112,7 +112,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    	offset, offset % pixels2samples(1));
 	    qWarning("TrackPixmap::setOffset(): "\
 	    	"now I have to throw away the whole buffer :-((");
-	
+
 	    qDebug("TrackPixmap::setOffset(%u): "\
 		"misaligned->invalidating buffer", offset);
 #endif
@@ -151,7 +151,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	// move content of sample buffer
 	// one buffer element = one sample
 	Q_ASSERT(buflen == m_sample_buffer.size());
-	
+
 	if (offset > m_offset) {
 	    // move left
 //	    qDebug("TrackPixmap::setOffset(): moving left (normal)"); // ###
@@ -281,20 +281,20 @@ bool TrackPixmap::validateBuffer()
 	// find the first invalid index
 	for (first=last; (first < buflen) && m_valid.testBit(first);
 		++first);
-	
+
 	// break if the first index is out of range
 	if (first >= buflen) return false; // buffer is already ok
-	
+
 	// find the last invalid index
 	for (last=first; (last < buflen) && !m_valid[last]; ++last);
-	
+
 	if (last >= buflen) last = buflen-1;
 	if ((last > first) && (m_valid[last])) --last;
-	
+
 	// fill our array(s) with fresh sample data
 	if (m_minmax_mode) {
 	    // indices are in pixels, convert to samples
-	
+
 	    // first sample in first pixel
 	    unsigned int s1 = m_offset +
 		(unsigned int)floor(first * m_zoom);
@@ -302,21 +302,21 @@ bool TrackPixmap::validateBuffer()
 	    unsigned int s2 = m_offset +
 		(unsigned int)floor((last+1) * m_zoom)-1;
 
-	    // open a reader for the whole modified range	
+	    // open a reader for the whole modified range
 	    SampleReader *in = m_track.openSampleReader(s1, s2);
 	    Q_ASSERT(in);
 	    if (!in) break;
-	
+
 	    // allocate a buffer for one more sample (pixels2samples may
 	    // vary by +/-1 !
 	    QMemArray<sample_t> buffer((int)ceil(m_zoom));
 	    sample_t min;
 	    sample_t max;
-	
+
 	    while (first <= last) {
 		// NOTE: s2 is exclusive!
 		s2 = m_offset + (unsigned int)floor((first+1)*m_zoom);
-		
+
 		// get min/max for interval [s1...s2[
 		unsigned int count = in->read(buffer, 0, s2-s1);
 		if (count) {
@@ -332,11 +332,11 @@ bool TrackPixmap::validateBuffer()
 		    // no data available, set zeroes
 		    min = max = 0;
 		}
-		
+
 		m_min_buffer[first] = min;
 		m_max_buffer[first] = max;
 		m_valid.setBit(first);
-		
+
 		// advance to the next position
 		++first;
 		s1 = s2;
@@ -349,21 +349,21 @@ bool TrackPixmap::validateBuffer()
 		m_offset+first, m_offset+last);
 	    Q_ASSERT(in);
 	    if (!in) break;
-	
+
 	    // read directly into the buffer
 	    unsigned int count = in->read(m_sample_buffer, first,
 		last-first+1);
 	    while (count--) m_valid.setBit(first++);
-	
+
 	    // fill the rest with zeroes
 	    while (first <= last) {
 		m_valid.setBit(first);
 		m_sample_buffer[first++] = 0;
 	    }
-	
+
 	    delete in;
 	}
-	
+
 	Q_ASSERT(first >= last);
         ++last;
     }
@@ -394,7 +394,7 @@ void TrackPixmap::repaint()
     if (m_zoom ) {
 	// first make the buffer valid
 	validateBuffer();
-	
+
 	// then draw the samples
 	if (m_minmax_mode) {
 	    drawOverview(p, h>>1, h, 0, w-1);
@@ -405,7 +405,7 @@ void TrackPixmap::repaint()
 		drawPolyLineSignal(p, w, h>>1, h);
 	    }
 	}
-	
+
 	// draw the zero-line
 	int last = samples2pixels(m_track.length()-1 - m_offset);
 	p.setPen(m_color_zero);
@@ -582,7 +582,7 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	y = 0.0;
 	for (k = 0; k <= N; k++)
 	    y += *(sig--) * m_interpolation_alpha[k];
-	
+
 	points->setPoint(i, i, middle - (int)y);
     }
 
@@ -653,18 +653,18 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 	int x2;
 	float y1;
 	float y2;
-	
+
 	x1 = samples2pixels(sample - 1);
 	x2 = samples2pixels(sample);
-	
+
 	y1 = ((sample) && (sample <= buflen)) ?
 	    (int)(scale_y * m_sample_buffer[sample-1]) : 0.0;
 	y2 = (sample < buflen) ?
 	    (int)(scale_y * m_sample_buffer[sample]) : 0.0;
-	
+
 	x = width - 1;
 	y = (int)((float)(x - x1) * (float)(y2 - y1) / (float)(x2 - x1));
-	
+
 	points->setPoint(i++, x, middle - y);
     }
 
@@ -685,16 +685,16 @@ void TrackPixmap::slotSamplesInserted(Track &, unsigned int offset,
 {
     {
 	MutexGuard lock(m_lock_buffer);
-	
+
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
-	
+
 	Q_ASSERT(offset < m_valid.size());
 	Q_ASSERT(offset + length <= m_valid.size());
-	
+
 	// mark all positions from here to right end as "invalid"
 	while (offset < m_valid.size()) m_valid.clearBit(offset++);
-	
+
 	// repaint of the signal is needed
 	m_modified = true;
     }
@@ -709,16 +709,16 @@ void TrackPixmap::slotSamplesDeleted(Track &, unsigned int offset,
 {
     {
 	MutexGuard lock(m_lock_buffer);
-	
+
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
-	
+
 	Q_ASSERT(offset < m_valid.size());
 	Q_ASSERT(offset + length <= m_valid.size());
-	
+
 	// mark all positions from here to right end as "invalid"
 	while (offset < m_valid.size()) m_valid.clearBit(offset++);
-	
+
 	// repaint of the signal is needed
 	m_modified = true;
     }
@@ -733,16 +733,16 @@ void TrackPixmap::slotSamplesModified(Track &, unsigned int offset,
 {
     {
 	MutexGuard lock(m_lock_buffer);
-	
+
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
-	
+
 	Q_ASSERT(offset < m_valid.size());
 	Q_ASSERT(offset + length <= m_valid.size());
-	
+
 	// mark all overlapping positions as "invalid"
 	while (length--) m_valid.clearBit(offset++);
-	
+
 	// repaint of the signal is needed
 	m_modified = true;
     }
@@ -763,7 +763,11 @@ void TrackPixmap::convertOverlap(unsigned int &offset, unsigned int &length)
     }
 
     unsigned int buflen = m_valid.size();
-    Q_ASSERT(buflen);
+    if (!buflen) {
+        offset = 0;
+	length = 0;
+        return;
+    }
 
     // calculate the length
     if (m_minmax_mode) {
@@ -786,7 +790,7 @@ void TrackPixmap::convertOverlap(unsigned int &offset, unsigned int &length)
     if (m_minmax_mode) {
 	// attention: round down in this mode!
 	unsigned int ofs = (unsigned int)floor(offset / m_zoom);
-	
+
 	// if offset was rounded down, increment length
 	if (ofs != (unsigned int)ceil(offset / m_zoom)) length++;
 	offset = ofs;

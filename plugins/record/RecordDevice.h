@@ -39,6 +39,15 @@ public:
      */
     virtual int open(const QString &dev);
 
+    /**
+     * Read the raw audio data from the record device.
+     * @param buffer pointer to the array of bytes to receive the audio data
+     * @param length size of the buffer
+     * @return number of bytes read, zero or negative if failed
+     */
+    virtual int read(unsigned char *buffer, unsigned int length);
+
+
     /** Close the device */
     virtual int close();
 

@@ -30,6 +30,7 @@
 #include "RecordDevice.h"
 #include "RecordDialog.h"
 #include "RecordPlugin.h"
+#include "RecordThread.h"
 
 KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
 
@@ -55,7 +56,7 @@ public:
 //***************************************************************************
 RecordPlugin::RecordPlugin(PluginContext &context)
     :KwavePlugin(context), m_state(REC_EMPTY), m_device(0),
-     m_dialog(0)
+     m_dialog(0), m_thread(0)
 {
     i18n("record");
 }
@@ -79,6 +80,15 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     m_dialog = new RecordDialog(parentWidget(), previous_params, &controller);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return 0;
+
+    // create the lowlevel recording thread
+    m_thread = new RecordThread();
+    Q_ASSERT(m_thread);
+    if (!m_thread) {
+	delete m_dialog;
+	m_dialog = 0;
+	return 0;
+    }
 
     // connect some signals of the setup dialog
     connect(m_dialog, SIGNAL(deviceChanged(const QString &)),
@@ -129,6 +139,10 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 
     if (m_dialog) delete m_dialog;
     m_dialog = 0;
+
+    if (m_thread) delete m_thread;
+    m_thread = 0;
+
     return list;
 }
 
@@ -424,22 +438,53 @@ void RecordPlugin::changeSampleFormat(int new_format)
 void RecordPlugin::resetRecording()
 {
     qDebug("RecordPlugin::resetRecording()");
+
+    // delete all recorded threads and start again...
+
 }
 
 //***************************************************************************
 void RecordPlugin::startRecording()
 {
+    Q_ASSERT(m_dialog);
+    Q_ASSERT(m_thread);
+    Q_ASSERT(m_device);
+    if (!m_dialog || !m_thread || !m_device) return;
+
     qDebug("RecordPlugin::startRecording()");
-    emit sigStarted();
-    emit sigBufferFull();
-    emit sigTriggerReached();
+
+    // create new and empty tracks
+    // ### TODO ###
+
+    // stop the device if necessary (should never happen)
+    Q_ASSERT(!m_thread->running());
+    if (m_thread->running()) m_thread->stop();
+    Q_ASSERT(!m_thread->running());
+
+    // start the recording thread
+    m_thread->setRecordDevice(m_device);
+    m_thread->setBuffers(32, 65536);
+    m_thread->start();
+
+    // do the recording stuff...
+    // ### TODO ###
+    // while (!stopped) {
+    //    record
+    // }
+
+    // update the file info
+    // ### TODO ###
 }
 
 //***************************************************************************
 void RecordPlugin::stopRecording()
 {
+    Q_ASSERT(m_dialog);
+    Q_ASSERT(m_thread);
+    if (!m_dialog || !m_thread) return;
+
     qDebug("RecordPlugin::stopRecording()");
-    emit sigStopped();
+    m_thread->stop();
 }
 
 //***************************************************************************

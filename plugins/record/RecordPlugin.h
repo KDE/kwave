@@ -27,6 +27,7 @@
 class QStringList;
 class RecordDevice;
 class RecordDialog;
+class RecordThread;
 
 class RecordPlugin: public KwavePlugin
 {
@@ -41,7 +42,6 @@ public:
 
     /** @see KwavePlugin::setup() */
     virtual QStringList *setup(QStringList &previous_params);
-
 
 signals:
 
@@ -116,6 +116,9 @@ private:
 
     /** setup dialog */
     RecordDialog *m_dialog;
+
+    /** the thread for recording */
+    RecordThread *m_thread;
 
 };
 

@@ -80,6 +80,13 @@ private:
     /** current state of the recording engine */
     RecordState m_state;
 
+    /**
+     * state of the recording engine after finishing the last action, not
+     * needed for all state changes.
+     */
+    RecordState m_next_state;
+
+
     /** use a trigger */
     bool m_trigger_set;
 

@@ -36,8 +36,8 @@ static const char *state2str(const RecordState state)
 
 //***************************************************************************
 RecordController::RecordController()
-    :QObject(), m_state(REC_EMPTY), m_trigger_set(false),
-     m_use_prerecording(false)
+    :QObject(), m_state(REC_EMPTY), m_next_state(REC_EMPTY),
+     m_trigger_set(false), m_use_prerecording(false)
 {
 }
 
@@ -65,11 +65,12 @@ void RecordController::actionReset()
 	    emit stateChanged(m_state = REC_WAITING_FOR_TRIGGER);
 	    break;
 	case REC_PAUSED:
+	case REC_DONE:
 	    // stop recording and reset
 	    emit sigReset();
-	    break;
-	case REC_DONE:
-	    emit sigReset();
+
+	    qDebug("RecordController::actionReset -> REC_EMPTY");
+	    emit stateChanged(m_state = REC_EMPTY);
 	    break;
     }
 }
@@ -86,9 +87,13 @@ void RecordController::actionStop()
 	case REC_BUFFERING:
 	case REC_WAITING_FOR_TRIGGER:
 	case REC_PRERECORDING:
+	    // abort, change to REC_EMPTY
+	    emit sigStopRecord();
+	    break;
 	case REC_RECORDING:
 	case REC_PAUSED:
-	    // abort, change to REC_EMPTY or REC_DONE
+	    // abort, change to REC_DONE
+	    m_next_state = REC_DONE;
 	    emit sigStopRecord();
 	    break;
     }
@@ -112,6 +117,7 @@ void RecordController::actionPause()
 	    break;
 	case REC_RECORDING:
 	    // pause recording
+	    m_next_state = REC_PAUSED;
 	    emit sigStopRecord();
 	    break;
 	case REC_PAUSED:
@@ -151,6 +157,7 @@ void RecordController::deviceRecordStarted()
     switch (m_state) {
 	case REC_EMPTY:
 	case REC_PAUSED:
+	case REC_DONE:
 	    // continue, pre-recording or trigger
 	    qDebug("RecordController::deviceRecordStarted -> REC_BUFFERING");
 	    emit stateChanged(m_state = REC_BUFFERING);
@@ -159,7 +166,6 @@ void RecordController::deviceRecordStarted()
 	case REC_WAITING_FOR_TRIGGER:
 	case REC_PRERECORDING:
 	case REC_RECORDING:
-	case REC_DONE:
 	    // this should never happen
 	    qWarning("RecordController::deviceRecordStarted(): "
 	             "state = %s ???", state2str(m_state));
@@ -246,13 +252,28 @@ void RecordController::deviceRecordStopped()
 	case REC_BUFFERING:
 	case REC_PRERECORDING:
 	case REC_WAITING_FOR_TRIGGER:
-	    // abort, no real data preoduced
+	    // abort, no real data produced
 	    qDebug("RecordController::deviceRecordStopped -> REC_EMPTY");
 	    emit stateChanged(m_state = REC_EMPTY);
 	    break;
 	case REC_RECORDING:
+	    // recording -> pause or done
+	    switch (m_next_state) {
+		case REC_PAUSED:
+		    qDebug("RecordController::deviceRecordStopped -> REC_PAUSED");
+		    emit stateChanged(m_state = REC_PAUSED);
+		    break;
+		case REC_DONE:
+		    qDebug("RecordController::deviceRecordStopped -> REC_DONE");
+		    emit stateChanged(m_state = REC_DONE);
+		    break;
+		default:
+		    qWarning("RecordController::deviceRecordStopped(): "
+		             "next state = %s ???", state2str(m_next_state));
+	    }
+	    break;
 	case REC_PAUSED:
-	    // recording done
+	    // pause -> done
 	    qDebug("RecordController::deviceRecordStopped -> REC_DONE");
 	    emit stateChanged(m_state = REC_DONE);
 	    break;

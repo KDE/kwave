@@ -17,14 +17,15 @@
 
 #include "config.h"
 
-#include <byteswap.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/ioctl.h>
+#include <sys/soundcard.h>
+#include <byteswap.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <math.h>
-#include <sys/soundcard.h>
+#include <errno.h>
 
 #include "libkwave/CompressionType.h"
 #include "libkwave/SampleFormat.h"
@@ -58,6 +59,17 @@ int RecordDevice::open(const QString &dev)
 
     m_fd = fd;
     return m_fd;
+}
+
+//***************************************************************************
+int RecordDevice::read(unsigned char *buffer, unsigned int length)
+{
+    Q_ASSERT(m_fd >= 0);
+    Q_ASSERT(buffer);
+    if (m_fd < 0) return -EBADF; // file not opened
+    if (!buffer) return -EINVAL; // buffer is null pointer
+
+    return ::read(m_fd, buffer, length);
 }
 
 //***************************************************************************

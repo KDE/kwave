@@ -558,6 +558,7 @@ void RecordDialog::setState(RecordState state)
     m_state = state;
     switch (state) {
 	case REC_EMPTY:
+	    lbl_state->setText(i18n("(empty)"));
 	    enable_new      = true;
 	    enable_pause    = false;
 	    enable_stop     = false;
@@ -565,6 +566,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_settings = true;
 	    break;
 	case REC_BUFFERING:
+	    lbl_state->setText(i18n(""));
 	    enable_new      = true; /* throw away current FIFO content */
 	    enable_pause    = true;
 	    enable_stop     = true;
@@ -572,6 +574,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_settings = false;
 	    break;
 	case REC_PRERECORDING:
+	    lbl_state->setText(i18n("prerecording..."));
 	    enable_new      = false;
 	    enable_pause    = false;
 	    enable_stop     = true;
@@ -579,6 +582,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_settings = false;
 	    break;
 	case REC_WAITING_FOR_TRIGGER:
+	    lbl_state->setText(i18n("waiting for trigger..."));
 	    enable_new      = false;
 	    enable_pause    = false;
 	    enable_stop     = true;
@@ -586,6 +590,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_settings = false;
 	    break;
 	case REC_RECORDING:
+	    lbl_state->setText(i18n("recording..."));
 	    enable_new      = false;
 	    enable_pause    = true;
 	    enable_stop     = true;
@@ -593,6 +598,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_settings = false;
 	    break;
 	case REC_PAUSED:
+	    lbl_state->setText(i18n("paused"));
 	    enable_new      = true; /* start again */
 	    enable_pause    = true; /* used for "continue" */
 	    enable_stop     = true;
@@ -600,6 +606,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_settings = false;
 	    break;
 	case REC_DONE:
+	    lbl_state->setText(i18n("done."));
 	    enable_new      = true;
 	    enable_pause    = false;
 	    enable_stop     = false;

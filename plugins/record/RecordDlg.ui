@@ -8,14 +8,14 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>633</width>
-            <height>454</height>
+            <width>751</width>
+            <height>485</height>
         </rect>
     </property>
     <property name="caption">
         <string>Record</string>
     </property>
-    <vbox>
+    <grid>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
@@ -25,7 +25,7 @@
         <property name="spacing">
             <number>10</number>
         </property>
-        <widget class="QTabWidget">
+        <widget class="QTabWidget" row="0" column="0">
             <property name="name">
                 <cstring>tabRecord</cstring>
             </property>
@@ -1152,7 +1152,7 @@
                 </vbox>
             </widget>
         </widget>
-        <widget class="QLayoutWidget">
+        <widget class="QLayoutWidget" row="1" column="0">
             <property name="name">
                 <cstring>layout10</cstring>
             </property>
@@ -1197,7 +1197,7 @@
                 </widget>
             </grid>
         </widget>
-        <widget class="QFrame">
+        <widget class="QFrame" row="2" column="0">
             <property name="name">
                 <cstring>frame3</cstring>
             </property>
@@ -1214,7 +1214,7 @@
                 <enum>Raised</enum>
             </property>
         </widget>
-        <widget class="QLayoutWidget">
+        <widget class="QLayoutWidget" row="3" column="0">
             <property name="name">
                 <cstring>layout6</cstring>
             </property>
@@ -1260,7 +1260,43 @@
                 </widget>
             </hbox>
         </widget>
-    </vbox>
+        <widget class="QFrame" row="4" column="0">
+            <property name="name">
+                <cstring>frm_state</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>Box</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>0</number>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>lbl_state</cstring>
+                    </property>
+                    <property name="frameShape">
+                        <enum>Panel</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Sunken</enum>
+                    </property>
+                    <property name="text">
+                        <string>STATE</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </grid>
 </widget>
 <customwidgets>
     <customwidget>

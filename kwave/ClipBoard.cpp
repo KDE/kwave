@@ -76,8 +76,10 @@ void ClipBoard::openMultiTrackReader(MultiTrackReader &readers)
     unsigned int count = m_buffer.count();
     readers.setAutoDelete(true);
     readers.clear();
-    readers.resize(count);
+    ASSERT(length());
+    if (!length()) return; // clipboard is empty ?
 
+    readers.resize(count);
     QListIterator<Track> it(m_buffer);
     unsigned int i = 0;
     for ( ; it.current(); ++it ) {
@@ -85,7 +87,7 @@ void ClipBoard::openMultiTrackReader(MultiTrackReader &readers)
 	ASSERT(track);
 	if (!track) continue;
 	
-	SampleReader *reader = track->openSampleReader();
+	SampleReader *reader = track->openSampleReader(0, length()-1);
 	ASSERT(reader);
 	if (reader) readers.insert(i++, reader);
     }

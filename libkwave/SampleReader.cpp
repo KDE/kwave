@@ -60,7 +60,7 @@ void SampleReader::fillBuffer()
 
     QListIterator<Stripe> it(m_stripes);
     unsigned int rest = m_buffer.size();/* - m_buffer_used (is 0) */
-    if (m_src_position+rest > m_last+1) rest = m_last+1 - m_src_position;
+    if (m_src_position+rest-1 > m_last) rest = (m_last-m_src_position+1);
     ASSERT(rest);
 
     for (; rest && it.current(); ++it) {
@@ -133,7 +133,7 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
 
     // take the rest directly out of the stripe(s)
     QListIterator<Stripe> it(m_stripes);
-    if (m_src_position+rest > m_last+1) rest = m_last+1 - m_src_position;
+    if (m_src_position+rest-1 > m_last) rest = (m_last - m_src_position)+1;
 
     for (; rest && it.current(); ++it) {
 	Stripe *s = it.current();

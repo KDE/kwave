@@ -23,13 +23,15 @@
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
 
+#define BUFFER_SIZE (64*1024)
+
 //***************************************************************************
 SampleWriter::SampleWriter(Track &track, QList<Stripe> &stripes,
 	SampleLock *lock, InsertMode mode, unsigned int left,
 	unsigned int right)
     :QObject(), m_first(left), m_last(right), m_mode(mode), m_track(track),
-     m_stripes(stripes), m_lock(lock), m_position(left), m_buffer(64*1024),
-     m_buffer_used(0)
+     m_stripes(stripes), m_lock(lock), m_position(left),
+     m_buffer(BUFFER_SIZE), m_buffer_used(0)
 {
 }
 
@@ -70,10 +72,14 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
 
     // transfer data, using our internal buffer
     unsigned int buflen = m_buffer.size();
+
     while (!reader.eof() && (m_position <= m_last)) {
-	if (m_position + buflen > m_last+1) buflen = m_last - m_position + 1;
+	if (m_position+buflen-1 > m_last) buflen = (m_last-m_position)+1;
 	
 	m_buffer_used = reader.read(m_buffer, 0, buflen);
+	ASSERT(m_buffer_used);
+	if (!m_buffer_used) break;
+	
 	flush();
     }
 
@@ -136,8 +142,8 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 		    unsigned int offset = m_position - st;
 		    unsigned int length = len - offset;
 		    if (length > count) length = count;
-		    if (m_position+length > m_last+1)
-			length = m_last-m_position+1;
+		    if (m_position+length-1 > m_last)
+			length = (m_last-m_position)+1;
 		    ASSERT(length);
 		
 		    // copy the portion of our buffer to the target

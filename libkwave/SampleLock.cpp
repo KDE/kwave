@@ -19,7 +19,7 @@
 #include "libkwave/Track.h"
 
 //***************************************************************************
-SampleLock::SampleLock(Track &track, unsigned int offset,
+SampleLock::SampleLock(Track & /* track */, unsigned int offset,
                        unsigned int length, LockMode mode)
     :m_mode(mode), m_offset(offset), m_length(length)
 {

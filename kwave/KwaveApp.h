@@ -25,6 +25,7 @@
 #include <kapp.h>
 
 class ClipBoard;
+class KURL;
 class MemoryManager;
 class QString;
 class TopWidget;
@@ -70,12 +71,12 @@ public:
     /**
      * Opens a new toplevel window. If a filename is specified the will
      * will be opened (should be a .wav-file).
-     * @param filename name of the .wav file, (optional, might be zero)
+     * @param url URL of the file to be loaded, (optional, might be empty)
      * @return true if succeeded
      * @see #closeWindow()
      * @see TopWidget
      */
-    bool newWindow(const QString &filename);
+    bool newWindow(const KURL &url);
 
     /**
      * Closes a previously opened toplevel window.

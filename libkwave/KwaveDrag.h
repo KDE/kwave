@@ -81,17 +81,16 @@ public:
     /**
      * Decodes the encoded byte data of the given mime source and
      * initializes a MultiTrackReader.
-     * @param rate receives the sample rate of the signal [samples/sec]
+     * @param e mime source
      * @param sig signal that receives the mime data
-     * @param bits receives resolution [bits per sample]
+     * @return true if successful, false if failed
      */
-    static bool decode(const QMimeSource *e, Signal &sig, unsigned int &rate,
-                       unsigned int &bits);
+    static bool decode(const QMimeSource *e, Signal &sig);
 
 private:
 
     /** simple array for storage of the wave data */
-    QByteArray data;
+    QByteArray m_data;
 
 };
 

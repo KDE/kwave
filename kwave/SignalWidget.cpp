@@ -38,7 +38,6 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
-#include "libkwave/WavFileFormat.h"
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
@@ -232,11 +231,11 @@ SignalWidget::~SignalWidget()
 int SignalWidget::saveFile(const QString &filename, unsigned int bits,
                            int type, bool selection)
 {
-    if (type == ASCII) {
-	return m_signal_manager.exportAscii(filename);
-    } else {
-	return m_signal_manager.save(filename, bits, selection);
-    }
+//    if (type == ASCII) {
+//	return m_signal_manager.exportAscii(filename);
+//    } else {
+//	return m_signal_manager.save(filename, bits, selection);
+//    }
 }
 
 //***************************************************************************
@@ -431,13 +430,13 @@ SignalManager &SignalWidget::signalManager()
 }
 
 //***************************************************************************
-int SignalWidget::loadFile(const QString &filename, int type)
+int SignalWidget::loadFile(const KURL &url)
 {
     // close the previous signal
     close();
 
     // load a new signal
-    int res = m_signal_manager.loadFile(filename, type);
+    int res = m_signal_manager.loadFile(url);
     ASSERT(m_signal_manager.length());
     if (m_signal_manager.isClosed() || (res)) {
 	warning("SignalWidget::loadFile() failed:"\
@@ -1830,10 +1829,8 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	MultiTrackReader src;
 	MultiTrackWriter dst;
 	Signal sig;
-	unsigned int rate = 0;
-	unsigned int bits = 0;
 	
-	if (KwaveDrag::decode(event, sig, rate, bits)) {
+	if (KwaveDrag::decode(event, sig)) {
 	    InhibitRepaintGuard inhibit(*this);
 	    unsigned int pos = m_offset + pixels2samples(event->pos().x());
 	    unsigned int len = sig.length();

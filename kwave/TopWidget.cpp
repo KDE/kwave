@@ -43,7 +43,6 @@
 #include "libkwave/FileLoader.h"
 #include "libkwave/LineParser.h"
 #include "libkwave/Parser.h"
-#include "libkwave/WavFileFormat.h"
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
@@ -598,12 +597,7 @@ void TopWidget::executeCommand(const QString &command)
 	QString filename = parser.nextParam();
 	if (!filename.isEmpty()) {
 	    // open the selected file
-	    int len = filename.length();
-	    if (filename.lower().findRev(".wav") == len-4) {
-		loadFile(filename, WAV);
-	    } else if (filename.lower().findRev(".asc") == len-4) {
-		loadFile(filename, ASCII);
-	    }
+	    loadFile(filename);
 	} else {
 	    // show file open dialog
 	    openFile();
@@ -669,7 +663,7 @@ void TopWidget::parseCommands(const QByteArray &buffer)
 void TopWidget::revert()
 {
     QString name = m_filename;
-    loadFile(name, WAV);
+//    loadFile(name, WAV);
 }
 
 //***************************************************************************
@@ -717,22 +711,22 @@ bool TopWidget::closeFile()
 }
 
 //***************************************************************************
-int TopWidget::loadFile(const QString &filename, int type)
+int TopWidget::loadFile(const KURL &url)
 {
     ASSERT(m_main_widget);
     if (!m_main_widget) return -1;
 
-    // abort if new file not valid
-    ASSERT(filename.length());
-    if (!filename.length()) return -1;
+    // abort if new file not valid and local
+    ASSERT(url.isLocalFile());
+    if (!url.isLocalFile()) return -1;
 
     // try to close the previous file
     if (!closeFile()) return -1;
 
-    m_filename = filename;
+    m_filename = url.path();
     emit sigSignalNameChanged(m_filename);
 
-    if (!m_main_widget->loadFile(filename, type)) {
+    if (!m_main_widget->loadFile(url)) {
 	// succeeded
 	updateCaption();
 	m_save_bits = m_main_widget->bits();
@@ -751,7 +745,7 @@ int TopWidget::loadFile(const QString &filename, int type)
 void TopWidget::openRecent(const QString &str)
 {
     Parser parser(str);
-    loadFile(parser.firstParam(), WAV);
+    loadFile(parser.firstParam());
 }
 
 //***************************************************************************
@@ -759,24 +753,21 @@ void TopWidget::openFile()
 {
     QString filename = KFileDialog::getOpenFileName(
 	":kwave-open-dir", "*.wav", this);
-    if (filename.length()) loadFile(filename, WAV);
+    if (filename.length()) loadFile(filename);
 }
 
 //***************************************************************************
 void TopWidget::importAsciiFile()
 {
-    QString filename = KFileDialog::getOpenFileName(
-	":kwave-open-dir", "*.asc", this);
-    if (filename.length()) loadFile(filename, ASCII);
 }
 
 //***************************************************************************
 void TopWidget::exportAsciiFile()
 {
-    QString filename = KFileDialog::getOpenFileName(
-	":kwave-open-dir", "*.asc", this);
-    if (filename.length()) m_main_widget->saveFile(filename,
-    	m_save_bits, ASCII, false);
+//    QString filename = KFileDialog::getOpenFileName(
+//	":kwave-open-dir", "*.asc", this);
+//    if (filename.length()) m_main_widget->saveFile(filename,
+//    	m_save_bits, "audio/x-kwave-ascii", false);
 }
 
 //***************************************************************************

@@ -32,11 +32,7 @@
 #include <klocale.h>
 #include <knuminput.h>
 
-#include "libkwave/WavFileFormat.h"
 #include "NewSignalDialog.h"
-
-/** size of all header and structure information of a canonical wav file */
-#define WAV_FILE_OVERHEAD (sizeof(wav_header_t) + 8)
 
 //***************************************************************************
 NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
@@ -185,7 +181,6 @@ double NewSignalDialog::maxSamples()
 {
     unsigned int bytes_per_sample = bitsPerSample() >> 3;
     unsigned int max_file_size = UINT_MAX;
-    max_file_size -= WAV_FILE_OVERHEAD;
 
     return floor(max_file_size / tracks() / bytes_per_sample);
 }
@@ -331,7 +326,7 @@ void NewSignalDialog::updateFileSize()
 {
     double samples = edSamples->value();
     double mbytes = samples * (double)tracks() *
-                    (double)(bitsPerSample() >> 3) + WAV_FILE_OVERHEAD;
+                    (double)(bitsPerSample() >> 3);
     mbytes /= 1024.0; // to kilobytes
     mbytes /= 1024.0; // to megabytes
 

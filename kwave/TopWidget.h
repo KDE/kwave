@@ -30,6 +30,7 @@ class KCombo;
 class KDNDDropZone;
 class KToolBar;
 class KStatusBar;
+class KURL;
 
 class KwaveApp;
 class MenuManager;
@@ -68,11 +69,10 @@ public:
     /**
      * Loads a new file and updates the widget's title, menu, status bar
      * and so on.
-     * @param filename path to the file to be loaded
-     * @param type format of the file (WAV or ASCII)
+     * @param url URL of the file to be loaded
      * @return 0 if successful
      */
-    int loadFile(const QString &filename, int type = 0);
+    int loadFile(const KURL &url);
 
     /**
      * Returns the reference to the Kwave application

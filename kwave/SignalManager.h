@@ -36,6 +36,7 @@
 class QBitmap;
 class QFile;
 class ClipBoard;
+class KURL;
 class MultiTrackReader;
 class MultiTrackWriter;
 class Track;
@@ -59,11 +60,10 @@ public:
 
     /**
      * Closes the current signal and loads a new file.
-     * @param filename path to the file
-     * @param type 0=wav, 1=ascii
+     * @param url URL of the file to be loaded
      * @return 0 if succeeded or error code < 0
      */
-    int loadFile(const QString &filename, int type = 0);
+    int loadFile(const KURL &url);
 
     /**
      * Closes the current signal and creates a new empty signal.
@@ -92,7 +92,7 @@ public:
     /** Returns a reference to the playback controller. */
     PlaybackController &playbackController();
 
-    /** */
+    /** Executes a Kwave text command */
     bool executeCommand(const QString &command);
 
     /**
@@ -112,7 +112,7 @@ public:
     inline unsigned int bits() { return m_signal.bits(); };
 
     /** Returns the current sample rate in samples per second */
-    inline int rate() { return m_rate; };
+    inline int rate() { return m_signal.rate(); };
 
     /** Returns the current number of tracks */
     inline unsigned int tracks() { return m_signal.tracks(); };
@@ -588,60 +588,6 @@ private:
     void freeUndoMemory(unsigned int needed);
 
     /**
-     * Try to find a chunk within a RIFF file. If the chunk
-     * was found, the current position will be at the start
-     * of the chunk's data.
-     * @param sigfile file to read from
-     * @param chunk name of the chunk
-     * @param offset the file offset for start of the search
-     * @return the size of the chunk, 0 if not found
-     */
-    __uint32_t findChunk(QFile &sigfile, const char *chunk,
-	__uint32_t offset = 12);
-
-    /**
-     * Imports ascii file with one sample per line and only one
-     * track. Everything that cannot be parsed by strod will be ignored.
-     * @return 0 if succeeded or error number if failed
-     */
-    int loadAscii();
-
-    /**
-     * Loads a .wav-File.
-     * @return 0 if succeeded or a negative error number if failed:
-     *           -ENOENT if file does not exist,
-     *           -ENODATA if the file has no data chunk or is zero-length,
-     *           -EMEDIUMTYPE if the file has an invalid/unsupported format
-     */
-    int loadWav();
-
-    /**
-     * Reads in the wav data chunk from a .wav-file. It creates
-     * a new empty Signal for each track and fills it with
-     * data read from an opened file. The file's actual position
-     * must already be set to the correct position.
-     * @param sigin reference to the already opened file
-     * @param length number of samples to be read
-     * @param tracks number of tracks [1..n]
-     * @param number of bits per sample [8,16,24,...]
-     * @return 0 if succeeded or error number if failed
-     */
-    int loadWavChunk(QFile &sigin, unsigned int length,
-                     unsigned int tracks, int bits);
-
-    /**
-     * Writes the chunk with the signal to a .wav file (not including
-     * the header!).
-     * @param sigout reference to the already opened file
-     * @param offset start position from where to save
-     * @param length number of samples to be written
-     * @param bits number of bits per sample [8,16,24,...]
-     * @return 0 if succeeded or error number if failed
-     */
-    int writeWavChunk(QFile &sigout, unsigned int offset, unsigned int length,
-                      unsigned int bits);
-
-    /**
      * Sets the modified flag to a new value if m_modified_enabled is
      * true, otherwise it will be ignored.
      */
@@ -683,9 +629,6 @@ private:
 
     /** the current selection */
     Selection m_selection;
-
-    /** sampling rate of the current signal */
-    int m_rate;
 
     /**
      * Last known length of the signal. This will be used if a track is

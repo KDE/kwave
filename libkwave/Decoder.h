@@ -22,35 +22,56 @@
 #include <qlist.h>
 #include <qobject.h>
 
-class QIODevice;
-class Signal;
+#include "CodecBase.h"
+#include "FileInfo.h"
 
-class Decoder: public QObject
+class FileInfo;
+class KMimeType;
+class MultiTrackWriter;
+class QIODevice;
+
+class Decoder: public QObject, public CodecBase
 {
     Q_OBJECT
 public:
     /** Constructor */
-    Decoder() {};
+    Decoder() :QObject(), CodecBase() {};
 
     /** Destructor */
     virtual ~Decoder() {};
-
-    /** Returns true if the given mime type is supported */
-    virtual bool supports(const KMimeType &mimetype) = 0;
-
-    /** Returns a list of supported mime types */
-    virtual QList<KMimeType> mimeTypes() = 0;
 
     /** Returns a new instance of the decoder */
     virtual Decoder *instance() = 0;
 
     /**
+     * Opens the source and decodes the header information.
+     * @param source file or other source with a stream of bytes
+     * @return true if succeeded, false on errors
+     */
+    virtual bool open(QIODevice &source) = 0;
+
+    /**
      * Decodes a stream of bytes into a signal
-     * @param src file or other source with a stream of bytes
      * @param dst Signal that receives the audio data
      * @return true if succeeded, false on errors
      */
-    virtual bool decode(QIODevice &src, Signal &dst) = 0;
+    virtual bool decode(MultiTrackWriter &dst) = 0;
+
+    /**
+     * Closes the io device.
+     */
+    virtual void close() = 0;
+
+    /**
+     * Returns the information of the file, only valid after
+     * open() has successfully been called.
+     */
+    virtual inline FileInfo &info() { return m_info;};
+
+protected:
+
+    /** information about the file */
+    FileInfo m_info;
 
 };
 

@@ -311,6 +311,7 @@ void FileProgress::setValue(unsigned int pos)
 void FileProgress::cancel()
 {
     close();
+    if (m_cancelled) emit cancelled();
 }
 
 //***************************************************************************

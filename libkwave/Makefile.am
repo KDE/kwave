@@ -3,6 +3,7 @@ INCLUDES= @all_includes@ -I$(includedir)/arts
 
 BUILTSOURCES=\
  KwaveDrag.moc.cpp\
+ MultiTrackWriter.moc.cpp\
  SampleWriter.moc.cpp\
  Selection.moc.cpp\
  Signal.moc.cpp\
@@ -13,16 +14,20 @@ BUILTSOURCES=\
  ArtsSampleSource.h\
  ArtsSampleSource.cc\
  CurveStreamAdapter.h\
- CurveStreamAdapter.cc
+ CurveStreamAdapter.cc\
+ Decoder.moc.cpp\
+ Encoder.moc.cpp
 
 # Which sources should be compiled for kwave.
 libkwave_la_SOURCES=\
  ${BUILTSOURCES}\
  ArtsSampleSource_impl.cpp\
  ArtsSampleSink_impl.cpp\
+ CodecBase.cpp\
  Curve.cpp\
  CurveStreamAdapter_impl.cpp\
  Filter.cpp\
+ FileInfo.cpp\
  FileLoader.cpp\
  FileFormat.cpp\
  Functions.cpp\

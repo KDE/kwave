@@ -70,9 +70,6 @@ void ZeroPlugin::run(QStringList)
 	first += m_zeroes.count();
     }
 
-    writers.setAutoDelete(true);
-    writers.clear();
-
     close();
 }
 

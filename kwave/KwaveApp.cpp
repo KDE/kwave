@@ -135,7 +135,7 @@ void KwaveApp::addRecentFile(const QString &newfile)
 }
 
 //***************************************************************************
-bool KwaveApp::newWindow(const QString &filename)
+bool KwaveApp::newWindow(const KURL &url)
 {
     TopWidget *new_top_widget = new TopWidget(*this);
     ASSERT(new_top_widget);
@@ -166,7 +166,7 @@ bool KwaveApp::newWindow(const QString &filename)
     connect(this, SIGNAL(recentFilesChanged()),
             new_top_widget, SLOT(updateRecentFiles()));
 
-    if (filename.length()) new_top_widget->loadFile(filename);
+    if (!url.isEmpty()) new_top_widget->loadFile(url);
 
     return true;
 }

@@ -35,6 +35,13 @@
 #endif
 
 //***************************************************************************
+MultiTrackWriter::MultiTrackWriter()
+    :QObject(), QVector<SampleWriter>(), m_cancelled(false)
+{
+    setAutoDelete(true);
+}
+
+//***************************************************************************
 MultiTrackWriter &MultiTrackWriter::operator << (
 	const MultiTrackReader &source)
 {
@@ -103,6 +110,7 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 	
 	    // write samples to the target stream
 	    for (y = 0; y < dst_tracks; y++) {
+		if (m_cancelled) break;
 		*at(y) << out_samples[y];
 	    }
 	
@@ -113,11 +121,40 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 	unsigned int track;
 	for (track = 0; track < src_tracks; ++track) {
 	    *at(track) << *source.at(track);
+	    if (m_cancelled) break;
 	}
     }
 
     return *this;
-};
+}
+
+//***************************************************************************
+bool MultiTrackWriter::insert(unsigned int track, const SampleWriter *writer)
+{
+    if (writer) {
+        connect(writer, SIGNAL(proceeded()), this, SLOT(proceeded()));
+    }
+    return QVector<SampleWriter>::insert(track, writer);
+}
+
+//***************************************************************************
+void MultiTrackWriter::proceeded()
+{
+    unsigned int pos = 0;
+    unsigned int track;
+    const unsigned int tracks = count();
+    for (track=0; track < tracks; ++track) {
+	SampleWriter *w = (*this)[track];
+	if (w) pos += w->position();
+    }
+    emit progress(pos);
+}
+
+//***************************************************************************
+void MultiTrackWriter::cancel()
+{
+    m_cancelled = true;
+}
 
 //***************************************************************************
 //***************************************************************************

@@ -40,6 +40,9 @@ SampleWriter::~SampleWriter()
 {
     flush();
     ASSERT(m_position <= m_last+1);
+
+    // inform others that we proceeded
+    emit proceeded();
     emit sigSamplesWritten(m_position - m_first);
     if (m_lock) delete m_lock;
 }
@@ -172,6 +175,9 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 
     ASSERT(m_position <= m_last+1);
     count = 0;
+
+    // inform others that we proceeded
+    emit proceeded();
 }
 
 //***************************************************************************

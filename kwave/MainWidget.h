@@ -28,6 +28,7 @@ class QScrollBar;
 
 class KButtonBox;
 class KStatusBar;
+class KURL;
 
 class MenuManager;
 class MultiStateWidget;
@@ -61,12 +62,10 @@ public:
     /**
      * Closes the current signal and loads a new one
      * from a file.
-     * @param filename name of the .wav or .asc file
-     * @param type one of WAV or ASCII
+     * @param url URL of the file to be loaded
      * @return 0 if succeeded or error code < 0
-     * @todo use QUrl instead of QString
      */
-    int loadFile(const QString &filename, int type = 0);
+    int loadFile(const KURL &url);
 
     /**
      * @todo: re-implementation

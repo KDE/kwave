@@ -53,9 +53,15 @@ public:
      * Returns true if the dialog is unusable or the user
      * has pressed the "cancel" button.
      */
-    inline bool isCancelled() {
-	return m_cancelled;
-    };
+    inline bool isCancelled() { return m_cancelled; };
+
+signals:
+
+    /**
+     * Emitted when the user has pressed the Cancel button and
+     * has confirmed with "Yes".
+     */
+    void cancelled();
 
 public slots:
     /**

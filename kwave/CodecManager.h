@@ -26,6 +26,8 @@
 
 class Decoder;
 class Encoder;
+class KMimeType;
+class QMimeSource;
 
 class CodecManager: public QObject
 {
@@ -52,6 +54,20 @@ public:
     static void registerDecoder(const Decoder &decoder);
 
     /**
+     * Returns true if a decoder for the given mime type is known.
+     * @param mimetype mime type describing the audio format
+     * @return true if format is supported, false if not
+     */
+    static bool canDecode(const KMimeType &mimetype);
+
+    /**
+     * Returns true if a decoder for the given mime type is known.
+     * @param mimetype name of the mime type
+     * @return true if format is supported, false if not
+     */
+    static bool canDecode(const QString &mimetype_name);
+
+    /**
      * Tries to find a decoder that matches to a given mime type.
      * @param mimetype mime type of the source
      * @return a new decoder for the mime type or null if none found.
@@ -59,28 +75,25 @@ public:
     static Decoder *decoder(const KMimeType &mimetype);
 
     /**
+     * Same as above, but takes the mime type as string.
+     * @param mimetype_name name of the mime type
+     * @return a new decoder for the mime type or null if none found.
+     */
+    static Decoder *decoder(const QString &mimetype_name);
+
+    /**
+     * Same as above, but takes the mime info from a QMimeSource.
+     * @param src source with a mime type (null pointer is allowed)
+     * @return a new decoder for the mime type or null if none found.
+     */
+    static Decoder *decoder(const QMimeSource *mime_source);
+
+    /**
      * Tries to find an encoder that matches to a given mime type.
      * @param mimetype mime type of the destination
      * @return a new encoder for the mime type or null if none found.
      */
     static Encoder *encoder(const KMimeType &mimetype);
-
-//    /**
-//     * Tries to guess the mime type of a file by inspecting the file name
-//     * and the first 128 bytes of the file.
-//     * @param filename or URL of the file
-//     * @param data array with the first 128 bytes of the file
-//     * @return mime type of the file or "unknown/unknown" detection failed
-//     */
-//    QCString guessMimeType(const QString &filename, const QByteArray &data);
-
-//private slots:
-//
-//    /** connected to each encoder for automatic de-registration */
-//    void encoderDeleted(KwaveEncoder *encoder);
-//
-//    /** connected to each encoder for automatic de-registration */
-//    void decoderDeleted(KwaveDecoder *decoder);
 
 private:
     /** list of all encoders */

@@ -281,10 +281,10 @@ int MainWidget::saveFile(const QString &filename, unsigned int bits,
 }
 
 //***************************************************************************
-int MainWidget::loadFile(const QString &filename, int type)
+int MainWidget::loadFile(const KURL &url)
 {
     closeSignal();
-    int res = m_signal_widget.loadFile(filename, type);
+    int res = m_signal_widget.loadFile(url);
     if (res) closeSignal();
     return res;
 }

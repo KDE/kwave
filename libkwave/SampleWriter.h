@@ -121,6 +121,11 @@ public:
      */
     inline unsigned int last() { return m_last; };
 
+    /**
+     * Returns the current position
+     */
+    inline unsigned int position() { return m_position; };
+
 signals:
 
     /**
@@ -128,6 +133,9 @@ signals:
      * the receiver the total number of written samples.
      */
     void sigSamplesWritten(unsigned int);
+
+    /** Emitted when the internal buffer is flushed or the writer is closed */
+    void proceeded();
 
 private:
 

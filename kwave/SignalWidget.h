@@ -27,6 +27,7 @@
 #include "PlaybackController.h"
 #include "SignalManager.h"
 
+class KURL;
 class LabelList;
 class LabelType;
 class MouseMark;
@@ -86,14 +87,11 @@ public:
     double samples2ms(unsigned int samples);
 
     /**
-     * Closes the current signal and loads a new one
-     * from a file.
-     * @param filename name of the .wav or .asc file
-     * @param type one of WAV or ASCII
+     * Closes the current signal and loads a new one from a file.
+     * @param url URL of the file to be loaded
      * @return 0 if succeeded or error code < 0
-     * @todo use QUrl instead of QString
      */
-    int loadFile(const QString  &filename, int type);
+    int loadFile(const KURL &url);
 
     /**
      * Forwards information for creation of a new signal to the

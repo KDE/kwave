@@ -23,7 +23,6 @@
 #include "Interpolation.h"
 #include "Curve.h"
 #include "Filter.h"
-#include "WavFileFormat.h"
 
 #include "mt/SharedLockGuard.h"
 
@@ -216,7 +215,6 @@ void Signal::openMultiTrackWriter(MultiTrackWriter &writers,
 {
     unsigned int count = track_list.count();
     unsigned int track;
-    writers.setAutoDelete(true);
     writers.clear();
     writers.resize(count);
 
@@ -594,38 +592,6 @@ void Signal::selectTrack(unsigned int track, bool select)
 //    counter = -1;
 //}
 //
-////**********************************************************
-////Following are clipboard functions of Signal Class
-////**********************************************************
-////**********************************************************
-//// shouldn't this be "insert()" instead of "insertPaste()" ?
-//void Signal::insertPaste (Signal *signal) {
-//    int insertlength = signal->getLength ();
-//    int *insert = signal->getSample();
-//
-//    if (insert && insertlength) {
-//	int newlength = length + insertlength;
-//	int *newsam = (int *)realloc(sample, newlength * sizeof(int));
-//	if (newsam) {
-//	    memmove(newsam + lmarker + insertlength, newsam + lmarker,
-//		    (length - lmarker)*sizeof(int));
-//	    memcpy(newsam + lmarker, insert, insertlength*sizeof(int));
-//
-//	    sample = newsam;
-//	    length = newlength;
-//	} else noMemory ();
-//    } else KMessageBox::error(0, i18n("Info"), i18n("signal is empty !"), 2);
-//}
-////**********************************************************
-//void Signal::overwritePaste (Signal *signal) {
-//    int pastelength = signal->getLength ();
-//    int *paste = signal->getSample();
-//    int marked = (lmarker != rmarker) ? rmarker - lmarker + 1 : length;
-//    if (pastelength > marked) pastelength = marked;
-//    if (lmarker + pastelength > length) pastelength = length - lmarker;
-//
-//    memcpy(sample + lmarker, paste, pastelength*sizeof(int));
-//}
 ////**********************************************************
 //void Signal::mixPaste (Signal *signal) {
 //    int pastelength = signal->getLength ();

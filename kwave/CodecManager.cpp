@@ -17,7 +17,7 @@
 
 #include "config.h"
 #include <qlist.h>
-#include <kmimetype.h>
+#include <qmime.h>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
@@ -58,13 +58,57 @@ void CodecManager::registerDecoder(const Decoder &decoder)
 }
 
 /***************************************************************************/
-Decoder *CodecManager::decoder(const KMimeType &mimetype)
+bool CodecManager::canDecode(const KMimeType &mimetype)
 {
     QListIterator<Decoder> it(m_decoders);
     for (; it.current(); ++it) {
 	Decoder *d = it.current();
 	ASSERT(d);
-	if (d && d->supports(mimetype)) return d;
+	if (d && d->supports(mimetype)) return true;
+    }
+    return false;
+}
+
+/***************************************************************************/
+bool CodecManager::canDecode(const QString &mimetype_name)
+{
+    QListIterator<Decoder> it(m_decoders);
+    for (; it.current(); ++it) {
+	Decoder *d = it.current();
+	ASSERT(d);
+	if (d && d->supports(mimetype_name)) return true;
+    }
+    return false;
+}
+
+/***************************************************************************/
+Decoder *CodecManager::decoder(const QString &mimetype_name)
+{
+    QListIterator<Decoder> it(m_decoders);
+    for (; it.current(); ++it) {
+	Decoder *d = it.current();
+	ASSERT(d);
+	if (d && d->supports(mimetype_name)) return d->instance();
+    }
+    return 0;
+}
+
+/***************************************************************************/
+Decoder *CodecManager::decoder(const KMimeType &mimetype)
+{
+    return decoder(mimetype.name());
+}
+
+/***************************************************************************/
+Decoder *CodecManager::decoder(const QMimeSource *mime_source)
+{
+    if (!mime_source) return false;
+    int i = 0;
+    const char *format;
+    for (i=0; (format = mime_source->format(i)); ++i) {
+	Decoder *d = decoder(format);
+	ASSERT(d);
+	if (d) return d;
     }
     return 0;
 }
@@ -76,7 +120,7 @@ Encoder *CodecManager::encoder(const KMimeType &mimetype)
     for (; it.current(); ++it) {
 	Encoder *e = it.current();
 	ASSERT(e);
-	if (e && e->supports(mimetype)) return e;
+	if (e && e->supports(mimetype)) return e->instance();
     }
     return 0;
 }

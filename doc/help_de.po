@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-13 08:31GMT\n"
+"PO-Revision-Date: 2002-02-03 17:02GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2596,11 +2596,27 @@ msgstr ""
 "Sie dies nicht wollen, sollten Sie zuerst ein neues leeres &kapp; Fenster "
 "öffnen."
 
-#: index.docbook:1914
+#: index.docbook:1908
+msgid ""
+"You can also select a range of samples and drag or drop them into a &kapp; "
+"window. Per default the drag operation is done in <emphasis>move</emphasis> "
+"mode where the selected range is deleted from the original place and "
+"inserted at the drop position. By pressing the <keycap moreinfo=\"none"
+"\">Ctrl</keycap> key you can modify this and drag in <emphasis>copy</"
+"emphasis> mode instead."
+msgstr ""
+"Sie können auch einen Bereich von Samples auswählen und per Drag und Drop in ein "
+"anderes &kapp;-Fenster verschieben. Standardmäßig wird der Vorgang "
+"im <emphasis>Verschieben</emphasis>-Modus durchgeführt, wobei der ausgewählte Bereich "
+"von seiner ursprünglichen Stelle gelöscht und an der Position des Fallenlassens eingefügt wird. "
+"Durch Drücken von <keycap moreinfo=\"none\">Strg</keycap>-Taste können Sie dieses "
+"Verhalten ändern und stattdessen den <emphasis>Kopieren</emphasis>-Modus verwenden."
+
+#: index.docbook:1923
 msgid "Command Line"
 msgstr "Kommandozeile"
 
-#: index.docbook:1916
+#: index.docbook:1925
 msgid ""
 "If you start &kapp; from the command line, you can specify a list of files "
 "that should be opened. The first specified file will be opened first, then "
@@ -2615,7 +2631,7 @@ msgstr ""
 "Jokerzeichen verwenden, können Sie eine grosse Anzahl von Dateien auf einmal "
 "öffnen."
 
-#: index.docbook:1923
+#: index.docbook:1932
 msgid ""
 "For example, the following command starts a &kapp; and opens all sounds of "
 "the KDE window manager, each in a new window:"
@@ -2623,7 +2639,7 @@ msgstr ""
 "So startet zum Beispiel der folgende Befehl &kapp; und öffnet alle Klänge "
 "des KDE-Fenstermanagers in jeweils einem eigenen Fenster:"
 
-#: index.docbook:1923
+#: index.docbook:1932
 msgid ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
 "KDE_Window*.wav</filename></command>"
@@ -2631,7 +2647,7 @@ msgstr ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
 "KDE_Window*.wav</filename></command>"
 
-#: index.docbook:1929
+#: index.docbook:1938
 msgid ""
 "In addition to a list of files, you can specify a list of <emphasis>Xt "
 "toolkit</emphasis> options like <literal>-geometry</literal> for specifying "
@@ -2644,7 +2660,7 @@ msgstr ""
 "spezifizieren. Eine weitere Option ist <literal>-display</literal>, die "
 "&kapp; auf einem anderen Bildschirm startet."
 
-#: index.docbook:1937
+#: index.docbook:1946
 msgid ""
 "For example, the following command starts a &kapp; window with an initial "
 "width of 600 pixels and a height of 400 pixels, with the right border "
@@ -2656,7 +2672,7 @@ msgstr ""
 "Seite 30 Pixel vom rechten Rand und 0 Pixel vom oberen Rand des Bildschirms "
 "entfernt:"
 
-#: index.docbook:1937
+#: index.docbook:1946
 msgid ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
 "parameter></command>"
@@ -2664,17 +2680,17 @@ msgstr ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
 "parameter></command>"
 
-#: index.docbook:1950
+#: index.docbook:1959
 msgid "Opening and Saving files"
 msgstr "Öffnen und Speichern von Dateien"
 
-#: index.docbook:1952
+#: index.docbook:1961
 msgid "Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "Das Öffnen von Dateien mit &kapp; funktioniert genauso wie in den meisten "
 "anderen Anwendungen auch, Sie können"
 
-#: index.docbook:1952
+#: index.docbook:1961
 msgid ""
 "specify a list of files on the <link linkend=\"command_line\">command line</"
 "link> when starting &kapp;,"
@@ -2682,7 +2698,7 @@ msgstr ""
 "eine Liste von Dateien auf der <link linkend=\"command_line\">Kommandozeile</"
 "link> beim Start von &kapp; eingeben"
 
-#: index.docbook:1952
+#: index.docbook:1961
 msgid ""
 "open an empty &kapp; window (for example with <menuchoice> "
 "<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></"
@@ -2696,7 +2712,7 @@ msgstr ""
 "menuchoice> ) und fügen eine Datei mittels <link linkend=\"drag_and_drop"
 "\">Drag and Drop</link> ein, oder Sie können"
 
-#: index.docbook:1952
+#: index.docbook:1961
 msgid ""
 "open a file through the menu with <menuchoice> "
 "<shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></"
@@ -2708,7 +2724,7 @@ msgstr ""
 "shortcut> <guimenu>Datei</guimenu><guimenuitem>ffnen</guimenuitem> </"
 "menuchoice>"
 
-#: index.docbook:1952
+#: index.docbook:1961
 msgid ""
 "or one of the last recently opened files under <menuchoice> <guimenu>File</"
 "guimenu><guimenuitem>Open Recent</guimenuitem> </menuchoice>"
@@ -2717,7 +2733,7 @@ msgstr ""
 "<guimenu>Datei</guimenu><guimenuitem>Zuletzt geöffnete Dateien</guimenuitem> "
 "</menuchoice>"
 
-#: index.docbook:1952
+#: index.docbook:1961
 msgid ""
 "save the current file with <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
 "keycap><keycap>S</keycap></keycombo></shortcut> <guimenu>File</"
@@ -2728,7 +2744,7 @@ msgstr ""
 "shortcut> <guimenu>Datei</guimenu><guimenuitem>Speichern</guimenuitem> </"
 "menuchoice>,"
 
-#: index.docbook:1952
+#: index.docbook:1961
 msgid ""
 "save under a different name with <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</"
@@ -2741,7 +2757,7 @@ msgstr ""
 "guimenu><guimenuitem>Speichern</guimenuitem><guimenuitem>Als</guimenuitem> </"
 "menuchoice>"
 
-#: index.docbook:1952
+#: index.docbook:1961
 msgid ""
 "or only the current selection with <menuchoice> <guimenu>File</"
 "guimenu><guimenuitem>Save</guimenuitem><guimenuitem>Selection</guimenuitem> "
@@ -2751,11 +2767,11 @@ msgstr ""
 "guimenu><guimenuitem>Speichern</guimenuitem><guimenuitem>Auswahl</"
 "guimenuitem> </menuchoice>"
 
-#: index.docbook:2002
+#: index.docbook:2011
 msgid "Supported File formats"
 msgstr "Unterstützte Dateiformate"
 
-#: index.docbook:2003
+#: index.docbook:2012
 msgid ""
 "The fovourite file format of &kapp; is (like you can guess from the name) \"."
 "wav\". This format is very common to other \"operating systems\" but also is "
@@ -2765,7 +2781,7 @@ msgstr ""
 "vermuten könnte) \"*.wav\". Dieses Format ist sehr verbreitet auf anderen "
 "\"Betriebssystemen\" wie auch innerhalb der KDE-Umgebung."
 
-#: index.docbook:2009
+#: index.docbook:2018
 msgid ""
 "The second format that &kapp; supports is \"ASCII\". You can import from and "
 "export to ASCII, but always be aware that storing in this format might "
@@ -2781,11 +2797,11 @@ msgstr ""
 "Kanäle wird in zukünftigen Versionen folgen. Das Dateiformat wird weiter "
 "<link linkend=\"ascii_format\">unten</link> beschrieben."
 
-#: index.docbook:2020
+#: index.docbook:2029
 msgid "Converting to and from .wav"
 msgstr "Konvertierung zu und von .wav"
 
-#: index.docbook:2022
+#: index.docbook:2031
 msgid ""
 "For the moment, the best way to work with formats other than <literal>.wav</"
 "literal> is to use an external converter program. A good set of tools for "
@@ -2802,7 +2818,7 @@ msgstr ""
 "sprynet.com/~cbagwell/sox.html\">http://home.sprynet.com/~cbagwell/sox.html</"
 "ulink>."
 
-#: index.docbook:2031
+#: index.docbook:2040
 msgid ""
 "The plans for future include support for import filters for other formats "
 "and maybe some filter that uses a user-defineable script with a call to an "
@@ -2815,11 +2831,11 @@ msgstr ""
 "gelesen und/oder geschrieben werden knnen, die nicht von <literal>SoX</"
 "literal> (wie MP3) unterstützt werden."
 
-#: index.docbook:2039
+#: index.docbook:2048
 msgid "Format of ASCII files"
 msgstr "Das Format von ASCII Dateien"
 
-#: index.docbook:2040
+#: index.docbook:2049
 msgid ""
 "The ASCII format is quite useful for scientific and educational purposes. "
 "Due to it's simple format, you can either write simple files on your own "
@@ -2836,17 +2852,17 @@ msgstr ""
 "dem Schreiben eines Konverters haben und viele wissenschaftliche Anwendungen "
 "sollten selbst eine eigene Art von ASCII Format für den Export besitzen."
 
-#: index.docbook:2052
+#: index.docbook:2061
 msgid "The format of an ASCII file is quite simple and has the following rules:"
 msgstr ""
 "Das Format von einer ASCII Datei ist recht einfach und nach folgenden Regeln "
 "aufgebaut:"
 
-#: index.docbook:2052
+#: index.docbook:2061
 msgid "Each line represents one sample."
 msgstr "Jede Zeile reprsentiert einen Abtastwert."
 
-#: index.docbook:2052
+#: index.docbook:2061
 msgid ""
 "Lines might end with a carriage return and/or a line feed character (so DOS "
 "files are supported too). But when saving, files will always be saved with "
@@ -2856,11 +2872,11 @@ msgstr ""
 "dass auch DOS Dateien unterstützt werden). Beim Speichern werden jedoch die "
 "Dateien immer mit einem line feed character am Ende der Zeilen geschrieben."
 
-#: index.docbook:2052
+#: index.docbook:2061
 msgid "Empty lines are ignored."
 msgstr "Leere Zeilen werden ignoriert."
 
-#: index.docbook:2052
+#: index.docbook:2061
 msgid ""
 "Values can be are given in any format that the C library of your system is "
 "able to read and interprete as a floating point or integer number. But when "
@@ -2871,11 +2887,11 @@ msgstr ""
 "Aber beim Speichern wird &kapp; das vorzeichenbehaftete Fliesskomma-Format "
 "mit 9 Stellen schreiben."
 
-#: index.docbook:2052
+#: index.docbook:2061
 msgid "Example: <literal>-7.06999982e-01</literal>"
 msgstr "Beispiel: <literal>-7.06999982e-01</literal>"
 
-#: index.docbook:2052
+#: index.docbook:2061
 msgid ""
 "All values are expected to be in signed format. So if you import a file with "
 "only positive values, you will only see samples that are above the zero line."
@@ -2884,7 +2900,7 @@ msgstr ""
 "importierte Dateien mit nur positiven Werten immer als Abtastwerte oberhalb "
 "der Nulllinie dargestellt."
 
-#: index.docbook:2052
+#: index.docbook:2061
 msgid ""
 "Values can be specified in any range, &kapp; always does a first pass over "
 "the file to get the highest absolute value and defines that value as \"100%"
@@ -2894,11 +2910,11 @@ msgstr ""
 "die Datei nach dem höchsten absoluten Wert hin untersuchen und diesen dann "
 "als \"100%\" Wert definieren bevor es tatsächlich mit dem Einlesen anfängt."
 
-#: index.docbook:2052
+#: index.docbook:2061
 msgid "Internally all values are stored with 24 bit precision (signed)."
 msgstr "Intern werden alle Werte mit einer 24 Bit Genauigkeit (signed) gespeichert."
 
-#: index.docbook:2091
+#: index.docbook:2100
 msgid ""
 "Here is an example of a simple ASCII file that represents a sine wave with "
 "nine samples: <example> <title>content of an ASCII file with a single sine "
@@ -2928,11 +2944,11 @@ msgstr ""
 " 0.000\n"
 "\t\t</screen> </example>"
 
-#: index.docbook:2117
+#: index.docbook:2126
 msgid "How to select"
 msgstr "Die Funktionsweise der Auswahl"
 
-#: index.docbook:2119
+#: index.docbook:2128
 msgid ""
 "&kapp; allows you to select a continuous range of samples as well as any "
 "combination of channels (if you edit a multi-channel file). By selecting a "
@@ -2945,11 +2961,11 @@ msgstr ""
 "werden alle folgenden Befehle darauf angewendet, wobei das Deselektieren "
 "eines Kanals den Inhalt nicht verändert."
 
-#: index.docbook:2126
+#: index.docbook:2135
 msgid "Selecting channels"
 msgstr "Auswahl von Kanälen"
 
-#: index.docbook:2127
+#: index.docbook:2136
 msgid ""
 "Selecting or de-selecting a channel is quite simple. Just click on the lamp "
 "symbol on the left side of the signal to toggle it's state:"
@@ -2958,33 +2974,33 @@ msgstr ""
 "Klicken Sie einfach auf das Lampensymbol auf der linken Seite des "
 "Signalsfensters um seinen Status zu verändern:"
 
-#: index.docbook:2131
+#: index.docbook:2140
 msgid "green lamb"
 msgstr "grüne Lampe"
 
-#: index.docbook:2131
+#: index.docbook:2140
 msgid "a green lamb means \"enabled\", whereas"
 msgstr "ein grünes Licht bedeutet \"aktiviert\", wohingegen"
 
-#: index.docbook:2140
+#: index.docbook:2149
 msgid "red lamb"
 msgstr "rote Lampe"
 
-#: index.docbook:2140
+#: index.docbook:2149
 msgid "a red lamb means \"disabled\"."
 msgstr "eine rote Lampe \"deaktiviert\" bedeutet."
 
-#: index.docbook:2150
+#: index.docbook:2159
 msgid "Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Hinweis: Wird ein Kanal deselektiert, wird er bei der Wiedergabe nicht "
 "hörbar sein!"
 
-#: index.docbook:2155
+#: index.docbook:2164
 msgid "Selecting samples"
 msgstr "Auswahl von Samples"
 
-#: index.docbook:2157
+#: index.docbook:2166
 msgid ""
 "If you select a range of samples in &kapp;, that range will be "
 "<emphasis>inclusive</emphasis>. That means that the first and the last "
@@ -3003,7 +3019,7 @@ msgstr ""
 "Bereich ausgewählt haben, die \"Löschen\" Funktion auf dieses einzelne "
 "Sample angewendet."
 
-#: index.docbook:2167
+#: index.docbook:2176
 msgid ""
 "The easiest way of selecting a range of samples is just to do that with "
 "mouse. It works like you are used from other applications: just press the "
@@ -3016,19 +3032,31 @@ msgstr ""
 "dem die Auswahl beginnen soll und lassen die Maustaste am Endpunkt wieder "
 "los."
 
-#: index.docbook:2173
+#: index.docbook:2182
 msgid ""
-"If you want to move or adjust the selection's start or end, you can move the "
+"If you want to adjust or move the selection's start or end, you can move the "
 "mouse cursor near to the start or the end of the selection until it changes "
 "from the standard arrow cursor into the left-right arrow cursor and then "
 "press the left mouse button and adjust."
 msgstr ""
 "Wenn Sie die Auswahl verschieben oder ihren Start- oder Endpunkt anpassen "
-"wollen, können Sie den Mauscursor in die Nähe der Bereichsgenzen bewegen bis "
-"sich der Standard-Pfeil Cursor in einen Links-Rechts Pfeil Cursor geändert "
-"hat, um dann die linke Maustaste zu drücken und die Anpassung vorzunehmen."
+"wollen, können Sie den Mauscursor an den Rand der Auswahl bewegen bis sich "
+"der Standard-Pfeil Cursor in einen Links-Rechts Pfeil Cursor geändert hat, "
+"um dann die linke Maustaste zu drücken und die Anpassung vorzunehmen."
 
-#: index.docbook:2180
+#: index.docbook:2188
+msgid ""
+"You can also extend or shrink the selection to a specific point by holding "
+"down the shift button while klicking with the left mouse button. Depending "
+"on which border is nearer, the left or right border of the selection will be "
+"set to a new position."
+msgstr ""
+"Sie können ebenso die Auswahl auf einen bestimmten Punkt erweitern oder "
+"verkürzen indem Sie die Shift-Taste gedrückt halten und mit der linken "
+"Maustaste klicken. Abhängig davon welcher Rand näher ist, wird der linke "
+"oder rechte Rand der Auswahl neu gesetzt."
+
+#: index.docbook:2194
 msgid ""
 "There are also some functions available via the menu and of course some "
 "keyboard shortcuts:"
@@ -3036,7 +3064,7 @@ msgstr ""
 "Es sind auch einige Funktionen über das Menü und über einige Tastatur- "
 "Kurztasten (Shortcuts) verfügbar:"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid ""
 "select the whole signal: <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
 "keycap><keycap>A</keycap></keycombo></shortcut> <guimenu>Edit</"
@@ -3048,7 +3076,7 @@ msgstr ""
 "shortcut> <guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Alles</guimenuitem> </menuchoice>"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid ""
 "a range of samples, starting at the current cursor position: <menuchoice> "
 "<shortcut><keycombo><keycap>R</keycap></keycombo></shortcut> <guimenu>File</"
@@ -3060,7 +3088,7 @@ msgstr ""
 "<guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Bereich</guimenuitem> </menuchoice>"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid ""
 "the currently visible area: <menuchoice> <shortcut><keycombo><keycap>V</"
 "keycap></keycombo></shortcut> <guimenu>File</guimenu><guimenuitem>Selection</"
@@ -3071,7 +3099,7 @@ msgstr ""
 "guimenu><guimenuitem>Auswahl</guimenuitem><guimenuitem>Sichtbarer Bereich</"
 "guimenuitem> </menuchoice>"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid ""
 "the next block of samples, starting one sample after the end of the current "
 "selection and with the same length: <menuchoice> "
@@ -3085,13 +3113,13 @@ msgstr ""
 "shortcut> <guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Nächste</guimenuitem> </menuchoice>"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Hinweis: benutzen Sie die \"<keycap>+</keycap>\" Taste vom numerischen "
 "Ziffernblock!)"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid ""
 "the previous block of samples, ending one sample before the start of the "
 "current selection and with the same length: <menuchoice> "
@@ -3105,13 +3133,13 @@ msgstr ""
 "shortcut> <guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Vorherige</guimenuitem> </menuchoice>"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Hinweis: benutzen Sie die \"<keycap>+</keycap>\" Taste vom numerischen "
 "Ziffernblock!)"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid ""
 "expand the selection to the start of the signal (first sample): <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>Home</keycap></keycombo></"
@@ -3124,7 +3152,7 @@ msgstr ""
 "guimenu><guimenuitem>Auswahl</guimenuitem><guimenuitem>bis zum Anfang</"
 "guimenuitem> </menuchoice>"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid ""
 "expand the selection to the end of the signal (last sample): <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>End</keycap></keycombo></"
@@ -3137,7 +3165,7 @@ msgstr ""
 "guimenu><guimenuitem>Auswahl</guimenuitem><guimenuitem>bis zum Ende</"
 "guimenuitem> </menuchoice>"
 
-#: index.docbook:2180
+#: index.docbook:2194
 msgid ""
 "remove any selection and select \"nothing\": <menuchoice> "
 "<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut> <guimenu>File</"
@@ -3149,15 +3177,15 @@ msgstr ""
 "<guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Nichts</guimenuitem> </menuchoice>"
 
-#: index.docbook:2382
+#: index.docbook:2396
 msgid "Developer's Guide to &kapp;"
 msgstr "Entwickler-Handbuch zu &kapp;"
 
-#: index.docbook:2388
+#: index.docbook:2402
 msgid "under construction"
 msgstr "in Arbeit"
 
-#: index.docbook:2396
+#: index.docbook:2410
 msgid ""
 "Sorry, this chapter is still to be written... At the moment the source code "
 "is nearly completely documented with tags suitable with the KDE "
@@ -3175,7 +3203,7 @@ msgstr ""
 "irgendeiner Art und Weise in die Docbook Quellen (die Quellen, aus denen "
 "diese Seite erzeugt wurde) einbinden könnte."
 
-#: index.docbook:2405
+#: index.docbook:2419
 msgid ""
 "If you want to write a plugin, contribute something to this project (or "
 "maybe write the converter mentioned above), please feel free to contact one "
@@ -3188,19 +3216,19 @@ msgstr ""
 "<link linkend=\"mailing-list\">Mailing-Liste</link> beizutreten. Hilfe ist "
 "immer willkommen!"
 
-#: index.docbook:2597
+#: index.docbook:2436
 msgid "Questions and Answers"
 msgstr "Fragen und Antworten"
 
-#: index.docbook:2599
+#: index.docbook:2438
 msgid "<para></para>"
 msgstr "<para></para>"
 
-#: index.docbook:2605
+#: index.docbook:2444
 msgid "What do I need to compile &kapp;?"
 msgstr "Was brauche ich um &kapp; zu compilieren?"
 
-#: index.docbook:2610
+#: index.docbook:2449
 msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before. "
 "It compiles with gcc and egcs as well."
@@ -3208,11 +3236,11 @@ msgstr ""
 "Lesen Sie im vorhergehenden <link linkend=\"requirements\">Kapitel</link> "
 "nach. Das Compilieren funktioniert mit gcc wie auch mit egcs."
 
-#: index.docbook:2621
+#: index.docbook:2460
 msgid "Which sound cards does &kapp; support?"
 msgstr "Welche Soundkarten unterstützt &kapp;?"
 
-#: index.docbook:2626
+#: index.docbook:2465
 msgid ""
 "&kapp; does not need support for any special sound card. The sound card only "
 "has to be supported by your operating system and &kapp; uses it's interface "
@@ -3225,11 +3253,11 @@ msgstr ""
 "Standard Interface. Deshalb kann &kapp; jede Soundkarte benutzen, die unter "
 "KDE einsetzbar ist."
 
-#: index.docbook:2639
+#: index.docbook:2478
 msgid "Why are some menu entries / features always disabled?"
 msgstr "Warum sind einige Menüeinträge / Features immer deaktiviert?"
 
-#: index.docbook:2644
+#: index.docbook:2483
 msgid ""
 "This is just because we decided that those actions are not working stable "
 "enough to present them to the normal user and therefore disabled them to "
@@ -3241,7 +3269,7 @@ msgstr ""
 "deshalb wurden sie deaktiviert um Schwierigkeiten zu vermeiden. Sie werden "
 "Zugang zu ihnen bekommen, wenn sie getestet und stabil genug sind."
 
-#: index.docbook:2656
+#: index.docbook:2495
 msgid ""
 "Why does &kapp; consume more memory than it can be expected from the size of "
 "the opened file?"
@@ -3249,7 +3277,7 @@ msgstr ""
 "Warum verbraucht &kapp; mehr Speicher als es die Grösse der geöffneten Datei "
 "erwarten lässt?"
 
-#: index.docbook:2662
+#: index.docbook:2501
 msgid ""
 "The reason for this is that &kapp; internally stores all samples in 32-bit "
 "integers. This was easy to program, made the application faster and a bit "
@@ -3264,11 +3292,11 @@ msgstr ""
 "vier Megabyte im Speicher belegen. Vielleicht werden wir das irgendwann in "
 "der Zunkunft ändern..."
 
-#: index.docbook:2675
+#: index.docbook:2514
 msgid "Which sound formats does &kapp; support?"
 msgstr "Welche Soundformate unterstützt &kapp;?"
 
-#: index.docbook:2680
+#: index.docbook:2519
 msgid ""
 "&kapp; currently supports .wav files with 8, 16 and 24 bits per sample, with "
 "any number of channels (of course including mono and stereo)."
@@ -3277,11 +3305,11 @@ msgstr ""
 "mit beliebiger Anzahl von Kanälen (einschliesslich mono und stereo "
 "natürlich)."
 
-#: index.docbook:2690
+#: index.docbook:2529
 msgid "What if I have files with a format not supported by &kapp;?"
 msgstr "Was ist, wenn ich Dateien habe die &kapp; nicht unterstützt?"
 
-#: index.docbook:2696
+#: index.docbook:2535
 msgid ""
 "If you have to work on an other format, you can convert it into .wav format. "
 "A good set of tools for this is in the <ulink url=\"http://home.sprynet.com/"
@@ -3293,11 +3321,11 @@ msgstr ""
 "<ulink url=\"http://home.sprynet.com/~cbagwell/sox.html\">SoX</ulink> Paket, "
 "das auch umfangreiche Dokumentationen bereithält!"
 
-#: index.docbook:2708
+#: index.docbook:2547
 msgid "I get errors when I want to do playback?"
 msgstr "Ich bekomme Fehler wenn ich versuche die Wiedergabe zu starten?"
 
-#: index.docbook:2713
+#: index.docbook:2552
 msgid ""
 "Maybe you have choosen a combination of playback rate and sample size that "
 "is not supported by your sound driver and / or sound hardware. Try playback "
@@ -3313,11 +3341,11 @@ msgstr ""
 "aber, dass einige Playbackraten nicht vollständig von einigen Soundkarten "
 "unterstützt werden."
 
-#: index.docbook:2727
+#: index.docbook:2566
 msgid "The playback seems to do something but I hear nothing?"
 msgstr "Die Wiedergabe scheint etwas zu tun, aber ich höre nichts?"
 
-#: index.docbook:2732
+#: index.docbook:2571
 msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
 "&kapp; is not responsible for changing the playback volume."
@@ -3326,19 +3354,19 @@ msgstr ""
 "erhöhen. Für das ändern der Wiedergabelautstärke ist &kapp; nicht "
 "verantwortlich."
 
-#: index.docbook:2742
+#: index.docbook:2581
 msgid "Some files are played with half-speed?"
 msgstr "Einige Dateien werden mit halber Geschwindigkeit wiedergegeben?"
 
-#: index.docbook:2747
+#: index.docbook:2586
 msgid "Try choosing a different sound playback device."
 msgstr "Versuchen Sie ein anderes Device zur Soundwiedergabe auszuwählen."
 
-#: index.docbook:2755
+#: index.docbook:2594
 msgid "The playback sometimes is disturbed and interrupted?"
 msgstr "Die Wiedergabe wird manchmal gestört und unterbrochen?"
 
-#: index.docbook:2760
+#: index.docbook:2599
 msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
 "playback (this also makes the playback control reacting a bit slower)."
@@ -3347,11 +3375,11 @@ msgstr ""
 "Wiedergabe zu bekommen (dies führt auch zu einer langsameren Reaktion der "
 "Wiedergabe- Kontrolle)."
 
-#: index.docbook:2770
+#: index.docbook:2609
 msgid "The playback does not stop if I immediately press the stop button?"
 msgstr "Die Widergabe hält nicht an, wenn ich sofort die Stop-Taste drücke?"
 
-#: index.docbook:2776
+#: index.docbook:2615
 msgid ""
 "The reason for this is that the sound driver already has received some "
 "playback data from &kapp; at the moment when you press the stop button. "
@@ -3363,11 +3391,11 @@ msgstr ""
 "Verringern Sie die Grösse des Wiedergabe Buffers und die Reaktion sollte "
 "schneller einsetzen (dabei werden aber Aussetzer wahrscheinlicher)."
 
-#: index.docbook:2788
+#: index.docbook:2627
 msgid "Is ALSA supported?"
 msgstr "Wird ALSA unterstützt?"
 
-#: index.docbook:2793
+#: index.docbook:2632
 msgid ""
 "Sorry, currently we don't have direct support for ALSA, but since version "
 "0.6 &kapp; has support for <ulink url=\"http://www.arts-project.org/\">aRts</"
@@ -3377,13 +3405,13 @@ msgstr ""
 "Version 0.6 unterstützt &kapp; die Ausgabe über <ulink url=\"http://www.arts-"
 "project.org/\">aRts</ulink>, der widerum ALSA verwenden kann."
 
-#: index.docbook:2804
+#: index.docbook:2643
 msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
 "Wie steht es mit der Wiedergabe von 24 und 32 bits pro Sample oder mehr als "
 "zwei Kanälen?"
 
-#: index.docbook:2810
+#: index.docbook:2649
 msgid ""
 "This is another feature that might get implemented in <ulink url=\"http://"
 "www.arts-project.org/\">aRts</ulink>, so we wait for aRts to support it."
@@ -3392,11 +3420,11 @@ msgstr ""
 "arts-project.org/\">aRts</ulink> implementiert wird, somit warten wir bis "
 "die Untersttzung von aRts vorhanden ist."
 
-#: index.docbook:2820
+#: index.docbook:2659
 msgid "What about MP3 support?"
 msgstr "Wie steht es mit MP3 Unterstützung?"
 
-#: index.docbook:2825
+#: index.docbook:2664
 msgid ""
 "Not for the moment, but maybe someone writes us a plugin for MP3 import / "
 "export?"
@@ -3404,15 +3432,15 @@ msgstr ""
 "Nicht im Moment, aber vielleicht schreibt uns jemand ein Plugin für MP3 "
 "Import / Export?"
 
-#: index.docbook:2855
+#: index.docbook:2694
 msgid "Credits and License"
 msgstr "Credits und Lizenz"
 
-#: index.docbook:2857
+#: index.docbook:2696
 msgid "&kapp;"
 msgstr "&kapp;"
 
-#: index.docbook:2859
+#: index.docbook:2698
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
 "de</email>"
@@ -3420,7 +3448,7 @@ msgstr ""
 "Programm Copyright von 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
 "de</email>"
 
-#: index.docbook:2863
+#: index.docbook:2702
 msgid ""
 "Program copyright since 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
@@ -3428,94 +3456,94 @@ msgstr ""
 "Documentation copyright (C) seit 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Contributors:"
 msgstr "Beitragende:"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage und deutsche "
 "Übersetzung)"
 
 # index.docbook:2900, index.docbook:2900
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Juhana Kouhia"
 msgstr "Juhana Kouhia"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Gerhard Zintel"
 msgstr "Gerhard Zintel"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Gael Duval"
 msgstr "Gael Duval"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Aaron Johnson"
 msgstr "Aaron Johnson"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Uwe Steinmann"
 msgstr "Uwe Steinmann"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Dave Phillips"
 msgstr "Dave Phillips"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Martin Petriska"
 msgstr "Martin Petriska"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Winfried Truemper"
 msgstr "Winfried Truemper"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Bruce Garlock"
 msgstr "Bruce Garlock"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Christoph Raab"
 msgstr "Christoph Raab"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "tOpHEr lAfaTA"
 msgstr "tOpHEr lAfaTA"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Nemosoft"
 msgstr "Nemosoft"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Guido"
 msgstr "Guido"
 
-#: index.docbook:2868
+#: index.docbook:2707
 msgid "Eero"
 msgstr "Eero"
 
-#: index.docbook:2902
+#: index.docbook:2741
 msgid "Thanks to (in alphabetical order):"
 msgstr "Dank an (in alphabetischer Reihenfolge):"
 
-#: index.docbook:2902
+#: index.docbook:2741
 msgid "Carsten Jacobi"
 msgstr "Carsten Jacobi"
 
-#: index.docbook:2902
+#: index.docbook:2741
 msgid "Frank Christian Stoffel"
 msgstr "Frank Christian Stoffel"
 
-#: index.docbook:2902
+#: index.docbook:2741
 msgid "Achim Dahlhaus"
 msgstr "Achim Dahlhaus"
 
-#: index.docbook:2902
+#: index.docbook:2741
 msgid ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (for information "
 "about RPM optimization) </emphasis>"
@@ -3523,15 +3551,15 @@ msgstr ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (für die Tips zu "
 "den RPM-Optimierungen) </emphasis>"
 
-#: index.docbook:2902
+#: index.docbook:2741
 msgid "Klaus Hendrik Lorenz"
 msgstr "Klaus Hendrik Lorenz"
 
-#: index.docbook:2902
+#: index.docbook:2741
 msgid "my girlfriend Ximena González<emphasis>(for her patience)</emphasis>"
 msgstr "meine Freundin Ximena González<emphasis>(für ihre Geduld)</emphasis>"
 
-#: index.docbook:2923
+#: index.docbook:2762
 msgid ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
@@ -3539,7 +3567,7 @@ msgstr ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
-#: index.docbook:2942
+#: index.docbook:2781
 msgid ""
 "The current code contains some FFT routines and code fragments from the GNU "
 "Scientific Library project <ulink url=\"http://sources.redhat.com/gsl/"

@@ -29,6 +29,9 @@
 
 #include "mt/Thread.h"
 #include "mt/MutexGuard.h"
+
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Signal.h"
@@ -221,8 +224,7 @@ int KwavePlugin::averageSample(unsigned int offset,
 }
 
 //***************************************************************************
-void KwavePlugin::openSampleReaderSet(
-    QVector<SampleReader> &readers,
+void KwavePlugin::openMultiTrackReader(MultiTrackReader &readers,
     const QArray<unsigned int> &track_list,
     unsigned int first, unsigned int last)
 {

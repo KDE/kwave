@@ -54,7 +54,7 @@ public:
     void reset();
 
     /** Returns true if the end of the input range has been reached */
-    inline bool eof() { return (m_eof); };
+    inline bool eof() const { return (m_eof); };
 
     /**
      * Reads samples into a buffer.

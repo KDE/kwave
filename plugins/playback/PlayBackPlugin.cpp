@@ -35,6 +35,7 @@
 #include "libkwave/Matrix.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
+#include "libkwave/MultiTrackReader.h"
 
 #include "libgui/KwavePlugin.h"
 
@@ -277,8 +278,8 @@ void PlayBackPlugin::run(QStringList)
     }
 
     // set up a set of sample reader (streams)
-    QVector<SampleReader> input;
-    openSampleReaderSet(input, audible_tracks, first, last);
+    MultiTrackReader input;
+    openMultiTrackReader(input, audible_tracks, first, last);
 
     // create a translation matrix for mixing up/down to the desired
     // number of output channels

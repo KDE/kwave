@@ -17,6 +17,7 @@
 
 #include <klocale.h> // for the i18n macro
 
+#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SampleWriter.h"
 #include "kwave/PluginManager.h"
 #include "kwave/UndoTransactionGuard.h"
@@ -39,8 +40,8 @@ void ZeroPlugin::run(QStringList)
     UndoTransactionGuard undo_guard(*this, i18n("silence"));
     m_stop = false;
 
-    QVector<SampleWriter> writers;
-    manager().openSampleWriterSet(writers, Overwrite);
+    MultiTrackWriter writers;
+    manager().openMultiTrackWriter(writers, Overwrite);
 
     // break if aborted
     if (writers.isEmpty()) return;

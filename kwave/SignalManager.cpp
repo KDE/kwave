@@ -35,6 +35,9 @@
 #include <kprogress.h>
 
 #include "libkwave/FileFormat.h"
+#include "libkwave/InsertMode.h"
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -52,6 +55,7 @@
 #include "UndoAction.h"
 #include "UndoDeleteAction.h"
 #include "UndoDeleteTrack.h"
+#include "UndoInsertAction.h"
 #include "UndoInsertTrack.h"
 #include "UndoModifyAction.h"
 #include "UndoSelection.h"
@@ -294,9 +298,93 @@ void SignalManager::toggleChannel(const unsigned int /*channel*/)
 
 //***************************************************************************
 SampleWriter *SignalManager::openSampleWriter(unsigned int track,
-	InsertMode mode, unsigned int left, unsigned int right)
+	InsertMode mode, unsigned int left, unsigned int right,
+	bool with_undo)
 {
-    return m_signal.openSampleWriter(track, mode, left, right);
+    SampleWriter *writer = m_signal.openSampleWriter(
+	track, mode, left, right);
+
+    // skip all that undo stuff below if undo is not enabled
+    // or the writer creation has failed
+    if (!undoEnabled() || !writer || !with_undo) return writer;
+
+    // get the real/effective left and right sample
+    left  = writer->first();
+    right = writer->last();
+
+    // enter a new undo transaction and let it close when the writer closes
+    UndoTransactionGuard guard(*this, 0);
+    startUndoTransaction();
+    QObject::connect(writer, SIGNAL(destroyed()),
+                     this,   SLOT(closeUndoTransaction()));
+
+    // create an undo action for the modification of the samples
+    UndoAction *action = 0;
+    switch (mode) {
+	case Append:
+	    debug("SignalManager::openSampleWriter(): NO UNDO FOR APPEND YET !");
+	    break;
+	case Insert:
+	    action = new UndoInsertAction(track, left, right);
+	    if (action) {
+		QObject::connect(
+		    writer, SIGNAL(sigSamplesWritten(unsigned int)),
+		    (UndoInsertAction*)action, SLOT(setLength(unsigned int)));
+	    }
+	    break;
+	case Overwrite:
+	    action = new UndoModifyAction(track, left, right-left+1);
+	    break;
+    }
+    ASSERT(action);
+
+    {
+	ThreadsafeX11Guard x11_guard;
+	if (!registerUndoAction(action)) {
+	    // creating/starting the action failed, so fail now.
+	    // close the writer and return 0 -> abort the operation
+	    debug("PluginManager::openSampleWriter(): register failed"); // ###
+	    if (action) delete action;
+	    delete writer;
+	    return 0;
+	} else {
+	    action->store(*this);
+	}
+    }
+
+    // Everything was ok, the action now is owned by the current undo
+    // transaction. The transaction is owned by the SignalManager and
+    // will be closed when the writer gets closed.
+    return writer;
+}
+
+//***************************************************************************
+void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
+    const QArray<unsigned int> &track_list, InsertMode mode,
+    unsigned int left, unsigned int right)
+{
+    UndoTransactionGuard guard(*this, 0);
+
+    unsigned int count = track_list.count();
+    unsigned int track;
+    writers.setAutoDelete(true);
+    writers.clear();
+    writers.resize(count);
+
+    for (unsigned int i=0; i < count; i++) {
+	track = track_list[i];
+	SampleWriter *s = openSampleWriter(track, mode, left, right, true);
+	if (s) {
+	    writers.insert(i, s);
+	} else {
+	    // out of memory or aborted
+	    debug("SignalManager::openMultiTrackWriter: "\
+	          "out of memory or aborted");
+	    writers.clear();
+	    return;
+	}
+    }
+
 }
 
 //***************************************************************************
@@ -315,17 +403,11 @@ bool SignalManager::executeCommand(const QString &command)
 	undo();
     CASE_COMMAND("redo")
 	redo();
-//    CASE_COMMAND("copy")
-//	if (globals.clipboard) delete globals.clipboard;
-//	globals.clipboard = new ClipBoard();
-//	ASSERT(globals.clipboard);
-//	if (globals.clipboard) {
-//	    for (unsigned int i = 0; i < m_channels; i++) {
-//		ASSERT(signal.at(i));
-//		if (signal.at(i)) globals.clipboard->appendChannel(
-//		    signal.at(i)->copyRange());
-//	    }
-//	}
+    CASE_COMMAND("copy")
+	ClipBoard &clip = KwaveApp::clipboard();
+	clip.copy(m_signal, selectedTracks(), offset, length);
+    CASE_COMMAND("paste")
+	paste(KwaveApp::clipboard(), offset, length);
 //    CASE_COMMAND("cut")
 //	if (globals.clipboard) delete globals.clipboard;
 //	globals.clipboard = new ClipBoard();
@@ -351,32 +433,6 @@ bool SignalManager::executeCommand(const QString &command)
     CASE_COMMAND("delete")
 	deleteRange(offset, length);
 
-//    CASE_COMMAND("paste")
-//	if (globals.clipboard) {
-//	    SignalManager *toinsert = globals.clipboard->getSignal();
-//	    if (toinsert) {
-//		unsigned int clipchan = toinsert->channels();
-//		unsigned int sourcechan = 0;
-//
-//		/* ### check if the signal has to be re-sampled ### */
-//		
-//		for (unsigned int i = 0; i < m_channels; i++) {
-//		    ASSERT(signal.at(i));
-//		    if (signal.at(i)) {
-//			signal.at(i)->insertPaste(toinsert->getSignal(
-//			    sourcechan)
-//			);
-//		    }
-//		    sourcechan++;
-//		    sourcechan %= clipchan;
-//		}
-//		if (toinsert->getLength()) {
-//		    rmarker = lmarker + toinsert->getLength() - 1;
-//		} else {
-//		    rmarker = lmarker;
-//		}
-//	    }
-//	}
 //    CASE_COMMAND("mixpaste")
 //	if (globals.clipboard) {
 //	    SignalManager *toinsert = globals.clipboard->getSignal();
@@ -415,6 +471,54 @@ bool SignalManager::executeCommand(const QString &command)
     }
 
     return true;
+}
+
+//***************************************************************************
+void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
+                          unsigned int length)
+{
+    QArray<unsigned int> selected_tracks = selectedTracks();
+    if (clipboard.isEmpty()) return;
+    if (!selected_tracks.size()) return;
+
+    UndoTransactionGuard u(*this, i18n("paste"));
+
+    // delete the current selection (with undo)
+    if (length < 1) length = 0; // do not paste single samples !
+    if (!deleteRange(offset, length)) {
+	abortUndoTransaction();
+	return;
+    }
+
+    // if the signal has no tracks, create new ones
+    if (!tracks()) {
+	unsigned int missing = clipboard.tracks();
+	debug("SignalManager::paste(): appending %u tracks", missing);
+	while (missing--) appendTrack();	
+    }
+
+    // open the clipboard as source
+    MultiTrackReader src;
+    clipboard.openMultiTrackReader(src);
+    if (src.isEmpty()) {
+	abortUndoTransaction();
+	return;
+    }
+
+    // open a stream into the signal
+    MultiTrackWriter dst;
+    openMultiTrackWriter(dst, selectedTracks(), Insert,
+                         offset, offset+clipboard.length()-1);
+    if (dst.isEmpty()) {
+	abortUndoTransaction();
+	return;
+    }
+
+    // transfer the content
+    dst << src;
+
+    // set the selection to the inserted range
+    selectRange(offset, clipboard.length());
 }
 
 //***************************************************************************
@@ -536,14 +640,14 @@ SignalManager::~SignalManager()
 }
 
 //***************************************************************************
-void SignalManager::deleteRange(unsigned int offset, unsigned int length)
+bool SignalManager::deleteRange(unsigned int offset, unsigned int length)
 {
-    if (!length) return; // nothing to do
+    if (!length) return true; // nothing to do
     UndoTransactionGuard undo(*this, i18n("delete"));
 
     QArray<unsigned int> track_list = allTracks();
     unsigned int count = track_list.count();
-    if (!count) return; // nothing to do
+    if (!count) return true; // nothing to do
 
     // first store undo data for all tracks
     unsigned int track;
@@ -555,7 +659,7 @@ void SignalManager::deleteRange(unsigned int offset, unsigned int length)
 	    // abort
 	    if (undo) delete undo;
 	    abortUndoTransaction();
-	    return;
+	    return false;
 	}
     }
 
@@ -567,6 +671,8 @@ void SignalManager::deleteRange(unsigned int offset, unsigned int length)
 
     // finally set the current selection to zero-length
     selectRange(m_selection.offset(), 0);
+
+    return true;
 }
 
 //***************************************************************************

@@ -92,8 +92,8 @@ public:
 	return m_recent_files;
     };
 
- //    /** Returns a reference to Kwave's clipboard */
-//    static ClipBoard &clipboard();
+    /** Returns a reference to Kwave's clipboard */
+    static ClipBoard &clipboard();
 
     /**
      * Returns the default directory for opening files.
@@ -169,8 +169,8 @@ private:
     /** list of toplevel widgets */
     QList<TopWidget> m_topwidget_list;
 
-//    /** Kwave's clipboard */
-//    static ClipBoard &m_clipboard;
+    /** Kwave's clipboard */
+    static ClipBoard &m_clipboard;
 
     /** Default directory for opening files */
     static QString m_default_open_dir;

@@ -19,6 +19,8 @@ libkwave_la_SOURCES=\
  LabelType.cpp\
  LabelList.cpp\
  LineParser.cpp\
+ MultiTrackReader.cpp\
+ MultiTrackWriter.cpp\
  Parser.cpp\
  Signal.cpp\
  SampleReader.cpp\

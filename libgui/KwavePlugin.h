@@ -25,6 +25,8 @@
 #include "mt/Asynchronous_Object.h"
 
 class KwavePlugin;
+class MultiTrackReader;
+class MultiTrackWriter;
 class PluginManager;
 class PluginContext;
 class SampleReader;
@@ -219,7 +221,7 @@ public:
      * in any order and even duplicate entries are allowed. One useful
      * application is passing the output of selectedTracks() in order
      * to read from only from selected tracks.
-     * @param readers vector that receives the SampleReader objects.
+     * @param readers reference to the MultiTrackReader to be filled.
      * @note the returned vector has set "autoDelete" to true, so you
      *       don't have to care about cleaning up
      * @param track_list array of indices of tracks for reading
@@ -228,8 +230,7 @@ public:
      * @see SampleReader
      * @see selectedTracks()
      */
-    void openSampleReaderSet(
-	QVector<SampleReader> &readers,
+    void openMultiTrackReader(MultiTrackReader &readers,
 	const QArray<unsigned int> &track_list,
 	unsigned int first, unsigned int last);
 

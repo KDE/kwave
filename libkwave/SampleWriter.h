@@ -26,6 +26,7 @@
 #include "libkwave/Sample.h"
 
 class SampleLock;
+class SampleReader;
 class Stripe;
 class Track;
 
@@ -80,6 +81,12 @@ public:
     }
 
     /**
+     * Fill the SampleWriter with data from a SampleReader. If the reader
+     * reaches EOF the writer will be filled up with zeroes.
+     */
+    SampleWriter &operator << (SampleReader &reader);
+
+    /**
      * Flush the content of a buffer. Normally the buffer is the
      * internal intermediate buffer used for single-sample writes.
      * When using block transfers, the internal buffer is bypassed
@@ -105,6 +112,14 @@ public:
      * index of the last written sample when in insert/append mode.
      */
     inline unsigned int last() { return m_last; };
+
+signals:
+
+    /**
+     * Is emitted once immediately before the writer gets closed and tells
+     * the receiver the total number of written samples.
+     */
+    void sigSamplesWritten(unsigned int);
 
 private:
 

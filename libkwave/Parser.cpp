@@ -1,14 +1,23 @@
+/***************************************************************************
+             Parser.cpp  -  parser for Kwave's internal commands
+			     -------------------
+    begin                : Sat Feb  3 2001
+    copyright            : (C) 2001 by Thomas Eschenbacher
+    email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include <qstring.h>
-
-#include "Parser.h"
-
-////**********************************************************
-//bool matchCommand (const char *com, const char *comp) {
-//    Parser parser(com);
-//    //printf ("comparing %s to %s\n",parser.getCommand(),comp);
-//    return (strcmp (parser.getCommand(), comp) == 0);
-//}
+#include "libkwave/Parser.h"
 
 //***************************************************************************
 Parser::Parser (const QString &init)
@@ -26,7 +35,6 @@ Parser::Parser (const QString &init)
     } else {
 	m_command = "";
     }
-//    debug("Parser: command='%s'", m_command.data()); // ###
 
     // --- parse the list of parameters ---
     unsigned int level = 0;
@@ -39,9 +47,6 @@ Parser::Parser (const QString &init)
 	    case ',':
 		if (level == 0) {
 		    m_param.append(param.stripWhiteSpace());
-		
-//		    debug("Parser: found parameter #%3d: '%s'",
-//			count(), m_param[count()-1].data()); // ###
 		    param = "";
 	        } else param += c;
 	        break;
@@ -52,11 +57,7 @@ Parser::Parser (const QString &init)
 		break;
 	    case ')':
 		if (!level) {
-//		    debug("Parser: reached terminating bracket"); // ###
 		    m_param.append(param.stripWhiteSpace());
-
-//		    debug("Parser: last parameter #%3d: '%s'",
-//			count(), m_param[count()-1].data()); // ###
 		    line = ""; // break, belongs to command, end of line
 		}
 		level--;

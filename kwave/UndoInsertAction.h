@@ -18,13 +18,15 @@
 #ifndef _UNDO_INSERT_ACTION_H_
 #define _UNDO_INSERT_ACTION_H_
 
+#include <qobject.h>
 #include <qstring.h>
 #include "UndoAction.h"
 
 class SignalManager;
 
-class UndoInsertAction: public UndoAction
+class UndoInsertAction: public QObject, public UndoAction
 {
+    Q_OBJECT
 public:
 
     /**
@@ -55,6 +57,17 @@ public:
      * @see UndoAction::undo()
      */
     virtual UndoAction *undo(SignalManager &manager, bool with_redo);
+
+public slots:
+
+    /**
+     * Can be connected to a SampleWriter's <c>sigSamplesWritten</c> signal
+     * if the writer has been opened in insert or append mode. In these
+     * cases the undo action's length only is determined when the writer
+     * gets closed.
+     * @see SampleWriter::sigSamplesWritten
+     */
+    void setLength(unsigned int length);
 
 protected:
 

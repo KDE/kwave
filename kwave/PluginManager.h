@@ -34,6 +34,7 @@ class QString;
 class QStringList;
 class SampleWriter;
 class TopWidget;
+class MultiTrackWriter;
 
 /**
  * Manages the loading, initializing, starting, running and closing
@@ -169,7 +170,7 @@ public:
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    void openSampleWriterSet(QVector<SampleWriter> &writers,
+    void openMultiTrackWriter(MultiTrackWriter &writers,
 	const QArray<unsigned int> &track_list, InsertMode mode,
 	unsigned int left, unsigned int right);
 
@@ -180,8 +181,8 @@ public:
      * @param writers reference to a vector that receives all writers.
      * @param mode specifies where and how to insert
      */
-    void openSampleWriterSet(QVector<SampleWriter> &writers,
-                             InsertMode mode);
+    void openMultiTrackWriter(MultiTrackWriter &writers,
+                              InsertMode mode);
 
     /**
      * Returns a reference to the current playback controller. This is

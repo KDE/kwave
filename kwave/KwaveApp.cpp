@@ -35,8 +35,8 @@
 
 //***************************************************************************
 // some static initializers
-//static ClipBoard _clipboard;
-//ClipBoard &KwaveApp::m_clipboard(_clipboard);
+static ClipBoard _clipboard;
+ClipBoard &KwaveApp::m_clipboard(_clipboard);
 QString KwaveApp::m_default_open_dir;
 QString KwaveApp::m_default_save_dir;
 
@@ -188,6 +188,12 @@ bool KwaveApp::closeWindow(TopWidget *todel)
 
     // if list is empty -> no more windows there -> exit application
     return (m_topwidget_list.isEmpty());
+}
+
+//***************************************************************************
+ClipBoard &KwaveApp::clipboard()
+{
+    return m_clipboard;
 }
 
 //***************************************************************************

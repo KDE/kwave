@@ -35,6 +35,9 @@
 
 class QBitmap;
 class QFile;
+class ClipBoard;
+class MultiTrackReader;
+class MultiTrackWriter;
 class Track;
 class UndoAction;
 class UndoTransaction;
@@ -154,8 +157,10 @@ public:
      * Deletes a range of samples and creates an undo action.
      * @param offset index of the first sample
      * @param length number of samples
+     * @return true if successful or nothing to do, false if not enough
+     *         memory for undo
      */
-    void deleteRange(unsigned int offset, unsigned int length);
+    bool deleteRange(unsigned int offset, unsigned int length);
 
     /**
      * Sets the current start and length of the selection to new values.
@@ -205,10 +210,12 @@ public:
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)
+     * @param with_undo if true, an undo action will be created
      * @see InsertMode
      */
     SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
-	unsigned int left = 0, unsigned int right = 0);
+	unsigned int left = 0, unsigned int right = 0,
+	bool with_undo = false);
 
     /**
      * Opens a stream for reading samples. If the the last position
@@ -223,6 +230,21 @@ public:
     {
 	return m_signal.openSampleReader(track, left, right);
     };
+
+    /**
+     * Opens a set of SampleWriters and internally handles the creation of
+     * needed undo information. This is useful for multi-channel operations.
+     * @param writers reference to a vector that receives all writers.
+     * @param track_list list of indices of tracks to be modified.
+     * @param mode specifies where and how to insert
+     * @param left start of the input (only useful in insert and
+     *             overwrite mode)
+     * @param right end of the input (only useful with overwrite mode)
+     * @see InsertMode
+     */
+    void openMultiTrackWriter(MultiTrackWriter &writers,
+	const QArray<unsigned int> &track_list, InsertMode mode,
+	unsigned int left, unsigned int right);
 
     /** Returns true if undo/redo is currently enabled */
     inline bool undoEnabled() { return m_undo_enabled; };
@@ -240,6 +262,14 @@ public:
      * @note No modifications should be performed while undo is off!
      */
     void disableUndo();
+
+    /**
+     * Deletes the current selection and inserts the content of the
+     * clipboard at the position of the first selected sample.
+     * If the clipboard contains more or less tracks than the selection,
+     * the signal will be mixed over all tracks.
+     */
+    void paste(ClipBoard &clipboard, unsigned int offset, unsigned int length);
 
 signals:
 

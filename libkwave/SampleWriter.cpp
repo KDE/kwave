@@ -17,6 +17,7 @@
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/SampleLock.h"
 #include "libkwave/Stripe.h"
@@ -36,6 +37,7 @@ SampleWriter::SampleWriter(Track &track, QList<Stripe> &stripes,
 SampleWriter::~SampleWriter()
 {
     flush();
+    emit sigSamplesWritten(m_position - m_first);
     if (m_lock) delete m_lock;
 }
 
@@ -57,6 +59,31 @@ SampleWriter &SampleWriter::operator << (const sample_t &sample)
 {
     m_buffer[m_buffer_used++] = sample;
     if (m_buffer_used >= m_buffer.size()) flush();
+    return *this;
+}
+
+//***************************************************************************
+SampleWriter &SampleWriter::operator << (SampleReader &reader)
+{
+    if (m_buffer_used >= m_buffer.size()) flush();
+
+    // transfer data, using our internal buffer
+    unsigned int buflen = m_buffer.size();
+    while (!reader.eof() && (m_position < m_last)) {
+	unsigned int len = buflen;
+	if ((m_position + len) > m_last) len = m_last - m_position;
+	
+	reader.read(m_buffer, 0, len);
+	
+	m_buffer_used = len;
+	flush();
+    }
+
+    // pad the rest with zeroes
+    while (m_buffer_used + m_position++ < m_last) {
+	*this << 0;
+    }
+
     return *this;
 }
 

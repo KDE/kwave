@@ -25,7 +25,7 @@
 //***************************************************************************
 UndoInsertAction::UndoInsertAction(unsigned int track,
 	unsigned int offset, unsigned int length)
-    :UndoAction(), m_track(track), m_offset(offset), m_length(length)
+    :QObject(), UndoAction(), m_track(track), m_offset(offset), m_length(length)
 {
 }
 
@@ -71,6 +71,12 @@ UndoAction *UndoInsertAction::undo(SignalManager &manager, bool with_redo)
     manager.deleteRange(m_track, m_offset, m_length);
 
     return redo_action;
+}
+
+//***************************************************************************
+void UndoInsertAction::setLength(unsigned int length)
+{
+    m_length = length;
 }
 
 //***************************************************************************

@@ -45,7 +45,8 @@ BUILTSOURCES=\
  PluginManager.moc.cpp\
  SignalManager.moc.cpp\
  SignalWidget.moc.cpp\
- TopWidget.moc.cpp
+ TopWidget.moc.cpp\
+ UndoInsertAction.moc.cpp
 
 kwave_SOURCES =\
  main.cpp\

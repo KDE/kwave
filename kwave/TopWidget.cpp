@@ -40,10 +40,10 @@
 #include <kstddirs.h>
 #include <ktoolbarbutton.h>
 
-#include "libkwave/FileFormat.h"
 #include "libkwave/FileLoader.h"
 #include "libkwave/LineParser.h"
 #include "libkwave/Parser.h"
+#include "libkwave/WavFileFormat.h"
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"

@@ -19,7 +19,6 @@
 
 #include <qdatastream.h>
 
-#include "libkwave/FileFormat.h"
 #include "libkwave/KwaveDrag.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -27,6 +26,7 @@
 #include "libkwave/Signal.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/WavFileFormat.h"
 
 // RFC 2361:
 #define WAVE_FORMAT_PCM "audio/vnd.wave; codec=001"
@@ -159,35 +159,6 @@ bool KwaveDrag::encode(unsigned int rate, unsigned int bits,
     }
     return true;
 }
-
-//class WavCodec: public ArtsMultiSource
-//{
-//public:
-//    WavCodec() {};
-//    virtual ~WavCodec() {};
-//};
-//
-//class WavPCMCodec: public WavCodec
-//{
-//public:
-//    WavPCMCodec(QByteArray data, unsigned int src_pos, unsigned int track,
-//	unsigned int tracks, unsigned int rate, unsigned int bits);
-//    virtual ~WavPCMCodec() {};
-//protected:
-//    QByteArray m_data;
-//    unsigned int m_offset;
-//    unsigned int m_track;
-//    unsigned int m_tracks;
-//    unsigned int m_rate;
-//    unsigned int m_bits;
-//};
-//
-//WavPCMCodec::WavPCMCodec(QByteArray data, unsigned int src_pos,
-//                         unsigned int track, unsigned int tracks,
-//                         unsigned int rate, unsigned int bits)
-//{
-//    ;
-//}
 
 //***************************************************************************
 bool KwaveDrag::decode(const QMimeSource *e, Signal &sig,

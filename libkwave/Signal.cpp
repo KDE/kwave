@@ -23,7 +23,7 @@
 #include "Interpolation.h"
 #include "Curve.h"
 #include "Filter.h"
-#include "FileFormat.h"
+#include "WavFileFormat.h"
 
 #include "mt/SharedLockGuard.h"
 

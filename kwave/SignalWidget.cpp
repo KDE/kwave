@@ -29,7 +29,6 @@
 #include <klocale.h>
 #include <kfiledialog.h>
 
-#include "libkwave/FileFormat.h"
 #include "libkwave/KwaveDrag.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
@@ -39,6 +38,7 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/WavFileFormat.h"
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"

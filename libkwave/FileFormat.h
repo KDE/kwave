@@ -1,36 +1,67 @@
+/***************************************************************************
+           FileFormat.h  -  information about a file format
+			     -------------------
+    begin                : Mar 05 2002
+    copyright            : (C) 2002 by Thomas Eschenbacher
+    email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #ifndef _FILE_FORMAT_H_
 #define _FILE_FORMAT_H_
 
-#include <sys/types.h>
+#include "config.h"
+#include <qstring.h>
+#include <qstringlist.h>
 
-// header format for reading wav files
-typedef struct
+/**
+ * @class FileFormat
+ * Encapsulates all information for identifying a file format.
+ */
+class FileFormat
 {
-    int8_t riffid[4];
-    u_int32_t filelength;
-    int8_t wavid[4];
-    int8_t fmtid[4];
-    u_int32_t fmtlength;
-    int16_t mode;
-    int16_t channels;
-    u_int32_t rate;
-    u_int32_t AvgBytesPerSec;
-    int16_t BlockAlign;
-    int16_t bitspersample;
-}  wav_header_t;
+public:
+    /** Constructor */
+    FileFormat(const QString &mime_type, const QStringList &sub_types,
+               const QString &description,
+               const QStringList &extensions);
 
-typedef struct
-{
-    int16_t mode;              // Format tag: 1 = PCM
-    int16_t channels;
-    u_int32_t rate;
-    u_int32_t AvgBytesPerSec;  // sample rate * block align
-    int16_t BlockAlign;        // channels * bits/sample / 8
-    int16_t bitspersample;
-} wav_fmt_header_t;
+    /** Destructor */
+    virtual ~FileFormat();
 
-#define WAV   0
-#define ASCII 1
+    /** returns the mime type as String */
+    QString mimeType();
+
+    /** returns the list of subtypes (optional, might be empty) */
+    QStringList subTypes();
+
+    /** return the description of the format (no i18n) */
+    QString description();
+
+    /** returns the list of file extensions (optional, might be empty) */
+    QStringList extensions();
+
+private:
+    /** name of the mime type */
+    QString m_mime_type;
+
+    /** list of subtypes, optional/can be empty */
+    QStringList m_sub_types;
+
+    /** user-readable description */
+    QString m_description;
+
+    /** list of associated file extensions */
+    QStringList m_extensions;
+
+};
 
 #endif /* _FILE_FORMAT_H_ */

@@ -32,7 +32,7 @@
 #include <klocale.h>
 #include <knuminput.h>
 
-#include "libkwave/FileFormat.h"
+#include "libkwave/WavFileFormat.h"
 #include "NewSignalDialog.h"
 
 /** size of all header and structure information of a canonical wav file */

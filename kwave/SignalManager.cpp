@@ -34,7 +34,6 @@
 #include <kmessagebox.h>
 #include <kprogress.h>
 
-#include "libkwave/FileFormat.h"
 #include "libkwave/InsertMode.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -44,6 +43,7 @@
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
+#include "libkwave/WavFileFormat.h"
 
 #include "libgui/FileProgress.h"
 

@@ -1001,7 +1001,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    m_layer[i] = 0;
 	    m_update_layer[i] = true;
 	}
-	if (!m_pixmap) delete m_pixmap;
+	if (m_pixmap) delete m_pixmap;
 	m_pixmap = 0;
 	update_pixmap = true;
 

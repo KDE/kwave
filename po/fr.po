@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-06-29 09:39+0200\n"
-"PO-Revision-Date: 2002-06-29 09:39+0200\n"
-"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
-"Language-Team: deutsch <de@li.org>\n"
+"PO-Revision-Date: 2002-06-30 12:03GMT\n"
+"Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
+"Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -248,7 +248,7 @@ msgstr ""
 #: kwave/TopWidget.cpp:905
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr "Le fichier '%1' existe déjà. Voulez-vous réellement l'écraser ?"
+msgstr "Le fichier «%1» existe déjà. Voulez-vous réellement l'écraser ?"
 
 #: kwave/TopWidget.cpp:1024
 #, c-format, ycp-format
@@ -289,7 +289,7 @@ msgstr "insérer"
 #: kwave/PluginManager.cpp:178
 #, ycp-format
 msgid "oops, plugin '%1' is unknown or invalid!"
-msgstr "oops, le plugin '%1' est inconnu ou invalide !"
+msgstr "oops, le plugin «%1» est inconnu ou invalide !"
 
 #: kwave/PluginManager.cpp:181 kwave/PluginManager.cpp:193
 msgid "error on loading plugin"
@@ -303,8 +303,8 @@ msgid ""
 " that contains the plugin '%2' !"
 msgstr ""
 "impossible de charger le fichier \n"
-"'%1'\n"
-" qui contient le plugin '%2' !"
+"«%1»\n"
+" qui contient le plugin «%2» !"
 
 #: kwave/PluginManager.cpp:217 kwave/PluginManager.cpp:224
 msgid "(unknown)"
@@ -316,11 +316,11 @@ msgstr "modifier les échantillons"
 
 #: kwave/main.cpp:60
 msgid "project leader since 2000, core development"
-msgstr "Coordinateur du projet depuis 2000 et developpeur principal."
+msgstr "Coordinateur du projet depuis 2000 et développeur principal."
 
 #: kwave/main.cpp:64
 msgid "creator of the project, development 1998-2000"
-msgstr "Créateur du projet et developpeur principal entre 1998 et 2000"
+msgstr "Créateur du projet et développeur principal entre 1998 et 2000"
 
 #: kwave/main.cpp:68
 msgid "creator of this dialog"
@@ -332,7 +332,7 @@ msgstr "Traductions Française."
 
 #: kwave/main.cpp:78
 msgid "Kwave homepage and german online help"
-msgstr "Site internet de kwave et documentation en allemand."
+msgstr "Site internet de kwave et documentation en Allemand."
 
 #: kwave/main.cpp:82
 msgid "tester"
@@ -340,15 +340,15 @@ msgstr "Testeurs."
 
 #: kwave/main.cpp:86
 msgid "debian packager"
-msgstr "Créateur des paquetages pour Debian"
+msgstr "Contruction des paquetages pour Debian"
 
 #: kwave/main.cpp:90
 msgid "author of the 'audiofile' library"
-msgstr "Auteur de la bibliothéque «audiofile»."
+msgstr "Auteur de la librairie «audiofile»."
 
 #: kwave/main.cpp:94
 msgid "author of the 'sndfile' library"
-msgstr "Auteur de la bibliothéque «sndfile»"
+msgstr "Auteur de la librairie «sndfile»"
 
 #: kwave/main.cpp:122
 msgid "sound editor for KDE2"
@@ -749,7 +749,7 @@ msgstr "avec le &presse-papier"
 
 #: kwave/menus_config_i18n.cpp:127
 msgid "Zoom &In"
-msgstr "Agrand&Ir"
+msgstr "Agrand&ir"
 
 #: kwave/menus_config_i18n.cpp:128
 msgid "Zoom &Out"
@@ -773,7 +773,7 @@ msgstr "en s"
 
 #: libgui/TimeLine.cpp:34
 msgid "in kb"
-msgstr "en kb"
+msgstr "en Ko"
 
 #: libgui/ConfirmCancelProxy.cpp:51
 msgid "Do you really want to abort the current action?"
@@ -835,7 +835,7 @@ msgstr "source : "
 
 #: libgui/FileProgress.cpp:87
 msgid "length: "
-msgstr "longueur :"
+msgstr "longueur : "
 
 #: libgui/FileProgress.cpp:95
 #, ycp-format
@@ -883,12 +883,12 @@ msgstr "Voulez-vous réellement annuler l'operation ?"
 #: libgui/FileProgress.cpp:265
 #, ycp-format
 msgid "%1 KB/s (%2 remain)"
-msgstr "%1 KB/s (%2 restant)"
+msgstr "%1 Ko/s (%2 restant)"
 
 #: libgui/FileProgress.cpp:280
 #, ycp-format
 msgid "%1 MB of %2 MB done"
-msgstr "%1 MB de %2 MB réalisés"
+msgstr "%1 Mo de %2 Mo réalisés"
 
 #: libgui/FileProgress.cpp:302
 #, c-format
@@ -905,11 +905,11 @@ msgstr "Label de départ:"
 
 #: plugins/amptolabel/module.cpp:36 plugins/saveblock/module.cpp:38
 msgid "Stop label:"
-msgstr "Label de fin:"
+msgstr "Label de fin :"
 
 #: plugins/amptolabel/module.cpp:38
 msgid "Length of silence:"
-msgstr "Longueur du silence:"
+msgstr "Longueur du silence :"
 
 #: plugins/amptolabel/module.cpp:40
 msgid ""
@@ -1011,11 +1011,11 @@ msgstr "Multiplicateur :"
 
 #: plugins/addsynth/module.cpp:230
 msgid "Phase in degree:"
-msgstr "Phase en degrée:"
+msgstr "Phase en degrée :"
 
 #: plugins/addsynth/module.cpp:234
 msgid "Power in %:"
-msgstr "Puissance en %:"
+msgstr "Puissance en % :"
 
 #: plugins/addsynth/module.cpp:238
 msgid "Frequency"
@@ -1090,7 +1090,7 @@ msgstr ""
 #: plugins/playback/PlayBack-OSS.cpp:109
 #, ycp-format
 msgid "The device '%1' cannot be opened in the correct mode."
-msgstr "Le périphérique '%1' ne peut pas être ouvert correctement."
+msgstr "Le périphérique «%1» ne peut pas être ouvert correctement."
 
 #: plugins/playback/PlayBack-OSS.cpp:117
 #, ycp-format
@@ -1114,7 +1114,7 @@ msgstr "Taille de buffer inutilisable : %1"
 #: plugins/playback/PlayBackPlugin.cpp:230
 #, ycp-format
 msgid "unable to open '%1'"
-msgstr "impossible d'ouvrir '%1'"
+msgstr "impossible d'ouvrir «%1»"
 
 #: plugins/playback/PlayBackDialog.cpp:54
 #: plugins/sonagram/SonagramDialog.cpp:55
@@ -1152,7 +1152,7 @@ msgid ""
 "only supported by some new sound hardware !"
 msgstr ""
 "Paramètre le mode de lecture en 24 Bits (haute qualité)\n"
-"Ce mode est supporté que par les périphériques sonores récents!"
+"Ce mode est supporté que par les périphériques sonores récents !"
 
 #: plugins/playback/PlayBackDialog.cpp:149
 msgid "Playback Device :"
@@ -1179,7 +1179,7 @@ msgid ""
 msgstr ""
 "Ceci est la taille du buffer qui est utilisé pour la communication avec le\n"
 "périphérique sonore. Si votre ordinateur est lent, selectionnez un buffer de "
-"grande taille"
+"grande taille."
 
 #: plugins/playback/PlayBackDialog.cpp:203
 msgid "&stereo playback"
@@ -1197,7 +1197,7 @@ msgid ""
 msgstr ""
 "Essayer de jouer une piste sonore de petite taille\n"
 "en utilisant les paramètres courrant.\n"
-"(désolé,  pas encore implémenté !)"
+"(désolé, pas encore implémenté !)"
 
 #: plugins/playback/PlayBackDialog.cpp:305
 #, c-format, ycp-format
@@ -1214,7 +1214,7 @@ msgid ""
 "running."
 msgstr ""
 "Impossible de se connecter au server de sons aRts. Peut-être n'est il pas "
-"correctement installer ou n'est pas en cours d'éxécution."
+"correctement installé ou en cours d'éxécution."
 
 #: plugins/playback/PlayBack-aRts.cpp:205
 msgid ""
@@ -1241,8 +1241,8 @@ msgid ""
 "The required aRts function is not yet implemented. Maybe you should get a "
 "newer version of aRts or upgrade the kdelibs package."
 msgstr ""
-"Le fonction aRts requises ne sont pas implémentés. Peut être devez-vous "
-"installer une nouvelle version du serveur aRts ou du package kdelibs."
+"La fonction aRts requise n'est pas implémentée. Peut être devez-vous "
+"installer une nouvelle version du serveur aRts ou du paquetage «kdelibs»."
 
 #: plugins/filter/module.cpp:29
 msgid "Choose filter parameters:"
@@ -1258,11 +1258,11 @@ msgstr "&sauvegarder un filtre"
 
 #: plugins/filter/module.cpp:42
 msgid "resulting changes in spectrum"
-msgstr "résultats changes dans le spectre"
+msgstr "résultats des modifications dans le spectre"
 
 #: plugins/filter/module.cpp:43
 msgid "resulting changes in phase"
-msgstr "résultats chages la phase"
+msgstr "résultats des modifications dans la phase"
 
 #: plugins/filter/module.cpp:49
 msgid "Filter Type"
@@ -1377,13 +1377,13 @@ msgid ""
 msgstr ""
 " <h2>Kwave est un éditeur de pistes sonores pour l'environnement de bureau "
 "KDE.</h2><br>\n"
-"Avec Kwave vous pouvez éditer beaucoup de genres de \n"
-"fichiers «.wav» y compris les fichiers sonores multicanaux.\n"
-"Vous pouvez altérer et rejouer chaque piste sur son propre.<br>\n"
-"Kwave inclut aussi beaucoup de plugins (la plupart des sont \n"
-"calme sous le développement) pour transformer les fichiers \n"
-"sonores dans plusieurs façons et présente une vue graphique \n"
-"avec des fonctions de zoom et défiler."
+"Avec Kwave vous pouvez éditer plusieurs types de \n"
+"fichiers sonores y compris les fichiers audio multicanaux.\n"
+"Vous pouvez aussi modifier et rejouer chaque piste indépendamment.<br>\n"
+"Kwave inclut aussi beaucoup de «plugins» (la plupart sont \n"
+"en cours de développement) pour transformer les fichiers \n"
+"sonores. Kwave présente une vue graphique \n"
+"avec des fonctions de zoom et de défilement."
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:136
 msgid "Authors"
@@ -1597,8 +1597,7 @@ msgstr "&Sélection..."
 
 #: plugins/memory/MemDlg.uic.cpp:108
 msgid "browse for a directory to hold page files"
-msgstr ""
-"Recherche d'un repertoire pour stocker les fichiers de la mémoire virtuelle"
+msgstr "Recherche d'un repertoire pour stocker les fichiers de la mémoire virtuelle"
 
 #: plugins/memory/MemDlg.uic.cpp:113
 msgid "&Limit to"
@@ -2278,3 +2277,4 @@ msgstr "Choisir la ligne de distorsion :"
 #, fuzzy
 #~ msgid "creator of the 'libsndfile' library"
 #~ msgstr "Auteur de la bibliothéque «sndfile»."
+

@@ -285,15 +285,15 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     WavFormatMap known_formats;
     QString format_name = known_formats.findName(header.min.format);
 
-//    debug("-------------------------");
-//    debug("wav header:");
-//    debug("mode        = 0x%04X, (%s)", header.min.format, format_name.data());
-//    debug("channels    = %d", header.min.channels);
-//    debug("rate        = %u", header.min.samplerate);
-//    debug("bytes/s     = %u", header.min.bytespersec);
-//    debug("block align = %d", header.min.blockalign);
-//    debug("bits/sample = %d", header.min.bitwidth);
-//    debug("-------------------------");
+    debug("-------------------------");
+    debug("wav header:");
+    debug("mode        = 0x%04X, (%s)", header.min.format, format_name.data());
+    debug("channels    = %d", header.min.channels);
+    debug("rate        = %u", header.min.samplerate);
+    debug("bytes/s     = %u", header.min.bytespersec);
+    debug("block align = %d", header.min.blockalign);
+    debug("bits/sample = %d", header.min.bitwidth);
+    debug("-------------------------");
 
     // open the file through libaudiofile :)
     if (need_repair) {
@@ -317,13 +317,13 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     m_src_adapter->open(m_src_adapter);
 
     AFfilehandle fh = m_src_adapter->handle();
-    ASSERT(fh);
     if (!fh || (m_src_adapter->lastError() >= 0)) {
 	QString reason;
 	
 	switch (m_src_adapter->lastError()) {
 	    case AF_BAD_NOT_IMPLEMENTED:
-	        reason = i18n("format or function is not implemented");
+	        reason = i18n("format or function is not implemented") +
+		         "\n("+format_name+")";
 	        break;
 	    case AF_BAD_MALLOC:
 	        reason = i18n("out of memory");
@@ -332,7 +332,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	        reason = i18n("file header is damaged");
 	        break;
 	    case AF_BAD_CODEC_TYPE:
-	        reason = i18n("invalid codec type");
+	        reason = i18n("invalid codec type") +
+		         "\n("+format_name+")";
 	        break;
 	    case AF_BAD_OPEN:
 	        reason = i18n("opening the file failed");

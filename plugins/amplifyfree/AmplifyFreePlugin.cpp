@@ -15,6 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "libkwave/ArtsMultiTrackSink.h"
+#include "libkwave/ArtsMultiTrackFilter.h"
+#include "libkwave/ArtsMultiIO.h"
+#include "libkwave/ArtsMultiSource.h"
+#include "libkwave/ArtsMultiSink.h"
+
 #include "config.h"
 #include <errno.h>
 #include <string.h> // ###
@@ -99,6 +105,73 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 };
 
 //***************************************************************************
+//***************************************************************************
+
+#include "PassThruFilter.h"
+
+class PassThruFilter_impl
+    :virtual public PassThruFilter_skel,
+     virtual public Arts::StdSynthModule
+{
+public:
+    void calculateBlock(unsigned long samples)
+    {
+//	debug("PassThruFilter_impl::calculateBlock(%lu)", samples);
+	unsigned long x = 0;
+	
+	while (x < samples) {
+	    if (m_pos < 30000) {
+		output[x] = input[x] * ((double)m_pos / 30000.0);
+	    } else output[x] = input[x];
+	
+//	    } else if (m_pos & 1) output[x] = 1.0; // 1 << 23;
+//	    else output[x] = -1.0; // (1 << 23);
+	
+	    m_pos++;
+	    x++;
+	}
+    };
+
+    virtual void streamInit() {
+	m_pos = 0;
+    };
+
+protected:
+    unsigned long m_pos;
+};
+
+//***************************************************************************
+//***************************************************************************
+
+typedef ArtsMultiIO< ArtsMultiSource, ArtsSampleSource, \
+    ArtsSampleSource_impl, MultiTrackReader > ArtsMultiTrackSource_base;
+
+class ArtsMultiTrackSource
+    :public ArtsMultiTrackSource_base
+{
+public:
+    ArtsMultiTrackSource(MultiTrackReader &reader)
+	:ArtsMultiTrackSource_base(reader) {};
+
+    virtual ~ArtsMultiTrackSource() {};
+
+    virtual bool done() {
+	unsigned int t;
+	for (t=0; t < m_count; ++t) {
+	    if (!m_ios[t]->done()) return false;
+	}
+	debug("ArtsMultiTrackSource()::done() -> reached eof !");
+	return true;
+    };
+};
+
+//***************************************************************************
+
+
+//***************************************************************************
+//***************************************************************************
+
+//***************************************************************************
 void AmplifyFreePlugin::run(QStringList)
 {
     unsigned int first, last;
@@ -116,43 +189,38 @@ void AmplifyFreePlugin::run(QStringList)
 	last = input_length-1;
     }
 
-    first=0;
-    last=30;
-
     openMultiTrackReader(source, selectedTracks(), first, last);
-    manager().openMultiTrackWriter(sink, Overwrite);
+    manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite, first, last);
 
     static Arts::Dispatcher dispatcher;
     dispatcher.lock();
 
-//    for (track=0; track < tracks; track++) {
-    SampleReader *reader = source.at(0);
-    SampleWriter *writer = sink.at(0);
+    unsigned int tracks = selectedTracks().count();
+    ArtsMultiTrackFilter<PassThruFilter, PassThruFilter_impl> filter1(tracks);
+    ArtsMultiTrackFilter<PassThruFilter, PassThruFilter_impl> filter2(tracks);
 
-    ArtsSampleSource src_adapter = ArtsSampleSource::_from_base(
-	new ArtsSampleSource_impl(reader));
+    ArtsMultiTrackSource arts_source(source);
+    ArtsMultiTrackSink   arts_sink(sink);
 
-    ArtsSampleSink dst_adapter = ArtsSampleSink::_from_base(
-	new ArtsSampleSink_impl(writer));
+    filter1.connectInput( arts_source, "source");
+    filter2.connectInput( filter1,     "output");
+    filter2.connectOutput(arts_sink,   "sink");
 
-    Arts::connect(src_adapter, "source", dst_adapter, "sink");
+    arts_source.start();
+    arts_sink.start();
+    filter1.start();
+    filter2.start();
 
-    src_adapter.start();
-    dst_adapter.start();
-
-//    dispatcher.run();
-    while (!m_stop && !(src_adapter.done())) {
-	dst_adapter.goOn();
+    debug("AmplifyFreePlugin: filter started...");
+    while (!m_stop && !(arts_source.done())) {
+	arts_sink.goOn();
     }
+    debug("AmplifyFreePlugin: filter done.");
 
-    dst_adapter.stop();
-    src_adapter.stop();
-
-    sink.setAutoDelete(true);
-    sink.clear();
-
-    source.setAutoDelete(true);
-    source.clear();
+    filter2.stop();
+    filter1.stop();
+    arts_sink.stop();
+    arts_source.stop();
 
     dispatcher.unlock();
 

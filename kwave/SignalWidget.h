@@ -194,6 +194,9 @@ public slots:
      */
     inline double zoom() { return m_zoom; };
 
+    /** Returns the width of the current view in samples */
+    int displaySamples();
+
     /**
      * Zooms into the selected range between the left and right marker.
      */

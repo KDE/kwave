@@ -7,6 +7,7 @@
  * auto-repair for structurally damaged wav files
  * bugfix: save selection works again
  * integrated libkwavemt into libkwave
+ * using time instead of zoom factor (e.g. set zoom to "1 minute")
 
 0.6.3 [2002-03-01]
 

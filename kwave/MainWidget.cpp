@@ -53,10 +53,6 @@
 #define max(x,y) (( x > y ) ? (x) : (y) )
 #endif
 
-#ifndef min
-#define min(x,y) (( x < y ) ? (x) : (y) )
-#endif
-
 // ### static const int tbl_keys[10] = {
 // ###     Key_1, Key_2, Key_3, Key_4, Key_5, Key_6, Key_7, Key_8, Key_9, Key_0
 // ### };
@@ -68,7 +64,7 @@ MainWidget::MainWidget(QWidget *parent)
     :QWidget(parent), keys(0), m_slider(0), m_signal_frame(this),
      m_signal_widget(&m_signal_frame),
      frmChannelControls(0),
-     scrollbar(0), m_lamps()/*, m_speakers()*/, lastChannels(0)
+     m_scrollbar(0), m_lamps()/*, m_speakers()*/, m_last_tracks(0)
 {
 //    debug("MainWidget::MainWidget()");
     int s[3];
@@ -149,14 +145,14 @@ MainWidget::MainWidget(QWidget *parent)
 
     // -- scrollbar for the signal widget and the channel controls --
 
-    scrollbar = new QScrollBar(this);
-    ASSERT(scrollbar);
-    if (!scrollbar) return;
-    scrollbar->setOrientation(QScrollBar::Vertical);
-    scrollbar->setFixedWidth(scrollbar->sizeHint().width());
-    scrollbar->hide();
-    scrollbar->setFixedWidth(0);
-    signalLayout->addWidget(scrollbar,   0, AlignRight);
+    m_scrollbar = new QScrollBar(this);
+    ASSERT(m_scrollbar);
+    if (!m_scrollbar) return;
+    m_scrollbar->setOrientation(QScrollBar::Vertical);
+    m_scrollbar->setFixedWidth(m_scrollbar->sizeHint().width());
+    m_scrollbar->hide();
+    m_scrollbar->setFixedWidth(0);
+    signalLayout->addWidget(m_scrollbar,   0, AlignRight);
 
     // -- signal widget --
 
@@ -176,7 +172,7 @@ MainWidget::MainWidget(QWidget *parent)
 
     // -- connect all signals from/to the signal widget --
 
-    connect(scrollbar, SIGNAL(valueChanged(int)),
+    connect(m_scrollbar, SIGNAL(valueChanged(int)),
             this, SLOT(scrollbarMoved(int)));
 
     connect(m_slider, SIGNAL(valueChanged(unsigned int)),
@@ -210,11 +206,11 @@ bool MainWidget::isOK()
 {
     ASSERT(frmChannelControls);
 //    ASSERT(keys); ###
-    ASSERT(scrollbar);
+    ASSERT(m_scrollbar);
     ASSERT(m_slider);
 
     return ( frmChannelControls /* ### && keys */ &&
-    	scrollbar && m_slider );
+    	m_scrollbar && m_slider );
 }
 
 //***************************************************************************
@@ -368,23 +364,23 @@ void MainWidget::refreshChannelControls()
     unsigned int channels = tracks();
     int min_height = (max(channels, 1) * MIN_PIXELS_PER_CHANNEL);
     bool need_scrollbar = (m_signal_frame.height() < min_height);
-    bool scrollbar_visible = scrollbar->isVisible();
+    bool scrollbar_visible = m_scrollbar->isVisible();
     int h = max(min_height, m_signal_frame.height());
     int w = m_signal_frame.width();
-    int b = scrollbar->sizeHint().width();
+    int b = m_scrollbar->sizeHint().width();
 
     if (need_scrollbar && !scrollbar_visible) {
 	// -- show the scrollbar --
-	scrollbar->setFixedWidth(b);
-	scrollbar->setValue(0);
-	scrollbar->show();
+	m_scrollbar->setFixedWidth(b);
+	m_scrollbar->setValue(0);
+	m_scrollbar->show();
 	w -= b;
 	scrollbar_visible = true;
 	debug(" - scrollbar shown");
     } else if (!need_scrollbar && scrollbar_visible) {
 	// -- hide the scrollbar --
-	scrollbar->hide();
-	scrollbar->setFixedWidth(0);
+	m_scrollbar->hide();
+	m_scrollbar->setFixedWidth(0);
 	w += b;
 	scrollbar_visible = false;
 	debug(" - scrollbar hidden");
@@ -392,15 +388,15 @@ void MainWidget::refreshChannelControls()
 
     if (scrollbar_visible) {
 	// adjust the limits of the scrollbar
-	int min = scrollbar->minValue();
-	int max = scrollbar->maxValue();
-	double val = (scrollbar->value()-(double)min) / (double)(max-min);
+	int min = m_scrollbar->minValue();
+	int max = m_scrollbar->maxValue();
+	double val = (m_scrollbar->value()-(double)min) / (double)(max-min);
 	
 	min = 0;
 	max = h-m_signal_frame.height();
-	scrollbar->setRange(min, max);
-	scrollbar->setValue(floor(val * (double)max));
-	scrollbar->setSteps(1, m_signal_frame.height());
+	m_scrollbar->setRange(min, max);
+	m_scrollbar->setValue(floor(val * (double)max));
+	m_scrollbar->setSteps(1, m_signal_frame.height());
     }
 
     // resize the signal widget and the frame with the channel controls
@@ -414,7 +410,7 @@ void MainWidget::refreshChannelControls()
     int y;
 
     // move the existing lamps and speakers to their new position
-    for (unsigned int i = 0; (i < lastChannels) && (i < channels); i++) {
+    for (unsigned int i = 0; (i < m_last_tracks) && (i < channels); i++) {
 	ASSERT(m_lamps.at(i));
 //	ASSERT(m_speakers.at(i));
 	if (!m_lamps.at(i)) continue;
@@ -432,7 +428,7 @@ void MainWidget::refreshChannelControls()
 //	m_speakers.remove(m_speakers.last());
 
     // add lamps+speakers for new channels
-    for (unsigned int i = lastChannels; i < channels; i++) {
+    for (unsigned int i = m_last_tracks; i < channels; i++) {
 	int s[3];
 	MultiStateWidget *msw = new MultiStateWidget(frmChannelControls, i);
 	ASSERT(msw);
@@ -479,7 +475,7 @@ void MainWidget::refreshChannelControls()
 //	m_speakers.at(i)->setNumber(i);
     }
 
-    lastChannels = channels;
+    m_last_tracks = channels;
 }
 
 //***************************************************************************

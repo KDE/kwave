@@ -4,12 +4,10 @@ o hourglass and process indicators for longer processes
 
 o ruler that shows the current cursor position as time
 
-o use time instead of zoom factor (e.g. set zoom to "1 minute")
-
 o storage/handling of extra info (labels, cue list, author etc...)
 
 o plugins for import/export of different file formats (e.g. MP3)
-  -> through aRts ?
+  -> through aRts/libaudiofile ?
 
 o currently load/save uses the file extension to identify the mime type
   should be changed to an extra parameter with a KMimeType's name
@@ -39,8 +37,6 @@ o support for compressed wav files, like those found on www.montypython.net
   -> MPEG 3 is still not supported by libaudiofile
 
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
-
-o TrackPixmap: different color sets if selected/deselected
 
 o get Xt toolkit options working again (like -geometry)
 
@@ -133,6 +129,8 @@ o macro recorder
 o more complete documentation of the whole api
 
 o navigation buttons on the overview widget
+
+o TrackPixmap: different color sets if selected/deselected
 
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width

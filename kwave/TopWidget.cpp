@@ -19,6 +19,7 @@
 #include "config.h"
 
 #include <errno.h>
+#include <math.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -107,21 +108,34 @@
 //***************************************************************************
 //***************************************************************************
 TopWidget::ZoomListPrivate::ZoomListPrivate()
-    :QStringList()
+    :QStringList(), m_milliseconds()
 {
-    clear();
-    append("800 %");
-    append("400 %");
-    append("200 %");
-    append("100 %");
-    append("33 %");
-    append("10 %");
-    append("3 %");
-    append("1 %");
-    append("0.1 %");
-    append("0.01 %");
+    append("1 ms",              1L);
+    append("10 ms",            10L);
+    append("100 ms",          100L);
+    append("1 sec",          1000L);
+    append("10 sec",     10L*1000L);
+    append("30 sec",     30L*1000L);
+    append("1 min",   1L*60L*1000L);
+    append("10 min", 10L*60L*1000L);
+    append("30 min", 30L*60L*1000L);
+    append("60 min", 60L*60L*1000L);
 };
 
+//***************************************************************************
+void TopWidget::ZoomListPrivate::append(const char *text, unsigned int ms)
+{
+    QStringList::append(text);
+    m_milliseconds.append(ms);
+}
+
+//***************************************************************************
+unsigned int TopWidget::ZoomListPrivate::ms(int index)
+{
+    return m_milliseconds[index];
+}
+
+//***************************************************************************
 //***************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app)
     :KMainWindow(), m_app(main_app), m_url()
@@ -409,7 +423,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     int h = m_zoomselect->sizeHint().height();
     m_zoomselect->setFixedHeight(h);
     m_zoomselect->setMinimumWidth(
-        max(m_zoomselect->sizeHint().width()+10, 3*h));
+        max(m_zoomselect->sizeHint().width()+20, 3*h));
     m_zoomselect->setAutoResize(false);
     m_zoomselect->setFocusPolicy(QWidget::NoFocus);
     m_toolbar->setMinimumHeight(max(m_zoomselect->sizeHint().height()+2,
@@ -852,11 +866,12 @@ void TopWidget::selectZoom(int index)
     if ((unsigned int)index >= m_zoom_factors.count())
 	index = m_zoom_factors.count()-1;
 
-    double new_zoom;
-    QStringList::Iterator text = m_zoom_factors.at(index);
-    new_zoom = (text != 0) ? (*text).toDouble() : 0.0;
-    if (new_zoom != 0.0) new_zoom = (100.0 / new_zoom);
-
+    const double rate = signalManager().rate();
+    const double ms = m_zoom_factors.ms(index);
+    unsigned int width = m_main_widget->displayWidth();
+    ASSERT(width > 1);
+    if (width <= 1) width = 2;
+    const double new_zoom = rint(((rate*ms)/1E3)-1) / (double)(width-1);
     m_main_widget->setZoom(new_zoom);
 
     // force the zoom factor to be set, maybe the current selection
@@ -874,11 +889,29 @@ void TopWidget::setZoomInfo(double zoom)
     if (zoom <= 0.0) return; // makes no sense or signal is empty
     if (!m_zoomselect) return;
 
-    double percent = (double)100.0 / zoom;
     QString strZoom;
-
     if ((m_main_widget) && (m_main_widget->tracks())) {
-	strZoom = KwavePlugin::zoom2string(percent);
+	unsigned int rate = signalManager().rate();
+	if (rate) {
+	    // time display mode
+	    double ms = m_main_widget->displaySamples()*1E3/(double)rate;
+	    int s = (int)round(ms / 1000.0);
+	    int m = (int)floor(s / 60.0);
+	
+	    if (m >= 1) {
+		strZoom = strZoom.sprintf("%02d:%02d min", m, s % 60);
+	    } else if (s >= 1) {
+		strZoom = strZoom.sprintf("%d sec", s);
+	    } else if (ms >= 1) {
+		strZoom = strZoom.sprintf("%d ms", (int)round(ms));
+	    } else if (ms >= 0.01) {
+		strZoom = strZoom.sprintf("%0.3g ms", ms);
+	    }
+	} else {
+	    // percent mode
+	    double percent = (double)100.0 / zoom;
+	    strZoom = KwavePlugin::zoom2string(percent);
+	}
     }
 
     (strZoom.length()) ? m_zoomselect->setEditText(strZoom) :
@@ -906,8 +939,8 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 
     // sample rate and resolution
     if (bits) {
-	txt = " "+i18n("Mode: %u bit@%0.3f kHz")+" ";
-	txt = txt.sprintf(txt, bits, (double)rate *1E-3);
+	txt = " "+i18n("Mode: %0.3f kHz@%u bit")+" ";
+	txt = txt.sprintf(txt, (double)rate *1E-3, bits);
     } else txt = "";
     statusBar()->changeItem(txt, STATUS_ID_MODE);
 

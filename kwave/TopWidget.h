@@ -297,9 +297,14 @@ private:
      */
     class ZoomListPrivate: public QStringList
     {
-	public:
+    public:
 	ZoomListPrivate();
 	virtual ~ZoomListPrivate() {};
+	unsigned int ms(int index);
+    private:
+	void append(const char *text, unsigned int ms);
+    private:
+	QValueList<unsigned int> m_milliseconds;
     };
 
     /** Initialized list of zoom factors */

@@ -1153,6 +1153,12 @@ int SignalWidget::samples2pixels(int samples)
 }
 
 //***************************************************************************
+int SignalWidget::displaySamples()
+{
+    return pixels2samples(width()-1);
+}
+
+//***************************************************************************
 void selectMarkers(const char */*command*/)
 {
 //    Parser parser(command);

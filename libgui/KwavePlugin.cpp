@@ -266,16 +266,16 @@ QString KwavePlugin::zoom2string(double percent)
 }
 
 //***************************************************************************
-QString KwavePlugin::ms2string(double ms)
+QString KwavePlugin::ms2string(double ms, int precision)
 {
     char buf[128];
     int bufsize = 128;
 
     if (ms < 1.0) {
 	char format[128];
-	// limit to 6 digits, use 0.0 for exact zero
+	// limit precision, use 0.0 for exact zero
 	int digits = (ms != 0.0) ? (int)ceil(1.0 - log10(ms)) : 1;
-	if ( (digits < 0) || (digits > 6)) digits = 6;
+	if ( (digits < 0) || (digits > precision)) digits = precision;
 
 	snprintf(format, sizeof(format), "%%0.%df ms", digits);
 	snprintf(buf, bufsize, format, ms);
@@ -287,7 +287,7 @@ QString KwavePlugin::ms2string(double ms)
 	
 	if (m < 1) {
 	    char format[128];
-	    int digits = (int)ceil(7.0 - log10(ms));
+	    int digits = (int)ceil((double)(precision+1) - log10(ms));
 	    snprintf(format, sizeof(format), "%%0.%df s", digits);
 	    snprintf(buf, bufsize, format, ms / 1000.0);
 	} else {

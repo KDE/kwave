@@ -39,7 +39,6 @@ class OverViewWidget;
 class PlaybackController;
 class SignalManager;
 
-
 //***************************************************************************
 class MainWidget : public QWidget
 {
@@ -104,6 +103,16 @@ public:
 
     /** Returns the playback controller */
     PlaybackController &playbackController();
+
+    /** Returns the width of the current view in samples */
+    inline int displaySamples() {
+	return m_signal_widget.displaySamples();
+    };
+
+    /** Returns the width of the current view in pixels */
+    inline int displayWidth() {
+	return m_signal_widget.width();
+    }
 
 protected:
 
@@ -233,7 +242,7 @@ private:
     QFrame *frmChannelControls;
 
     /** vertical scrollbar, only visible if channels do not fit vertically */
-    QScrollBar *scrollbar;
+    QScrollBar *m_scrollbar;
 
     /** array of lamps, one for each channel */
     QList<MultiStateWidget> m_lamps;
@@ -242,7 +251,7 @@ private:
 //    QList<MultiStateWidget> m_speakers;
 
     /** the last number of channels (for detecting changes) */
-    unsigned int lastChannels;
+    unsigned int m_last_tracks;
 
 };
 

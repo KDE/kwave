@@ -218,8 +218,13 @@ public:
      * Times above one second and below one minute are rounded up
      * to full seconds and shown as "12.3 s". From one full minute
      * upwards time is shown as "12:34" (like most CD players do).
+     * @param ms time in milliseconds
+     * @param precision number of digits after the comma, for limiting
+     *                  the length. optional, default = 6 digits,
+     *                  must be >= 3 !
+     * @return time formatted as user-readable string
      */
-    static QString ms2string(double ms);
+    static QString ms2string(double ms, int precision = 6);
 
 protected:
 

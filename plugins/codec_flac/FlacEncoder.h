@@ -19,6 +19,7 @@
 #define _FLAC_ENCODER_H_
 
 #include "config.h"
+#include <qptrvector.h>
 #include <vorbis/vorbisenc.h>
 #include "libkwave/Encoder.h"
 #include "VorbisCommentMap.h"
@@ -84,8 +85,37 @@ protected:
      * Encode all Kwave file info into FLAC meta data
      *
      * @param info information about the file to be saved
+     * @param flac_metadata QPtrVector with collects the FLAC metadata
      */
-    virtual void encodeMetaData(FileInfo &info);
+    virtual void encodeMetaData(FileInfo &info,
+        QPtrVector<FLAC__StreamMetadata> &flac_metadata);
+
+protected:
+
+    class VorbisCommentContainer
+    {
+    public:
+        /** Constructor */
+        VorbisCommentContainer();
+
+        /** Destructor */
+        virtual ~VorbisCommentContainer();
+
+        /**
+         * add a new comment
+         *
+         * @param tag name of the vorbis tag, as string
+         * @param value the value of the tag, as string
+         */
+        void add(const QString &tag, const QString &value);
+
+	/** Returns a pointer to the FLAC metadata */
+	FLAC__StreamMetadata *data();
+
+    private:
+        /** list of metadata objects */
+        FLAC__StreamMetadata *m_vc;
+    };
 
 private:
 

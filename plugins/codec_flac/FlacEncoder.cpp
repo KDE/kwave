@@ -93,7 +93,64 @@ void FlacEncoder::metadata_callback(const ::FLAC__StreamMetadata *)
 }
 
 /***************************************************************************/
-void FlacEncoder::encodeMetaData(FileInfo &info)
+FlacEncoder::VorbisCommentContainer::VorbisCommentContainer()
+    :m_vc(0)
+{
+    m_vc = FLAC__metadata_object_new(FLAC__METADATA_TYPE_VORBIS_COMMENT);
+    Q_ASSERT(m_vc);
+}
+
+/***************************************************************************/
+FlacEncoder::VorbisCommentContainer::~VorbisCommentContainer()
+{
+    if (m_vc) {
+        // clean up all vorbis comments
+    }
+}
+
+/***************************************************************************/
+void FlacEncoder::VorbisCommentContainer::add(const QString &tag,
+                                              const QString &value)
+{
+    Q_ASSERT(m_vc);
+    if (!m_vc) return;
+
+    unsigned int count = m_vc->data.vorbis_comment.num_comments;
+    bool ok;
+
+    QString s;
+    s = tag+"="+value;
+    qDebug("FlacEncoder::VorbisCommentContainer::add(%s)", s.data());
+
+    // create a copy of the UTF-8 string
+    QCString val = s.utf8();
+    unsigned int len = val.length();
+    FLAC__byte *copy = (FLAC__byte *)malloc(len);
+    Q_ASSERT(copy);
+    if (!copy) return;
+    memcpy(copy, (const char *)val.data(), len);
+
+    // put it into a vorbis_comment_entry structure
+    FLAC__StreamMetadata_VorbisComment_Entry entry;
+    entry.length = len;
+    entry.entry  = copy;
+
+    // insert the comment into the list
+    ok =  FLAC__metadata_object_vorbiscomment_insert_comment(
+	m_vc, count, entry, true);
+    Q_ASSERT(ok);
+
+}
+
+/***************************************************************************/
+FLAC__StreamMetadata *FlacEncoder::VorbisCommentContainer::data()
+{
+    return m_vc;
+}
+
+/***************************************************************************/
+void FlacEncoder::encodeMetaData(FileInfo &info,
+    QPtrVector<FLAC__StreamMetadata> &flac_metadata)
 {
     // append some missing standard properties if they are missing
     if (!info.contains(INF_SOFTWARE)) {
@@ -117,7 +174,29 @@ void FlacEncoder::encodeMetaData(FileInfo &info)
 	info.set(INF_CREATION_DATE, value);
     }
 
-    // ### TODO ###
+    // encode all Vorbis comments
+    VorbisCommentMap::ConstIterator it;
+    VorbisCommentContainer vc;
+    for (it = m_vorbis_comment_map.begin();
+         it != m_vorbis_comment_map.end();
+         ++it)
+    {
+	if (!info.contains(it.data())) continue; // not present -> skip
+
+	QString value = info.get(it.data()).toString();
+	vc.add(it.key(), value.utf8());
+    }
+
+    flac_metadata.resize(flac_metadata.size()+1);
+    flac_metadata.insert(flac_metadata.size(), vc.data());
+
+    // convert container to a list of pointers
+    unsigned int meta_count = flac_metadata.size();
+    if (meta_count) {
+	if (!set_metadata(flac_metadata.data(), meta_count)) {
+	    qWarning("FlacEncoder: setting meta data failed !?");
+	}
+    }
 
 }
 
@@ -138,6 +217,14 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
     set_bits_per_sample(bits);
     set_sample_rate((long)m_info->rate());
     set_total_samples_estimate(length);
+
+    // use mid-side stereo encoding if we have two channels
+    set_do_mid_side_stereo(tracks == 2);
+    set_loose_mid_side_stereo(tracks == 2);
+
+    // encode meta data, most of them as vorbis comments
+    QPtrVector<FLAC__StreamMetadata> flac_metadata;
+    encodeMetaData(info, flac_metadata);
 
     // open the output device
     if (!dst.open(IO_ReadWrite | IO_Truncate)) {
@@ -163,29 +250,34 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
     // allocate output buffers, with FLAC 32 bit format
     unsigned int len = 8192; // samples
-    QValueVector< QMemArray<FLAC__int32> > out_buffer;
+    QPtrVector< QMemArray<FLAC__int32> > out_buffer;
     out_buffer.resize(tracks);
+    out_buffer.fill(0);
+    out_buffer.setAutoDelete(true);
     Q_ASSERT(out_buffer.size() == tracks);
 
     QMemArray<FLAC__int32 *> flac_buffer;
     flac_buffer.resize(tracks);
 
-    QValueVector< QMemArray<FLAC__int32> >::Iterator it;
     unsigned int track = 0;
-    for (it=out_buffer.begin(); it != out_buffer.end(); ++it) {
-	(*it).resize(len);
-	Q_ASSERT(it->size() == len);
-	if (it->size() != len) {
+    for (unsigned int track=0; track < tracks; track++)
+    {
+	QMemArray<FLAC__int32> *buf = new QMemArray<FLAC__int32>((int)len);
+	Q_ASSERT(buf);
+	if (!buf || (buf->size() < len)) {
 	    out_buffer.clear();
 	    break;
 	}
-	flac_buffer[track++] = it->data();
+	out_buffer.insert(track, buf);
+	buf->detach();
+	flac_buffer[track] = buf->data();
     }
 
     // allocate input buffer, with Kwave's sample_t
     QMemArray<sample_t> in_buffer;
     in_buffer.resize(len);
     Q_ASSERT(in_buffer.size() == len);
+    Q_ASSERT(out_buffer.size() == tracks);
 
     if ((in_buffer.size() < len) || (out_buffer.size() < tracks) ||
 	(flac_buffer.size() < tracks))
@@ -218,10 +310,10 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    len = in_buffer.size(); // in_buffer might have been shrinked!
 	    Q_ASSERT(len);
 
-	    for (unsigned int in_pos=0; in_pos < len; in_pos++) {
+	    for (register unsigned int in_pos=0; in_pos < len; in_pos++) {
 		register FLAC__int32 s = in_buffer[in_pos];
 		if (div) s /= div;
-		out_buffer[track][in_pos] = s;
+		flac_buffer[track][in_pos] = s;
 	    }
 	}
 
@@ -243,6 +335,7 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
     m_info = 0;
     m_dst  = 0;
     dst.close();
+    out_buffer.clear();
 
     return true;
 }

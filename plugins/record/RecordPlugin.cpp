@@ -52,10 +52,10 @@ public:
     };
 };
 
-
 //***************************************************************************
 RecordPlugin::RecordPlugin(PluginContext &context)
-    :KwavePlugin(context), m_params(), m_device(0), m_dialog(0)
+    :KwavePlugin(context), m_state(REC_EMPTY), m_device(0),
+     m_dialog(0)
 {
     i18n("record");
 }
@@ -72,10 +72,11 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 {
     qDebug("RecordPlugin::setup");
 
-    m_params.fromList(previous_params);
+    // use a new record controller
+    RecordController controller;
 
     // create the setup dialog
-    m_dialog = new RecordDialog(parentWidget(), m_params);
+    m_dialog = new RecordDialog(parentWidget(), previous_params, &controller);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return 0;
 
@@ -93,8 +94,27 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     connect(m_dialog, SIGNAL(sigSampleFormatChanged(int)),
             this, SLOT(changeSampleFormat(int)));
 
-    // select the playback device
-    changeDevice(m_params.device_name);
+    // connect the record controller
+    connect(&controller, SIGNAL(sigReset()),
+            this, SLOT(resetRecording()));
+    connect(&controller, SIGNAL(sigStartRecord()),
+            this, SLOT(startRecording()));
+    connect(&controller, SIGNAL(sigStopRecord()),
+            this, SLOT(stopRecording()));
+    connect(&controller, SIGNAL(stateChanged(RecordState)),
+            this, SLOT(stateChanged(RecordState)));
+
+    connect(this, SIGNAL(sigStarted()),
+            &controller, SLOT(deviceRecordStarted()));
+    connect(this, SIGNAL(sigBufferFull()),
+            &controller, SLOT(deviceBufferFull()));
+    connect(this, SIGNAL(sigTriggerReached()),
+            &controller, SLOT(deviceTriggerReached()));
+    connect(this, SIGNAL(sigStopped()),
+            &controller, SLOT(deviceRecordStopped()));
+
+    // select the record device
+    changeDevice(m_dialog->params().device_name);
 
     QStringList *list = new QStringList();
     Q_ASSERT(list);
@@ -142,7 +162,7 @@ void RecordPlugin::changeDevice(const QString &dev)
     if (res < 0) {
 	// snap back to the previous device
 	// ASSUMPTION: the previous device already worked !?
-	res = m_device->open(m_params.device_name);
+	res = m_device->open(m_dialog->params().device_name);
 	if (res < 0) {
 	    // oops: previous device did also not work
 	    KMessageBox::sorry(m_dialog,
@@ -154,8 +174,8 @@ void RecordPlugin::changeDevice(const QString &dev)
 	} else {
 	    KMessageBox::sorry(m_dialog,
 		i18n("Opening the device %1 failed, reverting to %2.").arg(
-		dev).arg(m_params.device_name));
-	    m_dialog->setDevice(m_params.device_name);
+		dev).arg(m_dialog->params().device_name));
+	    m_dialog->setDevice(m_dialog->params().device_name);
 	}
 	return;
     }
@@ -171,26 +191,23 @@ void RecordPlugin::changeDevice(const QString &dev)
 	    i18n("The record device '%1' does not work properly, "\
 	    "determining the number of supported channels failed.").arg(
 	    dev));
-	res = m_device->open(m_params.device_name);
+	res = m_device->open(m_dialog->params().device_name);
 	if (res < 0) {
 	    // oops: previous device did also not work
 	    m_device->close();
 	    m_dialog->setDevice("");
-	} else {
-	    m_dialog->setDevice(m_params.device_name);
 	}
 	return;
     }
 
     // opening the device succeeded, take it :-)
-    m_params.device_name = dev;
-    m_dialog->setDevice(m_params.device_name);
+    m_dialog->setDevice(dev);
 
     // start with setting the number of tracks, the rest
     // comes automatically:
     // tracks -> sample rate -> bits per sample -> sample format
     m_dialog->setSupportedTracks(min_tracks, max_tracks);
-    changeTracks(m_params.tracks);
+    changeTracks(m_dialog->params().tracks);
 }
 
 //***************************************************************************
@@ -212,11 +229,10 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 	    i18n("Recording with %1 track(s) failed, "\
 		 "using %2 track(s) instead.").arg(new_tracks).arg(tracks));
     }
-    m_params.tracks = tracks;
-    if (m_dialog) m_dialog->setTracks(m_params.tracks);
+    m_dialog->setTracks(tracks);
 
     // activate the new sample rate
-    changeSampleRate(m_params.sample_rate);
+    changeSampleRate(m_dialog->params().sample_rate);
 }
 
 //***************************************************************************
@@ -261,11 +277,10 @@ void RecordPlugin::changeSampleRate(double new_rate)
 	    i18n("Setting the sample rate %1Hz failed, "\
 		 "using %2Hz instead.").arg(sr1).arg(sr2));
     }
-    m_params.sample_rate = rate;
-    if (m_dialog) m_dialog->setSampleRate(rate);
+    m_dialog->setSampleRate(rate);
 
     // set the compression again
-    changeCompression(m_params.compression);
+    changeCompression(m_dialog->params().compression);
 }
 
 //***************************************************************************
@@ -313,11 +328,10 @@ void RecordPlugin::changeCompression(int new_compression)
 	    i18n("Setting the compression type %1 failed, "\
 		 "using %2 instead.").arg(c1).arg(c2));
     }
-    m_params.compression = compression;
-    if (m_dialog) m_dialog->setCompression(compression);
+    m_dialog->setCompression(compression);
 
     // set the resolution in bits per sample again
-    changeBitsPerSample(m_params.bits_per_sample);
+    changeBitsPerSample(m_dialog->params().bits_per_sample);
 }
 
 //***************************************************************************
@@ -359,11 +373,10 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 		 "using %2 bits per sample instead.").arg(
 		 (int)new_bits).arg(bits));
     }
-    m_params.bits_per_sample = bits;
-    if (m_dialog) m_dialog->setBitsPerSample(bits);
+    m_dialog->setBitsPerSample(bits);
 
     // set the sample format again
-    changeSampleFormat(m_params.sample_format);
+    changeSampleFormat(m_dialog->params().sample_format);
 }
 
 //***************************************************************************
@@ -404,9 +417,35 @@ void RecordPlugin::changeSampleFormat(int new_format)
 	    i18n("Setting the sample format '%1' failed, "\
 	         "using '%2' instead.").arg(s1).arg(s2));
     }
+    m_dialog->setSampleFormat(format);
+}
 
-    m_params.sample_format = format;
-    if (m_dialog) m_dialog->setSampleFormat(format);
+//***************************************************************************
+void RecordPlugin::resetRecording()
+{
+    qDebug("RecordPlugin::resetRecording()");
+}
+
+//***************************************************************************
+void RecordPlugin::startRecording()
+{
+    qDebug("RecordPlugin::startRecording()");
+    emit sigStarted();
+    emit sigBufferFull();
+    emit sigTriggerReached();
+}
+
+//***************************************************************************
+void RecordPlugin::stopRecording()
+{
+    qDebug("RecordPlugin::stopRecording()");
+    emit sigStopped();
+}
+
+//***************************************************************************
+void RecordPlugin::stateChanged(RecordState state)
+{
+    qDebug("RecordPlugin::stateChanged(%d)", (int)state);
 }
 
 //***************************************************************************

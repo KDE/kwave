@@ -19,6 +19,7 @@
 
 #include <qbutton.h>
 #include <qcheckbox.h>
+#include <qgroupbox.h>
 #include <qlabel.h>
 #include <qpixmap.h>
 #include <qslider.h>
@@ -34,9 +35,10 @@
 #include "libgui/HMSTimeWidget.h"
 #include "libgui/KwaveFileDialog.h"
 
+#include "RecordDevice.h"
 #include "RecordDialog.h"
 #include "RecordParams.h"
-#include "RecordDevice.h"
+#include "RecordState.h"
 
 #include "filenew.xpm"
 #include "record_stop.xpm"
@@ -59,7 +61,9 @@
 
 /** list pf well-known audio devices */
 static const char *well_known_devices[] = {
-/*    "[aRts sound daemon]", */
+#ifdef ARTS_CAN_RECORD
+    "[aRts sound daemon]",
+#endif
     "/dev/dsp",
     "/dev/dsp0",
     "/dev/dsp1",
@@ -74,9 +78,14 @@ static const char *well_known_devices[] = {
 };
 
 //***************************************************************************
-RecordDialog::RecordDialog(QWidget *parent, const RecordParams &params)
-    :RecordDlg(parent,0), m_params(params), m_supported_resolutions()
+RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
+                           RecordController *controller)
+    :RecordDlg(parent,0), m_state(REC_EMPTY), m_params(),
+     m_supported_resolutions()
 {
+    /* get initial parameters */
+    m_params.fromList(params);
+
     /* set the icons of the record control buttons */
     btNew->setIconSet(   QIconSet(QPixmap(xpm_filenew)));
     btStop->setIconSet(  QIconSet(QPixmap(xpm_stop)));
@@ -108,10 +117,6 @@ RecordDialog::RecordDialog(QWidget *parent, const RecordParams &params)
 
     // sample rate, bits per sample, track
     // -> will be initialized later, by the plugin
-//    QString s;
-//    cbFormatSampleRate->setCurrentItem(s.setNum(m_params.sample_rate), true);
-//    sbFormatResolution->setValue(m_params.bits_per_sample);
-//    sbFormatTracks->setValue(m_params.tracks);
 
     // power of buffer size
     slSourceBuffer->setValue(m_params.buffer_size);
@@ -163,6 +168,22 @@ RecordDialog::RecordDialog(QWidget *parent, const RecordParams &params)
     connect(cbFormatSampleFormat, SIGNAL(activated(const QString &)),
             this, SLOT(sampleFormatChanged(const QString &)));
 
+    // connect the buttons to the record controller
+    connect(btNew, SIGNAL(clicked()),
+            controller, SLOT(actionReset()));
+    connect(btStop, SIGNAL(clicked()),
+            controller, SLOT(actionStop()));
+    connect(btPause, SIGNAL(clicked()),
+            controller, SLOT(actionPause()));
+    connect(btRecord, SIGNAL(clicked()),
+            controller, SLOT(actionStart()));
+
+    // connect the notifications/commands of the record controller
+    connect(controller, SIGNAL(stateChanged(RecordState)),
+            this, SLOT(setState(RecordState )));
+
+    // set the initial state of the dialog to "Reset/Empty"
+    setState(REC_EMPTY);
 }
 
 //***************************************************************************
@@ -171,7 +192,7 @@ RecordDialog::~RecordDialog()
 }
 
 //***************************************************************************
-RecordParams RecordDialog::params() const
+const RecordParams &RecordDialog::params() const
 {
     return m_params;
 }
@@ -196,8 +217,8 @@ void RecordDialog::sourceBufferChanged(int value)
 void RecordDialog::selectRecordDevice()
 {
     QString filter;
-    filter += QString("dsp*|") + i18n("OSS playback device (dsp*)");
-    filter += QString("\nadsp*|") + i18n("ALSA playback device (adsp*)");
+    filter += QString("dsp*|") + i18n("OSS record device (dsp*)");
+    filter += QString("\nadsp*|") + i18n("ALSA record device (adsp*)");
     filter += QString("\n*|") + i18n("Any device (*)");
 
     KwaveFileDialog dlg(":<kwave_record_device>", filter, this,
@@ -523,6 +544,81 @@ void RecordDialog::sampleFormatChanged(const QString &name)
     if (format == m_params.sample_format) return;
 
     emit sigSampleFormatChanged(format);
+}
+
+//***************************************************************************
+void RecordDialog::setState(RecordState state)
+{
+    bool enable_new = false;
+    bool enable_pause = false;
+    bool enable_stop = false;
+    bool enable_record = false;
+    bool enable_settings = false;
+
+    m_state = state;
+    switch (state) {
+	case REC_EMPTY:
+	    enable_new      = true;
+	    enable_pause    = false;
+	    enable_stop     = false;
+	    enable_record   = m_params.device_name.length();
+	    enable_settings = true;
+	    break;
+	case REC_BUFFERING:
+	    enable_new      = true; /* throw away current FIFO content */
+	    enable_pause    = true;
+	    enable_stop     = true;
+	    enable_record   = true; /* acts as "trigger now" */
+	    enable_settings = false;
+	    break;
+	case REC_PRERECORDING:
+	    enable_new      = false;
+	    enable_pause    = false;
+	    enable_stop     = true;
+	    enable_record   = true;
+	    enable_settings = false;
+	    break;
+	case REC_WAITING_FOR_TRIGGER:
+	    enable_new      = false;
+	    enable_pause    = false;
+	    enable_stop     = true;
+	    enable_record   = true; /* acts as "trigger now" */
+	    enable_settings = false;
+	    break;
+	case REC_RECORDING:
+	    enable_new      = false;
+	    enable_pause    = true;
+	    enable_stop     = true;
+	    enable_record   = false;
+	    enable_settings = false;
+	    break;
+	case REC_PAUSED:
+	    enable_new      = true; /* start again */
+	    enable_pause    = true; /* used for "continue" */
+	    enable_stop     = true;
+	    enable_record   = false;
+	    enable_settings = false;
+	    break;
+	case REC_DONE:
+	    enable_new      = true;
+	    enable_pause    = false;
+	    enable_stop     = false;
+	    enable_record   = true;
+	    enable_settings = true;
+	    break;
+    }
+
+    // enable/disable the record control buttons
+    btNew->setEnabled(enable_new);
+    btPause->setEnabled(enable_pause);
+    btStop->setEnabled(enable_stop);
+    btRecord->setEnabled(enable_record);
+
+    // enable disable all controls (groups) for setup
+    grpFormat->setEnabled(enable_settings);
+    grpSource->setEnabled(enable_settings);
+
+
 }
 
 //***************************************************************************

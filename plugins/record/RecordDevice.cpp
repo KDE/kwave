@@ -70,7 +70,6 @@ int RecordDevice::close()
     return 0;
 }
 
-
 //***************************************************************************
 int RecordDevice::detectTracks(unsigned int &min, unsigned int &max)
 {

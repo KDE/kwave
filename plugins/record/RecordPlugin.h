@@ -20,7 +20,9 @@
 
 #include "config.h"
 #include "libkwave/KwavePlugin.h"
+#include "RecordController.h"
 #include "RecordParams.h"
+#include "RecordState.h"
 
 class QStringList;
 class RecordDevice;
@@ -40,7 +42,48 @@ public:
     /** @see KwavePlugin::setup() */
     virtual QStringList *setup(QStringList &previous_params);
 
+
+signals:
+
+    /** emitted when the record buffer has been filled */
+    void sigBufferFull();
+
+    /** emitted when the trigger level has been reached */
+    void sigTriggerReached();
+
+    /** emitted when the recording has started */
+    void sigStarted();
+
+    /** emitted when the recording has been stopped */
+    void sigStopped();
+
 protected slots:
+
+    /**
+     * command for resetting all recorded stuff for starting again
+     */
+    void resetRecording();
+
+    /**
+     * command for starting the recording, completion is
+     * signalled with sigStarted()
+     */
+    void startRecording();
+
+    /**
+     * command for stopping recording, completion is
+     * signalled with sigStopped()
+     */
+    void stopRecording();
+
+    /**
+     * called when the recording engine has changed it's state
+     */
+    void stateChanged(RecordState state);
+
+private slots:
+
+    // setup functions
 
     /** select a new record device */
     void changeDevice(const QString &dev);
@@ -62,11 +105,11 @@ protected slots:
 
 private:
 
+    /** global state of the plugin */
+    RecordState m_state;
+
     /** record control: pre-record enabled */
     bool m_prerecord_enabled;
-
-    /** all parameters of the record plugin */
-    RecordParams m_params;
 
     /** device used for recording */
     RecordDevice *m_device;
@@ -75,6 +118,5 @@ private:
     RecordDialog *m_dialog;
 
 };
-
 
 #endif /* _RECORD_PLUGIN_H_ */

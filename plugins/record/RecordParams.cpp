@@ -28,8 +28,12 @@ RecordParams::RecordParams()
     agc_enabled(false),            agc_decay(50),
     fade_in_enabled(false),        fade_in_time(5),
     fade_out_enabled(false),       fade_out_time(5),
-    sample_rate(44100.0), bits_per_sample(16), tracks(2),
     device_name("[aRts sound daemon]"),
+    tracks(2),
+    sample_rate(44100.0),
+    compression(0),
+    bits_per_sample(16),
+    sample_format(0),
     buffer_size(10), /* (1 << 10) == 1024 bytes */
     display_level_meter(false),
     display_oscilloscope(false),
@@ -90,8 +94,8 @@ int RecordParams::fromList(const QStringList &list)
     GET(15, tracks, toUInt);
     GET(16, sample_rate, toDouble);
     GET(17, compression, toUInt);
-    GET(18, sample_format, toUInt);
-    GET(19, bits_per_sample, toUInt);
+    GET(18, bits_per_sample, toUInt);
+    GET(19, sample_format, toUInt);
 
     // power of buffer size
     GET(20, buffer_size, toUInt);
@@ -148,8 +152,8 @@ QStringList RecordParams::toList() const
     PUT(tracks);
     PUT(sample_rate);
     PUT(compression);
-    PUT(sample_format);
     PUT(bits_per_sample);
+    PUT(sample_format);
 
     // power of buffer size
     PUT(buffer_size);

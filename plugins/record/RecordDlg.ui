@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>633</width>
-            <height>453</height>
+            <height>454</height>
         </rect>
     </property>
     <property name="caption">
@@ -42,7 +42,7 @@
                     </property>
                     <widget class="QButtonGroup">
                         <property name="name">
-                            <cstring>buttonGroup3</cstring>
+                            <cstring>grpRecording</cstring>
                         </property>
                         <property name="title">
                             <string>Record Control</string>
@@ -335,7 +335,7 @@
                     </property>
                     <widget class="QGroupBox">
                         <property name="name">
-                            <cstring>groupBox6</cstring>
+                            <cstring>grpLevel</cstring>
                         </property>
                         <property name="enabled">
                             <bool>true</bool>
@@ -477,7 +477,7 @@
                     </widget>
                     <widget class="QGroupBox">
                         <property name="name">
-                            <cstring>groupBox5</cstring>
+                            <cstring>grpFading</cstring>
                         </property>
                         <property name="enabled">
                             <bool>true</bool>
@@ -596,7 +596,7 @@
                     </property>
                     <widget class="QGroupBox">
                         <property name="name">
-                            <cstring>GroupBox1_2</cstring>
+                            <cstring>grpFormat</cstring>
                         </property>
                         <property name="title">
                             <string>Format</string>
@@ -777,6 +777,12 @@
                                 <property name="name">
                                     <cstring>cbFormatCompression</cstring>
                                 </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
                                 <property name="whatsThis" stdset="0">
                                     <string>&lt;b&gt;Sample Format&lt;/b&gt;&lt;br&gt;Here you can select one of the sample formats that your audio hardware supports.</string>
                                 </property>
@@ -835,6 +841,12 @@
                             <widget class="KComboBox" row="4" column="2">
                                 <property name="name">
                                     <cstring>cbFormatSampleFormat</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>0</height>
+                                    </size>
                                 </property>
                                 <property name="whatsThis" stdset="0">
                                     <string>&lt;b&gt;Sample Format&lt;/b&gt;&lt;br&gt;Here you can select one of the sample formats that your audio hardware supports.</string>
@@ -968,7 +980,7 @@
                     </property>
                     <widget class="QGroupBox">
                         <property name="name">
-                            <cstring>groupBox1</cstring>
+                            <cstring>grpSource</cstring>
                         </property>
                         <property name="title">
                             <string>Source</string>
@@ -1094,7 +1106,7 @@
                     </property>
                     <widget class="QGroupBox">
                         <property name="name">
-                            <cstring>groupBox13</cstring>
+                            <cstring>grpDisplay</cstring>
                         </property>
                         <property name="title">
                             <string>Visualization</string>
@@ -1474,7 +1486,6 @@
     <includehint>knuminput.h</includehint>
     <includehint>knuminput.h</includehint>
     <includehint>kcombobox.h</includehint>
-    <includehint>klineedit.h</includehint>
     <includehint>kcombobox.h</includehint>
     <includehint>kcombobox.h</includehint>
     <includehint>kcombobox.h</includehint>

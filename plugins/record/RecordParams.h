@@ -66,8 +66,8 @@ public:
     unsigned int tracks;		/**< number of tracks */
     double sample_rate;			/**< sample rate in samples/second */
     int compression;			/**< compression index or -1 */
-    int sample_format;			/**< sample format index */
     unsigned int bits_per_sample;	/**< resolution in bits per sample */
+    int sample_format;			/**< sample format index */
 
     unsigned int buffer_size;		/**< power of the record buffer size */
 

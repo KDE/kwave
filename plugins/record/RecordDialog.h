@@ -21,8 +21,10 @@
 #include "config.h"
 #include <qstringlist.h>
 #include <qvaluelist.h>
+#include "RecordController.h"
 #include "RecordDlg.uih.h"
 #include "RecordParams.h"
+#include "RecordState.h"
 
 class QWidget;
 
@@ -32,23 +34,15 @@ Q_OBJECT
 
 public:
 
-    enum RecordState {
-	REC_EMPTY = 0,
-	REC_BUFFERING,
-	REC_WAITING_FOR_TRIGGER,
-	REC_RECORDING,
-	REC_PAUSED,
-	REC_DONE
-    };
-
     /** Constructor */
-    RecordDialog(QWidget *parent, const RecordParams &params);
+    RecordDialog(QWidget *parent, QStringList &params,
+                 RecordController *controller);
 
     /** Destructor */
     virtual ~RecordDialog();
 
     /** Returns the list of record parameters, for the next time */
-    RecordParams params() const;
+    const RecordParams &params() const;
 
     /** selects a new record device */
     void setDevice(const QString &dev);
@@ -155,6 +149,9 @@ private slots:
     /** called when a new sample format has been selected */
     void sampleFormatChanged(const QString &name);
 
+    /** sets a new state of the dialog, enable/disable controls etc... */
+    void setState(RecordState state);
+
 private:
 
     /**
@@ -166,6 +163,9 @@ private:
     double string2rate(const QString &rate) const;
 
 private:
+
+    /** state of the record plugin */
+    RecordState m_state;
 
     /** list of parameters */
     RecordParams m_params;

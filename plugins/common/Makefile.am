@@ -113,19 +113,19 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 %.d: %.cpp
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
 	@ echo -n "$@ " > $@
-	@ @CXX@ -M ${INCLUDES} $(CXXFLAGS) $< >> $@
+	@ @CXX@ -M -MG ${INCLUDES} $(CXXFLAGS) $< | @GREP@ -v ^\# >> $@
 	@ echo "" >> $@
 
 %.d: %.c
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
 	@ echo -n "$@ " > $@
-	@ @CC@ -M ${INCLUDES} $(CXXFLAGS) $< >> $@
+	@ @CC@ -M -MG ${INCLUDES} $(CXXFLAGS) $< | @GREP@ -v ^\# >> $@
 	@ echo "" >> $@
 
 %.dm: %.moc.cxx
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
 	@ echo -n "$@ " > $@
-	@ @CXX@ -M ${INCLUDES} $(CXXFLAGS) -x c++ $< >> $@
+	@ @CXX@ -x c++ -M -MG ${INCLUDES} $(CXXFLAGS) $< | @GREP@ -v ^\# >> $@
 	@ echo "" >> $@
 
 %.moc.cxx: %.h

@@ -50,7 +50,7 @@ clean-generic:
 	-rm -fv `find . -name .depend`
 	-rm -fv `find . -name \*.uih.h`
 	-rm -fv `find . -name \*.uic.cpp`
-	-rm -Rfv `find . -name \*.cache`
+	-rm -Rfv `find . -name \*.cache -o -name .deps`
 	-rm -Rf doc/api
 
 backup: ${PACKAGE}.spec

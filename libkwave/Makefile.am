@@ -77,6 +77,7 @@ libkwave_la_SOURCES=\
  MultiTrackWriter.cpp\
  Parser.cpp\
  Signal.cpp\
+ SampleFIFO.cpp\
  SampleFormat.cpp\
  SampleReader.cpp\
  SampleWriter.cpp\

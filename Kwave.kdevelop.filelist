@@ -1143,3 +1143,7 @@ plugins/record/SampleDecoderLinear.h
 plugins/record/SampleDecoderLinear.cpp
 plugins/record/LevelMeter.h
 plugins/record/LevelMeter.cpp
+libgui/InhibitRepaintGuard.h
+libgui/InhibitRepaintGuard.cpp
+libkwave/SampleFIFO.h
+libkwave/SampleFIFO.cpp

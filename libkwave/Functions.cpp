@@ -84,62 +84,54 @@ double zero(double)
 
 //***************************************************************************
 Functions::Functions()
-:m_func(), m_name()
 {
-    append(sin,    i18n("Sinus"));
-    append(rect,   i18n("Rectangular"));
-    append(saw,    i18n("Sawtooth"));
-    append(sawinv, i18n("Inverse Sawtooth"));
-    append(tri,    i18n("Triangular"));
-    append(sin2,   i18n("Square Sinus"));
-    append(sin3,   i18n("Cubic Sinus"));
+    m_functions_map.append(0, &sin,    "sinus",            "Sinus");
+    m_functions_map.append(1, &rect,   "rectangular",      "Rectangular");
+    m_functions_map.append(2, &saw,    "sawtooth",         "Sawtooth");
+    m_functions_map.append(3, &sawinv, "inverse_sawtooth", "Inverse Sawtooth");
+    m_functions_map.append(4, &tri,    "triangular",       "Triangular");
+    m_functions_map.append(5, &sin2,   "square_sinus",     "Square Sinus");
+    m_functions_map.append(6, &sin3,   "cubic_sinus",      "Cubic Sinus");
+
+    i18n("Sinus");
+    i18n("Rectangular");
+    i18n("Sawtooth");
+    i18n("Inverse Sawtooth");
+    i18n("Triangular");
+    i18n("Square Sinus");
+    i18n("Cubic Sinus");
     i18n("Zero");
 }
 
 //***************************************************************************
 Functions::~Functions()
 {
-    m_func.clear();
-    m_name.clear();
-}
-
-//***************************************************************************
-void Functions::append(periodic_function_t *func, const QString &name)
-{
-    periodic_function_t **f = new (periodic_function_t *);
-    ASSERT(f);
-    if (!f) return;
-
-    *f = func;
-    m_name.append(name);
-    m_func.append(f);
 }
 
 //***************************************************************************
 QString Functions::name(unsigned int index)
 {
-    ASSERT(index < m_name.count());
-    if (index >= m_name.count()) return "Zero";
-    return m_name[index];
+    ASSERT(index < m_functions_map.count());
+    if (index >= m_functions_map.count()) return "Zero";
+    return m_functions_map.name(index);
 }
 
 //***************************************************************************
 periodic_function_t &Functions::function(unsigned int index)
 {
-    periodic_function_t **f = 0;
+    periodic_function_t *f = 0;
 
-    ASSERT(index < m_func.count());
-    if (index < m_func.count()) f = m_func.at(index);
+    ASSERT(index < m_functions_map.count());
+    if (index < m_functions_map.count()) f = m_functions_map.data(index);
 
-    if (!f || !*f) return *(&zero);
-    return **f;
+    if (!f) return *(&zero);
+    return *f;
 }
 
 //***************************************************************************
 unsigned int Functions::count()
 {
-    ASSERT(m_func.count() == m_name.count());
-    return m_func.count();
+    return m_functions_map.count();
 }
 
 //***************************************************************************

@@ -21,7 +21,10 @@
 #include <math.h>
 
 #include <qlist.h>
+#include <qstringlist.h>
 #include <qmap.h>
+
+#include "libkwave/TypesMap.h"
 
 typedef double(periodic_function_t)(double);
 
@@ -59,23 +62,10 @@ public:
      */
     periodic_function_t &function(unsigned int index);
 
-protected:
-
-    /**
-     * Appends a new function, internally used in constructor
-     * @param func pointer to the function
-     * @param name verbose name of the function
-     */
-    void append(periodic_function_t *func, const QString &name);
-
 private:
 
-    /** list of pointers to arithmetic function */
-    QList<periodic_function_t *> m_func;
-
-    /** list of function names */
-    QStringList m_name;
-
+    /** map of periodic functions */
+    TypesMap<unsigned int, periodic_function_t* > m_functions_map;
 };
 
 #endif /* _FUNCTIONS_H_ */

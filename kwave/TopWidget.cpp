@@ -1068,8 +1068,8 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	    txt = txt.arg(offset).arg(last).arg(
 	          QString::number(length) + " " + i18n("samples"));
 	} else {
-	    double ms_first = offset * 1E3 / rate;
-	    double ms_last  = last   * 1E3 / rate;
+	    double ms_first = (double)offset * 1E3 / rate;
+	    double ms_last  = (double)(last+1)   * 1E3 / rate;
 	    double ms = (ms_last - ms_first);
 	    txt = txt.arg(KwavePlugin::ms2string(ms_first)).arg(
 		KwavePlugin::ms2string(ms_last)).arg(

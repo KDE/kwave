@@ -204,7 +204,7 @@ QString PlayBackALSA::open(const QString &device, double rate,
 	(m_bits == 24) ? SND_PCM_FORMAT_S24 :
 	(m_bits == 32) ? SND_PCM_FORMAT_S32 :
 	SND_PCM_FORMAT_UNKNOWN;
-    qDebug("PlayBackALSA::open: onfiguring for %u bits", m_bits);
+    qDebug("PlayBackALSA::open: configuring for %u bits", m_bits);
 
     if ((err = snd_pcm_hw_params_set_format(m_handle, hw_params,
          format)) < 0)
@@ -335,11 +335,23 @@ void PlayBackALSA::flush()
     if (m_handle) {
 	const unsigned int bytes_per_sample = (m_bits >> 3) * m_channels;
 	const unsigned int samples = m_buffer_used / bytes_per_sample;
+	const unsigned int buffer_samples = m_buffer_size / bytes_per_sample;
+	double buffer_time = (m_rate > 0) ?
+	    (1E3 * buffer_samples / m_rate) : 1E3;
+
+	// wait untile device is available with timeout == 3 full buffers
+	err = snd_pcm_wait(m_handle, 3 * (unsigned int)buffer_time);
+	if (err < 0) {
+	    qWarning("PlayBackALSA::flush() write timeout: (%s)",
+	             snd_strerror (err));
+	    m_buffer_used = 0;
+	    return;
+	}
 
 	if ((err = snd_pcm_writei(m_handle, m_buffer.data(), samples))
 	   != (int)samples)
 	{
-	    qWarning("PlayBackALSA: write to audio interface failed: (%s)",
+	    qWarning("PlayBackALSA::flush() failed: (%s)",
 	             snd_strerror (err));
 	}
     }
@@ -463,8 +475,14 @@ int PlayBackALSA::detectChannels(const QString &device,
 
     if (pcm) {
 	if (snd_pcm_hw_params_any(pcm, p) >= 0) {
-	    snd_pcm_hw_params_get_channels_min(p, &min);
-	    snd_pcm_hw_params_get_channels_min(p, &max);
+	    int err;
+
+	    if ((err = snd_pcm_hw_params_get_channels_min(p, &min)) < 0)
+		qWarning("PlayBackALSA::detectTracks: min: %s",
+		         snd_strerror(err));
+	    if ((err = snd_pcm_hw_params_get_channels_max(p, &max)) < 0)
+		qWarning("PlayBackALSA::detectTracks: max: %s",
+		         snd_strerror(err));
 	}
     }
     snd_pcm_hw_params_free(p);

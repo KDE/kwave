@@ -72,7 +72,7 @@ private:
 SonagramPlugin::SonagramPlugin(PluginContext &c)
     :KwavePlugin(c), m_sonagram_window(0), m_selected_channels(),
      m_first_sample(0), m_last_sample(0), m_stripes(0), m_fft_points(0),
-     m_window_type(0), m_color(true), m_track_changes(true),
+     m_window_type(WINDOW_FUNC_NONE), m_color(true), m_track_changes(true),
      m_follow_selection(false), m_image(0), m_overview_cache(0),
      m_cmd_shutdown(false)
 {

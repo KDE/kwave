@@ -26,6 +26,7 @@ libkwave_la_SOURCES=\
  ArtsSampleSource_impl.cpp\
  ArtsSampleSink_impl.cpp\
  CodecBase.cpp\
+ CompressionType.cpp\
  Curve.cpp\
  CurveStreamAdapter_impl.cpp\
  Decoder.cpp\
@@ -45,6 +46,7 @@ libkwave_la_SOURCES=\
  MultiTrackWriter.cpp\
  Parser.cpp\
  Signal.cpp\
+ SampleFormat.cpp\
  SampleReader.cpp\
  SampleWriter.cpp\
  SampleLock.cpp\

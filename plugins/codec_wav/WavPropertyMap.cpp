@@ -20,11 +20,14 @@
 //***************************************************************************
 WavPropertyMap::WavPropertyMap()
 {
+    insert("AUTH", INF_AUTHOR        ); // author's name
+    insert("ANNO", INF_ANNOTATION    ); // annotations
     insert("IARL", INF_ARCHIVAL      ); // archival location
     insert("IART", INF_PERFORMER     ); // performer
     insert("ICMS", INF_COMMISSIONED  ); // commissioned
     insert("ICMT", INF_COMMENTS	     ); // comments
     insert("ICOP", INF_COPYRIGHT     ); // copyright
+    insert("(c) ", INF_COPYRIGHT     ); // copyright
     insert("ICRD", INF_CREATION_DATE ); // creation date (iso)
     insert("IENG", INF_ENGINEER	     ); // engineer
     insert("IGNR", INF_GENRE	     ); // genre

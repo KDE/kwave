@@ -90,11 +90,11 @@ release:
 	( cd doc ; ${MAKE} doc )
 	${MAKE} patch
 
-messages:
+package-messages: all
 	rm -f po/*.gmo
 	(cd kwave ; ${MAKE} menus_config_i18n.cpp )
 	@XGETTEXT@ -C -ki18n -x @KDE_POT_FILE@ \
-	`find . -name \*.h -o -name \*.cpp` -o ./po/${PACKAGE}.pot
+	`find . -name \*.h -o -name \*.cpp` -o $(srcdir)/po/${PACKAGE}.pot
 	(cd po ; ${MAKE} merge )
 
 rpm_prep: doc clean distclean-generic ${PACKAGE}.spec

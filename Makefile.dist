@@ -93,9 +93,9 @@ logged:
 		echo ""; \
 	    } fi \
 	} fi
-	@ (cd libmad ; libtoolize --force --copy --automake)
 	@ for dir in . libmad ; do { \
 		cd $$dir; \
+		libtoolize --force --copy --automake ; \
 		aclocal ; \
 		autoheader ; \
 		automake --foreign --add-missing --copy --include-deps ; \

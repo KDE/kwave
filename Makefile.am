@@ -30,7 +30,7 @@ SUBDIRS  	 = libmad libaudiofile mt libgui libkwave kwave plugins po doc
 CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
 
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
-	`find . -type l -o -name \.deps`
+	`find . -type l`
 
 configure.in: VERSION
 	touch configure.in
@@ -108,7 +108,7 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 		-o -name config.h.in -o -name config.h \
 		-o -name libtool -o -name stamp-h -o -name configure \
 		-o -name stamp-h1 -o -name \*.cache -o -name .depend \
-		-o -name QT-KDIR -o -name KDE-VERSION  \
+		-o -name QT-KDIR -o -name KDE-VERSION \
 		-o -name config.status -o -name .deps -o -name \*.log >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	echo "${SRC_PREFIX}-@RPM_FULL_VERSION@/doc/api" >> \

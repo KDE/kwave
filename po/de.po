@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-10 21:20+0200\n"
+"POT-Creation-Date: 2004-04-24 20:09+0200\n"
 "PO-Revision-Date: 2004-04-24 18:04+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -25,6 +25,7 @@ msgid "&About Kwave"
 msgstr "&Über Kwave"
 
 #: kwave/menus_config_i18n.cpp:15
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
 msgid "&Add"
 msgstr "&Hinzufügen"
 
@@ -571,7 +572,7 @@ msgstr "Ersteller der 'sndfile'-Bibliothek"
 msgid "sound editor for KDE3"
 msgstr "Sound-Editor für KDE3"
 
-#: kwave/TopWidget.cpp:108
+#: kwave/TopWidget.cpp:108 plugins/record/RecordDlg.uic.cpp:611
 msgid "New File"
 msgstr "Neue Datei"
 
@@ -775,6 +776,95 @@ msgstr "letzte Aktion"
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 
+#: libgui/SelectTimeWidgetBase.uic.cpp:213
+msgid "frmLength"
+msgstr "frmLength"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:214
+#: plugins/fileinfo/FileInfoDialog.cpp:213
+#: plugins/newsignal/NewSigDlg.uic.cpp:317
+msgid "Length"
+msgstr "Länge"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:215
+msgid "&Samples"
+msgstr "&Samples"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:216
+msgid "select by number of samples"
+msgstr "Auswahl nach Anzahl der Samples"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:217
+msgid "&Time"
+msgstr "&Zeit"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:218
+msgid "select by time"
+msgstr "Auswahl nach Zeit"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:219
+msgid "&Percent"
+msgstr "&Prozent"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:220
+msgid "select by percentage of the signal's length"
+msgstr "Auswahl nach Prozentsatz der Länge des Signals"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:221
+#: plugins/newsignal/NewSigDlg.uic.cpp:324
+msgid "Minutes"
+msgstr "Minuten"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:222
+msgid "Milliseconds"
+msgstr "Millisekunden"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:223
+#: plugins/newsignal/NewSigDlg.uic.cpp:323
+msgid "Seconds"
+msgstr "Sekunden"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:224
+#: plugins/newsignal/NewSigDlg.uic.cpp:325
+msgid "Hours"
+msgstr "Stunden"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:225
+#: plugins/newsignal/NewSigDlg.uic.cpp:330
+msgid "0%"
+msgstr "0%"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:226
+#: plugins/newsignal/NewSigDlg.uic.cpp:331
+msgid "50%"
+msgstr "50%"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:227
+#: plugins/newsignal/NewSigDlg.uic.cpp:332
+msgid "100%"
+msgstr "100%"
+
+#: libgui/SelectTimeWidgetBase.uic.cpp:228
+msgid "sets the selection by the percentage of the whole signal"
+msgstr "Setzt die Auswahl über den Prozentsatz der gesamten Signallänge"
+
+#: libgui/HMSTimeWidgetBase.uic.cpp:66
+msgid "HMSTimeWidgetBase"
+msgstr "HMSTimeWidgetBase"
+
+#: libgui/HMSTimeWidgetBase.uic.cpp:67
+msgid " h"
+msgstr " Std"
+
+#: libgui/HMSTimeWidgetBase.uic.cpp:68
+msgid " min"
+msgstr "Min"
+
+#: libgui/HMSTimeWidgetBase.uic.cpp:69 plugins/record/RecordDlg.uic.cpp:629
+#: plugins/record/RecordDlg.uic.cpp:630
+msgid " sec"
+msgstr "Sec"
+
 #: libgui/ConfirmCancelProxy.cpp:50
 msgid "Do you really want to abort the current action?"
 msgstr "Wollen Sie den aktuellen Vorgang wirklich abbrechen?"
@@ -835,7 +925,8 @@ msgstr "%1 MB von %2 MB erledigt"
 msgid "(%1%) %2"
 msgstr "(%1%) %2"
 
-#: libgui/FileProgress.cpp:334 plugins/record/RecordDialog.cpp:266
+#: libgui/FileProgress.cpp:334 plugins/record/RecordDlg.uic.cpp:652
+#: plugins/record/RecordDialog.cpp:266
 msgid "%1 samples"
 msgstr "%1 Samples"
 
@@ -995,7 +1086,7 @@ msgstr ""
 "der Datei. Bei mehrzeiligen Kommentaren sollte jede Zeile mit\n"
 "einem Punkt enden. Keine Zeilenumbrücke einfügen!"
 
-#: libkwave/FileInfo.cpp:69
+#: libkwave/FileInfo.cpp:69 plugins/fileinfo/FileInfoDlg.uic.cpp:771
 msgid "Compression"
 msgstr "Kompression"
 
@@ -1115,7 +1206,7 @@ msgstr ""
 "Numern siehe die ISRC-Einführungs-Seite unter:\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
-#: libkwave/FileInfo.cpp:112
+#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:79
 msgid "Keywords"
 msgstr "Schlüsselworte"
 
@@ -1295,7 +1386,8 @@ msgstr ""
 "zur Erstellung der Datei verwendet wurde.\n"
 "Beispiel: 'Kwave v0.6.4-1'"
 
-#: libkwave/FileInfo.cpp:177
+#: libkwave/FileInfo.cpp:177 plugins/fileinfo/FileInfoDlg.uic.cpp:841
+#: plugins/record/RecordDlg.uic.cpp:647 plugins/record/RecordDlg.uic.cpp:653
 msgid "Source"
 msgstr "Quelle"
 
@@ -1356,6 +1448,7 @@ msgid "Track of the CD if the source was a CDROM."
 msgstr "Track der CD wenn die Quelle eine CDROM war."
 
 #: libkwave/FileInfo.cpp:199
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:172
 msgid "Base Quality"
 msgstr "Basis-Qualität"
 
@@ -2005,7 +2098,7 @@ msgstr "Dance Hall"
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: libkwave/WindowFunction.cpp:54
+#: libkwave/WindowFunction.cpp:54 plugins/fileinfo/FileInfoDlg.uic.cpp:786
 msgid "None"
 msgstr "Keine"
 
@@ -2077,17 +2170,137 @@ msgstr "Null"
 msgid "silence"
 msgstr "Stille"
 
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:164
+msgid "Pitch Shift"
+msgstr "Tonverschiebung"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:166
+#: plugins/band_pass/BandPassDlg.uic.cpp:154
+#: plugins/lowpass/LowPassDlg.uic.cpp:146
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:170
+msgid "F1"
+msgstr "F1"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:167
+#: plugins/pitch_shift/PitchShiftDialog.cpp:317
+#: plugins/band_pass/BandPassDlg.uic.cpp:155
+#: plugins/band_pass/BandPassDialog.cpp:186
+#: plugins/lowpass/LowPassDlg.uic.cpp:147
+#: plugins/lowpass/LowPassDialog.cpp:160
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:171
+#: plugins/notch_filter/NotchFilterDialog.cpp:190
+msgid "&Listen"
+msgstr "&Anhören"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:168
+#: plugins/band_pass/BandPassDlg.uic.cpp:156
+#: plugins/lowpass/LowPassDlg.uic.cpp:148
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:172
+msgid "Alt+L"
+msgstr "Alt+L"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:169
+#: plugins/band_pass/BandPassDlg.uic.cpp:157
+#: plugins/lowpass/LowPassDlg.uic.cpp:149
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:173
+msgid "start/stop pre-listening"
+msgstr "Vorhören starten/stoppen"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:170
+#: plugins/band_pass/BandPassDlg.uic.cpp:158
+#: plugins/lowpass/LowPassDlg.uic.cpp:150
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:174
+msgid ""
+"Start or stop the pre-listening of the current settings. If pre-listening is "
+"enabled, you will nearly immediately hear any change in the selected "
+"parameters."
+msgstr ""
+"Startet oder stoppt das Vorhören mit den aktuellen Einstellungen. Wenn "
+"Vorhören aktiviert ist, hören Sie sofort die Änderungen durch die gewählten "
+"Einstellungen."
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:175
+msgid "Frequency:"
+msgstr "Frequenz:"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:176
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:180
+msgid "chopper frequency"
+msgstr "Zerhacker-Frequenz"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:177
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:181
+msgid ""
+"<b>chopper frequency</b><br>This setting determines how small the pieces of "
+"audio data are before they get processed by the pitch shift. If your audio "
+"data sounds interrupted, you might get better result with higher values."
+msgstr ""
+"<b>Zerhacker-Frequenz</b><br>Diese Einstellung bestimmt wie gross die "
+"Einheiten sind in die das Ausgangssignal zerteilt wird bevor der "
+"Tonverschiebungs-Effekt angewendet wird. Wenn sich das Ergebnis zerhackt "
+"anhört, bekommen Sie möglicherweise bessere Resultate mit höheren Werten."
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:178
+msgid "Speed:"
+msgstr "Geschwindigkeit:"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:179
+#: plugins/band_pass/BandPassDlg.uic.cpp:151
+#: plugins/lowpass/LowPassDlg.uic.cpp:140
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:151
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:164
+msgid " Hz"
+msgstr " Hz"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:182
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:183
+msgid "Speed"
+msgstr "Geschwindigkeit"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:184
+#: plugins/volume/VolumeDlg.uic.cpp:151
+msgid "Mode"
+msgstr "Modus"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:185
+msgid "by Percentage"
+msgstr "nach Prozentsatz"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:186
+msgid "change speed by percentage"
+msgstr "Geschwindigkeit nach Prozentsatz ändern"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:187
+msgid ""
+"Sets the speed to a relative percentage of the original speed. \n"
+"For example: \"50 %\", \"75%\" or \"125%\""
+msgstr ""
+"Setzt die Geschwindigkeit auf einen Prozentsatz der ursprünglichen "
+"Geschwindigkeit. \n"
+"Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:189
+msgid "by Factor"
+msgstr "nach Faktor"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:190
+msgid "change speed by a factor"
+msgstr "Geschwindigkeit über einen Faktor ändern"
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:191
+msgid ""
+"Increments or decrements the speed by a factor. \n"
+"For example: \"x1\", \"x2\", \"/ 4\""
+msgstr ""
+"Erhöht oder reduziert die Geschwindigkeit über einen ganzzahligen Faktor. \n"
+"Zum Beispiel: \"x1\", \"x2\", \"/ 4\""
+
 #: plugins/pitch_shift/PitchShiftDialog.cpp:313
+#: plugins/band_pass/BandPassDialog.cpp:182
 #: plugins/lowpass/LowPassDialog.cpp:156
 #: plugins/notch_filter/NotchFilterDialog.cpp:186
 msgid "&Stop"
 msgstr "&Stop"
-
-#: plugins/pitch_shift/PitchShiftDialog.cpp:317
-#: plugins/lowpass/LowPassDialog.cpp:160
-#: plugins/notch_filter/NotchFilterDialog.cpp:190
-msgid "&Listen"
-msgstr "&Anhören"
 
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:41
 msgid "pitch_shift"
@@ -2096,6 +2309,130 @@ msgstr "Tonverschiebung"
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:126
 msgid "pitch shift"
 msgstr "Tonverschiebung"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:183
+msgid "Set FFT/time resolution parameters"
+msgstr "Parameter der FFT/Zeit-Auflösung setzen"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:185
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:855 plugins/memory/MemDlg.uic.cpp:189
+#: plugins/record/RecordDlg.uic.cpp:663
+#: plugins/newsignal/NewSigDlg.uic.cpp:335
+msgid "Alt+H"
+msgstr "Alt+H"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:190
+msgid "display"
+msgstr "Anzeige"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:191
+msgid "use colors"
+msgstr "Farben verwenden"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:192
+msgid "use different colors for amplitude"
+msgstr "verwendet verschiedene Farben für die Amplitude"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:193
+msgid "greyscale"
+msgstr "Graustufen"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:194
+msgid "use greyscale only for amplitude"
+msgstr "verwendet nur Graustufen für die Amplitude"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:195
+msgid "update"
+msgstr "Aktualisieren"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:196
+msgid "on modifications"
+msgstr "bei Veränderungen"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:197
+msgid "automatically update the sonagram <br>if the signal data has changed"
+msgstr ""
+"aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:198
+msgid "follow selection"
+msgstr "Auswahl folgen"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:199
+msgid ""
+"automatically update the sonagram if the selection<br>has been enlarged, "
+"reduced or moved"
+msgstr ""
+"aktualisiert das Sonagram automatisch, wenn die<br>Auswahl vergrößert, "
+"reduziert oder verschoben wurde"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:200
+msgid "FFT settings"
+msgstr "FFT-Einstellungen"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:201
+msgid "Number of FFT points:"
+msgstr "Anzahl der FFT-Punkte:"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:202
+msgid "Window Function:"
+msgstr "Fensterfunktion :"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:203
+#: plugins/sonagram/SonagramDlg.uic.cpp:206
+msgid ""
+"Choose windowing function here.<br>\n"
+"If fourier transformation should stay reversible,<br>\n"
+"use the type \"None\"."
+msgstr ""
+"Wählen Sie hier eine Fensterfunktion.<br>\n"
+"Wenn die Transformation umkehrbar sein soll,<br>\n"
+"wählen Sie den Typ \"Keine\"."
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:210
+msgid "64"
+msgstr "64"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:211
+msgid "128"
+msgstr "128"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:212
+msgid "256"
+msgstr "256"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:213
+msgid "512"
+msgstr "512"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:214
+msgid "1024"
+msgstr "1024"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:215
+msgid "2048"
+msgstr "2048"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:216
+msgid "4096"
+msgstr "4096"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:218
+#: plugins/sonagram/SonagramDlg.uic.cpp:221
+msgid ""
+"<b>Number of FFT points:</b><p></p>Try to choose numbers with small prime-"
+"factors,<br>\n"
+"if choosing big window sizes.<br>\n"
+"The computation will be much faster !"
+msgstr ""
+"<b>Anzahl der FFT-Punkte</b><p></p>Bei großen Fenstern wählen Sie bitte "
+"Zahlen mit kleinen Primfaktoren.<br>\n"
+"Die Berechnung geht dadurch um einiges schneller !"
+
+#: plugins/sonagram/SonagramDlg.uic.cpp:224
+#: plugins/sonagram/SonagramDlg.uic.cpp:225
+msgid "?:"
+msgstr "?:"
 
 #: plugins/sonagram/SonagramDialog.cpp:45
 #: plugins/sonagram/SonagramPlugin.cpp:81
@@ -2184,6 +2521,34 @@ msgstr "Autoren"
 msgid "noise"
 msgstr "Rauschen"
 
+#: plugins/codec_flac/FlacCodecPlugin.h:59
+msgid "FLAC audio"
+msgstr "FLAC Audio"
+
+#: plugins/codec_flac/FlacCodecPlugin.cpp:33
+msgid "codec_flac"
+msgstr "FLAC-Codec"
+
+#: plugins/band_pass/BandPassDlg.uic.cpp:150
+msgid "Band Pass"
+msgstr "Bandpass"
+
+#: plugins/band_pass/BandPassDialog.cpp:54
+#: plugins/lowpass/LowPassDialog.cpp:54
+#: plugins/notch_filter/NotchFilterDialog.cpp:57
+msgid "Hz"
+msgstr "Hz"
+
+#: plugins/band_pass/BandPassDialog.cpp:59
+#: plugins/lowpass/LowPassDialog.cpp:59
+#: plugins/notch_filter/NotchFilterDialog.cpp:62
+msgid "dB"
+msgstr "dB"
+
+#: plugins/band_pass/BandPassPlugin.cpp:124
+msgid "band_pass"
+msgstr "Bandpass"
+
 #: plugins/decoder_mp3/MP3Decoder.cpp:44
 msgid "MPEG layer1 audio"
 msgstr "MPEG Layer1 Audio"
@@ -2271,15 +2636,25 @@ msgstr "Wollen Sie fortsetzen und alle weiteren Fehler ignorieren?"
 msgid "decoder_mp3"
 msgstr "MP3-Decoder"
 
-#: plugins/lowpass/LowPassDialog.cpp:54
-#: plugins/notch_filter/NotchFilterDialog.cpp:57
-msgid "Hz"
-msgstr "Hz"
+#: plugins/lowpass/LowPassDlg.uic.cpp:135
+msgid "Low Pass"
+msgstr "Tiefpass"
 
-#: plugins/lowpass/LowPassDialog.cpp:59
-#: plugins/notch_filter/NotchFilterDialog.cpp:62
-msgid "dB"
-msgstr "dB"
+#: plugins/lowpass/LowPassDlg.uic.cpp:136
+#: plugins/lowpass/LowPassDlg.uic.cpp:141
+msgid "cutoff frequency"
+msgstr "Grenzfrequenz"
+
+#: plugins/lowpass/LowPassDlg.uic.cpp:137
+#: plugins/lowpass/LowPassDlg.uic.cpp:142
+msgid ""
+"<b>cutoff frequency</b>\n"
+"Determines the highest audible frequency, higher\n"
+"frequencies will be cut off."
+msgstr ""
+"<b>Grenzfrequenz</b>\n"
+"Bestimmt die höchste noch hörbare Frequenz, \n"
+"höhere Frequenzen werden abgeschnitten."
 
 #: plugins/lowpass/LowPassPlugin.cpp:39
 msgid "lowpass"
@@ -2288,6 +2663,391 @@ msgstr "Tiefpass"
 #: plugins/lowpass/LowPassPlugin.cpp:107
 msgid "low pass"
 msgstr "Tiefpass"
+
+#: plugins/fileinfo/SelectDateDlg.uic.cpp:78
+msgid "Select Date"
+msgstr "Datum auswählen"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:744
+msgid "File Info"
+msgstr "Datei-Informationen"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:745
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:746
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:747
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:749
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:750
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:751
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:766
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:767
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:769
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:776
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:781
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:783
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:784
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:789
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:790
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:816
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:821
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:822
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:823
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:824
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:825
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:833
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:834
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:835
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:836
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:837
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:838
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:839
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:840
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:842
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:843
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:844
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:845
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:846
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:847
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:848
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:849
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:851
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:852
+msgid "#"
+msgstr "#"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:748
+#: plugins/record/RecordDlg.uic.cpp:638
+#: plugins/newsignal/NewSigDlg.uic.cpp:314
+#: plugins/newsignal/NewSigDlg.uic.cpp:333
+msgid "%1"
+msgstr "%1"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:752
+#: plugins/record/RecordDlg.uic.cpp:645
+#: plugins/newsignal/NewSigDlg.uic.cpp:313
+msgid "bit"
+msgstr "Bit"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:754
+#: plugins/newsignal/NewSigDlg.uic.cpp:297
+msgid "8000"
+msgstr "8000"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:755
+#: plugins/newsignal/NewSigDlg.uic.cpp:298
+msgid "10000"
+msgstr "10000"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:756
+#: plugins/newsignal/NewSigDlg.uic.cpp:299
+msgid "11025"
+msgstr "11025"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:757
+#: plugins/newsignal/NewSigDlg.uic.cpp:300
+msgid "12000"
+msgstr "12000"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:758
+#: plugins/newsignal/NewSigDlg.uic.cpp:301
+msgid "16000"
+msgstr "16000"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:759
+#: plugins/newsignal/NewSigDlg.uic.cpp:302
+msgid "22050"
+msgstr "22050"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:760
+#: plugins/newsignal/NewSigDlg.uic.cpp:303
+msgid "32000"
+msgstr "32000"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:761
+#: plugins/newsignal/NewSigDlg.uic.cpp:304
+msgid "44100"
+msgstr "44100"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:762
+#: plugins/newsignal/NewSigDlg.uic.cpp:305
+msgid "48000"
+msgstr "48000"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:763
+#: plugins/newsignal/NewSigDlg.uic.cpp:306
+msgid "96000"
+msgstr "96000"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:765
+#: plugins/record/RecordDlg.uic.cpp:634
+#: plugins/newsignal/NewSigDlg.uic.cpp:310
+msgid "samples per second"
+msgstr "Samples pro Sekunde"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:770
+msgid "Encoding Mode:"
+msgstr "Codierungs-Methode:"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:773
+msgid "MPEG Version 1 (ISO/IEC 11172-3)"
+msgstr "MPEG Version 1 (ISO/IEC 11172-3)"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:774
+msgid "MPEG Version 2 (ISO/IEC 13818-3)"
+msgstr "MPEG Version 2 (ISO/IEC 13818-3)"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:775
+msgid "MPEG Version 2.5 (unofficial)"
+msgstr "MPEG Version 2.5 (inoffiziell)"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:778
+msgid "Layer I"
+msgstr "Layer I"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:779
+msgid "Layer II"
+msgstr "Layer II"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:780
+msgid "Layer III"
+msgstr "Layer III"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:782
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:819
+#: plugins/fileinfo/FileInfoDialog.cpp:404
+#: plugins/fileinfo/FileInfoDialog.cpp:410
+msgid "yes"
+msgstr "Ja"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:787
+msgid "50/15ms"
+msgstr "50/15ms"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:788
+msgid "CCIT J.17"
+msgstr "CCIT J.17"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:792
+msgid "(variable)"
+msgstr "(variabel)"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:793
+msgid "8K"
+msgstr "8K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:794
+msgid "16K"
+msgstr "16K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:795
+msgid "24K"
+msgstr "24K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:796
+msgid "32K"
+msgstr "32K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:797
+msgid "40K"
+msgstr "40K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:798
+msgid "56K"
+msgstr "56K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:799
+msgid "64K"
+msgstr "64K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:800
+msgid "80K"
+msgstr "80K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:801
+msgid "96K"
+msgstr "96K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:802
+msgid "112K"
+msgstr "112K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:803
+msgid "128K"
+msgstr "128K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:804
+msgid "144K"
+msgstr "144K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:805
+msgid "160K"
+msgstr "160K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:806
+msgid "176K"
+msgstr "176K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:807
+msgid "192K"
+msgstr "192K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:808
+msgid "224K"
+msgstr "224K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:809
+msgid "256K"
+msgstr "256K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:810
+msgid "288K"
+msgstr "288K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:811
+msgid "320K"
+msgstr "320K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:812
+msgid "352K"
+msgstr "352K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:813
+msgid "384K"
+msgstr "384K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:814
+msgid "416K"
+msgstr "416K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:815
+msgid "448K"
+msgstr "448K"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:817
+msgid "Intensity Stereo"
+msgstr "Stereo-Intensität"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:818
+msgid "MS Stereo"
+msgstr "MS Stereo"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:820
+msgid "MPEG"
+msgstr "MPEG"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:826
+msgid "&Select..."
+msgstr "Aus&wählen..."
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:827
+msgid "Select a date from the calendar."
+msgstr "Datum per Kalender auswählen."
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:828
+msgid "Opens a dialog for selecting a date from the calendar."
+msgstr "Öffnet einen Dialog um ein Datum von einem Kalender auszuwählen."
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:829
+msgid "&Today"
+msgstr "&Heute"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:830
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:831
+msgid "Set the date to today."
+msgstr "Setzt das Datum auf den heutigen Tag."
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:832
+msgid "Content"
+msgstr "Inhalt"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:850
+msgid "Author/Copyright"
+msgstr "Author/Copyright"
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:857
+msgid "Alt+O"
+msgstr "Alt+O"
+
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
+msgid "A&uto"
+msgstr "&Automatisch"
+
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
+msgid "auto-generate keywords"
+msgstr "Schlüsselworte automatisch erzeugen"
+
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:84
+msgid ""
+"<b>Auto-Generate Keywords</b><br>\n"
+"Create a list of keywords by going through all present file informations and "
+"merge them with the current list of keywords."
+msgstr ""
+"<b>Schlüsselworte automatisch erzeugen</b<br>\n"
+"Erzeugt die Liste durch Auswerten aller eingegebenen Datei-Informationen und "
+"vereint sie mit den bereits vorhandenen Schlüsselworten."
+
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:86
+msgid "List of keywords."
+msgstr "Liste von Schlüsselworten."
+
+#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:64
+msgid "Form1"
+msgstr "Form1"
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:156
+msgid "CompressionWidgetBase"
+msgstr "CompressionWidgetBase"
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:158
+msgid "ABR:"
+msgstr "ABR:"
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:159
+msgid "Average Bitrate Mode"
+msgstr "Mittlere Bitrate"
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:160
+msgid ""
+"<b>Average Bitrate Mode</b><br>\n"
+"Bitrate is set to an average value, \n"
+"with optional upper and lower limit."
+msgstr ""
+"<b>Mittlere Bitrate</b><br>\n"
+"Die Bitrate wird auf einen mittleren Wert festgelegt, \n"
+"mit einer optionalen Ober- und Untergrenze."
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:163
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:171
+msgid "lowest"
+msgstr "niedrigste"
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:164
+msgid "VBR:"
+msgstr "VBR:"
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:165
+msgid "Variable Bitrate Mode"
+msgstr "Variable Bitrate"
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:166
+msgid ""
+"<b>Variable Bitrate Mode</b><br>\n"
+"The bitrate is selected by an average quality."
+msgstr ""
+"<b>Variable Bitrate</b><br>\n"
+"Auswahl der Bitrate über eine mittlere Qualität."
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:168
+msgid "highest"
+msgstr "höchste"
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:169
+msgid "Nominal Bitrate"
+msgstr "Nominale Bitrate"
+
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:170
+#: plugins/record/RecordDlg.uic.cpp:619
+msgid " %"
+msgstr " %"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:147
 msgid "%1 bytes"
@@ -2342,10 +3102,6 @@ msgstr ""
 "über das \"Bearbeiten\"-Menue Tracks hinzufügen\n"
 "oder löschen."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:213
-msgid "Length"
-msgstr "Länge"
-
 #: plugins/fileinfo/FileInfoDialog.cpp:216
 msgid ""
 "Shows the length of the file in samples\n"
@@ -2377,11 +3133,6 @@ msgstr "Bänder 12 bis 31"
 #: plugins/fileinfo/FileInfoDialog.cpp:376
 msgid "bands 16 to 31"
 msgstr "Bänder 16 bis 31"
-
-#: plugins/fileinfo/FileInfoDialog.cpp:404
-#: plugins/fileinfo/FileInfoDialog.cpp:410
-msgid "yes"
-msgstr "Ja"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:404
 #: plugins/fileinfo/FileInfoDialog.cpp:410
@@ -2438,6 +3189,15 @@ msgstr "Bereich auswählen"
 #: plugins/selectrange/SelectRangePlugin.cpp:147
 msgid "select range"
 msgstr "Bereich auswählen"
+
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:88
+msgid "Select Range..."
+msgstr "Bereich auswählen..."
+
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:90
+#: plugins/newsignal/NewSigDlg.uic.cpp:336
+msgid "O&K"
+msgstr "O&K"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:57
 msgid "NeXT,Sun Audio"
@@ -2498,6 +3258,42 @@ msgstr ""
 msgid "codec_audiofile"
 msgstr "Audiofile-Codec"
 
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:150
+msgid "Notch Filter"
+msgstr "Kerbfilter"
+
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:152
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:156
+msgid "center frequency"
+msgstr "Mittenfrequenz"
+
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:153
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:157
+msgid ""
+"<b>center frequency</b>\n"
+"Determines the center of the frequency range that\n"
+"should be removed."
+msgstr ""
+"<b>Mittenfrequenz</b>\n"
+"Bestimmt die Mitte des Frequenzbereiches der \n"
+"ausgeblendet werden soll."
+
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:160
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:165
+msgid "bandwidth"
+msgstr "Bandbreite"
+
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:161
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:166
+msgid ""
+"<b>bandwidth</b>\n"
+"Determines the width of the frequency range that\n"
+"should be removed."
+msgstr ""
+"<b>Bandbreite</b>\n"
+"Bestimmt die Breite des Frequenzbereiches der \n"
+"ausgeblendet werden soll."
+
 #: plugins/notch_filter/NotchFilterPlugin.cpp:120
 msgid "notch_filter"
 msgstr "Kerbfilter"
@@ -2518,9 +3314,343 @@ msgstr "Frei Verstärken"
 msgid "amplify free"
 msgstr "Frei Verstärken"
 
+#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:101
+msgid "Amplify Free"
+msgstr "Frei Verstärken"
+
+#: plugins/memory/MemDlg.uic.cpp:165
+msgid "Memory Settings"
+msgstr "Speicher Einstellungen"
+
+#: plugins/memory/MemDlg.uic.cpp:166
+msgid "&Physical Memory"
+msgstr "&Physikalischer Speicher"
+
+#: plugins/memory/MemDlg.uic.cpp:167
+msgid ""
+"<b>Limit the usage of physical memory (RAM).</b><br>\n"
+"\n"
+"If you do not set a limit, the size of the physically installed memory in "
+"your computer will be determined and used as limit. You cannot set a limit "
+"higher than the totally installed amount of memory."
+msgstr ""
+"<b>Begrenzt die Verwendung physikalischen Speichers (RAM)</b><br>\n"
+"\n"
+"Wenn Sie keine Begrenzung angeben, wird die Größe des installierten "
+"physikalischen Speichers in Ihrem Computer als Limit verwendet. Sie können "
+"kein Limit setzen das höher ist als die Menge des installierten Speichers."
+
+#: plugins/memory/MemDlg.uic.cpp:170
+msgid "Limit &to"
+msgstr "Begrenzen &auf"
+
+#: plugins/memory/MemDlg.uic.cpp:171 plugins/memory/MemDlg.uic.cpp:186
+msgid " MB"
+msgstr " MB"
+
+#: plugins/memory/MemDlg.uic.cpp:172
+msgid "megabytes of physical memory"
+msgstr "Megabytes physiklischer Speicher"
+
+#: plugins/memory/MemDlg.uic.cpp:173
+msgid "&Virtual Memory"
+msgstr "&Auslagerungsdateien"
+
+#: plugins/memory/MemDlg.uic.cpp:174
+msgid ""
+"<b>Configure the usage of virtual memory (swap files).</b><br>\n"
+"\n"
+"If you enable the use of virtual memory, you can specify a directory where "
+"Kwave creates temporary files that it can use as an extension to the "
+"physical memory. This enables you to process files that are much larger than "
+"your physical memory.\n"
+"<br>\n"
+"    Of course you can also set a limit for the total size of the page files."
+msgstr ""
+"<b>Konfiguration der Auslagerungsdateien.</b><br>\n"
+"\n"
+"Wenn Sie die Verwendung von Auslagerungsdateien aktivieren, können Sie ein "
+"Verzeichnis angeben in dem Kwave Auslagerungsdateien erstellt, die "
+"zusätzlich zu dem physikalischen Speicher (RAM) verwendet werden. Auf diese "
+"Art und Weise können Sie Dateien bearbeiten die größer sind als das Ihr "
+"physikalischer Speicher erlauben würde.\n"
+"<br>\n"
+"    Natürlich können Sie die Menge an Speicher in den Auslagerungsdateien "
+"auch begrenzen."
+
+#: plugins/memory/MemDlg.uic.cpp:179
+msgid "&Enable usage of virtual memory"
+msgstr "Auslagerungsdateien &aktivieren"
+
+#: plugins/memory/MemDlg.uic.cpp:180
+msgid "Directory:"
+msgstr "Verzeichnis:"
+
+#: plugins/memory/MemDlg.uic.cpp:181
+msgid "/tmp"
+msgstr "/tmp"
+
+#: plugins/memory/MemDlg.uic.cpp:182
+msgid "directory for storing swap files"
+msgstr "Verzeichnis für Auslagerungsdateien"
+
+#: plugins/memory/MemDlg.uic.cpp:183
+msgid "&Search..."
+msgstr "&Suchen..."
+
+#: plugins/memory/MemDlg.uic.cpp:184
+msgid "browse for a directory to hold page files"
+msgstr "Verzeichnis für Auslagerungsdateien wählen"
+
+#: plugins/memory/MemDlg.uic.cpp:185
+msgid "&Limit to"
+msgstr "&Begrenzen auf"
+
+#: plugins/memory/MemDlg.uic.cpp:187
+msgid "megabytes of virtual memory"
+msgstr "Megabytes in Auslagerungsdateien"
+
 #: plugins/memory/MemoryPlugin.cpp:37
 msgid "memory"
 msgstr "Speichereinstellungen"
+
+#: plugins/record/RecordDlg.uic.cpp:599
+msgid "Record"
+msgstr "Aufnehmen"
+
+#: plugins/record/RecordDlg.uic.cpp:600
+msgid "Record Control"
+msgstr "Aufnahmekontrolle"
+
+#: plugins/record/RecordDlg.uic.cpp:601
+msgid "Pre-Record:"
+msgstr "Vorab-Aufnahme:"
+
+#: plugins/record/RecordDlg.uic.cpp:602
+msgid "enable pre-recording"
+msgstr "Vorab-Aufnahme aktivieren"
+
+#: plugins/record/RecordDlg.uic.cpp:603
+msgid ""
+"When using <b>pre-recording</b>, Kwave already internall records before the "
+"real recording starts. This feature is useful if you want some few seconds "
+"before you press on the record button to be recorded too. <i>(for example "
+"when recording from radio)</i>"
+msgstr ""
+"Wenn die <b>Vorab-Aufnahme</b> verwendet wird, nimmt Kwave intern bereits "
+"auf, noch bevor die eigentliche Aufnahme startet. Dieses Feature ist "
+"nützlich wenn man auch bevor man auf den Aufnahmeknopf gedrückt hat bereits "
+"einige Sekunden aufgenommen haben möchte. <i>(zum Beispiel wenn man vom "
+"Radio aufnimmt)</i>"
+
+#: plugins/record/RecordDlg.uic.cpp:604
+msgid "Record Time:"
+msgstr "Aufnahmezeit:"
+
+#: plugins/record/RecordDlg.uic.cpp:605
+msgid "Limit the recording time"
+msgstr "Aufnahmezeit begrenzen"
+
+#: plugins/record/RecordDlg.uic.cpp:606
+msgid ""
+"If checked, the <b>record time</b> is limited and recording will "
+"automatically stop when the selected time is reached."
+msgstr ""
+"Wenn aktiviert, wird die <b>Aufnahmedauer</b> begrenzt und die Aufnahme wird "
+"automatisch zur eingestellten Zeit beendet."
+
+#: plugins/record/RecordDlg.uic.cpp:607
+msgid "Record Trigger:"
+msgstr "Trigger-Pegel:"
+
+#: plugins/record/RecordDlg.uic.cpp:608
+msgid "trigger level"
+msgstr "Triggerpegel"
+
+#: plugins/record/RecordDlg.uic.cpp:609
+msgid ""
+"If the <b>record trigger</b> is enabled, recording will start as soon as the "
+"volume of the input signal goes over the selected level."
+msgstr ""
+"Wenn ein <b>Triggerpegel</b> gesetzt wird, startet die Aufnahme erst dann "
+"wenn die Lautstärke des Eingangssignals den eingestellten Pegel "
+"überschreitet."
+
+#: plugins/record/RecordDlg.uic.cpp:613
+msgid "Stop Recording"
+msgstr "Aufnahme beenden"
+
+#: plugins/record/RecordDlg.uic.cpp:615
+msgid "Pause/Continue"
+msgstr "Anhalten/Fortsetzen"
+
+#: plugins/record/RecordDlg.uic.cpp:617
+msgid "Record!"
+msgstr "Aufnehmen!"
+
+#: plugins/record/RecordDlg.uic.cpp:618
+msgid " s"
+msgstr " s"
+
+#: plugins/record/RecordDlg.uic.cpp:620
+msgid "Recording"
+msgstr "Aufnehmen"
+
+#: plugins/record/RecordDlg.uic.cpp:621 plugins/record/RecordDlg.uic.cpp:631
+msgid "Level"
+msgstr "Pegel"
+
+#: plugins/record/RecordDlg.uic.cpp:622
+msgid "AGC:"
+msgstr "AGC:"
+
+#: plugins/record/RecordDlg.uic.cpp:623
+msgid "Amplify:"
+msgstr "Verstärkung:"
+
+#: plugins/record/RecordDlg.uic.cpp:624
+msgid " dB"
+msgstr " dB"
+
+#: plugins/record/RecordDlg.uic.cpp:625
+msgid " ms"
+msgstr " ms"
+
+#: plugins/record/RecordDlg.uic.cpp:626
+msgid "Fading"
+msgstr "Ein-/Ausblenden"
+
+#: plugins/record/RecordDlg.uic.cpp:627
+msgid "Fade In"
+msgstr "Einblenden"
+
+#: plugins/record/RecordDlg.uic.cpp:628
+msgid "Fade Out"
+msgstr "Ausblenden"
+
+#: plugins/record/RecordDlg.uic.cpp:632 plugins/record/RecordDlg.uic.cpp:646
+#: plugins/newsignal/NewSigDlg.uic.cpp:295
+msgid "Format"
+msgstr "Format"
+
+#: plugins/record/RecordDlg.uic.cpp:633
+msgid ""
+"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
+"sample rates that your sound card supports."
+msgstr ""
+"<b>Sample-Rate</b><br>Hier können Sie eine der allgemein bekannten Sample-"
+"Raten auswählen die von Ihrer Soundkarte unterstützt wird."
+
+#: plugins/record/RecordDlg.uic.cpp:635
+#: plugins/newsignal/NewSigDlg.uic.cpp:309
+msgid "Sample Rate:"
+msgstr "Abtastrate:"
+
+#: plugins/record/RecordDlg.uic.cpp:636
+#: plugins/newsignal/NewSigDlg.uic.cpp:311
+msgid "Tracks:"
+msgstr "Tracks: "
+
+#: plugins/record/RecordDlg.uic.cpp:637
+msgid ""
+"<b>Number of Tracks</b><br>Select a number of tracks, e.g. for mono or "
+"stereo recording."
+msgstr ""
+"<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks, beispielsweise "
+"Mono oder Stereo."
+
+#: plugins/record/RecordDlg.uic.cpp:639
+msgid "Compression:"
+msgstr "Kompression:"
+
+#: plugins/record/RecordDlg.uic.cpp:640
+msgid ""
+"<b>Compression</b><br>Here you can select one of the compression types if "
+"your audio hardware supports it."
+msgstr ""
+"<b>Kompression</b><br>Hier können Sie eine der von Ihrer Soundkarte "
+"unterstützten Kompressionsarten auswählen."
+
+#: plugins/record/RecordDlg.uic.cpp:641
+msgid ""
+"<b>Sample Format</b><br>Here you can select one of the sample formats that "
+"your audio hardware supports. This normally has no big influence on the "
+"result, so you can just leave it as it is."
+msgstr ""
+"<b>Sample-Format</b><br> Hier können Sie ein Sample-Format auswählen, das "
+"von Ihrer Soundkarte unterstützt wird. Dies hat normalerweise keinen grossen "
+"Einfluss auf das Resultat, so dass Sie diese Einstellung so lassen können "
+"wie sie ist."
+
+#: plugins/record/RecordDlg.uic.cpp:642
+msgid "Sample Format:"
+msgstr "Sample-Format:"
+
+#: plugins/record/RecordDlg.uic.cpp:643
+msgid ""
+"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
+"recorded. Higher values give better quality but also more system load."
+msgstr ""
+"<b>Auflösung</b><br>Wähen Sie hier eine Auflösung in Bits pro Sample in die "
+"Aufnahme durchgeführt werden soll. Höhere Werte geben bessere Qualität, aber "
+"auch höhere Systemlast."
+
+#: plugins/record/RecordDlg.uic.cpp:644
+#: plugins/newsignal/NewSigDlg.uic.cpp:312
+msgid "Resolution:"
+msgstr "Auflösung:"
+
+#: plugins/record/RecordDlg.uic.cpp:648
+msgid "Device:"
+msgstr "Gerät:"
+
+#: plugins/record/RecordDlg.uic.cpp:649
+msgid "Select..."
+msgstr "Auswählen..."
+
+#: plugins/record/RecordDlg.uic.cpp:650
+msgid "Buffer Count:"
+msgstr "Buffer-Anzahl:"
+
+#: plugins/record/RecordDlg.uic.cpp:651
+msgid "Buffer Size:"
+msgstr "Buffer-Größe:"
+
+#: plugins/record/RecordDlg.uic.cpp:654
+msgid "Visualization"
+msgstr "Visualisierung"
+
+#: plugins/record/RecordDlg.uic.cpp:655
+msgid "Level Meter"
+msgstr "Aussteuerungsanzeige"
+
+#: plugins/record/RecordDlg.uic.cpp:656
+msgid "Oscilloscope"
+msgstr "Oszilloskop"
+
+#: plugins/record/RecordDlg.uic.cpp:657
+msgid "FFT"
+msgstr "FFT"
+
+#: plugins/record/RecordDlg.uic.cpp:658
+msgid "Overview"
+msgstr "Übersicht"
+
+#: plugins/record/RecordDlg.uic.cpp:659
+msgid "Display"
+msgstr "Anzeige"
+
+#: plugins/record/RecordDlg.uic.cpp:660
+msgid "Buffer:"
+msgstr "Buffer:"
+
+#: plugins/record/RecordDlg.uic.cpp:661
+msgid "Level:"
+msgstr "Pegel:"
+
+#: plugins/record/RecordDlg.uic.cpp:665
+msgid "STATE"
+msgstr "STATE"
 
 #: plugins/record/RecordDialog.cpp:276
 msgid "OSS record device (dsp*)"
@@ -2673,6 +3803,59 @@ msgstr "Vom Aufnahmegerät konnte nicht gelesen werden, Fehler Nummer %1 (%2)"
 #: plugins/volume/VolumePlugin.cpp:114
 msgid "volume"
 msgstr "Lautstärke"
+
+#: plugins/volume/VolumeDlg.uic.cpp:148 plugins/volume/VolumeDlg.uic.cpp:164
+#: plugins/volume/VolumeDlg.uic.cpp:165
+msgid "Volume"
+msgstr "Lautstärke"
+
+#: plugins/volume/VolumeDlg.uic.cpp:152
+msgid "&Factor"
+msgstr "&Faktor"
+
+#: plugins/volume/VolumeDlg.uic.cpp:153
+msgid "change volume by factor"
+msgstr "Lautstärke um einen Faktor ändern"
+
+#: plugins/volume/VolumeDlg.uic.cpp:154
+msgid ""
+"Increments or decrements the volume by a factor. \n"
+"For example: \"x1\", \"x2\", \"/ 4\""
+msgstr ""
+"Erhöht oder senkt die Lautstärke über einen ganzzahligen Faktor. \n"
+"Zum Beispiel: \"x1\", \"x2\", \"/ 4\""
+
+#: plugins/volume/VolumeDlg.uic.cpp:156
+msgid "&Percentage"
+msgstr "&Prozent"
+
+#: plugins/volume/VolumeDlg.uic.cpp:157
+msgid "change volume by percentage"
+msgstr "Lautstärke um einen Prozentsatz ändern"
+
+#: plugins/volume/VolumeDlg.uic.cpp:158
+msgid ""
+"Sets the volume to a relative percentage of the original level. \n"
+"For example: \"50 %\", \"75%\" or \"125%\""
+msgstr ""
+"Setzt die Lautstärke auf einen Prozentsatz der ursprünglichen Lautstärke. \n"
+"Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
+
+#: plugins/volume/VolumeDlg.uic.cpp:160
+msgid "&Logarithmic"
+msgstr "&Logarithmisch"
+
+#: plugins/volume/VolumeDlg.uic.cpp:161
+msgid "change volume in dB"
+msgstr "Lautstärke in dB ändern"
+
+#: plugins/volume/VolumeDlg.uic.cpp:162
+msgid ""
+"Increments or decrements the volume in logarithmic scale (decibel). \n"
+"For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
+msgstr ""
+"Erhöht oder senkt die Lautstärke im logarithmischen Masstab (Dezibel). \n"
+"Zum Beispiel: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 
 #: plugins/codec_ogg/OggEncoder.cpp:159
 msgid ""
@@ -3021,6 +4204,70 @@ msgstr ""
 "versuchen, eine neuere Version von aRts zu installieren oder das kdelibs-"
 "Paket zu aktualisieren."
 
+#: plugins/newsignal/NewSigDlg.uic.cpp:294
+msgid "New Signal"
+msgstr "Neue Datei"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:308
+msgid ""
+"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
+"sample rates or you can enter any sample rate on your own."
+msgstr ""
+"<b>Sample-Rate</b><br>Hier können Sie eine der allgemein bekannten Sample-"
+"Raten auswählen oder direkt eine eigene Sample-Rate eingeben."
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:315
+msgid ""
+"<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
+"you are not sure now, you can add or delete tracks later in the program."
+msgstr ""
+"<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks der neuen Datei."
+"Wenn Sie jetzt noch nicht sicher sind, dann können Sie im Programm jederzeit "
+"Tracks hinzufügen oder löschen."
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:316
+msgid ""
+"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
+"saved. However, Kwave always uses 24 bits as it's own internal resolution to "
+"give the best results when processing the audio data."
+msgstr ""
+"<b>Auflösung</b><br>Wähen Sie hier eine Auflösung in Bits pro Sample in der "
+"die Datei gespeichert werden soll. Wie auch immer, Kwave verwendet intern 24 "
+"Bit um die besten Resultate bei der Bearbeitung der Audio-Daten zu erhalten."
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:319
+msgid "Time"
+msgstr "Zeit"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:320
+msgid "select this to set the length of the file by time"
+msgstr "wählen Sie dies um die Länge der Datei nach Zeit auszuwählen"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:321
+msgid "Samples"
+msgstr "Samples"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:322
+msgid "select this to enter the number of samples directly"
+msgstr "wählen Sie diese um die Anzahl der Samples direkt einzugeben"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:326
+msgid "minimum"
+msgstr "Minimum"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:327
+msgid "(file size)"
+msgstr "(Dateigröße)"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:328
+msgid "maximum"
+msgstr "Maximum"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:329
+msgid "sets the file size by the percentage of the possible maximum"
+msgstr ""
+"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+
 #: plugins/newsignal/NewSignalDialog.cpp:354
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resultierende Dateigröße: %1 MB)"
@@ -3028,903 +4275,6 @@ msgstr "(Resultierende Dateigröße: %1 MB)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "Neues Signal"
-
-#~ msgid "frmLength"
-#~ msgstr "frmLength"
-
-#~ msgid "&Samples"
-#~ msgstr "&Samples"
-
-#~ msgid "select by number of samples"
-#~ msgstr "Auswahl nach Anzahl der Samples"
-
-#~ msgid "&Time"
-#~ msgstr "&Zeit"
-
-#~ msgid "select by time"
-#~ msgstr "Auswahl nach Zeit"
-
-#~ msgid "&Percent"
-#~ msgstr "&Prozent"
-
-#~ msgid "select by percentage of the signal's length"
-#~ msgstr "Auswahl nach Prozentsatz der Länge des Signals"
-
-#~ msgid "Minutes"
-#~ msgstr "Minuten"
-
-#~ msgid "Milliseconds"
-#~ msgstr "Millisekunden"
-
-#~ msgid "Seconds"
-#~ msgstr "Sekunden"
-
-#~ msgid "Hours"
-#~ msgstr "Stunden"
-
-#~ msgid "0%"
-#~ msgstr "0%"
-
-#~ msgid "50%"
-#~ msgstr "50%"
-
-#~ msgid "100%"
-#~ msgstr "100%"
-
-#~ msgid "sets the selection by the percentage of the whole signal"
-#~ msgstr "Setzt die Auswahl über den Prozentsatz der gesamten Signallänge"
-
-#~ msgid "HMSTimeWidgetBase"
-#~ msgstr "HMSTimeWidgetBase"
-
-#~ msgid " h"
-#~ msgstr " Std"
-
-#~ msgid " min"
-#~ msgstr "Min"
-
-#~ msgid " sec"
-#~ msgstr "Sec"
-
-#~ msgid "Pitch Shift"
-#~ msgstr "Tonverschiebung"
-
-#~ msgid "F1"
-#~ msgstr "F1"
-
-#~ msgid "Alt+L"
-#~ msgstr "Alt+L"
-
-#~ msgid "start/stop pre-listening"
-#~ msgstr "Vorhören starten/stoppen"
-
-#~ msgid ""
-#~ "Start or stop the pre-listening of the current settings. If pre-listening "
-#~ "is enabled, you will nearly immediately hear any change in the selected "
-#~ "parameters."
-#~ msgstr ""
-#~ "Startet oder stoppt das Vorhören mit den aktuellen Einstellungen. Wenn "
-#~ "Vorhören aktiviert ist, hören Sie sofort die Änderungen durch die "
-#~ "gewählten Einstellungen."
-
-#~ msgid "Frequency:"
-#~ msgstr "Frequenz:"
-
-#~ msgid "chopper frequency"
-#~ msgstr "Zerhacker-Frequenz"
-
-#~ msgid ""
-#~ "<b>chopper frequency</b><br>This setting determines how small the pieces "
-#~ "of audio data are before they get processed by the pitch shift. If your "
-#~ "audio data sounds interrupted, you might get better result with higher "
-#~ "values."
-#~ msgstr ""
-#~ "<b>Zerhacker-Frequenz</b><br>Diese Einstellung bestimmt wie gross die "
-#~ "Einheiten sind in die das Ausgangssignal zerteilt wird bevor der "
-#~ "Tonverschiebungs-Effekt angewendet wird. Wenn sich das Ergebnis zerhackt "
-#~ "anhört, bekommen Sie möglicherweise bessere Resultate mit höheren Werten."
-
-#~ msgid "Speed:"
-#~ msgstr "Geschwindigkeit:"
-
-#~ msgid " Hz"
-#~ msgstr " Hz"
-
-#~ msgid "Speed"
-#~ msgstr "Geschwindigkeit"
-
-#~ msgid "Mode"
-#~ msgstr "Modus"
-
-#~ msgid "by Percentage"
-#~ msgstr "nach Prozentsatz"
-
-#~ msgid "change speed by percentage"
-#~ msgstr "Geschwindigkeit nach Prozentsatz ändern"
-
-#~ msgid ""
-#~ "Sets the speed to a relative percentage of the original speed. \n"
-#~ "For example: \"50 %\", \"75%\" or \"125%\""
-#~ msgstr ""
-#~ "Setzt die Geschwindigkeit auf einen Prozentsatz der ursprünglichen "
-#~ "Geschwindigkeit. \n"
-#~ "Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
-
-#~ msgid "by Factor"
-#~ msgstr "nach Faktor"
-
-#~ msgid "change speed by a factor"
-#~ msgstr "Geschwindigkeit über einen Faktor ändern"
-
-#~ msgid ""
-#~ "Increments or decrements the speed by a factor. \n"
-#~ "For example: \"x1\", \"x2\", \"/ 4\""
-#~ msgstr ""
-#~ "Erhöht oder reduziert die Geschwindigkeit über einen ganzzahligen "
-#~ "Faktor. \n"
-#~ "Zum Beispiel: \"x1\", \"x2\", \"/ 4\""
-
-#~ msgid "Set FFT/time resolution parameters"
-#~ msgstr "Parameter der FFT/Zeit-Auflösung setzen"
-
-#~ msgid "Alt+H"
-#~ msgstr "Alt+H"
-
-#~ msgid "display"
-#~ msgstr "Anzeige"
-
-#~ msgid "use colors"
-#~ msgstr "Farben verwenden"
-
-#~ msgid "use different colors for amplitude"
-#~ msgstr "verwendet verschiedene Farben für die Amplitude"
-
-#~ msgid "greyscale"
-#~ msgstr "Graustufen"
-
-#~ msgid "use greyscale only for amplitude"
-#~ msgstr "verwendet nur Graustufen für die Amplitude"
-
-#~ msgid "update"
-#~ msgstr "Aktualisieren"
-
-#~ msgid "on modifications"
-#~ msgstr "bei Veränderungen"
-
-#~ msgid "automatically update the sonagram <br>if the signal data has changed"
-#~ msgstr ""
-#~ "aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
-
-#~ msgid "follow selection"
-#~ msgstr "Auswahl folgen"
-
-#~ msgid ""
-#~ "automatically update the sonagram if the selection<br>has been enlarged, "
-#~ "reduced or moved"
-#~ msgstr ""
-#~ "aktualisiert das Sonagram automatisch, wenn die<br>Auswahl vergrößert, "
-#~ "reduziert oder verschoben wurde"
-
-#~ msgid "FFT settings"
-#~ msgstr "FFT-Einstellungen"
-
-#~ msgid "Number of FFT points:"
-#~ msgstr "Anzahl der FFT-Punkte:"
-
-#~ msgid "Window Function:"
-#~ msgstr "Fensterfunktion :"
-
-#~ msgid ""
-#~ "Choose windowing function here.<br>\n"
-#~ "If fourier transformation should stay reversible,<br>\n"
-#~ "use the type \"None\"."
-#~ msgstr ""
-#~ "Wählen Sie hier eine Fensterfunktion.<br>\n"
-#~ "Wenn die Transformation umkehrbar sein soll,<br>\n"
-#~ "wählen Sie den Typ \"Keine\"."
-
-#~ msgid "64"
-#~ msgstr "64"
-
-#~ msgid "128"
-#~ msgstr "128"
-
-#~ msgid "256"
-#~ msgstr "256"
-
-#~ msgid "512"
-#~ msgstr "512"
-
-#~ msgid "1024"
-#~ msgstr "1024"
-
-#~ msgid "2048"
-#~ msgstr "2048"
-
-#~ msgid "4096"
-#~ msgstr "4096"
-
-#~ msgid ""
-#~ "<b>Number of FFT points:</b><p></p>Try to choose numbers with small prime-"
-#~ "factors,<br>\n"
-#~ "if choosing big window sizes.<br>\n"
-#~ "The computation will be much faster !"
-#~ msgstr ""
-#~ "<b>Anzahl der FFT-Punkte</b><p></p>Bei großen Fenstern wählen Sie bitte "
-#~ "Zahlen mit kleinen Primfaktoren.<br>\n"
-#~ "Die Berechnung geht dadurch um einiges schneller !"
-
-#~ msgid "?:"
-#~ msgstr "?:"
-
-#~ msgid "FLAC audio"
-#~ msgstr "FLAC Audio"
-
-#~ msgid "codec_flac"
-#~ msgstr "FLAC-Codec"
-
-#~ msgid "Band Pass"
-#~ msgstr "Bandpass"
-
-#~ msgid "band_pass"
-#~ msgstr "Bandpass"
-
-#~ msgid "Low Pass"
-#~ msgstr "Tiefpass"
-
-#~ msgid "cutoff frequency"
-#~ msgstr "Grenzfrequenz"
-
-#~ msgid ""
-#~ "<b>cutoff frequency</b>\n"
-#~ "Determines the highest audible frequency, higher\n"
-#~ "frequencies will be cut off."
-#~ msgstr ""
-#~ "<b>Grenzfrequenz</b>\n"
-#~ "Bestimmt die höchste noch hörbare Frequenz, \n"
-#~ "höhere Frequenzen werden abgeschnitten."
-
-#~ msgid "Select Date"
-#~ msgstr "Datum auswählen"
-
-#~ msgid "File Info"
-#~ msgstr "Datei-Informationen"
-
-#~ msgid "#"
-#~ msgstr "#"
-
-#~ msgid "%1"
-#~ msgstr "%1"
-
-#~ msgid "bit"
-#~ msgstr "Bit"
-
-#~ msgid "8000"
-#~ msgstr "8000"
-
-#~ msgid "10000"
-#~ msgstr "10000"
-
-#~ msgid "11025"
-#~ msgstr "11025"
-
-#~ msgid "12000"
-#~ msgstr "12000"
-
-#~ msgid "16000"
-#~ msgstr "16000"
-
-#~ msgid "22050"
-#~ msgstr "22050"
-
-#~ msgid "32000"
-#~ msgstr "32000"
-
-#~ msgid "44100"
-#~ msgstr "44100"
-
-#~ msgid "48000"
-#~ msgstr "48000"
-
-#~ msgid "96000"
-#~ msgstr "96000"
-
-#~ msgid "samples per second"
-#~ msgstr "Samples pro Sekunde"
-
-#~ msgid "Encoding Mode:"
-#~ msgstr "Codierungs-Methode:"
-
-#~ msgid "MPEG Version 1 (ISO/IEC 11172-3)"
-#~ msgstr "MPEG Version 1 (ISO/IEC 11172-3)"
-
-#~ msgid "MPEG Version 2 (ISO/IEC 13818-3)"
-#~ msgstr "MPEG Version 2 (ISO/IEC 13818-3)"
-
-#~ msgid "MPEG Version 2.5 (unofficial)"
-#~ msgstr "MPEG Version 2.5 (inoffiziell)"
-
-#~ msgid "Layer I"
-#~ msgstr "Layer I"
-
-#~ msgid "Layer II"
-#~ msgstr "Layer II"
-
-#~ msgid "Layer III"
-#~ msgstr "Layer III"
-
-#~ msgid "50/15ms"
-#~ msgstr "50/15ms"
-
-#~ msgid "CCIT J.17"
-#~ msgstr "CCIT J.17"
-
-#~ msgid "(variable)"
-#~ msgstr "(variabel)"
-
-#~ msgid "8K"
-#~ msgstr "8K"
-
-#~ msgid "16K"
-#~ msgstr "16K"
-
-#~ msgid "24K"
-#~ msgstr "24K"
-
-#~ msgid "32K"
-#~ msgstr "32K"
-
-#~ msgid "40K"
-#~ msgstr "40K"
-
-#~ msgid "56K"
-#~ msgstr "56K"
-
-#~ msgid "64K"
-#~ msgstr "64K"
-
-#~ msgid "80K"
-#~ msgstr "80K"
-
-#~ msgid "96K"
-#~ msgstr "96K"
-
-#~ msgid "112K"
-#~ msgstr "112K"
-
-#~ msgid "128K"
-#~ msgstr "128K"
-
-#~ msgid "144K"
-#~ msgstr "144K"
-
-#~ msgid "160K"
-#~ msgstr "160K"
-
-#~ msgid "176K"
-#~ msgstr "176K"
-
-#~ msgid "192K"
-#~ msgstr "192K"
-
-#~ msgid "224K"
-#~ msgstr "224K"
-
-#~ msgid "256K"
-#~ msgstr "256K"
-
-#~ msgid "288K"
-#~ msgstr "288K"
-
-#~ msgid "320K"
-#~ msgstr "320K"
-
-#~ msgid "352K"
-#~ msgstr "352K"
-
-#~ msgid "384K"
-#~ msgstr "384K"
-
-#~ msgid "416K"
-#~ msgstr "416K"
-
-#~ msgid "448K"
-#~ msgstr "448K"
-
-#~ msgid "Intensity Stereo"
-#~ msgstr "Stereo-Intensität"
-
-#~ msgid "MS Stereo"
-#~ msgstr "MS Stereo"
-
-#~ msgid "MPEG"
-#~ msgstr "MPEG"
-
-#~ msgid "&Select..."
-#~ msgstr "Aus&wählen..."
-
-#~ msgid "Select a date from the calendar."
-#~ msgstr "Datum per Kalender auswählen."
-
-#~ msgid "Opens a dialog for selecting a date from the calendar."
-#~ msgstr "Öffnet einen Dialog um ein Datum von einem Kalender auszuwählen."
-
-#~ msgid "&Today"
-#~ msgstr "&Heute"
-
-#~ msgid "Set the date to today."
-#~ msgstr "Setzt das Datum auf den heutigen Tag."
-
-#~ msgid "Content"
-#~ msgstr "Inhalt"
-
-#~ msgid "Author/Copyright"
-#~ msgstr "Author/Copyright"
-
-#~ msgid "Alt+O"
-#~ msgstr "Alt+O"
-
-#~ msgid "A&uto"
-#~ msgstr "&Automatisch"
-
-#~ msgid "auto-generate keywords"
-#~ msgstr "Schlüsselworte automatisch erzeugen"
-
-#~ msgid ""
-#~ "<b>Auto-Generate Keywords</b><br>\n"
-#~ "Create a list of keywords by going through all present file informations "
-#~ "and merge them with the current list of keywords."
-#~ msgstr ""
-#~ "<b>Schlüsselworte automatisch erzeugen</b<br>\n"
-#~ "Erzeugt die Liste durch Auswerten aller eingegebenen Datei-Informationen "
-#~ "und vereint sie mit den bereits vorhandenen Schlüsselworten."
-
-#~ msgid "List of keywords."
-#~ msgstr "Liste von Schlüsselworten."
-
-#~ msgid "Form1"
-#~ msgstr "Form1"
-
-#~ msgid "CompressionWidgetBase"
-#~ msgstr "CompressionWidgetBase"
-
-#~ msgid "ABR:"
-#~ msgstr "ABR:"
-
-#~ msgid "Average Bitrate Mode"
-#~ msgstr "Mittlere Bitrate"
-
-#~ msgid ""
-#~ "<b>Average Bitrate Mode</b><br>\n"
-#~ "Bitrate is set to an average value, \n"
-#~ "with optional upper and lower limit."
-#~ msgstr ""
-#~ "<b>Mittlere Bitrate</b><br>\n"
-#~ "Die Bitrate wird auf einen mittleren Wert festgelegt, \n"
-#~ "mit einer optionalen Ober- und Untergrenze."
-
-#~ msgid "lowest"
-#~ msgstr "niedrigste"
-
-#~ msgid "VBR:"
-#~ msgstr "VBR:"
-
-#~ msgid "Variable Bitrate Mode"
-#~ msgstr "Variable Bitrate"
-
-#~ msgid ""
-#~ "<b>Variable Bitrate Mode</b><br>\n"
-#~ "The bitrate is selected by an average quality."
-#~ msgstr ""
-#~ "<b>Variable Bitrate</b><br>\n"
-#~ "Auswahl der Bitrate über eine mittlere Qualität."
-
-#~ msgid "highest"
-#~ msgstr "höchste"
-
-#~ msgid "Nominal Bitrate"
-#~ msgstr "Nominale Bitrate"
-
-#~ msgid " %"
-#~ msgstr " %"
-
-#~ msgid "Select Range..."
-#~ msgstr "Bereich auswählen..."
-
-#~ msgid "O&K"
-#~ msgstr "O&K"
-
-#~ msgid "Notch Filter"
-#~ msgstr "Kerbfilter"
-
-#~ msgid "center frequency"
-#~ msgstr "Mittenfrequenz"
-
-#~ msgid ""
-#~ "<b>center frequency</b>\n"
-#~ "Determines the center of the frequency range that\n"
-#~ "should be removed."
-#~ msgstr ""
-#~ "<b>Mittenfrequenz</b>\n"
-#~ "Bestimmt die Mitte des Frequenzbereiches der \n"
-#~ "ausgeblendet werden soll."
-
-#~ msgid "bandwidth"
-#~ msgstr "Bandbreite"
-
-#~ msgid ""
-#~ "<b>bandwidth</b>\n"
-#~ "Determines the width of the frequency range that\n"
-#~ "should be removed."
-#~ msgstr ""
-#~ "<b>Bandbreite</b>\n"
-#~ "Bestimmt die Breite des Frequenzbereiches der \n"
-#~ "ausgeblendet werden soll."
-
-#~ msgid "Amplify Free"
-#~ msgstr "Frei Verstärken"
-
-#~ msgid "Memory Settings"
-#~ msgstr "Speicher Einstellungen"
-
-#~ msgid "&Physical Memory"
-#~ msgstr "&Physikalischer Speicher"
-
-#~ msgid ""
-#~ "<b>Limit the usage of physical memory (RAM).</b><br>\n"
-#~ "\n"
-#~ "If you do not set a limit, the size of the physically installed memory in "
-#~ "your computer will be determined and used as limit. You cannot set a "
-#~ "limit higher than the totally installed amount of memory."
-#~ msgstr ""
-#~ "<b>Begrenzt die Verwendung physikalischen Speichers (RAM)</b><br>\n"
-#~ "\n"
-#~ "Wenn Sie keine Begrenzung angeben, wird die Größe des installierten "
-#~ "physikalischen Speichers in Ihrem Computer als Limit verwendet. Sie "
-#~ "können kein Limit setzen das höher ist als die Menge des installierten "
-#~ "Speichers."
-
-#~ msgid "Limit &to"
-#~ msgstr "Begrenzen &auf"
-
-#~ msgid " MB"
-#~ msgstr " MB"
-
-#~ msgid "megabytes of physical memory"
-#~ msgstr "Megabytes physiklischer Speicher"
-
-#~ msgid "&Virtual Memory"
-#~ msgstr "&Auslagerungsdateien"
-
-#~ msgid ""
-#~ "<b>Configure the usage of virtual memory (swap files).</b><br>\n"
-#~ "\n"
-#~ "If you enable the use of virtual memory, you can specify a directory "
-#~ "where Kwave creates temporary files that it can use as an extension to "
-#~ "the physical memory. This enables you to process files that are much "
-#~ "larger than your physical memory.\n"
-#~ "<br>\n"
-#~ "    Of course you can also set a limit for the total size of the page "
-#~ "files."
-#~ msgstr ""
-#~ "<b>Konfiguration der Auslagerungsdateien.</b><br>\n"
-#~ "\n"
-#~ "Wenn Sie die Verwendung von Auslagerungsdateien aktivieren, können Sie "
-#~ "ein Verzeichnis angeben in dem Kwave Auslagerungsdateien erstellt, die "
-#~ "zusätzlich zu dem physikalischen Speicher (RAM) verwendet werden. Auf "
-#~ "diese Art und Weise können Sie Dateien bearbeiten die größer sind als das "
-#~ "Ihr physikalischer Speicher erlauben würde.\n"
-#~ "<br>\n"
-#~ "    Natürlich können Sie die Menge an Speicher in den Auslagerungsdateien "
-#~ "auch begrenzen."
-
-#~ msgid "&Enable usage of virtual memory"
-#~ msgstr "Auslagerungsdateien &aktivieren"
-
-#~ msgid "Directory:"
-#~ msgstr "Verzeichnis:"
-
-#~ msgid "/tmp"
-#~ msgstr "/tmp"
-
-#~ msgid "directory for storing swap files"
-#~ msgstr "Verzeichnis für Auslagerungsdateien"
-
-#~ msgid "&Search..."
-#~ msgstr "&Suchen..."
-
-#~ msgid "browse for a directory to hold page files"
-#~ msgstr "Verzeichnis für Auslagerungsdateien wählen"
-
-#~ msgid "&Limit to"
-#~ msgstr "&Begrenzen auf"
-
-#~ msgid "megabytes of virtual memory"
-#~ msgstr "Megabytes in Auslagerungsdateien"
-
-#~ msgid "Record"
-#~ msgstr "Aufnehmen"
-
-#~ msgid "Record Control"
-#~ msgstr "Aufnahmekontrolle"
-
-#~ msgid "Pre-Record:"
-#~ msgstr "Vorab-Aufnahme:"
-
-#~ msgid "enable pre-recording"
-#~ msgstr "Vorab-Aufnahme aktivieren"
-
-#~ msgid ""
-#~ "When using <b>pre-recording</b>, Kwave already internall records before "
-#~ "the real recording starts. This feature is useful if you want some few "
-#~ "seconds before you press on the record button to be recorded too. <i>(for "
-#~ "example when recording from radio)</i>"
-#~ msgstr ""
-#~ "Wenn die <b>Vorab-Aufnahme</b> verwendet wird, nimmt Kwave intern bereits "
-#~ "auf, noch bevor die eigentliche Aufnahme startet. Dieses Feature ist "
-#~ "nützlich wenn man auch bevor man auf den Aufnahmeknopf gedrückt hat "
-#~ "bereits einige Sekunden aufgenommen haben möchte. <i>(zum Beispiel wenn "
-#~ "man vom Radio aufnimmt)</i>"
-
-#~ msgid "Record Time:"
-#~ msgstr "Aufnahmezeit:"
-
-#~ msgid "Limit the recording time"
-#~ msgstr "Aufnahmezeit begrenzen"
-
-#~ msgid ""
-#~ "If checked, the <b>record time</b> is limited and recording will "
-#~ "automatically stop when the selected time is reached."
-#~ msgstr ""
-#~ "Wenn aktiviert, wird die <b>Aufnahmedauer</b> begrenzt und die Aufnahme "
-#~ "wird automatisch zur eingestellten Zeit beendet."
-
-#~ msgid "Record Trigger:"
-#~ msgstr "Trigger-Pegel:"
-
-#~ msgid "trigger level"
-#~ msgstr "Triggerpegel"
-
-#~ msgid ""
-#~ "If the <b>record trigger</b> is enabled, recording will start as soon as "
-#~ "the volume of the input signal goes over the selected level."
-#~ msgstr ""
-#~ "Wenn ein <b>Triggerpegel</b> gesetzt wird, startet die Aufnahme erst dann "
-#~ "wenn die Lautstärke des Eingangssignals den eingestellten Pegel "
-#~ "überschreitet."
-
-#~ msgid "Stop Recording"
-#~ msgstr "Aufnahme beenden"
-
-#~ msgid "Pause/Continue"
-#~ msgstr "Anhalten/Fortsetzen"
-
-#~ msgid "Record!"
-#~ msgstr "Aufnehmen!"
-
-#~ msgid " s"
-#~ msgstr " s"
-
-#~ msgid "Recording"
-#~ msgstr "Aufnehmen"
-
-#~ msgid "Level"
-#~ msgstr "Pegel"
-
-#~ msgid "AGC:"
-#~ msgstr "AGC:"
-
-#~ msgid "Amplify:"
-#~ msgstr "Verstärkung:"
-
-#~ msgid " dB"
-#~ msgstr " dB"
-
-#~ msgid " ms"
-#~ msgstr " ms"
-
-#~ msgid "Fading"
-#~ msgstr "Ein-/Ausblenden"
-
-#~ msgid "Fade In"
-#~ msgstr "Einblenden"
-
-#~ msgid "Fade Out"
-#~ msgstr "Ausblenden"
-
-#~ msgid "Format"
-#~ msgstr "Format"
-
-#~ msgid ""
-#~ "<b>Sample Rate</b><br>Here you can select one of the predefined well-"
-#~ "known sample rates that your sound card supports."
-#~ msgstr ""
-#~ "<b>Sample-Rate</b><br>Hier können Sie eine der allgemein bekannten Sample-"
-#~ "Raten auswählen die von Ihrer Soundkarte unterstützt wird."
-
-#~ msgid "Sample Rate:"
-#~ msgstr "Abtastrate:"
-
-#~ msgid "Tracks:"
-#~ msgstr "Tracks: "
-
-#~ msgid ""
-#~ "<b>Number of Tracks</b><br>Select a number of tracks, e.g. for mono or "
-#~ "stereo recording."
-#~ msgstr ""
-#~ "<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks, "
-#~ "beispielsweise Mono oder Stereo."
-
-#~ msgid "Compression:"
-#~ msgstr "Kompression:"
-
-#~ msgid ""
-#~ "<b>Compression</b><br>Here you can select one of the compression types if "
-#~ "your audio hardware supports it."
-#~ msgstr ""
-#~ "<b>Kompression</b><br>Hier können Sie eine der von Ihrer Soundkarte "
-#~ "unterstützten Kompressionsarten auswählen."
-
-#~ msgid ""
-#~ "<b>Sample Format</b><br>Here you can select one of the sample formats "
-#~ "that your audio hardware supports. This normally has no big influence on "
-#~ "the result, so you can just leave it as it is."
-#~ msgstr ""
-#~ "<b>Sample-Format</b><br> Hier können Sie ein Sample-Format auswählen, das "
-#~ "von Ihrer Soundkarte unterstützt wird. Dies hat normalerweise keinen "
-#~ "grossen Einfluss auf das Resultat, so dass Sie diese Einstellung so "
-#~ "lassen können wie sie ist."
-
-#~ msgid "Sample Format:"
-#~ msgstr "Sample-Format:"
-
-#~ msgid ""
-#~ "<b>Resolution</b><br>Select a resolution in bits in which the file will "
-#~ "be recorded. Higher values give better quality but also more system load."
-#~ msgstr ""
-#~ "<b>Auflösung</b><br>Wähen Sie hier eine Auflösung in Bits pro Sample in "
-#~ "die Aufnahme durchgeführt werden soll. Höhere Werte geben bessere "
-#~ "Qualität, aber auch höhere Systemlast."
-
-#~ msgid "Resolution:"
-#~ msgstr "Auflösung:"
-
-#~ msgid "Device:"
-#~ msgstr "Gerät:"
-
-#~ msgid "Select..."
-#~ msgstr "Auswählen..."
-
-#~ msgid "Buffer Count:"
-#~ msgstr "Buffer-Anzahl:"
-
-#~ msgid "Buffer Size:"
-#~ msgstr "Buffer-Größe:"
-
-#~ msgid "Visualization"
-#~ msgstr "Visualisierung"
-
-#~ msgid "Level Meter"
-#~ msgstr "Aussteuerungsanzeige"
-
-#~ msgid "Oscilloscope"
-#~ msgstr "Oszilloskop"
-
-#~ msgid "FFT"
-#~ msgstr "FFT"
-
-#~ msgid "Overview"
-#~ msgstr "Übersicht"
-
-#~ msgid "Display"
-#~ msgstr "Anzeige"
-
-#~ msgid "Buffer:"
-#~ msgstr "Buffer:"
-
-#~ msgid "Level:"
-#~ msgstr "Pegel:"
-
-#~ msgid "STATE"
-#~ msgstr "STATE"
-
-#~ msgid "Volume"
-#~ msgstr "Lautstärke"
-
-#~ msgid "&Factor"
-#~ msgstr "&Faktor"
-
-#~ msgid "change volume by factor"
-#~ msgstr "Lautstärke um einen Faktor ändern"
-
-#~ msgid ""
-#~ "Increments or decrements the volume by a factor. \n"
-#~ "For example: \"x1\", \"x2\", \"/ 4\""
-#~ msgstr ""
-#~ "Erhöht oder senkt die Lautstärke über einen ganzzahligen Faktor. \n"
-#~ "Zum Beispiel: \"x1\", \"x2\", \"/ 4\""
-
-#~ msgid "&Percentage"
-#~ msgstr "&Prozent"
-
-#~ msgid "change volume by percentage"
-#~ msgstr "Lautstärke um einen Prozentsatz ändern"
-
-#~ msgid ""
-#~ "Sets the volume to a relative percentage of the original level. \n"
-#~ "For example: \"50 %\", \"75%\" or \"125%\""
-#~ msgstr ""
-#~ "Setzt die Lautstärke auf einen Prozentsatz der ursprünglichen "
-#~ "Lautstärke. \n"
-#~ "Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
-
-#~ msgid "&Logarithmic"
-#~ msgstr "&Logarithmisch"
-
-#~ msgid "change volume in dB"
-#~ msgstr "Lautstärke in dB ändern"
-
-#~ msgid ""
-#~ "Increments or decrements the volume in logarithmic scale (decibel). \n"
-#~ "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
-#~ msgstr ""
-#~ "Erhöht oder senkt die Lautstärke im logarithmischen Masstab (Dezibel). \n"
-#~ "Zum Beispiel: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
-
-#~ msgid "New Signal"
-#~ msgstr "Neue Datei"
-
-#~ msgid ""
-#~ "<b>Sample Rate</b><br>Here you can select one of the predefined well-"
-#~ "known sample rates or you can enter any sample rate on your own."
-#~ msgstr ""
-#~ "<b>Sample-Rate</b><br>Hier können Sie eine der allgemein bekannten Sample-"
-#~ "Raten auswählen oder direkt eine eigene Sample-Rate eingeben."
-
-#~ msgid ""
-#~ "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. "
-#~ "If you are not sure now, you can add or delete tracks later in the "
-#~ "program."
-#~ msgstr ""
-#~ "<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks der neuen "
-#~ "Datei.Wenn Sie jetzt noch nicht sicher sind, dann können Sie im Programm "
-#~ "jederzeit Tracks hinzufügen oder löschen."
-
-#~ msgid ""
-#~ "<b>Resolution</b><br>Select a resolution in bits in which the file will "
-#~ "be saved. However, Kwave always uses 24 bits as it's own internal "
-#~ "resolution to give the best results when processing the audio data."
-#~ msgstr ""
-#~ "<b>Auflösung</b><br>Wähen Sie hier eine Auflösung in Bits pro Sample in "
-#~ "der die Datei gespeichert werden soll. Wie auch immer, Kwave verwendet "
-#~ "intern 24 Bit um die besten Resultate bei der Bearbeitung der Audio-Daten "
-#~ "zu erhalten."
-
-#~ msgid "Time"
-#~ msgstr "Zeit"
-
-#~ msgid "select this to set the length of the file by time"
-#~ msgstr "wählen Sie dies um die Länge der Datei nach Zeit auszuwählen"
-
-#~ msgid "Samples"
-#~ msgstr "Samples"
-
-#~ msgid "select this to enter the number of samples directly"
-#~ msgstr "wählen Sie diese um die Anzahl der Samples direkt einzugeben"
-
-#~ msgid "minimum"
-#~ msgstr "Minimum"
-
-#~ msgid "(file size)"
-#~ msgstr "(Dateigröße)"
-
-#~ msgid "maximum"
-#~ msgstr "Maximum"
-
-#~ msgid "sets the file size by the percentage of the possible maximum"
-#~ msgstr ""
-#~ "Setzt die Dateigröße über den Prozentsatz der maximal möglichen "
-#~ "Dateigröße."
 
 #~ msgid "About Kwave"
 #~ msgstr "Über Kwave"

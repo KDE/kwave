@@ -24,7 +24,7 @@
 /**
  * @class LineParser
  * Parses a string that consists of multiple lines, separates
- * and returns single lines.
+ * it into lines and returns them.
  */
 class LineParser
 {

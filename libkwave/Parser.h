@@ -23,6 +23,11 @@ public:
 	return m_command;
     };
 
+    /** Returns the complete list of parameters */
+    inline const QStringList &params() {
+	return m_param;
+    }
+
     /** Returns true if the parameter list is not empty. */
     inline bool hasParams() {
 	return (m_param.count() != 0);

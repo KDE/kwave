@@ -1,5 +1,5 @@
 /***************************************************************************
-        SonagramDialog.cpp  -  dialog for setting up the sonagram window
+     SonagramDialog.cpp  -  dialog for setting up the sonagram window
                              -------------------
     begin                : Fri Jul 28 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -69,7 +69,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 
     int h;
     int w;
-    int i;
     m_length = p.selection();
     m_rate   = p.signalRate();
 
@@ -78,7 +77,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 
     debug("SonagramDialog(): constructor");
 
-    WindowFunction wf(0);
     setCaption (i18n("Set FFT/time resolution parameter"));
 
     // ----------------------------------------------------------------------
@@ -140,8 +138,12 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     m_windowtypebox = new QComboBox (true, fft_frame);
     ASSERT(m_windowtypebox);
     if (!m_windowtypebox) return;
-    for (i=0; i < wf.getCount(); i++) {
-	m_windowtypebox->insertItem(i18n(wf.getTypes()[i]));
+    window_function_t wf = WINDOW_FUNC_NONE;
+    for (unsigned int i=0; i < WindowFunction::count(); i++) {
+	QString s = WindowFunction::description(wf, true); // ###
+	debug("s[%d]='%s'",i,s.data()); // ###
+	m_windowtypebox->insertItem(s);
+	++wf;
     }
     QToolTip::add(m_windowtypebox,
 	i18n("Choose windowing function here. "\

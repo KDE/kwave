@@ -80,6 +80,9 @@ double zero(double)
 }
 
 //***************************************************************************
+//***************************************************************************
+
+//***************************************************************************
 Functions::Functions()
 :m_func(), m_name()
 {
@@ -90,6 +93,7 @@ Functions::Functions()
     append(tri,    i18n("Triangular"));
     append(sin2,   i18n("Square Sinus"));
     append(sin3,   i18n("Cubic Sinus"));
+    i18n("Zero");
 }
 
 //***************************************************************************
@@ -100,7 +104,7 @@ Functions::~Functions()
 }
 
 //***************************************************************************
-void Functions::append(periodic_function_t *func, QString name)
+void Functions::append(periodic_function_t *func, const QString &name)
 {
     periodic_function_t **f = new (periodic_function_t *);
     ASSERT(f);
@@ -115,6 +119,7 @@ void Functions::append(periodic_function_t *func, QString name)
 QString Functions::name(unsigned int index)
 {
     ASSERT(index < m_name.count());
+    if (index >= m_name.count()) return "Zero";
     return m_name[index];
 }
 

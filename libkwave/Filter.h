@@ -18,6 +18,15 @@
 #ifndef _FILTER_H_
 #define _FILTER_H_
 
+class QString;
+
+/**
+ * @class Filter
+ * Holds a set of parameters for a digital IIR or FIR filter.
+ *
+ * @todo use KIONetAccess in the load/save methods
+ * @todo more error checks in load/save (current code is too optimistic)
+ */
 class Filter
 {
 public:
@@ -25,13 +34,13 @@ public:
      * Constructor, creates an empty filter with a given sample rate.
      * @param rate number of samples per second
      */
-    Filter (int rate);
+    Filter(int rate);
 
     /**
      * Constructor, creates a filter from a Kwave command string.
      * @command part of the Kwave command with parameters
      */
-    Filter (const char *command);
+    Filter(const QString &command);
 
     /** Destructor */
     virtual ~Filter();
@@ -87,11 +96,11 @@ public:
      */
     void setDelay(unsigned int index, unsigned int newval);
 
-    /** Loads the filter parameters from a file */
-    void load(const char *filename);
+    /** Loads the filter parameters from a URL */
+    void load(const QString &filename);
 
-    /** Saves the filter parameters to a file */
-    void save(const char *filename);
+    /** Saves the filter parameters to a URL */
+    void save(const QString &filename);
 
 private:
     /** boolean if filter is FIR or IIR */

@@ -85,8 +85,8 @@
  */
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
-//*****************************************************************************
-//*****************************************************************************
+//***************************************************************************
+//***************************************************************************
 TopWidget::ZoomListPrivate::ZoomListPrivate()
 :QStrList(false)
 {
@@ -494,7 +494,7 @@ TopWidget::~TopWidget()
 //*****************************************************************************
 void TopWidget::executeCommand(const QString &command)
 {
-    debug("TopWidget::executeCommand(%s)", command.data()); // ###
+//    debug("TopWidget::executeCommand(%s)", command.data()); // ###
     if (!command.length()) return;
     if (command.stripWhiteSpace().startsWith("#")) return; // only a comment
 

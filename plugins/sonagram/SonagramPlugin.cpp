@@ -144,7 +144,7 @@ int SonagramPlugin::interpreteParameters(QStrList &params)
     if (m_fft_points > 32767) m_fft_points=32767;
 
     param = params.at(1);
-    m_window_type = param.toUInt(&ok);
+    m_window_type = WindowFunction::findFromName(param);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 
@@ -309,7 +309,7 @@ void SonagramPlugin::insertStripe()
 
 //***************************************************************************
 void SonagramPlugin::calculateStripe(const unsigned int start,
-	const int points, QByteArray &output)
+	const unsigned int points, QByteArray &output)
 {
     // first initialize the output to zeroes in case of errors
     output.fill(0);
@@ -318,9 +318,9 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
     if (!points) return;
 
     WindowFunction func(m_window_type);
-    double *windowfunction = func.getFunction(points);
-    ASSERT(windowfunction);
-    if (!windowfunction) return;
+    QArray<double> windowfunction = func.points(points);
+    ASSERT(windowfunction.count() == points);
+    if (windowfunction.count() != points) return;
 
     complex *data = new complex[points];
     ASSERT(data);
@@ -332,7 +332,7 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
     gsl_fft_complex_init(points, &table);
     	
     // copy signal data into complex array
-    for (int j = 0; j < points; j++) {
+    for (unsigned int j = 0; j < points; j++) {
 	unsigned int sample_nr = start + j;
 	double value;
 
@@ -365,7 +365,7 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
 
     // norm all values to [0...255] and use them as pixel value
     if (max != 0) {
-	for (int j = 0; j < points/2; j++) {
+	for (unsigned int j = 0; j < points/2; j++) {
 	    rea = data[j].real;
 	    ima = data[j].imag;
 	    rea = sqrt(rea * rea + ima * ima) / max;

@@ -16,7 +16,7 @@
 #include "Signal.h"
 #include "Parser.h"
 #include "gsl_fft.h"
-#include "WindowFunction.h"
+#include "libkwave/WindowFunction.h"
 #include "Interpolation.h"
 #include "Curve.h"
 #include "Filter.h"
@@ -278,74 +278,74 @@ void Signal::fft (int windowtype, bool accurate)
 }
 
 //*********************************************************
-void Signal::averageFFT (int points, int windowtype) {
-    complex *data = new complex[points];
-    complex *avgdata = new complex[points];
-    WindowFunction func(windowtype);
-
-    double *windowfunction = func.getFunction (points);
-
-    int count = 0;
-
-    if (data && avgdata && windowfunction) {
-	gsl_fft_complex_wavetable table;
-	gsl_fft_complex_wavetable_alloc (points, &table);
-	gsl_fft_complex_init (points, &table);
-
-	for (int i = 0; i < points; i++) {
-	    avgdata[i].real = 0;
-	    avgdata[i].imag = 0;
-	}
-
-	double rea, ima, max = 0;
-	int page = 0;
-
-	while (page < len) {
-	    if (page + points < len)
-		for (int i = 0; i < points; i++) {
-		    data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
-		    data[i].imag = 0;
-		}
-	    else {
-		int i = 0;
-		for (; i < len - page; i++) {
-		    data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
-		    data[i].imag = 0;
-		}
-		for (; i < points; i++) {
-		    data[i].real = 0;
-		    data[i].imag = 0;
-		}
-	    }
-
-	    page += points;
-	    count++;
-	    gsl_fft_complex_forward (data, points, &table);
-
-	    for (int i = 0; i < points; i++) {
-		rea = data[i].real;
-		ima = data[i].imag;
-		avgdata[i].real += sqrt(rea * rea + ima * ima);
-	    }
-	}
-
-	if (data) delete data;
-	gsl_fft_complex_wavetable_free (&table);
-
-	for (int i = 0; i < points; i++)        //find maximum
-	{
-	    avgdata[i].real /= count;
-	    rea = avgdata[i].real;
-	    if (max < rea) max = rea;
-	}
-
-	//create window for object
-    }
-    else {
-	if (data) delete data;
-	KMessageBox::error
-	(0, i18n("Info"), i18n("No Memory for FFT-buffers available !"), 2);
-    }
+void Signal::averageFFT (int points, window_function_t windowtype) {
+//    complex *data = new complex[points];
+//    complex *avgdata = new complex[points];
+//    WindowFunction func(windowtype);
+//
+//    double *windowfunction = func.getFunction (points);
+//
+//    int count = 0;
+//
+//    if (data && avgdata && windowfunction) {
+//	gsl_fft_complex_wavetable table;
+//	gsl_fft_complex_wavetable_alloc (points, &table);
+//	gsl_fft_complex_init (points, &table);
+//
+//	for (int i = 0; i < points; i++) {
+//	    avgdata[i].real = 0;
+//	    avgdata[i].imag = 0;
+//	}
+//
+//	double rea, ima, max = 0;
+//	int page = 0;
+//
+//	while (page < len) {
+//	    if (page + points < len)
+//		for (int i = 0; i < points; i++) {
+//		    data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
+//		    data[i].imag = 0;
+//		}
+//	    else {
+//		int i = 0;
+//		for (; i < len - page; i++) {
+//		    data[i].real = (windowfunction[i] * (double)(sample[begin + i]) / (1 << 23));
+//		    data[i].imag = 0;
+//		}
+//		for (; i < points; i++) {
+//		    data[i].real = 0;
+//		    data[i].imag = 0;
+//		}
+//	    }
+//
+//	    page += points;
+//	    count++;
+//	    gsl_fft_complex_forward (data, points, &table);
+//
+//	    for (int i = 0; i < points; i++) {
+//		rea = data[i].real;
+//		ima = data[i].imag;
+//		avgdata[i].real += sqrt(rea * rea + ima * ima);
+//	    }
+//	}
+//
+//	if (data) delete data;
+//	gsl_fft_complex_wavetable_free (&table);
+//
+//	for (int i = 0; i < points; i++)        //find maximum
+//	{
+//	    avgdata[i].real /= count;
+//	    rea = avgdata[i].real;
+//	    if (max < rea) max = rea;
+//	}
+//
+//	//create window for object
+//    }
+//    else {
+//	if (data) delete data;
+//	KMessageBox::error
+//	(0, i18n("Info"), i18n("No Memory for FFT-buffers available !"), 2);
+//    }
 }
 //*********************************************************
 void Signal::movingFilter (Filter *filter, int tap, Curve *points, int low, int high)

@@ -64,7 +64,7 @@ public:
     /**
      * Executes a plugin in the context of a given parent widget.
      */
-    void executePlugin(const char *name, QStrList *params);
+    void executePlugin(const QString &name, QStrList *params);
 
     /**
      * Returns the length of the current signal in samples.
@@ -176,7 +176,7 @@ private:
      * @return memory handle of the loaded plugin or zero if the
      *         plugin was not found or invalid
      */
-    void *loadPlugin(const QString name);
+    void *loadPlugin(const QString &name);
 
     /**
      * loads a plugin's default parameters from the user's

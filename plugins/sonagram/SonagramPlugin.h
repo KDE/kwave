@@ -1,5 +1,5 @@
 /***************************************************************************
-              SonagramPlugin.h  -  plugin that shows a sonagram window
+       SonagramPlugin.h  -  plugin that shows a sonagram window
                              -------------------
     begin                : Fri Jul 28 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -20,8 +20,9 @@
 
 #include <qarray.h>
 #include <qstring.h>
-#include <mt/SignalProxy.h>
-#include <libgui/KwavePlugin.h>
+#include "mt/SignalProxy.h"
+#include "libkwave/WindowFunction.h"
+#include "libgui/KwavePlugin.h"
 
 class QImage;
 class QStrList;
@@ -104,7 +105,7 @@ private:
      * @param points number of fft points
      * @param output reference to an array to receive the output
      */
-    void calculateStripe(const unsigned int start, const int points,
+    void calculateStripe(const unsigned int start, const unsigned int points,
 	QByteArray &output);
 
     /** the main view of the plugin, a SonagramWindow */
@@ -126,7 +127,7 @@ private:
     unsigned int m_fft_points;
 
     /** index of the window function */
-    int m_window_type;
+    window_function_t m_window_type;
 
     /** if true, use color display, else use greyscale */
     bool m_color;

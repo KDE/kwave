@@ -13,7 +13,7 @@ typedef enum {
     INTPOL_SAH
 } interpolation_t;
 
-interpolation_t& operator++(interpolation_t i);
+interpolation_t &operator++(interpolation_t &i);
 
 #include <qarray.h>
 #include <qmap.h>

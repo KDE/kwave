@@ -21,11 +21,13 @@
 #include <qstring.h>
 #include <qtextstream.h>
 
+#include <kurl.h>
+
 #include "Filter.h"
 #include "Parser.h"
 
 //***************************************************************************
-Filter::Filter(const char *command)
+Filter::Filter(const QString &command)
 :m_fir(true), m_rate(0), m_coeff(), m_delay()
 {
     Parser parse (command);
@@ -53,7 +55,7 @@ Filter::~Filter()
 }
 
 //***************************************************************************
-QString Filter::command ()
+QString Filter::command()
 {
     QString s;
 
@@ -133,10 +135,15 @@ void Filter::setDelay(unsigned int index, unsigned int newval)
 }
 
 //***************************************************************************
-void Filter::save (const char *filename)
+void Filter::save(const QString &filename)
 {
     QString name(filename);
-    if (name.find(".filter") == -1) name.append(".filter");
+    ASSERT(name.length());
+    if (!name.length()) return;
+
+    if (name.findRev(".filter") != static_cast<int>(name.length()-7)){
+	name.append(".filter");
+    }
 
     QFile file(name);
     file.open(IO_WriteOnly);
@@ -151,15 +158,14 @@ void Filter::save (const char *filename)
 }
 
 //***************************************************************************
-void Filter::load(const char *filename)
+void Filter::load(const QString &filename)
 {
     unsigned int i;
     bool ok;
     QString line;
     unsigned int linenr = 0;
 
-    QString name(filename);
-    QFile file(name);
+    QFile file(filename);
     file.open(IO_ReadOnly);
     QTextStream in(&file);
 
@@ -173,13 +179,13 @@ void Filter::load(const char *filename)
 	break;
     };
     m_fir = line.startsWith("FIR ");
-    debug("Filler::load(): fir = %d", m_fir);
+    debug("Filter::load(): fir = %d", m_fir);
 
     // order
     unsigned int order = line.remove(0,4).toUInt(&ok);
     resize(0);
     resize(order);
-    debug("Filler::load(): order = %d", order);
+    debug("Filter::load(): order = %d", order);
 
     // read delays and coefficients
     i = 0;
@@ -200,7 +206,7 @@ void Filter::load(const char *filename)
 	    i++;
 	} else {
 	    debug("Filter::load(%s): syntax error in line %d",
-		filename, linenr);
+		filename.data(), linenr);
 	}
     }
 }

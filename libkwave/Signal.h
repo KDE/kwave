@@ -5,9 +5,11 @@
 
 #include <pthread.h>
 
-class Interpolation;
+#include "libkwave/WindowFunction.h"
+
 class Curve;
 class Filter;
+class Interpolation;
 
 //**********************************************************************
 class Signal {
@@ -94,7 +96,7 @@ private:
     //functions creating a new Object
 
     void fft (int, bool);
-    void averageFFT (int, int);
+    void averageFFT (int points, window_function_t windowtype);
 
 private:
 

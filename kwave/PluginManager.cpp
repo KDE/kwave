@@ -92,15 +92,15 @@ PluginManager::~PluginManager()
 }
 
 //**********************************************************
-void *PluginManager::loadPlugin(const QString name)
+void *PluginManager::loadPlugin(const QString &name)
 {
     /* show a warning and abort if the plugin is unknown */
     if (!(m_plugin_files.contains(name))) {
 	char message[256];
 	snprintf(message, 256, i18n("oops, plugin '%s' is unknown !"), name.data());
 	KMessageBox::error(&m_top_widget,
-	    i18n("error on loading plugin"),
-	    (const char *)&message
+	    (const char *)&message,
+	    i18n("error on loading plugin")
 	);
 	return 0;
     }
@@ -117,8 +117,8 @@ void *PluginManager::loadPlugin(const QString name)
 	    filename.data(), name.data()
 	);
 	KMessageBox::error(&m_top_widget,
-	    i18n("error on loading plugin"),
-	    (const char *)&message
+	    (const char *)&message,
+	    i18n("error on loading plugin")
 	);
 	return 0;
     }
@@ -127,7 +127,7 @@ void *PluginManager::loadPlugin(const QString name)
 }
 
 //**********************************************************
-void PluginManager::executePlugin(const char *name, QStrList *params)
+void PluginManager::executePlugin(const QString &name, QStrList *params)
 {
     QString command;
 

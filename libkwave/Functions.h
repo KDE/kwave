@@ -19,12 +19,22 @@
 #define _FUNCTIONS_H_
 
 #include <math.h>
+
 #include <qlist.h>
+#include <qmap.h>
 
 typedef double(periodic_function_t)(double);
 
-class Functions {
-
+/**
+ * @class Functions
+ * Holds a list of simple periodic arithmetic functions. All functions are
+ * normed to work within the interval [0...2 Pi]
+ *
+ * @bug the list of names contains only i18n names
+ * @todo needs a map with internal names and i18n names, like in Interpolation
+ */
+class Functions
+{
 public:
     /** Constructor */
     Functions();
@@ -36,13 +46,15 @@ public:
     unsigned int count();
 
     /**
-     * Returns the name of a function
+     * Returns the name of a function. If the index is out of range,
+     * the returned name will be that of the "zero()" function.
      * @param index [0...count-1]
      */
     QString name(unsigned int index);
 
     /**
-     * Returns a reference to a function
+     * Returns a reference to a function. If the index is out of range,
+     * the returned function will be "zero()".
      * @param index [0...count-1]
      */
     periodic_function_t &function(unsigned int index);
@@ -54,7 +66,7 @@ protected:
      * @param func pointer to the function
      * @param name verbose name of the function
      */
-    void append(periodic_function_t *func, QString name);
+    void append(periodic_function_t *func, const QString &name);
 
 private:
 

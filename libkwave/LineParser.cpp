@@ -42,7 +42,7 @@ QString LineParser::nextLine()
     while ((m_pos < size) && !line.length()) {
 	line = "";
 	while ((m_pos < size) && (m_buffer[m_pos] != 0x0D) &&
-	    (m_buffer[m_pos] != 0x0A) )
+	    (m_buffer[m_pos] != 0x0A) && (m_buffer[m_pos] != 0x00))
 	{
 	    line += m_buffer[m_pos++];
 	}

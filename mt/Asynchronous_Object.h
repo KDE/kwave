@@ -34,8 +34,8 @@
  * \brief   Template classes for making methods asynchronously callable 
  */
 
-#ifndef _ASYNCHRONOUS_OBJECT_HH
-#define _ASYNCHRONOUS_OBJECT_HH
+#ifndef _ASYNCHRONOUS_OBJECT_H_
+#define _ASYNCHRONOUS_OBJECT_H_
 
 #include "mt/Thread.h"
 
@@ -114,6 +114,6 @@ private:
 //    Arg3 a3_;
 //};
 
-#endif /* _ASYNCHRONOUS_OBJECT_HH */
+#endif /* _ASYNCHRONOUS_OBJECT_H_ */
 
-/* end of include/Asynchronous_Object.hh */
+/* end of mt/Asynchronous_Object.h */

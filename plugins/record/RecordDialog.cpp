@@ -359,6 +359,9 @@ void RecordDialog::setSupportedTracks(unsigned int min, unsigned int max)
 {
     Q_ASSERT(sbFormatTracks);
     if (!sbFormatTracks) return;
+    
+    sbFormatTracks->setEnabled((min != max) && (max));
+    
     if (sbFormatTracks->value() < sbFormatTracks->minValue()) {
 	sbFormatTracks->setMaxValue(max);
 	sbFormatTracks->setMinValue(min);
@@ -507,7 +510,8 @@ void RecordDialog::setSupportedBitsPerSample(
     m_supported_resolutions = bits;
 
     // enable only if there is a choice
-    sbFormatResolution->setEnabled(bits.first() != bits.last());
+    sbFormatResolution->setEnabled((bits.first() != bits.last()) && 
+                                   !bits.isEmpty());
 }
 
 //***************************************************************************
@@ -591,7 +595,8 @@ void RecordDialog::setSampleFormat(int sample_format)
 
     SampleFormat types;
     int index = types.findFromData(sample_format);
-    cbFormatSampleFormat->setCurrentItem(types.name(index), true);
+    cbFormatSampleFormat->setCurrentItem(
+        (sample_format != -1) ? types.name(index) : "", true);
 }
 
 //***************************************************************************

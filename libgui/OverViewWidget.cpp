@@ -16,16 +16,22 @@
  ***************************************************************************/
 
 #include "config.h"
+#include "math.h"
 
 #include <qbitmap.h>
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qtimer.h>
 
+#include "mt/Mutex.h"
+#include "mt/MutexGuard.h"
+#include "kwave/SignalManager.h"
+
 #include "OverViewWidget.h"
 
 #define TIMER_INTERVAL 100        /* ms */
 #define MIN_SLIDER_WIDTH m_height /* pixel */
+#define CACHE_SIZE 8192           /* number of cache entries */
 
 #ifndef min
 #define min(x,y) (( (x) < (y) ) ? (x) : (y) )
@@ -41,14 +47,15 @@
 #define SLIDER_FOREGROUND colorGroup().mid()
 
 //*****************************************************************************
-OverViewWidget::OverViewWidget(QWidget *parent, const char *name)
-    :QWidget(parent, name)
+OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
+    :QWidget(parent), m_signal(signal), m_min(), m_max(), m_state(),
+     m_count(0), m_scale(1), m_lock()
 {
+    m_bitmap = 0;
     m_dir = 0;
     m_grabbed = 0;
     m_height = 0;
     m_mouse_pos = 0;
-    m_overview = 0;
     m_pixmap = 0;
     m_redraw = false;
     m_slider_width = 0;
@@ -57,8 +64,27 @@ OverViewWidget::OverViewWidget(QWidget *parent, const char *name)
     m_view_width = 0;
     m_width = 0;
 
-    setBackgroundMode(NoBackground); // this avoids flicker :-)
+    // connect to the signal manager
+    SignalManager *sig = &signal;
+    ASSERT(sig);
+    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
+            this, SLOT(slotTrackInserted(unsigned int, Track &)));
+    connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
+            this, SLOT(slotTrackDeleted(unsigned int)));
+    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
+	unsigned int)),
+	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
+	unsigned int)));
+    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, unsigned int,
+	unsigned int)),
+	this, SLOT(slotSamplesInserted(unsigned int, unsigned int,
+	unsigned int)));
+    connect(sig, SIGNAL(sigSamplesModified(unsigned int, unsigned int,
+	unsigned int)),
+	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
+	unsigned int)));
 
+    setBackgroundMode(NoBackground); // this avoids flicker :-)
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(increase()));
 }
 
@@ -67,7 +93,7 @@ OverViewWidget::~OverViewWidget()
 {
     m_timer.stop();
     if (m_pixmap) delete m_pixmap;
-    if (m_overview) delete m_overview;
+    if (m_bitmap) delete m_bitmap;
 }
 
 //*****************************************************************************
@@ -251,10 +277,10 @@ void OverViewWidget::mouseMoveEvent( QMouseEvent *e)
 //*****************************************************************************
 void OverViewWidget::setOverView(QBitmap *overview)
 {
-    if (m_overview) delete m_overview;
-    m_overview = 0;
+    if (m_bitmap) delete m_bitmap;
+    m_bitmap = 0;
 
-    if (overview) m_overview = new QBitmap(*overview);
+    if (overview) m_bitmap = new QBitmap(*overview);
 
     m_redraw = true;
     repaint(false);
@@ -322,9 +348,9 @@ void OverViewWidget::paintEvent (QPaintEvent *)
 
     p.begin(m_pixmap);
     m_pixmap->fill(BAR_BACKGROUND);
-    if (m_overview) {
+    if (m_bitmap) {
 	QBrush brush;
-	brush.setPixmap(*m_overview);
+	brush.setPixmap(*m_bitmap);
 	brush.setColor(BAR_FOREGROUND);
 	
 	p.setBrush(brush);
@@ -336,9 +362,9 @@ void OverViewWidget::paintEvent (QPaintEvent *)
 
     p.setBrush(SLIDER_BACKGROUND);
     p.drawRect(x, 0, m_slider_width, m_height);
-    if (m_overview) {
+    if (m_bitmap) {
 	QBrush brush;
-	brush.setPixmap(*m_overview);
+	brush.setPixmap(*m_bitmap);
 	brush.setColor(SLIDER_FOREGROUND);
 	p.setBrush(brush);
 	p.drawRect(x, 0, m_slider_width, m_height);
@@ -377,6 +403,137 @@ const QSize OverViewWidget::minimumSize()
 const QSize OverViewWidget::sizeHint()
 {
     return minimumSize();
+}
+
+//*****************************************************************************
+void OverViewWidget::scaleUp()
+{
+    const unsigned int len = m_signal.length();
+    unsigned int new_scale = static_cast<unsigned int>(
+	rint(ceil(len/CACHE_SIZE)));
+//    debug("OverViewWidget::scaleUp(), new scale = %u", new_scale);
+
+    const unsigned int shrink = static_cast<unsigned int>(
+	rint(ceil(new_scale / m_scale)));
+//    debug("OverViewWidget::scaleUp(), shrink factor = %u", shrink);
+
+    for (unsigned int t=0; t < m_state.count(); ++t) {
+	unsigned int dst = 0;
+	unsigned int count = len / m_scale;
+	if (count > CACHE_SIZE) count = 0;
+	
+	char *smin = m_min.at(t)->data();
+	char *smax = m_max.at(t)->data();
+	CacheState *sstate = m_state.at(t)->data();
+	
+	char *dmin = smin;
+	char *dmax = smax;
+	CacheState *dstate = sstate;
+	
+	while (dst < count) {
+	    char min = +127;
+	    char max = -127;
+	    CacheState state = Unused;
+	    for (unsigned int i = 0; i < shrink; ++i) {
+		if (*smin < min) min = *smin;
+		if (*smax > max) max = *smax;
+		if (*sstate < state) state = *sstate;
+		++smin;
+		++smax;
+		++sstate;
+	    }
+	    *dmin = min;
+	    *dmax = max;
+	    *dstate = state;
+	    ++dmin;
+	    ++dmax;
+	    ++dstate;
+	    ++dst;
+	}
+	while (dst++ < CACHE_SIZE) {
+	    *dstate = Unused;
+	    dstate++;
+	}
+    }
+
+    m_scale = new_scale;
+}
+
+//*****************************************************************************
+void OverViewWidget::scaleDown()
+{
+}
+
+//*****************************************************************************
+void OverViewWidget::slotTrackInserted(unsigned int index, Track &)
+{
+//    debug("OverViewWidget::slotTrackInserted(%u,...)",index);
+    MutexGuard lock(m_lock);
+
+    QArray<CacheState> *state = new QArray<CacheState>(CACHE_SIZE);
+    QByteArray *min = new QByteArray(CACHE_SIZE);
+    QByteArray *max = new QByteArray(CACHE_SIZE);
+
+    if (!state || !min || !max) {
+	ASSERT(state);
+	ASSERT(min);
+	ASSERT(max);
+	if (state) delete state;
+	if (min) delete min;
+	if (max) delete max;
+	return;
+    }
+
+    min->fill(+127);
+    max->fill(-127);
+    state->fill(Unused);
+
+    m_min.insert(index, min);
+    m_max.insert(index, max);
+    m_state.insert(index, state);
+}
+
+//*****************************************************************************
+void OverViewWidget::slotTrackDeleted(unsigned int index)
+{
+//    debug("OverViewWidget::slotTrackDeleted(%u)",index);
+    MutexGuard lock(m_lock);
+
+    m_min.remove(index);
+    m_max.remove(index);
+    m_state.remove(index);
+
+    if (m_state.isEmpty()) m_scale = 0;
+}
+
+//*****************************************************************************
+void OverViewWidget::slotSamplesInserted(unsigned int track,
+    unsigned int offset, unsigned int length)
+{
+//    debug("OverViewWidget::slotSamplesInserted(%u,%u,%u)",track,offset,length);
+    MutexGuard lock(m_lock);
+
+    if ((m_signal.length() / m_scale) > CACHE_SIZE) scaleUp();
+
+}
+
+//*****************************************************************************
+void OverViewWidget::slotSamplesDeleted(unsigned int track,
+    unsigned int offset, unsigned int length)
+{
+//    debug("OverViewWidget::slotSamplesDeleted(%u,%u,%u)",track,offset,length);
+    MutexGuard lock(m_lock);
+
+    if ((m_signal.length() / m_scale) < (CACHE_SIZE/4)) scaleDown();
+}
+
+//*****************************************************************************
+void OverViewWidget::slotSamplesModified(unsigned int track,
+    unsigned int offset, unsigned int length)
+{
+//    debug("OverViewWidget::slotSamplesModified(%u,%u,%u)",track,offset,length);
+    MutexGuard lock(m_lock);
+
 }
 
 //*****************************************************************************

@@ -1,7 +1,8 @@
 
-0.6.3 [2002-??-??]
+0.6.3 [2002-02-24]
 
- * support for french and italian translation
+ * simple drag and drop
+ * french translation
  * handling of "signal modified"
  * shows error message and aborts if loading failed
 

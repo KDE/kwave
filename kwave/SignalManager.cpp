@@ -233,55 +233,57 @@ const QArray<unsigned int> SignalManager::allTracks()
 }
 
 //****************************************************************************
-QBitmap *SignalManager::overview(unsigned int /*width*/, unsigned int /*height*/,
-                                 unsigned int /*offset*/, unsigned int /*length*/)
+QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
+                                 unsigned int offset, unsigned int length)
 {
-    return 0;
-//    QBitmap *overview = new QBitmap(width, height);
-//    ASSERT(overview);
-//    if (!overview) return 0;
-//
-//    unsigned int channel;
-//    unsigned int left;
-//    unsigned int right;
-//    unsigned int x;
-//    unsigned int channels = m_channels;
-//    float samples_per_pixel = (float)(length-1) / (float)(width-1);
-//    int min;
-//    int max;
-//    float scale_y = (float)height / (float)(1 << 24);
-//    QPainter p;
-//
-//    overview->fill(color0);
-//
-//    p.begin(overview);
-//    p.setPen(color1);
-//    left = offset;
+    debug("SignalManager::overview(%u,%u,%u,%u)",width,height,offset,length);
+    QBitmap *overview = new QBitmap(width, height);
+    ASSERT(overview);
+    if (!overview) return 0;
+
+    unsigned int track;
+    unsigned int left;
+    unsigned int right;
+    unsigned int x;
+    unsigned int tracks = this->tracks();
+    double samples_per_pixel = (float)(length-1) / (float)(width-1);
+    int min;
+    int max;
+    double scale_y = (double)height / ((SAMPLE_MAX+1) << 1);
+
+    QPainter p;
+    MultiTrackReader src;
+    openMultiTrackReader(src, allTracks(), 0, length-1);
+
+    overview->fill(color0);
+
+    p.begin(overview);
+    p.setPen(color1);
+    left = offset;
 //    for (x=0; x < width; x++) {
 //	right = offset + (unsigned int)((x+1) * samples_per_pixel);
-//        // find minimum and maximum over all channels
-//        min =  (1<<24);
-//        max = -(1<<24);
-//        for (channel = 0; channel < channels; channel++) {
-//	    int min2 =  (1<<24);
-//	    int max2 = -(1<<24);
-//	    getMaxMin(channel, max2, min2, left, right-left+1);
-//	    if (min2 < min) min = min2;
-//	    if (max2 > max) max = max2;
-//        }
-//
-//        // transform min/max into pixel coordinates
-//        min = (height >> 1) - (int)(min * scale_y);
-//        max = (height >> 1) - (int)(max * scale_y);
-//
-//        // draw the line between min and max
-//        p.drawLine(x, min, x, max);
-//
-//	left = right+1;
+//	// find minimum and maximum over all channels
+//	min = SAMPLE_MAX;
+//	max = SAMPLE_MIN;
+//	while (left++ <= right) {
+//	    for (track = 0; track < tracks; track++) {
+//		sample_t s;
+//		*(src.at(track)) >> s;
+//		if (s < min) min = s;
+//		if (s > max) max = s;
+//	    }
+//	}
+//	
+//	// transform min/max into pixel coordinates
+//	min = (height >> 1) - (int)(min * scale_y);
+//	max = (height >> 1) - (int)(max * scale_y);
+//	
+//	// draw the line between min and max
+//	p.drawLine(x, min, x, max);
 //    }
-//    p.end ();
-//
-//    return overview;
+    p.end ();
+
+    return overview;
 }
 
 //***************************************************************************

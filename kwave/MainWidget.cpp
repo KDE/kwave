@@ -141,7 +141,7 @@ MainWidget::MainWidget(QWidget *parent)
 
     // -- slider for horizontal scrolling --
 
-    m_slider = new OverViewWidget(this);
+    m_slider = new OverViewWidget(m_signal_widget.signalManager(), this);
     ASSERT(m_slider);
     if (!m_slider) return;
     m_slider->setFixedHeight(20/*playbutton->height()*3/4*/);
@@ -228,6 +228,7 @@ MainWidget::~MainWidget()
 //***************************************************************************
 void MainWidget::resizeEvent(QResizeEvent *)
 {
+    debug("MainWidget::resizeEvent()");
     refreshChannelControls();
     refreshOverView();
 }
@@ -261,14 +262,15 @@ void MainWidget::slotTrackDeleted(unsigned int /*track*/)
 //***************************************************************************
 void MainWidget::refreshOverView()
 {
-//    ASSERT(m_slider);
-//    if (!m_slider) return;
-//
-//    QBitmap *overview = m_signal_widget.overview(
-//	m_slider->width(), m_slider->height());
-//    m_slider->setOverView(overview);
-//
-//    if (overview) delete overview;
+    ASSERT(m_slider);
+    if (!m_slider) return;
+
+    debug("MainWidget::refreshOverView()");
+    QBitmap *overview = m_signal_widget.overview(
+	m_slider->width(), m_slider->height());
+    m_slider->setOverView(overview);
+
+    if (overview) delete overview;
 }
 
 //**********************************************************

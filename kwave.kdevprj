@@ -864,18 +864,6 @@ install=false
 install_location=
 type=HEADER
 
-[libgui/FaderWidget.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[libgui/FaderWidget.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
 [libgui/FileProgress.cpp]
 dist=true
 install=false
@@ -926,7 +914,7 @@ type=HEADER
 
 [libgui/Makefile.am]
 dist=true
-files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FaderWidget.cpp,libgui/FaderWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/Slider.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am
+files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am
 install=false
 install_location=
 sub_dirs=
@@ -1041,12 +1029,6 @@ install_location=
 type=SOURCE
 
 [libgui/ScaleWidget.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[libgui/Slider.h]
 dist=true
 install=false
 install_location=
@@ -1660,7 +1642,7 @@ dist=true
 files=plugins/Makefile.am
 install=false
 install_location=
-sub_dirs=dialogs,sonagram,playback,zero,memory,newsignal,template,amplifyfree,noise
+sub_dirs=dialogs,sonagram,playback,zero,memory,newsignal,template,amplifyfree,noise,about
 type=DATA
 
 [plugins/about/AboutDialog.cpp]
@@ -1670,6 +1652,18 @@ install_location=
 type=SOURCE
 
 [plugins/about/AboutDialog.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/about/AboutKwaveDialog.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/about/AboutKwaveDialog.h]
 dist=true
 install=false
 install_location=
@@ -1700,7 +1694,7 @@ install_location=
 type=HEADER
 
 [plugins/about/Makefile.am]
-files=plugins/about/AboutDialog.cpp,plugins/about/AboutDialog.h,plugins/about/AboutPlugin.cpp,plugins/about/AboutPlugin.h,plugins/about/LogoWidget.h,plugins/about/LogoWidget.cpp,plugins/about/logo.xpm,
+files=plugins/about/AboutDialog.cpp,plugins/about/AboutDialog.h,plugins/about/AboutPlugin.cpp,plugins/about/AboutPlugin.h,plugins/about/LogoWidget.h,plugins/about/LogoWidget.cpp,plugins/about/logo.xpm,plugins/about/AboutKwaveDialog.h,plugins/about/AboutKwaveDialog.cpp
 sub_dirs=
 type=static_library
 

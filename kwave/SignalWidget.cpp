@@ -240,12 +240,10 @@ int SignalWidget::saveFile(const QString &filename, unsigned int bits,
 }
 
 //***************************************************************************
-QBitmap *SignalWidget::overview(unsigned int /*width*/, unsigned int /*height*/)
+QBitmap *SignalWidget::overview(unsigned int width, unsigned int height)
 {
-    return 0;
-//    return (signalmanage) ?
-//	signalmanage->overview(width, height,0,signalmanage->getLength())
-//	: 0;
+    return m_signal_manager.overview(width, height, 0,
+                                     m_signal_manager.length());
 }
 
 //***************************************************************************

@@ -38,10 +38,10 @@ class TopWidget;
 class QStringList;
 
 #define KWAVE_PLUGIN(class_name,plugin_name,author_name) \
-    const char *version = "2.0"; \
-    const char *name = plugin_name; \
-    const char *author = author_name; \
-    KwavePlugin *load(PluginContext &c) { \
+    extern "C" const char *version = "2.0"; \
+    extern "C" const char *name = plugin_name; \
+    extern "C" const char *author = author_name; \
+    extern "C" KwavePlugin *load(PluginContext &c) { \
 	class_name *np = new class_name(c); \
 	return np; \
     }

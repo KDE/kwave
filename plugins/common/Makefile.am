@@ -16,7 +16,7 @@ INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
 
 CXXFLAGS  = @CXXFLAGS@ -fPIC
-LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles
+LD_FLAGS  = -shared -fPIC -rdynamic
 
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))

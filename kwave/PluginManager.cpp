@@ -188,10 +188,11 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     const char *sym_author  = cplus_mangle_opname("author", 0);
     const char *sym_loader  = cplus_mangle_opname("load(PluginContext *)",0);
 #else
-    // hardcoded, might fail on some systems :-(
+    // hardcoded, should always work when the
+    // symbols are declared as extern "C"
     const char *sym_version = "version";
     const char *sym_author  = "author";
-    const char *sym_loader  = "load__FR13PluginContext";
+    const char *sym_loader  = "load";
 #endif
 
     // get the plugin's author
@@ -208,13 +209,30 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     if (pver) version=*pver;
     if (!version) version = i18n("(unknown)");
 
-    plugin_loader = (KwavePlugin *(*)(PluginContext *))dlsym(handle, sym_loader);
+    plugin_loader =
+        (KwavePlugin *(*)(PluginContext *))dlsym(handle, sym_loader);
+
+#ifndef HAVE_CPLUS_MANGLE_OPNAME
+
+    // fallback to gcc-2.95 style mangling
+    if (!plugin_loader) plugin_loader =
+        (KwavePlugin *(*)(PluginContext *))dlsym(handle,
+        "load__FR13PluginContext");
+
+    // also try fallback to gcc-3.x style mangling
+    if (!plugin_loader) plugin_loader =
+        (KwavePlugin *(*)(PluginContext *))dlsym(handle,
+        "_Z4loadR13PluginContext");
+
+#endif
+
     ASSERT(plugin_loader);
     if (!plugin_loader) {
 	// plugin is null, out of memory or not found
 	warning("PluginManager::loadPlugin(): "\
-		"plugin does not contain a loader, "\
-		"maybe it is damaged or the wrong version?");
+		"plugin '%s' does not contain a loader, "\
+		"maybe it is damaged or the wrong version?",
+		name.data());
 	dlclose(handle);
 	return 0;
     }

@@ -26,22 +26,13 @@ bin_PROGRAMS  = kwave
 # use the correct directory when building a binary rpm package
 bindir=$(prefix)/bin
 
-# conversion to modules to do for the following files:
-# mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h
-
 # Which sources should be compiled for kwave.
 
 BUILTSOURCES=\
  CodecManager.moc.cpp\
- FFTContainer.moc.cpp\
- FFTWindow.moc.cpp\
- ImageView.moc.cpp\
  LabelManager.moc.cpp\
  KwaveApp.moc.cpp\
  MainWidget.moc.cpp\
- PitchContainer.moc.cpp\
- PitchWidget.moc.cpp\
- PitchWindow.moc.cpp\
  PlaybackController.moc.cpp \
  PluginManager.moc.cpp\
  SignalManager.moc.cpp\
@@ -53,17 +44,11 @@ kwave_SOURCES =\
  main.cpp\
  ClipBoard.cpp\
  CodecManager.cpp\
- FFTContainer.cpp\
- FFTWindow.cpp\
- ImageView.cpp\
  KwaveApp.cpp\
  LabelManager.cpp\
  MainWidget.cpp\
  MemoryManager.cpp\
  MouseMark.cpp\
- PitchContainer.cpp\
- PitchWidget.cpp\
- PitchWindow.cpp\
  PlaybackController.cpp\
  PluginManager.cpp\
  SignalManager.cpp\
@@ -80,13 +65,6 @@ kwave_SOURCES =\
  UndoTransaction.cpp\
  UndoTransactionGuard.cpp\
  $(BUILTSOURCES)
-
-# extra data, icons etc
-ICONS = \
- pics/$(PACKAGE)-16x16.png \
- pics/$(PACKAGE)-22x22.png \
- pics/$(PACKAGE)-32x32.png \
- pics/$(PACKAGE)-48x48.png
 
 # some pixmaps to be installed in the data dir
 PIXMAPS=\
@@ -113,6 +91,15 @@ PIXMAPS=\
  selectedknob.xpm\
  xspeaker.xpm
 
+# extra data, icons etc
+ICONS = \
+ pics/$(PACKAGE)-16x16.png \
+ pics/$(PACKAGE)-22x22.png \
+ pics/$(PACKAGE)-32x32.png \
+ pics/$(PACKAGE)-48x48.png
+
+dist_pkgdata_DATA = $(ICONS)
+
 # the library search path
 kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
 	`$(ARTSCCONFIG) --libs` @all_libraries@ -export-dynamic -dy
@@ -122,8 +109,6 @@ kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
 kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt \
 	@KDE_VERSION_SPECIFIC_LIBS@ \
 	-lX11 -lXext -lpthread -ldl -lm
-
-#	-L../check -lmem -lbfd -liberty
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
@@ -154,13 +139,15 @@ pics/$(PACKAGE)-32x32.png: pics/$(PACKAGE).xpm
 pics/$(PACKAGE)-48x48.png: pics/$(PACKAGE).xpm
 	$(CONVERT) -geometry 48x48 $< $@
 
+icons: $(ICONS)
+
 # just install datas here. Use install-exec-data for scripts and etc.
 # the binary itself is already installed from automake
 # use mkinstalldirs, not "install -d"
 # don't install a list of file. Just one file per install.
 # if you have more of them, create a subdirectory with an extra Makefile 
 
-install-data-local: $(ICONS)
+install-data-local: icons
 	$(mkinstalldirs) $(APPSDIR)
 	$(INSTALL_DATA) kwave.desktop $(APPSDIR)/kwave.desktop
 	$(mkinstalldirs) $(PIXDIR)

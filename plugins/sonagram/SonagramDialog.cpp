@@ -140,9 +140,7 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     if (!m_windowtypebox) return;
     window_function_t wf = WINDOW_FUNC_NONE;
     for (unsigned int i=0; i < WindowFunction::count(); i++) {
-	QString s = WindowFunction::description(wf, true); // ###
-	debug("s[%d]='%s'",i,s.data()); // ###
-	m_windowtypebox->insertItem(s);
+	m_windowtypebox->insertItem(WindowFunction::description(wf, true));
 	++wf;
     }
     QToolTip::add(m_windowtypebox,
@@ -389,7 +387,9 @@ void SonagramDialog::parameters(QStrList &list)
     list.append(param);
 
     // parameter #1: index of the window function
-    param.setNum(m_windowtypebox ? m_windowtypebox->currentItem() : 0);
+    window_function_t wf = WindowFunction::findFromIndex(
+    	(m_windowtypebox) ? m_windowtypebox->currentItem() : 0);
+    param = WindowFunction::name(wf);
     list.append(param);
 
     // parameter #2: flag: use color instead of greyscale
@@ -427,16 +427,11 @@ void SonagramDialog::setPoints(int points)
 }
 
 //***************************************************************************
-void SonagramDialog::setWindowFunction(int index)
+void SonagramDialog::setWindowFunction(window_function_t type)
 {
     ASSERT(m_windowtypebox);
     if (!m_windowtypebox) return;
-
-    ASSERT(index >= 0);
-    if (index < 0) return;
-    ASSERT(index < m_windowtypebox->count());
-
-    m_windowtypebox->setCurrentItem(index);
+    m_windowtypebox->setCurrentItem(WindowFunction::index(type));
 }
 
 //***************************************************************************
@@ -476,7 +471,6 @@ void SonagramDialog::setBoxPoints(int num)
 //***************************************************************************
 SonagramDialog::~SonagramDialog ()
 {
-    debug("SonagramDialog::~SonagramDialog() done");
 }
 
 //***************************************************************************

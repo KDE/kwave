@@ -136,7 +136,6 @@ public:
     QString description(IDX type, bool localized)
     {
 	QString s = m_list[type].third();
-	debug("TypesMap: s[%d]='%s'",(int)type, s.data()); // ###
 	return (localized) ? i18n(s) : s;
     };
 

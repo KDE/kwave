@@ -19,6 +19,7 @@
 #define _SONAGRAM_DIALOG_H_
 
 #include <qdialog.h>
+#include "libkwave/WindowFunction.h"
 
 class Slider;
 class QCheckBox;
@@ -52,7 +53,7 @@ public slots:
     void setPoints(int points);
 
     /** selects a window function */
-    void setWindowFunction(int index);
+    void setWindowFunction(window_function_t type);
 
     /**
      * sets the color mode. Currently only black/white (0) and

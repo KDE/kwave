@@ -26,10 +26,10 @@ class QString;
 /** enumeration of window functions */
 typedef enum {
     WINDOW_FUNC_NONE = 0,
-    WINDOW_FUNC_HAMMING,
-    WINDOW_FUNC_HANNING,
-    WINDOW_FUNC_BLACKMAN,
-    WINDOW_FUNC_TRIANGULAR
+    WINDOW_FUNC_HAMMING = 1,
+    WINDOW_FUNC_HANNING = 2,
+    WINDOW_FUNC_BLACKMAN = 3,
+    WINDOW_FUNC_TRIANGULAR = 4
 } window_function_t;
 
 /** post-increment operator */
@@ -60,6 +60,15 @@ public:
     QArray<double> points(unsigned int len);
 
     /**
+     * Returns the window function id through it's numeric index. If
+     * the index is out of range, the return value will be "WINDOW_FUNC_NONE".
+     * @param index numeric index to be searched [0...count-1]
+     */
+    static window_function_t findFromIndex(unsigned int index) {
+	return m_types_map.findFromData(index);
+    };
+
+    /**
      * Returns the window function id through it's name. If
      * the name is unknown the return value will be "WINDOW_FUNC_NONE".
      * @param name the name to be searched
@@ -80,6 +89,15 @@ public:
     {
 	return m_types_map.findFromDescription(description, localized);
     };
+
+    /**
+     * Returns the numeric index of a window function [0...count-1].
+     * @param type the type of the window function
+     */
+    static unsigned int index(window_function_t type)
+    {
+	return m_types_map.data(type);
+    }
 
     /**
      * Returns the name of a window function.
@@ -111,7 +129,7 @@ private:
     /**
      * This map will be initialized with all known window functions.
      */
-    class InitializedTypesMap: public TypesMap<window_function_t, int>
+    class InitializedTypesMap: public TypesMap<window_function_t,unsigned int>
     {
     public:
 	/** Contstructor, initializes the map. */

@@ -1,0 +1,113 @@
+<?xml version = '1.0'?>
+<kdevelop>
+  <general>
+    <author>Thomas Eschenbacher</author>
+    <email>Thomas.Eschenbacher@gmx.de</email>
+    <version>$VERSION$</version>
+    <projectmanagement>KDevCustomProject</projectmanagement>
+    <primarylanguage>C++</primarylanguage>
+    <ignoreparts>
+      <part>KDevClearCase</part>
+      <part>KDevFileView</part>
+      <part>KDevPerforce</part>
+    </ignoreparts>
+    <projectdirectory>.</projectdirectory>
+    <absoluteprojectpath>false</absoluteprojectpath>
+    <description/>
+  </general>
+  <kdevcustomproject>
+    <run>
+      <mainprogram>kwave/kwave</mainprogram>
+      <programargs/>
+      <terminal>false</terminal>
+      <envvars/>
+      <directoryradio>executable</directoryradio>
+      <customdirectory/>
+      <autocompile>true</autocompile>
+    </run>
+    <build>
+      <buildtool>make</buildtool>
+      <builddir/>
+    </build>
+    <make>
+      <abortonerror>false</abortonerror>
+      <numberofjobs>2</numberofjobs>
+      <dontact>false</dontact>
+      <makebin/>
+      <envvars/>
+    </make>
+  </kdevcustomproject>
+  <kdevdebugger>
+    <general>
+      <dbgshell/>
+      <programargs/>
+      <gdbpath/>
+      <breakonloadinglibs>true</breakonloadinglibs>
+      <separatetty>false</separatetty>
+      <floatingtoolbar>false</floatingtoolbar>
+      <runappinappdirectory>true</runappinappdirectory>
+    </general>
+    <display>
+      <staticmembers>false</staticmembers>
+      <demanglenames>true</demanglenames>
+    </display>
+  </kdevdebugger>
+  <kdevfilecreate>
+    <filetypes/>
+    <useglobaltypes>
+      <type ext="ui" />
+      <type ext="cpp" />
+      <type ext="h" />
+    </useglobaltypes>
+  </kdevfilecreate>
+  <kdevdoctreeview>
+    <projectdoc>
+      <userdocDir>/usr/src/packages/multimedia/sound/kwave/doc/</userdocDir>
+      <apidocDir>/usr/src/packages/multimedia/sound/kwave/doc/api-doc/</apidocDir>
+    </projectdoc>
+  </kdevdoctreeview>
+  <cppsupportpart>
+    <codecompletion/>
+    <filetemplates>
+      <choosefiles>false</choosefiles>
+      <interfaceURL/>
+      <implementationURL/>
+      <interfacesuffix>.h</interfacesuffix>
+      <implementationsuffix>.cpp</implementationsuffix>
+      <lowercasefilenames>true</lowercasefilenames>
+    </filetemplates>
+  </cppsupportpart>
+  <kdevclassview>
+    <folderhierarchy>true</folderhierarchy>
+    <depthoffolders>2</depthoffolders>
+  </kdevclassview>
+  <kdevfileview>
+    <groups>
+      <group pattern="*.h" name="Headers" />
+      <group pattern="*.c;*.cpp" name="Sources" />
+    </groups>
+  </kdevfileview>
+  <kdevcvs>
+    <cvsoptions>-f</cvsoptions>
+    <commitoptions></commitoptions>
+    <updateoptions>-dP</updateoptions>
+    <addoptions></addoptions>
+    <removeoptions>-f</removeoptions>
+    <diffoptions>-u3 -p</diffoptions>
+    <logoptions></logoptions>
+    <rshoptions></rshoptions>
+    <revertoptions>-C -d -P</revertoptions>
+  </kdevcvs>
+  <kdevcppsupport>
+    <codecompletion>
+      <includeGlobalFunctions>true</includeGlobalFunctions>
+      <includeTypes>true</includeTypes>
+      <includeEnums>true</includeEnums>
+      <includeTypedefs>false</includeTypedefs>
+      <automaticCodeCompletion>true</automaticCodeCompletion>
+      <automaticArgumentsHint>true</automaticArgumentsHint>
+      <codeCompletionDelay>250</codeCompletionDelay>
+      <argumentsHintDelay>400</argumentsHintDelay>
+    </codecompletion>
+  </kdevcppsupport>
+</kdevelop>

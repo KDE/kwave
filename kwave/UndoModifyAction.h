@@ -23,6 +23,7 @@
 #include <qstring.h>
 
 #include "libkwave/Sample.h"
+#include "libkwave/Track.h"
 #include "UndoAction.h"
 
 class UndoModifyAction: public UndoAction
@@ -74,8 +75,8 @@ protected:
     /** number of samples */
     unsigned int m_length;
 
-    /** buffer with undo data */
-    QMemArray<sample_t> m_buffer;
+    /** track that serves as buffer with undo data */
+    Track m_buffer_track;
 
 };
 

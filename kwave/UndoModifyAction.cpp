@@ -25,18 +25,20 @@
 
 #include "UndoModifyAction.h"
 
+/** size of the buffer for internal copy operations */
+#define BUFFER_SIZE 65536
+
 //***************************************************************************
 UndoModifyAction::UndoModifyAction(unsigned int track, unsigned int offset,
                                    unsigned int length)
     :UndoAction(), m_track(track), m_offset(offset), m_length(length),
-     m_buffer(0)
+     m_buffer_track()
 {
 }
 
 //***************************************************************************
 UndoModifyAction::~UndoModifyAction()
 {
-    m_buffer.resize(0);
 }
 
 //***************************************************************************
@@ -54,16 +56,20 @@ unsigned int UndoModifyAction::undoSize()
 //***************************************************************************
 void UndoModifyAction::store(SignalManager &manager)
 {
-    /* copy from left to right into our buffer */
-    m_buffer.resize(m_length);
     SampleReader *reader = manager.openSampleReader(
 	m_track, m_offset, m_offset+m_length-1);
     Q_ASSERT(reader);
-    if (reader) {
-	*reader >> m_buffer;
-	m_length = m_buffer.size();
-	delete reader;
-    }
+    if (!reader) return;
+
+    SampleWriter *writer = m_buffer_track.openSampleWriter(
+        Append, 0, m_length-1);
+    Q_ASSERT(writer);
+
+    if (writer) (*writer) << (*reader);
+    Q_ASSERT(m_buffer_track.length() == m_length);
+
+    delete reader;
+    if (writer) delete writer;
 }
 
 //***************************************************************************
@@ -74,24 +80,52 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
     Q_ASSERT(writer);
     if (!writer) return 0;
 
-    unsigned int ofs = 0;
     unsigned int len = m_length;
 
     if (with_redo) {
-	SampleReader *reader = manager.openSampleReader(
-	    m_track, m_offset, m_offset+m_length-1);
+	QArray<sample_t> buf_cur(BUFFER_SIZE);
+	QArray<sample_t> buf_sav(BUFFER_SIZE);
 
-	sample_t s;
-	while (reader && writer && len--) {
-	    *reader >> s;
-	    *writer << m_buffer[ofs];
-	    m_buffer[ofs] = s;
-	    ofs++;
+	SampleReader *reader_cur = manager.openSampleReader(
+	    m_track, m_offset, m_offset+m_length-1);
+	SampleWriter *writer_cur = writer;
+	SampleReader *reader_sav = m_buffer_track.openSampleReader(
+	    0, m_length-1);
+	SampleWriter *writer_sav = m_buffer_track.openSampleWriter(
+	    Overwrite, 0, m_length-1);
+
+	// exchange content of the current signal with the content
+	// of the internal buffer
+	while (reader_cur && reader_sav && writer_sav && len) {
+	    // 1. fill buf_cur with data from current signal
+	    (*reader_cur) >> buf_cur;
+	    Q_ASSERT(buf_cur.size());
+	    if (!buf_cur.size()) break;
+
+	    // 2. fill buf_sav with data from buffer
+	    (*reader_sav) >> buf_sav;
+	    Q_ASSERT(buf_sav.size() == buf_cur.size());
+	    if (buf_sav.size() != buf_cur.size()) break;
+
+	    // 3. write buf_cur to buffer
+	    (*writer_sav) << buf_cur;
+
+	    // 4. write buf_sav to current signal
+	    (*writer_cur) << buf_sav;
+
+	    len = (len > buf_cur.size()) ? (len - buf_cur.size()) : 0;
 	}
-	if (reader) delete reader;
+	Q_ASSERT(m_buffer_track.length() == m_length);
+
+	if (reader_cur) delete reader_cur;
+	if (reader_sav) delete reader_sav;
+	if (writer_sav) delete writer_sav;
     } else {
-	Q_ASSERT(m_buffer.size() == m_length);
-	*writer << m_buffer;
+	SampleReader *reader = m_buffer_track.openSampleReader(
+	    0, m_length-1);
+	Q_ASSERT(reader);
+
+	if (reader && writer) (*writer) << (*reader);
     }
 
     delete writer;

@@ -28,7 +28,7 @@
 //***************************************************************************
 UndoDeleteTrack::UndoDeleteTrack(Signal &signal, unsigned int track)
     :UndoAction(), m_signal(signal), m_track(track),
-     m_length(signal.length()), m_buffer()
+     m_length(signal.length()), m_buffer_track()
 {
 }
 
@@ -58,32 +58,32 @@ int UndoDeleteTrack::redoSize()
 //***************************************************************************
 void UndoDeleteTrack::store(SignalManager &manager)
 {
-    // allocate the buffer
-    m_buffer.resize(m_length);
-    Q_ASSERT(m_buffer.size() == m_length);
-
-    // create a reader for the whole range
-    SampleReader *reader = manager.openSampleReader(m_track, 0, m_length-1);
+    SampleReader *reader = manager.openSampleReader(
+	m_track, 0, m_length-1);
     Q_ASSERT(reader);
     if (!reader) return;
 
-    // read into the save buffer
-    *reader >> m_buffer;
+    SampleWriter *writer = m_buffer_track.openSampleWriter(
+        Append, 0, m_length-1);
+    Q_ASSERT(writer);
 
-    // discard the reader
+    if (writer) (*writer) << (*reader);
+    Q_ASSERT(m_buffer_track.length() == m_length);
+
     delete reader;
+    if (writer) delete writer;
 }
 
 //***************************************************************************
 UndoAction *UndoDeleteTrack::undo(SignalManager &manager, bool with_redo)
 {
-    UndoAction *redo = 0;
+    UndoAction *redo_action = 0;
 
     // create a redo action
     if (with_redo) {
-	redo = new UndoInsertTrack(m_signal, m_track);
-	Q_ASSERT(redo);
-	if (redo) redo->store(manager);
+	redo_action = new UndoInsertTrack(m_signal, m_track);
+	Q_ASSERT(redo_action);
+	if (redo_action) redo_action->store(manager);
     }
 
     // insert an empty track into the signal
@@ -93,12 +93,15 @@ UndoAction *UndoDeleteTrack::undo(SignalManager &manager, bool with_redo)
     SampleWriter *writer = m_signal.openSampleWriter(m_track,
 	Overwrite, 0, m_length-1);
     Q_ASSERT(writer);
-    if (writer) {
-	*writer << m_buffer;
-	delete writer;
-    }
 
-    return redo;
+    SampleReader *reader = m_buffer_track.openSampleReader(0, m_length-1);
+    Q_ASSERT(reader);
+    if (reader && writer) (*writer) << (*reader);
+
+    if (reader) delete reader;
+    if (writer) delete writer;
+
+    return redo_action;
 }
 
 //***************************************************************************

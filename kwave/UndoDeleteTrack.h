@@ -23,6 +23,7 @@
 #include <qmemarray.h>
 #include <qstring.h>
 #include "libkwave/Sample.h"
+#include "libkwave/Track.h"
 #include "kwave/UndoAction.h"
 
 class Signal;
@@ -73,8 +74,8 @@ protected:
     /** Length of the track in samples */
     unsigned int m_length;
 
-    /** Buffer with undo data */
-    QMemArray<sample_t> m_buffer;
+    /** track that serves as buffer with undo data */
+    Track m_buffer_track;
 
 };
 

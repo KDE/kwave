@@ -17,6 +17,7 @@
 
 #include <klocale.h>
 
+#include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "SignalManager.h"
 #include "UndoAction.h"
@@ -51,12 +52,12 @@ UndoAction *UndoDeleteAction::undo(SignalManager &manager, bool with_redo)
     Q_ASSERT(writer);
     if (!writer) return 0;
 
-    // read back the buffer
-    *writer << m_buffer;
+    SampleReader *reader = m_buffer_track.openSampleReader(0, m_length-1);
+    Q_ASSERT(reader);
+    if (reader && writer) (*writer) << (*reader);
 
-    // now the writer and the buffer are no longer needed
-    delete writer;
-    m_buffer.resize(0);
+    if (reader) delete reader;
+    if (writer) delete writer;
 
     if (with_redo) {
 	return new UndoInsertAction(m_track, m_offset, m_length);

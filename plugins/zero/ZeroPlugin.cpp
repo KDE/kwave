@@ -25,7 +25,7 @@
 
 KWAVE_PLUGIN(ZeroPlugin,"zero","Thomas Eschenbacher");
 
-#define ZERO_COUNT 8192
+#define ZERO_COUNT 64*1024
 
 //***************************************************************************
 ZeroPlugin::ZeroPlugin(PluginContext &context)

@@ -15,9 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <string.h> // for some speed-ups like memmove, memcpy ...
 #include "mt/MutexGuard.h"
-
 #include "libkwave/Stripe.h"
+
+// define this for using only slow Qt array functions
+#undef STRICTLY_QT
 
 //***************************************************************************
 Stripe::Stripe()
@@ -79,9 +82,15 @@ unsigned int Stripe::resize(unsigned int length)
 
 	// fill new samples with zero
 	unsigned int pos = old_length;
+#ifdef STRICTLY_QT
 	while (pos < length) {
 	    m_samples[pos++] = 0;
 	}
+#else
+	if (pos < length) {
+	    memset(&(m_samples[pos]), 0, (length-pos)*sizeof(sample_t));
+	}
+#endif
     }
 
     if (length < old_length) {
@@ -121,9 +130,17 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
 
 	// append to the end of the area
 	unsigned int pos = old_length;
+#ifdef STRICTLY_QT
 	while (pos < newlength) {
 	    m_samples[pos++] = samples[appended++];
 	}
+#else
+	if (pos < newlength) {
+	    appended = newlength - pos;
+	    memmove(&(m_samples[pos]), &(samples[0]),
+	            appended*sizeof(sample_t));
+	}
+#endif
     }
 
     debug("Stripe::append(): resized to %d", m_samples.size());
@@ -163,18 +180,29 @@ unsigned int Stripe::insert(const QArray<sample_t> &samples,
 	if (offset < old_length) {
 	    // move old samples right
 	    cnt = old_length - offset;
+#ifdef STRICTLY_QT
 	    while (cnt--) {
 		m_samples[--new_length] = m_samples[--old_length];
 	    }
+#else
+	    unsigned int src = old_length - cnt;
+	    unsigned int dst = new_length - cnt;
+	    memmove(&(m_samples[dst]), &(m_samples[src]),
+	            cnt*sizeof(sample_t));
+#endif
 	}
 	
 	// insert at the given offset
 	src = 0;
 	dst = offset;
 	cnt = count;
+#ifdef STRICTLY_QT
 	while (cnt--) {
 	    m_samples[dst++] = samples[src++];
 	}
+#else
+	memmove(&(m_samples[dst]), &(samples[src]), cnt * sizeof(sample_t));
+#endif
 	
 	inserted = count;
     }
@@ -212,9 +240,15 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 	unsigned int dst = offset - m_start;
 	unsigned int src = dst + length;
 	unsigned int len = size - src;
+#ifdef STRICTLY_QT
 	while (len--) {
 	    m_samples[dst++] = m_samples[src++];
 	}
+#else
+	if (len) memmove(&(m_samples[dst]), &(m_samples[src]),
+	                 len*sizeof(sample_t));
+#endif
+	
 	// resize the buffer to it's new size
 	m_samples.resize(size - length);
     }
@@ -229,11 +263,22 @@ void Stripe::overwrite(unsigned int offset, const QArray<sample_t> &samples,
     unsigned int count = 0;
     {
 	MutexGuard lock(m_lock_samples);
-	unsigned int pos = offset;
+	
+#ifdef STRICTLY_QT
+	unsigned int dst = offset;
 	while (srclen--) {
-	    m_samples[pos++] = samples[srcoff++];
+	    m_samples[dst++] = samples[srcoff++];
 	    count++;
 	}
+#else
+	unsigned int len = m_samples.size();
+	ASSERT(offset+count <= len);
+	if (srclen) {
+	    count = srclen;
+	    memmove(&(m_samples[offset]), &(samples[srcoff]),
+	            count * sizeof(sample_t));
+	}
+#endif
     }
 
     if (count) emit sigSamplesModified(*this, offset, count);
@@ -246,10 +291,18 @@ unsigned int Stripe::read(QArray<sample_t> &buffer, unsigned int dstoff,
     unsigned int count = 0;
 
     MutexGuard lock(m_lock_samples);
+#ifdef STRICTLY_QT
     while (length--) {
 	buffer[dstoff++] = m_samples[offset++];
 	count++;
     }
+#else
+    if (length) {
+	count = length;
+	memmove(&(buffer[dstoff]), &(m_samples[offset]),
+	        count * sizeof(sample_t));
+    }
+#endif
 
     return count;
 }

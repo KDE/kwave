@@ -97,8 +97,8 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 	    unsigned int buf_offset = 0;
 
 	    for (; it.current(); ++it) {
-		if (!m_buffer_used) break; // nothing to do
-
+		if (!count) break; // nothing to do
+		
 		Stripe *s = it.current();
 		unsigned int st = s->start();
 		unsigned int len = s->length();
@@ -113,7 +113,7 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 		
 		    // copy the portion of our buffer to the target
 		    s->overwrite(offset, buffer, buf_offset, length);
-
+		
 		    count -= length;
 		    buf_offset += length;
 		    m_position += length;

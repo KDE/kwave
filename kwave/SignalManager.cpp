@@ -1174,15 +1174,11 @@ void SignalManager::closeUndoTransaction()
     ASSERT(m_undo_transaction_level);
     if (m_undo_transaction_level) m_undo_transaction_level--;
 
-    debug("SignalManager::closeUndoTransaction(): reduced to %u",
-          m_undo_transaction_level);
-
     if (!m_undo_transaction_level) {
 	// append the current transaction to the undo buffer if
 	// not empty
 	if (m_undo_transaction) {
 	    if (!m_undo_transaction->isEmpty()) {
-		debug("SignalManager::closeUndoTransaction(): not empty");
 		m_undo_buffer.append(m_undo_transaction);
 	    } else {
 		debug("SignalManager::closeUndoTransaction(): empty");
@@ -1192,7 +1188,6 @@ void SignalManager::closeUndoTransaction()
 	
 	// declare the current transaction as "closed"
 	m_undo_transaction = 0;
-//	debug("SignalManager::closeUndoTransaction(): closed");
 	m_spx_undo_redo.AsyncHandler();
     }
 }

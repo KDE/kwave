@@ -16,11 +16,16 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <string.h> // for some speed-ups like memmove, memcpy ...
+
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleLock.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
+
+// define this for using only slow Qt array functions
+#undef STRICTLY_QT
 
 //***************************************************************************
 SampleReader::SampleReader(Track &track, QList<Stripe> &stripes,
@@ -82,17 +87,69 @@ void SampleReader::fillBuffer()
 unsigned int SampleReader::read(QArray<sample_t> &buffer,
 	unsigned int dstoff, unsigned int length)
 {
-    if (m_eof) return 0; // already done
+    if (m_eof || !length) return 0; // already done or nothing to do
 
     // just a sanity check
     ASSERT(dstoff < buffer.size());
     if (dstoff >= buffer.size()) return 0;
 
-    unsigned int start = dstoff;
-    while (!m_eof && length--) {
-	(*this) >> buffer[dstoff++];
+    unsigned int count = 0;
+    unsigned int rest = length;
+
+    // first try to read out the current buffer
+    if (m_buffer_used) {
+	unsigned int cnt = rest;
+	unsigned int src = 0;
+	unsigned int dst = dstoff;
+	if (cnt > m_buffer_used) cnt = m_buffer_used;
+	
+	m_buffer_position += cnt;
+	m_buffer_used -= cnt;
+	count += cnt;
+	rest -= cnt;
+	dstoff += cnt;
+#ifdef STRICTLY_QT
+	while (cnt--) {
+	    buffer[dst++] = m_buffer[src++];
+	}
+#else
+	memmove(&(buffer[dst]), &(m_buffer[src]), cnt*sizeof(sample_t));
+#endif
+	if (!rest) return count;
     }
-    return (dstoff-start);
+
+    // abort if eof reached
+    if (m_eof) return count;
+
+    // take the rest directly out of the stripe(s)
+    QListIterator<Stripe> it(m_stripes);
+    for (; rest && it.current(); ++it) {
+	Stripe *s = it.current();
+	unsigned int st = s->start();
+	unsigned int len = s->length();
+	if (!len) continue; // skip zero-length tracks
+	
+	if (m_position >= st+len) break; // end of range reached
+	
+	if (m_position >= st) {
+	    unsigned int offset = m_position - st;
+	    unsigned int cnt = rest;
+	    if (offset+cnt > len) cnt = len - offset;
+	
+	    // read from the stripe
+	    cnt = s->read(buffer, dstoff, offset, cnt);
+	
+	    m_position += cnt;
+	    dstoff += cnt;
+	    rest -= cnt;
+	    count += cnt;
+	}
+    }
+
+    // if something remained, we have reached eof
+    if (rest) m_eof = true;
+
+    return count;
 }
 
 //***************************************************************************
@@ -121,7 +178,16 @@ SampleReader &SampleReader::operator >> (sample_t &sample)
     // get new buffer if end of last buffer reached
     if (m_buffer_position >= m_buffer_used) fillBuffer();
     sample = (m_buffer_position < m_buffer_used) ?
-	      m_buffer[m_buffer_position++] : 0;
+              m_buffer[m_buffer_position++] : 0;
+    return *this;
+}
+
+//***************************************************************************
+SampleReader &SampleReader::operator >> (QArray<sample_t> &buffer)
+{
+    unsigned int size = buffer.size();
+    unsigned int count = read(buffer, 0, size);
+    if (count != size) buffer.resize(count);
     return *this;
 }
 

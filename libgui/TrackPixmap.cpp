@@ -104,15 +104,17 @@ void TrackPixmap::setOffset(unsigned int offset)
 	if ((  offset % (unsigned int)ceil(m_zoom)) !=
 	    (m_offset % (unsigned int)ceil(m_zoom))) {
 
-/* ### will become interesting later, with the offset/zoom optimizations
+#ifdef CURRENTLY_UNUSED
+// this will become interesting later, with the offset/zoom optimizations
 	    warning("TrackPixmap::setOffset(): oh nooo, "\
 	    	"offset %u is misaligned by %u sample(s), please fix this!",
 	    	offset, offset % pixels2samples(1));
 	    warning("TrackPixmap::setOffset(): "\
 	    	"now I have to throw away the whole buffer :-((");
-### */
-//	    debug("TrackPixmap::setOffset(%u): "\
-//		"misaligned->invalidating buffer", offset);
+	
+	    debug("TrackPixmap::setOffset(%u): "\
+		"misaligned->invalidating buffer", offset);
+#endif
 	    invalidateBuffer();
 	} else if (offset > m_offset) {
 	    // move left

@@ -81,6 +81,13 @@ public:
      */
     SampleReader& operator >> (sample_t &sample);
 
+    /**
+     * Reads a full buffer of samples. If the buffer cannot be filled,
+     * it will be resized to the number of samples that were really
+     * read.
+     */
+    SampleReader& operator >> (QArray<sample_t> &sample);
+
 protected:
 
     /** Fills the sample buffer */

@@ -4,6 +4,7 @@
 #include <qpainter.h>
 #include <math.h>
 #include <limits.h>
+#include <libkwave/kwavestring.h>
 #include "faderwidget.h"
 
 //****************************************************************************
@@ -19,7 +20,7 @@ FaderWidget::FaderWidget (QWidget *parent,int dir) : QWidget
 //****************************************************************************
 FaderWidget::~FaderWidget ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 //****************************************************************************
 void FaderWidget::setCurve (int c)
@@ -31,9 +32,9 @@ void FaderWidget::setCurve (int c)
 const char *FaderWidget::getDegree ()
 {
   char buf[128];
-  if (comstr) free (comstr);
-  sprintf (buf,"%f",((double) curve)/10);
-  comstr=strdup (buf);
+  deleteString (comstr);
+  sprintf (buf,"%f",((float) (curve))/10);
+  comstr=duplicateString (buf);
   return buf;
 }
 //****************************************************************************

@@ -84,7 +84,7 @@ const char *PlayBackDialog::getCommand ()
   char buf [64];
 
   sprintf (buf,"%d",buffersize->value());
-  if (comstr) free (comstr);
+  deleteString (comstr);
   comstr=catString ("playback (",
 		    b16->isChecked()?"16,":"8,",
 		    buf,
@@ -116,7 +116,7 @@ void PlayBackDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 PlayBackDialog::~PlayBackDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 //**********************************************************
 

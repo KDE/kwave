@@ -3,6 +3,7 @@
 #include "module.h"
 #include <qpushbutton.h>
 #include <qkeycode.h>
+#include <libkwave/kwavestring.h>
 #include <kapp.h>
 
 const char *version="1.0";
@@ -11,7 +12,6 @@ const char *name="delay";
 //**********************************************************
 KwaveDialog *getDialog (DialogOperation *operation)
 {
-  printf ("called\n");
  return new DelayDialog(operation->getRate(),operation->isModal());
 }
 //**********************************************************
@@ -45,9 +45,9 @@ DelayDialog::DelayDialog (int rate,bool modal): KwaveDialog(modal)
 const char* DelayDialog::getCommand ()
 {
   char buf[512];
-  if (comstr) free (comstr);
+  deleteString (comstr);
   sprintf (buf,"delay (%f)",delay->getMs());
-  comstr=strdup (buf);
+  comstr=duplicateString (buf);
   return comstr;
 }
 //**********************************************************
@@ -75,7 +75,7 @@ void DelayDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 DelayDialog::~DelayDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

@@ -46,7 +46,7 @@ MarkerTypeDialog::MarkerTypeDialog (bool modal): KwaveDialog(modal)
 //**********************************************************
 const char *MarkerTypeDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 
   comstr=catString ("newlabeltype (",
 		    name->text(),
@@ -82,7 +82,7 @@ void MarkerTypeDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 MarkerTypeDialog::~MarkerTypeDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 //**********************************************************
 

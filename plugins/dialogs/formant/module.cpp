@@ -188,7 +188,7 @@ void FormantDialog::getWidgets (int num)
 //**********************************************************
 const char *FormantDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   comstr=catString ("formant (",
 		    ")");
   return comstr;
@@ -237,7 +237,7 @@ void FormantDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 FormantDialog::~FormantDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

@@ -41,10 +41,10 @@ GapDialog::GapDialog (int rate,bool modal): KwaveDialog(modal)
 //**********************************************************
 const char *GapDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   char buf[512];
   sprintf (buf,"gap (%f %f)",len1->getMs(),len2->getMs());
-  comstr=strdup (buf);
+  comstr=duplicateString (buf);
   return comstr;
 }
 //**********************************************************
@@ -63,7 +63,7 @@ void GapDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 GapDialog::~GapDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 //**********************************************************
 

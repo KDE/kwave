@@ -43,10 +43,13 @@ FadeDialog::FadeDialog (bool modal,int ms): KwaveDialog(modal)
 //**********************************************************
 const char *FadeDialog::getCommand ()
 {
-  if (comstr) free (comstr);
-  
+  deleteString (comstr);
+  char buf[512];
+
+  sprintf (buf,"%f",fade->getDegree());
+
   comstr=catString ("fadeout (",
-		    fade->getDegree(),
+		    buf,
 		    ")"
 		    );
   return comstr;
@@ -69,7 +72,7 @@ void FadeDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 FadeDialog::~FadeDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

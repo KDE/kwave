@@ -49,7 +49,7 @@ void PercentDialog::setValue (int num)
 const char* PercentDialog::getCommand ()
 {
   char buf[512];
-  if (comstr) free (comstr);
+  deleteString (comstr);
 
   sprintf (buf,"%f",((double)slider->value()/1000));
 
@@ -71,7 +71,7 @@ void PercentDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 PercentDialog::~PercentDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

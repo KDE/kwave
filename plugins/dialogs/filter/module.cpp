@@ -175,8 +175,8 @@ void FilterDialog::refresh ()
 	    if (rea>maxp) maxp=rea;
 	  }
 
-	phasewidget->setPhase (data,points,filter->rate);
-	filterwidget->setSignal (data,points,filter->rate);
+	phasewidget->setPhase (data,points,filter->getRate());
+	filterwidget->setSignal (data,points,filter->getRate());
 	filterwidget->refresh();
 	phasewidget->refresh();
       }
@@ -185,7 +185,7 @@ void FilterDialog::refresh ()
 //**********************************************************
 const char *FilterDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 
   comstr=catString ("filter (",
 		    filter->getCommand (),
@@ -363,7 +363,7 @@ void FilterDialog::resizeEvent (QResizeEvent *)
 FilterDialog::~FilterDialog ()
 {
   if (filter) delete filter;
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

@@ -49,7 +49,7 @@ DistortDialog::DistortDialog (bool modal): KwaveDialog(modal)
 //**********************************************************
 const char * DistortDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   
   comstr=catString ("distort (",
 		    sym->currentText(),
@@ -65,7 +65,6 @@ void DistortDialog::resizeEvent (QResizeEvent *)
  int bsize=ok->sizeHint().height();
  int h=height()-bsize*4;
 
- if (comstr) free (comstr);
  curve->setGeometry	(8+bsize,0,width()-16-bsize,h);
  xscale->setGeometry	(8+bsize,h,width()-16-bsize,bsize);  
  corner->setGeometry	(8,h,bsize,bsize);   
@@ -78,7 +77,7 @@ void DistortDialog::resizeEvent (QResizeEvent *)
 DistortDialog::~DistortDialog ()
 {
   delete curve ;
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

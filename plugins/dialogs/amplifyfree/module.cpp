@@ -3,6 +3,7 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include "module.h"
+#include <libkwave/kwavestring.h>
 #include <kapp.h>
 
 const char *version="1.0";
@@ -44,10 +45,10 @@ KwaveDialog(modal)
 const char*AmplifyCurveDialog::getCommand ()
 {
   char buf[4096];
-  if (comstr) free (comstr);
+  deleteString (comstr);
   sprintf (buf,"amplifyfree (%s)",curve->getCommand());
 
-  comstr=strdup (buf);
+  comstr=duplicateString (buf);
   return comstr;
 }
 //**********************************************************
@@ -66,7 +67,7 @@ void AmplifyCurveDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 AmplifyCurveDialog::~AmplifyCurveDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   delete curve ;
 }
 

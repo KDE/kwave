@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <kapp.h>
+#include <libkwave/kwavestring.h>
 #include "guiitems.h"
 
 extern QString mstotime (int ms);
@@ -70,8 +71,8 @@ const char *TimeLine::getMsStr ()
 {
   char buf[128];
   sprintf (buf,"%f",((double(value))*1000/rate));
-  if (comstr) free(comstr);
-  comstr=strdup (buf);
+  deleteString (comstr);
+  comstr=duplicateString (buf);
   return comstr;
 }
 //**********************************************************
@@ -208,7 +209,7 @@ void TimeLine::mousePressEvent( QMouseEvent *e)
 //**********************************************************
 TimeLine::~TimeLine ()
 {
-  if (comstr) free(comstr);
+  deleteString (comstr);
 };
 
 

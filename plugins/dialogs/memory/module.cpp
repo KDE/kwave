@@ -44,7 +44,7 @@ MemoryDialog::MemoryDialog (bool modal): KwaveDialog(modal)
 //**********************************************************
 const char *MemoryDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   comstr =catString ("memory (",
 		     mem->text(),
 		     ",",
@@ -69,7 +69,7 @@ void MemoryDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 MemoryDialog::~MemoryDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 //**********************************************************
 

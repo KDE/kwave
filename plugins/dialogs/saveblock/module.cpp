@@ -67,7 +67,7 @@ SaveBlockDialog::SaveBlockDialog (Global *globals,bool modal): KwaveDialog(modal
 //**********************************************************
 const char *SaveBlockDialog::getCommand ()
 {
-  if (comstr) free(comstr);
+  deleteString (comstr);
 
   comstr=catString ("saveblock (",
 		    name->text(),
@@ -81,7 +81,7 @@ const char *SaveBlockDialog::getCommand ()
     {
       char *tmpstr=comstr;
       comstr=catString (comstr,")");
-      free (tmpstr);
+      deleteString (tmpstr);
     }
   return comstr;
 }
@@ -163,7 +163,7 @@ void SaveBlockDialog::resizeEvent (QResizeEvent *)
 SaveBlockDialog::~SaveBlockDialog ()
 {
   if (dir) delete dir;
-  if (comstr) free(comstr);
+  deleteString (comstr);
 }
 //**********************************************************
 

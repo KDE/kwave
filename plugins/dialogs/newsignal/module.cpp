@@ -53,7 +53,7 @@ void NewSampleDialog::setRate (const char *res)
 //**********************************************************
 const char* NewSampleDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   
   comstr=catString ("newsignal (",
 		    ratefield->currentText(),
@@ -79,7 +79,7 @@ void NewSampleDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 NewSampleDialog::~NewSampleDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

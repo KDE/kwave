@@ -47,12 +47,12 @@ AverageDialog::AverageDialog (bool modal): KwaveDialog(modal)
 //**********************************************************
 const char *AverageDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 
   char buf[512];
   sprintf (buf,"movingaverage %d %s",taps->value(),type->currentText());
 
-  comstr=strdup (buf);
+  comstr=duplicateString (buf);
   return comstr;
 }
 //**********************************************************
@@ -71,7 +71,7 @@ void AverageDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 AverageDialog::~AverageDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

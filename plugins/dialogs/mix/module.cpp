@@ -152,7 +152,7 @@ void ChannelMixDialog::setdBMode (bool val)
 //**********************************************************
 const char* ChannelMixDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   //  for (int i=0;i<channels;i++)
   //    {
   //  double db=-(slider[i]->value()-(24*60))/10;
@@ -167,7 +167,7 @@ ChannelMixDialog::~ChannelMixDialog ()
   if (channelname) delete channelname;
   if (value) delete value;
   if (valuebox) delete valuebox;
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

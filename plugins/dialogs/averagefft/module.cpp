@@ -5,6 +5,7 @@
 #include <qcombobox.h>
 #include <qtooltip.h>
 #include "module.h"
+#include <libkwave/kwavestring.h>
 #include <libkwave/windowfunction.h>
 #include <kapp.h>
 
@@ -53,10 +54,14 @@ AverageFFTDialog::AverageFFTDialog (int rate,bool modal):
 const char *AverageFFTDialog::getCommand ()
 {
   char buf[512];
-  if (comstr) free (comstr);
-  sprintf (buf,"averagefft (%f , %s)",
-	   windowlength->getMs(),windowtypebox->currentText());
-  comstr=strdup (buf);
+  deleteString (comstr);
+  sprintf (buf,"%f",windowlength->getMs());
+
+  comstr=catString ("averagefft (",
+		    buf,
+		    ",",
+		    windowtypebox->currentText(),		       
+		    ")");
   return comstr;
 }
 //**********************************************************
@@ -76,7 +81,7 @@ void AverageFFTDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 AverageFFTDialog::~AverageFFTDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 //**********************************************************
 

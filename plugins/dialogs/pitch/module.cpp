@@ -49,7 +49,7 @@ PitchDialog::PitchDialog (bool modal,int time): KwaveDialog(modal)
 //**********************************************************
 const char *PitchDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 
   int i=adjust->value();
   if (i<0) i=0;
@@ -66,7 +66,7 @@ const char *PitchDialog::getCommand ()
 		    buf);
   char *tmpstr=comstr;
   comstr=catString (comstr,")");
-  if (tmpstr) free (tmpstr);
+  deleteString (tmpstr);
   return comstr;
 }
 //**********************************************************
@@ -86,7 +86,7 @@ void PitchDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 PitchDialog::~PitchDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

@@ -51,7 +51,7 @@ MarkSaveDialog::MarkSaveDialog (Global *globals,bool modal): KwaveDialog(modal)
 const char *MarkSaveDialog::getCommand ()
 {
   char *tmpstr;
-  if (comstr) free (comstr);  
+  deleteString (comstr);  
   int cnt=0;
   MarkerType *act;
 
@@ -61,12 +61,12 @@ const char *MarkSaveDialog::getCommand ()
     {
       tmpstr=comstr;
       comstr=catString (comstr,act->name,",");
-      free (tmpstr);
+      deleteString (tmpstr);
     }
 
   tmpstr=comstr;
   comstr=catString (comstr,")");
-  free (tmpstr);
+  deleteString (tmpstr);
 
   return comstr;
 }
@@ -83,7 +83,7 @@ void MarkSaveDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 MarkSaveDialog::~MarkSaveDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

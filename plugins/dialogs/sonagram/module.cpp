@@ -64,7 +64,7 @@ SonagramDialog::SonagramDialog (bool modal,int len,int rate)
 //**********************************************************
 const char *SonagramDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   //  return windowtypebox->currentText();
   return comstr;
 }
@@ -106,7 +106,7 @@ void SonagramDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 SonagramDialog::~SonagramDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

@@ -41,12 +41,12 @@ QuantiseDialog::QuantiseDialog (bool modal): KwaveDialog(modal)
 //**********************************************************
 const char *QuantiseDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   char buf[512];
 
   sprintf (buf,"quantize (%s)",bits->text());
 
-  comstr=strdup (buf);
+  comstr=duplicateString (buf);
 
   return comstr;
 }
@@ -64,7 +64,7 @@ void QuantiseDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 QuantiseDialog::~QuantiseDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 //**********************************************************
 

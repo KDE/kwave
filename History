@@ -1,5 +1,7 @@
 this Development Version
 
+corrected envelope dialog, string handling
+
 connected many functions via the new string-based way of invocation
 
 fixed some dependencies between old code and new classes (there's still more to do !)

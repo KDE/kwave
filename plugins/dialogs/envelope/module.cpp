@@ -8,7 +8,7 @@
 #include <kapp.h>
 
 const char *version="1.0";
-const char *author="Martin";
+const char *author="Martin Wilz";
 const char *name="envelope";
 
 //**********************************************************
@@ -47,10 +47,16 @@ EnvelopeDialog::EnvelopeDialog (bool modal): KwaveDialog(modal)
 //**********************************************************
 const char *EnvelopeDialog::getCommand ()
 {
-  if (comstr) free (comstr);
   char buf[512];
-  sprintf (buf,"envelope (%f,%s)",timeslider->value(),typebox->currentText());
-  comstr=strdup (buf);
+
+  deleteString (comstr);
+  sprintf (buf,"%f",timeslider->value());
+
+  comstr=catString ("envelope (",
+		    buf,
+		    ",",
+		    typebox->currentText(),
+		    ")");
   return comstr;
 }
 //**********************************************************
@@ -78,8 +84,7 @@ void EnvelopeDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 EnvelopeDialog::~EnvelopeDialog ()
 {
-  if (comstr) free (comstr);
-  delete this;
+  deleteString (comstr);
 }
 
 

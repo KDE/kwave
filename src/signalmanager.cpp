@@ -195,8 +195,8 @@ int SignalManager::doCommand (const char *str)
 			if (sourcechan<clipchan) sourcechan=0;
 		      }
 		  }
+		info ();
 	      }
-	    info ();
 	  }
 	else
 	  if (matchCommand (str,"selectchannels"))

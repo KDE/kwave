@@ -69,7 +69,7 @@ MarkSignalDialog::MarkSignalDialog (const Global *globals,int rate,bool modal): 
 //**********************************************************
 const char *MarkSignalDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   comstr=catString ("amptolabel (100.0",
 		    ",", //level
 		    marktype1->currentText(),
@@ -99,10 +99,6 @@ void MarkSignalDialog::setAmpl (const char *str)
  tflag=false;
 }
 //**********************************************************
-
-
-
-//**********************************************************
 void MarkSignalDialog::resizeEvent (QResizeEvent *)
 {
  int bsize=ok->sizeHint().height();
@@ -125,7 +121,7 @@ void MarkSignalDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 MarkSignalDialog::~MarkSignalDialog ()
 {
-  if (comstr) delete comstr;
+  deleteString (comstr);
 }
 //**********************************************************
 

@@ -53,7 +53,7 @@ FrequencyMultDialog::FrequencyMultDialog (int rate,bool modal): KwaveDialog(moda
 //**********************************************************
 const char *FrequencyMultDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   comstr=catString ("multiply (",curve->getCommand(),")");
 
   return comstr;
@@ -87,7 +87,7 @@ void FrequencyMultDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 FrequencyMultDialog::~FrequencyMultDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
   delete curve ;
 }
 //**********************************************************

@@ -2,7 +2,6 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include "module.h"
-
 #include <kapp.h>
 
 const char *version="1.0";
@@ -43,10 +42,13 @@ FadeDialog::FadeDialog (bool modal,int ms): KwaveDialog(modal)
 //**********************************************************
 const char *FadeDialog::getCommand ()
 {
-  if (comstr) free (comstr);
-  
+  deleteString (comstr);
+  char buf[512];
+
+  sprintf (buf,"%f",fade->getDegree());
+
   comstr=catString ("fadein (",
-		    fade->getDegree(),
+		    buf,
 		    ")"
 		    );
   return comstr;
@@ -69,7 +71,7 @@ void FadeDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 FadeDialog::~FadeDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

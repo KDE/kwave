@@ -41,7 +41,7 @@ TimeDialog::TimeDialog (bool modal,int rate): KwaveDialog(modal)
 //**********************************************************
 const char *TimeDialog::getCommand ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 
   comstr=catString ("time (",
 		    time->getMsStr(),
@@ -68,7 +68,7 @@ void TimeDialog::resizeEvent (QResizeEvent *)
 //**********************************************************
 TimeDialog::~TimeDialog ()
 {
-  if (comstr) free (comstr);
+  deleteString (comstr);
 }
 
 

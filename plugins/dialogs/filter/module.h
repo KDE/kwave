@@ -1,5 +1,5 @@
 #include "../../../libgui/kwavedialog.h"
-#include "../../../lib/dialogoperation.h"
+#include <libkwave/dialogoperation.h>
 
 #include <qdialog.h>
 #include <qdir.h>
@@ -8,7 +8,7 @@
 #include <qradiobt.h>
 
 #include "../../../libgui/slider.h"
-#include "../../../lib/filter.h"
+#include <libkwave/filter.h>
 #include "../../../libgui/fftwidget.h"
 #include "../../../libgui/scale.h"
 #include <kintegerline.h>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-29 00:35GMT\n"
+"PO-Revision-Date: 2002-01-30 00:02GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -145,7 +145,7 @@ msgid ""
 msgstr ""
 "Si vous étes interressé par ce qui a été fait dans ce programme, et par ce qui reste à faire, "
 "alors lisez les fichiers <filename>CHANGES</filename> et <filename>TODO</"
-"filename> inclus dans le pakage des sources. De l'aide et des remarques "
+"filename> inclus dans le paquetage des sources. De l'aide et des remarques "
 "constructives sont toujours les bien venues."
 
 #: index.docbook:117
@@ -931,7 +931,7 @@ msgid ""
 "rpm package should now be installable without conflicts and compile without "
 "any previous installation of kwave"
 msgstr ""
-"Le pakage RPM peut être maintenant installé sans confilts et compilé sans "
+"Le paquetage RPM peut être maintenant installé sans confilts et compilé sans "
 " une installation préalable de Kwave."
 
 #: index.docbook:210
@@ -1009,7 +1009,7 @@ msgstr ""
 msgid "version info of libkwavegui.so is set to the package's version"
 msgstr ""
 "L'information de version de libkwavegui.so est maintenant renseigné à partir de la version du "
-" pakage."
+" paquetage."
 
 #: index.docbook:210
 msgid ""
@@ -1106,7 +1106,7 @@ msgstr "0.5.1-1 [2000-03-13]"
 
 #: index.docbook:210
 msgid "new target \"make rpm\" creates binary and source RPM packages"
-msgstr "Nouvelle cible \"make rpm\" pour la création d'un exécutable et d'un pakage RPM."
+msgstr "Nouvelle cible \"make rpm\" pour la création d'un exécutable et d'un paquetage RPM."
 
 #: index.docbook:210
 msgid "fixed the shared-library-problem in the build system"
@@ -1724,6 +1724,9 @@ msgid ""
 "informations about the project, as well as informations about current stable "
 "and up-to-date development versions."
 msgstr ""
+"&kapp; a sa propre page WEB à l'adresse <ulink url=\"http://kwave.sourceforge.net/"
+"\"> http://kwave.sourceforge.net/</ulink>. Vous pouvez y trouver davantages d'informations "
+" sur le projet, ainsi que les versions stables et en cours de développement disponibles."
 
 #: index.docbook:1273
 msgid ""
@@ -1733,6 +1736,11 @@ msgid ""
 "mean \"0.2.9\" and was not consistent. The current version numbering starts "
 "from 0.5."
 msgstr ""
+"Certaines anciennes versions de &kapp; peuvent être incluses dans quelques distributions "
+" LINUX. Nous recommendons de ne pas utiliser les versions de &kapp; inférieures "
+" ou égales à la 0.29. De plus, ne il ne faut pas perdre de vue que le numéro de version "
+" annotée \"0.29\" etait incohérent et doit être interprété comme \"0.2.9\"."
+" La numérotation de la version courante a débuté à partir de 0.5."
 
 #: index.docbook:1282
 msgid ""
@@ -1743,14 +1751,20 @@ msgid ""
 "need a rpm package, please let us know or build it on your own like "
 "described in the following chapters."
 msgstr ""
+"Si vous désirez récupérer une version de &kapp;, vous devez télécharger une archive .tar.gz "
+" avec le code source d'une version stable ou d'une version en cours de développement "
+" à partir de la page WEB donné ci-dessus (ou verifier à partir du CVS) et lancer une compilation sur "
+" votre système. N'ayez crainte, cela reste simple même si vous n'étes pas un programmeur. "
+" Si vous avez besoin d'un paquetage RPM, faîte nous le savoir, ou construiser en un sur votre "
+" système comme cela est décrit dans les chapitres qui suivent."
 
 #: index.docbook:1298
 msgid "Requirements"
-msgstr ""
+msgstr "Ce dont vous avez besoin."
 
 #: index.docbook:1300
 msgid "In order to successfully use &kapp;, you need:"
-msgstr ""
+msgstr "Dans l'ordre, pour pouvoir utiliser &kapp;, vous avez besoin :"
 
 #: index.docbook:1300
 msgid ""

@@ -116,7 +116,7 @@ TopWidget::ZoomListPrivate::ZoomListPrivate()
 };
 
 /** list of predefined zoom factors */
-static TopWidget::ZoomListPrivate zoom_factors;
+TopWidget::ZoomListPrivate zoom_factors;
 
 //***************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app)
@@ -788,6 +788,25 @@ void TopWidget::saveFileAs(bool selection)
 	QFileInfo path(name);
 	KwaveApp::setDefaultSaveDir(path.dirPath());
 	
+	// add the extension .wav if necessary
+	if ((path.extension(false) != ".wav") &&
+	    (path.extension(false) != ".wav"))
+	{
+	    name += ".wav";
+	    path = name;
+	}
+	
+	// check if the file exists and ask before overwriting it
+	// if it is not the old filename
+	if ((m_filename != name) && (path.exists())) {
+	    if (KMessageBox::warningYesNo(this,
+	        i18n("The file '%1' already exists. Do you really "\
+	        "want to overwrite it?").arg(name)) != KMessageBox::Yes)
+	    {
+		return;
+	    }
+	}
+	
 	m_filename = name;
 	m_main_widget->saveFile(m_filename, m_save_bits, 0, selection);
 	setCaption(m_filename);
@@ -882,11 +901,13 @@ void TopWidget::setSelectedTimeInfo(double ms)
 	KwavePlugin::ms2string(ms))+" ";
 
     unsigned int rate = signalManager().rate();
+    unsigned int samples = 0;
     if (rate) {
+	samples = (unsigned int)(ms*1E-3* rate);
 	txt += i18n("(%2 samples)")+" ";
-	txt = txt.arg((unsigned int)(ms*1E-3* rate));
+	txt = txt.arg(samples);
     }
-    statusBar()->message(txt, 4000);
+    if (samples != 1) statusBar()->message(txt, 4000);
 }
 
 //***************************************************************************

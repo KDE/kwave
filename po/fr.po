@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-11-03 22:08+0100\n"
-"PO-Revision-Date: 2002-11-05 16:49GMT\n"
+"PO-Revision-Date: 2002-11-05 17:01GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -212,7 +212,7 @@ msgid ""
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
 "Identifie le nom de l'auteur du fichier original.\n"
-"Exemple : «van Beethoven, Ludwig»"
+"Exemple : «Ludwig van Beethoven»"
 
 #: libkwave/FileInfo.cpp:47
 msgid "Lower Bitrate"
@@ -3106,8 +3106,8 @@ msgid ""
 "merge them with the current list of keywords."
 msgstr ""
 "<b>Génération automatique de mots clef</b><br>\n"
-"Créer une liste de mots clef recherchant dans le fichier les informations déjà présentent "
-"et en fusionnant celles çi avec la liste courante de mots clef."
+"Créer une liste de mots clef en recherchant dans le fichier les informations "
+"déjà présentent et en fusionnant celles çi avec la liste courante de mots clef."
 
 #: plugins/fileinfo/KeywordWidgetBase.uic.cpp:59
 msgid "List of keywords."
@@ -3292,11 +3292,11 @@ msgstr "sonagramme"
 
 #: plugins/sonagram/SonagramDialog.cpp:79
 msgid "Set FFT/time resolution parameter"
-msgstr "Paramètrer la résolution de FFT/temps"
+msgstr "Paramètres de la résolution de la FFT / temps"
 
 #: plugins/sonagram/SonagramDialog.cpp:113
 msgid "FFT settings"
-msgstr "Paramètrer la FFT"
+msgstr "Paramètrages de la FFT"
 
 #: plugins/sonagram/SonagramDialog.cpp:120
 msgid "Number of FFT points:"
@@ -3328,11 +3328,11 @@ msgstr "Fonction de la fenêtre :"
 
 #: plugins/sonagram/SonagramDialog.cpp:233
 msgid "display"
-msgstr "affichage"
+msgstr "Affichage"
 
 #: plugins/sonagram/SonagramDialog.cpp:244
 msgid "use colors"
-msgstr "utilisation des couleurs"
+msgstr "Utilisation des couleurs"
 
 #: plugins/sonagram/SonagramDialog.cpp:248
 msgid "use different colors for amplitude"
@@ -3340,7 +3340,7 @@ msgstr "utilisation de différentes couleurs pour l'amplitude"
 
 #: plugins/sonagram/SonagramDialog.cpp:253
 msgid "greyscale"
-msgstr "nuances de gris"
+msgstr "Nuances de gris"
 
 #: plugins/sonagram/SonagramDialog.cpp:256
 msgid "use greyscale only for amplitude"
@@ -3348,11 +3348,11 @@ msgstr "utilisation des nuances de gris pour l'amplitude"
 
 #: plugins/sonagram/SonagramDialog.cpp:265
 msgid "update"
-msgstr "mise à jour"
+msgstr "Mise à jour"
 
 #: plugins/sonagram/SonagramDialog.cpp:276
 msgid "on modifications"
-msgstr "dans les modifications"
+msgstr "Dans les modifications"
 
 #: plugins/sonagram/SonagramDialog.cpp:280
 msgid ""
@@ -3364,7 +3364,7 @@ msgstr ""
 
 #: plugins/sonagram/SonagramDialog.cpp:286
 msgid "follow selection"
-msgstr "suivre la sélection"
+msgstr "Suivre la sélection"
 
 #: plugins/sonagram/SonagramDialog.cpp:290
 msgid ""
@@ -3380,7 +3380,7 @@ msgstr "( taille de la fenêtre résultat : %1 )"
 
 #: plugins/sonagram/SonagramDialog.cpp:422
 msgid "size of bitmap: %1x%2"
-msgstr "taille du Bitmap : %1x%2"
+msgstr "Taille du Bitmap : %1x%2"
 
 #: plugins/newsignal/NewSignalDialog.cpp:352
 msgid "(Resulting file size: %1 MB)"

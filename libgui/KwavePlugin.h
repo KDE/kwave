@@ -80,11 +80,11 @@ public:
     /**
      * Returns true if the plugin is "unique" to the current main
      * window. The default is "non-unique", so if you want your
-     * plugin to become persistent, you have to overwrite this function
+     * plugin to become unique, you have to overwrite this function
      * with a version that returns true.
-     * @see isUnique
+     * @see isPersistent
      */
-    virtual bool isUnique() { return false || isPersistent(); };
+    virtual bool isUnique() { return isPersistent(); };
 
     /**
      * Returns true if the plugin is "persistent". A persistent plugin
@@ -273,10 +273,13 @@ protected:
     /** emits a sigCommand() */
     void emitCommand(const QString &command);
 
+    /** increments the usage counter */
+    void use();
+
 signals:
 
     /** will be emitted in the plugin's destructor */
-    void sigClosed(KwavePlugin *p, bool remove);
+    void sigClosed(KwavePlugin *p);
 
     /** */
     void sigCommand(const QString &command);
@@ -290,6 +293,14 @@ public slots:
      */
     virtual void close();
 
+    /** decrements the usage counter */
+    void release();
+
+private:
+
+    /** Wrapper for run() that contains a call to release() */
+    void run_wrapper(QStringList params);
+    
 private:
 
     /**
@@ -306,6 +317,13 @@ private:
 
     /** Mutex for control over the thread */
     Mutex m_thread_lock;
+    
+    /** Usage counter */
+    unsigned int m_usage_count;
+
+    /** Mutex for locking the usage counter */
+    Mutex m_usage_lock;
+    
 };
 
 #endif /* _KWAVE_PLUGIN_H_ */

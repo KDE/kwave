@@ -30,7 +30,6 @@
 
 #include "mt/TSS_Object.h"
 #include "mt/ThreadCondition.h"
-#include "mt/ThreadsafeX11Guard.h"
 
 #include "libkwave/Parser.h"
 #include "libkwave/LineParser.h"
@@ -54,41 +53,25 @@
 
 #include "PluginManager.h"
 
-//****************************************************************************
-//****************************************************************************
+//***************************************************************************
+//***************************************************************************
+PluginManager::PluginDeleter::PluginDeleter(KwavePlugin *plugin, void *handle)
+  :QObject(), m_plugin(plugin), m_handle(handle)
+{
+}
 
-//class PluginGarbageCollector: public Thread
-//{
-//public:
-//    virtual void run();
-//
-//slots:
-//    void remove(KwavePlugin *plugin);
-//
-//private:
-//    QQueue<Plugin> m_queue;
-//    SignalProxy1<KwavePlugin *> m_spx_plugin;
-//}
-//
-//void PluginGarbageCollector::run()
-//{
-//    KwavePlugin *plugin;
-//    do {
-//	plugin = m_spx_plugin.dequeue();
-//	if (!plugin) {
-//	    // dequeued a null plugin -> signal to shut down
-//	    debug("PluginGarbageCollector: shutting down...");
-//	    break;
-//	}
-//	
-//	// wait until the plugin's thread is down
-//	
-//	// delete the plugin
-//	
-//	// remove it's handle
-//	
-//    } while (plugin);
-//}
+//***************************************************************************
+PluginManager::PluginDeleter::~PluginDeleter()
+{
+    // delete the plugin, this should also remove everything it has allocated
+    delete m_plugin;
+
+    // now the handle of the shared object can be cleared too
+    dlclose(m_handle);
+}
+
+//****************************************************************************
+//****************************************************************************
 
 // static initializer
 QMap<QString, QString> PluginManager::m_plugin_files;
@@ -116,15 +99,17 @@ PluginManager::~PluginManager()
     // remove all remaining plugins
     while (!m_loaded_plugins.isEmpty()) {
 	KwavePlugin *p = m_loaded_plugins.last();
+	m_loaded_plugins.removeRef(p);
+	
 	if (p) {
-	    debug("PluginManager::~PluginManager(): closing plugin(%s)",
-	           p->name().data());
-	    pluginClosed(p, true);
-	} else {
-	    debug("PluginManager::~PluginManager(): removing null plugin");
-	    m_loaded_plugins.removeRef(p);
+//	    debug("PluginManager: releasing persistent plugin '%s'",
+//	          p->name().data());
+	    void *h = p->handle();
+	    delete p;
+	    dlclose(h);
 	}
     }
+
 }
 
 //***************************************************************************
@@ -139,7 +124,7 @@ void PluginManager::loadAllPlugins()
 	KwavePlugin *plugin = loadPlugin(name);
 	if (plugin) {
 	    // remove it again if it is not persistent
-	    if (!plugin->isPersistent()) pluginClosed(plugin, true);
+	    if (!plugin->isPersistent()) plugin->release();
 	} else {
 	    // loading failed => remove it from the list
 	    warning("PluginManager::loadAllPlugins(): removing '%s' "\
@@ -299,11 +284,8 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 	}
 	
 	if (plugin && (result >= 0)) {
+	    plugin->use(); // plugin->release() will be called after run()
 	    plugin->execute(*params);
-	
-	    // now it's the the task of the plugin's thread
-	    // to clean up after execution
-	    plugin = 0;
 	}
     } else {
 	// load previous parameters from config
@@ -338,7 +320,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 
     // now the plugin is no longer needed here, so delete it
     // if it has not already been detached
-    if (plugin && !plugin->isPersistent()) pluginClosed(plugin, true);
+    if (plugin && !plugin->isPersistent()) plugin->release();
 
     // emit a command, let the toplevel window (and macro recorder) get
     // it and call us again later...
@@ -390,8 +372,8 @@ int PluginManager::setupPlugin(const QString &name)
 
     // now the plugin is no longer needed here, so delete it
     // if it has not already been detached and is not persistent
-    if (!plugin->isPersistent()) pluginClosed(plugin, true);
-
+    if (!plugin->isPersistent()) plugin->release();
+    
     return 0;
 }
 
@@ -554,27 +536,26 @@ void PluginManager::forwardCommand()
 }
 
 //***************************************************************************
-void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
+void PluginManager::pluginClosed(KwavePlugin *p)
 {
     ASSERT(p);
     ASSERT(!m_loaded_plugins.isEmpty());
+    if (!p) return;
+    
+//    debug("PluginManager::pluginClosed(%s)", p->name().data()); // ###
+    
+    // disconnect the signals to avoid recursion
+    disconnectPlugin(p);
 
-    if (p) {
-//	void *h = p->handle();
-	
-	// disconnect the signals to avoid recursion
-	disconnectPlugin(p);
+    m_loaded_plugins.setAutoDelete(false);
+    m_loaded_plugins.removeRef(p);
 
-	m_loaded_plugins.setAutoDelete(false);
-	m_loaded_plugins.removeRef(p);
-
-	if (remove) {
-//	    debug("PluginManager::pluginClosed(%p): deleting",p);
-	    delete p;
-//	    if (h) dlclose(h);
-	}
-
-    }
+    // schedule the deferred delete/unload of the plugin
+    void *handle = p->handle();
+    ASSERT(handle);
+    PluginDeleter *delete_later = new PluginDeleter(p, handle);
+    ASSERT(delete_later);
+    if (delete_later) delete_later->deleteLater();
 
 //    debug("PluginManager::pluginClosed(): done");
 }
@@ -588,9 +569,8 @@ void PluginManager::connectPlugin(KwavePlugin *plugin)
     connect(this, SIGNAL(sigClosed()),
 	    plugin, SLOT(close()));
 
-    connect(plugin, SIGNAL(sigClosed(KwavePlugin *,bool)),
-	    this, SLOT(pluginClosed(KwavePlugin *,bool)));
-
+    connect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
+	    this, SLOT(pluginClosed(KwavePlugin *)));
 }
 
 //****************************************************************************
@@ -602,8 +582,8 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
     disconnect(this, SIGNAL(sigClosed()),
 	       plugin, SLOT(close()));
 
-    disconnect(plugin, SIGNAL(sigClosed(KwavePlugin *,bool)),
-	       this, SLOT(pluginClosed(KwavePlugin *,bool)));
+    disconnect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
+	       this, SLOT(pluginClosed(KwavePlugin *)));
 
 }
 

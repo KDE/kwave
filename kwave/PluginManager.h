@@ -248,10 +248,8 @@ public slots:
     /**
      * Will be connected to the plugin's "closed" signal.
      * @param p pointer to the plugin to be closed
-     * @param remove if true, the plugin will also be deleted,
-     *        if false the plugin is expected to delete itself
      */
-    void pluginClosed(KwavePlugin *p, bool remove);
+    void pluginClosed(KwavePlugin *p);
 
     /**
      * Called if the name of the current signal has changed. This will be
@@ -272,6 +270,24 @@ private slots:
     void forwardCommand();
 
 private:
+
+    /**
+     * Helper class for deferred deleting and unloading a plugin
+     * @internal
+     */
+    class PluginDeleter: public QObject
+    {
+    public:
+        /** Constructor, stores data for later removal */
+	PluginDeleter(KwavePlugin *plugin, void *handle);
+	
+	/** Destructor, deletes and unloads the plugin */
+	virtual ~PluginDeleter();
+	
+    private:
+	KwavePlugin *m_plugin; /**< Plugin to be deleted */
+	void *m_handle;        /**< Handle of the shared object */
+    };
 
     /**
      * Uses the dynamic linker to load a plugin into memory.

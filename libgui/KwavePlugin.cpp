@@ -49,13 +49,34 @@
 #include <execinfo.h> // for backtrace()
 #endif
 
+/*
+   A plugin can be unloaded through two different ways. The possible
+   scenarios are:
+
+   1. WITHOUT a thread
+      main thread:  new --- release
+
+   2. WITH a plugin thread
+      main thread:    new --- use --- start --- release
+      plugin thread:                     --- run --- release
+      
+      The plugin can be unloaded either in the main thread or in the
+      context of the plugin's thread, depending on what occurs first.
+      
+ */
+
 //***************************************************************************
 KwavePlugin::KwavePlugin(PluginContext &c)
     :m_context(c),
      m_thread(0),
-     m_thread_lock()
+     m_thread_lock(),
+     m_usage_count(0),
+     m_usage_lock()
+     
 {
-    m_thread_lock.setName("KwavePlugin");
+    m_thread_lock.setName("KwavePlugin::m_thread_lock");
+    m_usage_lock.setName("KwavePlugin::m_usage_lock");
+    use();
 }
 
 //***************************************************************************
@@ -147,7 +168,7 @@ int KwavePlugin::execute(QStringList &params)
     MutexGuard lock(m_thread_lock);
 
     m_thread = new Asynchronous_Object_with_1_arg<KwavePlugin, QStringList>(
-	this, &KwavePlugin::run,params);
+	this, &KwavePlugin::run_wrapper,params);
     ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
 
@@ -175,6 +196,13 @@ void KwavePlugin::run(QStringList)
 }
 
 //***************************************************************************
+void KwavePlugin::run_wrapper(QStringList params)
+{
+    run(params);
+    release();
+}
+
+//***************************************************************************
 void KwavePlugin::close()
 {
     // only call stop() if we are NOT in the worker thread / run function !
@@ -183,7 +211,37 @@ void KwavePlugin::close()
     {
 	stop();
     }
-    emit sigClosed(this, true);
+}
+
+//***************************************************************************
+void KwavePlugin::use()
+{
+    MutexGuard lock(m_usage_lock);
+    m_usage_count++;
+//    debug("KwavePlugin::use(%s) -> usage count now is %u",
+//           name().data(), m_usage_count);
+}
+
+//***************************************************************************
+void KwavePlugin::release()
+{
+    bool finished = false;
+
+    {    
+	MutexGuard lock(m_usage_lock);
+	ASSERT(m_usage_count);
+	if (m_usage_count) {
+	    m_usage_count--;
+//	    debug("KwavePlugin::release(%s) -> usage count now is %u",
+//	          name().data(), m_usage_count);
+	    if (!m_usage_count) finished = true;
+	}
+    }
+
+    if (finished) {
+//	debug("KwavePlugin::release(%s) -> DONE", name().data());
+	emit sigClosed(this);
+    }
 }
 
 //***************************************************************************
@@ -338,6 +396,7 @@ QString KwavePlugin::dottedNumber(unsigned int number)
     }
     return dotted;
 }
+
 //***************************************************************************
 void KwavePlugin::emitCommand(const QString &command)
 {

@@ -38,6 +38,8 @@
 #                          version found in an archive directory to the
 #                          current version
 #            the configure script and Makefiles will no longer be modified
+#
+# 20.02.2002 THE, no longer modifying about plugin
 
 # uncomment the next line for debugging
 # set -x
@@ -87,24 +89,6 @@ cat configure.in | \
 	}' > configure.in.new
 mv configure.in /tmp/configure.in.old
 mv configure.in.new configure.in
-
-#
-# update plugins/dialogs/about/module.h
-#
-SHORT_DATE=`(LANG=en; date -d "$NEW_DATE" +"%b %d, %Y")`
-cat plugins/about/AboutDialog.cpp | \
-	awk -v newver=$NEW_VERSION -v newdate="$SHORT_DATE" '{ 
-	split($0, a, " ") } {
-	if ((a[1] == "#define") && (a[2] == "KWAVE_VERSION")) {
-	    printf("#define KWAVE_VERSION \"%s\"\n", newver)
-	} else 
-	if ((a[1] == "#define") && (a[2] == "KWAVE_VERSION_DATE")) {
-	    printf("#define KWAVE_VERSION_DATE \"%s\"\n", newdate)
-	} else
-	    print $0
-	}' > AboutDialog.cpp.new
-mv plugins/about/AboutDialog.cpp /tmp/AboutDialog.cpp.old
-mv AboutDialog.cpp.new plugins/about/AboutDialog.cpp
 
 echo "new version numbers set."
 

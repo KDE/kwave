@@ -33,7 +33,7 @@ public:
     Parser(const QString &init);
 
     /** Destructor. */
-    ~Parser();
+    virtual ~Parser();
 
     /** Returns the command part of the line */
     inline QString command() {
@@ -52,7 +52,7 @@ public:
 
     /** Returns true if the end of the parameter list has been reached. */
     inline bool isDone () {
-	return (m_current > m_param.count());
+	return (m_current >= m_param.count());
     };
 
     /** Returns the number of parameters. */

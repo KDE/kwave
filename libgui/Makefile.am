@@ -8,7 +8,6 @@ BUILTSOURCES=\
  CornerPatchWidget.moc.cpp\
  CurveWidget.moc.cpp\
  Dialog.moc.cpp\
- FaderWidget.moc.cpp\
  FFTWidget.moc.cpp\
  FileProgress.moc.cpp\
  FormantWidget.moc.cpp\
@@ -25,7 +24,6 @@ BUILTSOURCES=\
 # Which sources should be compiled for libgui.
 libkwavegui_la_SOURCES =\
  CurveWidget.cpp\
- FaderWidget.cpp\
  FFTWidget.cpp\
  FileProgress.cpp\
  FloatLine.cpp\

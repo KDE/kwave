@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 21:27+0200PO-"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2002-06-10 22:08+0200\n"
-"PO-Revision-Date: 2002-06-09 21:46GMT\n"
+"POT-Creation-Date: 2002-06-16 15:24+0200\n"
+"PO-Revision-Date: 2002-06-16 15:46GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -97,8 +97,7 @@ msgstr "Beim Lesen der Datei ist ein Fehler aufgetreten!"
 
 #: kwave/SignalManager.cpp:292
 msgid "The file has been truncated and might be corrupted!"
-msgstr ""
-"Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
+msgstr "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
 #: kwave/SignalManager.cpp:299
 msgid "Sorry, the file type is not supported!"
@@ -245,8 +244,7 @@ msgstr ""
 #: kwave/TopWidget.cpp:854
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr ""
-"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: kwave/TopWidget.cpp:971
 #, c-format, ycp-format
@@ -356,7 +354,7 @@ msgstr "Sound-Editor für KDE2"
 msgid "selection"
 msgstr "Auswahl"
 
-#: kwave/SignalWidget.cpp:1783 kwave/SignalWidget.cpp:1822
+#: kwave/SignalWidget.cpp:1777 kwave/SignalWidget.cpp:1816
 msgid "drag and drop"
 msgstr "Drag & Drop"
 
@@ -1379,6 +1377,10 @@ msgstr "umgekehrte Verzögerung"
 msgid "Amplitude of delayed signal :%d %%"
 msgstr "Amplitude des verzögerten Signals :%d %%"
 
+#: plugins/selectrange/SelectRangePlugin.cpp:123
+msgid "select range"
+msgstr "Bereich auswählen"
+
 #: plugins/saveblock/module.cpp:21
 msgid "Choose Labels to be used for dividing signal:"
 msgstr "Marker zur Aufteilung des Signals wählen:"
@@ -1800,3 +1802,4 @@ msgstr "Stille"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
+

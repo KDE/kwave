@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-10 22:08+0200\n"
+"POT-Creation-Date: 2002-06-16 15:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -347,7 +347,7 @@ msgstr ""
 msgid "selection"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1783 kwave/SignalWidget.cpp:1822
+#: kwave/SignalWidget.cpp:1777 kwave/SignalWidget.cpp:1816
 msgid "drag and drop"
 msgstr ""
 
@@ -1328,6 +1328,10 @@ msgstr ""
 #: plugins/delay/module.cpp:61
 #, c-format
 msgid "Amplitude of delayed signal :%d %%"
+msgstr ""
+
+#: plugins/selectrange/SelectRangePlugin.cpp:123
+msgid "select range"
 msgstr ""
 
 #: plugins/saveblock/module.cpp:21

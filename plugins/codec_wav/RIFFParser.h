@@ -80,6 +80,9 @@ public:
      */
     RIFFChunk *findChunk(const QCString &path);
 
+    /** Returns the number of times a chunk is present */
+    unsigned int chunkCount(const QCString &path);
+
     /**
      * Tries very hard to find a missing chunk by stepping through
      * the whole file or source.

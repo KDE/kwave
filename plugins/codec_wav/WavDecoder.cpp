@@ -144,11 +144,10 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     RIFFChunk *data_chunk = parser.findChunk("/RIFF/data");
 
     if (!riff_chunk || !fmt_chunk || !data_chunk) {
-	warning("structural damage detected!");
 	if (KMessageBox::warningContinueCancel(widget,
 	    i18n("The file has been structurally damaged or "
 	         "is no .wav file.\n"
-	         "Kwave will try to recover it!"),
+	         "Should Kwave try to repair it?"),
 	    i18n("Kwave auto repair"),
 	    i18n("&Repair")) != KMessageBox::Continue)
 	{
@@ -165,12 +164,14 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
         parser.findMissingChunk("fmt ");
         fmt_chunk = parser.findChunk("/RIFF/fmt ");
         if (progress.wasCancelled()) return false;
+        if (!fmt_chunk)  fmt_chunk  = parser.findChunk("fmt ");
     }
 
     if (!data_chunk) {
         parser.findMissingChunk("data");
         data_chunk = parser.findChunk("/RIFF/data");
         if (progress.wasCancelled()) return false;
+        if (!data_chunk) data_chunk = parser.findChunk("data");
     }
 
     // not everything found -> need heavy repair actions !
@@ -179,6 +180,11 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	parser.repair();
 	parser.dumpStructure();
         if (progress.wasCancelled()) return false;
+
+        if (!fmt_chunk)  fmt_chunk  = parser.findChunk("/RIFF/fmt ");
+        if (!fmt_chunk)  fmt_chunk  = parser.findChunk("fmt ");
+        if (!data_chunk) data_chunk = parser.findChunk("/RIFF/data");
+        if (!data_chunk) data_chunk = parser.findChunk("data");
     }
 
     u_int32_t fmt_offset = 0;
@@ -186,8 +192,43 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     debug("fmt chunk starts at 0x%08X", fmt_offset);
 
     u_int32_t data_offset = 0;
-    if (data_chunk) data_offset = data_chunk->dataStart();
-    debug("data chunk starts at 0x%08X", data_offset);
+    u_int32_t data_size = 0;
+    if (data_chunk) {
+	data_offset = data_chunk->dataStart();
+	data_size   = data_chunk->physLength();
+	debug("data chunk at 0x%08X (%u byte)", data_offset, data_size);
+    }
+
+    if (data_size <= 4) {
+	KMessageBox::sorry(widget,
+	    i18n("The opened file is no .WAV file or damaged:\n"
+	    "There is not enough valid sound data.\n\n"
+	    "It makes no sense to continue now..."));
+	return false;
+    }
+
+    // final check for structural integrity:
+    // we should have exactly one RIFF, fmt and data chunk !
+    if ((parser.chunkCount("fmt ") != 1) ||
+        (parser.chunkCount("data") != 1))
+    {
+	if (KMessageBox::warningContinueCancel(widget,
+	    i18n("The WAV file seems to be damaged: \n"
+	         "some chunks are duplicate or missing! \n\n"
+	         "Kwave will only use the first ones and ignores\n"
+	         "the rest. This might lead to a loss of data. If\n"
+	         "If you want to get your file repaired completely,\n"
+	         "please write an e-mail to the Kwave mailing list\n"
+	         "and we will help you..."),
+	    i18n("Kwave auto-repair"),
+	    i18n("&Continue")
+	    ) != KMessageBox::Continue)
+	{
+	    // user decided to abort and repair on his own
+	    // good luck!
+	    return false;
+	}
+    }
 
     // source successfully opened
     m_source = &src;

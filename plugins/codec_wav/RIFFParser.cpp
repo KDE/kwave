@@ -431,10 +431,38 @@ RIFFChunk *RIFFParser::findChunk(const QCString &path)
     QListIterator<RIFFChunk> it(chunks);
     for (; it.current(); ++it) {
 	RIFFChunk *chunk = it.current();
-        if (chunk->path() == path) return chunk;
+	if (path.contains("/")) {
+	    // search for full path
+	    if (chunk->path() == path) return chunk;
+	} else {
+	    // search for name only
+	    if (chunk->name() == path) return chunk;
+	}
     }
 
     return 0;
+}
+
+//***************************************************************************
+unsigned int RIFFParser::chunkCount(const QCString &path)
+{
+    unsigned int count = 0;
+    RIFFChunkList chunks;
+    listAllChunks(m_root, chunks);
+
+    QListIterator<RIFFChunk> it(chunks);
+    for (; it.current(); ++it) {
+	RIFFChunk *chunk = it.current();
+	if (path.contains("/")) {
+	    // search for full path
+	    if (chunk->path() == path) ++count;
+	} else {
+	    // search for name only
+	    if (chunk->name() == path) ++count;
+	}
+    }
+
+    return count;
 }
 
 //***************************************************************************

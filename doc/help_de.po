@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-02-03 17:02GMT\n"
+"PO-Revision-Date: 2002-02-03 19:07GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2609,7 +2609,7 @@ msgstr ""
 "anderes &kapp;-Fenster verschieben. Standardmäßig wird der Vorgang "
 "im <emphasis>Verschieben</emphasis>-Modus durchgeführt, wobei der ausgewählte Bereich "
 "von seiner ursprünglichen Stelle gelöscht und an der Position des Fallenlassens eingefügt wird. "
-"Durch Drücken von <keycap moreinfo=\"none\">Strg</keycap>-Taste können Sie dieses "
+"Durch Drücken der <keycap moreinfo=\"none\">Strg</keycap>-Taste können Sie dieses "
 "Verhalten ändern und stattdessen den <emphasis>Kopieren</emphasis>-Modus verwenden."
 
 #: index.docbook:1923

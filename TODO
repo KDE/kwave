@@ -1,10 +1,9 @@
 
-o bugfix: wrong length in status line if data is deleted from the signal
-
 o plugins for import/export of different file formats (e.g. MP3)
   -> through aRts ?
 
 o audible/silent mode of tracks (speakers)
+  speaker controls for "audible" mode
 
 o virtual memory: multiple swap directories
 
@@ -21,8 +20,6 @@ o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
 
 o display zero line in dark green if range is deleted
-
-o speaker controls for "audible" mode
 
 o hourglass and process indicators for longer processes
 
@@ -47,8 +44,6 @@ o recording support
 o Filter: class needs to be tested
 
 o Signal::resample should use lowpass interpolation instead of spline
-
-o TopWidget: re-enable drag&drop
 
 o check of all MessageBoxes in SignalManager
 

@@ -20,6 +20,7 @@
 #include <stdlib.h>
 
 #include <qdragobject.h>
+#include <qstrlist.h>
 
 #include <kcursor.h>
 #include <kglobal.h>
@@ -75,6 +76,31 @@
 #define max(x,y) (( (x) > (y) ) ? (x) : (y) )
 #endif
 
+//***************************************************************************
+//***************************************************************************
+class KwaveFileDrag: public QUriDrag
+{
+public:
+    static bool canDecode(const QMimeSource *source) {
+	if (!source) return false;
+	if (!QUriDrag::canDecode(source)) return false;
+	
+	QStringList files;
+	decodeLocalFiles(source, files);
+	QStringList::Iterator it;
+	for (it = files.begin(); it != files.end(); ++it) {
+	    QString f;
+	    f = (*it).lower();
+	    int len = (*it).length();
+	    /** @todo go through a central file type registry */
+	    if (f.findRev(".wav") == len-4) return true;
+	    if (f.findRev(".asc") == len-4) return true;
+	}
+	return false;
+    };
+};
+
+//***************************************************************************
 //***************************************************************************
 SignalWidget::SignalWidget(QWidget *parent)
     :QWidget(parent),
@@ -1759,7 +1785,9 @@ void SignalWidget::startDragging()
 //***************************************************************************
 void SignalWidget::dragEnterEvent(QDragEnterEvent* event)
 {
-    event->accept(KwaveDrag::canDecode(event));
+    if (QUriDrag::canDecode(event) || KwaveFileDrag::canDecode(event)) {
+	event->accept(rect());
+    } else event->ignore(rect());
 }
 
 //***************************************************************************
@@ -1796,6 +1824,13 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	} else {
 	    debug("SignalWidget::dropEvent(%s): failed !", event->format(0));
 	    /** @todo abort the current undo transaction */
+	}
+    } else if (KwaveFileDrag::canDecode(event)) {
+	QStringList files;
+	KwaveFileDrag::decodeLocalFiles(event, files);
+	QStringList::Iterator it;
+	for (it = files.begin(); it != files.end(); ++it) {
+	    emit sigCommand("open(" + *it + ")");
 	}
     }
 
@@ -1836,7 +1871,10 @@ void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
 	// accept if it is decodeable within the
 	// current range (if it's outside our own selection)
 	event->accept();
-    }
+    } else if (KwaveFileDrag::canDecode(event)) {
+	// file drag
+	event->accept(rect());
+    } else event->ignore(rect());
 }
 
 //***************************************************************************

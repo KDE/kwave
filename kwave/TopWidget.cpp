@@ -595,7 +595,19 @@ void TopWidget::executeCommand(const QString &command)
 	unsigned int tracks  = parser.toUInt();
 	newSignal(samples, rate, bits, tracks);
     CASE_COMMAND("open")
-	openFile();
+	QString filename = parser.nextParam();
+	if (!filename.isEmpty()) {
+	    // open the selected file
+	    int len = filename.length();
+	    if (filename.lower().findRev(".wav") == len-4) {
+		loadFile(filename, WAV);
+	    } else if (filename.lower().findRev(".asc") == len-4) {
+		loadFile(filename, ASCII);
+	    }
+	} else {
+	    // show file open dialog
+	    openFile();
+	}
     CASE_COMMAND("openrecent")
 	openRecent(command);
     CASE_COMMAND("save")
@@ -741,21 +753,6 @@ void TopWidget::openRecent(const QString &str)
     Parser parser(str);
     loadFile(parser.firstParam(), WAV);
 }
-
-////*************************************************************************
-//void TopWidget::dropEvent(KDNDDropZone *drop)
-//{
-//    ASSERT(drop);
-//    if (!drop) return;
-//
-//    QStrList &list = drop->getURLList();
-//    char *s = list.getFirst();
-//    if (s) {
-//	QString name = s;
-//	if ( name.left(5) == "file:")
-//	    loadFile(name.right(name.length() - 5), WAV);
-//    }
-//}
 
 //***************************************************************************
 void TopWidget::openFile()

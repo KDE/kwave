@@ -57,7 +57,7 @@ rm -f /tmp/files.lst.tmp
 %doc GNU-LICENSE CHANGES README TODO kwave.lsm
 
 %clean
-rm -f "$RPM_BUILD_ROOT"
+rm -Rf "$RPM_BUILD_ROOT"
 
 %post
 ldconfig

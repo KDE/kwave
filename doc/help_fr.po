@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-21 00:39GMT\n"
+"PO-Revision-Date: 2002-01-21 06:51GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: index.docbook:24
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
-"Traduction : <firstname>Gilles</firstname> <surname>CAULIER</surname>"
+"Traduction Française : Gilles Caulier"
 "<affiliation> <address><email>caulier.gilles@free.fr</email></address> </affiliation>"
 
 #: index.docbook:28

@@ -85,7 +85,8 @@ msgid "Introduction"
 msgstr "Einleitung"
 
 #: index.docbook:64
-msgid "This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
 msgstr ""
 "Dies ist \"&kapp;\", ein einfacher Sound-Editor für KDE2. Er enthält "
 "folgende Funktionalität:"
@@ -259,7 +260,8 @@ msgstr "Behandlung von \"Datei geändert\""
 
 #: index.docbook:177
 msgid "shows error message and aborts if loading failed"
-msgstr "zeigt eine Meldungsbox und bricht ab wenn das Laden einer Datei fehlschlug"
+msgstr ""
+"zeigt eine Meldungsbox und bricht ab wenn das Laden einer Datei fehlschlug"
 
 #: index.docbook:177
 msgid "0.6.2 [2001-12-24]"
@@ -442,7 +444,8 @@ msgstr "Einige Bugs mit der Maus-Auswahl behoben"
 
 #: index.docbook:177
 msgid "rework of the overview widget (used in main window and sonagram)"
-msgstr "OverViewWidget überarbeitet (wird im Hauptfenster und Sonagram verwendet)"
+msgstr ""
+"OverViewWidget überarbeitet (wird im Hauptfenster und Sonagram verwendet)"
 
 #: index.docbook:177
 msgid "fixed menu command \"zoom selection\""
@@ -486,10 +489,12 @@ msgstr "Sonagram: transparenter Hintergrund für das Bild"
 
 #: index.docbook:177
 msgid "added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget"
-msgstr "sizeHint() und minimimSize() für ScaleWidget und OverViewWidget hinzugefügt"
+msgstr ""
+"sizeHint() und minimimSize() für ScaleWidget und OverViewWidget hinzugefügt"
 
 #: index.docbook:177
-msgid "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
+msgid ""
+"sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
 msgstr ""
 "Sonagram: (Notwendigkeit für) SonagramContainer entfernt, verwendet jetzt "
 "stattdessen QGridLayout"
@@ -504,7 +509,8 @@ msgstr "X11 Synchronisationsproblem mit SignalProxy behoben"
 
 #: index.docbook:177
 msgid "added TSS (thread-specific-storage) support to the mt classes"
-msgstr "Unterstützung für TSS (thread-specific storage) zu den mt-Klassen hinzugefügt"
+msgstr ""
+"Unterstützung für TSS (thread-specific storage) zu den mt-Klassen hinzugefügt"
 
 #: index.docbook:177
 msgid "added some multithreading support classes: Thread, AsynchObject, ..."
@@ -533,7 +539,8 @@ msgstr ""
 "Daten geändert)"
 
 #: index.docbook:177
-msgid "bugfix: selection and playpointer will not be drawn if no signal is loaded"
+msgid ""
+"bugfix: selection and playpointer will not be drawn if no signal is loaded"
 msgstr ""
 "Bugfix: Auswahl und Wiedergabeposition werden nicht gezeichnet wenn keine "
 "Datei geladen ist"
@@ -670,7 +677,8 @@ msgstr ""
 
 #: index.docbook:177
 msgid "found out that we need ALSA support for 24 and 32 bits/sample"
-msgstr "herausgefunden dass wir ALSA benötigen um 24 und 32 Bits/Sample wiederzugeben"
+msgstr ""
+"herausgefunden dass wir ALSA benötigen um 24 und 32 Bits/Sample wiederzugeben"
 
 #: index.docbook:177
 msgid "playback in stereo"
@@ -792,7 +800,8 @@ msgstr ""
 
 #: index.docbook:177
 msgid "wrote a new README file, moved Martin's version to README.OLD"
-msgstr "neue README-Datei geschrieben, Martin's Version nach README.OLD umbenannt"
+msgstr ""
+"neue README-Datei geschrieben, Martin's Version nach README.OLD umbenannt"
 
 #: index.docbook:177
 msgid ""
@@ -812,7 +821,8 @@ msgstr "0.5.2-9 [2000-05-19]"
 
 #: index.docbook:177
 msgid "list of recent files is synchronized across all toplevel windows"
-msgstr "Liste der letzten Dateien wird synchronisiert über alle Toplevel-Fenster"
+msgstr ""
+"Liste der letzten Dateien wird synchronisiert über alle Toplevel-Fenster"
 
 #: index.docbook:177
 msgid ""
@@ -851,7 +861,8 @@ msgid "handling of channel add/delete: selection/speakers are shifted"
 msgstr "Behandlung von hinzufügen/löschen: Auswahl/Speaker werden verschoben"
 
 #: index.docbook:177
-msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
+msgid ""
+"changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
 "einige Variablen/Parameter in \"unsigned\" geändert (vereinfacht "
 "Bereichsüberprüfungen)"
@@ -879,13 +890,15 @@ msgid "checking for sizes of char, short and int at configure time"
 msgstr "Checks für die Größe von char, short und int im configure-Skript"
 
 #: index.docbook:177
-msgid "globals.app will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"globals.app will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "globals.app wird nicht mehr verwendet (obsolet, sollte von libkwave entfernt "
 "werden)"
 
 #: index.docbook:177
-msgid "MessagePort will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"MessagePort will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "MessagePort wird nicht mehr benutzt (obsolet, sollte aus libkwave entfernt "
 "werden)"
@@ -900,7 +913,8 @@ msgstr "X toolkit-Parameter zum Laufen gebracht (insbesondere \"-geometry\")"
 
 #: index.docbook:177
 msgid "bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)"
-msgstr "Bugfix beim Laden/Speichern von 8-Bit .wav-Dateien (sind immer unsigned !)"
+msgstr ""
+"Bugfix beim Laden/Speichern von 8-Bit .wav-Dateien (sind immer unsigned !)"
 
 #: index.docbook:177
 msgid "COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE"
@@ -950,7 +964,8 @@ msgstr ""
 msgid ""
 "shift+Home/shift+End selects from the current left/right position up to the "
 "start/end of the signal"
-msgstr "Shift+Home/Shift+End erweitert die Auswahl bis zum Start/Ende des Signals"
+msgstr ""
+"Shift+Home/Shift+End erweitert die Auswahl bis zum Start/Ende des Signals"
 
 #: index.docbook:177
 msgid "bugfix in display of signal: signal is no longer inverted"
@@ -1006,7 +1021,8 @@ msgstr ""
 
 #: index.docbook:177
 msgid "version info of libkwavegui.so is set to the package's version"
-msgstr "Versionsinfo von libkwavegui wird auf die Version des Programmpakets gesetzt"
+msgstr ""
+"Versionsinfo von libkwavegui wird auf die Version des Programmpakets gesetzt"
 
 #: index.docbook:177
 msgid ""
@@ -1040,7 +1056,8 @@ msgstr "ASCII Import und Export funktioniert jetzt (nur Mono)"
 
 #: index.docbook:177
 msgid "bugfixes in some plugins, all compile now without warnings/errors"
-msgstr "Bugfixes in einigen Plugins, jetzt compilieren alle ohne Warnungen/Fehler"
+msgstr ""
+"Bugfixes in einigen Plugins, jetzt compilieren alle ohne Warnungen/Fehler"
 
 #: index.docbook:177
 msgid "plugins are processed in alphabetical order"
@@ -1083,7 +1100,8 @@ msgid "target \"make messages\" works again"
 msgstr "Target \"make messages\" funktioniert wieder"
 
 #: index.docbook:177
-msgid "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
+msgid ""
+"converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 msgstr ""
 "Konverter für menus.config, erzeugt dummy .cpp-File das dann via i18n "
 "behandelt wird"
@@ -1160,7 +1178,8 @@ msgstr "meine Änderungen aus den Makefiles in die Makefile.am verschoben"
 
 #: index.docbook:177
 msgid "included targets \"make release\", \"make patchlevel\" and some scripts"
-msgstr "Targets \"make release\", \"make patchlevel\" und einige Skripte hinzugefügt"
+msgstr ""
+"Targets \"make release\", \"make patchlevel\" und einige Skripte hinzugefügt"
 
 #: index.docbook:177
 msgid "1999-12-19 (by Thomas.Eschenbacher@gmx.de)"
@@ -1217,7 +1236,8 @@ msgstr "1999-12-10 (by Thomas.Eschenbacher@gmx.de)"
 
 #: index.docbook:177
 msgid "removed -Werror compiler option (caused trouble with configure script)"
-msgstr "Compiler-Option -Werror entfernt (verursachte Ärger mit dem confiure-Skript)"
+msgstr ""
+"Compiler-Option -Werror entfernt (verursachte Ärger mit dem confiure-Skript)"
 
 #: index.docbook:177
 msgid ""
@@ -1245,7 +1265,8 @@ msgstr "TODO-Datei hinzugefügt"
 
 #: index.docbook:177
 msgid "added -Werror to the c++ compiler options when debuging enabled"
-msgstr "-Werror zu den Compiler-Optionen hinzugefügt wenn Debugging aktiviert ist"
+msgstr ""
+"-Werror zu den Compiler-Optionen hinzugefügt wenn Debugging aktiviert ist"
 
 #: index.docbook:177
 msgid "some include file cleanups in libgui"
@@ -1263,7 +1284,8 @@ msgstr ""
 
 #: index.docbook:177
 msgid "bugfix: caption of main window changes after \"SaveAs\""
-msgstr "Bugfix: Überschrift des Hauptfensters ändert sich beim \"Speichern Unter\""
+msgstr ""
+"Bugfix: Überschrift des Hauptfensters ändert sich beim \"Speichern Unter\""
 
 #: index.docbook:177
 msgid "bugfix: selected resolution takes effect"
@@ -1372,7 +1394,8 @@ msgstr "Hüllkurven-Dialog (String-Handling) behoben"
 
 #: index.docbook:177
 msgid "connected many functions via the new string-based way of invocation"
-msgstr "einige Funktionen über die neue String-basierte Aufrufmethode angebunden"
+msgstr ""
+"einige Funktionen über die neue String-basierte Aufrufmethode angebunden"
 
 #: index.docbook:177
 msgid ""
@@ -1392,7 +1415,8 @@ msgstr "Clipboard-Klasse zurechtgestutzt"
 
 #: index.docbook:177
 msgid "Color class as wrapper to QColor (may become independent later)"
-msgstr "Color-Klasse als Wrapper für QColor (wird vielleicht später mal unabhängig)"
+msgstr ""
+"Color-Klasse als Wrapper für QColor (wird vielleicht später mal unabhängig)"
 
 #: index.docbook:177
 msgid ""
@@ -1465,7 +1489,8 @@ msgstr ""
 
 #: index.docbook:177
 msgid "recent Files are updated again, while the program is running"
-msgstr "Liste der letzten Dateien wird wieder aktualisiert beim laufenden Programm"
+msgstr ""
+"Liste der letzten Dateien wird wieder aktualisiert beim laufenden Programm"
 
 #: index.docbook:177
 msgid "kwave now keeps track of last directory saved to; for user convenience"
@@ -1551,7 +1576,8 @@ msgid "0.29.1"
 msgstr "0.29.1"
 
 #: index.docbook:177
-msgid "Bugfix for multichannel save. Now the saved files should work with other prgs"
+msgid ""
+"Bugfix for multichannel save. Now the saved files should work with other prgs"
 msgstr ""
 "Bugfix für Speichern von Mehrkanal-Dateien. Nun sollten die Dateien auch mit "
 "anderen Programmen zusammenarbeiten"
@@ -1595,12 +1621,14 @@ msgid "added reselection and cursor change"
 msgstr "Wiederauswahl und Cursorwechsel implementiert"
 
 #: index.docbook:177
-msgid "added possibility of different display modes in Frequency representation"
+msgid ""
+"added possibility of different display modes in Frequency representation"
 msgstr "Möglichkeit für verschiedene Anzeigemodi in der Frequenz-Darstellung"
 
 #: index.docbook:177
 msgid "fixed severe quantisation bug in saving 16Bit routine, reported by ?"
-msgstr "schweren Quantisierungsfehler in der 16Bit-Routine behoben, berichtet von ?"
+msgstr ""
+"schweren Quantisierungsfehler in der 16Bit-Routine behoben, berichtet von ?"
 
 #: index.docbook:177
 msgid "mmaping support contributed by Juhana Kouhia"
@@ -1626,7 +1654,8 @@ msgstr "Erste Verwendung von mehreren Threads (Pthreads) in einigen Funktionen"
 
 #: index.docbook:177
 msgid "Pitch generation now independent of additive synthesis"
-msgstr "Erzeugung der Tonverschiebung ist nun unabhängig von der Additiven Synthese"
+msgstr ""
+"Erzeugung der Tonverschiebung ist nun unabhängig von der Additiven Synthese"
 
 #: index.docbook:177
 msgid "added import function for ascii files"
@@ -1649,7 +1678,8 @@ msgid "New ScaleWidget gives the user more information"
 msgstr "neues ScaleWidget gibt dem Anwender mehr Informationen"
 
 #: index.docbook:177
-msgid "Improved ProgressDialog and Interpolation class to allow multiple threads"
+msgid ""
+"Improved ProgressDialog and Interpolation class to allow multiple threads"
 msgstr ""
 "Verbesserter ProgressDialog und Interpolation-Klasse um Multithreading zu "
 "erlauben"
@@ -1667,7 +1697,8 @@ msgid "changes in curvewidget (recent point has another pixmap)."
 msgstr "Änderungen in CurveWidget (aktueller Punkt verwendet anderes Pixmap)"
 
 #: index.docbook:177
-msgid "sorting of labels now works without overwriting of QGList::compareItems."
+msgid ""
+"sorting of labels now works without overwriting of QGList::compareItems."
 msgstr ""
 "Sortieren von Markern funktioniert ohne Überschreiben von QGList::"
 "compareItems."
@@ -1694,7 +1725,8 @@ msgstr "0.27"
 
 #: index.docbook:177
 msgid "first release, but never uploaded, because ftp.kde.org was down."
-msgstr "erste Release, aber niemals publiziert, da ftp.kde.org nicht erreichbar war."
+msgstr ""
+"erste Release, aber niemals publiziert, da ftp.kde.org nicht erreichbar war."
 
 #: index.docbook:1226
 msgid "Installation"
@@ -2691,7 +2723,8 @@ msgid "Opening and Saving files"
 msgstr "Öffnen und Speichern von Dateien"
 
 #: index.docbook:1931
-msgid "Opening files with &kapp; works like in most other applications, you can"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "Das Öffnen von Dateien mit &kapp; funktioniert genauso wie in den meisten "
 "anderen Anwendungen auch, Sie können"
@@ -2859,7 +2892,8 @@ msgstr ""
 "sollten selbst eine eigene Art von ASCII Format für den Export besitzen."
 
 #: index.docbook:2031
-msgid "The format of an ASCII file is quite simple and has the following rules:"
+msgid ""
+"The format of an ASCII file is quite simple and has the following rules:"
 msgstr ""
 "Das Format von einer ASCII Datei ist recht einfach und nach folgenden Regeln "
 "aufgebaut:"
@@ -2918,7 +2952,8 @@ msgstr ""
 
 #: index.docbook:2031
 msgid "Internally all values are stored with 24 bit precision (signed)."
-msgstr "Intern werden alle Werte mit einer 24 Bit Genauigkeit (signed) gespeichert."
+msgstr ""
+"Intern werden alle Werte mit einer 24 Bit Genauigkeit (signed) gespeichert."
 
 #: index.docbook:2070
 msgid ""
@@ -2997,7 +3032,8 @@ msgid "a red lamb means \"disabled\"."
 msgstr "eine rote Lampe \"deaktiviert\" bedeutet."
 
 #: index.docbook:2129
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Hinweis: Wird ein Kanal deselektiert, wird er bei der Wiedergabe nicht "
 "hörbar sein!"
@@ -3412,7 +3448,8 @@ msgstr ""
 "project.org/\">aRts</ulink>, der widerum ALSA verwenden kann."
 
 #: index.docbook:2613
-msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
+msgid ""
+"What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
 "Wie steht es mit der Wiedergabe von 24 und 32 bits pro Sample oder mehr als "
 "zwei Kanälen?"
@@ -3471,7 +3508,8 @@ msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
 #: index.docbook:2677
-msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage, german translation)"
+msgid ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage und deutsche "
 "Übersetzung)"
@@ -3582,4 +3620,3 @@ msgstr ""
 "Der aktuelle Code enthält einige FFT-Routinen und Codefragmente vom GNU "
 "Scientific Library project <ulink url=\"http://sources.redhat.com/gsl/\"> "
 "http://sources.redhat.com/gsl/</ulink>."
-

@@ -34,6 +34,7 @@ clean-generic:
 	-rm -fv `find . -name \*.uic.cpp`
 	-rm -rfv `find . -name .\* | grep -v "^\.\.$$" | grep -v "^\.$$"`
 	-rm -Rf doc/api
+	-rm -f make.log
 
 backup: ${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 21:27+0200PO-"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
 "POT-Creation-Date: 2002-02-11 22:08+0100\n"
-"PO-Revision-Date: 2002-02-11 22:08GMT\n"
+"PO-Revision-Date: 2002-02-24 10:55GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -352,8 +352,7 @@ msgstr ""
 #: kwave/TopWidget.cpp:824
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr ""
-"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: kwave/TopWidget.cpp:921
 #, c-format, ycp-format
@@ -1491,7 +1490,7 @@ msgstr "Speicher Einstellungen"
 
 #: plugins/memory/MemDlg.uic.cpp:44
 msgid "&Physical Memory"
-msgstr "&Auslagerungsdateien"
+msgstr "&Physikalischer Speicher"
 
 #: plugins/memory/MemDlg.uic.cpp:45
 msgid ""
@@ -1505,7 +1504,7 @@ msgstr ""
 "\n"
 "Wenn Sie keine Begrenzung angeben, wird die Größe des installierten "
 "physikalischen Speichers in Ihrem Computer als Limit verwendet. Sie können "
-"kein Limit setzen das höher ist als die Menge des installiertenSpeichers."
+"kein Limit setzen das höher ist als die Menge des installierten Speichers."
 
 #: plugins/memory/MemDlg.uic.cpp:57
 msgid "Limit &to"
@@ -1950,8 +1949,7 @@ msgstr "Maximum"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:254
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+msgstr "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:262
 #, c-format
@@ -2020,3 +2018,4 @@ msgstr "Stille"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
+

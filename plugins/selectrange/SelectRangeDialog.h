@@ -22,16 +22,16 @@
 #include <qobject.h>
 #include <qtimer.h>
 
+#include "libgui/SelectTimeWidget.h"
 #include "SelectRangeDlg.uih.h"
 #include "SelectRangeDialog.h"
-#include "SelectRangePlugin.h"
 
 class SelectRangeDialog: public SelectRangeDlg
 {
     Q_OBJECT
 public:
     /** shortcut typedef */
-    typedef SelectRangePlugin::SelectionMode Mode;
+    typedef SelectTimeWidget::Mode Mode;
 
     /**
      * Constructor
@@ -52,52 +52,16 @@ public:
     virtual ~SelectRangeDialog();
 
     /** Returns the current selection mode (byTime, bySamples, byPercents) */
-    SelectRangePlugin::SelectionMode mode() { return m_mode; };
+    Mode mode() {
+        return select_range ? select_range->mode() :
+               SelectTimeWidget::bySamples;
+    };
 
-    /** Returns the number of ms, samples or percents */
-    double range() { return m_range; };
-
-private slots:
-
-    /** called whenever one of the radio buttons changed it's state */
-    void modeChanged(int);
-
-    /** called whenever one of the time controls changed their value */
-    void timeChanged(int);
-
-    /** checks for new values in the sample edit field */
-    void checkNewSampleEdit();
-
-    /** called when sample count has changed */
-    void samplesChanged(double);
-
-    /** called when percentage changed */
-    void percentsChanged(int p);
-
-protected:
-
-    /** Sets a new selection mode */
+    /** Set a new selection mode */
     void setMode(Mode new_mode);
 
-private:
-
-    /** selectionMode: byTime, bySamples or byPercent */
-    Mode m_mode;
-
-    /** selected range in ms, samples or percent */
-    double m_range;
-
-    /** sample rate [samples/second] */
-    double m_rate;
-
-    /** start offset of the selectioh [samples] */
-    unsigned int m_offset;
-
-    /** length of the whole signal [samples] */
-    unsigned int m_length;
-
-    /** timer that checks for changes in the sample edit */
-    QTimer m_timer;
+    /** Returns the number of ms, samples or percents */
+    double range() { return select_range ? select_range->time() : 0.0; };
 
 };
 

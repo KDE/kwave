@@ -33,7 +33,7 @@ KWAVE_PLUGIN(SelectRangePlugin,"selectrange","Thomas Eschenbacher");
 
 //***************************************************************************
 SelectRangePlugin::SelectRangePlugin(PluginContext &c)
-    :KwavePlugin(c), m_mode(bySamples), m_range(0)
+    :KwavePlugin(c), m_mode(SelectTimeWidget::bySamples), m_range(0)
 {
 }
 
@@ -95,18 +95,18 @@ int SelectRangePlugin::start(QStringList &params)
     // transform into offset and length [samples]
     unsigned int length = 0;
     switch (m_mode) {
-	case byTime: {
+	case SelectTimeWidget::byTime: {
 	    // convert from ms to samples
 	    double rate = signalRate();
 	    length = (unsigned int)rint(m_range / 1E3 * rate);
 	    break;
 	}
-	case bySamples: {
+	case SelectTimeWidget::bySamples: {
 	    // simple case -> already in samples
 	    length = (unsigned int)rint(m_range);
 	    break;
 	}
-	case byPercents: {
+	case SelectTimeWidget::byPercents: {
 	    // by percentage of whole signal
 	    unsigned sig_length = signalLength();
 	    length = (unsigned int)rint((double)sig_length*(m_range/100.0));
@@ -146,14 +146,16 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
     int mode = param.toInt(&ok);
     ASSERT(ok);
     if (!ok) return -EINVAL;
-    ASSERT((mode == (int)byTime) || (mode == (int)bySamples) ||
-           (mode == (int)byPercents));
-    if ((mode != (int)byTime) && (mode != (int)bySamples) &&
-        (mode != (int)byPercents))
+    ASSERT((mode == (int)SelectTimeWidget::byTime) ||
+           (mode == (int)SelectTimeWidget::bySamples) ||
+           (mode == (int)SelectTimeWidget::byPercents));
+    if ((mode != (int)SelectTimeWidget::byTime) &&
+        (mode != (int)SelectTimeWidget::bySamples) &&
+        (mode != (int)SelectTimeWidget::byPercents))
     {
 	return -EINVAL;
     }
-    m_mode = (SelectionMode)mode;
+    m_mode = (SelectTimeWidget::Mode)mode;
 
     // range in ms, samples or percent
     param = params[1];

@@ -24,6 +24,7 @@
 #include <qstringlist.h>
 
 #include "libkwave/KwavePlugin.h"
+#include "libgui/SelectTimeWidget.h"
 
 class QStringList;
 
@@ -32,13 +33,6 @@ class SelectRangePlugin: public KwavePlugin
     Q_OBJECT
 
 public:
-
-    /** possible mode of the selection */
-    typedef enum {
-	byTime = 0, /**< range in milliseconds */
-	bySamples,  /**< number of samples */
-	byPercents  /**< percentage of whole signal */
-    } SelectionMode;
 
     /** Constructor */
     SelectRangePlugin(PluginContext &context);
@@ -67,7 +61,7 @@ protected:
 private:
 
     /** selected mode: by time, samples, percentage */
-    SelectionMode m_mode;
+    SelectTimeWidget::Mode m_mode;
 
     /** selected milliseconds, samples or percents */
     double m_range;

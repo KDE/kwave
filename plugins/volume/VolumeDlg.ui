@@ -1,0 +1,401 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>VolumeDlg</class>
+<author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>VolumeDlg</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>303</width>
+            <height>324</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>0</hsizetype>
+            <vsizetype>5</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="caption">
+        <string>Volume</string>
+    </property>
+    <property name="sizeGripEnabled">
+        <bool>false</bool>
+    </property>
+    <property name="layoutSpacing" stdset="0">
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>10</number>
+        </property>
+        <property name="spacing">
+            <number>10</number>
+        </property>
+        <widget class="Line" row="3" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>Line1</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>0</width>
+                    <height>20</height>
+                </size>
+            </property>
+            <property name="frameShape">
+                <enum>HLine</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget" row="4" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>Layout7</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>10</number>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>Spacer7</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>81</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>btOK</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;OK</string>
+                    </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>btCancel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Cancel</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <spacer row="1" column="0" rowspan="2" colspan="1">
+            <property name="name">
+                <cstring>Spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>0</width>
+                    <height>250</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QButtonGroup" row="0" column="0">
+            <property name="name">
+                <cstring>ButtonGroup1</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
+            <property name="title">
+                <string>Mode</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>11</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>rbFactor</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Factor</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Increments or decrements the volume by a factor. 
+For example: "x1", "x2", "/ 4"</string>
+                    </property>
+                </widget>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>rbPercentage</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Percentage</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Sets the volume to a relative percentage of the original level. 
+For example: "50 %", "75%" or "125%"</string>
+                    </property>
+                </widget>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>rbLogarithmic</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Logarithmic</string>
+                    </property>
+                    <property name="checked">
+                        <bool>false</bool>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Increments or decrements the volume in logarithmic scale (decibel). 
+For example: "+3 dB", "+ 6 dB", "-3 dB".</string>
+                    </property>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="Line" row="0" column="1" rowspan="3" colspan="1">
+            <property name="name">
+                <cstring>Line1_2</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>0</width>
+                    <height>20</height>
+                </size>
+            </property>
+            <property name="frameShape">
+                <enum>VLine</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
+            <property name="margin">
+                <number>10</number>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+        </widget>
+        <widget class="QSpinBox" row="2" column="2">
+            <property name="name">
+                <cstring>spinbox</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>120</width>
+                    <height>0</height>
+                </size>
+            </property>
+            <property name="prefix">
+                <string>+</string>
+            </property>
+            <property name="suffix">
+                <string> dB</string>
+            </property>
+            <property name="maxValue">
+                <number>42</number>
+            </property>
+            <property name="minValue">
+                <number>-42</number>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget" row="0" column="2" rowspan="2" colspan="1">
+            <property name="name">
+                <cstring>Layout13</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>10</number>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>Spacer9</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>MinimumExpanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>10</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QSlider">
+                    <property name="name">
+                        <cstring>slider</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>3</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>60</width>
+                            <height>100</height>
+                        </size>
+                    </property>
+                    <property name="minValue">
+                        <number>-42</number>
+                    </property>
+                    <property name="maxValue">
+                        <number>42</number>
+                    </property>
+                    <property name="pageStep">
+                        <number>6</number>
+                    </property>
+                    <property name="value">
+                        <number>0</number>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="tickmarks">
+                        <enum>Both</enum>
+                    </property>
+                    <property name="tickInterval">
+                        <number>6</number>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Volume</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>Spacer10</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>MinimumExpanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>10</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </hbox>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>btOK</sender>
+        <signal>clicked()</signal>
+        <receiver>VolumeDlg</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>btCancel</sender>
+        <signal>clicked()</signal>
+        <receiver>VolumeDlg</receiver>
+        <slot>reject()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>btOK</tabstop>
+    <tabstop>btCancel</tabstop>
+    <tabstop>rbPercentage</tabstop>
+    <tabstop>rbLogarithmic</tabstop>
+    <tabstop>slider</tabstop>
+    <tabstop>spinbox</tabstop>
+</tabstops>
+<includes>
+    <include location="global" impldecl="in declaration">klocale.h</include>
+    <include location="local" impldecl="in declaration">libgui/CurveWidget.h</include>
+    <include location="local" impldecl="in declaration">libgui/ScaleWidget.h</include>
+</includes>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

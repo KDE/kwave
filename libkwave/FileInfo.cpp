@@ -128,16 +128,16 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_MIMETYPE, FP_READONLY | FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Mime Type"),
         i18n("Mime type of the file format"));
-    append(INF_MPEG_EMPHASIS, 0,
+    append(INF_MPEG_EMPHASIS, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Emphasis"),
         i18n("Audio emphasis mode"));
-    append(INF_MPEG_LAYER, 0,
+    append(INF_MPEG_LAYER, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Layer"),
         i18n("MPEG Layer, I, II or III"));
-    append(INF_MPEG_MODEEXT, 0,
+    append(INF_MPEG_MODEEXT, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Mode Extension"),
         i18n("MPEG Mode Extension (only if Joint Stereo)"));
-    append(INF_MPEG_VERSION, 0,
+    append(INF_MPEG_VERSION, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Version"),
         i18n("MPEG Version, 1, 2 or 2.5"));
     append(INF_NAME, 0,

@@ -143,6 +143,9 @@ private slots:
 
 private:
 
+    /** close m_device and delete it */
+    void closeDevice();
+
     /** set up the recorder thread and record device (again) */
     void setupRecordThread();
 

@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "config.h"
-#undef HAVE_ARTS_SUPPORT // ###
 #ifdef HAVE_ARTS_SUPPORT
 
 #include <errno.h>
@@ -35,13 +34,6 @@
 
 /** Usage counter for arts_init/arts_free */
 static int g_arts_usage = 0;
-
-#if 0
-static const char *devicetext[] = {
-    "[aRts sound daemon]",
-    0
-};
-#endif
 
 //***************************************************************************
 PlayBackArts::PlayBackArts(Mutex &arts_lock)
@@ -244,6 +236,39 @@ QString PlayBackArts::artsErrorText(int errorcode)
 
     return text;
 };
+
+//***************************************************************************
+QStringList PlayBackArts::supportedDevices()
+{
+    QStringList list; // list stays empty, no selectable devices
+    list.append(i18n("[aRts sound daemon]"));
+    return list;
+}
+
+//***************************************************************************
+QValueList<unsigned int> PlayBackArts::supportedBits(const QString &device)
+{
+    (void)device;
+    QValueList <unsigned int> bits;
+
+    // aRts supports only 8 and 16 bits as far as I know...
+    bits.append(8);
+    bits.append(16);
+
+    return bits;
+}
+
+//***************************************************************************
+int PlayBackArts::detectChannels(const QString &device,
+                                 unsigned int &min, unsigned int &max)
+{
+    (void) device;
+
+    // aRts supports only mono and stereo as far as I know...
+    min = 1;
+    max = 2;
+    return 0;
+}
 
 #endif /* HAVE_ARTS_SUPPORT */
 

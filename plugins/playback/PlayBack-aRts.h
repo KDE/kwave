@@ -19,7 +19,6 @@
 #define _PLAY_BACK_ARTS_H_
 
 #include "config.h"
-#undef HAVE_ARTS_SUPPORT
 #ifdef HAVE_ARTS_SUPPORT
 
 #include <qstring.h>
@@ -58,6 +57,32 @@ public:
      */
     virtual int close();
 
+    /** return a string list with supported device names */
+    virtual QStringList supportedDevices();
+
+    /**
+     * returns a list of supported bits per sample resolutions
+     * of a given device.
+     *
+     * @param device filename of the device
+     * @return list of supported bits per sample, or empty on errors
+     */
+    virtual QValueList<unsigned int> supportedBits(const QString &device);
+
+    /**
+     * Detect the minimum and maximum number of channels.
+     * If the detection fails, minimum and maximum are set to zero.
+     *
+     * @param device filename of the device
+     * @param min receives the lowest supported number of channels
+     * @param max receives the highest supported number of channels
+     * @return zero or positive number if ok, negative error number if failed
+     */
+    virtual int detectChannels(const QString &device,
+                               unsigned int &min, unsigned int &max);
+
+protected:
+
     /**
      * Translates an aRts error code into a verbose and
      * localized error string.
@@ -67,8 +92,6 @@ public:
      * @return localized error message
      */
     QString artsErrorText(int errorcode);
-
-protected:
 
     /** Writes the output buffer to the device */
     void flush();

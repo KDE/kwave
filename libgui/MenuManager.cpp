@@ -129,12 +129,9 @@ void MenuManager::executeCommand(const QString &command)
 //***************************************************************************
 void MenuManager::clearNumberedMenu(const QString &uid)
 {
-    debug("MenuManager::clearNumberedMenu() --1--"); // ###
     ASSERT(m_menu_root);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
-    debug("MenuManager::clearNumberedMenu() --2--"); // ###
     if (node) node->clear();
-    debug("MenuManager::clearNumberedMenu() --done--"); // ###
 }
 
 //***************************************************************************
@@ -150,11 +147,7 @@ void MenuManager::slotMenuCommand()
     ASSERT(command);
     if (!command) return;
 
-    debug("MenuManager::slotMenuCommand(%s)", command->data()); // ###
-
     emit sigMenuCommand(*command);
-    debug("MenuManager::slotMenuCommand(%s): done.", command->data()); // ###
-
     delete command;
 }
 

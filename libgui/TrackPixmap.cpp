@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qpainter.h>
+
 #include "libgui/TrackPixmap.h"
 
 //***************************************************************************
@@ -34,11 +36,52 @@ TrackPixmap::~TrackPixmap()
 //***************************************************************************
 void TrackPixmap::setOffset(unsigned int offset)
 {
+    debug("TrackPixmap::setOffset(%u)", offset);
+    m_offset = offset;
 }
 
 //***************************************************************************
 void TrackPixmap::setZoom(double zoom)
 {
+    debug("TrackPixmap::setZoom(%0.3f)", zoom);
+    m_zoom = zoom;
+}
+
+//***************************************************************************
+//	    if (!m_signal_manager.isEmpty()) {
+//		if (m_zoom < 0.1) {
+//		    drawInterpolatedSignal(i, zero, track_height);
+//		} else if (m_zoom <= 1.0)
+//		    drawPolyLineSignal(i, zero, track_height);
+//		else
+//		    drawOverviewSignal(i, zero, track_height,
+//		                       0, m_zoom*width);
+//	    }
+//
+//	    // draw the baseline
+//	    p.setPen(green);
+//	    p.drawLine(0, zero, width, zero);
+//	    p.setPen(white);
+//	    zero += track_height;
+
+//***************************************************************************
+void TrackPixmap::resize(int width, int height)
+{
+    debug("TrackPixmap::resize(%d, %d)", width, height); // ###
+
+    QPixmap::resize(width, height);
+
+    QPainter p(this);
+    p.setRasterOp(CopyROP);
+    p.fillRect(0, 0, width, height, black);
+
+    p.setPen(green);
+    p.drawLine(0, 0, width-1, height-1);
+    p.drawLine(0, height-1, width-1, 0);
+
+    p.flush();
+    p.end();
+
 }
 
 //***************************************************************************

@@ -71,7 +71,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     :QWidget(parent),
      keys(0),
      m_slider(0),
-     signalview(0),
+     m_signal_widget(0),
      m_status(status),
      menu(manage),
      frmChannelControls(0),
@@ -174,16 +174,16 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     // -- signal widget --
 
-    signalview = new SignalWidget(frmSignal, menu);
-    ASSERT(signalview);
-    if (!signalview) return;
-    if (!signalview->isOK()) {
+    m_signal_widget = new SignalWidget(frmSignal, menu);
+    ASSERT(m_signal_widget);
+    if (!m_signal_widget) return;
+    if (!m_signal_widget->isOK()) {
 	warning("MainWidget::MainWidget: failed in creating SignalWidget !");
-	delete signalview;
-	signalview = 0;
+	delete m_signal_widget;
+	m_signal_widget = 0;
 	return;
     }
-    signalview->setMinimumSize(100, MIN_PIXELS_PER_CHANNEL);
+    m_signal_widget->setMinimumSize(100, MIN_PIXELS_PER_CHANNEL);
 
     // -- do all the geometry management stuff --
 
@@ -202,49 +202,50 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     connect(scrollbar, SIGNAL(valueChanged(int)),
             this, SLOT(scrollbarMoved(int)));
     connect(m_slider, SIGNAL(valueChanged(int)),
-	    signalview, SLOT(slot_setOffset(int)));
-    connect(signalview, SIGNAL(viewInfo(int, int, int)),
+	    m_signal_widget, SLOT(slot_setOffset(int)));
+    connect(m_signal_widget, SIGNAL(viewInfo(int, int, int)),
 	    m_slider, SLOT(setRange(int, int, int)));
-    connect(signalview, SIGNAL(zoomInfo(double)),
+    connect(m_signal_widget, SIGNAL(zoomInfo(double)),
 	    this, SLOT(forwardZoomChanged(double)));
-    connect(signalview, SIGNAL(sigCommand(const QString &)),
+    connect(m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(forwardCommand(const QString &)));
-    connect(signalview, SIGNAL(selectedTimeInfo(double)),
+    connect(m_signal_widget, SIGNAL(selectedTimeInfo(double)),
 	    this, SLOT(setSelectedTimeInfo(double)));
-    connect(signalview, SIGNAL(rateInfo(int)),
+    connect(m_signal_widget, SIGNAL(rateInfo(int)),
 	    this, SLOT(setRateInfo(int)));
-    connect(signalview, SIGNAL(lengthInfo(int)),
+    connect(m_signal_widget, SIGNAL(lengthInfo(int)),
 	    this, SLOT(setLengthInfo(int)));
-    connect(signalview, SIGNAL(timeInfo(double)),
+    connect(m_signal_widget, SIGNAL(timeInfo(double)),
 	    this, SLOT(setTimeInfo(double)));
-
+    connect(m_signal_widget, SIGNAL(sigTrackInserted(unsigned int)),
+	    this, SLOT(slotTrackInserted(unsigned int)));
 
     refreshChannelControls();
     refreshControls();
 //    debug("MainWidget::MainWidget(): done.");
 }
 
-//*****************************************************************************
+//***************************************************************************
 bool MainWidget::isOK()
 {
     ASSERT(frmChannelControls);
     ASSERT(frmSignal);
 //    ASSERT(keys); ###
     ASSERT(scrollbar);
-    ASSERT(signalview);
+    ASSERT(m_signal_widget);
     ASSERT(m_slider);
 
-    return ( frmChannelControls && frmSignal /* ### && keys */ && scrollbar &&
-	signalview && m_slider );
+    return ( frmChannelControls && frmSignal /* ### && keys */ &&
+    	scrollbar && m_signal_widget && m_slider );
 }
 
-//*****************************************************************************
+//***************************************************************************
 MainWidget::~MainWidget()
 {
     debug("MainWidget::~MainWidget()");
 
-    if (signalview) delete signalview;
-    signalview = 0;
+    if (m_signal_widget) delete m_signal_widget;
+    m_signal_widget = 0;
 
     if (keys) delete keys;
     lamps.clear();
@@ -253,27 +254,39 @@ MainWidget::~MainWidget()
     debug("MainWidget::~MainWidget(): done.");
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::resizeEvent(QResizeEvent *)
 {
     refreshChannelControls();
     refreshOverView();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::scrollbarMoved(int newval)
 {
-    ASSERT(signalview);
+    ASSERT(m_signal_widget);
     ASSERT(frmChannelControls);
-    if (!signalview) return;
+    if (!m_signal_widget) return;
     if (!frmChannelControls) return;
 
     // move the signal and the channel controls
-    signalview->move(0, -newval);
+    m_signal_widget->move(0, -newval);
     frmChannelControls->move(0, -newval);
 }
 
-//*****************************************************************************
+//***************************************************************************
+void MainWidget::slotTrackInserted(unsigned int /*track*/)
+{
+//    debug("MainWidget::slotTrackInserted(%u)", track); // ###
+    if (tracks() == 1) {
+//	debug("MainWidget::slotTrackInserted(): first track -> zoomAll()");
+	zoomAll();
+    }
+
+    refreshChannelControls();
+}
+
+//***************************************************************************
 void MainWidget::refreshControls()
 {
 //    bool have_signal = (tracks() != 0);
@@ -296,11 +309,11 @@ void MainWidget::refreshControls()
 void MainWidget::refreshOverView()
 {
 //    ASSERT(m_slider);
-//    ASSERT(signalview);
+//    ASSERT(m_signal_widget);
 //    if (!m_slider) return;
-//    if (!signalview) return;
+//    if (!m_signal_widget) return;
 //
-//    QBitmap *overview = signalview->overview(
+//    QBitmap *overview = m_signal_widget->overview(
 //	m_slider->width(), m_slider->height());
 //    m_slider->setOverView(overview);
 //
@@ -311,26 +324,27 @@ void MainWidget::refreshOverView()
 void MainWidget::saveSignal(const char *filename, int bits,
                             int type, bool selection)
 {
-    ASSERT(signalview);
-    if (signalview) signalview->saveSignal(filename, bits, type, selection);
+    ASSERT(m_signal_widget);
+    if (m_signal_widget)
+    	m_signal_widget->saveSignal(filename, bits, type, selection);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::loadFile(const QString &filename, int type)
 {
-    ASSERT(signalview);
-    if (!signalview) return;
+    ASSERT(m_signal_widget);
+    if (!m_signal_widget) return;
 
     closeSignal();
-    signalview->loadFile(filename, type);
-    refreshControls();
+    m_signal_widget->loadFile(filename, type);
+//    refreshControls();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::closeSignal()
 {
-    ASSERT(signalview);
-    if (signalview) signalview->close();
+    ASSERT(m_signal_widget);
+    if (m_signal_widget) m_signal_widget->close();
 
     setTimeInfo(0);
     setSelectedTimeInfo(0);
@@ -341,7 +355,7 @@ void MainWidget::closeSignal()
     refreshControls();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::setRateInfo(int rate)
 {
     char buf[128];
@@ -350,7 +364,7 @@ void MainWidget::setRateInfo(int rate)
     m_status.changeItem(buf, 2);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::setLengthInfo(int len)
 {
     char buf[128];
@@ -358,60 +372,60 @@ void MainWidget::setLengthInfo(int len)
     m_status.changeItem(buf, 3);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::forwardZoomChanged(double zoom)
 {
     emit sigZoomChanged(zoom);
 }
 
-//*****************************************************************************
+//***************************************************************************
 double MainWidget::zoom()
 {
-    return ( (signalview) ? signalview->zoom() : 0 );
+    return ( (m_signal_widget) ? m_signal_widget->zoom() : 0 );
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::setZoom(double new_zoom)
 {
-    if (signalview) {
-	if (signalview->zoom() == new_zoom) return; // nothing to do
+    if (m_signal_widget) {
+	if (m_signal_widget->zoom() == new_zoom) return; // nothing to do
 
-	signalview->setZoom(new_zoom);
-	signalview->refreshAllLayers();
+	m_signal_widget->setZoom(new_zoom);
+	m_signal_widget->refreshAllLayers();
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::zoomRange()
 {
-    if (signalview) signalview->zoomRange();
+    if (m_signal_widget) m_signal_widget->zoomRange();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::zoomIn()
 {
-    if (signalview) signalview->zoomIn();
+    if (m_signal_widget) m_signal_widget->zoomIn();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::zoomOut()
 {
-    if (signalview) signalview->zoomOut();
+    if (m_signal_widget) m_signal_widget->zoomOut();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::zoomAll()
 {
-    if (signalview) signalview->zoomAll();
+    if (m_signal_widget) m_signal_widget->zoomAll();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::zoomNormal()
 {
-    if (signalview) signalview->zoomNormal();
+    if (m_signal_widget) m_signal_widget->zoomNormal();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::resetChannels()
 {
     unsigned int t = tracks();
@@ -421,7 +435,7 @@ void MainWidget::resetChannels()
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::parseKey(int key)
 {
     if ((key < 0) || ((unsigned int)key >= tracks()))
@@ -432,13 +446,13 @@ void MainWidget::parseKey(int key)
 ////    emit setOperation(TOGGLECHANNEL + key);
 }
 
-//****************************************************************************
+//***************************************************************************
 void MainWidget::forwardCommand(const QString &command)
 {
     emit sigCommand(command);
 }
 
-//*****************************************************************************
+//***************************************************************************
 bool MainWidget::executeCommand(const QString &command)
 {
 //    debug("MainWidget::executeCommand(%s)", command);
@@ -448,7 +462,7 @@ bool MainWidget::executeCommand(const QString &command)
 
     if (false) {
     CASE_COMMAND("zoomrange")
-	if (signalview) signalview->zoomRange();
+	if (m_signal_widget) m_signal_widget->zoomRange();
     } else {
 	if (parser.command() == "selectchannels")
 	    for (unsigned int i = 0; i < tracks(); i++)
@@ -458,28 +472,30 @@ bool MainWidget::executeCommand(const QString &command)
 	    for (unsigned int i = 0; i < tracks(); i++)
 		if (lamps.at(i)) lamps.at(i)->nextState();
 
-	bool result = (signalview)?signalview->executeCommand(command):false;
-	if (signalview) signalview->refreshAllLayers();
+	bool result = (m_signal_widget) ?
+		m_signal_widget->executeCommand(command)
+		: false;
+	if (m_signal_widget) m_signal_widget->refreshAllLayers();
 	return result;
     }
 
     return true;
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::setSelectedTimeInfo(double ms)
 {
     m_status.changeItem(KwavePlugin::ms2string(ms), 4);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::setTimeInfo(double ms)
 {
     m_status.changeItem(i18n("Length: %1").arg(
     	KwavePlugin::ms2string(ms)), 1);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MainWidget::refreshChannelControls()
 {
     ASSERT(frmChannelControls);
@@ -487,10 +503,10 @@ void MainWidget::refreshChannelControls()
 
     ASSERT(frmSignal);
     ASSERT(frmChannelControls);
-    ASSERT(signalview);
+    ASSERT(m_signal_widget);
     if (!frmSignal) return;
     if (!frmChannelControls) return;
-    if (!signalview) return;
+    if (!m_signal_widget) return;
 
     unsigned int channels = tracks();
     int min_height = (max(channels, 1) * MIN_PIXELS_PER_CHANNEL);
@@ -531,7 +547,7 @@ void MainWidget::refreshChannelControls()
     }
 
     // resize the signal widget and the frame with the channel controls
-    signalview->resize(w, h);
+    m_signal_widget->resize(w, h);
     frmChannelControls->resize(frmChannelControls->width(), h);
 
     h = frmChannelControls->height();
@@ -570,7 +586,7 @@ void MainWidget::refreshChannelControls()
 	s[1] = lamps.at(i)->addPixmap("light_off.xpm");
 	QObject::connect(
 	    lamps.at(i), SIGNAL(clicked(int)),
-	    signalview, SLOT(toggleChannel(int))
+	    m_signal_widget, SLOT(toggleChannel(int))
 	);
 	lamps.at(i)->setStates(s);
 
@@ -608,32 +624,32 @@ void MainWidget::refreshChannelControls()
     refreshControls();
 }
 
-//*****************************************************************************
+//***************************************************************************
 unsigned int MainWidget::tracks()
 {
-    ASSERT(signalview);
-    return (signalview) ? signalview->tracks() : 0;
+    ASSERT(m_signal_widget);
+    return (m_signal_widget) ? m_signal_widget->tracks() : 0;
 }
 
-//*****************************************************************************
+//***************************************************************************
 int MainWidget::getBitsPerSample()
 {
-    ASSERT(signalview);
-    return (signalview) ? signalview->getBitsPerSample() : 0;
+    ASSERT(m_signal_widget);
+    return (m_signal_widget) ? m_signal_widget->getBitsPerSample() : 0;
 }
 
-//*****************************************************************************
+//***************************************************************************
 SignalManager *MainWidget::signalManager()
 {
-    return (signalview ? &(signalview->signalManager()) : 0);
+    return (m_signal_widget ? &(m_signal_widget->signalManager()) : 0);
 }
 
-//*****************************************************************************
+//***************************************************************************
 PlaybackController *MainWidget::playbackController()
 {
-    ASSERT(signalview);
-    return (signalview) ? &(signalview->playbackController()) : 0;
+    ASSERT(m_signal_widget);
+    return (m_signal_widget) ? &(m_signal_widget->playbackController()) : 0;
 }
 
-//*****************************************************************************
-//*****************************************************************************
+//***************************************************************************
+//***************************************************************************

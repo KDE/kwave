@@ -31,14 +31,14 @@ SampleInputStream::SampleInputStream(Track &track, QList<Stripe> &stripes,
      m_position(left), m_buffer(16*1024), m_buffer_used(0)
 {
     m_locks.takeOver(locks);
-    debug("SampleInputStream::SampleInputStream(track, mode, %d, %d)",left,right);
+//    debug("SampleInputStream::SampleInputStream(track, mode, %d, %d)",left,right);
 }
 
 //***************************************************************************
 SampleInputStream::~SampleInputStream()
 {
     flush();
-    debug("SampleInputStream::~SampleInputStream()");
+//    debug("SampleInputStream::~SampleInputStream()");
 }
 
 //***************************************************************************

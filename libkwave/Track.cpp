@@ -73,7 +73,7 @@ Stripe *Track::appendStripe(unsigned int length)
 
 	s->resize(length);
     }
-    debug("Track::appendStripe(%d): new stripe at %p", length, s);
+//    debug("Track::appendStripe(%d): new stripe at %p", length, s);
 
     return s;
 }
@@ -104,7 +104,7 @@ SampleInputStream *Track::openInputStream(InsertMode mode,
 
     switch (mode) {
 	case Append: {
-	    debug("Track::openInputStream(apppend)");
+//	    debug("Track::openInputStream(apppend)");
 	
 	    // create a new stripe
 	    Stripe *s = new Stripe(unlockedLength(), 0);
@@ -124,7 +124,7 @@ SampleInputStream *Track::openInputStream(InsertMode mode,
 	    warning("--- NOT IMPLEMENTED YET ---"); // ###
 	    break;
 	case Overwrite:
-	    debug("Track::openInputStream(overwrite, %u, %u)", left, right);
+//	    debug("Track::openInputStream(overwrite, %u, %u)", left, right);
 	    if ((right == 0) || (right == left)) right = unlockedLength()-1;
 	
 	    // add all stripes within the specified range to the list

@@ -38,6 +38,14 @@ public:
     /** Destructor */
     virtual ~TrackPixmap();
 
+    /**
+     * Resize the pixmap.
+     * @param width new width in pixels
+     * @param height new height in pixels
+     * @see QPixmap::resize()
+     */
+    void resize(int width, int height);
+
 public slots:
 
     /**

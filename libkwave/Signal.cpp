@@ -89,26 +89,36 @@ void Signal::close()
 //***************************************************************************
 Track *Signal::appendTrack(unsigned int length)
 {
-    MutexGuard lock(m_lock_tracks);
+    unsigned int track_nr = 0;
+    Track *t = 0;
+    {
+	MutexGuard lock(m_lock_tracks);
 
-    Track *t = new Track(length);
-    ASSERT(t);
-    if (!t) return 0;
+	t = new Track(length);
+	ASSERT(t);
+	if (!t) return 0;
 
-    m_tracks.append(t);
+	m_tracks.append(t);
 
-    // connect to the track's signals
-    connect(t, SIGNAL(sigSamplesDeleted(Track&, unsigned int, unsigned int)),
-	this, SLOT(slotSamplesDeleted(Track&, unsigned int,
-	unsigned int)));
-    connect(t, SIGNAL(sigSamplesInserted(Track&, unsigned int, unsigned int)),
-	this, SLOT(slotSamplesInserted(Track&, unsigned int, unsigned int)));
-    connect(t, SIGNAL(sigSamplesModified(Track&, unsigned int, unsigned int)),
-	this, SLOT(slotSamplesModified(Track&, unsigned int, unsigned int)));
+	// connect to the track's signals
+	connect(t, SIGNAL(sigSamplesDeleted(Track&, unsigned int,
+	    unsigned int)),
+	    this, SLOT(slotSamplesDeleted(Track&, unsigned int,
+	    unsigned int)));
+	connect(t, SIGNAL(sigSamplesInserted(Track&, unsigned int,
+	    unsigned int)),
+	    this, SLOT(slotSamplesInserted(Track&, unsigned int,
+	    unsigned int)));
+	connect(t, SIGNAL(sigSamplesModified(Track&, unsigned int,
+	    unsigned int)),
+	    this, SLOT(slotSamplesModified(Track&, unsigned int,
+	    unsigned int)));
+	
+	track_nr = m_tracks.count()-1;
+    }
 
     // track has been inserted at the end
-    emit sigTrackInserted(m_tracks.count()-1);
-
+    emit sigTrackInserted(track_nr);
     return t;
 }
 
@@ -146,7 +156,7 @@ unsigned int Signal::length()
 	len = it.current()->length();
 	if (len > max) max = len;
     }
-    debug("Signal::length() = %d", max);
+//    debug("Signal::length() = %d", max);
     return max;
 }
 

@@ -286,6 +286,12 @@ signals:
      */
     void zoomInfo(double zoom);
 
+    /**
+     * Signals that a track has been inserted.
+     * @param track index of the new track [0...tracks()-1]
+     */
+    void sigTrackInserted(unsigned int track);
+
 protected:
     /**
      * Returns the zoom value that will be used to fit the whole signal
@@ -409,7 +415,8 @@ private:
      */
     float *interpolation_alpha;
 
-    QPixmap *layer[3];
+    /** Pixmaps for buffering each layer */
+    QPixmap *m_layer[3];
 
     /** flags for updating each layer */
     bool m_update_layer[3];
@@ -417,7 +424,12 @@ private:
     /** raster operation for each layer (XOR, AND, OR, ...) */
     RasterOp m_layer_rop[3];
 
-    int offset;                    //offset from which signal is beeing displayed
+    /**
+     * Offset from which signal is beeing displayed. This is equal to
+     * the index of the first visible sample.
+     */
+    int m_offset;
+
     int width, height;            //of this widget
     int lastWidth;
     int lastHeight;

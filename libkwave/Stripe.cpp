@@ -75,7 +75,7 @@ unsigned int Stripe::resize(unsigned int length)
 	old_length = m_samples.size();
 	if (old_length == length) return old_length; // nothing to do
 
-	debug("Stripe::resize() from %d to %d samples", old_length, length);
+//	debug("Stripe::resize() from %d to %d samples", old_length, length);
 	m_samples.resize(length);
 	ASSERT(length = m_samples.size());
 	if (length < m_samples.size()) {

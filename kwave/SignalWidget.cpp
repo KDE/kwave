@@ -92,17 +92,17 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     lastWidth = 0;
     lasty = -1;
     markertype = 0;
-    offset = 0;
+    m_offset = 0;
     pixmap = 0;
     playpointer = -1;
     redraw = false;
     select = 0;
     width = 0;
-    m_zoom = 1.0;
+    m_zoom = 0.0;
     zoomy = 1;
 
     for (int i=0; i < 3; i++) {
-	layer[i] = 0;
+	m_layer[i] = 0;
 	m_update_layer[i] = true;
 	m_layer_rop[i] = CopyROP;
     }
@@ -200,7 +200,7 @@ SignalWidget::~SignalWidget()
     interpolation_alpha = 0;
 
     for (int i=0; i < 3; i++) {
-	layer[i] = 0;
+	m_layer[i] = 0;
     }
 
 //    debug("SignalWidget::~SignalWidget(): done");
@@ -248,16 +248,16 @@ void SignalWidget::toggleChannel(int /*channel*/)
 //    CASE_COMMAND("zoomrange")
 //	zoomRange();
 //    CASE_COMMAND("scrollright")
-//	setOffset(offset + pixels2samples(width / 10));
+//	setOffset(m_offset + pixels2samples(width / 10));
 //	refreshAllLayers();
 //    CASE_COMMAND("scrollleft")
-//	setOffset(offset - pixels2samples(width / 10));
+//	setOffset(m_offset - pixels2samples(width / 10));
 //	refreshAllLayers();
 //    CASE_COMMAND("viewnext")
-//	setOffset(offset + pixels2samples(width));
+//	setOffset(m_offset + pixels2samples(width));
 //	refreshAllLayers();
 //    CASE_COMMAND("viewprev")
-//	setOffset(offset - pixels2samples(width));
+//	setOffset(m_offset - pixels2samples(width));
 //	refreshAllLayers();
 //    CASE_COMMAND("selectall")
 //	selectRange(0, signalmanage->getLength() - 1);
@@ -278,9 +278,9 @@ void SignalWidget::toggleChannel(int /*channel*/)
 //	int r = signalmanage->getLength() - 1;
 //	selectRange(l, r);
 //    CASE_COMMAND("selectvisible")
-//	selectRange(offset, offset + pixels2samples(width) - 1);
+//	selectRange(m_offset, m_offset + pixels2samples(width) - 1);
 //    CASE_COMMAND("selectnone")
-//	selectRange(offset, offset);
+//	selectRange(m_offset, m_offset);
 //    CASE_COMMAND("selectrange")
 //	selectRange();
 //    } else return false;
@@ -339,8 +339,8 @@ bool SignalWidget::executeCommand(const QString &command)
 ////	const char *name = parser.getFirstParam();
 ////	debug("SignalWidget::executeCommand(): loading dialog %s", name);
 ////	showDialog(name);
-    CASE_COMMAND("refresh")
-	refreshAllLayers();
+//    CASE_COMMAND("refresh")
+//	refreshAllLayers();
     CASE_COMMAND("newsignal")
 	createSignal(command);
 //    } else if (executeNavigationCommand(command)) {
@@ -511,7 +511,7 @@ void SignalWidget::createSignal(const char */*str*/)
 //
 //////    ASSERT(labels);
 //////    if (labels) labels->clear ();
-//    offset = 0;
+//    m_offset = 0;
 //
 //    signalmanage = new SignalManager(numsamples, rate, 1);
 //    if (signalmanage) {
@@ -535,7 +535,7 @@ void SignalWidget::setSignal(SignalManager */*sigs*/)
 //    if (!sigs) return ;
 //
 //    signalmanage = sigs;
-//    offset = 0;
+//    m_offset = 0;
 //    if ((signalmanage) && (signalmanage->getLength())) {
 //	connectSignal();
 //	zoomAll();
@@ -559,7 +559,6 @@ void SignalWidget::loadFile(const QString &filename, int type)
 	close();
 	return ;
     }
-    zoomAll();
 }
 
 //***************************************************************************
@@ -577,7 +576,7 @@ void SignalWidget::close()
     m_signal_manager.close();
 
     down = false; // ###
-    offset = 0;
+    m_offset = 0;
 
     // reset the status, zoom and selection
     selectRange(0, 0);
@@ -588,123 +587,130 @@ void SignalWidget::close()
 //***************************************************************************
 void SignalWidget::setOffset(int new_offset)
 {
-    offset = new_offset;
+    m_offset = new_offset;
 }
 
 //***************************************************************************
 double SignalWidget::getFullZoom()
 {
-//    ASSERT(signalmanage);
-//    if (!signalmanage) return 0.0;    // no zoom if no signal
-//
-//    // example: width = 100 and length=3
-//    //          -> samples should be at positions 0, 49.5 and 99
-//    //          -> 49.5 [pixels / sample]
-//    //          -> zoom = 1 / 49.5 [samples / pixel]
-//    // => full zoom [samples/pixel] = (length-1) / (width-1)
-//    return (double)(signalmanage->getLength() - 1) / (double)(width - 1);
-    return 1.0;
+//    if (m_signal_manager.isEmpty()) return 0.0;    // no zoom if no signal
+
+    // example: width = 100 [pixels] and length = 3 [samples]
+    //          -> samples should be at positions 0, 49.5 and 99
+    //          -> 49.5 [pixels / sample]
+    //          -> zoom = 1 / 49.5 [samples / pixel]
+    // => full zoom [samples/pixel] = (length-1) / (width-1)
+    return (double)(m_signal_manager.length() - 1) / (double)(width - 1);
 }
 
 //***************************************************************************
 void SignalWidget::setZoom(double new_zoom)
 {
     m_zoom = new_zoom;
+    fixZoomAndOffset();
+
+    // forward the zoom and offset to all track pixmaps
+    unsigned int n_tracks = tracks();
+    for (unsigned int i = 0; i < n_tracks; i++) {
+	TrackPixmap *pix = m_track_pixmaps.at(i);
+	ASSERT(pix);
+	if (!pix) continue;
+	
+	pix->setOffset(m_offset);
+	pix->setZoom(m_zoom);
+    }
 }
 
 //***************************************************************************
 void SignalWidget::fixZoomAndOffset()
 {
-//    double max_zoom;
-//    double min_zoom;
-//    int length;
+    double max_zoom;
+    double min_zoom;
+    int length;
 //    double last_zoom = m_zoom;
-//    int last_offset = offset;
-//
-//    if (!signalmanage) return ;
-//    length = signalmanage->getLength();
-//
-//    ASSERT(width);
-//    if (!width) return;
-//
-//    // ensure that offset is [0...length-1]
-//    if (offset < 0) offset = 0;
-//    if (offset > length - 1) offset = length - 1;
-//
-//    // ensure that the zoom is in a proper range
-//    max_zoom = getFullZoom();
-//    min_zoom = (double)MINIMUM_SAMPLES_PER_SCREEN / (double)width;
-//    if (m_zoom < min_zoom) m_zoom = min_zoom;
-//    if (m_zoom > max_zoom) m_zoom = max_zoom;
-//
-//    // try to correct the offset if there is not enough data to fill
-//    // the current window
-//    // example: width=100 [pixel], length=3 [samples],
-//    //          offset=1 [sample], zoom=1/49.5 [samples/pixel] (full)
-//    //          -> current last displayed sample = length-offset
-//    //             = 3 - 1 = 2
-//    //          -> available space = pixels2samples(width-1) + 1
-//    //             = (99/49.5) + 1 = 3
-//    //          -> decrease offset by 3 - 2 = 1
-//    if ( (offset > 0) && (pixels2samples(width - 1) + 1 > length - offset)) {
-//	// there is space after the signal -> move offset left
-//	offset -= pixels2samples(width - 1) + 1 - (length - offset);
-//	if (offset < 0) offset = 0;
-//    }
-//
-//    // if reducing the offset was not enough, zoom in
-//    if (pixels2samples(width - 1) + 1 > length - offset) {
-//	// there is still space after the signal -> zoom in
-//	// (this should never happen as the zoom has been limited before)
-//	m_zoom = max_zoom;
-//    }
-//
-////    // adjust the zoom factor in order to make a whole number
-////    // of samples fit into the current window
-////    int samples = pixels2samples(width) + 1;
-////    zoom = (double)(samples) / (double)(width - 1);
-//
-//    // do some final range checking
-//    if (m_zoom < min_zoom) m_zoom = min_zoom;
-//    if (m_zoom > max_zoom) m_zoom = max_zoom;
-//
-//    if ((m_zoom != last_zoom) || (offset != last_offset))
+//    int last_offset = m_offset;
+
+    length = m_signal_manager.length();
+
+    if (!width) return;
+
+    // ensure that m_offset is [0...length-1]
+    if (m_offset < 0) m_offset = 0;
+    if (m_offset > length - 1) m_offset = length - 1;
+
+    // ensure that the zoom is in a proper range
+    max_zoom = getFullZoom();
+    min_zoom = (double)MINIMUM_SAMPLES_PER_SCREEN / (double)width;
+    if (m_zoom < min_zoom) m_zoom = min_zoom;
+    if (m_zoom > max_zoom) m_zoom = max_zoom;
+
+    // try to correct the offset if there is not enough data to fill
+    // the current window
+    // example: width=100 [pixels], length=3 [samples],
+    //          offset=1 [sample], zoom=1/49.5 [samples/pixel] (full)
+    //          -> current last displayed sample = length-offset
+    //             = 3 - 1 = 2
+    //          -> available space = pixels2samples(width-1) + 1
+    //             = (99/49.5) + 1 = 3
+    //          -> decrease offset by 3 - 2 = 1
+    if ( (m_offset > 0) && (pixels2samples(width - 1) + 1 > length - m_offset)) {
+	// there is space after the signal -> move offset left
+	m_offset -= pixels2samples(width - 1) + 1 - (length - m_offset);
+	if (m_offset < 0) m_offset = 0;
+    }
+
+    // if reducing the offset was not enough, zoom in
+    if (pixels2samples(width - 1) + 1 > length - m_offset) {
+	// there is still space after the signal -> zoom in
+	// (this should never happen as the zoom has been limited before)
+	m_zoom = max_zoom;
+    }
+
+// this made some strange effects, so I disabled it :-[
+//    // adjust the zoom factor in order to make a whole number
+//    // of samples fit into the current window
+//    int samples = pixels2samples(width) + 1;
+//    zoom = (double)(samples) / (double)(width - 1);
+
+    // do some final range checking
+    if (m_zoom < min_zoom) m_zoom = min_zoom;
+    if (m_zoom > max_zoom) m_zoom = max_zoom;
+
+//    if ((m_zoom != last_zoom) || (m_offset != last_offset))
 //	emit zoomInfo(m_zoom);
 }
 
 //***************************************************************************
 void SignalWidget::zoomAll()
 {
-//    if (!signalmanage) return;
-//    setZoom(getFullZoom());
-//    refreshAllLayers();
+    setZoom(getFullZoom());
+    refreshAllLayers();
 }
 
 //***************************************************************************
 void SignalWidget::zoomNormal()
 {
-//    if (!signalmanage) return ;
-//    setOffset(offset + pixels2samples(width) / 2);
+//    setOffset(m_offset + pixels2samples(width) / 2);
 //    setZoom(1.0);
-//    setOffset(offset - pixels2samples(width) / 2);
+//    setOffset(m_offset - pixels2samples(width) / 2);
 //    refreshAllLayers();
 }
 
 //***************************************************************************
 void SignalWidget::zoomOut()
 {
-//    setOffset(offset + pixels2samples(width) / 2);
+//    setOffset(m_offset + pixels2samples(width) / 2);
 //    setZoom(m_zoom*3);
-//    setOffset(offset - pixels2samples(width) / 2);
+//    setOffset(m_offset - pixels2samples(width) / 2);
 //    refreshAllLayers();
 }
 
 //***************************************************************************
 void SignalWidget::zoomIn()
 {
-//    setOffset(offset + pixels2samples(width) / 2);
+//    setOffset(m_offset + pixels2samples(width) / 2);
 //    setZoom(m_zoom / 3);
-//    setOffset(offset - pixels2samples(width) / 2);
+//    setOffset(m_offset - pixels2samples(width) / 2);
 //    refreshAllLayers();
 }
 
@@ -726,15 +732,16 @@ void SignalWidget::zoomRange()
 //***************************************************************************
 void SignalWidget::resizeEvent(QResizeEvent *)
 {
+//    debug("SignalWidget::resizeEvent");
 //    int maxofs = pixels2samples(width - 1) + 1;
 //    int length = (signalmanage) ? signalmanage->getLength() : 0;
-//    emit viewInfo(offset, maxofs, length);
+//    emit viewInfo(m_offset, maxofs, length);
 }
 
 //***************************************************************************
 void SignalWidget::refreshAllLayers()
 {
-    debug("SignalWidget::refreshAllLayers()");
+//    debug("SignalWidget::refreshAllLayers()");
 
     for (int i=0; i < 3; i++) {
 	m_update_layer[i] = true;
@@ -749,7 +756,7 @@ void SignalWidget::refreshAllLayers()
 //    if (rate) emit rateInfo(rate);
 //
 //    int maxofs = pixels2samples(width - 1) + 1;
-//    emit viewInfo(offset, maxofs, length);
+//    emit viewInfo(m_offset, maxofs, length);
 //    emit lengthInfo(length);
 //    emit zoomInfo(m_zoom);
 
@@ -780,7 +787,7 @@ void SignalWidget::refreshLayer(int layer)
 //***************************************************************************
 void SignalWidget::slot_setOffset(int /*new_offset*/)
 {
-//    if (new_offset != offset) {
+//    if (new_offset != m_offset) {
 //	setOffset(new_offset);
 //	refreshAllLayers();
 //    }
@@ -811,7 +818,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *)
 //    if (m_playback_controller.running()) return;
 //
 //    if (e->button() == LeftButton) {
-//	int x = offset + pixels2samples(e->pos().x());
+//	int x = m_offset + pixels2samples(e->pos().x());
 //	down = true;
 //	(checkPosition(x)) ? select->grep(x) : select->set(x, x);
 //    }
@@ -834,7 +841,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent */*e*/)
 //    if (m_playback_controller.running()) return;
 //
 //    if (down) {
-//	int x = offset + pixels2samples(e->pos().x());
+//	int x = m_offset + pixels2samples(e->pos().x());
 ////	if (x >= length) x = length - 1;    //check for some bounds
 //	if (x < 0) x = 0;
 //	select->update(x);
@@ -880,13 +887,13 @@ void SignalWidget::mouseMoveEvent( QMouseEvent */*e*/ )
 //	int mx = e->pos().x();
 //	if (mx < 0) mx = 0;
 //	if (mx >= width) mx = width-1;
-//	int x = offset + pixels2samples(mx);
+//	int x = m_offset + pixels2samples(mx);
 //	if (x < 0) x = 0;
 //	select->update(x);
 //	selectRange(select->left(), select->right());
 //    } else {
 //	//yes, this code gives the nifty cursor change....
-//	if (checkPosition(offset+pixels2samples(e->pos().x())))
+//	if (checkPosition(m_offset+pixels2samples(e->pos().x())))
 //	    setCursor(sizeHorCursor);
 //	else
 //	    setCursor(arrowCursor);
@@ -909,7 +916,7 @@ void SignalWidget::drawOverviewSignal(int /*channel*/, int /*middle*/, int /*hei
 //    scale_y = height * zoomy / (1 << 24);
 //
 //    for (int i = 0; i < width; i++) {
-//	step = offset + pixels2samples(i);
+//	step = m_offset + pixels2samples(i);
 //	signalmanage->getMaxMin(channel, max, min, step, pixels2samples(1));
 //	max = (int)(max * scale_y);
 //	min = (int)(min * scale_y);
@@ -1036,8 +1043,8 @@ void SignalWidget::drawInterpolatedSignal(int /*channel*/, int /*middle*/, int /
 //    x = samples2pixels(sample);
 //    sig = sig_buffer + (N / 2);
 //    while (x <= width + N / 2) {
-//	if ((x >= -N / 2) && (offset + sample < length)) {
-//	    sig[x] = signalmanage->singleSample(channel, offset + sample) *
+//	if ((x >= -N / 2) && (m_offset + sample < length)) {
+//	    sig[x] = signalmanage->singleSample(channel, m_offset + sample) *
 //		     scale_y;
 //	}
 //	sample++;
@@ -1107,7 +1114,7 @@ void SignalWidget::drawPolyLineSignal(int /*channel*/, int /*middle*/, int /*hei
 //    i = 0;
 //    while (x < width) {
 //	// mark original samples
-//	y = (int)(signalmanage->singleSample(channel, offset + sample) *
+//	y = (int)(signalmanage->singleSample(channel, m_offset + sample) *
 //		  scale_y);
 //	points->setPoint(i++, x, middle - y);
 //
@@ -1127,9 +1134,9 @@ void SignalWidget::drawPolyLineSignal(int /*channel*/, int /*middle*/, int /*hei
 //
 //	x1 = samples2pixels(sample - 1);
 //	x2 = samples2pixels(sample);
-//	y1 = (int)(signalmanage->singleSample(channel, offset + sample - 1) *
+//	y1 = (int)(signalmanage->singleSample(channel, m_offset + sample - 1) *
 //		   scale_y);
-//	y2 = (int)(signalmanage->singleSample(channel, offset + sample) *
+//	y2 = (int)(signalmanage->singleSample(channel, m_offset + sample) *
 //		   scale_y);
 //
 //	x = width - 1;
@@ -1170,14 +1177,14 @@ void SignalWidget::paintEvent(QPaintEvent *)
 
     width = QWidget::width();
     height = QWidget::height();
-    debug("SignalWidget::paintEvent(): width=%d, height=%d",width,height);
+//    debug("SignalWidget::paintEvent(): width=%d, height=%d",width,height);
 
     // --- detect size changes and refresh the whole display ---
     if ((width != lastWidth) || (height != lastHeight)) {
-	debug("SignalWidget::paintEvent(): window size changed");
+//	debug("SignalWidget::paintEvent(): window size changed");
 	for (int i=0; i<3; i++) {
-	    if (layer[i]) delete layer[i];
-	    layer[i] = 0;
+	    if (m_layer[i]) delete m_layer[i];
+	    m_layer[i] = 0;
 	    m_update_layer[i] = true;
 	}
 	if (!pixmap) delete pixmap;
@@ -1189,41 +1196,40 @@ void SignalWidget::paintEvent(QPaintEvent *)
     }
 
     // --- repaint of the signal layer ---
-    if ( m_update_layer[LAYER_SIGNAL] || !layer[LAYER_SIGNAL]) {
-	if (!layer[LAYER_SIGNAL])
-	     layer[LAYER_SIGNAL] = new QPixmap(size());
-	ASSERT(layer[LAYER_SIGNAL]);
-	if (!layer[LAYER_SIGNAL]) return;
+    if ( m_update_layer[LAYER_SIGNAL] || !m_layer[LAYER_SIGNAL]) {
+	if (!m_layer[LAYER_SIGNAL])
+	     m_layer[LAYER_SIGNAL] = new QPixmap(size());
+	ASSERT(m_layer[LAYER_SIGNAL]);
+	if (!m_layer[LAYER_SIGNAL]) return;
 	
-	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
-	p.begin(layer[LAYER_SIGNAL]);
+//	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
+	p.begin(m_layer[LAYER_SIGNAL]);
 
 	p.setPen(white);
 	p.setRasterOp(CopyROP);
 	p.fillRect(0, 0, width, height, black);
 
-	// check and correct m_zoom and offset
+	// check and correct m_zoom and m_offset
 	fixZoomAndOffset();
 
 	int track_height = (n_tracks) ? (height / n_tracks) : 0;
-	int zero = (track_height >> 1);
-
+	int top = 0;
 	for (unsigned int i = 0; i < n_tracks; i++) {
-	    if (!m_signal_manager.isEmpty()) {
-		if (m_zoom < 0.1) {
-		    drawInterpolatedSignal(i, zero, track_height);
-		} else if (m_zoom <= 1.0)
-		    drawPolyLineSignal(i, zero, track_height);
-		else
-		    drawOverviewSignal(i, zero, track_height,
-		                       0, m_zoom*width);
+	    TrackPixmap *pix = m_track_pixmaps.at(i);
+	    ASSERT(pix);
+	    if (!pix) continue;
+	
+	    // fix the width and height of the track pixmap
+	    if ((pix->width() != width) || (pix->height() != track_height)) {
+//		debug("SignalWidget::paintEvent(): resizing track %d",i); // ###
+		pix->resize(width, track_height);
 	    }
-
-	    // draw the baseline
-	    p.setPen(green);
-	    p.drawLine(0, zero, width, zero);
-	    p.setPen(white);
-	    zero += track_height;
+	
+//	    debug("SignalWidget::paintEvent(): redrawing track %d",i); // ###
+	    bitBlt(m_layer[LAYER_SIGNAL], 0, top,
+		pix, 0, 0, width, track_height, CopyROP);
+	
+	    top += track_height;
 	}
 
 	p.flush();
@@ -1234,14 +1240,14 @@ void SignalWidget::paintEvent(QPaintEvent *)
     }
 
     // --- repaint of the markers layer ---
-    if ( m_update_layer[LAYER_MARKERS] || !layer[LAYER_MARKERS] ) {
-	if (!layer[LAYER_MARKERS])
-	     layer[LAYER_MARKERS] = new QPixmap(size());
-	ASSERT(layer[LAYER_MARKERS]);
-	if (!layer[LAYER_MARKERS]) return;
+    if ( m_update_layer[LAYER_MARKERS] || !m_layer[LAYER_MARKERS] ) {
+	if (!m_layer[LAYER_MARKERS])
+	     m_layer[LAYER_MARKERS] = new QPixmap(size());
+	ASSERT(m_layer[LAYER_MARKERS]);
+	if (!m_layer[LAYER_MARKERS]) return;
 
-	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
-	p.begin(layer[LAYER_MARKERS]);
+//	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
+	p.begin(m_layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, width, height, black);
 	
 	// ### nothing to do yet
@@ -1254,25 +1260,25 @@ void SignalWidget::paintEvent(QPaintEvent *)
     }
 
     // --- repaint of the selection layer ---
-    if (( m_update_layer[LAYER_SELECTION] || !layer[LAYER_SELECTION] )) {
-	if (!layer[LAYER_SELECTION])
-	    layer[LAYER_SELECTION] = new QPixmap(size());
-	ASSERT(layer[LAYER_SELECTION]);
-	if (!layer[LAYER_SELECTION]) return;
+    if (( m_update_layer[LAYER_SELECTION] || !m_layer[LAYER_SELECTION] )) {
+	if (!m_layer[LAYER_SELECTION])
+	    m_layer[LAYER_SELECTION] = new QPixmap(size());
+	ASSERT(m_layer[LAYER_SELECTION]);
+	if (!m_layer[LAYER_SELECTION]) return;
 
-	debug("SignalWidget::paintEvent(): - redraw of selection layer -");
+//	debug("SignalWidget::paintEvent(): - redraw of selection layer -");
 	
-	p.begin(layer[LAYER_SELECTION]);
+	p.begin(m_layer[LAYER_SELECTION]);
 	p.fillRect(0, 0, width, height, black);
 	p.setRasterOp(CopyROP);
 	
 	if (select && n_tracks) {
 	    int left  = select->left();
 	    int right = select->right();
-	    if ((right > offset) && (left < offset+pixels2samples(width))) {
+	    if ((right > m_offset) && (left < m_offset+pixels2samples(width))) {
 		// transform to pixel coordinates
-		left  = samples2pixels(left - offset);
-		right = samples2pixels(right - offset);
+		left  = samples2pixels(left - m_offset);
+		right = samples2pixels(right - m_offset);
 
 		if (left < 0) left = 0;
 		if (right >= width) right = width-1;
@@ -1304,9 +1310,9 @@ void SignalWidget::paintEvent(QPaintEvent *)
 
     if (update_pixmap) {
 	for (int i=0; i < 3; i++) {
-	    if (layer[i]) bitBlt(
+	    if (m_layer[i]) bitBlt(
 		pixmap, 0, 0,
-		layer[i], 0, 0,
+		m_layer[i], 0, 0,
 		width, height, m_layer_rop[i]
 	    );
 	}
@@ -1315,7 +1321,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 
     // --- redraw the playpointer if a signal is present ---
     playpointer = samples2pixels(
-	m_playback_controller.currentPos() - offset);
+	m_playback_controller.currentPos() - m_offset);
 
     if (n_tracks) {
 	p.begin(pixmap);
@@ -1395,8 +1401,7 @@ int SignalWidget::pixels2samples(int pixels)
 //***************************************************************************
 int SignalWidget::samples2pixels(int samples)
 {
-    ASSERT(m_zoom);
-    if (m_zoom==0) return 0;
+    if (m_zoom==0.0) return 0;
     return (int)(samples / m_zoom);
 }
 
@@ -1985,7 +1990,7 @@ void SignalWidget::updatePlaybackPointer(unsigned int /*pos*/)
 //***************************************************************************
 void SignalWidget::slotTrackInserted(unsigned int track)
 {
-    debug("SignalWidget(): slotTrackInserted(%u)", track);
+//    debug("SignalWidget(): slotTrackInserted(%u)", track);
 
     // insert a new track into the track pixmap list
     TrackPixmap *pix = new TrackPixmap();
@@ -1993,38 +1998,43 @@ void SignalWidget::slotTrackInserted(unsigned int track)
     m_track_pixmaps.insert(track, pix);
     if (!pix) return;
 
-    // set offset and zoom factor
-    pix->setOffset(offset);
-    pix->setZoom(m_zoom);
-
     // connect all signals
+    // ###
 
-    // redraw the signal
-    // refreshLayer(LAYER_SIGNAL);
+    // emit the signal sigTrackInserted now, so that the signal widget
+    // gets resized if needed, but the new pixmap is still empty
+    emit sigTrackInserted(track);
+
+    // redraw the signal if the track has not already been drawn
+    if ((pix->height() <= 0) && (pix->width() <= 0)) {
+	debug("SignalWidget(): slotTrackInserted(): need refresh"); // ###
+	refreshLayer(LAYER_SIGNAL);
+    }
+
 }
 
 //***************************************************************************
 void SignalWidget::slotSamplesInserted(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-    debug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
-	offset, length);
+//    debug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
+//	offset, length);
 }
 
 //***************************************************************************
 void SignalWidget::slotSamplesDeleted(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-    debug("SignalManager(): slotSamplesDeleted(%u, %u,%u)", track,
-	offset, length);
+//    debug("SignalManager(): slotSamplesDeleted(%u, %u,%u)", track,
+//	offset, length);
 }
 
 //***************************************************************************
 void SignalWidget::slotSamplesModified(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
-	offset, length);
+//    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
+//	offset, length);
 }
 
 //***************************************************************************

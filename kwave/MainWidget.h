@@ -142,14 +142,15 @@ private slots:
      */
     void forwardZoomChanged(double zoom);
 
-    /* *
-     * Called if a channel has been added. Updates the display by
+    /**
+     * Called if a track has been added. Updates the display by
      * resizing/re-positioning the channel controls and the signal
      * display.
-     * @see #channelDeleted()
-     * @param channel index of the added channel [0..n]
+     * @param track index of the inserted track
+     * @see SignalWidget::trackInserted
+     * @internal
      */
-    // void channelAdded(unsigned int channel);
+    void slotTrackInserted(unsigned int track);
 
     /* *
      * Called if a channel has been deleted. Updates the display by
@@ -192,7 +193,9 @@ private:
 
     QAccel *keys;
     OverViewWidget *m_slider;
-    SignalWidget *signalview;
+
+    /** the widget that shows the signal */
+    SignalWidget *m_signal_widget;
 
     /** Our top widget's status bar */
     KStatusBar &m_status;

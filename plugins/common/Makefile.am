@@ -23,7 +23,7 @@ INCLUDES += @all_includes@
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
 
 CXXFLAGS  = @CXXFLAGS@ -fPIC
-LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles -nostdlib
+LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles
 
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))

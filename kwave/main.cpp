@@ -109,6 +109,9 @@ void addDataStrings(KAboutData& aboutdata)
 
 }
 
+/* forward declaration to libkwave/memcpy.c */
+extern "C" void probe_fast_memcpy(void);
+
 //***************************************************************************
 int main( int argc, char **argv )
 {
@@ -128,6 +131,9 @@ int main( int argc, char **argv )
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineArgs::addCmdLineOptions(options);
     KwaveApp::addCmdLineOptions();
+
+     /* check for an optimized version of memcpy() */
+    probe_fast_memcpy();
 
 #ifdef UNIQUE_APP
     if (!KUniqueApplication::start()) {

@@ -5,6 +5,7 @@
 class QPixmap;
 class QPaintEvent;
 
+#include "config.h"
 #include <qpainter.h>
 #include <qwidget.h>
 

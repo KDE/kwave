@@ -18,6 +18,7 @@
 #ifndef _PLAY_BACK_DIALOG_H_
 #define _PLAY_BACK_DIALOG_H_
 
+#include "config.h"
 #include <kdialog.h>
 
 #include "PlayBackParam.h" // for playback_param_t

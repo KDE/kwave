@@ -16,8 +16,9 @@
  ***************************************************************************/
 
 #ifndef _MENU_SUB_H_
-#define _MENU_SUB_H_ 1
+#define _MENU_SUB_H_
 
+#include "config.h"
 #include <qpopupmenu.h>
 #include "MenuItem.h"
 

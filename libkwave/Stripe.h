@@ -18,11 +18,11 @@
 #ifndef _STRIPE_H_
 #define _STRIPE_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qarray.h>
 
 #include "mt/Mutex.h"
-
 #include "libkwave/Sample.h"
 
 //***************************************************************************

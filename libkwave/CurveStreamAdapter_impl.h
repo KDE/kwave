@@ -18,6 +18,7 @@
 #ifndef _CURVE_STREAM_ADAPTER_H_
 #define _CURVE_STREAM_ADAPTER_H_
 
+#include "config.h"
 #include <arts/artsflow.h>
 #include <arts/stdsynthmodule.h>
 

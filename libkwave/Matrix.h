@@ -18,6 +18,8 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 
+#include "config.h"
+
 template <class T> class Matrix
 {
 

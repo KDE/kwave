@@ -18,6 +18,7 @@
 #ifndef _SIGNAL_MANAGER_H_
 #define _SIGNAL_MANAGER_H_
 
+#include "config.h"
 #include <stdio.h>
 
 #include <qobject.h>

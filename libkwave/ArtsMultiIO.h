@@ -18,6 +18,7 @@
 #ifndef _ARTS_MULTI_IO_H_
 #define _ARTS_MULTI_IO_H_
 
+#include "config.h"
 #include <qglobal.h> // for warning()
 #include <qvector.h>
 #include <arts/artsflow.h>

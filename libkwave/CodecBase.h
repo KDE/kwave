@@ -18,6 +18,7 @@
 #ifndef _CODEC_BASE_H_
 #define _CODEC_BASE_H_
 
+#include "config.h"
 #include <qlist.h>
 
 class KMimeType;

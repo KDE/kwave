@@ -18,6 +18,7 @@
 #ifndef _SIGNAL_WIDGET_H_
 #define _SIGNAL_WIDGET_H_
 
+#include "config.h"
 #include <qdragobject.h>
 #include <qlist.h>
 #include <qtimer.h>

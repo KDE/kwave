@@ -18,6 +18,7 @@
 #ifndef _UNDO_INSERT_ACTION_H_
 #define _UNDO_INSERT_ACTION_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qstring.h>
 #include "UndoAction.h"

@@ -18,6 +18,7 @@
 #ifndef _ZERO_PLUGIN_H_
 #define _ZERO_PLUGIN_H_
 
+#include "config.h"
 #include <qstring.h>
 #include "libkwave/Sample.h"
 #include "libgui/KwavePlugin.h"

@@ -18,6 +18,8 @@
 #ifndef _TRIPLE_H_
 #define _TRIPLE_H_
 
+#include "config.h"
+
 template <class T1, class T2, class T3> class Triple
 {
 public:

@@ -18,6 +18,8 @@
 #ifndef _PLUGIN_CONTEXT_H_
 #define _PLUGIN_CONTEXT_H_
 
+#include "config.h"
+
 class KwaveApp;
 class PluginManager;
 class MenuManager;

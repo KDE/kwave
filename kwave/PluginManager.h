@@ -18,6 +18,7 @@
 #ifndef _PLUGIN_MANAGER_H_
 #define _PLUGIN_MANAGER_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qarray.h>
 #include <qlist.h>

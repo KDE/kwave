@@ -1,6 +1,7 @@
 #ifndef _FLOAT_LINE_H_
-#define _FLOAT_LINE_H_ 1
+#define _FLOAT_LINE_H_
 
+#include "config.h"
 #include <krestrictedline.h>
 
 class FloatLine : public KRestrictedLine

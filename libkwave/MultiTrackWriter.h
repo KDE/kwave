@@ -19,6 +19,7 @@
 #ifndef _MULTI_TRACK_WRITER_H_
 #define _MULTI_TRACK_WRITER_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qvector.h>
 #include "SampleWriter.h"

@@ -18,6 +18,7 @@
 #ifndef _WAV_CODEC_PLUGIN_H_
 #define _WAV_CODEC_PLUGIN_H_
 
+#include "config.h"
 #include "libgui/KwavePlugin.h"
 
 class Encoder;

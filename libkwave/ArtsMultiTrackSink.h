@@ -18,6 +18,7 @@
 #ifndef _ARTS_MULTI_TRACK_SINK_H_
 #define _ARTS_MULTI_TRACK_SINK_H_
 
+#include "config.h"
 #include "libkwave/ArtsMultiSink.h"
 #include "libkwave/ArtsMultiIO.h"
 #include "libkwave/ArtsSampleSink.h"

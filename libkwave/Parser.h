@@ -19,6 +19,7 @@
 #ifndef _PARSER_H_
 #define _PARSER_H_
 
+#include "config.h"
 #include <qstring.h>
 #include <qstringlist.h>
 

@@ -18,6 +18,7 @@
 #ifndef _SAMPLE_WRITER_H_
 #define _SAMPLE_WRITER_H_
 
+#include "config.h"
 #include <qarray.h>
 #include <qlist.h>
 #include <qobject.h>

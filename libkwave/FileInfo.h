@@ -18,6 +18,7 @@
 #ifndef _FILE_INFO_H_
 #define _FILE_INFO_H_
 
+#include "config.h"
 #include <qmap.h>
 #include <qstring.h>
 #include <qvariant.h>

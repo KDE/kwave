@@ -18,6 +18,7 @@
 #ifndef _RIFF_CHUNK_H_
 #define _RIFF_CHUNK_H_
 
+#include "config.h"
 #include <sys/types.h>
 #include <qlist.h>
 #include <qstring.h>

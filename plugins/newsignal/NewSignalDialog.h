@@ -18,6 +18,7 @@
 #ifndef _NEW_SIGNAL_DIALOG_H_
 #define _NEW_SIGNAL_DIALOG_H_
 
+#include "config.h"
 #include <qtimer.h>
 #include <qwidget.h>
 #include "NewSigDlg.uih.h"

@@ -18,6 +18,7 @@
 #ifndef _ARTS_MULTI_SOURCE_H_
 #define _ARTS_MULTI_SOURCE_H_
 
+#include "config.h"
 #include <arts/artsflow.h>
 
 class ArtsMultiSource

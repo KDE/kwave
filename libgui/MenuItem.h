@@ -18,6 +18,7 @@
 #ifndef _MENU_ITEM_H_
 #define _MENU_ITEM_H_
 
+#include "config.h"
 #include <qstring.h>
 #include "MenuNode.h"
 

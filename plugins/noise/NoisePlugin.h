@@ -18,6 +18,7 @@
 #ifndef _NOISE_PLUGIN_H_
 #define _NOISE_PLUGIN_H_
 
+#include "config.h"
 #include <qstring.h>
 #include <qstringlist.h>
 

@@ -18,6 +18,7 @@
 #ifndef _ABOUT_PLUGIN_H_
 #define _ABOUT_PLUGIN_H_
 
+#include "config.h"
 #include <qstring.h>
 #include "libgui/KwavePlugin.h"
 

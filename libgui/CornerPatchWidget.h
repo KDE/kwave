@@ -1,6 +1,7 @@
 #ifndef _CORNER_PATCH_WIDGET_H_
-#define _CORNER_PATCH_WIDGET_H_ 1
+#define _CORNER_PATCH_WIDGET_H_
 
+#include "config.h"
 #include <qwidget.h>
 
 class QPaintEvent;

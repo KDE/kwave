@@ -18,6 +18,7 @@
 #ifndef _ARTS_MULTI_TRACK_SOURCE_H_
 #define _ARTS_MULTI_TRACK_SOURCE_H_
 
+#include "config.h"
 #include "libkwave/ArtsMultiSource.h"
 #include "libkwave/ArtsMultiIO.h"
 #include "libkwave/ArtsSampleSource.h"

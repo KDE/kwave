@@ -16,8 +16,9 @@
  ***************************************************************************/
 
 #ifndef _MENU_ROOT_H_
-#define _MENU_ROOT_H_ 1
+#define _MENU_ROOT_H_
 
+#include "config.h"
 #include "qdict.h"
 #include "MenuNode.h"
 

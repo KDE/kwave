@@ -19,6 +19,7 @@
 #ifndef _CLIP_BOARD_H_
 #define _CLIP_BOARD_H_
 
+#include "config.h"
 #include <qarray.h>
 #include <qlist.h>
 #include "mt/SharedLock.h"

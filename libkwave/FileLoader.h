@@ -18,6 +18,7 @@
 #ifndef _FILE_LOADER_H_
 #define _FILE_LOADER_H_
 
+#include "config.h"
 #include <qcstring.h>
 
 class QString;

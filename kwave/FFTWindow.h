@@ -1,6 +1,7 @@
 #ifndef _FFT_WINDOW_H_
-#define _FFT_WINDOW_H_ 1
+#define _FFT_WINDOW_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qwidget.h> // ###
 //#include <ktmainwindow.h>

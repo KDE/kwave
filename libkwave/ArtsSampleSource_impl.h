@@ -18,6 +18,7 @@
 #ifndef _ARTS_SAMPLE_SOURCE_H_
 #define _ARTS_SAMPLE_SOURCE_H_
 
+#include "config.h"
 #include <arts/artsflow.h>
 #include <arts/stdsynthmodule.h>
 

@@ -16,8 +16,9 @@
  ***************************************************************************/
 
 #ifndef _LABEL_MANAGER_H_
-#define _LABEL_MANAGER_H_ 1
+#define _LABEL_MANAGER_H_
 
+#include "config.h"
 #include "qobject.h"
 
 /**

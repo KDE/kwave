@@ -4,12 +4,11 @@
 
 #define PROGRESS_SIZE 512*3*5
 
+#include "config.h"
 #include <pthread.h>
-
 #include <qlist.h>
 
 #include "mt/SharedLock.h"
-
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"

@@ -18,6 +18,7 @@
 #ifndef _AMPLIFY_FREE_PLUGIN_H_
 #define _AMPLIFY_FREE_PLUGIN_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qstring.h>
 #include <qstringlist.h>

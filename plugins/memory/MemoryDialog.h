@@ -18,6 +18,7 @@
 #ifndef _MEMORY_DIALOG_H_
 #define _MEMORY_DIALOG_H_
 
+#include "config.h"
 #include <qobject.h>
 #include "MemDlg.uih.h"
 

@@ -18,6 +18,7 @@
 #ifndef _ARTS_MULTI_TRACK_FILTER_H_
 #define _ARTS_MULTI_TRACK_FILTER_H_
 
+#include "config.h"
 #include <string.h>
 #include "libkwave/ArtsMultiSource.h"
 #include "libkwave/ArtsMultiSink.h"

@@ -18,6 +18,7 @@
 #ifndef _KWAVE_PLUGIN_H_
 #define _KWAVE_PLUGIN_H_
 
+#include "config.h"
 #include <qarray.h>
 #include <qvector.h>
 #include <qobject.h>

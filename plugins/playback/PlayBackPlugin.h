@@ -18,6 +18,7 @@
 #ifndef _PLAY_BACK_PLUGIN_H_
 #define _PLAY_BACK_PLUGIN_H_
 
+#include "config.h"
 #include <qstring.h>
 
 #include "mt/Mutex.h"

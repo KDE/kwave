@@ -19,6 +19,7 @@
 #ifndef KWAVEABOUTCONTAINER_H
 #define KWAVEABOUTCONTAINER_H
 
+#include "config.h"
 #include <kaboutdata.h>
 #include <kaboutdialog.h>
 #include <qwidget.h>

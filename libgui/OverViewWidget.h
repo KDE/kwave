@@ -18,6 +18,7 @@
 #ifndef _OVER_VIEW_WIDGET_H_
 #define _OVER_VIEW_WIDGET_H_
 
+#include "config.h"
 #include <qbitarray.h>
 #include <qcstring.h>
 #include <qlist.h>

@@ -1,6 +1,7 @@
 #ifndef _TIME_LINE_H_
-#define _TIME_LINE_H_ 1
+#define _TIME_LINE_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qpopupmenu.h>
 #include <qstring.h>

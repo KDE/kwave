@@ -19,6 +19,7 @@
 #ifndef _TOP_WIDGET_H_
 #define _TOP_WIDGET_H_
 
+#include "config.h"
 #include <qcstring.h>
 #include <qstringlist.h>
 #include <kmainwindow.h>

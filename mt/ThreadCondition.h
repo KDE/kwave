@@ -18,6 +18,7 @@
 #ifndef _THREAD_CONDITION_H_
 #define _THREAD_CONDITION_H_
 
+#include "config.h"
 #include <pthread.h>
 
 /**

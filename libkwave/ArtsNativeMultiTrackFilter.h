@@ -18,6 +18,7 @@
 #ifndef _ARTS_NATIVE_MULTI_TRACK_FILTER_H_
 #define _ARTS_NATIVE_MULTI_TRACK_FILTER_H_
 
+#include "config.h"
 #include <string.h>
 #include <qglobal.h> // for warning()
 #include <qvector.h>

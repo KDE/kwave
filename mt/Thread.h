@@ -18,6 +18,7 @@
 #ifndef _THREAD_H_
 #define _THREAD_H_
 
+#include "config.h"
 #include <pthread.h>       // for POSIX threads, included in libc > 2.0
 #include <qobject.h>
 #include "mt/TSS_Object.h"

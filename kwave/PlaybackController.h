@@ -18,6 +18,7 @@
 #ifndef _PLAYBACK_CONTROLLER_H_
 #define _PLAYBACK_CONTROLLER_H_
 
+#include "config.h"
 #include <qobject.h>
 
 /**

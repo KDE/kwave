@@ -1,6 +1,7 @@
 #ifndef _MENU_MANAGER_H_
-#define _MENU_MANAGER_H_ 1
+#define _MENU_MANAGER_H_
 
+#include "config.h"
 #include <qwidget.h>
 
 #include "mt/SignalProxy.h"

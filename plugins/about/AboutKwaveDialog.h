@@ -18,6 +18,7 @@
 #ifndef _ABOUT_KWAVE_DIALOG_H_
 #define _ABOUT_KWAVE_DIALOG_H_
 
+#include "config.h"
 #include <qobject.h>
 #include "KwaveAboutDialogBase.uih.h"
 

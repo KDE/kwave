@@ -18,9 +18,12 @@
 #ifndef _MAIN_WIDGET_H_
 #define _MAIN_WIDGET_H_
 
+#include "config.h"
 #include <qframe.h>
 #include <qlist.h>
 #include <qwidget.h>
+
+#include "kwave/SignalWidget.h"
 
 class QAccel;
 class QComboBox;
@@ -36,7 +39,6 @@ class OverViewWidget;
 class PlaybackController;
 class SignalManager;
 
-#include "kwave/SignalWidget.h"
 
 //***************************************************************************
 class MainWidget : public QWidget

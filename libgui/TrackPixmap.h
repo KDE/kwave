@@ -18,6 +18,7 @@
 #ifndef _TRACK_PIXMAP_H_
 #define _TRACK_PIXMAP_H_
 
+#include "config.h"
 #include <qarray.h>
 #include <qbitarray.h>
 #include <qcolor.h>

@@ -18,8 +18,8 @@
 #ifndef _MUTEX_SET_H_
 #define _MUTEX_SET_H_
 
+#include "config.h"
 #include <qlist.h>
-
 #include "mt/TSS_Object.h"
 
 class Mutex;

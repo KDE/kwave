@@ -16,8 +16,9 @@
  ***************************************************************************/
 
 #ifndef _IMAGEVIEW_H_
-#define _IMAGEVIEW_H_ 1
+#define _IMAGEVIEW_H_
 
+#include "config.h"
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qpixmap.h>

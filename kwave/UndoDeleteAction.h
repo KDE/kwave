@@ -18,6 +18,7 @@
 #ifndef _UNDO_DELETE_ACTION_H_
 #define _UNDO_DELETE_ACTION_H_
 
+#include "config.h"
 #include <qstring.h>
 #include "UndoModifyAction.h"
 

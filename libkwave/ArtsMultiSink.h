@@ -18,6 +18,7 @@
 #ifndef _ARTS_MULTI_SINK_H_
 #define _ARTS_MULTI_SINK_H_
 
+#include "config.h"
 #include <qglobal.h> // for fatal(...)
 #include <arts/artsflow.h>
 

@@ -3,6 +3,8 @@
 #ifndef _INTERPOLATION_H_
 #define _INTERPOLATION_H_
 
+#include "config.h"
+
 typedef enum {
     INTPOL_LINEAR = 0,
     INTPOL_SPLINE,

@@ -18,6 +18,7 @@
 #ifndef _PLAY_BACK_OSS_H_
 #define _PLAY_BACK_OSS_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qstring.h>
 

@@ -1,6 +1,7 @@
 #ifndef _FORMANT_WIDGET_H_
-#define _FORMANT_WIDGET_H_ 1
+#define _FORMANT_WIDGET_H_
 
+#include "config.h"
 #include <qwidget.h>
 
 //***********************************************************************

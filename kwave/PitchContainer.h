@@ -1,6 +1,7 @@
 #ifndef _PITCH_CONTAINER_H_
-#define _PITCH_CONTAINER_H_ 1
+#define _PITCH_CONTAINER_H_
 
+#include "config.h"
 #include <qwidget.h>
 
 class PitchWidget;

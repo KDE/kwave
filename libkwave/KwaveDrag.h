@@ -18,6 +18,7 @@
 #ifndef _KWAVE_DRAG_H_
 #define _KWAVE_DRAG_H_
 
+#include "config.h"
 #include <qcstring.h>
 #include <qdragobject.h>
 #include <qmime.h>

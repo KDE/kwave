@@ -19,6 +19,7 @@
 #ifndef _SAMPLE_READER_H_
 #define _SAMPLE_READER_H_
 
+#include "config.h"
 #include <qarray.h>
 #include <qlist.h>
 #include <qobject.h>

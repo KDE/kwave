@@ -1,6 +1,7 @@
 #ifndef _PITCH_WINDOW_H_
-#define _PITCH_WINDOW_H_ 1
+#define _PITCH_WINDOW_H_
 
+#include "config.h"
 #include <qwidget.h>
 
 //#include <ktopwidget.h>

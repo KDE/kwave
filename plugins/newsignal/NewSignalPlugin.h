@@ -18,6 +18,7 @@
 #ifndef _NEW_SIGNAL_PLUGIN_H_
 #define _NEW_SIGNAL_PLUGIN_H_
 
+#include "config.h"
 #include <qobject.h>
 #include "libgui/KwavePlugin.h"
 

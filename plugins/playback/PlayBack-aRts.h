@@ -18,9 +18,9 @@
 #ifndef _PLAY_BACK_ARTS_H_
 #define _PLAY_BACK_ARTS_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qstring.h>
-
 #include <artsc.h>
 
 #include "mt/Mutex.h"

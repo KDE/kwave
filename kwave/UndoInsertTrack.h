@@ -19,6 +19,7 @@
 #ifndef _UNDO_INSERT_TRACK_H_
 #define _UNDO_INSERT_TRACK_H_
 
+#include "config.h"
 #include <qstring.h>
 #include "kwave/UndoAction.h"
 

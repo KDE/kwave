@@ -22,6 +22,7 @@
 #ifndef _ASYNC_SYNC_H_
 #define _ASYNC_SYNC_H_
 
+#include "config.h"
 #include <qobject.h>
 #include "mt/Mutex.h"
 

@@ -1,6 +1,7 @@
 #ifndef _FFT_CONTAINER_H_
-#define _FFT_CONTAINER_H_ 1
+#define _FFT_CONTAINER_H_
 
+#include "config.h"
 #include <qwidget.h>
 
 class ScaleWidget;

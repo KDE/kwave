@@ -18,6 +18,7 @@
 #ifndef _THREADSAFE_X11_GUARD_H_
 #define _THREADSAFE_X11_GUARD_H_
 
+#include "config.h"
 #include <qobject.h>
 
 #include "mt/SignalProxy.h"

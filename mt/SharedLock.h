@@ -18,6 +18,7 @@
 #ifndef _SHARED_LOCK_H_
 #define _SHARED_LOCK_H_
 
+#include "config.h"
 #include "mt/TSS_Object.h"
 #include "mt/Mutex.h"
 #include "mt/ThreadCondition.h"

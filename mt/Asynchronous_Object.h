@@ -36,6 +36,7 @@
 #ifndef _ASYNCHRONOUS_OBJECT_H_
 #define _ASYNCHRONOUS_OBJECT_H_
 
+#include "config.h"
 #include "mt/Thread.h"
 
 template <class T>class Asynchronous_Object: public Thread

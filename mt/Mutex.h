@@ -18,6 +18,7 @@
 #ifndef _MUTEX_H_
 #define _MUTEX_H_
 
+#include "config.h"
 #include <pthread.h> // for POSIX threads, included in libc > 2.0
 
 /**

@@ -18,6 +18,7 @@
 #ifndef _SCALE_WIDGET_H_
 #define _SCALE_WIDGET_H_
 
+#include "config.h"
 #include <qpixmap.h>
 #include <qstring.h>
 #include <qwidget.h>

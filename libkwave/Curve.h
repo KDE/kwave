@@ -18,6 +18,7 @@
 #ifndef _CURVE_H_
 #define _CURVE_H_
 
+#include "config.h"
 #include <qarray.h>
 #include <qobject.h>
 #include <qstring.h>

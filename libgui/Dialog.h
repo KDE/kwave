@@ -16,8 +16,9 @@
  ***************************************************************************/
 
 #ifndef _DIALOG_H_
-#define _DIALOG_H_ 1
+#define _DIALOG_H_
 
+#include "config.h"
 #include <qdialog.h>
 
 #define OK     i18n("&Ok")

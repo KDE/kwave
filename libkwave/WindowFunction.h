@@ -18,10 +18,11 @@
 #ifndef _WINDOW_FUNCTION_H_
 #define _WINDOW_FUNCTION_H_
 
-class QString;
-
+#include "config.h"
 #include <qarray.h>
 #include "libkwave/TypesMap.h"
+
+class QString;
 
 /** enumeration of window functions */
 typedef enum {

@@ -18,6 +18,7 @@
 #ifndef _KWAVE_APP_H_
 #define _KWAVE_APP_H_
 
+#include "config.h"
 #include <qlist.h>
 #include <qstringlist.h>
 

@@ -18,6 +18,7 @@
 #ifndef _CONFIRM_CANCEL_PROXY_H_
 #define _CONFIRM_CANCEL_PROXY_H_
 
+#include "config.h"
 #include <qobject.h>
 
 class QString;

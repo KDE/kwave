@@ -18,6 +18,7 @@
 #ifndef _SHARED_LOCK_GUARD_H_
 #define _SHARED_LOCK_GUARD_H_
 
+#include "config.h"
 #include "mt/SharedLock.h"
 
 class SharedLock;

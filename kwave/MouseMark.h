@@ -18,6 +18,8 @@
 #ifndef _MOUSE_MARK_H_
 #define _MOUSE_MARK_H_
 
+#include "config.h"
+
 /**
  * @class MouseMark
  * Simple class that can be used whenever the user selects something

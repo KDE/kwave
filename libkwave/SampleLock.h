@@ -18,6 +18,8 @@
 #ifndef _SAMPLE_LOCK_H_
 #define _SAMPLE_LOCK_H_
 
+#include "config.h"
+
 class Track;
 
 /**

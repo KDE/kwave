@@ -18,6 +18,7 @@
 #ifndef _FILE_PROGRESS_H_
 #define _FILE_PROGRESS_H_
 
+#include "config.h"
 #include <qdatetime.h>
 #include <qsemimodal.h>
 #include <qurl.h>

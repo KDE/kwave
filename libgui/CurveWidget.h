@@ -18,6 +18,7 @@
 #ifndef _CURVE_WIDGET_H_
 #define _CURVE_WIDGET_H_
 
+#include "config.h"
 #include <qpixmap.h>
 #include <qpopupmenu.h>
 #include <qstring.h>

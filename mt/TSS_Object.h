@@ -18,6 +18,7 @@
 #ifndef _TSS_OBJECT_H_
 #define _TSS_OBJECT_H_
 
+#include "config.h"
 #include <pthread.h>
 
 /**

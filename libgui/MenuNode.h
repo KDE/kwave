@@ -16,8 +16,9 @@
  ***************************************************************************/
 
 #ifndef _MENU_NODE_H_
-#define _MENU_NODE_H_ 1
+#define _MENU_NODE_H_
 
+#include "config.h"
 #include <qobject.h>
 #include <qlist.h>
 #include <qdict.h>

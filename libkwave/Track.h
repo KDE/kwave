@@ -18,12 +18,12 @@
 #ifndef _TRACK_H_
 #define _TRACK_H_
 
+#include "config.h"
 #include <limits.h>  // for UINT_MAX
 #include <qobject.h>
 #include <qlist.h>
 
 #include "mt/SharedLock.h"
-
 #include "libkwave/InsertMode.h"
 #include "libkwave/SampleLock.h"
 #include "libkwave/Stripe.h"

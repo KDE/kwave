@@ -19,6 +19,7 @@
 #ifndef _UNDO_DELETE_TRACK_H_
 #define _UNDO_DELETE_TRACK_H_
 
+#include "config.h"
 #include <qarray.h>
 #include <qstring.h>
 #include "libkwave/Sample.h"

@@ -18,6 +18,7 @@
 #ifndef _SELECTION_H_
 #define _SELECTION_H_
 
+#include "config.h"
 #include <qobject.h>
 
 class Selection: public QObject

@@ -18,6 +18,7 @@
 #ifndef _SEMAPHORE_H_
 #define _SEMAPHORE_H_
 
+#include "config.h"
 #include <pthread.h>
 #include <semaphore.h>    // from POSIX threads / glibc
 #include "mt/TSS_Object.h"

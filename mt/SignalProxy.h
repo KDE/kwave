@@ -18,6 +18,7 @@
 #ifndef _SIGNAL_PROXY_H_
 #define _SIGNAL_PROXY_H_
 
+#include "config.h"
 #include <qqueue.h>
 #include "mt/AsyncSync.h"
 #include "mt/Mutex.h"

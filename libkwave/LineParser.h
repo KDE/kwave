@@ -18,6 +18,7 @@
 #ifndef _LINE_PARSER_H_
 #define _LINE_PARSER_H_
 
+#include "config.h"
 #include <qcstring.h>
 #include <qstring.h>
 

@@ -1,6 +1,6 @@
 
 # make sure all subdirs get a makefile....
-# dirs=`find . -type d | grep -v ./template | grep -v CVS | grep -v \\\.$$ | \
+# dirs=`find . -type d | grep -v ./common | grep -v CVS | grep -v \\\.$$ | \
 #	sed s°^\\\.\\\/°°g | sort`
 
 DISTCLEANFILES = Makefile.in Makefile
@@ -19,7 +19,7 @@ install uninstall clean distclean all rpm:
 	list=$(dirs); for subdir in $$list; do \
 	for template in Makefile.am Makefile.in Makefile; do \
 	  if test ! -e $$subdir/$$template; then \
-	ln -sfv ../template/$$template $$subdir; fi; \
+	ln -sfv ../common/$$template $$subdir; fi; \
 	done\
 	done
 	list=$(dirs); for subdir in $$list; do \

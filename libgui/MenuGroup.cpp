@@ -1,5 +1,5 @@
 /***************************************************************************
-			  MenuGroup.cpp  -  description
+	  MenuGroup.cpp  - controls a group of menu nodes
 			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -64,7 +64,6 @@ void MenuGroup::removeChild(MenuNode *child)
     if (!child) return;
     if (!m_children.contains(child)) return;
 
-//    debug("MenuGroup::removeChild(%s)",child->getName());
     // notification for the childs that our enable state changed
     QObject::disconnect(
 	this, SIGNAL(sigParentEnableChanged()),
@@ -80,9 +79,10 @@ void MenuGroup::removeChild(MenuNode *child)
 //*****************************************************************************
 void MenuGroup::setEnabled(bool enable)
 {
-    for (unsigned int i=0; i < m_children.count(); i++) {
-	MenuNode *node = m_children.at(i);
-	if (node) node->setEnabled(enable);
+    QListIterator<MenuNode> it(m_children);
+    while (it.current()) {
+	it.current()->setEnabled(enable);
+	++it;
     }
 }
 
@@ -91,17 +91,18 @@ void MenuGroup::selectItem(const QString &uid)
 {
     MenuNode *new_selection = 0;
 
-    for (unsigned int i=0; i < m_children.count(); i++) {
-	MenuNode *child = m_children.at(i);
+    QListIterator<MenuNode> it(m_children);
+    for ( ; it.current(); ++it) {
+	MenuNode *child = it.current();
 	if (uid == child->getUID())
 	    new_selection = child;    // new selected child found !
 	else
 	    child->setChecked(false);    // remove check from others
-
     }
 
     // select the new one if found
     if (new_selection) new_selection->setChecked(true);
+
 }
 
 //*****************************************************************************

@@ -20,8 +20,8 @@
 
 #include <utility>               // for pair<...>
 #include <qstring.h>
+#include <mt/SignalProxy.h>
 #include <libgui/KwavePlugin.h>
-#include <libgui/SignalProxy.h>
 
 class QImage;
 class QStrList;
@@ -84,35 +84,35 @@ private:
 	QByteArray &output);
 
     /** the main view of the plugin, a SonagramWindow */
-    SonagramWindow *sonagram_window;
+    SonagramWindow *m_sonagram_window;
 
     /** first sample of the selection, inclusive */
-    unsigned int first_sample;
+    unsigned int m_first_sample;
 
     /** last sample of the selection, inclusive */
-    unsigned int last_sample;
+    unsigned int m_last_sample;
 
     /** number of stripes (= width of the image in pixels) */
-    unsigned int stripes;
+    unsigned int m_stripes;
 
     /** number of fft points */
-    unsigned int fft_points;
+    unsigned int m_fft_points;
 
     /** index of the window function */
-    int window_type;
+    int m_window_type;
 
     /** if true, use color display, else use greyscale */
-    bool color;
+    bool m_color;
 
     /** stores the image that is currently in process */
-    QImage *image;
+    QImage *m_image;
 
     /**
      * signal proxy for synchronously inserting stripes of
      * sonagram data into the current image and updating the
      * display.
      */
-    SignalProxy1< pair<unsigned int,QByteArray> > *spx_insert_stripe;
+    SignalProxy1< pair<unsigned int,QByteArray> > *m_spx_insert_stripe;
 };
 
 #endif /* _SONAGRAM_PLUGIN_H_ */

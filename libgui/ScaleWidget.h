@@ -4,11 +4,10 @@
 #include <qwidget.h>
 
 class QPainter;
+class QSize;
 
 class ScaleWidget : public QWidget
 {
-    Q_OBJECT
-
 public:
 
     ScaleWidget(QWidget *parent = 0, int = 0, int = 100, char *unittext = "%");
@@ -20,9 +19,10 @@ public:
     void drawLinear(QPainter *, int, int);
     void drawLog(QPainter *, int, int);
 
-signals:
-
-public slots:
+    /** minimum size of the widtget, @see QWidget::minimumSize() */
+    virtual const QSize minimumSize();
+    /** optimal size for the widget, @see QWidget::sizeHint() */
+    virtual const QSize sizeHint();
 
 protected:
 

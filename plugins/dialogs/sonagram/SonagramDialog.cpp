@@ -53,27 +53,27 @@ static const char *FFT_Sizes[] =
 
 //***************************************************************************
 SonagramDialog::SonagramDialog(KwavePlugin &p)
-    :QDialog(p.getParentWidget(), i18n("sonagram"), true)
+    :QDialog(p.parentWidget(), i18n("sonagram"), true)
 {
-    bitmaplabel = 0;
-    cancel = 0;
-    ok = 0;
-    pointbox = 0;
-    pointlabel = 0;
-    pointslider = 0;
-    rbColor = 0;
-    windowlabel = 0;
-    windowtypebox = 0;
-    windowtypelabel = 0;
+    m_bitmaplabel = 0;
+    m_cancel = 0;
+    m_ok = 0;
+    m_pointbox = 0;
+    m_pointlabel = 0;
+    m_pointslider = 0;
+    m_rbColor = 0;
+    m_windowlabel = 0;
+    m_windowtypebox = 0;
+    m_windowtypelabel = 0;
 
     int h;
     int w;
     int i;
-    length = p.getSelection();
-    rate   = p.getSignalRate();
+    m_length = p.selection();
+    m_rate   = p.signalRate();
 
     // if nothing selected, select all
-    if (length <= 1) length = p.getSignalLength();
+    if (m_length <= 1) m_length = p.signalLength();
 
     debug("SonagramDialog(): constructor");
 
@@ -119,45 +119,46 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     ASSERT(fftLayout);
     if (!fftLayout) return;
 
-    pointlabel = new QLabel(i18n("Number of FFT points:"), fft_frame);
-    ASSERT(pointlabel);
-    if (!pointlabel) return;
+    m_pointlabel = new QLabel(i18n("Number of FFT points:"), fft_frame);
+    ASSERT(m_pointlabel);
+    if (!m_pointlabel) return;
 
-    pointbox = new QComboBox (true, fft_frame);
-    ASSERT(pointbox);
-    if (!pointbox) return;
-    pointbox->insertStrList (FFT_Sizes, -1);
-    QToolTip::add(pointbox,
+    m_pointbox = new QComboBox (true, fft_frame);
+    ASSERT(m_pointbox);
+    if (!m_pointbox) return;
+    m_pointbox->insertStrList (FFT_Sizes, -1);
+    QToolTip::add(m_pointbox,
 	i18n("Try to choose numbers with small prime-factors, "\
 	"if choosing big window sizes.\n"\
 	"The computation will be much faster !"));
 
-    windowlabel = new QLabel("", fft_frame);
-    ASSERT(windowlabel);
-    if (!windowlabel) return;
+    m_windowlabel = new QLabel("", fft_frame);
+    ASSERT(m_windowlabel);
+    if (!m_windowlabel) return;
 
-    windowtypebox = new QComboBox (true, fft_frame);
-    ASSERT(windowtypebox);
-    if (!windowtypebox) return;
+    m_windowtypebox = new QComboBox (true, fft_frame);
+    ASSERT(m_windowtypebox);
+    if (!m_windowtypebox) return;
     for (i=0; i < wf.getCount(); i++) {
-	windowtypebox->insertItem(i18n(wf.getTypes()[i]));
+	m_windowtypebox->insertItem(i18n(wf.getTypes()[i]));
     }
-    QToolTip::add(windowtypebox, i18n("Choose windowing function here. "\
+    QToolTip::add(m_windowtypebox,
+	i18n("Choose windowing function here. "\
 	"If fourier transformation should stay reversible, "\
 	"use the type <none>"));
 
-    bitmaplabel = new QLabel("", fft_frame);
-    ASSERT(bitmaplabel);
-    if (!bitmaplabel) return;
+    m_bitmaplabel = new QLabel("", fft_frame);
+    ASSERT(m_bitmaplabel);
+    if (!m_bitmaplabel) return;
 
-    pointslider = new Slider (2, (length / 16), 1, 5,
+    m_pointslider = new Slider (2, (m_length / 16), 1, 5,
 	Slider::Horizontal, fft_frame);
-    ASSERT(pointslider);
-    if (!pointslider) return;
+    ASSERT(m_pointslider);
+    if (!m_pointslider) return;
 
-    windowtypelabel = new QLabel (i18n("Window Function :"), fft_frame);
-    ASSERT(windowtypelabel);
-    if (!windowtypelabel) return;
+    m_windowtypelabel = new QLabel (i18n("Window Function :"), fft_frame);
+    ASSERT(m_windowtypelabel);
+    if (!m_windowtypelabel) return;
 
     // -- create the fft frame's layout --
 
@@ -171,47 +172,47 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     fftLayout->addLayout(bitmapLayout);
     fftLayout->addLayout(windowsizeLayout);
 
-    h = max(pointbox->sizeHint().height(),
-	    pointlabel->sizeHint().height());
+    h = max(m_pointbox->sizeHint().height(),
+	    m_pointlabel->sizeHint().height());
 
     // number of FFT points
-    w = pointlabel->sizeHint().width();
-    pointlabel->setFixedSize(w, h);
-    pointbox->setFixedHeight(h);
-    pointbox->adjustSize();
-    pointbox->setMinimumWidth(pointbox->width()+10);
-    pointbox->setMaximumWidth(pointbox->width()*2);
-    pointsLayout->addWidget(pointlabel, 0, AlignLeft | AlignCenter);
+    w = m_pointlabel->sizeHint().width();
+    m_pointlabel->setFixedSize(w, h);
+    m_pointbox->setFixedHeight(h);
+    m_pointbox->adjustSize();
+    m_pointbox->setMinimumWidth(m_pointbox->width()+10);
+    m_pointbox->setMaximumWidth(m_pointbox->width()*2);
+    pointsLayout->addWidget(m_pointlabel, 0, AlignLeft | AlignCenter);
     pointsLayout->addSpacing(10);
     pointsLayout->addStretch(1);
-    pointsLayout->addWidget(pointbox, 1, AlignRight | AlignCenter);
+    pointsLayout->addWidget(m_pointbox, 1, AlignRight | AlignCenter);
 
     // windowing function
-    windowtypelabel->setFixedHeight(h);
-    windowtypelabel->setFixedWidth(windowtypelabel->sizeHint().width());
-    windowtypebox->setFixedHeight(h);
-    windowtypebox->adjustSize();
-    windowtypebox->setMinimumWidth(windowtypebox->width()+10);
-    windowtypebox->setMaximumWidth(windowtypebox->width()*2);
-    windowfuncLayout->addWidget(windowtypelabel, 0, AlignLeft | AlignCenter);
+    m_windowtypelabel->setFixedHeight(h);
+    m_windowtypelabel->setFixedWidth(m_windowtypelabel->sizeHint().width());
+    m_windowtypebox->setFixedHeight(h);
+    m_windowtypebox->adjustSize();
+    m_windowtypebox->setMinimumWidth(m_windowtypebox->width()+10);
+    m_windowtypebox->setMaximumWidth(m_windowtypebox->width()*2);
+    windowfuncLayout->addWidget(m_windowtypelabel, 0, AlignLeft | AlignCenter);
     windowfuncLayout->addSpacing(10);
     windowfuncLayout->addStretch(1);
-    windowfuncLayout->addWidget(windowtypebox, 1, AlignRight | AlignCenter);
+    windowfuncLayout->addWidget(m_windowtypebox, 1, AlignRight | AlignCenter);
 
     // size of the bitmap
-    bitmaplabel->setFixedSize(bitmaplabel->sizeHint().width()+20,h);
-    pointslider->setFixedHeight(h);
-    w = pointslider->sizeHint().width();
-    w = max(w, pointslider->sizeHint().height()*8);
-    pointslider->setMinimumWidth(w);
-    bitmapLayout->addWidget(bitmaplabel, 0, AlignLeft | AlignCenter);
+    m_bitmaplabel->setFixedSize(m_bitmaplabel->sizeHint().width()+20,h);
+    m_pointslider->setFixedHeight(h);
+    w = m_pointslider->sizeHint().width();
+    w = max(w, m_pointslider->sizeHint().height()*8);
+    m_pointslider->setMinimumWidth(w);
+    bitmapLayout->addWidget(m_bitmaplabel, 0, AlignLeft | AlignCenter);
     bitmapLayout->addSpacing(10);
-    bitmapLayout->addWidget(pointslider, 1, AlignRight | AlignCenter);
+    bitmapLayout->addWidget(m_pointslider, 1, AlignRight | AlignCenter);
 
     // resulting window size
-    windowlabel->setFixedHeight(h);
-    windowlabel->setMinimumWidth(windowlabel->sizeHint().width()+10);
-    windowsizeLayout->addWidget(windowlabel, 0, AlignLeft | AlignCenter);
+    m_windowlabel->setFixedHeight(h);
+    m_windowlabel->setMinimumWidth(m_windowlabel->sizeHint().width()+10);
+    windowsizeLayout->addWidget(m_windowlabel, 0, AlignLeft | AlignCenter);
 
     // ----------------------------------------------------------------------
     // ---   Layout for the lower part: display and update groups   ---------
@@ -237,22 +238,22 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     if (!displayLayout) return;
     displayLayout->addSpacing(display_group->fontMetrics().height());
 
-    rbColor = new QRadioButton(display_group);
-    ASSERT(rbColor);
-    if (!rbColor) return;
-    rbColor->setText(i18n("use colors"));
-    rbColor->setChecked(TRUE);
-    displayLayout->addWidget(rbColor);
-    rbColor->setMinimumSize(rbColor->sizeHint());
-    QToolTip::add(rbColor, i18n("use different colors for amplitude"));
+    m_rbColor = new QRadioButton(display_group);
+    ASSERT(m_rbColor);
+    if (!m_rbColor) return;
+    m_rbColor->setText(i18n("use colors"));
+    m_rbColor->setChecked(TRUE);
+    displayLayout->addWidget(m_rbColor);
+    m_rbColor->setMinimumSize(m_rbColor->sizeHint());
+    QToolTip::add(m_rbColor, i18n("use different colors for amplitude"));
 
-    QRadioButton *rbGreyScale = new QRadioButton(display_group);
-    ASSERT(rbGreyScale);
-    if (!rbGreyScale) return;
-    rbGreyScale->setText(i18n("greyscale"));
-    displayLayout->addWidget(rbGreyScale);
-    rbGreyScale->setMinimumSize(rbGreyScale->sizeHint());
-    QToolTip::add(rbGreyScale, i18n("use greyscale only for amplitude"));
+    QRadioButton *m_rbGreyScale = new QRadioButton(display_group);
+    ASSERT(m_rbGreyScale);
+    if (!m_rbGreyScale) return;
+    m_rbGreyScale->setText(i18n("greyscale"));
+    displayLayout->addWidget(m_rbGreyScale);
+    m_rbGreyScale->setMinimumSize(m_rbGreyScale->sizeHint());
+    QToolTip::add(m_rbGreyScale, i18n("use greyscale only for amplitude"));
 
     // ----------------------------------------------------------------------
     // ---   update settings: track signal changes / follow selection   -----
@@ -304,22 +305,27 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     separator->setFixedHeight(separator->sizeHint().height());
     topLayout->addWidget(separator);
 
-    ok = new QPushButton (OK, this);
-    cancel = new QPushButton (CANCEL, this);
+    m_ok = new QPushButton (OK, this);
+    ASSERT(m_ok);
+    if (!m_ok) return;
+
+    m_cancel = new QPushButton (CANCEL, this);
+    ASSERT(m_cancel);
+    if (!m_cancel) return;
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();
     ASSERT(buttonsLayout);
     if (!buttonsLayout) return;
     topLayout->addLayout(buttonsLayout);
 
-    h = max(ok->sizeHint().height(), cancel->sizeHint().height());
-    w = max(ok->sizeHint().width(), cancel->sizeHint().width());
-    ok->setFixedSize(w, h);
-    cancel->setFixedSize(w, h);
+    h = max(m_ok->sizeHint().height(), m_cancel->sizeHint().height());
+    w = max(m_ok->sizeHint().width(), m_cancel->sizeHint().width());
+    m_ok->setFixedSize(w, h);
+    m_cancel->setFixedSize(w, h);
     buttonsLayout->addStretch(10);
-    buttonsLayout->addWidget(cancel, 0, AlignLeft | AlignCenter);
+    buttonsLayout->addWidget(m_cancel, 0, AlignLeft | AlignCenter);
     buttonsLayout->addSpacing(10);
-    buttonsLayout->addWidget(ok, 0, AlignRight | AlignCenter);
+    buttonsLayout->addWidget(m_ok, 0, AlignRight | AlignCenter);
 
     // activate the layout and set the window size
 
@@ -343,7 +349,7 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // a = w / h = 2*s / (p^2)
     // => p = sqrt( 2 * s / a) )
     const double aspect_ratio = sqrt(2);
-    double p = sqrt(2.0*(double)length/aspect_ratio);
+    double p = sqrt(2.0*(double)m_length/aspect_ratio);
 
     // round down to an exponent of 2, this makes the image more
     // wide than heigh and gives a fast calculation
@@ -353,22 +359,22 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     setPoints(1 << (bits-1));
     setBoxPoints(0);
 
-    ok->setAccel(Key_Return);
-    cancel->setAccel(Key_Escape);
-    ok->setFocus();
+    m_ok->setAccel(Key_Return);
+    m_cancel->setAccel(Key_Escape);
+    m_ok->setFocus();
 
-    connect(ok ,         SIGNAL(clicked()),         SLOT(accept()));
-    connect(cancel ,     SIGNAL(clicked()),         SLOT(reject()));
-    connect(pointslider, SIGNAL(valueChanged(int)), SLOT(setPoints(int)));
-    connect(pointbox,    SIGNAL(activated(int)),    SLOT(setBoxPoints(int)));
+    connect(m_ok ,         SIGNAL(clicked()),         SLOT(accept()));
+    connect(m_cancel ,     SIGNAL(clicked()),         SLOT(reject()));
+    connect(m_pointslider, SIGNAL(valueChanged(int)), SLOT(setPoints(int)));
+    connect(m_pointbox,    SIGNAL(activated(int)),    SLOT(setBoxPoints(int)));
 }
 
 //***************************************************************************
-void SonagramDialog::getParameters(QStrList &list)
+void SonagramDialog::parameters(QStrList &list)
 {
-    ASSERT(pointbox);
-    ASSERT(windowtypebox);
-    ASSERT(rbColor);
+    ASSERT(m_pointbox);
+    ASSERT(m_windowtypebox);
+    ASSERT(m_rbColor);
 
     QString param;
 
@@ -376,15 +382,15 @@ void SonagramDialog::getParameters(QStrList &list)
     list.clear();
 
     // parameter #0: number of fft points
-    param = pointbox ? pointbox->currentText() : 0;
+    param = m_pointbox ? m_pointbox->currentText() : 0;
     list.append(param);
 
     // parameter #1: index of the window function
-    param.setNum(windowtypebox ? windowtypebox->currentItem() : 0);
+    param.setNum(m_windowtypebox ? m_windowtypebox->currentItem() : 0);
     list.append(param);
 
     // parameter #2: flag: use color instead of greyscale
-    param.setNum(rbColor ? (rbColor->isChecked() ? 1 : 0) : 0);
+    param.setNum(m_rbColor ? (m_rbColor->isChecked() ? 1 : 0) : 0);
     list.append(param);
 
 }
@@ -392,27 +398,29 @@ void SonagramDialog::getParameters(QStrList &list)
 //***************************************************************************
 void SonagramDialog::setPoints(int points)
 {
+    ASSERT(points >= 0);
     char ms_buf[32];
     char buf[512];
     points *= 2;
 
     snprintf(buf, sizeof(buf), "%d", points);
-    pointbox->changeItem (buf, 0);
-    pointbox->setCurrentItem (0);
+    m_pointbox->changeItem (buf, 0);
+    m_pointbox->setCurrentItem (0);
 
-    KwavePlugin::ms2string(ms_buf, sizeof(ms_buf), points * 1.0E3 / rate);
+    KwavePlugin::ms2string(ms_buf, sizeof(ms_buf), points * 1.0E3 / m_rate);
     snprintf(buf, sizeof(buf), i18n("( resulting window size: %s )"), ms_buf);
-    windowlabel->setText(buf);
+    m_windowlabel->setText(buf);
     snprintf(buf, sizeof(buf), i18n("size of bitmap: %dx%d"), 
-	(length / points) + 1, points/2);
-    bitmaplabel->setText(buf);
+	(m_length / points) + 1, points/2);
+    m_bitmaplabel->setText(buf);
 }
 
 //***************************************************************************
 void SonagramDialog::setBoxPoints(int num)
 {
-    int points = strtol(pointbox->text (num), 0, 0);
-    pointslider->setValue(points / 2);
+    ASSERT(num >= 0);
+    int points = strtol(m_pointbox->text (num), 0, 0);
+    m_pointslider->setValue(points / 2);
 }
 
 //***************************************************************************

@@ -33,6 +33,11 @@ public:
     void setValue(int);
     void refresh();
 
+    /** minimum size of the widtget, @see QWidget::minimumSize() */
+    virtual const QSize minimumSize();
+    /** optimal size for the widget, @see QWidget::sizeHint() */
+    virtual const QSize sizeHint();
+
 public slots:
 
     /*

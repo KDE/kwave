@@ -104,26 +104,26 @@ public:
      * Returns the parent widget of the plugin. This normally should be
      * a TopWidget of the Kwave main program.
      */
-    QWidget* getParentWidget();
+    QWidget* parentWidget();
 
     /**
      * Returns the name of the current signal. This can be used to set the
      * caption of a plugin's main window. If no signal is currently loaded
      * the returned string is empty.
      */
-    const QString &getSignalName();
+    const QString &signalName();
 
     /**
      * Returns the length of the current signal in samples. If no signal is
      * present the return value will be zero.
      */
-    virtual unsigned int getSignalLength();
+    virtual unsigned int signalLength();
 
     /**
      * Returns the sample rate of the current signal. If no signal is
      * present the return value will be zero.
      */
-    virtual unsigned int getSignalRate();
+    virtual unsigned int signalRate();
 
     /**
      * Returns the left and right sample of the current selection
@@ -135,15 +135,14 @@ public:
      * @param right receives the last seleted sample (optional or null-pointer)
      * @return the number of selected samples (right-left+1) [1..length]
      */
-    virtual unsigned int getSelection(unsigned int *left=0,
-                                      unsigned int *right=0);
+    virtual unsigned int selection(unsigned int *left=0,unsigned int *right=0);
 
     /**
      * Returns the value of one single sample of a specified channel.
      * If the channel does not exist or the index of the sample is
      * out of range the return value will be zero.
      */
-    virtual int getSingleSample(unsigned int channel, unsigned int offset);
+    virtual int singleSample(unsigned int channel, unsigned int offset);
 
     /**
      * Gives the control to the next thread. This can be called from

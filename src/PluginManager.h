@@ -21,7 +21,7 @@
 #include "qobject.h"
 #include "qlist.h"
 
-#include "libgui/SignalProxy.h"
+#include "mt/SignalProxy.h"
 
 class KwavePlugin;
 class QStrList;
@@ -66,32 +66,32 @@ public:
      * Returns the length of the current signal in samples.
      * If no signal is present the return value will be 0.
      */
-    unsigned int getSignalLength();
+    unsigned int signalLength();
 
     /**
      * Returns the current sample rate in samples per second.
      * If no signal is present the return value will be 0.
      */
-    unsigned int getSignalRate();
+    unsigned int signalRate();
 
     /**
      * Returns the start of the selection. If nothing is currently
      * selected this will be the first sample (0).
      */
-    unsigned int getSelectionStart();
+    unsigned int selectionStart();
 
     /**
      * Returns the end of the selection. If nothing is currently
      * selected this will be the last sample (length-1).
      */
-    unsigned int getSelectionEnd();
+    unsigned int selectionEnd();
 
     /**
      * Returns the value of one single sample of a specified channel.
      * If the channel does not exist or the index of the sample is
      * out of range the return value will be zero.
      */
-    int getSingleSample(unsigned int channel, unsigned int offset);
+    int singleSample(unsigned int channel, unsigned int offset);
 
 signals:
     /**
@@ -133,20 +133,20 @@ private slots:
 
 private:
 
-    /** threadsafe signal proxy for setSignalName / sigSignalNameChanged */
-    SignalProxy1<const QString> *spx_name_changed;
-
     /** connects all signals of and for a plugin */
     void connectPlugin(KwavePlugin *plugin);
 
     /** connects all signals from and to a plugin */
     void disconnectPlugin(KwavePlugin *plugin);
 
+    /** threadsafe signal proxy for setSignalName / sigSignalNameChanged */
+    SignalProxy1<const QString> *m_spx_name_changed;
+
     /** list of loaded plugins */
-    QList<KwavePlugin> loaded_plugins;
+    QList<KwavePlugin> m_loaded_plugins;
 
     /** reference to our parent toplevel widget */
-    TopWidget &top_widget;
+    TopWidget &m_top_widget;
 };
 
 #endif // _PLUGIN_MANAGER_H_

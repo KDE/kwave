@@ -28,7 +28,8 @@
 #include <libkwave/FileLoader.h>
 #include <libkwave/Plugin.h>
 
-#include "libgui/SignalProxy.h"
+#include "mt/SignalProxy.h"
+
 #include "libgui/KwavePlugin.h"
 #include "libgui/PluginContext.h"
 
@@ -44,9 +45,9 @@ extern Global globals;
 //****************************************************************************
 
 PluginManager::PluginManager(TopWidget &parent)
-    :top_widget(parent)
+    :m_top_widget(parent)
 {
-    spx_name_changed = new SignalProxy1<const QString>(
+    m_spx_name_changed = new SignalProxy1<const QString>(
 	this, SLOT(emitNameChanged()));
 }
 
@@ -63,14 +64,14 @@ PluginManager::~PluginManager()
     emit sigClosed();
 
     // remove all remaining plugins
-    while (!loaded_plugins.isEmpty()) {
-	KwavePlugin *p = loaded_plugins.last();
+    while (!m_loaded_plugins.isEmpty()) {
+	KwavePlugin *p = m_loaded_plugins.last();
 	if (p) {
 //	    debug("PluginManager::~PluginManager(): closing plugin(%p:%p)",p->getHandle(),p);
 	    pluginClosed(p, true);
 	} else {
 	    debug("PluginManager::~PluginManager(): removing null plugin");
-	    loaded_plugins.removeRef(p);
+	    m_loaded_plugins.removeRef(p);
 	}
     }
 }
@@ -96,7 +97,7 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 	char message[256];
 	
 	snprintf(message, 256, i18n("oops, plugin '%s' is unknown !"), name);
-	KMsgBox::message(&top_widget,
+	KMsgBox::message(&m_top_widget,
 	    i18n("error on loading plugin"),
 	    (const char *)&message,
 	    KMsgBox::EXCLAMATION
@@ -114,7 +115,7 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 	    "unable to load the file \n'%s'\n that contains the plugin '%s' !"),
 	    globals.dialogplugins[index]->getFileName(), name
 	);
-	KMsgBox::message(&top_widget,
+	KMsgBox::message(&m_top_widget,
 	    i18n("error on loading plugin"),
 	    (const char *)&message,
 	    KMsgBox::EXCLAMATION
@@ -136,11 +137,11 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
     ASSERT(plugin_loader);
     if (plugin_loader) {
 	PluginContext *context = new PluginContext(
-            top_widget.getKwaveApp(),
+            m_top_widget.getKwaveApp(),
             *this,
 	    0, // LabelManager  *label_mgr,
 	    0, // MenuManager   *menu_mgr,
-	    top_widget,
+	    m_top_widget,
 	    handle
 	);
 
@@ -154,7 +155,7 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 	    ASSERT(plugin);
 	    if (plugin) {
 		// append the plugin into our list of plugins
-		loaded_plugins.append(plugin);
+		m_loaded_plugins.append(plugin);
 
 		// connect all signals
 		connectPlugin(plugin);
@@ -170,7 +171,7 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 		    debug("PluginManager: result: %d", result);// ###
 
 		    // maybe the start() function has called close() ?
-		    if (loaded_plugins.findRef(plugin) == -1) {
+		    if (m_loaded_plugins.findRef(plugin) == -1) {
 			debug("PluginManager: plugin closed itself in start()"); // ###
 			result = -1;
 			plugin = 0;
@@ -234,37 +235,37 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 }
 
 //***************************************************************************
-unsigned int PluginManager::getSignalLength()
+unsigned int PluginManager::signalLength()
 {
-    SignalManager *sig = top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.getSignalManager();
     return ((sig) ? sig->getLength() : 0);
 }
 
 //***************************************************************************
-unsigned int PluginManager::getSignalRate()
+unsigned int PluginManager::signalRate()
 {
-    SignalManager *sig = top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.getSignalManager();
     return ((sig) ? sig->getRate() : 0);
 }
 
 //***************************************************************************
-unsigned int PluginManager::getSelectionStart()
+unsigned int PluginManager::selectionStart()
 {
-    SignalManager *sig = top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.getSignalManager();
     return (sig) ? sig->getLMarker() : 0;
 }
 
 //***************************************************************************
-unsigned int PluginManager::getSelectionEnd()
+unsigned int PluginManager::selectionEnd()
 {
-    SignalManager *sig = top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.getSignalManager();
     return (sig) ? sig->getRMarker() : 0;
 }
 
 //***************************************************************************
-int PluginManager::getSingleSample(unsigned int channel, unsigned int offset)
+int PluginManager::singleSample(unsigned int channel, unsigned int offset)
 {
-    SignalManager *sig = top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.getSignalManager();
     return (sig) ? sig->getSingleSample(channel, offset) : 0;
 }
 
@@ -272,13 +273,8 @@ int PluginManager::getSingleSample(unsigned int channel, unsigned int offset)
 void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
 {
     ASSERT(p);
-    ASSERT(!loaded_plugins.isEmpty());
+    ASSERT(!m_loaded_plugins.isEmpty());
 
-//    debug("before:");
-//    for (int i=0; i<loaded_plugins.count();i++) {
-//	debug("plugin[%d]=%p",i,loaded_plugins.at(i));
-//    }
-//
 //    debug("PluginManager::pluginClosed(%p:%p) [slot]",p?p->getHandle():0,p);
     if (p) {
 //	void *h = p->getHandle();
@@ -287,8 +283,8 @@ void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
 	disconnectPlugin(p);
 
 //	debug("PluginManager::pluginClosed(%p:%p): removeRef",h,p);
-	loaded_plugins.setAutoDelete(false);
-	loaded_plugins.removeRef(p);
+	m_loaded_plugins.setAutoDelete(false);
+	m_loaded_plugins.removeRef(p);
 
 	if (remove) {
 	    debug("PluginManager::pluginClosed(%p): deleting",p);
@@ -299,11 +295,6 @@ void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
 	}
 
     }
-
-//    debug("after:");
-//    for (int i=0; i<loaded_plugins.count();i++) {
-//	debug("plugin[%d]=%p",i,loaded_plugins.at(i));
-//    }
 
 }
 
@@ -337,7 +328,10 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
 
 void PluginManager::emitNameChanged()
 {
-    const QString *name = spx_name_changed->dequeue();
+    ASSERT(m_spx_name_changed);
+    if (!m_spx_name_changed) return;
+
+    const QString *name = m_spx_name_changed->dequeue();
     ASSERT(name);
     if (name) {
 	emit sigSignalNameChanged(*name);
@@ -348,9 +342,11 @@ void PluginManager::emitNameChanged()
 //****************************************************************************
 void PluginManager::setSignalName(const QString &name)
 {
-    debug("PluginManager::setSignalName('%s')",name.data());
+    ASSERT(m_spx_name_changed);
+    if (!m_spx_name_changed) return;
 
-    spx_name_changed->enqueue(name);
+    debug("PluginManager::setSignalName('%s')",name.data());
+    m_spx_name_changed->enqueue(name);
 
     debug("PluginManager::setSignalName(): done.");
 }

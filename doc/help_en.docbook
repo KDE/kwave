@@ -51,8 +51,8 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-09-25</DATE>
-    <RELEASEINFO>0.5.4-3</RELEASEINFO>
+    <DATE>2000-10-03</DATE>
+    <RELEASEINFO>0.5.4-4</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
     <ABSTRACT>
@@ -228,8 +228,37 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <PARA><ITEMIZEDLIST>
         <LISTITEM>
-            <PARA>0.5.4-4 [2000-09-25]</PARA>
+            <PARA>0.5.4-5 [2000-10-03]</PARA>
             <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    added classes Mutex and MutexGuard
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    sonagram: set a transparent background for the image
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    sonagram: removed (need for) SonagramContainer, using 
+                      QGridLayout instead
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    moved SignalProxy to the mt subdirectory
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    fixed X11 synchronzation problem with SignalProxy
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    added TSS (thread-specific-storage) support to the mt classes
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    added some multithreading support classes: Thread, AsynchObject, ...
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    removed the "get" prefix from all member functions. This is the
+                      new KDE/QT coding style.
+                </PARA></LISTITEM>
                 <LISTITEM><PARA>
                     updated the online documentation to point to the new Kwave
                       homepage on http://kwave.sourceforge.net/
@@ -1815,7 +1844,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-09-25</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-10-03</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

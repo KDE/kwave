@@ -17,7 +17,6 @@
 INCLUDES= @all_includes@
 
 BUILTSOURCES=\
- AsyncSync.moc.cpp\
  TimeLine.moc.cpp\
  FloatLine.moc.cpp\
  MultiStateWidget.moc.cpp\
@@ -40,7 +39,6 @@ BUILTSOURCES=\
 
 # Which sources should be compiled for libgui.
 libkwavegui_la_SOURCES =\
- AsyncSync.cpp\
  CurveWidget.cpp\
  FaderWidget.cpp\
  FFTWidget.cpp\

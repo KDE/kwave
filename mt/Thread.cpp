@@ -7,9 +7,10 @@
  * Thanks to Carlos O'Ryan (coryan@cs.wustl.edu) for elucidating
  * the Daemon_Adapter pattern on which this is closely based.
  *
- * \author  Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de>
- * \author  Thomas Eschenbacher
- * \date    12.08.1998, Oct. 1998
+ * \author  Oliver M. Kellogg <Oliver.Kellogg@vs.dasa.de> (initial)
+ * \author  Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de> (ported to Kwave)
+ * \date    1998-08-12 (initial)
+ * \date    2000-09-30 (ported to the Kwave project)
  *
  * \par NOTE:
  *      this code is taken from the following news article 
@@ -70,7 +71,7 @@ Thread::~Thread()
 }
 
 //***************************************************************************
-void *Thread::thread_adapter (void *arg)
+void *Thread::thread_adapter(void *arg)
 {
     Thread *object = (Thread *) arg;
     if (!object) return (void*)-EINVAL;

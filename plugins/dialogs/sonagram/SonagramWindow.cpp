@@ -18,11 +18,14 @@
 #include "config.h"
 #include <math.h>
 #include <limits.h>
-#include <qdir.h>
-#include <qfiledialog.h>
+
+//#include <qdir.h>
+//#include <qfiledialog.h>
 #include <qimage.h>
+#include <qlayout.h>
+
 #include <kapp.h>
-#include <kmsgbox.h>
+//#include <kmsgbox.h>
 
 #include <libkwave/gsl_fft.h>
 #include <libkwave/WindowFunction.h>
@@ -34,7 +37,6 @@
 
 #include "../../../src/ImageView.h"
 
-#include "SonagramContainer.h"
 #include "SonagramWindow.h"
 
 //#include <qtimer.h>
@@ -53,27 +55,56 @@
 #define max(x,y) (( (x) > (y) ) ? (x) : (y) )
 #endif
 
+static const char *background[] = {
+/* width height num_colors chars_per_pixel */
+"     20     20          2               1",
+/* colors */
+"# c #808080",
+". c None",
+/* pixels */
+"##########..........",
+"##########..........",
+"##########..........",
+"##########..........",
+"##########..........",
+"##########..........",
+"##########..........",
+"##########..........",
+"##########..........",
+"##########..........",
+"..........##########",
+"..........##########",
+"..........##########",
+"..........##########",
+"..........##########",
+"..........##########",
+"..........##########",
+"..........##########",
+"..........##########",
+"..........##########"
+};
+
 //****************************************************************************
 SonagramWindow::SonagramWindow(const QString &name)
 :KTMainWindow()
 {
     debug("SonagramWindow::SonagramWindow(): start"); // ###
-    corner = 0;
-    data = 0;
-    image = 0;
-    image_width = 0;
-    length = 0;
-    mainwidget = 0;
-    max = 0;
-    overview = 0;
-    points = 0;
-    rate = 0;
-    status = 0;
-    stripes = 0;
-    view = 0;
-    xscale = 0;
-    y = 0;
-    yscale = 0;
+
+    m_image = 0;
+    m_overview = 0;
+    m_status = 0;
+    m_view = 0;
+    m_xscale = 0;
+    m_yscale = 0;
+
+    QWidget *mainwidget = new QWidget(this);
+    ASSERT(mainwidget);
+    if (!mainwidget) return;
+    setView(mainwidget);
+
+    QGridLayout *top_layout = new QGridLayout(mainwidget, 3, 2);
+    ASSERT(top_layout);
+    if (!top_layout) return;
 
     KMenuBar *bar = new KMenuBar(this);
     ASSERT(bar);
@@ -83,7 +114,7 @@ SonagramWindow::SonagramWindow(const QString &name)
 //    ASSERT(spectral);
 //    if (!spectral) return ;
 
-    QPopupMenu *file = new QPopupMenu ();
+    QPopupMenu *file = new QPopupMenu();
     ASSERT(file);
     if (!file) return ;
 
@@ -96,55 +127,62 @@ SonagramWindow::SonagramWindow(const QString &name)
 //
 //    spectral->insertItem (i18n("&reTransform to signal"), this, SLOT(toSignal()));
 
-    status = new KStatusBar (this, i18n("Frequencies Status Bar"));
-    ASSERT(status);
-    if (!status) return ;
+    m_status = new KStatusBar (this, i18n("Frequencies Status Bar"));
+    ASSERT(m_status);
+    if (!m_status) return ;
 
-    status->insertItem(i18n("Time:          0 ms     "), 1);
-    status->insertItem(i18n("Frequency:          0 Hz     "), 2);
-    status->insertItem(i18n("Amplitude:    0 %      "), 3);
-    status->insertItem(i18n("Phase:    0        "), 4);
+    m_status->insertItem(i18n("Time:          0 ms     "), 1);
+    m_status->insertItem(i18n("Frequency:          0 Hz     "), 2);
+    m_status->insertItem(i18n("Amplitude:    0 %      "), 3);
+    m_status->insertItem(i18n("Phase:    0        "), 4);
 
-    mainwidget = new SonagramContainer(this);
-    ASSERT(mainwidget);
-    if (!mainwidget) return ;
+    m_view = new ImageView(mainwidget);
+    ASSERT(m_view);
+    if (!m_view) return;
+    top_layout->addWidget(m_view, 0, 1);
+    m_view->setBackgroundPixmap(QPixmap(background));
 
-    view = new ImageView(mainwidget);
-    ASSERT(view);
-    if (!view) return ;
-
-    connect(view, SIGNAL(info (double, double)),
+    connect(m_view, SIGNAL(info (double, double)),
 	    this, SLOT(setInfo(double, double)));
-    xscale = new ScaleWidget (mainwidget, 0, 100, "ms");
-    ASSERT(xscale);
-    if (!xscale) return ;
+	
+    m_xscale = new ScaleWidget(mainwidget, 0, 100, "ms");
+    ASSERT(m_xscale);
+    if (!m_xscale) return;
+    m_xscale->setFixedHeight(m_xscale->sizeHint().height());
+    top_layout->addWidget(m_xscale, 1, 1);
 
-    yscale = new ScaleWidget (mainwidget, 100, 0, "Hz");
-    ASSERT(yscale);
-    if (!yscale) return ;
+    m_yscale = new ScaleWidget(mainwidget, 100, 0, "Hz");
+    ASSERT(m_yscale);
+    if (!m_yscale) return ;
+    m_yscale->setFixedWidth(m_yscale->sizeHint().width());
+    top_layout->addWidget(m_yscale, 0, 0);
 
-    corner = new CornerPatchWidget (mainwidget);
-    ASSERT(corner);
-    if (!corner) return ;
+    m_overview = new OverViewWidget(mainwidget);
+    ASSERT(m_overview);
+    if (!m_overview) return;
+    m_overview->setFixedHeight(m_overview->sizeHint().height());
+    top_layout->addWidget(m_overview, 2, 1);
 
-    overview = new OverViewWidget (mainwidget);
-    ASSERT(overview);
-    if (!overview) return ;
-
-    QObject::connect (overview, SIGNAL(valueChanged(int)),
-		      view, SLOT(setOffset(int)));
-    QObject::connect (view, SIGNAL(viewInfo(int, int, int)),
+    QObject::connect (m_overview, SIGNAL(valueChanged(int)),
+		      m_view, SLOT(setOffset(int)));
+    QObject::connect (m_view, SIGNAL(viewInfo(int, int, int)),
 		      this, SLOT(setRange(int, int, int)));
-    QObject::connect (view, SIGNAL(viewInfo(int, int, int)),
-		      overview, SLOT(setRange(int, int, int)));
+    QObject::connect (m_view, SIGNAL(viewInfo(int, int, int)),
+		      m_overview, SLOT(setRange(int, int, int)));
 
-    mainwidget->setObjects (view, xscale, yscale, corner, overview);
-    setView(mainwidget);
-    setStatusBar(status);
+    setStatusBar(m_status);
     setMenu(bar);
-
     setName(name);
-    resize (480, 300);
+
+    top_layout->setRowStretch(0, 100);
+    top_layout->setRowStretch(1, 0);
+    top_layout->setRowStretch(2, 0);
+    top_layout->setColStretch(0, 0);
+    top_layout->setColStretch(1, 100);
+    top_layout->activate();
+
+    resize(480, 300);
+    show();
     debug("SonagramWindow::SonagramWindow(): end"); // ###
 }
 
@@ -316,12 +354,12 @@ void SonagramWindow::load()
 //****************************************************************************
 void SonagramWindow::setImage(QImage *image)
 {
-    ASSERT(view);
-    if (!view) return;
+    ASSERT(m_view);
+    if (!m_view) return;
 
-    this->image = image;
-    view->setImage(image);
-    view->repaint();
+    m_image = image;
+    m_view->setImage(m_image);
+    m_view->repaint();
 }
 
 //****************************************************************************
@@ -330,13 +368,13 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 {
     debug("SonagramWindow::insertStripe(%d,...",stripe_nr);
 
-    ASSERT(view);
-    ASSERT(image);
-    if (!view) return;
-    if (!image) return;
+    ASSERT(m_view);
+    ASSERT(m_image);
+    if (!m_view) return;
+    if (!m_image) return;
 
-    unsigned int image_width  = image->width();
-    unsigned int image_height = image->height();
+    unsigned int image_width  = m_image->width();
+    unsigned int image_height = m_image->height();
 
     // stripe is out of range ?
     ASSERT(stripe_nr < image_width);
@@ -345,12 +383,12 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
     unsigned int y;
     unsigned int size = stripe.size();
     for (y=0; y < size; y++) {
-	image->setPixel(stripe_nr, y, (unsigned char)stripe[size-y-1]);
+	m_image->setPixel(stripe_nr, y, (unsigned char)stripe[size-y-1]);
     }
     while (y < image_height)
-	image->setPixel(stripe_nr, y++, 0xFF);
+	m_image->setPixel(stripe_nr, y++, 0xFE);
 
-    view->repaint(false);
+    m_view->repaint(false);
 }
 
 //****************************************************************************

@@ -1,11 +1,15 @@
 # set the include path for X, qt and KDE
 INCLUDES= @all_includes@
 
-BUILTSOURCES=""
+BUILTSOURCES=\
+ AsyncSync.moc.cpp
 
 # Which sources should be compiled for libkwavemt.
 libkwavemt_a_SOURCES =\
+ AsyncSync.cpp\
  TSS_Object.cpp \
+ Mutex.cpp \
+ MutexGuard.cpp \
  Thread.cpp \
  $(BUILTSOURCES)
 

@@ -82,11 +82,11 @@ TSS_Object::TSS_Object()
    :m_key(0)
 {
     if (pthread_key_create(&m_key, TSS_Object_cleanup_func) == -1) {
-	warning("TSS_Object::keycreate failed\n");
+	warning("TSS_Object::keycreate failed");
     }
 
     if (pthread_setspecific(m_key, (void *)this) == -1) {
-	warning("TSS_Object::setspecific failed\n");
+	warning("TSS_Object::setspecific failed");
     }
 }
 

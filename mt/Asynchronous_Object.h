@@ -1,5 +1,5 @@
-/*
- * \file  include/Asynchronous_Object.hh
+/**
+ * \file  mt/Asynchronous_Object.h
  * \brief Template classes for making methods asynchronously callable 
  *
  * Thanks to Carlos O'Ryan (coryan@cs.wustl.edu) for elucidating
@@ -28,11 +28,10 @@
 
  */
 
-/* 
+/**
  * \class   Asynchronous_Object
  * \inherit Thread
  * \brief   Template classes for making methods asynchronously callable 
- *
  */
 
 #ifndef _ASYNCHRONOUS_OBJECT_HH
@@ -40,7 +39,8 @@
 
 #include "mt/Thread.h"
 
-template <class T>class Asynchronous_Object: public Thread {
+template <class T>class Asynchronous_Object: public Thread
+{
 public:
     typedef void (T::*PTMF) (void);
 

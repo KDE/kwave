@@ -25,13 +25,17 @@
 
 #include <qstring.h>
 #include <qimage.h>
+#include <qbitmap.h>  // ###
+#include <qpixmap.h>  // ###
+#include <qpainter.h> // ###
 
 #include <kapp.h>
 
 #include <libkwave/WindowFunction.h>
 
 #include <libgui/KwavePlugin.h>
-#include <libgui/SignalProxy.h>
+
+#include <mt/SignalProxy.h>
 
 #include "SonagramPlugin.h"
 #include "SonagramDialog.h"
@@ -45,27 +49,27 @@ KWAVE_PLUGIN(SonagramPlugin,"sonagram","Martin Wilz");
 SonagramPlugin::SonagramPlugin(PluginContext &c)
     :KwavePlugin(c)
 {
-    color = true;
-    fft_points = 0;
-    first_sample = 0;
-    image = 0;
-    last_sample = 0;
-    sonagram_window = 0;
-    spx_insert_stripe = 0;
-    stripes = 0;
+    m_color = true;
+    m_fft_points = 0;
+    m_first_sample = 0;
+    m_image = 0;
+    m_last_sample = 0;
+    m_sonagram_window = 0;
+    m_spx_insert_stripe = 0;
+    m_stripes = 0;
 }
 
 //***************************************************************************
 SonagramPlugin::~SonagramPlugin()
 {
-    if (spx_insert_stripe) delete spx_insert_stripe;
-    spx_insert_stripe = 0;
+    if (m_spx_insert_stripe) delete m_spx_insert_stripe;
+    m_spx_insert_stripe = 0;
 
-    if (sonagram_window) delete sonagram_window;
-    sonagram_window = 0;
+    if (m_sonagram_window) delete m_sonagram_window;
+    m_sonagram_window = 0;
 
-    if (image) delete image;
-    image = 0;
+    if (m_image) delete m_image;
+    m_image = 0;
 }
 
 //***************************************************************************
@@ -80,7 +84,7 @@ QStrList *SonagramPlugin::setup(QStrList *previous_params)
     if (dlg->exec() == QDialog::Accepted) {
 	result = new QStrList();
 	ASSERT(result);
-	if (result) dlg->getParameters(*result);
+	if (result) dlg->parameters(*result);
     };
 
     delete dlg;
@@ -103,54 +107,54 @@ int SonagramPlugin::start(QStrList &params)
     QString param;
 	
     param = params.at(0);
-    fft_points = param.toUInt(&ok);
+    m_fft_points = param.toUInt(&ok);
     ASSERT(ok);
     if (!ok) return -EINVAL;
-    ASSERT(fft_points <= 32767);
-    if (fft_points > 32767) fft_points=32767;
-	
+    ASSERT(m_fft_points <= 32767);
+    if (m_fft_points > 32767) m_fft_points=32767;
+
     param = params.at(1);
-    window_type = param.toUInt(&ok);
+    m_window_type = param.toUInt(&ok);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params.at(2);
-    color = (param.toUInt(&ok) != 0);
+    m_color = (param.toUInt(&ok) != 0);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // create an empty sonagram window
-    sonagram_window = new SonagramWindow(getSignalName());
-    ASSERT(sonagram_window);
-    if (!sonagram_window) return -ENOMEM;
+    m_sonagram_window = new SonagramWindow(signalName());
+    ASSERT(m_sonagram_window);
+    if (!m_sonagram_window) return -ENOMEM;
 
-    unsigned int input_length = getSelection(&first_sample, &last_sample);
-    if (first_sample == last_sample) {
-	input_length = getSignalLength()-1;
-	first_sample = 0;
-	last_sample = input_length-1;
+    unsigned int input_length = selection(&m_first_sample, &m_last_sample);
+    if (m_first_sample == m_last_sample) {
+	input_length = signalLength()-1;
+	m_first_sample = 0;
+	m_last_sample = input_length-1;
     }
 
     // calculate the number of stripes (width of image)
-    stripes = (unsigned int)
-	(ceil((double)input_length/(double)fft_points));
-    ASSERT(stripes <= 32767);
-    if (stripes > 32767) stripes = 32767;
+    m_stripes = (unsigned int)
+	(ceil((double)input_length/(double)m_fft_points));
+    ASSERT(m_stripes <= 32767);
+    if (m_stripes > 32767) m_stripes = 32767;
 
     // create a new empty image
-    createNewImage(stripes, fft_points/2, color);
+    createNewImage(m_stripes, m_fft_points/2, m_color);
 
     // activate the window with an initial image
-    sonagram_window->setImage(image);
-    sonagram_window->show();
+    m_sonagram_window->setImage(m_image);
+    m_sonagram_window->show();
 
     // connect all needed signals
-    connect(sonagram_window, SIGNAL(destroyed()),
+    connect(m_sonagram_window, SIGNAL(destroyed()),
 	    this, SLOT(windowClosed()));
 
     QObject::connect((QObject*)&(manager()),
 	SIGNAL(sigSignalNameChanged(const QString &)),
-	sonagram_window, SLOT(setName(const QString &)));
+	m_sonagram_window, SLOT(setName(const QString &)));
 
     debug("SonagramPlugin::start() done.");
     return 0;
@@ -161,34 +165,40 @@ void SonagramPlugin::run(QStrList params)
 {
     debug("SonagramPlugin::run()");
 
-    if (!spx_insert_stripe) spx_insert_stripe =
+    if (!m_spx_insert_stripe) m_spx_insert_stripe =
 	new SignalProxy1< pair<unsigned int, QByteArray> >
 	(this, SLOT(insertStripe()));
+    ASSERT(m_spx_insert_stripe);
+    if (!m_spx_insert_stripe) return;
 
     bool done = false;
     while (!done) {
 	QByteArray *stripe_data;
 	unsigned int stripe_nr;
-	for (stripe_nr = 0; stripe_nr < stripes; stripe_nr++) {
-	    debug("SonagramPlugin::run(): calculating stripe %d of %d",stripe_nr,stripes);
-	
+	for (stripe_nr = 0; stripe_nr < m_stripes; stripe_nr++) {
+	    debug("SonagramPlugin::run(): calculating stripe %d of %d",
+	        stripe_nr,m_stripes);
+
 	    // create a new stripe data array
-	    stripe_data = new QByteArray(fft_points/2);
+	    stripe_data = new QByteArray(m_fft_points/2);
 	    ASSERT(stripe_data);
 	    if (!stripe_data) continue;
 
 	    // calculate one stripe
-	    calculateStripe(first_sample+stripe_nr*fft_points, fft_points,
-	    	*stripe_data);
-	
+	    calculateStripe(m_first_sample+stripe_nr*m_fft_points,
+	        m_fft_points, *stripe_data);
+
 	    pair<unsigned int, QByteArray> stripe_info(stripe_nr, *stripe_data);
-	
+
 	    // emit the stripe data to be synchronously inserted into
 	    // the current image
-	    spx_insert_stripe->enqueue(stripe_info);
-	
-	    while (spx_insert_stripe->count() >= MAX_QUEUE_USAGE)
-		yield();
+	    m_spx_insert_stripe->enqueue(stripe_info);
+
+	    // don't let the pipe grow too much
+	    if (m_spx_insert_stripe->count() >= MAX_QUEUE_USAGE) {
+		while (m_spx_insert_stripe->count() >= MAX_QUEUE_USAGE/2)
+		    yield();
+	    }
 	
 	    delete stripe_data;
 	}
@@ -200,23 +210,23 @@ void SonagramPlugin::run(QStrList params)
 //***************************************************************************
 void SonagramPlugin::insertStripe()
 {
-    debug("SonagramPlugin::insertStripe()");
-    ASSERT(spx_insert_stripe);
-    if (!spx_insert_stripe) return;
+//    debug("SonagramPlugin::insertStripe()");
+    ASSERT(m_spx_insert_stripe);
+    if (!m_spx_insert_stripe) return;
 
-    pair<unsigned int,QByteArray> *stripe_info = spx_insert_stripe->dequeue();
+    pair<unsigned int,QByteArray> *stripe_info = m_spx_insert_stripe->dequeue();
     ASSERT(stripe_info);
     if (!stripe_info) return;
 
     unsigned int stripe_nr = stripe_info->first;
-    debug("SonagramPlugin::insertStripe(): stripe nr = %d",stripe_nr);
+//    debug("SonagramPlugin::insertStripe(): stripe nr = %d",stripe_nr);
     QByteArray stripe = stripe_info->second;
     ASSERT(stripe);
     if (!stripe) return;
 
     // forward the stripe to the window to display it
-    ASSERT(sonagram_window);
-    if (sonagram_window) sonagram_window->insertStripe(
+    ASSERT(m_sonagram_window);
+    if (m_sonagram_window) m_sonagram_window->insertStripe(
 	stripe_nr, stripe);
 
     // remove the stripe data, it's our own copy
@@ -233,7 +243,7 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
     ASSERT(points);
     if (!points) return;
 
-    WindowFunction func(window_type);
+    WindowFunction func(m_window_type);
     double *windowfunction = func.getFunction(points);
     ASSERT(windowfunction);
     if (!windowfunction) return;
@@ -252,8 +262,8 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
 	unsigned int sample_nr = start + j;
 	double value;
 
-	value = (sample_nr < last_sample) ?
-	    (double)getSingleSample(0, sample_nr)/(double)(1<<23): 0.0;
+	value = (sample_nr < m_last_sample) ?
+	    (double)singleSample(0, sample_nr)/(double)(1<<23): 0.0;
 
 	data[j].real = windowfunction[j] * value;
 	data[j].imag = 0;
@@ -276,7 +286,7 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
 //	if (rea > max) max = rea;
 //    }
 //
-    double max = fft_points/2;
+    double max = m_fft_points/2;
 
     // norm all values to [0...255] and use them as pixel value
     if (max != 0) {
@@ -288,7 +298,7 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
 	    // get amplitude and scale to 1
 	    rea = 1 - ((1 - rea) * (1 - rea));
 
-	    output[j] = 255-(int)(rea*255);
+	    output[j] = 0xFE-(int)(rea*0xFE);
 	}
     }
 
@@ -303,8 +313,8 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     debug("SonagramPlugin::createNewImage()");
 
     // delete the previous image
-    if (image) delete image;
-    image = 0;
+    if (m_image) delete m_image;
+    m_image = 0;
 
     // do not create a new image if one dimension is zero!
     ASSERT(width);
@@ -319,9 +329,26 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     debug("SonagramPlugin::createNewImage(): settings ok, creating image");
 
     // create the new image object
-    image = new QImage(width, height, 8, 256);
-    ASSERT(image);
-    if (!image) return;
+    m_image = new QImage(width, height, 8, 256);
+    ASSERT(m_image);
+    if (!m_image) return;
+    m_image->setAlphaBuffer(true);
+
+//    QBitmap *mask = new QBitmap(width, height, true);
+//    QPainter p;
+//    p.begin(mask);
+//    for (int x=0; x < m_image->width(); x ++) {
+//	for (int y=0; y < m_image->height(); y ++) {
+//	    p.setPen(((((x/20)&1)^((y/20)&1))) ? color0 : color1);
+//	    p.drawPoint(x,y);
+//	}
+//    }
+//    p.end();
+//
+//    QPixmap pix;
+//    pix.convertFromImage(*m_image);
+//    pix.setMask(*mask);
+//    m_image=&(pix.convertToImage());
 
     // set the image's palette
     debug("SonagramPlugin::createNewImage(): setting palette");
@@ -334,11 +361,14 @@ void SonagramPlugin::createNewImage(const unsigned int width,
 	    // grayscale palette
 	    c.setRgb(i, i, i);
 	}
-	image->setColor(i, c.rgb());
+	m_image->setColor(i, c.rgb() | 0xFF000000);
     }
 
+    // use color 0xFF for transparency !
+    m_image->setColor(0xFF, 0x00000000);
+
     // fill the image with "empty"
-    image->fill(0xFF);
+    m_image->fill(0xFF);
 
     debug("SonagramPlugin::createNewImage(): done.");
 }
@@ -347,7 +377,7 @@ void SonagramPlugin::createNewImage(const unsigned int width,
 void SonagramPlugin::windowClosed()
 {
     // the SonagramWindow closes itself !
-    sonagram_window = 0;
+    m_sonagram_window = 0;
 
     // close the plugin too
     close();

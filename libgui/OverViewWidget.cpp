@@ -1,6 +1,7 @@
 
 #include "config.h"
 #include <qpainter.h>
+#include <qslider.h>  // for it's sizeHint()
 #include "OverViewWidget.h"
 
 OverViewWidget::OverViewWidget(QWidget *parent, const char *name)
@@ -221,6 +222,18 @@ void OverViewWidget::paintEvent (QPaintEvent *)
 //    p.drawLine (x1 + x2 - 1, 1, x1 + x2 - 1, height);
 //
 //    p.end ();
+}
+
+//*****************************************************************************
+const QSize OverViewWidget::minimumSize()
+{
+    return QSize(30, 30);
+}
+
+//*****************************************************************************
+const QSize OverViewWidget::sizeHint()
+{
+    return minimumSize();
 }
 
 //*****************************************************************************

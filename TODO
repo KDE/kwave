@@ -40,7 +40,7 @@ o inspect the usage of ImageView: owner of the image? freeing the image?
 o review all calls to DynamicLoader::getDialog, in: FFTWidget
 
 o ClipBoard::appendChannel should append a _copy_ of the channel instead
-  of the channel instead of itself (problem if channel gets deleted!)
+  of the channel itself (problem if channel gets deleted!)
 
 o search for plugins and other files only in the global directory,
   use the .kde structure in the user's home directory too

@@ -89,13 +89,16 @@ int KwavePlugin::execute(QStrList &params)
     debug("KwavePlugin::execute(): activating thread");
     m_thread->start();
 
+    // sometimes the signal proxies remain blocked until an initial
+    // X11 event occurs and thus might block the thread :-(
+    QApplication::syncX();
+
     return 0;
 }
 
 //***************************************************************************
 void KwavePlugin::run(QStrList params)
 {
-    return;
 }
 
 //***************************************************************************
@@ -113,44 +116,43 @@ PluginManager &KwavePlugin::manager()
 }
 
 //***************************************************************************
-QWidget *KwavePlugin::getParentWidget()
+QWidget *KwavePlugin::parentWidget()
 {
     return &(m_context.top_widget);
 }
 
 //***************************************************************************
-const QString &KwavePlugin::getSignalName()
+const QString &KwavePlugin::signalName()
 {
     return (m_context.top_widget.getSignalName());
 }
 
 //***************************************************************************
-unsigned int KwavePlugin::getSignalLength()
+unsigned int KwavePlugin::signalLength()
 {
-    return manager().getSignalLength();
+    return manager().signalLength();
 }
 
 //***************************************************************************
-unsigned int KwavePlugin::getSignalRate()
+unsigned int KwavePlugin::signalRate()
 {
-    return manager().getSignalRate();
+    return manager().signalRate();
 }
 
 //***************************************************************************
-unsigned int KwavePlugin::getSelection(unsigned int *left,
-                                       unsigned int *right)
+unsigned int KwavePlugin::selection(unsigned int *left, unsigned int *right)
 {
-    int l = manager().getSelectionStart();
-    int r = manager().getSelectionEnd();
+    int l = manager().selectionStart();
+    int r = manager().selectionEnd();
     if (left)  *left  = l;
     if (right) *right = r;
     return r-l+1;
 }
 
 //***************************************************************************
-int KwavePlugin::getSingleSample(unsigned int channel, unsigned int offset)
+int KwavePlugin::singleSample(unsigned int channel, unsigned int offset)
 {
-    return manager().getSingleSample(channel, offset);
+    return manager().singleSample(channel, offset);
 }
 
 //***************************************************************************

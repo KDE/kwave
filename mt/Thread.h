@@ -18,7 +18,7 @@
 #ifndef _THREAD_H_
 #define _THREAD_H_
 
-#include <pthread.h>
+#include <pthread.h>       // for POSIX threads, included in libc > 2.0
 #include "mt/TSS_Object.h"
 
 class Thread : public TSS_Object
@@ -61,36 +61,26 @@ public:
     virtual void stop();
 
     /**
-     * the "run()" function of the thread
+     * The "run()" function of the thread. This is the function you
+     * should overwrite to perform your thread's action.
      */
     virtual void run() = 0;
 
-
-    /** Returns true if the thread runns in "standalone" mode */
-    bool standalone() { return m_standalone; }
-
-    void *thread_adapter (void *arg);
+    /**
+     * wrapper to call the run() function, called internally
+     * from the thread function with "C" linkage.
+     * \internal
+     */
+    void *thread_adapter(void *arg);
 
 protected:
-//    protected:                // only for class ModuleList
-//
-//    static map<ACE_thread_t, Daemon *> DaemonList; /*!< list of all daemons */
-//    static ACE_Thread_Mutex lock_daemon_list_; /*! lock for the daemon list */
-//    jmp_buf jmp_buffer;       /*!< buffer for longjmp */
-
     /** thread id */
     pthread_t m_tid;
 
 private:
 
-    /** thread attributes */
+    /** thread attributes, like defined in pthread.h */
     pthread_attr_t m_attr;
-    bool m_respawn;             /*!< true=restart if crashed */
-    bool m_standalone;          /*!< true=no parent, self-deletion on exit */
-//    int  fail_count_;         /*!< number of crashs [0...n] */
-//    amr_time_t last_failed_;  /*!< time of last crash */
-//
-//    String name_;             /*!< the thread's name (normally owner module) */
 };
 
 #endif /* _THREAD_H_ */

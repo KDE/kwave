@@ -32,7 +32,7 @@
  * are only valid within a certain thread. The cleanup handler ensures
  * that the object will be removed if it´s owning thread died. For this,
  * the derived object must call the constructor and should have a
- * _virtual_ (!) destructor.
+ * <b>virtual</b> destructor.
  *
  * \author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  * \date 2000-10-01
@@ -41,10 +41,7 @@ class TSS_Object
 {
 public:
     /**
-     * Constructor, locks the dispatcher in readonly or exclusive mode.
-     *
-     * @param maildisp reference to a MailDispatcher
-     * @param exclusive true=lock exclusive, false=lock readonly
+     * Constructor, creates the TSS key
      */
     TSS_Object();
 

@@ -25,12 +25,8 @@
 class KStatusBar;
 class QImage;
 class OverViewWidget;
-class SonagramContainer;
 class ScaleWidget;
-class CornerPatchWidget;
-
 class ImageView;
-class SonagramContainer;
 
 //***********************************************************************
 class SonagramWindow : public KTMainWindow
@@ -82,24 +78,12 @@ protected:
     void clear();
 
 private:
-    KStatusBar *status;
-    QImage *image;
-    ImageView *view;
-    OverViewWidget *overview;
-    SonagramContainer *mainwidget;
-    ScaleWidget *xscale;
-    ScaleWidget *yscale;
-    CornerPatchWidget *corner;
-
-    /** number of fft points */
-    int points;
-    int rate;
-    int length;
-    unsigned int image_width;
-    unsigned int stripes;
-    int y;
-    complex **data;
-    double max;
+    KStatusBar *m_status;
+    QImage *m_image;
+    ImageView *m_view;
+    OverViewWidget *m_overview;
+    ScaleWidget *m_xscale;
+    ScaleWidget *m_yscale;
 };
 
 #endif // _SONOGRAM_WINDOW_H_

@@ -44,25 +44,25 @@ public:
      * The second parameter will contain the id of a window function
      * or zero if no window function was selected ("<none>").
      */
-    void getParameters(QStrList &list);
+    void parameters(QStrList &list);
 
 public slots:
-    void setPoints (int);
-    void setBoxPoints (int);
+    void setPoints(int points);
+    void setBoxPoints(int num);
 
 private:
-
-    Slider *pointslider;
-    QLabel *pointlabel;
-    QLabel *windowlabel;
-    QLabel *bitmaplabel;
-    QLabel *windowtypelabel;
-    QComboBox *pointbox;
-    QComboBox *windowtypebox;
-    QRadioButton *rbColor;
-    QPushButton *ok;
-    QPushButton *cancel;
-    int length, rate;
+    Slider *m_pointslider;
+    QLabel *m_pointlabel;
+    QLabel *m_windowlabel;
+    QLabel *m_bitmaplabel;
+    QLabel *m_windowtypelabel;
+    QComboBox *m_pointbox;
+    QComboBox *m_windowtypebox;
+    QRadioButton *m_rbColor;
+    QPushButton *m_ok;
+    QPushButton *m_cancel;
+    unsigned int m_length;
+    unsigned int m_rate;
 };
 
 #endif /* _SONAGRAM_DIALOG_H_ */

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-20 19:11+0200\n"
+"POT-Creation-Date: 2001-05-21 18:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,52 +90,52 @@ msgstr ""
 msgid "Blackman"
 msgstr ""
 
-#: kwave/SignalManager.cpp:493
+#: kwave/SignalManager.cpp:492
 msgid "File does not exist !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:502
+#: kwave/SignalManager.cpp:501
 msgid "File is no RIFF File !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:506
+#: kwave/SignalManager.cpp:505
 msgid "File has incorrect length! (maybe truncated?)"
 msgstr ""
 
-#: kwave/SignalManager.cpp:514
+#: kwave/SignalManager.cpp:513
 msgid "File is no WAVE File !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:525
+#: kwave/SignalManager.cpp:524
 msgid "File does not contain format information!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:540
+#: kwave/SignalManager.cpp:539
 msgid "File must be uncompressed (Mode 1) !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:552
+#: kwave/SignalManager.cpp:551
 msgid "File does not contain data!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:572 kwave/SignalManager.cpp:828
+#: kwave/SignalManager.cpp:571 kwave/SignalManager.cpp:827
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:697 kwave/SignalManager.cpp:942
-#: kwave/SignalManager.cpp:949
+#: kwave/SignalManager.cpp:696 kwave/SignalManager.cpp:941
+#: kwave/SignalManager.cpp:948
 msgid "Out of Memory!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:779
+#: kwave/SignalManager.cpp:778
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:786
+#: kwave/SignalManager.cpp:785
 msgid "Opening the file for writing failed!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:929
+#: kwave/SignalManager.cpp:928
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
@@ -588,7 +588,7 @@ msgstr ""
 msgid "&Silence"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:105 plugins/sonagram/SonagramWindow.cpp:132
+#: kwave/menus_config_i18n.cpp:105 plugins/sonagram/SonagramWindow.cpp:130
 msgid "&Sonagram"
 msgstr ""
 
@@ -664,47 +664,47 @@ msgstr ""
 msgid "in kb"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:97
+#: libgui/CurveWidget.cpp:96
 msgid "Flip Horizontal"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:99
+#: libgui/CurveWidget.cpp:98
 msgid "Flip Vertical"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:102
+#: libgui/CurveWidget.cpp:101
 msgid "into 1st half"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:104
+#: libgui/CurveWidget.cpp:103
 msgid "into 2nd half"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:107
+#: libgui/CurveWidget.cpp:106
 msgid "Interpolation"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:109
+#: libgui/CurveWidget.cpp:108
 msgid "Transform"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:111
+#: libgui/CurveWidget.cpp:110
 msgid "Fit In"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:113
+#: libgui/CurveWidget.cpp:112
 msgid "Presets"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:114
+#: libgui/CurveWidget.cpp:113
 msgid "Save Preset"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:116
+#: libgui/CurveWidget.cpp:115
 msgid "recently selected Point"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:118
+#: libgui/CurveWidget.cpp:117
 msgid "every 2nd Point"
 msgstr ""
 
@@ -1257,59 +1257,59 @@ msgstr ""
 msgid "Length of pulse :"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:136
+#: plugins/sonagram/SonagramWindow.cpp:134
 msgid "&Export to Bitmap ..."
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:141
+#: plugins/sonagram/SonagramWindow.cpp:139
 msgid "Frequencies Status Bar"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:145
+#: plugins/sonagram/SonagramWindow.cpp:143
 msgid "Time: ------ ms"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:146
+#: plugins/sonagram/SonagramWindow.cpp:144
 msgid "Frequency: ------ Hz"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:147
+#: plugins/sonagram/SonagramWindow.cpp:145
 #, c-format
 msgid "Amplitude: --- %"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:189
+#: plugins/sonagram/SonagramWindow.cpp:187
 msgid "Time: 0 ms"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:190
+#: plugins/sonagram/SonagramWindow.cpp:188
 msgid "Frequency: 0 Hz"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:191
+#: plugins/sonagram/SonagramWindow.cpp:189
 #, c-format
 msgid "Amplitude: 0 %"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:505
+#: plugins/sonagram/SonagramWindow.cpp:503
 msgid "Sonagram of "
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:508
+#: plugins/sonagram/SonagramWindow.cpp:506
 msgid "<nothing>"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:532
+#: plugins/sonagram/SonagramWindow.cpp:530
 #, c-format, ycp-format
 msgid "Time: %1"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:536
+#: plugins/sonagram/SonagramWindow.cpp:534
 #, c-format
 msgid "Frequency: %d Hz"
 msgstr ""
 
-#: plugins/sonagram/SonagramWindow.cpp:546
+#: plugins/sonagram/SonagramWindow.cpp:544
 msgid "Amplitude: %d %%"
 msgstr ""
 

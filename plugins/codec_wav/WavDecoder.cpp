@@ -294,8 +294,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	
 	RIFFChunk *root = (riff_chunk) ? riff_chunk : parser.findChunk("");
 	parser.dumpStructure();
-	debug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
-	    parser.findChunk(""));
+//	debug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
+//	    parser.findChunk(""));
 	repair(repair_list, root, fmt_chunk, data_chunk);
 	m_src_adapter = new RepairVirtualAudioFile(*m_source, repair_list);
     } else {
@@ -384,7 +384,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    src.at(offset);
 	    src.readBlock(buffer, length);
 	    buffer[length] = 0;
-	    QCString value(buffer);
+	    QString value;
+	    value = QString::fromUtf8(buffer);
 	    info().set(prop, value);
 	
 	    delete buffer;

@@ -569,8 +569,7 @@ void probe_fast_memcpy(void)
 #ifdef XINE_COMPILE
   xine->config->update_num (xine->config, "misc.memcpy_method", best);
 #else /* XINE_COMPILE */
-  xprintf(xine, XINE_VERBOSITY_LOG, "using %u -> '%s'\n",
-          best, memcpy_method[best].name);
+  xprintf(xine, XINE_VERBOSITY_LOG, "using -> '%s'\n", memcpy_method[best].name);
   xine_fast_memcpy = memcpy_method[best].function;
 #endif /* XINE_COMPILE */
 

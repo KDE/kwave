@@ -49,6 +49,7 @@
 #include "libkwave/SampleFormat.h"
 
 #include "BitrateWidget.h"
+#include "CompressionWidget.h"
 #include "FileInfoDialog.h"
 #include "KeywordWidget.h"
 #include "SelectDateDialog.h"
@@ -234,59 +235,32 @@ void FileInfoDialog::setupCompressionTab()
 
     if (m_is_mpeg) {
 	// MPEG file -> not supported yet
-	rbCompressionABR->setEnabled(false);
-	rbCompressionVBR->setEnabled(false);
-	abrBitrate->setEnabled(false);
-	lblCompressionNominalBitrate->setEnabled(false);
+	compressionWidget->enableABR(false);
+	compressionWidget->enableVBR(false);
     } else if (m_is_ogg) {
 	// Ogg/Vorbis file
-	rbCompressionVBR->setEnabled(false); // not supported yet
-	rbCompressionABR->setEnabled(true);
-	abrBitrate->setEnabled(true);
-	lblCompressionNominalBitrate->setEnabled(true);
+	compressionWidget->enableABR(true);
+	compressionWidget->enableVBR(true);
     } else {
 	// other...    
-	rbCompressionABR->setEnabled(false);
-	rbCompressionVBR->setEnabled(false);
-	abrBitrate->setEnabled(false);
-	lblCompressionNominalBitrate->setEnabled(false);
+	compressionWidget->enableABR(false);
+	compressionWidget->enableVBR(false);
     }
 
-    // use well-known bitrates from MP3
-    QValueList<int> rates;
-    rates.append(  8000);
-    rates.append( 16000);
-    rates.append( 24000);
-    rates.append( 32000);
-    rates.append( 40000);
-    rates.append( 56000);
-    rates.append( 64000);
-    rates.append( 80000);
-    rates.append( 96000);
-    rates.append(112000);
-    rates.append(128000);
-    rates.append(144000);
-    rates.append(160000);
-    rates.append(176000);
-    rates.append(192000);
-    rates.append(224000);
-    rates.append(256000);
-    rates.append(288000);
-    rates.append(320000);
-    rates.append(352000);
-    rates.append(384000);
-    rates.append(416000);
-    rates.append(448000);
-    abrBitrate->allowRates(rates);
+    int abr_bitrate = m_info.contains(INF_BITRATE_NOMINAL) ?
+                  QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt() : 0;
+    int min_bitrate = m_info.contains(INF_BITRATE_LOWER) ?
+                  QVariant(m_info.get(INF_BITRATE_LOWER)).toInt() : 0;
+    int max_bitrate = m_info.contains(INF_BITRATE_UPPER) ?
+                  QVariant(m_info.get(INF_BITRATE_UPPER)).toInt() : 0;
+    compressionWidget->setBitrates(abr_bitrate, min_bitrate, max_bitrate);
 
-    int bitrate = m_info.contains(INF_BITRATE_NOMINAL) ?
-                  QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt() : 64000;
-    abrBitrate->setValue(bitrate);
-    abrHighestBitrate->setSpecialValueText(i18n("no limit"));
-    abrLowestBitrate->setSpecialValueText(i18n("no limit"));
+    int quality = m_info.contains(INF_VBR_QUALITY) ?
+                  QVariant(m_info.get(INF_VBR_QUALITY)).toInt() : 0;
+    compressionWidget->setQuality(quality);
 
-    connect(rbCompressionABR, SIGNAL(toggled(bool)),
-            this, SLOT(compressionSelectABR(bool)));
+    compressionWidget->setMode((quality || !abr_bitrate) ?
+        CompressionWidget::VBR_MODE : CompressionWidget::ABR_MODE);
     
 //    // this is not visible, not implemented yet...
 //    InfoTab->setCurrentPage(5);
@@ -308,14 +282,6 @@ void FileInfoDialog::setupCompressionTab()
 //	44100:
 //    }
 //}
-
-//***************************************************************************
-void FileInfoDialog::compressionSelectABR(bool checked)
-{
-    checked = false; // ### <- not implemented yet
-    abrHighestBitrate->setEnabled(checked && chkHighestBitrate->isChecked());
-    abrLowestBitrate->setEnabled( checked && chkLowestBitrate->isChecked());
-}
 
 //***************************************************************************
 void FileInfoDialog::setupMpegTab()
@@ -669,7 +635,27 @@ void FileInfoDialog::accept()
 
     /* bitrate in Ogg/Vorbis mode */
     if (m_is_ogg) {
-	m_info.set(INF_BITRATE_NOMINAL, QVariant(abrBitrate->value()));
+        CompressionWidget::Mode mode = compressionWidget->mode();
+        switch (mode) {
+	    case CompressionWidget::ABR_MODE:
+	        int nominal, upper, lower;
+	        compressionWidget->getABRrates(nominal, upper, lower);
+	        
+	        m_info.set(INF_BITRATE_NOMINAL, QVariant(nominal));
+	        m_info.set(INF_BITRATE_LOWER, (lower) ? QVariant(lower) : 0);
+	        m_info.set(INF_BITRATE_UPPER, (upper) ? QVariant(upper) : 0);
+	        m_info.set(INF_VBR_QUALITY, 0);
+	        break;
+	    case CompressionWidget::VBR_MODE:
+	        int quality = compressionWidget->baseQuality();
+	        
+	        m_info.set(INF_BITRATE_NOMINAL, 0);
+	        m_info.set(INF_BITRATE_LOWER, 0);
+	        m_info.set(INF_BITRATE_UPPER, 0);
+	        m_info.set(INF_VBR_QUALITY, QVariant(quality));
+	        break;
+	}
+	
     }
     
     /* name, subject, version, genre, title, author, organization,

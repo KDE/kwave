@@ -88,13 +88,13 @@ public:
 
     /** Returns the full path of this node. */
     inline const QCString path() {
-        return ((m_parent) ? m_parent->path() : QCString("")) + "/" + m_name;
+        return (m_parent) ? (m_parent->path() + "/" + m_name) : m_name;
     };
 
     /** Returns the offset where the chunk's data starts. */
     u_int32_t dataStart();
 
-    /** Returns the length of the chunk's data */
+    /** Returns the physical length of the chunk's data */
     u_int32_t dataLength();
 
     /**

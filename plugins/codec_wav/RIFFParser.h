@@ -20,7 +20,9 @@
 
 #include "config.h"
 #include <qlist.h>
+#include <qstringlist.h>
 #include <qvaluelist.h>
+
 #include "RIFFChunk.h"
 
 class QIODevice;
@@ -31,9 +33,20 @@ class RIFFParser
 {
 public:
 
-    RIFFParser(QIODevice &device);
+    /** endianness of the RIFF's chunk format */
+    typedef enum { Unknown, LittleEndian, BigEndian } Endianness;
 
-    ~RIFFParser();
+    /**
+     * Constructor.
+     * @param device QIODevice to parse through.
+     * @param main_chunks list of known names of main chunks
+     * @param known_subchunks list of known subchunks
+     */
+    RIFFParser(QIODevice &device, const QStringList &main_chunks,
+               const QStringList &known_subchunks);
+
+    /** Destructor */
+    virtual ~RIFFParser();
 
     /**
      * Parses the whole source.
@@ -76,6 +89,12 @@ public:
 protected:
 
     /**
+     * Tries to detect the endianness of the source. If successful, the
+     * endianness will be set. If failed, will be set to "Unknown".
+     */
+    void detectEndianness();
+
+    /**
      * Adds a chunk that has no valid name and thus is not recognized.
      * It is assumed that it only contains undecodeable garbage without
      * any valid name, length or other header information.
@@ -105,6 +124,14 @@ protected:
     void listAllChunks(RIFFChunk &parent, RIFFChunkList &list);
 
     /**
+     * Returns a pointer to a chunk that starts at a given offset
+     * or zero if none found.
+     * @param offset the start position (physical start)
+     * @return pointer to the chunk or zero
+     */
+    RIFFChunk *chunkAt(u_int32_t offset);
+
+    /**
      * Performs a scan for a 4-character chunk name over a range of the
      * source.
      * @param name the name of the chunk to be found
@@ -122,6 +149,16 @@ private:
 
     /** root chunk of the source */
     RIFFChunk m_root;
+
+    /** list of known names of main chunks */
+    QStringList m_main_chunk_names;
+
+    /** list of known names of sub chunks */
+    QStringList m_sub_chunk_names;
+
+    /** endianness of the RIFF file, auto-detected */
+    Endianness m_endianness;
+
 };
 
 #endif /* _RIFF_PARSER_H_ */

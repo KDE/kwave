@@ -33,7 +33,10 @@ RIFFChunk::RIFFChunk(RIFFChunk *parent, const QCString &name,
 //***************************************************************************
 u_int32_t RIFFChunk::physEnd()
 {
-    return m_phys_offset + ((m_phys_length) ? (m_phys_length + 7) : 8);
+    u_int32_t end = m_phys_offset + m_phys_length;
+    if (m_phys_length) --end;
+    if ((m_type != Root) && (m_type != Garbage)) end += 8;
+    return end;
 }
 
 //***************************************************************************
@@ -62,9 +65,12 @@ void RIFFChunk::dumpStructure()
     }
 
     // dump this chunk
+    QCString p = path();
+    if (m_type == Main) p += " (" + m_format + ")";
+
     debug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
           physStart(), physEnd(), physLength(), length(),
-          t.data(), path().data()
+          t.data(), p.data()
     );
 
     // recursively dump all sub-chunks

@@ -30,6 +30,8 @@
 #include "WavDecoder.h"
 #include "WavFileFormat.h"
 
+#include <qapplication.h> // ###
+
 #define CHECK(cond) ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
 //***************************************************************************
@@ -65,7 +67,31 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     unsigned int pos=src.at();
-    RIFFParser parser(src);
+    QStringList main_chunks;
+    main_chunks.append("RIFF"); /* RIFF, little-endian */
+    main_chunks.append("RIFX"); /* RIFF, big-endian */
+    main_chunks.append("FORM"); /* used in AIFF, big-endian */
+    main_chunks.append("LIST"); /* additional information */
+    main_chunks.append("adtl"); /* Associated Data */
+
+    QStringList known_chunks;
+    // native WAVE chunk names
+    known_chunks.append("cue "); /* Markers */
+    known_chunks.append("data"); /* Sound Data */
+    known_chunks.append("fmt "); /* Format */
+    known_chunks.append("inst"); /* Instrument */
+    known_chunks.append("labl"); /* label */
+    known_chunks.append("ltxt"); /* labeled text */
+    known_chunks.append("note"); /* note chunk */
+    known_chunks.append("plst"); /* Play List */
+    known_chunks.append("smpl"); /* Sampler */
+    // some chunks known from AIFF format
+    known_chunks.append("FVER");
+    known_chunks.append("COMM");
+    known_chunks.append("wave");
+    known_chunks.append("SSND");
+
+    RIFFParser parser(src, main_chunks, known_chunks);
     parser.parse();
 //    parser.dumpStructure();
     debug("--- after first pass ---");
@@ -79,11 +105,15 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
         chunk = parser.findMissingChunk("RIFF");
     } else debug("RIFF chunk found.");
 
-//    parser.findChunk("/RIFF/WAVE");
-//    parser.findChunk("/RIFF/WAVE/fmt ");
-//    parser.findChunk("/RIFF/WAVE/data");
+    if (!parser.findChunk("/RIFF/fmt ")) {
+        parser.findMissingChunk("fmt ");
+    }
+    if (!parser.findChunk("/RIFF/data")) {
+        parser.findMissingChunk("data");
+    }
 
     parser.dumpStructure();
+    qApp->exit();
     src.at(pos);
 
     // source successfully opened

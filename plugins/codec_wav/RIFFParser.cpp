@@ -16,16 +16,32 @@
  ***************************************************************************/
 
 #include "config.h"
+
+#include <endian.h>
+#include <byteswap.h>
+#include <math.h>
+#include <stdlib.h>
+
 #include <qiodevice.h>
 #include <qlist.h>
 #include <qstring.h>
+#include <qstringlist.h>
 
 #include "RIFFChunk.h"
 #include "RIFFParser.h"
 
+#if defined(IS_BIG_ENDIAN)
+#define SYSTEM_ENDIANNES BigEndian
+#else
+#define SYSTEM_ENDIANNES LittleEndian
+#endif
+
 //***************************************************************************
-RIFFParser::RIFFParser(QIODevice &device)
-    :m_dev(device), m_root(0, "", "", device.size(), 0, device.size())
+RIFFParser::RIFFParser(QIODevice &device, const QStringList &main_chunks,
+                       const QStringList &known_subchunks)
+    :m_dev(device), m_root(0, "", "", device.size(), 0, device.size()),
+     m_main_chunk_names(main_chunks), m_sub_chunk_names(known_subchunks),
+     m_endianness(Unknown)
 {
     m_root.setType(RIFFChunk::Root);
 }
@@ -36,8 +52,94 @@ RIFFParser::~RIFFParser()
 }
 
 //***************************************************************************
+void RIFFParser::detectEndianness()
+{
+    QValueList<u_int32_t> riff_offsets = scanForName("RIFF",
+        m_root.physStart(), m_root.physLength());
+    QValueList<u_int32_t> rifx_offsets = scanForName("RIFX",
+        m_root.physStart(), m_root.physLength());
+
+    // if RIFF found and RIFX not found -> little endian
+    if (riff_offsets.count() && !rifx_offsets.count()) {
+        debug("detected little endian format");
+        m_endianness = LittleEndian;
+        return;
+    }
+
+    // if RIFX found and RIFF not found -> big endian
+    if (rifx_offsets.count() && !riff_offsets.count()) {
+        debug("detected big endian format");
+        m_endianness = BigEndian;
+        return;
+    }
+
+    // not detectable -> detect by searching all known chunks and
+    // detect best match
+    debug("doing statistic search to determine endianness...");
+    unsigned int le_matches = 0;
+    unsigned int be_matches = 0;
+    QStringList names;
+    names += m_main_chunk_names;
+    names += m_sub_chunk_names;
+    QStringList::Iterator it;
+
+    // average length should be approx. half of file size
+    double half = (m_dev.size() >> 1);
+
+    // loop over all chunk names
+    for (it = names.begin(); it != names.end(); ++it ) {
+        // scan all offsets where the name matches
+        QCString name = (*it).latin1();
+        QValueList<u_int32_t> offsets = scanForName(name,
+            m_root.physStart(), m_root.physLength());
+
+        // loop over all found offsets
+        QValueList<u_int32_t>::Iterator it_ofs = offsets.begin();
+        for (; it_ofs != offsets.end(); ++it_ofs) {
+            m_dev.at(*it_ofs + 4);
+
+            // read length, assuming little endian
+            u_int32_t len = 0;
+            m_dev.readBlock((char*)(&len), 4);
+#if defined(IS_BIG_ENDIAN)
+            double dist_le = fabs(half - bswap_32(len));
+            double dist_be = fabs(half - len);
+#else
+            double dist_le = fabs(half - len);
+            double dist_be = fabs(half - bswap_32(len));
+#endif
+            if (dist_be > 1.3*dist_le) ++le_matches;
+            if (dist_le > 1.3*dist_be) ++be_matches;
+        }
+    }
+    debug("big endian matches:    %u", be_matches);
+    debug("little endian matches: %u", le_matches);
+
+    if (le_matches > be_matches) {
+        debug("assuming little endian");
+        m_endianness = LittleEndian;
+    } else if (be_matches > le_matches) {
+        debug("assuming big endian");
+        m_endianness = BigEndian;
+    } else {
+        // give up :-(
+        debug("unable to determine endianness");
+        m_endianness = Unknown;
+    }
+}
+
+//***************************************************************************
 bool RIFFParser::parse()
 {
+    // first of all we have to find out the endianness of our source
+    detectEndianness();
+
+    // not detectable -> no chance of finding anything useful -> give up!
+    if (m_endianness == Unknown) {
+        warning("unable to detect endianness -> giving up!");
+        return false;
+    }
+
     // find all primary chunks
     return parse(&m_root, 0, m_dev.size());
 }
@@ -50,8 +152,10 @@ bool RIFFParser::addGarbageChunk(RIFFChunk *parent, u_int32_t offset,
     if (!parent) return false;
 
     // create the new chunk first
-    RIFFChunk *chunk = new RIFFChunk(parent, "####", "", length,
-        offset, length);
+    QCString name(16);
+    name.sprintf("[0x%08X]", offset);
+    RIFFChunk *chunk = new RIFFChunk(parent, name, "", length,
+                                     offset, length);
     ASSERT(chunk);
     if (!chunk) return false;
 
@@ -88,6 +192,10 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     if (!m_dev.isDirectAccess()) return false;
     if (!parent) return false;
 
+    // remember the number of sub-chunks that are already present
+    // in the chunk, these have to be skipped in the recursion later
+    unsigned int old_chunk_count = parent->subChunks().count();
+
     do {
         ASSERT(error==false);
 //        debug("RIFFParser::parse(offset=0x%08X, length=%u)", offset, length);
@@ -98,9 +206,17 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
             break;
         }
 
+        // abort search if we passed the same position twice
+        // (this might happen if an intensive search is performed
+        // and one position can be reached in two or more ways)
+        // only exception: the root chunk, this always overlaps
+        // with the first chunk at start of search!
+        RIFFChunk *prev = chunkAt(offset);
+        if (prev && (m_root.subChunks().count())) break;
+
         // chunks with less than 4 bytes are not possible
         if (length < 4) {
-            warning("chunk with less than 4 bytes at offset %u, "\
+            warning("chunk with less than 4 bytes at offset 0x%08X, "\
                     "length=%u bytes!", offset, length);
             // too short stuff is "garbage"
             addGarbageChunk(parent, offset, length);
@@ -120,6 +236,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
             if (!QChar(name[i]).isLetterOrNumber() && (name[i] != ' ')) {
                 warning("invalid chunk name at offset 0x%08X", offset);
                 // unreadable name -> make it a "garbage" chunk
+//                debug("addGarbageChunk(offset=0x%08X, length=%u)",offset,length);
                 addGarbageChunk(parent, offset, length);
                 error = true;
                 break;
@@ -132,9 +249,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         if (length >= 8) {
             // length information present
             m_dev.readBlock((char*)(&len), 4);
-#if defined(IS_BIG_ENDIAN)
-            len = bswap_32(len);
-#endif
+            if (m_endianness != SYSTEM_ENDIANNES) len = bswap_32(len);
         } else {
             // valid name but no length information -> badly truncated
             // -> make it a zero-length chunk
@@ -159,29 +274,31 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         RIFFChunk *chunk = new RIFFChunk(parent, name, format,
             len, offset, phys_len);
         ASSERT(chunk);
-        if (!chunk) return false;
+        if (!chunk) break;
         parent->subChunks().append(chunk);
 
         // if not at the end of the file, parse all further chunks
         length -= chunk->physLength() + 8;
         offset  = chunk->physEnd() + 1;
+//        debug("parse loop end: offset=0x%08X, length=%u",offset,length);
     } while (length);
 
+    // parse for sub-chunks in the chunks we newly found
     QListIterator<RIFFChunk> it(parent->subChunks());
+    while (old_chunk_count--) ++it; // skip already known ones
     for (; it.current(); ++it) {
 	RIFFChunk *chunk = it.current();
 	
-	if ((chunk->name() == "RIFF") ||
-	    (chunk->name() == "WAVE") ||
-	    (chunk->name() == "LIST"))
+	if ( (m_main_chunk_names.grep(chunk->name()).count()) &&
+	     (chunk->dataLength() >= 4) )
 	{
             chunk->setType(RIFFChunk::Main);
 
             QCString path = (parent ? parent->path() : QCString("")) +
                             "/" + chunk->name();
-            debug("scanning for chunks in '%s' (type='%s'), offset=%u",
+            debug("scanning for chunks in '%s' (format='%s'), offset=0x%08X, length=%u",
                   path.data(), chunk->format().data(),
-                  chunk->dataStart());
+                  chunk->dataStart(), chunk->dataLength());
             if (!parse(chunk, chunk->dataStart(), chunk->dataLength())) {
                 error = true;
             }
@@ -272,6 +389,18 @@ void RIFFParser::listAllChunks(RIFFChunk &parent, RIFFChunkList &list)
 }
 
 //***************************************************************************
+RIFFChunk *RIFFParser::chunkAt(u_int32_t offset)
+{
+    RIFFChunkList list;
+    listAllChunks(m_root, list);
+    QListIterator<RIFFChunk> it(list);
+    for (; it.current(); ++it) {
+        if ((*it.current()).physStart() == offset) return it.current();
+    }
+    return 0;
+}
+
+//***************************************************************************
 RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
 {
     // first search in all garbage areas
@@ -291,9 +420,10 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
             QValueList<u_int32_t>::Iterator it = offsets.begin();
             u_int32_t end = chunk->physEnd();
             for (;it != offsets.end(); ++it) {
-                u_int32_t pos  = (*it);
-                debug("found at [0x%08X...0x%08X]", pos, end);
-                parse(chunk, pos, end-pos+1);
+                u_int32_t pos = (*it);
+                u_int32_t len = end-pos+1;
+                debug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
+                parse(chunk, pos, len);
                 debug("-------------------------------");
             }
         }

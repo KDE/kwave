@@ -46,6 +46,7 @@
 #include "kwave/SignalManager.h"
 
 #include "PlayBack-OSS.h"
+#include "PlayBack-ALSA.h"
 #include "PlayBack-aRts.h"
 
 #include "PlayBackDialog.h"
@@ -321,9 +322,6 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 void PlayBackPlugin::setDevice(const QString &device)
 {
 //     qDebug("PlayBackPlugin::setDevice(%s)", device.local8Bit().data());
-
-    // take the change in the device
-    m_playback_params.device = device;
 
     // set the device in the dialog
     if (m_dialog) m_dialog->setDevice(device);

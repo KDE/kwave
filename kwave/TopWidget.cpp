@@ -863,9 +863,10 @@ int TopWidget::saveFileAs(bool selection)
 	QString name = url.path();
 	QFileInfo path(name);
 	
-	// add the (default) extension .wav if necessary
+	// add the correct extension if necessary
 	if (path.extension(false) == "") {
-	    name += ".wav";
+	    QString ext = dlg.extension();
+	    name += ext.mid(1);
 	    path = name;
 	    url.setPath(name);
 	}

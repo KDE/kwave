@@ -261,8 +261,8 @@ double freq,gdb,bw;
   double k,w,bwr,abw,gain;
 
   k = pow(10.0,gdb/20.0);
-  //w = 2.0*PI*freq/(double)SR;
-  //bwr = 2.0*PI*bw/(double)SR;
+  /* w = 2.0*PI*freq/(double)SR; */
+  /* bwr = 2.0*PI*bw/(double)SR; */
   w = freq;
   bwr = bw;
   abw = (1.0-tan(bwr/2.0))/(1.0+tan(bwr/2.0));

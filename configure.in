@@ -5,15 +5,29 @@ dnl acinclude.m4 makes the job for all programs ;-)
 AC_INIT(admin/acinclude.m4.in)
 AC_CONFIG_AUX_DIR(admin)
 
-AC_CANONICAL_SYSTEM  
+dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
+unset CDPATH
+
+dnl Checking host/target/build systems, for make, install etc.
+AC_CANONICAL_SYSTEM
+dnl Perform program name transformation
 AC_ARG_PROGRAM
+
+dnl Automake doc recommends to do this only here. (Janos)
 AM_INIT_AUTOMAKE(kwave,0.6.2)
-AC_LIBTOOL_DLOPEN
-KDE_PROG_LIBTOOL
+
 KDE_SET_PREFIX
+
+dnl generate the config header
 AM_CONFIG_HEADER(config.h)
+
+dnl Check for programs.
+AC_CHECK_COMPILERS
+dnl AC_LANG_CPLUSPLUS
 AM_ENABLE_SHARED(yes)
 AM_ENABLE_STATIC(no)
+AC_LIBTOOL_DLOPEN
+KDE_PROG_LIBTOOL
 
 dnl CXXFLAGS="$(CXXFLAGS) -fno-check-new"
 dnl CFLAGS="${CFLAGS}     -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
@@ -21,22 +35,22 @@ dnl CXXFLAGS="${CXXFLAGS} -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
 dnl CFLAGS="${CFLAGS}     -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
 dnl CXXFLAGS="${CXXFLAGS} -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
 dnl CXXFLAGS="$(CXXFLAGS) -fexceptions -g"
-dnl 
+dnl
 dnl AC_DEFUN(AC_CHECK_WITH_INSURE,
 dnl [
 dnl     ac_use_insure=no
 dnl     AC_MSG_CHECKING(whether to use insure++);
-dnl 
-dnl     AC_ARG_ENABLE(insure, 
+dnl
+dnl     AC_ARG_ENABLE(insure,
 dnl [  --enable-insure         enable support for insure++ debugging [default=no]],
-dnl    [ 
-dnl     if test $enableval = "no"; then 
+dnl    [
+dnl     if test $enableval = "no"; then
 dnl          ac_use_insure="no"
-dnl        else 
+dnl        else
 dnl          ac_use_insure="yes"
 dnl     fi
 dnl    ], [ac_use_insure="no"])
-dnl 
+dnl
 dnl  if test "$ac_use_insure" = "yes"; then
 dnl    CC=insure
 dnl    CPP=insure
@@ -45,26 +59,20 @@ dnl    AC_SUBST(CC)
 dnl    AC_SUBST(CPP)
 dnl    AC_SUBST(CXX)
 dnl  fi
-dnl 
+dnl
 dnl  AC_MSG_RESULT($ac_use_insure);
 dnl ])
-dnl 
+dnl
 dnl test for usage of insure++
 dnl AC_CHECK_WITH_INSURE
 
-AC_CHECK_COMPILERS
-dnl AC_PROG_CC
-dnl AC_PROG_CPP
-dnl AC_PROG_CXX
-
-dnl switch to C++
-AC_LANG_CPLUSPLUS
-
 dnl check if nls is wanted
-AM_KDE_WITH_NLS(yes)
+dnl AM_KDE_WITH_NLS
 
+KDE_USE_QT(2.1)
 AC_PATH_KDE
-AC_ARG_PROGRAM
+
+dnl AC_ARG_PROGRAM
 
 KDE_FIND_PATH(xml2pot, XML2POT, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(xml2pot)])
 AC_SUBST(XML2POT)
@@ -80,32 +88,33 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PATH_PROG(CONVERT,convert)
 AC_PATH_PROG(MSGMERGE, msgmerge)
+AC_PATH_PROG(MSGFMT, msgfmt)
 
 dnl checks, if the debug code is wanted
 dnl ### AC_CHECK_FLAGS
-dnl 
+dnl
 dnl optimization flags for athlon
-dnl CFLAGS = -O3 -fomit-frame-pointer -Wall 
+dnl CFLAGS = -O3 -fomit-frame-pointer -Wall
 dnl -mathlon -mcpu=athlon -march=athlon
-dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations 
+dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations
 dnl -malign-double -fschedule-insns2 -mwide-multiply
-dnl 
+dnl
 dnl optimization flags for pentium pro
-dnl CFLAGS = -s -O3 -fomit-frame-pointer -Wall 
+dnl CFLAGS = -s -O3 -fomit-frame-pointer -Wall
 dnl -mpentiumpro -march=pentiumpro
-dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations 
+dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations
 dnl -malign-double -fschedule-insns2 -mwide-multiply
-dnl 
+dnl
 dnl ### CFLAGS="${CFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 dnl ### CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
-dnl 
+dnl
 dnl now create our libtool, the earlier the better...
 dnl AM_PROG_LIBTOOL
-dnl 
-dnl find out some variables 
+dnl
+dnl find out some variables
 dnl ### AC_AIX
 dnl ### AC_MINIX
-dnl 
+dnl
 dnl for NLS support. Call them in this order!
 
 dnl CXXFLAGS="$(CXXFLAGS) -Wall -g -fcheck-memory-usage \
@@ -115,16 +124,14 @@ dnl   -fcheck-new -Wall -pedantic -W -Wpointer-arith -Wmissing-prototypes \
 dnl   -Wwrite-strings -Wno-long-long -Wnon-virtual-dtor -fno-builtin "
 
 dnl check if the c++ compiler is new enough to support references to functions
-AC_LANG_CPLUSPLUS dnl switch to C++
 AC_MSG_CHECKING("whether $CXX supports references to functions")
-AC_TRY_LINK(
-#include <sys/resource.h>
+AC_TRY_CPP([#include <sys/resource.h>
 ,
     typedef int(function_t)(int);
     class dummy {
     public:
         function_t &function(int index);
-    };
+    };]
 ,
 AC_MSG_RESULT("yes")
 ,AC_MSG_ERROR(FAILED! please get a newer C++ compiler))
@@ -173,12 +180,12 @@ AC_CHECK_HEADER(pthread.h,,AC_MSG_ERROR(""
 "    please install a current version of gnu libc !"
 "    "))
 
-AC_CHECK_HEADERS(utility string,,AC_MSG_ERROR(""
-"    "
-"    your system seems to lack support for one or more STL classes."
-"    please install a current version of the libgpp package"
-"    that contains the necessary C++ header files!"
-"    "))
+dnl AC_CHECK_HEADERS(utility string,,AC_MSG_ERROR(""
+dnl "    "
+dnl "    your system seems to lack support for one or more STL classes."
+dnl "    please install a current version of the libgpp package"
+dnl "    that contains the necessary C++ header files!"
+dnl "    "))
 
 AC_CHECK_HEADERS( assert.h byteswap.h ctype.h dlfcn.h endian.h errno.h \
 	fcntl.h features.h float.h limits.h sched.h stdarg.h stddef.h \
@@ -193,7 +200,7 @@ AC_CHECK_HEADERS( assert.h byteswap.h ctype.h dlfcn.h endian.h errno.h \
 dnl Check for memory info and see if we can determine
 dnl the total amount of installed memory
 AC_MSG_CHECKING("for memory info")
-AC_TRY_LINK(
+AC_TRY_CPP([
 #include <sys/sysinfo.h>
 #include <linux/kernel.h>
 ,
@@ -201,7 +208,7 @@ AC_TRY_LINK(
     unsigned int total;
     sysinfo(&info);
     total = info.totalram;
-,
+],
 AC_DEFINE(HAVE_MEMINFO)
 AC_MSG_RESULT("present")
 ,AC_MSG_WARN(FAILED!
@@ -212,14 +219,14 @@ AC_MSG_RESULT("present")
 
 dnl check for resource query functions
 AC_MSG_CHECKING("for resource usage")
-AC_TRY_LINK(
+AC_TRY_CPP([
 #include <sys/resource.h>
 ,
     struct rlimit limit;
     getrlimit(RLIMIT_DATA, &limit);
     unsigned int ulimit = limit.rlim_cur >> 20;
     getrlimit(RLIMIT_AS, &limit);
-,
+],
 AC_DEFINE(HAVE_GETRLIMIT)
 AC_MSG_RESULT("present")
 ,AC_MSG_WARN(MISSING!))

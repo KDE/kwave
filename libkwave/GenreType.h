@@ -44,7 +44,7 @@ protected:
 
     /** fills the map if it is empty */
     static void fill();
-    
+
 private:
 
     /** map with numeric ids and names */

@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2003-06-28</date>
-<releaseinfo>0.6.7</releaseinfo>
+<date>2003-09-14</date>
+<releaseinfo>0.6.7-3</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -186,28 +186,16 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.6.8 [2003-xx-xx]</para>
+            <para>0.6.8 [2003-09-??]</para>
             <itemizedlist>
                 <listitem><para>
-                    improved i18n in all plugins
-                </para></listitem>
-                <listitem><para>
-                    added a new tab in About dialogbox with a list of installed plugins
-                </para></listitem>
-                <listitem><para>
-                    fix an i18n problem in the About dialogbox
+                    added project files for kdevelop-3
                 </para></listitem>
             </itemizedlist>
         </listitem>
         <listitem>
             <para>0.6.7 [2003-06-28]</para>
             <itemizedlist>
-                <listitem><para>
-                    fix some problems in the codec plugins with the parsing of empty or corrupted audio files
-                </para></listitem>
-                <listitem><para>
-                    added a splashscreen by Gilles Caulier
-                </para></listitem>
                 <listitem><para>
                     new plugin: "pitch_shift"
                 </para></listitem>

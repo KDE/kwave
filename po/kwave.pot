@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-08-27 07:45+0200\n"
+"POT-Creation-Date: 2003-09-14 14:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -451,19 +451,19 @@ msgstr ""
 msgid "(unknown)"
 msgstr ""
 
-#: kwave/PluginManager.cpp:767
+#: kwave/PluginManager.cpp:765
 #, c-format
 msgid "%16s %5s written by %s"
 msgstr ""
 
-#: kwave/PluginManager.cpp:772
+#: kwave/PluginManager.cpp:770
 #, c-format
 msgid ""
 "error in '%s':\n"
 "\t %s\n"
 msgstr ""
 
-#: kwave/PluginManager.cpp:779
+#: kwave/PluginManager.cpp:777
 #, c-format
 msgid ""
 "--- \n"
@@ -490,19 +490,19 @@ msgstr ""
 msgid "modify samples"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:425
+#: kwave/SignalWidget.cpp:410
 msgid "Out of memory"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:428 plugins/playback/PlayBackPlugin.cpp:264
+#: kwave/SignalWidget.cpp:413 plugins/playback/PlayBackPlugin.cpp:264
 msgid "unable to open '%1'"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:431
+#: kwave/SignalWidget.cpp:416
 msgid "invalid or unknown file type: '%1'"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1816 kwave/SignalWidget.cpp:1855
+#: kwave/SignalWidget.cpp:1800 kwave/SignalWidget.cpp:1839
 msgid "drag and drop"
 msgstr ""
 
@@ -821,6 +821,23 @@ msgstr ""
 msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
+#: libgui/HMSTimeWidgetBase.uic.cpp:65
+msgid "HMSTimeWidgetBase"
+msgstr ""
+
+#: libgui/HMSTimeWidgetBase.uic.cpp:66
+msgid " h"
+msgstr ""
+
+#: libgui/HMSTimeWidgetBase.uic.cpp:67
+msgid " min"
+msgstr ""
+
+#: libgui/HMSTimeWidgetBase.uic.cpp:68 plugins/record/RecordDlg.uic.cpp:695
+#: plugins/record/RecordDlg.uic.cpp:696
+msgid " sec"
+msgstr ""
+
 #: libgui/ConfirmCancelProxy.cpp:50
 msgid "Do you really want to abort the current action?"
 msgstr ""
@@ -881,7 +898,8 @@ msgstr ""
 msgid "(%1%) %2"
 msgstr ""
 
-#: libgui/FileProgress.cpp:334 plugins/record/RecordDlg.uic.cpp:795
+#: libgui/FileProgress.cpp:334 plugins/record/RecordDlg.uic.cpp:724
+#: plugins/record/RecordDialog.cpp:166
 msgid "%1 samples"
 msgstr ""
 
@@ -1280,7 +1298,7 @@ msgid ""
 msgstr ""
 
 #: libkwave/FileInfo.cpp:177 plugins/fileinfo/FileInfoDlg.uic.cpp:1208
-#: plugins/record/RecordDlg.uic.cpp:792 plugins/record/RecordDlg.uic.cpp:797
+#: plugins/record/RecordDlg.uic.cpp:721 plugins/record/RecordDlg.uic.cpp:726
 msgid "Source"
 msgstr ""
 
@@ -2536,80 +2554,80 @@ msgid "#"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1115
-#: plugins/record/RecordDlg.uic.cpp:788
+#: plugins/record/RecordDlg.uic.cpp:717
 #: plugins/newsignal/NewSigDlg.uic.cpp:545
 #: plugins/newsignal/NewSigDlg.uic.cpp:564
 msgid "%1"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1119
-#: plugins/record/RecordDlg.uic.cpp:787
+#: plugins/record/RecordDlg.uic.cpp:716
 #: plugins/newsignal/NewSigDlg.uic.cpp:544
 msgid "bit"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1121
-#: plugins/record/RecordDlg.uic.cpp:771
+#: plugins/record/RecordDlg.uic.cpp:700
 #: plugins/newsignal/NewSigDlg.uic.cpp:528
 msgid "8000"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1122
-#: plugins/record/RecordDlg.uic.cpp:772
+#: plugins/record/RecordDlg.uic.cpp:701
 #: plugins/newsignal/NewSigDlg.uic.cpp:529
 msgid "10000"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1123
-#: plugins/record/RecordDlg.uic.cpp:773
+#: plugins/record/RecordDlg.uic.cpp:702
 #: plugins/newsignal/NewSigDlg.uic.cpp:530
 msgid "11025"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1124
-#: plugins/record/RecordDlg.uic.cpp:774
+#: plugins/record/RecordDlg.uic.cpp:703
 #: plugins/newsignal/NewSigDlg.uic.cpp:531
 msgid "12000"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1125
-#: plugins/record/RecordDlg.uic.cpp:775
+#: plugins/record/RecordDlg.uic.cpp:704
 #: plugins/newsignal/NewSigDlg.uic.cpp:532
 msgid "16000"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1126
-#: plugins/record/RecordDlg.uic.cpp:776
+#: plugins/record/RecordDlg.uic.cpp:705
 #: plugins/newsignal/NewSigDlg.uic.cpp:533
 msgid "22050"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1127
-#: plugins/record/RecordDlg.uic.cpp:777
+#: plugins/record/RecordDlg.uic.cpp:706
 #: plugins/newsignal/NewSigDlg.uic.cpp:534
 msgid "32000"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1128
-#: plugins/record/RecordDlg.uic.cpp:778
+#: plugins/record/RecordDlg.uic.cpp:707
 #: plugins/newsignal/NewSigDlg.uic.cpp:535
 msgid "44100"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1129
-#: plugins/record/RecordDlg.uic.cpp:779
+#: plugins/record/RecordDlg.uic.cpp:708
 #: plugins/newsignal/NewSigDlg.uic.cpp:536
 msgid "48000"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1130
-#: plugins/record/RecordDlg.uic.cpp:780
+#: plugins/record/RecordDlg.uic.cpp:709
 #: plugins/newsignal/NewSigDlg.uic.cpp:537
 msgid "96000"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1132
-#: plugins/record/RecordDlg.uic.cpp:784
+#: plugins/record/RecordDlg.uic.cpp:713
 #: plugins/newsignal/NewSigDlg.uic.cpp:541
 msgid "samples per second"
 msgstr ""
@@ -2814,7 +2832,6 @@ msgid "List of keywords."
 msgstr ""
 
 #: plugins/fileinfo/BitrateWidgetBase.uic.cpp:295
-#: plugins/record/RecordDlg.uic.cpp:743
 #: plugins/newsignal/NewSigDlg.uic.cpp:525
 msgid "Form1"
 msgstr ""
@@ -2866,7 +2883,7 @@ msgid "Nominal Bitrate"
 msgstr ""
 
 #: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
-#: plugins/record/RecordDlg.uic.cpp:756
+#: plugins/record/RecordDlg.uic.cpp:685
 msgid " %"
 msgstr ""
 
@@ -3198,110 +3215,101 @@ msgstr ""
 msgid "memory"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:744
+#: plugins/record/RecordDlg.uic.cpp:675
+msgid "Record"
+msgstr ""
+
+#: plugins/record/RecordDlg.uic.cpp:676
 msgid "Record Control"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:745
+#: plugins/record/RecordDlg.uic.cpp:677
 msgid "Pre-Record:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:746
+#: plugins/record/RecordDlg.uic.cpp:678
 msgid "Record Time:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:747
+#: plugins/record/RecordDlg.uic.cpp:679
 msgid "Record Trigger:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:752
-msgid " h"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:753
-msgid " min"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:754 plugins/record/RecordDlg.uic.cpp:766
-#: plugins/record/RecordDlg.uic.cpp:767
-msgid " sec"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:755
+#: plugins/record/RecordDlg.uic.cpp:684
 msgid " s"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:757
+#: plugins/record/RecordDlg.uic.cpp:686
 msgid "Recording"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:758 plugins/record/RecordDlg.uic.cpp:768
+#: plugins/record/RecordDlg.uic.cpp:687 plugins/record/RecordDlg.uic.cpp:697
 msgid "Level"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:759
+#: plugins/record/RecordDlg.uic.cpp:688
 msgid "AGC:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:760
+#: plugins/record/RecordDlg.uic.cpp:689
 msgid "Amplify:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:761
+#: plugins/record/RecordDlg.uic.cpp:690
 msgid " dB"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:762
+#: plugins/record/RecordDlg.uic.cpp:691
 msgid " ms"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:763
+#: plugins/record/RecordDlg.uic.cpp:692
 msgid "Fading"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:764
+#: plugins/record/RecordDlg.uic.cpp:693
 msgid "Fade In"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:765
+#: plugins/record/RecordDlg.uic.cpp:694
 msgid "Fade Out"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:769 plugins/record/RecordDlg.uic.cpp:791
+#: plugins/record/RecordDlg.uic.cpp:698 plugins/record/RecordDlg.uic.cpp:720
 #: plugins/newsignal/NewSigDlg.uic.cpp:526
 msgid "Format"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:782
+#: plugins/record/RecordDlg.uic.cpp:711
 #: plugins/newsignal/NewSigDlg.uic.cpp:539
 msgid ""
 "<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
 "sample rates or you can enter any sample rate on your own."
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:783
+#: plugins/record/RecordDlg.uic.cpp:712
 #: plugins/newsignal/NewSigDlg.uic.cpp:540
 msgid "Sample Rate:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:785
+#: plugins/record/RecordDlg.uic.cpp:714
 #: plugins/newsignal/NewSigDlg.uic.cpp:542
 msgid "Tracks:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:786
+#: plugins/record/RecordDlg.uic.cpp:715
 #: plugins/newsignal/NewSigDlg.uic.cpp:543
 msgid "Resolution:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:789
+#: plugins/record/RecordDlg.uic.cpp:718
 #: plugins/newsignal/NewSigDlg.uic.cpp:546
 msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:790
+#: plugins/record/RecordDlg.uic.cpp:719
 #: plugins/newsignal/NewSigDlg.uic.cpp:547
 msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
@@ -3309,48 +3317,64 @@ msgid ""
 "give the best results when processing the audio data."
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:793
+#: plugins/record/RecordDlg.uic.cpp:722
 msgid "Device:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:794
+#: plugins/record/RecordDlg.uic.cpp:723
 msgid "Buffer Size:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:796
+#: plugins/record/RecordDlg.uic.cpp:725
 msgid "Select..."
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:798
+#: plugins/record/RecordDlg.uic.cpp:727
 msgid "Visualization"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:799
+#: plugins/record/RecordDlg.uic.cpp:728
 msgid "Level Meter"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:800
+#: plugins/record/RecordDlg.uic.cpp:729
 msgid "Oscilloscope"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:801
+#: plugins/record/RecordDlg.uic.cpp:730
 msgid "FFT"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:802
+#: plugins/record/RecordDlg.uic.cpp:731
 msgid "Overview"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:803
+#: plugins/record/RecordDlg.uic.cpp:732
 msgid "Display"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:804
+#: plugins/record/RecordDlg.uic.cpp:733
 msgid "Level:"
 msgstr ""
 
-#: plugins/record/RecordDlg.uic.cpp:805
+#: plugins/record/RecordDlg.uic.cpp:734
 msgid "Buffer:"
+msgstr ""
+
+#: plugins/record/RecordDialog.cpp:174 plugins/playback/PlayBackDialog.cpp:358
+msgid "OSS playback device (dsp*)"
+msgstr ""
+
+#: plugins/record/RecordDialog.cpp:175 plugins/playback/PlayBackDialog.cpp:359
+msgid "ALSA playback device (adsp*)"
+msgstr ""
+
+#: plugins/record/RecordDialog.cpp:176 plugins/playback/PlayBackDialog.cpp:360
+msgid "Any device (*)"
+msgstr ""
+
+#: plugins/record/RecordDialog.cpp:182
+msgid "Select Record Device"
 msgstr ""
 
 #: plugins/record/RecordPlugin.cpp:32
@@ -3620,18 +3644,6 @@ msgstr ""
 #: plugins/playback/PlayBackDialog.cpp:311
 #, c-format
 msgid "Buffer Size : %5d samples"
-msgstr ""
-
-#: plugins/playback/PlayBackDialog.cpp:358
-msgid "OSS playback device (dsp*)"
-msgstr ""
-
-#: plugins/playback/PlayBackDialog.cpp:359
-msgid "ALSA playback device (adsp*)"
-msgstr ""
-
-#: plugins/playback/PlayBackDialog.cpp:360
-msgid "Any device (*)"
 msgstr ""
 
 #: plugins/playback/PlayBackDialog.cpp:366

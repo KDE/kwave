@@ -20,6 +20,7 @@
 #include <math.h>
 
 #include <qpainter.h>
+#include "libkwave/TransmissionFunction.h"
 #include "FrequencyResponseWidget.h"
 
 //***************************************************************************
@@ -30,7 +31,6 @@ FrequencyResponseWidget::FrequencyResponseWidget(QWidget *widget,
 {
     // this avoids flicker :-)
     setBackgroundMode(NoBackground);
-
     init(10000, -12, +12);
 }
 
@@ -55,7 +55,18 @@ void FrequencyResponseWidget::init(double freq, int db_min, int db_max)
 //***************************************************************************
 void FrequencyResponseWidget::setFilter(TransmissionFunction *func)
 {
+    if (m_function) { // disconnect the old function
+	QObject::disconnect(m_function, SIGNAL(changed()),
+	                    this, SLOT(repaint()));
+    }
+
     m_function = func;
+
+    if (m_function) { // connect the new function
+	QObject::connect(m_function, SIGNAL(changed()),
+	                 this, SLOT(repaint()));
+    }
+
     repaint();
 }
 
@@ -66,7 +77,7 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
     const int width  = this->width();
     const int height = this->height();
     const double m_frequency = m_f_max * 2/3;
-
+    
     ASSERT(width > 0);
     ASSERT(height > 0);
     if ((width <= 0) || (height <= 0)) return;
@@ -88,14 +99,22 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
     
     for (int x=0; x < width; x++) {
 	// transform x coordinate to frequency
-	double f = pow(base, (double)m_decades * (double)x / (double)width);
+
+//	// logarithmic frequency scale, didn't look so good :-(
+//	double f = pow(base, (double)m_decades * (double)x / (double)width);
+
+	// linear frequency scale
+	double f = (m_f_max * (double)x / (double)width);
 	
 	// calculate the filter function's output at the given frequency
-	double a = 1.0; // (m_function) ? m_function((f / f_max) * (2 * PI)) : 1.0;
+	f = (f / m_f_max) * M_PI;
+	double a = (m_function) ? m_function->at(f): 1.0;
 
 	// limit to upper and lower margins
 	if (a < min) a = min;
 	if (a > max) a = max;
+
+	// convert to logarithmic scale
 	double db = 10.0 * log10(a);
 	
 	// draw one line

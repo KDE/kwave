@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-11-05 18:27GMT\n"
-"Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
+"PO-Revision-Date: 2002-11-06 16:32+0100\n"
+"Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -600,7 +600,7 @@ msgstr "Architecture interne revue et corrigé complètement."
 #: index.docbook:187
 #, no-c-format
 msgid "plugins can be located in a user directory"
-msgstr "Les modules externes peuvent être installés dans les répertoires des utilisateurs."
+msgstr "Les modules externes peuvent être installés dans les dossiers des utilisateurs."
 
 #: index.docbook:187
 #, no-c-format
@@ -752,7 +752,7 @@ msgstr "Sonagramme&nbsp;: suppression de SonagramContainer, utilisé dans QGridL
 #: index.docbook:187
 #, no-c-format
 msgid "moved SignalProxy to the mt subdirectory"
-msgstr "Déplacement de SignalProxy dans le répertoire contenant les classes mt."
+msgstr "Déplacement de SignalProxy dans le dossier contenant les classes mt."
 
 #: index.docbook:187
 #, no-c-format
@@ -918,8 +918,8 @@ msgid ""
 "and postun scripts of the specfile The user should at least get the english "
 "help..."
 msgstr ""
-"Création d'un lien symbolique des répertoires «de» et «default» vers le "
-"répertoire  d'aide en anglais durant l'installation et la désinstallation, "
+"Création d'un lien symbolique des dossiers «de» et «default» vers le "
+"dossier  d'aide en anglais durant l'installation et la désinstallation, "
 "ainsi que avant et après l'éxécution  des scripts du specfile. L'utilisateur "
 "doit au moins avoir l'aide en anglais..."
 
@@ -1318,8 +1318,8 @@ msgid ""
 "removed the \"${KDEDIR}/share/doc/HTML/default\" directory from the rpm so "
 "that it doesn't conflict with the already existing one"
 msgstr ""
-"Suppression du répertoire «${KDEDIR}/share/doc/HTML/default» du RPM pour "
-"qu'il n'y ai pas de conflit avec une version de ce répertoire déjà existante."
+"Suppression du dossier «${KDEDIR}/share/doc/HTML/default» du RPM pour "
+"qu'il n'y ai pas de conflit avec une version de ce dossier déjà existante."
 
 #: index.docbook:187
 #, no-c-format
@@ -1549,7 +1549,7 @@ msgstr "Renomage de SignalWidget::info en «refresh»"
 #, no-c-format
 msgid "many cleanups in the header-Files in src and libgui"
 msgstr ""
-"Plusieurs suppressions dans les fichiers d'en-tête dans les répertoires src "
+"Plusieurs suppressions dans les fichiers d'en-tête dans les dossiers src "
 "et libgui."
 
 #: index.docbook:187
@@ -1780,7 +1780,7 @@ msgid ""
 "be reflected thousand times when creating a patch with diff)"
 msgstr ""
 "Les liens symboliques vers les fichiers Makefile, Makefile.in et Makefile.am dans les "
-"répertoires des modules externes sont supprimés avec «make distclean» et "
+"dossiers des modules externes sont supprimés avec «make distclean» et "
 "reconstruit par «make»."
 
 #: index.docbook:187
@@ -2006,7 +2006,7 @@ msgstr ""
 #, no-c-format
 msgid "kwave now keeps track of last directory saved to; for user convenience"
 msgstr ""
-"Pour une plus grande facilité, Kwave utilise le répertoire récemment utilisé "
+"Pour une plus grande facilité, Kwave utilise le dossier récemment utilisé "
 "pour  l'ouverture un fichier."
 
 #: index.docbook:187
@@ -2429,6 +2429,11 @@ msgid ""
 "rev=HEAD&amp;content-type=text/vnd.viewcvs-markup\"> \"http://cvs."
 "sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README\"</ulink>"
 msgstr ""
+"Pour un liste plus complète de mise à jour, consultez le fichier README "
+"inclu dans les sources du programme. Il peut être également trouvé à cette URL : <ulink url="
+"\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README?"
+"rev=HEAD&amp;content-type=text/vnd.viewcvs-markup\"> \"http://cvs."
+"sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README\"</ulink>"
 
 #: index.docbook:1397
 #, no-c-format
@@ -2492,6 +2497,10 @@ msgid ""
 "type=text/vnd.viewcvs-markup\"> \"README\"</ulink> file included in the "
 "source package."
 msgstr ""
+"...d'autres paquetages logiciels. Pour plus d'informations, veuillez consultez le fichier <ulink url=\"http://cvs."
+"sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README?rev=HEAD&amp;content-"
+"type=text/vnd.viewcvs-markup\"> \"README\"</ulink> qui est inclu dans les sources du "
+"programme."
 
 #: index.docbook:1438
 #, no-c-format
@@ -2505,7 +2514,7 @@ msgid ""
 "the base directory of the source distribution:"
 msgstr ""
 "Dans l'ordre, pour compiler et installer &kapp; sur votre systeme, vous "
-"devez saisir les lignes de commande qui suivent dans le répertoire de base "
+"devez saisir les lignes de commande qui suivent dans le dossier de base "
 "où vous avez copié les sources du programme&nbsp;:"
 
 #: index.docbook:1440
@@ -2630,7 +2639,7 @@ msgid ""
 "filename> !"
 msgstr ""
 "<emphasis>Pour les utilisateurs d'une distribution SuSE LINUX </emphasis> "
-"vous devez  spécifier le répertoire <filename>/usr/src/packages</filename> à "
+"vous devez  spécifier le dossier <filename>/usr/src/packages</filename> à "
 "la place de  <filename>/usr/src/redhat</filename> !"
 
 #: index.docbook:1516
@@ -2682,7 +2691,7 @@ msgid ""
 "filename> for the redhat distribution or <filename>/usr/src/packages</"
 "filename> if you have the SuSE distribution."
 msgstr ""
-"Aller dans le répertoire «principal» de stockage des RPM de votre système. "
+"Aller dans le dossier «principal» de stockage des RPM de votre système. "
 "Normalement,  celui-ci est <filename>/usr/src/redhat</filename> pour une "
 "distribution du type RedHat ou <filename>/usr/src/packages</filename> pour "
 "la distribution SuSE."
@@ -2702,8 +2711,8 @@ msgid ""
 "Put the tar.gz archive into the SOURCES subdirectory (you have to replace "
 "\"somewhere\" with the real directory where the files are, of course)."
 msgstr ""
-"Mettre l'archive tar.gz dans le sous-répertoire SOURCES (Bien sûr, vous "
-"devez remplacer  «NomRépertoire» avec le nom du répertoire qui contient "
+"Mettre l'archive tar.gz dans le sous dossier SOURCES (Bien sûr, vous "
+"devez remplacer «NomDossier» avec le nom du dossier qui contient "
 "votre archive tar.gz)."
 
 #: index.docbook:1541
@@ -2712,7 +2721,7 @@ msgid ""
 "<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.gz</"
 "replaceable> SOURCES</command>"
 msgstr ""
-"<prompt>% </prompt><command>cp <replaceable>/NomRépertoire/kwave-XXX.tar.gz</"
+"<prompt>% </prompt><command>cp <replaceable>/NomDossier/kwave-XXX.tar.gz</"
 "replaceable> SOURCES</command>"
 
 #: index.docbook:1541
@@ -2722,7 +2731,7 @@ msgid ""
 "subdirectory."
 msgstr ""
 "Extraire le fichier de specification (.spec) de l'archive tar.gz et copier "
-"le dans le sous-répertoire SPEC."
+"le dans le sous dossier SPEC."
 
 #: index.docbook:1541
 #, no-c-format
@@ -2762,7 +2771,7 @@ msgid ""
 msgstr ""
 "Si tout se passe correctement, vous pouvez installer le paquetage rpm "
 "contenant les exécutables  de &kapp;, celui-ci étant stocké dans le sous "
-"répertoire BUILD. Si vous avez déjà une version de &kapp;  installée sur "
+"dossier BUILD. Si vous avez déjà une version de &kapp;  installée sur "
 "votre système, vous devez tout d'abors désinstaller celui-ci en premier ou "
 "utiliser le paramêtre  <literal>-U</literal> à la place de <literal>-i</"
 "literal> pour mettre à jour automatiquement le paquetage."
@@ -2797,7 +2806,7 @@ msgid ""
 "files will be <filename>\"$HOME/src\"</filename>."
 msgstr ""
 "Pour initialement vérifier la mise à jour des sources sur le CVS, vous avez "
-"besoin d'un espace  disque conséquent (environ 70 Mo) dans le répertoire de "
+"besoin d'un espace  disque conséquent (environ 70 Mo) dans le dossier de "
 "votre choix, du paquetage correspondant  au programme cvs dédié à votre "
 "distribution, et d'un accès complet à internet. Si vous recevez un message  "
 "d'erreur pour des connexions qui sont rejetées, soit vous avez tapé des "
@@ -2862,10 +2871,10 @@ msgid ""
 "program will complain about already existing files and the checkout will not "
 "work."
 msgstr ""
-"Il <emphasis>ne doit pas</emphasis> y avoir de répertoire nommé "
-"<filename>kwave</filename> dans le répertoire où vous aller stocker les "
+"Il <emphasis>ne doit pas</emphasis> y avoir de dossier nommé "
+"<filename>kwave</filename> dans le dossier où vous aller stocker les "
 "sources en provenance du CVS. En effet si tel est le cas, le programme cvs "
-"enverra un message d'erreur indiquant qu'il existe déjà un  répertoire de ce "
+"enverra un message d'erreur indiquant qu'il existe déjà un  dossier de ce "
 "nom et le téléchargement des sources sur votre machine échouera."
 
 #: index.docbook:1653
@@ -2874,7 +2883,7 @@ msgid "Updating sources from CVS"
 msgstr "La mise à jour les sources à partir du CVS"
 
 #: index.docbook:1654
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The procedure described in the previous section is only necessary once. For "
 "further updates it is much easier. Just change into the directory you want "
@@ -2886,11 +2895,11 @@ msgid ""
 msgstr ""
 "La procédure décrite précédemment est seulement nécéssaire la premiére fois. "
 "L'opération est plus simple et plus rapide lorsqu'on fait une mise à jour. "
-"Mettez vous dans le sous répertoire que vous souhaitez mettre à jour et "
+"Mettez vous dans le sous dossier que vous souhaitez mettre à jour et "
 "tapez les commandes suivantes&nbsp;: <screen width=\"75\" format="
 "\"linespecific\">\n"
-"<prompt>% </prompt><command>make clean</command>\n"
-"<prompt>% </prompt><command>cvs update</command>\n"
+"<prompt>% </prompt><command>make distclean</command>\n"
+"<prompt>% </prompt><command>cvs update -dP -C</command>\n"
 "</screen> Vous pouvez alors passer à la section suivante pour faire une "
 "compilation du programme."
 
@@ -2902,6 +2911,10 @@ msgid ""
 "your &kapp; source directory, <emphasis>except the <filename>CVS</filename> "
 "directory </emphasis>and then try again."
 msgstr ""
+"Si vous pensez que vous avez endomagé vos fichiers sources en local ou "
+"s'il y a des conflits pendant la mise à jour, vous pouvez enlever tous les fichiers "
+"et les sous dossiers dans votre copie locale de &kapp; <emphasis>à l'exception "
+"des dossiers <filename>CVS</filename></emphasis> et recommencer à nouveau."
 
 #: index.docbook:1672
 #, no-c-format
@@ -2938,12 +2951,12 @@ msgid ""
 "src/redhat</filename> too!"
 msgstr ""
 "<emphasis>Pour les utilisateurs de la distribution SuSE LINUX&nbsp;: </"
-"emphasis> vous devez également  indiquer le nom du répertoire de stockage "
+"emphasis> vous devez également  indiquer le nom du dossier de stockage "
 "des paquetages en remplaçant <filename>/usr/src/packages</filename> par "
 "<filename>/usr/src/redhat</filename> !"
 
 #: index.docbook:1693
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Assuming that you are in the root of where you checked out from CVS, do the "
 "following to create a Makefile, the &kapp; package and install it. If you "
@@ -2952,10 +2965,10 @@ msgid ""
 "instead of installing."
 msgstr ""
 "Vous devez être le superutilisateur ROOT pour faire la mise à jour à partir "
-"du CVS,  construire le paquetage de &kapp;, et l'installer. Si vous avez "
+"du CVS, construire le paquetage de &kapp;, et l'installer. Si vous avez "
 "déjà une version de &kapp; installée sur votre système, vous devez "
-"désinstaller celle-ci en premier lieu ou utiliser l'option <literal>rpm -U</"
-"literal> à la place de  <literal>rpm -i</literal> pour faire une mise à jour "
+"désinstaller celle-ci en premier ou utiliser l'option <literal>rpm -U</"
+"literal> à la place de <literal>rpm -i</literal> pour faire une mise à jour "
 "automatique."
 
 #: index.docbook:1693
@@ -2976,7 +2989,7 @@ msgstr ""
 "[arch]/kwave-XXX.[arch].rpm</replaceable></command>"
 
 #: index.docbook:1709
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you still have problems with <command>make rpm</command>, you will find "
 "the tar.gz archive that was produced in <filename>/tmp</filename>. Please "
@@ -2984,8 +2997,8 @@ msgid ""
 "\">previous</link> chapter."
 msgstr ""
 "Si vous avez des problèmes avec la commande <command>make rpm</command>, "
-"vous trouverez  l'archive tar.gz qui a été construite dans le répertoire "
-"<filename>/tmp</filename>. Vous pouvez ensuite  suivre les instructions de "
+"vous trouverez l'archive tar.gz qui a été construite dans le dossier "
+"<filename>«/tmp»</filename>. Vous pouvez ensuite suivre les instructions de "
 "création d'un RPM dans le <link linkend=\"manual_rpm_creation\">précédent</"
 "link> chapitre."
 
@@ -3007,7 +3020,7 @@ msgid ""
 msgstr ""
 "Les exécutables d'un paquetage RPM de &kapp; sont «<emphasis>relogeables</"
 "emphasis>». Vous pouvez construire un paquetage RPM sur un système équipé "
-"des répertoires de KDE3 et installer les exécutables dans un répertoire "
+"des dossiers de KDE3 et installer les exécutables dans un dossier "
 "différent sur un autre système. Cette caractéristique est très pratique pour "
 "installer un paquetage compilé sur une distribution SUSE vers une "
 "distribution RedHat ou vice-versa."
@@ -3022,9 +3035,9 @@ msgid ""
 "Example:"
 msgstr ""
 "Par exemple&nbsp;: vous prenez le paquetage RPM des exécutables d'un ami qui "
-"a une distribution RedHat (où le répertoire de KDE3 est <filename>/usr</"
+"a une distribution RedHat (où le dossier de KDE3 est <filename>/usr</"
 "filename>) et vous souhaitez l'installer sur une distribution SuSE (où le "
-"répertoire de KDE3 est <filename>/opt/kde3</filename>). Vous avez juste à "
+"dossier de KDE3 est <filename>/opt/kde3</filename>). Vous avez juste à "
 "passer un paramètre différent quand vous installez le paquetage&nbsp;: "
 "Par exemple :"
 
@@ -3048,7 +3061,7 @@ msgid ""
 "files and so on..."
 msgstr ""
 "Cela modifie le chemin où le programme sera installé. Il est grandement "
-"recommendé que  ce repertoire ou le répertoire renvoyé par la commande "
+"recommendé que  ce repertoire ou le dossier renvoyé par la commande "
 "<command>kde-config --prefix</command>  soit contenu dans la variable "
 "d'environnement <symbol>KDEDIRS</symbol>. Dans le cas contraire, &kapp; ne "
 "pourra pas trouver la configuration des menus, les modules externes, les valeurs par "
@@ -3060,7 +3073,7 @@ msgid "Building CPU optimized packages"
 msgstr "La construction de paquetages optimisés pour certains CPU"
 
 #: index.docbook:1769
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you are owner of a Pentium, an AMD K6, Athlon or Athlon-XP CPU, you might "
 "want to use compiler optimizations to compile your version of &kapp; that is "
@@ -3069,10 +3082,10 @@ msgid ""
 "functions that do complex time-frequency operations (like FFT and Sonagram) "
 "will profit most from it."
 msgstr ""
-"Si vous étes propriétaire d'un processeur Pentium, ou d'un AMD K6 / Athlon, "
-"vous désirez  peut être utiliser les optimisations de compilation pour "
-"gagner de la vitesse pendant l'éxécution  de &kapp;. Le gain obtenu est "
-"d'environ 30% avec ces processeurs, quand les fonctions  de manipulation de "
+"Si vous étes propriétaire d'un processeur Pentium, ou d'un AMD K6 / Athlon / Athlon-XP, "
+"vous désirez peut être utiliser les optimisations de compilation pour "
+"gagner de la vitesse pendant l'éxécution de &kapp;. Le gain obtenu est "
+"d'environ 30% avec ces processeurs, quand les fonctions de manipulation de "
 "signaux et les fonctions de calculs complexes sur les tableaux de fréquences "
 "(comme les Transformées de Fourrier ou le Sonagramme) sont activées."
 
@@ -3093,7 +3106,7 @@ msgid "RPM optimizations"
 msgstr "Les optimisations pour la construction d'un paquetage RPM"
 
 #: index.docbook:1786
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "You can easily compile the RPM package optimized for Athlon, Athlon-XP, "
 "Pentium and Pentium Pro (ond some other CPUs) by using some defines in your "
@@ -3118,16 +3131,22 @@ msgid ""
 msgstr ""
 "Oui, vous pouvez compiler les paquetages RPM avec les optimisations pour un "
 "processeur  pentium ou pentium pro (ou d'autres processeurs) en utilisant "
-"quelques définitions dans votre fichier 'rpmrc'.  Vous pouvez modifier soit "
-"votre fichier système /etc/rpmrc ou le fichier .rpmrc dans votre répertoire  "
+"quelques définitions dans votre fichier «rpmrc».  Vous pouvez modifier soit "
+"votre fichier système «/etc/rpmrc» ou le fichier «.rpmrc» dans votre dossier "
 "personnel. Vous allez y spécifier les options en ligne de commande comme "
-"suit&nbsp;: <screen width=\"40\" format=\"linespecific\">\n"
-"<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
-"i386 -O2 -m486 -DNDEBUG</userinput>\n"
+"suit&nbsp;: "
+"<screen width=\"40\" format=\"linespecific\">\n"
 "<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
 "i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</userinput>\n"
 "<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
 "i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</userinput>\n"
+"<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
+"athlon -O2 -march=athlon</userinput>\n"
+"<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
+"k6 -O3 -march=k6 -mcpu=k6 -DNDEBUG -fomit-frame-pointer</userinput>\n"
+"<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
+"k7 -O3 -march=athlon-xp -mcpu=athlon-xp -DNDEBUG -fomit-frame-pointer</"
+"userinput>\n"
 "</screen> (J'ai trouvé ces options sur <ulink url=\"http://www.keywarrior."
 "net/duesti/rpmopt.de.html\"> http://www.keywarrior.net/duesti/rpmopt.en."
 "html</ulink>. Remerciements à Matthias Düsterhöft&nbsp;!)."
@@ -3178,7 +3197,7 @@ msgstr ""
 "mcpu=athlon-xp -fomit-frame-pointer\"</command>"
 
 #: index.docbook:1838
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If <command>rpm</command> refuses to install your package because it seems "
 "not to fit to your computer's architecture, you can normally just install an "
@@ -3197,7 +3216,7 @@ msgid "How to pass optimizer options to the compiler"
 msgstr "Comment passer des options de compilation au compilateur"
 
 #: index.docbook:1850
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The invocation of the compiler is quite simple. It normally is sufficient to "
 "set the environment variable <symbol>RPM_OPT_FLAGS</symbol> in the correct "
@@ -3206,20 +3225,20 @@ msgid ""
 msgstr ""
 "L'invocation des optimisations d'un compilateur sont simples. Normalement, "
 "il suffit d'activer correctement la variable d'environnement "
-"<symbol>CXXFLAGS</symbol> avec les bons  paramètres et de lancer la "
-"compilation. Cependant, pour un meilleur paramétrage, il est  préférable de "
+"<symbol>RPM_OPT_FLAGS</symbol> avec les bons paramètres et de lancer la "
+"compilation. Cependant, pour un meilleur paramétrage, il est préférable de "
 "consulter la documentation ou le site internet de votre compilateur."
 
 #: index.docbook:1858
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "If you build &kapp; from a source tree (unpacked tar.gz or from CVS) the "
 "flags need to be specidied before the call to <command>make -f Makefile."
 "dist</command>. This might look like this:"
 msgstr ""
-"Si vous construisez &kapp; à partir des sources (tel qu'une archive tar.gz "
-"ou via le CVS) l'option  à activer doit l'être avant l'appel de la commande "
-"<command>configure</command>. Par exemple&nbsp;:"
+"Si vous construisez &kapp; à partir des sources (tel qu'une archive «tar.gz» "
+"ou via le CVS) l'option à activer doit l'être avant l'appel de la commande "
+"<command>make -f Makefile.dist</command>. Par exemple&nbsp;:"
 
 #: index.docbook:1858
 #, no-c-format
@@ -3237,6 +3256,9 @@ msgid ""
 "instruction in the <link linkend=\"rpm_optimizations\">previous section</"
 "link>."
 msgstr ""
+"Si vous recompilez &kapp; à partir d'un paquetage RPM contenant les fichiers sources, "
+"veuillez suivre les instructions dans la <link linkend=\"rpm_optimizations\">section "
+"précédente</link>."
 
 #: index.docbook:1880
 #, no-c-format
@@ -3977,7 +3999,7 @@ msgstr ""
 "sox.html\">http://home.sprynet.com/~cbagwell/sox.html</ulink>."
 
 #: index.docbook:2370
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The plans for future include support for import and also export filters for "
 "more formats and maybe some filter that uses a user-defineable script with a "
@@ -3988,9 +4010,7 @@ msgstr ""
 "formats et peut être quelques filtres qui utiliseront des scripts "
 "définissables par les utilisateurs avec des appels à des outils de "
 "convertion externes pour le traitement en écriture ou en lecture des formats "
-"de fichiers non supportés par <literal>SoX</literal> (comme le MP3). "
-"Actuellement, &kapp; peut seulement sauvegarder les fichiers au format "
-"<filename>.wav</filename>."
+"de fichiers non supportés par <literal>SoX</literal> (comme le MP3)."
 
 #: index.docbook:2457
 #, no-c-format
@@ -4641,31 +4661,31 @@ msgstr ""
 "id3lib.org/\"> id3lib</ulink>)"
 
 #: index.docbook:3080
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Robert Leslie <email>rob@mars.org</email> (author of the <ulink url=\"http://"
 "www.mars.org/home/rob/proj/mpeg/\"> mad</ulink> mp3 decoder library)"
 msgstr ""
-"Michael Pruett <email>mpruett@sgi.com</email> (auteur de la <ulink url="
-"\"http://oss.sgi.com/projects/audiofile/\"> bibliothéque 'audiofile'</ulink>)"
+"Robert Leslie <email>rob@mars.org</email> (auteur de la biblothèque <ulink url=\"http://"
+"www.mars.org/home/rob/proj/mpeg/\"> «mad»</ulink> pour le décodage des fichiers MP3)"
 
 #: index.docbook:3080
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
 "url=\"http://www.zip.com.au/~erikd/libsndfile/\">sndfile </ulink> library)"
 msgstr ""
-"Erik de Castro Lopo <email>erikd@zip.com.au</email> (auteur de la <ulink url="
-"\"http://www.zip.com.au/~erikd/libsndfile/\">bibliothéque sndfile</ulink>)"
+"Erik de Castro Lopo <email>erikd@zip.com.au</email> (auteur de la biblothèque <ulink "
+"url=\"http://www.zip.com.au/~erikd/libsndfile/\">«sndfile» </ulink>)"
 
 #: index.docbook:3080
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
 "\"http://oss.sgi.com/projects/audiofile/\"> audiofile</ulink> library)"
 msgstr ""
-"Michael Pruett <email>mpruett@sgi.com</email> (auteur de la <ulink url="
-"\"http://oss.sgi.com/projects/audiofile/\"> bibliothéque 'audiofile'</ulink>)"
+"Michael Pruett <email>mpruett@sgi.com</email> (auteur de la bibliothèque <ulink url="
+"\"http://oss.sgi.com/projects/audiofile/\"> «audiofile»</ulink>)"
 
 #: index.docbook:3133
 #, no-c-format

@@ -43,6 +43,12 @@
    The entries are in sort -df order: alphabetical, case insensitive,
    ignoring punctuation (such as underscores).  */
 
+/* Define if you have the <artsc.h> header file. */
+#undef HAVE_ARTSC_H
+
+/* Define if you have the <artsflow.idl> header file. */
+#undef HAVE_ARTSFLOW_IDL
+
 /* Define if you have the <assert.h> header file. */
 #undef HAVE_ASSERT_H
 

@@ -196,7 +196,8 @@ following packages:
 * gettext-0.10.37-86                 (for internationalization)
 * rpm-3.0.6-165                      (for rpm support)
 * sed-3.02, awk-3.1.0, bash-2.05     (used by some scripts)
-* "convert" from ImageMagick         (needed to create scaled Kwave icons)
+* convert from ImageMagick           (needed to create scaled Kwave icons)
+* recode                             (for online help)
 
 Nearly everything from ftp.kde.org, especially the following
 packets should be sufficient for building:

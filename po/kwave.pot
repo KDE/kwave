@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-16 15:24+0200\n"
+"POT-Creation-Date: 2002-06-24 19:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,80 +142,80 @@ msgstr ""
 msgid "New File"
 msgstr ""
 
-#: kwave/TopWidget.cpp:255
+#: kwave/TopWidget.cpp:248
 msgid "create a new empty file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:261
+#: kwave/TopWidget.cpp:254
 msgid "open an existing file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:267
+#: kwave/TopWidget.cpp:260
 msgid "save the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:299
+#: kwave/TopWidget.cpp:292
 msgid "cut the current selection and move it to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:305
+#: kwave/TopWidget.cpp:298
 msgid "copy the current selection to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:311
+#: kwave/TopWidget.cpp:304
 msgid "insert the content of clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:317
+#: kwave/TopWidget.cpp:310
 msgid "mute the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:323
+#: kwave/TopWidget.cpp:316
 msgid "delete the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:348
+#: kwave/TopWidget.cpp:341
 msgid "start playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:354
+#: kwave/TopWidget.cpp:347
 msgid "start playback and loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:360
+#: kwave/TopWidget.cpp:353
 msgid "pause playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:366
+#: kwave/TopWidget.cpp:359
 msgid "stop playback or loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:384
+#: kwave/TopWidget.cpp:377
 msgid "zoom to selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:391
+#: kwave/TopWidget.cpp:384
 msgid "zoom in"
 msgstr ""
 
-#: kwave/TopWidget.cpp:398
+#: kwave/TopWidget.cpp:391
 msgid "zoom out"
 msgstr ""
 
-#: kwave/TopWidget.cpp:404
+#: kwave/TopWidget.cpp:397
 #, c-format
 msgid "zoom to 100%"
 msgstr ""
 
-#: kwave/TopWidget.cpp:410
+#: kwave/TopWidget.cpp:403
 msgid "zoom to all"
 msgstr ""
 
-#: kwave/TopWidget.cpp:417
+#: kwave/TopWidget.cpp:410
 msgid "select zoom factor"
 msgstr ""
 
-#: kwave/TopWidget.cpp:502
+#: kwave/TopWidget.cpp:495
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -223,54 +223,54 @@ msgid ""
 "href=http://www.arts-project.org>http://www.arts-project.org</a>."
 msgstr ""
 
-#: kwave/TopWidget.cpp:515
+#: kwave/TopWidget.cpp:508
 msgid "Loading plugins..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:517
+#: kwave/TopWidget.cpp:510
 msgid "Ready."
 msgstr ""
 
-#: kwave/TopWidget.cpp:729
+#: kwave/TopWidget.cpp:722
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:854
+#: kwave/TopWidget.cpp:847
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:971
+#: kwave/TopWidget.cpp:964
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:971
+#: kwave/TopWidget.cpp:964
 #, ycp-format
 msgid "(%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:980
+#: kwave/TopWidget.cpp:973
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1014
+#: kwave/TopWidget.cpp:1007
 #, ycp-format
 msgid "Selected: %1 (%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1061
+#: kwave/TopWidget.cpp:1054
 msgid "U&ndo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1067
+#: kwave/TopWidget.cpp:1060
 msgid "R&edo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1246
+#: kwave/TopWidget.cpp:1258
 msgid " (modified)"
 msgstr ""
 

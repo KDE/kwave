@@ -138,6 +138,9 @@ o test for afOpenVirtualFile() in configure script and check if
   -> wait until a newer version is released and commonly integrated
      in the distributions
 
+o watch for new versions of Qt. maybe the Qt bug with submenues mentioned
+  in libgui/MenuSub.cpp disappears somewhere in future...
+
 o figure out how to work with exceptions:
   - works if ALL libraries use rtti and we compile with -frtti
   - does never work with --no-rtti

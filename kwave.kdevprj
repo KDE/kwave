@@ -295,7 +295,7 @@ type=HEADER
 
 [kwave/Makefile.am]
 dist=true
-files=kwave/MouseMark.cpp,kwave/menus.config,kwave/Makefile.am,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/FFTContainer.cpp,kwave/FFTContainer.h,kwave/TopWidget.h,kwave/TopWidget.cpp,kwave/SignalWidget.h,kwave/SignalWidget.cpp,kwave/SignalManager.h,kwave/SignalManager.cpp,kwave/FFTWindow.cpp,kwave/PluginManager.h,kwave/PluginManager.cpp,kwave/PlaybackController.h,kwave/PlaybackController.cpp,kwave/PitchWindow.h,kwave/PitchWindow.cpp,kwave/PitchWidget.h,kwave/PitchWidget.cpp,kwave/PitchContainer.h,kwave/PitchContainer.cpp,kwave/MouseMark.h,kwave/MainWidget.h,kwave/MainWidget.cpp,kwave/main.cpp,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/ImageView.h,kwave/ImageView.cpp,kwave/FFTWindow.h,kwave/UndoAction.h,kwave/UndoTransaction.h,kwave/UndoTransaction.cpp,kwave/UndoModifyAction.h,kwave/UndoModifyAction.cpp,kwave/UndoTransactionGuard.h,kwave/UndoTransactionGuard.cpp,kwave/UndoSelection.h,kwave/UndoSelection.cpp,kwave/UndoDeleteAction.h,kwave/UndoDeleteAction.cpp,kwave/UndoInsertAction.h,kwave/UndoInsertAction.cpp,kwave/UndoInsertTrack.cpp,kwave/UndoInsertTrack.h,kwave/UndoDeleteTrack.h,kwave/UndoDeleteTrack.cpp,kwave/kwave.desktop,kwave/MemoryManager.h,kwave/MemoryManager.cpp,kwave/SwapFile.h,kwave/SwapFile.cpp,kwave/CodecManager.h,kwave/CodecManager.cpp
+files=kwave/MouseMark.cpp,kwave/menus.config,kwave/Makefile.am,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/FFTContainer.cpp,kwave/FFTContainer.h,kwave/TopWidget.h,kwave/TopWidget.cpp,kwave/SignalWidget.h,kwave/SignalWidget.cpp,kwave/SignalManager.h,kwave/SignalManager.cpp,kwave/FFTWindow.cpp,kwave/PluginManager.h,kwave/PluginManager.cpp,kwave/PlaybackController.h,kwave/PlaybackController.cpp,kwave/PitchWindow.h,kwave/PitchWindow.cpp,kwave/PitchWidget.h,kwave/PitchWidget.cpp,kwave/PitchContainer.h,kwave/PitchContainer.cpp,kwave/MouseMark.h,kwave/MainWidget.h,kwave/MainWidget.cpp,kwave/main.cpp,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/ImageView.h,kwave/ImageView.cpp,kwave/FFTWindow.h,kwave/UndoAction.h,kwave/UndoTransaction.h,kwave/UndoTransaction.cpp,kwave/UndoModifyAction.h,kwave/UndoModifyAction.cpp,kwave/UndoTransactionGuard.h,kwave/UndoTransactionGuard.cpp,kwave/UndoSelection.h,kwave/UndoSelection.cpp,kwave/UndoDeleteAction.h,kwave/UndoDeleteAction.cpp,kwave/UndoInsertAction.h,kwave/UndoInsertAction.cpp,kwave/UndoInsertTrack.cpp,kwave/UndoInsertTrack.h,kwave/UndoDeleteTrack.h,kwave/UndoDeleteTrack.cpp,kwave/kwave.desktop,kwave/MemoryManager.h,kwave/MemoryManager.cpp,kwave/SwapFile.h,kwave/SwapFile.cpp,kwave/CodecManager.h,kwave/CodecManager.cpp,kwave/x-aifc.desktop,kwave/x-ircam.desktop
 install=false
 install_location=
 sub_dirs=libgui,pics,toolbar
@@ -823,6 +823,18 @@ install_location=
 type=DATA
 
 [kwave/toolbar/zoomrange.xpm]
+dist=true
+install=false
+install_location=
+type=DATA
+
+[kwave/x-aifc.desktop]
+dist=true
+install=false
+install_location=
+type=DATA
+
+[kwave/x-ircam.desktop]
 dist=true
 install=false
 install_location=
@@ -2208,7 +2220,7 @@ install_location=
 type=HEADER
 
 [plugins/selectrange/Makefile.am]
-files=plugins/selectrange/SelectRangeDialog.cpp,plugins/selectrange/SelectRangeDialog.h,plugins/selectrange/SelectRangePlugin.cpp,plugins/selectrange/SelectRangePlugin.h,plugins/selectrange/IntValidatorProxy.h,plugins/selectrange/IntValidatorProxy.cpp
+files=plugins/selectrange/SelectRangeDialog.cpp,plugins/selectrange/SelectRangeDialog.h,plugins/selectrange/SelectRangePlugin.cpp,plugins/selectrange/SelectRangePlugin.h,plugins/selectrange/IntValidatorProxy.h,plugins/selectrange/IntValidatorProxy.cpp,plugins/selectrange/SelectRangeDlg.ui
 sharedlib_LDFLAGS=-version-info 0:0:1
 sharedlib_rootname=selectrange
 sub_dirs=
@@ -2225,6 +2237,12 @@ dist=true
 install=false
 install_location=
 type=HEADER
+
+[plugins/selectrange/SelectRangeDlg.ui]
+dist=true
+install=false
+install_location=
+type=SOURCE
 
 [plugins/selectrange/SelectRangePlugin.cpp]
 dist=true

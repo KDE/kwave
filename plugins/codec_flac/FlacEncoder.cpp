@@ -115,31 +115,24 @@ void FlacEncoder::VorbisCommentContainer::add(const QString &tag,
     Q_ASSERT(m_vc);
     if (!m_vc) return;
 
-    unsigned int count = m_vc->data.vorbis_comment.num_comments;
-    bool ok;
 
     QString s;
     s = tag+"="+value;
-    qDebug("FlacEncoder::VorbisCommentContainer::add(%s)", s.data());
+//     qDebug("FlacEncoder::VorbisCommentContainer::add(%s)", s.data());
 
-    // create a copy of the UTF-8 string
+    // make a plain C string out of it, containing UTF-8
     QCString val = s.utf8();
-    unsigned int len = val.length();
-    FLAC__byte *copy = (FLAC__byte *)malloc(len);
-    Q_ASSERT(copy);
-    if (!copy) return;
-    memcpy(copy, (const char *)val.data(), len);
 
     // put it into a vorbis_comment_entry structure
     FLAC__StreamMetadata_VorbisComment_Entry entry;
-    entry.length = len;
-    entry.entry  = copy;
+    entry.length = val.length(); // in bytes, not characters !
+    entry.entry  = reinterpret_cast<FLAC__byte *>(val.data());
 
     // insert the comment into the list
-    ok =  FLAC__metadata_object_vorbiscomment_insert_comment(
+    unsigned int count = m_vc->data.vorbis_comment.num_comments;
+    bool ok =  FLAC__metadata_object_vorbiscomment_insert_comment(
 	m_vc, count, entry, true);
     Q_ASSERT(ok);
-
 }
 
 /***************************************************************************/
@@ -188,15 +181,9 @@ void FlacEncoder::encodeMetaData(FileInfo &info,
     }
 
     flac_metadata.resize(flac_metadata.size()+1);
-    flac_metadata.insert(flac_metadata.size(), vc.data());
+    flac_metadata.insert(flac_metadata.size()-1, vc.data());
 
-    // convert container to a list of pointers
-    unsigned int meta_count = flac_metadata.size();
-    if (meta_count) {
-	if (!set_metadata(flac_metadata.data(), meta_count)) {
-	    qWarning("FlacEncoder: setting meta data failed !?");
-	}
-    }
+    // todo: add cue sheet etc here...
 
 }
 
@@ -204,7 +191,9 @@ void FlacEncoder::encodeMetaData(FileInfo &info,
 bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
                          QIODevice &dst, FileInfo &info)
 {
-    qDebug("FlacEncoder::encode()"); // ###
+    bool result = true;
+
+    qDebug("FlacEncoder::encode()");
     m_info = &info;
     m_dst  = &dst;
 
@@ -226,118 +215,132 @@ bool FlacEncoder::encode(QWidget *widget, MultiTrackReader &src,
     QPtrVector<FLAC__StreamMetadata> flac_metadata;
     encodeMetaData(info, flac_metadata);
 
-    // open the output device
-    if (!dst.open(IO_ReadWrite | IO_Truncate)) {
-	KMessageBox::error(widget,
-	    i18n("Unable to open the file for saving!"));
-	m_info = 0;
-	m_dst  = 0;
-	dst.close();
-	return false;
+    // convert container to a list of pointers
+    unsigned int meta_count = flac_metadata.size();
+    if (meta_count) {
+	// WARNING: this only stores the pointer, it does not copy!
+	if (!set_metadata(flac_metadata.data(), meta_count)) {
+	    qWarning("FlacEncoder: setting meta data failed !?");
+	}
     }
 
-    FLAC::Encoder::Stream::State state = init();
-
-    if (state != FLAC__STREAM_ENCODER_OK) {
-	qWarning("state = %s", state.as_cstring());
-	KMessageBox::error(widget,
-	    i18n("Unable to open the FLAC encoder!"));
-	m_info = 0;
-	m_dst  = 0;
-	dst.close();
-	return false;
-    }
-
-    // allocate output buffers, with FLAC 32 bit format
-    unsigned int len = 8192; // samples
-    QPtrVector< QMemArray<FLAC__int32> > out_buffer;
-    out_buffer.resize(tracks);
-    out_buffer.fill(0);
-    out_buffer.setAutoDelete(true);
-    Q_ASSERT(out_buffer.size() == tracks);
-
-    QMemArray<FLAC__int32 *> flac_buffer;
-    flac_buffer.resize(tracks);
-
-    unsigned int track = 0;
-    for (unsigned int track=0; track < tracks; track++)
-    {
-	QMemArray<FLAC__int32> *buf = new QMemArray<FLAC__int32>((int)len);
-	Q_ASSERT(buf);
-	if (!buf || (buf->size() < len)) {
-	    out_buffer.clear();
+    do {
+	// open the output device
+	if (!dst.open(IO_ReadWrite | IO_Truncate)) {
+	    KMessageBox::error(widget,
+		i18n("Unable to open the file for saving!"));
+	    result = false;
 	    break;
 	}
-	out_buffer.insert(track, buf);
-	buf->detach();
-	flac_buffer[track] = buf->data();
-    }
 
-    // allocate input buffer, with Kwave's sample_t
-    QMemArray<sample_t> in_buffer;
-    in_buffer.resize(len);
-    Q_ASSERT(in_buffer.size() == len);
-    Q_ASSERT(out_buffer.size() == tracks);
+	// initialize the FLAC stream, this already writes some meta info
+	FLAC::Encoder::Stream::State state = init();
+	if (state != FLAC__STREAM_ENCODER_OK) {
+	    qWarning("state = %s", state.as_cstring());
+	    KMessageBox::error(widget,
+		i18n("Unable to open the FLAC encoder!"));
+	    m_info = 0;
+	    result = false;
+	    break;
+	}
 
-    if ((in_buffer.size() < len) || (out_buffer.size() < tracks) ||
-	(flac_buffer.size() < tracks))
-    {
-	KMessageBox::error(widget, i18n("Out of memory!"));
-	m_info = 0;
-	m_dst  = 0;
-	dst.close();
-	return false;
-    }
+	// allocate output buffers, with FLAC 32 bit format
+	unsigned int len = 8192; // samples
+	QPtrVector< QMemArray<FLAC__int32> > out_buffer;
+	out_buffer.resize(tracks);
+	out_buffer.fill(0);
+	out_buffer.setAutoDelete(true);
+	Q_ASSERT(out_buffer.size() == tracks);
 
-    // calculate divisor for reaching the proper resolution
-    int shift = SAMPLE_BITS - bits;
-    if (shift < 0) shift = 0;
-    unsigned int div = (1 << shift);
+	QMemArray<FLAC__int32 *> flac_buffer;
+	flac_buffer.resize(tracks);
 
-    unsigned int rest = length;
-    while (rest && len && !src.isCancelled()) {
-	// limit to rest of signal
-	if (len > rest) len = rest;
-	if (in_buffer.size() > len) in_buffer.resize(len);
-
-	// add all samples to one single buffer
-	for (track=0; track < tracks; track++) {
-	    SampleReader *reader = src[track];
-	    Q_ASSERT(reader);
-	    if (!reader) break;
-
-	    (*reader) >> in_buffer; // read samples into in_buffer
-	    len = in_buffer.size(); // in_buffer might have been shrinked!
-	    Q_ASSERT(len);
-
-	    for (register unsigned int in_pos=0; in_pos < len; in_pos++) {
-		register FLAC__int32 s = in_buffer[in_pos];
-		if (div) s /= div;
-		flac_buffer[track][in_pos] = s;
+	unsigned int track = 0;
+	for (unsigned int track=0; track < tracks; track++)
+	{
+	    QMemArray<FLAC__int32> *buf = new QMemArray<FLAC__int32>((int)len);
+	    Q_ASSERT(buf);
+	    if (!buf || (buf->size() < len)) {
+		out_buffer.clear();
+		break;
 	    }
+	    out_buffer.insert(track, buf);
+	    buf->detach();
+	    flac_buffer[track] = buf->data();
 	}
 
-	// process all collected samples
-	FLAC__int32 **buffer = flac_buffer.data();
-	bool processed = process(buffer, len);
-	Q_ASSERT(processed);
-	if (!processed) {
-	    len = 0;
+	// allocate input buffer, with Kwave's sample_t
+	QMemArray<sample_t> in_buffer;
+	in_buffer.resize(len);
+	Q_ASSERT(in_buffer.size() == len);
+	Q_ASSERT(out_buffer.size() == tracks);
+
+	if ((in_buffer.size() < len) || (out_buffer.size() < tracks) ||
+		(flac_buffer.size() < tracks))
+	{
+	    KMessageBox::error(widget, i18n("Out of memory!"));
+	    result = false;
 	    break;
 	}
 
-	rest -= len;
-    }
+	// calculate divisor for reaching the proper resolution
+	int shift = SAMPLE_BITS - bits;
+	if (shift < 0) shift = 0;
+	unsigned int div = (1 << shift);
+
+	unsigned int rest = length;
+	while (rest && len && !src.isCancelled()) {
+	    // limit to rest of signal
+	    if (len > rest) len = rest;
+	    if (in_buffer.size() > len) in_buffer.resize(len);
+
+	    // add all samples to one single buffer
+	    for (track=0; track < tracks; track++) {
+		SampleReader *reader = src[track];
+		Q_ASSERT(reader);
+		if (!reader) break;
+
+		(*reader) >> in_buffer; // read samples into in_buffer
+		len = in_buffer.size(); // in_buffer might have been shrinked!
+		Q_ASSERT(len);
+
+		for (register unsigned int in_pos=0; in_pos < len; in_pos++) {
+			register FLAC__int32 s = in_buffer[in_pos];
+			if (div) s /= div;
+			flac_buffer[track][in_pos] = s;
+		}
+	    }
+
+	    // process all collected samples
+	    FLAC__int32 **buffer = flac_buffer.data();
+	    bool processed = process(buffer, len);
+	    Q_ASSERT(processed);
+	    if (!processed) {
+		len = 0;
+		break;
+	    }
+
+	    rest -= len;
+	}
+
+    } while (false);
 
     // close the output device and the FLAC stream
     finish();
 
+    // clean up all FLAC metadata
+    while (flac_metadata.count()) {
+	FLAC__StreamMetadata *m = flac_metadata[0];
+	Q_ASSERT(m);
+	if (m) FLAC__metadata_object_delete(m);
+	flac_metadata.remove(0);
+    }
+
     m_info = 0;
     m_dst  = 0;
     dst.close();
-    out_buffer.clear();
 
-    return true;
+    return result;
 }
 
 /***************************************************************************/

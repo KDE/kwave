@@ -1,5 +1,5 @@
 /***************************************************************************
-      UndoTransaction.h  -  groups moulitple UndoAction objects together
+      UndoTransaction.h  -  groups mulitple UndoAction objects together
 			     -------------------
     begin                : Fri May 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -22,6 +22,7 @@
 UndoTransaction::UndoTransaction(const QString &name)
     :QPtrList<UndoAction>(), m_description(name)
 {
+    setAutoDelete(true);
 }
 
 //***************************************************************************
@@ -62,7 +63,7 @@ QString UndoTransaction::description()
 	QString d = it.current()->description();
 	// skip duplicates
 	if (str.contains(", "+d) || (str == d)) continue;
-	
+
 	// append others
 	if (str.length()) str += ", ";
 	str += d;

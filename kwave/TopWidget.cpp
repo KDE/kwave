@@ -762,8 +762,8 @@ int TopWidget::parseCommands(const QByteArray &buffer)
 //***************************************************************************
 int TopWidget::revert()
 {
-    Q_ASSERT(m_url.isValid() && !m_url.isMalformed());
-    if (!m_url.isValid() || m_url.isMalformed()) return -EINVAL;
+    Q_ASSERT(m_url.isValid());
+    if (!m_url.isValid()) return -EINVAL;
 
     KURL url(m_url);
     return loadFile(url);
@@ -983,8 +983,7 @@ int TopWidget::newSignal(unsigned int samples, double rate,
 //***************************************************************************
 QString TopWidget::signalName()
 {
-    return (m_url.isValid() && !m_url.isMalformed()) ?
-            m_url.path() : QString("");
+    return (m_url.isValid()) ? m_url.path() : QString("");
 }
 
 //***************************************************************************
@@ -1269,10 +1268,11 @@ void TopWidget::updatePlaybackControls()
 	KToolBarButton *button = m_toolbar->getButton(m_id_pause);
 	Q_ASSERT(button);
 	if (!button) return;
-	button->setDefaultPixmap(xpm_pause);
 	
-	// doesn't work with the damned buggy KDE3
-	// m_toolbar->setButtonPixmap(m_id_pause, xpm_pause);
+	QIconSet set;
+	set.setPixmap(QPixmap(xpm_pause), QIconSet::Automatic, 
+	              QIconSet::Normal);
+	button->setIconSet(set);
     }
 
     // enable/disable the buttons
@@ -1324,7 +1324,11 @@ void TopWidget::blinkPause()
     KToolBarButton *button = m_toolbar->getButton(m_id_pause);
     Q_ASSERT(button);
     if (!button) return;
-    button->setDefaultPixmap(m_blink_on ? xpm_pause2 : xpm_pause);
+    
+    QIconSet set;
+    set.setPixmap(m_blink_on ? QPixmap(xpm_pause2) : QPixmap(xpm_pause), 
+        QIconSet::Automatic, QIconSet::Normal);
+    button->setIconSet(set);
 
     // this would be the correct way, but KDE-3.0.1 is too buggy
     // to let it work...

@@ -118,7 +118,7 @@ void AmplifyFreePlugin::run(QStringList params)
     MultiTrackWriter sink;
 
     unsigned int input_length = selection(&first, &last, true);
-    openMultiTrackReader(source, selectedTracks(), first, last);
+    manager().openMultiTrackReader(source, selectedTracks(), first, last);
     manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite,
 	first, last);
 

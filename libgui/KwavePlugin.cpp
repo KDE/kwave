@@ -234,26 +234,6 @@ unsigned int KwavePlugin::selection(unsigned int *left, unsigned int *right,
 }
 
 //***************************************************************************
-void KwavePlugin::openMultiTrackReader(MultiTrackReader &readers,
-    const QArray<unsigned int> &track_list,
-    unsigned int first, unsigned int last)
-{
-    unsigned int count = track_list.count();
-    unsigned int track;
-    readers.setAutoDelete(true);
-    readers.clear();
-    readers.resize(count);
-    SignalManager &manager(m_context.top_widget.signalManager());
-
-    for (unsigned int i=0; i < count; i++) {
-	track = track_list[i];
-	SampleReader *s = manager.openSampleReader(track, first, last);
-	ASSERT(s);
-	readers.insert(i, s);
-    }
-}
-
-//***************************************************************************
 QBitmap *KwavePlugin::overview(unsigned int width, unsigned int height,
                                unsigned int offset, unsigned int length)
 {

@@ -201,25 +201,6 @@ public:
                                    bool expand_if_empty = false);
 
     /**
-     * Returns a set of opened SampleReader objects for reading from
-     * multiple tracks. The list of tracks may contain indices of tracks
-     * in any order and even duplicate entries are allowed. One useful
-     * application is passing the output of selectedTracks() in order
-     * to read from only from selected tracks.
-     * @param readers reference to the MultiTrackReader to be filled.
-     * @note the returned vector has set "autoDelete" to true, so you
-     *       don't have to care about cleaning up
-     * @param track_list array of indices of tracks for reading
-     * @param first index of the first sample
-     * @param last index of the last sample
-     * @see SampleReader
-     * @see selectedTracks()
-     */
-    void openMultiTrackReader(MultiTrackReader &readers,
-	const QArray<unsigned int> &track_list,
-	unsigned int first, unsigned int last);
-
-    /**
      * Returns a QBitmap with an overview of all currently present
      * tracks.
      */

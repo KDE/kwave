@@ -38,6 +38,8 @@
 
 #include "mt/SignalProxy.h"
 
+#include "kwave/PluginManager.h"
+
 #include "SonagramPlugin.h"
 #include "SonagramDialog.h"
 #include "SonagramWindow.h"
@@ -244,8 +246,8 @@ void SonagramPlugin::run(QStringList /* params */)
     if (!m_spx_insert_stripe) return;
 
     MultiTrackReader source;
-    openMultiTrackReader(source, selectedTracks(), m_first_sample,
-	m_last_sample);
+    manager().openMultiTrackReader(source, selectedTracks(),
+	m_first_sample, m_last_sample);
 //    debug("SonagramPlugin::run(), first=%u, last=%u",m_first_sample,m_last_sample);
 
     while (!m_cmd_shutdown) {

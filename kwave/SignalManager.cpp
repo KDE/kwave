@@ -354,6 +354,26 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 }
 
 //***************************************************************************
+void SignalManager::openMultiTrackReader(MultiTrackReader &readers,
+    const QArray<unsigned int> &track_list,
+    unsigned int first, unsigned int last)
+{
+    unsigned int count = track_list.count();
+    unsigned int track;
+    readers.setAutoDelete(true);
+    readers.clear();
+    readers.resize(count);
+
+    for (unsigned int i=0; i < count; i++) {
+	track = track_list[i];
+	SampleReader *s = openSampleReader(track, first, last);
+	ASSERT(s);
+	readers.insert(i, s);
+    }
+
+}
+
+//***************************************************************************
 void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
     const QArray<unsigned int> &track_list, InsertMode mode,
     unsigned int left, unsigned int right)
@@ -478,7 +498,7 @@ void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
     UndoTransactionGuard u(*this, i18n("paste"));
 
     // delete the current selection (with undo)
-    if (length < 1) length = 0; // do not paste single samples !
+    if (length <= 1) length = 0; // do not paste single samples !
     if (!deleteRange(offset, length)) {
 	abortUndoTransaction();
 	return;

@@ -28,9 +28,14 @@
 #include <kfiledialog.h>
 
 #include "libkwave/FileFormat.h"
+#include "libkwave/KwaveDrag.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
+#include "libkwave/SampleReader.h"
+#include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 
 #include "libgui/Dialog.h"
@@ -40,6 +45,7 @@
 #include "SignalWidget.h"
 #include "SignalManager.h"
 #include "MouseMark.h"
+#include "UndoTransactionGuard.h"
 
 #ifdef DEBUG
 #include <time.h>
@@ -711,7 +717,7 @@ void SignalWidget::refreshLayer(int layer)
 }
 
 //***************************************************************************
-SignalWidget::SelectionPos SignalWidget::selectionPosition(const int x)
+int SignalWidget::selectionPosition(const int x)
 {
     ASSERT(m_selection);
     if (!m_selection) return None;
@@ -736,24 +742,27 @@ SignalWidget::SelectionPos SignalWidget::selectionPosition(const int x)
     if ((rl-lr < tol) && (x >= l) && (x <= r)) return Selection;
 
     // the simple cases...
-    if ((x >= ll) && (x <= lr)) return LeftBorder;
-    if ((x >= rl) && (x <= rr)) return RightBorder;
-    if ((x >= lr) && (x <= rl)) return Selection;
+    int pos = None;
+    if ((x >= ll) && (x <= lr)) pos = LeftBorder;
+    if ((x >= rl) && (x <= rr)) pos = RightBorder;
+    if ((x >   l) && (x <   r)) pos |= Selection;
 
-    return None;
+    return pos;
 }
 
 //***************************************************************************
 bool SignalWidget::isSelectionBorder(int x)
 {
-    SignalWidget::SelectionPos pos = selectionPosition(x);
+    SelectionPos pos = static_cast<SignalWidget::SelectionPos>(
+	selectionPosition(x) & ~Selection);
+	
     return ((pos == LeftBorder) || (pos == RightBorder));
 }
 
 //***************************************************************************
 bool SignalWidget::isInSelection(int x)
 {
-    return (selectionPosition(x) == Selection);
+    return (selectionPosition(x) & Selection) != 0;
 }
 
 //***************************************************************************
@@ -785,14 +794,14 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 		setMouseMode(MouseSelect);
 	    }
 	    case 0: {
-		if (isInSelection(e->pos().x())) {
-		    // start a drag&drop operation, this does implicitely
-		    // change the mouse cursor
-		    startDragging();
-		} else if (isSelectionBorder(e->pos().x())) {
+		if (isSelectionBorder(e->pos().x())) {
 		    // modify selection border
 		    m_selection->grep(x);
 		    setMouseMode(MouseSelect);
+		} else if (isInSelection(e->pos().x())) {
+		    // start a drag&drop operation, this does implicitely
+		    // change the mouse cursor
+		    startDragging();
 		} else {
 		    // start a new selection
 		    m_selection->set(x, x);
@@ -1702,37 +1711,75 @@ void SignalWidget::slotSamplesModified(unsigned int /*track*/,
 //***************************************************************************
 void SignalWidget::startDragging()
 {
-    debug("SignalWidget::startDragging()");
-    static QString text = "123";
+    const unsigned int length = m_signal_manager.selection().length();
+    if (!length) return;
 
-    QDragObject *d = new QTextDrag(text, this );
+    KwaveDrag *d = new KwaveDrag(this);
+    ASSERT(d);
+    if (!d) return;
+
+    MultiTrackReader src;
+    const unsigned int first = m_signal_manager.selection().first();
+    const unsigned int last  = m_signal_manager.selection().last();
+    const unsigned int rate  = m_signal_manager.rate();
+    const unsigned int bits  = m_signal_manager.bits();
+
+    m_signal_manager.openMultiTrackReader(src,
+	m_signal_manager.selectedTracks(), first, last);
+    if (!d->encode(rate, bits, src)) {
+	delete d;
+	return;
+    }
+
     d->dragCopy();
 }
 
 //***************************************************************************
 void SignalWidget::dragEnterEvent(QDragEnterEvent* event)
 {
-//    debug("SignalWidget::dragEnterEvent(...)");
+    event->accept(KwaveDrag::canDecode(event));
 }
 
 //***************************************************************************
-void SignalWidget::dragLeaveEvent(QDragLeaveEvent* event)
+void SignalWidget::dragLeaveEvent(QDragLeaveEvent *)
 {
-//    debug("SignalWidget::dragLeaveEvent(...)");
     setMouseMode(MouseNormal);
 }
 
 //***************************************************************************
 void SignalWidget::dropEvent(QDropEvent* event)
 {
-//    debug("SignalWidget::dropEvent(...)");
+    debug("SignalWidget::dropEvent(%s)", event->format(0));
+
+    if (KwaveDrag::canDecode(event)) {
+	UndoTransactionGuard undo(m_signal_manager, "drag and drop");
+	MultiTrackReader src;
+	MultiTrackWriter dst;
+	unsigned int rate = 0;
+	unsigned int bits = 0;
+	
+	if (KwaveDrag::decode(event, rate, bits, src)) {
+	    dst << src;
+	} else {
+	    // m_signal_manager.abortUndoTransaction();
+	    debug("SignalWidget::dropEvent(%s): failed !", event->format(0));
+	}
+    }
+
     setMouseMode(MouseNormal);
 }
 
 //***************************************************************************
 void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
 {
-    // debug("SignalWidget::dragMoveEvent(...)");
+    if (!KwaveDrag::canDecode(event)) return;
+
+    int x = event->pos().x();
+    if ((event->source() == this) && isInSelection(x)) {
+	event->ignore();
+    } else {
+	event->accept();
+    }
 }
 
 //***************************************************************************

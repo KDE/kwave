@@ -245,16 +245,16 @@ protected:
     virtual void startDragging();
 
     /** @see Qt XDND documentation */
-    virtual void dragEnterEvent(QDragEnterEvent* event);
+    virtual void dragEnterEvent(QDragEnterEvent *event);
 
     /** @see Qt XDND documentation */
-    virtual void dragLeaveEvent(QDragLeaveEvent* event);
+    virtual void dragLeaveEvent(QDragLeaveEvent *);
 
     /** @see Qt XDND documentation */
-    virtual void dropEvent(QDropEvent* event);
+    virtual void dropEvent(QDropEvent *event);
 
     /** @see Qt XDND documentation */
-    virtual void dragMoveEvent(QDragMoveEvent* event);
+    virtual void dragMoveEvent(QDragMoveEvent *event);
 
 protected slots:
 
@@ -399,13 +399,20 @@ protected:
     /**
      * Relationship between a screen position and the current selection.
      */
-    typedef enum { None=0, LeftBorder, Selection, RightBorder } SelectionPos;
+    typedef enum {
+	None        = 0x0000,
+	LeftBorder  = 0x0001,
+	RightBorder = 0x0002,
+	Selection   = 0x8000
+    } SelectionPos;
 
     /**
      * Determines the relationship between a screen position and
      * the current selection.
+     * @param x screen position
+     * @return a SelectionPos
      */
-    SelectionPos selectionPosition(const int x);
+    int selectionPosition(const int x);
 
     /**
      * Simple internal guard class for inhibiting and allowing

@@ -14,7 +14,10 @@
 SUFFIXES= .h .cpp .o .d .moc .dm .ui .cc .idl
 
 # set the include path for X, qt and KDE
-INCLUDES= -I${topdir} -I@ARTSDIR@/include/arts @ARTS_CFLAGS@ @all_includes@
+INCLUDES  = -I${topdir}
+INCLUDES += -I$(includedir)/arts
+INCLUDES += -I$(includedir)/artsc
+INCLUDES += @all_includes@
 
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
@@ -74,11 +77,11 @@ DISTCLEANFILES	 = Makefile.in Makefile
 
 %.cc: %.idl
 	@echo plugin \"$(MODNAME)\": creating idl implementation "'"$<"'"
-	@ ${MCOPIDL} -I@ARTSDIR@/include/arts $<
+	@ ${MCOPIDL} -I$(include_dir)/arts $<
 
 %.h: %.idl
 	@echo plugin \"$(MODNAME)\": creating idl header "'"$<"'"
-	@ ${MCOPIDL} -I@ARTSDIR@/include/arts $<
+	@ ${MCOPIDL} -I$(include_dir)/arts $<
 
 %.uih.h: %.ui
 	@echo plugin \"$(MODNAME)\": generating header from $<

@@ -101,12 +101,12 @@ PIXMAPS=\
 
 # the library search path
 kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
-	@ARTS_LIBS@ @all_libraries@ -export-dynamic -dy
+	`$(ARTSCCONFIG) --libs` @all_libraries@ -export-dynamic -dy
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
 kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt \
-	-lartsflow -lartsflow_idl -lmcop \
+	-lartsc -lartsflow -lartsflow_idl -lmcop \
 	-lkfile -lkdeui -lkdecore -lqt \
 	-lX11 -lXext -lpthread \
 	-ldl -lm

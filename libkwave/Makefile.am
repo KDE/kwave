@@ -1,5 +1,5 @@
 
-INCLUDES= @all_includes@ -I@ARTSDIR@/include/arts
+INCLUDES= @all_includes@ -I$(includedir)/arts
 
 BUILTSOURCES=\
  SampleWriter.moc.cpp\
@@ -55,9 +55,9 @@ DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
 	${MOC} $< -o $@
 
 %cc: %idl
-	${MCOPIDL} -I@ARTSDIR@/include/arts $<
+	${MCOPIDL} -I$(includedir)/arts $<
 
 %h: %idl
-	${MCOPIDL} -I@ARTSDIR@/include/arts $<
+	${MCOPIDL} -I$(includedir)/arts $<
 
 # end of Makefile.am

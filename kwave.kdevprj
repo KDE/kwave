@@ -1076,7 +1076,7 @@ install_location=
 type=HEADER
 [mt/Makefile.am]
 dist=true
-files=mt/Asynchronous_Object.hh,mt/Asynchronous_Object.h,mt/Thread.h,mt/Thread.cpp,mt/TSS_Object.h,mt/TSS_Object.cpp,mt/AsyncSync.h,mt/AsyncSync.cpp,mt/SignalProxy.h,mt/Mutex.h,mt/Mutex.cpp,mt/MutexGuard.cpp,mt/MutexGuard.h,mt/MutexSet.cpp,mt/MutexSet.h,mt/Makefile.am,mt/ThreadCondition.h,mt/ThreadsafeX11Guard.h,mt/Semaphore.h,mt/Semaphore.cpp,mt/ThreadCondition.cpp
+files=mt/Asynchronous_Object.hh,mt/Asynchronous_Object.h,mt/Thread.h,mt/Thread.cpp,mt/TSS_Object.h,mt/TSS_Object.cpp,mt/AsyncSync.h,mt/AsyncSync.cpp,mt/SignalProxy.h,mt/Mutex.h,mt/Mutex.cpp,mt/MutexGuard.cpp,mt/MutexGuard.h,mt/MutexSet.cpp,mt/MutexSet.h,mt/Makefile.am,mt/ThreadCondition.h,mt/ThreadsafeX11Guard.h,mt/Semaphore.h,mt/Semaphore.cpp,mt/ThreadCondition.cpp,mt/ThreadsafeX11Guard.cpp
 install=false
 install_location=
 sub_dirs=mt,
@@ -1156,6 +1156,11 @@ dist=true
 install=false
 install_location=
 type=HEADER
+[mt/ThreadsafeX11Guard.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
 [mt/ThreadsafeX11Guard.h]
 dist=true
 install=false

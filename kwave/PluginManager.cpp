@@ -444,8 +444,6 @@ QBitmap *PluginManager::overview(unsigned int width, unsigned int height,
 SampleWriter *PluginManager::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {
-    ThreadsafeX11Guard x11_guard; // ###
-
     SignalManager &manager = m_top_widget.signalManager();
     UndoTransactionGuard guard(manager, 0);
 
@@ -484,16 +482,19 @@ SampleWriter *PluginManager::openSampleWriter(unsigned int track,
     ASSERT(action);
 
     debug("PluginManager::openSampleWriter(): registering action"); // ###
-    if (!manager.registerUndoAction(action)) {
-	// creating/starting the action failed, so fail now.
-	// close the writer and return 0 -> abort the operation
-	debug("PluginManager::openSampleWriter(): register failed"); // ###
-	if (action) delete action;
-	delete writer;
-	return 0;
-    } else {
-	debug("PluginManager::openSampleWriter(): storing undo data"); // ###
-	action->store(manager);
+    {
+	ThreadsafeX11Guard x11_guard;
+	if (!manager.registerUndoAction(action)) {
+	    // creating/starting the action failed, so fail now.
+	    // close the writer and return 0 -> abort the operation
+	    debug("PluginManager::openSampleWriter(): register failed"); // ###
+	    if (action) delete action;
+	    delete writer;
+	    return 0;
+	} else {
+	    debug("PluginManager::openSampleWriter(): storing undo data"); // ###
+	    action->store(manager);
+	}
     }
 
     debug("SignalManager::openSampleWriter(): done.");

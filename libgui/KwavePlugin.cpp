@@ -127,6 +127,8 @@ int KwavePlugin::execute(QStringList &params)
     // sometimes the signal proxies remain blocked until an initial
     // X11 event occurs and thus might block the thread :-(
     QApplication::syncX();
+    ASSERT(qApp);
+    if (qApp) qApp->wakeUpGuiThread();
 
     return 0;
 }
@@ -140,7 +142,10 @@ void KwavePlugin::run(QStringList)
 //***************************************************************************
 void KwavePlugin::close()
 {
-    stop();
+    // only call stop() if we are NOT in the worker thread / run function !
+    if (m_thread && !pthread_equal(pthread_self(), m_thread->threadID())) {
+	stop();
+    }
     emit sigClosed(this, true);
 }
 

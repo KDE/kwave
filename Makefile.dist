@@ -9,12 +9,12 @@
 .PHONY: all all-logged
 
 KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s°::°:°g | sed s°:°/bin/:°g )
-KDEDIR=$(shell PATH=${PATH}:${KDEBINDIRS} kde-config --prefix)
+KDEDIR=$(shell PATH=${PATH}:${KDEBINDIRS} kde-config --prefix | sed s°/$$°°g)
 
 default: all
 
 logged:
-	@ (PATH=${PATH}:${KDEBINDIRS} kde-config --prefix 2>/dev/null) || ( \
+	@ (PATH=${PATH}:${KDEBINDIRS} kde-config 2>/dev/null) || ( \
 	    echo "----------------------------------------";\
 	    echo ""; \
 	    echo "";\
@@ -47,12 +47,11 @@ logged:
 	autoconf
 	@ -touch -c doc/help_de.po 2>/dev/null 1>/dev/null
 	@ -touch -c doc/help_de.docbook 2>/dev/null 1>/dev/null
-	@ echo "" ; echo "compiling with:"
+	@ echo "" ; echo "your system uses:"
 	@ PATH=${PATH}:${KDEBINDIRS} kde-config --version
 	@ echo ""
 	KDEDIR=${KDEDIR} ./configure ${CONFIGURE_OPTS} --enable-debug=yes
-	# now we run "make"
-	make
+	# now you can run "make"
 
 all:
 	-rm -f make.log

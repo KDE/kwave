@@ -16,7 +16,7 @@ BuildRoot: 	@RPM_BUILDROOT@
 Prefix:   	@prefix@
 Provides:@RPM_NAME@
 Requires: 	qt >= 2.2
-Requires: 	kdelibs >= 2.0
+Requires: 	kdelibs >= 2.2
 Conflicts: 	libkwave
 Obsoletes: 	libkwave
 

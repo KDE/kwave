@@ -60,8 +60,11 @@ protected:
 
 private:
 
-    /** selected mode: by time, samples, percentage */
-    SelectTimeWidget::Mode m_mode;
+    /** selected mode for start: by time, samples, percentage */
+    SelectTimeWidget::Mode m_start_mode;
+
+    /** selected mode for range: by time, samples, percentage */
+    SelectTimeWidget::Mode m_range_mode;
 
     /** selected milliseconds, samples or percents */
     double m_range;

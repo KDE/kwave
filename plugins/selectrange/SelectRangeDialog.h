@@ -36,7 +36,9 @@ public:
     /**
      * Constructor
      * @param widget pointer to the parent widget
-     * @param mode selectionMode: byTime, bySamples, byPercents
+     * @param start_mode selectionMode for the start position,
+     *                   byTime, bySamples, byPercents
+     * @param range_mode selectionMode for the range
      * @param range length of the selection in ms, samples or percent
      * @param sample_rate number of samples per second, needed for
      *                    converting between samples and time
@@ -44,15 +46,27 @@ public:
      * @param signal_length length of the signal in samples, needed
      *                      for converting samples to percentage
      */
-    SelectRangeDialog(QWidget *widget, Mode mode,
+    SelectRangeDialog(QWidget *widget, Mode start_mode, Mode range_mode,
                       double range, double sample_rate,
                       unsigned int offset, unsigned int signal_length);
 
     /** Destructor */
     virtual ~SelectRangeDialog();
 
-    /** Returns the current selection mode (byTime, bySamples, byPercents) */
-    Mode mode() {
+    /**
+     * Returns the current selection mode for the start position
+     * (byTime, bySamples, byPercents)
+     */
+    Mode startMode() {
+        return select_start ? select_start->mode() :
+               SelectTimeWidget::bySamples;
+    };
+
+    /**
+     * Returns the current selection mode for the range
+     * (byTime, bySamples, byPercents)
+     */
+    Mode rangeMode() {
         return select_range ? select_range->mode() :
                SelectTimeWidget::bySamples;
     };

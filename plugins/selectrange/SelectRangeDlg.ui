@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>SelectRangeDlg</class>
 <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
 <widget class="QDialog">
@@ -9,17 +9,9 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>422</width>
-            <height>264</height>
+            <width>297</width>
+            <height>276</height>
         </rect>
-    </property>
-    <property name="sizePolicy">
-        <sizepolicy>
-            <hsizetype>5</hsizetype>
-            <vsizetype>5</vsizetype>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-        </sizepolicy>
     </property>
     <property name="caption">
         <string>Select Range...</string>
@@ -28,22 +20,36 @@
     </property>
     <property name="layoutSpacing" stdset="0">
     </property>
-    <vbox>
+    <grid>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
         <property name="margin">
-            <number>11</number>
+            <number>10</number>
         </property>
         <property name="spacing">
-            <number>6</number>
+            <number>10</number>
         </property>
-        <widget class="SelectTimeWidget">
+        <widget class="SelectTimeWidget" row="0" column="0">
             <property name="name">
-                <cstring>select_range</cstring>
+                <cstring>select_start</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>200</width>
+                    <height>100</height>
+                </size>
             </property>
         </widget>
-        <widget class="QLayoutWidget">
+        <widget class="QLayoutWidget" row="2" column="0">
             <property name="name">
                 <cstring>Layout1</cstring>
             </property>
@@ -106,7 +112,26 @@
                 </widget>
             </hbox>
         </widget>
-    </vbox>
+        <widget class="SelectTimeWidget" row="1" column="0">
+            <property name="name">
+                <cstring>select_range</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>200</width>
+                    <height>100</height>
+                </size>
+            </property>
+        </widget>
+    </grid>
 </widget>
 <customwidgets>
     <customwidget>
@@ -153,6 +178,11 @@
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>
     <include location="global" impldecl="in declaration">knuminput.h</include>
+    <include location="local" impldecl="in declaration">libgui/SelectTimeWidget.h</include>
 </includes>
 <layoutdefaults spacing="10" margin="10"/>
+<includehints>
+    <includehint>selecttimewidget.h</includehint>
+    <includehint>selecttimewidget.h</includehint>
+</includehints>
 </UI>

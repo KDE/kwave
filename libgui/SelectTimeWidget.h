@@ -78,6 +78,21 @@ public:
     /** Sets the title of the, shown in the frame around the controls */
     void setTitle(const QString title);
 
+signals:
+
+    /** Emitted when the value has been changed */
+    void valueChanged(unsigned int samples);
+
+public slots:
+
+    /**
+     * Sets/updates the start offset from which the selection starts.
+     * The current selection length will be reduced to fit in the
+     * available range.
+     * @param offset index of the first selected sample
+     */
+    void setOffset(unsigned int offset);    
+    
 private slots:
 
     /** called whenever one of the radio buttons changed it's state */
@@ -95,6 +110,14 @@ private slots:
     /** called when percentage changed */
     void percentsChanged(int p);
 
+private:
+
+    /** connects all widgets for getting informed about changes */
+    void connect();
+
+    /** disconnect all widgets for avoiding recursion */
+    void disconnect();
+    
 private:
 
     /** selectionMode: byTime, bySamples or byPercent */

@@ -28,13 +28,25 @@
 
 //***************************************************************************
 SelectRangeDialog::SelectRangeDialog(QWidget *widget,
-    Mode mode, double range, double sample_rate,
+    Mode start_mode, Mode range_mode, double range, double sample_rate,
     unsigned int offset, unsigned int signal_length)
     :SelectRangeDlg(widget, 0, true)
 {
-    setFixedSize(sizeHint());
+    if (select_start) {
+        select_start->init(SelectTimeWidget::bySamples, offset,
+                           sample_rate, 0, signal_length);
+        select_start->setTitle(i18n("Start"));
+        select_start->setMode(start_mode);
+    }
+
     if (select_range) select_range->init(
-        mode, range, sample_rate, offset, signal_length);
+        range_mode, range, sample_rate, offset, signal_length);
+
+    connect(select_start, SIGNAL(valueChanged(unsigned int)),
+            select_range, SLOT(setOffset(unsigned int)));
+        
+    setMinimumSize(sizeHint());
+    setFixedSize(sizeHint());
 }
 
 //***************************************************************************

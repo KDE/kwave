@@ -33,7 +33,8 @@ KWAVE_PLUGIN(SelectRangePlugin,"selectrange","Thomas Eschenbacher");
 
 //***************************************************************************
 SelectRangePlugin::SelectRangePlugin(PluginContext &c)
-    :KwavePlugin(c), m_mode(SelectTimeWidget::bySamples), m_range(0)
+    :KwavePlugin(c), m_start_mode(SelectTimeWidget::bySamples),
+     m_range_mode(SelectTimeWidget::bySamples), m_range(0)
 {
 }
 
@@ -55,7 +56,7 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
     unsigned int length = signalLength();
 
     SelectRangeDialog *dialog = new SelectRangeDialog(parentWidget(),
-        m_mode, m_range, rate, offset, length);
+        m_start_mode, m_range_mode, m_range, rate, offset, length);
     ASSERT(dialog);
     if (!dialog) return 0;
 
@@ -63,11 +64,13 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
     ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
-	*list << QString::number(dialog->mode());
+	*list << QString::number(dialog->startMode());
+	*list << QString::number(dialog->rangeMode());
 	*list << QString::number(dialog->range());
 	
 	emitCommand("plugin:execute(selectrange,"+
-	    QString::number(dialog->mode())+","+
+	    QString::number(dialog->startMode())+","+
+	    QString::number(dialog->rangeMode())+","+
 	    QString::number(dialog->range())+
 	    ")"
 	);
@@ -94,7 +97,7 @@ int SelectRangePlugin::start(QStringList &params)
 
     // transform into offset and length [samples]
     unsigned int length = 0;
-    switch (m_mode) {
+    switch (m_range_mode) {
 	case SelectTimeWidget::byTime: {
 	    // convert from ms to samples
 	    double rate = signalRate();
@@ -132,18 +135,16 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
+    int mode;
 
     // evaluate the parameter list
-    ASSERT(params.count() == 2);
-    if (params.count() != 2) {
-	warning("SelectRangePlugin::interpreteParams(): params.count()=%d",
-	      params.count());
+    if (params.count() != 3) {
 	return -EINVAL;
     }
 
-    // selection mode
+    // selection mode for start
     param = params[0];
-    int mode = param.toInt(&ok);
+    mode = param.toInt(&ok);
     ASSERT(ok);
     if (!ok) return -EINVAL;
     ASSERT((mode == (int)SelectTimeWidget::byTime) ||
@@ -155,10 +156,27 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
     {
 	return -EINVAL;
     }
-    m_mode = (SelectTimeWidget::Mode)mode;
+    m_start_mode = (SelectTimeWidget::Mode)mode;
+
+
+    // selection mode
+    param = params[1];
+    mode = param.toInt(&ok);
+    ASSERT(ok);
+    if (!ok) return -EINVAL;
+    ASSERT((mode == (int)SelectTimeWidget::byTime) ||
+           (mode == (int)SelectTimeWidget::bySamples) ||
+           (mode == (int)SelectTimeWidget::byPercents));
+    if ((mode != (int)SelectTimeWidget::byTime) &&
+        (mode != (int)SelectTimeWidget::bySamples) &&
+        (mode != (int)SelectTimeWidget::byPercents))
+    {
+	return -EINVAL;
+    }
+    m_range_mode = (SelectTimeWidget::Mode)mode;
 
     // range in ms, samples or percent
-    param = params[1];
+    param = params[2];
     m_range = (unsigned int)param.toDouble(&ok);
     ASSERT(ok);
     if (!ok) return -EINVAL;

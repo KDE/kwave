@@ -273,24 +273,37 @@ above.
 =================
 
 * autoconf/automake problems:
+  --------------------------
   those are always good for making trouble. Don't blame us, it's the fault
   of the autoconf/automake programmers who invent new features and
   incompatibilites without even thinking about keeping compatibility.
   -> solution: on trouble, try to downgrade autoconf/automake
 
 * missing files:
+  -------------
   Depending on your distribution, one ore more components might require
   additional packages. For example if there is a package like
   kdelibs-artsd-devel, install it too!
 
   Hint for SuSE users:
-  --------------------
   => on CD1 (or on the DVD) there is a file named "ARCHIVES.gz".
      If you want to find out which package does contain a missing program or
      file, you can do the following:
 
      gzip -dc ARCHIVES.gz | grep name_of_the_missing_file
-     
+
+* errors during "make -f Makefile.dist":
+  -------------------------------------
+  If you see errors about invalid or missing macros when processing
+  Makefile.dist: please try updating your automake, autoconf and
+  libtool packages and try again.
+
+* warnings about invalid character set when creating online documentation:
+  -----------------------------------------------------------------------
+  This is quite normal, because some tools are not aware of the
+  UTF-8 encoding that is used in the .docbook and the .po files.
+
+
 8. SOME HISTORY:
 ===============
 

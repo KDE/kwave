@@ -108,7 +108,8 @@ msgstr "Einleitung"
 
 #: index.docbook:64
 #, no-c-format
-msgid "This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
 msgstr ""
 "Dies ist \"&kapp;\", ein einfacher Sound-Editor für KDE3. Er enthält "
 "folgende Funktionalität:"
@@ -316,9 +317,9 @@ msgid ""
 "bugfix: handling of persistent and unique plugins was wrong, which caused "
 "playback to work only in the first main window instance"
 msgstr ""
-"Bugfix: Behandlung von persistenten und einmaligen Plugins war falsch, was zur "
-"Folge hatte dass die Wiedergabe nur in der ersten Instanz des Hauptfensters "
-"funktionierte."
+"Bugfix: Behandlung von persistenten und einmaligen Plugins war falsch, was "
+"zur Folge hatte dass die Wiedergabe nur in der ersten Instanz des "
+"Hauptfensters funktionierte."
 
 #: index.docbook:187
 #, no-c-format
@@ -343,12 +344,14 @@ msgstr "Neues Plugin: \"Kerbfilter\", beigetragen von Dave Flogeras"
 #: index.docbook:187
 #, no-c-format
 msgid "included a bugfixed version of the synth_pitch_shift aRts plugin"
-msgstr "enthält fehlerbereinigte Version der synth_pitch_shift Plugins von aRts"
+msgstr ""
+"enthält fehlerbereinigte Version der synth_pitch_shift Plugins von aRts"
 
 #: index.docbook:187
 #, no-c-format
 msgid "new feature: \"pre-listen\", first implementation in pitch_shift plugin"
-msgstr "neues Feature \"Vorhören\", erste Implementierung im pitch_shift-Plugin"
+msgstr ""
+"neues Feature \"Vorhören\", erste Implementierung im pitch_shift-Plugin"
 
 #: index.docbook:187
 #, no-c-format
@@ -471,7 +474,8 @@ msgstr "Unterstützung für das Speichern komprimierter Dateien"
 #: index.docbook:187
 #, no-c-format
 msgid "thrown away Qt2/KDE2 compatibility, now only supports Qt3/KDE3"
-msgstr "keine Unterstützung von Qt2/KDE2 mehr, jetzt nur noch Support für Qt3/KDE3"
+msgstr ""
+"keine Unterstützung von Qt2/KDE2 mehr, jetzt nur noch Support für Qt3/KDE3"
 
 #: index.docbook:187
 #, no-c-format
@@ -485,7 +489,8 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "solved problem with name mangling in plugins and different gcc versions"
-msgstr "Problem mit Name-Mangling der Plugins bei verschiedenen gcc-Versionen gelöst"
+msgstr ""
+"Problem mit Name-Mangling der Plugins bei verschiedenen gcc-Versionen gelöst"
 
 #: index.docbook:187
 #, no-c-format
@@ -594,7 +599,8 @@ msgstr "Behandlung von \"Datei geändert\""
 #: index.docbook:187
 #, no-c-format
 msgid "shows error message and aborts if loading failed"
-msgstr "zeigt eine Meldungsbox und bricht ab wenn das Laden einer Datei fehlschlug"
+msgstr ""
+"zeigt eine Meldungsbox und bricht ab wenn das Laden einer Datei fehlschlug"
 
 #: index.docbook:187
 #, no-c-format
@@ -813,7 +819,8 @@ msgstr "Einige Bugs mit der Maus-Auswahl behoben"
 #: index.docbook:187
 #, no-c-format
 msgid "rework of the overview widget (used in main window and sonagram)"
-msgstr "OverViewWidget überarbeitet (wird im Hauptfenster und Sonagram verwendet)"
+msgstr ""
+"OverViewWidget überarbeitet (wird im Hauptfenster und Sonagram verwendet)"
 
 #: index.docbook:187
 #, no-c-format
@@ -867,11 +874,13 @@ msgstr "Sonagram: transparenter Hintergrund für das Bild"
 #: index.docbook:187
 #, no-c-format
 msgid "added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget"
-msgstr "sizeHint() und minimimSize() für ScaleWidget und OverViewWidget hinzugefügt"
+msgstr ""
+"sizeHint() und minimimSize() für ScaleWidget und OverViewWidget hinzugefügt"
 
 #: index.docbook:187
 #, no-c-format
-msgid "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
+msgid ""
+"sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
 msgstr ""
 "Sonagram: (Notwendigkeit für) SonagramContainer entfernt, verwendet jetzt "
 "stattdessen QGridLayout"
@@ -889,7 +898,8 @@ msgstr "X11 Synchronisationsproblem mit SignalProxy behoben"
 #: index.docbook:187
 #, no-c-format
 msgid "added TSS (thread-specific-storage) support to the mt classes"
-msgstr "Unterstützung für TSS (thread-specific storage) zu den mt-Klassen hinzugefügt"
+msgstr ""
+"Unterstützung für TSS (thread-specific storage) zu den mt-Klassen hinzugefügt"
 
 #: index.docbook:187
 #, no-c-format
@@ -923,7 +933,8 @@ msgstr ""
 
 #: index.docbook:187
 #, no-c-format
-msgid "bugfix: selection and playpointer will not be drawn if no signal is loaded"
+msgid ""
+"bugfix: selection and playpointer will not be drawn if no signal is loaded"
 msgstr ""
 "Bugfix: Auswahl und Wiedergabeposition werden nicht gezeichnet wenn keine "
 "Datei geladen ist"
@@ -1087,7 +1098,8 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "found out that we need ALSA support for 24 and 32 bits/sample"
-msgstr "herausgefunden dass wir ALSA benötigen um 24 und 32 Bits/Sample wiederzugeben"
+msgstr ""
+"herausgefunden dass wir ALSA benötigen um 24 und 32 Bits/Sample wiederzugeben"
 
 #: index.docbook:187
 #, no-c-format
@@ -1229,7 +1241,8 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "wrote a new README file, moved Martin's version to README.OLD"
-msgstr "neue README-Datei geschrieben, Martin's Version nach README.OLD umbenannt"
+msgstr ""
+"neue README-Datei geschrieben, Martin's Version nach README.OLD umbenannt"
 
 #: index.docbook:187
 #, no-c-format
@@ -1253,7 +1266,8 @@ msgstr "0.5.2-9 [2000-05-19]"
 #: index.docbook:187
 #, no-c-format
 msgid "list of recent files is synchronized across all toplevel windows"
-msgstr "Liste der letzten Dateien wird synchronisiert über alle Toplevel-Fenster"
+msgstr ""
+"Liste der letzten Dateien wird synchronisiert über alle Toplevel-Fenster"
 
 #: index.docbook:187
 #, no-c-format
@@ -1299,7 +1313,8 @@ msgstr "Behandlung von hinzufügen/löschen: Auswahl/Speaker werden verschoben"
 
 #: index.docbook:187
 #, no-c-format
-msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
+msgid ""
+"changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
 "einige Variablen/Parameter in \"unsigned\" geändert (vereinfacht "
 "Bereichsüberprüfungen)"
@@ -1332,14 +1347,16 @@ msgstr "Checks für die Größe von char, short und int im configure-Skript"
 
 #: index.docbook:187
 #, no-c-format
-msgid "globals.app will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"globals.app will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "globals.app wird nicht mehr verwendet (obsolet, sollte von libkwave entfernt "
 "werden)"
 
 #: index.docbook:187
 #, no-c-format
-msgid "MessagePort will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"MessagePort will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "MessagePort wird nicht mehr benutzt (obsolet, sollte aus libkwave entfernt "
 "werden)"
@@ -1357,7 +1374,8 @@ msgstr "X toolkit-Parameter zum Laufen gebracht (insbesondere \"-geometry\")"
 #: index.docbook:187
 #, no-c-format
 msgid "bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)"
-msgstr "Bugfix beim Laden/Speichern von 8-Bit .wav-Dateien (sind immer unsigned !)"
+msgstr ""
+"Bugfix beim Laden/Speichern von 8-Bit .wav-Dateien (sind immer unsigned !)"
 
 #: index.docbook:187
 #, no-c-format
@@ -1415,7 +1433,8 @@ msgstr ""
 msgid ""
 "shift+Home/shift+End selects from the current left/right position up to the "
 "start/end of the signal"
-msgstr "Shift+Home/Shift+End erweitert die Auswahl bis zum Start/Ende des Signals"
+msgstr ""
+"Shift+Home/Shift+End erweitert die Auswahl bis zum Start/Ende des Signals"
 
 #: index.docbook:187
 #, no-c-format
@@ -1482,7 +1501,8 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "version info of libkwavegui.so is set to the package's version"
-msgstr "Versionsinfo von libkwavegui wird auf die Version des Programmpakets gesetzt"
+msgstr ""
+"Versionsinfo von libkwavegui wird auf die Version des Programmpakets gesetzt"
 
 #: index.docbook:187
 #, no-c-format
@@ -1522,7 +1542,8 @@ msgstr "ASCII Import und Export funktioniert jetzt (nur Mono)"
 #: index.docbook:187
 #, no-c-format
 msgid "bugfixes in some plugins, all compile now without warnings/errors"
-msgstr "Bugfixes in einigen Plugins, jetzt compilieren alle ohne Warnungen/Fehler"
+msgstr ""
+"Bugfixes in einigen Plugins, jetzt compilieren alle ohne Warnungen/Fehler"
 
 #: index.docbook:187
 #, no-c-format
@@ -1575,7 +1596,8 @@ msgstr "Target \"make messages\" funktioniert wieder"
 
 #: index.docbook:187
 #, no-c-format
-msgid "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
+msgid ""
+"converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 msgstr ""
 "Konverter für menus.config, erzeugt dummy .cpp-File das dann via i18n "
 "behandelt wird"
@@ -1670,7 +1692,8 @@ msgstr "meine Änderungen aus den Makefiles in die Makefile.am verschoben"
 #: index.docbook:187
 #, no-c-format
 msgid "included targets \"make release\", \"make patchlevel\" and some scripts"
-msgstr "Targets \"make release\", \"make patchlevel\" und einige Skripte hinzugefügt"
+msgstr ""
+"Targets \"make release\", \"make patchlevel\" und einige Skripte hinzugefügt"
 
 #: index.docbook:187
 #, no-c-format
@@ -1739,7 +1762,8 @@ msgstr "1999-12-10 (by Thomas.Eschenbacher@gmx.de)"
 #: index.docbook:187
 #, no-c-format
 msgid "removed -Werror compiler option (caused trouble with configure script)"
-msgstr "Compiler-Option -Werror entfernt (verursachte Ärger mit dem confiure-Skript)"
+msgstr ""
+"Compiler-Option -Werror entfernt (verursachte Ärger mit dem confiure-Skript)"
 
 #: index.docbook:187
 #, no-c-format
@@ -1772,7 +1796,8 @@ msgstr "TODO-Datei hinzugefügt"
 #: index.docbook:187
 #, no-c-format
 msgid "added -Werror to the c++ compiler options when debuging enabled"
-msgstr "-Werror zu den Compiler-Optionen hinzugefügt wenn Debugging aktiviert ist"
+msgstr ""
+"-Werror zu den Compiler-Optionen hinzugefügt wenn Debugging aktiviert ist"
 
 #: index.docbook:187
 #, no-c-format
@@ -1794,7 +1819,8 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "bugfix: caption of main window changes after \"SaveAs\""
-msgstr "Bugfix: Überschrift des Hauptfensters ändert sich beim \"Speichern Unter\""
+msgstr ""
+"Bugfix: Überschrift des Hauptfensters ändert sich beim \"Speichern Unter\""
 
 #: index.docbook:187
 #, no-c-format
@@ -1925,7 +1951,8 @@ msgstr "Hüllkurven-Dialog (String-Handling) behoben"
 #: index.docbook:187
 #, no-c-format
 msgid "connected many functions via the new string-based way of invocation"
-msgstr "einige Funktionen über die neue String-basierte Aufrufmethode angebunden"
+msgstr ""
+"einige Funktionen über die neue String-basierte Aufrufmethode angebunden"
 
 #: index.docbook:187
 #, no-c-format
@@ -1949,7 +1976,8 @@ msgstr "Clipboard-Klasse zurechtgestutzt"
 #: index.docbook:187
 #, no-c-format
 msgid "Color class as wrapper to QColor (may become independent later)"
-msgstr "Color-Klasse als Wrapper für QColor (wird vielleicht später mal unabhängig)"
+msgstr ""
+"Color-Klasse als Wrapper für QColor (wird vielleicht später mal unabhängig)"
 
 #: index.docbook:187
 #, no-c-format
@@ -2036,7 +2064,8 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "recent Files are updated again, while the program is running"
-msgstr "Liste der letzten Dateien wird wieder aktualisiert beim laufenden Programm"
+msgstr ""
+"Liste der letzten Dateien wird wieder aktualisiert beim laufenden Programm"
 
 #: index.docbook:187
 #, no-c-format
@@ -2138,7 +2167,8 @@ msgstr "0.29.1"
 
 #: index.docbook:187
 #, no-c-format
-msgid "Bugfix for multichannel save. Now the saved files should work with other prgs"
+msgid ""
+"Bugfix for multichannel save. Now the saved files should work with other prgs"
 msgstr ""
 "Bugfix für Speichern von Mehrkanal-Dateien. Nun sollten die Dateien auch mit "
 "anderen Programmen zusammenarbeiten"
@@ -2191,13 +2221,15 @@ msgstr "Wiederauswahl und Cursorwechsel implementiert"
 
 #: index.docbook:187
 #, no-c-format
-msgid "added possibility of different display modes in Frequency representation"
+msgid ""
+"added possibility of different display modes in Frequency representation"
 msgstr "Möglichkeit für verschiedene Anzeigemodi in der Frequenz-Darstellung"
 
 #: index.docbook:187
 #, no-c-format
 msgid "fixed severe quantisation bug in saving 16Bit routine, reported by ?"
-msgstr "schweren Quantisierungsfehler in der 16Bit-Routine behoben, berichtet von ?"
+msgstr ""
+"schweren Quantisierungsfehler in der 16Bit-Routine behoben, berichtet von ?"
 
 #: index.docbook:187
 #, no-c-format
@@ -2228,7 +2260,8 @@ msgstr "Erste Verwendung von mehreren Threads (Pthreads) in einigen Funktionen"
 #: index.docbook:187
 #, no-c-format
 msgid "Pitch generation now independent of additive synthesis"
-msgstr "Erzeugung der Tonverschiebung ist nun unabhängig von der Additiven Synthese"
+msgstr ""
+"Erzeugung der Tonverschiebung ist nun unabhängig von der Additiven Synthese"
 
 #: index.docbook:187
 #, no-c-format
@@ -2257,7 +2290,8 @@ msgstr "neues ScaleWidget gibt dem Anwender mehr Informationen"
 
 #: index.docbook:187
 #, no-c-format
-msgid "Improved ProgressDialog and Interpolation class to allow multiple threads"
+msgid ""
+"Improved ProgressDialog and Interpolation class to allow multiple threads"
 msgstr ""
 "Verbesserter ProgressDialog und Interpolation-Klasse um Multithreading zu "
 "erlauben"
@@ -2279,7 +2313,8 @@ msgstr "Änderungen in CurveWidget (aktueller Punkt verwendet anderes Pixmap)"
 
 #: index.docbook:187
 #, no-c-format
-msgid "sorting of labels now works without overwriting of QGList::compareItems."
+msgid ""
+"sorting of labels now works without overwriting of QGList::compareItems."
 msgstr ""
 "Sortieren von Markern funktioniert ohne Überschreiben von QGList::"
 "compareItems."
@@ -2312,7 +2347,8 @@ msgstr "0.27"
 #: index.docbook:187
 #, no-c-format
 msgid "first release, but never uploaded, because ftp.kde.org was down."
-msgstr "erste Release, aber niemals publiziert, da ftp.kde.org nicht erreichbar war."
+msgstr ""
+"erste Release, aber niemals publiziert, da ftp.kde.org nicht erreichbar war."
 
 #: index.docbook:1398
 #, no-c-format
@@ -3801,7 +3837,8 @@ msgstr "Öffnen und Speichern von Dateien"
 
 #: index.docbook:2331
 #, no-c-format
-msgid "Opening files with &kapp; works like in most other applications, you can"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "Das Öffnen von Dateien mit &kapp; funktioniert genauso wie in den meisten "
 "anderen Anwendungen auch, Sie können"
@@ -4042,7 +4079,8 @@ msgstr "eine rote Lampe \"deaktiviert\" bedeutet."
 
 #: index.docbook:2567
 #, no-c-format
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Hinweis: Wird ein Kanal deselektiert, wird er bei der Wiedergabe nicht "
 "hörbar sein!"
@@ -4493,7 +4531,8 @@ msgstr ""
 
 #: index.docbook:3029
 #, no-c-format
-msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
+msgid ""
+"What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
 "Wie steht es mit der Wiedergabe von 24 und 32 bits pro Sample oder mehr als "
 "zwei Kanälen?"
@@ -4562,7 +4601,8 @@ msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
 #: index.docbook:3093
 #, no-c-format
-msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
+msgid ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage und deutsche "
 "Übersetzung)"
@@ -4584,7 +4624,8 @@ msgstr ""
 #: index.docbook:3093
 #, no-c-format
 msgid "Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Notch Filter plugin)"
-msgstr "Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Kerbfilter - Plugin)"
+msgstr ""
+"Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Kerbfilter - Plugin)"
 
 #: index.docbook:3093
 #, no-c-format
@@ -4768,4 +4809,3 @@ msgstr ""
 #~ "der libaudiofile-Bibliothek realisiert, gefunden auf <ulink url=\"http://"
 #~ "oss.sgi.com/projects/audiofile/\">http://oss.sgi.com/projects/audiofile/</"
 #~ "ulink>."
-

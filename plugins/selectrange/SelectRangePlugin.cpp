@@ -36,6 +36,7 @@ SelectRangePlugin::SelectRangePlugin(PluginContext &c)
     :KwavePlugin(c), m_start_mode(SelectTimeWidget::bySamples),
      m_range_mode(SelectTimeWidget::bySamples), m_range(0)
 {
+     i18n("selectrange");
 }
 
 //***************************************************************************

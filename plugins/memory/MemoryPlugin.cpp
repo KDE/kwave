@@ -34,6 +34,7 @@ MemoryPlugin::MemoryPlugin(PluginContext &c)
      m_virtual_enabled(true), m_virtual_limited(true), m_virtual_limit(256),
      m_virtual_directory("/tmp")
 {
+    i18n("memory");
 }
 
 //***************************************************************************

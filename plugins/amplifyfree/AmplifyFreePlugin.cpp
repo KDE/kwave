@@ -40,6 +40,7 @@ KWAVE_PLUGIN(AmplifyFreePlugin,"amplifyfree","Thomas Eschenbacher");
 AmplifyFreePlugin::AmplifyFreePlugin(PluginContext &context)
     :KwavePlugin(context), m_params(), m_curve(), m_stop(false)
 {
+    i18n("amplifyfree");
 }
 
 //***************************************************************************

@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2003-07-09 14:47+0200\n"
-"PO-Revision-Date: 2003-07-09 14:49+0200\n"
+"POT-Creation-Date: 2003-07-10 10:30+0200\n"
+"PO-Revision-Date: 2003-07-10 10:31+0200\n"
 "Last-Translator: Gilles CAULIER <caulier.gilles@free.fr>\n"
 "Language-Team: Française <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -502,7 +502,7 @@ msgstr "modifier les échantillons"
 msgid "Out of memory"
 msgstr "Pas assez de mémoire"
 
-#: kwave/SignalWidget.cpp:428 plugins/playback/PlayBackPlugin.cpp:263
+#: kwave/SignalWidget.cpp:428 plugins/playback/PlayBackPlugin.cpp:264
 msgid "unable to open '%1'"
 msgstr "impossible d'ouvrir « %1 »"
 
@@ -2134,7 +2134,11 @@ msgstr "échantillonné et bloqué"
 msgid "applying '%1' ..."
 msgstr "Traitement de « %1 » en cours..."
 
-#: plugins/zero/ZeroPlugin.cpp:40
+#: plugins/zero/ZeroPlugin.cpp:35
+msgid "zero"
+msgstr "générateur de silence"
+
+#: plugins/zero/ZeroPlugin.cpp:41
 msgid "silence"
 msgstr "silence"
 
@@ -2261,11 +2265,16 @@ msgstr ""
 msgid "&Stop"
 msgstr "Arrê&ter"
 
-#: plugins/pitch_shift/PitchShiftPlugin.cpp:125
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:41
+msgid "pitch_shift"
+msgstr "décalage fréquentiel"
+
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:126
 msgid "pitch shift"
 msgstr "décalage fréquentiel"
 
 #: plugins/sonagram/SonagramDialog.cpp:55
+#: plugins/sonagram/SonagramPlugin.cpp:81
 msgid "sonagram"
 msgstr "sonagramme"
 
@@ -2411,6 +2420,10 @@ msgstr "Fréquence : %d Hz"
 msgid "Amplitude: %d %%"
 msgstr "Amplitude : %d %%"
 
+#: plugins/about/AboutPlugin.cpp:35
+msgid "about"
+msgstr "à propos de"
+
 #: plugins/about/AboutKwaveDialog.cpp:53
 msgid " (Using KDE %1)"
 msgstr " (utilise KDE %1)"
@@ -2424,8 +2437,8 @@ msgid "version"
 msgstr "version"
 
 #: plugins/about/AboutKwaveDialog.cpp:91
-msgid "author"
-msgstr "auteur"
+msgid "authors"
+msgstr "auteurs"
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:414
 msgid "About Kwave"
@@ -2481,7 +2494,7 @@ msgstr "Accord de licence"
 
 #: plugins/noise/NoisePlugin.cpp:49
 msgid "noise"
-msgstr "bruit"
+msgstr "générateur de bruit"
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:44
 msgid "MPEG layer1 audio"
@@ -2566,6 +2579,10 @@ msgstr "Voulez-vous réellement continuer ?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Voulez vous continuer et ignorer les prochaines erreurs ?"
 
+#: plugins/decoder_mp3/MP3DecoderPlugin.cpp:30
+msgid "decoder_mp3"
+msgstr "décodeur MP3"
+
 #: plugins/lowpass/LowPassDlg.uic.cpp:166
 msgid "Low Pass"
 msgstr "Passe bas"
@@ -2596,7 +2613,11 @@ msgstr "Hz"
 msgid "dB"
 msgstr "dB"
 
-#: plugins/lowpass/LowPassPlugin.cpp:106
+#: plugins/lowpass/LowPassPlugin.cpp:39
+msgid "lowpass"
+msgstr "filtre passe bas"
+
+#: plugins/lowpass/LowPassPlugin.cpp:107
 msgid "low pass"
 msgstr "passe bas"
 
@@ -3083,7 +3104,11 @@ msgstr "(Stéréo)"
 msgid "(Quadro)"
 msgstr "(Quadro)"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:75
+#: plugins/fileinfo/FileInfoPlugin.cpp:33
+msgid "fileinfo"
+msgstr "informations sur les fichiers audio"
+
+#: plugins/fileinfo/FileInfoPlugin.cpp:76
 msgid ""
 "You have changed the sample rate. Do you want to convert the whole file to "
 "the new sample rate or do you only want to set the rate information in order "
@@ -3097,11 +3122,11 @@ msgstr ""
 "changer uniquement les informations concernant la période d'échantillonnage "
 "peut provoquer des dysfonctionnements pendant la lecture du flux audio."
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:81
+#: plugins/fileinfo/FileInfoPlugin.cpp:82
 msgid "&Convert"
 msgstr "&Convertir"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:81
+#: plugins/fileinfo/FileInfoPlugin.cpp:82
 msgid "&Set Rate"
 msgstr "&Paramétrer la période"
 
@@ -3109,7 +3134,11 @@ msgstr "&Paramétrer la période"
 msgid "Start"
 msgstr "Au début"
 
-#: plugins/selectrange/SelectRangePlugin.cpp:146
+#: plugins/selectrange/SelectRangePlugin.cpp:39
+msgid "selectrange"
+msgstr "sélection de plage audio"
+
+#: plugins/selectrange/SelectRangePlugin.cpp:147
 msgid "select range"
 msgstr "Sélectionner plage"
 
@@ -3177,6 +3206,10 @@ msgstr ""
 "Une erreur est apparue lors de l'ouverture du fichier :\n"
 "« %1 »"
 
+#: plugins/codec_audiofile/AudiofileCodecPlugin.cpp:31
+msgid "codec_audiofile"
+msgstr "codec AUDIOFILE"
+
 #: plugins/notch_filter/NotchFilterDlg.uic.cpp:181
 msgid "Notch Filter"
 msgstr "Filtre réjecteur"
@@ -3225,7 +3258,11 @@ msgstr "ms"
 msgid "%"
 msgstr "%"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:112
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:43
+msgid "amplifyfree"
+msgstr "amplification libre"
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:113
 msgid "amplify free"
 msgstr "amplification libre"
 
@@ -3324,6 +3361,10 @@ msgstr "&Limitée à"
 #: plugins/memory/MemDlg.uic.cpp:188
 msgid "megabytes of virtual memory"
 msgstr "méga-octets de la mémoire virtuelle"
+
+#: plugins/memory/MemoryPlugin.cpp:37
+msgid "memory"
+msgstr "gestion de la mémoire"
 
 #: plugins/volume/VolumePlugin.cpp:115
 msgid "volume"
@@ -3442,10 +3483,18 @@ msgstr ""
 msgid "Corrupt or missing data in bitstream; continuing..."
 msgstr "Données corrompues ou manquante dans le flux de données..."
 
+#: plugins/codec_ogg/OggCodecPlugin.cpp:32
+msgid "codec_ogg"
+msgstr "codec OGG"
+
 #: plugins/codec_ogg/OggCodecPlugin.h:59 plugins/codec_ogg/OggCodecPlugin.h:61
 #: plugins/codec_ogg/OggCodecPlugin.h:63
 msgid "Ogg, Vorbis audio"
 msgstr "Format audio Ogg / Vorbis"
+
+#: plugins/codec_wav/WavCodecPlugin.cpp:32
+msgid "codec_wav"
+msgstr "codec WAVE"
 
 #: plugins/codec_wav/RIFFParser.cpp:101
 msgid "detecting endianness (standard search)..."
@@ -3535,8 +3584,9 @@ msgid "wav audio"
 msgstr "wav audio"
 
 #: plugins/playback/PlayBackDialog.cpp:61
+#: plugins/playback/PlayBackPlugin.cpp:98
 msgid "playback"
-msgstr "Lecture"
+msgstr "lecture"
 
 #: plugins/playback/PlayBackDialog.cpp:81
 msgid "Playback Options :"
@@ -3810,6 +3860,10 @@ msgstr ""
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Taille du fichier cible : %1 Mo)"
 
+#: plugins/newsignal/NewSignalPlugin.cpp:33
+msgid "newsignal"
+msgstr "nouveau signal audio"
+
 #~ msgid "Band Pass"
 #~ msgstr "Filtre passe bande"
 
@@ -3932,9 +3986,6 @@ msgstr "(Taille du fichier cible : %1 Mo)"
 
 #~ msgid "&random"
 #~ msgstr "&aléatoire"
-
-#~ msgid "&zero"
-#~ msgstr "&zéro"
 
 #~ msgid "&sinus"
 #~ msgstr "&sinusoïdal"

@@ -32,6 +32,7 @@ KWAVE_PLUGIN(ZeroPlugin,"zero","Thomas Eschenbacher");
 ZeroPlugin::ZeroPlugin(PluginContext &context)
     :KwavePlugin(context), m_stop(false)
 {
+     i18n("zero");
 }
 
 //***************************************************************************

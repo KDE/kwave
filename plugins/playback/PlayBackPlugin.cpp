@@ -95,6 +95,7 @@ PlayBackPlugin::PlayBackPlugin(PluginContext &context)
 
     // register as a factory for playback devices
     manager().registerPlaybackDeviceFactory(this);
+    i18n("playback");
 }
 
 //***************************************************************************

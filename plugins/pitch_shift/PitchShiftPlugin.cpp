@@ -38,6 +38,7 @@ PitchShiftPlugin::PitchShiftPlugin(PluginContext &context)
      m_speed(1.0), m_frequency(5.0), m_percentage_mode(false),
      m_last_speed(0), m_last_freq(0)
 {
+     i18n("pitch_shift");
 }
 
 //***************************************************************************

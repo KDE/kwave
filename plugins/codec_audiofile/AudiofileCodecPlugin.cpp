@@ -28,6 +28,7 @@ KWAVE_PLUGIN(AudiofileCodecPlugin,"codec_audiofile","Thomas Eschenbacher");
 AudiofileCodecPlugin::AudiofileCodecPlugin(PluginContext &c)
     :KwavePlugin(c), m_decoder(0)
 {
+    i18n("codec_audiofile");
 }
 
 /***************************************************************************/

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2003-07-09 14:47+0200\n"
+"POT-Creation-Date: 2003-07-10 10:30+0200\n"
 "PO-Revision-Date: 2003-06-26 20:22+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -495,7 +495,7 @@ msgstr "Samples ändern"
 msgid "Out of memory"
 msgstr "Zu wenig Speicher"
 
-#: kwave/SignalWidget.cpp:428 plugins/playback/PlayBackPlugin.cpp:263
+#: kwave/SignalWidget.cpp:428 plugins/playback/PlayBackPlugin.cpp:264
 msgid "unable to open '%1'"
 msgstr "'%1' kann nicht geöffnet werden"
 
@@ -2131,7 +2131,12 @@ msgstr "Sample + Hold"
 msgid "applying '%1' ..."
 msgstr "'%1' wird angewendet ..."
 
-#: plugins/zero/ZeroPlugin.cpp:40
+#: plugins/zero/ZeroPlugin.cpp:35
+#, fuzzy
+msgid "zero"
+msgstr "&null"
+
+#: plugins/zero/ZeroPlugin.cpp:41
 msgid "silence"
 msgstr "Stille"
 
@@ -2259,11 +2264,17 @@ msgstr ""
 msgid "&Stop"
 msgstr "&Stop"
 
-#: plugins/pitch_shift/PitchShiftPlugin.cpp:125
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:41
+#, fuzzy
+msgid "pitch_shift"
+msgstr "Tonverschiebung"
+
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:126
 msgid "pitch shift"
 msgstr "Tonverschiebung"
 
 #: plugins/sonagram/SonagramDialog.cpp:55
+#: plugins/sonagram/SonagramPlugin.cpp:81
 msgid "sonagram"
 msgstr "Sonagramm"
 
@@ -2406,6 +2417,10 @@ msgstr "Frequenz: %d Hz"
 msgid "Amplitude: %d %%"
 msgstr "Amplitude: %d %%"
 
+#: plugins/about/AboutPlugin.cpp:35
+msgid "about"
+msgstr ""
+
 #: plugins/about/AboutKwaveDialog.cpp:53
 msgid " (Using KDE %1)"
 msgstr " (für KDE-%1)"
@@ -2422,7 +2437,7 @@ msgstr "Version"
 
 #: plugins/about/AboutKwaveDialog.cpp:91
 #, fuzzy
-msgid "author"
+msgid "authors"
 msgstr "Autor"
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:414
@@ -2565,6 +2580,10 @@ msgstr "Wollen Sie trotzdem fortsetzen?"
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Wollen Sie fortsetzen und alle weiteren Fehler ignorieren?"
 
+#: plugins/decoder_mp3/MP3DecoderPlugin.cpp:30
+msgid "decoder_mp3"
+msgstr ""
+
 #: plugins/lowpass/LowPassDlg.uic.cpp:166
 msgid "Low Pass"
 msgstr "Tiefpass"
@@ -2595,7 +2614,12 @@ msgstr "Hz"
 msgid "dB"
 msgstr "dB"
 
-#: plugins/lowpass/LowPassPlugin.cpp:106
+#: plugins/lowpass/LowPassPlugin.cpp:39
+#, fuzzy
+msgid "lowpass"
+msgstr "Tiefpass"
+
+#: plugins/lowpass/LowPassPlugin.cpp:107
 msgid "low pass"
 msgstr "Tiefpass"
 
@@ -3082,7 +3106,12 @@ msgstr "(Stereo)"
 msgid "(Quadro)"
 msgstr "(Quadro)"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:75
+#: plugins/fileinfo/FileInfoPlugin.cpp:33
+#, fuzzy
+msgid "fileinfo"
+msgstr "Datei-Informationen"
+
+#: plugins/fileinfo/FileInfoPlugin.cpp:76
 msgid ""
 "You have changed the sample rate. Do you want to convert the whole file to "
 "the new sample rate or do you only want to set the rate information in order "
@@ -3094,11 +3123,11 @@ msgstr ""
 "ändern? Hinweis: wenn Sie nur die Angabe der Abtastrate ändern, kann dies zu "
 "\"Mickey-Maus\"-Effekten führen!"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:81
+#: plugins/fileinfo/FileInfoPlugin.cpp:82
 msgid "&Convert"
 msgstr "&Konvertieren"
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:81
+#: plugins/fileinfo/FileInfoPlugin.cpp:82
 msgid "&Set Rate"
 msgstr "&Abtastrate ändern"
 
@@ -3106,7 +3135,12 @@ msgstr "&Abtastrate ändern"
 msgid "Start"
 msgstr "Start"
 
-#: plugins/selectrange/SelectRangePlugin.cpp:146
+#: plugins/selectrange/SelectRangePlugin.cpp:39
+#, fuzzy
+msgid "selectrange"
+msgstr "Bereich auswählen"
+
+#: plugins/selectrange/SelectRangePlugin.cpp:147
 msgid "select range"
 msgstr "Bereich auswählen"
 
@@ -3174,6 +3208,10 @@ msgstr ""
 "Beim Öffnen der Datei ist ein Fehler aufgetreten:\n"
 "%1"
 
+#: plugins/codec_audiofile/AudiofileCodecPlugin.cpp:31
+msgid "codec_audiofile"
+msgstr ""
+
 #: plugins/notch_filter/NotchFilterDlg.uic.cpp:181
 msgid "Notch Filter"
 msgstr "Kerbfilter"
@@ -3222,7 +3260,12 @@ msgstr "ms"
 msgid "%"
 msgstr "%"
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:112
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:43
+#, fuzzy
+msgid "amplifyfree"
+msgstr "Frei Verstärken"
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:113
 msgid "amplify free"
 msgstr "Frei Verstärken"
 
@@ -3321,6 +3364,11 @@ msgstr "&Begrenzen auf"
 #: plugins/memory/MemDlg.uic.cpp:188
 msgid "megabytes of virtual memory"
 msgstr "Megabytes in Auslagerungsdateien"
+
+#: plugins/memory/MemoryPlugin.cpp:37
+#, fuzzy
+msgid "memory"
+msgstr "&Speicher"
 
 #: plugins/volume/VolumePlugin.cpp:115
 msgid "volume"
@@ -3437,10 +3485,18 @@ msgid "Corrupt or missing data in bitstream; continuing..."
 msgstr ""
 "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
 
+#: plugins/codec_ogg/OggCodecPlugin.cpp:32
+msgid "codec_ogg"
+msgstr ""
+
 #: plugins/codec_ogg/OggCodecPlugin.h:59 plugins/codec_ogg/OggCodecPlugin.h:61
 #: plugins/codec_ogg/OggCodecPlugin.h:63
 msgid "Ogg, Vorbis audio"
 msgstr "Ogg, Vorbis Audio"
+
+#: plugins/codec_wav/WavCodecPlugin.cpp:32
+msgid "codec_wav"
+msgstr ""
 
 #: plugins/codec_wav/RIFFParser.cpp:101
 msgid "detecting endianness (standard search)..."
@@ -3529,6 +3585,7 @@ msgid "wav audio"
 msgstr "wav Audio"
 
 #: plugins/playback/PlayBackDialog.cpp:61
+#: plugins/playback/PlayBackPlugin.cpp:98
 msgid "playback"
 msgstr "Wiedergabe"
 
@@ -3805,6 +3862,11 @@ msgstr ""
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resultierende Dateigröße: %1 MB)"
 
+#: plugins/newsignal/NewSignalPlugin.cpp:33
+#, fuzzy
+msgid "newsignal"
+msgstr "Signal &zentrieren"
+
 #, fuzzy
 #~ msgid "Band Pass"
 #~ msgstr "Bass"
@@ -3954,9 +4016,6 @@ msgstr "(Resultierende Dateigröße: %1 MB)"
 
 #~ msgid "&random"
 #~ msgstr "&zufällig"
-
-#~ msgid "&zero"
-#~ msgstr "&null"
 
 #~ msgid "&sinus"
 #~ msgstr "&Sinus"

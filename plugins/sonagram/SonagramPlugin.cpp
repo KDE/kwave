@@ -78,6 +78,7 @@ SonagramPlugin::SonagramPlugin(PluginContext &c)
 {
     m_spx_insert_stripe = new SignalProxy1< StripeInfoPrivate >
 	(this, SLOT(insertStripe()));
+    i18n("sonagram");
 }
 
 //***************************************************************************

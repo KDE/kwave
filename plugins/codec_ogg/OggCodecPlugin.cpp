@@ -29,6 +29,7 @@ KWAVE_PLUGIN(OggCodecPlugin,"codec_ogg","Thomas Eschenbacher");
 OggCodecPlugin::OggCodecPlugin(PluginContext &c)
     :KwavePlugin(c), m_decoder(0), m_encoder(0)
 {
+    i18n("codec_ogg");
 }
 
 /***************************************************************************/

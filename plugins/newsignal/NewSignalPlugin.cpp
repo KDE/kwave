@@ -30,6 +30,7 @@ NewSignalPlugin::NewSignalPlugin(PluginContext &context)
     :KwavePlugin(context), m_samples(2646000), m_rate(44100),
     m_bits(16), m_tracks(2), m_bytime(true)
 {
+    i18n("newsignal");
 }
 
 //***************************************************************************

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-07-09 14:47+0200\n"
+"POT-Creation-Date: 2003-07-10 10:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -494,7 +494,7 @@ msgstr ""
 msgid "Out of memory"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:428 plugins/playback/PlayBackPlugin.cpp:263
+#: kwave/SignalWidget.cpp:428 plugins/playback/PlayBackPlugin.cpp:264
 msgid "unable to open '%1'"
 msgstr ""
 
@@ -2041,7 +2041,11 @@ msgstr ""
 msgid "applying '%1' ..."
 msgstr ""
 
-#: plugins/zero/ZeroPlugin.cpp:40
+#: plugins/zero/ZeroPlugin.cpp:35
+msgid "zero"
+msgstr ""
+
+#: plugins/zero/ZeroPlugin.cpp:41
 msgid "silence"
 msgstr ""
 
@@ -2157,11 +2161,16 @@ msgstr ""
 msgid "&Stop"
 msgstr ""
 
-#: plugins/pitch_shift/PitchShiftPlugin.cpp:125
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:41
+msgid "pitch_shift"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:126
 msgid "pitch shift"
 msgstr ""
 
 #: plugins/sonagram/SonagramDialog.cpp:55
+#: plugins/sonagram/SonagramPlugin.cpp:81
 msgid "sonagram"
 msgstr ""
 
@@ -2296,6 +2305,10 @@ msgstr ""
 msgid "Amplitude: %d %%"
 msgstr ""
 
+#: plugins/about/AboutPlugin.cpp:35
+msgid "about"
+msgstr ""
+
 #: plugins/about/AboutKwaveDialog.cpp:53
 msgid " (Using KDE %1)"
 msgstr ""
@@ -2309,7 +2322,7 @@ msgid "version"
 msgstr ""
 
 #: plugins/about/AboutKwaveDialog.cpp:91
-msgid "author"
+msgid "authors"
 msgstr ""
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:414
@@ -2432,6 +2445,10 @@ msgstr ""
 msgid "Do you want to continue and ignore all following errors?"
 msgstr ""
 
+#: plugins/decoder_mp3/MP3DecoderPlugin.cpp:30
+msgid "decoder_mp3"
+msgstr ""
+
 #: plugins/lowpass/LowPassDlg.uic.cpp:166
 msgid "Low Pass"
 msgstr ""
@@ -2459,7 +2476,11 @@ msgstr ""
 msgid "dB"
 msgstr ""
 
-#: plugins/lowpass/LowPassPlugin.cpp:106
+#: plugins/lowpass/LowPassPlugin.cpp:39
+msgid "lowpass"
+msgstr ""
+
+#: plugins/lowpass/LowPassPlugin.cpp:107
 msgid "low pass"
 msgstr ""
 
@@ -2928,7 +2949,11 @@ msgstr ""
 msgid "(Quadro)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:75
+#: plugins/fileinfo/FileInfoPlugin.cpp:33
+msgid "fileinfo"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoPlugin.cpp:76
 msgid ""
 "You have changed the sample rate. Do you want to convert the whole file to "
 "the new sample rate or do you only want to set the rate information in order "
@@ -2936,11 +2961,11 @@ msgid ""
 "\"mickey mouse\" effects!"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:81
+#: plugins/fileinfo/FileInfoPlugin.cpp:82
 msgid "&Convert"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoPlugin.cpp:81
+#: plugins/fileinfo/FileInfoPlugin.cpp:82
 msgid "&Set Rate"
 msgstr ""
 
@@ -2948,7 +2973,11 @@ msgstr ""
 msgid "Start"
 msgstr ""
 
-#: plugins/selectrange/SelectRangePlugin.cpp:146
+#: plugins/selectrange/SelectRangePlugin.cpp:39
+msgid "selectrange"
+msgstr ""
+
+#: plugins/selectrange/SelectRangePlugin.cpp:147
 msgid "select range"
 msgstr ""
 
@@ -3014,6 +3043,10 @@ msgid ""
 "'%1'"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileCodecPlugin.cpp:31
+msgid "codec_audiofile"
+msgstr ""
+
 #: plugins/notch_filter/NotchFilterDlg.uic.cpp:181
 msgid "Notch Filter"
 msgstr ""
@@ -3056,7 +3089,11 @@ msgstr ""
 msgid "%"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreePlugin.cpp:112
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:43
+msgid "amplifyfree"
+msgstr ""
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:113
 msgid "amplify free"
 msgstr ""
 
@@ -3139,6 +3176,10 @@ msgstr ""
 
 #: plugins/memory/MemDlg.uic.cpp:188
 msgid "megabytes of virtual memory"
+msgstr ""
+
+#: plugins/memory/MemoryPlugin.cpp:37
+msgid "memory"
 msgstr ""
 
 #: plugins/volume/VolumePlugin.cpp:115
@@ -3244,9 +3285,17 @@ msgstr ""
 msgid "Corrupt or missing data in bitstream; continuing..."
 msgstr ""
 
+#: plugins/codec_ogg/OggCodecPlugin.cpp:32
+msgid "codec_ogg"
+msgstr ""
+
 #: plugins/codec_ogg/OggCodecPlugin.h:59 plugins/codec_ogg/OggCodecPlugin.h:61
 #: plugins/codec_ogg/OggCodecPlugin.h:63
 msgid "Ogg, Vorbis audio"
+msgstr ""
+
+#: plugins/codec_wav/WavCodecPlugin.cpp:32
+msgid "codec_wav"
 msgstr ""
 
 #: plugins/codec_wav/RIFFParser.cpp:101
@@ -3319,6 +3368,7 @@ msgid "wav audio"
 msgstr ""
 
 #: plugins/playback/PlayBackDialog.cpp:61
+#: plugins/playback/PlayBackPlugin.cpp:98
 msgid "playback"
 msgstr ""
 
@@ -3550,4 +3600,8 @@ msgstr ""
 
 #: plugins/newsignal/NewSignalDialog.cpp:349
 msgid "(Resulting file size: %1 MB)"
+msgstr ""
+
+#: plugins/newsignal/NewSignalPlugin.cpp:33
+msgid "newsignal"
 msgstr ""

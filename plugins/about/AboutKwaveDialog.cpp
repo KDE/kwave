@@ -88,7 +88,7 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
     pluginsinfo->setSelectionMode (QListView::Single);
     pluginsinfo->addColumn( i18n("name") );
     pluginsinfo->addColumn( i18n("version") );
-    pluginsinfo->addColumn( i18n("author") );
+    pluginsinfo->addColumn( i18n("authors") );
     pluginsinfo->setAllColumnsShowFocus( false );
     pluginsinfo->setShowSortIndicator (false);
     pluginsinfo->setSorting (0);

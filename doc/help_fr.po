@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-02-03 21:53GMT\n"
+"PO-Revision-Date: 2002-02-05 20:44GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2150,7 +2150,7 @@ msgid ""
 msgstr ""
 "Aller dans le répertoire \"principal\" de stockage des RPM de votre système. "
 "Normalement,  celui-çi est <filename>/usr/src/redhat</filename> pour une "
-"distribution du type Redhat  or <filename>/usr/src/packages</filename> pour "
+"distribution du type RedHat ou <filename>/usr/src/packages</filename> pour "
 "la distribution SuSE."
 
 #: index.docbook:1466
@@ -2420,8 +2420,8 @@ msgid ""
 msgstr ""
 "Les exécutables d'un paquetage RPM de &kapp; sont \"<emphasis>relogeables</emphasis>\". "
 "Vous pouvez construire un paquetage RPM sur un système équipé des répertoires de KDE2 "
-" et installer les exécutables dans un répertoire différent sur un autre système. Cette carractéristique "
-" est trés pratique pour installer un paquetage compilé sur une distribtion SUSE sur une distribution "
+" et installer les exécutables dans un répertoire différent sur un autre système. Cette caractéristique "
+" est trés pratique pour installer un paquetage compilé sur une distribtion SUSE vers une distribution "
 " RedHat ou vice-versa."
 
 #: index.docbook:1656
@@ -2544,6 +2544,11 @@ msgid ""
 "that do complex time-frequency operations (like FFT and Sonagram) will "
 "profit most from it."
 msgstr ""
+"Si vous étes propriétaire d'un processeur Pentium, ou d'un AMD K6 / Athlon, vous désirez "
+" peut être utiliser les optimisations de compilation pour gagner de la vitesse pendant l'éxécution "
+" de &kapp;. Le gain obtenu est d'environ 30% avec ces processeurs, quand les fonctions "
+" de manipulation de signaux et les fonctions de calculs complexes sur les tableaux de "
+" fréquences (comme les FFT le Sonagrame) sont activées."
 
 #: index.docbook:1750
 msgid ""
@@ -2551,10 +2556,13 @@ msgid ""
 "compiler to compile &kapp;, but maybe you will need some time to get the "
 "compiler itself working and installed."
 msgstr ""
+"Vous ne devez pas connaître les fondements de la programmation pour utiliser "
+" et optimiser la compilation de &kapp;, mais peut-être quelques principes vous serons utiles "
+" pour installer le compilateur et l'utiliser."
 
 #: index.docbook:1757
 msgid "How to invoke the optimized compiler"
-msgstr ""
+msgstr "Comment utiliser les optimisations de compilation"
 
 #: index.docbook:1758
 msgid ""
@@ -2563,6 +2571,10 @@ msgid ""
 "correct way and then compile as usual. For the best settings please consult "
 "the documentation or homepage of the corresponding compiler."
 msgstr ""
+"L'invocation des optimisations d'un compilateur sont simples. Normalement, il suffit d'activer "
+" correctement la variable d'envirronnement <symbol>CXXFLAGS</symbol> avec les bons "
+" paramètres et de lancer la compilation. Cependant, pour un meilleur paramétrage, il est "
+" préférable de consulter la documentation ou le site internet de votre compilateur."
 
 #: index.docbook:1765
 msgid ""
@@ -2570,12 +2582,16 @@ msgid ""
 "flags need to be specidied before the call to <command>configure</command>. "
 "This might look like this:"
 msgstr ""
+"Si vous construisez &kapp; à partir des sources (tel que une archive tar.gz ou via le CVS) l'option "
+" à activer doit l'être avant l'appel de la commande <command>configure</command>. Par exemple :"
 
 #: index.docbook:1765
 msgid ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" ./configure</command>"
 msgstr ""
+"<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
+"mcpu=athlon\" ./configure</command>"
 
 #: index.docbook:1772
 msgid ""
@@ -2583,12 +2599,16 @@ msgid ""
 "specidied before the call to <command>rpm --rebuild</command>. This might "
 "look like this:"
 msgstr ""
+"Si vous construisez &kapp; à partir du paquetage RPM, l'option à activer doit l'être avant "
+" l'appel de la commande <command>rpm --rebuild</command>. Par exemple :"
 
 #: index.docbook:1772
 msgid ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" rpm --rebuild <replaceable>filename</replaceable></command>"
 msgstr ""
+"<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
+"mcpu=athlon\" rpm --rebuild <replaceable>filename</replaceable></command>"
 
 #: index.docbook:1772
 msgid ""
@@ -2597,10 +2617,14 @@ msgid ""
 "Normally you can just install an optimized package by specifying the "
 "additional parameter <command>--ignorearch</command> and just don't care."
 msgstr ""
+"N'oubliez pas que si la commande <command>rpm</command> peut refuser d'installer votre "
+" paquetage parcequ'elle est incapable de reconnaître votre architecture materielle. Normalement, "
+" vous pouvez juste installer et optimiser le paquetage en spécifiant l'option "
+" <command>--ignorearch</command>."
 
 #: index.docbook:1789
 msgid "Pentium and Compatibles"
-msgstr ""
+msgstr "Les processeurs Pentium et Compatibles"
 
 #: index.docbook:1790
 msgid ""
@@ -2612,28 +2636,36 @@ msgid ""
 "for some other manufactors like <ulink url=\"http://www.cyrix.com/\">Cyrix</"
 "ulink>."
 msgstr ""
+"Pour toutes les versions optimisées pour ce processeur, j'ai utilisé pgcc-2.95.3. Pour toutes "
+" informations sur le compilateur pgcc compiler, visitez le site internet du <ulink url=\"http://www."
+"goof.com/pcg/\">Pentium Compiler Group</ulink>. Il y a aussi des exécutables pour les "
+" platte-formes les plus standard. Ce compilateur peut fonctionner pour tous les processeurs "
+" Pentium et dérivés tels que ceux de <ulink url=\"http://www.intel.com/\">Intel</ulink> "
+" mais aussi ceux de <ulink url=\"http://www.cyrix.com/\">Cyrix</ulink>."
 
 #: index.docbook:1823
 msgid "Using &kapp;"
-msgstr ""
+msgstr "Utilisation de &kapp;"
 
 #: index.docbook:1841
 msgid ""
 "Here is a little screenshot of the &kapp; main window, so that you get an "
 "impression what &kapp; looks like..."
 msgstr ""
+"Voici une petite capture d'écran de la fenêtre pricipale de &kapp;, qui vous donnera une premiére impression "
+" sur le programme..."
 
 #: index.docbook:1846
 msgid "Here's a screenshot of &kapp;"
-msgstr ""
+msgstr "Une cpature d'écran de &kapp;"
 
 #: index.docbook:1846
 msgid "Screenshot"
-msgstr ""
+msgstr "Capture d'écran"
 
 #: index.docbook:1866
 msgid "Clipboard"
-msgstr ""
+msgstr "Le presse-papier"
 
 #: index.docbook:1868
 msgid ""
@@ -2641,6 +2673,9 @@ msgid ""
 "due to the lack of support for formats other than text and bitmaps in the "
 "KDE environment and might be solved in some future release."
 msgstr ""
+"Malheureusement, &kapp; ne dispose pas encore d'une implémentation évoluée du presse papier. "
+" Ceci est dû à un manque de support des formats différents au texte et aux bitmaps dans KDE. "
+" Cette situation changera probablement dans un futur proche."
 
 #: index.docbook:1874
 msgid ""
@@ -2649,6 +2684,9 @@ msgid ""
 "this is simply not possible. Each instance of &kapp; uses it's own clipboard "
 "and so that can't work."
 msgstr ""
+"Cependant, ceci présente quelques désavantages. Il est impossible d'échanger des données "
+" entre deux instances de &kapp; via le presse papier. En effet, chaque instance de &kapp; "
+" dispose de sa propre instance du presse papier pour travailler."
 
 #: index.docbook:1881
 msgid ""
@@ -2656,10 +2694,13 @@ msgid ""
 "<emphasis>one</emphasis> &kapp; instance and use multiple &kapp; windows. "
 "That's the way it works!"
 msgstr ""
+"Si vous voulez utiliser le presse papier dans &kapp;, vous devez seulement lancer "
+"<emphasis>une</emphasis> seule instance de &kapp; et utiliser plusieurs fenêtres de &kapp; à "
+" partir de cette même instance. Cette fonctionnalité fonctionne normalement !"
 
 #: index.docbook:1893
 msgid "Drag and Drop"
-msgstr ""
+msgstr "Le tirer / déposer"
 
 #: index.docbook:1895
 msgid ""
@@ -2667,6 +2708,9 @@ msgid ""
 "files just by picking them up in a <command>konqueror</command> window or "
 "the Desktop and let them drop into a window of &kapp;."
 msgstr ""
+"&kapp; supporte les fonctionnalités de tirer / déposer de l'environnement de bureau KDE. "
+" Cela doit vous permettre d'ouvrir par exemple un fichier audio en le sélectionnant à partir de "
+" <command>konqueror</command> et en le lanchant dans l'espace de travail de &kapp;."
 
 #: index.docbook:1901
 msgid ""
@@ -2675,10 +2719,14 @@ msgid ""
 "then the file you dropped will be opened in it. If you don't want that, you "
 "should open a new empty &kapp; window first."
 msgstr ""
+"Veuillez noter que si vous déposez un fichier audio dans l'espace de travail de &kapp; alors qu'un "
+" fichier audio est déjà ouvert, ce dernier sera fermé en premier avant l'ouverture du fichier à déposer. "
+" Si vous vous ne voulez pas que le fichier précédemment ouvert soit fermé, vous devez ouvrir une "
+" autre fenêtre de &kapp; afin d'y recevoir le fichier à ouvrir."
 
 #: index.docbook:1914
 msgid "Command Line"
-msgstr ""
+msgstr "Les options en ligne de commande"
 
 #: index.docbook:1916
 msgid ""
@@ -2688,18 +2736,27 @@ msgid ""
 "&kapp; instance. If you specify wildcards, you can open a large number of "
 "files at once."
 msgstr ""
+"Si vous lancez &kapp; à partir de la ligne de commande, vous pouvez spécifier une liste de "
+" fichiers à ouvrir. Le premier fichier spécifié sera ouvert en premier, puis le second, etc... "
+" Chaque fichier sera ouvert dans une fenêtre séparée mais à partir de la même "
+" instance de &kapp;. Vous pouvez ainsi ouvrir un nombre important de fichiers sonores en même "
+" temps."
 
 #: index.docbook:1923
 msgid ""
 "For example, the following command starts a &kapp; and opens all sounds of "
 "the KDE window manager, each in a new window:"
 msgstr ""
+"Par exemple, la ligne de commande suivante lance une instance de &kapp; et ouvre dans des "
+" fenêtres séparées, tous les fichiers sonores utilisés en internes par KDE :"
 
 #: index.docbook:1923
 msgid ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
 "KDE_Window*.wav</filename></command>"
 msgstr ""
+"<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
+"KDE_Window*.wav</filename></command>"
 
 #: index.docbook:1929
 msgid ""
@@ -3248,7 +3305,7 @@ msgstr ""
 
 #: index.docbook:2855
 msgid "Credits and License"
-msgstr "Credits et License"
+msgstr "Crédits et Licence"
 
 #: index.docbook:2857
 msgid "&kapp;"

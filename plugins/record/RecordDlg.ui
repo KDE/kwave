@@ -1,0 +1,1495 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>RecordDlg</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>RecordDlg</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>633</width>
+            <height>453</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Form1</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>10</number>
+        </property>
+        <property name="spacing">
+            <number>10</number>
+        </property>
+        <widget class="QTabWidget">
+            <property name="name">
+                <cstring>tabWidget2</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Recording</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QButtonGroup">
+                        <property name="name">
+                            <cstring>buttonGroup3</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Record Control</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QCheckBox" row="0" column="0">
+                                <property name="name">
+                                    <cstring>chkRecordPre</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Pre-Record:</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="1" column="0">
+                                <property name="name">
+                                    <cstring>chkRecordTime</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Record Time:</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="4" column="0">
+                                <property name="name">
+                                    <cstring>chkRecordTrigger</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Record Trigger:</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
+                            <widget class="QFrame" row="2" column="0" rowspan="2" colspan="3">
+                                <property name="name">
+                                    <cstring>frame5</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>0</width>
+                                        <height>10</height>
+                                    </size>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>HLine</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Raised</enum>
+                                </property>
+                            </widget>
+                            <widget class="QLayoutWidget" row="7" column="0" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>layout9</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="KPushButton">
+                                        <property name="name">
+                                            <cstring>btDelete</cstring>
+                                        </property>
+                                        <property name="enabled">
+                                            <bool>false</bool>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>30</width>
+                                                <height>30</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string></string>
+                                        </property>
+                                        <property name="pixmap">
+                                            <pixmap>image0</pixmap>
+                                        </property>
+                                    </widget>
+                                    <widget class="KPushButton">
+                                        <property name="name">
+                                            <cstring>btStop</cstring>
+                                        </property>
+                                        <property name="enabled">
+                                            <bool>false</bool>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>30</width>
+                                                <height>30</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string></string>
+                                        </property>
+                                        <property name="pixmap">
+                                            <pixmap>image1</pixmap>
+                                        </property>
+                                    </widget>
+                                    <widget class="KPushButton">
+                                        <property name="name">
+                                            <cstring>btPause</cstring>
+                                        </property>
+                                        <property name="enabled">
+                                            <bool>false</bool>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>30</width>
+                                                <height>30</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string></string>
+                                        </property>
+                                        <property name="pixmap">
+                                            <pixmap>image2</pixmap>
+                                        </property>
+                                    </widget>
+                                    <widget class="KPushButton">
+                                        <property name="name">
+                                            <cstring>btRecord</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>30</width>
+                                                <height>30</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string></string>
+                                        </property>
+                                        <property name="pixmap">
+                                            <pixmap>image3</pixmap>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
+                            <widget class="QFrame" row="6" column="0" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>frame5_2</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>0</width>
+                                        <height>10</height>
+                                    </size>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>HLine</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Raised</enum>
+                                </property>
+                            </widget>
+                            <spacer row="5" column="1">
+                                <property name="name">
+                                    <cstring>spacer11</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLayoutWidget" row="1" column="1">
+                                <property name="name">
+                                    <cstring>layout14</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QSpinBox">
+                                        <property name="name">
+                                            <cstring>sbRecordHours</cstring>
+                                        </property>
+                                        <property name="enabled">
+                                            <bool>false</bool>
+                                        </property>
+                                        <property name="suffix">
+                                            <string> h</string>
+                                        </property>
+                                        <property name="value">
+                                            <number>99</number>
+                                        </property>
+                                    </widget>
+                                    <widget class="QSpinBox">
+                                        <property name="name">
+                                            <cstring>sbRecordMinutes</cstring>
+                                        </property>
+                                        <property name="enabled">
+                                            <bool>false</bool>
+                                        </property>
+                                        <property name="suffix">
+                                            <string> min</string>
+                                        </property>
+                                        <property name="maxValue">
+                                            <number>59</number>
+                                        </property>
+                                        <property name="value">
+                                            <number>59</number>
+                                        </property>
+                                    </widget>
+                                    <widget class="QSpinBox">
+                                        <property name="name">
+                                            <cstring>sbRecordSeconds</cstring>
+                                        </property>
+                                        <property name="enabled">
+                                            <bool>false</bool>
+                                        </property>
+                                        <property name="suffix">
+                                            <string> sec</string>
+                                        </property>
+                                        <property name="value">
+                                            <number>99</number>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
+                            <widget class="QSlider" row="1" column="2">
+                                <property name="name">
+                                    <cstring>slRecordTime</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                            </widget>
+                            <widget class="QSlider" row="0" column="2">
+                                <property name="name">
+                                    <cstring>slPreRecord</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>150</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="minValue">
+                                    <number>1</number>
+                                </property>
+                                <property name="maxValue">
+                                    <number>60</number>
+                                </property>
+                                <property name="value">
+                                    <number>10</number>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                            </widget>
+                            <widget class="KIntSpinBox" row="0" column="1">
+                                <property name="name">
+                                    <cstring>sbPreRecord</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>100</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="suffix">
+                                    <string> s</string>
+                                </property>
+                                <property name="maxValue">
+                                    <number>60</number>
+                                </property>
+                                <property name="minValue">
+                                    <number>1</number>
+                                </property>
+                                <property name="value">
+                                    <number>10</number>
+                                </property>
+                            </widget>
+                            <widget class="QSlider" row="3" column="2" rowspan="2" colspan="1">
+                                <property name="name">
+                                    <cstring>slRecordTrigger</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                            </widget>
+                            <widget class="QSpinBox" row="4" column="1">
+                                <property name="name">
+                                    <cstring>sbRecordTrigger</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="suffix">
+                                    <string> %</string>
+                                </property>
+                                <property name="minValue">
+                                    <number>1</number>
+                                </property>
+                                <property name="value">
+                                    <number>27</number>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                </vbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Level</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>groupBox6</cstring>
+                        </property>
+                        <property name="enabled">
+                            <bool>false</bool>
+                        </property>
+                        <property name="title">
+                            <string>Level</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QSlider" row="0" column="2">
+                                <property name="name">
+                                    <cstring>slLevelAmplify</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="minValue">
+                                    <number>-42</number>
+                                </property>
+                                <property name="maxValue">
+                                    <number>42</number>
+                                </property>
+                                <property name="value">
+                                    <number>3</number>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="tickmarks">
+                                    <enum>Right</enum>
+                                </property>
+                                <property name="tickInterval">
+                                    <number>3</number>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="1" column="0">
+                                <property name="name">
+                                    <cstring>chkLevelAGC</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>AGC:</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="0" column="0">
+                                <property name="name">
+                                    <cstring>chkLevelAmplify</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Amplify:</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
+                            <widget class="KIntSpinBox" row="0" column="1">
+                                <property name="name">
+                                    <cstring>sbLevelAmplify</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>90</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="suffix">
+                                    <string> dB</string>
+                                </property>
+                                <property name="maxValue">
+                                    <number>42</number>
+                                </property>
+                                <property name="minValue">
+                                    <number>-42</number>
+                                </property>
+                                <property name="value">
+                                    <number>3</number>
+                                </property>
+                            </widget>
+                            <widget class="KIntSpinBox" row="1" column="1">
+                                <property name="name">
+                                    <cstring>sbLevelAGC</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="suffix">
+                                    <string> ms</string>
+                                </property>
+                                <property name="maxValue">
+                                    <number>1000</number>
+                                </property>
+                                <property name="minValue">
+                                    <number>10</number>
+                                </property>
+                                <property name="lineStep">
+                                    <number>10</number>
+                                </property>
+                                <property name="value">
+                                    <number>50</number>
+                                </property>
+                            </widget>
+                            <widget class="QSlider" row="1" column="2">
+                                <property name="name">
+                                    <cstring>slLevelAGC</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="minValue">
+                                    <number>10</number>
+                                </property>
+                                <property name="maxValue">
+                                    <number>1000</number>
+                                </property>
+                                <property name="lineStep">
+                                    <number>10</number>
+                                </property>
+                                <property name="value">
+                                    <number>50</number>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="tickmarks">
+                                    <enum>Right</enum>
+                                </property>
+                                <property name="tickInterval">
+                                    <number>50</number>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>groupBox5</cstring>
+                        </property>
+                        <property name="enabled">
+                            <bool>false</bool>
+                        </property>
+                        <property name="title">
+                            <string>Fading</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QCheckBox" row="0" column="0">
+                                <property name="name">
+                                    <cstring>chkLevelFadeIn</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Fade In</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="1" column="0">
+                                <property name="name">
+                                    <cstring>chkLevelFadeOut</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Fade Out</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
+                            <widget class="KIntSpinBox" row="1" column="1">
+                                <property name="name">
+                                    <cstring>sbLevelFadeOut</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="suffix">
+                                    <string> sec</string>
+                                </property>
+                                <property name="maxValue">
+                                    <number>30</number>
+                                </property>
+                                <property name="minValue">
+                                    <number>1</number>
+                                </property>
+                            </widget>
+                            <widget class="KIntSpinBox" row="0" column="1">
+                                <property name="name">
+                                    <cstring>sbLevelFadeIn</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="suffix">
+                                    <string> sec</string>
+                                </property>
+                                <property name="maxValue">
+                                    <number>30</number>
+                                </property>
+                                <property name="minValue">
+                                    <number>1</number>
+                                </property>
+                            </widget>
+                            <spacer row="0" column="2">
+                                <property name="name">
+                                    <cstring>spacer9_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>60</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="1" column="2">
+                                <property name="name">
+                                    <cstring>spacer9_2_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>60</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </grid>
+                    </widget>
+                </vbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Format</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>GroupBox1_2</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Format</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>11</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QComboBox" row="0" column="2">
+                                <item>
+                                    <property name="text">
+                                        <string>8000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>10000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>11025</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>12000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>16000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>22050</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>32000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>44100</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>48000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>96000</string>
+                                    </property>
+                                </item>
+                                <property name="name">
+                                    <cstring>cbFormatSampleRate</cstring>
+                                </property>
+                                <property name="editable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="currentItem">
+                                    <number>7</number>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>lblRate</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Sample Rate:</string>
+                                </property>
+                            </widget>
+                            <spacer row="1" column="1">
+                                <property name="name">
+                                    <cstring>Spacer95_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="0" column="1">
+                                <property name="name">
+                                    <cstring>Spacer95</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>21</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="2" column="1">
+                                <property name="name">
+                                    <cstring>Spacer95_3</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLayoutWidget" row="0" column="3">
+                                <property name="name">
+                                    <cstring>Layout13</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <property name="margin">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="spacing">
+                                        <number>6</number>
+                                    </property>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>lblSamplesPerSecond</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>samples per second</string>
+                                        </property>
+                                    </widget>
+                                    <spacer>
+                                        <property name="name">
+                                            <cstring>Spacer98</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Expanding</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>20</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                </hbox>
+                            </widget>
+                            <widget class="QLabel" row="2" column="0">
+                                <property name="name">
+                                    <cstring>lblTracks</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Tracks:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>lblResolution</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Resolution:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLayoutWidget" row="1" column="3">
+                                <property name="name">
+                                    <cstring>Layout14_2</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <property name="margin">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="spacing">
+                                        <number>6</number>
+                                    </property>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>lblBits</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>bit</string>
+                                        </property>
+                                    </widget>
+                                    <spacer>
+                                        <property name="name">
+                                            <cstring>Spacer100</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Expanding</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>20</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                </hbox>
+                            </widget>
+                            <widget class="QLayoutWidget" row="2" column="3">
+                                <property name="name">
+                                    <cstring>Layout15</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <property name="margin">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="spacing">
+                                        <number>6</number>
+                                    </property>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>lblTracksVerbose</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>%1</string>
+                                        </property>
+                                    </widget>
+                                    <spacer>
+                                        <property name="name">
+                                            <cstring>Spacer99</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Expanding</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>20</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                </hbox>
+                            </widget>
+                            <widget class="QSpinBox" row="2" column="2">
+                                <property name="name">
+                                    <cstring>sbFormatTracks</cstring>
+                                </property>
+                                <property name="minValue">
+                                    <number>1</number>
+                                </property>
+                                <property name="value">
+                                    <number>2</number>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks of the new signal. If you are not sure now, you can add or delete tracks later in the program.</string>
+                                </property>
+                            </widget>
+                            <widget class="QSpinBox" row="1" column="2">
+                                <property name="name">
+                                    <cstring>sbFormatResolution</cstring>
+                                </property>
+                                <property name="maxValue">
+                                    <number>24</number>
+                                </property>
+                                <property name="minValue">
+                                    <number>8</number>
+                                </property>
+                                <property name="lineStep">
+                                    <number>8</number>
+                                </property>
+                                <property name="value">
+                                    <number>16</number>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as it's own internal resolution to give the best results when processing the audio data.</string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                </vbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Source</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>groupBox1</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Source</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Device:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>textLabel2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Buffer Size:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLayoutWidget" row="1" column="1">
+                                <property name="name">
+                                    <cstring>layout5</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>textLabel3</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>%1 samples</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QSlider">
+                                        <property name="name">
+                                            <cstring>slSourceBuffer</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
+                            <widget class="QLayoutWidget" row="0" column="1">
+                                <property name="name">
+                                    <cstring>layout4</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QComboBox">
+                                        <property name="name">
+                                            <cstring>cbSourceDevice</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton">
+                                        <property name="name">
+                                            <cstring>btSourceSelect</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Select...</string>
+                                        </property>
+                                    </widget>
+                                    <spacer>
+                                        <property name="name">
+                                            <cstring>spacer7</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Expanding</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>20</width>
+                                                <height>20</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                </hbox>
+                            </widget>
+                        </grid>
+                    </widget>
+                </vbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Display</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>groupBox13</cstring>
+                        </property>
+                        <property name="enabled">
+                            <bool>false</bool>
+                        </property>
+                        <property name="title">
+                            <string>Visualization</string>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>chkDisplayLevelMeter</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Level Meter</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>chkDisplayOscilloscope</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Oscilloscope</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>chkDisplayFFT</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>FFT</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>chkDisplayOverview</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Overview</string>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
+                </vbox>
+            </widget>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout10</cstring>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel" row="1" column="0">
+                    <property name="name">
+                        <cstring>textLabel1_3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Level:</string>
+                    </property>
+                </widget>
+                <widget class="QProgressBar" row="0" column="1">
+                    <property name="name">
+                        <cstring>progressBar2</cstring>
+                    </property>
+                    <property name="progress">
+                        <number>42</number>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>textLabel1_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Buffer:</string>
+                    </property>
+                </widget>
+                <widget class="QProgressBar" row="1" column="1">
+                    <property name="name">
+                        <cstring>progressBar2_2</cstring>
+                    </property>
+                    <property name="progress">
+                        <number>70</number>
+                    </property>
+                    <property name="percentageVisible">
+                        <bool>false</bool>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QFrame">
+            <property name="name">
+                <cstring>frame3</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>0</width>
+                    <height>10</height>
+                </size>
+            </property>
+            <property name="frameShape">
+                <enum>HLine</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Raised</enum>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout6</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pushButton3</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Help</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pushButton4</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;OK</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer8</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>MinimumExpanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>150</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>btCancel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Cancel</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<images>
+    <image name="image0">
+        <data format="XPM.GZ" length="691">789cc591c10ac2300c86ef7d8ab0dc8638b75128888fa07814c4431b153d6c82ce8388ef6ed2b159d79d35149abf5fd2fea1590a9bf512d24cdd1adb9c09e864af90eeef55f5d8ee164f951405f0d2902713954c816075a90f9223e738f321d28a34a5c94d29924492a682b44827f2e8c3df331a7f23181144eb37d7ee618f47e85c8782dbb89c0171851dbe23e7c4e73161e441ec0ddb96d8b5d8fa580bbd39a91f71dd827eaeef496d387240faa787a4075df6b39f7bcdd51bc481874b</data>
+    </image>
+    <image name="image1">
+        <data format="XPM.GZ" length="646">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade65232325200210543251d2e253d856405bffcbc54105b19c856360003b01456407f19653818952145067788d258a6d69a0b00e4486e63</data>
+    </image>
+    <image name="image2">
+        <data format="XPM.GZ" length="646">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade65232325200210543251d2e253d856405bffcbc54105b19c856360003b01456309864948100468e541972c28dc632b5d65c00d442701b</data>
+    </image>
+    <image name="image3">
+        <data format="XPM.GZ" length="2365">789cad94db4e22411086ef798a89736736e51c1a18b2d90b3c218a288a8a6ef6626c8e2aa81c3c66df7dabbbaa7bc66188eb662912f2a5faefbfbaaa9b8d75a7737ce8ac6f1466f3783e928e1cc65367bdbb188f5f7ffefaf15e580b8483df52d909d6be15d65a73473acdfb494f01b808aea73f9a43cd91e5ba623fc98f9805736c39d25c562c62dc41b3abf3c5c0e63dcd49de65969c3f34ecd3febbc4bec73c63163eadaf282e05663fb8210ebc80d60f35c77ec4ebaf896dbeaab81cdafc3eb1cdab66b95118444145f3a5e28ab0f51c6996b69e40f1b530f5bb406cd79f330be6017120435fb3240e05f3bde6aeedff09b1adf759b12cdafc84d9f47b93d9f4276236fd2e19e67a9e886dbda7ccc66f8fd8f6e7457352df03b3f1bf6036fb8f89edfe5b8abb49fddbcc46ffca6ceabd32ccfa1d625bcf1bb360f69925cf6f4a1c7adcdf03cd3debdf6136f7bbc66cfad720b6fd7824b67ec232f9dd319bf9f689c328a47c9759323715f74ab69e16b3e9c782d8ea8f99a5a0fd6f8985c7dcd69c9cef8cd99caf476cd71715f7ad5f6bfeb5f85f1a70d3f1b90657c5700d12bad0833e0c6008a3aceea3061537700b77308609dcc303fe3ec214661f55690d2ae6b080275cade219e305e315dea09a56251aedb1804dbd3a516c616cc30eec26aa9426c6aab21e4655833da86735e8b28fe758f6507180d18043e394d24876c97a2845139d8e7234c7ba57791e4d8c169c9869a534bd951ea43acdd1f4711ef91e6d8c3338cfd10ce062a5471b3a7099a319e2ccf33d545c8197d5a06a043ece3ccfa38d1d0820ccf64d3bcd40e0cc973d8a50827272c733f7ad8ab7a4b6e4114125fd2a96eef52ede9206ea5aba572db872813c5669b4aaeeba38f3139cc7395cbab13ac7c7b7f7f93b5d7eababfe0fbef2b6ff26fe49f3fb7be10f72a851cd</data>
+    </image>
+</images>
+<connections>
+    <connection>
+        <sender>btCancel</sender>
+        <signal>clicked()</signal>
+        <receiver>RecordDlg</receiver>
+        <slot>reject()</slot>
+    </connection>
+    <connection>
+        <sender>chkRecordPre</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbPreRecord</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkRecordPre</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>slPreRecord</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>sbPreRecord</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>slPreRecord</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>slPreRecord</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>sbPreRecord</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>chkRecordTime</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>slRecordTime</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkRecordTrigger</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbRecordTrigger</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkRecordTrigger</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>slRecordTrigger</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>sbRecordTrigger</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>slRecordTrigger</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>slRecordTrigger</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>sbRecordTrigger</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>chkRecordTime</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbRecordHours</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkRecordTime</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbRecordMinutes</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkRecordTime</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbRecordSeconds</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkLevelAmplify</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbLevelAmplify</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkLevelAmplify</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>slLevelAmplify</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkLevelAGC</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbLevelAGC</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>sbLevelAmplify</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>slLevelAmplify</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>slLevelAmplify</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>sbLevelAmplify</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>sbLevelAGC</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>slLevelAGC</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>slLevelAGC</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>sbLevelAGC</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>chkLevelAGC</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>slLevelAGC</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkLevelFadeIn</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbLevelFadeIn</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkLevelFadeOut</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbLevelFadeOut</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>btRecord</tabstop>
+    <tabstop>pushButton3</tabstop>
+    <tabstop>pushButton4</tabstop>
+    <tabstop>btCancel</tabstop>
+    <tabstop>tabWidget2</tabstop>
+    <tabstop>chkRecordPre</tabstop>
+    <tabstop>sbPreRecord</tabstop>
+    <tabstop>slPreRecord</tabstop>
+    <tabstop>chkRecordTime</tabstop>
+    <tabstop>sbRecordHours</tabstop>
+    <tabstop>sbRecordMinutes</tabstop>
+    <tabstop>sbRecordSeconds</tabstop>
+    <tabstop>slRecordTime</tabstop>
+    <tabstop>chkRecordTrigger</tabstop>
+    <tabstop>sbRecordTrigger</tabstop>
+    <tabstop>slRecordTrigger</tabstop>
+    <tabstop>btDelete</tabstop>
+    <tabstop>btStop</tabstop>
+    <tabstop>btPause</tabstop>
+    <tabstop>chkLevelAmplify</tabstop>
+    <tabstop>sbLevelAmplify</tabstop>
+    <tabstop>slLevelAmplify</tabstop>
+    <tabstop>chkLevelAGC</tabstop>
+    <tabstop>sbLevelAGC</tabstop>
+    <tabstop>slLevelAGC</tabstop>
+    <tabstop>chkLevelFadeIn</tabstop>
+    <tabstop>sbLevelFadeIn</tabstop>
+    <tabstop>chkLevelFadeOut</tabstop>
+    <tabstop>sbLevelFadeOut</tabstop>
+    <tabstop>cbFormatSampleRate</tabstop>
+    <tabstop>sbFormatResolution</tabstop>
+    <tabstop>sbFormatTracks</tabstop>
+    <tabstop>cbSourceDevice</tabstop>
+    <tabstop>btSourceSelect</tabstop>
+    <tabstop>slSourceBuffer</tabstop>
+    <tabstop>chkDisplayLevelMeter</tabstop>
+    <tabstop>chkDisplayOscilloscope</tabstop>
+    <tabstop>chkDisplayFFT</tabstop>
+    <tabstop>chkDisplayOverview</tabstop>
+</tabstops>
+<includes>
+    <include location="global" impldecl="in declaration">klocale.h</include>
+</includes>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>kpushbutton.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+    <includehint>kpushbutton.h</includehint>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+</includehints>
+</UI>

@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include <math.h>
+#include <limits.h>
 
 #include <qbuttongroup.h>
 #include <qradiobutton.h>
@@ -50,12 +51,12 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     ASSERT(rbTime);
     ASSERT(rbSamples);
     ASSERT(rbPercents);
+    ASSERT(m_offset < m_length);
     if (!m_rate) m_rate = 1.0;
     if (!m_length) m_length = 1;
 
     // set range of selection by sample
-    edSamples->setPrecision(0);
-    edSamples->setRange(0.0, (double)(m_length-m_offset), 1.0, false);
+    edSamples->setRange(0, m_length-m_offset, 1, false);
 
     // set range of time controls
     int t = (int)ceil((m_length * 1E3) / m_rate);
@@ -87,7 +88,10 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
 	    break;
 	}
 	case bySamples: {
-	    edSamples->setValue(m_range);
+            unsigned int samples = (unsigned int)rint(m_range);
+	    ASSERT(samples <= INT_MAX);
+	    if (samples > INT_MAX) samples = INT_MAX;
+	    edSamples->setValue((int)samples);
 	    break;
 	}
 	case byPercents: {
@@ -149,9 +153,9 @@ void SelectTimeWidget::connect()
     QObject::connect(sbHours, SIGNAL(valueChanged(int)),
                      this, SLOT(timeChanged(int)));
 
-    // connect sample rate control
-    QObject::connect(edSamples, SIGNAL(valueChanged(double)),
-                     this, SLOT(samplesChanged(double)));
+    // connect sample count control
+    QObject::connect(edSamples, SIGNAL(valueChanged(int)),
+                     this, SLOT(samplesChanged(int)));
 
     // connect the timer for the sample edit
     QObject::connect(&m_timer, SIGNAL(timeout()),
@@ -162,7 +166,7 @@ void SelectTimeWidget::connect()
 //***************************************************************************
 void SelectTimeWidget::disconnect()
 {
-    // connect the time controls
+    // disconnect the time controls
     QObject::disconnect(sbMilliseconds, SIGNAL(valueChanged(int)),
                         this, SLOT(timeChanged(int)));
     QObject::disconnect(sbSeconds, SIGNAL(valueChanged(int)),
@@ -172,11 +176,11 @@ void SelectTimeWidget::disconnect()
     QObject::disconnect(sbHours, SIGNAL(valueChanged(int)),
                         this, SLOT(timeChanged(int)));
 
-    // connect sample rate control
-    QObject::disconnect(edSamples, SIGNAL(valueChanged(double)),
-                        this, SLOT(samplesChanged(double)));
+    // disconnect sample count control
+    QObject::disconnect(edSamples, SIGNAL(valueChanged(int)),
+                        this, SLOT(samplesChanged(int)));
 
-    // connect the timer for the sample edit
+    // disconnect the timer for the sample edit
     QObject::disconnect(&m_timer, SIGNAL(timeout()),
                         this, SLOT(checkNewSampleEdit()));
 
@@ -298,21 +302,22 @@ void SelectTimeWidget::timeChanged(int)
     sbHours->setValue(hours);
 
     // update the other widgets
-    double samples = ceil((double)ms * m_rate * 1E-3);
-    edSamples->setValue(samples);
+    unsigned int samples = (unsigned int)ceil((double)ms * m_rate * 1E-3);
+    ASSERT(samples <= INT_MAX);
+    if (samples > INT_MAX) samples = INT_MAX;
     sbPercents->setValue((int)(100.0 * (double)ms / (m_length/m_rate*1E3)));
 
     // set range in byTime mode [ms]
     m_range = ms;
 
-    emit valueChanged((unsigned int)samples); // emit the change
+    emit valueChanged(samples); // emit the change
     connect();
 }
 
 //***************************************************************************
 void SelectTimeWidget::checkNewSampleEdit()
 {
-    static double last_samples = -1.0;
+    static int last_samples = -1;
     if (edSamples->value() != last_samples) {
 	last_samples = edSamples->value();
 	samplesChanged(last_samples);
@@ -320,13 +325,13 @@ void SelectTimeWidget::checkNewSampleEdit()
 }
 
 //***************************************************************************
-void SelectTimeWidget::samplesChanged(double)
+void SelectTimeWidget::samplesChanged(int)
 {
     if (m_mode != bySamples) return;
     disconnect();
 
     unsigned int max_samples = m_length - m_offset;
-    unsigned int samples = (unsigned int)ceil(edSamples->value());
+    unsigned int samples = edSamples->value();
 
     // limit the current value
     if (samples > max_samples) samples = max_samples;
@@ -379,7 +384,9 @@ void SelectTimeWidget::percentsChanged(int p)
     if (sbPercents->value() != p) sbPercents->setValue(p);
 
     // update the other widgets
-    double samples = (double)m_length * percents / 100.0;
+    unsigned int samples = (unsigned int)((double)m_length*percents/100.0);
+    ASSERT(samples <= INT_MAX);
+    if (samples > INT_MAX) samples = INT_MAX;
     edSamples->setValue(samples);
 
     unsigned int t = (unsigned int)ceil(((double)samples * 1E3) / m_rate);
@@ -406,10 +413,10 @@ void SelectTimeWidget::setOffset(unsigned int offset)
 {
     m_offset = offset;
     unsigned int max_samples = m_length - m_offset;
-    unsigned int samples = (unsigned int)ceil(edSamples->value());
 
     // the range of the sample edit should always get updated
-    edSamples->setRange(0.0, (double)(m_length-m_offset), 1.0, false);
+    edSamples->setRange(0, m_length-m_offset, 1, false);
+    unsigned int samples = edSamples->value();
 
     // no range conflict -> nothing to do
     if (samples <= max_samples) return;
@@ -429,6 +436,8 @@ void SelectTimeWidget::setOffset(unsigned int offset)
     t /= 60;
     sbHours->setValue(t);
 
+    ASSERT(samples <= INT_MAX);
+    if (samples > INT_MAX) samples = INT_MAX;
     edSamples->setValue(samples);
 
     double percents = 100.0*(double)samples/(double)(m_length);

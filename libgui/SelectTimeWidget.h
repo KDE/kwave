@@ -76,7 +76,7 @@ public:
     double time() { return m_range; };
 
     /** Sets the title of the, shown in the frame around the controls */
-    void setTitle(const QString title);
+    virtual void setTitle(const QString title);
 
 signals:
 
@@ -105,7 +105,7 @@ private slots:
     void checkNewSampleEdit();
 
     /** called when sample count has changed */
-    void samplesChanged(double);
+    void samplesChanged(int);
 
     /** called when percentage changed */
     void percentsChanged(int p);

@@ -57,8 +57,7 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 
     if (!ok()) return;
 
-    edSamples->setPrecision(0);
-    edSamples->setRange(0.0, (double)UINT_MAX, 1.0, false);
+    edSamples->setRange(0, INT_MAX, 1, false);
 
     // connect the timer for the sample edit
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(checkNewSampleEdit()));
@@ -86,8 +85,8 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
             this, SLOT(setLengthPercentage(int)));
 
     // selection by percentage of maximum possible length
-    connect(edSamples, SIGNAL(valueChanged(double)),
-            this, SLOT(samplesChanged(double)));
+    connect(edSamples, SIGNAL(valueChanged(int)),
+            this, SLOT(samplesChanged(int)));
 
     // pre-initialize the size
     setMaximumHeight(sizeHint().height());
@@ -142,7 +141,7 @@ bool NewSignalDialog::ok()
 //***************************************************************************
 unsigned int NewSignalDialog::samples()
 {
-    return (unsigned int)floor(edSamples->value());
+    return (unsigned int)edSamples->value();
 }
 
 //***************************************************************************
@@ -157,7 +156,7 @@ double NewSignalDialog::rate()
 //***************************************************************************
 void NewSignalDialog::checkNewSampleEdit()
 {
-    static double last_samples = -1.0;
+    static int last_samples = -1;
     if (edSamples->value() != last_samples) {
 	last_samples = edSamples->value();
 	samplesChanged(last_samples);
@@ -185,12 +184,18 @@ bool NewSignalDialog::byTime()
 }
 
 //***************************************************************************
-double NewSignalDialog::maxSamples()
+unsigned int NewSignalDialog::maxSamples()
 {
     unsigned int bytes_per_sample = bitsPerSample() >> 3;
-    unsigned int max_file_size = UINT_MAX;
 
-    return floor(max_file_size / tracks() / bytes_per_sample);
+    /*
+     * NOTE: this limitation to INT_MAX instead of UINT_MAX is
+     *       only needed because some gui elements like
+     *       KIntNumInput cannot handle more :-(
+     */
+    unsigned int max_file_size = INT_MAX;
+
+    return (max_file_size / tracks() / bytes_per_sample);
 }
 
 //***************************************************************************
@@ -252,8 +257,9 @@ void NewSignalDialog::timeChanged(int)
     seconds += 60 * minutes;
 
     // limit the current number of samples
-    double max_samples = maxSamples();
-    double samples = ceil((double)seconds * rate());
+    unsigned int max_samples = maxSamples();
+    unsigned int samples = (unsigned int)ceil((double)seconds * rate());
+
     if (samples > max_samples) {
 	// wrap down to the maximum allowed number of samples
 	samples =  max_samples;
@@ -261,6 +267,8 @@ void NewSignalDialog::timeChanged(int)
     }
 
     // update the other controls
+    ASSERT(samples <= INT_MAX);
+    if (samples > INT_MAX) samples = INT_MAX;
     edSamples->setValue(samples);
     slideLength->setValue((int)(100.0 * samples / max_samples));
     updateFileSize();
@@ -270,17 +278,20 @@ void NewSignalDialog::timeChanged(int)
 }
 
 //***************************************************************************
-void NewSignalDialog::samplesChanged(double)
+void NewSignalDialog::samplesChanged(int)
 {
     if (m_recursive) return; // don't do recursive processing
     if (!rbSamples->isChecked()) return;
     m_recursive = true;
 
-    double samples = edSamples->value();
-    double max_samples = maxSamples();
+    unsigned int samples = edSamples->value();
+    unsigned int max_samples = maxSamples();
 
     if (samples > max_samples) {
 	samples = max_samples;
+
+	ASSERT(samples <= INT_MAX);
+	if (samples > INT_MAX) samples = INT_MAX;
 	edSamples->setValue(samples);
     }
 
@@ -322,7 +333,7 @@ void NewSignalDialog::tracksChanged(int)
 //***************************************************************************
 void NewSignalDialog::updateFileSize()
 {
-    double samples = edSamples->value();
+    double samples = (double)edSamples->value();
     double mbytes = samples * (double)tracks() *
                     (double)(bitsPerSample() >> 3);
     mbytes /= 1024.0; // to kilobytes
@@ -345,7 +356,9 @@ void NewSignalDialog::setLengthPercentage(int percent)
     if (rate() <= 0) return;
     m_recursive = true;
 
-    double samples = maxSamples() * (double)percent / 100.0;
+    unsigned int samples = (unsigned int)(maxSamples()*(double)percent/100.0);
+    ASSERT(samples <= INT_MAX);
+    if (samples > INT_MAX) samples = INT_MAX;
 
     // update the other controls
     edSamples->setValue(samples);

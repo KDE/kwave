@@ -420,7 +420,7 @@
                                 </size>
                             </property>
                         </spacer>
-                        <widget class="KDoubleNumInput" row="3" column="1" rowspan="1" colspan="3">
+                        <widget class="KIntNumInput" row="3" column="1" rowspan="1" colspan="3">
                             <property name="name">
                                 <cstring>edSamples</cstring>
                             </property>
@@ -877,7 +877,7 @@
 </widget>
 <customwidgets>
     <customwidget>
-        <class>KDoubleNumInput</class>
+        <class>KIntNumInput</class>
         <header location="global">knuminput.h</header>
         <sizehint>
             <width>-1</width>

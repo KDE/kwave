@@ -285,7 +285,7 @@
                 </widget>
             </grid>
         </widget>
-        <widget class="KDoubleNumInput" row="2" column="1">
+        <widget class="KIntNumInput" row="2" column="1">
             <property name="name">
                 <cstring>edSamples</cstring>
             </property>
@@ -573,9 +573,7 @@
 </tabstops>
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>
+    <include location="global" impldecl="in declaration">knuminput.h</include>
 </includes>
 <layoutdefaults spacing="10" margin="10"/>
-<includehints>
-    <includehint>kdoublenuminput.h</includehint>
-</includehints>
 </UI>

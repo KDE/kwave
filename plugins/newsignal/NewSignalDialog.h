@@ -67,7 +67,7 @@ private slots:
 
     /**
      * Checks for modifications of the sample number edit.
-     * That stupid KDoubleNumInput doesn't notify us about changes :-[
+     * That stupid KIntNumInput doesn't notify us about changes :-[
      */
     void checkNewSampleEdit();
 
@@ -87,7 +87,7 @@ private slots:
     void tracksChanged(int);
 
     /** number of samples changed */
-    void samplesChanged(double);
+    void samplesChanged(int);
 
     /** updates the file size */
     void updateFileSize();
@@ -105,7 +105,7 @@ private:
      * with the current settings, based on the maximum file size of a .wav
      * file and the header sizes.
      */
-    double maxSamples();
+    unsigned int maxSamples();
 
     /**
      * Sets hours, minutes and seconds according to a given

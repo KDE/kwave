@@ -33,6 +33,8 @@ BUILTSOURCES=\
  Stripe.moc.cpp\
  Track.moc.cpp\
  TransmissionFunction.moc.cpp\
+ ArtsPlaybackSink.h\
+ ArtsPlaybackSink.cc\
  ArtsSampleSink.h\
  ArtsSampleSink.cc\
  ArtsSampleSource.h\
@@ -45,6 +47,8 @@ BUILTSOURCES=\
 # Which sources should be compiled for kwave.
 libkwave_la_SOURCES=\
  ${BUILTSOURCES}\
+ ArtsMultiPlaybackSink.cpp\
+ ArtsPlaybackSink_impl.cpp\
  ArtsSampleSource_impl.cpp\
  ArtsSampleSink_impl.cpp\
  CodecBase.cpp\
@@ -90,6 +94,8 @@ lib_LTLIBRARIES = libkwave.la
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
+
+CLEANFILES = $(BUILTSOURCES)
 
 DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
 

@@ -1377,7 +1377,10 @@
 		qt-3.0.5 or higher (normally comes with KDE3)
 	    </para></listitem>
 	    <listitem><para>
-		about 10 MB memory for starting &kapp; (but this may
+		id3lib-3.8.1 or higher
+	    </para></listitem>
+	    <listitem><para>
+		about 25 MB memory for starting &kapp; (but this may
 		vary depending on your platform and configuration)
 	    </para></listitem>
 	</itemizedlist>
@@ -1396,8 +1399,7 @@
 	<itemizedlist>
 	    <listitem><para>
 		A C/C++ compiler. GCC-2.95.3 works fine, some older and any
-		newer version should work too. (Note: gcc-3.0 is not yet
-		supported, it wil not work!)
+		newer version (like gcc-3.2) should work too.
 	    </para></listitem>
 	    <listitem><para>
 		The glibc2 (libc-6) development environment. On SuSE systems
@@ -1405,16 +1407,24 @@
 		called "libc-devel".
 	    </para></listitem>
 	    <listitem><para>
-		The KDE3 development environment: "kdelibs-devel",
-		"kdemultimedia-devel", "kdesdk-2".
+		The KDE3 development environment: "kdelibs3-devel",
+		"kdemultimedia3-devel", "kdesdk3".
 	    </para></listitem>
 	    <listitem><para>
 		The Qt development environment,
-		the package is normally called "qt-devel" or similar.
+		the package is normally called "qt3-devel" or similar.
+	    </para></listitem>
+	    <listitem><para>
+		id3lib-devel-3.8.1 or higher
 	    </para></listitem>
 	    <listitem><para>
 		If you intend to use CVS, you will also need a current
 		cvs package.
+	    </para></listitem>
+	    <listitem><para>
+		...many other packages, please take a look at the
+		<ulink url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">
+		"README"</ulink> file included in the source package.
 	    </para></listitem>
 	</itemizedlist>
     </para>
@@ -1651,8 +1661,13 @@
 </screen>
 	Then go on to the next section and compile as usual.
     </para>
+    <note><para>
+    If you think that you have messed up your local source or if there
+    are conflicts during updating, you can remove all files and
+    directories from your &kapp; source directory, <emphasis>except
+    the <filename>CVS</filename> directory </emphasis>and then try again.
+    </para></note>
     </sect2>
-
 
     <sect2 id="cvs_compiling"><title>Compiling</title>
     <para>
@@ -1680,21 +1695,21 @@
 	you are in the root of where you checked out from CVS, do the
 	following to create a Makefile, the &kapp; package and
 	install it. If you already have a version of &kapp; installed,
-	please remove it first or use <literal>rpm -U</literal> instead
-	of <literal>rpm -i</literal> for updating instead of installing.
+	please remove it first or use <command>rpm -U</command> instead
+	of <command>rpm -i</command> for updating instead of installing.
 <screen width="40" format="linespecific">
 <prompt>% </prompt><command>cd kwave</command>
 <prompt>% </prompt><command>make -f Makefile.dist</command>
 <prompt>% </prompt><command>./configure</command>
 <prompt>% </prompt><command>make rpm</command>
-<prompt>% </prompt><command>rpm -i /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+<prompt>% </prompt><command>rpm -ivh /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
     </para>
 
     <note><para>
 	If you still have problems with <command>make rpm</command>,
 	you will find the tar.gz
-	archive that were produced in <filename>/tmp</filename>.
+	archive that was produced in <filename>/tmp</filename>.
 	Please follow the instructions in the
 	<link linkend="manual_rpm_creation">previous</link> chapter.
     </para></note>
@@ -1745,23 +1760,44 @@
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: RPM optimizations                                     +++ -->
+<!-- +++ Section: optimizations                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="rpm_optimizations">
+    <sect1 id="compiler_optimizations">
+    <title>Building CPU optimized packages</title>
+
+    <para>
+	If you are owner of a Pentium, an AMD K6, Athlon or Athlon-XP CPU,
+	you might want to use compiler optimizations to compile your version of
+	&kapp; that is running some percents faster. The gain in speed will
+	be up to 30% on some systems, whereas the functions dealing with
+	signal manipulation and all functions that do complex time-frequency
+	operations (like FFT and Sonagram) will profit most from it.
+    </para>
+    <para>
+	You do not need to understand much about programming for using an
+	optimized compiler to compile &kapp;, but maybe you will need some
+	time to get the compiler itself working and installed.
+    </para>
+
+    <sect2 id="rpm_optimizations">
     <title>RPM optimizations</title>
 
     <para>
-	Yes, you can compile the RPM packages optimized for pentium and pentium pro
-	(or some other CPUs) by using some defines in your rpmrc file.
-	You can either modify your system's /etc/rpmrc file or the
-	.rpmrc file in your home directory. There you can specify option
-	lines like these:
+	You can easily compile the RPM package optimized for Athlon,
+	Athlon-XP, Pentium and Pentium Pro
+	(ond some other CPUs) by using some defines in your rpmrc file.
+	You can either modify your system's <filename>rpmrc</filename>
+	file in <filename>/usr/lib/rpm</filename> or the
+	<filename>.rpmrc</filename> file in your home directory.
+	There you can specify option lines like these:
 
 <screen width="40" format="linespecific">
-<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: i386 -O2 -m486 -DNDEBUG</userinput>
 <prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</userinput>
 <prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</userinput>
+<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: athlon -O2 -march=athlon</userinput>
+<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: k6 -O3 -march=k6 -mcpu=k6 -DNDEBUG -fomit-frame-pointer</userinput>
+<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: k7 -O3 -march=athlon-xp -mcpu=athlon-xp -DNDEBUG -fomit-frame-pointer</userinput>
 </screen>
 
 	(I found those nice tricks at
@@ -1774,15 +1810,19 @@
     -->
 
     <para>
-	This means that on an i586 architecture the rpm package will
-	be compiled using "-march=pentium" as compiler option and so
+	This means that on an <literal>k7</literal> architecture the
+	rpm package will be compiled using
+	<literal>-O3 -march=athlon-xp -mcpu=athlon-xp -DNDEBUG
+	-fomit-frame-pointer</literal>
+	as compiler option and so
 	on, you might extend or adapt these to your own needs.
 	The settings apply to all of the sections before in all
-	places where "rpm -ta" is used or wher a binary RPM is to be
-	created out of a source rpm using "rpm --rebuild".
+	places where <command>rpm -ta</command> is used or where a binary
+	RPM is to be created out of a source rpm using
+	<command>rpm --rebuild</command>.
     </para>
 
-    <note><para>
+    <para>
 	The options specified here are set into the environment variable
 	RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
 	environment and have to compile like described in the chapter
@@ -1791,38 +1831,26 @@
 	For example:
 
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"</command>
+<prompt>% </prompt><command>export RPM_OPT_FLAGS="-O3 -march=athlon-xp -mcpu=athlon-xp -fomit-frame-pointer"</command>
 </screen>
+    </para>
+
+    <note><para>
+	If <command>rpm</command> refuses to install
+	your package because it seems not to fit to your computer's
+	architecture, you can normally just install an optimized package
+	by specifying the additional parameter <command>--ignorearch</command>
+	and don't care.
     </para></note>
 
-    </sect1>
-
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: optimizations                                         +++ -->
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-    <sect1 id="compiler_optimizations">
-    <title>Compiler Optimizations</title>
-
-    <para>
-	If you are owner of a Pentium, an AMD K6 or Athlon CPU, you might
-	want to use an optimized compiler to compile your version of
-	&kapp; that is running some percents faster. The gain in speed will
-	be up to 30% on some systems, whereas the functions dealing with
-	signal manipulation and all functions that do complex time-frequency
-	operations (like FFT and Sonagram) will profit most from it.
-    </para>
-    <para>
-        You do not need to understand much about programming for using an
-	optimized compiler to compile &kapp;, but maybe you will need some
-	time to get the compiler itself working and installed.
-    </para>
+    </sect2>
 
     <sect2 id="optimize_invocation">
-    <title>How to invoke the optimized compiler</title>
+    <title>How to pass optimizer options to the compiler</title>
     <para>
-	The invocation of an optimized compiler is quite simple. It normally
-	is sufficient to set the environment variable <symbol>CXXFLAGS</symbol>
+	The invocation of the compiler is quite simple. It normally
+	is sufficient to set the environment variable
+	<symbol>RPM_OPT_FLAGS</symbol>
 	in the correct way and then compile as usual. For the best settings
 	please consult the documentation or homepage of the corresponding
 	compiler.
@@ -1830,52 +1858,16 @@
     <para>
 	If you build &kapp; from a source tree (unpacked tar.gz or from CVS)
 	the flags need to be specidied before the call
-	to <command>configure</command>. This might look like this:
+	to <command>make -f Makefile.dist</command>. This might look like this:
 <screen>
-<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>="-march=athlon -mcpu=athlon" ./configure</command></screen>
+<prompt>% </prompt><command><symbol>RPM_OPT_FLAGS</symbol>="-march=athlon-xp -mcpu=athlon-xp" make -f Makefile.dist</command></screen>
     </para>
     <para>
-	If you re-build &kapp; from a source rpm package
-	the flags need to be specidied before the call
-	to <command>rpm --rebuild</command>. This might look like this:
-<screen>
-<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>="-march=athlon -mcpu=athlon" rpm --rebuild <replaceable>filename</replaceable></command></screen>
-	<note><para>
-	And please don't give up if <command>rpm</command> refuses to install
-	your package because it seems not to fit to your computer's
-	architecture. Normally you can just install an optimized package
-	by specifying the additional parameter <command>--ignorearch</command>
-	and just don't care.
-	</para></note>
+	If you re-build &kapp; from a source rpm package, please follow
+	the instruction in the
+	<link linkend="rpm_optimizations">previous section</link>.
     </para>
     </sect2>
-
-    <sect2 id="optimize_pentium">
-    <title>Pentium and Compatibles</title>
-    <para>
-	For all optimized versions I used pgcc-2.95.3. For informations on
-	obtaining the pgcc compiler, visit the Homepage of the
-	the <ulink url="http://www.goof.com/pcg/">Pentium Compiler Group</ulink>. They also have binaries
-	for most common platforms. The compiler does not only work for all
-	known Pentium derivates
-	from <ulink url="http://www.intel.com/">Intel</ulink> but also for
-        some other manufactors
-	like <ulink url="http://www.cyrix.com/">Cyrix</ulink>.
-    </para>
-    </sect2>
-
-    <!-- disabled, the homepage is dead or moved to nowhere, project is dead ???
-    <sect2 id="optimize_athlon">
-    <title>AMD Athlon</title>
-    <para>
-	If you have a CPU from AMD, you can go one step further and
-	get the Athlon-GCC running. This is an additional patch for
-	the PGCC. For further informations, please visit the Homepage of
-	the <ulink url="http://athlonlinux.org/">Athlon Linux Project</ulink>.
-	This compiler also works for the K6, K6-II, K6-III and maybe some others.
-    </para>
-    </sect2>
-    -->
 
     </sect1>
 

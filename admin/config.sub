@@ -599,11 +599,9 @@ case $basic_machine in
 		;;
 	mipsel*-linux*)
 		basic_machine=mipsel-unknown
-		os=-linux-gnu
 		;;
 	mips*-linux*)
 		basic_machine=mips-unknown
-		os=-linux-gnu
 		;;
 	mips3*-*)
 		basic_machine=`echo $basic_machine | sed -e 's/mips3/mips64/'`
@@ -748,6 +746,8 @@ case $basic_machine in
 		;;
 	ppc)	basic_machine=powerpc-unknown
 	        ;;
+	ppc64)  basic_machine=powerpc-unknown
+		;;
 	ppc-*)	basic_machine=powerpc-`echo $basic_machine | sed 's/^[^-]*-//'`
 		;;
 	ppcle | powerpclittle | ppc-le | powerpc-little)
@@ -952,11 +952,14 @@ case $basic_machine in
 		basic_machine=hppa1.1-oki
 		;;
 	mips)
-		if [ x$os = x-linux-gnu ]; then
+		case $os in
+		linux*)
 			basic_machine=mips-unknown
-		else
+			;;
+		*)
 			basic_machine=mips-mips
-		fi
+			;;
+		esac
 		;;
 	romp)
 		basic_machine=romp-ibm
@@ -1063,7 +1066,7 @@ case $os in
 	      | -udi* | -eabi* | -lites* | -ieee* | -go32* | -aux* \
 	      | -chorusos* | -chorusrdb* \
 	      | -cygwin* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
-	      | -mingw32* | -linux-gnu* | -uxpv* | -beos* | -mpeix* | -udk* \
+	      | -mingw32* | -linux* | -uxpv* | -beos* | -mpeix* | -udk* \
 	      | -interix* | -uwin* | -rhapsody* | -darwin* | -opened* \
 	      | -openstep* | -oskit* | -conix* | -pw32* | -nonstopux* \
 	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* \
@@ -1088,9 +1091,6 @@ case $os in
 		;;
 	-mac*)
 		os=`echo $os | sed -e 's|mac|macos|'`
-		;;
-	-linux*)
-		os=`echo $os | sed -e 's|linux|linux-gnu|'`
 		;;
 	-sunos5*)
 		os=`echo $os | sed -e 's|sunos5|solaris2|'`

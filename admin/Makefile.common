@@ -2,6 +2,23 @@
 SHELL=/bin/sh
 
 cvs:
+	if test -x /usr/bin/autoconf2.50 ; then \
+	   AUTOCONF="/usr/bin/autoconf2.50" ;\
+	else \
+	   AUTOCONF="autoconf" ;\
+	fi; \
+	AUTOCONF_VERSION=`$$AUTOCONF --version` ;\
+	if test "x$$AUTOCONF_VERSION" = "xAutoconf version 2.13"; then \
+	   echo "*** YOU'RE USING AUTOCONF 2.13. We suggest updating." ;\
+	   echo "*** autoconf 2.5x works best for now, we will drop" ;\
+	   echo "*** support for autoconf 2.13 soon."; \
+	   test ! -f admin/libtool.m4.in || mv admin/libtool.m4.in admin/new-libtool.m4.in ;\
+	   test ! -f admin/ltmain.sh || mv admin/ltmain.sh admin/new-ltmain.sh ;\
+	   for file in libtool.m4.in ltcf-c.sh ltcf-cxx.sh ltcf-gcj.sh ltconfig ltmain.sh; do \
+		rm -f admin/$$file ;\
+		ln -s old-$$file admin/$$file ;\
+	   done ;\
+	fi 
 	@if grep '$$(top_srcdir)/acinclude.m4:' Makefile.am >/dev/null; then \
 	  echo "*** Creating acinclude.m4" ;\
 	  rm -f acinclude.m4 configure.files ;\
@@ -89,40 +106,80 @@ cvs-clean:
 	  echo "But this function depends on cvs's information."; \
 	  exit 1; \
 	fi; \
-	LC_COLLATE=C; LC_ALL=C; export LC_COLLATE LC_ALL; \
-	pwd=`pwd`; \
-	incvs=$$pwd/.incvs; indir=$$pwd/.indir; \
-	for i in `find . -follow -type d ! -name CVS | sed -e "s#^./##"`; do \
-	  if test -d $$pwd/$$i; then \
-	    cd $$pwd/$$i && \
-	    sed -ne 's#^/\([^/]*\)/.*$$#\1#p;s#^D/\([^/]*\)/.*$$#\1/#p' < CVS/Entries | sort -t / +0 -1 > $$incvs && \
-	    ls -LAF | sed -ne '\#^CVS/$$#d;\#^.incvs$$#d;\#^.indir$$#d;s#^\(.*\)[*=|>]$$#\1#;p' > $$indir && \
-	    eval "`diff $$incvs $$indir | sed -ne 's#^> \(.*\)/$$#echo "D $$i/\1";rm -rf "$$pwd/$$i/\1"#p;s#^> \(.*[^/]\)$$#echo "F $$i/\1";rm -f "$$pwd/$$i/\1"#p'`"; \
-	  fi; \
-	done; \
-	rm -f $$incvs $$indir
-
-cvs-clean-n:
-	@if test ! -d CVS; then \
-	  echo "You don't have a toplevel CVS directory."; \
-	  echo "You most certainly didn't use cvs to get these sources."; \
-	  echo "But this function depends on cvs's information."; \
-	  exit 1; \
-	fi; \
-	LC_COLLATE=C; export LC_COLLATE; \
-	pwd=`pwd`; \
-	incvs=$$pwd/.incvs; indir=$$pwd/.indir; \
-	for i in `find . -follow -type d ! -name CVS | sed -e "s#^./##"`; do \
-	  if test -d $$pwd/$$i; then \
-	    cd $$pwd/$$i && \
-	    sed -ne 's#^/\([^/]*\)/.*$$#\1#p;s#^D/\([^/]*\)/.*$$#\1/#p' < CVS/Entries | sort -t / +0 -1 > $$incvs && \
-	    ls -LAF | sed -ne '\#^CVS/$$#d;\#^.incvs$$#d;\#^.indir$$#d;s#^\(.*\)[*=|>]$$#\1#;p' > $$indir && \
-	    outp= && list= && \
-	    eval "`diff $$incvs $$indir | sed -ne 's#^> \(.*\)/$$#outp="$${outp}D $$i/\1|";list="$$list \\"$$pwd/$$i/\1\\""#p;s#^> \(.*[^/]\)$$#outp="$${outp}F $$i/\1|";list="$$list \\"$$pwd/$$i/\1\\""#p'`" && \
-	    test "$$list" && echo "$$outp" | tr '|' '\n' && eval echo rm -rf "$$list"; \
-	  fi; \
-	done; \
-	rm -f $$incvs $$indir
+	perl -e '\
+	sub rmrf() \
+	{ \
+	  my $$fn = shift; \
+	  lstat ($$fn); \
+	  if (-d _) { \
+	    if (opendir (DIR, $$fn)) { \
+	      for my $$efn (grep (!/^\.\.?$$/, readdir (DIR))) { \
+	        &rmrf ($$fn."/".$$efn); \
+	      } \
+	      closedir (DIR); \
+	      rmdir ($$fn); \
+	    } \
+	  } else { \
+	    unlink ($$fn); \
+	  } \
+	} \
+	 \
+	sub newfiles() \
+	{ \
+	  my ($$indir, $$incvs) = @_; \
+	  for my $$n (keys (%$$incvs)) { delete $$$$indir{$$n} } \
+	  return sort (keys (%$$indir)); \
+	} \
+	 \
+	sub cvsclean() \
+	{ \
+	  my $$dir = shift; \
+	  my (%dirsdir, %filesdir, %dirscvs, %filescvs); \
+	  my $$dnam = $$dir ? $$dir : "."; \
+	  if (!opendir (DIR, $$dnam)) { \
+	    print STDERR "Cannot enter \"".$$dnam."\".\n"; \
+	    return; \
+	  } \
+	  for my $$fn (grep (!/^\.\.?$$/, readdir (DIR))) { \
+	    if (-d $$dir.$$fn) { \
+	      $$fn eq "CVS" or $$dirsdir{$$fn} = 1; \
+	    } else { \
+	      $$filesdir{$$fn} = 1; \
+	    } \
+	  } \
+	  closedir (DIR); \
+	  if (!open (FILE, "<".$$dir."CVS/Entries")) { \
+	    print STDERR "No CVS information in \"".$$dnam."\".\n"; \
+	    return; \
+	  } \
+	  while (<FILE>) { \
+	    m%^D/([^/]+)/.*$$% and $$dirscvs{$$1} = 1; \
+	    m%^/([^/]+)/.*$$% and $$filescvs{$$1} = 1; \
+	  } \
+	  close (FILE); \
+	  if (open (FILE, "<".$$dir."CVS/Entries.Log")) { \
+	    while (<FILE>) { \
+	      m%^A D/([^/]+)/.*$$% and $$dirscvs{$$1} = 1; \
+	      m%^A /([^/]+)/.*$$% and $$filescvs{$$1} = 1; \
+	      m%^R D/([^/]+)/.*$$% and delete $$dirscvs{$$1}; \
+	      m%^R /([^/]+)/.*$$% and delete $$filescvs{$$1}; \
+	    } \
+	    close (FILE); \
+	  } \
+	  for my $$fn (&newfiles (\%filesdir, \%filescvs)) { \
+	    print ("F ".$$dir.$$fn."\n"); \
+	    &rmrf ($$dir.$$fn); \
+	  } \
+	  for my $$fn (&newfiles (\%dirsdir, \%dirscvs)) { \
+	    print ("D ".$$dir.$$fn."\n"); \
+	    &rmrf ($$dir.$$fn); \
+	  } \
+	  for my $$fn (sort (keys (%dirscvs))) { \
+	    &cvsclean ($$dir.$$fn."/"); \
+	  } \
+	} \
+	 \
+	&cvsclean ("");'
 
 
 # The Makefiles have to be sorted for slashes, since configure creates
@@ -173,7 +230,7 @@ configure.in: configure.files $(shell test -f configure.files && cat configure.f
 	   modulename=`pwd`; modulename=`basename $$modulename`; \
 	fi ;\
 	if test -z "$$VERSION" || test "$$VERSION" = "@VERSION@"; then \
-	     VERSION="\"2.91\"";  \
+	     VERSION="\"3.0.1\"";  \
 	fi ;\
 	if test -n "$$kde_use_qt_param"; then \
 	      sed -e "s#^dnl KDE_USE_QT#KDE_USE_QT($$kde_use_qt_param)#" configure.in.new > configure.in \
@@ -285,7 +342,7 @@ package-messages:
 	   XGETTEXT="$${XGETTEXT:-xgettext} -C -ki18n -ktr2i18n \
 	   -kI18N_NOOP -ktranslate -kaliasLocale \
 	   -x $${includedir:-$$KDEDIR/include}/kde.pot" \
-	   messages ) >$$tmpname 2>&1 ;\
+	   messages ) 2>&1 | grep -v '^make\[1\]' > $$tmpname; \
 	   test -s $$tmpname && (echo $$subdir ; cat $$tmpname) ;\
 	   test ! -f $$subdir/rc.cpp || rm -f $$subdir/rc.cpp ;\
 	   rm -f $$subdir/_translatorinfo.cpp ;\
@@ -296,6 +353,7 @@ package-messages:
 	  if test ! -f po/$$i; then echo "disappeared: $$i"; fi ;\
 	done
 	@for  i in `ls -1 po/*.pot 2>/dev/null | sed -e "s#po/##"`; do \
+	   msgmerge -q -o po/$$i po/$$i po/$$i ;\
 	   egrep -v '^#([^:]|$)' po/$$i | egrep '^.*[^ ]+.*$$' | grep -v "\"POT-Creation" > temp.pot ;\
 	  if test -f po.backup/$$i && test -n "`diff temp.pot po.backup/$$i`"; then \
 	 	echo "will update $$i"; \
@@ -319,5 +377,5 @@ test:
 
 .SILENT:
 
-.PHONY: cvs test dist cvs-clean subdirs package-merge package-messages
+.PHONY: cvs test dist cvs-clean package-merge package-messages
 

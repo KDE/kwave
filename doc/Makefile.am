@@ -97,11 +97,11 @@ help_en.docbook: ../bin/insert-changes.sh ../VERSION ../CHANGES
 	cat help_en.docbook.orig | \
 	../bin/insert-changes.sh  changes.docbook | \
 	awk -v newval=`date --iso` \
-	'{ sub(/<DATE>.*<\/DATE>/, \
-	"<DATE>"newval"</DATE>", $$0); print; }' | \
+	'{ sub(/<date>.*<\/date>/, \
+	"<date>"newval"</date>", $$0); print; }' | \
 	awk -v newval=`cat ../VERSION` \
-	'{ sub(/<RELEASEINFO>.*<\/RELEASEINFO>/, \
-	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
+	'{ sub(/<releaseinfo>.*<\/releaseinfo>/, \
+	"<releaseinfo>"newval"</releaseinfo>", $$0); print; }' > \
 	help_en.docbook
 
 doc: help_en.docbook help_de.docbook help_fr.docbook

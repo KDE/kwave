@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include <math.h>
+#include <sched.h> // for sched_yield()
 
 #include <qaccel.h>
 #include <qapplication.h>
@@ -301,6 +302,9 @@ void FileProgress::setValue(unsigned int pos)
     // as this dialog is modal, we must take care of our events
     // manually !
     qApp->processEvents();
+
+    // better be nice to other processes and let them also play a bit :)
+    sched_yield();
 }
 
 //***************************************************************************

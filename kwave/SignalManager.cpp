@@ -999,7 +999,7 @@ __uint32_t SignalManager::findChunk(QFile &sigfile, const char *chunk,
 int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
                                 unsigned int channels, int bits)
 {
-    unsigned int bufsize = 32 * 1024 * sizeof(sample_t);
+    unsigned int bufsize = 64 * 1024 * sizeof(sample_t);
     unsigned char *loadbuffer = 0;
     int bytes = bits >> 3;
     unsigned int sign = 1 << (24-1);

@@ -2,6 +2,8 @@
 
 o warning before overwriting an existing file in SaveAs()
 
+o TrackPixmap: implement usage of "extra_samples" for interpolated mode
+
 o cancel button does not have any effect when saving
 
 o i18n for strings in main.cpp

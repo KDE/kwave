@@ -576,6 +576,20 @@ void SignalWidget::close()
 void SignalWidget::setOffset(int new_offset)
 {
     m_offset = new_offset;
+    fixZoomAndOffset();
+
+    // forward the zoom and offset to all track pixmaps
+    unsigned int n_tracks = m_track_pixmaps.count();
+    for (unsigned int i = 0; i < n_tracks; i++) {
+	TrackPixmap *pix = m_track_pixmaps.at(i);
+	ASSERT(pix);
+	if (!pix) continue;
+	
+	pix->setOffset(m_offset);
+	pix->setZoom(m_zoom);
+    }
+
+    refreshAllLayers();
 }
 
 //***************************************************************************
@@ -607,6 +621,8 @@ void SignalWidget::setZoom(double new_zoom)
 	pix->setOffset(m_offset);
 	pix->setZoom(m_zoom);
     }
+
+    refreshAllLayers();
 }
 
 //***************************************************************************
@@ -678,28 +694,28 @@ void SignalWidget::zoomAll()
 //***************************************************************************
 void SignalWidget::zoomNormal()
 {
-//    setOffset(m_offset + pixels2samples(width) / 2);
-//    setZoom(1.0);
-//    setOffset(m_offset - pixels2samples(width) / 2);
-//    refreshAllLayers();
+    setOffset(m_offset + pixels2samples(width) / 2);
+    setZoom(1.0);
+    setOffset(m_offset - pixels2samples(width) / 2);
+    refreshAllLayers();
 }
 
 //***************************************************************************
 void SignalWidget::zoomOut()
 {
-//    setOffset(m_offset + pixels2samples(width) / 2);
-//    setZoom(m_zoom*3);
-//    setOffset(m_offset - pixels2samples(width) / 2);
-//    refreshAllLayers();
+    setOffset(m_offset + pixels2samples(width) / 2);
+    setZoom(m_zoom*3);
+    setOffset(m_offset - pixels2samples(width) / 2);
+    refreshAllLayers();
 }
 
 //***************************************************************************
 void SignalWidget::zoomIn()
 {
-//    setOffset(m_offset + pixels2samples(width) / 2);
-//    setZoom(m_zoom / 3);
-//    setOffset(m_offset - pixels2samples(width) / 2);
-//    refreshAllLayers();
+    setOffset(m_offset + pixels2samples(width) / 2);
+    setZoom(m_zoom / 3);
+    setOffset(m_offset - pixels2samples(width) / 2);
+    refreshAllLayers();
 }
 
 //***************************************************************************
@@ -891,15 +907,23 @@ void SignalWidget::mouseMoveEvent( QMouseEvent */*e*/ )
 //***************************************************************************
 void SignalWidget::paintEvent(QPaintEvent *)
 {
-//    debug("SignalWidget::paintEvent()");
-
-//#ifdef DEBUG
-//    struct timeval t_start;
-//    struct timeval t_end;
+//    return; //
+////    debug("SignalWidget::paintEvent()");
+////#ifdef DEBUG
+//    static struct timeval t_start;
+//    static struct timeval t_end;
 //    double t_elapsed;
+//    double t_rest_of_system;
 //    gettimeofday(&t_start,0);
-//#endif
-
+//
+//    t_elapsed = ((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec -
+//	((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec)) * 1E-3;
+//    debug("SignalWidget::paintEvent() -- starting, since last: t=%0.3fms --",
+//	t_rest_of_system); // ###
+//
+//    if (t_rest_of_system < 1000.0) return;
+////#endif
+	
     unsigned int n_tracks = /*m_signal_manager.isClosed() ? 0 :*/ tracks();
     bool update_pixmap = false;
 
@@ -937,10 +961,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	
 //	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
 	p.begin(m_layer[LAYER_SIGNAL]);
-	
-//	p.setPen(white);
 	p.setRasterOp(CopyROP);
-	p.fillRect(0, 0, width, height, black);
 	
 	// check and correct m_zoom and m_offset
 	fixZoomAndOffset();
@@ -954,9 +975,9 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	
 	    // fix the width and height of the track pixmap
 	    if ((pix->width() != width) || (pix->height() != track_height)) {
-//		debug("SignalWidget::paintEvent(): resizing track %d",i); // ###
 		pix->resize(width, track_height);
 	    }
+	    if (pix->isModified()) pix->repaint();
 	
 //	    debug("SignalWidget::paintEvent(): redrawing track %d",i); // ###
 	    bitBlt(m_layer[LAYER_SIGNAL], 0, top,
@@ -965,7 +986,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    top += track_height;
 	}
 	
-	p.flush();
 	p.end();
 
 	m_update_layer[LAYER_SIGNAL] = false;
@@ -985,7 +1005,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	
 	// ### nothing to do yet
 	
-	p.flush();
+//	p.flush();
 	p.end();
 	
 	m_update_layer[LAYER_MARKERS] = false;
@@ -1026,7 +1046,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 		}
 	    }
 	}
-	p.flush();
 	p.end();
 	
 	m_update_layer[LAYER_SELECTION] = false;
@@ -1039,10 +1058,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	ASSERT(pixmap);
 	if (!pixmap) return;
 	update_pixmap = true;
-	
-	p.begin(pixmap); // ###
-	p.fillRect(0, 0, width, height, white);
-	p.end(); // ###
     }
 
     if (update_pixmap) {
@@ -1076,20 +1091,18 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    lastplaypointer = -1;
 	}
 	
-	p.flush();
 	p.end();
     }
 
     bitBlt(this, 0, 0, pixmap, 0, 0, width, height, CopyROP);
 
-//#ifdef DEBUG
+////#ifdef DEBUG
 //    gettimeofday(&t_end,0);
 //    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
 //	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
-//
 //    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
 //	t_elapsed); // ###
-//#endif
+////#endif
 
 //    // restart the timer for refreshing the playpointer
 //    if (m_playback_controller.running()) playback_startTimer();

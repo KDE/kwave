@@ -27,7 +27,7 @@ SampleWriter::SampleWriter(Track &track, QList<Stripe> &stripes,
 	SampleLock *lock, InsertMode mode, unsigned int left,
 	unsigned int right)
     :m_mode(mode), m_track(track), m_stripes(stripes), m_lock(lock),
-     m_position(left), m_buffer(16*1024), m_buffer_used(0)
+     m_position(left), m_buffer(64*1024), m_buffer_used(0)
 {
 //    debug("SampleWriter::SampleWriter(track, mode, %d, %d)",left,right);
 }

@@ -41,6 +41,14 @@ class Track;
  *       than the track. However, this should not do any harm and might
  *       even be useful if a track grows.
  *
+ * @todo If the "interpolated mode" is used, the sample buffer should
+ *       contain some samples before and some samples after the current
+ *       view. (m_extra_samples, calculated in set_zoom, !=0 only in
+ *       interpolation mode, ignored in all other modes.
+ *
+ * @todo Check setOffset()
+ * @todo optimizations if zoom factor is multiple of last zoom factor
+ *
  * @author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  */
 class TrackPixmap : public QObject, public QPixmap
@@ -61,6 +69,19 @@ public:
      * @see QPixmap::resize()
      */
     void resize(int width, int height);
+
+    /**
+     * Repaints the current pixmap. After the repaint the signal is no
+     * longer in status "modified". If it was not modified before, this
+     * is a no-op.
+     */
+    void repaint();
+
+    /**
+     * Returns "true" if the buffer has changed and the pixmap has to
+     * be re-painted.
+     */
+    bool isModified();
 
 signals:
 
@@ -94,7 +115,7 @@ private slots:
      * @see Track::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(Track &src, unsigned int offset,
+    void slotSamplesInserted(Track &, unsigned int offset,
                              unsigned int length);
 
     /**
@@ -105,7 +126,7 @@ private slots:
      * @see Track::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(Track &src, unsigned int offset,
+    void slotSamplesDeleted(Track &, unsigned int offset,
                             unsigned int length);
 
     /**
@@ -116,7 +137,7 @@ private slots:
      * @see Track::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(Track &src, unsigned int offset,
+    void slotSamplesModified(Track &, unsigned int offset,
                              unsigned int length);
 
 private:
@@ -143,19 +164,16 @@ private:
     bool validateBuffer();
 
     /**
-     * Repaints the current pixmap.
-     */
-    void repaint();
-
-    /**
      * Draws the signal as an overview with multiple samples per
      * pixel.
+     * @param p reference to a QPainter
      * @param middle the y position of the zero line [pixels]
      * @param height the height of the pixmap [pixels]
      * @param first the offset of the first pixel
      * @param last the offset of the last pixel
      */
-    void drawOverview(int middle, int height, int first, int last);
+    void drawOverview(QPainter &p, int middle, int height,
+	int first, int last);
 
     /**
      * Calculates the parameters for interpolation of the graphical
@@ -169,25 +187,28 @@ private:
      * Draws the signal and interpolates the pixels between the
      * samples. The interpolation is done by using a simple FIR
      * lowpass filter.
+     * @param p reference to a QPainter
      * @param width the width of the pixmap in pixels
      * @param middle the y position of the zero line in the drawing
      *               area [pixels]
      * @param height the height of the drawing are [pixels]
      * @see #calculateInterpolation()
      */
-    void drawInterpolatedSignal(int width, int middle, int height);
+    void drawInterpolatedSignal(QPainter &p, int width, int middle,
+	int height);
 
     /**
      * Draws the signal and connects the pixels between the samples
      * by using a simple poly-line. This gets used if the current zoom
      * factor is not suitable for either an overview nor an interpolated
      * signal display.
+     * @param p reference to a QPainter
      * @param width the width of the pixmap in pixels
      * @param middle the y position of the zero line in the drawing
      *               area [pixels]
      * @param height the height of the drawing are [pixels]
      */
-    void drawPolyLineSignal(int width, int middle, int height);
+    void drawPolyLineSignal(QPainter &p, int width, int middle, int height);
 
     /**
      * Converts a pixel offset into a sample offset.
@@ -258,6 +279,9 @@ private:
      * Array with maximum sample values, if in min/max mode.
      */
     QArray<sample_t> m_max_buffer;
+
+    /** Indicates that the buffer content was modified */
+    bool m_modified;
 
     /**
      * Array with one bit for each position in the internal

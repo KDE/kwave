@@ -1,5 +1,5 @@
 /***************************************************************************
-    OverViewWidget.h  -  horizontal slider with overview over a signal
+       OverViewWidget.h  -  horizontal slider with overview over a signal
                              -------------------
     begin                : Tue Oct 21 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #ifndef _OVER_VIEW_WIDGET_H_
-#define _OVER_VIEW_WIDGET_H_ 1
+#define _OVER_VIEW_WIDGET_H_
 
 #include <qtimer.h>
 #include <qwidget.h>
@@ -25,25 +25,44 @@ class QBitmap;
 class QPixmap;
 
 /**
- * \class OverViewWidget
- * OverviewWidget can be used like a QSlider but has some background image
+ * @class OverViewWidget
+ * An OverviewWidget can be used like a QSlider but has some background image
  * that can show an overview over the whole data that is currently not
  * visible. (QScrollbar has proven to be unstable with high numbers)
+ *
+ * The behaviour is also somewhat "smarter":
+ *
+ * The slider can be moved like in the QScrollbar by pressing down the left
+ * mouse button and moving the mouse left or right.
+ *
+ * When pressing the left mouse button left or right of the slider, the slider
+ * moves towards the mouse position in steps of approx 1/10 of the current view
+ * width - with a speed of 10 steps per second - until the slider goes under
+ * the mouse. Then the slider snaps in and will be centered under the mouse
+ * cursor and can be moved.
+ *
+ * By double-clicking on the bar, the slider immediately will be centered
+ * under the clicked position.
  */
 class OverViewWidget : public QWidget
 {
     Q_OBJECT
 public:
     OverViewWidget(QWidget *parent = 0, const char *name = 0);
+
+    /** Destructor */
     virtual ~OverViewWidget();
 
-    /** sets the slider to a new offset */
-    void setValue(int);
+    /**
+     * Sets the slider to a new offset. The offset is given in
+     * user's coordinates (e.g. samples).
+     */
+    void setValue(unsigned int newval);
 
-    /** refreshes the overview */
+    /** Refreshes the overview bitmap. */
     void setOverView(QBitmap *overview);
 
-    /** minimum size of the widtget, @see QWidget::minimumSize() */
+    /** minimum size of the widget, @see QWidget::minimumSize() */
     virtual const QSize minimumSize();
 
     /** optimal size for the widget, @see QWidget::sizeHint() */
@@ -51,29 +70,36 @@ public:
 
 protected:
 
-    void resizeEvent(QResizeEvent *e);
+    void resizeEvent(QResizeEvent *);
     void mousePressEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
+    void mouseDoubleClickEvent(QMouseEvent *e);
 
 public slots:
 
-    /*
+    /**
      * Sets new range parameters of the slider, using a scale that is calculated
-     * out of the slider's maximum position.
+     * out of the slider's maximum position. All parameters are given in the
+     * user's coordinates/units (e.g. samples).
      * @param new_val position of the slider (left or top of the bar)
      * @param new_width width of the slider (bar)
      * @param new_length size of the slider's area
      */
-    void setRange(int new_pos, int new_width, int new_length);
+    void setRange(unsigned int new_pos, unsigned int new_width,
+	unsigned int new_length);
 
+protected slots:
     /** moves the slider one further bit left or right */
     void increase();
 
 signals:
 
-    /** will be emitted if the slider position has changed */
-    void valueChanged(int new_value);
+    /**
+     * Will be emitted if the slider position has changed. The value
+     * is in user's units (e.g. samples).
+     */
+    void valueChanged(unsigned int new_value);
 
 protected:
 
@@ -86,7 +112,7 @@ protected:
      * @param offset an offset in the user's coordinate system [0..length-1]
      * @return the internal pixel coordinate [0...width-1]
      */
-    int offset2pixels(int offset);
+    int offset2pixels(unsigned int offset);
 
     /**
      * Converts a pixel offset within the overview's drawing area
@@ -94,7 +120,7 @@ protected:
      * @param pixels the pixel coordinate [0...width-1]
      * @return an offset [0..length-1]
      */
-    int pixels2offset(int pixels);
+    unsigned int pixels2offset(int pixels);
 
 private:
 
@@ -107,17 +133,20 @@ private:
     /** position of the cursor within the slider when clicked */
     int m_grabbed;
 
-    /** width of the slider in pixels */
+    /** last position of the mouse pointer when held down */
+    int m_mouse_pos;
+
+    /** width of the slider [pixels] */
     int m_slider_width;
 
     /** width of the visible area [user's coordinates] */
-    int m_view_width;
+    unsigned int m_view_width;
 
     /** length of the whole area [user's coordinates] */
-    int m_view_length;
+    unsigned int m_view_length;
 
     /** offset of the visible area [user's coordinates] */
-    int m_view_offset;
+    unsigned int m_view_offset;
 
     /** addup for direction... */
     int m_dir;

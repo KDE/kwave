@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 21:27+0200PO-"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2002-09-09 20:24+0200\n"
-"PO-Revision-Date: 2002-09-09 20:24+0200\n"
+"POT-Creation-Date: 2002-09-09 21:30+0200\n"
+"PO-Revision-Date: 2002-09-09 21:30+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -1350,16 +1350,24 @@ msgid "debian packager"
 msgstr "Debian-Packager"
 
 #: kwave/main.cpp:90
+msgid "author of the 'mad' mp3 decoder library"
+msgstr "Autor der 'mad' MP3-Decoder-Bibliothek"
+
+#: kwave/main.cpp:94
+msgid "maintainers of the 'id3lib' library"
+msgstr "Betreuer der 'id3lib'-Bibliothek"
+
+#: kwave/main.cpp:98
 msgid "author of the 'audiofile' library"
 msgstr "Ersteller der 'audiofile'-Bibliothek"
 
-#: kwave/main.cpp:94
+#: kwave/main.cpp:102
 msgid "author of the 'sndfile' library"
 msgstr "Ersteller der 'sndfile'-Bibliothek"
 
-#: kwave/main.cpp:122
-msgid "sound editor for KDE2"
-msgstr "Sound-Editor für KDE2"
+#: kwave/main.cpp:130
+msgid "sound editor for KDE3"
+msgstr "Sound-Editor für KDE3"
 
 #: kwave/UndoSelection.cpp:39
 msgid "selection"
@@ -2128,7 +2136,7 @@ msgstr "Über Kwave"
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:76
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
-msgstr "<h1>Kwave - Ein Sound-Editor für KDE2</h1>"
+msgstr "<h1>Kwave - Ein Sound-Editor für KDE</h1>"
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:106
 msgid ""
@@ -2170,7 +2178,7 @@ msgstr "Lizenzbestimmungen"
 #: plugins/about/AboutKwaveDialog.cpp:46
 #, ycp-format
 msgid " (Using KDE %1)"
-msgstr "(für KDE-%1)"
+msgstr " (für KDE-%1)"
 
 #: plugins/selectrange/SelectRangePlugin.cpp:123
 msgid "select range"
@@ -2379,7 +2387,7 @@ msgstr "Format oder Funktion ist nicht implementiert"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:111
 #: plugins/codec_wav/WavDecoder.cpp:320 plugins/codec_wav/WavEncoder.cpp:169
-#: plugins/decoder_mp3/MP3Decoder.cpp:456
+#: plugins/decoder_mp3/MP3Decoder.cpp:459
 msgid "out of memory"
 msgstr "zu wenig Speicher"
 
@@ -2525,7 +2533,7 @@ msgstr ""
 "Die Datei enthält einen ungültigen Kanal-Modus 0x%1\n"
 "Mono wird angenommen..."
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:390
+#: plugins/decoder_mp3/MP3Decoder.cpp:392
 msgid ""
 "The opened file is no MPEG file or is damaged.\n"
 "No header information has been found..."
@@ -2533,24 +2541,24 @@ msgstr ""
 "Die geöffnete Datei ist keine MPEG-Datei oder sie ist beschädigt:\n"
 "Es konnten keine Kopfinformationen gefunden werden..."
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:459
+#: plugins/decoder_mp3/MP3Decoder.cpp:462
 msgid "checksum error"
 msgstr "Prüfsummen-Fehler"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:462
+#: plugins/decoder_mp3/MP3Decoder.cpp:465
 msgid "synchronization lost"
 msgstr "Synchronisation verloren"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:479
+#: plugins/decoder_mp3/MP3Decoder.cpp:482
 msgid "file contains invalid data"
 msgstr "Datei enthält ungültige Daten"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:482
+#: plugins/decoder_mp3/MP3Decoder.cpp:485
 #, c-format
 msgid "unknown error 0x%X. damaged file?"
 msgstr "Unbekannter Fehler 0x%X. Datei beschädigt?"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:488
+#: plugins/decoder_mp3/MP3Decoder.cpp:491
 #, ycp-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -2563,11 +2571,11 @@ msgstr ""
 "bei Position %2.\n"
 "%3"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:493
+#: plugins/decoder_mp3/MP3Decoder.cpp:496
 msgid "Do you still want to continue?"
 msgstr "Wollen Sie trotzdem fortsetzen?"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:497
+#: plugins/decoder_mp3/MP3Decoder.cpp:500
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Wollen Sie fortsetzen und alle weiteren Fehler ignorieren?"
 

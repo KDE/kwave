@@ -445,8 +445,8 @@ static enum mad_flow _error_adapter(void *data, struct mad_stream *stream,
 }
 
 //***************************************************************************
-enum mad_flow MP3Decoder::handleError(void *data, struct mad_stream *stream,
-                                      struct mad_frame *frame)
+enum mad_flow MP3Decoder::handleError(void */*data*/,
+    struct mad_stream *stream, struct mad_frame */*frame*/)
 {
     if (m_failures >= 2) return MAD_FLOW_CONTINUE; // ignore errors
     if (stream->error == MAD_ERROR_NONE) return MAD_FLOW_CONTINUE; // ???
@@ -613,8 +613,8 @@ static inline signed long audio_linear_dither(unsigned int bits,
 }
 
 //***************************************************************************
-enum mad_flow MP3Decoder::processOutput(void *data,
-    struct mad_header const *header, struct mad_pcm *pcm)
+enum mad_flow MP3Decoder::processOutput(void */*data*/,
+    struct mad_header const */*header*/, struct mad_pcm *pcm)
 {
     struct audio_dither dither;
     register signed int sample;
@@ -630,8 +630,7 @@ enum mad_flow MP3Decoder::processOutput(void *data,
 	while (nsamples--) {
 	    sample = (signed int)audio_linear_dither(SAMPLE_BITS,
 	             (mad_fixed_t)(*p++), &dither);
-	    register sample_t s = static_cast<sample_t>(sample);
-	    *(*m_dest)[track] << s;
+	    *(*m_dest)[track] << static_cast<sample_t>(sample);
 	}
     }
 

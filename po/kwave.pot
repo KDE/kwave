@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-09-09 20:24+0200\n"
+"POT-Creation-Date: 2002-09-09 21:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1282,15 +1282,23 @@ msgid "debian packager"
 msgstr ""
 
 #: kwave/main.cpp:90
-msgid "author of the 'audiofile' library"
+msgid "author of the 'mad' mp3 decoder library"
 msgstr ""
 
 #: kwave/main.cpp:94
+msgid "maintainers of the 'id3lib' library"
+msgstr ""
+
+#: kwave/main.cpp:98
+msgid "author of the 'audiofile' library"
+msgstr ""
+
+#: kwave/main.cpp:102
 msgid "author of the 'sndfile' library"
 msgstr ""
 
-#: kwave/main.cpp:122
-msgid "sound editor for KDE2"
+#: kwave/main.cpp:130
+msgid "sound editor for KDE3"
 msgstr ""
 
 #: kwave/UndoSelection.cpp:39
@@ -2250,7 +2258,7 @@ msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:111
 #: plugins/codec_wav/WavDecoder.cpp:320 plugins/codec_wav/WavEncoder.cpp:169
-#: plugins/decoder_mp3/MP3Decoder.cpp:456
+#: plugins/decoder_mp3/MP3Decoder.cpp:459
 msgid "out of memory"
 msgstr ""
 
@@ -2375,30 +2383,30 @@ msgid ""
 "Assuming Mono..."
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:390
+#: plugins/decoder_mp3/MP3Decoder.cpp:392
 msgid ""
 "The opened file is no MPEG file or is damaged.\n"
 "No header information has been found..."
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:459
+#: plugins/decoder_mp3/MP3Decoder.cpp:462
 msgid "checksum error"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:462
+#: plugins/decoder_mp3/MP3Decoder.cpp:465
 msgid "synchronization lost"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:479
+#: plugins/decoder_mp3/MP3Decoder.cpp:482
 msgid "file contains invalid data"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:482
+#: plugins/decoder_mp3/MP3Decoder.cpp:485
 #, c-format
 msgid "unknown error 0x%X. damaged file?"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:488
+#: plugins/decoder_mp3/MP3Decoder.cpp:491
 #, ycp-format
 msgid ""
 "An error occurred while decoding the file:\n"
@@ -2407,11 +2415,11 @@ msgid ""
 "%3"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:493
+#: plugins/decoder_mp3/MP3Decoder.cpp:496
 msgid "Do you still want to continue?"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:497
+#: plugins/decoder_mp3/MP3Decoder.cpp:500
 msgid "Do you want to continue and ignore all following errors?"
 msgstr ""
 

@@ -86,6 +86,14 @@ void addDataStrings(KAboutData& aboutdata)
                      i18n("debian packager"),
                      "aurel32@debian.org",
                      0);
+    aboutdata.addCredit("Robert Leslie",
+                     i18n("author of the 'mad' mp3 decoder library"),
+                     "rob@mars.org",
+                     "http://www.mars.org/home/rob/proj/mpeg");
+    aboutdata.addCredit("T.H.F. Klok and Cedric Tefft",
+                     i18n("maintainers of the 'id3lib' library"),
+                     0,
+                     "http://id3lib.org/");
     aboutdata.addCredit("Michael Pruett",
                      i18n("author of the 'audiofile' library"),
                      "mpruett@sgi.com",
@@ -119,7 +127,7 @@ int main( int argc, char **argv )
 	PACKAGE,
 	"Kwave",
 	VERSION,
-	i18n("sound editor for KDE2"),
+	i18n("sound editor for KDE3"),
 	KAboutData::License_GPL_V2,
         "(c) 2002, Thomas Eschenbacher",
 	"", //TODO : i18n("");

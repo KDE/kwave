@@ -30,6 +30,7 @@
 #include <kcmdlineargs.h>
 
 #include <artsc/artsc.h> // for arts_init()
+#include <arts/artsflow.h>
 
 #include "KwaveApp.h"
 
@@ -53,9 +54,11 @@ int main( int argc, char **argv )
      * interface.
      */
     int errorcode = arts_init();
+    volatile Arts::Dispatcher *dispatcher;
     if (errorcode < 0) {
-	warning("PlayBackArts::open(): arts_init error: %s",
-	        arts_error_text(errorcode));
+	warning("arts_init error: %s", arts_error_text(errorcode));
+	dispatcher = new Arts::Dispatcher();
+	ASSERT(dispatcher);
     }
 
     KAboutData about(PACKAGE, "Kwave", VERSION,

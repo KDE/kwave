@@ -1,5 +1,5 @@
-#ifndef _PLAYBACK_DIALOGS_H_
-#define _PLAYBACK_DIALOGS_H_ 1
+#ifndef _PLAYBACK_DIALOG_H_
+#define _PLAYBACK_DIALOG_H_ 1
 
 #include <qlabel.h>
 #include <qframe.h>
@@ -8,11 +8,12 @@
 #include <qradiobutton.h>
 #include <qbuttongroup.h>
 
-#include "../../../libgui/Slider.h"
-#include "../../../libgui/Dialog.h"
+#include <libkwave/DialogOperation.h>
+
+#include <libgui/Slider.h>
+#include <libgui/Dialog.h>
 #include "../../../src/SignalManager.h"
 #include "../../../src/KwaveApp.h"
-#include <libkwave/DialogOperation.h>
 
 //*****************************************************************************
 class PlayBackDialog : public Dialog {
@@ -45,5 +46,6 @@ private:
     QPushButton *select_device, *test, *ok, *cancel;
     char *comstr;
 };
+
 //*****************************************************************************
-#endif
+#endif /* _PLAYBACK_DIALOGS_H */

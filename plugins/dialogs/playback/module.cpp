@@ -67,15 +67,52 @@ PlayBackDialog::PlayBackDialog(bool modal)
 
     setCaption (i18n("Playback Options :"));
 
+    // -- create all layout objects --
+
+    QVBoxLayout *topLayout = new QVBoxLayout(this, 10);
+    ASSERT(topLayout);
+    if (!topLayout) return;
+
+    QHBoxLayout *deviceLayout = new QHBoxLayout();
+    ASSERT(deviceLayout);
+    if (!deviceLayout) return;
+
+    QHBoxLayout *bufferLayout = new QHBoxLayout();
+    ASSERT(bufferLayout);
+    if (!bufferLayout) {
+	delete deviceLayout;
+	return;
+    }
+
+    QHBoxLayout *buttonsLayout = new QHBoxLayout();
+    ASSERT(buttonsLayout);
+    if (!buttonsLayout) {
+	delete deviceLayout;
+	delete bufferLayout;
+	return;
+    }
+
     // -- checkboxes for 8/16/24 Bits --
-    bg = new QButtonGroup(i18n("Resolution"), this);
+    bg = new QButtonGroup(this, i18n("Resolution"));
+    bg->setTitle(i18n("Resolution"));
     ASSERT(bg);
     if (!bg) return;
+
+    topLayout->addWidget(bg);
+
+    // Create layouts for the check boxes
+    QVBoxLayout *bitsBoxLayout = new QVBoxLayout(bg, 10);
+    bitsBoxLayout->addSpacing(bg->fontMetrics().height() );
+
+    QHBoxLayout *bitsLayout = new QHBoxLayout();
+    bitsLayout->addSpacing(bg->fontMetrics().height() );
+    bitsBoxLayout->addLayout(bitsLayout);
 
     b8 = new QRadioButton(i18n("&8 Bit"), bg);
     ASSERT(b8);
     if (!b8) return;
-    b8->setFixedSize(b8->sizeHint());
+    b8->setText(i18n("&8 Bit"));
+    b8->setMinimumSize(b8->sizeHint());
     b8->setChecked(playback_params.bits_per_sample == 8);
     QToolTip::add(b8,
         i18n("Set Playback-Mode to 8 Bit (poor quality)\n"\
@@ -84,7 +121,7 @@ PlayBackDialog::PlayBackDialog(bool modal)
     b16 = new QRadioButton(i18n("1&6 Bit"), bg);
     ASSERT(b16);
     if (!b16) return;
-    b16->setFixedSize(b16->sizeHint());
+    b16->setMinimumSize(b16->sizeHint());
     b16->setChecked(playback_params.bits_per_sample == 16);
     QToolTip::add( b16,
         i18n("Set Playback-Mode to 16 Bit (CD-like quality)\n"\
@@ -93,7 +130,7 @@ PlayBackDialog::PlayBackDialog(bool modal)
     b24 = new QRadioButton(i18n("2&4 Bit"), bg);
     ASSERT(b24);
     if (!b24) return;
-    b24->setFixedSize(b24->sizeHint());
+    b24->setMinimumSize(b24->sizeHint());
     b24->setChecked(playback_params.bits_per_sample == 24);
     QToolTip::add( b24,
         i18n("Set Playback-Mode to 24 Bit (high quality)\n"\
@@ -126,7 +163,6 @@ PlayBackDialog::PlayBackDialog(bool modal)
     select_device = new QPushButton(i18n("se&lect..."), this);
     ASSERT(select_device);
     if (!select_device) return;
-    select_device->setFixedWidth(select_device->sizeHint().width());
     QToolTip::add(select_device,
 	i18n("Select a playback device not listed\n"\
 	     "in the standard selection.\n"\
@@ -135,39 +171,6 @@ PlayBackDialog::PlayBackDialog(bool modal)
     // ### not implemented yet ###
     //     -> needs support for ALSA,
     //        OSS/Free only supports up to 16 bits :-(
-
-    // -- create all layout objects --
-    QVBoxLayout *topLayout = new QVBoxLayout(this, 10);
-    ASSERT(topLayout);
-    if (!topLayout) return;
-
-    QVBoxLayout *bitsBoxLayout = new QVBoxLayout(bg, 10);
-    ASSERT(bitsBoxLayout);
-    if (!bitsBoxLayout) return;
-    bitsBoxLayout->addSpacing( bg->fontMetrics().height() );
-
-    QHBoxLayout *bitsLayout = new QHBoxLayout();
-    ASSERT(bitsLayout);
-    if (!bitsLayout) return;
-
-    QHBoxLayout *deviceLayout = new QHBoxLayout();
-    ASSERT(deviceLayout);
-    if (!deviceLayout) return;
-
-    QHBoxLayout *bufferLayout = new QHBoxLayout();
-    ASSERT(bufferLayout);
-    if (!bufferLayout) {
-	delete deviceLayout;
-	return;
-    }
-
-    QHBoxLayout *buttonsLayout = new QHBoxLayout();
-    ASSERT(buttonsLayout);
-    if (!buttonsLayout) {
-	delete deviceLayout;
-	delete bufferLayout;
-	return;
-    }
 
     // -- buffer size --
     buffersize = new Slider(4, 16, 1, 5, Slider::Horizontal, this);
@@ -240,9 +243,6 @@ PlayBackDialog::PlayBackDialog(bool modal)
     test->setFixedSize(test->sizeHint().width(), h);
 
     // add controls to their layouts
-    bitsBoxLayout->addLayout(bitsLayout);
-
-    topLayout->addWidget(bg);
     bitsLayout->addWidget(b8, 0, AlignLeft | AlignCenter);
     bitsLayout->addStretch(10);
     bitsLayout->addWidget(b16, 0, AlignCenter | AlignCenter);
@@ -264,16 +264,16 @@ PlayBackDialog::PlayBackDialog(bool modal)
     topLayout->addWidget(separator);
 
     topLayout->addLayout(buttonsLayout);
-    buttonsLayout->addWidget(test, 0, AlignLeft);
+    buttonsLayout->addWidget(test, 0, AlignLeft | AlignCenter);
     buttonsLayout->addSpacing(30);
     buttonsLayout->addStretch(10);
-    buttonsLayout->addWidget(ok, 0, AlignRight);
+    buttonsLayout->addWidget(ok, 0, AlignRight | AlignCenter);
     buttonsLayout->addSpacing(10);
-    buttonsLayout->addWidget(cancel, 0, AlignRight);
+    buttonsLayout->addWidget(cancel, 0, AlignRight | AlignCenter);
 
+    bitsBoxLayout->activate();
     topLayout->activate();
-
-    resize(minimumSize());
+    topLayout->freeze(0,0);
 
     ok->setFocus();
     connect(ok ,SIGNAL(clicked()),

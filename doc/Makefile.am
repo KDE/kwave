@@ -66,24 +66,24 @@ help_de.docbook: help_en.docbook help_en.pot
 	@echo "converting german help"
 	@echo "(this takes very very long, please be patient...)"
 	@ $(PO2XML) help_en.docbook help_de.po | \
-	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g \
-	> help_de.docbook
+	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g > $@
+	@CHECKXML@ $@
 
 help_fr.docbook: help_en.docbook help_en.pot
 	${MAKE} help_fr.po
 	@echo "converting french help"
 	@echo "(this takes very very long, please be patient...)"
 	@ $(PO2XML) help_en.docbook help_fr.po | \
-	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ French\ /g \
-	> help_fr.docbook
+	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ French\ /g > $@
+	@CHECKXML@ $@
 
 help_it.docbook: help_en.docbook help_en.pot
 	${MAKE} help_it.po
 	@echo "converting italian help"
 	@echo "(this takes very very long, please be patient...)"
 	@ $(PO2XML) help_en.docbook help_it.po | \
-	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ Italian\ /g \
-	> help_it.docbook
+	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ Italian\ /g > $@
+	@CHECKXML@ $@
 
 # --------------------------------------
 

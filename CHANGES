@@ -2,7 +2,7 @@
 0.6.4 [2002-06-??]
 
  * support for different file formats / integrated libaudiofile
- * drag&drop bugfix: dropping into the same signal left from
+ * drag and drop bugfix: dropping into the same signal left from
    the selection removed wrong range
  * auto-repair for structurally damaged wav files
  * bugfix: save selection works again

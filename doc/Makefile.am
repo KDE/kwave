@@ -3,16 +3,26 @@ MAINTAINERCLEANFILES = de/*.html en/*.html
 CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook de/*.html en/*.html
 DISTCLEANFILES = Makefile.in Makefile
 
-LANGUAGES = en de
+LANGUAGES = en de fr
 SUFFIXES = .docbook .po .pot
 SGMLDIR=$(kde_datadir)/ksgmltools2
 DOCDIR = $(DESTDIR)${kde_htmldir}
+
+# --- translated html help, not needed in distribution ---
 
 de/index.html: help_de.docbook
 	cd de ; $(MEINPROC) --check ../help_de.docbook
 	rm -Rf de/common
 	mkdir -p de/common
 	cp -R ${DOCDIR}/de/common/* de/common/
+
+fr/index.html: help_fr.docbook
+	cd fr ; $(MEINPROC) --check ../help_fr.docbook
+	rm -Rf fr/common
+	mkdir -p fr/common
+	cp -R ${DOCDIR}/fr/common/* fr/common/
+
+# --------------------------------------------------------
 
 en/index.html: help_en.docbook
 	cd en ; $(MEINPROC) --check ../help_en.docbook
@@ -24,17 +34,40 @@ en/index.html: help_en.docbook
 help_en.pot: help_en.docbook
 	$(XML2POT) help_en.docbook > help_en.pot
 
+html-doc: en/index.html de/index.html
+
+html-clean:
+	for lang in ${LANGUAGES}; do { \
+	    rm -Rfv $${lang}/*.html; rm -Rf $${lang}/common; \
+	}; done
+
+# --- translated docbook online help ---
+
 help_de.po: help_en.pot
 	$(MSGMERGE) -o help_de.po help_de.po help_en.pot
-	# kbabel help_de.po
+	# kbabel -nofork help_de.po
 
-help_de.docbook: help_en.docbook
-	${MAKE} help_de.po
+help_fr.po: help_en.pot
+	$(MSGMERGE) -o help_fr.po help_fr.po help_fr.pot
+	# kbabel -nofork help_fr.po
+
+help_de.docbook: help_en.docbook help_de.po
+	# ${MAKE} help_de.po
 	@echo "converting german help"
 	@echo "(this takes very very long, please be patient...)"
 	@ $(PO2XML) help_en.docbook help_de.po | \
 	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g \
 	> help_de.docbook
+
+help_fr.docbook: help_en.docbook help_fr.po
+	# ${MAKE} help_fr.po
+	@echo "converting french help"
+	@echo "(this takes very very long, please be patient...)"
+	@ $(PO2XML) help_fr.docbook help_fr.po | \
+	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ French\ /g \
+	> help_fr.docbook
+
+# --------------------------------------
 
 changes.docbook: ../CHANGES ../bin/changes-to-docbook.sh
 	cat ../CHANGES | sed s/\>\>\>//g | sed s/\<\<\<//g | \
@@ -53,14 +86,7 @@ help_en.docbook: ../bin/insert-changes.sh ../VERSION ../CHANGES
 	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
 	help_en.docbook
 
-doc: help_en.docbook help_de.docbook
-
-html-doc: en/index.html de/index.html
-
-html-clean:
-	for lang in ${LANGUAGES}; do { \
-	    rm -Rfv $${lang}/*.html; rm -Rf $${lang}/common; \
-	}; done
+doc: help_en.docbook help_de.docbook help_fr.docbook
 
 all: doc
 

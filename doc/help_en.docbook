@@ -212,6 +212,9 @@
             <para>0.6.3 [2002-??-??]</para>
             <itemizedlist>
                 <listitem><para>
+                    support for french translation
+                </para></listitem>
+                <listitem><para>
                     handling of "signal modified"
                 </para></listitem>
                 <listitem><para>

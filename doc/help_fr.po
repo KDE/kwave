@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-11-05 14:29GMT\n"
+"PO-Revision-Date: 2002-11-05 18:27GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgstr "Introduction"
 #, no-c-format
 msgid "This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
 msgstr ""
-"\"&kapp;\" est un éditeur de pistes sonores pour l'environnement de bureau "
+"«&kapp;» est un éditeur de pistes sonores pour l'environnement de bureau "
 "KDE3. Il inclu les fonctionnalités suivantes&nbsp;:"
 
 #: index.docbook:64
@@ -165,7 +165,7 @@ msgstr ""
 #: index.docbook:64
 #, no-c-format
 msgid "extendible through an easy-to-use plugin interface"
-msgstr "L'extension facile des carractérisques du programme par l'ajout de plugins."
+msgstr "L'extension facile des carractérisques du programme par l'ajout de modules externes."
 
 #: index.docbook:64
 #, no-c-format
@@ -308,7 +308,7 @@ msgstr "Importation et exportation des fichier Ogg / Vorbis (seulement en mode A
 #: index.docbook:187
 #, no-c-format
 msgid "new plugin \"volume\""
-msgstr "Nouveau plugin «volume»."
+msgstr "Nouveau module externe «volume»."
 
 #: index.docbook:187
 #, no-c-format
@@ -323,7 +323,7 @@ msgstr "Support de l'enregistrement des fichiers «.wav» compressés."
 #: index.docbook:187
 #, no-c-format
 msgid "thrown away Qt2/KDE2 compatibility, now only supports Qt3/KDE3"
-msgstr ""
+msgstr "La compatibilité avec Qt2/KDE2 n'est plus respectée. Seul Qt3/KDE3 sont supportées."
 
 #: index.docbook:187
 #, no-c-format
@@ -331,21 +331,23 @@ msgid ""
 "playback plugin: enabled the \"select...\" button for choosing other "
 "playback devices (feature requested by Len Ovens)"
 msgstr ""
+"Module externe de lecture : activation du bouton «Sélectionner...» four choisir "
+"d'autres périphériques de lecture (carractèristique demandé par Len Ovens)"
 
 #: index.docbook:187
 #, no-c-format
 msgid "solved problem with name mangling in plugins and different gcc versions"
-msgstr ""
+msgstr "Résolution des problèmes avec label «mangling» dans les modules externes et les versions différentes de gcc."
 
 #: index.docbook:187
 #, no-c-format
 msgid "works with gcc-3.2 / solved __dso_handle problem"
-msgstr ""
+msgstr "Fonctionne avec gcc 3.2. Résolution des problèmes avec «__dso_handle»"
 
 #: index.docbook:187
 #, no-c-format
 msgid "stricter checks for programs in configure script"
-msgstr ""
+msgstr "Ajout de contrôles plus stricts pour des programmes dans le script «.configure»"
 
 #: index.docbook:187
 #, no-c-format
@@ -383,13 +385,13 @@ msgid "integrated libkwavemt into libkwave"
 msgstr "Intégration de 'libkwavemt' dans 'libkwave'."
 
 #: index.docbook:187
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "using time instead of zoom factor, e.g. set zoom to \"1 minute\" (feature "
 "requested by Gilles Caulier)"
 msgstr ""
 "Utilisation du temps à la place du facteur de zoom (tel que lorsque le zoom "
-"correspond à \"1 minute\")."
+"correspond à «1 minute»)."
 
 #: index.docbook:187
 #, no-c-format
@@ -402,13 +404,11 @@ msgid "some more icons in the menues"
 msgstr "Quelques icônes supplémentaires dans les menus."
 
 #: index.docbook:187
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "replaced KFileDialog with subclass KwaveFileDialog (works around some bugs "
 "in KDE)"
-msgstr ""
-"Remplacement de 'KFileDialog' par la sous-classe 'KwaveFileDialog' (corrige "
-"quelques bogues avec KDE)."
+msgstr "Remplacement de «KFileDialog» par la sous-classe «KwaveFileDialog» (corrige quelques bogues avec KDE)."
 
 #: index.docbook:187
 #, no-c-format
@@ -420,7 +420,7 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "added \"select range\" plugin"
-msgstr "Ajout du plugin \"selectrange\""
+msgstr "Ajout du module externe «Selectrange»"
 
 #: index.docbook:187
 #, no-c-format
@@ -440,7 +440,7 @@ msgstr "Traduction Française"
 #: index.docbook:187
 #, no-c-format
 msgid "handling of \"signal modified\""
-msgstr "Traitement de \"signal modified\"."
+msgstr "Traitement de «signal modified»."
 
 #: index.docbook:187
 #, no-c-format
@@ -457,12 +457,12 @@ msgstr "0.6.2 [2001-12-24]"
 #: index.docbook:187
 #, no-c-format
 msgid "new plugin \"amplifyfree\""
-msgstr "Nouveau plugin \"amplification libre\"."
+msgstr "Nouveau module externe «amplification libre»."
 
 #: index.docbook:187
 #, no-c-format
 msgid "new plugin \"noise\""
-msgstr "Nouveau plugin \"bruit\"."
+msgstr "Nouveau module externe «bruit»."
 
 #: index.docbook:187
 #, no-c-format
@@ -470,7 +470,7 @@ msgid ""
 "new aRts plugin adapter framework now Kwave is able to use existing aRts "
 "plugins in it's own plugins for sound processing"
 msgstr ""
-"Un nouveau plugin pour le serveur de sons aRts fonctionne maintenant avec "
+"Un nouveau module externe pour le serveur de sons aRts fonctionne maintenant avec "
 "Kwave et il est possible de l'utiliser pour jouer des pistes sonores."
 
 #: index.docbook:187
@@ -600,7 +600,7 @@ msgstr "Architecture interne revue et corrigé complètement."
 #: index.docbook:187
 #, no-c-format
 msgid "plugins can be located in a user directory"
-msgstr "Les plugins peuvent être installés dans les répertoires des utilisateurs."
+msgstr "Les modules externes peuvent être installés dans les répertoires des utilisateurs."
 
 #: index.docbook:187
 #, no-c-format
@@ -687,7 +687,7 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "fixed menu command \"zoom selection\""
-msgstr "Correction de la commande \"zoomer à la selection\"."
+msgstr "Correction de la commande «zoomer sur la selection»."
 
 #: index.docbook:187
 #, no-c-format
@@ -777,7 +777,7 @@ msgid ""
 "removed the \"get\" prefix from all member functions. This is the new KDE/QT "
 "coding style."
 msgstr ""
-"Suppression du prefixe \"get\" de toutes les fonctions membres. Ceci est le "
+"Suppression du prefixe «get» de toutes les fonctions membres. Ceci est le "
 "nouveau style de  codage pour KDE/QT."
 
 #: index.docbook:187
@@ -827,7 +827,7 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "fixed bug in the \"Halt\" function (playback)"
-msgstr "Correction de bogue dans la fonction \"Halt\" (lecture audio)."
+msgstr "Correction de bogue dans la fonction «Halt» (lecture audio)."
 
 #: index.docbook:187
 #, no-c-format
@@ -859,7 +859,7 @@ msgstr "Limitation à une taille raisonnable du TopWidget."
 #: index.docbook:187
 #, no-c-format
 msgid "automatic dependencies for the plugins work again"
-msgstr "Dépendances automatiques pour le fonctionnement des plugins."
+msgstr "Dépendances automatiques pour le fonctionnement des modules externes."
 
 #: index.docbook:187
 #, no-c-format
@@ -874,7 +874,7 @@ msgstr "Correction de la présentation de la boîte de dialogue des options de l
 #: index.docbook:187
 #, no-c-format
 msgid "started to implement a new plugin interface"
-msgstr "Commencement de l'implémentation d'une nouvelle interface pour les plugins."
+msgstr "Commencement de l'implémentation d'une nouvelle interface pour les modules externes."
 
 #: index.docbook:187
 #, no-c-format
@@ -893,7 +893,7 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "plugins can now consist of multiple source files"
-msgstr "Les plugins peuvent maintenant être constitués de plusieurs fichiers sources."
+msgstr "Les modules externes peuvent maintenant être constitués de plusieurs fichiers sources."
 
 #: index.docbook:187
 #, no-c-format
@@ -908,9 +908,7 @@ msgstr "Quelques petites corrections dans les Makefiles."
 #: index.docbook:187
 #, no-c-format
 msgid "split the documentation output into \"de\" and \"en\" part"
-msgstr ""
-"Séparation de la documentation en deux parties distinctes&nbsp;: \"de\" et "
-"\"en\"."
+msgstr "Séparation de la documentation en deux parties distinctes&nbsp;: «de» et «en»."
 
 #: index.docbook:187
 #, no-c-format
@@ -920,7 +918,7 @@ msgid ""
 "and postun scripts of the specfile The user should at least get the english "
 "help..."
 msgstr ""
-"Création d'un lien symbolique des répertoires \"de\" et \"default\" vers le "
+"Création d'un lien symbolique des répertoires «de» et «default» vers le "
 "répertoire  d'aide en anglais durant l'installation et la désinstallation, "
 "ainsi que avant et après l'éxécution  des scripts du specfile. L'utilisateur "
 "doit au moins avoir l'aide en anglais..."
@@ -967,7 +965,7 @@ msgid ""
 "if a file with invalid size (e.g. recorded by \"arecord\") is loaded, shows "
 "a message and truncates the input at the end of the file"
 msgstr ""
-"Si un fichier avec une taille invalide (tel que enregistré par \"arecord\") "
+"Si un fichier avec une taille invalide (tel que enregistré par «arecord») "
 "est chargé,  on affiche un message et on ne tient pas compte des données "
 "lues à la fin du fichier sonore."
 
@@ -1003,7 +1001,7 @@ msgstr "Lecture audio pour seulement les canaux sélectionnés."
 #: index.docbook:187
 #, no-c-format
 msgid "rework of the settings/playback dialog (plugin)"
-msgstr "Restructuration de la boîte de dialogue des paramètres de lecture (plugin)."
+msgstr "Restructuration de la boîte de dialogue des paramètres de lecture (module externe)."
 
 #: index.docbook:187
 #, no-c-format
@@ -1038,9 +1036,7 @@ msgstr ""
 msgid ""
 "moved handling of the \"selected\" flag from class SignalManager to class "
 "Signal"
-msgstr ""
-"Déplacement du drapeau \"selected\" de la classe SignalManager vers la "
-"classe Signal."
+msgstr "Déplacement du drapeau «selected» de la classe SignalManager vers la classe Signal."
 
 #: index.docbook:187
 #, no-c-format
@@ -1059,7 +1055,7 @@ msgstr "0.5.2-11 [2000-05-28]"
 msgid "included config.h in each source file (except the plugins)"
 msgstr ""
 "Ajout du fichier d'en-tête config.h dans chaque fichier source (exceptés les "
-"plugins)."
+"modules externes)."
 
 #: index.docbook:187
 #, no-c-format
@@ -1077,8 +1073,7 @@ msgid ""
 "\"delete\" instead of \"delete[]\")"
 msgstr ""
 "Correction de plusieurs pertes de mémoire et suppression d'opérations "
-"contradictoires (tel que l'utilisation de \"delete\" à la place de \"delete[]"
-"\")."
+"contradictoires (tel que l'utilisation de «delete» à la place de «delete[]»)."
 
 #: index.docbook:187
 #, no-c-format
@@ -1089,7 +1084,7 @@ msgid ""
 "available (http://www.parasoft.com)"
 msgstr ""
 "Ajout (et test) du support pour la détection d'erreurs avec les outils de "
-"débogage \"Insure++ Lite 4.1\" (./configure --enable-insure=yes ...) -> "
+"débogage «Insure++ Lite 4.1» (./configure --enable-insure=yes ...) -> "
 "remerciements à ParaSoft Corporation  pour la mise à disposition d'une "
 "version limitée disponible sur http://www.parasoft.com."
 
@@ -1120,7 +1115,7 @@ msgid ""
 "ta kwave-x.x.x-x.tar.gz\" work"
 msgstr ""
 "Sauvegarde et ajout du fichier .spec de Kwave dans l'archive des sources. "
-"Cela permet  à la commande \"rpm -ta kwave-x.x.x-x.tar.gz\" de fonctionner."
+"Cela permet  à la commande «rpm -ta kwave-x.x.x-x.tar.gz» de fonctionner."
 
 #: index.docbook:187
 #, no-c-format
@@ -1173,7 +1168,7 @@ msgid ""
 "special command \"#separator\")"
 msgstr ""
 "Le menu d'aide a été aligné sur le coté droit (Le menu principal est capable "
-"de gérer  la commande spéciale \"#separator\")."
+"de gérer  la commande spéciale «#separator»)."
 
 #: index.docbook:187
 #, no-c-format
@@ -1205,7 +1200,7 @@ msgstr ""
 #, no-c-format
 msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
-"Changement de quelques variables et paramêtres en \"unsigned\" (pour "
+"Changement de quelques variables et paramêtres en «unsigned» (pour "
 "simplifier la vérification des étendues de valeurs)."
 
 #: index.docbook:187
@@ -1221,7 +1216,7 @@ msgid ""
 "made good work :-)"
 msgstr ""
 "Mise en valeur de quelques portions de code en concordance avec mon style de "
-"programmation. -> Remerciements aux développeurs de \"Artistic Style\".  "
+"programmation. -> Remerciements aux développeurs de «Artistic Style».  "
 "astyle-1.11.4-1 fait du bon travail."
 
 #: index.docbook:187
@@ -1261,8 +1256,8 @@ msgstr "L'ouverture de plusieurs instances de l'application est maintenant possi
 #, no-c-format
 msgid "made X toolkit parameters work (especially \"-geometry\")"
 msgstr ""
-"Construction des options spécifiques au serveur X (spécialement \"-geometry"
-"\")."
+"Construction des options spécifiques au serveur X (spécialement «-geometry"
+"»)."
 
 #: index.docbook:187
 #, no-c-format
@@ -1323,9 +1318,8 @@ msgid ""
 "removed the \"${KDEDIR}/share/doc/HTML/default\" directory from the rpm so "
 "that it doesn't conflict with the already existing one"
 msgstr ""
-"Suppression du répertoire \"${KDEDIR}/share/doc/HTML/default\" du RPM pour "
-"qu'il  n'y ai pas de conflit avec une version de ce répertoire déjà "
-"existante."
+"Suppression du répertoire «${KDEDIR}/share/doc/HTML/default» du RPM pour "
+"qu'il n'y ai pas de conflit avec une version de ce répertoire déjà existante."
 
 #: index.docbook:187
 #, no-c-format
@@ -1352,7 +1346,7 @@ msgstr "La fonction Selectrange() fonctionne correctement maintenant."
 #, no-c-format
 msgid "the zoom factor combo box reflects the current \"real\" zoom factor"
 msgstr ""
-"Le champs de sélection du facteur de zoom donne une valeur \"réelle\" du "
+"Le champs de sélection du facteur de zoom donne une valeur «réelle» du "
 "facteur zoom."
 
 #: index.docbook:187
@@ -1417,7 +1411,7 @@ msgid ""
 "distclean and other targets"
 msgstr ""
 "Correction de bogues dans plugins/template/Makefile.am&nbsp;: on ne créé pas "
-"de fichiers .moc lorsqu'il y a une éxécution d'un nettoyage des compilations "
+"de fichiers «.moc» lorsqu'il y a une éxécution d'un nettoyage des compilations "
 "ou d'une nouvelle construction."
 
 #: index.docbook:187
@@ -1425,7 +1419,7 @@ msgstr ""
 msgid "compiler flags are passed through to plugin compilation"
 msgstr ""
 "Les drapeaux de compilation sont passés comme paramètres lors de la "
-"compilation d'un plugin."
+"compilation d'un module externe."
 
 #: index.docbook:187
 #, no-c-format
@@ -1456,25 +1450,25 @@ msgstr ""
 #, no-c-format
 msgid "bugfixes in some plugins, all compile now without warnings/errors"
 msgstr ""
-"Corrections de bogues dans quelques plugins. Toutes les compilation sont "
+"Corrections de bogues dans quelques modules externes. Toutes les compilation sont "
 "sans warnings  et sans erreurs."
 
 #: index.docbook:187
 #, no-c-format
 msgid "plugins are processed in alphabetical order"
-msgstr "Les plugins sont maintenant compilés dans un ordre alphabétique."
+msgstr "Les modules externes sont maintenant compilés dans un ordre alphabétique."
 
 #: index.docbook:187
 #, no-c-format
 msgid "all plugins are automatically found and compiled"
-msgstr "Tous les plugins sont automatiquement trouvés et compilés."
+msgstr "Tous les modules externes sont automatiquement trouvés et compilés."
 
 #: index.docbook:187
 #, no-c-format
 msgid "new target \"make src.rpm\" makes only the source rpm"
 msgstr ""
-"Une nouvelle construction est disponible par la commande \"make src.rpm\". "
-"Elle permet  la fabrication d'un RPM de source."
+"Une nouvelle construction est disponible par la commande «make src.rpm». "
+"Elle permet la fabrication d'un RPM de source."
 
 #: index.docbook:187
 #, no-c-format
@@ -1505,12 +1499,12 @@ msgstr "0.5.1-2 [2000-03-16]"
 #: index.docbook:187
 #, no-c-format
 msgid "converted many \"klocale->translate(...)\"s into \"i18n(...)\""
-msgstr "Convertion de plusieurs \"klocale->translate(...)\"s dans \"i18n(...)\""
+msgstr "Convertion de plusieurs «klocale->translate(...)» dans «i18n(...)»"
 
 #: index.docbook:187
 #, no-c-format
 msgid "target \"make messages\" works again"
-msgstr "La cible \"make messages\" fonctionne maintenant."
+msgstr "La cible «make messages» fonctionne maintenant."
 
 #: index.docbook:187
 #, no-c-format
@@ -1527,9 +1521,7 @@ msgstr "0.5.1-1 [2000-03-13]"
 #: index.docbook:187
 #, no-c-format
 msgid "new target \"make rpm\" creates binary and source RPM packages"
-msgstr ""
-"Nouvelle cible \"make rpm\" pour la création d'un exécutable et d'un "
-"paquetage RPM."
+msgstr "Nouvelle cible «make rpm» pour la création d'un exécutable et d'un paquetage RPM."
 
 #: index.docbook:187
 #, no-c-format
@@ -1551,7 +1543,7 @@ msgstr "Les items des menus peuvent appartenir à des sous-groupes."
 #: index.docbook:187
 #, no-c-format
 msgid "renamed SignalWidget::info to \"refresh\""
-msgstr "Renomage de SignalWidget::info en \"refresh\""
+msgstr "Renomage de SignalWidget::info en «refresh»"
 
 #: index.docbook:187
 #, no-c-format
@@ -1590,7 +1582,7 @@ msgstr "Les liens des menus n'ont qu'un seul indentifiant de chaîne de caractè
 #: index.docbook:187
 #, no-c-format
 msgid "special menu commands start with a \"#\""
-msgstr "Les commandes spéciales des menus commencent par un \"#\"."
+msgstr "Les commandes spéciales des menus commencent par un «#»."
 
 #: index.docbook:187
 #, no-c-format
@@ -1619,9 +1611,7 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "included targets \"make release\", \"make patchlevel\" and some scripts"
-msgstr ""
-"Ajout des cibles \"make release\", \"make patchlevel\", et quelques autres "
-"scripts."
+msgstr "Ajout des cibles «make release», «make patchlevel», et quelques autres scripts."
 
 #: index.docbook:187
 #, no-c-format
@@ -1648,12 +1638,12 @@ msgstr ""
 #: index.docbook:187
 #, no-c-format
 msgid "added the \"crop\" command to the edit menu"
-msgstr "Ajout de la fonction de \"couper à la sélection\" dans le menu édition."
+msgstr "Ajout de la fonction de «couper à la sélection» dans le menu édition."
 
 #: index.docbook:187
 #, no-c-format
 msgid "made the \"mixpaste\" command work"
-msgstr "Construction de la fonction de \"mixage par copier/coller\"."
+msgstr "Construction de la fonction de «mixage par copier/coller»."
 
 #: index.docbook:187
 #, no-c-format
@@ -1661,7 +1651,7 @@ msgid ""
 "corrected the call of \"delete\", now really deletes instead of cutting and "
 "copying the selection to the clipboard (saves clipboard content)"
 msgstr ""
-"Correction de l'appel \"supprimer\", qui maintenant supprime réellement des "
+"Correction de l'appel «supprimer», qui maintenant supprime réellement des "
 "données au lieu de couper et copier la sélection dans le presse-papier  "
 "(sauvegarde du contenu du presse-papier)."
 
@@ -1683,7 +1673,7 @@ msgstr "Une classe par fichier est maintenant le standard."
 #: index.docbook:187
 #, no-c-format
 msgid "stripped leading \"Kwave\" in Classnames for most Classes"
-msgstr "Ajout à plusieurs noms de classes du suffixe \"Kwave\"."
+msgstr "Ajout à plusieurs noms de classes du suffixe «Kwave»."
 
 #: index.docbook:187
 #, no-c-format
@@ -1754,7 +1744,7 @@ msgstr ""
 msgid "bugfix: caption of main window changes after \"SaveAs\""
 msgstr ""
 "Correction de bogue&nbsp;: le titre de la fenêtre principal change après un "
-"\"Sauvegarder Dans\"."
+"«Sauvegarder Dans»."
 
 #: index.docbook:187
 #, no-c-format
@@ -1789,9 +1779,9 @@ msgid ""
 "\" (changes in the referenced Makefiles in the template directory will not "
 "be reflected thousand times when creating a patch with diff)"
 msgstr ""
-"Les liens symboliques vers Makefile, Makefile.in et Makefile.am dans les "
-"répertoires  des plugins sont supprimés avec \"make distclean\" et "
-"reconstruit par \"make\"."
+"Les liens symboliques vers les fichiers Makefile, Makefile.in et Makefile.am dans les "
+"répertoires des modules externes sont supprimés avec «make distclean» et "
+"reconstruit par «make»."
 
 #: index.docbook:187
 #, no-c-format
@@ -1806,12 +1796,12 @@ msgstr "Le support du débuggage est maintenant facile à utiliser."
 #: index.docbook:187
 #, no-c-format
 msgid "\"configure --enable-debug=yes\" (-g and -DDEBUG compiler flags)"
-msgstr "\"configure --enable-debug=yes\" (options de compilation -g et -DDEBUG)."
+msgstr "«configure --enable-debug=yes» (options de compilation -g et -DDEBUG)."
 
 #: index.docbook:187
 #, no-c-format
 msgid "rewritten big parts of Makefile.in for the plugins"
-msgstr "Réécriture d'une grande partie de Makefile.in pour les plugins."
+msgstr "Réécriture d'une grande partie de Makefile.in pour les modules externes."
 
 #: index.docbook:187
 #, no-c-format
@@ -1950,7 +1940,7 @@ msgstr ""
 msgid "rework of dialogs into single files and single plugins"
 msgstr ""
 "Regroupement des boîtes de dialogue dans des fichiers uniques et dans des "
-"simples plugins."
+"simples modules externes."
 
 #: index.docbook:187
 #, no-c-format
@@ -2135,7 +2125,7 @@ msgid ""
 "releases uploaded to ftp.kde.org."
 msgstr ""
 "Changement du numéro de version et de nom de fichiers comme suggéré par la "
-"version  1.1 du document \"How To Name Things\" sur le site WEB 'sunsite'. "
+"version  1.1 du document «How To Name Things» sur le site WEB «sunsite». "
 "Le dernier nombre  sera toujours marqué d'un 0 pour une version qui sera "
 "chargée sur ftp.kde.org."
 
@@ -2345,8 +2335,8 @@ msgstr ""
 "Certaines anciennes versions de &kapp; peuvent être incluses dans quelques "
 "distributions  LINUX. Nous recommendons de ne pas utiliser les versions de "
 "&kapp; inférieures  ou égales à la 0.29. De plus, ne il ne faut pas perdre "
-"de vue que le numéro de version  annotée \"0.29\" etait incohérent et doit "
-"être interprété comme \"0.2.9\". La numérotation de la version actuelle a "
+"de vue que le numéro de version  annotée «0.29» etait incohérent et doit "
+"être interprété comme «0.2.9». La numérotation de la version actuelle a "
 "débuté à partir de 0.5."
 
 #: index.docbook:1339
@@ -2402,33 +2392,32 @@ msgstr ""
 "pouvoir <emphasis>écouter</emphasis>  le résultat de son travail)."
 
 #: index.docbook:1357
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "KDE-3.0.3 or higher (at least the libraries, if you are a gnome fan, you can "
 "also run &kapp; if the proper libs are installed)."
 msgstr ""
-"De KDE-2.2.1 ou supérieur (ou au moins les bibliothéques appropriées. Si "
-"vous êtes un fan  de l'environnement de bureau Gnome, vous pouvez également "
-"utilisé &kapp; à partir du  moment que les librairies de KDE sont "
-"installées.)."
+"De KDE-3.0.3 ou supérieur (ou au moins les bibliothéques appropriées. Si "
+"vous êtes un fan de l'environnement de bureau Gnome, vous pouvez également "
+"utilisé &kapp; à partir du  moment que les librairies de KDE sont installées.)."
 
 #: index.docbook:1357
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "qt-3.0.5 or higher (normally comes with KDE3)"
-msgstr "De Qt-2.3 ou supérieure (normalement associée avec KDE2)."
+msgstr "De Qt-3.0.5 ou supérieure (normalement associée avec KDE3)."
 
 #: index.docbook:1357
 #, no-c-format
 msgid "id3lib-3.8.1 or higher"
-msgstr ""
+msgstr "De la bibliothéque «id3lib-3.8.1» ou supérieure"
 
 #: index.docbook:1357
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "about 25 MB memory for starting &kapp; (but this may vary depending on your "
 "platform and configuration)"
 msgstr ""
-"D'environ 10 Mo de mémoire pour lancer &kapp; (mais cela peut varier en "
+"D'environ 25 Mo de mémoire pour lancer &kapp; (mais cela peut varier en "
 "fonction de votre plate-forme et de votre configuration)."
 
 #: index.docbook:1389
@@ -2447,15 +2436,13 @@ msgid "If you intend to compile &kapp; from the sources, you will also need:"
 msgstr "Si vous désirez compiler &kapp; à partir des sources, vous avez besoin&nbsp;:"
 
 #: index.docbook:1397
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "A C/C++ compiler. GCC-2.95.3 works fine, some older and any newer version "
 "(like gcc-3.2) should work too."
 msgstr ""
-"D'un compilateur C/C++. GCC-2.95.3 fonctionne correctement, et quelques "
-"anciennes et nouvelles versions fonctionnent également. (Nota&nbsp;: gcc-3.0 "
-"n'est pas encore complètement supporté. Il n'est pas encore "
-"utilisable&nbsp;!)"
+"D'un compilateur C/C++. GCC-2.95.3. Cela fonctionne correctement avec cette version, "
+"ansi certaines anciennes et nouvelles versions (notamment gcc-3.2)."
 
 #: index.docbook:1397
 #, no-c-format
@@ -2464,31 +2451,31 @@ msgid ""
 "called \"libc\", on other systems it might be called \"libc-devel\"."
 msgstr ""
 "De la bibliothéque de développement glibc2 (libc-6). Sur la distribution "
-"SuSE Linux, le paquetage  s'appel \"libc\". Sur d'autres systèmes il peut "
-"s'appeler \"libc-devel\"."
+"SuSE Linux, le paquetage  s'appel «libc». Sur d'autres systèmes il peut "
+"s'appeler «libc-devel»."
 
 #: index.docbook:1397
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The KDE3 development environment: \"kdelibs3-devel\", \"kdemultimedia3-devel"
 "\", \"kdesdk3\"."
 msgstr ""
-"De l'environnement de développement de KDE2&nbsp;: \"kdelibs-devel\", "
-"\"kdemultimedia-devel\", et \"kdesdk-2\"."
+"De l'environnement de développement de KDE3&nbsp;: «kdelibs3-devel», "
+"«kdemultimedia3-devel», et «kdesdk3»."
 
 #: index.docbook:1397
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The Qt development environment, the package is normally called \"qt3-devel\" "
 "or similar."
 msgstr ""
 "De l'environnement de developpement Qt. Le paquetage s'appel normalement "
-"\"qt-devel\" ou quelque chose de similaire."
+"«qt3-devel» ou quelque chose de similaire."
 
 #: index.docbook:1397
 #, no-c-format
 msgid "id3lib-devel-3.8.1 or higher"
-msgstr ""
+msgstr "la bibliothéque «id3lib-3.8.1» ou supérieure"
 
 #: index.docbook:1397
 #, no-c-format
@@ -2655,7 +2642,7 @@ msgid ""
 msgstr ""
 "Si vous n'avez pas de messages d'erreurs, vous pouvez alors passer le reste "
 "de ce chapitre.  Si l'utilitaire 'rpm' est incapable de construire les "
-"paquetages et qu'un message du genre  \"spec file not found\" est affiché, "
+"paquetages et qu'un message du genre  «spec file not found» est affiché, "
 "alors le reste du chapitre vous sera utile."
 
 #: index.docbook:1523
@@ -2695,7 +2682,7 @@ msgid ""
 "filename> for the redhat distribution or <filename>/usr/src/packages</"
 "filename> if you have the SuSE distribution."
 msgstr ""
-"Aller dans le répertoire \"principal\" de stockage des RPM de votre système. "
+"Aller dans le répertoire «principal» de stockage des RPM de votre système. "
 "Normalement,  celui-ci est <filename>/usr/src/redhat</filename> pour une "
 "distribution du type RedHat ou <filename>/usr/src/packages</filename> pour "
 "la distribution SuSE."
@@ -2716,7 +2703,7 @@ msgid ""
 "\"somewhere\" with the real directory where the files are, of course)."
 msgstr ""
 "Mettre l'archive tar.gz dans le sous-répertoire SOURCES (Bien sûr, vous "
-"devez remplacer  \"NomRépertoire\" avec le nom du répertoire qui contient "
+"devez remplacer  «NomRépertoire» avec le nom du répertoire qui contient "
 "votre archive tar.gz)."
 
 #: index.docbook:1541
@@ -2816,7 +2803,7 @@ msgstr ""
 "d'erreur pour des connexions qui sont rejetées, soit vous avez tapé des "
 "commandes incorrectes,  soit votre fournisseur d'accès à internet n'autorise "
 "pas certaine connexion depuis votre système. Le meilleur endroit pour "
-"stocker les fichiers sources est <filename>\"$HOME/src\"</filename>."
+"stocker les fichiers sources est <filename>«$HOME/src»</filename>."
 
 #: index.docbook:1616
 #, no-c-format
@@ -2972,7 +2959,7 @@ msgstr ""
 "automatique."
 
 #: index.docbook:1693
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cd kwave</command>\n"
 "<prompt>% </prompt><command>make -f Makefile.dist</command>\n"
@@ -2985,8 +2972,8 @@ msgstr ""
 "<prompt>% </prompt><command>make -f Makefile.dist</command>\n"
 "<prompt>% </prompt><command>./configure</command>\n"
 "<prompt>% </prompt><command>make rpm</command>\n"
-"<prompt>% </prompt><command>rpm -i /usr/src/redhat/BUILD/<replaceable>[arch]/"
-"kwave-XXX.[arch].rpm</replaceable></command>"
+"<prompt>% </prompt><command>rpm -ivh /usr/src/redhat/BUILD/<replaceable>"
+"[arch]/kwave-XXX.[arch].rpm</replaceable></command>"
 
 #: index.docbook:1709
 #, fuzzy, no-c-format
@@ -3010,7 +2997,7 @@ msgstr ""
 "RPM"
 
 #: index.docbook:1727
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The binary rpm package of &kapp; is \"<emphasis>relocatable</emphasis>\". "
 "That means that you can build the package on a system with any KDE3 "
@@ -3018,15 +3005,15 @@ msgid ""
 "directory. This feature is very useful to install a package compiled for "
 "SuSE under a RedHat system or vice-versa."
 msgstr ""
-"Les exécutables d'un paquetage RPM de &kapp; sont \"<emphasis>relogeables</"
-"emphasis>\". Vous pouvez construire un paquetage RPM sur un système équipé "
-"des répertoires de KDE2  et installer les exécutables dans un répertoire "
+"Les exécutables d'un paquetage RPM de &kapp; sont «<emphasis>relogeables</"
+"emphasis>». Vous pouvez construire un paquetage RPM sur un système équipé "
+"des répertoires de KDE3 et installer les exécutables dans un répertoire "
 "différent sur un autre système. Cette caractéristique est très pratique pour "
 "installer un paquetage compilé sur une distribution SUSE vers une "
-"distribution  RedHat ou vice-versa."
+"distribution RedHat ou vice-versa."
 
 #: index.docbook:1736
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "For example: you got the binary rpm from a friend who has a RedHat system "
 "(where the KDE3 directory is <filename>/usr</filename>) and want to install "
@@ -3035,19 +3022,20 @@ msgid ""
 "Example:"
 msgstr ""
 "Par exemple&nbsp;: vous prenez le paquetage RPM des exécutables d'un ami qui "
-"a une distribution RedHat (où le répertoire de KDE2 est <filename>/usr</"
+"a une distribution RedHat (où le répertoire de KDE3 est <filename>/usr</"
 "filename>) et vous souhaitez l'installer sur une distribution SuSE (où le "
-"répertoire de KDE2 est <filename>/opt/kde2</filename>). Vous avez juste à "
-"passer un paramètre différent quand vous installez le paquetage&nbsp;:"
+"répertoire de KDE3 est <filename>/opt/kde3</filename>). Vous avez juste à "
+"passer un paramètre différent quand vous installez le paquetage&nbsp;: "
+"Par exemple :"
 
 #: index.docbook:1736
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-"
 "0.6.5.i386.rpm</replaceable></command>"
 msgstr ""
-"<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-"
-"0.6.4.i386.rpm</replaceable></command>"
+"<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-"
+"0.6.5.i386.rpm</replaceable></command>"
 
 #: index.docbook:1748
 #, no-c-format
@@ -3062,14 +3050,14 @@ msgstr ""
 "Cela modifie le chemin où le programme sera installé. Il est grandement "
 "recommendé que  ce repertoire ou le répertoire renvoyé par la commande "
 "<command>kde-config --prefix</command>  soit contenu dans la variable "
-"d'environnement <symbol>KDEDIRS</symbol>. Dans le cas contraire,  &kapp; ne "
-"pourra pas trouver la configuration des menus, les plugins, les valeurs par "
+"d'environnement <symbol>KDEDIRS</symbol>. Dans le cas contraire, &kapp; ne "
+"pourra pas trouver la configuration des menus, les modules externes, les valeurs par "
 "défaut, etc."
 
 #: index.docbook:1767
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Building CPU optimized packages"
-msgstr "La construction d'un paquetage RPM à partir du CVS"
+msgstr "La construction de paquetages optimisés pour certains CPU"
 
 #: index.docbook:1769
 #, fuzzy, no-c-format
@@ -3145,7 +3133,7 @@ msgstr ""
 "html</ulink>. Remerciements à Matthias Düsterhöft&nbsp;!)."
 
 #: index.docbook:1812
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "This means that on an <literal>k7</literal> architecture the rpm package "
 "will be compiled using <literal>-O3 -march=athlon-xp -mcpu=athlon-xp -"
@@ -3155,13 +3143,14 @@ msgid ""
 "or where a binary RPM is to be created out of a source rpm using "
 "<command>rpm --rebuild</command>."
 msgstr ""
-"Cela permet de compiler les paquetages RPM pour une architecture i586 en "
-"utilisant  \"-march=pentium\" comme option de compilation. Vous pouvez "
-"ajouter ou adapter ces options  selon vos besoins. Le paramétrage s'applique "
-"à l'ensemble des opérations décrites à la section  précédente à chaque fois "
-"que l'on utilise la commande \"rpm -ta\", ou quand un paquetage RPM "
+"Cela permet de compiler les paquetages RPM pour une architecture K7 en "
+"utilisant <literal>-O3 -march=athlon-xp -mcpu=athlon-xp -"
+"DNDEBUG -fomit-frame-pointer</literal> comme option de compilation. Vous pouvez "
+"ajouter ou adapter ces options selon vos besoins. Le paramétrage s'applique "
+"à l'ensemble des opérations décrites à la section précédente à chaque fois "
+"que l'on utilise la commande «rpm -ta», ou quand un paquetage RPM "
 "d'exécutable  est construit à partir d'un paquetage source en utilisant la "
-"commande \"rpm --rebuild\"."
+"commande «rpm --rebuild»."
 
 #: index.docbook:1825
 #, no-c-format
@@ -3180,13 +3169,13 @@ msgstr ""
 "cette variable manuellement  et obtenir le même effet. Par exemple&nbsp;:"
 
 #: index.docbook:1825
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O3 -march=athlon-xp -"
 "mcpu=athlon-xp -fomit-frame-pointer\"</command>"
 msgstr ""
-"<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O2 -march=pentium -fomit-"
-"frame-pointer\"</command>"
+"<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O3 -march=athlon-xp -"
+"mcpu=athlon-xp -fomit-frame-pointer\"</command>"
 
 #: index.docbook:1838
 #, fuzzy, no-c-format
@@ -3203,9 +3192,9 @@ msgstr ""
 "command>."
 
 #: index.docbook:1849
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "How to pass optimizer options to the compiler"
-msgstr "Comment utiliser les optimisations de compilation"
+msgstr "Comment passer des options de compilation au compilateur"
 
 #: index.docbook:1850
 #, fuzzy, no-c-format
@@ -3233,13 +3222,13 @@ msgstr ""
 "<command>configure</command>. Par exemple&nbsp;:"
 
 #: index.docbook:1858
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command><symbol>RPM_OPT_FLAGS</symbol>=\"-march=athlon-"
 "xp -mcpu=athlon-xp\" make -f Makefile.dist</command>"
 msgstr ""
-"<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
-"mcpu=athlon\" ./configure</command>"
+"<prompt>% </prompt><command><symbol>RPM_OPT_FLAGS</symbol>=\"-march=athlon-"
+"xp -mcpu=athlon-xp\" make -f Makefile.dist</command>"
 
 #: index.docbook:1865
 #, no-c-format
@@ -3316,7 +3305,7 @@ msgstr ""
 "de pression donneront les tensions avec la plus grande amplitude à la sortie "
 "de l'amplificateur. Cette sortie est aussi appelée un <emphasis>'signal'</"
 "emphasis>. A la place d'un microphone on peut imaginer d'autre source de "
-"capture sonore. \"L'amplificateur\" peut être intégré directement dans la "
+"capture sonore. «L'amplificateur» peut être intégré directement dans la "
 "carte son de votre ordinateur et vous ne pouvez pas le voir."
 
 #: index.docbook:1923 index.docbook:1931
@@ -3764,12 +3753,12 @@ msgstr ""
 "internes par KDE&nbsp;:"
 
 #: index.docbook:2225
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde3/share/sounds/"
 "KDE_Window*.wav</filename></command>"
 msgstr ""
-"<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
+"<prompt>% </prompt><command>kwave <filename>/opt/kde3/share/sounds/"
 "KDE_Window*.wav</filename></command>"
 
 #: index.docbook:2231
@@ -3842,7 +3831,7 @@ msgstr ""
 "<menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></"
 "keycombo> </shortcut><guimenu>Fichier</guimenu><guimenuitem>Nouveau...</"
 "guimenuitem> </menuchoice>) et mettre un fichier sonore dans l'espace de "
-"travail de cette fenêtre via le  <link linkend=\"drag_and_drop\">glisser / "
+"travail de cette fenêtre via le <link linkend=\"drag_and_drop\">glisser / "
 "déposer</link>."
 
 #: index.docbook:2254
@@ -3913,7 +3902,7 @@ msgstr "Formats de fichiers supportés"
 #: index.docbook:2306
 #, no-c-format
 msgid "&kapp; supports the following file formats:"
-msgstr ""
+msgstr "&kapp; supporte les formats de fichiers suivants :"
 
 #: index.docbook:2310
 #, no-c-format
@@ -3923,8 +3912,8 @@ msgid ""
 "systems\" and also is commonly used within the KDE environment."
 msgstr ""
 "Le meilleur format de fichier pour &kapp; est (comme l'indique le nom de "
-"l'application) \".wav\". Ce format est très commun vis-à-vis d'autre "
-"\"systèmes d'exploitation\" mais aussi pour l'environnement de bureau KDE."
+"l'application) «.wav». Ce format est très commun vis-à-vis d'autre "
+"«systèmes d'exploitation» mais aussi pour l'environnement de bureau KDE."
 
 #: index.docbook:2310
 #, no-c-format
@@ -3934,6 +3923,10 @@ msgid ""
 "ulink> for the MP3 decoding in combination with <ulink url=\"http://www."
 "id3lib.org/\">id3lib</ulink> for decoding ID3 tags."
 msgstr ""
+"<filename>.mp3</filename> et <filename>.mp2</filename> pour l'importation est disponible "
+"grâce à la bibliothéque <ulink url=\"http://www.mars.org/home/rob/proj/mpeg/\">libmad</"
+"ulink> pour le décodage des fichiers MP3 en combinaison avec la bibliothèque <ulink url=\"http://www."
+"id3lib.org/\">id3lib</ulink> pour le décodage des marquages ID3."
 
 #: index.docbook:2310
 #, no-c-format
@@ -3941,6 +3934,8 @@ msgid ""
 "Ogg/Vorbis (<filename>*.ogg</filename>) import and export. See <ulink url="
 "\"http://www.xiph.org\">http://www.xiph.org</ulink> for details."
 msgstr ""
+"Ogg / Vorbis (<filename>*.ogg</filename>) pour l'importation et l'exportation. Voir l'URL <ulink url="
+"\"http://www.xiph.org\">http://www.xiph.org</ulink> pour plus de détails."
 
 #: index.docbook:2310
 #, no-c-format
@@ -4040,7 +4035,7 @@ msgstr "Lumiére verte"
 #: index.docbook:2471
 #, no-c-format
 msgid "a green lamb means \"enabled\", whereas"
-msgstr "Un témoin vert indique que le canal est \"actif\"."
+msgstr "Un témoin vert indique que le canal est «actif»."
 
 #: index.docbook:2480
 #, no-c-format
@@ -4050,7 +4045,7 @@ msgstr "Lumiére rouge"
 #: index.docbook:2480
 #, no-c-format
 msgid "a red lamb means \"disabled\"."
-msgstr "Un témoin rouge indique que le canal est \"inactif\"."
+msgstr "Un témoin rouge indique que le canal est «inactif»."
 
 #: index.docbook:2490
 #, no-c-format
@@ -4080,9 +4075,9 @@ msgstr ""
 "sélection  seront utilisés en priorité pour les actions futures de "
 "l'utilisateur. D'autre part, si vous  n'avez pas sélectionné une "
 "<emphasis>plage</emphasis> mais seulement un échantillon  unique, celui-ci "
-"réprésentera la sélection (celle-ci n'étant pas considérée comme étant \"vide"
-"\").  Par exemple, si vous n'avez pas sélectionné une plage mais juste un "
-"échantillon, la fonction  \"Supprimer\" appliquera les modifications "
+"réprésentera la sélection (celle-ci n'étant pas considérée comme étant «vide"
+"»).  Par exemple, si vous n'avez pas sélectionné une plage mais juste un "
+"échantillon, la fonction  «Supprimer» appliquera les modifications "
 "uniquement sur ce dernier."
 
 #: index.docbook:2507
@@ -4181,7 +4176,7 @@ msgstr ""
 #, no-c-format
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
 msgstr ""
-"(Astuce&nbsp;: utiliser la touche \"<keycap>+</keycap>\" du pavé "
+"(Astuce&nbsp;: utiliser la touche «<keycap>+</keycap>» du pavé "
 "numérique&nbsp;!)"
 
 #: index.docbook:2525
@@ -4203,7 +4198,7 @@ msgstr ""
 #, no-c-format
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
 msgstr ""
-"(Astuce&nbsp;: utiliser la touche \"<keycap>-</keycap>\" du pavé "
+"(Astuce&nbsp;: utiliser la touche «<keycap>-</keycap>» du pavé "
 "numérique&nbsp;!)"
 
 #: index.docbook:2525
@@ -4242,7 +4237,7 @@ msgid ""
 "guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Nothing</"
 "guimenuitem> </menuchoice>"
 msgstr ""
-"Retirer la sélection et ne \"rien\" sélectionner&nbsp;: "
+"Retirer la sélection et ne «rien» sélectionner&nbsp;: "
 "<menuchoice><shortcut><keycombo><keycap>N</keycap></keycombo></"
 "shortcut><guimenu>Editon</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Rien</guimenuitem></menuchoice>"
@@ -4283,8 +4278,8 @@ msgid ""
 "of the authors directly and / or subscribe to the &kapp; <link linkend="
 "\"mailing-list\">mailing list</link>. Help is always welcome!"
 msgstr ""
-"Si vous voulez écrire un plugin, contribuer au projet (ou peut être écrire "
-"un outil de conversion  mentionné précédement), veuillez prendre contact "
+"Si vous voulez écrire un module externe, contribuer au projet (ou peut être écrire "
+"un outil de conversion mentionné précédement), veuillez prendre contact "
 "directement avec un des auteurs et / ou  vous enregistrer sur la <link "
 "linkend=\"mailing-list\">liste de diffusion</link> de &kapp;.  De l'aide est "
 "toujours la bienvenue !"
@@ -4410,8 +4405,8 @@ msgid ""
 msgstr ""
 "Si vous désirez travailler sur d'autres formats de fichiers sonores, vous "
 "pouvez les convertir  en .wav. Un bon jeu d'utilitaires pour la manipulation "
-"des fichiers sonores est le paquetage  <ulink url=\"http://home.sprynet.com/"
-"~cbagwell/sox.html\">SoX</ulink>. Il est accompagné d'une  très bonne "
+"des fichiers sonores est le paquetage <ulink url=\"http://home.sprynet.com/"
+"~cbagwell/sox.html\">SoX</ulink>. Il est accompagné d'une très bonne "
 "documentation&nbsp;!"
 
 #: index.docbook:2856
@@ -4478,7 +4473,7 @@ msgid ""
 "playback (this also makes the playback control reacting a bit slower)."
 msgstr ""
 "Vous devez augmenter le buffer de lecture pour obtenir une lecture plus "
-"\"fluide\" (cela peut générer un contrôle sur la lecture un peu plus lent)."
+"«fluide» (cela peut générer un contrôle sur la lecture un peu plus lent)."
 
 #: index.docbook:2918
 #, no-c-format
@@ -4599,9 +4594,9 @@ msgid "Ralf Waspe <email>rwaspe@web.de</email> (Help/About plugin)"
 msgstr "Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue 'A propos de')"
 
 #: index.docbook:3016
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "Gilles Caulier <email>caulier.gilles@free.fr</email> (french translation)"
-msgstr "Caulier Gilles <email>caulier.gilles@free.fr</email> (Traductions Françaises)"
+msgstr "Gilles CAULIER <email>caulier.gilles@free.fr</email> (Traductions Françaises)"
 
 #: index.docbook:3016
 #, no-c-format
@@ -4642,6 +4637,8 @@ msgid ""
 "T.H.F. Klok and Cedric Tefft (maintainers of the <ulink url=\"http://www."
 "id3lib.org/\"> id3lib</ulink> library)"
 msgstr ""
+"T.H.F. Klok et Cedric Tefft (mainteneurs de la bibliothéque <ulink url=\"http://www."
+"id3lib.org/\"> id3lib</ulink>)"
 
 #: index.docbook:3080
 #, fuzzy, no-c-format

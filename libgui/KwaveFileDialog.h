@@ -41,6 +41,11 @@ public:
     KwaveFileDialog(const QString& startDir, const QString& filter,
                     QWidget *parent, const char *name, bool modal);
 
+    /**
+     * Returns the last used extension, including "*."
+     */
+    inline QString extension() { return m_last_ext; };
+    
 protected:
 
     /** load last settings */

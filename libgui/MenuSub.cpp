@@ -126,7 +126,7 @@ void MenuSub::actionChildEnableChanged(int id, bool enable)
      * sometimes is not correctly re-enabled if it's parent menu has been
      * disabled and re-enabled.
      */
-    qApp->processOneEvent();
+    qApp->processEvents();
 }
 
 //***************************************************************************

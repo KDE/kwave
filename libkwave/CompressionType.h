@@ -19,7 +19,7 @@
 #define _COMPRESSION_TYPE_H_
 
 #include "config.h"
-#include <audiofile.h>
+#include "audiofile.h"
 #include "TypesMap.h"
 
 class CompressionType: public TypesMap<int, int>

@@ -325,6 +325,21 @@ AC_CHECK_LIB(vorbis, vorbis_bitrate_addblock,,[AC_MSG_ERROR([
 
 ])])
 
+dnl check for libFLAC and libFLAC++
+dnl needed for the FLAC codec
+AM_PATH_LIBFLAC(, [AC_MSG_ERROR([
+
+    libFLAC not found, please install libflac and the
+    corresponding -devel package!
+
+])])
+AM_PATH_LIBFLACPP(, [AC_MSG_ERROR([
+
+    libFLAC++ not found, please install libflac and the
+    corresponding -devel package!
+
+])])
+
 dnl AC_CHECK_HEADERS(utility string,,AC_MSG_ERROR(""
 dnl "    "
 dnl "    your system seems to lack support for one or more STL classes."

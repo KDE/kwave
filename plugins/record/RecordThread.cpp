@@ -133,9 +133,10 @@ void RecordThread::run()
     qDebug("RecordThread::run() - started (buffers: %u x %u byte)",
            m_buffer_count, m_buffer_size);
     int result = 0;
+    bool interrupted = false;
 
     // read data until we receive a close signal
-    while (!shouldStop()) {
+    while (!shouldStop() && !interrupted) {
 	// dequeue a buffer from the "empty" queue
 	char *buffer = 0;
 
@@ -167,6 +168,13 @@ void RecordThread::run()
 		qWarning("RecordThread::run(): read returned %d", result);
 		break;
 	    } else {
+		if (result != (int)len) {
+		    qDebug("RecordThread::run(): result=%d, len=%d (Interrupted?)",
+		           result, len);
+		    interrupted = true;
+		    break;
+		}
+
 		Q_ASSERT(result <= (int)len);
 		len = ((int)len > result) ? (len - result) : 0;
 		p += len;

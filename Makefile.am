@@ -30,7 +30,7 @@ SUBDIRS  	 = @LIBAUDIOFILE_SUBDIR@ mt libgui libkwave kwave plugins po doc
 CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
 
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
-	`find . -type l` `find . -name autom4\*.cache`
+	`find . -type l` autom4*.cache/*
 
 configure.in: VERSION
 	$(srcdir)/bin/set_version.sh $(srcdir) \

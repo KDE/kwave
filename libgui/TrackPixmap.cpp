@@ -407,7 +407,7 @@ void TrackPixmap::repaint()
 	}
 	
 	// draw the zero-line
-	int last = samples2pixels(m_track.length()-1);
+	int last = samples2pixels(m_track.length()-1 - m_offset);
 	p.setPen(m_color_zero);
 	if (last >= w) {
 	    p.drawLine(0, h>>1, w-1, h>>1);

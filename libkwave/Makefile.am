@@ -24,6 +24,7 @@ libkwave_la_SOURCES=\
  CurveStreamAdapter_impl.cpp\
  Filter.cpp\
  FileLoader.cpp\
+ FileFormat.cpp\
  Functions.cpp\
  gsl_fft.cpp\
  Interpolation.cpp\

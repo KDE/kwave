@@ -30,6 +30,7 @@ bindir=$(prefix)/bin
 # Which sources should be compiled for kwave.
 
 BUILTSOURCES=\
+ CodecManager.moc.cpp\
  FFTContainer.moc.cpp\
  FFTWindow.moc.cpp\
  ImageView.moc.cpp\
@@ -49,6 +50,7 @@ BUILTSOURCES=\
 kwave_SOURCES =\
  main.cpp\
  ClipBoard.cpp\
+ CodecManager.cpp\
  FFTContainer.cpp\
  FFTWindow.cpp\
  ImageView.cpp\

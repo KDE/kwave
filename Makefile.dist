@@ -1,6 +1,6 @@
 #
 # Yes, this is the Makefile you should use if you downloaded the
-# source distribution.
+# source distribution or checked out from CVS.
 #
 # just type:
 # make -f Makefile.dist
@@ -8,8 +8,8 @@
 
 .PHONY: all all-logged
 
-KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s°::°:°g | sed s°:°/bin/:°g )
-KDEDIR=$(shell PATH=${PATH}:${KDEBINDIRS} kde-config --prefix | sed s°/$$°°g)
+KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s-::-:-g | sed s-:-/bin/:-g )
+KDEDIR=$(shell PATH=${PATH}:${KDEBINDIRS} kde-config --prefix | sed s./$$..g)
 
 default: all
 
@@ -45,7 +45,7 @@ logged:
 	autoheader
 	automake --add-missing --gnu --include-deps --verbose
 	autoconf
-	@ -touch -c doc/help_{de,fr}.po 2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_{de,fr}.po      2>/dev/null 1>/dev/null
 	@ -touch -c doc/help_{de,fr}.docbook 2>/dev/null 1>/dev/null
 	@ echo "" ; echo "your system uses:"
 	@ PATH=${PATH}:${KDEBINDIRS} kde-config --version

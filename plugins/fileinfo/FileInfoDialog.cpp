@@ -15,26 +15,33 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qdatetime.h>
+#include <qdialog.h>
 #include <qfileinfo.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
+#include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qstring.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+#include <kdatewidget.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/CompressionType.h"
 #include "libkwave/SampleFormat.h"
 #include "libgui/KwavePlugin.h"
+
 #include "FileInfoDialog.h"
+#include "SelectDateDialog.h"
 
 //***************************************************************************
 FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
     :FileInfoDlg(parent), m_info(info)
 {
     setupFileInfo();
+    setupContent();
 }
 
 //***************************************************************************
@@ -151,17 +158,53 @@ void FileInfoDialog::setupFileInfo()
     initInfo(lblSampleFormat, cbSampleFormat, INF_SAMPLE_FORMAT);
     cbSampleFormat->insertStringList(sample_formats.allNames());
     int sample_format = QVariant(m_info.get(INF_SAMPLE_FORMAT)).toInt();
-    cbSampleFormat->setEditText(sample_formats.name(
-	sample_formats.findFromData(sample_format)));
+    cbSampleFormat->setCurrentItem(sample_formats.findFromData(sample_format));
 
     /* compression */
     CompressionType compressions;
     initInfo(lblCompression, cbCompression, INF_COMPRESSION);
     cbCompression->insertStringList(compressions.allNames());
     int compression = QVariant(m_info.get(INF_COMPRESSION)).toInt();
-    cbCompression->setEditText(compressions.name(
-	compressions.findFromData(compression)));
+    cbCompression->setCurrentItem(compressions.findFromData(compression));
 
+}
+
+//***************************************************************************
+void FileInfoDialog::setupContent()
+{
+    /* name, subject, genre, title, author, copyright */
+    initInfoText(lblName,      edName,      INF_NAME);
+    initInfoText(lblSubject,   edSubject,   INF_SUBJECT);
+    initInfoText(lblGenre,     edGenre,     INF_GENRE);
+    initInfoText(lblAuthor,    edAuthor,    INF_AUTHOR);
+    initInfoText(lblCopyright, edCopyright, INF_COPYRIGHT);
+
+    /* date widget */
+    initInfo(lblDate, dateEdit, INF_CREATION_DATE);
+    QDate date;
+    date = (m_info.contains(INF_CREATION_DATE)) ?
+        QDate::fromString(QVariant(m_info.get(INF_CREATION_DATE)).toString(),
+        Qt::ISODate) : QDate::currentDate();
+    dateEdit->setDate(date);
+    connect(btSelectDate, SIGNAL(clicked()), this, SLOT(selectDate()));
+    connect(btSelectDateNow, SIGNAL(clicked()), this, SLOT(setDateNow()));
+}
+
+//***************************************************************************
+void FileInfoDialog::selectDate()
+{
+    QDate date(dateEdit->date());
+    SelectDateDialog date_dialog(this, date);
+    if (date_dialog.exec() == QDialog::Accepted) {
+	date = date_dialog.date();
+	dateEdit->setDate(date);
+    }
+}
+
+//***************************************************************************
+void FileInfoDialog::setDateNow()
+{
+    dateEdit->setDate(QDate::currentDate());
 }
 
 //***************************************************************************
@@ -184,9 +227,23 @@ void FileInfoDialog::tracksChanged(int tracks)
 }
 
 //***************************************************************************
+void FileInfoDialog::acceptEdit(FileProperty property, QString value)
+{
+    value.simplifyWhiteSpace();
+    if (!m_info.contains(property) && !value.length()) return;
+
+    if (!value.length()) {
+	m_info.set(property, 0);
+    } else {
+	m_info.set(property, value);
+    }
+}
+
+//***************************************************************************
 void FileInfoDialog::accept()
 {
     debug("FileInfoDialog::accept()");
+    m_info.dump();
 
     /* bits per sample */
     m_info.setBits(sbResolution->value());
@@ -202,7 +259,22 @@ void FileInfoDialog::accept()
     /* compression */
     CompressionType compressions;
     int compression = compressions.data(cbCompression->currentItem());
-    m_info.set(INF_COMPRESSION, QVariant(compression));
+    m_info.set(INF_COMPRESSION, (compression != AF_COMPRESSION_NONE) ?
+        QVariant(compression) : 0);
+
+    /* name, subject, genre, title, author, copyright */
+    acceptEdit(INF_NAME,      edName->text());
+    acceptEdit(INF_GENRE,     edGenre->text());
+    acceptEdit(INF_AUTHOR,    edAuthor->text());
+    acceptEdit(INF_COPYRIGHT, edCopyright->text());
+
+    /* date */
+    QDate date = dateEdit->date();
+    if ((date != QDate::currentDate()) || m_info.contains(INF_CREATION_DATE))
+	m_info.set(INF_CREATION_DATE, QVariant(date).asString());
+
+    debug("FileInfoDialog::accept() --2--");
+    m_info.dump();
 
     QDialog::accept();
 }

@@ -43,6 +43,12 @@ public slots:
 
 private slots:
 
+    /** select a date for the "creation date" setting */
+    void selectDate();
+
+    /** sets the "creation date" to today */
+    void setDateNow();
+
     /** updates the verbose description of the number of tracks */
     void tracksChanged(int tracks);
 
@@ -75,8 +81,17 @@ protected:
 
 private:
 
+    /**
+     * takes the content of an edit field or similar into the current
+     * info ore removes it if the text is zero-length
+     */
+    void acceptEdit(FileProperty property, QString value);
+
     /** initializes the "File" tab */
     void setupFileInfo();
+
+    /** initializes the "Content" tab */
+    void setupContent();
 
 private:
 

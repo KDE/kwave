@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-11-30 20:38+0100\n"
-"PO-Revision-Date: 2003-12-03 16:11+0100\n"
+"PO-Revision-Date: 2003-12-03 16:29+0100\n"
 "Last-Translator: Gilles CAULIER <caulier.gilles@free.fr>\n"
 "Language-Team: Française <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3526,6 +3526,9 @@ msgid ""
 "your audio hardware supports. This normally has no big influence on the "
 "result, so you can just leave it as it is."
 msgstr ""
+"<b>Format d'échantillonnage</b><br>Vous pouvez ici choisir un des types de "
+"for;at échantillonnage prédéfinie. Ce parametre n'a pas une grande influence "
+"sur le résultat audio."
 
 #: plugins/record/RecordDlg.uic.cpp:641
 msgid "Sample Format:"
@@ -3554,7 +3557,6 @@ msgid "Select..."
 msgstr "Sélectionner..."
 
 #: plugins/record/RecordDlg.uic.cpp:649
-#, fuzzy
 msgid "Buffer Count:"
 msgstr "Mémoire tampon :"
 

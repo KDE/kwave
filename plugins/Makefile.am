@@ -5,7 +5,7 @@
 
 DISTCLEANFILES = Makefile.in Makefile
 
-dirs="about amplifyfree codec_wav memory newsignal noise playback sonagram zero"
+dirs="about amplifyfree codec_audiofile codec_wav memory newsignal noise playback sonagram zero"
 
 distclean-generic:
 	-rm -fv `find . -name \*.d -o -name \*.dm -o -name .depend`

@@ -72,8 +72,8 @@ AsyncSync::~AsyncSync()
 void AsyncSync::SyncHandler()
 {
     // First remove message from pipe ( the writer only wrote 1 byte )
-    static char buf;
-    if ( ::read( m_fds[0], &buf, 1 ) == -1 ) {
+    static char dummy;
+    if ( ::read( m_fds[0], &dummy, 1 ) == -1 ) {
 	::perror( "Reading from pipe" );
     }
 
@@ -85,8 +85,8 @@ void AsyncSync::SyncHandler()
 void AsyncSync::AsyncHandler()
 {
     // Just send a single byte of data;
-    static const char *buf = "";
-    if ( ::write( m_fds[1], buf, 1 ) == -1 ) {
+    static const char dummy = 0x00;
+    if ( ::write( m_fds[1], &dummy, 1 ) == -1 ) {
 	::perror( "Writing to pipe" );
     }
 }

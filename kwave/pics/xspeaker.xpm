@@ -62,4 +62,5 @@ static const char * images_xspeaker_xpm[] = {
 "..  .....udyXXX  X.",
 ".  ........ifXXX  .",
 "  ...........XXXX  ",
-" .............XX.. "};
+" .............XX.. "
+};

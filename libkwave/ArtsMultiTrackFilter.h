@@ -68,6 +68,24 @@ public:
 	const std::string &input_name = "input",
 	const std::string &output_name = "output") = 0;
 
+    /**
+     * Set all input of the filters to the same constant value.
+     * @param input_name name of the input of the sinks
+     * @param value float value to be set
+     */
+    virtual void setValue(
+	const std::string &input_name,
+	const float value) = 0;
+
+    /**
+     * Set all attributes of the filters to the same constant value.
+     * @param attribute name of the attribute to set
+     * @param value float value to be set
+     */
+    virtual void setAttribute(
+	const std::string &attribute,
+	const float value) = 0;
+
     /** Starts all filters. */
     virtual void start() = 0;
 

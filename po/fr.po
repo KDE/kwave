@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-11-03 22:08+0100\n"
-"PO-Revision-Date: 2002-11-04 15:16GMT\n"
+"PO-Revision-Date: 2002-11-04 15:59GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -228,7 +228,7 @@ msgstr "Débit "
 
 #: libkwave/FileInfo.cpp:51
 msgid "Nominal bitrate of the audio stream in bits per second"
-msgstr ""
+msgstr "Débit nominal du flux audio en bits par seconde"
 
 #: libkwave/FileInfo.cpp:53
 msgid "Upper Bitrate"
@@ -236,7 +236,7 @@ msgstr "Débit important"
 
 #: libkwave/FileInfo.cpp:54
 msgid "Specifies the upper limit in a VBR bitstream."
-msgstr ""
+msgstr "Spécifie la limite haute d'un flux VBR."
 
 #: libkwave/FileInfo.cpp:56
 msgid "CD"
@@ -300,6 +300,9 @@ msgid ""
 "the track. This could be a URL, an email address, the\n"
 "physical address of the producing label."
 msgstr ""
+"Information pour contacter le créateur ou le distributeur\n"
+"du morceau. Cela peut être une URL, une adresse de courrier\n"
+"électronique, ou l'adresse postale du label de production."
 
 #: libkwave/FileInfo.cpp:78
 msgid "Copyright"
@@ -389,6 +392,9 @@ msgid ""
 "for more information on ISRC numbers.\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 msgstr ""
+"Numéro ISRC pour le morceau. Voir la page WEB concernant\n"
+"la numérotation ISRC pour plus d'informations.\n"
+"http://www.ifpi.org/site-content/online/isrc_intro.html"
 
 #: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:29
 msgid "Keywords"
@@ -415,6 +421,12 @@ msgid ""
 "see http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
 "for details'), etc."
 msgstr ""
+"Informations sur la licence, tel que «Tous droits réservés»,\n"
+"«Toutes utilisations permises», une URL vers une licence ou\n"
+"la «EFF Open Audio License» (distribué sous les termes de la\n"
+"licence Open Audio. Voir l'adresse\n"
+"http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
+"pour plus de détails)."
 
 #: libkwave/FileInfo.cpp:124
 msgid "Medium"
@@ -460,7 +472,7 @@ msgstr "Mode étendu "
 
 #: libkwave/FileInfo.cpp:139
 msgid "MPEG Mode Extension (only if Joint Stereo)"
-msgstr "MPEG mode étendu (seulement en stéréo)"
+msgstr "Mode étendu du format MPEG (seulement en stéréo)"
 
 #: libkwave/FileInfo.cpp:141 libkwave/FileInfo.cpp:199
 msgid "Version"
@@ -1311,7 +1323,7 @@ msgstr ""
 
 #: kwave/TopWidget.cpp:506
 msgid "Loading plugins..."
-msgstr "Chargement des plugins..."
+msgstr "Chargement des modules externes..."
 
 #: kwave/TopWidget.cpp:508
 msgid "Ready."
@@ -1414,7 +1426,7 @@ msgstr "Site internet de kwave et documentation en Allemand."
 
 #: kwave/main.cpp:82
 msgid "tester"
-msgstr "Testeurs."
+msgstr "Testeur"
 
 #: kwave/main.cpp:86
 msgid "debian packager"
@@ -1801,7 +1813,7 @@ msgstr "terminés..."
 
 #: kwave/menus_config_i18n.cpp:116
 msgid "to &End"
-msgstr "à la &Fin"
+msgstr "A la &Fin"
 
 #: kwave/menus_config_i18n.cpp:117
 msgid "to &Maximum"
@@ -1809,7 +1821,7 @@ msgstr "au &maximum"
 
 #: kwave/menus_config_i18n.cpp:118
 msgid "&to new Window"
-msgstr "&Dans une mouvelle fenêtre"
+msgstr "&Dans une nouvelle fenêtre"
 
 #: kwave/menus_config_i18n.cpp:119
 msgid "to &Start"
@@ -2309,7 +2321,7 @@ msgstr ""
 "Avec Kwave vous pouvez éditer plusieurs types de \n"
 "fichiers sonores y compris les fichiers audio multicanaux.\n"
 "Vous pouvez aussi modifier et rejouer chaque piste indépendamment.<br>\n"
-"Kwave inclut aussi beaucoup de «plugins» (la plupart sont \n"
+"Kwave inclut aussi beaucoup de modules externes (la plupart sont \n"
 "en cours de développement) pour transformer les fichiers \n"
 "sonores. Kwave présente une vue graphique \n"
 "avec des fonctions de zoom et de défilement."
@@ -3068,7 +3080,7 @@ msgstr "A&uto"
 
 #: plugins/fileinfo/KeywordWidgetBase.uic.cpp:51
 msgid "auto-generate keywords"
-msgstr ""
+msgstr "Génération automatique de mots clef"
 
 #: plugins/fileinfo/KeywordWidgetBase.uic.cpp:52
 msgid ""
@@ -3079,7 +3091,7 @@ msgstr ""
 
 #: plugins/fileinfo/KeywordWidgetBase.uic.cpp:59
 msgid "List of keywords."
-msgstr ""
+msgstr "Liste de mots clef."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:129
 msgid "%1 bytes"

@@ -12,37 +12,36 @@
 
 struct Global;
 //*****************************************************************************
-class MarkSignalDialog : public Dialog
-{
- Q_OBJECT
+class MarkSignalDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	MarkSignalDialog 	(Global *,int,bool);
- 	~MarkSignalDialog ();
- 
- const char *getCommand ();
+    MarkSignalDialog (Global *, int, bool);
+    ~MarkSignalDialog ();
 
- public slots:
+    const char *getCommand ();
 
- void setAmpl (int);
- void setAmpl (const char *);
+public slots:
 
- protected:
+    void setAmpl (int);
+    void setAmpl (const char *);
 
- void resizeEvent (QResizeEvent *);
+protected:
 
- private:
+    void resizeEvent (QResizeEvent *);
 
- QLabel         *timelabel,*ampllabel;
- FloatLine      *ampl;
- TimeLine	*time;
- Slider         *amplslider;
- QLabel         *mark1,*mark2;
- QComboBox	*marktype1,*marktype2;
- QPushButton	*ok,*cancel;
- char *         comstr;
- bool           tflag;
+private:
+
+    QLabel *timelabel, *ampllabel;
+    FloatLine *ampl;
+    TimeLine *time;
+    Slider *amplslider;
+    QLabel *mark1, *mark2;
+    QComboBox *marktype1, *marktype2;
+    QPushButton *ok, *cancel;
+    char * comstr;
+    bool tflag;
 };
 //*****************************************************************************
 #endif

@@ -9,28 +9,27 @@
 #include <kintegerline.h>
 
 //*****************************************************************************
-class AverageFFTDialog : public Dialog
-{
- Q_OBJECT
+class AverageFFTDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- AverageFFTDialog 	 (int rate,bool);
- ~AverageFFTDialog 	 ();
- const char*  getCommand ();
+    AverageFFTDialog (int rate, bool);
+    ~AverageFFTDialog ();
+    const char* getCommand ();
 
- protected:
+protected:
 
- void         resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- QLabel		*pointlabel;
- QLabel		*windowtypelabel;
- TimeLine	*windowlength;
- QComboBox	*windowtypebox;
- QPushButton	*ok,*cancel;
- int            length,rate;
- char           *comstr;
+    QLabel *pointlabel;
+    QLabel *windowtypelabel;
+    TimeLine *windowlength;
+    QComboBox *windowtypebox;
+    QPushButton *ok, *cancel;
+    int length, rate;
+    char *comstr;
 };
 #endif

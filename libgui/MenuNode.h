@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuNode.h  -  generic menu node type
-                             -------------------
+			  MenuNode.h  -  generic menu node type
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -20,22 +20,24 @@
 
 #include <qobject.h>
 #include <qlist.h>
+#include <qdict.h>
 #include <qstrlist.h>
 
 class QPixmap;
+class MenuNode;
 class MenuSub;
+class MenuGroup;
 
 /**
  * Base class for the MenuRoot, MenuEntry, SubMenu and
  * the ToplevelMenu class.
  * @author Thomas Eschenbacher
  */
-class MenuNode: public QObject
-{
+class MenuNode: public QObject {
     Q_OBJECT
 
-friend class MenuSub;
-friend class MenuItem;
+    friend class MenuSub;
+    friend class MenuItem;
 
 public:
     /**
@@ -48,8 +50,8 @@ public:
      *            (optional, default=0)
      * @param uid unique id string (optional, default=0)
      */
-    MenuNode(MenuNode *parent, char *name, char *command=0,
-             int key=0, char *uid=0);
+    MenuNode(MenuNode *parent, char *name, char *command = 0,
+	     int key = 0, char *uid = 0);
 
     /**
      * Destructor. Clears the menu node and cleans up.
@@ -60,22 +62,30 @@ public:
     /**
      * Returns the (non-localized) name of the node.
      */
-    const char *getName() {return name;};
+    inline const char *getName() {
+	return name;
+    };
 
     /**
      * Returns the command of the node.
      */
-    const char *getCommand() {return command;};
+    inline const char *getCommand() {
+	return command;
+    };
 
     /**
      * Returns the menu id of the node.
      */
-    int getId() {return this->id;};
+    inline int getId() {
+	return this->id;
+    };
 
     /**
      * Returns the unique id string of the node.
      */
-    char *getUID() { return this->uid;};
+    inline char *getUID() {
+	return this->uid;
+    };
 
     /**
      * Sets the unique id string of the node
@@ -85,12 +95,16 @@ public:
     /**
      * Returns the bitmask of the keyboard shortcut.
      */
-    int getKey() { return this->key;};
+    inline int getKey() {
+	return this->key;
+    };
 
     /**
      * Sets the bitmask of the keyboard shortcut.
      */
-    virtual void setKey(int key) { this->key = key; };
+    virtual void setKey(int key) {
+	this->key = key;
+    };
 
     /**
      * Returns a reference to the menu node's icon.
@@ -114,14 +128,18 @@ public:
      * Sets the menu id of a node.
      * @param id new menu id of the node
      */
-    inline void setId(int id) {this->id=id;};
+    inline void setId(int id) {
+	this->id = id;
+    };
 
     /**
      * Positional index of the node in the parent node.
      * (overwritten in MenuItem and MenuSub)
      * @return index [0..n] or -1 if no parent
      */
-    virtual int getIndex() {return -1;};
+    virtual int getIndex() {
+	return -1;
+    };
 
     /**
      * Returns the positional index of a child node, identified by
@@ -135,7 +153,9 @@ public:
      * Returns true if the node is a branch, false if it is a leaf.
      * (overwritten in MenuSub etc.)
      */
-    virtual bool isBranch() {return false;};
+    virtual bool isBranch() {
+	return false;
+    };
 
     /**
      * Removes all child entries from the menu node (gui) and
@@ -224,7 +244,7 @@ public:
      * @return pointer to the new branch node
      */
     virtual MenuNode *insertBranch(char *name, char *command, int key,
-                                   char *uid, int index=-1);
+				   char *uid, int index = -1);
 
     /**
      * Inserts a new leaf node into the menu structure. The new node
@@ -240,7 +260,7 @@ public:
      * @return pointer to the new leaf node
      */
     virtual MenuNode *insertLeaf(char *name, char *command, int key,
-                                 char *uid, int index=-1);
+				 char *uid, int index = -1);
 
     /**
      * Registers a node as a child of the current node.
@@ -263,7 +283,7 @@ public:
      * @param uid unique id string (might be 0)
      */
     virtual int insertNode(char *name, char *position, char *command,
-	                   int key, char *uid);
+			   int key, char *uid);
 
     /**
      * Converts a child node from leaf to branch type by removing
@@ -295,11 +315,17 @@ public:
     virtual void actionChildEnableChanged(int id, bool enable);
 
     /**
+     * Returns a reference to the list of groups. It recursively calls
+     * all parent node's getGroupList() function until it reaches the
+     * root node of the menu structure that holds the list of groups and
+     * overwrites this function.
+     * @return reference to the list of groups
+     */
+    virtual QDict<MenuNode> *getGroupList();
+
+    /**
      * Adds the node to a group. If it is already a member of the
-     * group this function will do nothing. It recursively calls
-     * all parent node's joinGroup function until it reaches the
-     * root node of the menu structure that holds the list of
-     * groups and overwrites this function.
+     * group this function will do nothing.
      * @param group name of the group
      */
     void joinGroup(const char *group);
@@ -317,7 +343,25 @@ protected:
      */
     MenuNode *getRootNode();
 
+    /**
+     * Emits a command if the node is the root node. If it is a client
+     * node it will call the root node's emitCommand() function.
+     * @see #emitCommand()
+     * @see #getRootNode()
+     */
+    void emitCommand(const char *command);
+
 signals:
+    /**
+     * Will be emitted if the command of the menu node
+     * should be executed. It will only be emitted by the
+     * root node, client nodes call the root node's emitCommand()
+     * function.
+     * @see #emitCommand()
+     * @see #getRootNode()
+     */
+    void sigCommand(const char *command);
+
     /**
      * Parent nodes can connect to this signal in order to get notified
      * when the enable state of their child node has changed.
@@ -354,7 +398,7 @@ protected:
     QList<MenuNode> children;
 
     /** list of group names the item belongs to */
-    QStrList *groups;
+    QStrList groups;
 
 private:
     /** numeric id in the menu */

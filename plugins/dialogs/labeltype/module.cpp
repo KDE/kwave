@@ -5,84 +5,78 @@
 #include "module.h"
 #include <kapp.h>
 
-const char *version="1.0";
-const char *author="Martin Wilz";
-const char *name="labeltype";
+const char *version = "1.0";
+const char *author = "Martin Wilz";
+const char *name = "labeltype";
 //**********************************************************
-Dialog *getDialog (DialogOperation *operation)
-{
-  return new MarkerTypeDialog(operation->isModal());
+Dialog *getDialog (DialogOperation *operation) {
+    return new MarkerTypeDialog(operation->isModal());
 }
 //**********************************************************
-MarkerTypeDialog::MarkerTypeDialog (bool modal): Dialog(modal)
-{
-  comstr=0;
-  setCaption (i18n ("Choose new label type"));
-  namelabel	=new QLabel	(i18n("Name :"),this);
-  this->name    =new QLineEdit	(this);
-  color         =new KColorCombo(this);
-  col.setRgb (255,255,0);
-  color->setColor (col);
+MarkerTypeDialog::MarkerTypeDialog (bool modal): Dialog(modal) {
+    comstr = 0;
+    setCaption (i18n ("Choose new label type"));
+    namelabel = new QLabel (i18n("Name :"), this);
+    this->name = new QLineEdit (this);
+    color = new KColorCombo(this);
+    col.setRgb (255, 255, 0);
+    color->setColor (col);
 
-  individual   =new QCheckBox  (i18n("individual name for each label"),this);   
+    individual = new QCheckBox (i18n("individual name for each label"), this);
 
-  ok		=new QPushButton (OK,this);
-  cancel       	=new QPushButton (CANCEL,this);
+    ok = new QPushButton (OK, this);
+    cancel = new QPushButton (CANCEL, this);
 
-  int bsize=ok->sizeHint().height();
+    int bsize = ok->sizeHint().height();
 
-  setMinimumSize (320,bsize*5);
-  resize (320,bsize*5);
+    setMinimumSize (320, bsize*5);
+    resize (320, bsize*5);
 
-  this->name->setFocus();
+    this->name->setFocus();
 
-  ok->setAccel	(Key_Return);
-  cancel->setAccel(Key_Escape);
-  connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
-  connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
-  connect 	(color	,SIGNAL(activated(const QColor &))
-		 ,SLOT (setColor(const Color &)));
+    ok->setAccel (Key_Return);
+    cancel->setAccel(Key_Escape);
+    connect (ok , SIGNAL(clicked()), SLOT (accept()));
+    connect (cancel , SIGNAL(clicked()), SLOT (reject()));
+    connect (color , SIGNAL(activated(const QColor &))
+	     , SLOT (setColor(const Color &)));
 }
 //**********************************************************
-const char *MarkerTypeDialog::getCommand ()
-{
-  deleteString (comstr);
+const char *MarkerTypeDialog::getCommand () {
+    deleteString (comstr);
 
-  comstr=catString ("newlabeltype (",
-		    name->text(),
-		    ",",
-		    individual->isChecked()?"true":"false",
-		    ",",
-  		    col.getCommand(),
-		    ")"
-		    );
+    comstr = catString ("newlabeltype (",
+			name->text(),
+			",",
+			individual->isChecked() ? "true" : "false",
+			",",
+			col.getCommand(),
+			")"
+		       );
 
-  return comstr;
+    return comstr;
 }
 //**********************************************************
-void MarkerTypeDialog::setColor (const Color &col)
-{
-  this->col=col;
+void MarkerTypeDialog::setColor (const Color &col) {
+    this->col = col;
 }
 //**********************************************************
-void MarkerTypeDialog::resizeEvent (QResizeEvent *)
-{
- int bsize=ok->sizeHint().height();
- int offset=bsize/2;
+void MarkerTypeDialog::resizeEvent (QResizeEvent *) {
+    int bsize = ok->sizeHint().height();
+    int offset = bsize / 2;
 
- namelabel->setGeometry	(width()/20,offset,width()*3/20,bsize);  
- name->setGeometry	(width()*2/10,offset,width()*5/10,bsize);
- color->setGeometry	(width()*15/20,offset,width()*2/10,bsize);
- offset+=bsize*3/2;
- individual->setGeometry(width()/20,offset,width()*18/20,bsize);
+    namelabel->setGeometry (width() / 20, offset, width()*3 / 20, bsize);
+    name->setGeometry (width()*2 / 10, offset, width()*5 / 10, bsize);
+    color->setGeometry (width()*15 / 20, offset, width()*2 / 10, bsize);
+    offset += bsize * 3 / 2;
+    individual->setGeometry(width() / 20, offset, width()*18 / 20, bsize);
 
- ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
- cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
+    ok->setGeometry (width() / 10, height() - bsize*3 / 2, width()*3 / 10, bsize);
+    cancel->setGeometry (width()*6 / 10, height() - bsize*3 / 2, width()*3 / 10, bsize);
 }
 //**********************************************************
-MarkerTypeDialog::~MarkerTypeDialog ()
-{
-  deleteString (comstr);
+MarkerTypeDialog::~MarkerTypeDialog () {
+    deleteString (comstr);
 }
 //**********************************************************
 

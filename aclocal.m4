@@ -2842,11 +2842,49 @@ fi
 AC_SET_NODEBUG)
 ])
 
+AC_DEFUN(AC_SET_CRASH_LOCATOR,
+[
+ LDFLAGS="${LDFLAGS} -liberty -lbfd" 
+ AC_MSG_RESULT("yes");
+ AC_DEFINE(USE_CRASH_LOCATOR)
+])
+
+AC_DEFUN(AC_SET_NO_CRASH_LOCATOR,
+[
+ AC_MSG_RESULT("no");
+])
+
+AC_DEFUN(AC_CHECK_CRASH_LOCATOR,
+[
+AC_ARG_ENABLE(crash-locator,[  --enable-crash-locator	creates builtin crash-debugging code [default=no]],
+[ 
+
+AC_CHECK_LIB(iberty, cplus_demangle, [
+LIBIBERTY="-liberty"
+ac_cv_have_libiberty=yes
+])
+
+AC_CHECK_LIB(bfd, bfd_find_nearest_line, [
+LIBIBERTY="-lbfd"
+ac_cv_have_libbfd=yes
+])
+
+AC_MSG_CHECKING(whether to use the built-in crash-locator)
+
+if test $enableval != "no"; dnl 
+  then AC_SET_CRASH_LOCATOR
+  else AC_SET_NO_CRASH_LOCATOR
+fi
+],
+AC_SET_NO_CRASH_LOCATOR)
+])
+
 dnl just a test
 AC_DEFUN(AC_CHECK_FLAGS, 
 [
 AC_REQUIRE([AC_CHECK_WITH_GCC])
 AC_REQUIRE([AC_CHECK_DEBUG])
+# AC_REQUIRE([AC_CHECK_CRASH_LOCATOR])
 AC_SUBST(CXXFLAGS)
 AC_SUBST(CFLAGS)
 AC_SUBST(LDFLAGS)

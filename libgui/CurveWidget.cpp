@@ -12,344 +12,443 @@
 #include <qaccel.h>
 #include <qfiledlg.h>
 #include <qpopupmenu.h>
+
 #include <kapp.h>
+#include <kiconloader.h>
 
 #include <libkwave/Interpolation.h>
 #include <libkwave/FileLoader.h>
 #include <libkwave/Curve.h>
 #include <libkwave/Global.h>
+#include <libkwave/String.h>
 
 #include "CurveWidget.h"
 
 #include <qwidget.h>
 #include <libkwave/Curve.h>
 
-int knobcount=0;
-QPixmap *knob=0;
-QPixmap *selectedknob=0;
-
 extern Global globals;
+
 //****************************************************************************
-CurveWidget::CurveWidget (QWidget *parent,const char *init,int keepborder) : QWidget (parent)
+CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
+    :QWidget(parent)
 {
-  last=0;
+    act = 0;
+    down = false;
+    height = 0;
+    interpolationtype = 0;
+    keepborder = 0;
+    knob = 0;
+    knobcount = 1;
+    last = 0;
+    menu = 0;
+    namelist = 0;
+    pixmap = 0;
+    points = 0;
+    presetDir = 0;
+    selectedknob = 0;
+    width = 0;
 
-  this->keepborder=keepborder;
+    this->keepborder = keepborder;
 
-  if (init) points=new Curve (init);
-  else points=new Curve ("curve (linear,0,0,1,1)");
+    if (init) points = new Curve(init);
+    else points = new Curve("curve (linear,0,0,1,1)");
+    ASSERT(points);
+    if (!points) return;
 
-  setBackgroundColor (black);
+    setBackgroundColor(black);
 
-  menu=new QPopupMenu ();
-  QPopupMenu *interpolation=new QPopupMenu ();
-  QPopupMenu *del =new QPopupMenu ();
-  QPopupMenu *transform =new QPopupMenu ();
-  QPopupMenu *presets=new QPopupMenu ();
-  transform->insertItem (i18n("Flip Horizontal"),this,SLOT(HFlip()));
-  transform->insertItem (i18n("Flip Vertical"),this,SLOT(VFlip()));
-  transform->insertSeparator();
+    const QString dirname=KApplication::getKApplication()->kde_datadir();
+    QDir dir (dirname.data());
+    dir.cd ("kwave");
+    dir.cd ("pics");
 
-  menu->insertItem (i18n("Interpolation"),interpolation);
-  menu->insertSeparator();
-  menu->insertItem (i18n("Transform"),transform);
-  menu->insertItem (i18n("Delete"),del);
-  menu->insertItem (i18n("Fit In"),this,SLOT(scaleFit()));
-  menu->insertSeparator();
-  menu->insertItem (i18n("Presets"),presets);
-  menu->insertItem (i18n("Save Preset"),this,SLOT(savePreset()));
+    knob = new QPixmap(dir.filePath("knob.xpm"));
+    ASSERT(knob);
+    if (!knob) return;
 
-  transform->insertItem (i18n ("into 1st half"),this,SLOT(firstHalf()));
-  transform->insertItem (i18n ("into 2nd half"),this,SLOT(secondHalf()));
+    selectedknob = new QPixmap(dir.filePath("selectedknob.xpm"));
+    ASSERT(selectedknob);
+    if (!selectedknob) return;
 
-  del->insertItem (i18n ("recently selected Point"),this,SLOT(deleteLast()));
-  del->insertItem (i18n ("every 2nd Point"),this,SLOT(deleteSecond()));
+    menu = new QPopupMenu ();
+    ASSERT(menu);
+    if (!menu) return;
 
-  presetDir=new QDir(globals.localconfigDir);
+    QPopupMenu *interpolation = new QPopupMenu ();
+    ASSERT(interpolation);
+    if (!interpolation) return;
 
-  if (presetDir)
-    {
-      if (!presetDir->cd ("presets"))
-	{
-	  presetDir->mkdir ("presets");
-	  presetDir->cd ("presets");
-	}
-      if (!presetDir->cd ("curves"))
-	{
-	  presetDir->mkdir ("curves");
-	  presetDir->cd ("curves");
-	}
+    QPopupMenu *del = new QPopupMenu ();
+    ASSERT(del);
+    if (!del) return;
 
-      presetDir->setNameFilter ("*.curve");
+    QPopupMenu *transform = new QPopupMenu();
+    ASSERT(transform);
+    if (!transform) return;
 
-      namelist=(QStrList *)presetDir->entryList ();
+    QPopupMenu *presets = new QPopupMenu();
+    ASSERT(presets);
+    if (!presets) return;
 
-      for (char *tmp=namelist->first();tmp;tmp=namelist->next())
-	{
-	  char buf[strlen(tmp)-5];
-	  strncpy (buf,tmp,strlen(tmp)-6);
-	  buf[strlen(tmp)-6]=0;
-	  presets->insertItem (buf);
-	}
+    transform->insertItem(i18n("Flip Horizontal"),
+	                  this, SLOT(HFlip()));
+    transform->insertItem(i18n("Flip Vertical"),
+                          this, SLOT(VFlip()));
+    transform->insertSeparator();
+    transform->insertItem(i18n("into 1st half"),
+                          this, SLOT(firstHalf()));
+    transform->insertItem(i18n("into 2nd half"),
+                          this, SLOT(secondHalf()));
 
-      connect( presets, SIGNAL(activated(int)), SLOT(loadPreset(int)) ); 
+    menu->insertItem(i18n("Interpolation"), interpolation);
+    menu->insertSeparator();
+    menu->insertItem(i18n("Transform"), transform);
+    menu->insertItem(i18n("Delete"), del);
+    menu->insertItem(i18n("Fit In"), this, SLOT(scaleFit()));
+    menu->insertSeparator();
+    menu->insertItem(i18n("Presets"), presets);
+    menu->insertItem(i18n("Save Preset"), this, SLOT(savePreset()));
+
+    del->insertItem(i18n("recently selected Point"),
+	            this, SLOT(deleteLast()));
+    del->insertItem(i18n("every 2nd Point"),
+	            this, SLOT(deleteSecond()));
+
+    presetDir = new QDir(globals.localconfigDir);
+    ASSERT(presetDir);
+    if (!presetDir) return;
+
+    if (!presetDir->cd ("presets")) {
+	presetDir->mkdir ("presets");
+	presetDir->cd ("presets");
+    }
+    if (!presetDir->cd ("curves")) {
+	presetDir->mkdir ("curves");
+	presetDir->cd ("curves");
     }
 
-  char **names=(char **) Interpolation::getTypes();
-  int i=0;
+    presetDir->setNameFilter ("*.curve");
 
-  while (names[i]!=NULL)
-    interpolation->insertItem (i18n(names[i++]));
+    namelist = (QStrList *)presetDir->entryList();
+    ASSERT(namelist);
+    if (!namelist) return;
 
-  connect( interpolation, SIGNAL(activated(int)), SLOT(setType(int)) ); 
-
-  act=0;                           //set active point to none
-  interpolationtype=0;             //default interpolation type
-  
-  if (knob==0)
-    {
-      const QString &dirname=((KApplication *)globals.app)->kde_datadir ();
-      QDir dir (dirname.data());
-      dir.cd ("kwave");
-      dir.cd ("pics");
-
-      knob=new QPixmap ();
-      knob->convertFromImage (QImage (dir.filePath("knob.xpm")));
-      selectedknob=new QPixmap ();
-      selectedknob->convertFromImage (QImage (dir.filePath("selectedknob.xpm")));
-      knobcount=0;
+    for (char *tmp = namelist->first(); tmp; tmp = namelist->next()) {
+	char buf[strlen(tmp) - 5];
+	strncpy (buf, tmp, strlen(tmp) - 6);
+	buf[strlen(tmp) - 6] = 0;
+	presets->insertItem (buf);
     }
-  else
-    knobcount++;
+    connect( presets, SIGNAL(activated(int)), SLOT(loadPreset(int)) );
 
-  setMouseTracking (true);
+    char **names = (char **) Interpolation::getTypes();
+    int i = 0;
+    ASSERT(names);
+    if (!names) return;
 
-  QAccel *delkey=new QAccel (this);
-  delkey->connectItem (delkey->insertItem(Key_Delete),this,SLOT (deleteLast()));
+    while (names[i]) {
+	interpolation->insertItem(i18n(names[i++]));
+    }
+
+    connect(interpolation, SIGNAL(activated(int)),
+	    SLOT(setType(int)) );
+
+    setMouseTracking(true);
+
+    QAccel *delkey = new QAccel (this);
+    ASSERT(delkey);
+    if (!delkey) return;
+
+    delkey->connectItem(delkey->insertItem(Key_Delete),
+                        this, SLOT (deleteLast()));
+
 }
+
 //****************************************************************************
-CurveWidget::~CurveWidget ()
+CurveWidget::~CurveWidget()
 {
-  knobcount--;
-
-  if (knobcount<=0)
-    {
-      if (knob) delete knob;
-      if (selectedknob) delete selectedknob;
-      knob=0;
-    }
-
-  if (presetDir) delete presetDir;
-  if (points) delete points;
-  if (menu) delete menu;
+    if (presetDir) delete presetDir;
+    if (points) delete points;
+    if (knob) delete knob;
+    if (pixmap) delete pixmap;
+    if (selectedknob) delete selectedknob;
+    if (menu) delete menu;
 }
+
 //****************************************************************************
 const char *CurveWidget::getCommand()
 {
-  return points->getCommand();
+    ASSERT(points);
+    return (points) ? points->getCommand() : 0;
 }
+
 //****************************************************************************
-void CurveWidget::setCurve (const char *next)
+void CurveWidget::setCurve(const char *next)
 {
-  if (points) delete points;
-  points=new Curve (next);
+    if (points) delete points;
+    points = new Curve(next);
+    ASSERT(points);
 }
+
 //****************************************************************************
 void CurveWidget::setType(int type)
 {
-  points->setInterpolationType (Interpolation::getTypes()[type]);
-  repaint ();
+    ASSERT(points);
+    if (!points) return;
+
+    points->setInterpolationType (Interpolation::getTypes()[type]);
+    repaint();
 }
+
 //****************************************************************************
 void CurveWidget::savePreset()
 {
-  QString name=QFileDialog::getSaveFileName(
-    presetDir->path(),"*.curve",this);
+    ASSERT(points);
+    ASSERT(presetDir);
+    if (!points) return;
+    if (!presetDir) return;
 
-  if (name.find (".curve")==-1) name.append(".curve");
-  QFile out(name.data());
-  out.open (IO_WriteOnly);
-  const char *buf=points->getCommand();
-  out.writeBlock (buf,strlen(buf));
+    QString name = QFileDialog::getSaveFileName(
+		       presetDir->path(), "*.curve", this);
+
+    if (name.find (".curve") == -1) name.append(".curve");
+    QFile out(name.data());
+    out.open (IO_WriteOnly);
+    const char *buf = points->getCommand();
+    out.writeBlock (buf, strlen(buf));
 }
+
 //****************************************************************************
 void CurveWidget::loadPreset(int num)
 {
-  char *name=namelist->at(num);
+    ASSERT(namelist);
+    ASSERT(presetDir);
+    if (!namelist) return;
+    if (!presetDir) return;
 
-  FileLoader loader (presetDir->absFilePath(name));
+    char *name = namelist->at(num);
 
-  if (points) delete points;
-  points=new Curve (loader.getMem());
+    FileLoader loader (presetDir->absFilePath(name));
 
-  repaint ();
+    if (points) delete points;
+    points = new Curve (loader.getMem());
+    ASSERT(points);
+
+    repaint();
 }
-//****************************************************************************
-void CurveWidget::secondHalf ()
-{
-  points->secondHalf ();
-  last=0;
-  repaint();
-}
-//****************************************************************************
-void CurveWidget::firstHalf ()
-{
-  points->firstHalf ();
-  last=0;
 
-  repaint();
-}
 //****************************************************************************
-void CurveWidget::deleteSecond ()
+void CurveWidget::secondHalf()
 {
-  points->deleteSecondPoint();
-  last=0;
+    ASSERT(points);
+    if (!points) return;
 
-  repaint ();
+    points->secondHalf ();
+    last = 0;
+    repaint();
 }
+
 //****************************************************************************
-void CurveWidget::deleteLast ()
+void CurveWidget::firstHalf()
 {
-  if (last)
-    {
-      points->deletePoint (last,false);
-      last=0;
-      repaint ();
+    ASSERT(points);
+    if (!points) return;
+
+    points->firstHalf ();
+    last = 0;
+    repaint();
+}
+
+//****************************************************************************
+void CurveWidget::deleteSecond()
+{
+    ASSERT(points);
+    if (!points) return;
+
+    points->deleteSecondPoint();
+    last = 0;
+    repaint ();
+}
+
+//****************************************************************************
+void CurveWidget::deleteLast()
+{
+    ASSERT(points);
+    if (!points) return;
+
+    if (last) {
+	points->deletePoint(last, false);
+	last = 0;
+	repaint ();
     }
 }
+
 //****************************************************************************
-void CurveWidget::HFlip ()
+void CurveWidget::HFlip()
 {
-  points->HFlip();
-  repaint ();
+    ASSERT(points);
+    if (!points) return;
+
+    points->HFlip();
+    repaint ();
 }
+
 //****************************************************************************
-void CurveWidget::VFlip ()
+void CurveWidget::VFlip()
 {
-  points->VFlip();
-  repaint ();
+    ASSERT(points);
+    if (!points) return;
+
+    points->VFlip();
+    repaint ();
 }
+
 //****************************************************************************
 void CurveWidget::scaleFit()
 {
-  points->scaleFit ();
-  repaint ();
+    ASSERT(points);
+    if (!points) return;
+
+    points->scaleFit ();
+    repaint ();
 }
+
 //****************************************************************************
-void CurveWidget::addPoint (double newx,double newy)
+void CurveWidget::addPoint(double newx, double newy)
 {
-  points->addPoint (newx,newy);
-  last=0;
-  repaint ();
+    ASSERT(points);
+    if (!points) return;
+
+    points->addPoint(newx, newy);
+    last = 0;
+    repaint();
 }
+
 //****************************************************************************
-Point *CurveWidget::findPoint (int sx,int sy)
-  // checks, if given coordinates fit to a control point in the list...
+Point *CurveWidget::findPoint(int sx, int sy)
+// checks, if given coordinates fit to a control point in the list...
 {
-  return points->findPoint (((double)sx)/width,((double)height-sy)/height);
+    ASSERT(points);
+    if (!points) return 0;
+
+    return points->findPoint(((double)sx) / width,
+                             ((double)height - sy) / height);
 }
+
 //****************************************************************************
 void CurveWidget::mousePressEvent( QMouseEvent *e)
 {
-  if (e->button()==RightButton)
-    {
-      QPoint popup=QCursor::pos();
-      menu->popup(popup);
-    }
-  else
-    {
-      act=findPoint (e->pos().x(),e->pos().y());
+    ASSERT(e);
+    if (!e) return;
 
-      if (act==0) //so, no matching point is found -> generate a new one !
-	{
-	  addPoint ((double) (e->pos().x())/width,
-		  (double) (height-e->pos().y())/height);
-	  act=findPoint (e->pos().x(),e->pos().y());
+    if (e->button() == RightButton) {
+	QPoint popup = QCursor::pos();
+	if (menu) menu->popup(popup);
+    } else {
+        down=true;
+	act = findPoint(e->pos().x(), e->pos().y());
+	if (act == 0) {
+	    //so, no matching point is found -> generate a new one !
+	    addPoint((double) (e->pos().x()) / width,
+		     (double) (height - e->pos().y()) / height);
+	    act = findPoint(e->pos().x(), e->pos().y());
 	}
-      repaint ();
+	repaint();
     }
 }
+
 //****************************************************************************
 void CurveWidget::mouseReleaseEvent( QMouseEvent *)
 {
-  last=act;
-  act=0;
-  repaint();
+    last = act;
+    act = 0;
+    down = false;
+    repaint();
 }
+
 //****************************************************************************
 void CurveWidget::mouseMoveEvent( QMouseEvent *e )
 {
-  int x=e->pos().x();
-  int y=e->pos().y();
+    ASSERT(points);
+    ASSERT(e);
+    if (!e) return;
+    if (!points) return;
 
-  // if a point is selected...
-  if (act)
-    {
-      act->x=(double) (x)/width;
-      act->y=(double) (height-y)/height;
+    int x = e->pos().x();
+    int y = e->pos().y();
 
-      if (act->x<0) act->x=0;
-      if (act->y<0) act->y=0;
-      if (act->x>1) act->x=1;
-      if (act->y>1) act->y=1;
+    // if a point is selected...
+    if (act) {
+	act->x = (double) (x) / width;
+	act->y = (double) (height - y) / height;
 
-      Point *prev=points->previous(act);
-      Point *next=points->next(act);
+	if (act->x < 0) act->x = 0;
+	if (act->y < 0) act->y = 0;
+	if (act->x > 1) act->x = 1;
+	if (act->y > 1) act->y = 1;
 
-      if (prev) if (act->x<prev->x) act->x=prev->x+(1/(double) width);
-      if (next) if (act->x>next->x) act->x=next->x-(1/(double) width);
+	Point *prev = points->previous(act);
+	Point *next = points->next(act);
 
-      repaint ();
-    }
-  else
-    if (findPoint (x,y)) setCursor (sizeAllCursor);
-    else setCursor (arrowCursor);
-}
-//****************************************************************************
-void CurveWidget::paintEvent  (QPaintEvent *)
-{
-  Point *tmp;
-
-  height=rect().height();
-  width=rect().width();
-
-  p.begin (this);
-  p.setPen (white);
-
-  int kw=knob->width();
-  int kh=knob->height();
-  int lx,ly,ay;
-
-  if (points)
-    {
-      double *y=points->getInterpolation (width);
-      if (y)
-	{
-	  ly=height-(int)(y[0]*height);
-
-	  for (int i=1;i<width;i++)
-	    {
-	      ay=height-(int)(y[i]*height);
-	      p.drawLine (i-1,ly,i,ay);
-	      ly=ay;
-	    }
-
-	  for ( tmp=points->first(); tmp ; tmp=points->next(tmp) )
-	    {
-	      lx=(int)(tmp->x*width);
-	      ly=height-(int)(tmp->y*height);
-
-	      if ((tmp==act)||(tmp==last)) bitBlt (this,lx-kw/2,ly-kh/2,selectedknob,0,0,kw,kh);
-	      else bitBlt (this,lx-kw/2,ly-kh/2,knob,0,0,kw,kh);
-
-	    }
+	if (prev) {
+	    if (act->x < prev->x)
+		act->x = prev->x + (1 / (double) width);
 	}
-      else debug ("CurveWidget: could not get Interpolation !\n");
-      p.end();
+	if (next) {
+	    if (act->x > next->x)
+		act->x = next->x - (1 / (double) width);
+	}
+	repaint ();
+    } else {
+	if (findPoint(x, y)) setCursor(sizeAllCursor);
+	else setCursor(arrowCursor);
     }
-  else debug ("CurveWidget: nothing to be drawn !\n");
+}
+
+//****************************************************************************
+void CurveWidget::paintEvent(QPaintEvent *)
+{
+//    debug("CurveWidget::paintEvent (QPaintEvent *)");
+    ASSERT(points);
+    if (!points) return;
+
+    Point *tmp;
+
+    height = rect().height();
+    width = rect().width();
+
+    int kw = (knob) ? knob->width() : 0;
+    int kh = (knob) ? knob->height() : 0;
+    int lx, ly, ay;
+
+    double *y = points->getInterpolation (width);
+    ASSERT(y);
+    if (!y) {
+	warning("CurveWidget: could not get Interpolation !\n");
+	return;
+    }
+
+    p.begin (this);
+    p.setPen (white);
+    ly = height - (int)(y[0] * height);
+
+    for (int i = 1; i < width; i++) {
+	ay = height - (int)(y[i] * height);
+	p.drawLine (i - 1, ly, i, ay);
+	ly = ay;
+    }
+
+    for ( tmp = points->first(); tmp ; tmp = points->next(tmp) ) {
+	lx = (int)(tmp->x * width);
+	ly = height - (int)(tmp->y * height);
+
+	if ((tmp == act) || (!down && (tmp == last)) )
+	    bitBlt(this, lx - kw / 2, ly - kh / 2,
+	           selectedknob, 0, 0, kw, kh);
+	else bitBlt(this, lx - kw / 2, ly - kh / 2,
+	            knob, 0, 0, kw, kh);
+    }
+    p.end();
 }
 //****************************************************************************
-
-
-

@@ -12,48 +12,47 @@
 #include <kintegerline.h>
 
 //***********************************************************************
-class FormantDialog : public Dialog
-{
- Q_OBJECT
+class FormantDialog : public Dialog {
+    Q_OBJECT
 
- public:
- 	FormantDialog 	(bool modal,int rate);
- 	~FormantDialog 	();
- int    getCurve ();
- void   getWidgets (int);
- const  char *getCommand ();
+public:
+    FormantDialog (bool modal, int rate);
+    ~FormantDialog ();
+    int getCurve ();
+    void getWidgets (int);
+    const char *getCommand ();
 
- public slots:
+public slots:
 
- void posChanged    (int);
- void setScale      (int,int);
- void widthChanged  (int);
- void numberChanged (const char *);
- void posChanged    (const char *);
- void widthChanged  (const char *);
+    void posChanged (int);
+    void setScale (int, int);
+    void widthChanged (int);
+    void numberChanged (const char *);
+    void posChanged (const char *);
+    void widthChanged (const char *);
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
- void refresh     ();
+    void resizeEvent (QResizeEvent *);
+    void refresh ();
 
- private:
+private:
 
- ScaleWidget       *x,*y;
- CornerPatchWidget *corner;
- KIntegerLine   *num;
- KIntegerLine   **pos;
- KIntegerLine   **widths;
- Slider         **widthslider;
- Slider         **posslider;
- QLabel         *poslabel;
- QLabel         *numlabel;
- QPushButton	*ok,*cancel;
- FormantWidget	*formant;
+    ScaleWidget *x, *y;
+    CornerPatchWidget *corner;
+    KIntegerLine *num;
+    KIntegerLine **pos;
+    KIntegerLine **widths;
+    Slider **widthslider;
+    Slider **posslider;
+    QLabel *poslabel;
+    QLabel *numlabel;
+    QPushButton *ok, *cancel;
+    FormantWidget *formant;
 
- char           *comstr;
- int            oldnum;
- int            rate;
- bool           inwidget;
+    char *comstr;
+    int oldnum;
+    int rate;
+    bool inwidget;
 };
 #endif

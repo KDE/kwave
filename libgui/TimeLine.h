@@ -7,35 +7,35 @@
 
 //*****************************************************************************
 class TimeLine : public KRestrictedLine
-//Widget for entering Time in various units
+	    //Widget for entering Time in various units
 {
- Q_OBJECT
-   public:
-              TimeLine      (QWidget* parent,int rate=48000);
-              ~TimeLine     ();
+    Q_OBJECT
+public:
+    TimeLine(QWidget* parent, int rate = 48000);
+    ~TimeLine();
 
- void         setSamples    (int);
- void         setMs         (int);
- int          getValue      ();
- double       getMs         ();
- const char * getMsStr      ();
+    void setSamples(int);
+    void setMs(int);
+    int getValue();
+    double getMs();
+    const char *getMsStr();
 
- public slots:
- void   setSampleMode ();
- void   setMsMode     ();
- void   setKbMode     ();
- void   setSMode      ();
- void   setValue      (const char *);
- void   setRate       (int);
+public slots:
+    void setSampleMode();
+    void setMsMode();
+    void setKbMode();
+    void setSMode();
+    void setValue(const char *);
+    void setRate(int);
 
- protected:
- void   mousePressEvent( QMouseEvent *);
+protected:
+    void mousePressEvent( QMouseEvent *);
 
- int    value;     //# of samples
- int    mode;      //flag for display and enter mode...
- int    rate;      //rate for calculating time
- QPopupMenu *menu;
- char   *comstr;
+    int value;        //# of samples
+    int mode;         //flag for display and enter mode...
+    int rate;         //rate for calculating time
+    QPopupMenu *menu;
+    char *comstr;
 };
 
 #endif // _TIME_LINE_H_

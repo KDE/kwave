@@ -15,62 +15,61 @@
 #include <kintegerline.h>
 
 //*****************************************************************************
-class FilterDialog : public Dialog
-{
- Q_OBJECT
+class FilterDialog : public Dialog {
+    Q_OBJECT
 
- public:
- 	FilterDialog 	(bool modal,int rate);
- 	~FilterDialog 	();
- void	refreshView ();
- const  char *getCommand ();
+public:
+    FilterDialog (bool modal, int rate);
+    ~FilterDialog ();
+    void refreshView ();
+    const char *getCommand ();
 
- public slots:
+public slots:
 
- void setTaps      (const char *);
- void setOffset    (const char *);
- void setMult      (int);
- void refresh      ();
- void loadFilter   ();
- void saveFilter   ();
+    void setTaps (const char *);
+    void setOffset (const char *);
+    void setMult (int);
+    void refresh ();
+    void loadFilter ();
+    void saveFilter ();
 
- protected:
+protected:
 
- void resizeEvent   (QResizeEvent *);
- void getNTaps      (int);
- 
- private:
+    void resizeEvent (QResizeEvent *);
+    void getNTaps (int);
 
- int                w,h;
- Filter             *filter;
+private:
 
- int                oldnum;
- QLabel*            taplabel;
- KIntegerLine*      taps;
+    int w, h;
+    Filter *filter;
 
- QLabel**           label;
- Slider**           mult;
- KIntegerLine**     offset;
+    int oldnum;
+    QLabel* taplabel;
+    KIntegerLine* taps;
 
- QPushButton*       load;
- QPushButton*       save;
+    QLabel** label;
+    Slider** mult;
+    KIntegerLine** offset;
 
- QLabel*            iirlabel;
- QLabel*            firlabel;
+    QPushButton* load;
+    QPushButton* save;
 
- QButtonGroup*      bg;
- QRadioButton*      fir,*iir;
- 
- QPushButton*       ok;
- QPushButton*       cancel;
- QPushButton*       dofilter;
- FFTWidget*         filterwidget;
- FFTWidget*         phasewidget;
- ScaleWidget*       ampx,*ampy;
- ScaleWidget*       phasex,*phasey;
- CornerPatchWidget* phasecorner;
- CornerPatchWidget* ampcorner;
- QDir *             filterDir;
- char *             comstr;
+    QLabel* iirlabel;
+    QLabel* firlabel;
+
+    QButtonGroup* bg;
+    QRadioButton* fir, *iir;
+
+    QPushButton* ok;
+    QPushButton* cancel;
+    QPushButton* dofilter;
+    FFTWidget* filterwidget;
+    FFTWidget* phasewidget;
+    ScaleWidget* ampx, *ampy;
+    ScaleWidget* phasex, *phasey;
+    CornerPatchWidget* phasecorner;
+    CornerPatchWidget* ampcorner;
+    QDir * filterDir;
+    char * comstr;
 };
 //*****************************************************************************

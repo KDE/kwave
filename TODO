@@ -1,24 +1,61 @@
 
+o playback only for selected channels
+
+o resample signal before inserting into a signal with a different sample rate
+
+o channel mixing dialog
+
+o move label handling to class LabelManager
+
+o find out how to get the "topdir" of rpm for "make rpm"
+
+o look at CurveWidget::CurveWidget()
+o ProgressDialog::timedProgress()
+o SignalWidget::appendLabel()
+o ClipBoard::toWindow()
+o SonagramWindow::toSignal()
+
+o in CurveWidget: something goes wrong when mirroring to left
+
+o re-enable the OverViewWidget: use signal/slot mechanism
+
+o possible memory leaks due to controls/menus in CurveWidget, FFTWindow
+
+o possible memory leak in MultiStateWidget: when do the images get released ?
+
+o inspect the usage of ImageView: owner of the image? freeing the image?
+
+o review all calls to DynamicLoader::getDialog, in: FFTWidget
+
+o ClipBoard::appendChannel should append a _copy_ of the channel instead
+  of the channel instead of itself (problem if channel gets deleted!)
+
+o resizing of the TopWidget if channels have been added
+  -> adjust minimum window size
+
+o don't search for plugins and other files only in the global directory,
+  use the .kde structure in the user's home directory too
+
 o bugfix: crash on "additive synthesis"
 
 o some commands do not work: fft, averagefft, sonagram, options/menu,
-  options/memory
+  options/memory, distort
 
 o error handling in SignalWidget/Manager needs complete rework !
-
-o at least show an error message if input file was invalid
 
 o load and automatically repair files recorded with "arecord"
 
 o range checking in SignalManager::getMaxMin()
 
+o use standard KDE accelerators (see KStdAccel)
+
 o re-enable usage of memory mapped files
 
-o bugfix: crash if a loaded file is not in RIFF format
+o make a menu group for @SELECTION
+
+o remove all usages of KTopLevelWidget
 
 o support for import/export of ASCII files with multiple channels
-
-o Edit->Selection->"expand to beginning/end of file"
 
 o add <project_root>/libgui/.libs to the -L parameter when making
   in src and plugins
@@ -26,8 +63,6 @@ o add <project_root>/libgui/.libs to the -L parameter when making
 o label handling doesn't work
 
 o Segmentation fault after "Could not find labeltype"
-
-o make use of the libX11 parameter --geometry
 
 o the clipboard does not work between other kwave instances
 
@@ -39,9 +74,9 @@ o internationalization for other languages than german
 
 o make the gui/redraws faster
 
-o let more than one toplevel window work
-
 o use the KDE's clipboard
+
+o support for KDE's session management
 
 o find the reason for that short noise at the end of playback
   (does not occur when the selected range ends with some silence !)
@@ -62,7 +97,7 @@ o fix bug in Fx->Periodic Silence (segmentation fault)
 o pluginize/ put into library  the following files in src/ :
   mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h 
 
-o context menu for right mouse button
+o context menu for right mouse button in SignalWidget
 
 o a nice toolbar
 
@@ -70,7 +105,19 @@ o icons for the buttons
 
 o positioning the cursor to start/end of the file with Pos1 / End
 
+o >>> DOCUMENTATION OF THE WHOLE API <<<
+
 o use the data types from sys/times.h instead of just "int"
 
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width
+
+o use some audio library, like libasound
+
+o plugins for import/export of different file formats (e.g. MP3)
+
+o figure out how to work with exceptions:
+  - works if ALL libraries use rtti and we compile with -frtti
+  - does never work with --no-rtti
+  - the program doesn't link under RedHat with -frtti
+  => no rtti and no exceptions :-(

@@ -6,28 +6,27 @@
 #include <libkwave/DialogOperation.h>
 
 //*****************************************************************************
-class DoubleEnterDialog : public Dialog
-{
- Q_OBJECT
+class DoubleEnterDialog : public Dialog {
+    Q_OBJECT
 
- public:
- 	DoubleEnterDialog 	(const char *name,bool=false);
- 	~DoubleEnterDialog 	();
-	double value();
+public:
+    DoubleEnterDialog (const char *name, bool = false);
+    ~DoubleEnterDialog ();
+    double value();
 
- const char *getCommand         ();
+    const char *getCommand ();
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- KRestrictedLine *val;
- QPushButton	 *ok,*cancel;
+    KRestrictedLine *val;
+    QPushButton *ok, *cancel;
 };
 //*****************************************************************************
-#endif  /* dialogs.h */   
+#endif  /* dialogs.h */
 
 
 

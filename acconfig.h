@@ -30,7 +30,10 @@
 #undef HAVE_STPCPY
 
 /* Define if your locale.h file contains LC_MESSAGES.  */
-#undef HAVE_LC_MESSAGES    
+#undef HAVE_LC_MESSAGES
 
 /* Define if you need the GNU extensions to compile */
 #undef _GNU_SOURCE
+
+/* define if we make use of the builtin crash-locator */
+#undef USE_CRASH_LOCATOR

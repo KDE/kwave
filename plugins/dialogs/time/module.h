@@ -5,29 +5,28 @@
 #include <qlabel.h>
 #include "../../../libgui/TimeLine.h"
 //*****************************************************************************
-class TimeDialog : public Dialog
-{
- Q_OBJECT
+class TimeDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	TimeDialog 	(bool,int rate);
- 	~TimeDialog 	();
- const char *getCommand	();
+    TimeDialog (bool, int rate);
+    ~TimeDialog ();
+    const char *getCommand ();
 
- public slots:
+public slots:
 
- void setLength (int);
+    void setLength (int);
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- TimeLine	*time;
- QLabel		*timelabel;
- QPushButton	*ok,*cancel;
- char           *comstr;
+    TimeLine *time;
+    QLabel *timelabel;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 #endif

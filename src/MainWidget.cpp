@@ -25,181 +25,358 @@
 #include "SignalManager.h"
 #include "MainWidget.h"
 
+/**
+ * useful macro for command parsing
+ */
+#define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
 
-static const int keys[10]={Key_1,Key_2,Key_3,Key_4,Key_5,Key_6,Key_7,Key_8,Key_9,Key_0};
+static const int tbl_keys[10] = {
+    Key_1, Key_2, Key_3, Key_4, Key_5, Key_6, Key_7, Key_8, Key_9, Key_0
+};
 
-const char *zoomtext[]={"400 %","200 %","100 %","33 %","10 %","3 %","1 %","0.1 %"};
-int         playbit;
-extern int  bufbase;
-int         mmap_threshold;
-char*       mmap_dir;     //storage of dir name
-QPixmap  *  lightoff=0;
-QPixmap  *  lighton=0;
-//*****************************************************************************
-QString mstotime (int ms)
-{
-  return (QString(mstotimec(ms)));
-}
-//*****************************************************************************
-MainWidget::~MainWidget () 
-{
-  if (lamps) delete lamps;
-}
-//*****************************************************************************
-MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) :QWidget (parent)
-{
-  int s[3];
-  numsignals=0;
+static const char *zoomtext[] = {
+    "400 %", "200 %", "100 %", "33 %", "10 %", "3 %", "1 %", "0.1 %"
+};
 
-  this->manage=manage;
-  menushown=false;
-
-  manage->clearNumberedMenu ("ID_EDIT_CHANNEL_DELETE");
-  manage->addNumberedMenuEntry("ID_EDIT_CHANNEL_DELETE", "none");
-  updateMenu();
-
-  this->parent=parent;
-  lamps=new MultiStateWidget*[1];
-  speakers=new MultiStateWidget*[1];
-
-  lamps[0]=new MultiStateWidget(this,0);
-  s[0]=lamps[0]->addPixmap("light_on.xpm");
-  s[1]=lamps[0]->addPixmap("light_off.xpm");
-  lamps[0]->setStates(s);
-
-  speakers[0]=new MultiStateWidget(this,0,3);
-  s[0]=speakers[0]->addPixmap("rspeaker.xpm");
-  s[1]=speakers[0]->addPixmap("lspeaker.xpm");
-  s[2]=speakers[0]->addPixmap("xspeaker.xpm");
-  speakers[0]->setStates(s);
-
-  QAccel *key=new QAccel (this);
-  for (int i=0;i<10;i++) key->insertItem (keys[i]);
-
-  QObject::connect (key,SIGNAL(activated(int)),this,SLOT(parseKey(int)));
-
-  slider	=new OverViewWidget (this); 
-  buttons	=new KButtonBox (this,KButtonBox::HORIZONTAL);
-  zoomselect	=new QComboBox	(true,this);
-  signalview	=new SignalWidget (this,manage);
-
-  QObject::connect(
-    lamps[0],SIGNAL(clicked(int)),
-    signalview,SLOT(toggleChannel(int))
-  );
-
-  zoomselect->insertStrList (zoomtext,sizeof(zoomtext) / sizeof(char *));
-  connect(slider,SIGNAL(valueChanged(int)),
-	  signalview,SLOT(slot_setOffset(int)));
-  			
-  connect(signalview,SIGNAL(viewInfo(int,int,int)),
-	  slider,SLOT(setRange(int,int,int)));
-			
-  connect(signalview,SIGNAL(zoomInfo(double)),
-	  this,SLOT(slot_ZoomChanged(double)));
-
-  connect(signalview,SIGNAL(playingfinished()),
-	  this,SLOT(stop()));
-			
-  connect(zoomselect,SIGNAL(activated(int)),
-	  this,SLOT(selectedZoom(int)));
-			
-  connect(this,SIGNAL(setOperation(int)),
-	  signalview,SLOT(setOp(int)));
-			
-
-  buttons->addStretch	();
-  this->connect	(playbutton=buttons->addButton	(i18n("Play")),SIGNAL(pressed()),
-		 this,SLOT(play()));
-  playbutton->setAccel (Key_Space);
-
-  this->connect	(loopbutton=buttons->addButton	(i18n("&Loop")),SIGNAL(pressed()),
-		 this,SLOT(loop()));
-  loopbutton->setAccel (Key_L);
-  buttons->addStretch		();
-  this->connect	( zoombutton=buttons->addButton (i18n("&Zoom")),SIGNAL(pressed()),
-		  signalview,SLOT(zoomRange()));
-  zoombutton->setAccel (Key_Z);
-  this->connect	( plusbutton=buttons->addButton	  ("+"),SIGNAL(pressed()),
-		  signalview,SLOT(zoomIn()));
-  plusbutton->setAccel (Key_Plus);
-  this->connect	( minusbutton=buttons->addButton  ("-"),SIGNAL(pressed()),
-		  signalview,SLOT(zoomOut()));
-  minusbutton->setAccel (Key_Minus);
-  this->connect ( zoomallbutton=buttons->addButton(i18n("All")), SIGNAL(pressed()),
-		  signalview,SLOT(zoomAll()));
-  this->connect	( nozoombutton=buttons->addButton("1:1"),SIGNAL(pressed()),
-		  signalview,SLOT(zoomNormal()));
-
-  buttons->addStretch ();
-
-  this->status=status;
-}
-//*****************************************************************************
-void MainWidget::updateMenu ()
-{
-  if (! manage) return;
-
-  bool have_signal = (numsignals != 0);
-  manage->setItemEnabled("@SIGNAL", have_signal);
-
-}
+//int playbit;
+//extern int bufbase;
+//int mmap_threshold;
+//char *mmap_dir;        //storage of dir name
+//
+//QPixmap *lightoff = 0;
+//QPixmap *lighton = 0;
 
 //*****************************************************************************
-void MainWidget::updateChannels (int cnt)
-  // generates menu entries 
+MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
+                       KStatusBar &status)
+    :QWidget(parent),
+     status(status),
+     menu(manage)
 {
-  manage->clearNumberedMenu ("ID_EDIT_CHANNEL_DELETE");
-  for (int i =0 ; i < cnt; i++)
-    {
-      char buf[16];
-      sprintf (buf,"%d",i);
-      manage->addNumberedMenuEntry ("ID_EDIT_CHANNEL_DELETE",buf);
+    debug("MainWidget::MainWidget()");
+    int s[3];
+    MultiStateWidget *msw;
+
+    bsize = 0;
+    buttons = 0;
+    keys = 0;
+    loopbutton = 0;
+    lastChannels = 0;
+    minusbutton = 0;
+    nozoombutton = 0;
+    playbutton = 0;
+    signalview = 0;
+    slider = 0;
+    zoomallbutton = 0;
+    zoombutton = 0;
+    zoomselect = 0;
+
+    // -- multistate widgets for lamps and speakers --
+
+    lamps.setAutoDelete(true);
+    lamps.clear();
+    msw = new MultiStateWidget(this, 0);
+    ASSERT(msw);
+    if (!msw) return;
+    lamps.append(msw);
+    s[0] = lamps.at(0)->addPixmap("light_on.xpm");
+    s[1] = lamps.at(0)->addPixmap("light_off.xpm");
+    lamps.at(0)->setStates(s);
+
+    speakers.setAutoDelete(true);
+    speakers.clear();
+    msw = new MultiStateWidget(this, 0, 3);
+    ASSERT(msw);
+    if (!msw) return;
+    speakers.append(msw);
+    s[0] = speakers.at(0)->addPixmap("rspeaker.xpm");
+    s[1] = speakers.at(0)->addPixmap("lspeaker.xpm");
+    s[2] = speakers.at(0)->addPixmap("xspeaker.xpm");
+    speakers.at(0)->setStates(s);
+
+    // -- accelerator keys for 1...9 --
+
+    keys = new QAccel(this);
+    ASSERT(keys);
+    if (!keys) return;
+    for (int i=0; i < 10; i++) {
+	keys->insertItem(tbl_keys[i]);
     }
+    connect(keys, SIGNAL(activated(int)),
+	    this, SLOT(parseKey(int)));
+
+    // -- slider for horizontal scrolling --
+
+    slider = new OverViewWidget(this);
+    ASSERT(slider);
+    if (!slider) return;
+
+    // -- buttons for playback and zoom --
+
+    buttons = new KButtonBox(this, KButtonBox::HORIZONTAL);
+    ASSERT(buttons);
+    if (!buttons) return;
+
+    zoomselect = new QComboBox(true, this);
+    ASSERT(zoomselect);
+    if (!zoomselect) return;
+    zoomselect->insertStrList(zoomtext, sizeof(zoomtext) / sizeof(char *));
+    zoomselect->setEditText("");
+
+    buttons->addStretch();
+
+    // [Play]
+    playbutton = buttons->addButton (i18n("Play"));
+    ASSERT(playbutton);
+    if (!playbutton) return;
+    playbutton->setAccel(Key_Space);
+
+    // [Loop]
+    loopbutton = buttons->addButton (i18n("&Loop"));
+    ASSERT(loopbutton);
+    if (!loopbutton) return;
+    loopbutton->setAccel(Key_L);
+
+    buttons->addStretch();
+
+    // [Zoom]
+    zoombutton = buttons->addButton (i18n("&Zoom"));
+    ASSERT(zoombutton);
+    if (!zoombutton) return;
+    zoombutton->setAccel(Key_Z);
+
+    // [+]
+    plusbutton = buttons->addButton("+");
+    ASSERT(plusbutton);
+    if (!plusbutton) return;
+    plusbutton->setAccel(Key_Plus);
+
+    // [-]
+    minusbutton = buttons->addButton ("-");
+    ASSERT(minusbutton);
+    if (!minusbutton) return;
+    minusbutton->setAccel (Key_Minus);
+
+    // [All]
+    zoomallbutton = buttons->addButton(i18n("All"));
+    ASSERT(zoomallbutton);
+    if (!zoomallbutton) return;
+
+    // [1:1]	
+    nozoombutton = buttons->addButton(i18n("1:1"));
+    ASSERT(nozoombutton);
+    if (!nozoombutton) return;
+
+    buttons->addStretch();
+
+    // -- signal widget --
+
+    signalview = new SignalWidget(this, menu);
+    ASSERT(signalview);
+    if (!signalview) return;
+    if (!signalview->isOK()) {
+	warning("MainWidget::MainWidget: failed in creating SignalWidget !");
+	delete signalview;
+	signalview = 0;
+	return;
+    }
+
+    // -- connect all signals from/to the signal widget --
+
+    connect(playbutton, SIGNAL(pressed()),
+	    this, SLOT(play()));
+    connect(loopbutton, SIGNAL(pressed()),
+	    this, SLOT(loop()));
+    connect(zoombutton, SIGNAL(pressed()),
+	    signalview, SLOT(zoomRange()));
+    connect(plusbutton, SIGNAL(pressed()),
+	    signalview, SLOT(zoomIn()));
+    connect(minusbutton, SIGNAL(pressed()),
+	    signalview, SLOT(zoomOut()));
+    connect(zoomallbutton, SIGNAL(pressed()),
+	    signalview, SLOT(zoomAll()));
+    connect(nozoombutton, SIGNAL(pressed()),
+	    signalview, SLOT(zoomNormal()));
+	
+    connect(lamps.at(0), SIGNAL(clicked(int)),
+	    signalview, SLOT(toggleChannel(int)));
+    connect(slider, SIGNAL(valueChanged(int)),
+	    signalview, SLOT(slot_setOffset(int)));
+    connect(zoomselect, SIGNAL(activated(int)),
+	    this, SLOT(zoomSelected(int)));
+    connect(signalview, SIGNAL(viewInfo(int, int, int)),
+	    slider, SLOT(setRange(int, int, int)));
+    connect(signalview, SIGNAL(zoomInfo(double)),
+	    this, SLOT(slot_ZoomChanged(double)));
+    connect(signalview, SIGNAL(playingfinished()),
+	    this, SLOT(stop()));
+    connect(this, SIGNAL(setOperation(int)),
+	    signalview, SLOT(setOp(int)));
+    connect(signalview, SIGNAL(sigCommand(const char*)),
+	    this, SLOT(forwardCommand(const char*)));
+    connect(signalview, SIGNAL(selectedTimeInfo(double)),
+	    this, SLOT(setSelectedTimeInfo(double)));
+    connect(signalview, SIGNAL(rateInfo(int)),
+	    this, SLOT(setRateInfo(int)));
+    connect(signalview, SIGNAL(lengthInfo(int)),
+	    this, SLOT(setLengthInfo(int)));
+    connect(signalview, SIGNAL(timeInfo(double)),
+	    this, SLOT(setTimeInfo(double)));
+    connect(signalview, SIGNAL(sigChannelAdded(unsigned int)),
+            this, SLOT(channelAdded(unsigned int)));
+    connect(signalview, SIGNAL(sigChannelDeleted(unsigned int)),
+            this, SLOT(channelDeleted(unsigned int)));
+
+    refreshControls();
+    debug("MainWidget::MainWidget(): done.");
+}
+
+//*****************************************************************************
+bool MainWidget::isOK()
+{
+    ASSERT(buttons);
+    ASSERT(keys);
+    ASSERT(loopbutton);
+    ASSERT(minusbutton);
+    ASSERT(nozoombutton);
+    ASSERT(playbutton);
+    ASSERT(signalview);
+    ASSERT(slider);
+    ASSERT(zoomallbutton);
+    ASSERT(zoombutton);
+    ASSERT(zoomselect);
+
+    return ( buttons && keys && loopbutton && minusbutton &&
+             nozoombutton && playbutton && signalview &&
+             slider && zoomallbutton && zoombutton &&
+             zoomselect );
+}
+
+//*****************************************************************************
+MainWidget::~MainWidget()
+{
+    debug("MainWidget::~MainWidget()");
+    ASSERT(KApplication::getKApplication());
+
+    if (signalview) delete signalview;
+    signalview = 0;
+
+    if (buttons) delete buttons;
+    buttons = 0;
+
+    // do not delete the buttons themselfes, the
+    // KButtonBox has "auto-deletion" turned on !
+
+    if (keys) delete keys;
+    lamps.clear();
+    speakers.clear();
+
+    debug("MainWidget::~MainWidget(): done.");
+}
+
+//*****************************************************************************
+void MainWidget::refreshControls()
+{
+    bool have_signal = (getChannelCount() != 0);
+
+    // enable/disable all items that depend on having a signal
+    menu.setItemEnabled("@SIGNAL", have_signal);
+
+    // update the list of deletable channels
+    menu.clearNumberedMenu ("ID_EDIT_CHANNEL_DELETE");
+    for (unsigned int i = 0; i < getChannelCount(); i++) {
+	char buf[64];
+	snprintf(buf, sizeof(buf), "%d", i);
+	menu.addNumberedMenuEntry("ID_EDIT_CHANNEL_DELETE", buf);
+    }
+
+    // enable/disable the buttons
+    if (loopbutton) loopbutton->setEnabled(have_signal);
+    if (playbutton) playbutton->setEnabled(have_signal);
+    if (minusbutton) minusbutton->setEnabled(have_signal);
+    if (nozoombutton) nozoombutton->setEnabled(have_signal);
+    if (plusbutton) plusbutton->setEnabled(have_signal);
+    if (zoomallbutton) zoomallbutton->setEnabled(have_signal);
+    if (zoombutton) zoombutton->setEnabled(have_signal);
+    if (zoomselect) zoomselect->setEnabled(have_signal);
 }
 
 //**********************************************************
-void MainWidget::saveSignal(const char *filename,int bits,int type, bool selection)
+void MainWidget::saveSignal(const char *filename, int bits,
+                            int type, bool selection)
 {
-    signalview->saveSignal(filename, bits, type, selection);
+    ASSERT(signalview);
+    if (signalview) signalview->saveSignal(filename, bits, type, selection);
 }
 
 //*****************************************************************************
-void MainWidget::setSignal  (const char *filename,int type)
+void MainWidget::setSignal (const char *filename, int type)
 {
-  signalview->setSignal	(filename,type);
-  slider->refresh();
-  updateMenu();
+    ASSERT(signalview);
+    ASSERT(slider);
+
+    closeSignal();
+    if (signalview) signalview->setSignal(filename, type);
+    if (slider) slider->refresh();
+    refreshControls();
 }
+
 //*****************************************************************************
-void MainWidget::setSignal  (SignalManager *signal)
+void MainWidget::setSignal(SignalManager *signal)
 {
-  signalview->setSignal	(signal);
-  updateMenu();
+    ASSERT(signalview);
+    ASSERT(slider);
+
+    closeSignal();
+    if (signalview) signalview->setSignal(signal);
+    refreshControls();
 }
+
 //*****************************************************************************
-void MainWidget::setRateInfo (int rate)
+void MainWidget::closeSignal()
 {
-  char buf[64];
-  sprintf (buf,i18n("Rate : %d.%d kHz"),rate/1000,(rate%1000)/100);
-  status->changeItem (buf,2);
+    ASSERT(signalview);
+    ASSERT(zoomselect);
+
+    if (signalview) signalview->closeSignal();
+
+    setTimeInfo(0);
+    setSelectedTimeInfo(0);
+    setLengthInfo(0);
+    setRateInfo(0);
+
+    if (zoomselect) zoomselect->setEditText("");
+
+    refreshChannelControls();
+    refreshControls();
 }
+
 //*****************************************************************************
-void MainWidget::setLengthInfo (int len)
+void MainWidget::setRateInfo(int rate)
 {
-  char buf[64];
-  sprintf (buf,i18n("Samples :%d"),len);
-  status->changeItem (buf,3);
+    char buf[128];
+    snprintf(buf, sizeof(buf), i18n("Rate: %d.%d kHz"), 
+	rate / 1000, (rate % 1000) / 100);
+    status.changeItem (buf, 2);
 }
+
 //*****************************************************************************
-void MainWidget::selectedZoom(int num)
+void MainWidget::setLengthInfo(int len)
 {
-    debug("MainWidget::selectedZoom(%d)", num);
+    char buf[128];
+    snprintf(buf, sizeof(buf), i18n("Samples: %d"), len);
+    status.changeItem (buf, 3);
+}
+
+//*****************************************************************************
+void MainWidget::zoomSelected(int index)
+{
+    ASSERT(signalview);
+    if (!signalview) return;
+
     double new_zoom;
-    if ((num >= 0) && (num < (int)(sizeof(zoomtext)/sizeof(char *)))) {
-	debug("zoomtext[%d]=%s", num, zoomtext[num]); // ###
-	new_zoom = 100.0 / (double)strtod(zoomtext[num],0);
-	debug("new zoom (relative) = %0.3f", new_zoom); // ###
+    if ((index >= 0) && (index < (int)(sizeof(zoomtext)/sizeof(char *)))) {
+	new_zoom = 100.0 / (double)strtod(zoomtext[index], 0);
 	signalview->setZoom(new_zoom);
 	signalview->refresh();
     }
@@ -208,21 +385,26 @@ void MainWidget::selectedZoom(int num)
 //*****************************************************************************
 void MainWidget::slot_ZoomChanged(double zoom)
 {
-    double percent = 100.0/zoom;
-    char buf[64];
+    ASSERT(zoom != 0.0);
+    if (zoom == 0.0) return;
 
-    if (percent < 1.0) {
-	char format[16];
+    double percent = 100.0 / zoom;
+    char buf[256];
+
+    if (getChannelCount() == 0) {
+	buf[0] = 0;
+    } else if (percent < 1.0) {
+	char format[128];
 	int digits = (int)ceil(1.0 - log10(percent));
 
-	sprintf(format, "%%0.%df %%%%", digits);
-	sprintf(buf, format, percent);
+	snprintf(format, sizeof(format), "%%0.%df %%%%", digits);
+	snprintf(buf, sizeof(buf), format, percent);
     } else if (percent < 10.0) {
-	sprintf(buf, "%0.1f %%", percent);
+	snprintf(buf, sizeof(buf), "%0.1f %%", percent);
     } else if (percent < 1000.0) {
-	sprintf(buf, "%0.0f %%", percent);
+	snprintf(buf, sizeof(buf), "%0.0f %%", percent);
     } else {
-	sprintf(buf, "x %d", (int)(percent / 100.0));
+	snprintf(buf, sizeof(buf), "x %d", (int)(percent / 100.0));
     }
     zoomselect->setEditText(buf);
 }
@@ -230,206 +412,293 @@ void MainWidget::slot_ZoomChanged(double zoom)
 //*****************************************************************************
 unsigned char *MainWidget::getOverView(int val)
 {
-  return signalview->getOverview(val);
+    ASSERT(signalview);
+    return (signalview) ? signalview->getOverview(val) : 0;
 }
+
 //*****************************************************************************
-void MainWidget::resetChannels	()
+void MainWidget::channelAdded(unsigned int channel)
 {
-  for (int i=0;i<numsignals;i++) lamps[i]->setState (0);
-  updateChannels (numsignals);
+    debug("MainWidget::channelAdded(%u)", channel);
+    refreshChannelControls();
 }
+
 //*****************************************************************************
-void MainWidget::parseKey  (int key)
+void MainWidget::channelDeleted(unsigned int channel)
 {
-  if (key<numsignals)
-    {
-      lamps[key]->nextState();
-      emit setOperation (TOGGLECHANNEL+key);
+    debug("MainWidget::channelDeleted(%u)", channel);
+    lamps.remove(channel);
+    speakers.remove(channel);
+    refreshChannelControls();
+}
+
+//*****************************************************************************
+void MainWidget::resetChannels()
+{
+    int channels = getChannelCount();
+    for (int i = 0; i < channels; i++) {
+	ASSERT(lamps.at(i));
+	if (lamps.at(i)) lamps.at(i)->setState(0);
     }
 }
+
 //*****************************************************************************
-int MainWidget::doCommand (const char *str)
+void MainWidget::parseKey(int key)
 {
-  if (matchCommand (str,"refreshchannels"))
-    {
-      resetChannels();
-      signalview->refresh();
-      setChannelInfo (signalview->getSignalCount());
-    }
-  else
-  if (matchCommand (str,"setplayback"))
-    {
-      Parser parser (str);
-      playbit=parser.toInt();
-      bufbase=parser.toInt();
-    }
-  else
-    if (matchCommand (str,"setmemory"))
-      {
-	Parser parser (str);
-
-	mmap_threshold=parser.toInt();
-	mmap_dir=strdup(parser.getNextParam());
-      }
-    else
-      {
-	if (matchCommand (str,"selectchannels"))
-	  for (int i=0;i<numsignals;i++) lamps[i]->setState (0);
-
-	if (matchCommand (str,"invertchannels"))
-	  for (int i=0;i<numsignals;i++) lamps[i]->nextState ();
-
-	return signalview->doCommand (str);
-      }
-  return true;
+    if ((key < 0) || ((unsigned int)key >= getChannelCount()))
+	return;
+    ASSERT(lamps.at(key));
+    if (!lamps.at(key)) return;
+    lamps.at(key)->nextState();
+    emit setOperation(TOGGLECHANNEL + key);
 }
+
+//****************************************************************************
+void MainWidget::forwardCommand(const char *command)
+{
+    ASSERT(command);
+    if (!command) return;
+    debug("MainWidget::forwardCommand(%s)", command);    // ###
+    emit sigCommand(command);
+}
+
+//*****************************************************************************
+bool MainWidget::executeCommand(const char *command)
+{
+    ASSERT(command);
+    debug("MainWidget::executeCommand(%s)", command);    // ###
+    if (!command) return false;
+
+    if (false) {
+//    CASE_COMMAND("refreshchannels")
+//	//      resetChannels();
+//	setChannelInfo(signalview->getChannelCount());
+//      signalview->refresh();
+//      updateMenu();
+//    CASE_COMMAND("setplayback")
+//	Parser parser(command);
+//	playbit = parser.toInt();
+//	bufbase = parser.toInt();
+//    CASE_COMMAND("setmemory")
+//	Parser parser(command);
+//	
+//	mmap_threshold = parser.toInt();
+//	mmap_dir = strdup(parser.getNextParam());
+    } else {
+	if (matchCommand(command, "selectchannels"))
+	    for (unsigned int i = 0; i < getChannelCount(); i++)
+		if (lamps.at(i)) lamps.at(i)->setState(0);
+
+	if (matchCommand(command, "invertchannels"))
+	    for (unsigned int i = 0; i < getChannelCount(); i++)
+		if (lamps.at(i)) lamps.at(i)->nextState();
+
+	bool result = signalview->executeCommand(command);
+	if (signalview) signalview->refresh();
+	return result;
+    }
+
+    return true;
+}
+
 //*****************************************************************************
 void MainWidget::loop()
 {
-  emit setOperation	(LOOP);
-  playbutton->setText	(i18n("Stop"));
-  loopbutton->setText   (i18n("Halt"));  // halt feature by gerhard Zint
-  this->disconnect      (playbutton,SIGNAL(pressed()),this,SLOT(play()));
-  this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
-  this->connect         (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
-  this->connect         (loopbutton,SIGNAL(pressed()),this,SLOT(halt()));
+//    emit setOperation (LOOP);
+//    playbutton->setText (i18n("Stop"));
+//    loopbutton->setText (i18n("Halt"));     // halt feature by gerhard Zint
+//    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
+//    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
+//    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
+//    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
 }
+
 //*****************************************************************************
 void MainWidget::play ()
 {
-  emit setOperation 	(PLAY);
-  playbutton->setText	(i18n("Stop"));
-  loopbutton->setText   (i18n("Halt"));  // halt feature by gerhard Zint
-  this->disconnect      (playbutton,SIGNAL(pressed()),this,SLOT(play()));
-  this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
-  this->connect         (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
-  this->connect         (loopbutton,SIGNAL(pressed()),this,SLOT(halt())); 
+//    emit setOperation (PLAY);
+//    playbutton->setText (i18n("Stop"));
+//    loopbutton->setText (i18n("Halt"));     // halt feature by gerhard Zint
+//    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
+//    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
+//    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
+//    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
 }
+
 //*****************************************************************************
-void MainWidget::halt   ()
+void MainWidget::halt ()
 {
-  playbutton->setText (i18n("Play"));
-  loopbutton->setText (i18n("&Loop"));
-  loopbutton->setAccel (Key_L); //seems to neccessary
-
-  emit setOperation (PHALT);
-
-  this->disconnect        (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
-  this->connect           (playbutton,SIGNAL(pressed()),this,SLOT(play()));
-  this->disconnect        (loopbutton,SIGNAL(pressed()),this,SLOT(halt()));
-  this->connect           (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
+//    playbutton->setText (i18n("Play"));
+//    loopbutton->setText (i18n("&Loop"));
+//    loopbutton->setAccel (Key_L);    //seems to neccessary
+//
+//    emit setOperation (PHALT);
+//
+//    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
+//    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
+//    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
+//    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
 }
+
 //*****************************************************************************
 void MainWidget::stop ()
 {
-  playbutton->setText (i18n("Play"));
-  loopbutton->setText (i18n("&Loop"));
-  loopbutton->setAccel (Key_L); //seems to be neccessary
-
-  emit setOperation (PSTOP);
-
-  this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(stop()));
-  this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(halt()));
-  this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(play()));
-  this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
+//    playbutton->setText (i18n("Play"));
+//    loopbutton->setText (i18n("&Loop"));
+//    loopbutton->setAccel (Key_L);    //seems to be neccessary
+//
+//    emit setOperation (PSTOP);
+//
+//    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
+//    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
+//    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
+//    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
 }
+
 //*****************************************************************************
-void MainWidget::setSelectedTimeInfo ( int ms)
+void MainWidget::setSelectedTimeInfo(double ms)
 {
-  QString buf=i18n("selected :")+ mstotime (ms);
-  status->changeItem (buf.data(),4);
+    char buffer[128];
+    snprintf(buffer, sizeof(buffer), i18n("selected: %0.1f ms"), ms);
+    status.changeItem(buffer, 4);
 }
+
 //*****************************************************************************
-void MainWidget::setTimeInfo ( int ms)
+void MainWidget::setTimeInfo(double ms)
 {
- QString buf=i18n("Length :")+ mstotime (ms);
- status->changeItem (buf.data(),1);
+    char buffer[128];
+    snprintf(buffer, sizeof(buffer), i18n("Length: %0.1f ms"), ms);
+    status.changeItem(buffer, 1);
 }
+
 //*****************************************************************************
-void MainWidget::setChannelInfo  (int channels)
+void MainWidget::refreshChannelControls()
 {
-  if (channels!=numsignals)
-    {
-      if ((!menushown)&&(channels>0))
-	{
-	  menushown=true;
-	}
-      char buf[8];
-      manage->clearNumberedMenu ("ID_EDIT_CHANNEL_DELETE");
+//    ASSERT(parent);
+//    debug("MainWidget::refreshChannelControls()");
+    unsigned int channels = getChannelCount();
 
-      for (int i=0;i<channels;i++)
-	{
-	  sprintf (buf,"%d",i);
-	  manage->addNumberedMenuEntry ("ID_EDIT_CHANNEL_DELETE",buf);
-	}
-
-      MultiStateWidget **newlamps=new MultiStateWidget*[channels+1];
-      MultiStateWidget **newspeakers=new MultiStateWidget*[channels+1];
-
-      if ((numsignals<channels)&&(parent->height()<(channels+4)*40))
-	parent->resize (width(),(channels+4)*40);
-
-      for (int i=0;(i<numsignals)&&(i<channels);i++)
-	{
-	  newlamps[i]=lamps[i];
-	  newspeakers[i]=speakers[i];
-	  lamps[i]->setGeometry (0,i*(height()-bsize-20)/channels,20,20);
-	  speakers[i]->setGeometry (0,i*(height()-bsize-20)/channels+20,20,20);
-	}
-
-      for (int i=channels;i<numsignals;i++) delete lamps[i],delete speakers[i];
-      delete lamps;
-      lamps=newlamps;
-      delete speakers;
-      speakers=newspeakers;
-
-      for (int i=numsignals;i<channels;i++)
-	{
-	  int s[3];
-
-	  newlamps[i]=new MultiStateWidget (this,i);
-	  s[0]=newlamps[i]->addPixmap("light_on.xpm");
-	  s[1]=newlamps[i]->addPixmap("light_off.xpm");
-	  QObject::connect (newlamps[i],SIGNAL(clicked(int)),signalview,SLOT(toggleChannel(int)));
-	  newlamps[i]->setStates (s);
-
-	  newspeakers[i]=new MultiStateWidget(this,0,3);
-	  s[0]=newspeakers[i]->addPixmap("rspeaker.xpm");
-	  s[1]=newspeakers[i]->addPixmap("lspeaker.xpm");
-	  s[2]=newspeakers[i]->addPixmap("xspeaker.xpm");
-	  newspeakers[i]->setStates(s);
-
-	  lamps[i]->setGeometry (0,i*(height()-bsize-20)/channels,20,20);
-	  speakers[i]->setGeometry (0,i*(height()-bsize-20)/channels+20,20,20);
-
-	  newlamps[i]->show();
-	  newspeakers[i]->show();
-	}
-      numsignals=channels;
+    if (lastChannels == channels) {
+	// nothing to do...
+	return ;
     }
 
-  updateMenu();
+//    // resize the TopWidget if one signal is smaller than the size
+//    // of the lamp/speaker icon
+//    if ( (lastChannels < channels) &&
+//	 ((unsigned int)parent->height() < (channels + 4)*40) ) {
+//	debug("MainWidget::setChannelInfo() -> resizing topwidget ");
+//	parent->resize(width(), (channels + 4)*40);
+//    }
+
+    // move the lamps and speakers from the old array
+    for (unsigned int i = 0; (i < lastChannels) && (i < channels); i++) {
+        ASSERT(lamps.at(i));
+        ASSERT(speakers.at(i));
+        if (!lamps.at(i)) continue;
+        if (!speakers.at(i)) continue;
+
+	lamps.at(i)->setGeometry(0, i*(height() - bsize - 20) /
+	    channels, 20, 20);
+
+	speakers.at(i)->setGeometry(0, i*(height() - bsize - 20) /
+	    channels + 20, 20, 20);
+    }
+
+    // delete now unused lamps and speakers
+    while (lamps.count() > channels)
+	lamps.remove(lamps.last());
+    while (speakers.count() > channels)
+	speakers.remove(speakers.last());
+
+    // add lamps+speakers for new channels
+    for (unsigned int i = lastChannels; i < channels; i++) {
+	int s[3];
+        MultiStateWidget *msw = new MultiStateWidget(this, i);
+        ASSERT(msw);
+        if (!msw) continue;
+
+	lamps.append(msw);
+	ASSERT(lamps.at(i));
+	if (!lamps.at(i)) continue;
+	s[0] = lamps.at(i)->addPixmap("light_on.xpm");
+	s[1] = lamps.at(i)->addPixmap("light_off.xpm");
+	QObject::connect(
+	    lamps.at(i), SIGNAL(clicked(int)),
+	    signalview, SLOT(toggleChannel(int))
+	);
+	lamps.at(i)->setStates (s);
+
+        msw = new MultiStateWidget(this, 0, 3);
+        ASSERT(msw);
+        if (!msw) continue;
+	speakers.append(msw);
+	ASSERT(speakers.at(i));
+	if (!speakers.at(i)) continue;
+	s[0] = speakers.at(i)->addPixmap("rspeaker.xpm");
+	s[1] = speakers.at(i)->addPixmap("lspeaker.xpm");
+	s[2] = speakers.at(i)->addPixmap("xspeaker.xpm");
+	speakers.at(i)->setStates(s);
+
+	lamps.at(i)->setGeometry(0, i*(height() - bsize - 20) / channels, 20, 20);
+	speakers.at(i)->setGeometry(0, i*(height() - bsize - 20) / channels + 20, 20, 20);
+
+	lamps.at(i)->show();
+	speakers.at(i)->show();
+    }
+
+    lastChannels = channels;
+    refreshControls();
 }
+
 //*****************************************************************************
-void MainWidget::resizeEvent  (QResizeEvent *)
+void MainWidget::resizeEvent(QResizeEvent *)
 {
- bsize=buttons->sizeHint().height();
+    ASSERT(buttons);
+    ASSERT(zoomselect);
+    ASSERT(slider);
+    ASSERT(signalview);
 
- buttons->setGeometry (0,height()-bsize,width()*3/4,bsize);
- zoomselect->setGeometry (width()*3/4,height()-bsize,width()/4,bsize);
- slider->setGeometry (20,height()-(bsize+20),width()-20,20);
- signalview->setGeometry (20,0,width()-20,height()-(bsize+20));
+    if (!buttons) return;
+    if (!zoomselect) return;
+    if (!slider) return;
+    if (!signalview) return;
 
- for (int i=0;i<numsignals;i++)
-   {
-     lamps[i]->setGeometry (0,i*(height()-bsize-20)/numsignals,20,20);
-     speakers[i]->setGeometry (0,i*(height()-bsize-20)/numsignals+20,20,20);
-   }
+    bsize = buttons->sizeHint().height();
+
+    buttons->setGeometry(0, height() - bsize,
+                         width()*3 / 4, bsize);
+    zoomselect->setGeometry(width()*3 / 4, height() - bsize,
+                            width() / 4, bsize);
+    slider->setGeometry (20, height() - (bsize + 20), width() - 20, 20);
+    signalview->setGeometry (20, 0, width() - 20, height() - (bsize + 20));
+
+    for (unsigned int i = 0; i < getChannelCount(); i++) {
+	if (lamps.count() < getChannelCount()) continue;
+	if (speakers.count() < getChannelCount()) continue;
+	ASSERT(lamps.at(i));
+	if (lamps.at(i)) lamps.at(i)->setGeometry(
+		0, i*(height() - bsize - 20) / getChannelCount(), 20, 20);
+
+	ASSERT(speakers.at(i));		
+	if (speakers.at(i)) speakers.at(i)->setGeometry(
+	    0, i*(height() - bsize - 20) / getChannelCount() + 20, 20, 20);
+    }
+//    debug("MainWidget::resizeEvent(): done.");
 }
+
+//*****************************************************************************
+unsigned int MainWidget::getChannelCount()
+{
+    ASSERT(signalview);
+    return (signalview) ? signalview->getChannelCount() : 0;
+}
+
 //*****************************************************************************
 int MainWidget::getBitsPerSample()
 {
-  return (signalview) ? signalview->getBitsPerSample() : 0;
+    ASSERT(signalview);
+    return (signalview) ? signalview->getBitsPerSample() : 0;
 }
-//*****************************************************************************
 
+//*****************************************************************************

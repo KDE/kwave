@@ -15,7 +15,7 @@
 
 # set the include path for X, qt and KDE
 
-INCLUDES= @all_includes@ -I${topdir}
+INCLUDES= @all_includes@ -I${topdir} -I${topdir}/libgui
 
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(kde_datadir)/kwave/modules/dialogs

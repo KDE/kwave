@@ -9,31 +9,39 @@ class QPaintEvent;
 
 class ProgressDialog : public QDialog
 {
- Q_OBJECT
+    Q_OBJECT
 
- public:
-	ProgressDialog 	(TimeOperation *,const char *caption);
- 	ProgressDialog 	(int max=100,char*caption="Progress");
- 	~ProgressDialog ();
- void	setProgress(int);
+public:
+    ProgressDialog(TimeOperation *, const char *caption);
+    ProgressDialog(int max = 100, char *caption = 0);
+    ~ProgressDialog();
 
- public slots:
+    void setProgress(int);
 
- void	timedProgress();
+public slots:
 
- protected:
+    void timedProgress();
 
- void paintEvent  (QPaintEvent *);
+signals:
 
- private:
+    /**
+     * Emitted when the command is done.
+     */
+    void commandDone();
 
- int max;
- int act;
- int last;
- int lastx,lasty;
- int oldw;
- TimeOperation *operation;
- QTimer        *timer;
+protected:
+
+    void paintEvent(QPaintEvent *);
+
+private:
+
+    int max;
+    int act;
+    int last;
+    int lastx, lasty;
+    int oldw;
+    TimeOperation *operation;
+    QTimer *timer;
 };
 
 #endif // _PROGRESS_DIALOG_H_

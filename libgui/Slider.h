@@ -10,7 +10,7 @@
 //#include <kslider.h>
 //#define  KwaveSlider KSlider
 
-#endif  /* slider.h */   
+#endif  /* slider.h */
 
 
 

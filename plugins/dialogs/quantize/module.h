@@ -8,27 +8,26 @@
 #include <kintegerline.h>
 
 //*****************************************************************************
-class QuantiseDialog : public Dialog
-{
- Q_OBJECT
+class QuantiseDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	QuantiseDialog 	(bool=false);
- 	~QuantiseDialog ();
+    QuantiseDialog (bool = false);
+    ~QuantiseDialog ();
 
- const char *getCommand ();
+    const char *getCommand ();
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- KIntegerLine	*bits;
- QCheckBox      *linear;
- QLabel		*bitlabel;
- QPushButton	*ok,*cancel;
- char           *comstr;
+    KIntegerLine *bits;
+    QCheckBox *linear;
+    QLabel *bitlabel;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 #endif

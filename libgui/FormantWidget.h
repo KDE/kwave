@@ -4,35 +4,34 @@
 #include <qwidget.h>
 
 //***********************************************************************
-class FormantWidget : public QWidget
-{
- Q_OBJECT
- public:
- 	FormantWidget	(QWidget *parent,int rate);
- 	~FormantWidget	();
+class FormantWidget : public QWidget {
+    Q_OBJECT
+public:
+    FormantWidget (QWidget *parent, int rate);
+    ~FormantWidget ();
 
- double *getPoints (int);
+    double *getPoints (int);
 
- public slots:
+public slots:
 
- void   setFormants (int,int *,int *);
+    void setFormants (int, int *, int *);
 
- signals:
+signals:
 
- void   dbscale (int,int);
+    void dbscale (int, int);
 
- protected:
+protected:
 
- void	paintEvent(QPaintEvent *);
+    void paintEvent(QPaintEvent *);
 
- private:
+private:
 
- int    *pos;                   //array of formant-positions
- int    *widths;                //array of formantwidth
- int    num;                    //number of formants
- int	width,height;		//of widget
- int    rate;
- double *points;
+    int *pos;                      //array of formant-positions
+    int *widths;                   //array of formantwidth
+    int num;                       //number of formants
+    int width, height;            //of widget
+    int rate;
+    double *points;
 };
 //***********************************************************************
 #endif // _FORMANT_WIDGET_H_

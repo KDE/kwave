@@ -17,5 +17,7 @@
 
 cat $1 | awk -v field=$2: ' \
     { p=index($0, field) } \
-    { if (p==1) print substr($0,length(field)+1) }'
+    { if (p==1) print substr($0,length(field)+1) }' 
+
+# | awk '{ print $1 }'
 

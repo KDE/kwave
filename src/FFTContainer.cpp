@@ -1,5 +1,6 @@
 
 #include <qpainter.h>
+#include <qpushbt.h>
 
 #include "libgui/FFTWidget.h"
 #include "libgui/ScaleWidget.h"
@@ -7,34 +8,46 @@
 
 #include "FFTContainer.h"
 
-#include <qpushbt.h>
+//****************************************************************************
+FFTContainer::FFTContainer (QWidget *parent):
+QWidget (parent)
+{
+    this->corner = 0;
+    this->view = 0;
+    this->xscale = 0;
+    this->yscale = 0;
+}
 
 //****************************************************************************
-FFTContainer::FFTContainer (QWidget *parent): QWidget (parent)
+void FFTContainer::setObjects(FFTWidget *view, ScaleWidget *x,
+                              ScaleWidget *y, CornerPatchWidget *corner)
 {
-  this->view=0;
+    this->corner = corner;
+    this->view = view;
+    this->xscale = x;
+    this->yscale = y;
 }
+
 //****************************************************************************
-void FFTContainer::setObjects (FFTWidget *view,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner)
-{
-  this->view=view;
-  this->xscale=x;
-  this->yscale=y;
-  this->corner=corner;
-}
-//****************************************************************************
-FFTContainer::~FFTContainer ()
+FFTContainer::~FFTContainer()
 {
 }
+
 //****************************************************************************
-void FFTContainer::resizeEvent  (QResizeEvent *)
+void FFTContainer::resizeEvent(QResizeEvent *)
 {
-  if (view)
-    {
-      int bsize=(QPushButton("test",this).sizeHint()).height();
-      view->setGeometry (bsize,0,width()-bsize,height()-bsize);  
-      xscale->setGeometry       (bsize,height()-bsize,width()-bsize,bsize);  
-      yscale->setGeometry       (0,0,bsize,height()-bsize);
-      corner->setGeometry       (0,height()-bsize,bsize,bsize);
-    }
+    ASSERT(corner);
+    ASSERT(view);
+    ASSERT(xscale);
+    ASSERT(yscale);
+    if (!corner) return;
+    if (!view) return;
+    if (!xscale) return;
+    if (!yscale) return;
+
+    int bsize = (QPushButton("test", this).sizeHint()).height();
+    view->setGeometry (bsize, 0, width() - bsize, height() - bsize);
+    xscale->setGeometry (bsize, height() - bsize, width() - bsize, bsize);
+    yscale->setGeometry (0, 0, bsize, height() - bsize);
+    corner->setGeometry (0, height() - bsize, bsize, bsize);
 }

@@ -181,6 +181,6 @@ cd -
 # remove the temporary directory
 #
 echo -e "\tremoving temporary directory "$PROJECT-$PREV_VERSION
-rm -Rf $PROJECT-$PREV_VERSION
+rm -Rf /tmp/$PROJECT-$PREV_VERSION
 
 echo "patch created."

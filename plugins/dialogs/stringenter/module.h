@@ -5,23 +5,22 @@
 #include "../../../libgui/Dialog.h"
 #include <libkwave/DialogOperation.h>
 //*****************************************************************************
-class StringEnterDialog : public Dialog
-{
- Q_OBJECT
+class StringEnterDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	StringEnterDialog 	(const char *name,bool modal);
- 	~StringEnterDialog 	();
- const char   *getCommand();
+    StringEnterDialog (const char *name, bool modal);
+    ~StringEnterDialog ();
+    const char *getCommand();
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- QLineEdit	*name;
- QPushButton	*ok,*cancel;
+    QLineEdit *name;
+    QPushButton *ok, *cancel;
 };
 #endif

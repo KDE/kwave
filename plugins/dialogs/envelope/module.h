@@ -7,32 +7,31 @@
 #include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 //*****************************************************************************
-class EnvelopeDialog : public Dialog
-{
- Q_OBJECT
+class EnvelopeDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	EnvelopeDialog 	(bool);
- 	~EnvelopeDialog ();
+    EnvelopeDialog (bool);
+    ~EnvelopeDialog ();
 
- const char *getCommand();
+    const char *getCommand();
 
- public slots:
+public slots:
 
- void setTime (int);
+    void setTime (int);
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- Slider 	*timeslider;
- QLabel		*timelabel;
- QLabel		*typelabel;
- QComboBox	*typebox;
- QPushButton	*ok,*cancel;
- char           *comstr;
+    Slider *timeslider;
+    QLabel *timelabel;
+    QLabel *typelabel;
+    QComboBox *typebox;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 #endif

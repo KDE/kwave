@@ -17,7 +17,7 @@ APPSDIR= $(kde_appsdir)/Multimedia
 CONFDIR= $(kde_datadir)/$(PACKAGE)
 PIXDIR = $(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
-INCLUDES= @all_includes@
+INCLUDES= @all_includes@ -I${topdir}/libgui
 
 # claim, which subdirectories you want to install
 
@@ -45,6 +45,7 @@ BUILTSOURCES=\
  PitchWidget.moc.cpp\
  PitchWindow.moc.cpp\
  ProgressDialog.moc.cpp\
+ SignalManager.moc.cpp\
  SignalWidget.moc.cpp\
  SonagramContainer.moc.cpp\
  SonagramWindow.moc.cpp\
@@ -146,6 +147,8 @@ ProgressDialog.moc.cpp: ProgressDialog.h
 	$(MOC) -o ProgressDialog.moc.cpp ProgressDialog.h
 SignalWidget.moc.cpp: SignalWidget.h
 	$(MOC) -o SignalWidget.moc.cpp SignalWidget.h
+SignalManager.moc.cpp: SignalManager.h
+	$(MOC) -o SignalManager.moc.cpp SignalManager.h
 SonagramContainer.moc.cpp: SonagramContainer.h
 	$(MOC) -o SonagramContainer.moc.cpp SonagramContainer.h
 SonagramWindow.moc.cpp: SonagramWindow.h

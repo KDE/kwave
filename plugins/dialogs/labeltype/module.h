@@ -10,31 +10,30 @@
 #include <libkwave/Color.h>
 
 //*****************************************************************************
-class MarkerTypeDialog : public Dialog
-{
- Q_OBJECT
+class MarkerTypeDialog : public Dialog {
+    Q_OBJECT
 
- public:
- 	MarkerTypeDialog 	(bool modal);
- 	~MarkerTypeDialog 	();
-	const char *getCommand();
+public:
+    MarkerTypeDialog (bool modal);
+    ~MarkerTypeDialog ();
+    const char *getCommand();
 
- public slots:
+public slots:
 
-   void setColor(const Color &col);
+    void setColor(const Color &col);
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- KColorCombo    *color;
- QCheckBox      *individual;
- QLabel		*namelabel;
- QLineEdit	*name;
- QPushButton	*ok,*cancel;
- Color          col;
- char           *comstr;
+    KColorCombo *color;
+    QCheckBox *individual;
+    QLabel *namelabel;
+    QLineEdit *name;
+    QPushButton *ok, *cancel;
+    Color col;
+    char *comstr;
 };
 #endif

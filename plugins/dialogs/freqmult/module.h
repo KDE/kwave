@@ -10,31 +10,30 @@
 #include "../../../libgui/Dialog.h"
 #include <libkwave/DialogOperation.h>
 //*****************************************************************************
-class FrequencyMultDialog : public Dialog
-{
-  Q_OBJECT
+class FrequencyMultDialog : public Dialog {
+    Q_OBJECT
 
-    public:
-  FrequencyMultDialog 	(int rate,bool);
-  ~FrequencyMultDialog 	();
-  const char *getCommand();
+public:
+    FrequencyMultDialog (int rate, bool);
+    ~FrequencyMultDialog ();
+    const char *getCommand();
 
-  public slots:
+public slots:
     void addPoint ();
 
- protected:
-  void resizeEvent (QResizeEvent *);
+protected:
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
-  CurveWidget	*curve;
-  ScaleWidget   *xscale,*yscale;
-  CornerPatchWidget *corner;
-  QLabel        *xlabel,*ylabel;
-  KIntegerLine  *x,*y;
-  QPushButton	*add;
-  QPushButton	*ok,*cancel;
-  int           rate;
-  char          *comstr;
+    CurveWidget *curve;
+    ScaleWidget *xscale, *yscale;
+    CornerPatchWidget *corner;
+    QLabel *xlabel, *ylabel;
+    KIntegerLine *x, *y;
+    QPushButton *add;
+    QPushButton *ok, *cancel;
+    int rate;
+    char *comstr;
 };
 #endif

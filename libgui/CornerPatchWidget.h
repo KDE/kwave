@@ -2,29 +2,30 @@
 #define _CORNER_PATCH_WIDGET_H_ 1
 
 #include <qwidget.h>
-#include <qpainter.h>
+
+class QPaintEvent;
 
 //*****************************************************
-class CornerPatchWidget : public QWidget
+class CornerPatchWidget:public QWidget
 {
- Q_OBJECT
+    Q_OBJECT
 
- public:
+public:
 
- 	CornerPatchWidget 	(QWidget *parent=0,int=0);
- 	~CornerPatchWidget 	();
+    CornerPatchWidget(QWidget *parent = 0, int = 0);
+    ~CornerPatchWidget();
 
- signals:
+signals:
 
- public slots:
+public slots:
 
- protected:
+protected:
 
- void   paintEvent(QPaintEvent *); 
+    void paintEvent(QPaintEvent *);
 
- private:
+private:
 
- int  pos;         //
+    int pos;            //
 };
 
 #endif // _CORNER_PATCH_WIDGET_H_

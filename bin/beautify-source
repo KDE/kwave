@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# Beautifies all C/C++ header and source files according to my
+# personally favorite coding style. It makes use of the "Artistic Style"
+# package available at "http://astyle.sourceforge.net/" 
+# or as rpm named "astyle"
+#
+# Thanks to Tal Davidson, Israel (E-mail: davidsont@bigfoot.com)
+# for writing it :-)
+#
+# 2000-05-05 Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+#
+
+function Format_File() {
+    echo indenting $1
+    cat $1 | expand | astyle \
+	--style=kr \
+	--mode=c \
+	--brackets=attach \
+	--pad=oper \
+	--indent-switches \
+	--indent-cases \
+	--min-conditional=0 \
+	--max-instatement-indent=4 \
+	--indent=spaces=4  \
+	> /tmp/indent 2>/dev/null
+    cat /tmp/indent | unexpand > $1
+
+
+};
+
+#
+# uncomment the 7 lines below if your source comes from 
+# a DOS / Windooze environment...
+#
+# for file in `find -type f | grep -E .S$\|.s$\|.cpp$\|.c$\|.h$\|?akefile\|.orig$`; do
+# {
+#     echo converting $file
+#     /usr/bin/recode --silent ibmpc:lat1 $file
+# };
+# done
+
+for file in `find . -name \*.cpp -o -name \*.h`; do
+{
+    Format_File $file
+};
+done
+
+exit 0
+

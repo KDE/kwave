@@ -3,29 +3,27 @@
 
 #include <qwidget.h>
 
-class FaderWidget : public QWidget
-{
- Q_OBJECT
- public:
- 	    FaderWidget	 (QWidget *parent=0,int dir=1);
- 	    ~FaderWidget ();
- const char *getDegree   ();
- public slots:
+class FaderWidget : public QWidget {
+    Q_OBJECT
+public:
+    FaderWidget(QWidget *parent = 0, int dir = 1);
+    ~FaderWidget();
+    const char *getDegree();
+public slots:
 
- void       setCurve     (int);
+    void setCurve(int);
 
- signals:
+signals:
 
- protected:
+protected:
 
- void	paintEvent      (QPaintEvent *);
+    void paintEvent(QPaintEvent *);
 
- private:
-
- int    dir;
- int    curve;
- int	width,height;		//of widget
- char   *comstr;
+private:
+    int dir;
+    int curve;
+    int width, height;            //of widget
+    char *comstr;
 };
 //***********************************************************************
 #endif // _FADER_WIDGET_H_

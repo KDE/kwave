@@ -10,217 +10,231 @@
 #include "ScaleWidget.h"
 
 #define FONTSIZE 6
-QPixmap *scalefont=0;
-int scalefontusage=0;
-extern KApplication *app;
+QPixmap *scalefont = 0;
+int scalefontusage = 0;
 
 //**********************************************************
 int getlessten (int val)
 // returns the next smaller power of 10
 {
-  int x=1;
-  while (val>x*10) x*=10;
-  return x;
+    int x = 1;
+    while (val > x*10) x *= 10;
+    return x;
 }
 //**********************************************************
-ScaleWidget::ScaleWidget (QWidget *parent,int low,int high,char *text): QWidget (parent)
+ScaleWidget::ScaleWidget (QWidget *parent, int low, int high, char *text)
+    :QWidget (parent)
 {
-  this->low=low;
-  this->high=high;
-  this->unittext=text;
+    this->high = high;
+    logmode = false;
+    this->low = low;
+    this->unittext = text;
 
-  logmode=false;
+    KApplication *app = KApplication::getKApplication();
+    ASSERT(app);
+    if (!app) return;
 
-  if (!scalefont)
-    {
-      scalefont=new QPixmap ();
+    if (!scalefont) {
+	scalefont = new QPixmap();
+	ASSERT(scalefont);
 
-      const QString dirname=app->kde_datadir ();
-      QDir dir (dirname.data());
-      dir.cd ("kwave");
-      dir.cd ("pics");
-      
-      QImage  *img=new QImage(dir.filePath("font.xpm").data());
+	const QString dirname = app->kde_datadir();
+	QDir dir (dirname.data());
+	dir.cd ("kwave");
+	dir.cd ("pics");
 
-      if (scalefont&&img)
-	scalefont->convertFromImage(*img);
+	QImage *img = new QImage(dir.filePath("font.xpm").data());
+	ASSERT(img);
+	if (scalefont && img)
+	    scalefont->convertFromImage(*img);
     }
-  scalefontusage++;
+    scalefontusage++;
 }
+
 //**********************************************************
-ScaleWidget::~ScaleWidget ()
+ScaleWidget::~ScaleWidget()
 {
-  scalefontusage--;
-  if ((scalefontusage==0)&&scalefont)
-    {
-      delete scalefont;
-      scalefont=0;
-    }
-}
-//**********************************************************
-void ScaleWidget::setUnit (char *text)
-{
-  this->unittext=text;
-  repaint ();
-}
-//**********************************************************
-void ScaleWidget::setLogMode (bool a)
-{
-  if (logmode!=a)
-    {
-      logmode=a;
-      repaint ();
+    scalefontusage--;
+    if ((scalefontusage == 0) && scalefont) {
+	delete scalefont;
+	scalefont = 0;
     }
 }
+
 //**********************************************************
-void ScaleWidget::setMaxMin (int b,int a)
+void ScaleWidget::setUnit(char *text)
 {
-  low=a;
-  high=b;
-  repaint (true);
+    unittext = text;
+    repaint ();
 }
+
 //**********************************************************
-void ScaleWidget::paintText  (QPainter *p,int x, int y,int ofs,int dir,char *text)
-  //painting routine for own small font with fixed size
-  //There are Problems with smaller displays using QFont, Sizes are not correct
+void ScaleWidget::setLogMode(bool a)
 {
-  if (scalefont)
-    {
-      int len=strlen(text);
+    if (logmode != a) {
+	logmode = a;
+	repaint();
+    }
+}
 
-      for (int i=0;i<len;i++)
-	{
-	  int c=text[i];
-	  if ((c>64)&&(c<91)) //letter
-	    p->drawPixmap (x,y,*scalefont,(c-65)*FONTSIZE,0,FONTSIZE,FONTSIZE);
-	  if ((c>96)&&(c<123)) //letter
-	    p->drawPixmap (x,y,*scalefont,(c-97)*FONTSIZE,0,FONTSIZE,FONTSIZE);
+//**********************************************************
+void ScaleWidget::setMaxMin(int b, int a)
+{
+    low = a;
+    high = b;
+    repaint (true);
+}
 
-	  if ((c>47)&&(c<58)) //number
-	    p->drawPixmap (x,y,*scalefont,(c-48+26)*FONTSIZE,0,FONTSIZE,FONTSIZE);
-	  if (c=='°')  p->drawPixmap (x,y,*scalefont,(38)*FONTSIZE,0,FONTSIZE,FONTSIZE);
-	  if (c=='.')  p->drawPixmap (x,y,*scalefont,(39)*FONTSIZE,0,FONTSIZE,FONTSIZE);
-	  if (c=='-')  p->drawPixmap (x,y,*scalefont,(42)*FONTSIZE,0,FONTSIZE,FONTSIZE);
-	  if (c=='%')
-	    {
-	      p->drawPixmap (x,y,*scalefont,(40)*FONTSIZE,0,FONTSIZE,FONTSIZE);
-	      p->drawPixmap (x+ofs,y,*scalefont,(41)*FONTSIZE,0,FONTSIZE,FONTSIZE);
-	      if (dir) x+=ofs;
-	    }
+//**********************************************************
+void ScaleWidget::paintText(QPainter *p, int x, int y, int ofs,
+                            int dir, char *text)
+//painting routine for own small font with fixed size
+//There are Problems with smaller displays using QFont, Sizes are not correct
+{
+    ASSERT(p);
+    if (!p) return;
+    if (!scalefont) return;
 
+    int len = strlen(text);
 
+    for (int i = 0; i < len; i++) {
+	int c = text[i];
+	if ((c > 64) && (c < 91)) //letter
+	    p->drawPixmap(x, y, *scalefont, (c - 65)*FONTSIZE, 0,
+	                  FONTSIZE, FONTSIZE);
+	if ((c > 96) && (c < 123)) //letter
+	    p->drawPixmap(x, y, *scalefont, (c - 97)*FONTSIZE, 0,
+	                  FONTSIZE, FONTSIZE);
 
-	  if (dir) x+=ofs;
-	  else y+=ofs;
+	if ((c > 47) && (c < 58)) //number
+	    p->drawPixmap(x, y, *scalefont, (c - 48 + 26)*FONTSIZE, 0,
+	                  FONTSIZE, FONTSIZE);
+	if (c == '°') p->drawPixmap(x, y, *scalefont, (38)*FONTSIZE, 0,
+	                            FONTSIZE, FONTSIZE);
+	if (c == '.') p->drawPixmap(x, y, *scalefont, (39)*FONTSIZE, 0,
+	                            FONTSIZE, FONTSIZE);
+	if (c == '-') p->drawPixmap(x, y, *scalefont, (42)*FONTSIZE, 0,
+	                            FONTSIZE, FONTSIZE);
+	if (c == '%') {
+	    p->drawPixmap(x, y, *scalefont, (40)*FONTSIZE, 0, FONTSIZE,
+	                  FONTSIZE);
+	    p->drawPixmap(x + ofs, y, *scalefont, (41)*FONTSIZE, 0,
+	                  FONTSIZE, FONTSIZE);
+	    if (dir) x += ofs;
 	}
+
+	if (dir) x += ofs;
+	else y += ofs;
     }
 }
-//**********************************************************
-void ScaleWidget::drawLog  (QPainter *p, int w,int h)
-{
-  if (w>h) //horizontal orientation
-    {
-      p->setPen (colorGroup().dark());
-      p->drawLine (0,h-1,w,h-1);
-      p->drawLine (w-1,0,w-1,h-1);
 
-      p->setPen (colorGroup().text());
-    }
-  else
-    {
-      p->drawLine (0,0,0,h);
-      p->setPen (colorGroup().dark());
-      p->drawLine (w-1,0,w-1,h-1);
-      p->setPen (colorGroup().text());
+//**********************************************************
+void ScaleWidget::drawLog(QPainter *p, int w, int h)
+{
+    ASSERT(p);
+    if (!p) return;
+
+    //horizontal orientation
+    if (w > h) {
+	p->setPen (colorGroup().dark());
+	p->drawLine (0, h - 1, w, h - 1);
+	p->drawLine (w - 1, 0, w - 1, h - 1);
+
+	p->setPen (colorGroup().text());
+    } else {
+	p->drawLine (0, 0, 0, h);
+	p->setPen (colorGroup().dark());
+	p->drawLine (w - 1, 0, w - 1, h - 1);
+	p->setPen (colorGroup().text());
     }
 }
+
 //**********************************************************
-void ScaleWidget::drawLinear  (QPainter *p, int w,int h)
+void ScaleWidget::drawLinear (QPainter *p, int w, int h)
 {
-  if (w>h) //horizontal orientation
-    {
-      p->setPen (colorGroup().dark());
-      p->drawLine (0,h-1,w,h-1);
-      p->drawLine (w-1,0,w-1,h-1);
+    ASSERT(p);
+    if (!p) return;
 
-      p->setPen (colorGroup().text());
+    //horizontal orientation
+    if (w > h) {
+	p->setPen (colorGroup().dark());
+	p->drawLine (0, h - 1, w, h - 1);
+	p->drawLine (w - 1, 0, w - 1, h - 1);
 
-      int a,x;
-      double ofs;
-      double t=w-1;
-      int h2=h;
-      
-      while ((t/10>1)&&(h2>0))
-	{
-	  for (ofs=0;ofs<w-1;ofs+=t)
-	    {
-	      for (a=0;a<6;a++)
-		{
-		  x=(int)(ofs+(t*a/5));
-		  p->drawLine (x,1,x,h2-2);
+	p->setPen (colorGroup().text());
+
+	int a, x;
+	double ofs;
+	double t = w - 1;
+	int h2 = h;
+
+	while ((t / 10 > 1) && (h2 > 0)) {
+	    for (ofs = 0; ofs < w - 1; ofs += t) {
+		for (a = 0; a < 6; a++) {
+		    x = (int)(ofs + (t * a / 5));
+		    p->drawLine (x, 1, x, h2 - 2);
 		}
 	    }
 
-	  h2=h2>>1;
-	  t/=5;
+	    h2 = h2 >> 1;
+	    t /= 5;
 	}
 
-      for (a=0;a<5;a++)
-	{
-	  char buf[16];
-	  sprintf (buf,"%d %s",low+((high-low)*a/5),unittext);
-	  x=(w-1)*a/5;
-	  paintText (p,x+2,h-FONTSIZE-2,FONTSIZE,true,buf);
+	for (a = 0; a < 5; a++) {
+	    char buf[64];
+	    snprintf(buf, sizeof(buf), "%d %s", low + ((high - low)*a / 5),
+	             unittext);
+	    x = (w - 1) * a / 5;
+	    paintText (p, x + 2, h - FONTSIZE - 2, FONTSIZE, true, buf);
 	}
-    }
-  else
-    {
-      p->drawLine (0,0,0,h);
-      p->setPen (colorGroup().dark());
-      p->drawLine (w-1,0,w-1,h-1);
-      p->setPen (colorGroup().text());
+    } else {
+	p->drawLine (0, 0, 0, h);
+	p->setPen (colorGroup().dark());
+	p->drawLine (w - 1, 0, w - 1, h - 1);
+	p->setPen (colorGroup().text());
 
-      int a,y;
-      double ofs;
-      double t=h-1;
-      int h2=w-1;
-      
-      while ((t/10>1)&&(h2>0))
-	{
-	  for (ofs=0;ofs<h-1;ofs+=t)
-	    {
-	      for (a=0;a<6;a++)
-		{
-		  y=(int)(ofs+(t*a/5));
-		  p->drawLine (w-h2,y,w-1,y);
+	int a, y;
+	double ofs;
+	double t = h - 1;
+	int h2 = w - 1;
+
+	while ((t / 10 > 1) && (h2 > 0)) {
+	    for (ofs = 0; ofs < h - 1; ofs += t) {
+		for (a = 0; a < 6; a++) {
+		    y = (int)(ofs + (t * a / 5));
+		    p->drawLine (w - h2, y, w - 1, y);
 		}
 	    }
-	  h2=h2>>1;
-	  t/=5;
+	    h2 = h2 >> 1;
+	    t /= 5;
 	}
 
-      for (a=0;a<5;a++)
-	{
-	  char buf[16];
-	  sprintf (buf,"%d%s",low+((high-low)*a/5),unittext);
-	  y=(h-1)*a/5+1;
-	  paintText (p,2,y,FONTSIZE,false,buf);
+	for (a = 0; a < 5; a++) {
+	    char buf[64];
+	    snprintf(buf, sizeof(buf), "%d%s", low + ((high - low)*a / 5), 
+	        unittext);
+	    y = (h - 1) * a / 5 + 1;
+	    paintText (p, 2, y, FONTSIZE, false, buf);
 	}
     }
 }
+
 //**********************************************************
-void ScaleWidget::paintEvent  (QPaintEvent *)
+void ScaleWidget::paintEvent(QPaintEvent *)
 {
-  int h=height();
-  int w=width();
-  QPainter p;
-  p.begin (this);
+    int h = height();
+    int w = width();
+    QPainter p;
+    p.begin(this);
 
-  p.setPen (colorGroup().light());
-  p.drawLine (0,0,w,0);
-  
-  if (logmode) drawLog (&p,w,h);
-  else drawLinear (&p,w,h);
+    p.setPen(colorGroup().light());
+    p.drawLine(0, 0, w, 0);
 
-  p.end ();
+    if (logmode) drawLog(&p, w, h);
+    else drawLinear(&p, w, h);
+
+    p.end ();
 }
+
+//**********************************************************
+//**********************************************************

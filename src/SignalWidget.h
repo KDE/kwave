@@ -13,58 +13,113 @@ class TimeOperation;
 class MenuManager;
 
 ProgressDialog *createProgressDialog (TimeOperation *operation,
-	const char *caption);
+				      const char *caption);
 
 //***********************************************************
 class SignalWidget : public QWidget
-//this class is mainly responsible for displaying signals in the time-domain
+	    //this class is mainly responsible for displaying signals in the time-domain
 {
- Q_OBJECT
- public:
- 	SignalWidget	(QWidget *parent,MenuManager *manage);
- 	~SignalWidget	();
+    Q_OBJECT
+public:
+    SignalWidget(QWidget *parent, MenuManager &menu_manage);
 
- int    mstosamples             (double);
- void 	setSignal		(const char *filename,int type);
- void 	saveSignal		(const char *filename, int bits,
-                                 int type, bool selection=false);
- void 	saveBlocks		(int);
- void 	saveSelectedSignal	(const char *filename,int bits,bool selection=true);
- void 	setSignal		(SignalManager *signal);
+    /**
+     * Returns true if this instance was successfully initialized, or
+     * false if something went wrong during initialization.
+     */
+    virtual bool isOK();
 
- /**
-  * sets the display offset [samples], does not refresh the screen
-  * @param new_offset new value for the offset in samples, will be
-  *                   internally limited to [0...length-1]
-  */
- void setOffset(int new_offset);
+    ~SignalWidget();
 
- /**
-  * sets a new zoom factor [samples/pixel], does not refresh the screen
-  * @param new_zoom new zoom value, will be internally limited
-  *                 to [length/width...1/width] (from full display to
-  *                 one visible sample only)
-  */
- void setZoom(double new_zoom);
+    /**
+     * Converts a time in milliseconds to a number of samples, based
+     * on the current signal rate.
+     * @param ms time in milliseconds
+     * @return number of samples (rounded)
+     */
+    int ms2samples(double ms);
 
- unsigned char   *getOverview   (int);
- int    checkPosition	        (int);
- void 	drawSelection		(int,int);
+    /**
+     * Converts a number of samples to a time in milliseconds, based on the
+     * current signal rate.
+     * @param samples number of samples (negative values allowed)
+     * @return time in milliseconds
+     */
+    double samples2ms(int samples);
 
- void   addLabelType            (LabelType *);
- void   addLabelType            (const char *);
- int	doCommand	        (const char *);
- int    getSignalCount          ();
- int    getBitsPerSample        ();
+    void setSignal (const char *filename, int type);
+    void saveSignal (const char *filename, int bits,
+		     int type, bool selection = false);
+    void saveBlocks (int);
+    void setSignal (SignalManager *signal);
 
- public slots:
+    /**
+     * Closes the current signal
+     */
+    void closeSignal();
 
- void   slot_setOffset(int new_offset);
+    /**
+     * sets the display offset [samples], does not refresh the screen
+     * @param new_offset new value for the offset in samples, will be
+     *                   internally limited to [0...length-1]
+     */
+    void setOffset(int new_offset);
 
- void 	refresh		();
- void	setOp	        (int);
- void	toggleChannel	(int);
- void	time		();
+    /**
+     * sets a new zoom factor [samples/pixel], does not refresh the screen
+     * @param new_zoom new zoom value, will be internally limited
+     *                 to [length/width...1/width] (from full display to
+     *                 one visible sample only)
+     */
+    void setZoom(double new_zoom);
+
+    unsigned char *getOverview (int);
+
+    bool checkPosition (int);
+
+    void addLabelType (LabelType *);
+    void addLabelType (const char *);
+
+    bool executeCommand(const char *command);
+
+    /**
+     * Returns the number of channels of the current signal or
+     * 0 if no signal is loaded.
+     */
+    int getChannelCount();
+
+    int getBitsPerSample ();
+
+public slots:
+
+    void slot_setOffset(int new_offset);
+
+    void forwardCommand(const char *command);
+
+    /**
+     * Forwards sigChannelAdded()
+     * @param channel index of the new channel [0...N-1]
+     */
+    void forwardChannelAdded(unsigned int channel);
+
+    /**
+     * Forwards sigChannelDeleted()
+     * @param channel index of the deleted channel [0...N-1]
+     */
+    void forwardChannelDeleted(unsigned int channel);
+
+    void showMessage(const char *caption, const char *text, int flags);
+
+    void signalChanged(int left, int right);
+
+    void signalinserted (int, int);
+    void signaldeleted (int, int);
+    void estimateRange (int, int);
+
+    void refresh ();
+    void setOp (int);
+    void toggleChannel (int);
+    void time ();
 
     /**
      * Zooms into the selected range between the left and right marker.
@@ -99,26 +154,23 @@ class SignalWidget : public QWidget
      */
     void zoomOut();
 
+signals:
+
+    void playingfinished ();
+    void viewInfo (int, int, int);
+
+    void selectedTimeInfo(double ms);
+
+    void timeInfo(double ms);
+
+    void rateInfo(int);
+
+    void lengthInfo(int);
+
     /**
-     * Returns the zoom value that will be used to fit the whole signal
-     * into the current window.
-     * @return zoom value [samples/pixel]
+     * Emits a command to be processed by the next higher instance.
      */
-    double getFullZoom();
-
- void   signalinserted  (int,int);
- void   signaldeleted   (int,int);
- void	estimateRange   (int,int);
-
- signals:
-
- void channelReset	();
- void playingfinished	();
- void viewInfo		(int,int,int);
- void selectedTimeInfo	(int);
- void timeInfo          (int);
- void rateInfo	        (int);
- void lengthInfo	(int);
+    void sigCommand(const char *command);
 
     /**
      * Will be emitted if the zoom factor has changed due to a zoom
@@ -127,15 +179,40 @@ class SignalWidget : public QWidget
      */
     void zoomInfo(double zoom);
 
- protected:
- void	setRange                (int,int,bool=true);
- void	selectRange		();
- void	updateChannels	        ();
+    /**
+     * Signals that a channel has been added/inserted. The channels
+     * at and after this position (if any) have moved to channel+1.
+     * @param channel index of the new channel [0...N-1]
+     */
+    void sigChannelAdded(unsigned int channel);
 
- void	mousePressEvent		(QMouseEvent *);
- void	mouseReleaseEvent	(QMouseEvent *);  
- void	mouseMoveEvent		(QMouseEvent *);  
- void	paintEvent	        (QPaintEvent *);
+    /**
+     * Signals that a channel has been deleted. All following channels
+     * are shifted one channel down.
+     * @param channel index of the deleted channel [0...N-1]
+     */
+    void sigChannelDeleted(unsigned int channel);
+
+protected:
+    /**
+     * Returns the zoom value that will be used to fit the whole signal
+     * into the current window.
+     * @return zoom value [samples/pixel]
+     */
+    double getFullZoom();
+
+    /**
+     * Sets the left and right selection marker and promotes
+     * them to the SignalManager.
+     */
+    void setRange (int, int, bool = true);
+
+    void selectRange ();
+
+    void mousePressEvent (QMouseEvent *);
+    void mouseReleaseEvent (QMouseEvent *);
+    void mouseMoveEvent (QMouseEvent *);
+    void paintEvent (QPaintEvent *);
 
     /**
      * Draws the signal as an overview with multiple samples per
@@ -148,7 +225,7 @@ class SignalWidget : public QWidget
      * @param last the index of the last sample
      */
     void drawOverviewSignal(int channel, int middle, int height,
-	int first, int last);
+			    int first, int last);
 
     /**
      * Draws the signal and interpolates the pixels between the
@@ -160,7 +237,7 @@ class SignalWidget : public QWidget
      * @param height the height of the drawing are [pixels]
      * @see #calculateInterpolation()
      */
-    void drawInterpolatedSignal(int channel,int middle, int height);
+    void drawInterpolatedSignal(int channel, int middle, int height);
 
     /**
      * Draws the signal and connects the pixels between the samples
@@ -172,24 +249,23 @@ class SignalWidget : public QWidget
      *               area [pixels]
      * @param height the height of the drawing are [pixels]
      */
-    void drawPolyLineSignal(int channel,int middle, int height);
+    void drawPolyLineSignal(int channel, int middle, int height);
 
- void	calcTimeInfo	();
- void   loadLabel       ();
- void   appendLabel     ();
- void   deleteLabel     ();
- void   saveLabel       (const char *);
- void   addLabel        (const char *);
- void   jumptoLabel     ();
- void   markSignal      (const char *);
- void   markPeriods     (const char *);
- void   savePeriods     ();
- void   createSignal    (const char *);
- void   connectSignal   ();
- void   showDialog      (const char *);
+    void loadLabel ();
+    void appendLabel ();
+    void deleteLabel ();
+    void saveLabel (const char *);
+    void addLabel (const char *);
+    void jumptoLabel ();
+    void markSignal (const char *);
+    void markPeriods (const char *);
+    void savePeriods ();
+    void createSignal (const char *);
+    void connectSignal ();
+    void showDialog (const char *);
 
- bool   checkForLabelCommand      (const char *);
- bool   checkForNavigationCommand (const char *);
+    bool executeLabelCommand(const char *command);
+    bool executeNavigationCommand(const char *command);
 
 private:
 
@@ -236,24 +312,24 @@ private:
      */
     float *interpolation_alpha;
 
- int	offset;                 //offset from which signal is beeing displayed
- int	width,height;		//of this widget
- int	down;       		//flags if mouse is pressed
- double lasty; 
- double zoomy;
- double	zoom;			//number of samples represented by 1
-				//vertical line on the screen
- int	playpointer,lastplaypointer;	 
- int	playing;		//flag if playing task is running...
- int	redraw;		        //flag for redrawing pixmap
- MouseMark     *select;
- SignalManager *signalmanage;
- QTimer	       *timer;
- QPainter       p;
- QPixmap       *pixmap;	//pixmap to be blitted to screen
- LabelList     *labels;        //linked list of markers
- LabelType     *markertype;    //selected marker type
- MenuManager   *manage;
+    int offset;                    //offset from which signal is beeing displayed
+    int width, height;            //of this widget
+    int down;                     //flags if mouse is pressed
+    double lasty;
+    double zoomy;
+    double zoom;                     //number of samples represented by 1
+    //vertical line on the screen
+    int playpointer, lastplaypointer;
+    int playing;                  //flag if playing task is running...
+    int redraw;                           //flag for redrawing pixmap
+    MouseMark *select;
+    SignalManager *signalmanage;
+    QTimer *timer;
+    QPainter p;
+    QPixmap *pixmap;      //pixmap to be blitted to screen
+    LabelList *labels;           //linked list of markers
+    LabelType *markertype;       //selected marker type
+    MenuManager &menu;
 };
 
 #endif // _SIGNAL_WIDGET_H_

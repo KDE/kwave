@@ -10,6 +10,9 @@ SUBDIRS  	 = libgui src plugins po
 
 DISTCLEANFILES 	 = *~ config.cache config.log \#*
 
+configure.in: VERSION
+	touch configure.in
+
 clean-generic:
 	-rm -f -v `find -size 0`
 	-rm -fv `find . -name \*.moc`
@@ -31,13 +34,27 @@ reallyclean: clean-generic distclean
 	-rm -fv `find . -type l`
 	-rm -fv `find . -name Makefile`
 
-backup:
-	@ ${MAKE} reallyclean ; \
+backup: kwave.spec
+	@ cp kwave.spec kwave.spec.saved ; \
+	${MAKE} reallyclean ; \
+	mv kwave.spec.saved kwave.spec ; \
+	(cd ${srcdir}/..; \
+	tar -czh -f ${ARCHIVE_DIR}/kwave-${VERSION}-backup.tgz ${SRC_PREFIX} ) && \
+	echo source backed up to kwave-${VERSION}-backup.tgz
+
+#	( cd /tmp ; rm -Rf kwave-@RPM_VERSION@ ; \
+#	mkdir -p kwave-@RPM_VERSION@ ; \
+#	cd /tmp/kwave-@RPM_VERSION@ ; \
+#	cp -a ${SRC_DIR}/* . ; \
+#	cd ..; \
+
+patch:
+	@ cp kwave.spec kwave.spec.saved ; \
+	${MAKE} reallyclean ; \
+	mv kwave.spec.saved kwave.spec ; \
 	(cd ${srcdir}/..; \
 	tar -czh -f ${ARCHIVE_DIR}/kwave-${VERSION}.tar.gz ${SRC_PREFIX} ) && \
 	echo source backed up to kwave-${VERSION}.tar.gz
-
-patch: backup
 	@ $(srcdir)/bin/make_patch.sh kwave `cat $(srcdir)/VERSION` \
 		${ARCHIVE_DIR} ${SRC_DIR} ${SRC_PREFIX}
 

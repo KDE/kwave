@@ -8,33 +8,32 @@
 #include <libkwave/DialogOperation.h>
 #include <libkwave/Global.h>
 
-class SaveBlockDialog : public Dialog
-{
- Q_OBJECT
+class SaveBlockDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	SaveBlockDialog 	(Global*,bool modal);
- 	~SaveBlockDialog ();
- const char  *getCommand ();
+    SaveBlockDialog (Global*, bool modal);
+    ~SaveBlockDialog ();
+    const char *getCommand ();
 
- public slots:
+public slots:
 
- void check ();
+    void check ();
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- QLineEdit      *name,*dirname;
- QLabel         *mark1,*mark2;
- QLabel         *dirlabel,*namelabel;
- QDir           *dir;
- QComboBox	*marktype1,*marktype2;
- QPushButton	*ok,*cancel;
- char           *comstr;
+    QLineEdit *name, *dirname;
+    QLabel *mark1, *mark2;
+    QLabel *dirlabel, *namelabel;
+    QDir *dir;
+    QComboBox *marktype1, *marktype2;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 //*****************************************************************************
 #endif

@@ -8,27 +8,26 @@
 #include <kintegerline.h>
 
 //*****************************************************************************
-class GapDialog : public Dialog
-{
- Q_OBJECT
+class GapDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	GapDialog 	(int,bool);
- 	~GapDialog 	();
+    GapDialog (int, bool);
+    ~GapDialog ();
 
-	const char *getCommand ();
+    const char *getCommand ();
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- TimeLine	*len1,*len2;
- QCheckBox      *insert;
- QLabel		*label1,*label2;
- QPushButton	*ok,*cancel;
- char           *comstr;
+    TimeLine *len1, *len2;
+    QCheckBox *insert;
+    QLabel *label1, *label2;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 #endif

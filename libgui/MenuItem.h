@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuItem.h  -  selectable and checkable menu item
-                             -------------------
+			  MenuItem.h  -  selectable and checkable menu item
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -28,9 +28,9 @@
  * @author Thomas Eschenbacher
  */
 class MenuItem : public MenuNode {
-  Q_OBJECT
+    Q_OBJECT
 
-public: // Public methods
+public:    // Public methods
 
     /**
      * Constructor.
@@ -42,8 +42,8 @@ public: // Public methods
      *            (optional, default=0)
      * @param uid unique id string (optional, default=0)
      */
-    MenuItem(MenuNode *parent, char *name, char *command=0,
-             int key=0, char *uid=0);
+    MenuItem(MenuNode *parent, char *name, char *command = 0,
+	     int key = 0, char *uid = 0);
 
     /** virtual destructor */
     virtual ~MenuItem();

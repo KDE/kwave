@@ -1,131 +1,248 @@
+/***************************************************************************
+		SignalManager.h  -  manager for multi-channel signals
+			     -------------------
+    begin                : Thu May  04 2000
+    copyright            : (C) 2000 by Martin Wilz
+    email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 #ifndef _SIGNAL_MANAGER_H_
 #define _SIGNAL_MANAGER_H_ 1
 
 #define MAXCHANNELS 64
 
-#define processid	0
-#define stopprocess	1
-#define samplepointer	2
+#define processid       0
+#define stopprocess     1
+#define samplepointer   2
 
+#include <qobject.h>
+#include <qlist.h>
 #include <stdio.h>
 
+class ProgressDialog;
 class Signal;
-class KwaveSignal;
-class QWidget;
+class TimeOperation;
 
-//**********************************************************************
-class SignalManager
+/**
+ * The SignalManager class manages multi-channel signals,
+ */
+class SignalManager : public QObject
 {
- public:
-	SignalManager	(Signal *);
-	SignalManager	(QWidget *parent,const char *filename,int type=0);
-	SignalManager	(QWidget *parent,int length,int rate,int channel=1);
-  	~SignalManager	();
+    Q_OBJECT
 
- int    doCommand       (const char *);
- void   refresh();
+public:
+    SignalManager(Signal *sig);
+    SignalManager(const char *filename, int type = 0);
+    SignalManager(unsigned int length, int rate,
+                  unsigned int channel = 1);
+    virtual ~SignalManager();
 
- int    setSoundParams  (int audio,int bitspersample,int channels,int rate,int bufbase);
+    bool executeCommand(const char *command);
 
- void	play8		(bool);
- void	play16		(bool);
+    int setSoundParams(int audio, int bitspersample,
+                       unsigned int channels, int rate, int bufbase);
 
- void   getMaxMin       (int channel,int& max,int& min,int begin,int len);
- int    getBitsPerSample();
+    void play8(bool);
+    void play16(bool);
 
- inline int	getRate	        () {return rate;};
- inline int	getChannelCount	() {return channels;};
-        int	getLength	();
- inline int	getLMarker	() {return lmarker;};
- inline int	getRMarker	() {return rmarker;}; 
- inline int	getPlayPosition () {return msg[samplepointer];};
- inline Signal *getSignal	() {return signal[0];};
- inline Signal *getSignal	(int channel) {return signal[channel];};
-        int     getSingleSample (int channel,int offset);
- inline void    setParent       (QWidget *par) {parent=par;};
+    void getMaxMin(unsigned int channel, int &max, int& min,
+                   unsigned int begin, unsigned int len);
 
- void  command          (const char *);
- const char *getName	();
+    int getBitsPerSample();
 
- void	setOp      	(int);  //triggers function via given id
+    inline int getRate()
+    {
+	return rate;
+    };
 
- void	save	        (const char *filename,int bits, bool selection);
+    inline unsigned int getChannelCount()
+    {
+	return channels;
+    };
 
- /**
-  * Exports ascii file with one sample per line and only one channel.
-  */
- void	exportAscii	(const char *name);
+    unsigned int getLength();
 
- void   appendChannel        (Signal *);
- void   setRange             (int,int);
- bool   promoteCommand       (const char *command);
+    inline unsigned int getLMarker()
+    {
+	return lmarker;
+    };
 
- inline void toggleChannel   (int c) {selected[c]=!selected[c];};
+    inline unsigned int getRMarker()
+    {
+	return rmarker;
+    };
 
- private:
- void   initialize      ();
- void   checkRange      ();
- void	deleteChannel	(int);
- int    newChannel      (int);
- void   rateChange      ();
- void   addChannel      ();
- void   appendChanneltoThis   (Signal *);
+    inline unsigned int getPlayPosition()
+    {
+	return msg[samplepointer];
+    };
 
- void	play		(bool);
- void	stopplay	();
+    inline Signal *getSignal (int channel)
+    {
+	return signal.at(channel);
+    };
 
- int	findDatainFile	(FILE *);    //searches for data chunk in wav file
-                                     //returns 0 if failed, else position
- /**
-  * Imports ascii file with one sample per line and only one
-  * channel. Everything that cannot be parsed by strod will be ignored.
-  * @return 0 if succeeded or error number if failed
-  */
- int loadAscii();
+    int getSingleSample(unsigned int channel, unsigned int offset);
 
- /**
-  * Loads a .wav-File.
-  * @return 0 if succeeded or a negative error number if failed:
-  *           -ENOENT if file does not exist,
-  *           -ENODATA if the file has no data chunk or is zero-length,
-  *           -EMEDIUMTYPE if the file has an invalid/unsupported format
-  */
- int loadWav();
+    void setOp(int);    //triggers function via given id
 
- private: 
+    void save(const char *filename, int bits, bool selection);
 
- /**
-  * Reads in the wav data chunk from a .wav-file. It creates
-  * a new empty Signal for each channel and fills it with
-  * data read from an opened file. The file's actual position
-  * must already be set to the correct position.
-  * @param sigin pointer to the already opened file
-  * @param length number of samples to be read
-  * @param channels number of channels [1..n]
-  * @param number of bits per sample [8,16,24,...]
-  * @return 0 if succeeded or error number if failed
-  */
- int loadWavChunk(FILE *sigin,int length,int channels,int bits);
+    /**
+     * Exports ascii file with one sample per line and only one channel.
+     */
+    void exportAscii(const char *name);
 
- /**
-  * Writes the chunk with the signal to a .wav file (not including
-  * the header!).
-  * @param sigout pointer to the already opened file
-  * @param length number of samples to be written
-  * @param channels number of channels [1..n]
-  * @param number of bits per sample [8,16,24,...]
-  * @return 0 if succeeded or error number if failed
-  */
- int writeWavChunk(FILE *sigout,int begin,int length,int bits);
+    void appendChannel(Signal *);
 
- char          *name;
- QWidget       *parent;
- Signal        *signal[MAXCHANNELS];
- bool           selected[MAXCHANNELS];
- int            lmarker,rmarker;
- int            channels;
- int		rate;                  //sampling rate being used
- int            msg[4];
+    /**
+     * Sets the internal markers and promotes them to all channels.
+     * @param l left marker [0...length-1]
+     * @param r right marker [0...length-1]
+     */
+    void setRange(unsigned int l, unsigned int r);
+
+    bool promoteCommand (const char *command);
+
+    inline void toggleChannel(unsigned int c) {
+	*selected.at(c) = !(*selected.at(c));
+    };
+
+signals:
+
+    /**
+     * Emitted if a command has to be executed by
+     * the next higher instance.
+     * @param command the command to be executed
+     */
+    void sigCommand(const char *command);
+
+    /**
+     * Indicates that the signal data within a range
+     * has changed.
+     * @param lmarker leftmost sample or -1 for "up to the left"
+     * @param rmarker rightmost sample or -1 for "up to the right"
+     */
+    void signalChanged(int lmarker, int rmarker);
+
+    /**
+     * Signals that a channel has been added/inserted. The channels
+     * at and after this position (if any) have moved to channel+1.
+     * @param channel index of the new channel [0...N-1]
+     */
+    void sigChannelAdded(unsigned int channel);
+
+    /**
+     * Signals that a channel has been deleted. All following channels
+     * are shifted one channel down.
+     * @param channel index of the deleted channel [0...N-1]
+     */
+    void sigChannelDeleted(unsigned int channel);
+
+private slots:
+
+    /**
+     * Informs us that the last command of a plugin has completed.
+     */
+    void commandDone();
+
+private:
+
+    void initialize();
+
+    ProgressDialog *createProgressDialog(TimeOperation *operation,
+                                         const char *caption);
+
+    void play(bool);
+
+    void stopplay();
+
+    /**
+     * Searches for the wav data chunk in a wav file.
+     * @param sigin pointer to the already opened file
+     * @return the position of the data or 0 if failed
+     */
+    int findWavChunk(FILE *sigin);
+
+    /**
+     * Imports ascii file with one sample per line and only one
+     * channel. Everything that cannot be parsed by strod will be ignored.
+     * @return 0 if succeeded or error number if failed
+     */
+    int loadAscii();
+
+    /**
+     * Loads a .wav-File.
+     * @return 0 if succeeded or a negative error number if failed:
+     *           -ENOENT if file does not exist,
+     *           -ENODATA if the file has no data chunk or is zero-length,
+     *           -EMEDIUMTYPE if the file has an invalid/unsupported format
+     */
+    int loadWav();
+
+    /**
+     * Appends a new empty channel to the current signal.
+     * It has the same length as the first channel.
+     */
+    void addChannel();
+
+    /**
+     * Removes a channel from the signal.
+     */
+    void deleteChannel(unsigned int channel);
+
+private:
+
+    /**
+     * Reads in the wav data chunk from a .wav-file. It creates
+     * a new empty Signal for each channel and fills it with
+     * data read from an opened file. The file's actual position
+     * must already be set to the correct position.
+     * @param sigin pointer to the already opened file
+     * @param length number of samples to be read
+     * @param channels number of channels [1..n]
+     * @param number of bits per sample [8,16,24,...]
+     * @return 0 if succeeded or error number if failed
+     */
+    int loadWavChunk(FILE *sigin, unsigned int length,
+                     unsigned int channels, int bits);
+
+    /**
+     * Writes the chunk with the signal to a .wav file (not including
+     * the header!).
+     * @param sigout pointer to the already opened file
+     * @param length number of samples to be written
+     * @param channels number of channels [1..n]
+     * @param number of bits per sample [8,16,24,...]
+     * @return 0 if succeeded or error number if failed
+     */
+    int writeWavChunk(FILE *sigout, unsigned int begin, unsigned int length,
+                      int bits);
+
+    char *name;
+
+    /** list of all channels (signals) */
+    QList<Signal> signal;
+
+    /** list of selection states of the channels */
+    QList<bool> selected;
+
+    unsigned int lmarker;
+    unsigned int rmarker;
+    unsigned int channels;
+    int rate;                    //sampling rate being used
+
+    /** buffer for communication with the sundcard access functions (play) */
+    unsigned int msg[4];
 };
 
 #endif  // _SIGNAL_MANAGER_H_

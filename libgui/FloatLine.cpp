@@ -5,30 +5,35 @@
 #include "FloatLine.h"
 
 extern QString mstotime (int ms);
-extern char*   mstotimec (int ms);
+extern char* mstotimec (int ms);
+
 //**********************************************************
-FloatLine::FloatLine (QWidget *parent,double value):KRestrictedLine (parent)
+FloatLine::FloatLine(QWidget *parent, double value)
+    :KRestrictedLine(parent)
 {
-  setValue (value);
-  setValidChars ("-0123456789.E");
-  digits=1;
+    digits = 1;
+    setValue (value);
+    setValidChars ("-0123456789.E");
 }
+
 //**********************************************************
-void FloatLine::setValue (double value)
+void FloatLine::setValue (double value) 
 {
-  char buf[64];
-  char conv[32];
-  
-  sprintf (conv,"%%.%df",digits);
-  sprintf (buf,conv,value);
-  setText (buf);
+    char buf[256];
+    char conv[256];
+
+    snprintf(conv, sizeof(conv), "%%.%df", digits);
+    snprintf(buf, sizeof(buf), conv, value);
+    setText(buf);
 }
+
 //**********************************************************
-double FloatLine::value ()
+double FloatLine::value () 
 {
-  return strtod (text(),0); 
+    return strtod (text(), 0);
 }
+
 //**********************************************************
-FloatLine::~FloatLine ()
+FloatLine::~FloatLine () 
 {
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuToplevel.cpp  -  description
-                             -------------------
+			  MenuToplevel.cpp  -  description
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -22,7 +22,7 @@
 #include "MenuToplevel.h"
 
 MenuToplevel::MenuToplevel(MenuNode *parent, char *name,
-                           char *command, int key, char *uid)
+			   char *command, int key, char *uid)
     :MenuSub(parent, name, command, key, uid)
 {
 }

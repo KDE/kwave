@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuSub.cpp  -  description
-                             -------------------
+			  MenuSub.cpp  -  description
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -24,13 +24,16 @@
 
 //*****************************************************************************
 MenuSub::MenuSub(MenuNode *parent, char *name, char *command,
-                 int key, char *uid)
+		 int key, char *uid)
     :MenuItem(parent, name, command, key, uid)
 {
     menu = new QPopupMenu(0, i18n(name));
+    ASSERT(menu);
 
-    QObject::connect(menu,SIGNAL(activated(int)),
-	this,SLOT(slotSelected(int)));
+    if (menu) {
+	QObject::connect(menu, SIGNAL(activated(int)),
+		 	 this, SLOT(slotSelected(int)));
+    }
 }
 
 //*****************************************************************************
@@ -47,15 +50,16 @@ QPopupMenu *MenuSub::getPopupMenu()
 
 //*****************************************************************************
 MenuNode *MenuSub::insertBranch(char *name, char *command, int key,
-                                char *uid, int index)
+				char *uid, int index)
 {
     MenuSub *node = new MenuSub(this, name, command, key, uid);
+    ASSERT(node);
     if (!node) return 0;
 
     if (menu) {
 	int new_id = registerChild(node);
 	menu->insertItem(i18n(node->getName()),
-	    node->getPopupMenu(), new_id);
+			 node->getPopupMenu(), new_id);
     }
 
     return node;
@@ -63,12 +67,15 @@ MenuNode *MenuSub::insertBranch(char *name, char *command, int key,
 
 //*****************************************************************************
 MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
-                              char *uid, int index=-1)
-{
+			      char *uid, int index = -1) {
     int new_id;
+    ASSERT(name);
+    ASSERT(menu);
+
     if ((!name) || (!menu)) return 0;
 
     MenuItem *item = new MenuItem(this, name, command, key, uid);
+    ASSERT(item);
     if (!item) return 0;
 
     new_id = registerChild(item);
@@ -81,24 +88,30 @@ MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
 //*****************************************************************************
 void MenuSub::removeChild(MenuNode *child)
 {
+    ASSERT(child);
     if (!child) return;
     if (children.findRef(child) == -1) return;
-    menu->removeItem(child->getId());
+
+    ASSERT(menu);
+    if (menu) menu->removeItem(child->getId());
     MenuItem::removeChild(child);
 }
 
 //*****************************************************************************
 bool MenuSub::specialCommand(const char *command)
 {
+    ASSERT(command);
+    if (!command) return false;
+
     if (strcmp(command, "#exclusive") == 0) {
-    	// debug("MenuSub(%s) >> exclusive <<", getName());
+	// debug("MenuSub(%s) >> exclusive <<", getName());
 	return true;
     } else if (strcmp(command, "#number") == 0) {
-    	// debug("MenuSub(%s) >> number <<", getName());
+	// debug("MenuSub(%s) >> number <<", getName());
 	return true;
     } else if (strcmp(command, "#separator") == 0) {
-	menu->insertSeparator(-1);
-    	return true;
+	menu->insertSeparator( -1);
+	return true;
     }
 
     return MenuItem::specialCommand(command);
@@ -107,6 +120,7 @@ bool MenuSub::specialCommand(const char *command)
 //*****************************************************************************
 void MenuSub::actionChildEnableChanged(int id, bool enable)
 {
+    ASSERT(menu);
     MenuNode::actionChildEnableChanged(id, enable);
     if (menu) menu->setItemEnabled(id, enable);
 }
@@ -125,13 +139,15 @@ void MenuSub::slotSelected(int id)
 //*****************************************************************************
 void MenuSub::setItemIcon(int id, const QPixmap &icon)
 {
+    ASSERT(menu);
     if (menu) menu->changeItem(icon, menu->text(id), id);
 }
 
 //*****************************************************************************
 void MenuSub::setItemChecked(int id, bool enable)
 {
-    if ((!menu) || (!menu->findItem(id))) return;
+    ASSERT(menu);
+    if ((!menu) || (!menu->findItem(id))) return ;
     menu->setItemChecked(id, enable);
 }
 

@@ -7,34 +7,32 @@ class QPainter;
 
 class ScaleWidget : public QWidget
 {
- Q_OBJECT
+    Q_OBJECT
 
- public:
+public:
 
- 	ScaleWidget 	(QWidget *parent=0,int=0,int=100,char *unittext="%");
- 	~ScaleWidget 	();
- void   paintText       (QPainter *,int, int,int,int,char *);
- void   setMaxMin       (int,int);
- void   setUnit         (char *);	
- void   setLogMode      (bool);	
- void   drawLinear      (QPainter *,int,int);	
- void   drawLog         (QPainter *,int,int);	
+    ScaleWidget(QWidget *parent = 0, int = 0, int = 100, char *unittext = "%");
+    ~ScaleWidget();
+    void paintText(QPainter *, int, int, int, int, char *);
+    void setMaxMin(int, int);
+    void setUnit(char *);
+    void setLogMode(bool);
+    void drawLinear(QPainter *, int, int);
+    void drawLog(QPainter *, int, int);
 
- signals:
+signals:
 
- public slots:
+public slots:
 
- protected:
+protected:
 
- void   paintEvent(QPaintEvent *); 
+    void paintEvent(QPaintEvent *);
 
- private:
+private:
 
- int  low,high;    //range of display
- bool logmode;     //conditional: logarithmic mode or not
- char *unittext;   //string containing the name of the unit
+    int low, high;       //range of display
+    bool logmode;        //conditional: logarithmic mode or not
+    char *unittext;      //string containing the name of the unit
 };
 
 #endif // SCALE_WIDGET_H
-
-

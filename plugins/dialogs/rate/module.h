@@ -6,25 +6,24 @@
 #include "../../../libgui/Dialog.h"
 #include <libkwave/DialogOperation.h>
 //*****************************************************************************
-class RateDialog : public Dialog
-{
- Q_OBJECT
+class RateDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	RateDialog 	(bool);
- 	~RateDialog 	();
- const char *getCommand	();
+    RateDialog (bool);
+    ~RateDialog ();
+    const char *getCommand ();
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- QLabel		*ratelabel;
- QComboBox	*ratefield;
- QPushButton	*ok,*cancel;
- const char     *comstr;
+    QLabel *ratelabel;
+    QComboBox *ratefield;
+    QPushButton *ok, *cancel;
+    const char *comstr;
 };
 #endif

@@ -11,27 +11,26 @@
 //*****************************************************************************
 class QComboBox;
 
-class DistortDialog : public Dialog
-{
-  Q_OBJECT
+class DistortDialog : public Dialog {
+    Q_OBJECT
 
-    public:
-  DistortDialog 	(bool);
-  ~DistortDialog 	();
+public:
+    DistortDialog (bool);
+    ~DistortDialog ();
 
-  const char *getCommand ();
+    const char *getCommand ();
 
- protected:
+protected:
 
-  void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
-  ScaleWidget   *xscale,*yscale;
-  CornerPatchWidget *corner;
-  QComboBox     *sym;
-  QPushButton	*ok,*cancel;
-  CurveWidget	*curve;
-  char          *comstr;
+    ScaleWidget *xscale, *yscale;
+    CornerPatchWidget *corner;
+    QComboBox *sym;
+    QPushButton *ok, *cancel;
+    CurveWidget *curve;
+    char *comstr;
 };
 #endif

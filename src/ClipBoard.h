@@ -7,18 +7,18 @@ class Signal;
 class ClipBoard
 {
 public:
-  ClipBoard::ClipBoard  ();
-  ClipBoard::ClipBoard  (SignalManager *signal);
-  ClipBoard::~ClipBoard ();
+    ClipBoard::ClipBoard();
+    ClipBoard::ClipBoard(SignalManager *signal);
+    ClipBoard::~ClipBoard();
 
-  void toWindow ();
-  void appendChannel  (Signal *);
+    void toWindow();
+    void appendChannel(Signal *);
 
-  SignalManager *getSignal();
-  int            getLength();
+    SignalManager *getSignal();
+    unsigned int getLength();
 
 private:
-  SignalManager *signal;
+    SignalManager *signal;
 };
 
 #endif // _CLIP_BOARD_H_

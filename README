@@ -1,39 +1,187 @@
-Hi,
+0. PREFACE:
+==========
 
-This is the kwave source distribution, a simple soundeditor for KDE.
+This is the "kwave" source distribution, a simple soundeditor for KDE.
 
-Use kwave with care (save often, and to different files...), since it has not 
-left BETA-State yet.
+Use kwave with care (save often), since not all components have left 
+the BETA-State yet!
 
-Since I didn't get the Makefiles right yet, it is necessary first to compile
-and install the libraries. Then you can compile the binary and the plugins...
-Also watch for old versions of the libraries on your system. If you have
-them delete them first (libkwave.so/libkwavegui.so)
+If you are interested what has been done and what has to be done, then
+look at the files "CHANGES" and "TODO" included in this package.
 
-So step by step starting in the main distribution directory you do this:
+The project is developed and published under the GNU GENERAL PUBLIC LICENSE
+(Version 2, from June 1991), take a look at the file "GNU-LICENSE" included
+in the source package.
+
+1. COMPILING MANUALLY:
+=====================
+
+>>> NOTE: You don't have to do this on an rpm based system, you can
+          easily build an rpm package of kwave, please skip this and
+	  advance to section 2.
+
+This is quite simple. First get the source archive, unpack it under your
+favorite source-code directory (or under /tmp), change to this directory
+and then type:
 
 ./configure 
-cd libgui
-make 
-make install
-cd ..
 make
 make install
 
-Requirements:
+2. RPM-SUPPORT:
+==============
+
+You can build nice binary and/or source rpm packages of kwave in one
+of the following ways. Either you do everything as root or you must have
+write permissions in the following directories:
+
+* /tmp
+* /usr/src/packages/BUILD
+* /usr/src/packages/RPMS
+* /usr/src/packages/SOURCES
+* /usr/src/packages/SPECS
+* /usr/src/packages/SRPMS
+
+Installing the rpm package normally requires root permissions.
+
+2.1 Building a binary rpm from archive file:
+-------------------------------------------
+
+Simply get the source archive (for example kwave-0.5.2-9.tar.gz) and
+then type:
+
+rpm -ta kwave-0.5.2-9.tar.gz
+
+If you want to build for a different architecture than your current, you
+might want to add the parameter "--target=...", for example:
+
+rpm -tf --target=i586 kwave-0.5.2-9.tar.gz
+
+compiles for pentium archtecture.
+
+2.2 Building a source and binary rpm from the source tree:
+---------------------------------------------------------
+
+Assuming that you already have unpacked the source archive in some
+directory you can simply type
+
+./configure
+make src.rpm          (and you get only a source rpm)
+make rpm              (and you get both, a binary and a source rpm)
+
+>>> NOTE: this currently works fine under a SuSE distribution where the
+          rpm's output directory is under /usr/src/packages.
+	  Under a RedHat system you can make a symbolic link from 
+	  /usr/src/redhat to /usr/src/packages.
+
+If you know a way how I can find out if I have to use /usr/src/packages
+or /usr/src/redhat - please let me know !!!
+(the "topdir" variable of rpm, but how can I query this?)
+
+3. RELOCATING THE BINARY RPM:
+============================
+
+The binary rpm package of kwave is "relocatable". This means that you can
+build the package on a system with KDEDIR set to /opt/kde and install it
+on an other system or into another directory.
+
+For example: you got the binary rpm from a friend who has a RedHat system
+(where KDEDIR is /usr) and want to install it on a SuSE system. Then just
+give a different prefix when installing the rpm:
+
+rpm -i --prefix=/opt/kde kwave-0.5.2-9.i586.rpm
+
+This modifies the path where the program is installed and it is strongly
+recommended that this is the same directory as specified in the KDEDIR
+environment variable, otherwise kwave would be unable to find it's menu
+configuration, plugins, preset files and so on...
+
+
+4. PENTIUM OPTIMIZATION:
+=======================
+
+Yes, you can compile the RPM packages for pentium and pentium pro by using
+some defines in your rpmrc file. You can either modify your system's
+/etc/rpmrc file or the .rpmrc file in your home directory. You can
+specify option lines like these:
+
+optflags: i386 -O2 -m486 -DNDEBUG
+optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer
+optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer
+
+(found that at "http://www.keywarrior.net/duesti/rpmopt.de.html")
+
+This means that on an i586 architecture the rpm package will be compiled
+using -march=pentium and so on, you might extend or adapt these to your
+own needs. 
+
+The options specified here are set into the environment variable 
+RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
+environment and have to compile like under (1) you can set this variable
+manually and get the same effect. For example:
+
+export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"
+
+and then go to step 1 and do ./configure / make / make install...
+
+5. REQUIREMENTS:
+===============
 
 This distribution uses the standard template for a kde app, kexample.
 
-Therefore you need autoconf-2.12 and automake-1.2 or higher, not to
-mention the KDE-libs-Distribution and then the qt-lib 1.40...
+For compilation you need a working autoconf/automake environment, a good
+C/C++ compiler, the qt and the kde libraries. I am currently developing 
+under a SuSE-6.2 distribution (i386 architecture) using the following 
+packages:
 
-Further requirements are glibc>2.07 for pthreads. Earlier versions of
-libpthread (included in glibc) do not work with qt-lib (programm crashes at
-start), don't know why, yet...
-Not tested are libc5 with linuxthreads, if someone succeeds with this
+* autoconf-2.13-33
+* automake-1.4-28
+* make-3.77-6
+* egcs-990708-6                      (gcc-2.95.2-4 works as well)
+* libc-2.1.1-15
+* qtlib-1.44-25 and qtdevel-1.44-25
+* gettext-0.10.35-41                 (for internationalization)
+* rpm-3.0.3-4                        (for rpm support)
+* sed-3.02, awk-3.0.4, bash-2.03-2   (used by some scripts)
+
+known distributions / architectures:
+------------------------------------
+
+* SuSE-6.2 / i386, i586 
+  [where I develop it]
+  
+* RedHat-6.1 (Halloween IV) / i386 
+  [my second system, I'm testing it from time to time and before I make
+  a new public release]
+
+Compilation might also work on many other distributions and different 
+versions of compilers and libraries, or even on different architectures.
+
+So if you have success in compiling and using kwave under a different system, 
+please let me know !
+
+If the program does NOT compile, please let me know too - and/or consider
+an update of your system if your packages are older than those mentioned
+above.
+
+You need at least glibc > 2.07 for pthreads support - earlier versions of
+libpthread (included in glibc) seem to crash...
+
+Not tested is libc5 with linuxthreads, if someone succeeds with this
 combination please notify me !
 (Note that linuxthreads has requirements for specific libc versions)
 
-Good Luck, and if not, mail me about the bugs...
+5. SOME HISTORY:
+===============
 
-Martin Wilz
+This project has been started by Martin Wilz in summer 1998 and has been
+developed and improved by him an some other people. In November 1999 I started
+to fix some little bugs here and there and stepped into the source code of
+the program deeper and deeper. Up to today I have extended, rewritten or 
+revised nearly every component of the program and spend much time on it.
+
+So good Luck, and if not, mail me about the bugs...
+
+
+   Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+

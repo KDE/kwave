@@ -9,34 +9,33 @@
 #include <libkwave/DialogOperation.h>
 
 //****************************************************************************
-class DelayDialog : public Dialog
-{
- Q_OBJECT
+class DelayDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	DelayDialog 	(int rate,bool modal);
- 	~DelayDialog 	();
+    DelayDialog (int rate, bool modal);
+    ~DelayDialog ();
 
-const char *getCommand();
+    const char *getCommand();
 
- public slots:
+public slots:
 
- void setAmpl (int);
+    void setAmpl (int);
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- TimeLine       *delay;
- QLabel		*delaylabel;
- Slider  	*amplslider;
- QLabel		*ampllabel;
- QCheckBox	*recursive;
- QPushButton	*ok,*cancel;
- char           *comstr;
+    TimeLine *delay;
+    QLabel *delaylabel;
+    Slider *amplslider;
+    QLabel *ampllabel;
+    QCheckBox *recursive;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 //****************************************************************************
 #endif

@@ -7,27 +7,27 @@ class ScaleWidget;
 class CornerPatchWidget;
 class FFTWidget;
 
-class FFTContainer : public QWidget
+class FFTContainer: public QWidget
 {
- Q_OBJECT
- public:
-	FFTContainer    (QWidget *parent);
-	~FFTContainer   ();
- void   setObjects      (FFTWidget *fftview,ScaleWidget *x,ScaleWidget *y,
-                         CornerPatchWidget *corner);
+    Q_OBJECT
+public:
+    FFTContainer(QWidget *parent);
+    ~FFTContainer();
+    void setObjects(FFTWidget *fftview, ScaleWidget *x, ScaleWidget *y,
+		    CornerPatchWidget *corner);
 
- public slots:
+public slots:
 
- signals:
+signals:
 
- protected:
+protected:
 
- void   resizeEvent     (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
- FFTWidget     *view;
- ScaleWidget   *xscale,*yscale;
- CornerPatchWidget *corner;
+private:
+    FFTWidget *view;
+    ScaleWidget *xscale, *yscale;
+    CornerPatchWidget *corner;
 };
 
 #endif // _FFT_CONTAINER_H_

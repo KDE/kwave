@@ -1,344 +1,288 @@
-this Development Version
+this development version
 
-rpm package should now be installable without conflicts and compile
-without any previous installation of kwave
+0.5.9-10 [2000-05-21]
 
-removed the "${KDEDIR}/share/doc/HTML/default" directory from the rpm
-so that it doesn't conflict with the already existing one
+ * some minor bugfixes in the Makefiles
+ * save the kwave.spec and include it into the source archive, this
+   lets "rpm -ta kwave-x.x.x-x.tar.gz" work
+ * wrote a new README file, moved Martin's version to README.OLD
+ * RPM_OPT_FLAGS are appended to the compiler options, this lets
+   pentium optimizations work :-)
+ * shows a message boxif loading of a file failed
 
-shift+Home/shift+End selects from the current left/right position
-up to the start/end of the signal
+0.5.2-9 [2000-05-19]
 
-bugfix in display of signal: signal is no longer inverted
+ * list of recent files is synchronized across all toplevel windows
+ * fixed dozens of memory leaks, missing ASSERT constructions, missing
+   variable initializations and possible divisions through zero
+ * Help menu aligned to the right side (MenuRoot now is able to process
+   the special command "#separator")
 
-selectrange() works now
+0.5.2-1 ... 0.5.2-8 [...2000-05-18]
+ 
+ * replaced all occurances of sprintf with snprintf, strcpy with strncpy
+   (in 92 places) !
+ * doesn't show any zoom factor if no signal is loaded
+ * handling of channel add/delete: selection/speakers are shifted
+ * changed some variables/parameters to "unsigned" (simplifies range checks)
+ * beautified this file
+ * beautified the whole source code according to my favorite coding style.
+   -> thanks to the developers of the "Artistic Style" package,
+      astyle-1.11.4-1 made good work :-)
+ * fixed that annoying flicker in the help/about dialog
+ * checking for sizes of char, short and int at configure time
+ * >>> COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE <<<
+   - made use of a combination of signals/slots and string messages
+   - hierarchical processing: commands are are forwarded "upwards"
+     until they reach a TopWidget
+   - the TopWidget (highest level) dispatches the comands and forwards 
+     them to the lower levels
+ * globals.app will not be used (obsolete, should be removed from libkwave)
+ * MessagePort will not be used (obsolete, should be removed from libkwave)
+ * multiple toplevel windows are possible
+ * made X toolkit parameters work (especially "-geometry")
+ * bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
 
-the zoom factor combo box reflects the current "real" zoom factor
+0.5.2 [2000-04-24]
 
-some bugfixes in menu handling / cleanups
+ * rpm package should now be installable without conflicts and compile
+   without any previous installation of kwave
+ * removed the "${KDEDIR}/share/doc/HTML/default" directory from the rpm
+   so that it doesn't conflict with the already existing one
+ * shift+Home/shift+End selects from the current left/right position
+   up to the start/end of the signal
+ * bugfix in display of signal: signal is no longer inverted
+ * selectrange() works now
+ * the zoom factor combo box reflects the current "real" zoom factor
+ * some bugfixes in menu handling / cleanups
+ * complete rework of zoom and offset handling:
+   - simple poly-lines instead of lowpass interpolation if zoom factor
+     has less than 10 pixels per sample
+   - lowpass interpolation if more than 10 pixels per sample
+ * bugfix in KWaveApp: now sets globals.app to this if it was null before, 
+   now doesn't crash if it loads a file specified at cmdline
 
-complete rework of zoom and offset handling:
-- simple poly-lines instead of lowpass interpolation if zoom factor
-  has less than 10 pixels per sample
-- lowpass interpolation if more than 10 pixels per sample
+0.5.1-4
 
-bugfix in KWaveApp: now sets globals.app to this if it was null before, 
-now doesn't crash if it loads a file specified at cmdline
+ * >>> now compiles and runns under RedHat 6.1 / Halloween IV <<<
+   >>> as well as under SuSE 6.2                              <<<
+ * version info of libkwavegui.so is set to the package's version
+ * bugfix in plugins/template/Makefile.am: will not create .moc files on
+   make distclean and other targets
+ * compiler flags are passed through to plugin compilation
+ * compiling with --no-rtti. This was necessary to compile against the
+   kde libraries of RedHat that seem to contain no rtti. As a side effect
+   all warnings on linking programs/libs disappeared :-)
+ * configure-parameter --enable-debug has effect again
+ * >>> ASCII import and export works now (mono only) <<<
+ * bugfixes in some plugins, all compile now without warnings/errors
+ * plugins are processed in alphabetical order
+ * all plugins are automatically found and compiled
+ * new target "make src.rpm" makes only the source rpm
 
-0.5.1-4 [by Thomas.Eschenbacher@gmx.de]
+0.5.1-3
 
->>> now compiles and runns under RedHat 6.1 / Halloween IV <<<
->>> as well as under SuSE 6.2                              <<<
+ * display will be scrolled left or zoomed if something from the end
+   of the signal is deleted
+ * curve parameters of fade in / fade out work again
 
-version info of libkwavegui.so is set to the package's version
+0.5.1-2 [2000-03-16]
 
-bugfix in plugins/template/Makefile.am: will not create .moc files on
-make distclean and other targets
+ * converted many "klocale->translate(...)"s into "i18n(...)"
+ * target "make messages" works again
+ * converter for menus.config, creates a dummy .cpp-file that is handled
+   by i18n
 
-compiler flags are passed through to plugin compilation
+0.5.1-1 [2000-03-13]
 
-compiling with --no-rtti. This was necessary to compile against the
-kde libraries of RedHat that seem to contain no rtti. As a side effect
-all warnings on linking programs/libs disappeared.
+ * new target "make rpm" creates binary and source RPM packages
+ * fixed the shared-library-problem in the build system
 
-configure-parameter --enable-debug has effect again
+0.5.1 [2000-02-28]
 
->>> ASCII import and export works now (mono only) <<<
-
-bugfixes in some plugins, all compile now without warnings/errors
-
-plugins are processed in alphabetical order
-
-all plugins are automatically found and compiled
-
-new target "make src.rpm" makes only the source rpm
-
-0.5.1-3 [by Thomas.Eschenbacher@gmx.de]
-
-display will be scrolled left or zoomed if something from the end
-of the signal is deleted
-
-curve parameters of fade in / fade out work again
-
-0.5.1-2 [by Thomas.Eschenbacher@gmx.de]
-
-converted many "klocale->translate(...)"s into "i18n(...)"
-
-target "make messages" works again
-
-converter for menus.config, creates a dummy .cpp-file that is handled
-by i18n
-
-0.5.1-1 [by Thomas.Eschenbacher@gmx.de]
-
-new target "make rpm" creates binary and source RPM packages
-
-fixed the shared-library-problem in the build system
-
-0.5.1 [by Thomas.Eschenbacher@gmx.de]
-
-menu items can belong to groups
-
-renamed SignalWidget::info to "refresh"
-
-many cleanups in the header-Files in src and libgui
-
-the menu management has completely been rewritten:
-- Menu, NumberedMenu and MenuCommand classes are deleted
-- new classes: MenuNode, MenuItem, MenuSub, MenuToplevel and MenuRoot
-
-menu items can have icons
-
-menu nodes can have unique string ids
-
-special menu commands start with a "#"
-
-first attempts for internationalization
-
-list of recent files is sorted by time of last usage
+ * menu items can belong to groups
+ * renamed SignalWidget::info to "refresh"
+ * many cleanups in the header-Files in src and libgui
+ * the menu management has completely been rewritten:
+   - Menu, NumberedMenu and MenuCommand classes are deleted
+   - new classes: MenuNode, MenuItem, MenuSub, MenuToplevel and MenuRoot
+ * menu items can have icons
+ * menu nodes can have unique string ids
+ * special menu commands start with a "#"
+ * first attempts for internationalization
+ * list of recent files is sorted by time of last usage
 
 
-0.5.0-1 [by Thomas.Eschenbacher@gmx.de]
+0.5.0-1 [1999-12-27]
 
-moved my modifications from the Makefiles to Makefile.am
-
-included targets "make release", "make patchlevel" and some scripts
+ * moved my modifications from the Makefiles to Makefile.am
+ * included targets "make release", "make patchlevel" and some scripts
 
 (19991219) [by Thomas.Eschenbacher@gmx.de]
 
-remade my modifications of some Makefiles and of the configure script that
-were lost during Martin's changes
-
-changed shortcut for mixpaste from CTRL-SHIFT-X to CTRL-SHIFT-C
-
-added the "crop" command to the edit menu
-
-made the "mixpaste" command work
-
-corrected the call of "delete", now really deletes instead of cutting
-and copying the selection to the clipboard (saves clipboard content)
+ * remade my modifications of some Makefiles and of the configure script that
+   were lost during Martin's changes
+ * changed shortcut for mixpaste from CTRL-SHIFT-X to CTRL-SHIFT-C
+ * added the "crop" command to the edit menu
+ * made the "mixpaste" command work
+ * corrected the call of "delete", now really deletes instead of cutting
+   and copying the selection to the clipboard (saves clipboard content)
 
 (19991218) [by mwilz@ernie.mi.uni-koeln.de]
 
-changed filenames to reflect class names
-
-one class per file is now the standard
-
-stripped leading "Kwave" in Classnames for most Classes
+ * changed filenames to reflect class names
+ * one class per file is now the standard
+ * stripped leading "Kwave" in Classnames for most Classes
 
 (19991210) [by Thomas.Eschenbacher@gmx.de]
 
-removed -Werror compiler option (caused trouble with configure script)
-
-fixed a nasty bug in SignalManager::save that caused crashes on
-several positions in the program and libstdc++
+ * removed -Werror compiler option (caused trouble with configure script)
+ * fixed a nasty bug in SignalManager::save that caused crashes on
+   several positions in the program and libstdc++
 
 (19991209) [by Thomas.Eschenbacher@gmx.de]
 
-gave the destructor of SignalManager some code, this fixes
-a huge memory leak !
-
-added a TODO file
-
-added -Werror to the c++ compiler options when debuging enabled
-
-some include file cleanups in libgui
+ * gave the destructor of SignalManager some code, this fixes
+   a huge memory leak !
+ * added a TODO file
+ * added -Werror to the c++ compiler options when debuging enabled
+ * some include file cleanups in libgui
 
 (19991207) [by Thomas.Eschenbacher@gmx.de]
 
-SignalManager::writeWavChunk uses buffers for writing (much faster!)
-
-bugfix: caption of main window changes after "SaveAs"
-
-bugfix: selected resolution takes effect
-
-bugfix: caption of main window changes after "SaveAs"
-
-bugfix: SignalManager::writeWavChunk now doesn't destroy the signal's
-data while saving
-
-make distclean in the projekt root directory also removes zero-length
-files, *.orig, *.rej and *~ (just makes cleaner than before)
-
-symbolic links to Makefile, Makefile.in and Makefile.am in the plugins
-directory are deleted with "make distclean" and rebuilt on "make"
-(changes in the referenced Makefiles in the template directory will not be
-reflected thousand times when creating a patch with diff)
-
-cleanups, removed some old backup files
-
-improved support for debugging accessible through 
-"configure --enable-debug=yes" (-g and -DDEBUG compiler flags)
-
-rewritten big parts of Makefile.in for the plugins
-
-added -O2 compiler optimization
+ * SignalManager::writeWavChunk uses buffers for writing (much faster!)
+ * bugfix: caption of main window changes after "SaveAs"
+ * bugfix: selected resolution takes effect
+ * bugfix: caption of main window changes after "SaveAs"
+ * bugfix: SignalManager::writeWavChunk now doesn't destroy the signal's
+   data while saving
+ * make distclean in the projekt root directory also removes zero-length
+   files, *.orig, *.rej and *~ (just makes cleaner than before)
+ * symbolic links to Makefile, Makefile.in and Makefile.am in the plugins
+   directory are deleted with "make distclean" and rebuilt on "make"
+   (changes in the referenced Makefiles in the template directory will not
+   be reflected thousand times when creating a patch with diff)
+ * cleanups, removed some old backup files
+ * improved support for debugging accessible through 
+ * "configure --enable-debug=yes" (-g and -DDEBUG compiler flags)
+ * rewritten big parts of Makefile.in for the plugins
+ * added -O2 compiler optimization
 
 (19991203) [by Thomas.Eschenbacher@gmx.de]
 
-merged with Martin Wilz's version
+ * merged with Martin Wilz's version
 
 (11.99)
 
-version numbering script donated by Thomas Eschenbacher
-
-now using KTMainwindow for top level widgets
-
-using timer to check message port -> alternative (threadsafe) message passing
-instead of signal/slot
-
-labelling code rewritten, now incompatible with old releases
-
-batch loading routines
+ * version numbering script donated by Thomas Eschenbacher
+ * now using KTMainwindow for top level widgets
+ * using timer to check message port -> alternative (threadsafe) message 
+   passing instead of signal/slot
+ * labelling code rewritten, now incompatible with old releases
+ * batch loading routines
 
 (10.99)
 
-deleting channels works again
-
-fixed savelabel dialog
-
-corrected envelope dialog, string handling
-
-connected many functions via the new string-based way of invocation
-
-fixed some dependencies between old code and new classes (there's still more to do !)
-
-saving should now work again
-
-trimmed down Clipboard class
-
-Color class as wrapper to QColor (may become independent later)
-
-reworking Curve Class for creation via string, interpolation now uses curve objects
-
-moved gui functions into a new library (libkwavegui)
-
-new Classes: Parser DynamicLoader Filter (prevously was a struct)
-
-moved gui-independent functions into a library (libkwave)
-
-rework of dialogs into single files and single plugins
-
-new calling scheme via string commands. this will allow scripting and macro
-definitions. Threading is made a whole lot easier, because a only a string has
-to be passed and gets expanded into the needed set of parameters in each thread
-
-io functions and playback adapted to SignalManager
-
-Introduction of SignalManager class for multiple channel management
+ * deleting channels works again
+ * fixed savelabel dialog
+ * corrected envelope dialog, string handling
+ * connected many functions via the new string-based way of invocation
+ * fixed some dependencies between old code and new classes 
+   (there's still more to do !)
+ * saving should now work again
+ * trimmed down Clipboard class
+ * Color class as wrapper to QColor (may become independent later)
+ * reworking Curve Class for creation via string, interpolation now 
+   uses curve objects
+ * moved gui functions into a new library (libkwavegui)
+ * new Classes: Parser DynamicLoader Filter (prevously was a struct)
+ * moved gui-independent functions into a library (libkwave)
+ * rework of dialogs into single files and single plugins
+ * new calling scheme via string commands. This will allow scripting and macro
+   definitions. Threading is made a whole lot easier, because a only a 
+   string has to be passed and gets expanded into the needed set of 
+   parameters in each thread
+ * io functions and playback adapted to SignalManager
+ * Introduction of SignalManager class for multiple channel management
 
 Version 0.29.5 (4.98)
 
-Just a fix for an annoying bug while zooming out
+ * Just a fix for an annoying bug while zooming out
 
 Version 0.29.4 (3.98)
 
-removed a memory leak in playback
-
-triple-checked the missing Accelerators in the Menumanager. it seems to be a
-bug in qpopmenu, I'll wait for qt to be fixed, or until a workaround is known
-
-recent Files are updated again, while the program is running
-
-kwave now keeps track of last directory saved to; for user convenience
-
-reestablished selection mechanism to match versions before 0.29.3 and corrected some otherwise screwed-up behaviour
-
-_now_ all parameters to destructors should have vanished
+ * removed a memory leak in playback
+ * triple-checked the missing Accelerators in the Menumanager. It seems to 
+   be a bug in qpopmenu, I'll wait for qt to be fixed, or until a workaround 
+   is known
+ * recent Files are updated again, while the program is running
+ * kwave now keeps track of last directory saved to; for user convenience
+ * reestablished selection mechanism to match versions 
+   before 0.29.3 and corrected some otherwise screwed-up behaviour
+ * _now_ all parameters to destructors should have vanished
 
 Version 0.29.3 (2.98)
 
-developement has slowed down a bit, this release is not as complete as i wished
-but since 0.29.2 has a destructor with parameters accidently left in, and so
-does not compile on all systems -> here we go again...
+ * developement has slowed down a bit, this release is not as complete as I
+   wished but since 0.29.2 has a destructor with parameters accidently left 
+   in, and so does not compile on all systems -> here we go again...
 
-reworked selection routines into a new class, code is still rather confusing,
-but seems to work
-
-added checkmark functionality again
-
-converted file-menus to new menu-scheme
-
-added gui to mix channels together, the needed functions for mixing are still missing
-
-Halt button by Gerhard Zint
+ * reworked selection routines into a new class, code is still rather 
+   confusing, but seems to work
+ * added checkmark functionality again
+ * converted file-menus to new menu-scheme
+ * added gui to mix channels together, the needed functions for mixing 
+   are still missing
+ * Halt button by Gerhard Zint
 
 Version 0.29.2
 
-moved clipboard functionality to its own class
-
-dynamic allocation of menu entries used by all classes but TopWidget
-
-import of ascii data files
+ * moved clipboard functionality to its own class
+ * dynamic allocation of menu entries used by all classes but TopWidget
+ * import of ascii data files
 
 Version 0.29.1
 
-Bugfix for multichannel save. Now the saved files should work with other prgs
-
-local snap to peak by Gerhard Zintel
+ * Bugfix for multichannel save. Now the saved files should work with other prgs
+ * local snap to peak by Gerhard Zintel
 
 Version 0.29.0
 
-changed version numbering and filename as suggested by Version 1.1 of "How To Name Things" from sunsite. The last digit will always mark be 0 for releases uploaded to ftp.kde.org.
-
-added windowing (Hamming Hanning, Blackmann) functions
-
-contribution from Gerhard Zintel displaying notes in fftview
-
-Added pitch display window
-
-implemented cursor and db scale for fft-view
-
-added reselection and cursor change
-
-added possibility of different display modes in Frequency representation
-
-fixed severe quantisation bug in saving 16Bit routine, reported by 
-
-mmaping support contributed by Juhana Kouhia
-
-added as new Possibility to generate Signals: pulse trains
-
-added wrapper for systems with no posixthreads -> still needs handling by configure script (change Makefile for not linking libpthread and doing a define)
-
-First use of multiple threads (pthreads) in some functions
-
-Pitch generation now independent of additive synthesis
-added import function for ascii files
-
-Ascii label saving now also by frequency
-
-Label generation according to Period Detection (autocorellation)
-
-Sonagram, FFTView and Distortion-Dialog  now use ScaleWidgets
-
-New ScaleWidget gives the user more information 
-
-Improved ProgressDialog and Interpolation class to allow multiple threads
-
-fixed some minor bug fixes
+ * changed version numbering and filename as suggested by 
+   Version 1.1 of "How To Name Things" from sunsite. The last digit will 
+   always mark be 0 for releases uploaded to ftp.kde.org.
+ * added windowing (Hamming Hanning, Blackmann) functions
+ * contribution from Gerhard Zintel displaying notes in fftview
+ * Added pitch display window
+ * implemented cursor and db scale for fft-view
+ * added reselection and cursor change
+ * added possibility of different display modes in Frequency representation
+ * fixed severe quantisation bug in saving 16Bit routine, reported by ?
+ * mmaping support contributed by Juhana Kouhia
+ * added as new Possibility to generate Signals: pulse trains
+ * added wrapper for systems with no posixthreads -> 
+   still needs handling by configure script 
+   (change Makefile for not linking libpthread and doing a define)
+ * First use of multiple threads (pthreads) in some functions
+ * Pitch generation now independent of additive synthesis
+ * added import function for ascii files
+ * Ascii label saving now also by frequency
+ * Label generation according to Period Detection (autocorellation)
+ * Sonagram, FFTView and Distortion-Dialog  now use ScaleWidgets
+ * New ScaleWidget gives the user more information 
+ * Improved ProgressDialog and Interpolation class to allow multiple threads
+ * fixed some minor bugs
 
 Version 0.28 (July, 15  1998)
 
-changes in curvewidget (recent point has another pixmap).
-sorting of labels now works without overwriting of QGList::compareItems.
-bug fix for saving selection.
-save Block function added.
-signal finding function in markers.cpp: gui improved.
-some smaller bug fixes.
+ * changes in curvewidget (recent point has another pixmap).
+ * sorting of labels now works without overwriting of QGList::compareItems.
+ * bug fix for saving selection.
+ * save Block function added.
+ * signal finding function in markers.cpp: gui improved.
+ * some smaller bug fixes.
 
 Version 0.27
 
-first release, but never uploaded, because ftp.kde.org was down.
-
-
-
-
-
-
-
-
-
-
-
+ * first release, but never uploaded, because ftp.kde.org was down.
 

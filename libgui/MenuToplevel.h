@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuToplevel.h  -  description
-                             -------------------
+			  MenuToplevel.h  -  description
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -24,14 +24,13 @@
  * Toplevel submenu entry of a MenuRoot.
  * @author Thomas Eschenbacher
  */
-class MenuToplevel : public MenuSub
-{
-  Q_OBJECT
+class MenuToplevel : public MenuSub {
+    Q_OBJECT
 
 public:
 
-    MenuToplevel(MenuNode *parent, char *name, char *command=0,
-                 int key=0, char *uid=0);
+    MenuToplevel(MenuNode *parent, char *name, char *command = 0,
+		 int key = 0, char *uid = 0);
 
 };
 

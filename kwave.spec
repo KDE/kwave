@@ -1,23 +1,23 @@
-%define ver @RPM_VERSION@
-%define release @RPM_RELEASE@
+%define ver 0.5.2
+%define release 10
 %define filelist %{name}/files.list.%{name}
 %define rpm_opt_flags ${RPM_OPT_FLAGS}
 
-Summary: @RPM_SUMMARY@
-Name: @RPM_NAME@
-Version: 	@RPM_VERSION@
-Release: 	@RPM_RELEASE@
-Source0: 	@RPM_SOURCE0@
-Group:  	@RPM_GROUP@
-Copyright:	@RPM_COPYRIGHT@
-URL:     @RPM_URL@
-Vendor: @RPM_VENDOR@
-BuildRoot: 	@RPM_BUILDROOT@
-Provides: @RPM_NAME@
+Summary:        KDE, Qt, WAV, Sound, FFT, Sonagram, Sample, Effects, 24 Bit
+Name:           kwave
+Version: 	0.5.2
+Release: 	10
+Source0: 	kwave-0.5.2-10.tar.gz
+Group:  	X11/Applications/Sound
+Copyright:	 GPL
+URL:            http://fs.spinfo.uni-koeln.de/~kwave
+Vendor:          mwilz@ernie.mi.uni-koeln.de (Martin Wilz)
+BuildRoot: 	/tmp/kwave-%{version}.root
+Provides:           kwave
 Requires: 	libkwave >= 0.3.8-2
 
 %description
-@RPM_DESCRIPTION@
+    A sound editor for KDE, beta release.
 
 %prep
 

@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuGroup.h  -  controls a group of menu nodes
-                             -------------------
+			  MenuGroup.h  -  controls a group of menu nodes
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -24,11 +24,10 @@
  * A MenuGroup controls a group of menu nodes (items, submenus).
  * @author Thomas Eschenbacher
  */
-class MenuGroup : public MenuNode
-{
+class MenuGroup : public MenuNode {
     Q_OBJECT
 
-public: // Public methods
+public:    // Public methods
 
     /**
      * Constructor.

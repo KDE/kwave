@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuRoot.h  -  description
-                             -------------------
+			  MenuRoot.h  -  description
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -18,6 +18,7 @@
 #ifndef _MENU_ROOT_H_
 #define _MENU_ROOT_H_ 1
 
+#include "qdict.h"
 #include "MenuNode.h"
 
 class KMenuBar;
@@ -27,17 +28,19 @@ class KMenuBar;
  * all toplevel menues of a menu hierarchy.
  * @author Thomas Eschenbacher
  */
-class MenuRoot : public MenuNode
+class MenuRoot : virtual public MenuNode
 {
-  Q_OBJECT
+    Q_OBJECT
 
-public: // Public methods
+public:    // Public methods
 
     /**
      * Constructor.
      * @param bar reference to a KMenuBar
      */
     MenuRoot(KMenuBar &bar);
+
+    virtual ~MenuRoot();
 
     /**
      * Returns the positional index of a child node, identified by
@@ -66,7 +69,7 @@ public: // Public methods
      * @return pointer to the new branch node
      */
     virtual MenuNode *insertBranch(char *name, char *command, int key,
-                                   char *uid, int index=-1);
+				   char *uid, int index = -1);
 
     /**
      * Inserts a new leaf node into the menu structure. The new node
@@ -82,8 +85,8 @@ public: // Public methods
      * @return pointer to the new leaf node
      */
     virtual MenuNode *insertLeaf(char *name, char *command,
-                                 int key, char *uid,
-                                 int index=-1);
+				 int key, char *uid,
+				 int index = -1);
 
     /**
      * Removes a child node of the curren node. If the child
@@ -100,10 +103,25 @@ public: // Public methods
      */
     virtual void actionChildEnableChanged(int id, bool enable);
 
-private: // Private attributes
+    /**
+     * Handles/interpretes special menu commands.
+     * @param command name of a menu node or command
+     * @return true if the name was recognized as a command and handled
+     */
+    virtual bool specialCommand(const char *command);
 
-  /** reference to a KMenuBar */
-  KMenuBar &menu_bar;
+    /**
+     * Returns a pointer to the list of groups
+     */
+    virtual QDict<MenuNode> *getGroupList();
+
+private:    // Private attributes
+
+    /** reference to a KMenuBar */
+    KMenuBar &menu_bar;
+
+    /** list of menu groups */
+    QDict<MenuNode> group_list;
 
 };
 

@@ -12,25 +12,25 @@ class QResizeEvent;
 //***********************************************************************
 class PitchContainer : public QWidget
 {
- Q_OBJECT
- public:
- 	PitchContainer	(QWidget *parent);
- 	~PitchContainer	();
-	void 	setObjects	(PitchWidget *view,ScaleWidget *x,ScaleWidget *y,
-	                         CornerPatchWidget *corner);
+    Q_OBJECT
+public:
+    PitchContainer(QWidget *parent);
+    ~PitchContainer();
+    void setObjects(PitchWidget *view, ScaleWidget *x, ScaleWidget *y,
+		    CornerPatchWidget *corner);
 
- public slots:
+public slots:
 
- signals:
+signals:
 
- protected:
+protected:
 
- void	resizeEvent	(QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
- PitchWidget       *view;
- ScaleWidget       *xscale,*yscale;
- CornerPatchWidget *corner;
+private:
+    PitchWidget *view;
+    ScaleWidget *xscale, *yscale;
+    CornerPatchWidget *corner;
 };
 
 #endif // _PITCH_CONTAINER_H_

@@ -16,37 +16,41 @@ class KStatusBar;
 //***********************************************************************
 class FFTWindow : public KTopLevelWidget
 {
- Q_OBJECT
- public:
-	FFTWindow       (QString *name);
-	~FFTWindow      ();
- void   setSignal       (complex *,double,int,int);     //reaches through to class FFTWidget...
+    Q_OBJECT
+public:
 
- public slots:
+    FFTWindow(QString *name);
 
- void   setFreqInfo  (int,int);
- void   setAmpInfo   (int,int);
- void   setDBInfo    (int,int);
- void   setPhaseInfo (int,int);
- void   setNoteInfo  (int,int);
- void   phaseMode    ();
- void   dbMode       (int);
- void   percentMode  ();
- void   askFreqRange ();
- void   findPeak     ();
+    ~FFTWindow();
 
- signals:
+    //reaches through to class FFTWidget...
+    void setSignal(complex *, double, int, int);
 
- protected:
+public slots:
 
- private:
- FFTContainer  *mainwidget;
- FFTWidget     *fftview;
- QPopupMenu    *cursor;
- ScaleWidget   *xscale,*yscale;
- CornerPatchWidget *corner;
- KStatusBar    *status;
- int           findPeakID;
+    void setFreqInfo(int, int);
+    void setAmpInfo(int, int);
+    void setDBInfo(int, int);
+    void setPhaseInfo(int, int);
+    void setNoteInfo(int, int);
+    void phaseMode();
+    void dbMode(int);
+    void percentMode();
+    void askFreqRange();
+    void findPeak();
+
+signals:
+
+protected:
+
+private:
+    FFTContainer *mainwidget;
+    FFTWidget *fftview;
+    QPopupMenu *cursor;
+    ScaleWidget *xscale, *yscale;
+    CornerPatchWidget *corner;
+    KStatusBar *status;
+    int findPeakID;
 };
 
 #endif // _FFT_WINDOW_H_

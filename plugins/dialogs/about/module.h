@@ -16,62 +16,61 @@
 
 // PLEASE DO NOT CHANGE THE FOLLOWING TWO LINES, THEY WILL BE
 // AUTOMATICALLY UPDATED BY THE VERSION MANAGEMENT SCRIPTS !
-#define VERSION "0.5.2"
-#define VERSION_DATE "Apr 24, 2000"
+#define VERSION "0.5.2-10"
+#define VERSION_DATE "May 21, 2000"
 
 #define MAXSIN 5
 //**********************************************************
-class LogoWidget : public QWidget
-{
- Q_OBJECT
+class LogoWidget : public QWidget {
+    Q_OBJECT
 
- public:
+public:
 
- 	LogoWidget 	(QWidget *parent,KApplication *app);
- 	~LogoWidget 	();
+    LogoWidget (QWidget *parent, KApplication *app);
+    ~LogoWidget ();
 
- public slots:
+public slots:
 
- void doAnim ();
+    void doAnim ();
 
- protected:
+protected:
 
- void   paintEvent(QPaintEvent *); 
+    void paintEvent(QPaintEvent *);
 
- private:
+private:
 
- int width, height;
- int amp;
- int rpaint;          //flag for need of repaint of animation
- double deg[MAXSIN];  //phase of sinus for animation
- QPainter p;
- QPixmap  *pixmap;
- QPixmap  *img;
- QTimer   *timer;
+    int width, height;
+    int amp;
+    int rpaint;             //flag for need of repaint of animation
+    double deg[MAXSIN];     //phase of sinus for animation
+    QPainter p;
+    QPixmap *pixmap;
+    QPixmap *buffer;        //additional pixmap to avoid flicker
+    QPixmap *img;
+    QTimer *timer;
 };
 //**********************************************************
-class AboutDialog : public Dialog
-{
- Q_OBJECT
+class AboutDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	AboutDialog 	(const Global *,bool);
- 	~AboutDialog 	();
+    AboutDialog (const Global *, bool);
+    ~AboutDialog ();
 
- const char *getCommand ();
+    const char *getCommand ();
 
- public slots:
+public slots:
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- QMultiLineEdit *abouttext;
- LogoWidget     *logo;
- QPushButton	*ok;
+    QMultiLineEdit *abouttext;
+    LogoWidget *logo;
+    QPushButton *ok;
 };
-#endif  /* about.h */   
+#endif  /* about.h */
 

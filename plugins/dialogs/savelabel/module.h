@@ -7,33 +7,32 @@
 #include <qlistbox.h>
 
 //*****************************************************************************
-class MarkSaveDialog : public Dialog
-{
- Q_OBJECT
+class MarkSaveDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	MarkSaveDialog 	(Global *,bool modal);
+    MarkSaveDialog (Global *, bool modal);
 
- 	~MarkSaveDialog ();
+    ~MarkSaveDialog ();
 
-	const char * getCommand();
+    const char * getCommand();
 
- public slots:
+public slots:
 
-   void selectAll ();
+    void selectAll ();
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- Global         *globals;
- QListBox	*save;
- QPushButton	*ok,*cancel,*all;
- int            maxcnt;
- char           *comstr;
- bool           selectall;
+    Global *globals;
+    QListBox *save;
+    QPushButton *ok, *cancel, *all;
+    int maxcnt;
+    char *comstr;
+    bool selectall;
 };
 #endif

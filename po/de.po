@@ -1,288 +1,293 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR <Thomas.Eschenbacher@gmx.de>, 2000.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-04-23 19:14+0200\n"
+"Project-Id-Version: kwave VERSION\n"
+"POT-Creation-Date: 2000-05-20 16:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: libgui/TimeLine.cpp:19
+#: libgui/TimeLine.cpp:25
 msgid "as number of samples"
 msgstr "wie Anzahl der Samples"
 
-#: libgui/TimeLine.cpp:20
+#: libgui/TimeLine.cpp:27
 msgid "in ms"
 msgstr "in ms"
 
-#: libgui/TimeLine.cpp:21
+#: libgui/TimeLine.cpp:28
 msgid "in s"
 msgstr "in s"
 
-#: libgui/TimeLine.cpp:22
+#: libgui/TimeLine.cpp:29
 msgid "in kb"
 msgstr "in KB"
 
-#: libgui/CurveWidget.cpp:49
+#: libgui/CurveWidget.cpp:94
 msgid "Flip Horizontal"
 msgstr "Horizontal spiegeln"
 
-#: libgui/CurveWidget.cpp:50
+#: libgui/CurveWidget.cpp:96
 msgid "Flip Vertical"
 msgstr "Vertikal spiegeln"
 
-#: libgui/CurveWidget.cpp:53
-msgid "Interpolation"
-msgstr "Interpolation"
-
-#: libgui/CurveWidget.cpp:55
-msgid "Transform"
-msgstr "Transformieren"
-
-#: libgui/CurveWidget.cpp:57
-msgid "Fit In"
-msgstr "Einpassen"
-
-#: libgui/CurveWidget.cpp:59
-msgid "Presets"
-msgstr "Voreinstelungen"
-
-#: libgui/CurveWidget.cpp:60
-msgid "Save Preset"
-msgstr "Voreinstellungen speichern"
-
-#: libgui/CurveWidget.cpp:62
+#: libgui/CurveWidget.cpp:99
 msgid "into 1st half"
 msgstr "in erste Hälfte"
 
-#: libgui/CurveWidget.cpp:63
+#: libgui/CurveWidget.cpp:101
 msgid "into 2nd half"
 msgstr "in zweite Hälfte"
 
-#: libgui/CurveWidget.cpp:65
+#: libgui/CurveWidget.cpp:104
+msgid "Interpolation"
+msgstr "Interpolation"
+
+#: libgui/CurveWidget.cpp:106
+msgid "Transform"
+msgstr "Transformieren"
+
+#: libgui/CurveWidget.cpp:108
+msgid "Fit In"
+msgstr "Einpassen"
+
+#: libgui/CurveWidget.cpp:110
+msgid "Presets"
+msgstr "Voreinstelungen"
+
+#: libgui/CurveWidget.cpp:111
+msgid "Save Preset"
+msgstr "Voreinstellungen speichern"
+
+#: libgui/CurveWidget.cpp:113
 msgid "recently selected Point"
 msgstr "letzter ausgewählter Punkt"
 
-#: libgui/CurveWidget.cpp:66
+#: libgui/CurveWidget.cpp:115
 msgid "every 2nd Point"
 msgstr "jeder zweite Punkt"
 
-#: src/SignalManager.cpp:488
+#: src/ProgressDialog.cpp:63
+#, fuzzy
+msgid "Progress"
+msgstr "Fortschritt"
+
+#: src/SignalManager.cpp:437 src/SignalManager.cpp:483
+#: src/SignalManager.cpp:514 src/SignalManager.cpp:539
+#: src/SignalManager.cpp:548 src/SignalManager.cpp:553
+#: src/SignalManager.cpp:558
+msgid "Info"
+msgstr "Info"
+
+#: src/SignalManager.cpp:437 src/SignalManager.cpp:483
 msgid "File does not exist !"
 msgstr "Datei existiert nicht!"
 
-#: src/SignalManager.cpp:535 src/SignalManager.cpp:740
+#: src/SignalManager.cpp:515
+msgid "File has no data chunk!"
+msgstr "Datei enthält keine Daten!"
+
+#: src/SignalManager.cpp:540
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
 
-#: src/SignalManager.cpp:542 src/SignalManager.cpp:547
-#: src/SignalManager.cpp:552
-msgid "Info"
-msgstr ""
-
-#: src/SignalManager.cpp:543
+#: src/SignalManager.cpp:549
 msgid "File must be uncompressed (Mode 1) !"
 msgstr "Datei ist nicht im unkompimierten Modus (Mode 1)!"
 
-#: src/SignalManager.cpp:548
+#: src/SignalManager.cpp:554
 msgid "File is no RIFF Wave File !"
 msgstr "Datei ist nicht im RIFF Wave Format!"
 
-#: src/SignalManager.cpp:553
+#: src/SignalManager.cpp:559
 msgid "File does not contain enough data !"
 msgstr "Datei ist unvollständig!"
 
-#: src/SignalManager.cpp:795
+#: src/SignalManager.cpp:789
 msgid "Mono"
-msgstr ""
+msgstr "Mono"
+
+#: src/SignalManager.cpp:791
+msgid "Stereo"
+msgstr "Stereo"
+
+#: src/SignalManager.cpp:794
+#, c-format
+msgid "%d voices"
+msgstr "%d Stimmen"
 
 #: src/SignalManager.cpp:797
-msgid "Stereo"
-msgstr ""
-
-#: src/SignalManager.cpp:799
 #, fuzzy, c-format
-msgid "%d-channel"
-msgstr "%d-&Kanal"
-
-#: src/SignalManager.cpp:801
-#, c-format
-msgid "Loading %d-Bit-%s File :"
+msgid "Loading %d-Bit (%s) File :"
 msgstr "Lade %d-Bit-%s Datei :"
 
-#: src/ClipBoard.cpp:46
-msgid "Clipboard"
-msgstr "Zwischenablage"
-
-#: src/TopWidget.cpp:89
+#: src/TopWidget.cpp:64
 msgid "Length: 0 ms           "
 msgstr "Länge: 0ms             "
 
-#: src/TopWidget.cpp:90
+#: src/TopWidget.cpp:65
 msgid "Rate: 0 kHz         "
 msgstr ""
 
-#: src/TopWidget.cpp:91
+#: src/TopWidget.cpp:66
 msgid "Samples: 0             "
 msgstr ""
 
-#: src/TopWidget.cpp:92
+#: src/TopWidget.cpp:67
 msgid "selected: 0 ms        "
 msgstr "ausgewählt: 0ms       "
 
-#: src/TopWidget.cpp:93
+#: src/TopWidget.cpp:68
 msgid "Clipboard: 0 ms      "
 msgstr "Zwischenablage: 0ms     "
 
-#: src/PitchWindow.cpp:19
+#: src/PitchWindow.cpp:34
 msgid "&Pitch"
 msgstr ""
 
-#: src/PitchWindow.cpp:22
+#: src/PitchWindow.cpp:40
 msgid "Time:         0 ms      "
 msgstr "Zeit:         0ms      "
 
-#: src/PitchWindow.cpp:23
+#: src/PitchWindow.cpp:41
 msgid "Frequency:          0 Hz"
 msgstr "Frequenz:          0 Hz"
 
-#: src/PitchWindow.cpp:40
+#: src/PitchWindow.cpp:74
 msgid "Pitch of "
 msgstr ""
 
-#: src/PitchWindow.cpp:53
+#: src/PitchWindow.cpp:97
 #, c-format
 msgid "Frequency : %.1f Hz\n"
 msgstr "Frequenz : %.1f Hz\n"
 
-#: src/PitchWindow.cpp:60
+#: src/PitchWindow.cpp:108
 #, c-format
 msgid "Time : %s\n"
 msgstr "Zeit : %s\n"
 
-#: src/FFTWindow.cpp:38 src/SonagramWindow.cpp:44
+#: src/FFTWindow.cpp:64 src/SonagramWindow.cpp:70
 msgid "&Spectral Data"
 msgstr "&Spektrale Daten"
 
-#: src/SonagramWindow.cpp:46
+#: src/SonagramWindow.cpp:72
 msgid "&Import from Bitmap ..."
 msgstr "&Import von Bitmap ..."
 
-#: src/SonagramWindow.cpp:47
+#: src/SonagramWindow.cpp:73
 msgid "&Export to Bitmap ..."
 msgstr "&Exportiere als Bitmap ..."
 
-#: src/SonagramWindow.cpp:48
+#: src/SonagramWindow.cpp:74
 msgid "&reTransform to signal"
-msgstr ""
+msgstr "&retransformiere zu Signal"
 
-#: src/MainWidget.cpp:112 src/MainWidget.cpp:311 src/MainWidget.cpp:325
+#: src/MainWidget.cpp:129
 msgid "Play"
 msgstr "Spielen"
 
-#: src/MainWidget.cpp:116 src/MainWidget.cpp:312 src/MainWidget.cpp:326
+#: src/MainWidget.cpp:135
 msgid "&Loop"
 msgstr "&Schleife"
 
-#: src/MainWidget.cpp:120
+#: src/MainWidget.cpp:143
 msgid "&Zoom"
 msgstr "&Zoom"
 
-#: src/MainWidget.cpp:129
+#: src/MainWidget.cpp:161
 #, fuzzy
 msgid "All"
 msgstr "&Alles"
 
-#: src/MainWidget.cpp:184
+#: src/MainWidget.cpp:166
+msgid "1:1"
+msgstr "1:1"
+
+#: src/MainWidget.cpp:358
 #, c-format
-msgid "Rate : %d.%d kHz"
-msgstr ""
+msgid "Rate: %d.%d kHz"
+msgstr "Rate: %d.%d kHz"
 
-#: src/MainWidget.cpp:191
+#: src/MainWidget.cpp:367
 #, c-format
-msgid "Samples :%d"
-msgstr ""
+msgid "Samples: %d"
+msgstr "Samples: %d"
 
-#: src/MainWidget.cpp:291 src/MainWidget.cpp:302
-msgid "Halt"
-msgstr "Halt"
+#: src/MainWidget.cpp:562
+#, fuzzy, c-format
+msgid "selected: %0.1f ms"
+msgstr "ausgewählt: %0.1f ms"
 
-#: src/MainWidget.cpp:339
-msgid "selected :"
-msgstr "ausgewählt :"
+#: src/MainWidget.cpp:570
+#, fuzzy, c-format
+msgid "Length: %0.1f ms"
+msgstr "Länge: %0.1f ms"
 
-#: src/MainWidget.cpp:345
-msgid "Length :"
-msgstr "Länge :"
-
-#: src/SignalWidget.cpp:1345
-msgid "Dialog not loaded !"
-msgstr "Dialog nicht geladen !"
-
-#: src/FFTWindow.cpp:41
+#: src/FFTWindow.cpp:67
 msgid "&Cursor"
 msgstr "&Cursor"
 
-#: src/FFTWindow.cpp:58
+#: src/FFTWindow.cpp:97
 msgid "Multiply with graph"
 msgstr "Mit Graphen multiplizieren"
 
-#: src/FFTWindow.cpp:59
+#: src/FFTWindow.cpp:99
 msgid "Multiply with formant pattern"
 msgstr "Mit Formanten multiplizieren"
 
-#: src/FFTWindow.cpp:60
+#: src/FFTWindow.cpp:101
 msgid "Smooth"
 msgstr "Glätten"
 
-#: src/FFTWindow.cpp:62
+#: src/FFTWindow.cpp:104
 msgid "Kill phase"
 msgstr "Phase eleminieren"
 
-#: src/FFTWindow.cpp:63
+#: src/FFTWindow.cpp:106
 msgid "find Maximum"
 msgstr "finde Minimum"
 
-#: src/FFTWindow.cpp:64
+#: src/FFTWindow.cpp:108
 msgid "find Minimum"
 msgstr "finde Minimum"
 
-#: src/FFTWindow.cpp:65
+#: src/FFTWindow.cpp:110
 msgid "find nearest Peak"
 msgstr "finde nächste Spitze"
 
-#: src/FFTWindow.cpp:70
+#: src/FFTWindow.cpp:115
 msgid "Inverse FFT"
 msgstr "Inverse FFT"
 
-#: src/FFTWindow.cpp:72
+#: src/FFTWindow.cpp:117
 #, c-format
 msgid "Amplitude in %"
 msgstr "Amplitude in %"
 
-#: src/FFTWindow.cpp:73
+#: src/FFTWindow.cpp:118
 msgid "Amplitude in dB"
 msgstr "Amplitude in dB"
 
-#: src/FFTWindow.cpp:83
+#: src/FFTWindow.cpp:127
 msgid "Phase"
 msgstr "&Phase"
 
 #: src/menus_config_i18n.cpp:13
 msgid "&8 Bit"
-msgstr ""
+msgstr "&8 Bit"
 
 #: src/menus_config_i18n.cpp:14
-msgid "&About"
-msgstr "Über"
+msgid "&About kwave..."
+msgstr "Über kwave..."
 
-#: plugins/dialogs/freqmult/module.cpp:37 src/menus_config_i18n.cpp:15
+#: plugins/dialogs/freqmult/module.cpp:35 src/menus_config_i18n.cpp:15
 msgid "&Add"
 msgstr "&Hinzufügen"
 
@@ -299,7 +304,8 @@ msgid "&Amplify"
 msgstr "&Verstärkung"
 
 #: src/menus_config_i18n.cpp:19
-msgid "&As ..."
+#, fuzzy
+msgid "&As..."
 msgstr "&Unter ..."
 
 #: src/menus_config_i18n.cpp:20
@@ -307,7 +313,8 @@ msgid "&Average spectrum"
 msgstr "&Mittleres Spektrum"
 
 #: src/menus_config_i18n.cpp:21
-msgid "&Blocks ..."
+#, fuzzy
+msgid "&Blocks..."
 msgstr "&Blöcke ..."
 
 #: src/menus_config_i18n.cpp:22
@@ -330,813 +337,857 @@ msgstr "&Typ auswählen"
 msgid "&Clipboard"
 msgstr "&Zwischenablage"
 
-#: src/menus_config_i18n.cpp:28
+#: src/menus_config_i18n.cpp:29
 msgid "&Convert label distance to pitch"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:30
+#: src/menus_config_i18n.cpp:31
 msgid "&Create"
 msgstr "&Erzeuge"
 
-#: src/menus_config_i18n.cpp:31
+#: src/menus_config_i18n.cpp:32
 msgid "&Crop"
 msgstr "Z&uschneiden"
 
-#: src/menus_config_i18n.cpp:33
+#: src/menus_config_i18n.cpp:34
 msgid "&Distort"
 msgstr "S&tören"
 
-#: src/menus_config_i18n.cpp:35
+#: src/menus_config_i18n.cpp:36
 msgid "&Enter Command"
 msgstr "&Befehl eingeben"
 
-#: src/menus_config_i18n.cpp:36
+#: src/menus_config_i18n.cpp:37
 msgid "&Envelope"
 msgstr "Hü&llkurve"
 
-#: src/menus_config_i18n.cpp:37
+#: src/menus_config_i18n.cpp:38
 msgid "&Expand to labels"
 msgstr "auf Marker &erweitern"
 
-#: src/menus_config_i18n.cpp:38
-msgid "&Export to Ascii ..."
+#: src/menus_config_i18n.cpp:39
+#, fuzzy
+msgid "&Export to Ascii..."
 msgstr "&Exportiere als ASCII ..."
 
-#: plugins/dialogs/filter/module.cpp:30 src/menus_config_i18n.cpp:40
+#: plugins/dialogs/filter/module.cpp:32 src/menus_config_i18n.cpp:41
 msgid "&Filter"
 msgstr "&Filter"
 
-#: src/menus_config_i18n.cpp:41
+#: src/menus_config_i18n.cpp:42
 msgid "&Flip Phase"
 msgstr "&Phase umkehren"
 
-#: src/menus_config_i18n.cpp:42
+#: src/menus_config_i18n.cpp:43
 msgid "&Flush"
 msgstr "&Leeren"
 
-#: src/menus_config_i18n.cpp:43
+#: src/menus_config_i18n.cpp:44
 msgid "&Free"
 msgstr "&Frei"
 
-#: src/menus_config_i18n.cpp:44
+#: src/menus_config_i18n.cpp:45
 msgid "&Frequencies"
 msgstr "&Frequenzen"
 
-#: src/menus_config_i18n.cpp:45
+#: src/menus_config_i18n.cpp:46
 msgid "&Generate"
 msgstr "&Erzeuge"
 
-#: src/menus_config_i18n.cpp:46
-msgid "&Import Ascii"
+#: src/menus_config_i18n.cpp:48
+#, fuzzy
+msgid "&Import Ascii..."
 msgstr "&Importiere ASCII"
 
-#: src/menus_config_i18n.cpp:47
-msgid "&Insert labels ..."
+#: src/menus_config_i18n.cpp:49
+#, fuzzy
+msgid "&Insert labels..."
 msgstr "Marker &einfügen ..."
 
-#: src/menus_config_i18n.cpp:48
+#: src/menus_config_i18n.cpp:50
 msgid "&Invert Selection"
 msgstr "Auswahl &umkehren"
 
-#: src/menus_config_i18n.cpp:49
+#: src/menus_config_i18n.cpp:51
 msgid "&Labels"
 msgstr "&Marker"
 
-#: src/menus_config_i18n.cpp:50
-msgid "&Load labels ..."
+#: src/menus_config_i18n.cpp:52
+#, fuzzy
+msgid "&Load labels..."
 msgstr "Marker &Laden ..."
 
-#: src/menus_config_i18n.cpp:51
+#: src/menus_config_i18n.cpp:53
 msgid "&Memory"
 msgstr "&Speicher"
 
-#: src/menus_config_i18n.cpp:52
+#: src/menus_config_i18n.cpp:54
 msgid "&Menus"
 msgstr "&Menues"
 
-#: src/menus_config_i18n.cpp:53
+#: src/menus_config_i18n.cpp:55
 msgid "&Mix"
 msgstr "&Mischen"
 
-#: src/menus_config_i18n.cpp:54
+#: src/menus_config_i18n.cpp:56
 msgid "&Mix & Paste"
 msgstr "&Phase umkehren"
 
-#: src/menus_config_i18n.cpp:55
+#: src/menus_config_i18n.cpp:57
 msgid "&Moving Average"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:56
+#: src/menus_config_i18n.cpp:58
 msgid "&New &Window"
 msgstr "&Neues Fenster"
 
-#: src/menus_config_i18n.cpp:57
+#: src/menus_config_i18n.cpp:59
 msgid "&New..."
 msgstr "&Neu..."
 
-#: src/menus_config_i18n.cpp:58
+#: src/menus_config_i18n.cpp:60
 msgid "&Next"
 msgstr "&Nächste"
 
-#: src/menus_config_i18n.cpp:59
+#: src/menus_config_i18n.cpp:61
 msgid "&Next Page"
 msgstr "&Nächste Seite"
 
-#: src/menus_config_i18n.cpp:60
+#: src/menus_config_i18n.cpp:62
 msgid "&Noise"
 msgstr "&Rauschen"
 
-#: src/menus_config_i18n.cpp:61
+#: src/menus_config_i18n.cpp:63
 msgid "&Nothing"
 msgstr "&Nichts"
 
-#: src/menus_config_i18n.cpp:62
+#: src/menus_config_i18n.cpp:64
 msgid "&Open"
 msgstr "Ö&ffnen"
 
-#: src/menus_config_i18n.cpp:63
+#: src/menus_config_i18n.cpp:65
 msgid "&Open Recent"
 msgstr "&Zuletzt geöffnete Dateien"
 
-#: src/menus_config_i18n.cpp:66
+#: src/menus_config_i18n.cpp:68
 msgid "&Periodic Silence"
 msgstr "&Periodische Stille"
 
-#: src/menus_config_i18n.cpp:67
+#: src/menus_config_i18n.cpp:69
 msgid "&Playback"
 msgstr "Wiedergabe"
 
-#: src/menus_config_i18n.cpp:68
+#: src/menus_config_i18n.cpp:70
 msgid "&Presets"
 msgstr "Voreinstelungen"
 
-#: src/menus_config_i18n.cpp:69
+#: src/menus_config_i18n.cpp:71
 msgid "&Previous"
 msgstr "&Vorherige"
 
-#: src/menus_config_i18n.cpp:70
+#: src/menus_config_i18n.cpp:72
 msgid "&Previous Page"
 msgstr "&Vorherige Seite"
 
-#: src/menus_config_i18n.cpp:71
+#: src/menus_config_i18n.cpp:73
 msgid "&Pulse Train"
 msgstr "Im&pulsfolge"
 
-#: src/menus_config_i18n.cpp:73
+#: src/menus_config_i18n.cpp:75
 msgid "&Range"
 msgstr "&Bereich"
 
-#: src/menus_config_i18n.cpp:74
+#: src/menus_config_i18n.cpp:76
 msgid "&Resample"
 msgstr "Neu &samplen"
 
-#: src/menus_config_i18n.cpp:75
+#: src/menus_config_i18n.cpp:77
 msgid "&Reverse"
 msgstr "&Umkehren"
 
-#: src/menus_config_i18n.cpp:76
+#: src/menus_config_i18n.cpp:78
 msgid "&Revert"
 msgstr "&Zurücksetzen"
 
-#: src/menus_config_i18n.cpp:78
+#: src/menus_config_i18n.cpp:80
 msgid "&Select all"
 msgstr "&Alles auswählen"
 
-#: src/menus_config_i18n.cpp:79
+#: src/menus_config_i18n.cpp:81
 msgid "&Selection"
 msgstr "Au&swahl"
 
-#: src/menus_config_i18n.cpp:80
-msgid "&Selection ..."
+#: src/menus_config_i18n.cpp:82
+#, fuzzy
+msgid "&Selection..."
 msgstr "Auswahl ..."
 
-#: src/menus_config_i18n.cpp:81
+#: src/menus_config_i18n.cpp:83
 msgid "&Silence"
 msgstr "&Stille"
 
-#: src/menus_config_i18n.cpp:82
-msgid "&Sonagram"
-msgstr ""
-
 #: src/menus_config_i18n.cpp:84
+msgid "&Sonagram"
+msgstr "&Sonogramm"
+
+#: src/menus_config_i18n.cpp:86
 msgid "&Visible area"
 msgstr "&Sichtbarer Bereich"
 
-#: src/menus_config_i18n.cpp:85
+#: src/menus_config_i18n.cpp:87
 #, fuzzy
 msgid "&to end"
 msgstr "bis zum Ende"
 
-#: src/menus_config_i18n.cpp:86
+#: src/menus_config_i18n.cpp:88
 msgid "&to new Window"
 msgstr "in &neues Fenster"
 
-#: src/menus_config_i18n.cpp:87
+#: src/menus_config_i18n.cpp:89
 msgid "&to start"
 msgstr "bis zum Anfang"
 
-#: src/menus_config_i18n.cpp:88
-msgid "1&6 Bit"
-msgstr ""
-
-#: src/menus_config_i18n.cpp:89
-msgid "2&4 Bit"
-msgstr ""
-
 #: src/menus_config_i18n.cpp:90
-msgid "C&hannel"
-msgstr "&Kanal"
+msgid "1&6 Bit"
+msgstr "1&6 Bit"
 
 #: src/menus_config_i18n.cpp:91
+msgid "2&4 Bit"
+msgstr "2&4 Bit"
+
+#: src/menus_config_i18n.cpp:92
+msgid "C&hannel"
+msgstr "&Stimme"
+
+#: src/menus_config_i18n.cpp:93
 msgid "Create &type"
 msgstr "&Typ erzeugen"
 
-#: src/menus_config_i18n.cpp:92
+#: src/menus_config_i18n.cpp:94
 msgid "Cu&t"
 msgstr "Ausschneiden"
 
-#: src/menus_config_i18n.cpp:93
+#: src/menus_config_i18n.cpp:95
 msgid "De&lay"
 msgstr "&Verzögerung"
 
-#: src/menus_config_i18n.cpp:94
+#: src/menus_config_i18n.cpp:96
 msgid "F&x"
 msgstr "E&ffekte"
 
-#: src/menus_config_i18n.cpp:95
+#: src/menus_config_i18n.cpp:97
 msgid "Fade &In"
 msgstr "&Einblenden"
 
-#: src/menus_config_i18n.cpp:96
+#: src/menus_config_i18n.cpp:98
 msgid "Fade &Out"
 msgstr "&Ausblenden"
 
-#: src/menus_config_i18n.cpp:98
-msgid "Label by &Intensity"
-msgstr ""
-
 #: src/menus_config_i18n.cpp:99
-msgid "Label by &Period"
-msgstr ""
+msgid "Label by &Intensity"
+msgstr "Marker nach &Lautstärke"
 
 #: src/menus_config_i18n.cpp:100
+msgid "Label by &Period"
+msgstr "Marker nach &Periode"
+
+#: src/menus_config_i18n.cpp:101
 msgid "Labels ..."
 msgstr "Marker ..."
 
-#: src/menus_config_i18n.cpp:101
-msgid "Periods ..."
-msgstr ""
-
 #: src/menus_config_i18n.cpp:102
+msgid "Periods ..."
+msgstr "Periode..."
+
+#: src/menus_config_i18n.cpp:103
 msgid "Re&quantize"
 msgstr "Neu&abtasten"
 
-#: src/menus_config_i18n.cpp:103
+#: src/menus_config_i18n.cpp:104
 msgid "S&ave"
 msgstr "&Speichern"
 
-#: src/menus_config_i18n.cpp:104
+#: src/menus_config_i18n.cpp:105
 msgid "Save &resolution"
 msgstr "Auflösung"
 
-#: src/menus_config_i18n.cpp:105
+#: src/menus_config_i18n.cpp:106
 msgid "Scroll &left"
 msgstr "&links rollen"
 
-#: src/menus_config_i18n.cpp:106
+#: src/menus_config_i18n.cpp:107
 msgid "Scroll &right"
 msgstr "&rechts rollen"
 
-#: src/menus_config_i18n.cpp:107
+#: src/menus_config_i18n.cpp:108
 msgid "Spe&ctrum"
 msgstr "Spe&ktrum"
 
-#: src/menus_config_i18n.cpp:108
+#: src/menus_config_i18n.cpp:109
 msgid "Tri&m"
 msgstr "Tri&mmen"
 
-#: src/menus_config_i18n.cpp:109
+#: src/menus_config_i18n.cpp:110
 msgid "Zoom &In"
 msgstr "Vergrößern"
 
-#: src/menus_config_i18n.cpp:110
+#: src/menus_config_i18n.cpp:111
 msgid "Zoom &Out"
 msgstr "Verkleinern"
 
-#: src/menus_config_i18n.cpp:111
+#: src/menus_config_i18n.cpp:112
 msgid "Zoom to &Selection"
 msgstr "Zoom auf &Auswahl"
 
-#: src/menus_config_i18n.cpp:112
+#: src/menus_config_i18n.cpp:113
 msgid "to &Maximum"
 msgstr "finde Maximum"
 
-#: src/menus_config_i18n.cpp:113
+#: src/menus_config_i18n.cpp:114
 msgid "to be done..."
 msgstr "noch zu erledigen..."
 
-#: src/menus_config_i18n.cpp:114
+#: src/menus_config_i18n.cpp:115
 msgid "with &Clipboard"
 msgstr "mit &Zwischenablage"
 
-#: plugins/dialogs/amptolabel/module.cpp:24
+#: plugins/dialogs/amptolabel/module.cpp:29
 msgid "Choose labeling criteria"
-msgstr ""
+msgstr "Kriterium für Marker"
 
-#: plugins/dialogs/amptolabel/module.cpp:30
-#: plugins/dialogs/saveblock/module.cpp:39
+#: plugins/dialogs/amptolabel/module.cpp:35
+#: plugins/dialogs/saveblock/module.cpp:37
 msgid "Start label:"
 msgstr "Start-Marker:"
 
-#: plugins/dialogs/amptolabel/module.cpp:31
-#: plugins/dialogs/saveblock/module.cpp:40
+#: plugins/dialogs/amptolabel/module.cpp:36
+#: plugins/dialogs/saveblock/module.cpp:38
 msgid "Stop label:"
 msgstr "Ende-Marker:"
 
-#: plugins/dialogs/amptolabel/module.cpp:33
+#: plugins/dialogs/amptolabel/module.cpp:38
 msgid "Length of silence:"
 msgstr "Länge der Stille:"
 
-#: plugins/dialogs/amptolabel/module.cpp:35
+#: plugins/dialogs/amptolabel/module.cpp:40
 msgid ""
 "this is the timespan below the defined sound level\n"
 "that is assumed to separate two signals ..."
 msgstr ""
+"legt die Dauer fest für die die definierte Lautstärke\n"
+"unterschritten werden muß um zwei Signale zu trennen ..."
 
-#: plugins/dialogs/amptolabel/module.cpp:37
+#: plugins/dialogs/amptolabel/module.cpp:42
 #, c-format
 msgid "Max. silence level in %"
-msgstr ""
+msgstr "Max. Amplitude der 'Stille' in %"
 
-#: plugins/dialogs/freqmult/module.cpp:19
+#: plugins/dialogs/freqmult/module.cpp:17
 msgid "Select Function :"
 msgstr "Funktion auswählen :"
 
-#: plugins/dialogs/freqmult/module.cpp:38
+#: plugins/dialogs/freqmult/module.cpp:36
 msgid "Freq. in Hz"
-msgstr ""
+msgstr "Freq. in Hz"
 
-#: plugins/dialogs/freqmult/module.cpp:39
+#: plugins/dialogs/freqmult/module.cpp:37
 #, c-format
 msgid "Ampl. in %"
 msgstr "Amplitude in %"
 
-#: plugins/dialogs/addsynth/module.cpp:126
+#: plugins/dialogs/addsynth/module.cpp:135
 msgid "&Power"
 msgstr "&Leistung"
 
-#: plugins/dialogs/addsynth/module.cpp:127
+#: plugins/dialogs/addsynth/module.cpp:136
 msgid "&Phase"
 msgstr "&Phase"
 
-#: plugins/dialogs/addsynth/module.cpp:128
+#: plugins/dialogs/addsynth/module.cpp:137
 msgid "&Multipliers"
 msgstr "&Multiplikatoren"
 
-#: plugins/dialogs/addsynth/module.cpp:129
+#: plugins/dialogs/addsynth/module.cpp:138
 msgid "e&numerate"
 msgstr "&nummerieren"
 
-#: plugins/dialogs/addsynth/module.cpp:130
+#: plugins/dialogs/addsynth/module.cpp:139
 msgid "&even"
 msgstr "&gerade"
 
-#: plugins/dialogs/addsynth/module.cpp:131
+#: plugins/dialogs/addsynth/module.cpp:140
 msgid "&odd"
 msgstr "&ungerade"
 
-#: plugins/dialogs/addsynth/module.cpp:132
+#: plugins/dialogs/addsynth/module.cpp:141
 msgid "&prime"
 msgstr ""
 
-#: plugins/dialogs/addsynth/module.cpp:133
+#: plugins/dialogs/addsynth/module.cpp:142
 msgid "&fibonacci"
 msgstr ""
 
-#: plugins/dialogs/addsynth/module.cpp:134
+#: plugins/dialogs/addsynth/module.cpp:143
 msgid "&max"
 msgstr ""
 
-#: plugins/dialogs/addsynth/module.cpp:135
+#: plugins/dialogs/addsynth/module.cpp:144
 msgid "&db/octave"
 msgstr ""
 
-#: plugins/dialogs/addsynth/module.cpp:136
+#: plugins/dialogs/addsynth/module.cpp:145
 msgid "&invert"
 msgstr "&invertieren"
 
-#: plugins/dialogs/addsynth/module.cpp:137
+#: plugins/dialogs/addsynth/module.cpp:146
 msgid "&Sinus"
-msgstr ""
+msgstr "&Sinus"
 
-#: plugins/dialogs/addsynth/module.cpp:138
-#: plugins/dialogs/addsynth/module.cpp:142
+#: plugins/dialogs/addsynth/module.cpp:147
+#: plugins/dialogs/addsynth/module.cpp:151
 msgid "&random"
 msgstr "&zufällig"
 
-#: plugins/dialogs/addsynth/module.cpp:139
+#: plugins/dialogs/addsynth/module.cpp:148
 msgid "&zero"
 msgstr "&null"
 
-#: plugins/dialogs/addsynth/module.cpp:140
+#: plugins/dialogs/addsynth/module.cpp:149
 msgid "&negate"
 msgstr "&negieren"
 
-#: plugins/dialogs/addsynth/module.cpp:141
+#: plugins/dialogs/addsynth/module.cpp:150
 msgid "&sinus"
 msgstr ""
 
-#: plugins/dialogs/addsynth/module.cpp:144
+#: plugins/dialogs/addsynth/module.cpp:153
 msgid "&Reset all"
 msgstr "&Alles zurücksetzen"
 
-#: plugins/dialogs/addsynth/module.cpp:156
+#: plugins/dialogs/addsynth/module.cpp:165
 msgid "Multiply :"
 msgstr "Multiplizieren :"
 
-#: plugins/dialogs/addsynth/module.cpp:157
+#: plugins/dialogs/addsynth/module.cpp:166
 msgid "Phase in degree:"
 msgstr "Phase in Grad:"
 
-#: plugins/dialogs/addsynth/module.cpp:158
+#: plugins/dialogs/addsynth/module.cpp:167
 msgid "Power in %:"
 msgstr "Leistung in %:"
 
-#: plugins/dialogs/addsynth/module.cpp:160
+#: plugins/dialogs/addsynth/module.cpp:169
 msgid "Frequency"
 msgstr "&Frequenzen"
 
-#: plugins/dialogs/addsynth/module.cpp:161
+#: plugins/dialogs/addsynth/module.cpp:170
 msgid "Calculate"
 msgstr "&Berechne"
 
-#: plugins/dialogs/addsynth/module.cpp:176
-#: plugins/dialogs/filter/module.cpp:64
+#: plugins/dialogs/addsynth/module.cpp:185
+#: plugins/dialogs/filter/module.cpp:68
 msgid "# of :"
 msgstr "# von :"
 
-#: plugins/dialogs/addsynth/module.cpp:330
+#: plugins/dialogs/addsynth/module.cpp:349
 msgid "Choose dB/octave"
-msgstr ""
+msgstr "Auswahl dB/Oktave"
 
-#: plugins/dialogs/quantize/module.cpp:22
+#: plugins/dialogs/quantize/module.cpp:25
 msgid "Choose new virtual resolution"
 msgstr "Neue virtuelle Auflösung wählen"
 
-#: plugins/dialogs/quantize/module.cpp:24
+#: plugins/dialogs/quantize/module.cpp:27
 msgid "Number of quantisation steps"
 msgstr "Anzahl der Quantisierungsstufen"
 
-#: plugins/dialogs/doubleenter/module.cpp:28
-#: plugins/dialogs/envelope/module.cpp:32 plugins/dialogs/menus/module.cpp:34
-#: plugins/dialogs/movingaverage/module.cpp:33
-#: plugins/dialogs/quantize/module.cpp:28
+#: plugins/dialogs/doubleenter/module.cpp:26
+#: plugins/dialogs/envelope/module.cpp:34 plugins/dialogs/menus/module.cpp:32
+#: plugins/dialogs/movingaverage/module.cpp:35
+#: plugins/dialogs/quantize/module.cpp:31
 msgid "&Ok"
 msgstr "&Ok"
 
-#: plugins/dialogs/fadein/module.cpp:19 plugins/dialogs/fadeout/module.cpp:20
+#: plugins/dialogs/fadein/module.cpp:17 plugins/dialogs/fadeout/module.cpp:18
 msgid "Choose fading degree :"
-msgstr ""
+msgstr "Grad der Einblendung :"
 
-#: plugins/dialogs/amplifyfree/module.cpp:22
+#: plugins/dialogs/amplifyfree/module.cpp:25
 msgid "Choose Amplification Curve :"
-msgstr ""
+msgstr "Verstärkungskurve wählen :"
 
-#: plugins/dialogs/playback/module.cpp:23
+#: plugins/dialogs/playback/module.cpp:26
 msgid "Playback Options :"
-msgstr "Wiedergabe-Optionen"
+msgstr "Wiedergabe-Optionen :"
 
-#: plugins/dialogs/playback/module.cpp:25
+#: plugins/dialogs/playback/module.cpp:28
 msgid "Playback Device :"
-msgstr "Wiedergabegerät"
+msgstr "Wiedergabegerät :"
 
-#: plugins/dialogs/playback/module.cpp:31
+#: plugins/dialogs/playback/module.cpp:34
 msgid "Resolution"
 msgstr "Auflösung"
 
-#: plugins/dialogs/playback/module.cpp:39
+#: plugins/dialogs/playback/module.cpp:43
 msgid ""
 "Set Playback-Mode to 16 Bit\n"
 "Note that not all sound hardware supports this mode !"
 msgstr ""
+"Wiedergabe-Auflösung 16 Bit\n"
+"Achtung: wird nicht von jeder Hardware unterstützt !"
 
-#: plugins/dialogs/playback/module.cpp:50
+#: plugins/dialogs/playback/module.cpp:55
 msgid ""
 "This is the size of the buffer used for communication with the sound driver\n"
 "If your computer is rather slow select a big buffer"
 msgstr ""
+"Legt die Größe des Puffers fest der zur \n"
+"Kommunikation mit dem Soundkarten-Treiber verwendet wird.\n"
+"(Verwenden Sie einen möglichst großen Puffer\n"
+"wenn Sie einen langsamen Computer besitzen oder \n"
+"Aussetzer in der Wiedergabe hören.)"
 
-#: plugins/dialogs/playback/module.cpp:52
+#: plugins/dialogs/playback/module.cpp:59
 msgid "enable stereo playback"
 msgstr "aktiviere Stereo-Wiedergabe"
 
-#: plugins/dialogs/playback/module.cpp:78
+#: plugins/dialogs/playback/module.cpp:86
 #, c-format
 msgid "Buffer Size : %d Samples"
 msgstr "Buffer-Größe: %d Samples"
 
-#: plugins/dialogs/filter/module.cpp:24
+#: plugins/dialogs/filter/module.cpp:27
 msgid "Choose filter parameters:"
 msgstr "Filter-Parameter wählen:"
 
-#: plugins/dialogs/filter/module.cpp:35
+#: plugins/dialogs/filter/module.cpp:37
 msgid "&load filter"
 msgstr "Filter &laden"
 
-#: plugins/dialogs/filter/module.cpp:36
+#: plugins/dialogs/filter/module.cpp:38
 msgid "&save filter"
 msgstr "Filter &speichern"
 
-#: plugins/dialogs/filter/module.cpp:38
+#: plugins/dialogs/filter/module.cpp:40
 msgid "resulting changes in spectrum"
-msgstr ""
+msgstr "resultierendes Spektrum"
 
-#: plugins/dialogs/filter/module.cpp:39
+#: plugins/dialogs/filter/module.cpp:41
 msgid "resulting changes in phase"
-msgstr ""
+msgstr "resultierende Phasenänderungen"
 
-#: plugins/dialogs/filter/module.cpp:45
+#: plugins/dialogs/filter/module.cpp:47
 msgid "Filter Type"
 msgstr "Filter-Typ"
 
-#: plugins/dialogs/filter/module.cpp:50
+#: plugins/dialogs/filter/module.cpp:53
 msgid "Use normal filtering, e.g. the impulse response is finite !"
-msgstr ""
-
-#: plugins/dialogs/filter/module.cpp:55
-msgid "&IIR"
-msgstr ""
+msgstr "Nicht-Rekursive Filterung (Impulsantwort ist endlich!)"
 
 #: plugins/dialogs/filter/module.cpp:58
-msgid "Use recursive filtering, e.g. the impulse response could be infinite !"
-msgstr ""
+msgid "&IIR"
+msgstr "&IIR"
 
-#: plugins/dialogs/filter/module.cpp:65
+#: plugins/dialogs/filter/module.cpp:61
+msgid "Use recursive filtering, e.g. the impulse response could be infinite !"
+msgstr "Rekursive Filterung (Impulsantwort evtl. nicht endlich!)"
+
+#: plugins/dialogs/filter/module.cpp:69
 msgid ""
 "Number of filter coefficients\n"
 " Keep this low and you won't need any coffee break..."
 msgstr ""
+"Anzahl der Filterkoeffizienten\n"
+"(stellen Sie lieber niedrige Werte ein und ersparen Sie sich eine "
+"unfreiwillige Kaffeepause..."
 
-#: plugins/dialogs/averagefft/module.cpp:26
+#: plugins/dialogs/averagefft/module.cpp:29
 msgid "Choose window type and length :"
-msgstr ""
+msgstr "Fensterfunktion und Länge wählen :"
 
-#: plugins/dialogs/averagefft/module.cpp:28
+#: plugins/dialogs/averagefft/module.cpp:31
 msgid "Length of window :"
 msgstr "Länge des Fensters :"
 
-#: plugins/dialogs/averagefft/module.cpp:34
+#: plugins/dialogs/averagefft/module.cpp:37
 msgid "Choose windowing function here."
 msgstr "Fensterfunktion wählen"
 
-#: plugins/dialogs/averagefft/module.cpp:36
-#: plugins/dialogs/sonagram/module.cpp:43
+#: plugins/dialogs/averagefft/module.cpp:39
+#: plugins/dialogs/sonagram/module.cpp:53
 msgid "Window Function :"
 msgstr "Fensterfunktion :"
 
-#: plugins/dialogs/rate/module.cpp:23
+#: plugins/dialogs/rate/module.cpp:22
 msgid "Choose New Rate :"
 msgstr "Neue Rate :"
 
-#: plugins/dialogs/newsignal/module.cpp:27 plugins/dialogs/rate/module.cpp:25
+#: plugins/dialogs/newsignal/module.cpp:26 plugins/dialogs/rate/module.cpp:24
 msgid "Rate in Hz :"
 msgstr ""
 
-#: plugins/dialogs/time/module.cpp:21
+#: plugins/dialogs/time/module.cpp:19
 msgid "Enter length :"
 msgstr "Länge eingeben:"
 
-#: plugins/dialogs/newsignal/module.cpp:23 plugins/dialogs/time/module.cpp:22
+#: plugins/dialogs/newsignal/module.cpp:22 plugins/dialogs/time/module.cpp:20
 msgid "Time :"
 msgstr "Zeit :"
 
-#: plugins/dialogs/labeltype/module.cpp:20
+#: plugins/dialogs/labeltype/module.cpp:18
 msgid "Choose new label type"
 msgstr "Neuen Marker-Typ auswählen"
 
-#: plugins/dialogs/labeltype/module.cpp:21
+#: plugins/dialogs/labeltype/module.cpp:19
 msgid "Name :"
-msgstr ""
+msgstr "Name :"
 
-#: plugins/dialogs/labeltype/module.cpp:27
+#: plugins/dialogs/labeltype/module.cpp:25
 msgid "individual name for each label"
-msgstr ""
+msgstr "eindeutiger Name für jeden Marker"
 
-#: plugins/dialogs/sweep/module.cpp:79
+#: plugins/dialogs/sweep/module.cpp:82
 msgid "From"
 msgstr "von"
 
-#: plugins/dialogs/sweep/module.cpp:80
+#: plugins/dialogs/sweep/module.cpp:83
 msgid "to"
 msgstr "bis"
 
-#: plugins/dialogs/sweep/module.cpp:84
+#: plugins/dialogs/sweep/module.cpp:87
 msgid "Import"
 msgstr "&Importiere"
 
-#: plugins/dialogs/sweep/module.cpp:85
+#: plugins/dialogs/sweep/module.cpp:88
 msgid "Ok"
 msgstr "Ok"
 
-#: plugins/dialogs/sweep/module.cpp:171
+#: plugins/dialogs/sweep/module.cpp:170
 msgid "could not open file !\n"
 msgstr "kann Datei nicht öffnen !\n"
 
-#: plugins/dialogs/sweep/module.cpp:173
+#: plugins/dialogs/sweep/module.cpp:171
 #, c-format
 msgid "file %s does not exist!\n"
-msgstr "Datei existiert nicht!\n"
+msgstr "Datei %s existiert nicht!\n"
 
-#: plugins/dialogs/delay/module.cpp:22 plugins/dialogs/newsignal/module.cpp:22
+#: plugins/dialogs/delay/module.cpp:24 plugins/dialogs/newsignal/module.cpp:21
 msgid "Choose Length and Rate :"
-msgstr ""
+msgstr "Länge und Rate wählen :"
 
-#: plugins/dialogs/delay/module.cpp:23
+#: plugins/dialogs/delay/module.cpp:25
 msgid "Delay :"
 msgstr "&Verzögerung :"
 
-#: plugins/dialogs/delay/module.cpp:27
+#: plugins/dialogs/delay/module.cpp:29
 #, c-format
 msgid "Amplitude of delayed signal :50 %"
 msgstr "Aplitude des verzögerten Signals :50 %"
 
-#: plugins/dialogs/delay/module.cpp:29
+#: plugins/dialogs/delay/module.cpp:31
 msgid "do recursive delaying"
-msgstr ""
+msgstr "umgekehrte Verzögerung"
 
-#: plugins/dialogs/delay/module.cpp:58
+#: plugins/dialogs/delay/module.cpp:61
 msgid "Amplitude of delayed signal :%d %%"
 msgstr "Amplitude des verzögerten Signals :%d %%"
 
-#: plugins/dialogs/menus/module.cpp:30
+#: plugins/dialogs/menus/module.cpp:28
 msgid "Choose menu layout :"
-msgstr ""
+msgstr "Menue-Layout wählen :"
 
-#: plugins/dialogs/saveblock/module.cpp:23
+#: plugins/dialogs/saveblock/module.cpp:21
 msgid "Choose Labels to be used for dividing signal:"
-msgstr ""
+msgstr "Marker zur Aufteilung des Signals wählen:"
 
-#: plugins/dialogs/saveblock/module.cpp:34
+#: plugins/dialogs/saveblock/module.cpp:32
 msgid "Base name:"
-msgstr ""
+msgstr "Basisname:"
 
-#: plugins/dialogs/saveblock/module.cpp:35
+#: plugins/dialogs/saveblock/module.cpp:33
 msgid "Directory:"
 msgstr "Verzeichnis:"
 
-#: plugins/dialogs/memory/module.cpp:20
+#: plugins/dialogs/memory/module.cpp:18
 msgid "Memory Options :"
 msgstr "Speicher-Optionen"
 
-#: plugins/dialogs/memory/module.cpp:25
+#: plugins/dialogs/memory/module.cpp:23
 msgid "Threshold for use of mapped memory (in Mb):"
 msgstr "Schwellwert für Verwendung von Auslagerungsdateien (MB):"
 
-#: plugins/dialogs/memory/module.cpp:29
+#: plugins/dialogs/memory/module.cpp:27
 msgid "Browse"
-msgstr ""
+msgstr "Durchsuchen"
 
-#: plugins/dialogs/memory/module.cpp:31
+#: plugins/dialogs/memory/module.cpp:29
 msgid "Directory for mapping:"
 msgstr "Auslagerungsverzeichnis:"
 
-#: plugins/dialogs/movingaverage/module.cpp:23
+#: plugins/dialogs/movingaverage/module.cpp:25
 msgid "Choose Parameters :"
 msgstr "Parameter auswählen :"
 
-#: plugins/dialogs/movingaverage/module.cpp:24
+#: plugins/dialogs/movingaverage/module.cpp:26
 msgid "# of Filter Taps :"
-msgstr ""
+msgstr "# der Filterbänder :"
 
-#: plugins/dialogs/movingaverage/module.cpp:25
+#: plugins/dialogs/movingaverage/module.cpp:27
 msgid "Filter Type :"
 msgstr "Filter-Typ :"
 
-#: plugins/dialogs/movingaverage/module.cpp:30
+#: plugins/dialogs/movingaverage/module.cpp:32
 msgid "Lowpass filter"
 msgstr "Tiefpas-Filter"
 
-#: plugins/dialogs/movingaverage/module.cpp:31
+#: plugins/dialogs/movingaverage/module.cpp:33
 msgid "Highpass filter"
 msgstr "Hochpass-Filter"
 
-#: plugins/dialogs/movingaverage/module.cpp:53
+#: plugins/dialogs/movingaverage/module.cpp:57
 #, c-format
 msgid "movingaverage %d %s"
 msgstr ""
 
-#: plugins/dialogs/pitch/module.cpp:20
+#: plugins/dialogs/pitch/module.cpp:23
 msgid "Select frequency range :"
-msgstr ""
+msgstr "Frequenzbereich wählen :"
 
-#: plugins/dialogs/pitch/module.cpp:28
+#: plugins/dialogs/pitch/module.cpp:31
 msgid "Highest Freq. in Hz"
 msgstr "Höchste Freq. in Hz"
 
-#: plugins/dialogs/pitch/module.cpp:29
+#: plugins/dialogs/pitch/module.cpp:32
 msgid "Lowest Freq. in Hz"
 msgstr "Niedrigste Freq. in Hz"
 
-#: plugins/dialogs/pitch/module.cpp:30
+#: plugins/dialogs/pitch/module.cpp:33
 msgid "avoid octave jumps with twiddle factor"
 msgstr ""
 
-#: plugins/dialogs/doubleenter/module.cpp:22
+#: plugins/dialogs/doubleenter/module.cpp:20
 msgid "Enter a value"
 msgstr "Wert eingeben"
 
-#: plugins/dialogs/pulse/module.cpp:43
+#: plugins/dialogs/pulse/module.cpp:47
 msgid "Length of pulse :"
 msgstr "Pulslänge :"
 
-#: plugins/dialogs/sonagram/module.cpp:30
+#: plugins/dialogs/sonagram/module.cpp:35
 msgid "Set FFT/time resolution parameter :"
-msgstr ""
+msgstr "Parameter der FFT/Zeit-Ausflösungs"
 
-#: plugins/dialogs/sonagram/module.cpp:31
+#: plugins/dialogs/sonagram/module.cpp:36
 msgid "Number of FFT points:"
-msgstr ""
+msgstr "Anzahl der FFT-Punkte:"
 
-#: plugins/dialogs/sonagram/module.cpp:34
+#: plugins/dialogs/sonagram/module.cpp:40
 msgid ""
 "Try to choose numbers with small prime-factors, if choosing big window "
 "sizes.\n"
 "The computation will be much faster !"
 msgstr ""
+"Bei großen Fenstern wählen Sie bitte Zahlen mit kleinen Primfaktoren.\n"
+"Die Berechnung geht dadurch um einiges schneller !"
 
-#: plugins/dialogs/sonagram/module.cpp:38
+#: plugins/dialogs/sonagram/module.cpp:46
 msgid ""
 "Choose windowing function here. If fourier transformation should stay "
 "reversible, use the type <none>"
 msgstr ""
 
-#: plugins/dialogs/sonagram/module.cpp:80
+#: plugins/dialogs/sonagram/module.cpp:93
 #, c-format
 msgid "resulting window size: %s"
-msgstr ""
+msgstr "resultierende Fenstergröße: %s"
 
-#: plugins/dialogs/sonagram/module.cpp:82
+#: plugins/dialogs/sonagram/module.cpp:96
 #, c-format
 msgid "size of bitmap: %dx%d"
-msgstr ""
+msgstr "Größe der Bitmap: %dx%d"
 
-#: plugins/dialogs/savelabel/module.cpp:23
+#: plugins/dialogs/savelabel/module.cpp:22
 msgid "Select label types to be saved :"
-msgstr ""
+msgstr "Auswahl der zu speichernden Markertypen :"
 
-#: plugins/dialogs/envelope/module.cpp:25
+#: plugins/dialogs/envelope/module.cpp:27
 msgid "Choose Envelope Parameters"
 msgstr "Hüllkurvenparameter wählen"
 
-#: plugins/dialogs/envelope/module.cpp:26
+#: plugins/dialogs/envelope/module.cpp:28
 msgid "Points are taken 20 times/s"
 msgstr "20 Abtastungen / Sekunde"
 
-#: plugins/dialogs/envelope/module.cpp:28
+#: plugins/dialogs/envelope/module.cpp:30
 msgid "Type of Interpolation :"
 msgstr "Typ der Interpolation :"
 
-#: plugins/dialogs/envelope/module.cpp:66
+#: plugins/dialogs/envelope/module.cpp:70
 #, c-format
 msgid "Points are taken %d.%01d times/s"
 msgstr "%d.%01d Abtastungen / Sekunde"
 
-#: plugins/dialogs/gap/module.cpp:20
+#: plugins/dialogs/gap/module.cpp:23
 msgid "Set Length of Gap & Signal"
-msgstr ""
+msgstr "Länge der Lücke und des Signals wählen"
 
-#: plugins/dialogs/gap/module.cpp:22
+#: plugins/dialogs/gap/module.cpp:25
 msgid "length of gap"
 msgstr "Länge der Lücke"
 
-#: plugins/dialogs/gap/module.cpp:25
+#: plugins/dialogs/gap/module.cpp:28
 msgid "length of signal"
 msgstr "Länge des Signals"
 
-#: plugins/dialogs/formant/module.cpp:20
+#: plugins/dialogs/formant/module.cpp:22
 msgid "Choose formant positions and widths :"
 msgstr ""
 
-#: plugins/dialogs/formant/module.cpp:35
+#: plugins/dialogs/formant/module.cpp:37
 msgid "Formant center in Hz:"
 msgstr ""
 
-#: plugins/dialogs/formant/module.cpp:36
+#: plugins/dialogs/formant/module.cpp:38
 msgid "Number of formants:"
-msgstr ""
+msgstr "Anzahl der Formanten:"
 
-#: plugins/dialogs/mix/module.cpp:34
+#: plugins/dialogs/mix/module.cpp:38
 msgid "mix to channel :"
 msgstr "mischen mit Kanal :"
 
-#: plugins/dialogs/mix/module.cpp:36
+#: plugins/dialogs/mix/module.cpp:40
 msgid "use dB scale"
 msgstr "verwende dB-Skalierung"
 
-#: plugins/dialogs/mix/module.cpp:38
+#: plugins/dialogs/mix/module.cpp:42
 msgid "new"
 msgstr "neu"
 
-#: plugins/dialogs/distort/module.cpp:24
+#: plugins/dialogs/mix/module.cpp:48
+#, fuzzy, c-format
+msgid "Channel %d :"
+msgstr "&Stimme %d :"
+
+#: plugins/dialogs/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr ""
+
+#, fuzzy
+#~ msgid " on channel "
+#~ msgstr " auf Kanal "
+
+#~ msgid "&About"
+#~ msgstr "Über"
+
+#~ msgid "Halt"
+#~ msgstr "Halt"
+
+#~ msgid "Dialog not loaded !"
+#~ msgstr "Dialog nicht geladen !"
+
+#, fuzzy
+#~ msgid "%d-channel"
+#~ msgstr "%d-&Kanal"
+
+#~ msgid "Clipboard"
+#~ msgstr "Zwischenablage"

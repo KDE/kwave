@@ -7,28 +7,27 @@
 #include "../../../libgui/Dialog.h"
 #include <libkwave/DialogOperation.h>
 //*****************************************************************************
-class AverageDialog : public Dialog
-{
- Q_OBJECT
+class AverageDialog : public Dialog {
+    Q_OBJECT
 
- public:
- 	AverageDialog 	(bool=false);
- 	~AverageDialog 	();
+public:
+    AverageDialog (bool = false);
+    ~AverageDialog ();
 
- const char*getCommand  ();
+    const char*getCommand ();
 
- protected:
+protected:
 
- void resizeEvent       (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- KIntegerLine	*taps;
- QLabel		*taplabel;
- QLabel		*typelabel;
- QComboBox      *type;
- QPushButton	*ok,*cancel;
- char           *comstr;
+    KIntegerLine *taps;
+    QLabel *taplabel;
+    QLabel *typelabel;
+    QComboBox *type;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 #endif
 

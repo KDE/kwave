@@ -3,44 +3,43 @@
 
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <qcheckbox.h> 
-#include <qradiobutton.h> 
+#include <qcheckbox.h>
+#include <qradiobutton.h>
 #include <qbuttongroup.h>
 
 #include "../../../libgui/Slider.h"
 #include "../../../libgui/Dialog.h"
 #include <libkwave/DialogOperation.h>
 //*****************************************************************************
-class PlayBackDialog : public Dialog
-{
- Q_OBJECT
+class PlayBackDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- PlayBackDialog 	(bool);
- ~PlayBackDialog 	();
- const char *getCommand ();
+    PlayBackDialog (bool);
+    ~PlayBackDialog ();
+    const char *getCommand ();
 
- public slots:
+public slots:
 
-   void setBufferSize (int);
+    void setBufferSize (int);
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- QLabel		*bufferlabel;
- Slider         *buffersize;
- QLabel         *devicelabel;
- QComboBox      *devicebox;
- QCheckBox      *stereo;
- QLabel		*label1,*label2;
- QButtonGroup	*bg;
- QRadioButton	*b16,*b8;
- QPushButton	*ok,*cancel;
- char           *comstr;
+    QLabel *bufferlabel;
+    Slider *buffersize;
+    QLabel *devicelabel;
+    QComboBox *devicebox;
+    QCheckBox *stereo;
+    QLabel *label1, *label2;
+    QButtonGroup *bg;
+    QRadioButton *b16, *b8;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 //*****************************************************************************
 #endif

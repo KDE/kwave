@@ -28,8 +28,23 @@ dnl AC_PROG_CXX
 
 dnl checks, if the debug code is wanted
 AC_CHECK_FLAGS
-CFLAGS="${CFLAGS} --no-rtti"
-CXXFLAGS="${CXXFLAGS} --no-rtti"
+
+CFLAGS="${CFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
+CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
+
+#AC_MSG_CHECKING(pentium optimization)
+#case "$target_cpu" in
+#	i586 | i686 )
+#		AC_MSG_RESULT("yes")
+#		optimize="-march=pentium"
+#	;;
+#	*)
+#		AC_MSG_RESULT("no");
+#		optimize=""
+#	;;
+#esac
+#CFLAGS="${CFLAGS} ${optimize}"
+#CXXFLAGS="${CXXFLAGS} ${optimize}"
 
 dnl now create our libtool, the earlier the better...
 AM_PROG_LIBTOOL
@@ -40,6 +55,26 @@ AC_MINIX
 
 dnl for NLS support. Call them in this order!
 AC_LANG_CPLUSPLUS dnl switch to C++
+
+AC_TYPE_SIZE_T
+AC_CHECK_SIZEOF(char,1)
+AC_CHECK_SIZEOF(short,2)
+AC_CHECK_SIZEOF(int,4)
+if test $ac_cv_sizeof_char != 1 ; then
+	AC_MSG_WARN([******************************************************************])
+	AC_MSG_WARN([*** sizeof (char) != 1                                            ])
+	AC_MSG_WARN([******************************************************************])
+	fi
+if test $ac_cv_sizeof_short != 2 ; then
+	AC_MSG_WARN([******************************************************************])
+	AC_MSG_WARN([*** sizeof (short) != 2.                                          ])
+	AC_MSG_WARN([******************************************************************])
+	fi
+if test $ac_cv_sizeof_int != 4 ; then
+	AC_MSG_WARN([******************************************************************])
+	AC_MSG_WARN([*** sizeof (int) != 4.                                            ])
+	AC_MSG_WARN([******************************************************************])
+	fi
 
 AM_KDE_WITH_NLS dnl check if nls is wanted
 
@@ -93,7 +128,7 @@ getlsm(RPM_VENDOR, Author)
 changequote(<<, >>)
 RPM_VERSION=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[1] }'`
 RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2]+0 }'`
-RPM_SOURCE0=<<kwave-%{version}.tar.gz>>
+RPM_SOURCE0=<<kwave-`cat ./VERSION`.tar.gz>>
 RPM_GROUP=<<X11/Applications/Sound>>
 RPM_BUILDROOT=<</tmp/kwave-%{version}.root>>
 LD_VERSION_INFO=<<`cat ./VERSION | awk '{split($0, a, ".")} \

@@ -11,41 +11,40 @@
 #include "../../../libgui/Dialog.h"
 #include <libkwave/DialogOperation.h>
 
-class ChannelMixDialog : public Dialog
-{
- Q_OBJECT
+class ChannelMixDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	ChannelMixDialog 	(bool modal,int numberofchannels);
- 	~ChannelMixDialog ();
- const char *getCommand   ();
+    ChannelMixDialog (bool modal, int numberofchannels);
+    ~ChannelMixDialog ();
+    const char *getCommand ();
 
- public slots:
+public slots:
 
- void setValue (int);
- void setValue (const char *);
- void setdBMode(bool);
+    void setValue (int);
+    void setValue (const char *);
+    void setdBMode(bool);
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- QLabel         **channelname;
- FloatLine      **valuebox;
- Slider         **slider;
- QPushButton	*ok,*cancel;
- QLabel         *tochannellabel;
- QComboBox      *tochannel;
- QLabel         *usedblabel;
- QCheckBox      *usedb;
- int            channels; //number of channels available
- double         *value;
- bool           tflag;
- bool           dbmode;
- char           *comstr;
+    QLabel **channelname;
+    FloatLine **valuebox;
+    Slider **slider;
+    QPushButton *ok, *cancel;
+    QLabel *tochannellabel;
+    QComboBox *tochannel;
+    QLabel *usedblabel;
+    QCheckBox *usedb;
+    int channels;    //number of channels available
+    double *value;
+    bool tflag;
+    bool dbmode;
+    char *comstr;
 };
 //*****************************************************************************
 #endif

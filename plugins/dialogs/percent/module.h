@@ -9,27 +9,26 @@
 #include <kintegerline.h>
 
 //*****************************************************************************
-class PercentDialog : public Dialog
-{
- Q_OBJECT
+class PercentDialog : public Dialog {
+    Q_OBJECT
 
- public:
- 	PercentDialog 	(bool modal,const char *name);
- 	~PercentDialog 	();
- const char *getCommand ();
+public:
+    PercentDialog (bool modal, const char *name);
+    ~PercentDialog ();
+    const char *getCommand ();
 
- public slots:
+public slots:
 
-   void setValue (int);
+    void setValue (int);
 
-  protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
- Slider      *slider;
- QLabel      *label; 
- QPushButton *ok,*cancel;
- char        *comstr;
+private:
+    Slider *slider;
+    QLabel *label;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 #endif

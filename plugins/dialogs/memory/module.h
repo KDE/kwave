@@ -1,4 +1,4 @@
-#ifndef MEMORY_DIALOG_ 
+#ifndef MEMORY_DIALOG_
 #define MEMORY_DIALOG_ 1
 
 #include <qlabel.h>
@@ -7,32 +7,31 @@
 #include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 //*****************************************************************************
-class MemoryDialog : public Dialog
-{
- Q_OBJECT
+class MemoryDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- MemoryDialog 	  (bool modal);
- ~MemoryDialog 	  ();
- const char *getCommand ();
+    MemoryDialog (bool modal);
+    ~MemoryDialog ();
+    const char *getCommand ();
 
- public slots:
+public slots:
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- QLabel		*dirlabel;
- QLineEdit	*dir;
- QPushButton	*browse;
- QLabel		*memlabel;
- KIntegerLine   *mem;
+    QLabel *dirlabel;
+    QLineEdit *dir;
+    QPushButton *browse;
+    QLabel *memlabel;
+    KIntegerLine *mem;
 
- QPushButton	*ok,*cancel;
- char           *comstr;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 #endif
 

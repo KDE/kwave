@@ -6,186 +6,220 @@
 #include "TimeLine.h"
 
 extern QString mstotime (int ms);
-extern char*   mstotimec (int ms);
+extern char* mstotimec (int ms);
+
 //**********************************************************
-TimeLine::TimeLine (QWidget *parent,int rate):KRestrictedLine (parent)
+TimeLine::TimeLine(QWidget *parent, int rate)
+    :KRestrictedLine(parent)
 {
-  comstr=0;
-  this->rate=rate;
-  mode=1;
-  menu=new QPopupMenu ();
-  value=1;
-  
-  menu->insertItem	(i18n("as number of samples"),this,SLOT(setSampleMode()));
-  menu->insertItem	(i18n("in ms"),this,SLOT(setMsMode()));
-  menu->insertItem	(i18n("in s"), this,SLOT(setSMode()));
-  menu->insertItem	(i18n("in kb"),this,SLOT(setKbMode()));
+    comstr = 0;
+    this->rate = rate;
+    menu = new QPopupMenu();
+    mode = 1;
+    rate = 0;
+    value = 1;
 
-  menu->setCheckable (true);
+    ASSERT(menu);
+    if (!menu) return;
 
-  menu->setItemChecked (menu->idAt(0),false);
-  menu->setItemChecked (menu->idAt(1),true);
-  menu->setItemChecked (menu->idAt(2),false);
-  menu->setItemChecked (menu->idAt(3),false);
+    menu->insertItem(i18n("as number of samples"), this,
+                     SLOT(setSampleMode()));
+    menu->insertItem(i18n("in ms"), this, SLOT(setMsMode()));
+    menu->insertItem(i18n("in s"), this, SLOT(setSMode()));
+    menu->insertItem(i18n("in kb"), this, SLOT(setKbMode()));
 
-  connect( this, SIGNAL(textChanged(const char *)),SLOT(setValue(const char *)) ); 
+    menu->setCheckable (true);
+
+    menu->setItemChecked(menu->idAt(0), false);
+    menu->setItemChecked (menu->idAt(1), true);
+    menu->setItemChecked (menu->idAt(2), false);
+    menu->setItemChecked (menu->idAt(3), false);
+
+    connect(this, SIGNAL(textChanged(const char *)),
+            SLOT(setValue(const char *)) );
 };
+
 //**********************************************************
-int TimeLine::getValue ()
+int TimeLine::getValue() 
 {
-  return value;
+    return value;
 }
+
 //**********************************************************
-double TimeLine::getMs ()
+double TimeLine::getMs() 
 {
-  return ((double(value))*1000/rate);
+    ASSERT(rate);
+    if (!rate) return 0.0;
+    return ((double(value))*1000 / rate);
 }
+
 //**********************************************************
-const char *TimeLine::getMsStr ()
+const char *TimeLine::getMsStr() 
 {
-  char buf[128];
-  sprintf (buf,"%f",((double(value))*1000/rate));
-  deleteString (comstr);
-  comstr=duplicateString (buf);
-  return comstr;
+    ASSERT(rate);
+    if (!rate) return 0;
+
+    char buf[128];
+    snprintf(buf, sizeof(buf), "%f", ((double(value))*1000 / rate));
+    if (comstr) deleteString (comstr);
+    comstr = duplicateString (buf);
+    return comstr;
 }
+
 //**********************************************************
-void TimeLine::setRate (int newrate)
+void TimeLine::setRate(int newrate) 
 {
-  rate=newrate;
-  setSamples (value);
+    rate = newrate;
+    setSamples (value);
 }
+
 //**********************************************************
-void TimeLine::setValue (const char *newvalue)
+void TimeLine::setValue(const char *newvalue) 
 {
-  switch (mode)
-    {
+    switch (mode) {
     case 0:
-      value=strtol (newvalue,0,0); 
-      break;
+	value = strtol(newvalue, 0, 0);
+	    break;
     case 1:
-      value=(int) ((double)(rate*strtod (newvalue,0)/1000)+.5);
-      break;
+	value = (int)((double)(rate * strtod (newvalue, 0) / 1000) + .5);
+	break;
     case 2:
-      value=(int) ((double)(rate*strtod (newvalue,0))+.5);
-      break;
+	value = (int)((double)(rate * strtod (newvalue, 0)) + .5);
+	break;
     case 3:
-      value=(int) ((double)(strtod (newvalue,0)*1024)/sizeof(int)-.5);
-      break;
+	value = (int)((double)(strtod(newvalue, 0)*1024) / sizeof(int) - .5);
+	break;
     }
 }
-//**********************************************************
-void TimeLine::setSampleMode ()
-{
-  menu->setItemChecked (menu->idAt(0),true);
-  menu->setItemChecked (menu->idAt(1),false);
-  menu->setItemChecked (menu->idAt(2),false);
-  menu->setItemChecked (menu->idAt(3),false);
-  setValidChars ("0123456789");
-  mode=0;
-  setSamples (value);
-}
-//**********************************************************
-void TimeLine::setMsMode ()
-{
-  menu->setItemChecked (menu->idAt(0),false);
-  menu->setItemChecked (menu->idAt(1),true);
-  menu->setItemChecked (menu->idAt(2),false);
-  menu->setItemChecked (menu->idAt(3),false);
-  setValidChars ("0123456789.");
-  mode=1;
-  setSamples (value);
-}
-//**********************************************************
-void TimeLine::setSMode ()
-{
-  menu->setItemChecked (menu->idAt(0),false);
-  menu->setItemChecked (menu->idAt(1),false);
-  menu->setItemChecked (menu->idAt(2),true);
-  menu->setItemChecked (menu->idAt(3),false);
-  setValidChars ("0123456789.");
-  mode=2;
-  setSamples (value);
-}
-//**********************************************************
-void TimeLine::setKbMode ()
-{
-  menu->setItemChecked (menu->idAt(0),false);
-  menu->setItemChecked (menu->idAt(1),false);
-  menu->setItemChecked (menu->idAt(2),false);
-  menu->setItemChecked (menu->idAt(3),true);
-  setValidChars ("0123456789.");
-  mode=3;
-  setSamples (value);
-}
-//**********************************************************
-void TimeLine::setSamples (int samples)
-{
-  char buf[64];
 
-  value=samples;
-
-  switch (mode)
-    {
-    case 0:
-      sprintf (buf,"%d samples",value);
-      this->setText (buf);
-      break;
-    case 1:
-      {
-	double pr=((double)value)*1000/rate;
-	sprintf (buf,"%.03f ms",pr);
-	this->setText (buf);
-      }
-      break;
-    case 2:
-      {
-	double pr=((double)value)/rate;
-	sprintf (buf,"%.3f s",pr);
-	this->setText (buf);
-      }
-      break;
-    case 3:
-      {
-	double pr=((double)(value))*sizeof(int)/1024;
-	sprintf (buf,"%.3f kb",pr);
-	this->setText (buf);
-      }
-      break;
-    }
-}
 //**********************************************************
-void TimeLine::setMs (int ms)
+void TimeLine::setSampleMode() 
 {
-  char buf[16];
+    ASSERT(menu);
+    if (!menu) return;
 
-  value=(int) ((double)(rate*ms/1000)+.5);
-  if (mode==0)
-    {
-      sprintf (buf,"%d samples",value);
-      this->setText (buf);
+    menu->setItemChecked(menu->idAt(0), true);
+    menu->setItemChecked(menu->idAt(1), false);
+    menu->setItemChecked(menu->idAt(2), false);
+    menu->setItemChecked(menu->idAt(3), false);
+    setValidChars("0123456789");
+    mode = 0;
+    setSamples(value);
+}
+
+//**********************************************************
+void TimeLine::setMsMode() 
+{
+    ASSERT(menu);
+    if (!menu) return;
+
+    menu->setItemChecked(menu->idAt(0), false);
+    menu->setItemChecked(menu->idAt(1), true);
+    menu->setItemChecked(menu->idAt(2), false);
+    menu->setItemChecked(menu->idAt(3), false);
+    setValidChars("0123456789.");
+    mode = 1;
+    setSamples(value);
+}
+
+//**********************************************************
+void TimeLine::setSMode() 
+{
+    ASSERT(menu);
+    if (!menu) return;
+
+    menu->setItemChecked(menu->idAt(0), false);
+    menu->setItemChecked(menu->idAt(1), false);
+    menu->setItemChecked(menu->idAt(2), true);
+    menu->setItemChecked(menu->idAt(3), false);
+    setValidChars ("0123456789.");
+    mode = 2;
+    setSamples (value);
+}
+
+//**********************************************************
+void TimeLine::setKbMode() 
+{
+    ASSERT(menu);
+    if (!menu) return;
+
+    menu->setItemChecked (menu->idAt(0), false);
+    menu->setItemChecked (menu->idAt(1), false);
+    menu->setItemChecked (menu->idAt(2), false);
+    menu->setItemChecked (menu->idAt(3), true);
+    setValidChars ("0123456789.");
+    mode = 3;
+    setSamples (value);
+}
+
+//**********************************************************
+void TimeLine::setSamples(int samples) 
+{
+    ASSERT(rate);
+    if (!rate) return;
+
+    char buf[64];
+    double pr;
+    value = samples;
+
+    switch (mode) {
+	case 0:
+	    snprintf(buf, sizeof(buf), "%d samples", value);
+	    this->setText (buf);
+	    break;
+	case 1:
+	    pr = ((double)value) * 1000 / rate;
+	    snprintf(buf, sizeof(buf), "%.03f ms", pr);
+	    this->setText (buf);
+	    break;
+	case 2:
+	    pr = ((double)value) / rate;
+	    snprintf(buf, sizeof(buf), "%.3f s", pr);
+	    this->setText (buf);
+	    break;
+	case 3:
+	    pr = ((double)(value)) * sizeof(int) / 1024;
+	    snprintf(buf, sizeof(buf), "%.3f kb", pr);
+	    this->setText (buf);
+	    break;
     }
-  else
-    {
-      sprintf (buf,"%d.%d ms",ms,0);
-      this->setText (buf);
+
+}
+
+//**********************************************************
+void TimeLine::setMs(int ms) 
+{
+    char buf[16];
+
+    value = (int) ((double)(rate * ms / 1000) + .5);
+    if (mode == 0) {
+	snprintf(buf, sizeof(buf), "%d samples", value);
+	this->setText (buf);
+    } else {
+	snprintf(buf, sizeof(buf), "%d.%d ms", ms, 0);
+	this->setText (buf);
     }
 }
+
 //**********************************************************
 void TimeLine::mousePressEvent( QMouseEvent *e)
 {
-  if (e->button()==RightButton)
-    {
-      QPoint popup=QCursor::pos();
-      menu->popup(popup);
-    }            
+    ASSERT(e);
+    ASSERT(menu);
+    if (!e) return;
+    if (!menu) return;
+
+    if (e->button() == RightButton) {
+	QPoint popup = QCursor::pos();
+	menu->popup(popup);
+    }
 }
+
 //**********************************************************
-TimeLine::~TimeLine ()
+TimeLine::~TimeLine()
 {
-  deleteString (comstr);
+    deleteString(comstr);
 };
 
-
-
-
+//**********************************************************
+//**********************************************************

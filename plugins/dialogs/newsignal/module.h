@@ -8,31 +8,30 @@
 #include "../../../libgui/TimeLine.h"
 #include <kintegerline.h>
 //*****************************************************************************
-class NewSampleDialog : public Dialog
-{
- Q_OBJECT
+class NewSampleDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	NewSampleDialog 	(bool modal);
- 	~NewSampleDialog 	();
-	const char *getCommand  ();
+    NewSampleDialog (bool modal);
+    ~NewSampleDialog ();
+    const char *getCommand ();
 
- public slots:
+public slots:
 
- void setRate   (const char *);
+    void setRate (const char *);
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- TimeLine	*time;
- QLabel		*timelabel;
- QLabel		*ratelabel;
- QComboBox	*ratefield;
- QPushButton	*ok,*cancel;
- char *          comstr;
+    TimeLine *time;
+    QLabel *timelabel;
+    QLabel *ratelabel;
+    QComboBox *ratefield;
+    QPushButton *ok, *cancel;
+    char * comstr;
 };
 #endif

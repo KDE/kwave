@@ -8,34 +8,33 @@
 #include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 //*****************************************************************************
-class SonagramDialog : public Dialog
-{
- Q_OBJECT
+class SonagramDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- 	SonagramDialog 	(bool,int,int);
- 	~SonagramDialog 	();
- const  char *	getCommand   ();
+    SonagramDialog (bool, int, int);
+    ~SonagramDialog ();
+    const char * getCommand ();
 
- public slots:
-   void setPoints (int);
-   void setBoxPoints (int);
- protected:
+public slots:
+    void setPoints (int);
+    void setBoxPoints (int);
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- Slider 	*pointslider;
- QLabel		*pointlabel;
- QLabel		*windowlabel;
- QLabel		*bitmaplabel;
- QLabel		*windowtypelabel;
- QComboBox	*pointbox;
- QComboBox	*windowtypebox;
- QPushButton	*ok,*cancel;
- int            length,rate;
- char           *comstr;
+    Slider *pointslider;
+    QLabel *pointlabel;
+    QLabel *windowlabel;
+    QLabel *bitmaplabel;
+    QLabel *windowtypelabel;
+    QComboBox *pointbox;
+    QComboBox *windowtypebox;
+    QPushButton *ok, *cancel;
+    int length, rate;
+    char *comstr;
 };
 #endif

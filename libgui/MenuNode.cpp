@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuNode.cpp  -  description
-                             -------------------
+			  MenuNode.cpp  -  description
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -23,25 +23,23 @@
 
 #include <libkwave/Parser.h>
 #include <libkwave/String.h>
-#include <libkwave/Global.h>
-#include <libkwave/MessagePort.h>
 
 #include "MenuNode.h"
 #include "MenuGroup.h"
 
-/** globals of kwave, needed for message queue */
-extern struct Global globals;
-
 /** unique id for menus */
-static int unique_menu_id=0;
+static int unique_menu_id = 0;
 
-/** list of menu nodes */
-static QDict<MenuGroup> group_list;
+//static int menu_node_count = 0;
 
 MenuNode::MenuNode(MenuNode *parent, char *name, char *command,
-                   int key, char *uid)
-    :QObject(), groups(new QStrList(false))
+		   int key, char *uid)
+    :QObject(),
+    groups(false)
 {
+//    menu_node_count++;
+//    debug("MenuNode::MenuNode(): node count=%d", menu_node_count);
+
     this->parentNode = parent;
     this->name = duplicateString(name);
     this->command = duplicateString(command);
@@ -51,47 +49,64 @@ MenuNode::MenuNode(MenuNode *parent, char *name, char *command,
     this->enabled = true;
     this->last_enabled = true;
     this->checked = false;
-
     this->id = -1;
 
-    groups->clear();
+    ASSERT(name);
+
+    groups.clear();
     children.setAutoDelete(false);
 }
 
 //*****************************************************************************
 MenuNode::~MenuNode()
 {
+//    debug("MenuNode(%s)::~MenuNode()", getName());
+
     // deregister from our parent
     if (parentNode) parentNode->removeChild(this);
 
     // leave all groups
-    const char *group = groups->first();
+    const char *group = groups.first();
     while (group) {
 	leaveGroup(group);
-	group = groups->first();
+	group = groups.first();
     }
 
     clear();
 
-    if (group_list.find(name) != 0) {
-	group_list.remove(name);
-    }
+//    debug("MenuNode(%s)::~MenuNode(): done.", getName());
+    if (name) deleteString(name);
+    if (command) deleteString(command);
+    if (uid) deleteString(uid);
 
-    deleteString(name);
-    deleteString(command);
-    deleteString(uid);
+//    menu_node_count--;
+//    debug("MenuNode::MenuNode(): node count=%d", menu_node_count);
+}
+
+//*****************************************************************************
+void MenuNode::emitCommand(const char *command)
+{
+    if (!command) return ;
+
+    if (!getParentNode()) {
+	// no parent -> we are the root node -> we have to emit
+	emit sigCommand(command);
+    } else {
+	// tell the root node to emit
+	MenuNode *root = getRootNode();
+	ASSERT(root);
+	if (root) root->emitCommand(command);
+    }
 }
 
 //*****************************************************************************
 void MenuNode::actionSelected()
 {
-    if (command) globals.port->putMessage(command);
+    if (command) emitCommand(command);
 }
 
 //*****************************************************************************
-void MenuNode::actionChildEnableChanged(int id, bool enable)
-{
-}
+void MenuNode::actionChildEnableChanged(int id, bool enable) {}
 
 //*****************************************************************************
 /*
@@ -103,7 +118,7 @@ void MenuNode::slotHilighted(int id)
   setCheckable(true);
   if (parent) {
       for (int i=0; i < 300; i++) {
-          parent->setItemChecked(i, false);
+	  parent->setItemChecked(i, false);
       }
       parent->setItemChecked(id, true);
   }
@@ -114,6 +129,15 @@ void MenuNode::slotHilighted(int id)
 void MenuNode::clear()
 {
     MenuNode *child;
+
+//    debug("------- start -----------");
+//    child = children.first();
+//    while (child) {
+//	debug("MenuNode(%s)::clear: %s : %p, id=%d", getName(),
+//	    child->getName(),child,child->getId());
+//       child = children.next();
+//    }
+//    debug("------- end -----------");
 
     // clear all children
     child = children.first();
@@ -153,7 +177,6 @@ void MenuNode::setIcon(const QPixmap &icon)
 {
     this->icon = &icon;
     if (parentNode) parentNode->setItemIcon(id, icon);
-    else warning("MenuNode(%s)->parentNode == NULL!!!", getName());
 }
 
 //*****************************************************************************
@@ -167,24 +190,24 @@ bool MenuNode::isEnabled()
 {
     // evaluate our own (individual) enable and our parent's enable state
     if (!enabled) return false;
-    if ((parentNode!=0) && !parentNode->isEnabled()) return false;
+    if ((parentNode != 0) && !parentNode->isEnabled()) return false;
 
     // find  out if all our groups are anabled
     MenuNode *root = getRootNode();
     if (root) {
-	const char *group_name = groups->first();
+	const char *group_name = groups.first();
 	while (group_name) {
-	    int pos = groups->at();
+	    int pos = groups.at();
 	    MenuNode *group = root->findUID(group_name);
 	    if (group && group->inherits("MenuGroup")) {
 		if (!((MenuGroup*)group)->isEnabled()) {
 		    debug("MenuNode(%s).isEnabled(): group %s is disabled",
-			getName(), group_name);
+			  getName(), group_name);
 		    return false;
 		}
 	    }
-	    groups->at(pos);
-	    group_name = groups->next();
+	    groups.at(pos);
+	    group_name = groups.next();
 	}
     }
 
@@ -200,12 +223,12 @@ void MenuNode::setEnabled(bool enable)
     // store our own individual enable flag
     enabled = enable;
 
-    new_enable = isEnabled(); // get the current effictive state
+    new_enable = isEnabled();    // get the current effictive state
 
     if (new_enable != last_enabled) { // on changes:
-	last_enabled=new_enable;
-	
-	 // notify our parent that our enabled state has changed
+	last_enabled = new_enable;
+
+	// notify our parent that our enabled state has changed
 	emit sigChildEnableChanged(id, new_enable);
 
 	// notify all child nodes that our enable has changed
@@ -234,7 +257,7 @@ bool MenuNode::isChecked()
 //*****************************************************************************
 void MenuNode::setItemChecked(int id, bool check)
 {
-    return;
+    return ;
 }
 
 //*****************************************************************************
@@ -253,6 +276,7 @@ int MenuNode::getNeededIDs()
 int MenuNode::registerChild(MenuNode *node)
 {
     int new_id;
+    ASSERT(node);
     if (!node) return -1;
 
     new_id = unique_menu_id;
@@ -264,13 +288,13 @@ int MenuNode::registerChild(MenuNode *node)
     // notification for the childs that our enable state changed
     QObject::connect(
 	this, SIGNAL(sigParentEnableChanged()),
-	node, SLOT(slotParentEnableChanged())    	
+	node, SLOT(slotParentEnableChanged())
     );
 
     // notification for us that a child's enable state changed
     QObject::connect(
-	node, SIGNAL(sigChildEnableChanged(int,bool)),
-	this, SLOT(slotChildEnableChanged(int,bool))    	
+	node, SIGNAL(sigChildEnableChanged(int, bool)),
+	this, SLOT(slotChildEnableChanged(int, bool))
     );
 
     return new_id;
@@ -280,33 +304,34 @@ int MenuNode::registerChild(MenuNode *node)
 void MenuNode::setUID(char *uid)
 {
     if (this->uid) delete(this->uid);
-    this->uid = duplicateString(uid);
+    this->uid = (uid) ? duplicateString(uid) : 0;
 }
 
 //*****************************************************************************
 MenuNode *MenuNode::findUID(const char *uid)
 {
-    if (strcmp(uid, this->uid) == 0) return this; // found ourself
+    if (strcmp(uid, this->uid) == 0) return this;    // found ourself
 
     MenuNode *child = children.first();
     while (child) {
-	int pos=children.at();
+	int pos = children.at();
 	MenuNode *node = child->findUID(uid);
-	if (node) return node; // found in child
+	if (node) return node;    // found in child
 	children.at(pos);
 	child = children.next();
     }
 
-    return 0; // nothing found :-(
+    return 0;    // nothing found :-(
 }
 
 //*****************************************************************************
 MenuNode *MenuNode::findChild(char *name)
 {
+    ASSERT(name);
     MenuNode *child = children.first();
     while (child) {
-	int pos=children.at();
-	if (strcmp(child->getName(),name)==0)
+	int pos = children.at();
+	if (strcmp(child->getName(), name) == 0)
 	    return child;
 	children.at(pos);
 	child = children.next();
@@ -319,7 +344,7 @@ MenuNode *MenuNode::findChild(int id)
 {
     MenuNode *child = children.first();
     while (child) {
-	int pos=children.at();
+	int pos = children.at();
 	if (child->getId() == id)
 	    return child;
 	children.at(pos);
@@ -331,18 +356,19 @@ MenuNode *MenuNode::findChild(int id)
 //*****************************************************************************
 void MenuNode::removeChild(MenuNode *child)
 {
-    if (!child) return;
+    ASSERT(child);
+    if (!child) return ;
 
     // notification for the childs that our enable state changed
     QObject::disconnect(
 	this, SIGNAL(sigParentEnableChanged()),
-	child, SLOT(slotParentEnableChanged())    	
+	child, SLOT(slotParentEnableChanged())
     );
 
     // notification for us that a child's enable state changed
     QObject::disconnect(
-	child, SIGNAL(sigChildEnableChanged(int,bool)),
-	this, SLOT(slotChildEnableChanged(int,bool))    	
+	child, SIGNAL(sigChildEnableChanged(int, bool)),
+	this, SLOT(slotChildEnableChanged(int, bool))
     );
 
     children.setAutoDelete(false);
@@ -351,7 +377,7 @@ void MenuNode::removeChild(MenuNode *child)
 
 //*****************************************************************************
 MenuNode *MenuNode::insertBranch(char *name, char *command, int key,
-                                 char *uid, int index)
+				 char *uid, int index)
 {
     debug("!!! MenuNode(%s): insertBranch(%s) !!!", this->name, name);
     return 0;
@@ -359,7 +385,7 @@ MenuNode *MenuNode::insertBranch(char *name, char *command, int key,
 
 //*****************************************************************************
 MenuNode *MenuNode::insertLeaf(char *name, char *command, int key, char *uid,
-                               int index)
+			       int index)
 {
     debug("!!! MenuNode(%s): insertLeaf(%s) !!!", this->name, name);
     return 0;
@@ -367,12 +393,12 @@ MenuNode *MenuNode::insertLeaf(char *name, char *command, int key, char *uid,
 
 //*****************************************************************************
 int MenuNode::insertNode(char *name, char *position, char *command,
-                         int key, char *uid)
+			 int key, char *uid)
 {
     int result = -1;
 
     if ((position == 0) || (*position == 0)) {
-	debug("MenuNode::parseCommand: no position!"); // ###
+	debug("MenuNode::parseCommand: no position!");    // ###
 	return result;
     }
 
@@ -383,7 +409,7 @@ int MenuNode::insertNode(char *name, char *position, char *command,
 	while ((*position) && (*position != '/'))
 	    position++;
     }
-    if (*position == '/') *(position++)=0;
+    if (*position == '/') *(position++) = 0;
 
     if ((name) && (specialCommand(name))) {
 	// no new branch, only a special command
@@ -398,19 +424,19 @@ int MenuNode::insertNode(char *name, char *position, char *command,
 	    // -> maybe we want to set new properties
 	    if (key) sub->setKey(key);
 	    if (strlen(uid)) sub->setUID(uid);
-	
+
 	    if (*position == '#') sub->specialCommand(position);
 	    return sub->getId();
 	} else {
 	    // insert a new leaf
 	    MenuNode *leaf = insertLeaf(name, command, key, uid);
 	    if (!leaf) return -1;
-	
+
 	    if (*position == '#') leaf->specialCommand(position);
 	    return leaf->getId();
 	}
     } else {
-    	// somewhere in the tree
+	// somewhere in the tree
 	MenuNode *sub = findChild(name);
 	if (!sub) {
 	    sub = insertBranch(name, command, key, uid);
@@ -424,7 +450,7 @@ int MenuNode::insertNode(char *name, char *position, char *command,
 	    if (key) sub->setKey(key);
 	    if (strlen(uid)) sub->setUID(uid);
 	}
-	
+
 	if (sub) {
 	    result = sub->insertNode(0, position, command, key, uid);
 	} else {
@@ -438,17 +464,19 @@ int MenuNode::insertNode(char *name, char *position, char *command,
 //*****************************************************************************
 MenuNode *MenuNode::leafToBranch(MenuNode *node)
 {
-    // debug("MenuNode::leafToBranch(%s)", node->getName());
+    ASSERT(node);
+//    debug("MenuNode::leafToBranch(%s)", node->getName());
+    if (!node) return 0;
     MenuNode *sub = node;
 
     // get the old properties
-    int index                     = sub->getIndex();
-    int old_key                   = sub->getKey();
-    char *old_uid                 = sub->getUID();
-    const QPixmap *old_icon       = sub->getIcon();
-    char *name                    = duplicateString(node->getName());
-    char *command                 = duplicateString(node->getCommand());
-    QStrList *old_groups          = sub->groups;
+    int index = sub->getIndex();
+    int old_key = sub->getKey();
+    char *old_uid = sub->getUID();
+    const QPixmap *old_icon = sub->getIcon();
+    char *name = duplicateString(node->getName());
+    char *command = duplicateString(node->getCommand());
+    QStrList &old_groups = sub->groups;
 
     // remove the old child node
     removeChild(sub);
@@ -457,19 +485,19 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
     sub = insertBranch(name, command, old_key, old_uid, index);
     if (sub) {
 	// join it to the same groups
-	const char *group = old_groups->first();
+	const char *group = old_groups.first();
 	while (group) {
-	    int pos=old_groups->at();
+	    int pos = old_groups.at();
 	    sub->joinGroup(group);
-	    old_groups->at(pos);
-	    group = old_groups->next();
+	    old_groups.at(pos);
+	    group = old_groups.next();
 	}
 
 	// set the old icon
 	if (old_icon) sub->setIcon(*old_icon);
     }
 
-    delete node; // free the old node
+    delete node;    // free the old node
     delete name;
     delete command;
 
@@ -477,19 +505,28 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
 }
 
 //*****************************************************************************
+QDict<MenuNode> *MenuNode::getGroupList()
+{
+    ASSERT(parentNode);
+    return (parentNode) ? parentNode->getGroupList() : 0;
+}
+
+//*****************************************************************************
 void MenuNode::joinGroup(const char *group)
 {
-    if (groups->find(group) != -1) return; // already joined
+    ASSERT(parentNode);
+    QDict<MenuNode> *group_list = getGroupList();
+    if (groups.find(group) != -1) return ;    // already joined
 
-    MenuGroup *grp = group_list.find(group);
+    MenuGroup *grp = (group_list) ? (MenuGroup *)group_list->find(group) : 0;
     if (!grp) {
 	// group does not already exist, create a new one
 	grp = new MenuGroup(getRootNode(), (char *)group);
-	if (grp) group_list.insert(group, grp);
+	if (grp) group_list->insert(group, grp);
     }
 
     // remind that we belong to the given group
-    groups->append(duplicateString(group));
+    groups.append(duplicateString(group));
 
     // register this node as a child of the group
     if (grp) grp->registerChild(this);
@@ -498,14 +535,13 @@ void MenuNode::joinGroup(const char *group)
 //*****************************************************************************
 void MenuNode::leaveGroup(const char *group)
 {
-    int pos = groups->find(group);
-    MenuGroup *grp = group_list.find(group);
-
-    if (pos == -1) return; // not joined
+    QDict<MenuNode> *group_list = getGroupList();
+    int pos = groups.find(group);
+    MenuGroup *grp = (group_list) ? (MenuGroup *)group_list->find(group) : 0;
 
     // remove the group from our list
-    groups->setAutoDelete(true);
-    groups->remove(pos);
+    groups.setAutoDelete(true);
+    if (pos != -1) groups.remove(pos);
 
     // remove ourself from the group
     if (grp) grp->removeChild(this);
@@ -514,10 +550,10 @@ void MenuNode::leaveGroup(const char *group)
 //*****************************************************************************
 bool MenuNode::specialCommand(const char *command)
 {
-    if (strncmp(command,"#group(",7) == 0) {
+    if (strncmp(command, "#group(", 7) == 0) {
 	Parser parser(command);
 	const char *group;
-	
+
 	// join to a list of groups
 	group = parser.getFirstParam();
 	while (group) {
@@ -525,16 +561,16 @@ bool MenuNode::specialCommand(const char *command)
 	    group = parser.getNextParam();
 	}
 	return true;
-    } else if (strncmp(command,"#disable",8) == 0) {
+    } else if (strncmp(command, "#disable", 8) == 0) {
 	// disable the node
 	setEnabled(false);
 	return true;
-    } else if (strncmp(command,"#enable",7) == 0) {
+    } else if (strncmp(command, "#enable", 7) == 0) {
 	// disable the node
 	setEnabled(true);
 	return true;
     }
     return false;
 }
-	
+
 /* end of MenuNode.cpp */

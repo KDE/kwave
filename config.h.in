@@ -17,6 +17,9 @@
 /* Define if you need to in order for stat and other things to work.  */
 #undef _POSIX_SOURCE
 
+/* Define to `unsigned' if <sys/types.h> doesn't define.  */
+#undef size_t
+
 /* Define if you have the ANSI C header files.  */
 #undef STDC_HEADERS
 
@@ -37,6 +40,15 @@
 
 /* Define if you need the GNU extensions to compile */
 #undef _GNU_SOURCE
+
+/* The number of bytes in a char.  */
+#undef SIZEOF_CHAR
+
+/* The number of bytes in a int.  */
+#undef SIZEOF_INT
+
+/* The number of bytes in a short.  */
+#undef SIZEOF_SHORT
 
 /* Define if you have the getdomainname function.  */
 #undef HAVE_GETDOMAINNAME

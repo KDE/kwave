@@ -1,24 +1,23 @@
 //Kwave main file
 
-#include <libkwave/Global.h>
+#include "config.h"
 #include "KwaveApp.h"
 
-extern struct Global globals;
 //*****************************************************************************
 int main( int argc, char **argv )
 {
-    globals.app=new KwaveApp (argc, argv);
-    if (globals.app) {
-	int result=globals.app->exec();
-	return result;
+    KwaveApp app(argc, argv);
+    int result = -1;
+
+    app.connect(&app, SIGNAL(lastWindowClosed()),
+                &app, SLOT(quit()) );
+
+    if (!(app.isOK())) {
+	warning("main: cannot create application");
+	app.quit();
+    } else {
+	result = app.exec();
     }
-    return -1;
+
+    return result;
 }
-
-
-
-
-
-
-
-

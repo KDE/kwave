@@ -1,4 +1,4 @@
-#ifndef MEMORY_DIALOG_ 
+#ifndef MEMORY_DIALOG_
 #define MEMORY_DIALOG_ 1
 
 #include "libgui/Dialog.h"
@@ -9,26 +9,25 @@ class QPushButton;
 class Global;
 
 //*****************************************************************************
-class MenuDialog : public Dialog
-{
- Q_OBJECT
+class MenuDialog : public Dialog {
+    Q_OBJECT
 
- public:
+public:
 
- MenuDialog 	  (Global*,bool modal);
- ~MenuDialog 	  ();
- const char *getCommand ();
+    MenuDialog (Global*, bool modal);
+    ~MenuDialog ();
+    const char *getCommand ();
 
- protected:
+protected:
 
- void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
- KTreeList      *source;
- KTreeList      *dest;
- QPushButton	*ok,*cancel;
- Global         *globals;
+    KTreeList *source;
+    KTreeList *dest;
+    QPushButton *ok, *cancel;
+    Global *globals;
 };
 #endif
 

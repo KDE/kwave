@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuSub.h  -  submenu
-                             -------------------
+			  MenuSub.h  -  submenu
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -28,9 +28,8 @@ class QPopupMenu;
  * root menu node, a toplevel menu or an other submenu.
  * @author Thomas Eschenbacher
  */
-class MenuSub : public MenuItem
-{
-  Q_OBJECT
+class MenuSub : public MenuItem {
+    Q_OBJECT
 
 public:
     /**
@@ -43,8 +42,8 @@ public:
      *            (optional, default=0)
      * @param uid unique id string (optional, default=0)
      */
-    MenuSub(MenuNode *parent, char *name, char *command=0,
-            int key=0, char *uid=0);
+    MenuSub(MenuNode *parent, char *name, char *command = 0,
+	    int key = 0, char *uid = 0);
 
     /**
      * Returns the positional index of a child node, identified by
@@ -57,7 +56,9 @@ public:
     /**
      * Always returns true, as the nodes of this type are branches.
      */
-    virtual bool isBranch() {return true;};
+    virtual bool isBranch() {
+	return true;
+    };
 
     /**
      * Inserts a new branch node under the submenu. The new node
@@ -78,7 +79,7 @@ public:
      * @return pointer to the new branch node
      */
     virtual MenuNode *insertBranch(char *name, char *command, int key,
-                                   char *uid, int index=-1);
+				   char *uid, int index = -1);
 
     /**
      * Inserts a new leaf node under the submenu. The new node
@@ -94,8 +95,8 @@ public:
      * @return pointer to the new leaf node
      */
     virtual MenuNode *insertLeaf(char *name, char *command,
-                                 int key, char *uid,
-                                 int index=-1);
+				 int key, char *uid,
+				 int index = -1);
 
     /**
      * Returns the internally handled QPopupMenu

@@ -3,33 +3,32 @@
 
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "../../../libgui/CurveWidget.h" 
-#include "../../../libgui/ScaleWidget.h" 
-#include "../../../libgui/CornerPatchWidget.h" 
+#include "../../../libgui/CurveWidget.h"
+#include "../../../libgui/ScaleWidget.h"
+#include "../../../libgui/CornerPatchWidget.h"
 #include "../../../libgui/Dialog.h"
 #include <libkwave/DialogOperation.h>
 #include <kintegerline.h>
 //*****************************************************************************
-class AmplifyCurveDialog : public Dialog
-{
-  Q_OBJECT
+class AmplifyCurveDialog : public Dialog {
+    Q_OBJECT
 
-    public:
-  AmplifyCurveDialog 	(int time,bool modal);
-  ~AmplifyCurveDialog 	();
-  const char *getCommand ();
+public:
+    AmplifyCurveDialog (int time, bool modal);
+    ~AmplifyCurveDialog ();
+    const char *getCommand ();
 
- protected:
+protected:
 
-  void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
-  CurveWidget	    *curve;
-  ScaleWidget       *xscale,*yscale;
-  CornerPatchWidget *corner;
-  QPushButton	    *ok,*cancel;
-  char              *comstr;
+    CurveWidget *curve;
+    ScaleWidget *xscale, *yscale;
+    CornerPatchWidget *corner;
+    QPushButton *ok, *cancel;
+    char *comstr;
 };
 #endif
 

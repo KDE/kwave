@@ -10,38 +10,39 @@ class QPaintEvent;
 //***********************************************************************
 class PitchWidget : public QWidget
 {
- Q_OBJECT
- public:
- 	PitchWidget	(QWidget *parent=0);
- 	~PitchWidget	();
- void	mousePressEvent		(QMouseEvent * );
- void	mouseReleaseEvent	(QMouseEvent * );  
- void	mouseMoveEvent		(QMouseEvent * );  
- void 	setSignal		(float *,int);
- void   refresh                 ();
+    Q_OBJECT
+public:
+    PitchWidget(QWidget *parent = 0);
+    ~PitchWidget();
+    void mousePressEvent(QMouseEvent * );
+    void mouseReleaseEvent(QMouseEvent * );
+    void mouseMoveEvent(QMouseEvent * );
+    void setSignal(float *, int);
+    void refresh();
 
- public slots:
+public slots:
 
- signals:
- 
- void freqRange  (float,float);
- void pitch      (float);
- void timeSamples(float);
+signals:
 
- protected:
+    void freqRange(float, float);
+    void pitch(float);
+    void timeSamples(float);
 
- void   getMaxMin               ();
- void	paintEvent              (QPaintEvent *);
+protected:
 
- private:
+    void getMaxMin();
+    void paintEvent(QPaintEvent *);
 
- float   *data;
- float   max,min;
- int     len;
- int	 width,height;	 //of widget
- bool    redraw;
+private:
 
- QPixmap  *pixmap;	 //pixmap to be blitted to screen
-};
+    float *data;
+    float max, min;
+    int len;
+    int width, height;     //of widget
+    bool redraw;
+
+    QPixmap *pixmap;       //pixmap to be blitted to screen
+}
+;
 //***********************************************************************
 #endif // _PITCH_WIDGET_H_

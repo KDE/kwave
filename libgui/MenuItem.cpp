@@ -1,6 +1,6 @@
 /***************************************************************************
-                          MenuItem.h  -  description
-                             -------------------
+			  MenuItem.h  -  description
+			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
@@ -29,26 +29,23 @@
 
 //*****************************************************************************
 MenuItem::MenuItem(MenuNode *parent, char *name, char *command,
-                   int key, char *uid)
-  :MenuNode(parent, name, command, key, uid)
-{
+		   int key, char *uid)
+	: MenuNode(parent, name, command, key, uid) {
     this->checkable = false;
-    exclusive_group=0;
+    exclusive_group = 0;
 }
 
 //*****************************************************************************
-MenuItem::~MenuItem()
-{
+MenuItem::~MenuItem() {
     if (exclusive_group) {
 	delete exclusive_group;
-	exclusive_group=0;
+	exclusive_group = 0;
     }
 }
 
 //*****************************************************************************
-void MenuItem::actionSelected()
-{
-    MenuGroup *group=0;
+void MenuItem::actionSelected() {
+    MenuGroup *group = 0;
 
     if (isCheckable()) {
 	if (exclusive_group) {
@@ -69,15 +66,13 @@ void MenuItem::actionSelected()
 }
 
 //*****************************************************************************
-int MenuItem::getIndex()
-{
+int MenuItem::getIndex() {
     MenuNode *parent = getParentNode();
     return (parent) ? parent->getChildIndex(getId()) : -1;
 }
 
 //*****************************************************************************
-bool MenuItem::specialCommand(const char *command)
-{
+bool MenuItem::specialCommand(const char *command) {
     if (strncmp(command, "#icon(", 6) == 0) {
 	// --- give the item an icon ---
 	Parser parser(command);
@@ -90,12 +85,12 @@ bool MenuItem::specialCommand(const char *command)
 	// insert an empty submenu for the list items
 	MenuNode *parent = getParentNode();
 	if (parent) parent->leafToBranch(this);
-    	
+
 	return true;
     } else if (strcmp(command, "#checkable") == 0) {
-    	// checking/selecting of the item (non-exclusive)
+	// checking/selecting of the item (non-exclusive)
 	setCheckable(true);
-    } else if (strncmp(command,"#exclusive(",11) == 0) {
+    } else if (strncmp(command, "#exclusive(", 11) == 0) {
 	Parser parser(command);
 	const char *group;
 
@@ -103,16 +98,16 @@ bool MenuItem::specialCommand(const char *command)
 	group = parser.getFirstParam();
 	while (group) {
 	    if (!exclusive_group) {
-		exclusive_group=duplicateString(group);
+		exclusive_group = duplicateString(group);
 		joinGroup(group);
-	    } else if (strcmp(exclusive_group, group)!=0) {
+	    } else if (strcmp(exclusive_group, group) != 0) {
 		warning("menu item '%s' already member of "\
 			"exclusive group '%s'", getName(),
 			exclusive_group);
 	    }
 	    group = parser.getNextParam();
 	}
-	
+
 	// make the item checkable
 	setCheckable(true);
 	return true;
@@ -120,16 +115,14 @@ bool MenuItem::specialCommand(const char *command)
 
     return (MenuNode::specialCommand(command));
 }
-	
+
 //*****************************************************************************
-bool MenuItem::isCheckable()
-{
+bool MenuItem::isCheckable() {
     return checkable;
 }
 
 //*****************************************************************************
-void MenuItem::setCheckable(bool checkable)
-{
+void MenuItem::setCheckable(bool checkable) {
     MenuNode *parent = getParentNode();
     if (parent && parent->inherits("MenuSub")) {
 	QPopupMenu *popup = ((MenuSub*)parent)->getPopupMenu();
@@ -140,8 +133,7 @@ void MenuItem::setCheckable(bool checkable)
 }
 
 //*****************************************************************************
-void MenuItem::setChecked(bool check)
-{
+void MenuItem::setChecked(bool check) {
     MenuNode *parent = getParentNode();
     if (parent) parent->setItemChecked(getId(), check);
 }

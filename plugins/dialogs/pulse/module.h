@@ -10,39 +10,38 @@ class Signal;
 class QLabel;
 class QPushButton;
 
-class PulseDialog : public Dialog
-{
-  Q_OBJECT
+class PulseDialog : public Dialog {
+    Q_OBJECT
 
-    public:
+public:
 
-  PulseDialog 	(int rate,int time,bool modal);
+    PulseDialog (int rate, int time, bool modal);
 
-  ~PulseDialog 	();
+    ~PulseDialog ();
 
-  const char *getCommand ();
-  Signal *getSignal();
+    const char *getCommand ();
+    Signal *getSignal();
 
-  public slots:
+public slots:
 
-  void getFrequency();
+    void getFrequency();
 
- protected:
+protected:
 
-  void resizeEvent (QResizeEvent *);
-  
- private:
+    void resizeEvent (QResizeEvent *);
 
-  CurveWidget       *pulse;
-  ScaleWidget       *x,*y;
-  CornerPatchWidget *corner;
+private:
 
-  TimeLine      *pulselength;
-  QLabel        *pulselabel;
-  QLabel        *channel;
+    CurveWidget *pulse;
+    ScaleWidget *x, *y;
+    CornerPatchWidget *corner;
 
-  QPushButton   *freqbutton;
-  QPushButton	*ok,*cancel;
-  int rate;     //sampling rate
-  Curve         *times;
+    TimeLine *pulselength;
+    QLabel *pulselabel;
+    QLabel *channel;
+
+    QPushButton *freqbutton;
+    QPushButton *ok, *cancel;
+    int rate;        //sampling rate
+    Curve *times;
 };

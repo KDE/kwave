@@ -8,24 +8,23 @@
 #include <libkwave/DialogOperation.h>
 
 //*****************************************************************************
-class PitchDialog : public Dialog
-{
-  Q_OBJECT
+class PitchDialog : public Dialog {
+    Q_OBJECT
 
-    public:
-  PitchDialog 	(bool modal,int time);
-  ~PitchDialog 	();
-  const char *getCommand  ();
- protected:
+public:
+    PitchDialog (bool modal, int time);
+    ~PitchDialog ();
+    const char *getCommand ();
+protected:
 
-  void resizeEvent (QResizeEvent *);
+    void resizeEvent (QResizeEvent *);
 
- private:
+private:
 
-  QLabel        *lowlabel,*highlabel;
-  KIntegerLine  *low,*high,*adjust;
-  QPushButton	*ok,*cancel;
-  QCheckBox     *octave;
-  char*          comstr;
+    QLabel *lowlabel, *highlabel;
+    KIntegerLine *low, *high, *adjust;
+    QPushButton *ok, *cancel;
+    QCheckBox *octave;
+    char* comstr;
 };
 #endif

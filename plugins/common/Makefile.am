@@ -18,6 +18,8 @@
 # generic common Makefile.am for all Kwave plugins
 #
 
+.NOTPARALLEL: right_order
+
 SUFFIXES= .h .c .cpp .o .d .moc .dm .ui .cc .idl .cxx
 
 # produced errors with SuSE 8.0's automake ???
@@ -149,11 +151,7 @@ $(MODNAME): ${OUT_FILES}
 	@ @CXX@ $(CXXFLAGS) ${OUT_FILES} ${LD_FLAGS} \
 	  ${EXTRA_LIBDIRS} ${EXTRA_LDFLAGS} -o ${MODNAME}
 
-right_order:
-	@ ${MAKE} -s ${GENERATED_FILES}
-	@ ${MAKE} -s depend
-	@ ${MAKE} -s ${OUT_FILES}
-	@ ${MAKE} -s $(MODNAME)
+right_order: ${GENERATED_FILES} depend ${OUT_FILES} $(MODNAME)
 
 all: right_order
 

@@ -277,9 +277,6 @@ private:
     /** mutex for access to the track list */
     SharedLock m_lock_tracks;
 
-    /** number of samples */
-    unsigned int m_length;
-
 };
 
 //**********************************************************************

@@ -154,6 +154,7 @@ SonagramWindow::SonagramWindow(const QString &name)
     ASSERT(m_yscale);
     if (!m_yscale) return ;
     m_yscale->setFixedWidth(m_yscale->sizeHint().width());
+    m_yscale->setMinimumHeight(9*6*5);
     top_layout->addWidget(m_yscale, 0, 0);
 
     m_overview = new ImageView(mainwidget);
@@ -180,7 +181,13 @@ SonagramWindow::SonagramWindow(const QString &name)
     status->changeItem(i18n("Frequency: 0 Hz"), 2);
     status->changeItem(i18n("Amplitude: 0 %"), 3);
 
-    resize(max(480,status->sizeHint().width()+40), 320);
+    // try to make 5:3 format (looks best)
+    int w = sizeHint().width();
+    int h = sizeHint().height();
+    if ((w * 3 / 5) < h) w = (h * 5) / 3;
+    if ((h * 5 / 3) < w) h = (w * 3) / 5;
+    resize(w, h);
+
     show();
 }
 
@@ -469,7 +476,7 @@ void SonagramWindow::updateScaleWidgets()
     translatePixels2TF(QPoint(m_image->width()-1, 0), &ms, &f);
 
     m_xscale->setMinMax(ms, 0);
-    m_yscale->setMinMax(0, f);
+    m_yscale->setMinMax(f, 0);
 }
 
 //***************************************************************************

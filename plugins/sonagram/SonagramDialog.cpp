@@ -323,9 +323,9 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     m_ok->setFixedSize(w, h);
     m_cancel->setFixedSize(w, h);
     buttonsLayout->addStretch(10);
-    buttonsLayout->addWidget(m_cancel, 0, AlignLeft | AlignCenter);
-    buttonsLayout->addSpacing(10);
     buttonsLayout->addWidget(m_ok, 0, AlignRight | AlignCenter);
+    buttonsLayout->addSpacing(10);
+    buttonsLayout->addWidget(m_cancel, 0, AlignLeft | AlignCenter);
 
     // activate the layout and set the window size
 

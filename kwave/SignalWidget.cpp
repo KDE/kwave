@@ -191,13 +191,13 @@ SignalWidget::~SignalWidget()
 }
 
 //***************************************************************************
-void SignalWidget::saveFile(const QString &filename, unsigned int bits,
-			    int type, bool selection)
+int SignalWidget::saveFile(const QString &filename, unsigned int bits,
+                           int type, bool selection)
 {
     if (type == ASCII) {
-	m_signal_manager.exportAscii(filename);
+	return m_signal_manager.exportAscii(filename);
     } else {
-	m_signal_manager.save(filename, bits, selection);
+	return m_signal_manager.save(filename, bits, selection);
     }
 }
 

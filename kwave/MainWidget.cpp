@@ -272,10 +272,10 @@ void MainWidget::refreshOverView()
 }
 
 //**********************************************************
-void MainWidget::saveFile(const QString &filename, unsigned int bits,
+int MainWidget::saveFile(const QString &filename, unsigned int bits,
                           int type, bool selection)
 {
-    m_signal_widget.saveFile(filename, bits, type, selection);
+    return m_signal_widget.saveFile(filename, bits, type, selection);
 }
 
 //***************************************************************************

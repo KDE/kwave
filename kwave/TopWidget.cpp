@@ -18,6 +18,7 @@
 
 #include "config.h"
 
+#include <errno.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -26,6 +27,7 @@
 #include <qkeycode.h>
 #include <qcombobox.h>
 #include <qdir.h>
+#include <qevent.h>
 #include <qframe.h>
 #include <qtoolbutton.h>
 #include <qtooltip.h>
@@ -436,6 +438,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
     connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
 	const QString&)),
 	this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
+    connect(signal_manager, SIGNAL(sigModified(bool)),
+            this, SLOT(modifiedChanged(bool)));
 
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
@@ -674,14 +678,22 @@ bool TopWidget::closeFile()
     ThreadsafeX11Guard x11_guard;
 
     ASSERT(m_main_widget);
-//    if (m_main_widget) {
-//	// if this failed, the used pressed "cancel"
-//	if (!m_main_widget->closeSignal()) return false;
-//    }
-    m_main_widget->closeSignal();
+    if (signalManager().isModified()) {
+	int res =  KMessageBox::warningYesNoCancel(this,
+	    i18n("This file has been modified.\nDo you want to save it?"));
+	if (res == KMessageBox::Cancel) return false;
+	if (res == KMessageBox::Yes) {
+	    // user decided to save
+	    res = saveFile();
+	    debug("TopWidget::closeFile()::saveFile, res=%d",res);
+	    if (res) return false;
+	}
+    }
+
+    if (m_main_widget) m_main_widget->closeSignal();
 
     m_filename = "";
-    setCaption(0);
+    updateCaption();
     m_zoomselect->clearEdit();
     emit sigSignalNameChanged(m_filename);
 
@@ -710,7 +722,7 @@ int TopWidget::loadFile(const QString &filename, int type)
 
     if (!m_main_widget->loadFile(filename, type)) {
 	// succeeded
-	setCaption(m_filename);
+	updateCaption();
 	m_save_bits = m_main_widget->bits();
     } else {
 	// load failed
@@ -771,23 +783,28 @@ void TopWidget::exportAsciiFile()
 }
 
 //***************************************************************************
-void TopWidget::saveFile()
+int TopWidget::saveFile()
 {
+    int res = 0;
     ASSERT(m_main_widget);
-    if (!m_main_widget) return;
+    if (!m_main_widget) return -EINVAL;
 
     if (m_filename.length() && (m_filename != NEW_FILENAME)) {
-	m_main_widget->saveFile(m_filename, m_save_bits, 0, false);
-	setCaption(m_filename);
-	updateMenu();
-    } else saveFileAs(false);
+	res = m_main_widget->saveFile(m_filename, m_save_bits, 0, false);
+    } else res = saveFileAs(false);
+
+    updateCaption();
+    updateMenu();
+
+    return res;
 }
 
 //***************************************************************************
-void TopWidget::saveFileAs(bool selection)
+int TopWidget::saveFileAs(bool selection)
 {
+    int res;
     ASSERT(m_main_widget);
-    if (!m_main_widget) return;
+    if (!m_main_widget) return -EINVAL;
 
     QString name = KFileDialog::getSaveFileName(":kwave-savedir",
 	"*.wav", m_main_widget);
@@ -810,16 +827,19 @@ void TopWidget::saveFileAs(bool selection)
 	        i18n("The file '%1' already exists. Do you really "\
 	        "want to overwrite it?").arg(name)) != KMessageBox::Yes)
 	    {
-		return;
+		return -1;
 	    }
 	}
 	
 	m_filename = name;
-	m_main_widget->saveFile(m_filename, m_save_bits, 0, selection);
-	setCaption(m_filename);
+	res = m_main_widget->saveFile(m_filename, m_save_bits, 0, selection);
+	
+	updateCaption();
 	m_app.addRecentFile(m_filename);
 	updateMenu();
     }
+
+    return res;
 }
 
 //***************************************************************************
@@ -834,7 +854,7 @@ void TopWidget::newSignal(unsigned int samples, double rate,
 
     m_main_widget->newSignal(samples, rate, bits, tracks);
 
-    setCaption(m_filename);
+    updateCaption();
     m_save_bits = bits;
     updateMenu();
     updateToolbar();
@@ -1132,6 +1152,35 @@ void TopWidget::pausePressed()
 	m_main_widget->playbackController().playbackContinue();
     }
 
+}
+
+//***************************************************************************
+void TopWidget::modifiedChanged(bool)
+{
+    updateCaption();
+}
+
+//***************************************************************************
+void TopWidget::updateCaption()
+{
+    bool modified = signalManager().isModified();
+
+    // shortcut if no file loaded
+    if (m_filename.length() == 0) {
+	setCaption(0);
+	return;
+    }
+
+    if (modified)
+	setCaption("* "+m_filename+i18n(" (modified)"));
+    else
+	setCaption(m_filename);
+}
+
+//***************************************************************************
+void TopWidget::closeEvent(QCloseEvent *e)
+{
+    (closeFile()) ? e->accept() : e->ignore();
 }
 
 //***************************************************************************

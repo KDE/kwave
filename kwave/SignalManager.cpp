@@ -79,6 +79,8 @@ SignalManager::SignalManager(QWidget *parent)
     m_name(""),
     m_closed(true),
     m_empty(true),
+    m_modified(false),
+    m_modified_enabled(true),
     m_signal(),
     m_selection(0,0),
     m_rate(0),
@@ -120,6 +122,11 @@ int SignalManager::loadFile(const QString &filename, int type)
     ASSERT(filename.length());
     m_name = filename;
 
+    // enter and stay in not modified state
+    enableModifiedChange(true);
+    setModified(false);
+    enableModifiedChange(false);
+
     // disable undo (discards all undo/redo data)
     disableUndo();
 
@@ -142,6 +149,9 @@ int SignalManager::loadFile(const QString &filename, int type)
     // from now on, undo is enabled
     enableUndo();
 
+    // modified can change from now on
+    enableModifiedChange(true);
+
     return res;
 }
 
@@ -149,6 +159,11 @@ int SignalManager::loadFile(const QString &filename, int type)
 void SignalManager::newSignal(unsigned int samples, double rate,
                               unsigned int bits, unsigned int tracks)
 {
+    // enter and stay in not modified state
+    enableModifiedChange(true);
+    setModified(true);
+    enableModifiedChange(false);
+
     // disable undo (discards all undo/redo data)
     disableUndo();
 
@@ -167,11 +182,17 @@ void SignalManager::newSignal(unsigned int samples, double rate,
 
     // from now on, undo is enabled
     enableUndo();
+
 }
 
 //***************************************************************************
 void SignalManager::close()
 {
+    // fix the modified flag to false
+    enableModifiedChange(true);
+    setModified(false);
+    enableModifiedChange(false);
+
     // reset the last length of the signal
     m_last_length = 0;
 
@@ -549,6 +570,7 @@ void SignalManager::deleteTrack(unsigned int index)
 	return;
     }
 
+    setModified(true);
     m_signal.deleteTrack(index);
 }
 
@@ -558,6 +580,7 @@ void SignalManager::slotTrackInserted(unsigned int index,
 {
     ThreadsafeX11Guard x11_guard;
 
+    setModified(true);
     emit sigTrackInserted(index, track);
     emitStatusInfo();
 }
@@ -567,6 +590,7 @@ void SignalManager::slotTrackDeleted(unsigned int index)
 {
     ThreadsafeX11Guard x11_guard;
 
+    setModified(true);
     emit sigTrackDeleted(index);
     emitStatusInfo();
 }
@@ -580,6 +604,7 @@ void SignalManager::slotSamplesInserted(unsigned int track,
     // remember the last known length
     m_last_length = m_signal.length();
 
+    setModified(true);
     emit sigSamplesInserted(track, offset, length);
     emitStatusInfo();
 }
@@ -593,6 +618,7 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
     // remember the last known length
     m_last_length = m_signal.length();
 
+    setModified(true);
     emit sigSamplesDeleted(track, offset, length);
     emitStatusInfo();
 }
@@ -603,6 +629,7 @@ void SignalManager::slotSamplesModified(unsigned int track,
 {
     ThreadsafeX11Guard x11_guard;
 
+    setModified(true);
     emit sigSamplesModified(track, offset, length);
 }
 
@@ -887,7 +914,7 @@ int SignalManager::loadWav()
 // The corresponding header should have already been written to the file before
 // invocation of this methods
 //***************************************************************************
-void SignalManager::exportAscii(const char */*name*/)
+int SignalManager::exportAscii(const char */*name*/)
 {
 //    ASSERT(name);
 //    if (!name) return ;
@@ -949,6 +976,7 @@ void SignalManager::exportAscii(const char */*name*/)
 //
 //    if (dialog) delete dialog;
 //    fclose(sigout);
+    return -1;
 }
 
 //***************************************************************************
@@ -1047,32 +1075,37 @@ int SignalManager::writeWavChunk(QFile &sigout, unsigned int offset,
 	}
     }
 
+    int res = 0;
+    if (dialog && dialog->isCancelled()) res = -1;
+
     if (dialog) delete dialog;
     if (savebuffer) delete[] savebuffer;
 
     // close all SampleReaders
     samples.clear();
 
-    return 0;
+    return res;
 }
 
 //***************************************************************************
-void SignalManager::save(const QString &filename, unsigned int bits,
+int SignalManager::save(const QString &filename, unsigned int bits,
                          bool selection)
 {
     debug("SignalManager::save(): %u Bit to %s ,%d",
     	bits, filename.data(), selection);
 
+    int res = 0;
     __uint32_t ofs = 0;
     __uint32_t len = length();
     unsigned int tracks = this->tracks();
     wav_header_t header;
 
     ASSERT(filename);
-    if (!filename) return;
+    if (!filename) return -EINVAL;
 
     if (selection) {
-	if (m_selection.length() == 0) return; // zero-length -> nothing to do
+	// zero-length -> nothing to do
+	if (m_selection.length() == 0) return 0;
 	ofs = m_selection.offset();
 	len = m_selection.length();
     }
@@ -1080,14 +1113,14 @@ void SignalManager::save(const QString &filename, unsigned int bits,
     if (!tracks || !len) {
 	KMessageBox::error(m_parent_widget,
 	    i18n("Signal is empty, nothing to save !"));
-	return;
+	return 0;
     }
 
     QFile sigout(filename);
-    if (!sigout.open(IO_WriteOnly | IO_Truncate)) {
+    if (!(res = sigout.open(IO_WriteOnly | IO_Truncate))) {
 	KMessageBox::error(m_parent_widget,
 	    i18n("Opening the file for writing failed!"));
-	return;
+	return -res;
     };
 
     __uint32_t datalen = (bits >> 3) * len * tracks;
@@ -1124,16 +1157,25 @@ void SignalManager::save(const QString &filename, unsigned int bits,
 	case 8:
 	case 16:
 	case 24:
-	    writeWavChunk(sigout, ofs, len, bits);
+	    res = writeWavChunk(sigout, ofs, len, bits);
 	    break;
 	default:
 	    KMessageBox::sorry(m_parent_widget,
 		i18n("Sorry only 8/16/24 Bits per Sample are supported !"));
+	    sigout.close();
+	    res = -1;
 	break;
     }
 
     sigout.close();
-
+    if (!res) {
+	// saved without error -> no longer modified
+	flushUndoBuffers();
+	enableModifiedChange(true);
+	setModified(false);
+    }
+    debug("SignalManager::save(): res=%d",res);
+    return res;
 }
 
 //***************************************************************************
@@ -1415,6 +1457,12 @@ void SignalManager::flushUndoBuffers()
     m_undo_transaction = 0;
     m_undo_transaction_level = 0;
 
+    // if the signal was modified, it will stay in this state, it is
+    // not possible it to "non-modified" state through undo
+    if ((!m_undo_buffer.isEmpty()) && (m_modified)) {
+	enableModifiedChange(false);
+    }
+
     // clear all buffers
     m_undo_buffer.clear();
     m_redo_buffer.clear();
@@ -1590,6 +1638,12 @@ void SignalManager::freeUndoMemory(unsigned int needed)
 	unsigned int s = m_undo_buffer.first()->undoSize();
 	size = (size >= s) ? (size - s) : 0;
 	m_undo_buffer.removeFirst();
+
+	// if the signal was modified, it will stay in this state, it is
+	// not possible it to "non-modified" state through undo
+	if ((!m_undo_buffer.isEmpty()) && (m_modified)) {
+	    enableModifiedChange(false);
+	}
     }
 
     // remove old redo actions if still not enough memory
@@ -1648,7 +1702,7 @@ void SignalManager::undo()
     m_undo_buffer.setAutoDelete(true);
 
     // get free memory for redo
-    // also bear in mid that the undo transaction we removed is still
+    // also bear in mind that the undo transaction we removed is still
     // allocated and has to be subtracted from the undo limit. As we
     // don't want to modify the limit, we increase the needed size.
     unsigned int redo_size = undo_transaction->redoSize();
@@ -1715,6 +1769,12 @@ void SignalManager::undo()
 	warning("SignalManager::undo(): no redo possible");
 	m_redo_buffer.setAutoDelete(true);
 	m_redo_buffer.remove(redo_transaction);
+    }
+
+    if (m_undo_buffer.isEmpty() && m_modified) {
+	// try to return to non-modified mode (might be a nop if
+	// not enabled)
+	setModified(false);
     }
 
     // finished / buffers have changed, emit new undo/redo info
@@ -1809,6 +1869,24 @@ void SignalManager::redo()
 
     // finished / buffers have changed, emit new undo/redo info
     m_spx_undo_redo.AsyncHandler();
+}
+
+//***************************************************************************
+void SignalManager::setModified(bool mod)
+{
+    if (!m_modified_enabled) return;
+
+    if (m_modified != mod) {
+	m_modified = mod;
+	debug("SignalManager::setModified(%d)",mod);
+	emit sigModified(m_modified);
+    }
+}
+
+//***************************************************************************
+void SignalManager::enableModifiedChange(bool en)
+{
+    m_modified_enabled = en;
 }
 
 //***************************************************************************

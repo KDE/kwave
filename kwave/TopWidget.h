@@ -23,6 +23,7 @@
 #include <qstringlist.h>
 #include <kmainwindow.h>
 
+class QCloseEvent;
 class QTimer;
 
 class KCombo;
@@ -114,6 +115,11 @@ public slots:
      * global in KwaveApp.
      */
     void updateRecentFiles();
+
+protected slots:
+
+    /** @see QWidget::closeEvent() */
+    virtual void closeEvent(QCloseEvent *e);
 
 private slots:
 
@@ -207,6 +213,9 @@ private slots:
     /** toolbar: "edit/delete" */
     void toolbarEditDelete() { executeCommand("delete () "); };
 
+    /** called if the signal now or no longer is modified */
+    void modifiedChanged(bool);
+
 signals:
     /**
      * Tells this TopWidget's parent to execute a command
@@ -251,14 +260,14 @@ protected:
     void importAsciiFile();
 
     /** Saves the current file. */
-    void saveFile();
+    int saveFile();
 
     /**
      * Opens a dialog for saving the current .wav file.
      * @param selection if set to true, only the current selection
      *        will be saved
      */
-    void saveFileAs(bool selection = false);
+    int saveFileAs(bool selection = false);
 
     /**
      * Closes the current file and creates a new empty signal.
@@ -285,6 +294,9 @@ protected:
      * @param str str the resolution in string representation
      */
     void resolution (const QString &str);
+
+    /** Updates the caption with the filename */
+    void updateCaption();
 
 private:
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2001-12-22 19:52GMT\n"
+"PO-Revision-Date: 2001-12-27 21:07GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -239,6 +239,19 @@ msgstr ""
 "vertiefte sich so mehr und mehr in den Quellcode des Programms. Bis heute "
 "hat er beinahe alle Komponenten des Programms erweitert, neu geschrieben "
 "oder berarbeitet und eine Menge Zeit investiert um es zu verbessern."
+
+#: index.docbook:210
+msgid "0.6.3 [2002-??-??]"
+msgstr "0.6.3 [2002-??-??]"
+
+#: index.docbook:210
+msgid "handling of \"signal modified\""
+msgstr "Behandlung von \"Datei geändert\""
+
+#: index.docbook:210
+
+msgid "shows error message and aborts if loading failed"
+msgstr "zeigt eine Meldungsbox und bricht ab wenn das Laden einer Datei fehlschlug"
 
 #: index.docbook:210
 msgid "0.6.2 [2001-12-24]"
@@ -1675,15 +1688,15 @@ msgstr "0.27"
 msgid "first release, but never uploaded, because ftp.kde.org was down."
 msgstr "erste Release, aber niemals publiziert, da ftp.kde.org nicht erreichbar war."
 
-#: index.docbook:1242
+#: index.docbook:1253
 msgid "Installation"
 msgstr "Installation"
 
-#: index.docbook:1248
+#: index.docbook:1259
 msgid "How to obtain &kapp;"
 msgstr "Wie erhält man &kapp;"
 
-#: index.docbook:1250
+#: index.docbook:1261
 msgid ""
 "&kapp; has an own homepage under <ulink url=\"http://kwave.sourceforge.net/"
 "\"> http://kwave.sourceforge.net/</ulink>. Here you can find further "
@@ -1695,7 +1708,7 @@ msgstr ""
 "Informationen über das Projekt, wie auch Informationen über die aktuelle "
 "stabile sowie neueste Entwicklerversionen finden."
 
-#: index.docbook:1259
+#: index.docbook:1270
 msgid ""
 "Maybe older versions of &kapp; are currently included in some current linux "
 "distributions. We recommend not to use &kapp; versions 0.29 and older. And "
@@ -1709,7 +1722,7 @@ msgstr ""
 "Versionsnummer verwirren, \"0.29\" sollte eigentlich \"0.2.9\" heissen und "
 "war nicht durchgängig. Die aktuelle Versionsnummerierung beginnt bei 0.5."
 
-#: index.docbook:1268
+#: index.docbook:1279
 msgid ""
 "If you want to get a &kapp; release, you should download a .tar.gz archive "
 "with the source code of a stable or a development version from the homepage "
@@ -1723,15 +1736,15 @@ msgstr ""
 "Quellen selbst compilieren. Keine Angst, es ist ganz einfach, selbst wenn "
 "man kein Programmierer ist."
 
-#: index.docbook:1284
+#: index.docbook:1295
 msgid "Requirements"
 msgstr "Anforderungen"
 
-#: index.docbook:1286
+#: index.docbook:1297
 msgid "In order to successfully use &kapp;, you need:"
 msgstr "Für den erfolgreichen Einsatz von &kapp; brauchen sie:"
 
-#: index.docbook:1286
+#: index.docbook:1297
 msgid ""
 "a computer running Linux (&kapp; might also run under some other operating "
 "system, but we have never tested this, please let us know if you get it "
@@ -1742,7 +1755,7 @@ msgstr ""
 "lassen Sie es uns wissen, wenn Sie es auf anderen Plattformen/ "
 "Betriebssystemen zum laufen gebracht haben)"
 
-#: index.docbook:1286
+#: index.docbook:1297
 msgid ""
 "working sound playback (not really required for using but what would you do "
 "with a sound editor if you can't <emphasis>hear</emphasis> the result of "
@@ -1752,7 +1765,7 @@ msgstr ""
 "Benutzung, aber was sollte man mit einem Soundeditor, wenn man sich nicht "
 "die Ergebnisse <emphasis>anhören</emphasis> kann?)"
 
-#: index.docbook:1286
+#: index.docbook:1297
 msgid ""
 "KDE-2.2.1 or higher (at least the libraries, if you are a gnome fan, you can "
 "also run &kapp; if the proper libs are installed)."
@@ -1760,11 +1773,11 @@ msgstr ""
 "KDE-2.2.1 oder höher (zumindest die Bibliotheken: &kapp; läuft auch unter "
 "gnome, wenn die richtigen Libs installiert sind)."
 
-#: index.docbook:1286
+#: index.docbook:1297
 msgid "qt-2.3 or higher (normally comes with KDE2)"
 msgstr "qt-2.3 oder höher (normalerweise in KDE2 enthalten)"
 
-#: index.docbook:1286
+#: index.docbook:1297
 msgid ""
 "about 10 MB memory for starting &kapp; (but this may vary depending on your "
 "platform and configuration)"
@@ -1772,13 +1785,13 @@ msgstr ""
 "etwas mehr als 10 MB Speicher zum Starten von &kapp; (kann jedoch sehr stark "
 "von Ihrer Plattform und Konfiguration abhängen)"
 
-#: index.docbook:1315
+#: index.docbook:1326
 msgid "If you intend to compile &kapp; from the sources, you will also need:"
 msgstr ""
 "Wenn Sie vorhaben, &kapp; aus den Quellen zu compilieren, brauchen Sie "
 "zusätzlich:"
 
-#: index.docbook:1315
+#: index.docbook:1326
 msgid ""
 "A C/C++ compiler. GCC-2.95.3 works fine, some older and any newer version "
 "should work too. (Note: gcc-3.0 is not yet supported, it wil not work!)"
@@ -1787,7 +1800,7 @@ msgstr ""
 "neuere Version sollten ebenfalls funktionieren. (Hinweis: gcc-3.0 ist "
 "allerdings noch nicht unterstützt, er wird nicht funktionieren!)"
 
-#: index.docbook:1315
+#: index.docbook:1326
 msgid ""
 "The glibc2 (libc-6) development environment. On SuSE systems the package is "
 "called \"libc\", on other systems it might be called \"libc-devel\"."
@@ -1795,7 +1808,7 @@ msgstr ""
 "Die glibc2 (libc-6) Entwicklungsumgebung. Auf SuSE-Systemen heisst das Paket "
 "\"libc\", auf anderen Systemen könnte es \"libc-devel\" heissen."
 
-#: index.docbook:1315
+#: index.docbook:1326
 msgid ""
 "The KDE2 development environment: \"kdelibs-devel\", \"kdemultimedia-devel"
 "\", \"kdesdk-2\"."
@@ -1803,7 +1816,7 @@ msgstr ""
 "Die KDE2-Entwicklungsumgebung: \"kdelibs-devel\", \"kdemultimedia-devel\", "
 "\"kdesdk-2\"."
 
-#: index.docbook:1315
+#: index.docbook:1326
 msgid ""
 "The Qt development environment, the package is normally called \"qt-devel\" "
 "or similar."
@@ -1811,17 +1824,17 @@ msgstr ""
 "Die Qt-Entwicklungsumgebung, das Paket heisst normalerweise \"qt-devel\" "
 "oder ähnlich."
 
-#: index.docbook:1315
+#: index.docbook:1326
 msgid "If you intend to use CVS, you will also need a current cvs package."
 msgstr ""
 "Falls Sie beabsichtigen CVS zu benutzen, brauchen Sie auch ein aktuelles cvs-"
 "Paket."
 
-#: index.docbook:1349
+#: index.docbook:1360
 msgid "Manual Compilation and installation"
 msgstr "Compilierung und Installation"
 
-#: index.docbook:1351
+#: index.docbook:1362
 msgid ""
 "In order to compile and install &kapp; on your system, type the following in "
 "the base directory of the source distribution:"
@@ -1829,7 +1842,7 @@ msgstr ""
 "Um &kapp; auf ihrem System zu compilieren und zu installieren, geben Sie die "
 "folgenden Befehle in dem Hauptverzeichnis der Quellcodes an:"
 
-#: index.docbook:1351
+#: index.docbook:1362
 msgid ""
 "<prompt>% </prompt><command>cd kwave</command>\n"
 "<prompt>% </prompt><command>make -f Makefile.dist</command>\n"
@@ -1843,7 +1856,7 @@ msgstr ""
 "<prompt>% </prompt><command>make</command>\n"
 "<prompt>% </prompt><command>su root -c \"make install\"</command>"
 
-#: index.docbook:1363
+#: index.docbook:1374
 msgid ""
 "Since &kapp; uses autoconf and automake you should have no trouble compiling "
 "it. Should you run into problems please report them to the &kapp; <link "
@@ -1853,7 +1866,7 @@ msgstr ""
 "Compilieren haben. Falls Sie dennoch auf Probleme stossen, berichten Sie "
 "bitte der &kapp; <link linkend=\"mailing-list\">Mailing-Liste</link>."
 
-#: index.docbook:1368
+#: index.docbook:1379
 msgid ""
 "If you have a system with old Qt-1 libraries you might get problems when "
 "compiling. Then you should set the following environment variable to specify "
@@ -1864,19 +1877,19 @@ msgstr ""
 "Sie bitte folgende Umgebungsvariable um den korrekten Pfad ihrer Qt-"
 "Installation zu setzen und versuchen Sie es erneut:"
 
-#: index.docbook:1368
+#: index.docbook:1379
 msgid "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>"
 msgstr "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>"
 
-#: index.docbook:1385
+#: index.docbook:1396
 msgid "Building RPM packages from tar.gz archives"
 msgstr "Erstellung von RPM-Paketen aus tar.gz-Archiven"
 
-#: index.docbook:1388
+#: index.docbook:1399
 msgid "With working rpm -ta"
 msgstr "Unter Benutzung von rpm -ta"
 
-#: index.docbook:1390
+#: index.docbook:1401
 msgid ""
 "If you are runnig a system with RPM support, the preferred way to install "
 "&kapp; on your system will be the creation of a nice RPM package. First you "
@@ -1894,7 +1907,7 @@ msgstr ""
 "\"cvs_checkout\">Kapitel ber CVS</link> beschrieben ist) und lesen Sie das "
 "<link linkend=\"building_rpm_from_cvs\">nächste</link> Kapitel."
 
-#: index.docbook:1401
+#: index.docbook:1412
 msgid ""
 "If you have downloaded a tar-gz archives of &kapp;, create and install the "
 "RPMs just by doing the following steps (where <replaceable>[arch]</"
@@ -1911,11 +1924,11 @@ msgstr ""
 "<replaceable>XXX</replaceable> steht für die Versionsnummer des "
 "heruntergeladenen Paketes)."
 
-#: index.docbook:1412
+#: index.docbook:1423
 msgid "To build the &kapp; package and install it do:"
 msgstr "Erstellen Sie das &kapp; Paket und installieren Sie es wie folgt:"
 
-#: index.docbook:1412
+#: index.docbook:1423
 msgid ""
 "<prompt>% </prompt><command>rpm -ta <replaceable>kwave-XXX.tar.gz</"
 "replaceable></command>\n"
@@ -1927,7 +1940,7 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
 
-#: index.docbook:1420
+#: index.docbook:1431
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> you have to specify the directory "
 "<filename>/usr/src/packages</filename> instead of <filename>/usr/src/redhat</"
@@ -1937,7 +1950,7 @@ msgstr ""
 "<filename>/usr/src/packages</filename> anstelle von <filename>/usr/src/"
 "redhat</filename> angeben!"
 
-#: index.docbook:1427
+#: index.docbook:1438
 msgid ""
 "If you haven't seen any errors, then that's it and you can skip the rest of "
 "this chapter. If rpm was unable to build the packages and says something "
@@ -1948,7 +1961,7 @@ msgstr ""
 "Paket zu erstellen und etwas sagt wie \"spec file not found\", dann sollten "
 "Sie den Rest dieses Abschnittes lesen."
 
-#: index.docbook:1434
+#: index.docbook:1445
 msgid ""
 "The support for the <command>rpm -ta ...</command> might be broken on some "
 "versions of rpm. The rpm program originally shipped with SuSE-6.4 (rpm-"
@@ -1961,11 +1974,11 @@ msgstr ""
 "sich ein Update des rpm-Paketes (zum Beispiel von <ulink url=\"ftp://ftp."
 "suse.com/pub/suse_update/\">dem SuSE ftp Server</ulink>) besorgen."
 
-#: index.docbook:1445
+#: index.docbook:1456
 msgid "With broken rpm -ta support"
 msgstr "Unterstützung bei kaputtem rpm -ta"
 
-#: index.docbook:1447
+#: index.docbook:1458
 msgid ""
 "If you can't get <command>rpm -ta</command> working, here are the steps for "
 "making that manually (the hard way):"
@@ -1973,7 +1986,7 @@ msgstr ""
 "Falls Sie <command>rpm -ta</command> nicht zum laufen bekommen, sind hier "
 "die Schritte um dieses \"per Hand\" (auf die harte Tour) zu bewerkstelligen:"
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid ""
 "Go to your RPM \"topdir\". This normally is <filename>/usr/src/redhat</"
 "filename> for the redhat distribution or <filename>/usr/src/packages</"
@@ -1983,7 +1996,7 @@ msgstr ""
 "<filename>/usr/src/redhat</filename> für die Redhat Distribution oder "
 "<filename>/usr/src/packages</filename> für die SuSE Distribution ist."
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid ""
 "<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></"
 "command>"
@@ -1991,7 +2004,7 @@ msgstr ""
 "<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></"
 "command>"
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid ""
 "Put the tar.gz archive into the SOURCES subdirectory (you have to replace "
 "\"somewhere\" with the real directory where the files are, of course)."
@@ -2000,7 +2013,7 @@ msgstr ""
 "\"somewhere\" durch das reale Verzeichnis, in dem die Dateien enthalten "
 "sind)."
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid ""
 "<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.gz</"
 "replaceable> SOURCES</command>"
@@ -2008,7 +2021,7 @@ msgstr ""
 "<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.gz</"
 "replaceable> SOURCES</command>"
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid ""
 "Extract the spec file from the archives and put it into the SPEC "
 "subdirectory."
@@ -2016,7 +2029,7 @@ msgstr ""
 "Extrahieren Sie die spec-Dateie aus dem Archiven und fügen Sie diese dem "
 "SPEC-Unterverzeichnis hinzu."
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid ""
 "<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
 "replaceable> \\*.spec > SPECS/kwave.spec</command>"
@@ -2024,7 +2037,7 @@ msgstr ""
 "<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
 "replaceable> \\*.spec > SPECS/kwave.spec</command>"
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid ""
 "Let rpm do the compile job and generate the rpm of &kapp;. If you only want "
 "to make a binary package, you can specify <literal>-bb</literal> instead of "
@@ -2036,11 +2049,11 @@ msgstr ""
 "<literal>-bb</literal> anstelle von <literal>-ba</literal> angeben, oder "
 "einfach <literal>-bs</literal> um nur ein Source-Paket zu erstellen."
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid "<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>"
 msgstr "<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>"
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid ""
 "If everything was ok, you can install the binary rpm of &kapp;, it will be "
 "in the BUILD directory. If you already have a version of &kapp; installed, "
@@ -2053,7 +2066,7 @@ msgstr ""
 "zuerst oder verwenden den Parameter <literal>-U</literal> anstelle von "
 "<literal>-i</literal> für ein Uprade anstelle einer Installation."
 
-#: index.docbook:1452
+#: index.docbook:1463
 msgid ""
 "<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX."
 "[arch].rpm</replaceable></command>"
@@ -2061,15 +2074,15 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX."
 "[arch].rpm</replaceable></command>"
 
-#: index.docbook:1514
+#: index.docbook:1525
 msgid "Building RPM packages from CVS"
 msgstr "Erstellung eines RPM Paketes aus dem CVS-Archiv"
 
-#: index.docbook:1516
+#: index.docbook:1527
 msgid "Checking out the sources"
 msgstr "Abrufen der Quellen"
 
-#: index.docbook:1518
+#: index.docbook:1529
 msgid ""
 "For initially checking out the sources you will need some disk space (about "
 "70 megabytes) in a directory of your choice, the cvs package of your "
@@ -2086,7 +2099,7 @@ msgstr ""
 "Zugriff. Ein guter Platz fr die Quelldateien ist <filename>\"$HOME/src\"</"
 "filename>."
 
-#: index.docbook:1527
+#: index.docbook:1538
 msgid ""
 "First create the directory that will receive the subdirectoy with &kapp; "
 "sources and change into it:"
@@ -2094,7 +2107,7 @@ msgstr ""
 "Als erstes erstellen Sie ein Verzeichnis, welches das Unterverzeichnis der "
 "&kapp;-Quellen erhalten wird und wechseln Sie in dieses:"
 
-#: index.docbook:1527
+#: index.docbook:1538
 msgid ""
 "<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></"
 "command>\n"
@@ -2104,7 +2117,7 @@ msgstr ""
 "command>\n"
 "<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>"
 
-#: index.docbook:1527
+#: index.docbook:1538
 msgid ""
 "Then log in into the CVS server. As I guess that you want to do that as "
 "normal user, you log in as anonymous: <screen width=\"75\" format="
@@ -2123,7 +2136,7 @@ msgstr ""
 "Passwort für anonymen Zugriff haben, drücken Sie hier einfach die Enter-"
 "Taste."
 
-#: index.docbook:1527
+#: index.docbook:1538
 msgid ""
 "<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave."
 "sourceforge.net:/cvsroot/kwave co kwave</command>"
@@ -2131,7 +2144,7 @@ msgstr ""
 "<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave."
 "sourceforge.net:/cvsroot/kwave co kwave</command>"
 
-#: index.docbook:1554
+#: index.docbook:1565
 msgid ""
 "There <emphasis>must not</emphasis> be a directory named <filename>kwave</"
 "filename> under the directory you want to check out. Otherwise the cvs "
@@ -2143,11 +2156,11 @@ msgstr ""
 "Programm über bereits existierende Dateien beschweren und das Abrufen wird "
 "nicht funktionieren."
 
-#: index.docbook:1564
+#: index.docbook:1575
 msgid "Updating sources from CVS"
 msgstr "Aktualisierung der Quellen mittels CVS"
 
-#: index.docbook:1565
+#: index.docbook:1576
 msgid ""
 "The procedure described in the previous section is only necessary once. For "
 "further updates it is much easier. Just change into the directory you want "
@@ -2166,11 +2179,11 @@ msgstr ""
 "</screen> Gehen Sie dann zum nächsten Abschnitt über und compilieren Sie wie "
 "gewöhnlich."
 
-#: index.docbook:1578
+#: index.docbook:1589
 msgid "Compiling"
 msgstr "Compilieren"
 
-#: index.docbook:1579
+#: index.docbook:1590
 msgid ""
 "Building rpm package from a CVS snapshot is quite simple. The procedure is "
 "nearly the same as described in the last section, so it unhappily also has "
@@ -2191,7 +2204,7 @@ msgstr ""
 "<replaceable>XXX</replaceable> steht für die Versionsnummer, die Sie sich "
 "besorgt haben."
 
-#: index.docbook:1592
+#: index.docbook:1603
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> here you have to specify the "
 "directory <filename>/usr/src/packages</filename> instead of <filename>/usr/"
@@ -2201,7 +2214,7 @@ msgstr ""
 "Verzeichnis <filename>/usr/src/packages</filename> anstelle von <filename>/"
 "usr/src/redhat</filename> angeben!"
 
-#: index.docbook:1599
+#: index.docbook:1610
 msgid ""
 "Assuming that you are in the root of where you checked out from CVS, do the "
 "following to create a Makefile, the &kapp; package and install it. If you "
@@ -2216,7 +2229,7 @@ msgstr ""
 "von <literal>rpm -i</literal> für die Aktualisierung anstelle einer "
 "Installation."
 
-#: index.docbook:1599
+#: index.docbook:1610
 msgid ""
 "<prompt>% </prompt><command>cd kwave</command>\n"
 "<prompt>% </prompt><command>make -f Makefile.dist</command>\n"
@@ -2232,7 +2245,7 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -i /usr/src/redhat/BUILD/<replaceable>[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
 
-#: index.docbook:1615
+#: index.docbook:1626
 msgid ""
 "If you still have problems with <command>make rpm</command>, you will find "
 "the tar.gz archive that were produced in <filename>/tmp</filename>. Please "
@@ -2244,11 +2257,11 @@ msgstr ""
 "Sie den Anweisungen im <link linkend=\"manual_rpm_creation\">vorherigen</"
 "link> Kapitel."
 
-#: index.docbook:1631
+#: index.docbook:1642
 msgid "Relocating the binary RPM packages"
 msgstr "Installation des Binary-RPM-Paketes auf anderen Distributionen"
 
-#: index.docbook:1633
+#: index.docbook:1644
 msgid ""
 "The binary rpm package of &kapp; is \"<emphasis>relocatable</emphasis>\". "
 "That means that you can build the package on a system with any KDE2 "
@@ -2263,7 +2276,7 @@ msgstr ""
 "um ein für SuSE compiliertes Paket auf einem RedHat System zu installieren "
 "und umgekehrt."
 
-#: index.docbook:1642
+#: index.docbook:1653
 msgid ""
 "For example: you got the binary rpm from a friend who has a RedHat system "
 "(where the KDE2 directory is <filename>/usr</filename>) and want to install "
@@ -2277,7 +2290,7 @@ msgstr ""
 "<filename>/opt/kde2</filename> ist). Dann geben Sie einfach einen "
 "unterschiedlichen Prefix bei der Installtion des rpm an. Beispiel:"
 
-#: index.docbook:1642
+#: index.docbook:1653
 msgid ""
 "<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-"
 "0.6.0.i386.rpm</replaceable></command>"
@@ -2285,7 +2298,7 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-"
 "0.6.0.i386.rpm</replaceable></command>"
 
-#: index.docbook:1654
+#: index.docbook:1665
 msgid ""
 "This modifies the path where the program is installed and it is strongly "
 "recommended that this is a directory that is contained in the "
@@ -2301,11 +2314,11 @@ msgstr ""
 "command> zurückgeliefert wird. Ansonsten ist &kapp; nicht in der Lage seine "
 "Menü-Konfiguration, Plugins, Vorlagen und so weiter zu finden..."
 
-#: index.docbook:1673
+#: index.docbook:1684
 msgid "RPM optimizations"
 msgstr "RPM-Optimierungen"
 
-#: index.docbook:1675
+#: index.docbook:1686
 msgid ""
 "Yes, you can compile the RPM packages optimized for pentium and pentium pro "
 "(or some other CPUs) by using some defines in your rpmrc file. You can "
@@ -2338,7 +2351,7 @@ msgstr ""
 "keywarrior.net/duesti/rpmopt.de.html\"> http://www.keywarrior.net/duesti/"
 "rpmopt.de.html</ulink>. Dank an Matthias Düsterhöft!)."
 
-#: index.docbook:1697
+#: index.docbook:1708
 msgid ""
 "This means that on an i586 architecture the rpm package will be compiled "
 "using \"-march=pentium\" as compiler option and so on, you might extend or "
@@ -2353,7 +2366,7 @@ msgstr ""
 "-ta\" benutzt wurde oder ein binary RPM mittels eines Source RPM unter "
 "Benutzung von \"rpm --rebuild\" erstellt wurde."
 
-#: index.docbook:1706
+#: index.docbook:1717
 msgid ""
 "The options specified here are set into the environment variable "
 "RPM_OPT_FLAGS during compilation, so if you don't have an rpm based "
@@ -2368,7 +2381,7 @@ msgstr ""
 "können Sie diese Variable \"per Hand\" setzen und erzielen den gleichen "
 "Effekt. Zum Beispiel:"
 
-#: index.docbook:1706
+#: index.docbook:1717
 msgid ""
 "<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O2 -march=pentium -fomit-"
 "frame-pointer\"</command>"
@@ -2376,11 +2389,11 @@ msgstr ""
 "<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O2 -march=pentium -fomit-"
 "frame-pointer\"</command>"
 
-#: index.docbook:1726
+#: index.docbook:1737
 msgid "Compiler Optimizations"
 msgstr "Compiler-Optimierungen"
 
-#: index.docbook:1728
+#: index.docbook:1739
 msgid ""
 "If you are owner of a Pentium, an AMD K6 or Athlon CPU, you might want to "
 "use an optimized compiler to compile your version of &kapp; that is running "
@@ -2397,7 +2410,7 @@ msgstr ""
 "Frequenz-Operationen (wie FFT und Sonagramm) behandeln, am meisten davon "
 "profitieren."
 
-#: index.docbook:1736
+#: index.docbook:1747
 msgid ""
 "You do not need to understand much about programming for using an optimized "
 "compiler to compile &kapp;, but maybe you will need some time to get the "
@@ -2408,11 +2421,11 @@ msgstr ""
 "Sie einige Zeit brauchen um den Compiler selbst zu installieren und zum "
 "laufen zu bringen."
 
-#: index.docbook:1743
+#: index.docbook:1754
 msgid "How to invoke the optimized compiler"
 msgstr "Wie wird der optimierte Compiler aufgerufen"
 
-#: index.docbook:1744
+#: index.docbook:1755
 msgid ""
 "The invocation of an optimized compiler is quite simple. It normally is "
 "sufficient to set the environment variable <symbol>CXXFLAGS</symbol> in the "
@@ -2425,7 +2438,7 @@ msgstr ""
 "Einstellungen lesen Sie bitte in der Dokumentation oder Homepage des "
 "entsprechenden Compilers nach."
 
-#: index.docbook:1751
+#: index.docbook:1762
 msgid ""
 "If you build &kapp; from a source tree (unpacked tar.gz or from CVS) the "
 "flags need to be specidied before the call to <command>configure</command>. "
@@ -2435,7 +2448,7 @@ msgstr ""
 "erstellen, sollten die Flags vor dem Aufruf von <command>configure</command> "
 "angegeben werden. Dies sollte wie folgt aussehen:"
 
-#: index.docbook:1751
+#: index.docbook:1762
 msgid ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" ./configure</command>"
@@ -2443,7 +2456,7 @@ msgstr ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" ./configure</command>"
 
-#: index.docbook:1758
+#: index.docbook:1769
 msgid ""
 "If you re-build &kapp; from a source rpm package the flags need to be "
 "specidied before the call to <command>rpm --rebuild</command>. This might "
@@ -2453,7 +2466,7 @@ msgstr ""
 "dem Aufruf <command>rpm --rebuild</command> angegeben werden. Dies sollte "
 "wie folgt aussehen:"
 
-#: index.docbook:1758
+#: index.docbook:1769
 msgid ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" rpm --rebuild <replaceable>filename</replaceable></command>"
@@ -2461,7 +2474,7 @@ msgstr ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" rpm --rebuild <replaceable>filename</replaceable></command>"
 
-#: index.docbook:1758
+#: index.docbook:1769
 msgid ""
 "And please don't give up if <command>rpm</command> refuses to install your "
 "package because it seems not to fit to your computer's architecture. "
@@ -2473,11 +2486,11 @@ msgstr ""
 "zu installieren. Normalerweise können Sie ein optimiertes Paket bedenkenlos "
 "mit der zusätzlichen Angabe des Parameters <command>--ignorearch</command>."
 
-#: index.docbook:1775
+#: index.docbook:1786
 msgid "Pentium and Compatibles"
 msgstr "Pentium und Kompatible"
 
-#: index.docbook:1776
+#: index.docbook:1787
 msgid ""
 "For all optimized versions I used pgcc-2.95.3. For informations on obtaining "
 "the pgcc compiler, visit the Homepage of the the <ulink url=\"http://pgcc."
@@ -2495,11 +2508,11 @@ msgstr ""
 "intel.com/\">Intel</ulink> sondern auch mit einigen anderen Herstellern wie "
 "<ulink url=\"http://www.cyrix.com/\">Cyrix</ulink> zusammen."
 
-#: index.docbook:1789
+#: index.docbook:1800
 msgid "AMD Athlon"
 msgstr "AMD Athlon"
 
-#: index.docbook:1790
+#: index.docbook:1801
 msgid ""
 "If you have a CPU from AMD, you can go one step further and get the Athlon-"
 "GCC running. This is an additional patch for the PGCC. For further "
@@ -2514,11 +2527,11 @@ msgstr ""
 "Dieser Compiler arbeitet auch mit dem K6, K6-III und möglicherweise auch mit "
 "anderen CPU's zusammen."
 
-#: index.docbook:1807
+#: index.docbook:1818
 msgid "Using &kapp;"
 msgstr "&kapp; verwenden"
 
-#: index.docbook:1825
+#: index.docbook:1836
 msgid ""
 "Here is a little screenshot of the &kapp; main window, so that you get an "
 "impression what &kapp; looks like..."
@@ -2526,19 +2539,19 @@ msgstr ""
 "Hier ist ein Screenshot vom &kapp; Hauptfenster, um einen Eindruck zu "
 "bekommen, wie &kapp; aussieht..."
 
-#: index.docbook:1830
+#: index.docbook:1841
 msgid "Here's a screenshot of &kapp;"
 msgstr "Das ist ein Screenshot von &kapp;"
 
-#: index.docbook:1830
+#: index.docbook:1841
 msgid "Screenshot"
 msgstr "Screenshot"
 
-#: index.docbook:1850
+#: index.docbook:1861
 msgid "Clipboard"
 msgstr "Zwischenablage"
 
-#: index.docbook:1852
+#: index.docbook:1863
 msgid ""
 "&kapp; unfortunately has to implement and use it's own clipboard. This is "
 "due to the lack of support for formats other than text and bitmaps in the "
@@ -2549,7 +2562,7 @@ msgstr ""
 "andere Formate (als Text und Bitmaps) in der KDE Umgebung, was jedoch in "
 "zukünftigen Ausgaben gelöst werden könnte."
 
-#: index.docbook:1858
+#: index.docbook:1869
 msgid ""
 "However, this has some disadvantages. So if you want to exchange data "
 "between two &kapp; instances through the clipboard, you will find out that "
@@ -2561,7 +2574,7 @@ msgstr ""
 "Instanz von &kapp; benutzt ihre eigene Zwischenablage und deshalb kann dies "
 "nicht funktionieren."
 
-#: index.docbook:1865
+#: index.docbook:1876
 msgid ""
 "So if you want to make use of the clipboard in &kapp;, you should only start "
 "<emphasis>one</emphasis> &kapp; instance and use multiple &kapp; windows. "
@@ -2571,11 +2584,11 @@ msgstr ""
 "nur <emphasis>eine</emphasis> Instanz von &kapp; starten und mehrere &kapp; "
 "Fenster benutzen."
 
-#: index.docbook:1877
+#: index.docbook:1888
 msgid "Drag and Drop"
 msgstr "Drag and Drop"
 
-#: index.docbook:1879
+#: index.docbook:1890
 msgid ""
 "&kapp; supports the KDE Drag and Drop protocol. This enables you to open "
 "files just by picking them up in a <command>konqueror</command> window or "
@@ -2586,7 +2599,7 @@ msgstr ""
 "Fenster oder vom Desktop aufzunehmen und sie über einem Fenster von &kapp; "
 "fallen zu lassen, um sie zu öffnen."
 
-#: index.docbook:1885
+#: index.docbook:1896
 msgid ""
 "Please note that if you drop a file into a &kapp; window that already "
 "contains an opened file, the currently opened file will be closed first and "
@@ -2599,11 +2612,11 @@ msgstr ""
 "Sie dies nicht wollen, sollten Sie zuerst ein neues leeres &kapp; Fenster "
 "öffnen."
 
-#: index.docbook:1898
+#: index.docbook:1909
 msgid "Command Line"
 msgstr "Kommandozeile"
 
-#: index.docbook:1900
+#: index.docbook:1911
 msgid ""
 "If you start &kapp; from the command line, you can specify a list of files "
 "that should be opened. The first specified file will be opened first, then "
@@ -2618,7 +2631,7 @@ msgstr ""
 "Jokerzeichen verwenden, können Sie eine grosse Anzahl von Dateien auf einmal "
 "öffnen."
 
-#: index.docbook:1907
+#: index.docbook:1918
 msgid ""
 "For example, the following command starts a &kapp; and opens all sounds of "
 "the KDE window manager, each in a new window:"
@@ -2626,7 +2639,7 @@ msgstr ""
 "So startet zum Beispiel der folgende Befehl &kapp; und öffnet alle Klänge "
 "des KDE-Fenstermanagers in jeweils einem eigenen Fenster:"
 
-#: index.docbook:1907
+#: index.docbook:1918
 msgid ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
 "KDE_Window*.wav</filename></command>"
@@ -2634,7 +2647,7 @@ msgstr ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
 "KDE_Window*.wav</filename></command>"
 
-#: index.docbook:1913
+#: index.docbook:1924
 msgid ""
 "In addition to a list of files, you can specify a list of <emphasis>Xt "
 "toolkit</emphasis> options like <literal>-geometry</literal> for specifying "
@@ -2647,7 +2660,7 @@ msgstr ""
 "spezifizieren. Eine weitere Option ist <literal>-display</literal>, die "
 "&kapp; auf einem anderen Bildschirm startet."
 
-#: index.docbook:1921
+#: index.docbook:1932
 msgid ""
 "For example, the following command starts a &kapp; window with an initial "
 "width of 600 pixels and a height of 400 pixels, with the right border "
@@ -2659,7 +2672,7 @@ msgstr ""
 "Seite 30 Pixel vom rechten Rand und 0 Pixel vom oberen Rand des Bildschirms "
 "entfernt:"
 
-#: index.docbook:1921
+#: index.docbook:1932
 msgid ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
 "parameter></command>"
@@ -2667,17 +2680,17 @@ msgstr ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
 "parameter></command>"
 
-#: index.docbook:1934
+#: index.docbook:1945
 msgid "Opening and Saving files"
 msgstr "Öffnen und Speichern von Dateien"
 
-#: index.docbook:1936
+#: index.docbook:1947
 msgid "Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "Das Öffnen von Dateien mit &kapp; funktioniert genauso wie in den meisten "
 "anderen Anwendungen auch, Sie können"
 
-#: index.docbook:1936
+#: index.docbook:1947
 msgid ""
 "specify a list of files on the <link linkend=\"command_line\">command line</"
 "link> when starting &kapp;,"
@@ -2685,7 +2698,7 @@ msgstr ""
 "eine Liste von Dateien auf der <link linkend=\"command_line\">Kommandozeile</"
 "link> beim Start von &kapp; eingeben"
 
-#: index.docbook:1936
+#: index.docbook:1947
 msgid ""
 "open an empty &kapp; window (for example with <menuchoice> "
 "<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></"
@@ -2699,7 +2712,7 @@ msgstr ""
 "menuchoice> ) und fügen eine Datei mittels <link linkend=\"drag_and_drop"
 "\">Drag and Drop</link> ein, oder Sie können"
 
-#: index.docbook:1936
+#: index.docbook:1947
 msgid ""
 "open a file through the menu with <menuchoice> "
 "<shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></"
@@ -2711,7 +2724,7 @@ msgstr ""
 "shortcut> <guimenu>Datei</guimenu><guimenuitem>ffnen</guimenuitem> </"
 "menuchoice>"
 
-#: index.docbook:1936
+#: index.docbook:1947
 msgid ""
 "or one of the last recently opened files under <menuchoice> <guimenu>File</"
 "guimenu><guimenuitem>Open Recent</guimenuitem> </menuchoice>"
@@ -2720,7 +2733,7 @@ msgstr ""
 "<guimenu>Datei</guimenu><guimenuitem>Zuletzt geöffnete Dateien</guimenuitem> "
 "</menuchoice>"
 
-#: index.docbook:1936
+#: index.docbook:1947
 msgid ""
 "save the current file with <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
 "keycap><keycap>S</keycap></keycombo></shortcut> <guimenu>File</"
@@ -2731,7 +2744,7 @@ msgstr ""
 "shortcut> <guimenu>Datei</guimenu><guimenuitem>Speichern</guimenuitem> </"
 "menuchoice>,"
 
-#: index.docbook:1936
+#: index.docbook:1947
 msgid ""
 "save under a different name with <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</"
@@ -2744,7 +2757,7 @@ msgstr ""
 "guimenu><guimenuitem>Speichern</guimenuitem><guimenuitem>Als</guimenuitem> </"
 "menuchoice>"
 
-#: index.docbook:1936
+#: index.docbook:1947
 msgid ""
 "or only the current selection with <menuchoice> <guimenu>File</"
 "guimenu><guimenuitem>Save</guimenuitem><guimenuitem>Selection</guimenuitem> "
@@ -2754,11 +2767,11 @@ msgstr ""
 "guimenu><guimenuitem>Speichern</guimenuitem><guimenuitem>Auswahl</"
 "guimenuitem> </menuchoice>"
 
-#: index.docbook:1986
+#: index.docbook:1997
 msgid "Supported File formats"
 msgstr "Unterstützte Dateiformate"
 
-#: index.docbook:1987
+#: index.docbook:1998
 msgid ""
 "The fovourite file format of &kapp; is (like you can guess from the name) \"."
 "wav\". This format is very common to other \"operating systems\" but also is "
@@ -2768,7 +2781,7 @@ msgstr ""
 "vermuten könnte) \"*.wav\". Dieses Format ist sehr verbreitet auf anderen "
 "\"Betriebssystemen\" wie auch innerhalb der KDE-Umgebung."
 
-#: index.docbook:1993
+#: index.docbook:2004
 msgid ""
 "The second format that &kapp; supports is \"ASCII\". You can import from and "
 "export to ASCII, but always be aware that storing in this format might "
@@ -2784,11 +2797,11 @@ msgstr ""
 "Kanäle wird in zukünftigen Versionen folgen. Das Dateiformat wird weiter "
 "<link linkend=\"ascii_format\">unten</link> beschrieben."
 
-#: index.docbook:2004
+#: index.docbook:2015
 msgid "Converting to and from .wav"
 msgstr "Konvertierung zu und von .wav"
 
-#: index.docbook:2006
+#: index.docbook:2017
 msgid ""
 "For the moment, the best way to work with formats other than <literal>.wav</"
 "literal> is to use an external converter program. A good set of tools for "
@@ -2805,7 +2818,7 @@ msgstr ""
 "sprynet.com/~cbagwell/sox.html\">http://home.sprynet.com/~cbagwell/sox.html</"
 "ulink>."
 
-#: index.docbook:2015
+#: index.docbook:2026
 msgid ""
 "The plans for future include support for import filters for other formats "
 "and maybe some filter that uses a user-defineable script with a call to an "
@@ -2818,11 +2831,11 @@ msgstr ""
 "gelesen und/oder geschrieben werden knnen, die nicht von <literal>SoX</"
 "literal> (wie MP3) unterstützt werden."
 
-#: index.docbook:2023
+#: index.docbook:2034
 msgid "Format of ASCII files"
 msgstr "Das Format von ASCII Dateien"
 
-#: index.docbook:2024
+#: index.docbook:2035
 msgid ""
 "The ASCII format is quite useful for scientific and educational purposes. "
 "Due to it's simple format, you can either write simple files on your own "
@@ -2839,17 +2852,17 @@ msgstr ""
 "dem Schreiben eines Konverters haben und viele wissenschaftliche Anwendungen "
 "sollten selbst eine eigene Art von ASCII Format für den Export besitzen."
 
-#: index.docbook:2036
+#: index.docbook:2047
 msgid "The format of an ASCII file is quite simple and has the following rules:"
 msgstr ""
 "Das Format von einer ASCII Datei ist recht einfach und nach folgenden Regeln "
 "aufgebaut:"
 
-#: index.docbook:2036
+#: index.docbook:2047
 msgid "Each line represents one sample."
 msgstr "Jede Zeile reprsentiert einen Abtastwert."
 
-#: index.docbook:2036
+#: index.docbook:2047
 msgid ""
 "Lines might end with a carriage return and/or a line feed character (so DOS "
 "files are supported too). But when saving, files will always be saved with "
@@ -2859,11 +2872,11 @@ msgstr ""
 "dass auch DOS Dateien unterstützt werden). Beim Speichern werden jedoch die "
 "Dateien immer mit einem line feed character am Ende der Zeilen geschrieben."
 
-#: index.docbook:2036
+#: index.docbook:2047
 msgid "Empty lines are ignored."
 msgstr "Leere Zeilen werden ignoriert."
 
-#: index.docbook:2036
+#: index.docbook:2047
 msgid ""
 "Values can be are given in any format that the C library of your system is "
 "able to read and interprete as a floating point or integer number. But when "
@@ -2874,11 +2887,11 @@ msgstr ""
 "Aber beim Speichern wird &kapp; das vorzeichenbehaftete Fliesskomma-Format "
 "mit 9 Stellen schreiben."
 
-#: index.docbook:2036
+#: index.docbook:2047
 msgid "Example: <literal>-7.06999982e-01</literal>"
 msgstr "Beispiel: <literal>-7.06999982e-01</literal>"
 
-#: index.docbook:2036
+#: index.docbook:2047
 msgid ""
 "All values are expected to be in signed format. So if you import a file with "
 "only positive values, you will only see samples that are above the zero line."
@@ -2887,7 +2900,7 @@ msgstr ""
 "importierte Dateien mit nur positiven Werten immer als Abtastwerte oberhalb "
 "der Nulllinie dargestellt."
 
-#: index.docbook:2036
+#: index.docbook:2047
 msgid ""
 "Values can be specified in any range, &kapp; always does a first pass over "
 "the file to get the highest absolute value and defines that value as \"100%"
@@ -2897,11 +2910,11 @@ msgstr ""
 "die Datei nach dem höchsten absoluten Wert hin untersuchen und diesen dann "
 "als \"100%\" Wert definieren bevor es tatsächlich mit dem Einlesen anfängt."
 
-#: index.docbook:2036
+#: index.docbook:2047
 msgid "Internally all values are stored with 24 bit precision (signed)."
 msgstr "Intern werden alle Werte mit einer 24 Bit Genauigkeit (signed) gespeichert."
 
-#: index.docbook:2075
+#: index.docbook:2086
 msgid ""
 "Here is an example of a simple ASCII file that represents a sine wave with "
 "nine samples: <example> <title>content of an ASCII file with a single sine "
@@ -2931,11 +2944,11 @@ msgstr ""
 " 0.000\n"
 "\t\t</screen> </example>"
 
-#: index.docbook:2101
+#: index.docbook:2112
 msgid "How to select"
 msgstr "Die Funktionsweise der Auswahl"
 
-#: index.docbook:2103
+#: index.docbook:2114
 msgid ""
 "&kapp; allows you to select a continuous range of samples as well as any "
 "combination of channels (if you edit a multi-channel file). By selecting a "
@@ -2948,11 +2961,11 @@ msgstr ""
 "werden alle folgenden Befehle darauf angewendet, wobei das Deselektieren "
 "eines Kanals den Inhalt nicht verändert."
 
-#: index.docbook:2110
+#: index.docbook:2121
 msgid "Selecting channels"
 msgstr "Auswahl von Kanälen"
 
-#: index.docbook:2111
+#: index.docbook:2122
 msgid ""
 "Selecting or de-selecting a channel is quite simple. Just click on the lamp "
 "symbol on the left side of the signal to toggle it's state:"
@@ -2961,33 +2974,33 @@ msgstr ""
 "Klicken Sie einfach auf das Lampensymbol auf der linken Seite des "
 "Signalsfensters um seinen Status zu verändern:"
 
-#: index.docbook:2115
+#: index.docbook:2126
 msgid "green lamb"
 msgstr "grüne Lampe"
 
-#: index.docbook:2115
+#: index.docbook:2126
 msgid "a green lamb means \"enabled\", whereas"
 msgstr "ein grünes Licht bedeutet \"aktiviert\", wohingegen"
 
-#: index.docbook:2124
+#: index.docbook:2135
 msgid "red lamb"
 msgstr "rote Lampe"
 
-#: index.docbook:2124
+#: index.docbook:2135
 msgid "a red lamb means \"disabled\"."
 msgstr "eine rote Lampe \"deaktiviert\" bedeutet."
 
-#: index.docbook:2134
+#: index.docbook:2145
 msgid "Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Hinweis: Wird ein Kanal deselektiert, wird er bei der Wiedergabe nicht "
 "hörbar sein!"
 
-#: index.docbook:2139
+#: index.docbook:2150
 msgid "Selecting samples"
 msgstr "Auswahl von Samples"
 
-#: index.docbook:2141
+#: index.docbook:2152
 msgid ""
 "If you select a range of samples in &kapp;, that range will be "
 "<emphasis>inclusive</emphasis>. That means that the first and the last "
@@ -3006,7 +3019,7 @@ msgstr ""
 "Bereich ausgewählt haben, die \"Löschen\" Funktion auf dieses einzelne "
 "Sample angewendet."
 
-#: index.docbook:2151
+#: index.docbook:2162
 msgid ""
 "The easiest way of selecting a range of samples is just to do that with "
 "mouse. It works like you are used from other applications: just press the "
@@ -3019,7 +3032,7 @@ msgstr ""
 "dem die Auswahl beginnen soll und lassen die Maustaste am Endpunkt wieder "
 "los."
 
-#: index.docbook:2157
+#: index.docbook:2168
 msgid ""
 "If you want to move or adjust the selection's start or end, you can move the "
 "mouse cursor near to the start or the end of the selection until it changes "
@@ -3031,7 +3044,7 @@ msgstr ""
 "sich der Standard-Pfeil Cursor in einen Links-Rechts Pfeil Cursor geändert "
 "hat, um dann die linke Maustaste zu drücken und die Anpassung vorzunehmen."
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid ""
 "There are also some functions available via the menu and of course some "
 "keyboard shortcuts:"
@@ -3039,7 +3052,7 @@ msgstr ""
 "Es sind auch einige Funktionen über das Menü und über einige Tastatur- "
 "Kurztasten (Shortcuts) verfügbar:"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid ""
 "select the whole signal: <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
 "keycap><keycap>A</keycap></keycombo></shortcut> <guimenu>Edit</"
@@ -3051,7 +3064,7 @@ msgstr ""
 "shortcut> <guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Alles</guimenuitem> </menuchoice>"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid ""
 "a range of samples, starting at the current cursor position: <menuchoice> "
 "<shortcut><keycombo><keycap>R</keycap></keycombo></shortcut> <guimenu>File</"
@@ -3063,7 +3076,7 @@ msgstr ""
 "<guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Bereich</guimenuitem> </menuchoice>"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid ""
 "the currently visible area: <menuchoice> <shortcut><keycombo><keycap>V</"
 "keycap></keycombo></shortcut> <guimenu>File</guimenu><guimenuitem>Selection</"
@@ -3074,7 +3087,7 @@ msgstr ""
 "guimenu><guimenuitem>Auswahl</guimenuitem><guimenuitem>Sichtbarer Bereich</"
 "guimenuitem> </menuchoice>"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid ""
 "the next block of samples, starting one sample after the end of the current "
 "selection and with the same length: <menuchoice> "
@@ -3088,13 +3101,13 @@ msgstr ""
 "shortcut> <guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Nächste</guimenuitem> </menuchoice>"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Hinweis: benutzen Sie die \"<keycap>+</keycap>\" Taste vom numerischen "
 "Ziffernblock!)"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid ""
 "the previous block of samples, ending one sample before the start of the "
 "current selection and with the same length: <menuchoice> "
@@ -3108,13 +3121,13 @@ msgstr ""
 "shortcut> <guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Vorherige</guimenuitem> </menuchoice>"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Hinweis: benutzen Sie die \"<keycap>+</keycap>\" Taste vom numerischen "
 "Ziffernblock!)"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid ""
 "expand the selection to the start of the signal (first sample): <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>Home</keycap></keycombo></"
@@ -3127,7 +3140,7 @@ msgstr ""
 "guimenu><guimenuitem>Auswahl</guimenuitem><guimenuitem>bis zum Anfang</"
 "guimenuitem> </menuchoice>"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid ""
 "expand the selection to the end of the signal (last sample): <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>End</keycap></keycombo></"
@@ -3140,7 +3153,7 @@ msgstr ""
 "guimenu><guimenuitem>Auswahl</guimenuitem><guimenuitem>bis zum Ende</"
 "guimenuitem> </menuchoice>"
 
-#: index.docbook:2164
+#: index.docbook:2175
 msgid ""
 "remove any selection and select \"nothing\": <menuchoice> "
 "<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut> <guimenu>File</"
@@ -3152,15 +3165,15 @@ msgstr ""
 "<guimenu>Bearbeiten</guimenu><guimenuitem>Auswahl</"
 "guimenuitem><guimenuitem>Nichts</guimenuitem> </menuchoice>"
 
-#: index.docbook:2366
+#: index.docbook:2377
 msgid "Developer's Guide to &kapp;"
 msgstr "Entwickler-Handbuch zu &kapp;"
 
-#: index.docbook:2372
+#: index.docbook:2383
 msgid "under construction"
 msgstr "in Arbeit"
 
-#: index.docbook:2380
+#: index.docbook:2391
 msgid ""
 "Sorry, this chapter is still to be written... At the moment the source code "
 "is nearly completely documented with tags suitable with the KDE "
@@ -3178,7 +3191,7 @@ msgstr ""
 "irgendeiner Art und Weise in die Docbook Quellen (die Quellen, aus denen "
 "diese Seite erzeugt wurde) einbinden könnte."
 
-#: index.docbook:2389
+#: index.docbook:2400
 msgid ""
 "If you want to write a plugin, contribute something to this project (or "
 "maybe write the converter mentioned above), please feel free to contact one "
@@ -3191,19 +3204,19 @@ msgstr ""
 "<link linkend=\"mailing-list\">Mailing-Liste</link> beizutreten. Hilfe ist "
 "immer willkommen!"
 
-#: index.docbook:2581
+#: index.docbook:2592
 msgid "Questions and Answers"
 msgstr "Fragen und Antworten"
 
-#: index.docbook:2583
+#: index.docbook:2594
 msgid "<para></para>"
 msgstr "<para></para>"
 
-#: index.docbook:2589
+#: index.docbook:2600
 msgid "What do I need to compile &kapp;?"
 msgstr "Was brauche ich um &kapp; zu compilieren?"
 
-#: index.docbook:2594
+#: index.docbook:2605
 msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before. "
 "It compiles with gcc and egcs as well."
@@ -3211,11 +3224,11 @@ msgstr ""
 "Lesen Sie im vorhergehenden <link linkend=\"requirements\">Kapitel</link> "
 "nach. Das Compilieren funktioniert mit gcc wie auch mit egcs."
 
-#: index.docbook:2605
+#: index.docbook:2616
 msgid "Which sound cards does &kapp; support?"
 msgstr "Welche Soundkarten unterstützt &kapp;?"
 
-#: index.docbook:2610
+#: index.docbook:2621
 msgid ""
 "&kapp; does not need support for any special sound card. The sound card only "
 "has to be supported by your operating system and &kapp; uses it's interface "
@@ -3228,11 +3241,11 @@ msgstr ""
 "Standard Interface. Deshalb kann &kapp; jede Soundkarte benutzen, die unter "
 "KDE einsetzbar ist."
 
-#: index.docbook:2623
+#: index.docbook:2634
 msgid "Why are some menu entries / features always disabled?"
 msgstr "Warum sind einige Menüeinträge / Features immer deaktiviert?"
 
-#: index.docbook:2628
+#: index.docbook:2639
 msgid ""
 "This is just because we decided that those actions are not working stable "
 "enough to present them to the normal user and therefore disabled them to "
@@ -3244,7 +3257,7 @@ msgstr ""
 "deshalb wurden sie deaktiviert um Schwierigkeiten zu vermeiden. Sie werden "
 "Zugang zu ihnen bekommen, wenn sie getestet und stabil genug sind."
 
-#: index.docbook:2640
+#: index.docbook:2651
 msgid ""
 "Why does &kapp; consume more memory than it can be expected from the size of "
 "the opened file?"
@@ -3252,7 +3265,7 @@ msgstr ""
 "Warum verbraucht &kapp; mehr Speicher als es die Grösse der geöffneten Datei "
 "erwarten lässt?"
 
-#: index.docbook:2646
+#: index.docbook:2657
 msgid ""
 "The reason for this is that &kapp; internally stores all samples in 32-bit "
 "integers. This was easy to program, made the application faster and a bit "
@@ -3267,11 +3280,11 @@ msgstr ""
 "vier Megabyte im Speicher belegen. Vielleicht werden wir das irgendwann in "
 "der Zunkunft ändern..."
 
-#: index.docbook:2659
+#: index.docbook:2670
 msgid "Which sound formats does &kapp; support?"
 msgstr "Welche Soundformate unterstützt &kapp;?"
 
-#: index.docbook:2664
+#: index.docbook:2675
 msgid ""
 "&kapp; currently supports .wav files with 8, 16 and 24 bits per sample, with "
 "any number of channels (of course including mono and stereo)."
@@ -3280,11 +3293,11 @@ msgstr ""
 "mit beliebiger Anzahl von Kanälen (einschliesslich mono und stereo "
 "natürlich)."
 
-#: index.docbook:2674
+#: index.docbook:2685
 msgid "What if I have files with a format not supported by &kapp;?"
 msgstr "Was ist, wenn ich Dateien habe die &kapp; nicht unterstützt?"
 
-#: index.docbook:2680
+#: index.docbook:2691
 msgid ""
 "If you have to work on an other format, you can convert it into .wav format. "
 "A good set of tools for this is in the <ulink url=\"http://home.sprynet.com/"
@@ -3296,11 +3309,11 @@ msgstr ""
 "<ulink url=\"http://home.sprynet.com/~cbagwell/sox.html\">SoX</ulink> Paket, "
 "das auch umfangreiche Dokumentationen bereithält!"
 
-#: index.docbook:2692
+#: index.docbook:2703
 msgid "I get errors when I want to do playback?"
 msgstr "Ich bekomme Fehler wenn ich versuche die Wiedergabe zu starten?"
 
-#: index.docbook:2697
+#: index.docbook:2708
 msgid ""
 "Maybe you have choosen a combination of playback rate and sample size that "
 "is not supported by your sound driver and / or sound hardware. Try playback "
@@ -3316,11 +3329,11 @@ msgstr ""
 "aber, dass einige Playbackraten nicht vollständig von einigen Soundkarten "
 "unterstützt werden."
 
-#: index.docbook:2711
+#: index.docbook:2722
 msgid "The playback seems to do something but I hear nothing?"
 msgstr "Die Wiedergabe scheint etwas zu tun, aber ich höre nichts?"
 
-#: index.docbook:2716
+#: index.docbook:2727
 msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
 "&kapp; is not responsible for changing the playback volume."
@@ -3329,19 +3342,19 @@ msgstr ""
 "erhöhen. Für das ändern der Wiedergabelautstärke ist &kapp; nicht "
 "verantwortlich."
 
-#: index.docbook:2726
+#: index.docbook:2737
 msgid "Some files are played with half-speed?"
 msgstr "Einige Dateien werden mit halber Geschwindigkeit wiedergegeben?"
 
-#: index.docbook:2731
+#: index.docbook:2742
 msgid "Try choosing a different sound playback device."
 msgstr "Versuchen Sie ein anderes Device zur Soundwiedergabe auszuwählen."
 
-#: index.docbook:2739
+#: index.docbook:2750
 msgid "The playback sometimes is disturbed and interrupted?"
 msgstr "Die Wiedergabe wird manchmal gestört und unterbrochen?"
 
-#: index.docbook:2744
+#: index.docbook:2755
 msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
 "playback (this also makes the playback control reacting a bit slower)."
@@ -3350,11 +3363,11 @@ msgstr ""
 "Wiedergabe zu bekommen (dies führt auch zu einer langsameren Reaktion der "
 "Wiedergabe- Kontrolle)."
 
-#: index.docbook:2754
+#: index.docbook:2765
 msgid "The playback does not stop if I immediately press the stop button?"
 msgstr "Die Widergabe hält nicht an, wenn ich sofort die Stop-Taste drücke?"
 
-#: index.docbook:2760
+#: index.docbook:2771
 msgid ""
 "The reason for this is that the sound driver already has received some "
 "playback data from &kapp; at the moment when you press the stop button. "
@@ -3366,11 +3379,11 @@ msgstr ""
 "Verringern Sie die Grösse des Wiedergabe Buffers und die Reaktion sollte "
 "schneller einsetzen (dabei werden aber Aussetzer wahrscheinlicher)."
 
-#: index.docbook:2772
+#: index.docbook:2783
 msgid "Is ALSA supported?"
 msgstr "Wird ALSA unterstützt?"
 
-#: index.docbook:2777
+#: index.docbook:2788
 msgid ""
 "Sorry, currently we don't have direct support for ALSA, but since version "
 "0.6 &kapp; has support for <ulink url=\"http://www.arts-project.org/\">aRts</"
@@ -3380,13 +3393,13 @@ msgstr ""
 "Version 0.6 unterstützt &kapp; die Ausgabe über <ulink url=\"http://www.arts-"
 "project.org/\">aRts</ulink>, der widerum ALSA verwenden kann."
 
-#: index.docbook:2788
+#: index.docbook:2799
 msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
 "Wie steht es mit der Wiedergabe von 24 und 32 bits pro Sample oder mehr als "
 "zwei Kanälen?"
 
-#: index.docbook:2794
+#: index.docbook:2805
 msgid ""
 "This is another feature that might get implemented in <ulink url=\"http://"
 "www.arts-project.org/\">aRts</ulink>, so we wait for aRts to support it."
@@ -3395,11 +3408,11 @@ msgstr ""
 "arts-project.org/\">aRts</ulink> implementiert wird, somit warten wir bis "
 "die Untersttzung von aRts vorhanden ist."
 
-#: index.docbook:2804
+#: index.docbook:2815
 msgid "What about MP3 support?"
 msgstr "Wie steht es mit MP3 Unterstützung?"
 
-#: index.docbook:2809
+#: index.docbook:2820
 msgid ""
 "Not for the moment, but maybe someone writes us a plugin for MP3 import / "
 "export?"
@@ -3407,15 +3420,15 @@ msgstr ""
 "Nicht im Moment, aber vielleicht schreibt uns jemand ein Plugin für MP3 "
 "Import / Export?"
 
-#: index.docbook:2839
+#: index.docbook:2850
 msgid "Credits and License"
 msgstr "Credits und Lizenz"
 
-#: index.docbook:2841
+#: index.docbook:2852
 msgid "&kapp;"
 msgstr "&kapp;"
 
-#: index.docbook:2843
+#: index.docbook:2854
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
 "de</email>"
@@ -3423,7 +3436,7 @@ msgstr ""
 "Programm Copyright von 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
 "de</email>"
 
-#: index.docbook:2847
+#: index.docbook:2858
 msgid ""
 "Program copyright since 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
@@ -3431,94 +3444,94 @@ msgstr ""
 "Documentation copyright (C) seit 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Contributors:"
 msgstr "Beitragende:"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage und deutsche "
 "Übersetzung)"
 
 # index.docbook:2900, index.docbook:2900
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Juhana Kouhia"
 msgstr "Juhana Kouhia"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Gerhard Zintel"
 msgstr "Gerhard Zintel"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Gael Duval"
 msgstr "Gael Duval"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Aaron Johnson"
 msgstr "Aaron Johnson"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Uwe Steinmann"
 msgstr "Uwe Steinmann"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Dave Phillips"
 msgstr "Dave Phillips"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Martin Petriska"
 msgstr "Martin Petriska"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Winfried Truemper"
 msgstr "Winfried Truemper"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Bruce Garlock"
 msgstr "Bruce Garlock"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Christoph Raab"
 msgstr "Christoph Raab"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "tOpHEr lAfaTA"
 msgstr "tOpHEr lAfaTA"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Nemosoft"
 msgstr "Nemosoft"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Guido"
 msgstr "Guido"
 
-#: index.docbook:2852
+#: index.docbook:2863
 msgid "Eero"
 msgstr "Eero"
 
-#: index.docbook:2886
+#: index.docbook:2897
 msgid "Thanks to (in alphabetical order):"
 msgstr "Dank an (in alphabetischer Reihenfolge):"
 
-#: index.docbook:2886
+#: index.docbook:2897
 msgid "Carsten Jacobi"
 msgstr "Carsten Jacobi"
 
-#: index.docbook:2886
+#: index.docbook:2897
 msgid "Frank Christian Stoffel"
 msgstr "Frank Christian Stoffel"
 
-#: index.docbook:2886
+#: index.docbook:2897
 msgid "Achim Dahlhaus"
 msgstr "Achim Dahlhaus"
 
-#: index.docbook:2886
+#: index.docbook:2897
 msgid ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (for information "
 "about RPM optimization) </emphasis>"
@@ -3526,15 +3539,15 @@ msgstr ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (für die Tips zu "
 "den RPM-Optimierungen) </emphasis>"
 
-#: index.docbook:2886
+#: index.docbook:2897
 msgid "Klaus Hendrik Lorenz"
 msgstr "Klaus Hendrik Lorenz"
 
-#: index.docbook:2886
+#: index.docbook:2897
 msgid "my girlfriend Ximena González<emphasis>(for her patience)</emphasis>"
 msgstr "meine Freundin Ximena González<emphasis>(für ihre Geduld)</emphasis>"
 
-#: index.docbook:2907
+#: index.docbook:2918
 msgid ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
@@ -3542,7 +3555,7 @@ msgstr ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
-#: index.docbook:2926
+#: index.docbook:2937
 msgid ""
 "The current code contains some FFT routines and code fragments from the GNU "
 "Scientific Library project <ulink url=\"http://sources.redhat.com/gsl/"

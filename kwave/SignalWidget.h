@@ -102,8 +102,8 @@ public:
                    unsigned int bits, unsigned int tracks);
 
     /** @todo (re)implementation */
-    void saveFile(const QString &filename, unsigned int bits,
-		  int type, bool selection = false);
+    int saveFile(const QString &filename, unsigned int bits,
+                 int type, bool selection = false);
 
     /** @todo (re)implementation */
     void saveBlocks (int);

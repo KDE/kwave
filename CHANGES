@@ -1,4 +1,9 @@
 
+0.6.3 [2002-??-??]
+
+ * handling of "signal modified"
+ * shows error message and aborts if loading failed
+
 0.6.2 [2001-12-24]
 
  * new plugin "amplifyfree"

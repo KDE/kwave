@@ -1,4 +1,6 @@
 
+o bugfix: wrong length in status line if data is deleted from the signal
+
 o plugins for import/export of different file formats (e.g. MP3)
   -> through aRts ?
 
@@ -13,11 +15,7 @@ o when pressing cancel during save, ask if the file should be deleted
 
 o implementation of locking, see SampleLock
 
-o detection of "file modified"
-
 o menu entries for playback control
-
-o ask user if he wants to save before closing a modified file
 
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons

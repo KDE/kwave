@@ -71,8 +71,8 @@ public:
     /**
      * @todo: re-implementation
      */
-    void saveFile(const QString &filename, unsigned int bits,
-                  int type, bool selection);
+    int saveFile(const QString &filename, unsigned int bits,
+                 int type, bool selection);
 
     /**
      * Closes the current signal.

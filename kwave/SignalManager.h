@@ -86,6 +86,9 @@ public:
     /** Returns true if the signal is empty. */
     inline bool isEmpty() { return m_empty; };
 
+    /** Returns true if the signal is modified */
+    inline bool isModified() { return m_modified; };
+
     /** Returns a reference to the playback controller. */
     PlaybackController &playbackController();
 
@@ -148,13 +151,16 @@ public:
      * @param filename name of the file to be saved.
      * @param bits number of bits per sample
      * @param selection if true, only the selected range will be saved
+     * @return zero if succeeded or negative error code
      */
-    void save(const QString &filename, unsigned int bits, bool selection);
+    int save(const QString &filename, unsigned int bits, bool selection);
 
     /**
      * Exports ascii file with one sample per line and only one track.
+     * @param name the name of the file to be exported
+     * @return zero if succeeded or negative error code
      */
-    void exportAscii(const char *name);
+    int exportAscii(const char *name);
 
     /**
      * Deletes a range of samples and creates an undo action.
@@ -340,12 +346,6 @@ signals:
                             unsigned int length);
 
     /**
-     * Emitted if the length of the signal has changed.
-     * @param length new length of the signal
-     */
-    void sigLengthChanged(unsigned int length);
-
-    /**
      * Emitted if a command has to be executed by
      * the next higher instance.
      * @param command the command to be executed
@@ -377,6 +377,13 @@ signals:
      * @see emitUndoRedoInfo
      */
     void sigUndoRedoInfo(const QString &undo, const QString &redo);
+
+    /**
+     * Emitted if the signal changes from non-modified to modified
+     * state or vice-versa.
+     * @param modified true if now modified, false if no longer
+     */
+    void sigModified(bool modified);
 
 public slots:
 
@@ -602,6 +609,18 @@ private:
     int writeWavChunk(QFile &sigout, unsigned int offset, unsigned int length,
                       unsigned int bits);
 
+    /**
+     * Sets the modified flag to a new value if m_modified_enabled is
+     * true, otherwise it will be ignored.
+     */
+    void setModified(bool mod);
+
+    /**
+     * Enables changes of the modified flag.
+     * @param en new value for m_modified_enabled
+     */
+    void enableModifiedChange(bool en);
+
 private:
 
     /** Parent widget, used for showing messages */
@@ -615,6 +634,17 @@ private:
 
     /** true if the signal is completely empty */
     bool m_empty;
+
+    /** true if the signal has been modified */
+    bool m_modified;
+
+    /**
+     * If set to true, prevents the modified flag from changes. Useful
+     * to prevent setting the modified flag during file load and creation,
+     * or if the change to the non-modified state through undo operations
+     * is no longer possible.
+     */
+    bool m_modified_enabled;
 
     /** signal with multiple tracks */
     Signal m_signal;

@@ -209,6 +209,17 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
+            <para>0.6.3 [2002-??-??]</para>
+            <itemizedlist>
+                <listitem><para>
+                    handling of "signal modified"
+                </para></listitem>
+                <listitem><para>
+                    shows error message and aborts if loading failed
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
             <para>0.6.2 [2001-12-24]</para>
             <itemizedlist>
                 <listitem><para>

@@ -1,4 +1,14 @@
 
+0.7.2 [2004-12-??]
+
+ * nearly complete rewrite of the internal streaming/storage
+   subsystem, support for multiple stripes
+   should make big speedup when handling large files!
+ * optimized versions of memcpy() for ix86 (using MMX, MMXEXT,
+   3DNOW, SSE, SSE2) and for PowerPC, copied from the xine project
+ * bugfix: in memory setup plugin, set virtual memory limit only if
+   the limit has been enabled (checkbox is clicked)
+
 0.7.1 [2004-07-10]
 
  * FLAC (Free Lossness Audio Codec) import/export plugin

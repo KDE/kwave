@@ -18,8 +18,6 @@
 #include "config.h"
 
 #include <errno.h>
-#include <endian.h>
-#include <byteswap.h>
 #include <limits.h>
 #include <math.h>
 

@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-03-01</date>
-<releaseinfo>0.6.3</releaseinfo>
+<date>2002-06-03</date>
+<releaseinfo>0.6.4</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -96,10 +96,14 @@
 	    playback of multi-channel audio files (audio output will be
 	    mixed down to mono or stereo)
 	</para></listitem>
-    	<listitem><para>
+	<listitem><para>
 	    extendible through an easy-to-use plugin interface
 	</para></listitem>
-    	</itemizedlist>
+	<listitem><para>
+	    import/export of other audio formats through
+	    <ulink url="http://oss.sgi.com/projects/audiofile/">libaudiofile</ulink>
+	</para></listitem>
+	</itemizedlist>
     </para>
 
     <para>
@@ -1184,7 +1188,7 @@
                 </para></listitem>
                 <listitem><para>
                     added wrapper for systems with no posixthreads -> 
-                      still needs handling by configure script 
+                      still needs handling by configure script
                       (change Makefile for not linking libpthread and doing a define)
                 </para></listitem>
                 <listitem><para>
@@ -1662,7 +1666,7 @@
 	RedHat system (where the KDE2 directory is
 	<filename>/usr</filename>) and want to install it
 	on a SuSE system (where the KDE2 directory is
-	<filename>/opt/kde</filename>). Then just
+	<filename>/opt/kde2</filename>). Then just
         give a different prefix when installing the rpm. Example:
 <screen width="40" format="linespecific">
 <prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-0.6.0.i386.rpm</replaceable></command>
@@ -1810,13 +1814,165 @@
 	If you have a CPU from AMD, you can go one step further and
 	get the Athlon-GCC running. This is an additional patch for
 	the PGCC. For further informations, please visit the Homepage of
-	the <ulink url="http://athlonlinux.org/">Athlon Linux Project</ulink>. This compiler also works
-	for the K6, K6-II, K6-III and maybe some others.
+	the <ulink url="http://athlonlinux.org/">Athlon Linux Project</ulink>.
+	This compiler also works for the K6, K6-II, K6-III and maybe some others.
     </para>
     </sect2>
     -->
 
     </sect1>
+
+</chapter>
+
+<!-- ###################################################################### -->
+<!-- ### Chapter: Basics about digital audio                            ### -->
+<!-- ###################################################################### -->
+
+<chapter id="digital-audio-basics"><title>Basics about digital audio</title>
+
+    <para>
+	This chapter should give a short introduction about the basics of
+	digital audio processing, without going too much into details.
+    </para>
+
+<sect1 id="the-analogue-world"><title>The analogue world</title>
+
+    <para>
+	First of all, one must know that the
+	world is analogue - but computers work digitally. So there are
+	several ways to convert analogue audio to digital audio and back
+	again. As the way from digital to analogue normally is the
+	reversion of the way from analogue to digital, we only describe
+	the way from analogue to digital.
+    </para>
+
+    <para>
+	First of all, one must know that analogue audio has to be transformed
+	into electronic signals in order to find it's way into a computer.
+	The most common way to do this is by using a microphone and an
+	amplifier. This combination gets sound (changes of air pressure) at
+	it's input and an electrical signal (voltage) at it's output. Higher
+	amplitude of the pressure changes will be represented by higher voltages
+	at the amplifier's output. This output is called a
+	<emphasis>'signal'</emphasis>. Instead of a microphone you can also
+	imagine other sources of audio, that doesn't matter. And the
+	"amplifier" can be the one that is integrated into your sound card,
+	where you can't see it.
+    </para>
+
+    <para>
+	At this stage, the electrical signal has three limitations that one should
+	keep in mind:
+	<orderedlist>
+	    <listitem><para>
+		The <emphasis>amplitude</emphasis> (volume) is limited to
+		some maximum level.
+		This is a consequence of the electronic (amplifiers) that are
+		only able to handle voltages within some ranges. That's no problem as
+		long as sounds are not too loud. In that case the signal will
+		be <emphasis>clipped</emphasis>, which means that the electrical
+		signal will run against it's margins and the result will be
+		disturbed.
+	    </para></listitem>
+	    <listitem><para>
+		The <emphasis>frequency range</emphasis> is limited.
+		Due to the mechanical
+		constrains of microphones and the limited frequency range of
+		amplifiers, a signal's frequency range is limited. There
+		are no hard borders besides which the sound abruptely disappears,
+		but below some low and above some higher frequency the amplitude
+		of the signal starts to decrease more and more. The existance of
+		a maximum frequency can be easily understood as a limited speed
+		of the electrical signal to rise and fall. By using high quality
+		amplifiers and microphones, the limits can be spread into ranges
+		where the human ear is no longer able to hear their results and
+		thus get out of interest.
+	    </para></listitem>
+	    <listitem><para>
+	        The signal contains <emphasis>noise</emphasis>.
+		Noise is the most ugly enemy of everyone who has to handle audio
+		signals in any way. Noise is a typical analogue effect, that makes
+		the audio signal "unsharp" and disturbed, it is always present
+		and cannot be avoided. One can only try to use high quality
+		components that produce so few noise that one can't hear it.
+		Normally noise has a certain volume, so that the interesting sound
+		should be loader in comparism to the noise. Sounds that have lower
+		volume than the noise cannot be heart.
+	    </para></listitem>
+	</orderedlist>
+    </para>
+
+</sect1>
+
+<sect1 id="digitalization"><title>Digitalization</title>
+
+    <para>
+	When we want to store and play audio in a computer, we must convert
+	the analogue sound into digital data. This process is called
+	<emphasis>digitalization</emphasis>. It converts an electronic
+	signal into a sequence of digital values.
+    </para>
+    <para>
+	The conversion can be understood as a repetitive measurement of the
+	electonic signal's value at a certain time, so taking a
+	<emphasis>sample</emphasis> of the signal.
+    </para>
+    <para>
+	The sampling could be done in arbitrary distances or in constant
+	intervals. The later method is much easier to handle, and thus it
+	is normally used, with a constant rate - the so-called
+	<emphasis>sample rate</emphasis>. Usual sample rates are 8000,
+	11025, 22050, and 44100 samples/second.
+    </para>
+    <para>
+	The sample rate limts the
+	highest frequency a digitized signal can represent, due to
+	Shannon's theoreme the highest usable frequency is half of the sample
+	rate, so with 44100 Hz sample rate you cannot sample signals with
+	more than 22050 kHz. To avoid a violation of that half-sample rate
+	rule, your soundcard already has built-in filters that filter away
+	frequencies that are higher than half of the used sample rate.
+    </para>
+
+</sect1>
+
+<sect1 id="sample-encoding"><title>Sample Encoding</title>
+
+    <para>
+	The result of the digital sampling process is a sequence of single
+	<emphasis>samples</emphasis>. One sample is a digital representation
+	of a signal's value at a certain time.
+    </para>
+    <para>
+	The value of a sample can be represented in several ways. The simplest
+	one is <emphasis>linear</emphasis> encoding. This means that each sample's
+	value directly represents the analogue signal's value multiplied with a
+	constant factor. This is easy to handle, but has the disadvantage that
+	noise will be audibles especially on low amplitudes, where it disturbs
+	most, and less audible on high amplitudes, where it is less audible.
+    </para>
+    <para>
+	One way to reduce the influence of noise is <emphasis>non-linear</emphasis>
+	encoding. This means that lower amplitudes are amplified before processing
+	and higher amplitudes attenuated a bit. As lower amplitudes are amplified,
+	their distance from noise increases and the quality improves. (This method
+	is commonly known from telecommunication, ISDN uses this method.) The most
+	common methods for this are <emphasis>A-Law</emphasis> and
+	 <emphasis>U-Law</emphasis> encoding - some standardized amplification
+	 curves that are approximated by a set of linear curve segments.
+    </para>
+</sect1>
+
+<sect1 id="sample-formats"><title>Sample Formats</title>
+
+    <para>
+	Sample formats: signed, unsigned, float
+    </para>
+    <para>
+	###
+    </para>
+
+</sect1>
 
 </chapter>
 
@@ -2014,11 +2170,11 @@
 
     <sect2 id="file_formats"><title>Supported File formats</title>
 	<para>
-            The fovourite file format of &kapp; is (like you can guess from the
-            name) ".wav". This format is very common to other "operating systems"
-            but also is used within the KDE environment.
+            The favourite file format of &kapp; is (like you can guess from the
+            name) <filename>.wav</filename>. This format is very common to other
+	    "operating systems" and also is commonly used within the KDE environment.
         </para>
-
+<!-- disabled, will be re-integrated in v0.6.5 or later...
         <para>
             The second format that &kapp; supports is "ASCII". You can import from
             and export to ASCII, but always be aware that storing in this format
@@ -2027,14 +2183,23 @@
             will be added in some future version. The file format will be described
 	    <link linkend="ascii_format">below</link>.
         </para>
+-->
+	<para>
+	    Additionally &kapp; supports many other common formats through the
+	    <ulink url="http://oss.sgi.com/projects/audiofile/">audiofile</ulink>
+	    plugin. You can import files like <filename>*.au</filename> and
+	    <filename>*.snd</filename> (NeXT,Sun Audio),
+	    <filename>*.aiff</filename> (Audio Interchange Format) and
+	    <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format).
+	</para>
     </sect2>
 
     <sect2 id="converting_to_and_from_wav">
     <title>Converting to and from .wav</title>
 
 	<para>
-	    For the moment, the best way to work with formats other than
-	    <literal>.wav</literal> is to use an external converter program.
+	    The best way to work with formats other than those supported by
+	    &kapp; is to use an external converter program.
 	    A good set of tools for this is in the
 	    <ulink url="http://home.sprynet.com/~cbagwell/sox.html">SoX</ulink>
 	   package, they have also some nice documentation! Take a look at
@@ -2042,9 +2207,9 @@
 	</para>
 
 	<para>
-	    The plans for future include support for import filters for other 
-	    formats and maybe some filter that uses a user-defineable script
-	    with a call to an external filter, so that even formats not supported 
+	    The plans for future include support for import and also export filters
+	    for more formats and maybe some filter that uses a user-defineable script
+	    with a call to an external filter, so that even formats not supported
 	    by <literal>SoX</literal> (like MP3) can be read and/or written.
         </para>
     </sect2>
@@ -2523,7 +2688,8 @@
 	    	<para>
 		    &kapp; currently supports .wav files with 8, 16 and
 		    24 bits per sample, with any number of channels
-		    (of course including mono and stereo).
+		    (of course including mono and stereo). Additionally it
+		    can import all file types that libaudiofile supports.
 		</para>
 	    </answer>
 	</qandaentry>
@@ -2709,7 +2875,7 @@
     </para>
 
     <para>
-    	Contributors:
+    	Contributors / Authors:
     	<itemizedlist>
 	    <listitem>
 	    	<para>
@@ -2721,9 +2887,38 @@
 		<para>
 		    Sven-Steffen Arndt
 		    <email>ssa29@gmx.de</email>
-		    (Homepage, german translation)
+		    (homepage, german translation)
 		</para>
 	    </listitem>
+	    <listitem>
+		<para>
+		    Ralf Waspe
+		    <email>rwaspe@web.de</email>
+		    (Help/About plugin)
+		</para>
+	    </listitem>
+	    <listitem>
+	    	<para>
+		    Caulier Gilles
+		    <email>caulier.gilles@free.fr</email>
+		    (french translation)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Martin Kuball
+		    <email>makube@user.sourceforge.net</email>
+		    (beta tester)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Aurelien Jarno
+		    <email>aurel32@debian.org</email>
+		    (<ulink url="http://www.debian.org">debian</ulink> packager)
+		</para>
+	    </listitem>
+<!--
 	    <listitem><para>Juhana Kouhia</para></listitem>
     	    <listitem><para>Gerhard Zintel</para></listitem>
     	    <listitem><para>Gael Duval</para></listitem>
@@ -2735,16 +2930,34 @@
     	    <listitem><para>Winfried Truemper</para></listitem>
     	    <listitem><para>Bruce Garlock</para></listitem>
     	    <listitem><para>Christoph Raab</para></listitem>
-    	    <listitem><para>tOpHEr lAfaTA</para></listitem>
+    	    <listitem ><para>tOpHEr lAfaTA</para></listitem>
     	    <listitem><para>Nemosoft</para></listitem>
     	    <listitem><para>Guido</para></listitem>
     	    <listitem><para>Eero</para></listitem>
+-->
 	</itemizedlist>
     </para>
 
     <para>
     	Thanks to (in alphabetical order):
     	<itemizedlist>
+	    <listitem>
+	        <para>
+		    Michael Pruett
+		    <email>mpruett@sgi.com</email>
+		    (author of the <ulink url="http://oss.sgi.com/projects/audiofile/">
+		     audiofile library</ulink>)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Erik de Castro Lopo
+		    <email>erikd@zip.com.au</email>
+		    (author of the
+		     <ulink url="http://www.zip.com.au/~erikd/libsndfile/">sndfile library
+		     </ulink>)
+		</para>
+	    </listitem>
 	    <listitem><para>Carsten Jacobi</para></listitem>
     	    <listitem><para>Frank Christian Stoffel</para></listitem>
     	    <listitem><para>Achim Dahlhaus</para></listitem>
@@ -2757,7 +2970,7 @@
 		</para>
 	    </listitem>
     	    <listitem><para>Klaus Hendrik Lorenz</para></listitem>
-	    <listitem><para>my girlfriend Ximena González<emphasis>(for
+	    <listitem><para>my girlfriend Ximena González<emphasis> (for
 	    her patience)</emphasis>
 	    </para></listitem>
 	</itemizedlist>
@@ -2770,8 +2983,8 @@
 
 <!--
     <para>
-    	Translations will be done by:
-    	<itemizedlist>
+	Translations will be done by:
+	<itemizedlist>
 	    <listitem>
 	    	<para>
 		    Babel D. Fish
@@ -2786,6 +2999,12 @@
 The current code contains some FFT routines and code fragments from the
 GNU Scientific Library project
 <ulink url="http://sources.redhat.com/gsl/">http://sources.redhat.com/gsl/</ulink>.
+</para>
+
+<para>
+Import/export of sound files is achieved through a modified copy of libaudiofile,
+found at
+<ulink url="http://oss.sgi.com/projects/audiofile/">http://oss.sgi.com/projects/audiofile/</ulink>.
 </para>
 
 &underFDL;

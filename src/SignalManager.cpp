@@ -337,41 +337,6 @@ void SignalManager::toggleChannel(const unsigned int channel)
 }
 
 //***************************************************************************
-void SignalManager::playbackStart()
-{
-    debug("SignalManager::playbackStart()");
-    stopplay();
-    play(false);
-}
-
-//***************************************************************************
-void SignalManager::playbackLoop()
-{
-    debug("SignalManager::playbackLoop()");
-    stopplay();
-    play(true);
-}
-
-//***************************************************************************
-void SignalManager::playbackPause()
-{
-    debug("SignalManager::playbackPause()");
-}
-
-//***************************************************************************
-void SignalManager::playbackContinue()
-{
-    debug("SignalManager::playbackContinue()");
-}
-
-//***************************************************************************
-void SignalManager::playbackStop()
-{
-    debug("SignalManager::playbackStop()");
-    stopplay();
-}
-
-//***************************************************************************
 bool SignalManager::executeCommand(const char *command)
 {
     ASSERT(command);
@@ -1206,6 +1171,7 @@ int SignalManager::findWavChunk(FILE *sigin)
 struct Play {
     SignalManager *manage;
     playback_param_t params;
+    unsigned int start;
     bool loop;
 };
 
@@ -1237,7 +1203,7 @@ void playThread(struct Play *par)
 	    ASSERT(buffer);
 	    if (buffer) {
 		par->manage->playback(device, par->params,
-		    buffer, bufsize, par->loop);
+		    buffer, bufsize, par->start, par->loop);
 		delete[] buffer;
 	    }
 	}
@@ -1255,7 +1221,7 @@ void playThread(struct Play *par)
 }
 
 //***************************************************************************
-void SignalManager::play(bool loop)
+void SignalManager::play(unsigned int start, bool loop)
 {
     msg[processid] = 1;
     msg[stopprocess] = false;
@@ -1264,6 +1230,7 @@ void SignalManager::play(bool loop)
     pthread_t thread;
 
     par->manage = this;
+    par->start = start;
     par->loop = loop;
     par->params = KwaveApp::getPlaybackParams();
     par->params.rate = this->getRate();
@@ -1298,7 +1265,7 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
                                   unsigned int channels, int rate,
                                   int bufbase)
 {
-    const char *trouble = i18n("playback problem");
+//    const char *trouble = i18n("playback problem");
 
     debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\
 	"rate=%d, bufbase=%d", audio, bitspersample, channels,
@@ -1373,7 +1340,7 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
 //***************************************************************************
 void SignalManager::playback(int device, playback_param_t &param,
                              unsigned char *buffer, unsigned int bufsize,
-                             bool loop)
+                             unsigned int start, bool loop)
 {
     ASSERT(buffer);
     ASSERT(bufsize);
@@ -1439,7 +1406,7 @@ void SignalManager::playback(int device, playback_param_t &param,
 	unsigned int &pointer = msg[samplepointer];
 	unsigned int last = rmarker;
 	unsigned int cnt = 0;
-	pointer = lmarker;
+	pointer = start;
 	int samples[active_channels];
 
 	if (lmarker == rmarker) last = getLength()-1;
@@ -1495,6 +1462,9 @@ void SignalManager::playback(int device, playback_param_t &param,
 	    write(device, buffer, cnt);
 	}
 	
+	// maybe we loop. in this case the playback starts
+	// again from the left marker
+	pointer = lmarker;
     } while (loop && !msg[stopprocess]);
 }
 

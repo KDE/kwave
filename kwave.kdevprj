@@ -223,6 +223,11 @@ install_location=
 dist=true
 install=false
 type=SOURCE
+[src/PlaybackController.h]
+install_location=
+dist=true
+install=false
+type=HEADER
 [libgui/FloatLine.h]
 install_location=
 dist=true
@@ -245,9 +250,10 @@ install=false
 type=HEADER
 [LFV Groups]
 Zusätzliche=src/*.config,*.cfg,
+Pictures=*.xpm,
 GNU=AUTHORS,COPYING,ChangeLog,INSTALL,README,TODO,NEWS,
 Dialoge=*.kdevdlg,
-groups=Übersetzungen,Zusätzliche,Headers,Sources,Dialoge,GNU,
+groups=Pictures,Übersetzungen,Zusätzliche,Headers,Sources,Dialoge,GNU,
 Sources=*.cpp,
 Übersetzungen=*.po,
 Headers=*.h,
@@ -304,6 +310,11 @@ install_location=
 dist=true
 install=false
 type=HEADER
+[src/PlaybackController.cpp]
+install_location=
+dist=true
+install=false
+type=SOURCE
 [src/toolbar/eraser.xpm]
 install_location=
 dist=true
@@ -535,7 +546,7 @@ dist=true
 install=false
 type=HEADER
 [src/Makefile.am]
-files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleop.h,src/SignalManager.h,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,src/kxt.h,src/SignalWidget.cpp,src/SignalWidget.h,src/LabelManager.h,src/LabelManager.cpp,src/PluginManager.cpp,src/PluginManager.h,
+files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleop.h,src/SignalManager.h,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,src/kxt.h,src/SignalWidget.cpp,src/SignalWidget.h,src/LabelManager.h,src/LabelManager.cpp,src/PluginManager.cpp,src/PluginManager.h,src/PlaybackController.h,src/PlaybackController.cpp,
 sub_dirs=toolbar,
 type=static_library
 [src/SignalWidget.h]
@@ -630,7 +641,7 @@ version_control=CVS
 project_type=normal_kde
 author=Thomas Eschenbacher
 sub_dir=kwave/
-lfv_open_groups=Zusätzliche,Sources,
+lfv_open_groups=
 workspace=1
 project_name=Kwave
 version=0.5.2-13

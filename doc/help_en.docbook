@@ -55,7 +55,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-11-11</DATE>
+    <DATE>2000-11-18</DATE>
     <RELEASEINFO>0.5.4-5</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -236,6 +236,12 @@
         <LISTITEM>
             <PARA>0.5.5 [not released yet]</PARA>
             <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    introduced a toolbar for some standard operations
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    fixed some bugs concerning selection with the mouse
+                </PARA></LISTITEM>
                 <LISTITEM><PARA>
                     rework of the overview widget (used in main window and sonagram)
                 </PARA></LISTITEM>
@@ -1476,7 +1482,7 @@
 	Then log in into the CVS server. As I guess that you want to do that
 	as normal user, you log in as anonymous:
 <SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/libkwave login</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave login</COMMAND>
 </SCREEN>
 	Then the server asks you for a password. Simply press enter, as we
 	do not have a password for anonymous access.
@@ -1489,7 +1495,9 @@
     </PARA></LISTITEM>
 
     <LISTITEM><PARA>
-	Repeat the two steps above with kwave instead of libkwave.
+<SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
+<PROMPT>% </PROMPT><COMMAND>cvs -z3 -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave co kwave</COMMAND>
+</SCREEN>
     </PARA></LISTITEM>
 
     </ORDEREDLIST>
@@ -2398,7 +2406,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-11-11</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-11-18</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

@@ -96,7 +96,8 @@ ProgressDialog *createProgressDialog(TimeOperation *operation,
 //****************************************************************************
 SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     :QWidget(parent),
-    menu(menu_manager)
+    menu(menu_manager),
+    m_playback_controller()
 {
 //    debug("SignalWidget::SignalWidget()");
     down = false;
@@ -460,6 +461,7 @@ void SignalWidget::selectRange(int left, int right)
 	    select->set(left, right);
     }
 
+    m_playback_controller.setStartPos(left);
     signalmanage->setRange(left, right);
     estimateRange(left, right);
 }
@@ -476,6 +478,11 @@ void SignalWidget::connectSignal()
 //            this,SLOT(signalinserted(int,int)));
 //    connect(signalmanage,SIGNAL(signaldeleted(int,int)),
 //            this, SLOT(signaldeleted(int,int)));
+
+    connect(&m_playback_controller, SIGNAL(sigStartPlayback()),
+            this, SLOT(playbackStart()));
+    connect(&m_playback_controller, SIGNAL(sigStopPlayback()),
+            this, SLOT(playbackStop()));
 
     connect(select, SIGNAL(selection(int, int)),
 	    this, SLOT(estimateRange(int, int)));
@@ -530,6 +537,12 @@ int SignalWidget::getBitsPerSample()
 {
     ASSERT(signalmanage);
     return (signalmanage) ? signalmanage->getBitsPerSample() : 0;
+}
+
+//****************************************************************************
+PlaybackController &SignalWidget::playbackController()
+{
+    return m_playback_controller;
 }
 
 //****************************************************************************
@@ -695,7 +708,7 @@ void SignalWidget::fixZoomAndOffset()
     double min_zoom;
     int length;
     double last_zoom = m_zoom;
-    unsigned int last_offset = offset;
+    int last_offset = offset;
 
     if (!signalmanage) return ;
     length = signalmanage->getLength();
@@ -1331,8 +1344,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
     }
 
     // --- repaint of the selection layer ---
-    if (select && channels &&
-        ( update_layer[LAYER_SELECTION] || !layer[LAYER_SELECTION] )) {
+    if (( update_layer[LAYER_SELECTION] || !layer[LAYER_SELECTION] )) {
 	if (!layer[LAYER_SELECTION])
 	    layer[LAYER_SELECTION] = new QPixmap(size());
 	ASSERT(layer[LAYER_SELECTION]);
@@ -1344,23 +1356,25 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	p.fillRect(0, 0, width, height, black);
 	p.setRasterOp(CopyROP);
 	
-	int left  = select->left();
-	int right = select->right();
-	if ((right > offset) && (left < offset+pixels2samples(width))) {
-	    // transform to pixel coordinates
-	    left  = samples2pixels(left - offset);
-	    right = samples2pixels(right - offset);
+	if (select && channels) {
+	    int left  = select->left();
+	    int right = select->right();
+	    if ((right > offset) && (left < offset+pixels2samples(width))) {
+		// transform to pixel coordinates
+		left  = samples2pixels(left - offset);
+		right = samples2pixels(right - offset);
 
-	    if (left < 0) left = 0;
-	    if (right >= width) right = width-1;
-	    if (left > right) left = right;
+		if (left < 0) left = 0;
+		if (right >= width) right = width-1;
+		if (left > right) left = right;
 
-	    if (left == right) {
-		p.setPen (green);
-		p.drawLine(left, 0, left, height);
-	    } else {
-		p.setBrush(yellow);
-		p.drawRect(left, 0, right-left+1, height);
+		if (left == right) {
+		    p.setPen (green);
+		    p.drawLine(left, 0, left, height);
+		} else {
+		    p.setBrush(yellow);
+		    p.drawRect(left, 0, right-left+1, height);
+		}
 	    }
 	}
 	p.flush();
@@ -2019,41 +2033,10 @@ void SignalWidget::playbackStart()
     if (!signalmanage) return;
     debug("SignalWidget::playbackStart()");
 
-    signalmanage->playbackStart();
+    unsigned int start = m_playback_controller.currentPos();
+    bool loop = m_playback_controller.loop();
+    signalmanage->play(start, loop);
     playback_startTimer();
-}
-
-//***************************************************************************
-void SignalWidget::playbackLoop()
-{
-    ASSERT(signalmanage);
-    if (!signalmanage) return;
-    debug("SignalWidget::playbackLoop()");
-
-    signalmanage->playbackLoop();
-    playback_startTimer();
-}
-
-//***************************************************************************
-void SignalWidget::playbackPause()
-{
-    ASSERT(signalmanage);
-    if (!signalmanage) return;
-    debug("SignalWidget::playbackPause()");
-
-    signalmanage->playbackStop();
-    ASSERT(timer);
-    if (timer) timer->stop();
-    playpointer = -1;
-    repaint(false);
-}
-
-//***************************************************************************
-void SignalWidget::playbackContinue()
-{
-    ASSERT(signalmanage);
-    if (!signalmanage) return;
-    debug("SignalWidget::playbackContinue()");
 }
 
 //***************************************************************************
@@ -2063,7 +2046,7 @@ void SignalWidget::playbackStop()
     if (!signalmanage) return;
     debug("SignalWidget::playbackStop()");
 
-    signalmanage->playbackStop();
+    signalmanage->stopplay();
     ASSERT(timer);
     if (timer) timer->stop();
     playpointer = -1;

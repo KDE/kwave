@@ -45,6 +45,7 @@ BUILTSOURCES=\
  PitchContainer.moc.cpp\
  PitchWidget.moc.cpp\
  PitchWindow.moc.cpp\
+ PlaybackController.moc.cpp \
  PluginManager.moc.cpp\
  ProgressDialog.moc.cpp\
  SignalManager.moc.cpp\
@@ -64,6 +65,7 @@ kwave_SOURCES =\
  PitchContainer.cpp\
  PitchWidget.cpp\
  PitchWindow.cpp\
+ PlaybackController.cpp\
  PluginManager.cpp\
  ProgressDialog.cpp\
  SignalManager.cpp\

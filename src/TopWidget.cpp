@@ -45,6 +45,7 @@
 #include "ClipBoard.h"
 #include "MainWidget.h"
 #include "TopWidget.h"
+#include "PlaybackController.h"
 #include "PluginManager.h"
 
 #include "toolbar/filenew.xpm"
@@ -115,6 +116,8 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     app(main_app),
     recentFiles(recent_files)
 {
+    int id=1000; // id of toolbar items
+
 //    debug("TopWidget::TopWidget()");
     bits = 16;
     caption = 0;
@@ -234,22 +237,22 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     // --- file open and save ---
 
     m_toolbar->insertButton(
-	QPixmap(xpm_filenew), -1, SIGNAL(pressed()),
+	QPixmap(xpm_filenew), -1, SIGNAL(clicked()),
 	this, SLOT(toolbarFileNew()), true,
 	i18n("create a new empty file"));
 
     m_toolbar->insertButton(
-	QPixmap(xpm_fileopen), -1, SIGNAL(pressed()),
+	QPixmap(xpm_fileopen), -1, SIGNAL(clicked()),
 	this, SLOT(toolbarFileOpen()), true,
 	i18n("open an existing file"));
 
     m_toolbar->insertButton(
-	QPixmap(xpm_filefloppy), -1, SIGNAL(pressed()),
+	QPixmap(xpm_filefloppy), -1, SIGNAL(clicked()),
 	this, SLOT(toolbarFileSave()), true,
 	i18n("save the current file"));
 
     m_toolbar->insertButton(
-	QPixmap(xpm_filesaveas), -1, SIGNAL(pressed()),
+	QPixmap(xpm_filesaveas), -1, SIGNAL(clicked()),
 	this, SLOT(toolbarFileSaveAs()), true,
 	i18n("save the current file under a different name"));
 
@@ -269,27 +272,27 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 //  Redo
 
     m_toolbar->insertButton(
-	QPixmap(xpm_editcut), -1, SIGNAL(pressed()),
+	QPixmap(xpm_editcut), -1, SIGNAL(clicked()),
 	this, SLOT(toolbarEditCut()), true,
 	i18n("cut the current selection and move it to the clipboard"));
 
     m_toolbar->insertButton(
-	QPixmap(xpm_editcopy), -1, SIGNAL(pressed()),
+	QPixmap(xpm_editcopy), -1, SIGNAL(clicked()),
 	this, SLOT(toolbarEditCopy()), true,
 	i18n("copy the current selection to the clipboard"));
 
     m_toolbar->insertButton(
-	QPixmap(xpm_editpaste), -1, SIGNAL(pressed()),
+	QPixmap(xpm_editpaste), -1, SIGNAL(clicked()),
 	this, SLOT(toolbarEditPaste()), true,
 	i18n("insert the content of clipboard"));
 
     m_toolbar->insertButton(
-	QPixmap(xpm_eraser), -1, SIGNAL(pressed()),
+	QPixmap(xpm_eraser), -1, SIGNAL(clicked()),
 	this, SLOT(toolbarEditErase()), true,
 	i18n("mute the current selection"));
 
     m_toolbar->insertButton(
-	QPixmap(xpm_delete), -1, SIGNAL(pressed()),
+	QPixmap(xpm_delete), -1, SIGNAL(clicked()),
 	this, SLOT(toolbarEditDelete()), true,
 	i18n("delete the current selection"));
 
@@ -312,25 +315,29 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 
     // --- playback controls ---
 
-    m_id_play = m_toolbar->insertButton(
-	QPixmap(xpm_play), -1, SIGNAL(pressed()),
-	mainwidget, SLOT(playbackStart()), true,
+    m_toolbar->insertButton(
+	QPixmap(xpm_play), id, SIGNAL(clicked()),
+	mainwidget->playbackController(), SLOT(playbackStart()), true,
 	i18n("start playback"));
+    m_id_play = id++;
 
-    m_id_loop = m_toolbar->insertButton(
-	QPixmap(xpm_loop), -1, SIGNAL(pressed()),
-	mainwidget, SLOT(playbackLoop()), true,
+    m_toolbar->insertButton(
+	QPixmap(xpm_loop), id, SIGNAL(clicked()),
+	mainwidget->playbackController(), SLOT(playbackLoop()), true,
 	i18n("start playback and loop"));
+    m_id_loop = id++;
 
-    m_id_pause = m_toolbar->insertButton(
-	QPixmap(xpm_pause), -1, SIGNAL(pressed()),
-	mainwidget, SLOT(playbackPause()), true,
+    m_toolbar->insertButton(
+	QPixmap(xpm_pause), id, SIGNAL(clicked()),
+	mainwidget->playbackController(), SLOT(playbackPause()), true,
 	i18n("pause playback"));
+    m_id_pause = id++;
 
-    m_id_stop = m_toolbar->insertButton(
-	QPixmap(xpm_stop), -1, SIGNAL(pressed()),
-	mainwidget, SLOT(playbackStop()), true,
+    m_toolbar->insertButton(
+	QPixmap(xpm_stop), id, SIGNAL(clicked()),
+	mainwidget->playbackController(), SLOT(playbackStop()), true,
 	i18n("stop playback or loop"));
+    m_id_stop = id++;
 
     // separator between playback and zoom
     QFrame *separator3 = new QFrame(m_toolbar, "separator line");
@@ -344,32 +351,37 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 
     // --- zoom controls ---
 
-    m_id_zoomrange = m_toolbar->insertButton(
-	QPixmap(xpm_zoomrange), -1, SIGNAL(pressed()),
+    m_toolbar->insertButton(
+	QPixmap(xpm_zoomrange), id, SIGNAL(clicked()),
 	mainwidget, SLOT(zoomRange()), true,
 	i18n("zoom to selection"));
+    m_id_zoomrange = id++;
 
-    m_id_zoomin = m_toolbar->insertButton(
-	QPixmap(xpm_zoomin), -1, SIGNAL(pressed()),
+    m_toolbar->insertButton(
+	QPixmap(xpm_zoomin), id, SIGNAL(clicked()),
 	mainwidget, SLOT(zoomIn()), true,
 	i18n("zoom in"));
+    m_id_zoomin = id++;
 
-    m_id_zoomout = m_toolbar->insertButton(
-	QPixmap(xpm_zoomout), -1, SIGNAL(pressed()),
+    m_toolbar->insertButton(
+	QPixmap(xpm_zoomout), id, SIGNAL(clicked()),
 	mainwidget, SLOT(zoomOut()), true,
 	i18n("zoom out"));
+    m_id_zoomout = id++;
 
-    m_id_zoomnormal = m_toolbar->insertButton(
-	QPixmap(xpm_zoomnormal), -1, SIGNAL(pressed()),
+    m_toolbar->insertButton(
+	QPixmap(xpm_zoomnormal), id, SIGNAL(clicked()),
 	mainwidget, SLOT(zoomNormal()), true,
 	i18n("zoom to 100%"));
+    m_id_zoomnormal = id++;
 
-    m_id_zoomall = m_toolbar->insertButton(
-	QPixmap(xpm_zoomall), -1, SIGNAL(pressed()),
+    m_toolbar->insertButton(
+	QPixmap(xpm_zoomall), id, SIGNAL(clicked()),
 	mainwidget, SLOT(zoomAll()), true,
 	i18n("zoom to all"));
+    m_id_zoomall = id++;
 	
-    m_id_zoomselect = 1;
+    m_id_zoomselect = id++;
     m_toolbar->insertCombo(&zoom_factors, m_id_zoomselect,
 	true, SIGNAL(activated(int)),
 	this, SLOT(selectZoom(int)), true,
@@ -855,6 +867,7 @@ void TopWidget::updateMenu()
 //*****************************************************************************
 void TopWidget::updateToolbar()
 {
+    debug("TopWidget::updateToolbar()");
     ASSERT(m_toolbar);
     if (!m_toolbar) return;
 

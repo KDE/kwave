@@ -708,12 +708,15 @@ int TopWidget::loadFile(const QString &filename, int type)
     m_filename = filename;
     emit sigSignalNameChanged(m_filename);
 
-    m_main_widget->loadFile(filename, type);
+    if (!m_main_widget->loadFile(filename, type)) {
+	// succeeded
+	setCaption(m_filename);
+	m_save_bits = m_main_widget->bits();
+    } else {
+	// load failed
+	closeFile();
+    }
     m_app.addRecentFile(m_filename);
-
-    setCaption(m_filename);
-
-    m_save_bits = m_main_widget->bits();
     updateMenu();
     updateToolbar();
 

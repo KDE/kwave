@@ -43,6 +43,7 @@
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/Track.h"
 
 #include "libgui/FileProgress.h"
 
@@ -113,8 +114,9 @@ SignalManager::SignalManager(QWidget *parent)
 }
 
 //***************************************************************************
-void SignalManager::loadFile(const QString &filename, int type)
+int SignalManager::loadFile(const QString &filename, int type)
 {
+    int res = 0;
     ASSERT(filename.length());
     m_name = filename;
 
@@ -124,13 +126,14 @@ void SignalManager::loadFile(const QString &filename, int type)
     debug("SignalManager::loadFile(%s, %d)", filename.data(), type); // ###
     switch (type) {
 	case WAV:
-	    loadWav();
+	    res = loadWav();
 	    break;
 	case ASCII:
-	    loadAscii();
+	    res = loadAscii();
 	    break;
 	default:
 	    ASSERT("unknown file type");
+	    res = -EMEDIUMTYPE;
     }
 
     // remember the last length
@@ -138,6 +141,8 @@ void SignalManager::loadFile(const QString &filename, int type)
 
     // from now on, undo is enabled
     enableUndo();
+
+    return res;
 }
 
 //***************************************************************************
@@ -1225,15 +1230,14 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
     samples.setAutoDelete(true);
 
     for (unsigned int track = 0; track < channels; track++) {
+	SampleWriter *s = 0;
 	Track *new_track = m_signal.appendTrack(length);
 	ASSERT(new_track);
-	if (!new_track) {
-	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"));
-	    return -ENOMEM;
+	if (new_track && (new_track->length() >= length)) {
+	    s = openSampleWriter(track, Overwrite);
+	    ASSERT(s);
 	}
 	
-	SampleWriter *s = openSampleWriter(track, Overwrite);
-	ASSERT(s);
 	if (!s) {
 	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"));
 	    return -ENOMEM;

@@ -395,20 +395,21 @@ SignalManager &SignalWidget::signalManager()
 }
 
 //***************************************************************************
-void SignalWidget::loadFile(const QString &filename, int type)
+int SignalWidget::loadFile(const QString &filename, int type)
 {
     // close the previous signal
     close();
 
     // load a new signal
-    m_signal_manager.loadFile(filename, type);
+    int res = m_signal_manager.loadFile(filename, type);
     ASSERT(m_signal_manager.length());
-    if (m_signal_manager.isClosed()) {
+    if (m_signal_manager.isClosed() || (res)) {
 	warning("SignalWidget::loadFile() failed:"\
 		" zero-length or out of memory?");
 	close();
-	return ;
     }
+
+    return res;
 }
 
 //***************************************************************************

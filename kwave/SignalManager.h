@@ -57,7 +57,13 @@ public:
     /** Default destructor */
     virtual ~SignalManager();
 
-    void loadFile(const QString &filename, int type = 0);
+    /**
+     * Closes the current signal and loads a new file.
+     * @param filename path to the file
+     * @param type 0=wav, 1=ascii
+     * @return 0 if succeeded or error code < 0
+     */
+    int loadFile(const QString &filename, int type = 0);
 
     /**
      * Closes the current signal and creates a new empty signal.

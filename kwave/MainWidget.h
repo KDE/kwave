@@ -63,9 +63,10 @@ public:
      * from a file.
      * @param filename name of the .wav or .asc file
      * @param type one of WAV or ASCII
+     * @return 0 if succeeded or error code < 0
      * @todo use QUrl instead of QString
      */
-    void loadFile(const QString &filename, int type = 0);
+    int loadFile(const QString &filename, int type = 0);
 
     /**
      * @todo: re-implementation

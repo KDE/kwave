@@ -279,10 +279,12 @@ void MainWidget::saveFile(const QString &filename, unsigned int bits,
 }
 
 //***************************************************************************
-void MainWidget::loadFile(const QString &filename, int type)
+int MainWidget::loadFile(const QString &filename, int type)
 {
     closeSignal();
-    m_signal_widget.loadFile(filename, type);
+    int res = m_signal_widget.loadFile(filename, type);
+    if (res) closeSignal();
+    return res;
 }
 
 //***************************************************************************

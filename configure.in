@@ -409,7 +409,7 @@ RPM_VENDOR="Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>"
 changequote(<<, >>)
 RPM_SHORT_VERSION=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[1] }'`
 RPM_FULL_VERSION=`cat ./VERSION`
-RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2] }'`
+RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2]+0 }'`
 RPM_GROUP=<<X11/Applications/Sound>>
 RPM_BUILDROOT=<</tmp/kwave-%{version}.root>>
 LD_VERSION_INFO=<<`cat ./VERSION | awk '{split($0, a, ".")} \

@@ -462,11 +462,11 @@ dnl ...and check that the aRts headers are found from them
 AC_LANG_PUSH(C++)
 arts_check_saved_cppflags="$CPPFLAGS"
 CPPFLAGS="$ARTS_INCLUDES $CPPFLAGS"
-AC_CHECK_HEADERS( artsc.h, [arts_headers_found=1], [
+KDE_CHECK_HEADERS( artsc.h, [arts_headers_found=1], [
   AC_MSG_ERROR( ARTS headers not found - can't compile. )
 ])
 
-AC_CHECK_HEADERS( artsmodules.h stdsynthmodule.h, [kdemultimedia_headers_found=1], [
+KDE_CHECK_HEADERS( artsmodules.h stdsynthmodule.h, [kdemultimedia_headers_found=1], [
   AC_MSG_ERROR( kdemultimedia-devel package is missing? )
 ])
 

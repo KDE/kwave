@@ -152,7 +152,7 @@ void KwaveFilterPlugin::run(QStringList params)
     if (!m_listen) {
 	Q_ASSERT(!m_progress);
 	Q_ASSERT(!m_confirm_cancel);
-	m_progress = new QProgressDialog(parentWidget(), name(), true);
+	m_progress = new QProgressDialog(parentWidget(), actionName(), true);
 	Q_ASSERT(m_progress);
 	if (m_progress) {
 	    m_progress->setMinimumDuration(1000);
@@ -160,8 +160,11 @@ void KwaveFilterPlugin::run(QStringList params)
 	    m_progress->setAutoClose(true);
 	    m_progress->setProgress(0);
 	    m_progress->setLabelText(
-	        i18n("applying '%1' ...").arg(name()));
-	    m_progress->setFixedSize(m_progress->sizeHint());
+	        i18n("applying '%1' ...").arg(actionName()));
+	    int h = m_progress->sizeHint().height();
+	    int w = m_progress->sizeHint().height();
+	    if (w < 4*h) w = 4*h;
+	    m_progress->setFixedSize(w, h);
 	
 	    connect(&source, SIGNAL(progress(unsigned int)),
 	            this,    SLOT(forwardProgress(unsigned int)));
@@ -287,12 +290,6 @@ void KwaveFilterPlugin::stopPreListen()
 {
     stop();
     m_listen = false;
-}
-
-//***************************************************************************
-QString KwaveFilterPlugin::actionName()
-{
-    return this->name();
 }
 
 //***************************************************************************

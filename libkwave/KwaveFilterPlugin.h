@@ -87,8 +87,9 @@ public:
     /**
      * Returns a verbose name of the performed action. Used for giving
      * the undo action a readable name.
+     * The name must already be localized !
      */
-    virtual QString actionName();
+    virtual QString actionName() = 0;
 
 signals:
 

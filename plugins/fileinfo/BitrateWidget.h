@@ -45,9 +45,18 @@ public:
     /** sets a list of allowed bitrates */
     virtual void allowRates(const QValueList<int> &list);
 
+signals:
+
+    /** emitted whenever the bitrate setting has been modified */
+    void valueChanged(int value);
+
 protected slots:
+
     /** slider of ABR bitrate changed */
     void sliderChanged(int value);
+
+    /** spinbox of ABR bitrate changed */
+    void spinboxChanged(int value);
 
     /** slider has been released -> snap to nearest available value */
     void snapInSlider();

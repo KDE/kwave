@@ -31,6 +31,8 @@ BitrateWidget::BitrateWidget(QWidget *parent, const char *name)
 
     connect(slider, SIGNAL(valueChanged(int)),
             this, SLOT(sliderChanged(int)));
+    connect(spinbox, SIGNAL(valueChanged(int)),
+            this, SLOT(spinboxChanged(int)));
     connect(slider, SIGNAL(sliderReleased()),
             this, SLOT(snapInSlider()));
     connect(spinbox, SIGNAL(snappedIn(int)),
@@ -104,6 +106,14 @@ void BitrateWidget::sliderChanged(int value)
 {
     int index = nearestIndex(value);
     spinbox->setValue(m_rates[index]);
+
+    emit valueChanged(value);
+}
+
+//***************************************************************************
+void BitrateWidget::spinboxChanged(int value)
+{
+    emit valueChanged(value);
 }
 
 //***************************************************************************

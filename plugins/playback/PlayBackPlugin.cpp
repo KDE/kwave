@@ -282,7 +282,7 @@ void PlayBackPlugin::startDevicePlayBack()
 	// determine first and last sample if not in paused mode
 	if (first == last) {
 	    // nothing selected -> play everything
-	    m_playback_controller.setStartPos(0);
+	    m_playback_controller.setStartPos(first);
 	    m_playback_controller.setEndPos(signalLength()-1);
 	} else {
 	    // play only in selection

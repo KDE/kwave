@@ -39,7 +39,7 @@ class TopWidget : public KTopLevelWidget
 
  void	dropEvent	(KDNDDropZone *);
  void	deleteChannel	(int);
- void 	setRangeOp      (int);
+ void 	setOp           (int);
 
  void 	quitInstance();
  void 	getHelp();

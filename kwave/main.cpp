@@ -39,7 +39,7 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   manage=       new MenuManager (this,bar);
 
   //this is where the menus are created
-  //I will clean it up a tommorrow, mom...
+  //now  cleaned  up, mom ! just a little bit of dirt left
 
   file->insertItem	(klocale->translate("&New..."),	this,SLOT(newOp()),CTRL+Key_N);
   file->insertItem	(klocale->translate("New &Window"),this,SLOT(newInstance()),CTRL+Key_W);
@@ -92,9 +92,11 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   mainwidget=new MainWidget (this,manage,status);
 
   //connect clicked menu entrys with main communication channel of kwave
-  connect(manage, SIGNAL(id(int)),this, SLOT(setRangeOp(int))); 
+  connect(manage, SIGNAL(id(int)),this, SLOT(setOp(int))); 
 
   setView (mainwidget);
+
+  ClipBoard ().registerMenu (manage);
 
   setMenu (bar);
   setStatusBar (status);
@@ -104,6 +106,8 @@ TopWidget::~TopWidget ()
 {
   //remove this instance from list of widgets
   topwidget->removeRef(this);	
+
+  ClipBoard ().unregisterMenu (manage);
 
   if (topwidget->isEmpty()) app->exit (0); //if list is empty -> no more windows there 
 }
@@ -144,19 +148,20 @@ void TopWidget::flushClip ()
   clipboard=0;
 }
 //*****************************************************************************
-void TopWidget::newOp()		{mainwidget->setRangeOp (NEW);}
-void TopWidget::playBackOp()	{mainwidget->setRangeOp (PLAYBACKOPTIONS);}
-void TopWidget::memoryOp()	{mainwidget->setRangeOp (MEMORYOPTIONS);}
-void TopWidget::saveBlocksOp()	{mainwidget->setRangeOp (SAVEBLOCKS+bit);}
+void TopWidget::newOp()		{mainwidget->setOp (NEW);}
+void TopWidget::playBackOp()	{mainwidget->setOp (PLAYBACKOPTIONS);}
+void TopWidget::memoryOp()	{mainwidget->setOp (MEMORYOPTIONS);}
+void TopWidget::saveBlocksOp()	{mainwidget->setOp (SAVEBLOCKS+bit);}
 //*****************************************************************************
-void TopWidget::setRangeOp (int id)
+void TopWidget::setOp (int id)
 {
-  mainwidget->setRangeOp (id);
+  mainwidget->setOp (id);
+  if (clipboard) clipboard->setOp (id);
 }
 //*****************************************************************************
 void TopWidget::deleteChannel	(int num)
 {
-  mainwidget->setRangeOp (DELETECHANNEL+num);
+  mainwidget->setOp (DELETECHANNEL+num);
 }
 //*****************************************************************************
 void TopWidget::revert ()
@@ -317,6 +322,7 @@ void TopWidget::setSignal (MSignal *signal)
  mainwidget->setSignal (signal);
 }
 //*****************************************************************************
+//global variables needed/changed by read/save config routines
 extern int play16bit;      //flag for playing 16 Bit
 extern int bufbase;        //log of bufferrsize for playback... 
 extern int mmap_threshold; //threshold in MB for using mmapping

@@ -2,7 +2,9 @@ newer Versions still to come
 
 Version 0.29.2
 
-prepared dynamic allocation of menu entries, partially used
+moved clipboard functionality to its own class
+
+dynamic allocation of menu entries used by all classes but TopWidget
 
 import of ascii data files
 

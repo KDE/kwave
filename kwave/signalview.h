@@ -58,7 +58,7 @@ class SignalWidget : public QWidget
 
  void 	refresh		();
  void	setOffset	(int);
- void	setRangeOp	(int);
+ void	setOp	        (int);
  void	toggleChannel	(int);
  void	time		();
  void	zoomRange	();

@@ -5,14 +5,20 @@
 class ClipBoard
 {
  public:
-  ClipBoard::ClipBoard (MSignal *signal);
+  ClipBoard::ClipBoard  ();
+  ClipBoard::ClipBoard  (MSignal *signal);
   ClipBoard::~ClipBoard ();
   void toWindow ();
-  int getLength ();
-  void appendChannel (MSignal *);
+  int  getLength ();
+  void appendChannel  (MSignal *);
+  void registerMenu   (MenuManager *);
+  void unregisterMenu (MenuManager *);
+  void setOp          (int);
+
   MSignal *getSignal ();
 
  private:
   MSignal *signal;
+  bool hasmenu;
 };
 #endif

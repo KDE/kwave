@@ -255,25 +255,26 @@ void MenuManager::appendMenus (KWaveMenuItem *newmenus)
 
 	    if (menu) newmenu=menu->findMenu (newmenus[cnt].name);
 	    else newmenu=this->findMenu (newmenus[cnt].name);
-	      
+
+	    if (newmenu) if (newmenus[cnt].id==-1) newmenus[cnt].id=newmenu->getId();
+
 	    if (!newmenu) //if menu is not already known, create a new menu
-		newmenu=new KWavePopMenu (newmenus[cnt].name,getUniqueId());
-
-	    if (newmenu)
 	      {
-		if (newmenus[cnt].id==-1) newmenus[cnt].id=newmenu->getId();
-
-		if (menu) menu->insertMenu (newmenu);	
-		else
+		newmenu=new KWavePopMenu (newmenus[cnt].name,getUniqueId());
+		if (newmenu)
 		  {
-		    bar->insertItem (klocale->translate(newmenus[cnt].name),newmenu,newmenus[cnt].id,num-2);
-		    menus.append (newmenu); //append to known list of top-level menus
+		    if (newmenus[cnt].id==-1) newmenus[cnt].id=newmenu->getId();
+		    if (menu) menu->insertMenu (newmenu);	
+		    else
+		      {
+			bar->insertItem (klocale->translate(newmenus[cnt].name),newmenu,newmenus[cnt].id,num-2);
+			menus.append (newmenu); //append to known list of top-level menus
+		      }
+		    connect (newmenu,SIGNAL(activated(int)),this,SLOT(map(int)));	      
 		  }
-		connect (newmenu,SIGNAL(activated(int)),this,SLOT(map(int)));
-
-		stack->push(menu);
-		menu=newmenu;
 	      }
+	    stack->push(menu);
+	    menu=newmenu;
 	  }
 	  break;
 	case KREF:
@@ -305,7 +306,6 @@ void MenuManager::appendMenus (KWaveMenuItem *newmenus)
 	      {
 		if (newmenus[cnt].id==-1) newmenus[cnt].id=getUniqueId ();
 		menu->insertItem (klocale->translate(newmenus[cnt].name),newmenus[cnt].id);
-		printf ("inserting %s with id %d\n",newmenus[cnt].name,newmenus[cnt].id);
 		if (newmenus[cnt].shortcut!=-1)
 		  menu->setAccel (newmenus[cnt].shortcut,newmenus[cnt].id);
 	      }
@@ -364,7 +364,6 @@ NumberedMenu *MenuManager::findNumberedMenu (char *name)
 //*****************************************************************************
 void MenuManager::map (int op)
 {
-  printf ("menu:%d\n",op);
   emit id(op);
 }
 //*****************************************************************************

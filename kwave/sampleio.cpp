@@ -10,6 +10,7 @@
 #include <sys/shm.h>
 #include <endian.h>
 #include <bytesex.h>
+#include <limits.h>
 
 #if __BYTE_ORDER==__BIG_ENDIAN
 #define IS_BIG_ENDIAN

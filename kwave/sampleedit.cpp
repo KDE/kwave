@@ -65,17 +65,20 @@ void MSignal::appendChanneltoThis (MSignal *ins)
 //**********************************************************
 void MSignal::copyRange ()
 {
-  if (clipboard) //kill current clipboard if it exists...
+  if (rmarker!=lmarker) //this function makes no sense if there is no Range is selected 
     {
-      delete clipboard;
-      clipboard=0;
+      if (clipboard) //kill current clipboard if it exists...
+	{
+	  delete clipboard;
+	  clipboard=0;
+	}
+      MSignal *tmp=this;
+      while (tmp!=0)
+	{
+	  if (tmp->isSelected()) tmp->copyChannelRange ();
+	  tmp=tmp->getNext();
+	}  
     }
-  MSignal *tmp=this;
-  while (tmp!=0)
-    {
-      if (tmp->isSelected()) tmp->copyChannelRange ();
-      tmp=tmp->getNext();
-    }  
 }
 //**********************************************************
 void MSignal::copyChannelRange ()
@@ -83,25 +86,22 @@ void MSignal::copyChannelRange ()
   MSignal *temp; 
   int	 *tsample;
 
-  if (rmarker!=lmarker) //this function makes no sense if there is no Range is selected 
+  if (lmarker<0) lmarker=0;
+  if (rmarker>length) rmarker=length;
+  temp=new MSignal (parent,rmarker-lmarker,rate);
+  if (temp)
     {
-      if (lmarker<0) lmarker=0;
-      if (rmarker>length) rmarker=length;
-      temp=new MSignal (parent,manage,rmarker-lmarker,rate);
-      if (temp)
-	{
-	  int j=0;
-	  tsample=temp->getSample();
+      int j=0;
+      tsample=temp->getSample();
 
-	  for (int i=lmarker;i<rmarker;tsample[j++]=sample[i++]);
+      for (int i=lmarker;i<rmarker;tsample[j++]=sample[i++]);
 
-	  if (!clipboard) clipboard=new ClipBoard (temp);
-	  else clipboard->appendChannel(temp);
+      if (!clipboard) clipboard=new ClipBoard (temp);
+      else clipboard->appendChannel(temp);
 
-	  emit sampleChanged();
-	}
-      else KMsgBox::message (parent,"Info","Not enough Memory for Operation !",2);
+      emit sampleChanged();
     }
+  else KMsgBox::message (parent,"Info","Not enough Memory for Operation !",2);
 }
 //**********************************************************
 void MSignal::pasteRange ()

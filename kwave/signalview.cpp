@@ -19,6 +19,8 @@
 
 KWaveMenuItem edit_menus[]=
 {
+  //internalID    ,name                 ,type  ,id  ,shortcut
+
   {0              ,"&Edit"              ,KMENU ,-1   ,KEXCLUSIVE},
   {CUT            ,"Cu&t"               ,KITEM ,-1   ,CTRL+Key_X},
   {COPY           ,"&Copy"              ,KITEM ,-1   ,CTRL+Key_C},
@@ -29,8 +31,8 @@ KWaveMenuItem edit_menus[]=
   {SELECTRANGE    ,"&Range"             ,KITEM ,-1   ,Key_R},  
   {SELECTVISIBLE  ,"&Visible area"      ,KITEM ,-1   ,Key_V},  
   {JUMPTOLABEL    ,"&Expand to labels"  ,KITEM ,-1   ,Key_E},  
-  {SELECTNEXT     ,"&Next"              ,KITEM ,-1   ,Key_Plus},  
-  {SELECTPREV     ,"&Previous"          ,KITEM ,-1   ,Key_Minus},  
+  {SELECTNEXT     ,"&Next"              ,KITEM ,-1   ,ALT+Key_Plus},  
+  {SELECTPREV     ,"&Previous"          ,KITEM ,-1   ,ALT+Key_Minus},  
   {SELECTNONE     ,"N&othing"           ,KITEM ,-1   ,Key_N},  
   {0              ,0                    ,KEND  ,KEND ,-1},
 
@@ -41,7 +43,6 @@ KWaveMenuItem edit_menus[]=
 KWaveMenuItem view_menus[]=
 {
   //internalID    ,name                 ,type  ,id  ,shortcut
-
 
   {0              ,"&View"              ,KMENU ,-1   ,KEXCLUSIVE},
   {NEXTPAGE       ,"&Next page"         ,KITEM ,-1   ,Key_PageDown},
@@ -191,10 +192,10 @@ void SignalWidget::toggleChannel (int channel)
   signal->toggleChannel (0,channel);
 }
 //****************************************************************************
-void SignalWidget::setRangeOp (int op)
-  //this one catches all functions from mainwidget and topwidget that should
-  //not be delivered to MSignal... 
-  //some id's need additional handling ... 
+void SignalWidget::setOp (int op)
+  //this one hopefully catches all functions from mainwidget and topwidget,
+  //that should not be delivered to MSignal, but otherwise MSignal should
+  //ignore them anyway
 {
   if (signal)
     {

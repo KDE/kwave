@@ -624,10 +624,7 @@ int findFirstMark (int *sample,int len)
 //*****************************************************************************
 void SignalWidget::setMarkType  (int num)
 {
-  //  for (unsigned int i=0;i<markertypes->count();i++)
-  //   mtypemenu->setItemChecked (mtypemenu->idAt(i),false);
-  //  mtypemenu->setItemChecked (mtypemenu->idAt(num),true);
-  this->setRangeOp (SELECTMARK+num);
+  this->setOp (SELECTMARK+num);
 }
 //*****************************************************************************
 void SignalWidget::addMarkType (struct MarkerType *marker)

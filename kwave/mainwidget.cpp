@@ -19,6 +19,8 @@ extern char *mmap_dir;     //storage of dir name
 
 KWaveMenuItem channel_menus[]=
 {
+  {0              ,"&Edit"              ,KMENU ,-1   ,KSHARED},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},
   {0              ,"&Channel"           ,KMENU ,-1   ,KEXCLUSIVE},
   {ADDCHANNEL     ,"&Add"               ,KITEM ,-1   ,SHIFT+Key_A},
   {0              ,"&Delete"            ,KMENU ,-1   ,KEXCLUSIVE},
@@ -26,6 +28,7 @@ KWaveMenuItem channel_menus[]=
   {0              ,0                    ,KEND  ,KEND ,-1},
   {ALLCHANNEL     ,"&Select all"        ,KITEM ,-1   ,SHIFT+CTRL+Key_A},
   {INVERTCHANNEL  ,"&Invert Selection"  ,KITEM ,-1   ,SHIFT+Key_I},
+  {0              ,0                    ,KEND  ,KEND ,-1},
   {0              ,0                    ,KEND  ,KEND ,-1},
   {0,0,0,0,0}
 };
@@ -240,14 +243,12 @@ MainWidget::~MainWidget ()
 MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) :QWidget (parent)
 {
   int s[3];
-  numsignals=1;
+  numsignals=0;
 
   this->manage=manage;
-
+  menushown=false;
 
   if (manage->addNumberedMenu ("Channels")) manage->addNumberedMenuEntry ("Channels","none");
-
-  manage->appendMenus (channel_menus);
 
   this->parent=parent;
   lamps=new MultiStateWidget*[1];
@@ -295,7 +296,7 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   QObject::connect	(zoomselect,SIGNAL(activated(int)),
 			 this,SLOT(selectedZoom(int)));
   QObject::connect	(this,SIGNAL(setOperation(int)),
-			 signalview,SLOT(setRangeOp(int)));
+			 signalview,SLOT(setOp(int)));
 
   buttons->addStretch	();
   this->connect	(playbutton=buttons->addButton	("Play"),SIGNAL(pressed()),
@@ -318,7 +319,7 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   this->connect	( nozoombutton=buttons->addButton("1:1"),SIGNAL(pressed()),
 		  signalview,SLOT(zoomNormal()));
 
-  buttons->addStretch		();
+  buttons->addStretch ();
 
   this->status=status;
 }
@@ -380,7 +381,7 @@ void MainWidget::parseKey 	(int key)
     }
 }
 //*****************************************************************************
-void MainWidget::setRangeOp (int op)
+void MainWidget::setOp (int op)
 {
   if (manage) op=manage->translateId (channel_menus,op);
 
@@ -468,6 +469,11 @@ void MainWidget::getChannelInfo  (int channels)
 {
   if (channels!=numsignals)
     {
+      if ((!menushown)&&(channels>0))
+	{
+	  manage->appendMenus (channel_menus);
+	  menushown=true;
+	}
       char buf[8];
       manage->clearNumberedMenu ("Channels");
 

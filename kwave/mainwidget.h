@@ -38,7 +38,7 @@ class MainWidget : public QWidget
  void	setSignal	(QString *filename,int type=0);
  void	setSignal	(MSignal *);
  void 	saveSignal	(QString *filename,int,int=false);
- void	setRangeOp	(int);
+ void	setOp	        (int);
  unsigned char *getOverView (int);
  MSignal *getSignalView	();
 
@@ -81,6 +81,7 @@ class MainWidget : public QWidget
  QWidget        *parent;
  int 		numsignals;
  int            bsize;
+ bool           menushown;
 };
 #endif
 

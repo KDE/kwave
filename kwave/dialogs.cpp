@@ -209,7 +209,7 @@ TimeLine::~TimeLine ()
 {
 };
 //**********************************************************
-NewSampleDialog::NewSampleDialog (QWidget *par=NULL): QDialog(par, 0,true)
+NewSampleDialog::NewSampleDialog (QWidget *par): QDialog(par, 0,true)
 {
 
   setCaption	(klocale->translate("Choose Length and Rate :"));

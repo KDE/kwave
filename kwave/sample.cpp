@@ -109,7 +109,8 @@ KWaveMenuItem sample_menus[]=
   {0              ,0                    ,KEND  ,KEND ,-1},
 
   //third menu, only partially added to an alreay existent menu 
-  {0              ,"&Edit"              ,KMENU ,-1   ,KSHARED}, //allocate as shared
+
+  {0              ,"&Edit"              ,KMENU ,-1   ,KSHARED},
   {0              ,0                    ,KSEP  ,KSEP ,-1},
   {MIXPASTE       ,"&Mix & Paste"       ,KITEM ,-1   ,CTRL+SHIFT+Key_X},
   {CROP           ,"Tri&m"              ,KITEM ,-1   ,CTRL+Key_T},
@@ -119,7 +120,6 @@ KWaveMenuItem sample_menus[]=
   {CENTER         ,"&Center Signal"     ,KITEM ,-1   ,-1},
   {RESAMPLE       ,"&Resample"          ,KITEM ,-1   ,SHIFT+Key_R},
   {0              ,0                    ,KEND  ,KEND ,-1},
-
   {0,0,0,0,0} //Terminates
 };
 
@@ -170,39 +170,42 @@ void MSignal::getridof (int *mem)
 //**********************************************************
 void MSignal::appendMenus ()
 {
-  if (manage->addNumberedMenu ("FilterPresets")) //append items only if the Menu is created from scratch
+  if (manage)
     {
-      filterDir=new QDir(configDir->path());
-
-      if (!filterDir->cd ("presets"))
+      if (manage->addNumberedMenu ("FilterPresets")) //append items only if the Menu is created from scratch
 	{
-	  filterDir->mkdir ("presets");
-	  filterDir->cd ("presets");
-	}
-      if (!filterDir->cd ("filters"))
-	{
-	  filterDir->mkdir ("filters");
-	  filterDir->cd ("filters");
-	}
+	  filterDir=new QDir(configDir->path());
 
-      filterDir->setNameFilter ("*.filter");
+	  if (!filterDir->cd ("presets"))
+	    {
+	      filterDir->mkdir ("presets");
+	      filterDir->cd ("presets");
+	    }
+	  if (!filterDir->cd ("filters"))
+	    {
+	      filterDir->mkdir ("filters");
+	      filterDir->cd ("filters");
+	    }
 
-      filterNameList=(QStrList *)filterDir->entryList ();
+	  filterDir->setNameFilter ("*.filter");
 
-      for (char *tmp=filterNameList->first();tmp!=0;tmp=filterNameList->next())
-	{
-	  char buf[strlen(tmp)-6];
-	  strncpy (buf,tmp,strlen(tmp)-6);
-	  buf[strlen(tmp)-7]=0;
-	  manage->addNumberedMenuEntry ("FilterPresets",buf);
+	  filterNameList=(QStrList *)filterDir->entryList ();
+
+	  for (char *tmp=filterNameList->first();tmp!=0;tmp=filterNameList->next())
+	    {
+	      char buf[strlen(tmp)-6];
+	      strncpy (buf,tmp,strlen(tmp)-6);
+	      buf[strlen(tmp)-7]=0;
+	      manage->addNumberedMenuEntry ("FilterPresets",buf);
+	    }
 	}
+      manage->appendMenus (sample_menus);
     }
-  manage->appendMenus (sample_menus);
 }
 //**********************************************************
 void MSignal::deleteMenus ()
 {
-  manage->deleteMenus (sample_menus);
+  if (manage) manage->deleteMenus (sample_menus);
 }
 //**********************************************************
 void MSignal::getIDs ()
@@ -236,8 +239,6 @@ void MSignal::doRangeOp (int id)
   //into the ones used by the switch statement below
 
   if (manage) id=manage->translateId (sample_menus,id);
-
-  printf (" id is %d\n",id);
 
   switch (id)
     {
@@ -404,6 +405,7 @@ MSignal::MSignal (QWidget *par,int numsamples,int rate,int channels) :QObject ()
   this->rate=rate;
   this->length=numsamples;
   parent=par;
+  this->manage=0;
 
   initSignal();
 }

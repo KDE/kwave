@@ -376,24 +376,25 @@ void *MemoryManager::map(void *block)
 //  qDebug("    MemoryManager::map(%p)", block);
 
     // if it is already in the cache -> shortcut !
-    if (m_cached_swap.contains(reinterpret_cast<SwapFile *>(block))) {
+    if (m_cached_swap.containsRef(reinterpret_cast<SwapFile *>(block))) {
 	SwapFile *swap = reinterpret_cast<SwapFile *>(block);
 
 	m_cached_swap.removeRef(swap);
-	m_mapped_swap.append(swap);
+	m_mapped_swap.prepend(swap);
 //	qDebug("    MemoryManager::map(), cache hit! - %p", swap);
 	return swap->address();
     }
 
     // other simple case: already mapped
     // DANGEROUS: we have no reference counting => forbid this!
-    Q_ASSERT(!m_mapped_swap.contains(reinterpret_cast<SwapFile *>(block)));
-    if (m_mapped_swap.contains(reinterpret_cast<SwapFile *>(block)))
+    if (m_mapped_swap.containsRef(reinterpret_cast<SwapFile *>(block))) {
+	Q_ASSERT(!m_mapped_swap.containsRef(reinterpret_cast<SwapFile *>(
+	         block)));
 	return 0;
+    }
 
     // more complicated case: unmapped swapfile
-    Q_ASSERT(m_unmapped_swap.contains(reinterpret_cast<SwapFile *>(block)));
-    if (m_unmapped_swap.contains(reinterpret_cast<SwapFile *>(block))) {
+    if (m_unmapped_swap.containsRef(reinterpret_cast<SwapFile *>(block))) {
 	// locate the swapfile object
 	SwapFile *swap = reinterpret_cast<SwapFile *>(block);
 
@@ -408,6 +409,9 @@ void *MemoryManager::map(void *block)
 	m_mapped_swap.append(swap);
 
 	return mapped;
+    } else {
+	Q_ASSERT(m_unmapped_swap.containsRef(
+	    reinterpret_cast<SwapFile *>(block)));
     }
 
     // nothing known about this object !?
@@ -436,17 +440,18 @@ void MemoryManager::unmap(void *block)
 //  qDebug("    MemoryManager::unmap(%p)", block);
 
     // just to be sure: should also not be in cache!
-    Q_ASSERT(!m_cached_swap.contains(reinterpret_cast<SwapFile *>(block)));
+//    Q_ASSERT(!m_cached_swap.containsRef(reinterpret_cast<SwapFile *>(block)));
     unmapFromCache(block);
 
     // unmapped swapfile: already unmapped !?
-    Q_ASSERT(!m_unmapped_swap.contains(reinterpret_cast<SwapFile *>(block)));
-    if (m_unmapped_swap.contains(reinterpret_cast<SwapFile *>(block)))
+    if (m_unmapped_swap.contains(reinterpret_cast<SwapFile *>(block))) {
+	Q_ASSERT(!m_unmapped_swap.contains(
+	         reinterpret_cast<SwapFile *>(block)));
 	return; // nothing to do
+    }
 
     // mapped swapfile: move it into the cache
-    Q_ASSERT(m_mapped_swap.contains(reinterpret_cast<SwapFile *>(block)));
-    if (m_mapped_swap.contains(reinterpret_cast<SwapFile *>(block))) {
+    if (m_mapped_swap.containsRef(reinterpret_cast<SwapFile *>(block))) {
 	SwapFile *swap = reinterpret_cast<SwapFile *>(block);
 
 	// make room in the cache if necessary
@@ -457,6 +462,9 @@ void MemoryManager::unmap(void *block)
 	// move it into the swap file cache
 	m_mapped_swap.removeRef(swap);
 	m_cached_swap.append(swap);
+    } else {
+	Q_ASSERT(m_mapped_swap.containsRef(
+	         reinterpret_cast<SwapFile *>(block)));
     }
 
 }

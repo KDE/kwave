@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-06-28</date>
+<date>2002-06-29</date>
 <releaseinfo>0.6.4</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -180,7 +180,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.6.4 [2002-06-??]</para>
+            <para>0.6.4 [2002-06-30]</para>
             <itemizedlist>
                 <listitem><para>
                     support for different file formats / integrated libaudiofile
@@ -213,6 +213,9 @@
                 </para></listitem>
                 <listitem><para>
                     added a little chapter about digital audio basics to online help
+                </para></listitem>
+                <listitem><para>
+                    added "select range" plugin
                 </para></listitem>
             </itemizedlist>
         </listitem>

@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-06-25 12:59GMT\n"
-"Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
-"Language-Team: FRANCAIS <fr@li.org>\n"
+"PO-Revision-Date: 2002-06-29 08:57+0200\n"
+"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
+"Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -284,8 +284,8 @@ msgstr ""
 
 #: index.docbook:181
 #, no-c-format
-msgid "0.6.4 [2002-06-??]"
-msgstr "0.6.4 [2002-03-??]"
+msgid "0.6.4 [2002-06-30]"
+msgstr "0.6.4 [2002-06-30]"
 
 #: index.docbook:181
 #, no-c-format
@@ -350,6 +350,11 @@ msgid "added a little chapter about digital audio basics to online help"
 msgstr ""
 "Ajout d'un petit chapitre dans l'aide sur les rudiments des enregistrements "
 "audios numériques."
+
+#: index.docbook:181
+#, no-c-format
+msgid "added \"select range\" plugin"
+msgstr "Ajout du plugin \"selectrange\""
 
 #: index.docbook:181
 #, no-c-format
@@ -2268,17 +2273,17 @@ msgstr ""
 "Première version, qui n'a jamais été chargée sur ftp.kde.org (serveur FTP "
 "non opérationnel)."
 
-#: index.docbook:1267
+#: index.docbook:1270
 #, no-c-format
 msgid "Installation"
 msgstr "Installation"
 
-#: index.docbook:1273
+#: index.docbook:1276
 #, no-c-format
 msgid "How to obtain &kapp;"
 msgstr "Comment obtenir &kapp;"
 
-#: index.docbook:1275
+#: index.docbook:1278
 #, no-c-format
 msgid ""
 "&kapp; has an own homepage under <ulink url=\"http://kwave.sourceforge.net/"
@@ -2291,7 +2296,7 @@ msgstr ""
 "trouver davantages d'informations sur le projet, ainsi que les versions "
 "stables et en cours de développement du programme."
 
-#: index.docbook:1284
+#: index.docbook:1287
 #, no-c-format
 msgid ""
 "Maybe older versions of &kapp; are currently included in some current linux "
@@ -2307,7 +2312,7 @@ msgstr ""
 "être interprété comme \"0.2.9\". La numérotation de la version actuelle a "
 "débuté à partir de 0.5."
 
-#: index.docbook:1293
+#: index.docbook:1296
 #, no-c-format
 msgid ""
 "If you want to get a &kapp; release, you should download a .tar.gz archive "
@@ -2326,17 +2331,17 @@ msgstr ""
 "en un sur votre  système comme cela est décrit dans les chapitres qui "
 "suivent."
 
-#: index.docbook:1309
+#: index.docbook:1312
 #, no-c-format
 msgid "Requirements"
 msgstr "Ce dont vous avez besoin."
 
-#: index.docbook:1311
+#: index.docbook:1314
 #, no-c-format
 msgid "In order to successfully use &kapp;, you need:"
 msgstr "Dans l'ordre, pour pouvoir utiliser &kapp;, vous avez besoin :"
 
-#: index.docbook:1311
+#: index.docbook:1314
 #, no-c-format
 msgid ""
 "a computer running Linux (&kapp; might also run under some other operating "
@@ -2348,7 +2353,7 @@ msgstr ""
 "possibilité. nous vous remercions de nous avertir si vous avez réussi à "
 "faire fonctionner le logiciel sur une autre plateforme)."
 
-#: index.docbook:1311
+#: index.docbook:1314
 #, no-c-format
 msgid ""
 "working sound playback (not really required for using but what would you do "
@@ -2359,7 +2364,7 @@ msgstr ""
 "absolument necessaire,  mais que faire avec un éditeur de pistes audios sans "
 "pouvoir <emphasis>écouter</emphasis>  le résultat de son travail)."
 
-#: index.docbook:1311
+#: index.docbook:1314
 #, no-c-format
 msgid ""
 "KDE-2.2.1 or higher (at least the libraries, if you are a gnome fan, you can "
@@ -2370,12 +2375,12 @@ msgstr ""
 "utilisé &kapp; à partir du  moment que les librairies de KDE sont "
 "installées.)."
 
-#: index.docbook:1311
+#: index.docbook:1314
 #, no-c-format
 msgid "qt-2.3 or higher (normally comes with KDE2)"
 msgstr "De Qt-2.3 ou supérieure (normalement associée avec KDE2)."
 
-#: index.docbook:1311
+#: index.docbook:1314
 #, no-c-format
 msgid ""
 "about 10 MB memory for starting &kapp; (but this may vary depending on your "
@@ -2384,13 +2389,13 @@ msgstr ""
 "D'environ 10 Mo de mémoire pour lancer &kapp; (mais cela peut varier en "
 "fonction de votre plateforme et de votre configuration)."
 
-#: index.docbook:1340
+#: index.docbook:1343
 #, no-c-format
 msgid "If you intend to compile &kapp; from the sources, you will also need:"
 msgstr ""
 "Si vous désirez compiler &kapp; à partir des sources, vous avez besoin :"
 
-#: index.docbook:1340
+#: index.docbook:1343
 #, no-c-format
 msgid ""
 "A C/C++ compiler. GCC-2.95.3 works fine, some older and any newer version "
@@ -2400,7 +2405,7 @@ msgstr ""
 "anciennes et nouvelles versions fonctionnent également. (Nota : gcc-3.0 "
 "n'est pas encore complétement supporté. Il n'est pas encore utilisable !)"
 
-#: index.docbook:1340
+#: index.docbook:1343
 #, no-c-format
 msgid ""
 "The glibc2 (libc-6) development environment. On SuSE systems the package is "
@@ -2410,7 +2415,7 @@ msgstr ""
 "SuSE Linux, le paquetage  s'appel \"libc\". Sur d'autres systèmes il peut "
 "s'appeler \"libc-devel\"."
 
-#: index.docbook:1340
+#: index.docbook:1343
 #, no-c-format
 msgid ""
 "The KDE2 development environment: \"kdelibs-devel\", \"kdemultimedia-devel"
@@ -2419,7 +2424,7 @@ msgstr ""
 "De l'environnement de développement de KDE2 : \"kdelibs-devel\", "
 "\"kdemultimedia-devel\", et \"kdesdk-2\"."
 
-#: index.docbook:1340
+#: index.docbook:1343
 #, no-c-format
 msgid ""
 "The Qt development environment, the package is normally called \"qt-devel\" "
@@ -2428,19 +2433,19 @@ msgstr ""
 "De l'environnement de developpement Qt. Le paquetage s'appel normalement "
 "\"qt-devel\" ou quelque chose de similaire."
 
-#: index.docbook:1340
+#: index.docbook:1343
 #, no-c-format
 msgid "If you intend to use CVS, you will also need a current cvs package."
 msgstr ""
 "Si vous désirez utiliser CVS, il vous faut aussi la version actuelle du "
 "paquetage correspondant à CVS."
 
-#: index.docbook:1374
+#: index.docbook:1377
 #, no-c-format
 msgid "Manual Compilation and installation"
 msgstr "Le manuel de compilation et d'installation."
 
-#: index.docbook:1376
+#: index.docbook:1379
 #, no-c-format
 msgid ""
 "In order to compile and install &kapp; on your system, type the following in "
@@ -2450,7 +2455,7 @@ msgstr ""
 "devez taper les lignes de commande qui suivent dans le répertoire de base où "
 "vous avez copié les sources du  programme :"
 
-#: index.docbook:1376
+#: index.docbook:1379
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cd kwave</command>\n"
@@ -2465,7 +2470,7 @@ msgstr ""
 "<prompt>% </prompt><command>make</command>\n"
 "<prompt>% </prompt><command>su root -c \"make install\"</command>"
 
-#: index.docbook:1388
+#: index.docbook:1391
 #, no-c-format
 msgid ""
 "Since &kapp; uses autoconf and automake you should have no trouble compiling "
@@ -2477,7 +2482,7 @@ msgstr ""
 "problèmes sur la compilation  de &kapp; en nous contactant sur la <link "
 "linkend=\"mailing-list\">liste de diffusion</link>."
 
-#: index.docbook:1393
+#: index.docbook:1396
 #, no-c-format
 msgid ""
 "If you have a system with old Qt-1 libraries you might get problems when "
@@ -2490,22 +2495,22 @@ msgstr ""
 "d'environnement pour spécifier les chemins d'accès corrects à la  "
 "bibliothéque Qt :"
 
-#: index.docbook:1393
+#: index.docbook:1396
 #, no-c-format
 msgid "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>"
 msgstr "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>"
 
-#: index.docbook:1410
+#: index.docbook:1413
 #, no-c-format
 msgid "Building RPM packages from tar.gz archives"
 msgstr "La construction du paquetage RPM à partir de l'archive tar.gz."
 
-#: index.docbook:1413
+#: index.docbook:1416
 #, no-c-format
 msgid "With working rpm -ta"
 msgstr "Utilisation de la commande 'rpm -ta'"
 
-#: index.docbook:1415
+#: index.docbook:1418
 #, no-c-format
 msgid ""
 "If you are runnig a system with RPM support, the preferred way to install "
@@ -2526,7 +2531,7 @@ msgstr ""
 "chapitre  concernant la <link linkend=\"building_rpm_from_cvs\">compilation "
 "d'un RPM à partir du CVS</link>."
 
-#: index.docbook:1426
+#: index.docbook:1429
 #, no-c-format
 msgid ""
 "If you have downloaded a tar-gz archives of &kapp;, create and install the "
@@ -2544,14 +2549,14 @@ msgstr ""
 "<replaceable>XXX</replaceable> correspond  au numéro de version de "
 "l'application que vous avez téléchargé)."
 
-#: index.docbook:1437
+#: index.docbook:1440
 #, no-c-format
 msgid "To build the &kapp; package and install it do:"
 msgstr ""
 "Pour construire et installer le paquetage de &kapp; vous devez taper les "
 "lignes de  commande suivantes :"
 
-#: index.docbook:1437
+#: index.docbook:1440
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>rpm -ta <replaceable>kwave-XXX.tar.gz</"
@@ -2564,7 +2569,7 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
 
-#: index.docbook:1445
+#: index.docbook:1448
 #, no-c-format
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> you have to specify the directory "
@@ -2575,7 +2580,7 @@ msgstr ""
 "vous devez  spécifier le répertoire <filename>/usr/src/packages</filename> à "
 "la place de  <filename>/usr/src/redhat</filename> !"
 
-#: index.docbook:1452
+#: index.docbook:1455
 #, no-c-format
 msgid ""
 "If you haven't seen any errors, then that's it and you can skip the rest of "
@@ -2587,7 +2592,7 @@ msgstr ""
 "paquetages et qu'un message du genre  \"spec file not found\" est affiché, "
 "alors le reste du chapitre vous sera utile."
 
-#: index.docbook:1459
+#: index.docbook:1462
 #, no-c-format
 msgid ""
 "The support for the <command>rpm -ta ...</command> might be broken on some "
@@ -2602,12 +2607,12 @@ msgstr ""
 "partir du <ulink url=\"ftp://ftp.suse.com/pub/suse_update/\">serveur ftp de "
 "SUSE</ulink>."
 
-#: index.docbook:1470
+#: index.docbook:1473
 #, no-c-format
 msgid "With broken rpm -ta support"
 msgstr "Que faire lorsque la commande 'rpm -ta' ne fonctionne pas ?"
 
-#: index.docbook:1472
+#: index.docbook:1475
 #, no-c-format
 msgid ""
 "If you can't get <command>rpm -ta</command> working, here are the steps for "
@@ -2617,7 +2622,7 @@ msgstr ""
 "existe plusieurs solutions pour réaliser cette tâche manuellement (solutions "
 "délicates) :"
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid ""
 "Go to your RPM \"topdir\". This normally is <filename>/usr/src/redhat</"
@@ -2629,7 +2634,7 @@ msgstr ""
 "distribution du type RedHat ou <filename>/usr/src/packages</filename> pour "
 "la distribution SuSE."
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></"
@@ -2638,7 +2643,7 @@ msgstr ""
 "<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></"
 "command>"
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid ""
 "Put the tar.gz archive into the SOURCES subdirectory (you have to replace "
@@ -2648,7 +2653,7 @@ msgstr ""
 "devez remplacer  \"NomRépertoire\" avec le nom du réperoire qui contient "
 "vorte archive tar.gz)."
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.gz</"
@@ -2657,7 +2662,7 @@ msgstr ""
 "<prompt>% </prompt><command>cp <replaceable>/NomRépertoire/kwave-XXX.tar.gz</"
 "replaceable> SOURCES</command>"
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid ""
 "Extract the spec file from the archives and put it into the SPEC "
@@ -2666,7 +2671,7 @@ msgstr ""
 "Extraire le fichier de specification (.spec) de l'archive tar.gz et copier "
 "le dans le sous-répertoire SPEC."
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
@@ -2675,7 +2680,7 @@ msgstr ""
 "<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
 "replaceable> \\*.spec > SPECS/kwave.spec</command>"
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid ""
 "Let rpm do the compile job and generate the rpm of &kapp;. If you only want "
@@ -2689,12 +2694,12 @@ msgstr ""
 "ba</literal>, ou juste <literal>-bs</literal> pour construire  un paquetage "
 "contenant les sources."
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid "<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>"
 msgstr "<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>"
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid ""
 "If everything was ok, you can install the binary rpm of &kapp;, it will be "
@@ -2709,7 +2714,7 @@ msgstr ""
 "utiliser le paramêtre  <literal>-U</literal> à la place de <literal>-i</"
 "literal> pour mettre à jour automatiquement le paquetage."
 
-#: index.docbook:1477
+#: index.docbook:1480
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX."
@@ -2718,17 +2723,17 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX."
 "[arch].rpm</replaceable></command>"
 
-#: index.docbook:1539
+#: index.docbook:1542
 #, no-c-format
 msgid "Building RPM packages from CVS"
 msgstr "La construction d'un paquetage RPM à partir du CVS"
 
-#: index.docbook:1541
+#: index.docbook:1544
 #, no-c-format
 msgid "Checking out the sources"
 msgstr "La vérification des mises à jour des sources"
 
-#: index.docbook:1543
+#: index.docbook:1546
 #, no-c-format
 msgid ""
 "For initially checking out the sources you will need some disk space (about "
@@ -2747,7 +2752,7 @@ msgstr ""
 "pas certaine connection depuis votre système. Le meilleur endroit pour "
 "stocker les fichiers sources est <filename>\"$HOME/src\"</filename>."
 
-#: index.docbook:1552
+#: index.docbook:1555
 #, no-c-format
 msgid ""
 "First create the directory that will receive the subdirectoy with &kapp; "
@@ -2756,7 +2761,7 @@ msgstr ""
 "En premier lieu, vous devez créer le repertoire où vous allez recevoir le "
 "sous-repertoire qui stockera les sources de &kapp; :"
 
-#: index.docbook:1552
+#: index.docbook:1555
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></"
@@ -2767,7 +2772,7 @@ msgstr ""
 "command>\n"
 "<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>"
 
-#: index.docbook:1552
+#: index.docbook:1555
 #, no-c-format
 msgid ""
 "Then log in into the CVS server. As I guess that you want to do that as "
@@ -2787,7 +2792,7 @@ msgstr ""
 "simplement sur la touche 'Entrée'.  Il n'y a pas de mot de passe pour le "
 "compte anonyme."
 
-#: index.docbook:1552
+#: index.docbook:1555
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave."
@@ -2796,7 +2801,7 @@ msgstr ""
 "<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave."
 "sourceforge.net:/cvsroot/kwave co kwave</command>"
 
-#: index.docbook:1579
+#: index.docbook:1582
 #, no-c-format
 msgid ""
 "There <emphasis>must not</emphasis> be a directory named <filename>kwave</"
@@ -2810,12 +2815,12 @@ msgstr ""
 "enverra un message d'erreur indiquant qu'il existe déjà un  répertoire de ce "
 "nom et le téléchargement des sources sur votre machine échouera."
 
-#: index.docbook:1589
+#: index.docbook:1592
 #, no-c-format
 msgid "Updating sources from CVS"
 msgstr "La mise à jour les sources à partir du CVS"
 
-#: index.docbook:1590
+#: index.docbook:1593
 #, no-c-format
 msgid ""
 "The procedure described in the previous section is only necessary once. For "
@@ -2836,12 +2841,12 @@ msgstr ""
 "</screen> Vous pouvez alors passer à la section suivante pour faire une "
 "compilation du programme."
 
-#: index.docbook:1603
+#: index.docbook:1606
 #, no-c-format
 msgid "Compiling"
 msgstr "La compilation"
 
-#: index.docbook:1604
+#: index.docbook:1607
 #, no-c-format
 msgid ""
 "Building rpm package from a CVS snapshot is quite simple. The procedure is "
@@ -2863,7 +2868,7 @@ msgstr ""
 "<literal>sparc</literal>, etc..., et l'option  <replaceable>XXX</"
 "replaceable> indiquera le numéro de version de l'application."
 
-#: index.docbook:1617
+#: index.docbook:1620
 #, no-c-format
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> here you have to specify the "
@@ -2875,7 +2880,7 @@ msgstr ""
 "paquetages en remplaçant <filename>/usr/src/packages</filename> par "
 "<filename>/usr/src/redhat</filename> !"
 
-#: index.docbook:1624
+#: index.docbook:1627
 #, no-c-format
 msgid ""
 "Assuming that you are in the root of where you checked out from CVS, do the "
@@ -2891,7 +2896,7 @@ msgstr ""
 "literal> à la place de  <literal>rpm -i</literal> pour faire une mise à jour "
 "automatique."
 
-#: index.docbook:1624
+#: index.docbook:1627
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>cd kwave</command>\n"
@@ -2908,7 +2913,7 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -i /usr/src/redhat/BUILD/<replaceable>[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
 
-#: index.docbook:1640
+#: index.docbook:1643
 #, no-c-format
 msgid ""
 "If you still have problems with <command>make rpm</command>, you will find "
@@ -2922,14 +2927,14 @@ msgstr ""
 "création d'un RPM dans le <link linkend=\"manual_rpm_creation\">précédent</"
 "link> chapitre."
 
-#: index.docbook:1656
+#: index.docbook:1659
 #, no-c-format
 msgid "Relocating the binary RPM packages"
 msgstr ""
 "Indiquer un emplacement d'installation pour les éxécutables d'un paquetage "
 "RPM"
 
-#: index.docbook:1658
+#: index.docbook:1661
 #, no-c-format
 msgid ""
 "The binary rpm package of &kapp; is \"<emphasis>relocatable</emphasis>\". "
@@ -2945,7 +2950,7 @@ msgstr ""
 "installer un paquetage compilé sur une distribution SUSE vers une "
 "distribution  RedHat ou vice-versa."
 
-#: index.docbook:1667
+#: index.docbook:1670
 #, no-c-format
 msgid ""
 "For example: you got the binary rpm from a friend who has a RedHat system "
@@ -2960,7 +2965,7 @@ msgstr ""
 "répertoire de KDE2 est <filename>/opt/kde2</filename>). Vous avez juste à "
 "passer un paramètre différent quand vous installez le paquetage :"
 
-#: index.docbook:1667
+#: index.docbook:1670
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-"
@@ -2969,7 +2974,7 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-"
 "0.6.4.i386.rpm</replaceable></command>"
 
-#: index.docbook:1679
+#: index.docbook:1682
 #, no-c-format
 msgid ""
 "This modifies the path where the program is installed and it is strongly "
@@ -2986,12 +2991,12 @@ msgstr ""
 "pourra pas trouver la configuration des menus, les plugins, les valeurs par "
 "défaut, etc..."
 
-#: index.docbook:1698
+#: index.docbook:1701
 #, no-c-format
 msgid "RPM optimizations"
 msgstr "Les optimisations pour la construction d'un paquetage RPM"
 
-#: index.docbook:1700
+#: index.docbook:1703
 #, no-c-format
 msgid ""
 "Yes, you can compile the RPM packages optimized for pentium and pentium pro "
@@ -3025,7 +3030,7 @@ msgstr ""
 "net/duesti/rpmopt.de.html\"> http://www.keywarrior.net/duesti/rpmopt.en."
 "html</ulink>. Remerciements à Matthias Düsterhöft !)."
 
-#: index.docbook:1722
+#: index.docbook:1725
 #, no-c-format
 msgid ""
 "This means that on an i586 architecture the rpm package will be compiled "
@@ -3042,7 +3047,7 @@ msgstr ""
 "d'exécutable  est construit à partir d'un paquetage source en utilisant la "
 "commande \"rpm --rebuild\"."
 
-#: index.docbook:1731
+#: index.docbook:1734
 #, no-c-format
 msgid ""
 "The options specified here are set into the environment variable "
@@ -3058,7 +3063,7 @@ msgstr ""
 "\"manual_compilation\">compilation manuelle</link>, vous pouvez activer "
 "cette variable manuellement  et obtenir le même effet. Par example :"
 
-#: index.docbook:1731
+#: index.docbook:1734
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O2 -march=pentium -fomit-"
@@ -3067,12 +3072,12 @@ msgstr ""
 "<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O2 -march=pentium -fomit-"
 "frame-pointer\"</command>"
 
-#: index.docbook:1751
+#: index.docbook:1754
 #, no-c-format
 msgid "Compiler Optimizations"
 msgstr "Les optimisations de compilation"
 
-#: index.docbook:1753
+#: index.docbook:1756
 #, no-c-format
 msgid ""
 "If you are owner of a Pentium, an AMD K6 or Athlon CPU, you might want to "
@@ -3089,7 +3094,7 @@ msgstr ""
 "signaux et les fonctions de calculs complexes sur les tableaux de fréquences "
 "(comme les Transformées de Fourrier ou le Sonagramme) sont activées."
 
-#: index.docbook:1761
+#: index.docbook:1764
 #, no-c-format
 msgid ""
 "You do not need to understand much about programming for using an optimized "
@@ -3100,12 +3105,12 @@ msgstr ""
 "utiliser  et optimiser la compilation de &kapp;, mais peut-être quelques "
 "principes vous serons utiles  pour installer le compilateur et l'utiliser."
 
-#: index.docbook:1768
+#: index.docbook:1771
 #, no-c-format
 msgid "How to invoke the optimized compiler"
 msgstr "Comment utiliser les optimisations de compilation"
 
-#: index.docbook:1769
+#: index.docbook:1772
 #, no-c-format
 msgid ""
 "The invocation of an optimized compiler is quite simple. It normally is "
@@ -3119,7 +3124,7 @@ msgstr ""
 "compilation. Cependant, pour un meilleur paramétrage, il est  préférable de "
 "consulter la documentation ou le site internet de votre compilateur."
 
-#: index.docbook:1776
+#: index.docbook:1779
 #, no-c-format
 msgid ""
 "If you build &kapp; from a source tree (unpacked tar.gz or from CVS) the "
@@ -3130,7 +3135,7 @@ msgstr ""
 "ou via le CVS) l'option  à activer doit l'être avant l'appel de la commande "
 "<command>configure</command>. Par exemple :"
 
-#: index.docbook:1776
+#: index.docbook:1779
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
@@ -3139,7 +3144,7 @@ msgstr ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" ./configure</command>"
 
-#: index.docbook:1783
+#: index.docbook:1786
 #, no-c-format
 msgid ""
 "If you re-build &kapp; from a source rpm package the flags need to be "
@@ -3150,7 +3155,7 @@ msgstr ""
 "doit l'être avant  l'appel de la commande <command>rpm --rebuild</command>. "
 "Par exemple :"
 
-#: index.docbook:1783
+#: index.docbook:1786
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
@@ -3159,7 +3164,7 @@ msgstr ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" rpm --rebuild <replaceable>filename</replaceable></command>"
 
-#: index.docbook:1783
+#: index.docbook:1786
 #, no-c-format
 msgid ""
 "And please don't give up if <command>rpm</command> refuses to install your "
@@ -3173,12 +3178,12 @@ msgstr ""
 "optimiser le paquetage en spécifiant l'option <command>--ignorearch</"
 "command>."
 
-#: index.docbook:1800
+#: index.docbook:1803
 #, no-c-format
 msgid "Pentium and Compatibles"
 msgstr "Les processeurs Pentium et Compatibles"
 
-#: index.docbook:1801
+#: index.docbook:1804
 #, no-c-format
 msgid ""
 "For all optimized versions I used pgcc-2.95.3. For informations on obtaining "
@@ -3197,12 +3202,12 @@ msgstr ""
 "et dérivés tels que ceux de <ulink url=\"http://www.intel.com/\">Intel</"
 "ulink> mais aussi ceux de <ulink url=\"http://www.cyrix.com/\">Cyrix</ulink>."
 
-#: index.docbook:1834
+#: index.docbook:1837
 #, no-c-format
 msgid "Basics about digital audio"
 msgstr "Les rudiments sur les enregistrements audios numériques"
 
-#: index.docbook:1836
+#: index.docbook:1839
 #, no-c-format
 msgid ""
 "This chapter should give a short introduction about the basics of digital "
@@ -3216,12 +3221,12 @@ msgstr ""
 "la liste de diffusion de &kapp; ou consulter diverses autres littératures "
 "sur le sujet."
 
-#: index.docbook:1844
+#: index.docbook:1847
 #, no-c-format
 msgid "The analogue world"
 msgstr "Le monde de l'analogique."
 
-#: index.docbook:1846
+#: index.docbook:1849
 #, no-c-format
 msgid ""
 "First of all, one must know that the world is <emphasis>analogue</emphasis> "
@@ -3238,12 +3243,12 @@ msgstr ""
 "l'inverse de la méthode pour passer de l'analogique au numérique, nous ne "
 "décrirons que cette dernière."
 
-#: index.docbook:1855 index.docbook:1863
+#: index.docbook:1858 index.docbook:1866
 #, no-c-format
 msgid "Conversion from sound to bits"
 msgstr "La conversion du son en bits"
 
-#: index.docbook:1865
+#: index.docbook:1868
 #, no-c-format
 msgid ""
 "Before continuing, analogue audio has to be transformed into electronic "
@@ -3267,12 +3272,12 @@ msgstr ""
 "capture sonore. \"L'amplificateur\" peut être intégré directement dans la "
 "carte son de votre ordinateur et vous ne pouvez pas le voir."
 
-#: index.docbook:1877 index.docbook:1885
+#: index.docbook:1880 index.docbook:1888
 #, no-c-format
 msgid "Conversion to electronic signal"
 msgstr "La conversion d'un signal électronique"
 
-#: index.docbook:1887
+#: index.docbook:1890
 #, no-c-format
 msgid ""
 "At this stage, the electrical signal has three limitations that one should "
@@ -3281,7 +3286,7 @@ msgstr ""
 "A ce stade, le signal électrique présente trois limitations dont une doit "
 "être bien présente à l'esprit :"
 
-#: index.docbook:1887
+#: index.docbook:1890
 #, no-c-format
 msgid ""
 "The <emphasis>amplitude</emphasis> (volume) is limited to some maximum "
@@ -3298,7 +3303,7 @@ msgstr ""
 "le signal sera <emphasis>saturé</emphasis>, et une partie sera tronquée au "
 "niveau les plus forts."
 
-#: index.docbook:1887
+#: index.docbook:1890
 #, no-c-format
 msgid ""
 "The <emphasis>frequency range</emphasis> is also limited. Due to the "
@@ -3325,7 +3330,7 @@ msgstr ""
 "êtres humains. Un homme entend normalement les sons jusqu'à une fréquence de "
 "20 kHz."
 
-#: index.docbook:1887
+#: index.docbook:1890
 #, no-c-format
 msgid ""
 "The signal contains <emphasis>noise</emphasis>. Noise is the most ugly enemy "
@@ -3350,12 +3355,12 @@ msgstr ""
 "emphasis>. Une valeur élevé de ce rapport donne une bonne qualité de sons. "
 "Le son qui ont un faible volume on un bruit qui ne peut pas être entendu."
 
-#: index.docbook:1935
+#: index.docbook:1938
 #, no-c-format
 msgid "Digitalization"
 msgstr "Digitalisation"
 
-#: index.docbook:1937
+#: index.docbook:1940
 #, no-c-format
 msgid ""
 "When we want to store and play audio in a computer, we must convert the "
@@ -3368,12 +3373,12 @@ msgstr ""
 "Ce procédé est appelé <emphasis>numérisation</emphasis>. Il converti un "
 "signal électronique en une séquence de valeurs numériques."
 
-#: index.docbook:1943 index.docbook:1951
+#: index.docbook:1946 index.docbook:1954
 #, no-c-format
 msgid "Digitalization of the electronic signal"
 msgstr "La numérisation d'un signal électronique"
 
-#: index.docbook:1953
+#: index.docbook:1956
 #, no-c-format
 msgid ""
 "The conversion can be understood as a repetitive measurement of the "
@@ -3385,7 +3390,7 @@ msgstr ""
 "<emphasis>l'échantillonage</emphasis> du signal. Le résultat est alors "
 "encodé en valeurs digitales."
 
-#: index.docbook:1959
+#: index.docbook:1962
 #, no-c-format
 msgid ""
 "The sampling could be done in arbitrary distances or in constant intervals. "
@@ -3401,7 +3406,7 @@ msgstr ""
 "22050,  ou 44100 échantillons par seconde. Dans la pratique, les périodes "
 "d'échantillonage donnent aussi des fréquences en Hz ou en kHz."
 
-#: index.docbook:1967
+#: index.docbook:1970
 #, no-c-format
 msgid ""
 "The sample rate limts the highest frequency a digitized signal can "
@@ -3420,17 +3425,17 @@ msgstr ""
 "interne qui élimine les fréquences correspondantes aux limites définies "
 "précédemment."
 
-#: index.docbook:1976 index.docbook:1984
+#: index.docbook:1979 index.docbook:1987
 #, no-c-format
 msgid "Sampled signal"
 msgstr "Le signal échantillonné"
 
-#: index.docbook:1988
+#: index.docbook:1991
 #, no-c-format
 msgid "Sample Encoding"
 msgstr "L'encodage échantillonné"
 
-#: index.docbook:1990
+#: index.docbook:1993
 #, no-c-format
 msgid ""
 "The result of the digital sampling process is a sequence of single "
@@ -3441,7 +3446,7 @@ msgstr ""
 "simple <emphasis>échantillons</emphasis>. Un échantillon est une "
 "représentation numérique du signal à un temps donné."
 
-#: index.docbook:1995
+#: index.docbook:1998
 #, no-c-format
 msgid ""
 "The value of a sample can be interpreted and encoded in several ways. The "
@@ -3460,7 +3465,7 @@ msgstr ""
 "amplitudes. C'est pour ces valeurs du signal que le bruit est le plus "
 "perturbateur. Il est cependant moins audible pour les hautes fréquences."
 
-#: index.docbook:2004
+#: index.docbook:2007
 #, no-c-format
 msgid ""
 "One way to reduce the influence of noise is <emphasis>non-linear</emphasis> "
@@ -3480,17 +3485,17 @@ msgstr ""
 "<emphasis>l'encodage U-Law</emphasis>. Quelques techniques d'amplifications "
 "sont standardisées en téléphonie numérique (ITU G.711 par exemple)."
 
-#: index.docbook:2013 index.docbook:2021
+#: index.docbook:2016 index.docbook:2024
 #, no-c-format
 msgid "Nonlinear Encoding"
 msgstr "L'encodage non linéaire"
 
-#: index.docbook:2024
+#: index.docbook:2027
 #, no-c-format
 msgid "Sample Formats"
 msgstr "Formats d'échantillonnage"
 
-#: index.docbook:2026
+#: index.docbook:2029
 #, no-c-format
 msgid ""
 "Samples can be stored in different formats and precisions. The most common "
@@ -3508,17 +3513,17 @@ msgstr ""
 "posives) et un format dit <emphasis>signé</emphasis> (pour les valeurs "
 "positives  et négatives)."
 
-#: index.docbook:2036 index.docbook:2044
+#: index.docbook:2039 index.docbook:2047
 #, no-c-format
 msgid "Signed Format"
 msgstr "Le format signé"
 
-#: index.docbook:2045 index.docbook:2053
+#: index.docbook:2048 index.docbook:2056
 #, no-c-format
 msgid "Unsigned Format"
 msgstr "Le format non signé"
 
-#: index.docbook:2054
+#: index.docbook:2057
 #, no-c-format
 msgid ""
 "As the quantisation looses some accuracy, it produces noise, the so-called "
@@ -3535,7 +3540,7 @@ msgstr ""
 "oeuvre (un ordinateur est trés rapide pour les calculs sur les  nombres "
 "entiers)."
 
-#: index.docbook:2062
+#: index.docbook:2065
 #, no-c-format
 msgid ""
 "The second way of encoding samples is with <emphasis>floating point</"
@@ -3551,7 +3556,7 @@ msgstr ""
 "dans ce format les calculs sont plus lents à s'exécuter (les ordinateurs "
 "traitent les chiffres à virgule plus lentement que les nombres entiers)."
 
-#: index.docbook:2070
+#: index.docbook:2073
 #, no-c-format
 msgid ""
 "&kapp; internally uses <emphasis>signed integer</emphasis> format with 24 "
@@ -3567,12 +3572,12 @@ msgstr ""
 "codés sur 32 bits sont beaucoup plus rapides et prennent moins de resources "
 "système qu'avec des entiers codés directement sur 24 bits."
 
-#: index.docbook:2088
+#: index.docbook:2091
 #, no-c-format
 msgid "Using &kapp;"
 msgstr "Utilisation de &kapp;"
 
-#: index.docbook:2089
+#: index.docbook:2092
 #, no-c-format
 msgid ""
 "Here is a little screenshot of the &kapp; main window, so that you get an "
@@ -3581,22 +3586,22 @@ msgstr ""
 "Voici une petite capture d'écran de la fenêtre principale de &kapp;, qui "
 "vous donnera une première impression sur le programme..."
 
-#: index.docbook:2093
+#: index.docbook:2096
 #, no-c-format
 msgid "Here's a screenshot of &kapp;"
 msgstr "Une capture d'écran de &kapp;"
 
-#: index.docbook:2093
+#: index.docbook:2096
 #, no-c-format
 msgid "Screenshot"
 msgstr "Capture d'écran"
 
-#: index.docbook:2113
+#: index.docbook:2116
 #, no-c-format
 msgid "Clipboard"
 msgstr "Le presse-papier"
 
-#: index.docbook:2115
+#: index.docbook:2118
 #, no-c-format
 msgid ""
 "&kapp; unfortunately has to implement and use it's own clipboard. This is "
@@ -3608,7 +3613,7 @@ msgstr ""
 "au texte et aux bitmaps dans KDE.  Cette situation changera probablement "
 "dans un futur proche."
 
-#: index.docbook:2121
+#: index.docbook:2124
 #, no-c-format
 msgid ""
 "However, this has some disadvantages. So if you want to exchange data "
@@ -3621,7 +3626,7 @@ msgstr ""
 "chaque instance de &kapp;  dispose de sa propre instance du presse papier "
 "pour travailler."
 
-#: index.docbook:2128
+#: index.docbook:2131
 #, no-c-format
 msgid ""
 "So if you want to make use of the clipboard in &kapp;, you should only start "
@@ -3633,12 +3638,12 @@ msgstr ""
 "plusieurs fenêtres de &kapp; à partir de cette même instance. Normalement "
 "cette fonctionnalité fonctionne !"
 
-#: index.docbook:2140
+#: index.docbook:2143
 #, no-c-format
 msgid "Drag and Drop"
 msgstr "Le tirer / déposer"
 
-#: index.docbook:2142
+#: index.docbook:2145
 #, no-c-format
 msgid ""
 "&kapp; supports the KDE Drag and Drop protocol. This enables you to open "
@@ -3650,7 +3655,7 @@ msgstr ""
 "en le sélectionnant à partir de <command>konqueror</command> et en le "
 "déposant dans l'espace de travail de &kapp;."
 
-#: index.docbook:2148
+#: index.docbook:2151
 #, no-c-format
 msgid ""
 "Please note that if you drop a file into a &kapp; window that already "
@@ -3664,7 +3669,7 @@ msgstr ""
 "pas que le fichier précédemment ouvert soit fermé, vous devez ouvrir une  "
 "autre fenêtre de &kapp; afin d'y recevoir le fichier à ouvrir."
 
-#: index.docbook:2155
+#: index.docbook:2158
 #, no-c-format
 msgid ""
 "You can also select a range of samples and drag or drop them into a &kapp; "
@@ -3681,12 +3686,12 @@ msgstr ""
 "sur la touche <keycap moreinfo=\"none\">Ctrl</keycap> vous pouvez modifier "
 "ce comportement  pour <emphasis>copier</emphasis> la sélection."
 
-#: index.docbook:2170
+#: index.docbook:2173
 #, no-c-format
 msgid "Command Line"
 msgstr "Les options en ligne de commande"
 
-#: index.docbook:2172
+#: index.docbook:2175
 #, no-c-format
 msgid ""
 "If you start &kapp; from the command line, you can specify a list of files "
@@ -3701,7 +3706,7 @@ msgstr ""
 "une fenêtre séparée mais à partir de la même  instance de &kapp;. Vous "
 "pouvez ainsi ouvrir un nombre important de fichiers sonores en même  temps."
 
-#: index.docbook:2179
+#: index.docbook:2182
 #, no-c-format
 msgid ""
 "For example, the following command starts a &kapp; and opens all sounds of "
@@ -3711,7 +3716,7 @@ msgstr ""
 "ouvre dans des  fenêtres séparées, tous les fichiers sonores utilisés en "
 "internes par KDE :"
 
-#: index.docbook:2179
+#: index.docbook:2182
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
@@ -3720,7 +3725,7 @@ msgstr ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
 "KDE_Window*.wav</filename></command>"
 
-#: index.docbook:2185
+#: index.docbook:2188
 #, no-c-format
 msgid ""
 "In addition to a list of files, you can specify a list of <emphasis>Xt "
@@ -3734,7 +3739,7 @@ msgstr ""
 "ouverte de &kapp; ou comme <literal>-display</literal> pour lancer &kapp; "
 "sur une instance du serveur X différente."
 
-#: index.docbook:2193
+#: index.docbook:2196
 #, no-c-format
 msgid ""
 "For example, the following command starts a &kapp; window with an initial "
@@ -3747,7 +3752,7 @@ msgstr ""
 "avec la bordure droite positionnée  à 30 pixels du bords droit de la fenêtre "
 "et 0 pixels du haut de la fenêtre."
 
-#: index.docbook:2193
+#: index.docbook:2196
 #, no-c-format
 msgid ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
@@ -3756,12 +3761,12 @@ msgstr ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
 "parameter></command>"
 
-#: index.docbook:2206
+#: index.docbook:2209
 #, no-c-format
 msgid "Opening and Saving files"
 msgstr "Ouverture et sauvegarde de fichiers"
 
-#: index.docbook:2208
+#: index.docbook:2211
 #, no-c-format
 msgid ""
 "Opening files with &kapp; works like in most other applications, you can"
@@ -3769,7 +3774,7 @@ msgstr ""
 "L'ouverture des fichiers avec &kapp; fonctionne comme dans toutes les autres "
 "applications de KDE. Vous pouvez :"
 
-#: index.docbook:2208
+#: index.docbook:2211
 #, no-c-format
 msgid ""
 "specify a list of files on the <link linkend=\"command_line\">command line</"
@@ -3778,7 +3783,7 @@ msgstr ""
 "Spécifier une liste de fichiers à partir de la <link linkend=\"command_line"
 "\">ligne de commande </link> quand vous lancez &kapp;."
 
-#: index.docbook:2208
+#: index.docbook:2211
 #, no-c-format
 msgid ""
 "open an empty &kapp; window (for example with <menuchoice> "
@@ -3794,7 +3799,7 @@ msgstr ""
 "travail de cette fenêtre via le  <link linkend=\"drag_and_drop\">tirer / "
 "déposer</link>."
 
-#: index.docbook:2208
+#: index.docbook:2211
 #, no-c-format
 msgid ""
 "open a file through the menu with <menuchoice> "
@@ -3807,7 +3812,7 @@ msgstr ""
 "keycombo></shortcut><guimenu>Fichier</guimenu><guimenuitem>Ouvrir</"
 "guimenuitem></menuchoice>."
 
-#: index.docbook:2208
+#: index.docbook:2211
 #, no-c-format
 msgid ""
 "or one of the last recently opened files under <menuchoice> <guimenu>File</"
@@ -3817,7 +3822,7 @@ msgstr ""
 "<menuchoice><guimenu>Fichier</guimenu><guimenuitem>Récemment ouvert(s)</"
 "guimenuitem></menuchoice>."
 
-#: index.docbook:2208
+#: index.docbook:2211
 #, no-c-format
 msgid ""
 "save the current file with <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
@@ -3829,7 +3834,7 @@ msgstr ""
 "keycombo></shortcut><guimenu>Fichier</guimenu><guimenuitem>Enregistrer</"
 "guimenuitem></menuchoice>."
 
-#: index.docbook:2208
+#: index.docbook:2211
 #, no-c-format
 msgid ""
 "save under a different name with <menuchoice> "
@@ -3843,7 +3848,7 @@ msgstr ""
 "guimenu><guimenuitem>Sauvegarder</guimenuitem><guimenuitem>Dans...</"
 "guimenuitem></menuchoice>."
 
-#: index.docbook:2208
+#: index.docbook:2211
 #, no-c-format
 msgid ""
 "or only the current selection with <menuchoice> <guimenu>File</"
@@ -3854,12 +3859,12 @@ msgstr ""
 "<menuchoice><guimenu>Fichier</guimenu><guimenuitem>Sauvegarder</"
 "guimenuitem><guimenuitem> Selection...</guimenuitem></menuchoice>."
 
-#: index.docbook:2258
+#: index.docbook:2261
 #, no-c-format
 msgid "Supported File formats"
 msgstr "Formats de fichiers supportés"
 
-#: index.docbook:2259
+#: index.docbook:2262
 #, no-c-format
 msgid ""
 "The favourite file format of &kapp; is (like you can guess from the name) "
@@ -3870,7 +3875,7 @@ msgstr ""
 "l'application) \".wav\". Ce format est trés commun vis à vis d'autre "
 "\"systèmes d'exploitation\" mais aussi pour l'environnement de bureau KDE."
 
-#: index.docbook:2274
+#: index.docbook:2277
 #, no-c-format
 msgid ""
 "Additionally &kapp; supports many other common formats through the <ulink "
@@ -3886,12 +3891,12 @@ msgstr ""
 "(Audio Interchange Format) and <filename>*.sf</filename> (Berkeley,IRCAM,"
 "Carl Sound Format)."
 
-#: index.docbook:2285
+#: index.docbook:2288
 #, no-c-format
 msgid "Converting to and from .wav"
 msgstr "Convertir vers/un fichier .wav "
 
-#: index.docbook:2287
+#: index.docbook:2290
 #, no-c-format
 msgid ""
 "The best way to work with formats other than those supported by &kapp; is to "
@@ -3909,7 +3914,7 @@ msgstr ""
 "sur le site internet <ulink url=\"http://home.sprynet.com/~cbagwell/sox.html"
 "\">http://home.sprynet.com/~cbagwell/sox.html</ulink>."
 
-#: index.docbook:2296
+#: index.docbook:2299
 #, no-c-format
 msgid ""
 "The plans for future include support for import and also export filters for "
@@ -3926,12 +3931,12 @@ msgstr ""
 "Actuellement, &kapp; peut seulement sauvegarder les fichiers au format "
 "<filename>.wav</filename>."
 
-#: index.docbook:2384
+#: index.docbook:2387
 #, no-c-format
 msgid "How to select"
 msgstr "Comment faire une sélection"
 
-#: index.docbook:2386
+#: index.docbook:2389
 #, no-c-format
 msgid ""
 "&kapp; allows you to select a continuous range of samples as well as any "
@@ -3946,12 +3951,12 @@ msgstr ""
 "sur la selection. Si un canal n'est pas activé avant la sélection, son "
 "contenu ne sera  pas modifié."
 
-#: index.docbook:2393
+#: index.docbook:2396
 #, no-c-format
 msgid "Selecting channels"
 msgstr "La sélection de canaux sonores"
 
-#: index.docbook:2394
+#: index.docbook:2397
 #, no-c-format
 msgid ""
 "Selecting or de-selecting a channel is quite simple. Just click on the lamp "
@@ -3961,27 +3966,27 @@ msgstr ""
 "cliquer sur le témoin lumineux  placé à la gauche des pistes sonores. Les "
 "états du témoins sont les suivants :"
 
-#: index.docbook:2398
+#: index.docbook:2401
 #, no-c-format
 msgid "green lamb"
 msgstr "Lumiére verte"
 
-#: index.docbook:2398
+#: index.docbook:2401
 #, no-c-format
 msgid "a green lamb means \"enabled\", whereas"
 msgstr "Un témoin vert indique que le canal est \"actif\"."
 
-#: index.docbook:2407
+#: index.docbook:2410
 #, no-c-format
 msgid "red lamb"
 msgstr "Lumiére rouge"
 
-#: index.docbook:2407
+#: index.docbook:2410
 #, no-c-format
 msgid "a red lamb means \"disabled\"."
 msgstr "Un témoin rouge indique que le canal est \"inactif\"."
 
-#: index.docbook:2417
+#: index.docbook:2420
 #, no-c-format
 msgid ""
 "Note: If a channel is de-selected it will also not be audible for playback!"
@@ -3989,12 +3994,12 @@ msgstr ""
 "Si le canal est déselectionné, il ne sera pas écoutable lors d'une lecture "
 "des pistes sonores !"
 
-#: index.docbook:2422
+#: index.docbook:2425
 #, no-c-format
 msgid "Selecting samples"
 msgstr "La sélection d'échantillons"
 
-#: index.docbook:2424
+#: index.docbook:2427
 #, no-c-format
 msgid ""
 "If you select a range of samples in &kapp;, that range will be "
@@ -4015,7 +4020,7 @@ msgstr ""
 "échantillon, la fonction  \"Supprimer\" appliquera les modifications "
 "uniquement sur ce dernier."
 
-#: index.docbook:2434
+#: index.docbook:2437
 #, no-c-format
 msgid ""
 "The easiest way of selecting a range of samples is just to do that with "
@@ -4030,7 +4035,7 @@ msgstr ""
 "sélection,  et de déplacer la souris en maintenant appuyer le bouton gauche "
 "jusqu'a la fin de la sélection."
 
-#: index.docbook:2440
+#: index.docbook:2443
 #, no-c-format
 msgid ""
 "If you want to adjust or move the selection's start or end, you can move the "
@@ -4044,7 +4049,7 @@ msgstr ""
 "souris, de déplacer l'extrémité à l'emplacement voulu, puis de relacher  le "
 "bouton."
 
-#: index.docbook:2446
+#: index.docbook:2449
 #, no-c-format
 msgid ""
 "You can also extend or shrink the selection to a specific point by holding "
@@ -4058,7 +4063,7 @@ msgstr ""
 "dans l'espace de travail vis à vis de la sélection, le bord gauche ou le "
 "bord droit de la sélection sera ajusté à la position pointée par le curseur."
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid ""
 "There are also some functions available via the menu and of course some "
@@ -4067,7 +4072,7 @@ msgstr ""
 "Il y a également quelques fonctions qui sont disponibles par le menu et bien "
 "sur quelques raccourçis clavier qui sont :"
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid ""
 "select the whole signal: <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
@@ -4080,7 +4085,7 @@ msgstr ""
 "shortcut> <guimenu>Edition</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Tout</guimenuitem> </menuchoice>"
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid ""
 "the currently visible area: <menuchoice> <shortcut><keycombo><keycap>V</"
@@ -4092,7 +4097,7 @@ msgstr ""
 "guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Région visible</"
 "guimenuitem></menuchoice>"
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid ""
 "the next block of samples, starting one sample after the end of the current "
@@ -4107,13 +4112,13 @@ msgstr ""
 "keycombo></shortcut><guimenu>Editon</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Suivant</guimenuitem></menuchoice>"
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Astuce : utiliser la touche \"<keycap>+</keycap>\" du clavier numérique !)"
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid ""
 "the previous block of samples, ending one sample before the start of the "
@@ -4128,13 +4133,13 @@ msgstr ""
 "keycombo></shortcut><guimenu>Editon</guimenu><guimenuitem> Selection</"
 "guimenuitem><guimenuitem>Précédent</guimenuitem></menuchoice>"
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Astuce : utiliser la touche \"<keycap>-</keycap>\" du clavier numérique !)"
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid ""
 "expand the selection to the start of the signal (first sample): <menuchoice> "
@@ -4148,7 +4153,7 @@ msgstr ""
 "guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Au début</"
 "guimenuitem></menuchoice>"
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid ""
 "expand the selection to the end of the signal (last sample): <menuchoice> "
@@ -4162,7 +4167,7 @@ msgstr ""
 "guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>A la fin</"
 "guimenuitem></menuchoice>"
 
-#: index.docbook:2452
+#: index.docbook:2455
 #, no-c-format
 msgid ""
 "remove any selection and select \"nothing\": <menuchoice> "
@@ -4175,17 +4180,17 @@ msgstr ""
 "shortcut><guimenu>Editon</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Rien</guimenuitem></menuchoice>"
 
-#: index.docbook:2631
+#: index.docbook:2634
 #, no-c-format
 msgid "Developer's Guide to &kapp;"
 msgstr "Le guide du développeur de &kapp;"
 
-#: index.docbook:2637
+#: index.docbook:2640
 #, no-c-format
 msgid "under construction"
 msgstr "Ce chapitre est en cours de rédaction."
 
-#: index.docbook:2645
+#: index.docbook:2648
 #, no-c-format
 msgid ""
 "Sorry, this chapter is still to be written... At the moment the source code "
@@ -4203,7 +4208,7 @@ msgstr ""
 "avec  doxygen vers un document au format docbook (Le source de cette aide a "
 "été faite de cette manière)."
 
-#: index.docbook:2654
+#: index.docbook:2657
 #, no-c-format
 msgid ""
 "If you want to write a plugin, contribute something to this project (or "
@@ -4217,22 +4222,22 @@ msgstr ""
 "linkend=\"mailing-list\">liste de diffusion</link> de &kapp;.  De l'aide est "
 "toujours la bienvenue !"
 
-#: index.docbook:2671
+#: index.docbook:2674
 #, no-c-format
 msgid "Questions and Answers"
 msgstr "Foire aux questions"
 
-#: index.docbook:2673
+#: index.docbook:2676
 #, no-c-format
 msgid "<para></para>"
 msgstr "<para></para>"
 
-#: index.docbook:2679
+#: index.docbook:2682
 #, no-c-format
 msgid "What do I need to compile &kapp;?"
 msgstr "De quoi ai je besoin pour compiler &kapp; ?"
 
-#: index.docbook:2684
+#: index.docbook:2687
 #, no-c-format
 msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before. "
@@ -4241,12 +4246,12 @@ msgstr ""
 "Lisez les informations à ce <link linkend=\"requirements\">chapitre</link>. "
 "Il peut être compilé avec gcc ou egcs."
 
-#: index.docbook:2695
+#: index.docbook:2698
 #, no-c-format
 msgid "Which sound cards does &kapp; support?"
 msgstr "Qu'elles sont les cartes sons supportées par &kapp; ?"
 
-#: index.docbook:2700
+#: index.docbook:2703
 #, no-c-format
 msgid ""
 "&kapp; does not need support for any special sound card. The sound card only "
@@ -4260,14 +4265,14 @@ msgstr ""
 "Bien sur, &kapp; peut lire des pistes sonores sur toutes les cartes  sonores "
 "reconnues par KDE."
 
-#: index.docbook:2713
+#: index.docbook:2716
 #, no-c-format
 msgid "Why are some menu entries / features always disabled?"
 msgstr ""
 "Pourquoi certaines entrées des menus ou certaines fonctionnalités sont "
 "désactivées ?"
 
-#: index.docbook:2718
+#: index.docbook:2721
 #, no-c-format
 msgid ""
 "This is just because we decided that those actions are not working stable "
@@ -4280,7 +4285,7 @@ msgstr ""
 "instables. Elles seront progressivement  activées au fur et à mesure de "
 "l'avancement des développements."
 
-#: index.docbook:2730
+#: index.docbook:2733
 #, no-c-format
 msgid ""
 "Why does &kapp; consume more memory than it can be expected from the size of "
@@ -4289,7 +4294,7 @@ msgstr ""
 "Pourquoi &kapp; utilise plus de mémoire système que celle nécessaire pour "
 "stocker un  fichier sonore ?"
 
-#: index.docbook:2736
+#: index.docbook:2739
 #, no-c-format
 msgid ""
 "The reason for this is that &kapp; internally stores all samples in 32-bit "
@@ -4304,12 +4309,12 @@ msgstr ""
 "taille de 1 Mo, il représentera  environ 4 Mo en mémoire. Cette "
 "caractéristique évoluera peut être dans le futur..."
 
-#: index.docbook:2749
+#: index.docbook:2752
 #, no-c-format
 msgid "Which sound formats does &kapp; support?"
 msgstr "Quels sont les formats de fichiers sonores supportés par &kapp; ?"
 
-#: index.docbook:2754
+#: index.docbook:2757
 #, no-c-format
 msgid ""
 "&kapp; currently supports .wav files with 8, 16 and 24 bits per sample, with "
@@ -4321,13 +4326,13 @@ msgstr ""
 "stéréo). En plus, il peut importer tous les types de fichiers supportés par "
 "la bibliothéque 'libaudiofile'."
 
-#: index.docbook:2765
+#: index.docbook:2768
 #, no-c-format
 msgid "What if I have files with a format not supported by &kapp;?"
 msgstr ""
 "Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
 
-#: index.docbook:2771
+#: index.docbook:2774
 #, no-c-format
 msgid ""
 "If you have to work on an other format, you can convert it into .wav format. "
@@ -4341,13 +4346,13 @@ msgstr ""
 "~cbagwell/sox.html\">SoX</ulink>. Il est accompagné d'une  trés bonne "
 "documentation !"
 
-#: index.docbook:2783
+#: index.docbook:2786
 #, no-c-format
 msgid "I get errors when I want to do playback?"
 msgstr ""
 "J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
 
-#: index.docbook:2788
+#: index.docbook:2791
 #, no-c-format
 msgid ""
 "Maybe you have choosen a combination of playback rate and sample size that "
@@ -4364,14 +4369,14 @@ msgstr ""
 "stéréo.  Noter que certaine carte sonore ne supporte pas certaine résolution "
 "d'échantillonage."
 
-#: index.docbook:2802
+#: index.docbook:2805
 #, no-c-format
 msgid "The playback seems to do something but I hear nothing?"
 msgstr ""
 "La lecture d'une piste sonore semble fonctionner mais je n'entends rien. "
 "Pourquoi ?"
 
-#: index.docbook:2807
+#: index.docbook:2810
 #, no-c-format
 msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
@@ -4380,25 +4385,25 @@ msgstr ""
 "Peut être avez vous oubliez d'augmenter le volume de votre carte sonore. "
 "&kapp;  ne controle pas directement le niveau du volume sonore."
 
-#: index.docbook:2817
+#: index.docbook:2820
 #, no-c-format
 msgid "Some files are played with half-speed?"
 msgstr ""
 "Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
 
-#: index.docbook:2822
+#: index.docbook:2825
 #, no-c-format
 msgid "Try choosing a different sound playback device."
 msgstr "Essayer de choisir un autre périphérique de lecture sonore."
 
-#: index.docbook:2830
+#: index.docbook:2833
 #, no-c-format
 msgid "The playback sometimes is disturbed and interrupted?"
 msgstr ""
 "Quelques fichiers sont joués avec des coupures ou des perturbations. "
 "Pourquoi ?"
 
-#: index.docbook:2835
+#: index.docbook:2838
 #, no-c-format
 msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
@@ -4407,14 +4412,14 @@ msgstr ""
 "Vous devez augmenter le buffer de lecture pour obtenir une lecture plus "
 "\"fluide\" (cela peut générer un contrôle sur la lecture un peu plus lent)."
 
-#: index.docbook:2845
+#: index.docbook:2848
 #, no-c-format
 msgid "The playback does not stop if I immediately press the stop button?"
 msgstr ""
 "La lecture ne s'arrête pas imédiatement si j'appuie sur le bouton STOP. "
 "Pourquoi ?"
 
-#: index.docbook:2851
+#: index.docbook:2854
 #, no-c-format
 msgid ""
 "The reason for this is that the sound driver already has received some "
@@ -4427,12 +4432,12 @@ msgstr ""
 "Diminuer la taille du buffer de  lecture pour avoir une réaction plus rapide "
 "du programme (des problèmes de lecture  sont cependant à envisager)."
 
-#: index.docbook:2863
+#: index.docbook:2866
 #, no-c-format
 msgid "Is ALSA supported?"
 msgstr "Les drivers ALSA sont ils supportés ?"
 
-#: index.docbook:2868
+#: index.docbook:2871
 #, no-c-format
 msgid ""
 "Sorry, currently we don't have direct support for ALSA, but since version "
@@ -4444,7 +4449,7 @@ msgstr ""
 "<ulink url=\"http://www.arts-project.org/\">aRts</ulink>, qui peut utiliser "
 "les drivers ALSA."
 
-#: index.docbook:2879
+#: index.docbook:2882
 #, no-c-format
 msgid ""
 "What about playback with 24 and 32 bits per sample or more than two channels?"
@@ -4452,7 +4457,7 @@ msgstr ""
 "Qu'en est-il de la lecture de fichiers sonores sur 24 et 32 bits par "
 "échantillons ou avec plus de  2 pistes sonores ?"
 
-#: index.docbook:2885
+#: index.docbook:2888
 #, no-c-format
 msgid ""
 "This is another feature that might get implemented in <ulink url=\"http://"
@@ -4462,12 +4467,12 @@ msgstr ""
 "l'interface <ulink url=\"http://www.arts-project.org/\">aRts</ulink>. Il "
 "faut attendre que cette fonctionnalité soit opérationnelle."
 
-#: index.docbook:2895
+#: index.docbook:2898
 #, no-c-format
 msgid "What about MP3 support?"
 msgstr "Qu'en est-il du support des fichiers MP3 ?"
 
-#: index.docbook:2900
+#: index.docbook:2903
 #, no-c-format
 msgid ""
 "Not for the moment, but maybe MP3 import / export already is on the TODO "
@@ -4476,17 +4481,17 @@ msgstr ""
 "Pas pour le moment, mais peut être que l'importation / exportation est déjà "
 "and la liste 'TODO' à un niveau de priorité important."
 
-#: index.docbook:2930
+#: index.docbook:2933
 #, no-c-format
 msgid "Credits and License"
 msgstr "Crédits et Licence"
 
-#: index.docbook:2932
+#: index.docbook:2935
 #, no-c-format
 msgid "&kapp;"
 msgstr "&kapp;"
 
-#: index.docbook:2934
+#: index.docbook:2937
 #, no-c-format
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
@@ -4495,7 +4500,7 @@ msgstr ""
 "Programme sous copyright de 1998 à 2000 Martin Wilz <email>mwilz@ernie.mi."
 "uni-koeln.de</email>"
 
-#: index.docbook:2938
+#: index.docbook:2941
 #, no-c-format
 msgid ""
 "Program copyright since 2000 Thomas Eschenbacher <email>thomas."
@@ -4504,17 +4509,17 @@ msgstr ""
 "Programme sous copyright depuis 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
-#: index.docbook:2943
+#: index.docbook:2946
 #, no-c-format
 msgid "Contributors / Authors:"
 msgstr "Contributions / Auteurs :"
 
-#: index.docbook:2943
+#: index.docbook:2946
 #, no-c-format
 msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
-#: index.docbook:2943
+#: index.docbook:2946
 #, no-c-format
 msgid ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
@@ -4522,26 +4527,26 @@ msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en "
 "Allemand)"
 
-#: index.docbook:2943
+#: index.docbook:2946
 #, no-c-format
 msgid "Ralf Waspe <email>rwaspe@web.de</email> (Help/About plugin)"
 msgstr ""
 "Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue 'A propos de')"
 
-#: index.docbook:2943
+#: index.docbook:2946
 #, no-c-format
 msgid ""
 "Caulier Gilles <email>caulier.gilles@free.fr</email> (french translation)"
 msgstr ""
 "Caulier Gilles <email>caulier.gilles@free.fr</email> (Traductions Françaises)"
 
-#: index.docbook:2943
+#: index.docbook:2946
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
 msgstr ""
 "Martin Kuball <email>makube@user.sourceforge.net</email> (béta testeur)"
 
-#: index.docbook:2943
+#: index.docbook:2946
 #, no-c-format
 msgid ""
 "Aurelien Jarno <email>aurel32@debian.org</email> (<ulink url=\"http://www."
@@ -4550,12 +4555,12 @@ msgstr ""
 "Aurelien Jarno <email>aurel32@debian.org</email> (Paquetage pour la "
 "distribution <ulink url=\"http://www.debian.org\">debian</ulink>)"
 
-#: index.docbook:3007
+#: index.docbook:3010
 #, no-c-format
 msgid "Thanks to (in alphabetical order):"
 msgstr "Remerciements (par ordre alphabetique) :"
 
-#: index.docbook:3007
+#: index.docbook:3010
 #, no-c-format
 msgid ""
 "Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
@@ -4564,7 +4569,7 @@ msgstr ""
 "Michael Pruett <email>mpruett@sgi.com</email> (auteur de la <ulink url="
 "\"http://oss.sgi.com/projects/audiofile/\"> bibliothéque 'audiofile'</ulink>)"
 
-#: index.docbook:3007
+#: index.docbook:3010
 #, no-c-format
 msgid ""
 "Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
@@ -4573,22 +4578,22 @@ msgstr ""
 "Erik de Castro Lopo <email>erikd@zip.com.au</email> (auteur de la <ulink url="
 "\"http://www.zip.com.au/~erikd/libsndfile/\">bibliothéque sndfile</ulink>)"
 
-#: index.docbook:3007
+#: index.docbook:3010
 #, no-c-format
 msgid "Carsten Jacobi"
 msgstr "Carsten Jacobi"
 
-#: index.docbook:3007
+#: index.docbook:3010
 #, no-c-format
 msgid "Frank Christian Stoffel"
 msgstr "Frank Christian Stoffel"
 
-#: index.docbook:3007
+#: index.docbook:3010
 #, no-c-format
 msgid "Achim Dahlhaus"
 msgstr "Achim Dahlhaus"
 
-#: index.docbook:3007
+#: index.docbook:3010
 #, no-c-format
 msgid ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (for information "
@@ -4597,18 +4602,18 @@ msgstr ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (pour toutes les "
 "informations concernant les optimisations sur les RPM) </emphasis>"
 
-#: index.docbook:3007
+#: index.docbook:3010
 #, no-c-format
 msgid "Klaus Hendrik Lorenz"
 msgstr "Klaus Hendrik Lorenz"
 
-#: index.docbook:3007
+#: index.docbook:3010
 #, no-c-format
 msgid "my girlfriend Ximena González<emphasis> (for her patience)</emphasis>"
 msgstr ""
 "Ma petite amie Ximena González<emphasis> (pour toute sa patience)</emphasis>"
 
-#: index.docbook:3045
+#: index.docbook:3048
 #, no-c-format
 msgid ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
@@ -4617,7 +4622,7 @@ msgstr ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
-#: index.docbook:3064
+#: index.docbook:3067
 #, no-c-format
 msgid ""
 "The current code contains some FFT routines and code fragments from the GNU "
@@ -4629,7 +4634,7 @@ msgstr ""
 "que l'on peut consulter à l'adresse  <ulink url=\"http://sources.redhat.com/"
 "gsl/\">http://sources.redhat.com/gsl/</ulink>."
 
-#: index.docbook:3070
+#: index.docbook:3073
 #, no-c-format
 msgid ""
 "Import/export of sound files is achieved through a modified copy of "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-24 20:09+0200\n"
+"POT-Creation-Date: 2004-05-12 08:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2399,6 +2399,49 @@ msgstr ""
 
 #: plugins/about/AboutKwaveDialog.cpp:93
 msgid "authors"
+msgstr ""
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:163
+msgid "About Kwave"
+msgstr ""
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:164
+msgid "<h1>Kwave - a sound editor for KDE</h1>"
+msgstr ""
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:165
+msgid ""
+"<h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
+"h2><br>\n"
+"With Kwave you can edit many sorts of \n"
+"wav-files including multi-channel files. \n"
+"You are able to alter and play back each \n"
+"channel on its own.<br>\n"
+"Kwave also includes many plugins (some \n"
+"are still under development) to transform \n"
+"the wave-file in several ways and presents \n"
+"a graphical view with a complete zoom- \n"
+"and scroll capability."
+msgstr ""
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:176
+msgid "Authors"
+msgstr ""
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:177
+msgid "Thanks To"
+msgstr ""
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:179
+msgid "Plugins found:"
+msgstr ""
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:180
+msgid "Plugins info"
+msgstr ""
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:181
+msgid "License agreement"
 msgstr ""
 
 #: plugins/noise/NoisePlugin.cpp:49

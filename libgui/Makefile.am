@@ -18,13 +18,18 @@
 INCLUDES= -I${topdir} @all_includes@
 
 BUILTSOURCES=\
+ SelectTimeWidgetBase.uih.h \
+ SelectTimeWidgetBase.uih.moc.cpp \
+ SelectTimeWidgetBase.uic.cpp \
  ConfirmCancelProxy.moc.cpp\
  MultiStateWidget.moc.cpp\
  CurveWidget.moc.cpp\
  FileProgress.moc.cpp\
+ IntValidatorProxy.moc.cpp\
  KwaveFileDialog.moc.cpp\
  OverViewCache.moc.cpp\
  OverViewWidget.moc.cpp\
+ SelectTimeWidget.moc.cpp\
  MenuNode.moc.cpp\
  MenuGroup.moc.cpp \
  MenuItem.moc.cpp\
@@ -38,6 +43,7 @@ libkwavegui_la_SOURCES =\
  CurveWidget.cpp\
  ConfirmCancelProxy.cpp\
  FileProgress.cpp\
+ IntValidatorProxy.cpp\
  KwaveFileDialog.cpp\
  MenuNode.cpp\
  MenuGroup.cpp \
@@ -49,6 +55,7 @@ libkwavegui_la_SOURCES =\
  OverViewCache.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\
+ SelectTimeWidget.cpp\
  TrackPixmap.cpp\
  $(BUILTSOURCES)
 
@@ -64,5 +71,11 @@ DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
 
 %moc.cpp: %h
 	${MOC} $< -o $@
+
+%.uih.h: %.ui
+	@UIC@ -o $@ -tr i18n $<
+
+%.uic.cpp: %.ui
+	@UIC@ -o $@ -tr i18n -impl $*.uih.h $<
 
 # end of Makefile.am

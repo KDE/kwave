@@ -63,9 +63,9 @@ export QTDIR=/usr/lib/qt2   (normally not necessary)
 rpm -ta kwave-0.6.3.tar.gz
 
 If you want to build for a different architecture than your current, you
-might want to add the parameter "--target=...", for example:
+might want to add the parameter "--target ...", for example:
 
-rpm -ta --target=i586 kwave-0.6.3.tar.gz
+rpm -ta --target i586 kwave-0.6.3.tar.gz
 
 compiles for pentium architecture.
 

@@ -479,7 +479,6 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	ASSERT(index < CACHE_SIZE);
 	if (index >= CACHE_SIZE) index = CACHE_SIZE-1;
 	if (last_index > index) last_index--;
-	ASSERT(last_index < CACHE_SIZE);
 	if (last_index >= CACHE_SIZE) last_index = CACHE_SIZE-1;
 	
 	// loop over all cache indices

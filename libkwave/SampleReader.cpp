@@ -27,11 +27,13 @@
 // define this for using only slow Qt array functions
 #undef STRICTLY_QT
 
+#define BUFFER_SIZE (256*1024)
+
 //***************************************************************************
 SampleReader::SampleReader(Track &track, QList<Stripe> &stripes,
 	SampleLock *lock, unsigned int left, unsigned int right)
     :m_track(track), m_stripes(stripes), m_lock(lock),
-    m_src_position(left), m_first(left), m_last(right), m_buffer(16*1024),
+    m_src_position(left), m_first(left), m_last(right), m_buffer(BUFFER_SIZE),
     m_buffer_used(0), m_buffer_position(0)
 {
 }

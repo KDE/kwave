@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>490</width>
-            <height>277</height>
+            <width>645</width>
+            <height>278</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -179,7 +179,10 @@
                 <number>1</number>
             </property>
             <property name="toolTip" stdset="0">
-                <string>Frequency parameter</string>
+                <string>chopper frequency</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;chopper frequency&lt;/b&gt;&lt;br&gt;This setting determines how small the pieces of audio data are before they get processed by the pitch shift. If your audio data sounds interrupted, you might get better result with higher values.</string>
             </property>
         </widget>
         <widget class="QLabel" row="1" column="0">
@@ -207,18 +210,27 @@
                 <number>5</number>
             </property>
             <property name="toolTip" stdset="0">
-                <string>Frequency parameter</string>
+                <string>chopper frequency</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;chopper frequency&lt;/b&gt;&lt;br&gt;This setting determines how small the pieces of audio data are before they get processed by the pitch shift. If your audio data sounds interrupted, you might get better result with higher values.</string>
             </property>
         </widget>
         <widget class="QSlider" row="1" column="2">
             <property name="name">
                 <cstring>slSpeed</cstring>
             </property>
+            <property name="minimumSize">
+                <size>
+                    <width>400</width>
+                    <height>0</height>
+                </size>
+            </property>
             <property name="minValue">
                 <number>1</number>
             </property>
             <property name="maxValue">
-                <number>1000</number>
+                <number>400</number>
             </property>
             <property name="value">
                 <number>100</number>
@@ -230,7 +242,7 @@
                 <enum>Both</enum>
             </property>
             <property name="tickInterval">
-                <number>100</number>
+                <number>50</number>
             </property>
             <property name="toolTip" stdset="0">
                 <string>Speed</string>

@@ -23,14 +23,14 @@
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
 
+/** size of m_buffer in samples */
 #define BUFFER_SIZE (256*1024)
 
 //***************************************************************************
-SampleWriter::SampleWriter(Track &track, QPtrList<Stripe> &stripes,
-	SampleLock *lock, InsertMode mode, unsigned int left,
-	unsigned int right)
+SampleWriter::SampleWriter(Track &track, InsertMode mode,
+    unsigned int left, unsigned int right)
     :QObject(), m_first(left), m_last(right), m_mode(mode), m_track(track),
-     m_stripes(stripes), m_lock(lock), m_position(left),
+     m_position(left),
      m_buffer(BUFFER_SIZE), m_buffer_used(0)
 {
 }
@@ -43,8 +43,6 @@ SampleWriter::~SampleWriter()
 
     // inform others that we proceeded
     emit sigSamplesWritten(m_position - m_first);
-    if (m_lock) delete m_lock;
-    m_lock = 0;
 }
 
 //***************************************************************************
@@ -103,76 +101,15 @@ void SampleWriter::flush(const QMemArray<sample_t> &buffer,
 {
     if (count == 0) return; // nothing to flush
 
-    Q_ASSERT(m_position <= m_last+1);
-    switch (m_mode) {
-	case Append: {
-	    Stripe *s = m_stripes.last();
-	    Q_ASSERT(s);
-	    if (!s) break;
-	    unsigned int cnt = s->append(buffer, count);
-	    Q_ASSERT(cnt == count);
-	    m_position += count;
-	    if (m_position+1 > m_last) m_last = m_position-1;
-	    break;
-	}
-	case Insert: {
-	    // in insert mode we only have one stripe and it is clear
-	    // where to insert
-	    Q_ASSERT(m_stripes.count() == 1);
-	    Stripe *s = m_stripes.first();
-	    Q_ASSERT(s);
-	    if (!s) break;
-
-	    // insert samples after the last insert position
-	    unsigned int ofs = s->start();
-	    Q_ASSERT(ofs <= m_position);
-	    if (ofs > m_position) break;
-	    ofs = m_position - ofs;
-
-	    unsigned int cnt = s->insert(buffer, ofs, count);
-	    Q_ASSERT(cnt == count);
-	    m_position += count;
-	    Q_ASSERT(m_position <= m_last+1);
-	    break;
-	}
-	case Overwrite: {
-	    // find the first stripe that contains the current position
-	    QPtrListIterator<Stripe> it(m_stripes);
-	    unsigned int buf_offset = 0;
-
-	    Q_ASSERT(m_position <= m_last+1);
-	    for (; it.current(); ++it) {
-		if (!count) break; // nothing to do
-		if (m_position > m_last) break;
-
-		Stripe *s = it.current();
-		unsigned int st = s->start();
-		unsigned int len = s->length();
-		if (!len) continue; // skip zero-length stripes
-
-		if (m_position >= st+len) continue; // not yet in range
-
-		if (m_position >= st) {
-		    unsigned int offset = m_position - st;
-		    unsigned int length = len - offset;
-		    if (length > count) length = count;
-		    if (m_position+length-1 > m_last)
-			length = (m_last-m_position)+1;
-		    Q_ASSERT(length);
-
-		    // copy the portion of our buffer to the target
-		    s->overwrite(offset, buffer, buf_offset, length);
-
-		    count -= length;
-		    buf_offset += length;
-		    m_position += length;
-		    Q_ASSERT(m_position <= m_last+1);
-		}
-	    }
-	    count = 0;
-	    break;
-	}
+    if ((m_mode == Overwrite) && (m_position + count > m_last)) {
+	// need clipping
+	count = m_last + 1 - m_position;
+	qDebug("SampleWriter::flush() clipped to count=%u", count);
     }
+
+    m_track.writeSamples(m_mode, m_position, buffer, 0, count);
+    m_position += count;
+    if (m_position+1 > m_last) m_last = m_position-1;
 
     Q_ASSERT(m_position <= m_last+1);
     count = 0;

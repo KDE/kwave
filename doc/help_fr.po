@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-23 00:19GMT\n"
+"PO-Revision-Date: 2002-01-24 23:28GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -719,7 +719,7 @@ msgstr "Déplacement du drapeau \"selected\" de la classe SignalManager vers la 
 
 #: index.docbook:210
 msgid "fixed selection of channels if appended or deleted"
-msgstr "Correction de sur la selection d'un canal si on ajoute ou on supprime des données."
+msgstr "Correction de bogues sur la selection d'un canal si on ajoute ou on supprime des données."
 
 #: index.docbook:210
 msgid "0.5.2-11 [2000-05-28]"
@@ -762,7 +762,7 @@ msgid ""
 "mouse selection by about factor 14(!!!) on my system :-))"
 msgstr ""
 "SignalWidget utilise une arborescence en couche pour l'affichage. Cela améliore le "
-" réaffichage aprés une sélection avec la souris d'un facteur 14 (!!!) sur mon système :-))"
+" réaffichage aprés une sélection avec la souris d'un facteur 14 (!!!) sur mon système."
 
 #: index.docbook:210
 msgid "0.5.2-10 [2000-05-21]"
@@ -770,27 +770,33 @@ msgstr "0.5.2-10 [2000-05-21]"
 
 #: index.docbook:210
 msgid "some minor bugfixes in the Makefiles"
-msgstr ""
+msgstr "Quelques corrections de bogues mineurs dans les Makefiles."
 
 #: index.docbook:210
 msgid ""
 "save the kwave.spec and include it into the source archive, this lets \"rpm -"
 "ta kwave-x.x.x-x.tar.gz\" work"
 msgstr ""
+"Sauvegarde et ajout du fichier .spec de Kwave dans l'archive des sources. Cela permet "
+" à la commande \"rpm -ta kwave-x.x.x-x.tar.gz\" de fonctionner."
 
 #: index.docbook:210
 msgid "wrote a new README file, moved Martin's version to README.OLD"
 msgstr ""
+"Ecriture d'un nouveau fichier README. Déplacement de l'ancienne version "
+" écrite par Martin dans README.OLD."
 
 #: index.docbook:210
 msgid ""
 "RPM_OPT_FLAGS are appended to the compiler options, this lets pentium "
 "optimizations work :-)"
 msgstr ""
+"L'option RPM_OPT_FLAGS a été ajoutée dans la liste des oprtions de compilation, pour "
+" permettre aux optimisations du pentium de fonctionner."
 
 #: index.docbook:210
 msgid "shows a message box if loading of a file failed"
-msgstr ""
+msgstr "Afficher une boîte de dialogue d'erreur su le chargement d'un fichier a échoué."
 
 #: index.docbook:210
 msgid "0.5.2-9 [2000-05-19]"
@@ -799,18 +805,24 @@ msgstr "0.5.2-9 [2000-05-19]"
 #: index.docbook:210
 msgid "list of recent files is synchronized across all toplevel windows"
 msgstr ""
+"La liste des fichiers récemments ouverts est synchronisée avec entre toutes les "
+"instances du programme."
 
 #: index.docbook:210
 msgid ""
 "fixed dozens of memory leaks, missing ASSERT constructions, missing variable "
 "initializations and possible divisions through zero"
 msgstr ""
+"Correction de pertes de mémoires, d'oublis de constructions du type ASSERT, d'oublis "
+" d'initialisations de variable et de possibles divisions par zéro."
 
 #: index.docbook:210
 msgid ""
 "Help menu aligned to the right side (MenuRoot now is able to process the "
 "special command \"#separator\")"
 msgstr ""
+"Le menu d'aide a été aligné sur le coté droit (Le menu principal est capable de gérer "
+" la commande spéciale \"#separator\")."
 
 #: index.docbook:210
 msgid "0.5.2-1...0.5.2-8 [...2000-05-18]"
@@ -821,22 +833,26 @@ msgid ""
 "replaced all occurances of sprintf with snprintf, strcpy with strncpy (in 92 "
 "places) !"
 msgstr ""
+"Remplacement de toutes les occurances de sprintf par snprintf, et de strcpy par "
+" strncpy (92 fois)."
 
 #: index.docbook:210
 msgid "doesn't show any zoom factor if no signal is loaded"
-msgstr ""
+msgstr "Pas d'affichage du facteur de zoom si aucun fichier sonore n'est chargé."
 
 #: index.docbook:210
 msgid "handling of channel add/delete: selection/speakers are shifted"
-msgstr ""
+msgstr "Dans le cas de l'ajout ou la suppression d'un canal, une sélection est décalée."
 
 #: index.docbook:210
 msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
+"Changement de quelques variables et paramêtres en \"unsigned\" (pour simplifier "
+"la vérification des étendues de valeurs)."
 
 #: index.docbook:210
 msgid "beautified this file"
-msgstr ""
+msgstr "Ajout de ce fichier d'aide."
 
 #: index.docbook:210
 msgid ""
@@ -844,34 +860,43 @@ msgid ""
 "thanks to the developers of the \"Artistic Style\" package, astyle-1.11.4-1 "
 "made good work :-)"
 msgstr ""
+"Mise en valeur de quelques portions de code en concordance avec mon "
+"style de programmation. -> Remerciements aux développeurs de \"Artistic Style\". "
+" astyle-1.11.4-1 fait du bon travail."
 
 #: index.docbook:210
 msgid "fixed that annoying flicker in the help/about dialog"
 msgstr ""
+"Correction de quelques annotations incohérentes dans l'aide et dans la boîte de dialogue "
+"A propos de..."
 
 #: index.docbook:210
 msgid "checking for sizes of char, short and int at configure time"
 msgstr ""
+"Vérification du format des types char, short, et int lors de la phase de configuration avant "
+"la compilation."
 
 #: index.docbook:210
 msgid "globals.app will not be used (obsolete, should be removed from libkwave)"
-msgstr ""
+msgstr "'globals.app' n'est maintenant plus utilisée (obsolete, sera retirée de la bibliothéque libkwave)."
 
 #: index.docbook:210
 msgid "MessagePort will not be used (obsolete, should be removed from libkwave)"
-msgstr ""
+msgstr "'MessagePort' n'est maintenant plus utilisée (obsolete, sera retirée de la bibliothéque libkwave)."
 
 #: index.docbook:210
 msgid "multiple toplevel windows are possible"
-msgstr ""
+msgstr "L'ouverture de plusieurs instances de l'application est maintenant possible."
 
 #: index.docbook:210
 msgid "made X toolkit parameters work (especially \"-geometry\")"
-msgstr ""
+msgstr "Construction des options spécifiques au serveur X (spécialement \"-geometry\")."
 
 #: index.docbook:210
 msgid "bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)"
 msgstr ""
+"Corrections de bogues concernant le chargement et la sauvegarde de fichier wav au "
+"format 8 bits (toujours non-signés)."
 
 #: index.docbook:210
 msgid "COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE"
@@ -880,18 +905,22 @@ msgstr "RESTRUCTURATION COMPLETE DES COMMANDES ET DES STRUCTURES INTERNES DU PRO
 #: index.docbook:210
 msgid "made use of a combination of signals/slots and string messages"
 msgstr ""
+"Mise en place de combinaisons de signaux et de slots pour l'utilisation de chaînes "
+" de messages."
 
 #: index.docbook:210
 msgid ""
 "hierarchical processing: commands are are forwarded \"upwards\" until they "
 "reach a TopWidget"
 msgstr ""
+"Hierarchie des processus : les commandes sont déplacées vers le haut jusqu'à atteindre "
+" un TopWidget."
 
 #: index.docbook:210
 msgid ""
 "the TopWidget (highest level) dispatches the comands and forwards them to "
 "the lower levels"
-msgstr ""
+msgstr "Les TopWidget (de niveau haut) diffusent les commandes vers les niveaux les plus bas."
 
 #: index.docbook:210
 msgid "0.5.2 [2000-04-24]"

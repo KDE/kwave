@@ -1,6 +1,7 @@
 
-0.6.5 [2002-09-xx]
+0.6.5 [2002-10-xx]
 
+ * MP3 import with ID3 tag support through id3lib and libmad
  * show selected range as time (feature requested by Christian Hollaender)
  * support for saving compressed .wav files
  * thrown away Qt2/KDE2 compatibility, now only supports Qt3/KDE3

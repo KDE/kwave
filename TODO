@@ -1,10 +1,4 @@
 
-o storage/handling of extra info (labels, cue list, author etc...)
-
-o gui access to file saving parameters (author, copyright, etc...)
-
-o MP3 support
-
 o Ogg/Vorbis support
 
 o more precise handling of the playback pointer
@@ -63,8 +57,6 @@ o Filter: class needs to be tested
 
 o Signal::resample should use lowpass interpolation instead of spline
 
-o check of all MessageBoxes in SignalManager
-
 o MainWidget: re-enable accelerator keys for 0..9
 
 o use a MenuManager in the plugins (e.g. sonagram)
@@ -90,6 +82,10 @@ o SignalProxy1 implementation is very inefficient for simple data types
 
 o check at program startup: does the help directory exist? If not, show
   a message and make a symbolic link
+
+o speed up MP3 import by blockwise operation
+
+o storage/handling of extra info "labels", "cue list"...
 
 o SignalWidget::appendLabel()
 

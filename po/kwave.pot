@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-09-01 10:26+0200\n"
+"POT-Creation-Date: 2002-09-09 20:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -499,512 +499,512 @@ msgstr ""
 msgid "Track of the CD if the source was a CDROM."
 msgstr ""
 
-#: libkwave/GenreType.cpp:65
-msgid "Unknown"
-msgstr ""
-
-#: libkwave/GenreType.cpp:68
+#: libkwave/GenreType.cpp:76
 msgid "Blues"
 msgstr ""
 
-#: libkwave/GenreType.cpp:69
+#: libkwave/GenreType.cpp:77
 msgid "Classic Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:70
+#: libkwave/GenreType.cpp:78
 msgid "Country"
 msgstr ""
 
-#: libkwave/GenreType.cpp:71
+#: libkwave/GenreType.cpp:79
 msgid "Dance"
 msgstr ""
 
-#: libkwave/GenreType.cpp:72
+#: libkwave/GenreType.cpp:80
 msgid "Disco"
 msgstr ""
 
-#: libkwave/GenreType.cpp:73
+#: libkwave/GenreType.cpp:81
 msgid "Funk"
 msgstr ""
 
-#: libkwave/GenreType.cpp:74
+#: libkwave/GenreType.cpp:82
 msgid "Grunge"
 msgstr ""
 
-#: libkwave/GenreType.cpp:75
+#: libkwave/GenreType.cpp:83
 msgid "Hip-Hop"
 msgstr ""
 
-#: libkwave/GenreType.cpp:76
+#: libkwave/GenreType.cpp:84
 msgid "Jazz"
 msgstr ""
 
-#: libkwave/GenreType.cpp:77
+#: libkwave/GenreType.cpp:85
 msgid "Metal"
 msgstr ""
 
-#: libkwave/GenreType.cpp:78
+#: libkwave/GenreType.cpp:86
 msgid "New Age"
 msgstr ""
 
-#: libkwave/GenreType.cpp:79
+#: libkwave/GenreType.cpp:87
 msgid "Oldies"
 msgstr ""
 
-#: libkwave/GenreType.cpp:80
+#: libkwave/GenreType.cpp:88
 msgid "Other"
 msgstr ""
 
-#: libkwave/GenreType.cpp:81
+#: libkwave/GenreType.cpp:89
 msgid "Pop"
 msgstr ""
 
-#: libkwave/GenreType.cpp:82
+#: libkwave/GenreType.cpp:90
 msgid "R&B"
 msgstr ""
 
-#: libkwave/GenreType.cpp:83
+#: libkwave/GenreType.cpp:91
 msgid "Rap"
 msgstr ""
 
-#: libkwave/GenreType.cpp:84
+#: libkwave/GenreType.cpp:92
 msgid "Reggae"
 msgstr ""
 
-#: libkwave/GenreType.cpp:85
+#: libkwave/GenreType.cpp:93
 msgid "Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:86
+#: libkwave/GenreType.cpp:94
 msgid "Techno"
 msgstr ""
 
-#: libkwave/GenreType.cpp:87
+#: libkwave/GenreType.cpp:95
 msgid "Industrial"
 msgstr ""
 
-#: libkwave/GenreType.cpp:88
+#: libkwave/GenreType.cpp:96
 msgid "Alternative"
 msgstr ""
 
-#: libkwave/GenreType.cpp:89
+#: libkwave/GenreType.cpp:97
 msgid "Ska"
 msgstr ""
 
-#: libkwave/GenreType.cpp:90
+#: libkwave/GenreType.cpp:98
 msgid "Death Metal"
 msgstr ""
 
-#: libkwave/GenreType.cpp:91
+#: libkwave/GenreType.cpp:99
 msgid "Pranks"
 msgstr ""
 
-#: libkwave/GenreType.cpp:92
+#: libkwave/GenreType.cpp:100
 msgid "Soundtrack"
 msgstr ""
 
-#: libkwave/GenreType.cpp:93
+#: libkwave/GenreType.cpp:101
 msgid "Euro-Techno"
 msgstr ""
 
-#: libkwave/GenreType.cpp:94
+#: libkwave/GenreType.cpp:102
 msgid "Ambient"
 msgstr ""
 
-#: libkwave/GenreType.cpp:95
+#: libkwave/GenreType.cpp:103
 msgid "Trip-Hop"
 msgstr ""
 
-#: libkwave/GenreType.cpp:96
+#: libkwave/GenreType.cpp:104
 msgid "Vocal"
 msgstr ""
 
-#: libkwave/GenreType.cpp:97
+#: libkwave/GenreType.cpp:105
 msgid "Jazz+Funk"
 msgstr ""
 
-#: libkwave/GenreType.cpp:98
+#: libkwave/GenreType.cpp:106
 msgid "Fusion"
 msgstr ""
 
-#: libkwave/GenreType.cpp:99
+#: libkwave/GenreType.cpp:107
 msgid "Trance"
 msgstr ""
 
-#: libkwave/GenreType.cpp:100
+#: libkwave/GenreType.cpp:108
 msgid "Classical"
 msgstr ""
 
-#: libkwave/GenreType.cpp:101
+#: libkwave/GenreType.cpp:109
 msgid "Instrumental"
 msgstr ""
 
-#: libkwave/GenreType.cpp:102
+#: libkwave/GenreType.cpp:110
 msgid "Acid"
 msgstr ""
 
-#: libkwave/GenreType.cpp:103
+#: libkwave/GenreType.cpp:111
 msgid "House"
 msgstr ""
 
-#: libkwave/GenreType.cpp:104
+#: libkwave/GenreType.cpp:112
 msgid "Game"
 msgstr ""
 
-#: libkwave/GenreType.cpp:105
+#: libkwave/GenreType.cpp:113
 msgid "Sound Clip"
 msgstr ""
 
-#: libkwave/GenreType.cpp:106
+#: libkwave/GenreType.cpp:114
 msgid "Gospel"
 msgstr ""
 
-#: libkwave/GenreType.cpp:107
+#: libkwave/GenreType.cpp:115
 msgid "Noise"
 msgstr ""
 
-#: libkwave/GenreType.cpp:108
+#: libkwave/GenreType.cpp:116
 msgid "AlternRock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:109
+#: libkwave/GenreType.cpp:117
 msgid "Bass"
 msgstr ""
 
-#: libkwave/GenreType.cpp:110
+#: libkwave/GenreType.cpp:118
 msgid "Soul"
 msgstr ""
 
-#: libkwave/GenreType.cpp:111
+#: libkwave/GenreType.cpp:119
 msgid "Punk"
 msgstr ""
 
-#: libkwave/GenreType.cpp:112
+#: libkwave/GenreType.cpp:120
 msgid "Space"
 msgstr ""
 
-#: libkwave/GenreType.cpp:113
+#: libkwave/GenreType.cpp:121
 msgid "Meditative"
 msgstr ""
 
-#: libkwave/GenreType.cpp:114
+#: libkwave/GenreType.cpp:122
 msgid "Instrumental Pop"
 msgstr ""
 
-#: libkwave/GenreType.cpp:115
+#: libkwave/GenreType.cpp:123
 msgid "Instrumental Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:116
+#: libkwave/GenreType.cpp:124
 msgid "Ethnic"
 msgstr ""
 
-#: libkwave/GenreType.cpp:117
+#: libkwave/GenreType.cpp:125
 msgid "Gothic"
 msgstr ""
 
-#: libkwave/GenreType.cpp:118
+#: libkwave/GenreType.cpp:126
 msgid "Darkwave"
 msgstr ""
 
-#: libkwave/GenreType.cpp:119
+#: libkwave/GenreType.cpp:127
 msgid "Techno-Industrial"
 msgstr ""
 
-#: libkwave/GenreType.cpp:120
+#: libkwave/GenreType.cpp:128
 msgid "Electronic"
 msgstr ""
 
-#: libkwave/GenreType.cpp:121
+#: libkwave/GenreType.cpp:129
 msgid "Pop-Folk"
 msgstr ""
 
-#: libkwave/GenreType.cpp:122
+#: libkwave/GenreType.cpp:130
 msgid "Eurodance"
 msgstr ""
 
-#: libkwave/GenreType.cpp:123
+#: libkwave/GenreType.cpp:131
 msgid "Dream"
 msgstr ""
 
-#: libkwave/GenreType.cpp:124
+#: libkwave/GenreType.cpp:132
 msgid "Southern Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:125
+#: libkwave/GenreType.cpp:133
 msgid "Comedy"
 msgstr ""
 
-#: libkwave/GenreType.cpp:126
+#: libkwave/GenreType.cpp:134
 msgid "Cult"
 msgstr ""
 
-#: libkwave/GenreType.cpp:127
+#: libkwave/GenreType.cpp:135
 msgid "Gangsta"
 msgstr ""
 
-#: libkwave/GenreType.cpp:128
+#: libkwave/GenreType.cpp:136
 msgid "Top 40"
 msgstr ""
 
-#: libkwave/GenreType.cpp:129
+#: libkwave/GenreType.cpp:137
 msgid "Christian Rap"
 msgstr ""
 
-#: libkwave/GenreType.cpp:130
+#: libkwave/GenreType.cpp:138
 msgid "Pop/Funk"
 msgstr ""
 
-#: libkwave/GenreType.cpp:131
+#: libkwave/GenreType.cpp:139
 msgid "Jungle"
 msgstr ""
 
-#: libkwave/GenreType.cpp:132
+#: libkwave/GenreType.cpp:140
 msgid "Native American"
 msgstr ""
 
-#: libkwave/GenreType.cpp:133
+#: libkwave/GenreType.cpp:141
 msgid "Cabaret"
 msgstr ""
 
-#: libkwave/GenreType.cpp:134
+#: libkwave/GenreType.cpp:142
 msgid "New Wave"
 msgstr ""
 
-#: libkwave/GenreType.cpp:135
+#: libkwave/GenreType.cpp:143
 msgid "Psychadelic"
 msgstr ""
 
-#: libkwave/GenreType.cpp:136
+#: libkwave/GenreType.cpp:144
 msgid "Rave"
 msgstr ""
 
-#: libkwave/GenreType.cpp:137
+#: libkwave/GenreType.cpp:145
 msgid "Showtunes"
 msgstr ""
 
-#: libkwave/GenreType.cpp:138
+#: libkwave/GenreType.cpp:146
 msgid "Trailer"
 msgstr ""
 
-#: libkwave/GenreType.cpp:139
+#: libkwave/GenreType.cpp:147
 msgid "Lo-Fi"
 msgstr ""
 
-#: libkwave/GenreType.cpp:140
+#: libkwave/GenreType.cpp:148
 msgid "Tribal"
 msgstr ""
 
-#: libkwave/GenreType.cpp:141
+#: libkwave/GenreType.cpp:149
 msgid "Acid Punk"
 msgstr ""
 
-#: libkwave/GenreType.cpp:142
+#: libkwave/GenreType.cpp:150
 msgid "Acid Jazz"
 msgstr ""
 
-#: libkwave/GenreType.cpp:143
+#: libkwave/GenreType.cpp:151
 msgid "Polka"
 msgstr ""
 
-#: libkwave/GenreType.cpp:144
+#: libkwave/GenreType.cpp:152
 msgid "Retro"
 msgstr ""
 
-#: libkwave/GenreType.cpp:145
+#: libkwave/GenreType.cpp:153
 msgid "Musical"
 msgstr ""
 
-#: libkwave/GenreType.cpp:146
+#: libkwave/GenreType.cpp:154
 msgid "Rock & Roll"
 msgstr ""
 
-#: libkwave/GenreType.cpp:147
+#: libkwave/GenreType.cpp:155
 msgid "Hard Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:150
+#: libkwave/GenreType.cpp:158
 msgid "Folk"
 msgstr ""
 
-#: libkwave/GenreType.cpp:151
+#: libkwave/GenreType.cpp:159
 msgid "Folk-Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:152
+#: libkwave/GenreType.cpp:160
 msgid "National Folk"
 msgstr ""
 
-#: libkwave/GenreType.cpp:153
+#: libkwave/GenreType.cpp:161
 msgid "Swing"
 msgstr ""
 
-#: libkwave/GenreType.cpp:154
+#: libkwave/GenreType.cpp:162
 msgid "Fast Fusion"
 msgstr ""
 
-#: libkwave/GenreType.cpp:155
+#: libkwave/GenreType.cpp:163
 msgid "Bebob"
 msgstr ""
 
-#: libkwave/GenreType.cpp:156
+#: libkwave/GenreType.cpp:164
 msgid "Latin"
 msgstr ""
 
-#: libkwave/GenreType.cpp:157
+#: libkwave/GenreType.cpp:165
 msgid "Revival"
 msgstr ""
 
-#: libkwave/GenreType.cpp:158
+#: libkwave/GenreType.cpp:166
 msgid "Celtic"
 msgstr ""
 
-#: libkwave/GenreType.cpp:159
+#: libkwave/GenreType.cpp:167
 msgid "Bluegrass"
 msgstr ""
 
-#: libkwave/GenreType.cpp:160
+#: libkwave/GenreType.cpp:168
 msgid "Avantgarde"
 msgstr ""
 
-#: libkwave/GenreType.cpp:161
+#: libkwave/GenreType.cpp:169
 msgid "Gothic Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:162
+#: libkwave/GenreType.cpp:170
 msgid "Progressive Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:163
+#: libkwave/GenreType.cpp:171
 msgid "Psychedelic Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:164
+#: libkwave/GenreType.cpp:172
 msgid "Symphonic Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:165
+#: libkwave/GenreType.cpp:173
 msgid "Slow Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:166
+#: libkwave/GenreType.cpp:174
 msgid "Big Band"
 msgstr ""
 
-#: libkwave/GenreType.cpp:167
+#: libkwave/GenreType.cpp:175
 msgid "Chorus"
 msgstr ""
 
-#: libkwave/GenreType.cpp:168
+#: libkwave/GenreType.cpp:176
 msgid "Easy Listening"
 msgstr ""
 
-#: libkwave/GenreType.cpp:169
+#: libkwave/GenreType.cpp:177
 msgid "Acoustic"
 msgstr ""
 
-#: libkwave/GenreType.cpp:170
+#: libkwave/GenreType.cpp:178
 msgid "Humour"
 msgstr ""
 
-#: libkwave/GenreType.cpp:171
+#: libkwave/GenreType.cpp:179
 msgid "Speech"
 msgstr ""
 
-#: libkwave/GenreType.cpp:172
+#: libkwave/GenreType.cpp:180
 msgid "Chanson"
 msgstr ""
 
-#: libkwave/GenreType.cpp:173
+#: libkwave/GenreType.cpp:181
 msgid "Opera"
 msgstr ""
 
-#: libkwave/GenreType.cpp:174
+#: libkwave/GenreType.cpp:182
 msgid "Chamber Music"
 msgstr ""
 
-#: libkwave/GenreType.cpp:175
+#: libkwave/GenreType.cpp:183
 msgid "Sonata"
 msgstr ""
 
-#: libkwave/GenreType.cpp:176
+#: libkwave/GenreType.cpp:184
 msgid "Symphony"
 msgstr ""
 
-#: libkwave/GenreType.cpp:177
+#: libkwave/GenreType.cpp:185
 msgid "Booty Bass"
 msgstr ""
 
-#: libkwave/GenreType.cpp:178
+#: libkwave/GenreType.cpp:186
 msgid "Primus"
 msgstr ""
 
-#: libkwave/GenreType.cpp:179
+#: libkwave/GenreType.cpp:187
 msgid "Porn Groove"
 msgstr ""
 
-#: libkwave/GenreType.cpp:180
+#: libkwave/GenreType.cpp:188
 msgid "Satire"
 msgstr ""
 
-#: libkwave/GenreType.cpp:181
+#: libkwave/GenreType.cpp:189
 msgid "Slow Jam"
 msgstr ""
 
-#: libkwave/GenreType.cpp:182
+#: libkwave/GenreType.cpp:190
 msgid "Club"
 msgstr ""
 
-#: libkwave/GenreType.cpp:183
+#: libkwave/GenreType.cpp:191
 msgid "Tango"
 msgstr ""
 
-#: libkwave/GenreType.cpp:184
+#: libkwave/GenreType.cpp:192
 msgid "Samba"
 msgstr ""
 
-#: libkwave/GenreType.cpp:185
+#: libkwave/GenreType.cpp:193
 msgid "Folklore"
 msgstr ""
 
-#: libkwave/GenreType.cpp:186
+#: libkwave/GenreType.cpp:194
 msgid "Ballad"
 msgstr ""
 
-#: libkwave/GenreType.cpp:187
+#: libkwave/GenreType.cpp:195
 msgid "Power Ballad"
 msgstr ""
 
-#: libkwave/GenreType.cpp:188
+#: libkwave/GenreType.cpp:196
 msgid "Rhythmic Soul"
 msgstr ""
 
-#: libkwave/GenreType.cpp:189
+#: libkwave/GenreType.cpp:197
 msgid "Freestyle"
 msgstr ""
 
-#: libkwave/GenreType.cpp:190
+#: libkwave/GenreType.cpp:198
 msgid "Duet"
 msgstr ""
 
-#: libkwave/GenreType.cpp:191
+#: libkwave/GenreType.cpp:199
 msgid "Punk Rock"
 msgstr ""
 
-#: libkwave/GenreType.cpp:192
+#: libkwave/GenreType.cpp:200
 msgid "Drum Solo"
 msgstr ""
 
-#: libkwave/GenreType.cpp:193
+#: libkwave/GenreType.cpp:201
 msgid "Acapella"
 msgstr ""
 
-#: libkwave/GenreType.cpp:194
+#: libkwave/GenreType.cpp:202
 msgid "Euro-House"
 msgstr ""
 
-#: libkwave/GenreType.cpp:195
+#: libkwave/GenreType.cpp:203
 msgid "Dance Hall"
+msgstr ""
+
+#: libkwave/GenreType.cpp:212
+msgid "Unknown"
 msgstr ""
 
 #: libkwave/WindowFunction.cpp:54 plugins/fileinfo/FileInfoDlg.uic.cpp:856
@@ -2250,6 +2250,7 @@ msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:111
 #: plugins/codec_wav/WavDecoder.cpp:320 plugins/codec_wav/WavEncoder.cpp:169
+#: plugins/decoder_mp3/MP3Decoder.cpp:456
 msgid "out of memory"
 msgstr ""
 
@@ -2374,10 +2375,44 @@ msgid ""
 "Assuming Mono..."
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:386
+#: plugins/decoder_mp3/MP3Decoder.cpp:390
 msgid ""
 "The opened file is no MPEG file or is damaged.\n"
 "No header information has been found..."
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:459
+msgid "checksum error"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:462
+msgid "synchronization lost"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:479
+msgid "file contains invalid data"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:482
+#, c-format
+msgid "unknown error 0x%X. damaged file?"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:488
+#, ycp-format
+msgid ""
+"An error occurred while decoding the file:\n"
+"'%1',\n"
+"at position %2.\n"
+"%3"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:493
+msgid "Do you still want to continue?"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:497
+msgid "Do you want to continue and ignore all following errors?"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:275

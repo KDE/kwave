@@ -28,6 +28,7 @@
 class Mp3_Headerinfo;
 class ID3_Frame;
 class ID3_Tag;
+class QWidget;
 
 class MP3Decoder: public Decoder
 {
@@ -65,13 +66,17 @@ public:
      */
     virtual void close();
 
-    /* Callback for filling libmad's input buffer */
+    /** Callback for filling libmad's input buffer */
     enum mad_flow fillInput(struct mad_stream *stream);
 
-    /* Calback for processing libmad's output */
+    /** Calback for processing libmad's output */
     enum mad_flow processOutput(void *data,
                                 struct mad_header const *header,
                                 struct mad_pcm *pcm);
+
+    /** Callback for handling stream errors */                           
+    enum mad_flow handleError(void *data, struct mad_stream *stream,
+                              struct mad_frame *frame);
 
 private:
 
@@ -104,6 +109,12 @@ private:
     /** number of appended bytes / id3v1 tag */
     unsigned int m_appended_bytes;
 
+    /** number of failures */
+    unsigned int m_failures;
+    
+    /** widget used for displaying error messages */
+    QWidget *m_parent_widget;
+    
 };
 
 #endif /* _MP3_DECODER_H_ */

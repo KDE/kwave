@@ -37,7 +37,8 @@
 //***************************************************************************
 MP3Decoder::MP3Decoder()
     :Decoder(), m_source(0), m_dest(0), m_buffer(0), m_buffer_size(0),
-     m_prepended_bytes(0), m_appended_bytes(0)
+     m_prepended_bytes(0), m_appended_bytes(0), m_failures(0),
+     m_parent_widget(0)
 {
     /* included in KDE: */
     addMimeType("audio/x-mpga",   i18n("MPEG layer1 audio"),
@@ -252,7 +253,6 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    //ID3FID_TAGGINGTIME       // Tagging time.
 	    //ID3FID_INVOLVEDPEOPLE2   // Involved people list.
 	    //ID3FID_ENCODEDBY         // Encoded by.
-	    //ID3FID_LYRICIST          // Lyricist/Text writer.
 	    //ID3FID_FILETYPE          // File type.
 	    //ID3FID_TIME              // Time.
 	    //ID3FID_CONTENTGROUP      // Content group description.
@@ -272,7 +272,10 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    //ID3FID_MOOD             // Mood.
 	    //ID3FID_ORIGALBUM        // Original album/movie/show title.
 	    //ID3FID_ORIGFILENAME     // Original filename.
-	    //ID3FID_ORIGLYRICIST     // Original lyricist(s)/text writer(s).
+
+	    case ID3FID_LYRICIST:     // Lyricist/Text writer.
+	    case ID3FID_ORIGLYRICIST: // Original lyricist(s)/text writer(s).
+		parseId3Frame(frame, INF_ARTIST); break;
 
 	    case ID3FID_ORIGARTIST:   // Original artist(s)/performer(s).
 		parseId3Frame(frame, INF_AUTHOR); break;
@@ -355,7 +358,7 @@ void MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
 //***************************************************************************
 bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 {
-    debug("MP3Decoder::open()"); // ###
+    debug("MP3Decoder::open()");
     info().clear();
     ASSERT(!m_source);
     if (m_source) warning("MP3Decoder::open(), already open !");
@@ -437,14 +440,70 @@ static enum mad_flow _error_adapter(void *data, struct mad_stream *stream,
 {
     MP3Decoder *decoder = (MP3Decoder*)data;
     ASSERT(decoder);
-    if (!decoder) return MAD_FLOW_BREAK;
+    return (decoder) ?
+        decoder->handleError(data, stream, frame) : MAD_FLOW_BREAK;
+}
 
-    debug("_error_adapter");
-    fprintf(stderr, "decoding error 0x%04x (%s) at byte offset %u\n",
-	  stream->error, mad_stream_errorstr(stream),
-	  stream->this_frame /* - buffer->start */);
-    
-    return MAD_FLOW_BREAK;
+//***************************************************************************
+enum mad_flow MP3Decoder::handleError(void *data, struct mad_stream *stream,
+                                      struct mad_frame *frame)
+{
+    if (m_failures >= 2) return MAD_FLOW_CONTINUE; // ignore errors
+    if (stream->error == MAD_ERROR_NONE) return MAD_FLOW_CONTINUE; // ???
+
+    QString error;
+    switch (stream->error) {
+	case MAD_ERROR_BUFLEN:
+	case MAD_ERROR_BUFPTR:
+	case MAD_ERROR_NOMEM:
+		error = i18n("out of memory");
+		break;
+	case MAD_ERROR_BADCRC:
+		error = i18n("checksum error");
+		break;
+	case MAD_ERROR_LOSTSYNC:
+		error = i18n("synchronization lost");
+		break;
+	case MAD_ERROR_BADLAYER:
+	case MAD_ERROR_BADBITRATE:
+	case MAD_ERROR_BADSAMPLERATE:
+	case MAD_ERROR_BADEMPHASIS:
+	case MAD_ERROR_BADBITALLOC:
+	case MAD_ERROR_BADSCALEFACTOR:
+	case MAD_ERROR_BADFRAMELEN:
+	case MAD_ERROR_BADBIGVALUES:
+	case MAD_ERROR_BADBLOCKTYPE:
+	case MAD_ERROR_BADSCFSI:
+	case MAD_ERROR_BADDATAPTR:
+	case MAD_ERROR_BADPART3LEN:
+	case MAD_ERROR_BADHUFFTABLE:
+	case MAD_ERROR_BADHUFFDATA:
+	case MAD_ERROR_BADSTEREO:
+		error = i18n("file contains invalid data");
+		break;
+	default:
+		error = i18n("unknown error 0x%X. damaged file?").arg(
+		stream->error);
+    }
+
+    unsigned int pos = stream->this_frame - m_buffer;
+    int result = 0;
+    error = i18n("An error occurred while decoding the file:\n'%1',\n"
+	         "at position %2.\n%3").arg(error).arg(pos);
+    if (!m_failures) {
+	m_failures = 1;
+	result = KMessageBox::warningContinueCancel(m_parent_widget,
+	         error.arg(i18n("Do you still want to continue?")));
+	if (result != KMessageBox::Continue) return MAD_FLOW_BREAK;
+    } else if (m_failures == 1) {
+	result = KMessageBox::warningYesNo(m_parent_widget, error.arg(i18n(
+	    "Do you want to continue and ignore all following errors?")
+	    ));
+        m_failures++;
+	if (result != KMessageBox::Yes) return MAD_FLOW_BREAK;
+    }
+
+    return MAD_FLOW_CONTINUE;
 }
 
 //***************************************************************************
@@ -453,6 +512,9 @@ enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
     ASSERT(m_source);
     if (!m_source) return MAD_FLOW_STOP;
 
+    // check if the user pressed cancel
+    if (m_dest->isCancelled()) return MAD_FLOW_STOP;
+    
     // preserve the remaining bytes from the last pass
     int rest = stream->bufend - stream->next_frame;
     if (rest) memmove(m_buffer, stream->next_frame, rest);
@@ -473,7 +535,6 @@ enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
     if (!size) return MAD_FLOW_STOP; // no more data
 
     // buffer is filled -> process it    
-    debug("rest=%u, bytes_to_read=%u, size=%u",rest,bytes_to_read,size);
     mad_stream_buffer(stream, m_buffer, size);
 
     return MAD_FLOW_CONTINUE;
@@ -564,10 +625,11 @@ enum mad_flow MP3Decoder::processOutput(void *data,
 	register int nsamples = pcm->length;
 	mad_fixed_t const *p = pcm->samples[track];
 
-	// and render samples ino Kwave's internal format
+	// and render samples into Kwave's internal format
+	/** @todo mp3 import could be speeded up by blockwise operation */
 	while (nsamples--) {
 	    sample = (signed int)audio_linear_dither(SAMPLE_BITS,
-	    	                 (mad_fixed_t)(*p++), &dither);
+	             (mad_fixed_t)(*p++), &dither);
 	    register sample_t s = static_cast<sample_t>(sample);
 	    *(*m_dest)[track] << s;
 	}
@@ -576,9 +638,8 @@ enum mad_flow MP3Decoder::processOutput(void *data,
     return MAD_FLOW_CONTINUE;
 }
 
-
 //***************************************************************************
-bool MP3Decoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
+bool MP3Decoder::decode(QWidget *widget, MultiTrackWriter &dst)
 {
     ASSERT(m_source);
     if (!m_source) return false;
@@ -586,7 +647,9 @@ bool MP3Decoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 
     // set target of the decoding
     m_dest = &dst;
-
+    m_failures = 0;
+    m_parent_widget = widget;
+    
     // setup the decoder
     struct mad_decoder decoder;
     mad_decoder_init(&decoder, this,

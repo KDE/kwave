@@ -68,6 +68,15 @@ public:
 protected:
 
     /**
+     * Searches for a vorbis comment and renders it into Kwave's FileInfo.
+     * If more than one occurance is found, they are concatenated as a
+     * semicolon separated list.
+     * @param tag name of the field to search for
+     * @param property specifies the FileProperty for storing the result
+     */
+    void parseTag(const char *tag, FileProperty property);
+
+    /**
      * Try to parse header frames.
      * @param widget a QWidget for displaying error messages
      * @return -1 for error (return false)
@@ -75,7 +84,7 @@ protected:
      *         1 if ready to continue
      */
     int parseHeader(QWidget *widget);
-    
+
 private:
 
     /** source of the audio data */

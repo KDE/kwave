@@ -61,4 +61,6 @@ private:
     addMimeType("application/x-ogg", i18n("Ogg, Vorbis audio"), "*.ogg; *.OGG"); \
 }
 
+#define DEFAULT_MIME_TYPE "audio/x-ogg"
+
 #endif /* _OGG_CODEC_PLUGIN_H_ */

@@ -55,6 +55,19 @@ Decoder *OggDecoder::instance()
     return new OggDecoder();
 }
 
+//***************************************************************************
+void OggDecoder::parseTag(const char *tag, FileProperty property)
+{
+    int count = vorbis_comment_query_count(&m_vc, (char*)tag);
+    if (count < 1) return;
+    QString value;
+    for (int i=0; i < count; ++i) {
+	char *text = vorbis_comment_query(&m_vc, (char*)tag, i);
+	if (i) value += "; ";
+	value += text;
+    }
+    m_info.set(property, value);
+}
 
 //***************************************************************************
 int OggDecoder::parseHeader(QWidget *widget)
@@ -132,7 +145,7 @@ int OggDecoder::parseHeader(QWidget *widget)
     while (counter < 2) {
 	while(counter < 2) {
 	    int result=ogg_sync_pageout(&m_oy, &m_og);
-	    if (result == 0) return 0; // Need more data
+	    if (result == 0) break; // Need more data
 	    // Don't complain about missing or corrupt data yet.  We'll
 	    // catch it at the packet output phase
 	    if (result == 1) {
@@ -142,7 +155,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 		ogg_stream_pagein(&m_os, &m_og);
 		while (counter < 2) {
 		    result = ogg_stream_packetout(&m_os, &m_op);
-		    if (result == 0) return 0;
+		    if (result == 0) break;
 		    if (result < 0) {
 			// Uh oh; data at some point was corrupted or
 			// missing! We can't tolerate that in a header.
@@ -166,17 +179,6 @@ int OggDecoder::parseHeader(QWidget *widget)
 	    return -1;
 	}
 	ogg_sync_wrote(&m_oy, bytes);
-    }
-
-    // Throw the comments plus a few lines about the bitstream we're decoding
-    {
-	char **ptr = m_vc.user_comments;
-	while (*ptr) {
-	    debug("%s\n", *ptr);
-	    ++ptr;
-	}
-	debug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
-	debug("Encoded by: %s\n\n", m_vc.vendor);
     }
 
     // OK, got and parsed all three headers. Initialize the Vorbis
@@ -214,11 +216,37 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     if (parseHeader(widget) < 0) return false;
 
     // get the standard properties
-    m_info.setLength(0);
+    m_info.setLength(0);         // use streaming
     m_info.setRate(m_vi.rate);
-    m_info.setBits(SAMPLE_BITS);
+    m_info.setBits(SAMPLE_BITS); // use Kwave's internal resolution
     m_info.setTracks(m_vi.channels);
-    // m_info.set(INF_???, QVariant(m_vi.version));
+    m_info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
+    
+    // the first comment sometimes is used for the software version
+    {
+	char **ptr = m_vc.user_comments;
+	QString s = *ptr;
+	if (s.length() && !s.contains('=')) {
+	    m_info.set(INF_SOFTWARE, s);
+	    debug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
+	    debug("Encoded by: %s\n\n", m_vc.vendor);
+	}
+    }
+
+    parseTag("TITLE",        INF_NAME);
+    parseTag("VERSION",      INF_VERSION);
+    parseTag("ALBUM",        INF_ALBUM);
+    parseTag("TRACKNUMBER",  INF_TRACK);
+    parseTag("ARTIST",       INF_AUTHOR);
+    parseTag("PERFORMER",    INF_PERFORMER);
+    parseTag("COPYRIGHT",    INF_COPYRIGHT);
+    parseTag("LICENSE",      INF_LICENSE);
+    parseTag("ORGANIZATION", INF_ORGANIZATION);
+    parseTag("DESCRIPTION",  INF_SUBJECT);
+    parseTag("GENRE",        INF_GENRE);
+    parseTag("LOCATION",     INF_SOURCE);
+    parseTag("CONTACT",      INF_CONTACT);
+    parseTag("ISRC",         INF_ISRC);
     
     return true;
 }

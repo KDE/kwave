@@ -12,6 +12,8 @@ Copyright: @RPM_COPYRIGHT@
 URL: @RPM_URL@
 Vendor: @RPM_VENDOR@
 BuildRoot: @RPM_BUILDROOT@
+Provides: %{name}
+Requires: libkwave >= 0.3.8-2
 
 %description
 @RPM_DESCRIPTION@
@@ -19,9 +21,11 @@ BuildRoot: @RPM_BUILDROOT@
 %prep
 
 %setup 
-rm -rf -v "$RPM_BUILD_ROOT"
+rm -rf "$RPM_BUILD_ROOT"
+make distclean
+rm -f config.cache
 ./configure --with-install-root=$RPM_BUILD_ROOT \
-	--enable-shared=yes --enable-static=no
+	--enable-shared=yes --enable-static=no --enable-debug=no
 
 %build
 (cd libgui && make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="")
@@ -31,7 +35,7 @@ rm -rf -v "$RPM_BUILD_ROOT"
 )
 
 %install
-rm -rf -v "$RPM_BUILD_ROOT"
+rm -rf "$RPM_BUILD_ROOT"
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 cd "$RPM_BUILD_ROOT"
 find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' > "$RPM_BUILD_DIR"/%{filelist}

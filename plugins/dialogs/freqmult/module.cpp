@@ -16,7 +16,7 @@ Dialog *getDialog (DialogOperation *operation)
 FrequencyMultDialog::FrequencyMultDialog (int rate,bool modal): Dialog(modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Select Function :"));
+  setCaption	(i18n("Select Function :"));
 
   this->rate=rate;
 
@@ -34,9 +34,9 @@ FrequencyMultDialog::FrequencyMultDialog (int rate,bool modal): Dialog(modal)
   x->setValue (2000);
   y->setValue (100);
 
-  add	 = new QPushButton (klocale->translate("&Add"),this);
-  xlabel = new QLabel (klocale->translate("Freq. in Hz"),this);
-  ylabel = new QLabel (klocale->translate("Ampl. in %"),this);
+  add	 = new QPushButton (i18n("&Add"),this);
+  xlabel = new QLabel (i18n("Freq. in Hz"),this);
+  ylabel = new QLabel (i18n("Ampl. in %"),this);
 
   int bsize=ok->sizeHint().height();
 

@@ -23,17 +23,17 @@ AverageFFTDialog::AverageFFTDialog (int rate,bool modal) : Dialog(modal)
   WindowFunction w(0);
   this->rate=rate;
   resize 	(320,200);
-  setCaption	(klocale->translate("Choose window type and length :"));
+  setCaption	(i18n("Choose window type and length :"));
 
-  pointlabel	=new QLabel	(klocale->translate("Length of window :"),this);
+  pointlabel	=new QLabel	(i18n("Length of window :"),this);
   windowlength	=new TimeLine (this);
   windowlength->setMs (100);
 
   windowtypebox	=new QComboBox (true,this);
   windowtypebox->insertStrList (w.getTypes(),w.getCount());
-  QToolTip::add(windowtypebox,klocale->translate("Choose windowing function here."));
+  QToolTip::add(windowtypebox,i18n("Choose windowing function here."));
   
-  windowtypelabel=new QLabel	(klocale->translate("Window Function :"),this);
+  windowtypelabel=new QLabel	(i18n("Window Function :"),this);
 
   ok		=new QPushButton (OK,this);
   cancel       	=new QPushButton (CANCEL,this);

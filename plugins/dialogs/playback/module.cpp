@@ -20,15 +20,15 @@ Dialog *getDialog (DialogOperation *operation)
 PlayBackDialog::PlayBackDialog (bool modal): Dialog (modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Playback Options :"));
+  setCaption	(i18n("Playback Options :"));
 
-  devicelabel	=new QLabel 	(klocale->translate("Playback Device :"),this);
+  devicelabel	=new QLabel 	(i18n("Playback Device :"),this);
   devicebox	=new QComboBox  (true,this);
   devicebox->insertStrList (devicetext,-1);
 
   QVBoxLayout *vbox;
   bg = new QButtonGroup( this);
-  bg->setTitle(klocale->translate("Resolution"));  
+  bg->setTitle(i18n("Resolution"));  
   vbox = new QVBoxLayout(bg, 10);
 
   vbox->addSpacing( bg->fontMetrics().height() );
@@ -36,7 +36,7 @@ PlayBackDialog::PlayBackDialog (bool modal): Dialog (modal)
   b16->setText( "16 Bit");
   vbox->addWidget(b16);
   b16->setMinimumSize(b16->sizeHint());
-  QToolTip::add( b16, klocale->translate("Set Playback-Mode to 16 Bit\nNote that not all sound hardware supports this mode !"));
+  QToolTip::add( b16, i18n("Set Playback-Mode to 16 Bit\nNote that not all sound hardware supports this mode !"));
   b16->setMinimumSize( b16->sizeHint());
 
   b8 = new QRadioButton( bg );
@@ -47,9 +47,9 @@ PlayBackDialog::PlayBackDialog (bool modal): Dialog (modal)
   buffersize=new Slider (4,16,1,5,Slider::Horizontal,this);
   bufferlabel=new QLabel ("",this); 
   setBufferSize (5);
-  QToolTip::add( buffersize, klocale->translate("This is the size of the buffer used for communication with the sound driver\nIf your computer is rather slow select a big buffer"));
+  QToolTip::add( buffersize, i18n("This is the size of the buffer used for communication with the sound driver\nIf your computer is rather slow select a big buffer"));
 
-  stereo=new QCheckBox (klocale->translate("enable stereo playback"),this);
+  stereo=new QCheckBox (i18n("enable stereo playback"),this);
   stereo->setEnabled (false);
 
   if (true) b16->setChecked( TRUE );
@@ -75,7 +75,7 @@ void  PlayBackDialog::setBufferSize (int exp)
   char buf [64];
   int val=1<<exp;
 
-  sprintf (buf,klocale->translate("Buffer Size : %d Samples"),val);
+  sprintf (buf,i18n("Buffer Size : %d Samples"),val);
   bufferlabel->setText (buf);
 }
 //**********************************************************

@@ -16,10 +16,10 @@ TimeLine::TimeLine (QWidget *parent,int rate):KRestrictedLine (parent)
   menu=new QPopupMenu ();
   value=1;
   
-  menu->insertItem	(klocale->translate("as number of samples"),this,SLOT(setSampleMode()));
-  menu->insertItem	(klocale->translate("in ms"),this,SLOT(setMsMode()));
-  menu->insertItem	(klocale->translate("in s"), this,SLOT(setSMode()));
-  menu->insertItem	(klocale->translate("in kb"),this,SLOT(setKbMode()));
+  menu->insertItem	(i18n("as number of samples"),this,SLOT(setSampleMode()));
+  menu->insertItem	(i18n("in ms"),this,SLOT(setMsMode()));
+  menu->insertItem	(i18n("in s"), this,SLOT(setSMode()));
+  menu->insertItem	(i18n("in kb"),this,SLOT(setKbMode()));
 
   menu->setCheckable (true);
 

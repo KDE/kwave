@@ -5,6 +5,8 @@
 #include <linux/soundcard.h>
 #include <endian.h>
 #include <limits.h>
+#include <math.h>
+
 #include <kmsgbox.h>
 
 #include <libkwave/Signal.h>
@@ -22,16 +24,17 @@
 #include "ProgressDialog.h"
 
 #include "SignalManager.h"
+#include "SignalWidget.h"
 
 extern int play16bit;
 extern int bufbase;
-
 extern Global globals;
-extern void *createProgressDialog (TimeOperation *operation,const char *caption);
 
 //**********************************************************
 void SignalManager::getMaxMin (int channel,int&max, int &min,int begin,int len)
 {
+  int sig_len;
+
   if (channel>=channels)
     {
       debug("SignalManager::getMaxMin:warning: channel %d >= %d",
@@ -43,6 +46,9 @@ void SignalManager::getMaxMin (int channel,int&max, int &min,int begin,int len)
       debug("SignalManager::getMaxMin:warning: signal[%d]==0", channel);
       return;
     }
+
+  sig_len = signal[channel]->getLength();
+  if (begin+len >= sig_len) len=sig_len-begin;
   signal[channel]->getMaxMin (max,min,begin,len);
 }
 
@@ -138,7 +144,8 @@ void threadStub (TimeOperation *obj)
 //**********************************************************
 int SignalManager::doCommand (const char *str)
 {
-  debug("signalmanager.cpp:doCommand(%s)\n", str); // ###
+  debug("SignalManager::doCommand(%s)\n", str); // ###
+
   if (matchCommand(str,"copy"))
     {
       if (globals.clipboard) delete globals.clipboard;
@@ -269,7 +276,7 @@ bool SignalManager::promoteCommand (const char *command)
 	      //create a new progress dialog, that watches an memory address
 	      //that is updated by the modules
 
-	      void *dialog=createProgressDialog(operation,caption);
+	      ProgressDialog *dialog=createProgressDialog(operation,caption);
 		if (dialog)
 		{
 		  pthread_t thread;
@@ -437,49 +444,51 @@ SignalManager::SignalManager (QWidget *par,const char *name,int type)
       break;
     }
 }
+
 //**********************************************************
-void SignalManager::loadAscii ()
-  //import ascii files with one sample per line, everything unparseable
-  //by strtod is ignored
+void SignalManager::loadAscii()
 {
-  FILE *sigin=fopen(name,"r");
+    float value;
+    int cnt=0;
+    float max=0;
+    float amp;
+    int *sample;
 
-  if (sigin)
-    {
-      float value;
-
-      int cnt=0;
-      float max=0;
-      float min=INT_MAX;
-
-      //loop over all samples in file to get maximum and minimum
-      if (fscanf (sigin,"%e\n",&value)!=0)
-      {
-	if (value>max) max=value;
-	if (value<min) min=value;
-	cnt++;
-      }
-
-      float amp=max;
-      if (-min>max) amp=-min;
-
-      fseek (sigin,0,SEEK_SET); //seek to beginning
-
-      rate=10000;     //will be asked in requester
-      channels=1;
-
-      signal[0]=new Signal (cnt,rate);
-      int *sample = signal[0]->getSample();
-      if (sample)
-      {
-	cnt=0;
-
-	if (fscanf (sigin,"%e\n",&value)!=0)
-	  sample[cnt++]=(int)(value/amp*((1<<23)-1));
-	}
-      fclose (sigin);
+    FILE *sigin=fopen(name,"r");
+    if (!sigin) {
+	printf ("File does not exist !\n");
+	return;
     }
-  else printf ("File does not exist !\n");
+
+    //loop over all samples in file to get maximum and minimum
+    while (!feof(sigin)) {
+	if (fscanf (sigin,"%e\n",&value) == 1) {
+	    if ( value > max) max= value;
+	    if (-value > max) max=-value;
+	    cnt++;
+	}
+    }
+    debug("reading ascii file with %d samples", cnt); // ###
+
+    // get the maximum and the scale
+    amp = ((1<<23)-1) / max;
+    rate=10000;     //will be asked in requester
+    channels=1;
+
+    signal[0]=new Signal(cnt, rate);
+    signal[0]->setBits(24);
+    sample = signal[0]->getSample();
+    if (sample) {
+	fseek (sigin,0,SEEK_SET); //seek to beginning
+	cnt=0;
+	while (!feof(sigin)) {
+	    if (fscanf(sigin,"%e\n",&value) == 1) {
+		sample[cnt++]=(int)(value*amp);
+	    }
+	}
+    }
+
+    fclose (sigin);
 }
 //**********************************************************
 void SignalManager::loadWav ()
@@ -561,33 +570,21 @@ void SignalManager::loadWav ()
 // The corresponding header should have already been written to the file before
 // invocation of this methods
 //**********************************************************
-void SignalManager::exportAscii ()
+void SignalManager::exportAscii(const char *name)
 {
-  //  QString name=QFileDialog::getSaveFileName (0,"*.dat",parent);
-  const char *name="test.dat";
-  if (name)
-    {
-      char buf[64];
-      int length=getLength();
+    if (!name) return;
 
-      QFile sigout(name);
-      sigout.open (IO_WriteOnly);
+    int length=getLength();
+    FILE *sigout=fopen (name,"w");
 
-      sprintf (buf,"%d\n",length);
-      sigout.writeBlock (&buf[0],strlen(buf));
-
-      sigout.writeBlock ("1.00\n",5);
-
-      int *sample = signal[0]->getSample();
-      if (sample)
-	{
-	  for (int i=0;i<length;i++)
-	    {
-	      sprintf (buf,"%d\n",sample[i]/(1<<8));
-	      sigout.writeBlock (&buf[0],strlen(buf));
-	    }
+    int *sample = signal[0]->getSample();
+    if (sample) {
+	for (int i=0; i<length ;i++) {
+	    fprintf(sigout,"%0.8e\n", (double)sample[i]/(double)((1<<23)-1));
 	}
     }
+
+    fclose(sigout);
 }
 //**********************************************************
 void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
@@ -630,7 +627,7 @@ void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
   sprintf((char *)&progress_title,"Saving %d-Bit-%s File :",
     bits, str_channels);
 
-  char *title = duplicateString(klocale->translate(progress_title));
+  char *title = duplicateString(i18n(progress_title));
   ProgressDialog *dialog=new ProgressDialog (100,title);
   delete title;
   if (dialog) dialog->show();
@@ -684,7 +681,7 @@ void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
   if (savebuffer) delete savebuffer;
 }
 //**********************************************************
-void  SignalManager::save (const char *filename,int bits,bool selection)
+void  SignalManager::save(const char *filename, int bits, bool selection)
 {
   printf ("saving %d Bit to %s ,%d\n",bits,filename,selection);
   int begin=0;
@@ -803,7 +800,7 @@ void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
 
   sprintf((char *)&progress_title,"Loading %d-Bit-%s File :",
     bits, str_channels);
-  char *title = duplicateString(klocale->translate(progress_title));
+  char *title = duplicateString(i18n(progress_title));
   ProgressDialog *dialog=new ProgressDialog (100,title);
   delete title;
 

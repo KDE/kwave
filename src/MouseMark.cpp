@@ -58,7 +58,7 @@ void MouseMark::update (int x)
   if (initial<last) emit selection (initial,last);
   else emit selection (last,initial);
 }
-//**********************e******************************************************
+//****************************************************************************
 bool MouseMark::checkPosition (int x,int tol)
   //returns if x is in the border range between selected and unselected
 {
@@ -73,8 +73,8 @@ bool MouseMark::checkPosition (int x,int tol)
 //****************************************************************************
 void MouseMark::drawSelection (QPainter *p,int width, int height)
 {
-  int x=(int) ((initial-offset)/zoom);
-  int w=(int)(((double)(last-initial))/zoom);
+  int x=(int) (((double)(initial-offset))/zoom);
+  int w=(int) (((double)(last-initial))/zoom);
 
   //clip output to window width
   if ((x<0)&&(w+x>0))
@@ -98,6 +98,8 @@ void MouseMark::drawSelection (QPainter *p,int width, int height)
     {
       p->setPen  (yellow);
       p->drawRect(x,0,w,height);
+      debug("MouseMark::drawSelection:%d...%d (width=%d, last=%d, initial=%d)",
+      	x, x+w-1, width,last,initial); // ###
     }
   p->setRasterOp (CopyROP);
 }

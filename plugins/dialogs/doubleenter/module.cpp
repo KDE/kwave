@@ -19,15 +19,14 @@ Dialog *getDialog (DialogOperation *operation)
 DoubleEnterDialog::DoubleEnterDialog (const char *name,bool modal):
 Dialog(name,modal)
 {
-  char buf[64];
-  setCaption	(klocale->translate("Enter a value"));
+  setCaption	(i18n("Enter a value"));
 
   val=new KRestrictedLine (this);
   val->setValidChars (allow_double);
   val->setText ("0");
 
-  ok	 = new QPushButton (klocale->translate("&Ok"),this);
-  cancel = new QPushButton (klocale->translate("&Cancel"),this);
+  ok	 = new QPushButton (i18n("&Ok"),this);
+  cancel = new QPushButton (i18n("&Cancel"),this);
 
   int bsize=ok->sizeHint().height();
   int lsize=val->sizeHint().height();

@@ -15,12 +15,12 @@ dist=true
 install=false
 type=HEADER
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.h,/usr/src/packages/multimedia/sound/kwave/src/MainWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.cpp,/usr/src/packages/multimedia/sound/kwave/po/de.po,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.h,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalWidget.h,/usr/src/packages/multimedia/sound/kwave/src/MouseMark.h,/usr/src/packages/multimedia/sound/kwave/src/MouseMark.cpp,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.h,/usr/src/packages/multimedia/sound/kwave/src/MainWidget.h,/usr/src/packages/multimedia/sound/kwave/src/sampleio.cpp,/usr/src/packages/multimedia/sound/kwave/src/sampleop.h,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h
-cpp_file=Unbenannt.cpp
-browser_file=file:/usr/src/packages/development/kdelibdocs-0.3/kdeui/KMenuBar.html
+header_file=/usr/src/packages/multimedia/sound/kwave/src/SignalManager.h
+cpp_file=/usr/src/packages/multimedia/sound/kwave/src/SignalManager.cpp
+browser_file=file:/usr/X11/lib/qt/doc/html/index.html
 [src/PitchContainer.cpp]
 install_location=
 dist=true
@@ -60,7 +60,7 @@ type=HEADER
 ldflags=
 addcxxflags=
 ldadd=
-cxxflags= -O2 -g3 -Wall
+cxxflags=-O2 -g3 -Wall
 bin_program=kwave
 [libgui/MenuNode.cpp]
 install_location=
@@ -261,7 +261,7 @@ dist=true
 install=false
 type=HEADER
 [src/Makefile.am]
-files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleio.cpp,src/sampleop.h,src/SignalManager.h,src/SignalWidget.cpp,src/SignalWidget.h,src/SonagramContainer.cpp,src/SonagramContainer.h,src/SonagramWindow.cpp,src/SonagramWindow.h,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,
+files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleop.h,src/SignalManager.h,src/SignalWidget.cpp,src/SignalWidget.h,src/SonagramContainer.cpp,src/SonagramContainer.h,src/SonagramWindow.cpp,src/SonagramWindow.h,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,
 type=static_library
 sub_dirs=
 [src/FFTWindow.h]
@@ -335,13 +335,13 @@ dist=true
 install=false
 type=SOURCE
 [General]
-make_options= -w -j1
+make_options=-w -j1
 makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,src/Makefile.am,libgui/Makefile.am,bin/Makefile.am,
 version_control=None
 author=Martin Wilz
 project_type=normal_kde
 sub_dir=kwave/
-lfv_open_groups=Zusätzliche,Sources,
+lfv_open_groups=Übersetzungen,Sources,
 workspace=1
 version=0.5.1
 project_name=Kwave
@@ -426,11 +426,6 @@ install_location=
 dist=true
 install=false
 type=HEADER
-[src/sampleio.cpp]
-install_location=
-dist=true
-install=false
-type=SOURCE
 [src/SonagramWindow.cpp]
 install_location=
 dist=true

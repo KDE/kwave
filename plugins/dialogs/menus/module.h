@@ -1,13 +1,12 @@
 #ifndef MEMORY_DIALOG_ 
 #define MEMORY_DIALOG_ 1
 
-#include <qlabel.h>
-#include <qlineedit.h>
-#include "../../../libgui/Dialog.h"
-#include "../../../lib/DialogOperation.h"
-#include "../../../lib/Globals.h"
-#include <kintegerline.h>
-#include <ktreelist.h>
+#include "libgui/Dialog.h"
+
+class MenuDialog;
+class KTreeList;
+class QPushButton;
+class Global;
 
 //*****************************************************************************
 class MenuDialog : public Dialog

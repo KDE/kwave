@@ -26,15 +26,15 @@ char about_text[]="\nKwave Version "VERSION"\n\
 Memory Mapping routines by Juhana Kouhia\n\n\
 Some Gui modifications and additional functionality by Gerhard Zintel\n\n\
 Version Management scripts donated by Thomas Eschenbacher\n\
-
+\
 Thanks go to:\n\
-
+\
 Carsten Jacobi\n\
 Frank Christian Stoffel\n\
 Achim Dahlhaus\n\
-Klaus Hendrik Lorenz\n\n
+Klaus Hendrik Lorenz\n\n\
 People, who provided valuable feedback (in no particular order)\n\
-
+\
 Thomas Eschenbacher\n\
 Gerhard Zintel\n\
 Gael Duval\n\
@@ -50,7 +50,7 @@ tOpHEr lAfaTA\n\
 Nemosoft\n\
 Guido\n\
 Eero\n\
-
+\
 This program is free software; you can redistribute it and/or\n\
 modify it under the terms of the GNU General Public License\n\
 as published by the Free Software Foundation; either version 2\n\

@@ -1,7 +1,7 @@
 #ifndef _FFT_WINDOW_H_
 #define _FFT_WINDOW_H_ 1
 
-#include <qstring.h>
+#include <qobject.h>
 #include <ktopwidget.h>
 #include <libkwave/gsl_fft.h>
 
@@ -9,6 +9,7 @@ class FFTWidget;
 class FFTContainer;
 class QPopupMenu;
 class ScaleWidget;
+class QString;
 class CornerPatchWidget;
 class KStatusBar;
 

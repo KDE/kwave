@@ -20,7 +20,7 @@ MarkSaveDialog::MarkSaveDialog (Global *globals,bool modal) : Dialog(modal)
 {
   selectall=false;
   comstr=0;
-  setCaption	(klocale->translate("Select label types to be saved :"));
+  setCaption	(i18n("Select label types to be saved :"));
 
   this->globals=globals;
   save=new QListBox (this);

@@ -40,12 +40,12 @@ SonagramWindow::SonagramWindow (QString *name) : KTopLevelWidget ()
   QPopupMenu *spectral= new QPopupMenu ();
   QPopupMenu *file= new QPopupMenu ();
 
-  bar->insertItem	(klocale->translate("&File"),file);
-  bar->insertItem	(klocale->translate("&Spectral Data"),spectral);
+  bar->insertItem	(i18n("&File"),file);
+  bar->insertItem	(i18n("&Spectral Data"),spectral);
 
-  file->insertItem	(klocale->translate("&Import from Bitmap ..."),this,SLOT(load()));
-  file->insertItem	(klocale->translate("&Export to Bitmap ..."),this,SLOT(save()));
-  spectral->insertItem	(klocale->translate("&reTransform to signal"),this,SLOT(toSignal()));
+  file->insertItem	(i18n("&Import from Bitmap ..."),this,SLOT(load()));
+  file->insertItem	(i18n("&Export to Bitmap ..."),this,SLOT(save()));
+  spectral->insertItem	(i18n("&reTransform to signal"),this,SLOT(toSignal()));
 
   status=new KStatusBar (this,"Frequencies Status Bar");
   status->insertItem ("Time:          0 ms     ",1);

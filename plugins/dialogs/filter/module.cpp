@@ -21,48 +21,48 @@ Dialog *getDialog (DialogOperation *operation)
 FilterDialog::FilterDialog (bool modal,int rate): Dialog (modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Choose filter parameters:"));
+  setCaption	(i18n("Choose filter parameters:"));
 
   filter=new Filter (rate);
 
   if (filter)
     {
-      ok	 = new QPushButton (klocale->translate("&Filter"),this);
-      cancel = new QPushButton (klocale->translate("Cancel"),this);
+      ok	 = new QPushButton (i18n("&Filter"),this);
+      cancel = new QPushButton (i18n("Cancel"),this);
       filterwidget = new FFTWidget (this);
       phasewidget  = new FFTWidget (this);
 
-      load	 = new QPushButton (klocale->translate("&load filter"),this);
-      save	 = new QPushButton (klocale->translate("&save filter"),this);
+      load	 = new QPushButton (i18n("&load filter"),this);
+      save	 = new QPushButton (i18n("&save filter"),this);
 
-      QToolTip::add( filterwidget,klocale->translate("resulting changes in spectrum"));
-      QToolTip::add( phasewidget ,klocale->translate("resulting changes in phase"));
+      QToolTip::add( filterwidget,i18n("resulting changes in spectrum"));
+      QToolTip::add( phasewidget ,i18n("resulting changes in phase"));
 
       phasewidget->setAutoDelete (false);
       int bsize=ok->sizeHint().height();
       QVBoxLayout *vbox;
       bg = new QButtonGroup( this);
-      bg->setTitle(klocale->translate("Filter Type"));  
+      bg->setTitle(i18n("Filter Type"));  
       vbox = new QVBoxLayout(bg, 10);
       vbox->addSpacing( bg->fontMetrics().height() );
       fir = new QRadioButton( bg );
       fir->setText( "&FIR" );
-      QToolTip::add( fir, klocale->translate("Use normal filtering, e.g. the impulse response is finite !"));
+      QToolTip::add( fir, i18n("Use normal filtering, e.g. the impulse response is finite !"));
       vbox->addWidget(fir);
       fir->setMinimumSize(bsize*3,bsize);
 
       iir = new QRadioButton( bg );
-      iir->setText(klocale->translate ("&IIR"));
+      iir->setText(i18n ("&IIR"));
       vbox->addWidget(iir);
       iir->setMinimumSize(bsize*3,bsize);
-      QToolTip::add( iir, klocale->translate("Use recursive filtering, e.g. the impulse response could be infinite !"));
+      QToolTip::add( iir, i18n("Use recursive filtering, e.g. the impulse response could be infinite !"));
       iir->setMinimumSize( iir->sizeHint());
       fir->setChecked (true);
 
       taps=new KIntegerLine (this);
       taps->setText ("10");
-      taplabel=new QLabel (klocale->translate("# of :"),this);
-      QToolTip::add( taps ,klocale->translate("Number of filter coefficients\n Keep this low and you won't need any coffee break..."));
+      taplabel=new QLabel (i18n("# of :"),this);
+      QToolTip::add( taps ,i18n("Number of filter coefficients\n Keep this low and you won't need any coffee break..."));
 
       label=0;
       mult=0;

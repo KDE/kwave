@@ -17,7 +17,7 @@ Dialog *getDialog (DialogOperation *operation)
 FormantDialog::FormantDialog (bool modal,int rate): Dialog(modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Choose formant positions and widths :"));
+  setCaption	(i18n("Choose formant positions and widths :"));
   pos=0;
   oldnum=0;
   inwidget=false;
@@ -32,8 +32,8 @@ FormantDialog::FormantDialog (bool modal,int rate): Dialog(modal)
   y=new ScaleWidget (this,100,0,"db");
   corner=new CornerPatchWidget (this);
  
-  poslabel=new QLabel (klocale->translate("Formant center in Hz:"),this);
-  numlabel=new QLabel (klocale->translate("Number of formants:"),this);
+  poslabel=new QLabel (i18n("Formant center in Hz:"),this);
+  numlabel=new QLabel (i18n("Number of formants:"),this);
   num->setValue (4);
   getWidgets (4);
 

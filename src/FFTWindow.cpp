@@ -35,10 +35,10 @@ FFTWindow::FFTWindow (QString *name)
   QPopupMenu *dbmenu=   new QPopupMenu ();
   KMenuBar   *bar=      new KMenuBar (this); 
 
-  bar->insertItem       (klocale->translate("&Spectral Data"),fft);
-  bar->insertItem       (klocale->translate("&Edit"),edit);
-  bar->insertItem       (klocale->translate("&View"),view);
-  bar->insertItem       (klocale->translate("&Cursor"),cursor);
+  bar->insertItem       (i18n("&Spectral Data"),fft);
+  bar->insertItem       (i18n("&Edit"),edit);
+  bar->insertItem       (i18n("&View"),view);
+  bar->insertItem       (i18n("&Cursor"),cursor);
 
   status=new KStatusBar (this,"Frequencies Status Bar");
   status->insertItem ("Frequency:          0 Hz     ",1);
@@ -55,22 +55,22 @@ FFTWindow::FFTWindow (QString *name)
 
   mainwidget->setObjects (fftview,xscale,yscale,corner);
 
-  edit->insertItem      (klocale->translate("Multiply with graph"),fftview,SLOT(amplify()));
-  edit->insertItem      (klocale->translate("Multiply with formant pattern"),fftview,SLOT(formant()));
-  edit->insertItem      (klocale->translate("Smooth"),fftview,SLOT(smooth()));
+  edit->insertItem      (i18n("Multiply with graph"),fftview,SLOT(amplify()));
+  edit->insertItem      (i18n("Multiply with formant pattern"),fftview,SLOT(formant()));
+  edit->insertItem      (i18n("Smooth"),fftview,SLOT(smooth()));
   edit->insertSeparator ();
-  edit->insertItem      (klocale->translate("Kill phase"),fftview,SLOT(killPhase()));
-  cursor->insertItem    (klocale->translate("find Maximum"),fftview,SLOT(findMaxPeak()),Key_M);
-  cursor->insertItem    (klocale->translate("find Minimum"),fftview,SLOT(findMinimum()),SHIFT+Key_M);
-  findPeakID = cursor->insertItem (klocale->translate("find nearest Peak"),this,SLOT(findPeak()),Key_Tab);
+  edit->insertItem      (i18n("Kill phase"),fftview,SLOT(killPhase()));
+  cursor->insertItem    (i18n("find Maximum"),fftview,SLOT(findMaxPeak()),Key_M);
+  cursor->insertItem    (i18n("find Minimum"),fftview,SLOT(findMinimum()),SHIFT+Key_M);
+  findPeakID = cursor->insertItem (i18n("find nearest Peak"),this,SLOT(findPeak()),Key_Tab);
   cursor->setCheckable( TRUE );
   cursor->setItemChecked( findPeakID, true );
 
 
-  fft->insertItem       (klocale->translate("Inverse FFT"),fftview,SLOT(iFFT()));
+  fft->insertItem       (i18n("Inverse FFT"),fftview,SLOT(iFFT()));
 
-  view->insertItem      (klocale->translate("Amplitude in %"),this,SLOT(percentMode()));
-  view->insertItem      (klocale->translate("Amplitude in dB"),dbmenu);
+  view->insertItem      (i18n("Amplitude in %"),this,SLOT(percentMode()));
+  view->insertItem      (i18n("Amplitude in dB"),dbmenu);
 
   for (int i=0;i<110;i+=10)
     {
@@ -80,7 +80,7 @@ FFTWindow::FFTWindow (QString *name)
     }
   connect (dbmenu,SIGNAL (activated(int)),this,SLOT(dbMode(int)));
 
-  view->insertItem (klocale->translate("Phase"),this,SLOT(phaseMode()));
+  view->insertItem (i18n("Phase"),this,SLOT(phaseMode()));
 
   connect (fftview,SIGNAL(freqInfo(int,int)),this,SLOT(setFreqInfo(int,int)));
   connect (fftview,SIGNAL(ampInfo(int,int)),this,SLOT(setAmpInfo(int,int)));

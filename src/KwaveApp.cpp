@@ -43,16 +43,17 @@ void findDirectories ()
     debug ("no global kwave config dir found !\n");
   globals.globalconfigDir=duplicateString (globalconfig.absPath());
 
-  QDir timepluginDir ("/usr/local/lib/kwave/");
-  //temporary solution:fixed path
-  if (timepluginDir.cd ("modules"))
-    if (timepluginDir.cd ("time"))
-      globals.timeplugins=DynamicLoader::getPlugins (timepluginDir.absPath().data());
+  QDir timePluginDir (globals.globalconfigDir);
+  if (timePluginDir.cd ("modules"))
+    if (timePluginDir.cd ("time"))
+      globals.timeplugins=DynamicLoader::getPlugins (
+      	timePluginDir.absPath().data());
 
-  QDir pluginDir (globals.globalconfigDir);
-  if (pluginDir.cd ("modules"))
-    if (pluginDir.cd ("dialogs"))
-      globals.dialogplugins=DynamicLoader::getPlugins (pluginDir.absPath().data());
+  QDir dialogPluginDir (globals.globalconfigDir);
+  if (dialogPluginDir.cd ("modules"))
+    if (dialogPluginDir.cd ("dialogs"))
+      globals.dialogplugins=DynamicLoader::getPlugins (
+      	dialogPluginDir.absPath().data());
 
   QDir filter(globals.localconfigDir);
 

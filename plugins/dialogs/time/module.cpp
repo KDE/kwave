@@ -18,8 +18,8 @@ TimeDialog::TimeDialog (bool modal,int rate): Dialog(modal)
 {
   comstr=0;
   resize 	(320,200);
-  setCaption	(klocale->translate("Enter length :"));
-  timelabel	=new QLabel	(klocale->translate("Time :"),this);
+  setCaption	(i18n("Enter length :"));
+  timelabel	=new QLabel	(i18n("Time :"),this);
   time	        =new TimeLine   (this,rate);     
   time->setMs   (1000);
 

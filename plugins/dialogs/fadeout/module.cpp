@@ -17,7 +17,7 @@ Dialog *getDialog (DialogOperation *operation)
 FadeDialog::FadeDialog (bool modal,int ms): Dialog(modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Choose fading degree :"));
+  setCaption	(i18n("Choose fading degree :"));
 
   ok	 =new QPushButton (OK,this);
   cancel =new QPushButton (CANCEL,this);
@@ -44,14 +44,7 @@ FadeDialog::FadeDialog (bool modal,int ms): Dialog(modal)
 const char *FadeDialog::getCommand ()
 {
   deleteString (comstr);
-  char buf[512];
-
-  sprintf (buf,"%f",fade->getDegree());
-
-  comstr=catString ("fadeout (",
-		    buf,
-		    ")"
-		    );
+  comstr=catString ("fadeout (",fade->getDegree(),")");
   return comstr;
 }
 //**********************************************************

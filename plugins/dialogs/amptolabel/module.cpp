@@ -21,20 +21,20 @@ Dialog *getDialog (DialogOperation *operation)
 MarkSignalDialog::MarkSignalDialog (Global *globals,int rate,bool modal): Dialog(modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Choose labeling criteria"));
+  setCaption	(i18n("Choose labeling criteria"));
   tflag=false;
 
   ok		=new QPushButton (OK,this);
   cancel       	=new QPushButton (CANCEL,this);
 
-  mark1=new QLabel (klocale->translate("Start label:"),this);
-  mark2=new QLabel (klocale->translate("Stop label:"),this);
+  mark1=new QLabel (i18n("Start label:"),this);
+  mark2=new QLabel (i18n("Stop label:"),this);
 
-  timelabel=new QLabel (klocale->translate("Length of silence:"),this);
+  timelabel=new QLabel (i18n("Length of silence:"),this);
   time=new TimeLine (this,rate);
-  QToolTip::add( time, klocale->translate("this is the timespan below the defined sound level\nthat is assumed to separate two signals ..."));
+  QToolTip::add( time, i18n("this is the timespan below the defined sound level\nthat is assumed to separate two signals ..."));
   time->setMs (400);
-  ampllabel=new QLabel (klocale->translate("Max. silence level in %"),this);
+  ampllabel=new QLabel (i18n("Max. silence level in %"),this);
   amplslider=new Slider (1,1000,1,100,Slider::Horizontal,this);
   ampl=new FloatLine (this);
   ampl->setText ("10.0");

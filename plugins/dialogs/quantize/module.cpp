@@ -19,14 +19,14 @@ QuantiseDialog::QuantiseDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   resize  (320,200);
-  setCaption	(klocale->translate("Choose new virtual resolution"));
+  setCaption	(i18n("Choose new virtual resolution"));
 
-  bitlabel=new QLabel (klocale->translate("Number of quantisation steps"),this);
+  bitlabel=new QLabel (i18n("Number of quantisation steps"),this);
   bits=new KIntegerLine (this);
   bits->setText ("4");
 
-  ok		=new QPushButton (klocale->translate("&Ok"),this);
-  cancel       	=new QPushButton (klocale->translate("&Cancel"),this);
+  ok		=new QPushButton (i18n("&Ok"),this);
+  cancel       	=new QPushButton (i18n("&Cancel"),this);
 
   int bsize=ok->sizeHint().height();
 

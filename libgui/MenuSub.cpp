@@ -27,7 +27,7 @@ MenuSub::MenuSub(MenuNode *parent, char *name, char *command,
                  int key, char *uid)
     :MenuItem(parent, name, command, key, uid)
 {
-    menu = new QPopupMenu(0, klocale->translate(name));
+    menu = new QPopupMenu(0, i18n(name));
 
     QObject::connect(menu,SIGNAL(activated(int)),
 	this,SLOT(slotSelected(int)));
@@ -54,7 +54,7 @@ MenuNode *MenuSub::insertBranch(char *name, char *command, int key,
 
     if (menu) {
 	int new_id = registerChild(node);
-	menu->insertItem(klocale->translate(node->getName()),
+	menu->insertItem(i18n(node->getName()),
 	    node->getPopupMenu(), new_id);
     }
 
@@ -72,7 +72,7 @@ MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
     if (!item) return 0;
 
     new_id = registerChild(item);
-    menu->insertItem(klocale->translate(name), new_id);
+    menu->insertItem(i18n(name), new_id);
     menu->setAccel(key, new_id);
 
     return item;

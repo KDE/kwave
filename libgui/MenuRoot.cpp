@@ -43,7 +43,7 @@ MenuNode *MenuRoot::insertBranch(char *name, char *command, int key,
 {
     MenuToplevel *node = new MenuToplevel(this, name, command, key, uid);
     int new_id = registerChild(node);
-    menu_bar.insertItem(klocale->translate(name),
+    menu_bar.insertItem(i18n(name),
 	node->getPopupMenu(), new_id, index);
     return node;
 }
@@ -55,7 +55,7 @@ MenuNode *MenuRoot::insertLeaf(char *name, char *command,
 {
     MenuItem *item = new MenuItem(this, name, command, key, uid);
     int new_id = registerChild(item);
-    menu_bar.insertItem(klocale->translate(name),
+    menu_bar.insertItem(i18n(name),
 	new_id, index);
     return item;
 }

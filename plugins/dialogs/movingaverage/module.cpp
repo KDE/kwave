@@ -10,7 +10,6 @@ const char *version="1.0";
 const char *author="Martin Wilz";
 const char *name="movingaverage";
 
-static const char *typetext[]={"Lowpass filter","Highpass filter",0}; 
 //**********************************************************
 Dialog *getDialog (DialogOperation *operation)
 {
@@ -21,17 +20,18 @@ AverageDialog::AverageDialog (bool modal): Dialog(modal)
 {
   comstr=0;
   resize  (320,200);
-  setCaption	(klocale->translate ("Choose Parameters :"));
-  taplabel	=new QLabel	 (klocale->translate("# of Filter Taps :"),this);
-  typelabel	=new QLabel	 (klocale->translate("Filter Type :"),this);
+  setCaption	(i18n ("Choose Parameters :"));
+  taplabel	=new QLabel	 (i18n("# of Filter Taps :"),this);
+  typelabel	=new QLabel	 (i18n("Filter Type :"),this);
   taps       	=new KIntegerLine(this);     
 
   taps->setValue (3);
   type	=new QComboBox  (false,this);
-  type->insertStrList   (typetext,-1);
+  type->insertItem(i18n("Lowpass filter"));
+  type->insertItem(i18n("Highpass filter"));
 
-  ok		=new QPushButton (klocale->translate("&Ok"),this);
-  cancel       	=new QPushButton ("&Cancel",this);
+  ok		=new QPushButton (i18n("&Ok"),this);
+  cancel       	=new QPushButton (i18n("&Cancel"),this);
 
   int bsize=ok->sizeHint().height();
 
@@ -50,7 +50,7 @@ const char *AverageDialog::getCommand ()
   deleteString (comstr);
 
   char buf[512];
-  sprintf (buf,"movingaverage %d %s",taps->value(),type->currentText());
+  sprintf (buf,i18n("movingaverage %d %s"),taps->value(),type->currentText());
 
   comstr=duplicateString (buf);
   return comstr;

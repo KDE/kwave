@@ -19,14 +19,14 @@ DelayDialog::DelayDialog (int rate,bool modal): Dialog(modal)
 {
   comstr=0;
   resize (320,200);
-  setCaption (klocale->translate("Choose Length and Rate :"));
-  delaylabel =new QLabel	(klocale->translate("Delay :"),this);
+  setCaption (i18n("Choose Length and Rate :"));
+  delaylabel =new QLabel	(i18n("Delay :"),this);
   delay      =new TimeLine      (this,rate);
   delay->setMs (200);
 
-  ampllabel  =new QLabel	(klocale->translate("Amplitude of delayed signal :50 %"),this);
+  ampllabel  =new QLabel	(i18n("Amplitude of delayed signal :50 %"),this);
   amplslider =new Slider (1,200,1,10,Slider::Horizontal,this);
-  recursive  =new QCheckBox  (klocale->translate("do recursive delaying"),this);   
+  recursive  =new QCheckBox  (i18n("do recursive delaying"),this);   
 
   ok=new QPushButton (OK,this);
   cancel =new QPushButton (CANCEL,this);
@@ -55,7 +55,7 @@ void DelayDialog::setAmpl (int percent)
 {
   char buf[64];
 
-  sprintf (buf,klocale->translate("Amplitude of delayed signal :%d %%"),percent);
+  sprintf (buf,i18n("Amplitude of delayed signal :%d %%"),percent);
   ampllabel->setText (buf);
 }
 //**********************************************************

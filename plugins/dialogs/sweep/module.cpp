@@ -1,13 +1,24 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+
+#include <qcombobox.h>
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include <qfiledialog.h>
-#include "module.h"
+#include <qlabel.h>
+
 #include <kintegerline.h>
 
-#include "../../../libgui/TimeLine.h"
+#include "libkwave/DialogOperation.h"
+#include "libkwave/Curve.h"
+#include "libkwave/PointSet.h"
+
+#include "libgui/CurveWidget.h"
+#include "libgui/TimeLine.h"
+
+#include "module.h"
+
 
 const char *version="1.0";
 const char *author="Martin Wilz";
@@ -65,14 +76,14 @@ SweepDialog::SweepDialog (int rate,bool modal): Dialog (modal)
   showLowFreq (12);
   showHighFreq (64);
 
-  notelabel1=new QLabel (klocale->translate("From"),this);
-  notelabel2=new QLabel (klocale->translate("to"),this);
+  notelabel1=new QLabel (i18n("From"),this);
+  notelabel2=new QLabel (i18n("to"),this);
 
   showTime (100);
 
-  load   =new QPushButton (klocale->translate("Import"),this);
-  ok     =new QPushButton (klocale->translate("Ok"),this);
-  cancel =new QPushButton (klocale->translate("Cancel"),this);
+  load   =new QPushButton (i18n("Import"),this);
+  ok     =new QPushButton (i18n("Ok"),this);
+  cancel =new QPushButton (i18n("Cancel"),this);
   int bsize=load->sizeHint().height();
 
   setMinimumSize (320,bsize*9);
@@ -157,9 +168,9 @@ void SweepDialog::import ()
 	      convert (times);
 	      delete times;
 	    }
-	  else printf (klocale->translate("could not open file !\n"));
+	  else printf (i18n("could not open file !\n"));
 	}
-      else printf (klocale->translate("file %s does not exist!\n"),name.data());
+      else printf (i18n("file %s does not exist!\n"),name.data());
     }
 }
 //**********************************************************

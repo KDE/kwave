@@ -43,7 +43,7 @@ void ClipBoard::toWindow ()
 
     tnew->setSignal (signal);
     tnew->show();
-    tnew->setCaption (klocale->translate("Clipboard"));
+    tnew->setCaption (i18n("Clipboard"));
     signal=0; //detach signal from this object
     delete this;
    }

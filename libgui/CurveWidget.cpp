@@ -21,22 +21,8 @@
 
 #include "CurveWidget.h"
 
-//#include <qdir.h>
-//#include <qapp.h>
-//#include <qpushbt.h>
 #include <qwidget.h>
-//#include <qpainter.h>
-//#include <qpixmap.h>
-//#include <qtimer.h>
-//#include <kselect.h>
-//#include <ktopwidget.h>
-//#include <kmenubar.h>
-//#include <kbuttonbox.h>
-//#include <kstatusbar.h>
 #include <libkwave/Curve.h>
-//#include <libkwave/PointSet.h>
-//#include <libkwave/gsl_fft.h>
-
 
 int knobcount=0;
 QPixmap *knob=0;
@@ -60,24 +46,24 @@ CurveWidget::CurveWidget (QWidget *parent,const char *init,int keepborder) : QWi
   QPopupMenu *del =new QPopupMenu ();
   QPopupMenu *transform =new QPopupMenu ();
   QPopupMenu *presets=new QPopupMenu ();
-  transform->insertItem (klocale->translate("Flip Horizontal"),this,SLOT(HFlip()));
-  transform->insertItem (klocale->translate("Flip Vertical"),this,SLOT(VFlip()));
+  transform->insertItem (i18n("Flip Horizontal"),this,SLOT(HFlip()));
+  transform->insertItem (i18n("Flip Vertical"),this,SLOT(VFlip()));
   transform->insertSeparator();
 
-  menu->insertItem (klocale->translate("Interpolation"),interpolation);
+  menu->insertItem (i18n("Interpolation"),interpolation);
   menu->insertSeparator();
-  menu->insertItem (klocale->translate("Transform"),transform);
-  menu->insertItem (klocale->translate("Delete"),del);
-  menu->insertItem (klocale->translate("Fit In"),this,SLOT(scaleFit()));
+  menu->insertItem (i18n("Transform"),transform);
+  menu->insertItem (i18n("Delete"),del);
+  menu->insertItem (i18n("Fit In"),this,SLOT(scaleFit()));
   menu->insertSeparator();
-  menu->insertItem (klocale->translate("Presets"),presets);
-  menu->insertItem (klocale->translate("Save Preset"),this,SLOT(savePreset()));
+  menu->insertItem (i18n("Presets"),presets);
+  menu->insertItem (i18n("Save Preset"),this,SLOT(savePreset()));
 
-  transform->insertItem (klocale->translate ("into 1st half"),this,SLOT(firstHalf()));
-  transform->insertItem (klocale->translate ("into 2nd half"),this,SLOT(secondHalf()));
+  transform->insertItem (i18n ("into 1st half"),this,SLOT(firstHalf()));
+  transform->insertItem (i18n ("into 2nd half"),this,SLOT(secondHalf()));
 
-  del->insertItem (klocale->translate ("recently selected Point"),this,SLOT(deleteLast()));
-  del->insertItem (klocale->translate ("every 2nd Point"),this,SLOT(deleteSecond()));
+  del->insertItem (i18n ("recently selected Point"),this,SLOT(deleteLast()));
+  del->insertItem (i18n ("every 2nd Point"),this,SLOT(deleteSecond()));
 
   presetDir=new QDir(globals.localconfigDir);
 
@@ -113,7 +99,7 @@ CurveWidget::CurveWidget (QWidget *parent,const char *init,int keepborder) : QWi
   int i=0;
 
   while (names[i]!=NULL)
-    interpolation->insertItem (klocale->translate(names[i++]));
+    interpolation->insertItem (i18n(names[i++]));
 
   connect( interpolation, SIGNAL(activated(int)), SLOT(setType(int)) ); 
 

@@ -51,6 +51,9 @@ uninstall-local:
 	echo "removing $$dir/$$name" ; \
 	done
 
+clean:
+	rm -f *.gmo
+
 merge:
 	@catalogs='$(POFILES)'; \
 	for cat in $$catalogs; do \

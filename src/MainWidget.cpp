@@ -9,7 +9,11 @@
 #include <kbuttonbox.h>
 
 #include <libkwave/String.h>
+#include <libkwave/DynamicLoader.h>
+#include <libkwave/DialogOperation.h>
+#include <libkwave/Parser.h>
 
+#include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
 #include "libgui/MultiStateWidget.h"
 #include "libgui/OverViewWidget.h"
@@ -18,6 +22,7 @@
 #include "SignalWidget.h"
 #include "SignalManager.h"
 #include "MainWidget.h"
+
 
 static const int keys[10]={Key_1,Key_2,Key_3,Key_4,Key_5,Key_6,Key_7,Key_8,Key_9,Key_0};
 
@@ -126,6 +131,7 @@ void MainWidget::updateMenu ()
   manage->setItemEnabled("@SIGNAL", have_signal);
 
 }
+
 //*****************************************************************************
 void MainWidget::updateChannels (int cnt)
   // generates menu entries 
@@ -138,11 +144,13 @@ void MainWidget::updateChannels (int cnt)
       manage->addNumberedMenuEntry ("ID_EDIT_CHANNEL_DELETE",buf);
     }
 }
+
 //**********************************************************
-void MainWidget::saveSignal  (const char *filename,int bits,bool selection)
+void MainWidget::saveSignal(const char *filename,int bits,int type, bool selection)
 {
-  signalview->saveSignal (filename,bits,selection);
+    signalview->saveSignal(filename, bits, type, selection);
 }
+
 //*****************************************************************************
 void MainWidget::setSignal  (const char *filename,int type)
 {
@@ -199,11 +207,6 @@ void MainWidget::parseKey  (int key)
       emit setOperation (TOGGLECHANNEL+key);
     }
 }
-//*****************************************************************************
-#include <libkwave/DynamicLoader.h>
-#include <libkwave/DialogOperation.h>
-#include <libkwave/Parser.h>
-#include "../libgui/Dialog.h"
 //*****************************************************************************
 int MainWidget::doCommand (const char *str)
 {

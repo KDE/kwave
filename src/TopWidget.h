@@ -33,6 +33,7 @@ class TopWidget : public KTMainWindow
  void	revert();
  void	openFile();
  void   importAsciiFile();
+ void   exportAsciiFile();
  void   openRecent (const char *str);
  void	saveFile();
  void	saveFileAs(bool selection=false);

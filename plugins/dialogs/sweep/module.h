@@ -1,13 +1,14 @@
-#include "../../../libgui/Dialog.h"
-#include "libkwave/DialogOperation.h"
 
-#include "../../../libgui/CurveWidget.h"
+#include "libgui/Dialog.h"
+
 //*****************************************************************************
 
 class QLabel;
 class QComboBox;
 class KIntegerLine;
 class QPushButton;
+class Curve;
+class CurveWidget;
 
 class SweepDialog : public Dialog
 {

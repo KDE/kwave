@@ -17,7 +17,7 @@ Dialog *getDialog (DialogOperation *operation)
 PitchDialog::PitchDialog (bool modal,int time): Dialog(modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Select frequency range :"));
+  setCaption	(i18n("Select frequency range :"));
 
   ok	 = new QPushButton (OK,this);
   cancel = new QPushButton (CANCEL,this);
@@ -25,9 +25,9 @@ PitchDialog::PitchDialog (bool modal,int time): Dialog(modal)
   high=  new KIntegerLine (this);
   low =  new KIntegerLine (this);
   adjust=new KIntegerLine (this);
-  highlabel = new QLabel (klocale->translate("Highest Freq. in Hz"),this);
-  lowlabel  = new QLabel (klocale->translate("Lowest Freq. in Hz"),this);
-  octave    = new QCheckBox  (klocale->translate("avoid octave jumps with twiddle factor"),this);
+  highlabel = new QLabel (i18n("Highest Freq. in Hz"),this);
+  lowlabel  = new QLabel (i18n("Lowest Freq. in Hz"),this);
+  octave    = new QCheckBox  (i18n("avoid octave jumps with twiddle factor"),this);
   octave->setChecked (true);
 
   low->setValue    (200);

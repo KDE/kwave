@@ -19,6 +19,7 @@
 #include <libkwave/DynamicLoader.h>
 #include "../../../libgui/Dialog.h"
 #include "../../../libgui/ScaleWidget.h"
+#include "../../../libgui/CornerPatchWidget.h"
 
 #include <kintegerline.h>
 
@@ -122,25 +123,25 @@ AddSynthDialog::AddSynthDialog (int rate,int length,bool modal): Dialog(modal)
   QPopupMenu *powermenu=new QPopupMenu();
   tflag=false;
 
-  menu->insertItem (klocale->translate("&Power"),powermenu);
-  menu->insertItem (klocale->translate("&Phase"),phasemenu);
-  menu->insertItem (klocale->translate("&Multipliers"),multmenu);
-  multmenu->insertItem (klocale->translate("e&numerate"),this,SLOT(enumerateMult()));
-  multmenu->insertItem (klocale->translate("&even"),this,SLOT(evenMult()));
-  multmenu->insertItem (klocale->translate("&odd"),this,SLOT(oddMult()));
-  multmenu->insertItem (klocale->translate("&prime"),this,SLOT(primeMult()));
-  multmenu->insertItem (klocale->translate("&fibonacci"),this,SLOT(fibonacciMult()));
-  powermenu->insertItem (klocale->translate("&max"),this,SLOT(maxPower()));
-  powermenu->insertItem (klocale->translate("&db/octave"),this,SLOT(dbPower()));
-  powermenu->insertItem (klocale->translate("&invert"),this,SLOT(invertPower()));
-  powermenu->insertItem (klocale->translate("&Sinus"),this,SLOT(sinusPower()));
-  powermenu->insertItem (klocale->translate("&random"),this,SLOT(randomizePower()));
-  phasemenu->insertItem (klocale->translate("&zero"),this,SLOT(zeroPhase()));
-  phasemenu->insertItem (klocale->translate("&negate"),this,SLOT(negatePhase()));
-  phasemenu->insertItem (klocale->translate("&sinus"),this,SLOT(sinusPhase()));
-  phasemenu->insertItem (klocale->translate("&random"),this,SLOT(randomizePhase()));
+  menu->insertItem (i18n("&Power"),powermenu);
+  menu->insertItem (i18n("&Phase"),phasemenu);
+  menu->insertItem (i18n("&Multipliers"),multmenu);
+  multmenu->insertItem (i18n("e&numerate"),this,SLOT(enumerateMult()));
+  multmenu->insertItem (i18n("&even"),this,SLOT(evenMult()));
+  multmenu->insertItem (i18n("&odd"),this,SLOT(oddMult()));
+  multmenu->insertItem (i18n("&prime"),this,SLOT(primeMult()));
+  multmenu->insertItem (i18n("&fibonacci"),this,SLOT(fibonacciMult()));
+  powermenu->insertItem (i18n("&max"),this,SLOT(maxPower()));
+  powermenu->insertItem (i18n("&db/octave"),this,SLOT(dbPower()));
+  powermenu->insertItem (i18n("&invert"),this,SLOT(invertPower()));
+  powermenu->insertItem (i18n("&Sinus"),this,SLOT(sinusPower()));
+  powermenu->insertItem (i18n("&random"),this,SLOT(randomizePower()));
+  phasemenu->insertItem (i18n("&zero"),this,SLOT(zeroPhase()));
+  phasemenu->insertItem (i18n("&negate"),this,SLOT(negatePhase()));
+  phasemenu->insertItem (i18n("&sinus"),this,SLOT(sinusPhase()));
+  phasemenu->insertItem (i18n("&random"),this,SLOT(randomizePhase()));
 
-  menu->insertItem (klocale->translate("&Reset all"));
+  menu->insertItem (i18n("&Reset all"));
 
 
   x=new ScaleWidget (this,0,360,"°");
@@ -152,12 +153,12 @@ AddSynthDialog::AddSynthDialog (int rate,int length,bool modal): Dialog(modal)
 
   setCaption	("Choose Signal Components:");
 
-  multlab       =new QLabel	(klocale->translate("Multiply :"),this);
-  phaselab	=new QLabel	(klocale->translate("Phase in degree:"),this);
-  powerlab	=new QLabel	(klocale->translate("Power in %:"),this);
+  multlab       =new QLabel	(i18n("Multiply :"),this);
+  phaselab	=new QLabel	(i18n("Phase in degree:"),this);
+  powerlab	=new QLabel	(i18n("Power in %:"),this);
 
-  freqbutton    =new QPushButton(klocale->translate("Frequency"),this);  
-  calculate     =new QPushButton(klocale->translate("Calculate"),this);  
+  freqbutton    =new QPushButton(i18n("Frequency"),this);  
+  calculate     =new QPushButton(i18n("Calculate"),this);  
 
   aphase=0;
   apower=0;
@@ -172,7 +173,7 @@ AddSynthDialog::AddSynthDialog (int rate,int length,bool modal): Dialog(modal)
 
   channel=new KIntegerLine (this);
   channel->setText ("20");
-  channellabel=new QLabel (klocale->translate("# of :"),this);
+  channellabel=new QLabel (i18n("# of :"),this);
 
   ok		=new QPushButton ("Ok",this);
   cancel	=new QPushButton ("Cancel",this);
@@ -326,7 +327,7 @@ void AddSynthDialog::dbPower ()
 {
   Dialog *dialog =DynamicLoader::getDialog
     ("stringenter",
-     new DialogOperation(klocale->translate("Choose dB/octave"),true));
+     new DialogOperation(i18n("Choose dB/octave"),true));
 
   if ((dialog)&&(dialog->exec()))
     {

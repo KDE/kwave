@@ -2,16 +2,21 @@
 #include <stdlib.h>
 #include <qpushbutton.h>
 #include <qkeycode.h>
-#include "module.h"
+#include <qlabel.h>
+
 #include <kapp.h>
+
 #include <libkwave/Curve.h>
 #include <libkwave/Signal.h>
 #include <libkwave/Functions.h>
 #include <libkwave/Interpolation.h>
-#include "../../../libgui/ScaleWidget.h"
-#include "../../../libgui/TimeLine.h"
-#include "../../../libgui/Dialog.h"
-#include "../../../libgui/CurveWidget.h"
+#include "libgui/ScaleWidget.h"
+#include "libgui/TimeLine.h"
+#include "libgui/Dialog.h"
+#include "libgui/CurveWidget.h"
+#include "libgui/CornerPatchWidget.h"
+
+#include "module.h"
 
 const char *version="1.0";
 const char *author="Martin Wilz";
@@ -34,8 +39,8 @@ PulseDialog::PulseDialog (int rate,int time,bool modal): Dialog(modal)
   this->rate=rate;
 
   setCaption	("Choose pulse properties :");
-  //  freqbutton    =new QPushButton(klocale->translate("Frequency"),this);
-  pulselabel    =new QLabel	(klocale->translate("Length of pulse :"),this);
+  //  freqbutton    =new QPushButton(i18n("Frequency"),this);
+  pulselabel    =new QLabel	(i18n("Length of pulse :"),this);
   pulselength   =new TimeLine (this,rate);
   pulselength->setMs (5);
 

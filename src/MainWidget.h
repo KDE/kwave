@@ -24,7 +24,7 @@ class MainWidget : public QWidget
  	~MainWidget	();
  void	setSignal	(const char *filename,int type=0);
  void	setSignal	(SignalManager *);
- void 	saveSignal	(const char *filename,int bits,bool selection=false);
+ void 	saveSignal	(const char *filename,int bits, int type, bool selection);
  unsigned char *getOverView (int);
  int    getBitsPerSample();
  bool   hasSignal       () { return (numsignals != 0); };

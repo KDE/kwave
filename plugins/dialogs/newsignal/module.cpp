@@ -19,12 +19,12 @@ const char *ratetext[]={"48000","44100","32000","22050","16000","12000","10000",
 NewSampleDialog::NewSampleDialog (bool modal): Dialog(modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Choose Length and Rate :"));
-  timelabel	=new QLabel   (klocale->translate("Time :"),this);
+  setCaption	(i18n("Choose Length and Rate :"));
+  timelabel	=new QLabel   (i18n("Time :"),this);
   time       	=new TimeLine (this,44100);
   time->setMs (1000);
 
-  ratelabel	=new QLabel 	(klocale->translate("Rate in Hz :"),this);
+  ratelabel	=new QLabel 	(i18n("Rate in Hz :"),this);
   ratefield	=new QComboBox  (true,this);
   ratefield->insertStrList (ratetext,6);
   ratefield->setCurrentItem (1);

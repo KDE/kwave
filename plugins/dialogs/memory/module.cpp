@@ -17,18 +17,18 @@ Dialog *getDialog (DialogOperation *operation)
 MemoryDialog::MemoryDialog (bool modal): Dialog(modal)
 {
   comstr=0;
-  setCaption (klocale->translate("Memory Options :"));
+  setCaption (i18n("Memory Options :"));
 
   ok	 =new QPushButton (OK,this);
   cancel =new QPushButton (CANCEL,this);
 
-  memlabel =new QLabel 	     (klocale->translate("Threshold for use of mapped memory (in Mb):"),this);  
+  memlabel =new QLabel 	     (i18n("Threshold for use of mapped memory (in Mb):"),this);  
   mem      =new KIntegerLine (this);
   //  mem->setValue (mmap_threshold);
   mem->setValue (50);
-  browse   =new QPushButton  (klocale->translate("Browse"),this);
+  browse   =new QPushButton  (i18n("Browse"),this);
 
-  dirlabel =new QLabel    (klocale->translate("Directory for mapping:"),this);  
+  dirlabel =new QLabel    (i18n("Directory for mapping:"),this);  
   dir      =new QLineEdit (this);  
   dir->setText ("/tmp");
 

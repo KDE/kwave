@@ -21,7 +21,7 @@ static const char *symtext[]={"symmetric","upper","lower",0};
 DistortDialog::DistortDialog (bool modal): Dialog(modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Choose Line of distortion :"));
+  setCaption	(i18n("Choose Line of distortion :"));
 
   ok	 = new QPushButton (OK,this);
   cancel = new QPushButton (CANCEL,this);

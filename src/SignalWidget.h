@@ -1,21 +1,20 @@
 #ifndef _SIGNAL_WIDGET_H_
 #define _SIGNAL_WIDGET_H_ 1
 
-#include <qfile.h>
-#include <qfiledlg.h>
 #include <qwidget.h>
-#include <qtimer.h>
-#include "MouseMark.h"
-#include "../libgui/MultiStateWidget.h"
-#include "../libgui/MenuManager.h"
-#include <libkwave/Label.h>
-#include <libkwave/LabelList.h>
-#include <kapp.h>
-#include <kselect.h>
-#include <kstatusbar.h>  
-#include <kbutton.h>
+#include <qpainter.h>
 
+class MouseMark;
+class LabelList;
+class LabelType;
 class SignalManager;
+class ProgressDialog;
+class TimeOperation;
+class MenuManager;
+
+ProgressDialog *createProgressDialog (TimeOperation *operation,
+	const char *caption);
+
 //***********************************************************
 class SignalWidget : public QWidget
 //this class is mainly responsible for displaying signals in the time-domain
@@ -27,8 +26,9 @@ class SignalWidget : public QWidget
  	~SignalWidget	();
 
  int    mstosamples             (double);
- void 	setSignal		(const char *filename,int type=0);
- void 	saveSignal		(const char *filename,int bits,bool selection=false);
+ void 	setSignal		(const char *filename,int type);
+ void 	saveSignal		(const char *filename, int bits,
+                                 int type, bool selection=false);
  void 	saveBlocks		(int);
  void 	saveSelectedSignal	(const char *filename,int bits,bool selection=true);
  void 	setSignal		(SignalManager *signal);

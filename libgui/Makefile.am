@@ -60,6 +60,8 @@ libkwavegui_la_SOURCES =\
 
 lib_LTLIBRARIES = libkwavegui.la
 
+libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@
+
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/*

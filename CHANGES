@@ -1,5 +1,55 @@
 this Development Version
 
+0.5.1-4 [by Thomas.Eschenbacher@gmx.de]
+
+>>> now compiles and runns under RedHat 6.1 / Halloween IV <<<
+>>> as well as under SuSE 6.2                              <<<
+
+version info of libkwavegui.so is set to the package's version
+
+bugfix in plugins/template/Makefile.am: will not create .moc files on
+make distclean and other targets
+
+compiler flags are passed through to plugin compilation
+
+compiling with --no-rtti. This was necessary to compile against the
+kde libraries of RedHat that seem to contain no rtti. As a side effect
+all warnings on linking programs/libs disappeared.
+
+configure-parameter --enable-debug has effect again
+
+>>> ASCII import and export works now <<<
+
+bugfixes in some plugins, all compile now without warnings/errors
+
+plugins are processed in alphabetical order
+
+all plugins are automatically found and compiled
+
+new target "make src.rpm" makes only the source rpm
+
+0.5.1-3 [by Thomas.Eschenbacher@gmx.de]
+
+display will be scrolled left or zoomed if something from the end
+of the signal is deleted
+
+curve parameters of fade in / fade out work again
+
+0.5.1-2 [by Thomas.Eschenbacher@gmx.de]
+
+converted many "klocale->translate(...)"s into "i18n(...)"
+
+target "make messages" works again
+
+converter for menus.config, creates a dummy .cpp-file that is handled
+by i18n
+
+0.5.1-1 [by Thomas.Eschenbacher@gmx.de]
+
+new target "make rpm" creates binary and source RPM packages
+
+fixed the shared-library-problem in the build system
+
 0.5.1 [by Thomas.Eschenbacher@gmx.de]
 
 menu items can belong to groups

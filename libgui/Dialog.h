@@ -3,8 +3,8 @@
 
 #include <qdialog.h>
 
-#define OK     klocale->translate ("&Ok")
-#define CANCEL klocale->translate ("&Cancel")
+#define OK     i18n("&Ok")
+#define CANCEL i18n("&Cancel")
 
 class Dialog : public QDialog
 {

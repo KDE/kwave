@@ -49,8 +49,12 @@ class SignalManager
 
  void	setOp      	(int);  //triggers function via given id
 
- void	save	        (const char *filename,int bits,bool selection=false);
+ void	save	        (const char *filename,int bits, bool selection);
 
+ /**
+  * Exports ascii file with one sample per line and only one channel.
+  */
+ void	exportAscii	(const char *name);
 
  void   appendChannel        (Signal *);
  void   setRange             (int,int);
@@ -72,11 +76,13 @@ class SignalManager
 
  int	findDatainFile	(FILE *);    //searches for data chunk in wav file
                                      //returns 0 if failed, else position
- void	loadAscii	();
+ /**
+  * Imports ascii file with one sample per line and only one
+  * channel. Everything that cannot be parsed by strod will be ignored.
+  */
+ void	loadAscii();
  void	loadWav	        ();
  void	loadWavChunk	(FILE *sigin,int length,int channels,int bits);
-
- void	exportAscii	();
  void	writeWavChunk	(FILE *sigout,int begin,int length,int bits);
 
  private: 

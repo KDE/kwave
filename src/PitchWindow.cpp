@@ -16,11 +16,11 @@ PitchWindow::PitchWindow (const char *name) : KTopLevelWidget ()
   QPopupMenu *pitch=	new QPopupMenu ();
   KMenuBar   *bar=	new KMenuBar (this); 
 
-  bar->insertItem	(klocale->translate("&Pitch"),pitch);
+  bar->insertItem	(i18n("&Pitch"),pitch);
 
   status=new KStatusBar (this);
-  status->insertItem    ("Time:         0 ms      ",1);
-  status->insertItem    ("Frequency:          0 Hz",2);
+  status->insertItem    (i18n("Time:         0 ms      "),1);
+  status->insertItem    (i18n("Frequency:          0 Hz"),2);
 
   mainwidget=new PitchContainer (this);
   view=  new PitchWidget (mainwidget);
@@ -37,7 +37,7 @@ PitchWindow::PitchWindow (const char *name) : KTopLevelWidget ()
   connect (view,SIGNAL(pitch(float)),this,SLOT(showPitch(float)));
   connect (view,SIGNAL(timeSamples(float)),this,SLOT(showTime(float)));
  
-  QString *windowname=new QString (QString ("Pitch of ")+QString(name));
+  QString *windowname=new QString (QString (i18n("Pitch of "))+QString(name));
   setCaption (windowname->data()); 
   setMinimumSize (320,200);
 }
@@ -50,14 +50,14 @@ void PitchWindow::freqRange (float min,float max)
 void PitchWindow::showPitch (float freq)
 {
   char buf [32];
-  sprintf (buf,"Frequency : %.1f Hz\n",freq);
+  sprintf (buf,i18n("Frequency : %.1f Hz\n"),freq);
   status->changeItem (buf,2);
 }
 //****************************************************************************
 void PitchWindow::showTime (float time)
 {
   char buf [32];
-  sprintf (buf,"Time : %s\n",mstotimec((int)((time*1000/rate))));
+  sprintf (buf,i18n("Time : %s\n"),mstotimec((int)((time*1000/rate))));
   status->changeItem (buf,1);
 }
 //****************************************************************************

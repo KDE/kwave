@@ -19,7 +19,7 @@ AmplifyCurveDialog::AmplifyCurveDialog (int time,bool modal):
 Dialog(modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Choose Amplification Curve :"));
+  setCaption	(i18n("Choose Amplification Curve :"));
 
   ok	 = new QPushButton (OK,this);
   cancel = new QPushButton (CANCEL,this);

@@ -17,14 +17,14 @@ Dialog *getDialog (DialogOperation *operation)
 MarkerTypeDialog::MarkerTypeDialog (bool modal): Dialog(modal)
 {
   comstr=0;
-  setCaption (klocale->translate ("Choose new label type"));
-  namelabel	=new QLabel	(klocale->translate("Name :"),this);
+  setCaption (i18n ("Choose new label type"));
+  namelabel	=new QLabel	(i18n("Name :"),this);
   this->name    =new QLineEdit	(this);
   color         =new KColorCombo(this);
   col.setRgb (255,255,0);
   color->setColor (col);
 
-  individual   =new QCheckBox  (klocale->translate("individual name for each label"),this);   
+  individual   =new QCheckBox  (i18n("individual name for each label"),this);   
 
   ok		=new QPushButton (OK,this);
   cancel       	=new QPushButton (CANCEL,this);

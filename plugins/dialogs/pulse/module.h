@@ -1,4 +1,4 @@
-#include "../../../libgui/Dialog.h"
+#include "libgui/Dialog.h"
 #include "libkwave/DialogOperation.h"
 
 class Curve;

@@ -22,15 +22,15 @@ EnvelopeDialog::EnvelopeDialog (bool modal): Dialog(modal)
   comstr=0;
   Interpolation interpolation(0);
 
-  setCaption	(klocale->translate("Choose Envelope Parameters"));
-  timelabel	=new QLabel	(klocale->translate("Points are taken 20 times/s"),this);
+  setCaption	(i18n("Choose Envelope Parameters"));
+  timelabel	=new QLabel	(i18n("Points are taken 20 times/s"),this);
   timeslider	=new Slider     (1,1000,1,10,Slider::Horizontal,this);     
-  typelabel	=new QLabel	(klocale->translate("Type of Interpolation :"),this);
+  typelabel	=new QLabel	(i18n("Type of Interpolation :"),this);
   typebox	=new QComboBox  (true,this);
   typebox->insertStrList (interpolation.getTypes(),-1);
 
-  ok		=new QPushButton (klocale->translate("&Ok"),this);
-  cancel	=new QPushButton (klocale->translate("&Cancel"),this);
+  ok		=new QPushButton (i18n("&Ok"),this);
+  cancel	=new QPushButton (i18n("&Cancel"),this);
 
   int bsize=ok->sizeHint().height();
 
@@ -47,11 +47,10 @@ EnvelopeDialog::EnvelopeDialog (bool modal): Dialog(modal)
 //**********************************************************
 const char *EnvelopeDialog::getCommand ()
 {
-  char buf[512];
+  char buf[16];
+  sprintf(buf, "%d", timeslider->value());
 
   deleteString (comstr);
-  sprintf (buf,"%f",timeslider->value());
-
   comstr=catString ("envelope (",
 		    buf,
 		    ",",
@@ -64,7 +63,7 @@ void EnvelopeDialog::setTime (int ms)
 {
  char buf[32];
 
- sprintf (buf,klocale->translate("Points are taken %d.%01d times/s"),ms/10,ms%10);
+ sprintf (buf,i18n("Points are taken %d.%01d times/s"),ms/10,ms%10);
  timelabel->setText (buf);
 }
 //**********************************************************

@@ -26,8 +26,8 @@ bin_PROGRAMS  = kwave
 
 # specifying the bindir is necessary in order to let make install
 # use the correct directory when building a binary rpm package
-# bindir=$(prefix)/bin
-bindir=@bindir@
+bindir=$(prefix)/bin
+# bindir=@bindir@ <- does not work, why ???
 
 # conversion to modules to do for the following files:
 # mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h
@@ -35,20 +35,20 @@ bindir=@bindir@
 # Which sources should be compiled for kwave.
 
 BUILTSOURCES=\
- mFFTContainer.cpp\
- mFFTWindow.cpp\
- mImageView.cpp\
- mMouseMark.cpp\
- mKwaveApp.cpp\
- mMainWidget.cpp\
- mPitchContainer.cpp\
- mPitchWidget.cpp\
- mPitchWindow.cpp\
- mProgressDialog.cpp\
- mSignalWidget.cpp\
- mSonagramContainer.cpp\
- mSonagramWindow.cpp\
- mTopWidget.cpp
+ FFTContainer.moc.cpp\
+ FFTWindow.moc.cpp\
+ ImageView.moc.cpp\
+ MouseMark.moc.cpp\
+ KwaveApp.moc.cpp\
+ MainWidget.moc.cpp\
+ PitchContainer.moc.cpp\
+ PitchWidget.moc.cpp\
+ PitchWindow.moc.cpp\
+ ProgressDialog.moc.cpp\
+ SignalWidget.moc.cpp\
+ SonagramContainer.moc.cpp\
+ SonagramWindow.moc.cpp\
+ TopWidget.moc.cpp
 
 kwave_SOURCES =\
  main.cpp\
@@ -75,12 +75,16 @@ kwave_LDFLAGS = @all_libraries@ -L$(topdir)/libgui/.libs
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kwave_LDADD   = -lkfm -lkdeui -lkdecore -lkwavegui -lqt -lX11 -lXext \
+kwave_LDADD   =  -lkwavegui -lkfm -lkdeui -lkdecore -lqt -lX11 -lXext \
 -lkwave -lpthread -ldl
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* doc/*~
+
+# holds the content of menus.config for internationalization
+menus_config_i18n.cpp: menus.config
+	${topdir}/bin/menusconfig2cpp.sh menus.config menus_config_i18n.cpp
 
 # make messages.po. Move this one to ../po/ and "make merge" in po
 messages:
@@ -119,32 +123,32 @@ uninstall-local:
 
 # add a dependency for every moc file to be full portable
 
-mFFTWindow.cpp: FFTWindow.h
-	$(MOC) -o mFFTWindow.cpp FFTWindow.h
-mFFTContainer.cpp: FFTContainer.h
-	$(MOC) -o mFFTContainer.cpp FFTContainer.h
-mImageView.cpp: ImageView.h
-	$(MOC) -o mImageView.cpp ImageView.h
-mKwaveApp.cpp: KwaveApp.h
-	$(MOC) -o mKwaveApp.cpp KwaveApp.h
-mMainWidget.cpp: MainWidget.h
-	$(MOC) -o mMainWidget.cpp MainWidget.h
-mMouseMark.cpp: MouseMark.h
-	$(MOC) -o mMouseMark.cpp MouseMark.h
-mPitchWidget.cpp: PitchWidget.h
-	$(MOC) -o mPitchWidget.cpp PitchWidget.h
-mPitchContainer.cpp: PitchContainer.h
-	$(MOC) -o mPitchContainer.cpp PitchContainer.h
-mPitchWindow.cpp: PitchWindow.h
-	$(MOC) -o mPitchWindow.cpp PitchWindow.h
-mProgressDialog.cpp: ProgressDialog.h
-	$(MOC) -o mProgressDialog.cpp ProgressDialog.h
-mSignalWidget.cpp: SignalWidget.h
-	$(MOC) -o mSignalWidget.cpp SignalWidget.h
-mSonagramContainer.cpp: SonagramContainer.h
-	$(MOC) -o mSonagramContainer.cpp SonagramContainer.h
-mSonagramWindow.cpp: SonagramWindow.h
-	$(MOC) -o mSonagramWindow.cpp SonagramWindow.h
-mTopWidget.cpp: TopWidget.h
-	$(MOC) -o mTopWidget.cpp TopWidget.h
+FFTWindow.moc.cpp: FFTWindow.h
+	$(MOC) -o FFTWindow.moc.cpp FFTWindow.h
+FFTContainer.moc.cpp: FFTContainer.h
+	$(MOC) -o FFTContainer.moc.cpp FFTContainer.h
+ImageView.moc.cpp: ImageView.h
+	$(MOC) -o ImageView.moc.cpp ImageView.h
+KwaveApp.moc.cpp: KwaveApp.h
+	$(MOC) -o KwaveApp.moc.cpp KwaveApp.h
+MainWidget.moc.cpp: MainWidget.h
+	$(MOC) -o MainWidget.moc.cpp MainWidget.h
+MouseMark.moc.cpp: MouseMark.h
+	$(MOC) -o MouseMark.moc.cpp MouseMark.h
+PitchWidget.moc.cpp: PitchWidget.h
+	$(MOC) -o PitchWidget.moc.cpp PitchWidget.h
+PitchContainer.moc.cpp: PitchContainer.h
+	$(MOC) -o PitchContainer.moc.cpp PitchContainer.h
+PitchWindow.moc.cpp: PitchWindow.h
+	$(MOC) -o PitchWindow.moc.cpp PitchWindow.h
+ProgressDialog.moc.cpp: ProgressDialog.h
+	$(MOC) -o ProgressDialog.moc.cpp ProgressDialog.h
+SignalWidget.moc.cpp: SignalWidget.h
+	$(MOC) -o SignalWidget.moc.cpp SignalWidget.h
+SonagramContainer.moc.cpp: SonagramContainer.h
+	$(MOC) -o SonagramContainer.moc.cpp SonagramContainer.h
+SonagramWindow.moc.cpp: SonagramWindow.h
+	$(MOC) -o SonagramWindow.moc.cpp SonagramWindow.h
+TopWidget.moc.cpp: TopWidget.h
+	$(MOC) -o TopWidget.moc.cpp TopWidget.h
 

@@ -44,6 +44,8 @@ void TopWidget::setOp (const char *str)
   else
   if (matchCommand (str,"importascii")) importAsciiFile();
   else
+  if (matchCommand (str,"exportascii")) exportAsciiFile();
+  else
   if (matchCommand (str,"saveas")) saveFileAs(false);
   else
   if (matchCommand (str,"loadbatch")) loadBatch(str);
@@ -89,8 +91,8 @@ TopWidget::TopWidget ()
   status->insertItem (i18n("Length: 0 ms           "),1);
   status->insertItem (i18n("Rate: 0 kHz         "),2);
   status->insertItem (i18n("Samples: 0             "),3);
-  status->insertItem (klocale->translate("selected: 0 ms        "),4);
-  status->insertItem (klocale->translate("Clipboard: 0 ms      "),5);
+  status->insertItem (i18n("selected: 0 ms        "),4);
+  status->insertItem (i18n("Clipboard: 0 ms      "),5);
 
   KMenuBar *bar = new KMenuBar(this);
   menumanage = new MenuManager(this, *bar);
@@ -202,10 +204,18 @@ void TopWidget::importAsciiFile ()
   if (!name.isNull())
     {
       this->name=duplicateString (name.data());
-      mainwidget->setSignal (this->name,ASCII);
+      mainwidget->setSignal (this->name, ASCII);
       setCaption (this->name);
       bits = mainwidget->getBitsPerSample();
       updateMenu();
+    }
+}
+//*****************************************************************************
+void TopWidget::exportAsciiFile ()
+{
+    QString name=QFileDialog::getSaveFileName(0, "*.asc", mainwidget);
+    if (!name.isNull()) {
+	mainwidget->saveSignal(name, bits, ASCII, false);
     }
 }
 //*****************************************************************************
@@ -213,7 +223,7 @@ void TopWidget::saveFile ()
 {
   if (name)
     {
-      mainwidget->saveSignal (name,bits);
+      mainwidget->saveSignal(name, bits, 0, false);
       setCaption (name);
       updateMenu();
     }
@@ -238,7 +248,7 @@ void TopWidget::saveFileAs (bool selection)
 	  if (saveDir) delete saveDir;
 	  saveDir=new QDir (dialog->dirPath());
 
-	  mainwidget->saveSignal (name,bits,selection);
+	  mainwidget->saveSignal(name, bits, 0, selection);
 	  globals.app->addRecentFile (name);
 	  setCaption (name);
 	  updateMenu();

@@ -8,7 +8,7 @@ SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = kwave
 SUBDIRS  	 = libgui src plugins po
 
-DISTCLEANFILES = *~ #* config.cache config.log
+DISTCLEANFILES 	 = *~ config.cache config.log \#*
 
 clean-generic:
 	-rm -f -v `find -size 0`
@@ -34,8 +34,8 @@ reallyclean: clean-generic distclean
 backup:
 	@ ${MAKE} reallyclean ; \
 	(cd ${srcdir}/..; \
-	tar -czh -f ${ARCHIVE_DIR}/kwave-${VERSION}.tgz ${SRC_PREFIX} ) && \
-	echo source backed up to kwave-${VERSION}.tgz
+	tar -czh -f ${ARCHIVE_DIR}/kwave-${VERSION}.tar.gz ${SRC_PREFIX} ) && \
+	echo source backed up to kwave-${VERSION}.tar.gz
 
 patch: backup
 	@ $(srcdir)/bin/make_patch.sh kwave `cat $(srcdir)/VERSION` \
@@ -50,16 +50,23 @@ release:
 	${MAKE} patch
 
 messages:
-	/usr/bin/xgettext -C -ktranslate -x /opt/kde/include/kde.pot \
+	rm -f po/*.gmo
+	(cd src ; ${MAKE} menus_config_i18n.cpp )
+	/usr/bin/xgettext -C -ki18n -x ${KDEDIR}/include/kde.pot \
 	`find . -name \*.h -o -name \*.cpp` -o ./po/kwave.pot
+	(cd po ; ${MAKE} merge )
 
-rpm: clean ${PACKAGE}.spec
+rpm_prep: clean ${PACKAGE}.spec
 	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
 	mkdir -p /tmp/${PACKAGE}-@RPM_VERSION@
 	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_VERSION@ )
 	(cd /tmp/ ; \
-	tar -czh -f /usr/src/packages/SOURCES/kwave-@RPM_VERSION@.tgz \
+	tar -czh -f /usr/src/packages/SOURCES/kwave-@RPM_VERSION@.tar.gz \
 		${SRC_PREFIX}-@RPM_VERSION@ )
 	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
-		
+
+rpm: rpm_prep
 	rpm -ba ${PACKAGE}.spec
+
+src.rpm: rpm_prep
+	rpm -bs ${PACKAGE}.spec

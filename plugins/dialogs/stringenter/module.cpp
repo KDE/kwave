@@ -15,8 +15,8 @@ Dialog *getDialog (DialogOperation *operation)
 //**********************************************************
 StringEnterDialog::StringEnterDialog (const char *text,bool modal): Dialog(modal)
 {
-  if (name) setCaption (klocale->translate(text));
-  setCaption (klocale->translate(text));
+  if (name) setCaption (i18n(text));
+  setCaption (i18n(text));
 
   name=new QLineEdit (this);
 

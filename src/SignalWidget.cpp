@@ -1,39 +1,43 @@
 //methods for SignalWidget the view for MSignal objects.
 //methods concerning markers may be found in markers.cpp
+
 #include <math.h>
-#include <limits.h>
 #include <qobject.h>
-#include <qpainter.h>
-#include <qcursor.h>
+#include <qtimer.h>
+#include <qfiledlg.h>
 
-#include "SignalWidget.h"
-#include "SignalManager.h"
+#include <kmsgbox.h>
+#include <kapp.h>
 
-#include <libkwave/DialogOperation.h>
 #include <libkwave/Label.h>
+#include <libkwave/LabelList.h>
 #include <libkwave/Parser.h>
 #include <libkwave/Global.h>
 #include <libkwave/DynamicLoader.h>
-#include "../libgui/Dialog.h"
-#include "ProgressDialog.h"
-#include "PitchWidget.h"
-#include "libkwave/Signal.h"
+#include <libkwave/Signal.h>
 #include <libkwave/DialogOperation.h>
 #include <libkwave/MessagePort.h>
 #include <libkwave/Color.h>
-#include <kmsgbox.h>
+
+#include "libgui/Dialog.h"
+#include "libgui/MenuManager.h"
+
+#include "SignalWidget.h"
+#include "SignalManager.h"
+#include "MouseMark.h"
+#include "ProgressDialog.h"
 
 #include "sampleop.h"
 
 extern Global globals;
 //****************************************************************************
-void *createProgressDialog (TimeOperation *operation,const char *caption)
+ProgressDialog *createProgressDialog (TimeOperation *operation,const char *caption)
 {
   ProgressDialog *dialog=new ProgressDialog (operation,caption);
   if (dialog)
     {
       dialog->show ();
-      return (void *) dialog;
+      return dialog;
     }
   return 0;
 }
@@ -81,9 +85,15 @@ SignalWidget::~SignalWidget ()
   if (labels)      delete labels;
 }
 //****************************************************************************
-void SignalWidget::saveSignal  (const char *filename,int bits,bool selection)
+void SignalWidget::saveSignal(const char *filename, int bits,
+                              int type, bool selection)
 {
-  if (signalmanage) signalmanage->save (filename,bits,selection);
+    if (!signalmanage) return;
+    if (type == ASCII) {
+	signalmanage->exportAscii(filename);
+    } else {
+	signalmanage->save(filename, bits, selection);
+    }
 }
 //****************************************************************************
 unsigned char *SignalWidget::getOverview (int size)
@@ -595,7 +605,7 @@ void SignalWidget::mouseReleaseEvent( QMouseEvent *e)
   if (down)
     {
       int x=e->pos().x();
-      if (x>=width) x=width; //check for some bounds
+      if (x>width) x=width; //check for some bounds
       if (x<0) x=0;
       select->update (x);
       setRange (select->getLeft(),select->getRight(),false);
@@ -633,7 +643,7 @@ void SignalWidget::mouseMoveEvent( QMouseEvent *e )
       //in move mode, a new selection was created or an old one grabbed 
       //this does the changes with every mouse move...
       int x=e->pos().x();
-      if (x>=width) x=width; //check for some bounds
+      if (x>width) x=width; //check for some bounds
       if (x<0) x=0;
       select->update (x);
     }
@@ -647,10 +657,6 @@ void SignalWidget::mouseMoveEvent( QMouseEvent *e )
 void SignalWidget::drawOverviewSignal (int channel,int middle, int height,
 	int first, int last)
 {
-    debug("SignalWidget::drawOverviewSignal(channel=%d,middle=%d,height=%d,"\
-	"first=%d, last=%d",
-	channel, middle, height,first,last); // ###
-
     int step,max=0,min=0;
 
     int div=65536;
@@ -675,8 +681,8 @@ void SignalWidget::drawOverviewSignal (int channel,int middle, int height,
 //****************************************************************************
 void SignalWidget::drawInterpolatedSignal (int channel,int begin, int height)
 {
-  debug("SignalWidget::drawInterpolatedSignal(channel=%d,begin=%d,height=%d)",
-    channel, begin, height); // ###
+//  debug("SignalWidget::drawInterpolatedSignal(channel=%d,begin=%d,height=%d)",
+//    channel, begin, height); // ###
   double f;
   int 	j,lx,x,x1,x2;
   int div=65536;
@@ -684,7 +690,7 @@ void SignalWidget::drawInterpolatedSignal (int channel,int begin, int height)
   div=(int)((double)div/zoomy);
 
   lx=begin+(signalmanage->getSingleSample(channel,offset)/256)*height/div;
-  for (int i=1;i<width;i++)
+  for (int i=0; i<width; i++)
     {
       j=(int) floor((double) i*zoom);
       f=(i*zoom)-j;
@@ -694,7 +700,7 @@ void SignalWidget::drawInterpolatedSignal (int channel,int begin, int height)
 
       x=begin+(int)(x2*f+x1*(1-f));
 
-      p.drawLine (i-1,lx,i,x);
+      p.drawLine (i,lx,i+1,x);
       lx=x;
     }
 }
@@ -705,7 +711,6 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
   int updateall=false;
 
   ///if pixmap has to be resized ... or is not yet allocated ...
-
   if ((rect().height()!=height)||(rect().width()!=width)||(pixmap==0))
     {
       height=rect().height();
@@ -716,6 +721,8 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
       pixmap->fill (this,0,0);
       updateall=true;
     }
+
+  debug("width=%d, height=%d", width, height); // ###
 
   if (pixmap) //final security check for the case of low memory (->rare thing)
     {
@@ -739,15 +746,14 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 	      int begin=+chanheight/2;
 
 	      //check and correction of current begin if needed
-	      if (zoom*width > signalmanage->getLength() + begin)
+	      if ((int)(offset+zoom*width) > signalmanage->getLength())
 		{
-/* ###
-	the check above does not work. please correct and insert some clever code here...
-*/
+		  offset-=(int)(offset+zoom*width-signalmanage->getLength());
+		  if (offset < 0) offset=0;
 		}
 
 	      //check and correction of current zoom value if needed
-	      if (zoom*width>signalmanage->getLength())
+	      if ((int)(zoom*width) > signalmanage->getLength())
 		{
 		  zoom=((double)signalmanage->getLength ())/width;
 		  select->setZoom (zoom); //notify selection
@@ -1050,7 +1056,7 @@ void SignalWidget::addLabel (const char *params)
 		}
 	      else
 		{
-		  KMsgBox::message (this,"Error",klocale->translate("Dialog not loaded !"));
+		  KMsgBox::message (this,"Error",i18n("Dialog not loaded !"));
 		  delete newmark;
 		  newmark=0;
 		}

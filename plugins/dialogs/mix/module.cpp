@@ -31,11 +31,11 @@ ChannelMixDialog::ChannelMixDialog (bool modal,int channels) : Dialog(modal)
   valuebox=new FloatLine *[channels];
   slider=new Slider *[channels];
   
-  tochannellabel=new QLabel (klocale->translate("mix to channel :"),this);
+  tochannellabel=new QLabel (i18n("mix to channel :"),this);
   tochannel=new QComboBox (this);
-  usedb=new QCheckBox (klocale->translate ("use dB scale"),this);
+  usedb=new QCheckBox (i18n ("use dB scale"),this);
   usedb->setChecked (true);
-  tochannel->insertItem (klocale->translate("new"));
+  tochannel->insertItem (i18n("new"));
 
   if (slider&&channelname&&value&&valuebox)
     for (int i=0;i<channels;i++)

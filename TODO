@@ -1,15 +1,29 @@
 
+o inconsistence between drawing and mouse selection, probably a numeric
+  problem, abt. +/-10 pixels difference (only x-axis)
+
+o error on program shutdown: "QMenuData::removeItem: Index -1 out of range"
+
+o add <project_root>/libgui/.libs to the -L parameter when making
+  in src and plugins
+
+o label handling doesn't work
+
+o Segmentation fault after "Could not find labeltype"
+
 o the clipboard does not work between other kwave instances
 
-o internationalization
+o splitting of i18n for kwave, libgui and each plugin
+
+o more complete i18n
+
+o internationalization for other languages than german
 
 o make the gui/redraws faster
 
 o let more than one toplevel window work
 
 o use the KDE's clipboard
-
-o make a proper projekt file for kdevelop (actually is broken)
 
 o find the reason for that short noise at the end of playback
   (does not occur when the selected range ends with some silence !)
@@ -18,9 +32,6 @@ o if an incompatible version of libgui is installed, the linking of the
   kwave program fails during "make". Thus the libgui directory should be
   added to the linker's directory list (-L../libgui ?) during make of the
   kwave main program and the plugins
-
-o find the reason for the warnings about multiple definitions of
-  QString when linking (libqt-1.4, seems to disappear with libqt-2)
 
 o apply the GNU coding style
 
@@ -32,5 +43,4 @@ o fix bug in Fx->Periodic Silence (segmentation fault)
 
 o pluginize/ put into library  the following files in src/ :
   mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h 
-
 

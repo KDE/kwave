@@ -17,12 +17,12 @@ Dialog *getDialog (DialogOperation *operation)
 GapDialog::GapDialog (int rate,bool modal): Dialog(modal)
 {
   resize  (320,200);
-  setCaption	(klocale->translate("Set Length of Gap & Signal"));
+  setCaption	(i18n("Set Length of Gap & Signal"));
 
-  label1=new QLabel (klocale->translate("length of gap"),this);
+  label1=new QLabel (i18n("length of gap"),this);
   len1=new TimeLine (this,rate);
   len1->setSamples (200);
-  label2=new QLabel (klocale->translate("length of signal"),this);
+  label2=new QLabel (i18n("length of signal"),this);
   len2=new TimeLine (this,rate);
   len2->setSamples (100);
   ok		=new QPushButton (OK,this);

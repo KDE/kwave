@@ -20,7 +20,7 @@ Dialog *getDialog (DialogOperation *operation)
 SaveBlockDialog::SaveBlockDialog (Global *globals,bool modal) : Dialog(modal)
 {
   comstr=0;
-  setCaption	(klocale->translate("Choose Labels to be used for dividing signal:"));
+  setCaption	(i18n("Choose Labels to be used for dividing signal:"));
 
 
   dir=new QDir ("./");
@@ -31,13 +31,13 @@ SaveBlockDialog::SaveBlockDialog (Global *globals,bool modal) : Dialog(modal)
   name=new QLineEdit (this);
   name->setText ("Unnamed");
 
-  namelabel=new QLabel (klocale->translate("Base name:"),this);
-  dirlabel=new QLabel (klocale->translate("Directory:"),this);
+  namelabel=new QLabel (i18n("Base name:"),this);
+  dirlabel=new QLabel (i18n("Directory:"),this);
   dirname=new QLineEdit (this);
   dirname->setText (dir->absPath());
 
-  mark1=new QLabel (klocale->translate("Start label:"),this);
-  mark2=new QLabel (klocale->translate("Stop label:"),this);
+  mark1=new QLabel (i18n("Start label:"),this);
+  mark2=new QLabel (i18n("Stop label:"),this);
 
   marktype1=new QComboBox (false,this);
   marktype2=new QComboBox (false,this);

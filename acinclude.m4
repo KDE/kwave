@@ -864,32 +864,6 @@ AC_DEFUN(KDE_CREATE_LIBS_ALIASES,
    AC_SUBST(LIB_KFILE)
 ])
 
-## ------------------------------------------------------------------------
-## check for libkwave
-## ------------------------------------------------------------------------
-##
-AC_DEFUN(AC_PATH_KWAVELIB,
-[
-AC_REQUIRE([AC_PATH_QT])dnl
-AC_MSG_CHECKING([for libkwave])
-
-kwave_libdirs="/usr/local/lib /usr/lib /usr/local/kde/lib /opt/kde/lib"
-
-AC_FIND_FILE(libkwave.la, $kwave_libdirs, kwave_libdir)
-ac_kwave_libraries=$kwave_libdir
-
-if test "$ac_kwave_libraries" = NO;
-then
-  ac_cv_have_kwavelib="have_kwave=no"
-else
-  ac_cv_have_kwavelib="have_kwave=yes ac_kwave_libraries=$ac_kwave_libraries"
-fi
-
-eval "$ac_cv_have_kwavelib"
-
- AC_MSG_RESULT(["in" $kwave_libdir])
-])
-
 AC_DEFUN(AC_PATH_KDE,
 [
   AC_BASE_PATH_KDE
@@ -921,6 +895,38 @@ AC_DEFUN(AC_PATH_KDE,
 
   AC_SUBST_KFSSTND
   KDE_CREATE_LIBS_ALIASES
+])
+
+## ------------------------------------------------------------------------
+## check for libkwave
+## ------------------------------------------------------------------------
+##
+AC_DEFUN(AC_PATH_KWAVELIB,
+[
+AC_REQUIRE([AC_PATH_QT])dnl
+AC_MSG_CHECKING([for libkwave])
+
+kwave_libdirs="${LIBWAVEDIR} ${HOME}/lib ${KDEDIR}/lib /opt/kde/lib /usr/local/kde/lib /lib /usr/local/lib /usr/lib"
+
+AC_FIND_FILE(libkwave.la, $kwave_libdirs, kwave_libdir)
+ac_kwave_libraries=$kwave_libdir
+
+if test "$ac_kwave_libraries" = NO;
+then
+  ac_cv_have_kwavelib="have_kwave=no"
+else
+  ac_cv_have_kwavelib="have_kwave=yes ac_kwave_libraries=$ac_kwave_libraries"
+fi
+
+eval "$ac_cv_have_kwavelib"
+
+AC_MSG_RESULT([$kwave_libdir])
+
+if test "$ac_kwave_libraries" = NO;
+then
+  AC_MSG_ERROR([libkwave not found. Please install the libkwave package first.]);
+fi
+
 ])
 
 dnl slightly changed version of AC_CHECK_FUNC(setenv)
@@ -2853,3 +2859,55 @@ NM="$ac_cv_path_NM"
 AC_MSG_RESULT([$NM])
 AC_SUBST(NM)
 ])
+
+AC_DEFUN(AC_CHECK_WITH_GCC,
+[
+AC_ARG_WITH(gcc-flags,[  --without-gcc-flags     don't use gcc flags [default=no]])
+if test "x$with_gcc_flags" = "xno"; then
+  ac_use_gcc_flags="no"
+ else
+  ac_use_gcc_flags="yes"
+ fi
+])
+
+
+AC_DEFUN(AC_SET_DEBUG,
+[
+if  test "x$ac_use_gcc_flags" = "xyes"; then
+ test "$CFLAGS" = "" && CFLAGS="-g -Wall" 
+ test "$CXXFLAGS" = "" && CXXFLAGS="-g -Wall"
+ test "$LDFLAGS" = "" && LDFLAGS="" 
+fi
+])
+
+AC_DEFUN(AC_SET_NODEBUG,
+[
+if  test "x$ac_use_gcc_flags" = "xyes"; then
+ test "$CFLAGS" = "" && CFLAGS="-Wall"
+ test "$CXXFLAGS" = "" && CXXFLAGS="-Wall"
+ test "$LDFLAGS" = "" && LDFLAGS="-s"
+fi
+])
+
+AC_DEFUN(AC_CHECK_DEBUG,
+[
+AC_ARG_ENABLE(debug,[  --enable-debug 	  creates debugging code [default=no]],
+[ 
+if test $enableval = "no"; dnl 
+  then AC_SET_NODEBUG 
+  else AC_SET_DEBUG 
+fi
+],
+AC_SET_NODEBUG)
+])
+
+dnl just a test
+AC_DEFUN(AC_CHECK_FLAGS, 
+[
+AC_REQUIRE([AC_CHECK_WITH_GCC])
+AC_REQUIRE([AC_CHECK_DEBUG])
+AC_SUBST(CXXFLAGS)
+AC_SUBST(CFLAGS)
+AC_SUBST(LDFLAGS)
+])
+

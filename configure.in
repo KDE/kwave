@@ -10,19 +10,26 @@ dnl You have to change this
 AM_INIT_AUTOMAKE(kwave,`cat ./VERSION`)
 
 dnl make $KDEDIR the default for the installation
-AC_PREFIX_DEFAULT(${KDEDIR:-/usr/local/kde})
+AC_PREFIX_DEFAULT(${KDEDIR:-/usr})
 
 dnl generate the config header
 AM_CONFIG_HEADER(config.h) dnl at the distribution this done
 
-dnl checks, if the debug code is wanted
-dnl ### AC_CHECK_FLAGS
-
 dnl Checks for programs.
-AC_PROG_CC
-AC_PROG_CPP
-AC_PROG_CXX
 AC_PROG_LN_S
+
+AC_CHECK_COMPILERS
+dnl AC_PROG_CC
+dnl AC_PROG_CPP
+dnl AC_PROG_CXX
+
+dnl checks, if the debug code is wanted
+AC_CHECK_FLAGS
+CFLAGS="${CFLAGS} --no-rtti"
+CXXFLAGS="${CXXFLAGS} --no-rtti"
+
+dnl now create our libtool, the earlier the better...
+AM_PROG_LIBTOOL
 
 dnl find out some variables 
 AC_AIX
@@ -30,6 +37,7 @@ AC_MINIX
 
 dnl for NLS support. Call them in this order!
 AC_LANG_CPLUSPLUS dnl switch to C++
+
 AM_KDE_WITH_NLS dnl check if nls is wanted
 
 dnl Checks for header files.
@@ -40,9 +48,7 @@ dnl check for some more header files. You can remove some of
 dnl them, if you want to. But it doesn't hurt
 AC_CHECK_HEADERS(fcntl.h sys/time.h unistd.h sys/cdefs.h)
 AC_CHECK_HEADERS(fnmatch.h sysent.h strings.h sys/stat.h)
-
-dnl now create our libtool, the earlier the better...
-AM_PROG_LIBTOOL
+dnl AC_CHECK_HEADERS(linux/soundcard.h)
 
 dnl Checks for libraries.
 AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' X11
@@ -63,12 +69,8 @@ AC_CHECK_GNU_EXTENSIONS
 dnl Checks for library functions. 
 AC_CHECK_FUNCS(socket vsnprintf)
 AC_CHECK_SETENV
-AC_LANG_CPLUSPLUS
 AC_CHECK_FUNCS(getdomainname)
 AC_CHECK_KSIZE_T
-
-dnl Perform program name transformation
-AC_ARG_PROGRAM
 
 dnl output files
 topdir=`pwd`
@@ -88,9 +90,13 @@ getlsm(RPM_VENDOR, Author)
 changequote(<<, >>)
 RPM_VERSION=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[1] }'`
 RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2]+0 }'`
-RPM_SOURCE0=<<kwave-%{version}.tgz>>
+RPM_SOURCE0=<<kwave-%{version}.tar.gz>>
 RPM_GROUP=<<X11/Applications/Sound>>
 RPM_BUILDROOT=<</tmp/kwave-%{version}.root>>
+LD_VERSION_INFO=<<`cat ./VERSION | awk '{split($0, a, ".")} \
+	{relpos=index(a[3],"-")} \
+	{rel=relpos==0 ? a[3] : substr(a[3], 1, relpos-1)} \
+END	{printf("%d:%d:%d", a[1]+a[2], rel, a[2]) }'`>>
 changequote([, ])
 
 dnl enter the variables for the spec file
@@ -105,6 +111,7 @@ AC_SUBST(RPM_COPYRIGHT)
 AC_SUBST(RPM_URL)
 AC_SUBST(RPM_VENDOR)
 AC_SUBST(RPM_BUILDROOT)
+AC_SUBST(LD_VERSION_INFO)
 
 dnl add here all your Makefiles
 AC_OUTPUT(Makefile \

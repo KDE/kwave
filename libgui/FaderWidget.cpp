@@ -35,7 +35,7 @@ const char *FaderWidget::getDegree ()
   deleteString (comstr);
   sprintf (buf,"%f",((float) (curve))/10);
   comstr=duplicateString (buf);
-  return buf;
+  return comstr;
 }
 //****************************************************************************
 void FaderWidget::paintEvent  (QPaintEvent *)

@@ -1,9 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <qpushbutton.h>
 #include <qkeycode.h>
-#include "module.h"
+#include <qlabel.h>
+#include <qlineedit.h>
+
+#include <kintegerline.h>
+#include <ktreelist.h>
 #include <kapp.h>
+
+#include <libkwave/DialogOperation.h>
+#include <libkwave/Global.h>
+
+#include "module.h"
 
 const char *version="1.0";
 const char *author="Martin Wilz";
@@ -17,11 +27,11 @@ Dialog *getDialog (DialogOperation *operation)
 MenuDialog::MenuDialog (Global *globals,bool modal): Dialog(modal)
 {
   this->globals=globals;
-  setCaption	(klocale->translate ("Choose menu layout :"));
+  setCaption	(i18n ("Choose menu layout :"));
 
   source=new KTreeList (this);
   dest=new KTreeList (this);
-  ok		=new QPushButton (klocale->translate("&Ok"),this);
+  ok		=new QPushButton (i18n("&Ok"),this);
   cancel       	=new QPushButton ("&Cancel",this);
 
   int bsize=ok->sizeHint().height();

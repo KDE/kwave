@@ -31,7 +31,6 @@ libkwavemt_la_SOURCES=\
  SharedLock.cpp \
  SharedLockGuard.cpp \
  Thread.cpp \
- ThreadCondition.cpp \
  ThreadsafeX11Guard.cpp \
  $(BUILTSOURCES)
 

@@ -78,7 +78,7 @@ mv kwave.lsm.new kwave.lsm
 # update plugins/dialogs/about/module.h
 #
 SHORT_DATE=`(LANG=en; date -d "$NEW_DATE" +"%b %d, %Y")`
-cat plugins/dialogs/about/AboutDialog.cpp | \
+cat plugins/about/AboutDialog.cpp | \
 	awk -v newver=$NEW_VERSION -v newdate="$SHORT_DATE" '{ 
 	split($0, a, " ") } {
 	if ((a[1] == "#define") && (a[2] == "KWAVE_VERSION")) {
@@ -89,8 +89,8 @@ cat plugins/dialogs/about/AboutDialog.cpp | \
 	} else
 	    print $0
 	}' > AboutDialog.cpp.new
-mv plugins/dialogs/about/AboutDialog.cpp /tmp/AboutDialog.cpp.old
-mv AboutDialog.cpp.new plugins/dialogs/about/AboutDialog.cpp
+mv plugins/about/AboutDialog.cpp /tmp/AboutDialog.cpp.old
+mv AboutDialog.cpp.new plugins/about/AboutDialog.cpp
 
 echo "new version numbers set."
 

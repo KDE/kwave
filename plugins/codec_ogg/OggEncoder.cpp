@@ -59,7 +59,7 @@ static const struct {
 	{ INF_SOURCE,       "LOCATION" },
 	{ INF_CONTACT,      "CONTACT" },
 	{ INF_ISRC,         "ISRC" },
-	{ INF_SOFTWARE,     "ENCODE" },
+	{ INF_SOFTWARE,     "ENCODER" },
 	{ INF_CREATION_DATE,"DATE" },
 	{ INF_MIMETYPE,     0 }
 };

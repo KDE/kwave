@@ -52,6 +52,9 @@ private slots:
     /** updates the verbose description of the number of tracks */
     void tracksChanged(int tracks);
 
+    /** auto-generate the list of keywords */
+    void autoGenerateKeywords();
+
 protected:
 
     /**
@@ -88,10 +91,16 @@ private:
     void acceptEdit(FileProperty property, QString value);
 
     /** initializes the "File" tab */
-    void setupFileInfo();
+    void setupFileInfoTab();
 
     /** initializes the "Content" tab */
-    void setupContent();
+    void setupContentTab();
+
+    /** initialize the "Source" tab */
+    void setupSourceTab();
+
+    /** initialize the "Miscellaneous" tab */
+    void setupMiscellaneousTab();
 
 private:
 

@@ -19,7 +19,9 @@
 #define _PLAY_BACK_ARTS_H_
 
 #include "config.h"
-#include <qobject.h>
+#undef HAVE_ARTS_SUPPORT
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <qstring.h>
 #include <artsc.h>
 
@@ -28,7 +30,6 @@
 
 class PlayBackArts: public PlayBackDevice
 {
-    Q_OBJECT
 public:
 
     /** Default constructor */
@@ -103,5 +104,7 @@ protected:
     bool m_closed;
 
 };
+
+#endif /* HAVE_ARTS_SUPPORT */
 
 #endif /* _PLAY_BACK_ARTS_H_ */

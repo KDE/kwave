@@ -19,14 +19,14 @@
 #define _PLAY_BACK_OSS_H_
 
 #include "config.h"
-#include <qobject.h>
+#ifdef HAVE_OSS_SUPPORT
+
 #include <qstring.h>
 
 #include "libkwave/PlayBackDevice.h"
 
 class PlayBackOSS: public PlayBackDevice
 {
-    Q_OBJECT
 public:
 
     /** Default constructor */
@@ -55,7 +55,57 @@ public:
      */
     virtual int close();
 
+    /** return a string list with supported device names */
+    virtual QStringList supportedDevices();
+
+    /** return a string suitable for a "File Open..." dialog */
+    virtual QString fileFilter();
+
+    /**
+     * returns a list of supported bits per sample resolutions
+     * of a given device.
+     *
+     * @param device filename of the device
+     * @return list of supported bits per sample, or empty on errors
+     */
+    virtual QValueList<unsigned int> supportedBits(const QString &device);
+
+    /**
+     * Detect the minimum and maximum number of channels.
+     * If the detection fails, minimum and maximum are set to zero.
+     *
+     * @param device filename of the device
+     * @param min receives the lowest supported number of channels
+     * @param max receives the highest supported number of channels
+     * @return zero or positive number if ok, negative error number if failed
+     */
+    virtual int detectChannels(const QString &device,
+                               unsigned int &min, unsigned int &max);
+
 protected:
+
+    /**
+     * split a device format bitmask into its parameters.
+     * (copied from playback plugin)
+     *
+     * @param format the device specific format
+     * @param compression receives a compression type
+     * @see CompressionType
+     * @param bits receives the number of bits per sample, related
+     *        to the decoded stream
+     * @param sample_format receives the sample format, as defined in
+     *        libaudiofile (signed or unsigned)
+     */
+    void format2mode(int format, int &compression,
+                     int &bits, int &sample_format);
+
+    /**
+     * Opens a physical device and returns its file descriptor
+     *
+     * @param device filename of the device
+     * @return file descriptor >= 0 or negative value on errors
+     */
+    int openDevice(const QString &device);
 
     /** Writes the output buffer to the device */
     void flush();
@@ -88,5 +138,7 @@ protected:
     unsigned int m_buffer_used;
 
 };
+
+#endif /* HAVE_OSS_SUPPORT */
 
 #endif /* _PLAY_BACK_OSS_H_ */

@@ -31,6 +31,7 @@ class QStringList;
 class PlaybackController;
 class PluginContext;
 class PlayBackDevice;
+class PlayBackDialog;
 
 class PlayBackPlugin: public KwavePlugin, public PlaybackDeviceFactory
 {
@@ -78,12 +79,25 @@ public slots:
     void stopDevicePlayBack();
 
 private slots:
+
     /**
      * Called from the playback thread to notify about a new
      * playback pointer.
      * @internal
      */
     void updatePlaybackPos();
+
+    /**
+     * Change the playback method
+     * @param method the new playback method
+     */
+    void setMethod(playback_method_t method);
+
+    /**
+     * Change the playback device (file) name
+     * @param device the filename of the device
+     */
+    void setDevice(const QString &device);
 
 protected:
 
@@ -138,6 +152,9 @@ protected:
     void closeDevice();
 
 private:
+
+    /** dialog for the playback setup */
+    PlayBackDialog *m_dialog;
 
     /** The playback device used for playback */
     PlayBackDevice *m_device;

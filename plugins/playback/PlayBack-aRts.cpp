@@ -15,11 +15,16 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+#undef HAVE_ARTS_SUPPORT // ###
+#ifdef HAVE_ARTS_SUPPORT
+
 #include <errno.h>
 #include <math.h>
+#include <klocale.h>
+
 #include "mt/MutexGuard.h"
 #include "mt/ThreadsafeX11Guard.h"
-#include <klocale.h>
 #include "PlayBack-aRts.h"
 
 /** use at least 2^8 = 256 bytes for playback buffer */
@@ -30,6 +35,13 @@
 
 /** Usage counter for arts_init/arts_free */
 static int g_arts_usage = 0;
+
+#if 0
+static const char *devicetext[] = {
+    "[aRts sound daemon]",
+    0
+};
+#endif
 
 //***************************************************************************
 PlayBackArts::PlayBackArts(Mutex &arts_lock)
@@ -115,12 +127,12 @@ int PlayBackArts::write(QMemArray<sample_t> &samples)
 	return -EIO;
     }
     Q_ASSERT(samples.count() == m_channels);
-    
+
     // convert into byte stream
     unsigned int channel;
     for (channel=0; channel < m_channels; channel++) {
 	sample_t sample = samples[channel];
-	
+
 	switch (m_bits) {
 	    case 8:
 		sample += 1 << 23;
@@ -159,9 +171,9 @@ void PlayBackArts::flush()
     if (m_stream) {
 	MutexGuard lock(m_lock_aRts);
 
-	// fill rest of buffer with zeroes	
+	// fill rest of buffer with zeroes
 	while (m_buffer_used < m_buffer_size)
-	
+
 	    m_buffer[m_buffer_used++] = 0;
 	int errorcode = arts_write(m_stream, m_buffer.data(), m_buffer_used);
 	if (errorcode < 0) {
@@ -181,16 +193,16 @@ int PlayBackArts::close()
 
     {
 	MutexGuard lock(m_lock_aRts);
-	
+
 	// close the playback stream
 	if (m_stream) arts_close_stream(m_stream);
-	
+
 	if (!m_closed && g_arts_usage && !--g_arts_usage) {
 	    qDebug("PlayBackArts::close() [pid %d]: releasing aRts API",
 	          (int)pthread_self());
 	    arts_free();
 	}
-	
+
 	m_stream = 0;
 	m_closed = true;
     }
@@ -232,6 +244,8 @@ QString PlayBackArts::artsErrorText(int errorcode)
 
     return text;
 };
+
+#endif /* HAVE_ARTS_SUPPORT */
 
 //***************************************************************************
 //***************************************************************************

@@ -1,5 +1,5 @@
 
-POFILES = de.po fr.po it.po
+POFILES = de.po fr.po
 GMOFILES = $(POFILES:.po=.gmo)
 
 localedir = $(DESTDIR)$(kde_locale)

@@ -413,10 +413,10 @@ void SelectTimeWidget::setOffset(unsigned int offset)
 {
     m_offset = offset;
     unsigned int max_samples = m_length - m_offset;
+    unsigned int samples = edSamples->value();
 
     // the range of the sample edit should always get updated
     edSamples->setRange(0, m_length-m_offset, 1, false);
-    unsigned int samples = edSamples->value();
 
     // no range conflict -> nothing to do
     if (samples <= max_samples) return;

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-11-03 22:08+0100\n"
-"PO-Revision-Date: 2002-11-04 13:12GMT\n"
+"PO-Revision-Date: 2002-11-04 15:16GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -175,8 +175,8 @@ msgid ""
 "Name of the album if the source is an album\n"
 "that consist of more medias."
 msgstr ""
-"Nom de l'album si la source est un album\n"
-"qui est constitué de plusieurs médias."
+"Nom de l'album si la source est\n"
+"est constitué de plusieurs médias."
 
 #: libkwave/FileInfo.cpp:33
 msgid "Annotation"
@@ -191,7 +191,7 @@ msgid ""
 msgstr ""
 "Donne des commentaires d'ordre général sur le fichier ou sur \n"
 "le sujet du fichier. Si le commentaire est constitué de plusieurs phrases,\n"
-"séparés les par des point. N'utilisez pas de retour chariot !"
+"séparés les par des points. N'utilisez pas de retour chariot !"
 
 #: libkwave/FileInfo.cpp:39
 msgid "Archival location"
@@ -220,7 +220,7 @@ msgstr "Débit faible"
 
 #: libkwave/FileInfo.cpp:48
 msgid "Specifies the lower limit in a VBR bitstream."
-msgstr ""
+msgstr "Spécifie la limite basse d'un flux VBR."
 
 #: libkwave/FileInfo.cpp:50
 msgid "Bitrate"
@@ -247,6 +247,8 @@ msgid ""
 "Number of the CD, if the source is \n"
 "an album of more CDROMs"
 msgstr ""
+"Numéro du CD, si la source est\n"
+"un album de plusieurs CDROM"
 
 #: libkwave/FileInfo.cpp:59
 msgid "Commisioned"
@@ -285,6 +287,8 @@ msgid ""
 "Sets a mode for compressing the audio\n"
 "data to reduce disk space."
 msgstr ""
+"Paramètre un mode de compression pour les données\n"
+"audio pour réduire l'espace utilisé sur le disque."
 
 #: libkwave/FileInfo.cpp:73
 msgid "Contact"
@@ -372,7 +376,7 @@ msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
 msgstr ""
-"Décrit le genre ou le style de music.\n"
+"Décrit le genre ou le style de musique.\n"
 "Exemple : «classique», «pop»."
 
 #: libkwave/FileInfo.cpp:107
@@ -580,7 +584,7 @@ msgid ""
 "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 msgstr ""
 "Identifie le type de materiel d'origine pour la numérisation.\n"
-"Exemples : «Enregistrement/Vinyl/90t/min», 'DAT', 'Cassette/CrO2/60min»"
+"Exemples : «Enregistrement/Vinyl/90t/min», «DAT», «Cassette/CrO2/60min»"
 
 #: libkwave/FileInfo.cpp:188
 msgid "Subject"
@@ -620,6 +624,9 @@ msgid ""
 "of the same track title in a single collection.\n"
 "(e.g. remix info)"
 msgstr ""
+"Ce champs peut être utilisé pour différentier des versions\n"
+"multiples d'un même morceau dans une liste.\n"
+"(tel que des informations sur un «remix»)"
 
 #: libkwave/GenreType.cpp:76
 msgid "Blues"
@@ -3023,7 +3030,7 @@ msgstr "&Sélectionner..."
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:816
 msgid "Select a date from the calendar."
-msgstr "Sélectionner une date du calendrier."
+msgstr "Permet de sélectionner une date dans le calendrier."
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:817
 msgid "Opens a dialog for selecting a date from the calendar."
@@ -3104,7 +3111,7 @@ msgstr ""
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
-msgstr ""
+msgstr "Sélectionner une résolution en bits pour chaque fichier qui sera enregistré."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:182
 msgid "Tracks"
@@ -3123,6 +3130,8 @@ msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
+"Affiche la taille du fichier en nombre d'échantillons\n"
+"et si possible la durée."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:204
 msgid "%1 (%2 samples)"

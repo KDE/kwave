@@ -1,0 +1,7 @@
+// kwave_sample_sink.idl
+
+#include <artsflow.idl>
+
+interface Kwave_SampleSink : Arts::SynthModule {
+	in audio stream source;
+};

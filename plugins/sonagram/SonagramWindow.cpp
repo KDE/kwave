@@ -33,8 +33,7 @@
 #include "libgui/KwavePlugin.h"
 #include "libgui/ScaleWidget.h"
 
-#include "kwave/ImageView.h" // ### very bad, move class to libgui !!
-
+#include "ImageView.h"
 #include "SonagramWindow.h"
 
 /**

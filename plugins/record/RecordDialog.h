@@ -131,6 +131,9 @@ signals:
     /** emitted when the sample format has changed */
     void sigSampleFormatChanged(int sample_format);
 
+    /** emitted when the number and/or size of buffers has changed */
+    void sigBuffersChanged();
+
 private slots:
 
     /** updates the record buffer count */

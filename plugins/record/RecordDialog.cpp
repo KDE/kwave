@@ -221,6 +221,7 @@ void RecordDialog::sourceBufferCountChanged(int value)
 
     // take the value into our struct
     m_params.buffer_count = value;
+    emit sigBuffersChanged();
 }
 
 //***************************************************************************
@@ -239,6 +240,8 @@ void RecordDialog::sourceBufferSizeChanged(int value)
     QString text;
     text = i18n("%1 samples");
     txtSourceBuffer->setText(text.arg(buffer_size));
+
+    emit sigBuffersChanged();
 }
 
 //***************************************************************************
@@ -268,7 +271,7 @@ void RecordDialog::selectRecordDevice()
 //***************************************************************************
 void RecordDialog::forwardDeviceChanged(const QString &dev)
 {
-    if (dev != m_params.device_name) emit deviceChanged(dev);
+    emit deviceChanged(dev);
 }
 
 //***************************************************************************
@@ -633,7 +636,7 @@ void RecordDialog::setState(RecordState state)
 	    enable_new      = true; /* start again */
 	    enable_pause    = true; /* used for "continue" */
 	    enable_stop     = true;
-	    enable_record   = false;
+	    enable_record   = true; /* used for "continue" */
 	    enable_settings = false;
 	    break;
 	case REC_DONE:

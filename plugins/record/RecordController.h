@@ -67,13 +67,13 @@ signals:
     void stateChanged(RecordState state);
 
     /** All recorded data has to be cleared */
-    void sigReset();
+    void sigReset(bool &accepted);
 
     /** Recording should start */
     void sigStartRecord();
 
     /** Recording should stop */
-    void sigStopRecord();
+    void sigStopRecord(int errorcode);
 
 private:
 

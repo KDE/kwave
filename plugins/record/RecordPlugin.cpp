@@ -49,30 +49,11 @@
 
 KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
 
-class InhibitRecordGuard
-{
-public:
-    InhibitRecordGuard(RecordPlugin &recorder)
-    {
-	// increment recursion count
-	// is recording running?
-	// yes -> stop it
-    };
-
-    virtual ~InhibitRecordGuard()
-    {
-	// decrement recursion count
-	// count == zero?
-	// yes -> was recording running before?
-	// yes -> start it again
-    };
-};
-
 //***************************************************************************
 RecordPlugin::RecordPlugin(PluginContext &context)
     :KwavePlugin(context), m_state(REC_EMPTY), m_device(0),
-     m_dialog(0), m_thread(0), m_decoder(), m_writers(),
-     m_buffers_recorded(0)
+     m_dialog(0), m_thread(0), m_decoder(0), m_writers(),
+     m_buffers_recorded(0), m_inhibit_count(0)
 {
     i18n("record");
 }
@@ -80,6 +61,18 @@ RecordPlugin::RecordPlugin(PluginContext &context)
 //***************************************************************************
 RecordPlugin::~RecordPlugin()
 {
+    Q_ASSERT(!m_dialog);
+    if (m_dialog) delete m_dialog;
+    m_dialog = 0;
+
+    Q_ASSERT(!m_thread);
+    if (m_thread) delete m_thread;
+    m_thread = 0;
+
+    Q_ASSERT(!m_decoder);
+    if (m_decoder) delete m_decoder;
+    m_decoder = 0;
+
     if (m_device) delete m_device;
     m_device = 0;
 }
@@ -119,31 +112,32 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             this, SLOT(changeBitsPerSample(unsigned int)));
     connect(m_dialog, SIGNAL(sigSampleFormatChanged(int)),
             this, SLOT(changeSampleFormat(int)));
+    connect(m_dialog, SIGNAL(sigBuffersChanged()),
+            this, SLOT(buffersChanged()));
 
     // connect the record controller and this
-    connect(&controller, SIGNAL(sigReset()),
-            this, SLOT(resetRecording()));
+    connect(&controller, SIGNAL(sigReset(bool &)),
+            this, SLOT(resetRecording(bool &)));
     connect(&controller, SIGNAL(sigStartRecord()),
             this, SLOT(startRecording()));
-    connect(&controller, SIGNAL(sigStopRecord()),
-            this, SLOT(stopRecording()));
+    connect(&controller, SIGNAL(sigStopRecord(int)),
+            &controller, SLOT(deviceRecordStopped(int)));
     connect(&controller, SIGNAL(stateChanged(RecordState)),
             this, SLOT(stateChanged(RecordState)));
-
-/*    connect(this,        SIGNAL(sigBufferFull()),
-            &controller, SLOT(deviceBufferFull()));
-    connect(this, SIGNAL(sigTriggerReached()),
-            &controller, SLOT(deviceTriggerReached()));*/
 
     // connect record controller and record thread
     connect(this,        SIGNAL(sigStarted()),
             &controller, SLOT(deviceRecordStarted()));
+    connect(this,        SIGNAL(sigBufferFull()),
+            &controller, SLOT(deviceBufferFull()));
+    connect(this, SIGNAL(sigTriggerReached()),
+            &controller, SLOT(deviceTriggerReached()));
     connect(m_thread,    SIGNAL(stopped(int)),
             &controller, SLOT(deviceRecordStopped(int)));
 
     // connect us to the record thread
     connect(m_thread, SIGNAL(stopped(int)),
-           this,      SLOT(recordStopped(int)));
+            this,     SLOT(recordStopped(int)));
     connect(m_thread, SIGNAL(bufferFull(QByteArray)),
             this,     SLOT(processBuffer(QByteArray)));
 
@@ -167,6 +161,9 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     if (m_thread) delete m_thread;
     m_thread = 0;
 
+    if (m_decoder) delete m_decoder;
+    m_decoder = 0;
+
     return list;
 }
 
@@ -177,7 +174,7 @@ void RecordPlugin::changeDevice(const QString &dev)
     if (!m_dialog) return;
     qDebug("RecordPlugin::changeDevice("+dev+")");
 
-    InhibitRecordGuard(*this); // suspend recording while changing settings
+    InhibitRecordGuard _lock(*this); // don't record while settings change
 
     // open the new device
     if (m_device) m_device->close();
@@ -255,7 +252,7 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
     Q_ASSERT(m_dialog);
     if (!m_device || !m_dialog) return;
 
-    InhibitRecordGuard(*this); // suspend recording while changing settings
+    InhibitRecordGuard _lock(*this); // don't record while settings change
 
     // try to activate the new number of tracks
     unsigned int tracks = new_tracks;
@@ -280,7 +277,7 @@ void RecordPlugin::changeSampleRate(double new_rate)
     Q_ASSERT(m_dialog);
     if (!m_device || !m_dialog) return;
 
-    InhibitRecordGuard(*this); // suspend recording while changing settings
+    InhibitRecordGuard _lock(*this); // don't record while settings change
 
     // check the supported sample rates
     QValueList<double> supported_rates = m_device->detectSampleRates();
@@ -328,7 +325,7 @@ void RecordPlugin::changeCompression(int new_compression)
     Q_ASSERT(m_dialog);
     if (!m_device || !m_dialog) return;
 
-    InhibitRecordGuard(*this); // suspend recording while changing settings
+    InhibitRecordGuard _lock(*this); // don't record while settings change
 
     // check the supported compressions
     CompressionType types;
@@ -379,7 +376,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     Q_ASSERT(m_dialog);
     if (!m_device || !m_dialog) return;
 
-    InhibitRecordGuard(*this); // suspend recording while changing settings
+    InhibitRecordGuard _lock(*this); // don't record while settings change
 
     // check the supported resolution in bits per sample
     QValueList<unsigned int> supported_bits = m_device->detectBitsPerSample();
@@ -424,7 +421,7 @@ void RecordPlugin::changeSampleFormat(int new_format)
     Q_ASSERT(m_dialog);
     if (!m_device || !m_dialog) return;
 
-    InhibitRecordGuard(*this); // suspend recording while changing settings
+    InhibitRecordGuard _lock(*this); // don't record while settings change
 
     // check the supported sample formats
     QValueList<int> supported_formats = m_device->detectSampleFormats();
@@ -459,30 +456,72 @@ void RecordPlugin::changeSampleFormat(int new_format)
 }
 
 //***************************************************************************
-void RecordPlugin::resetRecording()
+void RecordPlugin::buffersChanged()
+{
+    InhibitRecordGuard _lock(*this); // don't record while settings change
+    // this implicitely activates the new settings
+}
+
+//***************************************************************************
+void RecordPlugin::enterInhibit()
+{
+    m_inhibit_count++;
+    if ((m_inhibit_count == 1) && m_thread) {
+	qDebug("RecordPlugin::enterInhibit() - STOPPING");
+	m_thread->stop();
+    }
+}
+
+//***************************************************************************
+void RecordPlugin::leaveInhibit()
+{
+    Q_ASSERT(m_inhibit_count);
+    if (m_inhibit_count) m_inhibit_count--;
+    if (!m_inhibit_count && m_thread) {
+	qDebug("RecordPlugin::leaveInhibit() - STARTING");
+
+	Q_ASSERT(!m_thread->running());
+
+	// set new parameters for the recorder
+	setupRecordThread();
+
+	// and let the thread run (again)
+	m_thread->start();
+    }
+}
+
+//***************************************************************************
+void RecordPlugin::resetRecording(bool &accepted)
 {
     qDebug("RecordPlugin::resetRecording()");
+    InhibitRecordGuard _lock(*this);
 
-    // delete all recorded threads and start again...
+    TopWidget &topwidget = this->manager().topWidget();
+    accepted = topwidget.closeFile();
+    if (!accepted) return;
+
+    m_writers.flush();
+    m_writers.resize(0);
     m_buffers_recorded = 0;
 }
 
 //***************************************************************************
-void RecordPlugin::startRecording()
+void RecordPlugin::setupRecordThread()
 {
-    Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
-    Q_ASSERT(m_device);
-    if (!m_dialog || !m_thread || !m_device) return;
+    if (!m_thread) return;
 
-    qDebug("RecordPlugin::startRecording()");
+    // stop the thread if necessary (should never happen)
+    Q_ASSERT(!m_thread->running());
+    if (m_thread->running()) m_thread->stop();
+    Q_ASSERT(!m_thread->running());
+
+    // delete the previous decoder
+    if (m_decoder) delete m_decoder;
+    m_decoder = 0;
 
     // create a decoder for the current sample format
     switch (m_dialog->params().compression) {
-	case CompressionType::MPEG_LAYER_II:
-	case AF_COMPRESSION_G711_ALAW:
-	case AF_COMPRESSION_G711_ULAW:
-	case AF_COMPRESSION_MS_ADPCM:
 	case AF_COMPRESSION_NONE:
 	    switch (m_dialog->params().sample_format) {
 		case AF_SAMPFMT_UNSIGNED:
@@ -494,88 +533,106 @@ void RecordPlugin::startRecording()
 		    );
 		    break;
 		default:
-		    qWarning("SAMPLE FORMAT NOT SUPPORTED!!!???");
-		    break;
+		    KMessageBox::sorry(m_dialog, i18n(
+			"The current sample format is not supported!"
+		    ));
 	    }
 	    break;
+	case AF_COMPRESSION_G711_ALAW:
+	case AF_COMPRESSION_G711_ULAW:
+	case CompressionType::MPEG_LAYER_II:
+	case AF_COMPRESSION_MS_ADPCM:
 	default:
-	    qWarning("COMPRESSION TYPE NOT SUPPORTED !!??");
+	    KMessageBox::sorry(m_dialog, i18n(
+		"The current compression type is not supported!"));
 	    return;
     }
+
     Q_ASSERT(m_decoder);
-    if (!m_decoder) return;
-
-    // create a new and empty signal
-    unsigned int samples = 0;
-    double rate = m_dialog->params().sample_rate;
-    unsigned int bits = m_dialog->params().bits_per_sample;
-    unsigned int tracks = m_dialog->params().tracks;
-    TopWidget &topwidget = this->manager().topWidget();
-    topwidget.newSignal(samples, rate, bits, tracks);
-
-    // we do not need UNDO here
-    signalManager().disableUndo();
-
-    // create a sink for our audio data
-    manager().openMultiTrackWriter(m_writers, Append);
-    Q_ASSERT(m_writers.count() == tracks);
-    if (m_writers.count() != tracks) {
+    if (!m_decoder) {
 	KMessageBox::sorry(m_dialog, i18n("Out of memory"));
 	return;
     }
 
-    // initialize the file information
-    fileInfo().setRate(rate);
-    fileInfo().setBits(bits);
-    fileInfo().setTracks(tracks);
-    fileInfo().setLength(0);
-    fileInfo().set(INF_MIMETYPE, "audio/vnd.wave");
-    fileInfo().set(INF_SAMPLE_FORMAT, m_dialog->params().sample_format);
-    fileInfo().set(INF_COMPRESSION, m_dialog->params().compression);
-
-    // add our Kwave Software tag
-    const KAboutData *about_data = KGlobal::instance()->aboutData();
-    QString software = about_data->programName() + "-" +
-	about_data->version() +
-	i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-    fileInfo().set(INF_SOFTWARE, software);
-
-    // add a date tag
-    QDate now(QDate::currentDate());
-    QString date;
-    date = date.sprintf("%04d-%02d-%02d",
-        now.year(), now.month(), now.day());
-    QVariant value = date.utf8();
-    fileInfo().set(INF_CREATION_DATE, value);
-
-    // stop the device if necessary (should never happen)
-    Q_ASSERT(!m_thread->running());
-    if (m_thread->running()) m_thread->stop();
-    Q_ASSERT(!m_thread->running());
-
     // set up the record thread
     m_thread->setRecordDevice(m_device);
     unsigned int buf_count = m_dialog->params().buffer_count;
-    unsigned int buf_size  = m_decoder->rawBytesPerSample() *
+    unsigned int buf_size  = m_dialog->params().tracks *
+                             m_decoder->rawBytesPerSample() *
                             (1 << m_dialog->params().buffer_size);
     m_thread->setBuffers(buf_count, buf_size);
-
-    // now the recording can be considered to be started
-    emit sigStarted();
-
-    // start the recording thread
-    m_thread->start();
 }
 
 //***************************************************************************
-void RecordPlugin::stopRecording()
+void RecordPlugin::startRecording()
 {
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
-    if (!m_dialog || !m_thread) return;
+    Q_ASSERT(m_device);
+    if (!m_dialog || !m_thread || !m_device) return;
 
-    qDebug("RecordPlugin::stopRecording()");
-    m_thread->stop();
+    qDebug("RecordPlugin::startRecording()");
+    InhibitRecordGuard _lock(*this); // don't record while settings change
+
+    if ((m_state != REC_PAUSED) || !m_decoder) {
+	double rate = m_dialog->params().sample_rate;
+	unsigned int tracks = m_dialog->params().tracks;
+	unsigned int samples = 0;
+	unsigned int bits = m_dialog->params().bits_per_sample;
+
+	/*
+	 * if tracks or sample rate has changed
+	 * -> start over with a new signal and new settings
+	 */
+	if ((m_writers.count() != tracks) ||
+	    (fileInfo().rate() != rate))
+	{
+	    // create a new and empty signal
+	    TopWidget &topwidget = this->manager().topWidget();
+	    int res = topwidget.newSignal(samples, rate, bits, tracks);
+	    if (res < 0) return;
+
+	    // we do not need UNDO here
+	    signalManager().disableUndo();
+
+	    // create a sink for our audio data
+	    manager().openMultiTrackWriter(m_writers, Append);
+	    Q_ASSERT(m_writers.count() == tracks);
+	    if (m_writers.count() != tracks) {
+		KMessageBox::sorry(m_dialog, i18n("Out of memory"));
+		return;
+	    }
+	} else {
+	    // re-use the current signal and append to it
+	}
+
+	// initialize the file information
+	fileInfo().setRate(rate);
+	fileInfo().setBits(bits);
+	fileInfo().setTracks(tracks);
+//	fileInfo().setLength(m_writers.last());
+	fileInfo().set(INF_MIMETYPE, "audio/vnd.wave");
+	fileInfo().set(INF_SAMPLE_FORMAT, m_dialog->params().sample_format);
+	fileInfo().set(INF_COMPRESSION, m_dialog->params().compression);
+
+	// add our Kwave Software tag
+	const KAboutData *about_data = KGlobal::instance()->aboutData();
+	QString software = about_data->programName() + "-" +
+	    about_data->version() + i18n(" for KDE ") +
+	    i18n(QString::fromLatin1(KDE_VERSION_STRING));
+	fileInfo().set(INF_SOFTWARE, software);
+
+	// add a date tag
+	QDate now(QDate::currentDate());
+	QString date;
+	date = date.sprintf("%04d-%02d-%02d",
+		now.year(), now.month(), now.day());
+	QVariant value = date.utf8();
+	fileInfo().set(INF_CREATION_DATE, value);
+    }
+
+    // now the recording can be considered to be started
+    emit sigStarted();
 }
 
 //***************************************************************************
@@ -682,6 +739,7 @@ void RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 //***************************************************************************
 void RecordPlugin::processBuffer(QByteArray buffer)
 {
+//    qDebug("RecordPlugin::processBuffer()");
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
     Q_ASSERT(m_decoder);
@@ -693,6 +751,8 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     // split into several single buffers
     const RecordParams &params = m_dialog->params();
     const unsigned int tracks = params.tracks;
+    Q_ASSERT(tracks);
+
     const unsigned int bytes_per_sample = m_decoder->rawBytesPerSample();
     const unsigned int samples = buffer.size() / bytes_per_sample / tracks;
 
@@ -707,18 +767,53 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     if (decoded.size() != samples) return;
 
     for (unsigned int track=0; track < tracks; ++track) {
-	SampleWriter *writer = m_writers[track];
-	Q_ASSERT(writer);
-	if (!writer) continue;
-
 	// split off a buffer with only one track
 	split(buffer, buf, bytes_per_sample, track, tracks);
 
 	// decode from raw data to samples
 	m_decoder->decode(buf, decoded);
 
-	// put the decoded track data into the buffer
-	(*writer) << decoded;
+	// update the level meter and other effects
+	// ### TODO ###
+
+	switch (m_state) {
+	    case REC_EMPTY:
+//		qDebug("RecordPlugin::processBuffer() - REC_EMPTY");
+		break;
+	    case REC_BUFFERING:
+//		qDebug("RecordPlugin::processBuffer() - REC_BUFFERING");
+		// first buffer is full
+		// -> leave REC_BUFFERING
+		if ((m_buffers_recorded > 1) && buffer.size())
+		    emit sigBufferFull();
+		break;
+	    case REC_PRERECORDING:
+		// enqueue the buffers into a FIFO
+//		qDebug("RecordPlugin::processBuffer() - REC_PRERECORDING");
+		break;
+	    case REC_WAITING_FOR_TRIGGER:
+		// check if the trigger has been reached
+		// if yes -> signal it
+//		qDebug("RecordPlugin::processBuffer() - REC_WAITING_FOR_TRIGGER");
+		emit sigTriggerReached();
+		break;
+	    case REC_RECORDING: {
+		// put the decoded track data into the buffer
+//		qDebug("RecordPlugin::processBuffer() - REC_RECORDING");
+		Q_ASSERT(tracks == m_writers.count());
+		if (!tracks || (tracks != m_writers.count())) return;
+		SampleWriter *writer = m_writers[track];
+		Q_ASSERT(writer);
+		if (writer) (*writer) << decoded;
+		break;
+	    }
+	    case REC_PAUSED:
+//		qDebug("RecordPlugin::processBuffer() - REC_PAUSED");
+		break;
+	    case REC_DONE:
+//		qDebug("RecordPlugin::processBuffer() - REC_DONE");
+		break;
+	}
     }
 
 }

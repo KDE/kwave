@@ -52,13 +52,13 @@ void RecordThread::setRecordDevice(RecordDevice *device)
 //***************************************************************************
 int RecordThread::setBuffers(unsigned int count, unsigned int size)
 {
+    qDebug("RecordThread::setBuffers(%u,%u)", count, size);
     Q_ASSERT(!running());
     if (running()) return -EBUSY;
 
-    // de-queue all full buffers if any (which normally should not happen)
+    // de-queue all full buffers if any -> flush output queue
     while (m_full_queue.count()) {
-	char *buffer = m_full_queue.dequeue();
-	free(buffer);
+	dequeue();
     }
 
     // de-queue and delete all empty buffers if the buffer size has changed
@@ -183,7 +183,7 @@ void RecordThread::run()
 	m_spx_buffer_full.AsyncHandler();
     }
 
-    m_spx_stopped.enqueue(result);
+    if (result) m_spx_stopped.enqueue(result);
     qDebug("RecordThread::run() - done");
 }
 
@@ -191,7 +191,7 @@ void RecordThread::run()
 void RecordThread::forwardBufferFull()
 {
     QByteArray buffer = dequeue();
-    Q_ASSERT(buffer.count());
+    if (!buffer.count()) return; // was removed before, maybe settings changed
 
     // forward the buffer to the application/consumer
     emit bufferFull(buffer);

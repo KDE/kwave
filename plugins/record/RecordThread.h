@@ -87,9 +87,7 @@ private slots:
 
 protected:
 
-    /**
-     * De-queues a buffer from the list of filled buffers.
-     */
+    /** De-queues a buffer from the m_full_queue. */
     QByteArray dequeue();
 
 private:

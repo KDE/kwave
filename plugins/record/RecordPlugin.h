@@ -57,24 +57,54 @@ signals:
     /** emitted when the trigger level has been reached */
     void sigTriggerReached();
 
+protected:
+
+    friend class InhibitRecordGuard;
+
+    /** inhibits recording, stopping the recorder if necessary */
+    void enterInhibit();
+
+    /** leave the area with recording inhibited, restart recorder if needed */
+    void leaveInhibit();
+
+    /**
+     * internal guard class for inhibiting low level recording
+     * at times where it should not occur.
+     */
+    class InhibitRecordGuard
+    {
+    public:
+	/** Constructor, inhibits recording */
+	InhibitRecordGuard(RecordPlugin &recorder)
+	    :m_recorder(recorder)
+	{
+	    m_recorder.enterInhibit();
+	};
+
+	/** Destructor, re-enables recording */
+	virtual ~InhibitRecordGuard()
+	{
+	    m_recorder.leaveInhibit();
+        };
+
+    private:
+	RecordPlugin &m_recorder;
+    };
+
 protected slots:
 
     /**
      * command for resetting all recorded stuff for starting again
+     * @param accepted bool variable that will show if the action was
+     *        performed or aborted (not accepted)
      */
-    void resetRecording();
+    void resetRecording(bool &accepted);
 
     /**
      * command for starting the recording, completion is
      * signalled with sigStarted()
      */
     void startRecording();
-
-    /**
-     * command for stopping recording, completion is
-     * signalled with sigStopped()
-     */
-    void stopRecording();
 
     /** called when the recording stopped (for detecting aborts only) */
     void recordStopped(int reason);
@@ -109,7 +139,13 @@ private slots:
     /** process a raw audio buffer */
     void processBuffer(QByteArray buffer);
 
+    /** restart recorder with new buffer settings */
+    void buffersChanged();
+
 private:
+
+    /** set up the recorder thread and record device (again) */
+    void setupRecordThread();
 
     /** update the buffer progress bar */
     void updateBufferProgressBar();
@@ -155,6 +191,9 @@ private:
      * buffers in the queue if recording stopped
      */
     unsigned int m_buffers_recorded;
+
+    /** recursion level for inhibiting recording */
+    unsigned int m_inhibit_count;
 
 };
 

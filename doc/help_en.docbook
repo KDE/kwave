@@ -197,6 +197,12 @@
                 <listitem><para>
                     using time instead of zoom factor (e.g. set zoom to "1 minute")
                 </para></listitem>
+                <listitem><para>
+                    menu entries for playback control
+                </para></listitem>
+                <listitem><para>
+                    some more icons in the menues
+                </para></listitem>
             </itemizedlist>
         </listitem>
         <listitem>

@@ -18,6 +18,7 @@
 #include "config.h"
 #include <qlist.h>
 #include <qmime.h>
+#include <qregexp.h>
 
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
@@ -145,11 +146,17 @@ QString CodecManager::encodingFilter()
 
 	    // otherwise append to the list	
 	    QString entry = extensions;
-	    entry += "|" + type->comment();
+	    QString comment = type->comment().replace(QRegExp("/"), ",");
+	    entry += "|" + comment;
 	    if (list.length()) list += "\n";
 	    list += entry + " (" + extensions + ")";
 	}
     }
+    ASSERT(!list.contains('/'));
+    if (list.contains('/')) {
+	warning("CodecManager::encodingFilter() -> '%s'", list.data());
+    }
+
     return list;
 }
 /***************************************************************************/
@@ -165,18 +172,29 @@ QString CodecManager::decodingFilter()
 	QListIterator<KMimeType> ti(types);
 	for (; ti.current(); ++ti) {
 	    KMimeType *type = ti.current();
-	    QString extensions = type->patterns().join("; ");
+	    QString extensions = type->patterns().join(" ");
 	
 	    // skip if extensions are already known/present
 	    if (list.contains(extensions)) continue;
+	
+//	    // remove all extensions from the list that we already have
+//	    QStringList patterns = type->patterns();
+//	
+//	    if (!extensions.length()) continue;
 
 	    // otherwise append to the list	
 	    QString entry = extensions;
-	    entry += "|" + type->comment();
+	    QString comment = type->comment().replace(QRegExp("/"), ",");
+	    entry += "|" + comment;
 	    if (list.length()) list += "\n";
 	    list += entry + " (" + extensions + ")";
 	}
     }
+    ASSERT(!list.contains('/'));
+    if (list.contains('/')) {
+	warning("CodecManager::decodingFilter() -> '%s'", list.data());
+    }
+
     return list;
 }
 

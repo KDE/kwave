@@ -789,8 +789,13 @@ void TopWidget::openRecent(const QString &str)
 //***************************************************************************
 void TopWidget::openFile()
 {
+//    KFileDialog dlg(":<kwave_open_dir>", CodecManager::decodingFilter(),
+//        this);
+//    KFile::Mode mode = static_cast<KFile::Mode>(
+//        KFile::Files | KFile::ExistingOnly | KFile::LocalOnly );
+//    dlg.setMode( mode );
     KURL url = KFileDialog::getOpenURL(
-	":<kwave-open-dir>", CodecManager::decodingFilter(), this);
+	":<kwave_open_dir>", CodecManager::decodingFilter(), this);
     if (!url.isEmpty()) loadFile(url);
 }
 

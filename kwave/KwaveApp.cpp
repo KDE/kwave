@@ -116,7 +116,6 @@ bool KwaveApp::executeCommand(const QString &command)
 //***************************************************************************
 void KwaveApp::addRecentFile(const QString &newfile)
 {
-    ASSERT(newfile.length() != 0);
     if (!newfile.length()) return;
 
     // remove old entries if present

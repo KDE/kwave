@@ -23,9 +23,9 @@ author=Thomas Eschenbacher
 configure_args=--enable-debug=yes
 email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
-lfv_open_groups=GNU
+lfv_open_groups=Headers
 make_options=\s-j1
-makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am,plugins/amplifyfree/Makefile.am,plugins/noise/Makefile.am,plugins/codec_wav/Makefile.am,plugins/common/Makefile.am
+makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am,plugins/amplifyfree/Makefile.am,plugins/noise/Makefile.am,plugins/codec_wav/Makefile.am,plugins/common/Makefile.am,plugins/codec_audiofile/Makefile.am
 modifyMakefiles=false
 project_name=Kwave
 project_type=normal_kde
@@ -1366,7 +1366,7 @@ type=HEADER
 
 [libkwave/Makefile.am]
 dist=true
-files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/PointSet.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/mmap.h,libkwave/mmap.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp,libkwave/ArtsSampleSink.idl,libkwave/ArtsSampleSource.idl,libkwave/ArtsSampleSink_impl.cpp,libkwave/ArtsSampleSink_impl.h,libkwave/ArtsSampleSource_impl.h,libkwave/ArtsSampleSource_impl.cpp,libkwave/ArtsMultiTrackFilter.h,libkwave/ArtsMultiSource.h,libkwave/ArtsMultiSink.h,libkwave/ArtsMultiIO.h,libkwave/ArtsMultiTrackSink.h,libkwave/ArtsMultiTrackSource.h,libkwave/ArtsKwaveMultiTrackFilter.h,libkwave/ArtsNativeMultiTrackFilter.h,libkwave/CurveStreamAdapter_impl.h,libkwave/CurveStreamAdapter_impl.cpp,libkwave/KwaveDrag.h,libkwave/KwaveDrag.cpp,libkwave/FileFormat.cpp,libkwave/WavFileFormat.h,libkwave/Encoder.h,libkwave/Decoder.h,libkwave/CodecBase.h,libkwave/CodecBase.cpp,libkwave/FileInfo.cpp,libkwave/FileInfo.h
+files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/PointSet.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/mmap.h,libkwave/mmap.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp,libkwave/ArtsSampleSink.idl,libkwave/ArtsSampleSource.idl,libkwave/ArtsSampleSink_impl.cpp,libkwave/ArtsSampleSink_impl.h,libkwave/ArtsSampleSource_impl.h,libkwave/ArtsSampleSource_impl.cpp,libkwave/ArtsMultiTrackFilter.h,libkwave/ArtsMultiSource.h,libkwave/ArtsMultiSink.h,libkwave/ArtsMultiIO.h,libkwave/ArtsMultiTrackSink.h,libkwave/ArtsMultiTrackSource.h,libkwave/ArtsKwaveMultiTrackFilter.h,libkwave/ArtsNativeMultiTrackFilter.h,libkwave/CurveStreamAdapter_impl.h,libkwave/CurveStreamAdapter_impl.cpp,libkwave/KwaveDrag.h,libkwave/KwaveDrag.cpp,libkwave/FileFormat.cpp,libkwave/WavFileFormat.h,libkwave/Encoder.h,libkwave/Decoder.h,libkwave/CodecBase.h,libkwave/CodecBase.cpp,libkwave/FileInfo.cpp,libkwave/FileInfo.h,libkwave/VirtualAudioFile.cpp,libkwave/VirtualAudioFile.h
 install=false
 install_location=
 sub_dirs=
@@ -1511,6 +1511,18 @@ install_location=
 type=HEADER
 
 [libkwave/TypesMap.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[libkwave/VirtualAudioFile.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[libkwave/VirtualAudioFile.h]
 dist=true
 install=false
 install_location=
@@ -1726,7 +1738,7 @@ dist=true
 files=plugins/Makefile.am
 install=false
 install_location=
-sub_dirs=dialogs,sonagram,playback,zero,memory,newsignal,template,amplifyfree,noise,about,codec_wav,common
+sub_dirs=dialogs,sonagram,playback,zero,memory,newsignal,template,amplifyfree,noise,about,codec_wav,common,codec_audiofile
 type=DATA
 
 [plugins/about/AboutDialog.cpp]
@@ -1841,8 +1853,37 @@ files=plugins/amplifyfree/AmplifyFreePlugin.h,plugins/amplifyfree/AmplifyFreePlu
 sub_dirs=
 type=static_library
 
+[plugins/codec_audiofile/AudiofileCodecPlugin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/codec_audiofile/AudiofileCodecPlugin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/codec_audiofile/AudiofileDecoder.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/codec_audiofile/AudiofileDecoder.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/codec_audiofile/Makefile.am]
+files=plugins/codec_audiofile/AudiofileCodecPlugin.h,plugins/codec_audiofile/AudiofileCodecPlugin.cpp,plugins/codec_audiofile/AudiofileDecoder.cpp,plugins/codec_audiofile/AudiofileDecoder.h
+sub_dirs=
+type=static_library
+
 [plugins/codec_wav/Makefile.am]
-files=plugins/codec_wav/WavCodecPlugin.cpp,plugins/codec_wav/WavCodecPlugin.h,plugins/codec_wav/WavDecoder.cpp,plugins/codec_wav/WavDecoder.h,plugins/codec_wav/WavEncoder.cpp,plugins/codec_wav/WavEncoder.h,plugins/codec_wav/WavFileFormat.h,plugins/codec_wav/RIFFChunk.cpp,plugins/codec_wav/RIFFChunk.h,plugins/codec_wav/RIFFParser.cpp,plugins/codec_wav/RIFFParser.h,plugins/codec_wav/WavFormatMap.cpp,plugins/codec_wav/WavFormatMap.h,plugins/codec_wav/VirtualAudioFile.cpp,plugins/codec_wav/VirtualAudioFile.h,plugins/codec_wav/RecoveryBuffer.cpp,plugins/codec_wav/RecoveryBuffer.h,plugins/codec_wav/RecoveryMapping.h,plugins/codec_wav/RecoveryMapping.cpp,plugins/codec_wav/RecoverySource.cpp,plugins/codec_wav/RecoverySource.h,plugins/codec_wav/RepairVirtualAudioFile.cpp,plugins/codec_wav/RepairVirtualAudioFile.h
+files=plugins/codec_wav/WavCodecPlugin.cpp,plugins/codec_wav/WavCodecPlugin.h,plugins/codec_wav/WavDecoder.cpp,plugins/codec_wav/WavDecoder.h,plugins/codec_wav/WavEncoder.cpp,plugins/codec_wav/WavEncoder.h,plugins/codec_wav/WavFileFormat.h,plugins/codec_wav/RIFFChunk.cpp,plugins/codec_wav/RIFFChunk.h,plugins/codec_wav/RIFFParser.cpp,plugins/codec_wav/RIFFParser.h,plugins/codec_wav/WavFormatMap.cpp,plugins/codec_wav/WavFormatMap.h,plugins/codec_wav/RecoveryBuffer.cpp,plugins/codec_wav/RecoveryBuffer.h,plugins/codec_wav/RecoveryMapping.h,plugins/codec_wav/RecoveryMapping.cpp,plugins/codec_wav/RecoverySource.cpp,plugins/codec_wav/RecoverySource.h,plugins/codec_wav/RepairVirtualAudioFile.cpp,plugins/codec_wav/RepairVirtualAudioFile.h
 sharedlib_LDFLAGS=-version-info 0:0:1
 sharedlib_rootname=codec_wav
 sub_dirs=
@@ -1915,18 +1956,6 @@ install_location=
 type=SOURCE
 
 [plugins/codec_wav/RepairVirtualAudioFile.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[plugins/codec_wav/VirtualAudioFile.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[plugins/codec_wav/VirtualAudioFile.h]
 dist=true
 install=false
 install_location=

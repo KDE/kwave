@@ -418,7 +418,6 @@ int SignalWidget::loadFile(const KURL &url)
 
     // load a new signal
     int res = m_signal_manager.loadFile(url);
-    ASSERT(m_signal_manager.length());
     if (m_signal_manager.isClosed() || (res)) {
 	warning("SignalWidget::loadFile() failed:"\
 		" zero-length or out of memory?");

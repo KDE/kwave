@@ -2173,14 +2173,14 @@
 	a range of samples, starting at the current cursor position:
 	<menuchoice>
 	<shortcut><keycombo><keycap>R</keycap></keycombo></shortcut>
-	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Range</guimenuitem>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Range</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
 	the currently visible area:
 	<menuchoice>
 	<shortcut><keycombo><keycap>V</keycap></keycombo></shortcut>
-	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Visible</guimenuitem>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Visible</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
@@ -2188,7 +2188,7 @@
 	selection and with the same length:
 	<menuchoice>
 	<shortcut><keycombo><keycap>Shift</keycap><keycap>+</keycap></keycombo></shortcut>
-	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Next</guimenuitem>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Next</guimenuitem>
 	</menuchoice>
     </para>
     <para>
@@ -2199,7 +2199,7 @@
 	selection and with the same length:
 	<menuchoice>
 	<shortcut><keycombo><keycap>Shift</keycap><keycap>-</keycap></keycombo></shortcut>
-	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Previous</guimenuitem>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Previous</guimenuitem>
 	</menuchoice>
     </para>
     <para>
@@ -2209,21 +2209,21 @@
 	expand the selection to the start of the signal (first sample):
 	<menuchoice>
 	<shortcut><keycombo><keycap>Shift</keycap><keycap>Home</keycap></keycombo></shortcut>
-	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to start</guimenuitem>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to start</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
 	expand the selection to the end of the signal (last sample):
 	<menuchoice>
 	<shortcut><keycombo><keycap>Shift</keycap><keycap>End</keycap></keycombo></shortcut>
-	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to end</guimenuitem>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to end</guimenuitem>
 	</menuchoice>
     </para></listitem>
     <listitem><para>
 	remove any selection and select "nothing":
 	<menuchoice>
 	<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut>
-	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Nothing</guimenuitem>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Nothing</guimenuitem>
 	</menuchoice>
     </para></listitem>
     </itemizedlist>

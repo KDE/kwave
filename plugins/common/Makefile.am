@@ -11,7 +11,7 @@
 # kde_toolbardir    Where general toolbar icons should go to.
 # kde_wallpaperdir  Where general wallpapers should go to.
 
-SUFFIXES= .h .cpp .o .d .moc .dm .ui .cc .idl
+SUFFIXES= .h .cpp .o .d .moc .dm .ui .cc .idl .cxx
 
 # set the include path for X, qt and KDE
 INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@
@@ -102,14 +102,12 @@ DISTCLEANFILES	 = Makefile.in Makefile
 	@echo plugin \"$(MODNAME)\": extracting code with MOC for $<
 	@ @MOC@ -nw $< -o $@
 
-        # make the right order: first build the .uih files,
+        # make the right order: first build the .uih and idl files,
         # then the .d/.dm files then the .o
-${DEP_FILES}: ${uih_files}
-${OUT_FILES}: ${DEP_FILES}
-
 ${idl_header}: ${idl_files}
-
-${idl_impl}: ${idl_files}
+${idl_impl}:   ${idl_files}
+${DEP_FILES}:  ${uih_files} ${idl_header}
+${OUT_FILES}:  ${DEP_FILES} ${moc_files}
 
 .depend: ${DEP_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@
@@ -126,7 +124,7 @@ ${idl_impl}: ${idl_files}
 
 dep depend: .depend
 
-$(MODNAME): depend ${OUT_FILES}
+$(MODNAME): .depend ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
 	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
 
@@ -134,7 +132,7 @@ all: depend $(MODNAME)
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
-DISTCLEANFILES = ${CLEANFILES} .deps/* `find . -type l` *.moc *.moc.cpp
+DISTCLEANFILES = ${CLEANFILES} .deps/* `find . -type l` *.moc *.moc.cxx
 
 install-data-local: 
 	$(mkinstalldirs) $(PLUGINDIR)

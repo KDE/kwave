@@ -3,7 +3,7 @@ MAINTAINERCLEANFILES = de/*.html en/*.html
 CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook de/*.html en/*.html
 DISTCLEANFILES = Makefile.in Makefile
 
-LANGUAGES = en de fr
+LANGUAGES = en de fr it
 SUFFIXES = .docbook .po .pot
 SGMLDIR=$(kde_datadir)/ksgmltools2
 DOCDIR = $(DESTDIR)${kde_htmldir}
@@ -21,6 +21,12 @@ fr/index.html: help_fr.docbook
 	rm -Rf fr/common
 	mkdir -p fr/common
 	cp -R ${DOCDIR}/fr/common/* fr/common/
+
+it/index.html: help_it.docbook
+	cd it ; $(MEINPROC) --check ../help_it.docbook
+	rm -Rf it/common
+	mkdir -p it/common
+	cp -R ${DOCDIR}/it/common/* fr/common/
 
 # --------------------------------------------------------
 
@@ -51,6 +57,10 @@ help_fr.po: help_en.pot
 	$(MSGMERGE) -o help_fr.po help_fr.po help_en.pot
 	# kbabel -nofork help_fr.po
 
+help_fr.it: help_en.pot
+	$(MSGMERGE) -o help_it.po help_it.po help_en.pot
+	# kbabel -nofork help_it.po
+
 help_de.docbook: help_en.docbook help_de.po
 	# ${MAKE} help_de.po
 	@echo "converting german help"
@@ -66,6 +76,14 @@ help_fr.docbook: help_en.docbook help_fr.po
 	@ $(PO2XML) help_fr.docbook help_fr.po | \
 	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ French\ /g \
 	> help_fr.docbook
+
+help_it.docbook: help_en.docbook help_it.po
+	# ${MAKE} help_it.po
+	@echo "converting italian help"
+	@echo "(this takes very very long, please be patient...)"
+	@ $(PO2XML) help_it.docbook help_it.po | \
+	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ Italian\ /g \
+	> help_it.docbook
 
 # --------------------------------------
 
@@ -86,7 +104,7 @@ help_en.docbook: ../bin/insert-changes.sh ../VERSION ../CHANGES
 	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
 	help_en.docbook
 
-doc: help_en.docbook help_de.docbook help_fr.docbook
+doc: help_en.docbook help_de.docbook help_fr.docbook help_it.docbook
 
 all: doc
 
@@ -97,6 +115,11 @@ install-data-local:
 	    $(mkinstalldirs) ${DOCDIR}/$${lang}/$(PACKAGE); \
 	    $(INSTALL_DATA) help_$${lang}.docbook ${DOCDIR}/$${lang}/$(PACKAGE)/index.docbook; \
 	    $(INSTALL_DATA) $${lang}/*.png ${DOCDIR}/$${lang}/$(PACKAGE) ; \
+	    ( cd ${DOCDIR}/$${lang}/${PACKAGE} ; \
+	    for file in `ls ../../en/${PACKAGE}/*.png`; do \
+	    { \
+		if test ! -e `basename $${file}` ; then ln -sf $${file} . ; fi; \
+	    }; done ); \
 	    if test ! -e ${DOCDIR}/$${lang}/$(PACKAGE)/common ; then \
 	    rm -f ${DOCDIR}/$${lang}/$(PACKAGE)/common ; fi ; \
 	    ( cd ${DOCDIR}/$${lang}/${PACKAGE} ; ln -sf ../common . ) ; \

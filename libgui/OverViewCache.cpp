@@ -413,6 +413,7 @@ void OverViewCache::slotSamplesModified(unsigned int track,
 QBitmap OverViewCache::getOverView(int width, int height)
 {
     QBitmap bitmap(width, height);
+    bitmap.fill(color0);
 
     const unsigned int length = sourceLength();
     MultiTrackReader src;
@@ -460,9 +461,9 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	    state[ofs] = Valid;
 	}
     }
-    if (!width || !height) return bitmap; // empty ?
+    if ((width < 2) || (height < 2) || (length/m_scale < 2))
+	return bitmap; // empty ?
 
-    bitmap.fill(color0);
     QPainter p;
     p.begin(&bitmap);
     p.setPen(color1);
@@ -475,7 +476,11 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	// get the corresponding cache index
 	unsigned int index = ((count-1) * x) / (width-1);
 	unsigned int last_index  = ((count-1) * (x+1)) / (width-1);
+	ASSERT(index < CACHE_SIZE);
+	if (index >= CACHE_SIZE) index = CACHE_SIZE-1;
 	if (last_index > index) last_index--;
+	ASSERT(last_index < CACHE_SIZE);
+	if (last_index >= CACHE_SIZE) last_index = CACHE_SIZE-1;
 	
 	// loop over all cache indices
 	int minimum = +127;
@@ -486,6 +491,8 @@ QBitmap OverViewCache::getOverView(int width, int height)
 		char *min = m_min.at(t)->data();
 		char *max = m_max.at(t)->data();
 		CacheState *state = m_state.at(t)->data();
+		ASSERT(state);
+		if (!state) continue;
 		if (state[index] != Valid) continue;
 		
 		if (min[index] < minimum) minimum = min[index];

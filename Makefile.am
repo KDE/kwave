@@ -33,17 +33,20 @@ clean-generic:
 	-rm -fv `find . -name \*.uic.cpp`
 	-rm -rfv `find . -name .\* | grep -v "^\.\.$$" | grep -v "^\.$$"`
 
-distclean-generic: clean-generic
+distclean-generic: clean-generic clean
 	-rm -f $(CONFIG_CLEAN_FILES)
 	-rm -f stamp-h stamp-h[0-9]*
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 	-rm -Rf doc/api
 
-reallyclean: clean-generic distclean
+reallyclean: clean clean-generic distclean-generic distclean
 	-rm -f config.cache
 	-rm -f config.log
-	-rm -fv `find . -type l -o -name Makefile`
+	-rm -fv aclocal.m4
+	-rm -fv `find . -type l`
+	-rm -fv `find . -name Makefile.in`
 	-rm -fv `find ./doc -name \*.html`
+	-rm -fv `find . -name Makefile`
 
 backup: ${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \

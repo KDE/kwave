@@ -26,4 +26,4 @@ all:
 	# perl automoc
 	autoconf
 	./configure
-	make
+	# make

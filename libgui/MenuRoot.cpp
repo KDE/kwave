@@ -22,15 +22,13 @@
 #include "MenuToplevel.h"
 #include "MenuRoot.h"
 
-/**
- * Constructor.
- * @param bar reference to a KMenuBar
- */
+//*****************************************************************************
 MenuRoot::MenuRoot(KMenuBar &bar)
     :MenuNode(this, "(root)"), menu_bar(bar)
 {
 }
 
+//*****************************************************************************
 int MenuRoot::getChildIndex(int id)
 {
     for (unsigned int i=0; i < menu_bar.count(); i++) {
@@ -39,6 +37,7 @@ int MenuRoot::getChildIndex(int id)
     return -1;
 }
 
+//*****************************************************************************
 MenuNode *MenuRoot::insertBranch(char *name, int key,
                                  char *uid, int index)
 {
@@ -49,6 +48,7 @@ MenuNode *MenuRoot::insertBranch(char *name, int key,
     return node;
 }
 
+//*****************************************************************************
 MenuNode *MenuRoot::insertLeaf(char *name, char *command,
                                int key, char *uid,
                                int index)
@@ -60,11 +60,21 @@ MenuNode *MenuRoot::insertLeaf(char *name, char *command,
     return item;
 }
 
+//*****************************************************************************
 void MenuRoot::removeChild(int id)
 {
 //    debug("MenuRoot::removeChild(%d)", id);
     MenuNode::removeChild(id);
     menu_bar.removeItem(id);
+}
+
+//*****************************************************************************
+bool MenuRoot::setItemEnabled(int id, bool enable)
+{
+    debug("MenuRoot(%s)::setItemEnabled(%d, %d)", getName(), id, enable);
+    if (!findChild(id)) return false;
+    menu_bar.setItemEnabled(id, enable);
+    return true;
 }
 
 /* end of MenuRoot.cpp */

@@ -37,6 +37,8 @@ MenuNode::MenuNode(MenuNode *parent, char *name, char *command,
     this->command = duplicateString(command);
     this->key = key;
     this->uid = duplicateString(uid);
+    this->enabled = true;
+    this->checked = false;
 
     this->id = -1;
     children.setAutoDelete(true);
@@ -76,87 +78,6 @@ void MenuNode::actionSelected()
 }
 
 //*****************************************************************************
-/* ###
-void MenuNode::setEnabled (bool enable)
-{
-  this->enabled=enable;
-
-//  debug("MenuNode::setEnabled(), menu='%s', id=%d", getName(), getId());
-
-  MenuNode *parentMenu = this->getParentNode();
-  if (!this->isTopLevel() && parentMenu)
-    {
-      parentMenu->setItemEnabled(this->getId(),
-	(enable && toplevelEnabled));
-    }
-  else
-    {
-      MenuNode *child=children.first();
-      while (child)
-	{
-	  child->setTopLevelEnabled(enable);
-	  child=children.next();
-	}
-    }
-}
-*/
-
-/**
- * Sets/resets an internal flag of the menu that indicates that it is a
- * toplevel menu. This setting affects the behaviour of the setEnabled()
- * function.
- * <p>
- * @param enable true=toplevel, false if not
- * @see MenuNode::setEnabled(bool)
- */
-/* ###void MenuNode::setTopLevelEnabled (bool enable)
-{
-  toplevelEnabled=enable;
-  setEnabled(this->enabled);
-}
-*/
-
-//*****************************************************************************
-/**
- * Checks a menu item. The checkmark of a currently checked menu item
- * will be removed, so that this method could be used for 1-of-n
- * selections. The currently selected item id will be set to the new
- * id.
- * <p>
- * @param id unique id of the menu or menu entry
- */
-/* ###void MenuNode::checkEntry(int id)
-{
-//  if (! checkItems) return;
-
-  debug("MenuNode::checkEntry(%d): checked=%d", id, checked);
-  debug("(this=%p, name='%s', id=%d)", this,
-    this->getName(), this->getId());
-
-  if (checked >= 0) this->checkEntry(checked, false);
-  checked = id;
-  this->checkEntry(id, true);
-}
-### */
-
-/**
- * Checks or unchecks a menu item. The checkmark of a currently
- * checked menu item will not be removed, so that this method
- * could be used for multiple-choice selections. The currently selected
- * item id will not be changed.
- * <p>
- * @param id unique id of the menu or menu entry
- * @param checked true=checkmark on, false=checkmark off
- */
-/* ###
-void MenuNode::checkEntry(int id, bool check)
-{
-  debug("MenuNode::checkEntry(%d,%d): checked=%d",
-    id, check, checked);
-  setItemChecked(id, check);
-}
-### */
-
 /*
 void MenuNode::slotHilighted(int id)
 {
@@ -172,7 +93,6 @@ void MenuNode::slotHilighted(int id)
   }
 }
 */
-
 
 //*****************************************************************************
 void MenuNode::clear()
@@ -198,23 +118,54 @@ MenuNode *MenuNode::getParentNode()
 }
 
 //*****************************************************************************
+bool MenuNode::isEnabled()
+{
+    return enabled;
+}
+
+//*****************************************************************************
 bool MenuNode::setItemEnabled(int id, bool enable)
 {
+    return false;
+}
+
+//*****************************************************************************
+void MenuNode::setEnabled(bool enable)
+{
+    debug("MenuNode(%s)::setEnabled(%d)", getName(), enable);
+    enabled = enable;
+}
+
+//*****************************************************************************
+bool MenuNode::isChecked()
+{
+    return checked;
+}
+
+//*****************************************************************************
+bool MenuNode::setItemChecked(int id, bool check)
+{
     if (id == getId()) {
-	// enable/disable myself
+	// check/uncheck myself
 	return (parentNode) ?
-	    parentNode->setItemEnabled(getId(), enable) :
+	    parentNode->setItemChecked(getId(), check) :
 	    false;
     } else {
 	// go through all children
 	MenuNode *child = children.first();
 	while (child) {
-	    if (child->setItemEnabled(id, enable))
+	    if (child->setItemChecked(id, check))
 		return true;
 	    child = children.next();
 	}
     }
     return false;
+}
+
+//*****************************************************************************
+void MenuNode::setChecked(bool check)
+{
+    checked = check;
 }
 
 //*****************************************************************************

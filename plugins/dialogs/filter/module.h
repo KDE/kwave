@@ -11,6 +11,7 @@
 #include <libkwave/Filter.h>
 #include "../../../libgui/FFTWidget.h"
 #include "../../../libgui/ScaleWidget.h"
+#include "../../../libgui/CornerPatchWidget.h"
 #include <kintegerline.h>
 
 //*****************************************************************************

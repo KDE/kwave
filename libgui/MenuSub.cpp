@@ -22,6 +22,7 @@
 #include "MenuItem.h"
 #include "MenuSub.h"
 
+//*****************************************************************************
 MenuSub::MenuSub(MenuNode *parent, char *name, char *command,
                  int key, char *uid)
     :MenuNode(parent, name, command, key, uid)
@@ -32,16 +33,19 @@ MenuSub::MenuSub(MenuNode *parent, char *name, char *command,
 	this,SLOT(slotSelected(int)));
 }
 
+//*****************************************************************************
 int MenuSub::getChildIndex(int id)
 {
     return (menu) ? menu->indexOf(id) : -1;
 }
 
+//*****************************************************************************
 QPopupMenu *MenuSub::getPopupMenu()
 {
     return menu;
 }
 
+//*****************************************************************************
 MenuNode *MenuSub::insertBranch(char *name, int key, char *uid, int index)
 {
     MenuSub *node = new MenuSub(this, name, 0, key, uid);
@@ -56,6 +60,7 @@ MenuNode *MenuSub::insertBranch(char *name, int key, char *uid, int index)
     return node;
 }
 
+//*****************************************************************************
 MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
                               char *uid, int index=-1)
 {
@@ -73,12 +78,14 @@ MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
     return item;
 }
 
+//*****************************************************************************
 void MenuSub::removeChild(int id)
 {
     MenuNode::removeChild(id);
     menu->removeItem(id);
 }
 
+//*****************************************************************************
 bool MenuSub::specialCommand(const char *command)
 {
     if (strcmp(command, "listmenu") == 0) {
@@ -100,6 +107,7 @@ bool MenuSub::specialCommand(const char *command)
     return false;
 }
 
+//*****************************************************************************
 void MenuSub::slotSelected(int id)
 {
     MenuNode *child = findChild(id);
@@ -109,3 +117,31 @@ void MenuSub::slotSelected(int id)
 	debug("MenuSub::slotSelected: child with id #%d not found!", id);
     }
 }
+
+//*****************************************************************************
+bool MenuSub::setItemEnabled(int id, bool enable)
+{
+    debug("MenuSub(%s)::setItemEnabled(%d, %d)", getName(), id, enable);
+    if ((!menu) || (!menu->findItem(id))) return false;
+    menu->setItemEnabled(id, enable);
+    return true;
+}
+
+//*****************************************************************************
+void MenuSub::setEnabled(bool enable)
+{
+    debug("MenuSub(%s)::setEnabled(%d)", getName(), enable);
+    MenuNode *parent = getParentNode();
+
+    debug("--1--");
+    MenuNode::setEnabled(enable);
+    debug("--2--");
+
+    if (parent) {
+	debug("--3--");
+	parent->setItemEnabled(getId(), enable);
+	debug("--4--");
+    }
+    debug("--5--");
+}
+

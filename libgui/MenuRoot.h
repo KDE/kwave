@@ -46,6 +46,8 @@ public: // Public methods
 
     virtual void removeChild(int id);
 
+    virtual bool setItemEnabled(int id, bool enable);
+
 private: // Private attributes
 
   /** reference to a KMenuBar */

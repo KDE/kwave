@@ -85,9 +85,9 @@ TopWidget::TopWidget ()
 
   status=new KStatusBar (this);
 
-  status->insertItem (klocale->translate("Length: 0 ms           "),1);
-  status->insertItem (klocale->translate("Rate: 0 kHz         "),2);
-  status->insertItem (klocale->translate("Samples: 0             "),3);
+  status->insertItem (i18n("Length: 0 ms           "),1);
+  status->insertItem (i18n("Rate: 0 kHz         "),2);
+  status->insertItem (i18n("Samples: 0             "),3);
   status->insertItem (klocale->translate("selected: 0 ms        "),4);
   status->insertItem (klocale->translate("Clipboard: 0 ms      "),5);
 

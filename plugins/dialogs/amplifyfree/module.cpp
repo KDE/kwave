@@ -42,7 +42,7 @@ Dialog(modal)
   connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
 }
 //**********************************************************
-const char*AmplifyCurveDialog::getCommand ()
+const char* AmplifyCurveDialog::getCommand ()
 {
   char buf[4096];
   deleteString (comstr);

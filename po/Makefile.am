@@ -1,5 +1,5 @@
-GMOFILES =
-POFILES = $(GMOFILES:.gmo=.po) 
+POFILES = de.po 
+GMOFILES = $(POFILES:.po=.gmo)
 
 localedir = $(kde_locale)
 
@@ -8,7 +8,7 @@ MAINTAINERCLEANFILES = $(GMOFILES)
 GMSGFMT = @GMSGFMT@
 MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
-EXTRA_DIST = kde.pot $(POFILES) $(GMOFILES)
+EXTRA_DIST = $(PACKAGE).pot $(POFILES) $(GMOFILES)
 
 
 all: all-@USE_NLS@
@@ -31,7 +31,7 @@ install-yes: all
 	for cat in $$catalogs; do \
 	destdir=$(localedir); \
 	lang=`echo $$cat | sed 's/\.gmo//'`; \
-	name=kde.mo \
+	name=$(PACKAGE).mo \
 	dir=$$destdir/$$lang/LC_MESSAGES; \
 	$(mkinstalldirs) $$dir; \
 	$(INSTALL_DATA) $$cat $$dir/$$name; \
@@ -45,7 +45,7 @@ uninstall-local:
 	for cat in $$catalogs; do \
 	destdir=$(localedir); \
 	lang=`echo $$cat | sed 's/\.gmo//'`; \
-	name=kde.mo; \
+	name=$(PACKAGE).mo; \
 	dir=$$destdir/$$lang/LC_MESSAGES; \
 	rm -f $$cat $$dir/$$name; \
 	echo "removing $$dir/$$name" ; \
@@ -54,7 +54,7 @@ uninstall-local:
 merge:
 	@catalogs='$(POFILES)'; \
 	for cat in $$catalogs; do \
-	name=`echo $$cat | sed -e 's/^.._//' `; \
+	name=$(PACKAGE).pot ; \
 	echo $$cat $$name; \
 	msgmerge $$cat $$name > $$cat.new ; \
 	if diff $$cat $$cat.new; then \

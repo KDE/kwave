@@ -49,3 +49,7 @@ release:
 	@ $(srcdir)/bin/increment_release.sh ${srcdir} && \
 	${MAKE} patch
 
+messages:
+	/usr/bin/xgettext -C -ktranslate -x /opt/kde/include/kde.pot \
+	`find . -name \*.h -o -name \*.cpp` -o ./po/kwave.pot
+

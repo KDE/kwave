@@ -51,6 +51,10 @@ public: // Public methods
 
     virtual bool specialCommand(const char *command);
 
+    virtual void setEnabled(bool enable);
+
+    virtual bool setItemEnabled(int id, bool enable);
+
 public slots:
 
 //    void slotChecked(int);

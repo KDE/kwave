@@ -182,9 +182,9 @@ void MenuManager::setItemChecked(const char *uid, bool check)
 void MenuManager::setItemEnabled(const char *uid, bool enable)
 {
   debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
-  MenuNode *menu = menu_root->findUID(uid);
-//  if (menu) menu->setEnabled(enable);
-  debug("found menu=%p", menu);
+  MenuNode *node = menu_root->findUID(uid);
+  debug("found menu=%p", node);
+  if (node) node->setEnabled(enable);
 }
 //*****************************************************************************
 NumberedMenu *MenuManager::findNumberedMenu (const char *name)

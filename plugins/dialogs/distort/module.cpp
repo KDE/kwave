@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <qpushbutton.h>
 #include <qkeycode.h>
+#include <qcombobox.h>
 #include "module.h"
 #include <libkwave/String.h>
 #include <kapp.h>

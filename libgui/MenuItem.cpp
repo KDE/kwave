@@ -31,3 +31,15 @@ int MenuItem::getIndex()
     MenuNode *parent = getParentNode();
     return (parent) ? parent->getChildIndex(getId()) : -1;
 }
+
+void MenuItem::setEnabled(bool enable)
+{
+    debug("MenuItem(%s)::setEnabled(%d)", getName(), enable);
+    MenuNode *parent = getParentNode();
+
+    MenuNode::setEnabled(enable);
+
+    if (parent) {
+	parent->setItemEnabled(getId(), enable);
+    }
+}

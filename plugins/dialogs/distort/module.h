@@ -7,7 +7,10 @@
 #include <libkwave/DialogOperation.h>
 #include "../../../libgui/CurveWidget.h"
 #include "../../../libgui/ScaleWidget.h"
+#include "../../../libgui/CornerPatchWidget.h"
 //*****************************************************************************
+class QComboBox;
+
 class DistortDialog : public Dialog
 {
   Q_OBJECT

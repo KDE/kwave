@@ -17,7 +17,7 @@ dnl generate the config header
 AM_CONFIG_HEADER(config.h) dnl at the distribution this done
 
 dnl checks, if the debug code is wanted
-AC_CHECK_FLAGS
+dnl AC_CHECK_FLAGS
 
 dnl Checks for programs.
 AC_PROG_CC
@@ -46,7 +46,7 @@ dnl Checks for libraries.
 AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' X11
 AC_SUBST(LIBSOCKET)
 AC_PATH_KDE dnl check X, Qt and KDE
-AC_PATH_KWAVELIB dnl check for libkwave
+dnl AC_PATH_KWAVELIB dnl check for libkwave
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
 

@@ -22,7 +22,7 @@ class CurveWidget : public QWidget
   CurveWidget	(QWidget *parent=0,const char *init=0,int=false);
   ~CurveWidget	 ();
 
-  inline const char* getCommand ();
+  const char* getCommand ();
          void        setCurve   (const char *);
          void        addPoint   (double,double);
          Point*      findPoint  (int,int);

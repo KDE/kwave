@@ -1,7 +1,7 @@
 Begin3
 Title:          kwave
-Version:	0.5.0-13
-Entered-date:	Sun Jan 30 16:38:17 CET 2000
+Version:	0.5.0-15
+Entered-date:	Fri Feb  4 19:36:21 CET 2000
 Description:    A sound editor for KDE, alpha release.
 Keywords:       KDE, Qt, WAV, Sound, FFT, Sonagram, Sample, Effects, 24 Bit
 Author:         mwilz@ernie.mi.uni-koeln.de (Martin Wilz)

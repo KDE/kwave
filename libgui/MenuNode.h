@@ -130,6 +130,11 @@ public:
     virtual int getNeededIDs();
 
     /**
+     * Returns true if the node is enabled.
+     */
+    virtual bool isEnabled();
+
+    /**
      * Enables or disables a menu node. If the specified item is not
      * a member of the current menu, this method will recursively call all
      * of it's child nodes.
@@ -138,6 +143,33 @@ public:
      * @return true if the item has been found, false if not
      */
     virtual bool setItemEnabled(int item, bool enable);
+
+    /**
+     * Enables/disables the current menu node.
+     * @param enable true to enable the item, false to disable
+     */
+    virtual void setEnabled(bool enable);
+
+    /**
+     * Returns true if the node is checked.
+     */
+    virtual bool isChecked();
+
+    /**
+     * Sets or removes the checkmark from a menu node . If the specified
+     * item is not a member of the current menu, this method will recursively
+     * call all of it's child nodes.
+     * @param id the item's menu id
+     * @param check true to set the mark, false to remove
+     * @return true if the item has been found, false if not
+     */
+    virtual bool setItemChecked(int item, bool check);
+
+    /**
+     * Sets/removes the checkmark from the current menu node.
+     * @param check true to set the mark, false to remove
+     */
+    virtual void setChecked(bool check);
 
     /**
      * Tries to find a menu node by it's unique id string. It descends
@@ -255,6 +287,12 @@ private:
 
     /** parent of this entry */
     MenuNode* parentNode;
+
+    /** true if the item is enabled (default=true) */
+    bool enabled;
+
+    /** true if the item is checked (default=false) */
+    bool checked;
 };
 
 #endif // _MENU_NODE_H_

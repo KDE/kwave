@@ -75,6 +75,9 @@ public:
     /** Destructor */
     virtual ~FileInfo();
 
+    /** Copy everything from another FileInfo */
+    virtual void copy(const FileInfo &source);
+
     /** returns the number of samples */
     inline unsigned int length() const { return m_length; };
 

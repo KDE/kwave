@@ -147,14 +147,23 @@ FileInfo::FileInfo()
 
 /***************************************************************************/
 FileInfo::FileInfo(const FileInfo &inf)
-    :m_length(inf.length()), m_rate(inf.rate()), m_bits(inf.bits()),
-     m_tracks(inf.tracks()), m_properties(inf.properties())
 {
+    copy(inf);
 }
 
 /***************************************************************************/
 FileInfo::~FileInfo()
 {
+}
+
+/***************************************************************************/
+void FileInfo::copy(const FileInfo &source)
+{
+    m_length     = source.length();
+    m_rate       = source.rate();
+    m_bits       = source.bits();
+    m_tracks     = source.tracks();
+    m_properties = source.properties();
 }
 
 /***************************************************************************/

@@ -37,6 +37,8 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 
+#include <kglobal.h>
+#include <kconfig.h>
 #include <kcombobox.h>
 #include <kdatewidget.h>
 #include <klistbox.h>
@@ -54,6 +56,9 @@
 #include "KeywordWidget.h"
 #include "SelectDateDialog.h"
 
+/** section in the config file for storing default settings */
+#define CONFIG_DEFAULT_SECTION "plugin fileinfo - setup dialog"
+
 //***************************************************************************
 FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
     :FileInfoDlg(parent), m_info(info)
@@ -69,9 +74,16 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
                 (mimetype == "application/ogg"));
 
     qDebug("mimetype = %s",mimetype.latin1());
-   
+
+    // open config for reading default settings
+    KConfig *cfg = KGlobal::config();
+    Q_ASSERT(cfg);
+    if (!cfg) return;
+    cfg->sync();
+    cfg->setGroup(CONFIG_DEFAULT_SECTION);
+
     setupFileInfoTab();
-    setupCompressionTab();
+    setupCompressionTab(*cfg);
     setupMpegTab();
     setupContentTab();
     setupSourceTab();
@@ -222,9 +234,8 @@ void FileInfoDialog::setupFileInfoTab()
 }
 
 //***************************************************************************
-void FileInfoDialog::setupCompressionTab()
+void FileInfoDialog::setupCompressionTab(KConfig &cfg)
 {
-
     /* compression */
     CompressionType compressions;
     initInfo(lblCompression, cbCompression, INF_COMPRESSION);
@@ -233,35 +244,46 @@ void FileInfoDialog::setupCompressionTab()
     cbCompression->setCurrentItem(compressions.findFromData(compression));
     if (m_is_mpeg || m_is_ogg) cbCompression->setEnabled(false);
 
+
+    // enable/disable ABR/VBR controls, depending on mime type
     if (m_is_mpeg) {
 	// MPEG file -> not supported yet
-	compressionWidget->enableABR(false);
+	compressionWidget->enableABR(false, false, false);
 	compressionWidget->enableVBR(false);
     } else if (m_is_ogg) {
 	// Ogg/Vorbis file
-	compressionWidget->enableABR(true);
+	bool lower = m_info.contains(INF_BITRATE_LOWER);
+	bool upper = m_info.contains(INF_BITRATE_UPPER);
+	compressionWidget->enableABR(true, lower, upper);
 	compressionWidget->enableVBR(true);
     } else {
-	// other...    
-	compressionWidget->enableABR(false);
+	// other...
+	compressionWidget->enableABR(false, false, false);
 	compressionWidget->enableVBR(false);
     }
 
+    // ABR bitrate settings
     int abr_bitrate = m_info.contains(INF_BITRATE_NOMINAL) ?
-                  QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt() : 0;
+                  QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt() :
+                  cfg.readNumEntry("default_abr_nominal_bitrate", 0);
     int min_bitrate = m_info.contains(INF_BITRATE_LOWER) ?
-                  QVariant(m_info.get(INF_BITRATE_LOWER)).toInt() : 0;
+                  QVariant(m_info.get(INF_BITRATE_LOWER)).toInt() :
+                  cfg.readNumEntry("default_abr_lower_bitrate",0);
     int max_bitrate = m_info.contains(INF_BITRATE_UPPER) ?
-                  QVariant(m_info.get(INF_BITRATE_UPPER)).toInt() : 0;
+                  QVariant(m_info.get(INF_BITRATE_UPPER)).toInt() :
+                  cfg.readNumEntry("default_abr_upper_bitrate",0);
     compressionWidget->setBitrates(abr_bitrate, min_bitrate, max_bitrate);
 
+    // VBR base quality
     int quality = m_info.contains(INF_VBR_QUALITY) ?
-                  QVariant(m_info.get(INF_VBR_QUALITY)).toInt() : 0;
+              QVariant(m_info.get(INF_VBR_QUALITY)).toInt() :
+              cfg.readNumEntry("default_vbr_quality", 0);
     compressionWidget->setQuality(quality);
 
-    compressionWidget->setMode((quality || !abr_bitrate) ?
+    compressionWidget->init(m_info);
+    compressionWidget->setMode(m_info.contains(INF_VBR_QUALITY) ?
         CompressionWidget::VBR_MODE : CompressionWidget::ABR_MODE);
-    
+
 //    // this is not visible, not implemented yet...
 //    InfoTab->setCurrentPage(5);
 //    QWidget *page = InfoTab->currentPage();
@@ -609,6 +631,26 @@ void FileInfoDialog::acceptEdit(FileProperty property, QString value)
 //***************************************************************************
 void FileInfoDialog::accept()
 {
+    KConfig *cfg = KGlobal::config();
+    Q_ASSERT(cfg);
+    if (!cfg) return;
+
+    // save defaults for next time...
+    cfg->sync();
+    cfg->setGroup(CONFIG_DEFAULT_SECTION);
+    {
+	int nominal, upper, lower;
+	compressionWidget->getABRrates(nominal, lower, upper);
+	cfg->writeEntry("default_abr_nominal_bitrate", nominal);
+	cfg->writeEntry("default_abr_upper_bitrate", upper);
+	cfg->writeEntry("default_abr_lower_bitrate", lower);
+	
+        int quality = compressionWidget->baseQuality();
+	cfg->writeEntry("default_vbr_quality", quality);
+    }
+    cfg->sync();
+
+
     qDebug("FileInfoDialog::accept()");
     m_info.dump();
 
@@ -636,24 +678,32 @@ void FileInfoDialog::accept()
     /* bitrate in Ogg/Vorbis mode */
     if (m_is_ogg) {
         CompressionWidget::Mode mode = compressionWidget->mode();
+        QVariant del;
+        
         switch (mode) {
-	    case CompressionWidget::ABR_MODE:
+	    case CompressionWidget::ABR_MODE: {
 	        int nominal, upper, lower;
-	        compressionWidget->getABRrates(nominal, upper, lower);
+	        compressionWidget->getABRrates(nominal, lower, upper);
+	        bool use_lowest  = compressionWidget->lowestEnabled();
+	        bool use_highest = compressionWidget->highestEnabled();
 	        
 	        m_info.set(INF_BITRATE_NOMINAL, QVariant(nominal));
-	        m_info.set(INF_BITRATE_LOWER, (lower) ? QVariant(lower) : 0);
-	        m_info.set(INF_BITRATE_UPPER, (upper) ? QVariant(upper) : 0);
-	        m_info.set(INF_VBR_QUALITY, 0);
+	        m_info.set(INF_BITRATE_LOWER,
+	                   (use_lowest) ? QVariant(lower) : del);
+	        m_info.set(INF_BITRATE_UPPER,
+	                   (use_highest) ? QVariant(upper) : del);
+	        m_info.set(INF_VBR_QUALITY, del);
 	        break;
-	    case CompressionWidget::VBR_MODE:
+	    }
+	    case CompressionWidget::VBR_MODE: {
 	        int quality = compressionWidget->baseQuality();
 	        
-	        m_info.set(INF_BITRATE_NOMINAL, 0);
-	        m_info.set(INF_BITRATE_LOWER, 0);
-	        m_info.set(INF_BITRATE_UPPER, 0);
+	        m_info.set(INF_BITRATE_NOMINAL, del);
+	        m_info.set(INF_BITRATE_LOWER, del);
+	        m_info.set(INF_BITRATE_UPPER, del);
 	        m_info.set(INF_VBR_QUALITY, QVariant(quality));
 	        break;
+	    }
 	}
 	
     }

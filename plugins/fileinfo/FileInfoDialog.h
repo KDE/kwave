@@ -23,6 +23,8 @@
 #include "libkwave/FileInfo.h"
 #include "FileInfoDlg.uih.h"
 
+class KConfig;
+
 class FileInfoDialog: public FileInfoDlg
 {
     Q_OBJECT
@@ -94,7 +96,7 @@ private:
     void setupFileInfoTab();
 
     /** initialize the "Compression" tab */
-    void setupCompressionTab();
+    void setupCompressionTab(KConfig &cfg);
 
     /** initialize the "MPEG" tab */
     void setupMpegTab();

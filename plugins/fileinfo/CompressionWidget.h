@@ -20,8 +20,10 @@
 
 #include "config.h"
 #include <qobject.h>
+#include "libkwave/FileInfo.h"
 #include "CompressionWidgetBase.uih.h"
 
+class FileInfo;
 class QWidget;
 
 class CompressionWidget: public CompressionWidgetBase
@@ -40,12 +42,23 @@ public:
     /** Destructor */
     virtual ~CompressionWidget();
 
-    /** Enable or disable ABR mode */
-    virtual void enableABR(bool enable);
+    /**
+     * @param info the FileInfo used for getting the property descriptions
+     */
+    virtual void init(FileInfo &info);
+
+    /**
+     * Enable or disable ABR mode controls
+     * @param enable controls the global ABR mode setting enable/disable
+     * @param lowest checks/unchecks the lowest bitrate setting checkbox
+     * @param highest checks/unchecks the highest bitrate setting checkbox
+     */
+    virtual void enableABR(bool enable, bool lowest, bool highest);
 
     /** Enable or disable VBR mode */
     virtual void enableVBR(bool enable);    
 
+   
     /**
      * Sets the bitrates in ABR mode
      * @param nominal the nominal bitrate or zero if not used
@@ -64,6 +77,12 @@ public:
 
     /** Selects ABR or VBR mode */
     virtual void setMode(Mode mode);
+
+    /** Returns the state of the "use lowest" checkbox */
+    virtual bool lowestEnabled();
+
+    /** Returns the state of the "use highest" checkbox */
+    virtual bool highestEnabled();
     
     /**
      * Returns the bitrate settings of ABR mode
@@ -71,7 +90,7 @@ public:
      * @param lower receives the lowest bitrate or null if unused
      * @param upper receives the highest bitrate or null if unused
      */
-    virtual void getABRrates(int &nominal, int &lower, int &upper);
+    virtual void getABRrates(int &nominal, int &lowest, int &highest);
 
     /**
      * Returns the base quality in VBR mode, as
@@ -83,6 +102,45 @@ private slots:
 
     /** called when the selection state of the ABR radio button changed */
     virtual void selectABR(bool checked);
+
+    /** called when the "lowest bitrate" checkbox has been toggled */
+    virtual void lowestToggled(bool on);
+
+    /** called when the "average bitrate" slider has changed */
+    virtual void abrChanged(int value);
+
+    /** called when the "lowest bitrate" slider has changed */
+    virtual void lowestChanged(int value);
+
+    /** called when the "highest bitrate" slider has changed */
+    virtual void highestChanged(int value);
+    
+    /** called when the "highest bitrate" checkbox has been toggled */
+    virtual void highestToggled(bool on);
+
+private:
+
+    /**
+     * Sets the tooltip and "what's this" of a widget.
+     * @param widget any QWidget derived widget
+     * @param name of the setting, normally equal to it's label
+     * @param description verbose descriptive text that says
+     *        what can be set
+     */
+    void describeWidget(QWidget *widget, const QString &name,
+                        const QString &description);
+
+    /**
+     * Sets the text of the label to the name of a file property and
+     * initializes the tool tip of the corresponding edit/display control.
+     * @param label the label to be set
+     * @param widget the control to get the tool tip
+     * @param property the file property which it belongs to
+     * @param info the FileInfo used for getting the property descriptions
+     */
+    void initInfo(QLabel *label, QWidget *widget, FileProperty property,
+                  FileInfo &info);
+
 
 };
 

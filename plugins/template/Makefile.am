@@ -126,7 +126,7 @@ dep depend: .depend
 
 $(MODNAME): ${uih_files} ${uic_files} ${moc_files} depend ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
-	 @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
+	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
 
 all: $(MODNAME)
 

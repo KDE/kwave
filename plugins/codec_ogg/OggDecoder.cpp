@@ -31,6 +31,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/StandardBitrates.h"
 
 #include "OggCodecPlugin.h"
 #include "OggDecoder.h"
@@ -428,6 +429,9 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 	    double bits = (double)stream_read * 8.0;
 	    double seconds = (double)samples / (double)m_info.rate();
 	    bitrate = (unsigned int)(bits / seconds);
+
+	    // round to neares standard bitrate
+	    bitrate = StandardBitrates::instance().nearest(bitrate);
 	    qDebug("-> using guessed bitrate %d bits/sec", bitrate);
 	} else {
 	    // guessing not possible -> use default

@@ -111,7 +111,7 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 	      if (!*name || !*version || !*author) continue;
 
         QListViewItem *PluginsItem;
-        PluginsItem = new QListViewItem (pluginsinfo, *name, *version, *author);
+        PluginsItem = new QListViewItem (pluginsinfo, i18n(*name), *version, *author);
 	      dlclose (handle);
         }
      }

@@ -1,5 +1,5 @@
-#ifndef _KWAVE_POINTSET_H_
-#define _KWAVE_POINTSET_H_ 1
+#ifndef _POINTSET_H_
+#define _POINTSET_H_
 
 #include <qlist.h>
 
@@ -8,11 +8,6 @@ struct Point {
     double y;
 };
 
-#define PointSet QList<Point>
-
-//class PointSet //to replace QList<Cpoint>, so linking to qt is not neccesary
-//in future
-//{
-//};
+typedef QList<Point> PointSet;
 
 #endif

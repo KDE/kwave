@@ -1,5 +1,5 @@
 /***************************************************************************
-              Curve.cpp  -  parameters of a curve consisting of points
+              Curve.cpp  -  curve consisting of points
 			     -------------------
     begin                : Jan 20 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -17,10 +17,6 @@
 
 #include "config.h"
 #include <float.h>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <math.h>
 
 #include <qlist.h>
@@ -29,7 +25,6 @@
 #include "Parser.h"
 #include "PointSet.h"
 #include "Interpolation.h"
-
 #include "Curve.h"
 
 //***************************************************************************
@@ -52,32 +47,29 @@ Curve::Curve(const QString &command)
     Parser parse(command);
     setInterpolationType(Interpolation::find(parse.firstParam(), false));
 
-    double x = 1.0;
-    double y;
+    double x, y;
     while (!parse.isDone()) {
 	x = parse.toDouble();
 	y = parse.toDouble();
-	append (x, y);
+	append(x, y);
     }
 }
 
 //***************************************************************************
 QString Curve::getCommand()
 {
-    QString s;
-    char buf[64];
+    QString cmd;
     Point *tmp;
 
-    s = "curve (";
-    s += Interpolation::name(m_interpolationtype);
+    cmd = "curve(";
+    cmd += Interpolation::name(m_interpolationtype);
 
-    for ( tmp = m_points.first(); tmp; tmp = m_points.next() ) {
-	snprintf(buf, sizeof(buf), ",%f,%f", tmp->x, tmp->y);
-	s += buf;
+    for (tmp = m_points.first(); tmp; tmp = m_points.next() ) {
+	cmd += cmd.sprintf(",%f,%f", tmp->x, tmp->y);
     }
 
-    s += ")";
-    return s;
+    cmd += ")";
+    return cmd;
 }
 
 //***************************************************************************
@@ -101,8 +93,10 @@ interpolation_t Curve::interpolationType()
 //***************************************************************************
 void Curve::deletePoint(Point *p, bool check)
 {
+    if (!p) return;
+    m_points.setAutoDelete(true);
     if ((!check) || ((p != m_points.first()) && (p != m_points.last())) ) {
-	m_points.removeRef(p);
+	m_points.remove(p);
     }
 }
 
@@ -110,22 +104,13 @@ void Curve::deletePoint(Point *p, bool check)
 void Curve::secondHalf()
 {
     Point *tmp;
+    if (m_points.isEmpty()) return;
 
-    for ( tmp = m_points.first(); tmp; tmp = m_points.next() ) {
-	ASSERT(tmp);
-	if (tmp) tmp->x = 0.5 + tmp->x / 2.0;
+    for ( tmp = m_points.first(); (tmp); tmp = m_points.next() ) {
+	tmp->x = 0.5 + tmp->x / 2.0;
     }
 
-    tmp = m_points.first();
-    Point *newpoint = new Point;
-    ASSERT(newpoint);
-    ASSERT(tmp);
-    if (!newpoint) return;
-    if (!tmp) return;
-
-    newpoint->x = 0.0;
-    newpoint->y = tmp->y;
-    m_points.insert(0, newpoint);
+    insert(0.0, m_points.first()->y);
 }
 
 //***************************************************************************
@@ -133,9 +118,10 @@ void Curve::deleteSecondPoint()
 {
     Point *tmp;
 
-    for ( tmp = m_points.first(); tmp; tmp = m_points.next() ) {
+    m_points.setAutoDelete(true);
+    for ( tmp = m_points.first(); (tmp); tmp = m_points.next() ) {
 	tmp = m_points.next();
-	if (tmp && tmp != m_points.last()) {
+	if (tmp && (tmp != m_points.last())) {
 	    // m_points should have autodelete...
 	    // no delete for object is required
 	    m_points.removeRef(tmp);
@@ -145,31 +131,26 @@ void Curve::deleteSecondPoint()
 }
 
 //***************************************************************************
-void Curve::addPoint(Point *insert)
+void Curve::insert(double x, double y)
 {
-    ASSERT(insert);
-    if (insert == 0) return;
+    if (m_points.isEmpty()) {
+	// add the first point
+	append(x, y);
+	return;
+    }
 
-    Point *tmp = m_points.first();
+    Point *ins = new Point;
+    ASSERT(ins);
+    if (!ins) return;
+    ins->x = x;
+    ins->y = y;
 
     // linear search for position
-    while ((tmp) && ((tmp->x) < (insert->x)) )
-	tmp = m_points.next();
+    Point *tmp = m_points.first();
+    while (tmp->x < x) tmp = m_points.next();
 
-    if (tmp) m_points.insert(m_points.at(), insert);
-    else debug ("Curve::addPoint(): point is out of range !\n");
-}
-
-//***************************************************************************
-void Curve::addPoint(double x, double y)
-{
-    Point *insert = new Point;
-    ASSERT(insert);
-    if (!insert) return;
-
-    insert->x = x;
-    insert->y = y;
-    addPoint (insert);
+    if (tmp) m_points.insert(m_points.at(), ins);
+    else warning("Curve::insert(%0.2f,%0.2f): out of range !",x,y);
 }
 
 //***************************************************************************
@@ -195,111 +176,85 @@ void Curve::append(double x, double y)
 
     insert->x = x;
     insert->y = y;
-    append(insert);
-}
-
-//***************************************************************************
-void Curve::append(Point *p)
-{
-    ASSERT(p);
-    if (p) m_points.append(p);
+    m_points.append(insert);
 }
 
 //***************************************************************************
 void Curve::firstHalf()
 {
+    if (m_points.isEmpty()) return;
+
     Point *tmp;
-    for ( tmp = m_points.first(); tmp; tmp = m_points.next() ) {
-	tmp->x = tmp->x / 2.0;
+    for (tmp = m_points.first(); (tmp); tmp = m_points.next() ) {
+	tmp->x /= 2.0;
     }
-
-    tmp = m_points.first();
-    Point *newpoint = new Point;
-    ASSERT(newpoint);
-    if (!newpoint) return;
-
-    newpoint->x = 1.0;
-    newpoint->y = tmp->y;
-    m_points.insert (0, newpoint);
+    append(1.0, m_points.first()->y);
 }
 
 //****************************************************************************
 void Curve::VFlip()
 {
-    Point *tmp;
-    for ( tmp = m_points.first(); tmp != 0; tmp = m_points.next() ) {
-	tmp->y = (1.0 - tmp->y);
+    Point *p;
+    for (p = m_points.first(); (p); p = m_points.next() ) {
+	p->y = (1.0 - p->y);
     }
 }
 
 //***************************************************************************
 void Curve::HFlip()
 {
-    Point *tmp;
-    QList<Point> newlist;
-
-    for (tmp = m_points.last(); tmp; tmp = m_points.prev()) {
-	tmp->x = 1.0 - tmp->x;
-	newlist.append (tmp);
+    // flip all x coordinates and reverse the order it the list
+    unsigned int count = m_points.count();
+    m_points.setAutoDelete(false);
+    while (count--) {
+	Point *p = m_points.at(count);
+	p->x = 1.0 - p->x;
+	m_points.removeRef(p);
+	m_points.append(p);
     }
-    m_points = newlist;
+
 }
 
 //***************************************************************************
 void Curve::scaleFit(unsigned int range)
 {
-    struct Point *tmp;
+    Point *p;
     double min = DBL_MAX;
     double max = DBL_MIN;
-
-    tmp = m_points.first();
-    if (!tmp) return;
 
     Interpolation interpolation(m_interpolationtype);
 
     QArray<double> y = interpolation.interpolation(this, range);
-    ASSERT(y.count() == range);
-    if (y.count() >= range) {
-	for (unsigned int i = 0; i < range; i++) {
-	    if (y[i] > max) max = y[i];
-	    if (y[i] < min) min = y[i];
-	}
+    for (unsigned int i = 0; i < range; i++) {
+	if (y[i] > max) max = y[i];
+	if (y[i] < min) min = y[i];
     }
 
-    for (tmp = m_points.first(); tmp; tmp = m_points.next()) {
-	tmp->y -= min;
-	if (max!=min) tmp->y /= (max-min);
-	else tmp->y=min;
+    for (p = m_points.first(); (p); p = m_points.next()) {
+	p->y -= min;
+	if (max != min) p->y /= (max-min);
+	else p->y=min;
     }
 
 }
 
 //***************************************************************************
 Point *Curve::findPoint(double px, double py, double tol)
-// checks, if given coordinates fit to a control point in the list...
 {
-    double maxx = px + tol;
-    double minx = px - tol;
-    double maxy = py + tol;
-    double miny = py - tol;
-
     Point *tmp;
-    Point *act = 0;
+    Point *best=0;
+    double dist;
+    double min_dist = tol;
 
     for ( tmp = m_points.first(); tmp; tmp = m_points.next() ) {
-	double x = tmp->x;
-	double y = tmp->y;
-
-	if (x > maxx) break;
-	//the list should be sorted, a match cannot be
-	//found anymore, because x is already to big
-
-	if ((x >= minx) && (x <= maxx) && (y >= miny) && (y <= maxy)) {
-	    act = tmp;
-	    break;
+	// use the length of the difference vector as criterium
+	dist = hypot(px - tmp->x, py - tmp->y);
+	if (dist < min_dist) {
+	    min_dist = dist;
+	    best = tmp;
 	}
     }
-    return act;
+    return best;
 }
 
 //***************************************************************************
@@ -329,6 +284,8 @@ Point *Curve::last()
 //***************************************************************************
 Curve::~Curve()
 {
+    m_points.setAutoDelete(true);
+    m_points.clear();
 }
 
 //***************************************************************************

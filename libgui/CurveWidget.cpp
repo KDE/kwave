@@ -306,7 +306,7 @@ void CurveWidget::addPoint(double newx, double newy)
     ASSERT(points);
     if (!points) return;
 
-    points->addPoint(newx, newy);
+    points->insert(newx, newy);
     last = 0;
     repaint();
 }

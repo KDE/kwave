@@ -1,5 +1,5 @@
 /***************************************************************************
-                  Curve.h  -  parameters of a curve consisting of points
+                  Curve.h  -  curve consisting of points
 			     -------------------
     begin                : Jan 20 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -41,13 +41,13 @@ public:
     Curve (const QString &command);
 
     /** Destructor */
-    virtual ~Curve ();
+    virtual ~Curve();
 
     /** Moves all current points into the left half */
-    void firstHalf ();
+    void firstHalf();
 
     /** Moves all current points into the right half */
-    void secondHalf ();
+    void secondHalf();
 
     /**
      * Removes and deletes a point from the curve. Note that after this
@@ -55,7 +55,7 @@ public:
      * @param p point to be deleted
      * @param check if true, the last or first point will not be deleted
      */
-    void deletePoint (Point *p, bool check);
+    void deletePoint(Point *p, bool check);
 
     /**
      * Deletes every second point.
@@ -85,31 +85,11 @@ public:
      * @param x coordinate on the x axis, should be [0...+1.0]
      * @param y coordinate on the y axis, should be [0...+1.0]
      */
-    void addPoint (double x, double y);
-
-    /**
-     * Inserts an existing point into the curve and sorts it in
-     * by it's x coordinate.
-     * @param insert point to be inserted
-     */
-    void addPoint (Point *insert);
-
-    /**
-     * Creates a new point and appends it to the end of the curve.
-     * @param x coordinate on the x axis, should be [0...+1.0]
-     * @param y coordinate on the y axis, should be [0...+1.0]
-     */
-    void append(double x, double y);
-
-    /**
-     * Adds an existing point at the end of the curve.
-     * @param insert point to be added
-     */
-    void append(Point *p);
+    void insert(double x, double y);
 
     /**
      * Searches for a point at given coordinates with a definable
-     * toerance.
+     * tolerance.
      * @param x coordinate on the x axis
      * @param y coordinate on the y axis
      * @param tol tolerance for x and y direction, absolute value
@@ -152,7 +132,7 @@ public:
      * given point was the first one.
      * @param act the point before the one we look for
      */
-    Point *next(Point *);
+    Point *next(Point *p);
 
     /**
      * Returns a command string out of the curve points and
@@ -176,13 +156,22 @@ public:
      * current interpolation parameters.
      * @param points number of points
      * @return Array of interpolated values or null if the
-     *         number of points was zero.
+     *         number of points was zero or the curve was empty.
      */
     QArray<double> interpolation(unsigned int points);
 
+protected:
+    /**
+     * Creates a new point and appends it to the end of the curve.
+     * @param x coordinate on the x axis, should be [0...+1.0]
+     * @param y coordinate on the y axis, should be [0...+1.0]
+     * @note this could break sorting if used from outside this class
+     */
+    void append(double x, double y);
+
 private:
 
-    /** list of points, ordered by x coordinates */
+    /** list of points, sorted by x coordinates */
     QList<Point> m_points;
 
     /** interpolation object */

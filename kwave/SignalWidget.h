@@ -49,6 +49,14 @@ class SignalWidget : public QWidget
     friend class InhibitRepaintGuard;
 
 public:
+    /** Mode of the mouse cursor */
+    enum MouseMode {
+	MouseNormal = 0,        /**< over the signal [default] */
+	MouseInSelection,       /**< within the selection */
+	MouseAtSelectionBorder  /**< near the border of a selection */
+    };
+
+    /** Constructor */
     SignalWidget(QWidget *parent, MenuManager &menu_manage);
 
     /**
@@ -115,13 +123,22 @@ public:
     QBitmap *overview(unsigned int width, unsigned int height);
 
     /**
-     * Checks if a given sample position is near to the left or
-     * the right border. The tolerance is 2% of the currently
+     * Checks if a pixel position is near to the left or right border
+     * of a selection. The tolerance is 2% of the currently
      * visible area.
-     * @param x sample position to be tested
+     * @param x pixel position to be tested
      * @return true if the position is within range
      */
-    bool checkPosition(int x);
+    bool isSelectionBorder(int x);
+
+    /**
+     * Checks if a gpixel position is within the left and right border
+     * of a selection. The tolerance is 2% of the currently
+     * visible area.
+     * @param x pixel position to be tested
+     * @return true if the position is within range
+     */
+    bool isInSelection(int x);
 
 //    void addLabelType (LabelType *);
 //    void addLabelType (const char *);
@@ -271,14 +288,10 @@ private slots:
     void slotSamplesModified(unsigned int track, unsigned int offset,
                              unsigned int length);
 
-//    /**
-//     * Starts the timer for repainting the signal if necessary. If
-//     * the timer is currently running then it does nothing.
-//     */
-//    void startRepaintTimer();
-
+    /* ### */
     void updatePlaybackPointer(unsigned int pos);
 
+    /* ### */
     void refreshSelection();
 
     /**
@@ -301,9 +314,6 @@ signals:
     /** Emits the length of the current selection [milliseconds] */
     void selectedTimeInfo(double ms);
 
-    /** Emits the length of the whole signal [milliseconds] */
-    void timeInfo(double ms);
-
     /**
      * Emits a command to be processed by the next higher instance.
      */
@@ -315,6 +325,17 @@ signals:
      * @param zoom value [samples/pixel]
      */
     void sigZoomChanged(double zoom);
+
+    /**
+     * Emits a change in the mouse cursor. This can be used to change
+     * the content of a status bar if the mouse moves over a selected
+     * area or a marker. The "mode" parameter is one of the modes in
+     * enum MouseMode, but casted to int for simplicity.
+     * @todo find out how to use a forward declaration of both the
+     * class SignalWidget *and* of SignalWidget::MouseMouse to avoid the
+     * need of including SignalWidget.h in too many files.
+     */
+    void sigMouseChanged(int mode);
 
     /**
      * Signals that a track has been inserted.
@@ -431,6 +452,12 @@ private:
      */
     void fixZoomAndOffset();
 
+    /**
+     * Sets the mode of the mouse cursor and emits sigMouseChanged
+     * if it differs from the previous value.
+     */
+    void setMouseMode(MouseMode mode);
+
 private:
     /** Pixmaps for buffering each layer */
     QPixmap *m_layer[3];
@@ -491,6 +518,10 @@ private:
 
     /** the controller for handling of playback */
     PlaybackController m_playback_controller;
+
+    /** mode of the mouse cursor */
+    MouseMode m_mouse_mode;
+
 };
 
 #endif // _SIGNAL_WIDGET_H_

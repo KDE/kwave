@@ -216,6 +216,9 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage)
     connect(m_signal_widget, SIGNAL(sigTrackInserted(unsigned int)),
 	    this, SLOT(slotTrackInserted(unsigned int)));
 
+    connect(m_signal_widget, SIGNAL(sigMouseChanged(int)),
+	    this, SLOT(forwardMouseChanged(int)));
+
     refreshChannelControls();
     refreshControls();
 //    debug("MainWidget::MainWidget(): done.");
@@ -354,6 +357,12 @@ void MainWidget::forwardZoomChanged(double zoom)
 void MainWidget::forwardSelectedTimeInfo(double ms)
 {
     emit selectedTimeInfo(ms);
+}
+
+//***************************************************************************
+void MainWidget::forwardMouseChanged(int mode)
+{
+    emit sigMouseChanged(mode);
 }
 
 //***************************************************************************

@@ -5,11 +5,6 @@
     copyright            : (C) 1999 by Martin Wilz
     email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
 
-    $Log$
-    Revision 1.9  2001/05/08 20:19:25  the
-    loading/saving in wav format works again
-
-
  ***************************************************************************/
 
 /***************************************************************************
@@ -29,15 +24,17 @@
 #include <kmainwindow.h>
 
 class QTimer;
+
 class KCombo;
 class KDNDDropZone;
 class KToolBar;
 class KStatusBar;
+
+class KwaveApp;
 class MenuManager;
 class MainWidget;
 class PluginManager;
 class SignalManager;
-class KwaveApp;
 
 /**
  * Toplevel widget of the Kwave application. Holds a main widget, a menu
@@ -148,6 +145,12 @@ private slots:
      * @param ms length of the selected range [milliseconds]
      */
     void setSelectedTimeInfo(double ms);
+
+    /**
+     * Updates the status bar's content depending on the current status
+     * or position of the mouse cursor.
+     */
+    void mouseChanged(int mode);
 
     /** updates all elements in the toolbar */
     void updateToolbar();

@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _MAIN_WDIGET_H_
+#ifndef _MAIN_WIDGET_H_
 #define _MAIN_WIDGET_H_
 
 #include <qlist.h>
@@ -25,16 +25,18 @@ class QAccel;
 class QComboBox;
 class QFrame;
 class QScrollBar;
+
 class KButtonBox;
 class KStatusBar;
+
 class MenuManager;
 class MultiStateWidget;
-class SignalManager;
 class OverViewWidget;
 class PlaybackController;
+class SignalManager;
 class SignalWidget;
 
-//***********************************************************
+//***************************************************************************
 class MainWidget : public QWidget
 {
     Q_OBJECT
@@ -147,6 +149,12 @@ private slots:
     void forwardSelectedTimeInfo(double ms);
 
     /**
+     * Forwards the sigMouseChanged signal of the internal view window
+     * by emitting sigMouseChanged again.
+     */
+    void forwardMouseChanged(int mode);
+
+    /**
      * Called if a track has been added. Updates the display by
      * resizing/re-positioning the channel controls and the signal
      * display.
@@ -182,6 +190,13 @@ signals:
 
     /** Emits the length of the current selection [milliseconds] */
     void selectedTimeInfo(double ms);
+
+    /**
+     * Emits a change in the mouse cursor. This can be used to change
+     * the content of a status bar if the mouse moves over a selected
+     * area or a marker.
+     */
+    void sigMouseChanged(int mode);
 
     void sigCommand(const QString &command);
 

@@ -6,6 +6,9 @@
     email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
 
     $Log$
+    Revision 1.19  2001/05/13 12:20:28  the
+    changed the status line, only shows selected range if the mouse cursor is over the selection or the selection is modified
+
     Revision 1.18  2001/05/08 20:19:25  the
     loading/saving in wav format works again
 
@@ -55,6 +58,7 @@
 #include "TopWidget.h"
 #include "PlaybackController.h"
 #include "PluginManager.h"
+#include "SignalWidget.h" // for MouseMode
 
 #include "toolbar/filenew.xpm"
 #include "toolbar/fileopen.xpm"
@@ -205,6 +209,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	    this, SLOT(executeCommand(const QString &)));
     connect(m_main_widget, SIGNAL(selectedTimeInfo(double)),
 	    this, SLOT(setSelectedTimeInfo(double)));
+    connect(m_main_widget, SIGNAL(sigMouseChanged(int)),
+	    this, SLOT(mouseChanged(int)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -847,7 +853,28 @@ void TopWidget::setSelectedTimeInfo(double ms)
 	txt += i18n("(%2 samples)")+" ";
 	txt = txt.arg((unsigned int)(ms*1E-3* mgr->rate()));
     }
-    statusBar()->message(txt, 2000);
+    statusBar()->message(txt, 4000);
+}
+
+//***************************************************************************
+void TopWidget::mouseChanged(int mode)
+{
+    switch (static_cast<SignalWidget::MouseMode>(mode)) {
+	case (SignalWidget::MouseNormal) :
+	    break;
+	case (SignalWidget::MouseAtSelectionBorder) :
+	case (SignalWidget::MouseInSelection) :
+	{
+	    SignalManager *mgr = signalManager();
+	    if (!mgr || !mgr->rate()) break;
+	
+	    double ms = mgr->selection().length() * 1E3 / mgr->rate();
+	    setSelectedTimeInfo(ms);
+	
+	    break;
+	}
+	    break;
+    }
 }
 
 //***************************************************************************

@@ -74,7 +74,8 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     m_refresh_timer(),
     m_track_pixmaps(),
     menu(menu_manager),
-    m_playback_controller()
+    m_playback_controller(),
+    m_mouse_mode(MouseNormal)
 {
 //    debug("SignalWidget::SignalWidget()");
     down = false;
@@ -150,7 +151,6 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     setMouseTracking(true);
 
     setZoom(0.0);
-
 //    debug("SignalWidget::SignalWidget(): done.");
 }
 
@@ -563,6 +563,8 @@ void SignalWidget::close()
     selectRange(0, 0);
     zoomAll();
     refreshAllLayers();
+
+    setMouseMode(MouseNormal);
 }
 
 //***************************************************************************
@@ -689,6 +691,27 @@ void SignalWidget::fixZoomAndOffset()
 }
 
 //***************************************************************************
+void SignalWidget::setMouseMode(MouseMode mode)
+{
+    if (mode == m_mouse_mode) return;
+
+    m_mouse_mode = mode;
+    switch (mode) {
+	case MouseNormal:
+	    setCursor(arrowCursor);
+	    break;
+	case MouseAtSelectionBorder:
+	    setCursor(sizeHorCursor);
+	    break;
+	case MouseInSelection:
+	    setCursor(arrowCursor);
+	    break;
+    }
+
+    emit sigMouseChanged(static_cast<int>(mode));
+}
+
+//***************************************************************************
 void SignalWidget::zoomAll()
 {
     InhibitRepaintGuard inhibit(*this);
@@ -803,7 +826,7 @@ void SignalWidget::refreshLayer(int layer)
 }
 
 //***************************************************************************
-bool SignalWidget::checkPosition(int x)
+bool SignalWidget::isSelectionBorder(int x)
 {
     ASSERT(m_selection);
     if (!m_selection) return false;
@@ -818,6 +841,25 @@ bool SignalWidget::checkPosition(int x)
     unsigned int last = m_signal_manager.selection().last();
     if ((last > m_offset) && (x < samples2pixels(last-m_offset)+tol) &&
         (x+tol > samples2pixels(last-m_offset))) return true;
+
+    return false;
+}
+
+//***************************************************************************
+bool SignalWidget::isInSelection(int x)
+{
+    ASSERT(m_selection);
+    if (!m_selection) return false;
+
+    // use 2 % of widget width [pixels] as tolerance
+    int tol = width / 50;
+
+    unsigned int first = m_signal_manager.selection().first();
+    unsigned int last = m_signal_manager.selection().last();
+
+    ASSERT(first <= last);
+    if ((last > m_offset) && (x < samples2pixels(last-m_offset)+tol) &&
+        (x+tol > samples2pixels(first-m_offset))) return true;
 
     return false;
 }
@@ -839,8 +881,8 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
     if (e->button() == LeftButton) {
 	int x = m_offset + pixels2samples(e->pos().x());
 	down = true;
-	(checkPosition(e->pos().x())) ? m_selection->grep(x) :
-	                                m_selection->set(x, x);
+	(isSelectionBorder(e->pos().x())) ? m_selection->grep(x) :
+	                                    m_selection->set(x, x);
     }
 }
 
@@ -899,7 +941,15 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	selectRange(m_selection->left(), len);
     } else {
 	// yes, this code gives the nifty cursor change....
-	setCursor(checkPosition(e->pos().x()) ? sizeHorCursor : arrowCursor);
+	int x = e->pos().x();
+	if (isSelectionBorder(x)) {
+	    setMouseMode(MouseAtSelectionBorder);
+	} else if (isInSelection(x)) {
+	    setMouseMode(MouseInSelection);
+	} else {
+	    setMouseMode(MouseNormal);
+	}
+
     }
 }
 

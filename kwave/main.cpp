@@ -72,6 +72,10 @@ void addDataStrings(KAboutData& aboutdata)
                      i18n("french translations and splashscreen"),
                      "caulier.gilles@free.fr",
                      "http://caulier.gilles.free.fr");
+    aboutdata.addAuthor("Dave Flogeras",
+                     i18n("notch filter plugin"),
+                     "d.flogeras@unb.ca",
+                     0);
 
     // people who helped
     aboutdata.addCredit("Sven-Steffen Arndt",

@@ -27,6 +27,7 @@ KwaveAboutContainer::KwaveAboutContainer(QWidget* parent, const char* name)
 {
     setFrameStyle(QFrame::StyledPanel);
     setFrameShadow(QFrame::Sunken);
+
     QSize tabsize = parent->size();
     setGeometry(QRect(0,0,tabsize.width(),tabsize.height()));
 

@@ -34,7 +34,6 @@ class KwaveAboutContainer : public KAboutContainer
 public:
     /** Constructor */
     	KwaveAboutContainer(QWidget* parent = 0, const char* name = "");
-	
     /** destructor */
     ~KwaveAboutContainer();
 
@@ -49,7 +48,6 @@ public slots:
       * void  mailClick(const QString &name,const QString &address)
       */
     void sendMail(const QString &name,const QString &address);
-
 };
 
 #endif

@@ -32,6 +32,7 @@
 
 #include "RecordDialog.h"
 #include "RecordParams.h"
+#include "RecordDevice.h"
 
 #include "filenew.xpm"
 #include "record_stop.xpm"
@@ -54,7 +55,7 @@
 
 /** list pf well-known audio devices */
 static const char *well_known_devices[] = {
-    "[aRts sound daemon]",
+/*    "[aRts sound daemon]", */
     "/dev/dsp",
     "/dev/dsp0",
     "/dev/dsp1",
@@ -129,14 +130,19 @@ RecordDialog::RecordDialog(QWidget *parent, const RecordParams &params)
             this, SLOT(sourceBufferChanged(int)));
 
     // device combo box
+    cbSourceDevice->setEditable(true);
     cbSourceDevice->insertStrList(well_known_devices, -1);
-    cbSourceDevice->setMinimumWidth(cbSourceDevice->sizeHint().width()+10);
     cbSourceDevice->setCurrentItem(m_params.device_name);
     cbSourceDevice->setEditText(m_params.device_name);
+    cbSourceDevice->setMinimumWidth(cbSourceDevice->sizeHint().width()+10);
 
     // "select device..." button
     connect(btSourceSelect, SIGNAL(clicked()),
             this, SLOT(selectRecordDevice()));
+/*    connect(cbSourceDevice, SIGNAL(activated(const QString &)),
+            this, SLOT(forwardDeviceChanged(const QString &)));*/
+    connect(cbSourceDevice, SIGNAL(textChanged(const QString &)),
+            this, SLOT(forwardDeviceChanged(const QString &)));
 
 }
 
@@ -188,10 +194,21 @@ void RecordDialog::selectRecordDevice()
 
     // selected new device
     QString new_device = dlg.selectedFile();
-    cbSourceDevice->setEditText(new_device);
+    if (new_device != m_params.device_name) emit deviceChanged(new_device);
+}
 
+//***************************************************************************
+void RecordDialog::forwardDeviceChanged(const QString &dev)
+{
+    if (dev != m_params.device_name) emit deviceChanged(dev);
+}
+
+//***************************************************************************
+void RecordDialog::setDevice(const QString &dev)
+{
+    m_params.device_name = dev;
+    cbSourceDevice->setEditText(dev);
 }
 
 //***************************************************************************
 //***************************************************************************
-

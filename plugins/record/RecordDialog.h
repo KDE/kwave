@@ -49,6 +49,14 @@ public:
     /** Returns the list of record parameters, for the next time */
     virtual RecordParams params() const;
 
+    /** selects a new record device */
+    void setDevice(const QString &dev);
+
+signals:
+
+    /** emitted when a new record device has been selected */
+    void deviceChanged(const QString &device);
+
 private slots:
 
     /** updates the record buffer size */
@@ -56,6 +64,9 @@ private slots:
 
     /** show a "file open" dialog for selecting a record device */
     void selectRecordDevice();
+
+    /** forwards a deviceChanged signal */
+    void forwardDeviceChanged(const QString &dev);
 
 private:
 

@@ -21,8 +21,10 @@
 #include "config.h"
 #include "libkwave/KwavePlugin.h"
 #include "RecordParams.h"
+#include "RecordDevice.h"
 
 class QStringList;
+class RecordDialog;
 
 class RecordPlugin: public KwavePlugin
 {
@@ -38,6 +40,11 @@ public:
     /** @see KwavePlugin::setup() */
     virtual QStringList *setup(QStringList &previous_params);
 
+protected slots:
+
+    /** select a new record device */
+    void changeDevice(const QString &dev);
+
 private:
 
     /** record control: pre-record enabled */
@@ -45,6 +52,12 @@ private:
 
     /** all parameters of the record plugin */
     RecordParams m_params;
+
+    /** device used for recording */
+    RecordDevice m_device;
+
+    /** setup dialog */
+    RecordDialog *m_dialog;
 
 };
 

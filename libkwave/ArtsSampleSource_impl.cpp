@@ -46,7 +46,7 @@ void ArtsSampleSource_impl::calculateBlock(unsigned long samples)
 	// fill the buffer with samples
 	for (i=0;i < samples;i++) {
 	    *m_reader >> sample;
-	    source[i] = sample / double(1 << 23);
+	    source[i] = sample2float(sample);
 	    if (m_reader->eof()) break;
 	}
     }

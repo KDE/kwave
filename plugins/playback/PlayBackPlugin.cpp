@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#include <qcursor.h>
 #include <qmemarray.h>
 #include <qfile.h>
 #include <qptrvector.h>
@@ -241,6 +242,9 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 	m_device = 0;
 	bool searching = false;
 
+	// set hourglass cursor
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
 	do {
 	    switch (method) {
 #ifdef HAVE_ARTS_SUPPORT
@@ -316,6 +320,9 @@ void PlayBackPlugin::setMethod(playback_method_t method)
     QString file_filter;
     if (m_device) file_filter = m_device->fileFilter();
     if (m_dialog) m_dialog->setFileFilter(file_filter);
+
+    // remove hourglass
+    QApplication::restoreOverrideCursor();
 }
 
 //***************************************************************************

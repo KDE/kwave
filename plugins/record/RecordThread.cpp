@@ -158,7 +158,11 @@ void RecordThread::run()
 	    // read raw data from the record device
 	    int result = m_device->read(p, len);
 
-	    if (result == -EAGAIN) {
+	    if (result == -EBADF) {
+		// file open has failed
+		interrupted = true;
+		break;
+	    } else if (result == -EAGAIN) {
 		// thread was interrupted, received signal?
 		qWarning("RecordThread::run(): read returned -EAGAIN, INT?");
 		continue;

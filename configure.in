@@ -236,7 +236,6 @@ if test "${USE_BUILTIN_LIBAUDIOFILE}" = "1"; then
     LIBAUDIOFILE_LIBADD="../libaudiofile/libaudiofile.la"
     LIBAUDIOFILE_SUBDIR="libaudiofile"
 else
-    AC_DEFINE(USE_BUILTIN_LIBAUDIOFILE,0,[use system libaudiofile])
     LIBAUDIOFILE_LDFLAGS="-laudiofile"
     LIBAUDIOFILE_LIBADD=""
     LIBAUDIOFILE_SUBDIR=""

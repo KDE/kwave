@@ -24,22 +24,43 @@ CXXFLAGS  = -shared -fPIC -rdynamic -nostartfiles -nostdlib
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 
-all: module.cpp
-	$(MOC) module.h -o mmodule.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) module.cpp mmodule.cpp -o$(MODNAME)
+SUFFIXES = .h .moc
+
+BUILT_SOURCES=\
+ module.moc
+
+SOURCES=\
+ module.cpp\
+ $(BUILT_SOURCES)
+
+CLEANFILES = *.d *.dm *.moc $(BUILT_SOURCES)
+
+%d: %cpp
+	@echo plugin \"$(MODNAME)\": making dependencies for $<
+	@ $(SHELL) -ec '$(CXX) -MM ${INCLUDES} $(CXXFLAGS) $< \
+	| sed s^${notdir $*}o^$*d^g > $@; \
+	[ -s $@ ] || rm -f $@'
+
+%dm: %moc
+	@echo plugin \"$(MODNAME)\": making dependencies for $<
+	@ $(SHELL) -ec '$(CXX) -x c++ -MM ${INCLUDES} $(CXXFLAGS) $< \
+	| sed s^${notdir $*}moc\.o^$*dm^g > $@; \
+	[ -s $@ ] || rm -f $@'
+
+%.moc: %.h
+	@echo plugin \"$(MODNAME)\": extracting code with MOC for $<
+	@ ${MOC} $< -o $@
+
+$(MODNAME): module.cpp module.moc module.d module.dm
+	@echo plugin \"$(MODNAME)\": compiling
+	@ $(CXX) -x c++ $(CXXFLAGS) $(INCLUDES) module.cpp module.moc -o$(MODNAME)
+
+all: $(MODNAME)
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
-DISTCLEANFILES = core *~ .deps/* $(MODNAME) mmodule.cpp
+DISTCLEANFILES = core *~ .deps/* $(MODNAME) $(BUILT_SOURCES)
 
 install-data-local: 
 	$(mkinstalldirs) $(PLUGINDIR)
 	$(INSTALL_DATA) $(MODNAME) $(PLUGINDIR)
-
-
-
-
-
-
-
-

@@ -20,12 +20,12 @@ dist=true
 install=false
 type=SOURCE
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/README,/usr/src/packages/multimedia/sound/kwave/src/main.cpp,/usr/src/packages/multimedia/sound/kwave/src/ClipBoard.cpp,/usr/src/packages/multimedia/sound/kwave/src/doc/index.html,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/ClipBoard.h,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/src/doc/index.html
-cpp_file=/usr/src/packages/multimedia/sound/kwave/src/ClipBoard.cpp
-browser_file=file:/opt/kde/share/doc/HTML/de/kdevelop/index-12.html
+header_file=/usr/src/packages/multimedia/sound/kwave/src/ClipBoard.h
+cpp_file=Unbenannt.cpp
+browser_file=file:/opt/kde/share/doc/HTML/de/kdevelop/index-2.html
 [libgui/TimeLine.h]
 install_location=
 dist=true
@@ -48,14 +48,17 @@ install=false
 type=SOURCE
 [Config for BinMakefileAm]
 ldflags=
+addcxxflags=
+ldadd=
 bin_program=kwave
-cxxflags=-O0 -g3 -Wall
+cxxflags=-O2 -g3 -Wall
 [src/ImageView.h]
 install_location=
 dist=true
 install=false
 type=HEADER
 [po/Makefile.am]
+files=po/de.po,
 type=po
 sub_dirs=
 [bin/increment_patchlevel.sh]
@@ -110,7 +113,7 @@ type=HEADER
 [LFV Groups]
 GNU=AUTHORS,COPYING,ChangeLog,INSTALL,README,TODO,NEWS,
 Dialoge=*.kdevdlg,
-groups=Headers,Sources,Dialoge,Übersetzungen,GNU,
+groups=Headers,Sources,Dialoge,Übersetzungen,GNU,Andere,
 Sources=*.cpp,
 Übersetzungen=*.po,
 Headers=*.h,
@@ -166,6 +169,11 @@ type=normal
 [kwave/docs/en/Makefile.am]
 type=normal
 sub_dirs=
+[History]
+install_location=
+dist=true
+install=false
+type=DATA
 [src/SignalManager.cpp]
 install_location=
 dist=true
@@ -181,6 +189,11 @@ install_location=
 dist=true
 install=false
 type=SOURCE
+[GNU-LICENSE]
+install_location=
+dist=true
+install=false
+type=DATA
 [src/FFTContainer.h]
 install_location=
 dist=true
@@ -275,24 +288,32 @@ install_location=
 dist=true
 install=false
 type=DATA
+[po/de.po]
+install_location=
+dist=false
+install=false
+type=PO
 [src/ImageView.cpp]
 install_location=
 dist=true
 install=false
 type=SOURCE
 [General]
-makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,src/Makefile.am,libgui/Makefile.am,bin/Makefile.am,
+make_options=-d -e -w -j1
+makefiles=Makefile.am,libgui/Makefile.am,src/Makefile.am,plugins/Makefile.am,plugins/dialogs/Makefile.am,plugins/dialogs/template/Makefile.am,po/Makefile.am,
 version_control=None
-project_type=normal_empty
+project_type=normal_kde
 author=Martin Wilz
-sub_dir=kwave/
-lfv_open_groups=Headers,
+sub_dir=./
+lfv_open_groups=
 workspace=1
 project_name=Kwave
 version=0.29.7
+short_info=,
 email=mwilz@ernie.MI.Uni-Koeln.DE
 kdevprj_version=1.0beta2
-configure_args=
+configure_args=--enable-debug=yes
+modifyMakefiles=true
 [libgui/MultiStateImage.cpp]
 install_location=
 dist=true
@@ -360,9 +381,9 @@ dist=true
 install=false
 type=DATA
 [Makefile.am]
-files=kwave.kdevprj,README,kwave.lsm,
+files=kwave.kdevprj,README,kwave.lsm,History,GNU-LICENSE,
 type=normal
-sub_dirs=kwave,src,libgui,bin,
+sub_dirs=kwave,src,libgui,bin,po,
 [libgui/TimeLine.cpp]
 install_location=
 dist=true

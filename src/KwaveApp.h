@@ -25,6 +25,7 @@ class KwaveApp : public KApplication
 
  void	newWindow   ();
  void   readConfig  ();
+ void	saveRecentFiles ();
  void   saveConfig  ();
 
  private:

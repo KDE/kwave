@@ -118,8 +118,10 @@ void KwaveApp::addRecentFile (char* newfile)
       recentFiles.insert(0,newfile);
     }
 
-   TopWidget *tmp;
+  // save the list of recent files
+  saveRecentFiles();
 
+  TopWidget *tmp;
   for (tmp=topwidgetlist.first();tmp;tmp=topwidgetlist.next())
        tmp->updateRecentFiles(); //update all windows
 }
@@ -136,7 +138,11 @@ void KwaveApp::newWindow ()
 //*****************************************************************************
 void KwaveApp::closeWindow (TopWidget *todel)
 {
-  topwidgetlist.removeRef(todel);	
+  topwidgetlist.removeRef(todel);
+
+  // save the configuration, including the list of recent files
+  saveConfig();
+
   //if list is empty -> no more windows there -> exit application
   if (topwidgetlist.isEmpty()) exit (0);
 }
@@ -148,7 +154,11 @@ extern int mmap_threshold; //threshold in MB for using mmapping
 extern char *mmap_dir;     //storage of dir name
 extern char *mmapallocdir; //really used directory
 //*****************************************************************************
-void KwaveApp::saveConfig()
+/**
+ * Saves the list of recent files to the kwave configuration file
+ * @see KConfig
+ */
+void KwaveApp::saveRecentFiles()
 {
   char buf[64];
   KConfig *config=getConfig();
@@ -159,6 +169,20 @@ void KwaveApp::saveConfig()
       sprintf (buf,"%d",i);
       config->writeEntry (buf,recentFiles.at(i));
     }
+
+  config->sync();
+}
+
+//*****************************************************************************
+/**
+ * Saves the current configuration of kwave to the configuration file.
+ * This also includes saving the list of recent files.
+ * @see KwaveApp::saveRecentFiles()
+ */
+void KwaveApp::saveConfig()
+{
+  char buf[64];
+  KConfig *config=getConfig();
 
   config->setGroup ("Sound Settings");
   config->writeEntry ("16Bit",play16bit);
@@ -175,7 +199,11 @@ void KwaveApp::saveConfig()
       sprintf (buf,"%dCommand",i);
       config->writeEntry (buf,globals.markertypes.at(i)->getCommand());
     }
+
   config->sync();
+
+  // also save the list of recent files
+  saveRecentFiles();
 }
 //*****************************************************************************
 // reads user config via KConfig, sets global variables accordingly

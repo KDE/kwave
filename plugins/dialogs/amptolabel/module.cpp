@@ -18,7 +18,7 @@ Dialog *getDialog (DialogOperation *operation)
   return new MarkSignalDialog(operation->getGlobals(),operation->getRate(),operation->isModal());
 }
 //**********************************************************
-MarkSignalDialog::MarkSignalDialog (const Global *globals,int rate,bool modal): Dialog(modal)
+MarkSignalDialog::MarkSignalDialog (Global *globals,int rate,bool modal): Dialog(modal)
 {
   comstr=0;
   setCaption	(klocale->translate("Choose labeling criteria"));

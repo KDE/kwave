@@ -18,7 +18,7 @@ class MarkSignalDialog : public Dialog
 
  public:
 
- 	MarkSignalDialog 	(const Global *,int,bool);
+ 	MarkSignalDialog 	(Global *,int,bool);
  	~MarkSignalDialog ();
  
  const char *getCommand ();

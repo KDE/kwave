@@ -196,9 +196,9 @@ void TopWidget::openFile ()
   if (!name.isNull())
     {
       this->name=duplicateString (name.data());
-      mainwidget->setSignal (this->name);
       globals.app->addRecentFile (this->name);
       setCaption (this->name);
+      mainwidget->setSignal (this->name);
     }
 }
 //*****************************************************************************

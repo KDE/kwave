@@ -408,9 +408,16 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	m_main_widget, SLOT(zoomAll()), true,
 	i18n("zoom to all"));
     m_id_zoomall = id++;
-	
+
+#if KDE_VERSION_MAJOR >= 3
+    // add a dummy placeholder, otherwise the minimum size will be wrong
+    QStringList factors(m_zoom_factors);
+    factors.append(" 99:99 min ");
+#else
+    QStringList &factors = m_zoom_factors;
+#endif
     m_id_zoomselect = id++;
-    m_toolbar->insertCombo(m_zoom_factors, m_id_zoomselect,
+    m_toolbar->insertCombo(factors, m_id_zoomselect,
 	true, SIGNAL(activated(int)),
 	this, SLOT(selectZoom(int)), true,
 	i18n("select zoom factor"));
@@ -420,22 +427,21 @@ TopWidget::TopWidget(KwaveApp &main_app)
     ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
 
+#if KDE_VERSION_MAJOR < 3
     m_zoomselect->adjustSize();
     int h = m_zoomselect->sizeHint().height();
-#if KDE_VERSION_MAJOR < 3
     m_zoomselect->setFixedHeight(h);
     m_zoomselect->setMinimumWidth(
         max(m_zoomselect->sizeHint().width()+20,3*h));
     m_zoomselect->setAutoResize(false);
 #else
-    m_zoomselect->setAutoResize(true);
+    int h = m_zoomselect->sizeHint().height();
 #endif
     m_zoomselect->setFocusPolicy(QWidget::NoFocus);
+
     m_toolbar->setMinimumHeight(max(m_zoomselect->sizeHint().height()+2,
 	m_toolbar->sizeHint().height()));
-
     m_toolbar->insertSeparator(-1);
-
     updateToolbar();
 
     // connect the playback controller
@@ -522,6 +528,11 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     setTrackInfo(0);
     updateMenu();
+
+#if KDE_VERSION_MAJOR >= 3
+    // layout is finished, remove dummy/placeholder zoom entry
+    m_zoomselect->removeItem(m_zoomselect->count()-1);
+#endif
 }
 
 //***************************************************************************

@@ -93,7 +93,7 @@ void addDataStrings(KAboutData& aboutdata)
     aboutdata.addCredit("T.H.F. Klok and Cedric Tefft",
                      i18n("maintainers of the 'id3lib' library"),
                      0,
-                     "http://id3lib.org/");
+                     "http://www.id3lib.org/");
     aboutdata.addCredit("Michael Pruett",
                      i18n("author of the 'audiofile' library"),
                      "mpruett@sgi.com",

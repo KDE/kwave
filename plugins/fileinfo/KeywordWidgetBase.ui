@@ -1,0 +1,105 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>KeywordWidgetBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>KeywordWidgetBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>245</width>
+            <height>179</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Keywords</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <property name="spacing">
+            <number>10</number>
+        </property>
+        <widget class="KLineEdit" row="0" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>edKeyword</cstring>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="1">
+            <property name="name">
+                <cstring>btRemove</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Remove</string>
+            </property>
+        </widget>
+        <spacer row="3" column="1">
+            <property name="name">
+                <cstring>Spacer40_2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="1" column="1">
+            <property name="name">
+                <cstring>btAdd</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Add</string>
+            </property>
+            <property name="autoDefault">
+                <bool>true</bool>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string></string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="4" column="1">
+            <property name="name">
+                <cstring>btAuto</cstring>
+            </property>
+            <property name="text">
+                <string>A&amp;uto</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>auto-generate keywords</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;b&gt;Auto-Generate Keywords&lt;/b&gt;&lt;br&gt;
+Create a list of keywords by going through all present file informations and merge them with the current list of keywords.</string>
+            </property>
+        </widget>
+        <widget class="KListBox" row="1" column="0" rowspan="4" colspan="1">
+            <property name="name">
+                <cstring>lstKeywords</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>150</width>
+                    <height>100</height>
+                </size>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<tabstops>
+    <tabstop>edKeyword</tabstop>
+    <tabstop>lstKeywords</tabstop>
+    <tabstop>btAdd</tabstop>
+    <tabstop>btRemove</tabstop>
+    <tabstop>btAuto</tabstop>
+</tabstops>
+<includes>
+    <include location="global" impldecl="in declaration">klocale.h</include>
+</includes>
+<layoutdefaults spacing="10" margin="10"/>
+</UI>

@@ -15,9 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qfileinfo.h>
 #include <qregexp.h>
 #include <qstring.h>
 #include <qstringlist.h>
+#include <qurl.h>
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -45,6 +47,12 @@ KwaveFileDialog::KwaveFileDialog(const QString &startDir,
     // apply the last url if found one
     if (m_last_url.length()) setURL(m_last_url);
 
+    // if a filename was passed, try to re-use it
+    if (last_url.length()) {
+	QFileInfo fi(last_url);
+	setSelection(fi.baseName(true));
+    }
+    
     // put the last extension to the top of the list
     // and thus make it selected
     if (m_last_ext.length() && filter.length()) {

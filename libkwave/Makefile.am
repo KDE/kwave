@@ -54,7 +54,8 @@ libkwave_la_SOURCES=\
 libkwave_la_LDFLAGS = -L../libaudiofile -version-info @LD_VERSION_INFO@ \
 	--dynamic --export-dynamic
 
-libkwave_la_LIBADD = ../libaudiofile/libaudiofile.la
+libkwave_la_LIBADD = ../libaudiofile/libaudiofile.la \
+	../mt/libkwavemt.la
 
 lib_LTLIBRARIES = libkwave.la
 

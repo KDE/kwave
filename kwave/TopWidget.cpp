@@ -478,11 +478,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
     if (!m_plugin_manager->artsDispatcher()) {
 	warning("no aRts dispatcher found -> exit !!!");
 	KMessageBox::error(this, i18n(
-	    "Sorry, but since version 0.6.2 you need a running aRts sound"
-	    "server for running kwave. "
-	    "You can setup arts through the KDE control panel. "
-	    "For more information, please refer to "
-	    "http://www.arts-project.org"
+	    "<b>Sorry, but since version 0.6.2 you need a running "\
+	    "aRts sound server for using kwave.</b><br>"\
+	    "You can setup aRts through the KDE control panel. "\
+	    "For more information, please refer to "\
+	    "the documentation shipped with KDE or "\
+	    "<a href=http://www.arts-project.org>"\
+	    "http://www.arts-project.org</a>."
 	));
 	return;
     };

@@ -131,16 +131,16 @@ messages:
 # Rules for re-creating all icons in their various sizes
 
 pics/$(PACKAGE)-16x16.png: pics/$(PACKAGE).xpm
-	convert -geometry 16x16 $< $@
+	$(CONVERT) -geometry 16x16 $< $@
 
 pics/$(PACKAGE)-22x22.png: pics/$(PACKAGE).xpm
-	convert -geometry 22x22 $< $@
+	$(CONVERT) -geometry 22x22 $< $@
 
 pics/$(PACKAGE)-32x32.png: pics/$(PACKAGE).xpm
-	convert -geometry 32x32 $< $@
+	$(CONVERT) -geometry 32x32 $< $@
 
 pics/$(PACKAGE)-48x48.png: pics/$(PACKAGE).xpm
-	convert -geometry 48x48 $< $@
+	$(CONVERT) -geometry 48x48 $< $@
 
 # just install datas here. Use install-exec-data for scripts and etc.
 # the binary itself is already installed from automake

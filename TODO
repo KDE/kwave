@@ -1,6 +1,4 @@
 
-o plugin interface for aRts support
-
 o plugins for import/export of different file formats (e.g. MP3)
   -> through aRts ?
 
@@ -23,6 +21,8 @@ o ask user if he wants to save before closing a modified file
 
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
+
+o display zero line in dark green if range is deleted
 
 o support for compressed wav files, like those found on www.montypython.net
 
@@ -68,11 +68,9 @@ o SignalProxy1 implementation is very inefficient for simple data types
 o check at program startup: does the help directory exist? If not, show
   a message and make a symbolic link
 
-o look at CurveWidget::CurveWidget()
 o SignalWidget::appendLabel()
-o SonagramWindow::toSignal()
 
-o in CurveWidget: something goes wrong when mirroring to left
+o SonagramWindow::toSignal()
 
 o rework of the FFTWidget
 

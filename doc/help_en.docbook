@@ -2317,7 +2317,7 @@
 <!-- ### Chapter: Developer's Guide to Kwave                            ### -->
 <!-- ###################################################################### -->
 
-<chapter id="developers"><title>Developer's Guide to Kapp</title>
+<chapter id="developers"><title>Developer's Guide to &kapp;</title>
 
     <!-- (OPTIONAL) A Programming/Scripting reference chapter should be
     used for apps that use plugins or that provide their own scripting hooks

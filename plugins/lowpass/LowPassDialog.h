@@ -24,6 +24,7 @@
 #include "LowPassDlg.uih.h"
 
 class QStringList;
+class LowPassFilter;
 
 class LowPassDialog: public LowPassDlg
 {
@@ -65,6 +66,9 @@ private:
 
     /** sample rate of the signal in samples/sec */
     double m_sample_rate;
+
+    /** filter function for calculating the frequency response */
+    LowPassFilter *m_filter;
     
 };
 

@@ -1,0 +1,472 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>SonagramDlg</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>SonagramDlg</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>520</width>
+            <height>344</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>5</hsizetype>
+            <vsizetype>5</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="caption">
+        <string>Set FFT/time resolution parameters</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>10</number>
+        </property>
+        <property name="spacing">
+            <number>10</number>
+        </property>
+        <property name="resizeMode">
+            <enum>Fixed</enum>
+        </property>
+        <widget class="QLayoutWidget" row="2" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>Layout1</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>btHelp</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Help</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+H</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>Horizontal Spacing2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>btOK</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;OK</string>
+                    </property>
+                    <property name="accel">
+                        <string></string>
+                    </property>
+                    <property name="autoDefault">
+                        <bool>true</bool>
+                    </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>btCancel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Cancel</string>
+                    </property>
+                    <property name="accel">
+                        <string></string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QButtonGroup" row="1" column="0">
+            <property name="name">
+                <cstring>buttonGroup1</cstring>
+            </property>
+            <property name="title">
+                <string>display</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>rbColor</cstring>
+                    </property>
+                    <property name="text">
+                        <string>use colors</string>
+                    </property>
+                    <property name="checked">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>use different colors for amplitude</string>
+                    </property>
+                </widget>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>rbGreyScale</cstring>
+                    </property>
+                    <property name="text">
+                        <string>greyscale</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>use greyscale only for amplitude</string>
+                    </property>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="QGroupBox" row="1" column="1">
+            <property name="name">
+                <cstring>groupBox3</cstring>
+            </property>
+            <property name="title">
+                <string>update</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>cbTrackChanges</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>on modifications</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>automatically update the sonagram &lt;br&gt;if the signal data has changed</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>cbFollowSelection</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>follow selection</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>automatically update the sonagram if the selection&lt;br&gt;has been enlarged, reduced or moved</string>
+                    </property>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="QGroupBox" row="0" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>groupBox1</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="title">
+                <string>FFT settings</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget" row="0" column="0">
+                    <property name="name">
+                        <cstring>layout3</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>m_pointlabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Number of FFT points:</string>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer3</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Minimum</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>61</width>
+                                    <height>21</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget" row="1" column="0">
+                    <property name="name">
+                        <cstring>layout4</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>Label2</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Window Function:</string>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer4</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Minimum</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>111</width>
+                                    <height>21</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </hbox>
+                </widget>
+                <widget class="KComboBox" row="1" column="1">
+                    <property name="name">
+                        <cstring>windowtypebox</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>50</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>150</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Choose windowing function here.&lt;br&gt;
+If fourier transformation should stay reversible,&lt;br&gt;
+use the type "None".</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Choose windowing function here.&lt;br&gt;
+If fourier transformation should stay reversible,&lt;br&gt;
+use the type "None".</string>
+                    </property>
+                </widget>
+                <widget class="KComboBox" row="0" column="1">
+                    <item>
+                        <property name="text">
+                            <string>64</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>128</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>256</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>512</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>1024</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>2048</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>4096</string>
+                        </property>
+                    </item>
+                    <property name="name">
+                        <cstring>pointbox</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>50</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="editable">
+                        <bool>true</bool>
+                    </property>
+                    <property name="currentItem">
+                        <number>3</number>
+                    </property>
+                    <property name="duplicatesEnabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime-factors,&lt;br&gt;
+if choosing big window sizes.&lt;br&gt;
+The computation will be much faster !</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;b&gt;Number of FFT points:&lt;/b&gt;&lt;p&gt;&lt;/p&gt;Try to choose numbers with small prime-factors,&lt;br&gt;
+if choosing big window sizes.&lt;br&gt;
+The computation will be much faster !</string>
+                    </property>
+                </widget>
+                <widget class="QSlider" row="2" column="1">
+                    <property name="name">
+                        <cstring>pointslider</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>50</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>0</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property name="minValue">
+                        <number>2</number>
+                    </property>
+                    <property name="maxValue">
+                        <number>2</number>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="2" column="0">
+                    <property name="name">
+                        <cstring>bitmaplabel</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>3</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>320</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property name="text">
+                        <string>?:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="3" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>windowlabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>?:</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+    </grid>
+</widget>
+<customwidgets>
+</customwidgets>
+<connections>
+    <connection>
+        <sender>btOK</sender>
+        <signal>clicked()</signal>
+        <receiver>SonagramDlg</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>btCancel</sender>
+        <signal>clicked()</signal>
+        <receiver>SonagramDlg</receiver>
+        <slot>reject()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>btOK</tabstop>
+    <tabstop>btCancel</tabstop>
+    <tabstop>pointbox</tabstop>
+    <tabstop>windowtypebox</tabstop>
+    <tabstop>pointslider</tabstop>
+    <tabstop>rbColor</tabstop>
+    <tabstop>cbTrackChanges</tabstop>
+    <tabstop>cbFollowSelection</tabstop>
+    <tabstop>btHelp</tabstop>
+</tabstops>
+<includes>
+    <include location="global" impldecl="in declaration">klocale.h</include>
+    <include location="global" impldecl="in declaration">knuminput.h</include>
+</includes>
+<layoutdefaults spacing="10" margin="10"/>
+<includehints>
+    <includehint>klineedit.h</includehint>
+</includehints>
+</UI>

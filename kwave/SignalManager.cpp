@@ -552,7 +552,7 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
     }
     Q_ASSERT(action);
 
-    {
+    if (m_undo_enabled) {
 	ThreadsafeX11Guard x11_guard;
 	if (!registerUndoAction(action)) {
 	    // creating/starting the action failed, so fail now.
@@ -752,11 +752,13 @@ void SignalManager::insertTrack(unsigned int index)
 {
     UndoTransactionGuard u(*this, i18n("insert track"));
 
-    UndoAction *undo = new UndoInsertTrack(m_signal, index);
-    if (!registerUndoAction(undo)) {
-	if (undo) delete undo;
-	abortUndoTransaction();
-	return;
+    if (m_undo_enabled) {
+	UndoAction *undo = new UndoInsertTrack(m_signal, index);
+	if (!registerUndoAction(undo)) {
+	    if (undo) delete undo;
+	    abortUndoTransaction();
+	    return;
+	}
     }
 
     unsigned int count = tracks();
@@ -786,11 +788,13 @@ void SignalManager::deleteTrack(unsigned int index)
 {
     UndoTransactionGuard u(*this, i18n("delete track"));
 
-    UndoAction *undo = new UndoDeleteTrack(m_signal, index);
-    if (!registerUndoAction(undo)) {
-	if (undo) delete undo;
-	abortUndoTransaction();
-	return;
+    if (m_undo_enabled) {
+	UndoAction *undo = new UndoDeleteTrack(m_signal, index);
+	if (!registerUndoAction(undo)) {
+	    if (undo) delete undo;
+	    abortUndoTransaction();
+	    return;
+	}
     }
 
     setModified(true);
@@ -875,14 +879,17 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
     // first store undo data for all tracks
     unsigned int track;
     unsigned int i;
-    for (i=0; i < count; i++) {
-	track = track_list[i];
-	UndoAction *undo = new UndoDeleteAction(track, offset, length);
-	if (!registerUndoAction(undo)) {
-	    // abort
-	    if (undo) delete undo;
-	    abortUndoTransaction();
-	    return false;
+
+    if (m_undo_enabled) {
+	for (i=0; i < count; i++) {
+	    track = track_list[i];
+	    UndoAction *undo = new UndoDeleteAction(track, offset, length);
+	    if (!registerUndoAction(undo)) {
+		// abort
+		if (undo) delete undo;
+		abortUndoTransaction();
+		return false;
+	    }
 	}
     }
 
@@ -1213,8 +1220,9 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     Q_ASSERT(action);
     if (!action) return false;
 
-    // if undo is not enabled, return a faked "ok"
-    if (!m_undo_enabled) return true;
+    // if undo is not enabled, this will fail -> no memory leak!
+    Q_ASSERT(m_undo_enabled);
+    if (!m_undo_enabled) return false;
 
     unsigned int needed_size  = action->undoSize();
     unsigned int needed_mb = needed_size  >> 20;
@@ -1265,7 +1273,7 @@ bool SignalManager::saveUndoDelete(QMemArray<unsigned int> &track_list,
     undo_list.setAutoDelete(true);
 
     // loop over all tracks
-    while (count--) {
+    while (m_undo_enabled && count--) {
 	unsigned int t = track_list[count];
 	UndoDeleteAction *action = new UndoDeleteAction(t, offset, length);
 	if (!registerUndoAction(action)) {
@@ -1565,7 +1573,7 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 {
     ThreadsafeX11Guard x11_guard;
 
-    if (with_undo) {
+    if (m_undo_enabled && with_undo) {
 	/* save data for undo */
 	UndoTransactionGuard undo_transaction(*this, i18n("modify file info"));
 	UndoFileInfo *undo = new UndoFileInfo(*this);

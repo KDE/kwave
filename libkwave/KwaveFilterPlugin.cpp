@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <errno.h>
+#include <qapplication.h>
 #include <qobject.h>
 #include <qdialog.h>
 #include <qglobal.h>
@@ -48,6 +49,8 @@ KwaveFilterPlugin::KwaveFilterPlugin(PluginContext &context)
 //***************************************************************************
 KwaveFilterPlugin::~KwaveFilterPlugin()
 {
+    qApp->syncX();
+    
     if (m_progress) m_progress->deleteLater();
     m_progress = 0;
     if (m_confirm_cancel) m_confirm_cancel->deleteLater();

@@ -65,7 +65,7 @@ DISTCLEANFILES	 = Makefile.in Makefile
 
 %.o: %.cc
 	@echo plugin \"$(MODNAME)\": compiling idl implementation "'"$<"'"
-	 @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
+	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
 
 %.moc.o: %.moc.cxx
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"

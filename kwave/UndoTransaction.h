@@ -43,6 +43,9 @@ public:
      */
     UndoTransaction(const QString &name);
 
+    /** Destructor */
+    virtual ~UndoTransaction() {};
+
     /** Returns the size in bytes summed up over all undo actions */
     unsigned int undoSize();
 

@@ -18,7 +18,7 @@ MenuManager::MenuManager (QWidget *parent,KMenuBar *bar):QObject (parent)
   menuIDs.setAutoDelete(true);
 }
 //*****************************************************************************
-Menu  *MenuManager::findMenu (const char *name)
+Menu  *MenuManager::findTopLevelMenu (const char *name)
 {
   Menu *tmp=toplevelmenus.first();
   while (tmp)
@@ -66,6 +66,22 @@ int parseToKeyCode (char *key)
 	cnt++;
       }
   return keycode;
+}
+//*****************************************************************************
+void MenuManager::registerID (const char *id, Menu *menu)
+{
+  if (!menu) return;
+  debug("register '%s'", id);
+
+  if (!id)
+    {
+      char *unknown_id = new char[128];
+      sprintf(unknown_id, "unknown/%s/%d", menu->getName(), menu->getId());
+      menuIDs.insert(unknown_id, menu);
+      debug("register unknown: '%s'", unknown_id);
+    }
+  else
+    menuIDs.insert(duplicateString(id), menu);
 }
 //*****************************************************************************
 void MenuManager::setCommand (const char *command)
@@ -118,7 +134,7 @@ void MenuManager::setCommand (const char *command)
   for (cnt=0; cnt<len; cnt++)
     {
       int begin=cnt;
-      while ((pos[cnt])&&(pos[cnt]!='/')) cnt++;
+      while ((pos[cnt]) && (pos[cnt] != '/')) cnt++;
       if (cnt<len) pos[cnt]=0;
 
       if (parentmenu)
@@ -145,59 +161,74 @@ void MenuManager::setCommand (const char *command)
 	  else
 	  if (strcmp (&pos[begin],"separator")==0)
 	    {
-	      parentmenu->insertSeparator ();
+	      parentmenu->insertSeparator();
 	      cnt=len;
 	    }
 	  else
-          if (cnt+1>=len)
 	    {
-	      int keycode=0;
-	      if (key) keycode=parseToKeyCode (key);
-                 			
-	      // insert the entry into the current parent menu
-//	      debug("new entry='%s'", pos+begin); // ###
-	      int numeric_id = parentmenu->insertEntry(
-		klocale->translate(&pos[begin]),com,keycode
-	      );
+	      if (cnt+1>=len) // (end of tree / leaf)
+		{
+		  Menu *foundmenu=parentmenu->findMenu(&pos[begin]);
+		  if (foundmenu)
+		    {
+		      // menu already exists, this is only
+		      // relevant for registering it's ID
 
-	      // register the <string_id:menuItem> pair
-	      if (id)
-		  menuIDs.insert(id,
-		    new MenuIdentifier(parentmenu, numeric_id)
-		  );
+		      // register the <string_id:menuItem> pair
+		      registerID(id, foundmenu);
+		    }
+                  else
+		    {
+		      // insert a new entry into the current parent menu
+		      int keycode=0;
+		      if (key) keycode=parseToKeyCode(key);
+
+//		      debug("new entry='%s'", pos+begin); // ###
+		      int numeric_id = parentmenu->insertEntry(
+		        klocale->translate(&pos[begin]),com,keycode);
+
+		      // register the <string_id:menuItem> pair
+		      Menu *entry = new Menu((const char *)0, numeric_id);
+		      entry->setParent(parentmenu);
+		      registerID(id, entry);
+		    }
+		}
+	      else
+		newmenu=parentmenu->findMenu(&pos[begin]);
 	    }
-	  else
-	    newmenu=parentmenu->findMenu (&pos[begin]);
 	}
-      else //is a top-level window ?
-	newmenu=this->findMenu (&pos[begin]);
+      else //is a top-level menu ?
+	newmenu=this->findTopLevelMenu (&pos[begin]);
 
-      if (!newmenu) //if menu is not already known, create a new menu
+      if (!newmenu) // if menu is not already known, create a new menu
 	{
 	  newmenu=new Menu(
 	    klocale->translate(&pos[begin]),Menu::getUniqueId());
 	  if (newmenu)
 	    {
-//	      debug("new menu='%s'", pos+begin); // ###
-
+//	      debug("new menu='%s' (parent=%p, id=%d)", pos+begin,parentmenu,newmenu->getId()); // ###
 
 	      if (parentmenu)
 		{
-		  parentmenu->insertMenu (newmenu);
+		  int numeric_id = parentmenu->insertMenu(newmenu);
+//		  debug("numeric_id (submenu) returned as %d",numeric_id);
+		  newmenu->setId(numeric_id);
 
 		  // register the <string_id:menu> pair
-		  if (id) menuIDs.insert(id,
-		    new MenuIdentifier(parentmenu, newmenu->getId()));
+		  registerID(id, newmenu);
 		}
 	      else
 		{
-		    //append to known list of top-level menus
-		    bar->insertItem(klocale->translate(&pos[begin]),newmenu);
-		    toplevelmenus.append (newmenu);
+		  //append to the list of top-level menus
+		  int numeric_id = bar->insertItem(
+		    klocale->translate(&pos[begin]),newmenu);
+//		  debug("numeric_id (toplevel) returned as %d",numeric_id);
+		  newmenu->setId(numeric_id);
+		  newmenu->setTopLevel(true);
+		  toplevelmenus.append (newmenu);
 
-		    // register the <string_id:menu> pair
-		    if (id) menuIDs.insert(id,
-		      new MenuIdentifier((QMenuData *)bar, newmenu->getId()));
+		  // register the <string_id:menu> pair
+		  registerID(id, newmenu);
 		}
 
 //		connect (newmenu,SIGNAL(command(const char *)),
@@ -300,34 +331,28 @@ void MenuManager::addNumberedMenuEntry (const char *name,const char *entry)
 //*****************************************************************************
 void MenuManager::setItemChecked(const char *id, bool check)
 {
-  debug("setItemChecked('%s', %d)", id, check);
+  debug("MenuManager::setItemChecked('%s', %d)", id, check);
+  Menu *menu = menuIDs.find(id);
+  if (menu)
+    {
+      if (menu->isTopLevel())
+	{
+	  bar->setItemChecked(menu->getId(), check);
+	}
+      else
+	{
+	  Menu *parentMenu = menu->getParent();
+	  if (parentMenu)
+	    parentMenu->setItemChecked(menu->getId(), check);
+	}
+    }
 }
 //*****************************************************************************
 void MenuManager::setItemEnabled(const char *id, bool enable)
 {
-  debug("setItemEnabled('%s', %d)", id, enable);
-  MenuIdentifier *ident = menuIDs.find(id);
-  if (ident && bar)
-    {
-      QMenuData *menu = ident->getMenu();
-      int i           = ident->getID();
-
-      debug("menu found, menu=%p, id=%d", menu, i);
-      menu->setItemEnabled(i, enable);
-    }
-}
-//*****************************************************************************
-void MenuManager::setMenuEnabled(const char *id, bool enable)
-{
-/*
-  debug("setMenuEnabled('%s', %d)", id, enable);
-  QMenuData *item = menuIDs.find(id);
-  if (item && bar)
-    {
-      debug("menu found, item=%p", item);
-      item->setItemEnabled(0, enable);
-    }
-*/
+  debug("MenuManager::setItemEnabled('%s', %d)", id, enable);
+  Menu *menu = menuIDs.find(id);
+  if (menu) menu->setEnabled(enable);
 }
 //*****************************************************************************
 NumberedMenu *MenuManager::findNumberedMenu (const char *name)

@@ -26,11 +26,15 @@ int Menu::getIdRange (int num)
   return x;
 }
 //*****************************************************************************
-Menu::Menu (const char *name,int id): QPopupMenu()
+Menu::Menu (const char *name,int id, bool toplevel): QPopupMenu()
 {
+  this->parentMenu=0;
   this->name=duplicateString (name);
   this->id=id;
   this->memberId=0;
+  this->toplevel=toplevel;
+  this->toplevelEnabled=true;
+  this->enabled=true;
   QObject::connect (this,SIGNAL(activated(int)),this,SLOT(selected(int)));
   checkItems=false;
   numberItems=false;
@@ -56,16 +60,6 @@ void Menu::checkable ()
   QObject::connect (this,SIGNAL(activated(int)),this,SLOT(check(int)));
   setCheckable (true);
   checked=-1; 
-}
-//*****************************************************************************
-int Menu::insertEntry (const char *name,const char *command, int keycode)
-{
-  int id=getUniqueId();
-  int key;
-  commands.append (new MenuCommand (command,id));
-  key=this->insertItem (name,id);
-  this->setAccel (keycode,id);
-  return key; // return the real id of the menu entry
 }
 //*****************************************************************************
 void Menu::selected (int num)
@@ -100,6 +94,35 @@ void Menu::selected (int num)
     }
 }
 //*****************************************************************************
+void Menu::setEnabled (const bool enable)
+{
+  this->enabled=enable;
+
+//  debug("Menu::setEnabled(), menu='%s', id=%d", getName(), getId());
+
+  Menu *parentMenu = this->getParent();
+  if (!this->isTopLevel() && parentMenu)
+    {
+      parentMenu->setItemEnabled(this->getId(),
+	(enable && toplevelEnabled));
+    }
+  else
+    {
+      Menu *child=children.first();
+      while (child)
+	{
+	  child->setTopLevelEnabled(enable);
+	  child=children.next();
+	}
+    }
+}
+//*****************************************************************************
+void Menu::setTopLevelEnabled (const bool enable)
+{
+  toplevelEnabled=enable;
+  setEnabled(this->enabled);
+}
+//*****************************************************************************
 void Menu::check ()
   //checks currently checked menu item
 {
@@ -121,10 +144,31 @@ void Menu::check (int num)
     }
 }
 //*****************************************************************************
-void Menu::insertMenu (Menu *entry)
+int Menu::insertEntry (const char *name,const char *command, int keycode)
 {
+  int id=getUniqueId();
+  int key;
+  Menu *dummy;
+
+  dummy = new Menu(name, id, false);
+  commands.append (new MenuCommand (command,id));
+  children.append (dummy);
+
+  key=this->insertItem (klocale->translate(name),id);
+  this->setAccel (keycode,id);
+
+  dummy->setParent(this);
+  dummy->setId(key);
+  return key; // return the real id of the menu entry
+}
+//*****************************************************************************
+int Menu::insertMenu (Menu *entry)
+{
+  int key;
   children.append (entry);
-  this->insertItem (klocale->translate(entry->getName()),entry);
+  key = this->insertItem(entry->getName(), entry);
+  entry->setId(key);
+  return key;
 }
 //*****************************************************************************
 void Menu::removeMenu (const char *name)

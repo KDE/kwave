@@ -10,12 +10,12 @@ dist=true
 install=false
 type=HEADER
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/Menu.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/Menu.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.h,/usr/src/packages/multimedia/sound/kwave/libgui/NumberedMenu.h,/usr/src/packages/multimedia/sound/kwave/src/menus.config,/usr/src/packages/multimedia/sound/kwave/libgui/Dialog.h,/usr/src/packages/multimedia/sound/kwave/libgui/Dialog.cpp,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.h,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.h,/usr/src/packages/multimedia/sound/kwave/src/MainWidget.h,/usr/src/packages/multimedia/sound/kwave/src/MainWidget.cpp,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/Menu.h,/usr/src/packages/multimedia/sound/kwave/libgui/Menu.cpp,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.h
+header_file=/usr/src/packages/multimedia/sound/kwave/libgui/Menu.h
 cpp_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp
-browser_file=file:/opt/kde/share/doc/HTML/de/kdevelop/reference/C/SYNTAX/struct.html
+browser_file=file:/usr/src/packages/development/kdelibdocs-0.3/kdeui/KMenuBar.html
 [src/PitchContainer.cpp]
 install_location=
 dist=true
@@ -103,9 +103,10 @@ dist=true
 install=false
 type=HEADER
 [LFV Groups]
+Zusätzliche=menus.config,
 GNU=AUTHORS,COPYING,ChangeLog,INSTALL,README,TODO,NEWS,
 Dialoge=*.kdevdlg,
-groups=Headers,Sources,Dialoge,Übersetzungen,GNU,
+groups=Zusätzliche,Headers,Sources,Dialoge,Übersetzungen,GNU,
 Sources=*.cpp,
 Übersetzungen=*.po,
 Headers=*.h,
@@ -186,12 +187,12 @@ install_location=
 dist=true
 install=false
 type=HEADER
-[src/menus.config]
+[bin/increment_release.sh]
 install_location=
 dist=true
 install=false
 type=DATA
-[bin/increment_release.sh]
+[src/menus.config]
 install_location=
 dist=true
 install=false
@@ -217,7 +218,7 @@ dist=true
 install=false
 type=HEADER
 [src/Makefile.am]
-files=src/menus.config,src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleio.cpp,src/sampleop.h,src/SignalManager.h,src/SignalWidget.cpp,src/SignalWidget.h,src/SonagramContainer.cpp,src/SonagramContainer.h,src/SonagramWindow.cpp,src/SonagramWindow.h,src/TopWidget.cpp,src/TopWidget.h,
+files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleio.cpp,src/sampleop.h,src/SignalManager.h,src/SignalWidget.cpp,src/SignalWidget.h,src/SonagramContainer.cpp,src/SonagramContainer.h,src/SonagramWindow.cpp,src/SonagramWindow.h,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,
 type=static_library
 sub_dirs=
 [src/FFTWindow.h]

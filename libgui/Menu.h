@@ -20,19 +20,26 @@ class Menu: public QPopupMenu
 {
   Q_OBJECT
   public:
-  Menu                             (const char *name,int id);
+  Menu                             (const char *name,int id, bool toplevel=false);
   ~Menu                            ();
+  inline Menu         *getParent   () { return (Menu*)parentMenu;};
+  inline void          setParent   (Menu *parent) { this->parentMenu = parent;};
   inline const char   *getName     () const {return name;};
+  inline bool          isTopLevel  () { return toplevel;};
+  inline void          setTopLevel (bool toplevel) { this->toplevel=toplevel;};
   inline int           getId       () const {return id;};
+  inline void          setId       (int id) {this->id=id;};
   inline int           getMemberId () const {return memberId;};
   inline void          setMemberId (int id) {memberId=id;};
-  static int           getUniqueId (); 
+  static int           getUniqueId ();
   static int           getIdRange  (int); 
-         void          insertMenu  (Menu *);
-	 void          setCommand  (const char *);
+         int           insertMenu  (Menu *);
          int           insertEntry (const char *name,const char *com, int key);
+	 void          setCommand  (const char *);
          void          removeMenu  (const char *name);
          Menu         *findMenu    (const char *name);
+         void          setEnabled  (const bool enable);
+         void          setTopLevelEnabled(const bool enable);
          void          check       ();
          void          checkable   ();
          void          numberable  ();
@@ -49,12 +56,15 @@ class Menu: public QPopupMenu
  private:
   QList<Menu>         children;          //list of pointers to children menus
   QList<MenuCommand>  commands;          //list of pointers to children menus
+  bool                toplevel;          //true for toplevel menu
+  bool                toplevelEnabled;   //toplevel menu is enabled
   int                 id;
   int                 memberId;          //id of members in the case items of
                                          //a numberedMenu are used in this
   char*               name;              //name of this menu as used internally
   char*               com;               //command template used if numbered
-  int                 comcnt;            
+  int                 comcnt;
+  bool                enabled;           //entry enabled, independend from toplevel
   int                 checked;           //currently checked Item
   bool                numberItems;       //flag if command has to include
                                          //the menuitem id

@@ -12,25 +12,6 @@
 class KMenuBar;
 class NumberedMenu;
 
-class MenuIdentifier: public QObject
-{
-  Q_OBJECT
-  public:
-
-  MenuIdentifier(QMenuData *m, int id)
-  {
-    menu  = m;
-    ident = id;
-  }
-
-  QMenuData *getMenu() { return menu; };
-  int        getID()   { return ident;};
-
-  protected:
-  QMenuData *menu;
-  int       ident;
-};
-
 //*****************************************************************************
 class MenuManager:public QObject
 {
@@ -53,7 +34,6 @@ class MenuManager:public QObject
 
  void setItemChecked		(const char *id, bool check);
  void setItemEnabled		(const char *id, bool enable);
- void setMenuEnabled		(const char *id, bool enable);
 
  signals:
 
@@ -65,8 +45,8 @@ class MenuManager:public QObject
 
  protected:
 
- Menu                 *findMenu (const char *name);
- int                  getIdRange (int);
+ Menu                *findTopLevelMenu  (const char *name);
+ void                registerID         (const char *id, Menu *menu);
 
  private:
 
@@ -76,8 +56,8 @@ class MenuManager:public QObject
  QList<NumberedMenu> numberedMenus; //list of special menus, that allow
                                     //dynamical appending (for presets,
                                     //file list,etc)
- QDict<MenuIdentifier> menuIDs;     //for mapping string ids of menues
-                                    //to references to menu item objects
+ QDict<Menu> menuIDs;               //for mapping string ids of menues
+                                    //to references of menues
 
 };
 #endif

@@ -36,6 +36,7 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   menushown=false;
 
   if (manage->addNumberedMenu ("Channels")) manage->addNumberedMenuEntry ("Channels","none");
+  updateMenu();
 
   this->parent=parent;
   lamps=new MultiStateWidget*[1];
@@ -65,13 +66,11 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   QObject::connect (lamps[0],SIGNAL(clicked(int)),signalview,SLOT(toggleChannel(int)));
 
   zoomselect->insertStrList (zoomtext,6);
-  connect      (slider,SIGNAL(valueChanged(int)),signalview,SLOT(setOffset(int)));
+  connect       (slider,SIGNAL(valueChanged(int)),signalview,SLOT(setOffset(int)));
   connect	(signalview,SIGNAL(viewInfo(int,int,int)),
 			 slider,SLOT(setRange(int,int,int)));
   connect 	(signalview,SIGNAL(playingfinished()),
 			 this,SLOT(stop()));
-  connect 	(signalview,SIGNAL(checkMenu(const char*, bool)),
-			 this,SLOT(checkMenu(const char*, bool)));
   connect	(zoomselect,SIGNAL(activated(int)),
 			 this,SLOT(selectedZoom(int)));
   connect	(this,SIGNAL(setOperation(int)),
@@ -103,6 +102,21 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   this->status=status;
 }
 //*****************************************************************************
+void MainWidget::updateMenu ()
+{
+  if (! manage) return;
+
+  bool have_signal = (numsignals != 0);
+
+  manage->setItemEnabled("ID_FILE_SAVE", have_signal);
+  manage->setItemEnabled("ID_FILE_SAVE_CURRENT", have_signal);
+  manage->setItemEnabled("ID_FILE_REVERT", have_signal);
+  manage->setItemEnabled("ID_VIEW", have_signal);
+  manage->setItemEnabled("ID_LABELS", have_signal);
+  manage->setItemEnabled("ID_FX", have_signal);
+  manage->setItemEnabled("ID_CALCULATE", have_signal);
+}
+//*****************************************************************************
 void MainWidget::updateChannels (int cnt)
   // generates menu entries 
 {
@@ -126,6 +140,7 @@ void MainWidget::setSignal  (const char *filename,int type)
 // ###  if (signal) setBitsPerSample(signal->getBitsPerSample());
   signalview->setZoom 	(100.0);
   slider->refresh();
+  updateMenu();
 }
 //*****************************************************************************
 void MainWidget::setSignal  (SignalManager *signal)
@@ -133,6 +148,7 @@ void MainWidget::setSignal  (SignalManager *signal)
   signalview->setSignal	(signal);
 // ###  if (signal) setBitsPerSample(signal->getBitsPerSample());
   signalview->setZoom 	(100.0);
+  updateMenu();
 }
 //*****************************************************************************
 void MainWidget::setRateInfo (int rate)
@@ -338,6 +354,8 @@ void MainWidget::setChannelInfo  (int channels)
 	}
       numsignals=channels;
     }
+
+  updateMenu();
 }
 //*****************************************************************************
 void MainWidget::resizeEvent  (QResizeEvent *)
@@ -355,9 +373,10 @@ void MainWidget::resizeEvent  (QResizeEvent *)
      speakers[i]->setGeometry (0,i*(height()-bsize-20)/numsignals+20,20,20);
    }
 }
-
 //*****************************************************************************
-void MainWidget::setBitsPerSample(int bits)
+int MainWidget::getBitsPerSample()
 {
-  debug("MainWidget::setBitsPerSample(%d)", bits);
+  return (signalview) ? signalview->getBitsPerSample() : 0;
 }
+//*****************************************************************************
+

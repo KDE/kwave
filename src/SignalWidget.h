@@ -41,6 +41,7 @@ class SignalWidget : public QWidget
  void   addLabelType            (const char *);
  int	doCommand	        (const char *);
  int    getSignalCount          ();
+ int    getBitsPerSample        ();
 
  public slots:
 

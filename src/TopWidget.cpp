@@ -103,37 +103,28 @@ TopWidget::TopWidget () : KTMainWindow ()
   setMenu (bar);
   setStatusBar (status);
 
-  //add a numbered menu for the resolution
-  menumanage->clearNumberedMenu ("bits");
-  for (int i=8; i<=24; i+=8)
-    {
-      char *entry = new char[16];
-      sprintf(entry, "%d Bits",i);
-      menumanage->addNumberedMenuEntry ("bits",klocale->translate(entry));
-    }
-
-  // check the default bits per sample
-  // ### TODO ### //
-
-// ### //
-  menumanage->setItemEnabled("ID_FILE_SAVE", false);
-
+  updateMenu();
 }
 
 //*****************************************************************************
 void TopWidget::revert ()
 {
- if (name) mainwidget->setSignal (name);
+  if (name)
+    {
+      mainwidget->setSignal(name);
+      bits = mainwidget->getBitsPerSample();
+      updateMenu();
+    }
 }
 //*****************************************************************************
 void TopWidget::resolution (const char *str)
 {
   Parser parser (str);
-  int cnt=parser.toInt();
+  int bps=parser.toInt();
 
-  if ((cnt>=0)&&(cnt<=2))
+  if ( (bps >= 0) && (bps <= 24) && (bps % 8 == 0))
     {
-      bits=(++cnt * 8);
+      bits=bps;
       debug("bits=%d", bits); // ###
     }
   else debug ("out of range\n");
@@ -154,8 +145,8 @@ void TopWidget::openRecent (const char *str)
 	  this->name=duplicateString (name.data());
 	  mainwidget->setSignal (this->name);
 	  setCaption (this->name);
-// ### //
-	  menumanage->setItemEnabled("ID_FILE_SAVE", true);
+	  bits = mainwidget->getBitsPerSample();
+	  updateMenu();
 	}
     }
   else debug ("out of range\n");
@@ -176,6 +167,7 @@ void TopWidget::dropEvent (KDNDDropZone *drop)
 	  mainwidget->setSignal (name);
 	  globals.app->addRecentFile (name.data());
 	  setCaption (name.data());
+	  updateMenu();
 	}
     }
 }
@@ -187,10 +179,10 @@ void TopWidget::openFile ()
     {
       this->name=duplicateString (name.data());
       globals.app->addRecentFile (this->name);
-      setCaption (this->name);
       mainwidget->setSignal (this->name);
-// ### //
-      menumanage->setItemEnabled("ID_FILE_SAVE", true);
+      setCaption (this->name);
+      bits = mainwidget->getBitsPerSample();
+      updateMenu();
     }
 }
 //*****************************************************************************
@@ -202,6 +194,8 @@ void TopWidget::importAsciiFile ()
       this->name=duplicateString (name.data());
       mainwidget->setSignal (this->name,ASCII);
       setCaption (this->name);
+      bits = mainwidget->getBitsPerSample();
+      updateMenu();
     }
 }
 //*****************************************************************************
@@ -211,6 +205,7 @@ void TopWidget::saveFile ()
     {
       mainwidget->saveSignal (name,bits);
       setCaption (name);
+      updateMenu();
     }
   else saveFileAs (false);
 }
@@ -236,6 +231,7 @@ void TopWidget::saveFileAs (bool selection)
 	  mainwidget->saveSignal (name,bits,selection);
 	  globals.app->addRecentFile (name);
 	  setCaption (name);
+	  updateMenu();
 	}
       delete dialog;
     }
@@ -246,8 +242,9 @@ void TopWidget::setSignal (const char *newname)
   if (name) deleteString (name);
   this->name=duplicateString (newname);
   mainwidget->setSignal (name);
-  setCaption (name);
   globals.app->addRecentFile (name);
+  setCaption (name);
+  updateMenu();
 }
 //*****************************************************************************
 void TopWidget::setSignal (SignalManager *signal)
@@ -260,6 +257,25 @@ void TopWidget::updateRecentFiles ()
   menumanage->clearNumberedMenu ("recentfiles");
   for (unsigned int i =0 ; i < recentFiles.count(); i++)
     menumanage->addNumberedMenuEntry ("recentfiles",recentFiles.at(i));
+}
+//*****************************************************************************
+void TopWidget::updateMenu ()
+{
+  char *buffer = new char[64];
+  char *format;
+
+  format = "ID_FILE_SAVE_RESOLUTION_%d";
+  sprintf(buffer, format, bits);
+  menumanage->setItemChecked(buffer, true);
+  for (int res=8; res <= 24; res+=8)
+    {
+      sprintf(buffer, format, res);
+      menumanage->setItemChecked(buffer, false);
+    }
+  sprintf(buffer, format, bits);
+  menumanage->setItemChecked(buffer, true);
+
+  delete buffer;
 }
 //*****************************************************************************
 TopWidget::~TopWidget ()

@@ -36,6 +36,8 @@ class MainWidget : public QWidget
  void	setSignal	(SignalManager *);
  void 	saveSignal	(const char *filename,int bits,bool selection=false);
  unsigned char *getOverView (int);
+ int    getBitsPerSample();
+ bool   hasSignal       () { return (numsignals != 0); };
 
  protected:
 
@@ -63,9 +65,9 @@ class MainWidget : public QWidget
  void channelInfo       (int);
 
  protected:
+ void updateMenu        ();
  void updateChannels    (int);
  void resizeEvent	(QResizeEvent *);
- void setBitsPerSample  (int);
 
  private:
 

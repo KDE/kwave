@@ -1,4 +1,14 @@
 
+o the clipboard does not work between other kwave instances
+
+o internationalization
+
+o make the gui/redraws faster
+
+o let more than one toplevel window work
+
+o use the KDE's clipboard
+
 o make a proper projekt file for kdevelop (actually is broken)
 
 o find the reason for that short noise at the end of playback
@@ -16,8 +26,6 @@ o apply the GNU coding style
 
 o change selected bits_per_sample menu entry after loading a wav file
 
-o bugfix for saving list of recent files
-
 o get the plugins working with compilers other than egcs
 
 o playback in stereo
@@ -27,8 +35,6 @@ o disable Save and SaveAs menu entries if no signal is present
 o check dependencies/Makefiles
 
 o fix bug in Fx->Periodic Silence (segmentation fault)
-
-o take a look at CORBA
 
 o pluginize/ put into library  the following files in src/ :
   mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h 

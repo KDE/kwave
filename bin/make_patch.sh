@@ -153,10 +153,10 @@ if test -e $PROJECT-$PREV_VERSION; then
     rm -Rf $PROJECT-$PREV_VERSION
 fi
 
-echo -e "\tunpacking previous version in "$PROJECT-$PREV_VERSION
+echo -e "\tunpacking previous version in "/tmp/$PROJECT-$PREV_VERSION
 mkdir $PROJECT-$PREV_VERSION
 cd -
-cd $PROJECT-$PREV_VERSION
+cd /tmp/$PROJECT-$PREV_VERSION
 tar -xzf $ARCHIVE_DIR/$PROJECT-$PREV_FILE
 cd -
 
@@ -167,12 +167,14 @@ DIFF_ROOT=${SRC_DIR:0:$((${#SRC_DIR}-${#SRC_PREFIX}-1))}
 PATCH_FILE=$ARCHIVE_DIR/$PROJECT-$VERSION.diff.gz
 echo -e "\tmaking patch file "$PATCH_FILE
 echo -e "\tpatch root="$DIFF_ROOT
-echo -e "\t\told="$PROJECT-$PREV_VERSION/$SRC_PREFIX
+echo -e "\t\told="/tmp/$PROJECT-$PREV_VERSION/$SRC_PREFIX
 echo -e "\t\tnew="$DIFF_ROOT"/"$SRC_PREFIX
 cd $DIFF_ROOT
-diff -u -N --recursive $PROJECT-$PREV_VERSION/$SRC_PREFIX \
-		       $SRC_PREFIX | sed s°°°g | \
-		       gzip -9 - > $PATCH_FILE
+diff -Naur /tmp/$PROJECT-$PREV_VERSION/$SRC_PREFIX \
+		       $SRC_PREFIX \
+		       | sed s°^---\ /tmp/°---\ °g \
+		       | sed s°^diff\ -Naur\ /tmp/°diff\ -Naur\ °g \
+		       | gzip -9 - > $PATCH_FILE
 cd -
 
 #

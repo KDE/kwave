@@ -21,6 +21,7 @@ class TopWidget : public KTMainWindow
  public slots:
  void 	setOp             (const char *);
  void	dropEvent	  (KDNDDropZone *);
+ void   updateMenu        ();
 
  protected:
 

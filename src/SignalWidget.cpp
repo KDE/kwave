@@ -373,8 +373,12 @@ void SignalWidget::connectSignal ()
 //****************************************************************************
 int SignalWidget::getSignalCount ()
 {
-  if (signalmanage) return signalmanage->getChannelCount ();
-    return 0;
+  return (signalmanage) ? signalmanage->getChannelCount() : 0;
+}
+//****************************************************************************
+int SignalWidget::getBitsPerSample ()
+{
+  return (signalmanage) ? signalmanage->getBitsPerSample() : 0;
 }
 //****************************************************************************
 void SignalWidget::createSignal (const char *str)

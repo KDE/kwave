@@ -83,6 +83,7 @@ public:
 
     /**
      * Executes a plugin in the context of a given parent widget.
+     * @return zero on success or negative error code
      */
     int executePlugin(const QString &name, QStringList *params);
 

@@ -45,6 +45,7 @@ class MSignal : public QObject
  	MSignal		(QWidget *parent,int size,int rate,int channels=1);
  	~MSignal	();
 	MSignal *getNext	();  //returns pointer to next channel...
+	int getLockState	();  //returns lock-state of signal
 
 
  void	detachChannels  ();
@@ -170,17 +171,16 @@ class MSignal : public QObject
  private: 
 
  int		*sample;               //samples, linear in memory
- int            channels;              //number of channels attached
- int            selected;              //flag if this channel is selected
  int		length;                //number of samples
- int		rate;                  //sampling rate
+ int		rate;                  //sampling rate being used
  int		rmarker,lmarker;       //selection markers
- int		*msg;
- int            speaker;                //code for playback speaker
- MSignal        *next;                  //other channels linked similar together 
- QString 	filename;		//filename of used Signal
- QWidget	*parent;		//used for displaying requesters
-
+ int		*msg;                  //shared memory used for communication
+ MSignal        *next;                 //next channel linked to this 
+ QWidget	*parent;	       //pointer to connected widget, used for displaying requesters etc...
+ char           selected;              //flag if this channel is selected
+ char           locked;                //boolean if sample is locked (intertask-semaphore)
+ char           speaker;               //code for playback speaker (e.g. left or right)
+ unsigned char  channels;              //number of channels attached to this signal
 };
 #endif  /* sample.h */   
 

@@ -23,14 +23,16 @@ extern MSignal *clipboard;
 
 const char *sounddevice={"/dev/dsp"};
 
-int swapEndian (int s)	//yes you guessed it only for sizeof(int)==4 this
-			//works as it should do ...
+int swapEndian (int s)
+  //yes you guessed it only for sizeof(int)==4 this
+  //works as it should do ...
 {
  return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
 }
 
-long swapEndian (long s)	//yes you guessed it only for sizeof(int)==4 this
-			//works as it should do ...
+long swapEndian (long s)
+  //yes you guessed it only for sizeof(int)==4 this
+  //works as it should do ...
 {
  return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
 }
@@ -393,16 +395,17 @@ MSignal::MSignal (QWidget *par,QString *name,int channel=1) :QObject ()
 void	MSignal::save (QString *filename,int bit,int selection)
 {
   int begin=0;
-  int length=this->length;
+  int endp=this->length;
   struct wavheader	header;
   int **samples=new int* [channels];
   int channels;
   int j=0;
 
+  if (selection)
   if (lmarker!=rmarker)
     {
       begin=lmarker;
-      length=rmarker;
+      endp=rmarker;
     }
 
   QFile	*sigout=new QFile (filename->data());
@@ -420,7 +423,7 @@ void	MSignal::save (QString *filename,int bit,int selection)
     {
       if (sigout->exists())
 	{
-	  debug ("File Exists !\n");
+	  debug ("File Exists overwriting !\n");
 	}
 
       sigout->open (IO_WriteOnly);
@@ -430,7 +433,7 @@ void	MSignal::save (QString *filename,int bit,int selection)
       strncpy (header.wavid,"WAVE",4);
       strncpy (header.fmtid,"fmt ",4);
       header.fmtlength=16;
-      header.filelength=(length*bit/8+sizeof(struct wavheader));
+      header.filelength=((endp-begin)*bit/8+sizeof(struct wavheader));
       header.mode=1;
       header.channels=channels;
       header.rate=rate;
@@ -438,7 +441,7 @@ void	MSignal::save (QString *filename,int bit,int selection)
       header.BlockAlign=bit/8;
       header.bitspersample=bit;
 
-      int datalen=length*header.channels*header.bitspersample/8;
+      int datalen=(endp-begin)*header.channels*header.bitspersample/8;
 
 #if defined(IS_BIG_ENDIAN)
       header.mode 		= swapEndian (header.mode);
@@ -458,13 +461,13 @@ void	MSignal::save (QString *filename,int bit,int selection)
       switch (bit)
 	{
 	case 8:
-	  writeData8Bit (sigout,begin,length,samples,channels);
+	  writeData8Bit (sigout,begin,endp,samples,channels);
 	break;
 	case 16:
-	  writeData16Bit (sigout,begin,length,samples,channels);
+	  writeData16Bit (sigout,begin,endp,samples,channels);
 	break;
 	case 24:
-	  writeData24Bit (sigout,begin,length,samples,channels);
+	  writeData24Bit (sigout,begin,endp,samples,channels);
 	break;
 	}
       sigout->close();
@@ -523,7 +526,7 @@ void MSignal::writeData24Bit (QFile *sigout,int begin,int end,int **samples,int 
     }
 }
 //**********************************************************
-void	MSignal::load24Bit (QFile *sigin,int offset,int interleave)
+void MSignal::load24Bit (QFile *sigin,int offset,int interleave)
 {
   unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*3];
   sample = new int [length];
@@ -540,7 +543,7 @@ void	MSignal::load24Bit (QFile *sigin,int offset,int interleave)
 	      sigin->at(sigin->at()+offset);
 	      for (i=0;i<length;)
 		{
-		  if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;
+		  if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;//determine number of sample to fill buffer with...
 		  else j=length;
 
 		  sigin->readBlock((char *)loadbuffer,(j-i)*3);

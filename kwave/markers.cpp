@@ -17,6 +17,22 @@ Marker::~Marker ()
   if (name) delete name;
 }
 //****************************************************************************
+MarkerList::MarkerList ()
+{
+}
+//****************************************************************************
+MarkerList::~MarkerList ()
+{
+  clear();
+}
+//****************************************************************************
+int MarkerList::compareItems (GCI a,GCI b)
+{
+  Marker *c = (Marker *)a;
+  Marker *d = (Marker *)b;
+  return c->pos-d->pos;
+}
+//****************************************************************************
 MarkerType::MarkerType ()
 {
   name=0;
@@ -222,6 +238,34 @@ void SigWidget::saveBlocks (int bit)
       SaveBlockDialog dialog (this);
       if (dialog.exec ())
 	{
+	  struct MarkerType *start=markertypes->at(dialog.getType1());
+	  struct MarkerType *stop=markertypes->at(dialog.getType2());
+	  QDir *savedir=dialog.getDir();
+	  
+	  struct Marker *tmp;
+	  struct Marker *tmp2;
+	  int count=0;
+	  int l=signal->getLMarker(); //save old marker positions...
+	  int r=signal->getRMarker(); //
+
+	  for (tmp=markers->first();tmp;tmp=markers->next())  //traverse list of markers
+	    {
+	      if (tmp->type==start)
+		{
+		  for (tmp2=tmp;tmp2;tmp2=markers->next())  //traverse rest of list to find next stop marker
+		    if (tmp2->type==stop)
+		      {
+			char buf[128];
+			sprintf (buf,"%s%04d.wav",dialog.getName(),count); //lets hope noone tries to save more than 10000 blocks...
+			//			printf ("saving from %d to %d\n",tmp->pos,tmp2->pos);
+			signal->setMarkers (tmp->pos,tmp2->pos);
+			signal->save (&savedir->absFilePath(buf),bit,true);  //save selected range...
+			count++;
+			break;
+		      }
+		}
+	    }
+	  signal->setMarkers (l,r);
 	}
     }
 }

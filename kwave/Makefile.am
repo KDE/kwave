@@ -75,6 +75,7 @@ install-data-local:
 	$(INSTALL_DATA) light_off.xpm $(PIXDIR)
 	$(INSTALL_DATA) logo.xpm $(PIXDIR)
 	$(INSTALL_DATA) knob.xpm $(PIXDIR)
+	$(INSTALL_DATA) selectedknob.xpm $(PIXDIR)
 	$(INSTALL_DATA) xspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) rspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) lspeaker.xpm $(PIXDIR)

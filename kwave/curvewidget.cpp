@@ -20,6 +20,7 @@ double splint (double xa[], double ya[], double y2a[], int n, double x);
 
 int knobcount=0;
 QPixmap *knob=0;
+QPixmap *selectedknob=0;
 
 extern QDir *configDir;
 extern KApplication *app;
@@ -67,12 +68,15 @@ CurveWidget::CurveWidget (QWidget *parent,const char *name,QList<CPoint> *init,i
   flip->insertItem (klocale->translate("Vertical"),this,SLOT(VFlip()));
 
   menu->insertItem (klocale->translate("Interpolation"),interpolation);
-  menu->insertItem (klocale->translate("Presets"),presets);
-  menu->insertItem (klocale->translate("Save Preset"),this,SLOT(savePreset()));
+  menu->insertSeparator();
   menu->insertItem (klocale->translate("Flip"),flip);
   menu->insertItem (klocale->translate("Delete"),del);
-  del->insertItem (klocale->translate ("recently selected Point"),this,SLOT(deleteLast()));
   menu->insertItem (klocale->translate("Fit In"),this,SLOT(scaleFit()));
+  menu->insertSeparator();
+  menu->insertItem (klocale->translate("Presets"),presets);
+  menu->insertItem (klocale->translate("Save Preset"),this,SLOT(savePreset()));
+
+  del->insertItem (klocale->translate ("recently selected Point"),this,SLOT(deleteLast()));
 
   presetDir=new QDir(configDir->path());
 
@@ -121,6 +125,8 @@ CurveWidget::CurveWidget (QWidget *parent,const char *name,QList<CPoint> *init,i
 
       knob=new QPixmap ();
       knob->convertFromImage (QImage (dir.filePath("knob.xpm")));
+      selectedknob=new QPixmap ();
+      selectedknob->convertFromImage (QImage (dir.filePath("selectedknob.xpm")));
       knobcount=0;
     }
   else
@@ -136,6 +142,7 @@ CurveWidget::~CurveWidget (QWidget *parent,const char *name)
   if (knobcount<=0)
     {
       if (knob) delete knob;
+      if (selectedknob) delete selectedknob;
       knob=0;
     }
 
@@ -308,11 +315,14 @@ void CurveWidget::mousePressEvent( QMouseEvent *e)
 	  x=tmp->x;
 	  y=tmp->y;
 
-	  if (x>maxx) break;  //the list is sorted, a match cannot be found anymore, because x is already to big
+	  if (x>maxx) break;
+	  //the list is sorted, a match cannot be
+	  //found anymore, because x is already to big
 
 	  if ((x>=minx)&&(x<=maxx)&&(y>=miny)&&(y<=maxy))
 	    {
 	      act=tmp;
+	      last=0;
 	      break;
 	    }
 	}
@@ -327,6 +337,7 @@ void CurveWidget::mousePressEvent( QMouseEvent *e)
 	  while ((tmp)&&(tmp->x<act->x)) tmp=points->next();
 
 	  if (tmp!=0) points->insert (points->at(), act);
+	  last=0;
 	  repaint ();
 	}
     }
@@ -336,6 +347,7 @@ void CurveWidget::mouseReleaseEvent( QMouseEvent *)
 {
   last=act;
   act=0;
+  repaint();
 }
 //****************************************************************************
 void CurveWidget::mouseMoveEvent( QMouseEvent *e )
@@ -410,7 +422,8 @@ void CurveWidget::paintEvent  (QPaintEvent *)
       lx=(int)(tmp->x*width);
       ly=height-(int)(tmp->y*height);
 
-      bitBlt (this,lx-kw/2,ly-kh/2,knob,0,0,kw,kh);
+      if ((tmp==act)||(tmp==last)) bitBlt (this,lx-kw/2,ly-kh/2,selectedknob,0,0,kw,kh);
+      else bitBlt (this,lx-kw/2,ly-kh/2,knob,0,0,kw,kh);
     }
 
   p.end();

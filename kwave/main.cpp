@@ -75,7 +75,7 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   
   save->insertItem	(klocale->translate("As ..."),this,SLOT(saveFileas()),CTRL+SHIFT+Key_S);
   save->insertItem	(klocale->translate("Selection ..."),this,SLOT(saveSelection()));
-  //  save->insertItem	(klocale->translate("Blocks ..."),this,SLOT(saveBlocksOp()));
+  save->insertItem	(klocale->translate("Blocks ..."),this,SLOT(saveBlocksOp()));
   save->insertSeparator	();
   bit24=save->insertItem (klocale->translate("24 bit"));
   bit16=save->insertItem (klocale->translate("16 bit"));

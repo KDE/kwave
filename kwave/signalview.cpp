@@ -39,7 +39,7 @@ SigWidget::SigWidget (QWidget *parent,const char *name) : QWidget (parent,name)
   lastplaypointer=-1;
   pixmap=0;
 
-  markers=new QList<Marker>;
+  markers=new MarkerList;
   markers->setAutoDelete (true);
 
   markertype=markertypes->first();
@@ -251,6 +251,7 @@ void SigWidget::setRangeOp (int op)
 
 	  if ((signal)&&(signal->getLength()))
 	    {
+	      markers->clear ();
 	      offset=0;
 	      connect (signal,SIGNAL(sampleChanged()),this,SLOT(refresh()));
 	      connect (signal,SIGNAL(signalinserted(int,int)),this,SLOT(signalinserted(int,int)));
@@ -294,6 +295,7 @@ void SigWidget::setRange  (int l,int r)
 void SigWidget::setSignal  (MSignal *sig)
 {
   if (signal) delete signal;
+  markers->clear ();
   signal=sig;
   signal->setParent (this);
   offset=0;
@@ -316,6 +318,7 @@ void SigWidget::setSignal  (QString *filename)
 {
   if (signal) delete signal;
   signal=new MSignal (this,filename);
+  markers->clear ();
 
   if ((signal)&&(signal->getLength()))
     {

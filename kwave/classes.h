@@ -47,6 +47,15 @@ class Marker
   struct  MarkerType *type;            //pointer to type
 };
 //***********************************************************
+class MarkerList:public QListT<Marker>
+{
+  //  Q_OBJECT
+ public:
+  MarkerList::MarkerList();
+  MarkerList::~MarkerList();
+  int MarkerList::compareItems (GCI,GCI);
+};
+//***********************************************************
 class OverViewWidget : public QWidget
 {
  Q_OBJECT
@@ -167,7 +176,7 @@ class SigWidget : public QWidget
  QTimer		*timer;
  QPainter 	p;
  QPixmap	*pixmap;	//pixmap to be blitted to screen
- QList<Marker>  *markers;
+ MarkerList     *markers;
  MarkerType     *markertype;
 };
 //***********************************************************

@@ -63,8 +63,8 @@ class CurveWidget : public QWidget
   QList<CPoint> *points; 	//Points set by User
   QPopupMenu    *menu;
   CPoint        *act;
-  CPoint *last;	                //last Point clicked remembered for deleting
-  QPainter 	p;	
+  CPoint        *last;	        //last Point clicked remembered for deleting
+  QPainter 	p;
   QPixmap	*pixmap;	//pixmap to be blitted to screen
   QDir          *presetDir;     //directory for Presets
   QStrList      *namelist;

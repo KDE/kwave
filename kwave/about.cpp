@@ -5,9 +5,8 @@
 #include <math.h>
 #include <kapp.h>
 
-
 extern KApplication *app;
-char about_text[]="Kwave Version 0.27alpha, first release\n\
+char about_text[]="Kwave Version 0.28alpha, first release\n\
 (c) 1998 by Martin Wilz\n\
 (mwilz@ernie.mi.uni-koeln.de)\n\n\
 Alpha-Testing by Carsten Jacobi\n\

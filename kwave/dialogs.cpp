@@ -1475,23 +1475,25 @@ MarkSignalDialog::MarkSignalDialog (QWidget *par,int rate,char *name): QDialog(p
   timelabel=new QLabel (klocale->translate("Length of silence:"),this);
   time=new TimeLine (this,rate);
   QToolTip::add( time, klocale->translate("this is the timespan below the defined sound level\nthat is assumed to separate two signals ..."));
-  time->setMs (1000);
+  time->setMs (400);
   ampllabel=new QLabel (klocale->translate("Max. silence level"),this);
-  amplslider=new QSlider (1,1000,1,200,QSlider::Horizontal,this);
+  amplslider=new QSlider (1,1000,1,100,QSlider::Horizontal,this);
   ampl=new KIntegerLine (this);
-  ampl->setText ("20.0 %");
+  ampl->setText ("10.0 %");
 
   marktype1=new QComboBox (false,this);
   marktype2=new QComboBox (false,this);
-
   MarkerType *act;
+  int cnt=0;
 
   for (act=markertypes->first();act;act=markertypes->next())
     {
       marktype1->insertItem (act->name->data());
       marktype2->insertItem (act->name->data());
+      if (act->name->find("start",0,false)>=0) marktype1->setCurrentItem (cnt);  //just for convenience
+      if (act->name->find("stop",0,false)>=0) marktype2->setCurrentItem (cnt);
+      cnt++;
     }
-
   int bsize=ok->sizeHint().height();
 
   setMinimumSize (320,bsize*10);
@@ -1591,13 +1593,16 @@ SaveBlockDialog::SaveBlockDialog (QWidget *par,char *dname): QDialog(par, 0,true
   marktype2=new QComboBox (false,this);
 
   MarkerType *act;
+  int cnt=0;
 
   for (act=markertypes->first();act;act=markertypes->next())
     {
       marktype1->insertItem (act->name->data());
       marktype2->insertItem (act->name->data());
+      if (act->name->find("start",0,false)>=0) marktype1->setCurrentItem (cnt);  //just for convenience
+      if (act->name->find("stop",0,false)>=0) marktype2->setCurrentItem (cnt);
+      cnt++;
     }
-
   int bsize=ok->sizeHint().height();
 
   setMinimumSize (bsize*8,bsize*9);

@@ -1,3 +1,7 @@
+#define samplenotlocked 0
+#define samplereadonly  1
+#define samplelocked    2
+
 #define ZERO	0
 #define CUT	1
 #define COPY	2

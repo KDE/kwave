@@ -196,27 +196,28 @@ MSignal::MSignal (QWidget *par,int numsamples,int rate,int channels) :QObject ()
 	  msg[processid]=0;
 	  msg[stopprocess]=false;
 	  msg[samplepointer]=0;
-	  parent=par;
-	  this->channels=channels;
-	  this->selected=true;
-	  this->rate=rate;
-	  this->length=numsamples;
-	  lmarker=0;
-	  rmarker=0;
-
-	  next=0;
-
-	  if (channels>1) next=new MSignal(par,numsamples,rate,channels-1);
-	  emit sampleChanged();
 	}
+      else KMsgBox::message (parent,"Info","Could not get shared memory\n",2);
+
+      locked=samplenotlocked;
+      parent=par;
+      this->channels=channels;
+      this->selected=true;
+      this->rate=rate;
+      this->length=numsamples;
+      lmarker=0;
+      rmarker=0;
+      
+      next=0;
+	  
+      if (channels>1) next=new MSignal(par,numsamples,rate,channels-1);
+      emit sampleChanged();
     }
   else KMsgBox::message (parent,"Info",NOMEM,2);
 }
 //**********************************************************
-void MSignal::detachChannels ()
-{
-  next=0;
-}
+void MSignal::detachChannels () {next=0;}
+int  MSignal::getLockState   () {return locked;}
 //**********************************************************
 MSignal::~MSignal ()
 {

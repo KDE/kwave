@@ -1,5 +1,5 @@
 /***************************************************************************
-    AmplifyFreePlugin.h  -  Plugin for free amplification curves
+    AmplifyFreeDialog.h  -  dialog for the "amplifyfree" plugin
                              -------------------
     begin                : Sun Sep 02 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -15,38 +15,24 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _AMPLIFY_FREE_PLUGIN_H_
-#define _AMPLIFY_FREE_PLUGIN_H_
+#ifndef _AMPLIFY_FREE_DIALOG_H_
+#define _AMPLIFY_FREE_DIALOG_H_
 
+#include "config.h"
 #include <qobject.h>
-#include "libgui/KwavePlugin.h"
+#include "AmplifyFreeDlg.uih.h"
 
-class QStringList;
-
-class AmplifyFreePlugin: public KwavePlugin
+class AmplifyFreeDialog: public AmplifyFreeDlg
 {
     Q_OBJECT
-
 public:
 
     /** Constructor */
-    AmplifyFreePlugin(PluginContext &context);
+    AmplifyFreeDialog(QWidget *parent);
 
     /** Destructor */
-    virtual ~AmplifyFreePlugin();
-
-    /**
-     * Shows a dialog for editing the amplification curve and emits a command
-     * for applying the curve if OK has been pressed.
-     * @see KwavePlugin::setup
-     */
-    virtual QStringList *setup(QStringList &previous_params);
-
-protected:
-
-    /** Reads values from the parameter list */
-    int interpreteParameters(QStringList &params);
+    virtual ~AmplifyFreeDialog();
 
 };
 
-#endif /* _AMPLIFY_FREE_PLUGIN_H_ */
+#endif /* _AMPLIFY_FREE_DIALOG_H_ */

@@ -12,10 +12,10 @@ all:
 	-rm -f config.h
 	-rm -f config.cache
 	-rm -f config.status
-	touch doc/changes.docbook
-	touch -c doc/{en,de}/index.html
-	touch -c doc/help_{en,de}.docbook
-	touch doc/doc.timestamp
+	-touch doc/changes.docbook
+	-touch -c doc/{en,de}/index.html
+	-touch -c doc/help_{en,de}.docbook
+	-touch doc/doc.timestamp
 	aclocal
 	autoheader
 	automake

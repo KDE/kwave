@@ -1,9 +1,11 @@
 
 0.6.1 [2001-08-24]
 
+ * >>> USE OF VIRTUAL MEMORY <<<
  * changed Makefiles: html docu stays in distribution due to too much
    trouble with the KDE documentation tools
- * >>> USE OF VIRTUAL MEMORY <<<
+ * when inserting from clipboard into a signal with a different number
+   of tracks, the result will be mixed (still not optimized/slow)
  * fixed compile problem with gcc-2.96 / gcc-3.0
  * fixed missing header file in NewSigDlg.ui
  * the RPM should be relocateable again

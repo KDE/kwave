@@ -5,7 +5,7 @@ DISTCLEANFILES = Makefile.in Makefile
 
 LANGUAGES = en de
 SUFFIXES = .docbook
-SGMLDIR=${kde_datadir}/ksgmltools
+SGMLDIR=$(kde_datadir)/ksgmltools
 DOCDIR = $(DESTDIR)${kde_htmldir}
 
 changes.docbook: ../CHANGES ../bin/changes-to-docbook.sh

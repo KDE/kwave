@@ -293,6 +293,10 @@ dnl     NOTE: order is important !!!
 dnl     )
 dnl fi
 
+dnl MISSING:
+dnl a check for ksgmltools
+dnl /opt/kde2/share/apps/ksgmltools/catalog
+
 dnl output files
 topdir=`pwd`
 AC_SUBST(topdir)

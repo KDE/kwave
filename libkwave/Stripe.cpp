@@ -25,19 +25,19 @@
 
 //***************************************************************************
 Stripe::Stripe()
-    :m_start(0), m_samples(), m_lock_samples()
+    :QObject(), m_start(0), m_samples(), m_lock_samples()
 {
 }
 
 //***************************************************************************
 Stripe::Stripe(unsigned int start)
-    :m_start(start), m_samples(), m_lock_samples()
+    :QObject(), m_start(start), m_samples(), m_lock_samples()
 {
 }
 
 //***************************************************************************
 Stripe::Stripe(unsigned int start, const QArray<sample_t> &samples)
-    :m_start(start), m_samples(), m_lock_samples()
+    :QObject(), m_start(start), m_samples(), m_lock_samples()
 {
     if (samples.size()) append(samples, samples.size());
 }
@@ -277,28 +277,30 @@ unsigned int Stripe::insert(const QArray<sample_t> &samples,
 //***************************************************************************
 void Stripe::deleteRange(unsigned int offset, unsigned int length)
 {
+    if (!length) return; // nothing to do
     {
 	MutexGuard lock(m_lock_samples);
-	unsigned int size = m_samples.size();
+	const unsigned int size = m_samples.size();
+	if (!size) return;
 	
-	if (offset >= m_start+size) return;
-	if (offset < m_start) {
-	    // put offset into our area
-	    unsigned int shift = m_start - offset;
-	    if (shift >= length) return;
-	    length -= shift;
-	    offset = m_start;
-	}
-	if (offset+length > m_start+size) {
-	    // limit the size to the end of the samples
-	    length = size - m_start;
-	}
-	if (!length) return;
+	unsigned int first = offset;
+	unsigned int last  = offset + length - 1;
+	
+	if (first >= m_start+size) return;
+	if (last < m_start) return;
+	
+	// put first/last into our area
+	if (first < m_start) first = m_start;
+	if (last >= m_start+size) last = m_start + size - 1;
+	ASSERT(last >= first);
+	if (last <= first) return;
 	
 	// move all samples after the deleted area to the left
-	unsigned int dst = offset - m_start;
-	unsigned int src = dst + length;
+	unsigned int dst = first;
+	unsigned int src = last+1;
 	unsigned int len = size - src;
+	ASSERT((src+len <= size) || (!len));
+	ASSERT((dst+len <= size) || (!len));
 #ifdef STRICTLY_QT
 	while (len--) {
 	    m_samples[dst++] = m_samples[src++];
@@ -311,8 +313,8 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 	// resize the buffer to it's new size
 	resizeStorage(size - length);
     }
-//
-//    if (length) emit sigSamplesDeleted(*this, offset, length);
+
+    // sigSamplesDeleted will be emitted in the Track, not here
 }
 
 //***************************************************************************

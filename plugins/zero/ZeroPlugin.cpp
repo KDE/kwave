@@ -57,7 +57,7 @@ void ZeroPlugin::run(QStringList)
     }
 
     // loop over the sample range
-    while ((first++ < last) && (!m_stop)) {
+    while ((first <= last) && (!m_stop)) {
 	unsigned int rest = last - first + 1;
 	if (rest < m_zeroes.count()) m_zeroes.resize(rest);
 	

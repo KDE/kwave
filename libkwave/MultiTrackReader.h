@@ -34,7 +34,7 @@ public:
     virtual ~MultiTrackReader() {};
 
     /** Returns true if one of the readers has reached eof() */
-    virtual bool eof();
+    virtual bool eof() const;
 
 };
 

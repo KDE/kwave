@@ -312,7 +312,7 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 	if (!registerUndoAction(action)) {
 	    // creating/starting the action failed, so fail now.
 	    // close the writer and return 0 -> abort the operation
-	    debug("PluginManager::openSampleWriter(): register failed"); // ###
+	    debug("SignalManager::openSampleWriter(): register failed"); // ###
 	    if (action) delete action;
 	    delete writer;
 	    return 0;

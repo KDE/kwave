@@ -27,6 +27,8 @@
 Track::Track()
     :m_lock(), m_stripes(), m_selected(true)
 {
+    SharedLockGuard lock(m_lock, true);
+
     m_stripes.setAutoDelete(true);
 }
 
@@ -34,8 +36,10 @@ Track::Track()
 Track::Track(unsigned int length)
     :m_lock(), m_stripes(), m_selected(true)
 {
+    SharedLockGuard lock(m_lock, true);
+
     m_stripes.setAutoDelete(true);
-    appendStripe(length);
+    newStripe(0, length);
 }
 
 //***************************************************************************
@@ -50,12 +54,9 @@ Track::~Track()
 }
 
 //***************************************************************************
-Stripe *Track::appendStripe(unsigned int length)
+Stripe *Track::newStripe(unsigned int start, unsigned int length)
 {
-    SharedLockGuard lock(m_lock, true);
-
-    unsigned int last = unlockedLength();
-    Stripe *s = new Stripe(last, 0);
+    Stripe *s = new Stripe(start);
     ASSERT(s);
     if (s) {
 	m_stripes.append(s);
@@ -72,9 +73,9 @@ Stripe *Track::appendStripe(unsigned int length)
 	    this, SLOT(slotSamplesModified(Stripe&, unsigned int,
 	    unsigned int)));
 
-	s->resize(length);
+	if (length) s->resize(length);
     }
-//    debug("Track::appendStripe(%d): new stripe at %p", length, s);
+//    debug("Track::newStripe(%d): new stripe at %p", length, s);
 
     return s;
 }
@@ -144,8 +145,8 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	    // insert it between the existing ones
 	    if (!target_stripe) {
 		debug("Track::openSampleWriter(): creating a new stripe");
-		Stripe *target_Stripe = new Stripe(left);
-		ASSERT(target_Stripe);
+		target_stripe = newStripe(left, 0);
+		ASSERT(target_stripe);
 		if (!target_stripe) return 0;
 		
 		// insert into our stripes, if the stripe before

@@ -54,11 +54,6 @@ public:
     virtual ~Track();
 
     /**
-     * Appends a new empty stripe to the end of the track.
-     */
-    Stripe *appendStripe(unsigned int length);
-
-    /**
      * Returns the length of the track. This is equivalent
      * to the position of the last sample of the last Stripe.
      */
@@ -168,9 +163,19 @@ private:
      * Returns the current length of the stripe in samples. This
      * function uses no locks and is therefore reserved for internal
      * usage from within locked functions.
+     * @note this must be private, it dows no locking !
      */
     unsigned int unlockedLength();
 
+    /**
+     * Creates a new stripe with a start position and a length.
+     * @param start offset of the first sample
+     * @param length number of samples, zero is allowed
+     * @note this must be private, it does no locking !
+     */
+    Stripe *newStripe(unsigned int start, unsigned int length);
+
+private:
     /** read/write lock for access to the whole track */
     SharedLock m_lock;
 

@@ -56,7 +56,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2001-08-25</DATE>
+    <DATE>2001-08-26</DATE>
     <RELEASEINFO>0.6.0-2</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -228,11 +228,15 @@
             <PARA>0.6.1 [2001-08-24]</PARA>
             <ITEMIZEDLIST>
                 <LISTITEM><PARA>
+                    >>> USE OF VIRTUAL MEMORY <<<
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
                     changed Makefiles: html docu stays in distribution due to too much
                       trouble with the KDE documentation tools
                 </PARA></LISTITEM>
                 <LISTITEM><PARA>
-                    >>> USE OF VIRTUAL MEMORY <<<
+                    when inserting from clipboard into a signal with a different number
+                      of tracks, the result will be mixed (still not optimized/slow)
                 </PARA></LISTITEM>
                 <LISTITEM><PARA>
                     fixed compile problem with gcc-2.96 / gcc-3.0
@@ -2435,7 +2439,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2001-08-25</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2001-08-26</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

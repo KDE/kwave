@@ -56,7 +56,6 @@ void SampleReader::fillBuffer()
 {
     m_buffer_used = 0;
     m_buffer_position = 0;
-
     if (m_position > m_last) m_eof = true;
     if (m_eof) return;
 
@@ -69,7 +68,7 @@ void SampleReader::fillBuffer()
 	unsigned int len = s->length();
 	if (!len) continue; // skip zero-length tracks
 	
-	if (m_position >= st+len) break; // end of range reached
+	if (m_position >= st+len) continue; // after our range
 	
 	if (m_position >= st) {
 	    unsigned int offset = m_position - st;
@@ -81,6 +80,9 @@ void SampleReader::fillBuffer()
 	    m_position += cnt;
 	}
     }
+
+    // we are also at eof if nothing was read
+    if (!m_buffer_used) m_eof = true;
 }
 
 //***************************************************************************

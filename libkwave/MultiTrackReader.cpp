@@ -20,7 +20,7 @@
 #include "libkwave/SampleReader.h"
 
 //***************************************************************************
-bool MultiTrackReader::eof()
+bool MultiTrackReader::eof() const
 {
     unsigned int c = this->count();
     for (unsigned int r = 0; r < c; r++) {

@@ -16,12 +16,23 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qarray.h>
 #include <qlist.h>
 
+#include "libkwave/Matrix.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
+
+#ifndef min
+#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
+#endif
+
+#ifndef max
+#define max(x,y) (( (x) > (y) ) ? (x) : (y) )
+#endif
 
 //***************************************************************************
 
@@ -31,9 +42,73 @@ MultiTrackWriter &MultiTrackWriter::operator << (
     unsigned int src_tracks = source.count();
     unsigned int dst_tracks = count();
 
+    ASSERT(src_tracks);
+    ASSERT(dst_tracks);
+    if (!src_tracks || !dst_tracks) return *this;
+
     if (src_tracks != dst_tracks) {
-        // create a mixer matrix and pass everything through
-        warning("MultiTrackWriter << : transfer with mixing not implemented yet!");
+	// create a mixer matrix and pass everything through
+	
+	// ### ALPHA: process sample per sample           ###
+	// ### still using the sampe code as in playback  ###
+	
+	// create a translation matrix for mixing up/down to the desired
+	// number of output channels
+	Matrix<double> matrix(src_tracks, dst_tracks);
+	unsigned int x, y;
+	for (y=0; y < dst_tracks; y++) {
+	    unsigned int m1, m2;
+	    m1 = y * src_tracks;
+	    m2 = (y+1) * src_tracks;
+	
+	    for (x=0; x < src_tracks; x++) {
+		unsigned int n1, n2;
+		n1 = x * dst_tracks;
+		n2 = n1 + dst_tracks;
+		
+		// get the common area of [n1..n2] and [m1..m2]
+		unsigned int l  = max(n1, m1);
+		unsigned int r = min(n2, m2);
+		
+		matrix[x][y] = (r > l) ?
+		    (double)(r-l) / (double)src_tracks : 0.0;
+	    }
+	}
+	
+	QArray<sample_t> in_samples(src_tracks);
+	QArray<sample_t> out_samples(dst_tracks);
+	
+	while (!(source.eof())) {
+	    // read input vector
+	    unsigned int x;
+	    for (x=0; x < src_tracks; x++) {
+		in_samples[x] = 0;
+		SampleReader *stream = source[x];
+		ASSERT(stream);
+		if (!stream) continue;
+		
+		sample_t act;
+		(*stream) >> act;
+		in_samples[x] = act;
+	    }
+		
+	    // multiply matrix with input to get output
+	    unsigned int y;
+	    for (y=0; y < dst_tracks; y++) {
+		double sum = 0;
+		for (x=0; x < src_tracks; x++) {
+		    sum += (double)in_samples[x] * matrix[x][y];
+		}
+		out_samples[y] = (sample_t)sum;
+	    }
+	
+	    // write samples to the target stream
+	    for (y = 0; y < dst_tracks; y++) {
+		*at(y) << out_samples[y];
+	    }
+	
+	}
+	
     } else {
 	// process 1:1
 	unsigned int track;

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-06-29 09:39+0200\n"
-"PO-Revision-Date: 2002-06-30 12:03GMT\n"
+"PO-Revision-Date: 2002-07-07 22:01GMT+1\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -205,7 +205,7 @@ msgstr "rétrécir"
 #: kwave/TopWidget.cpp:403
 #, c-format
 msgid "zoom to 100%"
-msgstr "zoome à 100%"
+msgstr "zoome à 100 %"
 
 #: kwave/TopWidget.cpp:409
 msgid "zoom to all"
@@ -821,7 +821,7 @@ msgstr "Point récemment sélectionnés"
 
 #: libgui/CurveWidget.cpp:110
 msgid "every 2nd Point"
-msgstr "tout les 2 Points"
+msgstr "tous les 2 Points"
 
 #: libgui/Dialog.h:24 libgui/KwavePlugin.h:47
 #: plugins/doubleenter/module.cpp:26 plugins/envelope/module.cpp:34
@@ -901,7 +901,7 @@ msgstr "Choisir un critére de Labellisation"
 
 #: plugins/amptolabel/module.cpp:35 plugins/saveblock/module.cpp:37
 msgid "Start label:"
-msgstr "Label de départ:"
+msgstr "Label de départ :"
 
 #: plugins/amptolabel/module.cpp:36 plugins/saveblock/module.cpp:38
 msgid "Stop label:"
@@ -1084,27 +1084,27 @@ msgstr ""
 "Le périphérique est occupé. Peut être qu'une autre application \n"
 "l'utilise actuellement. Vous devrié essayer ultérieurement. \n"
 "(suggestion : vous pouvez trouver le numéro d'identification du processus \n"
-"du programme correspondant en tapant la ligne de commande \"fuser -v %1\" "
+"du programme correspondant en saisisant la ligne de commande \"fuser -v %1\" "
 "sur une ligne de commande du système.)"
 
 #: plugins/playback/PlayBack-OSS.cpp:109
 #, ycp-format
 msgid "The device '%1' cannot be opened in the correct mode."
-msgstr "Le périphérique «%1» ne peut pas être ouvert correctement."
+msgstr "Impossible d'ouvrir le ériphérique «%1» correctement."
 
 #: plugins/playback/PlayBack-OSS.cpp:117
 #, ycp-format
 msgid "%1 bits per sample are not supported"
-msgstr "%1 bits par échantillon ne sont pas supportés"
+msgstr "%1 bits par échantillon ne sont pas disponibles"
 
 #: plugins/playback/PlayBack-OSS.cpp:123
 msgid "stereo playback is not supported"
-msgstr "la lecture en stéréo n'est pas supportée"
+msgstr "la lecture en stéréo n'est pas disponible"
 
 #: plugins/playback/PlayBack-OSS.cpp:128
 #, ycp-format
 msgid "playback rate %1 Hz is not supported"
-msgstr "la lecture à un taux de %1 Hz n'est pas supportée"
+msgstr "la lecture à un taux de %1 Hz n'est pas disponible"
 
 #: plugins/playback/PlayBack-OSS.cpp:137
 #, c-format, ycp-format
@@ -1136,7 +1136,7 @@ msgid ""
 "should be supported by all sound hardware !"
 msgstr ""
 "Paramètre le mode de lecture en 8 Bits (faible qualité)\n"
-"Ce mode est normalement supporté par tous les périphériques sonores !"
+"Ce mode est normalement disponible pour tous les périphériques sonores !"
 
 #: plugins/playback/PlayBackDialog.cpp:135
 msgid ""
@@ -1152,7 +1152,7 @@ msgid ""
 "only supported by some new sound hardware !"
 msgstr ""
 "Paramètre le mode de lecture en 24 Bits (haute qualité)\n"
-"Ce mode est supporté que par les périphériques sonores récents !"
+"Ce mode est disponible que sur les périphériques sonores récents !"
 
 #: plugins/playback/PlayBackDialog.cpp:149
 msgid "Playback Device :"
@@ -1196,7 +1196,7 @@ msgid ""
 "(sorry, not implemented yet!)"
 msgstr ""
 "Essayer de jouer une piste sonore de petite taille\n"
-"en utilisant les paramètres courrant.\n"
+"en utilisant les paramètres courant.\n"
 "(désolé, pas encore implémenté !)"
 
 #: plugins/playback/PlayBackDialog.cpp:305
@@ -1226,7 +1226,7 @@ msgstr ""
 
 #: plugins/playback/PlayBack-aRts.cpp:210
 msgid "The aRts output stream is invalid."
-msgstr "Le flux de sortie aRts est invalide."
+msgstr "Le flux de sortie aRts n'est pas valable."
 
 #: plugins/playback/PlayBack-aRts.cpp:213
 msgid ""
@@ -1314,7 +1314,7 @@ msgstr "Taux en Hz :"
 
 #: plugins/time/module.cpp:19
 msgid "Enter length :"
-msgstr "Entrez la largeur :"
+msgstr "Saisissez la largeur :"
 
 #: plugins/time/module.cpp:20
 msgid "Time :"
@@ -1422,7 +1422,7 @@ msgstr "faire un retard récurssif"
 #: plugins/delay/module.cpp:61
 #, c-format
 msgid "Amplitude of delayed signal :%d %%"
-msgstr "Amplitude du signal retardé :%d %%"
+msgstr "Amplitude du signal retardé : %d %%"
 
 #: plugins/selectrange/SelectRangePlugin.cpp:123
 msgid "select range"
@@ -1576,7 +1576,7 @@ msgstr ""
 "comme extension à la mémoire physique. Cela permettra de travailler sur des "
 "fichiers sonores dont la taille est supérieure à votre mémoire physique.\n"
 "<br>\n"
-"    Bien sur vous pouvez aussi paramètrer une limite à la taille totale de "
+"    Bien sr vous pouvez aussi paramètrer une limite à la taille totale de "
 "votre mémoire virtuelle."
 
 #: plugins/memory/MemDlg.uic.cpp:90
@@ -1674,7 +1674,7 @@ msgstr ""
 "Kwave utilisera les premiéres portions du fichier qui sont valides et "
 "ignorera\n"
 "les autres. Cela peut vous faire perdre des données.\n"
-"Si vous voulez réparer complétement votre fichier endomagé,\n"
+"Si vous voulez réparer complètement votre fichier endomagé,\n"
 "envoyé un courrier électronique à la liste de diffusion de Kwave.\n"
 "Nous essayerons de vous aider..."
 
@@ -1695,7 +1695,7 @@ msgstr "Pas assez de mémoire"
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:114
 #: plugins/codec_wav/WavDecoder.cpp:332
 msgid "file header is damaged"
-msgstr "L'entête du fichier est endomagée"
+msgstr "L'en-tête du fichier est endomagée"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:117
 #: plugins/codec_wav/WavDecoder.cpp:335
@@ -1710,7 +1710,7 @@ msgstr "L'ouverture du fichier a échouée"
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:123
 #: plugins/codec_wav/WavDecoder.cpp:342
 msgid "read access failed"
-msgstr "Accés en lecture interdite"
+msgstr "Accès en lecture interdite"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:126
 #: plugins/codec_wav/WavDecoder.cpp:345
@@ -1769,7 +1769,7 @@ msgstr "eviter les sauts d'octave avec un facteur tournant"
 
 #: plugins/doubleenter/module.cpp:20
 msgid "Enter a value"
-msgstr "Entrez une valeur"
+msgstr "Saisissez une valeur"
 
 #: plugins/pulse/module.cpp:47
 msgid "Length of pulse :"
@@ -1905,7 +1905,7 @@ msgid ""
 "automatically update the sonagram if the selection\n"
 "has been enlarged, reduced or moved"
 msgstr ""
-"met à jour automatiquement le sonogramme sila sélection\n"
+"met à jour automatiquement le sonogramme si la sélection\n"
 "a été élargie, réduite, ou déplacée."
 
 #: plugins/sonagram/SonagramDialog.cpp:419
@@ -2010,7 +2010,7 @@ msgid ""
 "sample rates or you can enter any sample rate on your own."
 msgstr ""
 "<b>Période d'échantillonnage</b><br>Vous pouvez ici sélectionner une des "
-"périodes d'échantillonnage prédéfinie ou entrer une période "
+"périodes d'échantillonnage prédéfinie ou saisissez une période "
 "d'échantillonnage de votre choix."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:68
@@ -2045,7 +2045,7 @@ msgid ""
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
 "<b>Nombre de Pistes sonores</b><br>Paramétre le nombre de pistes sonores "
-"pour un nouveau fichier.  Si vous n'étes pas sur maintenant, vous pourrez "
+"pour un nouveau fichier. Si vous n'étes pas sur maintenant, vous pourrez "
 "ajouter ou supprimer une piste plus tard dans le programme."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:130
@@ -2055,9 +2055,9 @@ msgid ""
 "give the best results when processing the audio data."
 msgstr ""
 "<b>Résolution</b><br>Paramètre la résolution en bits pour laquelle le "
-"fichier sera sauvegardé.  Cependant, Kwave utilise toujours 24 bits comme "
-"résolution internepour obtenir les meilleurs résultats  quand il effectue "
-"des calculs sur des fichiers sonores.."
+"fichier sera sauvegardé. Cependant, Kwave utilise toujours 24 bits comme "
+"résolution interne pour obtenir les meilleurs résultats  quand il effectue "
+"des calculs sur des fichiers sonores."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:149
 msgid "Time"
@@ -2107,7 +2107,7 @@ msgstr "largeur du signal"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:52
 msgid "NeXT,Sun Audio"
-msgstr "NeXT,Sun Audio"
+msgstr "NeXT, Sun Audio"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:57
 msgid "Compressed Audio Interchange Format"
@@ -2118,8 +2118,8 @@ msgid "Audio Interchange Format"
 msgstr "Audio Interchange Format"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:63
-msgid "Berkeley,IRCAM,Carl Sound Format"
-msgstr "Berkeley,IRCAM,Carl Sound Format"
+msgid "Berkeley, IRCAM, Carl Sound Format"
+msgstr "Berkeley, IRCAM, Carl Sound Format"
 
 #: plugins/formant/module.cpp:22
 msgid "Choose formant positions and widths :"
@@ -2157,124 +2157,4 @@ msgstr "silence"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Choisir la ligne de distorsion :"
-
-#, fuzzy
-#~ msgid "&About Kwave..."
-#~ msgstr "&A propos de Kwave..."
-
-#~ msgid "File does not exist !"
-#~ msgstr "Le fichier n'existe pas !"
-
-#~ msgid "File is no RIFF File !"
-#~ msgstr "Le fichier n'est pas au format RIFF !"
-
-#~ msgid "File is no WAVE File !"
-#~ msgstr "Le fichier n'est pas au format WAVE !"
-
-#~ msgid "File does not contain format information!"
-#~ msgstr "Le fichier ne contient pas d'information sur son format !"
-
-#~ msgid "File must be uncompressed (Mode 1) !"
-#~ msgstr "Le fichier ne doit pas être compressé (Mode 1) !"
-
-#~ msgid ""
-#~ "File is damaged: the file header reports zero length\n"
-#~ "but the file seems to contain some data. \n"
-#~ "\n"
-#~ "Kwave can try to recover the file, but the\n"
-#~ "result might contain trash at it's start and/or\n"
-#~ "it's end. It is strongly advisable to edit the\n"
-#~ "damaged parts manually and save the file again\n"
-#~ "to fix the problem.\n"
-#~ "\n"
-#~ "Try to recover?"
-#~ msgstr ""
-#~ "Le fichier est endomagé: l'entête du fichier indique une longueur nulle\n"
-#~ "mais celui çi contient cependant des données. \n"
-#~ "\n"
-#~ "Kwave peut essayer d'ouvrir ce fichier, mais le\n"
-#~ "résultat peu contenir des erreurs au début et/ou\n"
-#~ "à la fin des pistes. Il est vivement recommendé d'éditer manuellement la\n"
-#~ "partie endomagée du fichier et de le sauvegarder dans un nouveau fichier\n"
-#~ "pour corriger le problème.\n"
-#~ "\n"
-#~ "Voulez vous que Kwave essaye d'ouvrir quand même ce fichier ?"
-
-#~ msgid "Damaged File"
-#~ msgstr "Fichier endommagé"
-
-#~ msgid "&Recover"
-#~ msgstr "&Recupérer"
-
-#~ msgid "File does not contain data!"
-#~ msgstr "Le fichier ne contient pas de données !"
-
-#~ msgid "Sorry only 8/16/24 Bits per Sample are supported !"
-#~ msgstr ""
-#~ "Désolé, mais seulement les formats de 8/16/24 Bits par Echantillons sont "
-#~ "supportés !"
-
-#~ msgid ""
-#~ "Error in input: file is smaller than stated in the header. \n"
-#~ "File will be truncated."
-#~ msgstr ""
-#~ "Erreur d'ouverture de fichier : le fichier est plus petit que la taille "
-#~ "définie dans son entête. \n"
-#~ "Le fichier sera tronqué."
-
-#~ msgid ""
-#~ "The operation '%1' requires more than %2 MB for storing undo data.\n"
-#~ "This would exceed the limit of %3 MB."
-#~ msgstr ""
-#~ "L'opération '%1' necessite plus de %2 MB pour stocker les données de "
-#~ "restoration en cas d'annulation.\n"
-#~ "Ceci pourrai excéder la limite des %3 MB."
-
-#~ msgid "You can now either press:"
-#~ msgstr "Vous pouvez maintenant appuyer sur :"
-
-#~ msgid "Allow"
-#~ msgstr "Continuer"
-
-#~ msgid "to continue without the possibility to undo, or"
-#~ msgstr "pour continuer sans avoir la possiblité de revenir en arriére, ou"
-
-#~ msgid "Ignore"
-#~ msgstr "Ignorer"
-
-#~ msgid ""
-#~ "to continue, discard all previous undo data and ignore the memory limit"
-#~ msgstr ""
-#~ "pour continuer, en effaçant les précédentes données de restauration et en "
-#~ "ignorant la limite de mémoire"
-
-#~ msgid "to abort the current operation."
-#~ msgstr "pour arrêter l'opération courante."
-
-#~ msgid "&Allow"
-#~ msgstr "&Continuer"
-
-#~ msgid "&Ignore"
-#~ msgstr "&Ignorer"
-
-#~ msgid "&Export to Ascii..."
-#~ msgstr "&Exporter en Ascii..."
-
-#~ msgid "&Import Ascii..."
-#~ msgstr "&Importation Ascii..."
-
-#~ msgid "Frequencies Status Bar"
-#~ msgstr "Barre d'état des fréquences"
-
-#, fuzzy
-#~ msgid "Fade Intro"
-#~ msgstr "Augmenter progress&ivement"
-
-#, fuzzy
-#~ msgid "Fade Leadout"
-#~ msgstr "Affaiblir pr&ogessivement"
-
-#, fuzzy
-#~ msgid "creator of the 'libsndfile' library"
-#~ msgstr "Auteur de la bibliothéque «sndfile»."
 

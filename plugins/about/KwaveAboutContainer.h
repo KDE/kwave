@@ -1,7 +1,8 @@
 /***************************************************************************
-     AboutKwaveDialog.h  -  dialog for Kwave's "Help-About"
+    kwaveaboutcontainer.h  -  Base class for the authors and thanks field in
+            the kwave about dialog
                              -------------------
-    begin                : Sun Feb 10 2002
+    begin                : Sat Mar 9 2002
     copyright            : (C) 2002 by Ralf Waspe
     email                : rwaspe@web.de
  ***************************************************************************/
@@ -15,30 +16,40 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ABOUT_KWAVE_DIALOG_H_
-#define _ABOUT_KWAVE_DIALOG_H_
+#ifndef KWAVEABOUTCONTAINER_H
+#define KWAVEABOUTCONTAINER_H
 
 #include <kaboutdata.h>
-#include <kdialog.h>
-
-#include "KwaveAboutDialogBase.uih.h"
-#include "LogoWidget.h"
+#include <kaboutdialog.h>
+#include <qwidget.h>
 
 /**
- * @class AboutKwaveDialog
- * Dialog for Help/About
- */
-class AboutKwaveDialog : public KwaveAboutDialogBase
+  *@author Ralf Waspe
+  */
+
+class KwaveAboutContainer : public KAboutContainer
 {
     Q_OBJECT
 
 public:
     /** Constructor */
-    AboutKwaveDialog(QWidget *parent);
-
+    	KwaveAboutContainer(QWidget* parent = 0, const char* name = "");
+	
     /** destructor */
-    virtual ~AboutKwaveDialog();
+    ~KwaveAboutContainer();
+
+public slots:
+    /** open webpage if url is clicked
+      * connect to :
+      * void  urlClick(const QString &url)
+      */
+    void openURL(const QString &url);
+    /** send email if email address is clicked
+      * connect to :
+      * void  mailClick(const QString &name,const QString &address)
+      */
+    void sendMail(const QString &name,const QString &address);
 
 };
 
-#endif  /* _ABOUT_KWAVE_DIALOG_H_ */
+#endif

@@ -15,18 +15,46 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <kaboutdialog.h>
 #include <kapp.h>
 #include <kstddirs.h>
+#include <qlabel.h>
+#include <qframe.h>
+#include <qtextview.h>
 
 #include "AboutKwaveDialog.h"
-#include "logo.xpm"
+#include "KwaveAboutContainer.h"
+#include "LogoWidget.h"
 
 //***************************************************************************
 AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
-    :KAboutApplication(parent)
+    :KwaveAboutDialogBase(parent,"kwaveabout",true)
 {
-    QPixmap logo(xpm_aboutlogo);
-    setLogo(logo);
+    /* get the about data defined in main() */
+    const KAboutData *about_data = KGlobal::instance()->aboutData();
+
+    /* the  logo */
+    LogoWidget* logo = new LogoWidget(logoframe);
+    logo->setMinimumSize(logoframe->size());
+
+    /* the frame containing the developer information */
+    QValueList<KAboutPerson>::ConstIterator it;
+    KAboutContainer* about = new KwaveAboutContainer(authorframe);
+    for (it = about_data->authors().begin();
+        it != about_data->authors().end();++it){
+            about->addPerson((*it).name(),(*it).emailAddress(),
+            (*it).webAddress(),(*it).task());
+    }
+
+    KAboutContainer* contrib = new KwaveAboutContainer(thanksframe);
+    for (it = about_data->credits().begin();
+        it != about_data->credits().end(); ++it){
+        contrib->addPerson((*it).name(),(*it).emailAddress(),
+            (*it).webAddress(),(*it).task());
+    }
+
+    /* the frame containing the license */
+    licenseframe->setText(about_data->license());
 }
 
 //***************************************************************************

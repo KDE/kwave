@@ -25,6 +25,7 @@
 #include "AboutPlugin.h"
 #include "AboutKwaveDialog.h"
 
+
 KWAVE_PLUGIN(AboutPlugin,"about","Thomas Eschenbacher");
 
 //***************************************************************************

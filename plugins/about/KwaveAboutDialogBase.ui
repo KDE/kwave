@@ -1,0 +1,241 @@
+<!DOCTYPE UI><UI>
+<class>KwaveAboutDialogBase</class>
+<include location="global">klocale.h</include>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>KwaveAboutDialogBase</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>640</width>
+            <height>480</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>minimumSize</name>
+        <size>
+            <width>640</width>
+            <height>480</height>
+        </size>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>About Kwave</string>
+    </property>
+    <property stdset="1">
+        <name>sizeGripEnabled</name>
+        <bool>true</bool>
+    </property>
+    <vbox>
+        <property stdset="1">
+            <name>margin</name>
+            <number>11</number>
+        </property>
+        <property stdset="1">
+            <name>spacing</name>
+            <number>6</number>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>header</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>&lt;h1&gt;Kwave - a simple sound editor&lt;/h1&gt;</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QTabWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>tabwidget</cstring>
+            </property>
+            <widget>
+                <class>QWidget</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>about_tab</cstring>
+                </property>
+                <attribute>
+                    <name>title</name>
+                    <string>About</string>
+                </attribute>
+                <widget>
+                    <class>QFrame</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>logoframe</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>7</x>
+                            <y>4</y>
+                            <width>161</width>
+                            <height>350</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShape</name>
+                        <enum>StyledPanel</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShadow</name>
+                        <enum>Raised</enum>
+                    </property>
+                </widget>
+            </widget>
+            <widget>
+                <class>QWidget</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>authors_tab</cstring>
+                </property>
+                <attribute>
+                    <name>title</name>
+                    <string>Authors</string>
+                </attribute>
+                <widget>
+                    <class>QFrame</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>authorframe</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>7</x>
+                            <y>4</y>
+                            <width>601</width>
+                            <height>351</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>sizePolicy</name>
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                        </sizepolicy>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShape</name>
+                        <enum>NoFrame</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShadow</name>
+                        <enum>Raised</enum>
+                    </property>
+                </widget>
+            </widget>
+            <widget>
+                <class>QWidget</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>thanks_tab</cstring>
+                </property>
+                <attribute>
+                    <name>title</name>
+                    <string>Thanks To</string>
+                </attribute>
+                <widget>
+                    <class>QFrame</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>thanksframe</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>8</x>
+                            <y>5</y>
+                            <width>600</width>
+                            <height>350</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShape</name>
+                        <enum>NoFrame</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShadow</name>
+                        <enum>Raised</enum>
+                    </property>
+                </widget>
+            </widget>
+            <widget>
+                <class>QWidget</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>license_tab</cstring>
+                </property>
+                <attribute>
+                    <name>title</name>
+                    <string>License agreement</string>
+                </attribute>
+                <widget>
+                    <class>QTextView</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>licenseframe</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>7</x>
+                            <y>4</y>
+                            <width>601</width>
+                            <height>351</height>
+                        </rect>
+                    </property>
+                </widget>
+            </widget>
+        </widget>
+        <widget>
+            <class>QPushButton</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>okbutton</cstring>
+            </property>
+            <property stdset="1">
+                <name>sizePolicy</name>
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                </sizepolicy>
+            </property>
+            <property stdset="1">
+                <name>cursor</name>
+                <cursor>0</cursor>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>&amp;Close</string>
+            </property>
+            <property stdset="1">
+                <name>autoResize</name>
+                <bool>true</bool>
+            </property>
+            <property stdset="1">
+                <name>default</name>
+                <bool>true</bool>
+            </property>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>okbutton</sender>
+        <signal>clicked()</signal>
+        <receiver>KwaveAboutDialogBase</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <slot access="protected">closeDialog()</slot>
+</connections>
+</UI>

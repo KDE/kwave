@@ -18,7 +18,7 @@
 # generic common Makefile.am for all Kwave plugins
 #
 
-.NOTPARALLEL: right_order
+.PHONY: dep depend
 
 SUFFIXES= .h .c .cpp .o .d .moc .dm .ui .cc .idl .cxx
 
@@ -70,7 +70,8 @@ GENERATED_FILES := ${uih_files} ${uic_files} ${idl_header} ${idl_impl} ${moc_fil
 
 CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 			.depend *.uih.h *.uic.cpp \
-			${GENERATED_FILES}
+			${GENERATED_FILES} \
+			timestamp.depend
 
 %.uic.o: %.uic.cpp
 	@echo plugin \"$(MODNAME)\": compiling dialog "'"$<"'"
@@ -131,7 +132,7 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 	@echo plugin \"$(MODNAME)\": extracting code with MOC for $<
 	@ @MOC@ -nw $< -o $@
 
-.depend: ${PLUGINDEP_FILES}
+.depend: ${PLUGINDEP_FILES} ${GENERATED_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@
 	@ cat ${PLUGINDEP_FILES} > $@
 
@@ -146,14 +147,17 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 
 dep depend: .depend
 
+timestamp.depend: ${GENERATED_FILES} .depend
+	@date > $@
+
+${OUT_FILES}: timestamp.depend
+
 $(MODNAME): ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
 	@ @CXX@ $(CXXFLAGS) ${OUT_FILES} ${LD_FLAGS} \
 	  ${EXTRA_LIBDIRS} ${EXTRA_LDFLAGS} -o ${MODNAME}
 
-right_order: ${GENERATED_FILES} depend ${OUT_FILES} $(MODNAME)
-
-all: right_order
+all: $(MODNAME)
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

@@ -40,6 +40,8 @@ FileLoader::FileLoader(const QString &name)
 	    fread(m_buf.data(), size, 1, in);
 	} else qDebug("FileLoader:not enough memory for reading file !");
     } else qDebug("FileLoader:could not open file !");
+
+    fclose(in);
 }
 
 //***************************************************************************

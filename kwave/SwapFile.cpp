@@ -34,7 +34,7 @@ SwapFile::SwapFile()
     :m_file(), m_address(0), m_size(0), m_pagesize(1 << 16)
 {
     // determine the system's native page size
-    m_pagesize = 64*1024; // ### fake 64kMB pagesize
+    m_pagesize = 64*1024; // ### fake 64MB pagesize
     // ### MUST be a power of two !!!
 
     g_instances++;
@@ -62,8 +62,8 @@ bool SwapFile::allocate(size_t size, const QString &filename)
     if (m_address) return false;
 
     if (m_size) close();
-    qDebug("SwapFile::allocate(%u), instances: %u",
-	   size, g_instances);
+//     qDebug("SwapFile::allocate(%u), instances: %u",
+// 	   size, g_instances);
 
     // try to create the temporary file
     // when it is created, also try to unlink it so that it will always
@@ -154,7 +154,7 @@ void *SwapFile::map()
 {
 //  qDebug("    SwapFile::map() - m_size=%u", m_size);
     m_address = mmap(0, m_size,
-                     PROT_READ | PROT_WRITE, MAP_SHARED,
+                     PROT_READ | PROT_WRITE, MAP_PRIVATE,
                      m_file.handle(), 0);
     if (m_address == (void*)(-1)) m_address = 0;
 

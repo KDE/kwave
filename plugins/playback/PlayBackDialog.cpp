@@ -33,6 +33,7 @@
 #include <kfiledialog.h>
 #include <klocale.h>
 
+#include "libgui/KwaveFileDialog.h"
 #include "libgui/KwavePlugin.h"
 #include "PlayBackDialog.h"
 
@@ -43,15 +44,21 @@
 static const char *devicetext[] = {
     "[aRts sound daemon]",
     "/dev/dsp",
+    "/dev/dsp0",
+    "/dev/dsp1",
+    "/dev/dsp2",
     "/dev/audio",
     "/dev/adsp",
+    "/dev/adsp0",
+    "/dev/adsp1",
+    "/dev/adsp2",
     "/dev/dio",
     0
 };
 
 //***************************************************************************
 PlayBackDialog::PlayBackDialog(KwavePlugin &p, const playback_param_t &params)
-    :KDialog(p.parentWidget(), i18n("sonagram"), true),
+    :KDialog(p.parentWidget(), i18n("playback"), true),
     m_playback_params(params)
 {
     m_bg = 0;
@@ -144,6 +151,8 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const playback_param_t &params)
         i18n("Set Playback-Mode to 24 Bit (high quality)\n"\
 	     "only supported by some new sound hardware !"));
     m_b24->setEnabled(false); // ### not implemented yet ###
+    //     -> needs support for ALSA,
+    //        OSS/Free only supports up to 16 bits :-(
 
     // -- playback device --
     m_device_label = new QLabel(i18n("Playback Device :"), this);
@@ -156,11 +165,12 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const playback_param_t &params)
     m_device_box->insertStrList(devicetext, -1);
     m_device_box->setMinimumWidth(m_device_box->sizeHint().width()+10);
     for (int i=0; i < m_device_box->count(); i++) {
-	if (strcmp(m_playback_params.device, m_device_box->text(i))==0) {
+	if (m_playback_params.device == m_device_box->text(i)) {
 	    m_device_box->setCurrentItem(i);
 	    break;
 	}
     }
+    m_device_box->setEditText(m_playback_params.device);
 
     h = max(m_device_label->sizeHint().height(),
             m_device_box->sizeHint().height());
@@ -173,13 +183,9 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const playback_param_t &params)
     if (!m_select_device) return;
     QToolTip::add(m_select_device,
 	i18n("Select a playback device not listed\n"\
-	     "in the standard selection.\n"\
-	     "(sorry, not implemented yet!)"));
-    m_select_device->setEnabled(false);
+	     "in the standard selection."));
+    m_select_device->setEnabled(true);
     m_select_device->setFixedWidth(m_select_device->sizeHint().width());
-    // ### not implemented yet ###
-    //     -> needs support for ALSA,
-    //        OSS/Free only supports up to 16 bits :-(
 
     // -- buffer size --
     m_buffer_size = new QSlider(8, 16, 1, 5, QSlider::Horizontal, this);
@@ -348,9 +354,23 @@ void PlayBackDialog::parameters(QStringList &list)
 //***************************************************************************
 void PlayBackDialog::selectPlaybackDevice()
 {
-    QString new_device = KFileDialog::getOpenFileName("/dev/", 0, this);
-    if (new_device.isNull()) return;
+    QString filter;
+    filter += QString("dsp*|") + i18n("OSS playback device (dsp*)");
+    filter += QString("\nadsp*|") + i18n("ALSA playback device (adsp*)");
+    filter += QString("\n*|") + i18n("Any device (*)");
 
+    KwaveFileDialog dlg(":<kwave_playback_device>", filter, this,
+	"Kwave select playback device", true);
+    dlg.setKeepLocation(true);
+    dlg.setOperationMode(KFileDialog::Opening);
+    dlg.setCaption(i18n("Select Playback Device"));
+    dlg.setURL("file:"+m_playback_params.device);
+    if (dlg.exec() != QDialog::Accepted) return;
+
+    QString new_device = dlg.selectedFile();
+
+    // selected new device
+    m_device_box->setEditText(new_device);
 }
 
 //***************************************************************************

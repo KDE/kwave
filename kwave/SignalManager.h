@@ -312,7 +312,7 @@ public:
     /**
      * Sets a complete set of file infos, including undo information
      */
-    void setFileInfo(FileInfo &new_info);
+    void setFileInfo(FileInfo &new_info, bool with_undo = true);
 
 signals:
 

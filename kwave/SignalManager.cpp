@@ -1003,6 +1003,8 @@ PlaybackController &SignalManager::playbackController()
 //***************************************************************************
 void SignalManager::startUndoTransaction(const QString &name)
 {
+    if (!m_undo_enabled) return; // undo is currently not enabled
+
     MutexGuard lock(m_undo_transaction_lock);
 
     // increase recursion level
@@ -1034,8 +1036,8 @@ void SignalManager::closeUndoTransaction()
     MutexGuard lock(m_undo_transaction_lock);
 
     // decrease recursion level
-    ASSERT(m_undo_transaction_level);
-    if (m_undo_transaction_level) m_undo_transaction_level--;
+    if (!m_undo_transaction_level) return; // undo was not enabled ?
+    m_undo_transaction_level--;
 
     if (!m_undo_transaction_level) {
 	// append the current transaction to the undo buffer if
@@ -1471,20 +1473,20 @@ void SignalManager::enableModifiedChange(bool en)
 }
 
 //***************************************************************************
-void SignalManager::setFileInfo(FileInfo &new_info)
+void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 {
     ThreadsafeX11Guard x11_guard;
 
-    /* save data for undo */
-    UndoTransactionGuard undo_transaction(*this, i18n("modify file info"));
-    UndoFileInfo *undo = new UndoFileInfo(*this);
-    ASSERT(undo);
-    if (!undo) return;
-
-    if (!registerUndoAction(undo)) return;
+    if (with_undo) {
+	/* save data for undo */
+	UndoTransactionGuard undo_transaction(*this, i18n("modify file info"));
+	UndoFileInfo *undo = new UndoFileInfo(*this);
+	ASSERT(undo);
+	if (!undo) return;
+	if (!registerUndoAction(undo)) return;
+    }
 
     m_file_info = new_info;
-
     setModified(true);
     emitStatusInfo();
     emitUndoRedoInfo();

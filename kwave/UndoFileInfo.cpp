@@ -73,7 +73,7 @@ UndoAction *UndoFileInfo::undo(SignalManager &manager, bool with_redo)
     UndoFileInfo *redo = with_redo ? new UndoFileInfo(manager) : 0;
     if (redo) redo->store(manager);
 
-    manager.fileInfo() = m_info;
+    manager.setFileInfo(m_info, false);
 
     return redo;
 }

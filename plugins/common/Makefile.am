@@ -42,7 +42,7 @@ MODNAME=$(shell basename $(MODDIR))
 ui_files	:= $(shell @FIND@ . -name \*.ui | @SORT@)
 uih_files	:= $(ui_files:.ui=.uih.h)
 uic_files	:= $(ui_files:.ui=.uic.cpp)
-	
+
 h_files		:= $(shell @FIND@ . ! -name \*.uih.h -name \*.h | @SORT@)
 h_files   	+= ${uih_files}
 cpp_sources 	:= $(shell @FIND@ . ! -name \*.uic.cpp -name \*.cpp | @SORT@)
@@ -150,7 +150,8 @@ dep depend: .depend
 timestamp.depend: ${GENERATED_FILES} .depend
 	@date > $@
 
-${OUT_FILES}: timestamp.depend
+${PLUGINDEP_FILES}: | ${GENERATED_FILES}
+${OUT_FILES}: | timestamp.depend
 
 $(MODNAME): ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"

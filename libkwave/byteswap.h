@@ -26,7 +26,7 @@
 #else
 /* define our own version, simple, stupid, straight-forward... */
 
-#define bswap_16(x)   ((((x) & 0xFF00) >> 8) | (((x) & 0xFF00) << 8))
+#define bswap_16(x)   ((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
 
 #define bswap_32(x)   ((((x) & 0xFF000000) >> 24) | \
                        (((x) & 0x00FF0000) >> 8)  | \

@@ -1,13 +1,15 @@
 [Desktop Entry]
+Encoding=UTF-8
 Version=1.0
 Type=Application
 Name=Kwave Sound Editor
 Name[de]=Kwave Sound-Editor
+Name[fr]=Kwave éditor de sons
 Comment=A sound editor for KDE2
-Comment[de]=Ein Sound-Editor f�r KDE2
+Comment[de]=Ein Sound-Editor für KDE2
+Comment[fr]=Un éditor de sons pour KDE2
 TryExec=kwave
 Exec=kwave %F
 Icon=kwave.png
 MimeType=audio/wav;audio/x-wav;
 Terminal=0
-

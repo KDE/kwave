@@ -18,8 +18,6 @@
 #ifndef _SIGNAL_MANAGER_H_
 #define _SIGNAL_MANAGER_H_ 1
 
-// #define MAXCHANNELS 64
-
 #define processid       0
 #define stopprocess     1
 #define samplepointer   2

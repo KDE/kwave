@@ -15,7 +15,7 @@
 #                                                                          #
 ############################################################################
 
-INCLUDES= @all_includes@ @ARTS_INCLUDES@
+INCLUDES= @all_includes@ @ARTS_INCLUDES@ -I ../libaudiofile
 
 BUILTSOURCES=\
  KwaveDrag.moc.cpp\

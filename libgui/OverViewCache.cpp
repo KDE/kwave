@@ -471,11 +471,12 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	    sample_t max_sample = SAMPLE_MIN;
 	    unsigned int first = ofs*m_scale;
 	    unsigned int count = m_scale;
+	    QMemArray<sample_t> buf(count);
 
 	    reader->seek(m_src_offset+first);
+	    count = reader->read(buf, 0, count);
 	    while (count--) {
-		sample_t sample;
-		(*reader) >> sample;
+		sample_t sample = buf[count];
 		if (sample > max_sample) max_sample = sample;
 		if (sample < min_sample) min_sample = sample;
 	    }

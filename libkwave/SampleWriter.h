@@ -51,20 +51,17 @@ public:
      * Constructor. Creates an input stream and locks all
      * necessary stripes within the track.
      * @param track
-     * @param stripes list of stripes, already locked for us
-     * @param lock the lock for the needed range of samples
      * @param mode specifies where and how to insert
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleWriter(Track &track, QPtrList<Stripe> &stripes,
-	SampleLock *lock, InsertMode mode,
+    SampleWriter(Track &track, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
 
     /**
-     * Destructor. Unlocks all stripes.
+     * Destructor.
      */
     virtual ~SampleWriter();
 
@@ -151,12 +148,6 @@ private:
 
     /** the track that receives our data */
     Track &m_track;
-
-    /** array with our stripes */
-    QPtrList<Stripe> m_stripes;
-
-    /** locks for our range of samples */
-    SampleLock *m_lock;
 
     /** current position within the track */
     unsigned int m_position;

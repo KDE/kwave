@@ -98,12 +98,10 @@ dnl
 dnl for NLS support. Call them in this order!
 
 dnl CXXFLAGS="$(CXXFLAGS) -Wall -g -fcheck-memory-usage \
-dnl  -g -ansi -D_XOPEN_SOURCE -D_BSD_SOURCE -Wbad-function-cast \
-dnl  -Wcast-align -Wundef -Wconversion -fno-exceptions -fcheck-new -Wall -pedantic -W -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -Wno-long-long -Wnon-virtual-dtor -fno-builtin "
-dnl
-dnl CFLAGS="$(CFLAGS) -Wall -g -fcheck-memory-usage \
-dnl  -g -ansi -D_XOPEN_SOURCE -D_BSD_SOURCE -Wbad-function-cast \
-dnl  -Wcast-align -Wundef -Wconversion -Wall -pedantic -W -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -Wno-long-long -Wnon-virtual-dtor -fno-builtin "
+dnl   -g -ansi  -U__i486__ -U__i586__ -U__i686__ -DMEMCHECK -D_REENTRANT -D_XOPEN_SOURCE -D_BSD_SOURCE \
+dnl   -Wbad-function-cast -Wcast-align -Wundef -Wconversion -fno-exceptions \
+dnl   -fcheck-new -Wall -pedantic -W -Wpointer-arith -Wmissing-prototypes \
+dnl   -Wwrite-strings -Wno-long-long -Wnon-virtual-dtor -fno-builtin "
 
 dnl check if the c++ compiler is new enough to support references to functions
 AC_LANG_CPLUSPLUS dnl switch to C++

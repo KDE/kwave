@@ -274,7 +274,7 @@ void PluginManager::executePlugin(const QString &name, QStringList *params)
 	    // now it's the the task of the plugin's thread
 	    // to clean up after execution
 	    plugin = 0;
-	};
+	}
     } else {
 	// load previous parameters from config
 	QStringList last_params = loadPluginDefaults(name, plugin->version());

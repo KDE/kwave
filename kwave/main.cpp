@@ -1,7 +1,10 @@
 //Kwave main file
 
 #include "config.h"
-//#include "check/mcheck.h"
+
+#ifdef MEMCHECK
+#include "check/mcheck.h"
+#endif
 
 #include <kaboutdata.h>
 

@@ -58,7 +58,6 @@ public:
      */
     static interpolation_t find(const QString &name)
     {
-	debug("Interpolation::find("+name+")");
 	return m_interpolation_map.findFromName(name);
     };
 

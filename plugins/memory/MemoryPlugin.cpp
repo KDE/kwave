@@ -100,7 +100,9 @@ void MemoryPlugin::applySettings()
 {
     MemoryManager &mem = MemoryManager::instance();
     mem.setPhysicalLimit(m_physical_limited ? m_physical_limit : 4096);
-    mem.setVirtualLimit(m_virtual_enabled ? m_virtual_limit : 0);
+    mem.setVirtualLimit(m_virtual_enabled ?
+                       (m_virtual_limited ? m_virtual_limit : 4096) :
+		       0);
     mem.setSwapDirectory(m_virtual_directory);
 }
 

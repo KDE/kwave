@@ -179,7 +179,7 @@ void RecordPlugin::changeDevice(const QString &dev)
 {
     Q_ASSERT(m_dialog);
     if (!m_dialog) return;
-    qDebug("RecordPlugin::changeDevice("+dev+")");
+    qDebug("RecordPlugin::changeDevice(%s)", dev.data());
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
 

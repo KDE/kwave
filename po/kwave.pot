@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-12-27 21:05+0100\n"
+"POT-Creation-Date: 2002-01-07 23:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1771,7 +1771,7 @@ msgid "bit"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:121
-#: plugins/newsignal/NewSigDlg.uic.cpp:266
+#: plugins/newsignal/NewSigDlg.uic.cpp:290
 #, c-format, ycp-format
 msgid "%1"
 msgstr ""
@@ -1821,26 +1821,38 @@ msgstr ""
 msgid "select this to enter the number of samples directly"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:230
+#: plugins/newsignal/NewSigDlg.uic.cpp:227
+msgid "minimum"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:234
+msgid "(file size)"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:241
+msgid "maximum"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:254
 msgid "sets the file size by the percentage of the possible maximum"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:238
+#: plugins/newsignal/NewSigDlg.uic.cpp:262
 #, c-format
 msgid "0%"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:244
+#: plugins/newsignal/NewSigDlg.uic.cpp:268
 #, c-format
 msgid "50%"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:250
+#: plugins/newsignal/NewSigDlg.uic.cpp:274
 #, c-format
 msgid "100%"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:285
+#: plugins/newsignal/NewSigDlg.uic.cpp:309
 msgid "O&K"
 msgstr ""
 

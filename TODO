@@ -14,6 +14,9 @@ o crashes at startup when no aRts server can be connected (seen on Mandrake-9)
 o finish recording support
   -> currently work in progress
 
+o bugfix: start plugin (e.g. Sonagram) while playback leads to
+  lock situation
+
 o more precise handling of the playback pointer
   -> use the delay information from aRts
 
@@ -88,7 +91,7 @@ o resample signal before inserting into a signal with a different sample
   rate (when doing copy/paste)
 
 o optimized cut/paste, at zero-crossing
-  
+
 o channel mixing dialog
 
 o amplifymax does not work
@@ -111,7 +114,7 @@ o check at program startup: does the help directory exist? If not, show
 o document how to do an optimized build, for example:
   make -f Makefile.dist RPM_OPT_FLAGS="-march=athlon-xp -mcpu=athlon-xp \
   -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_TRANSLATION"
-  
+
 o speed up MP3 import by blockwise operation
 
 o storage/handling of extra info "labels", "cue list"...

@@ -234,7 +234,6 @@ int SignalManager::save(const KURL &url, unsigned int bits, bool selection)
 	len = m_selection.length();
 	tracks = selectedTracks().count();
     }
-    debug("ofs=%u, len=%u, tracks=%u",ofs,len,tracks);
 
     if (!tracks || !len) {
 	KMessageBox::error(m_parent_widget,
@@ -337,7 +336,6 @@ void SignalManager::newSignal(unsigned int samples, double rate,
 
     // from now on, undo is enabled
     enableUndo();
-
 }
 
 //***************************************************************************
@@ -357,6 +355,7 @@ void SignalManager::close()
 
     m_empty = true;
     m_name = "";
+    while (tracks()) deleteTrack(tracks()-1);
     m_signal.close();
 
     m_closed = true;
@@ -396,47 +395,47 @@ QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
     if (!overview) return 0;
 
 //    unsigned int track;
-    unsigned int left;
-    unsigned int right;
-    unsigned int x;
+//    unsigned int left;
+//    unsigned int right;
+//    unsigned int x;
 //    unsigned int tracks = this->tracks();
-    double samples_per_pixel = (float)(length-1) / (float)(width-1);
-    int min;
-    int max;
-    double scale_y = (double)height / ((SAMPLE_MAX+1) << 1);
-
-    QPainter p;
-    MultiTrackReader src;
-    openMultiTrackReader(src, allTracks(), 0, length-1);
-
-    overview->fill(color0);
-
-    p.begin(overview);
-    p.setPen(color1);
-    left = offset;
-    for (x=0; x < width; x++) {
-	right = offset + (unsigned int)((x+1) * samples_per_pixel);
-	// find minimum and maximum over all channels
-	min = SAMPLE_MAX;
-	max = SAMPLE_MIN;
-//	while (left++ <= right) {
-//	    for (track = 0; track < tracks; track++) {
-//		sample_t s;
-//		*(src.at(track)) >> s;
-//		if (s < min) min = s;
-//		if (s > max) max = s;
-//	    }
-//	}
-	
-	// transform min/max into pixel coordinates
-	min = (height >> 1) - (int)(min * scale_y);
-	max = (height >> 1) - (int)(max * scale_y);
-	
-	// draw the line between min and max
-//	p.drawLine(x, min, x, max);
-    }
-    p.end ();
-
+//    double samples_per_pixel = (float)(length-1) / (float)(width-1);
+//    int min;
+//    int max;
+//    double scale_y = (double)height / ((SAMPLE_MAX+1) << 1);
+//
+//    QPainter p;
+//    MultiTrackReader src;
+//    openMultiTrackReader(src, allTracks(), 0, length-1);
+//
+//    overview->fill(color0);
+//
+//    p.begin(overview);
+//    p.setPen(color1);
+//    left = offset;
+//    for (x=0; x < width; x++) {
+//	right = offset + (unsigned int)((x+1) * samples_per_pixel);
+//	// find minimum and maximum over all channels
+//	min = SAMPLE_MAX;
+//	max = SAMPLE_MIN;
+////	while (left++ <= right) {
+////	    for (track = 0; track < tracks; track++) {
+////		sample_t s;
+////		*(src[track]) >> s;
+////		if (s < min) min = s;
+////		if (s > max) max = s;
+////	    }
+////	}
+//	
+//	// transform min/max into pixel coordinates
+//	min = (height >> 1) - (int)(min * scale_y);
+//	max = (height >> 1) - (int)(max * scale_y);
+//	
+//	// draw the line between min and max
+////	p.drawLine(x, min, x, max);
+//    }
+//    p.end ();
+//
     return overview;
 }
 
@@ -717,7 +716,6 @@ void SignalManager::insertTrack(unsigned int index)
 void SignalManager::deleteTrack(unsigned int index)
 {
     UndoTransactionGuard u(*this, i18n("delete track"));
-    debug("void SignalManager::deleteTrack(%u)",index);
 
     UndoAction *undo = new UndoDeleteTrack(m_signal, index);
     if (!registerUndoAction(undo)) {

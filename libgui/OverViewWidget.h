@@ -67,9 +67,6 @@ public:
      */
     void setValue(unsigned int newval);
 
-    /** Refreshes the overview bitmap. */
-    void setOverView(QBitmap *overview);
-
     /** minimum size of the widget, @see QWidget::minimumSize() */
     virtual const QSize minimumSize();
 
@@ -186,7 +183,7 @@ protected:
 private:
 
     /**
-     * Compresses the cache tohold more samples per entry.
+     * Compresses the cache to hold more samples per entry.
      */
     void scaleUp();
 
@@ -196,6 +193,20 @@ private:
      * a second step.
      */
     void scaleDown();
+
+    /**
+     * Marks a range of cache entries of a track as invalid
+     * @param track index of the track to invalidate
+     * @param first index of the first entry
+     * @param last index of the last entry (will be truncated to CACHE_SIZE-1)
+     */
+    void invalidateCache(unsigned int track, unsigned int first,
+                         unsigned int last);
+
+    /**
+     * Refreshes all modified parts of the bitmap
+     */
+    void refreshBitmap();
 
 private:
 

@@ -191,6 +191,9 @@
                 <listitem><para>
                     bugfix: save selection works again
                 </para></listitem>
+                <listitem><para>
+                    integrated libkwavemt into libkwave
+                </para></listitem>
             </itemizedlist>
         </listitem>
         <listitem>

@@ -1,6 +1,10 @@
 
-o test for afOpenVirtualFile() in configure script and check if
-  system libaudiofile can be used
+
+o hourglass and process indicators for longer processes
+
+o ruler that shows the current cursor position as time
+
+o use time instead of zoom factor (e.g. set zoom to "1 minute")
 
 o storage/handling of extra info (labels, cue list, author etc...)
 
@@ -15,7 +19,7 @@ o audible/silent mode of tracks (speakers)
 
 o virtual memory: multiple swap directories
 
-o gui access to file saving parameters
+o gui access to file saving parameters (author, copyright, etc...)
 
 o install a new_handler() for cases in which we run out of memory
 
@@ -26,18 +30,13 @@ o menu entries for playback control
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
 
-o hourglass and process indicators for longer processes
-
-o ruler that shows the current cursor position as time
-
-o use time instead of zoom factor (e.g. set zoom to "1 minute")
-
 o context menu for the SignalWidget with Copy/Paste etc.
 
 o fast playback mode, playback with facor 1.5x, 3x, 5x, 7x...
   -> look how noatun does that...
 
 o support for compressed wav files, like those found on www.montypython.net
+  -> MPEG 3 is still not supported by libaudiofile
 
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 
@@ -138,11 +137,10 @@ o navigation buttons on the overview widget
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width
 
-o in rpm update script: error messages when updating the default
-  language link of the online help
-
-o use some audio library, like libasound for import/export of other
-  file formats
+o test for afOpenVirtualFile() in configure script and check if
+  the local system's libaudiofile can be used
+  -> wait until a newer version is released and commonly integrated
+     in the distributions
 
 o figure out how to work with exceptions:
   - works if ALL libraries use rtti and we compile with -frtti

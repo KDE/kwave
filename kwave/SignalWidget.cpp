@@ -1716,7 +1716,7 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 {
     // delete the track from the list
     m_track_pixmaps.setAutoDelete(true);
-    m_track_pixmaps.remove(index);
+    if (index < m_track_pixmaps.count()) m_track_pixmaps.remove(index);
 
     // emit the signal sigTrackInserted now, so that the signal widget
     // gets resized if needed, but the new pixmap is still empty

@@ -218,11 +218,6 @@ signals:
 
     void sigCommand(const QString &command);
 
-protected:
-
-    /** Updates the overview in the horizontal slider */
-    void refreshOverView();
-
 private:
 
     QAccel *keys;

@@ -9,12 +9,10 @@ msgstr ""
 "X-Generator: KBabel 0.9.5\n"
 
 #: index.docbook:13
-#, no-c-format
 msgid "The &kapp; Handbook"
 msgstr "Das &kapp; Handbuch"
 
 #: index.docbook:16
-#, no-c-format
 msgid ""
 "<firstname>Thomas</firstname> <surname>Eschenbacher</surname> <affiliation> "
 "<address><email>thomas.eschenbacher@gmx.de</email></address> </affiliation>"
@@ -23,7 +21,6 @@ msgstr ""
 "<address><email>thomas.eschenbacher@gmx.de</email></address> </affiliation>"
 
 #: index.docbook:24
-#, no-c-format
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
 "<othercredit role=\"translator\"><firstname>Sven-Steffen</"
@@ -32,77 +29,62 @@ msgstr ""
 "othercredit>"
 
 #: index.docbook:28
-#, no-c-format
 msgid "Martin Wilz"
 msgstr "Martin Wilz"
 
 #: index.docbook:29
-#, no-c-format
 msgid "Thomas Eschenbacher"
 msgstr "Thomas Eschenbacher"
 
 #: index.docbook:36
-#, no-c-format
 msgid "&kapp; is a simple sound editor for KDE."
 msgstr "&kapp; ist ein einfacher Sound-Editor für KDE."
 
 #: index.docbook:39
-#, no-c-format
 msgid "<keyword>KDE</keyword>"
 msgstr "<keyword>KDE</keyword>"
 
 #: index.docbook:40
-#, no-c-format
 msgid "multimedia"
 msgstr "multimedia"
 
 #: index.docbook:41
-#, no-c-format
 msgid "sound"
 msgstr "sound"
 
 #: index.docbook:42
-#, no-c-format
 msgid "audio"
 msgstr "audio"
 
 #: index.docbook:43
-#, no-c-format
 msgid "Kwave"
 msgstr "Kwave"
 
 #: index.docbook:44
-#, no-c-format
 msgid "<keyword>wav</keyword>"
 msgstr "<keyword>wav</keyword>"
 
 #: index.docbook:45
-#, no-c-format
 msgid "editor"
 msgstr "editor"
 
 #: index.docbook:46
-#, no-c-format
 msgid "sonagram"
 msgstr "sonagram"
 
 #: index.docbook:47
-#, no-c-format
 msgid "<keyword>FFT</keyword>"
 msgstr "<keyword>FFT</keyword>"
 
 #: index.docbook:48
-#, no-c-format
 msgid "Linux"
 msgstr "Linux"
 
 #: index.docbook:56
-#, no-c-format
 msgid "Introduction"
 msgstr "Einleitung"
 
 #: index.docbook:64
-#, no-c-format
 msgid ""
 "This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
 msgstr ""
@@ -110,52 +92,42 @@ msgstr ""
 "folgende Funktionalität:"
 
 #: index.docbook:64
-#, no-c-format
 msgid "simple cut, copy and paste functions"
 msgstr "einfaches Ausschneiden, Kopieren und Einfügen"
 
 #: index.docbook:64
-#, no-c-format
 msgid "undo/redo"
 msgstr "Rückgängig/Wiederherstellen"
 
 #: index.docbook:64
-#, no-c-format
 msgid "simple filter design tools"
 msgstr "einfache Filter-Werkzeuge"
 
 #: index.docbook:64
-#, no-c-format
 msgid "a small editor for additive synthesis"
 msgstr "einen kleinen Editor für Additive Synthese"
 
 #: index.docbook:64
-#, no-c-format
 msgid "labeling of signals"
 msgstr "das Markieren von Signalen"
 
 #: index.docbook:64
-#, no-c-format
 msgid "some analysis functions such as Sonagram or Fourier Transformation"
 msgstr "einige Analyse-Funktionen wie Sonagramm oder Fourier Transformation"
 
 #: index.docbook:64
-#, no-c-format
 msgid "internally uses 24 bit integer sample data"
 msgstr "interne Benutzung von 24 Bit Integer Sample Daten"
 
 #: index.docbook:64
-#, no-c-format
 msgid "free selectable sample rates"
 msgstr "frei einstellbare Sample-Raten"
 
 #: index.docbook:64
-#, no-c-format
 msgid "support for editing of multi-channel files"
 msgstr "Unterstützung für das Bearbeiten von Mehr-Kanal-Dateien"
 
 #: index.docbook:64
-#, no-c-format
 msgid ""
 "playback of multi-channel audio files (audio output will be mixed down to "
 "mono or stereo)"
@@ -164,12 +136,10 @@ msgstr ""
 "Stereo heruntergemischt)"
 
 #: index.docbook:64
-#, no-c-format
 msgid "extendible through an easy-to-use plugin interface"
 msgstr "erweiterbar durch ein einfach zu benutzendes Plugin-Interface"
 
 #: index.docbook:105
-#, no-c-format
 msgid ""
 "If you are interested what has been done and what has still to be done, then "
 "look at the files <filename>CHANGES</filename> and <filename>TODO</filename> "
@@ -182,12 +152,10 @@ msgstr ""
 "immer willkommen."
 
 #: index.docbook:117
-#, no-c-format
 msgid "&kapp; Resources"
 msgstr "&kapp; Resourcen"
 
 #: index.docbook:119
-#, no-c-format
 msgid ""
 "So if you want to get in contact with the developers, need some further help "
 "on using &kapp;, submit patches, bug reports or other stuf, the following "
@@ -199,12 +167,10 @@ msgstr ""
 "sein: "
 
 #: index.docbook:125
-#, no-c-format
 msgid "Project Homepage"
 msgstr "Projekt-Homepage"
 
 #: index.docbook:125
-#, no-c-format
 msgid ""
 "For informations about new up-to-date releases or some other information "
 "about this project, take a look at the <ulink url=\"http://kwave.sourceforge."
@@ -215,12 +181,10 @@ msgstr ""
 "net/\">&kapp; Homepage</ulink>."
 
 #: index.docbook:125
-#, no-c-format
 msgid "Mailing List"
 msgstr "Mailing-Liste"
 
 #: index.docbook:125
-#, no-c-format
 msgid ""
 "If you need some help on using &kapp; or want to get involved in the "
 "development, join the Kwave developer mailing list by visiting <ulink url="
@@ -234,12 +198,10 @@ msgstr ""
 "ulink>."
 
 #: index.docbook:125
-#, no-c-format
 msgid "CVS Repository"
 msgstr "CVS-Archiv"
 
 #: index.docbook:125
-#, no-c-format
 msgid ""
 "There also is a CVS repository, hosted by <ulink url=\"http://sourceforge.net"
 "\">SourceForge</ulink> where you can get the sources of the latest "
@@ -261,12 +223,10 @@ msgstr ""
 "<emphasis>Anonymer CVS-Zugriff ist erlaubt!</emphasis>."
 
 #: index.docbook:161
-#, no-c-format
 msgid "&kapp; Revision History"
 msgstr "&kapp; - Historischer Rückblick"
 
 #: index.docbook:163
-#, no-c-format
 msgid ""
 "This project has been started by Martin Wilz in summer 1998 and has been "
 "developed and improved by him an some other people. In November 1999 Thomas "

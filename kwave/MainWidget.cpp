@@ -229,7 +229,6 @@ MainWidget::~MainWidget()
 void MainWidget::resizeEvent(QResizeEvent *)
 {
     refreshChannelControls();
-    refreshOverView();
 }
 
 //***************************************************************************
@@ -255,19 +254,6 @@ void MainWidget::slotTrackDeleted(unsigned int /*track*/)
 {
     refreshChannelControls();
     emit sigTrackCount(tracks());
-}
-
-//***************************************************************************
-void MainWidget::refreshOverView()
-{
-    ASSERT(m_slider);
-    if (!m_slider) return;
-
-    QBitmap *overview = m_signal_widget.overview(
-	m_slider->width(), m_slider->height());
-    m_slider->setOverView(overview);
-
-    if (overview) delete overview;
 }
 
 //***************************************************************************

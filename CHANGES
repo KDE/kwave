@@ -6,6 +6,7 @@
    the selection removed wrong range
  * auto-repair for structurally damaged wav files
  * bugfix: save selection works again
+ * integrated libkwavemt into libkwave
 
 0.6.3 [2002-03-01]
 

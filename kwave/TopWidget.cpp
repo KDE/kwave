@@ -824,7 +824,7 @@ void TopWidget::newSignal(unsigned int samples, double rate,
     // abort if the user pressed cancel
     if (!closeFile()) return;
 
-    m_url = NEW_FILENAME;
+    m_url = "file:"+NEW_FILENAME;
     emit sigSignalNameChanged(signalName());
 
     m_main_widget->newSignal(samples, rate, bits, tracks);

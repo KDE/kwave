@@ -30,11 +30,12 @@
 #include "libgui/FrequencyResponseWidget.h"
 
 #include "LowPassDialog.h"
+#include "LowPassFilter.h"
 
 //***************************************************************************
 LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     :LowPassDlg(parent, 0, true), m_frequency(3500),
-     m_sample_rate(sample_rate)
+     m_sample_rate(sample_rate), m_filter(0)
 {
 
     // set maximum frequency to sample rate / 2
@@ -45,16 +46,20 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
 
     // initialize the frequency scale widget
     scale_freq->setMinMax(0, (int)f_max);
-    scale_freq->setLogMode(true);
+    scale_freq->setLogMode(false);
     scale_freq->setUnit(i18n("Hz"));
 
     // initialize the attenuation scale widget
-    scale_db->setMinMax(-96, +12);
+    scale_db->setMinMax(-24, +6);
     scale_db->setLogMode(false);
     scale_db->setUnit(i18n("dB"));
 
     // initialize the frequency response widget
-    freq_response->init(f_max, -96, +12);
+    freq_response->init(f_max, -24, +6);
+
+    // set up the low pass filter dunction
+    m_filter = new LowPassFilter();
+    freq_response->setFilter(m_filter);
     
     // initialize the controls and the curve display
     slider->setValue((int)m_frequency);
@@ -75,6 +80,8 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
 //***************************************************************************
 LowPassDialog::~LowPassDialog()
 {
+    if (freq_response) freq_response->setFilter(0);
+    if (m_filter) delete m_filter;
 }
 
 //***************************************************************************
@@ -112,7 +119,9 @@ void LowPassDialog::setParams(QStringList &params)
 //***************************************************************************
 void LowPassDialog::updateDisplay()
 {
-   
+    double f_max = m_sample_rate / 2.0;
+    if (m_filter && (f_max != 0.0))
+        m_filter->setFrequency((m_frequency/f_max)*M_PI);
 }
 
 //***************************************************************************

@@ -530,8 +530,12 @@ void FileInfoDialog::accept()
     /* sample format */
     SampleFormat sample_formats;
     int sample_format = sample_formats.data(cbSampleFormat->currentItem());
-    m_info.set(INF_SAMPLE_FORMAT, QVariant(sample_format));
-
+    if (m_info.contains(INF_SAMPLE_FORMAT) ||
+        (sample_format != sample_formats.data(0)))
+    {
+	m_info.set(INF_SAMPLE_FORMAT, QVariant(sample_format));
+    }
+    
     /* compression */
     CompressionType compressions;
     int compression = compressions.data(cbCompression->currentItem());

@@ -19,7 +19,6 @@
 
 //***************************************************************************
 ThreadCondition::ThreadCondition()
-    :TSS_Object()
 {
     pthread_cond_init(&m_condition, 0);
     pthread_mutex_init(&m_lock, 0);

@@ -19,7 +19,6 @@
 #define _THREAD_CONDITION_H_
 
 #include <pthread.h>
-#include "mt/TSS_Object.h"
 
 /**
  * @class ThreadCondition
@@ -33,7 +32,7 @@
  *
  * @todo some error handling
  */
-class ThreadCondition: public TSS_Object
+class ThreadCondition
 {
 public:
     /** Constructor */

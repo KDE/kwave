@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-18 16:01+0200\n"
+"POT-Creation-Date: 2002-05-20 18:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,51 +90,51 @@ msgstr ""
 msgid "Blackman"
 msgstr ""
 
-#: kwave/SignalManager.cpp:241
+#: kwave/SignalManager.cpp:240
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:283
+#: kwave/SignalManager.cpp:282
 msgid "An error occurred while reading the file!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:292
+#: kwave/SignalManager.cpp:291
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:299
+#: kwave/SignalManager.cpp:298
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:565
+#: kwave/SignalManager.cpp:564
 msgid "cut"
 msgstr ""
 
-#: kwave/SignalManager.cpp:568
+#: kwave/SignalManager.cpp:567
 msgid "crop"
 msgstr ""
 
-#: kwave/SignalManager.cpp:634
+#: kwave/SignalManager.cpp:633
 msgid "paste"
 msgstr ""
 
-#: kwave/SignalManager.cpp:677
+#: kwave/SignalManager.cpp:676
 msgid "append track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:684 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:683 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:719 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:718 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:803 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:801 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1275 kwave/SignalManager.cpp:1282
+#: kwave/SignalManager.cpp:1273 kwave/SignalManager.cpp:1280
 msgid "last action"
 msgstr ""
 
@@ -332,10 +332,14 @@ msgid "debian packager"
 msgstr ""
 
 #: kwave/main.cpp:90
-msgid "creator of the 'libsndfile' library"
+msgid "author of the 'audiofile' library"
 msgstr ""
 
-#: kwave/main.cpp:118
+#: kwave/main.cpp:94
+msgid "author of the 'sndfile' library"
+msgstr ""
+
+#: kwave/main.cpp:122
 msgid "sound editor for KDE2"
 msgstr ""
 
@@ -343,7 +347,7 @@ msgstr ""
 msgid "selection"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1776 kwave/SignalWidget.cpp:1815
+#: kwave/SignalWidget.cpp:1785 kwave/SignalWidget.cpp:1824
 msgid "drag and drop"
 msgstr ""
 
@@ -361,382 +365,386 @@ msgid "&8 Bit"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:16
-msgid "&About kwave..."
+msgid "About &KDE"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:17 plugins/freqmult/module.cpp:35
+#: kwave/menus_config_i18n.cpp:17
+msgid "&About Kwave"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:18 plugins/freqmult/module.cpp:35
 msgid "&Add"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:18
+#: kwave/menus_config_i18n.cpp:19
 msgid "&Additive Synthesis"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:19
+#: kwave/menus_config_i18n.cpp:20
 msgid "&All"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:20
+#: kwave/menus_config_i18n.cpp:21
 msgid "&Amplify"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:21
+#: kwave/menus_config_i18n.cpp:22
 msgid "&As..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:22
+#: kwave/menus_config_i18n.cpp:23
 msgid "&Average spectrum"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:23
+#: kwave/menus_config_i18n.cpp:24
 msgid "&Blocks..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:24
+#: kwave/menus_config_i18n.cpp:25
 msgid "&Calculate"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:25
+#: kwave/menus_config_i18n.cpp:26
 msgid "&Center Signal"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:26
+#: kwave/menus_config_i18n.cpp:27
 msgid "&Change rate"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:27
+#: kwave/menus_config_i18n.cpp:28
 msgid "&Choose type"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:28
+#: kwave/menus_config_i18n.cpp:29
 msgid "&Clipboard"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:29
+#: kwave/menus_config_i18n.cpp:30
 msgid "Clip&board"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:32 plugins/codec_wav/WavDecoder.cpp:246
+#: kwave/menus_config_i18n.cpp:33 plugins/codec_wav/WavDecoder.cpp:246
 msgid "&Continue"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:33
+#: kwave/menus_config_i18n.cpp:34
 msgid "&Convert label distance to pitch"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:35
+#: kwave/menus_config_i18n.cpp:36
 msgid "&Create"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:36
+#: kwave/menus_config_i18n.cpp:37
 msgid "Create &type"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:37
+#: kwave/menus_config_i18n.cpp:38
 msgid "&Crop"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:38
+#: kwave/menus_config_i18n.cpp:39
 msgid "Cu&t"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:39
+#: kwave/menus_config_i18n.cpp:40
 msgid "De&lay"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:41
+#: kwave/menus_config_i18n.cpp:42
 msgid "&Distort"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:43
+#: kwave/menus_config_i18n.cpp:44
 msgid "&End"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:44
+#: kwave/menus_config_i18n.cpp:45
 msgid "&Enter Command"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:45
+#: kwave/menus_config_i18n.cpp:46
 msgid "&Envelope"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:46
+#: kwave/menus_config_i18n.cpp:47
 msgid "E&xecute"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:47
+#: kwave/menus_config_i18n.cpp:48
 msgid "&Expand to labels"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:48
+#: kwave/menus_config_i18n.cpp:49
 msgid "Fade &In"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:49
+#: kwave/menus_config_i18n.cpp:50
 msgid "Fade &Out"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:51 plugins/filter/module.cpp:34
+#: kwave/menus_config_i18n.cpp:52 plugins/filter/module.cpp:34
 msgid "&Filter"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:52
+#: kwave/menus_config_i18n.cpp:53
 msgid "&Flip Phase"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:53
+#: kwave/menus_config_i18n.cpp:54
 msgid "&Flush"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:54
+#: kwave/menus_config_i18n.cpp:55
 msgid "&Free"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:55
+#: kwave/menus_config_i18n.cpp:56
 msgid "&Frequencies"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:56
+#: kwave/menus_config_i18n.cpp:57
 msgid "F&x"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:57
+#: kwave/menus_config_i18n.cpp:58
 msgid "&Generate"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:59
+#: kwave/menus_config_i18n.cpp:60
 msgid "&Insert labels..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:60
+#: kwave/menus_config_i18n.cpp:61
 msgid "&Invert Selection"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:61
+#: kwave/menus_config_i18n.cpp:62
 msgid "Label by &Intensity"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:62
+#: kwave/menus_config_i18n.cpp:63
 msgid "Label by &Period"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:63
+#: kwave/menus_config_i18n.cpp:64
 msgid "&Labels"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:64
+#: kwave/menus_config_i18n.cpp:65
 msgid "Labels..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:65
+#: kwave/menus_config_i18n.cpp:66
 msgid "&Load labels..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:66
+#: kwave/menus_config_i18n.cpp:67
 msgid "&Loop"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:67
+#: kwave/menus_config_i18n.cpp:68
 msgid "&Macro"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:68
+#: kwave/menus_config_i18n.cpp:69
 msgid "&Memory"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:69
+#: kwave/menus_config_i18n.cpp:70
 msgid "&Mix"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:70
+#: kwave/menus_config_i18n.cpp:71
 msgid "&Mix & Paste"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:71
+#: kwave/menus_config_i18n.cpp:72
 msgid "&Moving Average"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:72
+#: kwave/menus_config_i18n.cpp:73
 msgid "&New..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:73
+#: kwave/menus_config_i18n.cpp:74
 msgid "New &Window"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:75
+#: kwave/menus_config_i18n.cpp:76
 msgid "&Next Page"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:76
+#: kwave/menus_config_i18n.cpp:77
 msgid "&Noise"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:77
+#: kwave/menus_config_i18n.cpp:78
 msgid "&Nothing"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:78
+#: kwave/menus_config_i18n.cpp:79
 msgid "&Open"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:82
+#: kwave/menus_config_i18n.cpp:83
 msgid "&Pause"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:83
+#: kwave/menus_config_i18n.cpp:84
 msgid "&Periodic Silence"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:84
+#: kwave/menus_config_i18n.cpp:85
 msgid "Periods..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:85
+#: kwave/menus_config_i18n.cpp:86
 msgid " &Play"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:86
+#: kwave/menus_config_i18n.cpp:87
 msgid "&Play"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:87
+#: kwave/menus_config_i18n.cpp:88
 msgid "&Playback"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:88
+#: kwave/menus_config_i18n.cpp:89
 msgid "&Presets"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:90
+#: kwave/menus_config_i18n.cpp:91
 msgid "&Previous Page"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:91
+#: kwave/menus_config_i18n.cpp:92
 msgid "&Pulse Train"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:93
+#: kwave/menus_config_i18n.cpp:94
 msgid "&Range"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:95
+#: kwave/menus_config_i18n.cpp:96
 msgid "Re&quantize"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:96
+#: kwave/menus_config_i18n.cpp:97
 msgid "&Resample"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:97
+#: kwave/menus_config_i18n.cpp:98
 msgid "&Reverse"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:98
+#: kwave/menus_config_i18n.cpp:99
 msgid "Revert"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:100
+#: kwave/menus_config_i18n.cpp:101
 msgid "S&ave"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:101
+#: kwave/menus_config_i18n.cpp:102
 msgid "Save resol&ution"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:102
+#: kwave/menus_config_i18n.cpp:103
 msgid "Scroll &left"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:103
+#: kwave/menus_config_i18n.cpp:104
 msgid "Scroll &right"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:104
+#: kwave/menus_config_i18n.cpp:105
 msgid "&Select all"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:105
+#: kwave/menus_config_i18n.cpp:106
 msgid "&Selection"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:106
+#: kwave/menus_config_i18n.cpp:107
 msgid "&Selection..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:107
+#: kwave/menus_config_i18n.cpp:108
 msgid "&Silence"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:108 plugins/sonagram/SonagramWindow.cpp:124
+#: kwave/menus_config_i18n.cpp:109 plugins/sonagram/SonagramWindow.cpp:124
 msgid "&Sonagram"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:109
+#: kwave/menus_config_i18n.cpp:110
 msgid "Spe&ctrum"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:111
+#: kwave/menus_config_i18n.cpp:112
 msgid "&Start recording"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:112
+#: kwave/menus_config_i18n.cpp:113
 msgid "S&top"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:113
+#: kwave/menus_config_i18n.cpp:114
 msgid "S&top recording"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:114
+#: kwave/menus_config_i18n.cpp:115
 msgid "to be done..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:115
+#: kwave/menus_config_i18n.cpp:116
 msgid "&to end"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:116
+#: kwave/menus_config_i18n.cpp:117
 msgid "to &Maximum"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:117
+#: kwave/menus_config_i18n.cpp:118
 msgid "&to new Window"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:118
+#: kwave/menus_config_i18n.cpp:119
 msgid "&to start"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:119
+#: kwave/menus_config_i18n.cpp:120
 msgid "&Track"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:120
+#: kwave/menus_config_i18n.cpp:121
 msgid "Tri&m"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:122
+#: kwave/menus_config_i18n.cpp:123
 msgid "&Undo and Redo"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:124
+#: kwave/menus_config_i18n.cpp:125
 msgid "&Visible area"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:125
+#: kwave/menus_config_i18n.cpp:126
 msgid "with &Clipboard"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:126
+#: kwave/menus_config_i18n.cpp:127
 msgid "Zoom &In"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:127
+#: kwave/menus_config_i18n.cpp:128
 msgid "Zoom &Out"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:128
+#: kwave/menus_config_i18n.cpp:129
 msgid "Zoom to &Selection"
 msgstr ""
 
@@ -1037,7 +1045,7 @@ msgstr ""
 msgid "%"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:65
+#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:34
 msgid "Amplify Free"
 msgstr ""
 
@@ -1299,15 +1307,15 @@ msgstr ""
 msgid "file %s does not exist!\n"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:70
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:39
 msgid "About Kwave"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:76
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:47
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:100
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:77
 msgid ""
 " <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
 "h2><br>\n"
@@ -1322,19 +1330,19 @@ msgid ""
 "and scroll capability."
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:115
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:92
 msgid "kwave.sf.net"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:129
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:108
 msgid "Authors"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:139
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:120
 msgid "Thanks To"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:146
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:129
 msgid "License agreement"
 msgstr ""
 
@@ -1373,7 +1381,7 @@ msgstr ""
 msgid "Base name:"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:96 plugins/saveblock/module.cpp:33
+#: plugins/memory/MemDlg.uic.cpp:102 plugins/saveblock/module.cpp:33
 msgid "Directory:"
 msgstr ""
 
@@ -1381,11 +1389,11 @@ msgstr ""
 msgid "Memory Settings"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:42
+#: plugins/memory/MemDlg.uic.cpp:44
 msgid "&Physical Memory"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:43
+#: plugins/memory/MemDlg.uic.cpp:45
 msgid ""
 "<b>Limit the usage of physical memory (RAM).</b><br>\n"
 "\n"
@@ -1394,23 +1402,23 @@ msgid ""
 "higher than the totally installed amount of memory."
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:53
+#: plugins/memory/MemDlg.uic.cpp:57
 msgid "Limit &to"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:68 plugins/memory/MemDlg.uic.cpp:131
+#: plugins/memory/MemDlg.uic.cpp:72 plugins/memory/MemDlg.uic.cpp:137
 msgid " MB"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:72
+#: plugins/memory/MemDlg.uic.cpp:76
 msgid "megabytes of physical memory"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:77
+#: plugins/memory/MemDlg.uic.cpp:81
 msgid "&Virtual Memory"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:78
+#: plugins/memory/MemDlg.uic.cpp:82
 msgid ""
 "<b>Configure the usage of virtual memory (swap files).</b><br>\n"
 "\n"
@@ -1422,35 +1430,35 @@ msgid ""
 "    Of course you can also set a limit for the total size of the page files."
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:90
+#: plugins/memory/MemDlg.uic.cpp:96
 msgid "&Enable usage of virtual memory"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:101
+#: plugins/memory/MemDlg.uic.cpp:107
 msgid "/tmp"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:102
+#: plugins/memory/MemDlg.uic.cpp:108
 msgid "directory for storing swap files"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:107
+#: plugins/memory/MemDlg.uic.cpp:113
 msgid "&Search..."
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:108
+#: plugins/memory/MemDlg.uic.cpp:114
 msgid "browse for a directory to hold page files"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:113
+#: plugins/memory/MemDlg.uic.cpp:119
 msgid "&Limit to"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:136
+#: plugins/memory/MemDlg.uic.cpp:142
 msgid "megabytes of virtual memory"
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:71
+#: plugins/codec_wav/WavEncoder.cpp:75
 msgid "Unable to open the file for saving!"
 msgstr ""
 
@@ -1466,7 +1474,7 @@ msgstr ""
 msgid "detecting endianness (statistic search)..."
 msgstr ""
 
-#: plugins/codec_wav/RIFFParser.cpp:535
+#: plugins/codec_wav/RIFFParser.cpp:541
 #, ycp-format
 msgid "searching for missing chunk '%1'..."
 msgstr ""
@@ -1509,7 +1517,7 @@ msgstr ""
 msgid "Kwave auto-repair"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:326
+#: plugins/codec_wav/WavDecoder.cpp:325
 msgid "format or function is not implemented"
 msgstr ""
 
@@ -1525,19 +1533,19 @@ msgstr ""
 msgid "invalid codec type"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:338
+#: plugins/codec_wav/WavDecoder.cpp:339
 msgid "opening the file failed"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:341
+#: plugins/codec_wav/WavDecoder.cpp:342
 msgid "read access failed"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:344
+#: plugins/codec_wav/WavDecoder.cpp:345
 msgid "invalid sample format"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:350
+#: plugins/codec_wav/WavDecoder.cpp:351
 #, ycp-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -1766,159 +1774,159 @@ msgstr ""
 msgid "Form1"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:43
+#: plugins/newsignal/NewSigDlg.uic.cpp:45
 msgid "Format"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:51
+#: plugins/newsignal/NewSigDlg.uic.cpp:55
 msgid "8000"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:52
+#: plugins/newsignal/NewSigDlg.uic.cpp:56
 msgid "10000"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:53
+#: plugins/newsignal/NewSigDlg.uic.cpp:57
 msgid "11025"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:54
+#: plugins/newsignal/NewSigDlg.uic.cpp:58
 msgid "12000"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:55
+#: plugins/newsignal/NewSigDlg.uic.cpp:59
 msgid "16000"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:56
+#: plugins/newsignal/NewSigDlg.uic.cpp:60
 msgid "22050"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:57
+#: plugins/newsignal/NewSigDlg.uic.cpp:61
 msgid "32000"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:58
+#: plugins/newsignal/NewSigDlg.uic.cpp:62
 msgid "44100"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:59
+#: plugins/newsignal/NewSigDlg.uic.cpp:63
 msgid "48000"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:60
+#: plugins/newsignal/NewSigDlg.uic.cpp:64
 msgid "96000"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:63
+#: plugins/newsignal/NewSigDlg.uic.cpp:67
 msgid ""
 "<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
 "sample rates or you can enter any sample rate on your own."
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:68
+#: plugins/newsignal/NewSigDlg.uic.cpp:72
 msgid "Sample Rate:"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:81
+#: plugins/newsignal/NewSigDlg.uic.cpp:87
 msgid "samples per second"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:89
+#: plugins/newsignal/NewSigDlg.uic.cpp:95
 msgid "Tracks:"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:94
+#: plugins/newsignal/NewSigDlg.uic.cpp:100
 msgid "Resolution:"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:101
+#: plugins/newsignal/NewSigDlg.uic.cpp:109
 msgid "bit"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:111
-#: plugins/newsignal/NewSigDlg.uic.cpp:268
+#: plugins/newsignal/NewSigDlg.uic.cpp:121
+#: plugins/newsignal/NewSigDlg.uic.cpp:290
 #, c-format, ycp-format
 msgid "%1"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:121
+#: plugins/newsignal/NewSigDlg.uic.cpp:131
 msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:130
+#: plugins/newsignal/NewSigDlg.uic.cpp:140
 msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "saved. However, Kwave always uses 24 bits as it's own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:136
+#: plugins/newsignal/NewSigDlg.uic.cpp:146
 msgid "Length"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:149
+#: plugins/newsignal/NewSigDlg.uic.cpp:163
 msgid "Time"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:150
+#: plugins/newsignal/NewSigDlg.uic.cpp:164
 msgid "select this to set the length of the file by time"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:159
+#: plugins/newsignal/NewSigDlg.uic.cpp:173
 msgid "Hours"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:172
+#: plugins/newsignal/NewSigDlg.uic.cpp:186
 msgid "Minutes"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:177
+#: plugins/newsignal/NewSigDlg.uic.cpp:191
 msgid "Seconds"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:190
+#: plugins/newsignal/NewSigDlg.uic.cpp:204
 msgid "Samples"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:191
+#: plugins/newsignal/NewSigDlg.uic.cpp:205
 msgid "select this to enter the number of samples directly"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:211
+#: plugins/newsignal/NewSigDlg.uic.cpp:227
 msgid "minimum"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:218
+#: plugins/newsignal/NewSigDlg.uic.cpp:234
 msgid "(file size)"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:225
+#: plugins/newsignal/NewSigDlg.uic.cpp:241
 msgid "maximum"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:238
+#: plugins/newsignal/NewSigDlg.uic.cpp:254
 msgid "sets the file size by the percentage of the possible maximum"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:244
+#: plugins/newsignal/NewSigDlg.uic.cpp:262
 #, c-format
 msgid "0%"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:250
+#: plugins/newsignal/NewSigDlg.uic.cpp:268
 #, c-format
 msgid "50%"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:256
+#: plugins/newsignal/NewSigDlg.uic.cpp:274
 #, c-format
 msgid "100%"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:285
+#: plugins/newsignal/NewSigDlg.uic.cpp:309
 msgid "O&K"
 msgstr ""
 

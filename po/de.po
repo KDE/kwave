@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 21:27+0200PO-"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2002-01-07 23:11+0100\n"
-"PO-Revision-Date: 2002-01-07 23:11GMT\n"
+"POT-Creation-Date: 2002-02-03 16:40+0100\n"
+"PO-Revision-Date: 2002-02-03 16:40GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -87,55 +87,55 @@ msgstr "Hanning"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: kwave/SignalManager.cpp:409
+#: kwave/SignalManager.cpp:410
 msgid "cut"
 msgstr "Ausschneiden"
 
-#: kwave/SignalManager.cpp:412
+#: kwave/SignalManager.cpp:413
 msgid "crop"
 msgstr "Zuschneiden"
 
-#: kwave/SignalManager.cpp:478
+#: kwave/SignalManager.cpp:479
 msgid "paste"
 msgstr "Einfügen"
 
-#: kwave/SignalManager.cpp:521
+#: kwave/SignalManager.cpp:522
 msgid "append track"
 msgstr "Track anhängen"
 
-#: kwave/SignalManager.cpp:528 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:529 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr "Track einfügen"
 
-#: kwave/SignalManager.cpp:563 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:564 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "Track löschen"
 
-#: kwave/SignalManager.cpp:646 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:648 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr "Löschen"
 
-#: kwave/SignalManager.cpp:799
+#: kwave/SignalManager.cpp:806
 msgid "File does not exist !"
 msgstr "Datei existiert nicht!"
 
-#: kwave/SignalManager.cpp:808
+#: kwave/SignalManager.cpp:815
 msgid "File is no RIFF File !"
 msgstr "Datei ist nicht im RIFF-Format!"
 
-#: kwave/SignalManager.cpp:821
+#: kwave/SignalManager.cpp:828
 msgid "File is no WAVE File !"
 msgstr "Datei ist nicht im Wave Format!"
 
-#: kwave/SignalManager.cpp:832
+#: kwave/SignalManager.cpp:839
 msgid "File does not contain format information!"
 msgstr "Datei enthält keine Format-Information!"
 
-#: kwave/SignalManager.cpp:847
+#: kwave/SignalManager.cpp:854
 msgid "File must be uncompressed (Mode 1) !"
 msgstr "Datei ist nicht im unkompimierten Modus (Mode 1) !"
 
-#: kwave/SignalManager.cpp:863
+#: kwave/SignalManager.cpp:870
 msgid ""
 "File is damaged: the file header reports zero length\n"
 "but the file seems to contain some data. \n"
@@ -159,35 +159,35 @@ msgstr ""
 "\n"
 "Wiederherstellung versuchen?"
 
-#: kwave/SignalManager.cpp:871
+#: kwave/SignalManager.cpp:878
 msgid "Damaged File"
 msgstr "Beschädigte Datei"
 
-#: kwave/SignalManager.cpp:872
+#: kwave/SignalManager.cpp:879
 msgid "&Recover"
 msgstr "&Wiederherstellen"
 
-#: kwave/SignalManager.cpp:878
+#: kwave/SignalManager.cpp:885
 msgid "File does not contain data!"
 msgstr "Datei enthält keine Daten!"
 
-#: kwave/SignalManager.cpp:899 kwave/SignalManager.cpp:1164
+#: kwave/SignalManager.cpp:906 kwave/SignalManager.cpp:1171
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
 
-#: kwave/SignalManager.cpp:1025 kwave/SignalManager.cpp:1284
+#: kwave/SignalManager.cpp:1032 kwave/SignalManager.cpp:1291
 msgid "Out of Memory!"
 msgstr "Zu wenig Speicher!"
 
-#: kwave/SignalManager.cpp:1115
+#: kwave/SignalManager.cpp:1122
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: kwave/SignalManager.cpp:1122
+#: kwave/SignalManager.cpp:1129
 msgid "Opening the file for writing failed!"
 msgstr "Datei konnte nicht zum Schreiben geöffnet werden!"
 
-#: kwave/SignalManager.cpp:1265
+#: kwave/SignalManager.cpp:1272
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
@@ -195,7 +195,7 @@ msgstr ""
 "Fehler in Eingabe: Datei ist kleiner als im Header angegeben. \n"
 "Datei wird abgeschnitten."
 
-#: kwave/SignalManager.cpp:1520
+#: kwave/SignalManager.cpp:1527
 #, ycp-format
 msgid ""
 "The operation '%1' requires more than %2 MB for storing undo data.\n"
@@ -205,41 +205,41 @@ msgstr ""
 "Wiederherstellungs-\n"
 "informationen. Dies würde das Limit von %3 MB überschreiten."
 
-#: kwave/SignalManager.cpp:1524
+#: kwave/SignalManager.cpp:1531
 msgid "You can now either press:"
 msgstr "Drücken Sie bitte:"
 
-#: kwave/SignalManager.cpp:1527
+#: kwave/SignalManager.cpp:1534
 msgid "Allow"
 msgstr "Erlauben"
 
-#: kwave/SignalManager.cpp:1528
+#: kwave/SignalManager.cpp:1535
 msgid "to continue without the possibility to undo, or"
 msgstr "um ohne Möglichkeit zur Wiederherstellung fortzusetzen, oder"
 
-#: kwave/SignalManager.cpp:1530
+#: kwave/SignalManager.cpp:1537
 msgid "Ignore"
 msgstr "Ignorieren"
 
-#: kwave/SignalManager.cpp:1531
+#: kwave/SignalManager.cpp:1538
 msgid "to continue, discard all previous undo data and ignore the memory limit"
 msgstr ""
 "um fortzusetzen, alle vorherigen Wiederherstellungsinformationen zu "
 "verwerfen und das Limit zu ignorieren"
 
-#: kwave/SignalManager.cpp:1537
+#: kwave/SignalManager.cpp:1544
 msgid "to abort the current operation."
 msgstr "um den aktuellen Vorgang abzubrechen."
 
-#: kwave/SignalManager.cpp:1552
+#: kwave/SignalManager.cpp:1559
 msgid "&Allow"
 msgstr "&Erlauben"
 
-#: kwave/SignalManager.cpp:1553
+#: kwave/SignalManager.cpp:1560
 msgid "&Ignore"
 msgstr "&Ignorieren"
 
-#: kwave/SignalManager.cpp:1673 kwave/SignalManager.cpp:1680
+#: kwave/SignalManager.cpp:1680 kwave/SignalManager.cpp:1687
 msgid "last action"
 msgstr "letzte Aktion"
 
@@ -346,7 +346,7 @@ msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
-"Diese Datein wurde verändert.\n"
+"Diese Datei wurde verändert.\n"
 "Wollen Sie sie speichern?"
 
 #: kwave/TopWidget.cpp:827
@@ -383,7 +383,7 @@ msgstr "&Rückgängig"
 msgid "R&edo"
 msgstr "Wieder&herstellen"
 
-#: kwave/TopWidget.cpp:1175
+#: kwave/TopWidget.cpp:1174
 msgid " (modified)"
 msgstr " (geändert)"
 
@@ -422,6 +422,10 @@ msgstr "Samples ändern"
 #: kwave/UndoSelection.cpp:39
 msgid "selection"
 msgstr "Auswahl"
+
+#: kwave/SignalWidget.cpp:1745 kwave/SignalWidget.cpp:1775
+msgid "drag and drop"
+msgstr "Drag & Drop"
 
 #: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:130
 msgid "1&6 Bit"
@@ -644,10 +648,6 @@ msgstr "&Neu..."
 msgid "New &Window"
 msgstr "Neues &Fenster"
 
-#: kwave/menus_config_i18n.cpp:75
-msgid "&Next"
-msgstr "&Nächste"
-
 #: kwave/menus_config_i18n.cpp:76
 msgid "&Next Page"
 msgstr "&Nächste Seite"
@@ -663,10 +663,6 @@ msgstr "N&ichts"
 #: kwave/menus_config_i18n.cpp:79
 msgid "&Open"
 msgstr "&Öffnen"
-
-#: kwave/menus_config_i18n.cpp:80
-msgid "Open &Recent"
-msgstr "&Zuletzt geöffnete Dateien"
 
 #: kwave/menus_config_i18n.cpp:83
 msgid "&Pause"
@@ -695,10 +691,6 @@ msgstr "&Wiedergabe"
 #: kwave/menus_config_i18n.cpp:89
 msgid "&Presets"
 msgstr "&Voreinstelungen"
-
-#: kwave/menus_config_i18n.cpp:90
-msgid "&Previous"
-msgstr "&Vorherige"
 
 #: kwave/menus_config_i18n.cpp:91
 msgid "&Previous Page"
@@ -960,6 +952,7 @@ msgid "%1 MB of %2 MB done"
 msgstr "%1 MB von %2 MB erledigt"
 
 #: libgui/FileProgress.cpp:285
+#, c-format
 msgid "(%1%) %2"
 msgstr "(%1%) %2"
 
@@ -1413,11 +1406,7 @@ msgstr "von"
 msgid "to"
 msgstr "bis"
 
-#: plugins/sweep/module.cpp:87
-msgid "Import"
-msgstr "Importiere"
-
-#: plugins/about/AboutDialog.cpp:144 plugins/sweep/module.cpp:88
+#: plugins/about/AboutDialog.cpp:145 plugins/sweep/module.cpp:88
 msgid "Ok"
 msgstr "Ok"
 
@@ -1430,7 +1419,7 @@ msgstr "kann Datei nicht öffnen !\n"
 msgid "file %s does not exist!\n"
 msgstr "Datei %s existiert nicht!\n"
 
-#: plugins/about/AboutDialog.cpp:105
+#: plugins/about/AboutDialog.cpp:106
 msgid "About Kwave"
 msgstr "Über Kwave..."
 
@@ -1452,6 +1441,7 @@ msgid "do recursive delaying"
 msgstr "umgekehrte Verzögerung"
 
 #: plugins/delay/module.cpp:61
+#, c-format
 msgid "Amplitude of delayed signal :%d %%"
 msgstr "Amplitude des verzögerten Signals :%d %%"
 
@@ -1656,6 +1646,7 @@ msgid "Frequency: %d Hz"
 msgstr "Frequenz: %d Hz"
 
 #: plugins/sonagram/SonagramWindow.cpp:543
+#, c-format
 msgid "Amplitude: %d %%"
 msgstr "Amplitude: %d %%"
 

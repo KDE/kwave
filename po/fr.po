@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-07 23:11+0100\n"
+"POT-Creation-Date: 2002-02-03 16:40+0100\n"
 "PO-Revision-Date: 2002-01-21 06:59GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
@@ -90,55 +90,55 @@ msgstr "Hanning"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: kwave/SignalManager.cpp:409
+#: kwave/SignalManager.cpp:410
 msgid "cut"
 msgstr "couper"
 
-#: kwave/SignalManager.cpp:412
+#: kwave/SignalManager.cpp:413
 msgid "crop"
 msgstr "couper à la sélection"
 
-#: kwave/SignalManager.cpp:478
+#: kwave/SignalManager.cpp:479
 msgid "paste"
 msgstr "coller"
 
-#: kwave/SignalManager.cpp:521
+#: kwave/SignalManager.cpp:522
 msgid "append track"
 msgstr "ajouter une piste"
 
-#: kwave/SignalManager.cpp:528 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:529 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr "inserer une piste"
 
-#: kwave/SignalManager.cpp:563 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:564 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "supprimer une piste"
 
-#: kwave/SignalManager.cpp:646 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:648 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr "supprimer"
 
-#: kwave/SignalManager.cpp:799
+#: kwave/SignalManager.cpp:806
 msgid "File does not exist !"
 msgstr "Le fichier n'existe pas !"
 
-#: kwave/SignalManager.cpp:808
+#: kwave/SignalManager.cpp:815
 msgid "File is no RIFF File !"
 msgstr "Le fichier n'est pas au format RIFF !"
 
-#: kwave/SignalManager.cpp:821
+#: kwave/SignalManager.cpp:828
 msgid "File is no WAVE File !"
 msgstr "Le fichier n'est pas au format WAVE !"
 
-#: kwave/SignalManager.cpp:832
+#: kwave/SignalManager.cpp:839
 msgid "File does not contain format information!"
 msgstr "Le fichier ne contient pas d'information sur son format !"
 
-#: kwave/SignalManager.cpp:847
+#: kwave/SignalManager.cpp:854
 msgid "File must be uncompressed (Mode 1) !"
 msgstr "Le fichier ne doit pas être compressé (Mode 1) !"
 
-#: kwave/SignalManager.cpp:863
+#: kwave/SignalManager.cpp:870
 msgid ""
 "File is damaged: the file header reports zero length\n"
 "but the file seems to contain some data. \n"
@@ -162,84 +162,90 @@ msgstr ""
 "\n"
 "Voulez vous que Kwave essaye d'ouvrir quand même ce fichier ?"
 
-#: kwave/SignalManager.cpp:871
+#: kwave/SignalManager.cpp:878
 msgid "Damaged File"
 msgstr "Fichier endommagé"
 
-#: kwave/SignalManager.cpp:872
+#: kwave/SignalManager.cpp:879
 msgid "&Recover"
 msgstr "&Recupérer"
 
-#: kwave/SignalManager.cpp:878
+#: kwave/SignalManager.cpp:885
 msgid "File does not contain data!"
 msgstr "Le fichier ne contient pas de données !"
 
-#: kwave/SignalManager.cpp:899 kwave/SignalManager.cpp:1164
+#: kwave/SignalManager.cpp:906 kwave/SignalManager.cpp:1171
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
-msgstr "Désolé, mais seulement les formats de 8/16/24 Bits par Echantillons sont supportés !"
+msgstr ""
+"Désolé, mais seulement les formats de 8/16/24 Bits par Echantillons sont "
+"supportés !"
 
-#: kwave/SignalManager.cpp:1025 kwave/SignalManager.cpp:1284
+#: kwave/SignalManager.cpp:1032 kwave/SignalManager.cpp:1291
 msgid "Out of Memory!"
 msgstr "Pas assez de mémoire !"
 
-#: kwave/SignalManager.cpp:1115
+#: kwave/SignalManager.cpp:1122
 msgid "Signal is empty, nothing to save !"
 msgstr "Le signal est vide, il n'y a rien à sauvegarder !"
 
-#: kwave/SignalManager.cpp:1122
+#: kwave/SignalManager.cpp:1129
 msgid "Opening the file for writing failed!"
 msgstr "L'ouverture du fichier en écriture à échouée !"
 
-#: kwave/SignalManager.cpp:1265
+#: kwave/SignalManager.cpp:1272
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
 msgstr ""
-"Erreur d'ouverture de fichier : le fichier est plus petit que la taille définie dans son entête. \n"
+"Erreur d'ouverture de fichier : le fichier est plus petit que la taille "
+"définie dans son entête. \n"
 "Le fichier sera tronqué."
 
-#: kwave/SignalManager.cpp:1520
+#: kwave/SignalManager.cpp:1527
 #, ycp-format
 msgid ""
 "The operation '%1' requires more than %2 MB for storing undo data.\n"
 "This would exceed the limit of %3 MB."
 msgstr ""
-"L'opération '%1' necessite plus de %2 MB pour stocker les données de restoration en cas d'annulation.\n"
+"L'opération '%1' necessite plus de %2 MB pour stocker les données de "
+"restoration en cas d'annulation.\n"
 "Ceci pourrai excéder la limite des %3 MB."
 
-#: kwave/SignalManager.cpp:1524
+#: kwave/SignalManager.cpp:1531
 msgid "You can now either press:"
 msgstr "Vous pouvez maintenant appuyer sur :"
 
-#: kwave/SignalManager.cpp:1527
+#: kwave/SignalManager.cpp:1534
 msgid "Allow"
 msgstr "Continuer"
 
-#: kwave/SignalManager.cpp:1528
+#: kwave/SignalManager.cpp:1535
 msgid "to continue without the possibility to undo, or"
 msgstr "pour continuer sans avoir la possiblité de revenir en arriére, ou"
 
-#: kwave/SignalManager.cpp:1530
+#: kwave/SignalManager.cpp:1537
 msgid "Ignore"
 msgstr "Ignorer"
 
-#: kwave/SignalManager.cpp:1531
+#: kwave/SignalManager.cpp:1538
 msgid "to continue, discard all previous undo data and ignore the memory limit"
-msgstr "pour continuer, en effaçant les précédentes données de restauration et en ignorant la limite de mémoire"
+msgstr ""
+"pour continuer, en effaçant les précédentes données de restauration et en "
+"ignorant la limite de mémoire"
 
-#: kwave/SignalManager.cpp:1537
+#: kwave/SignalManager.cpp:1544
 msgid "to abort the current operation."
 msgstr "pour arrêter l'opération courante."
 
-#: kwave/SignalManager.cpp:1552
+#: kwave/SignalManager.cpp:1559
 msgid "&Allow"
 msgstr "&Continuer"
 
-#: kwave/SignalManager.cpp:1553
+#: kwave/SignalManager.cpp:1560
 msgid "&Ignore"
 msgstr "&Ignorer"
 
-#: kwave/SignalManager.cpp:1673 kwave/SignalManager.cpp:1680
+#: kwave/SignalManager.cpp:1680 kwave/SignalManager.cpp:1687
 msgid "last action"
 msgstr "derniére action"
 
@@ -327,10 +333,12 @@ msgid ""
 "more information, please refer to the documentation shipped with KDE or <a "
 "href=http://www.arts-project.org>http://www.arts-project.org</a>."
 msgstr ""
-"<b>Désolé, mais depuis la version 0.6.2 il est necessaire d'avoir le serveur de son aRts en tâche de fond pour "
-"utiliser Kwave.</b><br>Vous pouvez paramétrer le serveur aRts en utilisant le paneau de contrôle de KDE. Pour "
-"plus d'information, veuillez-vous référer à la documentation fournie avec KDE ou à l'URL <a "
-"href=http://www.arts-project.org>http://www.arts-project.org</a>."
+"<b>Désolé, mais depuis la version 0.6.2 il est necessaire d'avoir le serveur "
+"de son aRts en tâche de fond pour utiliser Kwave.</b><br>Vous pouvez "
+"paramétrer le serveur aRts en utilisant le paneau de contrôle de KDE. Pour "
+"plus d'information, veuillez-vous référer à la documentation fournie avec "
+"KDE ou à l'URL <a href=http://www.arts-project.org>http://www.arts-project."
+"org</a>."
 
 #: kwave/TopWidget.cpp:498
 msgid "Loading plugins..."
@@ -381,7 +389,7 @@ msgstr "&Défaire"
 msgid "R&edo"
 msgstr "R&efaire"
 
-#: kwave/TopWidget.cpp:1175
+#: kwave/TopWidget.cpp:1174
 msgid " (modified)"
 msgstr " (modifier)"
 
@@ -420,6 +428,10 @@ msgstr "modifier les échantillons"
 #: kwave/UndoSelection.cpp:39
 msgid "selection"
 msgstr "selection"
+
+#: kwave/SignalWidget.cpp:1745 kwave/SignalWidget.cpp:1775
+msgid "drag and drop"
+msgstr ""
 
 #: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:130
 msgid "1&6 Bit"
@@ -642,10 +654,6 @@ msgstr "&Nouveau..."
 msgid "New &Window"
 msgstr "Nouvelle &fenêtre"
 
-#: kwave/menus_config_i18n.cpp:75
-msgid "&Next"
-msgstr "&Suivant"
-
 #: kwave/menus_config_i18n.cpp:76
 msgid "&Next Page"
 msgstr "Page &suivante"
@@ -661,10 +669,6 @@ msgstr "&Rien"
 #: kwave/menus_config_i18n.cpp:79
 msgid "&Open"
 msgstr "&Ouvrir"
-
-#: kwave/menus_config_i18n.cpp:80
-msgid "Open &Recent"
-msgstr "Ouvrir un fichier &récent"
 
 #: kwave/menus_config_i18n.cpp:83
 msgid "&Pause"
@@ -693,10 +697,6 @@ msgstr "&Lecture"
 #: kwave/menus_config_i18n.cpp:89
 msgid "&Presets"
 msgstr "&Pré-réglages"
-
-#: kwave/menus_config_i18n.cpp:90
-msgid "&Previous"
-msgstr "&Précédent"
 
 #: kwave/menus_config_i18n.cpp:91
 msgid "&Previous Page"
@@ -958,6 +958,7 @@ msgid "%1 MB of %2 MB done"
 msgstr "%1 MB de %2 MB réalisés"
 
 #: libgui/FileProgress.cpp:285
+#, c-format
 msgid "(%1%) %2"
 msgstr "(%1%) %2"
 
@@ -1244,7 +1245,8 @@ msgid ""
 "If your computer is rather slow select a big buffer"
 msgstr ""
 "Ceci est la taille du buffer qui est utilisé pour la communication avec le\n"
-"périphérique sonore. Si votre ordinateur est lent, selectionnez un buffer de grande taille"
+"périphérique sonore. Si votre ordinateur est lent, selectionnez un buffer de "
+"grande taille"
 
 #: plugins/playback/PlayBackDialog.cpp:204
 msgid "&stereo playback"
@@ -1278,16 +1280,16 @@ msgid ""
 "Can't connect to aRts soundserver. Maybe it is not properly installed or not "
 "running."
 msgstr ""
-"Impossible de se connecter au server de sons aRts. Peut-être n'est il "
-"pas correctement installer ou n'est pas en cours d'éxécution."
+"Impossible de se connecter au server de sons aRts. Peut-être n'est il pas "
+"correctement installer ou n'est pas en cours d'éxécution."
 
 #: plugins/playback/PlayBack-aRts.cpp:205
 msgid ""
 "Loading the aRts backend library failed. This might be due to a problem with "
 "your aRts installation."
 msgstr ""
-"Le chargement de la library aRts à échoué. Ceci est probablement du à un problème avec "
-"l'installation de aRts."
+"Le chargement de la library aRts à échoué. Ceci est probablement du à un "
+"problème avec l'installation de aRts."
 
 #: plugins/playback/PlayBack-aRts.cpp:210
 msgid "The aRts output stream is invalid."
@@ -1297,7 +1299,9 @@ msgstr "Le flux de sortie aRts est invalide."
 msgid ""
 "aRts output is not available because the initialization of the aRts output "
 "has failed or not been done."
-msgstr "Le flux de sortie de aRts n'est pas valide. L'initialisation de aRts a échoué."
+msgstr ""
+"Le flux de sortie de aRts n'est pas valide. L'initialisation de aRts a "
+"échoué."
 
 #: plugins/playback/PlayBack-aRts.cpp:218
 msgid ""
@@ -1403,11 +1407,7 @@ msgstr "de"
 msgid "to"
 msgstr "à"
 
-#: plugins/sweep/module.cpp:87
-msgid "Import"
-msgstr "Importer"
-
-#: plugins/about/AboutDialog.cpp:144 plugins/sweep/module.cpp:88
+#: plugins/about/AboutDialog.cpp:145 plugins/sweep/module.cpp:88
 msgid "Ok"
 msgstr "Ok"
 
@@ -1420,7 +1420,7 @@ msgstr "Impossible d'ouvrir le fichier !\n"
 msgid "file %s does not exist!\n"
 msgstr "le fichier %s n'existe pas !\n"
 
-#: plugins/about/AboutDialog.cpp:105
+#: plugins/about/AboutDialog.cpp:106
 msgid "About Kwave"
 msgstr "A propos de Kwave"
 
@@ -1442,6 +1442,7 @@ msgid "do recursive delaying"
 msgstr "faire un retard récurssif"
 
 #: plugins/delay/module.cpp:61
+#, c-format
 msgid "Amplitude of delayed signal :%d %%"
 msgstr "Amplitude du signal retardé :%d %%"
 
@@ -1475,9 +1476,10 @@ msgid ""
 msgstr ""
 "<b>Limite l'usage de la mémoire (RAM).</b><br>\n"
 "\n"
-"Si vous paramètré pas un limite, la taille physique de la mémoire installé dans"
-"votre ordinateur sera determinée et utilisé comme valeur limite. Vous ne pouvez pas"
-"mettre une valeur supérieure à la totalité de mémoire installée dans votre ordinateur."
+"Si vous paramètré pas un limite, la taille physique de la mémoire installé "
+"dansvotre ordinateur sera determinée et utilisé comme valeur limite. Vous ne "
+"pouvez pasmettre une valeur supérieure à la totalité de mémoire installée "
+"dans votre ordinateur."
 
 #: plugins/memory/MemDlg.uic.cpp:57
 msgid "Limit &to"
@@ -1506,14 +1508,17 @@ msgid ""
 "<br>\n"
 "    Of course you can also set a limit for the total size of the page files."
 msgstr ""
-"<b>Configure l'usage de la mémoire virtuelle (par des fichiers temporaires).</b><br>\n"
+"<b>Configure l'usage de la mémoire virtuelle (par des fichiers temporaires)."
+"</b><br>\n"
 "\n"
-"Si vous validez l'usage de la mémoire virtuelle, vous pouvez specifier un répertoire où"
-"Kwave créera les fichiers temporaires qui seront utilisés comme extension à la mémoire virtuelle du systéme."
-"Ces fichiers temporaires seront utiles lorsque vous travaillerez avec des données ou des processus"
-"qui necessiteront des capacités de mémoire importantes.\n"
+"Si vous validez l'usage de la mémoire virtuelle, vous pouvez specifier un "
+"répertoire oùKwave créera les fichiers temporaires qui seront utilisés comme "
+"extension à la mémoire virtuelle du systéme.Ces fichiers temporaires seront "
+"utiles lorsque vous travaillerez avec des données ou des processusqui "
+"necessiteront des capacités de mémoire importantes.\n"
 "<br>\n"
-"    Bien sur, vous pouvez aussi mettre une limite à la taille totale utilisée sur le disque par les fichiers temporaires."
+"    Bien sur, vous pouvez aussi mettre une limite à la taille totale "
+"utilisée sur le disque par les fichiers temporaires."
 
 #: plugins/memory/MemDlg.uic.cpp:96
 msgid "&Enable usage of virtual memory"
@@ -1533,7 +1538,9 @@ msgstr "Recher&cher..."
 
 #: plugins/memory/MemDlg.uic.cpp:114
 msgid "browse for a directory to hold page files"
-msgstr "Permet la sélection d'un répertoire pour le stockage des fichiers temporaires."
+msgstr ""
+"Permet la sélection d'un répertoire pour le stockage des fichiers "
+"temporaires."
 
 #: plugins/memory/MemDlg.uic.cpp:119
 msgid "&Limit to"
@@ -1644,6 +1651,7 @@ msgid "Frequency: %d Hz"
 msgstr "Fréquence : %d Hz"
 
 #: plugins/sonagram/SonagramWindow.cpp:543
+#, c-format
 msgid "Amplitude: %d %%"
 msgstr "Amplitude : %d %%"
 
@@ -1665,15 +1673,18 @@ msgid ""
 "sizes.\n"
 "The computation will be much faster !"
 msgstr ""
-"si vous choisissez une grande taille de fenêtre, essayer de choisir des nombres\n"
-"avec des facteurs de premier ordre de faible valeur. Les calculs seront alors plus rapides !"
+"si vous choisissez une grande taille de fenêtre, essayer de choisir des "
+"nombres\n"
+"avec des facteurs de premier ordre de faible valeur. Les calculs seront "
+"alors plus rapides !"
 
 #: plugins/sonagram/SonagramDialog.cpp:145
 msgid ""
 "Choose windowing function here. If fourier transformation should stay "
 "reversible, use the type <none>"
 msgstr ""
-"Choisissez ici une fonction de fenêtrage. Si la transformation de Fourier doit restée\n"
+"Choisissez ici une fonction de fenêtrage. Si la transformation de Fourier "
+"doit restée\n"
 "reversible, utilisez le type <aucun>"
 
 #: plugins/sonagram/SonagramDialog.cpp:232
@@ -1825,8 +1836,9 @@ msgid ""
 "<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
 "sample rates or you can enter any sample rate on your own."
 msgstr ""
-"<b>Taux d'échantillonnage</b><br>Ici vous pouvez sélectionner une des valeurs prédéfinies "
-"ou entrer une valeur de votre choix pour le taux d'échantillonnage."
+"<b>Taux d'échantillonnage</b><br>Ici vous pouvez sélectionner une des "
+"valeurs prédéfinies ou entrer une valeur de votre choix pour le taux "
+"d'échantillonnage."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:72
 msgid "Sample Rate:"
@@ -1859,8 +1871,9 @@ msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
-"<b>Nombre de pistes</b><br>Selectionne un nombre de pistes sonores pour les données de travail. Si "
-"vous n'étes pas sure maintenant, vous pourrez ajouter ou supprimer des pistes plus tard avec le programme."
+"<b>Nombre de pistes</b><br>Selectionne un nombre de pistes sonores pour les "
+"données de travail. Si vous n'étes pas sure maintenant, vous pourrez ajouter "
+"ou supprimer des pistes plus tard avec le programme."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:140
 msgid ""
@@ -1868,9 +1881,10 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as it's own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
-"<b>Résolution</b><br>Selectionne une résolution en bits pour chaque fichiers qui seront sauvegarder. "
-"Remarque : Kwave utilise toujours 24 bits comme résolution interne pour "
-"donner les meilleurs résultats sur les opérations qui sont effectuées sur les pistes."
+"<b>Résolution</b><br>Selectionne une résolution en bits pour chaque fichiers "
+"qui seront sauvegarder. Remarque : Kwave utilise toujours 24 bits comme "
+"résolution interne pour donner les meilleurs résultats sur les opérations "
+"qui sont effectuées sur les pistes."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:146
 msgid "Length"
@@ -1988,3 +2002,14 @@ msgstr "silence"
 msgid "Choose Line of distortion :"
 msgstr "Choisir la ligne de distorsion :"
 
+#~ msgid "&Next"
+#~ msgstr "&Suivant"
+
+#~ msgid "Open &Recent"
+#~ msgstr "Ouvrir un fichier &récent"
+
+#~ msgid "&Previous"
+#~ msgstr "&Précédent"
+
+#~ msgid "Import"
+#~ msgstr "Importer"

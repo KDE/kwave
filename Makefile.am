@@ -25,7 +25,7 @@ VERSION	 	 = $(shell cat ./VERSION)
 ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
 SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
-SUBDIRS  	 = libmad libaudiofile mt libgui libkwave kwave plugins po doc
+SUBDIRS  	 = libmad @LIBAUDIOFILE_SUBDIR@ mt libgui libkwave kwave plugins po doc
 
 CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
 
@@ -42,13 +42,14 @@ clean-generic:
 	-rm -fv `find . -name \*.ii`
 	-rm -fv `find . -name \*.lo`
 	-rm -fv `find . -name \*.la`
-	-rm -fv `find . -name \*.moc.c??`
+	-rm -fv `find . -name \*.moc.c\?\?`
 	-rm -fv `find . -name \*.moc`
 	-rm -fv `find . -name \*.dep`
 	-rm -fv `find . -name \*.d`
 	-rm -fv `find . -name \*.dm`
 	-rm -fv `find . -name .depend`
 	-rm -fv `find . -name \*.uih.h`
+	-rm -fv `find . -name \*.uic.cpp`
 	-rm -fv `find . -name \.inslog\*`
 	-rm -fv `find . -name \.ix\*`
 	-rm -Rf doc/api

@@ -214,6 +214,39 @@ AC_CHECK_HEADER(pthread.h,,[AC_MSG_ERROR([
 
     ])])
 
+dnl check if the host system's libaudiofile is usable
+AC_CHECK_LIB(audiofile, afOpenVirtualFile,
+     USE_BUILTIN_LIBAUDIOFILE=0,
+     USE_BUILTIN_LIBAUDIOFILE=1,
+     )
+dnl if the system libaudiofile is usable, check if the
+dnl corresponding header files are installed too
+if test "${USE_BUILTIN_LIBAUDIOFILE}" = "0"; then
+    AC_CHECK_HEADER(audiofile.h,,[AC_MSG_ERROR([
+
+    the header files of libaudiofile are missing.
+    please install the audiofile-devel package!
+    
+    ])])
+fi
+
+if test "${USE_BUILTIN_LIBAUDIOFILE}" = "1"; then
+    AC_DEFINE(USE_BUILTIN_LIBAUDIOFILE,1,[use own copy of libaudiofile])
+    LIBAUDIOFILE_LDFLAGS="-L../libaudiofile"
+    LIBAUDIOFILE_LIBADD="../libaudiofile/libaudiofile.la"
+    LIBAUDIOFILE_SUBDIR="libaudiofile"
+else
+    AC_DEFINE(USE_BUILTIN_LIBAUDIOFILE,0,[use system libaudiofile])
+    LIBAUDIOFILE_LDFLAGS="-laudiofile"
+    LIBAUDIOFILE_LIBADD=""
+    LIBAUDIOFILE_SUBDIR=""
+fi
+
+AC_SUBST(LIBAUDIOFILE_LDFLAGS)
+AC_SUBST(LIBAUDIOFILE_LIBADD)
+AC_SUBST(LIBAUDIOFILE_SUBDIR)
+AC_SUBST(USE_BUILTIN_LIBAUDIOFILE)
+
 dnl ************************************************
 dnl *** check for id3lib in a new enough version ***
 
@@ -372,10 +405,6 @@ CPPFLAGS="$arts_check_saved_cppflags";
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
 
-dnl not usable yet :-(
-dnl AC_CHECK_LIB(audiofile, main, [LIBAUDIOFILE="-laudiofile"])
-dnl AC_SUBST(LIBAUDIOFILE)
-
 dnl output files
 topdir=`pwd`
 AC_SUBST(topdir)
@@ -442,8 +471,10 @@ dnl autom4te: /usr/bin/m4 failed with exit status: 1
 dnl 
 
 AC_CONFIG_FILES(Makefile)
-AC_CONFIG_FILES(libaudiofile/Makefile)
-AC_CONFIG_FILES(libaudiofile/modules/Makefile)
+if test "${USE_BUILTIN_LIBAUDIOFILE}" = "1"; then
+    AC_CONFIG_FILES(libaudiofile/Makefile)
+    AC_CONFIG_FILES(libaudiofile/modules/Makefile)
+fi
 AC_CONFIG_FILES(mt/Makefile)
 AC_CONFIG_FILES(libkwave/Makefile)
 AC_CONFIG_FILES(libgui/Makefile)

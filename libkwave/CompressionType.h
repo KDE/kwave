@@ -19,7 +19,13 @@
 #define _COMPRESSION_TYPE_H_
 
 #include "config.h"
-#include "libaudiofile/audiofile.h"
+
+#ifdef USE_BUILTIN_LIBAUDIOFILE
+#include "libaudiofile/audiofile.h" // from Kwave's copy of libaudiofile
+#else /* USE_BUILTIN_LIBAUDIOFILE */
+#include <audiofile.h> // from system
+#endif /* USE_BUILTIN_LIBAUDIOFILE */
+
 #include "TypesMap.h"
 
 class CompressionType: public TypesMap<int, int>

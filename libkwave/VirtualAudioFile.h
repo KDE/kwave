@@ -22,8 +22,13 @@
 #include <qmap.h>
 
 extern "C" {
-#include "libaudiofile/audiofile.h" // from libaudiofile
-#include "libaudiofile/af_vfs.h"    // from libaudiofile
+#ifdef USE_BUILTIN_LIBAUDIOFILE
+#include "libaudiofile/audiofile.h" // from Kwave's copy of libaudiofile
+#include "libaudiofile/af_vfs.h"    // from Kwave's copy of libaudiofile
+#else /* USE_BUILTIN_LIBAUDIOFILE */
+#include <audiofile.h> // from system
+#include <af_vfs.h>    // from system
+#endif /* USE_BUILTIN_LIBAUDIOFILE */
 }
 
 /**

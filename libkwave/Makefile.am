@@ -15,7 +15,11 @@
 #                                                                          #
 ############################################################################
 
-INCLUDES= @all_includes@ @ARTS_INCLUDES@ -I ../libaudiofile
+INCLUDES= @all_includes@ @ARTS_INCLUDES@
+
+#if ! USE_SYSTEM_LIB_AUDIOFILE
+INCLUDES+=-I ../libaudiofile
+#endif
 
 BUILTSOURCES=\
  KwaveDrag.moc.cpp\
@@ -74,10 +78,10 @@ libkwave_la_SOURCES=\
  VirtualAudioFile.cpp\
  WindowFunction.cpp
 
-libkwave_la_LDFLAGS = -L../libaudiofile -version-info @LD_VERSION_INFO@ \
+libkwave_la_LDFLAGS = @LIBAUDIOFILE_LDFLAGS@ -version-info @LD_VERSION_INFO@ \
 	--dynamic --export-dynamic
 
-libkwave_la_LIBADD = ../libaudiofile/libaudiofile.la \
+libkwave_la_LIBADD = @LIBAUDIOFILE_LIBADD@ \
 	../mt/libkwavemt.la
 
 lib_LTLIBRARIES = libkwave.la

@@ -1,13 +1,17 @@
 
+o storage/handling of extra info (labels, cue list, author etc...)
+
+o gui access to file saving parameters (author, copyright, etc...)
+
+o MP3 support
+
+o Ogg/Vorbis support
+
+o more precise handling of the playback pointer
 
 o hourglass and process indicators for longer processes
 
 o ruler that shows the current cursor position as time
-
-o storage/handling of extra info (labels, cue list, author etc...)
-
-o plugins for import/export of different file formats (e.g. MP3)
-  -> through aRts/libaudiofile ?
 
 o currently load/save uses the file extension to identify the mime type
   should be changed to an extra parameter with a KMimeType's name
@@ -16,8 +20,6 @@ o audible/silent mode of tracks (speakers)
   speaker controls for "audible" mode
 
 o virtual memory: multiple swap directories
-
-o gui access to file saving parameters (author, copyright, etc...)
 
 o install a new_handler() for cases in which we run out of memory
 
@@ -66,10 +68,8 @@ o feature "pulse train" is not yet implemented
 
 o move label handling to class LabelManager
 
-o SignalProxy1 and SignalProxy should be merged
-
 o SignalProxy1 implementation is very inefficient for simple data types
-  like bool, char, int etc. Uses to much new/delete.
+  like bool, char, int etc. Uses too much new/delete.
 
 o check at program startup: does the help directory exist? If not, show
   a message and make a symbolic link

@@ -3,7 +3,7 @@ MAINTAINERCLEANFILES = de/*.html en/*.html
 CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook de/*.html en/*.html
 DISTCLEANFILES = Makefile.in Makefile
 
-LANGUAGES = en de fr it
+LANGUAGES = en de fr
 SUFFIXES = .docbook .po .pot
 SGMLDIR=$(kde_datadir)/ksgmltools2
 DOCDIR = $(DESTDIR)${kde_htmldir}

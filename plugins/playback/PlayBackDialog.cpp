@@ -80,9 +80,10 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     setMethod(m_playback_params.method);
     setDevice(m_playback_params.device);
     setBitsPerSample(m_playback_params.bits_per_sample);
+    setChannels(m_playback_params.channels);
 
     // buffer size is independend
-    slBufferSize->setValue(m_playback_params.bufbase);
+    setBufferSize(m_playback_params.bufbase);
 }
 
 //***************************************************************************
@@ -164,8 +165,10 @@ void PlayBackDialog::setDevice(const QString &device)
 
     if (cbDevice->editable()) {
 	// user defined device name
-	cbDevice->setCurrentText(device);
-	cbDevice->setEditText(device);
+	if (cbDevice->currentText() != device) {
+	    cbDevice->setCurrentText(device);
+	    cbDevice->setEditText(device);
+	}
     } else {
 	// one from the list
 	cbDevice->setCurrentText(device);
@@ -186,6 +189,10 @@ void PlayBackDialog::setBufferSize(int exp)
 
     if (exp <  8) exp =  8;
     if (exp > 18) exp = 18;
+    qDebug("PlayBackDialog::setBufferSize(%d)", exp);
+
+    // update the slider if necessary
+    if (slBufferSize->value() != exp) slBufferSize->setValue(exp);
 
     // take the value into our struct
     m_playback_params.bufbase = exp;
@@ -271,7 +278,7 @@ void PlayBackDialog::setSupportedChannels(unsigned int min, unsigned int max)
 
     sbChannels->setMinValue(min);
     sbChannels->setMaxValue(max);
-    sbChannels->setValue(current_channels);
+    setChannels(current_channels);
     sbChannels->setEnabled(min != max);
 }
 
@@ -279,6 +286,13 @@ void PlayBackDialog::setSupportedChannels(unsigned int min, unsigned int max)
 void PlayBackDialog::setChannels(int channels)
 {
     m_playback_params.channels = channels;
+
+    Q_ASSERT(sbChannels);
+    if (!sbChannels) return;
+
+    if (sbChannels->value() != channels) {
+	sbChannels->setValue(channels);
+    }
 
     QString txt;
     switch (channels) {
@@ -322,7 +336,7 @@ void PlayBackDialog::selectPlaybackDevice()
     QString new_device = dlg.selectedFile();
 
     // selected new device
-    cbDevice->setEditText(new_device);
+    if (cbDevice) cbDevice->setEditText(new_device);
 }
 
 //***************************************************************************

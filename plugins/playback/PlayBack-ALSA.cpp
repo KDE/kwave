@@ -447,8 +447,8 @@ QString PlayBackALSA::open(const QString &device, double rate,
     m_buffer.resize(m_buffer_size);
     m_buffer_size = m_buffer.size();
 
-    qDebug("PlayBackALSA::open: OK, buffer resized to %u bytes",
-           m_buffer_size);
+//     qDebug("PlayBackALSA::open: OK, buffer resized to %u bytes",
+//            m_buffer_size);
 
     return 0;
 }
@@ -642,53 +642,21 @@ void PlayBackALSA::scanDevices()
 	    }
 	    count = snd_pcm_info_get_subdevices_count(pcminfo);
 
-	    qDebug("card %i: %s [%s], device %i: %s [%s]",
-		card,
-		snd_ctl_card_info_get_id(info),
-		snd_ctl_card_info_get_name(info),
-		dev,
-		snd_pcm_info_get_id(pcminfo),
-		snd_pcm_info_get_name(pcminfo));
+// 	    qDebug("card %i: %s [%s], device %i: %s [%s]",
+// 		card,
+// 		snd_ctl_card_info_get_id(info),
+// 		snd_ctl_card_info_get_name(info),
+// 		dev,
+// 		snd_pcm_info_get_id(pcminfo),
+// 		snd_pcm_info_get_name(pcminfo));
 
 	    // add the device to the list
 	    QString hw_device;
 	    hw_device = "plughw:%1,%2";
 	    hw_device = hw_device.arg(card).arg(dev);
 
-	    QString card_dev_name = i18n("pcmC%1D%2").arg(card).arg(dev);;
-	    QString card_name = snd_ctl_card_info_get_name(info);
-	    QString dev_name  = snd_pcm_info_get_name(pcminfo);
-
-	    QString card_dev_verbose = card_name;
-	    if (card_name != dev_name) {
-		card_dev_verbose += " / ";
-		card_dev_verbose += dev_name;
-	    }
-
-#if 0
-
-# just some examples:
-
-**** List of PLAYBACK Hardware Devices ****
-card 0: V8235 [VIA 8235], device 0: VIA 8235 [VIA 8235]
-  Subdevices: 4/4
-  Subdevice #0: subdevice #0
-  Subdevice #1: subdevice #1
-  Subdevice #2: subdevice #2
-  Subdevice #3: subdevice #3
-card 0: V8235 [VIA 8235], device 1: VIA 8235 [VIA 8235]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-
-*** List of PLAYBACK Hardware Devices ****
-card 0: I82801DBICH4 [Intel 82801DB-ICH4], device 0: Intel ICH [Intel 82801DB-ICH4]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: I82801DBICH4 [Intel 82801DB-ICH4], device 4: Intel ICH - IEC958 [Intel 82801DB-ICH4 - IEC958]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-
-#endif
+	    QString card_name   = snd_ctl_card_info_get_name(info);
+	    QString device_name = snd_pcm_info_get_name(pcminfo);
 
 //  	    qDebug("  Subdevices: %i/%i\n",
 // 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
@@ -699,20 +667,27 @@ card 0: I82801DBICH4 [Intel 82801DB-ICH4], device 4: Intel ICH - IEC958 [Intel 8
 			qWarning("ctrl digital audio playback info (%i): %s",
 			         card, snd_strerror(err));
 		    } else {
-// 			qDebug("  Subdevice #%i: %s\n", idx,
-// 			       snd_pcm_info_get_subdevice_name(pcminfo));
-			QString name = card_dev_name + QString("S%1").arg(idx);
-			name += QString(" [%1 / %2]").arg(card_dev_verbose).arg(
-			        snd_pcm_info_get_subdevice_name(pcminfo));
 			QString hwdev = hw_device + QString(",%1").arg(idx);
+			QString subdevice_name =
+			    snd_pcm_info_get_subdevice_name(pcminfo);
+			QString name = QString(
+			    i18n("card %1: ") + card_name +
+			    "|sound_card||" +
+			    i18n("device %2: ") + device_name +
+			    "|sound_device||" +
+			    i18n("subdevice %3: ") + subdevice_name +
+			    "|sound_subdevice"
+			).arg(card).arg(dev).arg(idx);
 			qDebug("# '%s' -> '%s'", hwdev.data(), name.data());
 			m_device_list.insert(name, hwdev);
 		    }
 		}
 	    } else {
 		// no sub-devices
-		QString name = card_dev_name +
-		    QString(" [%1]").arg(card_dev_verbose);
+		QString name = QString(
+		    i18n("card %1: ") + card_name + "|sound_card||" +
+		    i18n("device %2: ") + device_name + "|sound_subdevice"
+		).arg(card).arg(dev);
 		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
 		m_device_list.insert(name, hw_device);
 	    }
@@ -720,14 +695,14 @@ card 0: I82801DBICH4 [Intel 82801DB-ICH4], device 4: Intel ICH - IEC958 [Intel 8
 	snd_ctl_close(handle);
 next_card:
 	if (snd_card_next(&card) < 0) {
-	    qWarning("snd_card_next");
+	    qWarning("snd_card_next failed");
 	    break;
 	}
     }
 
     // per default: offer the dmix plugin if slave devices exist
     if (!m_device_list.isEmpty())
-        m_device_list.insert(i18n("DMIX plugin"), "plug:dmix");
+        m_device_list.insert(i18n("DMIX plugin|sound_note"), "plug:dmix");
 
     snd_config_update_free_global();
 }
@@ -736,9 +711,17 @@ next_card:
 QString PlayBackALSA::alsaDeviceName(const QString &name)
 {
     if (m_device_list.isEmpty() || (name.length() &&
-        !m_device_list.contains(name))) scanDevices();
+        !m_device_list.contains(name)))
+    {
+// 	qDebug("### RESCAN ### (list.count=%d, name='%s')",
+// 	       m_device_list.count(), name.data());
+	scanDevices();
+    }
 
-    if (!m_device_list.contains(name)) return name;
+    if (!m_device_list.contains(name)) {
+	qWarning("PlayBackALSA::alsaDeviceName('%s') - NOT FOUND", name.data());
+	return "";
+    }
     return m_device_list[name];
 }
 
@@ -748,12 +731,14 @@ QStringList PlayBackALSA::supportedDevices()
     QStringList list;
 
     // re-validate the list if necessary
-    alsaDeviceName(m_device_name);
+//     alsaDeviceName(m_device_name);
+    scanDevices();
 
     QMap<QString, QString>::Iterator it;
     for (it = m_device_list.begin(); it != m_device_list.end(); ++it)
 	list.append(it.key());
 
+    list.append("#TREE#");
     return list;
 }
 

@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>543</width>
-            <height>349</height>
+            <width>680</width>
+            <height>534</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -45,7 +45,7 @@
                     <hsizetype>3</hsizetype>
                     <vsizetype>1</vsizetype>
                     <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
+                    <verstretch>100</verstretch>
                 </sizepolicy>
             </property>
             <property name="title">
@@ -61,7 +61,7 @@
                 <property name="spacing">
                     <number>10</number>
                 </property>
-                <widget class="QLayoutWidget" row="1" column="1">
+                <widget class="QLayoutWidget" row="1" column="2" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>layout6</cstring>
                     </property>
@@ -112,6 +112,12 @@
                                     <verstretch>0</verstretch>
                                 </sizepolicy>
                             </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>0</width>
+                                    <height>30</height>
+                                </size>
+                            </property>
                             <property name="text">
                                 <string>&amp;Select...</string>
                             </property>
@@ -127,7 +133,7 @@
                         </widget>
                     </hbox>
                 </widget>
-                <widget class="QLayoutWidget" row="0" column="1">
+                <widget class="QLayoutWidget" row="0" column="2" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>layout7</cstring>
                     </property>
@@ -150,7 +156,7 @@
                             <property name="minimumSize">
                                 <size>
                                     <width>130</width>
-                                    <height>0</height>
+                                    <height>30</height>
                                 </size>
                             </property>
                             <property name="toolTip" stdset="0">
@@ -166,7 +172,194 @@ playback. Depending on the compilation options you can select one of the followi
                         </widget>
                     </hbox>
                 </widget>
-                <widget class="QLayoutWidget" row="4" column="1">
+                <widget class="QLabel" row="0" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Playback Method:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Device:</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="7" column="2">
+                    <property name="name">
+                        <cstring>layout24</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>txtBufferSize</cstring>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>130</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
+                            <property name="text">
+                                <string>256 Bytes</string>
+                            </property>
+                        </widget>
+                        <widget class="QSlider">
+                            <property name="name">
+                                <cstring>slBufferSize</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>7</hsizetype>
+                                    <vsizetype>1</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>0</width>
+                                    <height>30</height>
+                                </size>
+                            </property>
+                            <property name="minValue">
+                                <number>8</number>
+                            </property>
+                            <property name="maxValue">
+                                <number>18</number>
+                            </property>
+                            <property name="lineStep">
+                                <number>1</number>
+                            </property>
+                            <property name="pageStep">
+                                <number>1</number>
+                            </property>
+                            <property name="value">
+                                <number>11</number>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="tickmarks">
+                                <enum>Below</enum>
+                            </property>
+                            <property name="tickInterval">
+                                <number>1</number>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>size of the playback buffer in bytes</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;b&gt;Buffer Size:&lt;/b&gt;&lt;p&gt;Select a buffer size for the playback. You should set this numer as small as possible to reduce the playback latency. The latency is the delay between user interface actions like starting/stopping playback, update of the playback position and the real sound output. If you encounter dropouts you should increase this setting a bit.&lt;/p&gt;</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLabel" row="7" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel5</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Buffer Size:</string>
+                    </property>
+                </widget>
+                <widget class="QFrame" row="6" column="0" rowspan="1" colspan="4">
+                    <property name="name">
+                        <cstring>frame4_2</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>100</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="frameShape">
+                        <enum>HLine</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Raised</enum>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="5" column="0">
+                    <property name="name">
+                        <cstring>textLabel4</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Channels:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="4" column="0">
+                    <property name="name">
+                        <cstring>textLabel3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Bits per Sample:</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="4" column="2">
+                    <property name="name">
+                        <cstring>layout4</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="KComboBox">
+                            <property name="name">
+                                <cstring>cbBitsPerSample</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>1</hsizetype>
+                                    <vsizetype>5</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>130</width>
+                                    <height>30</height>
+                                </size>
+                            </property>
+                            <property name="duplicatesEnabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Playback resolution in bits per sample</string>
+                            </property>
+                            <property name="whatsThis" stdset="0">
+                                <string>&lt;b&gt;Bits per Sample:&lt;/b&gt;&lt;p&gt;Here you can select one of the bit resolutions your playback device supports. This is not necessarily the same resolution as in your audio file, Kwave dithers automatically from it's internal resolution (24 bit) to the setting you specify. Higher resolutions mean better audio quality.&lt;/p&gt;</string>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer7</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>0</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </hbox>
+                </widget>
+                <widget class="QLayoutWidget" row="5" column="2">
                     <property name="name">
                         <cstring>layout8</cstring>
                     </property>
@@ -189,7 +382,7 @@ playback. Depending on the compilation options you can select one of the followi
                             <property name="minimumSize">
                                 <size>
                                     <width>130</width>
-                                    <height>0</height>
+                                    <height>30</height>
                                 </size>
                             </property>
                             <property name="maxValue">
@@ -226,188 +419,7 @@ playback. Depending on the compilation options you can select one of the followi
                         </widget>
                     </hbox>
                 </widget>
-                <widget class="QLayoutWidget" row="3" column="1">
-                    <property name="name">
-                        <cstring>layout4</cstring>
-                    </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="KComboBox">
-                            <property name="name">
-                                <cstring>cbBitsPerSample</cstring>
-                            </property>
-                            <property name="sizePolicy">
-                                <sizepolicy>
-                                    <hsizetype>1</hsizetype>
-                                    <vsizetype>5</vsizetype>
-                                    <horstretch>0</horstretch>
-                                    <verstretch>0</verstretch>
-                                </sizepolicy>
-                            </property>
-                            <property name="minimumSize">
-                                <size>
-                                    <width>130</width>
-                                    <height>0</height>
-                                </size>
-                            </property>
-                            <property name="duplicatesEnabled">
-                                <bool>false</bool>
-                            </property>
-                            <property name="toolTip" stdset="0">
-                                <string>Playback resolution in bits per sample</string>
-                            </property>
-                            <property name="whatsThis" stdset="0">
-                                <string>&lt;b&gt;Bits per Sample:&lt;/b&gt;&lt;p&gt;Here you can select one of the bit resolutions your playback device supports. This is not necessarily the same resolution as in your audio file, Kwave dithers automatically from it's internal resolution (24 bit) to the setting you specify. Higher resolutions mean better audio quality.&lt;/p&gt;</string>
-                            </property>
-                        </widget>
-                        <spacer>
-                            <property name="name">
-                                <cstring>spacer7</cstring>
-                            </property>
-                            <property name="orientation">
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property name="sizeType">
-                                <enum>Expanding</enum>
-                            </property>
-                            <property name="sizeHint">
-                                <size>
-                                    <width>0</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                        </spacer>
-                    </hbox>
-                </widget>
-                <widget class="QLabel" row="0" column="0">
-                    <property name="name">
-                        <cstring>textLabel1</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Playback Method:</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="1" column="0">
-                    <property name="name">
-                        <cstring>textLabel2</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Device:</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="3" column="0">
-                    <property name="name">
-                        <cstring>textLabel3</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Bits per Sample:</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="4" column="0">
-                    <property name="name">
-                        <cstring>textLabel4</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Channels:</string>
-                    </property>
-                </widget>
-                <widget class="QLayoutWidget" row="6" column="1">
-                    <property name="name">
-                        <cstring>layout24</cstring>
-                    </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>txtBufferSize</cstring>
-                            </property>
-                            <property name="minimumSize">
-                                <size>
-                                    <width>130</width>
-                                    <height>0</height>
-                                </size>
-                            </property>
-                            <property name="text">
-                                <string>256 Bytes</string>
-                            </property>
-                        </widget>
-                        <widget class="QSlider">
-                            <property name="name">
-                                <cstring>slBufferSize</cstring>
-                            </property>
-                            <property name="sizePolicy">
-                                <sizepolicy>
-                                    <hsizetype>7</hsizetype>
-                                    <vsizetype>1</vsizetype>
-                                    <horstretch>0</horstretch>
-                                    <verstretch>0</verstretch>
-                                </sizepolicy>
-                            </property>
-                            <property name="minValue">
-                                <number>8</number>
-                            </property>
-                            <property name="maxValue">
-                                <number>18</number>
-                            </property>
-                            <property name="lineStep">
-                                <number>1</number>
-                            </property>
-                            <property name="pageStep">
-                                <number>1</number>
-                            </property>
-                            <property name="value">
-                                <number>11</number>
-                            </property>
-                            <property name="orientation">
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property name="tickmarks">
-                                <enum>Below</enum>
-                            </property>
-                            <property name="tickInterval">
-                                <number>1</number>
-                            </property>
-                            <property name="toolTip" stdset="0">
-                                <string>size of the playback buffer in bytes</string>
-                            </property>
-                            <property name="whatsThis" stdset="0">
-                                <string>&lt;b&gt;Buffer Size:&lt;/b&gt;&lt;p&gt;Select a buffer size for the playback. You should set this numer as small as possible to reduce the playback latency. The latency is the delay between user interface actions like starting/stopping playback, update of the playback position and the real sound output. If you encounter dropouts you should increase this setting a bit.&lt;/p&gt;</string>
-                            </property>
-                        </widget>
-                    </hbox>
-                </widget>
-                <widget class="QLabel" row="6" column="0">
-                    <property name="name">
-                        <cstring>textLabel5</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Buffer Size:</string>
-                    </property>
-                </widget>
-                <widget class="QFrame" row="5" column="0" rowspan="1" colspan="2">
-                    <property name="name">
-                        <cstring>frame4_2</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>1</hsizetype>
-                            <vsizetype>0</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>100</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="frameShape">
-                        <enum>HLine</enum>
-                    </property>
-                    <property name="frameShadow">
-                        <enum>Raised</enum>
-                    </property>
-                </widget>
-                <widget class="QFrame" row="2" column="0" rowspan="1" colspan="2">
+                <widget class="QFrame" row="3" column="0" rowspan="1" colspan="3">
                     <property name="name">
                         <cstring>frame4_2_2</cstring>
                     </property>
@@ -426,6 +438,36 @@ playback. Depending on the compilation options you can select one of the followi
                         <enum>Raised</enum>
                     </property>
                 </widget>
+                <widget class="QListView" row="2" column="0" rowspan="1" colspan="4">
+                    <column>
+                        <property name="text">
+                            <string>Device</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <property name="name">
+                        <cstring>listDevices</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>7</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>100</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="itemMargin">
+                        <number>4</number>
+                    </property>
+                    <property name="resizeMode">
+                        <enum>AllColumns</enum>
+                    </property>
+                </widget>
             </grid>
         </widget>
         <widget class="QFrame">
@@ -435,9 +477,9 @@ playback. Depending on the compilation options you can select one of the followi
             <property name="sizePolicy">
                 <sizepolicy>
                     <hsizetype>7</hsizetype>
-                    <vsizetype>3</vsizetype>
+                    <vsizetype>7</vsizetype>
                     <horstretch>100</horstretch>
-                    <verstretch>100</verstretch>
+                    <verstretch>0</verstretch>
                 </sizepolicy>
             </property>
             <property name="minimumSize">
@@ -569,7 +611,7 @@ playback. Depending on the compilation options you can select one of the followi
                     <property name="minimumSize">
                         <size>
                             <width>60</width>
-                            <height>20</height>
+                            <height>30</height>
                         </size>
                     </property>
                     <property name="text">
@@ -650,6 +692,7 @@ playback. Depending on the compilation options you can select one of the followi
     <tabstop>cbMethod</tabstop>
     <tabstop>cbDevice</tabstop>
     <tabstop>btSelectDevice</tabstop>
+    <tabstop>listDevices</tabstop>
     <tabstop>cbBitsPerSample</tabstop>
     <tabstop>sbChannels</tabstop>
     <tabstop>slBufferSize</tabstop>

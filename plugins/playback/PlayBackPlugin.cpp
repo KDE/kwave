@@ -31,6 +31,7 @@
 #include <qstring.h>
 
 #include <kapp.h>
+#include <kconfig.h>
 #include <kmessagebox.h>
 
 #include "mt/ThreadsafeX11Guard.h"
@@ -236,6 +237,11 @@ bool PlayBackPlugin::supportsDevice(const QString &name)
 //***************************************************************************
 void PlayBackPlugin::setMethod(playback_method_t method)
 {
+    KConfig *cfg = KGlobal::config();
+    Q_ASSERT(cfg);
+
+//     qDebug("PlayBackPlugin::setMethod(%d)", (int)method);
+
     // change the playback method (class PlayBackDevice)
     if ((method != m_playback_params.method) || !m_device) {
 	if (m_device) delete m_device;
@@ -244,6 +250,31 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 
 	// set hourglass cursor
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+	// remember the device selection, just for the GUI
+	// for the next time this method gets selected
+	// change in method -> save the current device and use
+	// the previous one
+	if (cfg && m_dialog) {
+	    QString device = "";
+	    cfg->setGroup("plugin "+name());
+
+	    // save the current device
+	    cfg->writeEntry(QString("last_device_%1").arg(
+		(int)m_playback_params.method),
+		m_dialog->params().device);
+// 	    qDebug(">>> %d -> '%s'",
+// 	           (int)m_playback_params.method,
+// 	           m_dialog->params().device.data());
+	    cfg->sync();
+
+	    // restore the previous one
+	    device = cfg->readEntry(
+	        QString("last_device_%1").arg((int)method));
+// 	    qDebug("<<< %d -> '%s'", (int)method, device.data());
+	    m_playback_params.device = device;
+	    m_dialog->setDevice(m_playback_params.device);
+	}
 
 	do {
 	    switch (method) {
@@ -334,15 +365,14 @@ void PlayBackPlugin::setDevice(const QString &device)
     if (m_dialog) m_dialog->setDevice(device);
 
     QValueList<unsigned int> supported_bits;
-    Q_ASSERT(m_device);
     if (m_device) supported_bits = m_device->supportedBits(device);
     if (m_dialog) m_dialog->setSupportedBits(supported_bits);
 
-    Q_ASSERT(m_device);
     unsigned int min = 0;
     unsigned int max = 0;
     if (m_device) m_device->detectChannels(device, min, max);
     if (m_dialog) m_dialog->setSupportedChannels(min, max);
+
 }
 
 //***************************************************************************
@@ -351,6 +381,8 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 {
     QString device_name = name;
     PlayBackParam params;
+
+//     qDebug("PlayBackPlugin::openDevice('%s',params)",name.data());
 
     if (!playback_params) {
 	// use default parameters if none given

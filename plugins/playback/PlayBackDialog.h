@@ -20,10 +20,13 @@
 
 #include "config.h"
 
+#include <qmap.h>
+
 #include "PlayBackParam.h"
 #include "PlayBackDlg.uih.h"
 #include "PlayBackTypesMap.h"
 
+class QListViewItem;
 class KwavePlugin;
 
 //*****************************************************************************
@@ -104,6 +107,9 @@ private slots:
     /** Select a playback device through a File/Open dialog */
     void selectPlaybackDevice();
 
+    /** selection in the device list view has changed */
+    void listEntrySelected(QListViewItem *item);
+
     /** selection in the bits per sample combo box has changed */
     void bitsPerSampleSelected(const QString &text);
 
@@ -118,6 +124,11 @@ private:
     /** file filter for the "Select..." dialog (optional) */
     QString m_file_filter;
 
+    /** map for items in the list view */
+    QMap<QListViewItem *, QString> m_devices_list_map;
+
+    /** if false, do nothing in setDevice */
+    bool m_enable_setDevice;
 };
 
 //*****************************************************************************

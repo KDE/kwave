@@ -19,11 +19,15 @@
 #include <stdlib.h>
 
 #include <qlabel.h>
+#include <qlistview.h>
 #include <qslider.h>
+#include <qstringlist.h>
 
 #include <kfiledialog.h>
-#include <knuminput.h>
+#include <kiconloader.h>
+#include <kicontheme.h>
 #include <klocale.h>
+#include <knuminput.h>
 #include <kpushbutton.h>
 #include <kcombobox.h>
 
@@ -39,7 +43,8 @@
 //***************************************************************************
 PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     :PlayBackDlg(p.parentWidget(), i18n("playback"), true),
-    m_playback_params(params), m_file_filter("")
+    m_playback_params(params), m_file_filter(""), m_devices_list_map(),
+    m_enable_setDevice(true)
 {
     // button for "test settings"
     // (not implemented yet)
@@ -53,25 +58,22 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 
     connect(cbMethod, SIGNAL(activated(int)),
             SLOT(methodSelected(int)));
-
     connect(cbDevice, SIGNAL(textChanged(const QString &)),
             SLOT(setDevice(const QString &)));
     connect(cbDevice, SIGNAL(activated(const QString &)),
             SLOT(setDevice(const QString &)));
-
     connect(cbBitsPerSample, SIGNAL(textChanged(const QString &)),
             SLOT(bitsPerSampleSelected(const QString &)));
     connect(cbBitsPerSample, SIGNAL(activated(const QString &)),
             SLOT(bitsPerSampleSelected(const QString &)));
-
     connect(sbChannels, SIGNAL(valueChanged(int)),
             SLOT(setChannels(int)));
-
     connect(slBufferSize, SIGNAL(valueChanged(int)),
             SLOT(setBufferSize(int)));
-
     connect(btSelectDevice, SIGNAL(clicked()),
             SLOT(selectPlaybackDevice()));
+    connect(listDevices, SIGNAL(selectionChanged(QListViewItem *)),
+            SLOT(listEntrySelected(QListViewItem *)));
 
     // fix the dialog size
     setFixedHeight(sizeHint().height());
@@ -120,8 +122,20 @@ void PlayBackDialog::methodSelected(int index)
 void PlayBackDialog::setSupportedDevices(QStringList devices)
 {
     Q_ASSERT(cbDevice);
-    if (!cbDevice) return;
+    Q_ASSERT(listDevices);
+    if (!cbDevice || !listDevices) return;
     QString current_device = m_playback_params.device;
+
+    // disable all that noisy stuff that comes from modifying the
+    // device controls...
+    m_enable_setDevice = false;
+
+    KIconLoader icon_loader;
+
+    cbDevice->clearEdit();
+    cbDevice->clear();
+    cbDevice->insertStringList(devices);
+    listDevices->clear();
 
     if (devices.contains("#EDIT#")) {
 	devices.remove("#EDIT#");
@@ -138,46 +152,156 @@ void PlayBackDialog::setSupportedDevices(QStringList devices)
 	btSelectDevice->setEnabled(false);
 	btSelectDevice->hide();
     }
-    cbDevice->clearEdit();
-    cbDevice->clear();
-    cbDevice->insertStringList(devices);
 
-    if (devices.contains(current_device)) {
-	// current device is in the list
-	cbDevice->setCurrentText(current_device);
-    } else {
-	if (cbDevice->editable()) {
-	    // user defined device name
-	    cbDevice->setEditText(current_device);
-	} else if (devices.count()) {
-	    // one or more other possibilities -> take the first one
-	    cbDevice->setCurrentItem(0);
-	} else {
-	    // empty list of possibilities
-	    cbDevice->clearEdit();
-	    cbDevice->clear();
+    if (devices.contains("#TREE#")) {
+	// treeview mode
+	devices.remove("#TREE#");
+	listDevices->setEnabled(true);
+	cbDevice->setEnabled(false);
+	cbDevice->hide();
+	m_devices_list_map.clear();
+
+	// build a tree with all nodes in the list
+	for (QStringList::Iterator it=devices.begin();
+	     it != devices.end(); ++it)
+	{
+	    QString dev_id = *it;
+	    QListViewItem *parent = 0;
+
+	    QStringList list;
+	    list = QStringList::split("||", dev_id, true);
+	    for (QStringList::Iterator it=list.begin();
+	         it != list.end(); ++it)
+	    {
+		QString token = *it;
+		QListViewItem *item = 0;
+
+		// split the icon name from the token
+		QString icon_name;
+		int pos = token.find('|');
+		if (pos > 0) {
+		    icon_name = token.mid(pos+1);
+		    token     = token.left(pos);
+		}
+
+		// find the first item with the same text
+		// and the same root
+		for (QListViewItem *node = (parent) ? parent->firstChild() :
+		     listDevices->firstChild(); (node);
+		     node = node->nextSibling())
+		{
+		    if (node->text(0) == token) {
+			item = node;
+			break;
+		    }
+		}
+
+		if (item) {
+		    // already in the list
+		    parent = item;
+		} else if (parent) {
+		    // new leaf, add to the parent
+		    item = new QListViewItem(parent, token);
+		    Q_ASSERT(item);
+		    if (item) m_devices_list_map.insert(item, dev_id);
+
+		    parent->setOpen(true);
+		    parent->setSelectable(false);
+		    parent->setExpandable(true);
+		    if (m_devices_list_map.contains(parent)) {
+			// make the parent not selectable
+			m_devices_list_map.remove(parent);
+		    }
+		} else {
+		    // new root node
+		    item = new QListViewItem(listDevices, token);
+		    Q_ASSERT(item);
+		    if (item) m_devices_list_map.insert(item, dev_id);
+		}
+
+		if (icon_name.length()) {
+		    QPixmap icon = icon_loader.loadIcon(icon_name,
+		                                        KIcon::User);
+		    item->setPixmap(0, icon);
+		}
+
+		// use the current item as parent for the next pass
+		parent = item;
+	    }
 	}
+    } else {
+	// combo box mode
+	cbDevice->show();
+	listDevices->setEnabled(false);
+
+	if (devices.contains(current_device)) {
+	    // current device is in the list
+	    cbDevice->setCurrentText(current_device);
+	} else {
+	    if (cbDevice->editable()) {
+		// user defined device name
+		cbDevice->setEditText(current_device);
+	    } else if (devices.count()) {
+		// one or more other possibilities -> take the first one
+		cbDevice->setCurrentItem(0);
+	    } else {
+		// empty list of possibilities
+		cbDevice->clearEdit();
+		cbDevice->clear();
+	    }
+	}
+	cbDevice->setEnabled(devices.count() > 1);
     }
 
-    cbDevice->setEnabled(devices.count() > 1);
+    // enable changes in the device controls again
+    m_enable_setDevice = true;
+}
+
+//***************************************************************************
+void PlayBackDialog::listEntrySelected(QListViewItem *item)
+{
+    Q_ASSERT(item);
+    Q_ASSERT(listDevices);
+    if (!item || !listDevices) return;
+
+    if (m_devices_list_map.contains(item))
+	setDevice(m_devices_list_map[item]);
 }
 
 //***************************************************************************
 void PlayBackDialog::setDevice(const QString &device)
 {
     Q_ASSERT(cbDevice);
-    if (!cbDevice) return;
+    Q_ASSERT(listDevices);
+    if (!cbDevice || !listDevices) return;
 
-    if (cbDevice->editable()) {
+    if (!m_enable_setDevice) return;
+//     qDebug("PlayBackDialog::setDevice(%s)", device.data());
+
+    if (listDevices->isEnabled()) {
+	// treeview mode
+	QListViewItemIterator it(listDevices);
+	while (it.current()) {
+	    QListViewItem *node = it.current();
+	    if (m_devices_list_map.contains(node)) {
+		if (m_devices_list_map[node] == device) {
+		    listDevices->setSelected(node, true);
+		}
+	    }
+	    ++it;
+	}
+    } else if (cbDevice->editable() && device.length()) {
 	// user defined device name
 	if (cbDevice->currentText() != device) {
 	    cbDevice->setCurrentText(device);
 	    cbDevice->setEditText(device);
 	}
     } else {
-	// one from the list
+	// just take one from the list
 	if (cbDevice->listBox()->findItem(device)) {
 	    cbDevice->setCurrentText(device);
+	} else if (cbDevice->count()) {
+	    cbDevice->setCurrentItem(0);
 	}
     }
 

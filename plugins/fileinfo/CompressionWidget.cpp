@@ -25,6 +25,7 @@
 #include <qwhatsthis.h>
 #include <knuminput.h>
 
+#include "libkwave/StandardBitrates.h"
 #include "BitrateWidget.h"
 #include "CompressionWidget.h"
 
@@ -34,30 +35,7 @@ CompressionWidget::CompressionWidget(QWidget *parent, const char *name)
 {
 
     // use well-known bitrates from MP3
-    QValueList<int> rates;
-    rates.append(  8000);
-    rates.append( 16000);
-    rates.append( 24000);
-    rates.append( 32000);
-    rates.append( 40000);
-    rates.append( 56000);
-    rates.append( 64000);
-    rates.append( 80000);
-    rates.append( 96000);
-    rates.append(112000);
-    rates.append(128000);
-    rates.append(144000);
-    rates.append(160000);
-    rates.append(176000);
-    rates.append(192000);
-    rates.append(224000);
-    rates.append(256000);
-    rates.append(288000);
-    rates.append(320000);
-    rates.append(352000);
-    rates.append(384000);
-    rates.append(416000);
-    rates.append(448000);
+    const StandardBitrates &rates = StandardBitrates::instance();
     abrBitrate->allowRates(rates);
     abrHighestBitrate->allowRates(rates);
     abrLowestBitrate->allowRates(rates);

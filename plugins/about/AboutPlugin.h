@@ -15,10 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ABOUT_PLUGIN_
-#define _ABOUT_PLUGIN_
+#ifndef _ABOUT_PLUGIN_H_
+#define _ABOUT_PLUGIN_H_
 
-#include <qarray.h>
 #include <qstring.h>
 #include <libgui/KwavePlugin.h>
 

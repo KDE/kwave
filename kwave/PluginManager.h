@@ -26,6 +26,7 @@
 #include "mt/SignalProxy.h"
 
 class KwavePlugin;
+class PlaybackController;
 class QBitmap;
 class QString;
 class QStringList;
@@ -62,9 +63,25 @@ public:
     virtual ~PluginManager();
 
     /**
+     * Tries to load all plugins. If a pesistent plugin is found,
+     * it will stay loaded in memory, all other (non-persistent)
+     * plugins will be unloaded afterwards. This also filters out
+     * all plugins that do not correctly load.
+     * @internal used once by each toplevel window at startup
+     */
+    void loadAllPlugins();
+
+    /**
      * Executes a plugin in the context of a given parent widget.
      */
     void executePlugin(const QString &name, QStringList *params);
+
+    /**
+     * Loads a plugin, calls it's setup function and then closes
+     * it again. The parameters will be loaded before the setup
+     * and saved if the setup has not been aborted.
+     */
+    void setupPlugin(const QString &name);
 
     /**
      * Returns the length of the current signal in samples.
@@ -123,6 +140,12 @@ public:
 
 
     /**
+     * Returns a reference to the current playback controller. This is
+     * only needed for plugins doing playback.
+     */
+    PlaybackController &playbackController();
+
+    /**
      * Searches the standard KDE data directories for plugins (through
      * the KDE's standard search algorithm) and creates a map of
      * plugin names and file names. First it collects a list of
@@ -173,10 +196,10 @@ private:
     /**
      * Uses the dynamic linker to load a plugin into memory.
      * @param name the name of the plugin (filename)
-     * @return memory handle of the loaded plugin or zero if the
+     * @return pointer to the loaded plugin or zero if the
      *         plugin was not found or invalid
      */
-    void *loadPlugin(const QString &name);
+    KwavePlugin *loadPlugin(const QString &name);
 
     /**
      * loads a plugin's default parameters from the user's

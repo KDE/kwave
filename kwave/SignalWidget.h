@@ -478,8 +478,6 @@ private:
     int lastWidth;
     int lastHeight;
     int down;                     //flags if mouse is pressed
-    double lasty;
-    double zoomy;
 
     /** number of samples per pixel */
     double m_zoom;
@@ -515,9 +513,6 @@ private:
     LabelType *markertype;       //selected marker type
 
     MenuManager &menu;
-
-    /** the controller for handling of playback */
-    PlaybackController m_playback_controller;
 
     /** mode of the mouse cursor */
     MouseMode m_mouse_mode;

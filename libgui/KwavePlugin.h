@@ -37,6 +37,9 @@ class QStringList;
 	return np; \
     }
 
+#define BUTTON_OK     i18n("&Ok")
+#define BUTTON_CANCEL i18n("&Cancel")
+
 /**
  * Generic class that should be used for all types of Kwave plugins.
  * This interface is the only one that should be used, it provides
@@ -58,6 +61,43 @@ public:
      * Destructor.
      */
     virtual ~KwavePlugin();
+
+    /** Returns the name of the plugin. */
+    const QString &name();
+
+    /** Returns the version string of the plugin. */
+    const QString &version();
+
+    /** Returns the author of the plugin. */
+    const QString &author();
+
+    /**
+     * Returns true if the plugin is "unique" to the current main
+     * window. The default is "non-unique", so if you want your
+     * plugin to become persistent, you have to overwrite this function
+     * with a version that returns true.
+     * @see isUnique
+     */
+    virtual bool isUnique() { return false || isPersistent(); };
+
+    /**
+     * Returns true if the plugin is "persistent". A persistent plugin
+     * will be loaded once and removed only when the program closes.
+     * A persistent plugin will also be unique to the current main
+     * window. The default is "non-persistent", so if you want your
+     * plugin to become persistent, you have to overwrite this function
+     * with a version that returns true.
+     * @see isUnique
+     */
+    virtual bool isPersistent() { return false; };
+
+    /**
+     * Called after the plugin has been loaded into memory. This is
+     * useful for plugins that don't use start() and execute(),
+     * maybe for some persistent plugins like playback and record.
+     * The default implementation does nothing.
+     */
+    virtual void load(QStringList &params);
 
     /**
      * Sets up all necessary parameters for executing the plugin. Could
@@ -132,7 +172,7 @@ public:
     virtual const QArray<unsigned int> selectedChannels();
 
     /**
-     * Returns the left and right sample of the current selection
+     * Returns the left and right sample index of the current selection
      * in samples from 0 to (size-1). The left and right samples
      * are included in the selection and might be equal. The left
      * is always less or equal than the right. Note that there is
@@ -144,15 +184,15 @@ public:
     virtual unsigned int selection(unsigned int *left=0,unsigned int *right=0);
 
     /**
-     * Returns the value of one single sample of a specified channel.
+     * Returns the value of one single sample of a specified track.
      * If the channel does not exist or the index of the sample is
      * out of range the return value will be zero.
      */
     virtual int singleSample(unsigned int channel, unsigned int offset);
 
     /**
-     * Returns the value of one single sample averaged over all active channels.
-     * If no channel does exist or the index of the sample is out of range the
+     * Returns the value of one single sample averaged over all active tracks.
+     * If no track does exist or the index of the sample is out of range the
      * return value will be zero. If the optional list of channels is omitted,
      * the sample will be averaged over all currently selected channels.
      * @param offset sample offset [0...length-1]
@@ -164,7 +204,7 @@ public:
 
     /**
      * Returns a QBitmap with an overview of all currently present
-     * signals.
+     * tracks.
      */
     QBitmap *overview(unsigned int width, unsigned int height,
                       unsigned int offset, unsigned int length);

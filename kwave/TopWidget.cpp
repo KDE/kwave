@@ -6,6 +6,9 @@
     email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
 
     $Log$
+    Revision 1.20  2001/05/17 07:35:20  the
+    support for persistent plugins, new playback code started
+
     Revision 1.19  2001/05/13 12:20:28  the
     changed the status line, only shows selected range if the mouse cursor is over the selection or the selection is modified
 
@@ -310,13 +313,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_toolbar->insertButton(
 	QPixmap(xpm_play), id, SIGNAL(clicked()),
-	m_main_widget->playbackController(), SLOT(playbackStart()), true,
+	&(m_main_widget->playbackController()), SLOT(playbackStart()), true,
 	i18n("start playback"));
     m_id_play = id++;
 
     m_toolbar->insertButton(
 	QPixmap(xpm_loop), id, SIGNAL(clicked()),
-	m_main_widget->playbackController(), SLOT(playbackLoop()), true,
+	&(m_main_widget->playbackController()), SLOT(playbackLoop()), true,
 	i18n("start playback and loop"));
     m_id_loop = id++;
 
@@ -328,7 +331,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_toolbar->insertButton(
 	QPixmap(xpm_stop), id, SIGNAL(clicked()),
-	m_main_widget->playbackController(), SLOT(playbackStop()), true,
+	&(m_main_widget->playbackController()), SLOT(playbackStop()), true,
 	i18n("stop playback or loop"));
     m_id_stop = id++;
 
@@ -399,16 +402,19 @@ TopWidget::TopWidget(KwaveApp &main_app)
     updateToolbar();
 
     // connect the playback controller
-    connect(m_main_widget->playbackController(), SIGNAL(sigPlaybackStarted()),
+    connect(&(m_main_widget->playbackController()),
+            SIGNAL(sigPlaybackStarted()),
             this, SLOT(updateToolbar()));
-    connect(m_main_widget->playbackController(), SIGNAL(sigPlaybackPaused()),
+    connect(&(m_main_widget->playbackController()),
+            SIGNAL(sigPlaybackPaused()),
             this, SLOT(playbackPaused()));
-    connect(m_main_widget->playbackController(), SIGNAL(sigPlaybackStopped()),
+    connect(&(m_main_widget->playbackController()),
+            SIGNAL(sigPlaybackStopped()),
             this, SLOT(updateToolbar()));
 
     // connect the signal manager
-    SignalManager *sig_mgr = m_main_widget->signalManager();
-    connect(sig_mgr, SIGNAL(sigStatusInfo(unsigned int, unsigned int,
+    connect(&(m_main_widget->signalManager()),
+        SIGNAL(sigStatusInfo(unsigned int, unsigned int,
         unsigned int, unsigned int)),
         this, SLOT(setStatusInfo(unsigned int, unsigned int,
         unsigned int, unsigned int)));
@@ -447,6 +453,11 @@ TopWidget::TopWidget(KwaveApp &main_app)
     resize(w, h);
 
     setStatusInfo(0,0,0,0);
+
+    // now we are initialized, load all plugins now
+    statusBar()->message(i18n("loading plugins..."));
+    m_plugin_manager->loadAllPlugins();
+    statusBar()->message(i18n("ready."), 1000);
 
     debug("TopWidget::TopWidget(): done."); // ###
 }
@@ -531,7 +542,11 @@ void TopWidget::executeCommand(const QString &command)
 	}
 	ASSERT(m_plugin_manager);
 	if (m_plugin_manager) m_plugin_manager->executePlugin(
-            name.data(), &params);
+            name, &params);
+    CASE_COMMAND("plugin:setup")
+	QString name(parser.firstParam());
+	ASSERT(m_plugin_manager);
+	if (m_plugin_manager) m_plugin_manager->setupPlugin(name);
     CASE_COMMAND("menu")
 	ASSERT(m_menu_manager);
 	if (m_menu_manager) m_menu_manager->executeCommand(command);
@@ -577,9 +592,10 @@ void TopWidget::loadBatch(const QString &str)
 }
 
 //***************************************************************************
-SignalManager *TopWidget::signalManager()
+SignalManager &TopWidget::signalManager()
 {
-    return (m_main_widget) ? m_main_widget->signalManager() : 0;
+    ASSERT(m_main_widget);
+    return m_main_widget->signalManager();
 }
 
 //***************************************************************************
@@ -847,11 +863,10 @@ void TopWidget::setSelectedTimeInfo(double ms)
     if (!statusBar()) return;
 
     QString txt = " "+i18n("Selected: %1")+" ";
-    SignalManager *mgr = signalManager();
-    txt = txt.arg(KwavePlugin::ms2string(ms));
-    if (mgr && mgr->rate()) {
+    unsigned int rate = signalManager().rate();
+    if (rate) {
 	txt += i18n("(%2 samples)")+" ";
-	txt = txt.arg((unsigned int)(ms*1E-3* mgr->rate()));
+	txt = txt.arg((unsigned int)(ms*1E-3* rate));
     }
     statusBar()->message(txt, 4000);
 }
@@ -865,15 +880,12 @@ void TopWidget::mouseChanged(int mode)
 	case (SignalWidget::MouseAtSelectionBorder) :
 	case (SignalWidget::MouseInSelection) :
 	{
-	    SignalManager *mgr = signalManager();
-	    if (!mgr || !mgr->rate()) break;
-	
-	    double ms = mgr->selection().length() * 1E3 / mgr->rate();
+	    unsigned int rate = signalManager().rate();
+	    if (!rate) break;
+	    double ms = signalManager().selection().length() * 1E3 / rate;
 	    setSelectedTimeInfo(ms);
-	
 	    break;
 	}
-	    break;
     }
 }
 
@@ -911,12 +923,10 @@ void TopWidget::updateToolbar()
     ASSERT(m_main_widget);
     if (!m_toolbar) return;
     if (!m_main_widget) return;
-    ASSERT(m_main_widget->playbackController());
-    if (!m_main_widget->playbackController()) return;
 
     bool have_signal = m_main_widget->tracks();
-    bool playing = m_main_widget->playbackController()->running();
-    bool paused  = m_main_widget->playbackController()->paused();
+    bool playing = m_main_widget->playbackController().running();
+    bool paused  = m_main_widget->playbackController().paused();
 
     if (m_pause_timer) {
 	m_pause_timer->stop();
@@ -974,16 +984,15 @@ void TopWidget::pausePressed()
     ASSERT(m_main_widget);
     if (!m_main_widget) return;
 
-    bool have_signal = m_main_widget->tracks();
-    bool playing = m_main_widget->playbackController()->running();
+    bool have_signal = (m_main_widget->tracks());
+    bool playing = m_main_widget->playbackController().running();
 
     if (!have_signal) return;
-    if (!m_main_widget->playbackController()) return;
 
     if (playing) {
-	m_main_widget->playbackController()->playbackPause();
+	m_main_widget->playbackController().playbackPause();
     } else {
-	m_main_widget->playbackController()->playbackContinue();
+	m_main_widget->playbackController().playbackContinue();
     }
 
 }

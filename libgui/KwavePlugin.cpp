@@ -40,6 +40,7 @@ KwavePlugin::KwavePlugin(PluginContext &c)
     :m_context(c), m_thread(0)
 {
     m_thread_lock.setName("KwavePlugin");
+    debug("KwavePlugin::KwavePlugin");
 }
 
 //***************************************************************************
@@ -49,6 +50,30 @@ KwavePlugin::~KwavePlugin()
     // delete itself
     close();
     debug("KwavePlugin::~KwavePlugin(), done.");
+}
+
+//***************************************************************************
+const QString &KwavePlugin::name()
+{
+    return m_context.name;
+}
+
+//***************************************************************************
+const QString &KwavePlugin::version()
+{
+    return m_context.version;
+}
+
+//***************************************************************************
+const QString &KwavePlugin::author()
+{
+    return m_context.author;
+}
+
+//***************************************************************************
+void KwavePlugin::load(QStringList &)
+{
+    debug("KwavePlugin(%s): load()", m_context.name.data());
 }
 
 //***************************************************************************
@@ -70,6 +95,7 @@ int KwavePlugin::start(QStringList &)
 int KwavePlugin::stop()
 {
     MutexGuard lock(m_thread_lock);
+    debug("KwavePlugin::stop()");
     if (m_thread) {
 	if (m_thread->running()) m_thread->wait(5000);
 	if (m_thread->running()) m_thread->stop();
@@ -98,17 +124,20 @@ int KwavePlugin::execute(QStringList &params)
 
     debug("KwavePlugin::execute(): activating thread");
     m_thread->start();
+    debug("KwavePlugin::execute(): thread activated.");
 
     // sometimes the signal proxies remain blocked until an initial
     // X11 event occurs and thus might block the thread :-(
     QApplication::syncX();
 
+    debug("KwavePlugin::execute(): done.");
     return 0;
 }
 
 //***************************************************************************
 void KwavePlugin::run(QStringList)
 {
+    debug("KwavePlugin::run");
 }
 
 //***************************************************************************

@@ -18,12 +18,12 @@
 #ifndef _MAIN_WIDGET_H_
 #define _MAIN_WIDGET_H_
 
+#include <qframe.h>
 #include <qlist.h>
 #include <qwidget.h>
 
 class QAccel;
 class QComboBox;
-class QFrame;
 class QScrollBar;
 
 class KButtonBox;
@@ -34,7 +34,8 @@ class MultiStateWidget;
 class OverViewWidget;
 class PlaybackController;
 class SignalManager;
-class SignalWidget;
+
+#include "kwave/SignalWidget.h"
 
 //***************************************************************************
 class MainWidget : public QWidget
@@ -91,10 +92,10 @@ public:
     unsigned int bits();
 
     /** Returns the signal manager of the current signal */
-    SignalManager *signalManager();
+    SignalManager &signalManager();
 
     /** Returns the playback controller */
-    PlaybackController *playbackController();
+    PlaybackController &playbackController();
 
 protected:
 
@@ -117,22 +118,24 @@ public slots:
     void parseKey(int key);
 
     /** calls setZoom() of the signal widget */
-    void setZoom(double new_zoom);
+    inline void setZoom(double new_zoom) {
+	m_signal_widget.setZoom(new_zoom);
+    };
 
     /** calls zoomSelection() of the signal widget */
-    void zoomSelection();
+    inline void zoomSelection() { m_signal_widget.zoomSelection(); };
 
     /** calls zoomIn() of the signal widget */
-    void zoomIn();
+    inline void zoomIn()        { m_signal_widget.zoomIn(); };
 
     /** calls zoomOut() of the signal widget */
-    void zoomOut();
+    inline void zoomOut()       { m_signal_widget.zoomOut(); };
 
     /** calls zoomAll() of the signal widget */
-    void zoomAll();
+    inline void zoomAll()       { m_signal_widget.zoomAll(); };
 
     /** calls zoomNormal() of the signal widget */
-    void zoomNormal();
+    inline void zoomNormal()    { m_signal_widget.zoomNormal(); };
 
 private slots:
 
@@ -216,12 +219,16 @@ private:
     QAccel *keys;
     OverViewWidget *m_slider;
 
-    /** the widget that shows the signal */
-    SignalWidget *m_signal_widget;
+    /** QFrame that contains the signal widget. */
+    QFrame m_signal_frame;
 
+    /** the widget that shows the signal */
+    SignalWidget m_signal_widget;
+
+    /** reference to the enu manager. */
     MenuManager &menu;
+
     QFrame *frmChannelControls;
-    QFrame *frmSignal;
 
     /** vertical scrollbar, only visible if channels do not fit vertically */
     QScrollBar *scrollbar;

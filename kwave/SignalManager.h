@@ -34,18 +34,12 @@
 #include "libkwave/Selection.h"
 #include "libkwave/Signal.h"
 
+#include "PlaybackController.h"
+
 class ProgressDialog;
 class QBitmap;
 class QFile;
 class TimeOperation;
-
-typedef struct {
-    int rate;
-    int channels;
-    int bits_per_sample;
-    QString device;
-    int bufbase;
-} playback_param_t;
 
 /**
  * The SignalManager class manages multi-channel signals.
@@ -78,6 +72,9 @@ public:
 	return m_empty;
     };
 
+    /** Returns a reference to the playback controller. */
+    PlaybackController &playbackController();
+
     /** Returns a reference to the signal */
     inline Signal &signal() {
 	return m_signal;
@@ -88,18 +85,18 @@ public:
     int setSoundParams(int audio, int bitspersample,
                        unsigned int channels, int rate, int bufbase);
 
-    /**
-     * Internally used for playback.
-     * @param device file descriptor of the opened playback device
-     * @param param parameters used for playback
-     * @param buffer pointer to a sample buffer used for playback
-     * @param bufsize size of the buffer in bytes
-     * @param start position where playback should start
-     * @param loop true: looping instead of single play
-     */
-    void playback(int device, playback_param_t &param,
-                  unsigned char *buffer, unsigned int bufsize,
-                  unsigned int start, bool loop);
+//    /**
+//     * Internally used for playback.
+//     * @param device file descriptor of the opened playback device
+//     * @param param parameters used for playback
+//     * @param buffer pointer to a sample buffer used for playback
+//     * @param bufsize size of the buffer in bytes
+//     * @param start position where playback should start
+//     * @param loop true: looping instead of single play
+//     */
+//    void playback(int device, playback_param_t &param,
+//                  unsigned char *buffer, unsigned int bufsize,
+//                  unsigned int start, bool loop);
 
     /**
      * Determines the maximum and minimum values of a given range
@@ -198,27 +195,11 @@ public:
      */
     void selectRange(unsigned int offset, unsigned int length);
 
-    bool promoteCommand (const QString &command);
-
     /**
      * Toggles the selection flag of a channel.
      * @param channel index of the channel [0..N-1]
      */
     void toggleChannel(const unsigned int channel);
-
-public slots:
-
-    /**
-     * Starts playback.
-     * @param start position where playback should start
-     * @param loop true: looping instead of single play
-     */
-    void startplay(unsigned int start, bool loop);
-
-    /**
-     * Stops playback.
-     */
-    void stopplay();
 
 signals:
 
@@ -416,6 +397,9 @@ private:
 
     //sampling rate being used
     int m_rate; // ###
+
+    /** the controller for handling of playback */
+    PlaybackController m_playback_controller;
 
     /**
      * Signal proxy that brings the current playback position

@@ -100,10 +100,9 @@ public:
     void loadBatch(const QString &filename);
 
     /**
-     * Returns a pointer to the current signal manager or zero if
-     * no signal is loaded.
+     * Returns a pointer to the current signal manager.
      */
-    SignalManager *signalManager();
+    SignalManager &signalManager();
 
 public slots:
 

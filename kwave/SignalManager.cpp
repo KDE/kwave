@@ -78,11 +78,12 @@ SignalManager::SignalManager(QWidget *parent)
     m_empty(true),
     m_signal(),
     m_selection(0,0),
+    m_rate(0),
+    m_playback_controller(),
     m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
     m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
 {
     m_name = "";
-    m_rate = 0;
 //    for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
 //	msg[i] = 0;
 
@@ -309,14 +310,11 @@ void SignalManager::toggleChannel(const unsigned int /*channel*/)
 //***************************************************************************
 bool SignalManager::executeCommand(const QString &/*command*/)
 {
-//    ASSERT(command);
-//    if (!command) return false;
-//
 //    debug("SignalManager::executeCommand(%s)", command.data());    // ###
 //
 //    if (false) {
 //    CASE_COMMAND("playback")
-//	playback_param_t &params = KwaveApp::getPlaybackParams();
+//	playback _ param _ t &params = KwaveApp::getPlaybackParams();
 //	Parser parser(command);
 //	
 //	params.rate = parser.toInt();
@@ -427,96 +425,6 @@ bool SignalManager::executeCommand(const QString &/*command*/)
 //	bool result = promoteCommand(command);
 //	return result;
 //    }
-
-    return true;
-}
-
-//***************************************************************************
-bool SignalManager::promoteCommand(const QString &/*command*/)
-{
-//    debug("SignalManager::promoteCommand(%s)", command.data());    // ###
-//
-////    // loop over all channels
-////    unsigned int i;
-////    for (i = 0; i < m_channels; i++) {
-////        ASSERT(signal.at(i));
-////        if (!signal.at(i)) continue;
-////
-////	// skip channel if not selected
-////	if (!signal.at(i)->isSelected()) continue;
-////
-////	int begin, len;
-////	if (lmarker != rmarker) {
-////	    begin = lmarker;
-////	    len = rmarker - lmarker + 1;
-////	} else {
-////	    begin = 0;
-////	    len = signal.at(i)->getLength();
-////	}
-////
-////	char buf[64];
-////	snprintf(buf, sizeof(buf), "%d", i + 1);
-////	char *caption = catString(i18n(command), i18n(" on channel "), buf);
-////
-////// =====================================================
-////// === under construction ==============================
-////	
-////	// create a nice little Object that should contain everything important
-////	TimeOperation *operation =
-////	    new TimeOperation(signal.at(i), command, begin, len);
-////	ASSERT(operation);
-////	if (!operation) {
-////	    warning("out of memory: could not allocate TimeOperation");
-////	    continue;
-////	}
-////	
-////	debug("lmarker=%d, rmarker=%d, begin=%d, len=%d",
-////	    lmarker,rmarker,begin,len);
-////	
-////	//create a new progress dialog, that watches an memory address
-////	//that is updated by the modules
-////	ProgressDialog *dialog = createProgressDialog(operation, caption);
-////	ASSERT(dialog);
-//////	if (dialog) {
-//////	    // connect the signal for "command done"
-//////	    connect(dialog, SIGNAL(commandDone()),
-//////		    this, SLOT(commandDone()));
-//////		
-////#ifdef USE_THREADS
-////	    pthread_t thread;
-////	    // emit modifyingSignal(signal.at(i), begin, length);
-////
-//////	extern int pthread_create __P ((pthread_t *__thread,
-//////				__const pthread_attr_t *__attr,
-//////				void *(*__start_routine) (void *),
-//////				void *__arg));
-////
-////	    //create the new thread
-////	    if (pthread_create (&thread,
-////				0,
-////				(void *(*)(void *))(threadStub),
-////				(void *)operation) != 0) {
-////		warning("thread creation failed");
-////		if (dialog) delete dialog;
-////		return false;
-////	    }
-////#else /* USE_THREADS */
-////	    threadStub(operation);
-////#endif /* USE_THREADS */
-////
-////	    if (dialog) delete dialog;
-////
-////// === under construction ==============================
-////// =====================================================
-////
-//////	}
-//////	else warning("out of memory: could not allocate ProgressDialog");
-////    }
-////
-////
-////
-////    // could not promote command to modules or an error occured
-////    if (i < m_channels) return false;
 
     return true;
 }
@@ -875,8 +783,13 @@ int SignalManager::writeWavChunk(QFile &sigout, unsigned int offset,
 	{
 	    for (unsigned int track = 0; track < tracks; track++) {
 		SampleReader *stream = samples.at(track);
-		sample_t act;
-		(*stream) >> act;
+		sample_t sample;
+		(*stream) >> sample;
+		
+		// the following cast is only necessary if
+		// sample_t is not equal to a 32bit int
+		__uint32_t act = static_cast<__uint32_t>(sample);
+		
 		act >>= shift;
 		if (bytes == 1) {
 		    // 8 bits -> unsigned
@@ -1148,11 +1061,11 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 	}
 
 	unsigned char *buffer = loadbuffer;
-	sample_t s = 0;
+	__uint32_t s = 0; // raw 32bit value
 	while (read_samples--) {
 	    for (register unsigned int channel = 0;
-	         channel < channels;
-	         channel++)
+		 channel < channels;
+		channel++)
 	    {
 		SampleWriter *stream = samples.at(channel);
 		
@@ -1169,7 +1082,12 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 		    if ((unsigned int)s & sign)
 			s |= negative;
 		}
-		*stream << s;
+		
+		// the following cast is only necessary if
+		// sample_t is not equal to a 32bit int
+		sample_t sample = static_cast<sample_t>(s);
+		
+		*stream << sample;
 	    }
 	    pos++;
 	}
@@ -1196,7 +1114,14 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 //    unsigned int start;
 //    bool loop;
 //};
-//
+
+
+//***************************************************************************
+PlaybackController &SignalManager::playbackController()
+{
+    return m_playback_controller;
+}
+
 //***************************************************************************
 //void playThread(struct Play *par)
 //{
@@ -1241,250 +1166,6 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 //
 //    return;
 //}
-
-//***************************************************************************
-void SignalManager::startplay(unsigned int /*start*/, bool /*loop*/)
-{
-//    msg[processid] = 1;
-//    msg[stopprocess] = false;
-//
-//    Play *par = new Play;
-//    pthread_t thread;
-//
-//    par->manage = this;
-//    par->start = start;
-//    par->loop = loop;
-//    par->params = KwaveApp::getPlaybackParams();
-//    par->params.rate = this->getRate();
-//
-//    m_playback_error = 0;
-//    pthread_create(&thread, 0, (void * (*) (void *))playThread, par);
-}
-
-//***************************************************************************
-void SignalManager::stopplay()
-{
-//    msg[stopprocess] = true;          //set flag for stopping
-//
-//    QTimer timeout;
-//    timeout.start(5000, true);
-//    while (msg[processid] != 0) {
-//	sched_yield();
-//	// wait for termination
-//	if (!timeout.isActive()) {
-//	    warning("SignalManager::stopplay(): TIMEOUT");
-//	    break;
-//	}
-//    }
-//    debug("SignalManager::stopplay(): threads stopped");
-}
-
-//***************************************************************************
-int SignalManager::setSoundParams(int /*audio*/, int /*bitspersample*/,
-                                  unsigned int /*channels*/, int /*rate*/,
-                                  int /*bufbase*/)
-{
-    return 0;
-//    const char *trouble = i18n("playback problem");
-//
-//    debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\#
-//	"rate=%d, bufbase=%d)", audio, bitspersample, channels,
-//	rate, bufbase);
-//
-//// ### under construction ###
-//
-//// from standard oss interface (linux/soundcard.h)
-//
-/////*	Audio data formats (Note! U8=8 and S16_LE=16 for compatibility) */
-////#define SNDCTL_DSP_GETFMTS		_SIOR ('P',11, int) /* Returns a mask */
-////#define SNDCTL_DSP_SETFMT		_SIOWR('P',5, int) /* Selects ONE fmt*/
-////#	define AFMT_QUERY		0x00000000	/* Return current fmt */
-////#	define AFMT_MU_LAW		0x00000001
-////#	define AFMT_A_LAW		0x00000002
-////#	define AFMT_IMA_ADPCM		0x00000004
-////#	define AFMT_U8			0x00000008
-////#	define AFMT_S16_LE		0x00000010	/* Little endian signed 16*/
-////#	define AFMT_S16_BE		0x00000020	/* Big endian signed 16 */
-////#	define AFMT_S8			0x00000040
-////#	define AFMT_U16_LE		0x00000080	/* Little endian U16 */
-////#	define AFMT_U16_BE		0x00000100	/* Big endian U16 */
-////#	define AFMT_MPEG		0x00000200	/* MPEG (2) audio */
-//
-//// from ALSA interface (asound.h)
-//
-////#define SND_PCM_SFMT_S8			0
-////#define SND_PCM_SFMT_U8			1
-////#define SND_PCM_SFMT_S16		SND_PCM_SFMT_S16_LE
-////#define SND_PCM_SFMT_U16		SND_PCM_SFMT_U16_LE
-////#define SND_PCM_SFMT_S24		SND_PCM_SFMT_S24_LE
-////#define SND_PCM_SFMT_U24		SND_PCM_SFMT_U24_LE
-////#define SND_PCM_SFMT_S32		SND_PCM_SFMT_S32_LE
-////#define SND_PCM_SFMT_U32		SND_PCM_SFMT_U32_LE
-////#define SND_PCM_SFMT_FLOAT		SND_PCM_SFMT_FLOAT_LE
-////#define SND_PCM_SFMT_FLOAT64		SND_PCM_SFMT_FLOAT64_LE
-////#define SND_PCM_SFMT_IEC958_SUBFRAME	SND_PCM_SFMT_IEC958_SUBFRAME_LE
-//
-//    int format = (bitspersample == 8) ? AFMT_U8 : AFMT_S16_LE;
-//
-//    // number of bits per sample
-//    if (ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &format) == -1) {
-//	m_playback_error = i18n("number of bits per samples not supported");
-//	return 0;
-//    }
-//
-//    // mono/stereo selection
-//    int stereo = (channels >= 2) ? 1 : 0;
-//    if (ioctl(audio, SNDCTL_DSP_STEREO, &stereo) == -1) {
-//	m_playback_error = i18n("stereo not supported");
-//	return 0;
-//    }
-//
-//    // playback rate
-//    if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) == -1) {
-//	m_playback_error = i18n("playback rate not supported");
-//	return 0;
-//    }
-//
-//    // buffer size
-//    ASSERT(bufbase >= MIN_PLAYBACK_BUFFER);
-//    ASSERT(bufbase <= MAX_PLAYBACK_BUFFER);
-//    if (bufbase < MIN_PLAYBACK_BUFFER) bufbase = MIN_PLAYBACK_BUFFER;
-//    if (bufbase > MAX_PLAYBACK_BUFFER) bufbase = MAX_PLAYBACK_BUFFER;
-//    if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
-//	m_playback_error = i18n("unusable buffer size");
-//	return 0;
-//    }
-//
-//    // return the buffer size in bytes
-//    int size;
-//    ioctl(audio, SNDCTL_DSP_GETBLKSIZE, &size);
-//    return size;
-}
-
-//***************************************************************************
-void SignalManager::playback(int /*device*/, playback_param_t &/*param*/,
-                             unsigned char */*buffer*/, unsigned int /*bufsize*/,
-                             unsigned int /*start*/, bool /*loop*/)
-{
-//    ASSERT(buffer);
-//    ASSERT(bufsize);
-//    ASSERT(param.channels);
-//    if (!buffer || !bufsize || !param.channels) return;
-//
-//    unsigned int i;
-//    unsigned int active_channels = 0;
-//    unsigned int in_channels = m_channels;
-//    unsigned int out_channels = param.channels;
-//    unsigned int active_channel[in_channels]; // list of active channels
-//
-//    // get the number of channels with enabled playback
-//    for (i=0; i < in_channels; i++) {
-//	if (!signal.at(i)) continue;
-//	// ### TODO: use state of play widget instead of "enabled" ###
-//	if (!signal.at(i)->isSelected()) continue;
-//
-//	active_channel[active_channels++] = i;
-//    }
-//
-//    // abort if no channels -> nothing to do
-//    if (!active_channels) {
-//	debug("SignalManager::playback(): no active channel, nothing to do");
-//	msg[stopprocess] = true;
-//    }
-//
-//    // set up the matrix for channel mixing
-//    int matrix[active_channels][out_channels];
-//    unsigned int x, y;
-//    for (y=0; y < out_channels; y++) {
-//	unsigned int m1, m2;
-//	m1 = y * active_channels;
-//	m2 = (y+1) * active_channels;
-//	
-//	for (x=0; x < active_channels; x++) {
-//	    unsigned int n1, n2;
-//	    n1 = x * out_channels;
-//	    n2 = (x+1) * out_channels;
-//
-//	    // get the common area of [n1..n2] and [m1..m2]
-//	    unsigned int left = max(n1, m1);
-//	    unsigned int right = min(n2, m2);
-//
-//	    matrix[x][y] = (right > left) ? (right-left) : 0;
-//	}
-//    }
-//
-//    // loop until process is stopped
-//    // or run once if not in loop mode
-//    unsigned int pointer = start;
-//    unsigned int last = rmarker;
-//    int samples[active_channels];
-//
-//    if (lmarker == rmarker) last = getLength()-1;
-//    m_spx_playback_pos.enqueue(pointer);
-//    do {
-//
-//	while ((pointer <= last) && !msg[stopprocess]) {
-//	
-//	    // fill the buffer with audio data
-//	    unsigned int cnt;
-//	    for (cnt = 0; (cnt < bufsize) && (pointer <= last); pointer++) {
-//                unsigned int channel;
-//
-//		for (y=0; y < out_channels; y++) {
-//		    double s = 0;
-//		    for (x=0; x < active_channels; x++) {
-//			s += signal.at(
-//				active_channel[x])->getSingleSample(
-//				pointer) * matrix[x][y];
-//		    }
-//		    samples[y] = (int)(s / active_channels);
-//		}
-//
-//		for (channel=0; channel < out_channels; channel++) {
-//		    int sample = samples[channel];
-//		
-//		    switch (param.bits_per_sample) {
-//			case 8:
-//			    sample += 1 << 23;
-//			    buffer[cnt++] = sample >> 16;
-//			    break;
-//			case 16:
-//			    sample += 1 << 23;
-//			    buffer[cnt++] = sample >> 8;
-//			    buffer[cnt++] = (sample >> 16) + 128;
-//			    break;
-//			case 24:
-//			    // play in 32 bit format
-//			    buffer[cnt++] = 0x00;
-//			    buffer[cnt++] = sample & 0x0FF;
-//			    buffer[cnt++] = sample >> 8;
-//			    buffer[cnt++] = (sample >> 16) + 128;
-//
-//			    break;
-//			default:
-//			    // invalid bits per sample
-//			    msg[stopprocess] = true;
-//			    pointer = last;
-//			    cnt = 0;
-//			    break;
-//		    }
-//		}
-//	    }
-//
-//	    // write buffer to the playback device
-//	    write(device, buffer, cnt);
-//	    m_spx_playback_pos.enqueue(pointer);
-//	}
-//	
-//	// maybe we loop. in this case the playback starts
-//	// again from the left marker
-//	if (loop && !msg[stopprocess]) pointer = lmarker;
-//
-//    } while (loop && !msg[stopprocess]);
-//
-//    // playback is done
-//    m_spx_playback_done.AsyncHandler();
-}
 
 //***************************************************************************
 void SignalManager::updatePlaybackPos()

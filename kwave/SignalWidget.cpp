@@ -74,7 +74,6 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     m_refresh_timer(),
     m_track_pixmaps(),
     menu(menu_manager),
-    m_playback_controller(),
     m_mouse_mode(MouseNormal)
 {
 //    debug("SignalWidget::SignalWidget()");
@@ -84,7 +83,6 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     lastHeight = 0;
     lastplaypointer = -1;
     lastWidth = 0;
-    lasty = -1;
     markertype = 0;
     m_offset = 0;
     pixmap = 0;
@@ -93,7 +91,6 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     m_selection = 0;
     width = 0;
     m_zoom = 0.0;
-    zoomy = 1;
 
     for (int i=0; i < 3; i++) {
 	m_layer[i] = 0;
@@ -104,13 +101,6 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     m_selection = new MouseMark();
     ASSERT(m_selection);
     if (!m_selection) return;
-
-    connect(&m_playback_controller, SIGNAL(sigStartPlayback()),
-            this, SLOT(playbackStart()));
-    connect(&m_playback_controller, SIGNAL(sigPlaybackStopped()),
-            this, SLOT(playbackStopped()));
-    connect(&m_playback_controller, SIGNAL(sigPlaybackPos(unsigned int)),
-            this, SLOT(updatePlaybackPointer(unsigned int)));
 
     // connect to the signal manager's signals
     Signal *sig = &(m_signal_manager.signal());
@@ -131,6 +121,9 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
 	unsigned int)));
 
+    // connect to the playback controller
+    connect(&(playbackController()), SIGNAL(sigPlaybackPos(unsigned int)),
+            this, SLOT(updatePlaybackPointer(unsigned int)));
 
 //    labels = new LabelList();
 //    ASSERT(labels);
@@ -472,7 +465,7 @@ unsigned int SignalWidget::bits()
 //***************************************************************************
 PlaybackController &SignalWidget::playbackController()
 {
-    return m_playback_controller;
+    return m_signal_manager.playbackController();
 }
 
 //***************************************************************************
@@ -545,8 +538,8 @@ void SignalWidget::loadFile(const QString &filename, int type)
 void SignalWidget::close()
 {
     // first stop playback
-    m_playback_controller.playbackStop();
-    m_playback_controller.reset();
+    m_signal_manager.playbackController().playbackStop();
+    m_signal_manager.playbackController().reset();
 
     // clear the display
     m_track_pixmaps.setAutoDelete(true);
@@ -876,7 +869,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
     if (!m_signal_manager.length()) return;
 
     // ignore all mouse press events in playback mode
-    if (m_playback_controller.running()) return;
+    if (m_signal_manager.playbackController().running()) return;
 
     if (e->button() == LeftButton) {
 	int x = m_offset + pixels2samples(e->pos().x());
@@ -898,7 +891,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
     if (!m_signal_manager.length()) return;
 
     // ignore all mouse release events in playback mode
-    if (m_playback_controller.running()) return;
+    if (m_signal_manager.playbackController().running()) return;
 
     if (down) {
 	int x = e->pos().x();
@@ -974,7 +967,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //    if (t_rest_of_system < 1000.0) return;
 ////#endif
 	
-    unsigned int n_tracks = /*m_signal_manager.isClosed() ? 0 :*/ tracks();
+    unsigned int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
     bool update_pixmap = false;
 
     m_layer_rop[LAYER_SIGNAL] = CopyROP;
@@ -1123,7 +1116,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 
     // --- redraw the playpointer if a signal is present ---
     playpointer = samples2pixels(
-	m_playback_controller.currentPos() - m_offset);
+	m_signal_manager.playbackController().currentPos() - m_offset);
 
     if (n_tracks) {
 	p.begin(pixmap);
@@ -1133,8 +1126,8 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	if (lastplaypointer >= 0) p.drawLine(lastplaypointer, 0,
 	                                     lastplaypointer, height);
 	
-	if ( (m_playback_controller.running() ||
-	      m_playback_controller.paused() ) &&
+	if ( (m_signal_manager.playbackController().running() ||
+	      m_signal_manager.playbackController().paused() ) &&
 	     ((playpointer >= 0) && (playpointer < width)) )
 	{
 	    p.drawLine(playpointer, 0, playpointer, height);

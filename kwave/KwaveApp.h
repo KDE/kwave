@@ -24,8 +24,6 @@
 #include <kuniqueapp.h>
 #include <kapp.h>
 
-#include "SignalManager.h" // for struct playback_param_t
-
 class ClipBoard;
 class QString;
 class TopWidget;
@@ -92,11 +90,6 @@ public:
     /** Returns a reference to the list of recent files */
     QStringList recentFiles() {
 	return m_recent_files;
-    };
-
-    /** Returns a reference to the current playback parameters */
-    static playback_param_t &getPlaybackParams() {
-	return m_playback_params;
     };
 
  //    /** Returns a reference to Kwave's clipboard */
@@ -175,9 +168,6 @@ private:
 
     /** list of toplevel widgets */
     QList<TopWidget> m_topwidget_list;
-
-    /** parameters for audio playback */
-    static playback_param_t m_playback_params;
 
 //    /** Kwave's clipboard */
 //    static ClipBoard &m_clipboard;

@@ -53,11 +53,10 @@ LogoWidget::LogoWidget(QWidget *parent)
     if (!m_timer) return;
     connect(m_timer, SIGNAL(timeout()), this, SLOT(doAnim()));
 
-    //gives 50 Hz refresh... qt-lib gives interlace-feeling ;-)...
+    // gives 40ms refresh ;-)...
     m_timer->start(40, false);
 
     this->setBackgroundColor(black);
-    debug("LogoWidget::LogoWidget(QWidget *parent): done");
 }
 
 //**********************************************************

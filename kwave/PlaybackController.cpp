@@ -1,5 +1,5 @@
 /***************************************************************************
-     PlaybackController.cpp  -  Interface for generic playback control
+ PlaybackController.cpp  -  Interface for generic playback control
 			     -------------------
     begin                : Nov 15 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -38,7 +38,7 @@ void PlaybackController::playbackStart()
 {
     if (m_playing) {
 	// first stop playback
-	emit sigStopPlayback();
+	emit sigDeviceStopPlayback();
 	emit sigPlaybackStopped();
     }
 
@@ -48,7 +48,7 @@ void PlaybackController::playbackStart()
 
     m_loop_mode = false;
     m_paused = false;
-    emit sigStartPlayback();
+    emit sigDeviceStartPlayback();
 
     m_playing = true;
     emit sigPlaybackStarted();
@@ -59,7 +59,7 @@ void PlaybackController::playbackLoop()
 {
     if (m_playing) {
 	// first stop playback
-	emit sigStopPlayback();
+	emit sigDeviceStopPlayback();
 	m_playing = false;
 	emit sigPlaybackStopped();
     }
@@ -70,7 +70,7 @@ void PlaybackController::playbackLoop()
 
     m_loop_mode = true;
     m_paused = false;
-    emit sigStartPlayback();
+    emit sigDeviceStartPlayback();
 
     m_playing = true;
     emit sigPlaybackStarted();
@@ -84,7 +84,7 @@ void PlaybackController::playbackPause()
     m_paused = true;
 
     // stop playback for now and set the paused flag
-    emit sigStopPlayback();
+    emit sigDeviceStopPlayback();
 }
 
 //***************************************************************************
@@ -97,7 +97,7 @@ void PlaybackController::playbackContinue()
     }
 
     // else reset the paused flag and start from current position
-    emit sigStartPlayback();
+    emit sigDeviceStartPlayback();
 
     m_paused = false;
     m_playing=true;
@@ -115,7 +115,7 @@ void PlaybackController::playbackStop()
 	emit sigPlaybackStopped();
     }
     if (!m_playing) return; // already stopped
-    emit sigStopPlayback();
+    emit sigDeviceStopPlayback();
 }
 
 //***************************************************************************

@@ -1,5 +1,5 @@
 /***************************************************************************
-         PluginContext.h  -  collects all references a plugin needs
+        PluginContext.h  -  collects all references a plugin needs
                              -------------------
     begin                : Fri Jul 28 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -34,14 +34,20 @@ public:
 	LabelManager  *label_mgr,
 	MenuManager   *menu_mgr,
 	TopWidget     &topwidget,
-	void *mod_handle
+	void *mod_handle,
+	const QString &mod_name,
+	const QString &mod_version,
+	const QString &mod_author
     )
     :kwave_app(app),
     manager(plugin_mgr),
     label_manager(label_mgr),
     menu_manager(menu_mgr),
     top_widget(topwidget),
-    handle(mod_handle)
+    handle(mod_handle),
+    name(mod_name),
+    version(mod_version),
+    author(mod_author)
     {};
 
     KwaveApp      &kwave_app;
@@ -51,6 +57,9 @@ public:
     TopWidget     &top_widget;
 
     void *handle;
+    QString name;
+    QString version;
+    QString author;
 };
 
 #endif // _PLUGIN_CONTEXT_H_

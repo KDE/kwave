@@ -23,14 +23,14 @@
 class Mutex;
 
 /**
- * \class MutexGuard
+ * @class MutexGuard
  * Implements an easy-to-use guard class for a simple mutal
  * exclusive locking for multithreaded applications. This should be used
  * prior to directly using a Mutex because it also supports asynchronous
  * thread exits through the TSS_Object class.
  *
- * \author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
- * \data 2000-10-03
+ * @author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+ * @date 2000-10-03
  */
 class MutexGuard: public TSS_Object
 {

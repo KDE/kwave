@@ -396,7 +396,7 @@ void SonagramDialog::parameters(QStringList &list)
     param.setNum(m_rbColor ? (m_cbTrackChanges->isChecked() ? 1 : 0) : 0);
     list.append(param);
 
-    // parameter #4: flag: floow selection
+    // parameter #4: flag: follow selection
     param.setNum(m_rbColor ? (m_cbFollowSelection->isChecked() ? 1 : 0) : 0);
     list.append(param);
 

@@ -34,15 +34,6 @@
 #include "KwaveApp.h"
 
 //***************************************************************************
-playback_param_t KwaveApp::m_playback_params = {
-    44100,
-    2,
-    16,
-    0,
-    5
-};
-
-//***************************************************************************
 // some static initializers
 //static ClipBoard _clipboard;
 //ClipBoard &KwaveApp::m_clipboard(_clipboard);
@@ -236,13 +227,13 @@ void KwaveApp::saveConfig()
     ASSERT(cfg);
     if (!cfg) return;
 
-    // playback settings
-    cfg->setGroup("Playback Settings");
-    cfg->writeEntry("SampleRate", m_playback_params.rate);
-    cfg->writeEntry("Channels", m_playback_params.channels);
-    cfg->writeEntry("BitsPerSample", m_playback_params.bits_per_sample);
-    cfg->writeEntry("Device", m_playback_params.device);
-    cfg->writeEntry("BufferBase", m_playback_params.bufbase);
+//    // playback settings
+//    cfg->setGroup("Playback Settings");
+//    cfg->writeEntry("SampleRate", m_playback_params.rate);
+//    cfg->writeEntry("Channels", m_playback_params.channels);
+//    cfg->writeEntry("BitsPerSample", m_playback_params.bits_per_sample);
+//    cfg->writeEntry("Device", m_playback_params.device);
+//    cfg->writeEntry("BufferBase", m_playback_params.bufbase);
 
     // default directories
     cfg->setGroup("Directories");
@@ -277,19 +268,19 @@ void KwaveApp::readConfig()
 	}
     }
 
-    // playback settings
-    cfg->setGroup("Playback Settings");
-    m_playback_params.rate =
-	cfg->readUnsignedNumEntry("SampleRate", 44100);
-    m_playback_params.channels =
-	cfg->readUnsignedNumEntry("Channels", 2);
-    m_playback_params.bits_per_sample =
-	cfg->readUnsignedNumEntry("BitsPerSample", 16);
-    m_playback_params.device =
-	cfg->readEntry("Device", "/dev/dsp");
-    m_playback_params.bufbase =
-	cfg->readUnsignedNumEntry("BufferBase", 10);
-    ASSERT(m_playback_params.device.length());
+//    // playback settings
+//    cfg->setGroup("Playback Settings");
+//    m_playback_params.rate =
+//	cfg->readUnsignedNumEntry("SampleRate", 44100);
+//    m_playback_params.channels =
+//	cfg->readUnsignedNumEntry("Channels", 2);
+//    m_playback_params.bits_per_sample =
+//	cfg->readUnsignedNumEntry("BitsPerSample", 16);
+//    m_playback_params.device =
+//	cfg->readEntry("Device", "/dev/dsp");
+//    m_playback_params.bufbase =
+//	cfg->readUnsignedNumEntry("BufferBase", 10);
+//    ASSERT(m_playback_params.device.length());
 
     // default directories
     cfg->setGroup("Directories");
@@ -310,7 +301,6 @@ KwaveApp::~KwaveApp()
 	delete todel;
     }
     m_recent_files.clear();
-    m_playback_params.device = QString(0);
 }
 
 //***************************************************************************

@@ -117,12 +117,12 @@ signals:
     /**
      * Signals that playback should be started.
      */
-    void sigStartPlayback();
+    void sigDeviceStartPlayback();
 
     /**
      * Signals that playback should be stopped.
      */
-    void sigStopPlayback();
+    void sigDeviceStopPlayback();
 
     /**
      * Signals that playback has started.

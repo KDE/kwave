@@ -53,7 +53,7 @@
 KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 
 /** Sets the number of screen refreshes per second when in playback mode */
-#define SCREEN_REFRESHES_PER_SECOND 8
+#define SCREEN_REFRESHES_PER_SECOND 16
 
 /** The default playback device if the current setting is invalid */
 #define DEFAULT_PLAYBACK_DEVICE "[aRts sound daemon]"

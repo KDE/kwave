@@ -603,9 +603,6 @@ void PlayBackALSA::scanDevices()
 
     m_device_list.clear();
 
-    // per default: offer the dmix plugin
-    m_device_list.insert(i18n("DMIX plugin"), "plug:dmix");
-
     card = -1;
     if (snd_card_next(&card) < 0 || card < 0) {
 	qWarning("no soundcards found...");
@@ -714,7 +711,8 @@ card 0: I82801DBICH4 [Intel 82801DB-ICH4], device 4: Intel ICH - IEC958 [Intel 8
 		}
 	    } else {
 		// no sub-devices
-		QString name = card_dev_name + QString(" [%1]").arg(card_dev_verbose);
+		QString name = card_dev_name +
+		    QString(" [%1]").arg(card_dev_verbose);
 		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
 		m_device_list.insert(name, hw_device);
 	    }
@@ -726,6 +724,10 @@ next_card:
 	    break;
 	}
     }
+
+    // per default: offer the dmix plugin if slave devices exist
+    if (!m_device_list.isEmpty())
+        m_device_list.insert(i18n("DMIX plugin"), "plug:dmix");
 
     snd_config_update_free_global();
 }

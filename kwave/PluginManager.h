@@ -120,6 +120,13 @@ public:
      */
     unsigned int selectionEnd();
 
+    /**
+     * Sets the current start and length of the selection to new values.
+     * @param offset index of the first sample
+     * @param length number of samples
+     */
+    void selectRange(unsigned int offset, unsigned int length);
+
     /** Returns a reference to our toplevel widget */
     inline TopWidget &topWidget() { return m_top_widget; };
 

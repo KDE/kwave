@@ -451,6 +451,12 @@ unsigned int PluginManager::selectionEnd()
 }
 
 //***************************************************************************
+void PluginManager::selectRange(unsigned int offset, unsigned int length)
+{
+    m_top_widget.signalManager().selectRange(offset, length);
+}
+
+//***************************************************************************
 SampleWriter *PluginManager::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {

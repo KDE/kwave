@@ -233,6 +233,12 @@ unsigned int KwavePlugin::selection(unsigned int *left, unsigned int *right,
 }
 
 //***************************************************************************
+void KwavePlugin::selectRange(unsigned int offset, unsigned int length)
+{
+    manager().selectRange(offset, length);
+}
+
+//***************************************************************************
 void KwavePlugin::yield()
 {
     pthread_testcancel();

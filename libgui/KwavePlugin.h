@@ -194,6 +194,13 @@ public:
                                    bool expand_if_empty = false);
 
     /**
+     * Sets the current start and length of the selection to new values.
+     * @param offset index of the first sample
+     * @param length number of samples
+     */
+    virtual void selectRange(unsigned int offset, unsigned int length);
+
+    /**
      * Gives the control to the next thread. This can be called from
      * within the run() function.
      */

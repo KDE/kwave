@@ -1,19 +1,20 @@
 #!/bin/sh
 #
-# set_release - script to set version numbers of a project
+# set_version - script to set version numbers of a project
 # 
 # 20.02.1999 by Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de> (THE)
 #
-# This script get the new version number via commandline
+# parameters:
+# $1 = project root directory
+# $2 = new version number
+# $3 = new version's date+time
 #
 # All version numbers consist of major.minor.revision (e.g. 0.4.2) Only the 
 # last number, the release will be incremented. Any suffix (patchlevel) 
 # will be removed.
 #
 # the updated files are: 
-# - VERSION    (the file itself)
-# - configure
-# - Makefile (if it exists)
+# - VERSION
 # - kwave.lsm
 # - plugins/dialogs/about/module.h
 #
@@ -23,62 +24,43 @@
 #         between the word "VERSION" and the "=".
 #
 # 08.11.1999 THE, adapted the script to work for the kwave project
-# 12.11.1999 Martin Wilz, added date for .lsm file and changed file permissions
-# of configure script back to executable
+#
+# 12.11.1999 Martin Wilz, added date for .lsm file and changed file 
+#            permissions of configure script back to executable
+#
+# 26.12.1999 THE, split the former "make_release" script into four parts:
+#            - set_version: feeds a new version number/date into various files
+#            - increment_release: starts a new release, version number will
+#                                 be incremented, patchlevel will be removed
+#            - increment_patchlevel: increases the patchlevel and leaves the
+#                                    version number untouched
+#            - make_patch: creates a patch file from the previous project
+#                          version found in an archive directory to the
+#                          current version
+#            the configure script and Makefiles will no longer be modified
 
+# uncomment the next line for debugging
 # set -x
 
-#
-# get the current version number
-#
-VERSION=`cat VERSION`
-
-echo -n "old version = $VERSION"
+cd $1
+NEW_VERSION=$2
+NEW_DATE="$3"
 
 #
-# get the actual version numbers
+# show the new settings to the user
 #
-NEW_VERSION=$1
+echo "   new version        : "\"$NEW_VERSION\"
+echo "   new version's date : "\"$NEW_DATE\"
 
+#
 # update the VERSION file (by simply creating a new one)
 #
 echo $NEW_VERSION > VERSION
 
 #
-# update the Makefile (an old copy is stored in /tmp)
-#
-if test -a Makefile ; then
-    cat Makefile | awk -v newver=$NEW_VERSION '{ 
-	split($0, a, "=") }  {
-	if (a[1] == "VERSION ") {
-	    printf("VERSION = %s\n", newver)
-	} else 
-	    print $0
-	}' > /tmp/Makefile.new
-    mv Makefile /tmp/Makefile.old
-    mv /tmp/Makefile.new Makefile
-fi
-
-#
-# update the configure script (an old copy is stored in /tmp)
-#
-cat configure | awk -v newver=$NEW_VERSION '{ 
-	split($0, a, "=") } {
-	if (a[1] == "VERSION") {
-	    printf("VERSION=%s\n", newver)
-	} else 
-	    print $0
-	}' > /tmp/configure.new
-mv configure /tmp/configure.old
-mv /tmp/configure.new configure
-#change file permissions to executable
-chmod 755 configure
-
-#
 # update the file kwave.lsm
 #
-DATE=`date`
-cat kwave.lsm | awk -v newver=$NEW_VERSION -v newdate=$DATE '{ 
+cat kwave.lsm | awk -v newver=$NEW_VERSION -v newdate="$NEW_DATE" '{ 
 	split($0, a, ":") } {
 	if (a[1] == "Version") {
 	    printf("Version:\t%s\n", newver)
@@ -94,18 +76,22 @@ mv /tmp/kwave.lsm.new kwave.lsm
 #
 # update plugins/dialogs/about/module.h
 #
-cat plugins/dialogs/about/module.h | awk -v newver=$NEW_VERSION '{ 
+SHORT_DATE=`(LANG=en; date -d "$NEW_DATE" +"%b %d, %Y")`
+cat plugins/dialogs/about/module.h | \
+	awk -v newver=$NEW_VERSION -v newdate="$SHORT_DATE" '{ 
 	split($0, a, " ") } {
 	if ((a[1] == "#define") && (a[2] == "VERSION")) {
 	    printf("#define VERSION \"%s\"\n", newver)
 	} else 
+	if ((a[1] == "#define") && (a[2] == "VERSION_DATE")) {
+	    printf("#define VERSION_DATE \"%s\"\n", newdate)
+	} else
 	    print $0
 	}' > /tmp/module.h.new
 mv plugins/dialogs/about/module.h /tmp/module.h.old
 mv /tmp/module.h.new plugins/dialogs/about/module.h
 
-
-echo ", new version = $NEW_VERSION."
+echo "new version numbers set."
 
 #
 # end of file

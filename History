@@ -1,5 +1,11 @@
 this Development Version
 
+0.5.0-1 [by Thomas.Eschenbacher@gmx.de]
+
+moved my modifications from the Makefiles to Makefile.am
+
+included targets "make release", "make patchlevel" and some scripts
+
 (19991219) [by Thomas.Eschenbacher@gmx.de]
 
 remade my modifications of some Makefiles and of the configure script that

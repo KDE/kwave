@@ -31,6 +31,22 @@ bin_PROGRAMS  = kwave
 
 # Which sources should be compiled for kwave.
 
+BUILTSOURCES=\
+ mFFTContainer.cpp\
+ mFFTWindow.cpp\
+ mImageView.cpp\
+ mMouseMark.cpp\
+ mKwaveApp.cpp\
+ mMainWidget.cpp\
+ mPitchContainer.cpp\
+ mPitchWidget.cpp\
+ mPitchWindow.cpp\
+ mProgressDialog.cpp\
+ mSignalWidget.cpp\
+ mSonagramContainer.cpp\
+ mSonagramWindow.cpp\
+ mTopWidget.cpp
+
 kwave_SOURCES =\
  main.cpp\
  ClipBoard.cpp\
@@ -49,7 +65,7 @@ kwave_SOURCES =\
  SonagramContainer.cpp\
  SonagramWindow.cpp\
  TopWidget.cpp\
- mFFTContainer.cpp mFFTWindow.cpp mImageView.cpp mMouseMark.cpp mKwaveApp.cpp mMainWidget.cpp mPitchContainer.cpp mPitchWidget.cpp mPitchWindow.cpp  mProgressDialog.cpp mSignalWidget.cpp mSonagramContainer.cpp mSonagramWindow.cpp mTopWidget.cpp
+ $(BUILTSOURCES)
 
 # the library search path
 kwave_LDFLAGS = @all_libraries@ -L$(topdir)/libgui/.libs
@@ -58,9 +74,6 @@ kwave_LDFLAGS = @all_libraries@ -L$(topdir)/libgui/.libs
 # that depend on the following ones.
 kwave_LDADD   = -lkfm -lkdeui -lkdecore -lkwavegui -lqt -lX11 -lXext \
 -lkwave -lpthread -ldl
-
-# BUILTSOURCES =\
- mFFTContainer.cpp mFFTWindow.cpp mImageView.cpp mMouseMark.cpp mKwaveApp.cpp mMainWidget.cpp mPitchContainer.cpp mPitchWidget.cpp mPitchWindow.cpp  mProgressDialog.cpp mSignalWidget.cpp mSonagramContainer.cpp mSonagramWindow.cpp mTopWidget.cpp
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

@@ -1,11 +1,6 @@
 
 o make a proper projekt file for kdevelop (actually is broken)
 
-o I will add a script for "make release" (Thomas)
-
-o I need a better solution than modifying Makefile.in (Thomas), my
-  changes (of course) don't survive automake
-
 o find the reason for that short noise at the end of playback
   (does not occur when the selected range ends with some silence !)
 

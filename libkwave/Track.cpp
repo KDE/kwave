@@ -332,12 +332,12 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 
 	    for (; it.current(); ++it) {
 		Stripe *s = it.current();
-		qDebug("checking for shift [%u ... %u]",
-		       s->start(), s->end());
+// 		qDebug("checking for shift [%u ... %u]",
+// 		       s->start(), s->end());
 		if (s->start() > right) {
 		    // move left
-		    qDebug("moving stripe %p [%u...%u] %u samples left",
-		           s, s->start(), s->end(), length);
+// 		    qDebug("moving stripe %p [%u...%u] %u samples left",
+// 		           s, s->start(), s->end(), length);
 		    Q_ASSERT(s->start() >= length);
 		    s->setStart(s->start() - length);
 		}
@@ -387,8 +387,8 @@ void Track::appendAfter(Stripe *stripe,  unsigned int offset,
 	if (len + stripe->length() > STRIPE_LENGTH_MAXIMUM)
 	    len = STRIPE_LENGTH_MAXIMUM - stripe->length();
 
-	qDebug("Track::appendAfter(): appending %u samples to %p",
-	       len, stripe);
+// 	qDebug("Track::appendAfter(): appending %u samples to %p",
+// 	       len, stripe);
 	stripe->append(buffer, buf_offset, len);
 
 	offset     += len;

@@ -581,6 +581,12 @@ private:
     /** mode of the mouse cursor */
     MouseMode m_mouse_mode;
 
+    /**
+     * x position where the user last clicked the last time, needed fo
+     * finding out where to start a drag&drop operation
+     */
+    int m_mouse_down_x;
+
 };
 
 #endif /* _SIGNAL_WIDGET_H_ */

@@ -24,6 +24,7 @@
 
 #include <kcursor.h>
 #include <kglobal.h>
+#include <kglobalsettings.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kfiledialog.h>
@@ -108,7 +109,8 @@ SignalWidget::SignalWidget(QWidget *parent)
     m_signal_manager(this),
     m_refresh_timer(),
     m_track_pixmaps(),
-    m_mouse_mode(MouseNormal)
+    m_mouse_mode(MouseNormal),
+    m_mouse_down_x(0)
 {
 //    debug("SignalWidget::SignalWidget()");
     m_height = 0;
@@ -748,6 +750,8 @@ int SignalWidget::selectionPosition(const int x)
     ASSERT(m_selection);
     if (!m_selection) return None;
 
+    /** @todo selection tolerance should depend on some KDE setting,
+              but which ? */
     const int tol = 10;
     const unsigned int first = m_signal_manager.selection().first();
     const unsigned int last  = m_signal_manager.selection().last();
@@ -756,8 +760,8 @@ int SignalWidget::selectionPosition(const int x)
     ASSERT(first <= last);
 
     // get pixel coordinates
-    const int l = (first <= ofs) ? -(2*tol) : (samples2pixels(first-ofs));
-    const int r = (last  <= ofs) ? -(2*tol) : (samples2pixels(last-ofs));
+    const int l = (first < ofs) ? -(2*tol) : (samples2pixels(first-ofs));
+    const int r = (last  < ofs) ? -(2*tol) : (samples2pixels(last-ofs));
     const int ll = (l > tol) ? (l-tol) : 0;
     const int lr = l + tol;
     const int rl = (r > tol) ? (r-tol) : 0;
@@ -816,8 +820,8 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 	switch (e->state() & KeyButtonMask) {
 	    case ShiftButton: {
 		// expand the selection to "here"
-		m_selection->grep(x);
 		selectRange(m_selection->left(), len);
+		m_selection->grep(x);
 		setMouseMode(MouseSelect);
 		break;
 	    }
@@ -834,8 +838,8 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 		    m_selection->grep(x);
 		    setMouseMode(MouseSelect);
 		} else if (isInSelection(e->pos().x()) && (len > 1)) {
-		    // start a drag&drop operation in "move" mode
-		    startDragging();
+		    // store the x position for later drag&drop
+		    m_mouse_down_x = e->pos().x();
 		} else {
 		    // start a new selection
 		    m_selection->set(x, x);
@@ -863,16 +867,26 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 
     switch (m_mouse_mode) {
 	case MouseSelect: {
-	    int x = e->pos().x();
-	    if (x >= m_width) x = m_width - 1;    //check for some bounds
-	    x = m_offset + pixels2samples(x);
-	    if (x < 0) x = 0;
+	    unsigned int x = m_offset + pixels2samples(e->pos().x());
 	    m_selection->update(x);
 	
 	    unsigned int len = m_selection->right() - m_selection->left() + 1;
 	    selectRange(m_selection->left(), len);
 	
 	    setMouseMode(MouseNormal);
+	    break;
+	}
+	case MouseInSelection: {
+	    int dmin = KGlobalSettings::dndEventDelay();
+	    if ((e->state() & Qt::LeftButton) &&
+		    ((e->pos().x() >= m_mouse_down_x-dmin) ||
+		     (e->pos().x() <= m_mouse_down_x+dmin)) )
+	    {
+		// deselect if only clicked without moving
+		unsigned int x = m_offset + pixels2samples(e->pos().x());
+		selectRange(x, 0);
+		setMouseMode(MouseNormal);
+	    }
 	    break;
 	}
 	default: ;
@@ -915,6 +929,13 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 		setMouseMode(MouseAtSelectionBorder);
 	    } else if (isInSelection(x)) {
 		setMouseMode(MouseInSelection);
+                int dmin = KGlobalSettings::dndEventDelay();
+		if ((e->state() & Qt::LeftButton) &&
+		    ((e->pos().x() < m_mouse_down_x-dmin) ||
+		     (e->pos().x() > m_mouse_down_x+dmin)) )
+		{
+		    startDragging();
+		}
 	    } else {
 		setMouseMode(MouseNormal);
 	    }

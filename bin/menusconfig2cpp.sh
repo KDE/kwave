@@ -2,7 +2,8 @@
 #
 # menusconfig2cpp - stores entries menusconfig into a cpp file
 # 
-# 14.03.2000 by Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+# 2000-03-14 by Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+# 2002-02-08 fixed support for macros
 #
 # This very kwave-specific script filters the entries of the menu
 # configuration, creates a cpp file with a list of menu tokens
@@ -34,22 +35,40 @@ static void dummy(const char *string_to_be_internationalized) { }\n\
 static void internationalize_all()\n\
 {\n\
 "
+) > $2
 
 cat $1 | awk ' \
-    { split($0, a, ",") } \
-    { pos=index(a[2], "#"); if (pos != 0) a[2]=substr(a[2],0,pos-1) } \
-    { pos=index(a[2], ")"); if (pos != 0) a[2]=substr(a[2],0,pos-1) } \
-    { ntokens=split(a[2], tokens, "/"); \
-	for (i=1; i<=ntokens; i++) { \
-	    { if (length(tokens[i]) != 0) print tokens[i] } \
-	} 
-    }' | \
-    sort | \
-    uniq |
-    awk '{print("    dummy(i18n(\"" $0 "\"));") }'
+    { level=0; } \
+    { pos=0; } \
+    { line=""; \
+    for (pos=0; pos < length($0); pos++) { \
+        c = substr($0,pos,1); \
+	if (c == "(") level++; \
+	else if (c == ")") level--; \
+	else if (level == 1) { \
+	    if (c == ",,") level=1; \
+	    else line = line c; \
+	} \
+    } \
+    if (length(line) > 0) { \
+	nparams=split(line, params, ","); \
+	param = params[2]; \
+        pos = index(param, "#"); \
+	if (pos != 0) param = substr(param,0,pos-1); \
+        ntokens = split(param, tokens, "/"); \
+        for (j=1; j <= ntokens; j++) { \
+            if (length(tokens[j]) != 0) print tokens[j]; \
+	} \
+    } \
+    }' \
+    | \
+   sort | \
+   uniq |
+   awk '{print("    dummy(i18n(\"" $0 "\"));") }' \
+   >> $2
 
 echo -e "\
 }\n\
 \n\
-/* end of file */\n"
-) > $2
+/* end of file */\n" \
+>> $2

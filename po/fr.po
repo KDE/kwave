@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-11-03 22:08+0100\n"
-"PO-Revision-Date: 2002-11-04 15:59GMT\n"
+"PO-Revision-Date: 2002-11-05 11:34GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1845,7 +1845,7 @@ msgstr "Région &visible"
 
 #: kwave/menus_config_i18n.cpp:126
 msgid "&Volume"
-msgstr ""
+msgstr "&Volume"
 
 #: kwave/menus_config_i18n.cpp:127
 msgid "with &Clipboard"
@@ -1973,11 +1973,11 @@ msgstr "%1 échantillons "
 
 #: plugins/volume/VolumeDlg.uic.cpp:36 plugins/volume/VolumeDlg.uic.cpp:132
 msgid "Volume"
-msgstr ""
+msgstr "Volume"
 
 #: plugins/volume/VolumeDlg.uic.cpp:68
 msgid "Mode"
-msgstr ""
+msgstr "Mode"
 
 #: plugins/volume/VolumeDlg.uic.cpp:77
 msgid "&Factor"
@@ -2001,7 +2001,7 @@ msgstr ""
 
 #: plugins/volume/VolumeDlg.uic.cpp:91
 msgid "&Logarithmic"
-msgstr ""
+msgstr "&Logarithmique"
 
 #: plugins/volume/VolumeDlg.uic.cpp:93
 msgid ""
@@ -2011,7 +2011,7 @@ msgstr ""
 
 #: plugins/volume/VolumeDlg.uic.cpp:111
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: plugins/volume/VolumeDlg.uic.cpp:112
 msgid " dB"
@@ -2019,7 +2019,7 @@ msgstr " dB"
 
 #: plugins/volume/VolumePlugin.cpp:114
 msgid "volume"
-msgstr ""
+msgstr "volume"
 
 #: plugins/codec_ogg/OggEncoder.cpp:148
 msgid ""
@@ -2053,7 +2053,7 @@ msgstr ""
 
 #: plugins/codec_ogg/OggDecoder.cpp:124
 msgid "Error reading initial header packet."
-msgstr ""
+msgstr "Erreur lors de la lecture du paquet correspondant à l'entête du fichier."
 
 #: plugins/codec_ogg/OggDecoder.cpp:131
 msgid "This Ogg bitstream does not contain Vorbis audio data."
@@ -2061,7 +2061,7 @@ msgstr ""
 
 #: plugins/codec_ogg/OggDecoder.cpp:164
 msgid "Corrupt secondary header. Exiting."
-msgstr ""
+msgstr "La seconde en-tête du fichier est corrompue. Fin du processus."
 
 #: plugins/codec_ogg/OggDecoder.cpp:178
 msgid "End of file before finding all Vorbis headers!"
@@ -2073,7 +2073,7 @@ msgstr ""
 
 #: plugins/codec_ogg/OggCodecPlugin.h:59 plugins/codec_ogg/OggCodecPlugin.h:61
 msgid "Ogg, Vorbis audio"
-msgstr ""
+msgstr "Audio Ogg Vorbis"
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:112
 msgid "amplify free"
@@ -2110,14 +2110,14 @@ msgid ""
 "on the command line.)"
 msgstr ""
 "Le périphérique est occupé. Peut être qu'une autre application \n"
-"l'utilise actuellement. Vous devrié essayer ultérieurement. \n"
+"l'utilise actuellement. Vous devriez essayer ultérieurement. \n"
 "(suggestion : vous pouvez trouver le numéro d'identification du processus \n"
 "du programme correspondant en saisisant la ligne de commande \"fuser -v %1\" "
 "sur une ligne de commande du système.)"
 
 #: plugins/playback/PlayBack-OSS.cpp:110
 msgid "The device '%1' cannot be opened in the correct mode."
-msgstr "Impossible d'ouvrir le ériphérique «%1» correctement."
+msgstr "Impossible d'ouvrir le périphérique «%1» correctement."
 
 #: plugins/playback/PlayBack-OSS.cpp:118
 msgid "%1 bits per sample are not supported"

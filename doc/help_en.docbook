@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2004-07-10</date>
-<releaseinfo>0.7.1-pre1
+<date>2004-07-16</date>
+<releaseinfo>0.7.1
 </releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -1459,14 +1459,14 @@
 	http://kwave.sourceforge.net/download.html and
 	<itemizedlist>
 	<listitem><para>
-	    download a binary package of the latest stable version, if 
+	    download a binary package of the latest stable version, if
 	    there is one for your distribution,
 	</para></listitem>
 	<listitem><para>
 	    download a source RPM package of the latest stable version,
 	</para></listitem>
 	<listitem><para>
-	    compile on your own, from a .tar.gz archive with the source code 
+	    compile on your own, from a .tar.gz archive with the source code
 	    of the latest stable version,
 	</para></listitem>
 	<listitem><para>
@@ -1523,7 +1523,7 @@
 	    </para></listitem>
 	</itemizedlist>
     </para>
-    
+
     <para>
 	For a more complete and up-to-date list, please consult the
 	README file that is included in the source distribution or
@@ -1598,7 +1598,7 @@
 	them to the &kapp; <link linkend="mailing-list">mailing list</link>.
     </para>
     <note><para>
-	If you have a system with old Qt-1 or Qt-2 libraries installed 
+	If you have a system with old Qt-1 or Qt-2 libraries installed
 	parallel to Qt-3.x, you might get
 	problems when compiling. Then you should set the following
 	environment variable to specify the correct paths of your
@@ -2295,7 +2295,7 @@
 
     <para>
        When using &kapp; for the first time, you should go to the memory
-       setup dialog an modify the settings to be suitable for yor needs 
+       setup dialog an modify the settings to be suitable for yor needs
        and the installed memory of your computer. You can reach it under
        <menuchoice>
        <guimenu>Options</guimenu><guimenuitem>Memory...</guimenuitem>
@@ -2318,14 +2318,14 @@
     </para>
     <para>
 	&kapp; is able to use two types of memory: <emphasis>physical</emphasis>
-	and <emphasis>virtual</emphasis> memory. 
+	and <emphasis>virtual</emphasis> memory.
     </para>
     <para>
-	<emphasis>Physical memory</emphasis> is the memory (RAM) that is 
+	<emphasis>Physical memory</emphasis> is the memory (RAM) that is
 	installed in your computer.
-	You should limit the usage of physical memory to some reasonable 
-	size, as a rule of thumb, half of the installed memory should be ok. 
-	If you set the limit too high, Linux will take memory from other 
+	You should limit the usage of physical memory to some reasonable
+	size, as a rule of thumb, half of the installed memory should be ok.
+	If you set the limit too high, Linux will take memory from other
 	applications, which means that it swaps out memory of other programs
 	to the harddisk (swap), which is rather slow. If you set the limit
 	too low, you might loose some performance when working with big files,
@@ -2342,7 +2342,7 @@
     </para>
 
     </sect1>
- 
+
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Command Line                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2497,7 +2497,7 @@
 	    &kapp; is to use an external converter program.
 	    A good set of tools for this is in the
 	    <ulink url="http://sox.sourceforge.net/">SoX</ulink>
-	   package, they have also some nice documentation! 
+	   package, they have also some nice documentation!
 	   (The original homepage is located at
 	   <ulink url="http://www.spies.com/Sox/">http://www.spies.com/Sox/</ulink>.)
 	</para>
@@ -2592,7 +2592,7 @@
     <sect1 id="newfile"><title>Creating a New File</title>
 
     <para>
-       You can create a new and empty file menu under 
+       You can create a new and empty file menu under
        <menuchoice>
        <guimenu>File</guimenu><guimenuitem>New...</guimenuitem>
        </menuchoice>.
@@ -2625,7 +2625,7 @@
     </para>
 
     </sect1>
-    
+
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Recording                                             +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2633,22 +2633,22 @@
 
     <para>
         &kapp; is able to record audio data from various sources, with all
-	sample rates, sample formats and other modes that your sound 
-	hardware supports. Currently &kapp; records through the old OSS 
+	sample rates, sample formats and other modes that your sound
+	hardware supports. Currently &kapp; records through the old OSS
 	sound interface, later versions should also be able to record through
-	the newer and more powerful ALSA interface that is the preferred choice 
+	the newer and more powerful ALSA interface that is the preferred choice
 	for linux kernel 2.6.
     </para>
     <para>
-       The recording can be reached from the menu under 
+       The recording can be reached from the menu under
        <menuchoice>
        <guimenu>File</guimenu><guimenuitem>Record</guimenuitem>
        </menuchoice>.
     </para>
-    
+
     <para>
 	Here is a screenshot of the &kapp; record dialog, showing the first
-	page with the recording controls during a running recording session. 
+	page with the recording controls during a running recording session.
 	Like in most dialogs of &kapp; you can get some help or see tooltips
 	on the controls.
     </para>
@@ -2667,7 +2667,7 @@
 	    </mediaobject>
 	</screenshot>
     </para>
-    
+
     <para>
 	Here you have the following controls:
 	<itemizedlist>
@@ -2682,8 +2682,8 @@
 	    </imageobject>
 	    <textobject> <phrase>record button</phrase> </textobject>
             </inlinemediaobject>
-	    ) button again, then the recording really starts, and also 
-	    keeps the already pre-recorded 
+	    ) button again, then the recording really starts, and also
+	    keeps the already pre-recorded
 	    data.
 	    This is useful for example if you want to record your favorite
 	    song from radio, but you recognize too late that the song has
@@ -2694,7 +2694,7 @@
 	<listitem><para>
 	    <guilabel>Record-Time:</guilabel> If the length of the recording
 	    should be limited to some time, you can activate this setting and
-	    select a time in hours, minutes, seconds for your recording. If 
+	    select a time in hours, minutes, seconds for your recording. If
 	    this option is not enabled, the recording runns until you press
 	    the <guibutton>Stop</guibutton> (<inlinemediaobject><imageobject>
 	    <imagedata fileref="record_stop.png" format="PNG"/>
@@ -2721,7 +2721,7 @@
 	    <imagedata fileref="record_stop.png" format="PNG"/>
 	    </imageobject><textobject><phrase>stop button</phrase></textobject>
             </inlinemediaobject>) button is active when the recording or pre-recording
-	    is running or &kapp; is waiting for the trigger. If pressed, the 
+	    is running or &kapp; is waiting for the trigger. If pressed, the
 	    current progress will be stopped.
 	</para></listitem>
 	<listitem><para>
@@ -2743,26 +2743,26 @@
 	    <orderedlist>
 	    <listitem><para>
 	        If neither prerecording nor trigger level are
-	        used, the recording starts as soon as you press 
+	        used, the recording starts as soon as you press
 		the record button.
 	    </para></listitem>
 	    <listitem><para>
-		If prerecording is not used and a trigger level is set, the 
-		first press will let &kapp; wait for the trigger level to be 
-		reached. While waiting for a trigger, you can force the 
+		If prerecording is not used and a trigger level is set, the
+		first press will let &kapp; wait for the trigger level to be
+		reached. While waiting for a trigger, you can force the
 		recording to start immediately by pressing the record button again,
 		otherwise the recording will start automatically when the trigger
 		level has been reached.
 	    </para></listitem>
 	    <listitem><para>
-		If prerecording is enabled, the first press starts only the 
-		prerecording and the second press really starts the recording. 
+		If prerecording is enabled, the first press starts only the
+		prerecording and the second press really starts the recording.
 	    </para></listitem>
 	    </orderedlist>
 	</para></listitem>
 	</itemizedlist>
     </para>
-    
+
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2774,14 +2774,14 @@
         &kapp; is able to play sounds trough the KDE sound daemon aRts,
 	or through direct access to your sound card. However, in most
 	cases when you are using aRts for playback, direct access to
-	your sound card's playback device is locked by aRts and thus 
+	your sound card's playback device is locked by aRts and thus
 	not available for &kapp;. So in most cases you will do playback
 	through aRts, only if you have configured aRts not to use your
 	soundcard or if your soundcard has an additional playback channel,
 	which is not used by aRts, you can play back through another
 	device.
     </para>
-   
+
     <para>
         Before trying to play sounds, you should take a look on the
 	playback configuration dialog:
@@ -2803,7 +2803,7 @@
     </para>
 
     <para>
-        Currently &kapp; supports only 8 and 16 bit playback, with mono or 
+        Currently &kapp; supports only 8 and 16 bit playback, with mono or
 	stereo output, which is a limitation of the OSS sound interface as
 	well as a limitation in the aRts sound system.
     </para>
@@ -2817,7 +2817,7 @@
     </para>
     <para>
         For getting a smooth playback without interruptions, you should also
-	set the buffer size to an appropriate value. If you encounter 
+	set the buffer size to an appropriate value. If you encounter
 	problems with interrupted playback, you should increase the buffer
 	size here. But the bigger you set the buffer, the bigger is the
 	latency between the audible sound and the display of the playback
@@ -2834,7 +2834,7 @@
 	    <shortcut><keycombo><keycap>P</keycap></keycombo></shortcut>
 	    <guimenu>Play</guimenu><guimenuitem>Start</guimenuitem>
 	    </menuchoice>: Start playback of the current selection from it's
-	    beginning or the whole file from the current cursor position 
+	    beginning or the whole file from the current cursor position
 	    if nothing was selected. Play only once.
         </para></listitem>
         <listitem><para>
@@ -2860,12 +2860,12 @@
 	    <menuchoice>
 	    <shortcut><keycombo><keycap>Esc</keycap></keycombo></shortcut>
 	    <guimenu>Play</guimenu><guimenuitem>Stop</guimenuitem>
-	    </menuchoice>: Stop the playback, go back to the start of the 
+	    </menuchoice>: Stop the playback, go back to the start of the
 	                   selection.
         </para></listitem>
         </itemizedlist>
     </para>
-    
+
     </sect1>
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: How to select                                         +++ -->
@@ -2881,7 +2881,7 @@
 	when saving, it shows a warning.
     </para>
     <para>
-        You can view and modify the meta information under 
+        You can view and modify the meta information under
         <menuchoice>
         <guimenu>Edit</guimenu><guimenuitem>File Properties...</guimenuitem>
         </menuchoice>. There you can also change things like sample format,
@@ -2904,7 +2904,7 @@
     </para>
 
     </sect1>
-    
+
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: How to select                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -3623,7 +3623,7 @@
 	        <para>
 		    Robert Leslie
 		    <email>rob@mars.org</email>
-		    (author of the 
+		    (author of the
 		     <ulink url="http://www.mars.org/home/rob/proj/mpeg/">mad</ulink>
 		     mp3 decoder library)
 		</para>

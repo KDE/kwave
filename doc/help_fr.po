@@ -137,7 +137,8 @@ msgstr "Introduction"
 #. Tag: para
 #: help_en.docbook:65
 #, no-c-format
-msgid "This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
 msgstr ""
 "« &kapp; » est un éditeur de pistes sonores pour l'environnement de bureau "
 "KDE3. Il inclut les fonctionnalités suivantes :"
@@ -481,7 +482,8 @@ msgstr "Nouveau module externe « notch_filter », par Dave Flogeras."
 #: help_en.docbook:260
 #, no-c-format
 msgid "included a bugfixed version of the synth_pitch_shift aRts plugin"
-msgstr "Ajout de la version corrigée du module externe « synth_pitch_shift » de aRts."
+msgstr ""
+"Ajout de la version corrigée du module externe « synth_pitch_shift » de aRts."
 
 #. Tag: para
 #: help_en.docbook:263
@@ -616,7 +618,8 @@ msgstr ""
 #: help_en.docbook:320
 #, no-c-format
 msgid "Ogg/Vorbis import and export (only ABR mode)"
-msgstr "Importation et exportation des fichier Ogg / Vorbis (seulement en mode ABR)."
+msgstr ""
+"Importation et exportation des fichier Ogg / Vorbis (seulement en mode ABR)."
 
 #. Tag: para
 #: help_en.docbook:323
@@ -691,7 +694,8 @@ msgstr "0.6.4 [30-06-2002]"
 #: help_en.docbook:353
 #, no-c-format
 msgid "support for different file formats / integrated libaudiofile"
-msgstr "Support pour différents formats de fichiers. Intégration de « libaudiofile »."
+msgstr ""
+"Support pour différents formats de fichiers. Intégration de « libaudiofile »."
 
 #. Tag: para
 #: help_en.docbook:356
@@ -737,7 +741,8 @@ msgstr ""
 #: help_en.docbook:373
 #, no-c-format
 msgid "menu entries for playback control"
-msgstr "Entrées dans le menu pour le contrôle de la lecture d'une piste sonore."
+msgstr ""
+"Entrées dans le menu pour le contrôle de la lecture d'une piste sonore."
 
 #. Tag: para
 #: help_en.docbook:376
@@ -859,7 +864,8 @@ msgstr ""
 #: help_en.docbook:433
 #, no-c-format
 msgid "bugfix: problem with TSS in TSS_Object cleanup"
-msgstr "Correction de bogue : problème avec TSS dans la libération de « TSS_Object »."
+msgstr ""
+"Correction de bogue : problème avec TSS dans la libération de « TSS_Object »."
 
 #. Tag: para
 #: help_en.docbook:439
@@ -1063,7 +1069,8 @@ msgstr "Ajout d'une barre d'outils comme dans toute application standard."
 #: help_en.docbook:531
 #, no-c-format
 msgid "fixed some bugs concerning selection with the mouse"
-msgstr "Correction de quelques bogues concernant les sélections avec la souris."
+msgstr ""
+"Correction de quelques bogues concernant les sélections avec la souris."
 
 #. Tag: para
 #: help_en.docbook:534
@@ -1146,7 +1153,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:570
 #, no-c-format
-msgid "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
+msgid ""
+"sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
 msgstr ""
 "Sonogramme : suppression de « SonagramContainer », utilisé dans "
 "« QGridLayout »."
@@ -1169,7 +1177,8 @@ msgstr ""
 #: help_en.docbook:580
 #, no-c-format
 msgid "added TSS (thread-specific-storage) support to the mt classes"
-msgstr "Ajout du support de TSS (Thread-Specific-Storage) dans les classes « mt »."
+msgstr ""
+"Ajout du support de TSS (Thread-Specific-Storage) dans les classes « mt »."
 
 #. Tag: para
 #: help_en.docbook:583
@@ -1210,7 +1219,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:597
 #, no-c-format
-msgid "bugfix: selection and playpointer will not be drawn if no signal is loaded"
+msgid ""
+"bugfix: selection and playpointer will not be drawn if no signal is loaded"
 msgstr ""
 "Correction de bogue : La sélection et le curseur de lecture ne seront pas "
 "dessinés si aucun fichier n'est chargé."
@@ -1292,7 +1302,8 @@ msgstr "0.5.4-1 [29-07-2000]"
 #: help_en.docbook:642
 #, no-c-format
 msgid "fixed layout of playback dialog"
-msgstr "Correction de la présentation de la boîte de dialogue des options de lecture."
+msgstr ""
+"Correction de la présentation de la boîte de dialogue des options de lecture."
 
 #. Tag: para
 #: help_en.docbook:645
@@ -1342,7 +1353,8 @@ msgstr "Quelques petites corrections dans les fichiers « Makefiles »."
 #: help_en.docbook:665
 #, no-c-format
 msgid "split the documentation output into \"de\" and \"en\" part"
-msgstr "Séparation de la documentation en deux parties distinctes : « de » et « en »."
+msgstr ""
+"Séparation de la documentation en deux parties distinctes : « de » et « en »."
 
 #. Tag: para
 #: help_en.docbook:668
@@ -1456,7 +1468,8 @@ msgstr ""
 #: help_en.docbook:716
 #, no-c-format
 msgid "heavy reword on the playback code"
-msgstr "Long travail de restructuration du code correspondant à la lecture audio."
+msgstr ""
+"Long travail de restructuration du code correspondant à la lecture audio."
 
 #. Tag: para
 #: help_en.docbook:719
@@ -1572,7 +1585,8 @@ msgstr "0.5.2-10 [21-05-2000]"
 #: help_en.docbook:770
 #, no-c-format
 msgid "some minor bugfixes in the Makefiles"
-msgstr "Quelques corrections de bogues mineurs dans les fichiers « Makefiles »."
+msgstr ""
+"Quelques corrections de bogues mineurs dans les fichiers « Makefiles »."
 
 #. Tag: para
 #: help_en.docbook:773
@@ -1665,7 +1679,8 @@ msgstr ""
 #: help_en.docbook:812
 #, no-c-format
 msgid "doesn't show any zoom factor if no signal is loaded"
-msgstr "Pas d'affichage du facteur de zoom si aucun fichier sonore n'est chargé."
+msgstr ""
+"Pas d'affichage du facteur de zoom si aucun fichier sonore n'est chargé."
 
 #. Tag: para
 #: help_en.docbook:815
@@ -1678,7 +1693,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:818
 #, no-c-format
-msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
+msgid ""
+"changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
 "Changement de quelques variables et paramètres en « unsigned » (pour "
 "simplifier la vérification des étendues de valeurs)."
@@ -1720,7 +1736,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:835
 #, no-c-format
-msgid "globals.app will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"globals.app will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "« globals.app » n'est maintenant plus utilisée (obsolète, sera retirée de la "
 "bibliothèque « libkwave »)."
@@ -1728,7 +1745,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:838
 #, no-c-format
-msgid "MessagePort will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"MessagePort will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "« MessagePort » n'est maintenant plus utilisée (obsolète, sera retirée de la "
 "bibliothèque « libkwave »)."
@@ -1737,7 +1755,8 @@ msgstr ""
 #: help_en.docbook:841
 #, no-c-format
 msgid "multiple toplevel windows are possible"
-msgstr "L'ouverture de plusieurs instances de l'application est maintenant possible."
+msgstr ""
+"L'ouverture de plusieurs instances de l'application est maintenant possible."
 
 #. Tag: para
 #: help_en.docbook:844
@@ -1853,7 +1872,8 @@ msgstr ""
 #: help_en.docbook:892
 #, no-c-format
 msgid "some bugfixes in menu handling / cleanups"
-msgstr "Quelques corrections de bogues dans le menu de sélection / désélection."
+msgstr ""
+"Quelques corrections de bogues dans le menu de sélection / désélection."
 
 #. Tag: para
 #: help_en.docbook:895
@@ -1971,7 +1991,8 @@ msgstr ""
 #: help_en.docbook:944
 #, no-c-format
 msgid "plugins are processed in alphabetical order"
-msgstr "Les modules externes sont maintenant compilés dans un ordre alphabétique."
+msgstr ""
+"Les modules externes sont maintenant compilés dans un ordre alphabétique."
 
 #. Tag: para
 #: help_en.docbook:947
@@ -2032,7 +2053,8 @@ msgstr "La cible « make messages » fonctionne maintenant."
 #. Tag: para
 #: help_en.docbook:976
 #, no-c-format
-msgid "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
+msgid ""
+"converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 msgstr ""
 "Convertion de menus.config pour la création d'une maquette d'un fichier « ."
 "ccp » qui sera utilisé pour l'internationalisation."
@@ -2115,7 +2137,8 @@ msgstr "Les items des menus peuvent avoir des icônes."
 #: help_en.docbook:1019
 #, no-c-format
 msgid "menu nodes can have unique string ids"
-msgstr "Les liens des menus n'ont qu'un seul identifiant de chaîne de caractères."
+msgstr ""
+"Les liens des menus n'ont qu'un seul identifiant de chaîne de caractères."
 
 #. Tag: para
 #: help_en.docbook:1022
@@ -2188,7 +2211,8 @@ msgstr ""
 #: help_en.docbook:1054
 #, no-c-format
 msgid "added the \"crop\" command to the edit menu"
-msgstr "Ajout de la fonction de « couper à la sélection » dans le menu édition."
+msgstr ""
+"Ajout de la fonction de « couper à la sélection » dans le menu édition."
 
 #. Tag: para
 #: help_en.docbook:1057
@@ -2217,7 +2241,8 @@ msgstr "1999-12-18 (par mwilz@ernie.mi.uni-koeln.de)"
 #: help_en.docbook:1069
 #, no-c-format
 msgid "changed filenames to reflect class names"
-msgstr "Changement des noms de fichiers en correspondance avec les noms des classes."
+msgstr ""
+"Changement des noms de fichiers en correspondance avec les noms des classes."
 
 #. Tag: para
 #: help_en.docbook:1072
@@ -2317,7 +2342,8 @@ msgstr ""
 #: help_en.docbook:1119
 #, no-c-format
 msgid "bugfix: selected resolution takes effect"
-msgstr "Correction de bogue : la sélection d'une résolution fonctionne maintenant."
+msgstr ""
+"Correction de bogue : la sélection d'une résolution fonctionne maintenant."
 
 #. Tag: para
 #: help_en.docbook:1125
@@ -2376,7 +2402,8 @@ msgstr ""
 #: help_en.docbook:1148
 #, no-c-format
 msgid "rewritten big parts of Makefile.in for the plugins"
-msgstr "Réécriture d'une grande partie de Makefile.in pour les modules externes."
+msgstr ""
+"Réécriture d'une grande partie de Makefile.in pour les modules externes."
 
 #. Tag: para
 #: help_en.docbook:1151
@@ -2412,7 +2439,8 @@ msgstr "Script de Thomas Eschenbacher pour la numérotation des versions."
 #: help_en.docbook:1170
 #, no-c-format
 msgid "now using KTMainwindow for top level widgets"
-msgstr "« KTMainwindow » est maintenant utilisée pour les « Widgets » de haut niveau."
+msgstr ""
+"« KTMainwindow » est maintenant utilisée pour les « Widgets » de haut niveau."
 
 #. Tag: para
 #: help_en.docbook:1173
@@ -2468,7 +2496,8 @@ msgstr ""
 #: help_en.docbook:1197
 #, no-c-format
 msgid "connected many functions via the new string-based way of invocation"
-msgstr "Raccordement de plusieurs fonctions par une chaîne de caractères commune."
+msgstr ""
+"Raccordement de plusieurs fonctions par une chaîne de caractères commune."
 
 #. Tag: para
 #: help_en.docbook:1200
@@ -2568,7 +2597,8 @@ msgstr ""
 #: help_en.docbook:1238
 #, no-c-format
 msgid "Introduction of SignalManager class for multiple channel management"
-msgstr "Ajout de la classe « SignalManager » pour la gestion de plusieurs canaux."
+msgstr ""
+"Ajout de la classe « SignalManager » pour la gestion de plusieurs canaux."
 
 #. Tag: para
 #: help_en.docbook:1244
@@ -2704,7 +2734,8 @@ msgstr "0.29.2"
 #: help_en.docbook:1307
 #, no-c-format
 msgid "moved clipboard functionality to its own class"
-msgstr "Déplacement des fonctionnalités du presse-papiers dans une classe dédiée."
+msgstr ""
+"Déplacement des fonctionnalités du presse-papiers dans une classe dédiée."
 
 #. Tag: para
 #: help_en.docbook:1310
@@ -2729,7 +2760,8 @@ msgstr "0.29.1"
 #. Tag: para
 #: help_en.docbook:1321
 #, no-c-format
-msgid "Bugfix for multichannel save. Now the saved files should work with other prgs"
+msgid ""
+"Bugfix for multichannel save. Now the saved files should work with other prgs"
 msgstr ""
 "Correction de bogues pour la sauvegarde de canaux multiples. Maintenant, la "
 "sauvegarde de fichiers doit fonctionner avec d'autres programmes."
@@ -2800,7 +2832,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:1352
 #, no-c-format
-msgid "added possibility of different display modes in Frequency representation"
+msgid ""
+"added possibility of different display modes in Frequency representation"
 msgstr ""
 "Ajout de différentes possibilités d'affichage en fonction de la "
 "représentation des fréquences."
@@ -2842,7 +2875,8 @@ msgstr ""
 #: help_en.docbook:1369
 #, no-c-format
 msgid "First use of multiple threads (pthreads) in some functions"
-msgstr "Première utilisation du multithreading (pthreads) dans quelques fonctions."
+msgstr ""
+"Première utilisation du multithreading (pthreads) dans quelques fonctions."
 
 #. Tag: para
 #: help_en.docbook:1372
@@ -2891,7 +2925,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:1390
 #, no-c-format
-msgid "Improved ProgressDialog and Interpolation class to allow multiple threads"
+msgid ""
+"Improved ProgressDialog and Interpolation class to allow multiple threads"
 msgstr ""
 "Ajout des classes « ProgressDialog » et « Interpolation » pour permettre le "
 "multithreading."
@@ -2917,7 +2952,8 @@ msgstr "Changement dans la classe « curvewidget »."
 #. Tag: para
 #: help_en.docbook:1404
 #, no-c-format
-msgid "sorting of labels now works without overwriting of QGList::compareItems."
+msgid ""
+"sorting of labels now works without overwriting of QGList::compareItems."
 msgstr ""
 "Le tri des labels fonctionne maintenant sans écraser les opérations de "
 "« QGList::compareItems »."
@@ -2938,7 +2974,8 @@ msgstr "Ajout d'une fonction de sauvegarde d'une sélection."
 #: help_en.docbook:1413
 #, no-c-format
 msgid "signal finding function in markers.cpp: gui improved."
-msgstr "Fonction de recherche de signaux dans markers.cpp : interface graphique."
+msgstr ""
+"Fonction de recherche de signaux dans markers.cpp : interface graphique."
 
 #. Tag: para
 #: help_en.docbook:1416
@@ -3129,8 +3166,10 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:1537
 #, no-c-format
-msgid "If you intend to compile &kapp; from the sources, you will need at least:"
-msgstr "Si vous désirez compiler &kapp; à partir des sources, vous avez besoin:"
+msgid ""
+"If you intend to compile &kapp; from the sources, you will need at least:"
+msgstr ""
+"Si vous désirez compiler &kapp; à partir des sources, vous avez besoin:"
 
 #. Tag: para
 #: help_en.docbook:1540
@@ -3278,7 +3317,8 @@ msgstr "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt3</command>"
 #: help_en.docbook:1610
 #, no-c-format
 msgid "Building RPM packages from tar.gz archives"
-msgstr "La construction du paquetage RPM à partir de l'archive au format « .tar.gz »."
+msgstr ""
+"La construction du paquetage RPM à partir de l'archive au format « .tar.gz »."
 
 #. Tag: title
 #: help_en.docbook:1613
@@ -4635,7 +4675,8 @@ msgstr "Ouverture et sauvegarde de fichiers"
 #. Tag: para
 #: help_en.docbook:2340
 #, no-c-format
-msgid "Opening files with &kapp; works like in most other applications, you can"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "L'ouverture des fichiers avec &kapp; fonctionne comme dans toutes les autres "
 "applications de KDE. Vous pouvez :"
@@ -5300,7 +5341,8 @@ msgstr "Un témoin rouge indique que le canal est « inactif »."
 #. Tag: para
 #: help_en.docbook:2886
 #, no-c-format
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Si le canal est désélectionné, il ne sera pas écoutable lors d'une lecture "
 "des pistes sonores !"
@@ -5435,7 +5477,8 @@ msgstr ""
 #: help_en.docbook:2956
 #, no-c-format
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
-msgstr "(Astuce : utiliser la touche « <keycap>+</keycap> » du pavé numérique !)"
+msgstr ""
+"(Astuce : utiliser la touche « <keycap>+</keycap> » du pavé numérique !)"
 
 #. Tag: para
 #: help_en.docbook:2959
@@ -5457,7 +5500,8 @@ msgstr ""
 #: help_en.docbook:2967
 #, no-c-format
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
-msgstr "(Astuce : utiliser la touche « <keycap>-</keycap> » du pavé numérique !)"
+msgstr ""
+"(Astuce : utiliser la touche « <keycap>-</keycap> » du pavé numérique !)"
 
 #. Tag: para
 #: help_en.docbook:2970
@@ -5762,7 +5806,8 @@ msgstr ""
 #: help_en.docbook:3291
 #, no-c-format
 msgid "What if I have files with a format not supported by &kapp;?"
-msgstr "Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
+msgstr ""
+"Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
 
 #. Tag: para
 #: help_en.docbook:3297
@@ -5783,7 +5828,8 @@ msgstr ""
 #: help_en.docbook:3309
 #, no-c-format
 msgid "I get errors when I want to do playback?"
-msgstr "J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
+msgstr ""
+"J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
 
 #. Tag: para
 #: help_en.docbook:3314
@@ -5825,7 +5871,8 @@ msgstr ""
 #: help_en.docbook:3343
 #, no-c-format
 msgid "Some files are played with half-speed?"
-msgstr "Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
+msgstr ""
+"Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
 
 #. Tag: para
 #: help_en.docbook:3348
@@ -5895,7 +5942,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:3405
 #, no-c-format
-msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
+msgid ""
+"What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
 "Qu'en est-il de la lecture de fichiers sonores sur 24 et 32 bits par "
 "échantillons ou avec plus de 2 pistes sonores ?"
@@ -5974,7 +6022,8 @@ msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 #. Tag: para
 #: help_en.docbook:3479
 #, no-c-format
-msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
+msgid ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en "
 "Allemand)"
@@ -5983,7 +6032,8 @@ msgstr ""
 #: help_en.docbook:3486
 #, no-c-format
 msgid "Ralf Waspe <email>rwaspe@web.de</email> (Help/About plugin)"
-msgstr "Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue « A propos de »)"
+msgstr ""
+"Ralf Waspe <email>rwaspe@web.de</email> (Boîte de dialogue « A propos de »)"
 
 #. Tag: para
 #: help_en.docbook:3493
@@ -6007,7 +6057,8 @@ msgstr ""
 #: help_en.docbook:3507
 #, no-c-format
 msgid "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
-msgstr "Martin Kuball <email>makube@user.sourceforge.net</email> (bêta testeur)"
+msgstr ""
+"Martin Kuball <email>makube@user.sourceforge.net</email> (bêta testeur)"
 
 #. Tag: para
 #: help_en.docbook:3514
@@ -6258,4 +6309,3 @@ msgstr ""
 #~ "modifiée de la bibliothéque 'libaudiofile', disponible sur <ulink url="
 #~ "\"http://oss.sgi.com/projects/audiofile/\">http://oss.sgi.com/projects/"
 #~ "audiofile/</ulink>."
-

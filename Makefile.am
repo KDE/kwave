@@ -122,13 +122,11 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 	- rm -f /tmp/${PACKAGE}-tar-excludes.lst
 	- rm -R -f /tmp/${PACKAGE}-@RPM_FULL_VERSION@
 
-# does not work with original SuSE-6.4 rpm
-# you will need an update of the rpm package !
 rpm: rpm_prep
-	rpm -ta /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
+	@RPMBUILD@ -ta /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
 
 src.rpm: rpm_prep
-	rpm -ts /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
+	@RPMBUILD@ -ts /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
 
 doc:
 	(cd ./doc ; ${MAKE} all )
@@ -136,3 +134,6 @@ doc:
 apidoc:
 	-rm -Rf `find . -name \*.moc.cpp`
 	doxygen doxy.cfg
+
+#
+############################################################################

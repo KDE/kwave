@@ -30,6 +30,14 @@ dnl Checks for some programs/tools
 AC_PROG_INSTALL
 AC_PROG_LN_S
 
+dnl look if we have a rpm based system
+AC_PATH_PROG(RPM, rpm)
+
+dnl some systems have rpmbuild some not
+dnl if not, let the default be "rpm", this works at least for SuSE
+AC_PATH_PROG(RPMBUILD, rpmbuild, ${RPM})
+AC_SUBST(RPMBUILD)
+
 AC_DEFUN(KWAVE_NEEDS_PROGRAM,
 [
     KDE_FIND_PATH($2, $1, , [AC_MSG_ERROR([$2 is not installed])])

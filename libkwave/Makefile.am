@@ -81,6 +81,7 @@ libkwave_la_SOURCES=\
  SampleReader.cpp\
  SampleWriter.cpp\
  SampleLock.cpp\
+ StandardBitrates.cpp\
  Stripe.cpp\
  Track.cpp\
  TransmissionFunction.cpp\

@@ -87,6 +87,18 @@ public:
     unsigned int append(const QArray<sample_t> &samples, unsigned int count);
 
     /**
+     * Copies the content of an array of samples into the stripe.
+     * @param offset the offset within the stripe (target)
+     * @param samples array of samples to be copied
+     * @param srcoff offset within the source array
+     * @param srclen length of the data in the source array
+     * @warning this method is intended to be used only internally
+     *          and waives any error-checking in order to be fast!
+     */
+    void overwrite(unsigned int offset, const QArray<sample_t> &samples,
+    	unsigned int srcoff, unsigned int srclen);
+
+    /**
      * Operator for appending an array of samples to the
      * end of the stripe.
      */

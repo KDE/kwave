@@ -137,9 +137,28 @@ SampleInputStream *Track::openInputStream(InsertMode mode,
 	}
 	case Insert:
 	    debug("Track::openInputStream(insert, %u)", left);
+	    warning("--- NOT IMPLEMENTED YET ---"); // ###
 	    break;
 	case Overwrite:
 	    debug("Track::openInputStream(overwrite, %u, %u)", left, right);
+	    if ((right == 0) || (right == left)) right = unlockedLength()-1;
+	
+	    // add all stripes within the specified range to the list
+	    // and lock them
+	    QListIterator<Stripe> it(m_stripes);
+	    for (; it.current(); ++it) {
+		Stripe *s = it.current();
+		unsigned int st = s->start();
+		unsigned int len = s->length();
+		if (!len) continue; // skip zero-length tracks
+
+		if (st > right) break; // ok, end reached
+		if (st+len-1 >= left) {
+		    // overlaps -> include to our list
+		    stripe_locks.addLock(s->mutex());
+		    stripes.append(s);
+		}
+	    }
 	    break;
     }
 

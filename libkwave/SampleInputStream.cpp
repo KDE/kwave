@@ -59,7 +59,6 @@ SampleInputStream &SampleInputStream::operator << (const sample_t &sample)
 {
     if (m_buffer_used >= m_buffer.size()) flush();
     m_buffer[m_buffer_used++] = sample;
-    m_position++;
     if (m_buffer_used >= m_buffer.size()) flush();
     return *this;
 }
@@ -77,10 +76,39 @@ SampleInputStream &SampleInputStream::flush()
 	    break;
 	}
 	case Insert:
-	    ASSERT("not implemented yet");
+	    warning("---SampleInputStream::flush(): Insert not implemented yet---");
 	    break;
 	case Overwrite:
-	    ASSERT("not implemented yet");
+	    // find the first stripe that contains the current position
+	    QListIterator<Stripe> it(m_stripes);
+	    unsigned int buf_offset = 0;
+
+	    for (; it.current(); ++it) {
+		if (!m_buffer_used) break; // nothing to do
+
+		Stripe *s = it.current();
+		unsigned int st = s->start();
+		unsigned int len = s->length();
+		if (!len) continue; // skip zero-length tracks
+		
+		if (m_position > st+len-1) break; // end of range reached
+		
+		if ((m_position >= st) && (m_position <= st+len-1)) {
+		    unsigned int offset = m_position - st;
+		    unsigned int length = len - offset;
+		    if (length > m_buffer_used) length = m_buffer_used;
+		
+		    // copy the portion of our buffer to the target
+		    s->overwrite(offset, m_buffer, buf_offset, length);
+
+		    m_buffer_used -= length;
+		    buf_offset += length;
+		    m_position += length;
+		
+		    break;
+		}
+	    }
+	    ASSERT(m_buffer_used == 0);
 	    break;
     }
 

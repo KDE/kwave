@@ -53,7 +53,6 @@ Mutex &Stripe::mutex()
     return m_lock;
 }
 
-
 //***************************************************************************
 unsigned int Stripe::start()
 {
@@ -97,11 +96,12 @@ unsigned int Stripe::resize(unsigned int length)
 unsigned int Stripe::append(const QArray<sample_t> &samples,
 	unsigned int count)
 {
+    MutexGuard lock(m_lock_samples);
+
     if (!count || !samples.size()) return 0; // nothing to do
     ASSERT(count <= samples.size());
     if (count > samples.size()) count = samples.size();
 
-    MutexGuard lock(m_lock_samples);
 //    debug("Stripe::append: adding %d samples", samples.count());
 
     unsigned int old_size = m_samples.size();
@@ -118,6 +118,16 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
 
     debug("Stripe::append(): resized to %d", m_samples.size());
     return appended;
+}
+
+//***************************************************************************
+void Stripe::overwrite(unsigned int offset, const QArray<sample_t> &samples,
+    	unsigned int srcoff, unsigned int srclen)
+{
+    MutexGuard lock(m_lock_samples);
+    while (srclen--) {
+	m_samples[offset++] = samples[srcoff++];
+    }
 }
 
 //***************************************************************************

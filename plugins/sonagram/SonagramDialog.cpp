@@ -410,20 +410,20 @@ void SonagramDialog::parameters(QStrList &list)
 void SonagramDialog::setPoints(int points)
 {
     ASSERT(points >= 0);
-    char ms_buf[32];
-    char buf[512];
+    QString text;
     points *= 2;
 
-    snprintf(buf, sizeof(buf), "%d", points);
-    m_pointbox->changeItem (buf, 0);
+    text.setNum(points);
+    m_pointbox->changeItem(text, 0);
     m_pointbox->setCurrentItem (0);
 
-    KwavePlugin::ms2string(ms_buf, sizeof(ms_buf), points * 1.0E3 / m_rate);
-    snprintf(buf, sizeof(buf), i18n("( resulting window size: %s )"), ms_buf);
-    m_windowlabel->setText(buf);
-    snprintf(buf, sizeof(buf), i18n("size of bitmap: %dx%d"), 
-	(m_length / points) + 1, points/2);
-    m_bitmaplabel->setText(buf);
+    m_windowlabel->setText(i18n("( resulting window size: %1 )").arg(
+	KwavePlugin::ms2string(points * 1.0E3 / m_rate)));
+
+    text = i18n("size of bitmap: %1x%2");
+    text = text.arg((m_length / points) + 1);
+    text = text.arg(points/2);
+    m_bitmaplabel->setText(text);
 }
 
 //***************************************************************************

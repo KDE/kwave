@@ -149,7 +149,8 @@ FileProgress::FileProgress(QWidget *parent,
     bt_cancel->setText(i18n("&Cancel"));
     bt_cancel->setFixedSize(bt_cancel->sizeHint());
     bt_cancel->setAccel(Key_Escape);
-    connect(bt_cancel, SIGNAL(pressed()), this, SLOT(cancel()));
+    bt_cancel->setFocus();
+    connect(bt_cancel, SIGNAL(clicked()), this, SLOT(cancel()));
     top_layout->addWidget(bt_cancel, 0, AlignRight);
 
     // activate the layout and show the dialog

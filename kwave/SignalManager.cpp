@@ -666,97 +666,96 @@ int SignalManager::loadAscii()
 //***************************************************************************
 int SignalManager::loadWav()
 {
-    return 1234;
-//    wav_fmt_header_t fmt_header;
-//    int result = 0;
-//    __uint32_t num;
-//    __uint32_t length;
-//
-//    QFile sigfile(m_name);
-//    if (!sigfile.open(IO_ReadOnly)) {
-//	KMessageBox::error(m_parent_widget,
-//		i18n("File does not exist !"), i18n("Error"), 2);
-//	return -ENOENT;
-//    }
-//
-//    // --- check if the file starts with "RIFF" ---
-//    num = sigfile.size();
-//    length = findChunk(sigfile, "RIFF", 0);
-//    if ((length == 0) || (sigfile.at() != 8)) {
-//	KMessageBox::error(m_parent_widget,
-//	    i18n("File is no RIFF File !"), i18n("Warning"), 2);
-//	// maybe recoverable...
-//    } else if (length+8 != num) {
-//	KMessageBox::error(m_parent_widget,
-//	    i18n("File has incorrect length! (maybe truncated?)"),
-//	    i18n("Warning"), 2);
-//	// maybe recoverable...
-//    } else {
-//	// check if the chunk data contains "WAVE"
-//	char file_type[16];
-//	num = sigfile.readBlock((char*)(&file_type), 4);
-//	if ((num != 4) || strncmp("WAVE", file_type, 4)) {
-//	    KMessageBox::error(m_parent_widget,
-//		i18n("File is no WAVE File !"),
-//		i18n("Warning"), 2);
-//	    // maybe recoverable...
-//	}
-//    }
-//
-//    // ------- read the "fmt " chunk -------
-//    ASSERT(sizeof(fmt_header) == 16);
-//    num = findChunk(sigfile, "fmt ");
-//    if (num != sizeof(fmt_header)) {
-//	debug("SignalManager::loadWav(): length of fmt chunk = %d", num);
-//	KMessageBox::error(m_parent_widget,
-//	    i18n("File does not contain format information!"),
-//	    i18n("Error"), 2);
-//	return -EMEDIUMTYPE;
-//    }
-//    num = sigfile.readBlock((char*)(&fmt_header), sizeof(fmt_header));
-//#ifdef IS_BIG_ENDIAN
-//    fmt_header.length = bswap_32(fmt_header.length);
-//    fmt_header.mode = bswap_16(fmt_header.mode);
-//    fmt_header.channels = bswap_16(fmt_header.channels);
-//    fmt_header.rate = bswap_32(fmt_header.rate);
-//    fmt_header.AvgBytesPerSec = bswap_32(fmt_header.AvgBytesPerSec);
-//    fmt_header.BlockAlign = bswap_32(fmt_header.BlockAlign);
-//    fmt_header.bitspersample = bswap_16(fmt_header.bitspersample);
-//#endif
-//    if (fmt_header.mode != 1) {
-//	KMessageBox::error(m_parent_widget,
-//	    i18n("File must be uncompressed (Mode 1) !"),
-//	    i18n("Sorry"), 2);
-//	return -EMEDIUMTYPE;
-//    }
-//    rate = fmt_header.rate;
-//
-//    // ------- search for the data chunk -------
-//    length = findChunk(sigfile, "data");
-//    if (!length) {
-//	KMessageBox::error(m_parent_widget,
-//	    i18n("File does not contain data!"),
-//	    i18n("Error"), 2);
-//	return -EMEDIUMTYPE;
-//    }
-//
-//    length = (length/(fmt_header.bitspersample/8))/fmt_header.channels;
-//    switch (fmt_header.bitspersample) {
-//	case 8:
-//	case 16:
-//	case 24:
-////	    result = loadWavChunk(sigfile, length,
-////				  fmt_header.channels,
-////				  fmt_header.bitspersample);
-//	    break;
-//	default:
-//	    KMessageBox::error(m_parent_widget,
-//		i18n("Sorry only 8/16/24 Bits per Sample"\
-//		" are supported !"), i18n("Sorry"), 2);
-//	    result = -EMEDIUMTYPE;
-//    }
-//
-//    return result;
+    wav_fmt_header_t fmt_header;
+    int result = 0;
+    __uint32_t num;
+    __uint32_t length;
+
+    QFile sigfile(m_name);
+    if (!sigfile.open(IO_ReadOnly)) {
+	KMessageBox::error(m_parent_widget,
+		i18n("File does not exist !"), i18n("Error"), 2);
+	return -ENOENT;
+    }
+
+    // --- check if the file starts with "RIFF" ---
+    num = sigfile.size();
+    length = findChunk(sigfile, "RIFF", 0);
+    if ((length == 0) || (sigfile.at() != 8)) {
+	KMessageBox::error(m_parent_widget,
+	    i18n("File is no RIFF File !"), i18n("Warning"), 2);
+	// maybe recoverable...
+    } else if (length+8 != num) {
+	KMessageBox::error(m_parent_widget,
+	    i18n("File has incorrect length! (maybe truncated?)"),
+	    i18n("Warning"), 2);
+	// maybe recoverable...
+    } else {
+	// check if the chunk data contains "WAVE"
+	char file_type[16];
+	num = sigfile.readBlock((char*)(&file_type), 4);
+	if ((num != 4) || strncmp("WAVE", file_type, 4)) {
+	    KMessageBox::error(m_parent_widget,
+		i18n("File is no WAVE File !"),
+		i18n("Warning"), 2);
+	    // maybe recoverable...
+	}
+    }
+
+    // ------- read the "fmt " chunk -------
+    ASSERT(sizeof(fmt_header) == 16);
+    num = findChunk(sigfile, "fmt ");
+    if (num != sizeof(fmt_header)) {
+	debug("SignalManager::loadWav(): length of fmt chunk = %d", num);
+	KMessageBox::error(m_parent_widget,
+	    i18n("File does not contain format information!"),
+	    i18n("Error"), 2);
+	return -EMEDIUMTYPE;
+    }
+    num = sigfile.readBlock((char*)(&fmt_header), sizeof(fmt_header));
+#ifdef IS_BIG_ENDIAN
+    fmt_header.length = bswap_32(fmt_header.length);
+    fmt_header.mode = bswap_16(fmt_header.mode);
+    fmt_header.channels = bswap_16(fmt_header.channels);
+    fmt_header.rate = bswap_32(fmt_header.rate);
+    fmt_header.AvgBytesPerSec = bswap_32(fmt_header.AvgBytesPerSec);
+    fmt_header.BlockAlign = bswap_32(fmt_header.BlockAlign);
+    fmt_header.bitspersample = bswap_16(fmt_header.bitspersample);
+#endif
+    if (fmt_header.mode != 1) {
+	KMessageBox::error(m_parent_widget,
+	    i18n("File must be uncompressed (Mode 1) !"),
+	    i18n("Sorry"), 2);
+	return -EMEDIUMTYPE;
+    }
+    rate = fmt_header.rate;
+
+    // ------- search for the data chunk -------
+    length = findChunk(sigfile, "data");
+    if (!length) {
+	KMessageBox::error(m_parent_widget,
+	    i18n("File does not contain data!"),
+	    i18n("Error"), 2);
+	return -EMEDIUMTYPE;
+    }
+
+    length = (length/(fmt_header.bitspersample/8))/fmt_header.channels;
+    switch (fmt_header.bitspersample) {
+	case 8:
+	case 16:
+	case 24:
+	    result = loadWavChunk(sigfile, length,
+				  fmt_header.channels,
+				  fmt_header.bitspersample);
+	    break;
+	default:
+	    KMessageBox::error(m_parent_widget,
+		i18n("Sorry only 8/16/24 Bits per Sample"\
+		" are supported !"), i18n("Sorry"), 2);
+	    result = -EMEDIUMTYPE;
+    }
+
+    return result;
 }
 
 //**********************************************************
@@ -1062,160 +1061,137 @@ __uint32_t SignalManager::findChunk(QFile &sigfile, const char *chunk,
 int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
                                 unsigned int channels, int bits)
 {
-//    unsigned int bufsize = 16 * 1024 * sizeof(sample_t);
-//    unsigned char *loadbuffer = 0;
-//    int bytes = bits >> 3;
-//    unsigned int sign = 1 << (24-1);
-//    unsigned int negative = ~(sign - 1);
-//    unsigned int shift = 24-bits;
-//    unsigned int bytes_per_sample = bytes * channels;
-//    unsigned int max_samples = bufsize / bytes_per_sample;
-//    long int start_offset = ftell(sigfile);
-//
-//    ASSERT(bytes);
-//    ASSERT(channels);
-//    ASSERT(length);
-//    if (!bytes || !channels || !length) return -EINVAL;
-//
-//    // try to allocate memory for the load buffer
-//    // if failed, try again with the half buffer size as long
-//    // as <1kB is not reached (then we are really out of memory)
-//    while (loadbuffer == 0) {
-//	if (bufsize < 1024) {
-//	    debug("SignalManager::loadWavChunk:not enough memory for buffer");
-//	    return -ENOMEM;
-//	}
-//	loadbuffer = new unsigned char[bufsize];
-//	if (!loadbuffer) bufsize >>= 1;
-//    }
-//
-//    // check if the file is large enough for "length" samples
-//    fseek(sigfile, 0, SEEK_END);
-//    size_t file_rest = ftell(sigfile) - start_offset;
-//    fseek(sigfile, start_offset, SEEK_SET);
-//    if (length > file_rest/bytes_per_sample) {
-//	debug("SignalManager::loadWavChunk: "\
-//	      "length=%d, rest of file=%d",length,file_rest);
-//	KMessageBox::error(m_parent_widget,
-//	    i18n("Warning"),
-//	    i18n("Error in input: file is smaller than stated "\
-//	    "in the header. \n"\
-//	    "File will be truncated."), 2);
-//	length = file_rest/bytes_per_sample;
-//    }
-//
-//    QList<SampleInputStream> samples;
-//    samples.setAutoDelete(true);
-//
-//    for (unsigned int channel = 0; channel < channels; channel++) {
-//	Track *new_track = m_signal.appendTrack(length);
-//	ASSERT(new_track);
-//	if (!new_track) {
-//	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"),
-//	    	i18n("Warning"), 2);
-//	    return -ENOMEM;
-//	}
-//
-//	SampleInputStream *s = m_signal.openInputStream(channel, Overwrite);
-//	ASSERT(s);
-//	if (!s) {
-//	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"),
-//	    	i18n("Warning"), 2);
-//	    return -ENOMEM;
-//	}
-//	samples.append(s);
-//    }
-//
-//    //prepare and show the progress dialog
-//    QString title;
-//    title = "Loading %1-Bit (%2) File: %3";
-//    title = title.arg(bits);
-//    switch (channels) {
-//	case 1:
-//	    title = title.arg(i18n("Mono"));
-//	    break;
-//	case 2:
-//	    title = title.arg(i18n("Stereo"));
-//	    break;
-//	case 4:
-//	    title = title.arg(i18n("Quadro"));
-//	    break;
-//	default:
-//	    title = title.arg(i18n("%1 tracks"));
-//	    title = title.arg(channels);
-//    }
-//    title = title.arg(m_name);
-//    FileProgress *dialog = new FileProgress(m_parent_widget);
-//    ASSERT(dialog);
-//    if (dialog) {
-//	dialog->setCaption(title);
-//	dialog->setFixedWidth(400/* ###dialog->sizeHint().width() */);
-//	dialog->show();
-//    }
-//
-//    //prepare the load loop
-//    int percent_count = length / 1000;
-//
-//    // debug("sign=%08X, negative=%08X, shift=%d",sign,negative,shift);
-//
-//    for (unsigned int pos = 0; pos < length; ) {
-//	// limit reading to end of wav chunk length
-//	if ((pos + max_samples) > length) max_samples=length-pos;
-//
-//	int read_samples = fread((char *)loadbuffer, bytes_per_sample,
-//				 max_samples, sigfile);
-//	percent_count -= read_samples;
-//	// debug("read %d samples", read_samples);
-//	if (read_samples <= 0) {
-//	    warning("SignalManager::loadWavChunk:EOF reached?"\
-//		    " (at sample %ld, expected length=%d",
-//		    ftell(sigfile) / bytes_per_sample - start_offset, length);
-//	    break;
-//	}
-//
-//	unsigned char *buffer = loadbuffer;
-//	sample_t s = 0;
-//	while (read_samples--) {
-//	    for (register unsigned int channel = 0;
-//	         channel < channels;
-//	         channel++)
-//	    {
-//		SampleInputStream *stream = samples.at(channel);
-//		if (bytes == 1) {
-//		    // 8-bit files are always unsigned !
-//		    s = (*(buffer++) - 128) << shift;
-//		} else {
-//		    // >= 16 bits is signed
-//		    for (register int byte = 0; byte < bytes; byte++)
-//			s |= *(buffer++) << ((byte << 3) + shift);
-//		    // sign correcture for negative values
-//		    if ((unsigned int)s & sign)
-//			s |= negative;
-//		}
-//		*stream << s;
-//	    }
-//	    pos++;
-//	}
-//
-//	if (dialog && (percent_count <= 0)) {
-//	    percent_count = length / 1000;
-//	    float percent = (float)pos;
-//	    percent /= (float)length;
-//	    percent *= 100.0;
-//	    dialog->setValue(percent);
-//	}
-//    }
-//
-//    // close all sample input streams
-//    samples.clear();
-//
-//    if (dialog) delete dialog;
-//    if (loadbuffer) delete[] loadbuffer;
+    unsigned int bufsize = 16 * 1024 * sizeof(sample_t);
+    unsigned char *loadbuffer = 0;
+    int bytes = bits >> 3;
+    unsigned int sign = 1 << (24-1);
+    unsigned int negative = ~(sign - 1);
+    unsigned int shift = 24-bits;
+    unsigned int bytes_per_sample = bytes * channels;
+    unsigned int max_samples = bufsize / bytes_per_sample;
+    long int start_offset = sigfile.at();
+
+    ASSERT(bytes);
+    ASSERT(channels);
+    ASSERT(length);
+    if (!bytes || !channels || !length) return -EINVAL;
+
+    // try to allocate memory for the load buffer
+    // if failed, try again with the half buffer size as long
+    // as <1kB is not reached (then we are really out of memory)
+    while (loadbuffer == 0) {
+	if (bufsize < 1024) {
+	    debug("SignalManager::loadWavChunk:not enough memory for buffer");
+	    return -ENOMEM;
+	}
+	loadbuffer = new unsigned char[bufsize];
+	if (!loadbuffer) bufsize >>= 1;
+    }
+
+    // check if the file is large enough for "length" samples
+    size_t file_rest = sigfile.size() - sigfile.at();
+    if (length > file_rest/bytes_per_sample) {
+	debug("SignalManager::loadWavChunk: "\
+	      "length=%d, rest of file=%d",length,file_rest);
+	KMessageBox::error(m_parent_widget,
+	    i18n("Warning"),
+	    i18n("Error in input: file is smaller than stated "\
+	    "in the header. \n"\
+	    "File will be truncated."), 2);
+	length = file_rest/bytes_per_sample;
+    }
+
+    QList<SampleInputStream> samples;
+    samples.setAutoDelete(true);
+
+    for (unsigned int channel = 0; channel < channels; channel++) {
+	Track *new_track = m_signal.appendTrack(length);
+	ASSERT(new_track);
+	if (!new_track) {
+	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"),
+	    	i18n("Warning"), 2);
+	    return -ENOMEM;
+	}
+
+	SampleInputStream *s = m_signal.openInputStream(channel, Overwrite);
+	ASSERT(s);
+	if (!s) {
+	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"),
+	    	i18n("Warning"), 2);
+	    return -ENOMEM;
+	}
+	samples.append(s);
+    }
+
+    //prepare and show the progress dialog
+    FileProgress *dialog = new FileProgress(m_parent_widget,
+	m_name, file_rest, length, rate, bits, channels);
+    ASSERT(dialog);
+
+    // prepare the loader loop
+    int percent_count = length / 100;
+
+    // debug("sign=%08X, negative=%08X, shift=%d",sign,negative,shift);
+
+    for (unsigned int pos = 0; pos < length; ) {
+	// break the loop if the user has pressed "cancel"
+	if (dialog && dialog->isCancelled()) break;
+
+	// limit reading to end of wav chunk length
+	if ((pos + max_samples) > length) max_samples=length-pos;
+
+	// read the samples into a temporary buffer
+	int read_samples = sigfile.readBlock(
+	    reinterpret_cast<char *>(loadbuffer),
+	    bytes_per_sample*max_samples
+	) / bytes_per_sample;
+	percent_count -= read_samples;
+
+	// debug("read %d samples", read_samples);
+	if (read_samples <= 0) {
+	    warning("SignalManager::loadWavChunk:EOF reached?"\
+		    " (at sample %ld, expected length=%d",
+		    sigfile.at() / bytes_per_sample - start_offset, length);
+	    break;
+	}
+
+	unsigned char *buffer = loadbuffer;
+	sample_t s = 0;
+	while (read_samples--) {
+	    for (register unsigned int channel = 0;
+	         channel < channels;
+	         channel++)
+	    {
+		SampleInputStream *stream = samples.at(channel);
+		if (bytes == 1) {
+		    // 8-bit files are always unsigned !
+		    s = (*(buffer++) - 128) << shift;
+		} else {
+		    // >= 16 bits is signed
+		    for (register int byte = 0; byte < bytes; byte++)
+			s |= *(buffer++) << ((byte << 3) + shift);
+		    // sign correcture for negative values
+		    if ((unsigned int)s & sign)
+			s |= negative;
+		}
+		*stream << s;
+	    }
+	    pos++;
+	}
+
+	if (dialog && (percent_count <= 0)) {
+	    percent_count = length / 100;
+	    dialog->setValue(pos * bytes_per_sample);
+	}
+    }
+
+    // close all sample input streams
+    samples.clear();
+
+    if (dialog) delete dialog;
+    if (loadbuffer) delete[] loadbuffer;
     return 0;
 }
-
-/***************************************************************************/
-//below  all methods of Class SignalManager that deal with sound playback
 
 //***************************************************************************
 ////following are the playback routines
@@ -1316,7 +1292,7 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
     return 0;
 //    const char *trouble = i18n("playback problem");
 //
-//    debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\
+//    debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\#
 //	"rate=%d, bufbase=%d)", audio, bitspersample, channels,
 //	rate, bufbase);
 //

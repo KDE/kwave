@@ -217,10 +217,10 @@ void KwavePlugin::zoom2string(char *buf, unsigned int bufsize, double percent)
 }
 
 //***************************************************************************
-void KwavePlugin::ms2string(char *buf, unsigned int bufsize, double ms)
+QString KwavePlugin::ms2string(double ms)
 {
-    ASSERT(buf);
-    if (!buf) return;
+    char buf[128];
+    int bufsize = 128;
 
     if (ms < 1.0) {
 	char format[128];
@@ -245,6 +245,9 @@ void KwavePlugin::ms2string(char *buf, unsigned int bufsize, double ms)
 	    snprintf(buf, bufsize, "%02d:%02d min", m, s % 60);
 	}
     }
+
+    QString result(buf);
+    return result;
 }
 
 //***************************************************************************

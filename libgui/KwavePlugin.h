@@ -200,7 +200,7 @@ public:
      * to full seconds and shown as "12.3 s". From one full minute
      * upwards time is shown as "12:34" (like most CD players do).
      */
-    static void ms2string(char *buf, unsigned int bufsize, double ms);
+    static QString ms2string(double ms);
 
 protected:
 

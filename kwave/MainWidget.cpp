@@ -327,12 +327,9 @@ void MainWidget::loadFile(const QString &filename, int type)
     ASSERT(signalview);
     if (!signalview) return;
 
-    debug("MainWidget::loadFile(%s, %d)", filename.data(), type); // ###
-//    closeSignal();
-//    signalview->loadFile(filename, type);
-//    debug("MainWidget::loadFile(): --1--"); // ###
-//    refreshControls();
-    debug("MainWidget::loadFile(): done"); // ###
+    closeSignal();
+    signalview->loadFile(filename, type);
+    refreshControls();
 }
 
 //*****************************************************************************
@@ -501,22 +498,14 @@ bool MainWidget::executeCommand(const QString &command)
 //*****************************************************************************
 void MainWidget::setSelectedTimeInfo(double ms)
 {
-    char buffer[128];
-    char ms_string[64];
-
-    KwavePlugin::ms2string(ms_string, sizeof(ms_string), ms);
-    snprintf(buffer, sizeof(buffer), i18n("selected: %s"), ms_string);
-    m_status.changeItem(buffer, 4);
+    m_status.changeItem(KwavePlugin::ms2string(ms), 4);
 }
 
 //*****************************************************************************
 void MainWidget::setTimeInfo(double ms)
 {
-    char buffer[128];
-    char ms_string[64];
-    KwavePlugin::ms2string(ms_string, sizeof(ms_string), ms);
-    snprintf(buffer, sizeof(buffer), i18n("Length: %s"), ms_string);
-    m_status.changeItem(buffer, 1);
+    m_status.changeItem(i18n("Length: %1").arg(
+    	KwavePlugin::ms2string(ms)), 1);
 }
 
 //*****************************************************************************

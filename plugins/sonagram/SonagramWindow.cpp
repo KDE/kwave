@@ -529,10 +529,8 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     translatePixels2TF(pos, &ms, &f);
 
     // item 1: time in milliseconds
-    char ms_buf[32];
-    KwavePlugin::ms2string(ms_buf, sizeof(ms_buf), ms);
-    snprintf(buf, sizeof(buf), i18n("Time: %s"), ms_buf);
-    m_status->changeItem(buf, 1);
+    m_status->changeItem(i18n("Time: %1").arg(
+	KwavePlugin::ms2string(ms)), 1);
 
     // item 2: frequency in Hz
     snprintf(buf, sizeof(buf), i18n("Frequency: %d Hz"), (int)f);

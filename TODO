@@ -41,6 +41,9 @@ o bug in MouseSelection: allows selection after end of signal
 
 o playback: get error messages out of the thread
 
+o when playback is active: mouse click changes start position for
+  next playback
+
 o create a ThreadCondition class for synchronizing
 
 o use a MenuManager in the plugins (e.g. sonagram)
@@ -164,3 +167,4 @@ o figure out how to work with exceptions:
   - does never work with --no-rtti
   - the program doesn't link under RedHat with -frtti
   => no rtti and no exceptions :-(
+

@@ -595,24 +595,22 @@ void SignalWidget::setSignal(SignalManager *sigs)
 //****************************************************************************
 void SignalWidget::loadFile(const QString &filename, int type)
 {
-//    close();
-////    ASSERT(labels);
-////    if (labels) labels->clear();
-//
-//    // load a new signal
-//    debug("SignalWidget::loadFile(%s, %d)",filename.data(), type); // ###
-//    m_signal_manager.loadFile(filename, type);
-//    ASSERT(m_signal_manager.length());
-//    if (m_signal_manager.length() <= 0) {
-//	warning("SignalWidget::loadFile() failed:"\
-//		" zero-length or out of memory?");
-//	close();
-//	return ;
-//    }
-//
-//    connectSignalManager();
-//    zoomAll();
-    debug("SignalWidget::loadFile, done"); // ###
+    close();
+//    ASSERT(labels);
+//    if (labels) labels->clear();
+
+    // load a new signal
+    m_signal_manager.loadFile(filename, type);
+    ASSERT(m_signal_manager.length());
+    if (m_signal_manager.length() <= 0) {
+	warning("SignalWidget::loadFile() failed:"\
+		" zero-length or out of memory?");
+	close();
+	return ;
+    }
+
+    connectSignalManager();
+    zoomAll();
 }
 
 //****************************************************************************

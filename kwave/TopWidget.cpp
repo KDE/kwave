@@ -643,23 +643,17 @@ int TopWidget::loadFile(const QString &filename, int type)
     if (!closeFile()) return -1;
 
     m_filename = filename;
-//    emit sigSignalNameChanged(m_filename);
+    emit sigSignalNameChanged(m_filename);
 
     m_main_widget->loadFile(filename, type);
-    debug("TopWidget::loadFile() --1--"); // ###
     m_app.addRecentFile(m_filename);
-    debug("TopWidget::loadFile() --2--"); // ###
 
     setCaption(m_filename);
-    debug("TopWidget::loadFile() --3--"); // ###
 
     m_save_bits = m_main_widget->getBitsPerSample();
-    debug("TopWidget::loadFile() --4--"); // ###
     updateMenu();
-    debug("TopWidget::loadFile() --5--"); // ###
     updateToolbar();
 
-    debug("TopWidget::loadFile() --done--"); // ###
     return 0;
 }
 

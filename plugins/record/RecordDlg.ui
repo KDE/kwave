@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>Form1</string>
+        <string>Record</string>
     </property>
     <vbox>
         <property name="name">
@@ -27,7 +27,7 @@
         </property>
         <widget class="QTabWidget">
             <property name="name">
-                <cstring>tabWidget2</cstring>
+                <cstring>tabRecord</cstring>
             </property>
             <widget class="QWidget">
                 <property name="name">
@@ -56,7 +56,7 @@
                                     <cstring>chkRecordPre</cstring>
                                 </property>
                                 <property name="enabled">
-                                    <bool>false</bool>
+                                    <bool>true</bool>
                                 </property>
                                 <property name="text">
                                     <string>Pre-Record:</string>
@@ -70,7 +70,7 @@
                                     <cstring>chkRecordTime</cstring>
                                 </property>
                                 <property name="enabled">
-                                    <bool>false</bool>
+                                    <bool>true</bool>
                                 </property>
                                 <property name="text">
                                     <string>Record Time:</string>
@@ -79,12 +79,12 @@
                                     <bool>false</bool>
                                 </property>
                             </widget>
-                            <widget class="QCheckBox" row="4" column="0">
+                            <widget class="QCheckBox" row="3" column="0">
                                 <property name="name">
                                     <cstring>chkRecordTrigger</cstring>
                                 </property>
                                 <property name="enabled">
-                                    <bool>false</bool>
+                                    <bool>true</bool>
                                 </property>
                                 <property name="text">
                                     <string>Record Trigger:</string>
@@ -93,7 +93,7 @@
                                     <bool>false</bool>
                                 </property>
                             </widget>
-                            <widget class="QFrame" row="2" column="0" rowspan="2" colspan="3">
+                            <widget class="QFrame" row="2" column="0" rowspan="1" colspan="3">
                                 <property name="name">
                                     <cstring>frame5</cstring>
                                 </property>
@@ -110,7 +110,7 @@
                                     <enum>Raised</enum>
                                 </property>
                             </widget>
-                            <widget class="QLayoutWidget" row="7" column="0" rowspan="1" colspan="3">
+                            <widget class="QLayoutWidget" row="6" column="0" rowspan="1" colspan="3">
                                 <property name="name">
                                     <cstring>layout9</cstring>
                                 </property>
@@ -120,10 +120,10 @@
                                     </property>
                                     <widget class="KPushButton">
                                         <property name="name">
-                                            <cstring>btDelete</cstring>
+                                            <cstring>btNew</cstring>
                                         </property>
                                         <property name="enabled">
-                                            <bool>false</bool>
+                                            <bool>true</bool>
                                         </property>
                                         <property name="minimumSize">
                                             <size>
@@ -133,9 +133,6 @@
                                         </property>
                                         <property name="text">
                                             <string></string>
-                                        </property>
-                                        <property name="pixmap">
-                                            <pixmap>image0</pixmap>
                                         </property>
                                     </widget>
                                     <widget class="KPushButton">
@@ -154,9 +151,6 @@
                                         <property name="text">
                                             <string></string>
                                         </property>
-                                        <property name="pixmap">
-                                            <pixmap>image1</pixmap>
-                                        </property>
                                     </widget>
                                     <widget class="KPushButton">
                                         <property name="name">
@@ -174,9 +168,6 @@
                                         <property name="text">
                                             <string></string>
                                         </property>
-                                        <property name="pixmap">
-                                            <pixmap>image2</pixmap>
-                                        </property>
                                     </widget>
                                     <widget class="KPushButton">
                                         <property name="name">
@@ -185,19 +176,16 @@
                                         <property name="minimumSize">
                                             <size>
                                                 <width>30</width>
-                                                <height>30</height>
+                                                <height>35</height>
                                             </size>
                                         </property>
                                         <property name="text">
                                             <string></string>
                                         </property>
-                                        <property name="pixmap">
-                                            <pixmap>image3</pixmap>
-                                        </property>
                                     </widget>
                                 </hbox>
                             </widget>
-                            <widget class="QFrame" row="6" column="0" rowspan="1" colspan="3">
+                            <widget class="QFrame" row="5" column="0" rowspan="1" colspan="3">
                                 <property name="name">
                                     <cstring>frame5_2</cstring>
                                 </property>
@@ -214,7 +202,7 @@
                                     <enum>Raised</enum>
                                 </property>
                             </widget>
-                            <spacer row="5" column="1">
+                            <spacer row="4" column="1">
                                 <property name="name">
                                     <cstring>spacer11</cstring>
                                 </property>
@@ -231,61 +219,6 @@
                                     </size>
                                 </property>
                             </spacer>
-                            <widget class="QLayoutWidget" row="1" column="1">
-                                <property name="name">
-                                    <cstring>layout14</cstring>
-                                </property>
-                                <hbox>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <widget class="QSpinBox">
-                                        <property name="name">
-                                            <cstring>sbRecordHours</cstring>
-                                        </property>
-                                        <property name="enabled">
-                                            <bool>false</bool>
-                                        </property>
-                                        <property name="suffix">
-                                            <string> h</string>
-                                        </property>
-                                        <property name="value">
-                                            <number>99</number>
-                                        </property>
-                                    </widget>
-                                    <widget class="QSpinBox">
-                                        <property name="name">
-                                            <cstring>sbRecordMinutes</cstring>
-                                        </property>
-                                        <property name="enabled">
-                                            <bool>false</bool>
-                                        </property>
-                                        <property name="suffix">
-                                            <string> min</string>
-                                        </property>
-                                        <property name="maxValue">
-                                            <number>59</number>
-                                        </property>
-                                        <property name="value">
-                                            <number>59</number>
-                                        </property>
-                                    </widget>
-                                    <widget class="QSpinBox">
-                                        <property name="name">
-                                            <cstring>sbRecordSeconds</cstring>
-                                        </property>
-                                        <property name="enabled">
-                                            <bool>false</bool>
-                                        </property>
-                                        <property name="suffix">
-                                            <string> sec</string>
-                                        </property>
-                                        <property name="value">
-                                            <number>99</number>
-                                        </property>
-                                    </widget>
-                                </hbox>
-                            </widget>
                             <widget class="QSlider" row="1" column="2">
                                 <property name="name">
                                     <cstring>slRecordTime</cstring>
@@ -299,7 +232,7 @@
                             </widget>
                             <widget class="QSlider" row="0" column="2">
                                 <property name="name">
-                                    <cstring>slPreRecord</cstring>
+                                    <cstring>slRecordPre</cstring>
                                 </property>
                                 <property name="enabled">
                                     <bool>false</bool>
@@ -325,7 +258,7 @@
                             </widget>
                             <widget class="KIntSpinBox" row="0" column="1">
                                 <property name="name">
-                                    <cstring>sbPreRecord</cstring>
+                                    <cstring>sbRecordPre</cstring>
                                 </property>
                                 <property name="enabled">
                                     <bool>false</bool>
@@ -349,7 +282,7 @@
                                     <number>10</number>
                                 </property>
                             </widget>
-                            <widget class="QSlider" row="3" column="2" rowspan="2" colspan="1">
+                            <widget class="QSlider" row="3" column="2">
                                 <property name="name">
                                     <cstring>slRecordTrigger</cstring>
                                 </property>
@@ -360,7 +293,7 @@
                                     <enum>Horizontal</enum>
                                 </property>
                             </widget>
-                            <widget class="QSpinBox" row="4" column="1">
+                            <widget class="QSpinBox" row="3" column="1">
                                 <property name="name">
                                     <cstring>sbRecordTrigger</cstring>
                                 </property>
@@ -375,6 +308,14 @@
                                 </property>
                                 <property name="value">
                                     <number>27</number>
+                                </property>
+                            </widget>
+                            <widget class="HMSTimeWidget" row="1" column="1">
+                                <property name="name">
+                                    <cstring>sbRecordTime</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
                                 </property>
                             </widget>
                         </grid>
@@ -397,7 +338,7 @@
                             <cstring>groupBox6</cstring>
                         </property>
                         <property name="enabled">
-                            <bool>false</bool>
+                            <bool>true</bool>
                         </property>
                         <property name="title">
                             <string>Level</string>
@@ -436,9 +377,6 @@
                                 <property name="name">
                                     <cstring>chkLevelAGC</cstring>
                                 </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
                                 <property name="text">
                                     <string>AGC:</string>
                                 </property>
@@ -449,9 +387,6 @@
                             <widget class="QCheckBox" row="0" column="0">
                                 <property name="name">
                                     <cstring>chkLevelAmplify</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Amplify:</string>
@@ -545,7 +480,7 @@
                             <cstring>groupBox5</cstring>
                         </property>
                         <property name="enabled">
-                            <bool>false</bool>
+                            <bool>true</bool>
                         </property>
                         <property name="title">
                             <string>Fading</string>
@@ -558,9 +493,6 @@
                                 <property name="name">
                                     <cstring>chkLevelFadeIn</cstring>
                                 </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
                                 <property name="text">
                                     <string>Fade In</string>
                                 </property>
@@ -571,9 +503,6 @@
                             <widget class="QCheckBox" row="1" column="0">
                                 <property name="name">
                                     <cstring>chkLevelFadeOut</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Fade Out</string>
@@ -682,7 +611,7 @@
                             <property name="spacing">
                                 <number>6</number>
                             </property>
-                            <widget class="QComboBox" row="0" column="2">
+                            <widget class="KComboBox" row="0" column="2">
                                 <item>
                                     <property name="text">
                                         <string>8000</string>
@@ -1030,7 +959,7 @@
                                     </property>
                                     <widget class="QLabel">
                                         <property name="name">
-                                            <cstring>textLabel3</cstring>
+                                            <cstring>txtSourceBuffer</cstring>
                                         </property>
                                         <property name="text">
                                             <string>%1 samples</string>
@@ -1040,8 +969,26 @@
                                         <property name="name">
                                             <cstring>slSourceBuffer</cstring>
                                         </property>
+                                        <property name="minValue">
+                                            <number>8</number>
+                                        </property>
+                                        <property name="maxValue">
+                                            <number>16</number>
+                                        </property>
+                                        <property name="pageStep">
+                                            <number>1</number>
+                                        </property>
+                                        <property name="value">
+                                            <number>12</number>
+                                        </property>
                                         <property name="orientation">
                                             <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="tickmarks">
+                                            <enum>Right</enum>
+                                        </property>
+                                        <property name="tickInterval">
+                                            <number>1</number>
                                         </property>
                                     </widget>
                                 </hbox>
@@ -1054,7 +1001,7 @@
                                     <property name="name">
                                         <cstring>unnamed</cstring>
                                     </property>
-                                    <widget class="QComboBox">
+                                    <widget class="KComboBox">
                                         <property name="name">
                                             <cstring>cbSourceDevice</cstring>
                                         </property>
@@ -1105,9 +1052,6 @@
                         <property name="name">
                             <cstring>groupBox13</cstring>
                         </property>
-                        <property name="enabled">
-                            <bool>false</bool>
-                        </property>
                         <property name="title">
                             <string>Visualization</string>
                         </property>
@@ -1119,9 +1063,6 @@
                                 <property name="name">
                                     <cstring>chkDisplayLevelMeter</cstring>
                                 </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
                                 <property name="text">
                                     <string>Level Meter</string>
                                 </property>
@@ -1129,9 +1070,6 @@
                             <widget class="QCheckBox">
                                 <property name="name">
                                     <cstring>chkDisplayOscilloscope</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Oscilloscope</string>
@@ -1141,9 +1079,6 @@
                                 <property name="name">
                                     <cstring>chkDisplayFFT</cstring>
                                 </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
                                 <property name="text">
                                     <string>FFT</string>
                                 </property>
@@ -1151,9 +1086,6 @@
                             <widget class="QCheckBox">
                                 <property name="name">
                                     <cstring>chkDisplayOverview</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Overview</string>
@@ -1245,14 +1177,6 @@
                         <string>&amp;Help</string>
                     </property>
                 </widget>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>pushButton4</cstring>
-                    </property>
-                    <property name="text">
-                        <string>&amp;OK</string>
-                    </property>
-                </widget>
                 <spacer>
                     <property name="name">
                         <cstring>spacer8</cstring>
@@ -1272,59 +1196,74 @@
                 </spacer>
                 <widget class="QPushButton">
                     <property name="name">
-                        <cstring>btCancel</cstring>
+                        <cstring>btClose</cstring>
                     </property>
                     <property name="text">
-                        <string>&amp;Cancel</string>
+                        <string>&amp;Close</string>
                     </property>
                 </widget>
             </hbox>
         </widget>
     </vbox>
 </widget>
+<customwidgets>
+    <customwidget>
+        <class>HMSTimeWidget</class>
+        <header location="local">libgui/HMSTimeWidget.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>1</container>
+        <sizepolicy>
+            <hordata>5</hordata>
+            <verdata>5</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+        <signal>valueChanged(int)</signal>
+        <slot access="public" specifier="">slot()</slot>
+        <slot access="public" specifier="">setValue(int)</slot>
+        <slot access="public" specifier="">slot()</slot>
+        <slot access="public" specifier="">setEnabled(bool)</slot>
+        <property type="Int">value</property>
+    </customwidget>
+</customwidgets>
 <images>
     <image name="image0">
-        <data format="XPM.GZ" length="691">789cc591c10ac2300c86ef7d8ab0dc8638b75128888fa07814c4431b153d6c82ce8388ef6ed2b159d79d35149abf5fd2fea1590a9bf512d24cdd1adb9c09e864af90eeef55f5d8ee164f951405f0d2902713954c816075a90f9223e738f321d28a34a5c94d29924492a682b44827f2e8c3df331a7f23181144eb37d7ee618f47e85c8782dbb89c0171851dbe23e7c4e73161e441ec0ddb96d8b5d8fa580bbd39a91f71dd827eaeef496d387240faa787a4075df6b39f7bcdd51bc481874b</data>
-    </image>
-    <image name="image1">
-        <data format="XPM.GZ" length="646">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade65232325200210543251d2e253d856405bffcbc54105b19c856360003b01456407f19653818952145067788d258a6d69a0b00e4486e63</data>
-    </image>
-    <image name="image2">
-        <data format="XPM.GZ" length="646">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade65232325200210543251d2e253d856405bffcbc54105b19c856360003b01456309864948100468e541972c28dc632b5d65c00d442701b</data>
-    </image>
-    <image name="image3">
-        <data format="XPM.GZ" length="2365">789cad94db4e22411086ef798a89736736e51c1a18b2d90b3c218a288a8a6ef6626c8e2aa81c3c66df7dabbbaa7bc66188eb662912f2a5faefbfbaaa9b8d75a7737ce8ac6f1466f3783e928e1cc65367bdbb188f5f7ffefaf15e580b8483df52d909d6be15d65a73473acdfb494f01b808aea73f9a43cd91e5ba623fc98f9805736c39d25c562c62dc41b3abf3c5c0e63dcd49de65969c3f34ecd3febbc4bec73c63163eadaf282e05663fb8210ebc80d60f35c77ec4ebaf896dbeaab81cdafc3eb1cdab66b95118444145f3a5e28ab0f51c6996b69e40f1b530f5bb406cd79f330be6017120435fb3240e05f3bde6aeedff09b1adf759b12cdafc84d9f47b93d9f4276236fd2e19e67a9e886dbda7ccc66f8fd8f6e7457352df03b3f1bf6036fb8f89edfe5b8abb49fddbcc46ffca6ceabd32ccfa1d625bcf1bb360f69925cf6f4a1c7adcdf03cd3debdf6136f7bbc66cfad720b6fd7824b67ec232f9dd319bf9f689c328a47c9759323715f74ab69e16b3e9c782d8ea8f99a5a0fd6f8985c7dcd69c9cef8cd99caf476cd71715f7ad5f6bfeb5f85f1a70d3f1b90657c5700d12bad0833e0c6008a3aceea3061537700b77308609dcc303fe3ec214661f55690d2ae6b080275cade219e305e315dea09a56251aedb1804dbd3a516c616cc30eec26aa9426c6aab21e4655833da86735e8b28fe758f6507180d18043e394d24876c97a2845139d8e7234c7ba57791e4d8c169c9869a534bd951ea43acdd1f4711ef91e6d8c3338cfd10ce062a5471b3a7099a319e2ccf33d545c8197d5a06a043ece3ccfa38d1d0820ccf64d3bcd40e0cc973d8a50827272c733f7ad8ab7a4b6e4114125fd2a96eef52ede9206ea5aba572db872813c5669b4aaeeba38f3139cc7395cbab13ac7c7b7f7f93b5d7eababfe0fbef2b6ff26fe49f3fb7be10f72a851cd</data>
+        <data format="XPM.GZ" length="2949">789c959559532a491085dffd1584f9664ce4a5179aeeb8310f82e006082aa277621e7a4171015c40d489f9ef37bbea6485834ccc1d8aa5bfc89359276bd16f3b95cb7eb7b2f36deb65912e6ef34a3e499f2b3bc5723a7dffe3cfdfffdadaf6fd8abc3d2faaf8dbbf6d6d3355f24a6f3e1b1b483f43f609068bcf91a50055cdcb70c7716c78020e110f1d9b38597dec78171c23ff149c7b269fc6257bd572186e8035ff4e19f14b706ce7a74c19f113708efc6765c45f0cc7aae72158e30bcbbefae98175feb792fdaa3277c15aaf6e38f1b5deb9e500eb4923c7763d8e95a1bf716ce367e0106cea055e1083179643ad67f283248883c4d47b05e7d05f951c7aa1f281e1b49620ff42d9c6c9f8abf98e87e002ebfba08c7a7dcb9187f88532fa23c736fea8ecdb7801ae21ff40d9c6f9da705a2b6aa989df5a8ee09fa6cad88f8163eb2f50c67c4db0f6f3a40cbf667f23bf0eff5c53869f06b886fa4d65c47b60ccc7e6bc47523fb2fef72c3bfd11b8803f735fea415cf3cd7ef22e58fdaf1cdbb859bf7a564fea99897f58563dff2839ce12d4e743cba9f6f7e6d8f6b352c67cfbca8167e21f60f44fac0cfd5219fabce4244cbc2434f199e554fb7b51b6e797dfc129fced39b6f35d2b63bebe637bfecfc063f4d3b69cf9605f19f39bfe92dcc5abcaa89f3bb6fa57e5d0f6178323f86d39b6f512b0f6e339b6f11365ccf7eed8f663ce471a6611f6ef12acf92365e4a78e6dfe043c867f737fd33c1b47e67f060d2ce7e897237084fc1658ebdf83c7d09bfb97855a8f6796731f7caf5c0f0cdf29c7e6bcf23338b2f79be7cac87f02a7f0dbb65c607d69ae0c3fe6ef435664e3d49c377eb4ecf20f2d17f03f589483e9bfc760a17a4e39e39c0b1e6f18d77cc3139b61f5f294f12ddff13d3ff094673c97f128a3fc7de2677ee1052fffa1cf45fdca2b7ee377fee05d6e7053bef7b8c56d19fb7cb0a62fa4f68a0f4571c4c7dc91e852bebbdce313c969717f4d3f1627a57a20aa0e9ff2199ff3d03c5ff0882f37e8a7e2e4c854bee21f5c658f7d0e3814ae71b4413f13df75a3ae72cc89048952d17628a39c8a2ffab9f4d7a1b1d42ed5d77423735dd1c4d4d8a5db0dfa062f45552dd565cf7427ba7b7a10e580a65ff48fb2824be9d2e395a9bde421cd684e8ff214d0d3067de9e7997d51882f7a91d916b4a457f95d6dd0cf798fdea46e40efe2fb436acb9e4ade2e357844cd0dfa16ed893ee4264da8456ddaa74c54133aa0c38dfa361dd1b1d9d7633a96d57ca58e9cb309bdc97a76d7f4d772aadab2ef2359f1a1390d32a821b57b7442fd2ffb752367b0d47b34a05c3a0fa48f53f17d28fdf7e98cced7f41339b107dca7a17c0abaa5293d99d1a42e5dd0882ed7f4a41efe75d09afe9786bb8fff53ffcbf7fdefef5b3f01502377eb</data>
     </image>
 </images>
 <connections>
     <connection>
-        <sender>btCancel</sender>
+        <sender>btClose</sender>
         <signal>clicked()</signal>
         <receiver>RecordDlg</receiver>
-        <slot>reject()</slot>
+        <slot>accept()</slot>
     </connection>
     <connection>
         <sender>chkRecordPre</sender>
         <signal>toggled(bool)</signal>
-        <receiver>sbPreRecord</receiver>
+        <receiver>sbRecordPre</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
         <sender>chkRecordPre</sender>
         <signal>toggled(bool)</signal>
-        <receiver>slPreRecord</receiver>
+        <receiver>slRecordPre</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
-        <sender>sbPreRecord</sender>
+        <sender>sbRecordPre</sender>
         <signal>valueChanged(int)</signal>
-        <receiver>slPreRecord</receiver>
+        <receiver>slRecordPre</receiver>
         <slot>setValue(int)</slot>
     </connection>
     <connection>
-        <sender>slPreRecord</sender>
+        <sender>slRecordPre</sender>
         <signal>valueChanged(int)</signal>
-        <receiver>sbPreRecord</receiver>
+        <receiver>sbRecordPre</receiver>
         <slot>setValue(int)</slot>
     </connection>
     <connection>
@@ -1356,24 +1295,6 @@
         <signal>valueChanged(int)</signal>
         <receiver>sbRecordTrigger</receiver>
         <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>chkRecordTime</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>sbRecordHours</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>chkRecordTime</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>sbRecordMinutes</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>chkRecordTime</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>sbRecordSeconds</receiver>
-        <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
         <sender>chkLevelAmplify</sender>
@@ -1435,25 +1356,39 @@
         <receiver>sbLevelFadeOut</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
+    <connection>
+        <sender>sbRecordTime</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>slRecordTime</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>slRecordTime</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>sbRecordTime</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>chkRecordTime</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbRecordTime</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>btRecord</tabstop>
     <tabstop>pushButton3</tabstop>
-    <tabstop>pushButton4</tabstop>
-    <tabstop>btCancel</tabstop>
-    <tabstop>tabWidget2</tabstop>
+    <tabstop>btClose</tabstop>
+    <tabstop>tabRecord</tabstop>
     <tabstop>chkRecordPre</tabstop>
-    <tabstop>sbPreRecord</tabstop>
-    <tabstop>slPreRecord</tabstop>
+    <tabstop>sbRecordPre</tabstop>
+    <tabstop>slRecordPre</tabstop>
     <tabstop>chkRecordTime</tabstop>
-    <tabstop>sbRecordHours</tabstop>
-    <tabstop>sbRecordMinutes</tabstop>
-    <tabstop>sbRecordSeconds</tabstop>
     <tabstop>slRecordTime</tabstop>
     <tabstop>chkRecordTrigger</tabstop>
     <tabstop>sbRecordTrigger</tabstop>
     <tabstop>slRecordTrigger</tabstop>
-    <tabstop>btDelete</tabstop>
+    <tabstop>btNew</tabstop>
     <tabstop>btStop</tabstop>
     <tabstop>btPause</tabstop>
     <tabstop>chkLevelAmplify</tabstop>
@@ -1487,9 +1422,13 @@
     <includehint>kpushbutton.h</includehint>
     <includehint>kpushbutton.h</includehint>
     <includehint>knuminput.h</includehint>
+    <includehint>hmstimewidget.h</includehint>
     <includehint>knuminput.h</includehint>
     <includehint>knuminput.h</includehint>
     <includehint>knuminput.h</includehint>
     <includehint>knuminput.h</includehint>
+    <includehint>kcombobox.h</includehint>
+    <includehint>klineedit.h</includehint>
+    <includehint>kcombobox.h</includehint>
 </includehints>
 </UI>

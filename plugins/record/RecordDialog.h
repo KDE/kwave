@@ -19,7 +19,9 @@
 #define _RECORD_DIALOG_H_
 
 #include "config.h"
+#include <qstringlist.h>
 #include "RecordDlg.uih.h"
+#include "RecordParams.h"
 
 class QWidget;
 
@@ -29,19 +31,36 @@ Q_OBJECT
 
 public:
 
+    enum RecordState {
+	REC_EMPTY = 0,
+	REC_BUFFERING,
+	REC_WAITING_FOR_TRIGGER,
+	REC_RECORDING,
+	REC_PAUSED,
+	REC_DONE
+    };
+
     /** Constructor */
-    RecordDialog(QWidget *parent, QStringList &params);
+    RecordDialog(QWidget *parent, const RecordParams &params);
 
     /** Destructor */
     virtual ~RecordDialog();
 
     /** Returns the list of record parameters, for the next time */
-    virtual QStringList params();
+    virtual RecordParams params() const;
+
+private slots:
+
+    /** updates the record buffer size */
+    void sourceBufferChanged(int value);
+
+    /** show a "file open" dialog for selecting a record device */
+    void selectRecordDevice();
 
 private:
 
     /** List of parameters */
-    QStringList m_params;
+    RecordParams m_params;
 
 };
 

@@ -27,9 +27,9 @@ KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
 
 //***************************************************************************
 RecordPlugin::RecordPlugin(PluginContext &context)
-    :KwavePlugin(context)
+    :KwavePlugin(context), m_params()
 {
-i18n("record");
+    i18n("record");
 }
 
 //***************************************************************************
@@ -42,8 +42,10 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 {
     qDebug("RecordPlugin::setup");
 
+    m_params.fromList(previous_params);
+
     // create the setup dialog
-    RecordDialog *dialog = new RecordDialog(parentWidget(), previous_params);
+    RecordDialog *dialog = new RecordDialog(parentWidget(), m_params);
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
@@ -51,7 +53,7 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
     Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
-	*list = dialog->params();
+	*list = dialog->params().toList();
     } else {
 	// user pressed "Cancel"
 	if (list) delete list;

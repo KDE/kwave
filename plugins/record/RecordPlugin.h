@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include "libkwave/KwavePlugin.h"
+#include "RecordParams.h"
 
 class QStringList;
 
@@ -37,17 +38,13 @@ public:
     /** @see KwavePlugin::setup() */
     virtual QStringList *setup(QStringList &previous_params);
 
-protected:
-
-    /**
-     * Interpretes a given parameter list and sets up internal
-     * parameters accordingly.
-     * @param params reference to a QStringList with parameters
-     * @return 0 if ok, or an error code if failed
-     */
-    int interpreteParameters(QStringList &params);
-
 private:
+
+    /** record control: pre-record enabled */
+    bool m_prerecord_enabled;
+
+    /** all parameters of the record plugin */
+    RecordParams m_params;
 
 };
 

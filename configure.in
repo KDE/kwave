@@ -7,7 +7,7 @@ AC_CONFIG_AUX_DIR(admin)
 
 AC_CANONICAL_SYSTEM  
 AC_ARG_PROGRAM
-AM_INIT_AUTOMAKE(kwave,0.6.0-alpha)
+AM_INIT_AUTOMAKE(kwave,0.6.0-1)
 AC_LIBTOOL_DLOPEN
 KDE_PROG_LIBTOOL
 KDE_SET_PREFIX
@@ -159,6 +159,26 @@ AC_CHECK_HEADERS( assert.h byteswap.h ctype.h dlfcn.h endian.h errno.h \
 "    installed or that the header files are present on your system!"
 "    "))
 
+dnl Check for memory info and see if we can determine
+dnl the total amount of installed memory
+AC_MSG_CHECKING("memory info")
+AC_TRY_LINK(
+#include <sys/sysinfo.h>
+#include <linux/kernel.h>
+,
+    struct sysinfo info;
+    unsigned int total;
+    sysinfo(&info);
+    total = info.totalram;
+,
+AC_DEFINE(HAVE_MEMINFO)
+AC_MSG_RESULT("present")
+,AC_MSG_WARN(FAILED!
+
+!!! You might get inaccurate behaviour of the memory management !!!
+
+))
+
 dnl Checks for libraries.
 dnl AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' X11
 dnl AC_SUBST(LIBSOCKET)
@@ -232,6 +252,27 @@ LDLAGS="$LDLAGS `$ARTSC_CONFIG --libs`"
 #####################################
 ###########   CSL END    ############
 #####################################
+
+dnl ##########################################################################
+dnl ### check for the jade wrapper "jw", it's needed for creating the docu ###
+dnl ###                                                                    ###
+dnl Need pkg-config first
+AC_PATH_PROG(JW, jw, no)
+if test x$JW = xno ; then
+    AC_MSG_ERROR(
+    the jade wrapper jw is not installed on your system. Please go to
+    ftp://ftp.kde.org/pub/kde/devel/docbook/ and make sure that the
+    following packages are installed:
+    - jade
+    - jadetex
+    - perl-SGMLSpm
+    - sgml-common
+    - sgmltool
+    - docbook-dtd31-sgml
+    - docbook-utils
+    - docbook-style-dsssl
+    )
+fi
 
 dnl output files
 topdir=`pwd`

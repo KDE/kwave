@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Kwave Sound Editor
+Name[de]=Kwave Sound-Editor
+Comment=A sound editor for KDE2
+Comment[de]=Ein Sound-Editor für KDE2
+TryExec=kwave
+Exec=kwave %F
+Icon=kwave.png
+MimeType=audio/wav;audio/x-wav;
+Terminal=0
+

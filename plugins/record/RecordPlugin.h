@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qcstring.h>
 #include <qmemarray.h>
-#include <qvaluevector.h>
+#include <qptrvector.h>
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
@@ -34,6 +34,7 @@ class RecordDevice;
 class RecordDialog;
 class RecordThread;
 class SampleDecoder;
+class SampleFIFO;
 
 class RecordPlugin: public KwavePlugin
 {
@@ -170,13 +171,13 @@ private:
                unsigned int tracks);
 
     /**
-     * Enqueue a buffer with decoded samples into a prerecording 
+     * Enqueue a buffer with decoded samples into a prerecording
      * buffer of the corresponding track.
-     * 
+     *
      * @param track index of the track [0...tracks-1]
      * @param decoded array with decoded samples, in Kwave's internal format
      */
-    void enqueuePrerecording(unsigned int track, 
+    void enqueuePrerecording(unsigned int track,
                              const QMemArray<sample_t> &decoded);
 
     /**
@@ -205,13 +206,12 @@ private:
     /** decoder for converting raw data to samples */
     SampleDecoder *m_decoder;
 
-    /** 
-     * set of queues for buffering prerecording data. Organized as a list
-     * of queues, one for each thread, holding a number of buffers with
-     * samples.
+    /**
+     * set of queues for buffering prerecording data, one for each
+     * track
      */
-    QValueVector< QValueVector< QMemArray<sample_t> > > m_prerecording_queue;
-    
+    QPtrVector<SampleFIFO> m_prerecording_queue;
+
     /** sink for the audio data */
     MultiTrackWriter m_writers;
 

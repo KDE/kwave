@@ -33,6 +33,7 @@
 #include "libkwave/FileInfo.h"
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
+#include "libkwave/SampleFIFO.h"
 #include "libkwave/SampleFormat.h"
 #include "libkwave/SampleWriter.h"
 
@@ -57,6 +58,7 @@ RecordPlugin::RecordPlugin(PluginContext &context)
      m_writers(), m_buffers_recorded(0), m_inhibit_count(0),
      m_trigger_value()
 {
+    m_prerecording_queue.setAutoDelete(true);
     i18n("record");
 }
 
@@ -571,6 +573,19 @@ void RecordPlugin::setupRecordThread()
     if (params.pre_record_enabled) {
 	// prepare a queue for each track
 	m_prerecording_queue.resize(params.tracks);
+	unsigned int fifo_depth = (unsigned int)ceil((
+	    params.pre_record_time * params.sample_rate));
+
+	for (unsigned int track=0; track < params.tracks; ++track) {
+	    SampleFIFO *fifo = new SampleFIFO(fifo_depth);
+	    m_prerecording_queue.insert(track, fifo);
+	    Q_ASSERT(fifo);
+	    if (!fifo) {
+		m_prerecording_queue.clear();
+		KMessageBox::sorry(m_dialog, i18n("Out of memory"));
+		return;
+	    }
+	}
     }
 
     // set up the recording trigger values
@@ -752,6 +767,20 @@ void RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
     char *src = raw_data.data();
     char *dst = dest.data();
     src += (track * bytes_per_sample);
+
+#if 0
+    static int saw[2] = {0, 0};
+
+    // simple sawtooth generator, nice for debugging
+    while (samples--) {
+	for (unsigned int byte=0; byte < bytes_per_sample; byte++) {
+	    *dst = (saw[track] / 128);
+	    dst++;
+	}
+	saw[track]++;
+	if (saw[track] > (SAMPLE_MAX/1024)) saw[track] = (SAMPLE_MIN/1024);
+    }
+#else
     while (samples--) {
 	for (unsigned int byte=0; byte < bytes_per_sample; byte++) {
 	    *dst = *src;
@@ -760,6 +789,7 @@ void RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 	}
 	src += increment;
     }
+#endif
 }
 
 //***************************************************************************
@@ -847,38 +877,16 @@ void RecordPlugin::enqueuePrerecording(unsigned int track,
     Q_ASSERT(track < m_prerecording_queue.size());
     if (!m_dialog) return;
     if (track >= m_prerecording_queue.size()) return;
-    if (!decoded.size()) return;
-
-    QValueVector<QMemArray<sample_t> > &queue =
-        m_prerecording_queue.at(track);
-
-    const RecordParams &params = m_dialog->params();
-    unsigned int max_buffers = (unsigned int)(ceil(params.pre_record_time *
-		    params.sample_rate) / decoded.size());
-    Q_ASSERT(max_buffers);
-    if (!max_buffers) return;
-
-//     qDebug("RecordPlugin::enqueuePrerecording(%d,...) %d/%d",
-//            track, queue.size(), max_buffers); // ###
-
-    while (queue.size() >= max_buffers) {
-        // make space for the new buffer
-	// remove buffer from the tail
-	queue.erase(queue.begin());
-    }
 
     // append the array with decoded sample to the prerecording buffer
-    // to the head of the list
-    queue.append(decoded);
-
+    SampleFIFO *fifo = m_prerecording_queue.at(track);
+    Q_ASSERT(fifo);
+    if (fifo) fifo->put(decoded);
 }
 
 //***************************************************************************
 void RecordPlugin::flushPrerecordingQueue()
 {
-//    InhibitRepaintGuard(this);
-
-    qDebug("RecordPlugin::flushPrerecordingQueue()"); // ###
     if (!m_prerecording_queue.size()) return;
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
@@ -892,58 +900,23 @@ void RecordPlugin::flushPrerecordingQueue()
     Q_ASSERT(tracks == m_writers.count());
     if (!tracks || (tracks != m_writers.count())) return;
 
-    qDebug("RecordPlugin::flushPrerecordingQueue() --1--"); // ###
-    unsigned int max_samples = (unsigned int)ceil((
-        params.pre_record_time * params.sample_rate));
-
-    qDebug("RecordPlugin::flushPrerecordingQueue() --2--"); // ###
     for (unsigned int track=0; track < tracks; ++track) {
-	unsigned int remaining = max_samples;
-	QValueVector<QMemArray<sample_t> > &queue =
-	    m_prerecording_queue.at(track);
-	Q_ASSERT(!queue.isEmpty());
-	if (queue.isEmpty()) return;
-
-	QValueVector<QMemArray<sample_t> >::iterator it = queue.end();
-	Q_ASSERT(it);
-	it--;
-	qDebug("RecordPlugin::flushPrerecordingQueue() --3--"); // ###
-
-	// seek back from the head back to the tail to find out where to cut
-	while (remaining) {
-	    qDebug("RecordPlugin::flushPrerecordingQueue() --4--"); // ###
-	    unsigned int len = it->size();
-	    qDebug("size=%d",len);
-
-	    if (remaining < len) {
-		// truncate the buffer to the remaining samples
-		qDebug("remaining=%d, len=%d",remaining,len);
-		QMemArray<sample_t> &buf = *it;
-//		memcpy(buf.data(), buf.data()+buf.size()-remaining,
-//		       remaining);
-		buf.resize(remaining);
-
-		// remove all buffers before the current one
-		if (it != queue.begin()) queue.erase(queue.begin(), --it);
-		break;
-	    } else {
-	        remaining -= len;
-		if (it == queue.begin()) break;
-	        --it;
-	    }
-	}
-	qDebug("RecordPlugin::flushPrerecordingQueue() --5--"); // ###
+	SampleFIFO *fifo = m_prerecording_queue.at(track);
+	Q_ASSERT(fifo);
+	if (!fifo) continue;
+	Q_ASSERT(fifo->length());
+	if (!fifo->length()) continue;
 
 	// push all buffers to the writer, starting at the tail
 	SampleWriter *writer = m_writers[track];
 	Q_ASSERT(writer);
-	for (it = queue.begin(); it != queue.end(); ++it) {
-	    qDebug("writing, track %d", track);
-	    if (writer) *writer << (*it);
+	if (writer) {
+	    fifo->align();
+	    *writer << fifo->data();
 	}
 
-	qDebug("RecordPlugin::flushPrerecordingQueue() --6--"); // ###
-	queue.clear();
+	// discard the FIFO and it's content
+	fifo->resize(0);
     }
 
     // the queues are no longer needed
@@ -951,7 +924,6 @@ void RecordPlugin::flushPrerecordingQueue()
 
     // we have transferred data to the writers, we are no longer empty
     m_controller.setEmpty(false);
-
 }
 
 //***************************************************************************
@@ -1020,6 +992,7 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 	flushPrerecordingQueue();
     }
 
+    // decode and care for all special effects, meters and so on
     for (unsigned int track=0; track < tracks; ++track) {
 	// split off and decode buffer with current track
 	split(buffer, buf, bytes_per_sample, track, tracks);
@@ -1027,22 +1000,25 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 
 	// update the level meter and other effects
 	m_dialog->updateEffects(track, decoded);
+    }
 
-	switch (m_state) {
+    // if the first buffer is full -> leave REC_BUFFERING
+    if ((m_state==REC_BUFFERING) && (m_buffers_recorded > 1) && buffer.size())
+	    m_controller.deviceBufferFull();
+
+    // use a copy of the state, in case it changes below ;-)
+    RecordState state = m_state;
+    for (unsigned int track=0; track < tracks; ++track) {
+	switch (state) {
 	    case REC_EMPTY:
 		break;
 	    case REC_BUFFERING:
-		// first buffer is full
-		// -> leave REC_BUFFERING
-		if ((m_buffers_recorded > 1) && buffer.size())
-		    m_controller.deviceBufferFull();
+	    case REC_WAITING_FOR_TRIGGER:
+		// already handled before...
 		break;
 	    case REC_PRERECORDING:
 		// enqueue the buffers into a FIFO
 		enqueuePrerecording(track, decoded);
-		break;
-	    case REC_WAITING_FOR_TRIGGER:
-		// already handled before...
 		break;
 	    case REC_RECORDING: {
 		// put the decoded track data into the buffer

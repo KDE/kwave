@@ -74,7 +74,7 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
             SLOT(selectPlaybackDevice()));
 
     // fix the dialog size
-    setFixedSize(sizeHint());
+    setFixedHeight(sizeHint().height());
 
     // update the GUI elements
     // order is: Method -> Device -> "Select..."-button
@@ -132,8 +132,10 @@ void PlayBackDialog::setSupportedDevices(QStringList devices)
     if (devices.contains("#SELECT#")) {
 	devices.remove("#SELECT#");
 	btSelectDevice->setEnabled(true);
+	btSelectDevice->show();
     } else {
 	btSelectDevice->setEnabled(false);
+	btSelectDevice->hide();
     }
     cbDevice->clear();
     cbDevice->insertStringList(devices);
@@ -258,10 +260,11 @@ void PlayBackDialog::setBitsPerSample(unsigned int bits)
 //     qDebug("PlayBackDialog::setBitsPerSample(%u)", bits);
     if (bits != m_playback_params.bits_per_sample) {
 	m_playback_params.bits_per_sample = bits;
-	QString txt;
-	txt.setNum(bits);
-	cbBitsPerSample->setCurrentText(txt);
     }
+
+    QString txt;
+    txt.setNum(bits);
+    cbBitsPerSample->setCurrentText(txt);
 }
 
 //***************************************************************************
@@ -285,14 +288,14 @@ void PlayBackDialog::setSupportedChannels(unsigned int min, unsigned int max)
 //***************************************************************************
 void PlayBackDialog::setChannels(int channels)
 {
-    m_playback_params.channels = channels;
-
     Q_ASSERT(sbChannels);
     if (!sbChannels) return;
 
     if (sbChannels->value() != channels) {
 	sbChannels->setValue(channels);
     }
+
+    channels = sbChannels->value();
 
     QString txt;
     switch (channels) {
@@ -302,6 +305,8 @@ void PlayBackDialog::setChannels(int channels)
 	default: txt = "";
     }
     lblChannels->setText(txt);
+
+    m_playback_params.channels = channels;
 }
 
 //***************************************************************************

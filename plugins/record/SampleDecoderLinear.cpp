@@ -17,6 +17,7 @@
 
 #include "config.h"
 
+#include <stdio.h>
 #include <sys/types.h>
 
 #include "libkwave/CompressionType.h"
@@ -29,7 +30,7 @@
 void decode_NULL(char *src, sample_t *dst, unsigned int count)
 {
     while (count--) {
-        printf("# %02X ", (int)*src);
+        printf("%02X ", (int)*src);
         *(dst++) = count % (1 << (SAMPLE_BITS-1));
     }
 }
@@ -86,7 +87,6 @@ SampleDecoderLinear::SampleDecoderLinear(int sample_format,
     m_bytes_per_sample((bits_per_sample + 7) >> 3),
     m_decoder(decode_NULL)
 {
-    qDebug("SampleDecoderLinear::SampleDecoderLinear");
     switch (sample_format) {
 	case AF_SAMPFMT_UNSIGNED:
 	    switch (m_bytes_per_sample) {

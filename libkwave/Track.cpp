@@ -39,7 +39,8 @@ Track::Track(unsigned int length)
     SharedLockGuard lock(m_lock, true);
 
     m_stripes.setAutoDelete(true);
-    newStripe(0, length);
+    Stripe *s = newStripe(0, length);
+    if (s) m_stripes.append(s);
 }
 
 //***************************************************************************
@@ -47,10 +48,7 @@ Track::~Track()
 {
     SharedLockGuard lock(m_lock, true);
 
-    while (m_stripes.count()) {
-	m_stripes.setAutoDelete(true);
-	m_stripes.remove(m_stripes.last());
-    }
+    while (m_stripes.count()) deleteStripe(m_stripes.last());
 }
 
 //***************************************************************************
@@ -59,7 +57,6 @@ Stripe *Track::newStripe(unsigned int start, unsigned int length)
     Stripe *s = new Stripe(start);
     ASSERT(s);
     if (s) {
-	m_stripes.append(s);
 	connect(s, SIGNAL(sigSamplesDeleted(Stripe&, unsigned int,
 	    unsigned int)),
 	    this, SLOT(slotSamplesDeleted(Stripe&, unsigned int,
@@ -78,6 +75,28 @@ Stripe *Track::newStripe(unsigned int start, unsigned int length)
 //    debug("Track::newStripe(%d): new stripe at %p", length, s);
 
     return s;
+}
+
+//***************************************************************************
+void Track::deleteStripe(Stripe *s)
+{
+    if (!s) return;
+
+    disconnect(s, SIGNAL(sigSamplesDeleted(Stripe&, unsigned int,
+	    unsigned int)),
+	    this, SLOT(slotSamplesDeleted(Stripe&, unsigned int,
+	    unsigned int)));
+    disconnect(s, SIGNAL(sigSamplesInserted(Stripe&, unsigned int,
+	    unsigned int)),
+	    this, SLOT( slotSamplesInserted(Stripe&, unsigned int,
+	    unsigned int)));
+    disconnect(s, SIGNAL(sigSamplesModified(Stripe&, unsigned int,
+	    unsigned int)),
+	    this, SLOT(slotSamplesModified(Stripe&, unsigned int,
+	    unsigned int)));
+
+    m_stripes.setAutoDelete(true);
+    m_stripes.remove(s);
 }
 
 //***************************************************************************
@@ -124,7 +143,6 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 		
 		if ((left >= st) && (left < st+len)) {
 		    // match found
-//		    debug("Track::openSampleWriter(): found matching range");
 		    target_stripe = s;
 		    break;
 		}
@@ -136,7 +154,6 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	        stripe_before->length()))
 	    {
 		// append to the existing stripe
-//		debug("Track::openSampleWriter(): appending to existing stripe");
 		mode = Append;
 		target_stripe = stripe_before;
 	    }
@@ -144,7 +161,6 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	    // if no stripe was found, create a new one and
 	    // insert it between the existing ones
 	    if (!target_stripe) {
-		debug("Track::openSampleWriter(): creating a new stripe");
 		target_stripe = newStripe(left, 0);
 		ASSERT(target_stripe);
 		if (!target_stripe) return 0;
@@ -152,7 +168,6 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 		// insert into our stripes, if the stripe before
 		// is null, the new one will be prepended
 		int index = m_stripes.find(stripe_before) + 1;
-		debug("Track::openSampleWriter(): inserting at index %d", index);
 		m_stripes.insert(index, target_stripe);
 	    }
 	
@@ -284,9 +299,10 @@ void Track::deleteRange(unsigned int offset, unsigned int length)
 	    if ((st+len >= offset) && (st < offset+length)) {
 		// stripe overlaps
 		s->deleteRange(offset, length);
-		if (!s->length()) {
+		if (!(s->length())) {
 		    // stripe now is empty -> remove it
-		    m_stripes.remove(s);
+		    deleteStripe(s);
+		    if (m_stripes.isEmpty()) break;
 		}
 	    }
 	}

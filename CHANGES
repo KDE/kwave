@@ -1,4 +1,9 @@
 
+0.6.2 [2001-09-??]
+
+ * bugfix: class Track made duplicate entry in stripe list when inserting
+   signals into an empty track
+
 0.6.1 [2001-08-24]
 
  * >>> USE OF VIRTUAL MEMORY <<<
@@ -20,7 +25,7 @@
  * libkwave is included and no longer supported (at least by me) as
    a separate package
  * playback via aRts
- * many many more bugfixes, too much to be mentioned here...
+ * many more bugfixes, too many to mention here...
 
 0.5.5-1 [2001-02-23]
 

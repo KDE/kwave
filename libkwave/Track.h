@@ -175,6 +175,13 @@ private:
      */
     Stripe *newStripe(unsigned int start, unsigned int length);
 
+    /**
+     * Deletes a stripe by disconnecting it's signals first and then
+     * removing it from the list of stripes with autodelete on.
+     * @param s Stripe to be deleted
+     */
+    void deleteStripe(Stripe *s);
+
 private:
     /** read/write lock for access to the whole track */
     SharedLock m_lock;

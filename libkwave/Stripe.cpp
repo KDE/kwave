@@ -63,16 +63,16 @@ unsigned int Stripe::length()
     return m_samples.size();
 }
 
-
 //***************************************************************************
 unsigned int Stripe::resizeStorage(unsigned int length)
 {
     if (m_samples.size() == length) return length; // nothing to do
 
-    debug("Stripe::resizeStorage(%u)", length);
-    MemoryManager &mem = MemoryManager::instance();
+//    debug("Stripe::resizeStorage(%u)", length);
 
 #ifndef STRICTLY_QT
+    MemoryManager &mem = MemoryManager::instance();
+
     if (m_samples.size() == 0) {
 	// allocate new storage
 	sample_t *newstorage = reinterpret_cast<sample_t*>(mem.allocate(
@@ -219,7 +219,7 @@ unsigned int Stripe::insert(const QArray<sample_t> &samples,
 	ASSERT(count <= samples.size());
 	if (count > samples.size()) count = samples.size();
 	
-	debug("Stripe::insert: inserting %d samples", count);
+//	debug("Stripe::insert: inserting %d samples", count);
 	
 	old_length = m_samples.size();
 	unsigned int new_length = old_length + count;

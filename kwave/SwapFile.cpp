@@ -99,11 +99,9 @@ void *SwapFile::resize(size_t size)
 	
 	static char dummy = 0;
 	write(m_file.handle(), &dummy, 1);
-	
-	debug("SwapFile::resize(): seek was ok");
 	m_size = size;
     } else {
-	debug("SwapFile::resize(): seek failed !");
+	warning("SwapFile::resize(): seek failed !");
 	size = 0;
     }
 

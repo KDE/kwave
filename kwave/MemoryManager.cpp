@@ -291,7 +291,8 @@ void MemoryManager::free(void *&block)
 	SwapFile *swap = m_swap_files[block];
 	ASSERT(swap);
 	if (swap) {
-	    m_swap_files.remove(block);
+	    // ### m_swap_files.remove(block);
+	    m_swap_files[block] = 0;
 	    delete swap;
 	}
     };
@@ -300,8 +301,10 @@ void MemoryManager::free(void *&block)
 	// physical memory
 	void *b = block;
 	debug("MemoryManager::free(%p)",b);
-	::free(b);
-	m_physical_size.remove(block);
+	ASSERT(b);
+	m_physical_size[block] = 0;
+	if (b) ::free(b);
+	// ### m_physical_size.remove(block);
     }
 
     block = 0;

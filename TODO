@@ -6,11 +6,6 @@ o sometimes the file/new or options/playback dialog gets the wrong width ?
 
 o audible/silent mode of tracks (speakers)
 
-o new abstraction layer: "class SampleStorage" that does not crash on
-  resize() and creation if out of memory.
-
-o usage of virtual memory: "class MemoryManager"
-
 o virtual memory: multiple swap directories
 
 o install a new_handler() for cases in which we run out of memory
@@ -32,8 +27,6 @@ o open file dialog: add a preview widget that shows info about the file
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 
 o TrackPixmap: different color sets if selected/deselected
-
-o i18n for strings in main.cpp
 
 o get Xt toolkit options working again (like -geometry)
 
@@ -72,7 +65,6 @@ o check at program startup: does the help directory exist? If not, show
 
 o look at CurveWidget::CurveWidget()
 o SignalWidget::appendLabel()
-o ClipBoard::toWindow()
 o SonagramWindow::toSignal()
 
 o in CurveWidget: something goes wrong when mirroring to left
@@ -81,8 +73,7 @@ o rework of the FFTWidget
 
 o bugfix: crash on "additive synthesis"
 
-o some commands do not work: fft, averagefft, options/menu,
-  options/memory, distort
+o some commands do not work: fft, averagefft, options/menu, distort
 
 o bugfix: channel mixer dialog causes segmentation fault -> disabled
 
@@ -97,8 +88,6 @@ o import of multi-channel ASCII files
 
 o label handling doesn't work (currently disabled), work on LabelManager
   has not been started
-
-o the clipboard does not work between other kwave instances
 
 o splitting of i18n for kwave and each plugin
 

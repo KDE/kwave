@@ -16,7 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <endian.h>
+#include <byteswap.h>
+
 #include <qprogressdialog.h>
+
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmimetype.h>
@@ -31,8 +35,7 @@
 #include "RIFFParser.h"
 #include "WavDecoder.h"
 #include "WavFileFormat.h"
-
-#include <qapplication.h> // ###
+#include "WavFormatMap.h"
 
 #define CHECK(cond) ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
@@ -233,6 +236,10 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     // source successfully opened
     m_source = &src;
 
+    // read the wave header
+    wav_fmt_header_t header;
+    // readWavHeader(src, fmt_offset, fmt_size, &header);
+
     unsigned int rate = 0;
     unsigned int bits = 0;
 
@@ -241,33 +248,36 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     // get the encoded block of data from the mime source
     CHECK(src.size() > sizeof(wav_header_t)+8);
 
-    wav_fmt_header_t header;
     unsigned int datalen = src.size() - (sizeof(wav_header_t) + 8);
 
     // get the header
     src.readBlock((char *)&header, sizeof(wav_fmt_header_t));
 #if defined(IS_BIG_ENDIAN)
-    header.mode = bswap_16(header.mode);
-    header.channels = bswap_16(header.channels);
-    header.rate = bswap_32(header.rate);
-    header.AvgBytesPerSec = bswap_32(header.AvgBytesPerSec);
-    header.BlockAlign = bswap_16(header.BlockAlign);
-    header.bitspersample = bswap_16(header.bitspersample);
+    header.min.format      = bswap_16(header.min.format);
+    header.min.channels    = bswap_16(header.min.channels);
+    header.min.samplerate  = bswap_32(header.min.samplerate);
+    header.min.bytespersec = bswap_32(header.min.bytespersec);
+    header.min.blockalign  = bswap_16(header.min.blockalign);
+    header.min.bitwidth    = bswap_16(header.min.bitwidth);
 #endif
-    const unsigned int tracks = header.channels;
-    rate = header.rate;
-    bits = header.bitspersample;
+    const unsigned int tracks = header.min.channels;
+    rate = header.min.samplerate;
+    bits = header.min.bitwidth;
     const unsigned int bytes = (bits >> 3);
+
+    WavFormatMap known_formats;
+    QString format_name = known_formats.findName(header.min.format);
 
     debug("-------------------------");
     debug("wav header:");
-    debug("mode        = %d", header.mode);
-    debug("channels    = %d", header.channels);
-    debug("rate        = %u", header.rate);
-    debug("bytes/s     = %u", header.AvgBytesPerSec);
-    debug("block align = %d", header.BlockAlign);
-    debug("bits/sample = %d", header.bitspersample);
+    debug("mode        = 0x%04X, (%s)", header.min.format, format_name.data());
+    debug("channels    = %d", header.min.channels);
+    debug("rate        = %u", header.min.samplerate);
+    debug("bytes/s     = %u", header.min.bytespersec);
+    debug("block align = %d", header.min.blockalign);
+    debug("bits/sample = %d", header.min.bitwidth);
     debug("-------------------------");
+
 
 //    if (src.size() != header.filelength+8) {
 //	debug("WavDecoder::open(), header=%d, rest of file=%d",
@@ -282,11 +292,11 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 //    }
 
     // some sanity checks
-    CHECK(header.AvgBytesPerSec == rate * bytes * tracks);
-    CHECK(static_cast<unsigned int>(header.BlockAlign) == bytes*tracks);
+    CHECK(header.min.bytespersec == rate * bytes * tracks);
+    CHECK(static_cast<unsigned int>(header.min.blockalign) == bytes*tracks);
 //    CHECK(header.filelength == (datalen + sizeof(wav_header_t)));
 //    CHECK(header.fmtlength == 16);
-    CHECK(header.mode == 1); /* currently only mode 1 is supported :-( */
+    CHECK(header.min.format == 1); /* currently only mode 1 is supported :-( */
 
     info().setRate(rate);
     info().setBits(bits);

@@ -1253,7 +1253,7 @@
 		<emphasis>hear</emphasis> the result of your work?)
 	    </para></listitem>
 	    <listitem><para>
-		KDE-2.1 or higher (at least the libraries, if you are
+		KDE-2.2.1 or higher (at least the libraries, if you are
 		a gnome fan, you can also run &kapp; if the proper
 		libs are installed).
 	    </para></listitem>
@@ -1272,7 +1272,8 @@
 	<itemizedlist>
 	    <listitem><para>
 		A C/C++ compiler. GCC-2.95.3 works fine, some older and any
-		newer version should work too.
+		newer version should work too. (Note: gcc-3.0 is not yet
+		supported, it wil not work!)
 	    </para></listitem>
 	    <listitem><para>
 		The glibc2 (libc-6) development environment. On SuSE systems
@@ -1832,8 +1833,8 @@
 
     <para>
     &kapp; supports the KDE Drag and Drop protocol. This enables you
-    to open files just by picking them up in a kfm window or the
-    Desktop and let them drop into a window of &kapp;.
+    to open files just by picking them up in a <command>konqueror</command>
+    window or the Desktop and let them drop into a window of &kapp;.
     </para>
 
     <para>
@@ -1860,8 +1861,8 @@
     </para>
     <para>
     For example, the following command starts a &kapp; and opens all sounds
-    for window:
-    <screen><prompt>% </prompt><command>kwave <filename>/opt/kde/share/sounds/KDE_Window*.wav</filename></command></screen>
+    of the KDE window manager, each in a new window:
+    <screen><prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/KDE_Window*.wav</filename></command></screen>
     </para>
 
     <para>
@@ -2333,7 +2334,7 @@
      </para>
     <para>
 	Sorry, this chapter is still to be written... At the moment the
-	source code is partially documented with tags suitable with
+	source code is nearly completely documented with tags suitable with
 	the KDE documentation tools. We currently prefer using
 	<ulink url="http://www.stack.nl/~dimitri/doxygen">doxygen</ulink>. Maybe some day we will spend some time for
 	writing a tool that converts the doxygen output into something

@@ -26,7 +26,7 @@ help_en.pot: help_en.docbook
 
 help_de.po: help_en.pot
 	$(MSGMERGE) -o help_de.po help_de.po help_en.pot
-	-kbabel help_de.po
+	# kbabel help_de.po
 
 help_de.docbook: help_de.po help_en.docbook
 	@echo "converting german help"

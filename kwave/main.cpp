@@ -32,6 +32,7 @@
 #include <arts/artsflow.h>
 
 #include "KwaveApp.h"
+#include "KwaveSplash.h"
 
 static KCmdLineOptions options[] =
 {
@@ -70,7 +71,7 @@ void addDataStrings(KAboutData& aboutdata)
     aboutdata.addAuthor("Caulier Gilles",
                      i18n("french translation"),
                      "caulier.gilles@free.fr",
-                     0);
+                     "http://caulier.gilles.free.fr");
 
     // people who helped
     aboutdata.addCredit("Sven-Steffen Arndt",
@@ -130,6 +131,9 @@ int main( int argc, char **argv )
 	exit(0);
     }
 #endif // UNIQUE_APP
+
+    KwaveSplash *splash = new KwaveSplash("kwave-splash.png");
+    splash->show();
 
     KwaveApp app;
     return app.exec();

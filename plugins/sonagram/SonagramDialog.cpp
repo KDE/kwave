@@ -31,6 +31,8 @@
 #include <qradiobutton.h>
 #include <qslider.h>
 #include <qstrlist.h>
+#include <qstring.h>
+#include <qstringlist.h>
 #include <qtooltip.h>
 
 #include "libkwave/WindowFunction.h"

@@ -56,6 +56,39 @@
 //****************************************************************************
 //****************************************************************************
 
+//class PluginGarbageCollector: public Thread
+//{
+//public:
+//    virtual void run();
+//
+//slots:
+//    void remove(KwavePlugin *plugin);
+//
+//private:
+//    QQueue<Plugin> m_queue;
+//    SignalProxy1<KwavePlugin *> m_spx_plugin;
+//}
+//
+//void PluginGarbageCollector::run()
+//{
+//    KwavePlugin *plugin;
+//    do {
+//	plugin = m_spx_plugin.dequeue();
+//	if (!plugin) {
+//	    // dequeued a null plugin -> signal to shut down
+//	    debug("PluginGarbageCollector: shutting down...");
+//	    break;
+//	}
+//	
+//	// wait until the plugin's thread is down
+//	
+//	// delete the plugin
+//	
+//	// remove it's handle
+//	
+//    } while (plugin);
+//}
+
 // static initializer
 QMap<QString, QString> PluginManager::m_plugin_files;
 
@@ -495,7 +528,8 @@ void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
     ASSERT(!m_loaded_plugins.isEmpty());
 
     if (p) {
-//	void *h = p->getHandle();
+//	void *h = p->handle();
+	
 	// disconnect the signals to avoid recursion
 	disconnectPlugin(p);
 
@@ -503,7 +537,7 @@ void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
 	m_loaded_plugins.removeRef(p);
 
 	if (remove) {
-//	    debug("PluginManager::pluginClosed(%p): deleting",p);
+	    debug("PluginManager::pluginClosed(%p): deleting",p);
 	    delete p;
 //	    if (h) dlclose(h);
 	}

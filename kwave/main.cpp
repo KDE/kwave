@@ -86,6 +86,10 @@ void addDataStrings(KAboutData& aboutdata)
                      i18n("debian packager"),
                      "aurel32@debian.org",
                      0);
+    aboutdata.addCredit("Erik de Castro Lopo",
+                     i18n("creator of the 'libsndfile' library"),
+                     "erikd@zip.com.au",
+                     "http://www.zip.com.au/~erikd/libsndfile/");
 
 }
 

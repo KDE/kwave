@@ -77,6 +77,9 @@ void TimeLine::setRate(int newrate)
 //**********************************************************
 void TimeLine::setValue(const char *newvalue) 
 {
+    ASSERT(newvalue);
+    if (!newvalue) return;
+
     switch (mode) {
     case 0:
 	value = strtol(newvalue, 0, 0);
@@ -211,8 +214,7 @@ void TimeLine::mousePressEvent( QMouseEvent *e)
     if (!menu) return;
 
     if (e->button() == RightButton) {
-	QPoint popup = QCursor::pos();
-	menu->popup(popup);
+	menu->popup(e->pos());
     }
 }
 

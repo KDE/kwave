@@ -108,10 +108,8 @@ kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
 kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt \
-	-lartsc -lartsflow -lartsflow_idl -lmcop \
-	-lkfile -lkdeui -lkdecore -lqt \
-	-lX11 -lXext -lpthread \
-	-ldl -lm
+	@KDE_VERSION_SPECIFIC_LIBS@ \
+	-lX11 -lXext -lpthread -ldl -lm
 
 #	-L../check -lmem -lbfd -liberty
 

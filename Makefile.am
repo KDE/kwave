@@ -10,7 +10,7 @@ SUBDIRS  	 = mt libgui libkwave kwave plugins po doc
 
 CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
-	stamp-h stamp-h[0-9]* aclocal.m4 configure
+	stamp-h stamp-h[0-9]* aclocal.m4 configure QT-DIR KDE-VERSION
 
 .PHONY: doc version-labels
 

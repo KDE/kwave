@@ -34,9 +34,11 @@
 
 #include <kcombobox.h>
 #include <kfiledialog.h>
+#include <kiconloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmenubar.h>
+#include <kstatusbar.h>
 #include <kstddirs.h>
 #include <ktoolbarbutton.h>
 

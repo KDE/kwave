@@ -26,6 +26,7 @@
 
 #include <kmenubar.h>
 #include <kfiledialog.h>
+#include <kstatusbar.h>
 
 #include "libkwave/WindowFunction.h"
 
@@ -35,11 +36,6 @@
 #include "kwave/ImageView.h" // ### very bad, move class to libgui !!
 
 #include "SonagramWindow.h"
-
-//#include <qpushbt.h>
-//#include <qstring.h>
-//#include <kmenubar.h>
-//#include <kstatusbar.h>
 
 /**
  * delay between two screen updates [ms]
@@ -92,14 +88,13 @@ static const char *background[] = {
 
 //****************************************************************************
 SonagramWindow::SonagramWindow(const QString &name)
-:KTMainWindow()
+    :KMainWindow()
 {
     m_color_mode = 0;
     m_image = 0;
     m_overview = 0;
     m_points = 0;
     m_rate = 0;
-    m_status = 0;
     m_view = 0;
     m_xscale = 0;
     m_yscale = 0;
@@ -108,13 +103,13 @@ SonagramWindow::SonagramWindow(const QString &name)
     QWidget *mainwidget = new QWidget(this);
     ASSERT(mainwidget);
     if (!mainwidget) return;
-    setView(mainwidget);
+    setCentralWidget(mainwidget);
 
     QGridLayout *top_layout = new QGridLayout(mainwidget, 3, 2);
     ASSERT(top_layout);
     if (!top_layout) return;
 
-    KMenuBar *bar = new KMenuBar(this);
+    KMenuBar *bar = menuBar();
     ASSERT(bar);
     if (!bar) return ;
 
@@ -135,13 +130,13 @@ SonagramWindow::SonagramWindow(const QString &name)
 //
 //    spectral->insertItem (i18n("&reTransform to signal"), this, SLOT(toSignal()));
 
-    m_status = new KStatusBar (this, i18n("Frequencies Status Bar"));
-    ASSERT(m_status);
-    if (!m_status) return ;
+    KStatusBar *status = statusBar();
+    ASSERT(status);
+    if (!status) return ;
 
-    m_status->insertItem(i18n("Time: ------ ms"), 1);
-    m_status->insertItem(i18n("Frequency: ------ Hz"), 2);
-    m_status->insertItem(i18n("Amplitude: --- %"), 3);
+    status->insertItem(i18n("Time: ------ ms"), 1);
+    status->insertItem(i18n("Frequency: ------ Hz"), 2);
+    status->insertItem(i18n("Amplitude: --- %"), 3);
 
     m_view = new ImageView(mainwidget);
     ASSERT(m_view);
@@ -172,8 +167,6 @@ SonagramWindow::SonagramWindow(const QString &name)
     connect(&m_refresh_timer, SIGNAL(timeout()),
             this, SLOT(refresh_view()));
 		
-    setStatusBar(m_status);
-    setMenu(bar);
     setName(name);
 
     top_layout->setRowStretch(0, 100);
@@ -183,11 +176,11 @@ SonagramWindow::SonagramWindow(const QString &name)
     top_layout->setColStretch(1, 100);
     top_layout->activate();
 
-    m_status->changeItem(i18n("Time: 0 ms"), 1);
-    m_status->changeItem(i18n("Frequency: 0 Hz"), 2);
-    m_status->changeItem(i18n("Amplitude: 0 %"), 3);
+    status->changeItem(i18n("Time: 0 ms"), 1);
+    status->changeItem(i18n("Frequency: 0 Hz"), 2);
+    status->changeItem(i18n("Amplitude: 0 %"), 3);
 
-    resize(max(480,m_status->sizeHint().width()+40), 320);
+    resize(max(480,status->sizeHint().width()+40), 320);
     show();
 }
 
@@ -510,11 +503,12 @@ void SonagramWindow::setName(const QString &name)
 //****************************************************************************
 void SonagramWindow::cursorPosChanged(const QPoint pos)
 {
-    ASSERT(m_status);
+    KStatusBar *status = statusBar();
+    ASSERT(status);
     ASSERT(m_image);
     ASSERT(m_points);
     ASSERT(m_rate);
-    if (!m_status) return ;
+    if (!status) return ;
     if (!m_image) return ;
     if (!m_points) return;
     if (!m_rate) return;
@@ -526,12 +520,12 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     translatePixels2TF(pos, &ms, &f);
 
     // item 1: time in milliseconds
-    m_status->changeItem(i18n("Time: %1").arg(
+    status->changeItem(i18n("Time: %1").arg(
 	KwavePlugin::ms2string(ms)), 1);
 
     // item 2: frequency in Hz
     snprintf(buf, sizeof(buf), i18n("Frequency: %d Hz"), (int)f);
-    m_status->changeItem(buf, 2);
+    status->changeItem(buf, 2);
 
     // item 3: amplitude in %
     if (m_image->valid(pos.x(), pos.y())) {
@@ -541,7 +535,7 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
 	a = 0.0;
     }
     snprintf(buf, sizeof(buf), i18n("Amplitude: %d %%"), (int)a);
-    m_status->changeItem(buf, 3);
+    status->changeItem(buf, 3);
 }
 
 //****************************************************************************

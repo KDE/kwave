@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <math.h>
 #include <sched.h> // for sched_yield()
 
@@ -32,6 +33,12 @@
 
 #include "libgui/KwavePlugin.h"  // for ms2string
 #include "libgui/FileProgress.h"
+
+#ifndef HAVE_KDEVERSION_H
+#define KDE_VERSION_MAJOR 2
+#else
+#include <kdeversion.h>
+#endif
 
 //***************************************************************************
 FileProgress::FileProgress(QWidget *parent,
@@ -117,7 +124,11 @@ FileProgress::FileProgress(QWidget *parent,
     if (!addInfoLabel(info_layout, text, 4, 1)) return;
 
     // progress bar
+#if KDE_VERSION_MAJOR < 3
     m_progress = new KProgress(0, 100, 0, Horizontal, this);
+#else
+    m_progress = new KProgress(100, this);
+#endif
     ASSERT(m_progress);
     if (!m_progress) return;
     top_layout->addWidget(m_progress, 0, 0);

@@ -19,10 +19,9 @@
 #define _SONAGRAM_WINDOW_H_
 
 #include <qtimer.h>
-#include <ktmainwindow.h>
+#include <kmainwindow.h>
 
 class ImageView;
-class KStatusBar;
 class QBitmap;
 class QImage;
 class QTimer;
@@ -32,7 +31,7 @@ class ScaleWidget;
  * Window for displaying a sonagram with scale, status bar and
  * a small menu.
  */
-class SonagramWindow : public KTMainWindow
+class SonagramWindow : public KMainWindow
 {
     Q_OBJECT
 
@@ -150,9 +149,6 @@ protected:
     void translatePixels2TF(const QPoint p, double *ms, double *f);
 
 private:
-
-    /** the status bar at the bottom of the window */
-    KStatusBar *m_status;
 
     /** the QImage to be displayed */
     QImage *m_image;

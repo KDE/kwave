@@ -23,7 +23,7 @@ author=Thomas Eschenbacher
 configure_args=--enable-debug=yes
 email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
-lfv_open_groups=GNU
+lfv_open_groups=Sources
 make_options=\s-j1
 makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am,plugins/amplifyfree/Makefile.am,plugins/noise/Makefile.am,plugins/codec_wav/Makefile.am
 modifyMakefiles=false
@@ -828,6 +828,18 @@ install=false
 install_location=
 type=DATA
 
+[libgui/ConfirmCancelProxy.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[libgui/ConfirmCancelProxy.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [libgui/CornerPatchWidget.cpp]
 dist=true
 install=false
@@ -926,11 +938,11 @@ type=HEADER
 
 [libgui/Makefile.am]
 dist=true
-files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am
+files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am,libgui/ConfirmCancelProxy.h,libgui/ConfirmCancelProxy.cpp
 install=false
 install_location=
 sub_dirs=
-type=DATA
+type=static_library
 
 [libgui/MenuGroup.cpp]
 dist=true
@@ -1818,7 +1830,7 @@ sub_dirs=
 type=static_library
 
 [plugins/codec_wav/Makefile.am]
-files=plugins/codec_wav/WavCodecPlugin.cpp,plugins/codec_wav/WavCodecPlugin.h,plugins/codec_wav/WavDecoder.cpp,plugins/codec_wav/WavDecoder.h,plugins/codec_wav/WavEncoder.cpp,plugins/codec_wav/WavEncoder.h,plugins/codec_wav/WavFileFormat.h,plugins/codec_wav/RIFFChunk.cpp,plugins/codec_wav/RIFFChunk.h,plugins/codec_wav/RIFFParser.cpp,plugins/codec_wav/RIFFParser.h
+files=plugins/codec_wav/WavCodecPlugin.cpp,plugins/codec_wav/WavCodecPlugin.h,plugins/codec_wav/WavDecoder.cpp,plugins/codec_wav/WavDecoder.h,plugins/codec_wav/WavEncoder.cpp,plugins/codec_wav/WavEncoder.h,plugins/codec_wav/WavFileFormat.h,plugins/codec_wav/RIFFChunk.cpp,plugins/codec_wav/RIFFChunk.h,plugins/codec_wav/RIFFParser.cpp,plugins/codec_wav/RIFFParser.h,plugins/codec_wav/WavFormatMap.cpp,plugins/codec_wav/WavFormatMap.h
 sharedlib_LDFLAGS=-version-info 0:0:1
 sharedlib_rootname=codec_wav
 sub_dirs=
@@ -1885,6 +1897,18 @@ install_location=
 type=HEADER
 
 [plugins/codec_wav/WavFileFormat.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/codec_wav/WavFormatMap.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/codec_wav/WavFormatMap.h]
 dist=true
 install=false
 install_location=

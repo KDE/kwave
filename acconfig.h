@@ -15,11 +15,17 @@
 
 
 
+/* check for demangle.h */
+#undef HAVE_DEMANGLE_H
+
 /* check for geteuid */
 #undef HAVE_GETEUID
 
 /* check for sys/resource.h and getrlimit */
 #undef HAVE_GETRLIMIT
+
+/* check for kdeversion.h */
+#undef HAVE_KDEVERSION_H
 
 /* check for ability to create temporary files with mkstemp(...) */
 #undef HAVE_MKSTEMP

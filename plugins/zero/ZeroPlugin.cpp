@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include <klocale.h> // for the i18n macro
-
+#include <qstringlist.h>
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/SampleWriter.h"
 #include "kwave/PluginManager.h"

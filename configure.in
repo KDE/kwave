@@ -28,6 +28,7 @@ AC_CHECK_COMPILERS
 dnl AC_LANG_CPLUSPLUS
 AM_ENABLE_SHARED(yes)
 AM_ENABLE_STATIC(no)
+
 AC_LIBTOOL_DLOPEN
 KDE_PROG_LIBTOOL
 
@@ -72,15 +73,20 @@ AC_MSG_CHECKING(which KDE/Qt to use)
 if test "$KDEMAJOR" = "2"; then {
     AC_MSG_RESULT([KDE 2.x / Qt 2.1])
     KDE_USE_QT(2.1)
+    KDE_VERSION_SPECIFIC_LIBS="-lartsc -lartsflow -lartsflow_idl -lmcop \
+                               -lkfile -lkdeui -lkdecore -lqt"
 } else {
     if test "$KDEMAJOR" = "3"; then {
         AC_MSG_RESULT([KDE 3.x / Qt 3.1])
         KDE_USE_QT(3.0.1)
+        KDE_VERSION_SPECIFIC_LIBS="-lartsc -lartsflow_idl -lartsflow -lmcop \
+                                   -laudiofile -lkio -lkdeui -lkdecore -lqt-mt"
     } else {
         AC_MSG_RESULT(unknown ?)
         AC_MSG_ERROR([ unable to determine KDE/Qt versions ])
     } fi
 } fi
+AC_SUBST(KDE_VERSION_SPECIFIC_LIBS)
 
 AC_PATH_KDE
 
@@ -137,7 +143,7 @@ AC_TRY_CPP([#include <sys/resource.h>
         function_t &function(int index);
     };]
 ,
-AC_MSG_RESULT("yes")
+AC_MSG_RESULT(yes)
 ,AC_MSG_ERROR(FAILED! please get a newer C++ compiler))
 
 AC_TYPE_SIZE_T
@@ -166,8 +172,11 @@ AC_HEADER_DIRENT
 dnl check for other stdc headers. More traditional ;)
 AC_HEADER_STDC
 
+dnl we should have a file from which we can guess the KDE version
+KDE_CHECK_HEADER(kdeversion.h, AC_DEFINE(HAVE_KDEVERSION_H))
+
 dnl name mangling would be fine, but not necessary
-AC_CHECK_HEADER(demangle.h)
+AC_CHECK_HEADER(demangle.h, AC_DEFINE(HAVE_DEMANGLE_H))
 
 dnl rtti/type info woulf be fine for debugging
 AC_CHECK_HEADERS(typeinfo)
@@ -209,7 +218,7 @@ AC_TRY_CPP([
     total = info.totalram;
 ],
 AC_DEFINE(HAVE_MEMINFO)
-AC_MSG_RESULT("present")
+AC_MSG_RESULT(present)
 ,AC_MSG_WARN(FAILED!
 
 !!! You might get inaccurate behaviour of the memory management !!!
@@ -227,7 +236,7 @@ AC_TRY_CPP([
     getrlimit(RLIMIT_AS, &limit);
 ],
 AC_DEFINE(HAVE_GETRLIMIT)
-AC_MSG_RESULT("present")
+AC_MSG_RESULT(present)
 ,AC_MSG_WARN(MISSING!))
 
 AC_CHECK_FUNC(geteuid, AC_DEFINE(HAVE_GETEUID))
@@ -240,6 +249,9 @@ dnl AC_SUBST(LIBSOCKET)
 
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
+
+AC_CHECK_LIB(audiofile, main, [LIBAUDIOFILE="-laudiofile"])
+AC_SUBST(LIBAUDIOFILE)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_TIME

@@ -1,3 +1,20 @@
+/***************************************************************************
+                SignalWidget.h - Widget for displaying the signal
+			     -------------------
+    begin                : Sun Nov 12 2000
+    copyright            : (C) 2000 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 #ifndef _SIGNAL_WIDGET_H_
 #define _SIGNAL_WIDGET_H_ 1
 
@@ -82,7 +99,14 @@ public:
      */
     QBitmap *overview(unsigned int width, unsigned int height);
 
-    bool checkPosition (int);
+    /**
+     * Checks if a given sample position is near to the left or
+     * the right border. The tolerance is 2% of the currently
+     * visible area.
+     * @param x sample position to be tested
+     * @return true if the position is within range
+     */
+    bool checkPosition(int x);
 
     void addLabelType (LabelType *);
     void addLabelType (const char *);
@@ -104,6 +128,12 @@ public:
 public slots:
 
     void slot_setOffset(int new_offset);
+
+    /**
+     * Sets the left and right selection marker and promotes
+     * them to the SignalManager.
+     */
+    void selectRange(int left, int right);
 
     void forwardCommand(const char *command);
 
@@ -268,12 +298,6 @@ protected:
      * @return zoom value [samples/pixel]
      */
     double getFullZoom();
-
-    /**
-     * Sets the left and right selection marker and promotes
-     * them to the SignalManager.
-     */
-    void setRange (int, int, bool = true);
 
     void selectRange ();
 

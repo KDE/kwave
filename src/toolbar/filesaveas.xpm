@@ -1,5 +1,5 @@
 /* XPM */
-static char*filesaveas[]={
+static const char *xpm_filesaveas[]={
 "22 22 6 1",
 "d c #808080",
 "b c #c0c0c0",

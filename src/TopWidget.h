@@ -93,6 +93,33 @@ private slots:
     /** called if the playback has been stopped or is done */
     void playbackStopped();
 
+    /** toolbar: "file/new" */
+    inline void toolbarFileNew()    { executeCommand("dialog(newsignal)"); };
+
+    /** toolbar: "file/open" */
+    inline void toolbarFileOpen()   { executeCommand("open () "); };
+
+    /** toolbar: "file/save" */
+    inline void toolbarFileSave()   { executeCommand("save () "); };
+
+    /** toolbar: "file/save as.." */
+    inline void toolbarFileSaveAs() { executeCommand("saveas () "); };
+
+    /** toolbar: "edit/cut" */
+    inline void toolbarEditCut()    { executeCommand("cut () "); };
+
+    /** toolbar: "edit/copy" */
+    inline void toolbarEditCopy()   { executeCommand("copy () "); };
+
+    /** toolbar: "edit/paste" */
+    inline void toolbarEditPaste()  { executeCommand("paste () "); };
+
+    /** toolbar: "edit/erase" */
+    inline void toolbarEditErase()  { executeCommand("zero () "); };
+
+    /** toolbar: "edit/delete" */
+    inline void toolbarEditDelete() { executeCommand("delete () "); };
+
 signals:
     /**
      * Tells this TopWidget's parent to execute a command

@@ -1,48 +1,91 @@
+/***************************************************************************
+                MouseMark.h -  Handling of mouse selection
+			     -------------------
+    begin                : Sun Nov 12 2000
+    copyright            : (C) 2000 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 #ifndef _MOUSE_MARK_H_
 #define _MOUSE_MARK_H_ 1
 
 #include <qobject.h>
 
-class QWidget;
+/**
+ * \class MouseMark
+ * Simple class that can be used whenever the user selects something
+ * with the mouse. Note that the coordinates within this class are
+ * not transformed from screen pixels to the user's favorite
+ * coordinate system. This must be done outside of here.
+ */
 class MouseMark: public QObject
 {
     Q_OBJECT
 public:
-    MouseMark::MouseMark(QWidget *);
-    MouseMark::~MouseMark();
-    bool isSelected();                //returns wether a selection was made
-    void unselect();                //sets state to unselected
-    void set(int, int);         //sets the selection
-    void update(int);             //for continous update of mouse movement
-    void grep(int);             //regetting a already existing selection
-    bool checkPosition(int, int);         //checks for bound to reget the selection
-    void drawSelection(QPainter *, int, int);
+    MouseMark(QWidget *);
 
-    inline int getLeft()
-    {
-	return (initial < last) ? initial : last;
-    };
+    /**
+     * Sets the selection to a new range.
+     * @param l start position
+     * @param r end position
+     */
+    void set(int l, int r);
 
-    inline int getRight()
-    {
-	return (last > initial) ? last : initial;
-    };
+    /**
+     * Update the last known position of the mouse. This should be
+     * used for continuous update of the selection during mouse
+     * movement.
+     * @param x new last position
+     */
+    void update(int x);
 
-public slots:
-    void setZoom(double);
-    void setOffset(int);
-    void setLength(int);
+    /**
+     * Re-enters the selection process at a new position. The last
+     * position will be set to the left or the right margin, depending
+     * on which side is nearer.
+     */
+    void grep(int x);
+
+    /**
+     * Returns true if x is in the border range between
+     * selected and unselected.
+     * @param x position to be checked
+     * @param tol tolerance
+     * @return true if the position is in range
+     */
+    bool checkPosition(int x, int tol);
+
+    /**
+     * Returns the left border of the selection.
+     */
+    int left();
+
+    /**
+     * Returns the right border of the selection.
+     */
+    int right();
 
 signals:
     void refresh();
-    void selection(int, int);         //sends the current selection for updating of gui elements
+
+    //sends the current selection for updating of gui elements
+    void selection(int, int);
 
 private:
-    int initial;          //initial position of mouse
-    int last;             //last known position
-    int offset;           //display offset in signal
-    int length;           //length of signal in samples
-    double zoom;             //current zoom
+    /** initial position of the mouse */
+    int initial;
+
+    /** last known position of the mouse */
+    int last;
 }
 ;
 //***********************************************************

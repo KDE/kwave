@@ -24,9 +24,7 @@
 class QAccel;
 class QComboBox;
 class QFrame;
-class QPushButton;
 class QScrollBar;
-//class QHBoxLayout;
 class KButtonBox;
 class KStatusBar;
 class MenuManager;
@@ -37,7 +35,6 @@ class SignalWidget;
 
 //***********************************************************
 class MainWidget : public QWidget
-//mainwidget is parent class of all widgets in the main window
 {
     Q_OBJECT
 public:
@@ -97,11 +94,6 @@ public slots:
     void parseKey(int key);
 
     void setSelectedTimeInfo(double ms);
-
-//    void play ();
-//    void stop ();
-//    void halt ();
-//    void loop ();
 
     /** returns the current zoom factor */
     double zoom();
@@ -228,7 +220,6 @@ protected:
 private:
 
     QAccel *keys;
-//    QHBoxLayout *buttons;
     OverViewWidget *m_slider;
     SignalWidget *signalview;
     KStatusBar &status;

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-15 12:10+0200\n"
+"POT-Creation-Date: 2000-11-12 17:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,47 +30,47 @@ msgstr ""
 msgid "in kb"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:96
+#: libgui/CurveWidget.cpp:97
 msgid "Flip Horizontal"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:98
+#: libgui/CurveWidget.cpp:99
 msgid "Flip Vertical"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:101
+#: libgui/CurveWidget.cpp:102
 msgid "into 1st half"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:103
+#: libgui/CurveWidget.cpp:104
 msgid "into 2nd half"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:106
+#: libgui/CurveWidget.cpp:107
 msgid "Interpolation"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:108
+#: libgui/CurveWidget.cpp:109
 msgid "Transform"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:110
+#: libgui/CurveWidget.cpp:111
 msgid "Fit In"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:112
+#: libgui/CurveWidget.cpp:113
 msgid "Presets"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:113
+#: libgui/CurveWidget.cpp:114
 msgid "Save Preset"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:115
+#: libgui/CurveWidget.cpp:116
 msgid "recently selected Point"
 msgstr ""
 
-#: libgui/CurveWidget.cpp:117
+#: libgui/CurveWidget.cpp:118
 msgid "every 2nd Point"
 msgstr ""
 
@@ -78,127 +78,212 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: src/SignalManager.cpp:394
+#: src/SignalManager.cpp:100
+msgid "noname"
+msgstr ""
+
+#: src/SignalManager.cpp:530
 msgid " on channel "
 msgstr ""
 
-#: src/SignalManager.cpp:515 src/SignalManager.cpp:568
-#: src/SignalManager.cpp:599 src/SignalManager.cpp:624
-#: src/SignalManager.cpp:633 src/SignalManager.cpp:638
-#: src/SignalManager.cpp:643 src/SignalManager.cpp:891
-#: src/SignalManager.cpp:950
+#: src/SignalManager.cpp:651 src/SignalManager.cpp:708
+#: src/SignalManager.cpp:739 src/SignalManager.cpp:762
+#: src/SignalManager.cpp:771 src/SignalManager.cpp:776
+#: src/SignalManager.cpp:781 src/SignalManager.cpp:1029
+#: src/SignalManager.cpp:1088
 msgid "Info"
 msgstr ""
 
-#: src/SignalManager.cpp:515 src/SignalManager.cpp:568
+#: src/SignalManager.cpp:651 src/SignalManager.cpp:708
 msgid "File does not exist !"
 msgstr ""
 
-#: src/SignalManager.cpp:600
+#: src/SignalManager.cpp:740
 msgid "File has no data chunk!"
 msgstr ""
 
-#: src/SignalManager.cpp:625 src/SignalManager.cpp:892
+#: src/SignalManager.cpp:763 src/SignalManager.cpp:1030
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr ""
 
-#: src/SignalManager.cpp:634
+#: src/SignalManager.cpp:772
 msgid "File must be uncompressed (Mode 1) !"
 msgstr ""
 
-#: src/SignalManager.cpp:639
+#: src/SignalManager.cpp:777
 msgid "File is no RIFF Wave File !"
 msgstr ""
 
-#: src/SignalManager.cpp:644
+#: src/SignalManager.cpp:782
 msgid "File does not contain enough data !"
 msgstr ""
 
-#: src/SignalManager.cpp:679 src/SignalManager.cpp:753
-#: src/SignalManager.cpp:963
+#: src/SignalManager.cpp:817 src/SignalManager.cpp:891
+#: src/SignalManager.cpp:1101
 msgid "Mono"
 msgstr ""
 
-#: src/SignalManager.cpp:681 src/SignalManager.cpp:755
-#: src/SignalManager.cpp:965
+#: src/SignalManager.cpp:819 src/SignalManager.cpp:893
+#: src/SignalManager.cpp:1103
 msgid "Stereo"
 msgstr ""
 
-#: src/SignalManager.cpp:685
+#: src/SignalManager.cpp:823
 #, c-format
 msgid "Exporting %s ASCII file :"
 msgstr ""
 
-#: src/SignalManager.cpp:777
+#: src/SignalManager.cpp:915
 msgid "empty channel detected, channel count reduced by one"
 msgstr ""
 
-#: src/SignalManager.cpp:849
+#: src/SignalManager.cpp:987
 msgid "info"
 msgstr ""
 
-#: src/SignalManager.cpp:850
+#: src/SignalManager.cpp:988
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: src/SignalManager.cpp:939
+#: src/SignalManager.cpp:1077
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File has been truncated."
 msgstr ""
 
-#: src/SignalManager.cpp:950
+#: src/SignalManager.cpp:1088
 msgid "Out of Memory!"
 msgstr ""
 
-#: src/SignalManager.cpp:968
+#: src/SignalManager.cpp:1106
 #, c-format
 msgid "%d voices"
 msgstr ""
 
-#: src/SignalManager.cpp:971
+#: src/SignalManager.cpp:1109
 #, c-format
 msgid "Loading %d-Bit (%s) File :"
 msgstr ""
 
-#: src/SignalManager.cpp:1159
+#: src/SignalManager.cpp:1301
 msgid "playback problem"
 msgstr ""
 
-#: src/SignalManager.cpp:1203
+#: src/SignalManager.cpp:1344
 msgid "number of bits per samples not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1211
+#: src/SignalManager.cpp:1351
 msgid "stereo not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1218
+#: src/SignalManager.cpp:1357
 msgid "playback rate not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1225
+#: src/SignalManager.cpp:1363
 msgid "unusable buffer size"
 msgstr ""
 
-#: src/TopWidget.cpp:86
+#: src/TopWidget.cpp:164
 msgid "Length: 0 ms           "
 msgstr ""
 
-#: src/TopWidget.cpp:87
+#: src/TopWidget.cpp:165
 msgid "Rate: 0 kHz         "
 msgstr ""
 
-#: src/TopWidget.cpp:88
+#: src/TopWidget.cpp:166
 msgid "Samples: 0             "
 msgstr ""
 
-#: src/TopWidget.cpp:89
+#: src/TopWidget.cpp:167
 msgid "selected: 0 ms        "
 msgstr ""
 
-#: src/TopWidget.cpp:90
+#: src/TopWidget.cpp:168
 msgid "Clipboard: 0 ms      "
+msgstr ""
+
+#: src/TopWidget.cpp:226
+msgid "toolbar"
+msgstr ""
+
+#: src/TopWidget.cpp:239
+msgid "create a new empty file"
+msgstr ""
+
+#: src/TopWidget.cpp:244
+msgid "open an existing file"
+msgstr ""
+
+#: src/TopWidget.cpp:249
+msgid "save the current file"
+msgstr ""
+
+#: src/TopWidget.cpp:254
+msgid "save the current file under a different name"
+msgstr ""
+
+#: src/TopWidget.cpp:274
+msgid "cut the current selection and move it to the clipboard"
+msgstr ""
+
+#: src/TopWidget.cpp:279
+msgid "copy the current selection to the clipboard"
+msgstr ""
+
+#: src/TopWidget.cpp:284
+msgid "insert the content of clipboard"
+msgstr ""
+
+#: src/TopWidget.cpp:289
+msgid "mute the current selection"
+msgstr ""
+
+#: src/TopWidget.cpp:294
+msgid "delete the current selection"
+msgstr ""
+
+#: src/TopWidget.cpp:318
+msgid "start playback"
+msgstr ""
+
+#: src/TopWidget.cpp:323
+msgid "start playback and loop"
+msgstr ""
+
+#: src/TopWidget.cpp:328
+msgid "pause playback"
+msgstr ""
+
+#: src/TopWidget.cpp:333
+msgid "stop playback or loop"
+msgstr ""
+
+#: src/TopWidget.cpp:350
+msgid "zoom to selection"
+msgstr ""
+
+#: src/TopWidget.cpp:355
+msgid "zoom in"
+msgstr ""
+
+#: src/TopWidget.cpp:360
+msgid "zoom out"
+msgstr ""
+
+#: src/TopWidget.cpp:365
+#, c-format
+msgid "zoom to 100%"
+msgstr ""
+
+#: src/TopWidget.cpp:370
+msgid "zoom to all"
+msgstr ""
+
+#: src/TopWidget.cpp:376
+msgid "select zoom factor"
 msgstr ""
 
 #: src/PluginManager.cpp:98
@@ -218,60 +303,36 @@ msgid ""
 " that contains the plugin '%s' !"
 msgstr ""
 
-#: src/MainWidget.cpp:180 src/MainWidget.cpp:681 src/MainWidget.cpp:701
-msgid "Play"
-msgstr ""
-
-#: src/MainWidget.cpp:186 src/MainWidget.cpp:682 src/MainWidget.cpp:702
-msgid "&Loop"
-msgstr ""
-
-#: src/MainWidget.cpp:192
-msgid "&Zoom"
-msgstr ""
-
-#: src/MainWidget.cpp:210
-msgid "All"
-msgstr ""
-
-#: src/MainWidget.cpp:215
-msgid "1:1"
-msgstr ""
-
-#: src/MainWidget.cpp:502
+#: src/MainWidget.cpp:428
 #, c-format
 msgid "Rate: %d.%d kHz"
 msgstr ""
 
-#: src/MainWidget.cpp:511
+#: src/MainWidget.cpp:437
 #, c-format
 msgid "Samples: %d"
 msgstr ""
 
-#: src/MainWidget.cpp:649 src/MainWidget.cpp:666
-msgid "Halt"
-msgstr ""
-
-#: src/MainWidget.cpp:719
+#: src/MainWidget.cpp:655
 #, c-format
 msgid "selected: %s"
 msgstr ""
 
-#: src/MainWidget.cpp:729
+#: src/MainWidget.cpp:665
 #, c-format
 msgid "Length: %s"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:121 src/menus_config_i18n.cpp:13
+#: plugins/dialogs/playback/module.cpp:141 src/menus_config_i18n.cpp:13
 msgid "1&6 Bit"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:130 src/menus_config_i18n.cpp:14
+#: plugins/dialogs/playback/module.cpp:150 src/menus_config_i18n.cpp:14
 msgid "2&4 Bit"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:111
-#: plugins/dialogs/playback/module.cpp:114 src/menus_config_i18n.cpp:15
+#: plugins/dialogs/playback/module.cpp:131
+#: plugins/dialogs/playback/module.cpp:134 src/menus_config_i18n.cpp:15
 msgid "&8 Bit"
 msgstr ""
 
@@ -387,7 +448,7 @@ msgstr ""
 msgid "Fade &Out"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:33 src/menus_config_i18n.cpp:50
+#: plugins/dialogs/filter/module.cpp:34 src/menus_config_i18n.cpp:50
 msgid "&Filter"
 msgstr ""
 
@@ -583,7 +644,7 @@ msgstr ""
 msgid "&Silence"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:79
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:131
 #: src/menus_config_i18n.cpp:105
 msgid "&Sonagram"
 msgstr ""
@@ -776,7 +837,7 @@ msgid "Calculate"
 msgstr ""
 
 #: plugins/dialogs/addsynth/module.cpp:185
-#: plugins/dialogs/filter/module.cpp:69
+#: plugins/dialogs/filter/module.cpp:70
 msgid "# of :"
 msgstr ""
 
@@ -807,111 +868,111 @@ msgstr ""
 msgid "Choose Amplification Curve :"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:68
+#: plugins/dialogs/playback/module.cpp:86
 msgid "Playback Options :"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:96
-#: plugins/dialogs/playback/module.cpp:97
+#: plugins/dialogs/playback/module.cpp:114
+#: plugins/dialogs/playback/module.cpp:115
 msgid "Resolution"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:118
+#: plugins/dialogs/playback/module.cpp:138
 msgid ""
 "Set Playback-Mode to 8 Bit (poor quality)\n"
 "should be supported by all sound hardware !"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:127
+#: plugins/dialogs/playback/module.cpp:147
 msgid ""
 "Set Playback-Mode to 16 Bit (CD-like quality)\n"
 "not supported by all sound hardware !"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:136
+#: plugins/dialogs/playback/module.cpp:156
 msgid ""
 "Set Playback-Mode to 24 Bit (high quality)\n"
 "only supported by some new sound hardware !"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:141
+#: plugins/dialogs/playback/module.cpp:161
 msgid "Playback Device :"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:163
+#: plugins/dialogs/playback/module.cpp:183
 msgid "se&lect..."
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:167
+#: plugins/dialogs/playback/module.cpp:187
 msgid ""
 "Select a playback device not listed\n"
 "in the standard selection.\n"
 "(sorry, not implemented yet!)"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:185
+#: plugins/dialogs/playback/module.cpp:206
 msgid ""
 "This is the size of the buffer used for communication with the sound driver\n"
 "If your computer is rather slow select a big buffer"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:194
+#: plugins/dialogs/playback/module.cpp:215
 msgid "&stereo playback"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:221
+#: plugins/dialogs/playback/module.cpp:242
 msgid "&test settings"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:225
+#: plugins/dialogs/playback/module.cpp:246
 msgid ""
 "Try to play a short sound\n"
 "using the current settings.\n"
 "(sorry, not implemented yet!)"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:321
+#: plugins/dialogs/playback/module.cpp:342
 #, c-format, ycp-format
 msgid "Buffer Size : %5d samples"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:28
+#: plugins/dialogs/filter/module.cpp:29
 msgid "Choose filter parameters:"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:38
+#: plugins/dialogs/filter/module.cpp:39
 msgid "&load filter"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:39
+#: plugins/dialogs/filter/module.cpp:40
 msgid "&save filter"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:41
+#: plugins/dialogs/filter/module.cpp:42
 msgid "resulting changes in spectrum"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:42
+#: plugins/dialogs/filter/module.cpp:43
 msgid "resulting changes in phase"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:48
+#: plugins/dialogs/filter/module.cpp:49
 msgid "Filter Type"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:54
+#: plugins/dialogs/filter/module.cpp:55
 msgid "Use normal filtering, e.g. the impulse response is finite !"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:59
+#: plugins/dialogs/filter/module.cpp:60
 msgid "&IIR"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:62
+#: plugins/dialogs/filter/module.cpp:63
 msgid "Use recursive filtering, e.g. the impulse response could be infinite !"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:70
+#: plugins/dialogs/filter/module.cpp:71
 msgid ""
 "Number of filter coefficients\n"
 " Keep this low and you won't need any coffee break..."
@@ -930,7 +991,7 @@ msgid "Choose windowing function here."
 msgstr ""
 
 #: plugins/dialogs/averagefft/module.cpp:39
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:146
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:160
 msgid "Window Function :"
 msgstr ""
 
@@ -974,6 +1035,7 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
+#: plugins/dialogs/about/AboutDialog.cpp:145
 #: plugins/dialogs/sweep/module.cpp:88
 msgid "Ok"
 msgstr ""
@@ -985,6 +1047,10 @@ msgstr ""
 #: plugins/dialogs/sweep/module.cpp:171
 #, c-format
 msgid "file %s does not exist!\n"
+msgstr ""
+
+#: plugins/dialogs/about/AboutDialog.cpp:106
+msgid "About KWave"
 msgstr ""
 
 #: plugins/dialogs/delay/module.cpp:24 plugins/dialogs/newsignal/module.cpp:21
@@ -1084,93 +1150,141 @@ msgstr ""
 msgid "Length of pulse :"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:427
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:135
+msgid "&Export to Bitmap ..."
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:140
+msgid "Frequencies Status Bar"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:144
+msgid "Time: ------ ms"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:145
+msgid "Frequency: ------ Hz"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:146
+#, c-format
+msgid "Amplitude: --- %"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:188
+msgid "Time: 0 ms"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:189
+msgid "Frequency: 0 Hz"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:190
+#, c-format
+msgid "Amplitude: 0 %"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:504
 msgid "Sonagram of "
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:430
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:507
 msgid "<nothing>"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:55
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:533
+#, c-format
+msgid "Time: %s"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:537
+#, c-format
+msgid "Frequency: %d Hz"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:547
+msgid "Amplitude: %d %%"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:54
 msgid "sonagram"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:69
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:82
 msgid "Set FFT/time resolution parameter"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:103
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:116
 msgid "FFT settings"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:110
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:123
 msgid "Number of FFT points:"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:119
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:132
 msgid ""
 "Try to choose numbers with small prime-factors, if choosing big window "
 "sizes.\n"
 "The computation will be much faster !"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:133
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:147
 msgid ""
 "Choose windowing function here. If fourier transformation should stay "
 "reversible, use the type <none>"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:228
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:234
 msgid "display"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:239
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:245
 msgid "use colors"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:243
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:249
 msgid "use different colors for amplitude"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:248
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:254
 msgid "greyscale"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:251
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:257
 msgid "use greyscale only for amplitude"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:260
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:266
 msgid "update"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:271
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:277
 msgid "on modifications"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:275
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:281
 msgid ""
 "automatically update the sonagram\n"
 "if the signal data has modified"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:281
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:287
 msgid "follow selection"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:285
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:291
 msgid ""
 "automatically update the sonagram if the selection\n"
 "has been enlarged, reduced or moved"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:375
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:420
 #, c-format
 msgid "( resulting window size: %s )"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:377
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:422
 #, c-format
 msgid "size of bitmap: %dx%d"
 msgstr ""

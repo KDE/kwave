@@ -253,27 +253,27 @@ bool SignalWidget::executeNavigationCommand(const char *command)
 	setOffset(offset - pixels2samples(width));
 	refreshAllLayers();
     CASE_COMMAND("selectall")
-	setRange(0, signalmanage->getLength() - 1);
+	selectRange(0, signalmanage->getLength() - 1);
     CASE_COMMAND("selectnext")
 	int r = signalmanage->getRMarker();
 	int l = signalmanage->getLMarker();
-	setRange(r + 1, r + 1 + (r - l));
+	selectRange(r + 1, r + 1 + (r - l));
     CASE_COMMAND("selectprev")
 	int r = signalmanage->getRMarker();
 	int l = signalmanage->getLMarker();
-	setRange(l - (r - l) - 1, l - 1);
+	selectRange(l - (r - l) - 1, l - 1);
     CASE_COMMAND("selecttoleft")
 	int l = 0;
 	int r = signalmanage->getRMarker();
-	setRange(l, r);
+	selectRange(l, r);
     CASE_COMMAND("selecttoright")
 	int l = signalmanage->getLMarker();
 	int r = signalmanage->getLength() - 1;
-	setRange(l, r);
+	selectRange(l, r);
     CASE_COMMAND("selectvisible")
-	setRange(offset, offset + pixels2samples(width) - 1);
+	selectRange(offset, offset + pixels2samples(width) - 1);
     CASE_COMMAND("selectnone")
-	setRange(offset, offset);
+	selectRange(offset, offset);
     CASE_COMMAND("selectrange")
 	selectRange();
     } else return false;
@@ -337,20 +337,12 @@ bool SignalWidget::executeCommand(const char *command)
 	refreshAllLayers();
     CASE_COMMAND("newsignal")
 	createSignal(command);
-    CASE_COMMAND("cut")
-	ASSERT(signalmanage);
-	if (signalmanage) {
-	    //set range after cutting
-	    bool x = signalmanage->executeCommand(command);
-	    setRange(signalmanage->getLMarker(), signalmanage->getLMarker());
-	    return x;
-	}
-//    } else if (executeLabelCommand(command)) {
-//	return true;
     } else if (executeNavigationCommand(command)) {
 	return true;
     } else if (signalmanage) {
-	return signalmanage->executeCommand(command);
+	bool res = signalmanage->executeCommand(command);
+	selectRange(signalmanage->getLMarker(), signalmanage->getRMarker());
+	return res;
     } else return false;
 
     return true;
@@ -449,10 +441,27 @@ void SignalWidget::selectRange()
 	int siglen = signalmanage->getLength();
 
 	if ((l + len - 1) >= siglen)
-	    setRange(l, siglen - 1);    //overflow check
+	    selectRange(l, siglen - 1);    //overflow check
 	else
-	    setRange(l, l + len - 1);
+	    selectRange(l, l + len - 1);
     }
+}
+
+//****************************************************************************
+void SignalWidget::selectRange(int left, int right)
+{
+//    debug("SignalWidget::selectRange(%d,%d)",left,right);
+    if (!signalmanage) return;
+
+    ASSERT(select);
+    ASSERT(m_zoom);
+    if (select && m_zoom) {
+	if ((left != select->left()) || (right != select->right()))
+	    select->set(left, right);
+    }
+
+    signalmanage->setRange(left, right);
+    estimateRange(left, right);
 }
 
 //****************************************************************************
@@ -532,6 +541,8 @@ SignalManager *SignalWidget::getSignalManager()
 //****************************************************************************
 void SignalWidget::createSignal(const char *str)
 {
+    closeSignal();
+
     Parser parser (str);
 
     int rate = parser.toInt();
@@ -541,12 +552,14 @@ void SignalWidget::createSignal(const char *str)
 
     if (signalmanage) delete signalmanage;
     labels->clear ();
+    offset = 0;
 
     signalmanage = new SignalManager(numsamples, rate, 1);
     if (signalmanage) {
 	connectSignal();
-	emit sigChannelAdded(0);;
+	selectRange(0, 0);
 	zoomAll();
+	emit sigChannelAdded(0);;
     }
 }
 
@@ -555,22 +568,6 @@ void SignalWidget::estimateRange(int l, int r)
 {
 //    debug("SignalWidget::estimateRange(%d, %d)", l, r);
     emit selectedTimeInfo(samples2ms(r - l + 1));
-}
-
-//****************************************************************************
-void SignalWidget::setRange(int l, int r, bool set)
-{
-    //    debug("SignalWidget::setRange(%d,%d,%d)",l,r,set);
-    if (!signalmanage) return;
-
-    ASSERT(select);
-    ASSERT(m_zoom);
-    if (set && select && m_zoom) {
-	select->set(((l - offset) / m_zoom), ((r - offset) / m_zoom));
-    }
-
-    signalmanage->setRange(l, r);
-    estimateRange(l, r);
 }
 
 //****************************************************************************
@@ -614,7 +611,7 @@ void SignalWidget::setSignal(const char *filename, int type)
 	return ;
     }
     connectSignal();
-    setRange(0, 0);
+    selectRange(0, 0);
     zoomAll();
     for (unsigned int i=0; i < signalmanage->getChannelCount(); i++)
 	emit sigChannelAdded(i);
@@ -629,7 +626,7 @@ void SignalWidget::closeSignal()
 
     down = false;
 
-    setRange(0, 0);
+    selectRange(0, 0);
     zoomAll();
     refreshAllLayers();
 }
@@ -829,12 +826,6 @@ void SignalWidget::refreshAllLayers()
     int rate = (signalmanage) ? signalmanage->getRate() : 0;
     int length = (signalmanage) ? signalmanage->getLength() : 0;
 
-    if (select) {
-	select->setOffset(offset);
-	select->setLength(length);
-	select->setZoom(m_zoom);
-    }
-
     if (rate) emit timeInfo(samples2ms(length));
     if (rate) emit rateInfo(rate);
 
@@ -871,14 +862,12 @@ void SignalWidget::slot_setOffset(int new_offset)
 
 //****************************************************************************
 bool SignalWidget::checkPosition(int x)
-//returns if given x coordinates is within bonds of area,
-//in which labels may be reset, else false;
 {
     ASSERT(select);
     if (!select) return false;
 
-    //2 % of width tolerance
-    return select->checkPosition(x, width / 50);
+    // 2 % of width tolerance
+    return select->checkPosition(x, pixels2samples(width / 50));
 }
 
 //****************************************************************************
@@ -896,7 +885,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
     if (signalmanage->isPlaying()) return;
 
     if (e->button() == LeftButton) {
-	int x = e->pos().x();
+	int x = offset + pixels2samples(e->pos().x());
 	down = true;
 	(checkPosition(x)) ? select->grep(x) : select->set(x, x);
     }
@@ -919,11 +908,11 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
     if (signalmanage->isPlaying()) return;
 
     if (down) {
-	int x = e->pos().x();
-	if (x >= width) x = width - 1;    //check for some bounds
+	int x = offset + pixels2samples(e->pos().x());
+//	if (x >= length) x = length - 1;    //check for some bounds
 	if (x < 0) x = 0;
 	select->update(x);
-	setRange(select->getLeft(), select->getRight(), false);
+	selectRange(select->left(), select->right() /* , false */);
 	down = false;
     }
 }
@@ -962,16 +951,18 @@ void SignalWidget::mouseMoveEvent( QMouseEvent *e )
     if (down) {
 	// in move mode, a new selection was created or an old one grabbed
 	// this does the changes with every mouse move...
-	int x = e->pos().x();
-	if (x >= width) x = width - 1;    //check for some bounds
+	int x = offset + pixels2samples(e->pos().x());
+//	if (x >= width) x = width - 1;    //check for some bounds
 	if (x < 0) x = 0;
 	select->update(x);
-	setRange(select->getLeft(), select->getRight(), false);
-    } else
+	selectRange(select->left(), select->right());
+    } else {
 	//yes, this code gives the nifty cursor change....
-	if (checkPosition (e->pos().x())) setCursor (sizeHorCursor);
-	else setCursor (arrowCursor);
-
+	if (checkPosition(offset+pixels2samples(e->pos().x())))
+	    setCursor(sizeHorCursor);
+	else
+	    setCursor(arrowCursor);
+    }
 }
 
 //****************************************************************************
@@ -1340,21 +1331,38 @@ void SignalWidget::paintEvent(QPaintEvent *event)
     }
 
     // --- repaint of the selection layer ---
-    if ( update_layer[LAYER_SELECTION] || !layer[LAYER_SELECTION] ) {
+    if (select && channels &&
+        ( update_layer[LAYER_SELECTION] || !layer[LAYER_SELECTION] )) {
 	if (!layer[LAYER_SELECTION])
 	    layer[LAYER_SELECTION] = new QPixmap(size());
 	ASSERT(layer[LAYER_SELECTION]);
 	if (!layer[LAYER_SELECTION]) return;
 
 //	debug("SignalWidget::paintEvent(): - redraw of selection layer -");
+	
 	p.begin(layer[LAYER_SELECTION]);
-
 	p.fillRect(0, 0, width, height, black);
-	p.setBrush(yellow);
-	p.setPen(yellow);
 	p.setRasterOp(CopyROP);
-	if (select && channels) select->drawSelection(&p, width, height);
+	
+	int left  = select->left();
+	int right = select->right();
+	if ((right > offset) && (left < offset+pixels2samples(width))) {
+	    // transform to pixel coordinates
+	    left  = samples2pixels(left - offset);
+	    right = samples2pixels(right - offset);
 
+	    if (left < 0) left = 0;
+	    if (right >= width) right = width-1;
+	    if (left > right) left = right;
+
+	    if (left == right) {
+		p.setPen (green);
+		p.drawLine(left, 0, left, height);
+	    } else {
+		p.setBrush(yellow);
+		p.drawRect(left, 0, right-left+1, height);
+	    }
+	}
 	p.flush();
 	p.end();
 

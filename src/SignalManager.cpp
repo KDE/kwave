@@ -86,7 +86,7 @@ SignalManager::SignalManager(Signal *sig)
     signal.append(sig);
     signal.last()->select(true);
 
-    this->channels = 1;
+    m_channels = 1;
     this->rate = sig->getRate();
 }
 
@@ -97,13 +97,14 @@ SignalManager::SignalManager(unsigned int numsamples,
 {
     initialize();
     this->rate = rate;
+    this->name = duplicateString(i18n("noname"));
 
     for (unsigned int i = 0; i < channels; i++) {
 	Signal *new_signal = new Signal(numsamples, rate);
 	ASSERT(new_signal);
-	signal.append(new_signal);
-	signal.last()->select(true);
+	appendChannel(new_signal);
     }
+
 }
 
 //***************************************************************************
@@ -132,7 +133,7 @@ void SignalManager::initialize()
     name = 0;
     lmarker = 0;
     rmarker = 0;
-    channels = 0;
+    m_channels = 0;
     rate = 0;
     for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
 	msg[i] = 0;
@@ -282,7 +283,7 @@ QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
 int SignalManager::getBitsPerSample()
 {
     int max_bps = 0;
-    for (unsigned int i = 0; i < channels; i++) {
+    for (unsigned int i = 0; i < m_channels; i++) {
 	int bps = (signal.at(i)) ? signal.at(i)->getBits() : 0;
 	if (bps > max_bps) max_bps = bps;
     }
@@ -296,7 +297,7 @@ void SignalManager::deleteChannel(unsigned int channel)
     signal.remove(channel);
     signal.setAutoDelete(false);
 
-    channels--;                 //decrease number of channels...
+    m_channels--;                 //decrease number of channels...
 
     emit sigChannelDeleted(channel);
     emit signalChanged( -1, -1);
@@ -316,7 +317,7 @@ void SignalManager::appendChannel(Signal *newsig)
     if (!newsig) return;
 
     signal.append(newsig);
-    channels++;
+    m_channels++;
 
     emit sigChannelAdded(signal.count()-1);
     emit signalChanged( -1, -1);
@@ -394,7 +395,7 @@ bool SignalManager::executeCommand(const char *command)
 	globals.clipboard = new ClipBoard();
 	ASSERT(globals.clipboard);
 	if (globals.clipboard) {
-	    for (unsigned int i = 0; i < channels; i++) {
+	    for (unsigned int i = 0; i < m_channels; i++) {
 		ASSERT(signal.at(i));
 		if (signal.at(i)) globals.clipboard->appendChannel(
 		    signal.at(i)->copyRange());
@@ -405,29 +406,31 @@ bool SignalManager::executeCommand(const char *command)
 	globals.clipboard = new ClipBoard();
 	ASSERT(globals.clipboard);
 	if (globals.clipboard) {
-	    for (unsigned int i = 0; i < channels; i++) {
+	    for (unsigned int i = 0; i < m_channels; i++) {
 		ASSERT(signal.at(i));
 		if (signal.at(i)) globals.clipboard->appendChannel(
 		    signal.at(i)->cutRange());
 	    }
 	}
+	rmarker = lmarker;
 	emit signalChanged(getLMarker(), -1);
     CASE_COMMAND("crop")
 	if (globals.clipboard) delete globals.clipboard;
 	globals.clipboard = new ClipBoard();
 	ASSERT(globals.clipboard);
 	if (globals.clipboard) {
-	    for (unsigned int i = 0; i < channels; i++) {
+	    for (unsigned int i = 0; i < m_channels; i++) {
 		ASSERT(signal.at(i));
 		if (signal.at(i)) (signal.at(i)->cropRange());
 	    }
 	}
 	emit signalChanged( -1, -1);
     CASE_COMMAND("delete")
-	for (unsigned int i = 0; i < channels; i++) {
+	for (unsigned int i = 0; i < m_channels; i++) {
 	    ASSERT(signal.at(i));
 	    if (signal.at(i)) signal.at(i)->deleteRange();
 	}
+	rmarker = lmarker;
 	emit signalChanged(getLMarker(), -1);
     CASE_COMMAND("paste")
 	if (globals.clipboard) {
@@ -438,7 +441,7 @@ bool SignalManager::executeCommand(const char *command)
 
 		/* ### check if the signal has to be re-sampled ### */
 		
-		for (unsigned int i = 0; i < channels; i++) {
+		for (unsigned int i = 0; i < m_channels; i++) {
 		    ASSERT(signal.at(i));
 		    if (signal.at(i)) {
 			signal.at(i)->insertPaste(toinsert->getSignal(
@@ -447,6 +450,11 @@ bool SignalManager::executeCommand(const char *command)
 		    }
 		    sourcechan++;
 		    sourcechan %= clipchan;
+		}
+		if (toinsert->getLength()) {
+		    rmarker = lmarker + toinsert->getLength() - 1;
+		} else {
+		    rmarker = lmarker;
 		}
 	    }
 	    emit signalChanged(getLMarker(), -1);
@@ -460,7 +468,7 @@ bool SignalManager::executeCommand(const char *command)
 
 		/* ### check if the signal has to be re-sampled ### */
 
-		for (unsigned int i = 0; i < channels; i++) {
+		for (unsigned int i = 0; i < m_channels; i++) {
 		    ASSERT(signal.at(i));
 		    if (signal.at(i)) {
 			signal.at(i)->mixPaste(
@@ -480,10 +488,10 @@ bool SignalManager::executeCommand(const char *command)
 	unsigned int i = atoi(parser.getFirstParam());
 	deleteChannel(i);
     CASE_COMMAND("selectchannels")
-	for (unsigned int i = 0; i < channels; i++)
+	for (unsigned int i = 0; i < m_channels; i++)
 	    if (signal.at(i)) signal.at(i)->select(true);
     CASE_COMMAND("invertchannels")
-	for (unsigned int i = 0; i < channels; i++)
+	for (unsigned int i = 0; i < m_channels; i++)
 	    toggleChannel(i);
     } else {
 	bool result = promoteCommand(command);
@@ -501,7 +509,7 @@ bool SignalManager::promoteCommand (const char *command)
 
     // loop over all channels
     unsigned int i;
-    for (i = 0; i < channels; i++) {
+    for (i = 0; i < m_channels; i++) {
         ASSERT(signal.at(i));
         if (!signal.at(i)) continue;
 
@@ -579,7 +587,7 @@ bool SignalManager::promoteCommand (const char *command)
 
 
     // could not promote command to modules or an error occured
-    if (i < channels) return false;
+    if (i < m_channels) return false;
 
     return true;
 }
@@ -594,14 +602,14 @@ void SignalManager::commandDone()
 //***************************************************************************
 SignalManager::~SignalManager()
 {
-    while (channels) deleteChannel(channels-1);
+    while (m_channels) deleteChannel(m_channels-1);
     if (name) delete[] name;
 }
 
 //***************************************************************************
 void SignalManager::setRange(unsigned int l, unsigned int r)
 {
-    for (unsigned int i = 0; i < channels; i++) {
+    for (unsigned int i = 0; i < m_channels; i++) {
 	ASSERT(signal.at(i));
 	if (signal.at(i)) signal.at(i)->setMarkers(l, r);
     }
@@ -636,7 +644,7 @@ int SignalManager::loadAscii()
     int cnt = 0;
     float max = 0;
     float amp;
-    int *sample;
+    int *sample = 0;
 
     FILE *sigin = fopen(name, "r");
     if (!sigin) {
@@ -649,7 +657,7 @@ int SignalManager::loadAscii()
     rate = 44100;        //will be asked in requester
 
     // scan for number of channels
-    channels = 1;
+    m_channels = 1;
 
     // loop over all samples in file to get maximum value
     while (!feof(sigin)) {
@@ -666,9 +674,13 @@ int SignalManager::loadAscii()
     amp = (float)((1 << 23)-1) / max;
     Signal *new_signal = new Signal(cnt, rate);
     ASSERT(new_signal);
-    signal.append(new_signal);
-    new_signal->setBits(24);
-    sample = new_signal->getSample();
+
+    if (new_signal) {
+	signal.append(new_signal);
+	new_signal->setBits(24);
+	sample = new_signal->getSample();
+    }
+
     if (sample) {
 	fseek (sigin, 0, SEEK_SET);    //seek to beginning
 	cnt = 0;
@@ -753,7 +765,7 @@ int SignalManager::loadWav()
 			    result = -EMEDIUMTYPE;
 			    break;
 		    }
-		    channels = header.channels;
+		    m_channels = header.channels;
 		}
 	    } else {
 		KMsgBox::message(0, i18n("Info"),
@@ -791,8 +803,8 @@ void SignalManager::exportAscii(const char *name)
     ASSERT(length);
     if (!length) return;
 
-    ASSERT(channels);
-    if (!channels) return;
+    ASSERT(m_channels);
+    if (!m_channels) return;
 
     FILE *sigout = fopen(name, "w");
     ASSERT(sigout);
@@ -801,12 +813,12 @@ void SignalManager::exportAscii(const char *name)
     //prepare and show the progress dialog
     char progress_title[256];
     char str_channels[128];
-    if (channels == 1)
+    if (m_channels == 1)
 	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
-    else if (channels == 2)
+    else if (m_channels == 2)
 	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
     else
-	snprintf(str_channels, sizeof(str_channels), "%d-channel", channels);
+	snprintf(str_channels, sizeof(str_channels), "%d-channel", m_channels);
     snprintf(progress_title, sizeof(progress_title),
 	i18n("Exporting %s ASCII file :"),
 	str_channels);
@@ -822,7 +834,7 @@ void SignalManager::exportAscii(const char *name)
     const double scale_y = (1 << 23)-1;
     for (unsigned int pos = 0; pos < length ; pos++) {
 	// loop over all channels
-	for (unsigned int channel=0; channel < channels; channel++) {
+	for (unsigned int channel=0; channel < m_channels; channel++) {
 	    sample = signal.at(channel)->getSample();
 	    if (!sample) continue;
 	
@@ -854,7 +866,7 @@ int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
     unsigned char *savebuffer = 0;
     sample_t **sample = 0;    // array of pointers to samples
     int bytes = bits / 8;
-    int bytes_per_sample = bytes * channels;
+    int bytes_per_sample = bytes * m_channels;
     bufsize -= bufsize % bytes_per_sample;
 
     // try to allocate memory for the save buffer
@@ -875,12 +887,12 @@ int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
     //prepare and show the progress dialog
     char progress_title[256];
     char str_channels[128];
-    if (channels == 1)
+    if (m_channels == 1)
 	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
-    else if (channels == 2)
+    else if (m_channels == 2)
 	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
     else
-	snprintf(str_channels, sizeof(str_channels), "%d-channel", channels);
+	snprintf(str_channels, sizeof(str_channels), "%d-channel", m_channels);
 
     snprintf(progress_title, sizeof(progress_title), "Saving %d-Bit-%s File :",
 	    bits, str_channels);
@@ -894,15 +906,15 @@ int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
     int percent_count = length / 200;
     unsigned int shift = 24-bits;
 
-    sample = new (int*)[channels];
-    for (unsigned int channel = 0; channel < channels; channel++) {
+    sample = new (int*)[m_channels];
+    for (unsigned int channel = 0; channel < m_channels; channel++) {
 	sample[channel] = signal.at(channel)->getSample();
 	ASSERT(sample[channel]);
 	if (!sample[channel]) {
 	    KMsgBox(0, i18n("Warning"),
 		i18n("empty channel detected, channel count reduced by one"),
 		2);
-	    channels--;
+	    m_channels--;
 	}
     }
 
@@ -912,7 +924,7 @@ int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
 	unsigned int nsamples = 0;
 
 	while (pos < length && (nsamples < bufsize / bytes_per_sample)) {
-	    for (unsigned int channel = 0; channel < channels; channel++) {
+	    for (unsigned int channel = 0; channel < m_channels; channel++) {
 		int *smp = sample[channel] + pos;
 		int act = (*smp) >> shift;
 		if (bytes == 1) {
@@ -972,7 +984,7 @@ void SignalManager::save(const char *filename, int bits, bool selection)
     ASSERT(name);
     if (!name) return;
 
-    if (!channels) KMsgBox(0, i18n("info"),
+    if (!m_channels) KMsgBox(0, i18n("info"),
 	i18n("Signal is empty, nothing to save !"), 2);
 
     if (sigout) {
@@ -982,12 +994,12 @@ void SignalManager::save(const char *filename, int bits, bool selection)
 	strncpy ((char*)&(header.wavid), "WAVE", 4);
 	strncpy ((char*)&(header.fmtid), "fmt ", 4);
 	header.fmtlength = 16;
-	header.filelength = (length * bits / 8 * channels + sizeof(struct wavheader));
+	header.filelength = (length * bits / 8 * m_channels + sizeof(struct wavheader));
 	header.mode = 1;
-	header.channels = channels;
+	header.channels = m_channels;
 	header.rate = rate;
-	header.AvgBytesPerSec = rate * bits / 8 * channels;
-	header.BlockAlign = bits * channels / 8;
+	header.AvgBytesPerSec = rate * bits / 8 * m_channels;
+	header.BlockAlign = bits * m_channels / 8;
 	header.bitspersample = bits;
 
 	int datalen = length * header.channels * header.bitspersample / 8;

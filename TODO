@@ -1,4 +1,10 @@
 
+o crash with revers / zero() / cut/paste ?
+
+o selection is not properly updated after "delete"
+
+o selection is not properly updated after "paste"
+
 o playback: continue/pause
 
 o playback: get error messages out of the thread
@@ -41,8 +47,6 @@ o in CurveWidget: something goes wrong when mirroring to left
 o possible memory leaks due to controls/menus in CurveWidget, FFTWindow
 
 o possible memory leak in MultiStateWidget: when do the images get released ?
-
-o inspect the usage of ImageView: owner of the image? freeing the image?
 
 o review all calls to DynamicLoader::getDialog, in: FFTWidget
 
@@ -90,19 +94,12 @@ o support for KDE's session management
 o find the reason for that short noise at the end of playback
   (does not occur when the selected range ends with some silence !)
 
-o if an incompatible version of libgui is installed, the linking of the
-  kwave program fails during "make". Thus the libgui directory should be
-  added to the linker's directory list (-L../libgui ?) during make of the
-  kwave main program and the plugins
-
 o fix bug in Fx->Periodic Silence (segmentation fault)
 
 o pluginize/ put into library  the following files in src/ :
   mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h 
 
 o context menu for right mouse button in SignalWidget
-
-o a nice toolbar + icons for the buttons
 
 o macro recorder
 

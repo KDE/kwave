@@ -51,7 +51,7 @@ public:
     SignalManager(Signal *sig);
     SignalManager(const char *filename, int type = 0);
     SignalManager(unsigned int length, int rate,
-                  unsigned int channel = 1);
+                  unsigned int channels = 1);
     virtual ~SignalManager();
 
     bool executeCommand(const char *command);
@@ -107,7 +107,7 @@ public:
     /** Returns the current number of channels */
     inline unsigned int getChannelCount()
     {
-	return channels;
+	return m_channels;
     };
 
     /**
@@ -353,7 +353,7 @@ private:
 
     unsigned int lmarker;
     unsigned int rmarker;
-    unsigned int channels;
+    unsigned int m_channels;
     int rate;                    //sampling rate being used
 
     /** error string from the playback thread */

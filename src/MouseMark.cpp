@@ -1,8 +1,21 @@
+/***************************************************************************
+              MouseMark.cpp -  Handling of mouse selection
+			     -------------------
+    begin                : Sun Nov 12 2000
+    copyright            : (C) 2000 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "config.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <qpainter.h>
 #include "MouseMark.h"
 
 //****************************************************************************
@@ -11,120 +24,61 @@ MouseMark::MouseMark(QWidget *parent)
 {
     initial = -1;
     last = -1;
-    offset = 0;
-    zoom = 1;
 }
 
 //****************************************************************************
-void MouseMark::setZoom(double zoom)
+void MouseMark::set(int l, int r)
 {
-    this->zoom = zoom;
-}
+    initial = l;
+    last = r;
 
-//****************************************************************************
-void MouseMark::setOffset(int offset)
-{
-    this->offset = offset;
-}
-
-//****************************************************************************
-void MouseMark::setLength(int length)
-{
-    this->length = length;
-}
-
-//****************************************************************************
-void MouseMark::set (int l, int r)
-{
-    initial = (int)(l * zoom + offset);
-    last = (int)(r * zoom + offset);
-
+    emit selection(left(), right());
     emit refresh ();
+}
 
-    if (initial < last) emit selection (initial, last);
-    else emit selection (last, initial);
+//****************************************************************************
+int MouseMark::left()
+{
+    return (initial < last) ? initial : last;
+}
+
+//****************************************************************************
+int MouseMark::right()
+{
+    return (initial > last) ? initial : last;
 }
 
 //****************************************************************************
 void MouseMark::grep(int x)
 {
-    if (abs((int)(last - x*zoom - offset)) >
-        abs((int)(initial - x*zoom - offset)))
-    {
+    if (abs((last - x)) > abs((initial - x))) {
 	initial = last;
     }
+    last = x;
 
-    last = (int)(x * zoom + offset);
-
+    emit selection(left(), right());
     emit refresh ();
-
-    if (initial < last) emit selection (initial, last);
-    else emit selection (last, initial);
 }
 
 //****************************************************************************
 void MouseMark::update(int x)
 {
-    last = (int)(x * zoom + offset);
+    last = x;
+
+    emit selection(left(), right());
     emit refresh ();
-    if (initial < last) emit selection (initial, last);
-    else emit selection (last, initial);
 }
 
 //****************************************************************************
 bool MouseMark::checkPosition(int x, int tol)
-//returns if x is in the border range between selected and unselected
 {
-    double start = offset + x*zoom;
-
-    if ((start > initial - (tol*zoom)) && (start < initial + tol*zoom))
+    if ((x > initial - (tol)) && (x < initial + tol))
 	return true;
 
-    if ((start < last + tol*zoom) && (start > last - tol*zoom))
+    if ((x < last + tol) && (x > last - tol))
 	return true;
 
     return false;
-}
-
-//****************************************************************************
-void MouseMark::drawSelection (QPainter *p, int width, int height)
-{
-    ASSERT(p);
-    ASSERT(zoom);
-    if (zoom == 0) return;
-    if (!p) return;
-
-    int x = (int) (((double)(initial - offset)) / zoom);
-    int w = (int) (((double)(last - initial)) / zoom);
-
-    //clip output to window width
-    if ((x < 0) && (w + x > 0)) {
-	w += x;
-	x = 0;
-    }
-    if (w + x > width) w = width - x;
-    if (w + x < 0) w = -x;
-
-    p->setBrush (yellow);
-    p->setRasterOp (XorROP);
-
-    if (last == initial) {
-	p->setPen (green);
-	p->drawLine(x, 0, x, height);
-	last = initial;
-    } else {
-	p->setPen (yellow);
-	p->drawRect(x, 0, w, height);
-//      debug("MouseMark::drawSelection:%d...%d (width=%d, last=%d, initial=%d)",
-//              x, x+w-1, width,last,initial); // ###
-    }
-
-    p->setRasterOp (CopyROP);
-}
-
-//****************************************************************************
-MouseMark::~MouseMark()
-{
 }
 
 //****************************************************************************

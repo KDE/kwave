@@ -47,6 +47,17 @@
 #include "TopWidget.h"
 #include "PluginManager.h"
 
+#include "toolbar/filenew.xpm"
+#include "toolbar/fileopen.xpm"
+#include "toolbar/filefloppy.xpm"
+#include "toolbar/filesaveas.xpm"
+
+#include "toolbar/editcut.xpm"
+#include "toolbar/editcopy.xpm"
+#include "toolbar/editpaste.xpm"
+#include "toolbar/eraser.xpm"
+#include "toolbar/delete.xpm"
+
 #include "toolbar/play.xpm"
 #include "toolbar/loop.xpm"
 #include "toolbar/pause.xpm"
@@ -210,15 +221,96 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     connect(this, SIGNAL(sigCommand(const char *)),
 	    this, SLOT(executeCommand(const char *)));
 
-    // --- set up the playback toolbar ---
+    // --- set up the toolbar ---
 
     m_toolbar = new KToolBar(this, i18n("toolbar"));
     ASSERT(m_toolbar);
     if (!m_toolbar) return;
-    m_toolbar->setBarPos(KToolBar::Bottom);
+    m_toolbar->setBarPos(KToolBar::Top);
     m_toolbar->setFullWidth(false);
     this->addToolBar(m_toolbar);
     m_toolbar->insertSeparator(-1);
+
+    // --- file open and save ---
+
+    m_toolbar->insertButton(
+	QPixmap(xpm_filenew), -1, SIGNAL(pressed()),
+	this, SLOT(toolbarFileNew()), true,
+	i18n("create a new empty file"));
+
+    m_toolbar->insertButton(
+	QPixmap(xpm_fileopen), -1, SIGNAL(pressed()),
+	this, SLOT(toolbarFileOpen()), true,
+	i18n("open an existing file"));
+
+    m_toolbar->insertButton(
+	QPixmap(xpm_filefloppy), -1, SIGNAL(pressed()),
+	this, SLOT(toolbarFileSave()), true,
+	i18n("save the current file"));
+
+    m_toolbar->insertButton(
+	QPixmap(xpm_filesaveas), -1, SIGNAL(pressed()),
+	this, SLOT(toolbarFileSaveAs()), true,
+	i18n("save the current file under a different name"));
+
+    // separator between file and edit
+    QFrame *separator1 = new QFrame(m_toolbar, "separator line");
+    ASSERT(separator1);
+    if (!separator1) return;
+    separator1->setFrameStyle(QFrame::VLine | QFrame::Sunken);
+    separator1->setFixedWidth(separator1->sizeHint().width());
+    m_toolbar->insertSeparator(-1);
+    m_toolbar->insertWidget(0, separator1->sizeHint().width(), separator1);
+    m_toolbar->insertSeparator(-1);
+
+    // --- edit, cut&paste ---
+
+//  Undo
+//  Redo
+
+    m_toolbar->insertButton(
+	QPixmap(xpm_editcut), -1, SIGNAL(pressed()),
+	this, SLOT(toolbarEditCut()), true,
+	i18n("cut the current selection and move it to the clipboard"));
+
+    m_toolbar->insertButton(
+	QPixmap(xpm_editcopy), -1, SIGNAL(pressed()),
+	this, SLOT(toolbarEditCopy()), true,
+	i18n("copy the current selection to the clipboard"));
+
+    m_toolbar->insertButton(
+	QPixmap(xpm_editpaste), -1, SIGNAL(pressed()),
+	this, SLOT(toolbarEditPaste()), true,
+	i18n("insert the content of clipboard"));
+
+    m_toolbar->insertButton(
+	QPixmap(xpm_eraser), -1, SIGNAL(pressed()),
+	this, SLOT(toolbarEditErase()), true,
+	i18n("mute the current selection"));
+
+    m_toolbar->insertButton(
+	QPixmap(xpm_delete), -1, SIGNAL(pressed()),
+	this, SLOT(toolbarEditDelete()), true,
+	i18n("delete the current selection"));
+
+//                  Zoom
+//                  Previous Page/Back
+//                  Next Page/Forward
+//                  Go To Page/Home
+
+//                  Help
+
+    // separator between edit and playback
+    QFrame *separator = new QFrame(m_toolbar, "separator line");
+    ASSERT(separator);
+    if (!separator) return;
+    separator->setFrameStyle(QFrame::VLine | QFrame::Sunken);
+    separator->setFixedWidth(separator->sizeHint().width());
+    m_toolbar->insertSeparator(-1);
+    m_toolbar->insertWidget(0, separator->sizeHint().width(), separator);
+    m_toolbar->insertSeparator(-1);
+
+    // --- playback controls ---
 
     m_id_play = m_toolbar->insertButton(
 	QPixmap(xpm_play), -1, SIGNAL(pressed()),
@@ -241,16 +333,17 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 	i18n("stop playback or loop"));
 
     // separator between playback and zoom
-    QFrame *separator = new QFrame(m_toolbar, "separator line");
-    ASSERT(separator);
-    if (!separator) return;
-    separator->setFrameStyle(QFrame::VLine | QFrame::Sunken);
-    separator->setFixedWidth(separator->sizeHint().width());
+    QFrame *separator3 = new QFrame(m_toolbar, "separator line");
+    ASSERT(separator3);
+    if (!separator3) return;
+    separator3->setFrameStyle(QFrame::VLine | QFrame::Sunken);
+    separator3->setFixedWidth(separator3->sizeHint().width());
     m_toolbar->insertSeparator(-1);
-    m_toolbar->insertWidget(0, separator->sizeHint().width(), separator);
+    m_toolbar->insertWidget(0, separator3->sizeHint().width(), separator3);
     m_toolbar->insertSeparator(-1);
 
-    // --- set up the zoom toolbar ---
+    // --- zoom controls ---
+
     m_id_zoomrange = m_toolbar->insertButton(
 	QPixmap(xpm_zoomrange), -1, SIGNAL(pressed()),
 	mainwidget, SLOT(zoomRange()), true,

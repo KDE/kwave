@@ -29,7 +29,6 @@
 #include <qwidget.h>
 
 #include <kapp.h>
-#include <kbuttonbox.h>
 #include <kstatusbar.h>
 
 #include <libkwave/String.h>
@@ -81,13 +80,10 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     MultiStateWidget *msw;
 
     bsize = 0;
-//    buttons = 0;
     frmChannelControls = 0;
     frmSignal = 0;
     keys = 0;
-//    loopbutton = 0;
     lastChannels = 0;
-//    playbutton = 0;
     scrollbar = 0;
     signalview = 0;
     m_slider = 0;
@@ -155,24 +151,6 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     ASSERT(m_slider);
     if (!m_slider) return;
 
-//    // -- buttons for playback and zoom --
-//
-//    buttons = new QHBoxLayout();
-//    ASSERT(buttons);
-//    if (!buttons) return;
-//
-//    // [Play]
-//    playbutton = new QPushButton(i18n("Play"), this);
-//    ASSERT(playbutton);
-//    if (!playbutton) return;
-//    playbutton->setAccel(Key_Space);
-//
-//    // [Loop]
-//    loopbutton = new QPushButton(i18n("&Loop"), this);
-//    ASSERT(loopbutton);
-//    if (!loopbutton) return;
-//    loopbutton->setAccel(Key_L);
-
     // create the layout objects
     QGridLayout *topLayout = new QGridLayout(this, 3, 2, 0);
     ASSERT(topLayout);
@@ -207,11 +185,6 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     // -- do all the geometry management stuff --
 
-//    h = playbutton->sizeHint().height();
-//    w = max(playbutton->sizeHint().width(), loopbutton->sizeHint().width());
-//    playbutton->setFixedSize(w, h);
-//    loopbutton->setFixedSize(w, h);
-
     topLayout->addWidget(frmChannelsBack, 0, 0);
 
     topLayout->addLayout(signalLayout, 0, 1);
@@ -220,13 +193,6 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     m_slider->setFixedHeight(20/*playbutton->height()*3/4*/);
     topLayout->addWidget(m_slider, 1, 1);
-
-//    topLayout->addLayout(buttons, 2, 1);
-//    buttons->addWidget(playbutton);
-//    buttons->addSpacing(10);
-//    buttons->addWidget(loopbutton);
-//    buttons->addSpacing(20);
-//    buttons->addStretch(10);
 
     topLayout->setRowStretch(0, 1);
     topLayout->setRowStretch(1, 0);
@@ -239,18 +205,6 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     connect(scrollbar, SIGNAL(valueChanged(int)),
             this, SLOT(scrollbarMoved(int)));
-
-
-//    connect(playbutton, SIGNAL(pressed()),
-//	    this, SLOT(play()));
-//    connect(loopbutton, SIGNAL(pressed()),
-//	    this, SLOT(loop()));
-//    connect(signalview, SIGNAL(playingfinished()),
-//	    this, SLOT(stop()));
-//    connect(this, SIGNAL(setOperation(int)),
-//	    signalview, SLOT(playback_setOp(int)));
-
-
     connect(m_slider, SIGNAL(valueChanged(int)),
 	    signalview, SLOT(slot_setOffset(int)));
     connect(signalview, SIGNAL(viewInfo(int, int, int)),
@@ -283,19 +237,15 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 //*****************************************************************************
 bool MainWidget::isOK()
 {
-//    ASSERT(buttons);
     ASSERT(frmChannelControls);
     ASSERT(frmSignal);
     ASSERT(keys);
-//    ASSERT(loopbutton);
-//    ASSERT(playbutton);
     ASSERT(scrollbar);
     ASSERT(signalview);
     ASSERT(m_slider);
 
-    return ( /* buttons && */frmChannelControls && frmSignal && keys &&
-             /*loopbutton && playbutton && */scrollbar && signalview &&
-             m_slider );
+    return ( frmChannelControls && frmSignal && keys && scrollbar &&
+	signalview && m_slider );
 }
 
 //*****************************************************************************
@@ -306,12 +256,6 @@ MainWidget::~MainWidget()
 
     if (signalview) delete signalview;
     signalview = 0;
-
-//    if (buttons) delete buttons;
-//    buttons = 0;
-
-    // do not delete the buttons themselfes, the
-    // KButtonBox has "auto-deletion" turned on !
 
     if (keys) delete keys;
     lamps.clear();
@@ -570,80 +514,6 @@ bool MainWidget::executeCommand(const char *command)
 
     return true;
 }
-
-////*****************************************************************************
-//void MainWidget::loop()
-//{
-//    ASSERT(playbutton);
-//    ASSERT(loopbutton);
-//    if (!playbutton) return;
-//    if (!loopbutton) return;
-//
-//    emit setOperation(LOOP);
-//    playbutton->setText(i18n("Stop"));
-//    loopbutton->setText(i18n("Halt"));     // halt feature by gerhard Zint
-//    this->disconnect(playbutton, SIGNAL(pressed()), this, SLOT(play()));
-//    this->disconnect(loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
-//    this->connect(playbutton, SIGNAL(pressed()), this, SLOT(stop()));
-//    this->connect(loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
-//}
-//
-////*****************************************************************************
-//void MainWidget::play ()
-//{
-//    ASSERT(playbutton);
-//    ASSERT(loopbutton);
-//    if (!playbutton) return;
-//    if (!loopbutton) return;
-//
-//    emit setOperation (PLAY);
-//    playbutton->setText (i18n("Stop"));
-//    loopbutton->setText (i18n("Halt"));     // halt feature by gerhard Zint
-//    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
-//    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
-//    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
-//    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
-//}
-//
-////*****************************************************************************
-//void MainWidget::halt ()
-//{
-//    ASSERT(playbutton);
-//    ASSERT(loopbutton);
-//    if (!playbutton) return;
-//    if (!loopbutton) return;
-//
-//    playbutton->setText(i18n("Play"));
-//    loopbutton->setText(i18n("&Loop"));
-//    loopbutton->setAccel(Key_L);    //seems to neccessary
-//
-//    emit setOperation (PHALT);
-//
-//    this->disconnect(playbutton, SIGNAL(pressed()), this, SLOT(stop()));
-//    this->connect(playbutton, SIGNAL(pressed()), this, SLOT(play()));
-//    this->disconnect(loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
-//    this->connect(loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
-//}
-//
-////*****************************************************************************
-//void MainWidget::stop ()
-//{
-//    ASSERT(playbutton);
-//    ASSERT(loopbutton);
-//    if (!playbutton) return;
-//    if (!loopbutton) return;
-//
-//    playbutton->setText(i18n("Play"));
-//    loopbutton->setText(i18n("&Loop"));
-//    loopbutton->setAccel(Key_L);    //seems to be neccessary
-//
-//    emit setOperation(PSTOP);
-//
-//    this->disconnect(playbutton, SIGNAL(pressed()), this, SLOT(stop()));
-//    this->disconnect(loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
-//    this->connect(playbutton, SIGNAL(pressed()), this, SLOT(play()));
-//    this->connect(loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
-//}
 
 //*****************************************************************************
 void MainWidget::setSelectedTimeInfo(double ms)

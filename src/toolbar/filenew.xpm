@@ -1,7 +1,7 @@
 /* XPM */
 /* Drawn  by Mark Donohoe for the K Desktop Environment */
 /* See http://www.kde.org */
-static char*filenew[]={
+static const char *xpm_filenew[]={
 "22 22 5 1",
 "# c #000000",
 "c c #c0c0c0",

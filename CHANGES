@@ -1,6 +1,8 @@
 
 0.5.5 [not released yet]
 
+ * introduced a toolbar for some standard operations
+ * fixed some bugs concerning selection with the mouse
  * rework of the overview widget (used in main window and sonagram)
  * fixed menu command "zoom selection"
  * sonagram: saving to file, auto-brightness adjust

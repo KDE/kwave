@@ -298,6 +298,9 @@ int SignalManager::save(const KURL &url, bool selection)
 
     Encoder *encoder = CodecManager::encoder(mimetype_name);
     if (encoder) {
+	// maybe we now have a new mime type
+	m_file_info.set(INF_MIMETYPE, mimetype_name);
+    
 	// check if we loose information and as the user if this would
 	// be acceptable if so
 	QValueList<FileProperty> supported = encoder->supportedProperties();

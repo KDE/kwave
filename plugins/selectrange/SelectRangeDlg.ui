@@ -63,6 +63,9 @@
                     <property name="name">
                         <cstring>rbSamples</cstring>
                     </property>
+                    <property name="focusPolicy">
+                        <enum>TabFocus</enum>
+                    </property>
                     <property name="text">
                         <string>&amp;Samples</string>
                     </property>
@@ -76,6 +79,9 @@
                 <widget class="QRadioButton" row="1" column="0">
                     <property name="name">
                         <cstring>rbTime</cstring>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>TabFocus</enum>
                     </property>
                     <property name="text">
                         <string>&amp;Time</string>
@@ -200,6 +206,9 @@
                                     <width>0</width>
                                     <height>20</height>
                                 </size>
+                            </property>
+                            <property name="focusPolicy">
+                                <enum>TabFocus</enum>
                             </property>
                             <property name="minValue">
                                 <number>0</number>
@@ -398,6 +407,9 @@
                     </property>
                     <property name="enabled">
                         <bool>false</bool>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>StrongFocus</enum>
                     </property>
                 </widget>
             </grid>
@@ -602,18 +614,19 @@
     </connection>
 </connections>
 <tabstops>
+    <tabstop>btOK</tabstop>
+    <tabstop>btCancel</tabstop>
     <tabstop>rbTime</tabstop>
+    <tabstop>rbSamples</tabstop>
+    <tabstop>rbPercents</tabstop>
     <tabstop>sbHours</tabstop>
     <tabstop>sbMinutes</tabstop>
     <tabstop>sbSeconds</tabstop>
     <tabstop>sbMilliseconds</tabstop>
-    <tabstop>rbSamples</tabstop>
-    <tabstop>rbPercents</tabstop>
+    <tabstop>edSamples</tabstop>
     <tabstop>sbPercents</tabstop>
     <tabstop>slidePercents</tabstop>
     <tabstop>btHelp</tabstop>
-    <tabstop>btOK</tabstop>
-    <tabstop>btCancel</tabstop>
 </tabstops>
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>

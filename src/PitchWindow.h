@@ -1,9 +1,14 @@
+#ifndef _PITCH_WINDOW_H_
+#define _PITCH_WINDOW_H_ 1
+
 #include <ktopwidget.h>
-#include <kstatusbar.h>  
-#include "../libgui/ScaleWidget.h"
 
 class PitchWidget;
 class PitchContainer;
+class ScaleWidget;
+class CornerPatchWidget;
+class KStatusBar;
+
 //***********************************************************************
 class PitchWindow : public KTopLevelWidget
 {
@@ -31,3 +36,5 @@ class PitchWindow : public KTopLevelWidget
  CornerPatchWidget *corner;
  int rate;
 };
+
+#endif // _PITCH_WINDOW_H_

@@ -1,12 +1,7 @@
-#ifndef _KWAVE_MENU_MANAGER_H_
-#define _KWAVE_MENU_MANAGER_H_ 1
+#ifndef _MENU_MANAGER_H_
+#define _MENU_MANAGER_H_ 1
 
-// #include <qobject.h>
 #include <qwidget.h>
-// #include <qlist.h>
-// #include <qdict.h>
-
-// #include "MenuNode.h"
 
 class QWidget;
 class KMenuBar;
@@ -31,9 +26,9 @@ class MenuManager: public QObject
     //add Entrys to numbered Window
     void addNumberedMenuEntry      (const char *name,const char *entry);
 
-    void selectItemChecked		(const char *id);
-    void setItemChecked		(const char *id, bool check);
-    void setItemEnabled		(const char *id, bool enable);
+    void selectItemChecked(const char *uid);
+    void setItemChecked(const char *uid, bool check);
+    void setItemEnabled(const char *uid, bool enable);
 
  signals:
 
@@ -49,4 +44,4 @@ class MenuManager: public QObject
     MenuRoot *menu_root;
 };
 
-#endif
+#endif // _MENU_MANAGER_H_

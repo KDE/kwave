@@ -1,14 +1,21 @@
-#include "KwaveApp.h"
+
+#include <qdir.h>
+#include <qstring.h>
+#include <qstrlist.h>
+
 #include <libkwave/Global.h>
 #include <libkwave/String.h>
 #include <libkwave/Parser.h>
 #include <libkwave/MessagePort.h>
 #include <libkwave/DynamicLoader.h>
-#include <qdir.h>
+
 #include "TopWidget.h"
+#include "KwaveApp.h"
 
 extern struct Global globals;     
-extern QStrList      recentFiles; 
+
+extern QStrList recentFiles;
+
 //*****************************************************************************
 void findDirectories ()
   //finds/creates configuration/plugin directories and stores them in 
@@ -81,9 +88,8 @@ KwaveApp::KwaveApp (int argc, char **argv): KApplication (argc,argv)
 
   if (argc==2) 
     {
-      QString filename=argv[1];
       TopWidget *tmp=topwidgetlist.first();
-      if (tmp) tmp->setSignal     (filename);
+      if (tmp) tmp->setSignal(argv[1]);
     }
   check=new QTimer ();
 
@@ -249,13 +255,14 @@ void KwaveApp::readConfig()
   for (unsigned int i =0 ; i < 20; i++)
     {
       sprintf (buf,"%dCommand",i);                
-      QString name=config->readEntry (buf);
+      QString name = config->readEntry (buf);
       if (!name.isEmpty())
 	{
 	  LabelType *marker=new LabelType(name.data());
 	  globals.markertypes.append (marker);
 	}
     }
+
 }
 //*****************************************************************************
 void KwaveApp::timer ()

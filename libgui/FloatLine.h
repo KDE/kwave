@@ -1,3 +1,6 @@
+#ifndef _FLOAT_LINE_H_
+#define _FLOAT_LINE_H_ 1
+
 #include <krestrictedline.h>
 
 class FloatLine : public KRestrictedLine
@@ -13,3 +16,5 @@ class FloatLine : public KRestrictedLine
  private:
  char  digits; //allowed number of digits behind the .
 };
+
+#endif // _FLOAT_LINE_H_

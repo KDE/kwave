@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef MENUTOPLEVEL_H
-#define MENUTOPLEVEL_H
+#ifndef _MENU_TOP_LEVEL_H_
+#define _MENU_TOP_LEVEL_H_ 1
 
 #include "MenuSub.h"
 
@@ -29,9 +29,10 @@ class MenuToplevel : public MenuSub
   Q_OBJECT
 
 public: // Public methods
-    MenuToplevel(MenuNode *parent, const char *name, const char *command=0);
+    MenuToplevel(MenuNode *parent, char *name, char *command=0,
+                 int key=0, char *uid=0);
     // virtual bool setEnabled();
 
 };
 
-#endif
+#endif // _MENU_TOP_LEVEL_H_

@@ -1,12 +1,12 @@
-#ifndef _KWAVESIGNALVIEW_H_
-#define _KWAVESIGNALVIEW_H_ 1
+#ifndef _SIGNAL_WIDGET_H_
+#define _SIGNAL_WIDGET_H_ 1
 
 #include <qfile.h>
 #include <qfiledlg.h>
 #include <qwidget.h>
 #include <qtimer.h>
 #include "MouseMark.h"
-#include "../libgui/MultiStateImage.h"
+#include "../libgui/MultiStateWidget.h"
 #include "../libgui/MenuManager.h"
 #include <libkwave/Label.h>
 #include <libkwave/LabelList.h>
@@ -119,5 +119,4 @@ class SignalWidget : public QWidget
  MenuManager   *manage;
 };
 
-#endif //_KWAVESIGNALVIEW_H_
-
+#endif // _SIGNAL_WIDGET_H_

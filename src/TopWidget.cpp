@@ -4,6 +4,7 @@
 #include <kapp.h>
 #include <qkeycode.h>
 #include <qdir.h>
+#include <qfiledlg.h>
 #include <drag.h>
 
 #include <libkwave/DynamicLoader.h>
@@ -13,7 +14,7 @@
 #include <libkwave/Global.h>
 #include <libkwave/FileLoader.h>
 
-#include "../libgui/Dialog.h"
+#include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
 
 #include "sampleop.h"

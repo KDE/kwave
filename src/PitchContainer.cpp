@@ -1,7 +1,10 @@
+
+#include <qpushbt.h>
+#include "libgui/ScaleWidget.h"
+#include "libgui/CornerPatchWidget.h"
+
 #include "PitchWidget.h"
 #include "PitchContainer.h"
-#include "../libgui/ScaleWidget.h"
-#include <qpushbt.h>
 
 PitchContainer::PitchContainer (QWidget *parent): QWidget (parent)
 {

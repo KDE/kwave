@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef MENUITEM_H
-#define MENUITEM_H
+#ifndef _MENU_ITEM_H_
+#define _MENU_ITEM_H_
 
 #include "MenuNode.h"
 
@@ -30,8 +30,9 @@ class MenuItem : public MenuNode {
 
 public: // Public methods
 
-    MenuItem(MenuNode *parent, const char *name, const char *command=0);
+    MenuItem(MenuNode *parent, char *name, char *command=0,
+             int key=0, char *uid=0);
     virtual int getIndex();
 };
 
-#endif
+#endif // _MENU_ITEM_H_

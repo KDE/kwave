@@ -1,14 +1,8 @@
-#include <qobject.h>
-// #include <kapp.h>
-// #include <qlist.h>
-// #include "MainWidget.h"
-// #include <drag.h>
-// #include "KwaveApp.h"
-// #include "../libgui/MenuManager.h"
+#ifndef _TOP_WIDGET_H_
+#define _TOP_WIDGET_H_ 1
 
 #include <ktmainwindow.h>
 
-// class KTMainWindow;
 class MenuManager;
 class MainWidget;
 class SignalManager;
@@ -55,20 +49,4 @@ class TopWidget : public KTMainWindow
  int            bits;         //bit resolution to save with
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#endif // _TOP_WIDGET_H_

@@ -1,40 +1,33 @@
-#ifndef _CURVE_H_
-#define _CURVE_H_ 1
+#ifndef _CURVE_WIDGET_H_
+#define _CURVE_WIDGET_H_ 1
 
-#include <qdir.h>
-#include <qapp.h>
-#include <qpushbt.h>
-#include <qstring.h>
 #include <qwidget.h>
 #include <qpainter.h>
-#include <qpixmap.h>
-#include <qtimer.h>
-#include <kapp.h>
-#include <kselect.h>
-#include <ktopwidget.h>
-#include <kmenubar.h>
-#include <kbuttonbox.h>
-#include <kstatusbar.h>  
-#include <libkwave/Curve.h>
-#include <libkwave/PointSet.h>
-#include <libkwave/gsl_fft.h>
 
 class Curve;
+class QMouseEvent;
+class QPaintEvent;
+class QPopupMenu;
+class Point;
+class QPixmap;
+class QDir;
+class QStrList;
+
 class CurveWidget : public QWidget
 {
   Q_OBJECT
 
-    public:
+ public:
 
   CurveWidget	(QWidget *parent=0,const char *init=0,int=false);
   ~CurveWidget	 ();
 
-  inline const char* getCommand ()             {return points->getCommand();};
+  inline const char* getCommand ();
          void        setCurve   (const char *);
          void        addPoint   (double,double);
          Point*      findPoint  (int,int);
 
-  public slots:
+ public slots:
 
   void  setType (int);
   void  scaleFit ();
@@ -73,4 +66,4 @@ class CurveWidget : public QWidget
   QStrList      *namelist;
 };
 //***********************************************************************
-#endif //curvewidget.h
+#endif // _CURVE_WIDGET_H_

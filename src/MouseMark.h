@@ -1,5 +1,5 @@
-#ifndef _KWAVEMOUSEMARK_H_
-#define _KWAVEMOUSEMARK_H_ 1
+#ifndef _MOUSE_MARK_H_
+#define _MOUSE_MARK_H_ 1
 
 #include <qobject.h>
 
@@ -37,4 +37,4 @@ class MouseMark:public QObject
  double  zoom;          //current zoom
 };
 //***********************************************************
-#endif //_KWAVEMOUSEMARK_H_
+#endif //_MOUSE_MARK_H_

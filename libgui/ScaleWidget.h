@@ -1,8 +1,9 @@
-#ifndef _SCALE_H_
-#define _SCALE_H_ 1
+#ifndef _SCALE_WIDGET_H_
+#define _SCALE_WIDGET_H_ 1
 
 #include <qwidget.h>
-#include <qpainter.h>
+
+class QPainter;
 
 class ScaleWidget : public QWidget
 {
@@ -33,30 +34,7 @@ class ScaleWidget : public QWidget
  bool logmode;     //conditional: logarithmic mode or not
  char *unittext;   //string containing the name of the unit
 };
-//*****************************************************
-class CornerPatchWidget : public QWidget
-{
- Q_OBJECT
 
- public:
-
- 	CornerPatchWidget 	(QWidget *parent=0,int=0);
- 	~CornerPatchWidget 	();
-
- signals:
-
- public slots:
-
- protected:
-
- void   paintEvent(QPaintEvent *); 
-
- private:
-
- int  pos;         //
-};
-
-
-#endif  /* Scale.h */   
+#endif // SCALE_WIDGET_H
 
 

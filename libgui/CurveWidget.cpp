@@ -1,17 +1,42 @@
 #include <stdio.h>
+#include <math.h>
+#include <limits.h>
+
+#include <qstring.h>
+#include <qlist.h>
+#include <qstrlist.h>
 #include <qimage.h>
 #include <qpainter.h>
 #include <qcursor.h>
 #include <qkeycode.h>
 #include <qaccel.h>
 #include <qfiledlg.h>
-#include <math.h>
-#include <limits.h>
+#include <qpopupmenu.h>
+#include <kapp.h>
+
 #include <libkwave/Interpolation.h>
 #include <libkwave/FileLoader.h>
 #include <libkwave/Curve.h>
 #include <libkwave/Global.h>
+
 #include "CurveWidget.h"
+
+//#include <qdir.h>
+//#include <qapp.h>
+//#include <qpushbt.h>
+#include <qwidget.h>
+//#include <qpainter.h>
+//#include <qpixmap.h>
+//#include <qtimer.h>
+//#include <kselect.h>
+//#include <ktopwidget.h>
+//#include <kmenubar.h>
+//#include <kbuttonbox.h>
+//#include <kstatusbar.h>
+#include <libkwave/Curve.h>
+//#include <libkwave/PointSet.h>
+//#include <libkwave/gsl_fft.h>
+
 
 int knobcount=0;
 QPixmap *knob=0;
@@ -97,7 +122,7 @@ CurveWidget::CurveWidget (QWidget *parent,const char *init,int keepborder) : QWi
   
   if (knob==0)
     {
-      QString dirname=((KApplication *)globals.app)->kde_datadir ();
+      const QString &dirname=((KApplication *)globals.app)->kde_datadir ();
       QDir dir (dirname.data());
       dir.cd ("kwave");
       dir.cd ("pics");
@@ -133,6 +158,11 @@ CurveWidget::~CurveWidget ()
   if (menu) delete menu;
 }
 //****************************************************************************
+const char *CurveWidget::getCommand()
+{
+  return points->getCommand();
+}
+//****************************************************************************
 void CurveWidget::setCurve (const char *next)
 {
   if (points) delete points;
@@ -147,9 +177,10 @@ void CurveWidget::setType(int type)
 //****************************************************************************
 void CurveWidget::savePreset()
 {
-  QString name=QFileDialog::getSaveFileName (presetDir->path(),"*.curve",this);
+  QString name=QFileDialog::getSaveFileName(
+    presetDir->path(),"*.curve",this);
 
-  if (name.find (".curve")==-1) name.append (".curve");
+  if (name.find (".curve")==-1) name.append(".curve");
   QFile out(name.data());
   out.open (IO_WriteOnly);
   const char *buf=points->getCommand();

@@ -28,4 +28,4 @@ class FaderWidget : public QWidget
  char   *comstr;
 };
 //***********************************************************************
-#endif
+#endif // _FADER_WIDGET_H_

@@ -1,3 +1,6 @@
+#ifndef _IMAGEVIEW_H_
+#define _IMAGEVIEW_H_ 1
+
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qpixmap.h>
@@ -34,3 +37,4 @@ class ImageView : public QWidget
  QPixmap        map;
 };
 //***********************************************************************
+#endif // _IMAGEVIEW_H_

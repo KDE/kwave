@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef MENUNODE_H
-#define MENUNODE_H
+#ifndef _MENU_NODE_H_
+#define _MENU_NODE_H_ 1
 
 #include <qobject.h>
 #include <qlist.h>
@@ -37,8 +37,12 @@ public:
      * @param name the non-localized name of the node
      * @param command the command to be sent when the node is
      *                selected (optional, default=0)
+     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
+     *            (optional, default=0)
+     * @param uid unique id string (optional, default=0)
      */
-    MenuNode(MenuNode *parent, const char *name, const char *command = 0);
+    MenuNode(MenuNode *parent, char *name, char *command=0,
+             int key=0, char *uid=0);
 
     /**
      * Destructor. Clears the menu node and cleans up.
@@ -49,18 +53,38 @@ public:
     /**
      * Returns the (non-localized) name of the node.
      */
-    inline const char   *getName() const {return name;};
+    inline const char *getName() const {return name;};
 
     /**
-     * Returns the unique if of the node.
+     * Returns the menu id of the node.
      */
-    inline int           getId()       {return this->id;};
+    inline int getId() {return this->id;};
 
     /**
-     * Sets the unique id of a node.
-     * @param id new unique id of the node
+     * Returns the unique id string of the node.
      */
-    inline void          setId(int id) {this->id=id;};
+    inline char *getUID() { return this->uid;};
+
+    /**
+     * Sets the unique id string of the node
+     */
+    inline void setUID(char *uid);
+
+    /**
+     * Returns the bitmask of the keyboard shortcut.
+     */
+    inline int getKey() { return this->key;};
+
+    /**
+     * Sets the bitmask of the keyboard shortcut.
+     */
+    virtual void setKey(int key) { this->key = key; };
+
+    /**
+     * Sets the menu id of a node.
+     * @param id new menu id of the node
+     */
+    inline void setId(int id) {this->id=id;};
 
     /**
      * Positional index of the node in the parent node.
@@ -71,11 +95,11 @@ public:
 
     /**
      * Returns the positional index of a child node, identified by
-     * it's unique id.
-     * @param unique id of the child
+     * it's menu id.
+     * @param menu id of the child
      * @return index [0..n] or -1 f not found
      */
-    virtual int getChildIndex(const int id);
+    virtual int getChildIndex(int id);
 
     /**
      * Returns true if the node is a branch, false if it is a leaf.
@@ -99,12 +123,6 @@ public:
      */
     virtual void clear();
 
-    /**
-     * Sets a new pointer to the node's parent.
-     * @param newParent pointer to a MenuNode,
-     */
-    virtual void setParent(MenuNode *newParent);
-
     /** returns a pointer to the menu's parent node */
     virtual MenuNode *getParentNode();
 
@@ -115,46 +133,54 @@ public:
      * Enables or disables a menu node. If the specified item is not
      * a member of the current menu, this method will recursively call all
      * of it's child nodes.
-     * @param id the unique menu item id
+     * @param id the item's menu id
      * @param enable true to enable the item, false to disable
      * @return true if the item has been found, false if not
      */
-    virtual bool setItemEnabled(const int item, const bool enable);
+    virtual bool setItemEnabled(int item, bool enable);
+
+    /**
+     * Tries to find a menu node by it's unique id string. It descends
+     * recursively through all child nodes if necessary.
+     * @param uid the unique id string to be searched
+     * @return pointer to the found node or 0 if not found
+     */
+    MenuNode *findUID(const char *uid);
 
     /**
      * Tries to find a child node by it's name.
      * @param name non-localized name of the child node
      * @return pointer to the found node or 0 if not found
      */
-    MenuNode *findChild(const char *name);
+    MenuNode *findChild(char *name);
 
     /**
      * Tries to find a child node by it's unique id.
-     * @param id unique id of the child node
+     * @param id menu id of the child node
      * @return pointer to the found node or 0 if not found
      */
-    MenuNode *findChild(const int id);
+    MenuNode *findChild(int id);
 
     /**
      * Removes a child, identified by it's unique id. If the child
      * was not found or is already removed this does nothing.
-     * @param id unique id
+     * @param id menu id of the child node
      */
-    virtual void removeChild(const int id);
+    virtual void removeChild(int id);
 
     /**
      * Inserts a new branch node into the menu structure. The new node
      * normally is (derived from) MenuSub.
      * @param name non-localized name of the node
-     * @param key bitmask with the keyboard shortcut (see "qkeycode.h"),
+     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
      *            0 if unused
-     * @param uid unique id, must be [0...]
+     * @param uid unique id string (might be 0)
      * @param index the positional index within the parent menu, starting
-     *              from 0 or -1 for appending. Optional, default=-1
+     *              from 0 or -1 for appending (optional, default=-1)
      * @return pointer to the new branch node
      */
-    virtual MenuNode *insertBranch(char *name, const int key,
-                                   const char *uid, const int index=-1);
+    virtual MenuNode *insertBranch(char *name, int key,
+                                   char *uid, int index=-1);
 
     /**
      * Inserts a new leaf node into the menu structure. The new node
@@ -162,16 +188,15 @@ public:
      * @param name non-localized name of the node
      * @param command the command to be sent when the node is
      *                selected (might be 0)
-     * @param key bitmask with the keyboard shortcut (see "qkeycode.h"),
+     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
      *            0 if unused
-     * @param uid unique id, must be [0...]
+     * @param uid unique id string (might be 0)
      * @param index the positional index within the parent menu, starting
      *              from 0 or -1 for appending. Optional, default=-1
      * @return pointer to the new leaf node
      */
-    virtual MenuNode *insertLeaf(char *name, const char *command,
-                                 const int key, const char *uid,
-                                 const int index=-1);
+    virtual MenuNode *insertLeaf(char *name, char *command, int key,
+                                 char *uid, int index=-1);
 
     /**
      * Registers a node as a child of the current node.
@@ -187,12 +212,14 @@ public:
      * @param name non-localized name of the first node (might be 0)
      * @param position path consiting of several node names separated
      *        by a '/'. All strings are non-localized.
-     * @param key bitmask with the keyboard shortcut (see "qkeycode.h"),
+     * @param command the command to be sent when the node is
+     *                selected (might be 0)
+     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
      *            0 if unused
-     * @param uid unique id, must be [0...]
+     * @param uid unique id string (might be 0)
      */
-    virtual int insertNode(const char *command, char *name, char *position,
-	                   const int key, const char *uid);
+    virtual int insertNode(char *name, char *position, char *command,
+	                   int key, char *uid);
 
     /**
      * Handles/interpretes special menu commands.
@@ -211,8 +238,14 @@ private:
     /** list with pointers to child menus */
     QList<MenuNode> children;
 
-    /** unique id of the node */
-    int   id;
+    /** numeric id in the menu */
+    int id;
+
+    /** unique id string */
+    char *uid;
+
+    /** bitmask of the keyboard shortcut */
+    int key;
 
     /** name of the node (non-localized) */
     char *name;
@@ -224,4 +257,4 @@ private:
     MenuNode* parentNode;
 };
 
-#endif
+#endif // _MENU_NODE_H_

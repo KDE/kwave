@@ -19,8 +19,9 @@ INCLUDES= @all_includes@
 BUILTSOURCES=\
  TimeLine.moc.cpp\
  FloatLine.moc.cpp\
- MultiStateImage.moc.cpp\
+ MultiStateWidget.moc.cpp\
  ScaleWidget.moc.cpp\
+ CornerPatchWidget.moc.cpp\
  CurveWidget.moc.cpp\
  Dialog.moc.cpp\
  FaderWidget.moc.cpp\
@@ -49,9 +50,10 @@ libkwavegui_la_SOURCES =\
  MenuRoot.cpp\
  MenuManager.cpp\
  MenuCommand.cpp\
- MultiStateImage.cpp\
+ MultiStateWidget.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\
+ CornerPatchWidget.cpp\
  TimeLine.cpp\
  $(BUILTSOURCES)
 
@@ -63,9 +65,11 @@ DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/*
 
 Dialog.moc.cpp: Dialog.h
 	$(MOC) $< -o $@
-MultiStateImage.moc.cpp: MultiStateImage.h
+MultiStateWidget.moc.cpp: MultiStateWidget.h
 	$(MOC) $< -o $@
 ScaleWidget.moc.cpp: ScaleWidget.h
+	$(MOC) $< -o $@
+CornerPatchWidget.moc.cpp: CornerPatchWidget.h
 	$(MOC) $< -o $@
 OverViewWidget.moc.cpp: OverViewWidget.h
 	$(MOC) $< -o $@
@@ -93,6 +97,3 @@ FloatLine.moc.cpp: FloatLine.h
 	$(MOC) $< -o $@
 TimeLine.moc.cpp: TimeLine.h
 	$(MOC) $< -o $@
-
-
-

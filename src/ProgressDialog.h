@@ -1,9 +1,11 @@
-#ifndef _DIALOGS_PROGRESS_H_
-#define _DIALOGS_PROGRESS_H_ 1
+#ifndef _PROGRESS_DIALOG_H_
+#define _PROGRESS_DIALOG_H_ 1
 
 #include <qdialog.h>
-#include <qtimer.h>
-#include <libkwave/TimeOperation.h>
+
+class TimeOperation;
+class QTimer;
+class QPaintEvent;
 
 class ProgressDialog : public QDialog
 {
@@ -33,4 +35,5 @@ class ProgressDialog : public QDialog
  TimeOperation *operation;
  QTimer        *timer;
 };
-#endif
+
+#endif // _PROGRESS_DIALOG_H_

@@ -1,19 +1,11 @@
-#ifndef _PITCHWIDGET_H_
-#define _PITCHWIDGET_H_ 1
+#ifndef _PITCH_WIDGET_H_
+#define _PITCH_WIDGET_H_ 1
 
-#include <qpushbt.h>
-#include <qstring.h>
 #include <qwidget.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qtimer.h>
 
-#include "../libgui/ScaleWidget.h"
-
-#include <kapp.h>
-#include <kselect.h>
-#include <kmenubar.h>
-#include <kbuttonbox.h>
+class QPixmap;
+class QMouseEvent;
+class QPaintEvent;
 
 //***********************************************************************
 class PitchWidget : public QWidget
@@ -52,10 +44,4 @@ class PitchWidget : public QWidget
  QPixmap  *pixmap;	 //pixmap to be blitted to screen
 };
 //***********************************************************************
-#endif
-
-
-
-
-
-
+#endif // _PITCH_WIDGET_H_

@@ -1,5 +1,5 @@
-#ifndef _KWAVECLIPBOARD_H_
-#define _KWAVECLIPBOARD_H_ 1
+#ifndef _CLIP_BOARD_H_
+#define _CLIP_BOARD_H_ 1
 
 class SignalManager;
 class Signal;
@@ -20,4 +20,5 @@ public:
 private:
   SignalManager *signal;
 };
-#endif
+
+#endif // _CLIP_BOARD_H_

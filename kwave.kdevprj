@@ -14,6 +14,11 @@ install_location=
 dist=true
 install=false
 type=SOURCE
+[libgui/CornerPatchWidget.h]
+install_location=
+dist=true
+install=false
+type=HEADER
 [src/ProgressDialog.h]
 install_location=
 dist=true
@@ -25,12 +30,12 @@ dist=true
 install=false
 type=SOURCE
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.cpp,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/ClipBoard.h,/usr/src/packages/multimedia/sound/kwave/libgui/FaderWidget.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuItem.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuItem.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuToplevel.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuToplevel.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuRoot.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/NumberedMenu.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuRoot.h,/usr/src/packages/multimedia/sound/kwave/libgui/NumberedMenu.h,/usr/src/packages/multimedia/sound/kwave/src/SignalWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.h,/usr/src/packages/multimedia/sound/kwave/libgui/ScaleWidget.h,/usr/src/packages/multimedia/sound/kwave/src/SignalWidget.h,/usr/src/packages/multimedia/sound/kwave/src/ClipBoard.cpp,/usr/src/packages/multimedia/sound/kwave/src/MainWidget.h,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h
-cpp_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.cpp
-browser_file=file:/usr/src/packages/development/kdelibdocs-0.3/kdeui/KMenuBar.html
+header_file=/usr/src/packages/multimedia/sound/kwave/src/MainWidget.h
+cpp_file=/usr/src/packages/multimedia/sound/kwave/src/SignalManager.cpp
+browser_file=file:/usr/X11/lib/qt/doc/html/pictures.html
 [libgui/TimeLine.h]
 install_location=
 dist=true
@@ -81,7 +86,7 @@ dist=true
 install=false
 type=DATA
 [libgui/Makefile.am]
-files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FaderWidget.cpp,libgui/FaderWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/Menu.cpp,libgui/Menu.h,libgui/MenuCommand.cpp,libgui/MenuCommand.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/MultiStateImage.cpp,libgui/MultiStateImage.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/Slider.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MenuToplevel.h,libgui/MenuToplevel.cpp,
+files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FaderWidget.cpp,libgui/FaderWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/Menu.cpp,libgui/Menu.h,libgui/MenuCommand.cpp,libgui/MenuCommand.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/Slider.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MenuToplevel.h,libgui/MenuToplevel.cpp,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,
 sub_dirs=
 type=static_library
 [README]
@@ -172,6 +177,11 @@ install_location=
 dist=true
 install=false
 type=HEADER
+[libgui/CornerPatchWidget.cpp]
+install_location=
+dist=true
+install=false
+type=SOURCE
 [libgui/MenuToplevel.cpp]
 install_location=
 dist=true
@@ -214,6 +224,11 @@ install_location=
 dist=true
 install=false
 type=SOURCE
+[libgui/MultiStateWidget.h]
+install_location=
+dist=true
+install=false
+type=HEADER
 [src/FFTContainer.h]
 install_location=
 dist=true
@@ -229,11 +244,6 @@ install_location=
 dist=true
 install=false
 type=DATA
-[libgui/MultiStateImage.h]
-install_location=
-dist=true
-install=false
-type=HEADER
 [libgui/Menu.h]
 install_location=
 dist=true
@@ -318,6 +328,11 @@ install_location=
 dist=true
 install=false
 type=DATA
+[libgui/MultiStateWidget.cpp]
+install_location=
+dist=true
+install=false
+type=SOURCE
 [src/ImageView.cpp]
 install_location=
 dist=true
@@ -330,7 +345,7 @@ version_control=None
 project_type=normal_kde
 author=Martin Wilz
 sub_dir=kwave/
-lfv_open_groups=Sources,
+lfv_open_groups=Headers,
 workspace=1
 project_name=Kwave
 version=0.29.7
@@ -339,11 +354,6 @@ email=mwilz@ernie.MI.Uni-Koeln.DE
 kdevprj_version=1.0beta2
 configure_args=--enable-debug=yes
 modifyMakefiles=false
-[libgui/MultiStateImage.cpp]
-install_location=
-dist=true
-install=false
-type=SOURCE
 [libgui/Dialog.cpp]
 install_location=
 dist=true

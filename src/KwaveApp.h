@@ -1,9 +1,12 @@
-#ifndef KWAVEAPP_H
-#define KWAVEAPP_H 1
-#include <kapp.h>
-#include <qtimer.h>
+#ifndef _KWAVE_APP_H
+#define _KWAVE_APP_H 1
 
+#include <kapp.h>
+#include <qlist.h>
+
+class QTimer;
 class TopWidget;
+
 class KwaveApp : public KApplication
 {
   Q_OBJECT
@@ -33,7 +36,8 @@ class KwaveApp : public KApplication
  QTimer *check;
  QList<TopWidget>   topwidgetlist; 
 };
-#endif
+
+#endif // _KWAVE_APP_H
 
 
 

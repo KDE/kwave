@@ -1,3 +1,6 @@
+#ifndef _MENU_COMMAND_H_
+#define _MENU_COMMAND_H_ 1
+
 class MenuCommand
 {
  public:
@@ -9,3 +12,5 @@ class MenuCommand
   char *command;
   int  id;
 };
+
+#endif // _MENU_COMMAND_H_

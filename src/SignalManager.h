@@ -1,11 +1,13 @@
-#ifndef _SIGNALMANAGE_H_
-#define _SIGNALMANAGE_H_ 1
+#ifndef _SIGNAL_MANAGER_H_
+#define _SIGNAL_MANAGER_H_ 1
 
 #define MAXCHANNELS 64
 
 #define processid	0
 #define stopprocess	1
 #define samplepointer	2
+
+#include <stdio.h>
 
 class Signal;
 class KwaveSignal;
@@ -88,4 +90,5 @@ class SignalManager
  int		rate;                  //sampling rate being used
  int            msg[4];
 };
-#endif  /* signalmanager.h */   
+
+#endif  // _SIGNAL_MANAGER_H_

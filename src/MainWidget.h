@@ -1,28 +1,18 @@
-#ifndef _KMAINWDIGET_H_
-#define _KMAINWIDGET_H_ 1
+#ifndef _KMAIN_WDIGET_H_
+#define _KMAIN_WIDGET_H_ 1
 
-#include <qlayout.h>
-#include <qpushbt.h>
-#include <qfont.h>
-#include <qfile.h>
-#include <qstring.h>
-#include <qfiledlg.h>
 #include <qwidget.h>
-#include <qcombo.h>
-#include <qpixmap.h>
-#include <qtimer.h>
-#include <qframe.h>
-#include "../libgui/MultiStateImage.h"
-#include "../libgui/OverViewWidget.h"
-#include "SignalWidget.h"
-#include "../libgui/MenuManager.h"
-#include <kapp.h>
-#include <kselect.h>
-#include <ktopwidget.h>
-#include <kmenubar.h>
-#include <kbuttonbox.h>
-#include <kstatusbar.h>  
-#include <kbutton.h>
+
+class MenuManager;
+class KStatusBar;
+class MultiStateWidget;
+class SignalManager;
+class KButtonBox;
+class OverViewWidget;
+class SignalWidget;
+class QPushButton;
+class QComboBox;
+
 //***********************************************************
 class MainWidget : public QWidget
 //mainwidget is parent for all widgets in the main window
@@ -87,16 +77,4 @@ class MainWidget : public QWidget
  int              bsize;
  bool             menushown;
 };
-#endif
-
-
-
-
-
-
-
-
-
-
-
-
+#endif // _KMAIN_WDIGET_H_

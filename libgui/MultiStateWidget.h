@@ -1,5 +1,5 @@
-#ifndef _MULTISTATEIMAGE_H_
-#define _MULTISTATEIMAGE_H_ 1
+#ifndef _MULTI_STATE_WIDGET_H_
+#define _MULTI_STATE_WIDGET_H_ 1
 
 #include <qwidget.h>
 #include <qpainter.h>
@@ -15,7 +15,7 @@ class MultiStateWidget : public QWidget
  int	addPixmap               (char *);
  void   setStates               (int *newstates);
  void   setState                (int newstate);
- void   nextState                ();
+ void   nextState               ();
  signals:
 
  void clicked	(int);
@@ -24,8 +24,8 @@ class MultiStateWidget : public QWidget
 
  protected:
 
- void	mouseReleaseEvent		(QMouseEvent * );
- void   paintEvent(QPaintEvent *); 
+ void	mouseReleaseEvent(QMouseEvent * );
+ void   paintEvent(QPaintEvent *);
 
  private:
 
@@ -36,4 +36,4 @@ class MultiStateWidget : public QWidget
  int number;   // number of channels this object represents... used for signals
 };
 
-#endif  /* multistateimage.h */
+#endif  // _MULTI_STATE_WIDGET_H_

@@ -22,8 +22,9 @@
 #include "MenuItem.h"
 #include "MenuSub.h"
 
-MenuSub::MenuSub(MenuNode *parent, const char *name, const char *command)
-    :MenuNode(parent, name, command)
+MenuSub::MenuSub(MenuNode *parent, char *name, char *command,
+                 int key, char *uid)
+    :MenuNode(parent, name, command, key, uid)
 {
     menu = new QPopupMenu(0, klocale->translate(name));
 
@@ -31,7 +32,7 @@ MenuSub::MenuSub(MenuNode *parent, const char *name, const char *command)
 	this,SLOT(slotSelected(int)));
 }
 
-int MenuSub::getChildIndex(const int id)
+int MenuSub::getChildIndex(int id)
 {
     return (menu) ? menu->indexOf(id) : -1;
 }
@@ -41,10 +42,9 @@ QPopupMenu *MenuSub::getPopupMenu()
     return menu;
 }
 
-MenuNode *MenuSub::insertBranch(char *name, const int key, const char *uid,
-				const int index)
+MenuNode *MenuSub::insertBranch(char *name, int key, char *uid, int index)
 {
-    MenuSub *node = new MenuSub(this, name);
+    MenuSub *node = new MenuSub(this, name, 0, key, uid);
 
     if (menu) {
 	int new_id = registerChild(node);
@@ -56,14 +56,13 @@ MenuNode *MenuSub::insertBranch(char *name, const int key, const char *uid,
     return node;
 }
 
-MenuNode *MenuSub::insertLeaf(char *name, const char *command,
-                              const int key, const char *uid,
-                              const int index=-1)
+MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
+                              char *uid, int index=-1)
 {
     int new_id;
     if ((!name) || (!menu)) return 0;
 
-    MenuItem *item = new MenuItem(this, name, command);
+    MenuItem *item = new MenuItem(this, name, command, key, uid);
     if (!item) return 0;
 
     new_id = registerChild(item);
@@ -74,7 +73,7 @@ MenuNode *MenuSub::insertLeaf(char *name, const char *command,
     return item;
 }
 
-void MenuSub::removeChild(const int id)
+void MenuSub::removeChild(int id)
 {
     MenuNode::removeChild(id);
     menu->removeItem(id);
@@ -101,7 +100,7 @@ bool MenuSub::specialCommand(const char *command)
     return false;
 }
 
-void MenuSub::slotSelected (int id)
+void MenuSub::slotSelected(int id)
 {
     MenuNode *child = findChild(id);
     if (child) {

@@ -114,7 +114,7 @@ void MenuManager::setCommand (const char *command)
     if (tmp) id=duplicateString(tmp);
 
     // --- insert the new node into the menu structure ---
-    menu_root->insertNode(com, 0, pos, key, id);
+    menu_root->insertNode(0, pos, com, key, id);
 
     if (com) deleteString(com);
     if (pos) deleteString(pos);
@@ -125,9 +125,9 @@ void MenuManager::setCommand (const char *command)
 //*****************************************************************************
 void MenuManager::clearNumberedMenu (const char *name)
 {
-/* ###
-  NumberedMenu *menu=findNumberedMenu (name);
-  if (menu) menu->clear();
+/*
+    MenuNode *menu = menu_root->findNodeByUID(name);
+    if (menu) menu->clear();
 */
 }
 //*****************************************************************************
@@ -153,7 +153,7 @@ void MenuManager::addNumberedMenuEntry (const char *name,const char *entry)
 */
 }
 //*****************************************************************************
-void MenuManager::selectItemChecked(const char *id)
+void MenuManager::selectItemChecked(const char *uid)
 {
 /* ###
   debug("MenuManager::selectItemChecked('%s')", id);
@@ -166,7 +166,7 @@ void MenuManager::selectItemChecked(const char *id)
 */
 }
 //*****************************************************************************
-void MenuManager::setItemChecked(const char *id, bool check)
+void MenuManager::setItemChecked(const char *uid, bool check)
 {
 /* ###
   debug("MenuManager::setItemChecked('%s', %d)", id, check);
@@ -179,13 +179,12 @@ void MenuManager::setItemChecked(const char *id, bool check)
 */
 }
 //*****************************************************************************
-void MenuManager::setItemEnabled(const char *id, bool enable)
+void MenuManager::setItemEnabled(const char *uid, bool enable)
 {
-/* ###
-  debug("MenuManager::setItemEnabled('%s', %d)", id, enable);
-  MenuNode *menu = menuIDs.find(id);
-  if (menu) menu->setEnabled(enable);
-*/
+  debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
+  MenuNode *menu = menu_root->findUID(uid);
+//  if (menu) menu->setEnabled(enable);
+  debug("found menu=%p", menu);
 }
 //*****************************************************************************
 NumberedMenu *MenuManager::findNumberedMenu (const char *name)

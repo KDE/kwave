@@ -79,5 +79,5 @@ class FFTWidget : public QWidget
  QPainter p;
  QPixmap  *pixmap;       //pixmap to be blitted to screen
 };
-//***********************************************************************
-#endif
+
+#endif // _FFT_WIDGET_H

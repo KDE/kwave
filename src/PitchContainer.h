@@ -1,9 +1,14 @@
+#ifndef _PITCH_CONTAINER_H_
+#define _PITCH_CONTAINER_H_ 1
+
 #include <qwidget.h>
-#include "../libgui/ScaleWidget.h"
 
 class PitchWidget;
 class ScaleWidget;
 class CornerPatchWidget;
+class ScaleWidget;
+class QResizeEvent;
+
 //***********************************************************************
 class PitchContainer : public QWidget
 {
@@ -11,7 +16,8 @@ class PitchContainer : public QWidget
  public:
  	PitchContainer	(QWidget *parent);
  	~PitchContainer	();
-	void 	setObjects	(PitchWidget *view,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner);
+	void 	setObjects	(PitchWidget *view,ScaleWidget *x,ScaleWidget *y,
+	                         CornerPatchWidget *corner);
 
  public slots:
 
@@ -27,3 +33,4 @@ class PitchContainer : public QWidget
  CornerPatchWidget *corner;
 };
 
+#endif // _PITCH_CONTAINER_H_

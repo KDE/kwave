@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef MENUROOT_H
-#define MENUROOT_H
+#ifndef _MENU_ROOT_H_
+#define _MENU_ROOT_H_ 1
 
 #include "MenuNode.h"
 
@@ -35,16 +35,16 @@ public: // Public methods
 
     MenuRoot(KMenuBar &bar);
 
-    virtual int getChildIndex(const int id);
+    virtual int getChildIndex(int id);
 
-    virtual MenuNode *insertBranch(char *name, const int key,
-                                   const char *uid, const int index=-1);
+    virtual MenuNode *insertBranch(char *name, int key,
+                                   char *uid, int index=-1);
 
-    virtual MenuNode *insertLeaf(char *name, const char *command,
-                                 const int key, const char *uid,
-                                 const int index=-1);
+    virtual MenuNode *insertLeaf(char *name, char *command,
+                                 int key, char *uid,
+                                 int index=-1);
 
-    virtual void removeChild(const int id);
+    virtual void removeChild(int id);
 
 private: // Private attributes
 
@@ -53,4 +53,4 @@ private: // Private attributes
 
 };
 
-#endif
+#endif // _MENU_ROOT_H_

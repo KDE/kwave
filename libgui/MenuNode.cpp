@@ -28,14 +28,18 @@ extern struct Global globals;
 
 static int unique_menu_id=0;
 
-MenuNode::MenuNode(MenuNode *parent, const char *name, const char *command)
+MenuNode::MenuNode(MenuNode *parent, char *name, char *command,
+                   int key, char *uid)
     :QObject()
 {
     this->parentNode = parent;
     this->name = duplicateString (name);
+    this->command = duplicateString(command);
+    this->key = key;
+    this->uid = duplicateString(uid);
+
     this->id = -1;
     children.setAutoDelete(true);
-    this->command = duplicateString(command);
 }
 
 //*****************************************************************************
@@ -182,7 +186,7 @@ void MenuNode::clear()
 }
 
 //*****************************************************************************
-int MenuNode::getChildIndex(const int id)
+int MenuNode::getChildIndex(int id)
 {
     return -1;
 }
@@ -194,13 +198,7 @@ MenuNode *MenuNode::getParentNode()
 }
 
 //*****************************************************************************
-void MenuNode::setParent(MenuNode *newParent)
-{
-    parentNode = newParent;
-}
-
-//*****************************************************************************
-bool MenuNode::setItemEnabled(const int id, const bool enable)
+bool MenuNode::setItemEnabled(int id, bool enable)
 {
     if (id == getId()) {
 	// enable/disable myself
@@ -235,14 +233,35 @@ int MenuNode::registerChild(MenuNode *node)
     unique_menu_id += getNeededIDs();
 
     children.append(node);
-    node->setParent(this);
     node->setId(new_id);
 
     return new_id;
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::findChild(const char *name)
+void MenuNode::setUID(char *uid)
+{
+    if (this->uid) delete(this->uid);
+    this->uid = duplicateString(uid);
+}
+
+//*****************************************************************************
+MenuNode *MenuNode::findUID(const char *uid)
+{
+    if (strcmp(uid, this->uid) == 0) return this; // found ourself
+
+    MenuNode *child = children.first();
+    while (child) {
+	MenuNode *node = child->findUID(uid);
+	if (node) return node; // found in child
+	child = children.next();
+    }
+
+    return 0; // nothing found :-(
+}
+
+//*****************************************************************************
+MenuNode *MenuNode::findChild(char *name)
 {
     MenuNode *child = children.first();
     while (child) {
@@ -266,7 +285,7 @@ MenuNode *MenuNode::findChild(int id)
 }
 
 //*****************************************************************************
-void MenuNode::removeChild(const int id)
+void MenuNode::removeChild(int id)
 {
     MenuNode *child = findChild(id);
     if (child) {
@@ -278,25 +297,23 @@ void MenuNode::removeChild(const int id)
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::insertBranch(char *name, const int key, const char *uid,
-	                         const int index)
+MenuNode *MenuNode::insertBranch(char *name, int key, char *uid, int index)
 {
     debug("!!! MenuNode(%s): insertBranch(%s) !!!", this->name, name);
     return 0;
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::insertLeaf(char *name, const char *command,
-                               const int key, const char *uid,
-                               const int index)
+MenuNode *MenuNode::insertLeaf(char *name, char *command, int key, char *uid,
+                               int index)
 {
     debug("!!! MenuNode(%s): insertLeaf(%s) !!!", this->name, name);
     return 0;
 }
 
 //*****************************************************************************
-int MenuNode::insertNode(const char *command, char *name, char *position,
-                         const int key, const char *uid)
+int MenuNode::insertNode(char *name, char *position, char *command,
+                         int key, char *uid)
 {
     int result = -1;
 
@@ -312,7 +329,7 @@ int MenuNode::insertNode(const char *command, char *name, char *position,
 	while ((*position) && (*position != '/'))
 	    position++;
     }
-    if ((*position) && (*position == '/'))
+    if ((position) && (*position == '/'))
 	*(position++)=0;
 
     // --- parse special commands first ---
@@ -322,7 +339,9 @@ int MenuNode::insertNode(const char *command, char *name, char *position,
 	// end of the tree
 	MenuNode *sub = findChild(name);
 	if (sub) {
-	    // a branch with this name already exists
+	    // a leaf with this name already exists
+	    if (key) sub->setKey(key);
+	    if (strlen(uid)) sub->setUID(uid);
 	    return sub->getId();
 	} else {
 	    // insert a new leaf
@@ -339,16 +358,22 @@ int MenuNode::insertNode(const char *command, char *name, char *position,
 	} else if (! sub->isBranch()) {
 	    // remove the "leaf" and insert a branch with
 	    // the same properties
-	    int index = sub->getIndex();
-	    int old_id = sub->getId();
+	    int index     = sub->getIndex();
+	    int old_key   = sub->getKey();
+	    char *old_uid = sub->getUID();
+	    int old_id    = sub->getId();
 	
 	    removeChild(old_id);
-	
-	    sub = insertBranch(name, key, uid, index);
+	    sub = insertBranch(name, old_key, old_uid, index);
+
+	} else {
+	    // branch already exists (maybe we want to set new properties)
+	    if (key) sub->setKey(key);
+	    if (strlen(uid)) sub->setUID(uid);
 	}
 	
 	if (sub) {
-	    result = sub->insertNode(command, 0, position, key, uid);
+	    result = sub->insertNode(0, position, command, key, uid);
 	} else {
 	    debug("MenuNode::insertNode: branch failed!"); // ###
 	}

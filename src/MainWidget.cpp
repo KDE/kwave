@@ -1,11 +1,39 @@
-#include "MainWidget.h"
+
 #include <qkeycode.h>
 #include <qframe.h>
 #include <qimage.h>
 #include <qaccel.h>
-#include "sampleop.h"
-#include "SignalManager.h"
+#include <qwidget.h>
+
+#include <kapp.h>
+#include <kbuttonbox.h>
+
 #include <libkwave/String.h>
+
+#include "libgui/MultiStateWidget.h"
+#include "libgui/OverViewWidget.h"
+//#include "../libgui/MenuManager.h"
+
+//#include <qlayout.h>
+//#include <qpushbt.h>
+//#include <qfont.h>
+//#include <qfile.h>
+//#include <qstring.h>
+//#include <qfiledlg.h>
+//#include <qcombo.h>
+//#include <qpixmap.h>
+//#include <qtimer.h>
+//#include <qframe.h>
+//#include <kselect.h>
+//#include <ktopwidget.h>
+//#include <kmenubar.h>
+//#include <kstatusbar.h>
+//#include <kbutton.h>
+
+#include "sampleop.h"
+#include "SignalWidget.h"
+#include "SignalManager.h"
+#include "MainWidget.h"
 
 static const int keys[10]={Key_1,Key_2,Key_3,Key_4,Key_5,Key_6,Key_7,Key_8,Key_9,Key_0};
 

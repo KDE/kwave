@@ -1,5 +1,9 @@
-#include <qwidget.h>
+
+// #include <qwidget.h>
+#include <qpainter.h>
+
 #include "../src/MainWidget.h" //this has to be changed sometimes
+
 #include "OverViewWidget.h"
 
 OverViewWidget::OverViewWidget (QWidget *parent,const char *name)

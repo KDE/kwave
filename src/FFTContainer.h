@@ -1,7 +1,11 @@
-#include <qpainter.h>
+#ifndef _FFT_CONTAINER_H_
+#define _FFT_CONTAINER_H_ 1
+
 #include <qwidget.h>
-#include "../libgui/FFTWidget.h"
-#include "../libgui/ScaleWidget.h"
+
+class ScaleWidget;
+class CornerPatchWidget;
+class FFTWidget;
 
 class FFTContainer : public QWidget
 {
@@ -9,7 +13,8 @@ class FFTContainer : public QWidget
  public:
 	FFTContainer    (QWidget *parent);
 	~FFTContainer   ();
- void   setObjects      (FFTWidget *fftview,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner);
+ void   setObjects      (FFTWidget *fftview,ScaleWidget *x,ScaleWidget *y,
+                         CornerPatchWidget *corner);
 
  public slots:
 
@@ -25,3 +30,4 @@ class FFTContainer : public QWidget
  CornerPatchWidget *corner;
 };
 
+#endif // _FFT_CONTAINER_H_

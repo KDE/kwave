@@ -35,4 +35,4 @@ class FormantWidget : public QWidget
  double *points;
 };
 //***********************************************************************
-#endif
+#endif // _FORMANT_WIDGET_H_

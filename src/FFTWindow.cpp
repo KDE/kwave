@@ -15,7 +15,9 @@
 
 #include <libkwave/gsl_fft.h>
 
-#include "../libgui/FFTWidget.h"
+#include "libgui/FFTWidget.h"
+#include "libgui/ScaleWidget.h"
+#include "libgui/CornerPatchWidget.h"
 
 #include "TopWidget.h"
 #include "FFTContainer.h"
@@ -23,7 +25,8 @@
 #include "FFTWindow.h"
 
 //****************************************************************************
-FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
+FFTWindow::FFTWindow (QString *name)
+  :KTopLevelWidget(name->data())
 {
   QPopupMenu *fft=      new QPopupMenu ();
   QPopupMenu *view=     new QPopupMenu ();
@@ -88,8 +91,10 @@ FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
   setStatusBar (status);
   setMenu (bar);
 
- QString *windowname=new QString (QString ("Frequencies of ")+QString(name->data()));
-  setCaption (windowname->data()); 
+  QString *windowname=new QString("");
+  windowname->append("Frequencies of ");
+  windowname->append(name->data());
+  setCaption (windowname->data());
   resize (480,300);
   setMinimumSize (480,300);
 }

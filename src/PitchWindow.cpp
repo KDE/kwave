@@ -1,7 +1,13 @@
+
+#include <kapp.h>
+#include <kstatusbar.h>
+
+#include "libgui/ScaleWidget.h"
+#include "libgui/CornerPatchWidget.h"
+
 #include "PitchContainer.h"
 #include "PitchWidget.h"
 #include "PitchWindow.h"
-#include <kapp.h>
 
 extern char *mstotimec (int ms);
 //****************************************************************************

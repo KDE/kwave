@@ -1,24 +1,20 @@
 #ifndef _SONAGRAM_WINDOW_H_
 #define _SONAGRAM_WINDOW_H_ 1
 
-#include <qtimer.h>
-#include <qpushbt.h>
-#include <qstring.h>
-#include <qpainter.h>
-#include <qimage.h>
-#include <qpixmap.h>
-
-#include "../libgui/OverViewWidget.h"
-#include "../libgui/ScaleWidget.h"
-
-#include <kapp.h>
 #include <ktopwidget.h>
-#include <kmenubar.h>
-#include <kstatusbar.h>  
 
 #include <libkwave/gsl_fft.h>
+
+class KStatusBar;
+class QImage;
+class OverViewWidget;
+class SonagramContainer;
+class ScaleWidget;
+class CornerPatchWidget;
+
 class ImageView;
 class SonagramContainer;
+
 //***********************************************************************
 class SonagramWindow : public KTopLevelWidget
 {
@@ -55,4 +51,5 @@ class SonagramWindow : public KTopLevelWidget
  complex    **data;
  double     max;
 };
-#endif //sonagram.h
+
+#endif // _SONOGRAM_WINDOW_H_

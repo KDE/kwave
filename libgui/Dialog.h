@@ -1,5 +1,6 @@
-#ifndef KWAVE_DIALOG
-#define KWAVE_DIALOG 1
+#ifndef _DIALOG_H
+#define _DIALOG_H 1
+
 #include <qdialog.h>
 
 #define OK     klocale->translate ("&Ok")
@@ -24,6 +25,5 @@ class Dialog : public QDialog
  private:
   bool modal;
 };
-#endif
 
-
+#endif // _DIALOG_H_

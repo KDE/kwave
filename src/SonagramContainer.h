@@ -1,8 +1,14 @@
+#ifndef _SONOGRAM_CONTAINER_H_
+#define _SONOGRAM_CONTAINER_H_ 1
+
 #include <qwidget.h>
-#include "../libgui/OverViewWidget.h"
-#include "../libgui/ScaleWidget.h"
 
 class ImageView;
+class ScaleWidget;
+class CornerPatchWidget;
+class OverViewWidget;
+class QResizeEvent;
+
 //***********************************************************************
 class SonagramContainer : public QWidget
 {
@@ -10,7 +16,8 @@ class SonagramContainer : public QWidget
  public:
  	SonagramContainer	(QWidget *parent);
  	~SonagramContainer	();
- void 	setObjects	(ImageView *view,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner,OverViewWidget *overview=0);
+ void 	setObjects	(ImageView *view,ScaleWidget *x,ScaleWidget *y,
+                         CornerPatchWidget *corner,OverViewWidget *overview=0);
 
  public slots:
 
@@ -26,3 +33,5 @@ class SonagramContainer : public QWidget
  CornerPatchWidget *corner;
  OverViewWidget *overview;
 };
+
+#endif // _SONOGRAM_CONTAINER_H_

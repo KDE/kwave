@@ -1,16 +1,26 @@
 //provides methods of multistateWidget a Class that switches the image it
 // displays on clicking, used for the channel enable/disable lamps...
+
 #include <qdir.h>
-#include <kapp.h>
 #include <qimage.h>
-#include "MultiStateImage.h"
+
+#include <kapp.h>
+
+#include <qstring.h>
+#include <qlist.h>
+#include <qstrlist.h>
+#include <qdir.h>
+#include <qpixmap.h>
+
+#include "MultiStateWidget.h"
 
 QList<QPixmap> *pixmaps=0;
 QStrList *pixnames=0;
 
 extern KApplication *app;
 //**********************************************************
-MultiStateWidget::MultiStateWidget (QWidget *parent,int num,int count): QWidget (parent)
+MultiStateWidget::MultiStateWidget (QWidget *parent,int num,int count)
+  :QWidget (parent)
 {
   this->number=num;
   this->states=new int[count];
@@ -30,19 +40,21 @@ int MultiStateWidget::addPixmap (char *name)
       if (result==-1)
 	{
 	  QPixmap *newpix=new QPixmap();
-	  QString dirname=app->kde_datadir ();
+	  const QString &dirname=app->kde_datadir ();
 	  QDir dir (dirname.data());
 	  dir.cd ("kwave");
 	  dir.cd ("pics");
 
-	  QImage  *img=new QImage(dir.filePath(name).data());
-	  if (newpix&&img)
+	  if (newpix)
 	    {
-
-	      newpix->convertFromImage(*img);
-	      pixmaps->append (newpix);
-	      pixnames->append (name);
-	      return pixmaps->at();
+	      QImage *img=new QImage(dir.filePath(name).data());
+	      if (img)
+		{
+		  newpix->convertFromImage(*img);
+		  pixmaps->append (newpix);
+		  pixnames->append (name);
+		  return pixmaps->at();
+		}
 	    }
 	}
       else
@@ -95,6 +107,3 @@ void MultiStateWidget::paintEvent  (QPaintEvent *)
         bitBlt (this,0,0,
   	      img,0,0,img->width(),img->height(),CopyROP);    
 }
-
-
-

@@ -1,11 +1,11 @@
-#ifndef _FFTVIEW_H_
-#define _FFTVIEW_H_ 1
+#ifndef _FFT_WINDOW_H_
+#define _FFT_WINDOW_H_ 1
 
-#include <math.h>
+#include <qstring.h>
 #include <ktopwidget.h>
-#include "../libgui/FFTWidget.h"
+#include <libkwave/gsl_fft.h>
 
-class QString;
+class FFTWidget;
 class FFTContainer;
 class QPopupMenu;
 class ScaleWidget;
@@ -48,4 +48,4 @@ class FFTWindow : public KTopLevelWidget
  int           findPeakID;
 };
 
-#endif
+#endif // _FFT_WINDOW_H_

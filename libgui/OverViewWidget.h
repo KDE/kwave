@@ -1,5 +1,5 @@
-#ifndef _KWAVEOVERVIEW_H_
-#define _KWAVEOVERVIEW_H_ 1
+#ifndef _OVER_VIEW_WIDGET_H_
+#define _OVER_VIEW_WIDGET_H_ 1
 
 #include <qpushbt.h>
 #include <qwidget.h>
@@ -59,4 +59,5 @@ class OverViewWidget : public QWidget
  QTimer     *timer;     //to spare user repeated pressing of the widget...
  QPixmap    *pixmap;	//pixmap to be blitted to screen
 };
-#endif //_KWAVEOVERVIEW_H_
+
+#endif // _OVER_VIEW_WIDGET_H_

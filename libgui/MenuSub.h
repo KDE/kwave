@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef MENUSUB_H
-#define MENUSUB_H
+#ifndef _MENU_SUB_H_
+#define _MENU_SUB_H_ 1
 
 #include "MenuNode.h"
 
@@ -32,21 +32,22 @@ class MenuSub : public MenuNode
   Q_OBJECT
 
 public: // Public methods
-    MenuSub(MenuNode *parent, const char *name, const char *command=0);
+    MenuSub(MenuNode *parent, char *name, char *command=0,
+            int key=0, char *uid=0);
 
-    virtual int getChildIndex(const int id);
+    virtual int getChildIndex(int id);
     virtual bool isBranch() {return true;};
 
-    virtual MenuNode *insertBranch(char *name, const int key,
-                                   const char *uid, const int index=-1);
+    virtual MenuNode *insertBranch(char *name, int key,
+                                   char *uid, int index=-1);
 
-    virtual MenuNode *insertLeaf(char *name, const char *command,
-                                 const int key, const char *uid,
-                                 const int index=-1);
+    virtual MenuNode *insertLeaf(char *name, char *command,
+                                 int key, char *uid,
+                                 int index=-1);
 
     virtual QPopupMenu *getPopupMenu();
 
-    virtual void removeChild(const int id);
+    virtual void removeChild(int id);
 
     virtual bool specialCommand(const char *command);
 
@@ -60,4 +61,4 @@ private:
     QPopupMenu *menu;
 };
 
-#endif
+#endif // _MENU_SUB_H_

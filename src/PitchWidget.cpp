@@ -1,5 +1,17 @@
-#include "PitchWidget.h"
 #include <qpainter.h>
+#include <qpushbt.h>
+#include <qstring.h>
+#include <qwidget.h>
+#include <qpainter.h>
+#include <qpixmap.h>
+#include <qtimer.h>
+
+#include <kapp.h>
+#include <kselect.h>
+#include <kmenubar.h>
+#include <kbuttonbox.h>
+
+#include "PitchWidget.h"
 
 //****************************************************************************
 PitchWidget::PitchWidget (QWidget *parent)

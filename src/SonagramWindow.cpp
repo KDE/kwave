@@ -1,17 +1,35 @@
-#include <qdir.h>
 #include <math.h>
 #include <limits.h>
 
+#include <qdir.h>
 #include <qfiledialog.h>
+#include <qimage.h>
+
+#include <kapp.h>
+#include <kmsgbox.h>
+
+#include <libkwave/Signal.h>
+#include <libkwave/WindowFunction.h>
+
+#include "libgui/OverViewWidget.h"
+#include "libgui/ScaleWidget.h"
+#include "libgui/CornerPatchWidget.h"
+
 #include "ProgressDialog.h"
 #include "SonagramWindow.h"
 #include "ImageView.h"
 #include "SignalManager.h"
 #include "SonagramContainer.h"
 #include "TopWidget.h"
-#include <libkwave/Signal.h>
-#include <libkwave/WindowFunction.h>
-#include <kmsgbox.h>
+
+//#include <qtimer.h>
+//#include <qpushbt.h>
+//#include <qstring.h>
+//#include <qpainter.h>
+//#include <qpixmap.h>
+//#include <kmenubar.h>
+//#include <kstatusbar.h>
+
 
 extern KApplication *app;
 extern char *mstotimec (int ms); 

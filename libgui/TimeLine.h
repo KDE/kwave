@@ -1,5 +1,5 @@
-#ifndef _GUIITEMS_H_
-#define _GUIITEMS_H_ 1
+#ifndef _TIME_LINE_H_
+#define _TIME_LINE_H_ 1
 
 #include <qobject.h>
 #include <qpopupmenu.h>
@@ -37,4 +37,5 @@ class TimeLine : public KRestrictedLine
  QPopupMenu *menu;
  char   *comstr;
 };
-#endif
+
+#endif // _TIME_LINE_H_

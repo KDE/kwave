@@ -90,6 +90,14 @@ void addDataStrings(KAboutData& aboutdata)
                      i18n("debian packager"),
                      "aurel32@debian.org",
                      0);
+    aboutdata.addCredit("Michael Frommberger",
+                     i18n("Gentoo packager"),
+                     "frommi@users.sourceforge.net",
+                     0);
+    aboutdata.addCredit("Robert M. Stockmann",
+                     i18n("packaging for Mandrake / X86_64"),
+                     "stock@stokkie.net",
+                     0);
     aboutdata.addCredit("Robert Leslie",
                      i18n("author of the 'mad' mp3 decoder library"),
                      "rob@mars.org",
@@ -121,7 +129,7 @@ int main( int argc, char **argv )
 	PACKAGE_VERSION,
 	i18n("sound editor for KDE3"),
 	KAboutData::License_GPL_V2,
-        "(c) 2002, Thomas Eschenbacher",
+        "(c) 2004, Thomas Eschenbacher",
 	"", //TODO : i18n("");
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"

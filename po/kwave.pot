@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-31 14:07+0100\n"
+"POT-Creation-Date: 2005-01-01 19:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -483,11 +483,11 @@ msgstr ""
 msgid "modify file information"
 msgstr ""
 
-#: kwave/UndoDeleteAction.cpp:37 kwave/SignalManager.cpp:882
+#: kwave/UndoDeleteAction.cpp:37 kwave/SignalManager.cpp:887
 msgid "delete"
 msgstr ""
 
-#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:761
+#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:766
 msgid "insert track"
 msgstr ""
 
@@ -495,9 +495,9 @@ msgstr ""
 msgid "modify samples"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:198
-#: plugins/record/RecordPlugin.cpp:567 plugins/record/RecordPlugin.cpp:585
-#: plugins/record/RecordPlugin.cpp:640
+#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:202
+#: plugins/record/RecordPlugin.cpp:571 plugins/record/RecordPlugin.cpp:589
+#: plugins/record/RecordPlugin.cpp:644
 msgid "Out of memory"
 msgstr ""
 
@@ -546,22 +546,30 @@ msgid "debian packager"
 msgstr ""
 
 #: kwave/main.cpp:94
-msgid "author of the 'mad' mp3 decoder library"
+msgid "Gentoo packager"
 msgstr ""
 
 #: kwave/main.cpp:98
-msgid "maintainers of the 'id3lib' library"
+msgid "packaging for Mandrake / X86_64"
 msgstr ""
 
 #: kwave/main.cpp:102
-msgid "author of the 'audiofile' library"
+msgid "author of the 'mad' mp3 decoder library"
 msgstr ""
 
 #: kwave/main.cpp:106
+msgid "maintainers of the 'id3lib' library"
+msgstr ""
+
+#: kwave/main.cpp:110
+msgid "author of the 'audiofile' library"
+msgstr ""
+
+#: kwave/main.cpp:114
 msgid "author of the 'sndfile' library"
 msgstr ""
 
-#: kwave/main.cpp:122
+#: kwave/main.cpp:130
 msgid "sound editor for KDE3"
 msgstr ""
 
@@ -704,11 +712,11 @@ msgstr ""
 msgid "selection"
 msgstr ""
 
-#: kwave/SignalManager.cpp:301
+#: kwave/SignalManager.cpp:304
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:336
+#: kwave/SignalManager.cpp:339
 msgid ""
 "Saving in this format will loose the following additional file attribute"
 "(s):\n"
@@ -716,47 +724,47 @@ msgid ""
 "Do you still want to continue?"
 msgstr ""
 
-#: kwave/SignalManager.cpp:373 plugins/record/RecordPlugin.cpp:659
+#: kwave/SignalManager.cpp:376 plugins/record/RecordPlugin.cpp:663
 msgid " for KDE "
 msgstr ""
 
-#: kwave/SignalManager.cpp:409
+#: kwave/SignalManager.cpp:412
 msgid "An error occurred while saving the file!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:418
+#: kwave/SignalManager.cpp:421
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:425
+#: kwave/SignalManager.cpp:428
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:642
+#: kwave/SignalManager.cpp:647
 msgid "cut"
 msgstr ""
 
-#: kwave/SignalManager.cpp:645
+#: kwave/SignalManager.cpp:650
 msgid "crop"
 msgstr ""
 
-#: kwave/SignalManager.cpp:711
+#: kwave/SignalManager.cpp:716
 msgid "paste"
 msgstr ""
 
-#: kwave/SignalManager.cpp:754
+#: kwave/SignalManager.cpp:759
 msgid "append track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:797 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:802 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1355 kwave/SignalManager.cpp:1362
+#: kwave/SignalManager.cpp:1360 kwave/SignalManager.cpp:1367
 msgid "last action"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1588
+#: kwave/SignalManager.cpp:1593
 msgid "modify file info"
 msgstr ""
 
@@ -2540,30 +2548,30 @@ msgid ""
 "No header information has been found..."
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:482
+#: plugins/decoder_mp3/MP3Decoder.cpp:474
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:114
 #: plugins/codec_wav/WavEncoder.cpp:145 plugins/codec_wav/WavDecoder.cpp:325
 msgid "out of memory"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:485
+#: plugins/decoder_mp3/MP3Decoder.cpp:477
 msgid "checksum error"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:488
+#: plugins/decoder_mp3/MP3Decoder.cpp:480
 msgid "synchronization lost"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:505
+#: plugins/decoder_mp3/MP3Decoder.cpp:497
 msgid "file contains invalid data"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:508
+#: plugins/decoder_mp3/MP3Decoder.cpp:500
 #, c-format
 msgid "unknown error 0x%X. damaged file?"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:514
+#: plugins/decoder_mp3/MP3Decoder.cpp:506
 msgid ""
 "An error occurred while decoding the file:\n"
 "'%1',\n"
@@ -2571,11 +2579,11 @@ msgid ""
 "%3"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:519
+#: plugins/decoder_mp3/MP3Decoder.cpp:511
 msgid "Do you still want to continue?"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:523
+#: plugins/decoder_mp3/MP3Decoder.cpp:515
 msgid "Do you want to continue and ignore all following errors?"
 msgstr ""
 
@@ -3576,78 +3584,78 @@ msgstr ""
 msgid "record"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:211
+#: plugins/record/RecordPlugin.cpp:215
 msgid "Opening the device %1 failed, please select a different one."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:218
+#: plugins/record/RecordPlugin.cpp:222
 msgid "Opening the device %1 failed, reverting to %2."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:233
+#: plugins/record/RecordPlugin.cpp:237
 msgid ""
 "The record device '%1' does not work properly, determining the number of "
 "supported channels failed."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:271
+#: plugins/record/RecordPlugin.cpp:275
 msgid "Recording with %1 track(s) failed, using %2 track(s) instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:305
+#: plugins/record/RecordPlugin.cpp:309
 msgid "The sample rate %1Hz is not supported, using %2Hz instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:319
+#: plugins/record/RecordPlugin.cpp:323
 msgid "Setting the sample rate %1Hz failed, using %2Hz instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:354
+#: plugins/record/RecordPlugin.cpp:358
 msgid "The compression '%1' is not supported, using '%2' instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:370
+#: plugins/record/RecordPlugin.cpp:374
 msgid "Setting the compression type %1 failed, using %2 instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:402
+#: plugins/record/RecordPlugin.cpp:406
 msgid ""
 "The resolution %1 bits per sample is not supported, using %2 bits per sample "
 "instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:414
+#: plugins/record/RecordPlugin.cpp:418
 msgid ""
 "Setting the resolution %1 bits per sample failed, using %2 bits per sample "
 "instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:444
+#: plugins/record/RecordPlugin.cpp:448
 msgid "The sample format '%1' is not supported, using '%2' instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:459
+#: plugins/record/RecordPlugin.cpp:463
 msgid "Setting the sample format '%1' failed, using '%2' instead."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:551
+#: plugins/record/RecordPlugin.cpp:555
 msgid "The current sample format is not supported!"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:561
+#: plugins/record/RecordPlugin.cpp:565
 msgid "The current compression type is not supported!"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:686
+#: plugins/record/RecordPlugin.cpp:690
 msgid ""
 "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:690
+#: plugins/record/RecordPlugin.cpp:694
 msgid "The recording device seems to be busy!"
 msgstr ""
 
-#: plugins/record/RecordPlugin.cpp:693
+#: plugins/record/RecordPlugin.cpp:697
 msgid "Reading from the recording device failed, error number = %1 (%2)"
 msgstr ""
 

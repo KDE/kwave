@@ -1,16 +1,16 @@
-# translation of de.po to 
+# translation of de.po to
 # translation of de.po to Deutsch
 # translation of de.po to español
 # translation of de.po to deutsch
-# Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004.
+# Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2003, 2004, 2005.
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-31 14:07+0100\n"
-"PO-Revision-Date: 2004-12-25 18:18+0100\n"
-"Last-Translator: Thomas Eschenbacher\n"
-"Language-Team:  <de@li.org>\n"
+"POT-Creation-Date: 2005-01-01 19:06+0100\n"
+"PO-Revision-Date: 2005-01-01 19:07+0100\n"
+"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
+"Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -491,11 +491,11 @@ msgstr "Einfügen"
 msgid "modify file information"
 msgstr "Datei-Information ändern"
 
-#: kwave/UndoDeleteAction.cpp:37 kwave/SignalManager.cpp:882
+#: kwave/UndoDeleteAction.cpp:37 kwave/SignalManager.cpp:887
 msgid "delete"
 msgstr "Löschen"
 
-#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:761
+#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:766
 msgid "insert track"
 msgstr "Track einfügen"
 
@@ -503,9 +503,9 @@ msgstr "Track einfügen"
 msgid "modify samples"
 msgstr "Samples ändern"
 
-#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:198
-#: plugins/record/RecordPlugin.cpp:567 plugins/record/RecordPlugin.cpp:585
-#: plugins/record/RecordPlugin.cpp:640
+#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:202
+#: plugins/record/RecordPlugin.cpp:571 plugins/record/RecordPlugin.cpp:589
+#: plugins/record/RecordPlugin.cpp:644
 msgid "Out of memory"
 msgstr "Zu wenig Speicher"
 
@@ -554,22 +554,30 @@ msgid "debian packager"
 msgstr "Debian-Packager"
 
 #: kwave/main.cpp:94
+msgid "Gentoo packager"
+msgstr "Gentoo-Packager"
+
+#: kwave/main.cpp:98
+msgid "packaging for Mandrake / X86_64"
+msgstr "Packager für Mandrake / X86_64"
+
+#: kwave/main.cpp:102
 msgid "author of the 'mad' mp3 decoder library"
 msgstr "Autor der 'mad' MP3-Decoder-Bibliothek"
 
-#: kwave/main.cpp:98
+#: kwave/main.cpp:106
 msgid "maintainers of the 'id3lib' library"
 msgstr "Betreuer der 'id3lib'-Bibliothek"
 
-#: kwave/main.cpp:102
+#: kwave/main.cpp:110
 msgid "author of the 'audiofile' library"
 msgstr "Ersteller der 'audiofile'-Bibliothek"
 
-#: kwave/main.cpp:106
+#: kwave/main.cpp:114
 msgid "author of the 'sndfile' library"
 msgstr "Ersteller der 'sndfile'-Bibliothek"
 
-#: kwave/main.cpp:122
+#: kwave/main.cpp:130
 msgid "sound editor for KDE3"
 msgstr "Sound-Editor für KDE3"
 
@@ -680,8 +688,7 @@ msgstr ""
 
 #: kwave/TopWidget.cpp:911
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr ""
-"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: kwave/TopWidget.cpp:1067
 msgid "Length: %1"
@@ -720,11 +727,11 @@ msgstr " (geändert)"
 msgid "selection"
 msgstr "Auswahl"
 
-#: kwave/SignalManager.cpp:301
+#: kwave/SignalManager.cpp:304
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: kwave/SignalManager.cpp:336
+#: kwave/SignalManager.cpp:339
 msgid ""
 "Saving in this format will loose the following additional file attribute"
 "(s):\n"
@@ -736,48 +743,47 @@ msgstr ""
 "%1\n"
 "Wollen Sie trotzdem fortsetzen?"
 
-#: kwave/SignalManager.cpp:373 plugins/record/RecordPlugin.cpp:659
+#: kwave/SignalManager.cpp:376 plugins/record/RecordPlugin.cpp:663
 msgid " for KDE "
 msgstr " für KDE "
 
-#: kwave/SignalManager.cpp:409
+#: kwave/SignalManager.cpp:412
 msgid "An error occurred while saving the file!"
 msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
-#: kwave/SignalManager.cpp:418
+#: kwave/SignalManager.cpp:421
 msgid "The file has been truncated and might be corrupted!"
-msgstr ""
-"Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
+msgstr "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
-#: kwave/SignalManager.cpp:425
+#: kwave/SignalManager.cpp:428
 msgid "Sorry, the file type is not supported!"
 msgstr "Sorry, dieser Datei-Typ wird nicht unterstützt!"
 
-#: kwave/SignalManager.cpp:642
+#: kwave/SignalManager.cpp:647
 msgid "cut"
 msgstr "Ausschneiden"
 
-#: kwave/SignalManager.cpp:645
+#: kwave/SignalManager.cpp:650
 msgid "crop"
 msgstr "Zuschneiden"
 
-#: kwave/SignalManager.cpp:711
+#: kwave/SignalManager.cpp:716
 msgid "paste"
 msgstr "Einfügen"
 
-#: kwave/SignalManager.cpp:754
+#: kwave/SignalManager.cpp:759
 msgid "append track"
 msgstr "Track anhängen"
 
-#: kwave/SignalManager.cpp:797 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:802 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "Track löschen"
 
-#: kwave/SignalManager.cpp:1355 kwave/SignalManager.cpp:1362
+#: kwave/SignalManager.cpp:1360 kwave/SignalManager.cpp:1367
 msgid "last action"
 msgstr "letzte Aktion"
 
-#: kwave/SignalManager.cpp:1588
+#: kwave/SignalManager.cpp:1593
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 
@@ -1139,8 +1145,7 @@ msgstr "Copyright"
 
 #: libkwave/FileInfo.cpp:85
 msgid "Indicates whether the file is protected by copyright or not."
-msgstr ""
-"Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
+msgstr "Gibt an ob der Inhalt der Datei urheberrechtlich geschützt ist oder nicht."
 
 #: libkwave/FileInfo.cpp:88
 msgid "Date"
@@ -2360,8 +2365,7 @@ msgstr "bei Veränderungen"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:197
 msgid "automatically update the sonagram <br>if the signal data has changed"
-msgstr ""
-"aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
+msgstr "aktualisiert das Sonagram automatisch<br>wenn das Signal verändert wurde"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:198
 msgid "follow selection"
@@ -2673,30 +2677,30 @@ msgstr ""
 "Die geöffnete Datei ist keine MPEG-Datei oder sie ist beschädigt:\n"
 "Es konnten keine Kopfinformationen gefunden werden..."
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:482
+#: plugins/decoder_mp3/MP3Decoder.cpp:474
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:114
 #: plugins/codec_wav/WavEncoder.cpp:145 plugins/codec_wav/WavDecoder.cpp:325
 msgid "out of memory"
 msgstr "zu wenig Speicher"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:485
+#: plugins/decoder_mp3/MP3Decoder.cpp:477
 msgid "checksum error"
 msgstr "Prüfsummen-Fehler"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:488
+#: plugins/decoder_mp3/MP3Decoder.cpp:480
 msgid "synchronization lost"
 msgstr "Synchronisation verloren"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:505
+#: plugins/decoder_mp3/MP3Decoder.cpp:497
 msgid "file contains invalid data"
 msgstr "Datei enthält ungültige Daten"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:508
+#: plugins/decoder_mp3/MP3Decoder.cpp:500
 #, c-format
 msgid "unknown error 0x%X. damaged file?"
 msgstr "Unbekannter Fehler 0x%X. Datei beschädigt?"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:514
+#: plugins/decoder_mp3/MP3Decoder.cpp:506
 msgid ""
 "An error occurred while decoding the file:\n"
 "'%1',\n"
@@ -2708,11 +2712,11 @@ msgstr ""
 "bei Position %2.\n"
 "%3"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:519
+#: plugins/decoder_mp3/MP3Decoder.cpp:511
 msgid "Do you still want to continue?"
 msgstr "Wollen Sie trotzdem fortsetzen?"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:523
+#: plugins/decoder_mp3/MP3Decoder.cpp:515
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Wollen Sie fortsetzen und alle weiteren Fehler ignorieren?"
 
@@ -3784,17 +3788,17 @@ msgstr "Fertig."
 msgid "record"
 msgstr "Aufnahme"
 
-#: plugins/record/RecordPlugin.cpp:211
+#: plugins/record/RecordPlugin.cpp:215
 msgid "Opening the device %1 failed, please select a different one."
 msgstr ""
 "Öffnen des Gerätes '%1' ist fehlgeschlagen. Bitte wählen Sie eine andere "
 "Aufnahmequelle."
 
-#: plugins/record/RecordPlugin.cpp:218
+#: plugins/record/RecordPlugin.cpp:222
 msgid "Opening the device %1 failed, reverting to %2."
 msgstr "Das Öffnen des Gerätes '%1' ist fehlgeschlagen, verwende wieder '%2'."
 
-#: plugins/record/RecordPlugin.cpp:233
+#: plugins/record/RecordPlugin.cpp:237
 msgid ""
 "The record device '%1' does not work properly, determining the number of "
 "supported channels failed."
@@ -3802,34 +3806,33 @@ msgstr ""
 "Das Aufnahmegerät '%1' funktioniert nicht ordnungsgemäss; die Anzahl der "
 "unterstützten Kanäle konnte nicht bestimmt werden."
 
-#: plugins/record/RecordPlugin.cpp:271
+#: plugins/record/RecordPlugin.cpp:275
 msgid "Recording with %1 track(s) failed, using %2 track(s) instead."
 msgstr "Aufnahme mit %1 Tracks ist fehlgeschlagen, verwende %2 Tracks."
 
-#: plugins/record/RecordPlugin.cpp:305
+#: plugins/record/RecordPlugin.cpp:309
 msgid "The sample rate %1Hz is not supported, using %2Hz instead."
 msgstr ""
 "Aufnahme mit Sample-Rate %1 Hz wird nicht unterstützt, verwende %2Hz "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:319
+#: plugins/record/RecordPlugin.cpp:323
 msgid "Setting the sample rate %1Hz failed, using %2Hz instead."
 msgstr ""
 "Die Sample-Rate %1Hz konnte nicht eingestellt werden, verwende %2Hz "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:354
+#: plugins/record/RecordPlugin.cpp:358
 msgid "The compression '%1' is not supported, using '%2' instead."
-msgstr ""
-"Die Kompressionsart '%1' wird nicht unterstützt, verwende '%2' stattdessen."
+msgstr "Die Kompressionsart '%1' wird nicht unterstützt, verwende '%2' stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:370
+#: plugins/record/RecordPlugin.cpp:374
 msgid "Setting the compression type %1 failed, using %2 instead."
 msgstr ""
 "Die Kompressionsart '%1' konnte nicht eingestellt werden, verwende '%2' "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:402
+#: plugins/record/RecordPlugin.cpp:406
 msgid ""
 "The resolution %1 bits per sample is not supported, using %2 bits per sample "
 "instead."
@@ -3837,7 +3840,7 @@ msgstr ""
 "Die Auflösung %1 Bits pro Sample wird nicht unterstützt, verwende %2 Bits "
 "pro Sample stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:414
+#: plugins/record/RecordPlugin.cpp:418
 msgid ""
 "Setting the resolution %1 bits per sample failed, using %2 bits per sample "
 "instead."
@@ -3845,37 +3848,35 @@ msgstr ""
 "Die Auflösung %1 Bit pro Sample konnte nicht eingestellt werden, verwende %2 "
 "Bit pro Sample stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:444
+#: plugins/record/RecordPlugin.cpp:448
 msgid "The sample format '%1' is not supported, using '%2' instead."
-msgstr ""
-"Das Sample-Format '%1' wird nicht unterstützt, verwende '%2' stattdessen."
+msgstr "Das Sample-Format '%1' wird nicht unterstützt, verwende '%2' stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:459
+#: plugins/record/RecordPlugin.cpp:463
 msgid "Setting the sample format '%1' failed, using '%2' instead."
 msgstr ""
 "Das Sample-Format '%1' konnte nicht eingestellt werden, verwende '%2' "
 "stattdessen."
 
-#: plugins/record/RecordPlugin.cpp:551
+#: plugins/record/RecordPlugin.cpp:555
 msgid "The current sample format is not supported!"
 msgstr "Das aktuelle Sample-Format wird nicht unterstützt!"
 
-#: plugins/record/RecordPlugin.cpp:561
+#: plugins/record/RecordPlugin.cpp:565
 msgid "The current compression type is not supported!"
 msgstr "Die aktuelle Kompressionsart wird nicht unterstützt!"
 
-#: plugins/record/RecordPlugin.cpp:686
-msgid ""
-"Buffer overrun. Please increase the number and/or size of the record buffers."
+#: plugins/record/RecordPlugin.cpp:690
+msgid "Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Buffer-Überlauf. Bitte erhöhen Sie die Anzahl der Buffer und/oder vergrößern "
 "Sie die Buffergrösse."
 
-#: plugins/record/RecordPlugin.cpp:690
+#: plugins/record/RecordPlugin.cpp:694
 msgid "The recording device seems to be busy!"
 msgstr "Das Aufnahmegerät scheint belegt zu sein!"
 
-#: plugins/record/RecordPlugin.cpp:693
+#: plugins/record/RecordPlugin.cpp:697
 msgid "Reading from the recording device failed, error number = %1 (%2)"
 msgstr "Vom Aufnahmegerät konnte nicht gelesen werden, Fehler Nummer %1 (%2)"
 
@@ -3983,8 +3984,7 @@ msgstr "Dateiende vor dem Einlesen aller Vorbis-Header!"
 
 #: plugins/codec_ogg/OggDecoder.cpp:351
 msgid "Corrupt or missing data in bitstream; continuing..."
-msgstr ""
-"Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
+msgstr "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
 
 #: plugins/codec_ogg/OggCodecPlugin.cpp:33
 msgid "codec_ogg"
@@ -4340,8 +4340,7 @@ msgstr "Maximum"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:329
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+msgstr "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
 
 #: plugins/newsignal/NewSignalDialog.cpp:354
 msgid "(Resulting file size: %1 MB)"
@@ -4350,3 +4349,4 @@ msgstr "(Resultierende Dateigröße: %1 MB)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "Neues Signal"
+

@@ -74,7 +74,7 @@ QString Curve::getCommand()
 	QString par;
 	cmd += par.sprintf(",%f,%f", p->x, p->y);
     }
-    cmd += ")\n";
+    cmd += ")";
     return cmd;
 }
 

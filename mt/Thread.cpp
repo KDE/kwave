@@ -65,7 +65,7 @@ extern "C" void* C_thread_adapter(void* arg)
 //***************************************************************************
 Thread::Thread(int */*grpid*/, const long /*flags*/)
     :QObject(), TSS_Object(), m_tid((pthread_t)-1), m_lock("thread"),
-    m_thread_running("thread_running")
+    m_thread_running("thread_running"), m_should_stop(false)
 {
     MutexGuard lock(m_lock);
     int res;
@@ -94,8 +94,6 @@ Thread::~Thread()
     if (res)
 	qWarning("Thread::~Thread(): destruction of attributes failed: %s",
 	strerror(res));
-
-//    qDebug("Thread::~Thread(): done.");
 }
 
 //***************************************************************************
@@ -116,6 +114,10 @@ void *Thread::thread_adapter(void *arg)
 int Thread::start()
 {
     MutexGuard lock(m_lock);
+
+    // reset the "should stop" command flag
+    m_should_stop = false;
+
     int res = pthread_create(&m_tid, &m_attr, C_thread_adapter, this);
     if (res)
 	qWarning("Thread::start(): thread creation failed: %s",
@@ -124,20 +126,30 @@ int Thread::start()
 }
 
 //***************************************************************************
-int Thread::stop()
+int Thread::stop(unsigned int timeout)
 {
     MutexGuard lock(m_lock);
     if (!running()) return 0; // already down
 
+    // try to stop cooperatively
+    m_should_stop = true;
+    wait(timeout);
+
     qDebug("Thread::stop(): canceling thread");
     int res = pthread_cancel(m_tid);
-    if (res) qWarning("Thread::stop(): thread cancel failed: %s",
-	strerror(res));
+    if (res && (res != ESRCH))
+	qWarning("Thread::stop(): thread cancel failed: %s", strerror(res));
 
     // wait some time until it is really done
-    wait(500);
+    wait(timeout);
 
     return res;
+}
+
+//***************************************************************************
+bool Thread::shouldStop()
+{
+    return (m_should_stop);
 }
 
 //***************************************************************************

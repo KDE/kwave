@@ -65,16 +65,24 @@ public:
     /**
      * Stops the thread execution. Please note that you <b>MUST</b> call
      * this function at the end if you derived a class from this one.
+     * @param timeout the timeout in milliseconds, default = 1000
      * @return zero if successful or an error code if failed
      * @see errno.h
      */
-    virtual int stop();
+    virtual int stop(unsigned int timeout = 1000);
 
     /**
      * The "run()" function of the thread. This is the function you
      * should overwrite to perform your thread's action.
      */
     virtual void run() = 0;
+
+    /**
+     * Returns true if the thread should stop. Should be polled
+     * by the thread's run() function to wait for a termination
+     * signal.
+     */
+    bool shouldStop();
 
     /**
      * Returns true if the thread is currently running
@@ -119,6 +127,10 @@ private:
      * is internally used for the running() function.
      */
     Mutex m_thread_running;
+
+    /** set to signal the thread that it should stop */
+    bool m_should_stop;
+
 };
 
 #endif /* _THREAD_H_ */

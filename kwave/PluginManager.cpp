@@ -53,17 +53,11 @@
 
 #include "PluginManager.h"
 
-//#include <sys/types.h>
-//
-//extern const char *cplus_mangle_opname PARAMS ((const char
-//	*opname, int options));
-
 //****************************************************************************
 //****************************************************************************
 
 // static initializer
 QMap<QString, QString> PluginManager::m_plugin_files;
-Arts::Dispatcher PluginManager::m_arts_dispatcher;
 
 //****************************************************************************
 PluginManager::PluginManager(TopWidget &parent)

@@ -187,15 +187,18 @@ public:
 
     /**
      * Returns the left and right sample index of the current selection
-     * in samples from 0 to (size-1). The left and right samples
+     * in samples from 1 to (size-1). The left and right samples
      * are included in the selection and might be equal. The left
      * is always less or equal than the right. Note that there is
      * always at least one sample selected!
      * @param left receives the first selected sample (optional or null-pointer)
      * @param right receives the last seleted sample (optional or null-pointer)
+     * @param expand_if_empty if set to true, the selection will be made
+     *                        equal to the whole signal if left==right
      * @return the number of selected samples (right-left+1) [1..length]
      */
-    virtual unsigned int selection(unsigned int *left=0,unsigned int *right=0);
+    virtual unsigned int selection(unsigned int *left=0,unsigned int *right=0,
+                                   bool expand_if_empty = true);
 
     /**
      * Returns a set of opened SampleReader objects for reading from

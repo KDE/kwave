@@ -44,13 +44,9 @@ void NoisePlugin::run(QStringList)
     UndoTransactionGuard undo_guard(*this, i18n("noise"));
     m_stop = false;
 
-    unsigned int input_length = selection(&first, &last);
-    if (first == last) {
-	input_length = signalLength()-1;
-	first = 0;
-	last = input_length-1;
-    }
-    manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite, first, last);
+    selection(&first, &last, true);
+    manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite,
+	first, last);
 
     // lock the dispatcher exclusively
     Arts::Dispatcher &dispatcher = manager().artsDispatcher();

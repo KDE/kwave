@@ -1,6 +1,11 @@
 
-0.6.2 [2001-10-??]
+0.6.2 [2001-12-??]
 
+ * new plugin "amplifyfree"
+ * new plugin "noise"
+ * >>> new aRts plugin adapter framework <<<
+   now Kwave is able to use existing aRts plugins in it's own plugins
+   for sound processing
  * changed documentation to XML / Docbook-4.1
  * recovery of damaged files if non-zero file length but data length
    entry in the wav header is zero (e.g. happens when krecord crashes

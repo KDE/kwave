@@ -189,7 +189,7 @@ public:
 
     /** Returns a reference to the global aRts dispatcher */
     inline Arts::Dispatcher &artsDispatcher() {
-	return m_arts_dispatcher;
+	return *(Arts::Dispatcher::the());
     };
 
 signals:
@@ -292,9 +292,6 @@ private:
 
     /** reference to our parent toplevel widget */
     TopWidget &m_top_widget;
-
-    /** The global aRts dispatcher, unique to the application */
-    static Arts::Dispatcher m_arts_dispatcher;
 
 };
 

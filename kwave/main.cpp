@@ -1,22 +1,35 @@
-//Kwave main file
+/***************************************************************************
+                main.cpp -  Kwave main program
+			     -------------------
+    begin                : Wed Jul 15 1998
+    copyright            : (C) 1998 by Martin Wilz
+    email                : mwilz@ernie.mi.uni-koeln.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "config.h"
-
-#ifdef MEMCHECK
-#include "check/mcheck.h"
-#endif
 
 #include <kaboutdata.h>
 
 #ifdef UNIQUE_APP
 #include <kuniqueapp.h>
-#else // UNIQUE_APP
+#else /* UNIQUE_APP */
 #include <kapp.h>
-#endif // UNIQUE_APP
+#endif /* UNIQUE_APP */
 
 #include <kcrash.h>
 #include <klocale.h>
 #include <kcmdlineargs.h>
+
+#include <artsc/artsc.h> // for arts_init()
 
 #include "KwaveApp.h"
 
@@ -29,6 +42,18 @@ static KCmdLineOptions options[] =
 //***************************************************************************
 int main( int argc, char **argv )
 {
+    /*
+     * This is a work-around to avoid problems/crashes with the aRts
+     * dispatcher. Maybe this can be removed when it gets possible
+     * to create/delete Arts::Dispatcher objects without crashing in
+     * Arts::GlobalX11Comm.  (maybe in KDE-3 ?)
+     *
+     * Meanwhile we avoid the creation of new new dispatchers and only
+     * use the one that is created implicitely by this call to the artsc
+     * interface.
+     */
+    arts_init();
+
     KAboutData about(PACKAGE, "Kwave", VERSION,
 	"sound editor for KDE2",
 	KAboutData::License_GPL_V2,

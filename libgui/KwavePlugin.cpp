@@ -216,10 +216,18 @@ const QArray<unsigned int> KwavePlugin::selectedTracks()
 }
 
 //***************************************************************************
-unsigned int KwavePlugin::selection(unsigned int *left, unsigned int *right)
+unsigned int KwavePlugin::selection(unsigned int *left, unsigned int *right,
+                                    bool expand_if_empty)
 {
     int l = manager().selectionStart();
     int r = manager().selectionEnd();
+
+    // expand to the whole signal if left==right and expand_if_empty is set
+    if ((l == r) && (expand_if_empty)) {
+	l = 0;
+	r = manager().signalLength()-1;
+    }
+
     if (left)  *left  = l;
     if (right) *right = r;
     return r-l+1;

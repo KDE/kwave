@@ -149,10 +149,11 @@ int SignalManager::loadFile(const KURL &url)
 	    break;
 	}
 	
-	// enter the filename and size into the decoder
+	// enter the filename/mimetype and size into the decoder
 	QFileInfo fi(src);
 	decoder->info().set(INF_FILENAME, fi.absFilePath());
 	decoder->info().set(INF_FILESIZE, (unsigned int)src.size());
+	decoder->info().set(INF_MIMETYPE, mimetype);
 	
 	// get the file info from the decoder
 	m_file_info = decoder->info();

@@ -1,43 +1,16 @@
-#ifndef MEMORY_DIALOG_
-#define MEMORY_DIALOG_ 1
+#ifndef MEMORYSETTINGS_H
+#define MEMORYSETTINGS_H
 
-#include <qlabel.h>
-#include <qlineedit.h>
-#include "libgui/Dialog.h"
-#include "libkwave/DialogOperation.h"
-#include <kintegerline.h>
-//*****************************************************************************
-class MemoryDialog : public Dialog {
+#include "MemoryDialog.uih.h"
+
+class MemorySettings : public MemoryDialog
+{ 
     Q_OBJECT
 
 public:
+    MemorySettings(QWidget* parent);
+    ~MemorySettings();
 
-    MemoryDialog (bool modal);
-    ~MemoryDialog ();
-    const char *getCommand ();
-
-public slots:
-
-protected:
-
-    void resizeEvent (QResizeEvent *);
-
-private:
-
-    QLabel *dirlabel;
-    QLineEdit *dir;
-    QPushButton *browse;
-    QLabel *memlabel;
-    KIntegerLine *mem;
-
-    QPushButton *ok, *cancel;
-    char *comstr;
 };
-#endif
 
-
-
-
-
-
-
+#endif // MEMORYSETTINGS_H

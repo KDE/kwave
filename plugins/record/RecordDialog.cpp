@@ -76,6 +76,10 @@ static const char *well_known_devices[] = {
     "/dev/adsp0",
     "/dev/adsp1",
     "/dev/adsp2",
+    "/dev/sound/dsp",
+    "/dev/sound/dsp0",
+    "/dev/sound/dsp1",
+    "/dev/sound/dsp2",
     "/dev/dio",
     0
 };
@@ -162,10 +166,10 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     // "select device..." button
     connect(btSourceSelect, SIGNAL(clicked()),
             this, SLOT(selectRecordDevice()));
-/*    connect(cbSourceDevice, SIGNAL(activated(const QString &)),
-            this, SLOT(forwardDeviceChanged(const QString &)));*/
-    connect(cbSourceDevice, SIGNAL(textChanged(const QString &)),
+    connect(cbSourceDevice, SIGNAL(activated(const QString &)),
             this, SLOT(forwardDeviceChanged(const QString &)));
+    connect(cbSourceDevice->lineEdit(), SIGNAL(lostFocus()),
+            this, SLOT(forwardDeviceEditFinished()));
 
     // visualizations
     connect(chkDisplayLevelMeter, SIGNAL(toggled(bool)),
@@ -300,6 +304,13 @@ void RecordDialog::forwardDeviceChanged(const QString &dev)
 }
 
 //***************************************************************************
+void RecordDialog::forwardDeviceEditFinished()
+{
+    if (cbSourceDevice->lineEdit()->isModified())
+	emit deviceChanged(cbSourceDevice->currentText());
+}
+
+//***************************************************************************
 void RecordDialog::setDevice(const QString &dev)
 {
     m_params.device_name = dev;
@@ -359,9 +370,13 @@ void RecordDialog::setSupportedTracks(unsigned int min, unsigned int max)
 {
     Q_ASSERT(sbFormatTracks);
     if (!sbFormatTracks) return;
-    
-    sbFormatTracks->setEnabled((min != max) && (max));
-    
+
+    if ((min == max) || (!max)) {
+	sbFormatTracks->setEnabled(false);
+	return;
+    } else
+	sbFormatTracks->setEnabled(true);
+
     if (sbFormatTracks->value() < sbFormatTracks->minValue()) {
 	sbFormatTracks->setMaxValue(max);
 	sbFormatTracks->setMinValue(min);
@@ -369,15 +384,23 @@ void RecordDialog::setSupportedTracks(unsigned int min, unsigned int max)
 	sbFormatTracks->setMinValue(min);
 	sbFormatTracks->setMaxValue(max);
     }
+
 }
 
 //***************************************************************************
 void RecordDialog::setTracks(unsigned int tracks)
 {
-    m_params.tracks = tracks;
-
     Q_ASSERT(sbFormatTracks);
     if (!sbFormatTracks) return;
+
+    if (!tracks) {
+	sbFormatTracks->setEnabled(false);
+	return;
+    } else {
+	sbFormatTracks->setEnabled(true);
+	qDebug("+++ RecordDialog::setTracks(%u)", tracks); // ###
+	m_params.tracks = tracks;
+    }
 
     switch (tracks) {
 	case 1:
@@ -430,10 +453,17 @@ void RecordDialog::setSupportedSampleRates(const QValueList<double> &rates)
 //***************************************************************************
 void RecordDialog::setSampleRate(double new_rate)
 {
-    m_params.sample_rate = new_rate;
-
     Q_ASSERT(cbFormatSampleRate);
     if (!cbFormatSampleRate) return;
+
+    if (new_rate <= 0) {
+	cbFormatSampleRate->setEnabled(false);
+	return;
+    } else {
+	bool have_choice = (cbFormatSampleRate->count() > 1);
+	cbFormatSampleRate->setEnabled(have_choice);
+	m_params.sample_rate = new_rate;
+    }
 
     QString rate;
     rate = rate2string(new_rate);
@@ -477,10 +507,17 @@ void RecordDialog::setSupportedCompressions(const QValueList<int> &comps)
 //***************************************************************************
 void RecordDialog::setCompression(int compression)
 {
-    m_params.compression = compression;
-
     Q_ASSERT(cbFormatCompression);
     if (!cbFormatCompression) return;
+
+    if (compression < 0) {
+	cbFormatCompression->setEnabled(false);
+	return;
+    } else {
+	bool have_choice = (cbFormatCompression->count() > 1);
+	cbFormatCompression->setEnabled(have_choice);
+	m_params.compression = compression;
+    }
 
     CompressionType types;
     int index = types.findFromData(compression);
@@ -510,17 +547,25 @@ void RecordDialog::setSupportedBitsPerSample(
     m_supported_resolutions = bits;
 
     // enable only if there is a choice
-    sbFormatResolution->setEnabled((bits.first() != bits.last()) && 
+    sbFormatResolution->setEnabled((bits.first() != bits.last()) &&
                                    !bits.isEmpty());
 }
 
 //***************************************************************************
 void RecordDialog::setBitsPerSample(unsigned int bits)
 {
-    m_params.bits_per_sample = bits;
-
     Q_ASSERT(sbFormatResolution);
     if (!sbFormatResolution) return;
+
+    if (!bits) {
+	sbFormatResolution->setEnabled(false);
+	return;
+    } else {
+	bool have_choice = sbFormatResolution->minValue() !=
+	                   sbFormatResolution->maxValue();
+	sbFormatResolution->setEnabled(have_choice);
+	m_params.bits_per_sample = bits;
+    }
 
     sbFormatResolution->setValue(bits);
 }
@@ -588,10 +633,17 @@ void RecordDialog::setSupportedSampleFormats(const QValueList<int> &formats)
 //***************************************************************************
 void RecordDialog::setSampleFormat(int sample_format)
 {
-    m_params.sample_format = sample_format;
-
     Q_ASSERT(cbFormatSampleFormat);
     if (!cbFormatSampleFormat) return;
+
+    if (sample_format < 0) {
+	cbFormatSampleFormat->setEnabled(false);
+	return;
+    } else {
+	bool have_choice = (cbFormatSampleFormat->count() > 1);
+	cbFormatSampleFormat->setEnabled(have_choice);
+	m_params.sample_format = sample_format;
+    }
 
     SampleFormat types;
     int index = types.findFromData(sample_format);

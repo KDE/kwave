@@ -1,11 +1,11 @@
 # KDE Config File
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/signalmanager.h,/usr/src/packages/multimedia/sound/kwave/src/signalmanager.cpp,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/kwaveapp.cpp,/usr/src/packages/multimedia/sound/kwave/src/main.cpp,/usr/src/packages/multimedia/sound/kwave/src/mainwidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/signalview.cpp,/usr/src/packages/multimedia/sound/kwave/src/signalio.cpp,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/src/signalmanager.h
-cpp_file=/usr/src/packages/multimedia/sound/kwave/src/signalmanager.cpp
-browser_file=file:/opt/kde/share/doc/HTML/de/kdevelop/index-2.html#ss2.2
+header_file=Unbenannt.h
+cpp_file=/usr/src/packages/multimedia/sound/kwave/src/signalio.cpp
+browser_file=file:/usr/X11/lib/qt/doc/html/qlist.html
 [libgui/scale.cpp]
 install_location=
 dist=true
@@ -259,7 +259,7 @@ version_control=None
 project_type=normal_empty
 author=Martin Wilz
 sub_dir=kwave/
-lfv_open_groups=Quellen,
+lfv_open_groups=Headers,
 workspace=1
 project_name=Kwave
 version=0.29.7

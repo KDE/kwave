@@ -184,6 +184,7 @@ void SignalManager::loadWav ()
 
 	}
       else  KMsgBox::message (parent,"Info","File does not contain enough data !",2);
+      fclose(sigfile);
     }
   else  KMsgBox::message (parent,"Info","File does not exist !",2);
 }
@@ -281,7 +282,7 @@ void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
       unsigned char *buf = savebuffer;
       unsigned int nsamples=0;
 
-      while (pos++<length && (nsamples<bufsize/bytes_per_sample))
+      while (pos<length && (nsamples<bufsize/bytes_per_sample))
 	{
 	  for (int channel=0;channel<channels;channel++)
 	    {
@@ -294,6 +295,7 @@ void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
 		}
 	    }
 	  nsamples++;
+	  pos++;
 	}
 
       int written_bytes = fwrite(savebuffer,
@@ -380,7 +382,6 @@ void  SignalManager::save (const char *filename,int bits,bool selection)
 
       fclose(sigout);
     }
-  if (sigout) delete sigout;
 }
 //**********************************************************
 /**

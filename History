@@ -1,5 +1,12 @@
 this Development Version
 
+(19991210) [by Thomas.Eschenbacher@gmx.de]
+
+removed -Werror compiler option (caused trouble with configure script)
+
+fixed a nasty bug in SignalManager::save that caused crashes on
+several positions in the program and libstdc++
+
 (19991209) [by Thomas.Eschenbacher@gmx.de]
 
 gave the destructor of SignalManager some code, this fixes

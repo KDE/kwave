@@ -160,7 +160,15 @@ void PlayBackDialog::setDevice(const QString &device)
     Q_ASSERT(cbDevice);
     if (!cbDevice) return;
 
-    cbDevice->setEditText(device);
+    if (cbDevice->editable()) {
+	// user defined device name
+	cbDevice->setCurrentText(device);
+	cbDevice->setEditText(device);
+    } else {
+	// one from the list
+	cbDevice->setCurrentText(device);
+    }
+
     if (m_playback_params.device != device) {
 	m_playback_params.device = device;
 	emit sigDeviceChanged(device);

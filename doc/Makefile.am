@@ -3,10 +3,9 @@ MAINTAINERCLEANFILES = HTML/*
 CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook
 
 LANGUAGES = en de
-
 SUFFIXES = .docbook
-
 SGMLDIR=${kde_datadir}/ksgmltools
+DOCDIR = $(DESTDIR)${kde_htmldir}
 
 changes.docbook: ../CHANGES ../bin/changes-to-docbook.sh
 	cat ../CHANGES | ../bin/changes-to-docbook.sh > changes.docbook
@@ -50,22 +49,23 @@ doc.de: help_de.docbook
 	help_de.docbook
 
 install-data-local:
+	echo installing docs in $(DOCDIR)
+
 	for lang in ${LANGUAGES}; do \
 	{ \
-	    $(mkinstalldirs) $(kde_htmldir)/$${lang}/$(PACKAGE); \
-	    $(INSTALL_DATA) $${lang}/*.html $(kde_htmldir)/$${lang}/$(PACKAGE); \
-	    $(INSTALL_DATA) $${lang}/*.html $(kde_htmldir)/$${lang}/$(PACKAGE); \
-	    $(mkinstalldirs) $(kde_htmldir)/$${lang}/$(PACKAGE)/common ; \
-	    $(INSTALL_DATA) $${lang}/common/*.png $(kde_htmldir)/$${lang}/$(PACKAGE)/common ; \
-	    $(INSTALL_DATA) $${lang}/common/*.css $(kde_htmldir)/$${lang}/$(PACKAGE)/common ; \
+	    $(mkinstalldirs) ${DOCDIR}/$${lang}/$(PACKAGE); \
+	    $(INSTALL_DATA) help_$${lang}.docbook ${DOCDIR}/$${lang}/$(PACKAGE)/index.docbook; \
+	    $(mkinstalldirs) ${DOCDIR}/$${lang}/$(PACKAGE)/common ; \
+	    $(INSTALL_DATA) $${lang}/common/*.png ${DOCDIR}/$${lang}/$(PACKAGE)/common ; \
 	}; done
-	cd $(kde_htmldir) ; \
+	cd ${DOCDIR} ; \
 	if test ! -e default/$(PACKAGE); then ln -s ../en/$(PACKAGE) default; fi;
 
 uninstall-local:
 	for lang in ${LANGUAGES}; do \
 	{ \
-	    rm -R -f ${kde_htmldir}/$${lang}/${PACKAGE} ; \
-	    cd $(kde_htmldir) ; \
+	    rm -R -f ${DOCDIR}/$${lang}/${PACKAGE} ; \
+	    cd ${DOCDIR} ; \
 	    if test -L default/$(PACKAGE); then rm -f default/$(PACKAGE); fi; \
 	}; done
+

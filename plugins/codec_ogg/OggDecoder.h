@@ -25,6 +25,8 @@
 #include <qstringlist.h>
 #include <qobject.h>
 
+#include <vorbis/codec.h>
+
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
@@ -78,6 +80,33 @@ private:
 
     /** source of the audio data */
     QIODevice *m_source;
+
+    /** sync and verify incoming physical bitstream */
+    ogg_sync_state m_oy;
+    
+    /** take physical pages, weld into a logical stream of packets */
+    ogg_stream_state m_os;
+
+    /** one Ogg bitstream page.  Vorbis packets are inside */
+    ogg_page m_og;
+
+    /** one raw packet of data for decode */
+    ogg_packet m_op;
+
+    /** struct that stores all the static vorbis bitstream settings */
+    vorbis_info m_vi;
+
+    /** struct that stores all the bitstream user comments */
+    vorbis_comment m_vc;
+
+    /** central working state for the packet->PCM decoder */
+    vorbis_dsp_state m_vd;
+    
+    /** local working space for packet->PCM decode */
+    vorbis_block m_vb;
+
+    /** buffer for reading from the QIODevice */
+    char *m_buffer;
 
 };
 

@@ -19,7 +19,6 @@
 #include <byteswap.h>
 #include <stdlib.h>
 #include <math.h>
-#include <vorbis/codec.h>
 
 #include <qlist.h>
 #include <qprogressdialog.h>
@@ -56,28 +55,11 @@ Decoder *OggDecoder::instance()
     return new OggDecoder();
 }
 
-ogg_int16_t convbuffer[4096]; /* take 8k out of the data segment, not the stack */
-int convsize=4096;
-
-  ogg_sync_state   oy; /* sync and verify incoming physical bitstream */
-  ogg_stream_state os; /* take physical pages, weld into a logical
-			  stream of packets */
-  ogg_page         og; /* one Ogg bitstream page.  Vorbis packets are inside */
-  ogg_packet       op; /* one raw packet of data for decode */
-
-  vorbis_info      vi; /* struct that stores all the static vorbis bitstream
-			  settings */
-  vorbis_comment   vc; /* struct that stores all the bitstream user comments */
-  vorbis_dsp_state vd; /* central working state for the packet->PCM decoder */
-  vorbis_block     vb; /* local working space for packet->PCM decode */
-
-  char *buffer = 0;
-  int  bytes = 0;
-  int i = 0;
 
 //***************************************************************************
 int OggDecoder::parseHeader(QWidget *widget)
 {
+    int counter = 0;
 
     // grab some data at the head of the stream.  We want the first page
     // (which is guaranteed to be small and only contain the Vorbis
@@ -85,15 +67,15 @@ int OggDecoder::parseHeader(QWidget *widget)
     // serialno.
 
     // submit a 4k block to libvorbis' Ogg layer
-    buffer = ogg_sync_buffer(&oy, 4096);
-    ASSERT(buffer);
-    if (!buffer) return -1;
+    m_buffer = ogg_sync_buffer(&m_oy, 4096);
+    ASSERT(m_buffer);
+    if (!m_buffer) return -1;
     
-    bytes = m_source->readBlock(buffer,4096);
-    ogg_sync_wrote(&oy, bytes);
+    unsigned int bytes = m_source->readBlock(m_buffer,4096);
+    ogg_sync_wrote(&m_oy, bytes);
 
     // Get the first page.
-    if (ogg_sync_pageout(&oy, &og) != 1) {
+    if (ogg_sync_pageout(&m_oy, &m_og) != 1) {
 	// have we simply run out of data?  If so, we're done.
 	if (bytes < 4096) return 0;
 	
@@ -105,7 +87,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 
     // Get the serial number and set up the rest of decode.
     // serialno first; use it to set up a logical stream
-    ogg_stream_init(&os, ogg_page_serialno(&og));
+    ogg_stream_init(&m_os, ogg_page_serialno(&m_og));
 
     // extract the initial header from the first page and verify that the
     // Ogg bitstream is in fact Vorbis data
@@ -114,23 +96,23 @@ int OggDecoder::parseHeader(QWidget *widget)
     // read all three Vorbis headers at once because reading the initial
     // header is an easy way to identify a Vorbis bitstream and it's
     // useful to see that functionality seperated out.
-    vorbis_info_init(&vi);
-    vorbis_comment_init(&vc);
-    if (ogg_stream_pagein(&os, &og) < 0) {
+    vorbis_info_init(&m_vi);
+    vorbis_comment_init(&m_vc);
+    if (ogg_stream_pagein(&m_os, &m_og) < 0) {
 	// error; stream version mismatch perhaps
 	KMessageBox::error(widget, i18n(
 	    "Error reading first page of Ogg bitstream data."));
 	return -1;
     }
 
-    if (ogg_stream_packetout(&os, &op) != 1) {
+    if (ogg_stream_packetout(&m_os, &m_op) != 1) {
 	// no page? must not be vorbis
 	KMessageBox::error(widget, i18n(
 	    "Error reading initial header packet."));
 	return -1;
     }
 
-    if (vorbis_synthesis_headerin(&vi, &vc, &op) < 0) {
+    if (vorbis_synthesis_headerin(&m_vi, &m_vc, &m_op) < 0) {
 	// error case; not a vorbis header
 	KMessageBox::error(widget, i18n(
 	    "This Ogg bitstream does not contain Vorbis audio data."));
@@ -146,10 +128,10 @@ int OggDecoder::parseHeader(QWidget *widget)
     // and submit data until we get our two pacakets, watching that no
     // pages are missing.  If a page is missing, error out; losing a
     // header page is the only place where missing data is fatal. */
-    i = 0;
-    while (i < 2) {
-	while(i < 2) {
-	    int result=ogg_sync_pageout(&oy, &og);
+    counter = 0;
+    while (counter < 2) {
+	while(counter < 2) {
+	    int result=ogg_sync_pageout(&m_oy, &m_og);
 	    if (result == 0) return 0; // Need more data
 	    // Don't complain about missing or corrupt data yet.  We'll
 	    // catch it at the packet output phase
@@ -157,9 +139,9 @@ int OggDecoder::parseHeader(QWidget *widget)
 		// we can ignore any errors here
 		// as they'll also become apparent
 		// at packetout
-		ogg_stream_pagein(&os, &og);
-		while (i < 2) {
-		    result = ogg_stream_packetout(&os, &op);
+		ogg_stream_pagein(&m_os, &m_og);
+		while (counter < 2) {
+		    result = ogg_stream_packetout(&m_os, &m_op);
 		    if (result == 0) return 0;
 		    if (result < 0) {
 			// Uh oh; data at some point was corrupted or
@@ -169,44 +151,42 @@ int OggDecoder::parseHeader(QWidget *widget)
 			    "Corrupt secondary header. Exiting."));
 			return -1;
 		    }
-		    vorbis_synthesis_headerin(&vi, &vc, &op);
-		    i++;
+		    vorbis_synthesis_headerin(&m_vi, &m_vc, &m_op);
+		    counter++;
 		}
 	    }
 	}
 
 	// no harm in not checking before adding more
-	buffer = ogg_sync_buffer(&oy, 4096);
-	bytes = m_source->readBlock(buffer, 4096);
-	if (bytes == 0 && i < 2) {
+	m_buffer = ogg_sync_buffer(&m_oy, 4096);
+	bytes = m_source->readBlock(m_buffer, 4096);
+	if (!bytes && counter < 2) {
 	    KMessageBox::error(widget, i18n(
 	        "End of file before finding all Vorbis headers!"));
 	    return -1;
 	}
-	ogg_sync_wrote(&oy, bytes);
+	ogg_sync_wrote(&m_oy, bytes);
     }
 
     // Throw the comments plus a few lines about the bitstream we're decoding
     {
-	char **ptr = vc.user_comments;
+	char **ptr = m_vc.user_comments;
 	while (*ptr) {
 	    debug("%s\n", *ptr);
 	    ++ptr;
 	}
-	debug("Bitstream is %d channel, %ldHz", vi.channels, vi.rate);
-	debug("Encoded by: %s\n\n", vc.vendor);
+	debug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
+	debug("Encoded by: %s\n\n", m_vc.vendor);
     }
-
-    convsize = 4096 / vi.channels;
 
     // OK, got and parsed all three headers. Initialize the Vorbis
     // packet->PCM decoder. */
-    vorbis_synthesis_init(&vd, &vi); // central decode state
-    vorbis_block_init(&vd, &vb);     // local state for most of the decode
+    vorbis_synthesis_init(&m_vd, &m_vi); // central decode state
+    vorbis_block_init(&m_vd, &m_vb); // local state for most of the decode
                                      // so multiple block decodes can
                                      // proceed in parallel.  We could init
                                      // multiple vorbis_block structures
-                                     // for vd here
+                                     // for m_vd here
     return 1;
 }
 
@@ -228,17 +208,58 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     
     /********** Decode setup ************/
     debug("--- OggDecoder::open() ---");
-    ogg_sync_init(&oy); // Now we can read pages
+    ogg_sync_init(&m_oy); // Now we can read pages
 
     // read the header the first time
     if (parseHeader(widget) < 0) return false;
 
     // get the standard properties
-    m_info.setRate(vi.rate);
+    m_info.setLength(0);
+    m_info.setRate(m_vi.rate);
     m_info.setBits(SAMPLE_BITS);
-    m_info.setTracks(vi.channels);
+    m_info.setTracks(m_vi.channels);
+    // m_info.set(INF_???, QVariant(m_vi.version));
     
     return true;
+}
+
+//***************************************************************************
+static inline int decodeFrame(float **pcm, unsigned int size,
+                              MultiTrackWriter &dest)
+{
+    bool clipped = false;
+    unsigned int track;
+    unsigned int tracks = dest.count();
+
+    // convert floats to 16 bit signed ints
+    // (host order) and interleave
+    for (track=0; track < tracks; track++) {
+	float *mono = pcm[track];
+	int bout = size;
+	
+	while (bout--) {
+	    // scale, use some primitive noise shaping
+	    sample_t s = static_cast<sample_t>(
+		*(mono++) * (float)SAMPLE_MAX + drand48() - 0.5f);
+	
+	    // might as well guard against clipping
+	    if (s > SAMPLE_MAX) {
+		s = SAMPLE_MIN;
+		clipped = true;
+	    }
+	    if (s < SAMPLE_MIN) {
+		s = SAMPLE_MIN;
+		clipped = true;
+	    }
+
+	    // write the clipped sample to the stream
+	    *(dest[track]) << s;
+	}
+    }
+
+//    if (clipped) debug("Clipping in frame %ld", (long)(m_vd.sequence));
+
+    return size;
 }
 
 //***************************************************************************
@@ -254,7 +275,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 	// The rest is just a straight decode loop until end of stream
 	while (!eos) {
 	    while (!eos) {
-		int result = ogg_sync_pageout(&oy, &og);
+		int result = ogg_sync_pageout(&m_oy, &m_og);
 		if (result == 0) break; // need more data
 		if (result < 0) {
 		    // missing or corrupt data at this page position
@@ -263,9 +284,9 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 		        ));
 		} else {
 		    // can safely ignore errors at this point
-		    ogg_stream_pagein(&os,&og); 
+		    ogg_stream_pagein(&m_os,&m_og); 
 		    while (1) {
-			result = ogg_stream_packetout(&os, &op);
+			result = ogg_stream_packetout(&m_os, &m_op);
 			
 			if (result == 0) break; // need more data
 			if (result < 0) {
@@ -277,8 +298,8 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 			    int samples;
 			
 			    // test for success!
-			    if (vorbis_synthesis(&vb, &op) == 0)
-			        vorbis_synthesis_blockin(&vd, &vb);
+			    if (vorbis_synthesis(&m_vb, &m_op) == 0)
+			        vorbis_synthesis_blockin(&m_vd, &m_vb);
 
 			    // **pcm is a multichannel float vector. In
 			    // stereo, for example, pcm[0] is left, and
@@ -287,79 +308,51 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 			    // (-1.<=range<=1.) to whatever PCM format
 			    // and write it out
 			    while ((samples = vorbis_synthesis_pcmout(
-			           &vd, &pcm)) > 0)
+			           &m_vd, &pcm)) > 0)
 			    {
-				int j;
-				int clipflag = 0;
-				int bout = (samples <
-				           convsize ? samples : convsize);
-				
-				// convert floats to 16 bit signed ints
-				// (host order) and interleave
-				for (i=0; i < vi.channels; i++) {
-				    ogg_int16_t *ptr=convbuffer+i;
-				    float *mono=pcm[i];
-				    for (j=0; j < bout; j++) {
-#if 1
-					int val = mono[j] * 32767.f;
-#else /* optional dither */
-					int val = mono[j] * 32767.f+drand48()-0.5f;
-#endif
-					// might as well guard against clipping
-					if (val > 32767) {
-					    val = 32767;
-					    clipflag = 1;
-					}
-					if (val < -32768) {
-					    val=-32768;
-					    clipflag=1;
-					}
-					*ptr = val;
-					ptr += vi.channels;
-				    }
-				}
-				
-				if (clipflag)
-				    debug("Clipping in frame %ld",
-				        (long)(vd.sequence));
-				
-				// fwrite(convbuffer, 2*vi.channels, bout, stdout);
-				
-				vorbis_synthesis_read(&vd, bout);
+				register int bout =
+				    decodeFrame(pcm, samples, dst);
 				// tell libvorbis how many samples we
 				// actually consumed
+				vorbis_synthesis_read(&m_vd, bout);
 			    }
+
+			    // signal the current position
+			    emit sourceProcessed(m_source->at());
 			}
 		    }
-		    if (ogg_page_eos(&og)) eos = 1;
+		    if (ogg_page_eos(&m_og)) eos = 1;
 		}
 	    }
 	
 	    if (!eos) {
-		buffer = ogg_sync_buffer(&oy, 4096);
-		bytes = m_source->readBlock(buffer, 4096);
-		ogg_sync_wrote(&oy,bytes);
-		if (bytes == 0) eos = 1;
+		m_buffer = ogg_sync_buffer(&m_oy, 4096);
+		unsigned int bytes = m_source->readBlock(m_buffer, 4096);
+		ogg_sync_wrote(&m_oy, bytes);
+		if (!bytes) eos = 1;
 	    }
 	}
 
 	// clean up this logical bitstream; before exit we see if we're
 	// followed by another [chained]
-	ogg_stream_clear(&os);
+	ogg_stream_clear(&m_os);
 
 	// ogg_page and ogg_packet structs always point to storage in
 	// libvorbis.  They're never freed or manipulated directly
-	vorbis_block_clear(&vb);
-	vorbis_dsp_clear(&vd);
-	vorbis_comment_clear(&vc);
-	vorbis_info_clear(&vi);  // must be called last
+	vorbis_block_clear(&m_vb);
+	vorbis_dsp_clear(&m_vd);
+	vorbis_comment_clear(&m_vc);
+	vorbis_info_clear(&m_vi);  // must be called last
 
 	// parse the next header, maybe we parse a stream or chain...
 	if (parseHeader(widget) < 1) break;
     }
 
     // OK, clean up the framer
-    ogg_sync_clear(&oy);
+    ogg_sync_clear(&m_oy);
+
+    // signal the current position
+    emit sourceProcessed(m_source->at());
 
     // return with a valid Signal, even if the user pressed cancel !
     return true;

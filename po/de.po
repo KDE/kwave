@@ -1,3 +1,4 @@
+# translation of de.po to 
 # translation of de.po to Deutsch
 # translation of de.po to español
 # translation of de.po to deutsch
@@ -6,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-10 15:49+0200\n"
-"PO-Revision-Date: 2004-06-12 17:17+0200\n"
-"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
-"Language-Team: Deutsch <de@li.org>\n"
+"POT-Creation-Date: 2004-12-31 14:07+0100\n"
+"PO-Revision-Date: 2004-12-25 18:18+0100\n"
+"Last-Translator: Thomas Eschenbacher\n"
+"Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: kwave/menus_config_i18n.cpp:13
 msgid "About &KDE"
@@ -85,7 +86,7 @@ msgstr "&Zwischenablage"
 msgid "Clip&board"
 msgstr "&Zwischenablage"
 
-#: kwave/menus_config_i18n.cpp:32 plugins/codec_wav/WavDecoder.cpp:243
+#: kwave/menus_config_i18n.cpp:32 plugins/codec_wav/WavDecoder.cpp:242
 msgid "&Continue"
 msgstr "&Fortsetzen"
 
@@ -490,7 +491,7 @@ msgstr "Einfügen"
 msgid "modify file information"
 msgstr "Datei-Information ändern"
 
-#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:882
+#: kwave/UndoDeleteAction.cpp:37 kwave/SignalManager.cpp:882
 msgid "delete"
 msgstr "Löschen"
 
@@ -498,7 +499,7 @@ msgstr "Löschen"
 msgid "insert track"
 msgstr "Track einfügen"
 
-#: kwave/UndoModifyAction.cpp:45
+#: kwave/UndoModifyAction.cpp:47
 msgid "modify samples"
 msgstr "Samples ändern"
 
@@ -568,7 +569,7 @@ msgstr "Ersteller der 'audiofile'-Bibliothek"
 msgid "author of the 'sndfile' library"
 msgstr "Ersteller der 'sndfile'-Bibliothek"
 
-#: kwave/main.cpp:119
+#: kwave/main.cpp:122
 msgid "sound editor for KDE3"
 msgstr "Sound-Editor für KDE3"
 
@@ -576,79 +577,79 @@ msgstr "Sound-Editor für KDE3"
 msgid "New File"
 msgstr "Neue Datei"
 
-#: kwave/TopWidget.cpp:249
+#: kwave/TopWidget.cpp:251
 msgid "create a new empty file"
 msgstr "neue leere Datei erzeugen"
 
-#: kwave/TopWidget.cpp:255
+#: kwave/TopWidget.cpp:257
 msgid "open an existing file"
 msgstr "existierende Datei öffnen"
 
-#: kwave/TopWidget.cpp:261
+#: kwave/TopWidget.cpp:263
 msgid "save the current file"
 msgstr "aktuelle Datei speichern"
 
-#: kwave/TopWidget.cpp:293
+#: kwave/TopWidget.cpp:295
 msgid "cut the current selection and move it to the clipboard"
 msgstr "Auswahl ausschneiden und in Zwischenablage speichern"
 
-#: kwave/TopWidget.cpp:299
+#: kwave/TopWidget.cpp:301
 msgid "copy the current selection to the clipboard"
 msgstr "Auswahl in die Zwischenablage kopieren"
 
-#: kwave/TopWidget.cpp:305
+#: kwave/TopWidget.cpp:307
 msgid "insert the content of clipboard"
 msgstr "Inhalt der Zwischenablage einfügen"
 
-#: kwave/TopWidget.cpp:311
+#: kwave/TopWidget.cpp:313
 msgid "mute the current selection"
 msgstr "Auswahl auf Null setzen"
 
-#: kwave/TopWidget.cpp:317
+#: kwave/TopWidget.cpp:319
 msgid "delete the current selection"
 msgstr "Auswahl löschen"
 
-#: kwave/TopWidget.cpp:342
+#: kwave/TopWidget.cpp:344
 msgid "start playback"
 msgstr "Wiedergabe starten"
 
-#: kwave/TopWidget.cpp:348
+#: kwave/TopWidget.cpp:350
 msgid "start playback and loop"
 msgstr "Wiedergabe mit Wiederholung"
 
-#: kwave/TopWidget.cpp:354
+#: kwave/TopWidget.cpp:356
 msgid "pause playback"
 msgstr "Wiedergabe anhalten"
 
-#: kwave/TopWidget.cpp:360
+#: kwave/TopWidget.cpp:362
 msgid "stop playback or loop"
 msgstr "Wiedergabe beenden"
 
-#: kwave/TopWidget.cpp:378
+#: kwave/TopWidget.cpp:380
 msgid "zoom to selection"
 msgstr "auf Auswahl vergrößern"
 
-#: kwave/TopWidget.cpp:385
+#: kwave/TopWidget.cpp:387
 msgid "zoom in"
 msgstr "Vergrößern"
 
-#: kwave/TopWidget.cpp:392
+#: kwave/TopWidget.cpp:394
 msgid "zoom out"
 msgstr "Verkleinern"
 
-#: kwave/TopWidget.cpp:398
+#: kwave/TopWidget.cpp:400
 msgid "zoom to 100%"
 msgstr "auf 100% vergrößern"
 
-#: kwave/TopWidget.cpp:404
+#: kwave/TopWidget.cpp:406
 msgid "zoom to all"
 msgstr "auf gesamtes Signal vergrößern"
 
-#: kwave/TopWidget.cpp:414
+#: kwave/TopWidget.cpp:416
 msgid "select zoom factor"
 msgstr "Vergrößerungsfaktor auswählen"
 
-#: kwave/TopWidget.cpp:501
+#: kwave/TopWidget.cpp:503
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -661,15 +662,15 @@ msgstr ""
 "mitgelieferte Dokumentation oder besuchen Sie <a href=http://www.arts-"
 "project.org> http://www.arts-project.org</a>."
 
-#: kwave/TopWidget.cpp:514
+#: kwave/TopWidget.cpp:516
 msgid "Loading plugins..."
 msgstr "Lade Plugins..."
 
-#: kwave/TopWidget.cpp:516
+#: kwave/TopWidget.cpp:518
 msgid "Ready."
 msgstr "Bereit."
 
-#: kwave/TopWidget.cpp:782
+#: kwave/TopWidget.cpp:784
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -677,41 +678,41 @@ msgstr ""
 "Diese Datei wurde verändert.\n"
 "Wollen Sie sie speichern?"
 
-#: kwave/TopWidget.cpp:909
+#: kwave/TopWidget.cpp:911
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
-#: kwave/TopWidget.cpp:1065
+#: kwave/TopWidget.cpp:1067
 msgid "Length: %1"
 msgstr "Länge: %1"
 
-#: kwave/TopWidget.cpp:1065
+#: kwave/TopWidget.cpp:1067
 msgid "(%2 samples)"
 msgstr "(%2 Samples)"
 
-#: kwave/TopWidget.cpp:1074
+#: kwave/TopWidget.cpp:1076
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr "Format: %0.3f kHz@%u Bit"
 
-#: kwave/TopWidget.cpp:1115
+#: kwave/TopWidget.cpp:1117
 msgid "Selected"
 msgstr "Ausgewählt"
 
-#: kwave/TopWidget.cpp:1119
+#: kwave/TopWidget.cpp:1121
 msgid "samples"
 msgstr "Samples"
 
-#: kwave/TopWidget.cpp:1174
+#: kwave/TopWidget.cpp:1176
 msgid "U&ndo"
 msgstr "&Rückgängig"
 
-#: kwave/TopWidget.cpp:1180
+#: kwave/TopWidget.cpp:1182
 msgid "R&edo"
 msgstr "Wieder&herstellen"
 
-#: kwave/TopWidget.cpp:1380
+#: kwave/TopWidget.cpp:1382
 msgid " (modified)"
 msgstr " (geändert)"
 
@@ -2443,7 +2444,7 @@ msgid "?:"
 msgstr "?:"
 
 #: plugins/sonagram/SonagramDialog.cpp:45
-#: plugins/sonagram/SonagramPlugin.cpp:81
+#: plugins/sonagram/SonagramPlugin.cpp:84
 msgid "sonagram"
 msgstr "Sonagramm"
 
@@ -2590,16 +2591,16 @@ msgstr "FLAC Audio"
 msgid "codec_flac"
 msgstr "FLAC-Codec"
 
-#: plugins/codec_flac/FlacEncoder.cpp:206 plugins/codec_ogg/OggEncoder.cpp:246
+#: plugins/codec_flac/FlacEncoder.cpp:205 plugins/codec_ogg/OggEncoder.cpp:245
 #: plugins/codec_wav/WavEncoder.cpp:121
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 
-#: plugins/codec_flac/FlacEncoder.cpp:216
+#: plugins/codec_flac/FlacEncoder.cpp:215
 msgid "Unable to open the FLAC encoder!"
 msgstr "Der FLAC-Encoder konnte nicht geöffnet werden!"
 
-#: plugins/codec_flac/FlacEncoder.cpp:256
+#: plugins/codec_flac/FlacEncoder.cpp:255
 msgid "Out of memory!"
 msgstr "Zu wenig Speicher!"
 
@@ -2672,30 +2673,30 @@ msgstr ""
 "Die geöffnete Datei ist keine MPEG-Datei oder sie ist beschädigt:\n"
 "Es konnten keine Kopfinformationen gefunden werden..."
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:474
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:116
-#: plugins/codec_wav/WavEncoder.cpp:145 plugins/codec_wav/WavDecoder.cpp:326
+#: plugins/decoder_mp3/MP3Decoder.cpp:482
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:114
+#: plugins/codec_wav/WavEncoder.cpp:145 plugins/codec_wav/WavDecoder.cpp:325
 msgid "out of memory"
 msgstr "zu wenig Speicher"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:477
+#: plugins/decoder_mp3/MP3Decoder.cpp:485
 msgid "checksum error"
 msgstr "Prüfsummen-Fehler"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:480
+#: plugins/decoder_mp3/MP3Decoder.cpp:488
 msgid "synchronization lost"
 msgstr "Synchronisation verloren"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:497
+#: plugins/decoder_mp3/MP3Decoder.cpp:505
 msgid "file contains invalid data"
 msgstr "Datei enthält ungültige Daten"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:500
+#: plugins/decoder_mp3/MP3Decoder.cpp:508
 #, c-format
 msgid "unknown error 0x%X. damaged file?"
 msgstr "Unbekannter Fehler 0x%X. Datei beschädigt?"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:506
+#: plugins/decoder_mp3/MP3Decoder.cpp:514
 msgid ""
 "An error occurred while decoding the file:\n"
 "'%1',\n"
@@ -2707,11 +2708,11 @@ msgstr ""
 "bei Position %2.\n"
 "%3"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:511
+#: plugins/decoder_mp3/MP3Decoder.cpp:519
 msgid "Do you still want to continue?"
 msgstr "Wollen Sie trotzdem fortsetzen?"
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:515
+#: plugins/decoder_mp3/MP3Decoder.cpp:523
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Wollen Sie fortsetzen und alle weiteren Fehler ignorieren?"
 
@@ -3282,54 +3283,54 @@ msgstr "Bereich auswählen..."
 msgid "O&K"
 msgstr "O&K"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:57
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:55
 msgid "NeXT,Sun Audio"
 msgstr "NeXT,Sun Audio"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:62
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:60
 msgid "Compressed Audio Interchange Format"
 msgstr "Komprimiertes Audio Interchange Format"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:65
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:63
 msgid "Audio Interchange Format"
 msgstr "Audio Interchange Format"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:68
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:66
 msgid "Berkeley,IRCAM,Carl Sound Format"
 msgstr "Berkeley,IRCAM,Carl Sound Format"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:113
-#: plugins/codec_wav/WavEncoder.cpp:141 plugins/codec_wav/WavDecoder.cpp:322
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:111
+#: plugins/codec_wav/WavEncoder.cpp:141 plugins/codec_wav/WavDecoder.cpp:321
 msgid "format or function is not implemented"
 msgstr "Format oder Funktion ist nicht implementiert"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:119
-#: plugins/codec_wav/WavEncoder.cpp:148 plugins/codec_wav/WavDecoder.cpp:329
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:117
+#: plugins/codec_wav/WavEncoder.cpp:148 plugins/codec_wav/WavDecoder.cpp:328
 msgid "file header is damaged"
 msgstr "Datei-Header ist beschädigt"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavEncoder.cpp:151 plugins/codec_wav/WavDecoder.cpp:332
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:120
+#: plugins/codec_wav/WavEncoder.cpp:151 plugins/codec_wav/WavDecoder.cpp:331
 msgid "invalid codec type"
 msgstr "ungültiger Codec-Typ"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:125
-#: plugins/codec_wav/WavEncoder.cpp:155 plugins/codec_wav/WavDecoder.cpp:336
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:123
+#: plugins/codec_wav/WavEncoder.cpp:155 plugins/codec_wav/WavDecoder.cpp:335
 msgid "opening the file failed"
 msgstr "Datei konnte nicht geöffnet werden"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: plugins/codec_wav/WavEncoder.cpp:158 plugins/codec_wav/WavDecoder.cpp:339
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:126
+#: plugins/codec_wav/WavEncoder.cpp:158 plugins/codec_wav/WavDecoder.cpp:338
 msgid "read access failed"
 msgstr "Lesezugriff fehlgeschlagen"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavEncoder.cpp:161 plugins/codec_wav/WavDecoder.cpp:342
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:129
+#: plugins/codec_wav/WavEncoder.cpp:161 plugins/codec_wav/WavDecoder.cpp:341
 msgid "invalid sample format"
 msgstr "ungültiges Sample-Format"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavEncoder.cpp:167 plugins/codec_wav/WavDecoder.cpp:348
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:135
+#: plugins/codec_wav/WavEncoder.cpp:167 plugins/codec_wav/WavDecoder.cpp:347
 msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
@@ -3935,7 +3936,7 @@ msgstr ""
 "Erhöht oder senkt die Lautstärke im logarithmischen Masstab (Dezibel). \n"
 "Zum Beispiel: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 
-#: plugins/codec_ogg/OggEncoder.cpp:159
+#: plugins/codec_ogg/OggEncoder.cpp:158
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
 "and encode with %1 kBit/s or cancel and choose a different bitrate?"
@@ -3944,7 +3945,7 @@ msgstr ""
 "mit der Bitrate %1 kBit/s fortsetzen oder abbrechen und eine andere Bitrate "
 "auswählen?"
 
-#: plugins/codec_ogg/OggEncoder.cpp:237
+#: plugins/codec_ogg/OggEncoder.cpp:236
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again..."
@@ -3980,7 +3981,7 @@ msgstr "Beschädigter sekundärer Header. Vorgang wird abgebrochen."
 msgid "End of file before finding all Vorbis headers!"
 msgstr "Dateiende vor dem Einlesen aller Vorbis-Header!"
 
-#: plugins/codec_ogg/OggDecoder.cpp:346
+#: plugins/codec_ogg/OggDecoder.cpp:351
 msgid "Corrupt or missing data in bitstream; continuing..."
 msgstr ""
 "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
@@ -3998,15 +3999,15 @@ msgstr "Ogg, Vorbis Audio"
 msgid "codec_wav"
 msgstr "Wav-Codec"
 
-#: plugins/codec_wav/RIFFParser.cpp:101
+#: plugins/codec_wav/RIFFParser.cpp:100
 msgid "detecting endianness (standard search)..."
 msgstr "bestimme Byte-Order (Standardsuche)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:130
+#: plugins/codec_wav/RIFFParser.cpp:129
 msgid "detecting endianness (statistic search)..."
 msgstr "bestimme Byte-Order (statistische Suche)..."
 
-#: plugins/codec_wav/RIFFParser.cpp:532
+#: plugins/codec_wav/RIFFParser.cpp:536
 msgid "searching for missing chunk '%1'..."
 msgstr "suche fehlenden Chunk '%1'..."
 
@@ -4026,7 +4027,7 @@ msgstr "&Ja, G711 verwenden"
 msgid "&No, store uncompressed"
 msgstr "&Nein, unkomprimiert speichern"
 
-#: plugins/codec_wav/WavDecoder.cpp:161
+#: plugins/codec_wav/WavDecoder.cpp:160
 msgid ""
 "The file has been structurally damaged or is no .wav file.\n"
 "Should Kwave try to repair it?"
@@ -4034,15 +4035,15 @@ msgstr ""
 "Die Datei ist entweder strukturell beschädigt oder ist keine .wav-Datei.\n"
 "Soll Kwave versuchen sie zu reparieren?"
 
-#: plugins/codec_wav/WavDecoder.cpp:164
+#: plugins/codec_wav/WavDecoder.cpp:163
 msgid "Kwave auto repair"
 msgstr "Kwave automatische Reparatur"
 
-#: plugins/codec_wav/WavDecoder.cpp:165
+#: plugins/codec_wav/WavDecoder.cpp:164
 msgid "&Repair"
 msgstr "&Reparieren"
 
-#: plugins/codec_wav/WavDecoder.cpp:223
+#: plugins/codec_wav/WavDecoder.cpp:222
 msgid ""
 "The opened file is no .WAV file or damaged:\n"
 "There is not enough valid sound data.\n"
@@ -4054,7 +4055,7 @@ msgstr ""
 "\n"
 "Es macht keinen Sinn hier fortzufahren..."
 
-#: plugins/codec_wav/WavDecoder.cpp:235
+#: plugins/codec_wav/WavDecoder.cpp:234
 msgid ""
 "The WAV file seems to be damaged: \n"
 "some chunks are duplicate or missing! \n"
@@ -4075,7 +4076,7 @@ msgstr ""
 "an die Kwave Mailingliste und wir werden versuchen \n"
 "Ihnen zu helfen..."
 
-#: plugins/codec_wav/WavDecoder.cpp:242
+#: plugins/codec_wav/WavDecoder.cpp:241
 msgid "Kwave auto-repair"
 msgstr "Kwave automatische Reparatur"
 
@@ -4349,451 +4350,3 @@ msgstr "(Resultierende Dateigröße: %1 MB)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "Neues Signal"
-
-#~ msgid "no limit"
-#~ msgstr "nicht begrenzt"
-
-#, fuzzy
-#~ msgid "Frequency parameter"
-#~ msgstr "Frequenzen"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "&to end"
-#~ msgstr "bis zum &Ende"
-
-#~ msgid "as number of samples"
-#~ msgstr "wie Anzahl der Samples"
-
-#~ msgid "in ms"
-#~ msgstr "in ms"
-
-#~ msgid "in kb"
-#~ msgstr "in kB"
-
-#~ msgid "ID3 Tags"
-#~ msgstr "ID3 Tags"
-
-#~ msgid "Artist"
-#~ msgstr "Künstler"
-
-#~ msgid ""
-#~ "Lists the artist of the original subject of the file.\n"
-#~ "Example: 'van Beethoven, Ludwig'"
-#~ msgstr ""
-#~ "Benennt den Künster der Original-Werkes.\n"
-#~ "Beispiel: 'van Beethoven, Ludwig'"
-
-#~ msgid "Source Form:"
-#~ msgstr "Ursprungs-Form:"
-
-#~ msgid "Source:"
-#~ msgstr "Quelle:"
-
-#~ msgid "CD:"
-#~ msgstr "CD:"
-
-#~ msgid "Album:"
-#~ msgstr "Album:"
-
-#, fuzzy
-#~ msgid "Track:"
-#~ msgstr "Tracks: "
-
-#, fuzzy
-#~ msgid "Archival:"
-#~ msgstr "Archivierungs-Ort"
-
-#, fuzzy
-#~ msgid "Product:"
-#~ msgstr "Produkt"
-
-#~ msgid ""
-#~ "Specifies the date the subject of the file was created. List dates in "
-#~ "year-month-day format, padding one-digit months and days with a zero on "
-#~ "the left (ISO format).\n"
-#~ "Example: '2001-12-24'"
-#~ msgstr ""
-#~ "Gibt das Datum an, zu dem die Datei erstellt wurde. Angabe im Format Jahr-"
-#~ "Monat-Tag, mit führenden Nullen bei Monat und Tag, sowie vierstelliger "
-#~ "Jahresangabe (ISO-Format).\n"
-#~ "Beispiel: '2001-12-24'"
-
-#~ msgid "Selected: %1 (%2 samples)"
-#~ msgstr "Ausgewählt: %1 (%2 Samples)"
-
-#~ msgid "Save resol&ution"
-#~ msgstr "&Auflösung"
-
-#~ msgid "&Ok"
-#~ msgstr "&Ok"
-
-#~ msgid "Choose labeling criteria"
-#~ msgstr "Kriterium für Marker"
-
-#~ msgid "Start label:"
-#~ msgstr "Start-Marker:"
-
-#~ msgid "Stop label:"
-#~ msgstr "Ende-Marker:"
-
-#~ msgid "Length of silence:"
-#~ msgstr "Länge der Stille:"
-
-#~ msgid ""
-#~ "this is the timespan below the defined sound level\n"
-#~ "that is assumed to separate two signals ..."
-#~ msgstr ""
-#~ "legt die Dauer fest für die die definierte Lautstärke\n"
-#~ "unterschritten werden muß um zwei Signale zu trennen ..."
-
-#~ msgid "Max. silence level in %"
-#~ msgstr "Max. Amplitude der 'Stille' in %"
-
-#~ msgid "Select Function :"
-#~ msgstr "Funktion auswählen :"
-
-#~ msgid "Freq. in Hz"
-#~ msgstr "Freq. in Hz"
-
-#~ msgid "Ampl. in %"
-#~ msgstr "Amplitude in %"
-
-#~ msgid "&Power"
-#~ msgstr "&Leistung"
-
-#~ msgid "&Phase"
-#~ msgstr "&Phase"
-
-#~ msgid "&Multipliers"
-#~ msgstr "&Multiplikatoren"
-
-#~ msgid "e&numerate"
-#~ msgstr "&nummerieren"
-
-#~ msgid "&prime"
-#~ msgstr "&prim"
-
-#~ msgid "&fibonacci"
-#~ msgstr "&Fibonacci"
-
-#~ msgid "&max"
-#~ msgstr "&max"
-
-#~ msgid "&db/octave"
-#~ msgstr "&dB/Oktave"
-
-#~ msgid "&Sinus"
-#~ msgstr "&Sinus"
-
-#~ msgid "&random"
-#~ msgstr "&zufällig"
-
-#~ msgid "&sinus"
-#~ msgstr "&Sinus"
-
-#~ msgid "&Reset all"
-#~ msgstr "&Alles zurücksetzen"
-
-#~ msgid "Multiply :"
-#~ msgstr "Multiplizieren :"
-
-#~ msgid "Phase in degree:"
-#~ msgstr "Phase in Grad:"
-
-#~ msgid "Power in %:"
-#~ msgstr "Leistung in %:"
-
-#~ msgid "Calculate"
-#~ msgstr "Berechne"
-
-#~ msgid "# of :"
-#~ msgstr "# von :"
-
-#~ msgid "Choose dB/octave"
-#~ msgstr "Auswahl dB/Oktave"
-
-#~ msgid "Choose new virtual resolution"
-#~ msgstr "Neue virtuelle Auflösung wählen"
-
-#~ msgid "Number of quantisation steps"
-#~ msgstr "Anzahl der Quantisierungsstufen"
-
-#~ msgid "Choose fading degree :"
-#~ msgstr "Grad der Einblendung :"
-
-#~ msgid "Choose filter parameters:"
-#~ msgstr "Filter-Parameter wählen:"
-
-#~ msgid "&save filter"
-#~ msgstr "Filter &speichern"
-
-#~ msgid "resulting changes in spectrum"
-#~ msgstr "resultierende Änderungen im Spektrum"
-
-#~ msgid "resulting changes in phase"
-#~ msgstr "resultierende Phasenänderungen"
-
-#~ msgid "Use normal filtering, e.g. the impulse response is finite !"
-#~ msgstr "Nicht-Rekursive Filterung (Impulsantwort ist endlich!)"
-
-#~ msgid "&IIR"
-#~ msgstr "&IIR"
-
-#~ msgid ""
-#~ "Use recursive filtering, e.g. the impulse response could be infinite !"
-#~ msgstr "Rekursive Filterung (Impulsantwort evtl. nicht endlich!)"
-
-#~ msgid ""
-#~ "Number of filter coefficients\n"
-#~ " Keep this low and you won't need any coffee break..."
-#~ msgstr ""
-#~ "Anzahl der Filterkoeffizienten\n"
-#~ "(stellen Sie lieber niedrige Werte ein und ersparen Sie sich eine "
-#~ "unfreiwillige Kaffeepause...)"
-
-#~ msgid "Choose window type and length :"
-#~ msgstr "Fensterfunktion und Länge wählen :"
-
-#~ msgid "Length of window :"
-#~ msgstr "Länge des Fensters :"
-
-#~ msgid "Choose windowing function here."
-#~ msgstr "Fensterfunktion wählen"
-
-#~ msgid "Choose New Rate :"
-#~ msgstr "Neue Rate :"
-
-#~ msgid "Rate in Hz :"
-#~ msgstr "Rate in Hz :"
-
-#~ msgid "Enter length :"
-#~ msgstr "Länge eingeben :"
-
-#~ msgid "Time :"
-#~ msgstr "Zeit :"
-
-#~ msgid "Choose new label type"
-#~ msgstr "Neuen Marker-Typ auswählen"
-
-#~ msgid "individual name for each label"
-#~ msgstr "eindeutiger Name für jeden Marker"
-
-#~ msgid "From"
-#~ msgstr "von"
-
-#~ msgid "to"
-#~ msgstr "bis"
-
-#~ msgid "Ok"
-#~ msgstr "Ok"
-
-#~ msgid "could not open file !\n"
-#~ msgstr "kann Datei nicht öffnen !\n"
-
-#~ msgid "file %s does not exist!\n"
-#~ msgstr "Datei %s existiert nicht!\n"
-
-#~ msgid "Choose Length and Rate :"
-#~ msgstr "Länge und Rate wählen :"
-
-#~ msgid "Delay :"
-#~ msgstr "Verzögerung :"
-
-#~ msgid "Amplitude of delayed signal :50 %"
-#~ msgstr "Amplitude des verzögerten Signals :50 %"
-
-#~ msgid "do recursive delaying"
-#~ msgstr "umgekehrte Verzögerung"
-
-#~ msgid "Amplitude of delayed signal :%d %%"
-#~ msgstr "Amplitude des verzögerten Signals :%d %%"
-
-#~ msgid "Choose Labels to be used for dividing signal:"
-#~ msgstr "Marker zur Aufteilung des Signals wählen:"
-
-#~ msgid "Base name:"
-#~ msgstr "Basisname:"
-
-#~ msgid "Choose Parameters :"
-#~ msgstr "Parameter auswählen :"
-
-#~ msgid "# of Filter Taps :"
-#~ msgstr "# der Filterbänder :"
-
-#~ msgid "Filter Type :"
-#~ msgstr "Filter-Typ :"
-
-#~ msgid "Highpass filter"
-#~ msgstr "Hochpass-Filter"
-
-#~ msgid "Select frequency range :"
-#~ msgstr "Frequenzbereich wählen :"
-
-#~ msgid "Highest Freq. in Hz"
-#~ msgstr "Höchste Freq. in Hz"
-
-#~ msgid "Lowest Freq. in Hz"
-#~ msgstr "Niedrigste Freq. in Hz"
-
-#~ msgid "avoid octave jumps with twiddle factor"
-#~ msgstr "vermeiden Sie Oktavensprünge mit ungeradem Faktor"
-
-#~ msgid "Enter a value"
-#~ msgstr "Wert eingeben"
-
-#~ msgid "Length of pulse :"
-#~ msgstr "Pulslänge :"
-
-#~ msgid "Select label types to be saved :"
-#~ msgstr "Auswahl der zu speichernden Markertypen :"
-
-#~ msgid "Choose Envelope Parameters"
-#~ msgstr "Hüllkurvenparameter wählen"
-
-#~ msgid "Points are taken 20 times/s"
-#~ msgstr "20 Abtastungen / Sekunde"
-
-#~ msgid "Type of Interpolation :"
-#~ msgstr "Typ der Interpolation :"
-
-#~ msgid "Points are taken %d.%01d times/s"
-#~ msgstr "%d.%01d Abtastungen / Sekunde"
-
-#~ msgid "Set Length of Gap & Signal"
-#~ msgstr "Länge der Lücke und des Signals wählen"
-
-#~ msgid "length of gap"
-#~ msgstr "Länge der Lücke"
-
-#~ msgid "length of signal"
-#~ msgstr "Länge des Signals"
-
-#~ msgid "Choose formant positions and widths :"
-#~ msgstr "Formanten-Positionen und Breite :"
-
-#~ msgid "Formant center in Hz:"
-#~ msgstr "Formanten-Mitte in Hz:"
-
-#~ msgid "Number of formants:"
-#~ msgstr "Anzahl der Formanten:"
-
-#~ msgid "mix to channel :"
-#~ msgstr "mischen mit Kanal :"
-
-#~ msgid "use dB scale"
-#~ msgstr "verwende dB-Skalierung"
-
-#~ msgid "new"
-#~ msgstr "neu"
-
-#~ msgid "Channel %d :"
-#~ msgstr "Track %d :"
-
-#~ msgid "Choose Line of distortion :"
-#~ msgstr "Störgerade wählen :"
-
-#~ msgid "&About kwave..."
-#~ msgstr "&Über kwave..."
-
-#~ msgid "kwave.sf.net"
-#~ msgstr "kwave.sf.net"
-
-#~ msgid "File does not exist !"
-#~ msgstr "Datei existiert nicht!"
-
-#~ msgid "File is no RIFF File !"
-#~ msgstr "Datei ist nicht im RIFF-Format!"
-
-#~ msgid "File is no WAVE File !"
-#~ msgstr "Datei ist nicht im Wave Format!"
-
-#~ msgid "File does not contain format information!"
-#~ msgstr "Datei enthält keine Format-Information!"
-
-#~ msgid "File must be uncompressed (Mode 1) !"
-#~ msgstr "Datei ist nicht im unkompimierten Modus (Mode 1) !"
-
-#~ msgid ""
-#~ "File is damaged: the file header reports zero length\n"
-#~ "but the file seems to contain some data. \n"
-#~ "\n"
-#~ "Kwave can try to recover the file, but the\n"
-#~ "result might contain trash at it's start and/or\n"
-#~ "it's end. It is strongly advisable to edit the\n"
-#~ "damaged parts manually and save the file again\n"
-#~ "to fix the problem.\n"
-#~ "\n"
-#~ "Try to recover?"
-#~ msgstr ""
-#~ "Die Datei ist beschädigt: laut Header hat sie dir Größe Null, \n"
-#~ "doch offensichtlich enthält sie einige Daten. \n"
-#~ "\n"
-#~ "Kwave nun kann versuchen, die Datei wiederherzustellen, das \n"
-#~ "Resultat kann jedoch Müll am Anfang und/oder am Ende \n"
-#~ "enthalten. Es ist daher ratsam, die beschädigten Teile \n"
-#~ "manuell nachzubearbeiten und die Datei wieder abzuspeichern \n"
-#~ "um das Problem zu beheben.\n"
-#~ "\n"
-#~ "Wiederherstellung versuchen?"
-
-#~ msgid "Damaged File"
-#~ msgstr "Beschädigte Datei"
-
-#~ msgid "&Recover"
-#~ msgstr "&Wiederherstellen"
-
-#~ msgid "Sorry only 8/16/24 Bits per Sample are supported !"
-#~ msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
-
-#~ msgid ""
-#~ "Error in input: file is smaller than stated in the header. \n"
-#~ "File will be truncated."
-#~ msgstr ""
-#~ "Fehler in Eingabe: Datei ist kleiner als im Header angegeben. \n"
-#~ "Datei wird abgeschnitten."
-
-#~ msgid ""
-#~ "The operation '%1' requires more than %2 MB for storing undo data.\n"
-#~ "This would exceed the limit of %3 MB."
-#~ msgstr ""
-#~ "Der Vorgang '%1' benötigt mehr als %2 MB zum Speichern von "
-#~ "Wiederherstellungs-\n"
-#~ "informationen. Dies würde das Limit von %3 MB überschreiten."
-
-#~ msgid "You can now either press:"
-#~ msgstr "Drücken Sie bitte:"
-
-#~ msgid "Allow"
-#~ msgstr "Erlauben"
-
-#~ msgid "to continue without the possibility to undo, or"
-#~ msgstr "um ohne Möglichkeit zur Wiederherstellung fortzusetzen, oder"
-
-#~ msgid "Ignore"
-#~ msgstr "Ignorieren"
-
-#~ msgid ""
-#~ "to continue, discard all previous undo data and ignore the memory limit"
-#~ msgstr ""
-#~ "um fortzusetzen, alle vorherigen Wiederherstellungsinformationen zu "
-#~ "verwerfen und das Limit zu ignorieren"
-
-#~ msgid "to abort the current operation."
-#~ msgstr "um den aktuellen Vorgang abzubrechen."
-
-#~ msgid "&Allow"
-#~ msgstr "&Erlauben"
-
-#~ msgid "&Ignore"
-#~ msgstr "&Ignorieren"
-
-#~ msgid "&Export to Ascii..."
-#~ msgstr "&Exportiere als ASCII ..."
-
-#~ msgid "&Import Ascii..."
-#~ msgstr "&Importiere ASCII"
-
-#~ msgid "Frequencies Status Bar"
-#~ msgstr "Frequenzen Statuszeile"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-10 15:49+0200\n"
+"POT-Creation-Date: 2004-12-31 14:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Clip&board"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:32 plugins/codec_wav/WavDecoder.cpp:243
+#: kwave/menus_config_i18n.cpp:32 plugins/codec_wav/WavDecoder.cpp:242
 msgid "&Continue"
 msgstr ""
 
@@ -483,7 +483,7 @@ msgstr ""
 msgid "modify file information"
 msgstr ""
 
-#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:882
+#: kwave/UndoDeleteAction.cpp:37 kwave/SignalManager.cpp:882
 msgid "delete"
 msgstr ""
 
@@ -491,7 +491,7 @@ msgstr ""
 msgid "insert track"
 msgstr ""
 
-#: kwave/UndoModifyAction.cpp:45
+#: kwave/UndoModifyAction.cpp:47
 msgid "modify samples"
 msgstr ""
 
@@ -561,7 +561,7 @@ msgstr ""
 msgid "author of the 'sndfile' library"
 msgstr ""
 
-#: kwave/main.cpp:119
+#: kwave/main.cpp:122
 msgid "sound editor for KDE3"
 msgstr ""
 
@@ -569,79 +569,79 @@ msgstr ""
 msgid "New File"
 msgstr ""
 
-#: kwave/TopWidget.cpp:249
+#: kwave/TopWidget.cpp:251
 msgid "create a new empty file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:255
+#: kwave/TopWidget.cpp:257
 msgid "open an existing file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:261
+#: kwave/TopWidget.cpp:263
 msgid "save the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:293
+#: kwave/TopWidget.cpp:295
 msgid "cut the current selection and move it to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:299
+#: kwave/TopWidget.cpp:301
 msgid "copy the current selection to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:305
+#: kwave/TopWidget.cpp:307
 msgid "insert the content of clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:311
+#: kwave/TopWidget.cpp:313
 msgid "mute the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:317
+#: kwave/TopWidget.cpp:319
 msgid "delete the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:342
+#: kwave/TopWidget.cpp:344
 msgid "start playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:348
+#: kwave/TopWidget.cpp:350
 msgid "start playback and loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:354
+#: kwave/TopWidget.cpp:356
 msgid "pause playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:360
+#: kwave/TopWidget.cpp:362
 msgid "stop playback or loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:378
+#: kwave/TopWidget.cpp:380
 msgid "zoom to selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:385
+#: kwave/TopWidget.cpp:387
 msgid "zoom in"
 msgstr ""
 
-#: kwave/TopWidget.cpp:392
+#: kwave/TopWidget.cpp:394
 msgid "zoom out"
 msgstr ""
 
-#: kwave/TopWidget.cpp:398
+#: kwave/TopWidget.cpp:400
 msgid "zoom to 100%"
 msgstr ""
 
-#: kwave/TopWidget.cpp:404
+#: kwave/TopWidget.cpp:406
 msgid "zoom to all"
 msgstr ""
 
-#: kwave/TopWidget.cpp:414
+#: kwave/TopWidget.cpp:416
 msgid "select zoom factor"
 msgstr ""
 
-#: kwave/TopWidget.cpp:501
+#: kwave/TopWidget.cpp:503
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -649,54 +649,54 @@ msgid ""
 "href=http://www.arts-project.org>http://www.arts-project.org</a>."
 msgstr ""
 
-#: kwave/TopWidget.cpp:514
+#: kwave/TopWidget.cpp:516
 msgid "Loading plugins..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:516
+#: kwave/TopWidget.cpp:518
 msgid "Ready."
 msgstr ""
 
-#: kwave/TopWidget.cpp:782
+#: kwave/TopWidget.cpp:784
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:909
+#: kwave/TopWidget.cpp:911
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1065
+#: kwave/TopWidget.cpp:1067
 msgid "Length: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1065
+#: kwave/TopWidget.cpp:1067
 msgid "(%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1074
+#: kwave/TopWidget.cpp:1076
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1115
+#: kwave/TopWidget.cpp:1117
 msgid "Selected"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1119
+#: kwave/TopWidget.cpp:1121
 msgid "samples"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1174
+#: kwave/TopWidget.cpp:1176
 msgid "U&ndo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1180
+#: kwave/TopWidget.cpp:1182
 msgid "R&edo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1380
+#: kwave/TopWidget.cpp:1382
 msgid " (modified)"
 msgstr ""
 
@@ -2327,7 +2327,7 @@ msgid "?:"
 msgstr ""
 
 #: plugins/sonagram/SonagramDialog.cpp:45
-#: plugins/sonagram/SonagramPlugin.cpp:81
+#: plugins/sonagram/SonagramPlugin.cpp:84
 msgid "sonagram"
 msgstr ""
 
@@ -2464,16 +2464,16 @@ msgstr ""
 msgid "codec_flac"
 msgstr ""
 
-#: plugins/codec_flac/FlacEncoder.cpp:206 plugins/codec_ogg/OggEncoder.cpp:246
+#: plugins/codec_flac/FlacEncoder.cpp:205 plugins/codec_ogg/OggEncoder.cpp:245
 #: plugins/codec_wav/WavEncoder.cpp:121
 msgid "Unable to open the file for saving!"
 msgstr ""
 
-#: plugins/codec_flac/FlacEncoder.cpp:216
+#: plugins/codec_flac/FlacEncoder.cpp:215
 msgid "Unable to open the FLAC encoder!"
 msgstr ""
 
-#: plugins/codec_flac/FlacEncoder.cpp:256
+#: plugins/codec_flac/FlacEncoder.cpp:255
 msgid "Out of memory!"
 msgstr ""
 
@@ -2540,30 +2540,30 @@ msgid ""
 "No header information has been found..."
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:474
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:116
-#: plugins/codec_wav/WavEncoder.cpp:145 plugins/codec_wav/WavDecoder.cpp:326
+#: plugins/decoder_mp3/MP3Decoder.cpp:482
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:114
+#: plugins/codec_wav/WavEncoder.cpp:145 plugins/codec_wav/WavDecoder.cpp:325
 msgid "out of memory"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:477
+#: plugins/decoder_mp3/MP3Decoder.cpp:485
 msgid "checksum error"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:480
+#: plugins/decoder_mp3/MP3Decoder.cpp:488
 msgid "synchronization lost"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:497
+#: plugins/decoder_mp3/MP3Decoder.cpp:505
 msgid "file contains invalid data"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:500
+#: plugins/decoder_mp3/MP3Decoder.cpp:508
 #, c-format
 msgid "unknown error 0x%X. damaged file?"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:506
+#: plugins/decoder_mp3/MP3Decoder.cpp:514
 msgid ""
 "An error occurred while decoding the file:\n"
 "'%1',\n"
@@ -2571,11 +2571,11 @@ msgid ""
 "%3"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:511
+#: plugins/decoder_mp3/MP3Decoder.cpp:519
 msgid "Do you still want to continue?"
 msgstr ""
 
-#: plugins/decoder_mp3/MP3Decoder.cpp:515
+#: plugins/decoder_mp3/MP3Decoder.cpp:523
 msgid "Do you want to continue and ignore all following errors?"
 msgstr ""
 
@@ -3121,54 +3121,54 @@ msgstr ""
 msgid "O&K"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:57
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:55
 msgid "NeXT,Sun Audio"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:62
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:60
 msgid "Compressed Audio Interchange Format"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:65
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:63
 msgid "Audio Interchange Format"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:68
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:66
 msgid "Berkeley,IRCAM,Carl Sound Format"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:113
-#: plugins/codec_wav/WavEncoder.cpp:141 plugins/codec_wav/WavDecoder.cpp:322
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:111
+#: plugins/codec_wav/WavEncoder.cpp:141 plugins/codec_wav/WavDecoder.cpp:321
 msgid "format or function is not implemented"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:119
-#: plugins/codec_wav/WavEncoder.cpp:148 plugins/codec_wav/WavDecoder.cpp:329
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:117
+#: plugins/codec_wav/WavEncoder.cpp:148 plugins/codec_wav/WavDecoder.cpp:328
 msgid "file header is damaged"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavEncoder.cpp:151 plugins/codec_wav/WavDecoder.cpp:332
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:120
+#: plugins/codec_wav/WavEncoder.cpp:151 plugins/codec_wav/WavDecoder.cpp:331
 msgid "invalid codec type"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:125
-#: plugins/codec_wav/WavEncoder.cpp:155 plugins/codec_wav/WavDecoder.cpp:336
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:123
+#: plugins/codec_wav/WavEncoder.cpp:155 plugins/codec_wav/WavDecoder.cpp:335
 msgid "opening the file failed"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: plugins/codec_wav/WavEncoder.cpp:158 plugins/codec_wav/WavDecoder.cpp:339
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:126
+#: plugins/codec_wav/WavEncoder.cpp:158 plugins/codec_wav/WavDecoder.cpp:338
 msgid "read access failed"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavEncoder.cpp:161 plugins/codec_wav/WavDecoder.cpp:342
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:129
+#: plugins/codec_wav/WavEncoder.cpp:161 plugins/codec_wav/WavDecoder.cpp:341
 msgid "invalid sample format"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavEncoder.cpp:167 plugins/codec_wav/WavDecoder.cpp:348
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:135
+#: plugins/codec_wav/WavEncoder.cpp:167 plugins/codec_wav/WavDecoder.cpp:347
 msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
@@ -3702,13 +3702,13 @@ msgid ""
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 msgstr ""
 
-#: plugins/codec_ogg/OggEncoder.cpp:159
+#: plugins/codec_ogg/OggEncoder.cpp:158
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
 "and encode with %1 kBit/s or cancel and choose a different bitrate?"
 msgstr ""
 
-#: plugins/codec_ogg/OggEncoder.cpp:237
+#: plugins/codec_ogg/OggEncoder.cpp:236
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again..."
@@ -3742,7 +3742,7 @@ msgstr ""
 msgid "End of file before finding all Vorbis headers!"
 msgstr ""
 
-#: plugins/codec_ogg/OggDecoder.cpp:346
+#: plugins/codec_ogg/OggDecoder.cpp:351
 msgid "Corrupt or missing data in bitstream; continuing..."
 msgstr ""
 
@@ -3759,15 +3759,15 @@ msgstr ""
 msgid "codec_wav"
 msgstr ""
 
-#: plugins/codec_wav/RIFFParser.cpp:101
+#: plugins/codec_wav/RIFFParser.cpp:100
 msgid "detecting endianness (standard search)..."
 msgstr ""
 
-#: plugins/codec_wav/RIFFParser.cpp:130
+#: plugins/codec_wav/RIFFParser.cpp:129
 msgid "detecting endianness (statistic search)..."
 msgstr ""
 
-#: plugins/codec_wav/RIFFParser.cpp:532
+#: plugins/codec_wav/RIFFParser.cpp:536
 msgid "searching for missing chunk '%1'..."
 msgstr ""
 
@@ -3785,21 +3785,21 @@ msgstr ""
 msgid "&No, store uncompressed"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:161
+#: plugins/codec_wav/WavDecoder.cpp:160
 msgid ""
 "The file has been structurally damaged or is no .wav file.\n"
 "Should Kwave try to repair it?"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:164
+#: plugins/codec_wav/WavDecoder.cpp:163
 msgid "Kwave auto repair"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:165
+#: plugins/codec_wav/WavDecoder.cpp:164
 msgid "&Repair"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:223
+#: plugins/codec_wav/WavDecoder.cpp:222
 msgid ""
 "The opened file is no .WAV file or damaged:\n"
 "There is not enough valid sound data.\n"
@@ -3807,7 +3807,7 @@ msgid ""
 "It makes no sense to continue now..."
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:235
+#: plugins/codec_wav/WavDecoder.cpp:234
 msgid ""
 "The WAV file seems to be damaged: \n"
 "some chunks are duplicate or missing! \n"
@@ -3819,7 +3819,7 @@ msgid ""
 "and we will help you..."
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:242
+#: plugins/codec_wav/WavDecoder.cpp:241
 msgid "Kwave auto-repair"
 msgstr ""
 

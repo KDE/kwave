@@ -64,6 +64,14 @@ KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 ///** Mutex for the aRts daemon, it seems to be not threadsafe */
 //static Mutex g_arts_lock;
 
+#ifndef min
+#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
+#endif
+
+#ifndef max
+#define max(x,y) (( x > y ) ? x : y )
+#endif
+
 //***************************************************************************
 PlayBackPlugin::PlayBackPlugin(PluginContext &context)
     :KwavePlugin(context),

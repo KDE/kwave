@@ -43,8 +43,8 @@ public:
      * @param input_name name of the input streams of our filters (sink)
      */
     virtual void connectInput(ArtsMultiSource &source,
-	const string &output_name = "output",
-	const string &input_name = "input") = 0;
+	const std::string &output_name = "output",
+	const std::string &input_name = "input") = 0;
 
     /**
      * Connects the input of the filters to the output of a single
@@ -54,8 +54,8 @@ public:
      * @param input_name name of the input streams of our filters (sink)
      */
     virtual void connectInput(Arts::Object &source,
-	const string &output_name = "output",
-	const string &input_name = "input") = 0;
+	const std::string &output_name = "output",
+	const std::string &input_name = "input") = 0;
 
     /**
      * Connects the output of the filters to an ArtsMultiSink.
@@ -64,8 +64,8 @@ public:
      * @param output_name name of the output streams of our filters (source)
      */
     virtual void connectOutput(ArtsMultiSink &sink,
-	const string &input_name = "input",
-	const string &output_name = "output") = 0;
+	const std::string &input_name = "input",
+	const std::string &output_name = "output") = 0;
 
     /** Starts all filters. */
     virtual void start() = 0;

@@ -84,8 +84,8 @@ public:
      * @param input_name name of the input streams of our filters (sink)
      */
     virtual void connectInput(ArtsMultiSource &source,
-	const string &output_name = "output",
-	const string &input_name = "input")
+	const std::string &output_name = "output",
+	const std::string &input_name = "input")
     {
 	for (unsigned int i=0; i < m_count; ++i)
 	    Arts::connect(*(source[i]),   output_name,
@@ -100,8 +100,8 @@ public:
      * @param input_name name of the input streams of our filters (sink)
      */
     virtual void connectInput(Arts::Object &source,
-	const string &output_name = "output",
-	const string &input_name = "input")
+	const std::string &output_name = "output",
+	const std::string &input_name = "input")
     {
 	for (unsigned int i=0; i < m_count; ++i)
 	    Arts::connect(source,         output_name,
@@ -115,8 +115,8 @@ public:
      * @param output_name name of the output streams of our filters (source)
      */
     virtual void connectOutput(ArtsMultiSink &sink,
-	const string &input_name = "input",
-	const string &output_name = "output")
+	const std::string &input_name = "input",
+	const std::string &output_name = "output")
     {
 	for (unsigned i=0; i < m_count; ++i)
 	    Arts::connect(*(m_filter[i]), output_name,

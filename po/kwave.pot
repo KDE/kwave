@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-08-03 20:26+0200\n"
+"POT-Creation-Date: 2002-08-19 20:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,6 +150,18 @@ msgstr ""
 msgid "MS ADPCM"
 msgstr ""
 
+#: libkwave/CompressionType.cpp:73
+msgid "MPEG Layer I"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:75
+msgid "MPEG Layer II"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:77
+msgid "MPEG Layer III"
+msgstr ""
+
 #: libkwave/FileInfo.cpp:29
 msgid "Album"
 msgstr ""
@@ -256,174 +268,238 @@ msgid ""
 msgstr ""
 
 #: libkwave/FileInfo.cpp:74
-msgid "Date"
+msgid "Copyrighted"
 msgstr ""
 
 #: libkwave/FileInfo.cpp:75
+msgid "Indicates whether the file is protected by copyright or not."
+msgstr ""
+
+#: libkwave/FileInfo.cpp:78
+msgid "Date"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:79
 msgid ""
 "Specifies the date the subject of the file was created. \n"
 "Example: '2001-12-24'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:78
+#: libkwave/FileInfo.cpp:82
 msgid "Engineer"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:79
+#: libkwave/FileInfo.cpp:83
 msgid ""
 "Shows the name of the engineer who worked on the file.\n"
 "If there are multiple engineers, separate the names by\n"
 "a semicolon and a blank."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:83
+#: libkwave/FileInfo.cpp:87
 msgid "Filename"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:84
+#: libkwave/FileInfo.cpp:88
 msgid "Name of the opened file"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:86
+#: libkwave/FileInfo.cpp:90
 msgid "File Size"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:87
+#: libkwave/FileInfo.cpp:91
 msgid "Size of the file in bytes"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:89
+#: libkwave/FileInfo.cpp:93
 msgid "Genre"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:90
+#: libkwave/FileInfo.cpp:94
 msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:93 plugins/fileinfo/KeywordWidgetBase.uic.cpp:29
+#: libkwave/FileInfo.cpp:97 plugins/fileinfo/KeywordWidgetBase.uic.cpp:29
 msgid "Keywords"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:94
+#: libkwave/FileInfo.cpp:98
 msgid ""
 "Provides a list of keywords that refer to the\n"
 "file or subject of the file."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:97
+#: libkwave/FileInfo.cpp:101
 msgid "Medium"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:98
+#: libkwave/FileInfo.cpp:102
 msgid ""
 "Describes the original subject of the file,\n"
 "where it was first recorded.\n"
 "Example: 'orchester'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:102
+#: libkwave/FileInfo.cpp:106
 msgid "Mime Type"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:103
+#: libkwave/FileInfo.cpp:107
 msgid "Mime type of the file format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:105
+#: libkwave/FileInfo.cpp:109
+msgid "Bitrate"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:110
+msgid "Bitrate of the MPEG stream in bits per second"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:112
+msgid "Emphasis"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:113
+msgid "Audio emphasis mode"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:115
+msgid "Layer"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:116
+msgid "MPEG Layer, I, II or III"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:118
+msgid "Mode Extension"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:119
+msgid "MPEG Mode Extension (only if Joint Stereo)"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:121
+msgid "Version"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:122
+msgid "MPEG Version, 1, 2 or 2.5"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:124
 msgid "Name"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:106
+#: libkwave/FileInfo.cpp:125
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: 'Symphony No.6, Op.68 \"Pastoral\"'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:109
+#: libkwave/FileInfo.cpp:128
+msgid "Original"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:129
+msgid "Indicates whether the file is an original or a copy"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:131
+msgid "Private"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:132
+msgid "Indicates whether the subject is private"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:134
 msgid "Product"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:110
+#: libkwave/FileInfo.cpp:135
 msgid ""
 "Specifies the name or the title the file was\n"
 "originally intended for.\n"
 "Example: 'Linux audio collection'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:114
+#: libkwave/FileInfo.cpp:139
 msgid "Sample Format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:115
+#: libkwave/FileInfo.cpp:140
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:118
+#: libkwave/FileInfo.cpp:143
 msgid "Software"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:119
+#: libkwave/FileInfo.cpp:144
 msgid ""
 "Identifies the name of the software package\n"
 "used to create the file. \n"
 "Example: 'Kwave v0.6.4-1'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:123 plugins/fileinfo/FileInfoDlg.uic.cpp:681
+#: libkwave/FileInfo.cpp:148 plugins/fileinfo/FileInfoDlg.uic.cpp:683
 msgid "Source"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:124
+#: libkwave/FileInfo.cpp:149
 msgid ""
 "Identifies the name of the person or organization\n"
 "who supplied the original subject of the file.\n"
 "Example: 'Chaotic Sound Research'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:128
+#: libkwave/FileInfo.cpp:153
 msgid "Source form"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:129
+#: libkwave/FileInfo.cpp:154
 msgid ""
 "Identifies the original form of the material\n"
 "that was digitized.\n"
 "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:134
+#: libkwave/FileInfo.cpp:159
 msgid "Subject"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:135
+#: libkwave/FileInfo.cpp:160
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:138
+#: libkwave/FileInfo.cpp:163
 msgid "Technican"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:139
+#: libkwave/FileInfo.cpp:164
 msgid ""
 "Identifies the technican who digitized the subject file. \n"
 "Example: 'Torvalds, Linus'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:142
+#: libkwave/FileInfo.cpp:167
 msgid "Track"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:143
+#: libkwave/FileInfo.cpp:168
 msgid "Track of the CD if the source was a CDROM."
 msgstr ""
 
-#: libkwave/WindowFunction.cpp:54
+#: libkwave/WindowFunction.cpp:54 plugins/fileinfo/FileInfoDlg.uic.cpp:856
 msgid "None"
 msgstr ""
 
@@ -1311,7 +1387,7 @@ msgstr ""
 msgid "Playback Options :"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:124
+#: plugins/fileinfo/FileInfoDialog.cpp:137
 #: plugins/playback/PlayBackDialog.cpp:109
 #: plugins/playback/PlayBackDialog.cpp:110
 msgid "Resolution"
@@ -1484,7 +1560,7 @@ msgstr ""
 msgid "Select Range..."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:145
+#: plugins/fileinfo/FileInfoDialog.cpp:158
 #: plugins/newsignal/NewSigDlg.uic.cpp:367
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:273
 msgid "Length"
@@ -1761,129 +1837,322 @@ msgstr ""
 msgid "noise"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:273
+#: plugins/decoder_mp3/MP3Decoder.cpp:42
+msgid "MPEG layer1 audio"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:44 plugins/decoder_mp3/MP3Decoder.cpp:49
+msgid "MPEG layer2 audio"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:45 plugins/decoder_mp3/MP3Decoder.cpp:50
+msgid "MPEG layer3 audio"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:48
+msgid "MPEG audio"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:76
+msgid ""
+"The file has an invalid checksum.\n"
+"Do you still want to continue?"
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:142
+#, ycp-format
+msgid ""
+"The file contains an invalid channel mode 0x%1\n"
+"Assuming Mono..."
+msgstr ""
+
+#: plugins/decoder_mp3/MP3Decoder.cpp:218
+msgid ""
+"The opened file is no MPEG file or is damaged.\n"
+"No header information has been found..."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:275
 msgid "File Info"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:285
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:290
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:295
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:300
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:307
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:328
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:357
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:366
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:468
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:495
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:507
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:512
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:527
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:532
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:582
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:589
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:594
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:599
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:604
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:661
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:671
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:687
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:706
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:713
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:718
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:744
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:287
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:292
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:297
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:302
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:309
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:330
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:359
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:368
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:470
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:497
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:509
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:514
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:529
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:534
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:584
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:591
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:596
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:601
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:606
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:663
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:673
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:689
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:708
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:715
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:720
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:746
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:782
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:787
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:792
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:846
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:851
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:866
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:871
 msgid "#"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:380
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:382
 #: plugins/newsignal/NewSigDlg.uic.cpp:282
 msgid "8000"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:381
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:383
 #: plugins/newsignal/NewSigDlg.uic.cpp:283
 msgid "10000"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:382
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:384
 #: plugins/newsignal/NewSigDlg.uic.cpp:284
 msgid "11025"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:383
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:385
 #: plugins/newsignal/NewSigDlg.uic.cpp:285
 msgid "12000"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:384
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:386
 #: plugins/newsignal/NewSigDlg.uic.cpp:286
 msgid "16000"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:385
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:387
 #: plugins/newsignal/NewSigDlg.uic.cpp:287
 msgid "22050"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:386
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:388
 #: plugins/newsignal/NewSigDlg.uic.cpp:288
 msgid "32000"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:387
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:389
 #: plugins/newsignal/NewSigDlg.uic.cpp:289
 msgid "44100"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:388
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:390
 #: plugins/newsignal/NewSigDlg.uic.cpp:290
 msgid "48000"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:389
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:391
 #: plugins/newsignal/NewSigDlg.uic.cpp:291
 msgid "96000"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:397
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:399
 #: plugins/newsignal/NewSigDlg.uic.cpp:312
 msgid "samples per second"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:415
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:417
 #: plugins/newsignal/NewSigDlg.uic.cpp:332
 msgid "bit"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:432
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:434
 #: plugins/newsignal/NewSigDlg.uic.cpp:342
 #: plugins/newsignal/NewSigDlg.uic.cpp:501
 #, c-format, ycp-format
 msgid "%1"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:550
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:552
 msgid "&Select..."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:553
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:555
 msgid "Select a date from the calendar."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:554
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:556
 msgid "Opens a dialog for selecting a date from the calendar."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:559
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:561
 msgid "&Today"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:562
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:563
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:564
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:565
 msgid "Set the date to today."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:569
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:571
 msgid "Content"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:766
+msgid "MPEG Version 1 (ISO/IEC 11172-3)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:767
+msgid "MPEG Version 2 (ISO/IEC 13818-3)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:768
+msgid "MPEG Version 2.5 (unofficial)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:774
+msgid "Layer I"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:775
+msgid "Layer II"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:776
+msgid "Layer III"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:797
+msgid "(variable)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:798
+msgid "8K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:799
+msgid "16K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:800
+msgid "24K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:801
+msgid "32K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:802
+msgid "40K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:803
+msgid "56K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:804
+msgid "64K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:805
+msgid "80K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:806
+msgid "96K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:807
+msgid "112K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:808
+msgid "128K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:809
+msgid "144K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:810
+msgid "160K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:811
+msgid "176K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:812
+msgid "192K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:813
+msgid "224K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:814
+msgid "256K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:815
+msgid "288K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:816
+msgid "320K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:817
+msgid "352K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:818
+msgid "384K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:819
+msgid "416K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:820
+msgid "448K"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:353
+#: plugins/fileinfo/FileInfoDialog.cpp:359
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:829
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:836
+msgid "yes"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:857
+msgid "50/15ms"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:858
+msgid "CCIT J.17"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:884
+msgid "Intensity Stereo"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:889
+msgid "MS Stereo"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:899
+msgid "MPEG"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:902
+msgid "ID3 Tags"
 msgstr ""
 
 #: plugins/fileinfo/SelectDateDlg.uic.cpp:264
@@ -1909,75 +2178,96 @@ msgstr ""
 msgid "List of keywords."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:102
+#: plugins/fileinfo/FileInfoDialog.cpp:115
 #, ycp-format
 msgid "%1 bytes"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:104
+#: plugins/fileinfo/FileInfoDialog.cpp:117
 #, ycp-format
 msgid "%1 kB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:107
+#: plugins/fileinfo/FileInfoDialog.cpp:120
 #, ycp-format
 msgid "%1 MB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:115
+#: plugins/fileinfo/FileInfoDialog.cpp:128
 msgid "Sample Rate"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:118
+#: plugins/fileinfo/FileInfoDialog.cpp:131
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
 "any sample rate on your own."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:127
+#: plugins/fileinfo/FileInfoDialog.cpp:140
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:132
+#: plugins/fileinfo/FileInfoDialog.cpp:145
 msgid "Tracks"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:135
+#: plugins/fileinfo/FileInfoDialog.cpp:148
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:148
+#: plugins/fileinfo/FileInfoDialog.cpp:161
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:154
+#: plugins/fileinfo/FileInfoDialog.cpp:167
 #, ycp-format
 msgid "%1 (%2 samples)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:158
+#: plugins/fileinfo/FileInfoDialog.cpp:171
 #, ycp-format
 msgid "%2 samples"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:268
+#: plugins/fileinfo/FileInfoDialog.cpp:322
+msgid "bands 0 to 31"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:323
+msgid "bands 8 to 31"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:324
+msgid "bands 12 to 31"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:325
+msgid "bands 16 to 31"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:353
+#: plugins/fileinfo/FileInfoDialog.cpp:359
+msgid "no"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:390
 #: plugins/newsignal/NewSignalDialog.cpp:321
 msgid "(Mono)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:271
+#: plugins/fileinfo/FileInfoDialog.cpp:393
 #: plugins/newsignal/NewSignalDialog.cpp:324
 msgid "(Stereo)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:274
+#: plugins/fileinfo/FileInfoDialog.cpp:396
 #: plugins/newsignal/NewSignalDialog.cpp:327
 msgid "(Quadro)"
 msgstr ""

@@ -37,7 +37,6 @@ MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
 //***************************************************************************
 int MenuManager::parseToKeyCode(const QString &key_name)
 {
-
 // would be fine, but doesn't support most codes like +/-
 //    return QAccel::stringToKey(key_name);
 
@@ -56,7 +55,7 @@ int MenuManager::parseToKeyCode(const QString &key_name)
 	if (name.length() == 1) {
 	    if ((name[0] >= 'A') && (name[0] <= 'Z')) {
 		keycode += Key_A;
-		keycode += name[0].latin1() - 'A';
+		keycode += (char)name[0].latin1() - (char)'A';
 	    }
 	}
 
@@ -86,7 +85,6 @@ int MenuManager::parseToKeyCode(const QString &key_name)
 	if (name == "HOME")     keycode += Key_Home;
 	if (name == "END")      keycode += Key_End;
     }
-
     return keycode;
 }
 

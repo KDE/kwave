@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <stdio.h>
+#include <qapplication.h> // only needed for an ugly workaround :-[
 #include <klocale.h>
 
 #include "MenuItem.h"
@@ -118,6 +119,14 @@ void MenuSub::actionChildEnableChanged(int id, bool enable)
 {
     MenuNode::actionChildEnableChanged(id, enable);
     m_menu.setItemEnabled(id, enable);
+
+    /**
+     * @todo remove this workaround as soon as Qt3 is sane again.
+     * Without this ugly call, if a menu entry belongs to a sub menu, it
+     * sometimes is not correctly re-enabled if it's parent menu has been
+     * disabled and re-enabled.
+     */
+    qApp->processOneEvent();
 }
 
 //***************************************************************************

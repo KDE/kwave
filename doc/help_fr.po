@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-02-01 00:05GMT\n"
+"PO-Revision-Date: 2002-02-02 14:11GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1885,7 +1885,7 @@ msgid ""
 msgstr ""
 "Depuis que &kapp; utilise autoconf et automake vous ne devez pas avoir de problémes "
 " particuliers lors de la compilation. Envoyer nous la liste de vos problèmes sur la compilation "
-" de &kapp; en nous contactant sur la <link linkend=\"mailing-list\">mailing list</link>."
+" de &kapp; en nous contactant sur la <link linkend=\"mailing-list\">liste de diffusion</link>."
 
 #: index.docbook:1382
 msgid ""
@@ -1893,7 +1893,7 @@ msgid ""
 "compiling. Then you should set the following environment variable to specify "
 "the correct paths of your Qt installation and try again:"
 msgstr ""
-"Si vous utilisé une ancienne version de QT sur votre système comme la bibliothéque Qt-1, vous aurrez "
+"Si vous utilisez une ancienne version de QT sur votre système comme la bibliothéque Qt-1, vous aurrez "
 " problablement des problèmes lors de la compilation. Vous devrez certainement configurer "
 " les variables d'environnement pour spécifier les chemins d'accés corrects à la "
 " bibliothéque Qt :"
@@ -1908,7 +1908,7 @@ msgstr "La construction du paquetage RPM à partir de l'archive tar.gz."
 
 #: index.docbook:1402
 msgid "With working rpm -ta"
-msgstr ""
+msgstr "Utilisation de la commande 'rpm -ta'"
 
 #: index.docbook:1404
 msgid ""
@@ -1920,6 +1920,13 @@ msgid ""
 "\"cvs_checkout\">chapter about CVS</link>) and read the <link linkend="
 "\"building_rpm_from_cvs\">next</link> chapter."
 msgstr ""
+"Si vous utilisez un système qui supporte les RPM, la solution la plus simple pour installer "
+" &kapp; sur votre systéme sera la création d'un paquetage RPM. Premiérement, vous devez "
+" récupérer les sources de &kapp;, tel que l'archive tar.gz disponible sur la page WEB de "
+" téléchargement de &kapp; ou une copie de la derniére version des sources via le "
+" <link linkend=\"cvs-repository\">serveur CVS</link> (comme cela est décrit dans le "
+" chapitre concernant le <link linkend=\"cvs_checkout\">CVS</link>), et lisez le chapitre "
+" concernant la <link linkend=\"building_rpm_from_cvs\">compilation d'un RPM à partir du CVS</link>."
 
 #: index.docbook:1415
 msgid ""
@@ -1930,10 +1937,18 @@ msgid ""
 "<literal>sparc</literal> or whatever, <replaceable>XXX</replaceable> stands "
 "for the version number you have downloaded)."
 msgstr ""
+"Si vous avez téléchargé une archive tar.gz de &kapp;, créez et installez les "
+" RPMs en éffectuant juste les actions suivantes (où <replaceable>[arch]</replaceable> "
+" corespond à la plateforme pour laquelle vous allez compiler le paquetage et "
+" peut prendre les valeurs comme <literal>i386</literal>, <literal>i586</literal>, "
+"<literal>sparc</literal>, etc..., et où <replaceable>XXX</replaceable> correspond "
+" au numéro de version de l'application que vous avez téléchargé)."
 
 #: index.docbook:1426
 msgid "To build the &kapp; package and install it do:"
 msgstr ""
+"Pour construire et installer le paquetage de &kapp; vous devez tapez les lignes de "
+" commande suivantes :"
 
 #: index.docbook:1426
 msgid ""
@@ -1942,6 +1957,10 @@ msgid ""
 "<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
 msgstr ""
+"<prompt>% </prompt><command>rpm -ta <replaceable>kwave-XXX.tar.gz</"
+"replaceable></command>\n"
+"<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/"
+"kwave-XXX.[arch].rpm</replaceable></command>"
 
 #: index.docbook:1434
 msgid ""
@@ -1949,6 +1968,9 @@ msgid ""
 "<filename>/usr/src/packages</filename> instead of <filename>/usr/src/redhat</"
 "filename> !"
 msgstr ""
+"<emphasis>Pour les utilisateurs d'une distribution SuSE LINUX </emphasis> vous devez "
+" spécifier le répertoire <filename>/usr/src/packages</filename> à la place de "
+" <filename>/usr/src/redhat</filename> !"
 
 #: index.docbook:1441
 msgid ""
@@ -1956,6 +1978,9 @@ msgid ""
 "this chapter. If rpm was unable to build the packages and says something "
 "like \"spec file not found\", then go on and read the rest of this section."
 msgstr ""
+"Si vous n'avez pas de messages d'erreurs, vous pouvez alors passer le reste de ce chapitre. "
+" Si l'utilitaire 'rpm' est incapable de construire les paquetages et qu'un message du genre "
+" \"spec file not found\" est affiché, alors le reste du chapitre vous sera utile."
 
 #: index.docbook:1448
 msgid ""
@@ -1964,16 +1989,22 @@ msgid ""
 "3.0.4) didn't work. You should update your rpm package, e.g. from <ulink url="
 "\"ftp://ftp.suse.com/pub/suse_update/\">the SuSE ftp server</ulink>."
 msgstr ""
+"Le support de la commande <command>rpm -ta ...</command> peut etre inopérante suivant "
+" les versions de l'utilitaire 'rpm'. Par exemple, le programme 'rpm' original fourni avec la distribution "
+" SuSE-6.4 (rpm-3.0.4) ne fonctionne pas. Vous devez mettre à jour le paquetage correspond, à "
+" partir du <ulink url=\"ftp://ftp.suse.com/pub/suse_update/\">serveur ftp de SUSE</ulink>."
 
 #: index.docbook:1459
 msgid "With broken rpm -ta support"
-msgstr ""
+msgstr "Que faire lorsque la commande 'rpm -ta' ne fonctionne pas ?"
 
 #: index.docbook:1461
 msgid ""
 "If you can't get <command>rpm -ta</command> working, here are the steps for "
 "making that manually (the hard way):"
 msgstr ""
+"Si vous ne pouvez pas exécuter la commande <command>rpm -ta</command>, "
+" il existe plusieurs solutions pour réaliser cette tâche manuellement (solutions délicates) :"
 
 #: index.docbook:1466
 msgid ""
@@ -1981,36 +2012,49 @@ msgid ""
 "filename> for the redhat distribution or <filename>/usr/src/packages</"
 "filename> if you have the SuSE distribution."
 msgstr ""
+"Aller dans le répertoire \"principal\" de stockage des RPM de votre système. Normalement, "
+" celui-çi est <filename>/usr/src/redhat</filename> pour une distribution du type Redhat "
+" or <filename>/usr/src/packages</filename> pour la distribution SuSE."
 
 #: index.docbook:1466
 msgid ""
 "<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></"
 "command>"
 msgstr ""
+"<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></"
+"command>"
 
 #: index.docbook:1466
 msgid ""
 "Put the tar.gz archive into the SOURCES subdirectory (you have to replace "
 "\"somewhere\" with the real directory where the files are, of course)."
 msgstr ""
+"Mettre l'archive tar.gz dans le sous-répertoire SOURCES (bien sur, vous devez remplacer "
+" \"NomRépertoire\" avec le nom du réperoire qui contient vorte archive tar.gz)."
 
 #: index.docbook:1466
 msgid ""
 "<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.gz</"
 "replaceable> SOURCES</command>"
 msgstr ""
+"<prompt>% </prompt><command>cp <replaceable>/NomRépertoire/kwave-XXX.tar.gz</"
+"replaceable> SOURCES</command>"
 
 #: index.docbook:1466
 msgid ""
 "Extract the spec file from the archives and put it into the SPEC "
 "subdirectory."
 msgstr ""
+"Extraire le fichier de specification (.spec) de l'archive tar.gz et copiez le "
+"dans le sous-répertoire SPEC."
 
 #: index.docbook:1466
 msgid ""
 "<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
 "replaceable> \\*.spec > SPECS/kwave.spec</command>"
 msgstr ""
+"<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
+"replaceable> \\*.spec > SPECS/kwave.spec</command>"
 
 #: index.docbook:1466
 msgid ""

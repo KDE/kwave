@@ -1,4 +1,11 @@
 
+0.5.4-1 [2000-07-29]
+
+ * started to implement a new plugin interface
+ * geometry management for the sonagram settings dialog
+ * formatting of selection and file time (KwavePlugin::ms2string)
+ * plugins can now consist of multiple files
+
 0.5.4 [2000-07-12]
 
  * some more minor changes to the Makefiles

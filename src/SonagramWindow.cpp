@@ -36,7 +36,8 @@ extern char *mstotimec (int ms);
 
 //****************************************************************************
 SonagramWindow::SonagramWindow(QString *name)
-	: KTopLevelWidget() {
+:KTopLevelWidget()
+{
     corner = 0;
     data = 0;
     image = 0;
@@ -119,7 +120,8 @@ SonagramWindow::SonagramWindow(QString *name)
     setStatusBar(status);
     setMenu(bar);
     QString *windowname = new QString(
-			      QString (i18n("Sonagram of ")) + QString(name->data()));
+			      QString(i18n("Sonagram of ")) +
+			      QString(name->data()));
     ASSERT(windowname);
     if (!windowname) return ;
 
@@ -136,7 +138,8 @@ void SonagramWindow::save() {
 }
 
 //****************************************************************************
-void SonagramWindow::load() {
+void SonagramWindow::load()
+{
     if (image) {
 	QString filename = QFileDialog::getOpenFileName("", "*.bmp", this);
 	printf ("loading %s\n", filename.data());
@@ -176,14 +179,18 @@ void SonagramWindow::load() {
 
 //****************************************************************************
 void SonagramWindow::setSignal(double *input, int size, int points,
-			       int windowtype, int rate) {
+			       int windowtype, int rate)
+{
     ASSERT(points);
     ASSERT(rate);
     if (!points) return ;
     if (!rate) return ;
 
     double rea, ima;
-    //  printf ("size %d points %d windowtype %d\n",size,points,windowtype);
+
+    debug("SonagramWindow::setSignal: size %d points %d windowtype %d",
+	size,points,windowtype);
+
     this->length = size;
     this->x = (size / points);
     this->points = points;
@@ -266,9 +273,10 @@ void SonagramWindow::toSignal()
     gsl_fft_complex_init (points, &table);
 
     TopWidget *win = new TopWidget(
-			 *((KwaveApp*)KApplication::getKApplication()),
-			 ((KwaveApp*)KApplication::getKApplication())->getRecentFiles()
-		     );
+	*((KwaveApp*)KApplication::getKApplication()),
+	((KwaveApp*)KApplication::getKApplication())->getRecentFiles()
+    );
+
     ASSERT(win);
     if (win) {
 
@@ -374,6 +382,8 @@ void SonagramWindow::setInfo(double x, double y)
 
     char buf[128];
     int col;
+
+    debug("SonagramWindow::setInfo(%3.3f,%3.3f)",x,y); // ###
 
     if (view->getWidth() > this->x)
 	col = (int)(x * (this->x - 1));

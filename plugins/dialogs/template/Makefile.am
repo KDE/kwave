@@ -27,9 +27,20 @@ MODNAME=$(shell basename $(MODDIR))
 
 SUFFIXES = .h .moc
 
-SOURCES=module.cpp module.moc
+SOURCES		 = module.cpp module.moc
 
-CLEANFILES = *.d *.dm *.moc *.moc.cpp core *~ ${MODNAME}
+CLEANFILES	 = *.d *.dm *.moc *.moc.cpp core *~ *.o ${MODNAME}
+
+cpp_sources 	:= $(shell find . -name \*.cpp)
+h_files		:= $(shell find . -name \*.h)
+moc_files	:= $(h_files:.h=.moc.cpp)
+
+ALL_CPP    	:= ${cpp_sources} ${moc_files}
+OUT_FILES	:= $(ALL_CPP:.cpp=.o)
+
+%o: %cpp
+	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
+	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
 
 %d: %cpp
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
@@ -43,14 +54,13 @@ CLEANFILES = *.d *.dm *.moc *.moc.cpp core *~ ${MODNAME}
 	| sed s^${notdir $*}moc\.o^$*dm^g > $@; \
 	[ -s $@ ] || rm -f $@'
 
-%.moc: %.h
+%moc.cpp: %h
 	@echo plugin \"$(MODNAME)\": extracting code with MOC for $<
 	@ @MOC@ $< -o $@
 
-$(MODNAME): module.cpp module.moc module.d module.dm
-	@echo plugin \"$(MODNAME)\": compiling
-	@ rm -f module.moc.cpp ; ln -s module.moc module.moc.cpp
-	@ @CXX@ $(CXXFLAGS) $(INCLUDES) module.cpp module.moc.cpp -o $(MODNAME)
+$(MODNAME): ${OUT_FILES}
+	@echo plugin \"$(MODNAME)\": linking
+	@ @CXX@ $(CXXFLAGS) ${OUT_FILES} -o ${MODNAME}
 
 all: $(MODNAME)
 

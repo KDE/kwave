@@ -8,6 +8,9 @@
 #include <qfiledlg.h>
 #include <drag.h>
 
+#include <kmsgbox.h>
+#include <kapp.h>
+
 #include <libkwave/DynamicLoader.h>
 #include <libkwave/DialogOperation.h>
 #include <libkwave/Parser.h>
@@ -17,6 +20,10 @@
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
+#include <libkwave/Plugin.h>      // ### for "executePlugin"
+#include <dlfcn.h>                // ###
+#include "libgui/KwavePlugin.h"   // ###
+#include "libgui/PluginContext.h" // ###
 
 #include "sampleop.h"
 
@@ -176,6 +183,107 @@ TopWidget::~TopWidget()
 //    debug("TopWidget::~TopWidget(): done.");
 }
 
+//**********************************************************
+void TopWidget::executePlugin(const char *name, QStrList *params)
+{
+    debug("SignalWidget::executePlugin(%s)", name);
+
+    /* find the plugin in the global plugin list */
+    unsigned int index = 0;
+    bool found = false;
+    for (index=0; globals.dialogplugins[index]; index++) {
+	Plugin *p = globals.dialogplugins[index];
+	if (strcmp(name, p->getName()) == 0) {
+	    found=true;
+	    break;
+	}
+    }
+
+    /* show a warning and abort if the plugin was not found */
+    if ((!found) || (globals.dialogplugins[index] == 0)) {
+	char message[256];
+	
+	snprintf(message, 256, i18n("oops, plugin '%s' is unknown !"), name);
+	KMsgBox::message(this,
+	    i18n("error on loading plugin"),
+	    (const char *)&message,
+	    KMsgBox::EXCLAMATION
+	);
+	return;
+    }
+
+    /* try to get the file handle of the plugin's binary */
+    void *handle = dlopen(globals.dialogplugins[index]->getFileName(),
+	RTLD_NOW);
+    if (!handle) {
+	char message[256];
+
+	snprintf(message, 256, i18n(
+	    "unable to load the file \n'%s'\n that contains the plugin '%s' !"),
+	    globals.dialogplugins[index]->getFileName(), name
+	);
+	KMsgBox::message(this,
+	    i18n("error on loading plugin"),
+	    (const char *)&message,
+	    KMsgBox::EXCLAMATION
+	);
+	return;
+    }
+
+    KwavePlugin *(*plugin_loader)(PluginContext *c) = 0;
+
+#ifdef HAVE_CPLUS_MANGLE_OPNAME
+    // would be fine, but needs libiberty
+    const char *sym=cplus_mangle_opname("load(PluginContext &)",0);
+#else
+    // hardcoded, fails on some systems :-(
+    const char *sym = "load__FP13PluginContext";
+#endif
+
+    plugin_loader = (KwavePlugin *(*)(PluginContext *))dlsym(handle, sym);
+    ASSERT(plugin_loader);
+    if (plugin_loader) {
+	PluginContext *context = new PluginContext();
+	ASSERT(context);
+	if (context) {
+	    // fill the context structure
+	    context->kwave_app = &app;
+	    context->label_manager = 0; // ###
+	    context->menu_manager = menu;
+	    context->top_widget = this;
+	    context->signal_manager =
+		mainwidget ? mainwidget->getSignalManager() : 0;
+
+	    KwavePlugin *plugin = (*plugin_loader)(context);
+	    ASSERT(plugin);
+	
+	    if (plugin) {
+		QStrList *last_params = 0;
+		
+		if (params) {
+		    plugin->execute(params);
+		    // last_params = duplicateString(params);
+		    delete plugin;
+		} else {
+		    params = plugin->setup(last_params);
+		    if (params) {
+			// last_params = duplicateString(params);
+			emit sigCommand("?");
+		    }
+		    delete plugin;
+		}
+	    } else {
+		warning("plugin = null");
+		delete context;
+	    }
+	}
+    } else warning("%s", dlerror());
+
+    debug("SignalWidget::executePlugin(): dlclose(handle)");
+    dlclose(handle);
+    debug("SignalWidget::executePlugin(): done");
+}
+
 //*****************************************************************************
 void TopWidget::executeCommand(const char *command)
 {
@@ -185,6 +293,22 @@ void TopWidget::executeCommand(const char *command)
 
     if (app.executeCommand(command)) {
 	return ;
+    CASE_COMMAND("plugin")
+	Parser parser(command);
+	const char *name = parser.getFirstParam();
+	QStrList *params = 0;
+	
+	int cnt=parser.countParams();
+	if (cnt > 0) {
+	    params = new QStrList();
+	    ASSERT(params);
+	    while (params && cnt--) {
+		params->append(parser.getNextParam());
+	    }
+	}
+
+	debug("TopWidget::executeCommand(): loading plugin %s", name);
+	executePlugin(name, params);
     CASE_COMMAND("menu")
 	ASSERT(menu);
 	if (menu) menu->executeCommand(command);

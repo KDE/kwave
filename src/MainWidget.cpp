@@ -20,6 +20,7 @@
 #include "libgui/MenuManager.h"
 #include "libgui/MultiStateWidget.h"
 #include "libgui/OverViewWidget.h"
+#include "libgui/KwavePlugin.h" // for some helper functions
 
 #include "sampleop.h"
 #include "SignalWidget.h"
@@ -39,7 +40,7 @@ static const char *zoomtext[] = {
     "400 %", "200 %", "100 %", "33 %", "10 %", "3 %", "1 %", "0.1 %"
 };
 
-//*****************************************************************************
+//***************************************************************************
 MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
                        KStatusBar &status)
     :QWidget(parent),
@@ -380,24 +381,17 @@ void MainWidget::slot_ZoomChanged(double zoom)
     if (zoom <= 0.0) return;
     if (!zoomselect) return;
 
+
     double percent = 100.0 / zoom;
     char buf[256];
 
+
     if (getChannelCount() == 0) {
 	buf[0] = 0;
-    } else if (percent < 1.0) {
-	char format[128];
-	int digits = (int)ceil(1.0 - log10(percent));
-
-	snprintf(format, sizeof(format), "%%0.%df %%%%", digits);
-	snprintf(buf, sizeof(buf), format, percent);
-    } else if (percent < 10.0) {
-	snprintf(buf, sizeof(buf), "%0.1f %%", percent);
-    } else if (percent < 1000.0) {
-	snprintf(buf, sizeof(buf), "%0.0f %%", percent);
     } else {
-	snprintf(buf, sizeof(buf), "x %d", (int)(percent / 100.0));
+	KwavePlugin::zoom2string(buf,sizeof(buf),percent);
     }
+
     if (zoomselect) zoomselect->setEditText(buf);
 }
 
@@ -571,7 +565,9 @@ void MainWidget::stop ()
 void MainWidget::setSelectedTimeInfo(double ms)
 {
     char buffer[128];
-    snprintf(buffer, sizeof(buffer), i18n("selected: %0.1f ms"), ms);
+    char ms_string[64];
+    KwavePlugin::ms2string(ms_string, sizeof(ms_string), ms);
+    snprintf(buffer, sizeof(buffer), i18n("selected: %s"), ms_string);
     status.changeItem(buffer, 4);
 }
 
@@ -579,7 +575,9 @@ void MainWidget::setSelectedTimeInfo(double ms)
 void MainWidget::setTimeInfo(double ms)
 {
     char buffer[128];
-    snprintf(buffer, sizeof(buffer), i18n("Length: %0.1f ms"), ms);
+    char ms_string[64];
+    KwavePlugin::ms2string(ms_string, sizeof(ms_string), ms);
+    snprintf(buffer, sizeof(buffer), i18n("Length: %s"), ms_string);
     status.changeItem(buffer, 1);
 }
 
@@ -723,6 +721,12 @@ int MainWidget::getBitsPerSample()
 {
     ASSERT(signalview);
     return (signalview) ? signalview->getBitsPerSample() : 0;
+}
+
+//*****************************************************************************
+SignalManager *MainWidget::getSignalManager()
+{
+    return (signalview ? signalview->getSignalManager() : 0);
 }
 
 //*****************************************************************************

@@ -4,6 +4,8 @@
 #include <qstring.h>
 #include <qstrlist.h>
 
+#include <ktopwidget.h>
+
 #include <libkwave/Global.h>
 #include <libkwave/String.h>
 #include <libkwave/Parser.h>

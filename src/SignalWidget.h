@@ -90,7 +90,11 @@ public:
      */
     int getChannelCount();
 
+    /** returns the number of bits per sample of the current signal */
     int getBitsPerSample ();
+
+    /** returns the signal manager of the current signal */
+    SignalManager *getSignalManager();
 
 public slots:
 

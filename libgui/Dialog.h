@@ -23,16 +23,40 @@
 #define OK     i18n("&Ok")
 #define CANCEL i18n("&Cancel")
 
+class KTMainWindow;
+
 /**
  * Base class for all plugins that provide a dialog.
+ * @deprecated, use the "KwavePlugin" class instead !
  */
 class Dialog : public QDialog
 {
     Q_OBJECT
 public:
 
+    /**
+     * Constructor.
+     * @param modal can be set to true in order to make the
+     *              dialog modal. Note that this is only
+     *              provided for compatibility and should not be
+     *              used any more !
+     */
     Dialog(bool modal = false);
+
+    /**
+     * Constructor.
+     * @param name title of the dialog
+     * @param modal can be set to true in order to make the
+     *              dialog modal. Note that this is only
+     *              provided for compatibility and should not be
+     *              used any more !
+     */
     Dialog(const char *name, bool modal = false);
+
+    /**
+     * Destructor. Also detaches the window from it's
+     * parent (if this exists).
+     */
     ~Dialog();
 
 public slots:
@@ -48,6 +72,12 @@ signals:
 
 private:
     bool modal;
+
+    /**
+     * parent window or null, normally a kwave TopWidget
+     * @see TopWidget
+     */
+    KTMainWindow *parentWindow;
 };
 
 #endif // _DIALOG_H_

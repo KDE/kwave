@@ -12,6 +12,11 @@ o feature "pulse train" is not yet implemented
 
 o move label handling to class LabelManager
 
+o links to the kwave help: do recursive cleanup in rpm's %postun section
+
+o check at program startup: does the help directory exist? If not, show
+  a message and make a symbolic link
+
 o make the SonagramWindow work
 
 o plugin "playback": bug in geometry management of the "test" button

@@ -15,12 +15,15 @@ const char *author = "Thomas Eschenbacher";
 const char *name = "playback";
 static const char *devicetext[] = {
     "/dev/dsp",
+    "/dev/audio",
     "/dev/adsp",
     "/dev/dio",
     0
 };
 
+#ifndef max
 #define max(x,y) (( x > y ) ? x : y )
+#endif
 
 //**********************************************************
 Dialog *getDialog (DialogOperation *operation) 

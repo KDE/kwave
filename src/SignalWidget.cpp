@@ -562,6 +562,12 @@ int SignalWidget::getBitsPerSample()
 }
 
 //****************************************************************************
+SignalManager *SignalWidget::getSignalManager()
+{
+    return signalmanage;
+}
+
+//****************************************************************************
 void SignalWidget::createSignal(const char *str)
 {
 //    Parser parser (str);

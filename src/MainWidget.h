@@ -17,7 +17,7 @@ class SignalWidget;
 
 //***********************************************************
 class MainWidget : public QWidget
-	    //mainwidget is parent for all widgets in the main window
+//mainwidget is parent class of all widgets in the main window
 {
     Q_OBJECT
 public:
@@ -48,6 +48,9 @@ public:
 
     unsigned char *getOverView (int);
     int getBitsPerSample();
+
+    /** returns the signal manager of the current signal */
+    SignalManager *getSignalManager();
 
 protected:
 

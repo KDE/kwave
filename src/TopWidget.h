@@ -95,6 +95,10 @@ protected:
     void resolution (const char *str);
 
 private:
+    /** intermediate, should go into the PluginManager that is not
+        written yet... */
+    void executePlugin(const char *name, QStrList *params);
+
     /** reference to the main kwave application */
     KwaveApp &app;
 

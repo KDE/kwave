@@ -44,15 +44,6 @@ must have write permissions in the following directories:
 
 Installing the rpm package normally requires root permissions.
 
->>> NOTE: this currently works fine under a SuSE distribution where the
-          rpm's output directory is under /usr/src/packages.
-	  Under a RedHat system you can make a symbolic link from 
-	  /usr/src/redhat to /usr/src/packages.
-
-If you know a way how I can find out whether if I have to use 
-/usr/src/packages or /usr/src/redhat - please let me know !!!
-(it's in the "topdir" variable of rpm, but how can I query this?)
-
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
 
@@ -64,9 +55,9 @@ rpm -ta kwave-0.5.2-9.tar.gz
 If you want to build for a different architecture than your current, you
 might want to add the parameter "--target=...", for example:
 
-rpm -tf --target=i586 kwave-0.5.2-9.tar.gz
+rpm -ta --target=i586 kwave-0.5.2-9.tar.gz
 
-compiles for pentium archtecture.
+compiles for pentium architecture.
 
 2.2 Building a source and binary rpm from the source tree:
 ---------------------------------------------------------

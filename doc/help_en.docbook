@@ -51,8 +51,8 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-07-12</DATE>
-    <RELEASEINFO>0.5.4</RELEASEINFO>
+    <DATE>2000-07-30</DATE>
+    <RELEASEINFO>0.5.4-2</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
     <ABSTRACT>
@@ -227,6 +227,23 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <PARA><ITEMIZEDLIST>
+        <LISTITEM>
+            <PARA>0.5.4-1 [2000-07-29]</PARA>
+            <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    started to implement a new plugin interface
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    geometry management for the sonagram settings dialog
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    formatting of selection and file time (KwavePlugin::ms2string)
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    plugins can now consist of multiple files
+                </PARA></LISTITEM>
+            </ITEMIZEDLIST>
+        </LISTITEM>
         <LISTITEM>
             <PARA>0.5.4 [2000-07-12]</PARA>
             <ITEMIZEDLIST>
@@ -1524,7 +1541,7 @@
     <PARA>
     &kapp; supports the KDE Drag and Drop protocol. This enables you
     to open files just by picking them up in a kfm window or the
-    Desktop and let them drop in a window of &kapp;.
+    Desktop and let them drop into a window of &kapp;.
     </PARA>
 
     <PARA>
@@ -1755,7 +1772,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-07-12</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-07-30</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

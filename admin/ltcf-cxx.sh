@@ -1,11 +1,13 @@
 #### This script is meant to be sourced by ltconfig.
 
+# $Id$
+
 # ltcf-cxx.sh - Create a C++ compiler specific configuration
 #
-# Copyright (C) 1996-1999, 2000, 2001 Free Software Foundation, Inc.
+# Copyright (C) 1996-1999,2000 Free Software Foundation, Inc.
 # Originally by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996
 #
-# Original C++ support by:Gary V. Vaughan <gvv@techie.com>
+# Original C++ support by:
 #    Alexandre Oliva <oliva@lsd.ic.unicamp.br>
 #    Ossama Othman <ossama@debian.org>
 #    Thomas Thanner <tanner@gmx.de>
@@ -121,105 +123,47 @@ fi
 
 echo "ltcf-cxx: with_gcc=$with_gcc ; with_gnu_ld=$with_gnu_ld"
 
+# In general, the C++ compiler should always link C++ objects.
+LD="$CC"
+LDFLAGS="$LDFLAGS"
+
 # PORTME: fill in a description of your system's C++ link characteristics
-case $host_os in
+case "$host_os" in
   aix3*)
     # FIXME: insert proper C++ library support
     ld_shlibs=no
     ;;
-  aix4* | aix5*)
-    archive_cmds=''
-    hardcode_direct=yes
-    hardcode_libdir_separator=':'
-    link_all_deplibs=yes
-    # When large executables or shared objects are built, AIX ld can
-    # have problems creating the table of contents.  If linking a library
-    # or program results in "error TOC overflow" add -mminimal-toc to
-    # CXXFLAGS/CFLAGS for g++/gcc.  In the cases where that is not
-    # enough to fix the problem, add -Wl,-bbigtoc to LDFLAGS.
-    if test "$with_gcc" = yes; then
-      case $host_os in aix4.[012]|aix4.[012].*)
-      # We only want to do this on AIX 4.2 and lower, the check
-      # below for broken collect2 doesn't work under 4.3+
-        collect2name=`${CC} -print-prog-name=collect2`
-        if test -f "$collect2name" && \
-	   strings "$collect2name" | grep resolve_lib_name >/dev/null
-        then
-	  # We have reworked collect2
-	  hardcode_direct=yes
-        else
-	  # We have old collect2
-	  hardcode_direct=unsupported
-	  # It fails to find uninstalled libraries when the uninstalled
-	  # path is not listed in the libpath.  Setting hardcode_minus_L
-	  # to unsupported forces relinking
-	  hardcode_minus_L=yes
-	  hardcode_libdir_flag_spec='-L$libdir'
-	  hardcode_libdir_separator=
+  aix4*)
+    case "$cc_basename" in
+      xlC)
+        # IBM C++ compiler (xlC).  Anything older than Visual Age C++ 5.0 probably won't work.
+        archive_cmds='$CC -qmkshrobj $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-G -o $lib'
+        archive_expsym_cmds='$CC -qmkshrobj $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-G ${wl}-bE:$export_symbols -o $lib'
+        ;;
+      *)
+        if test "$with_gcc" = yes; then
+          # GNU C++ compiler
+          archive_cmds='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-G -o $lib'
+          archive_expsym_cmds='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-G ${wl}-bE:$export_symbols -o $lib'
         fi
-      esac
-      shared_flag='-shared'
-    else
-      # not using gcc
-      if test "$host_cpu" = ia64; then
-        shared_flag='${wl}-G'
-      else
-        shared_flag='${wl}-bM:SRE'
-      fi
-    fi
-
-    if test "$host_cpu" = ia64; then
-      # On IA64, the linker does run time linking by default, so we don't
-      # have to do anything special.
-      aix_use_runtimelinking=no
-      exp_sym_flag='-Bexport'
-      no_entry_flag=""
-    else
-      # KDE requires run time linking.  Make it the default.
-      aix_use_runtimelinking=yes
-      exp_sym_flag='-bexport'
-      no_entry_flag='-bnoentry'
-    fi
-    # Let the compiler handle the export list.
-    always_export_symbols=no
-    if test "$aix_use_runtimelinking" = yes; then
-      allow_undefined_flag=' ${wl}-berok'
-      # The following three lines along with hardcode_into_libs=yes put the correct path into libraries.
-      hardcode_libdir_flag_spec='${wl}-blibpath:$libdir${libdir:+:}/usr/lib:/lib'
-      archive_cmds='$CC '"$shared_flag"' $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-G '"$hardcode_libdir_flag_spec"' -o $lib'
-      archive_expsym_cmds='$CC '"$shared_flag"' $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-G '"$hardcode_libdir_flag_spec"' ${wl}'"$exp_sym_flag"':$export_symbols -o $lib'
-     else
-      if test "$host_cpu" = ia64; then
-        hardcode_libdir_flag_spec='${wl}-R $libdir${libdir:+:}/usr/lib:/lib'
-        allow_undefined_flag="-z nodefs"
-        archive_cmds='$CC '"$shared_flag"' $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags '"$hardcode_libdir_flag_spec"' -o $lib'
-        archive_expsym_cmds='$CC '"$shared_flag"' $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags '"$hardcode_libdir_flag_spec"' ${wl}'"$exp_sym_flag"':$export_symbols -o $lib'
-      else
-        hardcode_libdir_flag_spec='${wl}-blibpath:$libdir:/usr/lib:/lib'
-        # Warning - without using the other run time loading flags, -berok will
-        #           link without error, but may produce a broken library.
-        no_undefined_flag='${wl}-bnoerok'
-        allow_undefined_flag='${wl}-berok"
-        # -bexpall does not export symbols beginning with underscore (_)
-        always_export_symbols=yes
-        # Exported symbols can be pulled into shared objects from archives
-        whole_archive_flag_spec=' '
-        build_libtool_need_lc=yes
-        # This is similar to how AIX traditionally builds it's shared libraries.
-        archive_expsym_cmds="\$CC $shared_flag"' -o $output_objdir/$soname $libobjs $deplibs $compiler_flags ${wl}-bE:$export_symbols ${wl}-bnoentry${allow_undefined_flag}~$AR $AR_FLAGS $output_objdir/$libname$release.a $output_objdir/$soname'
-      fi
-    fi
+        ;;
+    esac
+  
+    hardcode_libdir_flag_spec='${wl}-blibpath:$libdir:/usr/lib:/lib'
+    hardcode_libdir_separator=':'
+    hardcode_direct=unsupported
+    link_all_deplibs=yes
     ;;
   chorus*)
-    case $cc_basename in
+    case "$cc_basename" in
       *)
         # FIXME: insert proper C++ library support
         ld_shlibs=no
         ;;
-    esac
+    esac 
     ;;
   dgux*)
-    case $cc_basename in
+    case "$cc_basename" in
       ec++)
         # FIXME: insert proper C++ library support
         ld_shlibs=no
@@ -237,27 +181,25 @@ case $host_os in
     ;;
   freebsd*)
     # FreeBSD uses GNU C++ and GNU ld
-    skip_need_lc_check=yes
-    remove_lgcc=yes
     ;;
   hpux*)
-    hardcode_libdir_flag_spec='${wl}+b ${wl}$libdir'
-    hardcode_libdir_separator=:
-    hardcode_direct=yes
-    hardcode_minus_L=yes # Not in the search PATH, but as the default
-			 # location of the library.
-    export_dynamic_flag_spec='${wl}-E'
-
-    case $cc_basename in
+    case "$cc_basename" in
       CC)
         # FIXME: insert proper C++ library support
         ld_shlibs=no
         ;;
       aCC)
-	case $host_os in
-	hpux9*) archive_cmds='$rm $output_objdir/$soname~$CC -b ${wl}+b ${wl}$install_libdir -o $output_objdir/$soname $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags~test $output_objdir/$soname = $lib || mv $output_objdir/$soname $lib' ;;
-	*) archive_cmds='$CC -b ${wl}+h ${wl}$soname ${wl}+b ${wl}$install_libdir -o $lib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags' ;;
+	case "$host_os" in
+	hpux9*) archive_cmds='$rm $output_objdir/$soname~$CC -b ${wl}+b ${wl}$install_libdir -o $output_objdir/$soname $predep_objects $libobjs $deplibs $postdep_objects $linker_flags~test $output_objdir/$soname = $lib || mv $output_objdir/$soname $lib' ;;
+	*) archive_cmds='$CC -b ${wl}+h ${wl}$soname ${wl}+b ${wl}$install_libdir -o $lib $predep_objects $libobjs $deplibs $postdep_objects $linker_flags' ;;
 	esac
+	hardcode_libdir_flag_spec='${wl}+b ${wl}$libdir'
+	hardcode_libdir_separator=:
+	hardcode_direct=yes
+	hardcode_minus_L=yes # Not in the search PATH, but as the default
+			     # location of the library.
+	export_dynamic_flag_spec='${wl}-E'
+
         # Commands to make compiler produce verbose output that lists
         # what "hidden" libraries, object files and flags are used when
         # linking a shared library.
@@ -271,14 +213,15 @@ case $host_os in
       *)
         if test "$with_gcc" = yes && test "$with_gnu_ld" = no ; then
 	  # MM: for HP-UX and g++ -fPIC is needed to link pic objects together
-	  case $host_os in
-	  hpux9*) archive_cmds='$rm $output_objdir/$soname~$CC -shared -fPIC ${wl}+b ${wl}$install_libdir -o $output_objdir/$soname $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags~test $output_objdir/$soname = $lib || mv $output_objdir/$soname $lib' ;;
-	  *) archive_cmds='$CC -shared -fPIC ${wl}+h ${wl}$soname ${wl}+b ${wl}$install_libdir -o $lib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags' ;;
-	  esac
+	  archive_cmds='$CC -shared -fPIC ${wl}+h ${wl}$soname $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags -o $lib'
+	  hardcode_libdir_flag_spec='${wl}+b ${wl}$libdir'
+	  hardcode_libdir_separator=:
+	  hardcode_direct=yes
+	  hardcode_minus_L=yes
+	  export_dynamic_flag_spec='${wl}-E'
 	  output_verbose_link_cmds='$CC -shared -fPIC $CFLAGS -v conftest.$objext 2>&1 | egrep "\-L"'
-	  remove_lgcc=yes
         fi
-	if test "$with_gcc" = no ; then
+        if test "$with_gcc" = no ; then
 	  # FIXME: insert proper C++ library support
           ld_shlibs=no
 	fi
@@ -286,23 +229,17 @@ case $host_os in
     esac
     ;;
   irix5* | irix6*)
-    case $cc_basename in
+    case "$cc_basename" in
       CC)
         # SGI C++
         archive_cmds='$CC -shared -all -multigot $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags -soname $soname `test -n "$verstring" && echo -set_version $verstring` -update_registry ${objdir}/so_locations -o $lib'
-
-	# Archives containing C++ object files must be created using
-	# "CC -ar", where "CC" is the IRIX C++ compiler.  This is
-	# necessary to make sure instantiated templates are included
-	# in the archive.
-	old_archive_cmds='$CC -ar -WR,-u -o $oldlib $oldobjs'
-	;;
+        ;;
       *)
         if test "$with_gcc" = yes; then
           if test "$with_gnu_ld" = no; then
-            archive_cmds='$CC -D_LANGUAGE_C_CPLUS_PLUS -shared $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-soname ${wl}$soname `test -n "$verstring" && echo ${wl}-set_version ${wl}$verstring` ${wl}-update_registry ${wl}${objdir}/so_locations -o $lib'
+            archive_cmds='$CC -D_LANGUAGE_C_CPLUS_PLUS -shared $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-soname ${wl}$soname `test -n "$verstring" && echo ${wl}-set_version ${wl}$verstring` ${wl}-update_registry ${wl}${objdir}/so_locations -o $lib'
           else
-            archive_cmds='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $linker_flags -soname $soname `test -n "$verstring" && echo -set_version $verstring` -o $lib'
+            archive_cmds='$LD -shared $predep_objects $libobjs $deplibs $postdep_objects $linker_flags -soname $soname `test -n "$verstring" && echo -set_version $verstring` -o $lib'
           fi
         fi
         ;;
@@ -312,15 +249,15 @@ case $host_os in
     link_all_deplibs=yes
     ;;
   linux*)
-    case $cc_basename in
+    case "$cc_basename" in
       KCC)
         # Kuck and Associates, Inc. (KAI) C++ Compiler
 
         # KCC will only create a shared library if the output file
         # ends with ".so" (or ".sl" for HP-UX), so rename the library
         # to its proper name (with version) after linking.
-        archive_cmds='templib=`echo $lib | sed -e "s/\.so\..*/\.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags --soname $soname -o \$templib; mv \$templib $lib'
-        archive_expsym_cmds='templib=`echo $lib | sed -e "s/\.so\..*/\.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags --soname $soname -o \$templib ${wl}-retain-symbols-file,$export_symbols; mv \$templib $lib'
+        archive_cmds='templib=`echo $lib | sed -e "s/\.so\..*/\.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $linker_flags --soname $soname -o \$templib; mv \$templib $lib'
+        archive_expsym_cmds='templib=`echo $lib | sed -e "s/\.so\..*/\.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $linker_flags --soname $soname -o \$templib ${wl}-retain-symbols-file,$export_symbols; mv \$templib $lib'
 
         # Commands to make compiler produce verbose output that lists
         # what "hidden" libraries, object files and flags are used when
@@ -341,8 +278,8 @@ case $host_os in
         ;;
       cxx)
         # Compaq C++
-        archive_cmds='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-soname $wl$soname -o $lib'
-        archive_expsym_cmds='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-soname $wl$soname  -o $lib ${wl}-retain-symbols-file $wl$export_symbols'
+        archive_cmds='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-soname $wl$soname -o $lib'
+        archive_expsym_cmds='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-soname $wl$soname  -o $lib ${wl}-retain-symbols-file $wl$export_symbols'
 
         runpath_var=LD_RUN_PATH
         hardcode_libdir_flag_spec='-rpath $libdir'
@@ -383,7 +320,7 @@ case $host_os in
     ld_shlibs=no
     ;;
   mvs*)
-    case $cc_basename in
+    case "$cc_basename" in
       cxx)
         # FIXME: insert proper C++ library support
         ld_shlibs=no
@@ -392,31 +329,14 @@ case $host_os in
         # FIXME: insert proper C++ library support
         ld_shlibs=no
         ;;
-    esac
+    esac   
     ;;
   netbsd*)
     if test "$with_gcc" = no || test "$with_gnu_ld" = no; then
-      # This should only be triggered for NetBSD/a.out
-      # Add in C++ constructor/destructor support
-      if test -f /usr/pkg/lib/c++rt0/c++rt0.o.PIC; then
-        cppopts="/usr/pkg/lib/c++rt0/c++rt0.o.PIC"
-      elif test -f /usr/lib/c++rt0.o; then
-        cppopts="/usr/lib/c++rt0.o"
-      fi
-      archive_cmds='ld -Bshareable -o $lib '"$cppopts"' $libobjs $deplibs $linkopts'
-    fi
-    ;;
-  openbsd*)
-    if test "$with_gcc" = yes && test "$with_gnu_ld" = no; then
-      # MM: OpenBSD 2.7 uses G++, but not GNU ld
-      archive_cmds='$CC -shared -nostdlib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags -o $lib'
-      archive_expsym_cmds='$CC -shared -nostdlib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags -o $lib'
-      old_archive_cmds="$old_archive_cmds~"'$RANLIB $oldlib'
-      hardcode_libdir_flag_spec='${wl}-R$libdir'
-      hardcode_direct=yes
-      hardcode_shlibpath_var=no
-      whole_archive_flag_spec='${wl}-Bforcearchive'
-      remove_lgcc=yes
+      # MM: I'm optimistic, and unless someone says otherwise, NetBSD using
+      #     g++ with GNU ld works.
+      # FIXME: insert proper C++ library support
+      ld_shlibs=no
     fi
     ;;
   osf3*)
@@ -432,14 +352,14 @@ case $host_os in
       # linking a shared library.
       output_verbose_link_cmds='$CC -shared $CFLAGS -v conftest.$objext 2>&1 | egrep "\-L"'
     else
-      case $cc_basename in
+      case "$cc_basename" in
 	KCC)
 	  # Kuck and Associates, Inc. (KAI) C++ Compiler
 
 	  # KCC will only create a shared library if the output file
 	  # ends with ".so" (or ".sl" for HP-UX), so rename the library
 	  # to its proper name (with version) after linking.
-	  archive_cmds='templib=`echo $lib | sed -e "s/\.so\..*/\.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags --soname $soname -o \$templib; mv \$templib $lib'
+	  archive_cmds='templib=`echo $lib | sed -e "s/\.so\..*/\.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $linker_flags --soname $soname -o \$templib; mv \$templib $lib'
 
 	  hardcode_libdir_flag_spec='${wl}-rpath,$libdir'
 	  hardcode_libdir_separator=:
@@ -456,7 +376,7 @@ case $host_os in
 	  ;;
 	cxx)
 	  allow_undefined_flag=' ${wl}-expect_unresolved ${wl}\*'
-	  archive_cmds='$CC -shared${allow_undefined_flag} $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-soname $soname `test -n "$verstring" && echo ${wl}-set_version $verstring` -update_registry ${objdir}/so_locations -o $lib'
+	  archive_cmds='$CC -shared${allow_undefined_flag} $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-soname $soname `test -n "$verstring" && echo ${wl}-set_version $verstring` -update_registry ${objdir}/so_locations -o $lib'
 
 	  hardcode_libdir_flag_spec='${wl}-rpath ${wl}$libdir'
 	  hardcode_libdir_separator=:
@@ -492,14 +412,14 @@ case $host_os in
       # linking a shared library.
       output_verbose_link_cmds='$CC -shared $CFLAGS -v conftest.$objext 2>&1 | egrep "\-L"'
     else
-      case $cc_basename in
+      case "$cc_basename" in
 	KCC)
 	  # Kuck and Associates, Inc. (KAI) C++ Compiler
 
 	  # KCC will only create a shared library if the output file
 	  # ends with ".so" (or ".sl" for HP-UX), so rename the library
 	  # to its proper name (with version) after linking.
-	  archive_cmds='templib=`echo $lib | sed -e "s/\.so\..*/\.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags --soname $soname -o \$templib; mv \$templib $lib'
+	  archive_cmds='templib=`echo $lib | sed -e "s/\.so\..*/\.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $linker_flags --soname $soname -o \$templib; mv \$templib $lib'
 
 	  hardcode_libdir_flag_spec='${wl}-rpath,$libdir'
 	  hardcode_libdir_separator=:
@@ -516,7 +436,7 @@ case $host_os in
 	cxx)
 	  allow_undefined_flag=' -Wl,-expect_unresolved -Wl,\*'
 	  no_undefined_flag=' -Wl,-expect_unresolved -Wl,\*'
-	  archive_cmds='$CC -shared${allow_undefined_flag} $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-msym ${wl}-soname ${wl}$soname `test -n "$verstring" && echo ${wl}-set_version ${wl}$verstring` -update_registry ${objdir}/so_locations -o $lib'
+	  archive_cmds='$CC -shared${allow_undefined_flag} $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-msym ${wl}-soname ${wl}$soname `test -n "$verstring" && echo ${wl}-set_version ${wl}$verstring` -update_registry ${objdir}/so_locations -o $lib'
 	  
 	  hardcode_libdir_flag_spec='-rpath $libdir'
 	  hardcode_libdir_separator=:
@@ -543,7 +463,7 @@ case $host_os in
     ld_shlibs=no
     ;;
   sco*)
-    case $cc_basename in
+    case "$cc_basename" in
       CC)
         # FIXME: insert proper C++ library support
         ld_shlibs=no
@@ -555,7 +475,7 @@ case $host_os in
     esac
     ;;
   sunos4*)
-    case $cc_basename in
+    case "$cc_basename" in
       CC)
         # Sun C++ 4.x
         # FIXME: insert proper C++ library support
@@ -573,17 +493,17 @@ case $host_os in
     esac
     ;;
   solaris*)
-    case $cc_basename in
+    case "$cc_basename" in
       CC)
 	# Sun C++ 4.2, 5.x and Centerline C++
         no_undefined_flag=' -ztext'
-        archive_cmds='$CC -G${allow_undefined_flag} -nolib -h$soname -o $lib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags'
+        archive_cmds='$CC -G${allow_undefined_flag} -nolib -h$soname -o $lib $predep_objects $libobjs $deplibs $postdep_objects $linker_flags'
         archive_expsym_cmds='$echo "{ global:" > $lib.exp~cat $export_symbols | sed -e "s/\(.*\)/\1;/" >> $lib.exp~$echo "local: *; };" >> $lib.exp~
-        $CC -G${allow_undefined_flag} -nolib ${wl}-M ${wl}$lib.exp -h$soname -o $lib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags~$rm $lib.exp'
+        $CC -G${allow_undefined_flag} -nolib ${wl}-M ${wl}$lib.exp -h$soname -o $lib $predep_objects $libobjs $deplibs $postdep_objects $linker_flags~$rm $lib.exp'
 
         hardcode_libdir_flag_spec='-R$libdir'
         hardcode_shlibpath_var=no
-        case $host_os in
+        case "$host_os" in
           solaris2.[0-5] | solaris2.[0-5].*) ;;
           *)
             # The C++ compiler is used as linker so we must use $wl
@@ -613,7 +533,7 @@ case $host_os in
         ;;
       gcx)
         # Green Hills C++ Compiler
-        archive_cmds='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags ${wl}-h $wl$soname -o $lib'
+        archive_cmds='$CC -shared $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-h $wl$soname -o $lib'
 
         # The C++ compiler must be used to create the archive.
         old_archive_cmds='$CC $LDFLAGS -archive -o $oldlib $oldobjs'
@@ -622,9 +542,9 @@ case $host_os in
         # GNU C++ compiler with Solaris linker
         if test "$with_gcc" = yes && test "$with_gnu_ld" = no; then
           if $CC --version | egrep -v '^2\.7' > /dev/null; then
-            archive_cmds='$CC -shared -nostdlib $LDFLAGS $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-h $wl$soname -o $lib'
+            archive_cmds='$LD -shared -nostdlib $LDFLAGS $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-h $wl$soname -o $lib'
             archive_expsym_cmds='$echo "{ global:" > $lib.exp~cat $export_symbols | sed -e "s/\(.*\)/\1;/" >> $lib.exp~$echo "local: *; };" >> $lib.exp~
-		$CC -shared -nostdlib ${wl}-M $wl$lib.exp -o $lib $predep_objects $libobjs $deplibs $postdep_objects $linker_flags~$rm $lib.exp'
+		$LD -shared -nostdlib ${wl}-M $wl$lib.exp -o $lib $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-h $wl$soname~$rm $lib.exp'
 
             # Commands to make compiler produce verbose output that lists
             # what "hidden" libraries, object files and flags are used when
@@ -633,9 +553,9 @@ case $host_os in
           else
             # g++ 2.7 appears to require `-G' NOT `-shared' on this
             # platform.
-            archive_cmds='$CC -G -nostdlib $LDFLAGS $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-h $wl$soname -o $lib'
+            archive_cmds='$LD -G -nostdlib $LDFLAGS $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-h $wl$soname -o $lib'
             archive_expsym_cmds='$echo "{ global:" > $lib.exp~cat $export_symbols | sed -e "s/\(.*\)/\1;/" >> $lib.exp~$echo "local: *; };" >> $lib.exp~
-		$CC -G -nostdlib ${wl}-M $wl$lib.exp -o $lib $predep_objects $libobjs $deplibs $postdep_objects $linker_flags~$rm $lib.exp'
+		$LD -G -nostdlib ${wl}-M $wl$lib.exp -o $lib $predep_objects $libobjs $deplibs $postdep_objects $linker_flags ${wl}-h $wl$soname~$rm $lib.exp'
 
             # Commands to make compiler produce verbose output that lists
             # what "hidden" libraries, object files and flags are used when
@@ -646,10 +566,10 @@ case $host_os in
           hardcode_libdir_flag_spec='${wl}-R $wl$libdir'
         fi
         ;;
-    esac
+    esac   
     ;;
   tandem*)
-    case $cc_basename in
+    case "$cc_basename" in
       NCC)
         # NonStop-UX NCC 3.20
         # FIXME: insert proper C++ library support
@@ -659,7 +579,7 @@ case $host_os in
         # FIXME: insert proper C++ library support
         ld_shlibs=no
         ;;
-    esac
+    esac   
     ;;
   unixware*)
     # FIXME: insert proper C++ library support
@@ -687,45 +607,37 @@ ac_cv_prog_cc_static=
 ac_cv_prog_cc_no_builtin=
 ac_cv_prog_cc_can_build_shared=$can_build_shared
 
-ac_cv_prog_cc_pic_works=
-ac_cv_prog_cc_static_works=
+# It is not enough to reset these cached values, they must be unset.
+unset ac_cv_prog_cc_pic_works
+unset ac_cv_prog_cc_static_works
 
 if test "$with_gcc" = yes; then
   ac_cv_prog_cc_wl='-Wl,'
   ac_cv_prog_cc_static='-static'
 
-  case $host_os in
-  aix*)
-    # All AIX code is PIC.
-    if test "$host_cpu" = ia64; then
-      # AIX 5 now supports IA64 processor
-      lt_cv_prog_cc_static='-Bstatic'
-    else
-      lt_cv_prog_cc_static='-bnso -bI:/lib/syscalls.exp'
-    fi
-    ;;
-  amigaos*)
-    # FIXME: we need at least 68020 code to build shared libraries, but
-    # adding the `-m68020' flag to GCC prevents building anything better,
-    # like `-m68040'.
-    ac_cv_prog_cc_pic='-m68020 -resident32 -malways-restore-a4'
-    ;;
+  case "$host_os" in
   beos* | irix5* | irix6* | osf3* | osf4* | osf5*)
     # PIC is the default for these OSes.
+    ;;
+  aix*)
+    # Below there is a dirty hack to force normal static linking with -ldl
+    # The problem is because libdl dynamically linked with both libc and
+    # libC (AIX C++ library), which obviously doesn't included in libraries
+    # list by gcc. This cause undefined symbols with -static flags.
+    # This hack allows C programs to be linked with "-static -ldl", but
+    # we not sure about C++ programs.
+    ac_cv_prog_cc_static="$ac_cv_prog_cc_static ${ac_cv_prog_cc_wl}-lC"
     ;;
   cygwin* | mingw* | os2*)
     # This hack is so that the source file can tell whether it is being
     # built for inclusion in a dll (and should export symbols for example).
     ac_cv_prog_cc_pic='-DDLL_EXPORT'
     ;;
-  darwin* | rhapsody*)
-    # PIC is the default on this platform
-    # Common symbols not allowed in MH_DYLIB files
-    lt_cv_prog_cc_pic='-fno-common'
-    ;;
-  *djgpp*)
-    # DJGPP does not support shared libraries at all
-    ac_cv_prog_cc_pic=
+  amigaos*)
+    # FIXME: we need at least 68020 code to build shared libraries, but
+    # adding the `-m68020' flag to GCC prevents building anything better,
+    # like `-m68040'.
+    ac_cv_prog_cc_pic='-m68020 -resident32 -malways-restore-a4'
     ;;
   sysv4*MP*)
     if test -d /usr/nec; then
@@ -737,26 +649,20 @@ if test "$with_gcc" = yes; then
     ;;
   esac
 else
-  case $host_os in
-    aix4* | aix5*)
+  case "$host_os" in
+    aix4*)
       # All AIX code is PIC.
-      if test "$host_cpu" = ia64; then
-        # AIX 5 now supports IA64 processor
-        lt_cv_prog_cc_static='-Bstatic'
-      else
-        lt_cv_prog_cc_static='-bnso -bI:/lib/syscalls.exp'
-      fi
       ;;
     chorus*)
-      case $cc_basename in
+      case "$cc_basename" in
       cxch68)
         # Green Hills C++ Compiler
         # ac_cv_prog_cc_static="--no_auto_instantiation -u __main -u __premain -u _abort -r $COOL_DIR/lib/libOrb.a $MVME_DIR/lib/CC/libC.a $MVME_DIR/lib/classix/libcx.s.a"
         ;;
-      esac
+      esac 
       ;;
     dgux*)
-      case $cc_basename in
+      case "$cc_basename" in
         ec++)
           ac_cv_prog_cc_pic='-KPIC'
           ;;
@@ -772,7 +678,7 @@ else
       # FreeBSD uses GNU C++
       ;;
     hpux9* | hpux10* | hpux11*)
-      case $cc_basename in
+      case "$cc_basename" in
         CC)
           ac_cv_prog_cc_wl='-Wl,'
           ac_cv_prog_cc_static="${ac_cv_prog_cc_wl}-a ${ac_cv_prog_cc_wl}archive"
@@ -788,7 +694,7 @@ else
       esac
       ;;
     irix5* | irix6*)
-      case $cc_basename in
+      case "$cc_basename" in
         CC)
           ac_cv_prog_cc_wl='-Wl,'
           ac_cv_prog_cc_static='-non_shared'
@@ -799,7 +705,7 @@ else
       esac
       ;;
     linux*)
-      case $cc_basename in
+      case "$cc_basename" in
         KCC)
           # KAI C++ Compiler
           ac_cv_prog_cc_wl='--backend -Wl,'
@@ -821,18 +727,18 @@ else
     m88k*)
       ;;
     mvs*)
-      case $cc_basename in
+      case "$cc_basename" in
         cxx)
           ac_cv_prog_cc_pic='-W c,exportall'
           ;;
         *)
           ;;
-      esac
+      esac   
       ;;
     netbsd*)
       ;;
     osf3* | osf4* | osf5*)
-      case $cc_basename in
+      case "$cc_basename" in
         KCC)
           ac_cv_prog_cc_wl='--backend -Wl,'
           ;;
@@ -855,7 +761,7 @@ else
     psos*)
       ;;
     sco*)
-      case $cc_basename in
+      case "$cc_basename" in
         CC)
           ac_cv_prog_cc_pic='-fPIC'
           ;;
@@ -864,7 +770,7 @@ else
       esac
       ;;
     solaris*)
-      case $cc_basename in
+      case "$cc_basename" in
         CC)
           # Sun C++ 4.2, 5.x and Centerline C++
           ac_cv_prog_cc_pic='-KPIC'
@@ -877,10 +783,10 @@ else
           ;;
         *)
           ;;
-      esac
+      esac   
       ;;
     sunos4*)
-      case $cc_basename in
+      case "$cc_basename" in
         CC)
           # Sun C++ 4.x
           ac_cv_prog_cc_pic='-pic'
@@ -895,14 +801,14 @@ else
       esac
       ;;
     tandem*)
-      case $cc_basename in
+      case "$cc_basename" in
         NCC)
           # NonStop-UX NCC 3.20
           ac_cv_prog_cc_pic='-KPIC'
           ;;
         *)
           ;;
-      esac
+      esac   
       ;;
     unixware*)
       ;;
@@ -913,17 +819,7 @@ else
       ;;
   esac
 fi
-
-case "$host_os" in
-    # Platforms which do not suport PIC and -DPIC is meaningless
-    # on them:
-    *djgpp*)
-      ac_cv_prog_cc_pic=
-      ;;
-    *)
-      ac_cv_prog_cc_pic="$ac_cv_prog_cc_pic -DPIC"
-      ;;
-esac
+ac_cv_prog_cc_pic="$ac_cv_prog_cc_pic -DPIC"
 
 
 # Figure out "hidden" C++ library dependencies from verbose
@@ -939,7 +835,7 @@ private:
 EOF
 
 
-if (eval $ac_compile) 2>&5; then
+if eval $ac_compile 2>&5; then
   # Parse the compiler output and extract the necessary
   # objects, libraries and library flags.
 
@@ -978,18 +874,10 @@ if (eval $ac_compile) 2>&5; then
          # linked, so don't bother handling this case.
          esac
        else
-	 add="${prev}${p}"
-	 if test "x$remove_lgcc" = "xyes" ; then
-	   case "$add" in
-	     -lgcc ) add="" ;;
-	   esac
-	 fi
-	 if test -n "$add" ; then
-           if test -z "$postdeps"; then
-             postdeps="$add"
-           else
-             postdeps="${postdeps} ${add}"
-           fi
+         if test -z "$postdeps"; then
+           postdeps="${prev}${p}"
+         else
+           postdeps="${postdeps} ${prev}${p}"
          fi
        fi
        ;;
@@ -1030,11 +918,7 @@ fi
 
 $rm -f confest.$objext
 
-if test "x$skip_need_lc_check" = "xyes" ; then
-  need_lc=no
-else
-  case " $postdeps " in
-  *" -lc "*) need_lc=no ;;
-  *) need_lc=yes ;;
-  esac
-fi
+case " $postdeps " in
+*" -lc "*) need_lc=no ;;
+*) need_lc=yes ;;
+esac

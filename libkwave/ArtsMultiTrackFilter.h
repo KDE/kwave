@@ -1,5 +1,5 @@
 /***************************************************************************
- ArtsMultiTrackFilter.h  -  template for multi-track aRts filters
+ ArtsMultiTrackFilter.h  -  interface for multi-track aRts filters
                              -------------------
     begin                : Sun Dec 9 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -19,50 +19,14 @@
 #define _ARTS_MULTI_TRACK_FILTER_H_
 
 #include <string.h>
-#include <qglobal.h> // for warning()
-#include <qvector.h>
-#include <libkwave/ArtsMultiSource.h>
-#include <libkwave/ArtsMultiSink.h>
+#include "libkwave/ArtsMultiSource.h"
+#include "libkwave/ArtsMultiSink.h"
 
-template <class FILTER, class FILTER_IMPL>
-class ArtsMultiTrackFilter: public ArtsMultiSource, public ArtsMultiSink
+class ArtsMultiTrackFilter
+    :public ArtsMultiSource, public ArtsMultiSink
 {
+
 public:
-
-    /**
-     * Constructor. Creates all filter objects.
-     * @param tracks the number of tracks
-     */
-    ArtsMultiTrackFilter(unsigned int tracks)
-	:m_count(tracks), m_filter(tracks)
-    {
-	// create all filters
-	unsigned int i;
-	for (i=0; i < m_count; ++i) {
-	    m_filter.insert(i, 0);
-	
-	    FILTER_IMPL *f = new FILTER_IMPL();
-	    ASSERT(f);
-	    if (f) m_filter.insert(i, new FILTER(FILTER::_from_base(f)));
-	
-	    if (!m_filter[i]) {
-		warning("ArtsMultiTrackFilter: filter creation failed!!!");
-		m_count = i;
-		break;
-	    }
-	}
-    };
-
-    /**
-     * Destructor. Removes all filters in reverse order.
-     */
-    virtual ~ArtsMultiTrackFilter()
-    {
-	m_filter.setAutoDelete(true);
-	while (m_count--) {
-	    m_filter.remove(m_count);
-	}
-    };
 
     /**
      * Returns a pointer to one of the filter objects. (normally used for
@@ -70,9 +34,7 @@ public:
      * @param i index of the track [0..count-1]
      * @return pointer to the object or 0 if index is out of range
      */
-    virtual Arts::Object *operator[](unsigned int i) {
-	return m_filter[i];
-    };
+    virtual Arts::Object *operator[](unsigned int i) = 0;
 
     /**
      * Connects the input of the filters to an ArtsMultiSource.
@@ -82,12 +44,7 @@ public:
      */
     virtual void connectInput(ArtsMultiSource &source,
 	const string &output_name = "output",
-	const string &input_name = "input")
-    {
-	for (unsigned int i=0; i < m_count; ++i)
-	    Arts::connect(*(source[i]),   output_name,
-	                  *(m_filter[i]), input_name);
-    };
+	const string &input_name = "input") = 0;
 
     /**
      * Connects the output of the filters to an ArtsMultiSink.
@@ -97,30 +54,14 @@ public:
      */
     virtual void connectOutput(ArtsMultiSink &sink,
 	const string &input_name = "input",
-	const string &output_name = "output")
-    {
-	for (unsigned i=0; i < m_count; ++i)
-	    Arts::connect(*(m_filter[i]), output_name,
-	                  *(sink[i]),     input_name);
-    };
+	const string &output_name = "output") = 0;
 
     /** Starts all filters. */
-    virtual void start() {
-	for (unsigned int i=0; i < m_count; ++i) m_filter[i]->start();
-    };
+    virtual void start() = 0;
 
     /** Stops all filters. */
-    virtual void stop() {
-	for (unsigned int  i=0; i < m_count; ++i) m_filter[i]->stop();
-    };
+    virtual void stop() = 0;
 
-private:
-
-    /** number of fiters (tracks) */
-    unsigned int m_count;
-
-    /** list of the filters */
-    QVector<FILTER> m_filter;
 };
 
 #endif /* _ARTS_MULTI_TRACK_FILTER_H_ */

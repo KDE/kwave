@@ -44,7 +44,7 @@ PlayBackArts::PlayBackArts(Mutex &arts_lock)
     m_lock_aRts(arts_lock),
     m_closed(true)
 {
-    debug("PlayBackArts::PlayBackArts(%p)", &arts_lock);
+    debug("PlayBackArts::PlayBackArts(...)");
 }
 
 //***************************************************************************

@@ -31,18 +31,21 @@ de/index.html: help_de.docbook
 	rm -Rf de/common
 	mkdir -p de/common
 	cp -R ${DOCDIR}/de/common/* de/common/
+	cd de ; ../fix-common
 
 fr/index.html: help_fr.docbook
 	cd fr ; @MEINPROC@ --check ../help_fr.docbook
 	rm -Rf fr/common
 	mkdir -p fr/common
 	cp -R ${DOCDIR}/fr/common/* fr/common/
+	cd fr ; ../fix-common
 
 it/index.html: help_it.docbook
 	cd it ; @MEINPROC@ --check ../help_it.docbook
 	rm -Rf it/common
 	mkdir -p it/common
 	cp -R ${DOCDIR}/it/common/* fr/common/
+	cd it ; ../fix-common
 
 # --------------------------------------------------------
 
@@ -52,6 +55,7 @@ en/index.html: help_en.docbook
 	mkdir -p en/common
 	cp -R ${DOCDIR}/en/common/* en/common/
 	cd en/common ; mv gpl-license.html gpl-translated.html
+	cd en ; ../fix-common
 
 help_en.pot: help_en.docbook
 	@XML2POT@ help_en.docbook > help_en.pot

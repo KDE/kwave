@@ -166,6 +166,18 @@ public:
      * Deletes a range of samples and creates an undo action.
      * @param offset index of the first sample
      * @param length number of samples
+     * @param track_list a list of tracks to be affected
+     * @return true if successful or nothing to do, false if not enough
+     *         memory for undo
+     */
+    bool deleteRange(unsigned int offset, unsigned int length,
+                     const QArray<unsigned int> &track_list);
+
+    /**
+     * Deletes a range of samples and creates an undo action. Same as
+     * above, but affects all tracks.
+     * @param offset index of the first sample
+     * @param length number of samples
      * @return true if successful or nothing to do, false if not enough
      *         memory for undo
      */

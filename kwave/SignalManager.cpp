@@ -313,7 +313,7 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 	    debug("SignalManager::openSampleWriter(): NO UNDO FOR APPEND YET !");
 	    break;
 	case Insert:
-	    action = new UndoInsertAction(track, left, right);
+	    action = new UndoInsertAction(track, left, right-left+1);
 	    if (action) {
 		QObject::connect(
 		    writer, SIGNAL(sigSamplesWritten(unsigned int)),
@@ -480,7 +480,7 @@ void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
 
     // delete the current selection (with undo)
     if (length <= 1) length = 0; // do not paste single samples !
-    if (!deleteRange(offset, length)) {
+    if (length && !deleteRange(offset, length)) {
 	abortUndoTransaction();
 	return;
     }
@@ -641,12 +641,12 @@ SignalManager::~SignalManager()
 }
 
 //***************************************************************************
-bool SignalManager::deleteRange(unsigned int offset, unsigned int length)
+bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
+                                const QArray<unsigned int> &track_list)
 {
     if (!length) return true; // nothing to do
     UndoTransactionGuard undo(*this, i18n("delete"));
 
-    QArray<unsigned int> track_list = allTracks();
     unsigned int count = track_list.count();
     if (!count) return true; // nothing to do
 
@@ -674,6 +674,12 @@ bool SignalManager::deleteRange(unsigned int offset, unsigned int length)
     selectRange(m_selection.offset(), 0);
 
     return true;
+}
+
+//***************************************************************************
+bool SignalManager::deleteRange(unsigned int offset, unsigned int length)
+{
+    return deleteRange(offset, length, allTracks());
 }
 
 //***************************************************************************

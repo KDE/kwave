@@ -39,6 +39,7 @@ SampleWriter::SampleWriter(Track &track, QList<Stripe> &stripes,
 SampleWriter::~SampleWriter()
 {
     flush();
+    ASSERT(m_position <= m_last+1);
     emit sigSamplesWritten(m_position - m_first);
     if (m_lock) delete m_lock;
 }
@@ -83,9 +84,12 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
     }
 
     // pad the rest with zeroes
-    while (m_buffer_used + m_position++ <= m_last) {
+    ASSERT(m_position <= m_last+1);
+    while (m_buffer_used + m_position <= m_last) {
 	*this << static_cast<sample_t>(0);
+	m_position++;
     }
+    ASSERT(m_position <= m_last+1);
 
     return *this;
 }
@@ -95,12 +99,16 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 {
     if (count == 0) return; // nothing to flush
 
+    ASSERT(m_position <= m_last+1);
     switch (m_mode) {
 	case Append: {
 	    Stripe *s = m_stripes.last();
 	    ASSERT(s);
-	    if (s) s->append(buffer, count);
+	    if (!s) break;
+	    unsigned int cnt = s->append(buffer, count);
+	    ASSERT(cnt == count);
 	    m_position += count;
+	    ASSERT(m_position <= m_last+1);
 	    break;
 	}
 	case Insert: {
@@ -117,8 +125,10 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 	    if (ofs > m_position) break;
 	    ofs = m_position - ofs;
 	
-	    s->insert(buffer, ofs, count);
+	    unsigned int cnt = s->insert(buffer, ofs, count);
+	    ASSERT(cnt == count);
 	    m_position += count;
+	    ASSERT(m_position <= m_last+1);
 	    break;
 	}
 	case Overwrite: {
@@ -126,6 +136,7 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 	    QListIterator<Stripe> it(m_stripes);
 	    unsigned int buf_offset = 0;
 
+	    ASSERT(m_position <= m_last+1);
 	    for (; it.current(); ++it) {
 		if (!count) break; // nothing to do
 		if (m_position > m_last) break;
@@ -151,6 +162,7 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 		    count -= length;
 		    buf_offset += length;
 		    m_position += length;
+		    ASSERT(m_position <= m_last+1);
 		}
 	    }
 	    count = 0;
@@ -158,6 +170,7 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 	}
     }
 
+    ASSERT(m_position <= m_last+1);
     count = 0;
 }
 

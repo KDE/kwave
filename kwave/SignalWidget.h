@@ -243,7 +243,7 @@ public slots:
 protected:
 
     /** Starts a drag & drop operation (from Kwave to somewhere else) */
-    virtual void startDragging(QDragObject::DragMode mode);
+    virtual void startDragging();
 
     /** @see Qt XDND documentation */
     virtual void dragEnterEvent(QDragEnterEvent *event);

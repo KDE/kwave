@@ -67,7 +67,6 @@ UndoAction *UndoInsertAction::undo(SignalManager &manager, bool with_redo)
     }
 
     // now delete the samples
-    debug("UndoInsertAction::undo(): delete(%u,%u,%u)",m_track,m_offset,m_length);
     manager.deleteRange(m_track, m_offset, m_length);
 
     return redo_action;

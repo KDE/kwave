@@ -39,7 +39,6 @@ void ClipBoard::copy(Signal &signal, const QArray<unsigned int> &track_list,
     if ((!length) || (!track_list.count())) return;
 
     // allocate buffers for the signals and fill them with data
-    debug("ClipBoard::copy(): offset=%u, length=%d", offset, length);
     unsigned int i;
     for (i = 0; i < track_list.count(); i++) {
 	Track *t = new Track(length);
@@ -47,7 +46,7 @@ void ClipBoard::copy(Signal &signal, const QArray<unsigned int> &track_list,
 	if (!t) continue;
 	
 	// transfer with sample reader and writer	
-	SampleWriter *writer = t->openSampleWriter(Overwrite, 0, length);
+	SampleWriter *writer = t->openSampleWriter(Overwrite, 0, length-1);
 	ASSERT(writer);
 	if (!writer) continue;
 	
@@ -56,7 +55,6 @@ void ClipBoard::copy(Signal &signal, const QArray<unsigned int> &track_list,
 	ASSERT(reader);
 	if (reader) {
 	    // transfer the samples from the source track out buffer track
-	    debug("ClipBoard::copy(): transferring track %u", track_list[i]);
 	    *writer << *reader;
 	    delete reader;
 	}
@@ -65,7 +63,6 @@ void ClipBoard::copy(Signal &signal, const QArray<unsigned int> &track_list,
 	// append the track to the buffer
 	m_buffer.append(t);
     }
-    debug("ClipBoard::copy(): done.");
 }
 
 //***************************************************************************

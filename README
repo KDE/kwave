@@ -32,8 +32,7 @@ It's quite simple. First get the source archive, unpack it under your
 favorite source-code directory (or under /tmp), change to this directory
 and then type:
 
-export KDEDIR=/opt/kde2
-export QTDIR=/usr/lib/qt2
+export QTDIR=/usr/lib/qt2   (normally not necessary)
 make -f Makefile.dist
 make
 make install
@@ -63,8 +62,7 @@ Installing the rpm package normally requires root permissions.
 Simply get the source archive (for example kwave-0.6.2.tar.gz) and
 then type:
 
-export QTDIR=/usr/lib/qt2
-export KDEDIR=/opt/kde2
+export QTDIR=/usr/lib/qt2   (normally not necessary)
 rpm -ta kwave-0.6.2.tar.gz
 
 If you want to build for a different architecture than your current, you
@@ -80,8 +78,7 @@ compiles for pentium architecture.
 Assuming that you already have unpacked the source archive in some
 directory you can simply type
 
-export QTDIR=/usr/lib/qt2
-export KDEDIR=/opt/kde2
+export QTDIR=/usr/lib/qt2   (normally not necessary)
 make -f Makefile.dist
 make src.rpm          (and you get only a source rpm)
 ***OR***

@@ -1320,13 +1320,12 @@
 	them to the &kapp; <link linkend="mailing-list">mailing list</link>.
     </para>
     <note><para>
-	If you have a system with Qt-1 and/or KDE-1 you might get
+	If you have a system with old Qt-1 libraries you might get
 	problems when compiling. Then you should set the following
-	environment variables to specify the correct paths of your
-	Qt and KDE2 installation and try again:
+	environment variable to specify the correct paths of your
+	Qt installation and try again:
 <screen width="30" format="linespecific">
 <prompt> % </prompt><command>export QTDIR=/usr/lib/qt2</command>
-<prompt>% </prompt><command>export KDEDIR=/opt/kde2</command>
 </screen>
     </para></note>
 
@@ -1610,7 +1609,9 @@
 	This modifies the path where the program is installed and
 	it is strongly recommended that this is a directory that is
 	contained in the <symbol>KDEDIRS</symbol> environment variable,
-	otherwise &kapp;
+	or the directory that the shell command
+	<command>kde-config --prefix</command> returns.
+	Otherwise &kapp;
 	would be unable to find it's menu configuration, plugins,
 	preset files and so on...
     </para>

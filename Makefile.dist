@@ -19,5 +19,5 @@ all:
 	autoconf
 	-touch -c doc/help_de.po
 	-touch -c doc/help_de.docbook
-	./configure ${CONFIGURE_OPTS} --enable-debug=yes
+	KDEDIR=$(shell kde-config --prefix) ./configure ${CONFIGURE_OPTS} --enable-debug=yes
 	# now you can run "make"

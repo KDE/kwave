@@ -23,6 +23,7 @@
 #include <qobject.h>
 #include "mt/Mutex.h"
 #include "mt/Asynchronous_Object.h"
+#include "mt/SignalProxy.h"
 
 class KwavePlugin;
 class MultiTrackReader;
@@ -265,16 +266,17 @@ protected:
      * For internal usage only!
      */
     void *handle();
-        	
+
+    /** emits a sigCommand() */
+    void emitCommand(const QString &command);
+
 signals:
-    void sigParentWidgetDestroyed();
-
-    void sigDataChanged(int channel, unsigned int first, unsigned int last);
-
-    void sigCommand(const char *command);
 
     /** will be emitted in the plugin's destructor */
     void sigClosed(KwavePlugin *p, bool remove);
+
+    /** */
+    void sigCommand(const QString &command);
 
 public slots:
 

@@ -79,6 +79,14 @@ public:
      */
     void closeSignal();
 
+    /**
+     * Forwards information for creation of a new signal to the
+     * signal widget and then to the signal manager.
+     * @see TopWidget::newSignal
+     */
+    void newSignal(unsigned int samples, double rate,
+                   unsigned int bits, unsigned int tracks);
+
     /** Returns the current zoom factor. */
     double zoom();
 

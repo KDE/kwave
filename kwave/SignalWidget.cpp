@@ -266,8 +266,6 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	selectRange(m_offset, pixels2samples(m_width) - 1);
     CASE_COMMAND("selectnone")
 	selectRange(m_offset, 0);
-//    CASE_COMMAND("selectrange")
-//	selectRange();
     } else return false;
 
     return true;
@@ -321,13 +319,6 @@ bool SignalWidget::executeCommand(const QString &command)
 //    debug("SignalWidget::executeCommand(%s)", command.data());    // ###
 
     if (false) {
-////    CASE_COMMAND("dialog")
-////	Parser parser(command);
-////	const char *name = parser.getFirstParam();
-////	debug("SignalWidget::executeCommand(): loading dialog %s", name);
-////	showDialog(name);
-    CASE_COMMAND("newsignal")
-	createSignal(command);
     } else if (executeNavigationCommand(command)) {
 	return true;
     } else {
@@ -335,71 +326,6 @@ bool SignalWidget::executeCommand(const QString &command)
     };
 
     return true;
-}
-
-//////**********************************************************
-////void SignalWidget::showDialog(const char *name)
-////{
-////    debug("SignalWidget::showDialog(%s)", name);
-////    int length = 0;
-////    int rate = 44100;
-////    int channels = 0;
-////    if (signalmanage) length = signalmanage->getLength ();
-////    if (signalmanage) rate = signalmanage->getRate ();
-////    if (signalmanage) channels = signalmanage->channels();
-////
-////    DialogOperation *operation =
-////	new DialogOperation(&globals, length, rate, channels, true);
-////    ASSERT(operation);
-////
-////    if (operation) {
-////	Dialog *dialog = DynamicLoader::getDialog(name, operation);
-////	if (dialog) {
-////	    connect(dialog, SIGNAL(command(const char*)),
-////		    this, SLOT(forwardCommand(const char *)));
-////	    // ### dialog->show();
-////	    dialog->exec();
-////	    delete dialog;
-////	} else debug ("error: could not get dialog !\n");
-////
-////	delete operation;
-////    }
-////}
-
-//***************************************************************************
-void SignalWidget::playback_startTimer()
-{
-}
-
-//***************************************************************************
-void SignalWidget::selectRange()
-{
-
-// >>> should be converted to a v2 plugin <<<
-
-////    ASSERT(signalmanage);
-////    if (!signalmanage) return;
-////    if (!tracks()) return ;
-////
-////    int rate = signalmanage->getRate();
-////
-////    Dialog *dialog = DynamicLoader::getDialog
-////		     ("time", new DialogOperation (rate, true));
-////    ASSERT(dialog);
-////    if (!dialog) return ;
-////
-////    if ( dialog->exec() != 0 ) {
-////	int l = signalmanage->getLMarker();
-////
-////	Parser parser(dialog->getCommand());
-////	int len = ms2samples( parser.toDouble() );
-////	int siglen = signalmanage->getLength();
-////
-////	if ((l + len - 1) >= siglen)
-////	    selectRange(l, siglen - 1);    //overflow check
-////	else
-////	    selectRange(l, l + len - 1);
-////    }
 }
 
 //***************************************************************************
@@ -450,49 +376,6 @@ SignalManager &SignalWidget::signalManager()
 }
 
 //***************************************************************************
-void SignalWidget::createSignal(const char */*str*/)
-{
-//    closeSignal();
-//
-//    Parser parser (str);
-//
-//    int rate = parser.toInt();
-//    double ms = parser.toDouble();
-//
-//    int numsamples = (int)(ms * rate / 1000);
-//
-//    if (signalmanage) delete signalmanage;
-//
-//////    ASSERT(labels);
-//////    if (labels) labels->clear ();
-//    m_offset = 0;
-//
-//    signalmanage = new SignalManager(numsamples, rate, 1);
-//    if (signalmanage) {
-//	connectSignal();
-//	selectRange(0, 0);
-//	zoomAll();
-//	emit sigChannelAdded(0);;
-//    }
-}
-
-//***************************************************************************
-void SignalWidget::setSignal(SignalManager */*sigs*/)
-{
-//    closeSignal();
-//    if (!sigs) return ;
-//
-//    signalmanage = sigs;
-//    m_offset = 0;
-//    if ((signalmanage) && (signalmanage->getLength())) {
-//	connectSignal();
-//	zoomAll();
-//	for (unsigned int i=0; i < signalmanage->channels(); i++)
-//	    emit sigChannelAdded(i);
-//    }
-}
-
-//***************************************************************************
 void SignalWidget::loadFile(const QString &filename, int type)
 {
     // close the previous signal
@@ -507,6 +390,14 @@ void SignalWidget::loadFile(const QString &filename, int type)
 	close();
 	return ;
     }
+}
+
+//***************************************************************************
+void SignalWidget::newSignal(unsigned int samples, double rate,
+                             unsigned int bits, unsigned int tracks)
+{
+    close();
+    m_signal_manager.newSignal(samples,rate,bits,tracks);
 }
 
 //***************************************************************************

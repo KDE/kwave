@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 "
 "21:27+0200PO-Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2001-07-16 20:09+0200\n"
-"PO-Revision-Date: 2001-07-16 20:09+GMT\n"
+"POT-Creation-Date: 2001-07-20 19:17+0200\n"
+"PO-Revision-Date: 2001-07-20 19:17+GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -123,44 +123,40 @@ msgstr "Datei existiert nicht!"
 msgid "File is no RIFF File !"
 msgstr "Datei ist nicht im RIFF-Format!"
 
-#: kwave/SignalManager.cpp:755
-msgid "File has incorrect length! (maybe truncated?)"
-msgstr "Datei hat ungültige Länge (wurde evtl. abgeschnitten?)"
-
-#: kwave/SignalManager.cpp:763
+#: kwave/SignalManager.cpp:764
 msgid "File is no WAVE File !"
 msgstr "Datei ist nicht im Wave Format!"
 
-#: kwave/SignalManager.cpp:774
+#: kwave/SignalManager.cpp:775
 msgid "File does not contain format information!"
 msgstr "Datei ist unvollständig!"
 
-#: kwave/SignalManager.cpp:789
+#: kwave/SignalManager.cpp:790
 msgid "File must be uncompressed (Mode 1) !"
 msgstr "Datei ist nicht im unkompimierten Modus (Mode 1) !"
 
-#: kwave/SignalManager.cpp:801
+#: kwave/SignalManager.cpp:802
 msgid "File does not contain data!"
 msgstr "Datei enthält keine Daten!"
 
-#: kwave/SignalManager.cpp:821 kwave/SignalManager.cpp:1077
+#: kwave/SignalManager.cpp:822 kwave/SignalManager.cpp:1081
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
 
-#: kwave/SignalManager.cpp:946 kwave/SignalManager.cpp:1183
-#: kwave/SignalManager.cpp:1190
+#: kwave/SignalManager.cpp:947 kwave/SignalManager.cpp:1186
+#: kwave/SignalManager.cpp:1193
 msgid "Out of Memory!"
 msgstr "Zu wenig Speicher!"
 
-#: kwave/SignalManager.cpp:1028
+#: kwave/SignalManager.cpp:1032
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: kwave/SignalManager.cpp:1035
+#: kwave/SignalManager.cpp:1039
 msgid "Opening the file for writing failed!"
 msgstr "Datei konnte nicht zum Schreiben geöffnet werden!"
 
-#: kwave/SignalManager.cpp:1170
+#: kwave/SignalManager.cpp:1173
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
@@ -168,7 +164,7 @@ msgstr ""
 "Fehler in Eingabe: Datei ist kleiner als im Header angegeben. \n"
 "Datei wird abgeschnitten."
 
-#: kwave/SignalManager.cpp:1420
+#: kwave/SignalManager.cpp:1423
 #, ycp-format
 msgid ""
 "The operation '%1' requires more than %2 MB for storing undo data.\n"
@@ -178,41 +174,41 @@ msgstr ""
 "Wiederherstellungs-\n"
 "informationen. Dies würde das Limit von %3 MB überschreiten."
 
-#: kwave/SignalManager.cpp:1424
+#: kwave/SignalManager.cpp:1427
 msgid "You can now either press:"
 msgstr "Drücken Sie bitte:"
 
-#: kwave/SignalManager.cpp:1427
+#: kwave/SignalManager.cpp:1430
 msgid "Allow"
 msgstr "Erlauben"
 
-#: kwave/SignalManager.cpp:1428
+#: kwave/SignalManager.cpp:1431
 msgid "to continue without the possibility to undo, or"
 msgstr "um ohne Möglichkeit zur Wiederherstellung fortzusetzen, oder"
 
-#: kwave/SignalManager.cpp:1430
+#: kwave/SignalManager.cpp:1433
 msgid "Ignore"
 msgstr "Ignorieren"
 
-#: kwave/SignalManager.cpp:1431
+#: kwave/SignalManager.cpp:1434
 msgid "to continue, discard all previous undo data and ignore the memory limit"
 msgstr ""
 "um fortzusetzen, alle vorherigen Wiederherstellungsinformationen zu "
 "verwerfen und das Limit zu ignorieren"
 
-#: kwave/SignalManager.cpp:1437
+#: kwave/SignalManager.cpp:1440
 msgid "to abort the current operation."
 msgstr "um den aktuellen Vorgang abzubrechen."
 
-#: kwave/SignalManager.cpp:1452
+#: kwave/SignalManager.cpp:1455
 msgid "&Allow"
 msgstr "&Erlauben"
 
-#: kwave/SignalManager.cpp:1453
+#: kwave/SignalManager.cpp:1456
 msgid "&Ignore"
 msgstr "&Ignorieren"
 
-#: kwave/SignalManager.cpp:1568 kwave/SignalManager.cpp:1575
+#: kwave/SignalManager.cpp:1571 kwave/SignalManager.cpp:1578
 msgid "last action"
 msgstr "letzte Aktion"
 
@@ -300,7 +296,8 @@ msgstr "Bereit."
 #: kwave/TopWidget.cpp:803
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr ""
+"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: kwave/TopWidget.cpp:879
 #, c-format, ycp-format
@@ -996,11 +993,11 @@ msgstr "Leistung in %:"
 
 #: plugins/addsynth/module.cpp:238
 msgid "Frequency"
-msgstr "&Frequenzen"
+msgstr "Frequenzen"
 
 #: plugins/addsynth/module.cpp:242
 msgid "Calculate"
-msgstr "&Berechne"
+msgstr "Berechne"
 
 #: plugins/addsynth/module.cpp:267 plugins/filter/module.cpp:70
 msgid "# of :"
@@ -1283,7 +1280,7 @@ msgstr "Fensterfunktion :"
 msgid "Choose New Rate :"
 msgstr "Neue Rate :"
 
-#: plugins/newsignal/module.cpp:26 plugins/rate/module.cpp:24
+#: plugins/rate/module.cpp:24
 msgid "Rate in Hz :"
 msgstr "Rate in Hz :"
 
@@ -1291,7 +1288,7 @@ msgstr "Rate in Hz :"
 msgid "Enter length :"
 msgstr "Länge eingeben:"
 
-#: plugins/newsignal/module.cpp:22 plugins/time/module.cpp:20
+#: plugins/time/module.cpp:20
 msgid "Time :"
 msgstr "Zeit :"
 
@@ -1336,7 +1333,7 @@ msgstr "Datei %s existiert nicht!\n"
 msgid "About Kwave"
 msgstr "Über Kwave..."
 
-#: plugins/delay/module.cpp:24 plugins/newsignal/module.cpp:21
+#: plugins/delay/module.cpp:24
 msgid "Choose Length and Rate :"
 msgstr "Länge und Rate wählen :"
 
@@ -1369,9 +1366,38 @@ msgstr "Marker zur Aufteilung des Signals wählen:"
 msgid "Base name:"
 msgstr "Basisname:"
 
-#: plugins/saveblock/module.cpp:33
+#: plugins/memory/MemoryDialog.uic.cpp:143 plugins/saveblock/module.cpp:33
 msgid "Directory:"
 msgstr "Verzeichnis:"
+
+#: plugins/memory/MemoryDialog.uic.cpp:37
+msgid "Memory Settings"
+msgstr "Speicher Einstellungen"
+
+#: plugins/memory/MemoryDialog.uic.cpp:44
+msgid "System Memory"
+msgstr "Arbeitsspeicher"
+
+#: plugins/memory/MemoryDialog.uic.cpp:59
+#: plugins/memory/MemoryDialog.uic.cpp:109
+msgid "Limit to (Megabytes)"
+msgstr "Begrenzen auf (Megabytes)"
+
+#: plugins/memory/MemoryDialog.uic.cpp:88
+msgid "Virtual Memory"
+msgstr "Auslagerungsdateien"
+
+#: plugins/memory/MemoryDialog.uic.cpp:99
+msgid "enable usage of virtual Memory"
+msgstr "Auslagerungsdateien aktivieren"
+
+#: plugins/memory/MemoryDialog.uic.cpp:154
+msgid "Search..."
+msgstr "Suchen..."
+
+#: plugins/memory/MemoryDialog.uic.cpp:155
+msgid "choose a directory for the temporary files"
+msgstr "Verzeichnis für Auslagerungsdateien auswählen"
 
 #: plugins/movingaverage/module.cpp:25
 msgid "Choose Parameters :"
@@ -1581,6 +1607,137 @@ msgstr "Typ der Interpolation :"
 msgid "Points are taken %d.%01d times/s"
 msgstr "%d.%01d Abtastungen / Sekunde"
 
+#: plugins/newsignal/NewSignalDialog.cpp:209
+msgid "(Mono)"
+msgstr "(Mono)"
+
+#: plugins/newsignal/NewSignalDialog.cpp:212
+msgid "(Stereo)"
+msgstr "(Stereo)"
+
+#: plugins/newsignal/NewSignalDialog.cpp:215
+msgid "(Quadro)"
+msgstr "(Quadro)"
+
+#: plugins/newsignal/NewSignalDialog.cpp:241
+#, ycp-format
+msgid "(Resulting file size: %1 MB)"
+msgstr "(Resultierende Dateigröße: %1 MB)"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:37
+msgid "New File..."
+msgstr "Neue Datei..."
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:43
+msgid "Format"
+msgstr "Format"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:53
+msgid "8000"
+msgstr "8000"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:54
+msgid "10000"
+msgstr "10000"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:55
+msgid "11025"
+msgstr "11025"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:56
+msgid "12000"
+msgstr "12000"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:57
+msgid "16000"
+msgstr "16000"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:58
+msgid "22050"
+msgstr "22050"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:59
+msgid "32000"
+msgstr "32000"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:60
+msgid "44100"
+msgstr "44100"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:61
+msgid "48000"
+msgstr "48000"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:62
+msgid "96000"
+msgstr "96000"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:69
+msgid "Sample Rate:"
+msgstr "Abtastrate:"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:84
+msgid "samples per second"
+msgstr "Samples pro Sekunde"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:92
+msgid "Tracks:"
+msgstr "Stimmen: "
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:97
+msgid "Resolution:"
+msgstr "Auflösung:"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:106
+msgid "bit"
+msgstr "Bit"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:118
+#: plugins/newsignal/NewSigDlg.uic.cpp:282
+#, c-format, ycp-format
+msgid "%1"
+msgstr "%1"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:132
+msgid "8"
+msgstr "8"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:133
+msgid "16"
+msgstr "16"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:134
+msgid "24"
+msgstr "24"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:141
+msgid "Length"
+msgstr "Länge"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:182
+msgid "Hours"
+msgstr "Stunden"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:196
+msgid "Minutes"
+msgstr "Minuten"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:214
+msgid "Seconds"
+msgstr "Sekunden"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:233
+msgid "Samples"
+msgstr "Samples"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:248
+msgid "Time"
+msgstr "Zeit"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:305
+msgid "O&K"
+msgstr "O&K"
+
 #: plugins/gap/module.cpp:23
 msgid "Set Length of Gap & Signal"
 msgstr "Länge der Lücke und des Signals wählen"
@@ -1629,4 +1786,3 @@ msgstr "Stille"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
-

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-07-16 20:09+0200\n"
+"POT-Creation-Date: 2001-07-20 19:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,89 +126,85 @@ msgstr ""
 msgid "File is no RIFF File !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:755
-msgid "File has incorrect length! (maybe truncated?)"
-msgstr ""
-
-#: kwave/SignalManager.cpp:763
+#: kwave/SignalManager.cpp:764
 msgid "File is no WAVE File !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:774
+#: kwave/SignalManager.cpp:775
 msgid "File does not contain format information!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:789
+#: kwave/SignalManager.cpp:790
 msgid "File must be uncompressed (Mode 1) !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:801
+#: kwave/SignalManager.cpp:802
 msgid "File does not contain data!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:821 kwave/SignalManager.cpp:1077
+#: kwave/SignalManager.cpp:822 kwave/SignalManager.cpp:1081
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:946 kwave/SignalManager.cpp:1183
-#: kwave/SignalManager.cpp:1190
+#: kwave/SignalManager.cpp:947 kwave/SignalManager.cpp:1186
+#: kwave/SignalManager.cpp:1193
 msgid "Out of Memory!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1028
+#: kwave/SignalManager.cpp:1032
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1035
+#: kwave/SignalManager.cpp:1039
 msgid "Opening the file for writing failed!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1170
+#: kwave/SignalManager.cpp:1173
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
 msgstr ""
 
-#: kwave/SignalManager.cpp:1420
+#: kwave/SignalManager.cpp:1423
 #, ycp-format
 msgid ""
 "The operation '%1' requires more than %2 MB for storing undo data.\n"
 "This would exceed the limit of %3 MB."
 msgstr ""
 
-#: kwave/SignalManager.cpp:1424
+#: kwave/SignalManager.cpp:1427
 msgid "You can now either press:"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1427
+#: kwave/SignalManager.cpp:1430
 msgid "Allow"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1428
+#: kwave/SignalManager.cpp:1431
 msgid "to continue without the possibility to undo, or"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1430
+#: kwave/SignalManager.cpp:1433
 msgid "Ignore"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1431
+#: kwave/SignalManager.cpp:1434
 msgid "to continue, discard all previous undo data and ignore the memory limit"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1437
+#: kwave/SignalManager.cpp:1440
 msgid "to abort the current operation."
 msgstr ""
 
-#: kwave/SignalManager.cpp:1452
+#: kwave/SignalManager.cpp:1455
 msgid "&Allow"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1453
+#: kwave/SignalManager.cpp:1456
 msgid "&Ignore"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1568 kwave/SignalManager.cpp:1575
+#: kwave/SignalManager.cpp:1571 kwave/SignalManager.cpp:1578
 msgid "last action"
 msgstr ""
 
@@ -1236,7 +1232,7 @@ msgstr ""
 msgid "Choose New Rate :"
 msgstr ""
 
-#: plugins/newsignal/module.cpp:26 plugins/rate/module.cpp:24
+#: plugins/rate/module.cpp:24
 msgid "Rate in Hz :"
 msgstr ""
 
@@ -1244,7 +1240,7 @@ msgstr ""
 msgid "Enter length :"
 msgstr ""
 
-#: plugins/newsignal/module.cpp:22 plugins/time/module.cpp:20
+#: plugins/time/module.cpp:20
 msgid "Time :"
 msgstr ""
 
@@ -1289,7 +1285,7 @@ msgstr ""
 msgid "About Kwave"
 msgstr ""
 
-#: plugins/delay/module.cpp:24 plugins/newsignal/module.cpp:21
+#: plugins/delay/module.cpp:24
 msgid "Choose Length and Rate :"
 msgstr ""
 
@@ -1322,8 +1318,37 @@ msgstr ""
 msgid "Base name:"
 msgstr ""
 
-#: plugins/saveblock/module.cpp:33
+#: plugins/memory/MemoryDialog.uic.cpp:143 plugins/saveblock/module.cpp:33
 msgid "Directory:"
+msgstr ""
+
+#: plugins/memory/MemoryDialog.uic.cpp:37
+msgid "Memory Settings"
+msgstr ""
+
+#: plugins/memory/MemoryDialog.uic.cpp:44
+msgid "System Memory"
+msgstr ""
+
+#: plugins/memory/MemoryDialog.uic.cpp:59
+#: plugins/memory/MemoryDialog.uic.cpp:109
+msgid "Limit to (Megabytes)"
+msgstr ""
+
+#: plugins/memory/MemoryDialog.uic.cpp:88
+msgid "Virtual Memory"
+msgstr ""
+
+#: plugins/memory/MemoryDialog.uic.cpp:99
+msgid "enable usage of virtual Memory"
+msgstr ""
+
+#: plugins/memory/MemoryDialog.uic.cpp:154
+msgid "Search..."
+msgstr ""
+
+#: plugins/memory/MemoryDialog.uic.cpp:155
+msgid "choose a directory for the temporary files"
 msgstr ""
 
 #: plugins/movingaverage/module.cpp:25
@@ -1524,6 +1549,137 @@ msgstr ""
 #: plugins/envelope/module.cpp:70
 #, c-format
 msgid "Points are taken %d.%01d times/s"
+msgstr ""
+
+#: plugins/newsignal/NewSignalDialog.cpp:209
+msgid "(Mono)"
+msgstr ""
+
+#: plugins/newsignal/NewSignalDialog.cpp:212
+msgid "(Stereo)"
+msgstr ""
+
+#: plugins/newsignal/NewSignalDialog.cpp:215
+msgid "(Quadro)"
+msgstr ""
+
+#: plugins/newsignal/NewSignalDialog.cpp:241
+#, ycp-format
+msgid "(Resulting file size: %1 MB)"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:37
+msgid "New File..."
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:43
+msgid "Format"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:53
+msgid "8000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:54
+msgid "10000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:55
+msgid "11025"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:56
+msgid "12000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:57
+msgid "16000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:58
+msgid "22050"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:59
+msgid "32000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:60
+msgid "44100"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:61
+msgid "48000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:62
+msgid "96000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:69
+msgid "Sample Rate:"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:84
+msgid "samples per second"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:92
+msgid "Tracks:"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:97
+msgid "Resolution:"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:106
+msgid "bit"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:118
+#: plugins/newsignal/NewSigDlg.uic.cpp:282
+#, c-format, ycp-format
+msgid "%1"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:132
+msgid "8"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:133
+msgid "16"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:134
+msgid "24"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:141
+msgid "Length"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:182
+msgid "Hours"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:196
+msgid "Minutes"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:214
+msgid "Seconds"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:233
+msgid "Samples"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:248
+msgid "Time"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:305
+msgid "O&K"
 msgstr ""
 
 #: plugins/gap/module.cpp:23

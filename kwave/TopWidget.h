@@ -254,6 +254,16 @@ protected:
     void saveFileAs(bool selection = false);
 
     /**
+     * Closes the current file and creates a new empty signal.
+     * @param samples number of samples per track
+     * @param rate sample rate
+     * @param bits number of bits per sample
+     * @param tracks number of tracks
+     */
+    void newSignal(unsigned int samples, double rate,
+                   unsigned int bits, unsigned int tracks);
+
+    /**
      * Like saveFileAs(), but saves in ASCII format. */
     void exportAsciiFile();
 

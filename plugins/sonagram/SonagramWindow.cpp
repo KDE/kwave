@@ -24,7 +24,6 @@
 #include <qlayout.h>
 #include <qtimer.h>
 
-#include <klocale.h>
 #include <kmenubar.h>
 #include <kfiledialog.h>
 

@@ -66,17 +66,16 @@ QMap<QString, QString> PluginManager::m_plugin_files;
 
 //****************************************************************************
 PluginManager::PluginManager(TopWidget &parent)
-    :m_top_widget(parent)
+    :m_spx_name_changed(this, SLOT(emitNameChanged())),
+     m_spx_command(this, SLOT(forwardCommand())),
+     m_top_widget(parent)
 {
-    m_spx_name_changed = new SignalProxy1<const QString>(
-	this, SLOT(emitNameChanged()));
-    ASSERT(m_spx_name_changed);
 }
 
 //****************************************************************************
 bool PluginManager::isOK()
 {
-    return (m_spx_name_changed);
+    return true;
 }
 
 //****************************************************************************
@@ -470,6 +469,22 @@ PlaybackController &PluginManager::playbackController()
 }
 
 //***************************************************************************
+void PluginManager::enqueueCommand(const QString &command)
+{
+    m_spx_command.enqueue(command);
+}
+
+//***************************************************************************
+void PluginManager::forwardCommand()
+{
+    const QString *command = m_spx_command.dequeue();
+    if (command) {
+	m_top_widget.executeCommand(*command);
+	delete command;
+    }
+}
+
+//***************************************************************************
 void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
 {
     ASSERT(p);
@@ -525,10 +540,7 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
 //****************************************************************************
 void PluginManager::emitNameChanged()
 {
-    ASSERT(m_spx_name_changed);
-    if (!m_spx_name_changed) return;
-
-    const QString *name = m_spx_name_changed->dequeue();
+    const QString *name = m_spx_name_changed.dequeue();
     ASSERT(name);
     if (name) {
 	emit sigSignalNameChanged(*name);
@@ -539,9 +551,7 @@ void PluginManager::emitNameChanged()
 //****************************************************************************
 void PluginManager::setSignalName(const QString &name)
 {
-    ASSERT(m_spx_name_changed);
-    if (!m_spx_name_changed) return;
-    m_spx_name_changed->enqueue(name);
+    m_spx_name_changed.enqueue(name);
 }
 
 //***************************************************************************

@@ -71,7 +71,6 @@
 
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
-
 //***************************************************************************
 SignalManager::SignalManager(QWidget *parent)
     :QObject(),
@@ -136,6 +135,30 @@ void SignalManager::loadFile(const QString &filename, int type)
 
     // remember the last length
     m_last_length = length();
+
+    // from now on, undo is enabled
+    enableUndo();
+}
+
+//***************************************************************************
+void SignalManager::newSignal(unsigned int samples, double rate,
+                              unsigned int bits, unsigned int tracks)
+{
+    // disable undo (discards all undo/redo data)
+    disableUndo();
+
+    m_rate = (int)rint(rate);
+    m_signal.setBits(bits);
+
+    // now the signal is considered not to be empty
+    m_closed = false;
+    m_empty = false;
+
+    // add all empty tracks
+    while (tracks--) m_signal.appendTrack(samples);
+
+    // remember the last length
+    m_last_length = samples;
 
     // from now on, undo is enabled
     enableUndo();

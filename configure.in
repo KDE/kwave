@@ -299,3 +299,4 @@ AC_SUBST(LD_VERSION_INFO)
 dnl add here all your Makefiles
 dnl      (Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
 AC_OUTPUT(Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
+

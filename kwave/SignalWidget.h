@@ -93,6 +93,14 @@ public:
      */
     void loadFile(const QString  &filename, int type);
 
+    /**
+     * Forwards information for creation of a new signal to the
+     * signal manager.
+     * @see TopWidget::newSignal
+     */
+    void newSignal(unsigned int samples, double rate,
+                   unsigned int bits, unsigned int tracks);
+
     /** @todo (re)implementation */
     void saveFile(const QString &filename, unsigned int bits,
 		  int type, bool selection = false);
@@ -409,7 +417,6 @@ protected:
 //    void markSignal (const char *);
 //    void markPeriods (const char *);
 //    void savePeriods ();
-    void createSignal (const char *);
 
 //    bool executeLabelCommand(const QString &command);
 

@@ -20,7 +20,7 @@ INCLUDES= -I${topdir} `artsc-config --cflags` @all_includes@
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
 
-CXXFLAGS  = @CXXFLAGS@ 
+CXXFLAGS  = @CXXFLAGS@
 LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles -nostdlib
 
 MODDIR:=$(shell pwd)
@@ -35,14 +35,20 @@ uic_files	:= $(ui_files:.ui=.uic.cpp)
 h_files		:= $(shell find . ! -name \*.uih.h -name \*.h)
 h_files   	+= ${uih_files}
 cpp_sources 	:= $(shell find . ! -name \*.uic.cpp -name \*.cpp)
-cpp_sources	+= ${uic_files}
 
 moc_files	:= $(h_files:.h=.moc.cxx)
 
 OUT_FILES	:= $(cpp_sources:.cpp=.o)
+OUT_FILES	+= $(uic_files:.uic.cpp=.uic.o)
 OUT_FILES	+= $(h_files:.h=.moc.o)
 
-DEP_FILES	:= $(h_files:.h=.dm) $(cpp_sources:.cpp=.d)
+DEP_FILES	:= $(h_files:.h=.dm)
+DEP_FILES	+= $(cpp_sources:.cpp=.d)
+DEP_FILES	+= $(uic_sources:.cpp=.d)
+
+%.uic.o: %.uic.cpp
+	@echo plugin \"$(MODNAME)\": compiling dialog "'"$<"'"
+	@ @CXX@ $(CXXFLAGS) -Di18n\(x\)=QObject::tr\(x\) ${INCLUDES} -c $< -o $@
 
 %.o: %.cpp
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
@@ -55,11 +61,11 @@ DEP_FILES	:= $(h_files:.h=.dm) $(cpp_sources:.cpp=.d)
 
 %.uih.h: %.ui
 	@echo plugin \"$(MODNAME)\": generating header from $<
-	@ @UIC@ -o $@ $<
+	@ @UIC@ -o $@ -tr i18n $<
 
 %.uic.cpp: %.ui
 	@echo plugin \"$(MODNAME)\": generating implementation from $<
-	@ @UIC@ -o $@ -impl $*.uih.h $<
+	@ @UIC@ -o $@ -tr i18n -impl $*.uih.h $<
 
 %.d: %.cpp
 	@echo plugin \"$(MODNAME)\": making dependencies for $<

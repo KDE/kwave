@@ -315,6 +315,14 @@ void MainWidget::closeSignal()
 }
 
 //***************************************************************************
+void MainWidget::newSignal(unsigned int samples, double rate,
+                           unsigned int bits, unsigned int tracks)
+{
+    closeSignal();
+    m_signal_widget.newSignal(samples, rate, bits, tracks);
+}
+
+//***************************************************************************
 void MainWidget::forwardZoomChanged(double zoom)
 {
     emit sigZoomChanged(zoom);

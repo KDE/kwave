@@ -96,6 +96,7 @@
 #define STATUS_ID_MODE     2 /**< index of status item for mode */
 #define STATUS_ID_SELECTED 3 /**< index of status item for selection */
 
+#define NEW_FILENAME i18n("New File")
 
 //***************************************************************************
 //***************************************************************************
@@ -566,6 +567,12 @@ void TopWidget::executeCommand(const QString &command)
     CASE_COMMAND("menu")
 	ASSERT(m_menu_manager);
 	if (m_menu_manager) m_menu_manager->executeCommand(command);
+    CASE_COMMAND("newsignal");
+	unsigned int samples = parser.toUInt();
+	double       rate    = parser.toDouble();
+	unsigned int bits    = parser.toUInt();
+	unsigned int tracks  = parser.toUInt();
+	newSignal(samples, rate, bits, tracks);
     CASE_COMMAND("open")
 	openFile();
     CASE_COMMAND("openrecent")
@@ -766,7 +773,7 @@ void TopWidget::saveFile()
     ASSERT(m_main_widget);
     if (!m_main_widget) return;
 
-    if (m_filename.length()) {
+    if (m_filename.length() && (m_filename != NEW_FILENAME)) {
 	QFileInfo path(m_filename);
 	KwaveApp::setDefaultSaveDir(path.dirPath());
 	
@@ -813,6 +820,24 @@ void TopWidget::saveFileAs(bool selection)
 	m_app.addRecentFile(m_filename);
 	updateMenu();
     }
+}
+
+//***************************************************************************
+void TopWidget::newSignal(unsigned int samples, double rate,
+                          unsigned int bits, unsigned int tracks)
+{
+    // abort if the user pressed cancel
+    if (!closeFile()) return;
+
+    m_filename = NEW_FILENAME;
+    emit sigSignalNameChanged(m_filename);
+
+    m_main_widget->newSignal(samples, rate, bits, tracks);
+
+    setCaption(m_filename);
+    m_save_bits = bits;
+    updateMenu();
+    updateToolbar();
 }
 
 //***************************************************************************

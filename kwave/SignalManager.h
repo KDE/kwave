@@ -60,6 +60,16 @@ public:
     void loadFile(const QString &filename, int type = 0);
 
     /**
+     * Closes the current signal and creates a new empty signal.
+     * @param samples number of samples per track
+     * @param rate sample rate
+     * @param bits number of bits per sample
+     * @param tracks number of tracks
+     */
+    void newSignal(unsigned int samples, double rate,
+                   unsigned int bits, unsigned int tracks);
+
+    /**
      * Closes the current signal.
      */
     void close();

@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #ifndef _PLUGIN_MANAGER_H_
-#define _PLUGIN_MANAGER_H_ 1
+#define _PLUGIN_MANAGER_H_
 
 #include <qobject.h>
 #include <qarray.h>
@@ -172,6 +172,12 @@ public:
     PlaybackController &playbackController();
 
     /**
+     * Enqueues a command that will be processed threadsafe in the X11
+     * thread. Calls m_spx_command.enqueue().
+     */
+    void enqueueCommand(const QString &command);
+
+    /**
      * Searches the standard KDE data directories for plugins (through
      * the KDE's standard search algorithm) and creates a map of
      * plugin names and file names. First it collects a list of
@@ -214,8 +220,15 @@ public slots:
     void setSignalName(const QString &name);
 
 private slots:
+
     /** emits sigSignalNameChanged to the plugins (threadsafe) */
     void emitNameChanged();
+
+    /**
+     * de-queues a command from m_spx_command and executes it
+     * through the toplevel widget.
+     */
+    void forwardCommand();
 
 private:
 
@@ -259,7 +272,10 @@ private:
     void disconnectPlugin(KwavePlugin *plugin);
 
     /** threadsafe signal proxy for setSignalName / sigSignalNameChanged */
-    SignalProxy1<const QString> *m_spx_name_changed;
+    SignalProxy1<const QString> m_spx_name_changed;
+
+    /** threadsafe proxy for sigCommand() */
+    SignalProxy1<const QString> m_spx_command;
 
     /** map for finding plugin files through their name */
     static QMap<QString, QString> m_plugin_files;
@@ -271,4 +287,4 @@ private:
     TopWidget &m_top_widget;
 };
 
-#endif // _PLUGIN_MANAGER_H_
+#endif /* _PLUGIN_MANAGER_H_ */

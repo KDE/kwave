@@ -49,7 +49,9 @@
 
 //***************************************************************************
 KwavePlugin::KwavePlugin(PluginContext &c)
-    :m_context(c), m_thread(0)
+    :m_context(c),
+     m_thread(0),
+     m_thread_lock()
 {
     m_thread_lock.setName("KwavePlugin");
 }
@@ -315,6 +317,12 @@ QString KwavePlugin::ms2string(double ms)
 
     QString result(buf);
     return result;
+}
+
+//***************************************************************************
+void KwavePlugin::emitCommand(const QString &command)
+{
+    manager().enqueueCommand(command);
 }
 
 //***************************************************************************

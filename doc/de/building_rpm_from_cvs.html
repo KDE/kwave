@@ -1,0 +1,639 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Erstellung eines RPM Paketes aus dem CVS-Archiv</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.61
+"><LINK
+REL="HOME"
+TITLE="Das Kwave Handbuch"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation"
+HREF="installation.html"><LINK
+REL="PREVIOUS"
+TITLE="Erstellung von RPM-Paketen aus tar.gz-Archiven"
+HREF="building_rpm_from_targz.html"><LINK
+REL="NEXT"
+TITLE="Installation des Binary-RPM-Paketes auf anderen Distributionen"
+HREF="relocating_rpm.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="de"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-Deutsch"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/international/germany/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="Das K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Das <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Handbuch</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="building_rpm_from_targz.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Kapitel 2. Installation</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="relocating_rpm.html"
+>Vor</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="BUILDING_RPM_FROM_CVS"
+>2.5. Erstellung eines RPM Paketes aus dem CVS-Archiv</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CVS_CHECKOUT"
+>2.5.1. Abrufen der Quellen</A
+></H2
+><P
+>    	Beim erstmaligen Abrufen der Quellen brauchen sie etwas 
+    	Festplattenspeicher (um 15 Megabytes) in einem Verzeichnis ihrer
+    	Wahl, das cvs Paket ihrer bevorzugten Distribution und vollen
+    	Zugang zum Internet. Wenn sie Fehlermeldungen über abgelehnte
+    	Verbindungen erhalten, haben sie entweder etwas falsches
+    	eingegeben oder ihr Provider gestattet ihnen nicht den vollen
+    	Zugriff. Ein guter Platz für die Quelldateien ist 
+    	<TT
+CLASS="FILENAME"
+>"$HOME/src"</TT
+>.
+    </P
+><OL
+TYPE="1"
+><LI
+><P
+>	Als erstes erstellen sie das Verzeichnis, welches die Unterverzeichnisse
+	von libkwave und kwave erhalten wird und wechseln in dieses:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>mkdir -p <TT
+CLASS="REPLACEABLE"
+><I
+>$HOME/src</I
+></TT
+></B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cd <TT
+CLASS="REPLACEABLE"
+><I
+>$HOME/src</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></LI
+><LI
+><P
+>	Dann loggen sie sich in den CVS Server ein. Ich vermutete, sie wollen
+	dies als normaler Benutzer tun, deshalb loggen sich sich als
+	anonymous ein:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave login</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	Dann fragt sie der Server nach einem Passwort. Da wir kein Passwort für
+	anonymen Zugriff haben, drücken sie einfach die Enter-Taste.
+    </P
+></LI
+><LI
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cvs -z3 -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave co libkwave</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></LI
+><LI
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cvs -z3 -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave co kwave</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></LI
+></OL
+><DIV
+CLASS="WARNING"
+><TABLE
+CLASS="WARNING"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/warning.png"
+HSPACE="5"
+ALT="Warnung"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	Es sollte <I
+CLASS="EMPHASIS"
+>kein</I
+> Verzeichnis mit dem Namen <TT
+CLASS="FILENAME"
+>libkwave</TT
+>
+	oder <TT
+CLASS="FILENAME"
+>kwave</TT
+> unter dem CVS-Verzeichnis existieren.
+	Ansonsten würde sich das cvs Programm über bereits existierende
+	Dateien beschweren und der Zugriff würde nicht funktionieren.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CVS_UPDATE"
+>2.5.2. Aktualisierung der Quellen mittels CVS</A
+></H2
+><P
+>	Die Prozedur, die im vorhergehenden Abschnitt beschrieben wurde, ist
+	nur einmal notwendig. Für weitere Aktualisierungen ist es wesentlich
+	einfacher. Wechseln sie einfach in das Verzeichnis, welches sie
+	aktualisieren wollen und machen sie folgendes:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>make distclean</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cvs update</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	Gehen sie dann zum nächsten Abschnitt über und compilieren wie gewöhnlich.
+    </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CVS_COMPILING"
+>2.5.3. Compilieren</A
+></H2
+><P
+>	Das Erstellen eines rpm Archives von einem CVS-Abbild ist recht einfach.
+	Die Prozedur ist beinahe die gleiche, wie im letzten Abschnitt beschrieben.
+	Deshalb existiert unglücklicherweise auch das gleiche Problem mit dem
+	<B
+CLASS="COMMAND"
+>rpm -ta</B
+> Befehl, den unsere Methode intern
+	benutzt.
+	Wie im vorhergehenden Kapitel steht <TT
+CLASS="REPLACEABLE"
+><I
+>[arch]</I
+></TT
+> für
+	die Plattform des zu erstellenden Paketes und sollte <TT
+CLASS="LITERAL"
+>i386</TT
+>, 
+	<TT
+CLASS="LITERAL"
+>i586</TT
+>, <TT
+CLASS="LITERAL"
+>sparc</TT
+> oder ähnliches sein. 
+	<TT
+CLASS="REPLACEABLE"
+><I
+>XXX</I
+></TT
+> steht für die Versionsnummer, die sie sich
+	besorgt haben.
+    </P
+><DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Anmerkung"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	
+	<I
+CLASS="EMPHASIS"
+>Hinweis für SuSE Benutzer: </I
+>
+	hier müssen sie auch das Verzeichnis <TT
+CLASS="FILENAME"
+>/usr/src/packages</TT
+>
+	anstelle von <TT
+CLASS="FILENAME"
+>/usr/src/redhat</TT
+> angeben!
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><OL
+TYPE="1"
+><LI
+><P
+>	    Zuerst erstellen und installieren sie das libkwave-Paket. Vorausgesetzt,
+	    sie befinden sich im Wurzelverzeichnis der CVS-Quellen, tun sie
+	    folgendes um eine Makefile und das libkwave Paket zu erstellen
+	    und zu installieren. Wenn sie bereits eine Version von libkwave
+	    installiert haben, entfernen sie diese zuerst oder benutzen
+	    <TT
+CLASS="LITERAL"
+>rpm -U</TT
+> anstelle von <TT
+CLASS="LITERAL"
+>rpm -i</TT
+>
+	    für die Aktualisierung anstelle einer Installation.
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cd libkwave</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>make -f Makefile.dist</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>./configure</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>make rpm</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -i /usr/src/redhat/BUILD/<TT
+CLASS="REPLACEABLE"
+><I
+>[arch]/libkwave-XXX.[arch].rpm</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>	Tun sie dasselbe mit dem <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Paket:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cd kwave</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>make -f Makefile.dist</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>./configure</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>make rpm</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -i /usr/src/redhat/BUILD/<TT
+CLASS="REPLACEABLE"
+><I
+>[arch]/kwave-XXX.[arch].rpm</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+></OL
+><DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Anmerkung"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	Wenn sie noch Probleme mit <B
+CLASS="COMMAND"
+>make rpm</B
+> haben,
+	nehmen sie die tar.gz 
+	Archive, die unter <TT
+CLASS="FILENAME"
+>/tmp</TT
+> erzeugt wurden.
+	Bitte folgen sie den Anweisungen im
+	<A
+HREF="building_rpm_from_targz.html#MANUAL_RPM_CREATION"
+>vorherigen</A
+> Kapitel.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="building_rpm_from_targz.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Anfang</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="relocating_rpm.html"
+>Vor</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Erstellung von RPM-Paketen aus tar.gz-Archiven</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="installation.html"
+>Hoch</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Installation des Binary-RPM-Paketes auf anderen Distributionen</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Kommandozeile</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.61
+"><LINK
+REL="HOME"
+TITLE="Das Kwave Handbuch"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Handhabung von Kwave"
+HREF="using-kapp.html"><LINK
+REL="PREVIOUS"
+TITLE="Drag and Drop"
+HREF="drag_and_drop.html"><LINK
+REL="NEXT"
+TITLE="Öffnen und Speichern von Dateien"
+HREF="open_and_save.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="de"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-Deutsch"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/international/germany/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="Das K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Das <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Handbuch</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="drag_and_drop.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Kapitel 3. Handhabung von <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="open_and_save.html"
+>Vor</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="COMMAND_LINE"
+>3.3. Kommandozeile</A
+></H1
+><P
+>    Wenn sie <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> von der Kommandozeile aus starten, können sie eine
+    Liste von Dateien angeben, die geöffnet werden sollen. Die erste
+    angegebene Datei wird dabei zuerst geöffnet und dann die anderen.
+    Jede Datei wird dabei in einem neuen eigenen Fenster der selben <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+>
+    Instanz geöffnet. Wenn sie Jokerzeichen verwenden, können sie eine
+    große Anzahl von Dateien auf einmal öffnen.
+	</P
+><P
+>    So startet zum Beispiel der folgende Befehl <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> und öffnet alle KDE Töne
+    in einzelnen Fenstern:
+	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>kwave <TT
+CLASS="FILENAME"
+>/opt/kde/share/sounds/KDE_Window*.wav</TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>    Zusätzlich zu einer Dateiliste können sie noch eine Liste von
+    <I
+CLASS="EMPHASIS"
+>Xt toolkit</I
+> Optionen wie <TT
+CLASS="LITERAL"
+>-geometry</TT
+>
+    angeben, um die Größe und/oder die Position des ersten geöffneten
+    <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Fenster zu spezifizieren. Eine weitere Option ist <TT
+CLASS="LITERAL"
+>-display</TT
+>,
+    die <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> auf einem anderen Bildschirm startet.
+    </P
+><P
+>    Der folgende Befehl startet zum Beispiel ein <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+>-Fenster mit einer Startbreite
+    von 600 Pixeln und einer Höhe von 400 Pixeln, mit der rechten Seite 30 Pixel
+    vom rechten Rand und 0 Pixel vom oberen Rand des Bildschirms
+    entfernt:
+	<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>kwave <TT
+CLASS="PARAMETER"
+><I
+>-geometry 600x400-30+0</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="drag_and_drop.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Anfang</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="open_and_save.html"
+>Vor</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Drag and Drop</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="using-kapp.html"
+>Hoch</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Öffnen und Speichern von Dateien</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

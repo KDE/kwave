@@ -1,0 +1,680 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Erstellung von RPM-Paketen aus tar.gz-Archiven</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.61
+"><LINK
+REL="HOME"
+TITLE="Das Kwave Handbuch"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation"
+HREF="installation.html"><LINK
+REL="PREVIOUS"
+TITLE="Compilierung und Installation"
+HREF="manual_compilation.html"><LINK
+REL="NEXT"
+TITLE="Erstellung eines RPM Paketes aus dem CVS-Archiv"
+HREF="building_rpm_from_cvs.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="de"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-Deutsch"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/international/germany/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="Das K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Das <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Handbuch</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="manual_compilation.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Kapitel 2. Installation</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="building_rpm_from_cvs.html"
+>Vor</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="BUILDING_RPM_FROM_TARGZ"
+>2.4. Erstellung von RPM-Paketen aus tar.gz-Archiven</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="BUILDING_WITH_RPM_TA"
+>2.4.1. Unter Benutzung von rpm -ta</A
+></H2
+><P
+>    	Wenn sie ein System mit RPM-Unterstützung haben, ist die bevorzugte
+    	Methode der Installation die Erstellung eines RPM Paketes. Als erstes
+    	sollten sie sich die aktuellen Quellen von <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> besorgen, entweder
+    	als tar.gz Archiv vom 
+    	<A
+HREF="introduction.html#FTP-SERVER"
+><SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> anonymen ftp-Server</A
+>
+    	oder als aktuelle Kopie via 
+	<A
+HREF="introduction.html#CVS-REPOSITORY"
+>anonymen CVS</A
+> (wie es in dem
+	<A
+HREF="building_rpm_from_cvs.html#CVS_CHECKOUT"
+>Kapitel über CVS</A
+> beschrieben ist)
+	und lesen sie das
+	<A
+HREF="building_rpm_from_cvs.html"
+>nächste</A
+> Kapitel.
+    </P
+><P
+>    	Wenn sie ein tar.gz Archiv von libkwave und <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> heruntergeladen
+    	haben, erstellen und installieren sie die RPM's einfach, indem sie
+    	den folgenden Schritten folgen (wobei <TT
+CLASS="REPLACEABLE"
+><I
+>[arch]</I
+></TT
+>
+    	für die Plattform, für die sie das Packet erstellt haben, steht und
+    	sollte <TT
+CLASS="LITERAL"
+>i386</TT
+>, <TT
+CLASS="LITERAL"
+>i586</TT
+>, 
+	<TT
+CLASS="LITERAL"
+>sparc</TT
+> oder ähnliches sein.
+    	<TT
+CLASS="REPLACEABLE"
+><I
+>XXX</I
+></TT
+> steht für die Versionsnummer von <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+>).
+    </P
+><OL
+TYPE="1"
+><LI
+><P
+>	Als erstes erstellen sie das libkwave Paket und installieren es:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -ta <TT
+CLASS="REPLACEABLE"
+><I
+>libkwave-XXX.tar.gz</I
+></TT
+></B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -i <TT
+CLASS="REPLACEABLE"
+><I
+>/usr/src/redhat/RPMS/[arch]/libkwave-XXX.[arch].rpm</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>	Dann erstellen sie das <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Paket und installieren es ebenfalls:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -ta <TT
+CLASS="REPLACEABLE"
+><I
+>kwave-XXX.tar.gz</I
+></TT
+></B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -i <TT
+CLASS="REPLACEABLE"
+><I
+>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+></OL
+><DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Anmerkung"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	<I
+CLASS="EMPHASIS"
+>Hinweis für SuSE Benutzer: </I
+>
+	Sie müssen das Verzeichnis
+	<TT
+CLASS="FILENAME"
+>/usr/src/packages</TT
+> anstelle
+	von <TT
+CLASS="FILENAME"
+>/usr/src/redhat</TT
+> angeben!
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>    	Wenn keine Fehler aufgetreten sind, dann haben sie es geschafft und 
+    	können den Rest des Kapitels überspringen. Wenn rpm nicht in der Lage
+    	war, ein Paket zu erstellen und etwas sagt wie "spec file not found",
+    	dann sollten sie den Rest dieses Abschnittes lesen.
+    </P
+><DIV
+CLASS="CAUTION"
+><TABLE
+CLASS="CAUTION"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/caution.png"
+HSPACE="5"
+ALT="Achtung"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>    	Die Unterstützung für das <B
+CLASS="COMMAND"
+>rpm -ta ...</B
+> könnte
+    	bei einigen Versionen von rpm kaputt sein. Das rpm
+    	Programm das mit SuSE-6.4 (rpm-3.0.4) ausgeliefert wurde, arbeitet
+    	bisher nicht. Sie sollten sich ein Update des rpm Paketes zum
+    	Beispiel von  
+    	<A
+HREF="ftp://ftp.suse.com/pub/suse_update/"
+TARGET="_top"
+>dem SuSE ftp Server</A
+> besorgen.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="RPM_BUILD_WITH_BROKEN_RPM"
+>2.4.2. Unterstützung bei kaputtem rpm -ta</A
+></H2
+><P
+><A
+NAME="MANUAL_RPM_CREATION"
+></A
+>
+    	Falls sie <B
+CLASS="COMMAND"
+>rpm -ta</B
+> nicht zum laufen bekommen,
+    	sind hier die Schritte um dieses "per Hand" (auf die harte Tour) zu
+    	bewerkstelligen:
+    </P
+><OL
+TYPE="1"
+><LI
+><P
+>	    Gehen sie zu ihrem RPM "Hauptverzeichnis", welches
+	    normalerweise <TT
+CLASS="FILENAME"
+>/usr/src/redhat</TT
+>
+	    für die redhat Distribution oder
+	    <TT
+CLASS="FILENAME"
+>/usr/src/packages</TT
+> für
+	    die SuSE Distribution ist.
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cd /usr/src/<TT
+CLASS="REPLACEABLE"
+><I
+>redhat</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>	
+	    Kopieren sie das tar.gz Archiv in das SOURCES Unterverzeichnis
+	    (ersetzen sie "somewhere" durch das reale Verzeichnis, in dem die
+	    Dateien enthalten sind).
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cp <TT
+CLASS="REPLACEABLE"
+><I
+>/somewhere/libkwave-XXX.tar.gz</I
+></TT
+> SOURCES</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cp <TT
+CLASS="REPLACEABLE"
+><I
+>/somewhere/kwave-XXX.tar.gz</I
+></TT
+> SOURCES</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>	    Entpacken sie die spec Dateien von den Archiven und fügen sie
+	    sie dem SPEC Unterverzeichnis hinzu.
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>tar -xOzf SOURCES/<TT
+CLASS="REPLACEABLE"
+><I
+>libkwave-XXX.tar.gz</I
+></TT
+> \*.spec &#62; SPECS/libkwave.spec</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>tar -xOzf SOURCES/<TT
+CLASS="REPLACEABLE"
+><I
+>kwave-XXX.tar.gz</I
+></TT
+> \*.spec &#62; SPECS/kwave.spec</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>	    Lassen sie rpm den Compiliervorgang und die Generierung des
+	    libkwave rpm ausführen. Wenn sie nur ein binary Paket erstellen
+	    wollen, dann können sie <TT
+CLASS="LITERAL"
+>-bb</TT
+> anstelle von
+	    <TT
+CLASS="LITERAL"
+>-ba</TT
+> angeben, oder einfach <TT
+CLASS="LITERAL"
+>-bs</TT
+>
+	    um nur ein Source Paket zu erstellen.
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -ba SPECS/libkwave.spec</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>	    Wenn alles fehlerfrei verlief, können sie das binary rpm
+	    von libkwave installieren, welches sich im BUILD Verzeichnis
+	    befindet. Wenn sie bereits eine Version von libkwave
+	    installiert haben, dann entfernen sie diese zuerst oder
+	    benutzen den Parameter <TT
+CLASS="LITERAL"
+>-U</TT
+> anstelle von
+	    <TT
+CLASS="LITERAL"
+>-i</TT
+> für ein Uprade anstelle einer
+	    Installation.
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -i BUILD/<TT
+CLASS="REPLACEABLE"
+><I
+>[arch]/libkwave-XXX.[arch].rpm</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>	
+	    Wenn libkwave installiert ist, können sie mit der Erstellung
+	    und Installation vom <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Paket selbst fortfahren. Es
+	    funktioniert genauso wie die Erstellung und Installation von
+	    libkwave.
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -ba SPECS/kwave.spec</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -i BUILD/<TT
+CLASS="REPLACEABLE"
+><I
+>[arch]]/kwave-XXX.[arch].rpm</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+></OL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="manual_compilation.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Anfang</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="building_rpm_from_cvs.html"
+>Vor</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compilierung und Installation</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="installation.html"
+>Hoch</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Erstellung eines RPM Paketes aus dem CVS-Archiv</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

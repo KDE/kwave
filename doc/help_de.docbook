@@ -2,13 +2,14 @@
 <!ENTITY kapp "<application>Kwave</application>">
 <!ENTITY kappname "&kwave;">
 <!ENTITY % addindex "IGNORE">
+<!ENTITY % German "INCLUDE">
 <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V1.0//EN">
 ]>
 
-<BOOK LANG="EN">
+<BOOK LANG="DE">
 
 <BOOKINFO>
-    <TITLE>The Kwave Handbook</TITLE>
+    <TITLE>Das &kapp; Handbuch</TITLE>
     <AUTHORGROUP>
 	<AUTHOR>
 	    <FIRSTNAME>Thomas</FIRSTNAME>
@@ -61,7 +62,7 @@
     <!-- Abstract about this handbook -->
     <ABSTRACT>
 	<PARA>
-	    &kapp; is a simple sound editor for KDE.
+	    &kapp; ist ein einfacher Sound-Editor für KDE.
 	</PARA>
     </ABSTRACT>
 	
@@ -86,7 +87,7 @@
 <!-- ### Chapter: Introduction                                          ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="INTRODUCTION"><TITLE>Introduction</TITLE>
+<CHAPTER ID="INTRODUCTION"><TITLE>Einleitung</TITLE>
 
     <!-- The introduction chapter contains a brief introduction for 
     the application that explains what it does, where to get new 
@@ -95,54 +96,55 @@
     Basically a long version of the abstract. -->
 
     <PARA>
-    	This is "&kapp;", a simple sound editor for KDE. 
-	Its features include:
+    	Dies ist "&kapp;", ein einfacher Sound-Editor für KDE. 
+	Er enthält folgende Funktionalität:
 	<ITEMIZEDLIST>
     	<LISTITEM><PARA>
-	    simple cut, copy and paste functions
+	    einfaches Ausschneiden, Kopieren und Einfügen
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    simple filter design tools
+	    einfache Filter-Werkzeuge
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    a small editor for additive synthesis
+	    einen kleinen Editor für Additive Synthese
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    labeling of signals 
+	    das Markieren von Signalen 
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    some analysis functions such as Sonagram or Fourier Transformation
+	    einige Analyse-Funktionen wie Sonagramm oder Fourier Transformation
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    internally uses 24 bit integer sample data
+	    interne Benutzung von 24 Bit Integer Sample Daten	    
     	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    free selectable sample rates
+	    freie Wahl der Sample-Raten
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    support for editing of multi-channel files
+	    Unterstützung für das Bearbeiten von Mehr-Kanal-Dateien
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    playback of multi-channel audio files (audio output will be
-	    mixed down to mono or stereo)
+	    Wiedergabe von Mehr-Kanal Audiodateien (Audioausgabe wird zu
+	    Mono oder Stereo herunter gemischt)
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    extendible through an easy-to-use plugin interface
+	    erweiterbar durch ein einfach zu benutzendes Plugin Interface
 	</PARA></LISTITEM>
     	</ITEMIZEDLIST>	    
     </PARA>
 
     <PARA>
-	If you are interested what has been done and what has still to be 
-        done, then look at the files "CHANGES" and "TODO" included in the 
-        source package. Help and constructive critics are always welcome.
+	Wenn sie daran interessiert sind, was getan wurde oder was noch
+	getan werden muss, dann schauen sie in die Dateien "CHANGES" und
+	"TODO", die den Quelldateien beiligen. Hilfe und konstruktive
+	Kritik sind immer willkommen.
     </PARA>
     <WARNING><PARA>
-    	 Use kwave with care 
-        (save often), since <EMPHASIS>not all </EMPHASIS> components have
-	left the BETA state yet!
-        The core application is considered to be quite stable, but some
-	of the plugins might be really buggy...
+    	Benutzen sie &kapp; mit Vorsicht
+        (oft speichern), weil noch nicht <EMPHASIS>alle</EMPHASIS> Komponenten
+	ihr BETA-Stadium verlassen haben.
+	Die Kern-Anwendung gilt als recht stabil, aber einige Plugins
+	dürften noch Fehler enthalten...
     </PARA></WARNING>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -150,50 +152,49 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <SECT1 ID="KWAVE-RESOURCES">
-    <TITLE>Kwave Resources</TITLE>
+    <TITLE>&kapp; Resourcen</TITLE>
 
     <PARA>
-    	So if you want to get in contact with the developers, need some
-	further help on using kwave, submit patches, bug reports or other
-	stuf, the following resources might be of interest for you:
+	Falls sie also mit den Entwicklern in Kontakt treten wollen, weiterführende 
+	Hilfe zur Benutzung von &kapp; brauchen, Patches, Fehlermeldungen oder 
+	anderes mitteilen wollen, dann werden die folgenden
+	Adressen von Interesse sein:
     </PARA>
 
     <SEGMENTEDLIST>
-        <SEGTITLE>Project Homepage</SEGTITLE>
+        <SEGTITLE>Projekt-Homepage</SEGTITLE>
         <SEGTITLE>Mailing List</SEGTITLE>
         <SEGTITLE>FTP Server</SEGTITLE>
-        <SEGTITLE>CVS Repository</SEGTITLE>
+        <SEGTITLE>CVS Archiv</SEGTITLE>
         <SEGLISTITEM>
         <SEG><ANCHOR ID="PROJECT-HOMEPAGE">
-            For informations about new up-to-date releases or some other
-	    information about this project, take a look at 
-	    the <ULINK URL="http://kwave.sourceforge.net/"><!--
-	    -->Kwave homepage</ULINK>
+	    Für Informationen über neue Versionen oder andere Infos über
+	    dieses Projekt: 
+	    <ULINK URL="http://kwave.sourceforge.net/">http://kwave.sourceforge.net/</ULINK>.
         </SEG>
         <SEG><ANCHOR ID="MAILING-LIST">
-            If you need some help on using kwave or want to get involved
-	    in the development, join the mailinglist by writing a mail 
-	    to <EMAIL>majordomo@fs.spinfo.uni-koeln.de</EMAIL>
-	    with the text "<LITERAL>subscribe kwave-list</LITERAL>"
-	    in the body.
+            Wenn sie Hilfe bei der Benutzung von &kapp; brauchen oder an der
+            Entwicklung mitarbeiten wollen, dann schließen sie sich der
+            Mailingliste an, indem sie eine Email an 
+            <EMAIL>majordomo@fs.spinfo.uni-koeln.de</EMAIL> mit dem Text
+	    "<LITERAL>subscribe kwave-list</LITERAL>" senden.
         </SEG>
 	<SEG><ANCHOR ID="FTP-SERVER">
-	    You can download tar.gz archives as well as some rpm
-	    packages from ftp server via our anonymous ftp 
-	    from <ULINK URL="ftp://kwave.sourceforge.net/pub/kwave/">
-	    ftp://kwave.sourceforge.net/pub/kwave/</ULINK>.
+	    Sie können tar.gz Archive wie auch einige rpm-Packete
+	    vom FTP-Server mittels "anonymous ftp" von 
+	    <ULINK URL="ftp://kwave.sourceforge.net/pub/kwave/">
+	    ftp://kwave.sourceforge.net/pub/kwave/</ULINK> herunterladen.
 	</SEG>
         <SEG><ANCHOR ID="CVS-REPOSITORY">
-	    There also is a CVS repository, hosted by
-	    <ULINK URL="http://sourceforge.net">SourceForge</ULINK> where
-	    you can get the sources of the latest development version.
-	    For instructions on how to get access to the repository, read
-	    in the chapter 
-	    about <LINK LINKEND="BUILDING_RPM_FROM_CVS">building from CVS</LINK>, 
-	    look at <ULINK URL="http://sourceforge.net/cvs/?group_id=6478"><!--
-	    -->"http://sourceforge.net/cvs/?group_id=6478"</ULINK>, or just
-	    browse through the CVS tree through a nice web interface.
-	    <EMPHASIS>Anonymous CVS access is allowed!</EMPHASIS>
+            Es gibt auch ein CVS-Archiv, welches bei 
+            <ULINK URL="http://sourceforge.net">SourceForge</ULINK> untergebracht ist
+            und wo sie die Quellen der neuesten Entwickler-Version bekommen
+            können. Eine Anleitung, wie man Zugang zum Archiv erhält, finden
+            sie im Kapitel <LINK LINKEND="BUILDING_RPM_FROM_CVS">Erstellen mit CVS</LINK>,
+            auf <ULINK URL="http://sourceforge.net/cvs/?group_id=6478"><!--
+	    -->"http://sourceforge.net/cvs/?group_id=6478"</ULINK>, oder browsen
+	    sie einfach durch den CVS-Baum mittels eines Webbrowsers.
+            <EMPHASIS>Anonymer CVS Zugang ist möglich!</EMPHASIS>                        
         </SEG>
         </SEGLISTITEM>
     </SEGMENTEDLIST>
@@ -205,16 +206,21 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <SECT1 ID="KWAVE-REVHISTORY">
-    <TITLE>Kwave Revision History</TITLE>
+    <TITLE>&kapp; - Historischer Rückblick</TITLE>
 
     <PARA>
-	This project has been started by Martin Wilz in summer 1998 
-	and has been developed and improved by him an some other 
-	people. In November 1999 Thomas Eschenbacher has started 
-	to fix some little bugs here and there and stepped into 
-	the source code of the program deeper and deeper. Up to 
-	today he has extended, rewritten or revised nearly every 
-	component of the program and spent much time on improving it.
+    	Dieses Projeckt wurde von Martin Wilz im Sommer 1998 begonnen
+    	und wurde entwickelt und verbessert durch ihn und einige andere
+    	Leute. Im November 1999 began Thomas Eschenbacher einige
+    	kleine Fehler hier und da zu beheben und vertiefte sich so mehr
+    	und mehr in den Quellcode des Programms. Bis heute hat er
+    	beinahe alle Komponenten des Programms erweitert, neu
+    	geschrieben oder überarbeitet und eine Menge Zeit investiert
+    	um es zu verbessern.
+
+	Die nachfolgende Änderungsliste ist automatisch generiert und
+	wird deshalb nicht übersetzt (wer des englischen nicht mächtig
+	ist, kann hier zum nächsten Kapitel weiterblättern):
     </PARA>
 
     <!-- Do never change the lines between the special comments below!
@@ -1181,35 +1187,33 @@
 <!-- +++ Section: Getting Kwave                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="GETTING-KWAVE"><TITLE>How to obtain Kwave</TITLE>
+    <SECT1 ID="GETTING-KWAVE"><TITLE>Wie erhält man &kapp;</TITLE>
     
     <PARA>
-    	&kapp; has an own homepage under
+    	&kapp; hat eine eigene Homepage unter
     	<ULINK URL="http://kwave.sourceforge.net/">
-	http://kwave.sourceforge.net/</ULINK>. Here you can
-	find further informations about the project, as well as 
-	informations about current stable and up-to-date development 
-	versions.
+	http://kwave.sourceforge.net/</ULINK>. Hier können
+	sie weitere Informationen über das Projekt, wie auch
+	Informationen über die aktuelle stabile sowie neueste
+	Entwicklerversionen finden.
     </PARA>
 
     <WARNING><PARA>
-	Maybe older versions of &kapp; are currently included in some 
-	current linux distributions. We recommend not to use &kapp; versions
-	0.29 and older.
-	And please don't get confused by the version number,
-	"0.29" should actually mean "0.2.9" and was not consistent. The 
-	current version numbering starts from 0.5.
+    	Vielleicht sind ältere Versionen von &kapp; in einigen aktuellen
+    	Linux-Distributionen enthalten. Wir raten dringend von der 
+    	Benutzung von &kapp;-Versionen 0.29 und älter ab!
+    	Und bitte lassen sie sich nicht von der Versionsnummer verwirren,
+    	"0.29" sollte eigentlich "0.2.9" heißen und war nicht beständig
+    	bzw. konsistent.
+    	Die aktuelle Versionsnummerierung beginnt bei 0.5.
     </PARA></WARNING>
 
     <PARA>
-	If you want to get a &kapp release, you should download a .tar.gz
-	archive with the source code of a stable or a development version 
-	from the homepage above (or check it out from CVS) and compile it 
-	on your own. Don't be afraid, this should be quite simple even if 
-	you are not a programmer. If you need a rpm package, please let us 
-	know or build it on your own like described in the following
-	chapters.
-	<!-- ### @@@ ### <LINK LINKED=""></LINK>. -->
+    	Wenn sie eine &kapp;-Version bekommen wollen, dann sollten sie
+    	ein RPM-Paket von der obigen Homepage herunterladen oder 
+	aus einem .tar.gz Archiv mit den Quellen selbst compilieren.
+	Keine Angst, es ist ganz einfach, selbst wenn sie kein Programmierer sind.
+    	<!-- ### @@@ ### <LINK LINKED=""></LINK>. -->
     </PARA>
     
     </SECT1>
@@ -1218,70 +1222,73 @@
 <!-- +++ Section: Requirements                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="REQUIREMENTS"><TITLE>Requirements</TITLE>
+    <SECT1 ID="REQUIREMENTS"><TITLE>Anforderungen</TITLE>
     
     <PARA>
-    	In order to successfully use &kapp;, you need:
-	<ITEMIZEDLIST>
+    	Für den erfolgreichen Einsatz von &kapp; brauchen sie:
+    	<ITEMIZEDLIST>
 	    <LISTITEM><PARA>
-		a computer running Linux (&kapp might also run under
-		some other operating system, but we have never tested
-		this, please let us know if you get it working under
-		some other platform / operating system)
+	    	einen Computer mit installiertem Linux (&kapp; läuft
+	    	möglicherweise auch unter anderen Betriebssystemen,
+	    	aber dieses haben wir nicht getestet. Bitte lassen
+	    	sie uns wissen, wenn sie es auf anderen Plattformen/
+	    	Betriebssystemen zum laufen gebracht haben)
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-		working sound playback (not really required for using but
-		what would you do with a sound editor if you can't
-		<EMPHASIS>hear</EMPHASIS> the result of your work?)
+	    	eine funktionierende Soundwiedergabe (nicht wirklich 
+	    	erforderlich für die Benutzung, aber was sollte man
+	    	mit einem Soundeditor, wenn man sich nicht die 
+	    	Ergebnisse <EMPHASIS>anhören</EMPHASIS> kann?)
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-		KDE-1.1 or greater (at least the libraries, if you are
-		a gnome fan, you can also run &kapp if the proper
-		libs are installed). KDE2 will be supported 2001.
+	    	KDE-1.1 oder höher (zumindest die Bibliotheken: &kapp
+	    	läuft auch unter gnome, wenn die richtigen Libs
+	    	installiert sind). KDE2 wird 2001 unterstützt.
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-		qt-1.44 or greater (normally comes with KDE), qt2 will
-		be supported 2001.
+	    	qt-1.44 oder höher (normalerweise bei KDE enthalten),
+	    	qt2 wird 2001 unterstützt.
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-		libkwave-0.3.9-1 or newer (currently not included in &kapp
-		and provided as a separate package)
+	    	libkwave-0.3.9-1 oder aktueller (zur Zeit nicht in &kapp
+	    	enthalten, wird als seperates Paket angeboten)
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-		about 3 MB memory for starting &kapp (but this may 
-		vary depending on your platform and configuration)
-	    </PARA></LISTITEM>
-	</ITEMIZEDLIST>
-    </PARA>
-
-    <PARA>
-    	If you intend to compile &kapp; from the sources, you will also need:
-	<ITEMIZEDLIST>
-	    <LISTITEM><PARA>
-		A C/C++ compiler. GCC-2.95-3 works fine, some older and any
-		newer version should work too.
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
-		The glibc2 (libc-6) development environment. On SuSE systems
-		the package is called "libc", on other systems it might be
-		called "libc-devel".
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
-		Qt development package, qt2 will be supported 2001.
-		The package is called "qtdevel" or similar.
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
-		If you intend to use CVS, you will also need a current
-		cvs package.
+	    	etwas mehr als 3 MB Speicher zum Starten von &kapp
+	    	(dieses kann jedoch sehr stark von ihrer Plattform  und 
+	    	Konfiguration abhängen)
 	    </PARA></LISTITEM>
 	</ITEMIZEDLIST>
     </PARA>
 
     <PARA>
-    	The &kapp application and the libkwave library can be found
-    	on the &kapp <LINK linkend="PROJECT-HOMEPAGE">home page</LINK>
-	or can be anonymously checked out from the
-	<LINK linkend="CVS-REPOSITORY">CVS repository</LINK>.
+    	Wenn sie vorhaben, &kapp; aus den Quellen zu compilieren, brauchen
+    	sie zusätzlich:
+	<ITEMIZEDLIST>
+	    <LISTITEM><PARA>
+	    	Einen C/C++ Compiler. GCC-2.95-3 wird empfohlen, einige
+	    	ältere und jede neuere Version sollte ebenfalls funktionieren.
+	    </PARA></LISTITEM>
+	    <LISTITEM><PARA>
+	    	Die glibc2 (libc-6) Entwicklungsumgebung. Auf SuSE-Systemen
+	    	heißt das Paket "libc", auf anderen Systemen könnte es
+	    	"libc-devel" heißen.
+	    </PARA></LISTITEM>
+	    <LISTITEM><PARA>
+	    	Das Qt Entwicklungs Paket, qt2 wird 2001 unterstützt.
+	    	Das Paket heißt "qtdevel" oder Ähnliches.
+	    </PARA></LISTITEM>
+	    <LISTITEM><PARA>
+	    	Falls sie beabsichtigen CVS zu benutzen, brauchen sie
+	    	auch ein aktuelles cvs Paket.
+	    </PARA></LISTITEM>
+	</ITEMIZEDLIST>
+    </PARA>
+
+    <PARA>
+    	Man findet das Programm &kapp; und die libkwave Bibliothek
+    	auf der &kapp; <LINK linkend="PROJECT-HOMEPAGE">Homepage</LINK>
+    	oder per "anonymous ftp" im <LINK linkend="CVS-REPOSITORY">CVS Archiv</LINK>.
     </PARA>
     
     </SECT1>
@@ -1290,11 +1297,12 @@
 <!-- +++ Section: Manual Compilation                                    +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="MANUAL_COMPILATION"><TITLE>Manual Compilation and installation</TITLE>
+    <SECT1 ID="MANUAL_COMPILATION"><TITLE>Compilierung und Installation</TITLE>
 
     <PARA>
-    	In order to compile and install libkwave on your system, type the 
-	following in the base directory of the source distribution:
+	Um libkwave auf ihrem System zu installieren, geben sie die
+	folgenden Befehle in dem libkwave-Quellen-Hauptverzeichnis
+	an:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>cd libkwave</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
@@ -1305,9 +1313,9 @@
 </SCREEN>
     </PARA>
     <PARA>
-    	If libkwave is successfully installed, you can continue and compile and 
-	install &kapp itself. Type the following in the base directory of the 
-	source distribution:
+    	Wenn libkwave erfolgreich installiert wurde, können sie mit der
+    	Compilierung und Installation von &kapp; fortfahren. Geben sie das
+    	folgendene im &kapp;-Quellen-Hauptverzeichnis ein:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>cd kwave</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
@@ -1318,9 +1326,10 @@
     </PARA>
     
     <PARA>
-    	Since libkwave and &kapp use autoconf and automake you should have no
-	trouble compiling it. Should you run into problems please report 
-	them to the &kapp <link linkend="MAILING-LIST">mailing list</link>.
+    	Seitdem libkwave und &kapp; autoconf und automake benutzen, sollten
+    	sie keine Probleme mit der Compilierung haben. Falls sie Probleme
+    	haben, berichten sie sie bitte 
+    	der &kapp; <link linkend="MAILING-LIST">Mailing-Liste</link>.
     </PARA>
     
     </SECT1>
@@ -1330,37 +1339,37 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <SECT1 ID="BUILDING_RPM_FROM_TARGZ">
-    <TITLE>Building RPM packages from tar.gz archives</TITLE>
+    <TITLE>Erstellung von RPM-Paketen aus tar.gz-Archiven</TITLE>
 
     <SECT2 ID="BUILDING_WITH_RPM_TA">
-    <TITLE>With working rpm -ta</TITLE>
+    <TITLE>Unter Benutzung von rpm -ta</TITLE>
 
     <PARA>
-	If you are runnig a system with RPM support, the preferred way to 
-	install &kapp on your system will be the creation of a nice RPM
-	package. First you should get the current source of &kapp;, either
-	as a tar.gz archive from the
-	<LINK LINKEND="FTP-SERVER">&kapp; anonymous ftp server</LINK> or
-	check out an up-to-date copy via
-	<LINK LINKEND="CVS-REPOSITORY">anonymous CVS</LINK> (like described in
-	the <LINK LINKEND="CVS_CHECKOUT">chapter about CVS</LINK>) and read the
-	<LINK LINKEND="BUILDING_RPM_FROM_CVS">next</LINK> chapter.
+    	Wenn sie ein System mit RPM-Unterstützung haben, ist die bevorzugte
+    	Methode der Installation die Erstellung eines RPM Paketes. Als erstes
+    	sollten sie sich die aktuellen Quellen von &kapp; besorgen, entweder
+    	als tar.gz Archiv vom 
+    	<LINK LINKEND="FTP-SERVER">&kapp; anonymen ftp-Server</LINK>
+    	oder als aktuelle Kopie via 
+	<LINK LINKEND="CVS-REPOSITORY">anonymen CVS</LINK> (wie es in dem
+	<LINK LINKEND="CVS_CHECKOUT">Kapitel über CVS</LINK> beschrieben ist)
+	und lesen sie das
+	<LINK LINKEND="BUILDING_RPM_FROM_CVS">nächste</LINK> Kapitel.
     </PARA>
 
     <PARA>
-	If you have downloaded a tar-gz archives of libkwave and &kapp;, 
-	create and install the RPMs just by doing the following steps
-	(where <REPLACEABLE>[arch]</REPLACEABLE> stands for the platform you
-	have built the package and might be something like 
-	<LITERAL>i386</LITERAL>, <LITERAL>i586</LITERAL>, 
-	<LITERAL>sparc</LITERAL> or whatever,
-	<REPLACEABLE>XXX</REPLACEABLE> stands for the version number 
-	you have downloaded).
+    	Wenn sie ein tar.gz Archiv von libkwave und &kapp; heruntergeladen
+    	haben, erstellen und installieren sie die RPM's einfach, indem sie
+    	den folgenden Schritten folgen (wobei <REPLACEABLE>[arch]</REPLACEABLE>
+    	für die Plattform, für die sie das Packet erstellt haben, steht und
+    	sollte <LITERAL>i386</LITERAL>, <LITERAL>i586</LITERAL>, 
+	<LITERAL>sparc</LITERAL> oder ähnliches sein.
+    	<REPLACEABLE>XXX</REPLACEABLE> steht für die Versionsnummer von &kapp;).
     </PARA>
     
     <ORDEREDLIST>
 	<LISTITEM><PARA>
-	First build the libkwave package and install it:
+	Als erstes erstellen sie das libkwave Paket und installieren es:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>rpm -ta <REPLACEABLE>libkwave-XXX.tar.gz</REPLACEABLE></COMMAND>
 <PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/RPMS/[arch]/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
@@ -1368,7 +1377,7 @@
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
-	Then build the &kapp; package and install it too:
+	Dann erstellen sie das &kapp; Paket und installieren es ebenfalls:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>rpm -ta <REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE></COMMAND>
 <PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
@@ -1378,54 +1387,56 @@
     </ORDEREDLIST>
 
     <NOTE><PARA>
-	<EMPHASIS>Note for SuSE users: </EMPHASIS>
-	you have to specify the directory
-	<FILENAME>/usr/src/packages</FILENAME> instead 
-	of <FILENAME>/usr/src/redhat</FILENAME> !
+	<EMPHASIS>Hinweis für SuSE Benutzer: </EMPHASIS>
+	Sie müssen das Verzeichnis
+	<FILENAME>/usr/src/packages</FILENAME> anstelle
+	von <FILENAME>/usr/src/redhat</FILENAME> angeben!
     </PARA></NOTE>
 
     <PARA>
-	If you haven't seen any errors, then that's it and you can skip the
-	rest of this chapter. If rpm was unable to build the packages
-	and says something like "spec file not found", then go on and
-	read the rest of this section.
+    	Wenn keine Fehler aufgetreten sind, dann haben sie es geschafft und 
+    	können den Rest des Kapitels überspringen. Wenn rpm nicht in der Lage
+    	war, ein Paket zu erstellen und etwas sagt wie "spec file not found",
+    	dann sollten sie den Rest dieses Abschnittes lesen.
     </PARA>
     
     <CAUTION><PARA>
-	The support for the <COMMAND>rpm -ta ...</COMMAND> might be 
-	broken on some versions of rpm. The rpm program originally 
-	shipped with SuSE-6.4 (rpm-3.0.4) didn't work so far. You 
-	should update your rpm package, e.g. from 
-	<ULINK URL="ftp://ftp.suse.com/pub/suse_update/"><!--
-	-->the SuSE ftp server</ULINK>.
+    	Die Unterstützung für das <COMMAND>rpm -ta ...</COMMAND> könnte
+    	bei einigen Versionen von rpm kaputt sein. Das rpm
+    	Programm das mit SuSE-6.4 (rpm-3.0.4) ausgeliefert wurde, arbeitet
+    	bisher nicht. Sie sollten sich ein Update des rpm Paketes zum
+    	Beispiel von  
+    	<ULINK URL="ftp://ftp.suse.com/pub/suse_update/"><!--
+	-->dem SuSE ftp Server</ULINK> besorgen.
     </PARA></CAUTION>
 
     </SECT2>
 
     <SECT2 ID="RPM_BUILD_WITH_BROKEN_RPM">
-    <TITLE>With broken rpm -ta support</TITLE>
+    <TITLE>Unterstützung bei kaputtem rpm -ta</TITLE>
 
     <PARA><ANCHOR ID="MANUAL_RPM_CREATION">
-	If you can't get <COMMAND>rpm -ta</COMMAND> working, here are 
-	the steps for making that manually (the hard way):
+    	Falls sie <COMMAND>rpm -ta</COMMAND> nicht zum laufen bekommen,
+    	sind hier die Schritte um dieses "per Hand" (auf die harte Tour) zu
+    	bewerkstelligen:
     </PARA>
 
     <ORDEREDLIST>
 	<LISTITEM><PARA>
-	    Go to your RPM "topdir". This normally 
-	    is <FILENAME>/usr/src/redhat</FILENAME>
-	    for the redhat distribution 
-	    or <FILENAME>/usr/src/packages</FILENAME> if you
-	    have the SuSE distribution.
+	    Gehen sie zu ihrem RPM "Hauptverzeichnis", welches
+	    normalerweise <FILENAME>/usr/src/redhat</FILENAME>
+	    für die redhat Distribution oder
+	    <FILENAME>/usr/src/packages</FILENAME> für
+	    die SuSE Distribution ist.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>cd /usr/src/<REPLACEABLE>redhat</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
-	<LISTITEM><PARA>
-	    Put the tar.gz archives into the SOURCES subdirectory (you
-	    have to replace "somewhere" with the real directory where
-	    the files are, of course).
+	<LISTITEM><PARA>	
+	    Kopieren sie das tar.gz Archiv in das SOURCES Unterverzeichnis
+	    (ersetzen sie "somewhere" durch das reale Verzeichnis, in dem die
+	    Dateien enthalten sind).
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>cp <REPLACEABLE>/somewhere/libkwave-XXX.tar.gz</REPLACEABLE> SOURCES</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>cp <REPLACEABLE>/somewhere/kwave-XXX.tar.gz</REPLACEABLE> SOURCES</COMMAND>
@@ -1433,8 +1444,8 @@
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
-	    Extract the spec files from the archives and put them into
-	    the SPEC subdirectory.
+	    Entpacken sie die spec Dateien von den Archiven und fügen sie
+	    sie dem SPEC Unterverzeichnis hinzu.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>tar -xOzf SOURCES/<REPLACEABLE>libkwave-XXX.tar.gz</REPLACEABLE> \*.spec > SPECS/libkwave.spec</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>tar -xOzf SOURCES/<REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE> \*.spec > SPECS/kwave.spec</COMMAND>
@@ -1442,32 +1453,34 @@
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
-	    Let rpm do the compile job and generate the rpm of libkwave.
-	    If you only want to make a binary package, you
-	    can specify <LITERAL>-bb</LITERAL> instead of
-	    <LITERAL>-ba</LITERAL>, or just <LITERAL>-bs</LITERAL> to build
-	    only a source package.
+	    Lassen sie rpm den Compiliervorgang und die Generierung des
+	    libkwave rpm ausführen. Wenn sie nur ein binary Paket erstellen
+	    wollen, dann können sie <LITERAL>-bb</LITERAL> anstelle von
+	    <LITERAL>-ba</LITERAL> angeben, oder einfach <LITERAL>-bs</LITERAL>
+	    um nur ein Source Paket zu erstellen.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>rpm -ba SPECS/libkwave.spec</COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
-	    If everything was ok, you can install the binary rpm of
-	    libkwave, it will be in the BUILD directory.
-	    If you already have a version of libkwave installed,
-	    please remove it first or use the parameter 
-	    <LITERAL>-U</LITERAL> instead
-	    of <LITERAL>-i</LITERAL> for upgrading instead of installing.
+	    Wenn alles fehlerfrei verlief, können sie das binary rpm
+	    von libkwave installieren, welches sich im BUILD Verzeichnis
+	    befindet. Wenn sie bereits eine Version von libkwave
+	    installiert haben, dann entfernen sie diese zuerst oder
+	    benutzen den Parameter <LITERAL>-U</LITERAL> anstelle von
+	    <LITERAL>-i</LITERAL> für ein Uprade anstelle einer
+	    Installation.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>rpm -i BUILD/<REPLACEABLE>[arch]/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
-	<LISTITEM><PARA>
-	    If libkwave is installed, then you can go on and build and
-	    install the &kapp; package itself. It goes the same way
-	    the creation and installation of libkwave did.
+	<LISTITEM><PARA>	
+	    Wenn libkwave installiert ist, können sie mit der Erstellung
+	    und Installation vom &kapp; Paket selbst fortfahren. Es
+	    funktioniert genauso wie die Erstellung und Installation von
+	    libkwave.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>rpm -ba SPECS/kwave.spec</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>rpm -i BUILD/<REPLACEABLE>[arch]]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
@@ -1484,36 +1497,39 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <SECT1 ID="BUILDING_RPM_FROM_CVS">
-    <TITLE>Building RPM packages from CVS</TITLE>
+    <TITLE>Erstellung eines RPM Paketes aus dem CVS-Archiv</TITLE>
 
-    <SECT2 ID="CVS_CHECKOUT"><TITLE>Checking out the sources</TITLE>
+    <SECT2 ID="CVS_CHECKOUT"><TITLE>Abrufen der Quellen</TITLE>
 
     <PARA>
-	For initially checking out the sources you will need some disk space
-	(about 15 megabytes) in a directory of your choice, the cvs package
-	of your favorite distribution and full access to the internet. If you 
-	get error messages about rejected connections you either have typed
-	something wrong or your provider doesn't give you full access.
-	A good place for the source files will be <FILENAME>"$HOME/src"</FILENAME>.
+    	Beim erstmaligen Abrufen der Quellen brauchen sie etwas 
+    	Festplattenspeicher (um 15 Megabytes) in einem Verzeichnis ihrer
+    	Wahl, das cvs Paket ihrer bevorzugten Distribution und vollen
+    	Zugang zum Internet. Wenn sie Fehlermeldungen über abgelehnte
+    	Verbindungen erhalten, haben sie entweder etwas falsches
+    	eingegeben oder ihr Provider gestattet ihnen nicht den vollen
+    	Zugriff. Ein guter Platz für die Quelldateien ist 
+    	<FILENAME>"$HOME/src"</FILENAME>.
     </PARA>
 
     <ORDEREDLIST>
     <LISTITEM><PARA>
-	First create the directory that will receive the subdirectoy with
-	libkwave and kwave and change into it:
+	Als erstes erstellen sie das Verzeichnis, welches die Unterverzeichnisse
+	von libkwave und kwave erhalten wird und wechseln in dieses:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>mkdir -p <REPLACEABLE>$HOME/src</REPLACEABLE></COMMAND>
 <PROMPT>% </PROMPT><COMMAND>cd <REPLACEABLE>$HOME/src</REPLACEABLE></COMMAND>
 </SCREEN>
     </PARA></LISTITEM>
     <LISTITEM><PARA>
-	Then log in into the CVS server. As I guess that you want to do that
-	as normal user, you log in as anonymous:
+	Dann loggen sie sich in den CVS Server ein. Ich vermutete, sie wollen
+	dies als normaler Benutzer tun, deshalb loggen sich sich als
+	anonymous ein:
 <SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave login</COMMAND>
 </SCREEN>
-	Then the server asks you for a password. Simply press enter, as we
-	do not have a password for anonymous access.
+	Dann fragt sie der Server nach einem Passwort. Da wir kein Passwort für
+	anonymen Zugriff haben, drücken sie einfach die Enter-Taste.
     </PARA></LISTITEM>
 
     <LISTITEM><PARA>
@@ -1531,58 +1547,58 @@
     </ORDEREDLIST>
 
     <WARNING><PARA>
-	There <EMPHASIS>must not</EMPHASIS> be a directory named 
-	<FILENAME>libkwave</FILENAME> or <FILENAME>kwave</FILENAME> under 
-	the directory you want to check out. Otherwise the cvs program will
-	complain about already existing files and the checkout will
-	not work.
+	Es sollte <EMPHASIS>kein</EMPHASIS> Verzeichnis mit dem Namen <FILENAME>libkwave</FILENAME>
+	oder <FILENAME>kwave</FILENAME> unter dem CVS-Verzeichnis existieren.
+	Ansonsten würde sich das cvs Programm über bereits existierende
+	Dateien beschweren und der Zugriff würde nicht funktionieren.
     </PARA></WARNING>
 
     </SECT2>
 
-    <SECT2 ID="CVS_UPDATE"><TITLE>Updating sources from CVS</TITLE>
+    <SECT2 ID="CVS_UPDATE"><TITLE>Aktualisierung der Quellen mittels CVS</TITLE>
     <PARA>
-	The procedure described in the previous section is only necessary
-	once. For further updates it is much easier. Just change into the
-	directory you want to update and do the following:
+	Die Prozedur, die im vorhergehenden Abschnitt beschrieben wurde, ist
+	nur einmal notwendig. Für weitere Aktualisierungen ist es wesentlich
+	einfacher. Wechseln sie einfach in das Verzeichnis, welches sie
+	aktualisieren wollen und machen sie folgendes:
 <SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>make distclean</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>cvs update</COMMAND>
 </SCREEN>
-	Then go on to the next section and compile as usual.
+	Gehen sie dann zum nächsten Abschnitt über und compilieren wie gewöhnlich.
     </PARA>
     </SECT2>
 
 
-    <SECT2 ID="CVS_COMPILING"><TITLE>Compiling</TITLE>
+    <SECT2 ID="CVS_COMPILING"><TITLE>Compilieren</TITLE>
     <PARA>
-	Building rpm archives from a CVS snapshot is quite simple. The procedure 
-	is nearly the same as described in the last section, so it unhappily also 
-	has the same problem with the <COMMAND>rpm -ta</COMMAND> command 
-	our method internally uses.
-	Like in the previous chapter, <REPLACEABLE>[arch]</REPLACEABLE> stands
-	for the platform you have Built the package and might be something 
-	like <LITERAL>i386</LITERAL>, <LITERAL>i586</LITERAL>, 
-	<LITERAL>sparc</LITERAL> or whatever, 
-	<REPLACEABLE>XXX</REPLACEABLE> stands 
-	for the version number you have checked out.
+	Das Erstellen eines rpm Archives von einem CVS-Abbild ist recht einfach.
+	Die Prozedur ist beinahe die gleiche, wie im letzten Abschnitt beschrieben.
+	Deshalb existiert unglücklicherweise auch das gleiche Problem mit dem
+	<COMMAND>rpm -ta</COMMAND> Befehl, den unsere Methode intern
+	benutzt.
+	Wie im vorhergehenden Kapitel steht <REPLACEABLE>[arch]</REPLACEABLE> für
+	die Plattform des zu erstellenden Paketes und sollte <LITERAL>i386</LITERAL>, 
+	<LITERAL>i586</LITERAL>, <LITERAL>sparc</LITERAL> oder ähnliches sein. 
+	<REPLACEABLE>XXX</REPLACEABLE> steht für die Versionsnummer, die sie sich
+	besorgt haben.
     </PARA>
 
-    <NOTE><PARA>
-	<EMPHASIS>Note for SuSE users: </EMPHASIS>
-	here you have to specify the directory
-	<FILENAME>/usr/src/packages</FILENAME> instead 
-	of <FILENAME>/usr/src/redhat</FILENAME> too!
+    <NOTE><PARA>	
+	<EMPHASIS>Hinweis für SuSE Benutzer: </EMPHASIS>
+	hier müssen sie auch das Verzeichnis <FILENAME>/usr/src/packages</FILENAME>
+	anstelle von <FILENAME>/usr/src/redhat</FILENAME> angeben!
     </PARA></NOTE>
 
     <ORDEREDLIST>
 	<LISTITEM><PARA>
-	    First build the libkwave package and install it. Assuming that
-	    you are in the root of where you checked out from CVS, do the 
-	    following to create a Makefile, the libkwave package and 
-	    install it. If you already have a version of libkwave installed,
-	    please remove it first or use <LITERAL>rpm -U</LITERAL> instead
-	    of <LITERAL>rpm -i</LITERAL> for updating instead of installing.
+	    Zuerst erstellen und installieren sie das libkwave-Paket. Vorausgesetzt,
+	    sie befinden sich im Wurzelverzeichnis der CVS-Quellen, tun sie
+	    folgendes um eine Makefile und das libkwave Paket zu erstellen
+	    und zu installieren. Wenn sie bereits eine Version von libkwave
+	    installiert haben, entfernen sie diese zuerst oder benutzen
+	    <LITERAL>rpm -U</LITERAL> anstelle von <LITERAL>rpm -i</LITERAL>
+	    für die Aktualisierung anstelle einer Installation.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>cd libkwave</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
@@ -1593,7 +1609,7 @@
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
-	Then go on and do the same with the &kapp; package:
+	Tun sie dasselbe mit dem &kapp; Paket:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>cd kwave</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
@@ -1605,11 +1621,11 @@
     </ORDEREDLIST>
 
     <NOTE><PARA>
-	If you still have problems with <COMMAND>make rpm</COMMAND>, 
-	you will find the tar.gz
-	archives that were produced under <FILENAME>/tmp</FILENAME>.
-	Please follow the instructions in the
-	<LINK LINKEND="MANUAL_RPM_CREATION">previous</LINK> chapter.
+	Wenn sie noch Probleme mit <COMMAND>make rpm</COMMAND> haben,
+	nehmen sie die tar.gz 
+	Archive, die unter <FILENAME>/tmp</FILENAME> erzeugt wurden.
+	Bitte folgen sie den Anweisungen im
+	<LINK LINKEND="MANUAL_RPM_CREATION">vorherigen</LINK> Kapitel.
     </PARA></NOTE>
 
     </SECT2>
@@ -1620,43 +1636,42 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <SECT1 ID="RELOCATING_RPM">
-    <TITLE>Relocating the binary RPM packages</TITLE>
+    <TITLE>Installation des Binary-RPM-Paketes auf anderen Distributionen</TITLE>
 
     <PARA>
-	The binary rpm package of &kapp; 
-	is "<EMPHASIS>relocatable</EMPHASIS>". That means that you can
-	build the package any system with KDEDIR set to some standard
-	location and install it on an other system or into a different 
-	directory. This feature is very useful to install a package
-	compiled for SuSE under a RedHat system or vice-versa.
+	Das Binary-rpm-Paket von &kapp;
+	ist "<EMPHASIS>verschiebbar</EMPHASIS>". Das heißt, dass sie
+	das Paket für jedes System mit gesetztem Standard-KDEDIR erzeugen
+	und es auf jedem anderen System oder in einem anderen Verzeichnis
+	installieren können. Diese Eigenschaft ist sehr nützlich um ein
+	für SuSE compiliertes Paket auf einem RedHat System zu installieren
+	und umgekehrt.
     </PARA>
     
     <PARA>
-        For example: you got the binary rpm from a friend who has a 
-	RedHat system (where <SYMBOL>KDEDIR</SYMBOL> is 
-	<FILENAME>/usr</FILENAME>) and want to install it 
-	on a SuSE system (where <SYMBOL>KDEDIR</SYMBOL> is
-	<FILENAME>/opt/kde</FILENAME>). Then just
-        give a different prefix when installing the rpm. Example:
+    	Zum Beispiel: Sie haben ein Binary-rpm von einem Freund mit
+    einem RedHat System bekommen (wo <SYMBOL>KDEDIR</SYMBOL>
+    <FILENAME>/usr</FILENAME> ist) und wollen es auf einem SuSE System
+    installieren (wo <SYMBOL>KDEDIR</SYMBOL> <FILENAME>/opt/kde</FILENAME> ist).
+    Dann geben sie einfach ein unterschiedliches Präfix bei der Installtion
+    des rpm an. Beispiel:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>rpm -i --prefix=/opt/kde <REPLACEABLE>kwave-0.5.2-9.i586.rpm</REPLACEABLE></COMMAND>
 </SCREEN>
     </PARA>
 
     <PARA>
-	This modifies the path where the program is installed and 
-	it is strongly recommended that this is the same directory as 
-	specified in the <SYMBOL>KDEDIR</SYMBOL> environment variable, 
-	otherwise &kapp;
-	would be unable to find it's menu configuration, plugins, 
-	preset files and so on...
+	Dies modifiziert den Pfad in dem das Programm installiert wird
+	und es wird dringend empfohlen dass dies das gleiche Verzeichnis
+	ist, wie es in der <SYMBOL>KDEDIR</SYMBOL> Umgebungsvariable spezifiziert
+	ist. Ansonsten ist &kapp; nicht in der Lage seine Menü-Konfiguration,
+	Plugins, Standard-Dateien und so weiter zu finden.
     </PARA>
 
     <NOTE><PARA>
-	The following should always work and install the desired 
-	package in the correct place - as long as 
-	the <SYMBOL>KDEDIR</SYMBOL> environment
-	variable is correctly set:
+    Das folgende sollte immer funktionieren und das gewünschte Paket
+    an den korrekten Platz installieren - so lange die
+    <SYMBOL>KDEDIR</SYMBOL>-Umgebungsvariable richtig gesetzt ist:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i --prefix=${KDEDIR} kwave-0.5.2-9.i386.rpm</USERINPUT>
 </SCREEN>
@@ -1669,46 +1684,48 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <SECT1 ID="RPM_OPTIMIZATIONS">
-    <TITLE>RPM optimizations</TITLE>
+    <TITLE>RPM-Optimierungen</TITLE>
 
     <PARA>
-	Yes, you can compile the RPM packages for pentium and pentium pro 
-	(or some other CPUs) by using some defines in your rpmrc file. 
-	You can either modify your system's /etc/rpmrc file or the 
-	.rpmrc file in your home directory. There you can specify option
-	lines like these:
-
+    Ja, sie können das RPM Paket für Pentium und Pentium Pro (oder
+    einige andere CPUs) compilieren indem sie einige Definitionen in
+    ihrer rpmrc Datei benutzen. Sie können auch ihre systemweite
+    /etc/rpmrc Datei oder die .rpmrc Datei in ihrem Home-Verzeichnis
+    verändern. Dort können sie zum Beispiel folgende Options-Zeilen
+    angeben:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i386 -O2 -m486 -DNDEBUG</USERINPUT>
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</USERINPUT>
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</USERINPUT>
 </SCREEN>
 
-	(I found those nice tricks at 
+	(Ich fand diese schönen Tricks auf
 	<ULINK URL="http://www.keywarrior.net/duesti/rpmopt.de.html">
-	http://www.keywarrior.net/duesti/rpmopt.en.html</ULINK>.
-	Thanks to Matthias Düsterhöft!).
+	http://www.keywarrior.net/duesti/rpmopt.de.html</ULINK>.
+	Dank an Matthias Düsterhöft!).
     </PARA>
     <!-- german version:
 	http://www.keywarrior.net/duesti/rpmopt.de.html
     -->
 
     <PARA>
-	This means that on an i586 architecture the rpm package will 
-	be compiled using "-march=pentium" as compiler option and so 
-	on, you might extend or adapt these to your own needs.
-	The settings apply to all of the sections before in all
-	places where "rpm -ta" is used or wher a binary RPM is to be
-	created out of a source rpm using "rpm --rebuild".
+    Das bedeutet, dass auf einer i586-Architektur (Pentium) das rpm Paket
+    unter Benutzung von "-march=pentium" als Compiler Option
+    compiliert wird. Sie sollten dies für ihren eigenen Bedürfnisse
+    erweitern oder anpassen. Die Einstellungen sind für alle
+    vorhergehenden Sektionen anwendbar, wo ein "rpm -ta" benutzt wurde
+    oder ein binary RPM mittels eines Source RPM unter Benutzung
+    von "rpm --rebuild" erstellt wurde.
     </PARA>
 
     <NOTE><PARA>
-	The options specified here are set into the environment variable 
-	RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
-	environment and have to compile like described in the chapter
-	<LINK LINKEND="MANUAL_COMPILATION">Manual compilation</LINK>, you 
-	can set this variable manually and get the same effect.
-	For example:
+    Die hier spezifizierten Optionen werden während der Compilierung
+    in die Umgebungsvariable RPM_OPT_FLAGS geschrieben. Falls sie also
+    keine rpm-basierte Umgebung haben und kompilieren müssen wie in
+    Kaptitel <LINK LINKEND="MANUAL_COMPILATION">Compilierung und Installation</LINK>
+    beschrieben, können sie diese Variable "per Hand" setzen und erzielen
+    den gleichen Effekt.
+	Zum Beispiel:
 
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"</COMMAND>
@@ -1722,82 +1739,86 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <SECT1 ID="COMPILER_OPTIMIZATIONS">
-    <TITLE>Compiler Optimizations</TITLE>
+    <TITLE>Compiler-Optimierungen</TITLE>
 
     <PARA>
-	If you are owner of a Pentium, an AMD K6 or Athlon CPU, you might
-	want to use an optimized compiler to compile your version of
-	&kapp; that is running some percents faster. The gain in speed will
-	be up to 30% on some systems, whereas the functions dealing with 
-	signal manipulation and all functions that do complex time-frequency
-	operations (like FFT and Sonagram) will profit most from it.
-    </PARA>
+    Wenn sie eine Pentium, eine AMD K6 oder Athlon CPU besitzen, wollen sie
+    vielleicht einen optimierten Compiler für die Übersetzung ihrer eigenen
+    Version von &kapp; verwenden, die einige Prozente schneller läuft. Der
+    Geschwindigkeitsgewinn beträgt bei einigen Systemen bis zu 30%, wobei
+    die Signal-Manipulations-Funktionen sowie alle Funktionen die
+    komplexe Zeit-Frequenz-Operationen (wie FFT und Sonagramm) behandeln,
+    am meisten davon profitieren.
+	</PARA>
     <PARA>
-        You do not need to understand much about programming for using an
-	optimized compiler to compile &kapp;, but maybe you will need some
-	time to get the compiler itself working and installed.
+        Sie brauchen nicht viel über Programmierung zu wissen um einen
+    optimierten Compiler für die Übersetzung von &kapp; zu benutzen.
+    Aber vielleicht werden sie einige Zeit brauchen um den Compiler
+    selbst zu installieren und zum laufen zu bringen.
     </PARA>
 
     <SECT2 ID="OPTIMIZE_INVOCATION">
-    <TITLE>How to invoke the optimized compiler</TITLE>
+    <TITLE>Wie wird der optimierte Compiler aufgerufen</TITLE>
     <PARA>
-	The invocation of an optimized compiler is quite simple. It normally
-	is sufficient to set the environment variable <SYMBOL>CXXFLAGS</SYMBOL>
-	in the correct way and then compile as usual. For the best settings
-	please consult the documentation or homepage of the corresponding
-	compiler.
+    Der Aufruf eines optimierten Compilers ist recht einfach. Es reicht
+    normalerweise aus, die Umgebungsvariable <SYMBOL>CXXFLAGS</SYMBOL>
+    in der korrekten Weise zu setzen und dann wie immer zu übersetzen.
+    Für die besten Einstellungen schauen sie bitte in der Dokumentation
+    oder Homepage des entsprechenden Compilers nach.
     </PARA>
     <PARA>
-	If you build &kapp; from a source tree (unpacked tar.gz or from CVS)
-	the flags need to be specidied before the call 
-	to <COMMAND>configure</COMMAND>. This might look like this:
+	Wenn sie &kapp; von einem Qellverzeichnis (entpacktes tar.gz
+	oder via CVS) erstellen, sollte die Flags vor dem Aufruf von
+	<COMMAND>configure</COMMAND> angegeben werden. Dies sollte wie
+	folgt aussehen:
 <SCREEN>
 <PROMPT>% </PROMPT><!--
 --><COMMAND><SYMBOL>CXXFLAGS</SYMBOL>="-march=athlon -mcpu=athlon"<!--
 --> ./configure</COMMAND></SCREEN>
     </PARA>
     <PARA>
-	If you re-build &kapp; from a source rpm package
-	the flags need to be specidied before the call 
-	to <COMMAND>rpm --rebuild</COMMAND>. This might look like this:
+    Wenn sie &kapp; von einem Quell-rpm-Paket erstellen, sollten die
+    Flags vor dem Aufruf <COMMAND>rpm --rebuild</COMMAND> angegeben
+    werden. Dies sollte wie folgt aussehen:
 <SCREEN>
 <PROMPT>% </PROMPT><!--
 --><COMMAND><SYMBOL>CXXFLAGS</SYMBOL>="-march=athlon -mcpu=athlon"<!--
 --> rpm --rebuild <REPLACEABLE>filename</REPLACEABLE></COMMAND></SCREEN>
 	<NOTE><PARA>
-	And please don't give up if <COMMAND>rpm</COMMAND> refuses to install
-	your package because it seems not to fit to your computer's
-	architecture. Normally you can just install an optimized package
-	by specifying the additional parameter <COMMAND>--ignorearch</COMMAND>
-	and just don't care.
+	Und bitte geben sie nicht auf wenn es <COMMAND>rpm</COMMAND> ablehnt
+	ihr Paket aufgrund von scheinbarer Unstimmigkeit mit ihrer Computer-
+	Architektur zu installieren. Normalerweise können sie ein optimiertes
+	Paket ganz einfach mit der zusätzlichen Angabe des Parameters
+	<COMMAND>--ignorearch</COMMAND> installieren und die Meldungen
+	ignorieren.
 	</PARA></NOTE>
     </PARA>
     </SECT2>
     
     <SECT2 ID="OPTIMIZE_PENTIUM">
-    <TITLE>Pentium and Compatibles</TITLE>
+    <TITLE>Pentium und Kompatible</TITLE>
     <PARA>
-	For all optimized versions I used pgcc-2.95.3. For informations on
-	obtaining the pgcc compiler, visit the Homepage of the
-	the <ULINK URL="http://pgcc.deu.edu.tr/"><!--
-	    -->Pentium Compiler Group</ULINK>. They also have binaries
-	for most common platforms. The compiler does not only work for all 
-	known Pentium derivates 
-	from <ULINK URL="http://www.intel.com/">Intel</ULINK> but also for
-        some other manufactors 
-	like <ULINK URL="http://www.cyrix.com/">Cyrix</ULINK>.
-    </PARA>
+    Für alle optimierten Versionen benutzte ich pgcc-2.95.3. Für
+    Informationen über den Erhalt des pgcc Compiler besuchen sie
+    die Homepage von der <ULINK URL="http://pgcc.deu.edu.tr/"><!--
+	    -->Pentium Compiler Group</ULINK>. Dort finden sie auch
+	Binaries für die meisten Plattformen. Der Compiler arbeitet nicht
+	nur mit allen bekannten Pentium-Derivaten unter
+	<ULINK URL="http://www.intel.com/">Intel</ULINK> sondern auch mit
+	einigen anderen Herstellern wie <ULINK URL="http://www.cyrix.com/">Cyrix</ULINK>
+	zusammen.
+	</PARA>
     </SECT2>
 
     <SECT2 ID="OPTIMIZE_ATHLON">
     <TITLE>AMD Athlon</TITLE>
     <PARA>
-	If you have a CPU from AMD, you can go one step further and
-	get the Athlon-GCC running. This is an additional patch for
-	the PGCC. For further informations, please visit the Homepage of
-	the <ULINK URL="http://athlonlinux.org/"><!--
-	    -->Athlon Linux Project</ULINK>. This compiler also works
-	for the K6, K6-II, K6-III and maybe some others.
+	Wenn sie eine CPU von AMD besitzen, können sie einen Schritt weiter
+	gehen und den Athlon-GCC zum laufen bringen. Dies ist ein zusätzlicher
+	Patch für den PGCC. Für weitere Informationen schauen sie bitte auf
+	der Homepage von <ULINK URL="http://athlonlinux.org/"><!--
+	    -->Athlon Linux Project</ULINK> nach. Dieser Compiler arbeitet auch
+	mit dem K6, K6-III und möglicherweise auch mit anderen CPU's zusammen.
     </PARA>
     </SECT2>
 
@@ -1809,7 +1830,7 @@
 <!-- ### Chapter: Using Kwave                                           ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="USING-KAPP"><TITLE>Using Kwave</TITLE>
+<CHAPTER ID="USING-KAPP"><TITLE>Handhabung von &kapp;</TITLE>
 
 <!--
     <PARA>
@@ -1828,14 +1849,14 @@
 -->
 
     <PARA>
-	Here is a little screenshot of the &kapp; main window, so that you 
-	get an impression what &kapp; looks like...
-    </PARA>
+	Hier ist ein Screenshot vom &kapp; Hauptfenster,
+	um einen Eindruck zu bekommen, wie &kapp; aussieht...
+	</PARA>
 
     <PARA>
 	<SCREENSHOT>
     	    <SCREENINFO>
-		Here's a screenshot of &kapp;
+ 		Das ist ein Screenshot von &kapp;
 	    </SCREENINFO>
     	    <MEDIAOBJECT>
 		<IMAGEOBJECT>
@@ -1852,25 +1873,26 @@
 <!-- +++ Section: Clipboard                                             +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="CLIPBOARD"><TITLE>Clipboard</TITLE>
+    <SECT1 ID="CLIPBOARD"><TITLE>Zwischenablage</TITLE>
 
     <PARA>
-    &kapp; unfortunately has to implement and use it's own clipboard. This
-    is due to the lack of support for formats other than text and bitmaps
-    in the KDE environment and might be solved in some future release.
+    &kapp; muss unglücklicherweise selbst eine Zwischenablage implementieren
+    und benutzen. Dies ist notwendig aufgrund der mangelnden Unterstützung
+    für andere Formate (als Text und Bitmaps) in der KDE Umgebung, was jedoch
+    in zukünftigen Ausgaben gelöst werden könnte.
     </PARA>
 
     <PARA>
-    However, this has some disadvantages. So if you want to exchange
-    data between two &kapp; instances through the clipboard, you will 
-    find out that this is simply not possible. Each instance of &kapp
-    uses it's own clipboard and so that can't work.
+    Dennoch hat dies einige Nachteile. So können sie beispielsweise keine
+    Daten zwischen zwei &kapp;-Instanzen mittels der Zwischenablage austauschen.
+    Jede Instanz von &kapp; benutzt ihre eigene Zwischenablage und deshalb
+    kann dies nicht funktieren.
     </PARA>
 
     <PARA>
-    So if you want to make use of the clipboard in &kapp;, you should
-    only start <EMPHASIS>one</EMPHASIS> &kapp; instance and use
-    multiple &kapp; windows. That's the way it works!
+    Falls sie also von der Zwischenablage Gebrauch machen wollen, sollten
+    sie nur <EMPHASIS>eine</EMPHASIS> Instanz von &kapp; starten und
+    mehrere &kapp; Fenster benutzen.
     </PARA>
     
     </SECT1>
@@ -1882,17 +1904,19 @@
     <SECT1 ID="DRAG_AND_DROP"><TITLE>Drag and Drop</TITLE>
 
     <PARA>
-    &kapp; supports the KDE Drag and Drop protocol. This enables you
-    to open files just by picking them up in a kfm window or the
-    Desktop and let them drop into a window of &kapp;.
+    &kapp; unterstützt das KDE Drag and Drop-Protokoll. Dies ermöglicht
+    ihnen, Dateien einfach mittels der Maus in einem kfm Fenster oder
+    vom Desktop aufzunehmen und sie über einem Fenster von &kapp;
+    fallen zu lassen, um sie zu öffnen.
     </PARA>
 
     <PARA>
-    Please note that if you drop a file into a &kapp; window that already
-    contains an opened file, the currently opened file will be closed first 
-    and then the file you dropped will be opened in it. If you don't want that, 
-    you should open a new empty &kapp; window first.
-    </PARA>
+    Bitte beachten sie, dass, wenn eine Datei über einen &kapp; Fenster fallen
+    gelassen wird, welches bereits eine geöffnete Datei enthällt, diese
+	zuerst geschlossen wird und dann erst die losgelassene Datei geöffnet wird.
+	Wenn sie dies nicht wollen, sollten sie zuerst ein neues leeres &kapp;
+	Fenster öffnen.
+	</PARA>
 
     </SECT1>
 
@@ -1900,35 +1924,36 @@
 <!-- +++ Section: Command Line                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="COMMAND_LINE"><TITLE>Command Line</TITLE>
+    <SECT1 ID="COMMAND_LINE"><TITLE>Kommandozeile</TITLE>
 
     <PARA>
-    If you start &kapp; from the command line, you can specify a list
-    of files that should be opened. The first specified file will be opened 
-    first, then the other files. Each file will be opened in an own new
-    window of the same &kapp; instance. If you specify wildcards, you can
-    open a large number of files at once.
-    </PARA>
+    Wenn sie &kapp; von der Kommandozeile aus starten, können sie eine
+    Liste von Dateien angeben, die geöffnet werden sollen. Die erste
+    angegebene Datei wird dabei zuerst geöffnet und dann die anderen.
+    Jede Datei wird dabei in einem neuen eigenen Fenster der selben &kapp;
+    Instanz geöffnet. Wenn sie Jokerzeichen verwenden, können sie eine
+    große Anzahl von Dateien auf einmal öffnen.
+	</PARA>
     <PARA>
-    For example, the following command starts a &kapp; and opens all sounds
-    for window:
-    <SCREEN><PROMPT>% </PROMPT><COMMAND>kwave <FILENAME>/opt/kde/share/sounds/KDE_Window*.wav</FILENAME></COMMAND></SCREEN>
+    So startet zum Beispiel der folgende Befehl &kapp; und öffnet alle KDE Töne
+    in einzelnen Fenstern:
+	<SCREEN><PROMPT>% </PROMPT><COMMAND>kwave <FILENAME>/opt/kde/share/sounds/KDE_Window*.wav</FILENAME></COMMAND></SCREEN>
     </PARA>
     
     <PARA>
-    In addition to a list of files, you can specify a list of 
-    <EMPHASIS>Xt toolkit</EMPHASIS> options like <LITERAL>-geometry</LITERAL> 
-    for specifying the size and/or position of the first opened &kapp 
-    window and or <LITERAL>-display</LITERAL> for starting the &kapp on a 
-    different display.
+    Zusätzlich zu einer Dateiliste können sie noch eine Liste von
+    <EMPHASIS>Xt toolkit</EMPHASIS> Optionen wie <LITERAL>-geometry</LITERAL>
+    angeben, um die Größe und/oder die Position des ersten geöffneten
+    &kapp; Fenster zu spezifizieren. Eine weitere Option ist <LITERAL>-display</LITERAL>,
+    die &kapp; auf einem anderen Bildschirm startet.
     </PARA>
 
     <PARA>
-    For example, the following command starts a &kapp; window with an initial 
-    width of 600 pixels and a height of 400 pixels, with the right border 
-    positioned 30 pixels away from the right and 0 pixels away form the top
-    of the screen.
-    <SCREEN><PROMPT>% </PROMPT><COMMAND>kwave <PARAMETER>-geometry 600x400-30+0</PARAMETER></COMMAND></SCREEN>
+    Der folgende Befehl startet zum Beispiel ein &kapp;-Fenster mit einer Startbreite
+    von 600 Pixeln und einer Höhe von 400 Pixeln, mit der rechten Seite 30 Pixel
+    vom rechten Rand und 0 Pixel vom oberen Rand des Bildschirms
+    entfernt:
+	<SCREEN><PROMPT>% </PROMPT><COMMAND>kwave <PARAMETER>-geometry 600x400-30+0</PARAMETER></COMMAND></SCREEN>
     </PARA>
 
     </SECT1>
@@ -1936,153 +1961,160 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Opening and Saving files                              +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <SECT1 ID="OPEN_AND_SAVE"><TITLE>Opening and Saving files</TITLE>
+    <SECT1 ID="OPEN_AND_SAVE"><TITLE>Öffnen und Speichern von Dateien</TITLE>
 
     <PARA>
-    Opening files with &kapp; works like in most other applications, you
-    can 
-    <ITEMIZEDLIST>
-    <LISTITEM><PARA>specify a list of files on the 
-    <LINK LINKEND="COMMAND_LINE">command line</LINK> when starting &kapp;,</PARA></LISTITEM>
-    <LISTITEM><PARA>open an empty &kapp; window (for example with
+    Das Öffnen von Dateien mit &kapp; funktioniert genauso wie in den meisten anderen
+    Anwendungen auch, sie können
+	<ITEMIZEDLIST>
+    <LISTITEM><PARA>eine Liste von Dateien auf der
+    <LINK LINKEND="COMMAND_LINE">Kommandozeile</LINK> beim Start eingeben</PARA>
+    </LISTITEM>
+    <LISTITEM><PARA>ein leeres &kapp;-Fenster öffnen (zum Beispiel mit
 	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>W</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>New...</GUIMENUITEM>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Strg</KEYCAP><KEYCAP>W</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>Datei</GUIMENU><GUIMENUITEM>Neu...</GUIMENUITEM>
 	</MENUCHOICE>
-    ) and put a file into it via
-    <LINK LINKEND="DRAG_AND_DROP">drag and drop</LINK>,
-      or you can </PARA></LISTITEM>
-    <LISTITEM><PARA>open a file through the menu with
+    ) und fügen eine Datei mittels
+    <LINK LINKEND="DRAG_AND_DROP">Drag and Drop</LINK> ein,
+      oder sie können </PARA></LISTITEM>
+    <LISTITEM><PARA>eine Datei öffnen mittels dem Menü mit
 	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>O</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Open</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
-	or one of the last recently opened files under
-	<MENUCHOICE>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Open Recent</GUIMENUITEM>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Strg</KEYCAP><KEYCAP>O</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>Datei</GUIMENU><GUIMENUITEM>öffnen</GUIMENUITEM>
 	</MENUCHOICE>
     </PARA></LISTITEM>
     <LISTITEM><PARA>
-	save the current file with
+	oder eine der zuletzt bearbeiteten Dateien auswählen unter
 	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>S</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Save</GUIMENUITEM>
+	<GUIMENU>Datei</GUIMENU><GUIMENUITEM>Zuletzt geöffnete Dateien</GUIMENUITEM>
+	</MENUCHOICE>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	eine aktuelle Datei speichern mittels
+	<MENUCHOICE>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Strg</KEYCAP><KEYCAP>S</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>Datei</GUIMENU><GUIMENUITEM>Speichern</GUIMENUITEM>
 	</MENUCHOICE>,
     </PARA></LISTITEM>
     <LISTITEM><PARA>
-	save under a different name with 
+	unter einem anderen Namen speichern mit
 	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>Ctrl</KEYCAP><KEYCAP>S</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Save</GUIMENUITEM><GUIMENUITEM>As</GUIMENUITEM>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>Strg</KEYCAP><KEYCAP>S</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>Datei</GUIMENU><GUIMENUITEM>Speichern</GUIMENUITEM><GUIMENUITEM>Als</GUIMENUITEM>
 	</MENUCHOICE>
     </PARA></LISTITEM>
     <LISTITEM><PARA>
-	or only the current selection with
+    oder nur die aktuelle Auswahl mit
 	<MENUCHOICE>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Save</GUIMENUITEM><GUIMENUITEM>Selection</GUIMENUITEM>
+	<GUIMENU>Datei</GUIMENU><GUIMENUITEM>Speichern</GUIMENUITEM><GUIMENUITEM>Auswahl</GUIMENUITEM>
 	</MENUCHOICE> 
     </PARA></LISTITEM>
 
     </ITEMIZEDLIST>
     </PARA>
 
-    <SECT2 ID="FILE_FORMATS"><TITLE>Supported File formats</TITLE>
+    <SECT2 ID="FILE_FORMATS"><TITLE>Unterstützte Dateiformate</TITLE>
 	<PARA>
-            The fovourite file format of &kapp; is (like you can guess from the
-            name) ".wav". This format is very common to other "operating systems"
-            but also is used within the KDE environment.
+			Das favorisierte Dateiformat von &kapp; ist (wie man vom Namen her bereits
+			vermuten könnte) "*.wav". Dieses Format ist sehr verbreitet auf anderen
+			"Betriebssystemen" wie auch innerhalb der KDE-Umgebung.
         </PARA>
 
         <PARA>
-            The second format that &kapp; supports is "ASCII". You can import from
-            and export to ASCII, but always be aware that storing in this format
-            might produce very large files! Currently &kapp; only supports
-            ASCII files with only one channel (mono), support for multiple channels
-            will be added in some future version. The file format will be described
-	    <LINK LINKEND="ASCII_FORMAT">below</LINK>.
+        	Das zweite Format das &kapp; unterstützt ist "ASCII". Sie können es
+        	importieren und exportieren, wobei sie aber immer bedenken sollten,
+        	dass dieses Format sehr große Dateien erzeugen kann! Zur Zeit unterstützt
+        	&kapp; nur ASCII Dateien mit einem einzigen Kanal (Mono). Unterstützung für
+        	mehrere Kanäle wird in zukünftigen Versionen folgen. Das Dateiformat
+        	wird weiter <LINK LINKEND="ASCII_FORMAT">unten</LINK> beschrieben.
         </PARA>
     </SECT2>
 
     <SECT2 ID="CONVERTING_TO_AND_FROM_WAV">
-    <TITLE>Converting to and from .wav</TITLE>
+    <TITLE>Konvertierung zu und von .wav</TITLE>
 
 	<PARA>
-	    For the moment, the best way to work with formats other than 
-	    <LITERAL>.wav</LITERAL> is to use an external converter program.
-	    A good set of tools for this is in the
-	    <ULINK URL="http://home.sprynet.com/~cbagwell/sox.html">SoX</ULINK>
-	   package, they have also some nice documentation! Take a look at
+		Im Moment ist es der beste Weg ein externes Konverter-Programm 
+		zu benutzen, um mit anderen Formaten als
+		mit <LITERAL>.wav</LITERAL> zu arbeiten.
+		Eine gute Anzahl von Werkzeugen dafür finden sie im
+		<ULINK URL="http://home.sprynet.com/~cbagwell/sox.html">SoX</ULINK>
+		Paket, dort finden sie auch gutes Dokumentationsmaterial! Und zwar unter
 	   <ULINK URL="http://home.sprynet.com/~cbagwell/sox.html"><!--
 	   -->http://home.sprynet.com/~cbagwell/sox.html</ULINK>.
 	</PARA>
 
 	<PARA>
-	    The plans for future include support for import filters for other 
-	    formats and maybe some filter that uses a user-defineable script
-	    with a call to an external filter, so that even formats not supported 
-	    by <LITERAL>SoX</LITERAL> (like MP3) can be read and/or written.
-        </PARA>
+		Die Pläne für die Zukunft beinhalten Unterstützung für Importfilter
+		für andere Formate und vielleicht einige Filter, die ein Benutzer-
+		definiertes Script mit einem Aufruf an externe Filter integriert, so
+		dass sogar Formate gelesen und/oder geschrieben werden können, die
+		nicht von <LITERAL>SoX</LITERAL> (wie MP3) unterstützt werden.
+		</PARA>
     </SECT2>
 
-    <SECT2 ID="ASCII_FORMAT"><TITLE>Format of ASCII files</TITLE>
+    <SECT2 ID="ASCII_FORMAT"><TITLE>Das Format von ASCII Dateien</TITLE>
 	<PARA>
-	    The ASCII format is quite useful for scientific and educational 
-	    purposes. 
-	    Due to it's simple format, you can either write simple
-	    files on your own with a text editor or you can use the output 
-	    of an other application and convert it into ASCII. As the format is 
-	    <EMPHASIS>really</EMPHASIS> simple, you
-	    should not have big problems in writing a converter and most scientific
-	    applications use to have some kind of their own ASCII format for
-	    export.
+	    Das ASCII-Format ist recht nützlich für wissenschaftliche und
+	    Ausbildungs-Zwecke.
+	    Wegen des einfachen Formates können sie entweder einfache Dateien
+	    selbst mit einem Texteditor schreiben oder sie können die Ausgabe
+	    von einer anderen Anwendung verwenden und in ASCII konvertieren.
+		Weil das Format <EMPHASIS>wirklich</EMPHASIS> einfach ist, sollten
+		sie keine
+		Probleme mit dem Schreiben eines Konverters haben und viele
+		wissenschaftliche Anwendungen sollten selbst eine eigene Art
+		von ASCII Format für den Export besitzen.
 	</PARA>
 
         <PARA>
-            The format of an ASCII file is quite simple and has the following rules:
+        	Das Format von einer ASCII Datei ist recht einfach und nach folgenden
+        	Regeln aufgebaut:
             <ORDEREDLIST>
             <LISTITEM><PARA>
-		Each line represents one sample.
+        Jede Zeile repräsentiert einen Abtastwert.
 	    </PARA></LISTITEM>
             <LISTITEM><PARA>
-		Lines might end with a carriage return and/or a line feed 
-		character (so DOS files are supported too). But when saving, 
-		files will always be saved with line feed character as the 
-		end of the line.
+		Zeilen können mit einem carriage return und/oder einem line feed
+		enden (so dass auch DOS Dateien unterstützt werden). Aber beim
+		Speichern werden die Dateien immer mit einem line feed character
+		am Ende der Zeilen geschrieben.
+     	</PARA></LISTITEM>
+            <LISTITEM><PARA>
+		Leere Zeilen werden ignoriert.
 	    </PARA></LISTITEM>
             <LISTITEM><PARA>
-		Empty lines are ignored.
-	    </PARA></LISTITEM>
-            <LISTITEM><PARA>
-		Values can be are given in any format that the C library of
-		your system is able to read and interprete as a floating
-		point or integer number. But when saving, &kapp; will save
-		as in signed floating point format with 9 decimals.
-		</PARA><PARA>Example: <LITERAL>-7.06999982e-01</LITERAL>
+        Werte können in jedem Format, dass die C Bibliothek auf ihrem
+        System als Fließkomma oder Ganzzahl lesen und interpretieren
+        kann, angegeben werden. Aber beim Speichern wird &kapp;
+        das vorzeichenbehaftete Fließkomma-Format mit 9 Stellen
+        schreiben.
+		</PARA><PARA>Beispiel: <LITERAL>-7.06999982e-01</LITERAL>
             </PARA></LISTITEM>
             <LISTITEM><PARA>
-		All values are expected to be in signed format. So if you
-		import a file with only positive values, you will only see
-		samples that are above the zero line.
+  		Alle Werte werden im vorzeichenbehafteten Format
+  		erwartet. Deshalb werden importierte Dateien mit nur positiven
+  		Werten immer als Abtastwerte oberhalb der Nulllinie dargestellt.
+  		    </PARA></LISTITEM>
+            <LISTITEM><PARA>
+        Werte können in jedem Bereich angegeben werden, &kapp; wird
+        immer als erstes die Datei nach dem höchsten absoluten Wert
+        hin untersuchen und diesen dann als "100%" Wert definieren bevor
+        es tatsächlich mit dem Einlesen anfängt.
             </PARA></LISTITEM>
             <LISTITEM><PARA>
-		Values can be specified in any range, &kapp; always
-		does a first pass over the file to get the highest absolute
-		value and defines that value as "100%" before really reading
-		in the file.
-            </PARA></LISTITEM>
-            <LISTITEM><PARA>
-		Internally all values are stored with 24 bit precision (signed).
-            </PARA></LISTITEM>
+        Intern werden alle Werte mit einer 24 Bit Genauigkeit (signed)
+        gespeichert.
+		    </PARA></LISTITEM>
 	    </ORDEREDLIST>
         </PARA>
 
 	<PARA>
-	    Here is an example of a simple ASCII file that represents a
-	    sine wave with nine samples:
+		Hier folgt nun eine einfache ASCII Datei, die eine Sinuskurve
+		mit neun Samples darstellt:
 	    <EXAMPLE>
-		<TITLE>content of an ASCII file with a single sine wave</TITLE>
+		<TITLE>Inhalt einer ASCII Datei mit einer einzelnen Sinuskurve</TITLE>
 		<SCREEN>
  0.000
  0.707
@@ -2104,135 +2136,139 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: How to select                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <SECT1 ID="SELECTING"><TITLE>How to select</TITLE>
+    <SECT1 ID="SELECTING"><TITLE>Die Funktionsweise der Auswahl</TITLE>
 
     <PARA>
-    &kapp; allows you to select a continuous range of samples as well as any 
-    combination of channels (if you edit a multi-channel file). By selecting
-    a range of samples (time scope) all following commands will be limited to
-    that range and by de-selecting a channel it's content will not be changed.
+    &kapp; erlaubt es ihnen, einen kontinuierlichen Bereich von Samples wie
+    auch jede Kombination von Kanälen (wenn sie eine Multi-Kanal-Datei bearbeiten)
+    auszuwählen. Wenn sie einen Sample-Bereich (Zeitrahmen) ausgewählt haben,
+    werden alle folgenden Befehle darauf angewendet, wobei das Deselektieren eines
+    Kanals den Inhalt nicht verändert.
     </PARA>
 
-    <SECT2 ID="SELECTING_CHANNELS"><TITLE>Selecting channels</TITLE>
+    <SECT2 ID="SELECTING_CHANNELS"><TITLE>Auswahl von Kanälen</TITLE>
     <PARA>
-    Selecting or de-selecting a channel is quite simple. Just click on the
-    lamp symbol on the left side of the signal to toggle it's state:
-    </PARA>
+    Das Auswählen oder das Deselektieren eines Kanales ist recht einfach. Klicken
+    sie einfach auf das Lampensymbol auf der linken Seite des Signalsfensters
+    um seinen Status zu verändern:
+	</PARA>
     <PARA>
     <INLINEMEDIAOBJECT>
 	<IMAGEOBJECT>
 	<IMAGEDATA fileref="common/light_on.png" format="png"> 
 	</IMAGEOBJECT>
-	<TEXTOBJECT> <PHRASE>green lamb</PHRASE> </TEXTOBJECT>
+	<TEXTOBJECT> <PHRASE>grüne Lampe</PHRASE> </TEXTOBJECT>
     </INLINEMEDIAOBJECT>
-    a green lamb means "enabled", whereas
+    ein grünes Licht bedeutet "aktiviert", wohingegen
     </PARA>
     <PARA>
     <INLINEMEDIAOBJECT>
 	<IMAGEOBJECT>
 	<IMAGEDATA fileref="common/light_off.png" format="png"> 
 	</IMAGEOBJECT>
-	<TEXTOBJECT> <PHRASE>red lamb</PHRASE> </TEXTOBJECT>
+	<TEXTOBJECT> <PHRASE>rote Lampe</PHRASE> </TEXTOBJECT>
     </INLINEMEDIAOBJECT>
-    a red lamb means "disabled".
+    eine rote Lampe "deaktiviert" bedeutet.
     </PARA>
     
     <NOTE><PARA>
-    Note: If a channel is de-selected it will also not be audible for playback!
+    Hinweis: Wird ein Kanal deselektiert, wird er bei der Wiedergabe nicht hörbar sein!
     </PARA></NOTE>
     </SECT2>
 
-    <SECT2 ID="SELECTING_SAMPLES"><TITLE>Selecting samples</TITLE>
+    <SECT2 ID="SELECTING_SAMPLES"><TITLE>Auswahl von Samples</TITLE>
 
     <PARA>
-    If you select a range of samples in &kapp;, that range will be
-    <EMPHASIS>inclusive</EMPHASIS>. That means that the first and the last
-    selected sample both belong to the selection and will be used for the
-    following actions. So even if you not selected a <EMPHASIS>range</EMPHASIS>
-    but only a single sample, the selection will never be really "empty". So for
-    example if you see no selected range, the "delete" function applies to that
-    single sample.
+    Wenn sei einen Sample-Bereich in &kapp; auswählen, wird dieser Bereich
+    <EMPHASIS>inclusive</EMPHASIS> sein. Das heißt, dass das erste und das
+    letzte ausgewählte Sample mit zur Auswahl gehören und benutzt werden
+    für die folgenden Aktionen. Deshalb wird, selbst wenn sie keinen
+    <EMPHASIS>Bereich</EMPHASIS> sondern nur ein einzelnes Sample ausgewählt
+    haben, die Auswahl niemals wirklich "leer" sein. So zum Beispiel wird,
+    selbst wenn sie keinen Bereich ausgewählt haben, die "Löschen" Funktion
+    auf dieses einzelne Sample angewendet.
     </PARA>
     
     <PARA>
-    The easiest way of selecting a range of samples is just to do that
-    with mouse. It works like you are used from other applications: just press
-    the left mouse button at the point you want to let the selection start
-    and release the button where you want it to end.
-    </PARA>
+    Der einfachste Weg einen Sample-Bereich auszuwählen ist einfach mit
+    der Maus. Es funktioniert so, wie sie es von anderen Anwendungen her
+    bereits gewohnt sind: drücken sie einfach die linke Maustaste auf den Punkt,
+    beim dem die Auswahl beginnen soll und lassen die Maustaste am Endpunkt
+    wieder los.
+	</PARA>
     <PARA>
-    If you want to move or adjust the selection's start or end, you can move the
-    mouse cursor near to the start or the end of the selection until it changes
-    from the standard arrow cursor into the left-right arrow cursor and then
-    press the left mouse button and adjust.
+    Wenn sie die Auswahl verschieben oder ihren Start- oder Endpunkt anpassen
+    wollen, können sie den Mauscursor in die Nähe der Bereichsgenzen bewegen bis
+    sich der Standard-Pfeil Cursor in einen Links-Rechts Pfeil Cursor geändert
+    hat, um dann die linke Maustaste zu drücken und die Anpassung vorzunehmen.
     </PARA>
 
     <PARA>
-    There are also some functions available via the menu and of course some 
-    keyboard shortcuts:
-    <ITEMIZEDLIST>
+    Es sind auch einige Funktionen über das Menü und über einige Tastatur-
+    Kurztasten (Shortcuts) verfügbar:
+	<ITEMIZEDLIST>
     <LISTITEM><PARA>
-	select the whole signal:
+	Auswahl des gesammten Signals:
 	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>A</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>Edit</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>All</GUIMENUITEM>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Strg</KEYCAP><KEYCAP>A</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>Bearbeiten</GUIMENU><GUIMENUITEM>Auswahl</GUIMENUITEM><GUIMENUITEM>Alles</GUIMENUITEM>
 	</MENUCHOICE>
     </PARA></LISTITEM>
     <LISTITEM><PARA>
-	a range of samples, starting at the current cursor position:
+    einen Sample-Bereich, beginnend bei der aktuellen Cursorposition:
 	<MENUCHOICE>
 	<SHORTCUT><KEYCOMBO><KEYCAP>R</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Range</GUIMENUITEM>
+	<GUIMENU>Bearbeiten</GUIMENU><GUIMENUITEM>Auswahl</GUIMENUITEM><GUIMENUITEM>Bereich</GUIMENUITEM>
 	</MENUCHOICE>
     </PARA></LISTITEM>
     <LISTITEM><PARA>
-	the currently visible area:
+    die aktuell sichtbare Fläche:
 	<MENUCHOICE>
 	<SHORTCUT><KEYCOMBO><KEYCAP>V</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Visible</GUIMENUITEM>
+	<GUIMENU>Bearbeiten</GUIMENU><GUIMENUITEM>Auswahl</GUIMENUITEM><GUIMENUITEM>Sichtbarer Bereich</GUIMENUITEM>
 	</MENUCHOICE>
     </PARA></LISTITEM>
     <LISTITEM><PARA>
-	the next block of samples, starting one sample after the end of the current
-	selection and with the same length:
+    den nächsten Sample-Block, beginnend ein Sample nach dem Ende der aktuellen
+    Auswahl und mit der gleichen Länge:
 	<MENUCHOICE>
 	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>+</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Next</GUIMENUITEM>
+	<GUIMENU>Bearbeiten</GUIMENU><GUIMENUITEM>Auswahl</GUIMENUITEM><GUIMENUITEM>Nächste</GUIMENUITEM>
 	</MENUCHOICE> 
     </PARA>
     <PARA>
-	(Hint: use the "<KEYCAP>+</KEYCAP>" key from the numeric keypad!)
-    </PARA></LISTITEM>
+	(Hinweis: benutzen sie die "<KEYCAP>+</KEYCAP>" Taste vom numerischen Ziffernblock!)
+	</PARA></LISTITEM>
     <LISTITEM><PARA>
-	the previous block of samples, ending one sample before the start of the current
-	selection and with the same length:
+	den vorhergehenden Sample-Block, aufhörend ein Sample vor dem Anfang der aktuellen
+	Auswahl und mit der gleichen Länge:
 	<MENUCHOICE>
 	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>-</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Previous</GUIMENUITEM>
+	<GUIMENU>Bearbeiten</GUIMENU><GUIMENUITEM>Auswahl</GUIMENUITEM><GUIMENUITEM>Vorherige</GUIMENUITEM>
 	</MENUCHOICE>
     </PARA>
     <PARA>
-	(Hint: use the "<KEYCAP>-</KEYCAP>" key from the numeric keypad!)
-    </PARA></LISTITEM>
+	(Hinweis: benutzen sie die "<KEYCAP>+</KEYCAP>" Taste vom numerischen Ziffernblock!)
+	</PARA></LISTITEM>
     <LISTITEM><PARA>
-	expand the selection to the start of the signal (first sample):
+	ausdehnen der Auswahl bis zum Anfang des Signals (erstes Sample):
 	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>Home</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>to start</GUIMENUITEM>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>Pos1</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>Bearbeiten</GUIMENU><GUIMENUITEM>Auswahl</GUIMENUITEM><GUIMENUITEM>bis zum Anfang</GUIMENUITEM>
 	</MENUCHOICE>
     </PARA></LISTITEM>
     <LISTITEM><PARA>
-	expand the selection to the end of the signal (last sample):
+	ausdehnen der Auswahl bis zum Ende des Signals (letztes Sample):
 	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>End</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>to end</GUIMENUITEM>
+	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>Ende</KEYCAP></KEYCOMBO></SHORTCUT>
+	<GUIMENU>Bearbeiten</GUIMENU><GUIMENUITEM>Auswahl</GUIMENUITEM><GUIMENUITEM>bis zum Ende</GUIMENUITEM>
 	</MENUCHOICE>
     </PARA></LISTITEM>
     <LISTITEM><PARA>
-	remove any selection and select "nothing":
+    entfernen der Auswahl und markieren von "nichts":
 	<MENUCHOICE>
 	<SHORTCUT><KEYCOMBO><KEYCAP>N</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Nothing</GUIMENUITEM>
+	<GUIMENU>Bearbeiten</GUIMENU><GUIMENUITEM>Auswahl</GUIMENUITEM><GUIMENUITEM>Nichts</GUIMENUITEM>
 	</MENUCHOICE>
     </PARA></LISTITEM>
     </ITEMIZEDLIST>
@@ -2243,7 +2279,7 @@
     </SECT1>
 
 <!-- @@@ still to be done ... @@@
-    <SECT1 ID="KAPP-FEATURES"><TITLE>More Kapp features</TITLE>
+    <SECT1 ID="KAPP-FEATURES"><TITLE>More &kapp; features</TITLE>
 
     <PARA>
     	The Squiggle Tool 
@@ -2289,7 +2325,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
 <!-- @@@ still to be done ... @@@
-    <SECT1 ID="KAPP-MAINWINDOW"><TITLE>The main Kwave window</TITLE>
+    <SECT1 ID="KAPP-MAINWINDOW"><TITLE>The main &kapp; window</TITLE>
 
         <PARA></PARA>
     	<SECT2><TITLE>The File Menu</TITLE>
@@ -2369,7 +2405,7 @@
 <!-- ### Chapter: Developer's Guide to Kwave                            ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="DEVELOPERS"><TITLE>Developer's Guide to Kapp</TITLE>
+<CHAPTER ID="DEVELOPERS"><TITLE>Entwickler Handbuch für &kapp;</TITLE>
 
     <!-- (OPTIONAL) A Programming/Scripting reference chapter should be
     used for apps that use plugins or that provide their own scripting hooks
@@ -2380,26 +2416,26 @@
 	<IMAGEOBJECT>
 	    <IMAGEDATA fileref="common/under-construction.png" format="png"> 
 	</IMAGEOBJECT>
-	<TEXTOBJECT> <PHRASE>under construction</PHRASE> </TEXTOBJECT>
+	<TEXTOBJECT> <PHRASE>in Arbeit</PHRASE> </TEXTOBJECT>
 	</INLINEMEDIAOBJECT>
      </PARA>
     <PARA>
-	Sorry, this chapter is still to be written... At the moment the
-	source code is partially documented with tags suitable with
-	the KDE documentation tools. We currently prefer using 
-	<ULINK URL="http://www.stack.nl/~dimitri/doxygen"><!--
-	-->doxygen</ULINK>. Maybe some day we will spend some time for
-	writing a tool that converts the doxygen output into something
-	we can include into the docbook source (the source this page has
-	been built of).
+    Leider muss dieses Kapitel noch geschrieben werden ... im Moment
+    ist der Source Code teilweise mit Tags passend zu den KDE-
+    Dokumentationswerkzeugen dokumentiert. Aktuell bevorzugen wir
+    die Benutzung von <ULINK URL="http://www.stack.nl/~dimitri/doxygen"><!--
+	-->doxygen</ULINK>. Vielleicht werden wir eines Tages etwas
+	Zeit erübrigen können, um ein Tool zu schreiben, dass die doxygen
+	Ausgabe in etwas umwandelt, was man in irgendeiner Art und Weise in die
+	Docbook Quellen (die Quellen, aus denen diese Seite erzeugt wurde)
+	einbinden könnte.
     </PARA>
     <PARA>
-        If you want to write a plugin, contribute something to this
-        project (or maybe write the converter mentioned above), please 
-	feel free to contact one of the authors directly
-	and / or subscribe to
-	the &kapp <link linkend="MAILING-LIST">mailing list</link>.
-	Help is always welcome!
+    	Wenn sie ein Plugin schreiben und etwas zu diesem Projekt beitragen
+    	(oder den oben erwähnten Konverter schreiben) wollen, dann scheuen
+    sie sich nicht, einen der Autoren direkt zu schreiben und / oder der
+    &kapp; <link linkend="MAILING-LIST">Mailing List</link> beizutreten.
+    Hilfe ist immer willkommen!
     </PARA>
 
 <!-- @@@ still to be done ... @@@
@@ -2585,7 +2621,7 @@
 <!-- ### Chapter: Questions and Answers                                 ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="FAQ"><TITLE>Questions and Answers</TITLE>
+<CHAPTER ID="FAQ"><TITLE>Fragen und Antworten</TITLE>
 
     <PARA></PARA>
     
@@ -2594,16 +2630,34 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    What do I need to compile &kapp?
+	    	Was brauche ich um &kapp; zu compilieren?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    Read in the
-		    <LINK LINKEND="REQUIREMENTS">chapter</LINK>
-		    mentioned before. It compiles with
-		    gcc and egcs as well.
-		    Note that you will also need the libkwave package!
+	    	Lesen sie im vorhergehenden
+		    <LINK LINKEND="REQUIREMENTS">Kapitel</LINK>
+		    nach. Die Compilierung funktioniert mit
+		    gcc wie auch mit egcs.
+		    Beachten sie, dass sie das libkwave Paket benötigen!
+			</PARA>
+	    </ANSWER>
+	</QANDAENTRY>
+
+    	<QANDAENTRY>
+	    <QUESTION>
+	    	<PARA>
+	    	Welche Soundkarten unterstützt &kapp;?
+		</PARA>
+	    </QUESTION>
+    	    <ANSWER>
+	    	<PARA>
+	    	&kapp; braucht keine Unterstützung für irgendeine besondere
+	    	Soundkarte. Die Soundkarte muss nur von ihrem Betriebssystem
+	    	unterstützt werden und &kapp; nutzt dann sein Interface zum
+	    	Betriebssystem-Soundkarten-Treiber durch ein Standard
+	    	Interface. Deshalb kann &kapp; jede Soundkarte benutzen, die
+	    	unter KDE einsetzbar ist.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2611,17 +2665,17 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    Which sound cards does &kapp; support?
+	    	Warum sind einige Menüeinträge / Features immer deaktiviert?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    &kapp; does not need support for any special sound card.
-		    The sound card only has to be supported by your
-		    operating system and &kapp uses it's interface to the
-		    operating system's sound driver through a standard
-		    interface. So &kapp; can play on any sound card that
-		    KDE is able to play on.
+	    	Dies ist auf unsere Entscheidung zurückzuführen,
+	    	dass diese Aktionen noch nicht stabil genug arbeiten
+	    	um sie dem normalen Benutzer zu präsentieren und deshalb
+	    	wurden sie deaktiviert um Schwierigkeiten zu vermeiden.
+	    	Sie werden Zugang zu ihnen bekommen, wenn sie getest
+	    	und stabil genug sind.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2629,16 +2683,20 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    Why are some menu entries / features always disabled?
+	    	Warum verbraucht &kapp; mehr Speicher als es die
+	    	Größe der geöffneten Datei erwarten läßt?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    This is just because we decided that those actions
-		    are not working stable enough to present them to 
-		    the normal user and therefore disabled them to
-		    avoid trouble. You will get access to them if they
-		    are tested and stable enough.
+	    	Der Grund dafür liegt im internen Speichersystem von
+	    	&kapp;, in dem alle Samples in 32-bit Ganzzahlen (Integers)
+	    	gespeichert werden. Dies war einfach zu programmieren, machte
+	    	die Anwendung schneller und ein bischen betriebsicherer.
+	    	Deshalb werden 8-Bit Dateien mit rund einem Megabyte
+	    	um die vier Megabyte im Speicher belegen.
+	    	Vielleicht werden wir das irgendwann in der Zunkunft
+	    	ändern...
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2646,18 +2704,14 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    Why does &kapp; consume more memory than it can be
-		    expected from the size of the opened file?
+	    	Welche Soundformate unterstützt &kapp;?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    The reason for this is that &kapp; internally stores
-		    all samples in 32-bit integers. This was easy to program,
-		    made the application faster and a bit more reliable.
-		    So if you load an 8-bit file with about one megabyte 
-		    it will consume about four megabytes. 
-		    Maybe we will change this somewhere in the future...
+	    	&kapp; unterstützt zur Zeit .wav Dateien mit 8, 16 und
+	    	24 bits pro Sample, mit beliebiger Anzahl von Kanälen
+	    	(einschließlich mono und stereo natürlich).
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2665,33 +2719,18 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    Which sound formats does &kapp; support?
+	    	Was ist, wenn ich Dateien habe die &kapp;
+	    	nicht unterstützt?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    &kapp; currently supports .wav files with 8, 16 and
-		    24 bits per sample, with any number of channels
-		    (of course including mono and stereo).
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
-
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
-		    What if I have files with a format not 
-		    supported by &kapp;?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
-		    If you have to work on an other format, you can convert
-		    it into .wav format. A good set of tools for this is 
-		    in the
+	    	Wenn sie mit einem anderen Format arbeiten müssen, dann
+	    	können sie dieses in das .wav Format konvertieren. Eine
+	    	gute Auswahl an Werkzeugen bietet das
 	            <ULINK URL="http://home.sprynet.com/~cbagwell/sox.html"><!--
-	            -->SoX</ULINK> package, they have also some nice
-		    documentation!
+	            -->SoX</ULINK> Paket, das auch umfangreiche Dokumentationen
+	     	bereithält!
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2699,18 +2738,20 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    I get errors when I want to do playback?
+	    	Ich bekomme Fehler wenn ich versuche die
+	    	Wiedergabe zu starten?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    Maybe you have choosen a combination of playback
-		    rate and sample size that is not supported by your
-		    sound driver and / or sound hardware. Try playback with
-		    8 bits per sample and mono first, this should always
-		    work. Then try to increase the bits per sample and
-		    stereo playback step by step. Note that some playback
-		    rates are not at all supported by some sound hardware.
+	    	Vielleicht haben sie eine Kombination von Playbackrate
+	    	und Samplegröße gewählt, die nicht von ihrem Soundtreiber
+	    	und / oder ihrer Soundhardware unterstützt wird. Versuchen
+	    	sie zuerst Playback mit 8 bits pro Sample und Mono, dies
+	    	sollte immer funktionieren. Dann versuchen sie die bits
+	    	pro Sample und die Stereowiedergabe schrittweise zu erhöhen.
+	    	Beachten sie dabei aber, dass einige Playbackraten nicht
+	    	vollständig von einigen Soundkarten unterstützt werden.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2718,14 +2759,14 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    The playback seems to do something but I hear nothing?
+	    	Die Wiedergabe scheint etwas zu tun, aber ich höre nichts?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    Maybe you have forgotten to increase the volume of
-		    the playback channel. &kapp; is not responsible for
-		    changing the playback volume.
+	    	Vielleicht haben sie vergessen die Lautstärke des Wiedergabe-
+	    	Kanals zu erhöhen. Für das Ändern der Wiedergabelautstärke ist
+	    	&kapp; nicht verantwortlich.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2733,12 +2774,12 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    Some files are played with half-speed?
+	    	Einige Dateien werden mit halber Geschwindigkeit wiedergegeben?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    Try choosing a different sound playback device. 
+	    	Versuchen sie ein anderes Device zur Soundwiedergabe auszuwählen.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2746,14 +2787,15 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    The playback sometimes is disturbed and interrupted?
+	    	Die Wiedergabe wird manchmal gestört und unterbrochen?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    You should increase the size of the playback buffer
-		    to get a "smoother" playback (this also makes the
-		    playback control reacting a bit slower).
+	    	Sie sollten die Größe des Wiedergabe Buffers erhöhen
+	    	um eine "glattere" Wiedergabe zu bekommen (dies führt
+	    	auch zu einer langsameren Reaktion der Wiedergabe-
+	    	Kontrolle).
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2761,17 +2803,18 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    The playback does not stop if I immediately 
-		    press the stop button?
+	    	Die Widergabe hält nicht an, wenn ich sofort die
+	    	Stop-Taste drücke?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    The reason for this is that the sound driver already
-		    has received some playback data from &kapp; at the
-		    moment when you press the stop button. Decrease the 
-		    size of the playback buffer and it should react faster
-		    (but makes interruptions more probable).
+	    	Der Grund dafür ist, dass der Soundtreiber, in dem Moment
+	    	in dem sie die Stop-Taste drücken, bereits Wiedergabedaten
+	    	von &kapp; erhalten hat. Verringern sie die Größe des
+	    	Wiedergabe Buffers und die Reaktion sollte schneller
+	    	einsetzen (dabei werden aber Unterbrechungen
+	    	wahrscheinlicher).
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2779,15 +2822,15 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    Is ALSA supported?
+	    	Wird ALSA unterstützt?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    Sorry, currently we don't have support for ALSA, but
-		    it's planned for the future. However, ALSA has a 
-		    standard linux sound card interface that we can use
-		    instead.
+	    	Leider haben wir zur Zeit keine Unterstützung für ALSA,
+	    	aber dies ist für die Zukunft geplant. Dennoch hat ALSA
+	    	ein Standard Linux Soundkarten-Interface, dass wir
+	    	stattdessen nutzen können.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2795,16 +2838,17 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    What about playback with 24 and 32 bits per sample?
+	    	Wie steht es mit der Wiedergabe von 24 und 32 bits
+	    	pro Sample?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    There currently is no support for that in the
-		    standard linux sound interface. It should be no
-		    big problem to enable this when we implement
-		    <ULINK URL="http://www.alsa-project.org"><!--
-	            -->ALSA</ULINK> support.
+	    	Zur Zeit existiert keine Unterstützung für dies im
+	    	Standard Linux Soundinterface. Es sollte jedoch kein
+	    	großes Problem darstellen dies zu aktivieren, wenn
+	    	wir die <ULINK URL="http://www.alsa-project.org"><!--
+	     	-->ALSA</ULINK> Unterstützung integrieren.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2812,16 +2856,17 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    What about support of more than two channels?
+	    	Wie steht es mit der Unterstützung von mehr als zwei
+	    	Kanälen?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    Hmm, I thought about that too, but there is no
-		    support from the standard linux sound interface. So
-		    maybe this could be done if we include
-		    <ULINK URL="http://www.alsa-project.org"><!--
-	            -->ALSA</ULINK> support.
+	    	Hmm, ich habe auch schon darüber nachgedacht, aber
+	    	es existiert keine Unterstützung dafür im Standard
+	    	Linux Soundinterface. Vielleicht könnte dies mit
+	    	der <ULINK URL="http://www.alsa-project.org"><!--
+	     	-->ALSA</ULINK> Unterstützung integriert werden.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2829,13 +2874,13 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    What about MP3 support?
+	    	Wie steht es mit MP3 Unterstützung?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    Not for the moment, but maybe someone writes us
-		    a plugin for MP3 import / export?
+	    	Nicht im Moment, aber vielleicht schreibt uns jemand
+	    	ein Plugin für MP3 Import / Export?
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2843,17 +2888,18 @@
     	<QANDAENTRY>
 	    <QUESTION>
 	    	<PARA>
-		    Why isn't libkwave included in the &kapp; package?
+	    	Warum ist die libkwave nicht im &kapp; Paket enthalten?
 		</PARA>
 	    </QUESTION>
     	    <ANSWER>
 	    	<PARA>
-		    This is because the author (Martin Wilz) and maybe
-		    some others need this library in other projects too.
-		    Think of someone who has other packages that contain
-		    libkwave too, he would have multiple libs on his
-		    system. That would we a waste of diskspace and could
-		    cause confusion when compiling &kapp;.
+	    	Dies ist weil der Autor (Martin Wilz) und vielleicht
+	    	einige andere diese Bibliothek auch in anderen Projekten
+	    	brauchen. Denken sie an jemanden der andere Pakete hat,
+	    	die auch die libkwave enthalten. Er bräuchte mehrere
+	    	Bibliotheken auf seinem System und dies wäre eine Verschwendung
+	    	von Plattenspeicher und könnte zu Verwirrungen während der
+	    	Compilierung von &kapp; führen.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>
@@ -2881,7 +2927,7 @@
 <!-- ### Chapter: Credits                                               ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="CREDITS"><TITLE>Credits and License</TITLE>
+<CHAPTER ID="CREDITS"><TITLE>Credits und Lizenz</TITLE>
 
     <!-- Include credits for the programmers, documentation writers, and
     contributors here. The license for your software should then be included 
@@ -2891,7 +2937,7 @@
     <PARA>&kapp;</PARA>
 
     <PARA>
-    	Program copyright 1998-2000 Martin Wilz 
+    	Programm Copyright 1998-2000 Martin Wilz
 	<EMAIL>mwilz@ernie.mi.uni-koeln.de</EMAIL>
     </PARA>
 
@@ -2912,18 +2958,30 @@
     </PARA>
 
     <PARA>
-        The current code contains some FFT routines and code fragments from the 
+    	Der aktuelle Code enthält einige FFT-Routinen und Codefragmente vom
         GNU Scientific Library project 
     	<ULINK URL="ftp://alpha.gnu.org/gnu/">ftp://alpha.gnu.org/gnu</ULINK>.
     </PARA>
 
     <PARA>
-    	Contributors:
+    	Beitragende:
     	<ITEMIZEDLIST>
+	    <LISTITEM>
+	    	<PARA>
+		    Martin Wilz 
+		    <EMAIL>mwilz@ernie.mi.uni-koeln.de</EMAIL>
+		</PARA>
+	    </LISTITEM>
 	    <LISTITEM>
 	    	<PARA>
 		    Thomas Eschenbacher 
 		    <EMAIL>thomas.eschenbacher@gmx.de</EMAIL>
+		</PARA>
+	    </LISTITEM>
+	    <LISTITEM>
+	    	<PARA>
+    	    	    Sven-Steffen Arndt
+		    <EMAIL>ssa29@gmx.de</EMAIL>
 		</PARA>
 	    </LISTITEM>
     	    <LISTITEM><PARA>Juhana Kouhia</PARA></LISTITEM>
@@ -2945,7 +3003,7 @@
     </PARA>
     
     <PARA>
-    	Thanks to (in alphabetical order):
+    	Dank an (in alpabetischer Reihenfolge):
     	<ITEMIZEDLIST>
 	    <LISTITEM><PARA>Carsten Jacobi</PARA></LISTITEM>
     	    <LISTITEM><PARA>Frank Christian Stoffel</PARA></LISTITEM>
@@ -2954,36 +3012,27 @@
 		<PARA>
 		    Matthias Düsterhöft
 		    <EMAIL>duesti@gmx.de</EMAIL>
-		    <EMPHASIS> (for information about RPM optimization)
+		    <EMPHASIS> (für Informationen über RPM Optimierung)
 		    </EMPHASIS>
 		</PARA>
 	    </LISTITEM>
     	    <LISTITEM><PARA>Klaus Hendrik Lorenz</PARA></LISTITEM>
-	    <LISTITEM><PARA>my girlfriend Ximena González <EMPHASIS>(who
-	    heart "just a few minutes, only want to fix this little
-	    bug" too often)</EMPHASIS>
+	    <LISTITEM><PARA>meiner Freundin Ximena González <EMPHASIS>
+	    (die zu oft hörte "noch ein paar Minuten, ich will nur schnell
+	    diesen Fehler beheben")</EMPHASIS>
 	    </PARA></LISTITEM>
 	</ITEMIZEDLIST>
     </PARA>
     
     <PARA>
-    	Documentation copyright (C) 2000 Thomas Eschenbacher 
+    	Dokumentation Copyright (C) 2000 Thomas Eschenbacher
 	<EMAIL>thomas.eschenbacher@gmx.de</EMAIL>
     </PARA>
 
-<!--
     <PARA>
-    	Translations will be done by:
-    	<ITEMIZEDLIST>
-	    <LISTITEM>
-	    	<PARA>
-		    Babel D. Fish 
-		    <EMAIL>babelfish@kde.org</EMAIL> (Sanskrit)
-		</PARA>
-	    </LISTITEM>
-	</ITEMIZEDLIST>
+    	Deutsche Übersetzung: Copyright (C) 2001 Sven-Steffen Arndt
+	    <EMAIL>ssa29@gmx.de</EMAIL>
     </PARA>
--->
 
 <!-- &license-links; -->
 

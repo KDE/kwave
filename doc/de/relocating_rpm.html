@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Installation des Binary-RPM-Paketes auf anderen Distributionen</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.61
+"><LINK
+REL="HOME"
+TITLE="Das Kwave Handbuch"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation"
+HREF="installation.html"><LINK
+REL="PREVIOUS"
+TITLE="Erstellung eines RPM Paketes aus dem CVS-Archiv"
+HREF="building_rpm_from_cvs.html"><LINK
+REL="NEXT"
+TITLE="RPM-Optimierungen"
+HREF="rpm_optimizations.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="de"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-Deutsch"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/international/germany/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="Das K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Das <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Handbuch</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="building_rpm_from_cvs.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Kapitel 2. Installation</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="rpm_optimizations.html"
+>Vor</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="RELOCATING_RPM"
+>2.6. Installation des Binary-RPM-Paketes auf anderen Distributionen</A
+></H1
+><P
+>	Das Binary-rpm-Paket von <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+>
+	ist "<I
+CLASS="EMPHASIS"
+>verschiebbar</I
+>". Das heißt, dass sie
+	das Paket für jedes System mit gesetztem Standard-KDEDIR erzeugen
+	und es auf jedem anderen System oder in einem anderen Verzeichnis
+	installieren können. Diese Eigenschaft ist sehr nützlich um ein
+	für SuSE compiliertes Paket auf einem RedHat System zu installieren
+	und umgekehrt.
+    </P
+><P
+>    	Zum Beispiel: Sie haben ein Binary-rpm von einem Freund mit
+    einem RedHat System bekommen (wo <SPAN
+CLASS="SYMBOL"
+>KDEDIR</SPAN
+>
+    <TT
+CLASS="FILENAME"
+>/usr</TT
+> ist) und wollen es auf einem SuSE System
+    installieren (wo <SPAN
+CLASS="SYMBOL"
+>KDEDIR</SPAN
+> <TT
+CLASS="FILENAME"
+>/opt/kde</TT
+> ist).
+    Dann geben sie einfach ein unterschiedliches Präfix bei der Installtion
+    des rpm an. Beispiel:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpm -i --prefix=/opt/kde <TT
+CLASS="REPLACEABLE"
+><I
+>kwave-0.5.2-9.i586.rpm</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>	Dies modifiziert den Pfad in dem das Programm installiert wird
+	und es wird dringend empfohlen dass dies das gleiche Verzeichnis
+	ist, wie es in der <SPAN
+CLASS="SYMBOL"
+>KDEDIR</SPAN
+> Umgebungsvariable spezifiziert
+	ist. Ansonsten ist <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> nicht in der Lage seine Menü-Konfiguration,
+	Plugins, Standard-Dateien und so weiter zu finden.
+    </P
+><DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Anmerkung"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>    Das folgende sollte immer funktionieren und das gewünschte Paket
+    an den korrekten Platz installieren - so lange die
+    <SPAN
+CLASS="SYMBOL"
+>KDEDIR</SPAN
+>-Umgebungsvariable richtig gesetzt ist:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>rpm -i --prefix=${KDEDIR} kwave-0.5.2-9.i386.rpm</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="building_rpm_from_cvs.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Anfang</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="rpm_optimizations.html"
+>Vor</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Erstellung eines RPM Paketes aus dem CVS-Archiv</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="installation.html"
+>Hoch</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>RPM-Optimierungen</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

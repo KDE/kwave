@@ -21,7 +21,19 @@ help_en.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
 	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
 	help_en.docbook
 
-doc: doc.en
+help_de.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
+	cp help_de.docbook help_de.docbook.orig
+	cat help_de.docbook.orig | \
+	../bin/insert-changes.sh  changes.docbook | \
+	awk -v newval=`date --iso` \
+	'{ sub(/<DATE>.*<\/DATE>/, \
+	"<DATE>"newval"</DATE>", $$0); print; }' | \
+	awk -v newval=`cat ../VERSION` \
+	'{ sub(/<RELEASEINFO>.*<\/RELEASEINFO>/, \
+	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
+	help_de.docbook
+
+doc: doc.en doc.de
 
 doc.en: help_en.docbook
 	rm -f en/*.html
@@ -29,8 +41,11 @@ doc.en: help_en.docbook
 	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
 	help_en.docbook
 
-#doc.de: help_de.docbook
-	# german documentation not done yet
+doc.de: help_de.docbook
+	rm -f de/*.html
+	jw -o de -c ${SGMLDIR}/catalog \
+	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
+	help_de.docbook
 
 install-data-local:
 	$(mkinstalldirs) $(kde_htmldir)/en/$(PACKAGE)

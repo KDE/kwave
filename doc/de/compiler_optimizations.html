@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Compiler-Optimierungen</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.61
+"><LINK
+REL="HOME"
+TITLE="Das Kwave Handbuch"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation"
+HREF="installation.html"><LINK
+REL="PREVIOUS"
+TITLE="RPM-Optimierungen"
+HREF="rpm_optimizations.html"><LINK
+REL="NEXT"
+TITLE="Handhabung von Kwave"
+HREF="using-kapp.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="de"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-Deutsch"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/international/germany/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="Das K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Das <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Handbuch</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="rpm_optimizations.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Kapitel 2. Installation</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="using-kapp.html"
+>Vor</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="COMPILER_OPTIMIZATIONS"
+>2.8. Compiler-Optimierungen</A
+></H1
+><P
+>    Wenn sie eine Pentium, eine AMD K6 oder Athlon CPU besitzen, wollen sie
+    vielleicht einen optimierten Compiler für die Übersetzung ihrer eigenen
+    Version von <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> verwenden, die einige Prozente schneller läuft. Der
+    Geschwindigkeitsgewinn beträgt bei einigen Systemen bis zu 30%, wobei
+    die Signal-Manipulations-Funktionen sowie alle Funktionen die
+    komplexe Zeit-Frequenz-Operationen (wie FFT und Sonagramm) behandeln,
+    am meisten davon profitieren.
+	</P
+><P
+>        Sie brauchen nicht viel über Programmierung zu wissen um einen
+    optimierten Compiler für die Übersetzung von <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> zu benutzen.
+    Aber vielleicht werden sie einige Zeit brauchen um den Compiler
+    selbst zu installieren und zum laufen zu bringen.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="OPTIMIZE_INVOCATION"
+>2.8.1. Wie wird der optimierte Compiler aufgerufen</A
+></H2
+><P
+>    Der Aufruf eines optimierten Compilers ist recht einfach. Es reicht
+    normalerweise aus, die Umgebungsvariable <SPAN
+CLASS="SYMBOL"
+>CXXFLAGS</SPAN
+>
+    in der korrekten Weise zu setzen und dann wie immer zu übersetzen.
+    Für die besten Einstellungen schauen sie bitte in der Dokumentation
+    oder Homepage des entsprechenden Compilers nach.
+    </P
+><P
+>	Wenn sie <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> von einem Qellverzeichnis (entpacktes tar.gz
+	oder via CVS) erstellen, sollte die Flags vor dem Aufruf von
+	<B
+CLASS="COMMAND"
+>configure</B
+> angegeben werden. Dies sollte wie
+	folgt aussehen:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+><SPAN
+CLASS="SYMBOL"
+>CXXFLAGS</SPAN
+>="-march=athlon -mcpu=athlon" ./configure</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>    Wenn sie <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> von einem Quell-rpm-Paket erstellen, sollten die
+    Flags vor dem Aufruf <B
+CLASS="COMMAND"
+>rpm --rebuild</B
+> angegeben
+    werden. Dies sollte wie folgt aussehen:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+><SPAN
+CLASS="SYMBOL"
+>CXXFLAGS</SPAN
+>="-march=athlon -mcpu=athlon" rpm --rebuild <TT
+CLASS="REPLACEABLE"
+><I
+>filename</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	<DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Anmerkung"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	Und bitte geben sie nicht auf wenn es <B
+CLASS="COMMAND"
+>rpm</B
+> ablehnt
+	ihr Paket aufgrund von scheinbarer Unstimmigkeit mit ihrer Computer-
+	Architektur zu installieren. Normalerweise können sie ein optimiertes
+	Paket ganz einfach mit der zusätzlichen Angabe des Parameters
+	<B
+CLASS="COMMAND"
+>--ignorearch</B
+> installieren und die Meldungen
+	ignorieren.
+	</P
+></TD
+></TR
+></TABLE
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="OPTIMIZE_PENTIUM"
+>2.8.2. Pentium und Kompatible</A
+></H2
+><P
+>    Für alle optimierten Versionen benutzte ich pgcc-2.95.3. Für
+    Informationen über den Erhalt des pgcc Compiler besuchen sie
+    die Homepage von der <A
+HREF="http://pgcc.deu.edu.tr/"
+TARGET="_top"
+>Pentium Compiler Group</A
+>. Dort finden sie auch
+	Binaries für die meisten Plattformen. Der Compiler arbeitet nicht
+	nur mit allen bekannten Pentium-Derivaten unter
+	<A
+HREF="http://www.intel.com/"
+TARGET="_top"
+>Intel</A
+> sondern auch mit
+	einigen anderen Herstellern wie <A
+HREF="http://www.cyrix.com/"
+TARGET="_top"
+>Cyrix</A
+>
+	zusammen.
+	</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="OPTIMIZE_ATHLON"
+>2.8.3. AMD Athlon</A
+></H2
+><P
+>	Wenn sie eine CPU von AMD besitzen, können sie einen Schritt weiter
+	gehen und den Athlon-GCC zum laufen bringen. Dies ist ein zusätzlicher
+	Patch für den PGCC. Für weitere Informationen schauen sie bitte auf
+	der Homepage von <A
+HREF="http://athlonlinux.org/"
+TARGET="_top"
+>Athlon Linux Project</A
+> nach. Dieser Compiler arbeitet auch
+	mit dem K6, K6-III und möglicherweise auch mit anderen CPU's zusammen.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="rpm_optimizations.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Anfang</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="using-kapp.html"
+>Vor</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>RPM-Optimierungen</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="installation.html"
+>Hoch</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Handhabung von <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

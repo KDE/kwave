@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Die Funktionsweise der Auswahl</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.61
+"><LINK
+REL="HOME"
+TITLE="Das Kwave Handbuch"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Handhabung von Kwave"
+HREF="using-kapp.html"><LINK
+REL="PREVIOUS"
+TITLE="Öffnen und Speichern von Dateien"
+HREF="open_and_save.html"><LINK
+REL="NEXT"
+TITLE="Entwickler Handbuch für Kwave"
+HREF="developers.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="de"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-Deutsch"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#AA0000"
+VLINK="#AA0055"
+ALINK="#AA0000"
+STYLE="font-family: sans-serif;"
+><DIV
+CLASS="logoheader"
+><A
+HREF="http://www.kde.org/international/germany/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="Das K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+></DIV
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Das <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> Handbuch</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="open_and_save.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Kapitel 3. Handhabung von <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="developers.html"
+>Vor</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SELECTING"
+>3.5. Die Funktionsweise der Auswahl</A
+></H1
+><P
+>    <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> erlaubt es ihnen, einen kontinuierlichen Bereich von Samples wie
+    auch jede Kombination von Kanälen (wenn sie eine Multi-Kanal-Datei bearbeiten)
+    auszuwählen. Wenn sie einen Sample-Bereich (Zeitrahmen) ausgewählt haben,
+    werden alle folgenden Befehle darauf angewendet, wobei das Deselektieren eines
+    Kanals den Inhalt nicht verändert.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SELECTING_CHANNELS"
+>3.5.1. Auswahl von Kanälen</A
+></H2
+><P
+>    Das Auswählen oder das Deselektieren eines Kanales ist recht einfach. Klicken
+    sie einfach auf das Lampensymbol auf der linken Seite des Signalsfensters
+    um seinen Status zu verändern:
+	</P
+><P
+>    <SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="common/light_on.png"
+ALT="grüne Lampe"
+></IMG
+></SPAN
+>
+    ein grünes Licht bedeutet "aktiviert", wohingegen
+    </P
+><P
+>    <SPAN
+CLASS="INLINEMEDIAOBJECT"
+><IMG
+SRC="common/light_off.png"
+ALT="rote Lampe"
+></IMG
+></SPAN
+>
+    eine rote Lampe "deaktiviert" bedeutet.
+    </P
+><DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Anmerkung"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>    Hinweis: Wird ein Kanal deselektiert, wird er bei der Wiedergabe nicht hörbar sein!
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SELECTING_SAMPLES"
+>3.5.2. Auswahl von Samples</A
+></H2
+><P
+>    Wenn sei einen Sample-Bereich in <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> auswählen, wird dieser Bereich
+    <I
+CLASS="EMPHASIS"
+>inclusive</I
+> sein. Das heißt, dass das erste und das
+    letzte ausgewählte Sample mit zur Auswahl gehören und benutzt werden
+    für die folgenden Aktionen. Deshalb wird, selbst wenn sie keinen
+    <I
+CLASS="EMPHASIS"
+>Bereich</I
+> sondern nur ein einzelnes Sample ausgewählt
+    haben, die Auswahl niemals wirklich "leer" sein. So zum Beispiel wird,
+    selbst wenn sie keinen Bereich ausgewählt haben, die "Löschen" Funktion
+    auf dieses einzelne Sample angewendet.
+    </P
+><P
+>    Der einfachste Weg einen Sample-Bereich auszuwählen ist einfach mit
+    der Maus. Es funktioniert so, wie sie es von anderen Anwendungen her
+    bereits gewohnt sind: drücken sie einfach die linke Maustaste auf den Punkt,
+    beim dem die Auswahl beginnen soll und lassen die Maustaste am Endpunkt
+    wieder los.
+	</P
+><P
+>    Wenn sie die Auswahl verschieben oder ihren Start- oder Endpunkt anpassen
+    wollen, können sie den Mauscursor in die Nähe der Bereichsgenzen bewegen bis
+    sich der Standard-Pfeil Cursor in einen Links-Rechts Pfeil Cursor geändert
+    hat, um dann die linke Maustaste zu drücken und die Anpassung vorzunehmen.
+    </P
+><P
+>    Es sind auch einige Funktionen über das Menü und über einige Tastatur-
+    Kurztasten (Shortcuts) verfügbar:
+	<UL
+><LI
+><P
+>	Auswahl des gesammten Signals:
+	<SPAN
+CLASS="GUIMENU"
+>Bearbeiten</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Auswahl</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Alles</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Strg</B
+>-<B
+CLASS="KEYCAP"
+>A</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>    einen Sample-Bereich, beginnend bei der aktuellen Cursorposition:
+	<SPAN
+CLASS="GUIMENU"
+>Bearbeiten</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Auswahl</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Bereich</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>R</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>    die aktuell sichtbare Fläche:
+	<SPAN
+CLASS="GUIMENU"
+>Bearbeiten</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Auswahl</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Sichtbarer Bereich</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>V</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>    den nächsten Sample-Block, beginnend ein Sample nach dem Ende der aktuellen
+    Auswahl und mit der gleichen Länge:
+	<SPAN
+CLASS="GUIMENU"
+>Bearbeiten</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Auswahl</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Nächste</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Shift</B
+>-<B
+CLASS="KEYCAP"
+>+</B
+></B
+>) 
+    </P
+><P
+>	(Hinweis: benutzen sie die "<B
+CLASS="KEYCAP"
+>+</B
+>" Taste vom numerischen Ziffernblock!)
+	</P
+></LI
+><LI
+><P
+>	den vorhergehenden Sample-Block, aufhörend ein Sample vor dem Anfang der aktuellen
+	Auswahl und mit der gleichen Länge:
+	<SPAN
+CLASS="GUIMENU"
+>Bearbeiten</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Auswahl</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Vorherige</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Shift</B
+>-<B
+CLASS="KEYCAP"
+>-</B
+></B
+>)
+    </P
+><P
+>	(Hinweis: benutzen sie die "<B
+CLASS="KEYCAP"
+>+</B
+>" Taste vom numerischen Ziffernblock!)
+	</P
+></LI
+><LI
+><P
+>	ausdehnen der Auswahl bis zum Anfang des Signals (erstes Sample):
+	<SPAN
+CLASS="GUIMENU"
+>Bearbeiten</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Auswahl</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>bis zum Anfang</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Shift</B
+>-<B
+CLASS="KEYCAP"
+>Pos1</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>	ausdehnen der Auswahl bis zum Ende des Signals (letztes Sample):
+	<SPAN
+CLASS="GUIMENU"
+>Bearbeiten</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Auswahl</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>bis zum Ende</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>Shift</B
+>-<B
+CLASS="KEYCAP"
+>Ende</B
+></B
+>)
+    </P
+></LI
+><LI
+><P
+>    entfernen der Auswahl und markieren von "nichts":
+	<SPAN
+CLASS="GUIMENU"
+>Bearbeiten</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Auswahl</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Nichts</SPAN
+> (<B
+CLASS="SHORTCUT"
+><B
+CLASS="KEYCAP"
+>N</B
+></B
+>)
+    </P
+></LI
+></UL
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="open_and_save.html"
+>Zurück</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Anfang</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="developers.html"
+>Vor</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Öffnen und Speichern von Dateien</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="using-kapp.html"
+>Hoch</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Entwickler Handbuch für <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

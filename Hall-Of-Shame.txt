@@ -2,7 +2,20 @@
 This file contains the history of some bugs that were so nasty, ugly and 
 difficult to find that they earned to be documented. Shall no one ever be
 so unlucky to fall into one of these traps...
- 
+
+November 2001: the "QString.sprintf bug" (4 days)
+	
+	I used the following line to format a string:
+	QString pt = pt.sprintf(",%f,%f", p->x, p->y);
+	
+	When I split it into two lines, it worked:
+	QString pt;
+	pt = pt.sprintf(",%f,%f", p->x, p->y);
+	
+	>> Symptoms: crashes somewhere later in the program, one
+	             entry disappeared from the list of interpolations
+	>> Conclusion: never use an uninitialized QString for any operation!
+
 March 2001: the "clearNumberedMenu bug" (more than 2 weeks)
 
 	In that version the "activated" signal of menu entries directly
@@ -34,9 +47,9 @@ May 2000: the "sprintf bug" (about 4 days)
 
 	Somewhere at the start of the program there was a loop for reading
 	in the list of recent files. The key was generated with sprintf into
-	a buffer with 3 bytes. Guess what happens when the loop counter gets
+	a buffer with 2 bytes. Guess what happens when the loop counter gets
 	greater than 10:
-	char buffer[3];
+	char buffer[2];
 	for (i=0; i<20; i++) {
 	    sprintf(buffer, "%d", i);
 	    ...
@@ -51,7 +64,7 @@ December 1999: the "delete *FILE bug" (about 3 days)
 	After a while he found out that this doesn't work as expected and
 	changed back to FILE*. He converted like this:
 	new QFile input(name) -> FILE *input = fopen(name)
-	dele input;           -> delete input;
+	delete input;         -> delete input;
 
 	>> Symptoms: crashes somewhere in libc, normally in malloc
 	>> Conclusion: never delete a FILE* pointer !

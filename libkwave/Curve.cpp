@@ -71,10 +71,9 @@ QString Curve::getCommand()
 
     Point *p;
     for (p = m_points.first(); (p); p = m_points.next() ) {
-	QString pt = pt.sprintf(",%f,%f", p->x, p->y);
-	cmd += pt;
+	QString par;
+	cmd += par.sprintf(",%f,%f", p->x, p->y);
     }
-
     cmd += ")\n";
     return cmd;
 }

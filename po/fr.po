@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "POT-Creation-Date: 2003-06-24 11:21+0200\n"
-"PO-Revision-Date: 2003-06-24 11:44+0200\n"
+"PO-Revision-Date: 2003-06-24 14:49+0200\n"
 "Last-Translator: Gilles CAULIER <caulier.gilles@free.fr>\n"
 "Language-Team: Française <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -487,7 +487,7 @@ msgstr "Concepteur de cette boîte de dialogue."
 
 #: kwave/main.cpp:72
 msgid "french translations and splashscreen"
-msgstr "Traductions Française et logo de démarrage."
+msgstr "Traductions Françaises et logo de démarrage."
 
 #: kwave/main.cpp:78
 msgid "Kwave homepage and german online help"
@@ -2130,9 +2130,10 @@ msgid ""
 "audio data are before they get processed by the pitch shift. If your audio "
 "data sounds interrupted, you might get better result with higher values."
 msgstr ""
-"<b>fréquence de découpage</b><br>Cette option détermine comment les données audio "
-"de petite taille seront traitées par le décalage fréquentiel. Si vos données audio sont interrompues, "
-"vous pouvez obtenir un meilleur résultat avec des valeurs plus élevées."
+"<b>fréquence de découpage</b><br>Cette option détermine comment les données "
+"audio de petite taille seront traitées par le décalage fréquentiel. Si vos "
+"données audio sont interrompues, vous pouvez obtenir un meilleur résultat "
+"avec des valeurs plus élevées."
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:410
 msgid "Speed:"

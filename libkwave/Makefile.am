@@ -91,7 +91,7 @@ libkwave_la_SOURCES=\
  VirtualAudioFile.cpp\
  WindowFunction.cpp
 
-libkwave_la_LDFLAGS = @LIBAUDIOFILE_LDFLAGS@ @GSL_LIBS@ \
+libkwave_la_LDFLAGS = @ALSA_LDFLAGS@ @LIBAUDIOFILE_LDFLAGS@ @GSL_LIBS@ \
 	-version-info @LD_VERSION_INFO@ \
 	--dynamic --export-dynamic
 

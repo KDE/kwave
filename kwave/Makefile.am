@@ -96,13 +96,13 @@ PIXMAPS=\
  fade_in.png\
  fade_out.png\
  filesave.xpm\
- font.xpm\
  knife.xpm\
  knob.xpm\
  light_off.xpm\
  light_on.xpm\
  logo.xpm\
  lspeaker.xpm\
+ minifont.xpm\
  noise.png\
  playback_loop.xpm\
  playback_start.xpm\

@@ -17,6 +17,7 @@
 
 #include <math.h>
 
+#include <qbuttongroup.h>
 #include <qradiobutton.h>
 #include <qslider.h>
 
@@ -343,6 +344,12 @@ void SelectTimeWidget::percentsChanged(int p)
 
     // update in byPercents mode [0...100]
     m_range = percents;
+}
+
+//***************************************************************************
+void SelectTimeWidget::setTitle(const QString title)
+{
+    frmLength->setTitle(title);
 }
 
 //***************************************************************************

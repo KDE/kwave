@@ -75,6 +75,9 @@ public:
     /** Returns the number of ms, samples or percents */
     double time() { return m_range; };
 
+    /** Sets the title of the, shown in the frame around the controls */
+    void setTitle(const QString title);
+
 private slots:
 
     /** called whenever one of the radio buttons changed it's state */

@@ -101,11 +101,22 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
     sbResolution->setValue(bits);
     sbTracks->setValue(tracks);
     if (by_time) {
+	rbSamples->setChecked(false);
 	rbTime->setChecked(true);
 	setHMS(samples);
+	edSamples->setEnabled(false);
+	sbHours->setEnabled(true);
+	sbMinutes->setEnabled(true);
+	sbSeconds->setEnabled(true);
     } else {
+	// by samples
+	rbTime->setChecked(false);
 	rbSamples->setChecked(true);
 	edSamples->setValue(samples);
+	edSamples->setEnabled(true);
+	sbHours->setEnabled(false);
+	sbMinutes->setEnabled(false);
+	sbSeconds->setEnabled(false);
     }
 
     tracksChanged(0);

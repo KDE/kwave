@@ -93,7 +93,7 @@ DEP_FILES	:= $(h_files:.h=.dm) $(cpp_sources:.cpp=.d)
 
 dep depend: .depend
 
-$(MODNAME): ${uih_files} ${uic_files} ${moc_files} .depend ${OUT_FILES}
+$(MODNAME): ${uih_files} ${uic_files} ${moc_files} depend ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
 	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
 

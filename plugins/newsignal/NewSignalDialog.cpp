@@ -51,9 +51,13 @@ NewSignalDialog::NewSignalDialog(QWidget *parent)
     connect(cbSampleRate, SIGNAL(textChanged(const QString&)),
             this, SLOT(sampleRateChanged(const QString&)));
     connect(sbTracks, SIGNAL(valueChanged(int)),
-            this, SLOT(timeChanged(int)));
+            this, SLOT(tracksChanged(int)));
     connect(cbResolution, SIGNAL(activated(int)),
             this, SLOT(timeChanged(int)));
+
+    // initialize the controls
+    tracksChanged(0);
+    timeChanged(0);
 
     // that dialog is big enough, limit it to it's minimum size
     setFixedSize(minimumSize());
@@ -191,6 +195,29 @@ void NewSignalDialog::timeChanged(int)
 void NewSignalDialog::sampleRateChanged(const QString&)
 {
     timeChanged(0);
+}
+
+//***************************************************************************
+void NewSignalDialog::tracksChanged(int)
+{
+    timeChanged(0);
+
+    ASSERT(lblTracksVerbose);
+    if (!lblTracksVerbose) return;
+    switch (tracks()) {
+	case 1:
+	    lblTracksVerbose->setText(i18n("(Mono)"));
+	    break;
+	case 2:
+	    lblTracksVerbose->setText(i18n("(Stereo)"));
+	    break;
+	case 4:
+	    lblTracksVerbose->setText(i18n("(Quadro)"));
+	    break;
+	default:
+	    lblTracksVerbose->setText("");
+	    break;
+    }
 }
 
 //***************************************************************************

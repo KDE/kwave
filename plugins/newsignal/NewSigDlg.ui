@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>492</width>
+            <width>488</width>
             <height>481</height>
         </rect>
     </property>
@@ -47,17 +47,6 @@
                     <name>spacing</name>
                     <number>6</number>
                 </property>
-                <widget row="2"  column="0" >
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>lblResolution</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Resolution:</string>
-                    </property>
-                </widget>
                 <widget row="0"  column="2" >
                     <class>QComboBox</class>
                     <item>
@@ -133,46 +122,6 @@
                         <number>7</number>
                     </property>
                 </widget>
-                <widget row="1"  column="0" >
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>lblTracks</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Tracks:</string>
-                    </property>
-                </widget>
-                <widget row="2"  column="2" >
-                    <class>QComboBox</class>
-                    <item>
-                        <property>
-                            <name>text</name>
-                            <string>8</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property>
-                            <name>text</name>
-                            <string>16</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property>
-                            <name>text</name>
-                            <string>24</string>
-                        </property>
-                    </item>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>cbResolution</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>currentItem</name>
-                        <number>0</number>
-                    </property>
-                </widget>
                 <widget row="0"  column="0" >
                     <class>QLabel</class>
                     <property stdset="1">
@@ -182,21 +131,6 @@
                     <property stdset="1">
                         <name>text</name>
                         <string>Sample Rate:</string>
-                    </property>
-                </widget>
-                <widget row="1"  column="2" >
-                    <class>QSpinBox</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>sbTracks</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>minValue</name>
-                        <number>1</number>
-                    </property>
-                    <property stdset="1">
-                        <name>value</name>
-                        <number>1</number>
                     </property>
                 </widget>
                 <spacer row="1"  column="1" >
@@ -311,7 +245,29 @@
                         </spacer>
                     </hbox>
                 </widget>
-                <widget row="2"  column="3" >
+                <widget row="2"  column="0" >
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>lblTracks</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Tracks:</string>
+                    </property>
+                </widget>
+                <widget row="1"  column="0" >
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>lblResolution</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Resolution:</string>
+                    </property>
+                </widget>
+                <widget row="1"  column="3" >
                     <class>QLayoutWidget</class>
                     <property stdset="1">
                         <name>name</name>
@@ -334,7 +290,7 @@
                             </property>
                             <property stdset="1">
                                 <name>text</name>
-                                <string>Bits</string>
+                                <string>bit</string>
                             </property>
                         </widget>
                         <spacer>
@@ -360,7 +316,7 @@
                         </spacer>
                     </hbox>
                 </widget>
-                <widget row="1"  column="3" >
+                <widget row="2"  column="3" >
                     <class>QLayoutWidget</class>
                     <property stdset="1">
                         <name>name</name>
@@ -379,11 +335,11 @@
                             <class>QLabel</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>lbTracksVerbose</cstring>
+                                <cstring>lblTracksVerbose</cstring>
                             </property>
                             <property stdset="1">
                                 <name>text</name>
-                                <string>(Stereo)</string>
+                                <string>%1</string>
                             </property>
                         </widget>
                         <spacer>
@@ -408,6 +364,50 @@
                             </property>
                         </spacer>
                     </hbox>
+                </widget>
+                <widget row="2"  column="2" >
+                    <class>QSpinBox</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>sbTracks</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>minValue</name>
+                        <number>1</number>
+                    </property>
+                    <property stdset="1">
+                        <name>value</name>
+                        <number>2</number>
+                    </property>
+                </widget>
+                <widget row="1"  column="2" >
+                    <class>QComboBox</class>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>8</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>16</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>24</string>
+                        </property>
+                    </item>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>cbResolution</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>currentItem</name>
+                        <number>1</number>
+                    </property>
                 </widget>
             </grid>
         </widget>
@@ -639,6 +639,10 @@
                                                         <name>minValue</name>
                                                         <number>-1</number>
                                                     </property>
+                                                    <property stdset="1">
+                                                        <name>value</name>
+                                                        <number>4</number>
+                                                    </property>
                                                 </widget>
                                             </vbox>
                                         </widget>
@@ -706,6 +710,10 @@
                                                     <property stdset="1">
                                                         <name>minValue</name>
                                                         <number>-1</number>
+                                                    </property>
+                                                    <property stdset="1">
+                                                        <name>value</name>
+                                                        <number>30</number>
                                                     </property>
                                                 </widget>
                                             </vbox>
@@ -990,7 +998,7 @@
                             </property>
                             <property stdset="1">
                                 <name>text</name>
-                                <string>(Resulting file size: %1 MB)</string>
+                                <string>%1</string>
                             </property>
                         </widget>
                     </hbox>
@@ -1168,8 +1176,8 @@
 </connections>
 <tabstops>
     <tabstop>cbSampleRate</tabstop>
-    <tabstop>sbTracks</tabstop>
     <tabstop>cbResolution</tabstop>
+    <tabstop>sbTracks</tabstop>
     <tabstop>rbTime</tabstop>
     <tabstop>sbHours</tabstop>
     <tabstop>sbMinutes</tabstop>

@@ -171,7 +171,7 @@ private slots:
     void blinkPause();
 
     /** toolbar: "file/new" */
-    void toolbarFileNew()    { executeCommand("dialog (newsignal) "); };
+    void toolbarFileNew()    { executeCommand("plugin(newsignal)"); };
 
     /** toolbar: "file/open" */
     void toolbarFileOpen()   { executeCommand("open () "); };

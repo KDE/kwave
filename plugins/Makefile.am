@@ -3,7 +3,7 @@
 # dirs=`find . -type d | grep -v ./template | grep -v CVS | grep -v \\\.$$ | \
 #	sed s°^\\\.\\\/°°g | sort`
 
-dirs="about memory playback sonagram zero"
+dirs="about memory newsignal playback sonagram zero"
 
 distclean-generic:
 	-rm -fv `find . -name \*.d -o -name \*.dm -o -name .depend`

@@ -57,6 +57,9 @@ private slots:
     /** called when the sample rate has been edited or changed */
     void sampleRateChanged(const QString&);
 
+    /** called when the sample rate has been changed */
+    void tracksChanged(int);
+
     /** updates the file size */
     void updateFileSize();
 

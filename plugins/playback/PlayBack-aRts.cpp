@@ -101,6 +101,7 @@ QString PlayBackArts::open(const QString &, double rate,
 
     debug("PlayBackArts::open(): using %u bytes as buffer", m_buffer_size);
     m_buffer.resize(m_buffer_size);
+    m_buffer.fill(0);
 
     return 0;
 }
@@ -157,7 +158,11 @@ void PlayBackArts::flush()
     Q_ASSERT(m_stream);
     if (m_stream) {
 	MutexGuard lock(m_lock_aRts);
+
+	// fill rest of buffer with zeroes	
+	while (m_buffer_used < m_buffer_size)
 	
+	    m_buffer[m_buffer_used++] = 0;
 	int errorcode = arts_write(m_stream, m_buffer.data(), m_buffer_used);
 	if (errorcode < 0) {
 	    warning("PlayBackArts: arts_write error: %s",

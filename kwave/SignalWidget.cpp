@@ -89,7 +89,7 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     pixmap = 0;
     playpointer = -1;
     redraw = false;
-    select = 0;
+    m_selection = 0;
     width = 0;
     m_zoom = 0.0;
     zoomy = 1;
@@ -100,14 +100,10 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 	m_layer_rop[i] = CopyROP;
     }
 
-    select = new MouseMark(this);
-    ASSERT(select);
-    if (!select) return;
+    m_selection = new MouseMark();
+    ASSERT(m_selection);
+    if (!m_selection) return;
 
-    connect(select, SIGNAL(selection(int, int)),
-	    this, SLOT(estimateRange(int, int)));
-    connect(select, SIGNAL(refresh()),
-            this, SLOT(refreshSelection()));
     connect(&m_playback_controller, SIGNAL(sigStartPlayback()),
             this, SLOT(playbackStart()));
     connect(&m_playback_controller, SIGNAL(sigPlaybackStopped()),
@@ -174,8 +170,8 @@ void SignalWidget::refreshSignalLayer()
 bool SignalWidget::isOK()
 {
 ////    ASSERT(labels);
-    ASSERT(select);
-    return ( /* labels && */ select );
+    ASSERT(m_selection);
+    return ( /* labels && */ m_selection );
 }
 
 //***************************************************************************
@@ -193,8 +189,8 @@ SignalWidget::~SignalWidget()
 ////    if (labels) delete labels;
 ////    labels = 0;
 
-    if (select) delete select;
-    select = 0;
+    if (m_selection) delete m_selection;
+    m_selection = 0;
 
     for (int i=0; i < 3; i++) {
 	m_layer[i] = 0;
@@ -231,60 +227,60 @@ void SignalWidget::toggleChannel(int /*channel*/)
 }
 
 //***************************************************************************
-//bool SignalWidget::executeNavigationCommand(const QString &command)
-//{
-//    if (!signalmanage) return false;
-//    if (!command.length()) return false;
-//    Parser parser(command);
-//
-//    if (false) {
-//    CASE_COMMAND("zoomin")
-//	zoomIn();
-//    CASE_COMMAND("zoomout")
-//	zoomOut();
-//    CASE_COMMAND("zoomrange")
-//	zoomRange();
-//    CASE_COMMAND("scrollright")
-//	setOffset(m_offset + pixels2samples(width / 10));
-//	refreshAllLayers();
-//    CASE_COMMAND("scrollleft")
-//	setOffset(m_offset - pixels2samples(width / 10));
-//	refreshAllLayers();
-//    CASE_COMMAND("viewnext")
-//	setOffset(m_offset + pixels2samples(width));
-//	refreshAllLayers();
-//    CASE_COMMAND("viewprev")
-//	setOffset(m_offset - pixels2samples(width));
-//	refreshAllLayers();
-//    CASE_COMMAND("selectall")
-//	selectRange(0, signalmanage->getLength() - 1);
-//    CASE_COMMAND("selectnext")
-//	int r = signalmanage->getRMarker();
-//	int l = signalmanage->getLMarker();
-//	selectRange(r + 1, r + 1 + (r - l));
-//    CASE_COMMAND("selectprev")
-//	int r = signalmanage->getRMarker();
-//	int l = signalmanage->getLMarker();
-//	selectRange(l - (r - l) - 1, l - 1);
-//    CASE_COMMAND("selecttoleft")
-//	int l = 0;
-//	int r = signalmanage->getRMarker();
-//	selectRange(l, r);
-//    CASE_COMMAND("selecttoright")
-//	int l = signalmanage->getLMarker();
-//	int r = signalmanage->getLength() - 1;
-//	selectRange(l, r);
-//    CASE_COMMAND("selectvisible")
-//	selectRange(m_offset, m_offset + pixels2samples(width) - 1);
-//    CASE_COMMAND("selectnone")
-//	selectRange(m_offset, m_offset);
+bool SignalWidget::executeNavigationCommand(const QString &command)
+{
+    if (!command.length()) return true;
+    Parser parser(command);
+
+    unsigned int visible_samples = pixels2samples(width);
+
+    if (false) {
+    // zoom
+    CASE_COMMAND("zoomin")
+	zoomIn();
+    CASE_COMMAND("zoomout")
+	zoomOut();
+    CASE_COMMAND("zoomrange")
+	zoomRange();
+    CASE_COMMAND("scrollright")
+	setOffset(m_offset + visible_samples / 10);
+    CASE_COMMAND("scrollleft")
+	setOffset(((visible_samples / 10) < m_offset) ?
+	          (m_offset - visible_samples / 10) : 0);
+    CASE_COMMAND("viewnext")
+	setOffset(m_offset + visible_samples);
+    CASE_COMMAND("viewprev")
+	setOffset((visible_samples < m_offset) ?
+	          (m_offset - visible_samples) : 0);
+    // selection
+    CASE_COMMAND("selectall")
+	selectRange(0, m_signal_manager.length());
+    CASE_COMMAND("selectnext")
+	selectRange(m_signal_manager.selection().last()+1,
+	            m_signal_manager.selection().length());
+    CASE_COMMAND("selectprev")
+	unsigned int ofs = m_signal_manager.selection().first();
+	unsigned int len = m_signal_manager.selection().length();
+	if (!len) len = 1;
+	if (len > ofs) len = ofs;
+	selectRange(ofs-len, len);
+    CASE_COMMAND("selecttoleft")
+	selectRange(0, m_signal_manager.selection().last());
+    CASE_COMMAND("selecttoright")
+	selectRange(m_signal_manager.selection().first(),
+	    m_signal_manager.length()-m_signal_manager.selection().first()
+	);
+    CASE_COMMAND("selectvisible")
+	selectRange(m_offset, pixels2samples(width) - 1);
+    CASE_COMMAND("selectnone")
+	selectRange(m_offset, 0);
 //    CASE_COMMAND("selectrange")
 //	selectRange();
-//    } else return false;
-//
-//    return true;
-//}
-//
+    } else return false;
+
+    return true;
+}
+
 //***************************************************************************
 //bool SignalWidget::executeLabelCommand(const QString &command)
 //{
@@ -328,7 +324,7 @@ bool SignalWidget::executeCommand(const QString &command)
 {
     if (!command.length()) return true;
     Parser parser(command);
-    debug("SignalWidget::executeCommand(%s)", command.data());    // ###
+//    debug("SignalWidget::executeCommand(%s)", command.data());    // ###
 
     if (false) {
 ////    CASE_COMMAND("dialog")
@@ -340,8 +336,8 @@ bool SignalWidget::executeCommand(const QString &command)
 //	refreshAllLayers();
     CASE_COMMAND("newsignal")
 	createSignal(command);
-//    } else if (executeNavigationCommand(command)) {
-//	return true;
+    } else if (executeNavigationCommand(command)) {
+	return true;
     } else {
 	bool res = m_signal_manager.executeCommand(command);
 //	selectRange(signalmanage->getLMarker(), signalmanage->getRMarker());
@@ -445,19 +441,16 @@ void SignalWidget::selectRange()
 }
 
 //***************************************************************************
-void SignalWidget::selectRange(int /*left*/, int /*right*/)
+void SignalWidget::selectRange(unsigned int offset, unsigned int length)
 {
-////    debug("SignalWidget::selectRange(%d,%d)",left,right);
-//
-//    ASSERT(select);
-//    ASSERT(m_zoom);
-//    if (select && m_zoom) {
-//	if ((left != select->left()) || (right != select->right()))
-//	    select->set(left, right);
-//    }
-//
-//    signalmanage->setRange(left, right);
-//    estimateRange(left, right);
+    if (!m_zoom) return;
+
+    if ((offset != m_signal_manager.selection().first()) ||
+	(length != m_signal_manager.selection().length()) )
+    {
+	m_signal_manager.selectRange(offset, length);
+	refreshSelection();
+    }
 }
 
 //***************************************************************************
@@ -622,10 +615,12 @@ double SignalWidget::getFullZoom()
 //***************************************************************************
 void SignalWidget::setZoom(double new_zoom)
 {
+    double old_zoom = m_zoom;
     InhibitRepaintGuard inhibit(*this);
 
     m_zoom = new_zoom;
     fixZoomAndOffset();
+    if (m_zoom == old_zoom) return;
 
     // forward the zoom and offset to all track pixmaps
     unsigned int n_tracks = m_track_pixmaps.count();
@@ -642,6 +637,8 @@ void SignalWidget::setZoom(double new_zoom)
 
     emit viewInfo(m_offset, pixels2samples(QWidget::width()-1)+1,
                   m_signal_manager.length());
+
+    emit sigZoomChanged(m_zoom);
 }
 
 //***************************************************************************
@@ -719,7 +716,7 @@ void SignalWidget::zoomNormal()
 {
     InhibitRepaintGuard inhibit(*this);
 
-    setOffset(m_offset + pixels2samples(width) / 2);
+    m_offset += pixels2samples(width) / 2;
     setZoom(1.0);
     unsigned int shift = pixels2samples(width) / 2;
     setOffset((shift < m_offset) ? (m_offset-shift) : 0);
@@ -731,7 +728,7 @@ void SignalWidget::zoomOut()
 {
     InhibitRepaintGuard inhibit(*this);
 
-    setOffset(m_offset + pixels2samples(width) / 2);
+    m_offset += pixels2samples(width) / 2;
     setZoom(m_zoom*3);
     unsigned int shift = pixels2samples(width) / 2;
     setOffset((shift < m_offset) ? (m_offset-shift) : 0);
@@ -743,10 +740,11 @@ void SignalWidget::zoomIn()
 {
     InhibitRepaintGuard inhibit(*this);
 
-    setOffset(m_offset + pixels2samples(width) / 2);
+    m_offset += pixels2samples(width) / 2;
     setZoom(m_zoom / 3);
     unsigned int shift = pixels2samples(width) / 2;
     setOffset((shift < m_offset) ? (m_offset-shift) : 0);
+
     refreshAllLayers();
 }
 
@@ -846,71 +844,78 @@ void SignalWidget::refreshLayer(int layer)
 //***************************************************************************
 bool SignalWidget::checkPosition(int x)
 {
-    ASSERT(select);
-    if (!select) return false;
+    ASSERT(m_selection);
+    if (!m_selection) return false;
 
     // 2 % of width tolerance
-    return select->checkPosition(x, pixels2samples(width / 50));
+    return m_selection->checkPosition(x, pixels2samples(width / 50));
 }
 
 //***************************************************************************
-void SignalWidget::mousePressEvent(QMouseEvent *)
+void SignalWidget::mousePressEvent(QMouseEvent *e)
 {
-//    ASSERT(e);
-//    ASSERT(select);
-//    if (!e) return;
-//    if (!select) return;
-//
-//    // abort if no signal is loaded
-//    if (!signalmanage) return;
-//
-//    // ignore all mouse press event in playback mode
-//    if (m_playback_controller.running()) return;
-//
-//    if (e->button() == LeftButton) {
-//	int x = m_offset + pixels2samples(e->pos().x());
-//	down = true;
-//	(checkPosition(x)) ? select->grep(x) : select->set(x, x);
-//    }
-//
+    ASSERT(e);
+    ASSERT(m_selection);
+    if (!e) return;
+    if (!m_selection) return;
+
+    // abort if no signal is loaded
+    if (!m_signal_manager.length()) return;
+
+    // ignore all mouse press events in playback mode
+    if (m_playback_controller.running()) return;
+
+    if (e->button() == LeftButton) {
+	int x = m_offset + pixels2samples(e->pos().x());
+	down = true;
+	(checkPosition(x)) ? m_selection->grep(x) : m_selection->set(x, x);
+    }
+
 //    if (e->button() == RightButton) lasty = e->pos().y();
 }
 
 //***************************************************************************
-void SignalWidget::mouseReleaseEvent(QMouseEvent */*e*/)
+void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 {
-//    ASSERT(e);
-//    ASSERT(select);
-//    if (!e) return;
-//    if (!select) return;
-//
-//    // abort if no signal is loaded
-//    if (!signalmanage) return;
-//
-//    // ignore all mouse release events in playback mode
-//    if (m_playback_controller.running()) return;
-//
-//    if (down) {
-//	int x = m_offset + pixels2samples(e->pos().x());
-////	if (x >= length) x = length - 1;    //check for some bounds
-//	if (x < 0) x = 0;
-//	select->update(x);
-//	selectRange(select->left(), select->right() /* , false */);
-//	down = false;
-//    }
+    ASSERT(e);
+    ASSERT(m_selection);
+    if (!e) return;
+    if (!m_selection) return;
+
+    // abort if no signal is loaded
+    if (!m_signal_manager.length()) return;
+
+    // ignore all mouse release events in playback mode
+    if (m_playback_controller.running()) return;
+
+    if (down) {
+	int x = e->pos().x();
+	if (x >= width) x = width - 1;    //check for some bounds
+	x = m_offset + pixels2samples(x);
+	if (x < 0) x = 0;
+	m_selection->update(x);
+	
+	unsigned int len = m_selection->right() - m_selection->left() + 1;
+	selectRange(m_selection->left(), len);
+	
+	down = false;
+    }
 }
 
 //***************************************************************************
-void SignalWidget::mouseMoveEvent( QMouseEvent */*e*/ )
+void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 {
-//    ASSERT(e);
-//    ASSERT(select);
-//    if (!e) return;
-//    if (!select) return;
-//
-//    // abort if no signal is loaded
-//    if (!signalmanage) return;
-//
+    ASSERT(e);
+    ASSERT(m_selection);
+    ASSERT(width);
+    if (!e) return;
+    if (!m_selection) return;
+    if (!width) return;
+
+    // abort if no signal is loaded
+    if (!m_signal_manager.length()) return;
+
+
 ////    if ( (e->state() == RightButton) && height) {
 ////	//zooming on y axis... not very useful, will perhaps be replaced by
 ////	//more useful funcitonality...
@@ -930,24 +935,26 @@ void SignalWidget::mouseMoveEvent( QMouseEvent */*e*/ )
 ////	    repaint();
 ////	}
 ////    }
-//
-//    if (down) {
-//	// in move mode, a new selection was created or an old one grabbed
-//	// this does the changes with every mouse move...
-//	int mx = e->pos().x();
-//	if (mx < 0) mx = 0;
-//	if (mx >= width) mx = width-1;
-//	int x = m_offset + pixels2samples(mx);
-//	if (x < 0) x = 0;
-//	select->update(x);
-//	selectRange(select->left(), select->right());
-//    } else {
-//	//yes, this code gives the nifty cursor change....
-//	if (checkPosition(m_offset+pixels2samples(e->pos().x())))
-//	    setCursor(sizeHorCursor);
-//	else
-//	    setCursor(arrowCursor);
-//    }
+
+    if (down) {
+	// in move mode, a new selection was created or an old one grabbed
+	// this does the changes with every mouse move...
+	int mx = e->pos().x();
+	if (mx < 0) mx = 0;
+	if (mx >= width) mx = width-1;
+	
+	unsigned int x = m_offset + pixels2samples(mx);
+	m_selection->update(x);
+	
+	unsigned int len = m_selection->right() - m_selection->left() + 1;
+	selectRange(m_selection->left(), len);
+    } else {
+	// yes, this code gives the nifty cursor change....
+	if (checkPosition(m_offset+pixels2samples(e->pos().x())))
+	    setCursor(sizeHorCursor);
+	else
+	    setCursor(arrowCursor);
+    }
 }
 
 //***************************************************************************
@@ -1017,9 +1024,9 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	int track_height = (n_tracks) ? (height / n_tracks) : 0;
 	int top = 0;
 	for (unsigned int i = 0; i < n_tracks; i++) {
+	    if (i >= m_track_pixmaps.count()) break; // closed or not ready
 	    TrackPixmap *pix = m_track_pixmaps.at(i);
-	    ASSERT(pix);
-	    if (!pix) continue;
+	    if (!pix) continue; // signal closed ?
 	
 	    // fix the width and height of the track pixmap
 	    if ((pix->width() != width) || (pix->height() != track_height)) {
@@ -1073,11 +1080,12 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	p.fillRect(0, 0, width, height, black);
 	p.setRasterOp(CopyROP);
 	
-	if (select && n_tracks) {
-	    unsigned int left  = max(0, select->left());
-	    unsigned int right = max(0, select->right());
+	if (n_tracks) {
+	    unsigned int left  = m_signal_manager.selection().first();
+	    unsigned int right = m_signal_manager.selection().last();
 	    if ((right > m_offset) && (left < m_offset+pixels2samples(width))) {
 		// transform to pixel coordinates
+		if (left < m_offset) left = m_offset;
 		left  = samples2pixels(left - m_offset);
 		right = samples2pixels(right - m_offset);
 		

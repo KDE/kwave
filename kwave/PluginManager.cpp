@@ -341,14 +341,14 @@ const QArray<unsigned int> PluginManager::selectedChannels()
 unsigned int PluginManager::selectionStart()
 {
     SignalManager *sig = m_top_widget.signalManager();
-    return (sig) ? sig->getLMarker() : 0;
+    return (sig) ? sig->selection().first() : 0;
 }
 
 //***************************************************************************
 unsigned int PluginManager::selectionEnd()
 {
     SignalManager *sig = m_top_widget.signalManager();
-    return (sig) ? sig->getRMarker() : 0;
+    return (sig) ? sig->selection().last() : 0;
 }
 
 //***************************************************************************

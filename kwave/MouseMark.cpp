@@ -1,5 +1,5 @@
 /***************************************************************************
-              MouseMark.cpp -  Handling of mouse selection
+           MouseMark.cpp -  Handling of mouse selection
 			     -------------------
     begin                : Sun Nov 12 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -16,13 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
-
 #include <stdlib.h>
 #include "MouseMark.h"
 
 //****************************************************************************
-MouseMark::MouseMark(QWidget *parent)
-    :QObject()
+MouseMark::MouseMark()
 {
     initial = -1;
     last = -1;
@@ -33,9 +31,6 @@ void MouseMark::set(int l, int r)
 {
     initial = l;
     last = r;
-
-    emit selection(left(), right());
-    emit refresh ();
 }
 
 //****************************************************************************
@@ -57,18 +52,12 @@ void MouseMark::grep(int x)
 	initial = last;
     }
     last = x;
-
-    emit selection(left(), right());
-    emit refresh ();
 }
 
 //****************************************************************************
 void MouseMark::update(int x)
 {
     last = x;
-
-    emit selection(left(), right());
-    emit refresh ();
 }
 
 //****************************************************************************

@@ -182,15 +182,10 @@ public:
      * display in percent, the factor is displayed as a numeric
      * multiplier.
      * examples: "0.1 %", "12.3 %", "468 %", "11x"
-     * @param buf string buffer to receive the formated string,
-     *            should have room for about 16 characters (char[16])
-     * @param bufsize number of characters that can be stored in the
-     *                buffer, including the trailing zero
      * @param percent the zoom factor to be formated, a value of "100.0"
      *             means "100%", "0.1" means "0.1%" and so on.
      */
-    static void zoom2string(char *buf,
-	unsigned int bufsize, double percent);
+    static QString zoom2string(double percent);
 
     /**
      * Converts a time in milliseconds into a string. Times below one

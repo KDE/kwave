@@ -209,7 +209,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 	    m_slider, SLOT(setRange(unsigned int, unsigned int,
 	    unsigned int)));
 
-    connect(m_signal_widget, SIGNAL(zoomInfo(double)),
+    connect(m_signal_widget, SIGNAL(sigZoomChanged(double)),
 	    this, SLOT(forwardZoomChanged(double)));
     connect(m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(forwardCommand(const QString &)));

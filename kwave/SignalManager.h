@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #ifndef _SIGNAL_MANAGER_H_
-#define _SIGNAL_MANAGER_H_ 1
+#define _SIGNAL_MANAGER_H_
 
 #define processid       0
 #define stopprocess     1
@@ -31,6 +31,7 @@
 
 #include "mt/SignalProxy.h"
 
+#include "libkwave/Selection.h"
 #include "libkwave/Signal.h"
 
 class ProgressDialog;
@@ -144,18 +145,9 @@ public:
      */
     unsigned int length();
 
-    /**
-     * Returns the start of the selection (inclusive).
-     */
-    inline unsigned int getLMarker() {
-	return lmarker;
-    };
-
-    /**
-     * Returns the end of the selection (inclusive).
-     */
-    inline unsigned int getRMarker() {
-	return rmarker;
+    /** Returns a reference to the current selection */
+    inline Selection &selection() {
+	return m_selection;
     };
 
     /**
@@ -193,11 +185,11 @@ public:
     void exportAscii(const char *name);
 
     /**
-     * Sets the internal markers and promotes them to all channels.
-     * @param l left marker [0...length-1]
-     * @param r right marker [0...length-1]
+     * Sets the current start and length of the selection to new values.
+     * @param offset index of the first sample
+     * @param length number of samples
      */
-    void setRange(unsigned int l, unsigned int r);
+    void selectRange(unsigned int offset, unsigned int length);
 
     bool promoteCommand (const QString &command);
 
@@ -355,8 +347,8 @@ private:
     /** signal with multiple tracks */
     Signal m_signal;
 
-    unsigned int lmarker; // ###
-    unsigned int rmarker; // ###
+    /** the current selection */
+    Selection m_selection;
 
     //sampling rate being used
     int rate; // ###

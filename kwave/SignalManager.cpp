@@ -76,12 +76,11 @@ SignalManager::SignalManager(QWidget *parent)
     m_closed(true),
     m_empty(true),
     m_signal(),
+    m_selection(0,0),
     m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
     m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
 {
     m_name = "";
-    lmarker = 0;
-    rmarker = 0;
     rate = 0;
 //    for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
 //	msg[i] = 0;
@@ -517,18 +516,15 @@ SignalManager::~SignalManager()
 }
 
 //***************************************************************************
-void SignalManager::setRange(unsigned int /*l*/, unsigned int /*r*/)
+void SignalManager::selectRange(unsigned int offset, unsigned int length)
 {
-//    for (unsigned int i = 0; i < m_channels; i++) {
-//	ASSERT(signal.at(i));
-//	if (signal.at(i)) signal.at(i)->setMarkers(l, r);
-//    }
-//    if (!signal.count()) return;
-//    ASSERT(signal.at(0));
-//    if (signal.at(0)) {
-//	lmarker = signal.at(0)->getLMarker();
-//	rmarker = signal.at(0)->getRMarker();
-//    }
+    // first do some range checking
+    unsigned int len = this->length();
+
+    if (offset >= len) offset = len ? (len-1) : 0;
+    if ((offset+length) > len) length = len - offset;
+
+    m_selection.select(offset, length);
 }
 
 //**********************************************************

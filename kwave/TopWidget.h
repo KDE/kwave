@@ -118,7 +118,11 @@ private slots:
     /** called on changes in the zoom selection combo box */
     void selectZoom(int index);
 
-    /** called to set a new zoom factor */
+    /**
+     * Called if a new zoom factor has been set in order to update
+     * the status display.
+     * @note This method can not be called to *set* a new zoom factor.
+     */
     void setZoom(double zoom);
 
     /** updates all elements in the toolbar */

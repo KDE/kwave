@@ -99,14 +99,6 @@ public:
      */
     unsigned int length();
 
-    inline unsigned int selectionStart() {
-	return m_selection_start;
-    };
-
-    inline unsigned int selectionEnd() {
-	return m_selection_end;
-    };
-
     inline int isSelected() {
 	return m_selected;
     };
@@ -239,12 +231,6 @@ private:
 
     /** selection flag (default=true) */
     bool m_selected;
-
-    /** start of the selection */
-    unsigned int m_selection_start;
-
-    /** end of the selection */
-    unsigned int m_selection_end;
 
 };
 

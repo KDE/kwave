@@ -199,21 +199,23 @@ void *KwavePlugin::handle()
 }
 
 //***************************************************************************
-void KwavePlugin::zoom2string(char *buf, unsigned int bufsize, double percent)
+QString KwavePlugin::zoom2string(double percent)
 {
-    if (percent < 1.0) {
-	char format[128];
-	int digits = (int)ceil(1.0 - log10(percent));
+    QString result = "";
 
-	snprintf(format, sizeof(format), "%%0.%df %%%%", digits);
-	snprintf(buf, bufsize, format, percent);
+    if (percent < 1.0) {
+	int digits = (int)ceil(1.0 - log10(percent));
+	QString format;
+	format = "%0."+format.setNum(digits)+"f %%";
+	result = format.sprintf(format, percent);
     } else if (percent < 10.0) {
-	snprintf(buf, bufsize, "%0.1f %%", percent);
+	result = result.sprintf("%0.1f %%", percent);
     } else if (percent < 1000.0) {
-	snprintf(buf, bufsize, "%0.0f %%", percent);
+	result = result.sprintf("%0.0f %%", percent);
     } else {
-	snprintf(buf, bufsize, "x %d", (int)(percent / 100.0));
+	result = result.sprintf("x %d", (int)rint(percent / 100.0));
     }
+    return result;
 }
 
 //***************************************************************************

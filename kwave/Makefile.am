@@ -36,7 +36,6 @@ BUILTSOURCES=\
  FFTWindow.moc.cpp\
  ImageView.moc.cpp\
  LabelManager.moc.cpp\
- MouseMark.moc.cpp\
  KwaveApp.moc.cpp\
  MainWidget.moc.cpp\
  PitchContainer.moc.cpp\

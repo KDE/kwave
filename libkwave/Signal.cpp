@@ -55,14 +55,14 @@
 //***************************************************************************
 Signal::Signal()
     :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0),
-     m_selected(true), m_selection_start(0), m_selection_end(0)
+     m_selected(true)
 {
 }
 
 //***************************************************************************
 Signal::Signal(unsigned int tracks, unsigned int length)
     :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0),
-     m_selected(true), m_selection_start(0), m_selection_end(0)
+     m_selected(true)
 {
     while (tracks--) {
 	appendTrack(length);
@@ -166,21 +166,7 @@ unsigned int Signal::length()
 //    return sample[offset];
 //}
 //
-////**********************************************************
-//void Signal::setMarkers (int l, int r )
-////this one sets the internal markers, most operations use
-//// and does all of the necessary range checks
-//{
-//    if (l > r) {
-//	register int h = l;
-//	l = r;
-//	r = h;
-//    }
-//    if (l < 0) l = 0;
-//    if (r >= length) r = length - 1;
-//    lmarker = l;
-//    rmarker = r;
-//}
+
 //// now follow the various editing and effects functions
 ////**********************************************************
 //int Signal::getChannelMaximum () {

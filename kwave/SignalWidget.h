@@ -153,10 +153,12 @@ public slots:
     void setOffset(unsigned int new_offset);
 
     /**
-     * Sets the left and right selection marker and promotes
-     * them to the SignalManager.
+     * Sets a new selected range of samples. If the length of the
+     * area is given as zero, nothing will be selected.
+     * @param offset index of the first sample
+     * @param length number of samples
      */
-    void selectRange(int left, int right);
+    void selectRange(unsigned int offset, unsigned int length);
 
     void forwardCommand(const QString &command);
 
@@ -318,7 +320,7 @@ signals:
      * command or resize.
      * @param zoom value [samples/pixel]
      */
-    void zoomInfo(double zoom);
+    void sigZoomChanged(double zoom);
 
     /**
      * Signals that a track has been inserted.
@@ -380,7 +382,13 @@ protected:
 ////    void showDialog (const char *);
 //
 //    bool executeLabelCommand(const QString &command);
-//    bool executeNavigationCommand(const QString &command);
+
+    /**
+     * Handles commands for navigation and selection.
+     * @param command the string with the command
+     * @return true if the command has been handles, false if unknown
+     */
+    bool executeNavigationCommand(const QString &command);
 
     /**
      * Inhibits repainting by increasing the repaint inhibit counter.
@@ -466,7 +474,7 @@ private:
      */
     unsigned int m_inhibit_repaint;
 
-    MouseMark *select;
+    MouseMark *m_selection;
 
     /** our signal manager */
     SignalManager m_signal_manager;

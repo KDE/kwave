@@ -1,5 +1,5 @@
 /***************************************************************************
-                MouseMark.h -  Handling of mouse selection
+             MouseMark.h -  Handling of mouse selection
 			     -------------------
     begin                : Sun Nov 12 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -16,22 +16,22 @@
  ***************************************************************************/
 
 #ifndef _MOUSE_MARK_H_
-#define _MOUSE_MARK_H_ 1
-
-#include <qobject.h>
+#define _MOUSE_MARK_H_
 
 /**
- * \class MouseMark
+ * @class MouseMark
  * Simple class that can be used whenever the user selects something
  * with the mouse. Note that the coordinates within this class are
  * not transformed from screen pixels to the user's favorite
  * coordinate system. This must be done outside of here.
  */
-class MouseMark: public QObject
+class MouseMark
 {
-    Q_OBJECT
+
 public:
-    MouseMark(QWidget *);
+
+    /** Constructor */
+    MouseMark();
 
     /**
      * Sets the selection to a new range.
@@ -74,12 +74,6 @@ public:
      */
     int right();
 
-signals:
-    void refresh();
-
-    //sends the current selection for updating of gui elements
-    void selection(int, int);
-
 private:
     /** initial position of the mouse */
     int initial;
@@ -89,4 +83,4 @@ private:
 }
 ;
 //***********************************************************
-#endif //_MOUSE_MARK_H_
+#endif /*_MOUSE_MARK_H_ */

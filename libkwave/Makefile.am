@@ -1,6 +1,7 @@
 INCLUDES= @all_includes@
 
 BUILTSOURCES=\
+ Selection.moc.cpp\
  Signal.moc.cpp\
  Stripe.moc.cpp\
  Track.moc.cpp

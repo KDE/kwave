@@ -739,43 +739,41 @@ const QString &TopWidget::getSignalName()
 }
 
 //***************************************************************************
-void TopWidget::selectZoom(int /*index*/)
+void TopWidget::selectZoom(int index)
 {
-//    ASSERT(m_main_widget);
-//    if (!m_main_widget) return;
-//
-//    if (index < 0) return;
-//    if ((unsigned int)index >= zoom_factors.count())
-//	index = zoom_factors.count()-1;
-//
-//    double new_zoom;
-//    QStringList::Iterator text = zoom_factors.at(index);
-//    new_zoom = (text != 0) ? (*text).toDouble() : 0.0;
-//    if (new_zoom != 0.0) new_zoom = (100.0 / new_zoom);
-//    m_main_widget->setZoom(new_zoom);
+    ASSERT(m_main_widget);
+    if (!m_main_widget) return;
+
+    if (index < 0) return;
+    if ((unsigned int)index >= zoom_factors.count())
+	index = zoom_factors.count()-1;
+
+    double new_zoom;
+    QStringList::Iterator text = zoom_factors.at(index);
+    new_zoom = (text != 0) ? (*text).toDouble() : 0.0;
+    if (new_zoom != 0.0) new_zoom = (100.0 / new_zoom);
+    m_main_widget->setZoom(new_zoom);
 }
 
 //***************************************************************************
-void TopWidget::setZoom(double /*zoom*/)
+void TopWidget::setZoom(double zoom)
 {
-////    debug("void TopWidget::setZoom(%0.5f)", zoom);
-//    ASSERT(zoom > 0);
-//    ASSERT(m_zoomselect);
-//
-//    if (zoom <= 0.0) return; // makes no sense
-//    if (!m_zoomselect) return;
-//
-//    double percent = (double)100.0 / zoom;
-//    char buf[256];
-//    buf[0] = 0;
-//
-//    if (m_main_widget) {
-//	if (m_main_widget->tracks() != 0)
-//	    KwavePlugin::zoom2string(buf,sizeof(buf),percent);
-//
-//	m_main_widget->setZoom(zoom);
-//    }
-//    (strlen(buf)) ? m_zoomselect->setEditText(buf) : m_zoomselect->clearEdit();
+//    debug("void TopWidget::setZoom(%0.5f)", zoom);
+    ASSERT(zoom >= 0);
+    ASSERT(m_zoomselect);
+
+    if (zoom <= 0.0) return; // makes no sense or signal is empty
+    if (!m_zoomselect) return;
+
+    double percent = (double)100.0 / zoom;
+    QString strZoom;
+
+    if ((m_main_widget) && (m_main_widget->tracks())) {
+	strZoom = KwavePlugin::zoom2string(percent);
+    }
+
+    (strZoom.length()) ? m_zoomselect->setEditText(strZoom) :
+                         m_zoomselect->clearEdit();
 }
 
 //***************************************************************************

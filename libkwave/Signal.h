@@ -5,6 +5,7 @@
 #define PROGRESS_SIZE 512*3*5
 
 #include "config.h"
+#include <limits.h>
 #include <pthread.h>
 #include <qlist.h>
 

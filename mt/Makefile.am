@@ -6,6 +6,7 @@ BUILTSOURCES=\
  Mutex.moc.cpp \
  MutexGuard.moc.cpp \
  Thread.moc.cpp \
+ ThreadsafeX11Guard.moc.cpp \
  TSS_Object.moc.cpp
 
 # Which sources should be compiled for libkwavemt.
@@ -15,7 +16,10 @@ libkwavemt_la_SOURCES=\
  Mutex.cpp \
  MutexGuard.cpp \
  MutexSet.cpp \
+ Semaphore.cpp \
  Thread.cpp \
+ ThreadCondition.cpp \
+ ThreadsafeX11Guard.cpp \
  $(BUILTSOURCES)
 
 #noinst_LIBRARIES = libkwavemt.a

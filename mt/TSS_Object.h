@@ -22,7 +22,7 @@
 #include <qobject.h>
 
 /**
- * \class TSS_Object
+ * @class TSS_Object
  *
  * TSS_Object base class for usage of TSS, supports asynchronous exits
  * and cleans up the derived object if the thread that created it
@@ -35,8 +35,11 @@
  * the derived object must call the constructor and should have a
  * <b>virtual</b> destructor.
  *
- * \author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
- * \date 2000-10-01
+ * @author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+ * @date 2000-10-01
+ *
+ * @bug I disabled TSS because it led into too many problems. The cleanup
+ *      handlers work nevertheless...
  */
 class TSS_Object: public QObject
 {

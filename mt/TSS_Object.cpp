@@ -1,5 +1,5 @@
 /***************************************************************************
-    TSS_Object.h  - base class for usage of TSS (supports asynchronous exits)
+ TSS_Object.cpp  - base class for usage of TSS (supports asynchronous exits)
 			     -------------------
     begin                : Sun Oct 01 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -20,6 +20,7 @@
 #include <error.h>        // for strerror
 #include <qapplication.h> // for debug() and warning()
 #include <pthread.h>
+#include <stdio.h>
 #include <limits.h>       // for PTHREAD_KEYS_MAX
 
 #include "mt/TSS_Object.h"
@@ -42,6 +43,7 @@ extern "C" {
  */
 extern "C" void TSS_Object_cleanup_func(void *ptr)
 {
+    fprintf(stderr, "cleanup handler for %p\n", ptr);
     ASSERT(ptr);
     if (!ptr) {
 	warning("cleanup handler for NULL pointer ?  => bailing out!");
@@ -87,11 +89,12 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
 }
 
 //***************************************************************************
-unsigned int TSS_Object::m_count(0); // initializer for number of instances
+// static initializers
+unsigned int TSS_Object::m_count(0); // for number of instances
 
 //***************************************************************************
 TSS_Object::TSS_Object()
-   :m_key(0)
+    :m_key(0)
 {
     m_count++;
 
@@ -105,11 +108,6 @@ TSS_Object::TSS_Object()
     } else if (res) {
 	// some other error
 	warning("TSS_Object: keycreate failed: %s", strerror(res));
-    } else {
-	// key allocated, associate this object's instance with it
-	res = pthread_setspecific(m_key, (void *)this);
-	if (res) warning("TSS_Object::setspecific failed: %s",
-	    strerror(res));
     }
 }
 
@@ -120,10 +118,10 @@ TSS_Object::~TSS_Object()
     if (res) warning(
 	"TSS_Object::~TSS_Object: key deletion failed: %s",
 	strerror(res));
+    m_key = 0;
     m_count--;
 }
 
 //***************************************************************************
 //***************************************************************************
-
 /* end of TSS_Object.cpp */

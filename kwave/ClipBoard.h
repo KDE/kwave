@@ -50,10 +50,11 @@ public:
      * @param track_list a list of indices of tracks
      * @param offset first sample to copy
      * @param length number of samples
+     * @param rate sample rate [samples/second]
      * @todo support for multiple stripes
      */
     void copy(Signal &signal, const QArray<unsigned int> &track_list,
-              unsigned int offset, unsigned int length);
+              unsigned int offset, unsigned int length, double rate);
 
     /**
      * Returns a MultiTrackReader for reading the clipboard content.
@@ -79,7 +80,7 @@ public:
     /**
      * Returns the sample rate of the buffer content [samples/second].
      */
-    unsigned int rate();
+    double rate();
 
     /**
      * Returns true if the buffer is empty.
@@ -98,7 +99,7 @@ private:
     SharedLock m_lock;
 
     /** Sample rate of the buffer content. */
-    unsigned int m_rate;
+    double m_rate;
 
     /** Internal buffer, implemented as a list of tracks */
     QList<Track> m_buffer;

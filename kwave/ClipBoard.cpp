@@ -24,7 +24,8 @@ ClipBoard::~ClipBoard()
 
 //***************************************************************************
 void ClipBoard::copy(Signal &signal, const QArray<unsigned int> &track_list,
-                     unsigned int offset, unsigned int length)
+                     unsigned int offset, unsigned int length,
+                     double rate)
 {
     SharedLockGuard lock(m_lock, true); // lock exclusive
 
@@ -33,7 +34,7 @@ void ClipBoard::copy(Signal &signal, const QArray<unsigned int> &track_list,
     m_buffer.clear();
 
     // remember the sample rate
-    m_rate = signal.rate();
+    m_rate = rate;
 
     // break if nothing to do
     if ((!length) || (!track_list.count())) return;
@@ -128,7 +129,7 @@ unsigned int ClipBoard::length()
 }
 
 //***************************************************************************
-unsigned int ClipBoard::rate()
+double ClipBoard::rate()
 {
     SharedLockGuard lock(m_lock, false); // lock read-only
     return m_rate;

@@ -106,7 +106,7 @@ public:
      * Returns the current sample rate in samples per second.
      * If no signal is present the return value will be 0.
      */
-    unsigned int signalRate();
+    double signalRate();
 
     /**
      * Returns an array of indices of currently selected channels.

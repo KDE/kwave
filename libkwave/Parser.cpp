@@ -87,7 +87,6 @@ QStringList Parser::splitCommands(QString &line)
 {
     // split a line into commands
     unsigned int level = 0;
-    int pos;
     QString cmd = "";
     QStringList commands;
 

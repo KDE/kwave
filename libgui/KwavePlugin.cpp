@@ -209,7 +209,7 @@ unsigned int KwavePlugin::signalLength()
 }
 
 //***************************************************************************
-unsigned int KwavePlugin::signalRate()
+double KwavePlugin::signalRate()
 {
     return manager().signalRate();
 }

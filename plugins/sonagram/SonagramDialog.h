@@ -85,7 +85,7 @@ private:
     QPushButton *m_ok;
     QPushButton *m_cancel;
     unsigned int m_length;
-    unsigned int m_rate;
+    double m_rate;
 };
 
 #endif /* _SONAGRAM_DIALOG_H_ */

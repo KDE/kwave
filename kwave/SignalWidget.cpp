@@ -1754,7 +1754,7 @@ void SignalWidget::startDragging()
     MultiTrackReader src;
     const unsigned int first = m_signal_manager.selection().first();
     const unsigned int last  = m_signal_manager.selection().last();
-    const unsigned int rate  = m_signal_manager.rate();
+    const double       rate  = m_signal_manager.rate();
     const unsigned int bits  = m_signal_manager.bits();
 
     m_signal_manager.openMultiTrackReader(src,
@@ -1822,6 +1822,11 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	    InhibitRepaintGuard inhibit(*this);
 	    unsigned int pos = m_offset + pixels2samples(event->pos().x());
 	    unsigned int len = sig.length();
+	
+	    /**
+	     * @todo after the drop operation: enter the new file info into
+	     * the signal manager if our own file was empty
+	     */
 	
 	    sig.openMultiTrackReader(src, sig.allTracks(), 0, len-1);
 	    m_signal_manager.openMultiTrackWriter(dst,

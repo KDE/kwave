@@ -972,8 +972,8 @@ void TopWidget::setZoomInfo(double zoom)
 
     QString strZoom;
     if ((m_main_widget) && (m_main_widget->tracks())) {
-	unsigned int rate = signalManager().rate();
-	if (rate) {
+	double rate = signalManager().rate();
+	if (rate > 0) {
 	    // time display mode
 	    double ms = m_main_widget->displaySamples()*1E3/(double)rate;
 	    int s = (int)floor(ms / 1000.0);
@@ -1118,7 +1118,7 @@ void TopWidget::mouseChanged(int mode)
 	case (SignalWidget::MouseAtSelectionBorder) :
 	case (SignalWidget::MouseInSelection) :
 	{
-	    unsigned int rate = signalManager().rate();
+	    double rate = signalManager().rate();
 	    if (!rate) break;
 	    unsigned int samples = signalManager().selection().length();
 	    double ms = samples * 1E3 / rate;

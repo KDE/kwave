@@ -454,7 +454,7 @@ unsigned int PluginManager::signalLength()
 }
 
 //***************************************************************************
-unsigned int PluginManager::signalRate()
+double PluginManager::signalRate()
 {
     return m_top_widget.signalManager().rate();
 }

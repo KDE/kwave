@@ -26,7 +26,7 @@
  */
 typedef struct {
     /** Sample rate [samples/second] */
-    unsigned int rate;
+    double rate;
 
     /** Number of channels. */
     unsigned int channels;

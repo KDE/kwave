@@ -95,8 +95,9 @@ SignalManager::SignalManager(QWidget *parent)
     m_undo_transaction_level(0),
     m_undo_transaction_lock(),
     m_spx_undo_redo(this, SLOT(emitUndoRedoInfo())),
-    m_undo_limit(64*1024*1024) // 64 MB (for testing) ###
+    m_undo_limit(64*1024*1024), // 64 MB (for testing) ###
     /** @todo the undo memory limit should be user-configurable. */
+    m_file_info()
 {
     // connect to the track's signals
     Signal *sig = &m_signal;
@@ -149,14 +150,16 @@ int SignalManager::loadFile(const KURL &url)
 	    break;
 	}
 	
+	// enter the filename into the decoder
+	decoder->info().set(INF_FILENAME, url.prettyURL());
+	
+	// get the file info from the decoder
+	m_file_info = decoder->info();
+	
 	// we must change to open state to see the file while
 	// it is loaded
 	m_closed = false;
 	m_empty = false;
-	
-	// set rate and resolution of the signal
-	m_signal.setRate((int)rint(decoder->info().rate()));
-	m_signal.setBits(decoder->info().bits());
 	
 	// create all tracks (empty)
 	unsigned int track;
@@ -205,8 +208,9 @@ int SignalManager::loadFile(const KURL &url)
     if (!decoder) {
 	warning("unknown file type");
 	res = -EMEDIUMTYPE;
+    } else {
+	delete decoder;
     }
-    if (decoder) delete decoder;
 
     // remember the last length
     m_last_length = length();
@@ -322,8 +326,9 @@ void SignalManager::newSignal(unsigned int samples, double rate,
     // disable undo (discards all undo/redo data)
     disableUndo();
 
-    m_signal.setRate((int)rint(rate));
-    m_signal.setBits(bits);
+    m_file_info.clear();
+    m_file_info.setRate(rate);
+    m_file_info.setBits(bits);
 
     // now the signal is considered not to be empty
     m_closed = false;
@@ -491,6 +496,7 @@ bool SignalManager::executeCommand(const QString &command)
 
     unsigned int offset = m_selection.offset();
     unsigned int length = m_selection.length();
+    double rate = m_file_info.rate();
 
     if (!command.length()) return true;
     Parser parser(command);
@@ -502,12 +508,12 @@ bool SignalManager::executeCommand(const QString &command)
 	redo();
     CASE_COMMAND("copy")
 	ClipBoard &clip = KwaveApp::clipboard();
-	clip.copy(m_signal, selectedTracks(), offset, length);
+	clip.copy(m_signal, selectedTracks(), offset, length, rate);
     CASE_COMMAND("paste")
 	paste(KwaveApp::clipboard(), offset, length);
     CASE_COMMAND("cut")
 	ClipBoard &clip = KwaveApp::clipboard();
-	clip.copy(m_signal, selectedTracks(), offset, length);
+	clip.copy(m_signal, selectedTracks(), offset, length, rate);
 	UndoTransactionGuard undo(*this, i18n("cut"));
 	deleteRange(offset, length);
     CASE_COMMAND("crop")

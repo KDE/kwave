@@ -385,14 +385,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info().setBits(bits);
     info().setTracks(tracks);
     info().setLength(length);
-    debug("-------------------------");
-    debug("info:");
-    debug("channels    = %d", info().tracks());
-    debug("rate        = %0.0f", info().rate());
-    debug("bits/sample = %d", info().bits());
-    debug("length      = %d samples", info().length());
-    debug("format      = %d (%s)", sample_format, sample_format_name.data());
-    debug("-------------------------");
+    info().set("sample format", sample_format);
+    info().set("sample format name", sample_format_name);
 
     // set up libaudiofile to produce Kwave's internal sample format
 #if defined(IS_BIG_ENDIAN)

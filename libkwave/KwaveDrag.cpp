@@ -121,8 +121,6 @@ bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e, Signal &sig)
 	    // prepare the signal
 	    while (sig.tracks() < info.tracks())
 		sig.appendTrack(info.length());
-	    sig.setRate(info.rate());
-	    sig.setBits(info.bits());
 	    MultiTrackWriter dst;
 	    sig.openMultiTrackWriter(dst, sig.allTracks(), Overwrite,
 	                             0, sig.length()-1);

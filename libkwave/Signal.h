@@ -151,25 +151,6 @@ public:
     void deleteRange(unsigned int track, unsigned int offset,
                      unsigned int length);
 
-//    Signal *copyRange ();
-//    Signal *cutRange ();
-//    void cropRange ();
-//    void deleteRange ();
-//    void overwritePaste (Signal *);
-//    void insertPaste (Signal *);
-//    void mixPaste (Signal *);
-//
-//    void getMaxMin ( int& max, int& min, int begin, int len);
-//    int getSingleSample (int offset);
-
-    inline unsigned int rate() {
-	return m_rate;
-    };
-
-    inline unsigned int bits() {
-	return m_bits;
-    };
-
     /**
      * Returns the length of the signal. This is determined by
      * searching for the highest sample position of all tracks.
@@ -189,19 +170,6 @@ public:
      *               false for de-selecting
      */
     void selectTrack(unsigned int track, bool select);
-
-    inline void setRate(const int rate) {
-	m_rate = rate;
-    };
-
-    inline void setBits(const int bits) {
-	m_bits = bits;
-    };
-
-//    int getChannelMaximum ();
-//
-//    void setMarkers (int, int);
-//    void resample (const char *);   //int
 
 signals:
 
@@ -311,12 +279,6 @@ private:
 
     /** number of samples */
     unsigned int m_length;
-
-    /** sample rate [samples per second] */
-    unsigned int m_rate;
-
-    /** resolution in bits per sample */
-    unsigned int m_bits;
 
 };
 

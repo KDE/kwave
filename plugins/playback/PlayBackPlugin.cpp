@@ -414,8 +414,8 @@ void PlayBackPlugin::run(QStringList)
 	
 	    // update the playback position if timer elapsed
 	    if (!pos_countdown) {
-		pos_countdown = m_playback_params.rate /
-			SCREEN_REFRESHES_PER_SECOND;
+		pos_countdown = (unsigned int)ceil(m_playback_params.rate /
+			SCREEN_REFRESHES_PER_SECOND);
 		m_spx_playback_pos.enqueue(pos);
 	    } else {
 		--pos_countdown;

@@ -1,4 +1,3 @@
-// I/O Functions such as loading/saving are in sampleio.cpp
 
 #include <math.h>
 #include <limits.h>
@@ -26,40 +25,16 @@
 
 #include "mt/SharedLockGuard.h"
 
-#define MAXPRIME 512
-
-//**********************************************************
-//void Signal::getMaxMin (int &max, int &min, int begin, int len) {
-//    int c, first, last;
-//    min =  INT_MAX;
-//    max =  INT_MIN;
-//
-//    // first assign left and right margin
-//    first = begin;
-//    last = begin + len - 1;
-//
-//    // then do some range checking
-//    if (first < 0) first = 0;
-//    if (first >= length) first = length - 1;
-//    if (last < first) last = first;
-//    if (last >= length) last = length - 1;
-//
-//    for (int i = first; i <= last; i++) {
-//	c = sample[i];
-//	if (c > max) max = c;
-//	if (c < min) min = c;
-//    }
-//}
 
 //***************************************************************************
 Signal::Signal()
-    :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0)
+    :m_tracks(), m_lock_tracks()
 {
 }
 
 //***************************************************************************
 Signal::Signal(unsigned int tracks, unsigned int length)
-    :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0)
+    :m_tracks(), m_lock_tracks()
 {
     while (tracks--) {
 	appendTrack(length);
@@ -81,8 +56,6 @@ void Signal::close()
     while (m_tracks.count()) {
 	m_tracks.remove(m_tracks.last());
     }
-    m_bits = 0;
-    m_rate = 0;
 }
 
 //***************************************************************************
@@ -279,7 +252,6 @@ unsigned int Signal::length()
 	len = it.current()->length();
 	if (len > max) max = len;
     }
-//    debug("Signal::length() = %d", max);
     return max;
 }
 
@@ -307,15 +279,9 @@ void Signal::selectTrack(unsigned int track, bool select)
     m_tracks.at(track)->select(select);
 }
 
-////**********************************************************
-//int Signal::getSingleSample(int offset) {
-//    if ((offset < 0) || (offset >= length)) return 0;
-//    return sample[offset];
-//}
-//
-
 //// now follow the various editing and effects functions
 ////**********************************************************
+//#define MAXPRIME 512
 //int Signal::getChannelMaximum () {
 //    int max = 0;
 //    for (int i = 0; i < length; i++)

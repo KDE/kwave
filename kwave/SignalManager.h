@@ -28,6 +28,7 @@
 
 #include "mt/Mutex.h"
 #include "mt/SignalProxy.h"
+#include "libkwave/FileInfo.h"
 #include "libkwave/Selection.h"
 #include "libkwave/Signal.h"
 
@@ -98,10 +99,10 @@ public:
     /**
      * Returns the current sample resolution in bits per sample
      */
-    inline unsigned int bits() { return m_signal.bits(); };
+    inline unsigned int bits() const { return m_file_info.bits(); };
 
     /** Returns the current sample rate in samples per second */
-    inline int rate() { return m_signal.rate(); };
+    inline double rate() const { return m_file_info.rate(); };
 
     /** Returns the current number of tracks */
     inline unsigned int tracks() { return m_signal.tracks(); };
@@ -653,6 +654,8 @@ private:
     /** maximum memory for undo */
     unsigned int m_undo_limit;
 
+    /** info about the file, @see class FileInfo */
+    FileInfo m_file_info;
 };
 
 #endif  /* _SIGNAL_MANAGER_H_ */

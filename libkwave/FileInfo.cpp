@@ -70,7 +70,7 @@ void FileInfo::dump()
     debug("--- dump of file info ---");
     debug("default properties:");
     debug("   length = %u samples", m_length);
-    debug("   rate   = %0.1gHz", m_rate);
+    debug("   rate   = %0.1f Hz", m_rate);
     debug("   bits   = %u", m_bits);
     debug("   tracks = %u", m_tracks);
     debug("other properties:");

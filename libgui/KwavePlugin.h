@@ -176,7 +176,7 @@ public:
      * Returns the sample rate of the current signal. If no signal is
      * present the return value will be zero.
      */
-    virtual unsigned int signalRate();
+    virtual double signalRate();
 
     /**
      * Returns an array of indices of currently selected channels.

@@ -45,7 +45,7 @@ public:
      * Constructor
      * @see QValidator
      */
-#if KDE_VERSION_MAJOR < 2
+#if KDE_VERSION_MAJOR < 3
     IntValidatorProxy(QWidget *parent, const char *name = 0);
 #else
     IntValidatorProxy(QObject *parent, const char *name = 0);

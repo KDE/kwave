@@ -290,23 +290,21 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	dlclose(handle);
 	return 0;
     }
-    
+
     if (plugin->isPersistent()) {
 	// append persistent plugins to the global list
 	m_persistent_plugins.append(plugin);
-    } else {
-	// append the plugin into our list of plugins
-	m_loaded_plugins.append(plugin);
-    }
-    
-    if (!plugin->isPersistent()) {
-	// connect all signals if it is not persistent
-	connectPlugin(plugin);
-    } else {
+
 	// persistent plugins must not close automatically when
 	// we close !
 	connect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
 	        this,   SLOT(pluginClosed(KwavePlugin *)));
+    } else {
+	// append the plugin into our list of plugins
+	m_loaded_plugins.append(plugin);
+
+	// connect all signals if it is not persistent
+	connectPlugin(plugin);
     }
 
     // get the last settings and call the "load" function

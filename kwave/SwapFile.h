@@ -88,6 +88,26 @@ protected:
      */
     void *unmap();
 
+    /**
+     * Read bytes into a buffer
+     *
+     * @param offset offset within the file [bytes]
+     * @param buffer pointer to a buffer that is to be filled
+     * @param length number of bytes to read
+     * @return number of read bytes or < 0 if failed
+     */
+    int read(unsigned int offset, void *buffer, unsigned int length);
+
+    /**
+     * Write bytes from a buffer
+     *
+     * @param offset offset within the file [bytes]
+     * @param buffer pointer to a buffer with data
+     * @param length number of bytes to write
+     * @return number of written bytes or < 0 if failed
+     */
+    int write(unsigned int offset, void *buffer, unsigned int length);
+
 private:
 
     /**

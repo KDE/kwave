@@ -77,14 +77,14 @@ bool SwapFile::allocate(size_t size, const QString &filename)
 	       size, g_instances);
 	return false;
     }
-    m_file.open(IO_Raw | IO_WriteOnly, fd);
+    m_file.open(IO_Raw | IO_ReadWrite, fd);
 #ifdef HAVE_UNLINK
     unlink(name);
 #endif /* HAVE_UNLINK */
     if (name) delete name;
 #else /* HAVE_MKSTEMP */
     m_file.setName(filename);
-    m_file.open(IO_Raw | IO_WriteOnly);
+    m_file.open(IO_Raw | IO_ReadWrite);
 #ifdef HAVE_UNLINK
     unlink(filename);
 #endif /* HAVE_UNLINK */
@@ -174,6 +174,27 @@ void *SwapFile::unmap()
 
     m_address = 0;
     return this;
+}
+
+//***************************************************************************
+int SwapFile::read(unsigned int offset, void *buffer, unsigned int length)
+{
+    // seek to the given offset
+    if (!m_file.at(offset)) return -1;
+
+    // read into the buffer
+    m_file.flush();
+    return m_file.readBlock(reinterpret_cast<char *>(buffer), length);
+}
+
+//***************************************************************************
+int SwapFile::write(unsigned int offset, void *buffer, unsigned int length)
+{
+    // seek to the given offset
+    if (!m_file.at(offset)) return -1;
+
+    // write data from the buffer
+    return m_file.writeBlock(reinterpret_cast<char *>(buffer), length);
 }
 
 //***************************************************************************

@@ -44,13 +44,13 @@
 #include <kstddirs.h>
 #include <ktoolbarbutton.h>
 
+#include "libkwave/KwavePlugin.h" // for some helper functions
 #include "libkwave/FileLoader.h"
 #include "libkwave/LineParser.h"
 #include "libkwave/Parser.h"
 
 #include "libgui/MenuManager.h"
 #include "libgui/KwaveFileDialog.h"
-#include "libgui/KwavePlugin.h" // for some helper functions
 
 #include "mt/ThreadsafeX11Guard.h"
 

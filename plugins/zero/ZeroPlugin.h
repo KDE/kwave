@@ -20,8 +20,8 @@
 
 #include "config.h"
 #include <qstring.h>
+#include "libkwave/KwavePlugin.h"
 #include "libkwave/Sample.h"
-#include "libgui/KwavePlugin.h"
 
 //***************************************************************************
 /**

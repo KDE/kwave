@@ -22,7 +22,7 @@
 #include <kaboutapplication.h>
 #include <kaboutkde.h>
 
-#include "libgui/KwavePlugin.h"
+#include "libkwave/KwavePlugin.h"
 #include "AboutPlugin.h"
 #include "AboutKwaveDialog.h"
 

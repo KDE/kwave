@@ -22,8 +22,8 @@
 #include <qarray.h>
 #include <qstring.h>
 #include "mt/SignalProxy.h"
+#include "libkwave/KwavePlugin.h"
 #include "libkwave/WindowFunction.h"
-#include "libgui/KwavePlugin.h"
 
 class OverViewCache;
 class QImage;

@@ -33,11 +33,11 @@
 #include <kstdaccel.h>
 #include <kstatusbar.h>
 
+#include "libkwave/KwavePlugin.h" // for some helper functions
 #include "libkwave/Parser.h"
 
 #include "libgui/MultiStateWidget.h"
 #include "libgui/OverViewWidget.h"
-#include "libgui/KwavePlugin.h" // for some helper functions
 
 #include "SignalWidget.h"
 #include "SignalManager.h"

@@ -25,7 +25,7 @@
 #include "kwave/PluginManager.h"
 #include "kwave/SignalManager.h"
 #include "kwave/UndoTransactionGuard.h"
-#include "libgui/KwavePlugin.h"
+#include "libkwave/KwavePlugin.h"
 #include "SelectRangePlugin.h"
 #include "SelectRangeDialog.h"
 

@@ -43,10 +43,10 @@
 #include <kmimetype.h>
 #include <knuminput.h>
 
-#include "libkwave/FileInfo.h"
 #include "libkwave/CompressionType.h"
+#include "libkwave/FileInfo.h"
+#include "libkwave/KwavePlugin.h"
 #include "libkwave/SampleFormat.h"
-#include "libgui/KwavePlugin.h"
 
 #include "BitrateWidget.h"
 #include "FileInfoDialog.h"

@@ -18,7 +18,7 @@
 
 #include <qstring.h>
 
-#include "libgui/KwavePlugin.h"
+#include "libkwave/KwavePlugin.h"
 
 #include "PluginManager.h"
 #include "SignalManager.h"

@@ -30,11 +30,11 @@
 
 #include "mt/SignalProxy.h"
 #include "libkwave/gsl_fft.h"
+#include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/WindowFunction.h"
-#include "libgui/KwavePlugin.h"
 #include "libgui/OverViewCache.h"
 #include "kwave/PluginManager.h"
 #include "kwave/SignalManager.h"

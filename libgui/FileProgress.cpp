@@ -31,7 +31,7 @@
 #include <kmessagebox.h>
 #include <kprogress.h>
 
-#include "libgui/KwavePlugin.h"  // for ms2string
+#include "libkwave/KwavePlugin.h"  // for ms2string
 #include "libgui/FileProgress.h"
 
 //***************************************************************************

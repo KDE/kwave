@@ -73,14 +73,15 @@ void VolumeDialog::setMode(Mode mode)
     
     switch (m_mode) {
 	case MODE_FACTOR: {
-//	    rbFactor->setChecked(true);
-//	    slider->setMinValue(-10);
-//	    slider->setMaxValue(+10);
-//	    slider->setPageStep(1);
-//	    slider->setTickInterval(1);
+	    rbFactor->setChecked(true);
+	    slider->setMinValue(-10);
+	    slider->setMaxValue(+10);
+	    slider->setPageStep(1);
+	    slider->setTickInterval(1);
 //	    if (m_factor > 0) {
-//	    spinbox->setMinValue(-100);
-//	    spinbox->setMaxValue(+100);
+//		spinbox->setMinValue(-100);
+//		spinbox->setMaxValue(+100);
+//	    }
 	    break;
 	}
 	case MODE_PERCENT: {

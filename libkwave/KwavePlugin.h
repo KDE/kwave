@@ -1,5 +1,5 @@
 /***************************************************************************
-                     KwavePlugin.h  -  New Interface for Kwave plugins
+          KwavePlugin.h  -  New Interface for Kwave plugins
                              -------------------
     begin                : Thu Jul 27 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -328,4 +328,4 @@ private:
 
 #endif /* _KWAVE_PLUGIN_H_ */
 
-// end of libgui/KwavePlugin.h
+// end of KwavePlugin.h

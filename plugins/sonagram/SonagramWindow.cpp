@@ -28,9 +28,8 @@
 #include <kfiledialog.h>
 #include <kstatusbar.h>
 
+#include "libkwave/KwavePlugin.h"
 #include "libkwave/WindowFunction.h"
-
-#include "libgui/KwavePlugin.h"
 #include "libgui/ScaleWidget.h"
 
 #include "ImageView.h"

@@ -33,12 +33,11 @@
 #include "mt/Mutex.h"
 #include "mt/ThreadsafeX11Guard.h"
 
+#include "libkwave/KwavePlugin.h"
 #include "libkwave/Matrix.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/MultiTrackReader.h"
-
-#include "libgui/KwavePlugin.h"
 
 #include "kwave/PlaybackController.h"
 #include "kwave/PluginManager.h"

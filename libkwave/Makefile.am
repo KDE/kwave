@@ -3,6 +3,7 @@ INCLUDES= @all_includes@ @ARTS_INCLUDES@
 
 BUILTSOURCES=\
  KwaveDrag.moc.cpp\
+ KwavePlugin.moc.cpp\
  MultiTrackReader.moc.cpp\
  MultiTrackWriter.moc.cpp\
  SampleReader.moc.cpp\
@@ -39,6 +40,7 @@ libkwave_la_SOURCES=\
  gsl_fft.cpp\
  Interpolation.cpp\
  KwaveDrag.cpp\
+ KwavePlugin.cpp\
  Label.cpp\
  LabelType.cpp\
  LabelList.cpp\

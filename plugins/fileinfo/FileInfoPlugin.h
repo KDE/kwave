@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qobject.h>
-#include "libgui/KwavePlugin.h"
+#include "libkwave/KwavePlugin.h"
 
 class FileInfoPlugin: public KwavePlugin
 {

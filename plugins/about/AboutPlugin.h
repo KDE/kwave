@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qstring.h>
-#include "libgui/KwavePlugin.h"
+#include "libkwave/KwavePlugin.h"
 
 class QStringList;
 class PluginContext;

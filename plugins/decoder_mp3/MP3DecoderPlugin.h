@@ -19,7 +19,7 @@
 #define _MP3_DECODER_PLUGIN_H_
 
 #include "config.h"
-#include "libgui/KwavePlugin.h"
+#include "libkwave/KwavePlugin.h"
 
 class Decoder;
 

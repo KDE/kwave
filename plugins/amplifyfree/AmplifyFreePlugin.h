@@ -24,7 +24,7 @@
 #include <qstringlist.h>
 
 #include "libkwave/Curve.h"
-#include "libgui/KwavePlugin.h"
+#include "libkwave/KwavePlugin.h"
 
 class QStringList;
 

@@ -34,7 +34,7 @@
 #include <klocale.h>
 
 #include "libgui/KwaveFileDialog.h"
-#include "libgui/KwavePlugin.h"
+#include "libkwave/KwavePlugin.h"
 #include "PlayBackDialog.h"
 
 #ifndef max

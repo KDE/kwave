@@ -35,8 +35,8 @@
 #include <qstringlist.h>
 #include <qtooltip.h>
 
+#include "libkwave/KwavePlugin.h"
 #include "libkwave/WindowFunction.h"
-#include "libgui/KwavePlugin.h"
 
 #include <klocale.h>
 

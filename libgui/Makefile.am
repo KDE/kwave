@@ -7,7 +7,6 @@ BUILTSOURCES=\
  CurveWidget.moc.cpp\
  FileProgress.moc.cpp\
  KwaveFileDialog.moc.cpp\
- KwavePlugin.moc.cpp \
  OverViewCache.moc.cpp\
  OverViewWidget.moc.cpp\
  MenuNode.moc.cpp\
@@ -24,7 +23,6 @@ libkwavegui_la_SOURCES =\
  ConfirmCancelProxy.cpp\
  FileProgress.cpp\
  KwaveFileDialog.cpp\
- KwavePlugin.cpp \
  MenuNode.cpp\
  MenuGroup.cpp \
  MenuItem.cpp\

@@ -1,5 +1,5 @@
 /***************************************************************************
-                    KwavePlugin.cpp  -  New Interface for Kwave plugins
+        KwavePlugin.cpp  -  New Interface for Kwave plugins
                              -------------------
     begin                : Thu Jul 27 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -32,14 +32,14 @@
 #include "mt/Thread.h"
 #include "mt/MutexGuard.h"
 
+#include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Signal.h"
 #include "libkwave/Track.h"
-#include "libgui/KwavePlugin.h"
-#include "libgui/PluginContext.h"
+#include "libkwave/PluginContext.h"
 
 #include "kwave/PluginManager.h"
 #include "kwave/TopWidget.h"

@@ -28,21 +28,19 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 
+#include "mt/SignalProxy.h"
 #include "mt/TSS_Object.h"
 #include "mt/ThreadCondition.h"
 
-#include "libkwave/Parser.h"
 #include "libkwave/LineParser.h"
 #include "libkwave/FileLoader.h"
+#include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/Parser.h"
+#include "libkwave/PluginContext.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
-
-#include "mt/SignalProxy.h"
-
-#include "libgui/KwavePlugin.h"
-#include "libgui/PluginContext.h"
 
 #include "KwaveApp.h"
 #include "TopWidget.h"

@@ -23,7 +23,7 @@
 
 #include "mt/Mutex.h"
 #include "mt/SignalProxy.h"
-#include "libgui/KwavePlugin.h"
+#include "libkwave/KwavePlugin.h"
 
 #include "PlayBackParam.h" // for struct playback_param_t
 

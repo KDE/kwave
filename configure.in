@@ -8,7 +8,7 @@ AC_CONFIG_AUX_DIR(admin)
 unset CDPATH            dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 AC_CANONICAL_TARGET([]) dnl Checking host/target/build systems, for make, install etc.
 AC_ARG_PROGRAM          dnl Perform program name transformation
-AM_INIT_AUTOMAKE(kwave,0.6.7)
+AM_INIT_AUTOMAKE(kwave,0.6.3)
 AC_PREREQ(2.50)         dnl Require Autoconf 2.50 or higher
 
 KDE_SET_PREFIX

@@ -33,7 +33,7 @@ Obsoletes: 	libkwave
 
 %prep
 
-%setup -n kwave-@RPM_FULL_VERSION@
+%setup
 rm -rf "$RPM_BUILD_ROOT"
 DESTDIR=""
 unset DESTDIR
@@ -41,12 +41,12 @@ CONFIGURE_OPTS="--with-install-root=$RPM_BUILD_ROOT \
 	--enable-static=yes --enable-shared=yes ${CONFIGURE_OPTS}"
 make -f Makefile.dist 
 
-%build -n kwave-@RPM_FULL_VERSION@
+%build
 DESTDIR=""
 unset DESTDIR
 make $MAKE_FLAGS
 
-%install -n kwave-@RPM_FULL_VERSION@
+%install
 rm -rf "$RPM_BUILD_ROOT"
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 
@@ -57,10 +57,10 @@ find . -type l | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%
 # remove files/directories that should not get into the package
 mv "$RPM_BUILD_DIR"/%{filelist} /tmp/files.lst.tmp
 cat /tmp/files.lst.tmp | grep -v /default$ | \
-	grep -v /de$ | grep -v /en$ > "$RPM_BUILD_DIR"/%{filelist}
+	grep -v /de$ | grep -v /en$ > /tmp/files.list.%{name}
 rm -f /tmp/files.lst.tmp
 
-%files -f files.list.%{name}
+%files -f /tmp/files.list.%{name}
 
 %doc GNU-LICENSE CHANGES README TODO kwave.lsm
 

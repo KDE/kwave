@@ -98,16 +98,16 @@ messages:
 	(cd po ; ${MAKE} merge )
 
 rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
-	rm -R -f /tmp/${PACKAGE}-@RPM_FULL_VERSION@
-	mkdir -p /tmp/${PACKAGE}-@RPM_FULL_VERSION@
-	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_FULL_VERSION@ )
-	(cd /tmp/ ; chmod -R a+rwX ${PACKAGE}-@RPM_FULL_VERSION@ ; \
-	touch ${PACKAGE}-@RPM_FULL_VERSION@/doc/help_{de,fr}.docbook ; \
-	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name CVS > \
+	rm -R -f /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
+	mkdir -p /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
+	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_SHORT_VERSION@ )
+	(cd /tmp/ ; chmod -R a+rwX ${PACKAGE}-@RPM_SHORT_VERSION@ ; \
+	touch ${PACKAGE}-@RPM_SHORT_VERSION@/doc/help_{de,fr}.docbook ; \
+	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name CVS > \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
-	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name \.\* -type d >> \
+	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name \.\* -type d >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
-	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name Makefile \
+	find ${SRC_PREFIX}-@RPM_SHORT_VERSION@ -name Makefile \
 		-o -name Makefile.in -o -name aclocal.m4 \
 		-o -name config.h.in -o -name config.h \
 		-o -name libtool -o -name stamp-h -o -name configure \
@@ -115,15 +115,15 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 		-o -name QT-KDIR -o -name KDE-VERSION \
 		-o -name config.status -o -name .deps -o -name \*.log >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
-	echo "${SRC_PREFIX}-@RPM_FULL_VERSION@/doc/api" >> \
+	echo "${SRC_PREFIX}-@RPM_SHORT_VERSION@/doc/api" >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	tar --exclude-from=/tmp/${PACKAGE}-tar-excludes.lst \
 		--owner=root --group=root \
 		-chzf ${PACKAGE}-@RPM_FULL_VERSION@.tar.gz \
-		${SRC_PREFIX}-@RPM_FULL_VERSION@ ; \
+		${SRC_PREFIX}-@RPM_SHORT_VERSION@ ; \
 	 )
 	- rm -f /tmp/${PACKAGE}-tar-excludes.lst
-	- rm -R -f /tmp/${PACKAGE}-@RPM_FULL_VERSION@
+	- rm -R -f /tmp/${PACKAGE}-@RPM_SHORT_VERSION@
 
 rpm: rpm_prep
 	@RPMBUILD@ -ta /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz

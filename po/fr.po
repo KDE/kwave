@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-11-03 22:08+0100\n"
-"PO-Revision-Date: 2002-11-05 16:42GMT\n"
+"PO-Revision-Date: 2002-11-05 16:49GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1363,7 +1363,7 @@ msgstr "Sélectionné"
 
 #: kwave/TopWidget.cpp:1045
 msgid "samples"
-msgstr "Echantillons"
+msgstr "échantillons"
 
 #: kwave/TopWidget.cpp:1100
 msgid "U&ndo"
@@ -3089,7 +3089,7 @@ msgstr "Sélectionner la date"
 #: plugins/fileinfo/BitrateWidgetBase.uic.cpp:260
 #: plugins/newsignal/NewSigDlg.uic.cpp:270
 msgid "Form1"
-msgstr "Form1"
+msgstr "Nouveau fichier"
 
 #: plugins/fileinfo/KeywordWidgetBase.uic.cpp:50
 msgid "A&uto"
@@ -3441,7 +3441,7 @@ msgstr "selectionnez ici la durée de votre fichier sonore"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:386
 msgid "Samples"
-msgstr "échantillons"
+msgstr "Echantillons"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:387
 msgid "select this to enter the number of samples directly"

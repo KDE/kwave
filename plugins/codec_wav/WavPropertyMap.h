@@ -28,6 +28,16 @@ class WavPropertyMap: public QMap<QCString, FileProperty>
 public:
     /** Default constructor, with initializing */
     WavPropertyMap();
+
+    /**
+     * Returns the chunk name of a property or an empty string
+     * if nothing found (reverse lookup).
+     */
+    QCString findProperty(const FileProperty property);
+
+    /** Returns true if the map contains a given property */
+    bool containsProperty(const FileProperty property);
+
 };
 
 #endif /* _WAV_PROPERTY_MAP_H_ */

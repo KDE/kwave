@@ -40,4 +40,20 @@ WavPropertyMap::WavPropertyMap()
 }
 
 //***************************************************************************
+QCString WavPropertyMap::findProperty(const FileProperty property)
+{
+    QMap<QCString, FileProperty>::Iterator it;
+    for (it=begin(); it != end(); ++it) {
+        if (it.data() == property) return it.key();
+    }
+    return 0;
+}
+
+//***************************************************************************
+bool WavPropertyMap::containsProperty(const FileProperty property)
+{
+    return (findProperty(property).length() != 0);
+}
+
+//***************************************************************************
 //***************************************************************************

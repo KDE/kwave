@@ -75,11 +75,11 @@ kwave_SOURCES =\
 
 # the library search path
 # kwave_LDFLAGS = -dy -L$(topdir)/libgui/.libs @all_libraries@ --export-dynamic
-kwave_LDFLAGS = -L$(topdir)/libgui/.libs @all_libraries@ -dy -export-dynamic
+kwave_LDFLAGS = -L$(topdir)/libkwave -L$(topdir)/libgui @all_libraries@ -dy -export-dynamic
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kwave_LDADD   = ../mt/libkwavemt.a -lkwavegui -lkwave -lkfile -lkfm \
+kwave_LDADD   = $(topdir)/mt/libkwavemt.a -lkwavegui -lkwave -lkfile \
 	-lkdeui -lkdecore -lqt -lX11 -lXext -lpthread -ldl
 
 # if you "make distclean", this files get removed. If you want to remove

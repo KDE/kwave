@@ -29,8 +29,8 @@ class MenuToplevel : public MenuSub {
 
 public:
 
-    MenuToplevel(MenuNode *parent, char *name, char *command = 0,
-		 int key = 0, char *uid = 0);
+    MenuToplevel(MenuNode *parent, const QString &name, const QString &command = 0,
+		 int key = 0, const QString &uid = 0);
 
 };
 

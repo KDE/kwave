@@ -4,33 +4,33 @@
 #include <math.h>
 #include <limits.h>
 
-#include <qstring.h>
-#include <qlist.h>
-#include <qstrlist.h>
-#include <qimage.h>
-#include <qpainter.h>
-#include <qcursor.h>
-#include <qkeycode.h>
 #include <qaccel.h>
-#include <qpopupmenu.h>
+#include <qarray.h>
+#include <qcursor.h>
 #include <qdir.h>
+#include <qfileinfo.h>
+#include <qimage.h>
+#include <qkeycode.h>
+#include <qlist.h>
+#include <qpainter.h>
+#include <qpopupmenu.h>
+#include <qstring.h>
+#include <qstrlist.h>
 
-#include <kapp.h>
+#include <kstddirs.h>
+#include <klocale.h>
 #include <kiconloader.h>
 #include <kfiledialog.h>
+#include <kstddirs.h>
 
 #include <libkwave/Interpolation.h>
 #include <libkwave/FileLoader.h>
 #include <libkwave/Curve.h>
-#include <libkwave/Global.h>
-#include <libkwave/String.h>
 
 #include "CurveWidget.h"
 
 #include <qwidget.h>
 #include <libkwave/Curve.h>
-
-extern Global globals;
 
 //****************************************************************************
 CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
@@ -48,7 +48,6 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
     namelist = 0;
     pixmap = 0;
     points = 0;
-    presetDir = 0;
     selectedknob = 0;
     width = 0;
 
@@ -61,7 +60,8 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
 
     setBackgroundColor(black);
 
-    const QString dirname=KApplication::getKApplication()->kde_datadir();
+    const QString dirname=KStandardDirs::kde_default("data");
+    //KApplication::kApplication()->kde_datadir();
     QDir dir (dirname.data());
     dir.cd ("kwave");
     dir.cd ("pics");
@@ -118,39 +118,19 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
     del->insertItem(i18n("every 2nd Point"),
 	            this, SLOT(deleteSecond()));
 
-    presetDir = new QDir(globals.localconfigDir);
-    ASSERT(presetDir);
-    if (!presetDir) return;
-
-    if (!presetDir->cd ("presets")) {
-	presetDir->mkdir ("presets");
-	presetDir->cd ("presets");
-    }
-    if (!presetDir->cd ("curves")) {
-	presetDir->mkdir ("curves");
-	presetDir->cd ("curves");
-    }
-
-    presetDir->setNameFilter ("*.curve");
-
-//    namelist = presetDir->encodedEntryList();
-    namelist = presetDir->entryList();
-
-    for (const char *tmp = namelist.first(); tmp; tmp = namelist.next()) {
-	char buf[strlen(tmp) - 5];
-	strncpy (buf, tmp, strlen(tmp) - 6);
-	buf[strlen(tmp) - 6] = 0;
-	presets->insertItem (buf);
+    /** get a list of presets */
+    QStringList files = KGlobal::dirs()->findAllResources("data",
+	    "kwave/presets/curves/*.curve", false, true);
+    for (unsigned int i=0; i < files.count(); i++) {
+	QFileInfo fi(files[i]);
+	QString name = fi.fileName();
+	presets->insertItem(name.left(name.length()-6));
     }
     connect( presets, SIGNAL(activated(int)), SLOT(loadPreset(int)) );
 
-    char **names = (char **) Interpolation::getTypes();
-    int i = 0;
-    ASSERT(names);
-    if (!names) return;
-
-    while (names[i]) {
-	interpolation->insertItem(i18n(names[i++]));
+    QStringList names = Interpolation::names(true);
+    for (QStringList::Iterator it = names.begin(); it != names.end(); ++it ) {
+	interpolation->insertItem(*it);
     }
 
     connect(interpolation, SIGNAL(activated(int)),
@@ -170,7 +150,6 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
 //****************************************************************************
 CurveWidget::~CurveWidget()
 {
-    if (presetDir) delete presetDir;
     if (points) delete points;
     if (knob) delete knob;
     if (pixmap) delete pixmap;
@@ -179,10 +158,10 @@ CurveWidget::~CurveWidget()
 }
 
 //****************************************************************************
-const char *CurveWidget::getCommand()
+QString CurveWidget::getCommand()
 {
     ASSERT(points);
-    return (points) ? points->getCommand() : 0;
+    return (points) ? points->getCommand() : (QString)"";
 }
 
 //****************************************************************************
@@ -194,22 +173,26 @@ void CurveWidget::setCurve(const char *next)
 }
 
 //****************************************************************************
-void CurveWidget::setType(int type)
+void CurveWidget::setType(interpolation_t type)
 {
     ASSERT(points);
     if (!points) return;
 
-    points->setInterpolationType (Interpolation::getTypes()[type]);
+    points->setInterpolationType(type);
     repaint();
 }
 
 //****************************************************************************
 void CurveWidget::savePreset()
 {
+    KStandardDirs stddirs;
     ASSERT(points);
-    ASSERT(presetDir);
     if (!points) return;
+
+    QDir *presetDir = new QDir(stddirs.saveLocation("data", "kwave/presets/curves"));
+    ASSERT(presetDir);
     if (!presetDir) return;
+    presetDir->setNameFilter ("*.curve");
 
     QString name = KFileDialog::getSaveFileName(
 		       presetDir->path(), "*.curve", this);
@@ -224,15 +207,18 @@ void CurveWidget::savePreset()
 //****************************************************************************
 void CurveWidget::loadPreset(int num)
 {
+    KStandardDirs stddirs;
+    char *name = namelist.at(num);
+
+    QDir *presetDir = new QDir(stddirs.saveLocation("data", "kwave/presets/curves"));
     ASSERT(presetDir);
     if (!presetDir) return;
-
-    char *name = namelist.at(num);
+    presetDir->setNameFilter ("*.curve");
 
     FileLoader loader (presetDir->absFilePath(name));
 
     if (points) delete points;
-    points = new Curve(loader.getMem());
+    points = new Curve(loader.buffer());
     ASSERT(points);
 
     repaint();
@@ -278,7 +264,7 @@ void CurveWidget::deleteLast()
     if (!points) return;
 
     if (last) {
-	points->deletePoint(last, false);
+	points->deletePoint(last, true);
 	last = 0;
 	repaint ();
     }
@@ -422,7 +408,7 @@ void CurveWidget::paintEvent(QPaintEvent *)
     int kh = (knob) ? knob->height() : 0;
     int lx, ly, ay;
 
-    double *y = points->getInterpolation (width);
+    QArray<double> *y = points->interpolation(width);
     ASSERT(y);
     if (!y) {
 	warning("CurveWidget: could not get Interpolation !\n");
@@ -431,10 +417,10 @@ void CurveWidget::paintEvent(QPaintEvent *)
 
     p.begin (this);
     p.setPen (white);
-    ly = height - (int)(y[0] * height);
+    ly = height - (int)(*y[0] * height);
 
     for (int i = 1; i < width; i++) {
-	ay = height - (int)(y[i] * height);
+	ay = height - (int)(*y[i] * height);
 	p.drawLine (i - 1, ly, i, ay);
 	ly = ay;
     }
@@ -450,6 +436,8 @@ void CurveWidget::paintEvent(QPaintEvent *)
 	            knob, 0, 0, kw, kh);
     }
     p.end();
+
+    if (y) delete y;
 }
 
 //****************************************************************************

@@ -9,7 +9,7 @@ BUILTSOURCES=\
  TSS_Object.moc.cpp
 
 # Which sources should be compiled for libkwavemt.
-libkwavemt_a_SOURCES =\
+libkwavemt_a_SOURCES=\
  AsyncSync.cpp\
  TSS_Object.cpp \
  Mutex.cpp \

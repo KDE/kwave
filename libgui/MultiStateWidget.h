@@ -4,6 +4,8 @@
 #include <qwidget.h>
 #include <qpainter.h>
 
+class QString;
+
 class MultiStateWidget : public QWidget
 {
     Q_OBJECT
@@ -19,7 +21,21 @@ public:
      */
     void setNumber(int number);
 
-    int addPixmap (char *);
+    /**
+     * Adds a the content of pixmap file as pixmap for the
+     * next state. The file is found through the KStandardDirs
+     * mechanism. Adding a file for a second or further time
+     * is not possible, in this case the pixmap will not be
+     * loaded and the return value will be the id of the
+     * existing version.
+     * @see KStandardDirs
+     * @param filename name of the file to be added, without
+     *        path.
+     * @return id of the corresponding state or -1 if
+     *         something went wrong
+     */
+    int addPixmap(const QString &filename);
+
     void setStates (int *newstates);
     void setState (int newstate);
     void nextState ();

@@ -3,31 +3,48 @@ dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
 AC_INIT(acinclude.m4)
 
+AC_CONFIG_AUX_DIR(admin)
+
 AC_CANONICAL_SYSTEM  
 AC_ARG_PROGRAM
 
 dnl You have to change this
-AM_INIT_AUTOMAKE(kwave,0.5.2-13)
+AM_INIT_AUTOMAKE(kwave,0.6.0)
 
-AM_ENABLE_STATIC
-AM_ENABLE_SHARED
-
-dnl make $KDEDIR the default for the installation
-AC_PREFIX_DEFAULT(${KDEDIR:-/usr})
-
+KDE_SET_PREFIX
 dnl generate the config header
 AM_CONFIG_HEADER(config.h) dnl at the distribution this done
 
-dnl Checks for programs.
-AC_PROG_LN_S
+AM_ENABLE_SHARED(yes)
+AM_ENABLE_STATIC(yes)
+
+CFLAGS="${CFLAGS}     -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
+CXXFLAGS="${CXXFLAGS} -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
+
+dnl test for usage of insure++
+AC_CHECK_WITH_INSURE
 
 AC_CHECK_COMPILERS
 dnl AC_PROG_CC
 dnl AC_PROG_CPP
 dnl AC_PROG_CXX
 
+KDE_PROG_LIBTOOL
+
+dnl check if nls is wanted
+AM_KDE_WITH_NLS(yes)
+
+AC_PATH_KDE
+AC_ARG_PROGRAM
+
+dnl make $KDEDIR the default for the installation
+AC_PREFIX_DEFAULT(${KDEDIR:-/usr})
+
+dnl Checks for programs.
+AC_PROG_LN_S
+
 dnl checks, if the debug code is wanted
-AC_CHECK_FLAGS
+dnl ### AC_CHECK_FLAGS
 
 dnl optimization flags for athlon
 dnl CFLAGS = -O3 -fomit-frame-pointer -Wall 
@@ -41,21 +58,18 @@ dnl -mpentiumpro -march=pentiumpro
 dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations 
 dnl -malign-double -fschedule-insns2 -mwide-multiply
 
-CFLAGS="${CFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
-CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
-
-dnl test for usage of insure++
-AC_CHECK_WITH_INSURE
+dnl ### CFLAGS="${CFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
+dnl ### CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 
 dnl now create our libtool, the earlier the better...
-AM_PROG_LIBTOOL
+dnl AM_PROG_LIBTOOL
 
 dnl find out some variables 
-AC_AIX
-AC_MINIX
+dnl ### AC_AIX
+dnl ### AC_MINIX
 
 dnl for NLS support. Call them in this order!
-AC_LANG_CPLUSPLUS dnl switch to C++
+dnl ### AC_LANG_CPLUSPLUS dnl switch to C++
 
 AC_TYPE_SIZE_T
 AC_CHECK_SIZEOF(char,1)
@@ -76,9 +90,6 @@ if test $ac_cv_sizeof_int != 4 ; then
 	AC_MSG_WARN([*** sizeof (int) != 4.                                            ])
 	AC_MSG_WARN([******************************************************************])
 	fi
-
-dnl check if nls is wanted
-AM_KDE_WITH_NLS
 
 dnl switch to C++
 AC_LANG_CPLUSPLUS
@@ -126,10 +137,10 @@ dnl AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' 
 dnl AC_SUBST(LIBSOCKET)
 
 dnl check X, Qt and KDE
-AC_PATH_KDE
+dnl ### AC_PATH_KDE
 
 dnl check for libkwave
-AC_PATH_KWAVELIB
+dnl ### AC_PATH_KWAVELIB
 
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
@@ -188,14 +199,5 @@ AC_SUBST(RPM_BUILDROOT)
 AC_SUBST(LD_VERSION_INFO)
 
 dnl add here all your Makefiles
-AC_OUTPUT(Makefile \
-	mt/Makefile \
-	libgui/Makefile \
-	src/Makefile \
-	plugins/Makefile \
-	plugins/dialogs/Makefile \
-	plugins/dialogs/template/Makefile \
-	po/Makefile \
-	doc/Makefile \
-	kwave.spec )
-
+dnl AC_OUTPUT(Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile )
+AC_OUTPUT(    Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile )

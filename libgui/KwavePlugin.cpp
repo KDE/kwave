@@ -32,8 +32,8 @@
 #include "libgui/KwavePlugin.h"
 #include "libgui/PluginContext.h"
 
-#include "../src/TopWidget.h"
-#include "../src/PluginManager.h"
+#include "../kwave/TopWidget.h"
+#include "../kwave/PluginManager.h"
 
 //***************************************************************************
 KwavePlugin::KwavePlugin(PluginContext &c)
@@ -52,7 +52,7 @@ KwavePlugin::~KwavePlugin()
 }
 
 //***************************************************************************
-QStrList *KwavePlugin::setup(QStrList *previous_params = 0)
+QStrList *KwavePlugin::setup(QStrList *)
 {
     QStrList *result = new QStrList();
     ASSERT(result);
@@ -60,7 +60,7 @@ QStrList *KwavePlugin::setup(QStrList *previous_params = 0)
 }
 
 //***************************************************************************
-int KwavePlugin::start(QStrList &params)
+int KwavePlugin::start(QStrList &)
 {
     MutexGuard lock(m_thread_lock);
     return 0;
@@ -107,7 +107,7 @@ int KwavePlugin::execute(QStrList &params)
 }
 
 //***************************************************************************
-void KwavePlugin::run(QStrList params)
+void KwavePlugin::run(QStrList)
 {
 }
 

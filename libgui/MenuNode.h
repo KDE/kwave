@@ -21,6 +21,7 @@
 #include <qobject.h>
 #include <qlist.h>
 #include <qdict.h>
+#include <qstring.h>
 #include <qstrlist.h>
 
 class QPixmap;
@@ -33,7 +34,8 @@ class MenuGroup;
  * the ToplevelMenu class.
  * @author Thomas Eschenbacher
  */
-class MenuNode: public QObject {
+class MenuNode: public QObject
+{
     Q_OBJECT
 
     friend class MenuSub;
@@ -50,8 +52,8 @@ public:
      *            (optional, default=0)
      * @param uid unique id string (optional, default=0)
      */
-    MenuNode(MenuNode *parent, char *name, char *command = 0,
-	     int key = 0, char *uid = 0);
+    MenuNode(MenuNode *parent, const QString &name,
+	const QString &command = 0, int key = 0, const QString &uid = 0);
 
     /**
      * Destructor. Clears the menu node and cleans up.
@@ -62,48 +64,48 @@ public:
     /**
      * Returns the (non-localized) name of the node.
      */
-    inline const char *getName() {
-	return name;
+    inline const QString &getName() {
+	return m_name;
     };
 
     /**
      * Returns the command of the node.
      */
-    inline const char *getCommand() {
-	return command;
+    inline const QString &getCommand() {
+	return m_command;
     };
 
     /**
      * Returns the menu id of the node.
      */
     inline int getId() {
-	return this->id;
+	return m_id;
     };
 
     /**
      * Returns the unique id string of the node.
      */
-    inline char *getUID() {
-	return this->uid;
+    inline const QString &getUID() {
+	return m_uid;
     };
 
     /**
      * Sets the unique id string of the node
      */
-    void setUID(char *uid);
+    void setUID(const QString &uid);
 
     /**
      * Returns the bitmask of the keyboard shortcut.
      */
     inline int getKey() {
-	return this->key;
+	return m_key;
     };
 
     /**
      * Sets the bitmask of the keyboard shortcut.
      */
     virtual void setKey(int key) {
-	this->key = key;
+	m_key = key;
     };
 
     /**
@@ -129,7 +131,7 @@ public:
      * @param id new menu id of the node
      */
     inline void setId(int id) {
-	this->id = id;
+	m_id = id;
     };
 
     /**
@@ -202,14 +204,14 @@ public:
      * @param uid the unique id string to be searched
      * @return pointer to the found node or 0 if not found
      */
-    MenuNode *findUID(const char *uid);
+    MenuNode *findUID(const QString &uid);
 
     /**
      * Tries to find a child node by it's name.
      * @param name non-localized name of the child node
      * @return pointer to the found node or 0 if not found
      */
-    MenuNode *findChild(char *name);
+    MenuNode *findChild(const QString &name);
 
     /**
      * Tries to find a child node by it's unique id.
@@ -243,8 +245,9 @@ public:
      *              from 0 or -1 for appending (optional, default=-1)
      * @return pointer to the new branch node
      */
-    virtual MenuNode *insertBranch(char *name, char *command, int key,
-				   char *uid, int index = -1);
+    virtual MenuNode *insertBranch(const QString &name,
+	const QString &command, int key, const QString &uid,
+	int index = -1);
 
     /**
      * Inserts a new leaf node into the menu structure. The new node
@@ -259,8 +262,9 @@ public:
      *              from 0 or -1 for appending. Optional, default=-1
      * @return pointer to the new leaf node
      */
-    virtual MenuNode *insertLeaf(char *name, char *command, int key,
-				 char *uid, int index = -1);
+    virtual MenuNode *insertLeaf(const QString &name,
+	const QString &command, int key, const QString &uid,
+	int index = -1);
 
     /**
      * Registers a node as a child of the current node.
@@ -282,8 +286,8 @@ public:
      *            0 if unused
      * @param uid unique id string (might be 0)
      */
-    virtual int insertNode(char *name, char *position, char *command,
-			   int key, char *uid);
+    virtual int insertNode(const QString &name, const QString &position,
+	const QString &command, int key, const QString &uid);
 
     /**
      * Converts a child node from leaf to branch type by removing
@@ -299,7 +303,7 @@ public:
      * @param command name of a menu node or command
      * @return true if the name was recognized as a command and handled
      */
-    virtual bool specialCommand(const char *command);
+    virtual bool specialCommand(const QString &command);
 
     /**
      * Called to notify the node that it has been selected.
@@ -328,13 +332,13 @@ public:
      * group this function will do nothing.
      * @param group name of the group
      */
-    void joinGroup(const char *group);
+    void joinGroup(const QString &group);
 
     /**
      * Removes the node from a group (opposite of joinGroup).
      * @param group name of the group
      */
-    void leaveGroup(const char *group);
+    void leaveGroup(const QString &group);
 
 protected:
 
@@ -349,7 +353,7 @@ protected:
      * @see #emitCommand()
      * @see #getRootNode()
      */
-    void emitCommand(const char *command);
+    void emitCommand(const QString &command);
 
 signals:
     /**
@@ -360,7 +364,7 @@ signals:
      * @see #emitCommand()
      * @see #getRootNode()
      */
-    void sigCommand(const char *command);
+    void sigCommand(const QString &command);
 
     /**
      * Parent nodes can connect to this signal in order to get notified
@@ -395,42 +399,41 @@ private slots:
 protected:
 
     /** list with pointers to child menus */
-    QList<MenuNode> children;
+    QList<MenuNode> m_children;
 
     /** list of group names the item belongs to */
-    QStrList groups;
+    QStrList m_groups;
 
 private:
     /** numeric id in the menu */
-    int id;
+    int m_id;
 
     /** unique id string */
-    char *uid;
+    QString m_uid;
 
     /** bitmask of the keyboard shortcut */
-    int key;
+    int m_key;
 
     /** name of the node (non-localized) */
-    char *name;
+    QString m_name;
 
     /** command to be sent when the node is activated (optional) */
-    char *command;
+    QString m_command;
 
     /** icon of the node (optional) */
-    const QPixmap *icon;
+    const QPixmap *m_icon;
 
     /** parent of this entry */
-    MenuNode* parentNode;
+    MenuNode* m_parentNode;
 
     /** true if the item is enabled (default=true) */
-    bool enabled;
+    bool m_enabled;
 
     /** last value of the enabled flag (for detecting changes) */
-    bool last_enabled;
+    bool m_last_enabled;
 
     /** true if the item is checked (default=false) */
-    bool checked;
-
+    bool m_checked;
 };
 
 #endif // _MENU_NODE_H_

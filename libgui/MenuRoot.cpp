@@ -16,14 +16,14 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <kapp.h>
+#include <klocale.h>
 #include <kmenubar.h>
 
 #include "MenuItem.h"
 #include "MenuToplevel.h"
 #include "MenuRoot.h"
 
-//*****************************************************************************
+//***************************************************************************
 MenuRoot::MenuRoot(KMenuBar &bar)
     :MenuNode(0, "(root)"),
     menu_bar(bar),
@@ -31,13 +31,13 @@ MenuRoot::MenuRoot(KMenuBar &bar)
 {
 }
 
-//*****************************************************************************
+//***************************************************************************
 MenuRoot::~MenuRoot()
 {
     clear();
 }
 
-//*****************************************************************************
+//***************************************************************************
 int MenuRoot::getChildIndex(int id)
 {
     for (unsigned int i = 0; i < menu_bar.count(); i++) {
@@ -46,29 +46,28 @@ int MenuRoot::getChildIndex(int id)
     return -1;
 }
 
-//*****************************************************************************
+//***************************************************************************
 QDict<MenuNode> *MenuRoot::getGroupList()
 {
     return &group_list;
 }
 
-//*****************************************************************************
-MenuNode *MenuRoot::insertBranch(char *name, char *command, int key,
-				 char *uid, int index)
+//***************************************************************************
+MenuNode *MenuRoot::insertBranch(const QString &name, const QString &command,
+                                 int key, const QString &uid, int index)
 {
     MenuToplevel *node = new MenuToplevel(this, name, command, key, uid);
     ASSERT(node);
     if (!node) return 0;
 
     int new_id = registerChild(node);
-    menu_bar.insertItem(i18n(name),
-			node->getPopupMenu(), new_id, index);
+    menu_bar.insertItem(i18n(name), node->getPopupMenu(), new_id, index);
     return node;
 }
 
-//*****************************************************************************
-MenuNode *MenuRoot::insertLeaf(char *name, char *command,
-			       int key, char *uid,
+//***************************************************************************
+MenuNode *MenuRoot::insertLeaf(const QString &name, const QString &command,
+			       int key, const QString &uid,
 			       int index)
 {
     MenuItem *item = new MenuItem(this, name, command, key, uid);
@@ -80,12 +79,12 @@ MenuNode *MenuRoot::insertLeaf(char *name, char *command,
     return item;
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MenuRoot::removeChild(MenuNode *child)
 {
     ASSERT(child);
     if (!child) return ;
-    if (children.findRef(child) == -1) return ;
+    if (m_children.findRef(child) == -1) return ;
 
     QDict<MenuNode> *group_list = getGroupList();
     if (!group_list || (group_list->find(child->getName()) == 0)) {
@@ -96,16 +95,16 @@ void MenuRoot::removeChild(MenuNode *child)
     MenuNode::removeChild(child);
 }
 
-//*****************************************************************************
-void MenuRoot::actionChildEnableChanged(int id, bool enable)
+//***************************************************************************
+void MenuRoot::actionChildEnableChanged(int /*id*/, bool /*enable*/)
 {
     // do nothing, the child nodes of the toplevel menu have already
     // been enabled/disabled
     // we don't want to -> "menu_bar.setItemEnabled(id, enable);" !!!
 }
 
-//*****************************************************************************
-bool MenuRoot::specialCommand(const char *command)
+//***************************************************************************
+bool MenuRoot::specialCommand(const QString &command)
 {
 //    debug("MenuRoot::specialCommand(%s)", command);
 

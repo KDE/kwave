@@ -18,22 +18,23 @@
 #include "config.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <kapp.h>
+
 #include <qkeycode.h>
 #include <qcombobox.h>
 #include <qdir.h>
 #include <qframe.h>
-#include <drag.h>
 
-#include <kmsgbox.h>
-#include <kapp.h>
+#include <kcombobox.h>
 #include <kfiledialog.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <kmenubar.h>
+#include <kstddirs.h>
 
-#include <libkwave/DynamicLoader.h>
-#include <libkwave/DialogOperation.h>
 #include <libkwave/Parser.h>
 #include <libkwave/LineParser.h>
-#include <libkwave/Global.h>
 #include <libkwave/FileLoader.h>
 
 #include "libgui/Dialog.h"
@@ -71,8 +72,6 @@
 #include "toolbar/zoomnormal.xpm"
 #include "toolbar/zoomall.xpm"
 
-extern Global globals;
-
 #ifndef min
 #define min(x,y) (( (x) < (y) ) ? (x) : (y) )
 #endif
@@ -84,32 +83,26 @@ extern Global globals;
 /**
  * useful macro for command parsing
  */
-#define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
+#define CASE_COMMAND(x) } else if (parser.command() == x) {
 
-/**
- * Primitive class that holds a list of predefined zoom
- * factors.
- */
-class ZoomListPrivate: public QStrList
+//*****************************************************************************
+//*****************************************************************************
+TopWidget::ZoomListPrivate::ZoomListPrivate()
+:QStrList(false)
 {
-public:
-    ZoomListPrivate()
-	:QStrList(false)
-    {
-	clear();
-	append("400 %");
-	append("200 %");
-	append("100 %");
-	append("33 %");
-	append("10 %");
-	append("3 %");
-	append("1 %");
-	append("0.1 %");
-    };
+    clear();
+    append("400 %");
+    append("200 %");
+    append("100 %");
+    append("33 %");
+    append("10 %");
+    append("3 %");
+    append("1 %");
+    append("0.1 %");
 };
 
 /** list of predefined zoom factors */
-static ZoomListPrivate zoom_factors;
+static TopWidget::ZoomListPrivate zoom_factors;
 
 //*****************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
@@ -157,8 +150,8 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 	plugin_manager=0;
 	return;
     }
-    connect(plugin_manager, SIGNAL(sigCommand(const char *)),
-            this, SLOT(executeCommand(const char *)));
+    connect(plugin_manager, SIGNAL(sigCommand(const QString &)),
+            this, SLOT(executeCommand(const QString &)));
     connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
 	    plugin_manager, SLOT(setSignalName(const QString &)));
 
@@ -174,28 +167,21 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     setStatusBar(status_bar);
 
     // connect clicked menu entries with main communication channel of kwave
-    connect(menu, SIGNAL(sigMenuCommand(const char *)),
-	    this, SLOT(executeCommand(const char *)));
+    connect(menu, SIGNAL(sigMenuCommand(const QString &)),
+	    this, SLOT(executeCommand(const QString &)));
 
-    //enable drop of local files onto kwave window
-    dropZone = new KDNDDropZone( this , DndURL);
-    ASSERT(dropZone);
-    if (!dropZone) return;
-    connect( dropZone, SIGNAL( dropAction( KDNDDropZone *)),
-	     this, SLOT( dropEvent( KDNDDropZone *)));
+//    //enable drop of local files onto kwave window
+//    dropZone = new KDNDDropZone( this , DndURL);
+//    ASSERT(dropZone);
+//    if (!dropZone) return;
+//    connect( dropZone, SIGNAL( dropAction( KDNDDropZone *)),
+//	     this, SLOT( dropEvent( KDNDDropZone *)));
 
-    // read menus and create them...
-    ASSERT(globals.globalconfigDir);
-    if (globals.globalconfigDir) {
-	QDir configDir(globals.globalconfigDir);
-
-	ASSERT(configDir.exists(configDir.absFilePath("menus.config")));
-	if (configDir.exists(configDir.absFilePath("menus.config"))) {
-	    FileLoader loader(configDir.absFilePath("menus.config"));
-	    ASSERT(loader.getMem());
-	    if (loader.getMem()) parseCommands(loader.getMem());
-	}
-    }
+    // load the menu from file
+    QString menufile = locate("data", "kwave/menus.config");
+    FileLoader loader(menufile);
+    ASSERT(loader.buffer());
+    if (loader.buffer()) parseCommands(loader.buffer());
     setMenu(menu_bar);
     updateMenu();
 
@@ -211,13 +197,13 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 	return;
     }
 
-    connect(mainwidget, SIGNAL(sigCommand(const char*)),
-	    this, SLOT(executeCommand(const char*)));
+    connect(mainwidget, SIGNAL(sigCommand(const QString &)),
+	    this, SLOT(executeCommand(const QString &)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
-    connect(this, SIGNAL(sigCommand(const char *)),
-	    this, SLOT(executeCommand(const char *)));
+    connect(this, SIGNAL(sigCommand(const QString &)),
+	    this, SLOT(executeCommand(const QString &)));
 
     // --- set up the toolbar ---
 
@@ -225,7 +211,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     ASSERT(m_toolbar);
     if (!m_toolbar) return;
     m_toolbar->setBarPos(KToolBar::Top);
-    m_toolbar->setFullWidth(false);
+    m_toolbar->setHorizontalStretchable(false);
     this->addToolBar(m_toolbar);
     m_toolbar->insertSeparator(-1);
 
@@ -450,21 +436,21 @@ bool TopWidget::isOK()
     ASSERT(menu);
     ASSERT(menu_bar);
     ASSERT(mainwidget);
-    ASSERT(dropZone);
+//    ASSERT(dropZone);
     ASSERT(plugin_manager);
     ASSERT(status_bar);
     ASSERT(m_toolbar);
     ASSERT(m_zoomselect);
 
-    return ( menu && menu_bar && mainwidget && dropZone && plugin_manager &&
-    	     status_bar && m_toolbar && m_zoomselect );
+    return true;
+//    return ( menu && menu_bar && mainwidget /* ### && dropZone */ && plugin_manager &&
+//    	     status_bar && m_toolbar && m_zoomselect );
 }
 
 //*****************************************************************************
 TopWidget::~TopWidget()
 {
 //    debug("TopWidget::~TopWidget()");
-    ASSERT(KApplication::getKApplication());
 
     // close the current file
     closeFile();
@@ -506,54 +492,44 @@ TopWidget::~TopWidget()
 }
 
 //*****************************************************************************
-void TopWidget::executeCommand(const char *command)
+void TopWidget::executeCommand(const QString &command)
 {
-//    debug("TopWidget::executeCommand(%s)", command); // ###
-    ASSERT(command);
-    if (!command) return;
+    debug("TopWidget::executeCommand(%s)", command.data()); // ###
+    if (!command.length()) return;
+    if (command.stripWhiteSpace().startsWith("#")) return; // only a comment
 
-    if (command[0] == '#') {
-	return; // only a comment
-    } else if (app.executeCommand(command)) {
+    Parser parser(command);
+
+    if (app.executeCommand(command)) {
 	return ;
     CASE_COMMAND("plugin")
-	Parser parser(command);
-	const char *name = parser.getFirstParam();
+	QString name = parser.firstParam();
 	QStrList *params = 0;
-	
-	int cnt=parser.countParams();
-	if (cnt > 0) {
+
+	int cnt=parser.count();
+	if (cnt > 1) {
 	    params = new QStrList();
 	    ASSERT(params);
 	    while (params && cnt--) {
-		params->append(parser.getNextParam());
+		const QString &par = parser.nextParam();
+		debug("TopWidget::executeCommand(): %s", par.data());
+		params->append(par);
 	    }
 	}
-
-	debug("TopWidget::executeCommand(): loading plugin '%s'", name);
+	debug("TopWidget::executeCommand(): loading plugin '%s'", name.data());
+	debug("TopWidget::executeCommand(): with %d parameter(s)",
+		(params) ? params->count() : 0);
 	ASSERT(plugin_manager);
 	if (plugin_manager) plugin_manager->executePlugin(name, params);
     CASE_COMMAND("plugin:execute")
-	Parser parser(command);
 	QStrList params;
-	int cnt = parser.countParams();
-	
-	parser.getCommand(); // remove the command name
-	QString name(parser.getFirstParam());
-	while (--cnt) {
-	    params.append(parser.getNextParam());
+	int cnt = parser.count();
+	QString name(parser.firstParam());
+	while (--cnt > 0) {
+	    params.append(parser.nextParam());
 	}
-
-#ifdef DEBUG
-	debug("TopWidget::executeCommand(): executing plugin '%s'",
-	    name.data());
-#endif
 	ASSERT(plugin_manager);
 	if (plugin_manager) plugin_manager->executePlugin(name.data(), &params);
-#ifdef DEBUG
-	debug("TopWidget::executeCommand(): returned from plugin '%s'",
-	    name.data());
-#endif
     CASE_COMMAND("menu")
 	ASSERT(menu);
 	if (menu) menu->executeCommand(command);
@@ -583,7 +559,7 @@ void TopWidget::executeCommand(const char *command)
 	close();
     } else {
 	ASSERT(mainwidget);
-        if ((mainwidget) && (mainwidget->executeCommand(command))) {
+	if ((mainwidget) && (mainwidget->executeCommand(command))) {
 	    return ;
 	}
     }
@@ -594,8 +570,8 @@ void TopWidget::executeCommand(const char *command)
 void TopWidget::loadBatch(const char *str)
 {
     Parser parser(str);
-    FileLoader loader(parser.getFirstParam());
-    parseCommands(loader.getMem());
+    FileLoader loader(parser.firstParam());
+    parseCommands(loader.buffer());
 }
 
 //*****************************************************************************
@@ -605,14 +581,14 @@ SignalManager *TopWidget::getSignalManager()
 }
 
 //*****************************************************************************
-void TopWidget::parseCommands(const char *str)
+void TopWidget::parseCommands(const QByteArray &buffer)
 //parses a list a of commands separated by newlines
 {
-    LineParser lineparser(str);
-    const char *line = lineparser.getLine();
-    while (line) {
+    LineParser lineparser(buffer);
+    QString line = lineparser.nextLine();
+    while (line.length()) {
 	executeCommand(line);
-	line = lineparser.getLine();
+	line = lineparser.nextLine();
     }
 }
 
@@ -642,18 +618,17 @@ void TopWidget::resolution(const char *str)
 }
 
 //*****************************************************************************
-void TopWidget::setCaption(char *filename)
+void TopWidget::setCaption(const QString &filename)
 {
     const char *old_caption = caption;
 
     int len = strlen(app.appName().data()) + strlen(filename) + strlen(" - ");
     len ++; // don't forget the terminating zero !
-    caption = new char[len];
-    if (filename) {
-	snprintf(caption, len, "%s - %s",
-	    app.appName().data(), filename);
-    } else {
-	snprintf(caption, len, "%s", app.appName().data());
+    QString caption = app.appName();
+
+    if (filename.length()) {
+	caption += " - ";
+	caption += filename;
     }
 
     KTMainWindow::setCaption(caption);
@@ -694,7 +669,7 @@ int TopWidget::loadFile(const char *filename, int type)
 
     if (mainwidget) mainwidget->setSignal(filename, type);
     app.addRecentFile(signalName);
-    setCaption(duplicateString(signalName));
+    setCaption(signalName);
 
     bits = (mainwidget) ? mainwidget->getBitsPerSample() : 0;
     updateMenu();
@@ -707,23 +682,23 @@ int TopWidget::loadFile(const char *filename, int type)
 void TopWidget::openRecent(const char *str)
 {
     Parser parser (str);
-    loadFile(parser.getFirstParam(), WAV);
+    loadFile(parser.firstParam(), WAV);
 }
 
-//*****************************************************************************
-void TopWidget::dropEvent(KDNDDropZone *drop)
-{
-    ASSERT(drop);
-    if (!drop) return;
-
-    QStrList &list = drop->getURLList();
-    char *s = list.getFirst();
-    if (s) {
-	QString name = s;
-	if ( name.left(5) == "file:")
-	    loadFile(name.right(name.length() - 5), WAV);
-    }
-}
+////*****************************************************************************
+//void TopWidget::dropEvent(KDNDDropZone *drop)
+//{
+//    ASSERT(drop);
+//    if (!drop) return;
+//
+//    QStrList &list = drop->getURLList();
+//    char *s = list.getFirst();
+//    if (s) {
+//	QString name = s;
+//	if ( name.left(5) == "file:")
+//	    loadFile(name.right(name.length() - 5), WAV);
+//    }
+//}
 
 //*****************************************************************************
 void TopWidget::openFile()
@@ -754,7 +729,7 @@ void TopWidget::saveFile()
 
     if (signalName.length()) {
 	mainwidget->saveSignal(signalName, bits, 0, false);
-	setCaption(duplicateString(signalName));
+	setCaption(signalName);
 	updateMenu();
     } else saveFileAs (false);
 }
@@ -776,12 +751,12 @@ void TopWidget::saveFileAs(bool selection)
 	emit sigSignalNameChanged(signalName);
 	
 	if (signalName.length()) {
-	    if (saveDir) delete saveDir;
-	    saveDir = new QDir(dialog->dirPath());
-	    ASSERT(saveDir);
+//	    if (saveDir) delete saveDir;
+//	    saveDir = new QDir(dialog->dirPath());
+//	    ASSERT(saveDir);
 
 	    mainwidget->saveSignal(signalName, bits, 0, selection);
-	    setCaption(duplicateString(signalName));
+	    setCaption(signalName);
 	    app.addRecentFile(signalName);
 	    updateMenu();
 	}
@@ -849,7 +824,7 @@ void TopWidget::setZoom(double zoom)
 
 	mainwidget->setZoom(zoom);
     }
-    (strlen(buf)) ? m_zoomselect->setText(buf) : m_zoomselect->clearEdit();
+    (strlen(buf)) ? m_zoomselect->setEditText(buf) : m_zoomselect->clearEdit();
 }
 
 //*****************************************************************************
@@ -883,6 +858,8 @@ void TopWidget::updateToolbar()
     ASSERT(mainwidget);
     if (!m_toolbar) return;
     if (!mainwidget) return;
+    ASSERT(mainwidget->playbackController());
+    if (!mainwidget->playbackController()) return;
 
     bool have_signal = mainwidget && (mainwidget->getChannelCount());
     bool playing = mainwidget->playbackController()->running();

@@ -22,10 +22,12 @@
 #define stopprocess     1
 #define samplepointer   2
 
+#include <stdio.h>
+
 #include <qobject.h>
 #include <qarray.h>
 #include <qlist.h>
-#include <stdio.h>
+#include <qstring.h>
 
 #include "mt/SignalProxy.h"
 
@@ -38,7 +40,7 @@ typedef struct {
     int rate;
     int channels;
     int bits_per_sample;
-    const char *device;
+    QString device;
     int bufbase;
 } playback_param_t;
 
@@ -56,7 +58,7 @@ public:
                   unsigned int channels = 1);
     virtual ~SignalManager();
 
-    bool executeCommand(const char *command);
+    bool executeCommand(const QString &command);
 
     int setSoundParams(int audio, int bitspersample,
                        unsigned int channels, int rate, int bufbase);
@@ -184,7 +186,7 @@ public:
      */
     void setRange(unsigned int l, unsigned int r);
 
-    bool promoteCommand (const char *command);
+    bool promoteCommand (const QString &command);
 
     /**
      * Toggles the selection flag of a channel.
@@ -213,7 +215,7 @@ signals:
      * the next higher instance.
      * @param command the command to be executed
      */
-    void sigCommand(const char *command);
+    void sigCommand(const QString &command);
 
     /**
      * Indicates that the signal data within a range
@@ -336,7 +338,8 @@ private:
     int writeWavChunk(FILE *sigout, unsigned int begin, unsigned int length,
                       int bits);
 
-    char *name;
+    /** name of the signal, normally equal to the filename */
+    QString m_name;
 
     /** list of all channels (signals) */
     QList<Signal> signal;

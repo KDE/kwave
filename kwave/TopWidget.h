@@ -18,10 +18,12 @@
 #ifndef _TOP_WIDGET_H_
 #define _TOP_WIDGET_H_ 1
 
+#include <qcstring.h>
 #include <qlist.h>
 #include <ktmainwindow.h>
 
 class QCloseEvent;
+class QDir;
 class QStrList;
 class QTimer;
 class KCombo;
@@ -73,8 +75,16 @@ public:
     const QString &getSignalName();
 
     void setSignal(SignalManager *);
-    void parseCommands(const char *);
-    void loadBatch(const char *);
+
+    /**
+     * Parses a buffer that is intended to contain the content
+     * of a text file into lines with commands and executes all
+     * parsed commands.
+     * @param buffer the list of commands
+     */
+    void parseCommands(const QByteArray &buffer);
+
+    void loadBatch(const char *filename);
 
     /**
      * Returns a pointer to the current signal manager or zero if
@@ -84,9 +94,9 @@ public:
 
 public slots:
 
-    void executeCommand(const char *command);
+    void executeCommand(const QString &command);
 
-    void dropEvent (KDNDDropZone *);
+//    void dropEvent (KDNDDropZone *);
 
     void updateRecentFiles();
 
@@ -141,7 +151,7 @@ signals:
     /**
      * Tells this TopWidget's parent to execute a command
      */
-    void sigCommand(const char *command);
+    void sigCommand(const QString &command);
 
     /**
      * Emitted it the name of the signal has changed.
@@ -159,7 +169,7 @@ protected:
      * loaded the caption consists only of the application's name.
      * @param filename path of the loaded file or 0 if no file loaded
      */
-    virtual void setCaption(char *filename);
+    virtual void setCaption(const QString &filename);
 
     /**
      * Loads a new file and updates the widget's title, menu, status bar
@@ -196,6 +206,17 @@ protected:
     void resolution (const char *str);
 
 private:
+
+    /**
+     * Primitive class that holds a list of predefined zoom
+     * factors.
+     */
+    class ZoomListPrivate: public QStrList
+    {
+    public:
+	ZoomListPrivate();
+    };
+
     /** reference to the main kwave application */
     KwaveApp &app;
 
@@ -218,7 +239,7 @@ private:
     MainWidget *mainwidget;
 
     /** combo box for selection of the zoom factor */
-    KCombo *m_zoomselect;
+    KComboBox *m_zoomselect;
 
     /**
      * toolbar for controlling file operations, copy&paste,

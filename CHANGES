@@ -1,7 +1,11 @@
 
-0.5.x [2001-02-03]
-  
-  * split off the "old-0_5_x" branch in cvs
+0.6.0 [2001-??-??]
+
+ * >>> PORTED TO QT-2.X AND KDE2 <<<
+ * plugins can be located in a user directory
+ * libkwave is included and no longer supported (at least by me) as
+   a separate package
+ * many many more bugfixes, too much to be mentioned here...
 
 0.5.5 [2000-12-01]
 

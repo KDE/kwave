@@ -40,7 +40,8 @@ public:
     manager(plugin_mgr),
     label_manager(label_mgr),
     menu_manager(menu_mgr),
-    top_widget(topwidget)
+    top_widget(topwidget),
+    handle(mod_handle)
     {};
 
     KwaveApp      &kwave_app;

@@ -3,6 +3,8 @@
 
 #include <qobject.h>
 #include <qpopupmenu.h>
+#include <qstring.h>
+
 #include <krestrictedline.h>
 
 //*****************************************************************************
@@ -18,7 +20,7 @@ public:
     void setMs(int);
     int getValue();
     double getMs();
-    const char *getMsStr();
+    QString getMsStr();
 
 public slots:
     void setSampleMode();

@@ -18,14 +18,14 @@
 #include "config.h"
 #include <stdio.h>
 #include <qpopupmenu.h>
-#include <kapp.h>
+#include <klocale.h>
 
 #include "MenuItem.h"
 #include "MenuSub.h"
 
-//*****************************************************************************
-MenuSub::MenuSub(MenuNode *parent, char *name, char *command,
-		 int key, char *uid)
+//***************************************************************************
+MenuSub::MenuSub(MenuNode *parent, const QString &name,
+	const QString &command, int key, const QString &uid)
     :MenuItem(parent, name, command, key, uid)
 {
     menu = new QPopupMenu(0, i18n(name));
@@ -50,8 +50,8 @@ QPopupMenu *MenuSub::getPopupMenu()
 }
 
 //*****************************************************************************
-MenuNode *MenuSub::insertBranch(char *name, char *command, int key,
-				char *uid, int index)
+MenuNode *MenuSub::insertBranch(const QString &name, const QString &command,
+                                int key, const QString &uid, int /*index*/)
 {
     MenuSub *node = new MenuSub(this, name, command, key, uid);
     ASSERT(node);
@@ -67,13 +67,12 @@ MenuNode *MenuSub::insertBranch(char *name, char *command, int key,
 }
 
 //*****************************************************************************
-MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
-			      char *uid, int index = -1) {
+MenuNode *MenuSub::insertLeaf(const QString &name, const QString &command,
+                              int key, const QString &uid, int /*index*/) {
     int new_id;
-    ASSERT(name);
+    ASSERT(name.length());
     ASSERT(menu);
-
-    if ((!name) || (!menu)) return 0;
+    if ((!name.length()) || (!menu)) return 0;
 
     MenuItem *item = new MenuItem(this, name, command, key, uid);
     ASSERT(item);
@@ -91,7 +90,7 @@ void MenuSub::removeChild(MenuNode *child)
 {
     ASSERT(child);
     if (!child) return;
-    if (children.findRef(child) == -1) return;
+    if (m_children.findRef(child) == -1) return;
 
     ASSERT(menu);
     if (menu) menu->removeItem(child->getId());
@@ -99,18 +98,18 @@ void MenuSub::removeChild(MenuNode *child)
 }
 
 //*****************************************************************************
-bool MenuSub::specialCommand(const char *command)
+bool MenuSub::specialCommand(const QString &command)
 {
-    ASSERT(command);
-    if (!command) return false;
+    ASSERT(command.length());
+    if (!command.length()) return false;
 
-    if (strcmp(command, "#exclusive") == 0) {
+    if (command.startsWith("#exclusive")) {
 	// debug("MenuSub(%s) >> exclusive <<", getName());
 	return true;
-    } else if (strcmp(command, "#number") == 0) {
+    } else if (command.startsWith("#number")) {
 	// debug("MenuSub(%s) >> number <<", getName());
 	return true;
-    } else if (strcmp(command, "#separator") == 0) {
+    } else if (command.startsWith("#separator")) {
 	menu->insertSeparator( -1);
 	return true;
     }

@@ -2,6 +2,7 @@
 #define _PROGRESS_DIALOG_H_ 1
 
 #include <qdialog.h>
+#include <qstring.h>
 
 class TimeOperation;
 class QTimer;
@@ -12,8 +13,8 @@ class ProgressDialog : public QDialog
     Q_OBJECT
 
 public:
-    ProgressDialog(TimeOperation *, const char *caption);
-    ProgressDialog(int max = 100, char *caption = 0);
+////    ProgressDialog(TimeOperation *, const char *caption);
+    ProgressDialog(int max = 100, QString caption = 0);
     ~ProgressDialog();
 
     void setProgress(int);

@@ -21,8 +21,9 @@
 #include "MenuSub.h"
 #include "MenuToplevel.h"
 
-MenuToplevel::MenuToplevel(MenuNode *parent, char *name,
-			   char *command, int key, char *uid)
+MenuToplevel::MenuToplevel(MenuNode *parent, const QString &name,
+			   const QString &command, int key,
+			   const QString &uid)
     :MenuSub(parent, name, command, key, uid)
 {
 }

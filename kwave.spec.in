@@ -14,7 +14,7 @@ URL:     @RPM_URL@
 Vendor: @RPM_VENDOR@
 BuildRoot: 	@RPM_BUILDROOT@
 Provides: @RPM_NAME@
-Requires: 	libkwave >= 0.3.8-2
+Requires: 	libqt >= 2.2, kdelibs >= 2.0
 
 %description
 @RPM_DESCRIPTION@
@@ -30,7 +30,7 @@ rm -f `find . -name Makefile`
 rm -fv  `find . -type l`
 touch config.in
 ./configure --with-install-root=$RPM_BUILD_ROOT \
-	--enable-shared=yes --enable-static=no --enable-debug=no \
+	--enable-shared=yes --enable-static=yes --enable-debug=no \
 	--enable-insure=no
 
 %build -n kwave-@RPM_VERSION@

@@ -1,5 +1,5 @@
 /* XPM */
-static char * xspeaker_xpm[] = {
+static const char * images_xspeaker_xpm[] = {
 "19 20 42 1",
 " 	c #FFFF00000000",
 ".	c none",

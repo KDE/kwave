@@ -6,7 +6,7 @@ VERSION	 	 = $(shell cat ./VERSION)
 ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
 SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
-SUBDIRS  	 = mt libgui src plugins po doc
+SUBDIRS  	 = mt libkwave libgui kwave plugins po doc
 
 CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
 DISTCLEANFILES 	 = config.cache config.log ${CLEANFILES}
@@ -35,7 +35,7 @@ distclean-generic: clean-generic
 reallyclean: clean-generic distclean
 	-rm -f config.cache
 	-rm -f config.log
-	-rm -fv  `find . -type l`
+	-rm -fv `find . -type l -o -name Makefile`
 
 backup: ${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
@@ -68,7 +68,7 @@ release:
 
 messages:
 	rm -f po/*.gmo
-	(cd src ; ${MAKE} menus_config_i18n.cpp )
+	(cd kwave ; ${MAKE} menus_config_i18n.cpp )
 	/usr/bin/xgettext -C -ki18n -x ${KDEDIR}/include/kde.pot \
 	`find . -name \*.h -o -name \*.cpp` -o ./po/${PACKAGE}.pot
 	(cd po ; ${MAKE} merge )
@@ -82,9 +82,14 @@ rpm_prep: distclean-generic ${PACKAGE}.spec
 		${SRC_PREFIX}-@RPM_VERSION@ )
 	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
 
-# does not work with SuSE-6.4   :-(
+# does not work with original SuSE-6.4 rpm
+# you will need an update of the rpm package !
 rpm: rpm_prep
 	rpm -ta /tmp/${PACKAGE}-@RPM_VERSION@.tar.gz
 
 src.rpm: rpm_prep
 	rpm -bs ${PACKAGE}.spec
+
+apidoc:
+	-rm -Rf `find . -name \*.moc.cpp`
+	doxygen doxy.cfg

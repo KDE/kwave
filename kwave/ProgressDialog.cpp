@@ -1,10 +1,13 @@
 
 #include "config.h"
 #include <stdio.h>
+
 #include <qpainter.h>
+#include <qpixmap.h>
 #include <qtimer.h>
-#include <kapp.h>
-#include <libkwave/TimeOperation.h>
+
+#include <klocale.h>
+
 #include "ProgressDialog.h"
 
 //uncomment this to get a rather fancy Progress indicator, which shows that I've to
@@ -18,48 +21,48 @@
 
 #endif
 
-//**********************************************************
-//KProgresss does flicker a lot, has bugs, that appear when using high
-//numeric values, so here follows my own implementation...
-//**********************************************************
-ProgressDialog::ProgressDialog(TimeOperation *operation, const char *caption)
-    :QDialog(0, caption)
-//timerbased variant, peeks at address "counter" to gain progress information
-{
-    act = 0;
-    last = 0;
-    lastx = 0;
-    lasty = 0;
-    max = (operation) ? operation->getLength() : 0;
-    oldw = 0;
-    this->operation = operation;
-    timer = 0;
-
-    ASSERT(operation);
-    ASSERT(caption);
-
-#ifdef FANCY
-    setMinimumSize (128, 128);
-    setMaximumSize (128, 128);
-    setBackgroundColor (black);
-#else
-    resize (320, 20);
-#endif
-
-    setCaption (caption);
-
-    timer = new QTimer (this);
-    ASSERT(timer);
-    if (timer) {
-	connect( timer, SIGNAL(timeout()), SLOT(timedProgress()));
-	timer->start( 200);    //5 times per second should be enough
-    }
-}
+//////**********************************************************
+//////KProgresss does flicker a lot, has bugs, that appear when using high
+//////numeric values, so here follows my own implementation...
+//////**********************************************************
+////ProgressDialog::ProgressDialog(TimeOperation *operation, const char *caption)
+////    :QDialog(0, caption)
+//////timerbased variant, peeks at address "counter" to gain progress information
+////{
+////    act = 0;
+////    last = 0;
+////    lastx = 0;
+////    lasty = 0;
+////    max = (operation) ? operation->getLength() : 0;
+////    oldw = 0;
+////    this->operation = operation;
+////    timer = 0;
+////
+////    ASSERT(operation);
+////    ASSERT(caption);
+////
+////#ifdef FANCY
+////    setMinimumSize (128, 128);
+////    setMaximumSize (128, 128);
+////    setBackgroundColor (black);
+////#else
+////    resize (320, 20);
+////#endif
+////
+////    setCaption (caption);
+////
+////    timer = new QTimer (this);
+////    ASSERT(timer);
+////    if (timer) {
+////	connect( timer, SIGNAL(timeout()), SLOT(timedProgress()));
+////	timer->start( 200);    //5 times per second should be enough
+////    }
+////}
 
 //**********************************************************
 //this one needs calls to get updated
-ProgressDialog::ProgressDialog(int max, char *caption)
-    :QDialog(0, (caption) ? caption : i18n("Progress"))
+ProgressDialog::ProgressDialog(int max, QString caption)
+    :QDialog(0)
 {
     act = 0;
     last = 0;
@@ -69,6 +72,9 @@ ProgressDialog::ProgressDialog(int max, char *caption)
     oldw = 0;
     operation = 0;
     timer = 0;
+
+    if (caption.length()) setCaption(caption);
+            else setCaption(i18n("Progress"));
 
 #ifdef FANCY
     setMinimumSize (128, 128);
@@ -85,16 +91,16 @@ ProgressDialog::ProgressDialog(int max, char *caption)
 //**********************************************************
 void ProgressDialog::timedProgress ()
 {
-    if (operation) {
-	int prog = operation->getCounter();
-
-	if (prog < 0) {
-	    //signal for ending...
-	    delete this;
-	} else {
-	    setProgress (prog);
-	}
-    }
+////    if (operation) {
+////	int prog = operation->getCounter();
+////
+////	if (prog < 0) {
+////	    //signal for ending...
+////	    delete this;
+////	} else {
+////	    setProgress (prog);
+////	}
+////    }
 }
 
 //**********************************************************
@@ -224,7 +230,7 @@ ProgressDialog::~ProgressDialog()
 	timer->stop();
 	delete timer;
     }
-    if (operation) delete operation;
+////    if (operation) delete operation;
 
     // inform our owner that we are ready
     // ### emit commandDone();

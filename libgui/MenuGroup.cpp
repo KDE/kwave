@@ -23,7 +23,7 @@
 #include "MenuGroup.h"
 
 //*****************************************************************************
-MenuGroup::MenuGroup(MenuNode *parent, char *name)
+MenuGroup::MenuGroup(MenuNode *parent, const QString &name)
     :MenuNode(parent, name, 0, 0, name)
 {
     if (parent) parent->registerChild(this);
@@ -46,7 +46,7 @@ int MenuGroup::registerChild(MenuNode *child)
 {
     if (!child) return -1;
 
-    children.append(child);
+    m_children.append(child);
 
     // notification for the childs that our enable state changed
     QObject::connect(
@@ -62,7 +62,7 @@ void MenuGroup::removeChild(MenuNode *child)
 {
     if (!child) return;
 
-    int index = children.find(child);
+    int index = m_children.find(child);
     if (index != -1) {
 //	debug("MenuGroup::removeChild(%s)",child->getName());
 	// notification for the childs that our enable state changed
@@ -71,8 +71,8 @@ void MenuGroup::removeChild(MenuNode *child)
 	    child, SLOT(slotParentEnableChanged())
 	);
 
-	children.setAutoDelete(false);
-	children.remove(child);
+	m_children.setAutoDelete(false);
+	m_children.remove(child);
 
 	child->leaveGroup(getName());
     }
@@ -81,29 +81,29 @@ void MenuGroup::removeChild(MenuNode *child)
 //*****************************************************************************
 void MenuGroup::setEnabled(bool enable)
 {
-    MenuNode *child = children.first();
+    MenuNode *child = m_children.first();
     while (child) {
-	int pos = children.at();
+	int pos = m_children.at();
 	child->setEnabled(enable);
-	children.at(pos);
-	child = children.next();
+	m_children.at(pos);
+	child = m_children.next();
     }
 }
 
 //*****************************************************************************
-void MenuGroup::selectItem(const char *uid)
+void MenuGroup::selectItem(const QString &uid)
 {
     MenuNode *new_selection = 0;
-    MenuNode *child = children.first();
+    MenuNode *child = m_children.first();
     while (child) {
-	int pos = children.at();
-	if (strcmp(child->getUID(), uid) == 0)
+	int pos = m_children.at();
+	if (uid == child->getUID())
 	    new_selection = child;    // new selected child found !
 	else
 	    child->setChecked(false);    // remove check from others
 
-	children.at(pos);
-	child = children.next();
+	m_children.at(pos);
+	child = m_children.next();
     }
 
     // select the new one if found
@@ -115,10 +115,10 @@ void MenuGroup::selectItem(const char *uid)
 void MenuGroup::clear()
 {
     // deregister all child nodes from us
-    MenuNode *child = children.first();
+    MenuNode *child = m_children.first();
     while (child) {
 	removeChild(child);
-	child = children.first();
+	child = m_children.first();
     }
 }
 

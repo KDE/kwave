@@ -10,7 +10,7 @@ class ScaleWidget : public QWidget
 {
 public:
 
-    ScaleWidget(QWidget *parent = 0, int = 0, int = 100, char *unittext = "%");
+    ScaleWidget(QWidget *parent = 0, int = 0, int = 100, const char *unittext = "%");
     ~ScaleWidget();
     void paintText(QPainter *, int, int, int, int, char *);
     void setMaxMin(int, int);

@@ -68,8 +68,9 @@ public:    // Public methods
      *              from 0 or -1 for appending (optional, default=-1)
      * @return pointer to the new branch node
      */
-    virtual MenuNode *insertBranch(char *name, char *command, int key,
-				   char *uid, int index = -1);
+    virtual MenuNode *insertBranch(const QString &name,
+	const QString &command, int key, const QString &uid,
+	int index = -1);
 
     /**
      * Inserts a new leaf node into the menu structure. The new node
@@ -84,9 +85,8 @@ public:    // Public methods
      *              from 0 or -1 for appending. Optional, default=-1
      * @return pointer to the new leaf node
      */
-    virtual MenuNode *insertLeaf(char *name, char *command,
-				 int key, char *uid,
-				 int index = -1);
+    virtual MenuNode *insertLeaf(const QString &name, const QString &command,
+	int key, const QString &uid, int index = -1);
 
     /**
      * Removes a child node of the curren node. If the child
@@ -108,7 +108,7 @@ public:    // Public methods
      * @param command name of a menu node or command
      * @return true if the name was recognized as a command and handled
      */
-    virtual bool specialCommand(const char *command);
+    virtual bool specialCommand(const QString &command);
 
     /**
      * Returns a pointer to the list of groups

@@ -5,7 +5,7 @@
 #include <qimage.h>
 #include <qdir.h>
 #include <qpainter.h>
-#include <kapp.h>
+#include <kstddirs.h>
 #include "ScaleWidget.h"
 
 #define FONTSIZE 6
@@ -21,7 +21,7 @@ int getlessten (int val)
     return x;
 }
 //**********************************************************
-ScaleWidget::ScaleWidget (QWidget *parent, int low, int high, char *text)
+ScaleWidget::ScaleWidget (QWidget *parent, int low, int high, const char *text)
     :QWidget (parent)
 {
     this->high = high;
@@ -29,15 +29,11 @@ ScaleWidget::ScaleWidget (QWidget *parent, int low, int high, char *text)
     this->low = low;
     this->unittext = text;
 
-    KApplication *app = KApplication::getKApplication();
-    ASSERT(app);
-    if (!app) return;
-
     if (!scalefont) {
 	scalefont = new QPixmap();
 	ASSERT(scalefont);
 
-	const QString dirname = app->kde_datadir();
+	const QString dirname = KStandardDirs::kde_default("data");
 	QDir dir (dirname.data());
 	dir.cd ("kwave");
 	dir.cd ("pics");

@@ -1,9 +1,12 @@
 #ifndef _CURVE_WIDGET_H_
 #define _CURVE_WIDGET_H_ 1
 
+#include <qstring.h>
 #include <qstrlist.h>
 #include <qwidget.h>
 #include <qpainter.h>
+
+#include <libkwave/Interpolation.h>
 
 class Curve;
 class QMouseEvent;
@@ -22,14 +25,20 @@ public:
     CurveWidget(QWidget *parent = 0, const char *init = 0, int = false);
     ~CurveWidget();
 
-    const char* getCommand();
+    QString getCommand();
     void setCurve(const char *);
     void addPoint(double, double);
     Point* findPoint(int, int);
 
 public slots:
 
-    void setType(int);
+    /**
+     * Sets a new interpolation type
+     * @see Interpolation
+     * @see interpolation_t
+     */
+    void setType(interpolation_t type);
+
     void scaleFit();
     void VFlip();
     void HFlip();
@@ -62,7 +71,6 @@ private:
     Point *last;                  //last Point clicked remembered for deleting
     QPainter p;
     QPixmap *pixmap;          //pixmap to be blitted to screen
-    QDir *presetDir;        //directory for Presets
     QStrList namelist;
 
     bool down;

@@ -1,4 +1,39 @@
 
+
+
+o libkwave: Parser::getCommand() crashes on some malformed command 
+  strings (without "()" )
+
+o libkwave: memory mapping does not compile under some circumstances
+
+o libkwave: use sample_t instead of int
+
+o Filter: class needs to be tested
+
+o Signal::resample should use lowpass interpolation instead of spline
+
+o DynamicLoader and PluginManager should become merged
+
+o playback: last buffer is sometimes played doubled after pressing "stop"
+
+o playback: pointer actualization uses too much time
+
+o playback: start from current cursor pos if selection is zero-length
+
+o libkwave/kwave: po/Makefile.am:  substitution for @USE_NLS@ did not work
+
+o TopWidget: re-enable drag&drop
+
+o TopWidget: in saveFileAs: re-enable usage of saveDir
+
+o check of all MessageBoxes
+
+o MainWidget: re-enable accelerator keys for 0..9
+
+o in MenuItem: re-enable Icons, usage of IconLoader has changed
+
+o bug in MouseSelection: allows selection after end of signal
+
 o playback: get error messages out of the thread
 
 o create a ThreadCondition class for synchronizing

@@ -84,9 +84,9 @@ protected:
 
 public slots:
 
-    bool executeCommand(const char *command);
+    bool executeCommand(const QString &command);
 
-    void forwardCommand(const char *command);
+    void forwardCommand(const QString &command);
 
     void resetChannels();
     void setRateInfo (int);
@@ -164,7 +164,7 @@ signals:
      */
     void sigZoomChanged(double zoom);
 
-    void sigCommand(const char *command);
+    void sigCommand(const QString &command);
 
     void setOperation (int);
     void channelInfo (unsigned int);

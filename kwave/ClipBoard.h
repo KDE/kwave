@@ -7,9 +7,9 @@ class Signal;
 class ClipBoard
 {
 public:
-    ClipBoard::ClipBoard();
-    ClipBoard::ClipBoard(SignalManager *signal);
-    ClipBoard::~ClipBoard();
+    ClipBoard();
+    ClipBoard(SignalManager *signal);
+    ~ClipBoard();
 
     void toWindow();
     void appendChannel(Signal *);

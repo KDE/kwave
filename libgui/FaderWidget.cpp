@@ -6,14 +6,12 @@
 #include <qpainter.h>
 #include <math.h>
 #include <limits.h>
-#include <libkwave/String.h>
 #include "FaderWidget.h"
 
 //****************************************************************************
 FaderWidget::FaderWidget(QWidget *parent, int dir)
     :QWidget(parent) 
 {
-    comstr = 0;
     curve = 0;
     this->dir = dir;
     height = -1;
@@ -24,7 +22,6 @@ FaderWidget::FaderWidget(QWidget *parent, int dir)
 //****************************************************************************
 FaderWidget::~FaderWidget()
 {
-    if (comstr) delete[] comstr;
 }
 
 //****************************************************************************
@@ -35,13 +32,10 @@ void FaderWidget::setCurve(int c)
 }
 
 //****************************************************************************
-const char *FaderWidget::getDegree()
+QString FaderWidget::getDegree()
 {
-    char buf[128];
-    delete[] comstr;
-    snprintf(buf, sizeof(buf), "%f", ((float) (curve)) / 10);
-    comstr = duplicateString(buf);
-    return comstr;
+    QString deg;
+    return deg.setNum(((float) (curve)) / 10);
 }
 
 //****************************************************************************

@@ -110,7 +110,7 @@ public:
     void addLabelType (LabelType *);
     void addLabelType (const char *);
 
-    bool executeCommand(const char *command);
+    bool executeCommand(const QString &command);
 
     /**
      * Returns the number of channels of the current signal or
@@ -137,7 +137,7 @@ public slots:
      */
     void selectRange(int left, int right);
 
-    void forwardCommand(const char *command);
+    void forwardCommand(const QString &command);
 
     /**
      * Forwards signalChanged.
@@ -239,7 +239,7 @@ signals:
     /**
      * Emits a command to be processed by the next higher instance.
      */
-    void sigCommand(const char *command);
+    void sigCommand(const QString &command);
 
     /**
      * Will be emitted if the zoom factor has changed due to a zoom
@@ -334,10 +334,10 @@ protected:
     void savePeriods ();
     void createSignal (const char *);
     void connectSignal ();
-    void showDialog (const char *);
+////    void showDialog (const char *);
 
-    bool executeLabelCommand(const char *command);
-    bool executeNavigationCommand(const char *command);
+    bool executeLabelCommand(const QString &command);
+    bool executeNavigationCommand(const QString &command);
 
 private:
 

@@ -1,22 +1,5 @@
 /* config.h.in.  Generated automatically from configure.in by autoheader.  */
 
-/* Define if on AIX 3.
-   System headers sometimes define this.
-   We just want to avoid a redefinition error message.  */
-#ifndef _ALL_SOURCE
-#undef _ALL_SOURCE
-#endif
-
-/* Define if on MINIX.  */
-#undef _MINIX
-
-/* Define if the system does not provide POSIX.1 features except
-   with this defined.  */
-#undef _POSIX_1_SOURCE
-
-/* Define if you need to in order for stat and other things to work.  */
-#undef _POSIX_SOURCE
-
 /* Define to `unsigned' if <sys/types.h> doesn't define.  */
 #undef size_t
 
@@ -26,26 +9,17 @@
 /* Define if you can safely include both <sys/time.h> and <time.h>.  */
 #undef TIME_WITH_SYS_TIME
 
-/* Define if the C++ compiler supports BOOL */
-#undef HAVE_BOOL
-
-/* defines which to take for ksize_t */
-#undef ksize_t
-
-/* define if you have setenv */
-#undef HAVE_FUNC_SETENV
-
-/* Define to 1 if NLS is requested.  */
-#undef ENABLE_NLS
-
-/* Define if you need the GNU extensions to compile */
-#undef _GNU_SOURCE
-
 /* The number of bytes in a char.  */
 #undef SIZEOF_CHAR
 
+/* The number of bytes in a char *.  */
+#undef SIZEOF_CHAR_P
+
 /* The number of bytes in a int.  */
 #undef SIZEOF_INT
+
+/* The number of bytes in a long.  */
+#undef SIZEOF_LONG
 
 /* The number of bytes in a short.  */
 #undef SIZEOF_SHORT
@@ -140,10 +114,41 @@
 /* Version number of package */
 #undef VERSION
 
+/* C++ compiler supports template repository */
+#undef HAVE_TEMPLATE_REPOSITORY
 
-#ifndef HAVE_BOOL
-#define HAVE_BOOL
-typedef int bool;
-const bool false = 0;
-const bool true = 1;
-#endif
+/* Defines if your system has the crypt function */
+#undef HAVE_CRYPT
+
+/* Define the type of the third argument for getsockname
+ */
+#undef ksize_t
+
+/* Define if the C++ compiler supports BOOL */
+#undef HAVE_BOOL
+
+/* Define if you have libz */
+#undef HAVE_LIBZ
+
+/* Define if you have libpng */
+#undef HAVE_LIBPNG
+
+/* Define if you have libjpeg */
+#undef HAVE_LIBJPEG
+
+/* Define if the C++ compiler supports BOOL */
+#undef HAVE_BOOL
+
+/* Define if you need to use the GNU extensions */
+#undef _GNU_SOURCE
+
+/* Define if you have setenv */
+#undef HAVE_FUNC_SETENV
+
+/* Define if you have unsetenv */
+#undef HAVE_FUNC_UNSETENV
+
+/* Define the type of the third argument for getsockname
+ */
+#undef ksize_t
+

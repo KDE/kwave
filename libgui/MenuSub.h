@@ -28,7 +28,8 @@ class QPopupMenu;
  * root menu node, a toplevel menu or an other submenu.
  * @author Thomas Eschenbacher
  */
-class MenuSub : public MenuItem {
+class MenuSub : public MenuItem
+{
     Q_OBJECT
 
 public:
@@ -42,8 +43,8 @@ public:
      *            (optional, default=0)
      * @param uid unique id string (optional, default=0)
      */
-    MenuSub(MenuNode *parent, char *name, char *command = 0,
-	    int key = 0, char *uid = 0);
+    MenuSub(MenuNode *parent, const QString &name, const QString &command = 0,
+	    int key = 0, const QString &uid = 0);
 
     /**
      * Returns the positional index of a child node, identified by
@@ -78,8 +79,9 @@ public:
      *              from 0 or -1 for appending (optional, default=-1)
      * @return pointer to the new branch node
      */
-    virtual MenuNode *insertBranch(char *name, char *command, int key,
-				   char *uid, int index = -1);
+    virtual MenuNode *insertBranch(const QString &name,
+	const QString &command, int key, const QString &uid,
+	int index = -1);
 
     /**
      * Inserts a new leaf node under the submenu. The new node
@@ -94,8 +96,8 @@ public:
      *              from 0 or -1 for appending. Optional, default=-1
      * @return pointer to the new leaf node
      */
-    virtual MenuNode *insertLeaf(char *name, char *command,
-				 int key, char *uid,
+    virtual MenuNode *insertLeaf(const QString &name, const QString &command,
+				 int key, const QString &uid,
 				 int index = -1);
 
     /**
@@ -115,7 +117,7 @@ public:
      * @param command name of a menu node or command
      * @return true if the name was recognized as a command and handled
      */
-    virtual bool specialCommand(const char *command);
+    virtual bool specialCommand(const QString &command);
 
     /**
      * Sets a new icon of a child node.
@@ -153,4 +155,4 @@ private:
     QPopupMenu *menu;
 };
 
-#endif // _MENU_SUB_H_
+#endif /* _MENU_SUB_H_ */

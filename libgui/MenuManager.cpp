@@ -3,228 +3,218 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <qkeycode.h>
+#include <qaccel.h>
+#include <qnamespace.h>
+#include <qstring.h>
 
 #include <kapp.h>
 #include <klocale.h>
 
 #include <libkwave/Parser.h>
-#include <libkwave/String.h>
 
 #include "MenuNode.h"
 #include "MenuRoot.h"
 #include "MenuGroup.h"
 #include "MenuManager.h"
 
-//*****************************************************************************
+//***************************************************************************
+//***************************************************************************
 MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
     :QObject(parent)
 {
-    menu_root = new MenuRoot(bar);
-    ASSERT(menu_root);
-    if (menu_root) {
+    m_menu_root = new MenuRoot(bar);
+    ASSERT(m_menu_root);
+    if (m_menu_root) {
 	connect(
-	    menu_root, SIGNAL(sigCommand(const char*)),
-	    this, SLOT(slotMenuCommand(const char*))
+	    m_menu_root, SIGNAL(sigCommand(const QString &)),
+	    this, SLOT(slotMenuCommand(const QString &))
 	);
     }
 }
 
-//*****************************************************************************
-int MenuManager::parseToKeyCode(const char *key_name)
+//***************************************************************************
+int MenuManager::parseToKeyCode(const QString &key_name)
 {
+
+// would be fine, but doesn't support most codes like +/-
+//    return QAccel::stringToKey(key_name);
+
     ASSERT(key_name);
-    char *key = duplicateString(key_name);
-    ASSERT(key);
+    QString key = key_name;
     int keycode = 0;
-    int len;
-    int cnt = 0;
 
-    len = (key) ? strlen(key) : 0;
-    if (len == 1) {
-	keycode = Key_A + key[0]-'A';
-	delete[] key;
-	return keycode;
-    }
-
-    while (cnt < len) {
-	int pos = cnt;
-	while ((key[cnt]) && (key[cnt] != '+')) cnt++;
-	if (cnt < len) key[cnt] = 0;
+    while (key.length()) {
+	int pos = key.find('+');
+	if (pos <= 0) pos=key.length();
+	
+	QString name = key.left(pos);
+	key.remove(0, pos+1);
 
 	// keys [A...Z]
-	if (strlen(&key[pos]) == 1) {
-	    if ((key[pos] >= 'A') && (key[pos] <= 'Z'))
-		keycode += Key_A + key[pos] - 'A';
+	if (name.length() == 1) {
+	    if ((name[0] >= 'A') && (name[0] <= 'Z')) {
+		keycode += Key_A;
+		keycode += name[0].latin1() - 'A';
+	    }
 	}
 
 	// function keys [F1...F35] ?
-	if (key[pos] == 'F') {
-	    int nr = atoi(key + pos + 1);
+	if (name[0] == 'F') {
+	    name.remove(0,1);
+	    int nr = name.toInt();
 	    if ((nr >= 1) && (nr <= 35)) {
 		keycode += Key_F1 + nr - 1;
 	    }
 	}
 
 	// other known keys
-	if (!strcmp(&key[pos], "PLUS")) keycode += Key_Plus;
-	if (!strcmp(&key[pos], "MINUS")) keycode += Key_Minus;
-	if (!strcmp(&key[pos], "SPACE")) keycode += Key_Space;
-	if (!strcmp(&key[pos], "CTRL")) keycode += CTRL;
-	if (!strcmp(&key[pos], "PAGEUP")) keycode += Key_PageUp;
-	if (!strcmp(&key[pos], "PAGEDOWN")) keycode += Key_PageDown;
-	if (!strcmp(&key[pos], "UP")) keycode += Key_Up;
-	if (!strcmp(&key[pos], "DEL")) keycode += Key_Delete;
-	if (!strcmp(&key[pos], "DOWN")) keycode += Key_Down;
-	if (!strcmp(&key[pos], "LEFT")) keycode += Key_Left;
-	if (!strcmp(&key[pos], "RIGHT")) keycode += Key_Right;
-	if (!strcmp(&key[pos], "SHIFT")) keycode += SHIFT;
-	if (!strcmp(&key[pos], "HOME")) keycode += Key_Home;
-	if (!strcmp(&key[pos], "END")) keycode += Key_End;
-
-	cnt++;
+	if (name == "PLUS")     keycode += Key_Plus;
+	if (name == "MINUS")    keycode += Key_Minus;
+	if (name == "SPACE")    keycode += Key_Space;
+	if (name == "CTRL")     keycode += CTRL;
+	if (name == "PAGEUP")   keycode += Key_PageUp;
+	if (name == "PAGEDOWN") keycode += Key_PageDown;
+	if (name == "UP")       keycode += Key_Up;
+	if (name == "DEL")      keycode += Key_Delete;
+	if (name == "DOWN")     keycode += Key_Down;
+	if (name == "LEFT")     keycode += Key_Left;
+	if (name == "RIGHT")    keycode += Key_Right;
+	if (name == "SHIFT")    keycode += SHIFT;
+	if (name == "HOME")     keycode += Key_Home;
+	if (name == "END")      keycode += Key_End;
     }
 
-    if (key) delete[] key;
     return keycode;
 }
 
-//*****************************************************************************
-void MenuManager::executeCommand(const char *command)
+//***************************************************************************
+void MenuManager::executeCommand(const QString &command)
 {
     ASSERT(command);
-    ASSERT(menu_root);
+    ASSERT(m_menu_root);
+    if (!m_menu_root) return; // makes no sense if no menu root
 
     Parser parser(command);
 
-    const char *tmp;
-    char *com = 0;
-    char *pos = 0;
-    int key;      // keyboard shortcut (optional)
-    char *id = 0;     // string id (optional)
+    int key;        // keyboard shortcut (optional)
+    QString id = 0; // string id (optional)
+    QString param;
 
     // --- 1st parameter: command to be sent when selected ---
-    tmp = parser.getFirstParam();
-    if (tmp) com = duplicateString (tmp);
+    QString com = parser.firstParam();
 
     // --- 2nd parameter: position in the menu structure ---
-    tmp = parser.getNextParam();
-    if (tmp) pos = duplicateString (tmp);
+    QString pos = parser.nextParam();
 
     // bail out if no menu position is found
-    if (!pos) {
-	debug ("no position field !\n");
-	if (com) delete[] com;
+    if (!pos.length()) {
+	warning("no position field !");
 	return ;
     }
 
     // --- 3rd parameter: bitmask for the key shortcut (optional) ---
-    tmp = parser.getNextParam();
-    key = (tmp) ? parseToKeyCode(tmp) : 0;
+    param = parser.nextParam();
+    key = (param.length()) ? parseToKeyCode(param) : 0;
 
     // --- 4rth parameter: parse the string id of the node (optional) ---
-    tmp = parser.getNextParam();
-    if (tmp) id = duplicateString(tmp);
+    param = parser.nextParam();
+    if (param.length()) id = param;
 
     // --- insert the new node into the menu structure ---
-    if (menu_root) menu_root->insertNode(0, pos, com, key, id);
-
-    if (com) delete[] com;
-    if (pos) delete[] pos;
-    if (id) delete[] id;
+    m_menu_root->insertNode(0, pos, com, key, id);
 }
 
-//*****************************************************************************
-void MenuManager::clearNumberedMenu (const char *uid)
+//***************************************************************************
+void MenuManager::clearNumberedMenu (const QString &uid)
 {
-    ASSERT(menu_root);
-    MenuNode *node = (menu_root) ? menu_root->findUID(uid) : 0;
+    ASSERT(m_menu_root);
+    MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->clear();
 }
 
-//*****************************************************************************
-void MenuManager::slotMenuCommand(const char *command)
+//***************************************************************************
+void MenuManager::slotMenuCommand(const QString &command)
 {
-//    debug("MenuManager::slotMenuCommand(%s)", command);    // ###
+    debug("MenuManager::slotMenuCommand(%s)", command.data());    // ###
     emit sigMenuCommand(command);
 }
 
-//*****************************************************************************
-void MenuManager::addNumberedMenuEntry(const char *uid, char *entry)
+//***************************************************************************
+void MenuManager::addNumberedMenuEntry(const QString &uid,
+	const QString &entry)
 {
-    ASSERT(menu_root);
-    MenuNode *node = (menu_root) ? menu_root->findUID(uid) : 0;
+    ASSERT(m_menu_root);
+    MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) {
-	const char *cmd = node->getCommand();
-	int len = strlen(cmd) + strlen(entry) + 1;
-	char *command = new char[len];
-	if (!command) {
-	    warning("unable to add entry '%s', out of memory ?", entry);
-	    return ;
-	}
-	snprintf(command, len, cmd, entry);
+	QString cmd = node->getCommand();
+	QString command = cmd.contains("%1") ? cmd.arg(entry) : cmd;
 	node->insertLeaf(entry, command, 0, 0, -1);
-	delete[] command;
-    } else debug ("MenuManager: could not find numbered Menu '%s'", uid);
+    } else
+	debug ("MenuManager: could not find numbered Menu '%s'", uid.data());
 }
 
-//*****************************************************************************
-void MenuManager::selectItem(const char *group, const char *uid)
+//***************************************************************************
+void MenuManager::selectItem(const QString &group, const QString &uid)
 {
-    ASSERT(menu_root);
+    ASSERT(m_menu_root);
 
     if (!group || !*group) {
-	warning("MenuManager::selectItem('','%s'): no group!?", uid);
+	warning("MenuManager::selectItem('','%s'): no group!?", uid.data());
 	return ;
     }
 
     if (*group != '@') {
 	warning("MenuManager::selectItem('%s','%s'): "\
-		"invalid group name, does not start with '@'!", group, uid);
+		"invalid group name, does not start with '@'!",
+		group.data(), uid.data());
 	return ;
     }
 
-    MenuNode *node = (menu_root) ? menu_root->findUID(group) : 0;
+    MenuNode *node = (m_menu_root) ? m_menu_root->findUID(group) : 0;
     if (!node) {
-	warning("MenuManager::selectItem(): group '%s' not found!", group);
+	warning("MenuManager::selectItem(): group '%s' not found!",
+	    group.data());
 	return ;
     }
 
     if (!node->inherits("MenuGroup")) {
-	warning("MenuManager::selectItem(): '%s' is not a group!", group);
+	warning("MenuManager::selectItem(): '%s' is not a group!",
+	    group.data());
 	return ;
     }
 
     ((MenuGroup *)node)->selectItem(uid);
 }
 
-//*****************************************************************************
-void MenuManager::setItemChecked(const char *uid, bool check)
+//***************************************************************************
+void MenuManager::setItemChecked(const QString &uid, bool check)
 {
-    ASSERT(menu_root);
+    ASSERT(m_menu_root);
 
 //    debug("MenuManager::setItemChecked('%s', %d)", uid, check);
-    MenuNode *node = (menu_root) ? menu_root->findUID(uid) : 0;
+    MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setChecked(check);
 }
 
-//*****************************************************************************
-void MenuManager::setItemEnabled(const char *uid, bool enable)
+//***************************************************************************
+void MenuManager::setItemEnabled(const QString &uid, bool enable)
 {
-    ASSERT(menu_root);
+    ASSERT(m_menu_root);
 
 //    debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
-    MenuNode *node = (menu_root) ? menu_root->findUID(uid) : 0;
+    MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setEnabled(enable);
     else warning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
-		     uid, enable);
+		     uid.data(), enable);
 }
 
-//*****************************************************************************
+//***************************************************************************
 MenuManager::~MenuManager()
 {
-    ASSERT(menu_root);
-    if (menu_root) delete menu_root;
+    ASSERT(m_menu_root);
+    if (m_menu_root) delete m_menu_root;
 }
 
+//***************************************************************************
+//***************************************************************************
 /* end of MenuManager.cpp */

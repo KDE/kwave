@@ -9,7 +9,7 @@
 #include <qstrlist.h>
 #include <qdir.h>
 #include <qpixmap.h>
-#include "kapp.h"
+#include "kstddirs.h"
 #include "MultiStateWidget.h"
 
 QList <QPixmap> *pixmaps = 0;
@@ -45,35 +45,27 @@ void MultiStateWidget::setNumber(int number)
 }
 
 //**********************************************************
-int MultiStateWidget::addPixmap(char *name)
+int MultiStateWidget::addPixmap(const QString &filename)
 {
-    KApplication *app = KApplication::getKApplication();
-
-    ASSERT(app);
     ASSERT(pixmaps);
     ASSERT(pixnames);
-    if (!app) return -1;
     if (!pixmaps) return -1;
     if (!pixnames) return -1;
 
-    int result = pixnames->find(name);
+    int result = pixnames->find(filename);
     if (result == -1) {
 	QPixmap *newpix = new QPixmap();
 	ASSERT(newpix);
 	if (!newpix) return -1;
 	
-	const QString &dirname = app->kde_datadir();
-	QDir dir (dirname.data());
-	dir.cd ("kwave");
-	dir.cd ("pics");
-
-	QImage *img = new QImage(dir.filePath(name).data());
+	QString file = locate("data", QString("kwave/pics/")+filename);
+	QImage *img = new QImage(file);
 	ASSERT(img);
 	if (!img) return -1;
 	
 	newpix->convertFromImage(*img);
-	pixmaps->append (newpix);
-	pixnames->append (name);
+	pixmaps->append(newpix);
+	pixnames->append(filename);
 	return pixmaps->at();
     } else
 	return result;

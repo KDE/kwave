@@ -3,9 +3,14 @@
 
 #include <kapp.h>
 #include <qlist.h>
-#include "SignalManager.h"
+#include <qstrlist.h>
 
+#include "SignalManager.h" // for struct playback_param_t
+
+class ClipBoard;
+class Plugin;
 class QCloseEvent;
+class QString;
 class TopWidget;
 
 class KwaveApp : public KApplication
@@ -22,6 +27,11 @@ public:
     virtual bool isOK();
 
     ~KwaveApp();
+
+    /**
+     * Returns the name of the application
+     */
+    QString appName() { return name(); };
 
     /**
      * Adds a file to the top of the list of recent files. If it was
@@ -59,6 +69,9 @@ public:
 	return playback_params;
     };
 
+    /** Returns a reference to Kwave's clipboard */
+    static ClipBoard &clipboard();
+
 signals:
     /**
      * Will be emitted if the list of recent files has changed. Can
@@ -69,7 +82,7 @@ signals:
 protected:
     friend class TopWidget;
 
-    bool executeCommand(const char *str);
+    bool executeCommand(const QString &command);
 
 protected:
     /**
@@ -95,13 +108,6 @@ protected:
 private:
 
     /**
-     * Finds/creates configuration/plugin directories and stores them in
-     * the globals struct.
-     * @return true if successful
-     */
-    bool findDirectories();
-
-    /**
      * Local list of recent files. This list will be synchronized
      * with the global list of recent files stored in the libkwave
      * library whenever there is a change.
@@ -113,6 +119,9 @@ private:
 
     /** parameters for audio playback */
     static playback_param_t playback_params;
+
+    /** Kwave's clipboard */
+    static ClipBoard &m_clipboard;
 };
 
 #endif // _KWAVE_APP_H

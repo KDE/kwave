@@ -32,15 +32,13 @@
 #include <qbitmap.h>
 #include <qpainter.h>
 #include <qtimer.h>
-#include <kmsgbox.h>
 
-#include <libkwave/Signal.h>
-#include <libkwave/DynamicLoader.h>
-#include <libkwave/TimeOperation.h>
-#include <libkwave/Global.h>
-#include <libkwave/DialogOperation.h>
-#include <libkwave/Parser.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+
 #include <libkwave/FileFormat.h>
+#include <libkwave/Parser.h>
+#include <libkwave/Signal.h>
 
 #include "KwaveApp.h"
 #include "sampleop.h"
@@ -48,8 +46,6 @@
 #include "ProgressDialog.h"
 #include "SignalManager.h"
 #include "SignalWidget.h"
-
-extern Global globals;
 
 /** use at least 2^8 = 256 bytes for playback buffer !!! */
 #define MIN_PLAYBACK_BUFFER 8
@@ -64,21 +60,21 @@ extern Global globals;
 #define min(x,y) ((x<y) ? x : y)
 #define max(x,y) ((x>y) ? x : y)
 
-#define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
+#define CASE_COMMAND(x) } else if (QString(command) == x) {
 
 //***************************************************************************
-void threadStub(TimeOperation *obj)
+void threadStub(TimeOperation *)
 {
-    debug("thread started");
-
-    ASSERT(obj);
-    if (obj) {
-	ASSERT(obj->getSignal());
-	if (obj->getSignal()) {
-	    (obj->getSignal())->command(obj);
-	}
-    }
-    debug("thread done");
+//    debug("thread started");
+//
+//    ASSERT(obj);
+//    if (obj) {
+//	ASSERT(obj->getSignal());
+//	if (obj->getSignal()) {
+//	    (obj->getSignal())->command(obj);
+//	}
+//    }
+//    debug("thread done");
 }
 
 //***************************************************************************
@@ -107,7 +103,7 @@ SignalManager::SignalManager(unsigned int numsamples,
 {
     initialize();
     this->rate = rate;
-    this->name = duplicateString(i18n("noname"));
+    m_name = i18n("noname");
 
     for (unsigned int i = 0; i < channels; i++) {
 	Signal *new_signal = new Signal(numsamples, rate);
@@ -125,7 +121,7 @@ SignalManager::SignalManager(const char *name, int type)
 {
     initialize();
     ASSERT(name);
-    this->name = duplicateString(name);
+    m_name = name;
 
     switch (type) {
 	case WAV:
@@ -142,7 +138,7 @@ SignalManager::SignalManager(const char *name, int type)
 //***************************************************************************
 void SignalManager::initialize()
 {
-    name = 0;
+    m_name = QString(0);
     lmarker = 0;
     rmarker = 0;
     m_channels = 0;
@@ -159,7 +155,6 @@ void SignalManager::initialize()
 void SignalManager::getMaxMin(unsigned int channel, int &max, int &min,
                               unsigned int begin, unsigned int len)
 {
-    ASSERT(channel >= 0);
     ASSERT(channel < signal.count());
     if (channel >= signal.count()) return;
     ASSERT(signal.at(channel));
@@ -204,9 +199,8 @@ const QArray<unsigned int> SignalManager::selectedChannels()
 //***************************************************************************
 int SignalManager::singleSample(unsigned int channel, unsigned int offset)
 {
-    ASSERT(channel >= 0);
     ASSERT(channel < signal.count());
-    if ((channel < 0) || (channel >= signal.count())) return 0;
+    if (channel >= signal.count()) return 0;
 
     return signal.at(channel) ?
 	   signal.at(channel)->getSingleSample(offset) : 0;
@@ -353,12 +347,12 @@ void SignalManager::toggleChannel(const unsigned int channel)
 }
 
 //***************************************************************************
-bool SignalManager::executeCommand(const char *command)
+bool SignalManager::executeCommand(const QString &command)
 {
     ASSERT(command);
     if (!command) return false;
 
-    debug("SignalManager::executeCommand(%s)", command);    // ###
+    debug("SignalManager::executeCommand(%s)", command.data());    // ###
 
     if (false) {
     CASE_COMMAND("playback")
@@ -369,43 +363,43 @@ bool SignalManager::executeCommand(const char *command)
 	params.channels = parser.toInt();
 	params.bits_per_sample = parser.toInt();
 	if (params.device) delete[] params.device;
-	params.device = duplicateString(parser.getNextParam());
+	params.device = parser.nextParam();
 	params.bufbase = parser.toInt();
-    CASE_COMMAND("copy")
-	if (globals.clipboard) delete globals.clipboard;
-	globals.clipboard = new ClipBoard();
-	ASSERT(globals.clipboard);
-	if (globals.clipboard) {
-	    for (unsigned int i = 0; i < m_channels; i++) {
-		ASSERT(signal.at(i));
-		if (signal.at(i)) globals.clipboard->appendChannel(
-		    signal.at(i)->copyRange());
-	    }
-	}
-    CASE_COMMAND("cut")
-	if (globals.clipboard) delete globals.clipboard;
-	globals.clipboard = new ClipBoard();
-	ASSERT(globals.clipboard);
-	if (globals.clipboard) {
-	    for (unsigned int i = 0; i < m_channels; i++) {
-		ASSERT(signal.at(i));
-		if (signal.at(i)) globals.clipboard->appendChannel(
-		    signal.at(i)->cutRange());
-	    }
-	}
-	rmarker = lmarker;
-	emit signalChanged(getLMarker(), -1);
-    CASE_COMMAND("crop")
-	if (globals.clipboard) delete globals.clipboard;
-	globals.clipboard = new ClipBoard();
-	ASSERT(globals.clipboard);
-	if (globals.clipboard) {
-	    for (unsigned int i = 0; i < m_channels; i++) {
-		ASSERT(signal.at(i));
-		if (signal.at(i)) (signal.at(i)->cropRange());
-	    }
-	}
-	emit signalChanged( -1, -1);
+//    CASE_COMMAND("copy")
+//	if (globals.clipboard) delete globals.clipboard;
+//	globals.clipboard = new ClipBoard();
+//	ASSERT(globals.clipboard);
+//	if (globals.clipboard) {
+//	    for (unsigned int i = 0; i < m_channels; i++) {
+//		ASSERT(signal.at(i));
+//		if (signal.at(i)) globals.clipboard->appendChannel(
+//		    signal.at(i)->copyRange());
+//	    }
+//	}
+//    CASE_COMMAND("cut")
+//	if (globals.clipboard) delete globals.clipboard;
+//	globals.clipboard = new ClipBoard();
+//	ASSERT(globals.clipboard);
+//	if (globals.clipboard) {
+//	    for (unsigned int i = 0; i < m_channels; i++) {
+//		ASSERT(signal.at(i));
+//		if (signal.at(i)) globals.clipboard->appendChannel(
+//		    signal.at(i)->cutRange());
+//	    }
+//	}
+//	rmarker = lmarker;
+//	emit signalChanged(getLMarker(), -1);
+//    CASE_COMMAND("crop")
+//	if (globals.clipboard) delete globals.clipboard;
+//	globals.clipboard = new ClipBoard();
+//	ASSERT(globals.clipboard);
+//	if (globals.clipboard) {
+//	    for (unsigned int i = 0; i < m_channels; i++) {
+//		ASSERT(signal.at(i));
+//		if (signal.at(i)) (signal.at(i)->cropRange());
+//	    }
+//	}
+//	emit signalChanged( -1, -1);
     CASE_COMMAND("delete")
 	for (unsigned int i = 0; i < m_channels; i++) {
 	    ASSERT(signal.at(i));
@@ -413,60 +407,60 @@ bool SignalManager::executeCommand(const char *command)
 	}
 	rmarker = lmarker;
 	emit signalChanged(getLMarker(), -1);
-    CASE_COMMAND("paste")
-	if (globals.clipboard) {
-	    SignalManager *toinsert = globals.clipboard->getSignal();
-	    if (toinsert) {
-		unsigned int clipchan = toinsert->channels();
-		unsigned int sourcechan = 0;
-
-		/* ### check if the signal has to be re-sampled ### */
-		
-		for (unsigned int i = 0; i < m_channels; i++) {
-		    ASSERT(signal.at(i));
-		    if (signal.at(i)) {
-			signal.at(i)->insertPaste(toinsert->getSignal(
-			    sourcechan)
-			);
-		    }
-		    sourcechan++;
-		    sourcechan %= clipchan;
-		}
-		if (toinsert->getLength()) {
-		    rmarker = lmarker + toinsert->getLength() - 1;
-		} else {
-		    rmarker = lmarker;
-		}
-	    }
-	    emit signalChanged(getLMarker(), -1);
-	}
-    CASE_COMMAND("mixpaste")
-	if (globals.clipboard) {
-	    SignalManager *toinsert = globals.clipboard->getSignal();
-	    if (toinsert) {
-		unsigned int clipchan = toinsert->channels();
-		unsigned int sourcechan = 0;
-
-		/* ### check if the signal has to be re-sampled ### */
-
-		for (unsigned int i = 0; i < m_channels; i++) {
-		    ASSERT(signal.at(i));
-		    if (signal.at(i)) {
-			signal.at(i)->mixPaste(
-			    toinsert->getSignal(sourcechan)
-			);
-		    }
-		    sourcechan++;
-		    sourcechan %= clipchan;
-		}
-	    }
-	    emit signalChanged(getLMarker(), -1);
-	}
+//    CASE_COMMAND("paste")
+//	if (globals.clipboard) {
+//	    SignalManager *toinsert = globals.clipboard->getSignal();
+//	    if (toinsert) {
+//		unsigned int clipchan = toinsert->channels();
+//		unsigned int sourcechan = 0;
+//
+//		/* ### check if the signal has to be re-sampled ### */
+//		
+//		for (unsigned int i = 0; i < m_channels; i++) {
+//		    ASSERT(signal.at(i));
+//		    if (signal.at(i)) {
+//			signal.at(i)->insertPaste(toinsert->getSignal(
+//			    sourcechan)
+//			);
+//		    }
+//		    sourcechan++;
+//		    sourcechan %= clipchan;
+//		}
+//		if (toinsert->getLength()) {
+//		    rmarker = lmarker + toinsert->getLength() - 1;
+//		} else {
+//		    rmarker = lmarker;
+//		}
+//	    }
+//	    emit signalChanged(getLMarker(), -1);
+//	}
+//    CASE_COMMAND("mixpaste")
+//	if (globals.clipboard) {
+//	    SignalManager *toinsert = globals.clipboard->getSignal();
+//	    if (toinsert) {
+//		unsigned int clipchan = toinsert->channels();
+//		unsigned int sourcechan = 0;
+//
+//		/* ### check if the signal has to be re-sampled ### */
+//
+//		for (unsigned int i = 0; i < m_channels; i++) {
+//		    ASSERT(signal.at(i));
+//		    if (signal.at(i)) {
+//			signal.at(i)->mixPaste(
+//			    toinsert->getSignal(sourcechan)
+//			);
+//		    }
+//		    sourcechan++;
+//		    sourcechan %= clipchan;
+//		}
+//	    }
+//	    emit signalChanged(getLMarker(), -1);
+//	}
     CASE_COMMAND("addchannel")
 	addChannel();
     CASE_COMMAND("deletechannel")
 	Parser parser(command);
-	unsigned int i = atoi(parser.getFirstParam());
+	unsigned int i = parser.toInt();
 	deleteChannel(i);
     CASE_COMMAND("selectchannels")
 	for (unsigned int i = 0; i < m_channels; i++)
@@ -484,91 +478,91 @@ bool SignalManager::executeCommand(const char *command)
 }
 
 //***************************************************************************
-bool SignalManager::promoteCommand (const char *command)
+bool SignalManager::promoteCommand(const QString &command)
 {
-    debug("SignalManager::promoteCommand(%s)", command);    // ###
+    debug("SignalManager::promoteCommand(%s)", command.data());    // ###
 
-    // loop over all channels
-    unsigned int i;
-    for (i = 0; i < m_channels; i++) {
-        ASSERT(signal.at(i));
-        if (!signal.at(i)) continue;
-
-	// skip channel if not selected
-	if (!signal.at(i)->isSelected()) continue;
-
-	int begin, len;
-	if (lmarker != rmarker) {
-	    begin = lmarker;
-	    len = rmarker - lmarker + 1;
-	} else {
-	    begin = 0;
-	    len = signal.at(i)->getLength();
-	}
-
-	char buf[64];
-	snprintf(buf, sizeof(buf), "%d", i + 1);
-	char *caption = catString(i18n(command), i18n(" on channel "), buf);
-
-// =====================================================
-// === under construction ==============================
-	
-	// create a nice little Object that should contain everything important
-	TimeOperation *operation =
-	    new TimeOperation(signal.at(i), command, begin, len);
-	ASSERT(operation);
-	if (!operation) {
-	    warning("out of memory: could not allocate TimeOperation");
-	    continue;
-	}
-	
-	debug("lmarker=%d, rmarker=%d, begin=%d, len=%d",
-	    lmarker,rmarker,begin,len);
-	
-	//create a new progress dialog, that watches an memory address
-	//that is updated by the modules
-	ProgressDialog *dialog = createProgressDialog(operation, caption);
-	ASSERT(dialog);
-//	if (dialog) {
-//	    // connect the signal for "command done"
-//	    connect(dialog, SIGNAL(commandDone()),
-//		    this, SLOT(commandDone()));
-//		
-#ifdef USE_THREADS
-	    pthread_t thread;
-	    // emit modifyingSignal(signal.at(i), begin, length);
-
-//	extern int pthread_create __P ((pthread_t *__thread,
-//				__const pthread_attr_t *__attr,
-//				void *(*__start_routine) (void *),
-//				void *__arg));
-
-	    //create the new thread
-	    if (pthread_create (&thread,
-				0,
-				(void *(*)(void *))(threadStub),
-				(void *)operation) != 0) {
-		warning("thread creation failed");
-		if (dialog) delete dialog;
-		return false;
-	    }
-#else /* USE_THREADS */
-	    threadStub(operation);
-#endif /* USE_THREADS */
-
-	    if (dialog) delete dialog;
-
-// === under construction ==============================
-// =====================================================
-
-//	}
-//	else warning("out of memory: could not allocate ProgressDialog");
-    }
-
-
-
-    // could not promote command to modules or an error occured
-    if (i < m_channels) return false;
+////    // loop over all channels
+////    unsigned int i;
+////    for (i = 0; i < m_channels; i++) {
+////        ASSERT(signal.at(i));
+////        if (!signal.at(i)) continue;
+////
+////	// skip channel if not selected
+////	if (!signal.at(i)->isSelected()) continue;
+////
+////	int begin, len;
+////	if (lmarker != rmarker) {
+////	    begin = lmarker;
+////	    len = rmarker - lmarker + 1;
+////	} else {
+////	    begin = 0;
+////	    len = signal.at(i)->getLength();
+////	}
+////
+////	char buf[64];
+////	snprintf(buf, sizeof(buf), "%d", i + 1);
+////	char *caption = catString(i18n(command), i18n(" on channel "), buf);
+////
+////// =====================================================
+////// === under construction ==============================
+////	
+////	// create a nice little Object that should contain everything important
+////	TimeOperation *operation =
+////	    new TimeOperation(signal.at(i), command, begin, len);
+////	ASSERT(operation);
+////	if (!operation) {
+////	    warning("out of memory: could not allocate TimeOperation");
+////	    continue;
+////	}
+////	
+////	debug("lmarker=%d, rmarker=%d, begin=%d, len=%d",
+////	    lmarker,rmarker,begin,len);
+////	
+////	//create a new progress dialog, that watches an memory address
+////	//that is updated by the modules
+////	ProgressDialog *dialog = createProgressDialog(operation, caption);
+////	ASSERT(dialog);
+//////	if (dialog) {
+//////	    // connect the signal for "command done"
+//////	    connect(dialog, SIGNAL(commandDone()),
+//////		    this, SLOT(commandDone()));
+//////		
+////#ifdef USE_THREADS
+////	    pthread_t thread;
+////	    // emit modifyingSignal(signal.at(i), begin, length);
+////
+//////	extern int pthread_create __P ((pthread_t *__thread,
+//////				__const pthread_attr_t *__attr,
+//////				void *(*__start_routine) (void *),
+//////				void *__arg));
+////
+////	    //create the new thread
+////	    if (pthread_create (&thread,
+////				0,
+////				(void *(*)(void *))(threadStub),
+////				(void *)operation) != 0) {
+////		warning("thread creation failed");
+////		if (dialog) delete dialog;
+////		return false;
+////	    }
+////#else /* USE_THREADS */
+////	    threadStub(operation);
+////#endif /* USE_THREADS */
+////
+////	    if (dialog) delete dialog;
+////
+////// === under construction ==============================
+////// =====================================================
+////
+//////	}
+//////	else warning("out of memory: could not allocate ProgressDialog");
+////    }
+////
+////
+////
+////    // could not promote command to modules or an error occured
+////    if (i < m_channels) return false;
 
     return true;
 }
@@ -591,8 +585,6 @@ SignalManager::~SignalManager()
 	signal.remove(m_channels);
 	emit sigChannelDeleted(m_channels);
     }
-
-    if (name) delete[] name;
 }
 
 //***************************************************************************
@@ -614,12 +606,12 @@ void SignalManager::setRange(unsigned int l, unsigned int r)
 ProgressDialog *SignalManager::createProgressDialog(TimeOperation *operation,
                                                     const char *caption)
 {
-    ProgressDialog *dialog = new ProgressDialog (operation, caption);
-    ASSERT(dialog);
-    if (dialog) {
-	dialog->show();
-	return dialog;
-    }
+////    ProgressDialog *dialog = new ProgressDialog (operation, caption);
+////    ASSERT(dialog);
+////    if (dialog) {
+////	dialog->show();
+////	return dialog;
+////    }
     return 0;
 }
 
@@ -636,9 +628,9 @@ int SignalManager::loadAscii()
     float amp;
     int *sample = 0;
 
-    FILE *sigin = fopen(name, "r");
+    FILE *sigin = fopen(m_name.data(), "r");
     if (!sigin) {
-	KMsgBox::message(0, i18n("Info"), i18n("File does not exist !"), 2);
+	KMessageBox::error(0, i18n("File does not exist !"), i18n("Info"), 2);
 	return -ENOENT;
     }
 
@@ -693,9 +685,9 @@ int SignalManager::loadWav()
     __uint32_t length = 0;
     wavheader header;
 
-    FILE *sigfile = fopen(name, "r");
+    FILE *sigfile = fopen(m_name.data(), "r");
     if (!sigfile) {
-	KMsgBox::message(0, i18n("Info"), i18n("File does not exist !"), 2);
+	KMessageBox::error(0, i18n("File does not exist !"), i18n("Info"), 2);
 	return -ENOENT;
     }
 
@@ -726,9 +718,9 @@ int SignalManager::loadWav()
 		rate = header.rate;
 		int res = findWavChunk(sigfile);
 		if (res == 0) {
-		    KMsgBox::message(0, i18n("Info"),
+		    KMessageBox::error(0,
 		                    i18n("File has no data chunk!"),
-		                    2);
+		                    i18n("Info"), 2);
 		    result = -ENODATA;
 		} else {
 		    //seek after DATA
@@ -749,27 +741,29 @@ int SignalManager::loadWav()
 						  header.bitspersample);
 			    break;
 			    default:
-				KMsgBox::message(0, i18n("Info"),
+				KMessageBox::sorry(0,
 				    i18n("Sorry only 8/16/24 Bits per Sample"\
-				    " are supported !"), 2);
+				    " are supported !"), i18n("Info"), 2);
 			    result = -EMEDIUMTYPE;
 			    break;
 		    }
 		    m_channels = header.channels;
 		}
 	    } else {
-		KMsgBox::message(0, i18n("Info"),
-		    i18n("File must be uncompressed (Mode 1) !"), 2);
+		KMessageBox::sorry(0,
+		    i18n("File must be uncompressed (Mode 1) !"),
+		    i18n("Info"), 2);
 		result = -EMEDIUMTYPE;
 	    }
 	} else {
-	    KMsgBox::message(0, i18n("Info"),
-		i18n("File is no RIFF Wave File !"), 2);
+	    KMessageBox::sorry(0,
+		i18n("File is no RIFF Wave File !"),
+		i18n("Info"), 2);
 	    result = -EMEDIUMTYPE;
 	}
     } else {
-	KMsgBox::message(0, i18n("Info"),
-	    i18n("File does not contain enough data !"), 2);
+	KMessageBox::sorry(0, i18n("File does not contain enough data !"),
+	    i18n("Info"), 2);
 	result = -ENODATA;
     }
 
@@ -813,8 +807,8 @@ void SignalManager::exportAscii(const char *name)
 	i18n("Exporting %s ASCII file :"),
 	str_channels);
 
-    char *title = duplicateString(i18n(progress_title));
-    ProgressDialog *dialog = new ProgressDialog (100, title);
+    QString title = i18n(progress_title);
+    ProgressDialog *dialog = new ProgressDialog(100, title);
     delete[] title;
     if (dialog) dialog->show();
 
@@ -887,9 +881,8 @@ int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
     snprintf(progress_title, sizeof(progress_title), "Saving %d-Bit-%s File :",
 	    bits, str_channels);
 
-    char *title = duplicateString(i18n(progress_title));
+    QString title = i18n(progress_title);
     ProgressDialog *dialog = new ProgressDialog (100, title);
-    delete[] title;
     if (dialog) dialog->show();
 
     // prepare the store loop
@@ -901,9 +894,9 @@ int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
 	sample[channel] = signal.at(channel)->getSample();
 	ASSERT(sample[channel]);
 	if (!sample[channel]) {
-	    KMsgBox(0, i18n("Warning"),
+	    KMessageBox::error(0,
 		i18n("empty channel detected, channel count reduced by one"),
-		2);
+		i18n("Warning"), 2);
 	    m_channels--;
 	}
     }
@@ -969,13 +962,13 @@ void SignalManager::save(const char *filename, int bits, bool selection)
     }
 
     FILE *sigout = fopen (filename, "w");
-    if (name) delete[] name;
-    name = duplicateString(filename);
-    ASSERT(name);
-    if (!name) return;
+    m_name = filename;
+    ASSERT(m_name.length());
+    if (!m_name.length()) return;
 
-    if (!m_channels) KMsgBox(0, i18n("info"),
-	i18n("Signal is empty, nothing to save !"), 2);
+    if (!m_channels) KMessageBox::sorry(0,
+	i18n("Signal is empty, nothing to save !"),
+	i18n("info"), 2);
 
     if (sigout) {
 	fseek (sigout, 0, SEEK_SET);
@@ -1016,9 +1009,9 @@ void SignalManager::save(const char *filename, int bits, bool selection)
 		writeWavChunk(sigout, begin, length, bits);
 		break;
 	    default:
-		KMsgBox::message(0, i18n("Info"),
+		KMessageBox::sorry(0,
 		    i18n("Sorry only 8/16/24 Bits per Sample are supported !"),
-		    2);
+		    i18n("Info"), 2);
 	    break;
 	}
 
@@ -1063,10 +1056,10 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
     if (length > file_rest/bytes_per_sample) {
 	debug("SignalManager::loadWavChunk: "\
 	      "length=%d, rest of file=%d",length,file_rest);
-	KMsgBox::message(0, i18n("Warning"),
+	KMessageBox::error(0,
 	    i18n("Error in input: file is smaller than stated "\
 	    "in the header. \n"\
-	    "File has been truncated."),2);
+	    "File has been truncated."), i18n("Warning"), 2);
 	length = file_rest/bytes_per_sample;
     }
 
@@ -1075,7 +1068,7 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
 	Signal *new_signal = new Signal(length, rate);
 	ASSERT(new_signal);
 	if (!new_signal || !new_signal->getSample()) {
-	    KMsgBox::message(0, i18n("Info"), i18n("Out of Memory!"), 2);
+	    KMessageBox::sorry(0, i18n("Out of Memory!"), i18n("Info"), 2);
 	    return -ENOMEM;
 	}
 	signal.append(new_signal);
@@ -1097,10 +1090,9 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
 
     snprintf(progress_title, sizeof(progress_title),
 	i18n("Loading %d-Bit (%s) File :"), bits, str_channels);
-    char *title = duplicateString(progress_title);
+    QString title = progress_title;
     ProgressDialog *dialog = new ProgressDialog (100, title);
     ASSERT(dialog);
-    delete[] title;
 
     if (dialog) dialog->show();
 

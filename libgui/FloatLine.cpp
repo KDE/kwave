@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <libkwave/String.h>
+
 #include "FloatLine.h"
 
 extern QString mstotime (int ms);

@@ -18,8 +18,7 @@
 #ifndef _MENU_ITEM_H_
 #define _MENU_ITEM_H_
 
-#include <libkwave/String.h>
-
+#include <qstring.h>
 #include "MenuNode.h"
 
 /**
@@ -27,10 +26,11 @@
  * menu or a submenu.
  * @author Thomas Eschenbacher
  */
-class MenuItem : public MenuNode {
+class MenuItem : public MenuNode
+{
     Q_OBJECT
 
-public:    // Public methods
+public:
 
     /**
      * Constructor.
@@ -42,8 +42,8 @@ public:    // Public methods
      *            (optional, default=0)
      * @param uid unique id string (optional, default=0)
      */
-    MenuItem(MenuNode *parent, char *name, char *command = 0,
-	     int key = 0, char *uid = 0);
+    MenuItem(MenuNode *parent, const QString &name,
+	const QString &command = 0, int key = 0, const QString &uid = 0);
 
     /** virtual destructor */
     virtual ~MenuItem();
@@ -64,7 +64,7 @@ public:    // Public methods
      * @param command name of a menu node or command
      * @return true if the name was recognized as a command and handled
      */
-    virtual bool specialCommand(const char *command);
+    virtual bool specialCommand(const QString &command);
 
     /**
      * Enables/disabled checking/selecting the item
@@ -90,7 +90,7 @@ private:
      * name of a group for exclusive selection
      * (optional, set by special command, default=0)
      */
-    const char *exclusive_group;
+    QString exclusive_group;
 
 };
 

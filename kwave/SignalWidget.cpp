@@ -22,18 +22,15 @@
 #include <qobject.h>
 #include <qtimer.h>
 
-#include <kmsgbox.h>
-#include <kapp.h>
+#include <kglobal.h>
+#include <kmessagebox.h>
+#include <klocale.h>
 #include <kfiledialog.h>
 
 #include <libkwave/Label.h>
 #include <libkwave/LabelList.h>
 #include <libkwave/Parser.h>
-#include <libkwave/Global.h>
-#include <libkwave/DynamicLoader.h>
 #include <libkwave/Signal.h>
-#include <libkwave/DialogOperation.h>
-#include <libkwave/Color.h>
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
@@ -56,7 +53,7 @@
 /**
  * useful macro for command parsing
  */
-#define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
+#define CASE_COMMAND(x) } else if (parser.command() == x) {
 
 /**
  * math.h didn't define PI :-(
@@ -78,9 +75,6 @@
  */
 #define MINIMUM_SAMPLES_PER_SCREEN 5
 
-// this should disappear in future...
-extern Global globals;
-
 //****************************************************************************
 SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     :QWidget(parent),
@@ -92,7 +86,7 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     height = 0;
     interpolation_alpha = 0;
     interpolation_order = 0;
-    labels = 0;
+////    labels = 0;
     lastHeight = 0;
     lastplaypointer = -1;
     lastWidth = 0;
@@ -130,19 +124,19 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     connect(&m_playback_controller, SIGNAL(sigPlaybackPos(unsigned int)),
             this, SLOT(updatePlaybackPointer(unsigned int)));
 
-    labels = new LabelList();
-    ASSERT(labels);
-    if (!labels) return;
-    labels->setAutoDelete (true);
+//    labels = new LabelList();
+//    ASSERT(labels);
+//    if (!labels) return;
+//    labels->setAutoDelete (true);
 
-    menu.clearNumberedMenu("ID_LABELS_TYPE");
-    for (LabelType *tmp = globals.markertypes.first(); tmp;
-         tmp = globals.markertypes.next())
-    {
-	menu.addNumberedMenuEntry("ID_LABELS_TYPE", (char *)tmp->name);
-    }
-
-    markertype = globals.markertypes.first();
+//    menu.clearNumberedMenu("ID_LABELS_TYPE");
+//    for (LabelType *tmp = globals.markertypes.first(); tmp;
+//         tmp = globals.markertypes.next())
+//    {
+//	menu.addNumberedMenuEntry("ID_LABELS_TYPE", (char *)tmp->name);
+//    }
+//
+//    markertype = globals.markertypes.first();
 
     setBackgroundColor(black);
     setMouseTracking(true);
@@ -161,16 +155,15 @@ void SignalWidget::refreshSelection()
 //****************************************************************************
 bool SignalWidget::isOK()
 {
-    ASSERT(labels);
+////    ASSERT(labels);
     ASSERT(select);
-    return ( labels && select );
+    return ( /* labels && */ select );
 }
 
 //****************************************************************************
 SignalWidget::~SignalWidget()
 {
 //    debug("SignalWidget::~SignalWidget()");
-    ASSERT(KApplication::getKApplication());
 
     if (timer) delete timer;
     timer = 0;
@@ -181,8 +174,8 @@ SignalWidget::~SignalWidget()
     if (pixmap == 0) delete pixmap;
     pixmap = 0;
 
-    if (labels) delete labels;
-    labels = 0;
+////    if (labels) delete labels;
+////    labels = 0;
 
     if (select) delete select;
     select = 0;
@@ -226,10 +219,11 @@ void SignalWidget::toggleChannel(int channel)
 }
 
 //****************************************************************************
-bool SignalWidget::executeNavigationCommand(const char *command)
+bool SignalWidget::executeNavigationCommand(const QString &command)
 {
     if (!signalmanage) return false;
-    if (!command) return false;
+    if (!command.length()) return false;
+    Parser parser(command);
 
     if (false) {
     CASE_COMMAND("zoomin")
@@ -280,7 +274,7 @@ bool SignalWidget::executeNavigationCommand(const char *command)
 }
 
 //****************************************************************************
-bool SignalWidget::executeLabelCommand (const char *command)
+bool SignalWidget::executeLabelCommand(const QString &command)
 {
     if (false) {
 //    CASE_COMMAND("chooselabel")
@@ -318,19 +312,18 @@ bool SignalWidget::executeLabelCommand (const char *command)
 }
 
 //****************************************************************************
-bool SignalWidget::executeCommand(const char *command)
+bool SignalWidget::executeCommand(const QString &command)
 {
-    ASSERT(command);
-    if (!command) return false;
-
-    debug("SignalWidget::executeCommand(%s)", command);    // ###
+    if (!command.length()) return true;
+    Parser parser(command);
+    debug("SignalWidget::executeCommand(%s)", command.data());    // ###
 
     if (false) {
-    CASE_COMMAND("dialog")
-	Parser parser(command);
-	const char *name = parser.getFirstParam();
-	debug("SignalWidget::executeCommand(): loading dialog %s", name);
-	showDialog(name);
+////    CASE_COMMAND("dialog")
+////	Parser parser(command);
+////	const char *name = parser.getFirstParam();
+////	debug("SignalWidget::executeCommand(): loading dialog %s", name);
+////	showDialog(name);
     CASE_COMMAND("refresh")
 	refreshAllLayers();
     CASE_COMMAND("newsignal")
@@ -346,34 +339,34 @@ bool SignalWidget::executeCommand(const char *command)
     return true;
 }
 
-//**********************************************************
-void SignalWidget::showDialog(const char *name)
-{
-    debug("SignalWidget::showDialog(%s)", name);
-    int length = 0;
-    int rate = 44100;
-    int channels = 0;
-    if (signalmanage) length = signalmanage->getLength ();
-    if (signalmanage) rate = signalmanage->getRate ();
-    if (signalmanage) channels = signalmanage->channels();
-
-    DialogOperation *operation =
-	new DialogOperation(&globals, length, rate, channels, true);
-    ASSERT(operation);
-
-    if (operation) {
-	Dialog *dialog = DynamicLoader::getDialog(name, operation);
-	if (dialog) {
-	    connect(dialog, SIGNAL(command(const char*)),
-		    this, SLOT(forwardCommand(const char *)));
-	    // ### dialog->show();
-	    dialog->exec();
-	    delete dialog;
-	} else debug ("error: could not get dialog !\n");
-
-	delete operation;
-    }
-}
+//////**********************************************************
+////void SignalWidget::showDialog(const char *name)
+////{
+////    debug("SignalWidget::showDialog(%s)", name);
+////    int length = 0;
+////    int rate = 44100;
+////    int channels = 0;
+////    if (signalmanage) length = signalmanage->getLength ();
+////    if (signalmanage) rate = signalmanage->getRate ();
+////    if (signalmanage) channels = signalmanage->channels();
+////
+////    DialogOperation *operation =
+////	new DialogOperation(&globals, length, rate, channels, true);
+////    ASSERT(operation);
+////
+////    if (operation) {
+////	Dialog *dialog = DynamicLoader::getDialog(name, operation);
+////	if (dialog) {
+////	    connect(dialog, SIGNAL(command(const char*)),
+////		    this, SLOT(forwardCommand(const char *)));
+////	    // ### dialog->show();
+////	    dialog->exec();
+////	    delete dialog;
+////	} else debug ("error: could not get dialog !\n");
+////
+////	delete operation;
+////    }
+////}
 
 //****************************************************************************
 void SignalWidget::showMessage(const char *caption, const char *text,
@@ -383,7 +376,7 @@ void SignalWidget::showMessage(const char *caption, const char *text,
     ASSERT(caption);
     ASSERT(text);
     if (!caption || !text) return;
-    KMsgBox::message(this, caption, text, flags);
+    KMessageBox::error(this, caption, text, flags);
 }
 
 //****************************************************************************
@@ -423,29 +416,32 @@ void SignalWidget::playback_startTimer()
 //****************************************************************************
 void SignalWidget::selectRange()
 {
-    ASSERT(signalmanage);
-    if (!signalmanage) return;
-    if (!getChannelCount()) return ;
 
-    int rate = signalmanage->getRate();
+// >>> should be converted to a v2 plugin <<<
 
-    Dialog *dialog = DynamicLoader::getDialog
-		     ("time", new DialogOperation (rate, true));
-    ASSERT(dialog);
-    if (!dialog) return ;
-
-    if ( dialog->exec() != 0 ) {
-	int l = signalmanage->getLMarker();
-
-	Parser parser(dialog->getCommand());
-	int len = ms2samples( parser.toDouble() );
-	int siglen = signalmanage->getLength();
-
-	if ((l + len - 1) >= siglen)
-	    selectRange(l, siglen - 1);    //overflow check
-	else
-	    selectRange(l, l + len - 1);
-    }
+////    ASSERT(signalmanage);
+////    if (!signalmanage) return;
+////    if (!getChannelCount()) return ;
+////
+////    int rate = signalmanage->getRate();
+////
+////    Dialog *dialog = DynamicLoader::getDialog
+////		     ("time", new DialogOperation (rate, true));
+////    ASSERT(dialog);
+////    if (!dialog) return ;
+////
+////    if ( dialog->exec() != 0 ) {
+////	int l = signalmanage->getLMarker();
+////
+////	Parser parser(dialog->getCommand());
+////	int len = ms2samples( parser.toDouble() );
+////	int siglen = signalmanage->getLength();
+////
+////	if ((l + len - 1) >= siglen)
+////	    selectRange(l, siglen - 1);    //overflow check
+////	else
+////	    selectRange(l, l + len - 1);
+////    }
 }
 
 //****************************************************************************
@@ -485,8 +481,8 @@ void SignalWidget::connectSignal()
     connect(&m_playback_controller, SIGNAL(sigStopPlayback()),
             signalmanage, SLOT(stopplay()));
 
-    connect(signalmanage, SIGNAL(sigCommand(const char*)),
-	    this, SLOT(forwardCommand(const char *)));
+    connect(signalmanage, SIGNAL(sigCommand(const QString &)),
+	    this, SLOT(forwardCommand(const QString &)));
     connect(signalmanage, SIGNAL(signalChanged(int,int)),
 	    this, SLOT(forwardSignalChanged(int,int)));
     connect(signalmanage, SIGNAL(sigChannelAdded(unsigned int)),
@@ -497,7 +493,7 @@ void SignalWidget::connectSignal()
 }
 
 //****************************************************************************
-void SignalWidget::forwardCommand(const char *command)
+void SignalWidget::forwardCommand(const QString &command)
 {
     emit sigCommand(command);
 }
@@ -558,7 +554,9 @@ void SignalWidget::createSignal(const char *str)
     int numsamples = (int)(ms * rate / 1000);
 
     if (signalmanage) delete signalmanage;
-    labels->clear ();
+
+////    ASSERT(labels);
+////    if (labels) labels->clear ();
     offset = 0;
 
     signalmanage = new SignalManager(numsamples, rate, 1);
@@ -597,8 +595,8 @@ void SignalWidget::setSignal(const char *filename, int type)
 {
     closeSignal();
     offset = 0;
-    ASSERT(labels);
-    if (labels) labels->clear();
+////    ASSERT(labels);
+////    if (labels) labels->clear();
     if (!filename) return;
 
     // load a new signal
@@ -924,8 +922,10 @@ void SignalWidget::mouseMoveEvent( QMouseEvent *e )
     if (down) {
 	// in move mode, a new selection was created or an old one grabbed
 	// this does the changes with every mouse move...
-	int x = offset + pixels2samples(e->pos().x());
-//	if (x >= width) x = width - 1;    //check for some bounds
+	int mx = e->pos().x();
+	if (mx < 0) mx = 0;
+	if (mx >= width) mx = width-1;
+	int x = offset + pixels2samples(mx);
 	if (x < 0) x = 0;
 	select->update(x);
 	selectRange(select->left(), select->right());
@@ -1603,7 +1603,7 @@ void SignalWidget::addLabel (const char *params)
 //			newmark = 0;
 //		    }
 //		} else {
-//		    KMsgBox::message (this, "Error", i18n("Dialog not loaded !"));
+//		    KMessageBox::message (this, "Error", i18n("Dialog not loaded !"));
 //		    delete newmark;
 //		    newmark = 0;
 //		}

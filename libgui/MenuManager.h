@@ -28,20 +28,20 @@ public:
      * Executes menu commands.
      * @param command string with the command
      */
-    void executeCommand(const char *command);
+    void executeCommand(const QString &command);
 
     /**
      * Deletes all entries of a numbered menu
      * @param uid unique id string of the numbered menu
      */
-    void clearNumberedMenu(const char *uid);
+    void clearNumberedMenu(const QString &uid);
 
     /**
      * Add an entry to a numbered menu
      * @param uid unique id string of the numbered menu
      * @param entry name of the new entry (non-localized)
      */
-    void addNumberedMenuEntry(const char *uid, char *entry);
+    void addNumberedMenuEntry(const QString &uid, const QString &entry);
 
     /**
      * Selects an menu item within a group of menu items. All other
@@ -50,21 +50,21 @@ public:
      * @param group name of the menu group
      * @param uid unique id string specifying the new selection
      */
-    void selectItem(const char *group, const char *uid);
+    void selectItem(const QString &group, const QString &uid);
 
     /**
      * Checks/unchecks a menu node.
      * @param uid unique id string of the menu node
      * @param check true to set a checkmark, false to remove
      */
-    void setItemChecked(const char *uid, bool check);
+    void setItemChecked(const QString &uid, bool check);
 
     /**
      * Enables/disables a menu node.
      * @param uid unique id string of the menu node
      * @param enable true to enable, false to disable
      */
-    void setItemEnabled(const char *uid, bool enable);
+    void setItemEnabled(const QString &uid, bool enable);
 
 signals:
 
@@ -74,7 +74,7 @@ signals:
      * @see #slotMenuCommand()
      * @see MenuNode.sigCommand()
      */
-    void sigMenuCommand(const char *command);
+    void sigMenuCommand(const QString &command);
 
 private slots:
 
@@ -84,7 +84,7 @@ private slots:
      * should be executed.
      * @see MenuNode.sigCommand()
      */
-    void slotMenuCommand(const char *command);
+    void slotMenuCommand(const QString &command);
 
 private:
     /**
@@ -94,10 +94,10 @@ private:
      * @see KAccel
      * @see kckey.h
      */
-    int parseToKeyCode(const char *key_name);
+    int parseToKeyCode(const QString &key_name);
 
     /** root node of the menu structure */
-    MenuRoot *menu_root;
+    MenuRoot *m_menu_root;
 };
 
 #endif // _MENU_MANAGER_H_

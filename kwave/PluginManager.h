@@ -21,11 +21,13 @@
 #include <qobject.h>
 #include <qarray.h>
 #include <qlist.h>
+#include <qmap.h>
 
 #include "mt/SignalProxy.h"
 
 class KwavePlugin;
 class QBitmap;
+class QString;
 class QStrList;
 class TopWidget;
 
@@ -119,11 +121,20 @@ public:
     QBitmap *overview(unsigned int width, unsigned int height,
                       unsigned int offset, unsigned int length);
 
+
+    /**
+     * Searches the standard KDE data directories for plugins (through
+     * the KDE's standard search algorithm) and creates a map of
+     * plugin names and file names. First it collects a list of
+     * filenames and then filters it to sort out invalid entries.
+     */
+    static void findPlugins();
+
 signals:
     /**
      * Forwards commands to the parent TopWidget execute a command
      */
-    void sigCommand(const char *command);
+    void sigCommand(const QString &command);
 
     /**
      * Informs all plugins and client windows that we close down
@@ -165,7 +176,7 @@ private:
      * @return memory handle of the loaded plugin or zero if the
      *         plugin was not found or invalid
      */
-    void *loadPlugin(const char *name);
+    void *loadPlugin(const QString name);
 
     /**
      * loads a plugin's default parameters from the user's
@@ -200,6 +211,9 @@ private:
 
     /** threadsafe signal proxy for setSignalName / sigSignalNameChanged */
     SignalProxy1<const QString> *m_spx_name_changed;
+
+    /** map for finding plugin files through their name */
+    static QMap<QString, QString> m_plugin_files;
 
     /** list of loaded plugins */
     QList<KwavePlugin> m_loaded_plugins;

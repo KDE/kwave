@@ -17,17 +17,16 @@
 
 #include <dlfcn.h>
 
-#include <kmsgbox.h>
-#include <kapp.h>
+#include <kglobal.h>
 #include <kconfig.h>
+#include <kmainwindow.h>
+#include <kstddirs.h>
+#include <kmessagebox.h>
+#include <klocale.h>
 
-#include <libkwave/DynamicLoader.h>
-#include <libkwave/DialogOperation.h>
 #include <libkwave/Parser.h>
 #include <libkwave/LineParser.h>
-#include <libkwave/Global.h>
 #include <libkwave/FileLoader.h>
-#include <libkwave/Plugin.h>
 
 #include "mt/SignalProxy.h"
 
@@ -40,11 +39,26 @@
 
 #include "PluginManager.h"
 
-extern Global globals;
+//#include <sys/types.h>
+//#include <sys/stat.h>
+//
+//#ifdef IN_GCC
+//#include "gansidecl.h"
+//#define PARAMS(ARGS) PROTO(ARGS)
+//#else /* ! IN_GCC */
+//#include <ansidecl.h>
+//#endif /* IN_GCC */
+//
+//extern const char *cplus_mangle_opname PARAMS ((const char
+//	*opname, int options));
 
 //****************************************************************************
 //****************************************************************************
 
+// static initializer
+QMap<QString, QString> PluginManager::m_plugin_files;
+
+//****************************************************************************
 PluginManager::PluginManager(TopWidget &parent)
     :m_top_widget(parent)
 {
@@ -78,46 +92,33 @@ PluginManager::~PluginManager()
 }
 
 //**********************************************************
-void *PluginManager::loadPlugin(const char *name)
+void *PluginManager::loadPlugin(const QString name)
 {
-    /* find the plugin in the global plugin list */
-    unsigned int index = 0;
-    bool found = false;
-    for (index=0; globals.dialogplugins[index]; index++) {
-	Plugin *p = globals.dialogplugins[index];
-	if (strcmp(name, p->getName()) == 0) {
-	    found=true;
-	    break;
-	}
-    }
-
-    /* show a warning and abort if the plugin was not found */
-    if ((!found) || (globals.dialogplugins[index] == 0)) {
+    /* show a warning and abort if the plugin is unknown */
+    if (!(m_plugin_files.contains(name))) {
 	char message[256];
-	
-	snprintf(message, 256, i18n("oops, plugin '%s' is unknown !"), name);
-	KMsgBox::message(&m_top_widget,
+	snprintf(message, 256, i18n("oops, plugin '%s' is unknown !"), name.data());
+	KMessageBox::error(&m_top_widget,
 	    i18n("error on loading plugin"),
-	    (const char *)&message,
-	    KMsgBox::EXCLAMATION
+	    (const char *)&message
 	);
 	return 0;
     }
 
+    QString &filename = m_plugin_files[name];
+
     /* try to get the file handle of the plugin's binary */
-    void *handle = dlopen(globals.dialogplugins[index]->getFileName(),
-	RTLD_NOW);
+    void *handle = dlopen(filename, RTLD_NOW);
     if (!handle) {
 	char message[256];
 
 	snprintf(message, 256, i18n(
 	    "unable to load the file \n'%s'\n that contains the plugin '%s' !"),
-	    globals.dialogplugins[index]->getFileName(), name
+	    filename.data(), name.data()
 	);
-	KMsgBox::message(&m_top_widget,
+	KMessageBox::error(&m_top_widget,
 	    i18n("error on loading plugin"),
-	    (const char *)&message,
-	    KMsgBox::EXCLAMATION
+	    (const char *)&message
 	);
 	return 0;
     }
@@ -139,7 +140,7 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 #ifdef HAVE_CPLUS_MANGLE_OPNAME
     // would be fine, but needs libiberty
     const char *sym_loader  = cplus_mangle_opname("load(PluginContext *)",0);
-    const char *sym_version = cplus_mangle_opname("const char *)", 0);
+    const char *sym_version = cplus_mangle_opname("const char *", 0);
 #else
     // hardcoded, fails on some systems :-(
     const char *sym_loader  = "load__FR13PluginContext";
@@ -267,18 +268,14 @@ QStrList *PluginManager::loadPluginDefaults(const QString &name,
     QString section("plugin ");
     section += name;
 
-    KApplication *app = KApplication::getKApplication();
-    ASSERT(app);
-    if (!app) return 0;
+    KConfig *cfg = KGlobal::config();
+    ASSERT(cfg);
+    if (!cfg) return 0;
 
-    KConfig *config = app->getConfig();
-    ASSERT(config);
-    if (!config) return 0;
+    cfg->sync();
+    cfg->setGroup(section);
 
-    config->sync();
-    config->setGroup(section);
-
-    def_version = config->readEntry("version");
+    def_version = cfg->readEntry("version");
     if (!def_version.length()) {
 	debug("PluginManager::loadPluginDefaults: "\
 	      "plugin '%s': no defaults found", name.data());
@@ -292,7 +289,7 @@ QStrList *PluginManager::loadPluginDefaults(const QString &name,
     }
 
     QStrList list;
-    int count = config->readListEntry("defaults", list, ',');
+    int count = cfg->readListEntry("defaults", list, ',');
     debug("PluginManager::loadPluginDefaults: list with %d entries loaded",
 	  count);
 
@@ -308,19 +305,15 @@ void PluginManager::savePluginDefaults(const QString &name,
     QString section("plugin ");
     section += name;
 
-    KApplication *app = KApplication::getKApplication();
-    ASSERT(app);
-    if (!app) return;
+    KConfig *cfg = KGlobal::config();
+    ASSERT(cfg);
+    if (!cfg) return;
 
-    KConfig *config = app->getConfig();
-    ASSERT(config);
-    if (!config) return;
-
-    config->sync();
-    config->setGroup(section);
-    config->writeEntry("version", version);
-    config->writeEntry("defaults", params);
-    config->sync();
+    cfg->sync();
+    cfg->setGroup(section);
+    cfg->writeEntry("version", version);
+    cfg->writeEntry("defaults", params);
+    cfg->sync();
 }
 
 //***************************************************************************
@@ -456,6 +449,40 @@ void PluginManager::setSignalName(const QString &name)
     ASSERT(m_spx_name_changed);
     if (!m_spx_name_changed) return;
     m_spx_name_changed->enqueue(name);
+}
+
+//***************************************************************************
+void PluginManager::findPlugins()
+{
+    unsigned int i;
+    QStringList files = KGlobal::dirs()->findAllResources("data",
+	    "kwave/plugins/*", false, true);
+
+    for (i=0; i < files.count(); i++) {
+
+	void *handle = dlopen(files[i].data(), RTLD_NOW);
+	if (handle) {
+	    const char **name = (const char **)dlsym(handle, "name");
+	    const char **version = (const char **)dlsym(handle, "version");
+	    const char **author = (const char **)dlsym(handle, "author");
+
+	    // skip it if something is missing or null
+	    if (!name || !version || !author) continue;
+	    if (!*name || !*version || !*author) continue;
+
+	    m_plugin_files.insert(*name, files[i]);
+	    printf("%10s %5s written by %s", *name, *version, *author);
+
+	    dlclose (handle);
+	}
+	else
+	    printf("error in '%s':\r\n\t %s\r\n", files[i].data(),
+		dlerror());
+
+	printf("\r\n");
+    }
+
+    printf("--- \r\n found %d plugins\r\n", m_plugin_files.count());
 }
 
 //****************************************************************************

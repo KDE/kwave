@@ -14,7 +14,7 @@
 # just set the variable
 
 # set the include path for X, qt and KDE
-INCLUDES= @all_includes@
+INCLUDES= -I${topdir} @all_includes@
 
 BUILTSOURCES=\
  TimeLine.moc.cpp\
@@ -63,6 +63,8 @@ lib_LTLIBRARIES = libkwavegui.la
 
 libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
 	--export-dynamic -shared
+
+libkwavegui_la_LIBADD   = $(topdir)/mt/libkwavemt.a
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

@@ -24,7 +24,8 @@
  * A MenuGroup controls a group of menu nodes (items, submenus).
  * @author Thomas Eschenbacher
  */
-class MenuGroup : public MenuNode {
+class MenuGroup : public MenuNode
+{
     Q_OBJECT
 
 public:    // Public methods
@@ -34,7 +35,7 @@ public:    // Public methods
      * @param parent pointer to the group's parent (might be 0)
      * @param name the unique name of the group
      */
-    MenuGroup(MenuNode *parent, char *name);
+    MenuGroup(MenuNode *parent, const QString &name);
 
     /**
      * Destructor. cleans up.
@@ -71,7 +72,7 @@ public:    // Public methods
      * exclusive selections of menu items.
      * @param uid the unique id string of the member to be selected or 0
      */
-    virtual void selectItem(const char *uid);
+    virtual void selectItem(const QString &uid);
 
     /**
      * Deregisteres all child nodes from us and removes them from

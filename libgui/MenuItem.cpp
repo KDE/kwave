@@ -29,21 +29,17 @@
 #include "MenuItem.h"
 
 //*****************************************************************************
-MenuItem::MenuItem(MenuNode *parent, char *name, char *command,
-		   int key, char *uid)
-    :MenuNode(parent, name, command, key, uid)
+MenuItem::MenuItem(MenuNode *parent, const QString &name,
+	const QString &command, int key, const QString &uid)
+    :MenuNode(parent, name, command, key, uid),
+    checkable(false),
+    exclusive_group(0)
 {
-    this->checkable = false;
-    exclusive_group = 0;
 }
 
 //*****************************************************************************
 MenuItem::~MenuItem()
 {
-    if (exclusive_group) {
-	delete[] exclusive_group;
-	exclusive_group = 0;
-    }
 }
 
 //*****************************************************************************
@@ -52,7 +48,7 @@ void MenuItem::actionSelected()
     MenuGroup *group = 0;
 
     if (isCheckable()) {
-	if (exclusive_group) {
+	if (exclusive_group.length()) {
 	    MenuNode *root = getRootNode();
 	    if (root) group = (MenuGroup*)root->findUID(exclusive_group);
 	}
@@ -77,41 +73,41 @@ int MenuItem::getIndex()
 }
 
 //*****************************************************************************
-bool MenuItem::specialCommand(const char *command)
+bool MenuItem::specialCommand(const QString &command)
 {
-    if (strncmp(command, "#icon(", 6) == 0) {
+    if (command.startsWith("#icon(")) {
 	// --- give the item an icon ---
-	Parser parser(command);
-	const char *filename = parser.getFirstParam();
-	if (filename) {
-	    setIcon(Icon(filename));
-	}
+// ### still disabled
+//	Parser parser(command);
+//	const QString &filename = parser.firstParam();
+//	if (filename.length()) {
+//	    setIcon(Icon(filename));
+//	}
 	return true;
-    } else if (strcmp(command, "#listmenu") == 0) {
+    } else if (command.startsWith("#listmenu")) {
 	// insert an empty submenu for the list items
 	MenuNode *parent = getParentNode();
 	if (parent) parent->leafToBranch(this);
 
 	return true;
-    } else if (strcmp(command, "#checkable") == 0) {
+    } else if (command.startsWith("#checkable")) {
 	// checking/selecting of the item (non-exclusive)
 	setCheckable(true);
-    } else if (strncmp(command, "#exclusive(", 11) == 0) {
+    } else if (command.startsWith("#exclusive(")) {
 	Parser parser(command);
-	const char *group;
 
 	// join to a list of groups
-	group = parser.getFirstParam();
-	while (group) {
+	QString group = parser.firstParam();
+	while (group.length()) {
 	    if (!exclusive_group) {
-		exclusive_group = duplicateString(group);
+		exclusive_group = group;
 		joinGroup(group);
-	    } else if (strcmp(exclusive_group, group) != 0) {
+	    } else if (exclusive_group != group) {
 		warning("menu item '%s' already member of "\
-			"exclusive group '%s'", getName(),
-			exclusive_group);
+			"exclusive group '%s'", getName().data(),
+			exclusive_group.data());
 	    }
-	    group = parser.getNextParam();
+	    group = parser.nextParam();
 	}
 
 	// make the item checkable

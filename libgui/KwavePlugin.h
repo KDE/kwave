@@ -254,6 +254,6 @@ private:
     Mutex m_thread_lock;
 };
 
-#endif _KWAVE_PLUGIN_H_
+#endif /* _KWAVE_PLUGIN_H_ */
 
 // end of libgui/KwavePlugin.h

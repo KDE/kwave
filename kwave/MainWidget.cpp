@@ -29,11 +29,10 @@
 #include <qwidget.h>
 
 #include <kapp.h>
+#include <klocale.h>
+#include <kstdaccel.h>
 #include <kstatusbar.h>
 
-#include <libkwave/String.h>
-#include <libkwave/DynamicLoader.h>
-#include <libkwave/DialogOperation.h>
 #include <libkwave/Parser.h>
 
 #include "libgui/Dialog.h"
@@ -42,7 +41,7 @@
 #include "libgui/OverViewWidget.h"
 #include "libgui/KwavePlugin.h" // for some helper functions
 
-#include "sampleop.h"
+//#include "sampleop.h"
 #include "SignalWidget.h"
 #include "SignalManager.h"
 #include "MainWidget.h"
@@ -50,7 +49,7 @@
 /**
  * useful macro for command parsing
  */
-#define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
+#define CASE_COMMAND(x) } else if (parser.command() == x) {
 
 #ifndef max
 #define max(x,y) (( x > y ) ? (x) : (y) )
@@ -60,9 +59,9 @@
 #define min(x,y) (( x < y ) ? (x) : (y) )
 #endif
 
-static const int tbl_keys[10] = {
-    Key_1, Key_2, Key_3, Key_4, Key_5, Key_6, Key_7, Key_8, Key_9, Key_0
-};
+// ### static const int tbl_keys[10] = {
+// ###     Key_1, Key_2, Key_3, Key_4, Key_5, Key_6, Key_7, Key_8, Key_9, Key_0
+// ### };
 
 #define MIN_PIXELS_PER_CHANNEL 50
 
@@ -86,6 +85,16 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     signalview = 0;
     m_slider = 0;
 
+    // create the layout objects
+    QGridLayout *topLayout = new QGridLayout(this, 3, 2, 0);
+    ASSERT(topLayout);
+    if (!topLayout) return;
+
+    QHBoxLayout *signalLayout = new QHBoxLayout();
+    ASSERT(signalLayout);
+    if (!signalLayout) return;
+    topLayout->addLayout(signalLayout, 0, 1);
+
     // -- frames for the channel controls and the signal --
 
     // background frame of the channel controls, does the
@@ -108,6 +117,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     if (!frmSignal) return;
     frmSignal->setFrameStyle(0);
     frmSignal->setMinimumSize(20, MIN_PIXELS_PER_CHANNEL);
+    signalLayout->addWidget(frmSignal, 100, 0);
 
     // -- multistate widgets for lamps and speakers (channel controls) --
 
@@ -134,29 +144,22 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     // -- accelerator keys for 1...9 --
 
-    keys = new QAccel(this);
-    ASSERT(keys);
-    if (!keys) return;
-    for (int i=0; i < 10; i++) {
-	keys->insertItem(tbl_keys[i]);
-    }
-    connect(keys, SIGNAL(activated(int)),
-	    this, SLOT(parseKey(int)));
+// ###     keys = new QAccel(this);
+// ###     ASSERT(keys);
+// ###     if (!keys) return;
+// ###     for (int i=0; i < 10; i++) {
+// ### 	keys->insertItem(tbl_keys[i]);
+// ###     }
+// ###     connect(keys, SIGNAL(activated(int)),
+// ### 	    this, SLOT(parseKey(int)));
 
     // -- slider for horizontal scrolling --
 
     m_slider = new OverViewWidget(this);
     ASSERT(m_slider);
     if (!m_slider) return;
-
-    // create the layout objects
-    QGridLayout *topLayout = new QGridLayout(this, 3, 2, 0);
-    ASSERT(topLayout);
-    if (!topLayout) return;
-
-    QHBoxLayout *signalLayout = new QHBoxLayout();
-    ASSERT(signalLayout);
-    if (!signalLayout) return;
+    m_slider->setFixedHeight(20/*playbutton->height()*3/4*/);
+    topLayout->addWidget(m_slider, 1, 1);
 
     // -- scrollbar for the signal widget and the channel controls --
 
@@ -167,6 +170,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     scrollbar->setFixedWidth(scrollbar->sizeHint().width());
     scrollbar->hide();
     scrollbar->setFixedWidth(0);
+    signalLayout->addWidget(scrollbar,   0, AlignRight);
 
     // -- signal widget --
 
@@ -185,18 +189,12 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     topLayout->addWidget(frmChannelsBack, 0, 0);
 
-    topLayout->addLayout(signalLayout, 0, 1);
-    signalLayout->addWidget(frmSignal, 1, AlignLeft);
-    signalLayout->addWidget(scrollbar, 0, AlignRight);
-
-    m_slider->setFixedHeight(20/*playbutton->height()*3/4*/);
-    topLayout->addWidget(m_slider, 1, 1);
-
     topLayout->setRowStretch(0, 1);
     topLayout->setRowStretch(1, 0);
     topLayout->setRowStretch(2, 0);
     topLayout->setColStretch(0, 0);
     topLayout->setColStretch(1, 1);
+    signalLayout->activate();
     topLayout->activate();
 
     // -- connect all signals from/to the signal widget --
@@ -209,8 +207,8 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 	    m_slider, SLOT(setRange(int, int, int)));
     connect(signalview, SIGNAL(zoomInfo(double)),
 	    this, SLOT(forwardZoomChanged(double)));
-    connect(signalview, SIGNAL(sigCommand(const char*)),
-	    this, SLOT(forwardCommand(const char*)));
+    connect(signalview, SIGNAL(sigCommand(const QString &)),
+	    this, SLOT(forwardCommand(const QString &)));
     connect(signalview, SIGNAL(selectedTimeInfo(double)),
 	    this, SLOT(setSelectedTimeInfo(double)));
     connect(signalview, SIGNAL(rateInfo(int)),
@@ -237,12 +235,12 @@ bool MainWidget::isOK()
 {
     ASSERT(frmChannelControls);
     ASSERT(frmSignal);
-    ASSERT(keys);
+//    ASSERT(keys); ###
     ASSERT(scrollbar);
     ASSERT(signalview);
     ASSERT(m_slider);
 
-    return ( frmChannelControls && frmSignal && keys && scrollbar &&
+    return ( frmChannelControls && frmSignal /* ### && keys */ && scrollbar &&
 	signalview && m_slider );
 }
 
@@ -250,7 +248,6 @@ bool MainWidget::isOK()
 MainWidget::~MainWidget()
 {
     debug("MainWidget::~MainWidget()");
-    ASSERT(KApplication::getKApplication());
 
     if (signalview) delete signalview;
     signalview = 0;
@@ -266,8 +263,7 @@ MainWidget::~MainWidget()
 void MainWidget::resizeEvent(QResizeEvent *)
 {
     refreshChannelControls();
-//    debug("void MainWidget::resizeEvent(QResizeEvent *)"); // ###
-//    refreshOverView();
+    refreshOverView();
 }
 
 //*****************************************************************************
@@ -474,34 +470,32 @@ void MainWidget::parseKey(int key)
     ASSERT(lamps.at(key));
     if (!lamps.at(key)) return;
     lamps.at(key)->nextState();
-    emit setOperation(TOGGLECHANNEL + key);
+////    emit setOperation(TOGGLECHANNEL + key);
 }
 
 //****************************************************************************
-void MainWidget::forwardCommand(const char *command)
+void MainWidget::forwardCommand(const QString &command)
 {
-    ASSERT(command);
-    if (!command) return;
-//    debug("MainWidget::forwardCommand(%s)", command);
     emit sigCommand(command);
 }
 
 //*****************************************************************************
-bool MainWidget::executeCommand(const char *command)
+bool MainWidget::executeCommand(const QString &command)
 {
-    ASSERT(command);
 //    debug("MainWidget::executeCommand(%s)", command);
-    if (!command) return false;
+
+    if (!command.length()) return false;
+    Parser parser(command);
 
     if (false) {
     CASE_COMMAND("zoomrange")
 	if (signalview) signalview->zoomRange();
     } else {
-	if (matchCommand(command, "selectchannels"))
+	if (parser.command() == "selectchannels")
 	    for (unsigned int i = 0; i < getChannelCount(); i++)
 		if (lamps.at(i)) lamps.at(i)->setState(0);
 
-	if (matchCommand(command, "invertchannels"))
+	if (parser.command() == "invertchannels")
 	    for (unsigned int i = 0; i < getChannelCount(); i++)
 		if (lamps.at(i)) lamps.at(i)->nextState();
 

@@ -3,8 +3,11 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <kapp.h>
-#include <libkwave/String.h>
+
+#include <qstring.h>
+
+#include <klocale.h>
+
 #include "TimeLine.h"
 
 extern QString mstotime (int ms);
@@ -56,16 +59,12 @@ double TimeLine::getMs()
 }
 
 //**********************************************************
-const char *TimeLine::getMsStr() 
+QString TimeLine::getMsStr()
 {
     ASSERT(rate);
     if (!rate) return 0;
-
-    char buf[128];
-    snprintf(buf, sizeof(buf), "%f", ((double(value))*1000 / rate));
-    if (comstr) delete[] comstr;
-    comstr = duplicateString (buf);
-    return comstr;
+    QString val;
+    return val.setNum( (double)value * 1000.0 / rate);
 }
 
 //**********************************************************

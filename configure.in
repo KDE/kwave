@@ -173,6 +173,13 @@ AC_CHECK_SIZEOF(char,1)
 AC_CHECK_SIZEOF(short,2)
 AC_CHECK_SIZEOF(int,4)
 
+dnl check for the host byte order
+AC_C_BIGENDIAN(
+    AC_DEFINE(ENDIANESS_BIG,    1, [byte-order of the host machine]),
+    AC_DEFINE(ENDIANESS_LITTLE, 1, [byte-order of the host machine]),
+    AC_MSG_ERROR([couldn't determine host endianess/byte-order])
+)
+
 dnl check for dirent.h
 AC_HEADER_DIRENT
 

@@ -40,6 +40,7 @@ BUILTSOURCES=\
 
 # Which sources should be compiled for libgui.
 libkwavegui_la_SOURCES =\
+ $(BUILTSOURCES) \
  CurveWidget.cpp\
  ConfirmCancelProxy.cpp\
  FileProgress.cpp\
@@ -55,9 +56,7 @@ libkwavegui_la_SOURCES =\
  OverViewCache.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\
- SelectTimeWidget.cpp\
- TrackPixmap.cpp\
- $(BUILTSOURCES)
+ SelectTimeWidget.cpp
 
 #noinst_LIBRARIES = libkwavegui.a
 libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \

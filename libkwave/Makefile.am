@@ -1,15 +1,21 @@
 
-INCLUDES= @all_includes@
+INCLUDES= @all_includes@ -I@ARTSDIR@/include/arts
 
 BUILTSOURCES=\
  SampleWriter.moc.cpp\
  Selection.moc.cpp\
  Signal.moc.cpp\
  Stripe.moc.cpp\
- Track.moc.cpp
+ Track.moc.cpp\
+ ArtsSampleSink.h\
+ ArtsSampleSink.cc\
+ ArtsSampleSource.h\
+ ArtsSampleSource.cc
 
 # Which sources should be compiled for kwave.
 libkwave_la_SOURCES=\
+ ArtsSampleSource_impl.cpp\
+ ArtsSampleSink_impl.cpp\
  Curve.cpp\
  Filter.cpp\
  FileLoader.cpp\
@@ -44,5 +50,11 @@ DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* Makefile.in Makefile
 
 %moc.cpp: %h
 	${MOC} $< -o $@
+
+%cc: %idl
+	${MCOPIDL} -I@ARTSDIR@/include/arts $<
+
+%h: %idl
+	${MCOPIDL} -I@ARTSDIR@/include/arts $<
 
 # end of Makefile.am

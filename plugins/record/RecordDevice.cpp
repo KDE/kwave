@@ -21,7 +21,6 @@
 #include <sys/stat.h>
 #include <sys/ioctl.h>
 #include <sys/soundcard.h>
-#include <byteswap.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <math.h>
@@ -367,7 +366,7 @@ int RecordDevice::mode2format(int compression, int bits, int sample_format)
     if ((sample_format == AF_SAMPFMT_UNSIGNED) && (bits == 16)) {
 	mask &= (AFMT_U16_LE | AFMT_U16_BE);
 	if (mask != (AFMT_U16_LE | AFMT_U16_BE)) return mask;
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
 	return AFMT_U16_BE;
 #else
 	return AFMT_U16_LE;
@@ -378,7 +377,7 @@ int RecordDevice::mode2format(int compression, int bits, int sample_format)
     if ((sample_format == AF_SAMPFMT_TWOSCOMP) && (bits == 16)) {
 	mask &= (AFMT_S16_LE | AFMT_S16_BE);
 	if (mask != (AFMT_S16_LE | AFMT_S16_BE)) return mask;
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
 	return AFMT_S16_BE;
 #else
 	return AFMT_S16_LE;

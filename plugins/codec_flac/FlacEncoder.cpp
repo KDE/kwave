@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <byteswap.h>
 
 #include <qmemarray.h>
 #include <qvaluevector.h>

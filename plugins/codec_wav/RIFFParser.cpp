@@ -17,8 +17,6 @@
 
 #include "config.h"
 
-#include <endian.h>
-#include <byteswap.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -28,10 +26,11 @@
 #include <qstringlist.h>
 #include <klocale.h>
 
+#include "libkwave/byteswap.h"
 #include "RIFFChunk.h"
 #include "RIFFParser.h"
 
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
 #define SYSTEM_ENDIANNES BigEndian
 #else
 #define SYSTEM_ENDIANNES LittleEndian
@@ -158,7 +157,7 @@ void RIFFParser::detectEndianness()
             // read length, assuming little endian
             u_int32_t len = 0;
             m_dev.readBlock((char*)(&len), 4);
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
             double dist_le = fabs(half - bswap_32(len));
             double dist_be = fabs(half - len);
 #else
@@ -386,7 +385,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     QPtrListIterator<RIFFChunk> it(found_chunks);
     for (; it.current() && !m_cancel; ++it) {
 	RIFFChunk *chunk = it.current();
-	
+
 	if ( (guessType(chunk->name()) == RIFFChunk::Main) &&
 	     (chunk->dataLength() >= 4) )
 	{

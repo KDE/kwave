@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <byteswap.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmimetype.h>

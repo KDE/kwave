@@ -16,8 +16,6 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <endian.h>
-#include <byteswap.h>
 #include <stdlib.h>
 
 extern "C" {
@@ -37,6 +35,7 @@ extern "C" {
 #include <kmessagebox.h>
 #include <kmimetype.h>
 
+#include "libkwave/byteswap.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
@@ -266,7 +265,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // get the header
     src.readBlock((char *)&header, sizeof(wav_fmt_header_t));
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
     header.min.format      = bswap_16(header.min.format);
     header.min.channels    = bswap_16(header.min.channels);
     header.min.samplerate  = bswap_32(header.min.samplerate);
@@ -399,7 +398,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     // set up libaudiofile to produce Kwave's internal sample format
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_BIGENDIAN);
 #else
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);

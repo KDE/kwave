@@ -16,8 +16,6 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <endian.h>
-#include <byteswap.h>
 #include <stdlib.h>
 
 extern "C" {
@@ -184,7 +182,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     qDebug("-------------------------");
 
     // set up libaudiofile to produce Kwave's internal sample format
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_BIGENDIAN);
 #else
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);

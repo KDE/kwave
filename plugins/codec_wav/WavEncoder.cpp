@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <byteswap.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmimetype.h>
@@ -25,6 +24,7 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include "libkwave/byteswap.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
@@ -172,7 +172,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     }
 
     // set up libaudiofile to produce Kwave's internal sample format
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_BIGENDIAN);
 #else
     afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);
@@ -253,7 +253,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	info_size += 4 + 4 + 4; // add the size of LIST(INFO)
 	dst.at(4);
 	dst.readBlock((char*)&size, 4);
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
 	size = bswap_32(bswap_32(size) + info_size);
 #else
 	size += info_size;
@@ -264,7 +264,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// add the LIST(INFO) chunk itself
 	dst.at(dst.size());
 	dst.writeBlock("LIST", 4);
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
 	size = bswap_32(info_size - 8);
 #else
 	size = info_size - 8;
@@ -281,7 +281,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    dst.writeBlock(name.data(), 4); // chunk name
 	    u_int32_t size = value.length(); // length of the chunk
 	    if (size & 0x01) size++;
-#if defined(IS_BIG_ENDIAN)
+#if defined(ENDIANESS_BIG)
 	    size = bswap_32(size);
 #endif
 	    dst.writeBlock((char*)&size, 4);

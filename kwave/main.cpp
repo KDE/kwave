@@ -139,8 +139,9 @@ int main( int argc, char **argv )
 
     KwaveApp app;
 
-    static KwaveSplash splash("pics/kwave-splash.png");
-    splash.show();
+    static KwaveSplash *splash = new KwaveSplash("pics/kwave-splash.png");
+    Q_ASSERT(splash);
+    if (splash) splash->show();
 
     return app.exec();
 }

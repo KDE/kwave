@@ -26,9 +26,7 @@
 /***************************************************************************/
 KwaveSplash::KwaveSplash(const QString &PNGImageFileName)
     :QWidget(0, "Kwave Splash", WStyle_NoBorder | WStyle_StaysOnTop |
-    WStyle_Customize | WDestructiveClose),
-    m_timer()
-             
+    WStyle_Customize), m_timer()
 {
     QString file = locate("appdata", PNGImageFileName);
     QPixmap pixmap(file);
@@ -45,7 +43,7 @@ KwaveSplash::KwaveSplash(const QString &PNGImageFileName)
     setPaletteBackgroundPixmap(pixmap);
 
     // auto-close in 2 seconds...
-    connect(&m_timer, SIGNAL(timeout()), this, SLOT(close()));
+    connect(&m_timer, SIGNAL(timeout()), this, SLOT(deleteLater()));
     m_timer.start(2000, true);
 }
 

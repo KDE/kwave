@@ -3,13 +3,9 @@ INCLUDES= -I${topdir} @all_includes@
 
 BUILTSOURCES=\
  ConfirmCancelProxy.moc.cpp\
- TimeLine.moc.cpp\
- FloatLine.moc.cpp\
  MultiStateWidget.moc.cpp\
  CurveWidget.moc.cpp\
- FFTWidget.moc.cpp\
  FileProgress.moc.cpp\
- FormantWidget.moc.cpp\
  KwaveFileDialog.moc.cpp\
  KwavePlugin.moc.cpp \
  OverViewCache.moc.cpp\
@@ -26,10 +22,7 @@ BUILTSOURCES=\
 libkwavegui_la_SOURCES =\
  CurveWidget.cpp\
  ConfirmCancelProxy.cpp\
- FFTWidget.cpp\
  FileProgress.cpp\
- FloatLine.cpp\
- FormantWidget.cpp\
  KwaveFileDialog.cpp\
  KwavePlugin.cpp \
  MenuNode.cpp\
@@ -42,7 +35,6 @@ libkwavegui_la_SOURCES =\
  OverViewCache.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\
- TimeLine.cpp\
  TrackPixmap.cpp\
  $(BUILTSOURCES)
 

@@ -35,10 +35,10 @@ public:
     virtual ~AudiofileCodecPlugin();
 
     /**
-     * This plugin needs to be persistent!
-     * @see KwavePlugin::isPersistent()
+     * This plugin needs to be unique!
+     * @see KwavePlugin::isUnique()
      */
-    virtual bool isPersistent() { return true; };
+    virtual bool isUnique() { return true; };
 
     /**
      * Gets called when the plugin is first loaded.

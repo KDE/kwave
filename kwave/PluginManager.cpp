@@ -76,7 +76,7 @@ PluginManager::PluginDeleter::~PluginDeleter()
 
 // static initializers
 QMap<QString, QString> PluginManager::m_plugin_files;
-QPtrList<KwavePlugin> PluginManager::m_persistent_plugins;
+QPtrList<KwavePlugin> PluginManager::m_unique_plugins;
 static QPtrList<PlaybackDeviceFactory> m_playback_factories;
 
 //****************************************************************************
@@ -86,14 +86,14 @@ PluginManager::PluginManager(TopWidget &parent)
      m_loaded_plugins(), m_running_plugins(),
      m_top_widget(parent)
 {
-    // use all persistent plugins
+    // use all unique plugins
     // this does nothing on the first instance, all other instances
     // will probably find a non-empty list
-    QPtrListIterator<KwavePlugin> itp(m_persistent_plugins);
+    QPtrListIterator<KwavePlugin> itp(m_unique_plugins);
     for ( ; itp.current(); ++itp ) {
 	KwavePlugin *p = itp.current();
-	Q_ASSERT(p && p->isPersistent());
-	if (p && p->isPersistent()) {
+	Q_ASSERT(p && p->isUnique());
+	if (p && p->isUnique()) {
 	    p->use();
 
 	    // maybe we will become responsible for releasing
@@ -117,15 +117,24 @@ PluginManager::~PluginManager()
     // inform all plugins and client windows that we close now
     emit sigClosed();
 
-    // release all persistent plugins
-    QPtrListIterator<KwavePlugin> itp(m_persistent_plugins);
+    // release all unique plugins
+    QPtrListIterator<KwavePlugin> itu(m_unique_plugins);
+    for (itu.toLast() ; itu.current(); ) {
+	KwavePlugin *p = itu.current();
+	--itu;
+	Q_ASSERT(p && p->isUnique());
+	if (p && p->isUnique()) {
+	    p->release();
+	}
+    }
+
+    // release all own persisiten plugins
+    QPtrListIterator<KwavePlugin> itp(m_loaded_plugins);
     for (itp.toLast() ; itp.current(); ) {
 	KwavePlugin *p = itp.current();
 	--itp;
-	Q_ASSERT(p && p->isPersistent());
-	if (p && p->isPersistent()) {
-	    p->release();
-	}
+	Q_ASSERT(p);
+	if (p && p->isPersistent()) p->release();
     }
 
     // release all own plugins that are left
@@ -141,16 +150,24 @@ PluginManager::~PluginManager()
 //***************************************************************************
 void PluginManager::loadAllPlugins()
 {
-    // try to load all plugins
-    // NOTE: this also makes it resident if it is persistent
+    // Try to load all plugins. This has to be called only once per
+    // instance of the main window!
+    // NOTE: this also implicitely makes it resident if it is persistent or unique
     QMap<QString, QString>::Iterator it;
     for (it=m_plugin_files.begin(); it != m_plugin_files.end(); ++it) {
 	QString name = it.key();
-	
+
 	KwavePlugin *plugin = loadPlugin(name);
 	if (plugin) {
-	    if (!plugin->isPersistent()) {
-		// remove it again if it is not persistent
+	    QString state = "";
+	    if (plugin->isPersistent()) state += "(persistent)";
+	    if (plugin->isUnique()) state += "(unique)";
+	    if (!state.length()) state = "(normal)";
+	    qDebug("PluginManager::loadAllPlugins(): plugin '"+
+		   plugin->name()+"' "+state);
+
+	    if (!plugin->isUnique() && !plugin->isPersistent()) {
+		// remove it again if it is neither unique nor persistent
 		plugin->release();
 	    }
 	} else {
@@ -162,32 +179,32 @@ void PluginManager::loadAllPlugins()
     }
 }
 
-//**********************************************************
+//***************************************************************************/
 KwavePlugin *PluginManager::loadPlugin(const QString &name)
 {
 
     // first find out if the plugin is already loaded and persistent
-    QPtrListIterator<KwavePlugin> itp(m_persistent_plugins);
+    QPtrListIterator<KwavePlugin> itp(m_loaded_plugins);
     for ( ; itp.current(); ++itp ) {
 	KwavePlugin *p = itp.current();
-	if (p->name() == name) {
+	if (p->isPersistent() && (p->name() == name)) {
 	    Q_ASSERT(p->isPersistent());
+	    qDebug("PluginManager::loadPlugin('"+name+
+	           "') -> returning pointer to persistent");
 	    return p;
 	}
     }
 
-    // first find out if the plugin is already loaded and unique
-    QPtrListIterator<KwavePlugin> it(m_persistent_plugins);
+    // find out if the plugin is already loaded and unique
+    QPtrListIterator<KwavePlugin> it(m_unique_plugins);
     for ( ; it.current(); ++it ) {
 	KwavePlugin *p = it.current();
 	if (p->name() == name) {
-	    Q_ASSERT(!p->isPersistent());
-	    if (p->isUnique()) {
-		// prevent from re-loading of a unique plugin
-		qWarning("PluginManager::loadPlugin(): attempt to re-load "\
-		        "unique plugin '%s'", name.latin1());
-		return 0;
-	    }
+	    Q_ASSERT(p->isUnique());
+	    Q_ASSERT(p->isPersistent());
+	    qDebug("PluginManager::loadPlugin('"+name+
+	           "') -> returning pointer to unique+persistent");
+	    return p;
 	}
     }
 
@@ -237,28 +254,12 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 
     plugin_loader =
         (KwavePlugin *(*)(PluginContext *))dlsym(handle, sym_loader);
-
-#ifndef HAVE_CPLUS_MANGLE_OPNAME
-
-    // fallback to gcc-2.95 style mangling
-    if (!plugin_loader) plugin_loader =
-        (KwavePlugin *(*)(PluginContext *))dlsym(handle,
-        "load__FR13PluginContext");
-
-    // also try fallback to gcc-3.x style mangling
-    if (!plugin_loader) plugin_loader =
-        (KwavePlugin *(*)(PluginContext *))dlsym(handle,
-        "_Z4loadR13PluginContext");
-
-#endif
-
     Q_ASSERT(plugin_loader);
     if (!plugin_loader) {
 	// plugin is null, out of memory or not found
-	qWarning("PluginManager::loadPlugin(): "\
-		"plugin '%s' does not contain a loader, "\
-		"maybe it is damaged or the wrong version?",
-		name.latin1());
+	qWarning("PluginManager::loadPlugin('"+name+"'): "\
+		"plugin does not contain a loader, "\
+		"maybe it is damaged or the wrong version?");
 	dlclose(handle);
 	return 0;
     }
@@ -277,7 +278,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 
     Q_ASSERT(context);
     if (!context) {
-	qWarning("PluginManager::loadPlugin(): out of memory");
+	qWarning("PluginManager::loadPlugin('"+name+"'): out of memory");
 	dlclose(handle);
 	return 0;
     }
@@ -286,26 +287,27 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     KwavePlugin *plugin = (*plugin_loader)(context);
     Q_ASSERT(plugin);
     if (!plugin) {
-	qWarning("PluginManager::loadPlugin(): out of memory");
+	qWarning("PluginManager::loadPlugin('"+name+"'): out of memory");
 	dlclose(handle);
 	return 0;
     }
 
-    if (plugin->isPersistent()) {
-	// append persistent plugins to the global list
-	m_persistent_plugins.append(plugin);
-
-	// persistent plugins must not close automatically when
-	// we close !
-	connect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
-	        this,   SLOT(pluginClosed(KwavePlugin *)));
+    if (plugin->isUnique()) {
+	// append unique plugins to the global list of unique plugins
+	m_unique_plugins.append(plugin);
+	plugin->use();
     } else {
-	// append the plugin into our list of plugins
+	// append the plugin into our list of loaded plugins
 	m_loaded_plugins.append(plugin);
-
-	// connect all signals if it is not persistent
-	connectPlugin(plugin);
+	if (plugin->isPersistent()) {
+	    // increment the usage if it is persistent, we will
+	    // only load it once in this instance
+	    plugin->use();
+	}
     }
+
+    // connect all necessary signals/slots
+    connectPlugin(plugin);
 
     // get the last settings and call the "load" function
     // now the plugin is present and loaded
@@ -332,14 +334,14 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 	// parameters were specified -> call directly
 	// without setup dialog
 	result = plugin->start(*params);
-	
+
 	// maybe the start() function has called close() ?
 	if (m_loaded_plugins.findRef(plugin) == -1) {
 	    qDebug("PluginManager: plugin closed itself in start()"); // ###
 	    result = -1;
 	    plugin = 0;
 	}
-	
+
 	if (plugin && (result >= 0)) {
 	    plugin->use(); // plugin->release() will be called after run()
 	    plugin->execute(*params);
@@ -347,7 +349,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
     } else {
 	// load previous parameters from config
 	QStringList last_params = loadPluginDefaults(name, plugin->version());
-	
+
 	// call the plugin's setup function
 	params = plugin->setup(last_params);
 	if (params) {
@@ -355,10 +357,10 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 	    // the setup function has not been aborted.
 	    // Now we can create a command string and
 	    // emit a new command.
-	
+
 	    // store parameters for the next time
 	    savePluginDefaults(name, plugin->version(), *params);
-	
+
 	    // We DO NOT call the plugin's "execute"
 	    // function directly, as it should be possible
 	    // to record all function calls in the
@@ -432,7 +434,7 @@ int PluginManager::setupPlugin(const QString &name)
     // now the plugin is no longer needed here, so delete it
     // if it has not already been detached and is not persistent
     if (!plugin->isPersistent()) plugin->release();
-    
+
     return 0;
 }
 
@@ -576,7 +578,7 @@ ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
                                                      const QString *name)
 {
     QString device_name;
-    
+
     // locate the corresponding playback device factory (plugin)
     device_name = (name) ? QString(*name) : QString("");
     PlayBackDevice *device = 0;
@@ -597,7 +599,7 @@ ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
     device = factory->openDevice(device_name, 0);
     Q_ASSERT(device);
     if (!device) return 0;
-    
+
     // create the multi track playback sink
     ArtsMultiSink *sink = new ArtsMultiPlaybackSink(tracks, device);
     Q_ASSERT(sink);
@@ -632,7 +634,7 @@ void PluginManager::forwardCommand()
 void PluginManager::pluginClosed(KwavePlugin *p)
 {
     Q_ASSERT(p);
-    Q_ASSERT(!m_loaded_plugins.isEmpty() || !m_persistent_plugins.isEmpty());
+    Q_ASSERT(!m_loaded_plugins.isEmpty() || !m_unique_plugins.isEmpty());
     if (!p) return;
 
     // disconnect the signals to avoid recursion
@@ -642,9 +644,9 @@ void PluginManager::pluginClosed(KwavePlugin *p)
 	m_loaded_plugins.setAutoDelete(false);
 	m_loaded_plugins.removeRef(p);
     }
-    if (m_persistent_plugins.findRef(p) != -1) {
-	m_persistent_plugins.setAutoDelete(false);
-	m_persistent_plugins.removeRef(p);
+    if (m_unique_plugins.findRef(p) != -1) {
+	m_unique_plugins.setAutoDelete(false);
+	m_unique_plugins.removeRef(p);
     }
 
     // schedule the deferred delete/unload of the plugin
@@ -664,7 +666,7 @@ void PluginManager::pluginStarted(KwavePlugin *p)
     if (!p) return;
 
     // the plugin is running -> increase the usage count in order to
-    // prevent our list from containing invalid entries
+    // prevent our lists from containing invalid entries
     p->use();
 
     // add the plugin to the list of running plugins
@@ -691,8 +693,10 @@ void PluginManager::connectPlugin(KwavePlugin *plugin)
     Q_ASSERT(plugin);
     if (!plugin) return;
 
-    connect(this, SIGNAL(sigClosed()),
-	    plugin, SLOT(close()));
+    if (!plugin->isUnique()) {
+	connect(this, SIGNAL(sigClosed()),
+	        plugin, SLOT(close()));
+    }
 
     connect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
 	    this, SLOT(pluginClosed(KwavePlugin *)));
@@ -719,9 +723,10 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
     disconnect(this, SIGNAL(sigClosed()),
 	       plugin, SLOT(close()));
 
-    disconnect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
-	       this, SLOT(pluginClosed(KwavePlugin *)));
-
+    if (!plugin->isUnique()) {
+	disconnect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
+	           this, SLOT(pluginClosed(KwavePlugin *)));
+    }
 }
 
 //****************************************************************************
@@ -750,31 +755,28 @@ void PluginManager::findPlugins()
     QStringList::Iterator it;
     for (it=files.begin(); it != files.end(); ++it) {
 	QString file = *it;
-	
+
 	void *handle = dlopen(file, RTLD_NOW);
 	if (handle) {
 	    const char **name    = (const char **)dlsym(handle, "name");
 	    const char **version = (const char **)dlsym(handle, "version");
 	    const char **author  = (const char **)dlsym(handle, "author");
-	
+
 	    // skip it if something is missing or null
 	    if (!name || !version || !author) continue;
 	    if (!*name || !*version || !*author) continue;
-	
+
 	    m_plugin_files.insert(*name, file);
-	    printf(i18n("%16s %5s written by %s"), *name, *version, *author);
-	
+	    qDebug(i18n("%16s %5s written by %s"), *name, *version, *author);
+
 	    dlclose (handle);
-	
 	} else {
-	    printf(i18n("error in '%s':\n\t %s\n"), file.latin1(),
+	    qWarning(i18n("error in '%s':\n\t %s"), file.latin1(),
 		dlerror());
 	}
-	
-	printf("\n");
     }
 
-    printf(i18n("--- \n found %d plugins\n"), m_plugin_files.count());
+    qDebug(i18n("--- \n found %d plugins\n"), m_plugin_files.count());
 }
 
 //****************************************************************************
@@ -782,7 +784,7 @@ void PluginManager::registerPlaybackDeviceFactory(
     PlaybackDeviceFactory *factory)
 {
     m_playback_factories.append(factory);
-    
+
 }
 
 //****************************************************************************

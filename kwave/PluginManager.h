@@ -369,8 +369,8 @@ private:
     /** list of own loaded plugins */
     QPtrList<KwavePlugin> m_loaded_plugins;
 
-    /** global list of loaded plugins */
-    static QPtrList<KwavePlugin> m_persistent_plugins;
+    /** global list of loaded unique plugins */
+    static QPtrList<KwavePlugin> m_unique_plugins;
 
     /** list of currently running plugins */
     QPtrList<KwavePlugin> m_running_plugins;

@@ -78,24 +78,27 @@ public:
     const QString &author();
 
     /**
-     * Returns true if the plugin is "unique" to the current main
-     * window. The default is "non-unique", so if you want your
+     * Returns true if the plugin is "unique". A unique plugin will be
+     * loaded once and removed only when the program closes. It is also
+     * implicitely unique to the current main window.
+     * The default is "non-unique", so if you want your
      * plugin to become unique, you have to overwrite this function
      * with a version that returns true.
      * @see isPersistent
      */
-    virtual bool isUnique() { return isPersistent(); };
+    virtual bool isUnique() { return false; };
 
     /**
-     * Returns true if the plugin is "persistent". A persistent plugin
-     * will be loaded once and removed only when the program closes.
-     * A persistent plugin will also be unique to the current main
-     * window. The default is "non-persistent", so if you want your
+     * Returns true if the plugin is "persistent". A persistent plugin will
+     * be loaded/used once with the current main window instance and closes
+     * when it's main window instance closes (and it is not unique).
+     * The default is to reflect the state of isUnique(), as all unique
+     * plugins are implicitely persistent, so if you want your
      * plugin to become persistent, you have to overwrite this function
      * with a version that returns true.
      * @see isUnique
      */
-    virtual bool isPersistent() { return false; };
+    virtual bool isPersistent() { return isUnique(); };
 
     /**
      * Returns true if the plugin has a running thread.

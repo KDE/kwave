@@ -58,11 +58,13 @@ public:
      */
     virtual bool isPersistent() { return true; };
 
+    virtual bool isUnique() { return false; };
+
     /**
      * Does playback in a thread.
      */
     virtual void run(QStringList);
-    
+
 public slots:
 
     /**

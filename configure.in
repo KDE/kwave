@@ -257,7 +257,7 @@ AC_DEFUN(AC_REQUIRE_ARTS,
     dnl Need pkg-config first
     AC_PATH_PROG(ARTSC_CONFIG, artsc-config, no)
     if test x$ARTSC_CONFIG = xno ; then
-      AC_MSG_ERROR(Cannot find artsc-config - missing from path?)
+      AC_MSG_ERROR(Cannot find artsc-config - missing from path or package kdelib-artsd not installed ?)
     fi
 
     dnl Check for proper Arts version and retrive paths

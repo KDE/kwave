@@ -2,10 +2,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 "
 "21:27+0200PO-Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2001-05-21 18:59+0200\n"
+"POT-Creation-Date: 2001-05-24 11:52+0200\n"
+"PO-Revision-Date: 2001-05-26 12:39+GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.8\n"
 
@@ -85,58 +87,105 @@ msgstr "Hanning"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: kwave/SignalManager.cpp:492
+#: kwave/SignalManager.cpp:64
+msgid "dummy"
+msgstr "(Platzhalter)"
+
+#: kwave/SignalManager.cpp:508
 msgid "File does not exist !"
 msgstr "Datei existiert nicht!"
 
-#: kwave/SignalManager.cpp:501
+#: kwave/SignalManager.cpp:517
 msgid "File is no RIFF File !"
 msgstr "Datei ist nicht im RIFF-Format!"
 
-#: kwave/SignalManager.cpp:505
+#: kwave/SignalManager.cpp:521
 msgid "File has incorrect length! (maybe truncated?)"
 msgstr "Datei hat ungültige Länge (wurde evtl. abgeschnitten?)"
 
-#: kwave/SignalManager.cpp:513
+#: kwave/SignalManager.cpp:529
 msgid "File is no WAVE File !"
 msgstr "Datei ist nicht im Wave Format!"
 
-#: kwave/SignalManager.cpp:524
+#: kwave/SignalManager.cpp:540
 msgid "File does not contain format information!"
 msgstr "Datei ist unvollständig!"
 
-#: kwave/SignalManager.cpp:539
+#: kwave/SignalManager.cpp:555
 msgid "File must be uncompressed (Mode 1) !"
 msgstr "Datei ist nicht im unkompimierten Modus (Mode 1) !"
 
-#: kwave/SignalManager.cpp:551
+#: kwave/SignalManager.cpp:567
 msgid "File does not contain data!"
 msgstr "Datei enthält keine Daten!"
 
-#: kwave/SignalManager.cpp:571 kwave/SignalManager.cpp:827
+#: kwave/SignalManager.cpp:587 kwave/SignalManager.cpp:843
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
 
-#: kwave/SignalManager.cpp:696 kwave/SignalManager.cpp:941
-#: kwave/SignalManager.cpp:948
+#: kwave/SignalManager.cpp:712 kwave/SignalManager.cpp:957
+#: kwave/SignalManager.cpp:964
 msgid "Out of Memory!"
 msgstr "Zu wenig Speicher!"
 
-#: kwave/SignalManager.cpp:778
+#: kwave/SignalManager.cpp:794
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: kwave/SignalManager.cpp:785
+#: kwave/SignalManager.cpp:801
 msgid "Opening the file for writing failed!"
 msgstr "Datei konnte nicht zum Schreiben geöffnet werden!"
 
-#: kwave/SignalManager.cpp:928
+#: kwave/SignalManager.cpp:944
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
 msgstr ""
 "Fehler in Eingabe: Datei ist kleiner als im Header angegeben. \n"
 "Datei wird abgeschnitten."
+
+#: kwave/SignalManager.cpp:1084
+#, ycp-format
+msgid ""
+"The operation '%1' requires %2 MB for storing undo data.\n"
+"This would exceed the limit of %3 MB."
+msgstr ""
+"Der Vorgang '%1' benötigt %2 MB zum Speichern von Wiederherstellungs-\n"
+"informationen. Dies würde das Limit von %3 MB überschreiten."
+
+#: kwave/SignalManager.cpp:1087
+msgid "You can now either press:"
+msgstr "Drücken Sie bitte:"
+
+#: kwave/SignalManager.cpp:1091
+msgid "Allow"
+msgstr "Erlauben"
+
+#: kwave/SignalManager.cpp:1092
+msgid "to continue without the possibility to undo, or"
+msgstr "um ohne Möglichkeit zur Wiederherstellung fortzusetzen, oder"
+
+#: kwave/SignalManager.cpp:1095
+msgid "Ignore"
+msgstr "Ignorieren"
+
+#: kwave/SignalManager.cpp:1096
+msgid "to continue, discard all previous undo data and ignore the memory limit"
+msgstr ""
+"um fortzusetzen, alle vorherigen Wiederherstellungsinformationen zu "
+"verwerfen und das Limit zu ignorieren"
+
+#: kwave/SignalManager.cpp:1103
+msgid "to abort the current operation."
+msgstr "um den aktuellen Vorgang abzubrechen."
+
+#: kwave/SignalManager.cpp:1117
+msgid "&Allow"
+msgstr "&Erlauben"
+
+#: kwave/SignalManager.cpp:1118
+msgid "&Ignore"
+msgstr "&Ignorieren"
 
 #: kwave/TopWidget.cpp:227
 msgid "create a new empty file"
@@ -236,7 +285,7 @@ msgstr "(%2 Samples)"
 #: kwave/TopWidget.cpp:843
 #, c-format
 msgid "Mode: %u bit@%0.3f kHz"
-msgstr "Modus: %u Bit@%0.3 kHz"
+msgstr "Modus: %u Bit@%0.3f kHz"
 
 #: kwave/TopWidget.cpp:855
 #, c-format, ycp-format
@@ -1496,3 +1545,4 @@ msgstr "Stimme %d :"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
+

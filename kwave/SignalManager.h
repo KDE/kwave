@@ -25,6 +25,7 @@
 #include <qlist.h>
 #include <qstring.h>
 
+#include "mt/Mutex.h"
 #include "mt/SignalProxy.h"
 
 #include "libkwave/Selection.h"
@@ -34,6 +35,10 @@
 
 class QBitmap;
 class QFile;
+class Track;
+class UndoAction;
+class UndoTransaction;
+class UndoTransactionGuard;
 
 /**
  * The SignalManager class manages multi-channel signals.
@@ -64,9 +69,6 @@ public:
 
     /** Returns a reference to the playback controller. */
     PlaybackController &playbackController();
-
-    /** Returns a reference to the signal */
-    inline Signal &signal() { return m_signal; };
 
     /** */
     bool executeCommand(const QString &command);
@@ -156,7 +158,59 @@ public:
      */
     void toggleChannel(const unsigned int channel);
 
+    /**
+     * Opens an input stream for a track, starting at a specified sample
+     * position.
+     * @param track index of the track. If the track does not exist, this
+     *        function will fail and return 0
+     * @param mode specifies where and how to insert
+     * @param left start of the input (only useful in insert and
+     *             overwrite mode)
+     * @param right end of the input (only useful with overwrite mode)
+     * @see InsertMode
+     */
+    SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
+	unsigned int left = 0, unsigned int right = 0);
+
+    /**
+     * Opens a stream for reading samples. If the the last position
+     * is omitted, the value UINT_MAX will be used.
+     * @param track index of the track. If the track does not exist, this
+     *        function will fail and return 0
+     * @param left first offset to be read (default = 0)
+     * @param right last position to read (default = UINT_MAX)
+     */
+    inline SampleReader *openSampleReader(unsigned int track,
+	unsigned int left = 0, unsigned int right = UINT_MAX)
+    {
+	return m_signal.openSampleReader(track, left, right);
+    };
+
+    /** Returns true if undo/redo is currently enabled */
+    inline bool undoEnabled() { return m_undo_enabled; };
+
+    /**
+     * Enables undo and redo. If undo/redo is already enabled, nothing
+     * will be done.
+     */
+    void enableUndo();
+
+    /**
+     * Disables undo and redo. If undo/redo was enabled, all undo data
+     * will be discarded in order to avoid trouble when modifications
+     * are done while undo is of.
+     * @note No modifications should be performed while undo is off!
+     */
+    void disableUndo();
+
 signals:
+
+    /**
+     * Signals that a track has been inserted.
+     * @param index position of the new track [0...tracks()-1]
+     * @param track reference to the new track
+     */
+    void sigTrackInserted(unsigned int index, Track &track);
 
     /**
      * Emits status information of the signal if it has been changed
@@ -168,6 +222,36 @@ signals:
      */
     void sigStatusInfo(unsigned int length, unsigned int tracks,
                        unsigned int rate, unsigned int bits);
+
+    /**
+     * Emitted if samples have been inserted into a track. This implies
+     * a modification of the inserted data, so no extra sigSamplesModified
+     * is emitted.
+     * @param track index of the track
+     * @param offset position from which the data was inserted
+     * @param length number of samples inserted
+     * @see sigSamplesModified
+     */
+    void sigSamplesInserted(unsigned int track, unsigned int offset,
+                            unsigned int length);
+
+    /**
+     * Emitted if samples have been removed from a track.
+     * @param track index of the track
+     * @param offset position from which the data was removed
+     * @param length number of samples deleted
+     */
+    void sigSamplesDeleted(unsigned int track, unsigned int offset,
+                           unsigned int length);
+
+    /**
+     * Emitted if samples within a track have been modified.
+     * @param track index of the track
+     * @param offset position from which the data was modified
+     * @param length number of samples modified
+     */
+    void sigSamplesModified(unsigned int track, unsigned int offset,
+                            unsigned int length);
 
     /**
      * Emitted if the length of the signal has changed.
@@ -242,6 +326,48 @@ private slots:
      */
     void slotSamplesModified(unsigned int track, unsigned int offset,
                              unsigned int length);
+
+    /**
+     * Closes an undo transaction or recurses the current recursion level
+     * of nested undo transactions.
+     */
+    void closeUndoTransaction();
+
+protected:
+
+    friend class UndoTransactionGuard;
+
+    /**
+     * Tries to free memory for a new undo action and stores all needed
+     * data if successful.
+     * @param action the UndoAction to that is to be registered
+     * @return true if the action is allowed, false if the user has
+     *         choosen to abort the operation if the memory limit of
+     *         the undo buffer would be exceeded. The return value
+     *         will also be false if the action is null.
+     * @note If undo is currently not enabled, the passed UndoAction
+     *       will be immediately deleted and the return value would
+     *       be true. So it is safer not to call this function if
+     *       undo is not enabled.
+     */
+    bool registerUndoAction(UndoAction *action);
+
+    /**
+     * Starts an undo transaction or enters a currently running transaction
+     * recursively.
+     */
+    void startUndoTransaction();
+
+    /**
+     * Removes all undo and redo transactions.
+     * @note must not be called if an undo transaction is currently active!
+     */
+    void flushUndoBuffers();
+
+    /**
+     * Removes all redo transactions.
+     */
+    void flushRedoBuffer();
 
 private:
 
@@ -327,6 +453,24 @@ private:
 
     /** the controller for handling of playback */
     PlaybackController m_playback_controller;
+
+    /** flag for "undo enabled" */
+    bool m_undo_enabled;
+
+    /** fifo used for storing all undo transactions */
+    QList<UndoTransaction> m_undo_buffer;
+
+    /** fifo for storing all redo transactions */
+    QList<UndoTransaction> m_redo_buffer;
+
+    /** the current undo transaction */
+    UndoTransaction *m_undo_transaction;
+
+    /** level of nested undo transactions */
+    unsigned int m_undo_transaction_level;
+
+    /** mutex for locking undo transactions */
+    Mutex m_undo_transaction_lock;
 
 };
 

@@ -27,7 +27,7 @@ class Track;
  * from multiple threads or write to the range exclusively.
  *
  * Please hold in mind that this <b>locks</b> your calling thread until the
- * lock has succeeded, so it is higly recommended to avoid multiple locks
+ * lock has succeeded, so it is highly recommended to avoid multiple locks
  * for one track within the same thread!
  *
  * The ranges of samples specified here do not necessarily have anything

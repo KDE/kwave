@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-21 18:59+0200\n"
+"POT-Creation-Date: 2001-05-24 11:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,55 +90,98 @@ msgstr ""
 msgid "Blackman"
 msgstr ""
 
-#: kwave/SignalManager.cpp:492
+#: kwave/SignalManager.cpp:64
+msgid "dummy"
+msgstr ""
+
+#: kwave/SignalManager.cpp:508
 msgid "File does not exist !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:501
+#: kwave/SignalManager.cpp:517
 msgid "File is no RIFF File !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:505
+#: kwave/SignalManager.cpp:521
 msgid "File has incorrect length! (maybe truncated?)"
 msgstr ""
 
-#: kwave/SignalManager.cpp:513
+#: kwave/SignalManager.cpp:529
 msgid "File is no WAVE File !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:524
+#: kwave/SignalManager.cpp:540
 msgid "File does not contain format information!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:539
+#: kwave/SignalManager.cpp:555
 msgid "File must be uncompressed (Mode 1) !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:551
+#: kwave/SignalManager.cpp:567
 msgid "File does not contain data!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:571 kwave/SignalManager.cpp:827
+#: kwave/SignalManager.cpp:587 kwave/SignalManager.cpp:843
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:696 kwave/SignalManager.cpp:941
-#: kwave/SignalManager.cpp:948
+#: kwave/SignalManager.cpp:712 kwave/SignalManager.cpp:957
+#: kwave/SignalManager.cpp:964
 msgid "Out of Memory!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:778
+#: kwave/SignalManager.cpp:794
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:785
+#: kwave/SignalManager.cpp:801
 msgid "Opening the file for writing failed!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:928
+#: kwave/SignalManager.cpp:944
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
+msgstr ""
+
+#: kwave/SignalManager.cpp:1084
+#, ycp-format
+msgid ""
+"The operation '%1' requires %2 MB for storing undo data.\n"
+"This would exceed the limit of %3 MB."
+msgstr ""
+
+#: kwave/SignalManager.cpp:1087
+msgid "You can now either press:"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1091
+msgid "Allow"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1092
+msgid "to continue without the possibility to undo, or"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1095
+msgid "Ignore"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1096
+msgid "to continue, discard all previous undo data and ignore the memory limit"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1103
+msgid "to abort the current operation."
+msgstr ""
+
+#: kwave/SignalManager.cpp:1117
+msgid "&Allow"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1118
+msgid "&Ignore"
 msgstr ""
 
 #: kwave/TopWidget.cpp:227

@@ -101,7 +101,7 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     if (!m_selection) return;
 
     // connect to the signal manager's signals
-    Signal *sig = &(m_signal_manager.signal());
+    SignalManager *sig = &m_signal_manager;
 
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
             this, SLOT(slotTrackInserted(unsigned int, Track &)));

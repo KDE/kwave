@@ -212,18 +212,17 @@ void KwavePlugin::openSampleReaderSet(
 {
     unsigned int count = track_list.count();
     unsigned int track;
+    readers.setAutoDelete(true);
     readers.clear();
     readers.resize(count);
-    Signal &signal(m_context.top_widget.signalManager().signal());
+    SignalManager &manager(m_context.top_widget.signalManager());
 
     for (unsigned int i=0; i < count; i++) {
 	track = track_list[i];
-	SampleReader *s = signal.openSampleReader(track, first, last);
+	SampleReader *s = manager.openSampleReader(track, first, last);
 	ASSERT(s);
 	readers.insert(i, s);
     }
-
-    readers.setAutoDelete(true);
 }
 
 //***************************************************************************

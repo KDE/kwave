@@ -65,6 +65,8 @@ kwave_SOURCES =\
  SignalManager.cpp\
  SignalWidget.cpp\
  TopWidget.cpp\
+ UndoModifyAction.cpp\
+ UndoTransaction.cpp\
  $(BUILTSOURCES)
 
 # the library search path

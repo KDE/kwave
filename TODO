@@ -1,4 +1,9 @@
 
+o fix INSTALL procedure in RPM, it currently does not install files
+  with $(INSTALL_DATA)
+
+o use sgml/docbook file instead of html help
+
 o undo and redo
 
 o clipboard
@@ -15,9 +20,6 @@ o i18n for strings in main.cpp
 
 o get Xt toolkit options working again (like -geometry)
 
-o libkwave: Parser::getCommand() crashes on some malformed command 
-  strings (without "()" )
-
 o libkwave: memory mapping does not compile under some circumstances
 
 o Filter: class needs to be tested
@@ -27,8 +29,6 @@ o Signal::resample should use lowpass interpolation instead of spline
 o libkwave/kwave: po/Makefile.am:  substitution for @USE_NLS@ did not work
 
 o TopWidget: re-enable drag&drop
-
-o TopWidget: in saveFileAs: re-enable usage of saveDir
 
 o check of all MessageBoxes
 
@@ -115,7 +115,7 @@ o label handling doesn't work (currently disabled), work on LabelManager
 
 o the clipboard does not work between other kwave instances
 
-o splitting of i18n for kwave, libgui and each plugin
+o splitting of i18n for kwave and each plugin
 
 o more complete i18n
 
@@ -141,8 +141,6 @@ o positioning the cursor to start/end of the file with Pos1 / End
 
 o >>> COMPLETE DOCUMENTATION OF THE WHOLE API <<<
 
-o globally use the data types from sys/types.h instead of just "int"
-
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width
 
@@ -152,9 +150,6 @@ o use some audio library, like libasound for import/export of other
 o plugin interface for aRts support
 
 o plugins for import/export of different file formats (e.g. MP3)
-
-o error handling in SignalWidget/Manager needs complete rework !
-  -> see next issue "how to work with exceptions"
 
 o figure out how to work with exceptions:
   - works if ALL libraries use rtti and we compile with -frtti

@@ -20,6 +20,7 @@
 
 #include <qarray.h>
 #include <qlist.h>
+#include <qobject.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
@@ -29,15 +30,20 @@ class Stripe;
 class Track;
 
 /**
- * \class SampleWriter
+ * @class SampleWriter
  * Input stream for transferring samples into a Track. Internally holds a
  * list of locks for all affected stripes.
  *
- * THIS CLASS IS NOT THREADSAFE! It is intended to be owned by and used
- * from only one thread.
+ * @warning THIS CLASS IS NOT THREADSAFE! It is intended to be owned by
+ *          and used from only one thread.
+ * @note it is derived from QObject in order to get a <code>destroyed</code>
+ *       signal if the writer is closed/deleted. This is needed for
+ *       determining the end of the write access, e.g. for closing an
+ *       undo transaction.
  */
-class SampleWriter
+class SampleWriter: public QObject
 {
+    Q_OBJECT
 public:
     /**
      * Constructor. Creates an input stream and locks all
@@ -67,7 +73,7 @@ public:
     SampleWriter &operator << (const sample_t &sample);
 
     /** operator for simple modifiers like flush() */
-    SampleWriter &operator << (
+    inline SampleWriter &operator << (
 	SampleWriter &(*modifier)(SampleWriter &))
     {
 	return modifier(*this);
@@ -76,7 +82,23 @@ public:
     /** flush the content of the intermediate buffer */
     SampleWriter &flush();
 
+    /** Returns the index of the first sample of the range. */
+    inline unsigned int first() { return m_first; };
+
+    /**
+     * Returns the current index of the last sample in range or the
+     * index of the last written sample when in insert/append mode.
+     */
+    inline unsigned int last() { return m_last; };
+
 private:
+
+    /** first sample */
+    unsigned int m_first;
+
+    /** last sample */
+    unsigned int m_last;
+
     /** mode for input (insert, overwrite, ...) */
     InsertMode m_mode;
 

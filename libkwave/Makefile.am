@@ -1,6 +1,7 @@
 INCLUDES= @all_includes@
 
 BUILTSOURCES=\
+ SampleWriter.moc.cpp\
  Selection.moc.cpp\
  Signal.moc.cpp\
  Stripe.moc.cpp\

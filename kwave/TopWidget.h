@@ -172,8 +172,11 @@ private slots:
     /** toolbar: "file/save" */
     void toolbarFileSave()   { executeCommand("save () "); };
 
-    /** toolbar: "file/save as.." */
-    void toolbarFileSaveAs() { executeCommand("saveas () "); };
+    /** toolbar: "edit/undo" */
+    void toolbarEditUndo()   { executeCommand("undo () "); };
+
+    /** toolbar: "edit/redo" */
+    void toolbarEditRedo()   { executeCommand("redo () "); };
 
     /** toolbar: "edit/cut" */
     void toolbarEditCut()    { executeCommand("cut () "); };
@@ -307,6 +310,12 @@ private:
 
     /** determines the state of blinking toolbar buttons */
     bool m_blink_on;
+
+    /** member id of the "edit undo" toolbar button */
+    int m_id_undo;
+
+    /** member id of the "edit redo" toolbar button */
+    int m_id_redo;
 
     /** member id of the "start playback" toolbar button */
     int m_id_play;

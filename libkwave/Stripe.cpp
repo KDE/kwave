@@ -21,19 +21,19 @@
 
 //***************************************************************************
 Stripe::Stripe()
-    :m_lock(), m_samples(), m_lock_samples()
+    :m_start(0), m_samples(), m_lock_samples()
 {
 }
 
 //***************************************************************************
 Stripe::Stripe(unsigned int start)
-    :m_lock(), m_start(start), m_samples(), m_lock_samples()
+    :m_start(start), m_samples(), m_lock_samples()
 {
 }
 
 //***************************************************************************
 Stripe::Stripe(unsigned int start, const QArray<sample_t> &samples)
-    :m_lock(), m_start(start), m_samples(samples), m_lock_samples()
+    :m_start(start), m_samples(samples), m_lock_samples()
 {
 }
 
@@ -159,7 +159,6 @@ unsigned int Stripe::read(QArray<sample_t> &buffer, unsigned int dstoff,
 
     MutexGuard lock(m_lock_samples);
     while (length--) {
-//	debug("sample[%u] = %d", offset, m_samples[offset]); // ###
 	buffer[dstoff++] = m_samples[offset++];
 	count++;
     }

@@ -47,6 +47,9 @@
 #include "ClipBoard.h"
 #include "SignalManager.h"
 #include "SignalWidget.h"
+#include "UndoAction.h"
+#include "UndoModifyAction.h"
+#include "UndoTransaction.h"
 
 #if __BYTE_ORDER==__BIG_ENDIAN
 #define IS_BIG_ENDIAN
@@ -56,6 +59,7 @@
 #define max(x,y) ((x>y) ? x : y)
 
 #define CASE_COMMAND(x) } else if (QString(command) == x) {
+
 
 //***************************************************************************
 SignalManager::SignalManager(QWidget *parent)
@@ -67,7 +71,13 @@ SignalManager::SignalManager(QWidget *parent)
     m_signal(),
     m_selection(0,0),
     m_rate(0),
-    m_playback_controller()
+    m_playback_controller(),
+    m_undo_enabled(false),
+    m_undo_buffer(),
+    m_redo_buffer(),
+    m_undo_transaction(0),
+    m_undo_transaction_level(0),
+    m_undo_transaction_lock()
 {
     // connect to the track's signals
     Signal *sig = &m_signal;
@@ -85,7 +95,6 @@ SignalManager::SignalManager(QWidget *parent)
 	unsigned int)),
 	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
 	unsigned int)));
-
 }
 
 //***************************************************************************
@@ -93,6 +102,9 @@ void SignalManager::loadFile(const QString &filename, int type)
 {
     ASSERT(filename.length());
     m_name = filename;
+
+    // disable undo (discards all undo/redo data)
+    disableUndo();
 
     debug("SignalManager::loadFile(%s, %d)", filename.data(), type); // ###
     switch (type) {
@@ -105,11 +117,18 @@ void SignalManager::loadFile(const QString &filename, int type)
 	default:
 	    ASSERT("unknown file type");
     }
+
+    // from now on, undo is enabled
+    enableUndo();
 }
 
 //***************************************************************************
 void SignalManager::close()
 {
+    // disable undo and discard all undo buffers
+    // undo will be re-enabled when a signal is loaded or created
+    disableUndo();
+
     m_empty = true;
     m_name = "";
     m_signal.close();
@@ -244,6 +263,68 @@ void SignalManager::toggleChannel(const unsigned int /*channel*/)
 }
 
 //***************************************************************************
+SampleWriter *SignalManager::openSampleWriter(unsigned int track,
+	InsertMode mode, unsigned int left, unsigned int right)
+{
+    debug("SignalManager::openSampleWriter(%u,mode,%u,%u)",
+    	track, left, right); // ###
+    	
+    // try to open the writer
+    SampleWriter *writer = m_signal.openSampleWriter(
+	track, mode, left, right);
+
+    // skip all that undo stuff below if undo is not enabled
+    // or the writer creation has failed
+    if (!undoEnabled() || !writer) return writer;
+
+    // get the *real* left and right sample
+    left  = writer->first();
+    right = writer->last();
+
+    // enter a new undo transaction and let it close when the writer closes
+    debug("SignalManager::openSampleWriter(): starting undo transaction"); // ###
+    startUndoTransaction();
+    debug("SignalManager::openSampleWriter(): connecting"); // ###
+    QObject::connect(writer, SIGNAL(destroyed()),
+                     this, SLOT(closeUndoTransaction()));
+
+    // create an undo action for the modification of the samples
+    debug("SignalManager::openSampleWriter(): creating undo action"); // ###
+    UndoAction *action = 0;
+    switch (mode) {
+	case Append:
+	    debug("SignalManager::openSampleWriter(): NO UNDO FOR APPEND YET !");
+	    break;
+	case Insert:
+	    debug("SignalManager::openSampleWriter(): NO UNDO FOR INSERT YET !");
+	    break;
+	case Overwrite:
+	    action = new UndoModifyAction(track, left, right);
+	    break;
+    }
+    ASSERT(action);
+
+    debug("SignalManager::openSampleWriter(): registering action"); // ###
+    if (!registerUndoAction(action)) {
+	// creating/starting the action failed, so fail now.
+	// close the writer and return 0 -> abort the operation
+	debug("SignalManager::openSampleWriter(): register failed"); // ###
+	if (action) delete action;
+	delete writer;
+	return 0;
+    } else {
+	debug("SignalManager::openSampleWriter(): storing undo data"); // ###
+	action->store();
+    }
+
+    debug("SignalManager::openSampleWriter(): done.");
+    // Everything was ok, the action now is owned by the current undo
+    // transaction. The transaction is owned by the SignalManager and
+    // will be closed when the writer gets closed.
+    return writer;
+}
+
+//***************************************************************************
 bool SignalManager::executeCommand(const QString &/*command*/)
 {
 //    debug("SignalManager::executeCommand(%s)", command.data());    // ###
@@ -366,30 +447,34 @@ bool SignalManager::executeCommand(const QString &/*command*/)
 }
 
 //***************************************************************************
-void SignalManager::slotTrackInserted(unsigned int /*index*/,
-	Track &/*track*/)
+void SignalManager::slotTrackInserted(unsigned int index,
+	Track &track)
 {
+    emit sigTrackInserted(index, track);
     emitStatusInfo();
 }
 
 //***************************************************************************
-void SignalManager::slotSamplesInserted(unsigned int /*track*/,
-	unsigned int /*offset*/, unsigned int /*length*/)
+void SignalManager::slotSamplesInserted(unsigned int track,
+	unsigned int offset, unsigned int length)
 {
+    emit sigSamplesInserted(track, offset, length);
     emitStatusInfo();
 }
 
 //***************************************************************************
-void SignalManager::slotSamplesDeleted(unsigned int /*track*/,
-	unsigned int /*offset*/, unsigned int /*length*/)
+void SignalManager::slotSamplesDeleted(unsigned int track,
+	unsigned int offset, unsigned int length)
 {
+    emit sigSamplesDeleted(track, offset, length);
     emitStatusInfo();
 }
 
 //***************************************************************************
-void SignalManager::slotSamplesModified(unsigned int /*track*/,
-	unsigned int /*offset*/, unsigned int /*length*/)
+void SignalManager::slotSamplesModified(unsigned int track,
+	unsigned int offset, unsigned int length)
 {
+    emit sigSamplesModified(track, offset, length);
 }
 
 //***************************************************************************
@@ -942,7 +1027,7 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 	    return -ENOMEM;
 	}
 
-	SampleWriter *s = m_signal.openSampleWriter(track, Overwrite);
+	SampleWriter *s = openSampleWriter(track, Overwrite);
 	ASSERT(s);
 	if (!s) {
 	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"));
@@ -1036,6 +1121,211 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 PlaybackController &SignalManager::playbackController()
 {
     return m_playback_controller;
+}
+
+//***************************************************************************
+void SignalManager::startUndoTransaction()
+{
+    MutexGuard lock(m_undo_transaction_lock);
+
+    // increase recursion level
+    m_undo_transaction_level++;
+
+    debug("SignalManager::startUndoTransaction(): increased to %u",
+          m_undo_transaction_level);
+
+    // start/create a new transaction if none existing
+    if (!m_undo_transaction) {
+	m_undo_transaction = new UndoTransaction();
+	ASSERT(m_undo_transaction);
+	debug("SignalManager::startUndoTransaction(): started new");
+    }
+}
+
+//***************************************************************************
+void SignalManager::closeUndoTransaction()
+{
+    MutexGuard lock(m_undo_transaction_lock);
+
+    // decrease recursion level
+    ASSERT(m_undo_transaction_level);
+    if (m_undo_transaction_level) m_undo_transaction_level--;
+
+    debug("SignalManager::closeUndoTransaction(): reduced to %u",
+          m_undo_transaction_level);
+
+    if (!m_undo_transaction_level) {
+	// declare the current transaction as "closed"
+	m_undo_transaction = 0;
+	debug("SignalManager::closeUndoTransaction(): closed");
+    }
+}
+
+//***************************************************************************
+void SignalManager::enableUndo()
+{
+    m_undo_enabled = true;
+}
+
+//***************************************************************************
+void SignalManager::disableUndo()
+{
+    ASSERT(m_undo_transaction_level == 0);
+
+    m_undo_enabled = false;
+    flushUndoBuffers();
+}
+
+//***************************************************************************
+void SignalManager::flushUndoBuffers()
+{
+    MutexGuard lock(m_undo_transaction_lock);
+
+    ASSERT(m_undo_transaction_level == 0);
+
+    // close the current transaction
+    m_undo_transaction = 0;
+    m_undo_transaction_level = 0;
+
+    // clear all buffers
+    m_undo_buffer.clear();
+    m_redo_buffer.clear();
+}
+
+//***************************************************************************
+void SignalManager::flushRedoBuffer()
+{
+    MutexGuard lock(m_undo_transaction_lock);
+    m_redo_buffer.clear();
+}
+
+//***************************************************************************
+bool SignalManager::registerUndoAction(UndoAction *action)
+{
+    MutexGuard lock(m_undo_transaction_lock);
+
+    unsigned int needed_size = (action) ? action->size() : 0;
+    unsigned int undo_size = 0;
+    unsigned int redo_size = 0;
+    unsigned int m_undo_limit = 5*1024*1024; // 5 MB (for testing) ###
+    unsigned int needed_mb = needed_size >> 20;
+    unsigned int limit_mb = m_undo_limit >> 20;
+
+    ASSERT(action);
+    if (!action) return false;
+
+    // if undo is not enabled, delete the action immediately
+    // and return a faked "ok"
+    delete action;
+    return true;
+
+    ASSERT(m_undo_transaction);
+    if (!m_undo_transaction) return false;
+
+    debug("SignalManager::registerUndoAction(%s)",action->description().data());
+
+    // Print a warning if the needed memory exceeds the limit for undo.
+    // The user should have the chance to decide between:
+    // a) abort the current operation
+    // b) permit the operation, but continue without undo
+    // c) ignore the memory limit and store undo data nevertheless
+    if (needed_mb > limit_mb) {
+	int choice = KMessageBox::warningYesNoCancel(m_parent_widget,
+	    /* HTML version */
+	    QString("<HTML>"+
+	    i18n("The operation '%1' requires %2 MB for storing undo data.\n"\
+	    "This would exceed the limit of %3 MB.")+
+	    "<BR><BR>"+
+	    i18n("You can now either press:")+
+	    "<TABLE NOBORDER><TR>"\
+/*	    "<td><ul><li> </li></ul></td>"\ */
+	    "<TD><B>"+
+	    i18n("Allow")+"</B></TD><TD>"+
+	    i18n("to continue without the possibility to undo, or")+
+	    "</TD></TR><TR>"\
+/*	    "<td><ul><li> </li></ul></td>"\ */
+	    "<TD><B>"+i18n("Ignore")+"</B></TD><TD>"+
+	    i18n("to continue, discard all previous undo data "\
+	                    "and ignore the memory limit")+
+	    "</TD></TR><TR>"\
+/*	    "<td><ul><li> </li></ul></td>"\ */
+	    "<td><B>"+
+	    i18n("Cancel")+
+	    "</B></TD><TD>"+
+	    i18n("to abort the current operation.")+
+	    "</td></TR></TABLE></HTML>").arg(
+	    m_undo_transaction->description()).arg(needed_mb).arg(limit_mb),
+	
+	    /* plain text version
+	    i18n("The command '%1' requires %2 MB for storing undo data.\n"\
+	    "This would exceed the limit of %3 MB. \n\n"\
+	    "You can now either press:\n"\
+	    "* <Allow>  to continue without the possibility to undo, or\n"\
+	    "* <Ignore> to continue and ignore the memory limit, or\n"\
+	    "* <Cancel> to abort the current operation.").arg(
+	    m_undo_transaction->description()).arg(needed_mb).arg(limit_mb),
+	    */
+	
+	    QString::null,
+	    i18n("&Allow"),
+	    i18n("&Ignore"),
+	    true
+	);
+	
+	switch (choice) {
+	    case KMessageBox::Yes:
+		// Allow: discard buffers and omit undo
+		m_undo_buffer.clear();
+		m_redo_buffer.clear();
+		debug("SignalManager::registerUndoAction(): Allow");
+		return true;
+	    case KMessageBox::No:
+		// Ignore: discard buffers and ignore limit
+		m_undo_buffer.clear();
+		m_redo_buffer.clear();
+		debug("SignalManager::registerUndoAction(): Ignore");
+		break;
+	    default:
+		// Cancel: abort the action
+		debug("SignalManager::registerUndoAction(): Cancel");
+		return false;
+	}
+    }
+
+    // determine the amount of memory currently occupied for undo and redo
+    QListIterator<UndoTransaction> undo_it(m_undo_buffer);
+    for ( ; undo_it.current(); ++undo_it ) {
+	undo_size += undo_it.current()->size();
+    }
+    QListIterator<UndoTransaction> redo_it(m_redo_buffer);
+    for ( ; redo_it.current(); ++redo_it ) {
+	redo_size += redo_it.current()->size();
+    }
+
+    // remove old undo actions if not enough free memory
+    while (m_undo_buffer.count() && (undo_size+needed_size > m_undo_limit)) {
+	undo_size -= m_undo_buffer.first()->size();
+	debug("SignalManager::registerUndoAction(): removing undo '%s'",
+	       m_undo_buffer.first()->description().data());
+	m_undo_buffer.removeFirst();
+    }
+
+    // remove old redo actions if still not enough memory
+    while (m_redo_buffer.count() && (redo_size+needed_size > m_undo_limit)) {
+	redo_size -= m_redo_buffer.last()->size();
+	debug("SignalManager::registerUndoAction(): removing redo '%s'",
+	       m_redo_buffer.last()->description().data());
+	m_redo_buffer.removeLast();
+    }
+
+    // now we have enough place to append the undo action
+    // and store all undo info
+    debug("SignalManager::registerUndoAction(): storing...");
+    m_undo_transaction->append(action);
+    action->store();
+    debug("SignalManager::registerUndoAction(): done");
+
+    return true;
 }
 
 //***************************************************************************

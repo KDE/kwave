@@ -147,9 +147,6 @@ signals:
 
 private:
 
-    /** lock for the whole stripe */
-    Mutex m_lock;
-
     /** start position within the track */
     unsigned int m_start;
 

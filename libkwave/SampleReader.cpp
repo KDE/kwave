@@ -79,7 +79,7 @@ void SampleReader::fillBuffer()
 	    // read from the stripe
 	    unsigned int cnt = s->read(m_buffer, m_buffer_used,
 	                               offset, length);
-	    ASSERT(cnt == rest); /* ### */
+	    ASSERT(cnt <= rest);
 	    m_buffer_used  += cnt;
 	    m_src_position += cnt;
 	    rest -= cnt;

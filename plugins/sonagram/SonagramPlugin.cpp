@@ -152,12 +152,12 @@ int SonagramPlugin::interpreteParameters(QStringList &params)
     if (!ok) return -EINVAL;
 
     param = params[3];
-    m_track_changes = (param.toUInt(&ok) != 0);
+    m_track_changes = false; // (param.toUInt(&ok) != 0);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[4];
-    m_follow_selection = (param.toUInt(&ok) != 0);
+    m_follow_selection = false; // (param.toUInt(&ok) != 0);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 

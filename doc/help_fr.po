@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-13 20:09GMT\n"
+"PO-Revision-Date: 2002-01-13 21:27GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,7 +12,7 @@ msgstr ""
 
 #: index.docbook:13
 msgid "The &kapp; Handbook"
-msgstr "Le manuel de &kapp"
+msgstr "Le manuel de &kapp;"
 
 #: index.docbook:16
 msgid ""
@@ -139,10 +139,14 @@ msgid ""
 "included in the source package. Help and constructive critics are always "
 "welcome."
 msgstr ""
+"Si vous étes interressé par ce qui a été fait et par ce qui reste à faire, alors"
+"lisez les fichiers <filename>CHANGES</filename> et <filename>TODO</filename> "
+"inclus dans le pakage des sources. De l'aide et des remarques constructives sont toujours"
+"les bien venues."
 
 #: index.docbook:117
 msgid "&kapp; Resources"
-msgstr ""
+msgstr "Le ressources de &kapp;"
 
 #: index.docbook:119
 msgid ""
@@ -150,10 +154,13 @@ msgid ""
 "on using &kapp;, submit patches, bug reports or other stuf, the following "
 "resources might be of interest for you:"
 msgstr ""
+"Si vous voulez prendre contact avec les développeurs, pour fournir de l'aide sur "
+"l'élaboration de &kapp;, soumettre des correctifs, rapporter des bogues ou des "
+"dysfonctionnements, les informations suivantes peuvent vous interresser :"
 
 #: index.docbook:125
 msgid "Project Homepage"
-msgstr ""
+msgstr "La page WEB du projet"
 
 #: index.docbook:125
 msgid ""
@@ -161,10 +168,12 @@ msgid ""
 "about this project, take a look at the <ulink url=\"http://kwave.sourceforge."
 "net/\">&kapp; homepage</ulink>"
 msgstr ""
+"Pour toutes informations sur les nouvelles mises à jour ou sur l'ensemble du projet, "
+"visitez l'URL <ulink url=\"http://kwave.sourceforge.net/\">la page WEB de &kapp;</ulink>"
 
 #: index.docbook:125
 msgid "Mailing List"
-msgstr ""
+msgstr "La liste de diffusion"
 
 #: index.docbook:125
 msgid ""
@@ -173,10 +182,14 @@ msgid ""
 "spinfo.uni-koeln.de</email> with the text \"<literal>subscribe kwave-list</"
 "literal>\" in the body."
 msgstr ""
+"Si vous désirez avoir de l'aide sur l'utilisation de &kapp; ou si vous voulez participer "
+"au dévelloppement, contacter la liste de diffusion par courrier électronique à <email>majordomo@fs."
+"spinfo.uni-koeln.de</email> avec le texte \"<literal>subscribe kwave-list</"
+"literal>\" dans le corps du message."
 
 #: index.docbook:125
 msgid "CVS Repository"
-msgstr ""
+msgstr "Le dépot CVS (Repository)"
 
 #: index.docbook:125
 msgid ""
@@ -189,10 +202,18 @@ msgid ""
 "or just browse through the CVS tree through a nice web interface. "
 "<emphasis>Anonymous CVS access is allowed!</emphasis>"
 msgstr ""
+"Il y a également un dépot CVS, qui est hébergé par <ulink url=\"http://sourceforge.net"
+"\">SourceForge</ulink> ou vous pouvez télécharger les derniére version des sources "
+"du programme. Pour toutes information concernant la procédure d'accés au dépot CVS, "
+"lisez le chapitre <link linkend=\"building_rpm_from_cvs"
+"\">building from CVS</link> à ce propos, consultez l'URL <ulink url=\"http://sourceforge.net/"
+"cvs/?group_id=6478\">\"http://sourceforge.net/cvs/?group_id=6478\"</ulink>, ou visitez "
+"l'arborescence CVS directement à travers votre navigateur internet. "
+"<emphasis>Un accés anonyme au dépot CVS est disponible !</emphasis>"
 
 #: index.docbook:194
 msgid "&kapp; Revision History"
-msgstr ""
+msgstr "L'historique des différentes versions de &kapp;"
 
 #: index.docbook:196
 msgid ""
@@ -203,14 +224,19 @@ msgid ""
 "extended, rewritten or revised nearly every component of the program and "
 "spent much time on improving it."
 msgstr ""
+"Ce projet à débuter en été 1998 par Martin Wilz et a été developpé et amélioré par lui-même "
+"et quelques autres contributeurs. En novembre 1999 Thomas Eschenbacher a commencer à "
+"corriger quelques petits bogues et à s'investir progressivement dans l'ensemble du code "
+"source du programme. Jusqu'à aujourd'hui, il a ajouté, réécri et corrigé progressivement "
+"chaque partie du logiciel et a consacré beaucoup de temps pour les améliorer."
 
 #: index.docbook:210
 msgid "0.6.3 [2002-??-??]"
-msgstr ""
+msgstr "0.6.3 [2002-??-??]"
 
 #: index.docbook:210
 msgid "support for french and italian translation"
-msgstr ""
+msgstr "Ajout des traductions Française et Italienne"
 
 #: index.docbook:210
 msgid "handling of \"signal modified\""

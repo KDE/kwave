@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>751</width>
-            <height>487</height>
+            <height>499</height>
         </rect>
     </property>
     <property name="caption">
@@ -56,7 +56,7 @@
                                     <cstring>chkRecordPre</cstring>
                                 </property>
                                 <property name="enabled">
-                                    <bool>true</bool>
+                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Pre-Record:</string>
@@ -70,7 +70,7 @@
                                     <cstring>chkRecordTime</cstring>
                                 </property>
                                 <property name="enabled">
-                                    <bool>true</bool>
+                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Record Time:</string>
@@ -338,7 +338,7 @@
                             <cstring>grpLevel</cstring>
                         </property>
                         <property name="enabled">
-                            <bool>true</bool>
+                            <bool>false</bool>
                         </property>
                         <property name="title">
                             <string>Level</string>
@@ -377,6 +377,9 @@
                                 <property name="name">
                                     <cstring>chkLevelAGC</cstring>
                                 </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
                                 <property name="text">
                                     <string>AGC:</string>
                                 </property>
@@ -387,6 +390,9 @@
                             <widget class="QCheckBox" row="0" column="0">
                                 <property name="name">
                                     <cstring>chkLevelAmplify</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Amplify:</string>
@@ -480,7 +486,7 @@
                             <cstring>grpFading</cstring>
                         </property>
                         <property name="enabled">
-                            <bool>true</bool>
+                            <bool>false</bool>
                         </property>
                         <property name="title">
                             <string>Fading</string>
@@ -493,6 +499,9 @@
                                 <property name="name">
                                     <cstring>chkLevelFadeIn</cstring>
                                 </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
                                 <property name="text">
                                     <string>Fade In</string>
                                 </property>
@@ -503,6 +512,9 @@
                             <widget class="QCheckBox" row="1" column="0">
                                 <property name="name">
                                     <cstring>chkLevelFadeOut</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Fade Out</string>
@@ -633,7 +645,7 @@
                                     <cstring>cbFormatSampleRate</cstring>
                                 </property>
                                 <property name="whatsThis" stdset="0">
-                                    <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
+                                    <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates that your sound card supports.</string>
                                 </property>
                             </widget>
                             <widget class="QLayoutWidget" row="0" column="3">
@@ -704,7 +716,7 @@
                                     <number>2</number>
                                 </property>
                                 <property name="whatsThis" stdset="0">
-                                    <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks of the new signal. If you are not sure now, you can add or delete tracks later in the program.</string>
+                                    <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks, e.g. for mono or stereo recording.</string>
                                 </property>
                             </widget>
                             <spacer row="1" column="1">
@@ -784,7 +796,7 @@
                                     </size>
                                 </property>
                                 <property name="whatsThis" stdset="0">
-                                    <string>&lt;b&gt;Sample Format&lt;/b&gt;&lt;br&gt;Here you can select one of the sample formats that your audio hardware supports.</string>
+                                    <string>&lt;b&gt;Compression&lt;/b&gt;&lt;br&gt;Here you can select one of the compression types if your audio hardware supports it.</string>
                                 </property>
                             </widget>
                             <spacer row="2" column="1">
@@ -849,7 +861,7 @@
                                     </size>
                                 </property>
                                 <property name="whatsThis" stdset="0">
-                                    <string>&lt;b&gt;Sample Format&lt;/b&gt;&lt;br&gt;Here you can select one of the sample formats that your audio hardware supports.</string>
+                                    <string>&lt;b&gt;Sample Format&lt;/b&gt;&lt;br&gt;Here you can select one of the sample formats that your audio hardware supports. This normally has no big influence on the result, so you can just leave it as it is.</string>
                                 </property>
                             </widget>
                             <spacer row="4" column="3">
@@ -894,7 +906,7 @@
                                     <number>16</number>
                                 </property>
                                 <property name="whatsThis" stdset="0">
-                                    <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as it's own internal resolution to give the best results when processing the audio data.</string>
+                                    <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be recorded. Higher values give better quality but also more system load.</string>
                                 </property>
                             </widget>
                             <widget class="QLabel" row="3" column="0">
@@ -1156,6 +1168,9 @@
                         <property name="name">
                             <cstring>grpDisplay</cstring>
                         </property>
+                        <property name="enabled">
+                            <bool>false</bool>
+                        </property>
                         <property name="title">
                             <string>Visualization</string>
                         </property>
@@ -1167,6 +1182,9 @@
                                 <property name="name">
                                     <cstring>chkDisplayLevelMeter</cstring>
                                 </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
                                 <property name="text">
                                     <string>Level Meter</string>
                                 </property>
@@ -1174,6 +1192,9 @@
                             <widget class="QCheckBox">
                                 <property name="name">
                                     <cstring>chkDisplayOscilloscope</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Oscilloscope</string>
@@ -1183,6 +1204,9 @@
                                 <property name="name">
                                     <cstring>chkDisplayFFT</cstring>
                                 </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
                                 <property name="text">
                                     <string>FFT</string>
                                 </property>
@@ -1190,6 +1214,9 @@
                             <widget class="QCheckBox">
                                 <property name="name">
                                     <cstring>chkDisplayOverview</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Overview</string>

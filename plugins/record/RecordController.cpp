@@ -227,6 +227,12 @@ void RecordController::deviceBufferFull()
 }
 
 //***************************************************************************
+void RecordController::enableTrigger(bool enable)
+{
+    m_trigger_set = enable;
+}
+
+//***************************************************************************
 void RecordController::deviceTriggerReached()
 {
     qDebug("RecordController::deviceTriggerReached");

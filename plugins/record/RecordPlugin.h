@@ -19,9 +19,11 @@
 #define _RECORD_PLUGIN_H_
 
 #include "config.h"
+#include <qarray.h>
 #include <qcstring.h>
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/Sample.h"
 #include "RecordController.h"
 #include "RecordParams.h"
 #include "RecordState.h"
@@ -151,6 +153,14 @@ private:
     void updateBufferProgressBar();
 
     /**
+     * check if the trigger level has been reached
+     * @param track index of the track that is checked
+     * @param buffer array with Kwave sample data
+     * @return true if trigger reached or no trigger set
+     */
+    bool checkTrigger(unsigned int track, QMemArray<sample_t> &buffer);
+
+    /**
      * Split off one track from a raw buffer with multiple tracks into
      * a separate buffer
      * @param raw_data the raw buffer with multiple tracks
@@ -194,6 +204,8 @@ private:
 
     /** recursion level for inhibiting recording */
     unsigned int m_inhibit_count;
+
+    QMemArray<double> m_trigger_value;
 
 };
 

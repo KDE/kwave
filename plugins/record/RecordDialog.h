@@ -134,6 +134,9 @@ signals:
     /** emitted when the number and/or size of buffers has changed */
     void sigBuffersChanged();
 
+    /** emitted when the record trigger has been enabled/disabled */
+    void sigTriggerChanged(bool enbaled);
+
 private slots:
 
     /** updates the record buffer count */
@@ -168,6 +171,12 @@ private slots:
 
     /** updates the buffer progress bar */
     void updateBufferProgressBar();
+
+    /** record trigger has been enabled/disabled */
+    void triggerChecked(bool enabled);
+
+    /** record trigger has changed */
+    void triggerChanged(int trigger);
 
 private:
 

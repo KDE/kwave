@@ -53,7 +53,7 @@ KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
 RecordPlugin::RecordPlugin(PluginContext &context)
     :KwavePlugin(context), m_state(REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_writers(),
-     m_buffers_recorded(0), m_inhibit_count(0)
+     m_buffers_recorded(0), m_inhibit_count(0), m_trigger_value()
 {
     i18n("record");
 }
@@ -114,6 +114,10 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             this, SLOT(changeSampleFormat(int)));
     connect(m_dialog, SIGNAL(sigBuffersChanged()),
             this, SLOT(buffersChanged()));
+
+    connect(m_dialog, SIGNAL(sigTriggerChanged(bool)),
+            &controller, SLOT(enableTrigger(bool)));
+    controller.enableTrigger(m_dialog->params().record_trigger_enabled);
 
     // connect the record controller and this
     connect(&controller, SIGNAL(sigReset(bool &)),
@@ -554,6 +558,10 @@ void RecordPlugin::setupRecordThread()
 	return;
     }
 
+    // set up the recording trigger values
+    m_trigger_value.resize(m_dialog->params().tracks);
+    m_trigger_value.fill((double)0.0);
+
     // set up the record thread
     m_thread->setRecordDevice(m_device);
     unsigned int buf_count = m_dialog->params().buffer_count;
@@ -737,6 +745,84 @@ void RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
 }
 
 //***************************************************************************
+bool RecordPlugin::checkTrigger(unsigned int track,
+                                QMemArray<sample_t> &buffer)
+{
+    Q_ASSERT(m_dialog);
+    if (!m_dialog) return false;
+    if (!buffer.size()) return false;
+    if (m_trigger_value.size() != m_writers.count()) return false;
+
+    // shortcut if no trigger has been set
+    if (!m_dialog->params().record_trigger_enabled) return true;
+
+    // pass the buffer through a rectifier and a lowpass with
+    // center frequency about 2Hz to get the amplitude
+    double trigger = (double)m_dialog->params().record_trigger / 100.0;
+    const double rate = (double)m_dialog->params().sample_rate;
+
+    /*
+     * simple lowpass calculation:
+     *
+     *               1 + z
+     * H(z) = a0 * -----------   | z = e ^ (j*2*pi*f)
+     *               z + b1
+     *
+     *        1            1 - n
+     * a0 = -----    b1 = --------
+     *      1 + n          1 + n
+     *
+     * Fg = fg / fa
+     *
+     * n = cot(Pi * Fg)
+     *
+     * y[t] = a0 * x[t] + a1 * x[t-1] - b1 * y[t-1]
+     *
+     */
+
+    // rise coefficient: ~20Hz
+    const double f_rise = 20.0;
+    double Fg = f_rise / rate;
+    double n = 1.0 / tan(M_PI * Fg);
+    const double a0_r = 1.0 / (1.0 + n);
+    const double b1_r = (1.0 - n) / (1.0 + n);
+
+    // fall coefficient: ~1.0Hz
+    const double f_fall = 1.0;
+    Fg = f_fall / rate;
+    n = 1.0 / tan(M_PI * Fg);
+    const double a0_f = 1.0 / (1.0 + n);
+    const double b1_f = (1.0 - n) / (1.0 + n);
+
+    double y = m_trigger_value[track];
+    double last_x = 0.0;
+    for (unsigned int t=0; t < buffer.size(); ++t) {
+	double x = fabs((double)buffer[t]) / (double)(1 << (SAMPLE_BITS-1));
+	if (x < 0) x *= -1.0; /* rectifier */
+
+	if (x > y) { /* diode */
+	    // rise if amplitude is above average (serial R)
+	    y = (a0_r * x) + (a0_r * last_x) - (b1_r * y);
+	}
+
+	// fall (parallel R)
+	y = (a0_f * x) + (a0_f * last_x) - (b1_f * y);
+
+	// remember x[t-1]
+	last_x = x;
+
+// nice for debugging:
+//	buffer[t] = (int)((double)(1 << (SAMPLE_BITS-1)) * y);
+	if (y > trigger) return true;
+    }
+    m_trigger_value[track] = y;
+
+    qDebug(">> level=%0.3g, trigger=%0.3g", y, trigger);
+
+    return false;
+}
+
+//***************************************************************************
 void RecordPlugin::processBuffer(QByteArray buffer)
 {
 //    qDebug("RecordPlugin::processBuffer()");
@@ -766,11 +852,24 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     Q_ASSERT(decoded.size() == samples);
     if (decoded.size() != samples) return;
 
-    for (unsigned int track=0; track < tracks; ++track) {
-	// split off a buffer with only one track
-	split(buffer, buf, bytes_per_sample, track, tracks);
+    // check for trigger
+    // note: this might change the state, which affects the
+    //       processing all tracks !
+    if (m_state == REC_WAITING_FOR_TRIGGER) {
+	for (unsigned int track=0; track < tracks; ++track) {
+	    // split off and decode buffer with current track
+	    split(buffer, buf, bytes_per_sample, track, tracks);
+	    m_decoder->decode(buf, decoded);
+	    if (checkTrigger(track, decoded)) {
+		emit sigTriggerReached();
+		break;
+	    }
+	}
+    }
 
-	// decode from raw data to samples
+    for (unsigned int track=0; track < tracks; ++track) {
+	// split off and decode buffer with current track
+	split(buffer, buf, bytes_per_sample, track, tracks);
 	m_decoder->decode(buf, decoded);
 
 	// update the level meter and other effects
@@ -778,10 +877,8 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 
 	switch (m_state) {
 	    case REC_EMPTY:
-//		qDebug("RecordPlugin::processBuffer() - REC_EMPTY");
 		break;
 	    case REC_BUFFERING:
-//		qDebug("RecordPlugin::processBuffer() - REC_BUFFERING");
 		// first buffer is full
 		// -> leave REC_BUFFERING
 		if ((m_buffers_recorded > 1) && buffer.size())
@@ -789,17 +886,12 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 		break;
 	    case REC_PRERECORDING:
 		// enqueue the buffers into a FIFO
-//		qDebug("RecordPlugin::processBuffer() - REC_PRERECORDING");
 		break;
 	    case REC_WAITING_FOR_TRIGGER:
-		// check if the trigger has been reached
-		// if yes -> signal it
-//		qDebug("RecordPlugin::processBuffer() - REC_WAITING_FOR_TRIGGER");
-		emit sigTriggerReached();
+		// already handled before...
 		break;
 	    case REC_RECORDING: {
 		// put the decoded track data into the buffer
-//		qDebug("RecordPlugin::processBuffer() - REC_RECORDING");
 		Q_ASSERT(tracks == m_writers.count());
 		if (!tracks || (tracks != m_writers.count())) return;
 		SampleWriter *writer = m_writers[track];
@@ -808,10 +900,8 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 		break;
 	    }
 	    case REC_PAUSED:
-//		qDebug("RecordPlugin::processBuffer() - REC_PAUSED");
 		break;
 	    case REC_DONE:
-//		qDebug("RecordPlugin::processBuffer() - REC_DONE");
 		break;
 	}
     }

@@ -61,6 +61,9 @@ public slots:
     /** The device has stopped recording */
     void deviceRecordStopped(int);
 
+    /** The recording trigger has been enabled/disabled */
+    void enableTrigger(bool enable);
+
 signals:
 
     /** emitted when the state of the recording changed */

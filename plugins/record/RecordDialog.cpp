@@ -160,6 +160,11 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     connect(cbSourceDevice, SIGNAL(textChanged(const QString &)),
             this, SLOT(forwardDeviceChanged(const QString &)));
 
+    connect(chkRecordTrigger, SIGNAL(toggled(bool)),
+            this, SLOT(triggerChecked(bool)));
+    connect(sbRecordTrigger, SIGNAL(valueChanged(int)),
+            this, SLOT(triggerChanged(int)));
+
     connect(cbFormatSampleRate, SIGNAL(textChanged(const QString &)),
             this, SLOT(sampleRateChanged(const QString &)));
     connect(cbFormatSampleRate, SIGNAL(activated(const QString &)),
@@ -656,8 +661,17 @@ void RecordDialog::setState(RecordState state)
     btRecord->setEnabled(enable_record);
 
     // enable disable all controls (groups) for setup
+    chkRecordTrigger->setEnabled(enable_settings);
+
+// it is not really necessary to disable these ;-)
+//     sbRecordTrigger->setEnabled(enable_settings &&
+//                                 chkRecordTrigger->isChecked());
+//     slRecordTrigger->setEnabled(enable_settings &&
+//                                 chkRecordTrigger->isChecked());
+
     grpFormat->setEnabled(enable_settings);
     grpSource->setEnabled(enable_settings);
+
 }
 
 //***************************************************************************
@@ -683,6 +697,18 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 	}
     }
 
+}
+
+//***************************************************************************
+void RecordDialog::triggerChecked(bool enabled)
+{
+    m_params.record_trigger_enabled = enabled;
+}
+
+//***************************************************************************
+void RecordDialog::triggerChanged(int trigger)
+{
+    m_params.record_trigger = trigger;
 }
 
 //***************************************************************************

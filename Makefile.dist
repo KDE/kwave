@@ -18,6 +18,7 @@ dist:
 #	rm -f Makefile.dist
 
 all:
+	-rm -f config.h
 	-rm -f config.cache
 	-rm -f config.status
 	aclocal

@@ -64,7 +64,7 @@ public:
      * @param sy screen y coordinate, top is 0
      * @return the point of the curve or null if nothing found
      */
-    Point *findPoint(int sx, int sy);
+    Curve::Point *findPoint(int sx, int sy);
 
 public slots:
 
@@ -147,10 +147,10 @@ private:
     QPopupMenu *m_preset_menu;
 
     /** Currently selected point or null if none selected */
-    Point *m_current;
+    Curve::Point *m_current;
 
     /** Last selected point, remembered for deleting. */
-    Point *m_last;
+    Curve::Point *m_last;
 
     /** State of the left mouse button (when moving points) */
     bool m_down;

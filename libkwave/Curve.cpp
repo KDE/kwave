@@ -23,7 +23,6 @@
 #include <qstring.h>
 
 #include "Parser.h"
-#include "PointSet.h"
 #include "Interpolation.h"
 #include "Curve.h"
 
@@ -168,14 +167,14 @@ void Curve::insert(double x, double y)
 }
 
 //***************************************************************************
-Point *Curve::previous(Point *act)
+Curve::Point *Curve::previous(Curve::Point *act)
 {
     m_points.findRef(act);
     return m_points.prev();
 }
 
 //***************************************************************************
-Point *Curve::next(Point *act)
+Curve::Point *Curve::next(Curve::Point *act)
 {
     m_points.findRef(act);
     return m_points.next();
@@ -253,7 +252,7 @@ void Curve::scaleFit(unsigned int range)
 }
 
 //***************************************************************************
-Point *Curve::findPoint(double px, double py, double tol)
+Curve::Point *Curve::findPoint(double px, double py, double tol)
 {
     Point *tmp;
     Point *best=0;
@@ -272,7 +271,7 @@ Point *Curve::findPoint(double px, double py, double tol)
 }
 
 //***************************************************************************
-Point *Curve::first()
+Curve::Point *Curve::first()
 {
     return m_points.first();
 }
@@ -284,13 +283,13 @@ unsigned int Curve::count()
 }
 
 //***************************************************************************
-Point *Curve::at(int x)
+Curve::Point *Curve::at(int x)
 {
     return m_points.at(x);
 }
 
 //***************************************************************************
-Point *Curve::last()
+Curve::Point *Curve::last()
 {
     return m_points.last();
 }

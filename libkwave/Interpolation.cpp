@@ -180,7 +180,7 @@ bool Interpolation::prepareInterpolation(Curve *points)
     m_der.resize(0);
 
     int c = 0;
-    for (Point *p = points->first(); p; p = points->next(p)) {
+    for (Curve::Point *p = points->first(); p; p = points->next(p)) {
 	m_x[c] = p->x;
 	m_y[c] = p->y;
 	c++;
@@ -221,7 +221,7 @@ QArray<double> Interpolation::interpolation(Curve *points, unsigned int len)
     if (!points) return 0;
     if (!len) return 0;
 
-    Point *tmp;
+    Curve::Point *tmp;
     unsigned int degree = 0;
 
     QArray<double> y_out(len);
@@ -399,7 +399,7 @@ void Interpolation::createFullPolynom(Curve *points,
     if (points->count() != m_curve->count()) return;
 
     unsigned int count = 0;
-    Point *tmp;
+    Curve::Point *tmp;
     for (tmp = points->first(); (tmp); tmp = points->next(tmp)) {
 	x[count] = tmp->x;
 	y[count] = tmp->y;
@@ -469,7 +469,7 @@ void Interpolation::createPolynom(Curve *points, QArray<double> &x,
 	}
     }
 
-    Point *tmp = points->first();;
+    Curve::Point *tmp = points->first();;
     for (int i = 0; i < pos; i++) tmp = points->next(tmp);
 
     for (; (count < degree) && (tmp); tmp = points->next(tmp)) {

@@ -287,7 +287,7 @@ void CurveWidget::addPoint(double newx, double newy)
 }
 
 //****************************************************************************
-Point *CurveWidget::findPoint(int sx, int sy)
+Curve::Point *CurveWidget::findPoint(int sx, int sy)
 // checks, if given coordinates fit to a control point in the list...
 {
     ASSERT(m_width > 1);
@@ -354,8 +354,8 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 	if (m_current->x > 1.0) m_current->x = 1.0;
 	if (m_current->y > 1.0) m_current->y = 1.0;
 
-	Point *prev = m_curve.previous(m_current);
-	Point *next = m_curve.next(m_current);
+	Curve::Point *prev = m_curve.previous(m_current);
+	Curve::Point *next = m_curve.next(m_current);
 
 	if (prev) {
 	    if (m_current->x < prev->x)
@@ -407,7 +407,7 @@ void CurveWidget::paintEvent(QPaintEvent *)
     }
 
     // draw the points (knobs)
-    Point *pt;
+    Curve::Point *pt;
     for (pt = m_curve.first(); (pt); pt = m_curve.next(pt)) {
 	lx = (int)(pt->x * (m_width-1));
 	ly = (m_height-1) - (int)(pt->y * (m_height-1));

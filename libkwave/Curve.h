@@ -24,11 +24,16 @@
 #include <qstring.h>
 
 #include "Interpolation.h"
-#include "PointSet.h"
 
 class Curve: public QObject
 {
 public:
+    /** specialized point class with double precision */
+    class Point {
+    public:
+        double x;
+        double y;
+    };
 
     /**
      * Default constructor, creates an empty curve.

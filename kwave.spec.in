@@ -36,7 +36,7 @@ make -f Makefile.dist
 %build -n kwave-@RPM_VERSION@
 DESTDIR=""
 unset DESTDIR
-make
+make $MAKE_FLAGS
 
 %install -n kwave-@RPM_VERSION@
 rm -rf "$RPM_BUILD_ROOT"
@@ -55,6 +55,9 @@ rm -f /tmp/files.lst.tmp
 %files -f files.list.%{name}
 
 %doc GNU-LICENSE CHANGES README TODO kwave.lsm
+
+%clean
+rm -f "$RPM_BUILD_ROOT"
 
 %post
 ldconfig

@@ -77,10 +77,14 @@ logged:
 		echo ""; \
 	    } fi \
 	} fi
-	aclocal
-	autoheader
-	automake --foreign --add-missing --verbose --include-deps
-	autoconf
+	@ for dir in . libid3tag libmad ; do { \
+		cd $$dir; \
+		aclocal ; \
+		autoheader ; \
+		automake --foreign --add-missing --include-deps ; \
+		autoconf ; \
+		cd - ; \
+	}; done;
 	QTDIR=`cat ./QT-DIR` KDEDIR=${KDEDIR} \
 	./configure ${CONFIGURE_OPTS} --enable-debug=yes
 	@ ${MAKE} clean 2>/dev/null 1>/dev/null

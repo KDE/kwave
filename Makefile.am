@@ -9,12 +9,12 @@ VERSION	 	 = $(shell cat ./VERSION)
 ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
 SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
-SUBDIRS  	 = libaudiofile mt libgui libkwave kwave plugins po doc
+SUBDIRS  	 = libid3tag libmad libaudiofile mt libgui libkwave kwave plugins po doc
 
 CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
 
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
-	stamp-h stamp-h[0-9]* aclocal.m4 configure QT-DIR KDE-VERSION
+	`find . -type l -o -name \.deps`
 
 configure.in: VERSION
 	touch configure.in

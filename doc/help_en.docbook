@@ -11,15 +11,6 @@
     <TITLE>The Kwave Handbook</TITLE>
     <AUTHORGROUP>
 	<AUTHOR>
-    	    <FIRSTNAME>Martin</FIRSTNAME>
-    	    <SURNAME>Wilz</SURNAME>
-	    <AFFILIATION>
-		<ADDRESS FORMAT="LINESPECIFIC">
-		<EMAIL>mwilz@ernie.mi.uni-koeln.de></EMAIL>
-		</ADDRESS>
-	    </AFFILIATION>
-	</AUTHOR>
-	<AUTHOR>
 	    <FIRSTNAME>Thomas</FIRSTNAME>
 		<SURNAME>Eschenbacher</SURNAME>
 		<AFFILIATION>
@@ -27,6 +18,15 @@
 		<EMAIL>thomas.eschenbacher@gmx.de</EMAIL>
 		</ADDRESS>
     	    </AFFILIATION>
+	</AUTHOR>
+	<AUTHOR>
+    	    <FIRSTNAME>Martin</FIRSTNAME>
+    	    <SURNAME>Wilz</SURNAME>
+	    <AFFILIATION>
+		<ADDRESS FORMAT="LINESPECIFIC">
+		<EMAIL>mwilz@ernie.mi.uni-koeln.de></EMAIL>
+		</ADDRESS>
+	    </AFFILIATION>
 	</AUTHOR>
     </AUTHORGROUP>
 
@@ -38,7 +38,7 @@
     <!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
     and in the FDL itself on how to use it. -->
 
-<!-- funktioniert nicht, soo ein Scheiss!
+<!-- funktioniert nicht, warum nur ???
     <LEGALNOTICE>
 	<PARA>Copyright (C) 2000 Martin Wilz</PARA>
     	&GPLnotice;
@@ -51,7 +51,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-09-09</DATE>
+    <DATE>2000-09-25</DATE>
     <RELEASEINFO>0.5.4-3</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -174,7 +174,7 @@
         <SEG><ANCHOR ID="PROJECT-HOMEPAGE">
             For informations about new up-to-date releases or some other
 	    information about this project, take a look at 
-	    the <ULINK URL="http://fs.spinfo.uni-koeln.de/%7Ekwave/"><!--
+	    the <ULINK URL="http://kwave.sourceforge.net/"><!--
 	    -->Kwave homepage</ULINK>
         </SEG>
         <SEG><ANCHOR ID="MAILING-LIST">
@@ -227,6 +227,22 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <PARA><ITEMIZEDLIST>
+        <LISTITEM>
+            <PARA>0.5.4-4 [2000-09-25]</PARA>
+            <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    updated the online documentation to point to the new Kwave
+                      homepage on http://kwave.sourceforge.net/
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    class ImageView: always repaints (maybe image data has changed)
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    bugfix: selection and playpointer will not be drawn if no signal
+                      is loaded
+                </PARA></LISTITEM>
+            </ITEMIZEDLIST>
+        </LISTITEM>
         <LISTITEM>
             <PARA>0.5.4-3 [2000-09-09]</PARA>
             <ITEMIZEDLIST>
@@ -1073,8 +1089,8 @@
     
     <PARA>
     	&kapp; has an own homepage under
-    	<ULINK URL="http://fs.spinfo.uni-koeln.de/%7Ekwave/">
-	http://fs.spinfo.uni-koeln.de/~kwave/</ULINK>. Here you can
+    	<ULINK URL="http://kwave.sourceforge.net/">
+	http://kwave.sourceforge.net/</ULINK>. Here you can
 	find further informations about the project, as well as 
 	informations about current stable and up-to-date development 
 	versions.
@@ -1108,17 +1124,6 @@
 
     <SECT1 ID="REQUIREMENTS"><TITLE>Requirements</TITLE>
     
-    <!--
-    List any special requirements for your application here. This should include:
-    .Libraries or other software that is not included in kdesupport,
-    kdelibs, or kdebase.
-    .Hardware requirements like amount of RAM, disk space, graphics card
-    capabilities, screen resolution, special expansion cards, etc.
-    .Operating systems the app will run on. If your app is designed only for a
-    specific OS, (you wrote a graphical LILO configurator for example) put this
-    information here.
-    -->
-
     <PARA>
     	In order to successfully use &kapp;, you need:
 	<ITEMIZEDLIST>
@@ -1142,7 +1147,7 @@
 		qt-1.44 or greater (normally comes with KDE)
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-		libkwave-0.29 (currently not included in &kapp
+		libkwave-0.3.9-1 or newer (currently not included in &kapp
 		and provided as a separate package)
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
@@ -1261,12 +1266,11 @@
     
     <CAUTION><PARA>
 	The support for the "rpm -ta ..." might be broken on some
-	versions of rpm. The rpm program shipped with SuSE-6.4 
-	(rpm-3.0.4) didn't work on my system, a manual upgrade of the
-	rpm binary to rpm-3.0.5-0.5 helped. It was enough to put the 
-	new rpm binary somewhere in the path so that it can be found
-	before the version in /usr/bin. A good place for this might
-	be /usr/local/bin or in $HOME/bin.
+	versions of rpm. The rpm program originally shipped with 
+	SuSE-6.4 (rpm-3.0.4) didn't work so far. You should update
+	your rpm package, e.g. from 
+	<ULINK URL="ftp://ftp.suse.com/pub/suse_update/"><!--
+	-->the SuSE ftp server</ULINK>.
     </PARA></CAUTION>
 
     <PARA><ANCHOR ID="MANUAL_RPM_CREATION">
@@ -1811,7 +1815,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-09-09</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-09-25</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -331,10 +332,28 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     h = sizeHint().height();
     topLayout->freeze(w, h);
 
-    setPoints(128);
+
+    // Set a size hint:
+    // try to make the image's aspect ratio (a) = sqrt(2)
+    //
+    // samples: s
+    // fft_points: p
+    // image_width: w = s / p
+    // image_height: h = p / 2
+    // a = w / h = 2*s / (p^2)
+    // => p = sqrt( 2 * s / a) )
+    const double aspect_ratio = sqrt(2);
+    double p = sqrt(2.0*(double)length/aspect_ratio);
+
+    // round down to an exponent of 2, this makes the image more
+    // wide than heigh and gives a fast calculation
+    int bits = (int)floor(log(p) / log(2));
+    if (bits < 2) bits = 2;
+    if (bits > 16) bits = 16;
+    setPoints(1 << (bits-1));
     setBoxPoints(0);
 
-    ok->setAccel (Key_Return);
+    ok->setAccel(Key_Return);
     cancel->setAccel(Key_Escape);
     ok->setFocus();
 
@@ -385,7 +404,7 @@ void SonagramDialog::setPoints(int points)
     snprintf(buf, sizeof(buf), i18n("( resulting window size: %s )"), ms_buf);
     windowlabel->setText(buf);
     snprintf(buf, sizeof(buf), i18n("size of bitmap: %dx%d"), 
-	(length / points) + 1, points / 2);
+	(length / points) + 1, points/2);
     bitmaplabel->setText(buf);
 }
 

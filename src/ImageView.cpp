@@ -84,7 +84,8 @@ void ImageView::paintEvent(QPaintEvent *)
 		
     QWMatrix matrix;
     QPixmap newmap;
-    newmap.convertFromImage(*image, 0);
+//    newmap.convertFromImage(*image, 0);
+    newmap.convertFromImage(*image, ColorOnly|ThresholdDither|AvoidDither);
 
     if (image->width() < width) {
 	offset = 0;

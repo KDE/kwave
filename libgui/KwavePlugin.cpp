@@ -35,7 +35,7 @@
 
 //***************************************************************************
 KwavePlugin::KwavePlugin(PluginContext &c)
-    :context(c)
+    :m_context(c), m_thread(0)
 {
 }
 
@@ -64,13 +64,16 @@ int KwavePlugin::start(QStrList &params)
     return 0;
 }
 
-
-//void plugin_thread(void *p)
-//{
-//    run(params);
-//}
-
-#include "mt/Asynchronous_Object.h"
+//***************************************************************************
+int KwavePlugin::stop()
+{
+    if (m_thread) {
+	debug("KwavePlugin::stop()");
+	m_thread->stop();
+    }
+    debug("KwavePlugin::stop(): done.");
+    return 0;
+}
 
 //***************************************************************************
 int KwavePlugin::execute(QStrList &params)
@@ -78,17 +81,13 @@ int KwavePlugin::execute(QStrList &params)
 
     debug("KwavePlugin::execute()");
 
-    Asynchronous_Object_with_1_arg<KwavePlugin, QStrList> *controller =
-	new Asynchronous_Object_with_1_arg<KwavePlugin, QStrList>(
+    m_thread = new Asynchronous_Object_with_1_arg<KwavePlugin, QStrList>(
 	this, &KwavePlugin::run,params);
-
-    ASSERT(controller);
-    if (!controller) return -ENOMEM;
+    ASSERT(m_thread);
+    if (!m_thread) return -ENOMEM;
 
     debug("KwavePlugin::execute(): activating thread");
-    Thread_Manager thr_mgr;
-    int gid;
-    controller->activate(thr_mgr, gid);
+    m_thread->start();
 
     return 0;
 }
@@ -96,8 +95,6 @@ int KwavePlugin::execute(QStrList &params)
 //***************************************************************************
 void KwavePlugin::run(QStrList params)
 {
-    debug("------- KwavePlugin::run(QStrList params) -------");
-    debug("------- KwavePlugin::run(QStrList params: done) -------");
     return;
 }
 
@@ -105,45 +102,46 @@ void KwavePlugin::run(QStrList params)
 void KwavePlugin::close()
 {
     debug("void KwavePlugin::close() [slot]");
+    stop();
     emit sigClosed(this, true);
 }
 
 //***************************************************************************
-PluginManager &KwavePlugin::getManager()
+PluginManager &KwavePlugin::manager()
 {
-    return context.manager;
+    return m_context.manager;
 }
 
 //***************************************************************************
 QWidget *KwavePlugin::getParentWidget()
 {
-    return &(context.top_widget);
+    return &(m_context.top_widget);
 }
 
 //***************************************************************************
 const QString &KwavePlugin::getSignalName()
 {
-    return (context.top_widget.getSignalName());
+    return (m_context.top_widget.getSignalName());
 }
 
 //***************************************************************************
 unsigned int KwavePlugin::getSignalLength()
 {
-    return getManager().getSignalLength();
+    return manager().getSignalLength();
 }
 
 //***************************************************************************
 unsigned int KwavePlugin::getSignalRate()
 {
-    return getManager().getSignalRate();
+    return manager().getSignalRate();
 }
 
 //***************************************************************************
 unsigned int KwavePlugin::getSelection(unsigned int *left,
                                        unsigned int *right)
 {
-    int l = getManager().getSelectionStart();
-    int r = getManager().getSelectionEnd();
+    int l = manager().getSelectionStart();
+    int r = manager().getSelectionEnd();
     if (left)  *left  = l;
     if (right) *right = r;
     return r-l+1;
@@ -152,7 +150,7 @@ unsigned int KwavePlugin::getSelection(unsigned int *left,
 //***************************************************************************
 int KwavePlugin::getSingleSample(unsigned int channel, unsigned int offset)
 {
-    return getManager().getSingleSample(channel, offset);
+    return manager().getSingleSample(channel, offset);
 }
 
 //***************************************************************************
@@ -162,9 +160,9 @@ void KwavePlugin::yield()
 }
 
 //***************************************************************************
-void *KwavePlugin::getHandle()
+void *KwavePlugin::handle()
 {
-    return context.handle;
+    return m_context.handle;
 }
 
 //***************************************************************************

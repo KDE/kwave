@@ -39,6 +39,8 @@
 
 KWAVE_PLUGIN(SonagramPlugin,"sonagram","Martin Wilz");
 
+#define MAX_QUEUE_USAGE 16
+
 //***************************************************************************
 SonagramPlugin::SonagramPlugin(PluginContext &c)
     :KwavePlugin(c)
@@ -56,6 +58,9 @@ SonagramPlugin::SonagramPlugin(PluginContext &c)
 //***************************************************************************
 SonagramPlugin::~SonagramPlugin()
 {
+    if (spx_insert_stripe) delete spx_insert_stripe;
+    spx_insert_stripe = 0;
+
     if (sonagram_window) delete sonagram_window;
     sonagram_window = 0;
 
@@ -143,7 +148,7 @@ int SonagramPlugin::start(QStrList &params)
     connect(sonagram_window, SIGNAL(destroyed()),
 	    this, SLOT(windowClosed()));
 
-    QObject::connect((QObject*)&(getManager()),
+    QObject::connect((QObject*)&(manager()),
 	SIGNAL(sigSignalNameChanged(const QString &)),
 	sonagram_window, SLOT(setName(const QString &)));
 
@@ -156,7 +161,7 @@ void SonagramPlugin::run(QStrList params)
 {
     debug("SonagramPlugin::run()");
 
-    spx_insert_stripe =
+    if (!spx_insert_stripe) spx_insert_stripe =
 	new SignalProxy1< pair<unsigned int, QByteArray> >
 	(this, SLOT(insertStripe()));
 
@@ -182,7 +187,7 @@ void SonagramPlugin::run(QStrList params)
 	    // the current image
 	    spx_insert_stripe->enqueue(stripe_info);
 	
-	    while (spx_insert_stripe->count())
+	    while (spx_insert_stripe->count() >= MAX_QUEUE_USAGE)
 		yield();
 	
 	    delete stripe_data;

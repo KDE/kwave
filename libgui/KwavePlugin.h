@@ -19,6 +19,7 @@
 #define _KWAVE_PLUGIN_H_
 
 #include <qobject.h>
+#include "mt/Asynchronous_Object.h"
 
 class PluginManager;
 class PluginContext;
@@ -82,6 +83,12 @@ public:
     virtual int start(QStrList &params);
 
     /**
+     * Stops any threads and is called from the close() function and
+     * the plugin's destructor.
+     */
+    virtual int stop();
+
+    /**
      * Gets called from the plugin's execute function and should be overwritten to
      * perform some action. This function runs in a separate thread!
      * @param list of strings with parameters
@@ -91,7 +98,7 @@ public:
     /**
      * Returns a reference to the manager of this plugin.
      */
-    PluginManager &getManager();
+    PluginManager &manager();
 
     /**
      * Returns the parent widget of the plugin. This normally should be
@@ -185,7 +192,7 @@ protected:
      * Returns the handle to the dynamically loaded shared object.
      * For internal usage only!
      */
-    void *getHandle();
+    void *handle();
         	
 signals:
     void sigParentWidgetDestroyed();
@@ -207,7 +214,17 @@ public slots:
     virtual void close();
 
 private:
-    PluginContext &context;
+    /**
+     * context of the plugin, includes references to some objects of
+     * the main program.
+     * @deprecated, should be eliminated soon!
+     */
+    PluginContext &m_context;
+
+    /**
+     * Thread that executes the run() member function.
+     */
+    Asynchronous_Object_with_1_arg<KwavePlugin, QStrList> *m_thread;
 
 };
 

@@ -23,7 +23,6 @@
 #include <qstring.h>
 #include "WavFileFormat.h"
 
-class QString;
 enum wav_format_id;
 
 class WavFormatMap: public QMap<wav_format_id, QString>

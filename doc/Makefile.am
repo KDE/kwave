@@ -1,5 +1,5 @@
-MAINTAINERCLEANFILES = HTML/*
 
+MAINTAINERCLEANFILES = de/*.html en/*.html
 CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook
 
 LANGUAGES = en de
@@ -34,19 +34,24 @@ help_de.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
 	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
 	help_de.docbook
 
-doc: doc.en doc.de
-
-doc.en: help_en.docbook
+doc.en:
 	rm -f en/*.html
 	jw -o en -c ${SGMLDIR}/catalog \
 	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
 	help_en.docbook
 
-doc.de: help_de.docbook
+doc.de:
 	rm -f de/*.html
 	jw -o de -c ${SGMLDIR}/catalog \
 	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
 	help_de.docbook
+
+doc.timestamp: help_en.docbook help_de.docbook
+	${MAKE} doc.en
+	${MAKE} doc.de
+	date > doc.timestamp
+
+all: doc.timestamp
 
 install-data-local:
 	echo installing docs in $(DOCDIR)

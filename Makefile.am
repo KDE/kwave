@@ -31,11 +31,13 @@ distclean-generic: clean-generic
 	-rm -f $(CONFIG_CLEAN_FILES)
 	-rm -f stamp-h stamp-h[0-9]*
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
+	-rm -Rf doc/api
 
 reallyclean: clean-generic distclean
 	-rm -f config.cache
 	-rm -f config.log
 	-rm -fv `find . -type l -o -name Makefile`
+	-rm -fv `find ./doc -name \*.html`
 
 backup: ${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
@@ -89,6 +91,9 @@ rpm: rpm_prep
 
 src.rpm: rpm_prep
 	rpm -bs ${PACKAGE}.spec
+
+doc:
+	(cd doc ; ${MAKE} doc )
 
 apidoc:
 	-rm -Rf `find . -name \*.moc.cpp`

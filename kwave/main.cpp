@@ -17,30 +17,38 @@
 
 static KCmdLineOptions options[] =
 {
-    { "!+files", I18N_NOOP("list of wav files."), 0 },
+    { "!+files", I18N_NOOP("List of wav files."), 0 },
     { 0, 0, 0 } // End of options.
 };
 
 //***************************************************************************
 int main( int argc, char **argv )
 {
-    KAboutData about("kwave",
-	"Kwave",
-	"0.5.99",
+    KAboutData about(PACKAGE, "Kwave", VERSION,
 	"sound editor for KDE2",
 	KAboutData::License_GPL_V2,
 	"(c) 2001, Thomas Eschenbacher",
-	"...text...",
+	0 /*"...text..." */,
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"
     );
+
+    about.addAuthor("Thomas Eschenbacher" ,
+                    "project leader since 2000, core development",
+                    "Thomas.Eschenbacher@gmx.de",
+                    0);
+    about.addAuthor("Martin Wilz" ,
+                    "creator of the project, development 1998-2000",
+                    "mwilz@ernie.MI.Uni-Koeln.DE",
+                    "http://www.wilz.de");
+
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineArgs::addCmdLineOptions(options);
     KwaveApp::addCmdLineOptions();
 
 #ifdef UNIQUE_APP
     if (!KUniqueApplication::start()) {
-	warning("myAppName is already running!\n");
+	warning("Kwave is already running!");
 	exit(0);
     }
 #endif // UNIQUE_APP

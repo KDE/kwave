@@ -34,27 +34,26 @@
 // PLEASE DO NOT CHANGE THE FOLLOWING TWO LINES, THEY WILL BE
 // AUTOMATICALLY UPDATED BY THE VERSION MANAGEMENT SCRIPTS !
 #define KWAVE_VERSION "0.5.99-6"
-#define KWAVE_VERSION_DATE "Jul 21, 2001"
+#define KWAVE_VERSION_DATE "Jul 22, 2001"
 
 //***************************************************************************
 static const char about_text[] = "\nKwave Version "KWAVE_VERSION"\n\
 "KWAVE_VERSION_DATE"\n\
-(c) 2000 by Thomas Eschenbacher (thomas.eschenbacher@gmx.de)\n\
+(c) 2000-2001 by Thomas Eschenbacher (thomas.eschenbacher@gmx.de)\n\
 (c) 1998-2000 by Martin Wilz (mwilz@ernie.mi.uni-koeln.de)\n\
 \nFFT - Code by GNU gsl - Project, library version 0.3 beta\n\
 (GSL - Library may be retrieved from ftp://alpha.gnu.org/gnu/)\n\n\
-Memory Mapping routines by Juhana Kouhia\n\
-Some GUI modifications and additional functionality by Gerhard Zintel\n\
-Complete revision by Thomas Eschenbacher (1999/2000)\n\
 \n\
 Thanks go to: \n\
 \
+Sven-Steffen Arndt <ssa29@gmx.de>\n\
 Carsten Jacobi\n\
 Frank Christian Stoffel\n\
 Achim Dahlhaus\n\
 Klaus Hendrik Lorenz\n\n\
 People, who provided valuable feedback (in no particular order)\n\
 \
+Stephan Loescher <loescher@leo.org>\n\
 Gerhard Zintel\n\
 Gael Duval\n\
 Aaron Johnson\n\

@@ -26,6 +26,11 @@ class QPushButton;
 class QResizeEvent;
 
 //**********************************************************
+/**
+ * @class AboutDialog
+ * Dialog for Help/About
+ * @todo use AboutData from the KwaveApp
+ */
 class AboutDialog : public QDialog {
     Q_OBJECT
 

@@ -75,6 +75,20 @@ mv kwave.lsm /tmp/kwave.lsm.old
 mv kwave.lsm.new kwave.lsm
 
 #
+# update the file configure.in
+#
+cat configure.in | \
+	awk -v newver=$NEW_VERSION '{ 
+	split($0, a, "(") } {
+	if (a[1] == "AM_INIT_AUTOMAKE") {
+	    printf("AM_INIT_AUTOMAKE(kwave,%s)\n", newver)
+	} else
+	    print $0
+	}' > configure.in.new
+mv configure.in /tmp/configure.in.old
+mv configure.in.new configure.in
+
+#
 # update plugins/dialogs/about/module.h
 #
 SHORT_DATE=`(LANG=en; date -d "$NEW_DATE" +"%b %d, %Y")`

@@ -300,7 +300,7 @@ private:
     };
 
     /** Initialized list of zoom factors */
-    static ZoomListPrivate m_zoom_factors;
+    ZoomListPrivate m_zoom_factors;
 
     /** reference to the main kwave application */
     KwaveApp &m_app;

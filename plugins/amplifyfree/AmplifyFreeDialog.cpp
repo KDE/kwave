@@ -48,6 +48,7 @@ AmplifyFreeDialog::~AmplifyFreeDialog()
 QString AmplifyFreeDialog::getCommand()
 {
     QString cmd;
+    ASSERT(curveWidget);
     Parser p(curveWidget->getCommand());
 
     cmd = "amplifyfree(";
@@ -56,6 +57,7 @@ QString AmplifyFreeDialog::getCommand()
 	cmd += (QString)"," + p.nextParam();
     }
     cmd += ")";
+    debug("AmplifyFreeDialog::getCommand(): '"+cmd+"'");
     return cmd;
 }
 
@@ -65,8 +67,11 @@ void AmplifyFreeDialog::setParams(QStringList &params)
     QStringList::Iterator it;
     QString cmd = "curve(";
 
-    for (it = params.begin(); it != params.end(); ++it)
-	cmd += *it + ",";
+    it = params.begin();
+    if (it != params.end()) cmd += *(it++);
+
+    for (; it != params.end(); ++it)
+	cmd += "," + *it;
     cmd += ")";
 
     if (curveWidget) curveWidget->setCurve(cmd);

@@ -50,7 +50,7 @@ public:
     WindowFunction(window_function_t type);
 
     /** Destructor */
-    ~WindowFunction();
+    virtual ~WindowFunction();
 
     /**
      * Returns the coefficients of a window function with
@@ -131,8 +131,8 @@ public:
     class InitializedTypesMap: public TypesMap<window_function_t,unsigned int>
     {
     public:
-	/** Contstructor, initializes the map. */
-	InitializedTypesMap();
+	/** fill function for the map */
+	void fill();
     };
 
 private:

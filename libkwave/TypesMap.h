@@ -40,6 +40,12 @@ public:
     virtual ~TypesMap() {};
 
     /**
+     * This function is abstract and must be overwritten to
+     * initially fill the map if it was empty.
+     */
+    virtual void fill() = 0;
+
+    /**
      * Appends a new type into the map.
      * @param index unique index within the map
      * @param name string representation of the type, for
@@ -57,6 +63,7 @@ public:
 
     /** Returns the number of types. */
     inline unsigned int count() {
+	if (m_list.isEmpty()) fill();
 	return m_list.count();
     };
 
@@ -120,12 +127,14 @@ public:
     /** Returns the data item of a type. */
     const DATA &data(IDX type)
     {
+	if (m_list.isEmpty()) fill();
 	return m_list[type].first();
     };
 
     /** Returns the name of a type. */
     const QString &name(IDX type)
     {
+	if (m_list.isEmpty()) fill();
 	return m_list[type].second();
     };
 
@@ -136,7 +145,8 @@ public:
      */
     QString description(IDX type, bool localized)
     {
-	QString s = m_list[type].third();
+	if (m_list.isEmpty()) fill();
+	QString s(m_list[type].third());
 	return (localized) ? i18n(s) : s;
     };
 

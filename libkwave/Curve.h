@@ -183,10 +183,7 @@ private:
     QList<Point> m_points;
 
     /** interpolation object */
-    Interpolation &m_interpolation;
-
-    /** type of the interpolation, index [0...n-1] */
-    interpolation_t m_interpolation_type;
+    Interpolation m_interpolation;
 
 };
 

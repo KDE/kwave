@@ -28,9 +28,6 @@ public:
     /** Constructor, initializes type by enum type */
     Interpolation(interpolation_t type = INTPOL_LINEAR);
 
-    /** Constructor, initializes type by name */
-    Interpolation(const QString &name);
-
     /** Destructor. */
     virtual ~Interpolation ();
 
@@ -56,9 +53,14 @@ public:
 
     /**
      * Returns the if of a type through it's name.
-     * @param localized if true, the name is expected to be localized
+     * @param name the short name of the interpolation, like used in a command
+     * @return the interpolation
      */
-    static interpolation_t find(const QString &name, bool localized);
+    static interpolation_t find(const QString &name)
+    {
+	debug("Interpolation::find("+name+")");
+	return m_interpolation_map.findFromName(name);
+    };
 
     /**
      * Returns the name of an interpolation (non-localized).
@@ -80,6 +82,11 @@ public:
 	m_type = t;
     };
 
+    /** Returns the currently interpolation selected type */
+    inline interpolation_t type() {
+	return m_type;
+    };
+
     /** Translates an index in an interpolation type */
     static inline interpolation_t findByIndex(int index) {
 	return m_interpolation_map.findFromData(index);
@@ -93,8 +100,8 @@ public:
     class InterpolationMap: public TypesMap<interpolation_t, int >
     {
     public:
-	/** Constructor for filling the map. */
-	InterpolationMap();
+	/** filling function for the map. */
+	void fill();
     };
 
 private:

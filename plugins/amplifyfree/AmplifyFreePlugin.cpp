@@ -101,67 +101,67 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 //***************************************************************************
 void AmplifyFreePlugin::run(QStringList)
 {
-    unsigned int first, last;
-
-//    UndoTransactionGuard undo_guard(*this, i18n("amplify free"));
-    m_stop = false;
-
-    MultiTrackReader source;
-    MultiTrackWriter sink;
-
-    unsigned int input_length = selection(&first, &last);
-    if (first == last) {
-	input_length = signalLength()-1;
-	first = 0;
-	last = input_length-1;
-    }
-
-    openMultiTrackReader(source, selectedTracks(), first, last);
-    manager().openMultiTrackWriter(sink, Overwrite);
-
-    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-    Arts::Dispatcher dispatcher;
-    dispatcher.lock();
-
-    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-//    for (track=0; track < tracks; track++) {
-    SampleReader *reader = source.at(0);
-    SampleWriter *writer = sink.at(0);
-
-    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-    ArtsSampleSource src_adapter = ArtsSampleSource::_from_base(
-	new ArtsSampleSource_impl(reader));
-
-    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-    ArtsSampleSink dst_adapter = ArtsSampleSink::_from_base(
-	new ArtsSampleSink_impl(writer));
-
-    fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
-    Arts::connect(src_adapter, "source", dst_adapter, "sink");
-
-    fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
-    src_adapter.start();
-    dst_adapter.start();
-
-//    dispatcher.run();
-    fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
-    while (!m_stop && !src_adapter.done()) {
-	dst_adapter.goOn();
-    }
-
-    dst_adapter.stop();
-    src_adapter.stop();
-
-    sink.setAutoDelete(true);
-    sink.clear();
-
-    source.setAutoDelete(true);
-    source.clear();
-
-    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-    dispatcher.unlock();
-
-    close();
+//    unsigned int first, last;
+//
+////    UndoTransactionGuard undo_guard(*this, i18n("amplify free"));
+//    m_stop = false;
+//
+//    MultiTrackReader source;
+//    MultiTrackWriter sink;
+//
+//    unsigned int input_length = selection(&first, &last);
+//    if (first == last) {
+//	input_length = signalLength()-1;
+//	first = 0;
+//	last = input_length-1;
+//    }
+//
+//    openMultiTrackReader(source, selectedTracks(), first, last);
+//    manager().openMultiTrackWriter(sink, Overwrite);
+//
+//    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+//    Arts::Dispatcher dispatcher;
+//    dispatcher.lock();
+//
+//    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+////    for (track=0; track < tracks; track++) {
+//    SampleReader *reader = source.at(0);
+//    SampleWriter *writer = sink.at(0);
+//
+//    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+//    ArtsSampleSource src_adapter = ArtsSampleSource::_from_base(
+//	new ArtsSampleSource_impl(reader));
+//
+//    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+//    ArtsSampleSink dst_adapter = ArtsSampleSink::_from_base(
+//	new ArtsSampleSink_impl(writer));
+//
+//    fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
+//    Arts::connect(src_adapter, "source", dst_adapter, "sink");
+//
+//    fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
+//    src_adapter.start();
+//    dst_adapter.start();
+//
+////    dispatcher.run();
+//    fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
+//    while (!m_stop && !src_adapter.done()) {
+//	dst_adapter.goOn();
+//    }
+//
+//    dst_adapter.stop();
+//    src_adapter.stop();
+//
+//    sink.setAutoDelete(true);
+//    sink.clear();
+//
+//    source.setAutoDelete(true);
+//    source.clear();
+//
+//    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+//    dispatcher.unlock();
+//
+//    close();
 }
 
 //***************************************************************************

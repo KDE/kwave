@@ -14,8 +14,9 @@ interpolation_t &operator ++(interpolation_t &i)
 
 //***************************************************************************
 //***************************************************************************
-Interpolation::InterpolationMap::InterpolationMap()
+void Interpolation::InterpolationMap::fill()
 {
+    debug("--- InterpolationMap::fill() ---");
     append(INTPOL_LINEAR,      0, "linear",      "linear");
     append(INTPOL_SPLINE,      1, "spline",      "spline");
     append(INTPOL_NPOLYNOMIAL, 2, "n-polynom",   "polynom, nth degree");
@@ -28,7 +29,7 @@ Interpolation::InterpolationMap::InterpolationMap()
 #ifdef NEVER_COMPILE_THIS
 #error "this could produce problems in plugins and/or libs when \
         loaded before the main application is up."
-    i18n("Linear");
+    i18n("linear");
     i18n("spline");
     i18n("n-polynom");
     i18n("3-polynom");
@@ -45,13 +46,6 @@ Interpolation::InterpolationMap::InterpolationMap()
 Interpolation::InterpolationMap Interpolation::m_interpolation_map;
 
 //***************************************************************************
-Interpolation::Interpolation(const QString &name)
-  :m_curve(), m_x(), m_y(), m_der(),
-   m_type(m_interpolation_map.findFromName(name))
-{
-}
-
-//***************************************************************************
 Interpolation::Interpolation(interpolation_t type)
   :m_curve(), m_x(), m_y(), m_der(), m_type(type)
 {
@@ -60,12 +54,6 @@ Interpolation::Interpolation(interpolation_t type)
 //***************************************************************************
 Interpolation::~Interpolation()
 {
-}
-
-//***************************************************************************
-interpolation_t Interpolation::find(const QString &name, bool localized)
-{
-    return m_interpolation_map.findFromDescription(name, localized);
 }
 
 //***************************************************************************

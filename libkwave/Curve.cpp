@@ -30,8 +30,7 @@
 //***************************************************************************
 Curve::Curve()
 :m_points(),
- m_interpolation(*(new Interpolation(INTPOL_LINEAR))),
- m_interpolation_type(INTPOL_LINEAR)
+ m_interpolation(INTPOL_LINEAR)
 {
     m_points.setAutoDelete(true);
 }
@@ -39,8 +38,7 @@ Curve::Curve()
 //***************************************************************************
 Curve::Curve(const QString &command)
 :m_points(),
- m_interpolation(*(new Interpolation(INTPOL_LINEAR))),
- m_interpolation_type(INTPOL_LINEAR)
+ m_interpolation(INTPOL_LINEAR)
 {
     m_points.setAutoDelete(true);
     fromCommand(command);
@@ -53,7 +51,8 @@ void Curve::fromCommand(const QString &command)
     m_points.clear();
 
     Parser parse(command);
-    setInterpolationType(Interpolation::find(parse.firstParam(), false));
+    QString t = parse.firstParam();
+    setInterpolationType(m_interpolation.find(t));
 
     double x, y;
     while (!parse.isDone()) {
@@ -68,7 +67,7 @@ void Curve::fromCommand(const QString &command)
 QString Curve::getCommand()
 {
     QString cmd = "curve(";
-    cmd += Interpolation::name(m_interpolation_type);
+    cmd += m_interpolation.name(m_interpolation.type());
 
     Point *p;
     for (p = m_points.first(); (p); p = m_points.next() ) {
@@ -90,14 +89,14 @@ QArray<double> Curve::interpolation(unsigned int points)
 //***************************************************************************
 void Curve::setInterpolationType(interpolation_t type)
 {
-    m_interpolation_type = type;
+    debug("Curve::setInterpolationType(%d)", (int)type);
     m_interpolation.setType(type);
 }
 
 //***************************************************************************
 interpolation_t Curve::interpolationType()
 {
-    return m_interpolation_type;
+    return m_interpolation.type();
 }
 
 //***************************************************************************
@@ -232,7 +231,7 @@ void Curve::scaleFit(unsigned int range)
     double min = DBL_MAX;
     double max = DBL_MIN;
 
-    Interpolation interpolation(m_interpolation_type);
+    Interpolation interpolation(m_interpolation.type());
 
     QArray<double> y = interpolation.interpolation(this, range);
     for (unsigned int i = 0; i < range; i++) {

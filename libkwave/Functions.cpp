@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include <klocale.h>
-
 #include "Functions.h"
 
 //***************************************************************************
@@ -83,16 +82,18 @@ double zero(double)
 //***************************************************************************
 
 //***************************************************************************
-Functions::Functions()
+void Functions::FunctionTypesMap::fill()
 {
-    m_functions_map.append(0, &sin,    "sinus",            "Sinus");
-    m_functions_map.append(1, &rect,   "rectangular",      "Rectangular");
-    m_functions_map.append(2, &saw,    "sawtooth",         "Sawtooth");
-    m_functions_map.append(3, &sawinv, "inverse_sawtooth", "Inverse Sawtooth");
-    m_functions_map.append(4, &tri,    "triangular",       "Triangular");
-    m_functions_map.append(5, &sin2,   "square_sinus",     "Square Sinus");
-    m_functions_map.append(6, &sin3,   "cubic_sinus",      "Cubic Sinus");
+    append(0, &sin,    "sinus",            "Sinus");
+    append(1, &rect,   "rectangular",      "Rectangular");
+    append(2, &saw,    "sawtooth",         "Sawtooth");
+    append(3, &sawinv, "inverse_sawtooth", "Inverse Sawtooth");
+    append(4, &tri,    "triangular",       "Triangular");
+    append(5, &sin2,   "square_sinus",     "Square Sinus");
+    append(6, &sin3,   "cubic_sinus",      "Cubic Sinus");
 
+#undef NO_NEED_TO_COMPILE_THIS
+#ifdef NO_NEED_TO_COMPILE_THIS
     i18n("Sinus");
     i18n("Rectangular");
     i18n("Sawtooth");
@@ -101,6 +102,12 @@ Functions::Functions()
     i18n("Square Sinus");
     i18n("Cubic Sinus");
     i18n("Zero");
+#endif
+}
+
+//***************************************************************************
+Functions::Functions()
+{
 }
 
 //***************************************************************************

@@ -64,8 +64,17 @@ public:
 
 private:
 
+    class FunctionTypesMap:
+	public TypesMap<unsigned int, periodic_function_t* >
+    {
+	public:
+	/** fills the types map */
+	virtual void fill();
+    };
+
     /** map of periodic functions */
-    TypesMap<unsigned int, periodic_function_t* > m_functions_map;
+    FunctionTypesMap m_functions_map;
+
 };
 
 #endif /* _FUNCTIONS_H_ */

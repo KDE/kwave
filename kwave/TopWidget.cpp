@@ -103,7 +103,7 @@
 //***************************************************************************
 //***************************************************************************
 TopWidget::ZoomListPrivate::ZoomListPrivate()
-:QStringList()
+    :QStringList()
 {
     clear();
     append("800 %");
@@ -117,9 +117,6 @@ TopWidget::ZoomListPrivate::ZoomListPrivate()
     append("0.1 %");
     append("0.01 %");
 };
-
-/** list of predefined zoom factors */
-TopWidget::ZoomListPrivate TopWidget::m_zoom_factors;
 
 //***************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app)

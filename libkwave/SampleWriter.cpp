@@ -50,6 +50,7 @@ SampleWriter &SampleWriter::operator << (const QArray<sample_t> &samples)
     // now flush the block that we received as parameter (pass-through)
     unsigned int count = samples.size();
     flush(samples, count);
+    ASSERT(!count);
 
     return *this;
 }
@@ -65,23 +66,20 @@ SampleWriter &SampleWriter::operator << (const sample_t &sample)
 //***************************************************************************
 SampleWriter &SampleWriter::operator << (SampleReader &reader)
 {
-    if (m_buffer_used >= m_buffer.size()) flush();
+    if (m_buffer_used) flush();
 
     // transfer data, using our internal buffer
     unsigned int buflen = m_buffer.size();
-    while (!reader.eof() && (m_position < m_last)) {
-	unsigned int len = buflen;
-	if ((m_position + len) > m_last) len = m_last - m_position;
+    while (!reader.eof() && (m_position <= m_last)) {
+	if (m_position + buflen > m_last+1) buflen = m_last - m_position + 1;
 	
-	reader.read(m_buffer, 0, len);
-	
-	m_buffer_used = len;
+	m_buffer_used = reader.read(m_buffer, 0, buflen);
 	flush();
     }
 
     // pad the rest with zeroes
-    while (m_buffer_used + m_position++ < m_last) {
-	*this << 0;
+    while (m_buffer_used + m_position++ <= m_last) {
+	*this << static_cast<sample_t>(0);
     }
 
     return *this;
@@ -129,19 +127,22 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 		Stripe *s = it.current();
 		unsigned int st = s->start();
 		unsigned int len = s->length();
-		if (!len) continue; // skip zero-length tracks
+		if (!len) continue; // skip zero-length stripes
 		
-		if (m_position >= st+len) break; // end of range reached
+		if (m_position >= st+len) continue; // not yet in range
 		
 		if (m_position >= st) {
 		    unsigned int offset = m_position - st;
 		    unsigned int length = len - offset;
 		    if (length > count) length = count;
+		    if (m_position+length > m_last+1)
+			length = m_last-m_position+1;
+		    ASSERT(length);
 		
 		    // copy the portion of our buffer to the target
 		    s->overwrite(offset, buffer, buf_offset, length);
 		
-		    count -= length;
+		    count = 0;
 		    buf_offset += length;
 		    m_position += length;
 		

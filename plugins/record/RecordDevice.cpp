@@ -51,10 +51,15 @@ int RecordDevice::open(const QString &dev)
     // close the device if it is still open
     Q_ASSERT(m_fd < 0);
     if (m_fd >= 0) close();
+    if (dev.isEmpty()) return -1; // no device name
 
     // first of all: try to open the device itself
-    int fd = ::open(dev.ascii(), O_RDONLY);
-    if (fd < 0) return fd;
+    int fd = ::open(dev.ascii(), O_RDONLY | O_NONBLOCK);
+    if (fd < 0) {
+	qWarning("open failed, fd=%d, errno=%d (%s)",
+	         fd, errno, strerror(errno));
+	return -errno;
+    }
 
     m_fd = fd;
     return m_fd;
@@ -63,7 +68,12 @@ int RecordDevice::open(const QString &dev)
 //***************************************************************************
 int RecordDevice::read(char *buffer, unsigned int length)
 {
-    Q_ASSERT(m_fd >= 0);
+    fd_set rfds;
+    struct timeval tv;
+    int retval;
+    int read_bytes = 0;
+
+//  Q_ASSERT(m_fd >= 0);
     Q_ASSERT(buffer);
     if (m_fd < 0) return -EBADF; // file not opened
     if (!buffer) return -EINVAL; // buffer is null pointer
@@ -79,7 +89,44 @@ int RecordDevice::read(char *buffer, unsigned int length)
 //     int blocksize = (127 << 16) + 6;
 //     err = ioctl(m_fd, SNDCTL_DSP_SETFRAGMENT, &blocksize);
 
-    return ::read(m_fd, buffer, length);
+    // determine the timeout for reading, use safety factor 2
+    int rate = (int)sampleRate();
+    if (rate < 1) rate = 1;
+    unsigned int timeout = (length / rate) * 2;
+    if (timeout < 2) timeout = 2;
+
+    while (length) {
+	FD_ZERO(&rfds);
+	FD_SET(m_fd, &rfds);
+
+	tv.tv_sec  = timeout;
+	tv.tv_usec = 0;
+	retval = select(m_fd+1, &rfds, 0, 0, &tv);
+
+	if (retval == -1) {
+	    qWarning("RecordDevice::read() - select() failed");
+	    return -EAGAIN;
+	} else if (retval) {
+	    int res = ::read(m_fd, buffer, length);
+	    if ((res == -1) && (errno == EAGAIN))
+		continue;
+		// return -EAGAIN; // interrupted ?
+
+	    if (res < 0) {
+		qWarning("RecordDevice::read() - read error %d (%s)",
+		         errno, strerror(errno));
+		return read_bytes;
+	    }
+	    read_bytes += res;
+	    length -= res;
+	    buffer += res;
+	} else {
+	    printf("No data within 5 seconds.\n");
+	    return -EIO;
+        }
+    }
+
+    return read_bytes;
 }
 
 //***************************************************************************

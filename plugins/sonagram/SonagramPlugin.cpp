@@ -345,7 +345,7 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 	    unsigned int t;
 	    for (t=0; t < count; t++) {
 		sample_t s = 0;
-		SampleReader *reader = source.at(t);
+		SampleReader *reader = source[t];
 		ASSERT(reader);
 		if (reader) *reader >> s;
 		value += (double)s;

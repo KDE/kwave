@@ -48,6 +48,8 @@ void SampleReader::reset()
     m_src_position = m_first;
     m_buffer_used = 0;
     m_buffer_position = 0;
+
+    emit proceeded();
 }
 
 //***************************************************************************
@@ -85,6 +87,8 @@ void SampleReader::fillBuffer()
 	    rest -= cnt;
 	}
     }
+
+    emit proceeded();
 }
 
 //***************************************************************************

@@ -228,7 +228,6 @@ MainWidget::~MainWidget()
 //***************************************************************************
 void MainWidget::resizeEvent(QResizeEvent *)
 {
-    debug("MainWidget::resizeEvent()");
     refreshChannelControls();
     refreshOverView();
 }
@@ -247,7 +246,6 @@ void MainWidget::scrollbarMoved(int newval)
 //***************************************************************************
 void MainWidget::slotTrackInserted(unsigned int /*track*/)
 {
-
     refreshChannelControls();
     emit sigTrackCount(tracks());
 }
@@ -265,19 +263,11 @@ void MainWidget::refreshOverView()
     ASSERT(m_slider);
     if (!m_slider) return;
 
-    debug("MainWidget::refreshOverView()");
     QBitmap *overview = m_signal_widget.overview(
 	m_slider->width(), m_slider->height());
     m_slider->setOverView(overview);
 
     if (overview) delete overview;
-}
-
-//**********************************************************
-int MainWidget::saveFile(const QString &filename, unsigned int bits,
-                          int type, bool selection)
-{
-    return m_signal_widget.saveFile(filename, bits, type, selection);
 }
 
 //***************************************************************************

@@ -67,11 +67,10 @@ public:
      */
     int loadFile(const KURL &url);
 
-    /**
-     * @todo: re-implementation
-     */
-    int saveFile(const QString &filename, unsigned int bits,
-                 int type, bool selection);
+    /** @see SignalWidget::saveFile() */
+    inline int saveFile(const KURL &url, unsigned int bits, bool selection) {
+	return m_signal_widget.saveFile(url, bits, selection);
+    };
 
     /**
      * Closes the current signal.

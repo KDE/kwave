@@ -29,6 +29,7 @@ class FileInfo;
 class KMimeType;
 class MultiTrackWriter;
 class QIODevice;
+class QWidget;
 
 class Decoder: public QObject, public CodecBase
 {
@@ -52,10 +53,12 @@ public:
 
     /**
      * Decodes a stream of bytes into a signal
+     * @param widget a widget that can be used for displaying
+     *        message boxes or dialogs
      * @param dst Signal that receives the audio data
      * @return true if succeeded, false on errors
      */
-    virtual bool decode(MultiTrackWriter &dst) = 0;
+    virtual bool decode(QWidget *widget, MultiTrackWriter &dst) = 0;
 
     /**
      * Closes the io device.

@@ -21,6 +21,8 @@
 #include "config.h"
 #include "libkwave/Decoder.h"
 
+class QWidget;
+
 class WavDecoder: public Decoder
 {
 public:
@@ -42,10 +44,12 @@ public:
 
     /**
      * Decodes a stream of bytes into a MultiTrackWriter
+     * @param widget a widget that can be used for displaying
+     *        message boxes or dialogs
      * @param dst MultiTrackWriter that receives the audio data
      * @return true if succeeded, false on errors
      */
-    virtual bool decode(MultiTrackWriter &dst);
+    virtual bool decode(QWidget *widget, MultiTrackWriter &dst);
 
     /**
      * Closes the source.

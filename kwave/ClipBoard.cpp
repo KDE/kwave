@@ -71,7 +71,6 @@ void ClipBoard::openMultiTrackReader(MultiTrackReader &readers)
     SharedLockGuard lock(m_lock, false); // lock read-only
 
     unsigned int count = m_buffer.count();
-    readers.setAutoDelete(true);
     readers.clear();
     ASSERT(length());
     if (!length()) return; // clipboard is empty ?

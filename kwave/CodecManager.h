@@ -90,10 +90,26 @@ public:
 
     /**
      * Tries to find an encoder that matches to a given mime type.
-     * @param mimetype mime type of the destination
+     * @param mimetype name of the mime type of the destination
      * @return a new encoder for the mime type or null if none found.
      */
-    static Encoder *encoder(const KMimeType &mimetype);
+    static Encoder *encoder(const QString &mimetype_name);
+
+    /**
+     * Returns a string with a list of all file types that can be used
+     * for saving. The string is localized and can be used as a filter
+     * for a KFileDialog. The entries are unique (by file extension) but
+     * not sorted alphabetically.
+     */
+    static QString encodingFilter();
+
+    /**
+     * Returns a string with a list of all file types that can be used
+     * for loading. The string is localized and can be used as a filter
+     * for a KFileDialog. The entries are unique (by file extension) but
+     * not sorted alphabetically.
+     */
+    static QString decodingFilter();
 
 private:
     /** list of all encoders */

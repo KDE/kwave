@@ -52,6 +52,7 @@
 
 #include "KwaveApp.h"
 #include "ClipBoard.h"
+#include "CodecManager.h"
 #include "MainWidget.h"
 #include "TopWidget.h"
 #include "PlaybackController.h"
@@ -121,8 +122,7 @@ TopWidget::ZoomListPrivate::ZoomListPrivate()
 
 //***************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app)
-    :KMainWindow(),
-    m_app(main_app)
+    :KMainWindow(), m_app(main_app), m_url()
 {
     int id=1000; // id of toolbar items
     KIconLoader icon_loader;
@@ -140,7 +140,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     m_main_widget = 0;
     m_menu_manager = 0;
     m_pause_timer = 0;
-    m_filename = "";
     m_toolbar = 0;
     m_zoomselect = 0;
 
@@ -612,10 +611,6 @@ void TopWidget::executeCommand(const QString &command)
 	resolution(command);
     CASE_COMMAND("revert")
 	revert();
-    CASE_COMMAND("importascii")
-	importAsciiFile();
-    CASE_COMMAND("exportascii")
-	exportAsciiFile();
     CASE_COMMAND("saveas")
 	saveFileAs(false);
     CASE_COMMAND("loadbatch")
@@ -662,8 +657,11 @@ void TopWidget::parseCommands(const QByteArray &buffer)
 //***************************************************************************
 void TopWidget::revert()
 {
-    QString name = m_filename;
-//    loadFile(name, WAV);
+    ASSERT(m_url.isValid() && !m_url.isMalformed());
+    if (!m_url.isValid() || m_url.isMalformed()) return;
+
+    KURL url(m_url);
+    loadFile(url);
 }
 
 //***************************************************************************
@@ -698,10 +696,10 @@ bool TopWidget::closeFile()
 
     if (m_main_widget) m_main_widget->closeSignal();
 
-    m_filename = "";
+    m_url = KURL();
     updateCaption();
     m_zoomselect->clearEdit();
-    emit sigSignalNameChanged(m_filename);
+    emit sigSignalNameChanged(signalName());
 
     updateMenu();
     updateToolbar();
@@ -723,18 +721,18 @@ int TopWidget::loadFile(const KURL &url)
     // try to close the previous file
     if (!closeFile()) return -1;
 
-    m_filename = url.path();
-    emit sigSignalNameChanged(m_filename);
+    emit sigSignalNameChanged(url.path());
 
     if (!m_main_widget->loadFile(url)) {
 	// succeeded
+	m_url = url;
 	updateCaption();
 	m_save_bits = m_main_widget->bits();
     } else {
 	// load failed
 	closeFile();
     }
-    m_app.addRecentFile(m_filename);
+    m_app.addRecentFile(signalName());
     updateMenu();
     updateToolbar();
 
@@ -751,23 +749,9 @@ void TopWidget::openRecent(const QString &str)
 //***************************************************************************
 void TopWidget::openFile()
 {
-    QString filename = KFileDialog::getOpenFileName(
-	":kwave-open-dir", "*.wav", this);
-    if (filename.length()) loadFile(filename);
-}
-
-//***************************************************************************
-void TopWidget::importAsciiFile()
-{
-}
-
-//***************************************************************************
-void TopWidget::exportAsciiFile()
-{
-//    QString filename = KFileDialog::getOpenFileName(
-//	":kwave-open-dir", "*.asc", this);
-//    if (filename.length()) m_main_widget->saveFile(filename,
-//    	m_save_bits, "audio/x-kwave-ascii", false);
+    KURL url = KFileDialog::getOpenURL(
+	":<kwave-open-dir>", CodecManager::decodingFilter(), this);
+    if (!url.isEmpty()) loadFile(url);
 }
 
 //***************************************************************************
@@ -777,8 +761,8 @@ int TopWidget::saveFile()
     ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
 
-    if (m_filename.length() && (m_filename != NEW_FILENAME)) {
-	res = m_main_widget->saveFile(m_filename, m_save_bits, 0, false);
+    if (signalName() != NEW_FILENAME) {
+	res = m_main_widget->saveFile(m_url, m_save_bits, false);
     } else res = saveFileAs(false);
 
     updateCaption();
@@ -794,23 +778,23 @@ int TopWidget::saveFileAs(bool selection)
     ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
 
-    QString name = KFileDialog::getSaveFileName(":kwave-savedir",
-	"*.wav", m_main_widget);
+    KURL url = KFileDialog::getSaveURL(":<kwave-savedir>",
+	CodecManager::encodingFilter(), m_main_widget);
 
-    if (!name.isNull()) {
+    if (!url.isEmpty()) {
+	QString name = url.path();
 	QFileInfo path(name);
 	
-	// add the extension .wav if necessary
-	if ((path.extension(false) != "wav") &&
-	    (path.extension(false) != "WAV"))
-	{
+	// add the (default) extension .wav if necessary
+	if (path.extension(false) == "") {
 	    name += ".wav";
 	    path = name;
+	    url.setPath(name);
 	}
 	
 	// check if the file exists and ask before overwriting it
 	// if it is not the old filename
-	if ((m_filename != name) && (path.exists())) {
+	if ((name != signalName()) && (path.exists())) {
 	    if (KMessageBox::warningYesNo(this,
 	        i18n("The file '%1' already exists. Do you really "\
 	        "want to overwrite it?").arg(name)) != KMessageBox::Yes)
@@ -819,11 +803,11 @@ int TopWidget::saveFileAs(bool selection)
 	    }
 	}
 	
-	m_filename = name;
-	res = m_main_widget->saveFile(m_filename, m_save_bits, 0, selection);
+	m_url = url;
+	res = m_main_widget->saveFile(m_url, m_save_bits, selection);
 	
 	updateCaption();
-	m_app.addRecentFile(m_filename);
+	m_app.addRecentFile(signalName());
 	updateMenu();
     }
 
@@ -837,8 +821,8 @@ void TopWidget::newSignal(unsigned int samples, double rate,
     // abort if the user pressed cancel
     if (!closeFile()) return;
 
-    m_filename = NEW_FILENAME;
-    emit sigSignalNameChanged(m_filename);
+    m_url = NEW_FILENAME;
+    emit sigSignalNameChanged(signalName());
 
     m_main_widget->newSignal(samples, rate, bits, tracks);
 
@@ -849,9 +833,10 @@ void TopWidget::newSignal(unsigned int samples, double rate,
 }
 
 //***************************************************************************
-const QString &TopWidget::getSignalName()
+QString TopWidget::signalName()
 {
-    return m_filename;
+    return (m_url.isValid() && !m_url.isMalformed()) ?
+            m_url.path() : QString("");
 }
 
 //***************************************************************************
@@ -1055,7 +1040,7 @@ void TopWidget::updateMenu()
     m_menu_manager->selectItem("@BITS_PER_SAMPLE", bps);
 
     // enable/disable all items that depend on having a filel
-    bool have_file = (m_filename.length() != 0);
+    bool have_file = (signalName().length() != 0);
     m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);
 }
 
@@ -1153,15 +1138,15 @@ void TopWidget::updateCaption()
     bool modified = signalManager().isModified();
 
     // shortcut if no file loaded
-    if (m_filename.length() == 0) {
+    if (signalName().length() == 0) {
 	setCaption(0);
 	return;
     }
 
     if (modified)
-	setCaption("* "+m_filename+i18n(" (modified)"));
+	setCaption("* "+signalName()+i18n(" (modified)"));
     else
-	setCaption(m_filename);
+	setCaption(signalName());
 }
 
 //***************************************************************************

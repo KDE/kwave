@@ -120,7 +120,7 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 	// process 1:1
 	unsigned int track;
 	for (track = 0; track < src_tracks; ++track) {
-	    *at(track) << *source.at(track);
+	    *at(track) << *(source[track]);
 	    if (m_cancelled) break;
 	}
     }
@@ -145,7 +145,7 @@ void MultiTrackWriter::proceeded()
     const unsigned int tracks = count();
     for (track=0; track < tracks; ++track) {
 	SampleWriter *w = (*this)[track];
-	if (w) pos += w->position();
+	if (w) pos += (w->position() - w->first());
     }
     emit progress(pos);
 }

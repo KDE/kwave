@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <klocale.h>
+#include <kmessagebox.h>
 #include <kmimetype.h>
 #include <math.h>
 
@@ -47,7 +48,8 @@ Encoder *WavEncoder::instance()
 }
 
 /***************************************************************************/
-bool WavEncoder::encode(MultiTrackReader &src, QIODevice &dst, FileInfo &info)
+bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
+                        QIODevice &dst, FileInfo &info)
 {
     /* first get and check some header information */
     const unsigned int tracks = info.tracks();
@@ -65,7 +67,8 @@ bool WavEncoder::encode(MultiTrackReader &src, QIODevice &dst, FileInfo &info)
 
     // open the output device
     if (!dst.open(IO_WriteOnly)) {
-	warning("unable to open output device for saving");
+	KMessageBox::error(widget,
+	    i18n("Unable to open the file for saving!"));
 	return false;
     }
 
@@ -136,8 +139,8 @@ bool WavEncoder::encode(MultiTrackReader &src, QIODevice &dst, FileInfo &info)
 	}
 	
 	// abort if the user pressed "cancel"
-	// if (src.isCancelled()) break;
-	// ??? this would leave a corrupted file !!!
+	if (src.isCancelled()) break;
+	// --> this would leave a corrupted file !!!
     }
 
     dst.close();

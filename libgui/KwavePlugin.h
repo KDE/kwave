@@ -159,14 +159,14 @@ public:
      * Returns the parent widget of the plugin. This normally should be
      * a TopWidget of the Kwave main program.
      */
-    QWidget* parentWidget();
+    QWidget *parentWidget();
 
     /**
      * Returns the name of the current signal. This can be used to set the
      * caption of a plugin's main window. If no signal is currently loaded
      * the returned string is empty.
      */
-    const QString &signalName();
+    QString signalName();
 
     /**
      * Returns the length of the current signal in samples. If no signal is

@@ -155,6 +155,10 @@ int SignalManager::loadFile(const KURL &url)
 	m_closed = false;
 	m_empty = false;
 	
+	// set rate and resolution of the signal
+	m_signal.setRate((int)rint(decoder->info().rate()));
+	m_signal.setBits(decoder->info().bits());
+	
 	// create all tracks (empty)
 	unsigned int track;
 	const unsigned int tracks = decoder->info().tracks();
@@ -189,7 +193,7 @@ int SignalManager::loadFile(const KURL &url)
 	
 	// now decode
 	res = 0;
-	if (!decoder->decode(writers)) {
+	if (!decoder->decode(m_parent_widget, writers)) {
 	    warning("decoding failed.");
 	    res = -EIO;
 	}
@@ -215,6 +219,96 @@ int SignalManager::loadFile(const KURL &url)
     enableModifiedChange(true);
 
     if (res) close();
+    return res;
+}
+
+//***************************************************************************
+int SignalManager::save(const KURL &url, unsigned int bits, bool selection)
+{
+    int res = 0;
+    unsigned int ofs = 0;
+    unsigned int len = length();
+    unsigned int tracks = this->tracks();
+
+    if (selection) {
+	// zero-length -> nothing to do
+	if (m_selection.length() == 0) return 0;
+	ofs = m_selection.offset();
+	len = m_selection.length();
+	tracks = selectedTracks().count();
+    }
+
+    if (!tracks || !len) {
+	KMessageBox::error(m_parent_widget,
+	    i18n("Signal is empty, nothing to save !"));
+	return 0;
+    }
+
+    QString mimetype_name;
+    mimetype_name = KMimeType::findByURL(url)->name();
+    debug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
+	url.prettyURL().data(), mimetype_name.data(), bits, selection);
+
+    Encoder *encoder = CodecManager::encoder(mimetype_name);
+    if (encoder) {
+	// open the destination file
+	QString filename = url.path();
+	QFile dst(filename);
+	
+	MultiTrackReader src;
+	if (selection) {
+	    openMultiTrackReader(src, selectedTracks(), ofs, len);
+	} else {
+	    openMultiTrackReader(src, allTracks(), ofs, len);
+	}
+	
+	// create file information
+	FileInfo info;
+	info.setLength(len);
+	info.setRate(rate());
+	info.setBits(bits);
+	info.setTracks(tracks);
+	
+	//prepare and show the progress dialog
+	FileProgress *dialog = new FileProgress(m_parent_widget,
+	    filename, info.tracks()*info.length(), info.length(),
+	    info.rate(), info.bits(), info.tracks());
+	ASSERT(dialog);
+	QObject::connect(&src,   SIGNAL(progress(unsigned int)),
+	                 dialog, SLOT(setValue(unsigned int)));
+	QObject::connect(dialog, SIGNAL(cancelled()),
+	                 &src,   SLOT(cancel()));
+	
+	// invoke the encoder...
+	if (!encoder->encode(m_parent_widget, src, dst, info)) {
+	    KMessageBox::error(m_parent_widget,
+	        i18n("An error occurred while reading the file!"));
+	    res = -1;
+	}
+	
+	delete encoder;
+	if (dialog) {
+	    if (dialog->isCancelled()) {
+		// user really pressed cancel !
+		KMessageBox::error(m_parent_widget,
+		    i18n("The file has been truncated and "\
+		         "might be corrupted!"));
+	    }
+	    delete dialog;
+	}
+    } else {
+	KMessageBox::error(m_parent_widget,
+	    i18n("Sorry, the file type is not supported!"));
+	res = -EMEDIUMTYPE;
+    }
+
+    if (!res) {
+	// saved without error -> no longer modified
+	flushUndoBuffers();
+	enableModifiedChange(true);
+	setModified(false);
+    }
+    debug("SignalManager::save(): res=%d",res);
     return res;
 }
 
@@ -923,98 +1017,6 @@ int SignalManager::exportAscii(const char *name)
 }
 ### */
 
-int SignalManager::save(const QString &filename, unsigned int bits,
-                        bool selection)
-{
-    debug("SignalManager::save(): %u Bit to %s ,%d",
-    	bits, filename.data(), selection);
-/* ### still to be done...
-    int res = 0;
-    __uint32_t ofs = 0;
-    __uint32_t len = length();
-    unsigned int tracks = this->tracks();
-    wav_header_t header;
-
-    ASSERT(filename);
-    if (!filename) return -EINVAL;
-
-    if (selection) {
-	// zero-length -> nothing to do
-	if (m_selection.length() == 0) return 0;
-	ofs = m_selection.offset();
-	len = m_selection.length();
-    }
-
-    if (!tracks || !len) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("Signal is empty, nothing to save !"));
-	return 0;
-    }
-
-    QFile sigout(filename);
-    if (!(res = sigout.open(IO_WriteOnly | IO_Truncate))) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("Opening the file for writing failed!"));
-	return -res;
-    };
-
-    __uint32_t datalen = (bits >> 3) * len * tracks;
-    strncpy((char*)&(header.riffid), "RIFF", 4);
-    strncpy((char*)&(header.wavid), "WAVE", 4);
-    strncpy((char*)&(header.fmtid), "fmt ", 4);
-    header.filelength = datalen + sizeof(wav_header_t);
-    header.fmtlength = 16;
-    header.mode = 1;
-    header.channels = tracks;
-    header.rate = m_rate;
-    header.AvgBytesPerSec = m_rate * (bits >> 3) * tracks;
-    header.BlockAlign = (bits >> 3) * tracks;
-    header.bitspersample = bits;
-
-#if defined(IS_BIG_ENDIAN)
-    header.filelength = bswap_32(header.filelength);
-    header.fmtlength = bswap_32(header.fmtlength);
-    header.mode = bswap_16(header.mode);
-    header.channels = bswap_16(header.channels);
-    header.rate = bswap_32(header.rate);
-    header.AvgBytesPerSec = bswap_32(header.AvgBytesPerSec);
-    header.BlockAlign = bswap_16(header.BlockAlign);
-    header.bitspersample = bswap_16(header.bitspersample);
-    datalen = bswap_32(datalen);
-#endif
-
-    sigout.at(0);
-    sigout.writeBlock((char *) &header, sizeof(wav_header_t));
-    sigout.writeBlock("data", 4);
-    sigout.writeBlock((char *)&datalen, 4);
-
-    switch (bits) {
-	case 8:
-	case 16:
-	case 24:
-	    res = writeWavChunk(sigout, ofs, len, bits);
-	    break;
-	default:
-	    KMessageBox::sorry(m_parent_widget,
-		i18n("Sorry only 8/16/24 Bits per Sample are supported !"));
-	    sigout.close();
-	    res = -1;
-	break;
-    }
-
-    sigout.close();
-    if (!res) {
-	// saved without error -> no longer modified
-	flushUndoBuffers();
-	enableModifiedChange(true);
-	setModified(false);
-    }
-    debug("SignalManager::save(): res=%d",res);
-    return res;
-### */
-    return -1;
-}
-
 //***************************************************************************
 PlaybackController &SignalManager::playbackController()
 {
@@ -1252,7 +1254,7 @@ bool SignalManager::saveUndoDelete(QArray<unsigned int> &track_list,
     };
 
     // do not delete the actions from the list, so it's important
-    // disable the auto-delete feature now!
+    // to disable the auto-delete feature now!
     undo_list.setAutoDelete(false);
     return true;
 }

@@ -195,7 +195,6 @@ void Signal::openMultiTrackReader(MultiTrackReader &readers,
 {
     unsigned int count = track_list.count();
     unsigned int track;
-    readers.setAutoDelete(true);
     readers.clear();
     readers.resize(count);
 

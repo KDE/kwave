@@ -3,7 +3,9 @@ INCLUDES= @all_includes@ -I$(includedir)/arts
 
 BUILTSOURCES=\
  KwaveDrag.moc.cpp\
+ MultiTrackReader.moc.cpp\
  MultiTrackWriter.moc.cpp\
+ SampleReader.moc.cpp\
  SampleWriter.moc.cpp\
  Selection.moc.cpp\
  Signal.moc.cpp\

@@ -192,9 +192,9 @@ QWidget *KwavePlugin::parentWidget()
 }
 
 //***************************************************************************
-const QString &KwavePlugin::signalName()
+QString KwavePlugin::signalName()
 {
-    return (m_context.top_widget.getSignalName());
+    return (m_context.top_widget.signalName());
 }
 
 //***************************************************************************

@@ -22,6 +22,7 @@
 #include <qcstring.h>
 #include <qstringlist.h>
 #include <kmainwindow.h>
+#include <kurl.h>
 
 class QCloseEvent;
 class QTimer;
@@ -30,7 +31,6 @@ class KCombo;
 class KDNDDropZone;
 class KToolBar;
 class KStatusBar;
-class KURL;
 
 class KwaveApp;
 class MenuManager;
@@ -83,7 +83,7 @@ public:
      * Returns a reference to the current name of the signal. If no signal is
      * loaded the string is zero-length.
      */
-    const QString &getSignalName();
+    QString signalName();
 
     /**
      * Parses a buffer (that is intended to contain the content
@@ -253,12 +253,6 @@ protected:
      */
     bool closeFile();
 
-    /**
-     * Like openFile(), but reads in ASCII format.
-     * @see #openFile()
-     */
-    void importAsciiFile();
-
     /** Saves the current file. */
     int saveFile();
 
@@ -278,10 +272,6 @@ protected:
      */
     void newSignal(unsigned int samples, double rate,
                    unsigned int bits, unsigned int tracks);
-
-    /**
-     * Like saveFileAs(), but saves in ASCII format. */
-    void exportAsciiFile();
 
     /**
      * Opens a file contained in the list of recent files.
@@ -335,8 +325,8 @@ private:
      */
     KToolBar *m_toolbar;
 
-    /** Name of the current signal or file. Zero-Length if nothing loaded */
-    QString m_filename;
+    /** URL of the current signal or file. Empty if nothing loaded */
+    KURL m_url;
 
     /** menu manager for this window */
     MenuManager *m_menu_manager;

@@ -114,15 +114,70 @@ Decoder *CodecManager::decoder(const QMimeSource *mime_source)
 }
 
 /***************************************************************************/
-Encoder *CodecManager::encoder(const KMimeType &mimetype)
+Encoder *CodecManager::encoder(const QString &mimetype_name)
 {
     QListIterator<Encoder> it(m_encoders);
     for (; it.current(); ++it) {
 	Encoder *e = it.current();
 	ASSERT(e);
-	if (e && e->supports(mimetype)) return e->instance();
+	if (e && e->supports(mimetype_name)) return e->instance();
     }
     return 0;
+}
+
+/***************************************************************************/
+QString CodecManager::encodingFilter()
+{
+    QListIterator<Encoder> it(m_encoders);
+    QString list = "";
+    for (; it.current(); ++it) {
+	Encoder *e = it.current();
+	
+	// loop over all mime types that the encoder supports
+	QList<KMimeType> types = e->mimeTypes();
+	QListIterator<KMimeType> ti(types);
+	for (; ti.current(); ++ti) {
+	    KMimeType *type = ti.current();
+	    QString extensions = type->patterns().join("; ");
+	
+	    // skip if extensions are already known/present
+	    if (list.contains(extensions)) continue;
+
+	    // otherwise append to the list	
+	    QString entry = extensions;
+	    entry += "|" + type->comment();
+	    if (list.length()) list += "\n";
+	    list += entry + " (" + extensions + ")";
+	}
+    }
+    return list;
+}
+/***************************************************************************/
+QString CodecManager::decodingFilter()
+{
+    QListIterator<Decoder> it(m_decoders);
+    QString list = "";
+    for (; it.current(); ++it) {
+	Decoder *d = it.current();
+	
+	// loop over all mime types that the decoder supports
+	QList<KMimeType> types = d->mimeTypes();
+	QListIterator<KMimeType> ti(types);
+	for (; ti.current(); ++ti) {
+	    KMimeType *type = ti.current();
+	    QString extensions = type->patterns().join("; ");
+	
+	    // skip if extensions are already known/present
+	    if (list.contains(extensions)) continue;
+
+	    // otherwise append to the list	
+	    QString entry = extensions;
+	    entry += "|" + type->comment();
+	    if (list.length()) list += "\n";
+	    list += entry + " (" + extensions + ")";
+	}
+    }
+    return list;
 }
 
 /***************************************************************************/

@@ -228,14 +228,9 @@ SignalWidget::~SignalWidget()
 }
 
 //***************************************************************************
-int SignalWidget::saveFile(const QString &filename, unsigned int bits,
-                           int type, bool selection)
+int SignalWidget::saveFile(const KURL &url, unsigned int bits, bool selection)
 {
-//    if (type == ASCII) {
-//	return m_signal_manager.exportAscii(filename);
-//    } else {
-//	return m_signal_manager.save(filename, bits, selection);
-//    }
+    return m_signal_manager.save(url, bits, selection);
 }
 
 //***************************************************************************

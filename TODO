@@ -2,6 +2,9 @@
 o plugins for import/export of different file formats (e.g. MP3)
   -> through aRts ?
 
+o currently load/save uses the file extension to identify the mime type
+  should be changed to an extra parameter with a KMimeType's name
+
 o audible/silent mode of tracks (speakers)
   speaker controls for "audible" mode
 

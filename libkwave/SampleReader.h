@@ -21,6 +21,7 @@
 
 #include <qarray.h>
 #include <qlist.h>
+#include <qobject.h>
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
@@ -29,8 +30,9 @@ class SampleLock;
 class Stripe;
 class Track;
 
-class SampleReader
+class SampleReader: public QObject
 {
+    Q_OBJECT
 public:
 
     /**
@@ -101,6 +103,11 @@ public:
      * read.
      */
     SampleReader& operator >> (QArray<sample_t> &sample);
+
+signals:
+
+    /** Emitted when the internal buffer is filled or the reader is closed */
+    void proceeded();
 
 protected:
 

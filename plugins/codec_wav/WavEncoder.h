@@ -21,6 +21,8 @@
 #include "config.h"
 #include "libkwave/Encoder.h"
 
+class QWidget;
+
 class WavEncoder: public Encoder
 {
 public:
@@ -35,13 +37,15 @@ public:
 
     /**
      * Encodes a signal into a stream of bytes.
+     * @param widget a widget that can be used for displaying
+     *        message boxes or dialogs
      * @param src MultiTrackReader used as source of the audio data
      * @param dst file or other source to receive a stream of bytes
      * @param info information about the file to be saved
      * @return true if succeeded, false on errors
      */
-    virtual bool encode(MultiTrackReader &src, QIODevice &dst,
-                        FileInfo &info);
+    virtual bool encode(QWidget *widget, MultiTrackReader &src,
+                        QIODevice &dst, FileInfo &info);
 
 };
 

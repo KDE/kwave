@@ -148,12 +148,12 @@ public:
     /**
      * Saves the signal to a file with a given resolution. If the file
      * already exists, it will be overwritten.
-     * @param filename name of the file to be saved.
+     * @param url URL with the name of the file to be saved.
      * @param bits number of bits per sample
      * @param selection if true, only the selected range will be saved
      * @return zero if succeeded or negative error code
      */
-    int save(const QString &filename, unsigned int bits, bool selection);
+    int save(const KURL &url, unsigned int bits, bool selection);
 
     /**
      * Exports ascii file with one sample per line and only one track.

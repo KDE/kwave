@@ -121,7 +121,7 @@ bool WavDecoder::open(QIODevice &src)
 }
 
 /***************************************************************************/
-bool WavDecoder::decode(MultiTrackWriter &dst)
+bool WavDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 {
     ASSERT(m_source);
     if (!m_source) return false;
@@ -223,37 +223,10 @@ __uint32_t SignalManager::findChunk(QFile &sigfile, const char *chunk,
 int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
                                 unsigned int channels, int bits)
 {
-    unsigned int bufsize = 64 * 1024 * sizeof(sample_t);
-    unsigned char *loadbuffer = 0;
-    int bytes = bits >> 3;
-    unsigned int sign = 1 << (24-1);
-    unsigned int negative = ~(sign - 1);
-    unsigned int shift = 24-bits;
-    unsigned int bytes_per_sample = bytes * channels;
-    unsigned int max_samples = bufsize / bytes_per_sample;
-    long int start_offset = sigfile.at();
-
     debug("SignalManager::loadWavChunk(): offset     = %d", sigfile.at());
     debug("SignalManager::loadWavChunk(): length     = %d samples", length);
     debug("SignalManager::loadWavChunk(): tracks     = %d", channels);
     debug("SignalManager::loadWavChunk(): resoultion = %d bits/sample", bits);
-
-    ASSERT(bytes);
-    ASSERT(channels);
-    ASSERT(length);
-    if (!bytes || !channels || !length) return -EINVAL;
-
-    // try to allocate memory for the load buffer
-    // if failed, try again with the half buffer size as long
-    // as <1kB is not reached (then we are really out of memory)
-    while (loadbuffer == 0) {
-	if (bufsize < 1024) {
-	    debug("SignalManager::loadWavChunk:not enough memory for buffer");
-	    return -ENOMEM;
-	}
-	loadbuffer = new unsigned char[bufsize];
-	if (!loadbuffer) bufsize >>= 1;
-    }
 
     // check if the file is large enough for "length" samples
     size_t file_rest = sigfile.size() - sigfile.at();
@@ -270,48 +243,12 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
     QList<SampleWriter> samples;
     samples.setAutoDelete(true);
 
-    for (unsigned int track = 0; track < channels; track++) {
-	SampleWriter *s = 0;
-	Track *new_track = m_signal.appendTrack(length);
-	ASSERT(new_track);
-	if (new_track && (new_track->length() >= length)) {
-	    s = openSampleWriter(track, Overwrite);
-	    ASSERT(s);
-	}
-	
-	if (!s) {
-	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"));
-	    return -ENOMEM;
-	}
-	samples.append(s);
-    }
-
-    // now the signal is considered not to be empty
-    m_empty = false;
-
-    //prepare and show the progress dialog
-    FileProgress *dialog = new FileProgress(m_parent_widget,
-	m_name, file_rest, length, m_rate, bits, channels);
-    ASSERT(dialog);
-
-    // prepare the loader loop
-    int percent_count = length / 100;
-
-    // debug("sign=%08X, negative=%08X, shift=%d",sign,negative,shift);
-
     for (unsigned int pos = 0; pos < length; ) {
 	// break the loop if the user has pressed "cancel"
 	if (dialog && dialog->isCancelled()) break;
 	
 	// limit reading to end of wav chunk length
 	if ((pos + max_samples) > length) max_samples=length-pos;
-	
-	// read the samples into a temporary buffer
-	int read_samples = sigfile.readBlock(
-	    reinterpret_cast<char *>(loadbuffer),
-	    bytes_per_sample*max_samples
-	) / bytes_per_sample;
-	percent_count -= read_samples;
 	
 	// debug("read %d samples", read_samples);
 	if (read_samples <= 0) {
@@ -320,51 +257,6 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 		    sigfile.at() / bytes_per_sample - start_offset, length);
 	    break;
 	}
-	
-	unsigned char *buffer = loadbuffer;
-	__uint32_t s = 0; // raw 32bit value
-	while (read_samples--) {
-	    for (register unsigned int channel = 0;
-		 channel < channels;
-		channel++)
-	    {
-		SampleWriter *stream = samples.at(channel);
-		
-		if (bytes == 1) {
-		    // 8-bit files are always unsigned !
-		    s = (*(buffer++) - 128) << shift;
-		} else {
-		    // >= 16 bits is signed
-		    s = 0;
-		    for (register int byte = 0; byte < bytes; byte++) {
-			s |= *(buffer++) << ((byte << 3) + shift);
-		    }
-		    // sign correcture for negative values
-		    if ((unsigned int)s & sign)
-			s |= negative;
-		}
-		
-		// the following cast is only necessary if
-		// sample_t is not equal to a 32bit int
-		sample_t sample = static_cast<sample_t>(s);
-		
-		*stream << sample;
-	    }
-	    pos++;
-	}
-	
-	if (dialog && (percent_count <= 0)) {
-	    percent_count = length / 100;
-	    dialog->setValue(pos * bytes_per_sample);
-	}
-    }
-
-    // close all sample input streams
-    samples.clear();
-
-    if (dialog) delete dialog;
-    if (loadbuffer) delete[] loadbuffer;
-    return 0;
 }
 ### */
 

@@ -102,14 +102,10 @@ public:
                    unsigned int bits, unsigned int tracks);
 
     /** @todo (re)implementation */
-    int saveFile(const QString &filename, unsigned int bits,
-                 int type, bool selection = false);
+    int saveFile(const KURL &url, unsigned int bits, bool selection = false);
 
     /** @todo (re)implementation */
     void saveBlocks (int);
-
-    /** @todo (re)implementation */
-    void setSignal (SignalManager *signal);
 
     /**
      * Closes the current signal

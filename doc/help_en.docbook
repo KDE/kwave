@@ -132,10 +132,10 @@
         <listitem><para>
         Mailing List<anchor id="mailing-list"/></para><para>
 	If you need some help on using &kapp; or want to get involved
-	    in the development, join the mailinglist by writing a e-mail
-	    to <email>majordomo@fs.spinfo.uni-koeln.de</email>
-	    with the text "<literal>subscribe kwave-list</literal>"
-	    in the body.
+	    in the development, join the Kwave developer mailing list
+	    by visiting
+	    <ulink url="https://lists.sourceforge.net/lists/listinfo/kwave-devel">
+	    "https://lists.sourceforge.net/lists/listinfo/kwave-devel"</ulink>.
 	</para></listitem>
 	<listitem><para>
 	CVS Repository<anchor id="cvs-repository"/></para><para>
@@ -150,39 +150,6 @@
 	    <emphasis>Anonymous CVS access is allowed!</emphasis>
         </para></listitem>
     </itemizedlist>
-
-<!--
-    <segmentedlist><title>Kwave Resources</title>
-        <segtitle>Project Homepage</segtitle>
-        <segtitle>Mailing List</segtitle>
-        <segtitle>CVS Repository</segtitle>
-        <seglistitem>
-        <seg><anchor id="project-homepage"/>
-            For informations about new up-to-date releases or some other
-            information about this project, take a look at
-            the <ulink url="http://kwave.sourceforge.net/">&kapp; homepage</ulink>
-        </seg>
-        <seg><anchor id="mailing-list"/>
-            If you need some help on using &kapp; or want to get involved
-            in the development, join the mailinglist by writing a mail
-            to <email>majordomo@fs.spinfo.uni-koeln.de</email>
-            with the text "<literal>subscribe kwave-list</literal>"
-            in the body.
-        </seg>
-        <seg><anchor id="cvs-repository"/>
-            There also is a CVS repository, hosted by
-            <ulink url="http://sourceforge.net">SourceForge</ulink> where
-            you can get the sources of the latest development version.
-            For instructions on how to get access to the repository, read
-            in the chapter
-            about <link linkend="building_rpm_from_cvs">building from CVS</link>,
-            look at <ulink url="http://sourceforge.net/cvs/?group_id=6478">"http://sourceforge.net/cvs/?grou
-            browse through the CVS tree through a nice web interface.
-            <emphasis>Anonymous CVS access is allowed!</emphasis>
-        </seg>
-        </seglistitem>
-    </segmentedlist>
--->
 
     </sect1>
 

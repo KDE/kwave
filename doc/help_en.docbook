@@ -194,6 +194,9 @@
                 <listitem><para>
                     integrated libkwavemt into libkwave
                 </para></listitem>
+                <listitem><para>
+                    using time instead of zoom factor (e.g. set zoom to "1 minute")
+                </para></listitem>
             </itemizedlist>
         </listitem>
         <listitem>

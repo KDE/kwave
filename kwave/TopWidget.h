@@ -175,6 +175,9 @@ private slots:
     /** updates all elements in the toolbar */
     void updateToolbar();
 
+    /** updates only the playback controls */
+    void updatePlaybackControls();
+
     /** called if the playback has been paused */
     void playbackPaused();
 
@@ -288,6 +291,9 @@ protected:
 
     /** Updates the caption with the filename */
     void updateCaption();
+
+    /** handle playback commands, like play/stop/pause etc... */
+    void executePlaybackCommand(const QString &command);
 
 private:
 

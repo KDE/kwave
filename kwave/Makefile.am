@@ -8,8 +8,6 @@
 # kde_cgidir        Where cgi-bin executables should go to.
 # kde_confdir       Where config files should go to.
 # kde_mimedir       Where mimetypes should go to.
-# kde_toolbardir    Where general toolbar icons should go to.
-# kde_wallpaperdir  Where general wallpapers should go to.
 
 APPSDIR= $(DESTDIR)$(kde_appsdir)/Multimedia
 CONFDIR= $(DESTDIR)$(kde_datadir)/$(PACKAGE)
@@ -87,19 +85,28 @@ ICONS = \
 
 # some pixmaps to be installed in the data dir
 PIXMAPS=\
+ amplify_free.png\
  delete.xpm\
- light_on.xpm\
- light_off.xpm\
- logo.xpm\
+ exit.xpm\
+ fade_in.png\
+ fade_out.png\
+ filesave.xpm\
+ font.xpm\
  knife.xpm\
  knob.xpm\
- selectedknob.xpm\
- xspeaker.xpm\
- rspeaker.xpm\
+ light_off.xpm\
+ light_on.xpm\
+ logo.xpm\
  lspeaker.xpm\
- font.xpm\
- exit.xpm\
- filesave.xpm
+ noise.png\
+ playback_loop.xpm\
+ playback_start.xpm\
+ playback_stop.xpm\
+ playback_pause.xpm\
+ playback_pause2.xpm\
+ rspeaker.xpm\
+ selectedknob.xpm\
+ xspeaker.xpm
 
 # the library search path
 kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \

@@ -73,11 +73,11 @@
 //#include "toolbar/eraser.xpm"
 //#include "toolbar/delete.xpm"
 
-#include "toolbar/play.xpm"
-#include "toolbar/loop.xpm"
-#include "toolbar/pause.xpm"
-#include "toolbar/pause2.xpm"
-#include "toolbar/stop.xpm"
+#include "pics/playback_loop.xpm"
+#include "pics/playback_pause.xpm"
+#include "pics/playback_pause2.xpm"
+#include "pics/playback_start.xpm"
+#include "pics/playback_stop.xpm"
 
 #include "toolbar/zoomrange.xpm"
 #include "toolbar/zoomin.xpm"
@@ -435,13 +435,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // connect the playback controller
     connect(&(m_main_widget->playbackController()),
             SIGNAL(sigPlaybackStarted()),
-            this, SLOT(updateToolbar()));
+            this, SLOT(updatePlaybackControls()));
     connect(&(m_main_widget->playbackController()),
             SIGNAL(sigPlaybackPaused()),
             this, SLOT(playbackPaused()));
     connect(&(m_main_widget->playbackController()),
             SIGNAL(sigPlaybackStopped()),
-            this, SLOT(updateToolbar()));
+            this, SLOT(updatePlaybackControls()));
 
     // connect the signal manager
     SignalManager *signal_manager = &(m_main_widget->signalManager());
@@ -620,6 +620,8 @@ void TopWidget::executeCommand(const QString &command)
 	}
     CASE_COMMAND("openrecent")
 	openRecent(command);
+    CASE_COMMAND("playback")
+	executePlaybackCommand(parser.firstParam());
     CASE_COMMAND("save")
 	saveFile();
     CASE_COMMAND("close")
@@ -651,6 +653,27 @@ void TopWidget::loadBatch(const QString &str)
     Parser parser(str);
     FileLoader loader(parser.firstParam());
     parseCommands(loader.buffer());
+}
+
+//***************************************************************************
+void TopWidget::executePlaybackCommand(const QString &command)
+{
+    ASSERT(m_main_widget);
+    if (!m_main_widget) return;
+
+    PlaybackController &controller = m_main_widget->playbackController();
+    if (command == "start") {
+	controller.playbackStart();
+    } else if (command == "loop") {
+	controller.playbackLoop();
+    } else if (command == "stop") {
+	controller.playbackStop();
+    } else if (command == "pause") {
+	pausePressed();
+    } else if (command == "continue") {
+	pausePressed();
+    }
+
 }
 
 //***************************************************************************
@@ -895,7 +918,7 @@ void TopWidget::setZoomInfo(double zoom)
 	if (rate) {
 	    // time display mode
 	    double ms = m_main_widget->displaySamples()*1E3/(double)rate;
-	    int s = (int)round(ms / 1000.0);
+	    int s = (int)floor(ms / 1000.0);
 	    int m = (int)floor(s / 60.0);
 	
 	    if (m >= 1) {
@@ -1089,6 +1112,26 @@ void TopWidget::updateToolbar()
     if (!m_main_widget) return;
 
     bool have_signal = m_main_widget->tracks();
+
+    m_toolbar->setItemEnabled(m_id_zoomselection, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomin, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomout, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomnormal, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomall, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomselect, have_signal);
+
+    updatePlaybackControls();
+}
+
+//***************************************************************************
+void TopWidget::updatePlaybackControls()
+{
+    ASSERT(m_toolbar);
+    ASSERT(m_main_widget);
+    if (!m_toolbar) return;
+    if (!m_main_widget) return;
+
+    bool have_signal = m_main_widget->tracks();
     bool playing = m_main_widget->playbackController().running();
     bool paused  = m_main_widget->playbackController().paused();
 
@@ -1106,12 +1149,17 @@ void TopWidget::updateToolbar()
     m_toolbar->setItemEnabled(m_id_pause, have_signal && (playing || paused));
     m_toolbar->setItemEnabled(m_id_stop,  have_signal && (playing || paused));
 
-    m_toolbar->setItemEnabled(m_id_zoomselection, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomin, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomout, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomnormal, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomall, have_signal);
-    m_toolbar->setItemEnabled(m_id_zoomselect, have_signal);
+    m_menu_manager->setItemEnabled("ID_PLAYBACK_START",
+	have_signal && !playing);
+    m_menu_manager->setItemEnabled("ID_PLAYBACK_LOOP",
+	have_signal && !playing);
+    m_menu_manager->setItemEnabled("ID_PLAYBACK_PAUSE",
+	have_signal && (playing));
+    m_menu_manager->setItemEnabled("ID_PLAYBACK_CONTINUE",
+	have_signal && (paused));
+    m_menu_manager->setItemEnabled("ID_PLAYBACK_STOP",
+	have_signal && (playing || paused));
+
 }
 
 //***************************************************************************

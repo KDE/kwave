@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-20 18:32+0200\n"
+"POT-Creation-Date: 2002-05-27 19:56+0200\n"
 "PO-Revision-Date: 2002-02-22 08:48GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
@@ -90,133 +90,133 @@ msgstr "Hanning"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: kwave/SignalManager.cpp:240
+#: kwave/SignalManager.cpp:241
 msgid "Signal is empty, nothing to save !"
 msgstr "Le signal est vide, il n'y a rien à sauvegarder !"
 
-#: kwave/SignalManager.cpp:282
+#: kwave/SignalManager.cpp:283
 msgid "An error occurred while reading the file!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:291
+#: kwave/SignalManager.cpp:292
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:298
+#: kwave/SignalManager.cpp:299
 #, fuzzy
 msgid "Sorry, the file type is not supported!"
 msgstr "la lecture en stéréo n'est pas supportée"
 
-#: kwave/SignalManager.cpp:564
+#: kwave/SignalManager.cpp:511
 msgid "cut"
 msgstr "couper"
 
-#: kwave/SignalManager.cpp:567
+#: kwave/SignalManager.cpp:514
 msgid "crop"
 msgstr "couper à la sélection"
 
-#: kwave/SignalManager.cpp:633
+#: kwave/SignalManager.cpp:580
 msgid "paste"
 msgstr "coller"
 
-#: kwave/SignalManager.cpp:676
+#: kwave/SignalManager.cpp:623
 msgid "append track"
 msgstr "ajouter une piste"
 
-#: kwave/SignalManager.cpp:683 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:630 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr "inserer une piste"
 
-#: kwave/SignalManager.cpp:718 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:664 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "supprimer une piste"
 
-#: kwave/SignalManager.cpp:801 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:747 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr "supprimer"
 
-#: kwave/SignalManager.cpp:1273 kwave/SignalManager.cpp:1280
+#: kwave/SignalManager.cpp:1219 kwave/SignalManager.cpp:1226
 msgid "last action"
 msgstr "derniére action"
 
-#: kwave/TopWidget.cpp:105
+#: kwave/TopWidget.cpp:106
 msgid "New File"
 msgstr "Nouveau fichier"
 
-#: kwave/TopWidget.cpp:239
+#: kwave/TopWidget.cpp:253
 msgid "create a new empty file"
 msgstr "créer un nouveu fichier vide"
 
-#: kwave/TopWidget.cpp:245
+#: kwave/TopWidget.cpp:259
 msgid "open an existing file"
 msgstr "ouvrir un fichier déjà existant"
 
-#: kwave/TopWidget.cpp:251
+#: kwave/TopWidget.cpp:265
 msgid "save the current file"
 msgstr "sauvegarder le fichier courrant"
 
-#: kwave/TopWidget.cpp:283
+#: kwave/TopWidget.cpp:297
 msgid "cut the current selection and move it to the clipboard"
 msgstr "couper la selection courante et la déplacer dans le presse papier"
 
-#: kwave/TopWidget.cpp:289
+#: kwave/TopWidget.cpp:303
 msgid "copy the current selection to the clipboard"
 msgstr "copier la selection courante et la placer dans le presse papier"
 
-#: kwave/TopWidget.cpp:295
+#: kwave/TopWidget.cpp:309
 msgid "insert the content of clipboard"
 msgstr "insérer le contenu du presse papier"
 
-#: kwave/TopWidget.cpp:301
+#: kwave/TopWidget.cpp:315
 msgid "mute the current selection"
 msgstr "assourdir la selection courante"
 
-#: kwave/TopWidget.cpp:307
+#: kwave/TopWidget.cpp:321
 msgid "delete the current selection"
 msgstr "supprime la selection courante"
 
-#: kwave/TopWidget.cpp:332
+#: kwave/TopWidget.cpp:346
 msgid "start playback"
 msgstr "Démarre la lecture"
 
-#: kwave/TopWidget.cpp:338
+#: kwave/TopWidget.cpp:352
 msgid "start playback and loop"
 msgstr "Démarre la lecture en boucle"
 
-#: kwave/TopWidget.cpp:344
+#: kwave/TopWidget.cpp:358
 msgid "pause playback"
 msgstr "met en pause la lecture"
 
-#: kwave/TopWidget.cpp:350
+#: kwave/TopWidget.cpp:364
 msgid "stop playback or loop"
 msgstr "arrête la lecture"
 
-#: kwave/TopWidget.cpp:368
+#: kwave/TopWidget.cpp:382
 msgid "zoom to selection"
 msgstr "zoome la selection"
 
-#: kwave/TopWidget.cpp:375
+#: kwave/TopWidget.cpp:389
 msgid "zoom in"
 msgstr "Aggrandir"
 
-#: kwave/TopWidget.cpp:382
+#: kwave/TopWidget.cpp:396
 msgid "zoom out"
 msgstr "rétrécir"
 
-#: kwave/TopWidget.cpp:388
+#: kwave/TopWidget.cpp:402
 #, c-format
 msgid "zoom to 100%"
 msgstr "zoome à 100%"
 
-#: kwave/TopWidget.cpp:394
+#: kwave/TopWidget.cpp:408
 msgid "zoom to all"
 msgstr "zoome à l'ensemble de la piste"
 
-#: kwave/TopWidget.cpp:401
+#: kwave/TopWidget.cpp:415
 msgid "select zoom factor"
 msgstr "selectionner le facteur de zoom"
 
-#: kwave/TopWidget.cpp:486
+#: kwave/TopWidget.cpp:500
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -230,15 +230,15 @@ msgstr ""
 "KDE ou à l'URL <a href=http://www.arts-project.org>http://www.arts-project."
 "org</a>."
 
-#: kwave/TopWidget.cpp:499
+#: kwave/TopWidget.cpp:513
 msgid "Loading plugins..."
 msgstr "Chargement des plugins..."
 
-#: kwave/TopWidget.cpp:501
+#: kwave/TopWidget.cpp:515
 msgid "Ready."
 msgstr "Prêt."
 
-#: kwave/TopWidget.cpp:690
+#: kwave/TopWidget.cpp:727
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -246,40 +246,40 @@ msgstr ""
 "Ce fichier a été modifié.\n"
 "Voulez-vous le sauvegarder ?"
 
-#: kwave/TopWidget.cpp:802
+#: kwave/TopWidget.cpp:839
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr "Le fichier '%1' existe déjà. Voulez-vous réellement l'écraser ?"
 
-#: kwave/TopWidget.cpp:900
+#: kwave/TopWidget.cpp:956
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr "Taille : %1"
 
-#: kwave/TopWidget.cpp:900
+#: kwave/TopWidget.cpp:956
 #, ycp-format
 msgid "(%2 samples)"
 msgstr "(%2 échantillons)"
 
-#: kwave/TopWidget.cpp:909
-#, c-format
-msgid "Mode: %u bit@%0.3f kHz"
+#: kwave/TopWidget.cpp:965
+#, fuzzy, c-format
+msgid "Mode: %0.3f kHz@%u bit"
 msgstr "Format : %u bits@%0.3f kHz"
 
-#: kwave/TopWidget.cpp:943
+#: kwave/TopWidget.cpp:999
 #, ycp-format
 msgid "Selected: %1 (%2 samples)"
 msgstr "Sélection %1 (%2 échantillons)"
 
-#: kwave/TopWidget.cpp:990
+#: kwave/TopWidget.cpp:1046
 msgid "U&ndo"
 msgstr "&Défaire"
 
-#: kwave/TopWidget.cpp:996
+#: kwave/TopWidget.cpp:1052
 msgid "R&edo"
 msgstr "R&efaire"
 
-#: kwave/TopWidget.cpp:1150
+#: kwave/TopWidget.cpp:1231
 msgid " (modified)"
 msgstr " (modifier)"
 
@@ -361,7 +361,7 @@ msgstr "Un éditeur de sons pour KDE"
 msgid "selection"
 msgstr "selection"
 
-#: kwave/SignalWidget.cpp:1785 kwave/SignalWidget.cpp:1824
+#: kwave/SignalWidget.cpp:1784 kwave/SignalWidget.cpp:1823
 msgid "drag and drop"
 msgstr "tirer et lacher"
 
@@ -1702,25 +1702,25 @@ msgstr "Fréquence : 0 Hz"
 msgid "Amplitude: 0 %"
 msgstr "Amplitude : 0 %"
 
-#: plugins/sonagram/SonagramWindow.cpp:495
+#: plugins/sonagram/SonagramWindow.cpp:494
 msgid "Sonagram of "
 msgstr "Sonagramme de "
 
-#: plugins/sonagram/SonagramWindow.cpp:498
+#: plugins/sonagram/SonagramWindow.cpp:497
 msgid "<nothing>"
 msgstr "<rien>"
 
-#: plugins/sonagram/SonagramWindow.cpp:523
+#: plugins/sonagram/SonagramWindow.cpp:522
 #, c-format, ycp-format
 msgid "Time: %1"
 msgstr "Temps : %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:527
+#: plugins/sonagram/SonagramWindow.cpp:526
 #, c-format
 msgid "Frequency: %d Hz"
 msgstr "Fréquence : %d Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:537
+#: plugins/sonagram/SonagramWindow.cpp:536
 #, c-format
 msgid "Amplitude: %d %%"
 msgstr "Amplitude : %d %%"
@@ -1805,12 +1805,12 @@ msgstr ""
 "met à jour automatiquement le sonogramme sila sélection\n"
 "a été élargie, réduite, ou déplacée."
 
-#: plugins/sonagram/SonagramDialog.cpp:417
+#: plugins/sonagram/SonagramDialog.cpp:419
 #, ycp-format
 msgid "( resulting window size: %1 )"
 msgstr "( taille de la fenêtre résultat : %1 )"
 
-#: plugins/sonagram/SonagramDialog.cpp:420
+#: plugins/sonagram/SonagramDialog.cpp:422
 #, c-format, ycp-format
 msgid "size of bitmap: %1x%2"
 msgstr "taille du Bitmap : %1x%2"

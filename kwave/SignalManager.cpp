@@ -751,8 +751,9 @@ int SignalManager::loadWav()
 	    i18n("File is no RIFF File !"));
 	// maybe recoverable...
     } else if (length+8 != num) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("File has incorrect length! (maybe truncated?)"));
+//	KMessageBox::error(m_parent_widget,
+//	    i18n("File has incorrect length! (maybe truncated?)"));
+	// will be warned anyway later...
 	// maybe recoverable...
     } else {
 	// check if the chunk data contains "WAVE"
@@ -953,6 +954,9 @@ int SignalManager::writeWavChunk(QFile &sigout, unsigned int offset,
     for (unsigned int pos = offset; pos < offset+length; ) {
 	unsigned char *buf = savebuffer;
 	unsigned int nsamples = 0;
+	
+	// break the loop if the user has pressed "cancel"
+	if (dialog && dialog->isCancelled()) break;
 	
 	while (pos < offset+length &&
 	      (nsamples < (bufsize/bytes_per_sample)))
@@ -1166,10 +1170,9 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 	debug("SignalManager::loadWavChunk: "\
 	      "length=%d, rest of file=%d",length,file_rest);
 	KMessageBox::error(m_parent_widget,
-	    i18n("Warning"),
 	    i18n("Error in input: file is smaller than stated "\
 	    "in the header. \n"\
-	    "File will be truncated."), 2);
+	    "File will be truncated."));
 	length = file_rest/bytes_per_sample;
     }
 

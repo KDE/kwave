@@ -51,6 +51,7 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 {
     int h;
     int w;
+    int i;
     length = p.getSelection();
     rate   = p.getRate();
 
@@ -70,7 +71,11 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     windowlabel = new QLabel("", this);
 
     windowtypebox = new QComboBox (true, this);
-    windowtypebox->insertStrList (wf.getTypes(), wf.getCount());
+    for (i=0; i < wf.getCount(); i++) {
+	windowtypebox->insertItem(i18n(wf.getTypes()[i]));
+    }
+
+
     QToolTip::add(windowtypebox, i18n("Choose windowing function here. "\
 	"If fourier transformation should stay reversible, "\
 	"use the type <none>"));
@@ -166,9 +171,9 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     w = max(ok->sizeHint().width(), cancel->sizeHint().width());
     ok->setFixedSize(w, h);
     cancel->setFixedSize(w, h);
+    buttonsLayout->addStretch(10);
     buttonsLayout->addWidget(cancel, 0, AlignLeft | AlignCenter);
     buttonsLayout->addSpacing(10);
-    buttonsLayout->addStretch(10);
     buttonsLayout->addWidget(ok, 0, AlignRight | AlignCenter);
 
     topLayout->activate();

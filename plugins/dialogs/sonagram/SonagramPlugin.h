@@ -5,14 +5,23 @@
 
 class PluginContext;
 class QStrList;
+class SonagramWindow;
 
 class SonagramPlugin: public KwavePlugin
 {
+    Q_OBJECT
 public:
     /** Constructor */
     SonagramPlugin(PluginContext *c);
     virtual QStrList *setup(QStrList *previous_params);
-    virtual int execute(QStrList &params);
+    virtual int start(QStrList &params);
+
+public slots:
+    virtual void close();
+
+private:
+    SonagramWindow *sonagram_window;
+
 };
 
 #endif /* _SONAGRAM_PLUGIN_H_ */

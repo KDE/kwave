@@ -147,7 +147,7 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 
     // dummy init -> disable format settings
     m_dialog->setSupportedTracks(0, 0);
-    
+
     // select the record device
     changeDevice(m_dialog->params().device_name);
 
@@ -209,10 +209,10 @@ void RecordPlugin::changeDevice(const QString &dev)
 // 	// find out which device subclass supports our "dev" and
 // 	// then create a new one
 //     }
-    
+
     if (m_device) delete m_device;
     m_device = new RecordDevice();
-    
+
     Q_ASSERT(m_device);
     if (!m_device) {
 	KMessageBox::sorry(m_dialog, i18n("Out of memory"));
@@ -313,20 +313,20 @@ void RecordPlugin::changeTracks(unsigned int new_tracks)
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
 
-    if (!m_device) {
+    if (!m_device || !new_tracks) {
 	// no device -> dummy/shortcut
-	m_dialog->setTracks(0);    
+	m_dialog->setTracks(0);
 	changeSampleRate(0);
 	return;
     }
-    
+
     // try to activate the new number of tracks
     unsigned int tracks = new_tracks;
     int err = m_device->setTracks(tracks);
     if (err < 0) {
 	// revert to the current device setting if failed
 	tracks = m_device->tracks();
-	if (new_tracks) KMessageBox::sorry(m_dialog,
+	if (new_tracks && (tracks > 0)) KMessageBox::sorry(m_dialog,
 	    i18n("Recording with %1 track(s) failed, "\
 		 "using %2 track(s) instead.").arg(new_tracks).arg(tracks));
     }
@@ -344,15 +344,13 @@ void RecordPlugin::changeSampleRate(double new_rate)
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
 
-    if (!m_device) {
+    if (!m_device || (new_rate <= 0)) {
 	// no device -> dummy/shortcut
-	QValueList<double> supported_rates;
-	m_dialog->setSupportedSampleRates(supported_rates);
-	m_dialog->setSampleRate(0);    
+	m_dialog->setSampleRate(0);
 	changeCompression(0);
 	return;
     }
-    
+
     // check the supported sample rates
     QValueList<double> supported_rates = m_device->detectSampleRates();
     double rate = new_rate;
@@ -400,15 +398,13 @@ void RecordPlugin::changeCompression(int new_compression)
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
 
-    if (!m_device) {
+    if (!m_device || (new_compression < 0)) {
 	// no device -> dummy/shortcut
-	QValueList<int> supported_comps;
-	m_dialog->setSupportedCompressions(supported_comps);
-	m_dialog->setCompression(0);
+	m_dialog->setCompression(-1);
 	changeBitsPerSample(0);
 	return;
     }
-    
+
     // check the supported compressions
     CompressionType types;
     QValueList<int> supported_comps = m_device->detectCompressions();
@@ -458,11 +454,9 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
     if (!m_dialog) return;
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
-    
-    if (!m_device) {
+
+    if (!m_device || !new_bits) {
 	// no device -> dummy/shortcut
-	QValueList<unsigned int> supported_bits;
-	m_dialog->setSupportedBitsPerSample(supported_bits);
 	m_dialog->setBitsPerSample(0);
 	changeSampleFormat(-1);
 	return;
@@ -512,14 +506,12 @@ void RecordPlugin::changeSampleFormat(int new_format)
 
     InhibitRecordGuard _lock(*this); // don't record while settings change
 
-    if (!m_device) {
+    if (!m_device || (new_format < 0)) {
 	// no device -> dummy/shortcut
-	QValueList<int> supported_formats;
-	m_dialog->setSupportedSampleFormats(supported_formats);
 	m_dialog->setSampleFormat(-1);
 	return;
     }
-    
+
     // check the supported sample formats
     QValueList<int> supported_formats = m_device->detectSampleFormats();
     int format = new_format;

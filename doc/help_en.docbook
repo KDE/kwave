@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
-  <!ENTITY kapp "<application>Kwave</application>">
+  <!ENTITY kapp "Kwave">
   <!ENTITY kappname "&kapp;">
   <!ENTITY % English "INCLUDE"> <!-- change language only here -->
   <!ENTITY % addindex "IGNORE">
@@ -17,27 +17,21 @@
 <firstname>Thomas</firstname>
 <surname>Eschenbacher</surname>
 <affiliation>
-<address><email>thomas.eschenbacher@gmx.de</email></address></affiliation>
+<address><email>thomas.eschenbacher@gmx.de</email></address>
+</affiliation>
 </author>
 
-<othercredit role="developer">
-<firstname>Martin</firstname>
-<surname>Wilz</surname>
-<affiliation>
-<address><email>mwilz@ernie.mi.uni-koeln.de></email></address>
-</affiliation>
-<contrib>Founder</contrib>
-</othercredit>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
+
 </authorgroup>
 
-<date>23/09/2001</date>
-<releaseinfo>0.6.1-1</releaseinfo>
-
-<copyright><year>2000</year><holder>Thomas Eschenbacher</holder></copyright>
 <copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
+<copyright><year>2000</year><holder>Thomas Eschenbacher</holder></copyright>
 
-<legalnotice>&GPLnotice;</legalnotice>
+<legalnotice>&FDLNotice;</legalnotice>
+
+<date>2001-10-07</date>
+<releaseinfo>0.6.1-1</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -59,7 +53,7 @@
 <!-- ### Chapter: Introduction                                          ### -->
 <!-- ###################################################################### -->
 
-<chapter id="INTRODUCTION"><title>Introduction</title>
+<chapter id="introduction"><title>Introduction</title>
 
     <!-- The introduction chapter contains a brief introduction for
     the application that explains what it does, where to get new
@@ -119,11 +113,11 @@
 <!-- +++ Section: Kwave Resources                                       +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="KWAVE-RESOURCES">
+    <sect1 id="resources">
     <title>&kapp; Resources</title>
 
     <para>
-    	So if you want to get in contact with the developers, need some
+	So if you want to get in contact with the developers, need some
 	further help on using &kapp;, submit patches, bug reports or other
 	stuf, the following resources might be of interest for you:
     </para>
@@ -131,57 +125,50 @@
     <segmentedlist>
         <segtitle>Project Homepage</segtitle>
         <segtitle>Mailing List</segtitle>
-        <segtitle>FTP Server</segtitle>
         <segtitle>CVS Repository</segtitle>
         <seglistitem>
-        <seg><anchor id="PROJECT-HOMEPAGE"/>
+        <seg><anchor id="project-homepage"/>
             For informations about new up-to-date releases or some other
 	    information about this project, take a look at
 	    the <ulink url="http://kwave.sourceforge.net/">&kapp; homepage</ulink>
         </seg>
-        <seg><anchor id="MAILING-LIST"/>
+        <seg><anchor id="mailing-list"/>
             If you need some help on using &kapp; or want to get involved
-	    in the development, join the mailinglist by writing a mail 
+	    in the development, join the mailinglist by writing a mail
 	    to <email>majordomo@fs.spinfo.uni-koeln.de</email>
 	    with the text "<literal>subscribe kwave-list</literal>"
 	    in the body.
         </seg>
-	<seg><anchor id="FTP-SERVER"/>
-	    You can download tar.gz archives as well as some rpm
-	    packages from ftp server via our anonymous ftp 
-	    from <ulink url="ftp://kwave.sourceforge.net/pub/kwave/">
-	    ftp://kwave.sourceforge.net/pub/kwave/</ulink>.
-	</seg>
-        <seg><anchor id="CVS-REPOSITORY"/>
+        <seg><anchor id="cvs-repository"/>
 	    There also is a CVS repository, hosted by
 	    <ulink url="http://sourceforge.net">SourceForge</ulink> where
 	    you can get the sources of the latest development version.
 	    For instructions on how to get access to the repository, read
-	    in the chapter 
-	    about <link linkend="BUILDING_RPM_FROM_CVS">building from CVS</link>, 
+	    in the chapter
+	    about <link linkend="building_rpm_from_cvs">building from CVS</link>,
 	    look at <ulink url="http://sourceforge.net/cvs/?group_id=6478">"http://sourceforge.net/cvs/?group_id=6478"</ulink>, or just
 	    browse through the CVS tree through a nice web interface.
 	    <emphasis>Anonymous CVS access is allowed!</emphasis>
         </seg>
         </seglistitem>
     </segmentedlist>
-    
+
     </sect1>
-    
+
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Revision History                                      +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="KWAVE-REVHISTORY">
+    <sect1 id="changes">
     <title>&kapp; Revision History</title>
 
     <para>
-	This project has been started by Martin Wilz in summer 1998 
-	and has been developed and improved by him an some other 
+	This project has been started by Martin Wilz in summer 1998
+	and has been developed and improved by him an some other
 	people. In November 1999 Thomas Eschenbacher has started
-	to fix some little bugs here and there and stepped into 
-	the source code of the program deeper and deeper. Up to 
-	today he has extended, rewritten or revised nearly every 
+	to fix some little bugs here and there and stepped into
+	the source code of the program deeper and deeper. Up to
+	today he has extended, rewritten or revised nearly every
 	component of the program and spent much time on improving it.
     </para>
 
@@ -1207,50 +1194,50 @@
 <!-- ### Chapter: Installation                                          ### -->
 <!-- ###################################################################### -->
 
-<chapter id="INSTALLATION"><title>Installation</title>
+<chapter id="installation"><title>Installation</title>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Getting Kwave                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="GETTING-KWAVE"><title>How to obtain &kapp;</title>
-    
+    <sect1 id="getting"><title>How to obtain &kapp;</title>
+
     <para>
     	&kapp; has an own homepage under
     	<ulink url="http://kwave.sourceforge.net/">
 	http://kwave.sourceforge.net/</ulink>. Here you can
-	find further informations about the project, as well as 
-	informations about current stable and up-to-date development 
+	find further informations about the project, as well as
+	informations about current stable and up-to-date development
 	versions.
     </para>
 
     <warning><para>
-	Maybe older versions of &kapp; are currently included in some 
+	Maybe older versions of &kapp; are currently included in some
 	current linux distributions. We recommend not to use &kapp; versions
 	0.29 and older.
 	And please don't get confused by the version number,
-	"0.29" should actually mean "0.2.9" and was not consistent. The 
+	"0.29" should actually mean "0.2.9" and was not consistent. The
 	current version numbering starts from 0.5.
     </para></warning>
 
     <para>
 	If you want to get a &kapp; release, you should download a .tar.gz
-	archive with the source code of a stable or a development version 
-	from the homepage above (or check it out from CVS) and compile it 
-	on your own. Don't be afraid, this should be quite simple even if 
-	you are not a programmer. If you need a rpm package, please let us 
+	archive with the source code of a stable or a development version
+	from the homepage above (or check it out from CVS) and compile it
+	on your own. Don't be afraid, this should be quite simple even if
+	you are not a programmer. If you need a rpm package, please let us
 	know or build it on your own like described in the following
 	chapters.
     </para>
-    
+
     </sect1>
-    
+
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Requirements                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="REQUIREMENTS"><title>Requirements</title>
-    
+    <sect1 id="requirements"><title>Requirements</title>
+
     <para>
     	In order to successfully use &kapp;, you need:
 	<itemizedlist>
@@ -1274,7 +1261,7 @@
 		qt-2.3 or higher (normally comes with KDE2)
 	    </para></listitem>
 	    <listitem><para>
-		about 10 MB memory for starting &kapp; (but this may 
+		about 10 MB memory for starting &kapp; (but this may
 		vary depending on your platform and configuration)
 	    </para></listitem>
 	</itemizedlist>
@@ -1313,10 +1300,10 @@
 <!-- +++ Section: Manual Compilation                                    +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="MANUAL_COMPILATION"><title>Manual Compilation and installation</title>
+    <sect1 id="manual_compilation"><title>Manual Compilation and installation</title>
 
     <para>
-    	In order to compile and install &kapp; on your system, type the 
+    	In order to compile and install &kapp; on your system, type the
 	following in the base directory of the source distribution:
 <screen width="40" format="linespecific">
 <prompt> % </prompt><command>cd kwave</command>
@@ -1326,11 +1313,11 @@
 <prompt>% </prompt><command>su root -c "make install"</command>
 </screen>
     </para>
-    
+
     <para>
     	Since &kapp; uses autoconf and automake you should have no
-	trouble compiling it. Should you run into problems please report 
-	them to the &kapp; <link linkend="MAILING-LIST">mailing list</link>.
+	trouble compiling it. Should you run into problems please report
+	them to the &kapp; <link linkend="mailing-list">mailing list</link>.
     </para>
     <note><para>
 	If you have a system with Qt-1 and/or KDE-1 you might get
@@ -1342,42 +1329,41 @@
 <prompt>% </prompt><command>export KDEDIR=/opt/kde2</command>
 </screen>
     </para></note>
-    
+
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Building RPM packages from tar.gz archives            +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="BUILDING_RPM_FROM_TARGZ">
+    <sect1 id="building_rpm_from_targz">
     <title>Building RPM packages from tar.gz archives</title>
 
-    <sect2 id="BUILDING_WITH_RPM_TA">
+    <sect2 id="building_with_rpm_ta">
     <title>With working rpm -ta</title>
 
     <para>
-	If you are runnig a system with RPM support, the preferred way to 
+	If you are runnig a system with RPM support, the preferred way to
 	install &kapp; on your system will be the creation of a nice RPM
 	package. First you should get the current source of &kapp;, either
-	as a tar.gz archive from the
-	<link linkend="FTP-SERVER">&kapp; anonymous ftp server</link> or
+	as a tar.gz archive from the &kapp; download page or
 	check out an up-to-date copy via
-	<link linkend="CVS-REPOSITORY">anonymous CVS</link> (like described in
-	the <link linkend="CVS_CHECKOUT">chapter about CVS</link>) and read the
-	<link linkend="BUILDING_RPM_FROM_CVS">next</link> chapter.
+	<link linkend="cvs-repository">anonymous CVS</link> (like described in
+	the <link linkend="cvs_checkout">chapter about CVS</link>) and read the
+	<link linkend="building_rpm_from_cvs">next</link> chapter.
     </para>
 
     <para>
-	If you have downloaded a tar-gz archives of &kapp;, 
+	If you have downloaded a tar-gz archives of &kapp;,
 	create and install the RPMs just by doing the following steps
 	(where <replaceable>[arch]</replaceable> stands for the platform you
-	have built the package and might be something like 
-	<literal>i386</literal>, <literal>i586</literal>, 
+	have built the package and might be something like
+	<literal>i386</literal>, <literal>i586</literal>,
 	<literal>sparc</literal> or whatever,
-	<replaceable>XXX</replaceable> stands for the version number 
+	<replaceable>XXX</replaceable> stands for the version number
 	you have downloaded).
     </para>
-    
+
     <para>
     To build the &kapp; package and install it do:
 <screen width="40" format="linespecific">
@@ -1389,7 +1375,7 @@
     <note><para>
 	<emphasis>Note for SuSE users: </emphasis>
 	you have to specify the directory
-	<filename>/usr/src/packages</filename> instead 
+	<filename>/usr/src/packages</filename> instead
 	of <filename>/usr/src/redhat</filename> !
     </para></note>
 
@@ -1399,10 +1385,10 @@
 	and says something like "spec file not found", then go on and
 	read the rest of this section.
     </para>
-    
+
     <caution><para>
-	The support for the <command>rpm -ta ...</command> might be 
-	broken on some versions of rpm. The rpm program originally 
+	The support for the <command>rpm -ta ...</command> might be
+	broken on some versions of rpm. The rpm program originally
 	shipped with SuSE-6.4 (rpm-3.0.4) didn't work. You
 	should update your rpm package, e.g. from
 	<ulink url="ftp://ftp.suse.com/pub/suse_update/">the SuSE ftp server</ulink>.
@@ -1410,19 +1396,19 @@
 
     </sect2>
 
-    <sect2 id="RPM_BUILD_WITH_BROKEN_RPM">
+    <sect2 id="rpm_build_with_broken_rpm">
     <title>With broken rpm -ta support</title>
 
-    <para><anchor id="MANUAL_RPM_CREATION"/>
-	If you can't get <command>rpm -ta</command> working, here are 
+    <para><anchor id="manual_rpm_creation"/>
+	If you can't get <command>rpm -ta</command> working, here are
 	the steps for making that manually (the hard way):
     </para>
 
     <orderedlist>
 	<listitem><para>
-	    Go to your RPM "topdir". This normally 
+	    Go to your RPM "topdir". This normally
 	    is <filename>/usr/src/redhat</filename>
-	    for the redhat distribution 
+	    for the redhat distribution
 	    or <filename>/usr/src/packages</filename> if you
 	    have the SuSE distribution.
 <screen width="40" format="linespecific">
@@ -1462,7 +1448,7 @@
 	    If everything was ok, you can install the binary rpm of
 	    &kapp;, it will be in the BUILD directory.
 	    If you already have a version of &kapp; installed,
-	    please remove it first or use the parameter 
+	    please remove it first or use the parameter
 	    <literal>-U</literal> instead
 	    of <literal>-i</literal> for upgrading instead of installing.
 <screen width="40" format="linespecific">
@@ -1479,15 +1465,15 @@
 <!-- +++ Section: Building RPM packages from CVS                        +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="BUILDING_RPM_FROM_CVS">
+    <sect1 id="building_rpm_from_cvs">
     <title>Building RPM packages from CVS</title>
 
-    <sect2 id="CVS_CHECKOUT"><title>Checking out the sources</title>
+    <sect2 id="cvs_checkout"><title>Checking out the sources</title>
 
     <para>
 	For initially checking out the sources you will need some disk space
 	(about 70 megabytes) in a directory of your choice, the cvs package
-	of your favorite distribution and full access to the internet. If you 
+	of your favorite distribution and full access to the internet. If you
 	get error messages about rejected connections you either have typed
 	something wrong or your provider doesn't give you full access.
 	A good place for the source files will be <filename>"$HOME/src"</filename>.
@@ -1521,7 +1507,7 @@
     </orderedlist>
 
     <warning><para>
-	There <emphasis>must not</emphasis> be a directory named 
+	There <emphasis>must not</emphasis> be a directory named
 	<filename>kwave</filename> under
 	the directory you want to check out. Otherwise the cvs program will
 	complain about already existing files and the checkout will
@@ -1530,7 +1516,7 @@
 
     </sect2>
 
-    <sect2 id="CVS_UPDATE"><title>Updating sources from CVS</title>
+    <sect2 id="cvs_update"><title>Updating sources from CVS</title>
     <para>
 	The procedure described in the previous section is only necessary
 	once. For further updates it is much easier. Just change into the
@@ -1544,31 +1530,31 @@
     </sect2>
 
 
-    <sect2 id="CVS_COMPILING"><title>Compiling</title>
+    <sect2 id="cvs_compiling"><title>Compiling</title>
     <para>
-	Building rpm package from a CVS snapshot is quite simple. The procedure 
-	is nearly the same as described in the last section, so it unhappily also 
-	has the same problem with the <command>rpm -ta</command> command 
+	Building rpm package from a CVS snapshot is quite simple. The procedure
+	is nearly the same as described in the last section, so it unhappily also
+	has the same problem with the <command>rpm -ta</command> command
 	our method internally uses.
 	Like in the previous chapter, <replaceable>[arch]</replaceable> stands
-	for the platform you have Built the package and might be something 
-	like <literal>i386</literal>, <literal>i586</literal>, 
-	<literal>sparc</literal> or whatever, 
-	<replaceable>XXX</replaceable> stands 
+	for the platform you have Built the package and might be something
+	like <literal>i386</literal>, <literal>i586</literal>,
+	<literal>sparc</literal> or whatever,
+	<replaceable>XXX</replaceable> stands
 	for the version number you have checked out.
     </para>
 
     <note><para>
 	<emphasis>Note for SuSE users: </emphasis>
 	here you have to specify the directory
-	<filename>/usr/src/packages</filename> instead 
+	<filename>/usr/src/packages</filename> instead
 	of <filename>/usr/src/redhat</filename> too!
     </para></note>
 
     <para>
 	Assuming that
-	you are in the root of where you checked out from CVS, do the 
-	following to create a Makefile, the &kapp; package and 
+	you are in the root of where you checked out from CVS, do the
+	following to create a Makefile, the &kapp; package and
 	install it. If you already have a version of &kapp; installed,
 	please remove it first or use <literal>rpm -U</literal> instead
 	of <literal>rpm -i</literal> for updating instead of installing.
@@ -1582,11 +1568,11 @@
     </para>
 
     <note><para>
-	If you still have problems with <command>make rpm</command>, 
+	If you still have problems with <command>make rpm</command>,
 	you will find the tar.gz
 	archive that were produced in <filename>/tmp</filename>.
 	Please follow the instructions in the
-	<link linkend="MANUAL_RPM_CREATION">previous</link> chapter.
+	<link linkend="manual_rpm_creation">previous</link> chapter.
     </para></note>
 
     </sect2>
@@ -1596,22 +1582,22 @@
 <!-- +++ Section: Relocating RPM packages                               +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="RELOCATING_RPM">
+    <sect1 id="relocating_rpm">
     <title>Relocating the binary RPM packages</title>
 
     <para>
-	The binary rpm package of &kapp; 
+	The binary rpm package of &kapp;
 	is "<emphasis>relocatable</emphasis>". That means that you can
 	build the package on a system with any KDE2 directory
-	and install it on an other system and/or into a different 
+	and install it on an other system and/or into a different
 	directory. This feature is very useful to install a package
 	compiled for SuSE under a RedHat system or vice-versa.
     </para>
-    
+
     <para>
-        For example: you got the binary rpm from a friend who has a 
-	RedHat system (where the KDE2 directory is 
-	<filename>/usr</filename>) and want to install it 
+        For example: you got the binary rpm from a friend who has a
+	RedHat system (where the KDE2 directory is
+	<filename>/usr</filename>) and want to install it
 	on a SuSE system (where the KDE2 directory is
 	<filename>/opt/kde</filename>). Then just
         give a different prefix when installing the rpm. Example:
@@ -1621,28 +1607,28 @@
     </para>
 
     <para>
-	This modifies the path where the program is installed and 
-	it is strongly recommended that this is a directory that is 
-	contained in the <symbol>KDEDIRS</symbol> environment variable, 
+	This modifies the path where the program is installed and
+	it is strongly recommended that this is a directory that is
+	contained in the <symbol>KDEDIRS</symbol> environment variable,
 	otherwise &kapp;
-	would be unable to find it's menu configuration, plugins, 
+	would be unable to find it's menu configuration, plugins,
 	preset files and so on...
     </para>
 
-    
+
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: RPM optimizations                                     +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="RPM_OPTIMIZATIONS">
+    <sect1 id="rpm_optimizations">
     <title>RPM optimizations</title>
 
     <para>
-	Yes, you can compile the RPM packages optimized for pentium and pentium pro 
-	(or some other CPUs) by using some defines in your rpmrc file. 
-	You can either modify your system's /etc/rpmrc file or the 
+	Yes, you can compile the RPM packages optimized for pentium and pentium pro
+	(or some other CPUs) by using some defines in your rpmrc file.
+	You can either modify your system's /etc/rpmrc file or the
 	.rpmrc file in your home directory. There you can specify option
 	lines like these:
 
@@ -1652,18 +1638,18 @@
 <prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</userinput>
 </screen>
 
-	(I found those nice tricks at 
+	(I found those nice tricks at
 	<ulink url="http://www.keywarrior.net/duesti/rpmopt.de.html">
 	http://www.keywarrior.net/duesti/rpmopt.en.html</ulink>.
-	Thanks to Matthias DÃÂ¼sterhÃÂ¶ft!).
+	Thanks to Matthias Düsterhöft!).
     </para>
     <!-- german version:
 	http://www.keywarrior.net/duesti/rpmopt.de.html
     -->
 
     <para>
-	This means that on an i586 architecture the rpm package will 
-	be compiled using "-march=pentium" as compiler option and so 
+	This means that on an i586 architecture the rpm package will
+	be compiled using "-march=pentium" as compiler option and so
 	on, you might extend or adapt these to your own needs.
 	The settings apply to all of the sections before in all
 	places where "rpm -ta" is used or wher a binary RPM is to be
@@ -1671,10 +1657,10 @@
     </para>
 
     <note><para>
-	The options specified here are set into the environment variable 
+	The options specified here are set into the environment variable
 	RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
 	environment and have to compile like described in the chapter
-	<link linkend="MANUAL_COMPILATION">Manual compilation</link>, you 
+	<link linkend="manual_compilation">Manual compilation</link>, you
 	can set this variable manually and get the same effect.
 	For example:
 
@@ -1682,21 +1668,21 @@
 <prompt>% </prompt><command>export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"</command>
 </screen>
     </para></note>
-    
+
     </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: optimizations                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="COMPILER_OPTIMIZATIONS">
+    <sect1 id="compiler_optimizations">
     <title>Compiler Optimizations</title>
 
     <para>
 	If you are owner of a Pentium, an AMD K6 or Athlon CPU, you might
 	want to use an optimized compiler to compile your version of
 	&kapp; that is running some percents faster. The gain in speed will
-	be up to 30% on some systems, whereas the functions dealing with 
+	be up to 30% on some systems, whereas the functions dealing with
 	signal manipulation and all functions that do complex time-frequency
 	operations (like FFT and Sonagram) will profit most from it.
     </para>
@@ -1706,7 +1692,7 @@
 	time to get the compiler itself working and installed.
     </para>
 
-    <sect2 id="OPTIMIZE_INVOCATION">
+    <sect2 id="optimize_invocation">
     <title>How to invoke the optimized compiler</title>
     <para>
 	The invocation of an optimized compiler is quite simple. It normally
@@ -1717,7 +1703,7 @@
     </para>
     <para>
 	If you build &kapp; from a source tree (unpacked tar.gz or from CVS)
-	the flags need to be specidied before the call 
+	the flags need to be specidied before the call
 	to <command>configure</command>. This might look like this:
 <screen>
 <prompt>% </prompt><command><symbol>CXXFLAGS</symbol>="-march=athlon -mcpu=athlon" ./configure</command></screen>
@@ -1738,21 +1724,21 @@
     </para>
     </sect2>
 
-    <sect2 id="OPTIMIZE_PENTIUM">
+    <sect2 id="optimize_pentium">
     <title>Pentium and Compatibles</title>
     <para>
 	For all optimized versions I used pgcc-2.95.3. For informations on
 	obtaining the pgcc compiler, visit the Homepage of the
 	the <ulink url="http://pgcc.deu.edu.tr/">Pentium Compiler Group</ulink>. They also have binaries
-	for most common platforms. The compiler does not only work for all 
-	known Pentium derivates 
+	for most common platforms. The compiler does not only work for all
+	known Pentium derivates
 	from <ulink url="http://www.intel.com/">Intel</ulink> but also for
-        some other manufactors 
+        some other manufactors
 	like <ulink url="http://www.cyrix.com/">Cyrix</ulink>.
     </para>
     </sect2>
 
-    <sect2 id="OPTIMIZE_ATHLON">
+    <sect2 id="optimize_athlon">
     <title>AMD Athlon</title>
     <para>
 	If you have a CPU from AMD, you can go one step further and
@@ -1771,13 +1757,13 @@
 <!-- ### Chapter: Using Kwave                                           ### -->
 <!-- ###################################################################### -->
 
-<chapter id="USING-KAPP"><title>Using &kapp;</title>
+<chapter id="using-kwave"><title>Using &kapp;</title>
 
 <!--
     <para>
 	<inlinemediaobject>
 	<imageobject>
-	    <imagedata fileref="under-construction.png" format="PNG"/> 
+	    <imagedata fileref="under-construction.png" format="PNG"/>
 	</imageobject>
 	<textobject> <phrase>under construction</phrase> </textobject>
 	</inlinemediaobject>
@@ -1790,7 +1776,7 @@
 -->
 
     <para>
-	Here is a little screenshot of the &kapp; main window, so that you 
+	Here is a little screenshot of the &kapp; main window, so that you
 	get an impression what &kapp; looks like...
     </para>
 
@@ -1814,7 +1800,7 @@
 <!-- +++ Section: Clipboard                                             +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="CLIPBOARD"><title>Clipboard</title>
+    <sect1 id="clipboard"><title>Clipboard</title>
 
     <para>
     &kapp; unfortunately has to implement and use it's own clipboard. This
@@ -1824,7 +1810,7 @@
 
     <para>
     However, this has some disadvantages. So if you want to exchange
-    data between two &kapp; instances through the clipboard, you will 
+    data between two &kapp; instances through the clipboard, you will
     find out that this is simply not possible. Each instance of &kapp;
     uses it's own clipboard and so that can't work.
     </para>
@@ -1834,14 +1820,14 @@
     only start <emphasis>one</emphasis> &kapp; instance and use
     multiple &kapp; windows. That's the way it works!
     </para>
-    
+
     </sect1>
-    
+
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Drag and Drop                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="DRAG_AND_DROP"><title>Drag and Drop</title>
+    <sect1 id="drag_and_drop"><title>Drag and Drop</title>
 
     <para>
     &kapp; supports the KDE Drag and Drop protocol. This enables you
@@ -1851,8 +1837,8 @@
 
     <para>
     Please note that if you drop a file into a &kapp; window that already
-    contains an opened file, the currently opened file will be closed first 
-    and then the file you dropped will be opened in it. If you don't want that, 
+    contains an opened file, the currently opened file will be closed first
+    and then the file you dropped will be opened in it. If you don't want that,
     you should open a new empty &kapp; window first.
     </para>
 
@@ -1862,11 +1848,11 @@
 <!-- +++ Section: Command Line                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <sect1 id="COMMAND_LINE"><title>Command Line</title>
+    <sect1 id="command_line"><title>Command Line</title>
 
     <para>
     If you start &kapp; from the command line, you can specify a list
-    of files that should be opened. The first specified file will be opened 
+    of files that should be opened. The first specified file will be opened
     first, then the other files. Each file will be opened in an own new
     window of the same &kapp; instance. If you specify wildcards, you can
     open a large number of files at once.
@@ -1876,18 +1862,18 @@
     for window:
     <screen><prompt>% </prompt><command>kwave <filename>/opt/kde/share/sounds/KDE_Window*.wav</filename></command></screen>
     </para>
-    
+
     <para>
-    In addition to a list of files, you can specify a list of 
-    <emphasis>Xt toolkit</emphasis> options like <literal>-geometry</literal> 
-    for specifying the size and/or position of the first opened &kapp; 
-    window and or <literal>-display</literal> for starting the &kapp; on a 
+    In addition to a list of files, you can specify a list of
+    <emphasis>Xt toolkit</emphasis> options like <literal>-geometry</literal>
+    for specifying the size and/or position of the first opened &kapp;
+    window and or <literal>-display</literal> for starting the &kapp; on a
     different display.
     </para>
 
     <para>
-    For example, the following command starts a &kapp; window with an initial 
-    width of 600 pixels and a height of 400 pixels, with the right border 
+    For example, the following command starts a &kapp; window with an initial
+    width of 600 pixels and a height of 400 pixels, with the right border
     positioned 30 pixels away from the right and 0 pixels away form the top
     of the screen.
     <screen><prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
@@ -1898,21 +1884,21 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Opening and Saving files                              +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <sect1 id="OPEN_AND_SAVE"><title>Opening and Saving files</title>
+    <sect1 id="open_and_save"><title>Opening and Saving files</title>
 
     <para>
     Opening files with &kapp; works like in most other applications, you
-    can 
+    can
     <itemizedlist>
-    <listitem><para>specify a list of files on the 
-    <link linkend="COMMAND_LINE">command line</link> when starting &kapp;,</para></listitem>
+    <listitem><para>specify a list of files on the
+    <link linkend="command_line">command line</link> when starting &kapp;,</para></listitem>
     <listitem><para>open an empty &kapp; window (for example with
 	<menuchoice>
 	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut>
 	<guimenu>File</guimenu><guimenuitem>New...</guimenuitem>
 	</menuchoice>
     ) and put a file into it via
-    <link linkend="DRAG_AND_DROP">drag and drop</link>,
+    <link linkend="drag_and_drop">drag and drop</link>,
       or you can </para></listitem>
     <listitem><para>open a file through the menu with
 	<menuchoice>
@@ -1934,7 +1920,7 @@
 	</menuchoice>,
     </para></listitem>
     <listitem><para>
-	save under a different name with 
+	save under a different name with
 	<menuchoice>
 	<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
 	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>As</guimenuitem>
@@ -1944,13 +1930,13 @@
 	or only the current selection with
 	<menuchoice>
 	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>Selection</guimenuitem>
-	</menuchoice> 
+	</menuchoice>
     </para></listitem>
 
     </itemizedlist>
     </para>
 
-    <sect2 id="FILE_FORMATS"><title>Supported File formats</title>
+    <sect2 id="file_formats"><title>Supported File formats</title>
 	<para>
             The fovourite file format of &kapp; is (like you can guess from the
             name) ".wav". This format is very common to other "operating systems"
@@ -1963,15 +1949,15 @@
             might produce very large files! Currently &kapp; only supports
             ASCII files with only one channel (mono), support for multiple channels
             will be added in some future version. The file format will be described
-	    <link linkend="ASCII_FORMAT">below</link>.
+	    <link linkend="ascii_format">below</link>.
         </para>
     </sect2>
 
-    <sect2 id="CONVERTING_TO_AND_FROM_WAV">
+    <sect2 id="converting_to_and_from_wav">
     <title>Converting to and from .wav</title>
 
 	<para>
-	    For the moment, the best way to work with formats other than 
+	    For the moment, the best way to work with formats other than
 	    <literal>.wav</literal> is to use an external converter program.
 	    A good set of tools for this is in the
 	    <ulink url="http://home.sprynet.com/~cbagwell/sox.html">SoX</ulink>
@@ -1987,13 +1973,13 @@
         </para>
     </sect2>
 
-    <sect2 id="ASCII_FORMAT"><title>Format of ASCII files</title>
+    <sect2 id="ascii_format"><title>Format of ASCII files</title>
 	<para>
-	    The ASCII format is quite useful for scientific and educational 
-	    purposes. 
+	    The ASCII format is quite useful for scientific and educational
+	    purposes.
 	    Due to it's simple format, you can either write simple
-	    files on your own with a text editor or you can use the output 
-	    of an other application and convert it into ASCII. As the format is 
+	    files on your own with a text editor or you can use the output
+	    of an other application and convert it into ASCII. As the format is
 	    <emphasis>really</emphasis> simple, you
 	    should not have big problems in writing a converter and most scientific
 	    applications use to have some kind of their own ASCII format for
@@ -2007,9 +1993,9 @@
 		Each line represents one sample.
 	    </para></listitem>
             <listitem><para>
-		Lines might end with a carriage return and/or a line feed 
-		character (so DOS files are supported too). But when saving, 
-		files will always be saved with line feed character as the 
+		Lines might end with a carriage return and/or a line feed
+		character (so DOS files are supported too). But when saving,
+		files will always be saved with line feed character as the
 		end of the line.
 	    </para></listitem>
             <listitem><para>
@@ -2065,16 +2051,16 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: How to select                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <sect1 id="SELECTING"><title>How to select</title>
+    <sect1 id="selecting"><title>How to select</title>
 
     <para>
-    &kapp; allows you to select a continuous range of samples as well as any 
+    &kapp; allows you to select a continuous range of samples as well as any
     combination of channels (if you edit a multi-channel file). By selecting
     a range of samples (time scope) all following commands will be limited to
     that range and by de-selecting a channel it's content will not be changed.
     </para>
 
-    <sect2 id="SELECTING_CHANNELS"><title>Selecting channels</title>
+    <sect2 id="selecting_channels"><title>Selecting channels</title>
     <para>
     Selecting or de-selecting a channel is quite simple. Just click on the
     lamp symbol on the left side of the signal to toggle it's state:
@@ -2082,7 +2068,7 @@
     <para>
     <inlinemediaobject>
 	<imageobject>
-	<imagedata fileref="light_on.png" format="PNG"/> 
+	<imagedata fileref="light_on.png" format="PNG"/>
 	</imageobject>
 	<textobject> <phrase>green lamb</phrase> </textobject>
     </inlinemediaobject>
@@ -2091,19 +2077,19 @@
     <para>
     <inlinemediaobject>
 	<imageobject>
-	<imagedata fileref="light_off.png" format="PNG"/> 
+	<imagedata fileref="light_off.png" format="PNG"/>
 	</imageobject>
 	<textobject> <phrase>red lamb</phrase> </textobject>
     </inlinemediaobject>
     a red lamb means "disabled".
     </para>
-    
+
     <note><para>
     Note: If a channel is de-selected it will also not be audible for playback!
     </para></note>
     </sect2>
 
-    <sect2 id="SELECTING_SAMPLES"><title>Selecting samples</title>
+    <sect2 id="selecting_samples"><title>Selecting samples</title>
 
     <para>
     If you select a range of samples in &kapp;, that range will be
@@ -2114,7 +2100,7 @@
     example if you see no selected range, the "delete" function applies to that
     single sample.
     </para>
-    
+
     <para>
     The easiest way of selecting a range of samples is just to do that
     with mouse. It works like you are used from other applications: just press
@@ -2129,7 +2115,7 @@
     </para>
 
     <para>
-    There are also some functions available via the menu and of course some 
+    There are also some functions available via the menu and of course some
     keyboard shortcuts:
     <itemizedlist>
     <listitem><para>
@@ -2159,7 +2145,7 @@
 	<menuchoice>
 	<shortcut><keycombo><keycap>Shift</keycap><keycap>+</keycap></keycombo></shortcut>
 	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Next</guimenuitem>
-	</menuchoice> 
+	</menuchoice>
     </para>
     <para>
 	(Hint: use the "<keycap>+</keycap>" key from the numeric keypad!)
@@ -2204,10 +2190,10 @@
     </sect1>
 
 <!-- @@@ still to be done ... @@@
-    <sect1 id="KAPP-FEATURES"><title>More Kapp features</title>
+    <sect1 id="kwave-features"><title>More Kapp features</title>
 
     <para>
-    	The Squiggle Tool 
+    	The Squiggle Tool
 	<guiicon moreinfo="none">
 	<inlinemediaobject>
 	    <imageobject>
@@ -2220,8 +2206,8 @@
 	    	<phrase>Squiggle</phrase>
 	    </textobject>
     	</inlinemediaobject>
-	</guiicon> 
-	
+	</guiicon>
+
 	is used to draw squiggly lines all over
     	the &kapp; main window. It's not a bug, it's a feature!
     </para>
@@ -2235,7 +2221,7 @@
 <!-- ###################################################################### -->
 
 <!-- @@@ still to be done ... @@@
-<chapter id="COMMANDS"><title>Command Reference</title>
+<chapter id="commands"><title>Command Reference</title>
 
     < ! - - (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
     application windows and their menubar and toolbar commands for easy reference.
@@ -2250,7 +2236,7 @@
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
 <!-- @@@ still to be done ... @@@
-    <sect1 id="KAPP-MAINWINDOW"><title>The main &kapp; window</title>
+    <sect1 id="kwave-mainwindow"><title>The main &kapp; window</title>
 
         <para></para>
     	<sect2><title>The File Menu</title>
@@ -2275,7 +2261,7 @@
 			</para>
 		    </listitem>
 		</varlistentry>
-		
+
     	    	<varlistentry>
 		    <term>
 		    	<menuchoice moreinfo="none">
@@ -2296,7 +2282,7 @@
 			</para>
 		    </listitem>
 		</varlistentry>
-		
+
     	    	<varlistentry>
 		    <term>
 		    	<menuchoice moreinfo="none">
@@ -2310,7 +2296,7 @@
     	    	    	    <guimenuitem moreinfo="none">Quit</guimenuitem>
 			</menuchoice>
 		    </term>
-    	    	    
+
 		    <listitem>
 		    	<para>
 			    <action moreinfo="none">Quits</action> &kapp;
@@ -2330,7 +2316,7 @@
 <!-- ### Chapter: Developer's Guide to Kwave                            ### -->
 <!-- ###################################################################### -->
 
-<chapter id="DEVELOPERS"><title>Developer's Guide to Kapp</title>
+<chapter id="developers"><title>Developer's Guide to Kapp</title>
 
     <!-- (OPTIONAL) A Programming/Scripting reference chapter should be
     used for apps that use plugins or that provide their own scripting hooks
@@ -2347,7 +2333,7 @@
     <para>
 	Sorry, this chapter is still to be written... At the moment the
 	source code is partially documented with tags suitable with
-	the KDE documentation tools. We currently prefer using 
+	the KDE documentation tools. We currently prefer using
 	<ulink url="http://www.stack.nl/~dimitri/doxygen">doxygen</ulink>. Maybe some day we will spend some time for
 	writing a tool that converts the doxygen output into something
 	we can include into the docbook source (the source this page has
@@ -2355,10 +2341,10 @@
     </para>
     <para>
         If you want to write a plugin, contribute something to this
-        project (or maybe write the converter mentioned above), please 
+        project (or maybe write the converter mentioned above), please
 	feel free to contact one of the authors directly
 	and / or subscribe to
-	the &kapp; <link linkend="MAILING-LIST">mailing list</link>.
+	the &kapp; <link linkend="mailing-list">mailing list</link>.
 	Help is always welcome!
     </para>
 
@@ -2368,10 +2354,10 @@
     	Programming &kapp; plugins is a joy to behold. Just read through the next
     	66 pages of API's to learn how!
     </para>
-    
-    < ! - - Use refentries to describe APIs.  Refentries are fairly complicated 
-    and you should consult the docbook reference for further details. The 
-    example below was taken from that reference and shortened a bit for 
+
+    < ! - - Use refentries to describe APIs.  Refentries are fairly complicated
+    and you should consult the docbook reference for further details. The
+    example below was taken from that reference and shortened a bit for
     readability. - - >
 
     <refentry id="RE-1007-UNMANAGECHILDREN-1">
@@ -2397,14 +2383,14 @@
 	    <refsynopsisdivinfo><date>2001-09-23</date></refsynopsisdivinfo>
     	    <synopsis format="linespecific">
     	    	void XtUnmanageChildren(
-		    <replaceable CLASS="PARAMETER">children</replaceable>, 
+		    <replaceable CLASS="PARAMETER">children</replaceable>,
 		    <replaceable CLASS="PARAMETER">num_children</replaceable>)
-    	    	    WidgetList 
+    	    	    WidgetList
 		    <replaceable CLASS="PARAMETER">children</replaceable>;
-    	    	    Cardinal 
+    	    	    Cardinal
 		    <replaceable CLASS="PARAMETER">num_children</replaceable>;
     	    </synopsis>
-    	    
+
 	    <refsect2 id="R2-1007-UNMANAGECHILDREN-1">
 	    	<title>Inputs</title>
     	    	<variablelist>
@@ -2414,19 +2400,19 @@
     	    	    	</term>
     	    	    	<listitem>
 		    	    <para>
-		    	    	Specifies an array of child widgets. Each child 
+		    	    	Specifies an array of child widgets. Each child
 				must be of class RectObj or any subclass thereof.
     	    	    	    </para>
 		    	</listitem>
 	    	    </varlistentry>
-	    
+
     	    	    <varlistentry>
 	    	    	<term>
 		    	    <replaceable CLASS="PARAMETER">num_children</replaceable>
     	    	    	</term>
     	    	    	<listitem>
 		    	    <para>
-		    	    	Specifies the number of elements in 
+		    	    	Specifies the number of elements in
 		    	    	<replaceable CLASS="PARAMETER">children</replaceable>.
     	    	    	    </para>
 		    	</listitem>
@@ -2437,21 +2423,21 @@
 
     	<refsect1 id="R1-1007-UNMANAGECHILDREN-1"><title>Description</title>
 	    <para>
-	    	<function moreinfo="none">XtUnmanageChildren()</function> 
-	    	unmaps the specified widgets and removes them from their parent's 
-    	    	geometry management. The widgets will disappear from the screen, 
-	    	and (depending on its parent) may no longer have screen space 
+	    	<function moreinfo="none">XtUnmanageChildren()</function>
+	    	unmaps the specified widgets and removes them from their parent's
+    	    	geometry management. The widgets will disappear from the screen,
+	    	and (depending on its parent) may no longer have screen space
 	    	allocated for them.
     	    </para>
-	
+
     	    <para>
-	    	Each of the widgets in the 
-	    	<replaceable CLASS="PARAMETER">children</replaceable> 
+	    	Each of the widgets in the
+	    	<replaceable CLASS="PARAMETER">children</replaceable>
 	    	array must have the same parent.
     	    </para>
 
     	    <para>
-	    	See the &ldquo;Algorithm&rdquo; section below for full details 
+	    	See the &ldquo;Algorithm&rdquo; section below for full details
 	    	of the widget unmanagement procedure.
     	    </para>
 	</refsect1>
@@ -2465,27 +2451,27 @@
 
     	    <para>
 		You can unmap a widget, but leave it under geometry
-    		management by calling 
-		<function moreinfo="none">XtUnmapWidget()</function>.  
+    		management by calling
+		<function moreinfo="none">XtUnmapWidget()</function>.
 		You can destroy a widget's window without destroying the widget by
-    		calling 
-		<function moreinfo="none">XtUnrealizeWidget()</function>.  
-		You can destroy a widget completely with 
+    		calling
+		<function moreinfo="none">XtUnrealizeWidget()</function>.
+		You can destroy a widget completely with
 		<function moreinfo="none">XtDestroyWidget()</function>.
     	    </para>
 
     	    <para>
 		If you are only going to unmanage a single widget, it is
-    		more convenient to call 
-		<function moreinfo="none">XtUnmanageChild()</function>.  
-		It is often more convenient to call 
+    		more convenient to call
+		<function moreinfo="none">XtUnmanageChild()</function>.
+		It is often more convenient to call
 		<function moreinfo="none">XtUnmanageChild()</function>
     		several times than it is to declare and initialize an array
     		of widgets to pass to
-		<function moreinfo="none">XtUnmanageChildren()</function>.  
+		<function moreinfo="none">XtUnmanageChildren()</function>.
 		Calling
-		<function moreinfo="none">XtUnmanageChildren()</function> 
-		is more efficient, however, because it only calls the parent's 
+		<function moreinfo="none">XtUnmanageChildren()</function>
+		is more efficient, however, because it only calls the parent's
 		<function moreinfo="none">change_managed()</function>
     		method once.
     	    </para>
@@ -2494,7 +2480,7 @@
 	<refsect1 id="R1-1007-UNMANAGECHILDREN-3"><title>Algorithm</title>
 
     	    <para>
-    		<function moreinfo="none">XtUnmanageChildren()</function> 
+    		<function moreinfo="none">XtUnmanageChildren()</function>
 		performs the following:
     	    </para>
 
@@ -2545,7 +2531,7 @@
 <!-- ### Chapter: Questions and Answers                                 ### -->
 <!-- ###################################################################### -->
 
-<chapter id="FAQ"><title>Questions and Answers</title>
+<chapter id="faq"><title>Questions and Answers</title>
 
     <para></para>
 
@@ -2560,7 +2546,7 @@
     	    <answer>
 	    	<para>
 		    Read in the
-		    <link linkend="REQUIREMENTS">chapter</link>
+		    <link linkend="requirements">chapter</link>
 		    mentioned before. It compiles with
 		    gcc and egcs as well.
 		</para>
@@ -2803,7 +2789,7 @@
 <!-- ### Chapter: Credits                                               ### -->
 <!-- ###################################################################### -->
 
-<chapter id="CREDITS"><title>Credits and License</title>
+<chapter id="credits"><title>Credits and License</title>
 
     <para>&kapp;</para>
 
@@ -2886,7 +2872,7 @@
 <para>
 The current code contains some FFT routines and code fragments from the
 GNU Scientific Library project
-<ulink url="ftp://alpha.gnu.org/gnu/">ftp://alpha.gnu.org/gnu</ulink>.
+<ulink url="http://sources.redhat.com/gsl/">http://sources.redhat.com/gsl/</ulink>.
 </para>
 
 &underFDL;

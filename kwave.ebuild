@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 RESTRICT="nomirror"
 
 LICENSE="GPL-2"
-IUSE=""
+IUSE="kdeenablefinal debug mmx"
 SLOT="0"
 KEYWORDS="~x86"
 
@@ -40,6 +40,14 @@ DEPEND="sys-apps/sed
 		>=sci-libs/gsl-1.4"
 
 src_compile() {
+
+	local myconf
+	myconf=" "
+
+	use kdeenablefinal && myconf="${myconf} --enable-final"
+	use debug && myconf="${myconf} --enable-debug"
+	use mmx && append-flags -mmmx
+
 	# avoid sandbox warnings
 	addpredict ${QTDIR}/etc/settings/.qtrc.lock
 	addpredict ${QTDIR}/etc/settings/.qt_plugins_*
@@ -48,7 +56,7 @@ src_compile() {
 	# configure
 	make -f Makefile.dist \
 		RPM_OPT_FLAGS="${CFLAGS}" \
-		CONFIGURE_OPTS="" \
+		CONFIGURE_OPTS="${myconf} ${CONFIGURE_OPTS}" \
 		|| die "./configure failed"
 
 	# compile

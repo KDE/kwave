@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2003-06-15 10:53+0200\n"
-"PO-Revision-Date: 2003-06-14 18:51+0200\n"
+"POT-Creation-Date: 2003-06-17 22:05+0200\n"
+"PO-Revision-Date: 2003-06-17 22:05+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -251,9 +251,8 @@ msgid "&Noise"
 msgstr "&Rauschen"
 
 #: kwave/menus_config_i18n.cpp:80
-#, fuzzy
 msgid "&Notch Filter"
-msgstr "&Filter"
+msgstr "&Notch-Filter"
 
 #: kwave/menus_config_i18n.cpp:81
 msgid "&Nothing"
@@ -277,7 +276,7 @@ msgstr "Wiederholungen..."
 
 #: kwave/menus_config_i18n.cpp:89
 msgid "&Pitch Shift"
-msgstr ""
+msgstr "&Tonverschiebung"
 
 #: kwave/menus_config_i18n.cpp:90
 msgid " &Play"
@@ -457,11 +456,11 @@ msgstr "Einfügen"
 msgid "modify file information"
 msgstr "Datei-Information ändern"
 
-#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:828
+#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:833
 msgid "delete"
 msgstr "Löschen"
 
-#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:711
+#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:716
 msgid "insert track"
 msgstr "Track einfügen"
 
@@ -668,11 +667,11 @@ msgstr " (geändert)"
 msgid "selection"
 msgstr "Auswahl"
 
-#: kwave/SignalManager.cpp:287
+#: kwave/SignalManager.cpp:292
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: kwave/SignalManager.cpp:321
+#: kwave/SignalManager.cpp:326
 msgid ""
 "Saving in this format will loose the following additional file attribute"
 "(s):\n"
@@ -684,44 +683,44 @@ msgstr ""
 "%1\n"
 "Wollen Sie trotzdem fortsetzen?"
 
-#: kwave/SignalManager.cpp:362
+#: kwave/SignalManager.cpp:367
 msgid "An error occurred while saving the file!"
 msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
-#: kwave/SignalManager.cpp:371
+#: kwave/SignalManager.cpp:376
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
-#: kwave/SignalManager.cpp:378
+#: kwave/SignalManager.cpp:383
 msgid "Sorry, the file type is not supported!"
 msgstr "Sorry, dieser Datei-Typ wird nicht unterstützt!"
 
-#: kwave/SignalManager.cpp:592
+#: kwave/SignalManager.cpp:597
 msgid "cut"
 msgstr "Ausschneiden"
 
-#: kwave/SignalManager.cpp:595
+#: kwave/SignalManager.cpp:600
 msgid "crop"
 msgstr "Zuschneiden"
 
-#: kwave/SignalManager.cpp:661
+#: kwave/SignalManager.cpp:666
 msgid "paste"
 msgstr "Einfügen"
 
-#: kwave/SignalManager.cpp:704
+#: kwave/SignalManager.cpp:709
 msgid "append track"
 msgstr "Track anhängen"
 
-#: kwave/SignalManager.cpp:745 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:750 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "Track löschen"
 
-#: kwave/SignalManager.cpp:1302 kwave/SignalManager.cpp:1309
+#: kwave/SignalManager.cpp:1307 kwave/SignalManager.cpp:1314
 msgid "last action"
 msgstr "letzte Aktion"
 
-#: kwave/SignalManager.cpp:1528
+#: kwave/SignalManager.cpp:1533
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 
@@ -730,7 +729,7 @@ msgid "frmLength"
 msgstr "frmLength"
 
 #: libgui/SelectTimeWidgetBase.uic.cpp:214
-#: plugins/fileinfo/FileInfoDialog.cpp:197
+#: plugins/fileinfo/FileInfoDialog.cpp:209
 #: plugins/newsignal/NewSigDlg.uic.cpp:548
 msgid "Length"
 msgstr "Länge"
@@ -1384,7 +1383,7 @@ msgstr "Basis-Qualität"
 
 #: libkwave/FileInfo.cpp:200
 msgid "Base quality of the compression in VBR mode"
-msgstr ""
+msgstr "Basisqualität der Kompression im VBR-Modus"
 
 #: libkwave/FileInfo.cpp:203
 msgid ""
@@ -2078,7 +2077,7 @@ msgstr "Stille"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:396
 msgid "Pitch Shift"
-msgstr ""
+msgstr "Tonverschiebung"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:398
 #: plugins/lowpass/LowPassDlg.uic.cpp:169
@@ -2090,19 +2089,18 @@ msgstr "F1"
 #: plugins/pitch_shift/PitchShiftDialog.cpp:317
 #: plugins/lowpass/LowPassDlg.uic.cpp:170
 #: plugins/lowpass/LowPassDialog.cpp:160
-#, fuzzy
 msgid "&Listen"
-msgstr "&Rauschen"
+msgstr "&Anhören"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:400
 #: plugins/lowpass/LowPassDlg.uic.cpp:171
 msgid "Alt+L"
-msgstr ""
+msgstr "Alt+L"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:401
 #: plugins/lowpass/LowPassDlg.uic.cpp:172
 msgid "start/stop pre-listening"
-msgstr ""
+msgstr "Vorhören starten/stoppen"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:402
 #: plugins/lowpass/LowPassDlg.uic.cpp:173
@@ -2111,16 +2109,18 @@ msgid ""
 "enabled, you will nearly immediately hear any change in the selected "
 "parameters."
 msgstr ""
+"Startet oder stoppt das Vorhören mit den aktuellen Einstellungen. Wenn "
+"Vorhören aktiviert ist, hören Sie sofort die Änderungen durch die gewählten "
+"Einstellungen."
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:407
-#, fuzzy
 msgid "Frequency:"
-msgstr "Frequenzen"
+msgstr "Frequenz:"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:408
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:412
 msgid "chopper frequency"
-msgstr ""
+msgstr "Zerhacker-Frequenz"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:409
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:413
@@ -2129,11 +2129,14 @@ msgid ""
 "audio data are before they get processed by the pitch shift. If your audio "
 "data sounds interrupted, you might get better result with higher values."
 msgstr ""
+"<b>Zerhacker-Frequenz</b><br>Diese Einstellung bestimmt wie gross die "
+"Einheiten sind in die das Ausgangssignal zerteilt wird bevor der "
+"Tonverschiebungs-Effekt angewendet wird. Wenn sich das Ergebnis zerhackt "
+"anhört, bekommen Sie möglicherweise bessere Resultate mit höheren Werten."
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:410
-#, fuzzy
 msgid "Speed:"
-msgstr "Sprache"
+msgstr "Geschwindigkeit:"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:411
 #: plugins/lowpass/LowPassDlg.uic.cpp:167
@@ -2144,9 +2147,8 @@ msgstr " Hz"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:414
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:415
-#, fuzzy
 msgid "Speed"
-msgstr "Sprache"
+msgstr "Geschwindigkeit"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:416
 #: plugins/volume/VolumeDlg.uic.cpp:383
@@ -2154,50 +2156,46 @@ msgid "Mode"
 msgstr "Modus"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:417
-#, fuzzy
 msgid "by Percentage"
-msgstr "&Prozent"
+msgstr "nach Prozentsatz"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:418
 msgid "change speed by percentage"
-msgstr ""
+msgstr "Geschwindigkeit nach Prozentsatz ändern"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:419
-#, fuzzy
 msgid ""
 "Sets the speed to a relative percentage of the original speed. \n"
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
-"Setzt die Lautstärke auf einen Prozentsatz der ursprünglichen Lautstärke. \n"
+"Setzt die Geschwindigkeit auf einen Prozentsatz der ursprünglichen "
+"Geschwindigkeit. \n"
 "Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:421
-#, fuzzy
 msgid "by Factor"
-msgstr "&Faktor"
+msgstr "nach Faktor"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:422
 msgid "change speed by a factor"
-msgstr ""
+msgstr "Geschwindigkeit über einen Faktor ändern"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:423
-#, fuzzy
 msgid ""
 "Increments or decrements the speed by a factor. \n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
-"Erhöht oder senkt die Lautstärke über einen ganzzahligen Faktor. \n"
+"Erhöht oder reduziert die Geschwindigkeit über einen ganzzahligen Faktor. \n"
 "Zum Beispiel: \"x1\", \"x2\", \"/ 4\""
 
 #: plugins/pitch_shift/PitchShiftDialog.cpp:313
 #: plugins/lowpass/LowPassDialog.cpp:156
-#, fuzzy
 msgid "&Stop"
 msgstr "&Stop"
 
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:125
 msgid "pitch shift"
-msgstr ""
+msgstr "Tonverschiebung"
 
 #: plugins/sonagram/SonagramDialog.cpp:55
 msgid "sonagram"
@@ -2500,11 +2498,6 @@ msgstr "Tiefpass"
 msgid "Select Date"
 msgstr "Datum auswählen"
 
-#: plugins/fileinfo/CompressionWidget.cpp:61
-#: plugins/fileinfo/CompressionWidget.cpp:62
-msgid "no limit"
-msgstr "nicht begrenzt"
-
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1111
 msgid "File Info"
 msgstr "Datei-Informationen"
@@ -2647,8 +2640,8 @@ msgstr "Layer III"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1149
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1186
-#: plugins/fileinfo/FileInfoDialog.cpp:378
-#: plugins/fileinfo/FileInfoDialog.cpp:384
+#: plugins/fileinfo/FileInfoDialog.cpp:400
+#: plugins/fileinfo/FileInfoDialog.cpp:406
 msgid "yes"
 msgstr "Ja"
 
@@ -2825,9 +2818,8 @@ msgid "Form1"
 msgstr "Form1"
 
 #: plugins/fileinfo/CompressionWidgetBase.uic.cpp:384
-#, fuzzy
 msgid "CompressionWidgetBase"
-msgstr "Kompression"
+msgstr "CompressionWidgetBase"
 
 #: plugins/fileinfo/CompressionWidgetBase.uic.cpp:386
 msgid "ABR:"
@@ -2880,23 +2872,23 @@ msgstr "Nominale Bitrate"
 msgid " %"
 msgstr " %"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:131
+#: plugins/fileinfo/FileInfoDialog.cpp:143
 msgid "%1 bytes"
 msgstr "%1 Bytes"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:133
+#: plugins/fileinfo/FileInfoDialog.cpp:145
 msgid "%1 kB (%2 byte)"
 msgstr "%1 kB (%2 Bytes)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:136
+#: plugins/fileinfo/FileInfoDialog.cpp:148
 msgid "%1 MB (%2 byte)"
 msgstr "%1 MB (%2 Bytes)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:167
+#: plugins/fileinfo/FileInfoDialog.cpp:179
 msgid "Sample Rate"
 msgstr "Abtastrate"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:170
+#: plugins/fileinfo/FileInfoDialog.cpp:182
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
@@ -2906,13 +2898,13 @@ msgstr ""
 "Raten auswählen oder direkt eine eigene Sample-Rate\n"
 "eingeben."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:176
+#: plugins/fileinfo/FileInfoDialog.cpp:188
 #: plugins/playback/PlayBackDialog.cpp:109
 #: plugins/playback/PlayBackDialog.cpp:110
 msgid "Resolution"
 msgstr "Auflösung"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:179
+#: plugins/fileinfo/FileInfoDialog.cpp:191
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
@@ -2920,11 +2912,11 @@ msgstr ""
 "Auswahl der Auflösung in der die Datei gespeichert\n"
 "werden soll."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:184
+#: plugins/fileinfo/FileInfoDialog.cpp:196
 msgid "Tracks"
 msgstr "Tracks"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:187
+#: plugins/fileinfo/FileInfoDialog.cpp:199
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
@@ -2933,7 +2925,7 @@ msgstr ""
 "über das \"Bearbeiten\"-Menue Tracks hinzufügen\n"
 "oder löschen."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:200
+#: plugins/fileinfo/FileInfoDialog.cpp:212
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
@@ -2941,46 +2933,46 @@ msgstr ""
 "Zeigt die Länge der Datei in Samples\n"
 "und wenn möglich als Zeit."
 
-#: plugins/fileinfo/FileInfoDialog.cpp:206
+#: plugins/fileinfo/FileInfoDialog.cpp:218
 msgid "%1 (%2 samples)"
 msgstr "%1 (%2 Samples)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:210
+#: plugins/fileinfo/FileInfoDialog.cpp:222
 msgid "%2 samples"
 msgstr "%2 Samples"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:347
+#: plugins/fileinfo/FileInfoDialog.cpp:369
 msgid "bands 0 to 31"
 msgstr "Bänder 0 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:348
+#: plugins/fileinfo/FileInfoDialog.cpp:370
 msgid "bands 8 to 31"
 msgstr "Bänder 8 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:349
+#: plugins/fileinfo/FileInfoDialog.cpp:371
 msgid "bands 12 to 31"
 msgstr "Bänder 12 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:350
+#: plugins/fileinfo/FileInfoDialog.cpp:372
 msgid "bands 16 to 31"
 msgstr "Bänder 16 bis 31"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:378
-#: plugins/fileinfo/FileInfoDialog.cpp:384
+#: plugins/fileinfo/FileInfoDialog.cpp:400
+#: plugins/fileinfo/FileInfoDialog.cpp:406
 msgid "no"
 msgstr "Nein"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:493
+#: plugins/fileinfo/FileInfoDialog.cpp:515
 #: plugins/newsignal/NewSignalDialog.cpp:318
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:496
+#: plugins/fileinfo/FileInfoDialog.cpp:518
 #: plugins/newsignal/NewSignalDialog.cpp:321
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/fileinfo/FileInfoDialog.cpp:499
+#: plugins/fileinfo/FileInfoDialog.cpp:521
 #: plugins/newsignal/NewSignalDialog.cpp:324
 msgid "(Quadro)"
 msgstr "(Quadro)"
@@ -3078,14 +3070,12 @@ msgstr ""
 "%1"
 
 #: plugins/notch_filter/NotchDlg.uic.cpp:181
-#, fuzzy
 msgid "Notch Filter"
-msgstr "&Filter"
+msgstr "Notch-Filter"
 
 #: plugins/notch_filter/NotchPlugin.cpp:114
-#, fuzzy
 msgid "notch filter"
-msgstr "Filter &laden"
+msgstr "Notch-Filter"
 
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:33
 msgid "ms"
@@ -3210,7 +3200,7 @@ msgstr "&Faktor"
 
 #: plugins/volume/VolumeDlg.uic.cpp:385
 msgid "change volume by factor"
-msgstr ""
+msgstr "Lautstärke um einen Faktor ändern"
 
 #: plugins/volume/VolumeDlg.uic.cpp:386
 msgid ""
@@ -3226,7 +3216,7 @@ msgstr "&Prozent"
 
 #: plugins/volume/VolumeDlg.uic.cpp:389
 msgid "change volume by percentage"
-msgstr ""
+msgstr "Lautstärke um einen Prozentsatz ändern"
 
 #: plugins/volume/VolumeDlg.uic.cpp:390
 msgid ""
@@ -3242,7 +3232,7 @@ msgstr "&Logarithmisch"
 
 #: plugins/volume/VolumeDlg.uic.cpp:393
 msgid "change volume in dB"
-msgstr ""
+msgstr "Lautstärke in dB ändern"
 
 #: plugins/volume/VolumeDlg.uic.cpp:394
 msgid ""
@@ -3252,7 +3242,7 @@ msgstr ""
 "Erhöht oder senkt die Lautstärke im logarithmischen Masstab (Dezibel). \n"
 "Zum Beispiel: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 
-#: plugins/codec_ogg/OggEncoder.cpp:148
+#: plugins/codec_ogg/OggEncoder.cpp:159
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
 "and encode with %1 kBit/s or cancel and choose a different bitrate?"
@@ -3261,7 +3251,7 @@ msgstr ""
 "mit der Bitrate %1 kBit/s fortsetzen oder abbrechen und eine andere Bitrate "
 "auswählen?"
 
-#: plugins/codec_ogg/OggEncoder.cpp:204
+#: plugins/codec_ogg/OggEncoder.cpp:231
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again..."
@@ -3269,39 +3259,39 @@ msgstr ""
 "Ein oder mehrere Codierungs-Parameter werden nicht unterstützt. Bitte ändern "
 "Sie die Codierungs-Einstellungen und versuchen Sie es nochmal..."
 
-#: plugins/codec_ogg/OggEncoder.cpp:213 plugins/codec_wav/WavEncoder.cpp:144
+#: plugins/codec_ogg/OggEncoder.cpp:240 plugins/codec_wav/WavEncoder.cpp:144
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 
-#: plugins/codec_ogg/OggEncoder.cpp:223 plugins/codec_wav/WavEncoder.cpp:126
+#: plugins/codec_ogg/OggEncoder.cpp:250 plugins/codec_wav/WavEncoder.cpp:126
 msgid " for KDE "
 msgstr " für KDE "
 
-#: plugins/codec_ogg/OggDecoder.cpp:97
+#: plugins/codec_ogg/OggDecoder.cpp:100
 msgid "Input does not appear to be an Ogg bitstream."
 msgstr "Die Eingabe scheint nicht im Ogg-Format zu sein."
 
-#: plugins/codec_ogg/OggDecoder.cpp:117
+#: plugins/codec_ogg/OggDecoder.cpp:120
 msgid "Error reading first page of Ogg bitstream data."
 msgstr "Fehler beim Lesen des ersten Abschnitts des Ogg-Bitstroms."
 
-#: plugins/codec_ogg/OggDecoder.cpp:124
+#: plugins/codec_ogg/OggDecoder.cpp:127
 msgid "Error reading initial header packet."
 msgstr "Fehler beim Lesen des ersten Kopfdaten-Pakets."
 
-#: plugins/codec_ogg/OggDecoder.cpp:131
+#: plugins/codec_ogg/OggDecoder.cpp:134
 msgid "This Ogg bitstream does not contain Vorbis audio data."
 msgstr "Der Ogg-Bitstrom enthält keine Vorbis Audio-Daten."
 
-#: plugins/codec_ogg/OggDecoder.cpp:164
+#: plugins/codec_ogg/OggDecoder.cpp:167
 msgid "Corrupt secondary header. Exiting."
 msgstr "Beschädigter sekundärer Header. Vorgang wird abgebrochen."
 
-#: plugins/codec_ogg/OggDecoder.cpp:178
+#: plugins/codec_ogg/OggDecoder.cpp:182
 msgid "End of file before finding all Vorbis headers!"
 msgstr "Dateiende vor dem Einlesen aller Vorbis-Header!"
 
-#: plugins/codec_ogg/OggDecoder.cpp:337
+#: plugins/codec_ogg/OggDecoder.cpp:341
 msgid "Corrupt or missing data in bitstream; continuing..."
 msgstr ""
 "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
@@ -3677,6 +3667,9 @@ msgstr ""
 #: plugins/newsignal/NewSignalDialog.cpp:349
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resultierende Dateigröße: %1 MB)"
+
+#~ msgid "no limit"
+#~ msgstr "nicht begrenzt"
 
 #, fuzzy
 #~ msgid "Frequency parameter"

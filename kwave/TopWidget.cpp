@@ -119,6 +119,8 @@ TopWidget::ZoomListPrivate::ZoomListPrivate()
     append("10 sec",     10L*1000L);
     append("30 sec",     30L*1000L);
     append("1 min",   1L*60L*1000L);
+    append("3 min",   3L*60L*1000L);
+    append("5 min",   5L*60L*1000L);
     append("10 min", 10L*60L*1000L);
     append("30 min", 30L*60L*1000L);
     append("60 min", 60L*60L*1000L);

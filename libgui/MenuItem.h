@@ -30,7 +30,7 @@ class MenuItem : public MenuNode {
 
 public: // Public methods
 
-    MenuItem(const char *name);
+    MenuItem(const char *command, const char *name);
     virtual int getIndex();
 
 };

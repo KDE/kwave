@@ -21,7 +21,7 @@
 #include "MenuSub.h"
 #include "MenuToplevel.h"
 
-MenuToplevel::MenuToplevel (const char *name)
-    :MenuSub(name)
+MenuToplevel::MenuToplevel (const char *command, const char *name)
+    :MenuSub(command, name)
 {
 }

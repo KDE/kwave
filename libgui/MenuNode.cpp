@@ -47,13 +47,15 @@ int MenuNode::getIdRange (int num)
 }
 */
 
-MenuNode::MenuNode (const char *name)
+MenuNode::MenuNode (const char *command, const char *name)
     :QObject()
 {
-  this->parentNode=0;
-  this->name=duplicateString (name);
-  this->id=-1;
-  children.setAutoDelete(true);
+    this->parentNode = 0;
+    this->name = duplicateString (name);
+    this->id = -1;
+    children.setAutoDelete(true);
+    this->command = duplicateString(command);
+
 /* ###
   this->toplevel=false; // ### toplevel;
   this->toplevelEnabled=true;
@@ -93,9 +95,9 @@ void MenuNode::setCheckable ()
 }
 ### */
 
-void MenuNode::selected (int num)
+void MenuNode::actionSelected()
 {
-/* ###
+    /*
   if (numberItems)
     {
       char buf[512];
@@ -112,20 +114,10 @@ void MenuNode::selected (int num)
       deleteString (com);
       deleteString (tmp);
     }
-  else
-    {
-      MenuCommand *tmp=commands.first();
-
-      while (tmp)
-	{
-	  if (tmp->getId()==num)
-	    globals.port->putMessage (tmp->getCommand());
-
-	  tmp=commands.next();
-	}
-    }
-    ### */
+    */
+    if (command) globals.port->putMessage(command);
 }
+
 /* ###
 void MenuNode::setEnabled (bool enable)
 {
@@ -207,16 +199,9 @@ void MenuNode::checkEntry(int id, bool check)
 }
 ### */
 
-void MenuNode::check(int id)
+/*
+void MenuNode::slotHilighted(int id)
 {
-/**   MenuNode *parent = getParent();
-  if (parent) parent->
-  checkEntry(id); */
-}
-
-void MenuNode::hilight(int id)
-{
- /* ###
   // (this is useful for debugging menu ids)
   debug("MenuNode::hilight(%d)", id);
   MenuNode *parent = getParent();
@@ -227,67 +212,16 @@ void MenuNode::hilight(int id)
       }
       parent->setItemChecked(id, true);
   }
-  */
-}
-
-/* ###
-int MenuNode::insertEntry (const char *name,const char *command, int keycode, int id)
-{
-  int key;
-  MenuNode *dummy;
-
-  dummy = new MenuNode(name, id);
-  commands.append (new MenuCommand (command,id));
-  children.append (dummy);
-
-  key=this->insertItem (klocale->translate(name),id);
-  this->setAccel (keycode,id);
-
-  dummy->setId(key);
-  dummy->setParent(this);
-  return key; // return the real id of the menu entry
-### }
-*/
-
-/*
-int MenuNode::insertMenu (MenuNode *entry)
-{
-  int key;
-  children.append (entry);
-  key = this->insertItem(entry->getName(), entry, entry->getId());
-  entry->setId(key);
-  entry->setParent(this);
-  return key;
-}
-
-void MenuNode::removeMenu (const char *name)
-{
-  MenuNode *menu=findMenu(name);
-  if (menu)
-    {
-      int index=menu->getId();
-      removeItem(index);
-      children.removeRef (menu);
-      delete menu;
-    }
-}
-
-MenuNode *MenuNode::findMenu (const char *name)
-{
-    MenuNode *tmp=children.first();
-    while (tmp) {
-	if (strcmp (tmp->getName(),name)==0) return tmp;
-	tmp=children.next();
-    }
-    return 0;
 }
 */
 
 //*****************************************************************************
 MenuNode::~MenuNode ()
 {
-    deleteString (name);
-// ###    deleteString (com);
+    children.setAutoDelete(true);
+    // children.clear();
+    deleteString(name);
+    deleteString(command);
 }
 
 /** removes all entries */
@@ -304,7 +238,7 @@ int MenuNode::getChildIndex(const int id)
 }
 
 /** returns a pointer to the menu's parent node */
-MenuNode * MenuNode::getParentNode()
+MenuNode *MenuNode::getParentNode()
 {
     return parentNode;
 }
@@ -473,10 +407,10 @@ int MenuNode::insertNode(const char *command, char *name, char *position,
 	    int index = sub->getIndex();
 	    int old_id = sub->getId();
 	
-	    debug("MenuNode:insertNode(%s):removing child %s"\
+/*	    debug("MenuNode:insertNode(%s):removing child %s"\
 		" (id=%d, index=%d)", getName(), sub->getName(),
 		old_id, index); // ###
-	    removeChild(old_id);
+*/	    removeChild(old_id);
 	
 	    sub = insertBranch(name, key, uid, index);
 	}

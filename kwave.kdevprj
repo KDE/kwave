@@ -25,11 +25,11 @@ dist=true
 install=false
 type=SOURCE
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuRoot.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuRoot.cpp,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.cpp,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuRoot.h
-cpp_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.cpp
+header_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h
+cpp_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.cpp
 browser_file=file:/usr/src/packages/development/kdelibdocs-0.3/kdeui/KMenuBar.html
 [libgui/TimeLine.h]
 install_location=

@@ -1,9 +1,8 @@
 
 #include <stdio.h>
 
-// #include <stdlib.h>
+#include <stdlib.h>
 // #include <string.h>
-
 // #include <qstack.h>
 #include <qkeycode.h>
 
@@ -59,7 +58,7 @@ int MenuManager::parseToKeyCode(const char *key_name)
 		keycode+=Key_F1+nr-1;
 	    }
 	}
-	
+
 	// other known keys
 	if (!strcmp (&key[pos],"PLUS")) keycode+=Key_Plus;
 	if (!strcmp (&key[pos],"MINUS")) keycode+=Key_Minus;

@@ -36,14 +36,15 @@ class MenuCommand;
  * the ToplevelMenu class.
  * @author Thomas Eschenbacher
  */
-class MenuNode: virtual public QObject {
+class MenuNode: public QObject
+{
     Q_OBJECT
 
 public:
-    MenuNode             (const char *name);
+    MenuNode(const char *command, const char *name);
     virtual ~MenuNode();
 
-    inline const char   *getName     () const {return name;};
+    inline const char   *getName() const {return name;};
 
     inline int           getId()       {return this->id;};
     inline void          setId(int id) {this->id=id;};
@@ -120,27 +121,26 @@ public:
 
     virtual bool specialCommand(const char *command);
 
-signals: // Signals
+    virtual void actionSelected();
 
- void command (const char *);
+ signals: // Signals
 
- public slots:
+ void sigCommand(const char *);
 
- void          check       (int);
- void          selected    (int);
- void          hilight     (int);
+private:
 
- private:
   QList<MenuNode>     children;          //list of pointers to children menus
 
 /* ###
-  QList<MenuCommand>  commands;          //list of pointers to children menus
+  QList<MenuCommand>  commands;
   bool                toplevel;          //true for toplevel menu
   bool                toplevelEnabled;   //toplevel menu is enabled
 */
 
-  int                 id;
-  char*               name;              //name of this menu as used internally
+  int   id;
+  char *name;    // name of this menu node non-localized
+  char *command; // command, might be null
+
 /* ###
   char*               com;               //command template used if numbered
   int                 comcnt;
@@ -153,8 +153,10 @@ signals: // Signals
                                          //this is the case, they should also
                                          //be exclusive
 */
+
     /** parent of this entry */
     MenuNode* parentNode;
+
 };
 
 #endif

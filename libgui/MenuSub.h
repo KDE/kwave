@@ -32,7 +32,7 @@ class MenuSub : public MenuNode
   Q_OBJECT
 
 public: // Public methods
-    MenuSub (const char *name);
+    MenuSub (const char *command, const char *name);
 
     virtual int getChildIndex(const int id);
     virtual bool isBranch() {return true;};
@@ -50,9 +50,14 @@ public: // Public methods
 
     virtual bool specialCommand(const char *command);
 
+public slots:
+
+//    void slotChecked(int);
+    void slotSelected(int);
+//    void slotHilighted(int);
+
 private:
     QPopupMenu *menu;
-
 };
 
 #endif

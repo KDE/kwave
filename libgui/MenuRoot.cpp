@@ -27,7 +27,7 @@
  * @param bar reference to a KMenuBar
  */
 MenuRoot::MenuRoot(KMenuBar &bar)
-    :MenuNode("(root)"), menu_bar(bar)
+    :MenuNode(0, "(root)"), menu_bar(bar)
 {
 }
 
@@ -42,12 +42,10 @@ int MenuRoot::getChildIndex(const int id)
 MenuNode *MenuRoot::insertBranch(char *name, const int key,
                                  const char *uid, const int index)
 {
-    MenuToplevel *node = new MenuToplevel(name);
+    MenuToplevel *node = new MenuToplevel(0, name);
     int new_id = registerChild(node);
-    int retval=menu_bar.insertItem(klocale->translate(name),
+    menu_bar.insertItem(klocale->translate(name),
 	node->getPopupMenu(), new_id, index);
-	
-    debug("MenuRoot::insertBranch(%s): retval=%d, new_id=%d", name, retval, new_id);
     return node;
 }
 
@@ -55,18 +53,16 @@ MenuNode *MenuRoot::insertLeaf(const char *command, char *name,
                                const int key, const char *uid,
                                const int index)
 {
-    MenuItem *item = new MenuItem(name);
+    MenuItem *item = new MenuItem(command, name);
     int new_id = registerChild(item);
-    int retval = menu_bar.insertItem(klocale->translate(name),
+    menu_bar.insertItem(klocale->translate(name),
 	new_id, index);
-
-    debug("MenuRoot::insertLeaf(%s): retval=%d, new_id=%d", name, retval, new_id);
     return item;
 }
 
 void MenuRoot::removeChild(const int id)
 {
-    debug("MenuRoot::removeChild(%d)", id);
+//    debug("MenuRoot::removeChild(%d)", id);
     MenuNode::removeChild(id);
     menu_bar.removeItem(id);
 }

@@ -30,7 +30,7 @@ class MenuToplevel : public MenuSub
   Q_OBJECT
 
 public: // Public methods
-    MenuToplevel (const char *name);
+    MenuToplevel(const char *command, const char *name);
     // virtual bool setEnabled();
 
 };

@@ -39,6 +39,8 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Parser.h"
+#include "libkwave/PlayBackDevice.h"
+#include "libkwave/PlaybackDeviceFactory.h"
 #include "libkwave/PluginContext.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
@@ -72,15 +74,34 @@ PluginManager::PluginDeleter::~PluginDeleter()
 //****************************************************************************
 //****************************************************************************
 
-// static initializer
+// static initializers
 QMap<QString, QString> PluginManager::m_plugin_files;
+QList<KwavePlugin> PluginManager::m_persistent_plugins;
+static QPtrList<PlaybackDeviceFactory> m_playback_factories;
 
 //****************************************************************************
 PluginManager::PluginManager(TopWidget &parent)
     :m_spx_name_changed(this, SLOT(emitNameChanged())),
      m_spx_command(this, SLOT(forwardCommand())),
-     m_top_widget(parent)
+     m_loaded_plugins(), m_top_widget(parent)
 {
+    // use all persistent plugins
+    // this does nothing on the first instance, all other instances
+    // will probably find a non-empty list
+    QPtrListIterator<KwavePlugin> itp(m_persistent_plugins);
+    for ( ; itp.current(); ++itp ) {
+	KwavePlugin *p = itp.current();
+	ASSERT(p && p->isPersistent());
+	if (p && p->isPersistent()) {
+	    p->use();
+
+	    // maybe we will become responsible for releasing
+	    // the plugin (when it is in use but the plugin manager
+	    // who has created it is already finished)
+	    connect(p,    SIGNAL(sigClosed(KwavePlugin *)),
+	            this, SLOT(pluginClosed(KwavePlugin *)));
+	}
+    }
 }
 
 //****************************************************************************
@@ -95,20 +116,25 @@ PluginManager::~PluginManager()
     // inform all plugins and client windows that we close now
     emit sigClosed();
 
-    // remove all remaining plugins
-    while (!m_loaded_plugins.isEmpty()) {
-	KwavePlugin *p = m_loaded_plugins.last();
-	m_loaded_plugins.removeRef(p);
-	
-	if (p) {
-//	    debug("PluginManager: releasing persistent plugin '%s'",
-//	          p->name().data());
-	    void *h = p->handle();
-	    delete p;
-	    dlclose(h);
+    // release all persistent plugins
+    QPtrListIterator<KwavePlugin> itp(m_persistent_plugins);
+    for (itp.toLast() ; itp.current(); ) {
+	KwavePlugin *p = itp.current();
+	--itp;
+	ASSERT(p && p->isPersistent());
+	if (p && p->isPersistent()) {
+	    p->release();
 	}
     }
 
+    // release all own plugins that are left
+    QPtrListIterator<KwavePlugin> it(m_loaded_plugins);
+    for (it.toLast() ; it.current(); ) {
+	KwavePlugin *p = it.current();
+	--it;
+	ASSERT(p);
+	if (p) p->release();
+    }
 }
 
 //***************************************************************************
@@ -122,8 +148,10 @@ void PluginManager::loadAllPlugins()
 	
 	KwavePlugin *plugin = loadPlugin(name);
 	if (plugin) {
-	    // remove it again if it is not persistent
-	    if (!plugin->isPersistent()) plugin->release();
+	    if (!plugin->isPersistent()) {
+		// remove it again if it is not persistent
+		plugin->release();
+	    }
 	} else {
 	    // loading failed => remove it from the list
 	    warning("PluginManager::loadAllPlugins(): removing '%s' "\
@@ -136,18 +164,25 @@ void PluginManager::loadAllPlugins()
 //**********************************************************
 KwavePlugin *PluginManager::loadPlugin(const QString &name)
 {
-    // first find out if the plugin is already loaded AND persistent
-    // or unique
-    QListIterator<KwavePlugin> it(m_loaded_plugins);
+
+    // first find out if the plugin is already loaded and persistent
+    QPtrListIterator<KwavePlugin> itp(m_persistent_plugins);
+    for ( ; itp.current(); ++itp ) {
+	KwavePlugin *p = itp.current();
+	if (p->name() == name) {
+	    ASSERT(p->isPersistent());
+//	    debug("PluginManager::loadPlugin(): returning reference "\
+//		  "to persistent plugin '%s'", name.data());
+	    return p;
+	}
+    }
+
+    // first find out if the plugin is already loaded and unique
+    QPtrListIterator<KwavePlugin> it(m_persistent_plugins);
     for ( ; it.current(); ++it ) {
 	KwavePlugin *p = it.current();
 	if (p->name() == name) {
-	    if (p->isPersistent()) {
-		// persistent -> return reference only
-		debug("PluginManager::loadPlugin(): returning reference "\
-		      "to persistent plugin '%s'", name.data());
-		return p;
-	    }
+	    ASSERT(!p->isPersistent());
 	    if (p->isUnique()) {
 		// prevent from re-loading of a unique plugin
 		warning("PluginManager::loadPlugin(): attempt to re-load "\
@@ -263,12 +298,24 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	dlclose(handle);
 	return 0;
     }
-
-    // append the plugin into our list of plugins
-    m_loaded_plugins.append(plugin);
-
-    // connect all signals
-    connectPlugin(plugin);
+    
+    if (plugin->isPersistent()) {
+	// append persistent plugins to the global list
+	m_persistent_plugins.append(plugin);
+    } else {
+	// append the plugin into our list of plugins
+	m_loaded_plugins.append(plugin);
+    }
+    
+    if (!plugin->isPersistent()) {
+	// connect all signals if it is not persistent
+	connectPlugin(plugin);
+    } else {
+	// persistent plugins must not close automatically when
+	// we close !
+	connect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
+	        this,   SLOT(pluginClosed(KwavePlugin *)));
+    }
 
     // get the last settings and call the "load" function
     // now the plugin is present and loaded
@@ -531,16 +578,33 @@ void PluginManager::openMultiTrackWriter(MultiTrackWriter &writers,
 
 //***************************************************************************
 ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
-                                                    const QString *name)
+                                                     const QString *name)
 {
     QString device_name;
     
-    // locate the corresponding playback device/plugin
-    // ###
-    if (!name) device_name = "default";
+    // locate the corresponding playback device factory (plugin)
+    device_name = (name) ? QString(*name) : "";
+    PlayBackDevice *device = 0;
+    PlaybackDeviceFactory *factory = 0;
+    QPtrListIterator<PlaybackDeviceFactory> it(m_playback_factories);
+    for (; it.current(); ++it) {
+	PlaybackDeviceFactory *f = it.current();
+	ASSERT(f);
+	if (f && f->supportsDevice(device_name)) {
+	    factory = f;
+	    break;
+	}
+    }
+    ASSERT(factory);
+    if (!factory) return 0;
 
+    // open the playback device with it's default parameters
+    device = factory->openDevice(device_name, 0);
+    ASSERT(device);
+    if (!device) return 0;
+    
     // create the multi track playback sink
-    ArtsMultiSink *sink = new ArtsMultiPlaybackSink(tracks, 0);
+    ArtsMultiSink *sink = new ArtsMultiPlaybackSink(tracks, device);
     ASSERT(sink);
     if (!sink) return 0;
     
@@ -573,16 +637,20 @@ void PluginManager::forwardCommand()
 void PluginManager::pluginClosed(KwavePlugin *p)
 {
     ASSERT(p);
-    ASSERT(!m_loaded_plugins.isEmpty());
+    ASSERT(!m_loaded_plugins.isEmpty() || !m_persistent_plugins.isEmpty());
     if (!p) return;
-    
-//    debug("PluginManager::pluginClosed(%s)", p->name().data()); // ###
     
     // disconnect the signals to avoid recursion
     disconnectPlugin(p);
 
-    m_loaded_plugins.setAutoDelete(false);
-    m_loaded_plugins.removeRef(p);
+    if (m_loaded_plugins.findRef(p) != -1) {
+	m_loaded_plugins.setAutoDelete(false);
+	m_loaded_plugins.removeRef(p);
+    }
+    if (m_persistent_plugins.findRef(p) != -1) {
+	m_persistent_plugins.setAutoDelete(false);
+	m_persistent_plugins.removeRef(p);
+    }
 
     // schedule the deferred delete/unload of the plugin
     void *handle = p->handle();
@@ -672,6 +740,22 @@ void PluginManager::findPlugins()
     }
 
     printf("--- \n found %d plugins\n", m_plugin_files.count());
+}
+
+//****************************************************************************
+void PluginManager::registerPlaybackDeviceFactory(
+    PlaybackDeviceFactory *factory)
+{
+    m_playback_factories.append(factory);
+    
+}
+
+//****************************************************************************
+void PluginManager::unregisterPlaybackDeviceFactory(
+    PlaybackDeviceFactory *factory)
+{
+    m_playback_factories.setAutoDelete(false);
+    m_playback_factories.removeRef(factory);
 }
 
 //****************************************************************************

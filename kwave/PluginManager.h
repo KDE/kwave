@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qobject.h>
 #include <qarray.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qvector.h>
 #include <qmap.h>
 
@@ -34,6 +34,7 @@ class ArtsMultiSink;
 class FileInfo;
 class KwavePlugin;
 class PlaybackController;
+class PlaybackDeviceFactory;
 class QBitmap;
 class QString;
 class QStringList;
@@ -238,6 +239,16 @@ public:
 	return Arts::Dispatcher::the();
     };
 
+    /**
+     * Registers a PlaybackDeviceFactory
+     */
+    void registerPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
+
+    /**
+     * Unregisters a PlaybackDeviceFactory
+     */
+    void unregisterPlaybackDeviceFactory(PlaybackDeviceFactory *factory);
+    
 signals:
     /**
      * Forwards commands to the parent TopWidget execute a command
@@ -349,8 +360,11 @@ private:
     /** map for finding plugin files through their name */
     static QMap<QString, QString> m_plugin_files;
 
-    /** list of loaded plugins */
-    QList<KwavePlugin> m_loaded_plugins;
+    /** list of own loaded plugins */
+    QPtrList<KwavePlugin> m_loaded_plugins;
+
+    /** global list of loaded plugins */
+    static QPtrList<KwavePlugin> m_persistent_plugins;
 
     /** reference to our parent toplevel widget */
     TopWidget &m_top_widget;

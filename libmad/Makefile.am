@@ -22,8 +22,8 @@
 ## Process this file with automake to produce Makefile.in
 
 noinst_LTLIBRARIES =	libmad.la
-# include_HEADERS =	mad.h
-# 
+
+noinst_HEADERS =	mad.h
 # EXTRA_DIST =		COPYRIGHT mad.h.sed
 
 exported_headers =  \

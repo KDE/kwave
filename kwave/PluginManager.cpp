@@ -32,6 +32,7 @@
 #include "mt/TSS_Object.h"
 #include "mt/ThreadCondition.h"
 
+#include "libkwave/ArtsMultiPlaybackSink.h"
 #include "libkwave/LineParser.h"
 #include "libkwave/FileLoader.h"
 #include "libkwave/KwavePlugin.h"
@@ -526,6 +527,24 @@ void PluginManager::openMultiTrackWriter(MultiTrackWriter &writers,
     }
 
     openMultiTrackWriter(writers, tracks, mode, left, right);
+}
+
+//***************************************************************************
+ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
+                                                    const QString *name)
+{
+    QString device_name;
+    
+    // locate the corresponding playback device/plugin
+    // ###
+    if (!name) device_name = "default";
+
+    // create the multi track playback sink
+    ArtsMultiSink *sink = new ArtsMultiPlaybackSink(tracks, 0);
+    ASSERT(sink);
+    if (!sink) return 0;
+    
+    return sink;
 }
 
 //***************************************************************************

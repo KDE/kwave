@@ -30,6 +30,7 @@
 #include "mt/SignalProxy.h"
 #include "libkwave/InsertMode.h"
 
+class ArtsMultiSink;
 class FileInfo;
 class KwavePlugin;
 class PlaybackController;
@@ -201,6 +202,16 @@ public:
      */
     void openMultiTrackWriter(MultiTrackWriter &writers,
                               InsertMode mode);
+
+    /**
+     * Opens a set of SampleWriters for playback purposes.
+     * @param tracks number of tracks
+     * @param name of the device, optional. If not given, the default
+     *        playback device is used
+     * @return a multitrack aRts sink that receives the playback stream
+     */
+    ArtsMultiSink *openMultiTrackPlayback(unsigned int tracks,
+                                          const QString *name = 0);
 
     /**
      * Returns a reference to the current playback controller. This is

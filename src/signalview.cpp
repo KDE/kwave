@@ -41,8 +41,8 @@ SignalWidget::SignalWidget (QWidget *parent,MenuManager *manage) : QWidget (pare
   lastplaypointer=-1;
   pixmap=0;
 
-  markers=new MarkerList;
-  markers->setAutoDelete (true);
+  labels=new MarkerList;
+  labels->setAutoDelete (true);
 
   markertype=globals.markertypes.first();
 
@@ -57,7 +57,7 @@ SignalWidget::~SignalWidget ()
 {
   if (pixmap==0)    delete pixmap;
   if (signalmanage) delete signalmanage;
-  if (markers)      delete markers;
+  if (labels)      delete labels;
 }
 //****************************************************************************
 void SignalWidget::saveSignal  (const char *filename,int bit,int selection)
@@ -172,28 +172,28 @@ bool SignalWidget::checkForNavigationCommand (const char *str)
 bool SignalWidget::checkForLabelCommand (const char *str)
 {
   if (matchCommand (str,"chooselabel"))
-  {
-    KwaveParser parser (str);
-    markertype=globals.markertypes.at(parser.toInt());
-  }
+    {
+      KwaveParser parser (str);
+      markertype=globals.markertypes.at(parser.toInt());
+    }
   else
     if (matchCommand (str,"amptolabel")) markSignal (str);
     else
       if (matchCommand (str,"pitch")) markPeriods (str);
       else
-	if (matchCommand (str,"labeltopitch"))   convertMarkstoPitch (str);
-	else
-	  if (matchCommand (str,"deletelabel"))   deleteMarks ();
+	//	if (matchCommand (str,"labeltopitch"))   convertMarkstoPitch (str);
+	//	else
+	  if (matchCommand (str,"deletelabel"))   deleteLabel ();
 	  else
-	    if (matchCommand (str,"insertlabel"))   appendMarks ();
+	    if (matchCommand (str,"insertlabel"))   appendLabel ();
 	    else
-	      if (matchCommand (str,"loadlabel"))  loadMarks ();
+	      if (matchCommand (str,"loadlabel"))  loadLabel ();
 	      else
-		if (matchCommand (str,"savelabel"))  saveMarks ();
+		if (matchCommand (str,"savelabel"))  saveLabel (str);
 		else
-		  if (matchCommand (str,"addlabel"))   addMark ();
+		  if (matchCommand (str,"label"))   addLabel (str);
 		  else
-		    if (matchCommand (str,"newlabeltype")) addMarkType (str);
+		    if (matchCommand (str,"newlabeltype")) addLabelType (str);
 		    else
 		      if (matchCommand (str,"expandtolabel")) jumptoLabel ();
 		      else
@@ -223,7 +223,6 @@ int SignalWidget::doCommand (const char *str)
       if (checkForLabelCommand (str));
       else
 	if (checkForNavigationCommand (str));
-
 	else
 	  if (matchCommand (str,"cut")) //set range after cutting
 	    {
@@ -264,14 +263,12 @@ void SignalWidget::showDialog (const char *name)
 }
 //****************************************************************************
 void SignalWidget::setOp (int op)
-  //this one hopefully catches all functions from mainwidget and topwidget,
+  //this one catches all functions from mainwidget and topwidget,
   //that should not be delivered to SignalManage
 {
   if (signalmanage)
     {
       signalmanage->setOp (op);
-
-      if ((op>=SAVEBLOCKS)&&(op<=SAVEBLOCKS+24)) saveBlocks (op-SAVEBLOCKS);
 
       switch (op)
 	{
@@ -368,7 +365,7 @@ void SignalWidget::createSignal (const char *str)
   int numsamples=(int)(ms*rate/1000);
 
   if (signalmanage) delete signalmanage;
-  markers->clear ();	  
+  labels->clear ();	  
 	  
   signalmanage=new SignalManager (this,numsamples,rate,1);
 
@@ -393,7 +390,7 @@ void SignalWidget::setRange  (int l,int r)
 void SignalWidget::setSignal  (SignalManager *sigs)
 {
   if (signalmanage) delete signalmanage;
-  markers->clear ();
+  labels->clear ();
   signalmanage=sigs;
   signalmanage->setParent (this);
   offset=0;
@@ -408,7 +405,7 @@ void SignalWidget::setSignal  (const char *filename,int type)
 {
   if (signalmanage) delete signalmanage;  //get rid of old signal
   signalmanage=new SignalManager (this,filename,1,type);
-  markers->clear ();
+  labels->clear ();
 
   if (signalmanage)
     {
@@ -706,15 +703,16 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 	  // show the labels
 	  Marker *act;
 	  int lastpos=(int)(offset+width*zoom);
-	  for (act=markers->first();act;act=markers->next())
+	  for (act=labels->first();act;act=labels->next())
 	    {
-	      if (((int)act->pos>=offset)&&((int)act->pos<lastpos))
+	      int pos=mstosamples(act->pos);
+	      if ((pos>=offset)&&(pos<lastpos))
 		{
-		  int x=(int)((act->pos-offset)/zoom);
+		  int x=(int)((pos-offset)/zoom);
+		  //		  printf ("%d %d %d %d\n",x,pos,offset,lastpos);
 		  p.setPen (*(act->getType()->color));
 		  p.drawLine (x,0,x,height);
 
-		  printf ("%s\n",act->getName());
 		  if (act->getName())
 		    {
 		      int w=p.fontMetrics().width (act->getName());
@@ -734,7 +732,7 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 	}
       else
 	{	//no full repaint needed...
-	  //only the playing marker or the range markers gets updated
+	  //only the playing marker or the range labels gets updated
 	  if ((down)&&(!playing))
 	    {
 	      p.setBrush (yellow);

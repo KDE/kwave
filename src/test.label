@@ -1,0 +1,11 @@
+Labels
+newlabeltype (start,false,color (0,255,0))
+newlabeltype (stop,false,color (255,0,0))
+newlabeltype (asdf,true,color (0,255,255))
+label (170.725624,start)
+label (170.725624,start)
+label (351.609977,start)
+label (367.868481,start)
+label (455.283447,start)
+label (619.909297,start)
+label (796.734694,start)

@@ -220,8 +220,8 @@ void MenuManager::setCommand (const char *command)
 			  toplevelmenus.append (newmenu);
 			  //append to known list of top-level menus
 			}
-		      connect (newmenu,SIGNAL(command(const char *)),
-			       this,SLOT(deliverCommand(const char *)));
+		      //		      connect (newmenu,SIGNAL(command(const char *)),
+		      //       this,SLOT(deliverCommand(const char *)));
 		    }
 		  else debug ("creation of menu failed !\n");
 		}
@@ -341,10 +341,10 @@ NumberedMenu *MenuManager::findNumberedMenu (const char *name)
     return 0;
 }
 //*****************************************************************************
-void MenuManager::deliverCommand (const char *c)
-{
-  emit command(c);
-}
+//void MenuManager::deliverCommand (const char *c)
+//{
+//  emit command(c);
+//}
 //*****************************************************************************
 MenuManager::~MenuManager ()
 {

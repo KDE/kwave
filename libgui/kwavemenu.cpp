@@ -2,8 +2,11 @@
 #include "kwavemenu.h"
 #include <libkwave/parser.h>
 #include <libkwave/kwavestring.h>
+#include <libkwave/globals.h>
+#include <libkwave/messageport.h>
 #include <kapp.h>
 
+extern struct Global globals;
 static int unique_menu_id=0;
 //*****************************************************************************
 MenuCommand::MenuCommand (const char *command,int id)
@@ -85,7 +88,8 @@ void KwavePopMenu::selected (int num)
       sprintf (buf,"%d",num);
 
       char *com=catString (tmp,buf,")");
-      emit command (com);
+
+      globals.port->putMessage (com);
 
       deleteString (com);
       deleteString (tmp);
@@ -97,8 +101,8 @@ void KwavePopMenu::selected (int num)
       while (tmp)
 	{
 	  if (tmp->getId()==num)
+	    globals.port->putMessage (tmp->getCommand());
 
-	    emit command (tmp->getCommand());
 	  tmp=commands.next();
 	}
     }

@@ -96,7 +96,7 @@ CurveWidget::CurveWidget (QWidget *parent,const char *init,int keepborder) : QWi
   
   if (knob==0)
     {
-      QString dirname=globals.app->kde_datadir ();
+      QString dirname=((KApplication *)globals.app)->kde_datadir ();
       QDir dir (dirname.data());
       dir.cd ("kwave");
       dir.cd ("pics");

@@ -100,6 +100,18 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   this->status=status;
 }
 //*****************************************************************************
+void MainWidget::updateChannels (int cnt)
+  // generates menu entries 
+{
+  manage->clearNumberedMenu ("Channels");
+  for (int i =0 ; i < cnt; i++)
+    {
+      char buf[16];
+      sprintf (buf,"%d",i);
+      manage->addNumberedMenuEntry ("Channels",buf);
+    }
+}
+//**********************************************************
 void MainWidget::saveSignal  (const char *filename,int bit,int selection)
 {
   signalview->saveSignal (filename,bit,selection);
@@ -145,6 +157,7 @@ unsigned char *MainWidget::getOverView	(int val)
 void MainWidget::resetChannels	()
 {
   for (int i=0;i<numsignals;i++) lamps[i]->setState (0);
+  updateChannels (numsignals);
 }
 //*****************************************************************************
 void MainWidget::parseKey  (int key)

@@ -45,8 +45,20 @@ void SignalManager::getMaxMin (int channel,int&max, int &min,int begin,int len)
   if (channel<channels) signal[channel]->getMaxMin (max,min,begin,len);
 }
 //**********************************************************
-void SignalManager::deleteChannel (int)
+void SignalManager::deleteChannel (int channel)
 {
+  KwaveSignal *todelete=signal[channel];
+
+  for (int cnt=channel;cnt<channels;cnt++)
+    {
+      signal[cnt]=signal[cnt+1];
+      selected[cnt]=selected[cnt+1];
+    }
+  delete (todelete);
+  channels--;              //decrease number of channels...
+  emit channelReset();
+  info ();                 //and let everybody know about it
+
 }
 //**********************************************************
 void SignalManager::addChannel ()
@@ -83,10 +95,6 @@ void SignalManager::checkRange ()
 }
 //**********************************************************
 void SignalManager::setOp (int id)
-  // this is the sample wrapper function 
-  // all methods should called by giving an id to this function
-  // this will improve independency of gui system should there be need of
-  // doing a port to another system...
 {
   stopplay();	//every operation cancels playing...
 
@@ -109,14 +117,6 @@ void SignalManager::setOp (int id)
   //check for ranges of id that have to be decoded into a parameter
 
   if ((id>=TOGGLECHANNEL)&&(id<TOGGLECHANNEL+10)) toggleChannel (id-TOGGLECHANNEL);
-  if ((id>DELETECHANNEL)&&(id<DELETECHANNEL+256))
-    {
-      deleteChannel (id-DELETECHANNEL);
-      channels--;
-      info ();
-      emit channelReset();
-    }
-
 }
 //**********************************************************
 void threadStub (TimeOperation *obj)
@@ -143,6 +143,13 @@ int SignalManager::doCommand (const char *str)
 	info ();
       }
     else
+      if (matchCommand(str,"deletechannel"))
+	{
+	  KwaveParser parser (str);
+	  int i=atoi(parser.getFirstParam());
+	  deleteChannel (i);
+	}
+      else
       if (matchCommand(str,"delete"))
 	{
 	  for (int i=0;i<channels;i++) signal[i]->cutRange();
@@ -213,8 +220,8 @@ bool SignalManager::promoteCommand (const char *command)
 
 		  dialog->show ();
 	  
-		  //so if the dialog closes everything is done, so the view
-		  //may be refreshed
+		  //so when the dialog closes, everything is done
+		  //view may be refreshed
 		  connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
 
 		  //create the new thread 

@@ -21,6 +21,8 @@ class MarkSaveDialog : public KwaveDialog
 
  public slots:
 
+   void selectAll ();
+
  protected:
 
  void resizeEvent (QResizeEvent *);
@@ -29,7 +31,9 @@ class MarkSaveDialog : public KwaveDialog
 
  Global         *globals;
  QListBox	*save;
- QPushButton	*ok,*cancel;
+ QPushButton	*ok,*cancel,*all;
+ int            maxcnt;
  char           *comstr;
+ bool           selectall;
 };
 #endif

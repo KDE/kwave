@@ -1,5 +1,4 @@
 #include <math.h>
-
 #include <qaccel.h>
 #include <qpntarry.h>
 #include <qdir.h>
@@ -19,12 +18,14 @@ KwaveDialog *getDialog (DialogOperation *operation)
   return new AboutDialog(operation->getGlobals(),operation->isModal());
 }
 //**********************************************************
-char about_text[]="\nKwave Version 0.29.4 alpha release\n\
+char about_text[]="\nKwave Development Version "VERSION"\n\
 (c) 1998-99 by Martin Wilz (mwilz@ernie.mi.uni-koeln.de)\n\n\
 \nFFT-Code by GNU gsl-Project, library version 0.3 beta\n\
 (GSL-Library may be retrieved from ftp://alpha.gnu.org/gnu/)\n\n\
 Memory Mapping routines by Juhana Kouhia\n\n\
 Some Gui modifications and additional functionality by Gerhard Zintel\n\n\
+Version Management script donated by Thomas Eschenbacher\n\
+
 Thanks go to:\n\
 
 Carsten Jacobi\n\
@@ -33,6 +34,7 @@ Achim Dahlhaus\n\
 Klaus Hendrik Lorenz\n\n
 People, who provided valuable feedback (in no particular order)\n\
 
+Thomas Eschenbacher\n\
 Gerhard Zintel\n\
 Gael Duval\n\
 Aaron Johnson\n\
@@ -69,7 +71,7 @@ AboutDialog::AboutDialog (const Global *globals,bool modal): KwaveDialog(modal)
   abouttext=new QMultiLineEdit (this);
   ok		=new QPushButton ("Ok",this);
 
-  logo=new LogoWidget (this,globals->app);
+  logo=new LogoWidget (this,(KApplication *) globals->app);
 
   abouttext->setText(about_text);
   abouttext->setReadOnly(TRUE);

@@ -14,27 +14,6 @@
 #include <kstatusbar.h>  
 #include <kbutton.h>
 
-#define SELECTALL	17
-#define SELECTVISIBLE	18
-#define SELECTRANGE	19
-#define SELECTNONE	20
-#define SELECTNEXT	21
-#define SELECTPREV	22
-#define JUMPTOLABEL	23
-
-#define ADDMARK 	 7000
-#define DELETEMARK    	 7001  
-#define EDITMARK         7002
-#define LOADMARK         7003
-#define SAVEMARK         7004
-#define APPENDMARK       7005
-#define MARKSIGNAL       7006
-#define MARKPERIOD       7007
-#define SAVEPERIODS	 7008
-#define TOPITCH 	 7009
-#define ADDMARKTYPE 	 7010
-#define SELECTMARK	 7100 //leave #MAXMENU Items space behind !
-
 class SignalManager;
 //***********************************************************
 class SignalWidget : public QWidget
@@ -46,6 +25,7 @@ class SignalWidget : public QWidget
  // 	SignalWidget	(QWidget *parent,MenuManager *manage,const char *name=0);
  	~SignalWidget	();
 
+ int    mstosamples             (double);
  void 	setSignal		(const char *filename,int type=0);
  void 	saveSignal		(const char *filename,int,int=false);
  void 	saveBlocks		(int);
@@ -55,9 +35,8 @@ class SignalWidget : public QWidget
  unsigned char   *getOverview   (int);
  int    checkPosition	        (int);
  void 	drawSelection		(int,int);
- void   setMarkType             (int);
- void   addMarkType             (const char *);
- void   addMarkType             (MarkerType *marker);
+ void   addLabelType             (const char *);
+ void   addLabelType             (MarkerType *marker);
  int	doCommand	        (const char *);
 
  public slots:
@@ -80,13 +59,14 @@ class SignalWidget : public QWidget
  void channelReset	();
  void playingfinished	();
  void viewInfo		(int,int,int);
- void addMarkerType     (MarkerType *);
+ void addLabelerType     (MarkerType *);
 
  protected:
 
 
  void	setRange		(int,int);
  void	selectRange		();
+ void	updateChannels	        ();
 
  void	mousePressEvent		(QMouseEvent * );
  void	mouseReleaseEvent	(QMouseEvent * );  
@@ -96,12 +76,11 @@ class SignalWidget : public QWidget
  void	drawOverviewSignal	(int,int,int);
 
  void	calcTimeInfo	();
- void   loadMarks       ();
- void   appendMarks     ();
- void   deleteMarks     ();
- void   convertMarkstoPitch (const char *);
- void   saveMarks       ();
- void   addMark         ();
+ void   loadLabel       ();
+ void   appendLabel     ();
+ void   deleteLabel     ();
+ void   saveLabel       (const char *);
+ void   addLabel        (const char *);
  void   jumptoLabel     ();
  void   markSignal      (const char *);
  void   markPeriods     (const char *);
@@ -129,7 +108,7 @@ class SignalWidget : public QWidget
  QTimer		*timer;
  QPainter       p;
  QPixmap	*pixmap;	//pixmap to be blitted to screen
- MarkerList     *markers;       //linked list of markers
+ MarkerList     *labels;        //linked list of markers
  MarkerType     *markertype;    //selected marker type
  MenuManager    *manage;
 };

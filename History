@@ -1,5 +1,24 @@
 this Development Version
 
+(11.99)
+
+version numbering script donated by Thomas Eschenbacher
+
+now using KTMainwindow for top level widgets
+
+using timer to check message port -> alternative (threadsafe) message passing
+instead of signal/slot
+
+labelling code rewritten, now incompatible with old releases
+
+batch loading routines
+
+(10.99)
+
+deleting channels works again
+
+fixed savelabel dialog
+
 corrected envelope dialog, string handling
 
 connected many functions via the new string-based way of invocation

@@ -52,7 +52,7 @@ class MenuManager:public QObject
 
  public slots:
 
- void deliverCommand (const char *);
+   // void deliverCommand (const char *);
 
  protected:
 

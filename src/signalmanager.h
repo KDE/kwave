@@ -59,7 +59,6 @@ class SignalManager : public QObject
  private:
  void   checkRange      ();
  void   prepareChannels ();
-
  void	deleteChannel	(int);
  int    newChannel      (int);
  void   rateChange      ();

@@ -1,9 +1,10 @@
 #include <qlist.h>
 #include "mainwidget.h"
 #include <drag.h>
+#include "kwaveapp.h"
 #include "../libgui/menumanager.h"
 
-class TopWidget : public KTopLevelWidget
+class TopWidget : public KTMainWindow
 {
  Q_OBJECT
  public:
@@ -13,17 +14,16 @@ class TopWidget : public KTopLevelWidget
  void   closeWindow       ();
  void	setSignal	  (const char *name);
  void	setSignal	  (SignalManager *);
- void   addRecentFile     (char *);
  void   updateRecentFiles ();
- void   parseBatch        (const char *);
+ void   parseCommands     (const char *);
+ void   loadBatch         (const char *);
 
  public slots:
  void 	setOp             (const char *);
- void	dropEvent	(KDNDDropZone *);
+ void	dropEvent	  (KDNDDropZone *);
 
  protected:
 
- void	newInstance();
  void	revert();
  void	openFile();
  void   importAsciiFile();

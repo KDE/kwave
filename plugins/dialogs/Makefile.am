@@ -1,7 +1,7 @@
 # make sure all subdirs get a makefile....
 dirs = doubleenter movingaverage envelope quantize gap delay averagefft \
- amplifyfree distort stringenter rate freqmult amptolabel marktype fadein \
- formant newsignal time about sonagram mix saveblock marksave playback \
+ amplifyfree distort stringenter rate freqmult amptolabel labeltype fadein \
+ formant newsignal time about sonagram mix saveblock savelabel playback \
  memory pitch filter fadeout 
 
 install clean distclean all:

@@ -33,11 +33,11 @@ SINGLE_DIALOGS=mdialog_progress.cpp \
 # Which sources should be compiled for kwave.
 kwave_SOURCES =  $(SINGLE_DIALOGS) $(SINGLE_DIALOG_SRC) \
  signalview.cpp main.cpp mainwidget.cpp signalio.cpp signalplay.cpp \
- fftview.cpp addsynth.cpp sonagram.cpp signalmanager.cpp markers.cpp\
- pitchwidget.cpp filterwidget.cpp clipboard.cpp mousemark.cpp\
+ fftview.cpp addsynth.cpp sonagram.cpp signalmanager.cpp labels.cpp\
+ pitchwidget.cpp filterwidget.cpp clipboard.cpp mousemark.cpp kwaveapp.cpp\
  mmain.cpp msignalview.cpp mmainwidget.cpp \
  maddsynth.cpp mfftview.cpp msonagram.cpp\
- mmousemark.cpp mfilterwidget.cpp \
+ mmousemark.cpp mfilterwidget.cpp mkwaveapp.cpp\
  mpitchwidget.cpp msignalmanager.cpp
 
 # the library search path
@@ -50,7 +50,7 @@ kwave_LDADD   = -lkfm -lkdeui -lkdecore -lkwavegui -lqt -lX11 -lXext \
 
 # just to make sure, automake makes them 
  BUILTSOURCES =	 $(SINGLE_DIALOGS) mmain.cpp msignalview.cpp \
- maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
+ maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp mkwaveapp.cpp\
  mpitchwidget.cpp mmainwidget.cpp mmousemark.cpp msignalmanager.cpp
 
 # if you "make distclean", this files get removed. If you want to remove
@@ -96,6 +96,8 @@ uninstall-local:
 main.cpp: mmain.cpp
 mmain.cpp: main.h
 	$(MOC) -o mmain.cpp main.h
+mkwaveapp.cpp: kwaveapp.h
+	$(MOC) -o mkwaveapp.cpp kwaveapp.h
 msignalview.cpp: signalview.h
 	$(MOC) -o msignalview.cpp signalview.h
 mmainwidget.cpp: mainwidget.h

@@ -60,7 +60,7 @@ class MainWidget : public QWidget
  void channelInfo       (int);
 
  protected:
-
+ void updateChannels    (int);
  void resizeEvent	(QResizeEvent *);
 
  private:

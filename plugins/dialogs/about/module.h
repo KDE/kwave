@@ -14,6 +14,7 @@
 #include <libkwave/globals.h>
 #include <kapp.h>
 
+#define VERSION "0.5.0"
 #define MAXSIN 5
 //**********************************************************
 class LogoWidget : public QWidget

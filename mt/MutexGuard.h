@@ -19,9 +19,7 @@
 #define _MUTEX_GUARD_H_
 
 #include "config.h"
-#include "mt/TSS_Object.h"
-
-class Mutex;
+#include <qmutex.h>
 
 /**
  * @class MutexGuard
@@ -33,7 +31,7 @@ class Mutex;
  * @author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  * @date 2000-10-03
  */
-class MutexGuard: public TSS_Object
+class MutexGuard
 {
 
 public:
@@ -41,7 +39,7 @@ public:
      * Constructor, takes a Mutex object and automatically locks it
      * @param lock the mutex to be locked
      */
-    MutexGuard(Mutex &lock);
+    MutexGuard(QMutex &lock);
 
     /**
      * Destructor, automatically releases (unlocks) the lock.
@@ -50,7 +48,7 @@ public:
 
 private:
     /** the mutex to be locked */
-    Mutex &m_lock;
+    QMutex &m_lock;
 };
 
 #endif // _MUTEX_GUARD_H_

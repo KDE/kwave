@@ -22,11 +22,11 @@
 #include <qmemarray.h>
 #include <qbitarray.h>
 #include <qcolor.h>
+#include <qmutex.h>
 #include <qobject.h>
 #include <qpixmap.h>
 
 #include "libkwave/Sample.h"
-#include "mt/Mutex.h"
 
 class Track;
 
@@ -58,7 +58,7 @@ class TrackPixmap : public QObject, public QPixmap
 {
     Q_OBJECT
 
-public: 
+public:
     /** Default constructor */
     TrackPixmap(Track &track);
 
@@ -295,7 +295,7 @@ private:
     QBitArray m_valid;
 
     /** Mutex for exclusive access to the buffers. */
-    Mutex m_lock_buffer;
+    QMutex m_lock_buffer;
 
     /**
      * order of the low pass filter used for interpolation

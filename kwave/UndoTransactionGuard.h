@@ -20,7 +20,6 @@
 #define _UNDO_TRANSACTION_GUARD_H_
 
 #include "config.h"
-#include "mt/TSS_Object.h"
 
 class QString;
 class SignalManager;
@@ -32,7 +31,7 @@ class KwavePlugin;
  * operating on a SignalManager. Several nested UndoTransactionGuards
  * (or undo transactions) are allowed.
  */
-class UndoTransactionGuard: public TSS_Object
+class UndoTransactionGuard
 {
 
 public:

@@ -28,7 +28,7 @@ class SharedLock;
  * Simple guard class for shared/exclusive locks.
  * @see SharedLock
  */
-class SharedLockGuard: public TSS_Object
+class SharedLockGuard
 {
 public:
 

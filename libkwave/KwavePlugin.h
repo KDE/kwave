@@ -20,9 +20,8 @@
 
 #include "config.h"
 #include <qmemarray.h>
-#include <qmemarray.h>
+#include <qmutex.h>
 #include <qobject.h>
-#include "mt/Mutex.h"
 #include "mt/Asynchronous_Object.h"
 #include "mt/SignalProxy.h"
 #include "libkwave/PluginContext.h"
@@ -348,13 +347,13 @@ private:
     Asynchronous_Object_with_1_arg<KwavePlugin, QStringList> *m_thread;
 
     /** Mutex for control over the thread */
-    Mutex m_thread_lock;
+    QMutex m_thread_lock;
 
     /** Usage counter */
     unsigned int m_usage_count;
 
     /** Mutex for locking the usage counter */
-    Mutex m_usage_lock;
+    QMutex m_usage_lock;
 
     /** SignalProxy for handling sigRunning */
     SignalProxy<void> m_spx_running;

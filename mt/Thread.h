@@ -20,11 +20,11 @@
 
 #include "config.h"
 #include <pthread.h>       // for POSIX threads, included in libc > 2.0
+#include <qmutex.h>
 #include <qobject.h>
 #include "mt/TSS_Object.h"
-#include "mt/Mutex.h"
 
-class Thread : public QObject, public TSS_Object
+class Thread : public QObject
 {
     Q_OBJECT
 public:
@@ -120,13 +120,13 @@ private:
     pthread_attr_t m_attr;
 
     /** Mutex to control access to the thread itself */
-    Mutex m_lock;
+    QMutex m_lock;
 
     /**
      * This mutex is locked as long as the thread is running and
      * is internally used for the running() function.
      */
-    Mutex m_thread_running;
+    QMutex m_thread_running;
 
     /** set to signal the thread that it should stop */
     bool m_should_stop;

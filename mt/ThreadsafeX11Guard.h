@@ -19,12 +19,12 @@
 #define _THREADSAFE_X11_GUARD_H_
 
 #include "config.h"
+#include <qmutex.h>
 #include <qobject.h>
 
 #include "mt/SignalProxy.h"
 #include "mt/Semaphore.h"
 #include "mt/TSS_Object.h"
-#include "mt/Mutex.h"
 
 /**
  * @class ThreadsafeX11Guard
@@ -42,7 +42,7 @@
  *          leads to incomprehensible program crahes like bus errors or
  *          segmentation faults.
  */
-class ThreadsafeX11Guard: public QObject, public TSS_Object
+class ThreadsafeX11Guard: public QObject
 {
     Q_OBJECT
 
@@ -68,19 +68,19 @@ private slots:
 private:
 
     /** The global/unique lock for X11 */
-    static Mutex m_lock_X11;
+    static QMutex m_lock_X11;
 
     /**
      * Internal lock for access to the X11 subsystem
      */
-    static Mutex m_internal_lock;
+    static QMutex m_internal_lock;
 
     /**
      * The mutex for entering/leaving a protected area, used in our
      * constructor and destructor. Protects m_recursion_level and
      * m_pid_owner
      */
-    static Mutex m_lock_recursion;
+    static QMutex m_lock_recursion;
 
     /** thread id of the thread that is currently holding the X11 lock */
     static pthread_t m_pid_owner;

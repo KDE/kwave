@@ -21,7 +21,7 @@
 //***************************************************************************
 //***************************************************************************
 SharedLock::SharedLock()
-    :TSS_Object(), m_shared_count(0), m_lock_exclusive(), m_lock_changed()
+    :m_shared_count(0), m_lock_exclusive(), m_lock_changed()
 {
 }
 
@@ -43,7 +43,7 @@ void SharedLock::lock_exclusive()
 	// wait for a change
 	m_lock_exclusive.unlock();
 	m_lock_changed.wait();
-	
+
 	// lock exclusively, will be unlocked in unlock_exclusive()
 	m_lock_exclusive.lock();
     }

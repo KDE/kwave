@@ -28,7 +28,7 @@
 //***************************************************************************
 UndoTransactionGuard::UndoTransactionGuard(SignalManager &manager,
                                            const QString &name)
-    :TSS_Object(), m_manager(manager)
+    :m_manager(manager)
 {
     m_manager.startUndoTransaction(name);
 }
@@ -36,7 +36,7 @@ UndoTransactionGuard::UndoTransactionGuard(SignalManager &manager,
 //***************************************************************************
 UndoTransactionGuard::UndoTransactionGuard(KwavePlugin &plugin,
                                            const QString &name)
-    :TSS_Object(), m_manager(plugin.manager().topWidget().signalManager())
+    :m_manager(plugin.manager().topWidget().signalManager())
 {
     QString description = (name.length()) ? name : i18n(plugin.name());
     m_manager.startUndoTransaction(description);

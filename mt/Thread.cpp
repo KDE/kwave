@@ -13,7 +13,7 @@
  * \date    2000-09-30 (ported to the Kwave project)
  *
  * \par NOTE:
- *      this code is taken from the following news article 
+ *      this code is taken from the following news article
  *      (found by www.dejanews.com):
  *
  * \verbatim
@@ -41,16 +41,15 @@
 #include <error.h>   // for strerror()
 #include <time.h>    // for clock()
 #include <qglobal.h> // for qWarning()
+#include <qmutex.h>
 #include <signal.h>
 #include <sys/time.h>
 
-#include "mt/TSS_Object.h"
 #include "mt/MutexGuard.h"
-#include "mt/Mutex.h"
 #include "mt/Thread.h"
 
 /** lock for protecting SIGHUP <-> thread exit */
-static Mutex g_lock_sighup;
+static QMutex g_lock_sighup;
 
 //***************************************************************************
 extern "C" void _dummy_SIGHUP_handler(int)
@@ -84,8 +83,8 @@ extern "C" void *C_thread_adapter(void* arg)
 
 //***************************************************************************
 Thread::Thread(int */*grpid*/, const long /*flags*/)
-    :QObject(), TSS_Object(), m_tid((pthread_t)-1), m_lock("thread"),
-    m_thread_running("thread_running"), m_should_stop(false)
+    :QObject(), m_tid((pthread_t)-1), m_lock(),
+    m_thread_running(), m_should_stop(false)
 {
     MutexGuard lock(m_lock);
     int res;
@@ -128,10 +127,10 @@ void *Thread::thread_adapter(void *arg)
 	g_lock_sighup.lock();
 	return (void*)-EINVAL;
     }
-    
+
     /* execute the thread function */
     object->run();
-    
+
     g_lock_sighup.lock();
     return arg;
 }
@@ -158,7 +157,7 @@ int Thread::stop(unsigned int timeout)
     if (!running()) return 0; // already down
 
     if (timeout < 1000) timeout = 1000;
-    
+
     // set the "should stop" flag
     m_should_stop = true;
 
@@ -168,7 +167,7 @@ int Thread::stop(unsigned int timeout)
 	if (!running()) return 0;
 	pthread_kill(m_tid, SIGHUP);
     }
-    
+
     // try to stop cooperatively
     if (!running()) return 0;
     wait(timeout/10);
@@ -220,17 +219,17 @@ void Thread::wait(unsigned int milliseconds)
     while (running() && (elapsed_ms < milliseconds)) {
 	// just for fun...
 	sched_yield();
-	
+
 	// sleep through select()
 	struct timeval tv;
 	tv.tv_sec = 0;
 	tv.tv_usec = 20*1000;
 	select(0, 0, 0, 0, &tv);
-	
+
 	gettimeofday(&t2, 0);
-	elapsed_ms = (double)t2.tv_sec  * 1.0E3 + 
+	elapsed_ms = (double)t2.tv_sec  * 1.0E3 +
 	             (double)t2.tv_usec / 1.0E3 -
-	             (double)t1.tv_sec  * 1.0E3 - 
+	             (double)t1.tv_sec  * 1.0E3 -
 	             (double)t1.tv_usec / 1.0E3;
     }
 }

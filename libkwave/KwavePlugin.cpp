@@ -75,8 +75,6 @@ KwavePlugin::KwavePlugin(const PluginContext &c)
      m_spx_running(this, SLOT(forwardSigRunning())),
      m_spx_done(this, SLOT(forwardSigDone()))
 {
-    m_thread_lock.setName("KwavePlugin::m_thread_lock");
-    m_usage_lock.setName("KwavePlugin::m_usage_lock");
     use();
 }
 

@@ -21,7 +21,6 @@
 #include "config.h"
 #include <pthread.h>
 #include <semaphore.h>    // from POSIX threads / glibc
-#include "mt/TSS_Object.h"
 
 /**
  * @class Semaphore
@@ -31,7 +30,7 @@
  *
  * @todo some error handling
  */
-class Semaphore: public TSS_Object
+class Semaphore
 {
 
 public:

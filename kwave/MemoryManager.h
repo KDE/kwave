@@ -23,8 +23,9 @@
 
 #include <qdir.h>
 #include <qmap.h>
+#include <qmutex.h>
 #include <qstring.h>
-#include "mt/Mutex.h"
+
 #include "mt/MutexGuard.h"
 
 class SwapFile;
@@ -214,7 +215,7 @@ private:
     QMap<void*, size_t> m_physical_size;
 
     /** Mutex for ensuring exclusive access */
-    Mutex m_lock;
+    QMutex m_lock;
 
     /** pagesize of the system, used for mmapping files */
     unsigned int m_pagesize;

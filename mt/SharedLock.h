@@ -19,8 +19,7 @@
 #define _SHARED_LOCK_H_
 
 #include "config.h"
-#include "mt/TSS_Object.h"
-#include "mt/Mutex.h"
+#include <qmutex.h>
 #include "mt/ThreadCondition.h"
 
 /**
@@ -36,7 +35,7 @@
  * @see SharedLockGuard
  * @see Mutex
  */
-class SharedLock: public TSS_Object
+class SharedLock
 {
 public:
 
@@ -95,7 +94,7 @@ private:
     unsigned int m_shared_count;
 
     /** Mutex for exclusively locking and some internal critical regions */
-    Mutex m_lock_exclusive;
+    QMutex m_lock_exclusive;
 
     /**
      * ThreadCondition for synchronization of threads that are waiting

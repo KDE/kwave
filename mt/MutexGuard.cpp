@@ -15,12 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "mt/Mutex.h"
+#include <qmutex.h>
 #include "mt/MutexGuard.h"
 
 //***************************************************************************
-MutexGuard::MutexGuard(Mutex &lock)
-:TSS_Object(), m_lock(lock)
+MutexGuard::MutexGuard(QMutex &lock)
+    :m_lock(lock)
 {
     m_lock.lock();
 }

@@ -19,9 +19,9 @@
 #define _SIGNAL_PROXY_H_
 
 #include "config.h"
+#include <qmutex.h>
 #include <qptrqueue.h>
 #include "mt/AsyncSync.h"
-#include "mt/Mutex.h"
 #include "mt/MutexGuard.h"
 
 //***************************************************************************
@@ -65,7 +65,7 @@ public:
     virtual unsigned int limit();
 private:
     QPtrQueue<T> m_queue;
-    Mutex m_lock;
+    QMutex m_lock;
     unsigned int m_limit;
 };
 
@@ -73,7 +73,7 @@ private:
 template <class T>
 SignalProxy1<T>::SignalProxy1(QObject *owner,
     const char *slot, unsigned int limit)
-    :AsyncSync(), m_lock("SignalProxy1")
+    :AsyncSync(), m_lock()
 {
     m_limit = limit;
     m_queue.setAutoDelete(false);

@@ -24,7 +24,7 @@
 
 #include "config.h"
 #include <qobject.h>
-#include "mt/Mutex.h"
+#include <qmutex.h>
 
 class QGList;
 class QSocketNotifier;
@@ -84,7 +84,7 @@ private :
      * Mutex for securing the creation/destruction, which seems
      * to be NOT threadsafe !!!???
      */
-    static Mutex m_lock;
+    static QMutex m_lock;
 
 };
 

@@ -21,8 +21,8 @@
 #include "config.h"
 #include <qobject.h>
 #include <qmemarray.h>
+#include <qmutex.h>
 
-#include "mt/Mutex.h"
 #include "libkwave/Sample.h"
 
 //***************************************************************************
@@ -325,7 +325,7 @@ private:
     void *m_storage;
 
     /** mutex for array of samples */
-    Mutex m_lock_samples;
+    QMutex m_lock_samples;
 
 };
 

@@ -18,9 +18,9 @@
 #include "config.h"
 #include "math.h"
 
+#include <qmutex.h>
 #include <qpainter.h>
 
-#include "mt/Mutex.h"
 #include "mt/MutexGuard.h"
 
 #include "libkwave/MultiTrackReader.h"

@@ -24,10 +24,10 @@
 
 #include <qobject.h>
 #include <qmemarray.h>
+#include <qmutex.h>
 #include <qptrlist.h>
 #include <qstring.h>
 
-#include "mt/Mutex.h"
 #include "mt/SignalProxy.h"
 #include "libkwave/FileInfo.h"
 #include "libkwave/Selection.h"
@@ -647,7 +647,7 @@ private:
     unsigned int m_undo_transaction_level;
 
     /** mutex for locking undo transactions */
-    Mutex m_undo_transaction_lock;
+    QMutex m_undo_transaction_lock;
 
     /** SignalProxy for emitting sigUndoRedoInfo thread-safe */
     SignalProxy<void> m_spx_undo_redo;

@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 #include <qapplication.h> // for flushX and syncX
+#include <qmutex.h>
 
-#include "mt/Mutex.h"
 #include "mt/MutexGuard.h"
 #include "mt/Semaphore.h"
 #include "mt/ThreadsafeX11Guard.h"
@@ -25,13 +25,13 @@
 //***************************************************************************
 
 /* static initializer for the global/static X11 lock */
-Mutex ThreadsafeX11Guard::m_lock_X11;
+QMutex ThreadsafeX11Guard::m_lock_X11;
 
 /* static initializer for the internal/static X11 lock */
-Mutex ThreadsafeX11Guard::m_internal_lock;
+QMutex ThreadsafeX11Guard::m_internal_lock;
 
 /* static initializer for the lock for protection of recursion and owner */
-Mutex ThreadsafeX11Guard::m_lock_recursion;
+QMutex ThreadsafeX11Guard::m_lock_recursion;
 
 /* static initializer for the thread that currently has locked X11 */
 pthread_t ThreadsafeX11Guard::m_pid_owner = pthread_self();
@@ -44,7 +44,7 @@ unsigned int ThreadsafeX11Guard::m_recursion_level = 0;
 
 //***************************************************************************
 ThreadsafeX11Guard::ThreadsafeX11Guard()
-    :QObject(), TSS_Object(), m_sem_x11_locked(), m_sem_x11_done(),
+    :QObject(), m_sem_x11_locked(), m_sem_x11_done(),
      m_sem_x11_unlocked(), m_spx_X11_request(this, SLOT(lockX11()))
 {
     if (m_pid_x11 == pthread_self()) {
@@ -90,11 +90,11 @@ ThreadsafeX11Guard::~ThreadsafeX11Guard()
 
     {
 	MutexGuard lock(m_lock_recursion);
-	
+
 	// decrease the recursion level (should always be at least 1)
 	Q_ASSERT(m_recursion_level);
 	if (m_recursion_level) m_recursion_level--;
-	
+
 	// break if only recursion decreased and zero not reached
 	if (m_recursion_level) return;
     }

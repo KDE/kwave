@@ -23,10 +23,9 @@
 #include <qcstring.h>
 #include <qptrlist.h>
 #include <qmemarray.h>
+#include <qmutex.h>
 #include <qobject.h>
 #include <qvaluelist.h>
-
-#include "mt/Mutex.h"
 
 class QBitmap;
 class SignalManager;
@@ -197,7 +196,7 @@ private:
     unsigned int m_scale;
 
     /** mutex for threadsafe access to the cache */
-    Mutex m_lock;
+    QMutex m_lock;
 
     /** first sample index in the source */
     unsigned int m_src_offset;

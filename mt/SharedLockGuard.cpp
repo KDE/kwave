@@ -20,7 +20,7 @@
 
 //***************************************************************************
 SharedLockGuard::SharedLockGuard(SharedLock &lock, bool exclusive)
-    :TSS_Object(), m_lock(lock), m_exclusive(exclusive)
+    :m_lock(lock), m_exclusive(exclusive)
 {
     m_lock.lock(m_exclusive);
 }

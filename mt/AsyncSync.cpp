@@ -22,15 +22,15 @@
 #include <unistd.h> // for pipe
 #include <stdio.h>
 
+#include <qmutex.h>
 #include <qobject.h>
 #include <qsocketnotifier.h>
 
-#include "mt/Mutex.h"
 #include "mt/MutexGuard.h"
 #include "mt/AsyncSync.h"
 
 /** global lock for creating/deleting socket notifiers */
-Mutex AsyncSync::m_lock;
+QMutex AsyncSync::m_lock;
 
 //*****************************************************************************
 AsyncSync::AsyncSync()

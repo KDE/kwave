@@ -16,7 +16,8 @@
 ############################################################################
 
 # make sure all subdirs get a makefile....
-dirs=`@FIND@ . -type d -mindepth 1 -maxdepth 1 -a ! -name common -a ! -name CVS | \
+dirs=`@FIND@ . -type d -a ! -empty -mindepth 1 -maxdepth 1 \
+	-a ! -name common -a ! -name CVS | \
 	@SED@ s°^\\\.\\\/°°g | @SORT@`
 
 DISTCLEANFILES = Makefile.in Makefile
@@ -39,7 +40,7 @@ install uninstall clean distclean all rpm:
 	list=$(dirs); for subdir in $$list; do \
 	target=`echo $@ | sed s/-recursive//`; \
 	echo "Making $$target in $$subdir"; \
-	$(MAKE) -C $$subdir $(AM_MAKEFLAGS) $$target \
+	$(MAKE) -s -C $$subdir $(AM_MAKEFLAGS) $$target \
 	|| case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
 	done && test -z "$$fail"
 	if test x$@ == xdistclean; then \

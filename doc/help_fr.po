@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-02-02 14:11GMT\n"
+"PO-Revision-Date: 2002-02-03 21:53GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,8 +25,8 @@ msgstr ""
 #: index.docbook:24
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
-"Traduction Française : Gilles CAULIER"
-"<affiliation> <address><email>caulier.gilles@free.fr</email></address> </affiliation> "
+"Traduction Française : Gilles CAULIER<affiliation> <address><email>caulier."
+"gilles@free.fr</email></address> </affiliation> "
 
 #: index.docbook:28
 msgid "Martin Wilz"
@@ -112,7 +112,9 @@ msgstr "Le marquage des pistes sonores."
 
 #: index.docbook:64
 msgid "some analysis functions such as Sonagram or Fourier Transformation"
-msgstr "Quelques fonctions d'analyses tel que le Sonogramme et le Transformée de Fourier."
+msgstr ""
+"Quelques fonctions d'analyses tel que le Sonogramme et le Transformée de "
+"Fourier."
 
 #: index.docbook:64
 msgid "internally uses 24 bit integer sample data"
@@ -130,7 +132,9 @@ msgstr "Le support des multicanaux pour l'édition de fichiers sonores."
 msgid ""
 "playback of multi-channel audio files (audio output will be mixed down to "
 "mono or stereo)"
-msgstr "La lecture de fichier sonores multicanaux (l'écoute des pistes audio est mixée en mono ou en stéreo)."
+msgstr ""
+"La lecture de fichier sonores multicanaux (l'écoute des pistes audio est "
+"mixée en mono ou en stéreo)."
 
 #: index.docbook:64
 msgid "extendible through an easy-to-use plugin interface"
@@ -143,10 +147,10 @@ msgid ""
 "included in the source package. Help and constructive critics are always "
 "welcome."
 msgstr ""
-"Si vous étes interressé par ce qui a été fait dans ce programme, et par ce qui reste à faire, "
-"alors lisez les fichiers <filename>CHANGES</filename> et <filename>TODO</"
-"filename> inclus dans le paquetage des sources. De l'aide et des remarques "
-"constructives sont toujours les bien venues."
+"Si vous étes interressé par ce qui a été fait dans ce programme, et par ce "
+"qui reste à faire, alors lisez les fichiers <filename>CHANGES</filename> et "
+"<filename>TODO</filename> inclus dans le paquetage des sources. De l'aide et "
+"des remarques constructives sont toujours les bien venues."
 
 #: index.docbook:117
 msgid "&kapp; Resources"
@@ -253,7 +257,9 @@ msgstr "Traitement de \"signal modified\"."
 
 #: index.docbook:210
 msgid "shows error message and aborts if loading failed"
-msgstr "Affichage d'un message d'erreur et d'arrêt si le chargement d'un fichier échoue."
+msgstr ""
+"Affichage d'un message d'erreur et d'arrêt si le chargement d'un fichier "
+"échoue."
 
 #: index.docbook:210
 msgid "0.6.2 [2001-12-24]"
@@ -272,8 +278,8 @@ msgid ""
 "new aRts plugin adapter framework now Kwave is able to use existing aRts "
 "plugins in it's own plugins for sound processing"
 msgstr ""
-"Un nouveau plugin pour le serveur de sons aRts fonctionne maintenant avec Kwave "
-"et il est possible de l'utiliser pour jouer des pistes sonores."
+"Un nouveau plugin pour le serveur de sons aRts fonctionne maintenant avec "
+"Kwave et il est possible de l'utiliser pour jouer des pistes sonores."
 
 #: index.docbook:210
 msgid "changed documentation to XML / Docbook-4.1"
@@ -285,13 +291,15 @@ msgid ""
 "the wav header is zero (e.g. happens when krecord crashes during recording)"
 msgstr ""
 "Récupération des fichiers endomagés si leur longueur n'est pas égale à zéro "
-"mais que les données d'entrées dans l'entête du fichier wav indique une valeur nulle "
-"(tel que lorqu'une application comme krecord s'arrête indésirablement pendant l'enregistrement "
-"d'une piste sonore)."
+"mais que les données d'entrées dans l'entête du fichier wav indique une "
+"valeur nulle (tel que lorqu'une application comme krecord s'arrête "
+"indésirablement pendant l'enregistrement d'une piste sonore)."
 
 #: index.docbook:210
 msgid "bugfix: freeing virtual memory fixed in MemoryManager"
-msgstr "Correction de bogue : libération de la mémoire virtuelle allouée dans le gestionnaire de mémoire."
+msgstr ""
+"Correction de bogue : libération de la mémoire virtuelle allouée dans le "
+"gestionnaire de mémoire."
 
 #: index.docbook:210
 msgid "bugfix: problem with TSS in TSS_Object cleanup"
@@ -306,16 +314,17 @@ msgid ""
 "bugfix: class Track made duplicate entry in stripe list when inserting "
 "signals into an empty track"
 msgstr ""
-"Correction de bogue : la classe Track contruit une entrée en double "
-"dans la liste des pistes quand on insére des signaux dans une piste sonore vide."
+"Correction de bogue : la classe Track contruit une entrée en double dans la "
+"liste des pistes quand on insére des signaux dans une piste sonore vide."
 
 #: index.docbook:210
 msgid ""
 "fixed that weird layout behavior in dialogs, seems that Qt has problems with "
 "complex nested layouts :("
 msgstr ""
-"Correction du comportement étrange de l'affichage dans les boîtes de dialogues, depuis que la "
-" librairie Qt a des problèmes avec la contruction de boîte de dialogues complexes :("
+"Correction du comportement étrange de l'affichage dans les boîtes de "
+"dialogues, depuis que la  librairie Qt a des problèmes avec la contruction "
+"de boîte de dialogues complexes :("
 
 #: index.docbook:210
 msgid "0.6.1 [2001-08-24]"
@@ -330,17 +339,18 @@ msgid ""
 "changed Makefiles: html docu stays in distribution due to too much trouble "
 "with the KDE documentation tools"
 msgstr ""
-"Changement des Makefiles: la documentation html restant dans la distribution "
-" de l'application provoque des dysfonctionnement avec les outils de contruction de "
-"la documention pour KDE."
+"Changement des Makefiles: la documentation html restant dans la "
+"distribution  de l'application provoque des dysfonctionnement avec les "
+"outils de contruction de la documention pour KDE."
 
 #: index.docbook:210
 msgid ""
 "when inserting from clipboard into a signal with a different number of "
 "tracks, the result will be mixed (still not optimized/slow)"
 msgstr ""
-"Quand on insére des données issues du presse papier vers un nombre de "
-" pistes sonnores non cohérent, le résultat est mixé (opération non optimisée / lente)."
+"Quand on insére des données issues du presse papier vers un nombre de  "
+"pistes sonnores non cohérent, le résultat est mixé (opération non "
+"optimisée / lente)."
 
 #: index.docbook:210
 msgid "fixed compile problem with gcc-2.96 / gcc-3.0"
@@ -359,8 +369,8 @@ msgid ""
 "fixed bug in shutdown sequence, now clipboard is flushed before the "
 "application closes."
 msgstr ""
-"Correction d'un bogue dans les séquences de fermeture de l'application. "
-" Le presse papier est alors vidé de son contenu."
+"Correction d'un bogue dans les séquences de fermeture de l'application.  Le "
+"presse papier est alors vidé de son contenu."
 
 #: index.docbook:210
 msgid "0.6.0 [2001-07-29]"
@@ -382,7 +392,9 @@ msgstr "Les plugins peuvent être instalés dans les répertoires des utilisateu
 msgid ""
 "libkwave is included and no longer supported (at least by me) as a separate "
 "package"
-msgstr "libkwave est inclue dans le programme alors qu'elle était avant un package séparée."
+msgstr ""
+"libkwave est inclue dans le programme alors qu'elle était avant un package "
+"séparée."
 
 #: index.docbook:210
 msgid "playback via aRts"
@@ -398,16 +410,18 @@ msgstr "0.5.5-1 [2001-02-23]"
 
 #: index.docbook:210
 msgid "bugfix: selection across end of file no longer possible"
-msgstr "Correction de bogues : impossible de sélectionner jusqu'à la fin des pistes sonores."
+msgstr ""
+"Correction de bogues : impossible de sélectionner jusqu'à la fin des pistes "
+"sonores."
 
 #: index.docbook:210
 msgid ""
 "bugfix: no overflow in wav header when saving large wav files above 268MB "
 "(bug reported by Sven-Steffen Arndt, ssa29@gmx.de )"
 msgstr ""
-"Correction de bogues : plus de débordement mémoire dans le traitement des entêtes "
-" wav lors de la sauvegarde de fichiers de plus de 268Mo (bogue reporté par "
-"Sven-Steffen Arndt, ssa29@gmx.de)."
+"Correction de bogues : plus de débordement mémoire dans le traitement des "
+"entêtes  wav lors de la sauvegarde de fichiers de plus de 268Mo (bogue "
+"reporté par Sven-Steffen Arndt, ssa29@gmx.de)."
 
 #: index.docbook:210
 msgid "0.5.5 [2000-12-01]"
@@ -415,7 +429,9 @@ msgstr "0.5.5 [2000-12-01]"
 
 #: index.docbook:210
 msgid "new playback handling, allows pause/continue"
-msgstr "Nouvelle gestion de la lecture de pistes sonore avec les fonctions pause et continuer."
+msgstr ""
+"Nouvelle gestion de la lecture de pistes sonore avec les fonctions pause et "
+"continuer."
 
 #: index.docbook:210
 msgid ""
@@ -423,9 +439,10 @@ msgid ""
 "problems (system hang) with small playback buffers with 16..64 bytes (might "
 "be a hardware problem)"
 msgstr ""
-"Limitation de la taille buffer de lecture à une valeur comprise entre 256 et 65536 octets. "
-" il ya avait quelques problèmes avec de petits buffers de lecture dont la taille était "
-" comprise entre 16 et 64 octets (peut être liés à des dysfonctionnements matèriels)."
+"Limitation de la taille buffer de lecture à une valeur comprise entre 256 et "
+"65536 octets.  il ya avait quelques problèmes avec de petits buffers de "
+"lecture dont la taille était  comprise entre 16 et 64 octets (peut être liés "
+"à des dysfonctionnements matèriels)."
 
 #: index.docbook:210
 msgid "introduced a toolbar for some standard operations"
@@ -437,7 +454,9 @@ msgstr "Correction de quelques bogues concernant les selections avec la souris."
 
 #: index.docbook:210
 msgid "rework of the overview widget (used in main window and sonagram)"
-msgstr "Reprise des widgets de l'IHM (utilisés dans la fenêtre principal et le sonogram)."
+msgstr ""
+"Reprise des widgets de l'IHM (utilisés dans la fenêtre principal et le "
+"sonogram)."
 
 #: index.docbook:210
 msgid "fixed menu command \"zoom selection\""
@@ -445,7 +464,9 @@ msgstr "Correction de la commande \"zoomer à la selection\"."
 
 #: index.docbook:210
 msgid "sonagram: saving to file, auto-brightness adjust"
-msgstr "Sonogramme : sauvegarde dans un fichier et ajustement automatique de la brillance."
+msgstr ""
+"Sonogramme : sauvegarde dans un fichier et ajustement automatique de la "
+"brillance."
 
 #: index.docbook:210
 msgid "replaced QFileDialog with KFileDialog"
@@ -453,7 +474,9 @@ msgstr "Remplacement de QFileDialog par KFileDialog."
 
 #: index.docbook:210
 msgid "tested with AMD Athlon-optimized compiler (patched pegcs)"
-msgstr "Tests des optimisations de compilation pour un processeur AMD Athlon (patch pour pegcs)."
+msgstr ""
+"Tests des optimisations de compilation pour un processeur AMD Athlon (patch "
+"pour pegcs)."
 
 #: index.docbook:210
 msgid "some fixes for safer multithreading"
@@ -464,8 +487,8 @@ msgid ""
 "checking for much more header files at configure time (due to a problem "
 "reported by issiac@evcom.net )"
 msgstr ""
-"Vérification de quelques fichiers d'entête pour la séquence de configuration (Problèmes "
-"reportés par issiac@evcom.net)."
+"Vérification de quelques fichiers d'entête pour la séquence de configuration "
+"(Problèmes reportés par issiac@evcom.net)."
 
 #: index.docbook:210
 msgid "0.5.4-4 [2000-10-03]"
@@ -481,7 +504,9 @@ msgstr "Sonagramme : ajout d'une image de fond transparente."
 
 #: index.docbook:210
 msgid "added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget"
-msgstr "Ajout des fonctions sizeHint() et minimumSize() pour ScaleWidget et OverViewWidget"
+msgstr ""
+"Ajout des fonctions sizeHint() et minimumSize() pour ScaleWidget et "
+"OverViewWidget"
 
 #: index.docbook:210
 msgid "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
@@ -508,26 +533,28 @@ msgid ""
 "removed the \"get\" prefix from all member functions. This is the new KDE/QT "
 "coding style."
 msgstr ""
-"Suppression du prefixe \"get\" de toutes les fonctions membres. Ceci est le nouveau style de "
-" codage pour KDE/QT."
+"Suppression du prefixe \"get\" de toutes les fonctions membres. Ceci est le "
+"nouveau style de  codage pour KDE/QT."
 
 #: index.docbook:210
 msgid ""
 "updated the online documentation to point to the new Kwave homepage on "
 "http://kwave.sourceforge.net/"
 msgstr ""
-"Mise à jour de la documentation en ligne qui référence la nouvele page WEB de "
-" Kwave sur http://kwave.sourceforge.net/."
+"Mise à jour de la documentation en ligne qui référence la nouvele page WEB "
+"de  Kwave sur http://kwave.sourceforge.net/."
 
 #: index.docbook:210
 msgid "class ImageView: always repaints (maybe image data has changed)"
-msgstr "Classe ImageView : toujours redessiner (les images et les données peuvent changer)."
+msgstr ""
+"Classe ImageView : toujours redessiner (les images et les données peuvent "
+"changer)."
 
 #: index.docbook:210
 msgid "bugfix: selection and playpointer will not be drawn if no signal is loaded"
 msgstr ""
-"Correction de bogue : La selection et le curseur de lecture ne seront pas dessinés "
-" si aucun fichier n'est chargé."
+"Correction de bogue : La selection et le curseur de lecture ne seront pas "
+"dessinés  si aucun fichier n'est chargé."
 
 #: index.docbook:210
 msgid "0.5.4-3 [2000-09-09]"
@@ -535,15 +562,17 @@ msgstr "0.5.4-3 [2000-09-09]"
 
 #: index.docbook:210
 msgid "the sonagram window updates it's title if the signal's name changed"
-msgstr "Le titre de la fenêtre du sonogramme est mise à jour si le nom du fichier a changé."
+msgstr ""
+"Le titre de la fenêtre du sonogramme est mise à jour si le nom du fichier a "
+"changé."
 
 #: index.docbook:210
 msgid ""
 "found a solution for the problem of synchronizing X11 and QT in a "
 "multithreaded environment"
 msgstr ""
-"Mise en place d'une solution au problème de synchronisation entre X11 et Qt "
-" dans l'environnement multithread."
+"Mise en place d'une solution au problème de synchronisation entre X11 et Qt  "
+"dans l'environnement multithread."
 
 #: index.docbook:210
 msgid "fixed bug in the \"Halt\" function (playback)"
@@ -555,16 +584,18 @@ msgstr "0.5.4-2 [2000-08-20]"
 
 #: index.docbook:210
 msgid "geometry/layout management for the MainWidget"
-msgstr "Management de la géométrie et des positions des widgets de la fenêtre principale."
+msgstr ""
+"Management de la géométrie et des positions des widgets de la fenêtre "
+"principale."
 
 #: index.docbook:210
 msgid ""
 "limited the displayed height of a signal. If not all signals fit onto the "
 "screen, a scrollbar appears on the right side of the signal."
 msgstr ""
-"Limitation de l'affichage de la largeur d'un fichier sonore. Si toutes les pistes sonores "
-" sortent en dehors de l'écran, une barre de défilement horizontale apparait sur le coté droit "
-" du fichier."
+"Limitation de l'affichage de la largeur d'un fichier sonore. Si toutes les "
+"pistes sonores  sortent en dehors de l'écran, une barre de défilement "
+"horizontale apparait sur le coté droit  du fichier."
 
 #: index.docbook:210
 msgid "limited the size of the TopWidget to a reasonable minimum size"
@@ -588,11 +619,15 @@ msgstr "Commencement de l'implémentation d'une nouvelle interface pour les plug
 
 #: index.docbook:210
 msgid "geometry/layout management for the sonagram settings dialog"
-msgstr "Géométrie et présenation de la boîte de dialogues pour le paramètrage du sonogramme."
+msgstr ""
+"Géométrie et présenation de la boîte de dialogues pour le paramètrage du "
+"sonogramme."
 
 #: index.docbook:210
 msgid "formatting of selection and file time (KwavePlugin::ms2string)"
-msgstr "Mise en forme de la sélection et du temps dans un fichier sonore (KwavePlugin::ms2string)."
+msgstr ""
+"Mise en forme de la sélection et du temps dans un fichier sonore "
+"(KwavePlugin::ms2string)."
 
 #: index.docbook:210
 msgid "plugins can now consist of multiple source files"
@@ -617,9 +652,10 @@ msgid ""
 "and postun scripts of the specfile The user should at least get the english "
 "help..."
 msgstr ""
-"Création d'un lien symbolique des répertoires \"de\" et \"default\" vers le répertoire "
-" d'aide en anglais durant l'installation et la désinstallation, ainsi que avant et aprés l'éxécution "
-" des scripts du specfile. L'utilisateur doit au moins avoir l'aide en anglais..."
+"Création d'un lien symbolique des répertoires \"de\" et \"default\" vers le "
+"répertoire  d'aide en anglais durant l'installation et la désinstallation, "
+"ainsi que avant et aprés l'éxécution  des scripts du specfile. L'utilisateur "
+"doit au moins avoir l'aide en anglais..."
 
 #: index.docbook:210
 msgid "alpha version of english documentation done"
@@ -630,8 +666,8 @@ msgid ""
 "automatic update of the revision history in the docbook file if this file is "
 "modified (only english version)"
 msgstr ""
-"Mise à joour automatique de l'historique de révision dans le fichier docbook si le fichier est "
-" modifié (version anglaise seulement)."
+"Mise à joour automatique de l'historique de révision dans le fichier docbook "
+"si le fichier est  modifié (version anglaise seulement)."
 
 #: index.docbook:210
 msgid "CVS is up on sourceforge.net"
@@ -644,8 +680,8 @@ msgstr "Changement de quelques lignes d'entête dans ce fichier."
 #: index.docbook:210
 msgid "started on writing a new documentation / online help using docbook"
 msgstr ""
-"Commencement de l'écriture d'une nouvelle documentation d'aide en ligne "
-" avec l'utilisation du format docbook."
+"Commencement de l'écriture d'une nouvelle documentation d'aide en ligne  "
+"avec l'utilisation du format docbook."
 
 #: index.docbook:210
 msgid "0.5.3 [2000-06-12]"
@@ -656,14 +692,15 @@ msgid ""
 "if a file with invalid size (e.g. recorded by \"arecord\") is loaded, shows "
 "a message and truncates the input at the end of the file"
 msgstr ""
-"Si un fichier avec une taille invalide (tel que enregistré par \"arecord\") est chargé, "
-" on affiche un message et on ne tient pas compte des données lues à la fin du fichier sonore."
+"Si un fichier avec une taille invalide (tel que enregistré par \"arecord\") "
+"est chargé,  on affiche un message et on ne tient pas compte des données "
+"lues à la fin du fichier sonore."
 
 #: index.docbook:210
 msgid "found out that we need ALSA support for 24 and 32 bits/sample"
 msgstr ""
-"Trouver quel sortie sonore le programme a besoin avec le démon ALSA "
-" pour un échantillonnage de 24 et 32 bits."
+"Trouver quel sortie sonore le programme a besoin avec le démon ALSA  pour un "
+"échantillonnage de 24 et 32 bits."
 
 #: index.docbook:210
 msgid "playback in stereo"
@@ -675,9 +712,10 @@ msgid ""
 "playback using a x:y translation matrix with linear scaling, all values for "
 "x and y except zero are allowed"
 msgstr ""
-"La sélection des canaux audios (x) sont mixé vers les canaux du prériphérique de sortie (y) "
-"à la lecture d'un fichier sonore en utilisant une matrice de translation x:y avec une échelle "
-" linéaire. Toutes les valeurs pour x et y excepté 0 sont admises."
+"La sélection des canaux audios (x) sont mixé vers les canaux du "
+"prériphérique de sortie (y) à la lecture d'un fichier sonore en utilisant "
+"une matrice de translation x:y avec une échelle  linéaire. Toutes les "
+"valeurs pour x et y excepté 0 sont admises."
 
 #: index.docbook:210
 msgid "playback only for selected channels"
@@ -696,8 +734,8 @@ msgid ""
 "fixed severe bug in SignalManager::readWavChunk(), chrashed if there was "
 "data after the wav chunk"
 msgstr ""
-"Correction d'un bogue grave dans SignalManager::readWavChunk(), qui rendait instable "
-" l'application."
+"Correction d'un bogue grave dans SignalManager::readWavChunk(), qui rendait "
+"instable  l'application."
 
 #: index.docbook:210
 msgid "0.5.2-12 [2000-06-02]"
@@ -708,18 +746,22 @@ msgid ""
 "copied the AsyncSync class into libgui, should be used for threadsafe usage "
 "of the qt library"
 msgstr ""
-"Copie de la classe AsyncSync dans libgui, qui doit être utilisée pour un usage des theadsafe "
-" de la librairie Qt."
+"Copie de la classe AsyncSync dans libgui, qui doit être utilisée pour un "
+"usage des theadsafe  de la librairie Qt."
 
 #: index.docbook:210
 msgid ""
 "moved handling of the \"selected\" flag from class SignalManager to class "
 "Signal"
-msgstr "Déplacement du drapeau \"selected\" de la classe SignalManager vers la classe Signal."
+msgstr ""
+"Déplacement du drapeau \"selected\" de la classe SignalManager vers la "
+"classe Signal."
 
 #: index.docbook:210
 msgid "fixed selection of channels if appended or deleted"
-msgstr "Correction de bogues sur la selection d'un canal si on ajoute ou on supprime des données."
+msgstr ""
+"Correction de bogues sur la selection d'un canal si on ajoute ou on supprime "
+"des données."
 
 #: index.docbook:210
 msgid "0.5.2-11 [2000-05-28]"
@@ -727,7 +769,9 @@ msgstr "0.5.2-11 [2000-05-28]"
 
 #: index.docbook:210
 msgid "included config.h in each source file (except the plugins)"
-msgstr "Ajout du fichier d'entête config.h dans chaque fichier source (excepté les plugins)."
+msgstr ""
+"Ajout du fichier d'entête config.h dans chaque fichier source (excepté les "
+"plugins)."
 
 #: index.docbook:210
 msgid ""
@@ -742,8 +786,9 @@ msgid ""
 "fixed many memory leaks and inconsistent delete operations (e.g. used "
 "\"delete\" instead of \"delete[]\")"
 msgstr ""
-"Correction de plusieurs pertes de mémoire et suppression d'opérations contradictoires "
-"(tel que l'utilisation de \"delete\" à la place de \"delete[]\")."
+"Correction de plusieurs pertes de mémoire et suppression d'opérations "
+"contradictoires (tel que l'utilisation de \"delete\" à la place de \"delete[]"
+"\")."
 
 #: index.docbook:210
 msgid ""
@@ -752,17 +797,19 @@ msgid ""
 "> thanks to ParaSoft Corporation for making this limited version of the tool "
 "available (http://www.parasoft.com)"
 msgstr ""
-"Ajout (et test) du support pour la détection d'érreurs avec les outils de débogage \"Insure++ "
-"Lite 4.1\" (./configure --enable-insure=yes ...) -> remerciements à ParaSoft Corporation "
-" pour la mise à disposition d'une version limitée disponible sur http://www.parasoft.com."
+"Ajout (et test) du support pour la détection d'érreurs avec les outils de "
+"débogage \"Insure++ Lite 4.1\" (./configure --enable-insure=yes ...) -> "
+"remerciements à ParaSoft Corporation  pour la mise à disposition d'une "
+"version limitée disponible sur http://www.parasoft.com."
 
 #: index.docbook:210
 msgid ""
 "SignalWidget uses three layers for drawing, speeds up the redraws after "
 "mouse selection by about factor 14(!!!) on my system :-))"
 msgstr ""
-"SignalWidget utilise une arborescence en couche pour l'affichage. Cela améliore le "
-" réaffichage aprés une sélection avec la souris d'un facteur 14 (!!!) sur mon système."
+"SignalWidget utilise une arborescence en couche pour l'affichage. Cela "
+"améliore le  réaffichage aprés une sélection avec la souris d'un facteur 14 "
+"(!!!) sur mon système."
 
 #: index.docbook:210
 msgid "0.5.2-10 [2000-05-21]"
@@ -777,26 +824,28 @@ msgid ""
 "save the kwave.spec and include it into the source archive, this lets \"rpm -"
 "ta kwave-x.x.x-x.tar.gz\" work"
 msgstr ""
-"Sauvegarde et ajout du fichier .spec de Kwave dans l'archive des sources. Cela permet "
-" à la commande \"rpm -ta kwave-x.x.x-x.tar.gz\" de fonctionner."
+"Sauvegarde et ajout du fichier .spec de Kwave dans l'archive des sources. "
+"Cela permet  à la commande \"rpm -ta kwave-x.x.x-x.tar.gz\" de fonctionner."
 
 #: index.docbook:210
 msgid "wrote a new README file, moved Martin's version to README.OLD"
 msgstr ""
-"Ecriture d'un nouveau fichier README. Déplacement de l'ancienne version "
-" écrite par Martin dans README.OLD."
+"Ecriture d'un nouveau fichier README. Déplacement de l'ancienne version  "
+"écrite par Martin dans README.OLD."
 
 #: index.docbook:210
 msgid ""
 "RPM_OPT_FLAGS are appended to the compiler options, this lets pentium "
 "optimizations work :-)"
 msgstr ""
-"L'option RPM_OPT_FLAGS a été ajoutée dans la liste des oprtions de compilation, pour "
-" permettre aux optimisations du pentium de fonctionner."
+"L'option RPM_OPT_FLAGS a été ajoutée dans la liste des oprtions de "
+"compilation, pour  permettre aux optimisations du pentium de fonctionner."
 
 #: index.docbook:210
 msgid "shows a message box if loading of a file failed"
-msgstr "Afficher une boîte de dialogue d'erreur su le chargement d'un fichier a échoué."
+msgstr ""
+"Afficher une boîte de dialogue d'erreur su le chargement d'un fichier a "
+"échoué."
 
 #: index.docbook:210
 msgid "0.5.2-9 [2000-05-19]"
@@ -805,24 +854,24 @@ msgstr "0.5.2-9 [2000-05-19]"
 #: index.docbook:210
 msgid "list of recent files is synchronized across all toplevel windows"
 msgstr ""
-"La liste des fichiers récemments ouverts est synchronisée avec entre toutes les "
-"instances du programme."
+"La liste des fichiers récemments ouverts est synchronisée avec entre toutes "
+"les instances du programme."
 
 #: index.docbook:210
 msgid ""
 "fixed dozens of memory leaks, missing ASSERT constructions, missing variable "
 "initializations and possible divisions through zero"
 msgstr ""
-"Correction de pertes de mémoires, d'oublis de constructions du type ASSERT, d'oublis "
-" d'initialisations de variable et de possibles divisions par zéro."
+"Correction de pertes de mémoires, d'oublis de constructions du type ASSERT, "
+"d'oublis  d'initialisations de variable et de possibles divisions par zéro."
 
 #: index.docbook:210
 msgid ""
 "Help menu aligned to the right side (MenuRoot now is able to process the "
 "special command \"#separator\")"
 msgstr ""
-"Le menu d'aide a été aligné sur le coté droit (Le menu principal est capable de gérer "
-" la commande spéciale \"#separator\")."
+"Le menu d'aide a été aligné sur le coté droit (Le menu principal est capable "
+"de gérer  la commande spéciale \"#separator\")."
 
 #: index.docbook:210
 msgid "0.5.2-1...0.5.2-8 [...2000-05-18]"
@@ -833,8 +882,8 @@ msgid ""
 "replaced all occurances of sprintf with snprintf, strcpy with strncpy (in 92 "
 "places) !"
 msgstr ""
-"Remplacement de toutes les occurances de sprintf par snprintf, et de strcpy par "
-" strncpy (92 fois)."
+"Remplacement de toutes les occurances de sprintf par snprintf, et de strcpy "
+"par  strncpy (92 fois)."
 
 #: index.docbook:210
 msgid "doesn't show any zoom factor if no signal is loaded"
@@ -842,13 +891,15 @@ msgstr "Pas d'affichage du facteur de zoom si aucun fichier sonore n'est chargé
 
 #: index.docbook:210
 msgid "handling of channel add/delete: selection/speakers are shifted"
-msgstr "Dans le cas de l'ajout ou la suppression d'un canal, une sélection est décalée."
+msgstr ""
+"Dans le cas de l'ajout ou la suppression d'un canal, une sélection est "
+"décalée."
 
 #: index.docbook:210
 msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
-"Changement de quelques variables et paramêtres en \"unsigned\" (pour simplifier "
-"la vérification des étendues de valeurs)."
+"Changement de quelques variables et paramêtres en \"unsigned\" (pour "
+"simplifier la vérification des étendues de valeurs)."
 
 #: index.docbook:210
 msgid "beautified this file"
@@ -860,29 +911,33 @@ msgid ""
 "thanks to the developers of the \"Artistic Style\" package, astyle-1.11.4-1 "
 "made good work :-)"
 msgstr ""
-"Mise en valeur de quelques portions de code en concordance avec mon "
-"style de programmation. -> Remerciements aux développeurs de \"Artistic Style\". "
-" astyle-1.11.4-1 fait du bon travail."
+"Mise en valeur de quelques portions de code en concordance avec mon style de "
+"programmation. -> Remerciements aux développeurs de \"Artistic Style\".  "
+"astyle-1.11.4-1 fait du bon travail."
 
 #: index.docbook:210
 msgid "fixed that annoying flicker in the help/about dialog"
 msgstr ""
-"Correction de quelques annotations incohérentes dans l'aide et dans la boîte de dialogue "
-"A propos de..."
+"Correction de quelques annotations incohérentes dans l'aide et dans la boîte "
+"de dialogue A propos de..."
 
 #: index.docbook:210
 msgid "checking for sizes of char, short and int at configure time"
 msgstr ""
-"Vérification du format des types char, short, et int lors de la phase de configuration avant "
-"la compilation."
+"Vérification du format des types char, short, et int lors de la phase de "
+"configuration avant la compilation."
 
 #: index.docbook:210
 msgid "globals.app will not be used (obsolete, should be removed from libkwave)"
-msgstr "'globals.app' n'est maintenant plus utilisée (obsolete, sera retirée de la bibliothéque libkwave)."
+msgstr ""
+"'globals.app' n'est maintenant plus utilisée (obsolete, sera retirée de la "
+"bibliothéque libkwave)."
 
 #: index.docbook:210
 msgid "MessagePort will not be used (obsolete, should be removed from libkwave)"
-msgstr "'MessagePort' n'est maintenant plus utilisée (obsolete, sera retirée de la bibliothéque libkwave)."
+msgstr ""
+"'MessagePort' n'est maintenant plus utilisée (obsolete, sera retirée de la "
+"bibliothéque libkwave)."
 
 #: index.docbook:210
 msgid "multiple toplevel windows are possible"
@@ -890,37 +945,43 @@ msgstr "L'ouverture de plusieurs instances de l'application est maintenant possi
 
 #: index.docbook:210
 msgid "made X toolkit parameters work (especially \"-geometry\")"
-msgstr "Construction des options spécifiques au serveur X (spécialement \"-geometry\")."
+msgstr ""
+"Construction des options spécifiques au serveur X (spécialement \"-geometry"
+"\")."
 
 #: index.docbook:210
 msgid "bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)"
 msgstr ""
-"Corrections de bogues concernant le chargement et la sauvegarde de fichier wav au "
-"format 8 bits (toujours non-signés)."
+"Corrections de bogues concernant le chargement et la sauvegarde de fichier "
+"wav au format 8 bits (toujours non-signés)."
 
 #: index.docbook:210
 msgid "COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE"
-msgstr "RESTRUCTURATION COMPLETE DES COMMANDES ET DES STRUCTURES INTERNES DU PROGRAMME"
+msgstr ""
+"RESTRUCTURATION COMPLETE DES COMMANDES ET DES STRUCTURES INTERNES DU "
+"PROGRAMME"
 
 #: index.docbook:210
 msgid "made use of a combination of signals/slots and string messages"
 msgstr ""
-"Mise en place de combinaisons de signaux et de slots pour l'utilisation de chaînes "
-" de messages."
+"Mise en place de combinaisons de signaux et de slots pour l'utilisation de "
+"chaînes  de messages."
 
 #: index.docbook:210
 msgid ""
 "hierarchical processing: commands are are forwarded \"upwards\" until they "
 "reach a TopWidget"
 msgstr ""
-"Hierarchie des processus : les commandes sont déplacées vers le haut jusqu'à atteindre "
-" un TopWidget."
+"Hierarchie des processus : les commandes sont déplacées vers le haut jusqu'à "
+"atteindre  un TopWidget."
 
 #: index.docbook:210
 msgid ""
 "the TopWidget (highest level) dispatches the comands and forwards them to "
 "the lower levels"
-msgstr "Les TopWidget (de niveau haut) diffusent les commandes vers les niveaux les plus bas."
+msgstr ""
+"Les TopWidget (de niveau haut) diffusent les commandes vers les niveaux les "
+"plus bas."
 
 #: index.docbook:210
 msgid "0.5.2 [2000-04-24]"
@@ -931,30 +992,31 @@ msgid ""
 "rpm package should now be installable without conflicts and compile without "
 "any previous installation of kwave"
 msgstr ""
-"Le paquetage RPM peut être maintenant installé sans confilts et compilé sans "
-" une installation préalable de Kwave."
+"Le paquetage RPM peut être maintenant installé sans confilts et compilé "
+"sans  une installation préalable de Kwave."
 
 #: index.docbook:210
 msgid ""
 "removed the \"${KDEDIR}/share/doc/HTML/default\" directory from the rpm so "
 "that it doesn't conflict with the already existing one"
 msgstr ""
-"Suppression du répertoire \"${KDEDIR}/share/doc/HTML/default\" du RPM pour qu'il "
-" n'y ai pas de conflit avec une version de ce répertoire déjà existante."
+"Suppression du répertoire \"${KDEDIR}/share/doc/HTML/default\" du RPM pour "
+"qu'il  n'y ai pas de conflit avec une version de ce répertoire déjà "
+"existante."
 
 #: index.docbook:210
 msgid ""
 "shift+Home/shift+End selects from the current left/right position up to the "
 "start/end of the signal"
 msgstr ""
-"shift+Home / shift+End permettent la sélection de la position courrante jusqu'au "
-" début / fin du fichier sonore."
+"shift+Home / shift+End permettent la sélection de la position courrante "
+"jusqu'au  début / fin du fichier sonore."
 
 #: index.docbook:210
 msgid "bugfix in display of signal: signal is no longer inverted"
 msgstr ""
-"Correction de bogues dans l'affichage du fichier sonore : il n'est plus inversé "
-" dans sa longueur."
+"Correction de bogues dans l'affichage du fichier sonore : il n'est plus "
+"inversé  dans sa longueur."
 
 #: index.docbook:210
 msgid "selectrange() works now"
@@ -962,7 +1024,9 @@ msgstr "La fonction selectrange() fonctionne correctement maintenant."
 
 #: index.docbook:210
 msgid "the zoom factor combo box reflects the current \"real\" zoom factor"
-msgstr "Le champs de sélection du facteur de zoom donne une valeur \"réelle\" du facteur zoom."
+msgstr ""
+"Le champs de sélection du facteur de zoom donne une valeur \"réelle\" du "
+"facteur zoom."
 
 #: index.docbook:210
 msgid "some bugfixes in menu handling / cleanups"
@@ -977,8 +1041,8 @@ msgid ""
 "simple poly-lines instead of lowpass interpolation if zoom factor has less "
 "than 10 pixels per sample"
 msgstr ""
-"Polynome simpleau lieu de d'une interpolation passe-bas si le facteur de zoom est "
-" moins de 10 pixels par échantillons."
+"Polynome simpleau lieu de d'une interpolation passe-bas si le facteur de "
+"zoom est  moins de 10 pixels par échantillons."
 
 #: index.docbook:210
 msgid "lowpass interpolation if more than 10 pixels per sample"
@@ -989,9 +1053,9 @@ msgid ""
 "bugfix in KWaveApp: now sets globals.app to this if it was null before, now "
 "doesn't crash if it loads a file specified at cmdline"
 msgstr ""
-"Correction de bogues dans KWaveApp : maintenant les parramètres généraux (globals.app) "
-" sont sauvegardés si il n'existait pas avant. Il n'y a plus de crash si on charge un fichier "
-" spécifié dans la ligne de commande."
+"Correction de bogues dans KWaveApp : maintenant les parramètres généraux "
+"(globals.app)  sont sauvegardés si il n'existait pas avant. Il n'y a plus de "
+"crash si on charge un fichier  spécifié dans la ligne de commande."
 
 #: index.docbook:210
 msgid "0.5.1-4"
@@ -1002,26 +1066,29 @@ msgid ""
 "now compiles and runns under RedHat 6.1 / Halloween IV as well as under SuSE "
 "6.2"
 msgstr ""
-"La compilation fonctionnae maintenant sous RedHat 6.1 / Halloween IV comme pour SuSE "
-"6.2."
+"La compilation fonctionnae maintenant sous RedHat 6.1 / Halloween IV comme "
+"pour SuSE 6.2."
 
 #: index.docbook:210
 msgid "version info of libkwavegui.so is set to the package's version"
 msgstr ""
-"L'information de version de libkwavegui.so est maintenant renseigné à partir de la version du "
-" paquetage."
+"L'information de version de libkwavegui.so est maintenant renseigné à partir "
+"de la version du  paquetage."
 
 #: index.docbook:210
 msgid ""
 "bugfix in plugins/template/Makefile.am: will not create .moc files on make "
 "distclean and other targets"
 msgstr ""
-"Correction de bogues dans plugins/template/Makefile.am : on ne créé pas de fichiers .moc "
-" lorsqu'il y a une l'éxécution d'un nettoyage des compilations ou d'une nouvelle construction."
+"Correction de bogues dans plugins/template/Makefile.am : on ne créé pas de "
+"fichiers .moc  lorsqu'il y a une l'éxécution d'un nettoyage des compilations "
+"ou d'une nouvelle construction."
 
 #: index.docbook:210
 msgid "compiler flags are passed through to plugin compilation"
-msgstr "Les drapeaux de compilation sont passés comme paramètres lors de la compilation d'un plugin."
+msgstr ""
+"Les drapeaux de compilation sont passés comme paramètres lors de la "
+"compilation d'un plugin."
 
 #: index.docbook:210
 msgid ""
@@ -1029,10 +1096,11 @@ msgid ""
 "libraries of RedHat that seem to contain no rtti. As a side effect all "
 "warnings on linking programs/libs disappeared :-)"
 msgstr ""
-"La compilation s'effectue avec l'option --no-rtti. Ceci est necessaire pour compiler l'application "
-" pour tenir compte des librairies KDE fournies avec une RedHat car celle ci n'ont pas été "
-" compilées avec cette option. Cela à un éffet important lors de la compilation : tous les "
-" warnings lors du linkage du programme et des libraries ont disparus."
+"La compilation s'effectue avec l'option --no-rtti. Ceci est necessaire pour "
+"compiler l'application  pour tenir compte des librairies KDE fournies avec "
+"une RedHat car celle ci n'ont pas été  compilées avec cette option. Cela à "
+"un éffet important lors de la compilation : tous les  warnings lors du "
+"linkage du programme et des libraries ont disparus."
 
 #: index.docbook:210
 msgid "configure-parameter --enable-debug has effect again"
@@ -1041,14 +1109,14 @@ msgstr "Le script .configure positionne l'option --enable-debug."
 #: index.docbook:210
 msgid "ASCII import and export works now (mono only)"
 msgstr ""
-"L'imporation et l'exportation de l'ASCII fonctionne correctement maintenant (en mono "
-" seulement)."
+"L'imporation et l'exportation de l'ASCII fonctionne correctement maintenant "
+"(en mono  seulement)."
 
 #: index.docbook:210
 msgid "bugfixes in some plugins, all compile now without warnings/errors"
 msgstr ""
-"Corrections de bogues dans quelques plugins. Toutes les compilation sont sans warnings "
-" et sans erreurs."
+"Corrections de bogues dans quelques plugins. Toutes les compilation sont "
+"sans warnings  et sans erreurs."
 
 #: index.docbook:210
 msgid "plugins are processed in alphabetical order"
@@ -1061,8 +1129,8 @@ msgstr "Tous les plugins sont automatiquement trouvés et compilés."
 #: index.docbook:210
 msgid "new target \"make src.rpm\" makes only the source rpm"
 msgstr ""
-"Une nouvelle construction est disponible par la commande \"make src.rpm\". Elle permet "
-" la fabrication d'un RPM de source."
+"Une nouvelle construction est disponible par la commande \"make src.rpm\". "
+"Elle permet  la fabrication d'un RPM de source."
 
 #: index.docbook:210
 msgid "0.5.1-3"
@@ -1073,14 +1141,14 @@ msgid ""
 "display will be scrolled left or zoomed if something from the end of the "
 "signal is deleted"
 msgstr ""
-"L'affichage est déplacé à gauche ou il est zoomé si on supprime quelquechose à la fin du "
-" fichier sonore."
+"L'affichage est déplacé à gauche ou il est zoomé si on supprime quelquechose "
+"à la fin du  fichier sonore."
 
 #: index.docbook:210
 msgid "curve parameters of fade in / fade out work again"
 msgstr ""
-"Le paramètrage des courbes pour une amplification croissante ou décroissante "
-" fonctionne maintenant."
+"Le paramètrage des courbes pour une amplification croissante ou "
+"décroissante  fonctionne maintenant."
 
 #: index.docbook:210
 msgid "0.5.1-2 [2000-03-16]"
@@ -1097,8 +1165,8 @@ msgstr "La cible \"make messages\" fonctionne maintenant."
 #: index.docbook:210
 msgid "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 msgstr ""
-"Convertion de menus.config pour la création d'une maquette d'un fichier .ccp qui sera utilisé "
-" pour l'internationalisation."
+"Convertion de menus.config pour la création d'une maquette d'un fichier .ccp "
+"qui sera utilisé  pour l'internationalisation."
 
 #: index.docbook:210
 msgid "0.5.1-1 [2000-03-13]"
@@ -1106,13 +1174,15 @@ msgstr "0.5.1-1 [2000-03-13]"
 
 #: index.docbook:210
 msgid "new target \"make rpm\" creates binary and source RPM packages"
-msgstr "Nouvelle cible \"make rpm\" pour la création d'un exécutable et d'un paquetage RPM."
+msgstr ""
+"Nouvelle cible \"make rpm\" pour la création d'un exécutable et d'un "
+"paquetage RPM."
 
 #: index.docbook:210
 msgid "fixed the shared-library-problem in the build system"
 msgstr ""
-"Correction de problèmes concernant le partage de bibliothéques dans la construction "
-" du programme."
+"Correction de problèmes concernant le partage de bibliothéques dans la "
+"construction  du programme."
 
 #: index.docbook:210
 msgid "0.5.1 [2000-02-28]"
@@ -1128,7 +1198,9 @@ msgstr "Renomage de SignalWidget::info en \"refresh\""
 
 #: index.docbook:210
 msgid "many cleanups in the header-Files in src and libgui"
-msgstr "Plusieurs suppressions dans les fichiers d'entête dans les répertoires src et libgui."
+msgstr ""
+"Plusieurs suppressions dans les fichiers d'entête dans les répertoires src "
+"et libgui."
 
 #: index.docbook:210
 msgid "the menu management has completely been rewritten:"
@@ -1160,7 +1232,9 @@ msgstr "Premiére introduction de l'internationalisation."
 
 #: index.docbook:210
 msgid "list of recent files is sorted by time of last usage"
-msgstr "La liste des fichiers réçemments ouverts est triée par la date de leur derniére utilisation."
+msgstr ""
+"La liste des fichiers réçemments ouverts est triée par la date de leur "
+"derniére utilisation."
 
 #: index.docbook:210
 msgid "0.5.0-1 [1999-12-27]"
@@ -1168,11 +1242,15 @@ msgstr "0.5.0-1 [1999-12-27]"
 
 #: index.docbook:210
 msgid "moved my modifications from the Makefiles to Makefile.am"
-msgstr "Déplacement de mes modifications du fichier Makefiles dans le fichier Makefile.am."
+msgstr ""
+"Déplacement de mes modifications du fichier Makefiles dans le fichier "
+"Makefile.am."
 
 #: index.docbook:210
 msgid "included targets \"make release\", \"make patchlevel\" and some scripts"
-msgstr "Ajout des cibles \"make release\", \"make patchlevel\", et quelques autres scripts."
+msgstr ""
+"Ajout des cibles \"make release\", \"make patchlevel\", et quelques autres "
+"scripts."
 
 #: index.docbook:210
 msgid "1999-12-19 (by Thomas.Eschenbacher@gmx.de)"
@@ -1183,14 +1261,15 @@ msgid ""
 "remade my modifications of some Makefiles and of the configure script that "
 "were lost during Martin's changes"
 msgstr ""
-"Reconstruction de mes modifications pour quelques Makefiles et pour le script .configure qui ont "
-" été perdues lors des changements réalisées par Martin."
+"Reconstruction de mes modifications pour quelques Makefiles et pour le "
+"script .configure qui ont  été perdues lors des changements réalisées par "
+"Martin."
 
 #: index.docbook:210
 msgid "changed shortcut for mixpaste from CTRL-SHIFT-X to CTRL-SHIFT-C"
 msgstr ""
-"Changement des raccourçis clavier CTRL-SHIFT-X en CTRL-SHIFT-C pour les "
-" opérations de mixages."
+"Changement des raccourçis clavier CTRL-SHIFT-X en CTRL-SHIFT-C pour les  "
+"opérations de mixages."
 
 #: index.docbook:210
 msgid "added the \"crop\" command to the edit menu"
@@ -1205,9 +1284,9 @@ msgid ""
 "corrected the call of \"delete\", now really deletes instead of cutting and "
 "copying the selection to the clipboard (saves clipboard content)"
 msgstr ""
-"Correction de l'appel \"supprimer\", qui maintenant supprime réellement quelquechose "
-" au lieu de couper et copier la sélection dans le presse-papier (sauvegarde du contenu du "
-" presse-papier)."
+"Correction de l'appel \"supprimer\", qui maintenant supprime réellement "
+"quelquechose  au lieu de couper et copier la sélection dans le presse-papier "
+"(sauvegarde du contenu du  presse-papier)."
 
 #: index.docbook:210
 msgid "1999-12-18 (by mwilz@ernie.mi.uni-koeln.de)"
@@ -1231,15 +1310,17 @@ msgstr "1999-12-10 (par Thomas.Eschenbacher@gmx.de)"
 
 #: index.docbook:210
 msgid "removed -Werror compiler option (caused trouble with configure script)"
-msgstr "Suppression de l'option de compilation -Werror (problème avec le script de configuration)."
+msgstr ""
+"Suppression de l'option de compilation -Werror (problème avec le script de "
+"configuration)."
 
 #: index.docbook:210
 msgid ""
 "fixed a nasty bug in SignalManager::save that caused crashes on several "
 "positions in the program and libstdc++"
 msgstr ""
-"Correction d'un bogue complexe dans SignalManager::save qui plante violement l'application "
-" et la libstdc++."
+"Correction d'un bogue complexe dans SignalManager::save qui plante violement "
+"l'application  et la libstdc++."
 
 #: index.docbook:210
 msgid "1999-12-09 (by Thomas.Eschenbacher@gmx.de)"
@@ -1250,8 +1331,8 @@ msgid ""
 "gave the destructor of SignalManager some code, this fixes a huge memory "
 "leak !"
 msgstr ""
-"Correction d'un bogue de perte de mémoire concernant le destructeur de la "
-" classe SignalManager."
+"Correction d'un bogue de perte de mémoire concernant le destructeur de la  "
+"classe SignalManager."
 
 #: index.docbook:210
 msgid "added a TODO file"
@@ -1260,8 +1341,8 @@ msgstr "Ajout d'un fichier TODO."
 #: index.docbook:210
 msgid "added -Werror to the c++ compiler options when debuging enabled"
 msgstr ""
-"Ajout de l'option de compilation -Werror pour le compilateur c++ lorsque les options "
-" de débuggage sont activés."
+"Ajout de l'option de compilation -Werror pour le compilateur c++ lorsque les "
+"options  de débuggage sont activés."
 
 #: index.docbook:210
 msgid "some include file cleanups in libgui"
@@ -1274,12 +1355,14 @@ msgstr "1999-12-07 (par Thomas.Eschenbacher@gmx.de)"
 #: index.docbook:210
 msgid "SignalManager::writeWavChunk uses buffers for writing (much faster!)"
 msgstr ""
-"La fonction SignalManager::writeWavChunk utilise mainteant un buffer pour "
-" l'écriture (plus rapide !)."
+"La fonction SignalManager::writeWavChunk utilise mainteant un buffer pour  "
+"l'écriture (plus rapide !)."
 
 #: index.docbook:210
 msgid "bugfix: caption of main window changes after \"SaveAs\""
-msgstr "Correction de bogue : le titre de la fenêtre principal change aprés un \"Sauvegarder Dans\"."
+msgstr ""
+"Correction de bogue : le titre de la fenêtre principal change aprés un "
+"\"Sauvegarder Dans\"."
 
 #: index.docbook:210
 msgid "bugfix: selected resolution takes effect"
@@ -1290,16 +1373,16 @@ msgid ""
 "bugfix: SignalManager::writeWavChunk now doesn't destroy the signal's data "
 "while saving"
 msgstr ""
-"Correction de bogue : la fonction SignalManager::writeWavChunk ne détruit plus les données "
-" du fichier sonore avant de l'avoir sauvé."
+"Correction de bogue : la fonction SignalManager::writeWavChunk ne détruit "
+"plus les données  du fichier sonore avant de l'avoir sauvé."
 
 #: index.docbook:210
 msgid ""
 "make distclean in the projekt root directory also removes zero-length files, "
 "*.orig, *.rej and *~ (just makes cleaner than before)"
 msgstr ""
-"Un make distclean dans la racine du projet supprime aussi les fichiers vide, "
-" *.orig, *.rej and *~."
+"Un make distclean dans la racine du projet supprime aussi les fichiers "
+"vide,  *.orig, *.rej and *~."
 
 #: index.docbook:210
 msgid ""
@@ -1308,8 +1391,9 @@ msgid ""
 "\" (changes in the referenced Makefiles in the template directory will not "
 "be reflected thousand times when creating a patch with diff)"
 msgstr ""
-"Les liens symboliques vers Makefile, Makefile.in et Makefile.am dans les répertoires "
-" des plugins sont supprimés avec \"make distclean\" et reconstruit par \"make\"."
+"Les liens symboliques vers Makefile, Makefile.in et Makefile.am dans les "
+"répertoires  des plugins sont supprimés avec \"make distclean\" et "
+"reconstruit par \"make\"."
 
 #: index.docbook:210
 msgid "cleanups, removed some old backup files"
@@ -1356,14 +1440,14 @@ msgid ""
 "using timer to check message port -> alternative (threadsafe) message "
 "passing instead of signal/slot"
 msgstr ""
-"Utilisation d'un timer pour vérifier les messages systémes -> le message alternatif "
-" (threadsafe) passe à la place d'un signal ou d'un slot."
+"Utilisation d'un timer pour vérifier les messages systémes -> le message "
+"alternatif  (threadsafe) passe à la place d'un signal ou d'un slot."
 
 #: index.docbook:210
 msgid "labelling code rewritten, now incompatible with old releases"
 msgstr ""
-"Les sources pour les fonctions de marquage ont été réécrites et sont maintenant "
-" incompatibles avec les anciennes versions."
+"Les sources pour les fonctions de marquage ont été réécrites et sont "
+"maintenant  incompatibles avec les anciennes versions."
 
 #: index.docbook:210
 msgid "batch loading routines"
@@ -1383,7 +1467,9 @@ msgstr "Correction de la boîte de dialogue pour la sauvegarde du marquage."
 
 #: index.docbook:210
 msgid "corrected envelope dialog, string handling"
-msgstr "Correction de la boîte de dialogue pour la modification de l'enveloppe d'un signal."
+msgstr ""
+"Correction de la boîte de dialogue pour la modification de l'enveloppe d'un "
+"signal."
 
 #: index.docbook:210
 msgid "connected many functions via the new string-based way of invocation"
@@ -1394,8 +1480,8 @@ msgid ""
 "fixed some dependencies between old code and new classes (there's still more "
 "to do !)"
 msgstr ""
-"Correction de quelques dépendances entre l'ancien code et les nouvelles "
-" classes (il reste encore des choses à faire !)."
+"Correction de quelques dépendances entre l'ancien code et les nouvelles  "
+"classes (il reste encore des choses à faire !)."
 
 #: index.docbook:210
 msgid "saving should now work again"
@@ -1407,15 +1493,17 @@ msgstr "Correction de la classe Clipboard."
 
 #: index.docbook:210
 msgid "Color class as wrapper to QColor (may become independent later)"
-msgstr "La classe Color a été changée en QColor (elle pourra devenir indépendante plus tard)."
+msgstr ""
+"La classe Color a été changée en QColor (elle pourra devenir indépendante "
+"plus tard)."
 
 #: index.docbook:210
 msgid ""
 "reworking Curve Class for creation via string, interpolation now uses curve "
 "objects"
 msgstr ""
-"Restructuration de la classe Curve pour la création de chaîne. L'interpolation est maintenant "
-" utilisée par les objets de cette classe."
+"Restructuration de la classe Curve pour la création de chaîne. "
+"L'interpolation est maintenant  utilisée par les objets de cette classe."
 
 #: index.docbook:210
 msgid "moved gui functions into a new library (libkwavegui)"
@@ -1423,15 +1511,21 @@ msgstr "Déplacement des fontions graphiques dans une nouvelle librarie (libkwav
 
 #: index.docbook:210
 msgid "new Classes: Parser DynamicLoader Filter (prevously was a struct)"
-msgstr "Nouvelles classes : Parser, DynamicLoader, et Filter (elles étaient précédemment des structures)."
+msgstr ""
+"Nouvelles classes : Parser, DynamicLoader, et Filter (elles étaient "
+"précédemment des structures)."
 
 #: index.docbook:210
 msgid "moved gui-independent functions into a library (libkwave)"
-msgstr "Déplacement de donctions graphique indépendante dans une nouvelle librairies (libkwave)."
+msgstr ""
+"Déplacement de donctions graphique indépendante dans une nouvelle librairies "
+"(libkwave)."
 
 #: index.docbook:210
 msgid "rework of dialogs into single files and single plugins"
-msgstr "Regroupement des boîtes de dialogue dans des fichiers uniques et dans des simples plugins."
+msgstr ""
+"Regroupement des boîtes de dialogue dans des fichiers uniques et dans des "
+"simples plugins."
 
 #: index.docbook:210
 msgid ""
@@ -1440,9 +1534,10 @@ msgid ""
 "has to be passed and gets expanded into the needed set of parameters in each "
 "thread"
 msgstr ""
-"Nouveau schéma d'appel via des lignes de commandes. Cela permettera des appel par "
-" des scripts et la définition de macros. Les enchainements sont construis plus facilement, car "
-" par une seule chaine de carractères sont passés tous les paramétres."
+"Nouveau schéma d'appel via des lignes de commandes. Cela permettera des "
+"appel par  des scripts et la définition de macros. Les enchainements sont "
+"construis plus facilement, car  par une seule chaine de carractères sont "
+"passés tous les paramétres."
 
 #: index.docbook:210
 msgid "io functions and playback adapted to SignalManager"
@@ -1473,29 +1568,29 @@ msgid ""
 "triple-checked the missing Accelerators in the Menumanager. It seems to be a "
 "bug in qpopmenu, I'll wait for qt to be fixed, or until a workaround is known"
 msgstr ""
-"Tripe vérification de l'oubli des raccouçis clavier dans Menumanager. Cela semble "
-" être un bogue dans qpopmenu, j'attendrai que la librairie Qt soit corrigée, ou qu'une "
-" solution paliative soit trouvée."
+"Tripe vérification de l'oubli des raccouçis clavier dans Menumanager. Cela "
+"semble  être un bogue dans qpopmenu, j'attendrai que la librairie Qt soit "
+"corrigée, ou qu'une  solution paliative soit trouvée."
 
 #: index.docbook:210
 msgid "recent Files are updated again, while the program is running"
 msgstr ""
-"La liste des fichiers récemment ouverts est constament mis à jour pendant "
-" l'exécution du programme."
+"La liste des fichiers récemment ouverts est constament mis à jour pendant  "
+"l'exécution du programme."
 
 #: index.docbook:210
 msgid "kwave now keeps track of last directory saved to; for user convenience"
 msgstr ""
-"Pour une plus grande facilité, Kwave utilise le répertoire récemment utilisé pour "
-" l'ouverture un fichier."
+"Pour une plus grande facilité, Kwave utilise le répertoire récemment utilisé "
+"pour  l'ouverture un fichier."
 
 #: index.docbook:210
 msgid ""
 "reestablished selection mechanism to match versions before 0.29.3 and "
 "corrected some otherwise screwed-up behaviour"
 msgstr ""
-"Rétablissement des mécanismes de sélection pour rassembler les versions antérieures "
-"à la 0.29.3 et quelques corrections réçentes."
+"Rétablissement des mécanismes de sélection pour rassembler les versions "
+"antérieures à la 0.29.3 et quelques corrections réçentes."
 
 #: index.docbook:210
 msgid "_now_ all parameters to destructors should have vanished"
@@ -1511,17 +1606,18 @@ msgid ""
 "wished but since 0.29.2 has a destructor with parameters accidently left in, "
 "and so does not compile on all systems -> here we go again..."
 msgstr ""
-"Le développement à ralenti, et cette version n'est pas complète comme je le souhaitai "
-" depuis la 0.29.2. La modification de tous les destructeurs de classes a été mis de coté, "
-" et le programme ne se compile pas sur tous les sytèmes -> On y reviendra plus tard..."
+"Le développement à ralenti, et cette version n'est pas complète comme je le "
+"souhaitai  depuis la 0.29.2. La modification de tous les destructeurs de "
+"classes a été mis de coté,  et le programme ne se compile pas sur tous les "
+"sytèmes -> On y reviendra plus tard..."
 
 #: index.docbook:210
 msgid ""
 "reworked selection routines into a new class, code is still rather "
 "confusing, but seems to work"
 msgstr ""
-"Restructuration des routines de sélection dans les nouvelles classes. Le code est plus confus, "
-" mais il fonctionne."
+"Restructuration des routines de sélection dans les nouvelles classes. Le "
+"code est plus confus,  mais il fonctionne."
 
 #: index.docbook:210
 msgid "added checkmark functionality again"
@@ -1536,8 +1632,8 @@ msgid ""
 "added gui to mix channels together, the needed functions for mixing are "
 "still missing"
 msgstr ""
-"Ajout d'une interface graphique pour mixer 2 canaux ensemble. Le besoin de fonctions pour "
-" le mixage sont toujours d'actualité."
+"Ajout d'une interface graphique pour mixer 2 canaux ensemble. Le besoin de "
+"fonctions pour  le mixage sont toujours d'actualité."
 
 #: index.docbook:210
 msgid "Halt button by Gerhard Zintel"
@@ -1554,8 +1650,8 @@ msgstr "Déplacement des fonctionnalités du presse-papier dans une classe dédi
 #: index.docbook:210
 msgid "dynamic allocation of menu entries used by all classes but TopWidget"
 msgstr ""
-"L'allocation dynamique des entrées des menus est utilisée par toutes les "
-" classes sauf TopWidget."
+"L'allocation dynamique des entrées des menus est utilisée par toutes les  "
+"classes sauf TopWidget."
 
 #: index.docbook:210
 msgid "import of ascii data files"
@@ -1568,8 +1664,8 @@ msgstr "0.29.1"
 #: index.docbook:210
 msgid "Bugfix for multichannel save. Now the saved files should work with other prgs"
 msgstr ""
-"Correction de bogues pour la sauvegarde de canaux multiples. Maintenant, la sauvegarde de "
-" fichiers doit fonctionner avec d'autres programmes."
+"Correction de bogues pour la sauvegarde de canaux multiples. Maintenant, la "
+"sauvegarde de  fichiers doit fonctionner avec d'autres programmes."
 
 #: index.docbook:210
 msgid "local snap to peak by Gerhard Zintel"
@@ -1585,19 +1681,22 @@ msgid ""
 "To Name Things\" from sunsite. The last digit will always mark be 0 for "
 "releases uploaded to ftp.kde.org."
 msgstr ""
-"Changement du numéro de version et de nom de fichiers comme suggéré par la version "
-" 1.1 du document \"How To Name Things\" sur le site WEB 'sunsite'. Le dernier nombre "
-" sera toujours marqué d'un 0 pour une version qui sera chargée sur ftp.kde.org."
+"Changement du numéro de version et de nom de fichiers comme suggéré par la "
+"version  1.1 du document \"How To Name Things\" sur le site WEB 'sunsite'. "
+"Le dernier nombre  sera toujours marqué d'un 0 pour une version qui sera "
+"chargée sur ftp.kde.org."
 
 #: index.docbook:210
 msgid "added windowing (Hamming Hanning, Blackmann) functions"
 msgstr ""
-"Ajout des boîtes de dialogues pour les fonctionnalités de fenêtrages (Hamming Hanning, "
-" Blackmann)."
+"Ajout des boîtes de dialogues pour les fonctionnalités de fenêtrages "
+"(Hamming Hanning,  Blackmann)."
 
 #: index.docbook:210
 msgid "contribution from Gerhard Zintel displaying notes in fftview"
-msgstr "Contribution de la part de Gerhard Zintel pour l'affichage d'information concernant fftview."
+msgstr ""
+"Contribution de la part de Gerhard Zintel pour l'affichage d'information "
+"concernant fftview."
 
 #: index.docbook:210
 msgid "Added pitch display window"
@@ -1605,15 +1704,21 @@ msgstr "Ajout d'une fenêtre pour la gestion du pitch."
 
 #: index.docbook:210
 msgid "implemented cursor and db scale for fft-view"
-msgstr "Implémenation du curseur et de l'échelle en db pour la vue sur les transformées de Fourrier."
+msgstr ""
+"Implémenation du curseur et de l'échelle en db pour la vue sur les "
+"transformées de Fourrier."
 
 #: index.docbook:210
 msgid "added reselection and cursor change"
-msgstr "Ajout d'une fonctionnalité sur la réselection et le changement de place du curseur."
+msgstr ""
+"Ajout d'une fonctionnalité sur la réselection et le changement de place du "
+"curseur."
 
 #: index.docbook:210
 msgid "added possibility of different display modes in Frequency representation"
-msgstr "Ajout de différentes possibilités d'affichage en fonction de la réprésentation des fréquences."
+msgstr ""
+"Ajout de différentes possibilités d'affichage en fonction de la "
+"réprésentation des fréquences."
 
 #: index.docbook:210
 msgid "fixed severe quantisation bug in saving 16Bit routine, reported by ?"
@@ -1625,7 +1730,9 @@ msgstr "Support du mmaping par Juhana Kouhia."
 
 #: index.docbook:210
 msgid "added as new Possibility to generate Signals: pulse trains"
-msgstr "Ajout de nouvelles possibilités pour la génération de signaux : trains d'impulsions."
+msgstr ""
+"Ajout de nouvelles possibilités pour la génération de signaux : trains "
+"d'impulsions."
 
 #: index.docbook:210
 msgid ""
@@ -1633,9 +1740,10 @@ msgid ""
 "configure script (change Makefile for not linking libpthread and doing a "
 "define)"
 msgstr ""
-"Ajout d'un modèle pour les systèmes qui ne gérent pas les threads posix -> il sera necessaire "
-" de le déclarer dans le script de configuration (changement du Makefile pour ne pas avoir de "
-" linkage avec la bibliothéque libpthread)."
+"Ajout d'un modèle pour les systèmes qui ne gérent pas les threads posix -> "
+"il sera necessaire  de le déclarer dans le script de configuration "
+"(changement du Makefile pour ne pas avoir de  linkage avec la bibliothéque "
+"libpthread)."
 
 #: index.docbook:210
 msgid "First use of multiple threads (pthreads) in some functions"
@@ -1643,7 +1751,9 @@ msgstr "Premiére utilisation du multithreading (pthreads) dans quelques fonctio
 
 #: index.docbook:210
 msgid "Pitch generation now independent of additive synthesis"
-msgstr "La génération de pitchs est maintenant indépendante de la synthése additionnelle."
+msgstr ""
+"La génération de pitchs est maintenant indépendante de la synthése "
+"additionnelle."
 
 #: index.docbook:210
 msgid "added import function for ascii files"
@@ -1655,11 +1765,15 @@ msgstr "Les lablels ASCII sont également sauvegardés via la fréquence."
 
 #: index.docbook:210
 msgid "Label generation according to Period Detection (autocorellation)"
-msgstr "La génération de labels est accordée avec la détection de périodes (autocoréllation)."
+msgstr ""
+"La génération de labels est accordée avec la détection de périodes "
+"(autocoréllation)."
 
 #: index.docbook:210
 msgid "Sonagram, FFTView and Distortion-Dialog now use ScaleWidgets"
-msgstr "Les classes Sonagram, FFTView et Distortion-Dialog utilise maintenant ScaleWidgets."
+msgstr ""
+"Les classes Sonagram, FFTView et Distortion-Dialog utilise maintenant "
+"ScaleWidgets."
 
 #: index.docbook:210
 msgid "New ScaleWidget gives the user more information"
@@ -1667,7 +1781,9 @@ msgstr "Nouvelle classe ScaleWidget qui donne plus d'informations à l'utilisate
 
 #: index.docbook:210
 msgid "Improved ProgressDialog and Interpolation class to allow multiple threads"
-msgstr "Ajout des classes ProgressDialog et Interpolation pour permettre le multithreading."
+msgstr ""
+"Ajout des classes ProgressDialog et Interpolation pour permettre le "
+"multithreading."
 
 #: index.docbook:210
 msgid "fixed some minor bugs"
@@ -1683,7 +1799,9 @@ msgstr "Changements dans la classe curvewidget."
 
 #: index.docbook:210
 msgid "sorting of labels now works without overwriting of QGList::compareItems."
-msgstr "Le tri des lablels fonctionne maintenant sans écraser les opérations de QGList::compareItems."
+msgstr ""
+"Le tri des lablels fonctionne maintenant sans écraser les opérations de "
+"QGList::compareItems."
 
 #: index.docbook:210
 msgid "bug fix for saving selection."
@@ -1707,7 +1825,9 @@ msgstr "0.27"
 
 #: index.docbook:210
 msgid "first release, but never uploaded, because ftp.kde.org was down."
-msgstr "Premiére version, qui n'a jamais été chargée sur ftp.kde.org (serveur FTP non opérationnel)."
+msgstr ""
+"Premiére version, qui n'a jamais été chargée sur ftp.kde.org (serveur FTP "
+"non opérationnel)."
 
 #: index.docbook:1256
 msgid "Installation"
@@ -1724,9 +1844,10 @@ msgid ""
 "informations about the project, as well as informations about current stable "
 "and up-to-date development versions."
 msgstr ""
-"&kapp; a sa propre page WEB à l'adresse <ulink url=\"http://kwave.sourceforge.net/"
-"\"> http://kwave.sourceforge.net/</ulink>. Vous pouvez y trouver davantages d'informations "
-" sur le projet, ainsi que les versions stables et en cours de développement disponibles."
+"&kapp; a sa propre page WEB à l'adresse <ulink url=\"http://kwave."
+"sourceforge.net/\"> http://kwave.sourceforge.net/</ulink>. Vous pouvez y "
+"trouver davantages d'informations  sur le projet, ainsi que les versions "
+"stables et en cours de développement disponibles."
 
 #: index.docbook:1273
 msgid ""
@@ -1736,11 +1857,12 @@ msgid ""
 "mean \"0.2.9\" and was not consistent. The current version numbering starts "
 "from 0.5."
 msgstr ""
-"Certaines anciennes versions de &kapp; peuvent être incluses dans quelques distributions "
-" LINUX. Nous recommendons de ne pas utiliser les versions de &kapp; inférieures "
-" ou égales à la 0.29. De plus, ne il ne faut pas perdre de vue que le numéro de version "
-" annotée \"0.29\" etait incohérent et doit être interprété comme \"0.2.9\"."
-" La numérotation de la version courante a débuté à partir de 0.5."
+"Certaines anciennes versions de &kapp; peuvent être incluses dans quelques "
+"distributions  LINUX. Nous recommendons de ne pas utiliser les versions de "
+"&kapp; inférieures  ou égales à la 0.29. De plus, ne il ne faut pas perdre "
+"de vue que le numéro de version  annotée \"0.29\" etait incohérent et doit "
+"être interprété comme \"0.2.9\". La numérotation de la version courante a "
+"débuté à partir de 0.5."
 
 #: index.docbook:1282
 msgid ""
@@ -1751,12 +1873,14 @@ msgid ""
 "need a rpm package, please let us know or build it on your own like "
 "described in the following chapters."
 msgstr ""
-"Si vous désirez récupérer une version de &kapp;, vous devez télécharger une archive .tar.gz "
-" avec le code source d'une version stable ou d'une version en cours de développement "
-" à partir de la page WEB donné ci-dessus (ou verifier à partir du CVS) et lancer une compilation sur "
-" votre système. N'ayez crainte, cela reste simple même si vous n'étes pas un programmeur. "
-" Si vous avez besoin d'un paquetage RPM, faîte nous le savoir, ou construiser en un sur votre "
-" système comme cela est décrit dans les chapitres qui suivent."
+"Si vous désirez récupérer une version de &kapp;, vous devez télécharger une "
+"archive .tar.gz  avec le code source d'une version stable ou d'une version "
+"en cours de développement  à partir de la page WEB donné ci-dessus (ou "
+"verifier à partir du CVS) et lancer une compilation sur  votre système. "
+"N'ayez crainte, cela reste simple même si vous n'étes pas un programmeur.  "
+"Si vous avez besoin d'un paquetage RPM, faîte nous le savoir, ou construiser "
+"en un sur votre  système comme cela est décrit dans les chapitres qui "
+"suivent."
 
 #: index.docbook:1298
 msgid "Requirements"
@@ -1772,9 +1896,10 @@ msgid ""
 "system, but we have never tested this, please let us know if you get it "
 "working under some other platform / operating system)"
 msgstr ""
-"Un ordinateur sous LINUX (&kapp; peut théoriquement fonctionner sous d'autre "
-" systéme d'exploitation, mais nous avons jamais testé cette possibilité. nous vous remercions de nous "
-"avertir si vous avez réussi a faire fonctionner le logiciel sur une autre plateforme)."
+"Un ordinateur sous LINUX (&kapp; peut théoriquement fonctionner sous "
+"d'autre  systéme d'exploitation, mais nous avons jamais testé cette "
+"possibilité. nous vous remercions de nous avertir si vous avez réussi a "
+"faire fonctionner le logiciel sur une autre plateforme)."
 
 #: index.docbook:1300
 msgid ""
@@ -1782,18 +1907,19 @@ msgid ""
 "with a sound editor if you can't <emphasis>hear</emphasis> the result of "
 "your work?)"
 msgstr ""
-"Un équippement audio pour l'écoute des fichiers sonores (ce n'est pas absolument necessaire, "
-" mais que faire avec un éditeur de pistes audios sans pouvoir <emphasis>écouter</emphasis> "
-" le résultat de son travail)."
+"Un équippement audio pour l'écoute des fichiers sonores (ce n'est pas "
+"absolument necessaire,  mais que faire avec un éditeur de pistes audios sans "
+"pouvoir <emphasis>écouter</emphasis>  le résultat de son travail)."
 
 #: index.docbook:1300
 msgid ""
 "KDE-2.2.1 or higher (at least the libraries, if you are a gnome fan, you can "
 "also run &kapp; if the proper libs are installed)."
 msgstr ""
-"KDE-2.2.1 ou supérieur (ou au moins les bibliothéques appropriées. Si vous êtes un fan "
-" de l'environnement de bureau Gnome, vous pouvez également utilisé &kapp; à partir du "
-" moment que les librairies de KDE sont installées.)."
+"KDE-2.2.1 ou supérieur (ou au moins les bibliothéques appropriées. Si vous "
+"êtes un fan  de l'environnement de bureau Gnome, vous pouvez également "
+"utilisé &kapp; à partir du  moment que les librairies de KDE sont "
+"installées.)."
 
 #: index.docbook:1300
 msgid "qt-2.3 or higher (normally comes with KDE2)"
@@ -1804,8 +1930,8 @@ msgid ""
 "about 10 MB memory for starting &kapp; (but this may vary depending on your "
 "platform and configuration)"
 msgstr ""
-"A peut prés 10 Mo de mémoire pour lancer &kapp; (mais cela peut varier de votre plateforme "
-" et de votre configuration)."
+"A peut prés 10 Mo de mémoire pour lancer &kapp; (mais cela peut varier de "
+"votre plateforme  et de votre configuration)."
 
 #: index.docbook:1329
 msgid "If you intend to compile &kapp; from the sources, you will also need:"
@@ -1816,39 +1942,40 @@ msgid ""
 "A C/C++ compiler. GCC-2.95.3 works fine, some older and any newer version "
 "should work too. (Note: gcc-3.0 is not yet supported, it wil not work!)"
 msgstr ""
-"Un compilateur C/C++. GCC-2.95.3 fonctionne correctement, et quelques anciennes et "
-" nouvelles version fonctionnent également. (Nota : gcc-3.0 n'est pas encore complétement "
-"supporté. Il n'est pas encore utilisable !)"
+"Un compilateur C/C++. GCC-2.95.3 fonctionne correctement, et quelques "
+"anciennes et  nouvelles version fonctionnent également. (Nota : gcc-3.0 "
+"n'est pas encore complétement supporté. Il n'est pas encore utilisable !)"
 
 #: index.docbook:1329
 msgid ""
 "The glibc2 (libc-6) development environment. On SuSE systems the package is "
 "called \"libc\", on other systems it might be called \"libc-devel\"."
 msgstr ""
-"La bibliothéque de développement glibc2 (libc-6). Sur la distribution SuSE Linux, le paquetage "
-" s'appel \"libc\". Sur d'autres systèmes il peut s'appeler \"libc-devel\"."
+"La bibliothéque de développement glibc2 (libc-6). Sur la distribution SuSE "
+"Linux, le paquetage  s'appel \"libc\". Sur d'autres systèmes il peut "
+"s'appeler \"libc-devel\"."
 
 #: index.docbook:1329
 msgid ""
 "The KDE2 development environment: \"kdelibs-devel\", \"kdemultimedia-devel"
 "\", \"kdesdk-2\"."
 msgstr ""
-"L'environnement de développement de KDE2 : \"kdelibs-devel\", \"kdemultimedia-devel"
-"\", et \"kdesdk-2\"."
+"L'environnement de développement de KDE2 : \"kdelibs-devel\", "
+"\"kdemultimedia-devel\", et \"kdesdk-2\"."
 
 #: index.docbook:1329
 msgid ""
 "The Qt development environment, the package is normally called \"qt-devel\" "
 "or similar."
 msgstr ""
-"L'environnement de developpemnt Qt. Le paquetage s'appel normalement \"qt-devel\" "
-"ou quelquechose de similaire."
+"L'environnement de developpemnt Qt. Le paquetage s'appel normalement \"qt-"
+"devel\" ou quelquechose de similaire."
 
 #: index.docbook:1329
 msgid "If you intend to use CVS, you will also need a current cvs package."
 msgstr ""
-"Si vous désirez utiliser CVS, il vous faut aussi la version courrante du paquetage "
-" correspondant à CVS."
+"Si vous désirez utiliser CVS, il vous faut aussi la version courrante du "
+"paquetage  correspondant à CVS."
 
 #: index.docbook:1363
 msgid "Manual Compilation and installation"
@@ -1859,9 +1986,9 @@ msgid ""
 "In order to compile and install &kapp; on your system, type the following in "
 "the base directory of the source distribution:"
 msgstr ""
-"Dans l'ordre, pour compiler and installer &kapp; sur votre systeme, vous devez tapez les lignes "
-" de commande qui suivent dans le répertoire de base ou vous avez copié les sources du "
-" programme :"
+"Dans l'ordre, pour compiler and installer &kapp; sur votre systeme, vous "
+"devez tapez les lignes  de commande qui suivent dans le répertoire de base "
+"ou vous avez copié les sources du  programme :"
 
 #: index.docbook:1365
 msgid ""
@@ -1883,9 +2010,10 @@ msgid ""
 "it. Should you run into problems please report them to the &kapp; <link "
 "linkend=\"mailing-list\">mailing list</link>."
 msgstr ""
-"Depuis que &kapp; utilise autoconf et automake vous ne devez pas avoir de problémes "
-" particuliers lors de la compilation. Envoyer nous la liste de vos problèmes sur la compilation "
-" de &kapp; en nous contactant sur la <link linkend=\"mailing-list\">liste de diffusion</link>."
+"Depuis que &kapp; utilise autoconf et automake vous ne devez pas avoir de "
+"problémes  particuliers lors de la compilation. Envoyer nous la liste de vos "
+"problèmes sur la compilation  de &kapp; en nous contactant sur la <link "
+"linkend=\"mailing-list\">liste de diffusion</link>."
 
 #: index.docbook:1382
 msgid ""
@@ -1893,10 +2021,11 @@ msgid ""
 "compiling. Then you should set the following environment variable to specify "
 "the correct paths of your Qt installation and try again:"
 msgstr ""
-"Si vous utilisez une ancienne version de QT sur votre système comme la bibliothéque Qt-1, vous aurrez "
-" problablement des problèmes lors de la compilation. Vous devrez certainement configurer "
-" les variables d'environnement pour spécifier les chemins d'accés corrects à la "
-" bibliothéque Qt :"
+"Si vous utilisez une ancienne version de QT sur votre système comme la "
+"bibliothéque Qt-1, vous aurrez  problablement des problèmes lors de la "
+"compilation. Vous devrez certainement configurer  les variables "
+"d'environnement pour spécifier les chemins d'accés corrects à la  "
+"bibliothéque Qt :"
 
 #: index.docbook:1382
 msgid "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>"
@@ -1920,13 +2049,15 @@ msgid ""
 "\"cvs_checkout\">chapter about CVS</link>) and read the <link linkend="
 "\"building_rpm_from_cvs\">next</link> chapter."
 msgstr ""
-"Si vous utilisez un système qui supporte les RPM, la solution la plus simple pour installer "
-" &kapp; sur votre systéme sera la création d'un paquetage RPM. Premiérement, vous devez "
-" récupérer les sources de &kapp;, tel que l'archive tar.gz disponible sur la page WEB de "
-" téléchargement de &kapp; ou une copie de la derniére version des sources via le "
-" <link linkend=\"cvs-repository\">serveur CVS</link> (comme cela est décrit dans le "
-" chapitre concernant le <link linkend=\"cvs_checkout\">CVS</link>), et lisez le chapitre "
-" concernant la <link linkend=\"building_rpm_from_cvs\">compilation d'un RPM à partir du CVS</link>."
+"Si vous utilisez un système qui supporte les RPM, la solution la plus simple "
+"pour installer  &kapp; sur votre systéme sera la création d'un paquetage "
+"RPM. Premiérement, vous devez  récupérer les sources de &kapp;, tel que "
+"l'archive tar.gz disponible sur la page WEB de  téléchargement de &kapp; ou "
+"une copie de la derniére version des sources via le  <link linkend=\"cvs-"
+"repository\">serveur CVS</link> (comme cela est décrit dans le  chapitre "
+"concernant le <link linkend=\"cvs_checkout\">CVS</link>), et lisez le "
+"chapitre  concernant la <link linkend=\"building_rpm_from_cvs\">compilation "
+"d'un RPM à partir du CVS</link>."
 
 #: index.docbook:1415
 msgid ""
@@ -1937,18 +2068,19 @@ msgid ""
 "<literal>sparc</literal> or whatever, <replaceable>XXX</replaceable> stands "
 "for the version number you have downloaded)."
 msgstr ""
-"Si vous avez téléchargé une archive tar.gz de &kapp;, créez et installez les "
-" RPMs en éffectuant juste les actions suivantes (où <replaceable>[arch]</replaceable> "
-" corespond à la plateforme pour laquelle vous allez compiler le paquetage et "
-" peut prendre les valeurs comme <literal>i386</literal>, <literal>i586</literal>, "
-"<literal>sparc</literal>, etc..., et où <replaceable>XXX</replaceable> correspond "
-" au numéro de version de l'application que vous avez téléchargé)."
+"Si vous avez téléchargé une archive tar.gz de &kapp;, créez et installez "
+"les  RPMs en éffectuant juste les actions suivantes (où <replaceable>[arch]</"
+"replaceable>  corespond à la plateforme pour laquelle vous allez compiler le "
+"paquetage et  peut prendre les valeurs comme <literal>i386</literal>, "
+"<literal>i586</literal>, <literal>sparc</literal>, etc..., et où "
+"<replaceable>XXX</replaceable> correspond  au numéro de version de "
+"l'application que vous avez téléchargé)."
 
 #: index.docbook:1426
 msgid "To build the &kapp; package and install it do:"
 msgstr ""
-"Pour construire et installer le paquetage de &kapp; vous devez tapez les lignes de "
-" commande suivantes :"
+"Pour construire et installer le paquetage de &kapp; vous devez tapez les "
+"lignes de  commande suivantes :"
 
 #: index.docbook:1426
 msgid ""
@@ -1968,9 +2100,9 @@ msgid ""
 "<filename>/usr/src/packages</filename> instead of <filename>/usr/src/redhat</"
 "filename> !"
 msgstr ""
-"<emphasis>Pour les utilisateurs d'une distribution SuSE LINUX </emphasis> vous devez "
-" spécifier le répertoire <filename>/usr/src/packages</filename> à la place de "
-" <filename>/usr/src/redhat</filename> !"
+"<emphasis>Pour les utilisateurs d'une distribution SuSE LINUX </emphasis> "
+"vous devez  spécifier le répertoire <filename>/usr/src/packages</filename> à "
+"la place de  <filename>/usr/src/redhat</filename> !"
 
 #: index.docbook:1441
 msgid ""
@@ -1978,9 +2110,10 @@ msgid ""
 "this chapter. If rpm was unable to build the packages and says something "
 "like \"spec file not found\", then go on and read the rest of this section."
 msgstr ""
-"Si vous n'avez pas de messages d'erreurs, vous pouvez alors passer le reste de ce chapitre. "
-" Si l'utilitaire 'rpm' est incapable de construire les paquetages et qu'un message du genre "
-" \"spec file not found\" est affiché, alors le reste du chapitre vous sera utile."
+"Si vous n'avez pas de messages d'erreurs, vous pouvez alors passer le reste "
+"de ce chapitre.  Si l'utilitaire 'rpm' est incapable de construire les "
+"paquetages et qu'un message du genre  \"spec file not found\" est affiché, "
+"alors le reste du chapitre vous sera utile."
 
 #: index.docbook:1448
 msgid ""
@@ -1989,10 +2122,12 @@ msgid ""
 "3.0.4) didn't work. You should update your rpm package, e.g. from <ulink url="
 "\"ftp://ftp.suse.com/pub/suse_update/\">the SuSE ftp server</ulink>."
 msgstr ""
-"Le support de la commande <command>rpm -ta ...</command> peut etre inopérante suivant "
-" les versions de l'utilitaire 'rpm'. Par exemple, le programme 'rpm' original fourni avec la distribution "
-" SuSE-6.4 (rpm-3.0.4) ne fonctionne pas. Vous devez mettre à jour le paquetage correspond, à "
-" partir du <ulink url=\"ftp://ftp.suse.com/pub/suse_update/\">serveur ftp de SUSE</ulink>."
+"Le support de la commande <command>rpm -ta ...</command> peut etre "
+"inopérante suivant  les versions de l'utilitaire 'rpm'. Par exemple, le "
+"programme 'rpm' original fourni avec la distribution  SuSE-6.4 (rpm-3.0.4) "
+"ne fonctionne pas. Vous devez mettre à jour le paquetage correspond, à  "
+"partir du <ulink url=\"ftp://ftp.suse.com/pub/suse_update/\">serveur ftp de "
+"SUSE</ulink>."
 
 #: index.docbook:1459
 msgid "With broken rpm -ta support"
@@ -2003,8 +2138,9 @@ msgid ""
 "If you can't get <command>rpm -ta</command> working, here are the steps for "
 "making that manually (the hard way):"
 msgstr ""
-"Si vous ne pouvez pas exécuter la commande <command>rpm -ta</command>, "
-" il existe plusieurs solutions pour réaliser cette tâche manuellement (solutions délicates) :"
+"Si vous ne pouvez pas exécuter la commande <command>rpm -ta</command>,  il "
+"existe plusieurs solutions pour réaliser cette tâche manuellement (solutions "
+"délicates) :"
 
 #: index.docbook:1466
 msgid ""
@@ -2012,9 +2148,10 @@ msgid ""
 "filename> for the redhat distribution or <filename>/usr/src/packages</"
 "filename> if you have the SuSE distribution."
 msgstr ""
-"Aller dans le répertoire \"principal\" de stockage des RPM de votre système. Normalement, "
-" celui-çi est <filename>/usr/src/redhat</filename> pour une distribution du type Redhat "
-" or <filename>/usr/src/packages</filename> pour la distribution SuSE."
+"Aller dans le répertoire \"principal\" de stockage des RPM de votre système. "
+"Normalement,  celui-çi est <filename>/usr/src/redhat</filename> pour une "
+"distribution du type Redhat  or <filename>/usr/src/packages</filename> pour "
+"la distribution SuSE."
 
 #: index.docbook:1466
 msgid ""
@@ -2029,8 +2166,9 @@ msgid ""
 "Put the tar.gz archive into the SOURCES subdirectory (you have to replace "
 "\"somewhere\" with the real directory where the files are, of course)."
 msgstr ""
-"Mettre l'archive tar.gz dans le sous-répertoire SOURCES (bien sur, vous devez remplacer "
-" \"NomRépertoire\" avec le nom du réperoire qui contient vorte archive tar.gz)."
+"Mettre l'archive tar.gz dans le sous-répertoire SOURCES (bien sur, vous "
+"devez remplacer  \"NomRépertoire\" avec le nom du réperoire qui contient "
+"vorte archive tar.gz)."
 
 #: index.docbook:1466
 msgid ""
@@ -2045,8 +2183,8 @@ msgid ""
 "Extract the spec file from the archives and put it into the SPEC "
 "subdirectory."
 msgstr ""
-"Extraire le fichier de specification (.spec) de l'archive tar.gz et copiez le "
-"dans le sous-répertoire SPEC."
+"Extraire le fichier de specification (.spec) de l'archive tar.gz et copiez "
+"le dans le sous-répertoire SPEC."
 
 #: index.docbook:1466
 msgid ""
@@ -2063,10 +2201,14 @@ msgid ""
 "<literal>-ba</literal>, or just <literal>-bs</literal> to build only a "
 "source package."
 msgstr ""
+"Le programme rpm compilera et construira le paquetage rpm de &kapp;. Si vous voulez seulement "
+" construire un paquetage contenant les exécutables, vous pouvez spécifier le paramètre "
+"<literal>-bb</literal> à la place de <literal>-ba</literal>, ou juste <literal>-bs</literal> pour construire "
+" un paquetage contenant les sources."
 
 #: index.docbook:1466
 msgid "<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>"
-msgstr ""
+msgstr "<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>"
 
 #: index.docbook:1466
 msgid ""
@@ -2075,20 +2217,26 @@ msgid ""
 "please remove it first or use the parameter <literal>-U</literal> instead of "
 "<literal>-i</literal> for upgrading instead of installing."
 msgstr ""
+"Si tout se passe correctement, vous pouvez installer le paquetage rpm contenant les exécutables "
+" de &kapp;, celui-çi étant stocké dans le sous répertoire BUILD. Si vous avez déjà une version de &kapp; "
+" installée sur votre système, vous devez tout d'abors désinstaller celui-çi en premier ou utiliser le paramêtre "
+" <literal>-U</literal> à la place de <literal>-i</literal> pour mettre à jour automatiquement le paquetage."
 
 #: index.docbook:1466
 msgid ""
 "<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX."
 "[arch].rpm</replaceable></command>"
 msgstr ""
+"<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX."
+"[arch].rpm</replaceable></command>"
 
 #: index.docbook:1528
 msgid "Building RPM packages from CVS"
-msgstr ""
+msgstr "La construction d'un paquetage RPM à partir du CVS"
 
 #: index.docbook:1530
 msgid "Checking out the sources"
-msgstr ""
+msgstr "La vérification des mises à jour des sources"
 
 #: index.docbook:1532
 msgid ""
@@ -2099,12 +2247,20 @@ msgid ""
 "your provider doesn't give you full access. A good place for the source "
 "files will be <filename>\"$HOME/src\"</filename>."
 msgstr ""
+"Pour initialement vérifier la mise à jour des sources sur le CVS, vous avez besoin d'un espace "
+" disque conséquent (environ 70 Mo) dans le répertoire de votre choix, du paquetage correspondant "
+" au programme cvs dédié à votre distribution, et d'un accés complet à internet. Si vous recevez un message "
+" d'erreur pour des connections qui sont rejetées, soit vous avez tapé des commandes incorrectes, "
+" soit votre fournisseur d'accés à internet n'autorise pas certaine connection depuis votre système."
+" Le meilleur endroit pour stocker les fichiers sources est <filename>\"$HOME/src\"</filename>."
 
 #: index.docbook:1541
 msgid ""
 "First create the directory that will receive the subdirectoy with &kapp; "
 "sources and change into it:"
 msgstr ""
+"En premier lieu, vous devez créé le repertoire où vous allez recevoir le sous-repertoire "
+"qui stockera les sources de &kapp; :"
 
 #: index.docbook:1541
 msgid ""
@@ -2112,6 +2268,9 @@ msgid ""
 "command>\n"
 "<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>"
 msgstr ""
+"<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></"
+"command>\n"
+"<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>"
 
 #: index.docbook:1541
 msgid ""
@@ -2123,12 +2282,21 @@ msgid ""
 "</screen> Then the server asks you for a password. Simply press enter, as we "
 "do not have a password for anonymous access."
 msgstr ""
+"Ensuite vous devez vous connectez au serveur CVS. Vous allez utiliser le compte anonyme à l'aide "
+" de la commande suivante : <screen width=\"75\" format="
+"\"linespecific\">\n"
+"<prompt>% </prompt><command>cvs -d:pserver:anonymous@cvs.kwave.sourceforge."
+"net:/cvsroot/kwave login</command>\n"
+"</screen> Le serveur vous demandera alors un mot de passe. Appuyer simplement sur la touche 'Entrée'. "
+" Il n'y a pas de mot de passe pour le compte anonyme."
 
 #: index.docbook:1541
 msgid ""
 "<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave."
 "sourceforge.net:/cvsroot/kwave co kwave</command>"
 msgstr ""
+"<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave."
+"sourceforge.net:/cvsroot/kwave co kwave</command>"
 
 #: index.docbook:1568
 msgid ""
@@ -2137,10 +2305,14 @@ msgid ""
 "program will complain about already existing files and the checkout will not "
 "work."
 msgstr ""
+"Il <emphasis>ne doit pas</emphasis> y avoir de répertoire nommé <filename>kwave</"
+"filename> dans le répertoire où vous aller stocker les sources en provenance du CVS. En effet "
+" si tel est le cas, le programme cvs envera un message d'erreur indiquant qu'il existe déjà un "
+" répertoire de ce nom et le téléchargement des sources sur votre machine échouera."
 
 #: index.docbook:1578
 msgid "Updating sources from CVS"
-msgstr ""
+msgstr "La mise à jour les sources à partir du CVS"
 
 #: index.docbook:1579
 msgid ""
@@ -2152,10 +2324,17 @@ msgid ""
 "<prompt>% </prompt><command>cvs update</command>\n"
 "</screen> Then go on to the next section and compile as usual."
 msgstr ""
+"La procédure décrite précédemment est seulement nécéssaire la premiére fois. L'opération est "
+" plus simple et plus rapide lorsqu'on fait une mise à jour. Mettez vous dans le "
+" sous répertoire que vous souhaitez mettre à jour et tappez les commandes suivantes : "
+" <screen width=\"75\" format=\"linespecific\">\n"
+"<prompt>% </prompt><command>make clean</command>\n"
+"<prompt>% </prompt><command>cvs update</command>\n"
+"</screen> Vous pouvez alors passer à la section suivante pour faire une compilation du programme."
 
 #: index.docbook:1592
 msgid "Compiling"
-msgstr ""
+msgstr "La compilation"
 
 #: index.docbook:1593
 msgid ""
@@ -2168,6 +2347,13 @@ msgid ""
 "<literal>sparc</literal> or whatever, <replaceable>XXX</replaceable> stands "
 "for the version number you have checked out."
 msgstr ""
+"Construire un paquetage RPM à partir des sources du CVS est une chose assez facile à réaliser. "
+" La procédure est presque la même que celle décrite dans la section précédente, et "
+" malheureusement on a le même problème avec la commande <command>rpm -ta</command>. "
+" Comme dans le chapitre précédent, l'option <replaceable>[arch]</replaceable> permet d'indiquer le type "
+" de plateforme pour laquelle vous allez construire le paquetage. Les valeurs possibles peuvent être "
+" <literal>i386</literal>, <literal>i586</literal>, <literal>sparc</literal>, etc..., et l'option "
+" <replaceable>XXX</replaceable> indiquera le numéro de version de l'application."
 
 #: index.docbook:1606
 msgid ""
@@ -2175,6 +2361,9 @@ msgid ""
 "directory <filename>/usr/src/packages</filename> instead of <filename>/usr/"
 "src/redhat</filename> too!"
 msgstr ""
+"<emphasis>Pour les utilisateurs de la distribution SuSE LINUX : </emphasis> vous devez également "
+" indiquer le nom du répertoire de stockage des paquetages en remplaçant <filename>/usr/src/packages</filename> "
+" par <filename>/usr/src/redhat</filename> !"
 
 #: index.docbook:1613
 msgid ""
@@ -2184,6 +2373,10 @@ msgid ""
 "<literal>rpm -U</literal> instead of <literal>rpm -i</literal> for updating "
 "instead of installing."
 msgstr ""
+"Vous devez être le superutilisateur ROOT pour faire la mise à jour à partir du CVS, "
+" construire le paquetage de &kapp;, et l'installer. Si vous avez déjà une version de &kapp; installée sur votre système, "
+" vous devez désinstallé celle-çi en premier lieu ou utiliser l'option <literal>rpm -U</literal> à la place de "
+" <literal>rpm -i</literal> pour faire une mise à jour automatique."
 
 #: index.docbook:1613
 msgid ""
@@ -2194,6 +2387,12 @@ msgid ""
 "<prompt>% </prompt><command>rpm -i /usr/src/redhat/BUILD/<replaceable>[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
 msgstr ""
+"<prompt>% </prompt><command>cd kwave</command>\n"
+"<prompt>% </prompt><command>make -f Makefile.dist</command>\n"
+"<prompt>% </prompt><command>./configure</command>\n"
+"<prompt>% </prompt><command>make rpm</command>\n"
+"<prompt>% </prompt><command>rpm -i /usr/src/redhat/BUILD/<replaceable>[arch]/"
+"kwave-XXX.[arch].rpm</replaceable></command>"
 
 #: index.docbook:1629
 msgid ""
@@ -2202,10 +2401,14 @@ msgid ""
 "follow the instructions in the <link linkend=\"manual_rpm_creation"
 "\">previous</link> chapter."
 msgstr ""
+"Si vous avez des problèmes avec la commande <command>make rpm</command>, vous trouverez "
+" l'archive tar.gz qui a été construite dans le répertoire <filename>/tmp</filename>. Vous pouvez ensuite "
+" suivre les instructions de création d'un RPM dans le <link linkend=\"manual_rpm_creation"
+"\">précédent</link> chapitre."
 
 #: index.docbook:1645
 msgid "Relocating the binary RPM packages"
-msgstr ""
+msgstr "Indiquer un emplacement d'installation pour les éxécutables d'un paquetage RPM"
 
 #: index.docbook:1647
 msgid ""
@@ -2215,6 +2418,11 @@ msgid ""
 "directory. This feature is very useful to install a package compiled for "
 "SuSE under a RedHat system or vice-versa."
 msgstr ""
+"Les exécutables d'un paquetage RPM de &kapp; sont \"<emphasis>relogeables</emphasis>\". "
+"Vous pouvez construire un paquetage RPM sur un système équipé des répertoires de KDE2 "
+" et installer les exécutables dans un répertoire différent sur un autre système. Cette carractéristique "
+" est trés pratique pour installer un paquetage compilé sur une distribtion SUSE sur une distribution "
+" RedHat ou vice-versa."
 
 #: index.docbook:1656
 msgid ""
@@ -2224,12 +2432,18 @@ msgid ""
 "filename>). Then just give a different prefix when installing the rpm. "
 "Example:"
 msgstr ""
+"Par exemple : vous prenez le paquetage RPM des exécutables d'un ami qui a une "
+" distribution RedHat (où le répertoire de KDE2 est <filename>/usr</filename>) et vous "
+" souhaitez l'installer sur une distribution SuSE (où le répertoire de KDE2 est <filename>/opt/kde</"
+"filename>). Vous avez juste à passer un paramètre différent quand vous installez le paquetage :"
 
 #: index.docbook:1656
 msgid ""
 "<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-"
 "0.6.0.i386.rpm</replaceable></command>"
 msgstr ""
+"<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-"
+"0.6.0.i386.rpm</replaceable></command>"
 
 #: index.docbook:1668
 msgid ""
@@ -2240,10 +2454,14 @@ msgid ""
 "&kapp; would be unable to find it's menu configuration, plugins, preset "
 "files and so on..."
 msgstr ""
+"Cela modifie le chemin où le programme sera installé. Il est grandement recommendé que "
+" ce repertoire ou le répertoire renvoyé par la commande <command>kde-config --prefix</command> "
+" soit contenu dans la variable d'environnement <symbol>KDEDIRS</symbol>. Dans le cas contraire, "
+" &kapp; ne pourra pas trouver la configuration des menus, les plugins, les valeurs par défaut, etc..."
 
 #: index.docbook:1687
 msgid "RPM optimizations"
-msgstr ""
+msgstr "Les optimisations la construction d'un paquetage RPM"
 
 #: index.docbook:1689
 msgid ""
@@ -2262,6 +2480,20 @@ msgid ""
 "net/duesti/rpmopt.de.html\"> http://www.keywarrior.net/duesti/rpmopt.en."
 "html</ulink>. Thanks to Matthias Düsterhöft!)."
 msgstr ""
+"Oui, vous pouvez compiler les paquetages RPM avec les optimisations pour un processeur "
+" pentium ou pentium pro (ou d'autres CPUs) en utilisant quelques définitions dans votre fichier 'rpmrc'. "
+" Vous pouvez modifier soit votre fichier système /etc/rpmrc ou le fichier .rpmrc dans votre répertoire "
+" personnel. Vous aller y spécifier les options en ligne de commande comme suit : "
+"<screen width=\"40\" format=\"linespecific\">\n"
+"<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
+"i386 -O2 -m486 -DNDEBUG</userinput>\n"
+"<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
+"i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</userinput>\n"
+"<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
+"i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</userinput>\n"
+"</screen> (J'ai trouvé ces options sur <ulink url=\"http://www.keywarrior."
+"net/duesti/rpmopt.de.html\"> http://www.keywarrior.net/duesti/rpmopt.en."
+"html</ulink>. Remerciements à Matthias Düsterhöft !)."
 
 #: index.docbook:1711
 msgid ""
@@ -2271,6 +2503,11 @@ msgid ""
 "before in all places where \"rpm -ta\" is used or wher a binary RPM is to be "
 "created out of a source rpm using \"rpm --rebuild\"."
 msgstr ""
+"Cela permet de compiler les paquetages RPM pour une architecture i586 en utilisant "
+" \"-march=pentium\" comme option de compilation. Vous pouvez ajouter ou adapter ces options "
+" selon vos besoins. Le paramétrage s'applique à l'ensemble des opérations décrites à la section "
+" précédente à chaque fois que l'on utilise la commande \"rpm -ta\", ou quand un paquetage RPM d'exécutable "
+" est construit à partir d'un paquetage source en utilisant la commande \"rpm --rebuild\"."
 
 #: index.docbook:1720
 msgid ""
@@ -2280,16 +2517,23 @@ msgid ""
 "\"manual_compilation\">Manual compilation</link>, you can set this variable "
 "manually and get the same effect. For example:"
 msgstr ""
+"Les options spécifiées ici sont activées dans la variable d'environnement RPM_OPT_FLAGS "
+" pendant la phase de compilation. Si vous n'avez pas un environnement basé sur le programme "
+" rpm et que vous avez compilé l'application comme décrit dans le chapitre traitant de la <link linkend="
+"\"manual_compilation\">compilation manuelle</link>, vous pouvez activer cette variable manuellement "
+" et obtenir le même effet. Par example :"
 
 #: index.docbook:1720
 msgid ""
 "<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O2 -march=pentium -fomit-"
 "frame-pointer\"</command>"
 msgstr ""
+"<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O2 -march=pentium -fomit-"
+"frame-pointer\"</command>"
 
 #: index.docbook:1740
 msgid "Compiler Optimizations"
-msgstr ""
+msgstr "Les optimisations de compilation"
 
 #: index.docbook:1742
 msgid ""
@@ -2999,8 +3243,8 @@ msgid ""
 "Not for the moment, but maybe someone writes us a plugin for MP3 import / "
 "export?"
 msgstr ""
-"Pas pour le moment, mais peut être qu'une personne a écrit un plugin pour "
-" l'importation et l'exportation des fichiers MP3 ?"
+"Pas pour le moment, mais peut être qu'une personne a écrit un plugin pour  "
+"l'importation et l'exportation des fichiers MP3 ?"
 
 #: index.docbook:2855
 msgid "Credits and License"
@@ -3015,8 +3259,8 @@ msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
 "de</email>"
 msgstr ""
-"Programme sous copyright de 1998 à 2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
-"de</email>"
+"Programme sous copyright de 1998 à 2000 Martin Wilz <email>mwilz@ernie.mi."
+"uni-koeln.de</email>"
 
 #: index.docbook:2863
 msgid ""
@@ -3036,7 +3280,9 @@ msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
 #: index.docbook:2868
 msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage, german translation)"
-msgstr "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en Allemand)"
+msgstr ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en "
+"Allemand)"
 
 #: index.docbook:2868
 msgid "Juhana Kouhia"
@@ -3115,8 +3361,8 @@ msgid ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (for information "
 "about RPM optimization) </emphasis>"
 msgstr ""
-"Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (pour toutes les informations "
-"concernant les optimisations sur les RPM) </emphasis>"
+"Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (pour toutes les "
+"informations concernant les optimisations sur les RPM) </emphasis>"
 
 #: index.docbook:2902
 msgid "Klaus Hendrik Lorenz"

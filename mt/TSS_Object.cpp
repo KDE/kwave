@@ -25,6 +25,13 @@
 
 #include "mt/TSS_Object.h"
 
+#if 0
+
+### this would require -liberty on SuSE-9.0, or no special linker flag
+    on all other distributions.
+    so I decided to avoid trouble and leave this feature completely out!
+    maybe I re-introduce it in v0.7.2 (THE, 2004-05-11)
+
 #ifdef HAVE_DEMANGLE_H
 extern "C" {
 #include <demangle.h>
@@ -57,7 +64,7 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
 
 	if (obj_name) {
 	    /* try to demangle the symbol name */
-#ifdef HAVE_DEMANGLE_H	
+#ifdef HAVE_DEMANGLE_H
             char *res = cplus_demangle(obj_name,
 	                               DMGL_ANSI | DMGL_PARAMS | DMGL_AUTO);
 	    if (res) {
@@ -65,11 +72,11 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
 		qWarning("cleanup handler for class %s", res);
 		free(res);
 	    } else {
-#endif // HAVE_DEMANGLE_H	
+#endif // HAVE_DEMANGLE_H
 		qWarning("cleanup handler for class `%s'", obj_name);
-#ifdef HAVE_DEMANGLE_H	
+#ifdef HAVE_DEMANGLE_H
 	    }
-#endif // HAVE_DEMANGLE_H	
+#endif // HAVE_DEMANGLE_H
 	} else {
 	    qWarning("cleanup handler for unknown class `%s'", obj_name);
 	}
@@ -93,6 +100,7 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
 unsigned int TSS_Object::m_count(0); // for number of instances
 
 //static Mutex _lock;
+#endif /* 0 */
 
 //***************************************************************************
 TSS_Object::TSS_Object()

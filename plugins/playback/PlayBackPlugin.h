@@ -144,6 +144,7 @@ private:
 
     /** command flag for stopping the playback thread */
     bool m_stop;
+
 };
 
 //*****************************************************************************

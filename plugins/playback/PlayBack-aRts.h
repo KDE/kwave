@@ -32,7 +32,7 @@ class PlayBackArts: public PlayBackDevice
 public:
 
     /** Default constructor */
-    PlayBackArts();
+    PlayBackArts(Mutex &arts_lock);
 
     /** Destructor */
     virtual ~PlayBackArts();
@@ -41,7 +41,7 @@ public:
      * Opens the device for playback.
      * @see PlayBackDevice::open
      */
-    virtual QString open(const QString &device, unsigned int rate,
+    virtual QString open(const QString &, unsigned int rate,
                          unsigned int channels, unsigned int bits,
                          unsigned int bufbase);
 
@@ -61,9 +61,6 @@ protected:
 
     /** Writes the output buffer to the device */
     void flush();
-
-    /** Name of the output device */
-    QString m_device_name;
 
     /** Playback stream for aRts */
     arts_stream_t m_stream;
@@ -86,8 +83,14 @@ protected:
     /** number of bytes in the buffer */
     unsigned int m_buffer_used;
 
-//    /** the static global lock for aRts, artsc is not threadsafe ! */
-//    static Mutex *m_lock_aRts;
+    /** reference to the global lock for aRts, artsc is not threadsafe ! */
+    Mutex &m_lock_aRts;
+
+    /**
+     * True if the playback is closed. Needed because it can happen that
+     * close() is called multiple times, even if already closed.
+     */
+    bool m_closed;
 
 };
 

@@ -17,6 +17,7 @@
 
 #include <errno.h>
 #include "mt/MutexGuard.h"
+#include "mt/ThreadsafeX11Guard.h"
 #include <klocale.h>
 #include "PlayBack-aRts.h"
 
@@ -26,22 +27,23 @@
 /** use at most 2^16 = 65536 bytes for playback buffer */
 #define MAX_PLAYBACK_BUFFER 16U
 
-static Mutex *m_lock_aRts = 0;
-static int arts_usage = 0;
+/** Usage counter for arts_init/artl_free */
+static int g_arts_usage = 0;
 
 //***************************************************************************
-PlayBackArts::PlayBackArts()
+PlayBackArts::PlayBackArts(Mutex &arts_lock)
     :PlayBackDevice(),
-    m_device_name(),
     m_stream(0),
     m_rate(0),
     m_channels(0),
     m_bits(0),
     m_buffer(),
     m_buffer_size(0),
-    m_buffer_used(0)
+    m_buffer_used(0),
+    m_lock_aRts(arts_lock),
+    m_closed(true)
 {
-    if (!m_lock_aRts) m_lock_aRts = new Mutex();
+    debug("PlayBackArts::PlayBackArts(%p)", &arts_lock);
 }
 
 //***************************************************************************
@@ -51,25 +53,27 @@ PlayBackArts::~PlayBackArts()
 }
 
 //***************************************************************************
-QString PlayBackArts::open(const QString &device, unsigned int rate,
+QString PlayBackArts::open(const QString &, unsigned int rate,
                            unsigned int channels, unsigned int bits,
                            unsigned int bufbase)
 {
-    debug("PlayBackArts::open(device=%s,rate=%u,channels=%u,"\
-	  "bits=%u, bufbase=%u)", device.data(), rate, channels,
+    debug("PlayBackArts::open(rate=%u,channels=%u,"\
+	  "bits=%u, bufbase=%u)", rate, channels,
 	  bits, bufbase);
 
-    m_device_name = device;
     m_rate        = rate;
     m_channels    = channels;
     m_bits        = bits;
     m_buffer_size = 0;
     m_buffer_used = 0;
     m_stream      = 0;
-    MutexGuard lock(*m_lock_aRts);
+    MutexGuard lock(m_lock_aRts);
+
+    ASSERT(m_closed);
+    m_closed = false;
 
     // initialize aRts playback
-    if (!arts_usage) {
+    if (!g_arts_usage) {
 	int errorcode = arts_init();
 	if (errorcode < 0) {
 	    warning("PlayBackArts::open(): arts_init error: %s",
@@ -77,13 +81,14 @@ QString PlayBackArts::open(const QString &device, unsigned int rate,
 	    return i18n(arts_error_text(errorcode));
         }
     }
-    arts_usage++;
+    g_arts_usage++;
 
     // open the stream
     m_stream = arts_play_stream(m_rate, m_bits, m_channels, "?");
     ASSERT(m_stream);
     if (!m_stream) return i18n("unable to open aRts playback stream");
     debug("PlayBackArts::open(): stream opened");
+    m_closed = false;
 
     // calculate the buffer size and limit it if necessary
     // ask aRts for the optimum and ignore the user's setting
@@ -148,16 +153,17 @@ void PlayBackArts::flush()
 {
     if (!m_buffer_used) return; // nothing to do
     ASSERT(m_buffer_used <= m_buffer_size);
-    debug("PlayBackArts::flush()");
 
     ASSERT(m_stream);
     if (m_stream) {
-	MutexGuard lock(*m_lock_aRts);
+	MutexGuard lock(m_lock_aRts);
+	
 	int errorcode = arts_write(m_stream, m_buffer.data(), m_buffer_used);
 	if (errorcode < 0) {
 	    warning("PlayBackArts: arts_write error: %s",
 	             arts_error_text(errorcode));
 	}
+
     }
     m_buffer_used = 0;
 }
@@ -165,19 +171,23 @@ void PlayBackArts::flush()
 //***************************************************************************
 int PlayBackArts::close()
 {
-    debug("PlayBackArts::close()");
+    debug("PlayBackArts::close() [pid %d]",(int)pthread_self());
     flush();
 
-    // close the playback stream
     {
-	MutexGuard lock(*m_lock_aRts);
-	if (m_stream) {
-	    arts_usage--;
-	    if (!arts_usage) arts_close_stream(m_stream);
-	}
-	m_stream = 0;
+	MutexGuard lock(m_lock_aRts);
 	
-	arts_free();
+	// close the playback stream
+	if (m_stream) arts_close_stream(m_stream);
+	
+	if (!m_closed && g_arts_usage && !--g_arts_usage) {
+	    debug("PlayBackArts::close() [pid %d]: releasing aRts API",
+	          (int)pthread_self());
+	    arts_free();
+	}
+	
+	m_stream = 0;
+	m_closed = true;
     }
 
     return 0;

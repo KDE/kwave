@@ -61,6 +61,9 @@ KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 /** Pattern for recognizing that aRts playback is selected */
 #define MAGIC_ARTS "aRts"
 
+///** Mutex for the aRts daemon, it seems to be not threadsafe */
+//static Mutex g_arts_lock;
+
 //***************************************************************************
 PlayBackPlugin::PlayBackPlugin(PluginContext &context)
     :KwavePlugin(context),
@@ -181,7 +184,8 @@ void PlayBackPlugin::openDevice()
 
     // here comes the switch for different playback devices...
     if (m_playback_params.device.contains(MAGIC_ARTS)) {
-	m_device = new PlayBackArts();
+	static Mutex g_arts_lock;
+	m_device = new PlayBackArts(g_arts_lock);
     } else {
 	// default is OSS or similar device
 	m_device = new PlayBackOSS();

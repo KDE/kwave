@@ -2,6 +2,7 @@
 INCLUDES= -I${topdir} @all_includes@
 
 BUILTSOURCES=\
+ ConfirmCancelProxy.moc.cpp\
  TimeLine.moc.cpp\
  FloatLine.moc.cpp\
  MultiStateWidget.moc.cpp\
@@ -24,6 +25,7 @@ BUILTSOURCES=\
 # Which sources should be compiled for libgui.
 libkwavegui_la_SOURCES =\
  CurveWidget.cpp\
+ ConfirmCancelProxy.cpp\
  FFTWidget.cpp\
  FileProgress.cpp\
  FloatLine.cpp\

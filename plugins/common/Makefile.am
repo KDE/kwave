@@ -36,6 +36,10 @@ PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
 CXXFLAGS  = @CXXFLAGS@ @GSL_CFLAGS@ -fPIC
 LD_FLAGS  = -shared -fPIC -rdynamic
 
+CFLAGS    = $(filter-out -Wnon-virtual-dtor ,  \
+            $(filter-out -fno-check-new , \
+            $(CXXFLAGS) ))
+
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 
@@ -83,7 +87,7 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 
 %.o: %.c
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
-	@ @CC@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
+	@ @CC@ $(CFLAGS) ${INCLUDES} -c $< -o $@
 
 %.o: %.cc
 	@echo plugin \"$(MODNAME)\": compiling idl implementation "'"$<"'"
@@ -119,7 +123,7 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 %.d: %.c
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
 	@ echo -n "$@ " > $@
-	@ @CC@ -M -MG ${INCLUDES} $(CXXFLAGS) $< | @GREP@ -v ^\# >> $@
+	@ @CC@ -M -MG ${INCLUDES} $(CFLAGS) $< | @GREP@ -v ^\# >> $@
 	@ echo "" >> $@
 
 %.dm: %.moc.cxx

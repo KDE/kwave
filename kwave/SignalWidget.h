@@ -280,6 +280,14 @@ private slots:
     void slotSamplesModified(unsigned int track, unsigned int offset,
                              unsigned int length);
 
+    /**
+     * Connected to the changed() signal of the SignalManager's selection.
+     * @see Selection
+     * @internal
+     */
+    void slotSelectionChanged(unsigned int offset, unsigned int length);
+
+
     /* ### */
     void updatePlaybackPointer(unsigned int pos);
 

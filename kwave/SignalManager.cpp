@@ -51,6 +51,7 @@
 #include "SignalWidget.h"
 #include "UndoAction.h"
 #include "UndoModifyAction.h"
+#include "UndoSelection.h"
 #include "UndoTransaction.h"
 #include "UndoTransactionGuard.h"
 
@@ -82,7 +83,7 @@ SignalManager::SignalManager(QWidget *parent)
     m_undo_transaction_level(0),
     m_undo_transaction_lock(),
     m_spx_undo_redo(this, SLOT(emitUndoRedoInfo())),
-    m_undo_limit(5*1024*1024) // 5 MB (for testing) ###
+    m_undo_limit(50*1024*1024) // 50 MB (for testing) ###
 {
     // connect to the track's signals
     Signal *sig = &m_signal;
@@ -279,8 +280,8 @@ bool SignalManager::executeCommand(const QString &command)
 {
     debug("SignalManager::executeCommand(%s)", command.data());    // ###
 
-    unsigned int offset = m_selection.offset();
-    unsigned int length = m_selection.length();
+//    unsigned int offset = m_selection.offset();
+//    unsigned int length = m_selection.length();
 
     if (!command.length()) return true;
     Parser parser(command);
@@ -447,6 +448,21 @@ void SignalManager::selectRange(unsigned int offset, unsigned int length)
     if ((offset+length) > len) length = len - offset;
 
     m_selection.select(offset, length);
+}
+
+//***************************************************************************
+void SignalManager::selectTracks(QArray<unsigned int> &track_list)
+{
+    unsigned int track;
+    unsigned int n_tracks = tracks();
+    for (track = 0; track < n_tracks; track++) {
+	bool old_select = m_signal.trackSelected(track);
+	bool new_select = track_list.contains(track);
+	if (new_select != old_select) {
+	    m_signal.selectTrack(track, new_select);
+	    emit sigTrackSelected(track, new_select);
+	}
+    }
 }
 
 //***************************************************************************
@@ -1085,14 +1101,20 @@ void SignalManager::startUndoTransaction(const QString &name)
     // increase recursion level
     m_undo_transaction_level++;
 
-//    debug("SignalManager::startUndoTransaction(): increased to %u",
-//          m_undo_transaction_level);
-
     // start/create a new transaction if none existing
     if (!m_undo_transaction) {
 	m_undo_transaction = new UndoTransaction(name);
 	ASSERT(m_undo_transaction);
-//	debug("SignalManager::startUndoTransaction(): started new");
+	if (!m_undo_transaction) return;
+	
+	// if it is the start of the transaction, also create one
+	// for the selection
+	UndoAction *selection = new UndoSelection(*this);
+	ASSERT(selection);
+	if (selection) {
+	    selection->store(*this);
+	    m_undo_transaction->append(selection);
+	}
     }
 }
 
@@ -1193,6 +1215,7 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     // b) permit the operation, but continue without undo
     // c) ignore the memory limit and store undo data nevertheless
     if (needed_mb > limit_mb) {
+	ThreadsafeX11Guard x11_guard;
 	int choice = KMessageBox::warningYesNoCancel(m_parent_widget,
 	    /* HTML version */
 	    QString("<HTML>"+
@@ -1301,6 +1324,8 @@ void SignalManager::freeUndoMemory(unsigned int needed)
 //***************************************************************************
 void SignalManager::emitUndoRedoInfo()
 {
+    ThreadsafeX11Guard x11_guard;
+
     QString undo_name = 0;
     QString redo_name = 0;
 

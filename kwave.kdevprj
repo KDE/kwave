@@ -20,9 +20,9 @@ author=Thomas Eschenbacher
 configure_args=--enable-debug=yes
 email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
-lfv_open_groups=Languages
+lfv_open_groups=Dialoge,Languages
 make_options=-w -j1
-makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am
+makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am
 modifyMakefiles=false
 project_name=Kwave
 project_type=normal_kde
@@ -32,7 +32,7 @@ version=0.6.0
 version_control=CVS
 workspace=1
 [LFV Groups]
-Dialoge=*.kdevdlg,
+Dialoge=*.ui
 GNU=README,TODO,CHANGES,
 Headers=*.h,
 Languages=*.po,*.pot
@@ -238,7 +238,7 @@ install_location=
 type=HEADER
 [kwave/Makefile.am]
 dist=true
-files=kwave/MouseMark.cpp,kwave/menus.config,kwave/Makefile.am,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/FFTContainer.cpp,kwave/FFTContainer.h,kwave/TopWidget.h,kwave/TopWidget.cpp,kwave/SignalWidget.h,kwave/SignalWidget.cpp,kwave/SignalManager.h,kwave/SignalManager.cpp,kwave/FFTWindow.cpp,kwave/PluginManager.h,kwave/PluginManager.cpp,kwave/PlaybackController.h,kwave/PlaybackController.cpp,kwave/PitchWindow.h,kwave/PitchWindow.cpp,kwave/PitchWidget.h,kwave/PitchWidget.cpp,kwave/PitchContainer.h,kwave/PitchContainer.cpp,kwave/MouseMark.h,kwave/MainWidget.h,kwave/MainWidget.cpp,kwave/main.cpp,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/ImageView.h,kwave/ImageView.cpp,kwave/FFTWindow.h,kwave/UndoAction.h,kwave/UndoTransaction.h,kwave/UndoTransaction.cpp,kwave/UndoModifyAction.h,kwave/UndoModifyAction.cpp,kwave/UndoTransactionGuard.h,kwave/UndoTransactionGuard.cpp
+files=kwave/MouseMark.cpp,kwave/menus.config,kwave/Makefile.am,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/FFTContainer.cpp,kwave/FFTContainer.h,kwave/TopWidget.h,kwave/TopWidget.cpp,kwave/SignalWidget.h,kwave/SignalWidget.cpp,kwave/SignalManager.h,kwave/SignalManager.cpp,kwave/FFTWindow.cpp,kwave/PluginManager.h,kwave/PluginManager.cpp,kwave/PlaybackController.h,kwave/PlaybackController.cpp,kwave/PitchWindow.h,kwave/PitchWindow.cpp,kwave/PitchWidget.h,kwave/PitchWidget.cpp,kwave/PitchContainer.h,kwave/PitchContainer.cpp,kwave/MouseMark.h,kwave/MainWidget.h,kwave/MainWidget.cpp,kwave/main.cpp,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/ImageView.h,kwave/ImageView.cpp,kwave/FFTWindow.h,kwave/UndoAction.h,kwave/UndoTransaction.h,kwave/UndoTransaction.cpp,kwave/UndoModifyAction.h,kwave/UndoModifyAction.cpp,kwave/UndoTransactionGuard.h,kwave/UndoTransactionGuard.cpp,kwave/UndoSelection.h,kwave/UndoSelection.cpp
 install=false
 install_location=
 sub_dirs=libgui,pics
@@ -344,6 +344,16 @@ install=false
 install_location=
 type=SOURCE
 [kwave/UndoModifyAction.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+[kwave/UndoSelection.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+[kwave/UndoSelection.h]
 dist=true
 install=false
 install_location=
@@ -1171,7 +1181,7 @@ dist=true
 files=plugins/Makefile.am
 install=false
 install_location=
-sub_dirs=dialogs,sonagram,playback,zero
+sub_dirs=dialogs,sonagram,playback,zero,memory
 type=DATA
 [plugins/about/AboutDialog.cpp]
 dist=true
@@ -1223,6 +1233,25 @@ type=static_library
 files=
 sub_dirs=
 type=static_library
+[plugins/memory/Makefile.am]
+files=plugins/memory/MemoryDialog.ui,plugins/memory/MemorySettings.cpp,plugins/memory/MemorySettings.h
+sub_dirs=
+type=static_library
+[plugins/memory/MemoryDialog.ui]
+dist=true
+install=false
+install_location=
+type=SOURCE
+[plugins/memory/MemorySettings.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+[plugins/memory/MemorySettings.h]
+dist=true
+install=false
+install_location=
+type=HEADER
 [plugins/playback/Makefile.am]
 files=plugins/playback/PlayBackDialog.h,plugins/playback/PlayBackDialog.cpp,plugins/playback/PlayBackPlugin.h,plugins/playback/PlayBackPlugin.cpp,plugins/playback/PlayBackDevice.h,plugins/playback/PlayBack-OSS.h,plugins/playback/PlayBack-OSS.cpp
 sub_dirs=

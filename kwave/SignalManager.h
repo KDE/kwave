@@ -153,6 +153,12 @@ public:
     void selectRange(unsigned int offset, unsigned int length);
 
     /**
+     * Selects multiple tracks, all other tracks will be disabled.
+     * @param track_list list od track indices
+     */
+    void selectTracks(QArray<unsigned int> &track_list);
+
+    /**
      * Toggles the selection flag of a channel.
      * @param channel index of the channel [0..N-1]
      */
@@ -204,6 +210,13 @@ public:
     void disableUndo();
 
 signals:
+
+    /**
+     * Signals a change in the range of selected samples.
+     * @param offset index of the first selected sample
+     * @param length number of selected samples
+     */
+    void sigSelectionChanged(unsigned int offset, unsigned int length);
 
     /**
      * Signals that a track has been inserted.
@@ -278,10 +291,12 @@ signals:
     void sigPlaybackDone();
 
     /**
-     * Signals that a track has been inserted.
-     * @param track index of the new track [0...tracks()-1]
+     * Signals that a track has been selected or deselected.
+     * @param track index of the track
+     * @param select true if the track has been selected,
+     *               false if deselected
      */
-    void sigTrackInserted(unsigned int track);
+    void sigTrackSelected(unsigned int track, bool select);
 
     /**
      * Emitted if the state or description of undo/redo has changed. If

@@ -85,6 +85,12 @@ public:
     SampleReader *openSampleReader(unsigned int left = 0,
 	unsigned int right = UINT_MAX);
 
+    /** Returns the "selected" flag. */
+    inline bool selected() { return m_selected; };
+
+    /** Sets the "selected" flag. */
+    inline void select(bool select) { m_selected = select; };
+
 signals:
 
     /**
@@ -174,6 +180,9 @@ private:
 
     /** mutex for access to the stripes list */
     Mutex m_lock_stripes;
+
+    /** True if the track is selected */
+    bool m_selected;
 
 };
 

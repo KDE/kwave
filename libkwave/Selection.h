@@ -42,8 +42,10 @@ public:
      * @param length number of items
      */
     void select(unsigned int offset, unsigned int length) {
+	if ((offset == m_offset) && (length == m_length)) return;
     	m_offset = offset;
     	m_length = length;
+    	emit changed(m_offset, m_length);
     };
 
     /** Returns the index of the first selected item. */
@@ -65,6 +67,15 @@ public:
     inline const unsigned int last() {
 	return m_offset + (m_length ? (m_length-1) : 0);
     };
+
+signals:
+
+    /**
+     * Emits a change in the selected range.
+     * @param offset index of the first selected items
+     * @param length number of selected items
+     */
+    void changed(unsigned int offset, unsigned int length);
 
 private:
     /** index of the first selected item */

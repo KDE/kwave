@@ -3,7 +3,7 @@
 # dirs=`find . -type d | grep -v ./template | grep -v CVS | grep -v \\\.$$ | \
 #	sed s°^\\\.\\\/°°g | sort`
 
-dirs="about playback sonagram zero"
+dirs="about memory playback sonagram zero"
 
 distclean-generic:
 	-rm -f $(CONFIG_CLEAN_FILES)

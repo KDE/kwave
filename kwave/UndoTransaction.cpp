@@ -61,7 +61,7 @@ QString UndoTransaction::description()
     for ( ; it.current(); ++it ) {
 	QString d = it.current()->description();
 	// skip duplicates
-	if (str.contains(d+", ") || (str == d)) continue;
+	if (str.contains(", "+d) || (str == d)) continue;
 	
 	// append others
 	if (str.length()) str += ", ";

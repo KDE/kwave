@@ -110,13 +110,19 @@ public:
      */
     unsigned int length();
 
-    inline int isSelected() {
-	return m_selected;
-    };
+    /**
+     * Queries if a track is selected. If the index of the track is
+     * out of range, the return value will be false.
+     */
+    bool trackSelected(unsigned int track);
 
-    inline void select(const bool select) {
-	m_selected = select;
-    };
+    /**
+     * Sets the "selected" flag of a track.
+     * @param track index of the track [0...tracks-1]
+     * @param select true if the track should be selected,
+     *               false for de-selecting
+     */
+    void selectTrack(unsigned int track, bool select);
 
     inline void setRate(const int rate) {
 	m_rate = rate;
@@ -239,9 +245,6 @@ private:
 
     /** resolution in bits per sample */
     unsigned int m_bits;
-
-    /** selection flag (default=true) */
-    bool m_selected;
 
 };
 

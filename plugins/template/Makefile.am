@@ -11,7 +11,7 @@
 # kde_toolbardir    Where general toolbar icons should go to.
 # kde_wallpaperdir  Where general wallpapers should go to.
 
-SUFFIXES= .h .cpp .o .d .moc .dm
+SUFFIXES= .h .cpp .o .d .moc .dm .ui
 
 # set the include path for X, qt and KDE
 
@@ -26,16 +26,23 @@ LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles -nostdlib
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 
-CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm .depend
+CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm .depend *.uih.h *.uic.cpp
 
-cpp_sources 	:= $(shell find . -name \*.cpp)
-h_files		:= $(shell find . -name \*.h)
+ui_files	:= $(shell find . -name \*.ui)
+uih_files	:= $(ui_files:.ui=.uih.h)
+uic_files	:= $(ui_files:.ui=.uic.cpp)
+
+h_files		:= $(shell find . ! -name \*.uih.h -name \*.h)
+h_files   	+= ${uih_files}
+cpp_sources 	:= $(shell find . ! -name \*.uic.cpp -name \*.cpp)
+cpp_sources	+= ${uic_files}
+
 moc_files	:= $(h_files:.h=.moc.cxx)
 
 OUT_FILES	:= $(cpp_sources:.cpp=.o)
 OUT_FILES	+= $(h_files:.h=.moc.o)
 
-DEP_FILES	:= $(cpp_sources:.cpp=.d) $(h_files:.h=.dm)
+DEP_FILES	:= $(h_files:.h=.dm) $(cpp_sources:.cpp=.d)
 
 %.o: %.cpp
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
@@ -45,6 +52,14 @@ DEP_FILES	:= $(cpp_sources:.cpp=.d) $(h_files:.h=.dm)
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
 	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -x c++ -c $< -o $@
 	@ echo "" >> $@
+
+%.uih.h: %.ui
+	@echo plugin \"$(MODNAME)\": generating header from $<
+	@ @UIC@ -o $@ $<
+
+%.uic.cpp: %.ui
+	@echo plugin \"$(MODNAME)\": generating implementation from $<
+	@ @UIC@ -o $@ -impl $*.uih.h $<
 
 %.d: %.cpp
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
@@ -70,7 +85,7 @@ DEP_FILES	:= $(cpp_sources:.cpp=.d) $(h_files:.h=.dm)
 #
 # include dependency file if it exists
 #
-## DO NOT DELETE THE LEADING SPACE IN FORNT OF THE FOLLOWIND THREE    !!
+## DO NOT DELETE THE LEADING SPACE IN FRONT OF THE FOLLOWING THREE    !!
 ## LINES. THIS WOULD PRODUCE AN ERROR WITH AUTOMAKE (endif not found) !!
  ifneq ($(wildcard .depend),)
  include .depend
@@ -78,7 +93,7 @@ DEP_FILES	:= $(cpp_sources:.cpp=.d) $(h_files:.h=.dm)
 
 dep depend: .depend
 
-$(MODNAME): .depend ${moc_files} ${OUT_FILES}
+$(MODNAME): ${uih_files} ${uic_files} ${moc_files} .depend ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
 	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
 

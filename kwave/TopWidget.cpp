@@ -904,6 +904,7 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
     txt = i18n("Undo");
     if (undo_enabled) txt += " (" + undo + ")";
     button = m_toolbar->getButton(m_id_undo);
+    ASSERT(button);
     if (button) {
 	QString old_text = button->textLabel();
 	button->setTextLabel(txt, true);
@@ -915,6 +916,7 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
     txt = i18n("Redo");
     if (redo_enabled) txt += " (" + redo + ")";
     button = m_toolbar->getButton(m_id_redo);
+    ASSERT(button);
     if (button) {
 	QString old_text = button->textLabel();
 	button->setTextLabel(txt, true);

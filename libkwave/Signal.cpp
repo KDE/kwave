@@ -54,15 +54,13 @@
 
 //***************************************************************************
 Signal::Signal()
-    :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0),
-     m_selected(true)
+    :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0)
 {
 }
 
 //***************************************************************************
 Signal::Signal(unsigned int tracks, unsigned int length)
-    :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0),
-     m_selected(true)
+    :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0)
 {
     while (tracks--) {
 	appendTrack(length);
@@ -174,6 +172,30 @@ unsigned int Signal::length()
     }
 //    debug("Signal::length() = %d", max);
     return max;
+}
+
+//***************************************************************************
+bool Signal::trackSelected(unsigned int track)
+{
+    MutexGuard lock(m_lock_tracks);
+
+    if (track >= m_tracks.count()) return false;
+    if (!m_tracks.at(track)) return false;
+
+    return m_tracks.at(track)->selected();
+}
+
+//***************************************************************************
+void Signal::selectTrack(unsigned int track, bool select)
+{
+    MutexGuard lock(m_lock_tracks);
+
+    ASSERT(track < m_tracks.count());
+    if (track >= m_tracks.count()) return;
+    ASSERT(m_tracks.at(track));
+    if (!m_tracks.at(track)) return;
+
+    m_tracks.at(track)->select(select);
 }
 
 ////**********************************************************

@@ -96,17 +96,27 @@ int KwavePlugin::start(QStringList &)
 //***************************************************************************
 int KwavePlugin::stop()
 {
-    MutexGuard lock(m_thread_lock);
-    if (m_thread) {
-	if (m_thread->running()) m_thread->wait(5000);
-	if (m_thread->running()) m_thread->stop();
-	if (m_thread->running()) m_thread->wait(1000);
-	if (m_thread->running()) {
-	    // show a message box
-	    warning("KwavePlugin::stop(): stale thread !");
+    if (m_thread && !pthread_equal(pthread_self(), m_thread->threadID())) {
+	warning("KwavePlugin::stop(): plugin '%s' called stop() from "\
+	        "within it's own worker thread (from run() ?). "\
+	        "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
+	        name().data(), author().data());
+	return -EBUSY;
+    }
+
+    {
+	MutexGuard lock(m_thread_lock);
+	if (m_thread) {
+	    if (m_thread->running()) m_thread->wait(5000);
+	    if (m_thread->running()) m_thread->stop();
+	    if (m_thread->running()) m_thread->wait(1000);
+	    if (m_thread->running()) {
+		// show a message box
+		warning("KwavePlugin::stop(): stale thread !");
+	    }
+	    delete m_thread;
+	    m_thread = 0;
 	}
-	delete m_thread;
-	m_thread = 0;
     }
     return 0;
 }

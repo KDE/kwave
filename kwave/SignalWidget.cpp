@@ -119,6 +119,9 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
 	unsigned int)));
 
+    connect(&(sig->selection()), SIGNAL(changed(unsigned int, unsigned int)),
+	this, SLOT(slotSelectionChanged(unsigned int, unsigned int)));
+
     // connect to the playback controller
     connect(&(playbackController()), SIGNAL(sigPlaybackPos(unsigned int)),
             this, SLOT(updatePlaybackPointer(unsigned int)));
@@ -401,17 +404,18 @@ void SignalWidget::selectRange()
 //***************************************************************************
 void SignalWidget::selectRange(unsigned int offset, unsigned int length)
 {
-    if (!m_zoom) return;
+    m_signal_manager.selectRange(offset, length);
+}
 
-    if ((offset != m_signal_manager.selection().first()) ||
-	(length != m_signal_manager.selection().length()) )
-    {
-	m_signal_manager.selectRange(offset, length);
-	refreshSelection();
-	
-	emit selectedTimeInfo(samples2ms(
-	    m_signal_manager.selection().length()));
-    }
+//***************************************************************************
+void SignalWidget::slotSelectionChanged(unsigned int offset,
+                                        unsigned int length)
+{
+    m_signal_manager.selectRange(offset, length);
+    refreshSelection();
+
+    emit selectedTimeInfo(samples2ms(
+	m_signal_manager.selection().length()));
 }
 
 //***************************************************************************

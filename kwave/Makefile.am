@@ -66,6 +66,7 @@ kwave_SOURCES =\
  SignalWidget.cpp\
  TopWidget.cpp\
  UndoModifyAction.cpp\
+ UndoSelection.cpp\
  UndoTransaction.cpp\
  UndoTransactionGuard.cpp\
  $(BUILTSOURCES)

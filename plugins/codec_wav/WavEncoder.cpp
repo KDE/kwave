@@ -124,9 +124,8 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	QString software = about_data->programName() + "-" +
 	    about_data->version() +
 	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-	QVariant value = software.utf8();
 	debug("WavEncoder: adding software tag: '%s'", software.data());
-	properties.insert(INF_SOFTWARE, value);
+	properties.insert(INF_SOFTWARE, software);
     }
     if (!properties.contains(INF_CREATION_DATE)) {
 	// add a date tag

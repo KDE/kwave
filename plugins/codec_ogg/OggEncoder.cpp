@@ -221,9 +221,8 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	QString software = about_data->programName() + "-" +
 	    about_data->version() +
 	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-	QVariant value = software.utf8();
 	debug("OggEncoder: adding software tag: '%s'", software.data());
-	info.set(INF_SOFTWARE, value);
+	info.set(INF_SOFTWARE, software);
     }
 
     if (!info.contains(INF_CREATION_DATE)) {

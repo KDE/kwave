@@ -1,0 +1,10 @@
+# KDE Config File 
+[KDE Desktop Entry]
+Name=Kwave
+Exec=kwave
+Icon=kwave.xpm
+Type=Application
+DocPath=kwave/index.html
+Command=A simple sound editor
+Terminal=0
+MiniIcon=kwave.xpm

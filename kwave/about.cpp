@@ -1,18 +1,34 @@
 #include "about.h"
 #include <qaccel.h>
 #include <qpntarry.h>
+#include <qdir.h>
 #include <math.h>
+#include <kapp.h>
 
-char *about_text="Programming by Martin Wilz\n(mwilz@ernie.mi.uni-koeln.de)\
-\n\nAlpha-Testing by Carsten Jacobi\n\
+
+extern KApplication *app;
+char about_text[]="Kwave Version 0.27alpha, first release\n\
+(c) 1998 by Martin Wilz\n\
+(mwilz@ernie.mi.uni-koeln.de)\n\n\
+Alpha-Testing by Carsten Jacobi\n\
 (carsten@jakes.kawo1.rwth-aachen.de)\n\
-\nFFT-Code by GNU gsl-Project\n\
-GSL-Library may be retrieved from ftp://alpha.gnu.org/gnu/ !\n\
-";
+\nFFT-Code by GNU gsl-Project, library version 0.3 beta\n\
+(GSL-Library may be retrieved from ftp://alpha.gnu.org/gnu/)\n\n\
+This program is free software; you can redistribute it and/or\n\
+modify it under the terms of the GNU General Public License\n\
+as published by the Free Software Foundation; either version 2\n\
+of the License, or (at your option) any later version.\n\n\
+This program is distributed in the hope that it will be useful,\n\
+but WITHOUT ANY WARRANTY; without even the implied warranty of\n\
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n\
+GNU General Public License for more details.\n\n\
+You should have received a copy of the GNU General Public License\n\
+along with this program; if not, write to the Free Software\n\
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.\n";
 
 AboutDialog::AboutDialog (QWidget *par=NULL): QDialog(par, "Choose Length and Rate",true)
 {
-  resize 		(320,200);
+  resize 		(480,200);
   setCaption	("About KWave");
 
   abouttext=new QMultiLineEdit (this);
@@ -24,7 +40,7 @@ AboutDialog::AboutDialog (QWidget *par=NULL): QDialog(par, "Choose Length and Ra
   abouttext->setReadOnly(TRUE);
 
   int bsize=ok->sizeHint().height();
-  setMinimumSize (320,bsize*6);
+  setMinimumSize (480,bsize*6);
   setMaximumSize (640,400);
 
   ok->setAccel	(Key_Return);
@@ -52,7 +68,13 @@ LogoWidget::LogoWidget (QWidget *parent): QWidget (parent)
   pixmap=0;
 
   img=new QPixmap ();
-  img->convertFromImage (QImage ("logo.xpm"));
+
+  QString dirname=app->kde_datadir ();
+  QDir dir (dirname.data());
+  dir.cd ("kwave");
+  dir.cd ("pics");
+
+  img->convertFromImage (QImage(dir.filePath("logo.xpm").data()));
   this->setBackgroundColor (black);
 
   timer=new QTimer (this);
@@ -69,7 +91,7 @@ void LogoWidget::doAnim ()
   for (int i=0;i<MAXSIN;i++)
     {
       deg[i]+=mul;
-      if (deg[i]>2*PI) deg[i]=0;
+      if (deg[i]>2*M_PI) deg[i]=0;
       mul=((mul*521)/437);
       mul-=floor(mul);  // gives again a number between 0 and 1
       mul/=17;
@@ -115,7 +137,7 @@ void LogoWidget::paintEvent  (QPaintEvent *)
 	{
 	  for (int i=0;i<21;i++)
 	    si.setPoint (i,
-			 (j*width/MAXSIN)+(int) (amp*sin(PI*i/10+deg[j])*width/2),height*i/20);
+			 (j*width/MAXSIN)+(int)(amp*sin(M_PI*i/10+deg[j])*width/2),height*i/20);
 
 
 	  si.setPoint (21,width/2,height);

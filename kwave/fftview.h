@@ -1,3 +1,6 @@
+#ifndef _FFTVIEW_H_
+#define _FFTVIEW_H_ 1
+
 #include <qapp.h>
 #include <qpushbt.h>
 #include <qstring.h>
@@ -23,9 +26,17 @@ class FFTWidget : public QWidget
  void	mousePressEvent		(QMouseEvent * );
  void	mouseReleaseEvent	(QMouseEvent * );  
  void	mouseMoveEvent		(QMouseEvent * );  
- void 	setSignal		(complex *data,int size,int rate);
+ void 	setSignal		(complex *data,double max,int size,int rate);
+ void 	setPhase		(complex *data,double max,int size,int rate);
+ void   refresh                 ();
+ void   setAutoDelete           (int);
 
  public slots:
+
+   void iFFT ();
+   void amplify ();
+   void smooth ();
+   void killPhase ();
 
  signals:
 
@@ -41,6 +52,10 @@ class FFTWidget : public QWidget
  void	drawOverviewFFT	();
 
  private:
+ double max;
+
+ int phase;
+ int autodelete;                //flag if deleting data is correct
  complex *data;
  int	fftsize,rate;
  int	width,height;		//of widget
@@ -57,7 +72,7 @@ class FFTWindow : public KTopLevelWidget
  public:
  	FFTWindow	(const char *name=0);
  	~FFTWindow	();
- void 	setSignal	(complex *,int,int);	//reaches through to class FFTWidget...
+ void 	setSignal	(complex *,double,int,int);	//reaches through to class FFTWidget...
 
  public slots:
 
@@ -75,3 +90,9 @@ class FFTWindow : public KTopLevelWidget
  FFTWidget *fftview;
  KStatusBar *status;
 };
+#endif
+
+
+
+
+

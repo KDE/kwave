@@ -1,0 +1,35 @@
+Hello...
+
+This is the kwave source distribution, a simple soundeditor for KDE.
+
+Since this is an alpha version, don't expect to much ...
+
+This distribution uses the standard template for a kde app, kexample.
+
+Therefore you need autoconf-2.12 and automake-1.2 or higher, not to
+mention the KDE-Distribution and then surely the qt-lib...
+
+Just run
+
+>./configure
+>make depend
+>make
+
+Now you have to swap to superuser...
+
+>make install
+
+Good Luck, and if not, mail me the bugs...
+
+Martin Wilz
+
+
+
+
+
+
+
+
+
+
+

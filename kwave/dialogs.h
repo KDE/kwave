@@ -623,7 +623,7 @@ class MarkSaveDialog : public QDialog
 
  public:
 
- 	MarkSaveDialog 	(QWidget *parent=0,char *name="Select label types to be saved :",int multi=true);
+ 	MarkSaveDialog 	(QWidget *parent=0,char *name="Select label types to be saved :",bool multi=true);
  	~MarkSaveDialog ();
 
 	void getSelection();

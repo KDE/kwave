@@ -244,6 +244,7 @@ MSignal::MSignal (QWidget *par,int numsamples,int rate,int channels) :QObject ()
 
   if (sample)
     {
+      for (int i=0;i<numsamples;sample[i++]=0); //erase, because not all memory is clearedy
       //get shared memory needed by playback, this will be changed, if 
       //threading is standard
 
@@ -1312,7 +1313,7 @@ void MSignal::fftChannel ()
 //*********************************************************
 void MSignal::addSynth ()
 {
-  AddSynthDialog *dialog =new AddSynthDialog (parent);
+  AddSynthDialog *dialog =new AddSynthDialog (parent,rate);
   if (dialog->exec())
     {
       MSignal *add=dialog->getSignal ();

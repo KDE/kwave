@@ -34,10 +34,10 @@ class MarkerType
   MarkerType ();
   ~MarkerType();
 
-  int    named;         //boolean if named
-  int    selected;
   QString*name;         //pointer to name
   QColor *color;        //color
+  bool    named;         //boolean if named
+  bool    selected;
 };
 //***********************************************************
 class Marker

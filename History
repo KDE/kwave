@@ -1,5 +1,7 @@
 Version 0.29
 
+Added Pitch Display Window
+
 implemented db scale for fft-view
 
 added reselection and cursor change

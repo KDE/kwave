@@ -33,7 +33,9 @@ class PitchWidget : public QWidget
 
  signals:
  
- void freqRange (float,float);
+ void freqRange  (float,float);
+ void pitch      (float);
+ void timeSamples(float);
 
  protected:
 
@@ -82,6 +84,10 @@ class PitchWindow : public KTopLevelWidget
  void 	setSignal	(float *,int,int);
 
  public slots:
+
+ void freqRange (float,float);
+ void showPitch (float);
+ void showTime  (float);
 
  signals:
 

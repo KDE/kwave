@@ -195,7 +195,7 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   calculate->insertItem	(klocale->translate("&Additive Synthesis"),this,SLOT(addSynthOp()));
   calculate->insertItem	(klocale->translate("&Pulse Train"),this,SLOT(pulseOp()));
   calculate->insertSeparator	();
-  calculate->insertItem	(klocale->translate("&Hullcurve"),this,SLOT(hullCurveOp()));
+  calculate->insertItem	(klocale->translate("&Envelope"),this,SLOT(hullCurveOp()));
   calculate->insertSeparator	();
   calculate->insertItem	(klocale->translate("Frequencies"),freq);
   freq->insertItem	(klocale->translate("&Spectrum"),	this,SLOT(fftOp()),Key_S);
@@ -604,6 +604,7 @@ void saveConfig(KApplication *app)
   config->sync();
 }
 //*****************************************************************************
+// reads in Configuration via KConfig, sets global variables accordingly
 void readConfig(KApplication *app)
 {
   QString result;

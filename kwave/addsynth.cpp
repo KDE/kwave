@@ -308,7 +308,7 @@ void AddSynthDialog::popMenu ()
 //**********************************************************
 void AddSynthDialog::getFrequency ()
 {
-  FrequencyDialog dialog(this);
+  FrequencyDialog dialog(this,rate);
   if (dialog.exec())
     {
       if (times) delete times;

@@ -1674,18 +1674,22 @@ QuantiseDialog::~QuantiseDialog ()
 {
 }
 //**********************************************************
-MarkSaveDialog::MarkSaveDialog (QWidget *par,char *name,int multi): QDialog(par, 0,true)
+MarkSaveDialog::MarkSaveDialog (QWidget *par,char *name,bool multi): QDialog(par, 0,true)
+  //dialog of markertypes to be selected...
+  //multi is true, if Multiselection shall be enabled....
 {
   setCaption	(name);
 
   save=new QListBox (this);
 
   MarkerType *act;
+  //traverse all markertypes, add them to widget, selection state set to  false
   for (act=markertypes->first();act;act=markertypes->next())
     {
       save->insertItem (act->name->data());
       act->selected=false;
     }
+
   save->setMultiSelection (multi);
   
   ok		=new QPushButton (OK,this);

@@ -260,7 +260,7 @@ void SignalWidget::savePeriods ()
 {
   if (signal)
     {
-      MarkSaveDialog dialog (this,"Select label type(s) to be saved:",false);
+      MarkSaveDialog dialog (this,"Select label, which periodities are to be saved:",false);
       if (dialog.exec())
 	{
 	  dialog.getSelection();
@@ -595,40 +595,42 @@ void SignalWidget::convertMarkstoPitch ()
       MarkSaveDialog dialog (this,"Select type of labels to be converted :",false);
       if (dialog.exec())
 	{
+	  dialog.getSelection ();
 	  MarkerType *act;
 	  Marker     *tmp;
 	  int   len=signal->getLength()/2;
-	  float *data=new float(len);
+	  float *data=new float[len];
 	  float freq;
 	  float rate=(float)signal->getRate();
 
+	  for (int i=0;i<len;data[i++]=0);
 
 	  for (act=markertypes->first();act;act=markertypes->next())
-	    if (act->selected)
-	      {
-		int   last=0;
-		//traverse list of all labels of the selected type...
-		for (tmp=markers->first();tmp;tmp=markers->next())
-		  {
-		    printf ("%d %d\n",tmp->type,act);
-		    if (tmp->type==act)
-		      {
-			if (tmp->pos!=last)
-			  {
-			    freq=rate/(tmp->pos-last);
-			    printf ("%f %d\n",rate,(tmp->pos-last));
-			  }	
-			else freq=0;
+	    {
+	      if (act->selected)
+		{
+		  int   last=0;
+		  //traverse list of all labels of the selected type...
+		  for (tmp=markers->first();tmp;tmp=markers->next())
+		    {
+		      if (tmp->type==act)
+			{
+			  if (tmp->pos!=last)
+			    {
+			      freq=rate/(tmp->pos-last);
+			    }
+			  else freq=0;
 
-			for (int i=last;i<tmp->pos;i+=2) data[i/2]=freq;
+			  for (int i=last;i<tmp->pos;i+=2) data[i/2]=freq;
 
-			last=tmp->pos;
-		      }
-		  }
-		PitchWindow *window=new PitchWindow (signal->getName());
-		window->show ();
-		if (window) window->setSignal (data,len,rate/2);
-	      }
+			  last=tmp->pos;
+			}
+		    }
+		  PitchWindow *window=new PitchWindow (signal->getName());
+		  window->show ();
+		  if (window) window->setSignal (data,len,rate/2);
+		}
+	    }
 	}
     }
 }

@@ -38,7 +38,7 @@ public:
     MultiTrackReader();
 
     /** Destructor */
-    virtual ~MultiTrackReader() {};
+    virtual ~MultiTrackReader();
 
     /** Returns true if one of the readers has reached eof() */
     virtual bool eof() const;
@@ -90,7 +90,7 @@ public slots:
 
     /** Resets all readers to zero */
     void reset();
-    
+
 private slots:
 
     /**

@@ -39,7 +39,7 @@ public:
     MultiTrackWriter();
 
     /** Destructor */
-    virtual ~MultiTrackWriter() {};
+    virtual ~MultiTrackWriter();
 
     /**
      * Transfers the content of multiple tracks into the destination.
@@ -65,7 +65,7 @@ public:
 
     /** Flushes all streams */
     void flush();
-    
+
     /** @see QPtrVector::clear() */
     inline virtual void clear() { QPtrVector<SampleWriter>::clear(); };
 

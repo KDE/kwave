@@ -57,13 +57,10 @@ int MultiStateWidget::addPixmap(const QString &filename)
 	QPixmap *newpix = new QPixmap();
 	Q_ASSERT(newpix);
 	if (!newpix) return -1;
-	
+
 	QString file = locate("data", QString("kwave/pics/")+filename);
-	QImage *img = new QImage(file);
-	Q_ASSERT(img);
-	if (!img) return -1;
-	
-	newpix->convertFromImage(*img);
+	QImage img(file);
+	newpix->convertFromImage(img);
 	pixmaps->append(newpix);
 	pixnames->append(filename);
 	return pixmaps->at();

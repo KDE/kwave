@@ -1,0 +1,53 @@
+Hi,
+
+This is the kwave library 0.3
+
+This library evolved from the parts the kwave project, that should not be
+bound to a specific gui library. Currently there is a dependency to libqt, 
+but this problem should be feasible... (only qcolor/qlist is being used)
+
+The library provides the following classes/services:
+
+a discrete Time Signal Container Class with runtime linking modules (plugins)
+
+some general purpose functions (window function generator, interpolation, parser for strings, file loading & label class)
+
+Installation:
+
+Try the following commands:
+
+./configure 
+make
+(change to superuser)
+make install
+ldconfig       (if it's not in path, you'll probably find it in /sbin/)
+
+
+
+Requirements
+------------
+
+You'll need qt-lib 1.40 and probably autoconf/automake 
+
+Further requirements are glibc>2.07 for pthreads. Earlier versions of
+libpthread (included in glibc) do not work with qt-lib (programm crashes at
+start), don't know why, yet...
+Not tested are libc5 with linuxthreads, if someone succeeds with this
+combination please contact me!
+(Note that linuxthreads has requirements for specific libc versions)
+
+Good Luck, and if not, mail me about the bugs...
+(send bug reports to kwave-list@fs.spinfo.uni-koeln.de)
+
+Martin Wilz
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+Begin3
+Title:          kwavelib
+Version:        0.3.1
+Entered-date:   Sunday, May 23 1999
+Description:    shared library for kwave, and other applications
+Keywords:       sound processing library
+Author:         mwilz@ernie.mi.uni-koeln.de (Martin Wilz)
+Maintained-by:  mwilz@ernie.mi.uni-koeln.de (Martin Wilz)
+report-bugs-to: kwave-list@fs.spinfo.uni-koeln.de
+Homepage:       http://fs.spinfo.uni-koeln.de/~kwave
+Platform:       Linux/I386 , needs (still) Qt
+Copying-policy: GPL
+End

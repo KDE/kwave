@@ -1,0 +1,23 @@
+newer Versions still to come
+
+Version 0.3.1
+
+fixed bug in parser that caused a gigantic delay ...
+forgot some relative includes...
+
+Version 0.3
+
+separation of library from kwave package, far aim is independence from qt and kde API
+
+
+
+
+
+
+
+
+
+
+
+
+

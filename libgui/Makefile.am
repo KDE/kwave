@@ -19,13 +19,14 @@ INCLUDES= @all_includes@
 # Which sources should be compiled for kwave.
 libkwavegui_la_SOURCES =guiitems.cpp multistateimage.cpp scale.cpp \
 curvewidget.cpp kwavedialog.cpp faderwidget.cpp fftwidget.cpp \
-formantwidget.cpp overview.cpp kwavemenu.cpp\
+formantwidget.cpp overview.cpp kwavemenu.cpp menumanager.cpp\
 mguiitems.cpp mmultistateimage.cpp mscale.cpp mcurvewidget.cpp \
 mkwavedialog.cpp mfaderwidget.cpp mfftwidget.cpp mformantwidget.cpp \
-moverview.cpp mkwavemenu.cpp
+moverview.cpp mkwavemenu.cpp mmenumanager.cpp
 
 BUILTSOURCES=mguiitems.cpp mmultistateimage.cpp mscale.cpp mcurvewidget.cpp \
-mfaderwidget.cpp mfftwidget.cpp mformantwidget.cpp moverview.cpp
+mfaderwidget.cpp mfftwidget.cpp mformantwidget.cpp moverview.cpp \
+mmenumanager.cpp
 
 lib_LTLIBRARIES = libkwavegui.la
 
@@ -53,6 +54,8 @@ mformantwidget.cpp: formantwidget.h
 	$(MOC) formantwidget.h -o mformantwidget.cpp
 mkwavemenu.cpp: kwavemenu.h
 	$(MOC) kwavemenu.h -o mkwavemenu.cpp
+mmenumanager.cpp: menumanager.h
+	$(MOC) -o mmenumanager.cpp menumanager.h 
 
 
 

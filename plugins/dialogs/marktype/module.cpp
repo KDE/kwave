@@ -7,7 +7,7 @@
 
 const char *version="1.0";
 const char *author="Martin Wilz";
-const char *name="markertype";
+const char *name="labeltype";
 //**********************************************************
 KwaveDialog *getDialog (DialogOperation *operation)
 {
@@ -52,7 +52,7 @@ const char *MarkerTypeDialog::getCommand ()
   comstr=catString ("newlabeltype (",
 		    name->text(),
 		    ",",
-		    individual->isChecked()?"true":"false"
+		    individual->isChecked()?"true":"false",
 		    ",",
   		    col.getCommand(),
 		    ")"

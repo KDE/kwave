@@ -23,10 +23,10 @@ SignalWidget::SignalWidget (QWidget *parent,MenuManager *manage) : QWidget (pare
 
   this->manage=manage;
 
-  manage->addNumberedMenu ("MarkerTypes");
+  manage->addNumberedMenu ("labeltypes");
 
   for (MarkerType *tmp=globals.markertypes.first();tmp;tmp=globals.markertypes.next())
-    manage->addNumberedMenuEntry ("MarkerTypes",tmp->name->data());
+    manage->addNumberedMenuEntry ("labeltypes",tmp->name->data());
 
   timer=0;
   signalmanage=0;
@@ -97,10 +97,109 @@ void SignalWidget::toggleChannel (int channel)
   if (signalmanage) signalmanage->toggleChannel (channel);
 }
 //****************************************************************************
+bool SignalWidget::checkForNavigationCommand (const char *str)
+{
+  if (matchCommand (str,"zoomin")) zoomIn ();
+  else
+    if (matchCommand (str,"zoomout")) zoomOut ();
+    else
+      if (matchCommand (str,"zoomrange")) zoomRange ();
+      else
+	if (signalmanage)
+	  {
+	    if (matchCommand (str,"scrollright"))
+	      {
+		offset+=int (zoom*width)/10;
+		if (offset>(int)(signalmanage->getLength()-width*zoom))
+		  offset=(int)(signalmanage->getLength()-width*zoom);
+		refresh();
+	      }
+	    else
+	      if (matchCommand (str,"viewnext"))
+		{
+		  offset+=int (zoom*width);
+		  if (offset>(int)(signalmanage->getLength()-width*zoom))
+		    offset=(int)(signalmanage->getLength()-width*zoom);
+		  refresh();
+		}
+	      else
+		if (matchCommand (str,"viewprev"))
+		  {
+		    offset-=int (zoom*width);
+		    if (offset<0) offset=0;
+		    refresh();
+		  }
+		else
+		  if (matchCommand (str,"scrollleft"))
+		    {
+		      offset-=int (zoom*width)/10;
+		      if (offset<0) offset=0;
+		      refresh();
+		    }
+		  else
+		    if (matchCommand (str,"selectall"))
+		      setRange (0,signalmanage->getLength());
+		    else
+		      if (matchCommand (str,"selectnext"))
+			{
+			  int r=signalmanage->getRMarker();
+			  int l=signalmanage->getLMarker();
+			  
+			  setRange (r+1,r+1+(r-l));
+			}
+		      else
+			if (matchCommand (str,"selectprev"))
+			  {
+			    int r=signalmanage->getRMarker();
+			    int l=signalmanage->getLMarker();
+			    setRange (l-(r-l)-1,l-1);
+			  }
+			else
+			  if (matchCommand (str,"selectvisible"))  
+			    setRange (offset,(int)((double)width*zoom));
+			  else
+			    if (matchCommand (str,"selectnone"))	
+			      setRange (offset,offset);
+			    else
+			      if (matchCommand (str,"selectrange"))	
+				selectRange ();
+			      else return false;
+	  }
+  
+  return true;
+}
+//****************************************************************************
+  bool SignalWidget::checkForLabelCommand (const char *str)
+{
+  if (matchCommand (str,"labeltopitch"))   convertMarkstoPitch ("");
+  else
+    if (matchCommand (str,"deletelabel"))   deleteMarks ();
+    else
+      if (matchCommand (str,"insertlabel"))   appendMarks ();
+      else
+	if (matchCommand (str,"loadlabel"))  loadMarks ();
+	else
+	  if (matchCommand (str,"savelabel"))  saveMarks ();
+	  else
+	    if (matchCommand (str,"addlabel"))   addMark ();
+	    else
+	      if (matchCommand (str,"newlabeltype")) addMarkType (str);
+	      else
+		if (matchCommand (str,"expandtolabel")) jumptoLabel ();
+		else
+		  if (matchCommand (str,"mark")) markSignal (str);
+		  else 
+		    if (matchCommand (str,"markperiod")) markPeriods (str);
+		    else
+		      if (matchCommand (str,"saveperiods")) savePeriods ();
+		      else return false;
+
+  return true;
+}
+//****************************************************************************
 int SignalWidget::doCommand (const char *str)
 {
   printf ("%s\n",str);
-
   if (matchCommand (str,"dialog"))
     {
       KwaveParser parser (str);
@@ -111,73 +210,11 @@ int SignalWidget::doCommand (const char *str)
   else
     if (matchCommand (str,"newsignal")) createSignal (str);
     else
-      if (matchCommand (str,"zoomin")) zoomIn ();
+      if (checkForLabelCommand (str));
       else
-	if (matchCommand (str,"zoomout")) zoomOut ();
+	if (checkForNavigationCommand (str));
 	else
-	  if (matchCommand (str,"zoomrange")) zoomRange ();
-	  else
-	    if (signalmanage)
-	      {
-		if (matchCommand (str,"scrollright"))
-		  {
-		    offset+=int (zoom*width)/10;
-		    if (offset>(int)(signalmanage->getLength()-width*zoom))
-		      offset=(int)(signalmanage->getLength()-width*zoom);
-		    refresh();
-		  }
-		else
-		  if (matchCommand (str,"viewnext"))
-		    {
-		      offset+=int (zoom*width);
-		      if (offset>(int)(signalmanage->getLength()-width*zoom))
-			offset=(int)(signalmanage->getLength()-width*zoom);
-		      refresh();
-		    }
-		  else
-		    if (matchCommand (str,"viewprev"))
-		      {
-			offset-=int (zoom*width);
-			if (offset<0) offset=0;
-			refresh();
-		      }
-		    else
-		      if (matchCommand (str,"scrollleft"))
-			{
-			  offset-=int (zoom*width)/10;
-			  if (offset<0) offset=0;
-			  refresh();
-			}
-		      else
-			if (matchCommand (str,"selectall"))
-			  setRange (0,signalmanage->getLength());
-			else
-			  if (matchCommand (str,"selectnext"))
-			    {
-			      int r=signalmanage->getRMarker();
-			      int l=signalmanage->getLMarker();
-			  
-			      setRange (r+1,r+1+(r-l));
-			    }
-			  else
-			    if (matchCommand (str,"selectprev"))
-			      {
-				int r=signalmanage->getRMarker();
-				int l=signalmanage->getLMarker();
-				setRange (l-(r-l)-1,l-1);
-			      }
-			    else
-			      if (matchCommand (str,"selectvisible"))  
-				setRange (offset,(int)((double)width*zoom));
-			      else
-				if (matchCommand (str,"selectnone"))	
-				  setRange (offset,offset);
-				else
-				  if (matchCommand (str,"selectrange"))	
-				    selectRange ();
-				  else
-				    return signalmanage->doCommand (str);
-	      }
+	  return signalmanage->doCommand (str);
   return false;
 }
 //**********************************************************
@@ -190,7 +227,9 @@ void SignalWidget::showDialog (const char *name)
   if (signalmanage) rate=signalmanage->getRate ();
   if (signalmanage) channels=signalmanage->getChannels ();
 
-  DialogOperation *operation=new DialogOperation (&globals,length,rate,channels);
+  DialogOperation *operation=
+    new DialogOperation (&globals,length,rate,channels);
+
   if (operation)
     {
       KwaveDialog *dialog=DynamicLoader::getDialog (name,operation);
@@ -224,39 +263,6 @@ void SignalWidget::setOp (int op)
 	{
 	case CUT:
 	  setRange (signalmanage->getLMarker(),signalmanage->getLMarker());
-	  break;
-	case TOPITCH:
-	  convertMarkstoPitch ();
-	  break;
-	case DELETEMARK:
-	  deleteMarks ();
-	  break;
-	case APPENDMARK:
-	  appendMarks ();
-	  break;
-	case LOADMARK:
-	  loadMarks ();
-	  break;
-	case SAVEMARK:
-	  saveMarks ();
-	  break;
-	case ADDMARK:
-	  addMark ();
-	  break;
-	case ADDMARKTYPE:
-	  addMarkType ();
-	  break;
-	case JUMPTOLABEL:
-	  jumptoLabel ();
-	  break;
-	case MARKSIGNAL:
-	  markSignal ();
-	  break;
-	case MARKPERIOD:
-	  markPeriods ();
-	  break;
-	case SAVEPERIODS:
-	  savePeriods ();
 	  break;
 	case PLAY:
 	case LOOP:

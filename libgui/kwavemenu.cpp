@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "kwavemenu.h"
 #include <libkwave/parser.h>
+#include <libkwave/kwavestring.h>
 #include <kapp.h>
 
 static int unique_menu_id=0;
@@ -38,6 +39,21 @@ KwavePopMenu::KwavePopMenu (const char *name,int id): QPopupMenu()
   this->id=id;
   this->memberId=0;
   QObject::connect (this,SIGNAL(activated(int)),this,SLOT(selected(int)));
+  checkItems=false;
+  numberItems=false;
+  com=0;
+}
+//*****************************************************************************
+void KwavePopMenu::setCommand (const char *com)
+  //enables checking of menu entries
+{
+  this->com=duplicateString (com);
+}
+//*****************************************************************************
+void KwavePopMenu::numberable ()
+  //enables checking of menu entries
+{
+  numberItems=true;
 }
 //*****************************************************************************
 void KwavePopMenu::checkable ()
@@ -59,13 +75,32 @@ void KwavePopMenu::insertEntry (const char *name,const char *command, int keycod
 //*****************************************************************************
 void KwavePopMenu::selected (int num)
 {
-  printf ("clicked %d\n",num);
-  MenuCommand *tmp=commands.first();
-
-  while (tmp)
+  if (numberItems)
     {
-      if (tmp->getId()==num) emit command (tmp->getCommand());
-      tmp=commands.next();
+      char buf[512];
+      char *tmp=duplicateString (this->com);
+      int cnt=strlen (tmp);
+      while ((cnt)&&(tmp[cnt]!=')')) cnt--;
+      tmp[cnt]=0;
+      sprintf (buf,"%d",num);
+
+      char *com=catString (tmp,buf,")");
+      emit command (com);
+
+      deleteString (com);
+      deleteString (tmp);
+    }
+  else
+    {
+      MenuCommand *tmp=commands.first();
+
+      while (tmp)
+	{
+	  if (tmp->getId()==num)
+
+	    emit command (tmp->getCommand());
+	  tmp=commands.next();
+	}
     }
 }
 //*****************************************************************************
@@ -122,6 +157,7 @@ KwavePopMenu *KwavePopMenu::findMenu (const char *name)
 //*****************************************************************************
 KwavePopMenu::~KwavePopMenu ()
 {
-  if (name) deleteString (name);
+  deleteString (name);
+  deleteString (com);
 }
 //*****************************************************************************

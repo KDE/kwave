@@ -4,14 +4,14 @@ This is the kwave source distribution, a simple soundeditor for KDE.
 
 Use kwave with care (save often, and to different files...), since it has not left ALPHA-State yet.
 
-Since I didn't get the Makefiles right, it is necessary first to compile and install the libraries, then you can compile the binary and the plugins...
+Since I didn't get the Makefiles right yet, it is necessary first to compile
+and install the libraries. Then you can compile the binary and the plugins...
+Also watch for old versions of the libraries on your system. If you have
+them delete them first (libkwave.so/libkwavegui.so)
 
 So step by step starting in the main distribution directory you do this:
+
 ./configure 
-cd lib
-make 
-make install
-cd ..
 cd libgui
 make 
 make install

@@ -60,7 +60,7 @@ static QStrList filterNameList;
 //    filterDir.setNameFilter ("*.filter");
 //    filterNameList=(QStrList *)filterDir.entryList ();
 //
-//      for (char *tmp=filterNameList.first();tmp!=0;tmp=filterNameList.next())
+//      for (char *tmp=filterNameList.first();tmp;tmp=filterNameList.next())
 //	{
 //	  char buf[strlen(tmp)-6];
 //	  strncpy (buf,tmp,strlen(tmp)-6);
@@ -79,12 +79,12 @@ void SignalManager::deleteChannel (int)
 }
 //**********************************************************
 void SignalManager::addChannel ()
-  //adds a channel with zero samples
+  //adds a channel with silence
 {
   signal[channels]=new KwaveSignal (length,rate);
-  selected[channels]=true;
-  channels++;
-  info ();
+  selected[channels]=true; //enable channel
+  channels++;              //increase number of channels...
+  info ();                 //and let everybody know about it
 }
 //**********************************************************
 void SignalManager::appendChannel (KwaveSignal *newsig)
@@ -175,21 +175,6 @@ void SignalManager::setOp (int id)
     case INVERTCHANNEL:
       for (int i=0;i<channels;i++) selected[i]=!selected[i];
       break;
-    case ADDCHANNEL:
-      addChannel();
-      break;
-    case NOISE:
-      promoteCommand ("noise");
-      break;
-    case ZERO:
-      promoteCommand ("zero");
-      break;
-    case CENTER:
-      promoteCommand ("center");
-      break;
-    case REVERSE:
-      promoteCommand ("reverse");
-      break;
     }
 }
 //**********************************************************
@@ -200,52 +185,67 @@ void threadStub (TimeOperation *obj)
 //**********************************************************
 int SignalManager::doCommand (const char *str)
 {
+  if (matchCommand(str,"addchannel")) addChannel ();
+  else
   return promoteCommand (str);
+
+  return true;
 }
 //**********************************************************
 bool SignalManager::promoteCommand (const char *command)
 {
-  for (int i=0;i<channels;i++)
-    if ((signal[i])&&(selected[i]))
-      {
-	int len=rmarker-lmarker;
-	int begin=lmarker;
-	if (len==0) begin=0,len=signal[i]->getLength ();
+  int i;
+  for (i=0;i<channels;i++)       //for all channels
+    {
+      printf ("%d of %d\n",i,channels);
+      if ((signal[i])&&(selected[i]))  //that exist and are selected
+	{
+	  int len=rmarker-lmarker;
+	  int begin=lmarker;
+	  if (len==0) begin=0,len=signal[i]->getLength ();
 
-	char buf[32];
-	sprintf (buf,"%d",i+1);
-	char *caption=catString (command," on Channel ",buf);
+	  char buf[32];
+	  sprintf (buf,"%d",i+1);
+	  char *caption=catString (command," on Channel ",buf);
 
-	TimeOperation *operation=new TimeOperation (signal[i],command,begin,len);
-	if (operation)
-	  {
-	    ProgressDialog *dialog=new ProgressDialog (operation,caption);
-	    if (dialog)
-	      {
-		pthread_t thread;
+	  //create a nice little Object that should contain everything important
+	  TimeOperation *operation=
+	    new TimeOperation (signal[i],command,begin,len);
 
-		dialog->show ();
+	  if (operation)
+	    {
+	      //create a new progress dialog, that watches an memory address
+	      //that is updated by the modules
+	      ProgressDialog *dialog=new ProgressDialog (operation,caption);
+	      if (dialog)
+		{
+		  pthread_t thread;
+
+		  dialog->show ();
 	  
-		connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
-		if (pthread_create (&thread,
-				    0,
-				    (void *(*)(void *))(threadStub),
-				    (void *)operation)!=0)
-		  {
-		    debug ("thread creation failed\n");
-		    delete dialog;
-		    return false;
-		  }
-		return true;
-	      }
-	  }
-      }
-  return false;
-}
-//**********************************************************
-void SignalManager::toggleChannel (int c)
-{
-  selected[c]=!selected[c];
+		  //so if the dialog closes everything is done, so the view
+		  //may be refreshed
+		  connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
+
+		  //create the new thread 
+		  if (pthread_create (&thread, 
+				      0,
+				      (void *(*)(void *))(threadStub),
+				      (void *)operation)!=0)
+		    {
+		      debug ("thread creation failed\n");
+		      delete dialog;
+		      return false;
+		    }
+		}
+	      else debug ("out of memory: could not allocate ProgressDialog\n");
+	    }
+	  else debug ("out of memory: could not allocate TimeOperation\n");
+	}
+    }
+  if (i<channels) return false;
+  //could not promote command to modules or an error occured
+  else return true;
 }
 //**********************************************************
 void SignalManager::info ()

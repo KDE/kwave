@@ -22,6 +22,8 @@ void TopWidget::setOp (const char *str)
   else
   if (matchCommand (str,"open")) openFile();
   else
+  if (matchCommand (str,"openrecent")) openRecent(str);
+  else
   if (matchCommand (str,"save")) saveFile();
   else
   if (matchCommand (str,"revert")) revert();
@@ -86,6 +88,8 @@ TopWidget::TopWidget () : KTopLevelWidget ()
   FileLoader loader (configDir.absFilePath("menus.config"));  
   parseBatch (loader.getMem());
 
+  updateRecentFiles ();
+
   mainwidget=new MainWidget (this,menumanage,status);
   setView (mainwidget);
 
@@ -123,16 +127,23 @@ void TopWidget::revert ()
   }
 }
 //*****************************************************************************
-void TopWidget::openRecent (int num)
+void TopWidget::openRecent (const char *str)
 {
-  QString name=recentFiles.at(num);
+  KwaveParser parser (str);
+  int cnt=parser.toInt();
 
-  if (!name.isNull())
+  if ((cnt>=0)&&(cnt<20))
     {
-      this->name=name;
-      mainwidget->setSignal (&name);
-      setCaption (name.data());
+      QString name=recentFiles.at(cnt);
+
+      if (!name.isNull())
+	{
+	  this->name=name;
+	  mainwidget->setSignal (&name);
+	  setCaption (name.data());
+	}
     }
+  else debug ("out of range\n");
 }
 //*****************************************************************************
 void TopWidget::addRecentFile (char* newfile)
@@ -154,9 +165,9 @@ void TopWidget::addRecentFile (char* newfile)
 //*****************************************************************************
 void TopWidget::updateRecentFiles ()
 {
-  menumanage->clearNumberedMenu ("RecentFiles");
+  menumanage->clearNumberedMenu ("recentfiles");
   for (unsigned int i =0 ; i < recentFiles.count(); i++)
-    menumanage->addNumberedMenuEntry ("RecentFiles",recentFiles.at(i));
+    menumanage->addNumberedMenuEntry ("recentfiles",recentFiles.at(i));
 }           
 //*****************************************************************************
 void TopWidget::dropEvent (KDNDDropZone *drop)

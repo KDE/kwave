@@ -8,7 +8,7 @@
 #include <qtimer.h>
 #include "mousemark.h"
 #include "../libgui/multistateimage.h"
-#include "menumanager.h"
+#include "../libgui/menumanager.h"
 #include <libkwave/markers.h>
 #include <kapp.h>
 #include <kselect.h>
@@ -57,7 +57,7 @@ class SignalWidget : public QWidget
  int    checkPosition	        (int);
  void 	drawSelection		(int,int);
  void   setMarkType             (int);
- void   addMarkType             ();
+ void   addMarkType             (const char *);
  void   addMarkType             (struct MarkerType *marker);
  int	doCommand	        (const char *);
 
@@ -100,16 +100,19 @@ class SignalWidget : public QWidget
  void   loadMarks       ();
  void   appendMarks     ();
  void   deleteMarks     ();
- void   convertMarkstoPitch ();
+ void   convertMarkstoPitch (const char *);
  void   saveMarks       ();
  void   addMark         ();
  void   jumptoLabel     ();
- void   markSignal      ();
- void   markPeriods     ();
+ void   markSignal      (const char *);
+ void   markPeriods     (const char *);
  void   savePeriods     ();
  void   createSignal    (const char *);
  void   connectSignal   ();
  void   showDialog      (const char *);
+
+ bool   checkForLabelCommand      (const char *);
+ bool   checkForNavigationCommand (const char *);
 
  private:
  int	offset;                 //offset from which signal is beeing displayed

@@ -32,17 +32,17 @@ class MenuManager:public QObject
  Q_OBJECT
  public:
 
- MenuManager	           (QWidget *parent,KMenuBar *);
- ~MenuManager	           ();
+ MenuManager	                (QWidget *parent,KMenuBar *);
+ ~MenuManager	                ();
  
- void setCommand           (const char *);
+ void setCommand                (const char *);
 
- void appendMenus          (KwaveMenuItem *);            //adds menus
- void deleteMenus          (KwaveMenuItem *);            //deletes menus
- NumberedMenu *findNumberedMenu     (char *);            //return id
- bool addNumberedMenu      (char *);           
- void clearNumberedMenu    (char *);                     //delete all entries of a numbered Menu
- void addNumberedMenuEntry (char *name,char *entry);     //add Entrys to numbered Window
+ void appendMenus               (KwaveMenuItem *);               //adds menus
+ void deleteMenus               (KwaveMenuItem *);               //delete menus
+ NumberedMenu *findNumberedMenu (const char *);                  //return id
+ NumberedMenu *addNumberedMenu  (const char *);           
+ void clearNumberedMenu         (const char *);                  //delete all entries of a numbered Menu
+ void addNumberedMenuEntry      (const char *name,char *entry);  //add Entrys to numbered Window
 
  signals:
 

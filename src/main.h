@@ -1,7 +1,7 @@
 #include <qlist.h>
 #include "mainwidget.h"
 #include <drag.h>
-#include "menumanager.h"
+#include "../libgui/menumanager.h"
 
 class TopWidget : public KTopLevelWidget
 {
@@ -27,7 +27,7 @@ class TopWidget : public KTopLevelWidget
  void	revert();
  void	openFile();
  void   importAsciiFile();
- void   openRecent (int num);
+ void   openRecent (const char *str);
  void	saveFile();
  void	saveFileAs(bool selection=false);
 

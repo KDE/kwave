@@ -15,7 +15,7 @@
 #include "../libgui/multistateimage.h"
 #include "../libgui/overview.h"
 #include "signalview.h"
-#include "menumanager.h"
+#include "../libgui/menumanager.h"
 #include <kapp.h>
 #include <kselect.h>
 #include <ktopwidget.h>

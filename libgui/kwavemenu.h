@@ -40,11 +40,13 @@ class KwavePopMenu: public QPopupMenu
   static int           getUniqueId (); 
   static int           getIdRange  (int); 
          void          insertMenu  (KwavePopMenu *);
+	 void          setCommand  (const char *);
          void          insertEntry (const char *name,const char *com, int key);
          void          removeMenu  (const char *name);
          KwavePopMenu *findMenu    (const char *name);
          void          check       ();
          void          checkable   ();
+         void          numberable  ();
 
  signals:
 
@@ -62,8 +64,12 @@ class KwavePopMenu: public QPopupMenu
   int                 memberId;          //id of members in the case items of
                                          //a numberedMenu are used in this
   char*               name;              //name of this menu as used internally
+  char*               com;               //command template used if numbered
   int                 comcnt;            
   int                 checked;           //currently checked Item
+  bool                numberItems;       //flag if command has to include
+                                         //the menuitem id
+
   bool                checkItems;        //flag if menuitems may be checked, if
                                          //this is the case, they should also
                                          //be exclusiv

@@ -3,6 +3,7 @@
 #include <qstack.h>
 #include "menumanager.h"
 #include <libkwave/parser.h>
+#include <libkwave/kwavestring.h>
 #include <kapp.h>
 #include <klocale.h>
 
@@ -31,8 +32,6 @@ void NumberedMenu::addEntry (const char *entry)
 void NumberedMenu::refresh ()
 {
   //refresh of menus already in menu tree
-  //printf ("refreshing numberedMenu %s\n",objname->data());
-
   KwavePopMenu *tmp=notifymenus.first();
 
   while (tmp)
@@ -41,7 +40,7 @@ void NumberedMenu::refresh ()
       int itemcnt=0;
       int id=tmp->getMemberId();
 
-      const char *entry=entries.first();  //and append all entries from scratch
+      const char *entry=entries.first();  //and insert all entries from scratch
 
       while ((entry)&&(itemcnt<MENUMAX))
 	{
@@ -91,8 +90,8 @@ void MenuManager::deleteMenus (KwaveMenuItem *newmenus)
 {
 }
 //*****************************************************************************
-int parseToCode (char *key)
-  //parse the key string into qt keycode
+int parseToKeyCode (char *key)
+  //parse the key string into integer qt keycode
 {
   int keycode=0;
   int len=strlen(key);
@@ -108,18 +107,18 @@ int parseToCode (char *key)
 	  {
 	    if ((key[pos]>='A')&&(key[pos]<='Z'))	keycode+=Key_A+key[pos]-'A';
 	  }			  
-	if (strcmp (&key[pos],"PLUS")==0) keycode+=Key_Plus;
-	if (strcmp (&key[pos],"MINUS")==0) keycode+=Key_Minus;
-	if (strcmp (&key[pos],"SPACE")==0) keycode+=Key_Space;
-	if (strcmp (&key[pos],"CTRL")==0) keycode+=CTRL;
-	if (strcmp (&key[pos],"PAGEUP")==0) keycode+=Key_PageUp;
-	if (strcmp (&key[pos],"PAGEDOWN")==0) keycode+=Key_PageDown;
-	if (strcmp (&key[pos],"UP")==0) keycode+=Key_Up;
-	if (strcmp (&key[pos],"DEL")==0) keycode+=Key_Delete;
-	if (strcmp (&key[pos],"DOWN")==0) keycode+=Key_Down;
-	if (strcmp (&key[pos],"LEFT")==0) keycode+=Key_Left;
-	if (strcmp (&key[pos],"RIGHT")==0) keycode+=Key_Right;
-	if (strcmp (&key[pos],"SHIFT")==0) keycode+=SHIFT;
+	if (!strcmp (&key[pos],"PLUS")) keycode+=Key_Plus;
+	if (!strcmp (&key[pos],"MINUS")) keycode+=Key_Minus;
+	if (!strcmp (&key[pos],"SPACE")) keycode+=Key_Space;
+	if (!strcmp (&key[pos],"CTRL")) keycode+=CTRL;
+	if (!strcmp (&key[pos],"PAGEUP")) keycode+=Key_PageUp;
+	if (!strcmp (&key[pos],"PAGEDOWN")) keycode+=Key_PageDown;
+	if (!strcmp (&key[pos],"UP")) keycode+=Key_Up;
+	if (!strcmp (&key[pos],"DEL")) keycode+=Key_Delete;
+	if (!strcmp (&key[pos],"DOWN")) keycode+=Key_Down;
+	if (!strcmp (&key[pos],"LEFT")) keycode+=Key_Left;
+	if (!strcmp (&key[pos],"RIGHT")) keycode+=Key_Right;
+	if (!strcmp (&key[pos],"SHIFT")) keycode+=SHIFT;
 
 	cnt++;
       }
@@ -157,6 +156,8 @@ void MenuManager::setCommand (const char *command)
 
 	  //parse the string pos into menu structure and insert accordingly
 
+	  fflush (stdout);
+
 	  while (cnt<len)
 	    {
 	      int begin=cnt;
@@ -165,27 +166,44 @@ void MenuManager::setCommand (const char *command)
 
 	      if (parentmenu)
 		{
-		  if ((strcmp (&pos[begin],"exclusive")==0))
-		    parentmenu->checkable ();
-		  else
-		    if (strcmp (&pos[begin],"separator")==0)
+		    if ((strncmp (&pos[begin],"listmenu",8)==0))
 		      {
-			parentmenu->insertSeparator ();
-			cnt=len;
+			//create a numbered Menu and connect it to the parent
+			KwaveParser getname(&pos[begin]);
+			NumberedMenu *newmenu=
+			  addNumberedMenu (getname.getFirstParam());
+			if (newmenu)
+			  {
+			    newmenu->notifyMenu (parentmenu);
+			    parentmenu->setCommand (com);
+			  }
+			else debug ("creation of listmenu failed\n");
 		      }
 		    else
-		      if (cnt+1>=len)
+		    if ((strcmp (&pos[begin],"exclusive")==0))
+		      parentmenu->checkable ();
+		    else
+		    if ((strcmp (&pos[begin],"number")==0))
+		      parentmenu->numberable ();
+		    else
+		      if (strcmp (&pos[begin],"separator")==0)
 			{
-			  int keycode=0;
-
-			  if (key) keycode=parseToCode (key);
-			  
-			  // insert the entry into the current parent menu
-			  if (parentmenu)
-			    parentmenu->insertEntry (&pos[begin],com,keycode);
+			  parentmenu->insertSeparator ();
+			  cnt=len;
 			}
 		      else
-			newmenu=parentmenu->findMenu (&pos[begin]);
+			if (cnt+1>=len)
+			  {
+			    int keycode=0;
+
+			    if (key) keycode=parseToKeyCode (key);
+			  
+			    // insert the entry into the current parent menu
+			    if (parentmenu)
+			      parentmenu->insertEntry (&pos[begin],com,keycode);
+			  }
+			else
+			  newmenu=parentmenu->findMenu (&pos[begin]);
 		}
 	      else //is a top-level window ?
 		newmenu=this->findMenu (&pos[begin]);
@@ -283,7 +301,7 @@ void MenuManager::appendMenus (KwaveMenuItem *newmenus)
   else debug ("no menu bar!\n");
 }
 //*****************************************************************************
-void MenuManager::clearNumberedMenu (char *name)
+void MenuManager::clearNumberedMenu (const char *name)
 {
 
   NumberedMenu *menu=findNumberedMenu (name);
@@ -291,27 +309,25 @@ void MenuManager::clearNumberedMenu (char *name)
   if (menu) menu->clear();
 }
 //*****************************************************************************
-bool MenuManager::addNumberedMenu (char *name)
-//returns true, if menu is created from scratch,
-//        false if menu already exists
+NumberedMenu* MenuManager::addNumberedMenu (const char *name)
 {
   NumberedMenu *newmenu=findNumberedMenu (name);
 
-  if (newmenu) return false;
+  if (newmenu) return newmenu;
 
   newmenu=new NumberedMenu (name);
   numberedMenus.append (newmenu);
-  return true; 
+  return newmenu; 
 }
 //*****************************************************************************
-void MenuManager::addNumberedMenuEntry (char *name,char *entry)
+void MenuManager::addNumberedMenuEntry (const char *name,char *entry)
 {
   NumberedMenu *menu=findNumberedMenu (name);
   if (menu) menu->addEntry (entry);
   else debug ("could not find numbered Menu %s\n",name);
 }
 //*****************************************************************************
-NumberedMenu *MenuManager::findNumberedMenu (char *name)
+NumberedMenu *MenuManager::findNumberedMenu (const char *name)
 {
   //straight forward linear search
 

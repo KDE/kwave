@@ -52,8 +52,7 @@ class SignalManager : public QObject
 
  void	save	        (QString *filename,int,int=false);
 
- void   toggleChannel   (int);
-
+ inline void toggleChannel   (int c) {selected[c]=!selected[c];};
  void   appendChannel   (KwaveSignal *);
 
  private:

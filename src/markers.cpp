@@ -400,146 +400,134 @@ void SignalWidget::saveBlocks (int bit)
     }
 }
 //****************************************************************************
-void SignalWidget::markSignal ()
+void SignalWidget::markSignal (const char *str)
 {
   if (signalmanage)
     {
 
       Marker *newmark;
 
-      KwaveDialog *dialog =
-	DynamicLoader::getDialog ("mark",new DialogOperation(signalmanage->getRate(),true));
-
-      if ((dialog)&&(dialog->exec()))
-	{   
-	  KwaveParser parser (dialog->getCommand());
+      KwaveParser parser (str);
 	  
-	  int level=(int) (parser.toDouble()*(1<<23)/100);
+      int level=(int) (parser.toDouble()*(1<<23)/100);
 
-	  int len=signalmanage->getLength();
-	  int *sam=signalmanage->getSignal()->getSample();
-	  struct MarkerType *start=findMarkerType(parser.getNextParam());
-	  struct MarkerType *stop=findMarkerType (parser.getNextParam());
-	  int time=(int) (parser.toDouble ()*signalmanage->getRate());
+      int len=signalmanage->getLength();
+      int *sam=signalmanage->getSignal()->getSample();
+      struct MarkerType *start=findMarkerType(parser.getNextParam());
+      struct MarkerType *stop=findMarkerType (parser.getNextParam());
+      int time=(int) (parser.toDouble ()*signalmanage->getRate());
 
-	  if (start&&stop)
+      if (start&&stop)
+	{
+	  newmark=new Marker();  //generate initial marker
+	  newmark->pos=0;
+	  newmark->type=start;
+	  newmark->name=0;
+	  markers->inSort (newmark);
+
+	  for (int i=0;i<len;i++)
 	    {
-	      newmark=new Marker();  //generate initial marker
-	      newmark->pos=0;
-	      newmark->type=start;
-	      newmark->name=0;
-	      markers->inSort (newmark);
-
-	      for (int i=0;i<len;i++)
+	      if (abs(sam[i])<level)
 		{
-		  if (abs(sam[i])<level)
+		  int j=i;
+		  while ((i<len) &&(abs(sam[i])<level)) i++;
+		  if (i-j>time)
 		    {
-		      int j=i;
-		      while ((i<len) &&(abs(sam[i])<level)) i++;
-		      if (i-j>time)
+		      //insert markers...
+		      newmark=new Marker();
+		      newmark->pos=i;
+		      newmark->type=start;
+		      newmark->name=0;
+		      markers->inSort (newmark);
+
+		      if (start!=stop)
 			{
-			  //insert markers...
 			  newmark=new Marker();
-			  newmark->pos=i;
-			  newmark->type=start;
+			  newmark->pos=j;
+			  newmark->type=stop;
 			  newmark->name=0;
 			  markers->inSort (newmark);
-
-			  if (start!=stop)
-			    {
-			      newmark=new Marker();
-			      newmark->pos=j;
-			      newmark->type=stop;
-			      newmark->name=0;
-			      markers->inSort (newmark);
-			    }
 			}
 		    }
 		}
-
-	      newmark=new Marker();
-	      newmark->pos=len-1;
-	      newmark->type=stop;
-	      newmark->name=0;
-	      markers->inSort (newmark);
-
-	      refresh ();
 	    }
+
+	  newmark=new Marker();
+	  newmark->pos=len-1;
+	  newmark->type=stop;
+	  newmark->name=0;
+	  markers->inSort (newmark);
+
+	  refresh ();
 	}
     }
 }
 //****************************************************************************
-void SignalWidget::markPeriods ()
+void SignalWidget::markPeriods (const char *str)
 {
   if (signalmanage)
     {
-      KwaveDialog *dialog =
-	DynamicLoader::getDialog ("mark",new DialogOperation(signalmanage->getRate(),true));
+      KwaveParser parser (str);
 
-      if ((dialog)&&(dialog->exec()))
-	{   
-	  KwaveParser parser (dialog->getCommand());
+      int high   =signalmanage->getRate()/parser.toInt();
+      int low    =signalmanage->getRate()/parser.toInt();
+      int octave =parser.toBool ("true");
+      double adjust=parser.toDouble ();
 
-	  int high   =signalmanage->getRate()/parser.toInt();
-	  int low    =signalmanage->getRate()/parser.toInt();
-	  int octave =parser.toBool ("true");
-	  double adjust=parser.toDouble ();
+      for (int i=0;i<AUTOKORRWIN;i++)
+	autotable[i]=1-(((double)i*i*i)/(AUTOKORRWIN*AUTOKORRWIN*AUTOKORRWIN)); //generate static weighting function
 
-	  for (int i=0;i<AUTOKORRWIN;i++)
-	    autotable[i]=1-(((double)i*i*i)/(AUTOKORRWIN*AUTOKORRWIN*AUTOKORRWIN)); //generate static weighting function
+      if (octave) for (int i=0;i<AUTOKORRWIN;i++) weighttable[i]=1; //initialise moving weight table
 
-	  if (octave) for (int i=0;i<AUTOKORRWIN;i++) weighttable[i]=1; //initialise moving weight table
+      Marker *newmark;
+      int next;
+      int len=signalmanage->getLength();
+      int *sam=signalmanage->getSignal()->getSample();
+      struct MarkerType *start=markertype;
+      int cnt=findFirstMark (sam,len);
 
-	  Marker *newmark;
-	  int next;
-	  int len=signalmanage->getLength();
-	  int *sam=signalmanage->getSignal()->getSample();
-	  struct MarkerType *start=markertype;
-	  int cnt=findFirstMark (sam,len);
+      ProgressDialog *dialog=new ProgressDialog (len-AUTOKORRWIN,"Correlating Signal to find Periods:");
+      dialog->show();
 
-	  ProgressDialog *dialog=new ProgressDialog (len-AUTOKORRWIN,"Correlating Signal to find Periods:");
-	  dialog->show();
+      if (dialog)
+	{
+	  newmark=new Marker();
+	  newmark->pos=cnt;
+	  newmark->type=start;
+	  newmark->name=0;
+	  markers->inSort (newmark);
 
-	  if (dialog)
+	  while (cnt<len-2*AUTOKORRWIN)
 	    {
-	      newmark=new Marker();
-	      newmark->pos=cnt;
-	      newmark->type=start;
-	      newmark->name=0;
-	      markers->inSort (newmark);
+	      if (octave)
+		next=findNextRepeatOctave (&sam[cnt],high,adjust);
+	      else
+		next=findNextRepeat (&sam[cnt],high);
 
-	      while (cnt<len-2*AUTOKORRWIN)
+	      if ((next<low)&&(next>high))
 		{
-		  if (octave)
-		    next=findNextRepeatOctave (&sam[cnt],high,adjust);
-		  else
-		    next=findNextRepeat (&sam[cnt],high);
-
-		  if ((next<low)&&(next>high))
-		    {
-		      newmark=new Marker();
-		      newmark->pos=cnt;
-		      newmark->type=start;
-		      newmark->name=0;
-		      markers->inSort (newmark);
-		    }
-		  if (next<AUTOKORRWIN) cnt+=next;
-		  else
-		    if (cnt<len-AUTOKORRWIN)
-		      {
-			int a=findFirstMark (&sam[cnt],len-cnt);
-			if (a>0) cnt+=a;
-			else cnt+=high;
-		      }
-		    else cnt=len;
-
-		  dialog->setProgress (cnt);
+		  newmark=new Marker();
+		  newmark->pos=cnt;
+		  newmark->type=start;
+		  newmark->name=0;
+		  markers->inSort (newmark);
 		}
+	      if (next<AUTOKORRWIN) cnt+=next;
+	      else
+		if (cnt<len-AUTOKORRWIN)
+		  {
+		    int a=findFirstMark (&sam[cnt],len-cnt);
+		    if (a>0) cnt+=a;
+		    else cnt+=high;
+		  }
+		else cnt=len;
 
-	      delete dialog;
-
-	      refresh ();
+	      dialog->setProgress (cnt);
 	    }
+
+	  delete dialog;
+
+	  refresh ();
 	}
     }
 }
@@ -652,21 +640,16 @@ void SignalWidget::setMarkType  (int num)
 void SignalWidget::addMarkType (struct MarkerType *marker)
 {
   globals.markertypes.append (marker);
-  if (manage) manage->addNumberedMenuEntry ("Globals.Markertypes",marker->name->data());
+  if (manage) manage->addNumberedMenuEntry ("labeltypes",marker->name->data());
 }
 //*****************************************************************************
-void SignalWidget::addMarkType ()
+void SignalWidget::addMarkType (const char *str)
 {
-  KwaveDialog *dialog = DynamicLoader::getDialog ("marktype",new DialogOperation(signalmanage->getRate(),true));
-
-  if ((dialog)&&(dialog->exec()))
-    {   
-      MarkerType *marker=new MarkerType(dialog->getCommand());
-      if (marker) addMarkType (marker);
-    }
+  MarkerType *marker=new MarkerType(str);
+  if (marker) addMarkType (marker);
 }
 //*****************************************************************************
-void SignalWidget::convertMarkstoPitch ()
+void SignalWidget::convertMarkstoPitch (const char *)
 {
   if (signalmanage)
     {

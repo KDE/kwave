@@ -1,6 +1,6 @@
 #include "clipboard.h"
 #include "main.h"
-#include "menumanager.h"
+#include "../libgui/menumanager.h"
 #include <libkwave/globals.h>
 
 #define FLUSHCLIP 1

@@ -33,7 +33,9 @@ DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
 	`find . -type l`
 
 configure.in: VERSION
-	touch configure.in
+	$(srcdir)/bin/set_version.sh $(srcdir) \
+	`cat $(srcdir)/VERSION` \
+	`date --iso`
 
 clean-generic:
 	-rm -fv `find -size 0`

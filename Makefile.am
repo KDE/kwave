@@ -83,9 +83,11 @@ rpm_prep: clean distclean-generic ${PACKAGE}.spec
 	(cd /tmp/ ; \
 	find ${SRC_PREFIX}-@RPM_VERSION@ -name CVS > \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
+	find ${SRC_PREFIX}-@RPM_VERSION@ -name Makefile \
+		-o -name Makefile.in > \
+		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	echo "${SRC_PREFIX}-@RPM_VERSION@/doc/api" >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
-	echo "Makefile" >> /tmp/${PACKAGE}-tar-excludes.lst ; \
 	tar --exclude-from=/tmp/${PACKAGE}-tar-excludes.lst \
 		-chzf ${PACKAGE}-@RPM_VERSION@.tar.gz \
 		${SRC_PREFIX}-@RPM_VERSION@ ; \

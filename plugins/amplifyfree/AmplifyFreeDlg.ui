@@ -2,8 +2,8 @@
 <class>AmplifyFreeDlg</class>
 <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
 <include location="global">klocale.h</include>
-<include location="global">libgui/CurveWidget.h</include>
-<include location="global">libgui/ScaleWidget.h</include>
+<include location="local">libgui/CurveWidget.h</include>
+<include location="local">libgui/ScaleWidget.h</include>
 <widget>
     <class>QDialog</class>
     <property stdset="1">

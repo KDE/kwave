@@ -918,7 +918,7 @@ int TopWidget::saveFileAs(bool selection)
 	    INF_MIMETYPE).toString();
 	
 	QString new_mimetype_name;
-	new_mimetype_name = KMimeType::findByURL(m_url)->name();
+	new_mimetype_name = CodecManager::whatContains(m_url);
 	
 	if (new_mimetype_name != previous_mimetype_name) {
 	    // saving to a different mime type

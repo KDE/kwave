@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-27 19:56+0200\n"
+"POT-Creation-Date: 2002-06-10 22:08+0200\n"
 "PO-Revision-Date: 2002-02-22 08:48GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
@@ -139,84 +139,84 @@ msgstr "supprimer"
 msgid "last action"
 msgstr "derniére action"
 
-#: kwave/TopWidget.cpp:106
+#: kwave/TopWidget.cpp:108
 msgid "New File"
 msgstr "Nouveau fichier"
 
-#: kwave/TopWidget.cpp:253
+#: kwave/TopWidget.cpp:255
 msgid "create a new empty file"
 msgstr "créer un nouveu fichier vide"
 
-#: kwave/TopWidget.cpp:259
+#: kwave/TopWidget.cpp:261
 msgid "open an existing file"
 msgstr "ouvrir un fichier déjà existant"
 
-#: kwave/TopWidget.cpp:265
+#: kwave/TopWidget.cpp:267
 msgid "save the current file"
 msgstr "sauvegarder le fichier courrant"
 
-#: kwave/TopWidget.cpp:297
+#: kwave/TopWidget.cpp:299
 msgid "cut the current selection and move it to the clipboard"
 msgstr "couper la selection courante et la déplacer dans le presse papier"
 
-#: kwave/TopWidget.cpp:303
+#: kwave/TopWidget.cpp:305
 msgid "copy the current selection to the clipboard"
 msgstr "copier la selection courante et la placer dans le presse papier"
 
-#: kwave/TopWidget.cpp:309
+#: kwave/TopWidget.cpp:311
 msgid "insert the content of clipboard"
 msgstr "insérer le contenu du presse papier"
 
-#: kwave/TopWidget.cpp:315
+#: kwave/TopWidget.cpp:317
 msgid "mute the current selection"
 msgstr "assourdir la selection courante"
 
-#: kwave/TopWidget.cpp:321
+#: kwave/TopWidget.cpp:323
 msgid "delete the current selection"
 msgstr "supprime la selection courante"
 
-#: kwave/TopWidget.cpp:346
+#: kwave/TopWidget.cpp:348
 msgid "start playback"
 msgstr "Démarre la lecture"
 
-#: kwave/TopWidget.cpp:352
+#: kwave/TopWidget.cpp:354
 msgid "start playback and loop"
 msgstr "Démarre la lecture en boucle"
 
-#: kwave/TopWidget.cpp:358
+#: kwave/TopWidget.cpp:360
 msgid "pause playback"
 msgstr "met en pause la lecture"
 
-#: kwave/TopWidget.cpp:364
+#: kwave/TopWidget.cpp:366
 msgid "stop playback or loop"
 msgstr "arrête la lecture"
 
-#: kwave/TopWidget.cpp:382
+#: kwave/TopWidget.cpp:384
 msgid "zoom to selection"
 msgstr "zoome la selection"
 
-#: kwave/TopWidget.cpp:389
+#: kwave/TopWidget.cpp:391
 msgid "zoom in"
 msgstr "Aggrandir"
 
-#: kwave/TopWidget.cpp:396
+#: kwave/TopWidget.cpp:398
 msgid "zoom out"
 msgstr "rétrécir"
 
-#: kwave/TopWidget.cpp:402
+#: kwave/TopWidget.cpp:404
 #, c-format
 msgid "zoom to 100%"
 msgstr "zoome à 100%"
 
-#: kwave/TopWidget.cpp:408
+#: kwave/TopWidget.cpp:410
 msgid "zoom to all"
 msgstr "zoome à l'ensemble de la piste"
 
-#: kwave/TopWidget.cpp:415
+#: kwave/TopWidget.cpp:417
 msgid "select zoom factor"
 msgstr "selectionner le facteur de zoom"
 
-#: kwave/TopWidget.cpp:500
+#: kwave/TopWidget.cpp:502
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -230,15 +230,15 @@ msgstr ""
 "KDE ou à l'URL <a href=http://www.arts-project.org>http://www.arts-project."
 "org</a>."
 
-#: kwave/TopWidget.cpp:513
+#: kwave/TopWidget.cpp:515
 msgid "Loading plugins..."
 msgstr "Chargement des plugins..."
 
-#: kwave/TopWidget.cpp:515
+#: kwave/TopWidget.cpp:517
 msgid "Ready."
 msgstr "Prêt."
 
-#: kwave/TopWidget.cpp:727
+#: kwave/TopWidget.cpp:729
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -246,40 +246,40 @@ msgstr ""
 "Ce fichier a été modifié.\n"
 "Voulez-vous le sauvegarder ?"
 
-#: kwave/TopWidget.cpp:839
+#: kwave/TopWidget.cpp:854
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr "Le fichier '%1' existe déjà. Voulez-vous réellement l'écraser ?"
 
-#: kwave/TopWidget.cpp:956
+#: kwave/TopWidget.cpp:971
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr "Taille : %1"
 
-#: kwave/TopWidget.cpp:956
+#: kwave/TopWidget.cpp:971
 #, ycp-format
 msgid "(%2 samples)"
 msgstr "(%2 échantillons)"
 
-#: kwave/TopWidget.cpp:965
+#: kwave/TopWidget.cpp:980
 #, fuzzy, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr "Format : %u bits@%0.3f kHz"
 
-#: kwave/TopWidget.cpp:999
+#: kwave/TopWidget.cpp:1014
 #, ycp-format
 msgid "Selected: %1 (%2 samples)"
 msgstr "Sélection %1 (%2 échantillons)"
 
-#: kwave/TopWidget.cpp:1046
+#: kwave/TopWidget.cpp:1061
 msgid "U&ndo"
 msgstr "&Défaire"
 
-#: kwave/TopWidget.cpp:1052
+#: kwave/TopWidget.cpp:1067
 msgid "R&edo"
 msgstr "R&efaire"
 
-#: kwave/TopWidget.cpp:1231
+#: kwave/TopWidget.cpp:1246
 msgid " (modified)"
 msgstr " (modifier)"
 
@@ -361,7 +361,7 @@ msgstr "Un éditeur de sons pour KDE"
 msgid "selection"
 msgstr "selection"
 
-#: kwave/SignalWidget.cpp:1784 kwave/SignalWidget.cpp:1823
+#: kwave/SignalWidget.cpp:1783 kwave/SignalWidget.cpp:1822
 msgid "drag and drop"
 msgstr "tirer et lacher"
 
@@ -1064,10 +1064,6 @@ msgstr "ms"
 msgid "%"
 msgstr "%"
 
-#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:34
-msgid "Amplify Free"
-msgstr "Amplification libre"
-
 #: plugins/playback/PlayBack-OSS.cpp:85
 msgid ""
 "i/o error, maybe the driver\n"
@@ -1359,47 +1355,6 @@ msgstr "Impossible d'ouvrir le fichier !\n"
 msgid "file %s does not exist!\n"
 msgstr "le fichier %s n'existe pas !\n"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:39
-#, fuzzy
-msgid "About Kwave"
-msgstr "&A propos de Kwave..."
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:47
-#, fuzzy
-msgid "<h1>Kwave - a sound editor for KDE</h1>"
-msgstr "Un éditeur de sons pour KDE"
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:77
-msgid ""
-" <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
-"h2><br>\n"
-"With Kwave you can edit many sorts of \n"
-"wav-files including multi-channel files. \n"
-"You are able to alter and play back each \n"
-"channel on its own.<br>\n"
-"Kwave also includes many plugins (most \n"
-"are still under development) to transform \n"
-"the wave-file in several ways and presents \n"
-"a graphical view with a complete zoom- \n"
-"and scroll capability."
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:92
-msgid "kwave.sf.net"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:108
-msgid "Authors"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:120
-msgid "Thanks To"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:129
-msgid "License agreement"
-msgstr ""
-
 #: plugins/about/AboutKwaveDialog.cpp:46
 #, ycp-format
 msgid " (Using KDE %1)"
@@ -1435,98 +1390,9 @@ msgstr "Choisir des Labels qui seront utilisés pour un signal divisé :"
 msgid "Base name:"
 msgstr "Nom :"
 
-#: plugins/memory/MemDlg.uic.cpp:102 plugins/saveblock/module.cpp:33
+#: plugins/saveblock/module.cpp:33
 msgid "Directory:"
 msgstr "Repertoire :"
-
-#: plugins/memory/MemDlg.uic.cpp:37
-msgid "Memory Settings"
-msgstr "Paramétrages de la mémoire"
-
-#: plugins/memory/MemDlg.uic.cpp:44
-msgid "&Physical Memory"
-msgstr "&Mémoire physique"
-
-#: plugins/memory/MemDlg.uic.cpp:45
-msgid ""
-"<b>Limit the usage of physical memory (RAM).</b><br>\n"
-"\n"
-"If you do not set a limit, the size of the physically installed memory in "
-"your computer will be determined and used as limit. You cannot set a limit "
-"higher than the totally installed amount of memory."
-msgstr ""
-"<b>Limite l'usage de la mémoire physique (RAM).</b><br>\n"
-"\n"
-"Si vous ne fixer pas une limite, la taille de votre mémoire physique "
-"installée dans votre ordinateur sera utilisée comme valeur limite. Vous ne "
-"pouvez pas paramètrer une valeur limite supérieure à la taille de la mémoire "
-"installée dans votre ordinateur."
-
-#: plugins/memory/MemDlg.uic.cpp:57
-msgid "Limit &to"
-msgstr "Limi&tée à"
-
-#: plugins/memory/MemDlg.uic.cpp:72 plugins/memory/MemDlg.uic.cpp:137
-msgid " MB"
-msgstr " Mo"
-
-#: plugins/memory/MemDlg.uic.cpp:76
-msgid "megabytes of physical memory"
-msgstr "mégaoctets de la mémoire physique"
-
-#: plugins/memory/MemDlg.uic.cpp:81
-msgid "&Virtual Memory"
-msgstr "Mémoire &virtuelle"
-
-#: plugins/memory/MemDlg.uic.cpp:82
-msgid ""
-"<b>Configure the usage of virtual memory (swap files).</b><br>\n"
-"\n"
-"If you enable the use of virtual memory, you can specify a directory where "
-"Kwave creates temporary files that it can use as an extension to the "
-"physical memory. This enables you to process files that are much larger than "
-"your physical memory.\n"
-"<br>\n"
-"    Of course you can also set a limit for the total size of the page files."
-msgstr ""
-"<b>Configure l'usage de la mémoire virtuelle (swap).</b><br>\n"
-"\n"
-"Si vous activez l'usage de la mémoire virtuelle, vous pouvez spécifier un "
-"répertoire où Kwave créera des fichiers temporaires qui seront utilisés "
-"comme extension à la mémoire physique. Cela permettra de travailler sur des "
-"fichiers sonores dont la taille est supérieure à votre mémoire physique.\n"
-"<br>\n"
-"    Bien sur vous pouvez aussi paramètrer une limite à la taille totale de "
-"votre mémoire virtuelle."
-
-#: plugins/memory/MemDlg.uic.cpp:96
-msgid "&Enable usage of virtual memory"
-msgstr "Activ&e l'usage de la mémoire virtuelle"
-
-#: plugins/memory/MemDlg.uic.cpp:107
-msgid "/tmp"
-msgstr "/tmp"
-
-#: plugins/memory/MemDlg.uic.cpp:108
-msgid "directory for storing swap files"
-msgstr "répertoire pour stocker les fichiers de la mémoire virtuelle"
-
-#: plugins/memory/MemDlg.uic.cpp:113
-msgid "&Search..."
-msgstr "&Sélection..."
-
-#: plugins/memory/MemDlg.uic.cpp:114
-msgid "browse for a directory to hold page files"
-msgstr ""
-"Recherche d'un repertoire pour stocker les fichiers de la mémoire virtuelle"
-
-#: plugins/memory/MemDlg.uic.cpp:119
-msgid "&Limit to"
-msgstr "&Limitée à"
-
-#: plugins/memory/MemDlg.uic.cpp:142
-msgid "megabytes of virtual memory"
-msgstr "mégaoctets de la mémoire virtuelle"
 
 #: plugins/codec_wav/WavEncoder.cpp:75
 msgid "Unable to open the file for saving!"
@@ -1587,36 +1453,44 @@ msgstr ""
 msgid "Kwave auto-repair"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:108
 #: plugins/codec_wav/WavDecoder.cpp:325
 msgid "format or function is not implemented"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:111
 #: plugins/codec_wav/WavDecoder.cpp:329
 #, fuzzy
 msgid "out of memory"
 msgstr "Pas assez de mémoire !"
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:114
 #: plugins/codec_wav/WavDecoder.cpp:332
 msgid "file header is damaged"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:117
 #: plugins/codec_wav/WavDecoder.cpp:335
 msgid "invalid codec type"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:120
 #: plugins/codec_wav/WavDecoder.cpp:339
 #, fuzzy
 msgid "opening the file failed"
 msgstr "L'ouverture du fichier en écriture à échouée !"
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:123
 #: plugins/codec_wav/WavDecoder.cpp:342
 msgid "read access failed"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:126
 #: plugins/codec_wav/WavDecoder.cpp:345
 msgid "invalid sample format"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:132
 #: plugins/codec_wav/WavDecoder.cpp:351
 #, ycp-format
 msgid ""
@@ -1853,178 +1727,6 @@ msgstr "(Quadro)"
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Taille du fichier résultat : %1 MB)"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:39
-msgid "Form1"
-msgstr "Form1"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:45
-msgid "Format"
-msgstr "Format"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:55
-msgid "8000"
-msgstr "8000"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:56
-msgid "10000"
-msgstr "10000"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:57
-msgid "11025"
-msgstr "11025"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:58
-msgid "12000"
-msgstr "12000"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:59
-msgid "16000"
-msgstr "16000"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:60
-msgid "22050"
-msgstr "22050"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:61
-msgid "32000"
-msgstr "32000"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:62
-msgid "44100"
-msgstr "44100"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:63
-msgid "48000"
-msgstr "48000"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:64
-msgid "96000"
-msgstr "96000"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:67
-msgid ""
-"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
-"sample rates or you can enter any sample rate on your own."
-msgstr ""
-"<b>Période d'échantillonnage</b><br>Vous pouvez ici sélectionner une des "
-"périodes d'échantillonnage prédéfinie ou entrer une période "
-"d'échantillonnage de votre choix."
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:72
-msgid "Sample Rate:"
-msgstr "Période d'échantillonnage : "
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:87
-msgid "samples per second"
-msgstr "échantillons par seconde"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:95
-msgid "Tracks:"
-msgstr "Pistes : "
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:100
-msgid "Resolution:"
-msgstr "Résolution :"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:109
-msgid "bit"
-msgstr "bits"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:121
-#: plugins/newsignal/NewSigDlg.uic.cpp:290
-#, c-format, ycp-format
-msgid "%1"
-msgstr "%1"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:131
-msgid ""
-"<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
-"you are not sure now, you can add or delete tracks later in the program."
-msgstr ""
-"<b>Nombre de Pistes sonores</b><br>Paramétre le nombre de pistes sonores "
-"pour un nouveau fichier.  Si vous n'étes pas sur maintenant, vous pourrez "
-"ajouter ou supprimer une piste plus tard dans le programme."
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:140
-msgid ""
-"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
-"saved. However, Kwave always uses 24 bits as it's own internal resolution to "
-"give the best results when processing the audio data."
-msgstr ""
-"<b>Résolution</b><br>Paramètre la résolution en bits pour laquelle le "
-"fichier sera sauvegardé.  Cependant, Kwave utilise toujours 24 bits comme "
-"résolution internepour obtenir les meilleurs résultats  quand il effectue "
-"des calculs sur des fichiers sonores.."
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:146
-msgid "Length"
-msgstr "Taille"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:163
-msgid "Time"
-msgstr "Temps"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:164
-msgid "select this to set the length of the file by time"
-msgstr "selectionnez ici la durée de votre fichier sonore"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:173
-msgid "Hours"
-msgstr "Heures"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:186
-msgid "Minutes"
-msgstr "Minutes"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:191
-msgid "Seconds"
-msgstr "Secondes"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:204
-msgid "Samples"
-msgstr "échantillons"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:205
-msgid "select this to enter the number of samples directly"
-msgstr "sélectionnez ici le nombre d'échantillons"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:227
-msgid "minimum"
-msgstr "minimum"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:234
-msgid "(file size)"
-msgstr "(taille du fichier)"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:241
-msgid "maximum"
-msgstr "maximum"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:254
-msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-"paramètre la taille du fichier sonore par le pourcentage de sa taille "
-"maximale possible"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:262
-#, c-format
-msgid "0%"
-msgstr "0%"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:268
-#, c-format
-msgid "50%"
-msgstr "50%"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:274
-#, c-format
-msgid "100%"
-msgstr "100%"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:309
-msgid "O&K"
-msgstr "O&K"
-
 #: plugins/gap/module.cpp:23
 msgid "Set Length of Gap & Signal"
 msgstr "Paramètre la largeur de l'intervalle et du signal"
@@ -2036,6 +1738,22 @@ msgstr "largeur de l'intervalle"
 #: plugins/gap/module.cpp:28
 msgid "length of signal"
 msgstr "largeur du signal"
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:52
+msgid "NeXT,Sun Audio"
+msgstr ""
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:57
+msgid "Compressed Audio Interchange Format"
+msgstr ""
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:60
+msgid "Audio Interchange Format"
+msgstr ""
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:63
+msgid "Berkeley,IRCAM,Carl Sound Format"
+msgstr ""
 
 #: plugins/formant/module.cpp:22
 msgid "Choose formant positions and widths :"
@@ -2073,6 +1791,225 @@ msgstr "silence"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Choisir la ligne de distorsion :"
+
+#~ msgid "Amplify Free"
+#~ msgstr "Amplification libre"
+
+#, fuzzy
+#~ msgid "About Kwave"
+#~ msgstr "&A propos de Kwave..."
+
+#, fuzzy
+#~ msgid "<h1>Kwave - a sound editor for KDE</h1>"
+#~ msgstr "Un éditeur de sons pour KDE"
+
+#~ msgid "Memory Settings"
+#~ msgstr "Paramétrages de la mémoire"
+
+#~ msgid "&Physical Memory"
+#~ msgstr "&Mémoire physique"
+
+#~ msgid ""
+#~ "<b>Limit the usage of physical memory (RAM).</b><br>\n"
+#~ "\n"
+#~ "If you do not set a limit, the size of the physically installed memory in "
+#~ "your computer will be determined and used as limit. You cannot set a "
+#~ "limit higher than the totally installed amount of memory."
+#~ msgstr ""
+#~ "<b>Limite l'usage de la mémoire physique (RAM).</b><br>\n"
+#~ "\n"
+#~ "Si vous ne fixer pas une limite, la taille de votre mémoire physique "
+#~ "installée dans votre ordinateur sera utilisée comme valeur limite. Vous "
+#~ "ne pouvez pas paramètrer une valeur limite supérieure à la taille de la "
+#~ "mémoire installée dans votre ordinateur."
+
+#~ msgid "Limit &to"
+#~ msgstr "Limi&tée à"
+
+#~ msgid " MB"
+#~ msgstr " Mo"
+
+#~ msgid "megabytes of physical memory"
+#~ msgstr "mégaoctets de la mémoire physique"
+
+#~ msgid "&Virtual Memory"
+#~ msgstr "Mémoire &virtuelle"
+
+#~ msgid ""
+#~ "<b>Configure the usage of virtual memory (swap files).</b><br>\n"
+#~ "\n"
+#~ "If you enable the use of virtual memory, you can specify a directory "
+#~ "where Kwave creates temporary files that it can use as an extension to "
+#~ "the physical memory. This enables you to process files that are much "
+#~ "larger than your physical memory.\n"
+#~ "<br>\n"
+#~ "    Of course you can also set a limit for the total size of the page "
+#~ "files."
+#~ msgstr ""
+#~ "<b>Configure l'usage de la mémoire virtuelle (swap).</b><br>\n"
+#~ "\n"
+#~ "Si vous activez l'usage de la mémoire virtuelle, vous pouvez spécifier un "
+#~ "répertoire où Kwave créera des fichiers temporaires qui seront utilisés "
+#~ "comme extension à la mémoire physique. Cela permettra de travailler sur "
+#~ "des fichiers sonores dont la taille est supérieure à votre mémoire "
+#~ "physique.\n"
+#~ "<br>\n"
+#~ "    Bien sur vous pouvez aussi paramètrer une limite à la taille totale "
+#~ "de votre mémoire virtuelle."
+
+#~ msgid "&Enable usage of virtual memory"
+#~ msgstr "Activ&e l'usage de la mémoire virtuelle"
+
+#~ msgid "/tmp"
+#~ msgstr "/tmp"
+
+#~ msgid "directory for storing swap files"
+#~ msgstr "répertoire pour stocker les fichiers de la mémoire virtuelle"
+
+#~ msgid "&Search..."
+#~ msgstr "&Sélection..."
+
+#~ msgid "browse for a directory to hold page files"
+#~ msgstr ""
+#~ "Recherche d'un repertoire pour stocker les fichiers de la mémoire "
+#~ "virtuelle"
+
+#~ msgid "&Limit to"
+#~ msgstr "&Limitée à"
+
+#~ msgid "megabytes of virtual memory"
+#~ msgstr "mégaoctets de la mémoire virtuelle"
+
+#~ msgid "Form1"
+#~ msgstr "Form1"
+
+#~ msgid "Format"
+#~ msgstr "Format"
+
+#~ msgid "8000"
+#~ msgstr "8000"
+
+#~ msgid "10000"
+#~ msgstr "10000"
+
+#~ msgid "11025"
+#~ msgstr "11025"
+
+#~ msgid "12000"
+#~ msgstr "12000"
+
+#~ msgid "16000"
+#~ msgstr "16000"
+
+#~ msgid "22050"
+#~ msgstr "22050"
+
+#~ msgid "32000"
+#~ msgstr "32000"
+
+#~ msgid "44100"
+#~ msgstr "44100"
+
+#~ msgid "48000"
+#~ msgstr "48000"
+
+#~ msgid "96000"
+#~ msgstr "96000"
+
+#~ msgid ""
+#~ "<b>Sample Rate</b><br>Here you can select one of the predefined well-"
+#~ "known sample rates or you can enter any sample rate on your own."
+#~ msgstr ""
+#~ "<b>Période d'échantillonnage</b><br>Vous pouvez ici sélectionner une des "
+#~ "périodes d'échantillonnage prédéfinie ou entrer une période "
+#~ "d'échantillonnage de votre choix."
+
+#~ msgid "Sample Rate:"
+#~ msgstr "Période d'échantillonnage : "
+
+#~ msgid "samples per second"
+#~ msgstr "échantillons par seconde"
+
+#~ msgid "Tracks:"
+#~ msgstr "Pistes : "
+
+#~ msgid "Resolution:"
+#~ msgstr "Résolution :"
+
+#~ msgid "bit"
+#~ msgstr "bits"
+
+#~ msgid "%1"
+#~ msgstr "%1"
+
+#~ msgid ""
+#~ "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. "
+#~ "If you are not sure now, you can add or delete tracks later in the "
+#~ "program."
+#~ msgstr ""
+#~ "<b>Nombre de Pistes sonores</b><br>Paramétre le nombre de pistes sonores "
+#~ "pour un nouveau fichier.  Si vous n'étes pas sur maintenant, vous pourrez "
+#~ "ajouter ou supprimer une piste plus tard dans le programme."
+
+#~ msgid ""
+#~ "<b>Resolution</b><br>Select a resolution in bits in which the file will "
+#~ "be saved. However, Kwave always uses 24 bits as it's own internal "
+#~ "resolution to give the best results when processing the audio data."
+#~ msgstr ""
+#~ "<b>Résolution</b><br>Paramètre la résolution en bits pour laquelle le "
+#~ "fichier sera sauvegardé.  Cependant, Kwave utilise toujours 24 bits comme "
+#~ "résolution internepour obtenir les meilleurs résultats  quand il effectue "
+#~ "des calculs sur des fichiers sonores.."
+
+#~ msgid "Length"
+#~ msgstr "Taille"
+
+#~ msgid "Time"
+#~ msgstr "Temps"
+
+#~ msgid "select this to set the length of the file by time"
+#~ msgstr "selectionnez ici la durée de votre fichier sonore"
+
+#~ msgid "Hours"
+#~ msgstr "Heures"
+
+#~ msgid "Minutes"
+#~ msgstr "Minutes"
+
+#~ msgid "Seconds"
+#~ msgstr "Secondes"
+
+#~ msgid "Samples"
+#~ msgstr "échantillons"
+
+#~ msgid "select this to enter the number of samples directly"
+#~ msgstr "sélectionnez ici le nombre d'échantillons"
+
+#~ msgid "minimum"
+#~ msgstr "minimum"
+
+#~ msgid "(file size)"
+#~ msgstr "(taille du fichier)"
+
+#~ msgid "maximum"
+#~ msgstr "maximum"
+
+#~ msgid "sets the file size by the percentage of the possible maximum"
+#~ msgstr ""
+#~ "paramètre la taille du fichier sonore par le pourcentage de sa taille "
+#~ "maximale possible"
+
+#~ msgid "0%"
+#~ msgstr "0%"
+
+#~ msgid "50%"
+#~ msgstr "50%"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "O&K"
+#~ msgstr "O&K"
 
 #, fuzzy
 #~ msgid "&About Kwave..."

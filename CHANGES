@@ -12,6 +12,7 @@
  * some more icons in the menues
  * replaced KFileDialog with subclass KwaveFileDialog (fixes some
    bugs in KDE)
+ * added a little chapter about digital audio basics to online help
 
 0.6.3 [2002-03-01]
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-05-27 19:56+0200\n"
+"POT-Creation-Date: 2002-06-10 22:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,84 +138,84 @@ msgstr ""
 msgid "last action"
 msgstr ""
 
-#: kwave/TopWidget.cpp:106
+#: kwave/TopWidget.cpp:108
 msgid "New File"
 msgstr ""
 
-#: kwave/TopWidget.cpp:253
+#: kwave/TopWidget.cpp:255
 msgid "create a new empty file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:259
+#: kwave/TopWidget.cpp:261
 msgid "open an existing file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:265
+#: kwave/TopWidget.cpp:267
 msgid "save the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:297
+#: kwave/TopWidget.cpp:299
 msgid "cut the current selection and move it to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:303
+#: kwave/TopWidget.cpp:305
 msgid "copy the current selection to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:309
+#: kwave/TopWidget.cpp:311
 msgid "insert the content of clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:315
+#: kwave/TopWidget.cpp:317
 msgid "mute the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:321
+#: kwave/TopWidget.cpp:323
 msgid "delete the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:346
+#: kwave/TopWidget.cpp:348
 msgid "start playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:352
+#: kwave/TopWidget.cpp:354
 msgid "start playback and loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:358
+#: kwave/TopWidget.cpp:360
 msgid "pause playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:364
+#: kwave/TopWidget.cpp:366
 msgid "stop playback or loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:382
+#: kwave/TopWidget.cpp:384
 msgid "zoom to selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:389
+#: kwave/TopWidget.cpp:391
 msgid "zoom in"
 msgstr ""
 
-#: kwave/TopWidget.cpp:396
+#: kwave/TopWidget.cpp:398
 msgid "zoom out"
 msgstr ""
 
-#: kwave/TopWidget.cpp:402
+#: kwave/TopWidget.cpp:404
 #, c-format
 msgid "zoom to 100%"
 msgstr ""
 
-#: kwave/TopWidget.cpp:408
+#: kwave/TopWidget.cpp:410
 msgid "zoom to all"
 msgstr ""
 
-#: kwave/TopWidget.cpp:415
+#: kwave/TopWidget.cpp:417
 msgid "select zoom factor"
 msgstr ""
 
-#: kwave/TopWidget.cpp:500
+#: kwave/TopWidget.cpp:502
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -223,54 +223,54 @@ msgid ""
 "href=http://www.arts-project.org>http://www.arts-project.org</a>."
 msgstr ""
 
-#: kwave/TopWidget.cpp:513
+#: kwave/TopWidget.cpp:515
 msgid "Loading plugins..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:515
+#: kwave/TopWidget.cpp:517
 msgid "Ready."
 msgstr ""
 
-#: kwave/TopWidget.cpp:727
+#: kwave/TopWidget.cpp:729
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:839
+#: kwave/TopWidget.cpp:854
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:956
+#: kwave/TopWidget.cpp:971
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:956
+#: kwave/TopWidget.cpp:971
 #, ycp-format
 msgid "(%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:965
+#: kwave/TopWidget.cpp:980
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr ""
 
-#: kwave/TopWidget.cpp:999
+#: kwave/TopWidget.cpp:1014
 #, ycp-format
 msgid "Selected: %1 (%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1046
+#: kwave/TopWidget.cpp:1061
 msgid "U&ndo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1052
+#: kwave/TopWidget.cpp:1067
 msgid "R&edo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1231
+#: kwave/TopWidget.cpp:1246
 msgid " (modified)"
 msgstr ""
 
@@ -347,7 +347,7 @@ msgstr ""
 msgid "selection"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1784 kwave/SignalWidget.cpp:1823
+#: kwave/SignalWidget.cpp:1783 kwave/SignalWidget.cpp:1822
 msgid "drag and drop"
 msgstr ""
 
@@ -1045,10 +1045,6 @@ msgstr ""
 msgid "%"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:34
-msgid "Amplify Free"
-msgstr ""
-
 #: plugins/playback/PlayBack-OSS.cpp:85
 msgid ""
 "i/o error, maybe the driver\n"
@@ -1307,45 +1303,6 @@ msgstr ""
 msgid "file %s does not exist!\n"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:39
-msgid "About Kwave"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:47
-msgid "<h1>Kwave - a sound editor for KDE</h1>"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:77
-msgid ""
-" <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
-"h2><br>\n"
-"With Kwave you can edit many sorts of \n"
-"wav-files including multi-channel files. \n"
-"You are able to alter and play back each \n"
-"channel on its own.<br>\n"
-"Kwave also includes many plugins (most \n"
-"are still under development) to transform \n"
-"the wave-file in several ways and presents \n"
-"a graphical view with a complete zoom- \n"
-"and scroll capability."
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:92
-msgid "kwave.sf.net"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:108
-msgid "Authors"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:120
-msgid "Thanks To"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:129
-msgid "License agreement"
-msgstr ""
-
 #: plugins/about/AboutKwaveDialog.cpp:46
 #, ycp-format
 msgid " (Using KDE %1)"
@@ -1381,81 +1338,8 @@ msgstr ""
 msgid "Base name:"
 msgstr ""
 
-#: plugins/memory/MemDlg.uic.cpp:102 plugins/saveblock/module.cpp:33
+#: plugins/saveblock/module.cpp:33
 msgid "Directory:"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:37
-msgid "Memory Settings"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:44
-msgid "&Physical Memory"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:45
-msgid ""
-"<b>Limit the usage of physical memory (RAM).</b><br>\n"
-"\n"
-"If you do not set a limit, the size of the physically installed memory in "
-"your computer will be determined and used as limit. You cannot set a limit "
-"higher than the totally installed amount of memory."
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:57
-msgid "Limit &to"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:72 plugins/memory/MemDlg.uic.cpp:137
-msgid " MB"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:76
-msgid "megabytes of physical memory"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:81
-msgid "&Virtual Memory"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:82
-msgid ""
-"<b>Configure the usage of virtual memory (swap files).</b><br>\n"
-"\n"
-"If you enable the use of virtual memory, you can specify a directory where "
-"Kwave creates temporary files that it can use as an extension to the "
-"physical memory. This enables you to process files that are much larger than "
-"your physical memory.\n"
-"<br>\n"
-"    Of course you can also set a limit for the total size of the page files."
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:96
-msgid "&Enable usage of virtual memory"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:107
-msgid "/tmp"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:108
-msgid "directory for storing swap files"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:113
-msgid "&Search..."
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:114
-msgid "browse for a directory to hold page files"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:119
-msgid "&Limit to"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:142
-msgid "megabytes of virtual memory"
 msgstr ""
 
 #: plugins/codec_wav/WavEncoder.cpp:75
@@ -1517,34 +1401,42 @@ msgstr ""
 msgid "Kwave auto-repair"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:108
 #: plugins/codec_wav/WavDecoder.cpp:325
 msgid "format or function is not implemented"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:111
 #: plugins/codec_wav/WavDecoder.cpp:329
 msgid "out of memory"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:114
 #: plugins/codec_wav/WavDecoder.cpp:332
 msgid "file header is damaged"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:117
 #: plugins/codec_wav/WavDecoder.cpp:335
 msgid "invalid codec type"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:120
 #: plugins/codec_wav/WavDecoder.cpp:339
 msgid "opening the file failed"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:123
 #: plugins/codec_wav/WavDecoder.cpp:342
 msgid "read access failed"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:126
 #: plugins/codec_wav/WavDecoder.cpp:345
 msgid "invalid sample format"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:132
 #: plugins/codec_wav/WavDecoder.cpp:351
 #, ycp-format
 msgid ""
@@ -1770,166 +1662,6 @@ msgstr ""
 msgid "(Resulting file size: %1 MB)"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:39
-msgid "Form1"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:45
-msgid "Format"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:55
-msgid "8000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:56
-msgid "10000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:57
-msgid "11025"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:58
-msgid "12000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:59
-msgid "16000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:60
-msgid "22050"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:61
-msgid "32000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:62
-msgid "44100"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:63
-msgid "48000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:64
-msgid "96000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:67
-msgid ""
-"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
-"sample rates or you can enter any sample rate on your own."
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:72
-msgid "Sample Rate:"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:87
-msgid "samples per second"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:95
-msgid "Tracks:"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:100
-msgid "Resolution:"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:109
-msgid "bit"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:121
-#: plugins/newsignal/NewSigDlg.uic.cpp:290
-#, c-format, ycp-format
-msgid "%1"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:131
-msgid ""
-"<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
-"you are not sure now, you can add or delete tracks later in the program."
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:140
-msgid ""
-"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
-"saved. However, Kwave always uses 24 bits as it's own internal resolution to "
-"give the best results when processing the audio data."
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:146
-msgid "Length"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:163
-msgid "Time"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:164
-msgid "select this to set the length of the file by time"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:173
-msgid "Hours"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:186
-msgid "Minutes"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:191
-msgid "Seconds"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:204
-msgid "Samples"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:205
-msgid "select this to enter the number of samples directly"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:227
-msgid "minimum"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:234
-msgid "(file size)"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:241
-msgid "maximum"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:254
-msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:262
-#, c-format
-msgid "0%"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:268
-#, c-format
-msgid "50%"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:274
-#, c-format
-msgid "100%"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:309
-msgid "O&K"
-msgstr ""
-
 #: plugins/gap/module.cpp:23
 msgid "Set Length of Gap & Signal"
 msgstr ""
@@ -1940,6 +1672,22 @@ msgstr ""
 
 #: plugins/gap/module.cpp:28
 msgid "length of signal"
+msgstr ""
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:52
+msgid "NeXT,Sun Audio"
+msgstr ""
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:57
+msgid "Compressed Audio Interchange Format"
+msgstr ""
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:60
+msgid "Audio Interchange Format"
+msgstr ""
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:63
+msgid "Berkeley,IRCAM,Carl Sound Format"
 msgstr ""
 
 #: plugins/formant/module.cpp:22

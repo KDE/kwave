@@ -52,9 +52,11 @@ PLUGINDEP_FILES	+= $(uic_sources:.cpp=.d)
 
 h_files  	+= ${idl_header}
 
+GENERATED_FILES := ${uih_files} ${uic_files} ${idl_header} ${idl_impl} ${moc_files}
+
 CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 			.depend *.uih.h *.uic.cpp \
-			$(idl_header) $(idl_impl)
+			${GENERATED_FILES}
 
 %.uic.o: %.uic.cpp
 	@echo plugin \"$(MODNAME)\": compiling dialog "'"$<"'"
@@ -93,21 +95,17 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
 	@ echo -n "$@ " > $@
 	@ @CXX@ -M ${INCLUDES} $(CXXFLAGS) $< >> $@
+	@ echo "" >> $@
 
 %.dm: %.moc.cxx
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
 	@ echo -n "$@ " > $@
 	@ @CXX@ -M ${INCLUDES} $(CXXFLAGS) -x c++ $< >> $@
+	@ echo "" >> $@
 
 %.moc.cxx: %.h
 	@echo plugin \"$(MODNAME)\": extracting code with MOC for $<
 	@ @MOC@ -nw $< -o $@
-
-        # make the right order: first build the .uih and idl files,
-        # then the .d/.dm files then the .o
-${idl_header}: ${idl_files}
-${idl_impl}:   ${idl_files}
-${PLUGINDEP_FILES}:  ${uih_files} ${idl_header}
 
 .depend: ${PLUGINDEP_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@
@@ -124,11 +122,17 @@ ${PLUGINDEP_FILES}:  ${uih_files} ${idl_header}
 
 dep depend: .depend
 
-$(MODNAME): .depend ${OUT_FILES}
+$(MODNAME): ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
 	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
 
-all: ${uic_files} ${moc_files} depend $(MODNAME)
+right_order:
+	@ ${MAKE} -s ${GENERATED_FILES}
+	@ ${MAKE} -s depend
+	@ ${MAKE} -s ${OUT_FILES}
+	@ ${MAKE} -s $(MODNAME)
+
+all: ${uic_files} ${moc_files} .depend right_order
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

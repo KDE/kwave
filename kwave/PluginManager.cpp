@@ -159,13 +159,12 @@ void PluginManager::loadAllPlugins()
 
 	KwavePlugin *plugin = loadPlugin(name);
 	if (plugin) {
-	    QString state = "";
-	    if (plugin->isPersistent()) state += "(persistent)";
-	    if (plugin->isUnique()) state += "(unique)";
-	    if (!state.length()) state = "(normal)";
-	    qDebug("PluginManager::loadAllPlugins(): plugin '"+
-		   plugin->name()+"' "+state);
-
+// 	    QString state = "";
+// 	    if (plugin->isPersistent()) state += "(persistent)";
+// 	    if (plugin->isUnique()) state += "(unique)";
+// 	    if (!state.length()) state = "(normal)";
+// 	    qDebug("PluginManager::loadAllPlugins(): plugin '"+
+// 		   plugin->name()+"' "+state);
 	    if (!plugin->isUnique() && !plugin->isPersistent()) {
 		// remove it again if it is neither unique nor persistent
 		plugin->release();

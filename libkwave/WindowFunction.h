@@ -36,7 +36,7 @@ typedef enum {
 window_function_t &operator++(window_function_t &t);
 
 /**
- * \class WindowFunction
+ * @class WindowFunction
  * Handles window functions for signal processing. Also holds a static
  * map of known window functions.
  */
@@ -125,7 +125,6 @@ public:
 	return m_types_map.count();
     };
 
-public:
     /**
      * This map will be initialized with all known window functions.
      */

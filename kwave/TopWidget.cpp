@@ -117,7 +117,7 @@ TopWidget::ZoomListPrivate::ZoomListPrivate()
 };
 
 /** list of predefined zoom factors */
-TopWidget::ZoomListPrivate zoom_factors;
+TopWidget::ZoomListPrivate TopWidget::m_zoom_factors;
 
 //***************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app)
@@ -394,7 +394,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     m_id_zoomall = id++;
 	
     m_id_zoomselect = id++;
-    m_toolbar->insertCombo(zoom_factors, m_id_zoomselect,
+    m_toolbar->insertCombo(m_zoom_factors, m_id_zoomselect,
 	true, SIGNAL(activated(int)),
 	this, SLOT(selectZoom(int)), true,
 	i18n("select zoom factor"));
@@ -853,11 +853,11 @@ void TopWidget::selectZoom(int index)
     if (!m_main_widget) return;
 
     if (index < 0) return;
-    if ((unsigned int)index >= zoom_factors.count())
-	index = zoom_factors.count()-1;
+    if ((unsigned int)index >= m_zoom_factors.count())
+	index = m_zoom_factors.count()-1;
 
     double new_zoom;
-    QStringList::Iterator text = zoom_factors.at(index);
+    QStringList::Iterator text = m_zoom_factors.at(index);
     new_zoom = (text != 0) ? (*text).toDouble() : 0.0;
     if (new_zoom != 0.0) new_zoom = (100.0 / new_zoom);
 

@@ -75,8 +75,6 @@ public:
 	m_type = t;
     };
 
-/** needs to be public since gcc-3.0 ! */
-public:
     /**
      * Little private class for initialized map. Used
      * to translate interpolation_t into verbose name

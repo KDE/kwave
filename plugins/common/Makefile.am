@@ -111,7 +111,7 @@ ${idl_impl}: ${idl_files}
 
 .depend: ${uih_files} ${DEP_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@
-	@ cat $^ > $@
+	@ cat ${DEP_FILES} > $@
 
 #
 # include dependency file if it exists

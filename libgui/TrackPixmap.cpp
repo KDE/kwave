@@ -754,9 +754,8 @@ void TrackPixmap::slotSamplesModified(Track &, unsigned int offset,
 //***************************************************************************
 void TrackPixmap::convertOverlap(unsigned int &offset, unsigned int &length)
 {
-    ASSERT(m_zoom);
+    ASSERT(m_zoom != 0.0);
     if (m_zoom == 0.0) length = 0;
-
     if (!length) return;
     if ((offset + length) <= m_offset) {
 	length = 0;
@@ -764,6 +763,7 @@ void TrackPixmap::convertOverlap(unsigned int &offset, unsigned int &length)
     }
 
     unsigned int buflen = m_valid.size();
+    ASSERT(buflen);
 
     // calculate the length
     if (m_minmax_mode) {

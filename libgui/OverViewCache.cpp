@@ -88,21 +88,24 @@ unsigned int OverViewCache::sourceLength()
 //*****************************************************************************
 void OverViewCache::scaleUp()
 {
+    ASSERT(m_scale);
+    if (!m_scale) return;
+    
     // calculate the new scale
     const unsigned int len = sourceLength();
-    unsigned int new_scale = static_cast<unsigned int>(
-	rint(ceil((double)len/(double)CACHE_SIZE)));
-    if (!new_scale) new_scale = 1;
-
-    // get the shrink factor: "shrink" entries -> "1" entry
-    const unsigned int shrink = static_cast<unsigned int>(
-	rint(ceil(new_scale / m_scale)));
+    unsigned int shrink = len / (m_scale * CACHE_SIZE);
+    ASSERT(shrink);
+    while (len > CACHE_SIZE * m_scale * shrink) {
+	shrink++;
+    }
+    ASSERT(shrink > 1);
+    if (shrink <= 1) return; // nothing to shrink, just ignore new scale
 
     // loop over all tracks
     for (unsigned int t=0; t < m_state.count(); ++t) {
 	unsigned int dst = 0;
-	unsigned int count = len / m_scale;
-	if (count > CACHE_SIZE) count = 0;
+	unsigned int count = CACHE_SIZE / shrink;
+        ASSERT(count <= CACHE_SIZE);
 	
 	// source pointers
 	char *smin = m_min.at(t)->data();
@@ -143,7 +146,7 @@ void OverViewCache::scaleUp()
 	}
     }
 
-    m_scale = new_scale;
+    m_scale *= shrink;
 }
 
 //*****************************************************************************
@@ -175,6 +178,7 @@ int OverViewCache::trackIndex(unsigned int track_nr)
 void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
                                     unsigned int last)
 {
+//  debug("OverViewCache::invalidateCache(%u, %u, %u)",track,first,last);
     int cache_track = trackIndex(track);
     if (cache_track < 0) return;
 
@@ -253,7 +257,11 @@ void OverViewCache::slotTrackInserted(unsigned int index, Track &)
     m_state.insert(cache_index, state);
 
     // mark the new cache content as invalid
-    invalidateCache(index, 0, (sourceLength() / m_scale) - 1);
+    if (sourceLength()) {
+	invalidateCache(index, 0, (sourceLength() / m_scale) - 1);
+    } else {
+	invalidateCache(index, 0, CACHE_SIZE-1);
+    }
 
     emit changed();
 }
@@ -311,8 +319,9 @@ void OverViewCache::slotSamplesInserted(unsigned int track,
     if (!m_src_tracks.isEmpty() && !(m_src_tracks.contains(track))) return;
 
     // right out of our range -> out of interest
-    if (offset >= (m_src_offset + sourceLength())) return;
-
+    const unsigned int len = sourceLength();
+    if (offset >= (m_src_offset + ((len) ? (len - 1) : 1))) return;
+   
     // left from us -> just move our own offset right
     if (offset < m_src_offset) {
 	m_src_offset += length;
@@ -327,6 +336,13 @@ void OverViewCache::slotSamplesInserted(unsigned int track,
     unsigned int first = (offset - m_src_offset) / m_scale;
     unsigned int last  = sourceLength() / m_scale;
     if (last != first) last--;
+
+//    static unsigned int last_length = 0;
+//    if (sourceLength() != last_length) {
+//	last_length = sourceLength();
+//	first = 0;
+//    }
+//    
     invalidateCache(track, first, last);
     emit changed();
 }
@@ -416,6 +432,8 @@ QBitmap OverViewCache::getOverView(int width, int height)
     bitmap.fill(color0);
 
     const unsigned int length = sourceLength();
+    if (!length) return bitmap; // stay empty if no data available
+    
     MultiTrackReader src;
     QArray<unsigned int> track_list;
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
@@ -426,7 +444,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	track_list = m_signal.allTracks();
     }
     m_signal.openMultiTrackReader(src, track_list, m_src_offset,
-	m_src_offset+sourceLength()-1);
+	m_src_offset+length-1);
 
     // loop over all min/max buffers and make their content valid
     ASSERT(m_state.count() == src.count());
@@ -512,16 +530,16 @@ QBitmap OverViewCache::getOverView(int width, int height)
 //*****************************************************************************
 void OverViewCache::dumpTracks()
 {
-//    QValueList<unsigned int>::Iterator it;
-//    QString list = "OverViewCache - selected:";
-//    for (it=m_src_tracks.begin(); it != m_src_tracks.end(); ++it) {
-//	list += " " + list.number(*it);
-//    }
-//    list += " --- deleted:";
-//    for (it=m_src_deleted.begin(); it != m_src_deleted.end(); ++it) {
-//	list += " " + list.number(*it);
-//    }
-//    debug(list);
+    QValueList<unsigned int>::Iterator it;
+    QString list = "OverViewCache - selected:";
+    for (it=m_src_tracks.begin(); it != m_src_tracks.end(); ++it) {
+	list += " " + list.number(*it);
+    }
+    list += " --- deleted:";
+    for (it=m_src_deleted.begin(); it != m_src_deleted.end(); ++it) {
+	list += " " + list.number(*it);
+    }
+    debug(list);
 }
 
 //*****************************************************************************

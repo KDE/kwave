@@ -108,7 +108,10 @@ kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
 kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt \
 	-lartsflow -lartsflow_idl -lmcop \
 	-lkfile -lkdeui -lkdecore -lqt \
-	-lX11 -lXext -lpthread -ldl -lm
+	-lX11 -lXext -lpthread \
+	-ldl -lm
+
+#	-L../check -lmem -lbfd -liberty
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

@@ -23,7 +23,7 @@ author=Thomas Eschenbacher
 configure_args=--enable-debug=yes
 email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
-lfv_open_groups=Sources
+lfv_open_groups=
 make_options=-w -j1
 makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am,plugins/amplifyfree/Makefile.am
 modifyMakefiles=false
@@ -44,7 +44,8 @@ Online Help=*.docbook,\s
 Pictures=*.xpm,
 Sources=*.cpp,
 Zusätzliche=*.config,*.cfg,*.docbook,
-groups=Online Help,Languages,GNU,Pictures,Headers,Sources,Dialoge
+aRts/MCOP=*.idl
+groups=aRts/MCOP,Online Help,Languages,GNU,Pictures,Headers,Sources,Dialoge
 Übersetzungen=*.po,
 
 [Makefile.am]
@@ -1081,6 +1082,42 @@ install=false
 install_location=
 type=HEADER
 
+[libkwave/ArtsSampleSink.idl]
+dist=true
+install=false
+install_location=
+type=CORBA_SOURCE
+
+[libkwave/ArtsSampleSink_impl.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[libkwave/ArtsSampleSink_impl.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[libkwave/ArtsSampleSource.idl]
+dist=true
+install=false
+install_location=
+type=CORBA_SOURCE
+
+[libkwave/ArtsSampleSource_impl.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[libkwave/ArtsSampleSource_impl.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [libkwave/Curve.cpp]
 dist=true
 install=false
@@ -1203,7 +1240,7 @@ type=HEADER
 
 [libkwave/Makefile.am]
 dist=true
-files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/PointSet.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/mmap.h,libkwave/mmap.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp
+files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/PointSet.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/mmap.h,libkwave/mmap.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp,libkwave/ArtsSampleSink.idl,libkwave/ArtsSampleSource.idl,libkwave/ArtsSampleSink_impl.cpp,libkwave/ArtsSampleSink_impl.h,libkwave/ArtsSampleSource_impl.h,libkwave/ArtsSampleSource_impl.cpp
 install=false
 install_location=
 sub_dirs=

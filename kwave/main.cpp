@@ -1,6 +1,7 @@
 //Kwave main file
 
 #include "config.h"
+//#include "check/mcheck.h"
 
 #include <kaboutdata.h>
 

@@ -24,6 +24,8 @@ o ask user if he wants to save before closing a modified file
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
 
+o support for compressed wav files, like those found on www.montypython.net
+
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 
 o TrackPixmap: different color sets if selected/deselected

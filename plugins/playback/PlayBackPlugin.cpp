@@ -1,8 +1,8 @@
 /***************************************************************************
-		  module.cpp  -  implementation of the playback dialog plugin
+     PlayBackPlugin.cpp  -  plugin for playback and playback configuration
 			     -------------------
-    begin                : Fri Aug 04 2000
-    copyright            : (C) 2000 by Thomas Eschenbacher
+    begin                : Sun May 13 2001
+    copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,390 +15,371 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
+
+#include <math.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 
-#include <qpushbutton.h>
-#include <qkeycode.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-
-#include "module.h"
+#include <qstring.h>
 
 #include <kapp.h>
-#include <kfiledialog.h>
 
-const char *version = "1.1";
-const char *author = "Thomas Eschenbacher";
-const char *name = "playback";
-static const char *devicetext[] = {
-    "/dev/dsp",
-    "/dev/audio",
-    "/dev/adsp",
-    "/dev/dio",
-    0
-};
+#include <libgui/KwavePlugin.h>
 
-#ifndef max
-#define max(x,y) (( x > y ) ? x : y )
-#endif
+#include <kwave/PlaybackController.h>
+#include <kwave/PluginManager.h>
+#include <kwave/SignalManager.h>
 
-//**********************************************************
-Dialog *getDialog (DialogOperation *operation) 
+#include "PlayBackDialog.h"
+#include "PlayBackPlugin.h"
+
+KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
+
+#define DEFAULT_PLAYBACK_DEVICE "[aRts sound daemon]"
+
+//***************************************************************************
+PlayBackPlugin::PlayBackPlugin(PluginContext &context)
+    :KwavePlugin(context)
 {
-    PlayBackDialog *pb = new PlayBackDialog(operation->isModal());
-    ASSERT(pb);
-    if (!pb) return 0;
-    
-    if (!pb->isOK()) {
-	delete pb;
-	return 0;
-    } else {
-	return pb;
-    }
+    m_playback_params.rate = 44100;
+    m_playback_params.channels = 2;
+    m_playback_params.bits_per_sample = 16;
+    m_playback_params.device = DEFAULT_PLAYBACK_DEVICE;
+    m_playback_params.bufbase = 10;
+
 }
-
-//**********************************************************
-PlayBackDialog::PlayBackDialog(bool modal)
-    :Dialog(modal) 
+//***************************************************************************
+int PlayBackPlugin::interpreteParameters(QStringList &params)
 {
-    // get the current options from the main application
-    playback_params = KwaveApp::getPlaybackParams();
+    bool ok;
+    QString param;
+    debug("PlayBackPlugin::interpreteParameters()"); // ###
 
-    bg = 0;
-    b8 = 0;
-    b16 = 0;
-    b24 = 0;
-    bufferlabel = 0;
-    buffersize = 0;
-    cancel = 0;
-    comstr = 0;
-    devicelabel = 0;
-    devicebox = 0;
-    stereo = 0;
-    separator = 0;
-    select_device = 0;
-    test = 0;
-    ok = 0;
-
-    int h=0, w=0;
-
-    setCaption (i18n("Playback Options :"));
-
-    // -- create all layout objects --
-
-    QVBoxLayout *topLayout = new QVBoxLayout(this, 10);
-    ASSERT(topLayout);
-    if (!topLayout) return;
-
-    QHBoxLayout *deviceLayout = new QHBoxLayout();
-    ASSERT(deviceLayout);
-    if (!deviceLayout) return;
-
-    QHBoxLayout *bufferLayout = new QHBoxLayout();
-    ASSERT(bufferLayout);
-    if (!bufferLayout) {
-	delete deviceLayout;
-	return;
+    // evaluate the parameter list
+    ASSERT(params.count() == 5);
+    if (params.count() != 5) {
+	debug("PlayBackPlugin::interpreteParams(): params.count()=%d",
+	      params.count());
+	return -EINVAL;
     }
-
-    QHBoxLayout *buttonsLayout = new QHBoxLayout();
-    ASSERT(buttonsLayout);
-    if (!buttonsLayout) {
-	delete deviceLayout;
-	delete bufferLayout;
-	return;
-    }
-
-    // -- checkboxes for 8/16/24 Bits --
-    bg = new QButtonGroup(this, i18n("Resolution"));
-    bg->setTitle(i18n("Resolution"));
-    ASSERT(bg);
-    if (!bg) return;
-
-    topLayout->addWidget(bg);
-
-    // Create layouts for the check boxes
-    QVBoxLayout *bitsBoxLayout = new QVBoxLayout(bg, 10);
-    bitsBoxLayout->addSpacing(bg->fontMetrics().height() );
-
-    QHBoxLayout *bitsLayout = new QHBoxLayout();
-    ASSERT(bitsLayout);
-    if (!bitsLayout) return;
-    bitsBoxLayout->addLayout(bitsLayout);
-    bitsLayout->addSpacing(bg->fontMetrics().height() );
-
-    b8 = new QRadioButton(i18n("&8 Bit"), bg);
-    ASSERT(b8);
-    if (!b8) return;
-    b8->setText(i18n("&8 Bit"));
-    b8->setMinimumSize(b8->sizeHint());
-    b8->setChecked(playback_params.bits_per_sample == 8);
-    QToolTip::add(b8,
-        i18n("Set Playback-Mode to 8 Bit (poor quality)\n"\
-	     "should be supported by all sound hardware !"));
-
-    b16 = new QRadioButton(i18n("1&6 Bit"), bg);
-    ASSERT(b16);
-    if (!b16) return;
-    b16->setMinimumSize(b16->sizeHint());
-    b16->setChecked(playback_params.bits_per_sample == 16);
-    QToolTip::add( b16,
-        i18n("Set Playback-Mode to 16 Bit (CD-like quality)\n"\
-	     "not supported by all sound hardware !"));
-
-    b24 = new QRadioButton(i18n("2&4 Bit"), bg);
-    ASSERT(b24);
-    if (!b24) return;
-    b24->setMinimumSize(b24->sizeHint());
-    b24->setChecked(playback_params.bits_per_sample == 24);
-    QToolTip::add( b24,
-        i18n("Set Playback-Mode to 24 Bit (high quality)\n"\
-	     "only supported by some new sound hardware !"));
-    b24->setEnabled(false); // ### not implemented yet ###
-
-    // -- playback device --
-    devicelabel = new QLabel(i18n("Playback Device :"), this);
-    ASSERT(devicelabel);
-    if (!devicelabel) return;
-
-    devicebox = new QComboBox(true, this);
-    ASSERT(devicebox);
-    if (!devicebox) return;
-    devicebox->insertStrList(devicetext, -1);
-    devicebox->setMinimumWidth(devicebox->sizeHint().width()+10);
-    for (int i=0; i < devicebox->count(); i++) {
-	if (strcmp(playback_params.device, devicebox->text(i))==0) {
-	    devicebox->setCurrentItem(i);
-	    break;
-	}
-    }
-
-    h = max(devicelabel->sizeHint().height(),
-            devicebox->sizeHint().height());
-    w = devicelabel->sizeHint().width();
-    devicelabel->setFixedSize(w, h);
-    devicebox->setFixedHeight(h);
-
-    select_device = new QPushButton(i18n("se&lect..."), this);
-    ASSERT(select_device);
-    if (!select_device) return;
-    QToolTip::add(select_device,
-	i18n("Select a playback device not listed\n"\
-	     "in the standard selection.\n"\
-	     "(sorry, not implemented yet!)"));
-    select_device->setEnabled(false);
-    select_device->setFixedWidth(select_device->sizeHint().width());
-    // ### not implemented yet ###
-    //     -> needs support for ALSA,
-    //        OSS/Free only supports up to 16 bits :-(
-
-    // -- buffer size --
-    buffersize = new Slider(8, 16, 1, 5, Slider::Horizontal, this);
-    ASSERT(buffersize);
-    if (!buffersize) return;
-    buffersize->setValue(playback_params.bufbase);
-
-    bufferlabel = new QLabel("", this);
-    ASSERT(bufferlabel);
-    if (!bufferlabel) return;
-    setBufferSize(playback_params.bufbase);
-    QToolTip::add(buffersize, i18n("This is the size of the buffer "\
-	"used for communication with the sound driver\n"\
-	"If your computer is rather slow select a big buffer"));
-
-    w = bufferlabel->sizeHint().width()+20;
-    bufferlabel->setFixedWidth(w);
-    buffersize->setMinimumWidth(w/2);
-
-    // -- stereo checkbox --
-    stereo = new QCheckBox(i18n("&stereo playback"), this);
-    ASSERT(stereo);
-    if (!stereo) return;
-    stereo->setChecked(playback_params.channels >= 2);
-    stereo->setFixedHeight(stereo->sizeHint().height());
-
-    // -- separator --
-    separator = new QFrame(this, "separator line");
-    ASSERT(separator);
-    if (!separator) return;
-    separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
-    separator->setFixedHeight(separator->sizeHint().height());
-
-    // give all widgets the same height
-    h = max(bufferlabel->sizeHint().height(),
-            buffersize->sizeHint().height());
-    h = max(h, devicelabel->sizeHint().height());
-    h = max(h, devicebox->sizeHint().height());
-    h = max(h, select_device->sizeHint().height());
-
-    bufferlabel->setFixedHeight(h);
-    buffersize->setFixedHeight(h);
-    devicelabel->setFixedHeight(h);
-    devicebox->setFixedHeight(h);
-    select_device->setFixedHeight(h);
-
-    // button for "test settings"
-    test = new QPushButton(i18n("&test settings"), this);
-    ASSERT(test);
-    if (!test) return;
-    QToolTip::add(test,
-	i18n("Try to play a short sound\n"\
-	     "using the current settings.\n"\
-	     "(sorry, not implemented yet!)"));
-    test->setEnabled(false); // ### not implemented yet ###
-
-    // buttons for OK and Cancel
-    ok = new QPushButton(OK, this);
+	
+    // parameter #0: sample rate [44100]
+    param = params[0];
+    m_playback_params.rate = param.toUInt(&ok);
     ASSERT(ok);
-    if (!ok) return;
+    if (!ok) return -EINVAL;
 
-    cancel = new QPushButton(CANCEL, this);
-    ASSERT(cancel);
-    if (!cancel) return;
-
-    h = max(ok->sizeHint().height(), cancel->sizeHint().height());
-    w = max(ok->sizeHint().width(), cancel->sizeHint().width());
-    ok->setFixedSize(w, h);
-    cancel->setFixedSize(w,h);
-    test->setFixedSize(test->sizeHint().width(), h);
-
-    // add controls to their layouts
-    bitsLayout->addWidget(b8, 0, AlignLeft | AlignCenter);
-    bitsLayout->addStretch(10);
-    bitsLayout->addWidget(b16, 0, AlignCenter | AlignCenter);
-    bitsLayout->addStretch(10);
-    bitsLayout->addWidget(b24, 0, AlignRight | AlignCenter);
-
-    topLayout->addLayout(deviceLayout);
-    deviceLayout->addWidget(devicelabel, 0, AlignLeft | AlignCenter);
-    deviceLayout->addSpacing(10);
-    deviceLayout->addWidget(devicebox, 0, AlignRight | AlignCenter);
-    deviceLayout->addWidget(select_device, 0, AlignRight | AlignCenter);
-
-    topLayout->addLayout(bufferLayout);
-    bufferLayout->addWidget(bufferlabel, 0, AlignLeft | AlignCenter);
-    bufferLayout->addSpacing(10);
-    bufferLayout->addWidget(buffersize,0, AlignRight | AlignCenter);
-
-    topLayout->addWidget(stereo);
-    topLayout->addWidget(separator);
-
-    topLayout->addLayout(buttonsLayout);
-    buttonsLayout->addWidget(test, 0, AlignLeft | AlignCenter);
-    buttonsLayout->addSpacing(30);
-    buttonsLayout->addStretch(10);
-    buttonsLayout->addWidget(ok, 0, AlignRight | AlignCenter);
-    buttonsLayout->addSpacing(10);
-    buttonsLayout->addWidget(cancel, 0, AlignRight | AlignCenter);
-
-    bitsBoxLayout->activate();
-    topLayout->activate();
-    topLayout->freeze(0,0);
-
-    ok->setFocus();
-    connect(ok ,SIGNAL(clicked()),
-                SLOT (accept()));
-    connect(cancel, SIGNAL(clicked()),
-                    SLOT (reject()));
-    connect(buffersize, SIGNAL(valueChanged(int)),
-                        SLOT(setBufferSize(int)));
-    connect(select_device, SIGNAL(clicked()),
-                           SLOT(selectPlaybackDevice()));
-}
-
-//**********************************************************
-bool PlayBackDialog::isOK()
-{
-    ASSERT(bufferlabel);
-    ASSERT(buffersize);
-    ASSERT(devicelabel);
-    ASSERT(devicebox);
-    ASSERT(stereo);
-    ASSERT(bg);
-    ASSERT(b8);
-    ASSERT(b16);
-    ASSERT(b24);
-    ASSERT(separator);
-    ASSERT(select_device);
-    ASSERT(test);
+    // parameter #1: number of channels [1 | 2]
+    param = params[1];
+    m_playback_params.channels = param.toUInt(&ok);
     ASSERT(ok);
-    ASSERT(cancel);
+    if (!ok) return -EINVAL;
 
-    return (bufferlabel && buffersize && devicelabel &&
-	devicebox && stereo && bg && b8 && b16 && b24 &&
-	separator && select_device && test && ok && cancel );
+    // parameter #2: bits per sample [8 | 16 ]
+    param = params[2];
+    m_playback_params.bits_per_sample = param.toUInt(&ok);
+    ASSERT(ok);
+    if (!ok) return -EINVAL;
+
+    // parameter #3: playback device [/dev/dsp , ... ]
+    param = params[3];
+    m_playback_params.device = param;
+
+    // parameter #4: base of buffer size [4...16]
+    param = params[4];
+    m_playback_params.bufbase = param.toUInt(&ok);
+    ASSERT(ok);
+    if (!ok) return -EINVAL;
+
+    debug("PlayBackPlugin::interpreteParameters(): done"); // ###
+    return 0;
 }
-
-//**********************************************************
-void PlayBackDialog::setBufferSize(int exp) 
+//***************************************************************************
+void PlayBackPlugin::load(QStringList &params)
 {
-    ASSERT(bufferlabel);
-    if (!bufferlabel) return;
+    debug("PlaybackPlugin(): load()");
+    interpreteParameters(params);
 
-    char buf[256];
-    int val = 1 << exp;
+    PlaybackController &m_playback_controller =
+	manager().playbackController();
 
-    snprintf(buf, sizeof(buf), i18n("Buffer Size : %5d samples"), val);
-    bufferlabel->setText (buf);
-
-    playback_params.bufbase = exp;
+    connect(&m_playback_controller, SIGNAL(sigDeviceStartPlayback()),
+            this, SLOT(startDevicePlayBack()));
+    connect(&m_playback_controller, SIGNAL(sigDeviceStopPlayback()),
+            this, SLOT(stopDevicePlayBack()));
 }
 
-//**********************************************************
-// format of the return string:
-// playback(
-//    rate,            [44100]
-//    channels,        [1 | 2]
-//    bits_per_sample, [8, 16]
-//    device,          [/dev/dsp , ... ]
-//    bufbase          [4...16]
-// )
-const char *PlayBackDialog::getCommand() 
+//***************************************************************************
+QStringList *PlayBackPlugin::setup(QStringList &previous_params)
 {
-    ASSERT(stereo);
-    ASSERT(b16);
-    ASSERT(devicebox);
-    if (!stereo || !b16 || !devicebox) return 0;
+    QStringList *result = 0;
+    debug("SonagramPlugin::setup()");
 
-    char buf[256];
+    // try to interprete the list of previous parameters, ignore errors
+    if (previous_params.count()) interpreteParameters(previous_params);
 
-    // playback_params.rate = ...; ### not changeable yet
-    playback_params.channels = stereo->isChecked() ? 2 : 1;
-    playback_params.bits_per_sample = b24->isChecked() ? 24 :
-	(b16->isChecked() ? 16 : 8);
-    playback_params.device = devicebox->currentText();
-    // playback_params.bufbase = ...; already set by setBufferSize
+    PlayBackDialog *dlg = new PlayBackDialog(*this, m_playback_params);
+    ASSERT(dlg);
+    if (!dlg) return 0;
 
-    snprintf(buf, sizeof(buf),
-	"playback (%d,%d,%d,%s,%d)",
-	playback_params.rate,
-	playback_params.channels,
-	playback_params.bits_per_sample,
-	playback_params.device,
-	playback_params.bufbase
-    );
+    if (dlg->exec() == QDialog::Accepted) {
+	result = new QStringList();
+	ASSERT(result);
+	if (result) dlg->parameters(*result);
+    };
 
-    if (comstr) delete[] comstr;
-    comstr = duplicateString(buf);
-    debug("plugin dialog 'playback': return string = '%s'",comstr);
-    return comstr;
+    delete dlg;
+    debug("PlayBackPlugin::setup(): done.");
+    return result;
 }
 
-//**********************************************************
-void PlayBackDialog::selectPlaybackDevice()
+//***************************************************************************
+void PlayBackPlugin::startDevicePlayBack()
 {
-    if (!isOK()) return;
-
-    QString new_device = KFileDialog::getOpenFileName("/dev/", 0, this);
-    if (new_device.isNull()) return;
-
+    debug("PlayBackPlugin::startDevicePlayBack()()");
+//    msg[processid] = 1;
+//    msg[stopprocess] = false;
+//
+//    Play *par = new Play;
+//    pthread_t thread;
+//
+//    par->manage = this;
+//    par->start = start;
+//    par->loop = loop;
+//    par->params = KwaveApp::getPlaybackParams();
+//    par->params.rate = this->getRate();
+//
+//    m_playback_error = 0;
+//    pthread_create(&thread, 0, (void * (*) (void *))playThread, par);
 }
 
-//**********************************************************
-PlayBackDialog::~PlayBackDialog() 
+//***************************************************************************
+void PlayBackPlugin::stopDevicePlayBack()
 {
-    if (comstr) delete[] comstr;
+    debug("PlayBackPlugin::stopDevicePlayBack()");
+//    msg[stopprocess] = true;          //set flag for stopping
+//
+//    QTimer timeout;
+//    timeout.start(5000, true);
+//    while (msg[processid] != 0) {
+//	sched_yield();
+//	// wait for termination
+//	if (!timeout.isActive()) {
+//	    warning("SignalManager::stopplay(): TIMEOUT");
+//	    break;
+//	}
+//    }
 }
 
-//**********************************************************
+//***************************************************************************
+//int PlayBackPlugin::setSoundParams(int /*audio*/, int /*bitspersample*/,
+//                                   unsigned int /*channels*/, int /*rate*/,
+//                                   int /*bufbase*/)
+//{
+//    return 0;
+//    const char *trouble = i18n("playback problem");
+//
+//    debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\#
+//	"rate=%d, bufbase=%d)", audio, bitspersample, channels,
+//	rate, bufbase);
+//
+//// ### under construction ###
+//
+//// from standard oss interface (linux/soundcard.h)
+//
+/////*	Audio data formats (Note! U8=8 and S16_LE=16 for compatibility) */
+////#define SNDCTL_DSP_GETFMTS		_SIOR ('P',11, int) /* Returns a mask */
+////#define SNDCTL_DSP_SETFMT		_SIOWR('P',5, int) /* Selects ONE fmt*/
+////#	define AFMT_QUERY		0x00000000	/* Return current fmt */
+////#	define AFMT_MU_LAW		0x00000001
+////#	define AFMT_A_LAW		0x00000002
+////#	define AFMT_IMA_ADPCM		0x00000004
+////#	define AFMT_U8			0x00000008
+////#	define AFMT_S16_LE		0x00000010	/* Little endian signed 16*/
+////#	define AFMT_S16_BE		0x00000020	/* Big endian signed 16 */
+////#	define AFMT_S8			0x00000040
+////#	define AFMT_U16_LE		0x00000080	/* Little endian U16 */
+////#	define AFMT_U16_BE		0x00000100	/* Big endian U16 */
+////#	define AFMT_MPEG		0x00000200	/* MPEG (2) audio */
+//
+//// from ALSA interface (asound.h)
+//
+////#define SND_PCM_SFMT_S8			0
+////#define SND_PCM_SFMT_U8			1
+////#define SND_PCM_SFMT_S16		SND_PCM_SFMT_S16_LE
+////#define SND_PCM_SFMT_U16		SND_PCM_SFMT_U16_LE
+////#define SND_PCM_SFMT_S24		SND_PCM_SFMT_S24_LE
+////#define SND_PCM_SFMT_U24		SND_PCM_SFMT_U24_LE
+////#define SND_PCM_SFMT_S32		SND_PCM_SFMT_S32_LE
+////#define SND_PCM_SFMT_U32		SND_PCM_SFMT_U32_LE
+////#define SND_PCM_SFMT_FLOAT		SND_PCM_SFMT_FLOAT_LE
+////#define SND_PCM_SFMT_FLOAT64		SND_PCM_SFMT_FLOAT64_LE
+////#define SND_PCM_SFMT_IEC958_SUBFRAME	SND_PCM_SFMT_IEC958_SUBFRAME_LE
+//
+//    int format = (bitspersample == 8) ? AFMT_U8 : AFMT_S16_LE;
+//
+//    // number of bits per sample
+//    if (ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &format) == -1) {
+//	m_playback_error = i18n("number of bits per samples not supported");
+//	return 0;
+//    }
+//
+//    // mono/stereo selection
+//    int stereo = (channels >= 2) ? 1 : 0;
+//    if (ioctl(audio, SNDCTL_DSP_STEREO, &stereo) == -1) {
+//	m_playback_error = i18n("stereo not supported");
+//	return 0;
+//    }
+//
+//    // playback rate
+//    if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) == -1) {
+//	m_playback_error = i18n("playback rate not supported");
+//	return 0;
+//    }
+//
+//    // buffer size
+//    ASSERT(bufbase >= MIN_PLAYBACK_BUFFER);
+//    ASSERT(bufbase <= MAX_PLAYBACK_BUFFER);
+//    if (bufbase < MIN_PLAYBACK_BUFFER) bufbase = MIN_PLAYBACK_BUFFER;
+//    if (bufbase > MAX_PLAYBACK_BUFFER) bufbase = MAX_PLAYBACK_BUFFER;
+//    if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
+//	m_playback_error = i18n("unusable buffer size");
+//	return 0;
+//    }
+//
+//    // return the buffer size in bytes
+//    int size;
+//    ioctl(audio, SNDCTL_DSP_GETBLKSIZE, &size);
+//    return size;
+//}
+
+////***************************************************************************
+//void SignalManager::playback(int /*device*/, playback_param_t &/*param*/,
+//                             unsigned char */*buffer*/, unsigned int /*bufsize*/,
+//                             unsigned int /*start*/, bool /*loop*/)
+//{
+//    ASSERT(buffer);
+//    ASSERT(bufsize);
+//    ASSERT(param.channels);
+//    if (!buffer || !bufsize || !param.channels) return;
+//
+//    unsigned int i;
+//    unsigned int active_channels = 0;
+//    unsigned int in_channels = m_channels;
+//    unsigned int out_channels = param.channels;
+//    unsigned int active_channel[in_channels]; // list of active channels
+//
+//    // get the number of channels with enabled playback
+//    for (i=0; i < in_channels; i++) {
+//	if (!signal.at(i)) continue;
+//	// ### TODO: use state of play widget instead of "enabled" ###
+//	if (!signal.at(i)->isSelected()) continue;
+//
+//	active_channel[active_channels++] = i;
+//    }
+//
+//    // abort if no channels -> nothing to do
+//    if (!active_channels) {
+//	debug("SignalManager::playback(): no active channel, nothing to do");
+//	msg[stopprocess] = true;
+//    }
+//
+//    // set up the matrix for channel mixing
+//    int matrix[active_channels][out_channels];
+//    unsigned int x, y;
+//    for (y=0; y < out_channels; y++) {
+//	unsigned int m1, m2;
+//	m1 = y * active_channels;
+//	m2 = (y+1) * active_channels;
+//	
+//	for (x=0; x < active_channels; x++) {
+//	    unsigned int n1, n2;
+//	    n1 = x * out_channels;
+//	    n2 = (x+1) * out_channels;
+//
+//	    // get the common area of [n1..n2] and [m1..m2]
+//	    unsigned int left = max(n1, m1);
+//	    unsigned int right = min(n2, m2);
+//
+//	    matrix[x][y] = (right > left) ? (right-left) : 0;
+//	}
+//    }
+//
+//    // loop until process is stopped
+//    // or run once if not in loop mode
+//    unsigned int pointer = start;
+//    unsigned int last = rmarker;
+//    int samples[active_channels];
+//
+//    if (lmarker == rmarker) last = getLength()-1;
+//    m_spx_playback_pos.enqueue(pointer);
+//    do {
+//
+//	while ((pointer <= last) && !msg[stopprocess]) {
+//	
+//	    // fill the buffer with audio data
+//	    unsigned int cnt;
+//	    for (cnt = 0; (cnt < bufsize) && (pointer <= last); pointer++) {
+//                unsigned int channel;
+//
+//		for (y=0; y < out_channels; y++) {
+//		    double s = 0;
+//		    for (x=0; x < active_channels; x++) {
+//			s += signal.at(
+//				active_channel[x])->getSingleSample(
+//				pointer) * matrix[x][y];
+//		    }
+//		    samples[y] = (int)(s / active_channels);
+//		}
+//
+//		for (channel=0; channel < out_channels; channel++) {
+//		    int sample = samples[channel];
+//		
+//		    switch (param.bits_per_sample) {
+//			case 8:
+//			    sample += 1 << 23;
+//			    buffer[cnt++] = sample >> 16;
+//			    break;
+//			case 16:
+//			    sample += 1 << 23;
+//			    buffer[cnt++] = sample >> 8;
+//			    buffer[cnt++] = (sample >> 16) + 128;
+//			    break;
+//			case 24:
+//			    // play in 32 bit format
+//			    buffer[cnt++] = 0x00;
+//			    buffer[cnt++] = sample & 0x0FF;
+//			    buffer[cnt++] = sample >> 8;
+//			    buffer[cnt++] = (sample >> 16) + 128;
+//
+//			    break;
+//			default:
+//			    // invalid bits per sample
+//			    msg[stopprocess] = true;
+//			    pointer = last;
+//			    cnt = 0;
+//			    break;
+//		    }
+//		}
+//	    }
+//
+//	    // write buffer to the playback device
+//	    write(device, buffer, cnt);
+//	    m_spx_playback_pos.enqueue(pointer);
+//	}
+//	
+//	// maybe we loop. in this case the playback starts
+//	// again from the left marker
+//	if (loop && !msg[stopprocess]) pointer = lmarker;
+//
+//    } while (loop && !msg[stopprocess]);
+//
+//    // playback is done
+//    m_spx_playback_done.AsyncHandler();
+//}
+
+//***************************************************************************
+//***************************************************************************

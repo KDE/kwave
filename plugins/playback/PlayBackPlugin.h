@@ -1,8 +1,8 @@
 /***************************************************************************
-		  module.h  -  header file for the playback dialog plugin
+       PlayBackPlugin.h  -  plugin for playback and playback configuration
 			     -------------------
-    begin                : Fri Aug 04 2000
-    copyright            : (C) 2000 by Thomas Eschenbacher
+    begin                : Sun May 13 2001
+    copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
@@ -15,54 +15,67 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLAYBACK_DIALOG_H_
-#define _PLAYBACK_DIALOG_H_ 1
+#ifndef _PLAY_BACK_PLUGIN_H_
+#define _PLAY_BACK_PLUGIN_H_
 
-#include <qlabel.h>
-#include <qframe.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qradiobutton.h>
-#include <qbuttongroup.h>
+#include <qstring.h>
+#include <libkwave/PlayBackParam.h> // for struct playback_param_t
+#include <libgui/KwavePlugin.h>
 
-#include <libkwave/DialogOperation.h>
+class QStringList;
+class PlaybackController;
+class PluginContext;
 
-#include <libgui/Slider.h>
-#include <libgui/Dialog.h>
-#include "../../../src/SignalManager.h"
-#include "../../../src/KwaveApp.h"
-
-//*****************************************************************************
-class PlayBackDialog : public Dialog {
+class PlayBackPlugin: public KwavePlugin
+{
     Q_OBJECT
-
 public:
 
-    PlayBackDialog(bool);
-    bool isOK();
-    ~PlayBackDialog ();
-    const char *getCommand ();
+    /** Constructor */
+    PlayBackPlugin(PluginContext &c);
 
-private slots:
+    /**
+     * Gets called when the plugin is first loaded and connects itself
+     * to the playback controller and the current signal.
+     */
+    virtual void load(QStringList &params);
 
-    void setBufferSize(int);
+    /** @see KwavePlugin::setup() */
+    virtual QStringList *setup(QStringList &previous_params);
 
-    void selectPlaybackDevice();
+    /**
+     * This plugin needs to be persistent!
+     * @see KwavePlugin::isPersistent()
+     */
+    virtual bool isPersistent() { return true; };
+
+public slots:
+
+    /**
+     * Starts playback.
+     */
+    void startDevicePlayBack();
+
+    /**
+     * Stops playback.
+     */
+    void stopDevicePlayBack();
+
+protected:
+
+    /**
+     * Interpretes a given parameter list and sets up internal
+     * parameters accordingly.
+     * @param params reference to a QStringList with parameters
+     * @return 0 if ok, or an error code if failed
+     */
+    int interpreteParameters(QStringList &params);
 
 private:
-    playback_param_t playback_params;
+    /** the parameters used for playback */
+    playback_param_t m_playback_params;
 
-    QLabel *bufferlabel;
-    Slider *buffersize;
-    QLabel *devicelabel;
-    QComboBox *devicebox;
-    QCheckBox *stereo;
-    QButtonGroup *bg;
-    QRadioButton *b24, *b16, *b8;
-    QFrame *separator;
-    QPushButton *select_device, *test, *ok, *cancel;
-    char *comstr;
 };
 
 //*****************************************************************************
-#endif /* _PLAYBACK_DIALOG_H */
+#endif /* _PLAY_BACK_PLUGIN_H_ */

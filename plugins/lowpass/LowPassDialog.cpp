@@ -95,6 +95,9 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
 //***************************************************************************
 LowPassDialog::~LowPassDialog()
 {
+    // better stop pre-listen now
+    listenToggled(false);
+
     if (freq_response) freq_response->setFilter(0);
     if (m_filter) delete m_filter;
 }

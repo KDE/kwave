@@ -28,14 +28,14 @@ LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 
-ui_files	:= $(shell find . -name \*.ui)
+ui_files	:= $(shell @FIND@ . -name \*.ui)
 uih_files	:= $(ui_files:.ui=.uih.h)
 uic_files	:= $(ui_files:.ui=.uic.cpp)
 	
-h_files		:= $(shell find . ! -name \*.uih.h -name \*.h)
+h_files		:= $(shell @FIND@ . ! -name \*.uih.h -name \*.h)
 h_files   	+= ${uih_files}
-cpp_sources 	:= $(shell find . ! -name \*.uic.cpp -name \*.cpp)
-idl_files	:= $(shell find . -name \*.idl)
+cpp_sources 	:= $(shell @FIND@ . ! -name \*.uic.cpp -name \*.cpp)
+idl_files	:= $(shell @FIND@ . -name \*.idl)
 idl_header	:= $(idl_files:.idl=.h)
 idl_impl	:= $(idl_files:.idl=.cc)
 
@@ -133,7 +133,7 @@ all: depend $(MODNAME)
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
-DISTCLEANFILES = ${CLEANFILES} .deps/* `find . -type l` *.moc *.moc.cxx
+DISTCLEANFILES = ${CLEANFILES} .deps/* `@FIND@ . -type l` *.moc *.moc.cxx
 
 install-data-local: 
 	$(mkinstalldirs) $(PLUGINDIR)

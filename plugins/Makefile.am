@@ -1,14 +1,14 @@
 
 # make sure all subdirs get a makefile....
-# dirs=`find . -type d | grep -v ./common | grep -v CVS | grep -v \\\.$$ | \
-#	sed s°^\\\.\\\/°°g | sort`
+# dirs=`@FIND@ . -type d | grep -v ./common | grep -v CVS | grep -v \\\.$$ | \
+#	@SED@ s°^\\\.\\\/°°g | @SORT@`
 
 DISTCLEANFILES = Makefile.in Makefile
 
 dirs="about amplifyfree codec_audiofile codec_wav memory newsignal noise playback selectrange sonagram zero"
 
 distclean-generic:
-	-rm -fv `find . -name \*.d -o -name \*.dm -o -name .depend`
+	-rm -fv `@FIND@ . -name \*.d -o -name \*.dm -o -name .depend`
 	-rm -f $(CONFIG_CLEAN_FILES)
 	-rm -f stamp-h stamp-h[0-9]*
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
@@ -29,6 +29,6 @@ install uninstall clean distclean all rpm:
 	|| case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
 	done && test -z "$$fail"
 	if test x$@ == xdistclean; then \
-	    rm -fv `find . -name Makefile.in -o -name Makefile` \
+	    rm -fv `@FIND@ . -name Makefile.in -o -name Makefile` \
 	; fi;
 

@@ -5,8 +5,6 @@ dnl acinclude.m4 makes the job for all programs ;-)
 AC_INIT(admin/acinclude.m4.in)
 AC_CONFIG_AUX_DIR(admin)
 
-KDEMAJOR=`cat ./KDE-VERSION`
-
 dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 unset CDPATH
 
@@ -31,6 +29,21 @@ AM_ENABLE_STATIC(no)
 
 AC_LIBTOOL_DLOPEN
 KDE_PROG_LIBTOOL
+
+dnl Checks for some programs/tools
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PATH_PROG(CONVERT,convert)
+AC_PATH_PROG(MSGMERGE, msgmerge)
+AC_PATH_PROG(MSGFMT, msgfmt)
+AC_PATH_PROG(XGETTEXT, xgettext)
+AC_PATH_PROG(RECODE, recode)
+AC_PATH_PROG(SED, sed)
+AC_PATH_PROG(EXPAND, expand)
+AC_PATH_PROG(CAT, cat)
+AC_PATH_PROG(SORT, sort)
+AC_PATH_PROG(UNIQ, uniq)
+AC_PATH_PROG(FIND, find)
 
 dnl CXXFLAGS="$(CXXFLAGS) -fno-check-new"
 dnl CFLAGS="${CFLAGS}     -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
@@ -69,6 +82,7 @@ dnl
 dnl test for usage of insure++
 dnl AC_CHECK_WITH_INSURE
 
+KDEMAJOR=`$CAT ./KDE-VERSION`
 AC_MSG_CHECKING(which KDE/Qt to use)
 if test "$KDEMAJOR" = "2"; then {
     AC_MSG_RESULT([KDE 2.x / Qt 2.1])
@@ -80,7 +94,7 @@ if test "$KDEMAJOR" = "2"; then {
         AC_MSG_RESULT([KDE 3.x / Qt 3.1])
         KDE_USE_QT(3.0.1)
         KDE_VERSION_SPECIFIC_LIBS="-lartsc -lartsflow_idl -lartsflow -lmcop \
-                                   -laudiofile -lkio -lkdeui -lkdecore -lqt-mt"
+                                   -lkio -lkdeui -lkdecore -lqt-mt"
     } else {
         AC_MSG_RESULT(unknown ?)
         AC_MSG_ERROR([ unable to determine KDE/Qt versions ])
@@ -101,15 +115,6 @@ AC_SUBST(PO2XML)
 
 KDE_FIND_PATH(meinproc, MEINPROC, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(meinproc)])
 AC_SUBST(MEINPROC)
-
-dnl Checks for programs.
-AC_PROG_INSTALL
-AC_PROG_LN_S
-AC_PATH_PROG(CONVERT,convert)
-AC_PATH_PROG(MSGMERGE, msgmerge)
-AC_PATH_PROG(MSGFMT, msgfmt)
-AC_PATH_PROG(XGETTEXT, xgettext)
-AC_PATH_PROG(RECODE, recode)
 
 dnl check for the file with KDE's built-in translations
 AC_MSG_CHECKING(for kde.pot)
@@ -264,13 +269,13 @@ AC_CHECK_FUNC(unlink,  AC_DEFINE(HAVE_UNLINK))
 
 dnl get the correct aRts include directories...
 AC_MSG_CHECKING(for aRts includes)
-ac_arts_inc1="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include"
-ac_arts_inc2="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include/arts"
-ac_arts_inc3="`${ARTSCCONFIG} --cflags      | sed s./\$..g`"
-ac_arts_inc4="`${ARTSCCONFIG} --cflags      | sed s./\$..g | sed s/artsc/arts/g `"
+ac_arts_inc1="-I`$ARTSCCONFIG --arts-prefix | $SED s./\$..g`/include"
+ac_arts_inc2="-I`$ARTSCCONFIG --arts-prefix | $SED s./\$..g`/include/arts"
+ac_arts_inc3="`${ARTSCCONFIG} --cflags      | $SED s./\$..g`"
+ac_arts_inc4="`${ARTSCCONFIG} --cflags      | $SED s./\$..g | $SED s/artsc/arts/g `"
 
 dnl ...concatenate and eliminate duplicate entries...
-eval "ac_arts_includes=\"`echo -en ${ac_arts_inc1}\\\n${ac_arts_inc2}\\\n${ac_arts_inc3}\\\n${ac_arts_inc4} | sed s.//./.g  | sort | uniq`\""
+eval "ac_arts_includes=\"`echo -en ${ac_arts_inc1}\\\n${ac_arts_inc2}\\\n${ac_arts_inc3}\\\n${ac_arts_inc4} | $SED s.//./.g  | $SORT | $UNIQ`\""
 eval "ARTS_INCLUDES=\"`for dir in \`echo $ac_arts_includes\`; do { echo -n $dir " "; }; done `\""
 AC_MSG_RESULT(${ARTS_INCLUDES})
 AC_SUBST(ARTS_INCLUDES)
@@ -289,8 +294,9 @@ dnl Checks for libraries.
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
 
-AC_CHECK_LIB(audiofile, main, [LIBAUDIOFILE="-laudiofile"])
-AC_SUBST(LIBAUDIOFILE)
+dnl not usable yet :-(
+dnl AC_CHECK_LIB(audiofile, main, [LIBAUDIOFILE="-laudiofile"])
+dnl AC_SUBST(LIBAUDIOFILE)
 
 dnl output files
 topdir=`pwd`

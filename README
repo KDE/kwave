@@ -199,6 +199,9 @@ following packages:
 * convert from ImageMagick           (needed to create scaled Kwave icons)
 * recode                             (for online help)
 
+Some tools that are normally installed in every distribution:
+* msgmerge, msgfmt, xgettext, expand, cat, sort, uniq, find
+
 Nearly everything from ftp.kde.org, especially the following
 packets should be sufficient for building:
 

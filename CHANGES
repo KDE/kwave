@@ -10,6 +10,8 @@
  * using time instead of zoom factor (e.g. set zoom to "1 minute")
  * menu entries for playback control
  * some more icons in the menues
+ * replaced KFileDialog with subclass KwaveFileDialog (fixes some
+   bugs in KDE)
 
 0.6.3 [2002-03-01]
 

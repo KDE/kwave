@@ -35,6 +35,7 @@
 
 #include <kcombobox.h>
 #include <kfiledialog.h>
+#include <kfilefilter.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -49,6 +50,7 @@
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
+#include "libgui/KwaveFileDialog.h"
 #include "libgui/KwavePlugin.h" // for some helper functions
 
 #include "mt/ThreadsafeX11Guard.h"
@@ -789,14 +791,12 @@ void TopWidget::openRecent(const QString &str)
 //***************************************************************************
 void TopWidget::openFile()
 {
-//    KFileDialog dlg(":<kwave_open_dir>", CodecManager::decodingFilter(),
-//        this);
-//    KFile::Mode mode = static_cast<KFile::Mode>(
-//        KFile::Files | KFile::ExistingOnly | KFile::LocalOnly );
-//    dlg.setMode( mode );
-    KURL url = KFileDialog::getOpenURL(
-	":<kwave_open_dir>", CodecManager::decodingFilter(), this);
-    if (!url.isEmpty()) loadFile(url);
+    KwaveFileDialog dlg(":<kwave_open_dir>", CodecManager::decodingFilter(),
+        this, "Kwave open file", true);
+    dlg.setMode(static_cast<KFile::Mode>(KFile::File | KFile::ExistingOnly));
+    dlg.setOperationMode(KFileDialog::Opening);
+    dlg.setCaption(i18n("Open"));
+    if (dlg.exec() == QDialog::Accepted) loadFile(dlg.selectedURL());
 }
 
 //***************************************************************************
@@ -823,8 +823,18 @@ int TopWidget::saveFileAs(bool selection)
     ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
 
-    KURL url = KFileDialog::getSaveURL(":<kwave-savedir>",
-	CodecManager::encodingFilter(), m_main_widget);
+    KwaveFileDialog dlg(":<kwave_save_dir>", CodecManager::encodingFilter(),
+        this, "Kwave save file", true);
+    dlg.setKeepLocation(true);
+//    dlg.setMode(static_cast<KFile::Mode>(KFile::));
+    dlg.setOperationMode(KFileDialog::Saving);
+    dlg.setCaption(i18n("Save As"));
+    if (dlg.exec() != QDialog::Accepted) return -1;
+
+    KURL url = dlg.selectedURL();
+//    getSaveURL(":<kwave-savedir>",
+//	CodecManager::encodingFilter(), m_main_widget,
+//	"Kwave open file", true);
 
     if (!url.isEmpty()) {
 	QString name = url.path();

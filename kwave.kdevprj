@@ -924,6 +924,18 @@ install=false
 install_location=
 type=HEADER
 
+[libgui/KwaveFileDialog.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[libgui/KwaveFileDialog.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [libgui/KwavePlugin.cpp]
 dist=true
 install=false
@@ -938,7 +950,7 @@ type=HEADER
 
 [libgui/Makefile.am]
 dist=true
-files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am,libgui/ConfirmCancelProxy.h,libgui/ConfirmCancelProxy.cpp,libgui/OverViewCache.h,libgui/OverViewCache.cpp
+files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am,libgui/ConfirmCancelProxy.h,libgui/ConfirmCancelProxy.cpp,libgui/OverViewCache.h,libgui/OverViewCache.cpp,libgui/KwaveFileDialog.h,libgui/KwaveFileDialog.cpp
 install=false
 install_location=
 sub_dirs=

@@ -12,6 +12,7 @@ BUILTSOURCES=\
  FFTWidget.moc.cpp\
  FileProgress.moc.cpp\
  FormantWidget.moc.cpp\
+ KwaveFileDialog.moc.cpp\
  KwavePlugin.moc.cpp \
  OverViewCache.moc.cpp\
  OverViewWidget.moc.cpp\
@@ -32,6 +33,7 @@ libkwavegui_la_SOURCES =\
  FloatLine.cpp\
  FormantWidget.cpp\
  Dialog.cpp\
+ KwaveFileDialog.cpp\
  KwavePlugin.cpp \
  MenuNode.cpp\
  MenuGroup.cpp \

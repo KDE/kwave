@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-30 00:02GMT\n"
+"PO-Revision-Date: 2002-01-30 23:46GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1772,6 +1772,9 @@ msgid ""
 "system, but we have never tested this, please let us know if you get it "
 "working under some other platform / operating system)"
 msgstr ""
+"Un ordinateur sous LINUX (&kapp; peut théoriquement fonctionner sous d'autre "
+" systéme d'exploitation, mais nous avons jamais testé cette possibilité. nous vous remercions de nous "
+"avertir si vous avez réussi a faire fonctionner le logiciel sur une autre plateforme)."
 
 #: index.docbook:1300
 msgid ""
@@ -1779,26 +1782,34 @@ msgid ""
 "with a sound editor if you can't <emphasis>hear</emphasis> the result of "
 "your work?)"
 msgstr ""
+"Un équippement audio pour l'écoute des fichiers sonores (ce n'est pas absolument necessaire, "
+" mais que faire avec un éditeur de pistes audios sans pouvoir <emphasis>écouter</emphasis> "
+" le résultat de son travail)."
 
 #: index.docbook:1300
 msgid ""
 "KDE-2.2.1 or higher (at least the libraries, if you are a gnome fan, you can "
 "also run &kapp; if the proper libs are installed)."
 msgstr ""
+"KDE-2.2.1 ou supérieur (ou au moins les bibliothéques appropriées. Si vous êtes un fan "
+" de l'environnement de bureau Gnome, vous pouvez également utilisé &kapp; à partir du "
+" moment que les librairies de KDE sont installées.)."
 
 #: index.docbook:1300
 msgid "qt-2.3 or higher (normally comes with KDE2)"
-msgstr ""
+msgstr "Qt-2.3 ou supérieure (normalement associée avec KDE2)."
 
 #: index.docbook:1300
 msgid ""
 "about 10 MB memory for starting &kapp; (but this may vary depending on your "
 "platform and configuration)"
 msgstr ""
+"A peut prés 10 Mo de mémoire pour lancer &kapp; (mais cela peut varier de votre plateforme "
+" et de votre configuration)."
 
 #: index.docbook:1329
 msgid "If you intend to compile &kapp; from the sources, you will also need:"
-msgstr ""
+msgstr "Si vous désirez compiler &kapp; à partir des sources, vous avez besoin de :"
 
 #: index.docbook:1329
 msgid ""

@@ -34,7 +34,9 @@
       <numberofjobs>2</numberofjobs>
       <dontact>false</dontact>
       <makebin/>
-      <envvars/>
+      <environments>
+        <default/>
+      </environments>
     </make>
   </kdevcustomproject>
   <kdevdebugger>
@@ -88,16 +90,20 @@
       <group pattern="README;*.lsm;TODO;INSTALL;Chang*" name="GNU files" />
       <hidenonprojectfiles>true</hidenonprojectfiles>
     </groups>
+    <tree>
+      <hidepatterns>*.o,*.lo,CVS</hidepatterns>
+      <hidenonprojectfiles>false</hidenonprojectfiles>
+    </tree>
   </kdevfileview>
   <kdevcvs>
     <cvsoptions>-f</cvsoptions>
-    <commitoptions></commitoptions>
+    <commitoptions/>
     <updateoptions>-dP</updateoptions>
-    <addoptions></addoptions>
+    <addoptions/>
     <removeoptions>-f</removeoptions>
     <diffoptions>-u3 -p</diffoptions>
-    <logoptions></logoptions>
-    <rshoptions></rshoptions>
+    <logoptions/>
+    <rshoptions/>
     <revertoptions>-C -d -P</revertoptions>
   </kdevcvs>
   <kdevcppsupport>

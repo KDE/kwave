@@ -28,7 +28,7 @@ MODNAME=$(shell basename $(MODDIR))
 ui_files	:= $(shell find . -name \*.ui)
 uih_files	:= $(ui_files:.ui=.uih.h)
 uic_files	:= $(ui_files:.ui=.uic.cpp)
-
+	
 h_files		:= $(shell find . ! -name \*.uih.h -name \*.h)
 h_files   	+= ${uih_files}
 cpp_sources 	:= $(shell find . ! -name \*.uic.cpp -name \*.cpp)
@@ -65,7 +65,7 @@ DISTCLEANFILES	 = Makefile.in Makefile
 
 %.o: %.cc
 	@echo plugin \"$(MODNAME)\": compiling idl implementation "'"$<"'"
-	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
+	 @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
 
 %.moc.o: %.moc.cxx
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
@@ -100,7 +100,7 @@ DISTCLEANFILES	 = Makefile.in Makefile
 
 %.moc.cxx: %.h
 	@echo plugin \"$(MODNAME)\": extracting code with MOC for $<
-	@ @MOC@ $< -o $@
+	@ @MOC@ -nw $< -o $@
 
         # make the right order: first build the .d/.dm files then the .o
 # ${OUT_FILES}: ${DEP_FILES}
@@ -126,7 +126,7 @@ dep depend: .depend
 
 $(MODNAME): ${uih_files} ${uic_files} ${moc_files} depend ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
-	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
+	 @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
 
 all: $(MODNAME)
 

@@ -25,6 +25,7 @@
 
 #include <arts/artsflow.h>
 #include <arts/connect.h>
+#include <arts/dynamicrequest.h>
 
 #include "libkwave/ArtsMultiTrackFilter.h"
 
@@ -44,11 +45,11 @@ public:
 	unsigned int i;
 	for (i=0; i < m_count; ++i) {
 	    m_filter.insert(i, 0);
-	
+
 	    FILTER_IMPL *f = new FILTER_IMPL();
 	    Q_ASSERT(f);
 	    if (f) m_filter.insert(i, new FILTER(FILTER::_from_base(f)));
-	
+
 	    if (!m_filter[i]) {
 		qWarning("ArtsMultiTrackFilter: filter creation failed!!!");
 		m_count = i;

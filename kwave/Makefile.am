@@ -56,6 +56,7 @@ BUILTSOURCES=\
  CodecManager.moc.cpp\
  LabelManager.moc.cpp\
  KwaveApp.moc.cpp\
+ KwaveSplash.moc.cpp\
  MainWidget.moc.cpp\
  PlaybackController.moc.cpp \
  PluginManager.moc.cpp\
@@ -70,6 +71,7 @@ kwave_SOURCES =\
  ClipBoard.cpp\
  CodecManager.cpp\
  KwaveApp.cpp\
+ KwaveSplash.cpp\
  LabelManager.cpp\
  MainWidget.cpp\
  MemoryManager.cpp\
@@ -101,6 +103,7 @@ PIXMAPS=\
  filesave.xpm\
  knife.xpm\
  knob.xpm\
+ kwave-splash.png\
  light_off.xpm\
  light_on.xpm\
  logo.xpm\

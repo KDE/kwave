@@ -69,7 +69,7 @@ void addDataStrings(KAboutData& aboutdata)
                     "rwaspe@web.de",
                     0);
     aboutdata.addAuthor("Caulier Gilles",
-                     i18n("french translation"),
+                     i18n("french translations and splashscreen"),
                      "caulier.gilles@free.fr",
                      "http://caulier.gilles.free.fr");
 
@@ -132,10 +132,12 @@ int main( int argc, char **argv )
     }
 #endif // UNIQUE_APP
 
-    KwaveSplash *splash = new KwaveSplash("kwave-splash.png");
-    splash->show();
 
     KwaveApp app;
+
+    KwaveSplash *splash = new KwaveSplash("pics/kwave-splash.png");
+    splash->show();
+
     return app.exec();
 }
 

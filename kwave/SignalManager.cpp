@@ -387,8 +387,8 @@ bool SignalManager::executeCommand(const QString &command)
 //		}
 //	    }
 //	}
-//    CASE_COMMAND("addchannel")
-//	addChannel();
+    CASE_COMMAND("add_track")
+	appendTrack();
 //    CASE_COMMAND("deletechannel")
 //	Parser parser(command);
 //	unsigned int i = parser.toInt();
@@ -404,6 +404,35 @@ bool SignalManager::executeCommand(const QString &command)
     }
 
     return true;
+}
+
+//***************************************************************************
+void SignalManager::appendTrack()
+{
+    UndoTransactionGuard u(*this, i18n("append track"));
+    insertTrack(tracks());
+}
+
+//***************************************************************************
+void SignalManager::insertTrack(unsigned int index)
+{
+    UndoTransactionGuard u(*this, i18n("insert track"));
+    debug("void SignalManager::insertTrack(%u)",index);
+
+    unsigned int count = tracks();
+    unsigned int len   = length();
+    ASSERT(index <= count);
+    if (index > count) index = count;
+
+    if (index >= count) {
+	// do an "append"
+	debug("SignalManager::insertTrack(): appending");
+	m_signal.appendTrack(len);
+    } else {
+	// insert into the list
+	debug("m_signal.insertTrack(index, len);"); // ###
+    }
+
 }
 
 //***************************************************************************

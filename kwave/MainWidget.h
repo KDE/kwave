@@ -196,9 +196,6 @@ signals:
 
 protected:
 
-    /** Updates the menu and buttons. */
-    void refreshControls();
-
     /** Updates the overview in the horizontal slider */
     void refreshOverView();
 

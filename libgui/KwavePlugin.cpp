@@ -153,7 +153,9 @@ void KwavePlugin::run(QStringList)
 void KwavePlugin::close()
 {
     // only call stop() if we are NOT in the worker thread / run function !
-    if (m_thread && !pthread_equal(pthread_self(), m_thread->threadID())) {
+    if (m_thread && m_thread->running() && !pthread_equal(pthread_self(),
+        m_thread->threadID()))
+    {
 	stop();
     }
     emit sigClosed(this, true);

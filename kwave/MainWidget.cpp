@@ -200,7 +200,6 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage)
 	    this, SLOT(forwardMouseChanged(int)));
 
     refreshChannelControls();
-    refreshControls();
 //    debug("MainWidget::MainWidget(): done.");
 }
 
@@ -245,30 +244,20 @@ void MainWidget::scrollbarMoved(int newval)
 //***************************************************************************
 void MainWidget::slotTrackInserted(unsigned int /*track*/)
 {
-    if (tracks() == 1) {
-	zoomAll();
-    }
 
     refreshChannelControls();
-}
 
-//***************************************************************************
-void MainWidget::refreshControls()
-{
-//    bool have_signal = (tracks() != 0);
-//
-//    // enable/disable all items that depend on having a signal
-//    menu.setItemEnabled("@SIGNAL", have_signal);
-//
-//    // update the list of deletable channels
-//    menu.clearNumberedMenu("ID_EDIT_CHANNEL_DELETE");
-//    for (unsigned int i = 0; i < tracks(); i++) {
-//	QString num = QSstring::num(i);
-//	menu.addNumberedMenuEntry("ID_EDIT_CHANNEL_DELETE", buf);
-//    }
-//
-//    // refresh the overview (slider)
-//    refreshOverView();
+    // update the list of deletable tracks
+    menu.clearNumberedMenu("ID_EDIT_TRACK_DELETE");
+    QString buf;
+    for (unsigned int i = 0; i < tracks(); i++) {
+	menu.addNumberedMenuEntry("ID_EDIT_TRACK_DELETE", buf.setNum(i));
+    }
+
+    // enable/disable all items that depend on having a signal
+    bool have_signal = (tracks() != 0);
+    menu.setItemEnabled("@SIGNAL", have_signal);
+
 }
 
 //***************************************************************************
@@ -296,7 +285,6 @@ void MainWidget::loadFile(const QString &filename, int type)
 {
     closeSignal();
     m_signal_widget.loadFile(filename, type);
-//    refreshControls();
 }
 
 //***************************************************************************
@@ -304,7 +292,6 @@ void MainWidget::closeSignal()
 {
     m_signal_widget.close();
     refreshChannelControls();
-    refreshControls();
 }
 
 //***************************************************************************
@@ -431,8 +418,10 @@ void MainWidget::refreshChannelControls()
     }
 
     // resize the signal widget and the frame with the channel controls
-    m_signal_widget.resize(w, h);
     frmChannelControls->resize(frmChannelControls->width(), h);
+    if ((m_signal_widget.width() != w) || (m_signal_widget.height() != h)) {
+	m_signal_widget.resize(w, h);
+    }
 
     h = frmChannelControls->height();
     int x = (frmChannelControls->width()-20) / 2;
@@ -505,7 +494,6 @@ void MainWidget::refreshChannelControls()
     }
 
     lastChannels = channels;
-    refreshControls();
 }
 
 //***************************************************************************

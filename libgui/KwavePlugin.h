@@ -304,6 +304,7 @@ public slots:
     virtual void close();
 
 private:
+
     /**
      * context of the plugin, includes references to some objects of
      * the main program.

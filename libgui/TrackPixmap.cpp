@@ -404,7 +404,7 @@ void TrackPixmap::repaint()
 	    }
 	}
 	
-	// draw the green zero-line
+	// draw the zero-line
 	p.setPen(m_color_zero);
 	p.drawLine(0, h>>1, w-1, h>>1);
     }

@@ -165,6 +165,19 @@ public:
     void selectRange(unsigned int offset, unsigned int length);
 
     /**
+     * Inserts a new track with the size of the current signal after
+     * the last track. The same as <c>insertTrack(tracks())</c>.
+     */
+    void appendTrack();
+
+    /**
+     * Inserts a new track in the current signal.
+     * @param index position at which the new track will be
+     *              inserted [0...tracks()]
+     */
+    void insertTrack(unsigned int index);
+
+    /**
      * Selects multiple tracks, all other tracks will be disabled.
      * @param track_list list od track indices
      */

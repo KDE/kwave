@@ -472,7 +472,8 @@ private:
      */
     unsigned int m_offset;
 
-    int width, height;            //of this widget
+    int m_width;
+    int m_height;            //of this widget
     int lastWidth;
     int lastHeight;
     int down;                     //flags if mouse is pressed

@@ -222,10 +222,6 @@ void Signal::selectTrack(unsigned int track, bool select)
 //
 //    return max;
 //}
-////**********************************************************
-//void Signal::changeRate (int newrate) {
-//    rate = newrate;
-//}
 ////*********************************************************
 //void Signal::resample (const char *) {
 //    int newrate = 44100;

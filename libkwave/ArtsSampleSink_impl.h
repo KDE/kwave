@@ -21,10 +21,8 @@
 #include <arts/artsflow.h>
 #include <arts/stdsynthmodule.h>
 
-#include "ArtsSampleSink.h"
-
-//***************************************************************************
-class SampleWriter;
+#include "libkwave/SampleWriter.h"
+#include "libkwave/ArtsSampleSink.h"
 
 //***************************************************************************
 class ArtsSampleSink_impl

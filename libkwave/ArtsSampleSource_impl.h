@@ -21,8 +21,10 @@
 #include <arts/artsflow.h>
 #include <arts/stdsynthmodule.h>
 
-#include "ArtsSampleSource.h"
+#include "libkwave/SampleReader.h"
+#include "libkwave/ArtsSampleSource.h"
 
+//***************************************************************************
 class ArtsSampleSource_impl
     :virtual public ArtsSampleSource_skel,
      virtual public Arts::StdSynthModule

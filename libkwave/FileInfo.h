@@ -35,12 +35,12 @@ typedef enum {
     INF_ALBUM = 0,           /**< name of the album */
     INF_ANNOTATION,          /**< annotation/comment */
     INF_ARCHIVAL,            /**< archival location */
-    INF_ARTIST,              /**< name ot the artist */
     INF_AUTHOR,              /**< name of the author/artist */
     INF_CD,                  /**< number of the CD in an album */
     INF_COMMISSIONED,        /**< commissioned */
     INF_COMMENTS,            /**< comments */
     INF_COMPRESSION,         /**< compression mode (libaudiofile) */
+    INF_CONTACT,             /**< contact information for creator */
     INF_COPYRIGHT,           /**< copyright text */
     INF_COPYRIGHTED,         /**< "copyright" flag */
     INF_CREATION_DATE,       /**< creation date */
@@ -48,7 +48,9 @@ typedef enum {
     INF_FILENAME,            /**< name of the file */
     INF_FILESIZE,            /**< size of the file in bytes */
     INF_GENRE,               /**< genre */
+    INF_ISRC,                /**< International Standard Recording Code */
     INF_KEYWORDS,            /**< keywords */
+    INF_LICENSE,             /**< license information */
     INF_MEDIUM,              /**< medium */
     INF_MIMETYPE,            /**< mime type of the file format */
     INF_MPEG_BITRATE,        /**< MPEG bitrate */
@@ -57,7 +59,9 @@ typedef enum {
     INF_MPEG_MODEEXT,        /**< MPEG mode extension */
     INF_MPEG_VERSION,        /**< MPEG version */
     INF_NAME,                /**< name of the song or whatever */
+    INF_ORGANIZATION,        /**< organization/label */
     INF_ORIGINAL,            /**< true=original, false=copy */
+    INF_PERFORMER,           /**< name ot the performer */
     INF_PRIVATE,             /**< "private" bit */
     INF_PRODUCT,             /**< product */
     INF_SAMPLE_FORMAT,       /**< sample format (libaudiofile) */
@@ -66,7 +70,8 @@ typedef enum {
     INF_SOURCE_FORM,         /**< source form */
     INF_SUBJECT,             /**< subject */
     INF_TECHNICAN,           /**< technican */
-    INF_TRACK                /**< track of the CD */
+    INF_TRACK,               /**< track of the CD */
+    INF_VERSION              /**< version/remix */
 } FileProperty;
 
 /**
@@ -217,3 +222,4 @@ private:
 };
 
 #endif /* _FILE_INFO_H_ */
+

@@ -38,10 +38,6 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_ARCHIVAL, 0,
         i18n("Archival location"),
         i18n("Indicates where the subject of the file is archived."));
-    append(INF_ARTIST, 0,
-        i18n("Artist"),
-        i18n("Lists the artist of the original subject of the file."
-             "\nExample: 'van Beethoven, Ludwig'"));
     append(INF_AUTHOR, 0,
         i18n("Author"),
         i18n("Identifies the name of the author of the original\n"
@@ -64,6 +60,11 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Compression"),
         i18n("Sets a mode for compressing the audio\n"
              "data to reduce disk space."));
+    append(INF_CONTACT, 0,
+        i18n("Contact"),
+        i18n("Contact information for the creators or distributors of\n"
+             "the track. This could be a URL, an email address, the\n"
+             "physical address of the producing label."));
     append(INF_COPYRIGHT, 0,
         i18n("Copyright"),
         i18n("Records the copyright information for the file. If there are\n"
@@ -93,10 +94,23 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Genre"),
         i18n("Describes the genre or style of the original work."
              "\nExamples: 'classic', 'pop'"));
+    append(INF_ISRC, FP_READONLY,
+        i18n("ISRC"),
+        i18n("ISRC number for the track; see the ISRC intro page\n"
+             "for more information on ISRC numbers.\n"
+             "http://www.ifpi.org/site-content/online/isrc_intro.html"));
     append(INF_KEYWORDS, 0,
         i18n("Keywords"),
         i18n("Provides a list of keywords that refer to the\n"
              "file or subject of the file."));
+    append(INF_LICENSE, 0,
+        i18n("License"),
+        i18n("License information, eg, 'All Rights Reserved',\n"
+             "'Any Use Permitted', a URL to a license or the\n"
+             "EFF Open Audio License ('distributed under the\n"
+             "terms of the Open Audio License.\n"
+             "see http://www.eff.org/IP/Open_licenses/eff_oal.html\n"
+             "for details'), etc."));
     append(INF_MEDIUM, 0,
         i18n("Medium"),
         i18n("Describes the original subject of the file,\n"
@@ -124,9 +138,18 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Name"),
         i18n("Stores the title of the subject of the file."
              "\nExample: 'Symphony No.6, Op.68 \"Pastoral\"'"));
+    append(INF_ORGANIZATION, 0,
+        i18n("Organization"),
+        i18n("Name of the organization producing the track\n"
+             "(i.e. the 'record label')"));
     append(INF_ORIGINAL, 0,
         i18n("Original"),
         i18n("Indicates whether the file is an original or a copy"));
+    append(INF_PERFORMER, 0,
+        i18n("Performer"),
+        i18n("The artist(s) who performed the work. In classical\n"
+             "music this would be the conductor, orchestra, soloists.\n"
+             "In an audio book it would be the actor who did the reading."));
     append(INF_PRIVATE, 0,
         i18n("Private"),
         i18n("Indicates whether the subject is private"));
@@ -166,8 +189,13 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_TRACK, 0,
         i18n("Track"),
         i18n("Track of the CD if the source was a CDROM."));
+    append(INF_VERSION, 0,
+        i18n("Version"),
+        i18n("May be used to differentiate multiple versions\n"
+             "of the same track title in a single collection.\n"
+             "(e.g. remix info)"));
 
-    // please do not extend here, sort in alphabetically instead...
+    // please do not simply extend here, sort in alphabetically instead...
 
 }
 

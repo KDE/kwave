@@ -193,12 +193,16 @@ void FileInfoDialog::setupFileInfoTab()
 //***************************************************************************
 void FileInfoDialog::setupContentTab()
 {
-    /* name, subject, genre, title, author, copyright */
-    initInfoText(lblName,      edName,      INF_NAME);
-    initInfoText(lblSubject,   edSubject,   INF_SUBJECT);
-    initInfoText(lblGenre,     edGenre,     INF_GENRE);
-    initInfoText(lblAuthor,    edAuthor,    INF_AUTHOR);
-    initInfoText(lblCopyright, edCopyright, INF_COPYRIGHT);
+    /* name, subject, version, genre, title, author, organization,
+       copyright, license */
+    initInfoText(lblName,         edName,         INF_NAME);
+    initInfoText(lblSubject,      edSubject,      INF_SUBJECT);
+    initInfoText(lblVersion,      edVersion,      INF_VERSION);
+    initInfoText(lblGenre,        edGenre,        INF_GENRE);
+    initInfoText(lblAuthor,       edAuthor,       INF_AUTHOR);
+    initInfoText(lblOrganization, edOrganization, INF_ORGANIZATION);
+    initInfoText(lblCopyright,    edCopyright,    INF_COPYRIGHT);
+    initInfoText(lblLicense,      edLicense,      INF_LICENSE);
 
     /* date widget */
     initInfo(lblDate, dateEdit, INF_CREATION_DATE);
@@ -230,20 +234,22 @@ void FileInfoDialog::setupSourceTab()
 	QVariant(m_info.get(INF_TRACK)).toInt() : 0;
     sbTrack->setValue(track);
 
-    /* product and archival */
+    /* product, archival, contact */
     initInfoText(lblProduct,  edProduct,  INF_PRODUCT);
     initInfoText(lblArchival, edArchival, INF_ARCHIVAL);
+    initInfoText(lblContact,  edContact,  INF_CONTACT);
 
 }
 
 //***************************************************************************
 void FileInfoDialog::setupMiscellaneousTab()
 {
-    /* software, engineer, technican, commissioned, keywords */
+    /* software, engineer, technican, commissioned, ISRC, keywords */
     initInfoText(lblSoftware,     edSoftware,     INF_SOFTWARE);
     initInfoText(lblEngineer,     edEngineer,     INF_ENGINEER);
     initInfoText(lblTechnican,    edTechnican,    INF_TECHNICAN);
     initInfoText(lblCommissioned, edCommissioned, INF_COMMISSIONED);
+    initInfoText(lblISRC,         edISRC,         INF_ISRC);
 
     /* list of keywords */
     lblKeywords->setText(m_info.name(INF_KEYWORDS));
@@ -413,22 +419,29 @@ void FileInfoDialog::autoGenerateKeywords()
     // start with the current list
     QStringList list = lstKeywords->keywords();
 
-    // name, subject, genre, author, copyright, source, source form, album
-    // product, archival, software, technican, engineer, commissioned,
+    // name, subject, version, genre, author, organization,
+    // copyright, license, source, source form, album,
+    // product, archival, contact, software, technican, engineer,
+    // commissioned, ISRC
     list += QStringList::split(" ", edName->text());
     list += QStringList::split(" ", edSubject->text());
+    list += QStringList::split(" ", edVersion->text());
     list += QStringList::split(" ", edGenre->text());
     list += QStringList::split(" ", edAuthor->text());
+    list += QStringList::split(" ", edOrganization->text());
     list += QStringList::split(" ", edCopyright->text());
+    list += QStringList::split(" ", edLicense->text());
     list += QStringList::split(" ", edSource->text());
     list += QStringList::split(" ", edSourceForm->text());
     list += QStringList::split(" ", edAlbum->text());
     list += QStringList::split(" ", edProduct->text());
     list += QStringList::split(" ", edArchival->text());
+    list += QStringList::split(" ", edContact->text());
     list += QStringList::split(" ", edSoftware->text());
     list += QStringList::split(" ", edTechnican->text());
     list += QStringList::split(" ", edEngineer->text());
     list += QStringList::split(" ", edCommissioned->text());
+    list += QStringList::split(" ", edISRC->text());
 
     // filter out all useless stuff
     for (QStringList::Iterator it = list.begin(); it != list.end(); ++it) {
@@ -525,12 +538,16 @@ void FileInfoDialog::accept()
     m_info.set(INF_COMPRESSION, (compression != AF_COMPRESSION_NONE) ?
         QVariant(compression) : QVariant());
 
-    /* name, subject, genre, title, author, copyright */
-    acceptEdit(INF_NAME,      edName->text());
-    acceptEdit(INF_SUBJECT,   edSubject->text());
-    acceptEdit(INF_GENRE,     edGenre->text());
-    acceptEdit(INF_AUTHOR,    edAuthor->text());
-    acceptEdit(INF_COPYRIGHT, edCopyright->text());
+    /* name, subject, version, genre, title, author, organization,
+       copyright */
+    acceptEdit(INF_NAME,         edName->text());
+    acceptEdit(INF_SUBJECT,      edSubject->text());
+    acceptEdit(INF_VERSION,      edVersion->text());
+    acceptEdit(INF_GENRE,        edGenre->text());
+    acceptEdit(INF_AUTHOR,       edAuthor->text());
+    acceptEdit(INF_ORGANIZATION, edOrganization->text());
+    acceptEdit(INF_COPYRIGHT,    edCopyright->text());
+    acceptEdit(INF_LICENSE,      edLicense->text());
 
     /* date */
     QDate date = dateEdit->date();
@@ -548,15 +565,17 @@ void FileInfoDialog::accept()
     m_info.set(INF_CD,    (cd    != 0) ? QVariant(cd)    : QVariant());
     m_info.set(INF_TRACK, (track != 0) ? QVariant(track) : QVariant());
 
-    /* product and archival */
+    /* product, archival, contact */
     acceptEdit(INF_PRODUCT,     edProduct->text());
     acceptEdit(INF_ARCHIVAL,    edArchival->text());
+    acceptEdit(INF_CONTACT,     edContact->text());
 
-    /* software, engineer, technican, commissioned, keywords */
+    /* software, engineer, technican, commissioned, ISRC, keywords */
     acceptEdit(INF_SOFTWARE,    edSoftware->text());
     acceptEdit(INF_ENGINEER,    edEngineer->text());
     acceptEdit(INF_TECHNICAN,   edTechnican->text());
     acceptEdit(INF_COMMISSIONED,edCommissioned->text());
+//  acceptEdit(INF_ISRC,        edISRC->text()); <- READ-ONLY
 
     // list of keywords
     acceptEdit(INF_KEYWORDS,    lstKeywords->keywords().join("; "));

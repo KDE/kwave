@@ -215,7 +215,10 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    //ID3FID_LINKEDINFO        // Linked information.
 	    //ID3FID_CDID              // Music CD identifier.
 	    //ID3FID_MPEGLOOKUP        // MPEG location lookup table.
-	    //ID3FID_OWNERSHIP         // Ownership frame.
+	    
+	    case ID3FID_OWNERSHIP:     // Ownership frame.
+		parseId3Frame(frame, INF_CONTACT); break;
+
 	    //ID3FID_PRIVATE           // Private frame.
 	    //ID3FID_PLAYCOUNTER       // Play counter.
 	    //ID3FID_POPULARIMETER     // Popularimeter.
@@ -234,6 +237,7 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 
 	    //ID3FID_BPM               // BPM (beats per minute).
 	    //ID3FID_COMPOSER          // Composer.
+
 	    case ID3FID_CONTENTTYPE: { // Content type (Genre)
 		parseId3Frame(frame, INF_GENRE);
 		QString genre = QVariant(m_info.get(INF_GENRE)).toString();
@@ -252,7 +256,11 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    //ID3FID_RELEASETIME       // Release time.
 	    //ID3FID_TAGGINGTIME       // Tagging time.
 	    //ID3FID_INVOLVEDPEOPLE2   // Involved people list.
-	    //ID3FID_ENCODEDBY         // Encoded by.
+	    //ID3FID_ENCODEDBY         //
+
+	    case ID3FID_ENCODEDBY:     // Encoded by.
+		parseId3Frame(frame, INF_TECHNICAN); break;
+
 	    //ID3FID_FILETYPE          // File type.
 	    //ID3FID_TIME              // Time.
 	    //ID3FID_CONTENTGROUP      // Content group description.
@@ -260,7 +268,9 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    case ID3FID_TITLE:        // Title/songname/content description.
 		parseId3Frame(frame, INF_NAME); break;
 
-	    //ID3FID_SUBTITLE         // Subtitle/Description refinement.
+	    case ID3FID_SUBTITLE:     // Subtitle/Description refinement.
+		parseId3Frame(frame, INF_ANNOTATION); break;
+
 	    //ID3FID_INITIALKEY       // Initial key.
 	    //ID3FID_LANGUAGE         // Language(s).
 	    //ID3FID_SONGLEN          // Length.
@@ -275,26 +285,29 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 
 	    case ID3FID_LYRICIST:     // Lyricist/Text writer.
 	    case ID3FID_ORIGLYRICIST: // Original lyricist(s)/text writer(s).
-		parseId3Frame(frame, INF_ARTIST); break;
+		parseId3Frame(frame, INF_PERFORMER); break;
 
 	    case ID3FID_ORIGARTIST:   // Original artist(s)/performer(s).
 		parseId3Frame(frame, INF_AUTHOR); break;
 	    
 	    //ID3FID_ORIGYEAR         // Original release year.
-	    //ID3FID_FILEOWNER        // File owner/licensee.
+	    case ID3FID_FILEOWNER:    // File owner/licensee.
+		parseId3Frame(frame, INF_LICENSE); break;
 	    case ID3FID_LEADARTIST:   // Lead performer(s)/Soloist(s).
-		parseId3Frame(frame, INF_ARTIST); break;
+		parseId3Frame(frame, INF_PERFORMER); break;
 	    
 	    //ID3FID_BAND             // Band/orchestra/accompaniment.
 	    //ID3FID_CONDUCTOR        // Conductor/performer refinement.
-	    //ID3FID_MIXARTIST        // Interpreted, remixed, or otherwise
-	                              // modified by.
+	    case ID3FID_MIXARTIST:    // Interpreted, remixed, or otherwise
+	                              // modified by
+		parseId3Frame(frame, INF_VERSION); break;
 	    case ID3FID_PARTINSET:    // Part of a set.
 		parseId3Frame(frame, INF_CD); break;
-	    
-	    //ID3FID_PRODUCEDNOTICE   // Produced notice.
-	    //ID3FID_PUBLISHER        // Publisher.
 
+	    case ID3FID_PRODUCEDNOTICE:// Produced notice.
+		parseId3Frame(frame, INF_ORGANIZATION); break;
+	    case ID3FID_PUBLISHER:    // Publisher.
+		parseId3Frame(frame, INF_ORGANIZATION); break;
 	    case ID3FID_TRACKNUM:     // Track number/Position in set.
 		parseId3Frame(frame, INF_TRACK); break;
 
@@ -305,12 +318,16 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 	    //ID3FID_ALBUMSORTORDER   // Album sort order.
 	    //ID3FID_PERFORMERSORTORDER// Performer sort order.
 	    //ID3FID_TITLESORTORDER   // Title sort order.
-	    //ID3FID_ISRC             // ISRC (international standard
+
+	    case ID3FID_ISRC:         // ISRC (international standard
 	                              // recording code).
+		parseId3Frame(frame, INF_ISRC); break;
+
 	    //ID3FID_ENCODERSETTINGS  // Software/Hardware and settings
 	                              // used for encoding.
-	    //ID3FID_SETSUBTITLE      // Set subtitle.
-
+	                              
+	    case ID3FID_SETSUBTITLE:  // Set subtitle.
+		parseId3Frame(frame, INF_VERSION); break;
 	    case ID3FID_USERTEXT:     // User defined text information.
 		parseId3Frame(frame, INF_ANNOTATION); break;
 

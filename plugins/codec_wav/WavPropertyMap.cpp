@@ -21,7 +21,7 @@
 WavPropertyMap::WavPropertyMap()
 {
     insert("IARL", INF_ARCHIVAL      ); // archival location
-    insert("IART", INF_ARTIST	     ); // artist
+    insert("IART", INF_PERFORMER     ); // performer
     insert("ICMS", INF_COMMISSIONED  ); // commissioned
     insert("ICMT", INF_COMMENTS	     ); // comments
     insert("ICOP", INF_COPYRIGHT     ); // copyright

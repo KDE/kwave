@@ -35,14 +35,14 @@
 #include <kmenubar.h>
 #include <kstddirs.h>
 
-#include <libkwave/Parser.h>
-#include <libkwave/LineParser.h>
-#include <libkwave/FileLoader.h>
+#include "libkwave/FileFormat.h"
+#include "libkwave/FileLoader.h"
+#include "libkwave/LineParser.h"
+#include "libkwave/Parser.h"
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
 #include "libgui/KwavePlugin.h" // for some helper functions
-#include "sampleop.h"
 
 #include "KwaveApp.h"
 #include "ClipBoard.h"

@@ -13,7 +13,7 @@
 //#include <kbuttonbox.h>
 //#include <kstatusbar.h>
 //
-//#include <libkwave/gsl_fft.h>
+//#include "libkwave/gsl_fft.h"
 //
 //#include "libgui/FFTWidget.h"
 //#include "libgui/ScaleWidget.h"

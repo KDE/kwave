@@ -32,10 +32,10 @@
 #include <qstrlist.h>
 #include <qtooltip.h>
 
-#include <libkwave/WindowFunction.h>
+#include "libkwave/WindowFunction.h"
 
-#include <libgui/KwavePlugin.h>
-#include <libgui/Slider.h>
+#include "libgui/KwavePlugin.h"
+#include "libgui/Slider.h"
 
 #include <klocale.h>
 

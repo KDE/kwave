@@ -4,8 +4,8 @@
 #include <qtooltip.h>
 #include <qcombobox.h>
 #include <qkeycode.h>
-#include <libkwave/Label.h>
-#include <libkwave/Global.h>
+#include "libkwave/Label.h"
+#include "libkwave/Global.h"
 #include "module.h"
 #include <kapp.h>
 

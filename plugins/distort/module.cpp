@@ -4,7 +4,7 @@
 #include <qkeycode.h>
 #include <qcombobox.h>
 #include "module.h"
-#include <libkwave/String.h>
+#include "libkwave/String.h"
 #include <kapp.h>
 
 const char *version = "1.0";

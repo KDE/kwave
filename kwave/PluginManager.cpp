@@ -24,9 +24,9 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 
-#include <libkwave/Parser.h>
-#include <libkwave/LineParser.h>
-#include <libkwave/FileLoader.h>
+#include "libkwave/Parser.h"
+#include "libkwave/LineParser.h"
+#include "libkwave/FileLoader.h"
 
 #include "mt/SignalProxy.h"
 
@@ -538,14 +538,14 @@ void PluginManager::findPlugins()
 	    dlclose (handle);
 	
 	} else {
-	    printf("error in '%s':\r\n\t %s\r\n", file.data(),
+	    printf("error in '%s':\n\t %s\n", file.data(),
 		dlerror());
 	}
 	
-	printf("\r\n");
+	printf("\n");
     }
 
-    printf("--- \r\n found %d plugins\r\n", m_plugin_files.count());
+    printf("--- \n found %d plugins\n", m_plugin_files.count());
 }
 
 //****************************************************************************

@@ -24,10 +24,11 @@
 #include <klocale.h>
 #include <kfiledialog.h>
 
-#include <libkwave/Label.h>
-#include <libkwave/LabelList.h>
-#include <libkwave/Parser.h>
-#include <libkwave/Signal.h>
+#include "libkwave/FileFormat.h"
+#include "libkwave/Label.h"
+#include "libkwave/LabelList.h"
+#include "libkwave/Parser.h"
+#include "libkwave/Signal.h"
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
@@ -36,7 +37,6 @@
 #include "SignalWidget.h"
 #include "SignalManager.h"
 #include "MouseMark.h"
-#include "sampleop.h"
 
 #ifdef DEBUG
 #include <time.h>

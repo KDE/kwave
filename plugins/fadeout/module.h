@@ -1,9 +1,10 @@
-#include "../../../libgui/Dialog.h"
-#include "../../../libgui/FaderWidget.h"
-#include "../../../libgui/ScaleWidget.h"
-#include "../../../libgui/CornerPatchWidget.h"
-#include "../../../libgui/Slider.h"
-#include <libkwave/DialogOperation.h>
+
+#include "libgui/Dialog.h"
+#include "libgui/FaderWidget.h"
+#include "libgui/ScaleWidget.h"
+#include "libgui/CornerPatchWidget.h"
+#include "libgui/Slider.h"
+#include "libkwave/DialogOperation.h"
 
 class FadeDialog : public Dialog {
     Q_OBJECT

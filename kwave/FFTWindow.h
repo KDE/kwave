@@ -5,7 +5,7 @@
 #include <qwidget.h> // ###
 //#include <ktmainwindow.h>
 
-//#include <libkwave/gsl_fft.h>
+//#include "libkwave/gsl_fft.h"
 //
 //class FFTWidget;
 //class FFTContainer;

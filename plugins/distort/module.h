@@ -3,11 +3,11 @@
 #include <qlist.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
-#include "../../../libgui/CurveWidget.h"
-#include "../../../libgui/ScaleWidget.h"
-#include "../../../libgui/CornerPatchWidget.h"
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
+#include "libgui/CurveWidget.h"
+#include "libgui/ScaleWidget.h"
+#include "libgui/CornerPatchWidget.h"
 //*****************************************************************************
 class QComboBox;
 

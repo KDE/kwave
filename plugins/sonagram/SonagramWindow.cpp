@@ -19,7 +19,6 @@
 #include <math.h>
 #include <limits.h>
 
-//#include <qdir.h>
 #include <qbitmap.h>
 #include <qimage.h>
 #include <qlayout.h>
@@ -28,9 +27,8 @@
 #include <klocale.h>
 #include <kmenubar.h>
 #include <kfiledialog.h>
-//#include <kmsgbox.h>
 
-#include <libkwave/WindowFunction.h>
+#include "libkwave/WindowFunction.h"
 
 #include "libgui/KwavePlugin.h"
 #include "libgui/ScaleWidget.h"

@@ -1,5 +1,6 @@
-#include "../../../libgui/Dialog.h"
-#include "../../../libgui/Slider.h"
+
+#include "libgui/Dialog.h"
+#include "libgui/Slider.h"
 #include "libkwave/DialogOperation.h"
 
 class Signal;

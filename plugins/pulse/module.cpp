@@ -6,10 +6,10 @@
 
 #include <kapp.h>
 
-#include <libkwave/Curve.h>
-#include <libkwave/Signal.h>
-#include <libkwave/Functions.h>
-#include <libkwave/Interpolation.h>
+#include "libkwave/Curve.h"
+#include "libkwave/Signal.h"
+#include "libkwave/Functions.h"
+#include "libkwave/Interpolation.h"
 #include "libgui/ScaleWidget.h"
 #include "libgui/TimeLine.h"
 #include "libgui/Dialog.h"

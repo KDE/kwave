@@ -3,7 +3,7 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include <qcombobox.h>
-#include <libkwave/Interpolation.h>
+#include "libkwave/Interpolation.h"
 #include  "module.h"
 #include <kapp.h>
 

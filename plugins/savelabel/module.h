@@ -1,8 +1,8 @@
 #ifndef _DIALOGS_MARKSAVE_H_
 #define _DIALOGS_MARKSAVE_H 1
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
-#include <libkwave/Global.h>
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
+#include "libkwave/Global.h"
 #include <qlabel.h>
 #include <qlistbox.h>
 

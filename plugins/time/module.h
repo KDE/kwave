@@ -1,9 +1,9 @@
 #ifndef _DIALOGS_TIME_H
 #define _DIALOGS_TIME_H 1
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
 #include <qlabel.h>
-#include "../../../libgui/TimeLine.h"
+#include "libgui/TimeLine.h"
 //*****************************************************************************
 class TimeDialog : public Dialog {
     Q_OBJECT

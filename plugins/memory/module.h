@@ -3,8 +3,8 @@
 
 #include <qlabel.h>
 #include <qlineedit.h>
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
 #include <kintegerline.h>
 //*****************************************************************************
 class MemoryDialog : public Dialog {

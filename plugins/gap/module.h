@@ -2,9 +2,9 @@
 #define _DIALOGS_Gap_H 1
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
-#include "../../../libgui/TimeLine.h"
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
+#include "libgui/TimeLine.h"
 #include <kintegerline.h>
 
 //*****************************************************************************

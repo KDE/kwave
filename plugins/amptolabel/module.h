@@ -3,12 +3,15 @@
 
 #include <qdialog.h>
 #include <qlabel.h>
-#include "../../../libgui/TimeLine.h"
-#include "../../../libgui/FloatLine.h"
-#include "../../../libgui/Slider.h"
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
-#include <kintegerline.h>
+
+#include "libgui/TimeLine.h"
+#include "libgui/FloatLine.h"
+#include "libgui/Slider.h"
+#include "libgui/Dialog.h"
+
+#include "libkwave/DialogOperation.h"
+
+#include "kintegerline.h"
 
 struct Global;
 //*****************************************************************************

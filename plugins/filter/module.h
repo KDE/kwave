@@ -1,5 +1,3 @@
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
 
 #include <qdialog.h>
 #include <qdir.h>
@@ -7,11 +5,14 @@
 #include <qcombobox.h>
 #include <qradiobt.h>
 
-#include "../../../libgui/Slider.h"
-#include <libkwave/Filter.h>
-#include "../../../libgui/FFTWidget.h"
-#include "../../../libgui/ScaleWidget.h"
-#include "../../../libgui/CornerPatchWidget.h"
+#include "libgui/Slider.h"
+#include "libkwave/Filter.h"
+#include "libgui/FFTWidget.h"
+#include "libgui/ScaleWidget.h"
+#include "libgui/CornerPatchWidget.h"
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
+
 #include <kintegerline.h>
 
 //*****************************************************************************

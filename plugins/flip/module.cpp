@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../../src/TimeOperation.h"
+#include "kwave/TimeOperation.h"
 
 const char *version = "1.0";
 const char *author = "Martin Wilz";

@@ -6,7 +6,7 @@
 #include <qwidget.h>
 #include <qpainter.h>
 
-#include <libkwave/Interpolation.h>
+#include "libkwave/Interpolation.h"
 
 class Curve;
 class QMouseEvent;

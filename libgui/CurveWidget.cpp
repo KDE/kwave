@@ -16,6 +16,7 @@
 #include <qpopupmenu.h>
 #include <qstring.h>
 #include <qstrlist.h>
+#include <qwidget.h>
 
 #include <kstddirs.h>
 #include <klocale.h>
@@ -23,14 +24,12 @@
 #include <kfiledialog.h>
 #include <kstddirs.h>
 
-#include <libkwave/Interpolation.h>
-#include <libkwave/FileLoader.h>
-#include <libkwave/Curve.h>
+#include "libkwave/Interpolation.h"
+#include "libkwave/FileLoader.h"
+#include "libkwave/Curve.h"
 
 #include "CurveWidget.h"
 
-#include <qwidget.h>
-#include <libkwave/Curve.h>
 
 //****************************************************************************
 CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)

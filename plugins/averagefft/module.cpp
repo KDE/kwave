@@ -5,8 +5,8 @@
 #include <qcombobox.h>
 #include <qtooltip.h>
 #include "module.h"
-#include <libkwave/String.h>
-#include <libkwave/WindowFunction.h>
+#include "libkwave/String.h"
+#include "libkwave/WindowFunction.h"
 #include <kapp.h>
 
 const char *version = "1.0";

@@ -3,7 +3,7 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include <qcombobox.h>
-#include <libkwave/Label.h>
+#include "libkwave/Label.h"
 #include "module.h"
 #include <kapp.h>
 #include <kmsgbox.h>

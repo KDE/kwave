@@ -20,12 +20,10 @@
 
 #include <qstring.h>
 
-#include <mt/Mutex.h>
-#include <mt/SignalProxy.h>
-
-#include <libkwave/PlayBackParam.h> // for struct playback_param_t
-
-#include <libgui/KwavePlugin.h>
+#include "mt/Mutex.h"
+#include "mt/SignalProxy.h"
+#include "libkwave/PlayBackParam.h" // for struct playback_param_t
+#include "libgui/KwavePlugin.h"
 
 class QStringList;
 class PlaybackController;
@@ -106,7 +104,7 @@ protected:
      * worked, m_device holds a valid pointer. On any errors m_device
      * will be 0. If a device was open before, it will be closed.
      * @see m_device
-     * @see class PlayBackDevice
+     * @see PlayBackDevice
      */
     void openDevice();
 
@@ -114,7 +112,7 @@ protected:
      * Closes the playback device, deletes the instance of the
      * PlayBackDevice and sets m_device to 0.
      * @see m_device
-     * @see classPlayBackDevice
+     * @see PlayBackDevice
      */
     void closeDevice();
 

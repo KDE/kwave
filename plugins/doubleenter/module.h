@@ -2,8 +2,8 @@
 #define _DIALOGS_DENTER_H 1
 
 #include <kintegerline.h>
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
 
 //*****************************************************************************
 class DoubleEnterDialog : public Dialog {

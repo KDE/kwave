@@ -2,8 +2,8 @@
 #define _DIALOGS_STRING_H 1
 
 #include <qlineedit.h>
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
 //*****************************************************************************
 class StringEnterDialog : public Dialog {
     Q_OBJECT

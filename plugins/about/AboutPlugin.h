@@ -19,7 +19,7 @@
 #define _ABOUT_PLUGIN_H_
 
 #include <qstring.h>
-#include <libgui/KwavePlugin.h>
+#include "libgui/KwavePlugin.h"
 
 class QStringList;
 class PluginContext;

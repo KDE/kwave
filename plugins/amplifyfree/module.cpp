@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <qpushbutton.h>
 #include <qkeycode.h>
-#include "module.h"
-#include <libkwave/String.h>
 #include <kapp.h>
+#include "module.h"
+#include "libkwave/String.h"
 
 const char *version = "1.0";
 const char *author = "Martin Wilz";

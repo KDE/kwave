@@ -77,12 +77,22 @@ bool MenuItem::specialCommand(const QString &command)
 {
     if (command.startsWith("#icon(")) {
 	// --- give the item an icon ---
-// ### still disabled
-//	Parser parser(command);
-//	const QString &filename = parser.firstParam();
-//	if (filename.length()) {
-//	    setIcon(Icon(filename));
-//	}
+	Parser parser(command);
+	const QString &filename = parser.firstParam();
+	if (filename.length()) {
+	    // try to load from standard dirs
+	    static KIconLoader loader;
+	    QPixmap icon = loader.loadIcon(filename,
+		KIcon::Small,0,KIcon::DefaultState,0L,true);
+	
+            ASSERT(!icon.isNull());
+	    if (!icon.isNull()) {
+		setIcon(icon);
+	    } else {
+		debug("MenuItem '%s': icon '%s' not found !",
+		    name(), filename.data());
+	    }
+	}
 	return true;
     } else if (command.startsWith("#listmenu")) {
 	// insert an empty submenu for the list items

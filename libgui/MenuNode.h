@@ -21,10 +21,10 @@
 #include <qobject.h>
 #include <qlist.h>
 #include <qdict.h>
+#include <qpixmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
 
-class QPixmap;
 class MenuNode;
 class MenuSub;
 class MenuGroup;
@@ -111,13 +111,13 @@ public:
     /**
      * Returns a reference to the menu node's icon.
      */
-    virtual const QPixmap *getIcon();
+    virtual const QPixmap &getIcon();
 
     /**
      * Sets a new icon of a menu node.
-     * @param icon reference to the QPixmap with the icon
+     * @param icon QPixmap with the icon
      */
-    virtual void setIcon(const QPixmap &icon);
+    virtual void setIcon(const QPixmap icon);
 
     /**
      * Sets a new icon of a menu node's child node
@@ -421,7 +421,7 @@ private:
     QString m_command;
 
     /** icon of the node (optional) */
-    const QPixmap *m_icon;
+    QPixmap m_icon;
 
     /** parent of this entry */
     MenuNode* m_parentNode;

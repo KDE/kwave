@@ -3,9 +3,9 @@
 
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
-#include "../../../libgui/Slider.h"
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
+#include "libgui/Slider.h"
 #include <kintegerline.h>
 
 //*****************************************************************************

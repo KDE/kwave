@@ -20,8 +20,10 @@
 
 //***************************************************************************
 
+#include <sys/types.h>
+
 /** Currently a "sample" is defined as a 32 bit integer with 24 valid bits */
-typedef int sample_t;
+typedef int32_t sample_t;
 
 /** lowest sample value */
 #define SAMPLE_MIN (-(1<<23)+1)

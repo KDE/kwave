@@ -4,8 +4,8 @@
 #include <kintegerline.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
 //*****************************************************************************
 class AverageDialog : public Dialog {
     Q_OBJECT

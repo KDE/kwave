@@ -3,8 +3,8 @@
 
 #include <kintegerline.h>
 #include <qlabel.h>
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
 //*****************************************************************************
 class RateDialog : public Dialog {
     Q_OBJECT

@@ -82,16 +82,16 @@ QString PlayBackOSS::open(const QString &device, unsigned int rate,
 	    case ENODEV:
 	    case ENXIO:
 	    case EIO:
-		reason = i18n("i/o error, maybe the driver\r\n"\
-		"is not present in your kernel or it is not\r\n"\
+		reason = i18n("i/o error, maybe the driver\n"\
+		"is not present in your kernel or it is not\n"\
 		"properly configured.");
 		break;
 	    case EBUSY:
 		reason = i18n(
-		"The device is busy. Maybe an other application is \r\n"\
-		"currently using it. Please try again later. \r\n"\
-		"(Hint: you might find out the name and process id of \r\n"\
-		"the program by calling: \"fuser -v %1\" \r\n"\
+		"The device is busy. Maybe an other application is \n"\
+		"currently using it. Please try again later. \n"\
+		"(Hint: you might find out the name and process id of \n"\
+		"the program by calling: \"fuser -v %1\" \n"\
 		"on the command line.)").arg(
 		m_device_name);
 		break;

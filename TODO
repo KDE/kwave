@@ -1,4 +1,9 @@
 
+o undo and redo
+
+o clipboard
+
+o implementation of locking, see SampleLock
 
 o warning before overwriting an existing file in SaveAs()
 
@@ -15,17 +20,9 @@ o libkwave: Parser::getCommand() crashes on some malformed command
 
 o libkwave: memory mapping does not compile under some circumstances
 
-o libkwave: use sample_t instead of int
-
 o Filter: class needs to be tested
 
 o Signal::resample should use lowpass interpolation instead of spline
-
-o playback: last buffer is sometimes played doubled after pressing "stop"
-
-o playback: pointer actualization uses too much time
-
-o playback: start from current cursor pos if selection is zero-length
 
 o libkwave/kwave: po/Makefile.am:  substitution for @USE_NLS@ did not work
 
@@ -38,10 +35,6 @@ o check of all MessageBoxes
 o MainWidget: re-enable accelerator keys for 0..9
 
 o in MenuItem: re-enable Icons, usage of IconLoader has changed
-
-o bug in MouseSelection: allows selection after end of signal
-
-o playback: get error messages out of the thread
 
 o when playback is active: mouse click changes start position for
   next playback
@@ -79,7 +72,6 @@ o in some rare cases there are deadlocks if a plugin's thread does not
   shut down synchronously / per stop()
 
 o look at CurveWidget::CurveWidget()
-o ProgressDialog::timedProgress()
 o SignalWidget::appendLabel()
 o ClipBoard::toWindow()
 o SonagramWindow::toSignal()
@@ -90,7 +82,7 @@ o possible memory leaks due to controls/menus in CurveWidget, FFTWindow
 
 o possible memory leak in MultiStateWidget: when do the images get released ?
 
-o review all calls to DynamicLoader::getDialog, in: FFTWidget
+o rework of the FFTWidget
 
 o ClipBoard::appendChannel should append a _copy_ of the channel instead
   of the channel itself (problem if channel gets deleted!)
@@ -119,7 +111,7 @@ o make a menu group for @SELECTION
 o import of multi-channel ASCII files
 
 o label handling doesn't work (currently disabled), work on LabelManager
-  has started
+  has not been started
 
 o the clipboard does not work between other kwave instances
 

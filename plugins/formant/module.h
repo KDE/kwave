@@ -3,12 +3,12 @@
 
 #include <qpushbt.h>
 #include <qlabel.h>
-#include "../../../libgui/Dialog.h"
-#include "../../../libgui/ScaleWidget.h"
-#include "../../../libgui/CornerPatchWidget.h"
-#include "../../../libgui/Slider.h"
-#include "../../../libgui/FormantWidget.h"
-#include <libkwave/DialogOperation.h>
+#include "libgui/Dialog.h"
+#include "libgui/ScaleWidget.h"
+#include "libgui/CornerPatchWidget.h"
+#include "libgui/Slider.h"
+#include "libgui/FormantWidget.h"
+#include "libkwave/DialogOperation.h"
 #include <kintegerline.h>
 
 //***********************************************************************

@@ -44,7 +44,6 @@
 #include "libgui/FileProgress.h"
 
 #include "KwaveApp.h"
-#include "sampleop.h"
 #include "ClipBoard.h"
 #include "SignalManager.h"
 #include "SignalWidget.h"

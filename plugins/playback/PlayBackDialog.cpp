@@ -32,8 +32,8 @@
 #include <kfiledialog.h>
 #include <klocale.h>
 
-#include <libgui/KwavePlugin.h>
-#include <libgui/Slider.h>
+#include "libgui/KwavePlugin.h"
+#include "libgui/Slider.h"
 
 #include "PlayBackDialog.h"
 

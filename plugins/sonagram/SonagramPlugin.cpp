@@ -28,12 +28,12 @@
 
 #include <kapp.h>
 
-#include <libkwave/gsl_fft.h>
-#include <libkwave/WindowFunction.h>
+#include "libkwave/gsl_fft.h"
+#include "libkwave/WindowFunction.h"
 
-#include <libgui/KwavePlugin.h>
+#include "libgui/KwavePlugin.h"
 
-#include <mt/SignalProxy.h>
+#include "mt/SignalProxy.h"
 
 #include "SonagramPlugin.h"
 #include "SonagramDialog.h"

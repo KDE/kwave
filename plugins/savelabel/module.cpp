@@ -3,7 +3,7 @@
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include "module.h"
-#include <libkwave/Label.h>
+#include "libkwave/Label.h"
 #include <kapp.h>
 
 const char *version = "1.0";

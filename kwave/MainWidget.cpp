@@ -33,7 +33,7 @@
 #include <kstdaccel.h>
 #include <kstatusbar.h>
 
-#include <libkwave/Parser.h>
+#include "libkwave/Parser.h"
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"

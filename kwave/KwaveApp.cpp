@@ -26,7 +26,7 @@
 #include <kcrash.h>
 #include <kglobal.h>
 
-#include <libkwave/Parser.h>
+#include "libkwave/Parser.h"
 
 #include "ClipBoard.h"
 #include "PluginManager.h"

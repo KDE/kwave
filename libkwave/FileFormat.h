@@ -30,6 +30,7 @@ typedef struct
     int16_t bitspersample;
 } wav_fmt_header_t;
 
-#define sample_t int32_t
+#define WAV   0
+#define ASCII 1
 
 #endif /* _FILE_FORMAT_H_ */

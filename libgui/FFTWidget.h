@@ -1,12 +1,14 @@
+
 #ifndef _FFT_WIDGET_H_
-#define _FFT_WIDGET_H_ 1
+#define _FFT_WIDGET_H_
 
 class QPixmap;
 class QPaintEvent;
 
-#include <libkwave/gsl_fft.h>
 #include <qpainter.h>
 #include <qwidget.h>
+
+#include "libkwave/gsl_fft.h"
 
 //***********************************************************************
 class FFTWidget : public QWidget
@@ -79,7 +81,6 @@ class FFTWidget : public QWidget
 //    QPainter p;
 //    QPixmap *pixmap;          //pixmap to be blitted to screen
 
-}
-;
+};
 
-#endif // _FFT_WIDGET_H
+#endif /* _FFT_WIDGET_H_ */

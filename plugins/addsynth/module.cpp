@@ -12,14 +12,14 @@
 #include <qlabel.h>
 #include <qcombobox.h>
 
-#include <libkwave/Signal.h>
-#include <libkwave/Functions.h>
-#include <libkwave/Curve.h>
-#include <libkwave/DialogOperation.h>
-#include <libkwave/DynamicLoader.h>
-#include "../../../libgui/Dialog.h"
-#include "../../../libgui/ScaleWidget.h"
-#include "../../../libgui/CornerPatchWidget.h"
+#include "libkwave/Signal.h"
+#include "libkwave/Functions.h"
+#include "libkwave/Curve.h"
+#include "libkwave/DialogOperation.h"
+#include "libkwave/DynamicLoader.h"
+#include "libgui/Dialog.h"
+#include "libgui/ScaleWidget.h"
+#include "libgui/CornerPatchWidget.h"
 
 #include <kintegerline.h>
 

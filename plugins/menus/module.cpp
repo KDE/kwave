@@ -10,8 +10,8 @@
 #include <ktreelist.h>
 #include <kapp.h>
 
-#include <libkwave/DialogOperation.h>
-#include <libkwave/Global.h>
+#include "libkwave/DialogOperation.h"
+#include "libkwave/Global.h"
 
 #include "module.h"
 

@@ -20,7 +20,7 @@
 #include <qdict.h>
 #include <kapp.h>
 
-#include <libkwave/Parser.h>
+#include "libkwave/Parser.h"
 
 #include "MenuNode.h"
 #include "MenuGroup.h"
@@ -33,7 +33,8 @@ static int unique_menu_id = 0;
 MenuNode::MenuNode(MenuNode *parent, const QString &name,
 	const QString &command, int key, const QString &uid)
     :QObject(),
-    m_groups()
+    m_groups(),
+    m_icon(0)
 {
 //    menu_node_count++;
 //    debug("MenuNode::MenuNode(): node count=%d", menu_node_count);
@@ -42,7 +43,6 @@ MenuNode::MenuNode(MenuNode *parent, const QString &name,
     m_name = name;
     m_command = command;
     m_key = key;
-    m_icon = 0;
     m_uid = uid;
     m_enabled = true;
     m_last_enabled = true;
@@ -156,15 +156,15 @@ MenuNode *MenuNode::getRootNode()
 }
 
 //*****************************************************************************
-const QPixmap *MenuNode::getIcon()
+const QPixmap &MenuNode::getIcon()
 {
     return m_icon;
 }
 
 //*****************************************************************************
-void MenuNode::setIcon(const QPixmap &icon)
+void MenuNode::setIcon(const QPixmap icon)
 {
-    m_icon = &icon;
+    m_icon = icon;
     if (m_parentNode) m_parentNode->setItemIcon(m_id, icon);
 }
 
@@ -474,7 +474,7 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
     int index = sub->getIndex();
     int old_key = sub->getKey();
     QString old_uid = sub->getUID();
-//    const QPixmap *old_icon = 0; // ### sub->getIcon();
+    const QPixmap &old_icon = sub->getIcon();
     QString name = node->getName();
     QString command = node->getCommand();
     QStringList old_groups = sub->m_groups;
@@ -490,9 +490,9 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
 	for (; it != old_groups.end(); ++it) {
 	    sub->joinGroup(*it);
 	}
-
-//	// set the old icon
-//	if (old_icon) sub->setIcon(*old_icon);
+	
+	// set the old icon
+	if (!old_icon.isNull()) sub->setIcon(old_icon);
     }
 
     delete node;    // free the old node

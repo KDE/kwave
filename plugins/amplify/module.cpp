@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../../../src/Interpolation.h"
-#include "../../../src/TimeOperation.h"
-#include "../../../src/Curve.h"
-#include "../../../src/Parser.h"
+#include "kwave/Interpolation.h"
+#include "kwave/TimeOperation.h"
+#include "kwave/Curve.h"
+#include "kwave/Parser.h"
 
 #define PROGRESS_SIZE 512*3*4
 

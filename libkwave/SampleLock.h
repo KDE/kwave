@@ -63,10 +63,10 @@ public:
 	    overlap! */
 	WriteShared    = (unsigned int)(2 + (8+4+2) << 8),
 	
-	/**< read-only, writing for others forbidden */
+	/** read-only, writing for others forbidden */
 	ReadExclusive  = (unsigned int)(8 + (8+4+2) << 8),
 	
-	/**< writing, allow no other reads/writes */
+	/** writing, allow no other reads/writes */
 	WriteExclusive = (unsigned int)(4 + (8+4+2+1) << 8)
     };
 

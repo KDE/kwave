@@ -5,11 +5,11 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include "../../../libgui/Slider.h"
-#include "../../../libgui/FloatLine.h"
-#include "../../../libgui/TimeLine.h"
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
+#include "libgui/Slider.h"
+#include "libgui/FloatLine.h"
+#include "libgui/TimeLine.h"
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
 
 class ChannelMixDialog : public Dialog {
     Q_OBJECT

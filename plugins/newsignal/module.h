@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <qcombobox.h>
 #include <qlabel.h>
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
-#include "../../../libgui/TimeLine.h"
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
+#include "libgui/TimeLine.h"
 #include <kintegerline.h>
 //*****************************************************************************
 class NewSampleDialog : public Dialog {

@@ -14,7 +14,7 @@ URL:     @RPM_URL@
 Vendor: @RPM_VENDOR@
 BuildRoot: 	@RPM_BUILDROOT@
 Provides: @RPM_NAME@
-Requires: 	libqt >= 2.2, kdelibs >= 2.0
+Requires: 	qt >= 2.2, kdelibs >= 2.0
 
 %description
 @RPM_DESCRIPTION@

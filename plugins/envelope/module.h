@@ -2,9 +2,9 @@
 #define _DIALOGS_ENVELOPE_H 1
 
 #include <qlabel.h>
-#include "../../../libgui/Slider.h"
-#include "../../../libgui/Dialog.h"
-#include <libkwave/DialogOperation.h>
+#include "libgui/Slider.h"
+#include "libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
 #include <kintegerline.h>
 //*****************************************************************************
 class EnvelopeDialog : public Dialog {

@@ -31,13 +31,14 @@ rm -f config.status
 rm -f config.log
 rm -f `find . -name Makefile`
 rm -fv  `find . -type l`
-touch config.in
+touch configure.in
 DESTDIR=""
 unset DESTDIR
 ./configure --with-install-root=$RPM_BUILD_ROOT \
 	--enable-static=no --enable-shared=yes --enable-debug=no
 
 %build -n kwave-@RPM_VERSION@
+DESTDIR=""
 unset DESTDIR
 make
 

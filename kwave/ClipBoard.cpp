@@ -19,7 +19,7 @@ ClipBoard::ClipBoard()
 //***************************************************************************
 ClipBoard::~ClipBoard()
 {
-    clear();
+    // clear() must have been before, e.g. in the application's destructor !
 }
 
 //***************************************************************************

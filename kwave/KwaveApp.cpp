@@ -263,7 +263,9 @@ KwaveApp::~KwaveApp()
 	m_topwidget_list.removeRef(todel);
 	delete todel;
     }
+    m_clipboard.clear();
     m_recent_files.clear();
+    m_memory_manager.close();
 }
 
 //***************************************************************************

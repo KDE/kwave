@@ -1,0 +1,10 @@
+// ArtsPlaybackSink.idl
+
+#include <artsflow.idl>
+
+interface ArtsPlaybackSink : Arts::SynthModule {
+	default in audio stream sink;
+	void goOn();
+	readonly attribute boolean done;
+};
+

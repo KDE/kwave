@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2003-06-24 11:21+0200\n"
-"PO-Revision-Date: 2003-06-21 19:32+0200\n"
+"POT-Creation-Date: 2003-06-25 21:40+0200\n"
+"PO-Revision-Date: 2003-06-25 21:39+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgid "&About Kwave"
 msgstr "&Über Kwave"
 
 #: kwave/menus_config_i18n.cpp:15
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:80
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
 msgid "&Add"
 msgstr "&Hinzufügen"
 
@@ -252,7 +252,7 @@ msgstr "&Rauschen"
 
 #: kwave/menus_config_i18n.cpp:80
 msgid "&Notch Filter"
-msgstr "&Notch-Filter"
+msgstr "&Kerbfilter"
 
 #: kwave/menus_config_i18n.cpp:81
 msgid "&Nothing"
@@ -485,39 +485,42 @@ msgid "creator of this dialog"
 msgstr "Ersteller dieses Dialogs"
 
 #: kwave/main.cpp:72
-#, fuzzy
 msgid "french translations and splashscreen"
-msgstr "Französische Übersetzung"
+msgstr "Französische Übersetzung und Begrüssungsbildschirm"
 
-#: kwave/main.cpp:78
+#: kwave/main.cpp:76
+msgid "notch filter plugin"
+msgstr "Kerbfilter Plugin"
+
+#: kwave/main.cpp:82
 msgid "Kwave homepage and german online help"
 msgstr "Kwave Homepage und deutsche Online-Hilfe"
 
-#: kwave/main.cpp:82
+#: kwave/main.cpp:86
 msgid "tester"
 msgstr "Tester"
 
-#: kwave/main.cpp:86
+#: kwave/main.cpp:90
 msgid "debian packager"
 msgstr "Debian-Packager"
 
-#: kwave/main.cpp:90
+#: kwave/main.cpp:94
 msgid "author of the 'mad' mp3 decoder library"
 msgstr "Autor der 'mad' MP3-Decoder-Bibliothek"
 
-#: kwave/main.cpp:94
+#: kwave/main.cpp:98
 msgid "maintainers of the 'id3lib' library"
 msgstr "Betreuer der 'id3lib'-Bibliothek"
 
-#: kwave/main.cpp:98
+#: kwave/main.cpp:102
 msgid "author of the 'audiofile' library"
 msgstr "Ersteller der 'audiofile'-Bibliothek"
 
-#: kwave/main.cpp:102
+#: kwave/main.cpp:106
 msgid "author of the 'sndfile' library"
 msgstr "Ersteller der 'sndfile'-Bibliothek"
 
-#: kwave/main.cpp:115
+#: kwave/main.cpp:119
 msgid "sound editor for KDE3"
 msgstr "Sound-Editor für KDE3"
 
@@ -725,75 +728,75 @@ msgstr "letzte Aktion"
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:212
+#: libgui/SelectTimeWidgetBase.uic.cpp:213
 msgid "frmLength"
 msgstr "frmLength"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:213
+#: libgui/SelectTimeWidgetBase.uic.cpp:214
 #: plugins/fileinfo/FileInfoDialog.cpp:209
 #: plugins/newsignal/NewSigDlg.uic.cpp:548
 msgid "Length"
 msgstr "Länge"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:214
+#: libgui/SelectTimeWidgetBase.uic.cpp:215
 msgid "&Samples"
 msgstr "&Samples"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:215
+#: libgui/SelectTimeWidgetBase.uic.cpp:216
 msgid "select by number of samples"
 msgstr "Auswahl nach Anzahl der Samples"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:216
+#: libgui/SelectTimeWidgetBase.uic.cpp:217
 msgid "&Time"
 msgstr "&Zeit"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:217
+#: libgui/SelectTimeWidgetBase.uic.cpp:218
 msgid "select by time"
 msgstr "Auswahl nach Zeit"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:218
+#: libgui/SelectTimeWidgetBase.uic.cpp:219
 msgid "&Percent"
 msgstr "&Prozent"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:219
+#: libgui/SelectTimeWidgetBase.uic.cpp:220
 msgid "select by percentage of the signal's length"
 msgstr "Auswahl nach Prozentsatz der Länge des Signals"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:220
+#: libgui/SelectTimeWidgetBase.uic.cpp:221
 #: plugins/newsignal/NewSigDlg.uic.cpp:555
 msgid "Minutes"
 msgstr "Minuten"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:221
+#: libgui/SelectTimeWidgetBase.uic.cpp:222
 msgid "Milliseconds"
 msgstr "Millisekunden"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:222
+#: libgui/SelectTimeWidgetBase.uic.cpp:223
 #: plugins/newsignal/NewSigDlg.uic.cpp:554
 msgid "Seconds"
 msgstr "Sekunden"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:223
+#: libgui/SelectTimeWidgetBase.uic.cpp:224
 #: plugins/newsignal/NewSigDlg.uic.cpp:556
 msgid "Hours"
 msgstr "Stunden"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:224
+#: libgui/SelectTimeWidgetBase.uic.cpp:225
 #: plugins/newsignal/NewSigDlg.uic.cpp:561
 msgid "0%"
 msgstr "0%"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:225
+#: libgui/SelectTimeWidgetBase.uic.cpp:226
 #: plugins/newsignal/NewSigDlg.uic.cpp:562
 msgid "50%"
 msgstr "50%"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:226
+#: libgui/SelectTimeWidgetBase.uic.cpp:227
 #: plugins/newsignal/NewSigDlg.uic.cpp:563
 msgid "100%"
 msgstr "100%"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:227
+#: libgui/SelectTimeWidgetBase.uic.cpp:228
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "Setzt die Auswahl über den Prozentsatz der gesamten Signallänge"
 
@@ -1137,7 +1140,7 @@ msgstr ""
 "Numern siehe die ISRC-Einführungs-Seite unter:\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
-#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:78
+#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:79
 msgid "Keywords"
 msgstr "Schlüsselworte"
 
@@ -1378,7 +1381,7 @@ msgid "Track of the CD if the source was a CDROM."
 msgstr "Track der CD wenn die Quelle eine CDROM war."
 
 #: libkwave/FileInfo.cpp:199
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:403
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:404
 msgid "Base Quality"
 msgstr "Basis-Qualität"
 
@@ -2072,7 +2075,7 @@ msgstr "7-Polynom"
 msgid "sample and hold"
 msgstr "Sample + Hold"
 
-#: libkwave/KwaveFilterPlugin.cpp:161
+#: libkwave/KwaveFilterPlugin.cpp:163
 msgid "applying '%1' ..."
 msgstr "'%1' wird angewendet ..."
 
@@ -2085,29 +2088,35 @@ msgid "Pitch Shift"
 msgstr "Tonverschiebung"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:398
-#: plugins/lowpass/LowPassDlg.uic.cpp:169
+#: plugins/lowpass/LowPassDlg.uic.cpp:177
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:201
 msgid "F1"
 msgstr "F1"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:399
 #: plugins/pitch_shift/PitchShiftDialog.cpp:317
-#: plugins/lowpass/LowPassDlg.uic.cpp:170
+#: plugins/lowpass/LowPassDlg.uic.cpp:178
 #: plugins/lowpass/LowPassDialog.cpp:160
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:202
+#: plugins/notch_filter/NotchFilterDialog.cpp:190
 msgid "&Listen"
 msgstr "&Anhören"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:400
-#: plugins/lowpass/LowPassDlg.uic.cpp:171
+#: plugins/lowpass/LowPassDlg.uic.cpp:179
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:203
 msgid "Alt+L"
 msgstr "Alt+L"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:401
-#: plugins/lowpass/LowPassDlg.uic.cpp:172
+#: plugins/lowpass/LowPassDlg.uic.cpp:180
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:204
 msgid "start/stop pre-listening"
 msgstr "Vorhören starten/stoppen"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:402
-#: plugins/lowpass/LowPassDlg.uic.cpp:173
+#: plugins/lowpass/LowPassDlg.uic.cpp:181
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:205
 msgid ""
 "Start or stop the pre-listening of the current settings. If pre-listening is "
 "enabled, you will nearly immediately hear any change in the selected "
@@ -2143,7 +2152,9 @@ msgid "Speed:"
 msgstr "Geschwindigkeit:"
 
 #: plugins/pitch_shift/PitchShiftDlg.uic.cpp:411
-#: plugins/lowpass/LowPassDlg.uic.cpp:167
+#: plugins/lowpass/LowPassDlg.uic.cpp:171
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:182
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:195
 msgid " Hz"
 msgstr " Hz"
 
@@ -2192,6 +2203,7 @@ msgstr ""
 
 #: plugins/pitch_shift/PitchShiftDialog.cpp:313
 #: plugins/lowpass/LowPassDialog.cpp:156
+#: plugins/notch_filter/NotchFilterDialog.cpp:186
 msgid "&Stop"
 msgstr "&Stop"
 
@@ -2482,15 +2494,33 @@ msgstr "Wollen Sie fortsetzen und alle weiteren Fehler ignorieren?"
 msgid "Low Pass"
 msgstr "Tiefpass"
 
+#: plugins/lowpass/LowPassDlg.uic.cpp:167
+#: plugins/lowpass/LowPassDlg.uic.cpp:172
+msgid "cutoff frequency"
+msgstr "Grenzfrequenz"
+
+#: plugins/lowpass/LowPassDlg.uic.cpp:168
+#: plugins/lowpass/LowPassDlg.uic.cpp:173
+msgid ""
+"<b>cutoff frequency</b>\n"
+"Determines the highest audible frequency, higher\n"
+"frequencies will be cut off."
+msgstr ""
+"<b>Grenzfrequenz</b>\n"
+"Bestimmt die höchste noch hörbare Frequenz, \n"
+"höhere Frequenzen werden abgeschnitten."
+
 #: plugins/lowpass/LowPassDialog.cpp:54
+#: plugins/notch_filter/NotchFilterDialog.cpp:57
 msgid "Hz"
 msgstr "Hz"
 
 #: plugins/lowpass/LowPassDialog.cpp:59
+#: plugins/notch_filter/NotchFilterDialog.cpp:62
 msgid "dB"
 msgstr "dB"
 
-#: plugins/lowpass/LowPassPlugin.cpp:107
+#: plugins/lowpass/LowPassPlugin.cpp:106
 msgid "low pass"
 msgstr "Tiefpass"
 
@@ -2790,15 +2820,15 @@ msgstr "Inhalt"
 msgid "Author/Copyright"
 msgstr "Author/Copyright"
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
 msgid "A&uto"
 msgstr "&Automatisch"
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
 msgid "auto-generate keywords"
 msgstr "Schlüsselworte automatisch erzeugen"
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:84
 msgid ""
 "<b>Auto-Generate Keywords</b><br>\n"
 "Create a list of keywords by going through all present file informations and "
@@ -2808,28 +2838,28 @@ msgstr ""
 "Erzeugt die Liste durch Auswerten aller eingegebenen Datei-Informationen und "
 "vereint sie mit den bereits vorhandenen Schlüsselworten."
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:85
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:86
 msgid "List of keywords."
 msgstr "Liste von Schlüsselworten."
 
-#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:295
+#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:296
 #: plugins/newsignal/NewSigDlg.uic.cpp:525
 msgid "Form1"
 msgstr "Form1"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:387
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:388
 msgid "CompressionWidgetBase"
 msgstr "CompressionWidgetBase"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:389
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:390
 msgid "ABR:"
 msgstr "ABR:"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:390
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
 msgid "Average Bitrate Mode"
 msgstr "Mittlere Bitrate"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:392
 msgid ""
 "<b>Average Bitrate Mode</b><br>\n"
 "Bitrate is set to an average value, \n"
@@ -2839,20 +2869,20 @@ msgstr ""
 "Die Bitrate wird auf einen mittleren Wert festgelegt, \n"
 "mit einer optionalen Ober- und Untergrenze."
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:394
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:402
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:395
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:403
 msgid "lowest"
 msgstr "niedrigste"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:395
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
 msgid "VBR:"
 msgstr "VBR:"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
 msgid "Variable Bitrate Mode"
 msgstr "Variable Bitrate"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:398
 msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
@@ -2860,15 +2890,15 @@ msgstr ""
 "<b>Variable Bitrate</b><br>\n"
 "Auswahl der Bitrate über eine mittlere Qualität."
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:399
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
 msgid "highest"
 msgstr "höchste"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
 msgid "Nominal Bitrate"
 msgstr "Nominale Bitrate"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:402
 msgid " %"
 msgstr " %"
 
@@ -3069,6 +3099,46 @@ msgstr ""
 "Beim Öffnen der Datei ist ein Fehler aufgetreten:\n"
 "%1"
 
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:181
+msgid "Notch Filter"
+msgstr "Kerbfilter"
+
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:183
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:187
+msgid "center frequency"
+msgstr "Mittenfrequenz"
+
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:184
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:188
+msgid ""
+"<b>center frequency</b>\n"
+"Determines the center of the frequency range that\n"
+"should be removed."
+msgstr ""
+"<b>Mittenfrequenz</b>\n"
+"Bestimmt die Mitte des Frequenzbereiches der \n"
+"ausgeblendet werden soll."
+
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:191
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:196
+msgid "bandwidth"
+msgstr "Bandbreite"
+
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:192
+#: plugins/notch_filter/NotchFilterDlg.uic.cpp:197
+msgid ""
+"<b>bandwidth</b>\n"
+"Determines the width of the frequency range that\n"
+"should be removed."
+msgstr ""
+"<b>Bandbreite</b>\n"
+"Bestimmt die Breite des Frequenzbereiches der \n"
+"ausgeblendet werden soll."
+
+#: plugins/notch_filter/NotchFilterPlugin.cpp:120
+msgid "notch_filter"
+msgstr "Kerbfilter"
+
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:33
 msgid "ms"
 msgstr "ms"
@@ -3243,7 +3313,7 @@ msgstr ""
 "mit der Bitrate %1 kBit/s fortsetzen oder abbrechen und eine andere Bitrate "
 "auswählen?"
 
-#: plugins/codec_ogg/OggEncoder.cpp:231
+#: plugins/codec_ogg/OggEncoder.cpp:237
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again..."
@@ -3251,11 +3321,11 @@ msgstr ""
 "Ein oder mehrere Codierungs-Parameter werden nicht unterstützt. Bitte ändern "
 "Sie die Codierungs-Einstellungen und versuchen Sie es nochmal..."
 
-#: plugins/codec_ogg/OggEncoder.cpp:240 plugins/codec_wav/WavEncoder.cpp:144
+#: plugins/codec_ogg/OggEncoder.cpp:246 plugins/codec_wav/WavEncoder.cpp:144
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 
-#: plugins/codec_ogg/OggEncoder.cpp:250 plugins/codec_wav/WavEncoder.cpp:126
+#: plugins/codec_ogg/OggEncoder.cpp:256 plugins/codec_wav/WavEncoder.cpp:126
 msgid " for KDE "
 msgstr " für KDE "
 
@@ -3659,12 +3729,6 @@ msgstr ""
 #: plugins/newsignal/NewSignalDialog.cpp:349
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resultierende Dateigröße: %1 MB)"
-
-#~ msgid "Notch Filter"
-#~ msgstr "Notch-Filter"
-
-#~ msgid "notch filter"
-#~ msgstr "Notch-Filter"
 
 #~ msgid "no limit"
 #~ msgstr "nicht begrenzt"

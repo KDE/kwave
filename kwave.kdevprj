@@ -36,7 +36,6 @@ version_control=CVS
 workspace=1
 
 [LFV Groups]
-Dialoge=*.ui
 GNU=README,TODO,CHANGES,
 Headers=*.h,
 Languages=*.po,*.pot
@@ -46,7 +45,7 @@ Sources=*.cpp,
 User Interface File=*.ui
 Zusätzliche=*.config,*.cfg,*.docbook,
 aRts/MCOP=*.idl
-groups=User Interface File,aRts/MCOP,Online Help,Languages,GNU,Pictures,Headers,Sources,Dialoge
+groups=User Interface File,aRts/MCOP,Online Help,Languages,GNU,Pictures,Headers,Sources
 Übersetzungen=*.po,
 
 [Makefile.am]
@@ -2497,7 +2496,7 @@ type=DATA
 files=plugins/no
 
 [plugins/notch_filter/Makefile.am]
-files=plugins/notch_filter/NotchPlugin.cpp,plugins/notch_filter/NotchPlugin.h,plugins/notch_filter/NotchFilter.h,plugins/notch_filter/NotchFilter.cpp,plugins/notch_filter/NotchDlg.ui,plugins/notch_filter/NotchDialog.h,plugins/notch_filter/NotchDialog.cpp
+files=plugins/notch_filter/NotchPlugin.cpp,plugins/notch_filter/NotchPlugin.h,plugins/notch_filter/NotchFilter.h,plugins/notch_filter/NotchFilter.cpp,plugins/notch_filter/NotchDialog.h,plugins/notch_filter/NotchDialog.cpp,plugins/notch_filter/NotchFilterDialog.cpp,plugins/notch_filter/c_filter_stuff.c,plugins/notch_filter/c_filter_stuff.h,plugins/notch_filter/NotchFilterDialog.h,plugins/notch_filter/NotchFilterDlg.ui,plugins/notch_filter/NotchFilterPlugin.cpp,plugins/notch_filter/NotchFilterPlugin.h,plugins/notch_filter/synth_notch_filter.idl,plugins/notch_filter/synth_notch_filter_impl.h
 sharedlib_LDFLAGS=-version-info 0:0:0
 sharedlib_rootname=notch_filter
 sub_dirs=
@@ -2515,12 +2514,6 @@ install=false
 install_location=
 type=HEADER
 
-[plugins/notch_filter/NotchDlg.ui]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
 [plugins/notch_filter/NotchFilter.cpp]
 dist=true
 install=false
@@ -2533,6 +2526,36 @@ install=false
 install_location=
 type=HEADER
 
+[plugins/notch_filter/NotchFilterDialog.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/notch_filter/NotchFilterDialog.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/notch_filter/NotchFilterDlg.ui]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/notch_filter/NotchFilterPlugin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/notch_filter/NotchFilterPlugin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [plugins/notch_filter/NotchPlugin.cpp]
 dist=true
 install=false
@@ -2540,6 +2563,30 @@ install_location=
 type=SOURCE
 
 [plugins/notch_filter/NotchPlugin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/notch_filter/c_filter_stuff.c]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/notch_filter/c_filter_stuff.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/notch_filter/synth_notch_filter.idl]
+dist=true
+install=false
+install_location=
+type=CORBA_SOURCE
+
+[plugins/notch_filter/synth_notch_filter_impl.h]
 dist=true
 install=false
 install_location=

@@ -189,6 +189,7 @@ public:
 
     /** Returns a reference to the global aRts dispatcher */
     inline Arts::Dispatcher &artsDispatcher() {
+	ASSERT(Arts::Dispatcher::the());
 	return *(Arts::Dispatcher::the());
     };
 

@@ -195,7 +195,7 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_TRACK, 0,
         i18n("Track"),
         i18n("Track of the CD if the source was a CDROM."));
-    append(INF_VBR_QUALITY, FP_NO_LOAD_SAVE,
+    append(INF_VBR_QUALITY, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Base Quality"),
         i18n("Base quality of the compression in VBR mode"));
     append(INF_VERSION, 0,

@@ -129,7 +129,8 @@ msgstr "Einleitung"
 #. Tag: para
 #: help_en.docbook:65
 #, no-c-format
-msgid "This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE3. Its features include:"
 msgstr ""
 "Dies ist \"&kapp;\", ein einfacher Sound-Editor für KDE3. Er enthält "
 "folgende Funktionalität:"
@@ -351,7 +352,9 @@ msgstr "0.7.1 [2004-??-??]"
 msgid ""
 "removed our own copy of libmad from the source tree, now it should be "
 "available in all common distributions"
-msgstr "die eigene Kopie von libmad wurde aus dem Sourcebaum entfernt, sie sollte inzwischen bei allen üblichen Distruibutionen vorhanden sein"
+msgstr ""
+"die eigene Kopie von libmad wurde aus dem Sourcebaum entfernt, sie sollte "
+"inzwischen bei allen üblichen Distruibutionen vorhanden sein"
 
 #. Tag: para
 #: help_en.docbook:202
@@ -416,13 +419,15 @@ msgstr "Neues Plugin: \"Kerbfilter\", beigetragen von Dave Flogeras"
 #: help_en.docbook:232
 #, no-c-format
 msgid "included a bugfixed version of the synth_pitch_shift aRts plugin"
-msgstr "enthält fehlerbereinigte Version der synth_pitch_shift Plugins von aRts"
+msgstr ""
+"enthält fehlerbereinigte Version der synth_pitch_shift Plugins von aRts"
 
 #. Tag: para
 #: help_en.docbook:235
 #, no-c-format
 msgid "new feature: \"pre-listen\", first implementation in pitch_shift plugin"
-msgstr "neues Feature \"Vorhören\", erste Implementierung im pitch_shift-Plugin"
+msgstr ""
+"neues Feature \"Vorhören\", erste Implementierung im pitch_shift-Plugin"
 
 #. Tag: para
 #: help_en.docbook:238
@@ -565,7 +570,8 @@ msgstr "Unterstützung für das Speichern komprimierter Dateien"
 #: help_en.docbook:304
 #, no-c-format
 msgid "thrown away Qt2/KDE2 compatibility, now only supports Qt3/KDE3"
-msgstr "keine Unterstützung von Qt2/KDE2 mehr, jetzt nur noch Support für Qt3/KDE3"
+msgstr ""
+"keine Unterstützung von Qt2/KDE2 mehr, jetzt nur noch Support für Qt3/KDE3"
 
 #. Tag: para
 #: help_en.docbook:307
@@ -581,7 +587,8 @@ msgstr ""
 #: help_en.docbook:311
 #, no-c-format
 msgid "solved problem with name mangling in plugins and different gcc versions"
-msgstr "Problem mit Name-Mangling der Plugins bei verschiedenen gcc-Versionen gelöst"
+msgstr ""
+"Problem mit Name-Mangling der Plugins bei verschiedenen gcc-Versionen gelöst"
 
 #. Tag: para
 #: help_en.docbook:314
@@ -709,7 +716,8 @@ msgstr "Behandlung von \"Datei geändert\""
 #: help_en.docbook:375
 #, no-c-format
 msgid "shows error message and aborts if loading failed"
-msgstr "zeigt eine Meldungsbox und bricht ab wenn das Laden einer Datei fehlschlug"
+msgstr ""
+"zeigt eine Meldungsbox und bricht ab wenn das Laden einer Datei fehlschlug"
 
 #. Tag: para
 #: help_en.docbook:381
@@ -963,7 +971,8 @@ msgstr "Einige Bugs mit der Maus-Auswahl behoben"
 #: help_en.docbook:506
 #, no-c-format
 msgid "rework of the overview widget (used in main window and sonagram)"
-msgstr "OverViewWidget überarbeitet (wird im Hauptfenster und Sonagram verwendet)"
+msgstr ""
+"OverViewWidget überarbeitet (wird im Hauptfenster und Sonagram verwendet)"
 
 #. Tag: para
 #: help_en.docbook:509
@@ -1027,12 +1036,14 @@ msgstr "Sonagram: transparenter Hintergrund für das Bild"
 #: help_en.docbook:539
 #, no-c-format
 msgid "added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget"
-msgstr "sizeHint() und minimimSize() für ScaleWidget und OverViewWidget hinzugefügt"
+msgstr ""
+"sizeHint() und minimimSize() für ScaleWidget und OverViewWidget hinzugefügt"
 
 #. Tag: para
 #: help_en.docbook:542
 #, no-c-format
-msgid "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
+msgid ""
+"sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
 msgstr ""
 "Sonagram: (Notwendigkeit für) SonagramContainer entfernt, verwendet jetzt "
 "stattdessen QGridLayout"
@@ -1053,7 +1064,8 @@ msgstr "X11 Synchronisationsproblem mit SignalProxy behoben"
 #: help_en.docbook:552
 #, no-c-format
 msgid "added TSS (thread-specific-storage) support to the mt classes"
-msgstr "Unterstützung für TSS (thread-specific storage) zu den mt-Klassen hinzugefügt"
+msgstr ""
+"Unterstützung für TSS (thread-specific storage) zu den mt-Klassen hinzugefügt"
 
 #. Tag: para
 #: help_en.docbook:555
@@ -1092,7 +1104,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:569
 #, no-c-format
-msgid "bugfix: selection and playpointer will not be drawn if no signal is loaded"
+msgid ""
+"bugfix: selection and playpointer will not be drawn if no signal is loaded"
 msgstr ""
 "Bugfix: Auswahl und Wiedergabeposition werden nicht gezeichnet wenn keine "
 "Datei geladen ist"
@@ -1283,7 +1296,8 @@ msgstr ""
 #: help_en.docbook:671
 #, no-c-format
 msgid "found out that we need ALSA support for 24 and 32 bits/sample"
-msgstr "herausgefunden dass wir ALSA benötigen um 24 und 32 Bits/Sample wiederzugeben"
+msgstr ""
+"herausgefunden dass wir ALSA benötigen um 24 und 32 Bits/Sample wiederzugeben"
 
 #. Tag: para
 #: help_en.docbook:674
@@ -1445,7 +1459,8 @@ msgstr ""
 #: help_en.docbook:749
 #, no-c-format
 msgid "wrote a new README file, moved Martin's version to README.OLD"
-msgstr "neue README-Datei geschrieben, Martin's Version nach README.OLD umbenannt"
+msgstr ""
+"neue README-Datei geschrieben, Martin's Version nach README.OLD umbenannt"
 
 #. Tag: para
 #: help_en.docbook:752
@@ -1473,7 +1488,8 @@ msgstr "0.5.2-9 [2000-05-19]"
 #: help_en.docbook:764
 #, no-c-format
 msgid "list of recent files is synchronized across all toplevel windows"
-msgstr "Liste der letzten Dateien wird synchronisiert über alle Toplevel-Fenster"
+msgstr ""
+"Liste der letzten Dateien wird synchronisiert über alle Toplevel-Fenster"
 
 #. Tag: para
 #: help_en.docbook:767
@@ -1526,7 +1542,8 @@ msgstr "Behandlung von hinzufügen/löschen: Auswahl/Speaker werden verschoben"
 #. Tag: para
 #: help_en.docbook:790
 #, no-c-format
-msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
+msgid ""
+"changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
 "einige Variablen/Parameter in \"unsigned\" geändert (vereinfacht "
 "Bereichsüberprüfungen)"
@@ -1564,7 +1581,8 @@ msgstr "Checks für die Größe von char, short und int im configure-Skript"
 #. Tag: para
 #: help_en.docbook:807
 #, no-c-format
-msgid "globals.app will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"globals.app will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "globals.app wird nicht mehr verwendet (obsolet, sollte von libkwave entfernt "
 "werden)"
@@ -1572,7 +1590,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:810
 #, no-c-format
-msgid "MessagePort will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"MessagePort will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "MessagePort wird nicht mehr benutzt (obsolet, sollte aus libkwave entfernt "
 "werden)"
@@ -1593,7 +1612,8 @@ msgstr "X toolkit-Parameter zum Laufen gebracht (insbesondere \"-geometry\")"
 #: help_en.docbook:819
 #, no-c-format
 msgid "bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)"
-msgstr "Bugfix beim Laden/Speichern von 8-Bit .wav-Dateien (sind immer unsigned !)"
+msgstr ""
+"Bugfix beim Laden/Speichern von 8-Bit .wav-Dateien (sind immer unsigned !)"
 
 #. Tag: para
 #: help_en.docbook:822
@@ -1659,7 +1679,8 @@ msgstr ""
 msgid ""
 "shift+Home/shift+End selects from the current left/right position up to the "
 "start/end of the signal"
-msgstr "Shift+Home/Shift+End erweitert die Auswahl bis zum Start/Ende des Signals"
+msgstr ""
+"Shift+Home/Shift+End erweitert die Auswahl bis zum Start/Ende des Signals"
 
 #. Tag: para
 #: help_en.docbook:855
@@ -1737,7 +1758,8 @@ msgstr ""
 #: help_en.docbook:892
 #, no-c-format
 msgid "version info of libkwavegui.so is set to the package's version"
-msgstr "Versionsinfo von libkwavegui wird auf die Version des Programmpakets gesetzt"
+msgstr ""
+"Versionsinfo von libkwavegui wird auf die Version des Programmpakets gesetzt"
 
 #. Tag: para
 #: help_en.docbook:895
@@ -1783,7 +1805,8 @@ msgstr "ASCII Import und Export funktioniert jetzt (nur Mono)"
 #: help_en.docbook:913
 #, no-c-format
 msgid "bugfixes in some plugins, all compile now without warnings/errors"
-msgstr "Bugfixes in einigen Plugins, jetzt compilieren alle ohne Warnungen/Fehler"
+msgstr ""
+"Bugfixes in einigen Plugins, jetzt compilieren alle ohne Warnungen/Fehler"
 
 #. Tag: para
 #: help_en.docbook:916
@@ -1846,7 +1869,8 @@ msgstr "Target \"make messages\" funktioniert wieder"
 #. Tag: para
 #: help_en.docbook:948
 #, no-c-format
-msgid "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
+msgid ""
+"converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 msgstr ""
 "Konverter für menus.config, erzeugt dummy .cpp-File das dann via i18n "
 "behandelt wird"
@@ -1959,7 +1983,8 @@ msgstr "meine Änderungen aus den Makefiles in die Makefile.am verschoben"
 #: help_en.docbook:1011
 #, no-c-format
 msgid "included targets \"make release\", \"make patchlevel\" and some scripts"
-msgstr "Targets \"make release\", \"make patchlevel\" und einige Skripte hinzugefügt"
+msgstr ""
+"Targets \"make release\", \"make patchlevel\" und einige Skripte hinzugefügt"
 
 #. Tag: para
 #: help_en.docbook:1017
@@ -2040,7 +2065,8 @@ msgstr "1999-12-10 (by Thomas.Eschenbacher@gmx.de)"
 #: help_en.docbook:1055
 #, no-c-format
 msgid "removed -Werror compiler option (caused trouble with configure script)"
-msgstr "Compiler-Option -Werror entfernt (verursachte Ärger mit dem confiure-Skript)"
+msgstr ""
+"Compiler-Option -Werror entfernt (verursachte Ärger mit dem confiure-Skript)"
 
 #. Tag: para
 #: help_en.docbook:1058
@@ -2078,7 +2104,8 @@ msgstr "TODO-Datei hinzugefügt"
 #: help_en.docbook:1074
 #, no-c-format
 msgid "added -Werror to the c++ compiler options when debuging enabled"
-msgstr "-Werror zu den Compiler-Optionen hinzugefügt wenn Debugging aktiviert ist"
+msgstr ""
+"-Werror zu den Compiler-Optionen hinzugefügt wenn Debugging aktiviert ist"
 
 #. Tag: para
 #: help_en.docbook:1077
@@ -2104,7 +2131,8 @@ msgstr ""
 #: help_en.docbook:1088 help_en.docbook:1094
 #, no-c-format
 msgid "bugfix: caption of main window changes after \"SaveAs\""
-msgstr "Bugfix: Überschrift des Hauptfensters ändert sich beim \"Speichern Unter\""
+msgstr ""
+"Bugfix: Überschrift des Hauptfensters ändert sich beim \"Speichern Unter\""
 
 #. Tag: para
 #: help_en.docbook:1091
@@ -2257,7 +2285,8 @@ msgstr "Hüllkurven-Dialog (String-Handling) behoben"
 #: help_en.docbook:1169
 #, no-c-format
 msgid "connected many functions via the new string-based way of invocation"
-msgstr "einige Funktionen über die neue String-basierte Aufrufmethode angebunden"
+msgstr ""
+"einige Funktionen über die neue String-basierte Aufrufmethode angebunden"
 
 #. Tag: para
 #: help_en.docbook:1172
@@ -2285,7 +2314,8 @@ msgstr "Clipboard-Klasse zurechtgestutzt"
 #: help_en.docbook:1182
 #, no-c-format
 msgid "Color class as wrapper to QColor (may become independent later)"
-msgstr "Color-Klasse als Wrapper für QColor (wird vielleicht später mal unabhängig)"
+msgstr ""
+"Color-Klasse als Wrapper für QColor (wird vielleicht später mal unabhängig)"
 
 #. Tag: para
 #: help_en.docbook:1185
@@ -2386,7 +2416,8 @@ msgstr ""
 #: help_en.docbook:1234
 #, no-c-format
 msgid "recent Files are updated again, while the program is running"
-msgstr "Liste der letzten Dateien wird wieder aktualisiert beim laufenden Programm"
+msgstr ""
+"Liste der letzten Dateien wird wieder aktualisiert beim laufenden Programm"
 
 #. Tag: para
 #: help_en.docbook:1237
@@ -2504,7 +2535,8 @@ msgstr "0.29.1"
 #. Tag: para
 #: help_en.docbook:1293
 #, no-c-format
-msgid "Bugfix for multichannel save. Now the saved files should work with other prgs"
+msgid ""
+"Bugfix for multichannel save. Now the saved files should work with other prgs"
 msgstr ""
 "Bugfix für Speichern von Mehrkanal-Dateien. Nun sollten die Dateien auch mit "
 "anderen Programmen zusammenarbeiten"
@@ -2566,14 +2598,16 @@ msgstr "Wiederauswahl und Cursorwechsel implementiert"
 #. Tag: para
 #: help_en.docbook:1324
 #, no-c-format
-msgid "added possibility of different display modes in Frequency representation"
+msgid ""
+"added possibility of different display modes in Frequency representation"
 msgstr "Möglichkeit für verschiedene Anzeigemodi in der Frequenz-Darstellung"
 
 #. Tag: para
 #: help_en.docbook:1327
 #, no-c-format
 msgid "fixed severe quantisation bug in saving 16Bit routine, reported by ?"
-msgstr "schweren Quantisierungsfehler in der 16Bit-Routine behoben, berichtet von ?"
+msgstr ""
+"schweren Quantisierungsfehler in der 16Bit-Routine behoben, berichtet von ?"
 
 #. Tag: para
 #: help_en.docbook:1330
@@ -2609,7 +2643,8 @@ msgstr "Erste Verwendung von mehreren Threads (Pthreads) in einigen Funktionen"
 #: help_en.docbook:1344
 #, no-c-format
 msgid "Pitch generation now independent of additive synthesis"
-msgstr "Erzeugung der Tonverschiebung ist nun unabhängig von der Additiven Synthese"
+msgstr ""
+"Erzeugung der Tonverschiebung ist nun unabhängig von der Additiven Synthese"
 
 #. Tag: para
 #: help_en.docbook:1347
@@ -2644,7 +2679,8 @@ msgstr "neues ScaleWidget gibt dem Anwender mehr Informationen"
 #. Tag: para
 #: help_en.docbook:1362
 #, no-c-format
-msgid "Improved ProgressDialog and Interpolation class to allow multiple threads"
+msgid ""
+"Improved ProgressDialog and Interpolation class to allow multiple threads"
 msgstr ""
 "Verbesserter ProgressDialog und Interpolation-Klasse um Multithreading zu "
 "erlauben"
@@ -2670,7 +2706,8 @@ msgstr "Änderungen in CurveWidget (aktueller Punkt verwendet anderes Pixmap)"
 #. Tag: para
 #: help_en.docbook:1376
 #, no-c-format
-msgid "sorting of labels now works without overwriting of QGList::compareItems."
+msgid ""
+"sorting of labels now works without overwriting of QGList::compareItems."
 msgstr ""
 "Sortieren von Markern funktioniert ohne Überschreiben von QGList::"
 "compareItems."
@@ -2709,7 +2746,8 @@ msgstr "0.27"
 #: help_en.docbook:1396
 #, no-c-format
 msgid "first release, but never uploaded, because ftp.kde.org was down."
-msgstr "erste Release, aber niemals publiziert, da ftp.kde.org nicht erreichbar war."
+msgstr ""
+"erste Release, aber niemals publiziert, da ftp.kde.org nicht erreichbar war."
 
 #. Tag: title
 #: help_en.docbook:1411
@@ -2755,7 +2793,9 @@ msgstr ""
 msgid ""
 "download a binary package of the latest stable version, if there is one for "
 "your distribution,"
-msgstr "ein Binärpaket der letzten stabilen Version herunterladen, sofern eines für Ihre Distribution existiert, "
+msgstr ""
+"ein Binärpaket der letzten stabilen Version herunterladen, sofern eines für "
+"Ihre Distribution existiert, "
 
 #. Tag: para
 #: help_en.docbook:1437
@@ -2769,7 +2809,8 @@ msgstr "ein Source-RPM der letzten stabilen Version herunterladen, "
 msgid ""
 "compile on your own, from a .tar.gz archive with the source code of the "
 "latest stable version,"
-msgstr "selbst aus einem tar.gz-Archiv der letzten stabilen Verstion compilieren,"
+msgstr ""
+"selbst aus einem tar.gz-Archiv der letzten stabilen Verstion compilieren,"
 
 #. Tag: para
 #: help_en.docbook:1444
@@ -2783,7 +2824,10 @@ msgstr "aus den per CVS abgerufenen Sourcen selbst compilieren."
 msgid ""
 "Don't be afraid, compiling Kwave should be quite simple even if you are not "
 "a programmer. It just needs some developer packages to be installed."
-msgstr "Schrecken Sie nicht davor zurück, Kwave selbst zu compilieren, auch wenn Sie kein Programmierer sind. Es müssen nur einige Entwickler-Pakete installiert sein."
+msgstr ""
+"Schrecken Sie nicht davor zurück, Kwave selbst zu compilieren, auch wenn Sie "
+"kein Programmierer sind. Es müssen nur einige Entwickler-Pakete installiert "
+"sein."
 
 #. Tag: title
 #: help_en.docbook:1462
@@ -2876,12 +2920,15 @@ msgstr ""
 "Datei, die in der Quellcode-Distribution enthalten ist oder hier gefunden "
 "werden kann: <ulink url=\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/"
 "kwave/kwave/README?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup\"> "
-"\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README\"</ulink>. Diese Datei enthält auch einige Tips um &kapp; unter anderen Distributionen zum Laufen zu bekommen oder zu compilieren."
+"\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README\"</"
+"ulink>. Diese Datei enthält auch einige Tips um &kapp; unter anderen "
+"Distributionen zum Laufen zu bekommen oder zu compilieren."
 
 #. Tag: para
 #: help_en.docbook:1509
 #, no-c-format
-msgid "If you intend to compile &kapp; from the sources, you will need at least:"
+msgid ""
+"If you intend to compile &kapp; from the sources, you will need at least:"
 msgstr ""
 "Wenn Sie vorhaben, &kapp; aus den Quellen zu compilieren, brauchen Sie "
 "zusätzlich mindestens:"
@@ -3012,7 +3059,12 @@ msgid ""
 "Qt-3.x, you might get problems when compiling. Then you should set the "
 "following environment variable to specify the correct paths of your Qt "
 "installation and try again. For example:"
-msgstr "Wenn Sie ein System mit alten Qt-1 oder Qt-2 Bibliotheken parallel zu Qt-3.x besitzen, werden Sie möglicherweise auf Probleme beim Compilieren stossen. In diesem Fall setzen Sie bitte folgende Umgebungsvariable um den korrekten Pfad ihrer Qt-Installation zu setzen und versuchen Sie es erneut. Zum Beispiel:"
+msgstr ""
+"Wenn Sie ein System mit alten Qt-1 oder Qt-2 Bibliotheken parallel zu Qt-3.x "
+"besitzen, werden Sie möglicherweise auf Probleme beim Compilieren stossen. "
+"In diesem Fall setzen Sie bitte folgende Umgebungsvariable um den korrekten "
+"Pfad ihrer Qt-Installation zu setzen und versuchen Sie es erneut. Zum "
+"Beispiel:"
 
 #. Tag: screen
 #: help_en.docbook:1572
@@ -3065,8 +3117,8 @@ msgid ""
 msgstr ""
 "Wenn Sie ein tar.gz Archiv von &kapp; heruntergeladen haben, erstellen und "
 "installieren Sie die RPMs einfach, indem Sie den folgenden Schritten folgen "
-"(wobei <replaceable>[arch]</replaceable> für die Plattform steht, für die Sie das "
-"Paket erstellt haben, und sollte <literal>i386</literal>, "
+"(wobei <replaceable>[arch]</replaceable> für die Plattform steht, für die "
+"Sie das Paket erstellt haben, und sollte <literal>i386</literal>, "
 "<literal>i586</literal>, <literal>sparc</literal> oder ähnliches sein. "
 "<replaceable>XXX</replaceable> steht für die Versionsnummer des "
 "heruntergeladenen Paketes)."
@@ -3128,7 +3180,10 @@ msgstr "Mit defektem rpmbuild -ta"
 msgid ""
 "If you can't get <command>rpmbuild -ta</command> working, here are the steps "
 "for making that manually (the hard way):"
-msgstr "Falls Sie <command>rpmbuild -ta</command> nicht zum laufen bekommen, sind hier die Schritte um dieses \"per Hand\" (auf die harte Tour) zu bewerkstelligen:"
+msgstr ""
+"Falls Sie <command>rpmbuild -ta</command> nicht zum laufen bekommen, sind "
+"hier die Schritte um dieses \"per Hand\" (auf die harte Tour) zu "
+"bewerkstelligen:"
 
 #. Tag: para
 #: help_en.docbook:1639
@@ -3400,12 +3455,12 @@ msgstr ""
 "Das Erstellen eines rpm-Pakets aus einem CVS-Abbild ist recht einfach. Die "
 "Prozedur ist beinahe die gleiche wie im letzten Abschnitt beschrieben. "
 "Deshalb existiert unglücklicherweise auch das gleiche Problem mit dem "
-"<command>rpmbuild -ta</command> Befehl, den unsere Methode intern benutzt. Wie im "
-"vorhergehenden Kapitel steht <replaceable>[arch]</replaceable> für die "
-"Plattform des zu erstellenden Paketes und sollte <literal>i386</literal>, "
-"<literal>i586</literal>, <literal>sparc</literal> oder ähnliches sein. "
-"<replaceable>XXX</replaceable> steht für die Versionsnummer, die Sie sich "
-"besorgt haben."
+"<command>rpmbuild -ta</command> Befehl, den unsere Methode intern benutzt. "
+"Wie im vorhergehenden Kapitel steht <replaceable>[arch]</replaceable> für "
+"die Plattform des zu erstellenden Paketes und sollte <literal>i386</"
+"literal>, <literal>i586</literal>, <literal>sparc</literal> oder ähnliches "
+"sein. <replaceable>XXX</replaceable> steht für die Versionsnummer, die Sie "
+"sich besorgt haben."
 
 #. Tag: para
 #: help_en.docbook:1763
@@ -3642,9 +3697,9 @@ msgstr ""
 "fomit-frame-pointer</literal> als Compiler Option compiliert wird. Sie "
 "sollten dies für Ihre eigenen Bedürfnisse erweitern oder anpassen. Die "
 "Einstellungen sind für alle vorhergehenden Sektionen anwendbar, wo ein "
-"<command>rpmbuild -ta</command> benutzt wurde oder ein binary RPM mittels eines "
-"Source RPM unter Benutzung von <command>rpmbuild --rebuild</command> erstellt "
-"wurde."
+"<command>rpmbuild -ta</command> benutzt wurde oder ein binary RPM mittels "
+"eines Source RPM unter Benutzung von <command>rpmbuild --rebuild</command> "
+"erstellt wurde."
 
 #. Tag: para
 #: help_en.docbook:1888
@@ -4226,8 +4281,11 @@ msgid ""
 "memory of your computer. You can reach it under <menuchoice> "
 "<guimenu>Options</guimenu><guimenuitem>Memory...</guimenuitem> </menuchoice>."
 msgstr ""
-"Wenn Sie &kapp; zum ersten mal benutzen, sollten Sie den Dialog zur Speicher-Einstellungen öffnen und die Einstellungen Ihren Bedürfnissen und dem auf Ihrem PC installierten Speicher anpassen. Sie erreichen die Einstellungen unter <menuchoice><guimenu>Optionen</guimenu>"
-"<guimenuitem>Speicher</guimenuitem></menuchoice>."
+"Wenn Sie &kapp; zum ersten mal benutzen, sollten Sie den Dialog zur Speicher-"
+"Einstellungen öffnen und die Einstellungen Ihren Bedürfnissen und dem auf "
+"Ihrem PC installierten Speicher anpassen. Sie erreichen die Einstellungen "
+"unter <menuchoice><guimenu>Optionen</guimenu><guimenuitem>Speicher</"
+"guimenuitem></menuchoice>."
 
 #. Tag: screeninfo
 #: help_en.docbook:2230
@@ -4247,7 +4305,10 @@ msgstr "Screenshot des Speichereinstellungen-Dialogs"
 msgid ""
 "&kapp; is able to use two types of memory: <emphasis>physical</emphasis> and "
 "<emphasis>virtual</emphasis> memory."
-msgstr "&kapp; kann zwei verschiedene Arten von Speicher verwenden: <emphasis>physicalischer</emphasis> und <emphasis>virtueller</emphasis> Speicher."
+msgstr ""
+"&kapp; kann zwei verschiedene Arten von Speicher verwenden: "
+"<emphasis>physicalischer</emphasis> und <emphasis>virtueller</emphasis> "
+"Speicher."
 
 #. Tag: para
 #: help_en.docbook:2247
@@ -4261,7 +4322,17 @@ msgid ""
 "harddisk (swap), which is rather slow. If you set the limit too low, you "
 "might loose some performance when working with big files, because you use "
 "less of the fast physical memory than you could."
-msgstr "<emphasis>Physikalischer Speicher</emphasis> ist der Speicher (RAM), der in Ihrem Computer installiert ist. Sie sollten die Verwendung von physikalischem Speicher auf eine sinnvolle Größe beschränken, als Richtwert fährt man mit der Hälfte des installierten RAMs ganz gut. Wenn Sie das Limit zu hoch einstellen, wird Linux den Speicher von anderen Applikationen wegnehmen, was bedeudet dass Speicher auf die Festplatte ausgelagert (geswappt) wird, was ziemlich langsam ist. Wenn Sie das Limit zu niedrig einstellen, verlieren Sie unter Umständen Performance beim Bearbeiten grosser Dateien, weil Sie weniger physikalischen Speicher verwenden als möglich wäre."
+msgstr ""
+"<emphasis>Physikalischer Speicher</emphasis> ist der Speicher (RAM), der in "
+"Ihrem Computer installiert ist. Sie sollten die Verwendung von "
+"physikalischem Speicher auf eine sinnvolle Größe beschränken, als Richtwert "
+"fährt man mit der Hälfte des installierten RAMs ganz gut. Wenn Sie das Limit "
+"zu hoch einstellen, wird Linux den Speicher von anderen Applikationen "
+"wegnehmen, was bedeudet dass Speicher auf die Festplatte ausgelagert "
+"(geswappt) wird, was ziemlich langsam ist. Wenn Sie das Limit zu niedrig "
+"einstellen, verlieren Sie unter Umständen Performance beim Bearbeiten "
+"grosser Dateien, weil Sie weniger physikalischen Speicher verwenden als "
+"möglich wäre."
 
 #. Tag: para
 #: help_en.docbook:2258
@@ -4273,7 +4344,14 @@ msgid ""
 "directory, which is much faster and more cooperative to other applications "
 "than using the operating system's swapping. The directory that you configure "
 "should be on your local hard disk."
-msgstr "Wenn Sie <emphasis>virtuellen Speicher</emphasis> verwenden, kann &kapp; Dateien laden und bearbeiten, die grösser sind als dies der installierte physikalische Speicher zulassen würde. &kapp; verwendet in diesem Fall temporäre Dateien in einem einstellbaren Verzeichnis, was um einiges schneller und kooperativer zu anderen Programmen ist als das Auslagern des Betriebssystems. Sie sollten für die Auslagerungsdateien ein Verzeichnis auf Ihrer lokalen Festplatte wählen."
+msgstr ""
+"Wenn Sie <emphasis>virtuellen Speicher</emphasis> verwenden, kann &kapp; "
+"Dateien laden und bearbeiten, die grösser sind als dies der installierte "
+"physikalische Speicher zulassen würde. &kapp; verwendet in diesem Fall "
+"temporäre Dateien in einem einstellbaren Verzeichnis, was um einiges "
+"schneller und kooperativer zu anderen Programmen ist als das Auslagern des "
+"Betriebssystems. Sie sollten für die Auslagerungsdateien ein Verzeichnis auf "
+"Ihrer lokalen Festplatte wählen."
 
 #. Tag: title
 #: help_en.docbook:2274
@@ -4366,7 +4444,8 @@ msgstr "Öffnen und Speichern von Dateien"
 #. Tag: para
 #: help_en.docbook:2312
 #, no-c-format
-msgid "Opening files with &kapp; works like in most other applications, you can"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "Das Öffnen von Dateien mit &kapp; funktioniert genauso wie in den meisten "
 "anderen Anwendungen auch, Sie können"
@@ -4524,10 +4603,11 @@ msgid ""
 "Carl Sound Format)."
 msgstr ""
 "Zusätzlich unterstützt &kapp; viele andere Formate durch das <ulink url="
-"\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html/\">audiofile</ulink>-Plugin. Sie "
-"können Dateien wie <filename>*.au</filename>, <filename>*.snd</filename> "
-"(NeXT,Sun Audio), <filename>*.aiff</filename> (Audio Interchange Format) und "
-"<filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format) importieren."
+"\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html/\">audiofile</"
+"ulink>-Plugin. Sie können Dateien wie <filename>*.au</filename>, <filename>*."
+"snd</filename> (NeXT,Sun Audio), <filename>*.aiff</filename> (Audio "
+"Interchange Format) und <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound "
+"Format) importieren."
 
 #. Tag: title
 #: help_en.docbook:2417
@@ -4547,9 +4627,10 @@ msgid ""
 msgstr ""
 "Im Moment ist es am besten, zum Bearbeiten von Formaten die nicht von &kapp; "
 "unterstützt werden, ein externes Konverter-Programm zu benutzen.Eine gute "
-"Auswahl von Werkzeugen dafür finden Sie im <ulink url=\"http://sox.sourceforge.net/\">SoX</ulink> Paket, dort finden Sie auch gute "
-"Dokumentation! (Die Original-Homepage liegt auf <ulink "
-"url=\"http://www.spies.com/Sox/\">http://www.spies.com/Sox/</ulink>.)"
+"Auswahl von Werkzeugen dafür finden Sie im <ulink url=\"http://sox."
+"sourceforge.net/\">SoX</ulink> Paket, dort finden Sie auch gute "
+"Dokumentation! (Die Original-Homepage liegt auf <ulink url=\"http://www."
+"spies.com/Sox/\">http://www.spies.com/Sox/</ulink>.)"
 
 #. Tag: para
 #: help_en.docbook:2429
@@ -4579,8 +4660,8 @@ msgid ""
 "You can create a new and empty file menu under <menuchoice> <guimenu>File</"
 "guimenu><guimenuitem>New...</guimenuitem> </menuchoice>."
 msgstr ""
-"Sie können eine neue leere Datei erstellen unter  <menuchoice> <guimenu>Datei</"
-"guimenu><guimenuitem>Neu...</guimenuitem> </menuchoice>."
+"Sie können eine neue leere Datei erstellen unter  <menuchoice> "
+"<guimenu>Datei</guimenu><guimenuitem>Neu...</guimenuitem> </menuchoice>."
 
 #. Tag: screeninfo
 #: help_en.docbook:2516
@@ -4601,7 +4682,10 @@ msgid ""
 "You can select the sample rate, resolution in bits per sample and the number "
 "of tracks. Per default the file format will be \".wav\", but it can still be "
 "changed at the time when the file is saved."
-msgstr "Sie können eine Abtastrate, Auflösung in Bits pro Sample und die Anzahl der Tracks einstellen. Standardmäßig wird als Dateiformat \".wav\" angenommen, was aber später beim Speichern der Datei geändert werden kann."
+msgstr ""
+"Sie können eine Abtastrate, Auflösung in Bits pro Sample und die Anzahl der "
+"Tracks einstellen. Standardmäßig wird als Dateiformat \".wav\" angenommen, "
+"was aber später beim Speichern der Datei geändert werden kann."
 
 #. Tag: para
 #: help_en.docbook:2534
@@ -4611,7 +4695,11 @@ msgid ""
 "by the number of samples. Additionally you can select it relative to the "
 "highest possible length, which is limited by the available memory and "
 "&kapp;'s internal limit (2 GB)."
-msgstr "Die Länge einer neuen Datei kann über die Zeit (Stunden, Minuten, Sekunden) oder über die Anzahl der Samples eingestellt werden. Zusätzlich kann man sie relativ zur größten möglichen Länge einstellen, die durch den vorhandenen Speicher und durch &kapp; selbst (auf 2GB) begrenzt wird."
+msgstr ""
+"Die Länge einer neuen Datei kann über die Zeit (Stunden, Minuten, Sekunden) "
+"oder über die Anzahl der Samples eingestellt werden. Zusätzlich kann man sie "
+"relativ zur größten möglichen Länge einstellen, die durch den vorhandenen "
+"Speicher und durch &kapp; selbst (auf 2GB) begrenzt wird."
 
 #. Tag: title
 #: help_en.docbook:2546
@@ -4628,7 +4716,13 @@ msgid ""
 "Currently &kapp; records through the old OSS sound interface, later versions "
 "should also be able to record through the newer and more powerful ALSA "
 "interface that is the preferred choice for linux kernel 2.6."
-msgstr "&kapp; ist in der Lage, von verschieden Quellen aufnehmen, mit allen Abtastraten, Sample-Formaten und Einstellungen die Ihre Soundkarte unterstützt. Derzeit verwendet &kapp; für die Aufnahme das alte OSS-Interface, zukünftige Versionen sollten auch mit Hilfe des neueren und leistungsfähigeren ALSA-Systems aufnehmen können, dem System der Wahl für den Linux-Kernel 2.6."
+msgstr ""
+"&kapp; ist in der Lage, von verschieden Quellen aufnehmen, mit allen "
+"Abtastraten, Sample-Formaten und Einstellungen die Ihre Soundkarte "
+"unterstützt. Derzeit verwendet &kapp; für die Aufnahme das alte OSS-"
+"Interface, zukünftige Versionen sollten auch mit Hilfe des neueren und "
+"leistungsfähigeren ALSA-Systems aufnehmen können, dem System der Wahl für "
+"den Linux-Kernel 2.6."
 
 #. Tag: para
 #: help_en.docbook:2556
@@ -4647,7 +4741,11 @@ msgid ""
 "Here is a screenshot of the &kapp; record dialog, showing the first page "
 "with the recording controls during a running recording session. Like in most "
 "dialogs of &kapp; you can get some help or see tooltips on the controls."
-msgstr "Hier ist ein Screenshot der ersten Seite des &kapp;'s Aufnahme-Dialogs mit den Aufnahmekontrollen, während einer laufenden Aufnahme. Wie in den meisten Dialogen von &kapp; erhalten Sie einige Hilfestellungen und Tooltips von den Kontrollelementen."
+msgstr ""
+"Hier ist ein Screenshot der ersten Seite des &kapp;'s Aufnahme-Dialogs mit "
+"den Aufnahmekontrollen, während einer laufenden Aufnahme. Wie in den meisten "
+"Dialogen von &kapp; erhalten Sie einige Hilfestellungen und Tooltips von den "
+"Kontrollelementen."
 
 #. Tag: screeninfo
 #: help_en.docbook:2571
@@ -4683,10 +4781,19 @@ msgid ""
 "press the record button and get the start of the song from what &kapp; has "
 "already pre-recorded before, so that you will no longer miss a start."
 msgstr ""
-"<guilabel>Vorab-Aufnahme:</guilabel> Wenn Sie die Vorab-Aufnahme aktivieren, und die Aufnahme gestartet wird, nimmt &kapp; in einen internen Ringbuffer auf, der einige Sekunden lang ist. Wenn Sie den <guibutton>Aufnahme</guibutton> "
-"( <inlinemediaobject> <imageobject> <imagedata fileref=\"krec_record.png\" "
-"format=\"PNG\"/> </imageobject> <textobject> <phrase>Aufnahme-Button</phrase> "
-"</textobject> </inlinemediaobject> )-Button nochmals drücken, startet die Aufnahme wirklich, wobei die bereits im Ringbuffer aufgenommenen Daten erhalten bleiben. Dies ist beispielsweise nützlich, wenn Sie Ihren Liblingssong vom Radio aufnehmen wollen, aber zu spät mitkriegen dass das Stück bereits gestartet ist. In diesem Fall können Sie immer noch den Aufnahme-Button drücken und den Start des Stücks aus dem beziehen was &kapp; bereits aufgenommen hat. Somit verpassen Sie nie mehr einen Anfang."
+"<guilabel>Vorab-Aufnahme:</guilabel> Wenn Sie die Vorab-Aufnahme aktivieren, "
+"und die Aufnahme gestartet wird, nimmt &kapp; in einen internen Ringbuffer "
+"auf, der einige Sekunden lang ist. Wenn Sie den <guibutton>Aufnahme</"
+"guibutton> ( <inlinemediaobject> <imageobject> <imagedata fileref="
+"\"krec_record.png\" format=\"PNG\"/> </imageobject> <textobject> "
+"<phrase>Aufnahme-Button</phrase> </textobject> </inlinemediaobject> )-Button "
+"nochmals drücken, startet die Aufnahme wirklich, wobei die bereits im "
+"Ringbuffer aufgenommenen Daten erhalten bleiben. Dies ist beispielsweise "
+"nützlich, wenn Sie Ihren Liblingssong vom Radio aufnehmen wollen, aber zu "
+"spät mitkriegen dass das Stück bereits gestartet ist. In diesem Fall können "
+"Sie immer noch den Aufnahme-Button drücken und den Start des Stücks aus dem "
+"beziehen was &kapp; bereits aufgenommen hat. Somit verpassen Sie nie mehr "
+"einen Anfang."
 
 #. Tag: para
 #: help_en.docbook:2608
@@ -4700,10 +4807,14 @@ msgid ""
 "format=\"PNG\"/> </imageobject><textobject><phrase>stop button</phrase></"
 "textobject> </inlinemediaobject>) button."
 msgstr ""
-"<guilabel>Aufnahmezeit:</guilabel> Wenn die Länge der Aufnahme auf eine bestimmte Zeit begrenzt werden soll, können Sie diese Einstellung aktivieren und eine Zeit in Stunden, Minuten, Sekunden einstellen. Wenn Sie diese Einstellung nicht aktivieren, läuft die Aufnahme so lange bis Sie den <guibutton>Stop</guibutton> "
-"(<inlinemediaobject><imageobject> <imagedata fileref=\"record_stop.png\" "
-"format=\"PNG\"/> </imageobject><textobject><phrase>Stop-Button</phrase></"
-"textobject> </inlinemediaobject>)-Button drücken."
+"<guilabel>Aufnahmezeit:</guilabel> Wenn die Länge der Aufnahme auf eine "
+"bestimmte Zeit begrenzt werden soll, können Sie diese Einstellung aktivieren "
+"und eine Zeit in Stunden, Minuten, Sekunden einstellen. Wenn Sie diese "
+"Einstellung nicht aktivieren, läuft die Aufnahme so lange bis Sie den "
+"<guibutton>Stop</guibutton> (<inlinemediaobject><imageobject> <imagedata "
+"fileref=\"record_stop.png\" format=\"PNG\"/> </"
+"imageobject><textobject><phrase>Stop-Button</phrase></textobject> </"
+"inlinemediaobject>)-Button drücken."
 
 #. Tag: para
 #: help_en.docbook:2618
@@ -4713,7 +4824,12 @@ msgid ""
 "if the volume of the input goes over a certain limit, which can be defined "
 "from 0 to 100% of the highest possible input volume. This is useful if you "
 "do not want to record leading silence."
-msgstr "<guilabel>Trigger-Pegel:</guilabel> Wenn aktiviert, startet die Aufnahme erst wenn die Lautstärke des Eingangssignals einen bestimmten Pegel überschreitet, der zwischen 0 und 100% der höchsten möglichen Eingangs-Lautstärke. Dies ist nützlich wenn Sie nicht die Stille am Anfang aufgenommen haben wollen."
+msgstr ""
+"<guilabel>Trigger-Pegel:</guilabel> Wenn aktiviert, startet die Aufnahme "
+"erst wenn die Lautstärke des Eingangssignals einen bestimmten Pegel "
+"überschreitet, der zwischen 0 und 100% der höchsten möglichen Eingangs-"
+"Lautstärke. Dies ist nützlich wenn Sie nicht die Stille am Anfang "
+"aufgenommen haben wollen."
 
 #. Tag: para
 #: help_en.docbook:2625
@@ -4728,7 +4844,8 @@ msgstr ""
 "Der <guibutton>Neu</guibutton> (<inlinemediaobject><imageobject> <imagedata "
 "fileref=\"record_new.png\" format=\"PNG\"/> </"
 "imageobject><textobject><phrase>Neu-Button</phrase></textobject> </"
-"inlinemediaobject>)-Button ist aktiv wenn keine Aufnahme läuft oder die Aufnahme beendet ist. Der Inhalt der aktuellen Datei wird verworfen."
+"inlinemediaobject>)-Button ist aktiv wenn keine Aufnahme läuft oder die "
+"Aufnahme beendet ist. Der Inhalt der aktuellen Datei wird verworfen."
 
 #. Tag: para
 #: help_en.docbook:2633
@@ -4744,7 +4861,9 @@ msgstr ""
 "Der <guibutton>Stop</guibutton> (<inlinemediaobject><imageobject> <imagedata "
 "fileref=\"record_stop.png\" format=\"PNG\"/> </"
 "imageobject><textobject><phrase>stop button</phrase></textobject> </"
-"inlinemediaobject>)-Button ist aktiv während die Aufnahme oder Vorab-Aufnahme läuft oder während &kapp; auf das Erreichen eines Triggerpegels wartet. Beim Klicken wird der aktuelle Vorgang angehalten."
+"inlinemediaobject>)-Button ist aktiv während die Aufnahme oder Vorab-"
+"Aufnahme läuft oder während &kapp; auf das Erreichen eines Triggerpegels "
+"wartet. Beim Klicken wird der aktuelle Vorgang angehalten."
 
 #. Tag: para
 #: help_en.docbook:2641
@@ -4762,7 +4881,11 @@ msgstr ""
 "Der <guibutton>Pause</guibutton> (<inlinemediaobject><imageobject> "
 "<imagedata fileref=\"record_pause.png\" format=\"PNG\"/> </"
 "imageobject><textobject><phrase>Pause-Button</phrase></textobject> </"
-"inlinemediaobject>)-Button ist aktiv während die Aufnahme oder Vorab-Aufnahme läuft. Beim ersten Klicken wird die Aufnahme angehalten und der Button fängt an zu blinken. Beim zweiten Klicken hört der Button auf zu blinken und die Aufnahme geht sofort weiter, ohne auf das Erreichen eines Triggerpegels zu warten."
+"inlinemediaobject>)-Button ist aktiv während die Aufnahme oder Vorab-"
+"Aufnahme läuft. Beim ersten Klicken wird die Aufnahme angehalten und der "
+"Button fängt an zu blinken. Beim zweiten Klicken hört der Button auf zu "
+"blinken und die Aufnahme geht sofort weiter, ohne auf das Erreichen eines "
+"Triggerpegels zu warten."
 
 #. Tag: para
 #: help_en.docbook:2651
@@ -4777,7 +4900,8 @@ msgstr ""
 "The <guibutton>Aufname</guibutton> (<inlinemediaobject><imageobject> "
 "<imagedata fileref=\"krec_record.png\" format=\"PNG\"/> </"
 "imageobject><textobject><phrase>Aufnahme-Button</phrase></textobject> </"
-"inlinemediaobject>) startet die Aufnahme und Vorab-Aufnahme, abhängig von den oben aktivierten Einstellungen."
+"inlinemediaobject>) startet die Aufnahme und Vorab-Aufnahme, abhängig von "
+"den oben aktivierten Einstellungen."
 
 #. Tag: para
 #: help_en.docbook:2658
@@ -4785,7 +4909,9 @@ msgstr ""
 msgid ""
 "If neither prerecording nor trigger level are used, the recording starts as "
 "soon as you press the record button."
-msgstr "Wenn weder Vorab-Aufnahme noch Triggerpegel aktiviert wurden, startet die Aufnahme sofort beim Klicken des Aufnahmebuttons."
+msgstr ""
+"Wenn weder Vorab-Aufnahme noch Triggerpegel aktiviert wurden, startet die "
+"Aufnahme sofort beim Klicken des Aufnahmebuttons."
 
 #. Tag: para
 #: help_en.docbook:2663
@@ -4796,7 +4922,12 @@ msgid ""
 "trigger, you can force the recording to start immediately by pressing the "
 "record button again, otherwise the recording will start automatically when "
 "the trigger level has been reached."
-msgstr "Wenn die Vorab-Aufnahme aktiviert wurde und ein Triggerpegel gesetzt wurde, wartet &kapp; nach dem ersten Klicken auf das Erreichen des Triggerpegels. Währen dem Warten können Sie den Start der Aufnahme erzwingen indem Sie den Aufnahmebutton nochmals klicken, ansonsten startet die Aufnahme sobald der Triggerpegel erreicht wurde."
+msgstr ""
+"Wenn die Vorab-Aufnahme aktiviert wurde und ein Triggerpegel gesetzt wurde, "
+"wartet &kapp; nach dem ersten Klicken auf das Erreichen des Triggerpegels. "
+"Währen dem Warten können Sie den Start der Aufnahme erzwingen indem Sie den "
+"Aufnahmebutton nochmals klicken, ansonsten startet die Aufnahme sobald der "
+"Triggerpegel erreicht wurde."
 
 #. Tag: para
 #: help_en.docbook:2671
@@ -4804,7 +4935,9 @@ msgstr "Wenn die Vorab-Aufnahme aktiviert wurde und ein Triggerpegel gesetzt wur
 msgid ""
 "If prerecording is enabled, the first press starts only the prerecording and "
 "the second press really starts the recording."
-msgstr "Wenn die Vorab-Aufnahme aktiviert wird, startet das erste Klicken nur die Vorab-Aufnahme, erst beim zweiten Klick wird die Aufnahme wirklich gestartet."
+msgstr ""
+"Wenn die Vorab-Aufnahme aktiviert wird, startet das erste Klicken nur die "
+"Vorab-Aufnahme, erst beim zweiten Klick wird die Aufnahme wirklich gestartet."
 
 #. Tag: title
 #: help_en.docbook:2685
@@ -4823,7 +4956,15 @@ msgid ""
 "do playback through aRts, only if you have configured aRts not to use your "
 "soundcard or if your soundcard has an additional playback channel, which is "
 "not used by aRts, you can play back through another device."
-msgstr "&kapp; kann Sounds über den aRts Sound-Daemon von KDE abspielen, oder direkt über die Soundkarte. In den meisten Fällen wird es jedoch soweit sein, dass Sie aRts für die Wiedergabe verwenden, so dass der direkte Zugriff auf die Soundkarte bereits von aRts blockiert wird und nicht für &kapp; zur Verfügung steht. Damit werden Sie wohl in den meisten Fällen die Wiedergabe durch aRts wählen, ausser Sie haben aRts so konfiguriert dass er Ihre Soundkarte nicht benutzt oder Ihre Soundkarte besitzt einen zusätzlichen Wiedergabekanal der von aRts nicht benutzt wird."
+msgstr ""
+"&kapp; kann Sounds über den aRts Sound-Daemon von KDE abspielen, oder direkt "
+"über die Soundkarte. In den meisten Fällen wird es jedoch soweit sein, dass "
+"Sie aRts für die Wiedergabe verwenden, so dass der direkte Zugriff auf die "
+"Soundkarte bereits von aRts blockiert wird und nicht für &kapp; zur "
+"Verfügung steht. Damit werden Sie wohl in den meisten Fällen die Wiedergabe "
+"durch aRts wählen, ausser Sie haben aRts so konfiguriert dass er Ihre "
+"Soundkarte nicht benutzt oder Ihre Soundkarte besitzt einen zusätzlichen "
+"Wiedergabekanal der von aRts nicht benutzt wird."
 
 #. Tag: para
 #: help_en.docbook:2699
@@ -4831,7 +4972,9 @@ msgstr "&kapp; kann Sounds über den aRts Sound-Daemon von KDE abspielen, oder d
 msgid ""
 "Before trying to play sounds, you should take a look on the playback "
 "configuration dialog:"
-msgstr "Bevor Sie erstmals Dateien abspielen, sollten Sie den Dialog der Wiedergabe-Einstellungen ansehen:"
+msgstr ""
+"Bevor Sie erstmals Dateien abspielen, sollten Sie den Dialog der Wiedergabe-"
+"Einstellungen ansehen:"
 
 #. Tag: screeninfo
 #: help_en.docbook:2705
@@ -4852,7 +4995,10 @@ msgid ""
 "Currently &kapp; supports only 8 and 16 bit playback, with mono or stereo "
 "output, which is a limitation of the OSS sound interface as well as a "
 "limitation in the aRts sound system."
-msgstr "Momentan unterstützt &kapp; nur die Wiedergabe mit 8 und 16 Bits, mit Mono und Stereo. Dies ist eine Einschränkung die sich durch die Verwendung des OSS-Interfaces ergibt, sowie durch den aRts Sound-Daemon."
+msgstr ""
+"Momentan unterstützt &kapp; nur die Wiedergabe mit 8 und 16 Bits, mit Mono "
+"und Stereo. Dies ist eine Einschränkung die sich durch die Verwendung des "
+"OSS-Interfaces ergibt, sowie durch den aRts Sound-Daemon."
 
 #. Tag: para
 #: help_en.docbook:2724
@@ -4863,7 +5009,12 @@ msgid ""
 "three channels and you use stereo playback, the left channel will play "
 "channel 0 (upper) and half of channel 1 (middle), the right channel will "
 "play the half of channel 1 (middle) and channel 2 (lower)."
-msgstr "Wenn Ihre Datei mehr Kanäle besitzt als Ihre Wiedergabe-Hardware erlaubt, werden alle Kanäle zur Wiedergabe zusammengemischt. Wenn Sie beispielsweise eine Datei mit drei Kanälen abspielen wollen, so wird am linken Kanal der Kanal 0 (oben) und die Hälfte von Kanal 1 (mitte) abgespielt, am rechten Kanal die andere Hälfte von Kanal 1 und der Kanal 2 (unten)."
+msgstr ""
+"Wenn Ihre Datei mehr Kanäle besitzt als Ihre Wiedergabe-Hardware erlaubt, "
+"werden alle Kanäle zur Wiedergabe zusammengemischt. Wenn Sie beispielsweise "
+"eine Datei mit drei Kanälen abspielen wollen, so wird am linken Kanal der "
+"Kanal 0 (oben) und die Hälfte von Kanal 1 (mitte) abgespielt, am rechten "
+"Kanal die andere Hälfte von Kanal 1 und der Kanal 2 (unten)."
 
 #. Tag: para
 #: help_en.docbook:2732
@@ -4874,7 +5025,13 @@ msgid ""
 "interrupted playback, you should increase the buffer size here. But the "
 "bigger you set the buffer, the bigger is the latency between the audible "
 "sound and the display of the playback position in the signal display."
-msgstr "Um eine saubere Wiedergabe ohne Unterbrechungen zu erreichen, sollten Sie die Buffer-Größe auf einen sinnvollen Wert einstellen. Wenn Sie Probleme mit Unterbrechungen während der Wiedergabe haben, sollten Sie hier den Buffer vergrößern. Je größer Sie jedoch den Buffer einstellen, desto größer wird die Verzögerung zwischen dem hörbaren Sound und der angezeigten Wiedergabe-Position im Hauptfenster."
+msgstr ""
+"Um eine saubere Wiedergabe ohne Unterbrechungen zu erreichen, sollten Sie "
+"die Buffer-Größe auf einen sinnvollen Wert einstellen. Wenn Sie Probleme mit "
+"Unterbrechungen während der Wiedergabe haben, sollten Sie hier den Buffer "
+"vergrößern. Je größer Sie jedoch den Buffer einstellen, desto größer wird "
+"die Verzögerung zwischen dem hörbaren Sound und der angezeigten Wiedergabe-"
+"Position im Hauptfenster."
 
 #. Tag: para
 #: help_en.docbook:2740
@@ -4883,7 +5040,11 @@ msgid ""
 "Once you have configured playback, you can use the playback controls of the "
 "&kapp; main window or through the <menuchoice><guimenu>Play</guimenu></"
 "menuchoice> menu or with keyboard shortcuts:"
-msgstr "Sobald Sie die Wiedergabe konfiguriert haben, können Sie die Wiedergabe-Kontrollelemente des &kapp;-Hauptfensters aus dem <menuchoice><guimenu>Wiedergabe</guimenu></menuchoice>-Menue oder mit Tastaturkürzel verwenden:"
+msgstr ""
+"Sobald Sie die Wiedergabe konfiguriert haben, können Sie die Wiedergabe-"
+"Kontrollelemente des &kapp;-Hauptfensters aus dem "
+"<menuchoice><guimenu>Wiedergabe</guimenu></menuchoice>-Menue oder mit "
+"Tastaturkürzel verwenden:"
 
 #. Tag: para
 #: help_en.docbook:2746
@@ -4895,7 +5056,10 @@ msgid ""
 "the current cursor position if nothing was selected. Play only once."
 msgstr ""
 "<menuchoice> <shortcut><keycombo><keycap>P</keycap></keycombo></shortcut> "
-"<guimenu>Wiedergabe</guimenu><guimenuitem>Start</guimenuitem> </menuchoice>: Startet die Wiedergabe vom Anfang der aktuellen Auswahl an, oder von der aktuellen Cursorposition wenn nichts ausgewählt wurde. Es wird nur ein mal abgespielt."
+"<guimenu>Wiedergabe</guimenu><guimenuitem>Start</guimenuitem> </menuchoice>: "
+"Startet die Wiedergabe vom Anfang der aktuellen Auswahl an, oder von der "
+"aktuellen Cursorposition wenn nichts ausgewählt wurde. Es wird nur ein mal "
+"abgespielt."
 
 #. Tag: para
 #: help_en.docbook:2754
@@ -4904,8 +5068,9 @@ msgid ""
 "<menuchoice> <guimenu>Play</guimenu><guimenuitem>Loop</guimenuitem> </"
 "menuchoice>: Like before, but repeat in a loop."
 msgstr ""
-"<menuchoice> <guimenu>Wiedergabe</guimenu><guimenuitem>Schleife</guimenuitem> </"
-"menuchoice>: wie zuvor, jedoch mit Wiederholung in einer Schleife."
+"<menuchoice> <guimenu>Wiedergabe</guimenu><guimenuitem>Schleife</"
+"guimenuitem> </menuchoice>: wie zuvor, jedoch mit Wiederholung in einer "
+"Schleife."
 
 #. Tag: para
 #: help_en.docbook:2759
@@ -4918,7 +5083,8 @@ msgid ""
 msgstr ""
 "<menuchoice> <shortcut><keycombo><keycap>Space</keycap></keycombo></"
 "shortcut> <guimenu>Wiedergabe</guimenu><guimenuitem>Pause</guimenuitem> </"
-"menuchoice>: Hält die Wiedergabe an der aktuellen Position an. Nur verfügbar während die Wiedergabe läuft."
+"menuchoice>: Hält die Wiedergabe an der aktuellen Position an. Nur verfügbar "
+"während die Wiedergabe läuft."
 
 #. Tag: para
 #: help_en.docbook:2766
@@ -4930,8 +5096,9 @@ msgid ""
 "paused. Only available if the playback is paused."
 msgstr ""
 "<menuchoice> <shortcut><keycombo><keycap>Space</keycap></keycombo></"
-"shortcut> <guimenu>Wiedergabe</guimenu><guimenuitem>Fortsetzen</guimenuitem> </"
-"menuchoice>: Setzt die Wiedergabe an der Stelle fort an der sie angehalten wurde. Nur verfügbar wenn die Wiedergabe angehalten wurde."
+"shortcut> <guimenu>Wiedergabe</guimenu><guimenuitem>Fortsetzen</guimenuitem> "
+"</menuchoice>: Setzt die Wiedergabe an der Stelle fort an der sie angehalten "
+"wurde. Nur verfügbar wenn die Wiedergabe angehalten wurde."
 
 #. Tag: para
 #: help_en.docbook:2773
@@ -4942,7 +5109,8 @@ msgid ""
 "the playback, go back to the start of the selection."
 msgstr ""
 "<menuchoice> <shortcut><keycombo><keycap>Esc</keycap></keycombo></shortcut> "
-"<guimenu>Wiedergabe</guimenu><guimenuitem>Stop</guimenuitem> </menuchoice>: Beendet die Wiedergabe, geht zurück an den Start der Auswahl."
+"<guimenu>Wiedergabe</guimenu><guimenuitem>Stop</guimenuitem> </menuchoice>: "
+"Beendet die Wiedergabe, geht zurück an den Start der Auswahl."
 
 #. Tag: title
 #: help_en.docbook:2787
@@ -4959,7 +5127,13 @@ msgid ""
 "possible. For example, if you import an MP3 file with ID3 tags, you can keep "
 "those informations when exporting to a Wave file. If &kapp; would loose meta "
 "information when saving, it shows a warning."
-msgstr "&kapp; kann verschiedene Zusatzinformationen verwalten, die mit in einer Audio-Datei gespeichert wurden. Es versucht, so viele dieser Informationen wie möglich zu importieren und zu exportieren. Wenn Sie zum Beispiel MP3-Dateien mit ID3-Tags importieren, bleiben diese beim Speichern als Wave-Datei nicht erhalten. Wenn &kapp; Zusatzinformationen beim Speichern verlieren würde, erscheint eine Warnung."
+msgstr ""
+"&kapp; kann verschiedene Zusatzinformationen verwalten, die mit in einer "
+"Audio-Datei gespeichert wurden. Es versucht, so viele dieser Informationen "
+"wie möglich zu importieren und zu exportieren. Wenn Sie zum Beispiel MP3-"
+"Dateien mit ID3-Tags importieren, bleiben diese beim Speichern als Wave-"
+"Datei nicht erhalten. Wenn &kapp; Zusatzinformationen beim Speichern "
+"verlieren würde, erscheint eine Warnung."
 
 #. Tag: para
 #: help_en.docbook:2797
@@ -4971,7 +5145,9 @@ msgid ""
 "and compression."
 msgstr ""
 "Datei-Informationen können Sie ansehen und bearbeiten unter <menuchoice> "
-"<guimenu>Bearbeiten</guimenu><guimenuitem>Datei-Informationen...</guimenuitem> </menuchoice>. Hier können auch Sie Dinge wie das Sample-Format, Auflösung, und Kompression einstellen."
+"<guimenu>Bearbeiten</guimenu><guimenuitem>Datei-Informationen...</"
+"guimenuitem> </menuchoice>. Hier können auch Sie Dinge wie das Sample-"
+"Format, Auflösung, und Kompression einstellen."
 
 #. Tag: screeninfo
 #: help_en.docbook:2806
@@ -5050,7 +5226,8 @@ msgstr "eine rote Lampe \"deaktiviert\" bedeutet."
 #. Tag: para
 #: help_en.docbook:2858
 #, no-c-format
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Hinweis: Wird ein Kanal deselektiert, wird er bei der Wiedergabe nicht "
 "hörbar sein!"
@@ -5506,7 +5683,8 @@ msgid ""
 msgstr ""
 "&kapp; unterstützt zur Zeit .wav Dateien mit 8, 16 und 24 bits pro Sample, "
 "mit beliebiger Anzahl von Kanälen (einschliesslich Mono und Stereo "
-"natürlich). Zusätzlich unterstützt es alle Dateiformate von libaudiofile sowie andere wie Ogg/Vorbis und MP3 (nur Import)."
+"natürlich). Zusätzlich unterstützt es alle Dateiformate von libaudiofile "
+"sowie andere wie Ogg/Vorbis und MP3 (nur Import)."
 
 #. Tag: para
 #: help_en.docbook:3263
@@ -5639,7 +5817,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:3377
 #, no-c-format
-msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
+msgid ""
+"What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
 "Wie steht es mit der Wiedergabe von 24 und 32 bits pro Sample oder mehr als "
 "zwei Kanälen?"
@@ -5718,7 +5897,8 @@ msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 #. Tag: para
 #: help_en.docbook:3451
 #, no-c-format
-msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
+msgid ""
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage und deutsche "
 "Übersetzung)"
@@ -5743,7 +5923,8 @@ msgstr ""
 #: help_en.docbook:3472
 #, no-c-format
 msgid "Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Notch Filter plugin)"
-msgstr "Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Kerbfilter - Plugin)"
+msgstr ""
+"Dave Flogeras <email>dflogera@nbnet.nb.ca</email> (Kerbfilter - Plugin)"
 
 #. Tag: para
 #: help_en.docbook:3479
@@ -5820,7 +6001,10 @@ msgid ""
 "Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
 "\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</"
 "ulink> library)"
-msgstr "Michael Pruett <email>mpruett@sgi.com</email> (Autor der <ulink url=\"http://freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</ulink> Bibliothek)"
+msgstr ""
+"Michael Pruett <email>mpruett@sgi.com</email> (Autor der <ulink url=\"http://"
+"freeware.sgi.com/Installable/audiofile-0.2.3.html\">audiofile</ulink> "
+"Bibliothek)"
 
 #. Tag: para
 #: help_en.docbook:3567
@@ -5996,4 +6180,3 @@ msgstr "&underFDL; &underGPL;"
 #~ "der libaudiofile-Bibliothek realisiert, gefunden auf <ulink url=\"http://"
 #~ "oss.sgi.com/projects/audiofile/\">http://oss.sgi.com/projects/audiofile/</"
 #~ "ulink>."
-

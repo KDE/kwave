@@ -47,7 +47,6 @@ class SignalWidget : public QWidget
 {
     Q_OBJECT
 
-    class InhibitRepaintGuard;
     friend class InhibitRepaintGuard;
 
 public:

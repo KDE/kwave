@@ -139,7 +139,7 @@ int SignalManager::loadFile(const KURL &url)
     while (decoder) {
 	// be sure that the current signal is really closed
 	m_signal.close();
-	
+
 	// open the source file
 	QString filename = url.path();
 	QFile src(filename);
@@ -147,29 +147,31 @@ int SignalManager::loadFile(const KURL &url)
 	    qWarning("unable to open source: '%s'", url.prettyURL().latin1());
 	    break;
 	}
-	
+
 	// enter the filename/mimetype and size into the decoder
 	QFileInfo fi(src);
 	decoder->info().set(INF_FILENAME, fi.absFilePath());
 	decoder->info().set(INF_FILESIZE, (unsigned int)src.size());
 	decoder->info().set(INF_MIMETYPE, mimetype);
-	
+
 	// get the file info from the decoder
 	m_file_info = decoder->info();
-	
+
 	// detect stream mode. if so, use one sample as display
 	bool streaming = (!m_file_info.length());
-	
+
 	// we must change to open state to see the file while
 	// it is loaded
 	m_closed = false;
 	m_empty = false;
-	
+
 	// create all tracks (empty)
 	unsigned int track;
 	const unsigned int tracks = decoder->info().tracks();
 	const unsigned int length = decoder->info().length();
 	Q_ASSERT(tracks);
+	if (!tracks) break;
+
 	for (track=0; track < tracks; ++track) {
 	    Track *t = m_signal.appendTrack(length);
 	    Q_ASSERT(t);
@@ -180,7 +182,7 @@ int SignalManager::loadFile(const KURL &url)
 	    }
 	}
 	if (track < tracks) break;
-	
+
 	// create the multitrack writer as destination
 	MultiTrackWriter writers;
 
@@ -196,7 +198,7 @@ int SignalManager::loadFile(const KURL &url)
 	                              (info.bits() >> 3);
 	bool use_src_size = (!resulting_size);
 	if (use_src_size) resulting_size = src.size();
-	
+
 	//prepare and show the progress dialog
 	dialog = new FileProgress(m_parent_widget,
 	    filename, resulting_size,
@@ -215,7 +217,7 @@ int SignalManager::loadFile(const KURL &url)
 	}
 	QObject::connect(dialog, SIGNAL(cancelled()),
 	                 &writers, SLOT(cancel()));
-	
+
 	// now decode
 	res = 0;
 	if (!decoder->decode(m_parent_widget, writers)) {
@@ -227,9 +229,9 @@ int SignalManager::loadFile(const KURL &url)
 	    m_file_info = decoder->info();
 	    m_file_info.dump();
 	}
-	
+
 	decoder->close();
-	
+
 	// check for length info in stream mode
 	if (!res && streaming) {
 	    // source was opened in stream mode -> now we have the length
@@ -238,13 +240,13 @@ int SignalManager::loadFile(const KURL &url)
 	    if (new_length) new_length++;
 	    m_file_info.setLength(new_length);
 	}
-	
+
 	// update the length info in the progress dialog if needed
 	if (dialog && use_src_size) {
 	    dialog->setLength(m_file_info.length() * m_file_info.tracks());
 	    dialog->setBytePosition(src.size());
 	}
-	
+
 	emitStatusInfo();
 	break;
     }
@@ -266,7 +268,7 @@ int SignalManager::loadFile(const KURL &url)
 
     if (dialog) delete dialog;
     if (res) close();
-    
+
     return res;
 }
 
@@ -301,7 +303,7 @@ int SignalManager::save(const KURL &url, bool selection)
     if (encoder) {
 	// maybe we now have a new mime type
 	m_file_info.set(INF_MIMETYPE, mimetype_name);
-    
+
 	// check if we loose information and as the user if this would
 	// be acceptable if so
 	QValueList<FileProperty> supported = encoder->supportedProperties();
@@ -327,27 +329,31 @@ int SignalManager::save(const KURL &url, bool selection)
 		     "%1\n"
 		     "Do you still want to continue?").arg(
 		     lost_properties)
-		) != KMessageBox::Continue) return -1;
+		) != KMessageBox::Continue)
+	    {
+		delete encoder;
+		return -1;
+	    }
 	}
 
 	// open the destination file
 	QString filename = url.path();
 	QFile dst(filename);
-	
+
 	MultiTrackReader src;
 	if (selection) {
 	    openMultiTrackReader(src, selectedTracks(), ofs, ofs+len-1);
 	} else {
 	    openMultiTrackReader(src, allTracks(), ofs, ofs+len-1);
 	}
-	
+
 	// update the file information
 	m_file_info.setLength(len);
 	m_file_info.setRate(rate());
 	m_file_info.setBits(bits);
 	m_file_info.setTracks(tracks);
 	m_file_info.set(INF_FILENAME, filename);
-	
+
 	//prepare and show the progress dialog
 	FileProgress *dialog = new FileProgress(m_parent_widget,
 	    filename, m_file_info.tracks()*m_file_info.length()*
@@ -359,14 +365,14 @@ int SignalManager::save(const KURL &url, bool selection)
 	                 dialog, SLOT(setValue(unsigned int)));
 	QObject::connect(dialog, SIGNAL(cancelled()),
 	                 &src,   SLOT(cancel()));
-	
+
 	// invoke the encoder...
 	if (!encoder->encode(m_parent_widget, src, dst, m_file_info)) {
 	    KMessageBox::error(m_parent_widget,
 	        i18n("An error occurred while saving the file!"));
 	    res = -1;
 	}
-	
+
 	delete encoder;
 	if (dialog) {
 	    if (dialog->isCancelled()) {
@@ -675,7 +681,7 @@ void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
     if (!tracks()) {
 	unsigned int missing = clipboard.tracks();
 	qDebug("SignalManager::paste(): appending %u tracks", missing);
-	while (missing--) appendTrack();	
+	while (missing--) appendTrack();
     }
 
     // open the clipboard as source
@@ -900,7 +906,7 @@ void SignalManager::selectTrack(unsigned int track, bool select)
     if (select != old_select) {
 	m_signal.selectTrack(track, select);
 	emit sigTrackSelected(track, select);
-	
+
 	// if selection changed during playback, reload with pause/continue
 	if (m_playback_controller.running()) {
 	    m_playback_controller.reload();
@@ -1021,7 +1027,7 @@ int SignalManager::exportAscii(const char *name)
 	for (unsigned int channel=0; channel < m_channels; channel++) {
 	    sample = signal.at(channel)->getSample();
 	    if (!sample) continue;
-	
+
 	    if (channel != 0) fprintf(sigout, ",");
 	    fprintf(sigout, "%0.8e", (double)sample[pos]/scale_y);
 	}
@@ -1064,11 +1070,11 @@ void SignalManager::startUndoTransaction(const QString &name)
     if (!m_undo_transaction) {
 	// if a new action starts, discard all redo actions !
 	flushRedoBuffer();
-	
+
 	m_undo_transaction = new UndoTransaction(name);
 	Q_ASSERT(m_undo_transaction);
 	if (!m_undo_transaction) return;
-	
+
 	// if it is the start of the transaction, also create one
 	// for the selection
 	UndoAction *selection = new UndoSelection(*this);
@@ -1100,7 +1106,7 @@ void SignalManager::closeUndoTransaction()
 		delete m_undo_transaction;
 	    }
 	}
-	
+
 	// declare the current transaction as "closed"
 	m_undo_transaction = 0;
 	m_spx_undo_redo.AsyncHandler();
@@ -1186,17 +1192,17 @@ bool SignalManager::registerUndoAction(UndoAction *action)
 	// Allow: discard buffers and omit undo
 	m_undo_buffer.clear();
 	m_redo_buffer.clear();
-	
+
 	// close the current transaction
 	if (m_undo_transaction) delete m_undo_transaction;
 	m_undo_transaction = 0;
-	
+
 	// if the signal was modified, it will stay in this state, it is
 	// not possible to change to "non-modified" state through undo
 	if ((!m_undo_buffer.isEmpty()) && (m_modified)) {
 	    enableModifiedChange(false);
 	}
-	
+
 	m_spx_undo_redo.AsyncHandler();
 	return true;
     }
@@ -1298,14 +1304,14 @@ void SignalManager::emitUndoRedoInfo()
 
     if (m_undo_enabled) {
 	UndoTransaction *transaction;
-	
+
 	// get the description of the last undo action
 	if (!m_undo_buffer.isEmpty()) {
 	    transaction = m_undo_buffer.last();
 	    if (transaction) undo_name = transaction->description();
 	    if (!undo_name.length()) undo_name = i18n("last action");
 	}
-	
+
 	// get the description of the last redo action
 	if (!m_redo_buffer.isEmpty()) {
 	    transaction = m_redo_buffer.first();
@@ -1348,7 +1354,7 @@ void SignalManager::undo()
     } else {
 	// only free the memory if it will be used
 	freeUndoMemory(undo_size + redo_size);
-	
+
 	// create a new redo transaction
 	QString name = undo_transaction->description();
 	redo_transaction = new UndoTransaction(name);
@@ -1369,22 +1375,22 @@ void SignalManager::undo()
     while (!undo_transaction->isEmpty()) {
 	UndoAction *undo_action;
 	UndoAction *redo_action;
-	
+
 	// unqueue the undo action
 	undo_transaction->setAutoDelete(false);
 	undo_action = undo_transaction->last();
 	undo_transaction->removeLast();
 	Q_ASSERT(undo_action);
 	if (!undo_action) continue;
-	
+
 	// execute the undo operation
 	redo_action = undo_action->undo(*this, (redo_transaction != 0));
-	
+
 	// remove the old undo action if no longer used
 	if (redo_action != undo_action) {
 	    delete undo_action;
 	}
-	
+
 	// queue the action into the redo transaction
 	if (redo_action) {
 	    if (redo_transaction) {
@@ -1443,7 +1449,7 @@ void SignalManager::redo()
     } else {
 	// only free the memory if it will be used
 	freeUndoMemory(undo_size + redo_size);
-	
+
 	// create a new undo transaction
 	QString name = redo_transaction->description();
 	undo_transaction = new UndoTransaction(name);
@@ -1465,22 +1471,22 @@ void SignalManager::redo()
     while (!redo_transaction->isEmpty()) {
 	UndoAction *undo_action;
 	UndoAction *redo_action;
-	
+
 	// unqueue the undo action
 	redo_transaction->setAutoDelete(false);
 	redo_action = redo_transaction->first();
 	redo_transaction->removeFirst();
 	Q_ASSERT(redo_action);
 	if (!redo_action) continue;
-	
+
 	// execute the redo operation
 	undo_action = redo_action->undo(*this, (undo_transaction != 0));
-	
+
 	// remove the old redo action if no longer used
 	if (redo_action != undo_action) {
 	    delete redo_action;
 	}
-	
+
 	// queue the action into the undo transaction
 	if (undo_action) {
 	    if (undo_transaction) {

@@ -47,6 +47,17 @@ public:
 	const string &input_name = "input") = 0;
 
     /**
+     * Connects the input of the filters to the output of a single
+     * aRts object.
+     * @param source reference to the Arts::Object used as source
+     * @param output_name name of the output streams of the source
+     * @param input_name name of the input streams of our filters (sink)
+     */
+    virtual void connectInput(Arts::Object &source,
+	const string &output_name = "output",
+	const string &input_name = "input") = 0;
+
+    /**
      * Connects the output of the filters to an ArtsMultiSink.
      * @param sink reference to a sink (or next filter)
      * @param input_name name of the input streams of the sinks

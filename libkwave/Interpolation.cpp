@@ -88,13 +88,15 @@ double Interpolation::singleInterpolation(double input)
     if (!count()) return 0.0; // no data ?
 
     unsigned int degree = 0;
+    unsigned int count = this->count();
 
     switch (m_type) {
 	case INTPOL_LINEAR:
 	    {
 		unsigned int i = 1;
-		// ### range checking ???
-		while (m_x[i] < input) i++;
+		while ((m_x[i] < input) && (i < count))
+		    i++;
+		
 		double dif1 = m_x[i] - m_x[i-1];  //!=0 per definition
 		double dif2 = input - m_x[i-1];
 		
@@ -104,8 +106,10 @@ double Interpolation::singleInterpolation(double input)
 	    {
 		double a, b, diff;
 		unsigned int j = 1;
-		// ### range checking ???
-		while (m_x[j] < input) j++;
+		
+		while ((m_x[j] < input) && (j < count))
+		    j++;
+		
 		diff = m_x[j] - m_x[j-1];
 
 		a = (m_x[j] - input) / diff;    //div should not be 0
@@ -117,7 +121,7 @@ double Interpolation::singleInterpolation(double input)
 	case INTPOL_NPOLYNOMIAL:
 	    {
 		double ny = m_y[0];
-		for (unsigned int j = 1; j < count(); j++)
+		for (unsigned int j = 1; j < count; j++)
 		    ny = ny * (input - m_x[j]) + m_y[j];
 		return ny;
 	    }

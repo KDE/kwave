@@ -10,7 +10,9 @@ BUILTSOURCES=\
  ArtsSampleSink.h\
  ArtsSampleSink.cc\
  ArtsSampleSource.h\
- ArtsSampleSource.cc
+ ArtsSampleSource.cc\
+ CurveStreamAdapter.h\
+ CurveStreamAdapter.cc
 
 # Which sources should be compiled for kwave.
 libkwave_la_SOURCES=\
@@ -18,6 +20,7 @@ libkwave_la_SOURCES=\
  ArtsSampleSource_impl.cpp\
  ArtsSampleSink_impl.cpp\
  Curve.cpp\
+ CurveStreamAdapter_impl.cpp\
  Filter.cpp\
  FileLoader.cpp\
  Functions.cpp\

@@ -159,6 +159,9 @@ public:
      */
     void setInterpolationType(interpolation_t type);
 
+    /** Returns a reference to the Interpolation object itself */
+    Interpolation &interpolation();
+
     /**
      * Returns an array of points, calculated out of the
      * current interpolation parameters.

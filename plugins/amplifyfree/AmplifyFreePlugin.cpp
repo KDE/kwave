@@ -22,6 +22,7 @@
 
 #include "libkwave/Parser.h"
 
+#include "libkwave/CurveStreamAdapter_impl.h"
 #include "libkwave/ArtsMultiTrackSink.h"
 #include "libkwave/ArtsMultiTrackSource.h"
 #include "libkwave/ArtsKwaveMultiTrackFilter.h"
@@ -37,7 +38,7 @@ KWAVE_PLUGIN(AmplifyFreePlugin,"amplifyfree","Thomas Eschenbacher");
 
 //***************************************************************************
 AmplifyFreePlugin::AmplifyFreePlugin(PluginContext &context)
-    :KwavePlugin(context), m_params(), m_stop(false)
+    :KwavePlugin(context), m_params(), m_curve(), m_stop(false)
 {
 }
 
@@ -49,8 +50,21 @@ AmplifyFreePlugin::~AmplifyFreePlugin()
 //***************************************************************************
 int AmplifyFreePlugin::interpreteParameters(QStringList &params)
 {
-    // all params are curve params
+    // store last parameters
     m_params = params;
+
+    // convert string list into command again...
+    QString cmd;
+    cmd = "curve(";
+    for (unsigned int i=0; i < params.count(); ++i) {
+	cmd += params[i];
+	if (i+1 < params.count()) cmd += ",";
+    }
+    cmd += ")";
+
+    // and initialize our curve with it
+    m_curve.fromCommand(cmd);
+
     return 0;
 }
 
@@ -86,48 +100,14 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 };
 
 //***************************************************************************
-//***************************************************************************
-
-#include "PassThruFilter.h"
-
-class PassThruFilter_impl
-    :virtual public PassThruFilter_skel,
-     virtual public Arts::StdSynthModule
-{
-public:
-    void calculateBlock(unsigned long samples)
-    {
-//	debug("PassThruFilter_impl::calculateBlock(%lu)", samples);
-	unsigned long x = 0;
-	
-	while (x < samples) {
-	    if (m_pos < 30000) {
-		output[x] = input[x] * ((double)m_pos / 30000.0);
-//	    } else output[x] = input[x];
-//	
-	    } else if (m_pos & 1) output[x] = 1.0; // 1 << 23;
-	    else output[x] = -1.0; // (1 << 23);
-	
-	    m_pos++;
-	    x++;
-	}
-    };
-
-    virtual void streamInit() {
-	m_pos = 0;
-    };
-
-protected:
-    unsigned long m_pos;
-};
-
-//***************************************************************************
-void AmplifyFreePlugin::run(QStringList)
+void AmplifyFreePlugin::run(QStringList params)
 {
     unsigned int first, last;
 
     UndoTransactionGuard undo_guard(*this, i18n("amplify free"));
     m_stop = false;
+
+    interpreteParameters(params);
 
     MultiTrackReader source;
     MultiTrackWriter sink;
@@ -145,37 +125,39 @@ void AmplifyFreePlugin::run(QStringList)
     static Arts::Dispatcher dispatcher;
     dispatcher.lock();
 
-    unsigned int tracks = selectedTracks().count();
-    ArtsKwaveMultiTrackFilter<PassThruFilter, PassThruFilter_impl> filter1(tracks);
-    ArtsKwaveMultiTrackFilter<PassThruFilter, PassThruFilter_impl> filter2(tracks);
+    // create all objects
+    ArtsMultiTrackSource arts_source(source);
 
+    CurveStreamAdapter curve_adapter = CurveStreamAdapter::_from_base(
+	new CurveStreamAdapter_impl(m_curve, input_length)
+    );
+
+    unsigned int tracks = selectedTracks().count();
     ArtsNativeMultiTrackFilter mul(tracks, "Arts::Synth_MUL");
 
-    ArtsMultiTrackSource arts_source(source);
     ArtsMultiTrackSink   arts_sink(sink);
 
-    filter1.connectInput( arts_source, "source");
-    filter2.connectInput( arts_source, "source");
-    mul.connectInput(filter1, "output", "invalue1");
-    mul.connectInput(filter2, "output", "invalue2");
-    mul.connectOutput(arts_sink, "sink", "outvalue");
+    // connect them
+    mul.connectInput(arts_source,   "source", "invalue1");
+    mul.connectInput(curve_adapter, "output", "invalue2");
+    mul.connectOutput(arts_sink,    "sink",   "outvalue");
 
-
+    // start all
     arts_source.start();
-    arts_sink.start();
-    filter1.start();
-    filter2.start();
     mul.start();
+    curve_adapter.start();
+    arts_sink.start();
 
+    // transport the samples
     debug("AmplifyFreePlugin: filter started...");
     while (!m_stop && !(arts_source.done())) {
 	arts_sink.goOn();
     }
     debug("AmplifyFreePlugin: filter done.");
 
+    // shutdown
+    curve_adapter.stop();
     mul.stop();
-    filter2.stop();
-    filter1.stop();
     arts_sink.stop();
     arts_source.stop();
 

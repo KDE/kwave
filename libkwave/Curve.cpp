@@ -79,6 +79,13 @@ QString Curve::getCommand()
 }
 
 //***************************************************************************
+Interpolation &Curve::interpolation()
+{
+    m_interpolation.prepareInterpolation(this);
+    return m_interpolation;
+};
+
+//***************************************************************************
 QArray<double> Curve::interpolation(unsigned int points)
 {
     m_interpolation.prepareInterpolation(this);

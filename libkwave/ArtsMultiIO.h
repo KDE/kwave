@@ -31,7 +31,7 @@ public:
      * an internal vector. If the creation of an object failed,
      * the initialization will be aborted and the count of
      * objects will be reduced.
-     * @param io something like aa MultiTrackReader or MultiTrackWriter
+     * @param io something like a MultiTrackReader or MultiTrackWriter
      */
     ArtsMultiIO(KWAVE_IO &io)
 	:m_count(io.count()), m_ios(io.count())

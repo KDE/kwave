@@ -21,6 +21,8 @@
 #include <qobject.h>
 #include <qstring.h>
 #include <qstringlist.h>
+
+#include "libkwave/Curve.h"
 #include "libgui/KwavePlugin.h"
 
 class QStringList;
@@ -59,6 +61,9 @@ protected:
 private:
     /** List of parameters */
     QStringList m_params;
+
+    /** curve used for interpolation */
+    Curve m_curve;
 
     /** flag for stopping the process */
     bool m_stop;

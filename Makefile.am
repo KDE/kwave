@@ -76,7 +76,7 @@ messages:
 	`find . -name \*.h -o -name \*.cpp` -o ./po/${PACKAGE}.pot
 	(cd po ; ${MAKE} merge )
 
-rpm_prep: clean distclean-generic ${PACKAGE}.spec
+rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
 	mkdir -p /tmp/${PACKAGE}-@RPM_VERSION@
 	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_VERSION@ )

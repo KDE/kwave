@@ -25,6 +25,20 @@
 .PHONY: all all-logged
 
 KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s-::-:-g | sed s-:-/bin/:-g )
+
+#
+# some extra paths, for guessing under different distributions
+#
+
+# SuSE
+KDEBINDIRS      := $(KDEBINDIRS)":/opt/kde*/bin"
+
+# Gentoo
+KDEBINDIRS      := $(KDEBINDIRS)":/usr/kde/*/bin"
+
+# RedHat/Mandrake
+KDEBINDIRS      := $(KDEBINDIRS)":/usr/bin"
+
 KDEDIR=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --prefix | sed s./$$..g)
 KDEVERSION=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --version | grep "KDE:" | \
 	cut -d ":" -f 2 | sed s-^\ --g)

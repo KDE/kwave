@@ -50,6 +50,12 @@ public:
 
 signals:
 
+    /**
+     * emitted when the file is empty or no longer empty
+     * @param empty false if something has been recorded, true if not
+     */
+    void sigFileIsEmpty(bool empty);
+
     /** emitted when the recording has been started */
     void sigStarted();
 
@@ -58,6 +64,12 @@ signals:
 
     /** emitted when the trigger level has been reached */
     void sigTriggerReached();
+
+    /** emitted when the recording is done */
+    void sigRecordingDone();
+
+    /** emitted to promote the recording progress to the dialog */
+    void sigRecordedSamples(unsigned int samples_recorded);
 
 protected:
 

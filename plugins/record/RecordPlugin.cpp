@@ -114,12 +114,15 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             this, SLOT(changeSampleFormat(int)));
     connect(m_dialog, SIGNAL(sigBuffersChanged()),
             this, SLOT(buffersChanged()));
-
+    connect(this, SIGNAL(sigRecordedSamples(unsigned int)),
+            m_dialog, SLOT(setRecordedSamples(unsigned int)));
     connect(m_dialog, SIGNAL(sigTriggerChanged(bool)),
             &controller, SLOT(enableTrigger(bool)));
     controller.enableTrigger(m_dialog->params().record_trigger_enabled);
 
     // connect the record controller and this
+    connect(this, SIGNAL(sigFileIsEmpty(bool)),
+            &controller, SLOT(setEmpty(bool)));
     connect(&controller, SIGNAL(sigReset(bool &)),
             this, SLOT(resetRecording(bool &)));
     connect(&controller, SIGNAL(sigStartRecord()),
@@ -128,6 +131,8 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
             &controller, SLOT(deviceRecordStopped(int)));
     connect(&controller, SIGNAL(stateChanged(RecordState)),
             this, SLOT(stateChanged(RecordState)));
+    connect(this, SIGNAL(sigRecordingDone()),
+            &controller, SLOT(actionStop()));
 
     // connect record controller and record thread
     connect(this,        SIGNAL(sigStarted()),
@@ -507,6 +512,9 @@ void RecordPlugin::resetRecording(bool &accepted)
     m_writers.flush();
     m_writers.resize(0);
     m_buffers_recorded = 0;
+
+    emit sigFileIsEmpty(true);
+    emit sigRecordedSamples(0);
 }
 
 //***************************************************************************
@@ -816,7 +824,7 @@ bool RecordPlugin::checkTrigger(unsigned int track,
     }
     m_trigger_value[track] = y;
 
-    qDebug(">> level=%0.3g, trigger=%0.3g", y, trigger);
+    qDebug(">> level=%5.3g, trigger=%5.3g", y, trigger);
 
     return false;
 }
@@ -824,6 +832,8 @@ bool RecordPlugin::checkTrigger(unsigned int track,
 //***************************************************************************
 void RecordPlugin::processBuffer(QByteArray buffer)
 {
+    bool recording_done = false;
+
 //    qDebug("RecordPlugin::processBuffer()");
     Q_ASSERT(m_dialog);
     Q_ASSERT(m_thread);
@@ -833,13 +843,27 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     // we received a buffer -> update the progress bar
     updateBufferProgressBar();
 
-    // split into several single buffers
     const RecordParams &params = m_dialog->params();
     const unsigned int tracks = params.tracks;
     Q_ASSERT(tracks);
-
     const unsigned int bytes_per_sample = m_decoder->rawBytesPerSample();
-    const unsigned int samples = buffer.size() / bytes_per_sample / tracks;
+    unsigned int samples = buffer.size() / bytes_per_sample / tracks;
+
+    // check for reached recording time limit if enabled
+    if (params.record_time_limited) {
+	const unsigned int already_recorded = m_writers.last()+1;
+	const unsigned int limit = (unsigned int)rint(
+	    params.record_time * params.sample_rate);
+	if (already_recorded + samples >= limit) {
+	    // reached end of recording time, we are full
+	    if (m_state == REC_RECORDING) {
+		samples = (limit > already_recorded) ?
+		          (limit - already_recorded) : 0;
+		buffer.resize(samples * tracks * bytes_per_sample);
+	    }
+	    recording_done = true;
+	}
+    }
 
     QByteArray buf;
     buf.resize(bytes_per_sample * samples);
@@ -892,10 +916,13 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 	    case REC_RECORDING: {
 		// put the decoded track data into the buffer
 		Q_ASSERT(tracks == m_writers.count());
-		if (!tracks || (tracks != m_writers.count())) return;
+		if (!tracks || (tracks != m_writers.count())) break;
+
 		SampleWriter *writer = m_writers[track];
 		Q_ASSERT(writer);
 		if (writer) (*writer) << decoded;
+		emit sigFileIsEmpty(false);
+
 		break;
 	    }
 	    case REC_PAUSED:
@@ -903,6 +930,15 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 	    case REC_DONE:
 		break;
 	}
+    }
+
+    // update the number of recorded samples
+    emit sigRecordedSamples(m_writers.last()+1);
+
+    // if this was the last received buffer, change state
+    if (recording_done && (m_state != REC_DONE) && (m_state != REC_EMPTY)) {
+	emit sigRecordingDone();
+	return;
     }
 
 }

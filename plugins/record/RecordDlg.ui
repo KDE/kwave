@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>RecordDlg</class>
 <widget class="QDialog">
     <property name="name">
@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>771</width>
-            <height>516</height>
+            <height>520</height>
         </rect>
     </property>
     <property name="caption">
@@ -70,7 +70,7 @@
                                     <cstring>chkRecordTime</cstring>
                                 </property>
                                 <property name="enabled">
-                                    <bool>false</bool>
+                                    <bool>true</bool>
                                 </property>
                                 <property name="text">
                                     <string>Record Time:</string>
@@ -219,17 +219,6 @@
                                     </size>
                                 </property>
                             </spacer>
-                            <widget class="QSlider" row="1" column="2">
-                                <property name="name">
-                                    <cstring>slRecordTime</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                            </widget>
                             <widget class="QSlider" row="0" column="2">
                                 <property name="name">
                                     <cstring>slRecordPre</cstring>
@@ -318,6 +307,23 @@
                                     <bool>false</bool>
                                 </property>
                             </widget>
+                            <spacer row="1" column="2">
+                                <property name="name">
+                                    <cstring>spacer16</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>411</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
                         </grid>
                     </widget>
                 </vbox>
@@ -1403,7 +1409,7 @@
             <verstretch>0</verstretch>
         </sizepolicy>
         <pixmap>image0</pixmap>
-        <signal>valueChanged(int)</signal>
+        <signal>timeChanged(int)</signal>
         <slot access="public" specifier="">slot()</slot>
         <slot access="public" specifier="">setValue(int)</slot>
         <slot access="public" specifier="">slot()</slot>
@@ -1465,12 +1471,6 @@
         <signal>valueChanged(int)</signal>
         <receiver>sbRecordPre</receiver>
         <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>chkRecordTime</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>slRecordTime</receiver>
-        <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
         <sender>chkRecordTrigger</sender>
@@ -1557,18 +1557,6 @@
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
-        <sender>sbRecordTime</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>slRecordTime</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>slRecordTime</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>sbRecordTime</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
         <sender>chkRecordTime</sender>
         <signal>toggled(bool)</signal>
         <receiver>sbRecordTime</receiver>
@@ -1596,7 +1584,6 @@
     <tabstop>sbRecordPre</tabstop>
     <tabstop>slRecordPre</tabstop>
     <tabstop>chkRecordTime</tabstop>
-    <tabstop>slRecordTime</tabstop>
     <tabstop>chkRecordTrigger</tabstop>
     <tabstop>sbRecordTrigger</tabstop>
     <tabstop>slRecordTrigger</tabstop>

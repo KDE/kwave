@@ -143,8 +143,17 @@ signals:
     /** emitted when the number and/or size of buffers has changed */
     void sigBuffersChanged();
 
+    /** emitted when the record time has been changed */
+    void sigRecordTimeChanged(int limit);
+
     /** emitted when the record trigger has been enabled/disabled */
-    void sigTriggerChanged(bool enbaled);
+    void sigTriggerChanged(bool enabled);
+
+
+public slots:
+
+    /** updates the number of recorded samples */
+    void setRecordedSamples(unsigned int samples_recorded);
 
 private slots:
 
@@ -181,6 +190,12 @@ private slots:
     /** updates the buffer progress bar */
     void updateBufferProgressBar();
 
+    /** record time has been enabled/disabled */
+    void recordTimeChecked(bool limited);
+
+    /** record time has been changed */
+    void recordTimeChanged(int record_time);
+
     /** record trigger has been enabled/disabled */
     void triggerChecked(bool enabled);
 
@@ -200,6 +215,12 @@ private:
      */
     double string2rate(const QString &rate) const;
 
+    /** 
+     * enabled or disables the record button by evaluating
+     * m_record_enabled and m_seconds_recording
+     */
+    void updateRecordButton();
+    
 private:
 
     /** state of the record plugin */
@@ -219,6 +240,16 @@ private:
 
     /** timer for slowly updating the buffer progress bar */
     QTimer m_buffer_progress_timer;
+    
+    /** determines if recording is to be enabled by the current state */
+    bool m_record_enabled;
+    
+    /** 
+     * holds the recorded samples for comparing with the recording 
+     * time limit, for determining if recording should be enabled
+     * or not. Only of interest if recording time is limit.
+     */
+    unsigned int m_samples_recorded;
 
 };
 

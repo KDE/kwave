@@ -84,7 +84,8 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
                            RecordController *controller)
     :RecordDlg(parent,0), m_state(REC_EMPTY), m_params(),
      m_supported_resolutions(), m_buffer_progress_count(0),
-     m_buffer_progress_total(0), m_buffer_progress_timer(this)
+     m_buffer_progress_total(0), m_buffer_progress_timer(this),
+     m_record_enabled(true), m_samples_recorded(0)
 {
     /* get initial parameters */
     m_params.fromList(params);
@@ -101,7 +102,7 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     STD_SETUP_SLIDER(pre_record_enabled, pre_record_time, RecordPre);
 
     // record time
-    STD_SETUP_SLIDER(record_time_limited, record_time, RecordTime);
+    STD_SETUP(record_time_limited, record_time, RecordTime);
 
     // record trigger
     STD_SETUP_SLIDER(record_trigger_enabled, record_trigger, RecordTrigger);
@@ -164,6 +165,11 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
     // visualizations
     connect(chkDisplayLevelMeter, SIGNAL(toggled(bool)),
             this, SLOT(displayLevelMeterChecked(bool)));
+
+    connect(chkRecordTime, SIGNAL(toggled(bool)),
+            this, SLOT(recordTimeChecked(bool)));
+    connect(sbRecordTime, SIGNAL(valueChanged(int)),
+            this, SLOT(recordTimeChanged(int)));
 
     connect(chkRecordTrigger, SIGNAL(toggled(bool)),
             this, SLOT(triggerChecked(bool)));
@@ -663,9 +669,13 @@ void RecordDialog::setState(RecordState state)
     btNew->setEnabled(enable_new);
     btPause->setEnabled(enable_pause);
     btStop->setEnabled(enable_stop);
-    btRecord->setEnabled(enable_record);
+    m_record_enabled = enable_record;
+    updateRecordButton();
 
     // enable disable all controls (groups) for setup
+    chkRecordTime->setEnabled(enable_settings);
+    sbRecordTime->setEnabled(enable_settings &&
+                             chkRecordTime->isChecked());
     chkRecordTrigger->setEnabled(enable_settings);
 
 // it is not really necessary to disable these ;-)
@@ -702,6 +712,22 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 	}
     }
 
+}
+
+//***************************************************************************
+void RecordDialog::recordTimeChecked(bool limited)
+{
+    m_params.record_time_limited = limited;
+    emit sigRecordTimeChanged(limited ? sbRecordTime->value() : -1);
+}
+
+//***************************************************************************
+void RecordDialog::recordTimeChanged(int limit)
+{
+    m_params.record_time = limit;
+    emit sigRecordTimeChanged(chkRecordTime->isChecked() ?
+                              limit : -1);
+    updateRecordButton();
 }
 
 //***************************************************************************
@@ -753,6 +779,28 @@ void RecordDialog::updateEffects(unsigned int track,
 	level_meter->updateTrack(track, buffer);
     }
 
+}
+
+//***************************************************************************
+void RecordDialog::setRecordedSamples(unsigned int samples_recorded)
+{
+    // if (!m_params.record_time_limited) return; // not of interest
+    m_samples_recorded = samples_recorded;
+    updateRecordButton();
+}
+
+//***************************************************************************
+void RecordDialog::updateRecordButton()
+{
+    bool old_enable = btRecord->isEnabled();
+    bool new_enable;
+
+    // enabled if not disabled by status and also not limited or
+    // less than the limit has been recorded
+    new_enable = m_record_enabled && (!m_params.record_time_limited || 
+        (m_samples_recorded < m_params.record_time * m_params.sample_rate));
+
+    if (new_enable != old_enable) btRecord->setEnabled(new_enable);
 }
 
 //***************************************************************************

@@ -37,6 +37,12 @@ public:
 
 public slots:
 
+    /**
+     *Informs the controller whether the signal is empty or not
+     * @param empty if true, nothing has been recorded
+     */
+    void setEmpty(bool empty);
+
     /** Clear all recorded data and prepare for new recording */
     void actionReset();
 
@@ -89,12 +95,14 @@ private:
      */
     RecordState m_next_state;
 
-
     /** use a trigger */
     bool m_trigger_set;
 
     /** use prerecording */
     bool m_use_prerecording;
+
+    /** if true the current file is empty */
+    bool m_empty;
 
 };
 

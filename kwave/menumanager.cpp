@@ -5,16 +5,43 @@
 
 int unique_menu_id=1<<16; //this should be greater than any id sampleop.h and other internal ids
 
-KWavePopMenu::KWavePopMenu (const char *name,int id ):QPopupMenu()
+KWavePopMenu::KWavePopMenu (const char *name,int id,bool checkItems):QPopupMenu()
 {
   this->name=new QString (name);
   this->id=id;
   this->memberId=0;
+  this->checkItems=checkItems;
+
+  if (checkItems)
+    {
+      QObject::connect (this,SIGNAL(activated(int)),this,SLOT(check(int)));
+      setCheckable (true);
+      checked=-1; 
+    }
 }
 //*****************************************************************************
 const char *KWavePopMenu::getName ()
 {
   return name->data();
+}
+//*****************************************************************************
+void KWavePopMenu::check ()
+{
+  if (checkItems)
+    {
+      if (checked<0) checked=idAt (0);
+      setItemChecked (checked,true);  
+    }
+}
+//*****************************************************************************
+void KWavePopMenu::check (int num)
+{
+  if (checkItems)
+    {
+      setItemChecked (checked,false);
+      checked=num;
+      check ();
+    }
 }
 //*****************************************************************************
 int KWavePopMenu::getId ()
@@ -98,12 +125,11 @@ void NumberedMenu::refresh ()
 
   while (tmp)
     {
-      //printf ("refreshing menu %s\n",tmp->getName());
-      tmp->clear();
+      tmp->clear();  //clear menu
       int itemcnt=0;
       int id=tmp->getMemberId();
 
-      QString *entry=entries.first();
+      QString *entry=entries.first();  //and append all entries from scratch
 
       while ((entry)&&(itemcnt<MENUMAX))
 	{
@@ -111,6 +137,8 @@ void NumberedMenu::refresh ()
 	  entry=entries.next();
 	  itemcnt++;
 	}
+
+      tmp->check(); //call just in case an update of the checkmark is needed
 
       tmp=notifymenus.next();
     }
@@ -164,6 +192,7 @@ void MenuManager::deleteMenus (KWaveMenuItem *newmenus)
     {
       switch (newmenus[cnt].type)
 	{
+	case KCHECK:
 	case KMENU:
 	  {
 	    //deleting is only possible if exclusive rights are available
@@ -249,6 +278,7 @@ void MenuManager::appendMenus (KWaveMenuItem *newmenus)
     {
       switch (newmenus[cnt].type)
 	{
+	case KCHECK:
 	case KMENU:
 	  {
 	    KWavePopMenu *newmenu=0;
@@ -260,7 +290,7 @@ void MenuManager::appendMenus (KWaveMenuItem *newmenus)
 
 	    if (!newmenu) //if menu is not already known, create a new menu
 	      {
-		newmenu=new KWavePopMenu (newmenus[cnt].name,getUniqueId());
+		newmenu=new KWavePopMenu (newmenus[cnt].name,getUniqueId(),newmenus[cnt].type==KCHECK);
 		if (newmenu)
 		  {
 		    if (newmenus[cnt].id==-1) newmenus[cnt].id=newmenu->getId();
@@ -268,6 +298,7 @@ void MenuManager::appendMenus (KWaveMenuItem *newmenus)
 		    else
 		      {
 			bar->insertItem (klocale->translate(newmenus[cnt].name),newmenu,newmenus[cnt].id,num-2);
+
 			menus.append (newmenu); //append to known list of top-level menus
 		      }
 		    connect (newmenu,SIGNAL(activated(int)),this,SLOT(map(int)));	      
@@ -282,14 +313,17 @@ void MenuManager::appendMenus (KWaveMenuItem *newmenus)
 	    if (menu)
 	      {
 		if (newmenus[cnt].id==-1) newmenus[cnt].id=getIdRange (MENUMAX);
-		NumberedMenu *nummenu=findNumberedMenu ((char *)newmenus[cnt].name);   //get known numberedMenu
+		//get known numberedMenu
+		NumberedMenu *nummenu=findNumberedMenu ((char *)newmenus[cnt].name);
 
 		if (nummenu)
 		  {
 		    //insert current Menu to list of menus to be notified, when changes occur...
 		    nummenu->notifyMenu (menu);
-		    menu->setMemberId (newmenus[cnt].id); //remember starting id 
+		    //remember starting id for this menu
+		    menu->setMemberId (newmenus[cnt].id);
 		    nummenu->refresh ();
+		    menu->check ();
 		  }
 		else debug ("menu structure error : unknown numbered menu !:%s\n",newmenus[cnt].name);
 	      }

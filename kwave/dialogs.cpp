@@ -14,9 +14,12 @@ extern QString mstotime (int ms);
 extern char*   mstotimec (int ms);
 const char *OK="&Ok";
 const char *CANCEL="Cancel";
-int fancy=false;
 
-static const char *ratetext[]={"48000","44100","32000","22050","12000","10000",0}; 
+                                 
+//uncomment this to get a fancy Progress indicator...
+//#define FANCY
+
+static const char *ratetext[]={"48000","44100","32000","22050","16000","12000","10000",0}; 
 static const char *symtext[]={"symmetric application","only upper half","only lower half",0}; 
 static const char *typetext[]={"Lowpass filter","Highpass filter",0}; 
 static const char *notetext[]=
@@ -46,6 +49,38 @@ float notefreq[]= //frequency in Hz for the above named notes...
 };
 static const char *FFT_Sizes[]={"64","128","256","512","1024","2048","4096",0};
 //**********************************************************
+FloatLine::FloatLine (QWidget *parent,double value):KRestrictedLine (parent)
+{
+  setValue (value);
+  setValidChars ("0123456789.E");
+  digits=1;
+}
+//**********************************************************
+FloatLine::FloatLine (QWidget *parent):KRestrictedLine (parent)
+{
+  setValue (0);
+  setValidChars ("0123456789.E");
+}
+//**********************************************************
+void FloatLine::setValue (double value)
+{
+  char buf[64];
+  char conv[32];
+  
+  sprintf (conv,"%%.%df",digits);
+  sprintf (buf,conv,value);
+  setText (buf);
+}
+//**********************************************************
+double FloatLine::value ()
+{
+  return strtod (text(),0); 
+}
+//**********************************************************
+FloatLine::~FloatLine ()
+{
+}
+//**********************************************************
 TimeLine::TimeLine (QWidget *parent,int rate):KRestrictedLine (parent)
 {
   this->rate=rate;
@@ -59,7 +94,6 @@ TimeLine::TimeLine (QWidget *parent,int rate):KRestrictedLine (parent)
   menu->insertItem	(klocale->translate("in kb"),this,SLOT(setKbMode()));
 
   menu->setCheckable (true);
-
 
   menu->setItemChecked (menu->idAt(0),false);
   menu->setItemChecked (menu->idAt(1),true);
@@ -209,7 +243,7 @@ TimeLine::~TimeLine ()
 {
 };
 //**********************************************************
-NewSampleDialog::NewSampleDialog (QWidget *par): QDialog(par, 0,true)
+NewSampleDialog::NewSampleDialog (QWidget *parent): QDialog(parent, 0,true)
 {
 
   setCaption	(klocale->translate("Choose Length and Rate :"));
@@ -277,7 +311,7 @@ NewSampleDialog::~NewSampleDialog ()
 {
 }
 //**********************************************************
-DelayDialog::DelayDialog (QWidget *par,int rate): QDialog(par,0,true)
+DelayDialog::DelayDialog (QWidget *parent,int rate): QDialog(parent,0,true)
 {
   resize (320,200);
   setCaption (klocale->translate("Choose Length and Rate :"));
@@ -286,8 +320,7 @@ DelayDialog::DelayDialog (QWidget *par,int rate): QDialog(par,0,true)
   delay->setMs (200);
 
   ampllabel  =new QLabel	(klocale->translate("Amplitude of delayed signal :50 %"),this);
-  amplslider =new QScrollBar (1,200,1,10,50,QScrollBar::Horizontal,this);
-
+  amplslider =new KwaveSlider (1,200,1,10,KwaveSlider::Horizontal,this);
   recursive  =new QCheckBox  (klocale->translate("do recursive delaying"),this);   
 
   ok=new QPushButton (OK,this);
@@ -345,31 +378,28 @@ DelayDialog::~DelayDialog ()
 {
 }
 //**********************************************************
-//KProgresss does flicker, is unstable when using high numbers, so here
+//KProgresss does flicker a lot, has bugs, that appear when using high numbers, so here
 //follows my own implementation... 
 //**********************************************************
 ProgressDialog::ProgressDialog (int max,int *counter,char *caption): QDialog(0,caption)
 {
   //timerbased variant
-  if (fancy)  
-    {
-      last=0;
-      setMinimumSize (128,128);
-      setMaximumSize (128,128);
-      setCaption (caption);
-      this->max=max;
-      act=0;
-      lastx=0;
-      lasty=0;
-      setBackgroundColor (black);
-    }
-  else
-    {
-      resize (320,20);
-      setCaption (caption);
-      this->max=max;
-      act=0;
-    }
+#ifdef FANCY  
+  last=0;
+  setMinimumSize (128,128);
+  setMaximumSize (128,128);
+  setCaption (caption);
+  this->max=max;
+  act=0;
+  lastx=0;
+  lasty=0;
+  setBackgroundColor (black);
+#else
+  resize (320,20);
+  setCaption (caption);
+  this->max=max;
+  act=0;
+#endif
 
   this->counter=counter;
   timer=new QTimer (this);
@@ -379,25 +409,23 @@ ProgressDialog::ProgressDialog (int max,int *counter,char *caption): QDialog(0,c
 //**********************************************************
 ProgressDialog::ProgressDialog (int max,char *caption): QDialog(0,caption)
 {
-  if (fancy)  
-    {
-      last=0;
-      setMinimumSize (128,128);
-      setMaximumSize (128,128);
-      setCaption (caption);
-      this->max=max;
-      act=0;
-      lastx=0;
-      lasty=0;
-      setBackgroundColor (black);
-    }
-  else
-    {
-      resize (320,20);
-      setCaption (caption);
-      this->max=max;
-      act=0;
-    }
+#ifdef FANCY  
+  last=0;
+  setMinimumSize (128,128);
+  setMaximumSize (128,128);
+  setCaption (caption);
+  this->max=max;
+  act=0;
+  lastx=0;
+  lasty=0;
+  setBackgroundColor (black);
+#else
+  resize (320,20);
+  setCaption (caption);
+  this->max=max;
+  act=0;
+#endif
+
   setCursor (waitCursor);
   timer=0;
   counter=0;
@@ -423,104 +451,102 @@ void ProgressDialog::paintEvent (QPaintEvent *)
   QPainter p;
   int perc=(int)(((double)act)*100/max);
 
-  if (fancy)  
+#ifdef FANCY
+  int width=128;
+  int height=128;
+
+  p.begin (this);
+  int col=(int)((sin(60*M_PI*(double)act/max)+1)*64);
+  p.setPen (QPen(QColor(col,col,col),width/16));
+  //  p.setRasterOp (XorROP);
+  p.translate (width/2,height/2);
+  
+  int newx=(int)(sin(64*M_PI*(double)act/max)*width/sqrt(2)*act/max);
+  int newy=(int)(cos(64*M_PI*(double)act/max)*height/sqrt(2)*act/max);
+  
+  p.drawLine   (lastx,lasty,newx,newy);
+
+  if (perc>last)
     {
-      int width=128;
-      int height=128;
+      char buf[10];
+      sprintf (buf,"%d %%",perc);
+      last=perc;
+
+      p.setRasterOp (CopyROP);
+
+      QFont newfont(font());
+
+      newfont.setPointSize (width/4);
+      newfont.setBold (true);
+
+      p.setPen (black);
+      p.setFont  (newfont);
+      p.drawText (-width/2+3,-height/2,width,height,AlignCenter,buf,5);
+      p.setFont  (newfont);
+      p.drawText (-width/2-3,-height/2,width,height,AlignCenter,buf,5);
+      p.setFont  (newfont);
+      p.drawText (-width/2,-height/2+3,width,height,AlignCenter,buf,5);
+      p.setFont  (newfont);
+      p.drawText (-width/2,-height/2-3,width,height,AlignCenter,buf,5);
+
+      newfont.setPointSize (width/4);
+      newfont.setBold (true);
+
+      p.setPen (white);
+      p.setFont  (newfont);
+      p.drawText (-width/2,-height/2,width,height,AlignCenter,buf,5);
+    }
+
+  lastx=newx;
+  lasty=newy;
+  p.end();
+#else
+
+  int col=(int)((((double)act)/max)*(512+64));
+  int w=(int)((((double)act)/max)*(width()-2));
+  if (w!=oldw)
+    {
+      QPixmap map (width(),height());
+      map.fill (colorGroup().background());
+      char buf[10]="         ";
+      sprintf (buf,"%d %%",perc);
+
+      p.begin (&map);
+      if (col<256)
+	{
+	  p.setPen (QColor(255,col,0));
+	  p.setBrush (QColor(255,col,0));
+	}
+      else
+	if (col<512)
+	  {
+	    p.setPen (QColor(511-col,255,0));
+	    p.setBrush (QColor(511-col,255,0));
+	  }
+	else
+	  {
+	    p.setPen (QColor(0,767-col,0));
+	    p.setBrush (QColor(0,767-col,0));
+	  }
+      p.drawRect (1,1,w,height()-2);
+      p.setPen (colorGroup().light());
+      p.drawLine (0,height()-1,width(),height()-1);
+      p.drawLine (width()-1,0,width()-1,height()-2);
+      p.setPen (colorGroup().dark());
+      p.drawLine (0,0,width(),0);
+      p.drawLine (0,0,0,height()-1);
+      p.end ();
+
+      bitBlt (this,0,0,&map);
 
       p.begin (this);
-      int col=(int)((sin(60*M_PI*(double)act/max)+1)*64);
-      p.setPen (QPen(QColor(col,col,col),width/16));
-      //  p.setRasterOp (XorROP);
-      p.translate (width/2,height/2);
-  
-      int newx=(int)(sin(64*M_PI*(double)act/max)*width/sqrt(2)*act/max);
-      int newy=(int)(cos(64*M_PI*(double)act/max)*height/sqrt(2)*act/max);
-  
-      p.drawLine   (lastx,lasty,newx,newy);
+      p.setPen (colorGroup().text());
 
-      if (perc>last)
-	{
-	  char buf[10];
-	  sprintf (buf,"%d %%",perc);
-	  last=perc;
-
-	  p.setRasterOp (CopyROP);
-
-	  QFont newfont(font());
-
-	  newfont.setPointSize (width/4);
-	  newfont.setBold (true);
-
-	  p.setPen (black);
-	  p.setFont  (newfont);
-	  p.drawText (-width/2+3,-height/2,width,height,AlignCenter,buf,5);
-	  p.setFont  (newfont);
-	  p.drawText (-width/2-3,-height/2,width,height,AlignCenter,buf,5);
-	  p.setFont  (newfont);
-	  p.drawText (-width/2,-height/2+3,width,height,AlignCenter,buf,5);
-	  p.setFont  (newfont);
-	  p.drawText (-width/2,-height/2-3,width,height,AlignCenter,buf,5);
-
-	  newfont.setPointSize (width/4);
-	  newfont.setBold (true);
-
-	  p.setPen (white);
-	  p.setFont  (newfont);
-	  p.drawText (-width/2,-height/2,width,height,AlignCenter,buf,5);
-	}
-
-      lastx=newx;
-      lasty=newy;
-      p.end();
+      p.drawText (0,0,width(),height(),AlignCenter,buf,5);
+      p.end ();
+      w=oldw;
     }
-  else 
-    {
-      int col=(int)((((double)act)/max)*(512+64));
-      int w=(int)((((double)act)/max)*(width()-2));
-      if (w!=oldw)
-	{
-	  QPixmap map (width(),height());
-	  map.fill (colorGroup().background());
-	  char buf[10]="         ";
-	  sprintf (buf,"%d %%",perc);
-
-	  p.begin (&map);
-	  if (col<256)
-	    {
-	      p.setPen (QColor(255,col,0));
-	      p.setBrush (QColor(255,col,0));
-	    }
-	  else
-	    if (col<512)
-	      {
-		p.setPen (QColor(511-col,255,0));
-		p.setBrush (QColor(511-col,255,0));
-	      }
-	    else
-	      {
-		p.setPen (QColor(0,767-col,0));
-		p.setBrush (QColor(0,767-col,0));
-	      }
-	  p.drawRect (1,1,w,height()-2);
-	  p.setPen (colorGroup().light());
-	  p.drawLine (0,height()-1,width(),height()-1);
-	  p.drawLine (width()-1,0,width()-1,height()-2);
-	  p.setPen (colorGroup().dark());
-	  p.drawLine (0,0,width(),0);
-	  p.drawLine (0,0,0,height()-1);
-	  p.end ();
-
-	  bitBlt (this,0,0,&map);
-
-	  p.begin (this);
-	  p.setPen (colorGroup().text());
-
-	  p.drawText (0,0,width(),height(),AlignCenter,buf,5);
-	  p.end ();
-	  w=oldw;
-	}
-    }
+#endif
 }
 //**********************************************************
 ProgressDialog::~ProgressDialog ()
@@ -530,7 +556,7 @@ ProgressDialog::~ProgressDialog ()
   setCursor (arrowCursor);
 }
 //**********************************************************
-RateDialog::RateDialog (QWidget *par): QDialog(par, 0,true)
+RateDialog::RateDialog (QWidget *parent): QDialog(parent, 0,true)
 {
   setCaption	(klocale->translate("Choose New Rate :"));
 
@@ -574,7 +600,7 @@ RateDialog::~RateDialog ()
 {
 }
 //**********************************************************
-TimeDialog::TimeDialog (QWidget *par,int rate,const char *name): QDialog(par,0,true)
+TimeDialog::TimeDialog (QWidget *parent,int rate,const char *name): QDialog(parent,0,true)
 {
   resize 	(320,200);
   setCaption	(name);
@@ -623,7 +649,7 @@ TimeDialog::~TimeDialog ()
 {
 }
 //**********************************************************
-AmplifyCurveDialog::AmplifyCurveDialog (QWidget *par,int time): QDialog(par, 0,true)
+AmplifyCurveDialog::AmplifyCurveDialog (QWidget *parent,int time): QDialog(parent, 0,true)
 {
   setCaption	(klocale->translate("Choose Amplification Curve :"));
 
@@ -676,7 +702,7 @@ AmplifyCurveDialog::~AmplifyCurveDialog ()
   delete curve ;
 }
 //**********************************************************
-FrequencyMultDialog::FrequencyMultDialog (QWidget *par,int rate): QDialog(par, 0,true)
+FrequencyMultDialog::FrequencyMultDialog (QWidget *parent,int rate): QDialog(parent, 0,true)
 {
   setCaption	(klocale->translate("Select Function :"));
 
@@ -754,7 +780,7 @@ FrequencyMultDialog::~FrequencyMultDialog ()
   delete curve ;
 }
 //**********************************************************
-PitchDialog::PitchDialog (QWidget *par,int rate): QDialog(par, 0,true)
+PitchDialog::PitchDialog (QWidget *parent,int rate): QDialog(parent, 0,true)
 {
   setCaption	(klocale->translate("Select frequency range :"));
 
@@ -826,14 +852,13 @@ PitchDialog::~PitchDialog ()
 {
 }
 //**********************************************************
-HullCurveDialog::HullCurveDialog (QWidget *par,char *name): QDialog(par,0,true)
+HullCurveDialog::HullCurveDialog (QWidget *parent,char *name): QDialog(parent,0,true)
 {
   Interpolation interpolation(0);
 
   setCaption	(name);
   timelabel	=new QLabel	(klocale->translate("Points are taken 20 times/s"),this);
-  timeslider	=new QScrollBar (1,1000,1,1,200,QScrollBar::Horizontal,this);     
-
+  timeslider	=new KwaveSlider (1,1000,1,10,KwaveSlider::Horizontal,this);     
   typelabel	=new QLabel	(klocale->translate("Type of Interpolation :"),this);
   typebox	        =new QComboBox  (true,this);
   typebox->insertStrList (interpolation.getTypes(),-1);
@@ -890,7 +915,7 @@ HullCurveDialog::~HullCurveDialog ()
 {
 }
 //**********************************************************
-DistortDialog::DistortDialog (QWidget *par): QDialog(par,0,true)
+DistortDialog::DistortDialog (QWidget *parent): QDialog(parent,0,true)
 {
   setCaption	(klocale->translate("Choose Distortion-Line :"));
 
@@ -952,7 +977,7 @@ DistortDialog::~DistortDialog ()
   delete curve ;
 }
 //**********************************************************
-AverageDialog::AverageDialog (QWidget *par,char *name): QDialog(par, 0,true)
+AverageDialog::AverageDialog (QWidget *parent,char *name): QDialog(parent, 0,true)
 {
   resize  (320,200);
   setCaption	(name);
@@ -1006,7 +1031,7 @@ AverageDialog::~AverageDialog ()
 {
 }
 //**********************************************************
-AverageFFTDialog::AverageFFTDialog (QWidget *par,int len,int rate,char *name): QDialog(par, 0,true)
+AverageFFTDialog::AverageFFTDialog (QWidget *parent,int len,int rate,char *name): QDialog(parent, 0,true)
 {
   WindowFunction w(0);
   this->rate=rate;
@@ -1067,7 +1092,7 @@ AverageFFTDialog::~AverageFFTDialog ()
 {
 }
 //**********************************************************
-SonagramDialog::SonagramDialog (QWidget *par,int len,int rate,char *name): QDialog(par, 0,true)
+SonagramDialog::SonagramDialog (QWidget *parent,int len,int rate,char *name): QDialog(parent, 0,true)
 {
   WindowFunction w(0);
   this->rate=rate;
@@ -1085,7 +1110,7 @@ SonagramDialog::SonagramDialog (QWidget *par,int len,int rate,char *name): QDial
   
   windowlabel	=new QLabel	("",this);
   bitmaplabel	=new QLabel	("",this);
-  pointslider	=new QSlider (2,(len/16),1,5,QSlider::Horizontal,this);
+  pointslider	=new KwaveSlider (2,(len/16),1,5,KwaveSlider::Horizontal,this);
   windowtypelabel=new QLabel	(klocale->translate("Window Function :"),this);
 
   setPoints (50);
@@ -1161,7 +1186,7 @@ MarkerTypeDialog::~MarkerTypeDialog ()
 {
 }
 //**********************************************************
-MarkerTypeDialog::MarkerTypeDialog (QWidget *par,char *name): QDialog(par, 0,true)
+MarkerTypeDialog::MarkerTypeDialog (QWidget *parent,char *name): QDialog(parent, 0,true)
 {
   namelabel	=new QLabel	(klocale->translate("Name :"),this);
   this->name    =new QLineEdit	(this);
@@ -1215,7 +1240,7 @@ void MarkerTypeDialog::resizeEvent (QResizeEvent *)
 }
 //**********************************************************
 extern const char *allow_double;
-DoubleEnterDialog::DoubleEnterDialog (QWidget *par,char *title,double init): QDialog(par, 0,true)
+DoubleEnterDialog::DoubleEnterDialog (QWidget *parent,char *title,double init): QDialog(parent, 0,true)
 {
   char buf[64];
   setCaption	(title);
@@ -1259,7 +1284,7 @@ StringEnterDialog::~StringEnterDialog ()
 {
 }
 //**********************************************************
-StringEnterDialog::StringEnterDialog (QWidget *par,char *title,char *init): QDialog(par, 0,true)
+StringEnterDialog::StringEnterDialog (QWidget *parent,char *title,char *init): QDialog(parent, 0,true)
 {
   setCaption	(title);
 
@@ -1300,11 +1325,11 @@ DoubleEnterDialog::~DoubleEnterDialog ()
 {
 }
 //**********************************************************
-PercentDialog::PercentDialog (QWidget *par,char *title): QDialog(par, 0,true)
+PercentDialog::PercentDialog (QWidget *parent,char *title): QDialog(parent, 0,true)
 {
   setCaption	(title);
 
-  slider=new QSlider (1,1000,1,500,QSlider::Horizontal,this);
+  slider=new KwaveSlider (1,1000,1,500,KwaveSlider::Horizontal,this);
   label =new QLabel ("",this);
   setValue  (500);
 
@@ -1350,7 +1375,7 @@ PercentDialog::~PercentDialog ()
 {
 }
 //**********************************************************
-FrequencyDialog::FrequencyDialog (QWidget *par,int rate,char *title): QTabDialog(par, 0,true)
+FrequencyDialog::FrequencyDialog (QWidget *parent,int rate,char *title): QTabDialog(parent, 0,true)
 {
   setCaption	(title);
   this->rate=rate;
@@ -1421,14 +1446,14 @@ void FrequencyDialog::resizeEvent (QResizeEvent *)
 {
 }
 //**********************************************************
-FixedFrequencyDialog::FixedFrequencyDialog (QWidget *par,int rate,char *title): QWidget (par, 0)
+FixedFrequencyDialog::FixedFrequencyDialog (QWidget *parent,int rate,char *title): QWidget (parent, 0)
 {
   setCaption	(title);
   this->rate=rate;
-  frequencyslider=new QSlider (1,(rate/2)*9/10,1,440   ,QSlider::Horizontal,this);
+  frequencyslider=new KwaveSlider (1,(rate/2)*9/10,1,440   ,KwaveSlider::Horizontal,this);
   frequencylabel =new QLabel (klocale->translate("Base: 440 Hz"),this);
 
-  timeslider=new QSlider (1,10000,1,100,QSlider::Horizontal,this);
+  timeslider=new KwaveSlider (1,10000,1,100,KwaveSlider::Horizontal,this);
   timelabel =new QLabel (klocale->translate("Time: 1 ms"),this);
 
   showTime (100);
@@ -1478,7 +1503,7 @@ FixedFrequencyDialog::~FixedFrequencyDialog ()
 {
 }
 //**********************************************************
-SweepDialog::SweepDialog (QWidget *par,int rate,char *title): QWidget(par, 0)
+SweepDialog::SweepDialog (QWidget *parent,int rate,char *title): QWidget(parent, 0)
 {
   setCaption	(title);
   this->rate=rate;
@@ -1657,7 +1682,7 @@ SweepDialog::~SweepDialog ()
 {
 }
 //**********************************************************
-StutterDialog::StutterDialog (QWidget *par,int rate,char *name): QDialog(par, 0,true)
+StutterDialog::StutterDialog (QWidget *parent,int rate,char *name): QDialog(parent, 0,true)
 {
   resize  (320,200);
   setCaption	(name);
@@ -1702,7 +1727,7 @@ StutterDialog::~StutterDialog ()
 {
 }
 //**********************************************************
-QuantiseDialog::QuantiseDialog (QWidget *par,char *name): QDialog(par, 0,true)
+QuantiseDialog::QuantiseDialog (QWidget *parent,char *name): QDialog(parent, 0,true)
 {
   resize  (320,200);
   setCaption	(name);
@@ -1750,7 +1775,7 @@ QuantiseDialog::~QuantiseDialog ()
 {
 }
 //**********************************************************
-MarkSaveDialog::MarkSaveDialog (QWidget *par,char *name,bool multi): QDialog(par, 0,true)
+MarkSaveDialog::MarkSaveDialog (QWidget *parent,char *name,bool multi): QDialog(parent, 0,true)
   //dialog of markertypes to be selected...
   //multi is true, if Multiselection shall be enabled....
 {
@@ -1807,7 +1832,7 @@ MarkSaveDialog::~MarkSaveDialog ()
 {
 }
 //**********************************************************
-MarkSignalDialog::MarkSignalDialog (QWidget *par,int rate,char *name): QDialog(par, 0,true)
+MarkSignalDialog::MarkSignalDialog (QWidget *parent,int rate,char *name): QDialog(parent, 0,true)
 {
   setCaption	(name);
   tflag=false;
@@ -1823,7 +1848,7 @@ MarkSignalDialog::MarkSignalDialog (QWidget *par,int rate,char *name): QDialog(p
   QToolTip::add( time, klocale->translate("this is the timespan below the defined sound level\nthat is assumed to separate two signals ..."));
   time->setMs (400);
   ampllabel=new QLabel (klocale->translate("Max. silence level"),this);
-  amplslider=new QSlider (1,1000,1,100,QSlider::Horizontal,this);
+  amplslider=new KwaveSlider (1,1000,1,100,KwaveSlider::Horizontal,this);
   ampl=new KIntegerLine (this);
   ampl->setText ("10.0 %");
 
@@ -1915,7 +1940,7 @@ MarkSignalDialog::~MarkSignalDialog ()
 {
 }
 //**********************************************************
-SaveBlockDialog::SaveBlockDialog (QWidget *par,char *dname): QDialog(par, 0,true)
+SaveBlockDialog::SaveBlockDialog (QWidget *parent,char *dname): QDialog(parent, 0,true)
 {
   setCaption	(dname);
 
@@ -2059,7 +2084,133 @@ SaveBlockDialog::~SaveBlockDialog ()
   if (dir) delete dir;
 }
 //**********************************************************
+ChannelMixDialog::ChannelMixDialog (QWidget *parent,int channels): QDialog(parent, 0,true)
+{
+  dbmode=true;
+  tflag=false;
 
+  ok		=new QPushButton (OK,this);
+  cancel       	=new QPushButton (CANCEL,this);
+
+  int bsize=ok->sizeHint().height();
+
+
+  this->channels=channels;
+  channelname=new QLabel *[channels]; 
+  value=new double[channels];
+  valuebox=new FloatLine *[channels]; 
+  slider=new KwaveSlider *[channels];
+  
+  tochannellabel=new QLabel (klocale->translate("mix to channel :"),this);
+  tochannel=new QComboBox (this);
+  usedb=new QCheckBox (klocale->translate ("use dB scale"),this);
+  usedb->setChecked (true);
+  tochannel->insertItem (klocale->translate("none"));
+
+  if (slider&&channelname&&value&&valuebox)
+    for (int i=0;i<channels;i++)
+      {
+	value[i]=0;
+	char buf [32];
+	sprintf (buf,"Channel %d :",i+1);
+	channelname[i]=new QLabel (buf,this);
+	slider[i]=new KwaveSlider (-24*60,60,1,-24*60,KwaveSlider::Horizontal,this);
+	valuebox[i]=new FloatLine (this);
+	connect (valuebox[i],SIGNAL(textChanged(const char *)),this,SLOT(setValue(const char *)));
+	connect (slider[i],SIGNAL(valueChanged(int)),this,SLOT(setValue(int)));
+	sprintf (buf,"%d",i+1);
+	tochannel->insertItem (buf);
+      }
+  setValue (-24*60);
+   
+  setMinimumSize (bsize*8,(bsize+8)*(4+channels));
+  resize (bsize*8,(bsize+8)*(4+channels));
+
+  ok->setAccel	(Key_Return);
+  cancel->setAccel(Key_Escape);
+  ok->setFocus	();
+  connect (ok	,SIGNAL(clicked()),SLOT (accept()));
+  connect (cancel,SIGNAL(clicked()),SLOT (reject()));
+}
+//**********************************************************
+void ChannelMixDialog::resizeEvent (QResizeEvent *)
+{
+ int bsize=ok->sizeHint().height();
+ int y=8;
+
+ if (slider&&channelname&&valuebox)
+   {
+     int labelsize=channelname[channels-1]->sizeHint().width();
+
+     for (int i=0;i<channels;i++)
+       {
+	 channelname[i]->setGeometry	(8,y,labelsize,bsize);  
+	 slider[i]->setGeometry	        (labelsize+16,y,width()*8/10-labelsize-16,bsize);  
+	 valuebox[i]->setGeometry       (width()*8/10+8,y,width()*2/10-16,bsize);
+	 y+=bsize+8;
+       }
+     tochannellabel->setGeometry (8,y,width()*8/10-16,bsize);  
+     tochannel->setGeometry      (8+width()*8/10,y,width()*2/10-16,bsize);  
+     y+=bsize+8;
+     usedb->setGeometry (8,y,width()-16,bsize);  
+   }
+
+ ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
+ cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
+}
+//**********************************************************
+void ChannelMixDialog::setValue (int val)
+{
+  if (!tflag)
+    for (int i=0;i<channels;i++)
+      if (slider[i]->value()==val)
+	{
+	  char buf[32];
+
+	  if (dbmode)
+	    {
+	      if (val==-144*60) strcpy (buf,"-Inf dB");
+	      else
+		sprintf (buf,"%.1f dB",((double)val)/10);
+	    }
+	  else sprintf (buf,"%.1f %%",((double)val)/10);
+
+	  valuebox[i]->setText (buf);
+	}
+}
+//**********************************************************
+void ChannelMixDialog::setValue (const char* text)
+{
+  tflag=true;
+  for (int i=0;i<channels;i++)
+    if (strcmp(valuebox[i]->text(),text)==0)
+      {
+	double val=strtod (text,0);
+
+	if (dbmode) slider[i]->setValue (-(int)(val*10));
+	else slider[i]->setValue ((int)(val*10));
+      }
+  tflag=false;
+}
+//**********************************************************
+void ChannelMixDialog::setdBMode ()
+{
+  dbmode=!dbmode;
+
+  if (dbmode)
+    {
+      //convert values...
+
+    }
+}
+//**********************************************************
+ChannelMixDialog::~ChannelMixDialog ()
+{
+  if (slider) delete slider;
+  if (channelname) delete channelname;
+  if (value) delete value;
+  if (valuebox) delete valuebox;
+}
 
 
 

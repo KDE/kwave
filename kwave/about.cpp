@@ -6,12 +6,12 @@
 #include <kapp.h>
 
 extern KApplication *app;
-char about_text[]="\nKwave Version 0.29 alpha release\n\
+char about_text[]="\nKwave Version 0.29.3 alpha release\n\
 (c) 1998 by Martin Wilz (mwilz@ernie.mi.uni-koeln.de)\n\n\
 \nFFT-Code by GNU gsl-Project, library version 0.3 beta\n\
 (GSL-Library may be retrieved from ftp://alpha.gnu.org/gnu/)\n\n\
 Memory Mapping routines by Juhana Kouhia\n\n\
-some Gui modifications and additional functionality by Gerhard Zintel\n\n\
+Some Gui modifications and additional functionality by Gerhard Zintel\n\n\
 Thanks go to:\n\
 
 Carsten Jacobi\n\

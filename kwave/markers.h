@@ -4,7 +4,6 @@
 #include <qstring.h>
 #include <qlist.h>
 
-
 class MarkerType
 //Type Information for Markers mainly information concerning the outlook
 {

@@ -6,7 +6,6 @@
 #include <qdir.h>
 #include <qwidget.h>
 #include <qlabel.h>
-#include <qscrbar.h>
 #include <qbutton.h>
 #include <qcombo.h>
 #include <qdialog.h>
@@ -18,7 +17,9 @@
 #include <qlistbox.h>
 #include <qtabdialog.h>
 #include <qwidgetstack.h>
+#include <qchkbox.h>
 
+#include "slider.h"
 #include "curvewidget.h"
 #include "functions.h"
 #include "fftview.h"
@@ -28,7 +29,23 @@
 #include <kcolordlg.h>
 #include <kintegerline.h>
 
+class FloatLine : public KRestrictedLine
+//Widget for entering Floats
+{
+  Q_OBJECT
+    public:
+ FloatLine (QWidget* parent);
+ FloatLine (QWidget* parent,double);
+ ~FloatLine ();
+
+ void   setValue (double);
+ double value    ();
+ private:
+ char  digits; //number of digits behind the .
+};
+//*****************************************************************************
 class TimeLine : public KRestrictedLine
+//Widget for entering Time in various units
 {
  Q_OBJECT
    public:
@@ -55,7 +72,7 @@ class TimeLine : public KRestrictedLine
  int rate;
  QPopupMenu *menu;
 };
-
+//*****************************************************************************
 class NewSampleDialog : public QDialog
 {
  Q_OBJECT
@@ -85,8 +102,6 @@ class NewSampleDialog : public QDialog
  QPushButton	*ok,*cancel;
 };
 //*****************************************************************************
-
-#include <qchkbox.h>
 class DelayDialog : public QDialog
 {
  Q_OBJECT
@@ -111,7 +126,7 @@ class DelayDialog : public QDialog
 
  TimeLine       *delay;
  QLabel		*delaylabel;
- QScrollBar	*amplslider;
+ KwaveSlider	*amplslider;
  QLabel		*ampllabel;
  QCheckBox	*recursive;
  QPushButton	*ok,*cancel;
@@ -323,7 +338,7 @@ class HullCurveDialog : public QDialog
 
  private:
 
- QScrollBar	*timeslider;
+ KwaveSlider	*timeslider;
  QLabel		*timelabel;
  QLabel		*typelabel;
  QComboBox	*typebox;
@@ -406,7 +421,7 @@ class SonagramDialog : public QDialog
 
  private:
 
- QSlider	*pointslider;
+ KwaveSlider	*pointslider;
  QLabel		*pointlabel;
  QLabel		*windowlabel;
  QLabel		*bitmaplabel;
@@ -502,7 +517,7 @@ class PercentDialog : public QDialog
  void resizeEvent (QResizeEvent *);
 
  private:
- QSlider     *slider;
+ KwaveSlider  *slider;
  QLabel      *label; 
  QPushButton *ok,*cancel;
 };
@@ -563,9 +578,9 @@ class FixedFrequencyDialog : public QWidget
  void resizeEvent (QResizeEvent *);
 
  private:
- QSlider     *timeslider;
+ KwaveSlider *timeslider;
  QLabel      *timelabel; 
- QSlider     *frequencyslider;
+ KwaveSlider *frequencyslider;
  QLabel      *frequencylabel; 
  int rate;
 };
@@ -696,7 +711,7 @@ class MarkSignalDialog : public QDialog
  QLabel         *timelabel,*ampllabel;
  KIntegerLine   *ampl;
  TimeLine	*time;
- QSlider        *amplslider;
+ KwaveSlider    *amplslider;
  QLabel         *mark1,*mark2;
  QComboBox	*marktype1,*marktype2;
  QPushButton	*ok,*cancel;
@@ -732,6 +747,43 @@ class SaveBlockDialog : public QDialog
  QDir           *dir;
  QComboBox	*marktype1,*marktype2;
  QPushButton	*ok,*cancel;
+};
+//*****************************************************************************
+class ChannelMixDialog : public QDialog
+{
+ Q_OBJECT
+
+ public:
+
+ 	ChannelMixDialog 	(QWidget *parent,int channels);
+ 	~ChannelMixDialog ();
+ double*getAmpl    ();
+ int   *getChannel ();
+
+ public slots:
+
+ void setValue (int);
+ void setValue (const char *);
+ void setdBMode();
+
+ protected:
+
+ void resizeEvent (QResizeEvent *);
+
+ private:
+
+ QLabel         **channelname;
+ FloatLine      **valuebox;
+ KwaveSlider    **slider;
+ QPushButton	*ok,*cancel;
+ QLabel         *tochannellabel;
+ QComboBox      *tochannel;
+ QLabel         *usedblabel;
+ QCheckBox      *usedb;
+ int            channels; //number of channels available
+ double         *value;
+ bool           tflag;
+ bool           dbmode;
 };
 //*****************************************************************************
 #endif  /* dialogs.h */   

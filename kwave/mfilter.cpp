@@ -1,7 +1,7 @@
 /****************************************************************************
 ** FilterDialog meta object code from reading C++ file 'filter.h'
 **
-** Created: Sun Aug 23 00:12:30 1998
+** Created: Sun Dec 20 10:52:59 1998
 **      by: The Qt Meta Object Compiler ($Revision: 2.25 $)
 **
 ** WARNING! All changes made in this file will be lost!

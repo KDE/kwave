@@ -27,32 +27,39 @@
 #define samplepointer	2
 
 //id's for functions...
+#define KLOC 1000
 
-#define FFT	        6000
-#define SONAGRAM        6001
-#define AVERAGEFFT      6002
+#define FFT	        (KLOC+0)
+#define SONAGRAM        (KLOC+1)
+#define AVERAGEFFT      (KLOC+2)
 
-#define NOISE		5000
-#define HULLCURVE	5001
-#define ADDSYNTH 	5002
-#define PULSE	        5003
-#define ZERO            5004
+#define NOISE		(KLOC+3)
+#define HULLCURVE	(KLOC+4)
+#define ADDSYNTH 	(KLOC+5)
+#define PULSE	        (KLOC+6)
+#define ZERO            (KLOC+7)
 
-#define REVERSE 	101
-#define FADEIN 		102
-#define FADEOUT		103
-#define AMPLIFYMAX 	104
-#define DELAY           105
-#define AMPLIFY 	106
-#define AMPWITHCLIP 	107
-#define RATECHANGE 	108
-#define DISTORT 	109
-#define MOVINGAVERAGE 	110
-#define STUTTER 	111
-#define REQUANTISE 	112
-#define FILTERCREATE 	149
-#define FILTER    	150 
-#define FILTERPRESET    11000   //leave space behind this
+#define FLIP            (KLOC+8)
+#define REVERSE 	(KLOC+9)
+#define FADEIN 		(KLOC+10)
+#define FADEOUT		(KLOC+11)
+#define AMPLIFYMAX 	(KLOC+12)
+#define DELAY           (KLOC+13)
+#define AMPLIFY 	(KLOC+14)
+#define AMPWITHCLIP 	(KLOC+15)
+#define RATECHANGE 	(KLOC+16)
+#define DISTORT 	(KLOC+17)
+#define MOVINGAVERAGE 	(KLOC+18)
+#define STUTTER 	(KLOC+19)
+#define REQUANTISE      (KLOC+20)
+#define FILTERCREATE 	(KLOC+21)
+#define FILTER    	(KLOC+22)
+#define CHANNELMIX    	(KLOC+23)
+#define MIXPASTE	(KLOC+24)
+#define CENTER		(KLOC+25)
+#define RESAMPLE	(KLOC+26)
+
+#define FILTERPRESET    (KLOC+100)   //leave space behind this
 
 //the menu structure being allocated by this Object
 
@@ -119,7 +126,12 @@ KWaveMenuItem sample_menus[]=
   {FLIP           ,"&Flip Phase"        ,KITEM ,-1   ,-1},
   {CENTER         ,"&Center Signal"     ,KITEM ,-1   ,-1},
   {RESAMPLE       ,"&Resample"          ,KITEM ,-1   ,SHIFT+Key_R},
+
+  {0              ,"&Channel"           ,KMENU ,-1   ,KSHARED},
+  {CHANNELMIX     ,"&Mix"               ,KITEM ,-1   ,SHIFT+Key_M},
   {0              ,0                    ,KEND  ,KEND ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+
   {0,0,0,0,0} //Terminates
 };
 
@@ -271,7 +283,13 @@ void MSignal::doRangeOp (int id)
   switch (id)
     {
       //add your wrapper here
-      
+
+    case EXPORTASCII:
+      exportAscii ();
+      break;
+    case CHANNELMIX:
+      mix ();
+      break;
     case ALLCHANNEL:
       selected=true;
       break;

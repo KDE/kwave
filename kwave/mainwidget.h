@@ -1,12 +1,10 @@
 #ifndef _KMAINWDIGET_H_
 #define _KMAINWIDGET_H_ 1
 
-#include <qapp.h>
 #include <qlayout.h>
 #include <qpushbt.h>
 #include <qfont.h>
 #include <qfile.h>
-#include <qscrbar.h>
 #include <qstring.h>
 #include <qfiledlg.h>
 #include <qwidget.h>
@@ -14,17 +12,17 @@
 #include <qpixmap.h>
 #include <qtimer.h>
 #include <qframe.h>
+#include "multistateimage.h"
+#include "signalview.h"
+#include "menumanager.h"
 #include <kapp.h>
-#include <kslider.h>
 #include <kselect.h>
 #include <ktopwidget.h>
 #include <kmenubar.h>
 #include <kbuttonbox.h>
 #include <kstatusbar.h>  
 #include <kbutton.h>
-#include "multistateimage.h"
-#include "signalview.h"
-#include "menumanager.h"
+
 
 //***********************************************************
 class MainWidget : public QWidget
@@ -54,6 +52,7 @@ class MainWidget : public QWidget
  void selectedZoom	(int);
  void play		();
  void stop		();
+ void halt		();
  void loop		();
 
  signals:

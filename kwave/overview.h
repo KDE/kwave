@@ -2,15 +2,14 @@
 #define _KWAVEOVERVIEW_H_ 1
 
 #include <qpushbt.h>
-#include <qfont.h>
-#include <qscrbar.h>
-#include <qstring.h>
 #include <qwidget.h>
 #include <qcombo.h>
 #include <qpixmap.h>
 #include <qtimer.h>
 #include <qframe.h>
-#include <kslider.h>
+
+#include "slider.h"
+
 #include <kselect.h>
 #include <ktopwidget.h>
 #include <kbuttonbox.h>

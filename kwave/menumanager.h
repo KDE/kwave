@@ -12,11 +12,16 @@
 //maximum number of top level menus...
 #define TOPMENUMAX 16
 
-#define KMENU -1
-#define KITEM -2
-#define KEND  -3
-#define KSEP  -4
-#define KREF  -5
+#define KMENU  -1 //a menu
+#define KITEM  -2 //a single menu entry
+#define KEND   -3 //end of an menu
+#define KSEP   -4 //inserts one of those separators. use only in front of
+                  //a KITEM, when the surounding part of the menu should
+                  //be deleted again.
+#define KREF   -5 //All entries of the NumberedMenu given by the name,
+                  //will be placed at this point.
+#define KCHECK -6 //a menu, which entries are checkable. only one of the
+                  // entries may have the checkmark at a time
 
 #define KCHANNEL -4
 #define KNAME    -5
@@ -26,36 +31,48 @@
 #define KEXCLUSIVE -2
 #define KSHARED    -1
 
-class KWavePopMenu: public QPopupMenu //struct used to keep track of allocated menus
+class KWavePopMenu: public QPopupMenu
+//class used to keep track of allocated menus
 {
- public:
-  KWavePopMenu (const char *name,int id);
-  ~KWavePopMenu ();
- const char   *getName ();
- int           getId   ();
+  Q_OBJECT
+  public:
+  KWavePopMenu             (const char *name,int id,bool checkItems=false);
+  ~KWavePopMenu            ();
+ const char   *getName     ();
+ int           getId       ();
  int           getMemberId ();
  void          setMemberId (int);
- void          insertMenu (KWavePopMenu *);
- void          removeMenu (const char *name);
- KWavePopMenu *findMenu (const char *name);
+ void          insertMenu  (KWavePopMenu *);
+ void          removeMenu  (const char *name);
+ KWavePopMenu *findMenu    (const char *name);
+ void          check       ();
+ public slots:
+
+ void          check       (int);
 
  private:
-  int id;
-  int memberId;
   QString             *name;             //name as used internally
   QList<KWavePopMenu> children;          //list of pointers to children menus
+  int                 id;
+  int                 memberId;          //id of members in the case items of
+                                         //a numberedMenu are used in this
+  int                 checked;           //currently checked Item
+  bool                checkItems;        //flag 
 };
 
-struct KWaveMenuItem //structure used by clients to allocate whole menus with submenus
+struct KWaveMenuItem
+//structure used by clients to allocate whole menus with submenus
 {
   int        internalID;
   const char *name;
-  int        type;       //type of menu
-  int        id;         //ITEM: id is set to -1 and will be retrieved or is fixed
+  short int  type;       //type of entry, either KITEM, KREF, KSEP ,KCHECK
+                         //or KEND
+  int        id;         //ITEM: id is set to -1 and will be retrieved or
+                         //      is fixed
                          //MENU: id defines MULTIMENUTYPE
   int        shortcut;   //shortcutkey for the menu
 };
-
+//*****************************************************************************
 class NumberedMenu
 {
  public:
@@ -72,7 +89,7 @@ class NumberedMenu
   QList<QString> entries;
   QList<KWavePopMenu> notifymenus;
 };
-
+//*****************************************************************************
 class MenuManager:public QObject
 {
  Q_OBJECT

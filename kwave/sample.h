@@ -11,17 +11,8 @@
 #endif
 
 #include <stdlib.h>
-#include <qapp.h>
 #include <qdir.h>
-#include <qwidget.h>
-#include <qlabel.h>
-#include <qscrbar.h>
-#include <qbutton.h>
-#include <qcombo.h>
 #include <qdialog.h>
-#include <qbttngrp.h>
-#include <qradiobt.h> 
-#include <kapp.h>
 
 #include "menumanager.h"
 #include "gsl_fft.h"
@@ -30,6 +21,7 @@
 #include "addsynth.h"
 #include "filter.h"
 #include "interpolation.h"
+#include <kapp.h>
 
 #define	PROGRESS_SIZE	2*3*4*128
 //2*3*4 to insure buffer is an multible of 2,3,4 because the loading routines
@@ -107,6 +99,7 @@ class MSignal : public QObject
  int 	getPlayPosition	();
  void	doRangeOp	(int);
  void	save	        (QString *filename,int,int=false);
+ void	exportAscii	();
 
  void   addChannel      ();
  void   appendChannel         (MSignal *);
@@ -171,6 +164,7 @@ class MSignal : public QObject
  void   stutter              ();
  void   replaceStutterChannel(int,int);
  void   insertStutterChannel (int,int);
+ void   mix                  ();
  void   movingFilter         (int);
  void   movingFilterChannel  (Filter*,int,double *);
  FXParams *getFXParams       (void *a=0,void *b=0,void *c=0,void *d=0,void *e=0,void *f=0);
@@ -184,6 +178,7 @@ class MSignal : public QObject
  int    *getNewMem      (int size);
  void	findDatainFile	(QFile *sigin);
  void	loadWav	        (QString *name,int);
+ void	saveAscii	(QString *name);
  void	loadAscii	(QString *name,int);
  void	load8Bit	(QFile *sigin,int offset,int interleave);
  void	load16Bit	(QFile *sigin,int offset,int interleave);

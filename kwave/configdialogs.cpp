@@ -1,9 +1,9 @@
 #include <unistd.h>
-#include <kmsgbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qkeycode.h>
 #include "configdialogs.h"
+#include <kmsgbox.h>
 
 long mmap_threshold=50;
 char *mmap_dir="/tmp";

@@ -11,24 +11,26 @@ QPixmap  *lighton=0;
 
 static const int keys[10]={Key_1,Key_2,Key_3,Key_4,Key_5,Key_6,Key_7,Key_8,Key_9,Key_0};
 
-const char *zoomtext[]={"100 %","33 %","10 %","3 %","1 %","0.1 %"};
-extern int play16bit;
-extern int bufbase;
-extern int mmap_threshold;
+const char  *zoomtext[]={"100 %","33 %","10 %","3 %","1 %","0.1 %"};
+extern int  play16bit;
+extern int  bufbase;
+extern int  mmap_threshold;
 extern char *mmap_dir;     //storage of dir name
 
 KWaveMenuItem channel_menus[]=
 {
   {0              ,"&Edit"              ,KMENU ,-1   ,KSHARED},
-  {0              ,0                    ,KSEP  ,KSEP ,-1},
   {0              ,"&Channel"           ,KMENU ,-1   ,KEXCLUSIVE},
   {ADDCHANNEL     ,"&Add"               ,KITEM ,-1   ,SHIFT+Key_A},
+
   {0              ,"&Delete"            ,KMENU ,-1   ,KEXCLUSIVE},
   {DELETECHANNEL  ,"Channels"           ,KREF  ,-1   ,-1},
   {0              ,0                    ,KEND  ,KEND ,-1},
+
   {ALLCHANNEL     ,"&Select all"        ,KITEM ,-1   ,SHIFT+CTRL+Key_A},
   {INVERTCHANNEL  ,"&Invert Selection"  ,KITEM ,-1   ,SHIFT+Key_I},
   {0              ,0                    ,KEND  ,KEND ,-1},
+
   {0              ,0                    ,KEND  ,KEND ,-1},
   {0,0,0,0,0}
 };
@@ -417,38 +419,52 @@ void MainWidget::setOp (int op)
   emit setOperation (op);
 }
 //*****************************************************************************
-void MainWidget::loop ()
+void MainWidget::loop()
 {
   emit setOperation	(LOOP);
-  loopbutton->setText	("Stop");
   playbutton->setText	("Stop");
-  this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(play()));
-  this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
-  this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(stop())); 
-  this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  loopbutton->setText   ("Halt");  // halt feature by gerhard Zint
+  this->disconnect      (playbutton,SIGNAL(pressed()),this,SLOT(play()));
+  this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
+  this->connect         (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  this->connect         (loopbutton,SIGNAL(pressed()),this,SLOT(halt()));
 }
 //*****************************************************************************
 void MainWidget::play ()
 {
   emit setOperation 	(PLAY);
   playbutton->setText	("Stop");
-  loopbutton->setText	("Stop");
-  this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(play()));
-  this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
-  this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(stop()));
-  this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  loopbutton->setText   ("Halt");  // halt feature by gerhard Zint
+  this->disconnect      (playbutton,SIGNAL(pressed()),this,SLOT(play()));
+  this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
+  this->connect         (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  this->connect         (loopbutton,SIGNAL(pressed()),this,SLOT(halt())); 
 }
 //*****************************************************************************
-void MainWidget::stop	()
+void MainWidget::halt   ()
 {
   playbutton->setText ("Play");
   loopbutton->setText ("&Loop");
-  loopbutton->setAccel (Key_L);
+  loopbutton->setAccel (Key_L); //seems to neccessary
+
+  emit setOperation (PHALT);
+
+  this->disconnect        (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  this->connect           (playbutton,SIGNAL(pressed()),this,SLOT(play()));
+  this->disconnect        (loopbutton,SIGNAL(pressed()),this,SLOT(halt()));
+  this->connect           (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
+}
+//*****************************************************************************
+void MainWidget::stop ()
+{
+  playbutton->setText ("Play");
+  loopbutton->setText ("&Loop");
+  loopbutton->setAccel (Key_L); //seems to neccessary
 
   emit setOperation (PSTOP);
 
   this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(stop()));
-  this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(halt()));
   this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(play()));
   this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
 }

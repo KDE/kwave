@@ -1,6 +1,7 @@
 #include "clipboard.h"
 #include "main.h"
 #include "menumanager.h"
+#include "sample.h"
 
 #define FLUSHCLIP 1
 #define TOWINDOW  2
@@ -20,9 +21,9 @@ KWaveMenuItem clip_menus[]=
 
 QList<MenuManager> clipmenulist;    //list of all registered Menus
                                     //used for appending clipboard menus
-extern QList<TopWidget>*topwidget; 
-extern KApplication    *app;
-extern ClipBoard       *clipboard;
+extern QList<TopWidget> topwidget; 
+extern KApplication     *app;
+extern ClipBoard        *clipboard;
 //*****************************************************************************
 ClipBoard::ClipBoard () {signal=0,hasmenu=false;}
 //*****************************************************************************
@@ -91,7 +92,8 @@ void ClipBoard::toWindow ()
   if (signal)
    {
     TopWidget *tnew=new TopWidget(app);
-    topwidget->append (tnew);
+
+    topwidget.append (tnew);
     tnew->setSignal (signal);
 
     tnew->show();
@@ -105,16 +107,16 @@ ClipBoard::~ClipBoard ()
 {
   if (signal) delete signal;
 
-  if (hasmenu)
+  if (hasmenu) //delete menu from all Topwidgets, that are supposed to have one
     {
       MenuManager *tmp=clipmenulist.first();
 
-      printf ("removing from %p\n",tmp);
       while (tmp)
 	{
 	  tmp->deleteMenus (clip_menus);
 	  tmp=clipmenulist.next();
 	}
     }
+  clipboard=0; //using the knowledge there exists only on clipboard
 }
 //*****************************************************************************

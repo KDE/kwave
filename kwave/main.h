@@ -15,53 +15,35 @@ class TopWidget : public KTopLevelWidget
  void	setSignal	(MSignal *);
  void   addRecentFile   (char *);
  void   updateRecentFiles ();
- void   saveConfig ();
- void   readConfig ();
+
+ public slots:
+
+ void	dropEvent	(KDNDDropZone *);
+ void 	setOp           (int);
 
  protected:
+
+ void	newInstance();
+ void 	getHelp();
+ void	about();
+ void	revert();
+ void 	quitInstance();
+ void	openFile();
+ void   importAsciiFile();
+ void   openRecent (int num);
+ void	saveFile();
+ void	saveFileAs();
+ void	saveSelection();
 
  private:
 
  KApplication   *app;
  MainWidget	*mainwidget;
  KMenuBar	*bar;
- KStatusBar	*status;
- QString	name;
- QPopupMenu     *recent;
- QPopupMenu     *save;
- QPopupMenu     *mtypemenu;
- MenuManager    *manage;
- int            numchannels;
- int            bit24,bit16,bit8;
- int            bit;
-
- public slots:
-
- void	dropEvent	(KDNDDropZone *);
- void	deleteChannel	(int);
- void 	setOp           (int);
-
- void 	quitInstance();
- void 	getHelp();
- void	newInstance();
- void	openFile();
- void   importAsciiFile();
- void   openRecent (int num);
- void	revert();
- void	saveFile();
- void	saveFileas();
- void	saveSelection();
- void	about();
- void	cliptoNew();
- void	flushClip();
-
- void	newOp();
- void	playBackOp ();
- void	memoryOp ();
- void   save24Bit ();
- void   save16Bit ();
- void   save8Bit ();
- void   saveBlocksOp();
+ KStatusBar	*status;      //global status bar
+ QString	name;         //filename
+ MenuManager    *manage;      //menu manager object...
+ int            bit;          //bit resolution to save with
 };
 
 

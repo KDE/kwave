@@ -1,12 +1,11 @@
 #ifndef _FADERDIALOG_H_
 #define _FADERDIALOG_H_ 1
 
-#include <qapp.h>
 #include <qpushbt.h>
 #include <qstring.h>
 #include <qwidget.h>
-#include <qslider.h>
 #include <qdialog.h>
+#include "slider.h"
 #include "scale.h"
 
 class FaderWidget : public QWidget
@@ -54,9 +53,8 @@ class FadeDialog : public QDialog
  ScaleWidget       *x,*y;
  CornerPatchWidget *corner;
  QPushButton	*ok,*cancel;
- QSlider	*slider;
+ KwaveSlider	*slider;
  FaderWidget	*fade;
-
 };
 //*****************************************************************************
 #endif

@@ -1,13 +1,13 @@
 #include <math.h>
 #include <limits.h>
-#include "addsynth.h"
-#include "fftview.h"
 #include <qpainter.h>
 #include <qkeycode.h>
 #include <qlayout.h>
-#include "functions.h"
 #include "sample.h"
 #include "dialogs.h"
+#include "addsynth.h"
+#include "fftview.h"
+#include "functions.h"
 
 extern int getMaxPrimeFactor (int);
 //****************************************************************************
@@ -140,8 +140,8 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   powerlabel=new KIntegerLine *[num];
   phaselabel=new KIntegerLine *[num];
   mult      =new KIntegerLine *[num];
-  power     =new QSlider *[num];
-  phase     =new QSlider *[num];
+  power     =new KwaveSlider *[num];
+  phase     =new KwaveSlider *[num];
 
   functype=new QComboBox  (false,this);
   functype->insertStrList (func.getTypes());
@@ -348,8 +348,8 @@ void AddSynthDialog::getNSlider (int n,int first)
   powerlabel=new KIntegerLine *[num];
   phaselabel=new KIntegerLine *[num];
   mult      =new KIntegerLine *[num];
-  power     =new QSlider *[num];
-  phase     =new QSlider *[num];
+  power     =new KwaveSlider *[num];
+  phase     =new KwaveSlider *[num];
 
   for (int i=0;i<num;i++)
     {
@@ -362,8 +362,8 @@ void AddSynthDialog::getNSlider (int n,int first)
     }
   for (int i=0;i<num;i++)
     {
-      power[i]=new QSlider (0,1000,1,0  ,QSlider::Horizontal,this);
-      phase[i]=new QSlider (-180,179,1,0,QSlider::Horizontal,this);
+      power[i]=new KwaveSlider (0,1000,1,0  ,KwaveSlider::Horizontal,this);
+      phase[i]=new KwaveSlider (-180,179,1,0,KwaveSlider::Horizontal,this);
     }
 
   power[0]->setValue (1000);

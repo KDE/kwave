@@ -1,22 +1,21 @@
 #ifndef _FFTVIEW_H_
 #define _FFTVIEW_H_ 1
 
-#include <qapp.h>
 #include <qpushbt.h>
 #include <qstring.h>
 #include <qwidget.h>
 #include <qpainter.h>
+#include <qpixmap.h>
+#include <qtimer.h>
+#include "scale.h"
+#include "gsl_fft.h"
 #include <kapp.h>
-#include <kslider.h>
 #include <kselect.h>
 #include <ktopwidget.h>
 #include <kmenubar.h>
 #include <kbuttonbox.h>
 #include <kstatusbar.h>  
-#include <qpixmap.h>
-#include <qtimer.h>
-#include "scale.h"
-#include "gsl_fft.h"
+
 
 class FFTWidget : public QWidget
 {

@@ -7,6 +7,23 @@
 
 extern ClipBoard *clipboard; 
 //**********************************************************
+void MSignal::mix ()
+{
+  if (channels>1)
+   {
+     ChannelMixDialog *dialog=new ChannelMixDialog (parent,channels);
+     if (dialog)
+      {
+	if (dialog->exec())
+	  {
+	    printf ("mixing\n");
+	  }
+	delete dialog;
+      }
+   }
+  else KMsgBox::message (parent,"Info","Mixing makes no sense with less than two channels !",2);
+}
+//**********************************************************
 void MSignal::toggleChannel (int a,int b)
 {
   if (a<b)
@@ -198,8 +215,8 @@ void MSignal::mixpasteRange ()
 {
   if (clipboard)
     {
+      int len=rmarker-lmarker;
       int *newsam;
-      int len;
 
       if (lmarker<0) lmarker=0;
       if (rmarker>length) rmarker=length;

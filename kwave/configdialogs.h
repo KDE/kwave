@@ -2,7 +2,6 @@
 #define _CONFIGDIALOGS_H_ 1
 
 #include <stdlib.h>
-#include <qapp.h>
 #include <qdir.h>
 #include <qwidget.h>
 #include <qlabel.h>
@@ -11,12 +10,13 @@
 #include <qdialog.h>
 #include <qbttngrp.h>
 #include <qradiobt.h> 
-#include <qslider.h> 
 #include <qchkbox.h> 
 #include <qfiledlg.h> 
 #include <qlistbox.h>
+#include "slider.h"
 #include <kapp.h>
 #include <kintegerline.h>
+
 
 //*****************************************************************************
 class PlayBackDialog : public QDialog
@@ -41,7 +41,7 @@ class PlayBackDialog : public QDialog
  private:
 
  QLabel		*bufferlabel;
- QSlider        *buffersize;
+ KwaveSlider    *buffersize;
  QLabel         *devicelabel;
  QComboBox      *devicebox;
  QCheckBox      *stereo;

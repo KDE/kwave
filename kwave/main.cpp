@@ -7,25 +7,83 @@
 #include <qkeycode.h>
 #include "clipboard.h"
 
-ClipBoard *clipboard=0;
-QList<TopWidget>*topwidget=0; 
-QList<MarkerType>*markertypes=0;
-QStrList *recentFiles=0; 
-QDir *configDir;
-KApplication *app;
+QList<TopWidget>   topwidget; 
+QList<MarkerType>  markertypes;
+QStrList           recentFiles; 
+ClipBoard          *clipboard=0;
+QDir               *configDir;
+KApplication       *app;
+
+#define KLOC 1000
+
+#define NEWWINDOW      (KLOC+0)
+#define OPENFILE       (KLOC+1)
+#define SAVEFILE       (KLOC+3)
+#define SAVEFILEAS     (KLOC+4)
+#define SAVESELECTION  (KLOC+5)
+#define REVERT         (KLOC+6)
+#define IMPORTASCII    (KLOC+7)
+#define QUIT           (KLOC+8)
+#define ABOUT          (KLOC+9)
+#define HELP           (KLOC+10)
+#define PLAYBACK       (KLOC+11)
+#define MEMORY         (KLOC+12)
+#define BITRES         (KLOC+15)
+
+#define BIT24       (BITRES+0)
+#define BIT16       (BITRES+1)
+#define BIT8        (BITRES+2)
+
+#define OPENRECENT (KLOC+21)
+
+KWaveMenuItem file_menus[]=
+{
+  //internalID    ,name                 ,type  ,id  ,shortcut
+  {0              ,"&File"              ,KMENU ,-1   ,KEXCLUSIVE},
+  {NEW            ,"&New..."            ,KITEM ,-1   ,CTRL+Key_N},
+  {NEWWINDOW      ,"New &window"        ,KITEM ,-1   ,CTRL+Key_W},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},  
+  {OPENFILE       ,"&Open"              ,KITEM ,-1   ,CTRL+Key_O},
+  {0              ,"O&pen recent"       ,KMENU ,-1   ,KEXCLUSIVE},
+  {OPENRECENT     ,"RecentFiles"        ,KREF  ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+  {IMPORTASCII    ,"&Import Ascii"      ,KITEM ,-1   ,CTRL+Key_I},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},  
+  {SAVEFILE       ,"S&ave"              ,KITEM ,-1   ,CTRL+Key_S},
+  {0              ,"&Save"              ,KMENU ,-1   ,KEXCLUSIVE},
+  {SAVEFILEAS     ,"&As ..."            ,KITEM ,-1   ,CTRL+SHIFT+Key_S},
+  {SAVESELECTION  ,"&Selection ..."     ,KITEM ,-1   ,-1},
+  {SAVEBLOCKS     ,"&Blocks ..."        ,KITEM ,-1   ,-1},
+  {EXPORTASCII    ,"&Export to Ascii"   ,KITEM ,-1   ,CTRL+Key_E},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},  
+  {0               ,"Save &resolution"   ,KCHECK,-1   ,KEXCLUSIVE},
+  {BITRES          ,"Bits"              ,KREF  ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},  
+  {REVERT         ,"&Revert"            ,KITEM ,-1   ,CTRL+Key_R},
+
+  {0              ,0                    ,KSEP  ,KSEP ,-1},  
+  {QUIT           ,"&Quit"              ,KITEM ,-1   ,CTRL+Key_Q},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+
+  {0              ,"&Options"           ,KMENU ,-1   ,KEXCLUSIVE},
+  {PLAYBACK       ,"&Playback"          ,KITEM ,-1   ,-1},
+  {MEMORY         ,"&Memory"            ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+
+  {0              ,"&Help"              ,KMENU ,-1   ,KEXCLUSIVE},
+  {HELP           ,"&Contents"          ,KITEM ,-1   ,Key_F1},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},  
+  {ABOUT          ,"&About"             ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+  {0,0,0,0,0} //Terminates
+};
 //*****************************************************************************
 TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
 {
   app=a;
   bit=24;
-
-  QPopupMenu *file=     new QPopupMenu ();
-  QPopupMenu *help=     new QPopupMenu ();
-  QPopupMenu *options=	new QPopupMenu ();
-  recent=   new QPopupMenu ();
-  save=     new QPopupMenu ();
-
-  connect( recent, SIGNAL(activated(int)), SLOT(openRecent(int)) ); 
 
   status=new KStatusBar (this);
 
@@ -39,55 +97,26 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   manage=       new MenuManager (this,bar);
 
   //this is where the menus are created
-  //now  cleaned  up, mom ! just a little bit of dirt left
+  //now  cleaned  up even more, mom ! just a little bit of dirt left
 
-  file->insertItem	(klocale->translate("&New..."),	this,SLOT(newOp()),CTRL+Key_N);
-  file->insertItem	(klocale->translate("New &Window"),this,SLOT(newInstance()),CTRL+Key_W);
-  file->insertSeparator	();
-  file->insertItem	(klocale->translate("&Open"),recent);
-  recent->insertItem	(klocale->translate("&New ..."),this,SLOT(openFile()),CTRL+Key_O);
-  recent->insertSeparator	();
-  if (recentFiles->count()>0)
-    for ( unsigned int i =0 ; i < recentFiles->count(); i++)
-	recent->insertItem(recentFiles->at(i));
+  manage->addNumberedMenu("RecentFiles");
+  if (recentFiles.count()>0)
+  for ( unsigned int i =0 ; i < recentFiles.count(); i++)
+  manage->addNumberedMenuEntry ("RecentFiles",recentFiles.at(i));
 
-  file->insertItem	(klocale->translate("&Save"),	this,SLOT(saveFile()),CTRL+Key_S);
-  file->insertItem	(klocale->translate("&Save"),	save);
-  
-  save->insertItem	(klocale->translate("&As ..."),this,SLOT(saveFileas()),CTRL+SHIFT+Key_S);
-  save->insertItem	(klocale->translate("&Selection ..."),this,SLOT(saveSelection()));
-  save->insertItem	(klocale->translate("&Blocks ..."),this,SLOT(saveBlocksOp()));
-  save->insertSeparator	();
-  bit24=save->insertItem (klocale->translate("&24 bit"));
-  bit16=save->insertItem (klocale->translate("&16 bit"));
-  bit8=save->insertItem	 (klocale->translate(" &8 bit"));
-  save->setCheckable (true);
-  save->setItemChecked (bit24,true);
-  save->connectItem (bit24,this,SLOT(save24Bit()));
-  save->connectItem (bit16,this,SLOT(save16Bit()));
-  save->connectItem (bit8,this,SLOT(save8Bit()));
-  
-  file->insertSeparator	();
-  file->insertItem	(klocale->translate("&Revert"),	this,SLOT(revert()),CTRL+Key_R);
-  file->insertSeparator	();
-  file->insertItem	(klocale->translate("&Import Ascii"),this,SLOT(importAsciiFile()),CTRL+Key_I);
-  file->insertSeparator	();
-  file->insertItem	(klocale->translate("&Quit"),	this,SLOT(quitInstance()),CTRL+Key_Q);
+  if (manage->addNumberedMenu("Bits"))
+    {
+      manage->addNumberedMenuEntry ("Bits","&24 Bit");
+      manage->addNumberedMenuEntry ("Bits","&16 Bit");
+      manage->addNumberedMenuEntry ("Bits"," &8 Bit");
+    }
 
-  options->insertItem	(klocale->translate("Playback"),this,SLOT(playBackOp()));
-  options->insertItem	(klocale->translate("Memory"),this,SLOT(memoryOp()));
-
-  help->insertItem	(klocale->translate("&Contents"),this,SLOT(getHelp()));
-  help->insertSeparator	();
-  help->insertItem	(klocale->translate("&About kwave"),	this,SLOT(about()));
-
-  bar->insertItem	(klocale->translate("&File"),	file);
-  bar->insertItem	(klocale->translate("&Options") ,options);
-  bar->insertItem	(klocale->translate("&Help"),	help);
 
   KDNDDropZone *dropZone = new KDNDDropZone( this , DndURL);
   connect( dropZone, SIGNAL( dropAction( KDNDDropZone *) ),
            this, SLOT( dropEvent( KDNDDropZone *) ) );        
+
+  manage->appendMenus (file_menus);
 
   mainwidget=new MainWidget (this,manage,status);
 
@@ -105,11 +134,11 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
 TopWidget::~TopWidget ()
 {
   //remove this instance from list of widgets
-  topwidget->removeRef(this);	
+  topwidget.removeRef(this);	
 
   ClipBoard ().unregisterMenu (manage);
 
-  if (topwidget->isEmpty()) app->exit (0); //if list is empty -> no more windows there 
+  if (topwidget.isEmpty()) app->exit (0); //if list is empty -> no more windows there 
 }
 //*****************************************************************************
 void TopWidget::about ()
@@ -131,37 +160,72 @@ void TopWidget::quitInstance ()
 void TopWidget::newInstance ()
 {
   TopWidget *tnew=new TopWidget(app);
-  topwidget->append (tnew);
+  topwidget.append (tnew);
 
   tnew->show();
 }
 //****************************************************************************
-void TopWidget::cliptoNew ()
-{
-  if (clipboard) clipboard->toWindow ();
-  else debug ("clipboard is empty !\n");
-}
-//*****************************************************************************
-void TopWidget::flushClip ()
-{
-  if (clipboard) delete clipboard;
-  clipboard=0;
-}
-//*****************************************************************************
-void TopWidget::newOp()		{mainwidget->setOp (NEW);}
-void TopWidget::playBackOp()	{mainwidget->setOp (PLAYBACKOPTIONS);}
-void TopWidget::memoryOp()	{mainwidget->setOp (MEMORYOPTIONS);}
-void TopWidget::saveBlocksOp()	{mainwidget->setOp (SAVEBLOCKS+bit);}
-//*****************************************************************************
 void TopWidget::setOp (int id)
 {
-  mainwidget->setOp (id);
-  if (clipboard) clipboard->setOp (id);
-}
-//*****************************************************************************
-void TopWidget::deleteChannel	(int num)
-{
-  mainwidget->setOp (DELETECHANNEL+num);
+  int oldid=id;
+  if (manage) id=manage->translateId (file_menus,id);
+
+  if ((id>=OPENRECENT)&&(id<(OPENRECENT+MENUMAX))) openRecent (id-OPENRECENT);
+
+  switch (id)
+    {
+    case PLAYBACK:
+      mainwidget->setOp (PLAYBACKOPTIONS);
+      break;
+    case MEMORY:
+      mainwidget->setOp (MEMORYOPTIONS);
+      break;
+    case ABOUT:
+      about();
+      break;
+    case HELP:
+      getHelp();
+      break;
+    case BIT24:
+      bit=24;
+      break;
+    case BIT16:
+      bit=16;
+      break;
+    case BIT8:
+      bit=8;
+      break;
+    case NEWWINDOW:
+      newInstance ();
+      break;
+    case REVERT:
+      revert ();
+      break;
+    case OPENFILE:
+      openFile ();
+      break;
+    case SAVEFILE:
+      saveFile ();
+      break;
+    case SAVEFILEAS:
+      saveFileAs ();
+      break;
+    case SAVESELECTION:
+      saveSelection ();
+      break;
+    case IMPORTASCII:
+      importAsciiFile ();
+      break;
+    case SAVEBLOCKS:
+      id=SAVEBLOCKS+bit; //change id for further use in children
+      break;
+    }
+  
+  if ((oldid==id)||(id<KLOC)) //id must be unchanged or global
+    {
+      mainwidget->setOp (id);
+      if (clipboard) clipboard->setOp (id);
+    }
 }
 //*****************************************************************************
 void TopWidget::revert ()
@@ -174,48 +238,45 @@ void TopWidget::revert ()
 //*****************************************************************************
 void TopWidget::openRecent (int num)
 {
- if (num-1>0)
-   {
-     QString name=recentFiles->at(num-2);
+  // printf ("num is %d\n",num);
 
-     if (!name.isNull())
-       {
-	 this->name=name;
+  QString name=recentFiles.at(num);
 
-
-	 mainwidget->setSignal (&name);
-	 setCaption (name.data());
-       }
-   }
+  if (!name.isNull())
+    {
+      this->name=name;
+      mainwidget->setSignal (&name);
+      setCaption (name.data());
+    }
 }
 //*****************************************************************************
 void TopWidget::addRecentFile (char* newfile)
 {
-  if (recentFiles->find(newfile) != -1) return;
+  if (recentFiles.find(newfile) != -1) return;
 
-  if (recentFiles->count() < 20) recentFiles->insert(0,newfile);
+  if (recentFiles.count() < 20) recentFiles.insert(0,newfile);
   else
     {
-      recentFiles->remove(19);
-      recentFiles->insert(0,newfile);
+      recentFiles.remove(19);
+      recentFiles.insert(0,newfile);
     }
 
    TopWidget *tmp;
 
-   for (tmp=topwidget->first();tmp!=0;tmp=topwidget->next())
+   for (tmp=topwidget.first();tmp!=0;tmp=topwidget.next())
        tmp->updateRecentFiles(); //update all windows
 
 }           
 //*****************************************************************************
 void TopWidget::updateRecentFiles ()
 {
-  recent->clear();
+  //  recent->clear();
 
-  recent->insertItem	(klocale->translate("&New ..."),this,SLOT(openFile()),CTRL+Key_O);
-  recent->insertSeparator	();
+  //  recent->insertItem	(klocale->translate("&New ..."),this,SLOT(openFile()),CTRL+Key_O);
+  // recent->insertSeparator	();
 
-  for (unsigned int i =0 ; i < recentFiles->count(); i++)
-      recent->insertItem (recentFiles->at(i));
+  //  for (unsigned int i =0 ; i < recentFiles.count(); i++)
+    //      recent->insertItem (recentFiles.at(i));
 }           
 //*****************************************************************************
 void TopWidget::dropEvent (KDNDDropZone *drop)
@@ -238,14 +299,14 @@ void TopWidget::dropEvent (KDNDDropZone *drop)
 //*****************************************************************************
 void TopWidget::openFile ()
 {
- QString name=QFileDialog::getOpenFileName (0,"*.wav",this);
- if (!name.isNull())
-  {
-	this->name=name;
-	mainwidget->setSignal (&name);
-	addRecentFile (name.data());
-	setCaption (name.data());
-  }
+  QString name=QFileDialog::getOpenFileName (0,"*.wav",this);
+  if (!name.isNull())
+    {
+      this->name=name;
+      mainwidget->setSignal (&name);
+      addRecentFile (name.data());
+      setCaption (name.data());
+    }
 }
 //*****************************************************************************
 void TopWidget::importAsciiFile ()
@@ -259,30 +320,6 @@ void TopWidget::importAsciiFile ()
   }
 }
 //*****************************************************************************
-void TopWidget::save24Bit ()
-{
-  save->setItemChecked (bit24,true);
-  save->setItemChecked (bit16,false);
-  save->setItemChecked (bit8,false);
-  bit=24;
-}
-//*****************************************************************************
-void TopWidget::save16Bit ()
-{
-  save->setItemChecked (bit24,false);
-  save->setItemChecked (bit16,true);
-  save->setItemChecked (bit8,false);
-  bit=16;
-}
-//*****************************************************************************
-void TopWidget::save8Bit ()
-{
-  save->setItemChecked (bit24,false);
-  save->setItemChecked (bit16,false);
-  save->setItemChecked (bit8,true);
-  bit=8;
-}
-//*****************************************************************************
 void TopWidget::saveFile ()
 {
  if (!name.isEmpty())
@@ -293,7 +330,7 @@ void TopWidget::saveFile ()
   }
 }
 //*****************************************************************************
-void TopWidget::saveFileas ()
+void TopWidget::saveFileAs ()
 {
   name=QFileDialog::getSaveFileName (0,"*.wav",this);
   if (!name.isNull())
@@ -322,7 +359,7 @@ void TopWidget::setSignal (MSignal *signal)
  mainwidget->setSignal (signal);
 }
 //*****************************************************************************
-//global variables needed/changed by read/save config routines
+//definitions of global variables needed/changed by read/save config routines
 extern int play16bit;      //flag for playing 16 Bit
 extern int bufbase;        //log of bufferrsize for playback... 
 extern int mmap_threshold; //threshold in MB for using mmapping
@@ -335,10 +372,10 @@ void saveConfig(KApplication *app)
   KConfig *config=app->getConfig();
   config->setGroup ("Recent Files");
 
-  for (unsigned int i =0 ; i < recentFiles->count(); i++)
+  for (unsigned int i =0 ; i < recentFiles.count(); i++)
     {
       sprintf (buf,"%d",i);
-      config->writeEntry (buf,recentFiles->at(i));
+      config->writeEntry (buf,recentFiles.at(i));
     }
 
   config->setGroup ("Sound Settings");
@@ -351,16 +388,16 @@ void saveConfig(KApplication *app)
 
   config->setGroup ("Labels");
 
-  for (unsigned int i =0 ; i < markertypes->count(); i++)
+  for (unsigned int i =0 ; i < markertypes.count(); i++)
     {
       sprintf (buf,"%dName",i);
-      config->writeEntry (buf,markertypes->at(i)->name->data());
+      config->writeEntry (buf,markertypes.at(i)->name->data());
 
       sprintf (buf,"%dhasName",i);
-      config->writeEntry (buf,markertypes->at(i)->named);
+      config->writeEntry (buf,markertypes.at(i)->named);
 
       sprintf (buf,"%dColor",i);
-      config->writeEntry (buf,*((markertypes->at(i))->color));
+      config->writeEntry (buf,*((markertypes.at(i))->color));
     }
   config->sync();
 }
@@ -384,7 +421,7 @@ void readConfig(KApplication *app)
 	{
 	  QFile file(result.data());
 	  if (file.exists())          //check if file exists and insert it
-	  recentFiles->append (result.data());
+	  recentFiles.append (result.data());
 	}
     }
 
@@ -421,7 +458,7 @@ void readConfig(KApplication *app)
 	  marker->name=new QString(name);
 	  marker->named=hasname;
 	  marker->color=new QColor(color);
-	  markertypes->append (marker);
+	  markertypes.append (marker);
 	}
     }
 }
@@ -429,8 +466,6 @@ void readConfig(KApplication *app)
 int main( int argc, char **argv )
 {
   app=new KApplication (argc, argv);
-
-  srandom (0); //just in case the random generator be used anywhere later
 
   if (app)
     {
@@ -448,40 +483,35 @@ int main( int argc, char **argv )
 	      configDir->cd ("kwave");
 	    }
 	}  
-      else printf ("no local kdedir found \n");
+      else debug ("no local kdedir found \n");
 
       TopWidget *tnew;
 
-      markertypes=new QList<MarkerType>();
-      markertypes->setAutoDelete (true);
+      markertypes.setAutoDelete (true);
 
       recentFiles=new QStrList (true);
-      recentFiles->setAutoDelete (false);
+      recentFiles.setAutoDelete (false);
       readConfig (app);
 
       tnew=new TopWidget(app);
-      topwidget=new QList<TopWidget>();
-      topwidget->append (tnew);
+      topwidget.append (tnew);
 
       app->setMainWidget (tnew);
 
       if (argc==2) 
 	{
 	  QString filename=argv[1];
-	  tnew->setSignal (filename);
+	  tnew->setSignal     (filename);
 	  tnew->addRecentFile (filename.data());
 	}
       tnew->show();
 
       int result=app->exec();
-      //    int result=0;
 
       saveConfig (app);
-
-      if (markertypes) delete markertypes;
-      if (recentFiles) delete recentFiles;
 
       return result;
     }
   return -1;
 }
+

@@ -1,15 +1,14 @@
 #ifndef _FORMANTDIALOG_H_
 #define _FORMANTDIALOG_H_ 1
 
-#include <qapp.h>
 #include <qpushbt.h>
 #include <qstring.h>
 #include <qwidget.h>
 #include <qdialog.h>
-#include <qslider.h>
 #include <qlabel.h>
-#include <kintegerline.h>
+#include "slider.h"
 #include "scale.h"
+#include <kintegerline.h>
 
 class FormantWidget : public QWidget
 {
@@ -73,8 +72,8 @@ class FormantDialog : public QDialog
  KIntegerLine   *num;
  KIntegerLine   **pos;
  KIntegerLine   **widths;
- QSlider        **widthslider;
- QSlider        **posslider;
+ KwaveSlider    **widthslider;
+ KwaveSlider    **posslider;
  QLabel         *poslabel;
  QLabel         *numlabel;
  QPushButton	*ok,*cancel;

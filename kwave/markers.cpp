@@ -14,7 +14,7 @@
 //windowsize for autocorellation, propably a little bit to short for
 //lower frequencies, but this will get configurable in future
 
-extern QList<MarkerType>*markertypes;
+extern QList<MarkerType> markertypes;
 int findNextRepeat       (int *,int);
 int findNextRepeatOctave (int *,int,double =1.005);
 int findFirstMark  (int *,int);
@@ -119,7 +119,7 @@ void SignalWidget::appendMarks ()
 	MarkerType *act;
 	while ((strncmp (buf,"Labels",6)!=0)&&(in.readLine(buf,120)>0));
 
-	for (act=markertypes->first();act;act=markertypes->next()) act->selected=-1;
+	for (act=markertypes.first();act;act=markertypes.next()) act->selected=-1;
 
 	while (in.readLine (buf,120)>0)
 	  {
@@ -131,7 +131,7 @@ void SignalWidget::appendMarks ()
 		int r,g,b;
 		int set=false;
 		sscanf (buf,"Type %d %s %d %d %d %d",&num,&name[0],&named,&r,&g,&b);
-		for (act=markertypes->first();act;act=markertypes->next()) //linear search for label type ...
+		for (act=markertypes.first();act;act=markertypes.next()) //linear search for label type ...
 		  if (strcmp (act->name->data(),name)==0)
 		    {
 		      set=true;
@@ -170,16 +170,16 @@ void SignalWidget::appendMarks ()
 	      {
 		newmark->pos=pos;
 
-		if (markertypes->current())
+		if (markertypes.current())
 		  {
-		    if (markertypes->current()->selected!=num)
-		      for (act=markertypes->first();act->selected!=num;act=markertypes->next());   
+		    if (markertypes.current()->selected!=num)
+		      for (act=markertypes.first();act->selected!=num;act=markertypes.next());   
 		  }
 		else
-		  for (act=markertypes->first();act->selected!=num;act=markertypes->next());   
-		newmark->type=markertypes->current();
+		  for (act=markertypes.first();act->selected!=num;act=markertypes.next());   
+		newmark->type=markertypes.current();
 
-		if (markertypes->current()->named)
+		if (markertypes.current()->named)
 		  if (name[0]!=0) newmark->name=new QString (name);
 		  else newmark->name=0;
 
@@ -208,7 +208,7 @@ void SignalWidget::saveMarks ()
 	  Marker     *tmp;
 	  MarkerType *act;
 
-	  for (act=markertypes->first();act;act=markertypes->next())
+	  for (act=markertypes.first();act;act=markertypes.next())
 	    //write out all label types
 	    if (act->selected)
 	      {
@@ -312,7 +312,7 @@ void SignalWidget::savePeriods ()
 	      out.open (IO_WriteOnly);
 	      int first=true;
 
-	      for (act=markertypes->first();act;act=markertypes->next())
+	      for (act=markertypes.first();act;act=markertypes.next())
 		//write only selected label type
 		if (act->selected)
 		  //traverse list of all labels
@@ -357,8 +357,8 @@ void SignalWidget::saveBlocks (int bit)
       SaveBlockDialog dialog (this);
       if (dialog.exec ())
 	{
-	  struct MarkerType *start=markertypes->at(dialog.getType1());
-	  struct MarkerType *stop=markertypes->at(dialog.getType2());
+	  struct MarkerType *start=markertypes.at(dialog.getType1());
+	  struct MarkerType *stop=markertypes.at(dialog.getType2());
 	  QDir *savedir=dialog.getDir();
 	  
 	  struct Marker *tmp;
@@ -403,8 +403,8 @@ void SignalWidget::markSignal ()
 	  int time= dialog.getTime ();
 	  int len=signal->getLength();
 	  int *sam=signal->getSample();
-	  struct MarkerType *start=markertypes->at(dialog.getType1());
-	  struct MarkerType *stop=markertypes->at (dialog.getType2());
+	  struct MarkerType *start=markertypes.at(dialog.getType1());
+	  struct MarkerType *stop=markertypes.at (dialog.getType2());
 
 	  newmark=new Marker();  //generate initial marker
 	  newmark->pos=0;
@@ -629,7 +629,7 @@ void SignalWidget::setMarkType  (int num)
 //*****************************************************************************
 void SignalWidget::addMarkType (struct MarkerType *marker)
 {
-  markertypes->append (marker);
+  markertypes.append (marker);
   if (manage) manage->addNumberedMenuEntry ("MarkerTypes",marker->name->data());
 }
 //*****************************************************************************
@@ -670,7 +670,7 @@ void SignalWidget::convertMarkstoPitch ()
 
 	  for (int i=0;i<len;data[i++]=0);
 
-	  for (act=markertypes->first();act;act=markertypes->next())
+	  for (act=markertypes.first();act;act=markertypes.next())
 	    {
 	      if (act->selected)
 		{

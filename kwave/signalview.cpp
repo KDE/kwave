@@ -82,14 +82,14 @@ KWaveMenuItem marker_menus[]=
   {0              ,0                    ,KSEP  ,KSEP ,-1},
   {TOPITCH        ,"&Convert to pitch"  ,KITEM ,-1   ,-1},
   {0              ,0                    ,KSEP  ,KSEP ,-1},
-  {0              ,"C&hange type"       ,KMENU ,-1   ,-1},
+  {0              ,"C&hange type"       ,KCHECK,-1   ,-1},
   {SELECTMARK     ,"MarkerTypes"        ,KREF  ,-1   ,-1},
   {0              ,0                    ,KEND  ,KEND ,-1},
   {ADDMARKTYPE    ,"Create &type"       ,KITEM ,-1   ,-1},
   {0              ,0                    ,KEND  ,KEND ,-1},
   {0,0,0,0,0}
 };
-extern QList<MarkerType>*markertypes;
+extern QList<MarkerType> markertypes;
 //****************************************************************************
 __inline void  getMaxMin (int *sample,int len,int &max,int &min)
 {
@@ -113,7 +113,7 @@ SignalWidget::SignalWidget (QWidget *parent,MenuManager *manage) : QWidget (pare
 
   manage->addNumberedMenu ("MarkerTypes");
 
-  for (MarkerType *tmp=markertypes->first();tmp!=0;tmp=markertypes->next())
+  for (MarkerType *tmp=markertypes.first();tmp!=0;tmp=markertypes.next())
     manage->addNumberedMenuEntry ("MarkerTypes",tmp->name->data());
 
   manage->appendMenus (edit_menus);
@@ -136,7 +136,7 @@ SignalWidget::SignalWidget (QWidget *parent,MenuManager *manage) : QWidget (pare
   markers=new MarkerList;
   markers->setAutoDelete (true);
 
-  markertype=markertypes->first();
+  markertype=markertypes.first();
 
   setBackgroundColor (black);
 
@@ -209,7 +209,7 @@ void SignalWidget::setOp (int op)
       signal->doRangeOp (op);
 
       if (op>=SELECTMARK&&op<SELECTMARK+MENUMAX)
-	markertype=markertypes->at(op-SELECTMARK); //set active Markertype
+	markertype=markertypes.at(op-SELECTMARK); //set active Markertype
 
       if ((op>=SAVEBLOCKS)&&(op<=SAVEBLOCKS+24)) saveBlocks (op-SAVEBLOCKS);
 
@@ -305,6 +305,17 @@ void SignalWidget::setOp (int op)
 	  playpointer=-1;	
 	  if (lastplaypointer >=0) repaint (false);
 	  break;
+	case PHALT: //halt by Gerhard Zint
+          {
+            timer->stop ();
+            playing=false;
+            int lmarker=signal->getLMarker(), rmarker=signal->getRMarker();
+            lmarker = signal->getPlayPosition();
+            if (rmarker<lmarker) rmarker = lmarker;
+            setRange(lmarker, rmarker);
+            playpointer=-1;
+            break;
+          }
 	case DELETECHANNEL:
 	  {
 	    MSignal *next=signal->getNext();

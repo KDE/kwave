@@ -2,7 +2,8 @@
 //this code is part of the gnu gsl library. The functions being useful
 //for kwave were concatenated, since gsl library is not far spread
 //so users won't have to search for this one.
-//Later on kwave may leave this out and use the shared library (that contains many more functions)
+//Later on, when oth gsl and kwave leave alpha state, kwave will leave
+//this file out and use the shared library (that contains many more functions)
 
 #include <stddef.h>
 #include <stdlib.h>

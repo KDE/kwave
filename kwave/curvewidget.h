@@ -10,7 +10,6 @@
 #include <qpixmap.h>
 #include <qtimer.h>
 #include <kapp.h>
-#include <kslider.h>
 #include <kselect.h>
 #include <ktopwidget.h>
 #include <kmenubar.h>

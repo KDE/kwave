@@ -1,8 +1,8 @@
-#include "fftview.h"
 #include <qpainter.h>
 #include <qkeycode.h>
 #include <math.h>
 #include "formantwidget.h"
+#include "fftview.h"
 
 //Formant modell according to G. Fant, acoustic theory of speech production,
 //published by Moutom & Co,Netherlands, 1960, p. 48ff
@@ -36,7 +36,6 @@ double *FormantWidget::getPoints (int psize)
   double p2;
   double pos2;
   double q;
-  //  double kr4=0;
   int i;
 
   points=new double [psize];
@@ -47,8 +46,6 @@ double *FormantWidget::getPoints (int psize)
 	{
 	  freq=(double)(5000*i+.1)/psize;
 	  x=freq/(330/4);      //carelessly assumed constant
-	  //kr4=0.54*x*x+0.00143*x*x*x*x;
-	  //x=kr4+20*log10((freq/100)/1+((freq/100)*(freq/100))); 
 	 
 	  freq*=freq;
 	  for (int j=0;j<num;j++) //add every formant
@@ -67,9 +64,6 @@ double *FormantWidget::getPoints (int psize)
       int border=psize*50/5000;
       for (i=0;i<border;i++) points[i]=points[border];
 
-      //      double min=100;
-      //      for (i=0;i<psize;i++) if (points[i]<min) min=points[i];
-      //      for (i=0;i<psize;i++) points[i]-=min;
     }
   return points;
 }
@@ -111,11 +105,13 @@ void FormantWidget::paintEvent  (QPaintEvent *)
 	      if (max<points[i]) max=points[i];
 	      if (min>points[i]) min=points[i];
 	    }
-	  //	  printf ("min is %f,max is %f\n",min,max);
 
+	  //scale for display
+	  for (i=0;i<width;i++) points[i]=(points[i]-min)/(max-min);
 
-	  for (i=0;i<width;i++) points[i]=(points[i]-min)/(max-min);   //scale for display
-	  emit dbscale((int) min,(int) max);            //set display of scale-range
+	  //set display of scale-range
+	  emit dbscale((int) min,(int) max); 
+
 
 	  for (i=0;i<width;i++)
 	    p.drawLine (i,(int)(points[i]*height),i+1,(int)(points[i+1]*height));
@@ -224,16 +220,16 @@ void FormantDialog::getWidgets (int num)
   int i;
   
   KIntegerLine **newpos=    new KIntegerLine*[num];
-  QSlider      **newslider= new QSlider *[num];
+  KwaveSlider  **newslider= new KwaveSlider *[num];
   KIntegerLine **newwidth=  new KIntegerLine*[num];
-  QSlider      **newwslider=new QSlider *[num];
+  KwaveSlider  **newwslider=new KwaveSlider *[num];
 
   for (i=0;i<num;i++)
     {
       newpos[i]=new KIntegerLine (this);
-      newslider[i]=new QSlider (100,5000,1,500+1000*i,QSlider::Horizontal,this);
+      newslider[i]=new KwaveSlider (100,5000,1,500+1000*i,KwaveSlider::Horizontal,this);
       newwidth [i]=new KIntegerLine (this);
-      newwslider[i]=new QSlider (20,500,1,80+10*i,QSlider::Horizontal,this);
+      newwslider[i]=new KwaveSlider (20,500,1,80+10*i,KwaveSlider::Horizontal,this);
       connect  (newslider[i],SIGNAL(valueChanged(int)),SLOT(posChanged(int)));
       connect  (newpos[i],   SIGNAL(textChanged(const char *)),SLOT(posChanged(const char *)));
       connect  (newwslider[i],SIGNAL(valueChanged(int)),SLOT(widthChanged(int)));

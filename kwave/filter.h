@@ -1,23 +1,23 @@
-#include <kmsgbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qdir.h>
 #include <qwidget.h>
 #include <qlabel.h>
-#include <qscrbar.h>
 #include <qbutton.h>
 #include <qcombo.h>
 #include <qdialog.h>
 #include <qbttngrp.h>
-#include <qslider.h>
 #include <qchkbox.h>
 #include <qradiobt.h>
 
+#include "slider.h"
 #include "gsl_fft.h"
 #include "fftview.h"
 #include "curvewidget.h"
+
 #include <krestrictedline.h>
 #include <kintegerline.h>
+#include <kmsgbox.h>
 
 //*****************************************************************************
 class Filter
@@ -71,7 +71,7 @@ class FilterDialog : public QDialog
  KIntegerLine *taps;
 
  QLabel       **label;
- QSlider      **mult;
+ KwaveSlider  **mult;
  KIntegerLine **offset;
 
  QPushButton	*load,*save;

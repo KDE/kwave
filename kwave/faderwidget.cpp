@@ -1,9 +1,9 @@
-#include "fftview.h"
 #include <qkeycode.h>
 #include <qpainter.h>
 #include <math.h>
 #include <limits.h>
 #include "faderwidget.h"
+#include "fftview.h"
 
 extern const char *OK;
 extern const char *CANCEL;
@@ -109,7 +109,7 @@ FadeDialog::FadeDialog (QWidget *par,int dir,int ms): QDialog(par,0,true)
 
   ok	 =new QPushButton (OK,this);
   cancel =new QPushButton (CANCEL,this);
-  slider =new QSlider     (-100,100,1,0,QSlider::Horizontal,this);     
+  slider =new KwaveSlider (-100,100,1,0,KwaveSlider::Horizontal,this);     
   fade   =new FaderWidget (this,dir);
 
   x=new ScaleWidget (this,0,ms,"ms");

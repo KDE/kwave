@@ -48,7 +48,7 @@ kwave_LDADD   = -lkfm -lkdeui -lkdecore -lqt -lX11 -lXext -lpthread
 noinst_HEADERS =  signalview.h mainwidget.h sample.h main.h about.h fftview.h\
  gsl_fft.h faderwidget.h curvewidget.h interpolation.h\
  multistateimage.h dialogs.h addsynth.h functions.h clipboard.h\
- sonagram.h filter.h scale.h menumanager.h overview.h markers.h
+ sonagram.h filter.h scale.h menumanager.h overview.h markers.h slider.h
 
 # just to make sure, automake makes them 
 BUILTSOURCES =	mmain.cpp msignalview.cpp msample.cpp mabout.cpp maddsynth.cpp\

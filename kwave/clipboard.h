@@ -1,7 +1,8 @@
 #ifndef _KWAVECLIPBOARD_H_
 #define _KWAVECLIPBOARD_H_ 1
-#include "sample.h"
 
+class MSignal;
+class MenuManager;
 class ClipBoard
 {
  public:

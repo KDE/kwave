@@ -35,8 +35,8 @@ extern MSignal *clipboard;
 
 const char *sounddevice={"/dev/dsp"};
 //**********************************************************
-// now some helper functions... somewhere in clib there should be something
-// compareable. But as long the reinvented wheel works there is no need to
+// now some helper functions... somewhere in c-lib there should be something
+// compareable. But as long the reinvented wheel works there is no need for
 // change 
 int swapEndian (int s)
   //yes you guessed it only for sizeof(int)==4 this
@@ -345,8 +345,14 @@ MSignal::MSignal (QWidget *par,MenuManager *manage,QString *name,int channel,int
 
 }
 //**********************************************************
+void MSignal::saveAscii (QString *name)
+{
+
+}
+//**********************************************************
 void MSignal::loadAscii (QString *name, int channel)
-  //import ascii files with one sample per line, everything unparseable is ignored
+  //import ascii files with one sample per line, everything unparseable
+  //by strtod is ignored
 {
   QFile *sigin=new QFile (name->data());
   if (sigin->exists())
@@ -355,7 +361,6 @@ void MSignal::loadAscii (QString *name, int channel)
 	{
 	  char buf[80];
 	  float value;
-	  printf ("loadascii\n");
 
 	  int cnt=0;
 	  float max=0;
@@ -493,6 +498,29 @@ void writeData8Bit (SaveInfo *saveinfo)
 	{
 	  o=128+(char)(samples[j][i]/65536);
 	  sigout->putch (o);
+	}
+    }
+}
+//**********************************************************
+void MSignal::exportAscii ()
+{
+  QString name=QFileDialog::getSaveFileName (0,"*.dat",parent);
+  if (!name.isNull())
+    {
+      char buf[64];
+      printf ("saving Ascii!\n");
+      QFile sigout(name.data());
+      sigout.open (IO_WriteOnly);
+
+      sprintf (buf,"%d\n",length);
+      sigout.writeBlock (&buf[0],strlen(buf));
+
+      sigout.writeBlock ("1.00\n",5);
+
+      for (int i=0;i<length;i++)
+	{
+	  sprintf (buf,"%d\n",sample[i]/(1<<8));
+	  sigout.writeBlock (&buf[0],strlen(buf));
 	}
     }
 }

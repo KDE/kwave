@@ -1,21 +1,21 @@
 #ifndef _SONAGRAM_H_
 #define _SONAGRAM_H_ 1
 
-#include <qapp.h>
+#include <qpixmap.h>
+#include <qimage.h>
+#include <qtimer.h>
 #include <qpushbt.h>
 #include <qstring.h>
 #include <qwidget.h>
 #include <qpainter.h>
+#include "overview.h"
+#include "gsl_fft.h"
+#include "scale.h"
+
 #include <kapp.h>
 #include <ktopwidget.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>  
-#include <qpixmap.h>
-#include <qimage.h>
-#include <qtimer.h>
-#include "gsl_fft.h"
-#include "scale.h"
-#include "overview.h"
 
 //***********************************************************************
 class ImageView : public QWidget

@@ -4,12 +4,13 @@
 #include <qpushbt.h>
 #include <qstring.h>
 #include <qwidget.h>
+
+#include "dialogs.h"
 #include "curvewidget.h"
-#include "dialogs.h"
-#include <kintegerline.h>
-#include "dialogs.h"
 #include "curvewidget.h"
 #include "scale.h"
+
+#include <kintegerline.h>
 
 class MSignal;
 class TimeLine;
@@ -87,10 +88,6 @@ class AddSynthDialog : public QDialog
  private:
 
   QList<CPoint> *times;
-  int tflag; //flag if typing in integerline
-  int num;   //number of sines
-  int rate;  //sampling rate
-  int *apower,*aphase,*amult;
 
   AddSynthWidget    *view;
   ScaleWidget       *x,*y;
@@ -100,8 +97,8 @@ class AddSynthDialog : public QDialog
   KIntegerLine	**powerlabel;
   KIntegerLine  **phaselabel;
 
-  QSlider	**power;
-  QSlider	**phase;
+  KwaveSlider	**power;
+  KwaveSlider	**phase;
   
   KIntegerLine	*channel;
   QLabel        *channellabel;
@@ -117,6 +114,11 @@ class AddSynthDialog : public QDialog
   QLabel	*powerlab;
   QLabel	*multlab;
   QPushButton	*ok,*cancel;
+
+  int num;    //number of sines
+  int rate;   //sampling rate
+  int *apower,*aphase,*amult;
+  bool tflag; //flag if typing in integerline
 };
 //*****************************************************************************
 class PulseDialog : public QDialog

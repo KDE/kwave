@@ -6,15 +6,23 @@
 #include <qfiledlg.h>
 #include <qwidget.h>
 #include <qtimer.h>
-#include <kapp.h>
-#include <kselect.h>
-#include <kstatusbar.h>  
-#include <kbutton.h>
 #include "sample.h"
 #include "multistateimage.h"
 #include "overview.h"
 #include "menumanager.h"
 #include "markers.h"
+#include <kapp.h>
+#include <kselect.h>
+#include <kstatusbar.h>  
+#include <kbutton.h>
+
+#define SELECTALL	17
+#define SELECTVISIBLE	18
+#define SELECTRANGE	19
+#define SELECTNONE	20
+#define SELECTNEXT	21
+#define SELECTPREV	22
+#define JUMPTOLABEL	23
 
 #define ADDMARK 	 7000
 #define DELETEMARK    	 7001  

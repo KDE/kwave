@@ -1,13 +1,13 @@
 #include <qdir.h>
-#include "fftview.h"
 #include <qpainter.h>
 #include <math.h>
 #include <limits.h>
 #include <qcursor.h>
 #include <qkeycode.h>
+#include "sample.h"
+#include "fftview.h"
 #include "dialogs.h"
 #include "formantwidget.h"
-#include "sample.h"
 #include "main.h"
 
 extern KApplication *app;

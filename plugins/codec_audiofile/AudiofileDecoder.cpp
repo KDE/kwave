@@ -234,13 +234,13 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	unsigned int count = buffer_used;
 	while (count--) {
 	    for (unsigned int track = 0; track < tracks; track++) {
-		register int32_t s = *p++;
-		
+		int32_t s = *p++;
+
 		// adjust precision
 		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
 		    s /= (1 << (SAMPLE_STORAGE_BITS-SAMPLE_BITS));
 		}
-		
+
 		// the following cast is only necessary if
 		// sample_t is not equal to a u_int32_t
 		*(dst[track]) << static_cast<sample_t>(s);

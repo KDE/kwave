@@ -451,7 +451,7 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	unsigned int count = buffer_used;
 	while (count--) {
 	    for (unsigned int track = 0; track < tracks; track++) {
-		register int32_t s = *p++;
+		int32_t s = *p++;
 		
 		// adjust precision
 		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {

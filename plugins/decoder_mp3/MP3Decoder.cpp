@@ -579,7 +579,7 @@ static inline unsigned long prng(unsigned long state)
  * (copied from mpg231, mad.c)
  * @author Rob Leslie
  */
-static inline signed long audio_linear_dither(unsigned int bits,
+static inline int32_t audio_linear_dither(unsigned int bits,
     mad_fixed_t sample, struct audio_dither *dither)
 {
     unsigned int scalebits;
@@ -632,7 +632,7 @@ enum mad_flow MP3Decoder::processOutput(void */*data*/,
     struct mad_header const */*header*/, struct mad_pcm *pcm)
 {
     struct audio_dither dither;
-    register signed int sample;
+    int32_t sample;
 
     // loop over all tracks
     const unsigned int tracks = m_dest->count();
@@ -643,7 +643,7 @@ enum mad_flow MP3Decoder::processOutput(void */*data*/,
 	// and render samples into Kwave's internal format
 	/** @todo mp3 import could be speeded up by blockwise operation */
 	while (nsamples--) {
-	    sample = (signed int)audio_linear_dither(SAMPLE_BITS,
+	    sample = (int32_t)audio_linear_dither(SAMPLE_BITS,
 	             (mad_fixed_t)(*p++), &dither);
 	    *(*m_dest)[track] << static_cast<sample_t>(sample);
 	}

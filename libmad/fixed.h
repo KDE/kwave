@@ -140,8 +140,8 @@ typedef mad_fixed_t mad_sample_t;
 # elif defined(FPM_INTEL)
 
 #  if defined(_MSC_VER)
-#   pragma warning(push)
-#   pragma warning(disable: 4035)  /* no return value */
+#   pragma qWarning(push)
+#   pragma qWarning(disable: 4035)  /* no return value */
 static __forceinline
 mad_fixed_t mad_f_mul_inline(mad_fixed_t x, mad_fixed_t y)
 {
@@ -157,7 +157,7 @@ mad_fixed_t mad_f_mul_inline(mad_fixed_t x, mad_fixed_t y)
 
   /* implicit return of eax */
 }
-#   pragma warning(pop)
+#   pragma qWarning(pop)
 
 #   define mad_f_mul		mad_f_mul_inline
 #   define mad_f_scale64

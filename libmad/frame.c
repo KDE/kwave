@@ -312,7 +312,7 @@ int mad_header_decode(struct mad_header *header, struct mad_stream *stream)
     if (!stream->sync)
       ptr = stream->this_frame;
 
-    if (end - ptr < stream->skiplen) {
+    if (end - ptr < (int)stream->skiplen) {
       stream->skiplen   -= end - ptr;
       stream->next_frame = end;
 
@@ -396,7 +396,7 @@ int mad_header_decode(struct mad_header *header, struct mad_stream *stream)
   }
 
   /* verify there is enough data left in buffer to decode this frame */
-  if (N + MAD_BUFFER_GUARD > end - stream->this_frame) {
+  if ((int)(N + MAD_BUFFER_GUARD) > end - stream->this_frame) {
     stream->next_frame = stream->this_frame;
 
     stream->error = MAD_ERROR_BUFLEN;

@@ -97,6 +97,9 @@
 /* Define if you have a working libpthread (will enable threaded code) */
 #undef HAVE_LIBPTHREAD
 
+/* Define if you have the `vorbis' library (-lvorbis). */
+#undef HAVE_LIBVORBIS
+
 /* Define if you have libz */
 #undef HAVE_LIBZ
 

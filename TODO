@@ -136,6 +136,8 @@ o more complete documentation of the whole api
 
 o navigation buttons on the overview widget
 
+o use MemoryManager for undo actions
+
 o TrackPixmap: different color sets if selected/deselected
 
 o somewhere in far future: compile on architectures with a different

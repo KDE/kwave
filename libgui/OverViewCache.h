@@ -23,6 +23,7 @@
 #include <qcstring.h>
 #include <qlist.h>
 #include <qobject.h>
+#include <qvaluelist.h>
 
 #include "mt/Mutex.h"
 
@@ -40,8 +41,19 @@ class OverViewCache: public QObject
 {
     Q_OBJECT
 public:
-
-    OverViewCache(SignalManager &signal);
+    /**
+     * Constructor
+     * @param signal reference to a SignalManager with the source
+     * @param src_offset first sample index in the source.
+     *                   optional, default=0
+     * @param src_length number of samples in the source.
+     *                   optional, default=0 (whole signal)
+     * @param src_tracks list of selected source tracks
+     *                   optional, default=0 (whole signal)
+     */
+    OverViewCache(SignalManager &signal, unsigned int src_offset = 0,
+                  unsigned int src_length = 0,
+                  const QArray<unsigned int> *src_tracks = 0);
 
     /** Destructor */
     virtual ~OverViewCache();
@@ -64,11 +76,11 @@ protected slots:
 
     /**
      * Connected to the signal's sigTrackInserted.
-     * @param track index of the inserted track
+     * @param index the index [0...tracks()-1] of the inserted track
      * @see Signal::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int index, Track &track);
+    void slotTrackInserted(unsigned int index, Track &);
 
     /**
      * Connected to the signal's sigTrackInserted.
@@ -119,6 +131,25 @@ protected:
 private:
 
     /**
+     * Shows a short list of selected / deleted selected tracks.
+     * @internal for debugging only
+     */
+    void dumpTracks();
+
+    /**
+     * Translates a track number from the original signal into an
+     * internal track index. If all tracks are selected, this is
+     * equal to the signal's track number, in "selected-tracks" mode
+     * it is the internal index within the list of selected tracks.
+     * @param track_nr index of a track of the signal
+     * @return internal index or -1 if not in selection
+     */
+    int trackIndex(unsigned int track_nr);
+
+    /** Returns the number of selected samples of the source */
+    unsigned int sourceLength();
+
+    /**
      * Compresses the cache to hold more samples per entry.
      */
     void scaleUp();
@@ -166,6 +197,18 @@ private:
 
     /** mutex for threadsafe access to the cache */
     Mutex m_lock;
+
+    /** first sample index in the source */
+    unsigned int m_src_offset;
+
+    /** length of the source in samples, or zero for "whole signal" */
+    unsigned int m_src_length;
+
+    /** list of selected source tracks */
+    QValueList<unsigned int> m_src_tracks;
+
+    /** list of selected and deleted source tracks */
+    QValueList<unsigned int> m_src_deleted;
 
 };
 

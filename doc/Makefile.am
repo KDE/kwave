@@ -40,7 +40,7 @@ en/index.html: help_en.docbook
 help_en.pot: help_en.docbook
 	$(XML2POT) help_en.docbook > help_en.pot
 
-html-doc: en/index.html de/index.html
+html-doc: en/index.html de/index.html fr/index.html
 
 html-clean:
 	for lang in ${LANGUAGES}; do { \
@@ -104,7 +104,7 @@ help_en.docbook: ../bin/insert-changes.sh ../VERSION ../CHANGES
 	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
 	help_en.docbook
 
-doc: help_en.docbook help_de.docbook help_fr.docbook help_it.docbook
+doc: help_en.docbook help_de.docbook help_fr.docbook
 
 all: doc
 

@@ -6,7 +6,8 @@
    for bug in KDE3's geometry management.
    example: "kwave -geometry 800x600"
  * bugfix: select to left selected one sample less then needed
- * simple clipping in the volume plugin
+ * volume plugin: simple clipping
+ * volume plugin: mode for "multiply with /divide through factor"
 
 0.6.5 [2002-11-09]
 

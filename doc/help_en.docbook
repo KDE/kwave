@@ -1489,9 +1489,76 @@
     </PARA>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: More Kwave features                                   +++ -->
+<!-- +++ Section: Clipboard                                             +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
+    <SECT1 ID="CLIPBOARD"><TITLE>Clipboard</TITLE>
+
+    <PARA>
+    &kapp; unfortunately has to implement and use it's own clipboard. This
+    is due to the lack of support for formats other than text and bitmaps
+    in the KDE environment and might be solved in some future release.
+    </PARA>
+
+    <PARA>
+    However, this has some disadvantages. So if you want to exchange
+    data between two &kapp; instances through the clipboard, you will 
+    find out that this is simply not possible. Each instance of &kapp
+    uses it's own clipboard and so that can't work.
+    </PARA>
+
+    <PARA>
+    So if you want to make use of the clipboard in &kapp;, you should
+    only start <EMPHASIS>one</EMPHASIS> &kapp; instance and use
+    multiple &kapp; windows. That's the way it works!
+    </PARA>
+    
+    </SECT1>
+    
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Drag and Drop                                         +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <SECT1 ID="DRAG_AND_DROP"><TITLE>Drag and Drop</TITLE>
+
+    <PARA>
+    &kapp; supports the KDE Drag and Drop protocol. This enables you
+    to open files just by picking them up in a kfm window or the
+    Desktop and let them drop in a window of &kapp;.
+    </PARA>
+
+    <PARA>
+    Please note that if you drop a file into a &kapp; window that already
+    contains an opened file, that file will be closed first and then the 
+    file you dropped will be opened in it. If you don't want that, you should
+    open a new empty &kapp; window first.
+    </PARA>
+
+    </SECT1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Command Line                                          +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <SECT1 ID="COMMAND_LINE"><TITLE>Command Line</TITLE>
+
+    <PARA>
+    If you start &kapp; from the command line, you can specify a list
+    of files that should be opened. The first specified file will be opened 
+    first, then the other files. Each file will be opened in an own new
+    window.
+    </PARA>
+    
+    <PARA>
+    In addition to a list of files, you can specify a list of 
+    <EMPHASIS>Xt toolkit</EMPHASIS> options like "-geometry" for
+    specifying the size and/or position of the first opened &kapp 
+    window and or "-display" for starting the &kapp on a different
+    display.
+    </PARA>
+
+    </SECT1>
+        
 <!-- @@@ still to be done ... @@@
     <SECT1 ID="KAPP-FEATURES"><TITLE>More Kapp features</TITLE>
 

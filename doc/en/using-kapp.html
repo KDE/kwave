@@ -13,8 +13,8 @@ REL="PREVIOUS"
 TITLE="RPM optimizations"
 HREF="rpm_optimizations.html"><LINK
 REL="NEXT"
-TITLE="Developer's Guide to Kapp"
-HREF="developers.html"><META
+TITLE="Drag and Drop"
+HREF="drag_and_drop.html"><META
 HTTP-EQUIV="Content-Style-Type"
 CONTENT="text/css"><LINK
 REL="stylesheet"
@@ -55,7 +55,7 @@ ALIGN="RIGHT"
 CLASS="NAVBAR"
 ><P
 ><A
-HREF="developers.html"
+HREF="drag_and_drop.html"
 >Next</A
 > <A
 HREF="rpm_optimizations.html"
@@ -110,13 +110,58 @@ ALT="Screenshot"
 ></DIV
 >
     </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="CLIPBOARD"
+>3.1. Clipboard</A
+></H1
+><P
+>    <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> unfortunately has to implement and use it's own clipboard. This
+    is due to the lack of support for formats other than text and bitmaps
+    in the KDE environment and might be solved in some future release.
+    </P
+><P
+>    However, this has some disadvantages. So if you want to exchange
+    data between two <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> instances through the clipboard, you will 
+    find out that this is simply not possible. Each instance of <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+>    uses it's own clipboard and so that can't work.
+    </P
+><P
+>    So if you want to make use of the clipboard in <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+>, you should
+    only start <I
+CLASS="EMPHASIS"
+>one</I
+> <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> instance and use
+    multiple <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> windows. That's the way it works!
+    </P
+></DIV
 ></DIV
 ><DIV
 ALIGN="RIGHT"
 CLASS="NAVBAR"
 ><P
 ><A
-HREF="developers.html"
+HREF="drag_and_drop.html"
 >Next</A
 > <A
 HREF="rpm_optimizations.html"

@@ -98,16 +98,6 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
     return list;
 };
 
-//using namespace Arts;
-//
-//#include "kwave_sample_source.h"
-//#include "kwave_sample_sink.h"
-//#include <flowsystem.h>
-//#include <stdsynthmodule.h>
-//#include "libkwave/Sample.h" // ###
-//#include "libkwave/SampleReader.h" // ###
-
-
 //***************************************************************************
 void AmplifyFreePlugin::run(QStringList)
 {
@@ -155,9 +145,12 @@ void AmplifyFreePlugin::run(QStringList)
 
 //    dispatcher.run();
     fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
-    while (!src_adapter.done()) {
+    while (!m_stop && !src_adapter.done()) {
 	dst_adapter.goOn();
     }
+
+    dst_adapter.stop();
+    src_adapter.stop();
 
     sink.setAutoDelete(true);
     sink.clear();

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-01 07:22+0100\n"
+"POT-Creation-Date: 2000-02-08 20:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,112 +32,112 @@ msgstr ""
 
 #: libgui/CurveWidget.cpp:71
 msgid "Fit In"
-msgstr ""
+msgstr "Einpassen"
 
 #: libgui/CurveWidget.cpp:73
 msgid "Presets"
-msgstr ""
+msgstr "Voreinstelungen"
 
 #: libgui/CurveWidget.cpp:74
 msgid "Save Preset"
-msgstr ""
+msgstr "Voreinstellungen speichern"
 
 #: libgui/CurveWidget.cpp:76
 msgid "into 1st half"
-msgstr ""
+msgstr "in erste Hälfte"
 
 #: libgui/CurveWidget.cpp:77
 msgid "into 2nd half"
-msgstr ""
+msgstr "in zweite Hälfte"
 
 #: libgui/CurveWidget.cpp:79
 msgid "recently selected Point"
-msgstr ""
+msgstr "letzter ausgewählter Punkt"
 
 #: libgui/CurveWidget.cpp:80
 msgid "every 2nd Point"
-msgstr ""
+msgstr "jeder zweite Punkt"
 
 #: libgui/TimeLine.cpp:19
 msgid "as number of samples"
-msgstr ""
+msgstr "wie Anzahl der Samples"
 
 #: libgui/TimeLine.cpp:20
 msgid "in ms"
-msgstr ""
+msgstr "in ms"
 
 #: libgui/TimeLine.cpp:21
 msgid "in s"
-msgstr ""
+msgstr "in s"
 
 #: libgui/TimeLine.cpp:22
 msgid "in kb"
-msgstr ""
+msgstr "in KB"
 
 #: src/FFTWindow.cpp:38 src/SonagramWindow.cpp:44
 msgid "&Spectral Data"
-msgstr ""
+msgstr "&Spektrale Daten"
 
 #: src/FFTWindow.cpp:41
 msgid "&Cursor"
-msgstr ""
+msgstr "&Cursor"
 
 #: src/FFTWindow.cpp:58
 msgid "Multiply with graph"
-msgstr ""
+msgstr "Mit Graphen multiplizieren"
 
 #: src/FFTWindow.cpp:59
 msgid "Multiply with formant pattern"
-msgstr ""
+msgstr "Mit Muster multiplizieren"
 
 #: src/FFTWindow.cpp:60
 msgid "Smooth"
-msgstr ""
+msgstr "Glätten"
 
 #: src/FFTWindow.cpp:62
 msgid "Kill phase"
-msgstr ""
+msgstr "Phase eleminieren"
 
 #: src/FFTWindow.cpp:63
 msgid "find Maximum"
-msgstr ""
+msgstr "finde Maximum"
 
 #: src/FFTWindow.cpp:64
 msgid "find Minimum"
-msgstr ""
+msgstr "finde Minimum"
 
 #: src/FFTWindow.cpp:65
 msgid "find nearest Peak"
-msgstr ""
+msgstr "finde nächste Spitze"
 
 #: src/FFTWindow.cpp:70
 msgid "Inverse FFT"
-msgstr ""
+msgstr "Inverse FFT"
 
 #: src/FFTWindow.cpp:72
 #, c-format
 msgid "Amplitude in %"
-msgstr ""
+msgstr "Amplitude in %"
 
 #: src/FFTWindow.cpp:73
 msgid "Amplitude in dB"
-msgstr ""
+msgstr "Amplitude in dB"
 
 #: src/FFTWindow.cpp:83
 msgid "Phase"
-msgstr ""
+msgstr "Phase"
 
 #: src/ClipBoard.cpp:46
 msgid "Clipboard"
-msgstr ""
+msgstr "Zwischenablage"
 
 #: src/Todo/addsynth.cpp:104
 msgid "&Power"
-msgstr ""
+msgstr "&Leistung"
 
 #: src/Todo/addsynth.cpp:105
 msgid "&Phase"
-msgstr ""
+msgstr "&Phase"
 
 #: src/Todo/addsynth.cpp:106
 msgid "&Multipliers"
@@ -286,15 +286,15 @@ msgstr ""
 msgid "file %s does not exist!\n"
 msgstr ""
 
-#: src/SignalWidget.cpp:1043
+#: src/SignalWidget.cpp:1041
 msgid "Dialog not loaded !"
 msgstr ""
 
-#: src/TopWidget.cpp:91
+#: src/TopWidget.cpp:92
 msgid "selected: 0 ms        "
 msgstr "ausgewählt: 0ms"
 
-#: src/TopWidget.cpp:92
+#: src/TopWidget.cpp:93
 msgid "Clipboard: 0 ms      "
 msgstr "Zwischenablage: 0ms     "
 
@@ -316,14 +316,14 @@ msgstr ""
 
 #: plugins/dialogs/doubleenter/module.cpp:23
 msgid "Enter a value"
-msgstr ""
+msgstr "Wert eingeben"
 
 #: plugins/dialogs/doubleenter/module.cpp:29
 #: plugins/dialogs/envelope/module.cpp:32 plugins/dialogs/menus/module.cpp:24
 #: plugins/dialogs/movingaverage/module.cpp:33
 #: plugins/dialogs/quantize/module.cpp:28
 msgid "&Ok"
-msgstr ""
+msgstr "&Ok"
 
 #: plugins/dialogs/rate/module.cpp:23
 msgid "Choose New Rate :"

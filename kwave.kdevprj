@@ -15,12 +15,12 @@ dist=true
 install=false
 type=HEADER
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.h,/usr/src/packages/multimedia/sound/kwave/src/MainWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/menus.config,/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.cpp,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuItem.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuItem.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuSub.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuRoot.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuToplevel.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuToplevel.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuRoot.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuCommand.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuCommand.cpp,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/MainWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.cpp,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.h,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.h
-cpp_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp
-browser_file=file:/usr/X11/lib/qt/doc/html/qmenudata.html#c4
+header_file=/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.h
+cpp_file=/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.cpp
+browser_file=file:/usr/src/packages/development/kdelibdocs-0.3/kdecore/KConfigBase.html
 [src/PitchContainer.cpp]
 install_location=
 dist=true
@@ -341,7 +341,7 @@ version_control=None
 author=Martin Wilz
 project_type=normal_kde
 sub_dir=kwave/
-lfv_open_groups=Übersetzungen,Sources,
+lfv_open_groups=Übersetzungen,
 workspace=1
 version=0.29.7
 project_name=Kwave

@@ -12,7 +12,7 @@ KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s-::-:-g | sed s-:-/bin/:-g )
 KDEDIR=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --prefix | sed s./$$..g)
 KDEVERSION=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --version | grep "KDE:" | \
 	cut -d ":" -f 2 | sed s-^\ --g)
-KDEMAJOR=$(shell echo ${KDEVERSION} | cut -d "." -f 1)
+KDEMAJOR=$(shell echo "${KDEVERSION}" | cut -d "." -f 1)
 
 KDEQTVER=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --version | grep "Qt:" | \
 	cut -d ":" -f 2 | sed s-^\ --g)

@@ -115,26 +115,25 @@ void FileInfoDialog::setupFileInfoTab()
     lblSampleRate->setText(i18n("Sample Rate")+":");
     describeWidget(cbSampleRate, lblSampleRate->text().left(
         lblSampleRate->text().length()-1),
-        i18n("Here you can select one of "
-        "the predefined well-known sample rates or you can enter "
-        "any sample rate on your own."));
+        i18n("Here you can select one of the predefined\n"
+             "well-known sample rates or you can enter\n"
+             "any sample rate on your own."));
     cbSampleRate->setCurrentText(QString::number(m_info.rate()));
 
     /* bits per sample */
     lblResolution->setText(i18n("Resolution")+":");
     describeWidget(sbResolution, lblResolution->text().left(
         lblResolution->text().length()-1),
-        i18n("Select a resolution in bits in which the file will be saved. "
-        "However, Kwave always uses 24 bits as it's own internal resolution "
-        "to give the best results when processing the audio data."));
+        i18n("Select a resolution in bits in which the file\n"
+             "will be saved."));
     sbResolution->setValue(m_info.bits());
 
     /* number of tracks */
     lblTracks->setText(i18n("Tracks")+":");
     describeWidget(sbTracks, lblTracks->text().left(
         lblTracks->text().length()-1),
-        i18n("Shows the number of tracks of the signal. You can add or "
-        "delete tracks via the Edit menu."));
+        i18n("Shows the number of tracks of the signal.\n"
+             "You can add or delete tracks via the Edit menu."));
     sbTracks->setMaxValue(m_info.tracks());
     sbTracks->setMinValue(m_info.tracks());
     sbTracks->setValue(m_info.tracks());
@@ -146,8 +145,8 @@ void FileInfoDialog::setupFileInfoTab()
     lblLength->setText(i18n("Length")+":");
     describeWidget(txtLength, lblLength->text().left(
         lblLength->text().length()-1),
-        i18n("Shows the length of the file in samples and if "
-        "possible as time."));
+        i18n("Shows the length of the file in samples\n"
+             "and if possible as time."));
     unsigned int samples = m_info.length();
     double rate = m_info.rate();
     if (rate != 0) {
@@ -232,7 +231,9 @@ void FileInfoDialog::setupMiscellaneousTab()
     initInfoText(lblCommissioned, edCommissioned, INF_COMMISSIONED);
 
     /* list of keywords */
-    initInfo(lblKeywords, lstKeywords, INF_KEYWORDS);
+    lblKeywords->setText(m_info.name(INF_KEYWORDS));
+    QWhatsThis::add(lstKeywords, "<b>"+m_info.name(INF_KEYWORDS)+
+        "</b><br>"+m_info.description(INF_KEYWORDS));
     if (m_info.contains(INF_KEYWORDS)) {
 	QString keywords = QVariant(m_info.get(INF_KEYWORDS)).toString();
 	lstKeywords->setKeywords(QStringList::split(";", keywords));

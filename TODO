@@ -57,6 +57,8 @@ o get Xt toolkit options working again (like -geometry)
 
 o recording support
 
+o fileinfo plugin: auto-generate filename from "track - title"
+
 o Filter: class needs to be tested
 
 o Signal::resample should use lowpass interpolation instead of spline

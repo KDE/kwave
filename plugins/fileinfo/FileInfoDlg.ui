@@ -1043,7 +1043,7 @@
                             <cstring>lblSourceForm</cstring>
                         </property>
                         <property name="text">
-                            <string>Source Form:</string>
+                            <string>#</string>
                         </property>
                     </widget>
                     <spacer row="9" column="2">
@@ -1062,7 +1062,7 @@
                             <cstring>lblSource</cstring>
                         </property>
                         <property name="text">
-                            <string>Source:</string>
+                            <string>#</string>
                         </property>
                     </widget>
                     <widget class="QLabel" row="4" column="0">
@@ -1070,7 +1070,7 @@
                             <cstring>lblCD</cstring>
                         </property>
                         <property name="text">
-                            <string>CD:</string>
+                            <string>#</string>
                         </property>
                     </widget>
                     <widget class="QLabel" row="3" column="0">
@@ -1078,7 +1078,7 @@
                             <cstring>lblAlbum</cstring>
                         </property>
                         <property name="text">
-                            <string>Album:</string>
+                            <string>#</string>
                         </property>
                     </widget>
                     <widget class="QLabel" row="5" column="0">
@@ -1086,7 +1086,7 @@
                             <cstring>lblTrack</cstring>
                         </property>
                         <property name="text">
-                            <string>Track:</string>
+                            <string>#</string>
                         </property>
                     </widget>
                     <spacer row="1" column="1">
@@ -1301,7 +1301,7 @@
                             <cstring>lblArchival</cstring>
                         </property>
                         <property name="text">
-                            <string>Archival:</string>
+                            <string>#</string>
                         </property>
                     </widget>
                     <widget class="QLineEdit" row="7" column="2">
@@ -1317,7 +1317,7 @@
                             <cstring>lblProduct</cstring>
                         </property>
                         <property name="text">
-                            <string>Product:</string>
+                            <string>#</string>
                         </property>
                     </widget>
                     <widget class="QFrame" row="6" column="0" rowspan="1" colspan="3">

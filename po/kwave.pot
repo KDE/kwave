@@ -6,13 +6,29 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-07-17 22:07+0200\n"
+"POT-Creation-Date: 2002-08-03 20:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: libkwave/SampleFormat.cpp:35
+msgid "linear two's complement"
+msgstr ""
+
+#: libkwave/SampleFormat.cpp:37
+msgid "unsigned integer"
+msgstr ""
+
+#: libkwave/SampleFormat.cpp:39
+msgid "32-bit IEEE floating-point"
+msgstr ""
+
+#: libkwave/SampleFormat.cpp:41
+msgid "64-bit IEEE double-precision floating-point"
+msgstr ""
 
 #: libkwave/Interpolation.cpp:32
 msgid "linear"
@@ -74,225 +90,337 @@ msgstr ""
 msgid "Zero"
 msgstr ""
 
+#: libkwave/CompressionType.cpp:39
+msgid "no compression"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:41
+msgid "G722"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:43
+msgid "G711 ULAW"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:45
+msgid "G711 ALAW"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:49
+msgid "Apple ACE2"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:51
+msgid "Apple ACE8"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:53
+msgid "Apple MAC3"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:55
+msgid "Apple MAC6"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:58
+msgid "G726"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:60
+msgid "G728"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:62
+msgid "DVI Audio / IMA"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:64
+msgid "GSM"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:66
+msgid "FS1016"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:68
+msgid "DV"
+msgstr ""
+
+#: libkwave/CompressionType.cpp:70
+msgid "MS ADPCM"
+msgstr ""
+
 #: libkwave/FileInfo.cpp:29
+msgid "Album"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:30
+msgid ""
+"Name of the album if the source is an album\n"
+"that consist of more medias."
+msgstr ""
+
+#: libkwave/FileInfo.cpp:33
 msgid "Annotation"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:30 libkwave/FileInfo.cpp:52
+#: libkwave/FileInfo.cpp:34
 msgid ""
-"Provides general comments about the file or the subject of the file. If the "
-"comment is several sentences long, end each sentence with a period. Do not "
-"include newline characters!"
-msgstr ""
-
-#: libkwave/FileInfo.cpp:35
-msgid "Archival location"
-msgstr ""
-
-#: libkwave/FileInfo.cpp:36
-msgid "Indicates where the subject of the file is archived."
-msgstr ""
-
-#: libkwave/FileInfo.cpp:38
-msgid "Artist"
+"Provides general comments about the file or the subject of \n"
+"the file. If the comment is several sentences long, end \n"
+"each sentence with a period. Do not include newline \n"
+"characters!"
 msgstr ""
 
 #: libkwave/FileInfo.cpp:39
+msgid "Archival location"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:40
+msgid "Indicates where the subject of the file is archived."
+msgstr ""
+
+#: libkwave/FileInfo.cpp:42
+msgid "Artist"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:43
 msgid ""
 "Lists the artist of the original subject of the file.\n"
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:42
+#: libkwave/FileInfo.cpp:46
 msgid "Author"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:43
+#: libkwave/FileInfo.cpp:47
 msgid ""
-"Identifies the name of the author of the original subject of the file.\n"
+"Identifies the name of the author of the original\n"
+"subject of the file.\n"
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:47
+#: libkwave/FileInfo.cpp:51
+msgid "CD"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:52
+msgid ""
+"Number of the CD, if the source is \n"
+"an album of more CDROMs"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:54
 msgid "Commisioned"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:48
+#: libkwave/FileInfo.cpp:55
 msgid ""
-"Lists the name of the person or organization that commissioned the subject "
-"of the file."
-msgstr ""
-
-#: libkwave/FileInfo.cpp:51
-msgid "Comments"
-msgstr ""
-
-#: libkwave/FileInfo.cpp:57
-msgid "Compression"
+"Lists the name of the person or organization\n"
+"that commissioned the subject of the file."
 msgstr ""
 
 #: libkwave/FileInfo.cpp:58
-msgid "Sets a mode for compressing the audio data to reduce disk space."
+msgid "Comments"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:61
-msgid "Copyright"
-msgstr ""
-
-#: libkwave/FileInfo.cpp:62
+#: libkwave/FileInfo.cpp:59
 msgid ""
-"Records the copyright information for the file. If there are multiple "
-"copyrights, separate them by a semicolon followed by a space.\n"
-"Example: 'Copyright Linux community 2002'"
+"Provides general comments about the file or the subject of\n"
+"the file. If the comment is several sentences long, end\n"
+"each sentence with a period. Do not include newline\n"
+"characters!"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:67
-msgid "Date"
+#: libkwave/FileInfo.cpp:64
+msgid "Compression"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:65
+msgid ""
+"Sets a mode for compressing the audio\n"
+"data to reduce disk space."
 msgstr ""
 
 #: libkwave/FileInfo.cpp:68
-msgid ""
-"Specifies the date the subject of the file was created. List dates in year-"
-"month-day format, padding one-digit months and days with a zero on the left "
-"(ISO format).\n"
-"Example: '2001-12-24'"
+msgid "Copyright"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:73
-msgid "Engineer"
+#: libkwave/FileInfo.cpp:69
+msgid ""
+"Records the copyright information for the file. If there are\n"
+"multiple copyrights, separate them by a semicolon followed\n"
+"by a space.\n"
+"Example: 'Copyright Linux community 2002'"
 msgstr ""
 
 #: libkwave/FileInfo.cpp:74
+msgid "Date"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:75
 msgid ""
-"Shows the name of the engineer who worked on the file. If there are multiple "
-"engineers, separate the names by a semicolon and a blank."
+"Specifies the date the subject of the file was created. \n"
+"Example: '2001-12-24'"
 msgstr ""
 
 #: libkwave/FileInfo.cpp:78
-msgid "Filename"
+msgid "Engineer"
 msgstr ""
 
 #: libkwave/FileInfo.cpp:79
+msgid ""
+"Shows the name of the engineer who worked on the file.\n"
+"If there are multiple engineers, separate the names by\n"
+"a semicolon and a blank."
+msgstr ""
+
+#: libkwave/FileInfo.cpp:83
+msgid "Filename"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:84
 msgid "Name of the opened file"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:81
+#: libkwave/FileInfo.cpp:86
+msgid "File Size"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:87
+msgid "Size of the file in bytes"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:89
 msgid "Genre"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:82
+#: libkwave/FileInfo.cpp:90
 msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:85
+#: libkwave/FileInfo.cpp:93 plugins/fileinfo/KeywordWidgetBase.uic.cpp:29
 msgid "Keywords"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:86
+#: libkwave/FileInfo.cpp:94
 msgid ""
-"Provides a list of keywords that refer to the file or subject of the file. "
-"Separate multiple keywords with a semicolon and a blank."
+"Provides a list of keywords that refer to the\n"
+"file or subject of the file."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:90
+#: libkwave/FileInfo.cpp:97
 msgid "Medium"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:91
+#: libkwave/FileInfo.cpp:98
 msgid ""
-"Describes the original subject of the file, where it was first recorded.\n"
+"Describes the original subject of the file,\n"
+"where it was first recorded.\n"
 "Example: 'orchester'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:95
+#: libkwave/FileInfo.cpp:102
 msgid "Mime Type"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:96
+#: libkwave/FileInfo.cpp:103
 msgid "Mime type of the file format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:98
+#: libkwave/FileInfo.cpp:105
 msgid "Name"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:99
+#: libkwave/FileInfo.cpp:106
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: 'Symphony No.6, Op.68 \"Pastoral\"'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:102
+#: libkwave/FileInfo.cpp:109
 msgid "Product"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:103
+#: libkwave/FileInfo.cpp:110
 msgid ""
-"Specifies the name or the title the file was originally intended for.\n"
+"Specifies the name or the title the file was\n"
+"originally intended for.\n"
 "Example: 'Linux audio collection'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:109
+#: libkwave/FileInfo.cpp:114
 msgid "Sample Format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:110
+#: libkwave/FileInfo.cpp:115
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:113
-msgid "Software"
-msgstr ""
-
-#: libkwave/FileInfo.cpp:114
-msgid ""
-"Identifies the name of the software package used to create the file. \n"
-"Example: 'Kwave v0.6.4-1'"
-msgstr ""
-
 #: libkwave/FileInfo.cpp:118
-msgid "Source"
+msgid "Software"
 msgstr ""
 
 #: libkwave/FileInfo.cpp:119
 msgid ""
-"Identifies the name of the person or organization who supplied the original "
-"subject of the file. \n"
-"Example: 'Chaotic Sound Research'"
+"Identifies the name of the software package\n"
+"used to create the file. \n"
+"Example: 'Kwave v0.6.4-1'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:123
-msgid "Source form"
+#: libkwave/FileInfo.cpp:123 plugins/fileinfo/FileInfoDlg.uic.cpp:681
+msgid "Source"
 msgstr ""
 
 #: libkwave/FileInfo.cpp:124
 msgid ""
-"Identifies the original form of the material that was digitized.\n"
-"Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
+"Identifies the name of the person or organization\n"
+"who supplied the original subject of the file.\n"
+"Example: 'Chaotic Sound Research'"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:128
+msgid "Source form"
 msgstr ""
 
 #: libkwave/FileInfo.cpp:129
+msgid ""
+"Identifies the original form of the material\n"
+"that was digitized.\n"
+"Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:134
 msgid "Subject"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:130
+#: libkwave/FileInfo.cpp:135
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:133
+#: libkwave/FileInfo.cpp:138
 msgid "Technican"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:134
+#: libkwave/FileInfo.cpp:139
 msgid ""
 "Identifies the technican who digitized the subject file. \n"
 "Example: 'Torvalds, Linus'"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:142
+msgid "Track"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:143
+msgid "Track of the CD if the source was a CDROM."
 msgstr ""
 
 #: libkwave/WindowFunction.cpp:54
@@ -311,61 +439,69 @@ msgstr ""
 msgid "Blackman"
 msgstr ""
 
-#: kwave/SignalManager.cpp:245
+#: kwave/SignalManager.cpp:250
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:274
+#: kwave/SignalManager.cpp:279
 msgid ""
 "Saving in this format will loose some additional file attributes. Do you "
 "still want to continue?"
 msgstr ""
 
-#: kwave/SignalManager.cpp:311
+#: kwave/SignalManager.cpp:316
 msgid "An error occurred while saving the file!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:320
+#: kwave/SignalManager.cpp:325
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:327
+#: kwave/SignalManager.cpp:332
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:541
+#: kwave/SignalManager.cpp:546
 msgid "cut"
 msgstr ""
 
-#: kwave/SignalManager.cpp:544
+#: kwave/SignalManager.cpp:549
 msgid "crop"
 msgstr ""
 
-#: kwave/SignalManager.cpp:610
+#: kwave/SignalManager.cpp:615
 msgid "paste"
 msgstr ""
 
-#: kwave/SignalManager.cpp:653
+#: kwave/SignalManager.cpp:658
 msgid "append track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:660 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:665 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:694 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:699 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:777 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:782 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1249 kwave/SignalManager.cpp:1256
+#: kwave/SignalManager.cpp:1256 kwave/SignalManager.cpp:1263
 msgid "last action"
 msgstr ""
 
-#: kwave/TopWidget.cpp:108
+#: kwave/SignalManager.cpp:1482
+msgid "modify file info"
+msgstr ""
+
+#: kwave/UndoFileInfo.cpp:36
+msgid "modify file information"
+msgstr ""
+
+#: kwave/TopWidget.cpp:107
 msgid "New File"
 msgstr ""
 
@@ -458,46 +594,49 @@ msgstr ""
 msgid "Ready."
 msgstr ""
 
-#: kwave/TopWidget.cpp:769
+#: kwave/TopWidget.cpp:752
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:895
+#: kwave/TopWidget.cpp:877
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1014
+#: kwave/TopWidget.cpp:995
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1014
+#: kwave/TopWidget.cpp:995
 #, ycp-format
 msgid "(%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1023
+#: kwave/TopWidget.cpp:1004
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1070
-#, ycp-format
-msgid "Selected: %1 (%2 samples)"
+#: kwave/TopWidget.cpp:1045
+msgid "Selected"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1117
+#: kwave/TopWidget.cpp:1049
+msgid "samples"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1104
 msgid "U&ndo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1123
+#: kwave/TopWidget.cpp:1110
 msgid "R&edo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1321
+#: kwave/TopWidget.cpp:1304
 msgid " (modified)"
 msgstr ""
 
@@ -574,141 +713,141 @@ msgstr ""
 msgid "selection"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1777 kwave/SignalWidget.cpp:1816
+#: kwave/SignalWidget.cpp:1770 kwave/SignalWidget.cpp:1809
 msgid "drag and drop"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:136
-msgid "1&6 Bit"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:145
-msgid "2&4 Bit"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:126
-#: plugins/playback/PlayBackDialog.cpp:129
-msgid "&8 Bit"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:16
+#: kwave/menus_config_i18n.cpp:13
 msgid "About &KDE"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:17
+#: kwave/menus_config_i18n.cpp:14
 msgid "&About Kwave"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:18
+#: kwave/menus_config_i18n.cpp:15
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:44
 msgid "&Add"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:19
+#: kwave/menus_config_i18n.cpp:16
 msgid "&Additive Synthesis"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:20
+#: kwave/menus_config_i18n.cpp:17
 msgid "&All"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:21
+#: kwave/menus_config_i18n.cpp:18
 msgid "&Amplify"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:22
+#: kwave/menus_config_i18n.cpp:19
 msgid "&As..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:23
+#: kwave/menus_config_i18n.cpp:20
 msgid "&Average spectrum"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:24
+#: kwave/menus_config_i18n.cpp:21
 msgid "&Blocks..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:25
+#: kwave/menus_config_i18n.cpp:22
 msgid "&Calculate"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:26
+#: kwave/menus_config_i18n.cpp:23
 msgid "&Center Signal"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:27
+#: kwave/menus_config_i18n.cpp:24
 msgid "&Change rate"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:28
+#: kwave/menus_config_i18n.cpp:25
 msgid "&Choose type"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:29
+#: kwave/menus_config_i18n.cpp:26
 msgid "&Clipboard"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:30
+#: kwave/menus_config_i18n.cpp:27
 msgid "Clip&board"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:33 plugins/codec_wav/WavDecoder.cpp:238
+#: kwave/menus_config_i18n.cpp:30 plugins/codec_wav/WavDecoder.cpp:238
 msgid "&Continue"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:34
+#: kwave/menus_config_i18n.cpp:31
 msgid "&Convert label distance to pitch"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:36
+#: kwave/menus_config_i18n.cpp:33
 msgid "&Create"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:37
+#: kwave/menus_config_i18n.cpp:34
 msgid "Create &type"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:38
+#: kwave/menus_config_i18n.cpp:35
 msgid "&Crop"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:39
+#: kwave/menus_config_i18n.cpp:36
 msgid "Cu&t"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:40
+#: kwave/menus_config_i18n.cpp:37
 msgid "De&lay"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:42
+#: kwave/menus_config_i18n.cpp:39
 msgid "&Distort"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:44
+#: kwave/menus_config_i18n.cpp:41
 msgid "&End"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:45
+#: kwave/menus_config_i18n.cpp:42
 msgid "&Enter Command"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:46
+#: kwave/menus_config_i18n.cpp:43
 msgid "&Envelope"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:47
+#: kwave/menus_config_i18n.cpp:44
 msgid "E&xecute"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:48
+#: kwave/menus_config_i18n.cpp:45
 msgid "&Expand to labels"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:49
+#: kwave/menus_config_i18n.cpp:46
 msgid "Fade &In"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:50
+#: kwave/menus_config_i18n.cpp:47
+msgid "Fade Intro"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:48
+msgid "Fade Leadout"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:49
 msgid "Fade &Out"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:51
+msgid "File &Properties..."
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:52
@@ -876,102 +1015,98 @@ msgid "S&ave"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:102
-msgid "Save resol&ution"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:103
 msgid "Scroll &left"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:104
+#: kwave/menus_config_i18n.cpp:103
 msgid "Scroll &right"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:105
+#: kwave/menus_config_i18n.cpp:104
 msgid "&Select all"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:106
+#: kwave/menus_config_i18n.cpp:105
 msgid "&Selection"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:107
+#: kwave/menus_config_i18n.cpp:106
 msgid "&Selection..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:108
+#: kwave/menus_config_i18n.cpp:107
 msgid "&Silence"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:109 plugins/sonagram/SonagramWindow.cpp:124
+#: kwave/menus_config_i18n.cpp:108 plugins/sonagram/SonagramWindow.cpp:124
 msgid "&Sonagram"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:110
+#: kwave/menus_config_i18n.cpp:109
 msgid "Spe&ctrum"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:112
+#: kwave/menus_config_i18n.cpp:111
 msgid "&Start recording"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:113
+#: kwave/menus_config_i18n.cpp:112
 msgid "S&top"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:114
+#: kwave/menus_config_i18n.cpp:113
 msgid "S&top recording"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:115
+#: kwave/menus_config_i18n.cpp:114
 msgid "to be done..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:116
+#: kwave/menus_config_i18n.cpp:115
 msgid "&to end"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:117
+#: kwave/menus_config_i18n.cpp:116
 msgid "to &Maximum"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:118
+#: kwave/menus_config_i18n.cpp:117
 msgid "&to new Window"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:119
+#: kwave/menus_config_i18n.cpp:118
 msgid "&to start"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:120
+#: kwave/menus_config_i18n.cpp:119
 msgid "&Track"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:121
+#: kwave/menus_config_i18n.cpp:120
 msgid "Tri&m"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:123
+#: kwave/menus_config_i18n.cpp:122
 msgid "&Undo and Redo"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:125
+#: kwave/menus_config_i18n.cpp:124
 msgid "&Visible area"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:126
+#: kwave/menus_config_i18n.cpp:125
 msgid "with &Clipboard"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:127
+#: kwave/menus_config_i18n.cpp:126
 msgid "Zoom &In"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:128
+#: kwave/menus_config_i18n.cpp:127
 msgid "Zoom &Out"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:129
+#: kwave/menus_config_i18n.cpp:128
 msgid "Zoom to &Selection"
 msgstr ""
 
@@ -1039,72 +1174,68 @@ msgstr ""
 msgid "every 2nd Point"
 msgstr ""
 
-#: libgui/Dialog.h:24 libgui/KwavePlugin.h:47
-msgid "&Ok"
-msgstr ""
-
-#: libgui/FileProgress.cpp:75
+#: libgui/FileProgress.cpp:76
 msgid "source: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:81
+#: libgui/FileProgress.cpp:82
 msgid "length: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:89
+#: libgui/FileProgress.cpp:90
 #, ycp-format
 msgid "%1 samples"
 msgstr ""
 
-#: libgui/FileProgress.cpp:94
+#: libgui/FileProgress.cpp:95
 msgid "sample rate: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:95
+#: libgui/FileProgress.cpp:96
 #, ycp-format
 msgid "%1 samples per second"
 msgstr ""
 
-#: libgui/FileProgress.cpp:99
+#: libgui/FileProgress.cpp:100
 msgid "resolution: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:100
+#: libgui/FileProgress.cpp:101
 #, ycp-format
 msgid "%1 bits per sample"
 msgstr ""
 
-#: libgui/FileProgress.cpp:104
+#: libgui/FileProgress.cpp:105
 msgid "tracks: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:107
+#: libgui/FileProgress.cpp:108
 msgid "1 (mono)"
 msgstr ""
 
-#: libgui/FileProgress.cpp:110
+#: libgui/FileProgress.cpp:111
 msgid "2 (stereo)"
 msgstr ""
 
-#: libgui/FileProgress.cpp:113
+#: libgui/FileProgress.cpp:114
 msgid "4 (quadro)"
 msgstr ""
 
-#: libgui/FileProgress.cpp:186
+#: libgui/FileProgress.cpp:187
 msgid "Do you really want to abort the operation?"
 msgstr ""
 
-#: libgui/FileProgress.cpp:255
+#: libgui/FileProgress.cpp:256
 #, ycp-format
 msgid "%1 KB/s (%2 remain)"
 msgstr ""
 
-#: libgui/FileProgress.cpp:270
+#: libgui/FileProgress.cpp:271
 #, ycp-format
 msgid "%1 MB of %2 MB done"
 msgstr ""
 
-#: libgui/FileProgress.cpp:292
+#: libgui/FileProgress.cpp:296
 #, c-format
 msgid "(%1%) %2"
 msgstr ""
@@ -1180,9 +1311,15 @@ msgstr ""
 msgid "Playback Options :"
 msgstr ""
 
+#: plugins/fileinfo/FileInfoDialog.cpp:124
 #: plugins/playback/PlayBackDialog.cpp:109
 #: plugins/playback/PlayBackDialog.cpp:110
 msgid "Resolution"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:126
+#: plugins/playback/PlayBackDialog.cpp:129
+msgid "&8 Bit"
 msgstr ""
 
 #: plugins/playback/PlayBackDialog.cpp:133
@@ -1191,10 +1328,18 @@ msgid ""
 "should be supported by all sound hardware !"
 msgstr ""
 
+#: plugins/playback/PlayBackDialog.cpp:136
+msgid "1&6 Bit"
+msgstr ""
+
 #: plugins/playback/PlayBackDialog.cpp:142
 msgid ""
 "Set Playback-Mode to 16 Bit (CD-like quality)\n"
 "not supported by all sound hardware !"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:145
+msgid "2&4 Bit"
 msgstr ""
 
 #: plugins/playback/PlayBackDialog.cpp:151
@@ -1339,78 +1484,79 @@ msgstr ""
 msgid "Select Range..."
 msgstr ""
 
+#: plugins/fileinfo/FileInfoDialog.cpp:145
 #: plugins/newsignal/NewSigDlg.uic.cpp:367
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:273
 msgid "Length"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:281
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:282
 msgid "&Samples"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:283
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:284
 msgid "select by number of samples"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:288
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:290
 msgid "&Time"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:290
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:292
 msgid "select by time"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:477
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:307
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:309
 #, c-format
 msgid "0%"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:483
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:313
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:315
 #, c-format
 msgid "50%"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:489
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:319
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:321
 #, c-format
 msgid "100%"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:332
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:335
 msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:343
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:346
 msgid "&Percent"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:345
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:348
 msgid "select by percentage of the signal's length"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:420
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:368
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:371
 msgid "Minutes"
 msgstr ""
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:383
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:386
 msgid "Milliseconds"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:399
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:389
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:392
 msgid "Seconds"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:429
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:404
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:407
 msgid "Hours"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:520
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:426
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:430
 msgid "O&K"
 msgstr ""
 
@@ -1611,28 +1757,245 @@ msgstr ""
 msgid "Kwave auto-repair"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:361
-msgid "linear two's complement"
-msgstr ""
-
-#: plugins/codec_wav/WavDecoder.cpp:364
-msgid "unsigned integer"
-msgstr ""
-
-#: plugins/codec_wav/WavDecoder.cpp:367
-msgid "32-bit IEEE floating-point"
-msgstr ""
-
-#: plugins/codec_wav/WavDecoder.cpp:370
-msgid "64-bit IEEE double-precision floating-point"
-msgstr ""
-
-#: plugins/codec_wav/WavDecoder.cpp:373
-msgid "unknown"
-msgstr ""
-
 #: plugins/noise/NoisePlugin.cpp:49
 msgid "noise"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:273
+msgid "File Info"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:285
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:290
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:295
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:300
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:307
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:328
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:357
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:366
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:468
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:495
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:507
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:512
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:527
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:532
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:582
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:589
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:594
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:599
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:604
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:661
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:671
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:687
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:706
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:713
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:718
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:744
+msgid "#"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:380
+#: plugins/newsignal/NewSigDlg.uic.cpp:282
+msgid "8000"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:381
+#: plugins/newsignal/NewSigDlg.uic.cpp:283
+msgid "10000"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:382
+#: plugins/newsignal/NewSigDlg.uic.cpp:284
+msgid "11025"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:383
+#: plugins/newsignal/NewSigDlg.uic.cpp:285
+msgid "12000"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:384
+#: plugins/newsignal/NewSigDlg.uic.cpp:286
+msgid "16000"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:385
+#: plugins/newsignal/NewSigDlg.uic.cpp:287
+msgid "22050"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:386
+#: plugins/newsignal/NewSigDlg.uic.cpp:288
+msgid "32000"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:387
+#: plugins/newsignal/NewSigDlg.uic.cpp:289
+msgid "44100"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:388
+#: plugins/newsignal/NewSigDlg.uic.cpp:290
+msgid "48000"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:389
+#: plugins/newsignal/NewSigDlg.uic.cpp:291
+msgid "96000"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:397
+#: plugins/newsignal/NewSigDlg.uic.cpp:312
+msgid "samples per second"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:415
+#: plugins/newsignal/NewSigDlg.uic.cpp:332
+msgid "bit"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:432
+#: plugins/newsignal/NewSigDlg.uic.cpp:342
+#: plugins/newsignal/NewSigDlg.uic.cpp:501
+#, c-format, ycp-format
+msgid "%1"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:550
+msgid "&Select..."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:553
+msgid "Select a date from the calendar."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:554
+msgid "Opens a dialog for selecting a date from the calendar."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:559
+msgid "&Today"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:562
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:563
+msgid "Set the date to today."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDlg.uic.cpp:569
+msgid "Content"
+msgstr ""
+
+#: plugins/fileinfo/SelectDateDlg.uic.cpp:264
+msgid "Select Date"
+msgstr ""
+
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:50
+msgid "A&uto"
+msgstr ""
+
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:51
+msgid "auto-generate keywords"
+msgstr ""
+
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:52
+msgid ""
+"<b>Auto-Generate Keywords</b><br>\n"
+"Create a list of keywords by going through all present file informations and "
+"merge them with the current list of keywords."
+msgstr ""
+
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:59
+msgid "List of keywords."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:102
+#, ycp-format
+msgid "%1 bytes"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:104
+#, ycp-format
+msgid "%1 kB (%2 byte)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:107
+#, ycp-format
+msgid "%1 MB (%2 byte)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:115
+msgid "Sample Rate"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:118
+msgid ""
+"Here you can select one of the predefined\n"
+"well-known sample rates or you can enter\n"
+"any sample rate on your own."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:127
+msgid ""
+"Select a resolution in bits in which the file\n"
+"will be saved."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:132
+msgid "Tracks"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:135
+msgid ""
+"Shows the number of tracks of the signal.\n"
+"You can add or delete tracks via the Edit menu."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:148
+msgid ""
+"Shows the length of the file in samples\n"
+"and if possible as time."
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:154
+#, ycp-format
+msgid "%1 (%2 samples)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:158
+#, ycp-format
+msgid "%2 samples"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:268
+#: plugins/newsignal/NewSignalDialog.cpp:321
+msgid "(Mono)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:271
+#: plugins/newsignal/NewSignalDialog.cpp:324
+msgid "(Stereo)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:274
+#: plugins/newsignal/NewSignalDialog.cpp:327
+msgid "(Quadro)"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoPlugin.cpp:75
+msgid ""
+"You have changed the sample rate. Do you want to convert the whole file to "
+"the new sample rate or do you only want to set the rate information in order "
+"to repair a damaged file? Note: changing only the sample rate can cause "
+"\"mickey mouse\" effects!"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoPlugin.cpp:81
+msgid "&Convert"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoPlugin.cpp:81
+msgid "&Set Rate"
 msgstr ""
 
 #: plugins/sonagram/SonagramWindow.cpp:128
@@ -1775,18 +2138,6 @@ msgstr ""
 msgid "size of bitmap: %1x%2"
 msgstr ""
 
-#: plugins/newsignal/NewSignalDialog.cpp:321
-msgid "(Mono)"
-msgstr ""
-
-#: plugins/newsignal/NewSignalDialog.cpp:324
-msgid "(Stereo)"
-msgstr ""
-
-#: plugins/newsignal/NewSignalDialog.cpp:327
-msgid "(Quadro)"
-msgstr ""
-
 #: plugins/newsignal/NewSignalDialog.cpp:352
 #, ycp-format
 msgid "(Resulting file size: %1 MB)"
@@ -1800,46 +2151,6 @@ msgstr ""
 msgid "Format"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:282
-msgid "8000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:283
-msgid "10000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:284
-msgid "11025"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:285
-msgid "12000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:286
-msgid "16000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:287
-msgid "22050"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:288
-msgid "32000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:289
-msgid "44100"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:290
-msgid "48000"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:291
-msgid "96000"
-msgstr ""
-
 #: plugins/newsignal/NewSigDlg.uic.cpp:294
 msgid ""
 "<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
@@ -1850,26 +2161,12 @@ msgstr ""
 msgid "Sample Rate:"
 msgstr ""
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:312
-msgid "samples per second"
-msgstr ""
-
 #: plugins/newsignal/NewSigDlg.uic.cpp:320
 msgid "Tracks:"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:325
 msgid "Resolution:"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:332
-msgid "bit"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:342
-#: plugins/newsignal/NewSigDlg.uic.cpp:501
-#, c-format, ycp-format
-msgid "%1"
 msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:352

@@ -75,7 +75,7 @@ void FileInfoPlugin::apply(FileInfo &new_info)
 	    i18n("You have changed the sample rate. Do you want to convert "
 		 "the whole file to the new sample rate or do "
 		 "you only want to set the rate information in order "
-		 "to repair a damaged file. Note: changing only the sample "
+		 "to repair a damaged file? Note: changing only the sample "
 		 "rate can cause \"mickey mouse\" effects!"),
 	    0,
 	    i18n("&Convert"), i18n("&Set Rate"));

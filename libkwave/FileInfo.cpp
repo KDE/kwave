@@ -27,13 +27,13 @@ void FileInfo::PropertyTypesMap::fill()
 {
     append(INF_ALBUM, 0,
         i18n("Album"),
-        i18n("Name of the album if the source is an album that consist "
-             "of more medias."));
+        i18n("Name of the album if the source is an album\n"
+             "that consist of more medias."));
     append(INF_ANNOTATION, 0,
         i18n("Annotation"),
-        i18n("Provides general comments about the file or the subject of "
-             "the file. If the comment is several sentences long, end "
-             "each sentence with a period. Do not include newline "
+        i18n("Provides general comments about the file or the subject of \n"
+             "the file. If the comment is several sentences long, end \n"
+             "each sentence with a period. Do not include newline \n"
              "characters!"));
     append(INF_ARCHIVAL, 0,
         i18n("Archival location"),
@@ -44,42 +44,40 @@ void FileInfo::PropertyTypesMap::fill()
              "\nExample: 'van Beethoven, Ludwig'"));
     append(INF_AUTHOR, 0,
         i18n("Author"),
-        i18n("Identifies the name of the author of the original "
+        i18n("Identifies the name of the author of the original\n"
              "subject of the file."
              "\nExample: 'van Beethoven, Ludwig'"));
     append(INF_CD, 0,
         i18n("CD"),
-        i18n("Number of the CD, if the source is an album of more CDROMs"));
+        i18n("Number of the CD, if the source is \nan album of more CDROMs"));
     append(INF_COMMISSIONED, 0,
         i18n("Commisioned"),
-        i18n("Lists the name of the person or organization that commissioned "
-             "the subject of the file."));
+        i18n("Lists the name of the person or organization\n"
+             "that commissioned the subject of the file."));
     append(INF_COMMENTS, 0,
         i18n("Comments"),
-        i18n("Provides general comments about the file or the subject of "
-             "the file. If the comment is several sentences long, end "
-             "each sentence with a period. Do not include newline "
+        i18n("Provides general comments about the file or the subject of\n"
+             "the file. If the comment is several sentences long, end\n"
+             "each sentence with a period. Do not include newline\n"
              "characters!"));
     append(INF_COMPRESSION, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Compression"),
-        i18n("Sets a mode for compressing the audio data to reduce "
-             "disk space."));
+        i18n("Sets a mode for compressing the audio\n"
+             "data to reduce disk space."));
     append(INF_COPYRIGHT, 0,
         i18n("Copyright"),
-        i18n("Records the copyright information for the file. If there are "
-             "multiple copyrights, separate them by a semicolon followed "
+        i18n("Records the copyright information for the file. If there are\n"
+             "multiple copyrights, separate them by a semicolon followed\n"
              "by a space."
              "\nExample: 'Copyright Linux community 2002'"));
     append(INF_CREATION_DATE, 0,
         i18n("Date"),
         i18n("Specifies the date the subject of the file was created. "
-             "List dates in year-month-day format, padding one-digit "
-             "months and days with a zero on the left (ISO format)."
              "\nExample: '2001-12-24'"));
     append(INF_ENGINEER, 0,
         i18n("Engineer"),
-        i18n("Shows the name of the engineer who worked on the file. "
-             "If there are multiple engineers, separate the names by "
+        i18n("Shows the name of the engineer who worked on the file.\n"
+             "If there are multiple engineers, separate the names by\n"
              "a semicolon and a blank."));
     append(INF_FILENAME, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Filename"),
@@ -93,12 +91,12 @@ void FileInfo::PropertyTypesMap::fill()
              "\nExamples: 'classic', 'pop'"));
     append(INF_KEYWORDS, 0,
         i18n("Keywords"),
-        i18n("Provides a list of keywords that refer to the "
+        i18n("Provides a list of keywords that refer to the\n"
              "file or subject of the file."));
     append(INF_MEDIUM, 0,
         i18n("Medium"),
-        i18n("Describes the original subject of the file, where it "
-             "was first recorded."
+        i18n("Describes the original subject of the file,\n"
+             "where it was first recorded."
              "\nExample: 'orchester'"));
     append(INF_MIMETYPE, FP_READONLY,
         i18n("Mime Type"),
@@ -109,8 +107,8 @@ void FileInfo::PropertyTypesMap::fill()
              "\nExample: 'Symphony No.6, Op.68 \"Pastoral\"'"));
     append(INF_PRODUCT, 0,
         i18n("Product"),
-        i18n("Specifies the name or the title the file was originally "
-             "intended for."
+        i18n("Specifies the name or the title the file was\n"
+             "originally intended for."
              "\nExample: 'Linux audio collection'"));
     append(INF_SAMPLE_FORMAT, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Sample Format"),
@@ -118,18 +116,18 @@ void FileInfo::PropertyTypesMap::fill()
              "\nExample: '32-bit IEEE floating-point'"));
     append(INF_SOFTWARE, 0,
         i18n("Software"),
-        i18n("Identifies the name of the software package used to "
-             "create the file. "
+        i18n("Identifies the name of the software package\n"
+             "used to create the file. "
              "\nExample: 'Kwave v0.6.4-1'"));
     append(INF_SOURCE, 0,
         i18n("Source"),
-        i18n("Identifies the name of the person or organization "
-             "who supplied the original subject of the file. "
+        i18n("Identifies the name of the person or organization\n"
+             "who supplied the original subject of the file."
              "\nExample: 'Chaotic Sound Research'"));
     append(INF_SOURCE_FORM, 0,
         i18n("Source form"),
-        i18n("Identifies the original form of the material that was "
-             "digitized."
+        i18n("Identifies the original form of the material\n"
+             "that was digitized."
              "\nExamples: 'Record/Vinyl/90RPM', 'Audio DAT', "
              "'tape/CrO2/60min'"));
     append(INF_SUBJECT, 0,

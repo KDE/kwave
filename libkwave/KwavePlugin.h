@@ -144,6 +144,7 @@ public:
      * Gets called from the plugin's execute function and should be overwritten to
      * perform some action. This function runs in a separate thread!
      * @param list of strings with parameters
+     * @see  sigDone
      */
     virtual void run(QStringList params);
 
@@ -279,10 +280,16 @@ protected:
 
 signals:
 
+    /**
+     * will be emitted when the "run" function has finished
+     * @see run
+     */
+    void sigDone();
+    
     /** will be emitted in the plugin's destructor */
     void sigClosed(KwavePlugin *p);
 
-    /** */
+    /** can be used by plugins to execute toplevel commands */
     void sigCommand(const QString &command);
 
 public slots:
@@ -297,11 +304,19 @@ public slots:
     /** decrements the usage counter */
     void release();
 
+private slots:
+
+    /**
+     * emits sigDone when emitted from run through m_spx_done
+     * @internal
+     */
+    void forwardSigDone();
+    
 private:
 
     /** Wrapper for run() that contains a call to release() */
     void run_wrapper(QStringList params);
-    
+
 private:
 
     /**
@@ -324,6 +339,9 @@ private:
 
     /** Mutex for locking the usage counter */
     Mutex m_usage_lock;
+
+    /** SignalProxy for handling sigDone */
+    SignalProxy<void> m_spx_done;
     
 };
 

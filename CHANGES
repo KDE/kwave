@@ -1,6 +1,8 @@
 
 0.6.5 [2002-09-xx]
 
+ * show selected range as time (feature requested by Christian Hollaender)
+ * support for saving compressed .wav files
  * thrown away Qt2/KDE2 compatibility, now only supports Qt3/KDE3
  * playback plugin: enabled the "select..." button for choosing
    other playback devices (feature requested by Len Ovens)

@@ -95,9 +95,6 @@ public:
      */
     unsigned int tracks();
 
-    /** Returns the resolution in bits per sample */
-    unsigned int bits();
-
     /** Returns the signal manager of the current signal */
     SignalManager &signalManager();
 

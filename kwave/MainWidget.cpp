@@ -487,12 +487,6 @@ unsigned int MainWidget::tracks()
 }
 
 //***************************************************************************
-unsigned int MainWidget::bits()
-{
-    return m_signal_widget.bits();
-}
-
-//***************************************************************************
 SignalManager &MainWidget::signalManager()
 {
     return m_signal_widget.signalManager();

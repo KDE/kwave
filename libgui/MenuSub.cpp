@@ -19,22 +19,16 @@
 #include <qpopupmenu.h>
 #include <kapp.h>
 
-#include <libkwave/Parser.h>
-#include <libkwave/String.h>
-#include <libkwave/Global.h>
-#include <libkwave/MessagePort.h>
-
 #include "MenuItem.h"
 #include "MenuSub.h"
 
-MenuSub::MenuSub (const char *command, const char *name)
-    :MenuNode(command, name)
+MenuSub::MenuSub(MenuNode *parent, const char *name, const char *command)
+    :MenuNode(parent, name, command)
 {
     menu = new QPopupMenu(0, klocale->translate(name));
-	
+
     QObject::connect(menu,SIGNAL(activated(int)),
 	this,SLOT(slotSelected(int)));
-
 }
 
 int MenuSub::getChildIndex(const int id)
@@ -50,7 +44,7 @@ QPopupMenu *MenuSub::getPopupMenu()
 MenuNode *MenuSub::insertBranch(char *name, const int key, const char *uid,
 				const int index)
 {
-    MenuSub *node = new MenuSub(0, name);
+    MenuSub *node = new MenuSub(this, name);
 
     if (menu) {
 	int new_id = registerChild(node);
@@ -62,14 +56,14 @@ MenuNode *MenuSub::insertBranch(char *name, const int key, const char *uid,
     return node;
 }
 
-MenuNode *MenuSub::insertLeaf(const char *command, char *name,
+MenuNode *MenuSub::insertLeaf(char *name, const char *command,
                               const int key, const char *uid,
                               const int index=-1)
 {
     int new_id;
     if ((!name) || (!menu)) return 0;
 
-    MenuItem *item = new MenuItem(command, name);
+    MenuItem *item = new MenuItem(this, name, command);
     if (!item) return 0;
 
     new_id = registerChild(item);

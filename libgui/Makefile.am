@@ -50,7 +50,6 @@ libkwavegui_la_SOURCES =\
  MenuManager.cpp\
  MenuCommand.cpp\
  MultiStateImage.cpp\
- NumberedMenu.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\
  TimeLine.cpp\

@@ -32,7 +32,7 @@ class MenuSub : public MenuNode
   Q_OBJECT
 
 public: // Public methods
-    MenuSub (const char *command, const char *name);
+    MenuSub(MenuNode *parent, const char *name, const char *command=0);
 
     virtual int getChildIndex(const int id);
     virtual bool isBranch() {return true;};
@@ -40,7 +40,7 @@ public: // Public methods
     virtual MenuNode *insertBranch(char *name, const int key,
                                    const char *uid, const int index=-1);
 
-    virtual MenuNode *insertLeaf(const char *command, char *name,
+    virtual MenuNode *insertLeaf(char *name, const char *command,
                                  const int key, const char *uid,
                                  const int index=-1);
 

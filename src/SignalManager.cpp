@@ -45,8 +45,21 @@ void SignalManager::getMaxMin (int channel,int&max, int &min,int begin,int len)
     }
   signal[channel]->getMaxMin (max,min,begin,len);
 }
+
 //**********************************************************
-  //gets the highest number of bits per sample of all channels
+int SignalManager::getLength()
+{
+    return signal[0] ? signal[0]->getLength() : 0;
+}
+
+//**********************************************************
+int SignalManager::getSingleSample(int channel,int offset)
+{
+  return signal[channel] ?
+    signal[channel]->getSingleSample(offset) : 0;
+}
+
+//**********************************************************
 int SignalManager::getBitsPerSample()
 {
   int max_bps=0;

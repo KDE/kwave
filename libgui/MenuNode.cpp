@@ -28,73 +28,26 @@ extern struct Global globals;
 
 static int unique_menu_id=0;
 
-/* ###
-int MenuNode::getUniqueId ()
-{
-  int x=unique_menu_id;
-  unique_menu_id++;
-
-  return x;
-}
-
-int MenuNode::getIdRange (int num)
-{
-  debug("MenuNode::getIdRange(%d", num);
-  int x=unique_menu_id;
-  unique_menu_id+=num;
-
-  return x;
-}
-*/
-
-MenuNode::MenuNode (const char *command, const char *name)
+MenuNode::MenuNode(MenuNode *parent, const char *name, const char *command)
     :QObject()
 {
-    this->parentNode = 0;
+    this->parentNode = parent;
     this->name = duplicateString (name);
     this->id = -1;
     children.setAutoDelete(true);
     this->command = duplicateString(command);
-
-/* ###
-  this->toplevel=false; // ### toplevel;
-  this->toplevelEnabled=true;
-  this->enabled=true;
-  QObject::connect (this,SIGNAL(activated(int)),this,SLOT(selected(int)));
-  QObject::connect (this,SIGNAL(highlighted(int)),this,SLOT(hilight(int)));
-  checkItems=false;
-  numberItems=false;
-  com=0;
-### */
-}
-/*
-void MenuNode::hilighted(int item)
-{
-    debug("%s:hilighted:%d", getName(), item);
-}
-*/
-/* ###
-void MenuNode::setCommand (const char *com)
-  //sets the command emitted when selecting the menu entry
-{
-  this->com=duplicateString (com);
 }
 
-void MenuNode::setNumberable ()
+//*****************************************************************************
+MenuNode::~MenuNode ()
 {
-  numberItems=true;
+    children.setAutoDelete(true);
+    children.clear();
+    deleteString(name);
+    deleteString(command);
 }
 
-void MenuNode::setCheckable ()
-  //enables checking of menu entries
-{
-  checkItems=true;
-  QObject::connect (this,SIGNAL(activated(int)),this,SLOT(check(int)));
-  QPopupMenu::setCheckable (true);
-  checked=-1;
-}
-### */
-
+//*****************************************************************************
 void MenuNode::actionSelected()
 {
     /*
@@ -118,6 +71,7 @@ void MenuNode::actionSelected()
     if (command) globals.port->putMessage(command);
 }
 
+//*****************************************************************************
 /* ###
 void MenuNode::setEnabled (bool enable)
 {
@@ -215,48 +169,37 @@ void MenuNode::slotHilighted(int id)
 }
 */
 
-//*****************************************************************************
-MenuNode::~MenuNode ()
-{
-    children.setAutoDelete(true);
-    // children.clear();
-    deleteString(name);
-    deleteString(command);
-}
 
-/** removes all entries */
+//*****************************************************************************
 void MenuNode::clear()
 {
     // clear all children
-    for (MenuNode *child=children.first(); (child); child=children.next())
+    MenuNode *child;
+    while ( (child=children.first()) != 0 ) {
 	child->clear();
+	children.remove(child);
+    }
 }
 
+//*****************************************************************************
 int MenuNode::getChildIndex(const int id)
 {
     return -1;
 }
 
-/** returns a pointer to the menu's parent node */
+//*****************************************************************************
 MenuNode *MenuNode::getParentNode()
 {
     return parentNode;
 }
 
-/** sets a new pointer to the node's parent */
+//*****************************************************************************
 void MenuNode::setParent(MenuNode *newParent)
 {
     parentNode = newParent;
 }
 
-/**
- * Enables or disables an item of a menu. If the specified item is not
- * a member of the current menu, this method will recursively call all
- * of it's child nodes.
- * @param id the unique menu item id
- * @param enable true to enable the item, false to disable
- * @return true if the item has been found, false if not
- */
+//*****************************************************************************
 bool MenuNode::setItemEnabled(const int id, const bool enable)
 {
     if (id == getId()) {
@@ -276,19 +219,13 @@ bool MenuNode::setItemEnabled(const int id, const bool enable)
     return false;
 }
 
-/**
- * Returns the number of ids a menu node needs.
- */
+//*****************************************************************************
 int MenuNode::getNeededIDs()
 {
     return 1;
 }
 
-/**
- * Inserts a new child node into the current structure.
- * @param node pointer of the new node
- * @return the node's unique id or -1 if the node is null
- */
+//*****************************************************************************
 int MenuNode::registerChild(MenuNode *node)
 {
     int new_id;
@@ -304,12 +241,7 @@ int MenuNode::registerChild(MenuNode *node)
     return new_id;
 }
 
-/**
- * Tries to find a child node by it's name and returns a pointer
- * to it. If the child can't be found the return value will be 0.
- * @param name the item's name (non-localized)
- * @return pointer to the found child or 0
- */
+//*****************************************************************************
 MenuNode *MenuNode::findChild(const char *name)
 {
     MenuNode *child = children.first();
@@ -321,6 +253,7 @@ MenuNode *MenuNode::findChild(const char *name)
     return 0;
 }
 
+//*****************************************************************************
 MenuNode *MenuNode::findChild(int id)
 {
     MenuNode *child = children.first();
@@ -332,6 +265,7 @@ MenuNode *MenuNode::findChild(int id)
     return 0;
 }
 
+//*****************************************************************************
 void MenuNode::removeChild(const int id)
 {
     MenuNode *child = findChild(id);
@@ -343,6 +277,7 @@ void MenuNode::removeChild(const int id)
     }
 }
 
+//*****************************************************************************
 MenuNode *MenuNode::insertBranch(char *name, const int key, const char *uid,
 	                         const int index)
 {
@@ -350,7 +285,8 @@ MenuNode *MenuNode::insertBranch(char *name, const int key, const char *uid,
     return 0;
 }
 
-MenuNode *MenuNode::insertLeaf(const char *command, char *name,
+//*****************************************************************************
+MenuNode *MenuNode::insertLeaf(char *name, const char *command,
                                const int key, const char *uid,
                                const int index)
 {
@@ -358,6 +294,7 @@ MenuNode *MenuNode::insertLeaf(const char *command, char *name,
     return 0;
 }
 
+//*****************************************************************************
 int MenuNode::insertNode(const char *command, char *name, char *position,
                          const int key, const char *uid)
 {
@@ -378,9 +315,7 @@ int MenuNode::insertNode(const char *command, char *name, char *position,
     if ((*position) && (*position == '/'))
 	*(position++)=0;
 
-//    debug("MenuNode(%s)::insertNode('%s','%s')", getName(), name, position);// ###
-
-
+    // --- parse special commands first ---
     if (specialCommand(name)) return 0;
 
     if ((position == 0) || (*position == 0)) {
@@ -391,7 +326,7 @@ int MenuNode::insertNode(const char *command, char *name, char *position,
 	    return sub->getId();
 	} else {
 	    // insert a new leaf
-	    MenuNode *leaf = insertLeaf(command, name, key, uid);
+	    MenuNode *leaf = insertLeaf(name, command, key, uid);
 	    return (leaf) ? leaf->getId() : -1;
 	}
     } else {
@@ -407,10 +342,7 @@ int MenuNode::insertNode(const char *command, char *name, char *position,
 	    int index = sub->getIndex();
 	    int old_id = sub->getId();
 	
-/*	    debug("MenuNode:insertNode(%s):removing child %s"\
-		" (id=%d, index=%d)", getName(), sub->getName(),
-		old_id, index); // ###
-*/	    removeChild(old_id);
+	    removeChild(old_id);
 	
 	    sub = insertBranch(name, key, uid, index);
 	}
@@ -426,6 +358,7 @@ int MenuNode::insertNode(const char *command, char *name, char *position,
     return result;
 }
 
+//*****************************************************************************
 bool MenuNode::specialCommand(const char *command)
 {
     return false;

@@ -3,8 +3,6 @@
 
 #define MAXCHANNELS 64
 
-#include <stdio.h>
-
 #define processid	0
 #define stopprocess	1
 #define samplepointer	2
@@ -35,21 +33,17 @@ class SignalManager
 
  inline int	getRate	        () {return rate;};
  inline int	getChannelCount	() {return channels;};
- inline int	getLength	()
-   {return 0; /* ### signal[0] ? signal[0]->getLength() : 0; ### */ };
+        int	getLength	();
  inline int	getLMarker	() {return lmarker;};
  inline int	getRMarker	() {return rmarker;}; 
  inline int	getPlayPosition () {return msg[samplepointer];};
  inline Signal *getSignal	() {return signal[0];};
  inline Signal *getSignal	(int channel) {return signal[channel];};
- inline int     getSingleSample  (int channel,int offset)
-   {return 0; /* ### signal[channel] ? signal[channel]->getSingleSample(offset) : 0; ### */};
- inline void   setParent        (QWidget *par)
-   {parent=par;};
+        int     getSingleSample (int channel,int offset);
+ inline void    setParent       (QWidget *par) {parent=par;};
 
  void  command          (const char *);
  const char *getName	();
-
 
  void	setOp      	(int);  //triggers function via given id
 

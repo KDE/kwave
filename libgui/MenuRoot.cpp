@@ -27,7 +27,7 @@
  * @param bar reference to a KMenuBar
  */
 MenuRoot::MenuRoot(KMenuBar &bar)
-    :MenuNode(0, "(root)"), menu_bar(bar)
+    :MenuNode(this, "(root)"), menu_bar(bar)
 {
 }
 
@@ -42,18 +42,18 @@ int MenuRoot::getChildIndex(const int id)
 MenuNode *MenuRoot::insertBranch(char *name, const int key,
                                  const char *uid, const int index)
 {
-    MenuToplevel *node = new MenuToplevel(0, name);
+    MenuToplevel *node = new MenuToplevel(this, name);
     int new_id = registerChild(node);
     menu_bar.insertItem(klocale->translate(name),
 	node->getPopupMenu(), new_id, index);
     return node;
 }
 
-MenuNode *MenuRoot::insertLeaf(const char *command, char *name,
+MenuNode *MenuRoot::insertLeaf(char *name, const char *command,
                                const int key, const char *uid,
                                const int index)
 {
-    MenuItem *item = new MenuItem(command, name);
+    MenuItem *item = new MenuItem(this, name, command);
     int new_id = registerChild(item);
     menu_bar.insertItem(klocale->translate(name),
 	new_id, index);

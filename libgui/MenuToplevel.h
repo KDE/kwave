@@ -21,8 +21,7 @@
 #include "MenuSub.h"
 
 /**
- * This is the class for toplevel submenu entries in a Menu. It is normally 
- * owned by a root menu node
+ * Toplevel submenu entry of a MenuRoot.
  * @author Thomas Eschenbacher
  */
 class MenuToplevel : public MenuSub
@@ -30,7 +29,7 @@ class MenuToplevel : public MenuSub
   Q_OBJECT
 
 public: // Public methods
-    MenuToplevel(const char *command, const char *name);
+    MenuToplevel(MenuNode *parent, const char *name, const char *command=0);
     // virtual bool setEnabled();
 
 };

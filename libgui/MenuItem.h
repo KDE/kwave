@@ -21,7 +21,7 @@
 #include "MenuNode.h"
 
 /**
- * This is the class for entries in a Menu. It is normally owned by a toplevel
+ * Base class for entries in a Menu. It is normally owned by a toplevel
  * menu or a submenu.
  * @author Thomas Eschenbacher
  */
@@ -30,9 +30,8 @@ class MenuItem : public MenuNode {
 
 public: // Public methods
 
-    MenuItem(const char *command, const char *name);
+    MenuItem(MenuNode *parent, const char *name, const char *command=0);
     virtual int getIndex();
-
 };
 
 #endif

@@ -20,8 +20,8 @@
 #include "MenuNode.h"
 #include "MenuItem.h"
 
-MenuItem::MenuItem(const char *command, const char *name)
-  :MenuNode(command, name)
+MenuItem::MenuItem(MenuNode *parent, const char *name, const char *command)
+  :MenuNode(parent, name, command)
 {
 }
 

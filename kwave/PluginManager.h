@@ -24,6 +24,8 @@
 #include <qvector.h>
 #include <qmap.h>
 
+#include <arts/artsflow.h>
+
 #include "mt/SignalProxy.h"
 #include "libkwave/InsertMode.h"
 
@@ -185,6 +187,11 @@ public:
      */
     static void findPlugins();
 
+    /** Returns a reference to the global aRts dispatcher */
+    inline Arts::Dispatcher &artsDispatcher() {
+	return m_arts_dispatcher;
+    };
+
 signals:
     /**
      * Forwards commands to the parent TopWidget execute a command
@@ -285,6 +292,10 @@ private:
 
     /** reference to our parent toplevel widget */
     TopWidget &m_top_widget;
+
+    /** The global aRts dispatcher, unique to the application */
+    static Arts::Dispatcher m_arts_dispatcher;
+
 };
 
 #endif /* _PLUGIN_MANAGER_H_ */

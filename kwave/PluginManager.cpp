@@ -63,6 +63,7 @@
 
 // static initializer
 QMap<QString, QString> PluginManager::m_plugin_files;
+Arts::Dispatcher PluginManager::m_arts_dispatcher;
 
 //****************************************************************************
 PluginManager::PluginManager(TopWidget &parent)

@@ -1,7 +1,7 @@
 0. PREFACE:
 ==========
 
-This is the "kwave" source distribution, a sound editor for KDE2.
+This is the "Kwave" source distribution, a sound editor for KDE2.
 
  ----------------------------------------------------------------------------
 | It is now hosted on SourceForge, so you are welcome to visit               |
@@ -9,9 +9,6 @@ This is the "kwave" source distribution, a sound editor for KDE2.
 | informations you can get there are more up to date than the stuff          |
 | you get in this file. This file is only intended for users who do          |
 | not have the possibility or do not like to read online.                    |
-|                                                                            |
-| Please also take a look at the Kwave handbook. It is available in html     |
-| and is also included in the source packages under "doc/en/index.html"      |
  ----------------------------------------------------------------------------
 
 If you are interested what has been done and what has to be done, then
@@ -59,16 +56,16 @@ Installing the rpm package normally requires root permissions.
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
 
-Simply get the source archive (for example kwave-0.6.2.tar.gz) and
+Simply get the source archive (for example kwave-0.6.3.tar.gz) and
 then type:
 
 export QTDIR=/usr/lib/qt2   (normally not necessary)
-rpm -ta kwave-0.6.2.tar.gz
+rpm -ta kwave-0.6.3.tar.gz
 
 If you want to build for a different architecture than your current, you
 might want to add the parameter "--target=...", for example:
 
-rpm -ta --target=i586 kwave-0.6.2.tar.gz
+rpm -ta --target=i586 kwave-0.6.3.tar.gz
 
 compiles for pentium architecture.
 
@@ -107,7 +104,7 @@ For example: you got the binary rpm from a friend who has a SuSE system
 the KDE2 base dir is /usr). Then just give a different prefix when installing
 the rpm:
 
-rpm -ivh --prefix=/usr kwave-0.6.2.i386.rpm
+rpm -ivh --prefix=/usr kwave-0.6.3.i386.rpm
 
 This modifies the path where the program is installed and it is strongly
 recommended that this is a directory that is contained in the KDEDIRS
@@ -151,7 +148,7 @@ Then go to chapter 1 and do ./configure / make / make install...
 tar.gz archive or source RPM - but it is the only way to get the
 online help if you checked out via CVS)
 
-Since version 0.6.2 you do no longer need those docbook utils :)
+Since version 0.6.3 you do no longer need those docbook utils :)
 Instead you will need
 
 - po2xml and xml2pot (included in the "kdesdk-2.2.x" package)
@@ -163,42 +160,47 @@ Instead you will need
 
 For compilation you need a working autoconf/automake environment, a good
 C/C++ compiler, the qt2 and the kde2 libraries. I am currently developing
-under a SuSE-7.2 distribution (i386 architecture) using at least the
+under a SuSE-7.3 distribution (i386 architecture) using at least the
 following packages:
 
-* autoconf-2.13-283
-* automake-1.4-278
-* make-3.79.1-80
-* gcc-2.95.3-73/gpp-2.95.3-73        (the C / C++ compiler)
-* libgpp-2.95.3-73                   (C++ library, including STL)
-* glibc-2.2-9                        (the GNU C library)
-* gettext-0.10.35-132                (for internationalization)
-* rpm-3.0.4-72                       (for rpm support)
-* sed-3.02, awk-3.0.4, bash-2.03     (used by some scripts)
+* autoconf-2.52-73
+* automake-1.4-p5-67
+* make-3.79.1-180
+* gcc-2.95.3-136                     (the C / C++ compiler)
+* libgpp-2.95.3-136                  (C++ library, including STL)
+* glibc-2.2.4-64                     (the GNU C library)
+* gettext-0.10.37-86                 (for internationalization)
+* rpm-3.0.6-165                      (for rpm support)
+* sed-3.02, awk-3.1.0, bash-2.05     (used by some scripts)
 
 Nearly everything from ftp.kde.org, especially the following
 packets should be sufficient for building:
 
-* qt-2.3.0-13 + qt-devel-2.4.0-13    (the Qt-2 library)
-* qt-designer-2.3.0-10               (for designing new-style dialogue windows)
-* kdelibs-(devel-)2.2.x              (the KDE2 base libraries)
-* kdemultimedia-(devel-)2.2.x        (multimedia/aRts support)
-* kdesdk-2.2.x                       (some additional tools)
+* qt-2.3.1-80 + qtdevel-2.3.1-80     (the Qt-2 library)
+* qt-designer-2.3.1-149              (for designing new-style dialogue windows)
+* kdelibs-(devel-)2.2.2-4            (the KDE2 base libraries)
+* kdemultimedia-(devel-)2.2.2-2      (multimedia/aRts support)
+* kdesdk-2.2.2-5                     (some additional tools)
 
 known distributions / architectures:
 ------------------------------------
 
-* SuSE-7.2 / i386, i686 (also with KDE-2.2 from ftp.kde.org)
+* Mandrake Linux 8.1, (packages provided by Gilles Caulier)
+
+* SuSE-7.3 / i386, i686 (with KDE-2.2.2 from ftp.kde.org)
   [where I currently develop]
 
+* SuSE-7.2 / i386, i686 (also with KDE-2.2 from ftp.kde.org)
+  [no longer explictely supported, but should work the same as SuSE-7.3]
+
 * SuSE-7.1 / i386, i586
-  [no longer explictely supported, but should work the same as SuSE-7.1]
+  [no longer explictely supported, but should work the same as SuSE-7.3]
 
 * SuSE-7.0 / i386, i586
   [nearly the same as SuSE-6.4]
 
 * SuSE-6.4 / i386, i586
-  [still tested, but needs an update of rpm]
+  [no longer tested, needs an update of rpm]
 
 * SuSE-6.2 / i386, i586
   [where I started to develop it, now untested]

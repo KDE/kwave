@@ -157,7 +157,6 @@ void RecordThread::run()
 	while (len) {
 	    // read raw data from the record device
 	    int result = m_device->read(p, len);
-	    Q_ASSERT(result == (int)len);
 
 	    if (result == -EAGAIN) {
 		// thread was interrupted, received signal?

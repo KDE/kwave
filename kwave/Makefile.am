@@ -117,6 +117,11 @@ PIXMAPS=\
  playback_pause2.xpm\
  rspeaker.xpm\
  selectedknob.xpm\
+ sound_arts.png \
+ sound_device.png \
+ sound_subdevice.png \
+ sound_card.png \
+ sound_note.png \
  xspeaker.xpm
 
 # the library search path

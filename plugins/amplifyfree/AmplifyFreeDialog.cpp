@@ -15,17 +15,48 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <klocale.h>
+#include "libkwave/Parser.h"
+#include "libgui/CurveWidget.h"
+#include "libgui/ScaleWidget.h"
 #include "AmplifyFreeDialog.h"
 
 //***************************************************************************
 AmplifyFreeDialog::AmplifyFreeDialog(QWidget *parent)
     :AmplifyFreeDlg(parent, 0, true)
 {
+    curveWidget->setMinimumSize(150, 100);
+
+    xScale->setMinimumSize(250,  30);
+    xScale->setMinMax(0, 100);
+    xScale->setLogMode(false);
+    xScale->setUnit(i18n("ms"));
+
+    yScale->setMinimumSize( 30, 150);
+    yScale->setMinMax(100, 0);
+    yScale->setLogMode(false);
+    yScale->setUnit(i18n("%"));
+
 }
 
 //***************************************************************************
 AmplifyFreeDialog::~AmplifyFreeDialog()
 {
+}
+
+//***************************************************************************
+QString AmplifyFreeDialog::getCommand()
+{
+    QString cmd;
+    Parser p(curveWidget->getCommand());
+
+    cmd = "amplifyfree(";
+    if (p.hasParams()) cmd += p.nextParam();
+    while (!p.isDone()) {
+	cmd += (QString)"," + p.nextParam();
+    }
+    cmd += ")";
+    return cmd;
 }
 
 //***************************************************************************

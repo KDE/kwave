@@ -474,8 +474,8 @@ void SonagramWindow::updateScaleWidgets()
 
     translatePixels2TF(QPoint(m_image->width()-1, 0), &ms, &f);
 
-    m_xscale->setMaxMin(ms, 0);
-    m_yscale->setMaxMin(0, f);
+    m_xscale->setMinMax(ms, 0);
+    m_yscale->setMinMax(0, f);
 }
 
 //***************************************************************************

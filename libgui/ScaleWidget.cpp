@@ -1,3 +1,19 @@
+/***************************************************************************
+        ScaleWidget.cpp  -  widget for drawing a scale under an image
+			     -------------------
+    begin                : Sep 18 2001
+    copyright            : (C) 2001 by Thomas Eschenbacher
+    email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "config.h"
 #include <stdio.h>
@@ -5,230 +21,168 @@
 #include <qimage.h>
 #include <qdir.h>
 #include <qpainter.h>
+
+#include <kiconloader.h>
 #include <kstddirs.h>
+
 #include "ScaleWidget.h"
 
 #define FONTSIZE 6
-QPixmap *scalefont = 0;
-int scalefontusage = 0;
 
-//**********************************************************
-int getlessten (int val)
-// returns the next smaller power of 10
+//***************************************************************************
+ScaleWidget::ScaleWidget(QWidget *parent, const char *name)
+    :QWidget(parent, name), m_low(0), m_high(100), m_logmode(false),
+     m_unittext("%")
 {
-    int x = 1;
-    while (val > x*10) x *= 10;
-    return x;
-}
-//**********************************************************
-ScaleWidget::ScaleWidget (QWidget *parent, int low, int high, const char *text)
-    :QWidget (parent)
-{
-    this->high = high;
-    logmode = false;
-    this->low = low;
-    m_unittext = text;
-
-    if (!scalefont) {
-	scalefont = new QPixmap();
-	ASSERT(scalefont);
-
-	const QString dirname = KStandardDirs::kde_default("data");
-	QDir dir (dirname.data());
-	dir.cd ("kwave");
-	dir.cd ("pics");
-
-	QImage *img = new QImage(dir.filePath("font.xpm").data());
-	ASSERT(img);
-	if (scalefont && img)
-	    scalefont->convertFromImage(*img);
-    }
-    scalefontusage++;
+    KIconLoader icon_loader;
+    m_scalefont = icon_loader.loadIcon("font.xpm", KIcon::Small);
 }
 
-//**********************************************************
+//***************************************************************************
+ScaleWidget::ScaleWidget(QWidget *parent, int low, int high,
+                         const QString &unit)
+    :QWidget(parent), m_low(low), m_high(high), m_logmode(false),
+     m_unittext(unit)
+{
+    KIconLoader icon_loader;
+    m_scalefont = icon_loader.loadIcon("font.xpm", KIcon::Small);
+}
+
+//***************************************************************************
 ScaleWidget::~ScaleWidget()
 {
-    scalefontusage--;
-    if ((scalefontusage == 0) && scalefont) {
-	delete scalefont;
-	scalefont = 0;
-    }
+    m_scalefont.resize(0,0);
 }
 
-//**********************************************************
-void ScaleWidget::setUnit(const char *text)
+//***************************************************************************
+void ScaleWidget::setUnit(const QString &text)
 {
     m_unittext = text;
-    repaint ();
+    repaint();
 }
 
-//**********************************************************
-void ScaleWidget::setLogMode(bool a)
+//***************************************************************************
+void ScaleWidget::setLogMode(bool log)
 {
-    if (logmode != a) {
-	logmode = a;
-	repaint();
-    }
+    if (m_logmode == log) return;
+    m_logmode = log;
+    repaint();
 }
 
-//**********************************************************
-void ScaleWidget::setMaxMin(int b, int a)
+//***************************************************************************
+void ScaleWidget::setMinMax(int min, int max)
 {
-    low = a;
-    high = b;
-    repaint (true);
+    if ((m_low == min) && (m_high == max)) return;
+    m_low  = min;
+    m_high = max;
+    repaint();
 }
 
-//**********************************************************
-void ScaleWidget::paintText(QPainter *p, int x, int y, int ofs,
-                            int dir, char *text)
-//painting routine for own small font with fixed size
-//There are Problems with smaller displays using QFont, Sizes are not correct
+//***************************************************************************
+void ScaleWidget::paintText(QPainter &p, int x, int y, int ofs,
+                            bool reverse, const QString &text)
 {
-    ASSERT(p);
-    if (!p) return;
-    if (!scalefont) return;
+    int len = text.length();
+    int pos; // position within the font bitmap
 
-    int len = strlen(text);
-
+    if (reverse) x -= ofs;
     for (int i = 0; i < len; i++) {
-	int c = text[i];
-	if ((c > 64) && (c < 91)) //letter
-	    p->drawPixmap(x, y, *scalefont, (c - 65)*FONTSIZE, 0,
-	                  FONTSIZE, FONTSIZE);
-	if ((c > 96) && (c < 123)) //letter
-	    p->drawPixmap(x, y, *scalefont, (c - 97)*FONTSIZE, 0,
-	                  FONTSIZE, FONTSIZE);
+	pos = (reverse) ? (len-1-i) : i;
+	int c = text.at(pos).latin1();
 
-	if ((c > 47) && (c < 58)) //number
-	    p->drawPixmap(x, y, *scalefont, (c - 48 + 26)*FONTSIZE, 0,
-	                  FONTSIZE, FONTSIZE);
-	if (c == '°') p->drawPixmap(x, y, *scalefont, (38)*FONTSIZE, 0,
-	                            FONTSIZE, FONTSIZE);
-	if (c == '.') p->drawPixmap(x, y, *scalefont, (39)*FONTSIZE, 0,
-	                            FONTSIZE, FONTSIZE);
-	if (c == '-') p->drawPixmap(x, y, *scalefont, (42)*FONTSIZE, 0,
-	                            FONTSIZE, FONTSIZE);
-	if (c == '%') {
-	    p->drawPixmap(x, y, *scalefont, (40)*FONTSIZE, 0, FONTSIZE,
-	                  FONTSIZE);
-	    p->drawPixmap(x + ofs, y, *scalefont, (41)*FONTSIZE, 0,
-	                  FONTSIZE, FONTSIZE);
-	    if (dir) x += ofs;
-	}
-
-	if (dir) x += ofs;
-	else y += ofs;
+	pos = 40; // default = space	
+	if ((c > 64) && (c < 91))  pos = c-65;    // letter
+	if ((c > 96) && (c < 123)) pos = c-97;    // letter
+	if ((c > 47) && (c < 58))  pos = c-48+26; // number
+	if (c == '°')              pos = 38;
+	if (c == '.')              pos = 39;
+	if (c == ' ')              pos = 40;
+	if (c == '%')              pos = 41;
+	if (c == '-')              pos = 42;
+	
+	p.drawPixmap(x, y, m_scalefont, pos*FONTSIZE, 0, FONTSIZE, FONTSIZE);
+	
+	x += (reverse) ? (-ofs) : (+ofs);
     }
 }
 
-//**********************************************************
-void ScaleWidget::drawLog(QPainter *p, int w, int h)
+//***************************************************************************
+void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
 {
-    ASSERT(p);
-    if (!p) return;
+    int dir = (inverse) ? -1 : +1;
 
-    //horizontal orientation
-    if (w > h) {
-	p->setPen (colorGroup().dark());
-	p->drawLine (0, h - 1, w, h - 1);
-	p->drawLine (w - 1, 0, w - 1, h - 1);
+    p.setPen (colorGroup().dark());
+    p.drawLine (0, dir*(h-1), dir*w, dir*(h-1));
+    p.drawLine (dir*(w-1), 0, dir*(w-1), dir*(h-1));
 
-	p->setPen (colorGroup().text());
-    } else {
-	p->drawLine (0, 0, 0, h);
-	p->setPen (colorGroup().dark());
-	p->drawLine (w - 1, 0, w - 1, h - 1);
-	p->setPen (colorGroup().text());
-    }
+    p.setPen (colorGroup().text());
 }
 
-//**********************************************************
-void ScaleWidget::drawLinear (QPainter *p, int w, int h)
+//***************************************************************************
+void ScaleWidget::drawLinear(QPainter &p, int w, int h, bool inverse)
 {
-    ASSERT(p);
-    if (!p) return;
+    int dir = (inverse) ? -1 : +1;
 
-    //horizontal orientation
-    if (w > h) {
-	p->setPen (colorGroup().dark());
-	p->drawLine (0, h - 1, w, h - 1);
-	p->drawLine (w - 1, 0, w - 1, h - 1);
+    p.setPen(colorGroup().dark());
+    p.drawLine(0, dir*(h-1), dir*w, dir*(h-1));
+    p.drawLine(dir*(w-1), 0, dir*(w-1), dir*(h - 1));
 
-	p->setPen (colorGroup().text());
+    p.setPen (colorGroup().text());
 
-	int a, x;
-	double ofs;
-	double t = w - 1;
-	int h2 = h;
+    int a, x;
+    double ofs;
+    double t = w - 1;
+    int h2 = h;
 
-	while ((t / 10 > 1) && (h2 > 0)) {
-	    for (ofs = 0; ofs < w - 1; ofs += t) {
-		for (a = 0; a < 6; a++) {
-		    x = (int)(ofs + (t * a / 5));
-		    p->drawLine (x, 1, x, h2 - 2);
-		}
+    // print the lines
+    while ((t / 10 > 1) && (h2 > 0)) {
+	for (ofs = 0; ofs < w - 1; ofs += t) {
+	    for (a = 0; a < 6; a++) {
+		x = (int)(ofs + (t * a / 5));
+		p.drawLine (dir*x, dir*1, dir*x, dir*(h2-2));
 	    }
-
-	    h2 = h2 >> 1;
-	    t /= 5;
 	}
-
-	for (a = 0; a < 5; a++) {
-	    char buf[64];
-	    snprintf(buf, sizeof(buf), "%d %s", low + ((high - low)*a / 5),
-	             m_unittext.data());
-	    x = (w - 1) * a / 5;
-	    paintText (p, x + 2, h - FONTSIZE - 2, FONTSIZE, true, buf);
-	}
-    } else {
-	p->drawLine (0, 0, 0, h);
-	p->setPen (colorGroup().dark());
-	p->drawLine (w - 1, 0, w - 1, h - 1);
-	p->setPen (colorGroup().text());
-
-	int a, y;
-	double ofs;
-	double t = h - 1;
-	int h2 = w - 1;
-
-	while ((t / 10 > 1) && (h2 > 0)) {
-	    for (ofs = 0; ofs < h - 1; ofs += t) {
-		for (a = 0; a < 6; a++) {
-		    y = (int)(ofs + (t * a / 5));
-		    p->drawLine (w - h2, y, w - 1, y);
-		}
-	    }
-	    h2 = h2 >> 1;
-	    t /= 5;
-	}
-
-	for (a = 0; a < 5; a++) {
-	    char buf[64];
-	    snprintf(buf, sizeof(buf), "%d%s", low + ((high - low)*a / 5), 
-	        m_unittext.data());
-	    y = (h - 1) * a / 5 + 1;
-	    paintText (p, 2, y, FONTSIZE, false, buf);
-	}
+	h2 >>= 1;
+	t /= 5;
     }
+
+    // print the text
+    for (a = 0; a < 5; a++) {
+	char buf[64];
+	snprintf(buf, sizeof(buf), "%d %s", m_low + (((m_high - m_low)*a)/5),
+	         m_unittext.data());
+	x = ((w-1) * a)/5;
+	paintText(p, dir*(x+2), dir*(h-FONTSIZE-2), FONTSIZE, inverse, buf);
+    }
+
 }
 
-//**********************************************************
+//***************************************************************************
 void ScaleWidget::paintEvent(QPaintEvent *)
 {
+    bool inverse = false;
     int h = height();
     int w = width();
     QPainter p;
+
     p.begin(this);
-
+    p.save();
     p.setPen(colorGroup().light());
+
     p.drawLine(0, 0, w, 0);
+    if (h > w) {
+	p.setWindow(-w, 0, w, h);
+	p.rotate(-90);
+	h = width();
+	w = height();
+	
+	inverse = true;
+    };
 
-    if (logmode) drawLog(&p, w, h);
-    else drawLinear(&p, w, h);
+    (m_logmode) ? drawLog(p, w, h, inverse) : drawLinear(p, w, h, inverse);
 
-    p.end ();
+    p.restore();
+    p.end();
 }
 
 //****************************************************************************
@@ -240,7 +194,7 @@ const QSize ScaleWidget::sizeHint()
 //****************************************************************************
 const QSize ScaleWidget::minimumSize()
 {
-    return QSize(2*FONTSIZE, 2*FONTSIZE);
+    return QSize(5*2*FONTSIZE, 5*2*FONTSIZE);
 }
 
 //****************************************************************************

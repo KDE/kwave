@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include <qobject.h>
+#include <qstring.h>
 #include "AmplifyFreeDlg.uih.h"
 
 class AmplifyFreeDialog: public AmplifyFreeDlg
@@ -32,6 +33,9 @@ public:
 
     /** Destructor */
     virtual ~AmplifyFreeDialog();
+
+    /** Returns a command string for the curve */
+    QString getCommand();
 
 };
 

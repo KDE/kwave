@@ -15,8 +15,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>576</width>
-            <height>480</height>
+            <width>432</width>
+            <height>340</height>
         </rect>
     </property>
     <property stdset="1">
@@ -36,11 +36,87 @@
             <number>6</number>
         </property>
         <widget>
-            <class>CurveWidget</class>
+            <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>CurveWidget1</cstring>
+                <cstring>Layout2</cstring>
             </property>
+            <property>
+                <name>layoutSpacing</name>
+            </property>
+            <grid>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>0</number>
+                </property>
+                <widget row="1"  column="1" >
+                    <class>ScaleWidget</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>xScale</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>sizePolicy</name>
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>0</vsizetype>
+                        </sizepolicy>
+                    </property>
+                    <property stdset="1">
+                        <name>minimumSize</name>
+                        <size>
+                            <width>150</width>
+                            <height>30</height>
+                        </size>
+                    </property>
+                </widget>
+                <widget row="0"  column="0" >
+                    <class>ScaleWidget</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>yScale</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>sizePolicy</name>
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>7</vsizetype>
+                        </sizepolicy>
+                    </property>
+                    <property stdset="1">
+                        <name>minimumSize</name>
+                        <size>
+                            <width>30</width>
+                            <height>100</height>
+                        </size>
+                    </property>
+                </widget>
+                <widget row="0"  column="1" >
+                    <class>CurveWidget</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>curveWidget</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>sizePolicy</name>
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>7</vsizetype>
+                        </sizepolicy>
+                    </property>
+                    <property stdset="1">
+                        <name>minimumSize</name>
+                        <size>
+                            <width>150</width>
+                            <height>100</height>
+                        </size>
+                    </property>
+                </widget>
+            </grid>
         </widget>
         <widget>
             <class>Line</class>
@@ -145,6 +221,20 @@
     <customwidget>
         <class>CurveWidget</class>
         <header location="global">libgui/CurveWidget.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>5</hordata>
+            <verdata>5</verdata>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+    <customwidget>
+        <class>ScaleWidget</class>
+        <header location="global">libgui/ScaleWidget.h</header>
         <sizehint>
             <width>-1</width>
             <height>-1</height>

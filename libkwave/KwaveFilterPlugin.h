@@ -37,7 +37,7 @@ class KwaveFilterPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    KwaveFilterPlugin(PluginContext &context);
+    KwaveFilterPlugin(const PluginContext &context);
 
     /** Destructor */
     virtual ~KwaveFilterPlugin();
@@ -123,8 +123,8 @@ protected slots:
      * message box.
      */
     void cancel();
-    
-private:    
+
+private:
     /** List of parameters */
     QStringList m_params;
 
@@ -148,7 +148,7 @@ private:
 
     /** flag for pausing the process */
     bool m_pause;
-    
+
 };
 
 #endif /* _KWAVE_FILTER_PLUGIN_H_ */

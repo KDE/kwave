@@ -38,7 +38,7 @@ class MemoryPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    MemoryPlugin(PluginContext &c);
+    MemoryPlugin(const PluginContext &c);
 
     /** Destructor */
     virtual ~MemoryPlugin();

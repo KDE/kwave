@@ -37,7 +37,7 @@
 KWAVE_PLUGIN(VolumePlugin,"volume","Thomas Eschenbacher");
 
 //***************************************************************************
-VolumePlugin::VolumePlugin(PluginContext &context)
+VolumePlugin::VolumePlugin(const PluginContext &context)
     :KwavePlugin(context), m_params(), m_factor(1.0), m_mode(0),
      m_stop(false)
 {
@@ -69,7 +69,7 @@ int VolumePlugin::interpreteParameters(QStringList &params)
 
     // all parameters accepted
     m_params = params;
-    
+
     return 0;
 }
 

@@ -32,7 +32,7 @@
 KWAVE_PLUGIN(LowPassPlugin,"lowpass","Thomas Eschenbacher");
 
 //***************************************************************************
-LowPassPlugin::LowPassPlugin(PluginContext &context)
+LowPassPlugin::LowPassPlugin(const PluginContext &context)
     :KwaveFilterPlugin(context),
      m_frequency(3500.0), m_last_freq(100)
 {

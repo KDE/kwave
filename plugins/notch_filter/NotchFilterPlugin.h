@@ -37,7 +37,7 @@ class NotchFilterPlugin: public KwaveFilterPlugin
 public:
 
     /** Constructor */
-    NotchFilterPlugin(PluginContext &context);
+    NotchFilterPlugin(const PluginContext &context);
 
     /** Destructor */
     virtual ~NotchFilterPlugin();
@@ -84,7 +84,7 @@ protected slots:
      * @param frequency the frequency parameter in Hz
      */
     void setFreqValue(double frequency);
-    
+
     void setBwValue(double bw);
 
 
@@ -101,7 +101,7 @@ private:
 
     /** last value of m_bw */
     double m_last_bw;
-    
+
 };
 
 #endif /* _NOTCH_FILTER_PLUGIN_H_ */

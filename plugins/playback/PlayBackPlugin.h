@@ -38,7 +38,7 @@ class PlayBackPlugin: public KwavePlugin, public PlaybackDeviceFactory
 public:
 
     /** Constructor */
-    PlayBackPlugin(PluginContext &c);
+    PlayBackPlugin(const PluginContext &c);
 
     /** Destructor */
     virtual ~PlayBackPlugin();

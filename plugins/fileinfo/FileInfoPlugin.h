@@ -28,7 +28,7 @@ class FileInfoPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    FileInfoPlugin(PluginContext &context);
+    FileInfoPlugin(const PluginContext &context);
 
     /** virtual Destructor */
     virtual ~FileInfoPlugin();

@@ -33,7 +33,7 @@
 KWAVE_PLUGIN(PitchShiftPlugin,"pitch_shift","Thomas Eschenbacher");
 
 //***************************************************************************
-PitchShiftPlugin::PitchShiftPlugin(PluginContext &context)
+PitchShiftPlugin::PitchShiftPlugin(const PluginContext &context)
     :KwaveFilterPlugin(context),
      m_speed(1.0), m_frequency(5.0), m_percentage_mode(false),
      m_last_speed(0), m_last_freq(0)
@@ -85,7 +85,7 @@ KwavePluginSetupDialog *PitchShiftPlugin::createDialog(QWidget *parent)
             this, SLOT(setValues(double,double)));
 
     return dialog;
-}    
+}
 
 //***************************************************************************
 ArtsMultiTrackFilter *PitchShiftPlugin::createFilter(unsigned int tracks)
@@ -109,7 +109,7 @@ void PitchShiftPlugin::updateFilter(ArtsMultiTrackFilter *filter,
                                     bool force)
 {
     if (!filter) return;
-    
+
     if ((m_frequency != m_last_freq) || force)
 	filter->setAttribute("frequency", m_frequency);
 

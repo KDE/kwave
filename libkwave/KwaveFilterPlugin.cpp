@@ -37,7 +37,7 @@
 #include "kwave/UndoTransactionGuard.h"
 
 //***************************************************************************
-KwaveFilterPlugin::KwaveFilterPlugin(PluginContext &context)
+KwaveFilterPlugin::KwaveFilterPlugin(const PluginContext &context)
     :KwavePlugin(context), m_params(),
      m_stop(false), m_listen(false), m_progress(0), m_spx_progress(0),
      m_confirm_cancel(0), m_pause(false)
@@ -165,7 +165,7 @@ void KwaveFilterPlugin::run(QStringList params)
 	    int w = m_progress->sizeHint().height();
 	    if (w < 4*h) w = 4*h;
 	    m_progress->setFixedSize(w, h);
-	
+
 	    connect(&source, SIGNAL(progress(unsigned int)),
 	            this,    SLOT(forwardProgress(unsigned int)));
 	    connect(m_progress, SIGNAL(cancelled()),
@@ -175,7 +175,7 @@ void KwaveFilterPlugin::run(QStringList params)
 	    Q_ASSERT(m_confirm_cancel);
 	}
     }
-    
+
     // force initial update of the filter settings
     updateFilter(filter, true);
 
@@ -227,7 +227,7 @@ void KwaveFilterPlugin::run(QStringList params)
     m_pause  = false;
     m_stop   = false;
     m_listen = false;
-    
+
     close();
 }
 

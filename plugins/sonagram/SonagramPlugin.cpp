@@ -69,7 +69,7 @@ private:
 };
 
 //***************************************************************************
-SonagramPlugin::SonagramPlugin(PluginContext &c)
+SonagramPlugin::SonagramPlugin(const PluginContext &c)
     :KwavePlugin(c), m_sonagram_window(0), m_selected_channels(),
      m_first_sample(0), m_last_sample(0), m_stripes(0), m_fft_points(0),
      m_window_type(WINDOW_FUNC_NONE), m_color(true), m_track_changes(true),
@@ -129,7 +129,7 @@ int SonagramPlugin::interpreteParameters(QStringList &params)
 
     // evaluate the parameter list
     if (params.count() != 5) return -EINVAL;
-	
+
     param = params[0];
     m_fft_points = param.toUInt(&ok);
     Q_ASSERT(ok);
@@ -261,15 +261,15 @@ void SonagramPlugin::run(QStringList /* params */)
 	for (stripe_nr = 0; stripe_nr < m_stripes; stripe_nr++) {
 //	    qDebug("SonagramPlugin::run(): calculating stripe %d of %d",
 //	        stripe_nr,m_stripes);
-	
+
 	    // create a new stripe data array
 	    stripe_data = new QByteArray(m_fft_points/2);
 	    Q_ASSERT(stripe_data);
 	    if (!stripe_data) continue;
-	
+
 	    // calculate one stripe
 	    calculateStripe(source, m_fft_points, *stripe_data);
-	
+
 	    StripeInfoPrivate *stripe_info = new
 		StripeInfoPrivate(stripe_nr, *stripe_data);
 
@@ -284,14 +284,14 @@ void SonagramPlugin::run(QStringList /* params */)
 		    if (m_cmd_shutdown) break; // ###
 		}
 	    }
-	
+
 	    delete stripe_data;
 	    delete stripe_info;
 	    yield();
-	
+
 	    if (m_cmd_shutdown) break; // ###
 	}
-	
+
 	m_cmd_shutdown = true;
     }
 
@@ -369,10 +369,10 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 //    for (int k = 0; k < points/2; k++) {
 //	rea = data[k].real;
 //	ima = data[k].imag;
-//	
+//
 //	//get amplitude
 //	rea = sqrt(rea * rea + ima * ima);
-//	
+//
 //	//and set maximum for display..
 //	if (rea > max) max = rea;
 //    }
@@ -385,10 +385,10 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 	    rea = input[j].real;
 	    ima = input[j].imag;
 	    rea = sqrt(rea * rea + ima * ima) / max;
-	
+
 	    // get amplitude and scale to 1
 	    rea = 1 - ((1 - rea) * (1 - rea));
-	
+
 	    output[j] = 0xFE - (int)(rea * 0xFE );
 	}
     }

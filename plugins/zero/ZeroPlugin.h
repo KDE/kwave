@@ -36,7 +36,7 @@ class ZeroPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    ZeroPlugin(PluginContext &c);
+    ZeroPlugin(const PluginContext &c);
 
     /** Fills the selected area with zeroes */
     virtual void run(QStringList);

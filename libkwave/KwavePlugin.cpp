@@ -66,7 +66,7 @@
  */
 
 //***************************************************************************
-KwavePlugin::KwavePlugin(PluginContext &c)
+KwavePlugin::KwavePlugin(const PluginContext &c)
     :m_context(c),
      m_thread(0),
      m_thread_lock(),

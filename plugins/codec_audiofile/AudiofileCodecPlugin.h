@@ -29,7 +29,7 @@ class AudiofileCodecPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    AudiofileCodecPlugin(PluginContext &c);
+    AudiofileCodecPlugin(const PluginContext &c);
 
     /** Destructor */
     virtual ~AudiofileCodecPlugin();

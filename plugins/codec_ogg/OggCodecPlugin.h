@@ -30,7 +30,7 @@ class OggCodecPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    OggCodecPlugin(PluginContext &c);
+    OggCodecPlugin(const PluginContext &c);
 
     /** Destructor */
     virtual ~OggCodecPlugin();

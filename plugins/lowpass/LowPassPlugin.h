@@ -37,7 +37,7 @@ class LowPassPlugin: public KwaveFilterPlugin
 public:
 
     /** Constructor */
-    LowPassPlugin(PluginContext &context);
+    LowPassPlugin(const PluginContext &context);
 
     /** Destructor */
     virtual ~LowPassPlugin();

@@ -30,7 +30,7 @@
 KWAVE_PLUGIN(NoisePlugin,"noise","Thomas Eschenbacher");
 
 //***************************************************************************
-NoisePlugin::NoisePlugin(PluginContext &context)
+NoisePlugin::NoisePlugin(const PluginContext &context)
     :KwavePlugin(context), m_stop(false)
 {
 }

@@ -25,13 +25,13 @@
 #include "mt/Mutex.h"
 #include "mt/Asynchronous_Object.h"
 #include "mt/SignalProxy.h"
+#include "libkwave/PluginContext.h"
 
 class FileInfo;
 class KwavePlugin;
 class MultiTrackReader;
 class MultiTrackWriter;
 class PluginManager;
-class PluginContext;
 class SampleReader;
 class SignalManager;
 class TopWidget;
@@ -41,8 +41,8 @@ class QStringList;
     extern "C" const char *version = "2.0"; \
     extern "C" const char *name = plugin_name; \
     extern "C" const char *author = author_name; \
-    extern "C" KwavePlugin *load(PluginContext &c) { \
-	class_name *np = new class_name(c); \
+    extern "C" KwavePlugin *load(const PluginContext *c) { \
+	class_name *np = (c) ? new class_name(*c) : 0; \
 	return np; \
     }
 
@@ -61,7 +61,7 @@ public:
     /**
      * Constructor
      */
-    KwavePlugin(PluginContext &c);
+    KwavePlugin(const PluginContext &c);
 
     /**
      * Destructor.
@@ -144,8 +144,9 @@ public:
     virtual int stop();
 
     /**
-     * Gets called from the plugin's execute function and should be overwritten to
-     * perform some action. This function runs in a separate thread!
+     * Gets called from the plugin's execute function and should be
+     * overwritten to perform some action. This function runs in a
+     * separate thread!
      * @param params list of strings with parameters
      * @see  sigDone
      */
@@ -339,7 +340,7 @@ private:
      * the main program.
      * @deprecated, should be eliminated soon!
      */
-    PluginContext &m_context;
+    PluginContext m_context;
 
     /**
      * Thread that executes the run() member function.
@@ -348,7 +349,7 @@ private:
 
     /** Mutex for control over the thread */
     Mutex m_thread_lock;
-    
+
     /** Usage counter */
     unsigned int m_usage_count;
 

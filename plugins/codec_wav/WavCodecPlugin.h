@@ -30,7 +30,7 @@ class WavCodecPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    WavCodecPlugin(PluginContext &c);
+    WavCodecPlugin(const PluginContext &c);
 
     /** Destructor */
     virtual ~WavCodecPlugin();

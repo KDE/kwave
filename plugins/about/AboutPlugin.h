@@ -32,7 +32,7 @@ class AboutPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    AboutPlugin(PluginContext &c);
+    AboutPlugin(const PluginContext &c);
 
     /**
      * shows the about dialog,

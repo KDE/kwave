@@ -30,7 +30,7 @@ class NoisePlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    NoisePlugin(PluginContext &c);
+    NoisePlugin(const PluginContext &c);
 
     /** Fills the selected area with noise */
     virtual void run(QStringList);

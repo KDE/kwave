@@ -51,7 +51,7 @@
 KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
 
 //***************************************************************************
-RecordPlugin::RecordPlugin(PluginContext &context)
+RecordPlugin::RecordPlugin(const PluginContext &context)
     :KwavePlugin(context), m_controller(),
      m_state(REC_EMPTY), m_device(0),
      m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),

@@ -29,7 +29,7 @@ KWAVE_PLUGIN(ZeroPlugin,"zero","Thomas Eschenbacher");
 #define ZERO_COUNT 64*1024
 
 //***************************************************************************
-ZeroPlugin::ZeroPlugin(PluginContext &context)
+ZeroPlugin::ZeroPlugin(const PluginContext &context)
     :KwavePlugin(context), m_stop(false)
 {
      i18n("zero");
@@ -61,13 +61,13 @@ void ZeroPlugin::run(QStringList)
     while ((first <= last) && (!m_stop)) {
 	unsigned int rest = last - first + 1;
 	if (rest < m_zeroes.count()) m_zeroes.resize(rest);
-	
+
 	// loop over all writers
 	unsigned int w;
 	for (w=0; w < count; w++) {
 	    *(writers[w]) << m_zeroes;
 	}
-	
+
 	first += m_zeroes.count();
     }
 

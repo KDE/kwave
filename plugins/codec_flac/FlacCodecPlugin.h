@@ -30,7 +30,7 @@ class FlacCodecPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    FlacCodecPlugin(PluginContext &c);
+    FlacCodecPlugin(const PluginContext &c);
 
     /** Destructor */
     virtual ~FlacCodecPlugin();

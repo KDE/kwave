@@ -74,7 +74,7 @@ static Mutex *g_arts_lock;
 #endif
 
 //***************************************************************************
-PlayBackPlugin::PlayBackPlugin(PluginContext &context)
+PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
     :KwavePlugin(context),
     m_device(0),
     m_lock_device(),

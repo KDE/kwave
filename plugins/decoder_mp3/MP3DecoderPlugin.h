@@ -29,7 +29,7 @@ class MP3DecoderPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    MP3DecoderPlugin(PluginContext &c);
+    MP3DecoderPlugin(const PluginContext &c);
 
     /** Destructor */
     virtual ~MP3DecoderPlugin();

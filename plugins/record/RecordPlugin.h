@@ -42,7 +42,7 @@ class RecordPlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    RecordPlugin(PluginContext &c);
+    RecordPlugin(const PluginContext &c);
 
     /** Destructor */
     virtual ~RecordPlugin();

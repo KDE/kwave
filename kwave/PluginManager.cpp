@@ -230,7 +230,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     }
 
     // get the loader function
-    KwavePlugin *(*plugin_loader)(PluginContext *c) = 0;
+    KwavePlugin *(*plugin_loader)(const PluginContext *c) = 0;
 
     // hardcoded, should always work when the
     // symbols are declared as extern "C"
@@ -253,7 +253,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     if (!version) version = i18n("(unknown)");
 
     plugin_loader =
-        (KwavePlugin *(*)(PluginContext *))dlsym(handle, sym_loader);
+        (KwavePlugin *(*)(const PluginContext *))dlsym(handle, sym_loader);
     Q_ASSERT(plugin_loader);
     if (!plugin_loader) {
 	// plugin is null, out of memory or not found
@@ -265,8 +265,8 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	return 0;
     }
 
-    PluginContext *context = new PluginContext(
-    m_top_widget.getKwaveApp(),
+    PluginContext context(
+	m_top_widget.getKwaveApp(),
 	*this,
 	0, // LabelManager  *label_mgr,
 	0, // MenuManager   *menu_mgr,
@@ -277,16 +277,8 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	author
     );
 
-    Q_ASSERT(context);
-    if (!context) {
-	qWarning("PluginManager::loadPlugin('%s'): out of memory",
-	         name.local8Bit().data());
-	dlclose(handle);
-	return 0;
-    }
-
     // call the loader function to create an instance
-    KwavePlugin *plugin = (*plugin_loader)(context);
+    KwavePlugin *plugin = (*plugin_loader)(&context);
     Q_ASSERT(plugin);
     if (!plugin) {
 	qWarning("PluginManager::loadPlugin('%s'): out of memory",

@@ -35,9 +35,9 @@
 KWAVE_PLUGIN(NotchFilterPlugin,"notch_filter","Dave Flogeras");
 
 //***************************************************************************
-NotchFilterPlugin::NotchFilterPlugin(PluginContext &context)
+NotchFilterPlugin::NotchFilterPlugin(const PluginContext &context)
     :KwaveFilterPlugin(context),
-     m_frequency(3500.0), m_last_freq(100),m_bw(100),m_last_bw(200) 
+     m_frequency(3500.0), m_last_freq(100),m_bw(100),m_last_bw(200)
 {
 }
 

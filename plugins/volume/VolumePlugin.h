@@ -35,7 +35,7 @@ class VolumePlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    VolumePlugin(PluginContext &context);
+    VolumePlugin(const PluginContext &context);
 
     /** Destructor */
     virtual ~VolumePlugin();

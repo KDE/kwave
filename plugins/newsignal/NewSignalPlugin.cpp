@@ -26,7 +26,7 @@
 KWAVE_PLUGIN(NewSignalPlugin,"newsignal","Thomas Eschenbacher");
 
 //***************************************************************************
-NewSignalPlugin::NewSignalPlugin(PluginContext &context)
+NewSignalPlugin::NewSignalPlugin(const PluginContext &context)
     :KwavePlugin(context), m_samples(2646000), m_rate(44100),
     m_bits(16), m_tracks(2), m_bytime(true)
 {
@@ -96,7 +96,7 @@ QStringList *NewSignalPlugin::setup(QStringList &previous_params)
 	*list << QString::number(dialog->bitsPerSample());
 	*list << QString::number(dialog->tracks());
 	*list << (dialog->byTime() ? "1" : "0");
-	
+
 	emitCommand("newsignal("+
 	    QString::number(dialog->samples())+","+
 	    QString::number(dialog->rate())+","+

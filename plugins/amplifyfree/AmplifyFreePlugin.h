@@ -36,7 +36,7 @@ class AmplifyFreePlugin: public KwavePlugin
 public:
 
     /** Constructor */
-    AmplifyFreePlugin(PluginContext &context);
+    AmplifyFreePlugin(const PluginContext &context);
 
     /** Destructor */
     virtual ~AmplifyFreePlugin();

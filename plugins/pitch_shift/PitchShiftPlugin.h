@@ -37,7 +37,7 @@ class PitchShiftPlugin: public KwaveFilterPlugin
 public:
 
     /** Constructor */
-    PitchShiftPlugin(PluginContext &context);
+    PitchShiftPlugin(const PluginContext &context);
 
     /** Destructor */
     virtual ~PitchShiftPlugin();
@@ -65,7 +65,7 @@ public:
      * @param force if true, even update if no settings have changed
      */
     virtual void updateFilter(ArtsMultiTrackFilter *filter, bool force=0);
-    
+
     /**
      * Returns a verbose name of the performed action. Used for giving
      * the undo action a readable name.
@@ -96,7 +96,7 @@ private:
 
     /** mode for selecting speed (factor or percentage) */
     bool m_percentage_mode;
-    
+
     double m_last_speed;
     double m_last_freq;
 };

@@ -38,7 +38,7 @@ class SonagramPlugin: public KwavePlugin
     Q_OBJECT
 public:
     /** Constructor */
-    SonagramPlugin(PluginContext &c);
+    SonagramPlugin(const PluginContext &c);
 
     /** Destructor */
     virtual ~SonagramPlugin();

@@ -32,7 +32,7 @@
 KWAVE_PLUGIN(SelectRangePlugin,"selectrange","Thomas Eschenbacher");
 
 //***************************************************************************
-SelectRangePlugin::SelectRangePlugin(PluginContext &c)
+SelectRangePlugin::SelectRangePlugin(const PluginContext &c)
     :KwavePlugin(c), m_start_mode(SelectTimeWidget::bySamples),
      m_range_mode(SelectTimeWidget::bySamples), m_range(0)
 {
@@ -69,7 +69,7 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
 	*list << QString::number(dialog->rangeMode());
 	*list << QString::number(dialog->start());
 	*list << QString::number(dialog->range());
-	
+
 	emitCommand("plugin:execute(selectrange,"+
 	    QString::number(dialog->startMode())+","+
 	    QString::number(dialog->rangeMode())+","+

@@ -567,7 +567,7 @@ void SignalWidget::fixZoomAndOffset()
     //          -> available space = pixels2samples(width-1) + 1
     //             = (99/49.5) + 1 = 3
     //          -> decrease offset by 3 - 2 = 1
-    ASSERT(length >= m_offset);
+    Q_ASSERT(length >= m_offset);
     if (pixels2samples(m_width - 1) + 1 > length-m_offset) {
 	// there is space after the signal -> move offset right
 	unsigned int shift = pixels2samples(m_width - 1) + 1 -

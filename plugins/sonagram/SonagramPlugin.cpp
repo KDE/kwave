@@ -223,13 +223,17 @@ int SonagramPlugin::start(QStringList &params)
 
     // connect all needed signals
     connect(m_sonagram_window, SIGNAL(destroyed()),
-	    this, SLOT(windowClosed()));
+	    this, SLOT(windowDestroyed()));
 
     if (m_track_changes) {
 	QObject::connect((QObject*)&(manager()),
 	    SIGNAL(sigSignalNameChanged(const QString &)),
 	    m_sonagram_window, SLOT(setName(const QString &)));
     }
+
+    // increment the usage counter and release the plugin when the
+    // sonagram window closed
+    use();
 
     m_cmd_shutdown = false; // ###
     return 0;
@@ -313,7 +317,6 @@ void SonagramPlugin::insertStripe()
     const QByteArray *stripe = &(stripe_info->data());
 
     // forward the stripe to the window to display it
-    ASSERT(m_sonagram_window);
     if (m_sonagram_window) m_sonagram_window->insertStripe(
 	stripe_nr, *stripe);
 
@@ -448,13 +451,11 @@ void SonagramPlugin::refreshOverview()
 }
 
 //***************************************************************************
-void SonagramPlugin::windowClosed()
+void SonagramPlugin::windowDestroyed()
 {
-    // the SonagramWindow closes itself !
-    m_sonagram_window = 0;
-
-    // close the plugin too
-    close();
+    m_sonagram_window = 0; // closes itself !
+    m_cmd_shutdown = true;
+    release();
 }
 
 //***************************************************************************

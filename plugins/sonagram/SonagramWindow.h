@@ -123,8 +123,6 @@ private slots:
     /** refreshes the image, connected to m_refresh_timer */
     void refresh_view();
 
-signals:
-
 protected:
 
     /** updates the scale widgets */

@@ -65,7 +65,7 @@ private slots:
      * Connected to the SonagramWindow's "destroyed()" signal.
      * @see #sonagram_window
      */
-    void windowClosed();
+    void windowDestroyed();
 
     /**
      * Internally used to synchronously insert the data of one

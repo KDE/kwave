@@ -164,7 +164,6 @@ int KwavePlugin::execute(QStringList &params)
 //***************************************************************************
 void KwavePlugin::run(QStringList)
 {
-    debug("KwavePlugin::run");
 }
 
 //***************************************************************************

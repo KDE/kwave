@@ -537,7 +537,7 @@ void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
 	m_loaded_plugins.removeRef(p);
 
 	if (remove) {
-	    debug("PluginManager::pluginClosed(%p): deleting",p);
+//	    debug("PluginManager::pluginClosed(%p): deleting",p);
 	    delete p;
 //	    if (h) dlclose(h);
 	}

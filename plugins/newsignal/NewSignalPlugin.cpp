@@ -82,8 +82,6 @@ int NewSignalPlugin::interpreteParameters(QStringList &params)
 //***************************************************************************
 QStringList *NewSignalPlugin::setup(QStringList &previous_params)
 {
-    debug("NewSignalPlugin::setup");
-
     // try to interprete the previous parameters
     interpreteParameters(previous_params);
 

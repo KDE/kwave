@@ -54,12 +54,14 @@ MemoryManager::MemoryManager()
 //***************************************************************************
 MemoryManager::~MemoryManager()
 {
+    close();
 }
 
 //***************************************************************************
 void MemoryManager::close()
 {
     // print warnings for each physical memory block
+    Q_ASSERT(m_physical_size.isEmpty());
 
     // remove all remaining swap files and print warnings
     Q_ASSERT(m_cached_swap.isEmpty());
@@ -271,9 +273,6 @@ void *MemoryManager::convertToVirtual(void *block, size_t old_size,
     m_physical_size.remove(block);
     ::free(block);
 
-    // register as a new unmapped swapfile
-    m_unmapped_swap.prepend(new_swap);
-
     return new_swap;
 }
 
@@ -480,8 +479,8 @@ int MemoryManager::readFrom(void *block, unsigned int offset,
     // make sure it's not mmapped
     unmapFromCache(block);
     if (m_mapped_swap.containsRef(reinterpret_cast<SwapFile *>(block))) {
-	Q_ASSERT(m_mapped_swap.containsRef(
-	         reinterpret_cast<SwapFile *>(block)));
+	Q_ASSERT(!m_mapped_swap.containsRef(
+	          reinterpret_cast<SwapFile *>(block)));
         return 0;
     }
 

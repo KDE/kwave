@@ -1,4 +1,5 @@
 
+#include "config.h"
 #include <qpushbt.h>
 #include "libgui/ScaleWidget.h"
 #include "libgui/CornerPatchWidget.h"

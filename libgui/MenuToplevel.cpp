@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <kapp.h>
-
 #include "MenuNode.h"
 #include "MenuSub.h"
 #include "MenuToplevel.h"

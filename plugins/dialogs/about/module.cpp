@@ -16,8 +16,9 @@ const char *name = "about";
 Dialog *getDialog (DialogOperation *operation) {
     return new AboutDialog(operation->getGlobals(), operation->isModal());
 }
+
 //**********************************************************
-char about_text[] = "\nKwave Version "VERSION"\n\
+const char about_text[] = "\nKwave Version "VERSION"\n\
 "VERSION_DATE"\n\
 (c) 1998-99 by Martin Wilz (mwilz@ernie.mi.uni - koeln.de)\n\
 \nFFT - Code by GNU gsl - Project, library version 0.3 beta\n\
@@ -61,6 +62,7 @@ You should have received a copy of the GNU General Public License\n\
 along with this program; if not, write to the Free Software\n\
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n\
 ";
+
 //**********************************************************
 AboutDialog::AboutDialog (const Global *globals,bool modal): Dialog(modal)
 {

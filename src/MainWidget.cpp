@@ -1,4 +1,5 @@
 
+#include "config.h"
 #include <math.h>
 
 #include <qkeycode.h>
@@ -37,14 +38,6 @@ static const int tbl_keys[10] = {
 static const char *zoomtext[] = {
     "400 %", "200 %", "100 %", "33 %", "10 %", "3 %", "1 %", "0.1 %"
 };
-
-//int playbit;
-//extern int bufbase;
-//int mmap_threshold;
-//char *mmap_dir;        //storage of dir name
-//
-//QPixmap *lightoff = 0;
-//QPixmap *lighton = 0;
 
 //*****************************************************************************
 MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
@@ -211,7 +204,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     connect(signalview, SIGNAL(playingfinished()),
 	    this, SLOT(stop()));
     connect(this, SIGNAL(setOperation(int)),
-	    signalview, SLOT(setOp(int)));
+	    signalview, SLOT(playback_setOp(int)));
     connect(signalview, SIGNAL(sigCommand(const char*)),
 	    this, SLOT(forwardCommand(const char*)));
     connect(signalview, SIGNAL(selectedTimeInfo(double)),
@@ -357,7 +350,7 @@ void MainWidget::setRateInfo(int rate)
     char buf[128];
     snprintf(buf, sizeof(buf), i18n("Rate: %d.%d kHz"), 
 	rate / 1000, (rate % 1000) / 100);
-    status.changeItem (buf, 2);
+    status.changeItem(buf, 2);
 }
 
 //*****************************************************************************
@@ -365,7 +358,7 @@ void MainWidget::setLengthInfo(int len)
 {
     char buf[128];
     snprintf(buf, sizeof(buf), i18n("Samples: %d"), len);
-    status.changeItem (buf, 3);
+    status.changeItem(buf, 3);
 }
 
 //*****************************************************************************
@@ -378,15 +371,14 @@ void MainWidget::zoomSelected(int index)
     if ((index >= 0) && (index < (int)(sizeof(zoomtext)/sizeof(char *)))) {
 	new_zoom = 100.0 / (double)strtod(zoomtext[index], 0);
 	signalview->setZoom(new_zoom);
-	signalview->refresh();
+	signalview->refreshAllLayers();
     }
 }
 
 //*****************************************************************************
 void MainWidget::slot_ZoomChanged(double zoom)
 {
-    ASSERT(zoom != 0.0);
-    if (zoom == 0.0) return;
+    if (zoom <= 0.0) return;
 
     double percent = 100.0 / zoom;
     char buf[256];
@@ -494,7 +486,7 @@ bool MainWidget::executeCommand(const char *command)
 		if (lamps.at(i)) lamps.at(i)->nextState();
 
 	bool result = signalview->executeCommand(command);
-	if (signalview) signalview->refresh();
+	if (signalview) signalview->refreshAllLayers();
 	return result;
     }
 
@@ -504,55 +496,75 @@ bool MainWidget::executeCommand(const char *command)
 //*****************************************************************************
 void MainWidget::loop()
 {
-//    emit setOperation (LOOP);
-//    playbutton->setText (i18n("Stop"));
-//    loopbutton->setText (i18n("Halt"));     // halt feature by gerhard Zint
-//    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
-//    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
-//    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
-//    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
+    ASSERT(playbutton);
+    ASSERT(loopbutton);
+    if (!playbutton) return;
+    if (!loopbutton) return;
+
+    emit setOperation(LOOP);
+    playbutton->setText(i18n("Stop"));
+    loopbutton->setText(i18n("Halt"));     // halt feature by gerhard Zint
+    this->disconnect(playbutton, SIGNAL(pressed()), this, SLOT(play()));
+    this->disconnect(loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
+    this->connect(playbutton, SIGNAL(pressed()), this, SLOT(stop()));
+    this->connect(loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
 }
 
 //*****************************************************************************
 void MainWidget::play ()
 {
-//    emit setOperation (PLAY);
-//    playbutton->setText (i18n("Stop"));
-//    loopbutton->setText (i18n("Halt"));     // halt feature by gerhard Zint
-//    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
-//    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
-//    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
-//    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
+    ASSERT(playbutton);
+    ASSERT(loopbutton);
+    if (!playbutton) return;
+    if (!loopbutton) return;
+
+    emit setOperation (PLAY);
+    playbutton->setText (i18n("Stop"));
+    loopbutton->setText (i18n("Halt"));     // halt feature by gerhard Zint
+    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
+    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
+    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
+    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
 }
 
 //*****************************************************************************
 void MainWidget::halt ()
 {
-//    playbutton->setText (i18n("Play"));
-//    loopbutton->setText (i18n("&Loop"));
-//    loopbutton->setAccel (Key_L);    //seems to neccessary
-//
-//    emit setOperation (PHALT);
-//
-//    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
-//    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
-//    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
-//    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
+    ASSERT(playbutton);
+    ASSERT(loopbutton);
+    if (!playbutton) return;
+    if (!loopbutton) return;
+
+    playbutton->setText(i18n("Play"));
+    loopbutton->setText(i18n("&Loop"));
+    loopbutton->setAccel(Key_L);    //seems to neccessary
+
+    emit setOperation (PHALT);
+
+    this->disconnect(playbutton, SIGNAL(pressed()), this, SLOT(stop()));
+    this->connect(playbutton, SIGNAL(pressed()), this, SLOT(play()));
+    this->disconnect(loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
+    this->connect(loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
 }
 
 //*****************************************************************************
 void MainWidget::stop ()
 {
-//    playbutton->setText (i18n("Play"));
-//    loopbutton->setText (i18n("&Loop"));
-//    loopbutton->setAccel (Key_L);    //seems to be neccessary
-//
-//    emit setOperation (PSTOP);
-//
-//    this->disconnect (playbutton, SIGNAL(pressed()), this, SLOT(stop()));
-//    this->disconnect (loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
-//    this->connect (playbutton, SIGNAL(pressed()), this, SLOT(play()));
-//    this->connect (loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
+    ASSERT(playbutton);
+    ASSERT(loopbutton);
+    if (!playbutton) return;
+    if (!loopbutton) return;
+
+    playbutton->setText(i18n("Play"));
+    loopbutton->setText(i18n("&Loop"));
+    loopbutton->setAccel(Key_L);    //seems to be neccessary
+
+    emit setOperation(PSTOP);
+
+    this->disconnect(playbutton, SIGNAL(pressed()), this, SLOT(stop()));
+    this->disconnect(loopbutton, SIGNAL(pressed()), this, SLOT(halt()));
+    this->connect(playbutton, SIGNAL(pressed()), this, SLOT(play()));
+    this->connect(loopbutton, SIGNAL(pressed()), this, SLOT(loop()));
 }
 
 //*****************************************************************************
@@ -701,4 +713,5 @@ int MainWidget::getBitsPerSample()
     return (signalview) ? signalview->getBitsPerSample() : 0;
 }
 
+//*****************************************************************************
 //*****************************************************************************

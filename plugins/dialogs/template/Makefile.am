@@ -49,7 +49,8 @@ CLEANFILES = *.d *.dm *.moc core *~ ${MODNAME}
 
 $(MODNAME): module.cpp module.moc module.d module.dm
 	@echo plugin \"$(MODNAME)\": compiling
-	@ @CXX@ -x c++ $(CXXFLAGS) $(INCLUDES) module.cpp module.moc -o$(MODNAME)
+	@ rm -f module.moc.cpp ; ln -s module.moc module.moc.cpp
+	@ @CXX@ $(CXXFLAGS) $(INCLUDES) module.cpp module.moc.cpp -o $(MODNAME)
 
 all: $(MODNAME)
 

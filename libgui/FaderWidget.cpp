@@ -1,3 +1,5 @@
+
+#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <qkeycode.h>
@@ -22,21 +24,21 @@ FaderWidget::FaderWidget(QWidget *parent, int dir)
 //****************************************************************************
 FaderWidget::~FaderWidget()
 {
-    if (comstr) delete comstr;
+    if (comstr) delete[] comstr;
 }
 
 //****************************************************************************
 void FaderWidget::setCurve(int c)
 {
     curve = c * c * c;
-    repaint ();
+    repaint();
 }
 
 //****************************************************************************
 const char *FaderWidget::getDegree()
 {
     char buf[128];
-    deleteString (comstr);
+    delete[] comstr;
     snprintf(buf, sizeof(buf), "%f", ((float) (curve)) / 10);
     comstr = duplicateString(buf);
     return comstr;
@@ -102,4 +104,6 @@ void FaderWidget::paintEvent (QPaintEvent *)
 
     p.end();
 }
+
+//****************************************************************************
 //****************************************************************************

@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <stdio.h>
 #include <qpopupmenu.h>
 #include <kapp.h>

@@ -32,19 +32,8 @@ AC_CHECK_FLAGS
 CFLAGS="${CFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 
-#AC_MSG_CHECKING(pentium optimization)
-#case "$target_cpu" in
-#	i586 | i686 )
-#		AC_MSG_RESULT("yes")
-#		optimize="-march=pentium"
-#	;;
-#	*)
-#		AC_MSG_RESULT("no");
-#		optimize=""
-#	;;
-#esac
-#CFLAGS="${CFLAGS} ${optimize}"
-#CXXFLAGS="${CXXFLAGS} ${optimize}"
+dnl test for usage of insure++
+AC_CHECK_WITH_INSURE
 
 dnl now create our libtool, the earlier the better...
 AM_PROG_LIBTOOL

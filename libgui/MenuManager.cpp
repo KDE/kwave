@@ -1,4 +1,5 @@
 
+#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -42,7 +43,7 @@ int MenuManager::parseToKeyCode(const char *key_name)
     len = (key) ? strlen(key) : 0;
     if (len == 1) {
 	keycode = Key_A + key[0]-'A';
-	delete key;
+	delete[] key;
 	return keycode;
     }
 
@@ -84,7 +85,7 @@ int MenuManager::parseToKeyCode(const char *key_name)
 	cnt++;
     }
 
-    if (key) delete key;
+    if (key) delete[] key;
     return keycode;
 }
 
@@ -113,7 +114,7 @@ void MenuManager::executeCommand(const char *command)
     // bail out if no menu position is found
     if (!pos) {
 	debug ("no position field !\n");
-	if (com) delete com;
+	if (com) delete[] com;
 	return ;
     }
 
@@ -128,9 +129,9 @@ void MenuManager::executeCommand(const char *command)
     // --- insert the new node into the menu structure ---
     if (menu_root) menu_root->insertNode(0, pos, com, key, id);
 
-    if (com) deleteString(com);
-    if (pos) deleteString(pos);
-    if (id) deleteString(id);
+    if (com) delete[] com;
+    if (pos) delete[] pos;
+    if (id) delete[] id;
 }
 
 //*****************************************************************************
@@ -163,7 +164,7 @@ void MenuManager::addNumberedMenuEntry(const char *uid, char *entry)
 	}
 	snprintf(command, len, cmd, entry);
 	node->insertLeaf(entry, command, 0, 0, -1);
-	delete command;
+	delete[] command;
     } else debug ("MenuManager: could not find numbered Menu '%s'", uid);
 }
 

@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <qpixmap.h>
 #include <qpopupmenu.h>
 #include <kapp.h>
@@ -30,21 +31,24 @@
 //*****************************************************************************
 MenuItem::MenuItem(MenuNode *parent, char *name, char *command,
 		   int key, char *uid)
-	: MenuNode(parent, name, command, key, uid) {
+    :MenuNode(parent, name, command, key, uid)
+{
     this->checkable = false;
     exclusive_group = 0;
 }
 
 //*****************************************************************************
-MenuItem::~MenuItem() {
+MenuItem::~MenuItem()
+{
     if (exclusive_group) {
-	delete exclusive_group;
+	delete[] exclusive_group;
 	exclusive_group = 0;
     }
 }
 
 //*****************************************************************************
-void MenuItem::actionSelected() {
+void MenuItem::actionSelected()
+{
     MenuGroup *group = 0;
 
     if (isCheckable()) {
@@ -66,13 +70,15 @@ void MenuItem::actionSelected() {
 }
 
 //*****************************************************************************
-int MenuItem::getIndex() {
+int MenuItem::getIndex()
+{
     MenuNode *parent = getParentNode();
     return (parent) ? parent->getChildIndex(getId()) : -1;
 }
 
 //*****************************************************************************
-bool MenuItem::specialCommand(const char *command) {
+bool MenuItem::specialCommand(const char *command)
+{
     if (strncmp(command, "#icon(", 6) == 0) {
 	// --- give the item an icon ---
 	Parser parser(command);
@@ -117,12 +123,14 @@ bool MenuItem::specialCommand(const char *command) {
 }
 
 //*****************************************************************************
-bool MenuItem::isCheckable() {
+bool MenuItem::isCheckable()
+{
     return checkable;
 }
 
 //*****************************************************************************
-void MenuItem::setCheckable(bool checkable) {
+void MenuItem::setCheckable(bool checkable)
+{
     MenuNode *parent = getParentNode();
     if (parent && parent->inherits("MenuSub")) {
 	QPopupMenu *popup = ((MenuSub*)parent)->getPopupMenu();
@@ -133,7 +141,8 @@ void MenuItem::setCheckable(bool checkable) {
 }
 
 //*****************************************************************************
-void MenuItem::setChecked(bool check) {
+void MenuItem::setChecked(bool check)
+{
     MenuNode *parent = getParentNode();
     if (parent) parent->setItemChecked(getId(), check);
 }

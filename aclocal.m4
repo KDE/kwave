@@ -2811,7 +2811,6 @@ if test "x$with_gcc_flags" = "xno"; then
  fi
 ])
 
-
 AC_DEFUN(AC_SET_DEBUG,
 [
 if  test "x$ac_use_gcc_flags" = "xyes"; then
@@ -2890,6 +2889,32 @@ AC_SUBST(CFLAGS)
 AC_SUBST(LDFLAGS)
 ])
 
+AC_DEFUN(AC_CHECK_WITH_INSURE,
+[
+    ac_use_insure=no
+    AC_MSG_CHECKING(whether to use insure++);
+
+    AC_ARG_ENABLE(insure, 
+[  --enable-insure         enable support for insure++ debugging [default=no]],
+   [ 
+    if test $enableval = "no"; then 
+         ac_use_insure="no"
+       else 
+         ac_use_insure="yes"
+    fi
+   ], [ac_use_insure="no"])
+
+ if test "$ac_use_insure" = "yes"; then
+   CC=insure
+   CPP=insure
+   CXX=insure
+   AC_SUBST(CC)
+   AC_SUBST(CPP)
+   AC_SUBST(CXX)
+ fi
+
+ AC_MSG_RESULT($ac_use_insure);
+])
 
 # Do all the work for Automake.  This macro actually does too much --
 # some checks are only needed if your package does certain things.

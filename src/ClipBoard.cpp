@@ -1,11 +1,8 @@
 
-//#include <libkwave/Global.h>
+#include "config.h"
 #include "kapp.h"
 #include "SignalManager.h"
-//#include "TopWidget.h"
 #include "ClipBoard.h"
-
-//extern Global globals;
 
 //*****************************************************************************
 ClipBoard::ClipBoard ()
@@ -65,6 +62,6 @@ void ClipBoard::toWindow() {
 ClipBoard::~ClipBoard()
 {
     if (signal) delete signal;
-//    globals.clipboard = 0;
 }
+
 //*****************************************************************************

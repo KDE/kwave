@@ -17,7 +17,7 @@ in the source package.
 =====================
 
 >>> NOTE: You don't have to do this on an rpm based system, you can
-          easily build an rpm package of kwave, please skip this and
+          easily build an rpm package of kwave. Please skip this and
 	  advance to section 2.
 
 This is quite simple. First get the source archive, unpack it under your
@@ -32,8 +32,8 @@ make install
 ==============
 
 You can build nice binary and/or source rpm packages of kwave in one
-of the following ways. Either you do everything as root or you must have
-write permissions in the following directories:
+of the following ways. (Note: Either you do everything as root or you 
+must have write permissions in the following directories:
 
 * /tmp
 * /usr/src/packages/BUILD
@@ -43,6 +43,15 @@ write permissions in the following directories:
 * /usr/src/packages/SRPMS
 
 Installing the rpm package normally requires root permissions.
+
+>>> NOTE: this currently works fine under a SuSE distribution where the
+          rpm's output directory is under /usr/src/packages.
+	  Under a RedHat system you can make a symbolic link from 
+	  /usr/src/redhat to /usr/src/packages.
+
+If you know a way how I can find out whether if I have to use 
+/usr/src/packages or /usr/src/redhat - please let me know !!!
+(it's in the "topdir" variable of rpm, but how can I query this?)
 
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
@@ -69,21 +78,12 @@ directory you can simply type
 make src.rpm          (and you get only a source rpm)
 make rpm              (and you get both, a binary and a source rpm)
 
->>> NOTE: this currently works fine under a SuSE distribution where the
-          rpm's output directory is under /usr/src/packages.
-	  Under a RedHat system you can make a symbolic link from 
-	  /usr/src/redhat to /usr/src/packages.
-
-If you know a way how I can find out if I have to use /usr/src/packages
-or /usr/src/redhat - please let me know !!!
-(the "topdir" variable of rpm, but how can I query this?)
-
 3. RELOCATING THE BINARY RPM:
 ============================
 
 The binary rpm package of kwave is "relocatable". This means that you can
 build the package on a system with KDEDIR set to /opt/kde and install it
-on an other system or into another directory.
+on an other system or into a different directory.
 
 For example: you got the binary rpm from a friend who has a RedHat system
 (where KDEDIR is /usr) and want to install it on a SuSE system. Then just
@@ -96,13 +96,14 @@ recommended that this is the same directory as specified in the KDEDIR
 environment variable, otherwise kwave would be unable to find it's menu
 configuration, plugins, preset files and so on...
 
+("rpm -i --prefix=${KDEDIR} kwave-0.5.2-9.i586.rpm" should always work !)
 
 4. PENTIUM OPTIMIZATION:
 =======================
 
 Yes, you can compile the RPM packages for pentium and pentium pro by using
 some defines in your rpmrc file. You can either modify your system's
-/etc/rpmrc file or the .rpmrc file in your home directory. You can
+/etc/rpmrc file or the .rpmrc file in your home directory. There you can
 specify option lines like these:
 
 optflags: i386 -O2 -m486 -DNDEBUG
@@ -122,12 +123,10 @@ manually and get the same effect. For example:
 
 export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"
 
-and then go to step 1 and do ./configure / make / make install...
+Then go to chapter 1 and do ./configure / make / make install...
 
 5. REQUIREMENTS:
 ===============
-
-This distribution uses the standard template for a kde app, kexample.
 
 For compilation you need a working autoconf/automake environment, a good
 C/C++ compiler, the qt and the kde libraries. I am currently developing 
@@ -180,8 +179,7 @@ to fix some little bugs here and there and stepped into the source code of
 the program deeper and deeper. Up to today I have extended, rewritten or 
 revised nearly every component of the program and spend much time on it.
 
-So good Luck, and if not, mail me about the bugs...
-
+So good luck, and if not, mail me about the bugs...
 
    Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 

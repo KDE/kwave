@@ -1,3 +1,5 @@
+
+#include "config.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -21,7 +23,6 @@
 #include <libkwave/FileFormat.h>
 
 #include "sampleop.h"
-
 #include "ClipBoard.h"
 #include "ProgressDialog.h"
 #include "SignalManager.h"
@@ -196,49 +197,46 @@ void SignalManager::deleteChannel(unsigned int channel)
 //**********************************************************
 void SignalManager::addChannel()
 {
-//    if (!getLength()) return ;
-//
-//    signal.append(new Signal(getLength(), rate));
-//    selected.append(new bool(true));
-//    channels++;                 //increase number of channels...
-//
-//    emit sigChannelAdded(signal.count()-1);
-//    emit signalChanged( -1, -1);
+    if (!getLength()) return ;
+    appendChannel(new Signal(getLength(), rate));
 }
 
 //**********************************************************
 void SignalManager::appendChannel(Signal *newsig)
 {
-//    signal.append(newsig);
-//    selected.append(new bool(true));
-//    channels++;
-//
-//    emit sigChannelAdded(signal.count()-1);
-//    emit signalChanged( -1, -1);
+    ASSERT(newsig);
+    if (!newsig) return;
+
+    signal.append(newsig);
+    selected.append(new bool(true));
+    channels++;
+
+    emit sigChannelAdded(signal.count()-1);
+    emit signalChanged( -1, -1);
 }
 
 //**********************************************************
 void SignalManager::setOp(int id)
 {
-//    stopplay();           //every operation cancels playing...
-//
-//    //decode dynamical allocated menu id's
-//    //into the ones used by the switch statement below
-//
-//    int loop = false;
-//    switch (id) {
-//	    case LOOP:
-//	    loop = true;
-//	    case PLAY:
-//	    play (loop);
-//	    break;
-//    }
-//
-//    // chaos is about to come
-//    // check for ranges of id that have to be decoded into a parameter
-//
-//    if ((id >= TOGGLECHANNEL) && (id < TOGGLECHANNEL + 10))
-//	toggleChannel (id - TOGGLECHANNEL);
+    stopplay();           //every operation cancels playing...
+
+    //decode dynamical allocated menu id's
+    //into the ones used by the switch statement below
+
+    int loop = false;
+    switch (id) {
+	case LOOP:
+	    loop = true;
+	case PLAY:
+	    play (loop);
+	    break;
+    }
+
+    // chaos is about to come
+    // check for ranges of id that have to be decoded into a parameter
+
+    if ((id >= TOGGLECHANNEL) && (id < TOGGLECHANNEL + 10))
+	toggleChannel (id - TOGGLECHANNEL);
 }
 
 //**********************************************************
@@ -313,18 +311,18 @@ bool SignalManager::executeCommand(const char *command)
 //	    }
 //	    emit signalChanged(getLMarker(), -1);
 //	}
-//    CASE_COMMAND("addchannel")
-//	addChannel();
-//    CASE_COMMAND("deletechannel")
-//	Parser parser(command);
-//	unsigned int i = atoi(parser.getFirstParam());
-//	deleteChannel(i);
-//    CASE_COMMAND("selectchannels")
-//	for (unsigned int i = 0; i < channels; i++)
-//	    *selected.at(i) = true;
-//    CASE_COMMAND("invertchannels")
-//	for (unsigned int i = 0; i < channels; i++)
-//	    *selected.at(i) = !(*selected.at(i));
+    CASE_COMMAND("addchannel")
+	addChannel();
+    CASE_COMMAND("deletechannel")
+	Parser parser(command);
+	unsigned int i = atoi(parser.getFirstParam());
+	deleteChannel(i);
+    CASE_COMMAND("selectchannels")
+	for (unsigned int i = 0; i < channels; i++)
+	    *selected.at(i) = true;
+    CASE_COMMAND("invertchannels")
+	for (unsigned int i = 0; i < channels; i++)
+	    *selected.at(i) = !(*selected.at(i));
     } else {
 	bool result = promoteCommand(command);
 	emit signalChanged( -1, -1);
@@ -427,15 +425,15 @@ bool SignalManager::promoteCommand (const char *command)
 //**********************************************************
 void SignalManager::commandDone()
 {
-//    debug("SignalManager::commandDone()");    // ###
-//    emit signalChanged( -1, -1);
+    debug("SignalManager::commandDone()");    // ###
+    emit signalChanged( -1, -1);
 }
 
 //**********************************************************
 SignalManager::~SignalManager()
 {
     while (channels) deleteChannel(channels-1);
-    if (name) delete name;
+    if (name) delete[] name;
 }
 
 //**********************************************************
@@ -484,7 +482,14 @@ int SignalManager::loadAscii()
 	return -ENOENT;
     }
 
-    //loop over all samples in file to get maximum and minimum
+    // scan in the first line for the sample rate
+    // ### to be done ###
+    rate = 44100;        //will be asked in requester
+
+    // scan for number of channels
+    channels = 1;
+
+    // loop over all samples in file to get maximum and minimum
     while (!feof(sigin)) {
 	if (fscanf (sigin, "%e\n", &value) == 1) {
 	    if ( value > max) max = value;
@@ -497,12 +502,11 @@ int SignalManager::loadAscii()
 
     // get the maximum and the scale
     amp = (float)((1 << 23)-1) / max;
-    rate = 10000;        //will be asked in requester
-    channels = 1;
-
-    signal.append(new Signal(cnt, rate));
-    signal.last()->setBits(24);
-    sample = signal.last()->getSample();
+    Signal *new_signal = new Signal(cnt, rate);
+    ASSERT(new_signal);
+    signal.append(new_signal);
+    new_signal->setBits(24);
+    sample = new_signal->getSample();
     if (sample) {
 	fseek (sigin, 0, SEEK_SET);    //seek to beginning
 	cnt = 0;
@@ -514,6 +518,7 @@ int SignalManager::loadAscii()
     }
 
     fclose (sigin);
+
     return 0;
 }
 
@@ -619,180 +624,244 @@ int SignalManager::loadWav()
 //**********************************************************
 void SignalManager::exportAscii(const char *name)
 {
-//    if (!name) return ;
-//
-//    int length = getLength();
-//    FILE *sigout = fopen (name, "w");
-//
-//    int *sample = signal.at(0)->getSample();
-//    if (sample) {
-//	for (int i = 0; i < length ; i++) {
-//	    fprintf(sigout, "%0.8e\n", (float)sample[i] / (float)((1 << 23)-1));
-//	}
-//    }
-//
-//    fclose(sigout);
+    ASSERT(name);
+    if (!name) return ;
+
+    unsigned int length = getLength();
+    ASSERT(length);
+    if (!length) return;
+
+    ASSERT(channels);
+    if (!channels) return;
+
+    FILE *sigout = fopen(name, "w");
+    ASSERT(sigout);
+    if (!sigout) return;
+
+    //prepare and show the progress dialog
+    char progress_title[256];
+    char str_channels[128];
+    if (channels == 1)
+	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
+    else if (channels == 2)
+	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
+    else
+	snprintf(str_channels, sizeof(str_channels), "%d-channel", channels);
+    snprintf(progress_title, sizeof(progress_title),
+	i18n("Exporting %s ASCII file :"),
+	str_channels);
+
+    char *title = duplicateString(i18n(progress_title));
+    ProgressDialog *dialog = new ProgressDialog (100, title);
+    delete[] title;
+    if (dialog) dialog->show();
+
+    // loop for writing data
+    int *sample;
+    int percent_count = 0;
+    const double scale_y = (1 << 23)-1;
+    for (unsigned int pos = 0; pos < length ; pos++) {
+	// loop over all channels
+	for (unsigned int channel=0; channel < channels; channel++) {
+	    sample = signal.at(channel)->getSample();
+	    if (!sample) continue;
+	
+	    if (channel != 0) fprintf(sigout, ",");
+	    fprintf(sigout, "%0.8e", (double)sample[pos]/scale_y);
+	}
+	fprintf(sigout,"\n");
+
+	// update the progress bar
+	percent_count--;
+	if (dialog && (percent_count <= 0)) {
+	    percent_count = length / 200;
+	    float percent = (float)pos;
+	    percent /= (float)length;
+	    percent *= 100.0;
+	    dialog->setProgress (percent);
+	}
+    }
+
+    if (dialog) delete dialog;
+    fclose(sigout);
 }
 
 //**********************************************************
 int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
                                  unsigned int length, int bits)
 {
-//    unsigned int bufsize = 16 * 1024 * sizeof(int);
-//    unsigned char *savebuffer = 0;
-//    sample_t **sample = 0;    // array of pointers to samples
-//    int bytes = bits / 8;
-//    int bytes_per_sample = bytes * channels;
-//    bufsize -= bufsize % bytes_per_sample;
-//
-//    // try to allocate memory for the save buffer
-//    // if failed, try again with the half buffer size as long
-//    // as <1kB is not reached (then we are really out of memory)
-//    while (savebuffer == 0) {
-//	if (bufsize < 1024) {
-//	    debug("SignalManager::writeWavSignal:not enough memory for buffer");
-//	    return -ENOMEM;
-//	}
-//	savebuffer = new unsigned char[bufsize];
-//	if (!savebuffer) {
-//	    bufsize >>= 1;
-//	    bufsize -= bufsize % bytes_per_sample;
-//	}
-//    }
-//
-//    //prepare and show the progress dialog
-//    char progress_title[256];
-//    char str_channels[128];
-//    if (channels == 1)
-//	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
-//    else if (channels == 2)
-//	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
-//    else
-//	snprintf(str_channels, sizeof(str_channels), "%d-channel", channels);
-//
-//    snprintf(progress_title, sizeof(progress_title), "Saving %d-Bit-%s File :",
-//	    bits, str_channels);
-//
-//    char *title = duplicateString(i18n(progress_title));
-//    ProgressDialog *dialog = new ProgressDialog (100, title);
-//    delete title;
-//    if (dialog) dialog->show();
-//
-//    //prepare the store loop
-//    int percent_count = length / 200;
-//    unsigned int shift = 24-bits;
-//
-//    sample = new (int*)[channels];
-//    for (unsigned int channel = 0; channel < channels; channel++)
-//	sample[channel] = signal.at(channel)->getSample();
-//
-//    //loop for writing data
-//    for (unsigned int pos = begin; pos < length; ) {
-//	unsigned char *buf = savebuffer;
-//	unsigned int nsamples = 0;
-//
-//	while (pos < length && (nsamples < bufsize / bytes_per_sample)) {
-//	    for (unsigned int channel = 0; channel < channels; channel++) {
-//		int *smp = sample[channel] + pos;
-//		int act = (*smp) >> shift;
-//		if (bytes == 1) {
-//		    // 8 bits -> unsigned
-//		    *(buf++) = (char)((act - 128) & 0xFF);
-//		} else {
-//		    // >= 16 bits -> signed
-//		    for (register int byte = bytes; byte; byte--) {
-//			*(buf++) = (char)(act & 0xFF);
-//			act >>= 8;
-//		    }
-//		}
-//	    }
-//	    nsamples++;
-//	    pos++;
-//	}
-//
-//	int written_bytes = fwrite(savebuffer,
-//				   bytes_per_sample, nsamples, sigout);
-//
-//	percent_count -= written_bytes;
-//	if (dialog && (percent_count <= 0)) {
-//	    percent_count = length / 200;
-//	    float percent = (float)pos;
-//	    percent /= (float)length;
-//	    percent *= 100.0;
-//	    dialog->setProgress (percent);
-//	}
-//    }
-//
-//    if (sample) delete sample;
-//    if (dialog) delete dialog;
-//    if (savebuffer) delete savebuffer;
+    unsigned int bufsize = 16 * 1024 * sizeof(int);
+    unsigned char *savebuffer = 0;
+    sample_t **sample = 0;    // array of pointers to samples
+    int bytes = bits / 8;
+    int bytes_per_sample = bytes * channels;
+    bufsize -= bufsize % bytes_per_sample;
+
+    // try to allocate memory for the save buffer
+    // if failed, try again with the half buffer size as long
+    // as <1kB is not reached (then we are really out of memory)
+    while (savebuffer == 0) {
+	if (bufsize < 1024) {
+	    debug("SignalManager::writeWavSignal:not enough memory for buffer");
+	    return -ENOMEM;
+	}
+	savebuffer = new unsigned char[bufsize];
+	if (!savebuffer) {
+	    bufsize >>= 1;
+	    bufsize -= bufsize % bytes_per_sample;
+	}
+    }
+
+    //prepare and show the progress dialog
+    char progress_title[256];
+    char str_channels[128];
+    if (channels == 1)
+	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
+    else if (channels == 2)
+	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
+    else
+	snprintf(str_channels, sizeof(str_channels), "%d-channel", channels);
+
+    snprintf(progress_title, sizeof(progress_title), "Saving %d-Bit-%s File :",
+	    bits, str_channels);
+
+    char *title = duplicateString(i18n(progress_title));
+    ProgressDialog *dialog = new ProgressDialog (100, title);
+    delete[] title;
+    if (dialog) dialog->show();
+
+    // prepare the store loop
+    int percent_count = length / 200;
+    unsigned int shift = 24-bits;
+
+    sample = new (int*)[channels];
+    for (unsigned int channel = 0; channel < channels; channel++) {
+	sample[channel] = signal.at(channel)->getSample();
+	ASSERT(sample[channel]);
+	if (!sample[channel]) {
+	    KMsgBox(0, i18n("Warning"),
+		i18n("empty channel detected, channel count reduced by one"),
+		2);
+	    channels--;
+	}
+    }
+
+    // loop for writing data
+    for (unsigned int pos = begin; pos < length; ) {
+	unsigned char *buf = savebuffer;
+	unsigned int nsamples = 0;
+
+	while (pos < length && (nsamples < bufsize / bytes_per_sample)) {
+	    for (unsigned int channel = 0; channel < channels; channel++) {
+		int *smp = sample[channel] + pos;
+		int act = (*smp) >> shift;
+		if (bytes == 1) {
+		    // 8 bits -> unsigned
+		    *(buf++) = (char)((act - 128) & 0xFF);
+		} else {
+		    // >= 16 bits -> signed
+		    for (register int byte = bytes; byte; byte--) {
+			*(buf++) = (char)(act & 0xFF);
+			act >>= 8;
+		    }
+		}
+	    }
+	    nsamples++;
+	    pos++;
+	}
+
+	int written_bytes = fwrite(savebuffer,
+				   bytes_per_sample, nsamples, sigout);
+
+	percent_count -= written_bytes;
+	if (dialog && (percent_count <= 0)) {
+	    percent_count = length / 200;
+	    float percent = (float)pos;
+	    percent /= (float)length;
+	    percent *= 100.0;
+	    dialog->setProgress (percent);
+	}
+    }
+
+    if (sample) delete[] sample;
+    if (dialog) delete dialog;
+    if (savebuffer) delete[] savebuffer;
     return 0;
 }
 
 //**********************************************************
 void SignalManager::save(const char *filename, int bits, bool selection)
 {
-//    debug("SignalManager::save(): %d Bit to %s ,%d", bits, filename, selection);
-//    int begin = 0;
-//    int length = this->getLength();
-//    struct wavheader header;
-//
-//    if (selection && (lmarker != rmarker)) {
-//	begin = lmarker;
-//	length = rmarker - lmarker + 1;
-//    }
-//
-//    FILE *sigout = fopen (filename, "w");
-//    if (name) deleteString (name);
-//    name = duplicateString (filename);
-//
-//    if (sigout) {
-//	fseek (sigout, 0, SEEK_SET);
-//
-//	strncpy ((char*)&(header.riffid), "RIFF", 4);
-//	strncpy ((char*)&(header.wavid), "WAVE", 4);
-//	strncpy ((char*)&(header.fmtid), "fmt ", 4);
-//	header.fmtlength = 16;
-//	header.filelength = (length * bits / 8 * channels + sizeof(struct wavheader));
-//	header.mode = 1;
-//	header.channels = channels;
-//	header.rate = rate;
-//	header.AvgBytesPerSec = rate * bits / 8 * channels;
-//	header.BlockAlign = bits * channels / 8;
-//	header.bitspersample = bits;
-//
-//	int datalen = length * header.channels * header.bitspersample / 8;
-//
-//#if defined(IS_BIG_ENDIAN)
-//	header.mode = bswap_16(header.mode);
-//	header.rate = bswap_32(header.rate);
-//	header.channels = bswap_16(header.channels);
-//	header.bitspersample = bswap_16(header.bitspersample);
-//	header.AvgBytesPerSec = bswap_32(header.AvgBytesPerSec);
-//	header.fmtlength = bswap_32(header.fmtlength);
-//	header.filelength = bswap_32(header.filelength);
-//	datalen = bswap_32(datalen);
-//#endif
-//
-//	fwrite ((char *) &header, 1, sizeof (struct wavheader), sigout);
-//	fwrite ("data", 1, 4, sigout);
-//	fwrite ((char *)&datalen, 1, 4, sigout);
-//
-//	switch (bits) {
-//	    case 8:
-//	    case 16:
-//	    case 24:
-//		writeWavChunk(sigout, begin, length, bits);
-//		break;
-//	    default:
-//		KMessageBox::message(0, i18n("Info"),
-//		    i18n("Sorry only 8/16/24 Bits per Sample are supported !"),
-//		    2);
-//	    break;
-//	}
-//
-//	fclose(sigout);
-//    }
+    debug("SignalManager::save(): %d Bit to %s ,%d", bits, filename, selection);
+
+    int begin = 0;
+    int length = this->getLength();
+    struct wavheader header;
+
+    ASSERT(filename);
+    if (!filename) return;
+
+    if (selection && (lmarker != rmarker)) {
+	begin = lmarker;
+	length = rmarker - lmarker + 1;
+    }
+
+    FILE *sigout = fopen (filename, "w");
+    if (name) delete[] name;
+    name = duplicateString(filename);
+    ASSERT(name);
+    if (!name) return;
+
+    if (!channels) KMsgBox(0, i18n("info"),
+	i18n("Signal is empty, nothing to save !"), 2);
+
+    if (sigout) {
+	fseek (sigout, 0, SEEK_SET);
+
+	strncpy ((char*)&(header.riffid), "RIFF", 4);
+	strncpy ((char*)&(header.wavid), "WAVE", 4);
+	strncpy ((char*)&(header.fmtid), "fmt ", 4);
+	header.fmtlength = 16;
+	header.filelength = (length * bits / 8 * channels + sizeof(struct wavheader));
+	header.mode = 1;
+	header.channels = channels;
+	header.rate = rate;
+	header.AvgBytesPerSec = rate * bits / 8 * channels;
+	header.BlockAlign = bits * channels / 8;
+	header.bitspersample = bits;
+
+	int datalen = length * header.channels * header.bitspersample / 8;
+
+#if defined(IS_BIG_ENDIAN)
+	header.mode = bswap_16(header.mode);
+	header.rate = bswap_32(header.rate);
+	header.channels = bswap_16(header.channels);
+	header.bitspersample = bswap_16(header.bitspersample);
+	header.AvgBytesPerSec = bswap_32(header.AvgBytesPerSec);
+	header.fmtlength = bswap_32(header.fmtlength);
+	header.filelength = bswap_32(header.filelength);
+	datalen = bswap_32(datalen);
+#endif
+
+	fwrite ((char *) &header, 1, sizeof (struct wavheader), sigout);
+	fwrite ("data", 1, 4, sigout);
+	fwrite ((char *)&datalen, 1, 4, sigout);
+
+	switch (bits) {
+	    case 8:
+	    case 16:
+	    case 24:
+		writeWavChunk(sigout, begin, length, bits);
+		break;
+	    default:
+		KMsgBox::message(0, i18n("Info"),
+		    i18n("Sorry only 8/16/24 Bits per Sample are supported !"),
+		    2);
+	    break;
+	}
+
+	fclose(sigout);
+    }
 }
 
 //**********************************************************
@@ -845,7 +914,7 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
     char *title = duplicateString(progress_title);
     ProgressDialog *dialog = new ProgressDialog (100, title);
     ASSERT(dialog);
-    delete title;
+    delete[] title;
 
     if (dialog) dialog->show();
 
@@ -908,8 +977,8 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
     }
 
     if (dialog) delete dialog;
-    if (loadbuffer) delete loadbuffer;
-    if (sample) delete sample;
+    if (loadbuffer) delete[] loadbuffer;
+    if (sample) delete[] sample;
     return 0;
 }
 
@@ -959,31 +1028,37 @@ struct Play {
 };
 
 //**********************************************************
-void playThread(struct Play *par)
+void *playThread(struct Play *par)
 {
-//    if (play16bit) par->manage->play16 (par->loop);
-//    else par->manage->play8 (par->loop);
-//
-//    delete par;
+    ASSERT(par);
+    if (!par) return (void*)-1;
+    ASSERT(par->manage);
+    if (!par->manage) return (void*)-1;
+
+    if (play16bit) par->manage->play16 (par->loop);
+    else par->manage->play8 (par->loop);
+
+    delete par;
+    return 0;
 }
 
 //**********************************************************
 void SignalManager::play(bool loop)
 {
-//    Play *par = new Play;
-//    pthread_t thread;
-//
-//    par->manage = this;
-//    par->loop = loop;
-//
-//    pthread_create (&thread, 0, (void * (*) (void *))playThread, par);
+    Play *par = new Play;
+    pthread_t thread;
+
+    par->manage = this;
+    par->loop = loop;
+
+    pthread_create(&thread, 0, (void * (*) (void *))playThread, par);
 }
 
 //**********************************************************
 void SignalManager::stopplay()
 {
-//    if (msg[processid] >= 0)    //if there is a process running
-//	msg[stopprocess] = true;          //set flag for stopping
+    if (msg[processid] >= 0)    //if there is a process running
+	msg[stopprocess] = true;          //set flag for stopping
 }
 
 //**********************************************************
@@ -991,185 +1066,189 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
                                   unsigned int channels, int rate,
                                   int bufbase)
 {
-//    if ( ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &bitspersample) != -1) {
-//	if ( ioctl(audio, SNDCTL_DSP_STEREO, &channels) != -1) {
-//	    if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) != -1) {
-//		if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) != -1) {
-//		    int size;
-//		    ioctl(audio, SNDCTL_DSP_GETBLKSIZE, &size);
-//		    return size;
-//		} else warning("unusable buffer size");
-//	    } else warning("unusable rate");
-//	} else warning("wrong number of channels");
-//    } else warning("number of bits per samples not supported");
+    if ( ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &bitspersample) != -1) {
+	if ( ioctl(audio, SNDCTL_DSP_STEREO, &channels) != -1) {
+	    if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) != -1) {
+		if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) != -1) {
+		    int size;
+		    ioctl(audio, SNDCTL_DSP_GETBLKSIZE, &size);
+		    return size;
+		} else warning("unusable buffer size");
+	    } else warning("unusable rate");
+	} else warning("wrong number of channels");
+    } else warning("number of bits per samples not supported");
     return 0;
 }
 
 //**********************************************************
 void SignalManager::play8(bool loop)
 {
-//    debug("SignalManager::play8 (%d)", loop);    // ###
-//
-//    int audio;                    //file handle for /dev/dsp
-//    int act;
-//    char *buffer = 0;
-//    unsigned int bufsize;
-//
-//    msg[stopprocess] = false;
-//    if ((audio = open(sounddevice, O_WRONLY)) != -1 ) {
-//	bufsize = setSoundParams(audio, 8, 0, rate, bufbase);
-//
-//	if (bufsize) {
-//	    buffer = new char[bufsize];
-//	    memset(buffer, 0, bufsize);
-//
-//	    if (buffer) {
-//		unsigned int &pointer = msg[samplepointer];
-//		unsigned int last = rmarker;
-//		unsigned int cnt = 0;
-//		pointer = lmarker;
-//
-//		if (loop) {
-//		    if (lmarker == rmarker) last = getLength();
-//
-//		    while (msg[stopprocess] == false) {
-//			for (cnt = 0; cnt < bufsize; cnt++) {
-//			    if (pointer >= last) pointer = lmarker;
-//			    act = 0;
-//			    for (unsigned int i = 0; i < channels; i++)
-//				act += signal.at(i)->getSingleSample(pointer);
-//			    act /= channels;
-//			    act += 1 << 23;
-//			    buffer[cnt] = act >> 16;
-//			    pointer++;
-//			}
-//			write (audio, buffer, bufsize);
-//		    }
-//		} else {
-//		    if (last == pointer) last = getLength();
-//
-//		    while ((last - pointer > bufsize) && (msg[stopprocess] == false)) {
-//			for (cnt = 0; cnt < bufsize; cnt++) {
-//
-//			    act = 0;
-//			    for (unsigned int i = 0; i < channels; i++)
-//				act += signal.at(i)->getSingleSample(pointer);
-//
-//			    act /= channels;
-//			    act += 1 << 23;
-//			    buffer[cnt] = act >> 16;
-//			    pointer++;
-//			}
-//
-//			write (audio, buffer, bufsize);
-//		    }
-//		    if (msg[stopprocess] == false) {
-//			for (cnt = 0; cnt < last - pointer; cnt++) {
-//			    act = 0;
-//			    for (unsigned int i = 0; i < channels; i++)
-//				act += signal.at(i)->getSingleSample(pointer);
-//
-//			    act /= channels;
-//			    act += 1 << 23;
-//			    buffer[cnt] = act >> 16;
-//			    pointer++;
-//			}
-//			for (; cnt < bufsize; cnt++)
-//			    buffer[cnt] = 128;    // fill up last buffer
-//			write (audio, buffer, bufsize);
-//		    }
-//		}
-//	    }
-//	}
-//
-//	close (audio);
-//	if (buffer) delete [] buffer;
-//	msg[stopprocess] = false;
-//	msg[samplepointer] = 0;
-//    }
+//    debug("SignalManager::play8 (%d)", loop);
+
+    int audio;                    //file handle for /dev/dsp
+    int act;
+    char *buffer = 0;
+    unsigned int bufsize;
+
+    msg[stopprocess] = false;
+    if ((audio = open(sounddevice, O_WRONLY)) != -1 ) {
+	bufsize = setSoundParams(audio, 8, 0, rate, bufbase);
+
+	if (bufsize) {
+	    buffer = new char[bufsize];
+	    memset(buffer, 0, bufsize);
+
+	    if (buffer) {
+		unsigned int &pointer = msg[samplepointer];
+		unsigned int last = rmarker;
+		unsigned int cnt = 0;
+		pointer = lmarker;
+
+		if (loop) {
+		    if (lmarker == rmarker) last = getLength();
+
+		    while (msg[stopprocess] == false) {
+			for (cnt = 0; cnt < bufsize; cnt++) {
+			    if (pointer >= last) pointer = lmarker;
+			    act = 0;
+			    for (unsigned int i = 0; i < channels; i++)
+				act += signal.at(i)->getSingleSample(pointer);
+			    act /= channels;
+			    act += 1 << 23;
+			    buffer[cnt] = act >> 16;
+			    pointer++;
+			}
+			write (audio, buffer, bufsize);
+		    }
+		} else {
+		    if (last == pointer) last = getLength();
+
+		    while ((last - pointer > bufsize) && (!msg[stopprocess])) {
+			for (cnt = 0; cnt < bufsize; cnt++) {
+
+			    act = 0;
+			    for (unsigned int i = 0; i < channels; i++)
+				act += signal.at(i)->getSingleSample(pointer);
+
+			    act /= channels;
+			    act += 1 << 23;
+			    buffer[cnt] = act >> 16;
+			    pointer++;
+			}
+
+			write (audio, buffer, bufsize);
+		    }
+		    if (msg[stopprocess] == false) {
+			for (cnt = 0; cnt < last - pointer; cnt++) {
+			    act = 0;
+			    for (unsigned int i = 0; i < channels; i++)
+				act += signal.at(i)->getSingleSample(pointer);
+
+			    act /= channels;
+			    act += 1 << 23;
+			    buffer[cnt] = act >> 16;
+			    pointer++;
+			}
+			for (; cnt < bufsize; cnt++)
+			    buffer[cnt] = 128;    // fill up last buffer
+			write (audio, buffer, bufsize);
+		    }
+		}
+	    }
+	}
+
+	close (audio);
+	if (buffer) delete[] buffer;
+	msg[stopprocess] = false;
+	msg[samplepointer] = 0;
+    }
 }
 
 //**********************************************************
 void SignalManager::play16(bool loop)
 {
-//    debug("SignalManager::play16 (%d)", loop);    // ###
-//    int audio;                    //file handle for /dev/dsp
-//    unsigned char *buffer = 0;
-//    unsigned int bufsize;
-//
-//    msg[stopprocess] = false;
-//    if ( (audio = open(sounddevice, O_WRONLY)) != -1 ) {
-//	bufsize = setSoundParams(audio, 16, 0, rate, bufbase);
-//
-//	buffer = new unsigned char[bufsize];
-//	memset(buffer, 0, bufsize);
-//
-//	if (buffer) {
-//	    unsigned int &pointer = msg[samplepointer];
-//	    unsigned int last = rmarker;
-//	    unsigned int act, cnt = 0;
-//	    pointer = lmarker;
-//	    if (last == pointer) last = getLength();
-//
-//	    if (loop) {
-//		while (msg[stopprocess] == false) {
-//		    for (cnt = 0; cnt < bufsize; ) {
-//			if (pointer >= last) pointer = lmarker;
-//
-//			act = 0;
-//			for (unsigned int i = 0; i < channels; i++)
-//			    act += signal.at(i)->getSingleSample(pointer);
-//
-//			act /= channels;
-//			act += 1 << 23;
-//			buffer[cnt++] = act >> 8;
-//			buffer[cnt++] = (act >> 16) + 128;
-//			pointer++;
-//		    }
-//		    write (audio, buffer, bufsize);
-//		}
-//	    } else {
-//		while ((last - pointer > bufsize) && (msg[stopprocess] == false)) {
-//		    for (cnt = 0; cnt < bufsize; ) {
-//			act = 0;
-//			for (unsigned int i = 0; i < channels; i++)
-//			    act += signal.at(i)->getSingleSample(pointer);
-//
-//			act /= channels;
-//			act += 1 << 23;
-//			buffer[cnt++] = act >> 8;
-//			buffer[cnt++] = (act >> 16) + 128;
-//			pointer++;
-//		    }
-//		    write (audio, buffer, bufsize);
-//		}
-//		// playing not aborted and still something left, so play the rest...
-//		if (msg[stopprocess] == false) {
-//		    for (cnt = 0; cnt < last - pointer; cnt++) {
-//			act = 0;
-//			for (unsigned int i = 0; i < channels; i++)
-//			    act += signal.at(i)->getSingleSample(pointer);
-//
-//			act /= channels;
-//			act += 1 << 23;
-//			buffer[cnt++] = act >> 8;
-//			buffer[cnt++] = (act >> 16) + 128;
-//			pointer++;
-//		    }
-//
-//		    while (cnt < bufsize) {
-//			buffer[cnt++] = 0x00;
-//			buffer[cnt++] = 0x80;
-//		    }
-//		    write (audio, buffer, bufsize);
-//		}
-//	    }
-//	}
-//	close (audio);
-//	if (buffer) delete [] buffer;
-//	msg[stopprocess] = false;
-//	msg[samplepointer] = 0;
-//    }
+//    debug("SignalManager::play16 (%d)", loop);
+
+    int audio;                    //file handle for /dev/dsp
+    unsigned char *buffer = 0;
+    unsigned int bufsize;
+
+    msg[stopprocess] = false;
+    if ( (audio = open(sounddevice, O_WRONLY)) != -1 ) {
+	bufsize = setSoundParams(audio, 16, 0, rate, bufbase);
+
+	buffer = new unsigned char[bufsize];
+	// memset(buffer, 0, bufsize);
+
+	if (buffer) {
+	    unsigned int &pointer = msg[samplepointer];
+	    unsigned int last = rmarker;
+	    unsigned int act, cnt = 0;
+	    pointer = lmarker;
+	    if (last == pointer) last = getLength();
+
+	    if (loop) {
+		while (msg[stopprocess] == false) {
+		    for (cnt = 0; cnt < bufsize; ) {
+			if (pointer >= last) pointer = lmarker;
+
+			act = 0;
+			for (unsigned int i = 0; i < channels; i++)
+			    act += signal.at(i)->getSingleSample(pointer);
+
+			act /= channels;
+			act += 1 << 23;
+			buffer[cnt++] = act >> 8;
+			buffer[cnt++] = (act >> 16) + 128;
+			pointer++;
+		    }
+		    write (audio, buffer, bufsize);
+		}
+	    } else {
+		while ((last - pointer > bufsize) && (!msg[stopprocess])) {
+		    for (cnt = 0; cnt < bufsize; ) {
+			act = 0;
+			for (unsigned int i = 0; i < channels; i++)
+			    act += signal.at(i)->getSingleSample(pointer);
+
+			act /= channels;
+			act += 1 << 23;
+			buffer[cnt++] = act >> 8;
+			buffer[cnt++] = (act >> 16) + 128;
+			pointer++;
+		    }
+		    write (audio, buffer, bufsize);
+		}
+		
+		// playing not aborted and still something left,
+		// so play the rest...
+		if (msg[stopprocess] == false) {
+		    for (cnt = 0; cnt < last - pointer; cnt++) {
+			act = 0;
+			for (unsigned int i = 0; i < channels; i++)
+			    act += signal.at(i)->getSingleSample(pointer);
+
+			act /= channels;
+			act += 1 << 23;
+			buffer[cnt++] = act >> 8;
+			buffer[cnt++] = (act >> 16) + 128;
+			pointer++;
+		    }
+
+		    while (cnt < bufsize) {
+			buffer[cnt++] = 0x00;
+			buffer[cnt++] = 0x80;
+		    }
+		    write (audio, buffer, bufsize);
+		}
+	    }
+	}
+	close (audio);
+	if (buffer) delete[] buffer;
+	msg[stopprocess] = false;
+	msg[samplepointer] = 0;
+    }
 }
 
+//**********************************************************
 //**********************************************************

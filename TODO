@@ -7,7 +7,12 @@ o channel mixing dialog
 
 o move label handling to class LabelManager
 
+o make the SonagramWindow work
+
 o find out how to get the "topdir" of rpm for "make rpm"
+
+o Review playback code in SignalManager: null pointers, memory leaks, 
+  thread handling?
 
 o look at CurveWidget::CurveWidget()
 o ProgressDialog::timedProgress()
@@ -55,14 +60,9 @@ o make a menu group for @SELECTION
 
 o remove all usages of KTopLevelWidget
 
-o support for import/export of ASCII files with multiple channels
-
-o add <project_root>/libgui/.libs to the -L parameter when making
-  in src and plugins
+o import of multi-channel ASCII files
 
 o label handling doesn't work
-
-o Segmentation fault after "Could not find labeltype"
 
 o the clipboard does not work between other kwave instances
 
@@ -71,8 +71,6 @@ o splitting of i18n for kwave, libgui and each plugin
 o more complete i18n
 
 o internationalization for other languages than german
-
-o make the gui/redraws faster
 
 o use the KDE's clipboard
 
@@ -86,8 +84,6 @@ o if an incompatible version of libgui is installed, the linking of the
   added to the linker's directory list (-L../libgui ?) during make of the
   kwave main program and the plugins
 
-o apply the GNU coding style
-
 o get the plugins working with compilers other than egcs
 
 o playback in stereo
@@ -99,20 +95,19 @@ o pluginize/ put into library  the following files in src/ :
 
 o context menu for right mouse button in SignalWidget
 
-o a nice toolbar
-
-o icons for the buttons
+o a nice toolbar + icons for the buttons
 
 o positioning the cursor to start/end of the file with Pos1 / End
 
-o >>> DOCUMENTATION OF THE WHOLE API <<<
+o >>> COMPLETE DOCUMENTATION OF THE WHOLE API <<<
 
-o use the data types from sys/times.h instead of just "int"
+o globally use the data types from sys/times.h instead of just "int"
 
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width
 
-o use some audio library, like libasound
+o use some audio library, like libasound for import/export of other
+  file formats
 
 o plugins for import/export of different file formats (e.g. MP3)
 

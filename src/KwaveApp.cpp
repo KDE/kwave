@@ -1,4 +1,5 @@
 
+#include "config.h"
 #include <qdir.h>
 #include <qstring.h>
 #include <qstrlist.h>
@@ -28,6 +29,12 @@ KwaveApp::KwaveApp(int argc, char **argv)
     :KApplication(argc, argv),
     recentFiles(true)
 {
+    globals.localconfigDir = 0;
+    globals.globalconfigDir = 0;
+    globals.timeplugins = 0;
+    globals.dialogplugins = 0;
+    globals.filterDir = 0;
+
     debug("KwaveApp::KwaveApp()");
     int file;
 
@@ -72,11 +79,6 @@ bool KwaveApp::isOK()
 //*****************************************************************************
 bool KwaveApp::findDirectories()
 {
-    globals.localconfigDir = 0;
-    globals.globalconfigDir = 0;
-    globals.timeplugins = 0;
-    globals.dialogplugins = 0;
-    globals.filterDir = 0;
 
     QDir localconfig(localkdedir().data());
     if (localconfig.cd("share")) {
@@ -92,7 +94,7 @@ bool KwaveApp::findDirectories()
     } else warning("no local user kdedir found !\n");
 
     QDir globalconfig(kde_datadir().data());
-    if (!globalconfig.cd ("kwave"))
+    if (!globalconfig.cd("kwave"))
 	warning("no global kwave config dir found !\n");
     globals.globalconfigDir = duplicateString(globalconfig.absPath());
 
@@ -175,10 +177,6 @@ bool KwaveApp::newWindow(const char *filename)
 	return false;
     }
 
-    // inform the widget about changes in the list of recent files
-    connect(this, SIGNAL(recentFilesChanged()),
-            new_top_widget, SLOT(updateRecentFiles()));
-
     if (topwidgetlist.isEmpty()) {
 	// the first widget is the main widget !
 	setMainWidget(new_top_widget); // sets geometry and other properties
@@ -194,7 +192,12 @@ bool KwaveApp::newWindow(const char *filename)
     topwidgetlist.append(new_top_widget);
     new_top_widget->show();
 
+    // inform the widget about changes in the list of recent files
+    connect(this, SIGNAL(recentFilesChanged()),
+            new_top_widget, SLOT(updateRecentFiles()));
+
     if (filename) new_top_widget->setSignal(filename);
+
     return true;
 }
 
@@ -235,30 +238,30 @@ void KwaveApp::saveRecentFiles()
 //*****************************************************************************
 void KwaveApp::saveConfig()
 {
-//    char buf[256];
-//    KConfig *config = getConfig();
-//    ASSERT(config);
-//    if (!config) return;
-//
-//    config->setGroup ("Sound Settings");
-//    config->writeEntry ("16Bit", play16bit);
-//    config->writeEntry ("BufferSize", bufbase);
-//
-//    config->setGroup ("Memory Settings");
-//    config->writeEntry ("Mmap threshold", mmap_threshold);
-//    config->writeEntry ("Mmap dir", mmap_dir);
-//
-//    config->setGroup ("Labels");
-//
-//    for (unsigned int i = 0 ; i < globals.markertypes.count(); i++) {
-//	snprintf(buf, sizeof(buf), "%dCommand", i);
-//	config->writeEntry (buf, globals.markertypes.at(i)->getCommand());
-//    }
-//
-//    config->sync();
-//
-//    // also save the list of recent files
-//    saveRecentFiles();
+    char buf[256];
+    KConfig *config = getConfig();
+    ASSERT(config);
+    if (!config) return;
+
+    config->setGroup("Sound Settings");
+    config->writeEntry("16Bit", play16bit);
+    config->writeEntry("BufferSize", bufbase);
+
+//    config->setGroup("Memory Settings");
+//    config->writeEntry("Mmap threshold", mmap_threshold);
+//    config->writeEntry("Mmap dir", mmap_dir);
+
+    config->setGroup ("Labels");
+
+    for (unsigned int i = 0 ; i < globals.markertypes.count(); i++) {
+	snprintf(buf, sizeof(buf), "%dCommand", i);
+	config->writeEntry (buf, globals.markertypes.at(i)->getCommand());
+    }
+
+    config->sync();
+
+    // also save the list of recent files
+    saveRecentFiles();
 }
 
 //*****************************************************************************
@@ -303,7 +306,8 @@ void KwaveApp::readConfig()
 	QString name = config->readEntry (buf);
 	if (!name.isEmpty()) {
 	    LabelType *marker = new LabelType(name.data());
-//	    globals.markertypes.append (marker);
+	    ASSERT(marker);
+	    if (marker) globals.markertypes.append(marker);
 	}
     }
 
@@ -318,25 +322,31 @@ KwaveApp::~KwaveApp()
 
 //    debug("KwaveApp::~KwaveApp(): %d topwidgets", topwidgetlist.count());
 
-    topwidgetlist.setAutoDelete(true);
-    topwidgetlist.clear();
-
+    topwidgetlist.setAutoDelete(false);
+    while (!topwidgetlist.isEmpty()) {
+	TopWidget *todel = topwidgetlist.last();
+	topwidgetlist.removeRef(todel);
+	delete todel;
+    }
     recentFiles.clear();
 
-    if (globals.localconfigDir) delete globals.localconfigDir;
+    if (globals.localconfigDir) delete[] globals.localconfigDir;
     globals.localconfigDir = 0;
 
-    if (globals.globalconfigDir) delete globals.globalconfigDir;
+    if (globals.globalconfigDir) delete[] globals.globalconfigDir;
     globals.globalconfigDir = 0;
 
-    if (globals.timeplugins) delete globals.timeplugins;
+    if (globals.timeplugins) delete[] globals.timeplugins;
     globals.timeplugins = 0;
 
-    if (globals.dialogplugins) delete globals.dialogplugins;
+    if (globals.dialogplugins) delete[] globals.dialogplugins;
     globals.dialogplugins = 0;
 
-    if (globals.filterDir) delete globals.filterDir ;
+    if (globals.filterDir) delete[] globals.filterDir ;
     globals.filterDir = 0;
 
     debug("KwaveApp::~KwaveApp(): done.");
 }
+
+//*****************************************************************************
+//*****************************************************************************

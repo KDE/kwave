@@ -1,3 +1,5 @@
+
+#include "config.h"
 #include <qpainter.h>
 #include <qkeycode.h>
 #include <math.h>
@@ -26,7 +28,7 @@ FormantWidget::FormantWidget (QWidget *parent, int rate)
 FormantWidget::~FormantWidget()
 {
     if (points) delete points;
-    if (pos) delete pos;
+    if (pos) delete[] pos;
     if (widths) delete widths;
 }
 
@@ -122,3 +124,6 @@ void FormantWidget::paintEvent (QPaintEvent *)
     }
     p.end();
 }
+
+//****************************************************************************
+//****************************************************************************

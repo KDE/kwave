@@ -27,12 +27,14 @@ distclean-generic:
 reallyclean: clean-generic distclean
 	-rm -f config.cache
 	-rm -f config.log
-	-rm -f -v `find -size 0`
-	-rm -fv `find . -name \*.moc`
-	-rm -fv `find . -name \*.d`
-	-rm -fv `find . -name \*.dm`
-	-rm -fv `find . -type l`
-	-rm -fv `find . -name Makefile`
+	-rm -fv  `find -size 0`
+	-rm -fv  `find . -name \*.ii`
+	-rm -fv  `find . -name \*.moc`
+	-rm -fv  `find . -name \*.d`
+	-rm -fv  `find . -name \*.dm`
+	-rm -fv  `find . -type l`
+	-rm -fv  `find . -name Makefile`
+	-rm -rfv `find . -name .\*`
 
 backup: kwave.spec
 	@ cp kwave.spec kwave.spec.saved ; \

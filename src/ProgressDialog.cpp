@@ -1,10 +1,9 @@
-#include <stdio.h>
 
+#include "config.h"
+#include <stdio.h>
 #include <qpainter.h>
 #include <qtimer.h>
-
 #include <kapp.h>
-
 #include <libkwave/TimeOperation.h>
 #include "ProgressDialog.h"
 

@@ -1,3 +1,5 @@
+
+#include "config.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,3 +39,6 @@ double FloatLine::value ()
 FloatLine::~FloatLine () 
 {
 }
+
+//****************************************************************************
+//****************************************************************************

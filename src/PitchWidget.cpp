@@ -1,3 +1,5 @@
+
+#include "config.h"
 #include <qpainter.h>
 #include <qpushbt.h>
 #include <qstring.h>

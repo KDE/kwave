@@ -60,8 +60,8 @@ SonagramDialog::SonagramDialog(bool modal, int len, int rate)
 
     int bsize = ok->sizeHint().height();
 
-    setMinimumSize (320, bsize*8);
-    resize (320, bsize*8);
+    setMinimumSize (400, bsize*8);
+    resize (400, bsize*8);
 
     ok->setAccel (Key_Return);
     cancel->setAccel(Key_Escape);
@@ -77,7 +77,8 @@ const char *SonagramDialog::getCommand()
 {
     deleteString (comstr);
     //  return windowtypebox->currentText();
-    return comstr;
+    // return comstr;
+    return "sonagram()";
 }
 
 //**********************************************************

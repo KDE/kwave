@@ -1,6 +1,8 @@
 
+#include "config.h"
 #include "Dialog.h"
 
+//**********************************************************************
 Dialog::Dialog(bool modal)
     :QDialog(0, 0, modal)
 {

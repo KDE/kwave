@@ -1,12 +1,11 @@
-#include <stdio.h>
 
+#include "config.h"
+#include <stdio.h>
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qdir.h>
 #include <qpainter.h>
-
 #include <kapp.h>
-
 #include "ScaleWidget.h"
 
 #define FONTSIZE 6

@@ -1,6 +1,8 @@
-#include "ImageView.h"
+
+#include "config.h"
 #include <qimage.h>
 #include <qcursor.h>
+#include "ImageView.h"
 
 //****************************************************************************
 ImageView::ImageView (QWidget *parent)
@@ -100,4 +102,5 @@ void ImageView::paintEvent(QPaintEvent *)
     }
 }
 
+//****************************************************************************
 //****************************************************************************

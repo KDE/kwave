@@ -1,3 +1,5 @@
+
+#include "config.h"
 #include <stdio.h>
 #include <math.h>
 #include <limits.h>
@@ -168,7 +170,7 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
 //****************************************************************************
 CurveWidget::~CurveWidget()
 {
-    if (presetDir) delete presetDir;
+    if (presetDir) delete[] presetDir;
     if (points) delete points;
     if (knob) delete knob;
     if (pixmap) delete pixmap;
@@ -451,4 +453,6 @@ void CurveWidget::paintEvent(QPaintEvent *)
     }
     p.end();
 }
+
+//****************************************************************************
 //****************************************************************************

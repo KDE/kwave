@@ -17,7 +17,7 @@ APPSDIR= $(kde_appsdir)/Multimedia
 CONFDIR= $(kde_datadir)/$(PACKAGE)
 PIXDIR = $(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
-INCLUDES= @all_includes@ -I${topdir}/libgui
+INCLUDES= -I${topdir} @all_includes@
 
 # claim, which subdirectories you want to install
 
@@ -72,11 +72,12 @@ kwave_SOURCES =\
  $(BUILTSOURCES)
 
 # the library search path
-kwave_LDFLAGS = -dy -L$(topdir)/libgui/.libs @all_libraries@ --export-dynamic
+# kwave_LDFLAGS = -dy -L$(topdir)/libgui/.libs @all_libraries@ --export-dynamic
+kwave_LDFLAGS = -L$(topdir)/libgui/.libs @all_libraries@ -dy -export-dynamic
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kwave_LDADD   =  -lkwavegui -lkwave -lkfm -lkdeui -lkdecore \
+kwave_LDADD   = -lkwavegui -lkwave -lkfm -lkdeui -lkdecore \
 	-lqt -lX11 -lXext -lpthread -ldl
 
 # if you "make distclean", this files get removed. If you want to remove

@@ -112,14 +112,20 @@ public slots:
 
     void signalChanged(int left, int right);
 
-    void signalinserted (int, int);
-    void signaldeleted (int, int);
-    void estimateRange (int, int);
+    void signalinserted(int, int);
+    void signaldeleted(int, int);
+    void estimateRange(int, int);
 
-    void refresh ();
-    void setOp (int);
-    void toggleChannel (int);
-    void time ();
+    void toggleChannel(int);
+
+    /**
+     * Catches all functions from mainwidget and topwidget that
+     * should not be delivered to SignalManage.
+     * @param op ID of an operation: PLAY, LOOP, PSTOP or PHALT
+     */
+    void playback_setOp(int op);
+
+    void playback_time();
 
     /**
      * Zooms into the selected range between the left and right marker.
@@ -153,6 +159,12 @@ public slots:
      * middle 30% of the new display.
      */
     void zoomOut();
+
+    void refreshAllLayers();
+
+private slots:
+
+    void refreshSelection();
 
 signals:
 
@@ -269,6 +281,8 @@ protected:
 
 private:
 
+    void refreshLayer(int layer);
+
     /**
      * Converts a sample index into a pixel offset using the current zoom
      * value. Always rounds downwards.
@@ -311,6 +325,10 @@ private:
      * @see #calculateInterpolation()
      */
     float *interpolation_alpha;
+
+    QPixmap *layer[3];
+    bool update_layer[3];
+    RasterOp layer_rop[3];
 
     int offset;                    //offset from which signal is beeing displayed
     int width, height;            //of this widget

@@ -15,15 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <stdio.h>
-
 #include <qdict.h>
-
 #include <kapp.h>
-
 #include <libkwave/Parser.h>
 #include <libkwave/String.h>
-
 #include "MenuNode.h"
 #include "MenuGroup.h"
 
@@ -75,9 +72,9 @@ MenuNode::~MenuNode()
     clear();
 
 //    debug("MenuNode(%s)::~MenuNode(): done.", getName());
-    if (name) deleteString(name);
-    if (command) deleteString(command);
-    if (uid) deleteString(uid);
+    if (name) delete[] name;
+    if (command) delete[] command;
+    if (uid) delete[] uid;
 
 //    menu_node_count--;
 //    debug("MenuNode::MenuNode(): node count=%d", menu_node_count);
@@ -498,8 +495,8 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
     }
 
     delete node;    // free the old node
-    delete name;
-    delete command;
+    delete[] name;
+    delete[] command;
 
     return sub;
 }

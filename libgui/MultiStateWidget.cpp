@@ -1,17 +1,15 @@
 //provides methods of multistateWidget a Class that switches the image it
 // displays on clicking, used for the channel enable/disable lamps...
 
+#include "config.h"
 #include <qdir.h>
 #include <qimage.h>
-
-#include <kapp.h>
-
 #include <qstring.h>
 #include <qlist.h>
 #include <qstrlist.h>
 #include <qdir.h>
 #include <qpixmap.h>
-
+#include "kapp.h"
 #include "MultiStateWidget.h"
 
 QList <QPixmap> *pixmaps = 0;
@@ -116,7 +114,7 @@ void MultiStateWidget::mouseReleaseEvent( QMouseEvent *e)
 //**********************************************************
 MultiStateWidget::~MultiStateWidget()
 {
-    if (states) delete states;
+    if (states) delete[] states;
 }
 
 //**********************************************************

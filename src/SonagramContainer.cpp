@@ -1,10 +1,10 @@
 
+#include "config.h"
 #include "libgui/OverViewWidget.h"
 #include "libgui/ScaleWidget.h"
 #include "libgui/CornerPatchWidget.h"
 
 #include "ImageView.h"
-
 #include "SonagramContainer.h"
 
 //****************************************************************************

@@ -1,5 +1,6 @@
-#include <math.h>
 
+#include "config.h"
+#include <math.h>
 #include <qkeycode.h>
 #include <qstring.h>
 #include <qwidget.h>
@@ -294,3 +295,6 @@ void FFTWindow::setNoteInfo (int hz, int x)
     snprintf(buf, sizeof(buf), "Note: %s%d ", notename[note], octave);
     status->changeItem (buf, 4);
 }
+
+//****************************************************************************
+//****************************************************************************

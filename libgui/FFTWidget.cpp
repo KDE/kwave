@@ -1,3 +1,5 @@
+
+#include "config.h"
 #include <limits.h>
 #include <math.h>
 #include <stdlib.h>
@@ -65,6 +67,7 @@ __inline void getLocalMax (complex *sample, int upperLimit, int &nr)
     } while (c > max && nr > 0 && nr < upperLimit);
     nr -= direction;
 }
+
 //****************************************************************************
 FFTWidget::FFTWidget(QWidget *parent)
     :QWidget(parent)

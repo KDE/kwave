@@ -52,6 +52,8 @@ public:
      */
     bool closeWindow(TopWidget *todel);
 
+    inline QStrList &getRecentFiles() { return recentFiles; };
+
 signals:
     /**
      * Will be emitted if the list of recent files has changed. Can

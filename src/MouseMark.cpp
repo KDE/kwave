@@ -1,3 +1,5 @@
+
+#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <qpainter.h>
@@ -11,9 +13,6 @@ MouseMark::MouseMark(QWidget *parent)
     last = -1;
     offset = 0;
     zoom = 1;
-
-    QObject::connect(this, SIGNAL(refresh()),
-                    (QObject*) parent, SLOT(refresh()));
 }
 
 //****************************************************************************
@@ -128,4 +127,5 @@ MouseMark::~MouseMark()
 {
 }
 
+//****************************************************************************
 //****************************************************************************

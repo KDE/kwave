@@ -1,3 +1,5 @@
+
+#include "config.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,7 +63,7 @@ const char *TimeLine::getMsStr()
 
     char buf[128];
     snprintf(buf, sizeof(buf), "%f", ((double(value))*1000 / rate));
-    if (comstr) deleteString (comstr);
+    if (comstr) delete[] comstr;
     comstr = duplicateString (buf);
     return comstr;
 }
@@ -218,7 +220,8 @@ void TimeLine::mousePressEvent( QMouseEvent *e)
 //**********************************************************
 TimeLine::~TimeLine()
 {
-    deleteString(comstr);
+    if (comstr) delete[] comstr;
+    if (menu) delete menu;
 };
 
 //**********************************************************

@@ -1,6 +1,7 @@
+
+#include "config.h"
 #include <stdio.h>
 #include <unistd.h>
-
 #include <kapp.h>
 #include <qkeycode.h>
 #include <qdir.h>
@@ -20,6 +21,7 @@
 #include "sampleop.h"
 
 #include "KwaveApp.h"
+#include "SonagramWindow.h"
 #include "ClipBoard.h"
 #include "MainWidget.h"
 #include "TopWidget.h"
@@ -61,11 +63,11 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     ASSERT(status_bar);
     if (!status_bar) return;
 
-    status_bar->insertItem (i18n("Length: 0 ms           "), 1);
-    status_bar->insertItem (i18n("Rate: 0 kHz         "), 2);
-    status_bar->insertItem (i18n("Samples: 0             "), 3);
-    status_bar->insertItem (i18n("selected: 0 ms        "), 4);
-    status_bar->insertItem (i18n("Clipboard: 0 ms      "), 5);
+    status_bar->insertItem(i18n("Length: 0 ms           "), 1);
+    status_bar->insertItem(i18n("Rate: 0 kHz         "), 2);
+    status_bar->insertItem(i18n("Samples: 0             "), 3);
+    status_bar->insertItem(i18n("selected: 0 ms        "), 4);
+    status_bar->insertItem(i18n("Clipboard: 0 ms      "), 5);
     setStatusBar(status_bar);
 
     // connect clicked menu entries with main communication channel of kwave
@@ -135,10 +137,10 @@ TopWidget::~TopWidget()
     closeFile();
 
     KTMainWindow::setCaption(0);
-    if (caption) delete caption;
+    if (caption) delete[] caption;
     caption=0;
 
-    if (loadDir) delete loadDir;
+    if (loadDir) delete[] loadDir;
     loadDir=0;
 
     if (mainwidget) delete mainwidget;
@@ -150,10 +152,10 @@ TopWidget::~TopWidget()
     if (menu_bar) delete menu_bar;
     menu_bar=0;
 
-    if (name) deleteString(name);
+    if (name) delete[] name;
     name=0;
 
-    if (saveDir) delete saveDir;
+    if (saveDir) delete[] saveDir;
     saveDir=0;
 
     if (status_bar) delete status_bar;
@@ -188,6 +190,14 @@ void TopWidget::executeCommand(const char *command)
 	resolution(command);
     CASE_COMMAND("revert")
 	revert();
+    CASE_COMMAND("sonagram")
+	QString n(name);
+	SonagramWindow *sono = new SonagramWindow(&n);
+	ASSERT(sono);
+	if (sono) {
+	    sono->show();
+	    // delete sono;
+	}
     CASE_COMMAND("importascii")
 	importAsciiFile();
     CASE_COMMAND("exportascii")
@@ -230,14 +240,6 @@ void TopWidget::parseCommands(const char *str)
 }
 
 //*****************************************************************************
-//void TopWidget::closeEvent(QCloseEvent *e)
-//{
-//    ASSERT(e);
-//    if (e) e->accept();
-//    app.closeWindow(this);
-//}
-
-//*****************************************************************************
 void TopWidget::revert()
 {
     ASSERT(mainwidget);
@@ -277,7 +279,7 @@ void TopWidget::setCaption(char *filename)
     }
 
     KTMainWindow::setCaption(caption);
-    if (old_caption) delete old_caption;
+    if (old_caption) delete[] old_caption;
 }
 
 //*****************************************************************************
@@ -289,7 +291,7 @@ bool TopWidget::closeFile()
     //  return false;
     //    }
 
-    if (name) deleteString(name);
+    if (name) delete[] name;
     name = 0;
     setCaption(0);
     updateMenu();
@@ -389,7 +391,7 @@ void TopWidget::saveFileAs(bool selection)
 	dialog->exec();
 	name = duplicateString (dialog->selectedFile());
 	if (name) {
-	    if (saveDir) delete saveDir;
+	    if (saveDir) delete[] saveDir;
 	    saveDir = new QDir(dialog->dirPath());
 	    ASSERT(saveDir);
 
@@ -443,4 +445,5 @@ void TopWidget::updateMenu()
     menu->selectItem("@BITS_PER_SAMPLE", (const char *)buffer);
 }
 
+//*****************************************************************************
 //*****************************************************************************

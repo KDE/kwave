@@ -21,7 +21,13 @@
 #include "kwave/MemoryManager.h"
 
 // define this for using only slow Qt array functions
-// #define STRICTLY_QT
+#undef STRICTLY_QT
+
+/** use optimized memcpy() from xine */
+#define MEMCPY xine_fast_memcpy
+
+/* forward declaration to libkwave/memcpy.c */
+extern "C" void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
 //***************************************************************************
 //***************************************************************************
@@ -106,8 +112,8 @@ unsigned int Stripe::MappedArray::copy(unsigned int dst,
     Q_ASSERT(_samples);
     if (!_samples) return 0;
 
-    memmove(&(_samples[dst]), &(source[offset]),
-	    cnt * sizeof(sample_t));
+    MEMCPY(&(_samples[dst]), &(source[offset]),
+	   cnt * sizeof(sample_t));
 #endif
 
     return cnt;
@@ -133,8 +139,9 @@ unsigned int Stripe::MappedArray::read(QMemArray<sample_t> &buffer,
     Q_ASSERT(_samples);
     if (!_samples) return 0;
 
-    memmove(&(buffer[dstoff]), &(_samples[offset]),
-	    length * sizeof(sample_t));
+    MEMCPY(&(buffer[dstoff]), &(_samples[offset]),
+	   length * sizeof(sample_t));
+
 #endif
     return length;
 }

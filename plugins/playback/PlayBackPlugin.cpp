@@ -236,7 +236,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 
     Q_ASSERT(device);
     if (!device) {
-	warning("PlayBackPlugin::openDevice(): "\
+	qWarning("PlayBackPlugin::openDevice(): "\
 		"creating device failed.");
 	return 0;
     }
@@ -251,7 +251,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
     );
     Q_ASSERT(!result.length());
     if (result.length()) {
-	warning("PlayBackPlugin::openDevice(): "\
+	qWarning("PlayBackPlugin::openDevice(): "\
 	        "opening the device failed.");
 	
 	// delete the device if it did not open
@@ -289,12 +289,12 @@ void PlayBackPlugin::startDevicePlayBack()
 
     // remove the old device if still one exists
     if (m_device) {
-	warning("PlayBackPlugin::openDevice(): removing stale instance");
+	qWarning("PlayBackPlugin::openDevice(): removing stale instance");
 	delete m_device;
     }
 
     // open the device and abort if not possible
-    debug("PlayBackPlugin::startDevicePlayBack(), device='%s'",
+    qDebug("PlayBackPlugin::startDevicePlayBack(), device='%s'",
           m_playback_params.device.latin1());
     m_device = openDevice(m_playback_params.device, &m_playback_params);
     if (!m_device) {
@@ -374,7 +374,7 @@ void PlayBackPlugin::run(QStringList)
     unsigned int audible_count = audible_tracks.count();
     if (!audible_count) {
 	// not even one selected track
-	debug("PlayBackPlugin::run(): no audible track(s) !");
+	qDebug("PlayBackPlugin::run(): no audible track(s) !");
 	playbackDone();
 	return;
     }
@@ -483,7 +483,7 @@ void PlayBackPlugin::run(QStringList)
 
     // playback is done
     playbackDone();
-//    debug("PlayBackPlugin::run() done.");
+//    qDebug("PlayBackPlugin::run() done.");
 }
 
 //***************************************************************************

@@ -37,7 +37,7 @@ static long _last_audiofile_error = -1;
  */
 static void _handle_audiofile_error(long error, const char *str)
 {
-    debug("libaudiofile error %ld: '%s'", error, str);
+    qDebug("libaudiofile error %ld: '%s'", error, str);
     _last_audiofile_error = error;
 }
 

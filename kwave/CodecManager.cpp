@@ -167,7 +167,7 @@ QString CodecManager::encodingFilter()
     QString str_list = list.join("\n");
     Q_ASSERT(!str_list.contains('/'));
     if (str_list.contains('/')) {
-	warning("CodecManager::encodingFilter() -> '%s'", str_list.latin1());
+	qWarning("CodecManager::encodingFilter() -> '%s'", str_list.latin1());
     }
 
     return str_list;
@@ -201,7 +201,7 @@ QString CodecManager::decodingFilter()
     QString str_list = list.join("\n");
     Q_ASSERT(!str_list.contains('/'));
     if (str_list.contains('/')) {
-	warning("CodecManager::decodingFilter() -> '%s'", str_list.latin1());
+	qWarning("CodecManager::decodingFilter() -> '%s'", str_list.latin1());
     }
 
     return str_list;

@@ -19,7 +19,7 @@
 #define _ARTS_MULTI_IO_H_
 
 #include "config.h"
-#include <qglobal.h> // for warning()
+#include <qglobal.h> // for qWarning()
 #include <qptrvector.h>
 #include <arts/artsflow.h>
 
@@ -49,7 +49,7 @@ public:
 	
 	    Q_ASSERT(m_ios[t]);
 	    if (!m_ios[t]) {
-		warning("ArtsMultiIO: creation of adapter failed!!!");
+		qWarning("ArtsMultiIO: creation of adapter failed!!!");
 		m_count = t;
 		break;
 	    }

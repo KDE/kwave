@@ -111,7 +111,7 @@ void RIFFParser::detectEndianness()
 
     // if RIFF found and RIFX not found -> little endian
     if (riff_offsets.count() && !rifx_offsets.count()) {
-        debug("detected little endian format");
+        qDebug("detected little endian format");
         m_endianness = LittleEndian;
         emit progress(100);
         return;
@@ -119,7 +119,7 @@ void RIFFParser::detectEndianness()
 
     // if RIFX found and RIFF not found -> big endian
     if (rifx_offsets.count() && !riff_offsets.count()) {
-        debug("detected big endian format");
+        qDebug("detected big endian format");
         m_endianness = BigEndian;
         emit progress(100);
         return;
@@ -128,7 +128,7 @@ void RIFFParser::detectEndianness()
     // not detectable -> detect by searching all known chunks and
     // detect best match
     emit action(i18n("detecting endianness (statistic search)..."));
-    debug("doing statistic search to determine endianness...");
+    qDebug("doing statistic search to determine endianness...");
     unsigned int le_matches = 0;
     unsigned int be_matches = 0;
     QStringList names;
@@ -172,18 +172,18 @@ void RIFFParser::detectEndianness()
 
         emit progress(100 * (++index) / count);
     }
-    debug("big endian matches:    %u", be_matches);
-    debug("little endian matches: %u", le_matches);
+    qDebug("big endian matches:    %u", be_matches);
+    qDebug("little endian matches: %u", le_matches);
 
     if (le_matches > be_matches) {
-        debug("assuming little endian");
+        qDebug("assuming little endian");
         m_endianness = LittleEndian;
     } else if (be_matches > le_matches) {
-        debug("assuming big endian");
+        qDebug("assuming big endian");
         m_endianness = BigEndian;
     } else {
         // give up :-(
-        debug("unable to determine endianness");
+        qDebug("unable to determine endianness");
         m_endianness = Unknown;
     }
 
@@ -210,7 +210,7 @@ bool RIFFParser::parse()
 
     // not detectable -> no chance of finding anything useful -> give up!
     if (m_endianness == Unknown) {
-        warning("unable to detect endianness -> giving up!");
+        qWarning("unable to detect endianness -> giving up!");
         return false;
     }
 
@@ -265,7 +265,7 @@ RIFFChunk *RIFFParser::addChunk(RIFFChunk *parent, const QCString &name,
 bool RIFFParser::addGarbageChunk(RIFFChunk *parent, u_int32_t offset,
                                  u_int32_t length)
 {
-    debug("adding garbage chunk at 0x%08X, length=%u",offset,length);
+    qDebug("adding garbage chunk at 0x%08X, length=%u",offset,length);
 
     // create the new chunk first
     QCString name(16);
@@ -298,7 +298,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     if (!parent) return false;
 
     do {
-//        debug("RIFFParser::parse(offset=0x%08X, length=%u)", offset, length);
+//        qDebug("RIFFParser::parse(offset=0x%08X, length=%u)", offset, length);
 
         // make sure that we are still in the source (file)
         if (offset >= m_dev.size()) {
@@ -316,7 +316,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
 
         // chunks with less than 4 bytes are not possible
         if (length < 4) {
-            warning("chunk with less than 4 bytes at offset 0x%08X, "\
+            qWarning("chunk with less than 4 bytes at offset 0x%08X, "\
                     "length=%u bytes!", offset, length);
             // too short stuff is "garbage"
             addGarbageChunk(parent, offset, length);
@@ -331,9 +331,9 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
 
         // check if the name really contains only ASCII characters
         if (!isValidName(name)) {
-//            warning("invalid chunk name at offset 0x%08X", offset);
+//            qWarning("invalid chunk name at offset 0x%08X", offset);
             // unreadable name -> make it a "garbage" chunk
-//            debug("addGarbageChunk(offset=0x%08X, length=%u)",offset,length);
+//            qDebug("addGarbageChunk(offset=0x%08X, length=%u)",offset,length);
             addGarbageChunk(parent, offset, length);
             error = true;
             break;
@@ -349,7 +349,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         if (len == 0) {
             // valid name but no length information -> badly truncated
             // -> make it a zero-length chunk
-            debug("empty chunk '%s' at 0x%08X", name.data(), offset);
+            qDebug("empty chunk '%s' at 0x%08X", name.data(), offset);
             addEmptyChunk(parent, name, offset);
 
             if (length > 8) {
@@ -369,7 +369,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         if (phys_len & 1) phys_len++;
 
         // now create a new chunk, per default type is "sub-chunk"
-//        debug("new chunk, name='%s', len=%u, ofs=0x%08X, phys_len=%u",
+//        qDebug("new chunk, name='%s', len=%u, ofs=0x%08X, phys_len=%u",
 //            name,len,offset,phys_len);
         RIFFChunk *chunk = addChunk(parent, name, format, len, offset,
                                     phys_len, RIFFChunk::Sub);
@@ -379,7 +379,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         // if not at the end of the file, parse all further chunks
         length -= chunk->physLength() + 8;
         offset  = chunk->physEnd() + 1;
-//        debug("parse loop end: offset=0x%08X, length=%u",offset,length);
+//        qDebug("parse loop end: offset=0x%08X, length=%u",offset,length);
     } while (length && !m_cancel);
 
     // parse for sub-chunks in the chunks we newly found
@@ -394,7 +394,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
 
             QCString path = (parent ? parent->path() : QCString("")) +
                             "/" + chunk->name();
-            debug("scanning for chunks in '%s' (format='%s'), offset=0x%08X, length=%u",
+            qDebug("scanning for chunks in '%s' (format='%s'), offset=0x%08X, length=%u",
                   path.data(), chunk->format().data(),
                   chunk->dataStart(), chunk->dataLength());
             if (!parse(chunk, chunk->dataStart(), chunk->dataLength())) {
@@ -476,7 +476,7 @@ QValueList<u_int32_t> RIFFParser::scanForName(const QCString &name,
     m_dev.at(offset);
     m_dev.readBlock(&buffer[0], 4);
 
-    debug("scannig for '%s' at [0x%08X...0x%08X] ...", name.data(),
+    qDebug("scannig for '%s' at [0x%08X...0x%08X] ...", name.data(),
           offset, end);
     u_int32_t pos;
     int next = 1;
@@ -545,7 +545,7 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
         RIFFChunk *chunk = ic.current();
         if (chunk->type() == RIFFChunk::Garbage) {
             // search for the name
-            debug("searching in garbage at 0x%08X", chunk->physStart());
+            qDebug("searching in garbage at 0x%08X", chunk->physStart());
             QValueList<u_int32_t> offsets = scanForName(name,
                 chunk->physStart(), chunk->physLength(),
                 index, count);
@@ -557,16 +557,16 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
             for (;(it != offsets.end()) && !m_cancel; ++it) {
                 u_int32_t pos = (*it);
                 u_int32_t len = end-pos+1;
-                debug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
+                qDebug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
                 parse(chunk, pos, len);
-                debug("-------------------------------");
+                qDebug("-------------------------------");
             }
         }
     }
 
     // not found in garbage? search over the rest of the file"
     if (!found_something && !m_cancel) {
-        debug("brute-force search from 0x%08X to 0x%08X",
+        qDebug("brute-force search from 0x%08X to 0x%08X",
               0, m_root.physEnd());
         QValueList<u_int32_t> offsets = scanForName(name,
             0, m_root.physLength());
@@ -577,9 +577,9 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
         for (;(it != offsets.end())  && !m_cancel; ++it) {
             u_int32_t pos = (*it);
             u_int32_t len = end-pos+1;
-            debug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
+            qDebug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
             parse(&m_root, pos, len);
-            debug("-------------------------------");
+            qDebug("-------------------------------");
         }
     }
 
@@ -607,7 +607,7 @@ void RIFFParser::repair()
         fixGarbageEnds();
 
         // throw away all remaining garbage
-        debug("discarding garbage...");
+        qDebug("discarding garbage...");
         discardGarbage(m_root);
 
         // done, no more passes needed
@@ -648,7 +648,7 @@ void RIFFParser::collectGarbage()
                 u_int32_t start = chunk->physStart();
                 u_int32_t end   = chunk->physEnd();
 
-                debug("chunk at 0x%08X contains only garbage!", start);
+                qDebug("chunk at 0x%08X contains only garbage!", start);
                 // -> convert into a garbage chunk !
                 chunk->setType(RIFFChunk::Garbage);
                 chunk->setLength(end - start + 4 + 1);
@@ -667,7 +667,7 @@ void RIFFParser::collectGarbage()
 //***************************************************************************
 void RIFFParser::fixGarbageEnds()
 {
-    debug("fixing ends of garbage chunks...");
+    qDebug("fixing ends of garbage chunks...");
 
     RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
@@ -691,17 +691,17 @@ void RIFFParser::fixGarbageEnds()
 
             // check for overlaps
             if ((s2 <= e1) && (e2 >= s1)) {
-                debug("overlap detected:");
-                debug("    at 0x%08X...0x%08X '%s'",
+                qDebug("overlap detected:");
+                qDebug("    at 0x%08X...0x%08X '%s'",
                     s1, e1, c1->name().data());
-                debug("    at 0x%08X...0x%08X '%s'",
+                qDebug("    at 0x%08X...0x%08X '%s'",
                     s2, e2, c2->name().data());
 
                 if ((c1->type() == RIFFChunk::Garbage) && (s1 < s2)) {
                     // shorten garbage
                     e1 = s2 - 1;
                     u_int32_t len = e1 - s1 + 1;
-                    debug("shortening garbage to %u bytes", len);
+                    qDebug("shortening garbage to %u bytes", len);
                     c1->setLength(len);
                 }
             }
@@ -713,7 +713,7 @@ void RIFFParser::fixGarbageEnds()
 //***************************************************************************
 bool RIFFParser::joinGarbageToEmpty()
 {
-    debug("joining garbage to empty chunks (and to garbage)...");
+    qDebug("joining garbage to empty chunks (and to garbage)...");
 
     RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
@@ -747,7 +747,7 @@ bool RIFFParser::joinGarbageToEmpty()
                 (!isKnownName(next->name())) )
             {
                 u_int32_t len = next->physLength() + 4;
-                debug("joining garbage to empty chunk '%s' at 0x%08X, %u bytes",
+                qDebug("joining garbage to empty chunk '%s' at 0x%08X, %u bytes",
                     chunk->name().data(), chunk->physStart(), len);
                 chunk->setLength(len);
                 chunk->setType(guessType(chunk->name()));
@@ -796,7 +796,7 @@ void RIFFParser::discardGarbage(RIFFChunk &chunk)
 //***************************************************************************
 void RIFFParser::cancel()
 {
-    debug("RIFFParser: --- cancel ---");
+    qDebug("RIFFParser: --- cancel ---");
     m_cancel = true;
 }
 

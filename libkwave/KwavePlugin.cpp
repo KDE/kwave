@@ -130,13 +130,13 @@ int KwavePlugin::stop()
 {
     if (m_thread && m_thread->running() &&
 	(pthread_self() == m_thread->threadID())) {
-	warning("KwavePlugin::stop(): plugin '%s' called stop() from "\
+	qWarning("KwavePlugin::stop(): plugin '%s' called stop() from "\
 	        "within it's own worker thread (from run() ?). "\
 	        "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
 	        name().latin1(), author().latin1());
 
 #ifdef DEBUG
-	debug("pthread_self()=%08X, tid=%08X", (unsigned int)pthread_self(),
+	qDebug("pthread_self()=%08X, tid=%08X", (unsigned int)pthread_self(),
 	      (unsigned int)m_thread->threadID());
 	void *buf[256];
 	size_t n = backtrace(buf, 256);
@@ -153,7 +153,7 @@ int KwavePlugin::stop()
 	    if (m_thread->running()) m_thread->wait(1000);
 	    if (m_thread->running()) {
 		// unable to stop the thread
-		warning("KwavePlugin::stop(): stale thread !");
+		qWarning("KwavePlugin::stop(): stale thread !");
 	    }
 	    delete m_thread;
 	    m_thread = 0;

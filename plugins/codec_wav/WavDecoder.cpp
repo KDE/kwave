@@ -111,11 +111,11 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info().clear();
     Q_ASSERT(!m_source);
     bool need_repair = false;
-    if (m_source) warning("WavDecoder::open(), already open !");
+    if (m_source) qWarning("WavDecoder::open(), already open !");
 
     // try to open the source
     if (!src.open(IO_ReadOnly)) {
-	warning("failed to open source !");
+	qWarning("failed to open source !");
 	return false;
     }
 
@@ -148,7 +148,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     progress.reset();
     if (progress.wasCancelled()) return false;
 
-    debug("--- RIFF file structure after first pass ---");
+    qDebug("--- RIFF file structure after first pass ---");
     parser.dumpStructure();
 
     // check if there is a RIFF chunk at all...
@@ -193,7 +193,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // not everything found -> need heavy repair actions !
     if (!fmt_chunk || !data_chunk || need_repair) {
-	debug("doing heavy repair actions...");
+	qDebug("doing heavy repair actions...");
 	parser.dumpStructure();
 	parser.repair();
 	parser.dumpStructure();
@@ -208,14 +208,14 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     u_int32_t fmt_offset = 0;
     if (fmt_chunk) fmt_offset = fmt_chunk->dataStart();
-    debug("fmt chunk starts at 0x%08X", fmt_offset);
+    qDebug("fmt chunk starts at 0x%08X", fmt_offset);
 
     u_int32_t data_offset = 0;
     u_int32_t data_size = 0;
     if (data_chunk) {
 	data_offset = data_chunk->dataStart();
 	data_size   = data_chunk->physLength();
-	debug("data chunk at 0x%08X (%u byte)", data_offset, data_size);
+	qDebug("data chunk at 0x%08X (%u byte)", data_offset, data_size);
     }
 
     if (data_size <= 4) {
@@ -281,15 +281,15 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     WavFormatMap known_formats;
     QString format_name = known_formats.findName(header.min.format);
 
-    debug("-------------------------");
-    debug("wav header:");
-    debug("mode        = 0x%04X, (%s)", header.min.format, format_name.latin1());
-    debug("channels    = %d", header.min.channels);
-    debug("rate        = %u", header.min.samplerate);
-    debug("bytes/s     = %u", header.min.bytespersec);
-    debug("block align = %d", header.min.blockalign);
-    debug("bits/sample = %d", header.min.bitwidth);
-    debug("-------------------------");
+    qDebug("-------------------------");
+    qDebug("wav header:");
+    qDebug("mode        = 0x%04X, (%s)", header.min.format, format_name.latin1());
+    qDebug("channels    = %d", header.min.channels);
+    qDebug("rate        = %u", header.min.samplerate);
+    qDebug("bytes/s     = %u", header.min.bytespersec);
+    qDebug("block align = %d", header.min.blockalign);
+    qDebug("bits/sample = %d", header.min.bitwidth);
+    qDebug("-------------------------");
 
     // open the file through libaudiofile :)
     if (need_repair) {
@@ -299,7 +299,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	
 	RIFFChunk *root = (riff_chunk) ? riff_chunk : parser.findChunk("");
 	parser.dumpStructure();
-//	debug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
+//	qDebug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
 //	    parser.findChunk(""));
 	repair(repair_list, root, fmt_chunk, data_chunk);
 	m_src_adapter = new RepairVirtualAudioFile(*m_source, repair_list);
@@ -499,13 +499,13 @@ bool WavDecoder::repairChunk(QPtrList<RecoverySource> *repair_list,
     if (chunk->type() == RIFFChunk::Main) {
 	strncpy(&(buffer[8]), chunk->format().data(), 4);
 	repair = new RecoveryBuffer(offset, 12, buffer);
-	debug("[0x%08X-0x%08X] - main header '%s' (%s), len=%u",
+	qDebug("[0x%08X-0x%08X] - main header '%s' (%s), len=%u",
 	      offset, offset+11, chunk->name().data(),
 	      chunk->format().data(), length);
 	offset += 12;
     } else {
 	repair = new RecoveryBuffer(offset, 8, buffer);
-	debug("[0x%08X-0x%08X] - sub header '%s', len=%u",
+	qDebug("[0x%08X-0x%08X] - sub header '%s', len=%u",
 	      offset, offset+7, chunk->name().data(), length);
 	offset += 8;
     }
@@ -519,7 +519,7 @@ bool WavDecoder::repairChunk(QPtrList<RecoverySource> *repair_list,
     {
 	repair = new RecoveryMapping(offset, chunk->physLength(),
 	                             *m_source, chunk->dataStart());
-	debug("[0x%08X-0x%08X] - restoring from offset 0x%08X (%u)",
+	qDebug("[0x%08X-0x%08X] - restoring from offset 0x%08X (%u)",
 	      offset, offset+chunk->physLength()-1, chunk->dataStart(),
 	      chunk->physLength());
 	Q_ASSERT(repair);

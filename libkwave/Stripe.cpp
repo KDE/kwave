@@ -68,7 +68,7 @@ unsigned int Stripe::resizeStorage(unsigned int length)
 {
     if (m_samples.size() == length) return length; // nothing to do
 
-//    debug("Stripe::resizeStorage(%u)", length);
+//    qDebug("Stripe::resizeStorage(%u)", length);
 
 #ifndef STRICTLY_QT
     MemoryManager &mem = MemoryManager::instance();
@@ -101,7 +101,7 @@ unsigned int Stripe::resizeStorage(unsigned int length)
     Q_ASSERT(new_storage);
     if (!new_storage) {
 	// resize failed
-	warning("Stripe::resizeStorage(%u) failed!", length);
+	qWarning("Stripe::resizeStorage(%u) failed!", length);
 	m_samples.setRawData(old_storage, old_length);
 	return old_length;
     }
@@ -125,11 +125,11 @@ unsigned int Stripe::resize(unsigned int length)
 	old_length = m_samples.size();
 	if (old_length == length) return old_length; // nothing to do
 
-//	debug("Stripe::resize() from %d to %d samples", old_length, length);
+//	qDebug("Stripe::resize() from %d to %d samples", old_length, length);
 	resizeStorage(length);
 	Q_ASSERT(m_samples.size() >= length);
 	if (m_samples.size() < length) {
-	    warning("Stripe::resize(%u) failed, out of memory ?", length);
+	    qWarning("Stripe::resize(%u) failed, out of memory ?", length);
 	}
 
 	length = m_samples.size();
@@ -174,7 +174,7 @@ unsigned int Stripe::append(const QMemArray<sample_t> &samples,
 	Q_ASSERT(count <= samples.size());
 	if (count > samples.size()) count = samples.size();
 
-//	debug("Stripe::append: adding %d samples", count);
+//	qDebug("Stripe::append: adding %d samples", count);
 
 	old_length = m_samples.size();
 	unsigned int newlength = old_length + count;
@@ -197,7 +197,7 @@ unsigned int Stripe::append(const QMemArray<sample_t> &samples,
 #endif
     }
 
-//  debug("Stripe::append(): resized to %d", m_samples.size());
+//  qDebug("Stripe::append(): resized to %d", m_samples.size());
 
     // something has been added to the end
     if (appended) emit sigSamplesInserted(*this, old_length, appended);
@@ -219,14 +219,14 @@ unsigned int Stripe::insert(const QMemArray<sample_t> &samples,
 	Q_ASSERT(count <= samples.size());
 	if (count > samples.size()) count = samples.size();
 	
-//	debug("Stripe::insert: inserting %d samples", count);
+//	qDebug("Stripe::insert: inserting %d samples", count);
 	
 	old_length = m_samples.size();
 	unsigned int new_length = old_length + count;
 	resizeStorage(new_length);
 	Q_ASSERT(m_samples.size() >= new_length);
 	if (m_samples.size() != new_length) {
-	    warning("Stripe::insert(): m_samples.size()=%u, old=%u, wanted=%u",
+	    qWarning("Stripe::insert(): m_samples.size()=%u, old=%u, wanted=%u",
 		m_samples.size(), old_length, new_length);
 	    return 0;
 	}
@@ -266,7 +266,7 @@ unsigned int Stripe::insert(const QMemArray<sample_t> &samples,
 	inserted = count;
     }
 
-//    debug("Stripe::insert(): resized to %d", m_samples.size());
+//    qDebug("Stripe::insert(): resized to %d", m_samples.size());
 
     // something has been inserted
     if (inserted) emit sigSamplesInserted(*this, offset, inserted);

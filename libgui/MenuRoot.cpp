@@ -106,7 +106,7 @@ void MenuRoot::actionChildEnableChanged(int /*id*/, bool /*enable*/)
 //***************************************************************************
 bool MenuRoot::specialCommand(const QString &command)
 {
-//    debug("MenuRoot::specialCommand(%s)", command);
+//    qDebug("MenuRoot::specialCommand(%s)", command);
 
     Q_ASSERT(command);
     if (!command) return false;

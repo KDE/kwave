@@ -272,7 +272,7 @@ void *MemoryManager::resize(void *block, size_t size)
 	    ((size - current_size) >> 20) > m_physical_limit))
 	{
 	    // too large -> move to virtual memory
-	    debug("MemoryManager::resize(%uMB) -> moving to swap", size>>20);
+	    qDebug("MemoryManager::resize(%uMB) -> moving to swap", size>>20);
 	    return convertToVirtual(block, current_size, size);
 	}
     

@@ -80,7 +80,7 @@ long RepairVirtualAudioFile::length()
 unsigned int RepairVirtualAudioFile::write(const char */*data*/,
                                            unsigned int /*nbytes*/)
 {
-    warning("RepairVirtualAudioFile::write() is forbidden !");
+    qWarning("RepairVirtualAudioFile::write() is forbidden !");
     return 0;
 }
 

@@ -57,7 +57,7 @@ const char *KwaveDrag::format(int i) const
 //***************************************************************************
 QByteArray KwaveDrag::encodedData(const char *format) const
 {
-    debug("KwaveDrag::encodedData(%s)", format);
+    qDebug("KwaveDrag::encodedData(%s)", format);
     if (QCString(WAVE_FORMAT_PCM) == QCString(format)) return m_data;
     return QByteArray();
 }

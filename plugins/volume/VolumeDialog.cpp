@@ -65,7 +65,7 @@ VolumeDialog::~VolumeDialog()
 //***************************************************************************
 void VolumeDialog::setMode(Mode mode)
 {
-//  debug("VolumeDialog::setMode(%d), f=%g", (int)mode, m_factor); // ###
+//  qDebug("VolumeDialog::setMode(%d), f=%g", (int)mode, m_factor); // ###
     double value = m_factor;
     m_mode = mode;
     bool old_enable_updates = m_enable_updates;
@@ -128,7 +128,7 @@ void VolumeDialog::modeChanged(bool)
 //***************************************************************************
 void VolumeDialog::updateDisplay(double value)
 {
-//    debug("VolumeDialog::updateDisplay(%f)", value); // ###
+//    qDebug("VolumeDialog::updateDisplay(%f)", value); // ###
     int new_spinbox_value = 0;
     int new_slider_value  = 0;
     bool old_enable_updates = m_enable_updates;
@@ -150,7 +150,7 @@ void VolumeDialog::updateDisplay(double value)
 		new_spinbox_value = new_value;
 		new_slider_value = new_value-1;
 		
-//		debug("VolumeDialog::updateDisplay(): factor = x%d", new_value); // ###
+//		qDebug("VolumeDialog::updateDisplay(): factor = x%d", new_value); // ###
 	    } else {
 		// less than one -> divide
 		int new_value = (int)rint(-1.0 / value);
@@ -162,7 +162,7 @@ void VolumeDialog::updateDisplay(double value)
 		new_spinbox_value = -1*new_value;
 		new_slider_value  = (new_value+1);
 		
-//		debug("VolumeDialog::updateDisplay(): factor = 1/%d", -1*new_value); // ###
+//		qDebug("VolumeDialog::updateDisplay(): factor = 1/%d", -1*new_value); // ###
 	    }
 	    
 	    m_enable_updates = old_enable_updates;
@@ -176,7 +176,7 @@ void VolumeDialog::updateDisplay(double value)
 	    spinbox->setPrefix("");
 	    spinbox->setSuffix("%");
 	    spinbox->setInverse(false);
-//	    debug("VolumeDialog::updateDisplay(): percent = %d", new_slider_value); // ###
+//	    qDebug("VolumeDialog::updateDisplay(): percent = %d", new_slider_value); // ###
 	    break;
 	}
 	case MODE_DECIBEL: {
@@ -191,7 +191,7 @@ void VolumeDialog::updateDisplay(double value)
 	    }
 	    spinbox->setSuffix(" dB");
 	    spinbox->setInverse(false);
-//	    debug("VolumeDialog::updateDisplay(): decibel = %d", new_spinbox_value); // ###
+//	    qDebug("VolumeDialog::updateDisplay(): decibel = %d", new_spinbox_value); // ###
 	    break;
 	}
     }
@@ -212,7 +212,7 @@ void VolumeDialog::sliderChanged(int pos)
     if (!m_enable_updates) return;
     
     int sv = slider->maxValue() + slider->minValue() - pos;
-//    debug("sliderChanged(%d), sv=%d",pos,sv); // ###
+//    qDebug("sliderChanged(%d), sv=%d",pos,sv); // ###
     switch (m_mode) {
 	case MODE_FACTOR: {
 	    // -1 <=> /2
@@ -223,7 +223,7 @@ void VolumeDialog::sliderChanged(int pos)
 	    } else {
 		m_factor = (double)-1.0 / (double)(sv - 1);
 	    }
-//	    debug("factor=%g, sv=%d",m_factor, sv);
+//	    qDebug("factor=%g, sv=%d",m_factor, sv);
 	    updateDisplay(m_factor);
 	    break;
 	}
@@ -240,7 +240,7 @@ void VolumeDialog::sliderChanged(int pos)
 void VolumeDialog::spinboxChanged(int pos)
 {
     if (!m_enable_updates) return;
-//    debug("spinboxChanged(%d)",pos); // ###
+//    qDebug("spinboxChanged(%d)",pos); // ###
 
     int sv = spinbox->value();
     

@@ -146,11 +146,11 @@ void AmplifyFreePlugin::run(QStringList params)
     arts_sink.start();
 
     // transport the samples
-    debug("AmplifyFreePlugin: filter started...");
+    qDebug("AmplifyFreePlugin: filter started...");
     while (!m_stop && !(arts_source.done())) {
 	arts_sink.goOn();
     }
-    debug("AmplifyFreePlugin: filter done.");
+    qDebug("AmplifyFreePlugin: filter done.");
 
     // shutdown
     curve_adapter.stop();

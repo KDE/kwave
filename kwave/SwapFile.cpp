@@ -72,7 +72,7 @@ void *SwapFile::allocate(size_t size, const QString &filename)
     if (m_address == (void*)(-1)) m_address = 0;
     if (m_address) m_size = size;
 
-    debug("SwapFile::allocate(%d MB) at %p",size>>20, m_address);
+    qDebug("SwapFile::allocate(%d MB) at %p",size>>20, m_address);
     return m_address;
 }
 
@@ -92,7 +92,7 @@ void *SwapFile::resize(size_t size)
     munmap(m_address, m_size);
 
     // resize the file
-//  debug("SwapFile::resize(%u)", size);
+//  qDebug("SwapFile::resize(%u)", size);
 
     if (lseek(m_file.handle(), size, SEEK_SET) > 0) {
 	ftruncate(m_file.handle(), size);
@@ -101,7 +101,7 @@ void *SwapFile::resize(size_t size)
 	write(m_file.handle(), &dummy, 1);
 	m_size = size;
     } else {
-	warning("SwapFile::resize(): seek failed !");
+	qWarning("SwapFile::resize(): seek failed !");
 	size = 0;
     }
 
@@ -110,7 +110,7 @@ void *SwapFile::resize(size_t size)
 	m_file.handle(), 0);
     Q_ASSERT(m_address);
     if (!m_address) m_size = 0;
-//  debug("SwapFile::resize(): new area mmapped to %p", m_address);
+//  qDebug("SwapFile::resize(): new area mmapped to %p", m_address);
 
     return (size) ? m_address : 0;
 }

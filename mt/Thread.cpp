@@ -40,7 +40,7 @@
 #include <errno.h>
 #include <error.h>   // for strerror()
 #include <time.h>    // for clock()
-#include <qglobal.h> // for warning()
+#include <qglobal.h> // for qWarning()
 
 #include "mt/TSS_Object.h"
 #include "mt/MutexGuard.h"
@@ -71,12 +71,12 @@ Thread::Thread(int */*grpid*/, const long /*flags*/)
     int res;
     res = pthread_attr_init(&m_attr);
     if (res)
-        warning("Thread::Thread(): initializing thread attributes failed: %s",
+        qWarning("Thread::Thread(): initializing thread attributes failed: %s",
 	strerror(res));
 
     res = pthread_attr_setdetachstate(&m_attr, PTHREAD_CREATE_DETACHED);
     if (res)
-	warning("Thread::Thread(): setting thread detach state failed: %s",
+	qWarning("Thread::Thread(): setting thread detach state failed: %s",
 	strerror(res));
 }
 
@@ -84,18 +84,18 @@ Thread::Thread(int */*grpid*/, const long /*flags*/)
 Thread::~Thread()
 {
     if (this->running()) {
-	debug("Thread::~Thread(): waiting for normal shutdown");
+	qDebug("Thread::~Thread(): waiting for normal shutdown");
 	wait(100);
-	debug("Thread::~Thread(): stopping");
+	qDebug("Thread::~Thread(): stopping");
 	stop();
     }
 
     int res = pthread_attr_destroy(&m_attr);
     if (res)
-	warning("Thread::~Thread(): destruction of attributes failed: %s",
+	qWarning("Thread::~Thread(): destruction of attributes failed: %s",
 	strerror(res));
 
-//    debug("Thread::~Thread(): done.");
+//    qDebug("Thread::~Thread(): done.");
 }
 
 //***************************************************************************
@@ -118,7 +118,7 @@ int Thread::start()
     MutexGuard lock(m_lock);
     int res = pthread_create(&m_tid, &m_attr, C_thread_adapter, this);
     if (res)
-	warning("Thread::start(): thread creation failed: %s",
+	qWarning("Thread::start(): thread creation failed: %s",
 	strerror(res));
     return res;
 }
@@ -129,9 +129,9 @@ int Thread::stop()
     MutexGuard lock(m_lock);
     if (!running()) return 0; // already down
 
-    debug("Thread::stop(): canceling thread");
+    qDebug("Thread::stop(): canceling thread");
     int res = pthread_cancel(m_tid);
-    if (res) warning("Thread::stop(): thread cancel failed: %s",
+    if (res) qWarning("Thread::stop(): thread cancel failed: %s",
 	strerror(res));
 
     // wait some time until it is really done
@@ -158,7 +158,7 @@ void Thread::wait(unsigned int milliseconds)
     }
 
     if (/*still */running()) {
-	warning("Thread::wait(): timed out after %d ms!", milliseconds);
+	qWarning("Thread::wait(): timed out after %d ms!", milliseconds);
     }
 }
 

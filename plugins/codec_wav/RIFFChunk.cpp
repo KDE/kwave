@@ -49,14 +49,14 @@ bool RIFFChunk::isSane()
     if (m_phys_length & 0x1) {
 	// size is not an even number: no criterium for insanity
 	// but worth a warning
-	warning("%s: physical length is not an even number: %u",
+	qWarning("%s: physical length is not an even number: %u",
 	        path().data(), m_phys_length);
     }
 
     unsigned int datalen = dataLength();
     if (m_type == Main) datalen += 4;
     if ((datalen+1 < m_phys_length) || (datalen > m_phys_length)) {
-	warning("%s: dataLength=%u, phys_length=%u",
+	qWarning("%s: dataLength=%u, phys_length=%u",
 	         path().data(), datalen, m_phys_length);
 	return false;
     }
@@ -127,7 +127,7 @@ void RIFFChunk::fixSize()
 	    m_phys_length += len;
 	}
 	if (m_phys_length != old_length) {
-	    debug("%s: setting size from %u to %u",
+	    qDebug("%s: setting size from %u to %u",
 	        path().data(), old_length, m_phys_length);
 	}
 	// chunk length is always equal to physical length for
@@ -137,14 +137,14 @@ void RIFFChunk::fixSize()
 	// just round up if no main or root chunk
 	if (m_phys_length & 0x1) {
 	    m_phys_length++;
-	    debug("%s: rounding up size to %u", path().data(), m_phys_length);
+	    qDebug("%s: rounding up size to %u", path().data(), m_phys_length);
 	}
 	
 	// adjust chunk size to physical size if not long enough
 	if ((m_chunk_length+1 != m_phys_length) &&
 	    (m_chunk_length != m_phys_length))
 	{
-	    debug("%s: resizing chunk from %u to %u",
+	    qDebug("%s: resizing chunk from %u to %u",
 	        path().data(), m_chunk_length, m_phys_length);
 	    m_chunk_length = m_phys_length;
 	}
@@ -170,7 +170,7 @@ void RIFFChunk::dumpStructure()
     QCString p = path();
     if (m_type == Main) p += " (" + m_format + ")";
 
-    debug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
+    qDebug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
           m_phys_offset, physEnd(), physLength(), length(),
           t.latin1(), p.data()
     );

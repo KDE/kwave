@@ -37,7 +37,7 @@ MenuNode::MenuNode(MenuNode *parent, const QString &name,
     m_icon(0)
 {
 //    menu_node_count++;
-//    debug("MenuNode::MenuNode(): node count=%d", menu_node_count);
+//    qDebug("MenuNode::MenuNode(): node count=%d", menu_node_count);
 
     m_parentNode = parent;
     m_name = name;
@@ -58,7 +58,7 @@ MenuNode::~MenuNode()
 {
     // leave all groups
     QString group = m_groups.first();
-    while (group) {
+    while (!group.isNull()) {
 	leaveGroup(group);
 	group = m_groups.first();
     }
@@ -102,7 +102,7 @@ void MenuNode::actionChildEnableChanged(int /*id*/, bool /*enable*/)
 void MenuNode::slotHilighted(int id)
 {
   // (this is useful for debugging menu ids)
-  debug("MenuNode::hilight(%d)", id);
+  qDebug("MenuNode::hilight(%d)", id);
   MenuNode *parent = getParent();
   setCheckable(true);
   if (parent) {
@@ -160,7 +160,7 @@ void MenuNode::setIcon(const QPixmap icon)
 //*****************************************************************************
 void MenuNode::setItemIcon(int id, const QPixmap &icon)
 {
-    debug("MenuNode(%s)::setItemIcon(%d, %p)", getName().latin1(), id,
+    qDebug("MenuNode(%s)::setItemIcon(%d, %p)", getName().latin1(), id,
           (void*)&icon);
 }
 
@@ -181,7 +181,7 @@ bool MenuNode::isEnabled()
 	    MenuNode *group = root->findUID(group_name);
 	    if (group && group->inherits("MenuGroup")) {
 		if (!((MenuGroup*)group)->isEnabled()) {
-		    debug("MenuNode(%s).isEnabled(): group %s is disabled",
+		    qDebug("MenuNode(%s).isEnabled(): group %s is disabled",
 			  getName().latin1(), group_name.latin1());
 		    return false;
 		}
@@ -309,7 +309,7 @@ MenuNode *MenuNode::findUID(const QString &uid)
 //*****************************************************************************
 MenuNode *MenuNode::findChild(const QString &name)
 {
-    Q_ASSERT(name);
+    Q_ASSERT(name.length());
     MenuNode *child = m_children.first();
     while (child) {
 	int pos = m_children.at();
@@ -362,7 +362,7 @@ MenuNode *MenuNode::insertBranch(const QString &name,
 	const QString &/*command*/, int /*key*/, const QString &/*uid*/,
 	int /*index*/)
 {
-    debug("!!! MenuNode(%s): insertBranch(%s) !!!", m_name.latin1(),
+    qDebug("!!! MenuNode(%s): insertBranch(%s) !!!", m_name.latin1(),
           name.latin1());
     return 0;
 }
@@ -372,7 +372,7 @@ MenuNode *MenuNode::insertLeaf(const QString &name,
 	const QString &/*command*/, int /*key*/, const QString &/*uid*/,
 	int /*index*/)
 {
-    debug("!!! MenuNode(%s): insertLeaf(%s) !!!", m_name.latin1(),
+    qDebug("!!! MenuNode(%s): insertLeaf(%s) !!!", m_name.latin1(),
           name.latin1());
     return 0;
 }
@@ -385,7 +385,7 @@ int MenuNode::insertNode(const QString &name, const QString &position,
     int pos = 0;
 
     if (!position.length()) {
-	warning("MenuNode::parseCommand: no position!");
+	qWarning("MenuNode::parseCommand: no position!");
 	return result;
     }
 
@@ -445,7 +445,7 @@ int MenuNode::insertNode(const QString &name, const QString &position,
 	if (sub) {
 	    result = sub->insertNode(0, p, command, key, uid);
 	} else {
-	    debug("MenuNode::insertNode: branch failed!");
+	    qDebug("MenuNode::insertNode: branch failed!");
 	}
     }
 
@@ -456,7 +456,7 @@ int MenuNode::insertNode(const QString &name, const QString &position,
 MenuNode *MenuNode::leafToBranch(MenuNode *node)
 {
     Q_ASSERT(node);
-//    debug("MenuNode::leafToBranch(%s)", node->getName());
+//    qDebug("MenuNode::leafToBranch(%s)", node->getName());
     if (!node) return 0;
     MenuNode *sub = node;
 

@@ -96,7 +96,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
         (compression != AF_COMPRESSION_G711_ULAW) &&
         (compression != AF_COMPRESSION_G711_ALAW) )
     {
-	warning("compression mode %d not supported!", compression);
+	qWarning("compression mode %d not supported!", compression);
 	int what_now = KMessageBox::warningYesNoCancel(widget,
 	    i18n("Sorry, the currently selected compression type can "
 	         "not be used for saving. Do you want to use "
@@ -124,7 +124,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	QString software = about_data->programName() + "-" +
 	    about_data->version() +
 	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-	debug("WavEncoder: adding software tag: '%s'", software.latin1());
+	qDebug("WavEncoder: adding software tag: '%s'", software.latin1());
 	properties.insert(INF_SOFTWARE, software);
     }
     if (!properties.contains(INF_CREATION_DATE)) {
@@ -134,7 +134,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	date = date.sprintf("%04d-%02d-%02d",
 	    now.year(), now.month(), now.day());
 	QVariant value = date.utf8();
-	debug("WavEncoder: adding date tag: '%s'", date.latin1());
+	qDebug("WavEncoder: adding date tag: '%s'", date.latin1());
 	properties.insert(INF_CREATION_DATE, value);
     }
 

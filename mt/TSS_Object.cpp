@@ -18,12 +18,11 @@
 #include "config.h"
 #include <errno.h>
 #include <error.h>        // for strerror
-#include <qapplication.h> // for debug() and warning()
+#include <qapplication.h> // for qDebug() and qWarning()
 #include <pthread.h>
 #include <stdio.h>
 #include <limits.h>       // for PTHREAD_KEYS_MAX
 
-#include "mt/Mutex.h" // ###
 #include "mt/TSS_Object.h"
 
 #ifdef HAVE_DEMANGLE_H
@@ -47,7 +46,7 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
     fprintf(stderr, "cleanup handler for %p\n", ptr);
     Q_ASSERT(ptr);
     if (!ptr) {
-	warning("cleanup handler for NULL pointer ?  => bailing out!");
+	qWarning("cleanup handler for NULL pointer ?  => bailing out!");
 	return;
     }
 
@@ -63,27 +62,27 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
 	                               DMGL_ANSI | DMGL_PARAMS | DMGL_AUTO);
 	    if (res) {
 		/* use the damangeled name instead */
-		warning("cleanup handler for class %s", res);
+		qWarning("cleanup handler for class %s", res);
 		free(res);
 	    } else {
 #endif // HAVE_DEMANGLE_H	
-		warning("cleanup handler for class `%s'", obj_name);
+		qWarning("cleanup handler for class `%s'", obj_name);
 #ifdef HAVE_DEMANGLE_H	
 	    }
 #endif // HAVE_DEMANGLE_H	
 	} else {
-	    warning("cleanup handler for unknown class `%s'", obj_name);
+	    qWarning("cleanup handler for unknown class `%s'", obj_name);
 	}
 
 	if (tssobj) delete tssobj;
 //    }
 //    catch (...) {
-//	warning("cleanup handler for %p failed", ptr);
+//	qWarning("cleanup handler for %p failed", ptr);
 //    }
 #else // HAVE_TYPEINFO
-//    warning("cleanup handler for %p", ptr);
+//    qWarning("cleanup handler for %p", ptr);
 
-    warning("cleanup handler for %s", ((QObject*)ptr)->className());
+    qWarning("cleanup handler for %s", ((QObject*)ptr)->className());
 
 #endif // HAVE_TYPEINFO
 
@@ -105,21 +104,21 @@ TSS_Object::TSS_Object()
 //    int res = pthread_key_create(&m_key, TSS_Object_cleanup_func);
 //    if (res == EAGAIN) {
 //	// number of keys exceeded
-//	warning("TSS_Object: keycreate failed: "
+//	qWarning("TSS_Object: keycreate failed: "
 //	    "number of keys exceeded limit: %d (limit=%d)",
 //	    m_count, PTHREAD_KEYS_MAX);
-//	debug("[maybe too many unfreed objects or memory leak?]");
+//	qDebug("[maybe too many unfreed objects or memory leak?]");
 //    } else if (res) {
 //	// some other error
-//	warning("TSS_Object: keycreate failed: %s", strerror(res));
+//	qWarning("TSS_Object: keycreate failed: %s", strerror(res));
 //    } else {
 //	// key allocated, associate this object's instance with it
 //	res = pthread_setspecific(m_key, (void *)this);
-//	if (res) warning("TSS_Object::setspecific failed: %s",
+//	if (res) qWarning("TSS_Object::setspecific failed: %s",
 //	    strerror(res));
 //    }
 //
-//    debug("TSS_Object::TSS_Object():  this=%p, tid=%d, key=%p, count=%d",
+//    qDebug("TSS_Object::TSS_Object():  this=%p, tid=%d, key=%p, count=%d",
 //	this, pthread_self(), m_key, m_count);
 //
 //    _lock.unlock(); // ###
@@ -134,13 +133,13 @@ TSS_Object::~TSS_Object()
 //    Q_ASSERT(pthread_getspecific(m_key) == (void *)this);
 //    Q_ASSERT(m_thread == pthread_self());
 //
-//    debug("TSS_Object::~TSS_Object(): this=%p, tid=%d, key=%p, count=%d",
+//    qDebug("TSS_Object::~TSS_Object(): this=%p, tid=%d, key=%p, count=%d",
 //	this, pthread_self(), m_key, m_count);
 //
 ////    pthread_setspecific(m_key, 0);
 //
 //    int res = pthread_key_delete(m_key);
-//    if (res) warning(
+//    if (res) qWarning(
 //	"TSS_Object::~TSS_Object: key deletion failed: %s",
 //	strerror(res));
 //

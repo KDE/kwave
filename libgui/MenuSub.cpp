@@ -25,7 +25,7 @@
 
 //***************************************************************************
 MenuSub::MenuSub(MenuNode *parent, const QString &name,
-	const QString &command, int key, const QString &uid)
+	         const QString &command, int key, const QString &uid)
     :MenuItem(parent, name, command, key, uid),
     m_menu(0, i18n(name))
 {
@@ -101,10 +101,10 @@ bool MenuSub::specialCommand(const QString &command)
     if (!command.length()) return false;
 
     if (command.startsWith("#exclusive")) {
-	// debug("MenuSub(%s) >> exclusive <<", getName());
+	// qDebug("MenuSub(%s) >> exclusive <<", getName());
 	return true;
     } else if (command.startsWith("#number")) {
-	// debug("MenuSub(%s) >> number <<", getName());
+	// qDebug("MenuSub(%s) >> number <<", getName());
 	return true;
     } else if (command.startsWith("#separator")) {
 	m_menu.insertSeparator( -1);
@@ -136,7 +136,7 @@ void MenuSub::slotSelected(int id)
     if (child) {
 	child->actionSelected();
     } else {
-	warning("MenuSub::slotSelected: child with id #%d not found!", id);
+	qWarning("MenuSub::slotSelected: child with id #%d not found!", id);
     }
 }
 

@@ -178,7 +178,7 @@ int OverViewCache::trackIndex(unsigned int track_nr)
 void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
                                     unsigned int last)
 {
-//  debug("OverViewCache::invalidateCache(%u, %u, %u)",track,first,last);
+//  qDebug("OverViewCache::invalidateCache(%u, %u, %u)",track,first,last);
     int cache_track = trackIndex(track);
     if (cache_track < 0) return;
 
@@ -538,7 +538,7 @@ void OverViewCache::dumpTracks()
     for (it=m_src_deleted.begin(); it != m_src_deleted.end(); ++it) {
 	list += " " + list.number(*it);
     }
-    debug(list);
+    qDebug(list);
 }
 
 //*****************************************************************************

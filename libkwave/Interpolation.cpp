@@ -16,7 +16,7 @@ interpolation_t &operator ++(interpolation_t &i)
 //***************************************************************************
 void Interpolation::InterpolationMap::fill()
 {
-    debug("--- InterpolationMap::fill() ---");
+    qDebug("--- InterpolationMap::fill() ---");
     append(INTPOL_LINEAR,      0, "linear",      "linear");
     append(INTPOL_SPLINE,      1, "spline",      "spline");
     append(INTPOL_NPOLYNOMIAL, 2, "n-polynom",   "polynom, nth degree");

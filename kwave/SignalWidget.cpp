@@ -105,7 +105,7 @@ SignalWidget::SignalWidget(QWidget *parent)
     m_mouse_mode(MouseNormal),
     m_mouse_down_x(0)
 {
-//    debug("SignalWidget::SignalWidget()");
+//    qDebug("SignalWidget::SignalWidget()");
     m_height = 0;
     lastHeight = 0;
     lastplaypointer = -1;
@@ -177,7 +177,7 @@ SignalWidget::SignalWidget(QWidget *parent)
     setAcceptDrops(true); // enable drag&drop
 
     setZoom(0.0);
-//    debug("SignalWidget::SignalWidget(): done.");
+//    qDebug("SignalWidget::SignalWidget(): done.");
 }
 
 //***************************************************************************
@@ -415,7 +415,7 @@ int SignalWidget::loadFile(const KURL &url)
     // load a new signal
     int res = m_signal_manager.loadFile(url);
     if (m_signal_manager.isClosed() || (res)) {
-	warning("SignalWidget::loadFile() failed:"\
+	qWarning("SignalWidget::loadFile() failed:"\
 		" zero-length or out of memory?");
 	close();
     }
@@ -941,7 +941,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     InhibitRepaintGuard inhibit(*this, false); // avoid recursion
     QPainter p;
 
-//    debug("SignalWidget::paintEvent()");
+//    qDebug("SignalWidget::paintEvent()");
 //#ifdef DEBUG
 //    static struct timeval t_start;
 //    static struct timeval t_end;
@@ -959,11 +959,11 @@ void SignalWidget::paintEvent(QPaintEvent *)
     m_width = QWidget::width();
     m_height = QWidget::height();
 
-//    debug("SignalWidget::paintEvent(): width=%d, height=%d",m_width,m_height);
+//    qDebug("SignalWidget::paintEvent(): width=%d, height=%d",m_width,m_height);
 
     // --- detect size changes and refresh the whole display ---
     if ((m_width != lastWidth) || (m_height != lastHeight)) {
-//	debug("SignalWidget::paintEvent(): window size changed from "
+//	qDebug("SignalWidget::paintEvent(): window size changed from "
 //	      "%dx%d to %dx%d",lastWidth,lastHeight,m_width,m_height);
 	for (int i=0; i<3; i++) {
 	    if (m_layer[i]) delete m_layer[i];
@@ -988,7 +988,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	Q_ASSERT(m_layer[LAYER_SIGNAL]);
 	if (!m_layer[LAYER_SIGNAL]) return;
 	
-//	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
+//	qDebug("SignalWidget::paintEvent(): - redraw of signal layer -");
 	p.begin(m_layer[LAYER_SIGNAL]);
 	p.setRasterOp(CopyROP);
 	
@@ -1007,7 +1007,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 		pix->resize(m_width, track_height);
 	    }
 	    if (pix->isModified()) {
-//		debug("SignalWidget::paintEvent(): redrawing track %d",i); // ###
+//		qDebug("SignalWidget::paintEvent(): redrawing track %d",i); // ###
 		pix->repaint();
 	    }
 	
@@ -1030,7 +1030,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	Q_ASSERT(m_layer[LAYER_MARKERS]);
 	if (!m_layer[LAYER_MARKERS]) return;
 	
-//	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
+//	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
 	p.begin(m_layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, m_width, m_height, black);
 	
@@ -1049,7 +1049,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	Q_ASSERT(m_layer[LAYER_SELECTION]);
 	if (!m_layer[LAYER_SELECTION]) return;
 
-//	debug("SignalWidget::paintEvent(): - redraw of selection layer -");
+//	qDebug("SignalWidget::paintEvent(): - redraw of selection layer -");
 	
 	p.begin(m_layer[LAYER_SELECTION]);
 	p.fillRect(0, 0, m_width, m_height, black);
@@ -1130,7 +1130,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //    gettimeofday(&t_end,0);
 //    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
 //	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
-//    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
+//    qDebug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
 //	t_elapsed); // ###
 //#endif
 }
@@ -1185,7 +1185,7 @@ LabelType *findMarkerType (const char */*txt*/)
 //	if (strcmp (act->name, txt) == 0) return act;
 //	cnt++;
 //    }
-//    warning("could not find Labeltype %s\n", txt);
+//    qWarning("could not find Labeltype %s\n", txt);
     return 0;
 }
 
@@ -1737,7 +1737,7 @@ void SignalWidget::slotTrackDeleted(unsigned int index)
 void SignalWidget::slotSamplesInserted(unsigned int /*track*/,
     unsigned int /*offset*/, unsigned int /*length*/)
 {
-//    debug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
+//    qDebug("SignalWidget(): slotSamplesInserted(%u, %u,%u)", track,
 //	offset, length);
 }
 
@@ -1745,7 +1745,7 @@ void SignalWidget::slotSamplesInserted(unsigned int /*track*/,
 void SignalWidget::slotSamplesDeleted(unsigned int /*track*/,
     unsigned int /*offset*/, unsigned int /*length*/)
 {
-//    debug("SignalManager(): slotSamplesDeleted(%u, %u,%u)", track,
+//    qDebug("SignalManager(): slotSamplesDeleted(%u, %u,%u)", track,
 //	offset, length);
 }
 
@@ -1753,7 +1753,7 @@ void SignalWidget::slotSamplesDeleted(unsigned int /*track*/,
 void SignalWidget::slotSamplesModified(unsigned int /*track*/,
     unsigned int /*offset*/, unsigned int /*length*/)
 {
-//    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
+//    qDebug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
 //	offset, length);
 }
 
@@ -1854,7 +1854,7 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	    // set selection to the new area where the drop was done
 	    selectRange(pos, len);
 	} else {
-	    debug("SignalWidget::dropEvent(%s): failed !", event->format(0));
+	    qDebug("SignalWidget::dropEvent(%s): failed !", event->format(0));
 	    /** @todo abort the current undo transaction */
 	}
     } else if (KwaveFileDrag::canDecode(event)) {
@@ -1866,7 +1866,7 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	}
     }
 
-    debug("SignalWidget::dropEvent(): done");
+    qDebug("SignalWidget::dropEvent(): done");
     setMouseMode(MouseNormal);
 }
 

@@ -196,7 +196,7 @@ void Signal::openMultiTrackWriter(MultiTrackWriter &writers,
 	    writers.insert(i, s);
 	} else {
 	    // out of memory or aborted
-	    debug("Signal::openMultiTrackWriter: "\
+	    qDebug("Signal::openMultiTrackWriter: "\
 	          "out of memory or aborted");
 	    writers.clear();
 	    return;

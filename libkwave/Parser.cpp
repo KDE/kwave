@@ -73,7 +73,7 @@ Parser::Parser (const QString &init)
 
     line = line.stripWhiteSpace();
     if (line.length()) {
-	warning("Parser: trailing garbage after command: '%s'",
+	qWarning("Parser: trailing garbage after command: '%s'",
 	        line.latin1());
     }
 }
@@ -157,7 +157,7 @@ bool Parser::toBool()
     int value = p.toInt(&ok);
     if (ok) return (value != 0);
 
-    warning("Parser: invalid bool format: '%s'", p.latin1());
+    qWarning("Parser: invalid bool format: '%s'", p.latin1());
     return false;
 }
 
@@ -169,7 +169,7 @@ int Parser::toInt ()
     int value = p.toInt(&ok);
 
     if (!ok) {
-	warning("Parser: unable to parse int from '%s'", p.latin1());
+	qWarning("Parser: unable to parse int from '%s'", p.latin1());
 	value = 0;
     }
 
@@ -184,7 +184,7 @@ unsigned int Parser::toUInt ()
     unsigned int value = p.toUInt(&ok);
 
     if (!ok) {
-	warning("Parser: unable to parse unsigned int from '%s'", p.latin1());
+	qWarning("Parser: unable to parse unsigned int from '%s'", p.latin1());
 	value = 0;
     }
 
@@ -199,7 +199,7 @@ double Parser::toDouble()
     double value = p.toDouble(&ok);
 
     if (!ok) {
-	warning("Parser: unable to parse double from '%s'", p.latin1());
+	qWarning("Parser: unable to parse double from '%s'", p.latin1());
 	value = 0.0;
     }
 

@@ -54,7 +54,7 @@ ArtsMultiPlaybackSink::ArtsMultiPlaybackSink(unsigned int tracks,
 
 	Q_ASSERT(m_sinks[t]);
 	if (!m_sinks[t]) {
-	    warning("ArtsMultiPlaybackSink: creation of adapter failed!!!");
+	    qWarning("ArtsMultiPlaybackSink: creation of adapter failed!!!");
 	    m_tracks = t;
 	    break;
 	}

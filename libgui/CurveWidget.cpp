@@ -375,7 +375,7 @@ void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 //****************************************************************************
 void CurveWidget::paintEvent(QPaintEvent *)
 {
-//    debug("CurveWidget::paintEvent (QPaintEvent *)");
+//    qDebug("CurveWidget::paintEvent (QPaintEvent *)");
     QPainter p;
     int lx, ly;
 
@@ -390,7 +390,7 @@ void CurveWidget::paintEvent(QPaintEvent *)
     QMemArray<double> y = m_curve.interpolation(m_width);
     Q_ASSERT(static_cast<int>(y.count()) == m_width);
     if (static_cast<int>(y.count()) < m_width) {
-	warning("CurveWidget: unable to get interpolation !");
+	qWarning("CurveWidget: unable to get interpolation !");
 	return;
     }
 

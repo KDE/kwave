@@ -96,9 +96,9 @@ void TrackPixmap::setOffset(unsigned int offset)
 	Q_ASSERT(buflen == m_min_buffer.size());
 	Q_ASSERT(buflen == m_max_buffer.size());
 	if ((buflen != m_min_buffer.size()) || (buflen != m_max_buffer.size())) {
-	    debug("TrackPixmap::setOffset(): buflen = %u", buflen);
-	    debug("TrackPixmap::setOffset(): min_buffer : %u", m_min_buffer.size());
-	    debug("TrackPixmap::setOffset(): max_buffer : %u", m_max_buffer.size());
+	    qDebug("TrackPixmap::setOffset(): buflen = %u", buflen);
+	    qDebug("TrackPixmap::setOffset(): min_buffer : %u", m_min_buffer.size());
+	    qDebug("TrackPixmap::setOffset(): max_buffer : %u", m_max_buffer.size());
 	}
 	
 	// check for misaligned offset changes
@@ -107,20 +107,20 @@ void TrackPixmap::setOffset(unsigned int offset)
 
 #ifdef CURRENTLY_UNUSED
 // this will become interesting later, with the offset/zoom optimizations
-	    warning("TrackPixmap::setOffset(): oh nooo, "\
+	    qWarning("TrackPixmap::setOffset(): oh nooo, "\
 	    	"offset %u is misaligned by %u sample(s), please fix this!",
 	    	offset, offset % pixels2samples(1));
-	    warning("TrackPixmap::setOffset(): "\
+	    qWarning("TrackPixmap::setOffset(): "\
 	    	"now I have to throw away the whole buffer :-((");
 	
-	    debug("TrackPixmap::setOffset(%u): "\
+	    qDebug("TrackPixmap::setOffset(%u): "\
 		"misaligned->invalidating buffer", offset);
 #endif
 	    invalidateBuffer();
 	} else if (offset > m_offset) {
 	    // move left
 	    diff = samples2pixels(offset - m_offset);
-//	    debug("TrackPixmap::setOffset(): moving left (min/max): %u",diff);
+//	    qDebug("TrackPixmap::setOffset(): moving left (min/max): %u",diff);
 	    Q_ASSERT(diff);
 	    Q_ASSERT(buflen);
 	    if (diff && buflen) {
@@ -134,7 +134,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	} else {
 	    // move right
 	    diff = samples2pixels(m_offset - offset);
-//	    debug("TrackPixmap::setOffset(): moving right (min/max): %u",diff);
+//	    qDebug("TrackPixmap::setOffset(): moving right (min/max): %u",diff);
 	    Q_ASSERT(diff);
 	    Q_ASSERT(buflen);
 	    if (diff && buflen) {
@@ -154,7 +154,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	
 	if (offset > m_offset) {
 	    // move left
-//	    debug("TrackPixmap::setOffset(): moving left (normal)"); // ###
+//	    qDebug("TrackPixmap::setOffset(): moving left (normal)"); // ###
 	    diff = offset - m_offset;
 	    for (src=diff, dst=0; src<buflen; ++dst, ++src) {
 		m_sample_buffer[dst] = m_sample_buffer[src];
@@ -163,7 +163,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    while (dst < buflen) m_valid[dst++] = 0;
 	} else {
 	    // move right
-//	    debug("TrackPixmap::setOffset(): moving right (normal)"); // ###
+//	    qDebug("TrackPixmap::setOffset(): moving right (normal)"); // ###
 	    diff = m_offset - offset;
 	    Q_ASSERT(buflen);
 	    if (buflen) {
@@ -207,15 +207,15 @@ void TrackPixmap::setZoom(double zoom)
 
     if (zoom == m_zoom) return; // no change
 
-//    debug("TrackPixmap::setZoom(%0.3f)", zoom);
+//    qDebug("TrackPixmap::setZoom(%0.3f)", zoom);
     if ((zoom > 1.0) && !m_minmax_mode) {
 	// switch to min/max mode
-//	debug("TrackPixmap::setZoom(): switch to min/max mode");
+//	qDebug("TrackPixmap::setZoom(): switch to min/max mode");
 	invalidateBuffer();
 	m_minmax_mode = true;
     } else if ((zoom <= 1.0) && m_minmax_mode) {
 	// switch to normal mode
-//	debug("TrackPixmap::setZoom(): switch to normal mode");
+//	qDebug("TrackPixmap::setZoom(): switch to normal mode");
 	invalidateBuffer();
 	m_minmax_mode = false;
     }
@@ -369,7 +369,7 @@ bool TrackPixmap::validateBuffer()
     }
 
     for (first=0; first < m_valid.size(); first++) {
-	if (!m_valid[first]) warning("TrackPixmap::validateBuffer(): "\
+	if (!m_valid[first]) qWarning("TrackPixmap::validateBuffer(): "\
 		"still invalid index: %u", first);
     }
 
@@ -458,7 +458,7 @@ void TrackPixmap::calculateInterpolation()
     int k;
     int N;
 
-//    debug("TrackPixmap::calculateInterpolation()");
+//    qDebug("TrackPixmap::calculateInterpolation()");
 
     // remove all previous coefficents and signal buffer
     if (m_interpolation_alpha != 0) {
@@ -525,7 +525,7 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     int x;
     int buflen = m_valid.size();
 
-//    debug("TrackPixmap::drawInterpolatedSignal()");
+//    qDebug("TrackPixmap::drawInterpolatedSignal()");
 
     Q_ASSERT(m_zoom);
     if (m_zoom == 0.0) return;

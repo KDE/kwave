@@ -87,11 +87,11 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 {
     info().clear();
     Q_ASSERT(!m_source);
-    if (m_source) warning("AudiofileDecoder::open(), already open !");
+    if (m_source) qWarning("AudiofileDecoder::open(), already open !");
 
     // try to open the source
     if (!src.open(IO_ReadOnly)) {
-	warning("failed to open source !");
+	qWarning("failed to open source !");
 	return false;
     }
 
@@ -173,14 +173,14 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     info().setBits(bits);
     info().setTracks(tracks);
     info().setLength(length);
-    debug("-------------------------");
-    debug("info:");
-    debug("channels    = %d", info().tracks());
-    debug("rate        = %0.0f", info().rate());
-    debug("bits/sample = %d", info().bits());
-    debug("length      = %d samples", info().length());
-    debug("format      = %d (%s)", sample_format, sample_format_name.latin1());
-    debug("-------------------------");
+    qDebug("-------------------------");
+    qDebug("info:");
+    qDebug("channels    = %d", info().tracks());
+    qDebug("rate        = %0.0f", info().rate());
+    qDebug("bits/sample = %d", info().bits());
+    qDebug("length      = %d samples", info().length());
+    qDebug("format      = %d (%s)", sample_format, sample_format_name.latin1());
+    qDebug("-------------------------");
 
     // set up libaudiofile to produce Kwave's internal sample format
 #if defined(IS_BIG_ENDIAN)

@@ -44,7 +44,7 @@ PlayBackArts::PlayBackArts(Mutex &arts_lock)
     m_lock_aRts(arts_lock),
     m_closed(true)
 {
-    debug("PlayBackArts::PlayBackArts(...)");
+    qDebug("PlayBackArts::PlayBackArts(...)");
 }
 
 //***************************************************************************
@@ -57,7 +57,7 @@ QString PlayBackArts::open(const QString &, double rate,
                            unsigned int channels, unsigned int bits,
                            unsigned int bufbase)
 {
-    debug("PlayBackArts::open(rate=%f,channels=%u,"\
+    qDebug("PlayBackArts::open(rate=%f,channels=%u,"\
 	  "bits=%u, bufbase=%u)", rate, channels,
 	  bits, bufbase);
 
@@ -76,7 +76,7 @@ QString PlayBackArts::open(const QString &, double rate,
     if (!g_arts_usage) {
 	int errorcode = arts_init();
 	if (errorcode < 0) {
-	    warning("PlayBackArts::open(): arts_init error: %s",
+	    qWarning("PlayBackArts::open(): arts_init error: %s",
 	            arts_error_text(errorcode));
 	    return artsErrorText(errorcode);
         }
@@ -99,7 +99,7 @@ QString PlayBackArts::open(const QString &, double rate,
     if (m_buffer_size > (1U << MAX_PLAYBACK_BUFFER))
 	m_buffer_size = (1U << MAX_PLAYBACK_BUFFER);
 
-    debug("PlayBackArts::open(): using %u bytes as buffer", m_buffer_size);
+    qDebug("PlayBackArts::open(): using %u bytes as buffer", m_buffer_size);
     m_buffer.resize(m_buffer_size);
     m_buffer.fill(0);
 
@@ -111,7 +111,7 @@ int PlayBackArts::write(QMemArray<sample_t> &samples)
 {
     Q_ASSERT (m_buffer_used < m_buffer_size);
     if (m_buffer_used >= m_buffer_size) {
-	warning("PlayBackArts::write(): buffer overflow ?!");
+	qWarning("PlayBackArts::write(): buffer overflow ?!");
 	return -EIO;
     }
     Q_ASSERT(samples.count() == m_channels);
@@ -165,7 +165,7 @@ void PlayBackArts::flush()
 	    m_buffer[m_buffer_used++] = 0;
 	int errorcode = arts_write(m_stream, m_buffer.data(), m_buffer_used);
 	if (errorcode < 0) {
-	    warning("PlayBackArts: arts_write error: %s",
+	    qWarning("PlayBackArts: arts_write error: %s",
 	             arts_error_text(errorcode));
 	}
 
@@ -176,7 +176,7 @@ void PlayBackArts::flush()
 //***************************************************************************
 int PlayBackArts::close()
 {
-    debug("PlayBackArts::close() [pid %d]",(int)pthread_self());
+    qDebug("PlayBackArts::close() [pid %d]",(int)pthread_self());
     flush();
 
     {
@@ -186,7 +186,7 @@ int PlayBackArts::close()
 	if (m_stream) arts_close_stream(m_stream);
 	
 	if (!m_closed && g_arts_usage && !--g_arts_usage) {
-	    debug("PlayBackArts::close() [pid %d]: releasing aRts API",
+	    qDebug("PlayBackArts::close() [pid %d]: releasing aRts API",
 	          (int)pthread_self());
 	    arts_free();
 	}

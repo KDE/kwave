@@ -69,11 +69,11 @@ void NoisePlugin::run(QStringList)
     arts_sink.start();
 
     // transport the samples
-    debug("NoisePlugin: filter started...");
+    qDebug("NoisePlugin: filter started...");
     while (!m_stop && !(arts_sink.done())) {
 	arts_sink.goOn();
     }
-    debug("NoisePlugin: filter done.");
+    qDebug("NoisePlugin: filter done.");
 
     // shutdown
     noise.stop();

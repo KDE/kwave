@@ -65,7 +65,7 @@ MainWidget::MainWidget(QWidget *parent)
      frmChannelControls(0),
      m_scrollbar(0), m_lamps()/*, m_speakers()*/, m_last_tracks(0)
 {
-//    debug("MainWidget::MainWidget()");
+//    qDebug("MainWidget::MainWidget()");
     int s[3];
 
     // create the layout objects
@@ -199,7 +199,7 @@ MainWidget::MainWidget(QWidget *parent)
 
     refreshChannelControls();
 
-//    debug("MainWidget::MainWidget(): done.");
+//    qDebug("MainWidget::MainWidget(): done.");
 }
 
 //***************************************************************************
@@ -331,7 +331,7 @@ void MainWidget::forwardCommand(const QString &command)
 //***************************************************************************
 bool MainWidget::executeCommand(const QString &command)
 {
-//    debug("MainWidget::executeCommand(%s)", command);
+//    qDebug("MainWidget::executeCommand(%s)", command);
 
     if (!command.length()) return false;
     Parser parser(command);
@@ -378,14 +378,14 @@ void MainWidget::refreshChannelControls()
 	m_scrollbar->show();
 	w -= b;
 	scrollbar_visible = true;
-	debug(" - scrollbar shown");
+	qDebug(" - scrollbar shown");
     } else if (!need_scrollbar && scrollbar_visible) {
 	// -- hide the scrollbar --
 	m_scrollbar->hide();
 	m_scrollbar->setFixedWidth(0);
 	w += b;
 	scrollbar_visible = false;
-	debug(" - scrollbar hidden");
+	qDebug(" - scrollbar hidden");
     }
 
     if (scrollbar_visible) {

@@ -253,7 +253,7 @@ void OverViewWidget::setRange(unsigned int new_pos, unsigned int new_width,
     if ( (new_pos == m_view_offset) && (new_length == m_view_length) &&
 	(new_width == m_view_width) && (width() == m_width)) return;
 
-//    debug("OverViewWidget::setRange(%u,%u,%u)",new_pos,new_width,new_length);
+//    qDebug("OverViewWidget::setRange(%u,%u,%u)",new_pos,new_width,new_length);
 
     if ( (m_view_length == new_length) && (m_view_width == new_width) &&
 	(width() == m_width))
@@ -266,7 +266,7 @@ void OverViewWidget::setRange(unsigned int new_pos, unsigned int new_width,
 	m_view_offset = min(new_pos, new_length-new_width);
 	m_view_length = new_length;
 	m_slider_width = offset2pixels(m_view_width);
-//	debug("OverViewWidget::setRange(): slider_width=%d",m_slider_width);
+//	qDebug("OverViewWidget::setRange(): slider_width=%d",m_slider_width);
 	m_slider_width = max(m_slider_width, MIN_SLIDER_WIDTH);
 	m_slider_width = min(m_slider_width, m_width-1);
 	m_redraw=true;
@@ -287,7 +287,7 @@ void OverViewWidget::setValue(unsigned int newval)
 //*****************************************************************************
 void OverViewWidget::paintEvent(QPaintEvent *)
 {
-//    debug("OverViewWidget::paintEvent(QPaintEvent *)");
+//    qDebug("OverViewWidget::paintEvent(QPaintEvent *)");
     QPainter p;
 
     // if pixmap has to be resized ...

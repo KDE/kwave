@@ -207,7 +207,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     Q_ASSERT(m_main_widget);
     if (!m_main_widget) return;
     if (!(m_main_widget->isOK())) {
-	warning("TopWidget::TopWidget(): failed at creating main widget");
+	qWarning("TopWidget::TopWidget(): failed at creating main widget");
 	delete m_main_widget;
 	m_main_widget=0;
 	return;
@@ -496,7 +496,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // check if the aRts dispatcher is functional. if not, we better
     // should exit now, as most of the plugins would not work
     if (!m_plugin_manager->artsDispatcher()) {
-	warning("no aRts dispatcher found -> exit !!!");
+	qWarning("no aRts dispatcher found -> exit !!!");
 	KMessageBox::error(this, i18n(
 	    "<b>Sorry, but since version 0.6.2 you need a running "\
 	    "aRts sound server for using kwave.</b><br>"\
@@ -587,7 +587,7 @@ int TopWidget::executeCommand(const QString &line)
     bool use_recorder = true;
     QString command = line;
 
-//    debug("TopWidget::executeCommand(%s)", command.latin1()); // ###
+//    qDebug("TopWidget::executeCommand(%s)", command.latin1()); // ###
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.stripWhiteSpace().startsWith("#")) return 0; // only a comment
 
@@ -600,7 +600,7 @@ int TopWidget::executeCommand(const QString &line)
 	    result = executeCommand("nomacro:"+(*it));
 	    Q_ASSERT(!result);
 	    if (result) {
-		warning("macro execution of '%s' failed: %d",
+		qWarning("macro execution of '%s' failed: %d",
 		        (*it).latin1(), result);
 		return result; // macro failed :-(
 	    }
@@ -633,12 +633,12 @@ int TopWidget::executeCommand(const QString &line)
 	    Q_ASSERT(params);
 	    while (params && cnt--) {
 		const QString &par = parser.nextParam();
-		debug("TopWidget::executeCommand(): %s", par.latin1());
+		qDebug("TopWidget::executeCommand(): %s", par.latin1());
 		params->append(par);
 	    }
 	}
-	debug("TopWidget::executeCommand(): loading plugin '%s'",name.latin1());
-	debug("TopWidget::executeCommand(): with %d parameter(s)",
+	qDebug("TopWidget::executeCommand(): loading plugin '%s'",name.latin1());
+	qDebug("TopWidget::executeCommand(): with %d parameter(s)",
 		(params) ? params->count() : 0);
 	Q_ASSERT(m_plugin_manager);
 	if (m_plugin_manager)
@@ -782,7 +782,7 @@ bool TopWidget::closeFile()
 	if (res == KMessageBox::Yes) {
 	    // user decided to save
 	    res = saveFile();
-	    debug("TopWidget::closeFile()::saveFile, res=%d",res);
+	    qDebug("TopWidget::closeFile()::saveFile, res=%d",res);
 	    if (res) return false;
 	}
     }
@@ -925,7 +925,7 @@ int TopWidget::saveFileAs(bool selection)
 	    // now we have to do as if the mime type and file name
 	    // has already been selected to satisfy the fileinfo
 	    // plugin
-	    debug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
+	    qDebug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
 		m_url.prettyURL().latin1(), new_mimetype_name.latin1(),
 		previous_mimetype_name.latin1() );
 	

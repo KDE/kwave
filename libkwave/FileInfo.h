@@ -73,6 +73,7 @@ typedef enum {
     INF_SUBJECT,             /**< subject */
     INF_TECHNICAN,           /**< technican */
     INF_TRACK,               /**< track of the CD */
+    INF_VBR_QUALITY,         /**< base quality of an ogg file in VBR mode */
     INF_VERSION              /**< version/remix */
 } FileProperty;
 

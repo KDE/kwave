@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <string.h>
-#include <qglobal.h> // for warning()
+#include <qglobal.h> // for qWarning()
 #include <qptrvector.h>
 
 #include <arts/artsflow.h>
@@ -50,7 +50,7 @@ public:
 	    if (f) m_filter.insert(i, new FILTER(FILTER::_from_base(f)));
 	
 	    if (!m_filter[i]) {
-		warning("ArtsMultiTrackFilter: filter creation failed!!!");
+		qWarning("ArtsMultiTrackFilter: filter creation failed!!!");
 		m_count = i;
 		break;
 	    }

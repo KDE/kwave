@@ -27,8 +27,8 @@
 
 //***************************************************************************
 ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
-    QObject *sender, const QString &signal,
-    QObject *receiver, const QString &slot)
+    QObject *sender, const char *signal,
+    QObject *receiver, const char *slot)
     :QObject(), m_widget(widget)
 {
     Q_ASSERT(sender);

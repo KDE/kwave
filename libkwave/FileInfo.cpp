@@ -195,6 +195,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_TRACK, 0,
         i18n("Track"),
         i18n("Track of the CD if the source was a CDROM."));
+    append(INF_VBR_QUALITY, FP_NO_LOAD_SAVE,
+        i18n("Base Quality"),
+        i18n("Base quality of the compression in VBR mode"));
     append(INF_VERSION, 0,
         i18n("Version"),
         i18n("May be used to differentiate multiple versions\n"
@@ -295,21 +298,21 @@ void FileInfo::clear()
 /***************************************************************************/
 void FileInfo::dump()
 {
-    debug("--- dump of file info ---");
-    debug("default properties:");
-    debug("   length = %u samples", m_length);
-    debug("   rate   = %0.1f Hz", m_rate);
-    debug("   bits   = %u", m_bits);
-    debug("   tracks = %u", m_tracks);
-    debug("other properties:");
+    qDebug("--- dump of file info ---");
+    qDebug("default properties:");
+    qDebug("   length = %u samples", m_length);
+    qDebug("   rate   = %0.1f Hz", m_rate);
+    qDebug("   bits   = %u", m_bits);
+    qDebug("   tracks = %u", m_tracks);
+    qDebug("other properties:");
     QMap<FileProperty, QVariant>::Iterator it;
     for (it = m_properties.begin(); it != m_properties.end(); ++it) {
         FileProperty key = it.key();
         QVariant val = it.data();
         QString name = m_property_map.name(key);
-        debug("   '%s' = '%s'", name.latin1(), val.toString().latin1());
+        qDebug("   '%s' = '%s'", name.latin1(), val.toString().latin1());
     }
-    debug("-------------------------");
+    qDebug("-------------------------");
 }
 
 /***************************************************************************/

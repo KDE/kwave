@@ -83,7 +83,7 @@ unsigned int Filter::resize(unsigned int newnum)
     // resize both arrays
     if (!(m_delay.resize(newnum)) && (m_coeff.resize(newnum))) {
 	// restore previous state if one of them failed
-	debug("Filter::resize(%d) failed.", newnum);
+	qDebug("Filter::resize(%d) failed.", newnum);
 	m_delay.resize(oldnum);
 	m_coeff.resize(newnum);
 	return oldnum;
@@ -179,13 +179,13 @@ void Filter::load(const QString &filename)
 	break;
     }
     m_fir = line.startsWith("FIR ");
-    debug("Filter::load(): fir = %d", m_fir);
+    qDebug("Filter::load(): fir = %d", m_fir);
 
     // order
     unsigned int order = line.remove(0,4).toUInt(&ok);
     resize(0);
     resize(order);
-    debug("Filter::load(): order = %d", order);
+    qDebug("Filter::load(): order = %d", order);
 
     // read delays and coefficients
     i = 0;
@@ -205,7 +205,7 @@ void Filter::load(const QString &filename)
 	if (ok) {
 	    i++;
 	} else {
-	    debug("Filter::load(%s): syntax error in line %d",
+	    qDebug("Filter::load(%s): syntax error in line %d",
 		filename.latin1(), linenr);
 	}
     }

@@ -197,11 +197,11 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 {
     info().clear();
     Q_ASSERT(!m_source);
-    if (m_source) warning("OggDecoder::open(), already open !");
+    if (m_source) qWarning("OggDecoder::open(), already open !");
 
     // try to open the source
     if (!src.open(IO_ReadOnly)) {
-	warning("failed to open source !");
+	qWarning("failed to open source !");
 	return false;
     }
 
@@ -209,7 +209,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     m_source = &src;
     
     /********** Decode setup ************/
-    debug("--- OggDecoder::open() ---");
+    qDebug("--- OggDecoder::open() ---");
     ogg_sync_init(&m_oy); // Now we can read pages
 
     // read the header the first time
@@ -236,8 +236,8 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	QString s = *ptr;
 	if (s.length() && !s.contains('=')) {
 	    m_info.set(INF_SOFTWARE, s);
-	    debug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
-	    debug("Encoded by: %s\n\n", m_vc.vendor);
+	    qDebug("Bitstream is %d channel, %ldHz", m_vi.channels, m_vi.rate);
+	    qDebug("Encoded by: %s\n\n", m_vc.vendor);
 	}
     }
 
@@ -249,7 +249,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	QDate date;
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
-	    warning("invalid date: '%s', interpreting as year...",
+	    qWarning("invalid date: '%s', interpreting as year...",
 	        str_date.latin1());
 	    int year = str_date.toInt();
 	    date.setYMD(year, 1, 1);
@@ -311,7 +311,7 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 	}
     }
 
-//    if (clipped) debug("Clipping in frame %ld", (long)(m_vd.sequence));
+//    if (clipped) qDebug("Clipping in frame %ld", (long)(m_vd.sequence));
 
     return size;
 }

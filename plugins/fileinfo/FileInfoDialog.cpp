@@ -68,7 +68,7 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
                 (mimetype == "application/x-ogg") ||
                 (mimetype == "application/ogg"));
 
-    debug("mimetype = %s",mimetype.latin1());
+    qDebug("mimetype = %s",mimetype.latin1());
    
     setupFileInfoTab();
     setupCompressionTab();
@@ -152,12 +152,12 @@ void FileInfoDialog::setupFileInfoTab()
 //        lblFileFormat->text().length()-1),
 //        i18n("Format of the file from which the\n"
 //             "audio data was loaded from"));
-//    debug("mimetype='%s'",mimetype.latin1()); // ###
+//    qDebug("mimetype='%s'",mimetype.latin1()); // ###
 //    KMimeType::Ptr mime = KMimeType::mimeType(mimetype);
 //    QString format =
 //       (mime != KMimeType::mimeType(KMimeType::defaultMimeType())) ?
 //        mime->comment() : mimetype;
-//    debug("comment='%s'",mime->comment().latin1()); // ###
+//    qDebug("comment='%s'",mime->comment().latin1()); // ###
 //    edFileFormat->setText(format);
 
     // use mimetype instead
@@ -609,7 +609,7 @@ void FileInfoDialog::acceptEdit(FileProperty property, QString value)
 //***************************************************************************
 void FileInfoDialog::accept()
 {
-    debug("FileInfoDialog::accept()");
+    qDebug("FileInfoDialog::accept()");
     m_info.dump();
 
     /* bits per sample */
@@ -700,7 +700,7 @@ void FileInfoDialog::accept()
     // list of keywords
     acceptEdit(INF_KEYWORDS,    lstKeywords->keywords().join("; "));
 
-    debug("FileInfoDialog::accept() --2--");
+    qDebug("FileInfoDialog::accept() --2--");
     m_info.dump();
 
     QDialog::accept();

@@ -109,7 +109,7 @@ void CompressionWidget::selectABR(bool checked)
 //***************************************************************************
 void CompressionWidget::setBitrates(int nominal, int lower, int upper)
 {
-    debug("CompressionWidget::setBitrates(%d,%d,%d)",nominal,lower,upper); // ###
+    qDebug("CompressionWidget::setBitrates(%d,%d,%d)",nominal,lower,upper); // ###
     Q_ASSERT((!lower) || (nominal >= lower));
     Q_ASSERT((!upper) || (nominal <= upper));
     if (lower && (nominal < lower)) nominal = lower;

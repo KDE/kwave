@@ -40,8 +40,8 @@ public:
      * @param slot receiver's cancel slot, e.g. SLOT(cancel())
      */
     ConfirmCancelProxy(QWidget *widget,
-        QObject *sender,   const QString &signal,
-        QObject *receiver, const QString &slot);
+        QObject *sender,   const char *signal,
+        QObject *receiver, const char *slot);
 
     /** Destructor */
     virtual ~ConfirmCancelProxy();

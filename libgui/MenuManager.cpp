@@ -109,7 +109,7 @@ void MenuManager::executeCommand(const QString &command)
 
     // bail out if no menu position is found
     if (!pos.length()) {
-	warning("no position field !");
+	qWarning("no position field !");
 	return ;
     }
 
@@ -164,7 +164,7 @@ void MenuManager::addNumberedMenuEntry(const QString &uid,
 	QString command = cmd.contains("%1") ? cmd.arg(entry) : cmd;
 	node->insertLeaf(entry, command, 0, 0, -1);
     } else
-	warning("MenuManager: could not find numbered Menu '%s'", uid.latin1());
+	qWarning("MenuManager: could not find numbered Menu '%s'", uid.latin1());
 
 }
 
@@ -174,12 +174,12 @@ void MenuManager::selectItem(const QString &group, const QString &uid)
     Q_ASSERT(m_menu_root);
 
     if (!group || !*group) {
-	warning("MenuManager::selectItem('','%s'): no group!?", uid.latin1());
+	qWarning("MenuManager::selectItem('','%s'): no group!?", uid.latin1());
 	return ;
     }
 
     if (*group != '@') {
-	warning("MenuManager::selectItem('%s','%s'): "\
+	qWarning("MenuManager::selectItem('%s','%s'): "\
 		"invalid group name, does not start with '@'!",
 		group.latin1(), uid.latin1());
 	return ;
@@ -187,13 +187,13 @@ void MenuManager::selectItem(const QString &group, const QString &uid)
 
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(group) : 0;
     if (!node) {
-	warning("MenuManager::selectItem(): group '%s' not found!",
+	qWarning("MenuManager::selectItem(): group '%s' not found!",
 	    group.latin1());
 	return ;
     }
 
     if (!node->inherits("MenuGroup")) {
-	warning("MenuManager::selectItem(): '%s' is not a group!",
+	qWarning("MenuManager::selectItem(): '%s' is not a group!",
 	    group.latin1());
 	return ;
     }
@@ -222,10 +222,10 @@ void MenuManager::setItemEnabled(const QString &uid, bool enable)
 {
     Q_ASSERT(m_menu_root);
 
-//    debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
+//    qDebug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setEnabled(enable);
-    else warning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
+    else qWarning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
 		     uid.latin1(), enable);
 }
 

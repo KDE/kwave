@@ -154,7 +154,7 @@ void PluginManager::loadAllPlugins()
 	    }
 	} else {
 	    // loading failed => remove it from the list
-	    warning("PluginManager::loadAllPlugins(): removing '%s' "\
+	    qWarning("PluginManager::loadAllPlugins(): removing '%s' "\
 	            "from list", name.latin1());
 	    m_plugin_files.remove(name);
 	}
@@ -183,7 +183,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	    Q_ASSERT(!p->isPersistent());
 	    if (p->isUnique()) {
 		// prevent from re-loading of a unique plugin
-		warning("PluginManager::loadPlugin(): attempt to re-load "\
+		qWarning("PluginManager::loadPlugin(): attempt to re-load "\
 		        "unique plugin '%s'", name.latin1());
 		return 0;
 	    }
@@ -261,7 +261,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     Q_ASSERT(plugin_loader);
     if (!plugin_loader) {
 	// plugin is null, out of memory or not found
-	warning("PluginManager::loadPlugin(): "\
+	qWarning("PluginManager::loadPlugin(): "\
 		"plugin '%s' does not contain a loader, "\
 		"maybe it is damaged or the wrong version?",
 		name.latin1());
@@ -283,7 +283,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 
     Q_ASSERT(context);
     if (!context) {
-	warning("PluginManager::loadPlugin(): out of memory");
+	qWarning("PluginManager::loadPlugin(): out of memory");
 	dlclose(handle);
 	return 0;
     }
@@ -292,7 +292,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     KwavePlugin *plugin = (*plugin_loader)(context);
     Q_ASSERT(plugin);
     if (!plugin) {
-	warning("PluginManager::loadPlugin(): out of memory");
+	qWarning("PluginManager::loadPlugin(): out of memory");
 	dlclose(handle);
 	return 0;
     }
@@ -340,7 +340,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 	
 	// maybe the start() function has called close() ?
 	if (m_loaded_plugins.findRef(plugin) == -1) {
-	    debug("PluginManager: plugin closed itself in start()"); // ###
+	    qDebug("PluginManager: plugin closed itself in start()"); // ###
 	    result = -1;
 	    plugin = 0;
 	}
@@ -376,7 +376,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 	    }
 	    delete params;
 	    command += ")";
-	    debug("PluginManager: command='%s'",command.latin1()); // ###
+	    qDebug("PluginManager: command='%s'",command.latin1()); // ###
 	}
     }
 
@@ -403,7 +403,7 @@ void PluginManager::sync()
 	    for (; it.current(); ++it) {
 		KwavePlugin *plugin = it.current();
 		if (plugin->isRunning()) {
-		    debug("waiting for plugin '%s'", plugin->name().latin1());
+		    qDebug("waiting for plugin '%s'", plugin->name().latin1());
 		    one_is_running = true;
 		    break;
 		}
@@ -466,7 +466,7 @@ QStringList PluginManager::loadPluginDefaults(const QString &name,
 	return list;
     }
     if (!(def_version == version)) {
-	debug("PluginManager::loadPluginDefaults: "\
+	qDebug("PluginManager::loadPluginDefaults: "\
 	    "plugin '%s': defaults for version '%s' not loaded, found "\
 	    "old ones of version '%s'.", name.latin1(), version.latin1(),
 	    def_version.latin1());
@@ -657,7 +657,7 @@ void PluginManager::pluginClosed(KwavePlugin *p)
     Q_ASSERT(delete_later);
     if (delete_later) delete_later->deleteLater();
 
-//    debug("PluginManager::pluginClosed(): done");
+//    qDebug("PluginManager::pluginClosed(): done");
 }
 
 //****************************************************************************

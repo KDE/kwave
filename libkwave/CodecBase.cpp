@@ -44,7 +44,7 @@ void CodecBase::addMimeType(const QString &name, const QString &description,
     type = new KMimeType(*KMimeType::mimeType(name));
     Q_ASSERT(type);
     if (type && (type->name() == type->defaultMimeType())) {
-//	warning("mime type '"+name+"' not registered, using built-in!");
+//	qWarning("mime type '"+name+"' not registered, using built-in!");
 	delete type;
 	type = 0;
 	

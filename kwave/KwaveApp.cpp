@@ -108,7 +108,7 @@ bool KwaveApp::isOK()
 //***************************************************************************
 bool KwaveApp::executeCommand(const QString &command)
 {
-//    debug("KwaveApp::executeCommand(%s)", command);    // ###
+//    qDebug("KwaveApp::executeCommand(%s)", command);    // ###
     Parser parser(command);
     if (parser.command() == "newwindow") {
 	newWindow(0);
@@ -150,7 +150,7 @@ bool KwaveApp::newWindow(const KURL &url)
     if (!new_top_widget) return false;
 
     if ( !(new_top_widget->isOK()) ) {
-	warning("KwaveApp::newWindow() failed!");
+	qWarning("KwaveApp::newWindow() failed!");
 	delete new_top_widget;
 	return false;
     }
@@ -277,7 +277,7 @@ void KwaveApp::initArts()
     arts_init();
 
     if (!Arts::Dispatcher::the()) { 
-	warning("aRts daemon isn't running. Starting it...");
+	qWarning("aRts daemon isn't running. Starting it...");
 
 	QString path;
 	QStringList args;

@@ -221,7 +221,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	QString software = about_data->programName() + "-" +
 	    about_data->version() +
 	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-	debug("OggEncoder: adding software tag: '%s'", software.latin1());
+	qDebug("OggEncoder: adding software tag: '%s'", software.latin1());
 	info.set(INF_SOFTWARE, software);
     }
 
@@ -232,7 +232,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	date = date.sprintf("%04d-%02d-%02d",
 	    now.year(), now.month(), now.day());
 	QVariant value = date.utf8();
-	debug("OggEncoder: adding date tag: '%s'", date.latin1());
+	qDebug("OggEncoder: adding date tag: '%s'", date.latin1());
 	info.set(INF_CREATION_DATE, value);
     }
 

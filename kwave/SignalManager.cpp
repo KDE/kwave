@@ -133,7 +133,7 @@ int SignalManager::loadFile(const KURL &url)
     disableUndo();
 
     QString mimetype = CodecManager::whatContains(url);
-    debug("SignalManager::loadFile(%s) - [%s]", url.prettyURL().latin1(),
+    qDebug("SignalManager::loadFile(%s) - [%s]", url.prettyURL().latin1(),
           mimetype.latin1());
     Decoder *decoder = CodecManager::decoder(mimetype);
     while (decoder) {
@@ -144,7 +144,7 @@ int SignalManager::loadFile(const KURL &url)
 	QString filename = url.path();
 	QFile src(filename);
 	if (!(decoder->open(m_parent_widget, src))) {
-	    warning("unable to open source: '%s'", url.prettyURL().latin1());
+	    qWarning("unable to open source: '%s'", url.prettyURL().latin1());
 	    res = -EIO;
 	    break;
 	}
@@ -175,7 +175,7 @@ int SignalManager::loadFile(const KURL &url)
 	    Track *t = m_signal.appendTrack(length);
 	    Q_ASSERT(t);
 	    if (!t || (t->length() != length)) {
-		warning("out of memory");
+		qWarning("out of memory");
 		res = -ENOMEM;
 		break;
 	    }
@@ -220,7 +220,7 @@ int SignalManager::loadFile(const KURL &url)
 	// now decode
 	res = 0;
 	if (!decoder->decode(m_parent_widget, writers)) {
-	    warning("decoding failed.");
+	    qWarning("decoding failed.");
 	    res = -EIO;
 	}
 	
@@ -245,7 +245,7 @@ int SignalManager::loadFile(const KURL &url)
 	break;
     }
     if (!decoder) {
-	warning("unknown file type");
+	qWarning("unknown file type");
 	res = -EMEDIUMTYPE;
     } else {
 	delete decoder;
@@ -290,7 +290,7 @@ int SignalManager::save(const KURL &url, bool selection)
 
     QString mimetype_name;
     mimetype_name = KMimeType::findByURL(url)->name();
-    debug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
+    qDebug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
 	url.prettyURL().latin1(), mimetype_name.latin1(), bits, selection);
 
     Encoder *encoder = CodecManager::encoder(mimetype_name);
@@ -309,7 +309,7 @@ int SignalManager::save(const KURL &url, bool selection)
 	    if ( (! supported.contains(it.key())) &&
                  (m_file_info.canLoadSave(it.key())) )
 	    {
-		warning("SignalManager::save(): unsupported property '%s'",
+		qWarning("SignalManager::save(): unsupported property '%s'",
 		    m_file_info.name(it.key()).latin1());
 		all_supported = false;
 		lost_properties += m_file_info.name(it.key()) + "\n";
@@ -385,7 +385,7 @@ int SignalManager::save(const KURL &url, bool selection)
 	enableModifiedChange(true);
 	setModified(false);
     }
-    debug("SignalManager::save(): res=%d",res);
+    qDebug("SignalManager::save(): res=%d",res);
     return res;
 }
 
@@ -492,7 +492,7 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
     UndoAction *action = 0;
     switch (mode) {
 	case Append:
-	    debug("SignalManager::openSampleWriter(): NO UNDO FOR APPEND YET !");
+	    qDebug("SignalManager::openSampleWriter(): NO UNDO FOR APPEND YET !");
 	    break;
 	case Insert:
 	    action = new UndoInsertAction(track, left, right-left+1);
@@ -513,7 +513,7 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 	if (!registerUndoAction(action)) {
 	    // creating/starting the action failed, so fail now.
 	    // close the writer and return 0 -> abort the operation
-	    debug("SignalManager::openSampleWriter(): register failed"); // ###
+	    qDebug("SignalManager::openSampleWriter(): register failed"); // ###
 	    if (action) delete action;
 	    delete writer;
 	    return 0;
@@ -556,7 +556,7 @@ void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
 	    writers.insert(i, s);
 	} else {
 	    // out of memory or aborted
-	    debug("Signal::openMultiTrackWriter: "\
+	    qDebug("Signal::openMultiTrackWriter: "\
 	          "out of memory or aborted");
 	    writers.clear();
 	    return;
@@ -567,7 +567,7 @@ void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
 //***************************************************************************
 bool SignalManager::executeCommand(const QString &command)
 {
-//    debug("SignalManager::executeCommand(%s)", command.latin1());    // ###
+//    qDebug("SignalManager::executeCommand(%s)", command.latin1());    // ###
 
     unsigned int offset = m_selection.offset();
     unsigned int length = m_selection.length();
@@ -670,7 +670,7 @@ void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
     // if the signal has no tracks, create new ones
     if (!tracks()) {
 	unsigned int missing = clipboard.tracks();
-	debug("SignalManager::paste(): appending %u tracks", missing);
+	qDebug("SignalManager::paste(): appending %u tracks", missing);
 	while (missing--) appendTrack();	
     }
 
@@ -727,11 +727,11 @@ void SignalManager::insertTrack(unsigned int index)
 
     if (index >= count) {
 	// do an "append"
-//	debug("SignalManager::insertTrack(): appending");
+//	qDebug("SignalManager::insertTrack(): appending");
 	m_signal.appendTrack(len);
     } else {
 	// insert into the list
-	warning("m_signal.insertTrack(index, len) - NOT IMPLEMENTED !");
+	qWarning("m_signal.insertTrack(index, len) - NOT IMPLEMENTED !");
 	// ### TODO ### m_signal.insertTrack(index, len);
     }
 
@@ -936,7 +936,7 @@ int SignalManager::loadAscii()
 	    cnt++;
 	}
     }
-    debug("SignalManager::loadAscii(): reading ascii file with %d samples",
+    qDebug("SignalManager::loadAscii(): reading ascii file with %d samples",
 	  cnt);    // ###
 
     // get the maximum and the scale
@@ -1092,7 +1092,7 @@ void SignalManager::closeUndoTransaction()
 	    if (!m_undo_transaction->isEmpty()) {
 		m_undo_buffer.append(m_undo_transaction);
 	    } else {
-		debug("SignalManager::closeUndoTransaction(): empty");
+		qDebug("SignalManager::closeUndoTransaction(): empty");
 		delete m_undo_transaction;
 	    }
 	}
@@ -1340,7 +1340,7 @@ void SignalManager::undo()
     UndoTransaction *redo_transaction = 0;
     if (undo_size + redo_size > m_undo_limit) {
 	// not enough memory for redo
-	warning("SignalManager::undo(): not enough memory for redo !");
+	qWarning("SignalManager::undo(): not enough memory for redo !");
     } else {
 	// only free the memory if it will be used
 	freeUndoMemory(undo_size + redo_size);
@@ -1355,7 +1355,7 @@ void SignalManager::undo()
     // produce inconsistent data -> remove all of them !
     if (!redo_transaction) {
 	flushRedoBuffer();
-	debug("SignalManager::undo(): redo buffer flushed!"); // ###
+	qDebug("SignalManager::undo(): redo buffer flushed!"); // ###
     } else {
 	m_redo_buffer.prepend(redo_transaction);
     }
@@ -1395,7 +1395,7 @@ void SignalManager::undo()
     if (redo_transaction && (redo_transaction->count() <= 1)) {
 	// if there is not more than the UndoSelection action,
 	// there are no real redo actions -> no redo possible
-	warning("SignalManager::undo(): no redo possible");
+	qWarning("SignalManager::undo(): no redo possible");
 	m_redo_buffer.setAutoDelete(true);
 	m_redo_buffer.remove(redo_transaction);
     }
@@ -1435,7 +1435,7 @@ void SignalManager::redo()
     UndoTransaction *undo_transaction = 0;
     if (undo_size + redo_size > m_undo_limit) {
 	// not enough memory for undo
-	warning("SignalManager::redo(): not enough memory for undo !");
+	qWarning("SignalManager::redo(): not enough memory for undo !");
     } else {
 	// only free the memory if it will be used
 	freeUndoMemory(undo_size + redo_size);
@@ -1451,7 +1451,7 @@ void SignalManager::redo()
     if (!undo_transaction) {
 	m_undo_buffer.setAutoDelete(true);
 	m_undo_buffer.clear();
-	debug("SignalManager::redo(): undo buffer flushed!");
+	qDebug("SignalManager::redo(): undo buffer flushed!");
     } else {
 	m_undo_buffer.append(undo_transaction);
     }
@@ -1491,7 +1491,7 @@ void SignalManager::redo()
     if (undo_transaction && (undo_transaction->count() <= 1)) {
 	// if there is not more than the UndoSelection action,
 	// there are no real undo actions -> no undo possible
-	warning("SignalManager::redo(): no undo possible");
+	qWarning("SignalManager::redo(): no undo possible");
 	m_undo_buffer.setAutoDelete(true);
 	m_undo_buffer.remove(undo_transaction);
     }
@@ -1507,7 +1507,7 @@ void SignalManager::setModified(bool mod)
 
     if (m_modified != mod) {
 	m_modified = mod;
-	debug("SignalManager::setModified(%d)",mod);
+	qDebug("SignalManager::setModified(%d)",mod);
 	emit sigModified(m_modified);
     }
 }

@@ -126,7 +126,7 @@ int main( int argc, char **argv )
 
 #ifdef UNIQUE_APP
     if (!KUniqueApplication::start()) {
-	warning("Kwave is already running!");
+	qWarning("Kwave is already running!");
 	exit(0);
     }
 #endif // UNIQUE_APP

@@ -19,7 +19,7 @@
 #define _ARTS_MULTI_SINK_H_
 
 #include "config.h"
-#include <qglobal.h> // for fatal(...)
+#include <qglobal.h> // for qFatal(...)
 #include <arts/artsflow.h>
 
 class ArtsMultiSink
@@ -39,7 +39,7 @@ public:
      * start/continue the data processing.
      */
     virtual void goOn() {
-	fatal("ArtsMultiSink::goOn(): SHOULD NEVER BE CALLED!");
+	qFatal("ArtsMultiSink::goOn(): SHOULD NEVER BE CALLED!");
     };
 
     /**
@@ -48,7 +48,7 @@ public:
      * determine the end of data processing (sink is full/eof detection).
      */
     virtual bool done() {
-	fatal("ArtsMultiSink::done(): SHOULD NEVER BE CALLED!");
+	qFatal("ArtsMultiSink::done(): SHOULD NEVER BE CALLED!");
 	return true;
     };
 

@@ -90,7 +90,7 @@ bool MenuItem::specialCommand(const QString &command)
 	    if (!icon.isNull()) {
 		setIcon(icon);
 	    } else {
-		debug("MenuItem '%s': icon '%s' not found !",
+		qDebug("MenuItem '%s': icon '%s' not found !",
 		    name(), filename.latin1());
 	    }
 	}
@@ -114,7 +114,7 @@ bool MenuItem::specialCommand(const QString &command)
 		m_exclusive_group = group;
 		joinGroup(group);
 	    } else if (m_exclusive_group != group) {
-		warning("menu item '%s' already member of "\
+		qWarning("menu item '%s' already member of "\
 			"exclusive group '%s'", getName().latin1(),
 			m_exclusive_group.latin1());
 	    }

@@ -63,7 +63,6 @@ signals:
     /** Pre-listen mode has been stopped */
     void stopPreListen();
     
-    
 protected slots:
 
     /** called when the mode radio buttons changed */

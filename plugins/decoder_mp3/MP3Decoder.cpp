@@ -72,7 +72,7 @@ Decoder *MP3Decoder::instance()
 bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 {
     /* first of all check CRC, it might be senseless if the file is broken */
-    debug("crc = 0x%08X", header.crc);
+    qDebug("crc = 0x%08X", header.crc);
     if ((header.crc == MP3CRC_MISMATCH) || (header.crc == MP3CRC_ERROR_SIZE)){
 	if (KMessageBox::warningContinueCancel(widget,
 	    i18n("The file has an invalid checksum.\n"
@@ -98,7 +98,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 	    m_info.set(INF_MPEG_LAYER, QVariant(3));
 	    break;
 	default:
-	    warning("unknown mpeg layer '%d'", header.layer);
+	    qWarning("unknown mpeg layer '%d'", header.layer);
     }
 
     /* MPEG version */
@@ -113,7 +113,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 	    m_info.set(INF_MPEG_VERSION, QVariant(2.5));
 	    break;
 	default:
-	    warning("unknown mpeg version '%d'", header.version);
+	    qWarning("unknown mpeg version '%d'", header.version);
     }
 
     /* bit rate */
@@ -171,8 +171,8 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
     if (header.emphasis > 0)
         m_info.set(INF_MPEG_EMPHASIS, header.emphasis);
 
-//  debug("framesize=%d", header.framesize);
-//  debug("frames = %u", header.frames);
+//  qDebug("framesize=%d", header.framesize);
+//  qDebug("frames = %u", header.frames);
     
     if (header.privatebit)  m_info.set(INF_PRIVATE, header.privatebit);
     if (header.copyrighted) m_info.set(INF_COPYRIGHTED, header.copyrighted);
@@ -349,7 +349,7 @@ bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
 
 	    default:
 		char *text = ID3_GetString(frame, ID3FN_TEXT);
-		debug("frame with id=%d, descr=%s, text=%s",
+		qDebug("frame with id=%d, descr=%s, text=%s",
 		      id, frame->GetDescription(), text);
 		if (text) delete [] text;
 	}
@@ -373,16 +373,16 @@ void MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
 //***************************************************************************
 bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 {
-    debug("MP3Decoder::open()");
+    qDebug("MP3Decoder::open()");
     info().clear();
     Q_ASSERT(!m_source);
-    if (m_source) warning("MP3Decoder::open(), already open !");
+    if (m_source) qWarning("MP3Decoder::open(), already open !");
 
     /* open the file in readonly mode with seek enabled */
     Q_ASSERT(src.isDirectAccess());
     if (!src.isDirectAccess()) return false;
     if (!src.open(IO_ReadOnly)) {
-	warning("unable to open source in read-only mode!");
+	qWarning("unable to open source in read-only mode!");
 	return false;
     }
     
@@ -391,15 +391,15 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     ID3_QIODeviceReader adapter(src);
     tag.Link(adapter, ID3TT_ALL);
 
-    debug("NumFrames = %d", tag.NumFrames());
-    debug("Size = %d",      tag.Size());
-    debug("HasLyrics = %d", tag.HasLyrics());
-    debug("HasV1Tag = %d",  tag.HasV1Tag());
-    debug("HasV2Tag = %d",  tag.HasV2Tag());
+    qDebug("NumFrames = %d", tag.NumFrames());
+    qDebug("Size = %d",      tag.Size());
+    qDebug("HasLyrics = %d", tag.HasLyrics());
+    qDebug("HasV1Tag = %d",  tag.HasV1Tag());
+    qDebug("HasV2Tag = %d",  tag.HasV2Tag());
                             
     m_prepended_bytes = tag.GetPrependedBytes();
     m_appended_bytes  = tag.GetAppendedBytes();
-    debug("prepended=%u, appended=%u",m_prepended_bytes, m_appended_bytes);
+    qDebug("prepended=%u, appended=%u",m_prepended_bytes, m_appended_bytes);
     
     const Mp3_Headerinfo *mp3hdr = tag.GetMp3HeaderInfo();
     if (!mp3hdr) {

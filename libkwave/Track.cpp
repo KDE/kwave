@@ -72,7 +72,7 @@ Stripe *Track::newStripe(unsigned int start, unsigned int length)
 
 	if (length) s->resize(length);
     }
-//    debug("Track::newStripe(%d): new stripe at %p", length, s);
+//    qDebug("Track::newStripe(%d): new stripe at %p", length, s);
 
     return s;
 }
@@ -125,7 +125,7 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 
     switch (mode) {
 	case Insert: {
-//	    debug("Track::openSampleWriter(insert, %u)", left);
+//	    qDebug("Track::openSampleWriter(insert, %u)", left);
 	
 	    // find the stripe into which we insert
 	    Stripe *target_stripe = 0;

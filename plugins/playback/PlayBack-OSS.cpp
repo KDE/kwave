@@ -59,7 +59,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
                           unsigned int channels, unsigned int bits,
                           unsigned int bufbase)
 {
-    debug("PlayBackOSS::open(device=%s,rate=%f,channels=%u,"\
+    qDebug("PlayBackOSS::open(device=%s,rate=%f,channels=%u,"\
 	"bits=%u, bufbase=%u)", device.latin1(), rate, channels,
 	bits, bufbase);
 
@@ -75,7 +75,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
     // prepeare for playback by opening the sound device
     // and initializing with the proper settings
     m_handle = ::open(m_device_name.latin1(), O_WRONLY | O_NONBLOCK);
-    debug("PlayBackOSS::open(): file descriptor=%u", m_handle);
+    qDebug("PlayBackOSS::open(): file descriptor=%u", m_handle);
     if (m_handle == -1) {
 	QString reason;
 	switch (errno) {
@@ -153,7 +153,7 @@ int PlayBackOSS::write(QMemArray<sample_t> &samples)
 {
     Q_ASSERT (m_buffer_used < m_buffer_size);
     if (m_buffer_used >= m_buffer_size) {
-	warning("PlayBackOSS::write(): buffer overflow ?!");
+	qWarning("PlayBackOSS::write(): buffer overflow ?!");
 	return -EIO;
     }
 

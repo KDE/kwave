@@ -163,7 +163,7 @@ void Curve::insert(double x, double y)
     while (tmp->x < x) tmp = m_points.next();
 
     if (tmp) m_points.insert(m_points.at(), ins);
-    else warning("Curve::insert(%0.2f,%0.2f): out of range !",x,y);
+    else qWarning("Curve::insert(%0.2f,%0.2f): out of range !",x,y);
 }
 
 //***************************************************************************

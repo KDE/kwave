@@ -244,7 +244,7 @@ int SonagramPlugin::stop()
 //***************************************************************************
 void SonagramPlugin::run(QStringList /* params */)
 {
-//    debug("SonagramPlugin::run()");
+//    qDebug("SonagramPlugin::run()");
 
     Q_ASSERT(m_spx_insert_stripe);
     if (!m_spx_insert_stripe) return;
@@ -252,13 +252,13 @@ void SonagramPlugin::run(QStringList /* params */)
     MultiTrackReader source;
     manager().openMultiTrackReader(source, selectedTracks(),
 	m_first_sample, m_last_sample);
-//    debug("SonagramPlugin::run(), first=%u, last=%u",m_first_sample,m_last_sample);
+//    qDebug("SonagramPlugin::run(), first=%u, last=%u",m_first_sample,m_last_sample);
 
     while (!m_cmd_shutdown) {
 	QByteArray *stripe_data;
 	unsigned int stripe_nr;
 	for (stripe_nr = 0; stripe_nr < m_stripes; stripe_nr++) {
-//	    debug("SonagramPlugin::run(): calculating stripe %d of %d",
+//	    qDebug("SonagramPlugin::run(): calculating stripe %d of %d",
 //	        stripe_nr,m_stripes);
 	
 	    // create a new stripe data array
@@ -294,13 +294,13 @@ void SonagramPlugin::run(QStringList /* params */)
 	m_cmd_shutdown = true;
     }
 
-//    debug("SonagramPlugin::run(): done.");
+//    qDebug("SonagramPlugin::run(): done.");
 }
 
 //***************************************************************************
 void SonagramPlugin::insertStripe()
 {
-//    debug("SonagramPlugin::insertStripe()");
+//    qDebug("SonagramPlugin::insertStripe()");
     Q_ASSERT(m_spx_insert_stripe);
     if (!m_spx_insert_stripe) return;
 
@@ -400,7 +400,7 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 void SonagramPlugin::createNewImage(const unsigned int width,
 	const unsigned int height)
 {
-//    debug("SonagramPlugin::createNewImage()");
+//    qDebug("SonagramPlugin::createNewImage()");
 
     // delete the previous image
     if (m_image) delete m_image;
@@ -416,7 +416,7 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     Q_ASSERT(height <= 32767);
     if ((width >= 32767) || (height >= 32767)) return;
 
-//    debug("SonagramPlugin::createNewImage(): settings ok, creating image");
+//    qDebug("SonagramPlugin::createNewImage(): settings ok, creating image");
 
     // create the new image object
     m_image = new QImage(width, height, 8, 256);
@@ -432,7 +432,7 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     // fill the image with "empty"
     m_image->fill(0xFF);
 
-//    debug("SonagramPlugin::createNewImage(): done.");
+//    qDebug("SonagramPlugin::createNewImage(): done.");
 }
 
 //***************************************************************************

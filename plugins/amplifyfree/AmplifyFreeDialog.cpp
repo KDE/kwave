@@ -57,7 +57,7 @@ QString AmplifyFreeDialog::getCommand()
 	cmd += (QString)"," + p.nextParam();
     }
     cmd += ")";
-    debug("AmplifyFreeDialog::getCommand(): '"+cmd+"'");
+    qDebug("AmplifyFreeDialog::getCommand(): '"+cmd+"'");
     return cmd;
 }
 

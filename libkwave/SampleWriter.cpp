@@ -42,9 +42,9 @@ SampleWriter::~SampleWriter()
     Q_ASSERT(m_position <= m_last+1);
 
     // inform others that we proceeded
-    emit proceeded();
     emit sigSamplesWritten(m_position - m_first);
     if (m_lock) delete m_lock;
+    m_lock = 0;
 }
 
 //***************************************************************************
@@ -78,11 +78,11 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
     unsigned int buflen = m_buffer.size();
     while (!reader.eof() && (m_position <= m_last)) {
 	if (m_position+buflen-1 > m_last) buflen = (m_last-m_position)+1;
-	
+
 	m_buffer_used = reader.read(m_buffer, 0, buflen);
 	Q_ASSERT(m_buffer_used);
 	if (!m_buffer_used) break;
-	
+
 	flush();
     }
 
@@ -122,13 +122,13 @@ void SampleWriter::flush(const QMemArray<sample_t> &buffer,
 	    Stripe *s = m_stripes.first();
 	    Q_ASSERT(s);
 	    if (!s) break;
-	
+
 	    // insert samples after the last insert position
 	    unsigned int ofs = s->start();
 	    Q_ASSERT(ofs <= m_position);
 	    if (ofs > m_position) break;
 	    ofs = m_position - ofs;
-	
+
 	    unsigned int cnt = s->insert(buffer, ofs, count);
 	    Q_ASSERT(cnt == count);
 	    m_position += count;
@@ -144,14 +144,14 @@ void SampleWriter::flush(const QMemArray<sample_t> &buffer,
 	    for (; it.current(); ++it) {
 		if (!count) break; // nothing to do
 		if (m_position > m_last) break;
-		
+
 		Stripe *s = it.current();
 		unsigned int st = s->start();
 		unsigned int len = s->length();
 		if (!len) continue; // skip zero-length stripes
-		
+
 		if (m_position >= st+len) continue; // not yet in range
-		
+
 		if (m_position >= st) {
 		    unsigned int offset = m_position - st;
 		    unsigned int length = len - offset;
@@ -159,10 +159,10 @@ void SampleWriter::flush(const QMemArray<sample_t> &buffer,
 		    if (m_position+length-1 > m_last)
 			length = (m_last-m_position)+1;
 		    Q_ASSERT(length);
-		
+
 		    // copy the portion of our buffer to the target
 		    s->overwrite(offset, buffer, buf_offset, length);
-		
+
 		    count -= length;
 		    buf_offset += length;
 		    m_position += length;

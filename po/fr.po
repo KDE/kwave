@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-29 08:44+0200\n"
-"PO-Revision-Date: 2002-06-29 08:42+0200\n"
+"POT-Creation-Date: 2002-06-29 09:39+0200\n"
+"PO-Revision-Date: 2002-06-29 09:39+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1375,6 +1375,15 @@ msgid ""
 "a graphical view with a complete zoom- \n"
 "and scroll capability."
 msgstr ""
+" <h2>Kwave est un éditeur de pistes sonores pour l'environnement de bureau "
+"KDE.</h2><br>\n"
+"Avec Kwave vous pouvez éditer beaucoup de genres de \n"
+"fichiers «.wav» y compris les fichiers sonores multicanaux.\n"
+"Vous pouvez altérer et rejouer chaque piste sur son propre.<br>\n"
+"Kwave inclut aussi beaucoup de plugins (la plupart des sont \n"
+"calme sous le développement) pour transformer les fichiers \n"
+"sonores dans plusieurs façons et présente une vue graphique \n"
+"avec des fonctions de zoom et défiler."
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:136
 msgid "Authors"
@@ -1391,7 +1400,7 @@ msgstr "Accord de licence"
 #: plugins/about/AboutKwaveDialog.cpp:46
 #, ycp-format
 msgid " (Using KDE %1)"
-msgstr " (dans KDE %1)"
+msgstr " (pour KDE %1)"
 
 #: plugins/delay/module.cpp:24
 msgid "Choose Length and Rate :"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 21:27+0200PO-"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2002-06-29 08:44+0200\n"
-"PO-Revision-Date: 2002-06-28 23:28+0200\n"
+"POT-Creation-Date: 2002-06-29 09:39+0200\n"
+"PO-Revision-Date: 2002-06-29 09:40+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -97,8 +97,7 @@ msgstr "Beim Lesen der Datei ist ein Fehler aufgetreten!"
 
 #: kwave/SignalManager.cpp:292
 msgid "The file has been truncated and might be corrupted!"
-msgstr ""
-"Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
+msgstr "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
 #: kwave/SignalManager.cpp:299
 msgid "Sorry, the file type is not supported!"
@@ -245,8 +244,7 @@ msgstr ""
 #: kwave/TopWidget.cpp:905
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
-msgstr ""
-"Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
 #: kwave/TopWidget.cpp:1024
 #, c-format, ycp-format
@@ -1378,7 +1376,7 @@ msgid ""
 "a graphical view with a complete zoom- \n"
 "and scroll capability."
 msgstr ""
-"<h2>Kwave ist ein Sound-Editor für die KDE Desktop-Umgebung.<h2><br>\n"
+"<h2>Kwave ist ein Sound-Editor für die KDE Desktop-Umgebung.</h2><br>\n"
 "Mit Kwave können Sie viele Arten von wav-Dateien \n"
 "bearbeiten, auch solche mit vielen Tracks. \n"
 "Sie können jeden Track einzeln verändern \n"
@@ -1386,7 +1384,7 @@ msgstr ""
 "Kwave enthält ebenfalls viele Plugins (von denen\n"
 "die meisten noch in Entwicklung sind) um die \n"
 "wave-Datei auf verschiedene Arten zu transformieren \n"
-"und eine graphische Ansicht mit ausgereiften \\ Zoom- und "
+"und eine graphische Ansicht mit ausgereiften Zoom- und "
 "Navigationsmöglichkeiten."
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:136
@@ -1404,7 +1402,7 @@ msgstr "Lizenzbestimmungen"
 #: plugins/about/AboutKwaveDialog.cpp:46
 #, ycp-format
 msgid " (Using KDE %1)"
-msgstr "(KDE-%1 verwenden)"
+msgstr "(für KDE-%1)"
 
 #: plugins/delay/module.cpp:24
 msgid "Choose Length and Rate :"
@@ -2087,8 +2085,7 @@ msgstr "Maximum"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:238
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
+msgstr "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
 
 #: plugins/gap/module.cpp:23
 msgid "Set Length of Gap & Signal"
@@ -2261,3 +2258,4 @@ msgstr "Störgerade wählen :"
 
 #~ msgid "Frequencies Status Bar"
 #~ msgstr "Frequenzen Statuszeile"
+

@@ -1,5 +1,5 @@
 
-0.6.4 [2002-06-??]
+0.6.4 [2002-06-30]
 
  * support for different file formats / integrated libaudiofile
  * drag and drop bugfix: dropping into the same signal left from
@@ -13,6 +13,7 @@
  * replaced KFileDialog with subclass KwaveFileDialog (fixes some
    bugs in KDE)
  * added a little chapter about digital audio basics to online help
+ * added "select range" plugin
 
 0.6.3 [2002-03-01]
 

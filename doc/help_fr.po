@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-06-29 08:57+0200\n"
+"PO-Revision-Date: 2002-06-29 09:25+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -787,7 +787,7 @@ msgid ""
 msgstr ""
 "Limitation de l'affichage de la largeur d'un fichier sonore. Si toutes les "
 "pistes sonores  sortent en dehors de l'écran, une barre de défilement "
-"horizontale apparait sur le coté droit  du fichier."
+"horizontale apparait sur le coté droit du fichier."
 
 #: index.docbook:181
 #, no-c-format

@@ -112,15 +112,10 @@ o use the KDE's clipboard
 
 o support for KDE's session management
 
-o find the reason for that short noise at the end of playback
-  (does not occur when the selected range ends with some silence !)
-
 o fix bug in Fx->Periodic Silence (segmentation fault)
 
 o pluginize/ put into library  the following files in src/ :
   mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h
-
-o context menu for right mouse button in SignalWidget
 
 o macro recorder
 

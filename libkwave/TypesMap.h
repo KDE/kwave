@@ -22,6 +22,7 @@
 #include <qmap.h>
 #include <qobject.h>
 #include <qstring.h>
+#include <qstringlist.h>
 #include <klocale.h>
 #include "libkwave/Triple.h"
 
@@ -114,10 +115,10 @@ public:
 	unsigned int cnt = count();
 	while (cnt--) {
 	    if (localized) {
-		if (m_list[it].second() == description)
+		if (m_list[it].third() == description)
 		    return it;
 	    } else {
-		if (i18n(m_list[it].second()) == i18n(description))
+		if (i18n(m_list[it].third()) == i18n(description))
 		    return it;
 	    }
 	    ++it;
@@ -149,6 +150,21 @@ public:
 	if (m_list.isEmpty()) fill();
 	QString s(m_list[type].third());
 	return (localized) ? i18n(s) : s;
+    };
+
+    /**
+     * Returns a string list with all names,
+     */
+    QStringList allNames()
+    {
+	IDX it = IDX(0);
+	unsigned int cnt = count();
+	QStringList names;
+	while (cnt--) {
+	    names.append(m_list[it].second());
+	    ++it;
+	}
+	return names;
     };
 
 private:

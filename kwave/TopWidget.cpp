@@ -1172,9 +1172,6 @@ void TopWidget::updateMenu()
     ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
-    QString bps = QString("ID_FILE_SAVE_RESOLUTION_%1").arg(m_save_bits);
-    m_menu_manager->selectItem("@BITS_PER_SAMPLE", bps);
-
     // enable/disable all items that depend on having a file
     bool have_file = (signalName().length() != 0);
     m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);

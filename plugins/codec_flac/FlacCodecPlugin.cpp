@@ -36,6 +36,8 @@ FlacCodecPlugin::FlacCodecPlugin(PluginContext &c)
 /***************************************************************************/
 FlacCodecPlugin::~FlacCodecPlugin()
 {
+    m_encoder = 0;
+    m_decoder = 0;
 }
 
 /***************************************************************************/

@@ -35,6 +35,8 @@ WavCodecPlugin::WavCodecPlugin(PluginContext &c)
 /***************************************************************************/
 WavCodecPlugin::~WavCodecPlugin()
 {
+    m_encoder = 0;
+    m_decoder = 0;
 }
 
 /***************************************************************************/

@@ -65,11 +65,11 @@ public:
     /**
      * Stops the thread execution. Please note that you <b>MUST</b> call
      * this function at the end if you derived a class from this one.
-     * @param timeout the timeout in milliseconds, default = 1000
+     * @param timeout the timeout in milliseconds, default = 10s
      * @return zero if successful or an error code if failed
      * @see errno.h
      */
-    virtual int stop(unsigned int timeout = 1000);
+    virtual int stop(unsigned int timeout = 10000);
 
     /**
      * The "run()" function of the thread. This is the function you

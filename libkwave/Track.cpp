@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "mt/SharedLockGuard.h"
-#include "mt/MutexSet.h"
 
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"

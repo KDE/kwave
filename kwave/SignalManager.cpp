@@ -51,6 +51,8 @@
 #include "SignalWidget.h"
 #include "UndoAction.h"
 #include "UndoDeleteAction.h"
+#include "UndoDeleteTrack.h"
+#include "UndoInsertTrack.h"
 #include "UndoModifyAction.h"
 #include "UndoSelection.h"
 #include "UndoTransaction.h"
@@ -76,6 +78,7 @@ SignalManager::SignalManager(QWidget *parent)
     m_signal(),
     m_selection(0,0),
     m_rate(0),
+    m_last_length(0),
     m_playback_controller(),
     m_undo_enabled(false),
     m_undo_buffer(),
@@ -84,12 +87,14 @@ SignalManager::SignalManager(QWidget *parent)
     m_undo_transaction_level(0),
     m_undo_transaction_lock(),
     m_spx_undo_redo(this, SLOT(emitUndoRedoInfo())),
-    m_undo_limit(50*1024*1024) // 50 MB (for testing) ###
+    m_undo_limit(10*1024*1024) // 10 MB (for testing) ###
 {
     // connect to the track's signals
     Signal *sig = &m_signal;
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
             this, SLOT(slotTrackInserted(unsigned int, Track &)));
+    connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
+            this, SLOT(slotTrackDeleted(unsigned int)));
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
 	unsigned int)),
 	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
@@ -125,6 +130,9 @@ void SignalManager::loadFile(const QString &filename, int type)
 	    ASSERT("unknown file type");
     }
 
+    // remember the last length
+    m_last_length = length();
+
     // from now on, undo is enabled
     enableUndo();
 }
@@ -132,6 +140,9 @@ void SignalManager::loadFile(const QString &filename, int type)
 //***************************************************************************
 void SignalManager::close()
 {
+    // reset the last length of the signal
+    m_last_length = 0;
+
     // disable undo and discard all undo buffers
     // undo will be re-enabled when a signal is loaded or created
     disableUndo();
@@ -389,10 +400,10 @@ bool SignalManager::executeCommand(const QString &command)
 //	}
     CASE_COMMAND("add_track")
 	appendTrack();
-//    CASE_COMMAND("deletechannel")
-//	Parser parser(command);
-//	unsigned int i = parser.toInt();
-//	deleteChannel(i);
+    CASE_COMMAND("delete_track")
+	Parser parser(command);
+	unsigned int track = parser.toUInt();
+	deleteTrack(track);
 //    CASE_COMMAND("selectchannels")
 //	for (unsigned int i = 0; i < m_channels; i++)
 //	    if (signal.at(i)) signal.at(i)->select(true);
@@ -419,10 +430,20 @@ void SignalManager::insertTrack(unsigned int index)
     UndoTransactionGuard u(*this, i18n("insert track"));
     debug("void SignalManager::insertTrack(%u)",index);
 
+    UndoAction *undo = new UndoInsertTrack(m_signal, index);
+    if (!registerUndoAction(undo)) {
+	if (undo) delete undo;
+	abortUndoTransaction();
+	return;
+    }
+
     unsigned int count = tracks();
-    unsigned int len   = length();
     ASSERT(index <= count);
     if (index > count) index = count;
+
+    // if the signal is currently empty, use the last
+    // known length instead of the current one
+    unsigned int len = (count) ? length() : m_last_length;
 
     if (index >= count) {
 	// do an "append"
@@ -431,8 +452,27 @@ void SignalManager::insertTrack(unsigned int index)
     } else {
 	// insert into the list
 	debug("m_signal.insertTrack(index, len);"); // ###
+	// ### TODO ### m_signal.insertTrack(index, len);
     }
 
+    // remember the last length
+    m_last_length = length();
+}
+
+//***************************************************************************
+void SignalManager::deleteTrack(unsigned int index)
+{
+    UndoTransactionGuard u(*this, i18n("delete track"));
+    debug("void SignalManager::deleteTrack(%u)",index);
+
+    UndoAction *undo = new UndoDeleteTrack(m_signal, index);
+    if (!registerUndoAction(undo)) {
+	if (undo) delete undo;
+	abortUndoTransaction();
+	return;
+    }
+
+    m_signal.deleteTrack(index);
 }
 
 //***************************************************************************
@@ -446,10 +486,22 @@ void SignalManager::slotTrackInserted(unsigned int index,
 }
 
 //***************************************************************************
+void SignalManager::slotTrackDeleted(unsigned int index)
+{
+    ThreadsafeX11Guard x11_guard;
+
+    emit sigTrackDeleted(index);
+    emitStatusInfo();
+}
+
+//***************************************************************************
 void SignalManager::slotSamplesInserted(unsigned int track,
 	unsigned int offset, unsigned int length)
 {
     ThreadsafeX11Guard x11_guard;
+
+    // remember the last known length
+    m_last_length = m_signal.length();
 
     emit sigSamplesInserted(track, offset, length);
     emitStatusInfo();
@@ -460,6 +512,9 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
 	unsigned int offset, unsigned int length)
 {
     ThreadsafeX11Guard x11_guard;
+
+    // remember the last known length
+    m_last_length = m_signal.length();
 
     emit sigSamplesDeleted(track, offset, length);
     emitStatusInfo();
@@ -1179,6 +1234,9 @@ void SignalManager::startUndoTransaction(const QString &name)
 
     // start/create a new transaction if none existing
     if (!m_undo_transaction) {
+	// if a new action starts, discard all redo actions !
+	flushRedoBuffer();
+	
 	m_undo_transaction = new UndoTransaction(name);
 	ASSERT(m_undo_transaction);
 	if (!m_undo_transaction) return;
@@ -1392,14 +1450,16 @@ void SignalManager::freeUndoMemory(unsigned int needed)
     // remove old undo actions if not enough free memory
     m_undo_buffer.setAutoDelete(true);
     while (!m_undo_buffer.isEmpty() && (size > m_undo_limit)) {
-	size -= m_undo_buffer.first()->undoSize();
+	unsigned int s = m_undo_buffer.first()->undoSize();
+	size = (size >= s) ? (size - s) : 0;
 	m_undo_buffer.removeFirst();
     }
 
     // remove old redo actions if still not enough memory
     m_redo_buffer.setAutoDelete(true);
     while (!m_redo_buffer.isEmpty() && (size > m_undo_limit)) {
-	size -= m_redo_buffer.last()->undoSize();
+	unsigned int s = m_redo_buffer.last()->undoSize();
+	size = (size >= s) ? (size - s) : 0;
 	m_redo_buffer.removeLast();
     }
 

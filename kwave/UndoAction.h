@@ -1,7 +1,7 @@
 /***************************************************************************
            UndoAction.h  -  Abstract base class for undo actions
 			     -------------------
-    begin                : 2001
+    begin                : Sat May 26 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 

@@ -85,19 +85,27 @@ void Signal::close()
 }
 
 //***************************************************************************
-Track *Signal::appendTrack(unsigned int length)
+Track *Signal::insertTrack(unsigned int index, unsigned int length)
 {
     unsigned int track_nr = 0;
     Track *t = 0;
     {
 	SharedLockGuard lock(m_lock_tracks, true);
-
+	
 	t = new Track(length);
 	ASSERT(t);
 	if (!t) return 0;
-
-	m_tracks.append(t);
-
+	
+	if (index < m_tracks.count()) {
+	    // insert into the list
+	    track_nr = index;
+	    m_tracks.insert(index, t);
+	} else {
+	    // append to the end ot the list
+	    track_nr = m_tracks.count();
+	    m_tracks.append(t);
+	}
+	
 	// connect to the track's signals
 	connect(t, SIGNAL(sigSamplesDeleted(Track&, unsigned int,
 	    unsigned int)),
@@ -111,13 +119,42 @@ Track *Signal::appendTrack(unsigned int length)
 	    unsigned int)),
 	    this, SLOT(slotSamplesModified(Track&, unsigned int,
 	    unsigned int)));
-	
-	track_nr = m_tracks.count()-1;
     }
 
     // track has been inserted at the end
     if (t) emit sigTrackInserted(track_nr, *t);
     return t;
+}
+
+
+//***************************************************************************
+Track *Signal::appendTrack(unsigned int length)
+{
+    return insertTrack(tracks(), length);
+}
+
+//***************************************************************************
+void Signal::deleteTrack(unsigned int index)
+{
+    // remove the track from the list but do not delete it
+    Track *t = 0;
+    {
+	SharedLockGuard lock(m_lock_tracks, true);
+	if (index > m_tracks.count()) return; // bail out if not in range
+	
+	t = m_tracks.at(index);
+	m_tracks.setAutoDelete(false);
+	m_tracks.remove(index);
+    }
+
+    // now emit a signal that the track has been deleted. Maybe
+    // someone is still using a reference to it, so we have not
+    // deleted it yet - still only unlinked from the track list!
+    emit sigTrackDeleted(index);
+
+    // as everybody now knows that the track is gone, we can safely
+    // delete it now.
+    if (t) delete t;
 }
 
 //***************************************************************************

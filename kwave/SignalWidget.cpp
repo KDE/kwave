@@ -105,6 +105,8 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
             this, SLOT(slotTrackInserted(unsigned int, Track &)));
+    connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
+            this, SLOT(slotTrackDeleted(unsigned int)));
 
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
 	unsigned int)),
@@ -1679,8 +1681,6 @@ void SignalWidget::updatePlaybackPointer(unsigned int)
 //***************************************************************************
 void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
 {
-//    debug("SignalWidget(): slotTrackInserted(%u)", track);
-
     // insert a new track into the track pixmap list
     TrackPixmap *pix = new TrackPixmap(track);
     ASSERT(pix);
@@ -1688,7 +1688,7 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
     if (!pix) return;
 
     if (tracks() == 1) {
-	debug("SignalWidget::slotTrackInserted(): zoomAll(), tracks=%d",tracks());
+	// first track, start with full zoom
 	zoomAll();
     }
 
@@ -1702,6 +1702,20 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
 
     // connect all signals
     connect(pix, SIGNAL(sigModified()), this, SLOT(refreshSignalLayer()));
+}
+
+//***************************************************************************
+void SignalWidget::slotTrackDeleted(unsigned int index)
+{
+    // delete the track from the list
+    m_track_pixmaps.setAutoDelete(true);
+    m_track_pixmaps.remove(index);
+
+    // emit the signal sigTrackInserted now, so that the signal widget
+    // gets resized if needed, but the new pixmap is still empty
+    emit sigTrackDeleted(index);
+
+    refreshSignalLayer();
 }
 
 //***************************************************************************

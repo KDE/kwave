@@ -13,7 +13,7 @@
 //extern char *mstotimec (int ms);
 
 //****************************************************************************
-PitchWindow::PitchWindow (const char *name) 
+PitchWindow::PitchWindow (const char */*name*/)
 //    :KTopLevelWidget()
 {
 //    corner = 0;

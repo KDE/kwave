@@ -242,10 +242,18 @@ private slots:
     /**
      * Connected to the signal's sigTrackInserted.
      * @param track index of the inserted track
-     * @see Signal::trackInserted
+     * @see Signal::sigTrackInserted
      * @internal
      */
     void slotTrackInserted(unsigned int index, Track &track);
+
+    /**
+     * Connected to the signal's sigTrackDeleted.
+     * @param track index of the deleted track
+     * @see Signal::sigTrackInserted
+     * @internal
+     */
+    void slotTrackDeleted(unsigned int index);
 
     /**
      * Connected to the signal's sigSamplesInserted.
@@ -342,6 +350,12 @@ signals:
      * @param track index of the new track [0...tracks()-1]
      */
     void sigTrackInserted(unsigned int track);
+
+    /**
+     * Signals that a track has been deleted.
+     * @param track index of the deleted track [0...tracks()-1]
+     */
+    void sigTrackDeleted(unsigned int track);
 
 protected:
 

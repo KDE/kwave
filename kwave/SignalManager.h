@@ -178,6 +178,13 @@ public:
     void insertTrack(unsigned int index);
 
     /**
+     * Deletes a track from the current signal, including generation
+     * of an undo action.
+     * @param index the index of the track to be deleted [0...tracks()-1]
+     */
+    void deleteTrack(unsigned int index);
+
+    /**
      * Selects multiple tracks, all other tracks will be disabled.
      * @param track_list list od track indices
      */
@@ -249,6 +256,12 @@ signals:
      * @param track reference to the new track
      */
     void sigTrackInserted(unsigned int index, Track &track);
+
+    /**
+     * Signals that a track has been deleted.
+     * @param index position of the deleted track [0...tracks()-1]
+     */
+    void sigTrackDeleted(unsigned int index);
 
     /**
      * Emits status information of the signal if it has been changed
@@ -347,10 +360,18 @@ private slots:
     /**
      * Connected to the signal's sigTrackInserted.
      * @param track index of the inserted track
-     * @see Signal::trackInserted
+     * @see Signal::sigTrackInserted
      * @internal
      */
     void slotTrackInserted(unsigned int index, Track &track);
+
+    /**
+     * Connected to the signal's sigTrackInserted.
+     * @param track index of the inserted track
+     * @see Signal::sigTrackDeleted
+     * @internal
+     */
+    void slotTrackDeleted(unsigned int index);
 
     /**
      * Connected to the signal's sigSamplesInserted.
@@ -557,6 +578,13 @@ private:
 
     /** sampling rate of the current signal */
     int m_rate;
+
+    /**
+     * Last known length of the signal. This will be used if a track is
+     * added to an empty signal and prevents from the creation of a
+     * completely empty new signal.
+     */
+    unsigned int m_last_length;
 
     /** the controller for handling of playback */
     PlaybackController m_playback_controller;

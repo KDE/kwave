@@ -25,7 +25,7 @@
 #include "FFTWindow.h"
 
 //****************************************************************************
-FFTWindow::FFTWindow(const char *name)
+FFTWindow::FFTWindow(const char */*name*/)
 ////    :KTMainWindow()
 {
 //    corner = 0;

@@ -195,6 +195,8 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage)
 	    this, SLOT(forwardSelectedTimeInfo(double)));
     connect(&m_signal_widget, SIGNAL(sigTrackInserted(unsigned int)),
 	    this, SLOT(slotTrackInserted(unsigned int)));
+    connect(&m_signal_widget, SIGNAL(sigTrackDeleted(unsigned int)),
+	    this, SLOT(slotTrackDeleted(unsigned int)));
 
     connect(&m_signal_widget, SIGNAL(sigMouseChanged(int)),
 	    this, SLOT(forwardMouseChanged(int)));
@@ -258,6 +260,24 @@ void MainWidget::slotTrackInserted(unsigned int /*track*/)
     bool have_signal = (tracks() != 0);
     menu.setItemEnabled("@SIGNAL", have_signal);
 
+}
+
+//***************************************************************************
+void MainWidget::slotTrackDeleted(unsigned int /*track*/)
+{
+
+    refreshChannelControls();
+
+    // update the list of deletable tracks
+    menu.clearNumberedMenu("ID_EDIT_TRACK_DELETE");
+    QString buf;
+    for (unsigned int i = 0; i < tracks(); i++) {
+	menu.addNumberedMenuEntry("ID_EDIT_TRACK_DELETE", buf.setNum(i));
+    }
+
+    // enable/disable all items that depend on having a signal
+    bool have_signal = (tracks() != 0);
+    menu.setItemEnabled("@SIGNAL", have_signal);
 }
 
 //***************************************************************************

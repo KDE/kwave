@@ -133,6 +133,21 @@ int Parser::toInt ()
 }
 
 //***************************************************************************
+unsigned int Parser::toUInt ()
+{
+    const QString &p = nextParam();
+    bool ok;
+    unsigned int value = p.toUInt(&ok);
+
+    if (!ok) {
+	warning("Parser: unable to parse unsigned int from '%s'", p.data());
+	value = 0;
+    }
+
+    return value;
+}
+
+//***************************************************************************
 double Parser::toDouble()
 {
     const QString &p = nextParam();

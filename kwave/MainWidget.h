@@ -162,10 +162,20 @@ private slots:
      * resizing/re-positioning the channel controls and the signal
      * display.
      * @param track index of the inserted track
-     * @see SignalWidget::trackInserted
+     * @see SignalWidget::sigTrackInserted
      * @internal
      */
     void slotTrackInserted(unsigned int track);
+
+    /**
+     * Called if a track has been deleted. Updates the display by
+     * resizing/re-positioning the channel controls and the signal
+     * display.
+     * @param track index of the deleted track
+     * @see SignalWidget::sigTrackDeleted
+     * @internal
+     */
+    void slotTrackDeleted(unsigned int track);
 
     /**
      * Connected to the vertical scrollbar and called if the value

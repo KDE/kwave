@@ -81,6 +81,13 @@ public:
 
     /**
      * Gets the next parameter through calling nextParam() and
+     * interpretes it as an "unsigned int" value. On errors the
+     * return value will be zero.
+     */
+    unsigned int toUInt();
+
+    /**
+     * Gets the next parameter through calling nextParam() and
      * interpretes it as a "double" value. On errors the
      * return value will be zero.
      */

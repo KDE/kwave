@@ -49,12 +49,29 @@ public:
     void close();
 
     /**
-     * Appends a new track to the end of the tracks list
-     * and returns a pointer to the created track. If the
-     * length is omitted or zero, the track will not have
-     * a length.
+     * Inserts a new track to into the track list or appends it to the end.
+     * @param index the position where to insert [0...tracks()]. If the
+     *        position is at or after the last track, the new track will
+     *        be appended to the end.
+     * @param length number of samples of the new track. Optional, if omitted
+     *        the track will be zero-length.
+     * @return pointer to the created track. If the length is
+     *         omitted or zero, the track will have zero length.
+     */
+    Track *insertTrack(unsigned int index, unsigned int length = 0);
+
+    /**
+     * Appends a new track to the end of the tracks list, shortcut for
+     * insertTrack(tracks()-1, length)
+     * @see insertTrack
      */
     Track *appendTrack(unsigned int length = 0);
+
+    /**
+     * Deletes a track.
+     * @param index the index of the track to be deleted [0...tracks()-1]
+     */
+    void deleteTrack(unsigned int index);
 
     /**
      * Opens an input stream for a track, starting at a specified sample
@@ -155,6 +172,12 @@ signals:
      * @param track reference to the new track
      */
     void sigTrackInserted(unsigned int index, Track &track);
+
+    /**
+     * Signals that a track has been deleted.
+     * @param index position of the deleted track [0...tracks()-1]
+     */
+    void sigTrackDeleted(unsigned int index);
 
     /**
      * Emitted if samples have been inserted into a track. This implies

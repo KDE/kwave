@@ -59,8 +59,10 @@ private:
     addMimeType("audio/x-ogg",       i18n("Ogg, Vorbis audio"), "*.ogg; *.OGG"); \
     /* included in KDE: */ \
     addMimeType("application/x-ogg", i18n("Ogg, Vorbis audio"), "*.ogg; *.OGG"); \
+    /* RFC3534: */ \
+    addMimeType("application/ogg", i18n("Ogg, Vorbis audio"), "*.ogg; *.OGG"); \
 }
 
-#define DEFAULT_MIME_TYPE "audio/x-ogg"
+#define DEFAULT_MIME_TYPE "applcation/ogg"
 
 #endif /* _OGG_CODEC_PLUGIN_H_ */

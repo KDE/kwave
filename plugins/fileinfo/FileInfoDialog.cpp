@@ -64,7 +64,8 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
         (mimetype == "audio/x-mp2") || (mimetype == "audio/x-mp3") ||
         (mimetype == "audio/mpeg"));
     m_is_ogg = ((mimetype == "audio/x-ogg") ||
-                (mimetype == "application/x-ogg"));
+                (mimetype == "application/x-ogg") ||
+                (mimetype == "application/ogg"));
 
     debug("mimetype = %s",mimetype.data());
    

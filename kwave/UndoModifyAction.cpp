@@ -62,6 +62,7 @@ void UndoModifyAction::store(SignalManager &manager)
     if (reader) {
 	*reader >> m_buffer;
 	m_length = m_buffer.size();
+	delete reader;
     }
 }
 
@@ -79,7 +80,7 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
     if (with_redo) {
 	SampleReader *reader = manager.openSampleReader(
 	    m_track, m_offset, m_offset+m_length-1);
-	
+
 	sample_t s;
 	while (reader && writer && len--) {
 	    *reader >> s;

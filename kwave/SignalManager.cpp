@@ -1172,8 +1172,8 @@ void SignalManager::disableUndo()
 {
     Q_ASSERT(m_undo_transaction_level == 0);
 
-    m_undo_enabled = false;
     flushUndoBuffers();
+    m_undo_enabled = false;
 }
 
 //***************************************************************************
@@ -1420,8 +1420,8 @@ void SignalManager::undo()
 	UndoAction *redo_action;
 
 	// unqueue the undo action
-	undo_transaction->setAutoDelete(false);
 	undo_action = undo_transaction->last();
+	undo_transaction->setAutoDelete(false);
 	undo_transaction->removeLast();
 	undo_transaction->setAutoDelete(true);
 	Q_ASSERT(undo_action);
@@ -1445,6 +1445,10 @@ void SignalManager::undo()
 	    }
 	}
     }
+
+    // now the undo_transaction should be empty -> get rid of it
+    Q_ASSERT(undo_transaction->isEmpty());
+    delete undo_transaction;
 
     if (redo_transaction && (redo_transaction->count() <= 1)) {
 	// if there is not more than the UndoSelection action,
@@ -1515,8 +1519,8 @@ void SignalManager::redo()
 	UndoAction *redo_action;
 
 	// unqueue the undo action
-	redo_transaction->setAutoDelete(false);
 	redo_action = redo_transaction->first();
+	redo_transaction->setAutoDelete(false);
 	redo_transaction->removeFirst();
 	redo_transaction->setAutoDelete(true);
 	Q_ASSERT(redo_action);
@@ -1540,6 +1544,10 @@ void SignalManager::redo()
 	    }
 	}
     }
+
+    // now the redo_transaction should be empty -> get rid of it
+    Q_ASSERT(redo_transaction->isEmpty());
+    delete redo_transaction;
 
     if (undo_transaction && (undo_transaction->count() <= 1)) {
 	// if there is not more than the UndoSelection action,

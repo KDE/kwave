@@ -50,7 +50,6 @@ int LowPassPlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    Q_ASSERT(params.count() == 1);
     if (params.count() != 1) return -EINVAL;
 
     param = params[0];

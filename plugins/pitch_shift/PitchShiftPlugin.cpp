@@ -34,6 +34,8 @@
 #include "PitchShiftPlugin.h"
 #include "PitchShiftDialog.h"
 
+#include "synth_pitch_shift_bugfixed_impl.h" // bugfix for the aRts plugin
+
 KWAVE_PLUGIN(PitchShiftPlugin,"pitch_shift","Thomas Eschenbacher");
 
 //***************************************************************************
@@ -142,10 +144,16 @@ void PitchShiftPlugin::run(QStringList params)
 
     // create all objects
     ArtsMultiTrackSource arts_source(source);
+    ArtsMultiSink *arts_sink = 0;
 
     unsigned int tracks = selectedTracks().count();
-    ArtsNativeMultiTrackFilter pitch(tracks, "Arts::Synth_PITCH_SHIFT");
-    ArtsMultiSink *arts_sink = 0;
+
+//  as long as the original aRts module is buggy:
+//  ArtsNativeMultiTrackFilter pitch(tracks, "Arts::Synth_PITCH_SHIFT");
+//  we use our own copy instead:
+    ArtsKwaveMultiTrackFilter<Synth_PITCH_SHIFT_bugfixed,
+                              Synth_PITCH_SHIFT_bugfixed_impl>
+                              pitch(tracks);
 
     if (m_listen) {
 	// pre-listen mode
@@ -196,8 +204,6 @@ void PitchShiftPlugin::run(QStringList params)
 	if (m_listen && ((m_speed != last_speed) ||
 	    (m_frequency != last_freq)))
 	{
-	    pitch.stop();
-	    
 	    if (m_frequency != last_freq)
 		pitch.setAttribute("frequency", m_frequency);
 	
@@ -206,8 +212,6 @@ void PitchShiftPlugin::run(QStringList params)
 	
 	    last_freq  = m_frequency;
 	    last_speed = m_speed;
-
-	    pitch.start();
         }
 
 	if (m_listen && arts_source.done()) {

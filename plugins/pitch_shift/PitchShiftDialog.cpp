@@ -90,7 +90,7 @@ void PitchShiftDialog::setMode(Mode mode)
 	    rbFactor->setChecked(true);
 	    
 	    slSpeed->setMinValue(-9);
-	    slSpeed->setMaxValue(+9);
+	    slSpeed->setMaxValue(+4);
 	    slSpeed->setPageStep(1);
 	    slSpeed->setTickInterval(1);
 	    
@@ -103,12 +103,12 @@ void PitchShiftDialog::setMode(Mode mode)
 	    rbPercentage->setChecked(true);
 	    
 	    slSpeed->setMinValue(1);
-	    slSpeed->setMaxValue(10*100);
+	    slSpeed->setMaxValue(400);
 	    slSpeed->setPageStep(10);
-	    slSpeed->setTickInterval(1*100);
+	    slSpeed->setTickInterval(50);
 
 	    sbSpeed->setMinValue(1);
-	    sbSpeed->setMaxValue(+10*100);
+	    sbSpeed->setMaxValue(400);
 	    sbSpeed->setLineStep(1);
 	    break;
 	}
@@ -171,7 +171,7 @@ void PitchShiftDialog::updateSpeed(double speed)
 	}
 	case MODE_PERCENT: {
 	    // factor 1.0 means 100%
-	    new_spinbox_value = (int)(speed * (double)100.0);
+	    new_spinbox_value = (int)rint(speed * (double)100.0);
 	    new_slider_value = new_spinbox_value;
 	    sbSpeed->setPrefix("");
 	    sbSpeed->setSuffix("%");

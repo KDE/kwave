@@ -100,7 +100,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	int what_now = KMessageBox::warningYesNoCancel(widget,
 	    i18n("Sorry, the currently selected compression type can "
 	         "not be used for saving. Do you want to use "
-	         "G711 ULAW compression instead ?"), 0,
+	         "G711 ULAW compression instead?"), 0,
 	    KGuiItem(i18n("&Yes, use G711")),
 	    KGuiItem(i18n("&No, store uncompressed"))
 	);

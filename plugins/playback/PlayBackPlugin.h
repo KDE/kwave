@@ -19,9 +19,10 @@
 #define _PLAY_BACK_PLUGIN_H_
 
 #include "config.h"
+
+#include <qmutex.h>
 #include <qstring.h>
 
-#include "mt/Mutex.h"
 #include "mt/SignalProxy.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/PlaybackDeviceFactory.h"
@@ -160,7 +161,7 @@ private:
     PlayBackDevice *m_device;
 
     /** Mutex for locking acces to the playback device */
-    Mutex m_lock_device;
+    QMutex m_lock_device;
 
     /** the parameters used for playback */
     PlayBackParam m_playback_params;

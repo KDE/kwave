@@ -26,13 +26,13 @@
 #include <qcursor.h>
 #include <qmemarray.h>
 #include <qfile.h>
+#include <qmutex.h>
 #include <qptrvector.h>
 #include <qstring.h>
 
 #include <kapp.h>
 #include <kmessagebox.h>
 
-#include "mt/Mutex.h"
 #include "mt/ThreadsafeX11Guard.h"
 
 #include "libkwave/KwavePlugin.h"
@@ -59,7 +59,7 @@ KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 #define SCREEN_REFRESHES_PER_SECOND 16
 
 /** Mutex for the aRts daemon, it seems to be not threadsafe */
-static Mutex *g_arts_lock;
+static QMutex *g_arts_lock;
 
 //***************************************************************************
 PlayBackPlugin::PlayBackPlugin(const PluginContext &context)
@@ -252,7 +252,7 @@ void PlayBackPlugin::setMethod(playback_method_t method)
 		    ThreadsafeX11Guard x11_guard;
 
 		    // if no mutex exists: make a new, parent is global app!
-		    if (!g_arts_lock) g_arts_lock = new Mutex();
+		    if (!g_arts_lock) g_arts_lock = new QMutex();
 		    Q_ASSERT(g_arts_lock);
 
 		    m_device = new PlayBackArts(*g_arts_lock);

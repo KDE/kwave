@@ -36,7 +36,7 @@
 static int g_arts_usage = 0;
 
 //***************************************************************************
-PlayBackArts::PlayBackArts(Mutex &arts_lock)
+PlayBackArts::PlayBackArts(QMutex &arts_lock)
     :PlayBackDevice(),
     m_stream(0),
     m_rate(0),

@@ -24,7 +24,7 @@
 #include <qstring.h>
 #include <artsc.h>
 
-#include "mt/Mutex.h"
+#include <qmutex.h>
 #include "libkwave/PlayBackDevice.h"
 
 class PlayBackArts: public PlayBackDevice
@@ -32,7 +32,7 @@ class PlayBackArts: public PlayBackDevice
 public:
 
     /** Default constructor */
-    PlayBackArts(Mutex &arts_lock);
+    PlayBackArts(QMutex &arts_lock);
 
     /** Destructor */
     virtual ~PlayBackArts();
@@ -118,7 +118,7 @@ protected:
     unsigned int m_buffer_used;
 
     /** reference to the global lock for aRts, artsc is not threadsafe ! */
-    Mutex &m_lock_aRts;
+    QMutex &m_lock_aRts;
 
     /**
      * True if the playback is closed. Needed because it can happen that

@@ -103,8 +103,8 @@ void MemoryPlugin::load(QStringList &params)
 void MemoryPlugin::applySettings()
 {
     MemoryManager &mem = MemoryManager::instance();
-    mem.setPhysicalLimit(m_physical_limit);
-    mem.setVirtualLimit(m_virtual_limit);
+    mem.setPhysicalLimit(m_physical_limited ? m_physical_limit : 4096);
+    mem.setVirtualLimit(m_virtual_enabled ? m_virtual_limit : 0);
     mem.setSwapDirectory(m_virtual_directory);
 }
 

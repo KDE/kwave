@@ -1,5 +1,16 @@
 this Development Version
 
+(19991209) [by Thomas.Eschenbacher@gmx.de]
+
+gave the destructor of SignalManager some code, this fixes
+a huge memory leak !
+
+added a TODO file
+
+added -Werror to the c++ compiler options when debuging enabled
+
+some include file cleanups in libgui
+
 (19991207) [by Thomas.Eschenbacher@gmx.de]
 
 SignalManager::writeWavChunk uses buffers for writing (much faster!)

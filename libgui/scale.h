@@ -1,8 +1,6 @@
 #ifndef _SCALE_H_
 #define _SCALE_H_ 1
 
-#include <stdlib.h>
-#include <qapp.h>
 #include <qwidget.h>
 #include <qpainter.h>
 

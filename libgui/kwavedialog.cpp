@@ -1,5 +1,6 @@
 #include "kwavedialog.h"
 #include <libkwave/globals.h>
+#include <stdio.h>
 
 extern struct Global globals;
 

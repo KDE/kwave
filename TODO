@@ -1,0 +1,25 @@
+
+o find the bug that lets the program crash after some load/save cycles
+  or other operations -> PRIORITY 1 !!!
+
+o change to one-file-per-class
+
+o make filename==class name (with same case)
+
+o find the reason for the warnings about multiple definitions of
+  QString when linking
+
+o apply the GNU coding style
+
+o change selected bits_per_sample menu entry after loading a wav file
+
+o bugfix for saving list of recent files
+
+o playback in stereo
+
+o disable Save and SaveAs menu entries if no signal is present
+
+o check dependencies/Makefiles
+
+o fix bug in Fx->Periodic Silence (segmentation fault)
+

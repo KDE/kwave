@@ -1,14 +1,16 @@
+
 #include <stdio.h>
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qdir.h>
-#include "scale.h"
 #include <kapp.h>
+#include "scale.h"
 
 #define FONTSIZE 6
 QPixmap *scalefont=0;
 int scalefontusage=0;
 extern KApplication *app;
+
 //**********************************************************
 int getlessten (int val)
 // returns the next smaller power of 10
@@ -30,7 +32,7 @@ ScaleWidget::ScaleWidget (QWidget *parent,int low,int high,char *text): QWidget 
     {
       scalefont=new QPixmap ();
 
-      QString dirname=app->kde_datadir ();
+      const QString dirname=app->kde_datadir ();
       QDir dir (dirname.data());
       dir.cd ("kwave");
       dir.cd ("pics");
@@ -242,5 +244,10 @@ void CornerPatchWidget::paintEvent  (QPaintEvent *)
   p.drawLine (0,h-1,w,h-1);
   p.end ();
 }
+
+
+
+
+
 
 

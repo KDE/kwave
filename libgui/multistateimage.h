@@ -1,16 +1,8 @@
 #ifndef _MULTISTATEIMAGE_H_
 #define _MULTISTATEIMAGE_H_ 1
 
-#include <stdlib.h>
-#include <qapp.h>
 #include <qwidget.h>
-#include <qpushbt.h>
-#include <qdialog.h>
-#include <qmlined.h>
 #include <qpainter.h>
-#include <qpixmap.h>
-#include <qimage.h>
-#include <qtimer.h>
 
 class MultiStateWidget : public QWidget
 {
@@ -44,6 +36,4 @@ class MultiStateWidget : public QWidget
  int number;   // number of channels this object represents... used for signals
 };
 
-#endif  /* multistateimage.h */   
-
-
+#endif  /* multistateimage.h */

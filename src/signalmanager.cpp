@@ -193,7 +193,7 @@ bool SignalManager::promoteCommand (const char *command)
 
 	  char buf[32];
 	  sprintf (buf,"%d",i+1);
-	  char *caption=catString (command," on Channel ",buf);
+	  char *caption=catString (command," on channel ",buf);
 
 	  //create a nice little Object that should contain everything important
 	  TimeOperation *operation=
@@ -201,6 +201,7 @@ bool SignalManager::promoteCommand (const char *command)
 
 	  if (operation)
 	    {
+#ifndef DISABLE_THREADS
 	      //create a new progress dialog, that watches an memory address
 	      //that is updated by the modules
 
@@ -221,10 +222,14 @@ bool SignalManager::promoteCommand (const char *command)
 		    }
 		}
 	      else debug ("out of memory: could not allocate ProgressDialog\n");
+#else /* DISABLE_THREADS */
+	      signal[i]->command(operation);
+#endif /* DISABLE_THREADS */
 	    }
 	  else debug ("out of memory: could not allocate TimeOperation\n");
 	}
     }
+
   if (i<channels) return false;
   //could not promote command to modules or an error occured
   else return true;
@@ -283,6 +288,13 @@ SignalManager::SignalManager (QWidget *parent,int numsamples,int rate,int channe
 //**********************************************************
 SignalManager::~SignalManager ()
 {
+  for (int channel=0; channel<MAXCHANNELS;channel++)
+    {
+      selected[channel]=false;
+      if (signal[channel]) delete signal[channel];
+      signal[channel]=0;
+    }
+  if (name) delete name;
 }
 //**********************************************************
 void SignalManager::setRange (int l,int r )
@@ -299,3 +311,4 @@ void SignalManager::setRange (int l,int r )
   rmarker=signal[0]->getRMarker();
 }
 //**********************************************************
+

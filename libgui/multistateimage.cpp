@@ -1,11 +1,9 @@
 //provides methods of multistateWidget a Class that switches the image it
 // displays on clicking, used for the channel enable/disable lamps...
-#include <stdio.h>
-#include <qaccel.h>
-#include <qpntarry.h>
 #include <qdir.h>
-#include "multistateimage.h"
 #include <kapp.h>
+#include <qimage.h>
+#include "multistateimage.h"
 
 QList<QPixmap> *pixmaps=0;
 QStrList *pixnames=0;
@@ -97,3 +95,6 @@ void MultiStateWidget::paintEvent  (QPaintEvent *)
         bitBlt (this,0,0,
   	      img,0,0,img->width(),img->height(),CopyROP);    
 }
+
+
+

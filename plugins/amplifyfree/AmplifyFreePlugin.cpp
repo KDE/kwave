@@ -122,7 +122,7 @@ void AmplifyFreePlugin::run(QStringList params)
     openMultiTrackReader(source, selectedTracks(), first, last);
     manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite, first, last);
 
-    static Arts::Dispatcher dispatcher;
+    Arts::Dispatcher &dispatcher = manager().artsDispatcher();
     dispatcher.lock();
 
     // create all objects

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2004-07-16</date>
+<date>2004-12-31</date>
 <releaseinfo>0.7.1
 </releaseinfo>
 
@@ -189,6 +189,43 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.7.2 [2004-12-31]</para>
+            <itemizedlist>
+                <listitem><para>
+                    big rework of the internal streaming/storage subsystem,
+                      support for multiple stripes.
+                      Makes a big speedup when handling large files!
+                      Creating an empty 512MB file before: over 350 sec,
+                      now: about 25 sec (on my system)
+                </para></listitem>
+                <listitem><para>
+                    optimized versions of memcpy() for ix86 (using MMX, MMXEXT,
+                      3DNOW, SSE, SSE2) and for PowerPC, copied from the xine project
+                </para></listitem>
+                <listitem><para>
+                    some support for X86_64
+                </para></listitem>
+                <listitem><para>
+                    bugfix: in memory setup plugin, set virtual memory limit only if
+                      the limit has been enabled (checkbox is clicked)
+                </para></listitem>
+                <listitem><para>
+                    bugfix: clipping in Ogg import filter was incorrect
+                </para></listitem>
+                <listitem><para>
+                    speedups: import of Ogg and MP3 files improved
+                </para></listitem>
+                <listitem><para>
+                    removed code copied from the GSL library, link against the
+                      shared library instead
+                </para></listitem>
+                <listitem><para>
+                    added target "package-messages" to the toplevel Makefile,
+                      for translators
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.7.1 [2004-07-10]</para>
             <itemizedlist>

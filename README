@@ -274,6 +274,9 @@ I have currently installed some distributions for testing purposes and
 for getting an impression how Kwave builds/behaves on them. Here what I
 made running and what I had to install additionally:
 
+* SuSE-9.2
+	libjack-devel
+
 * Debian / Sid (supported by Aurelien Jarno):
 	 make imagemagick gettext gcc g++ recode libtool automake1.6
 	 xlibs-dev kdelibs4-dev kdemultimedia-dev poxml

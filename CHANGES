@@ -8,6 +8,7 @@
    now: about 25 sec (on my system)
  * optimized versions of memcpy() for ix86 (using MMX, MMXEXT,
    3DNOW, SSE, SSE2) and for PowerPC, copied from the xine project
+ * some support for X86_64
  * bugfix: in memory setup plugin, set virtual memory limit only if
    the limit has been enabled (checkbox is clicked)
  * bugfix: clipping in Ogg import filter was incorrect

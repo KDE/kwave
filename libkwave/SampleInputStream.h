@@ -53,7 +53,20 @@ public:
     virtual ~SampleInputStream();
 
     /** operator for inserting an array of samples */
-    void operator << (const QArray<sample_t> &samples);
+    SampleInputStream &operator << (const QArray<sample_t> &samples);
+
+    /** operator for inserting a single sample */
+    SampleInputStream &operator << (const sample_t &sample);
+
+    /** operator for simple modifiers like flush() */
+    SampleInputStream &operator << (
+	SampleInputStream &(*modifier)(SampleInputStream &))
+    {
+	return modifier(*this);
+    }
+
+    /** flush the content of the intermediate buffer */
+    SampleInputStream &flush();
 
 private:
 
@@ -66,6 +79,16 @@ private:
     /** set of locks for our stripes */
     MutexSet m_locks;
 
+    /** intermediate buffer for the input data */
+    QArray<sample_t> m_buffer;
+
+    /** number of used elements in the buffer */
+    unsigned int m_buffer_used;
+
 };
+
+
+/** modifier for flushing */
+SampleInputStream &flush(SampleInputStream &s);
 
 #endif /* _SAMPLE_INPUT_STREAM_H_ */

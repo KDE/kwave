@@ -49,6 +49,12 @@ public:
     Stripe *appendStripe(unsigned int length);
 
     /**
+     * Returns the length of the track. This is equivalent
+     * to the position of the last sample of the last Stripe.
+     */
+    unsigned int length();
+
+    /**
      * Opens an input stream for a track, starting at a specified sample
      * position.
      * @param mode specifies where and how to insert
@@ -70,6 +76,12 @@ friend class SampleIputStream;
     };
 
 private:
+    /**
+     * Returns the current length of the stripe in samples. This
+     * function uses no locks and is therefore reserved for internal
+     * usage from within locked functions.
+     */
+    unsigned int unlockedLength();
 
     /** mutex for access to the whole track */
     Mutex m_lock;

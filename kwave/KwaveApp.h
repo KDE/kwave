@@ -1,9 +1,12 @@
-#ifndef _KWAVE_APP_H
-#define _KWAVE_APP_H 1
 
-#include <kapp.h>
+#ifndef _KWAVE_APP_H_
+#define _KWAVE_APP_H_
+
 #include <qlist.h>
 #include <qstrlist.h>
+
+#include <kuniqueapp.h>
+#include <kapp.h>
 
 #include "SignalManager.h" // for struct playback_param_t
 
@@ -13,12 +16,12 @@ class QCloseEvent;
 class QString;
 class TopWidget;
 
-class KwaveApp : public KApplication
+class KwaveApp :public KApplication
 {
     Q_OBJECT
 public:
 
-    KwaveApp(int argc, char **argv);
+    KwaveApp();
 
     /**
      * Returns true if this instance was successfully initialized, or
@@ -26,6 +29,7 @@ public:
      */
     virtual bool isOK();
 
+    /** Destructor. */
     ~KwaveApp();
 
     /**
@@ -38,7 +42,12 @@ public:
      * already contained in the list the previous occourence is removed.
      * @param filename path to the file
      */
-    void addRecentFile(const char *filename);
+    void addRecentFile(const QString &filename);
+
+    /**
+     * Overwritten for unique application to open a new window.
+     */
+    virtual int newInstance();
 
     /**
      * Opens a new toplevel window. If a filename is specified the will
@@ -48,7 +57,7 @@ public:
      * @see #closeWindow()
      * @see TopWidget
      */
-    bool newWindow(const char *filename = 0);
+    bool newWindow(const QString *filename = 0);
 
     /**
      * Closes a previously opened toplevel window.
@@ -124,4 +133,4 @@ private:
     static ClipBoard &m_clipboard;
 };
 
-#endif // _KWAVE_APP_H
+#endif // _KWAVE_APP_H_

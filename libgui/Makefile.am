@@ -62,7 +62,7 @@ libkwavegui_la_SOURCES =\
 lib_LTLIBRARIES = libkwavegui.la
 
 libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
-	--export-dynamic -shared
+	--export-dynamic -shared -dy
 
 libkwavegui_la_LIBADD   = $(topdir)/mt/libkwavemt.a
 

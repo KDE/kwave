@@ -41,12 +41,29 @@ Stripe *Track::appendStripe(unsigned int length)
 {
     MutexGuard lock(m_lock_stripes);
 
-    Stripe *s = new Stripe(length);
+    unsigned int last = unlockedLength();
+    Stripe *s = new Stripe(last, length);
     ASSERT(s);
     if (s) m_stripes.append(s);
     debug("Track::appendStripe(%d): new stripe at %p", length, s);
 
     return s;
+}
+
+//***************************************************************************
+unsigned int Track::length()
+{
+    MutexGuard lock(m_lock_stripes);
+    return unlockedLength();
+}
+
+//***************************************************************************
+unsigned int Track::unlockedLength()
+{
+    unsigned int len = 0;
+    Stripe *s = m_stripes.last();
+    if (s) len = s->start() + s->length();
+    return len;
 }
 
 //***************************************************************************
@@ -94,7 +111,7 @@ SampleInputStream *Track::openInputStream(InsertMode mode,
 	    debug("Track::openInputStream(apppend)");
 	
 	    // create a new stripe
-	    Stripe *s = new Stripe(0);
+	    Stripe *s = new Stripe(unlockedLength(), 0);
 	    ASSERT(s);
 	    if (!s) return 0;
 	

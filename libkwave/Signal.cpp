@@ -9,6 +9,7 @@
 #include <dlfcn.h>
 
 #include <qarray.h>
+#include <qlist.h>
 
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -90,14 +91,14 @@
 
 //***************************************************************************
 Signal::Signal()
-    :m_tracks(), m_lock_tracks(), m_length(0), m_rate(0), m_bits(0),
+    :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0),
      m_selected(true), m_selection_start(0), m_selection_end(0)
 {
 }
 
 //***************************************************************************
 Signal::Signal(unsigned int tracks, unsigned int length)
-    :m_tracks(), m_lock_tracks(), m_length(0), m_rate(0), m_bits(0),
+    :m_tracks(), m_lock_tracks(), m_rate(0), m_bits(0),
      m_selected(true), m_selection_start(0), m_selection_end(0)
 {
     while (tracks--) {
@@ -124,8 +125,8 @@ Track *Signal::appendTrack(unsigned int length)
 }
 
 //***************************************************************************
-SampleInputStream *Signal::openInputStream(unsigned int track, InsertMode mode,
-	unsigned int left, unsigned int right)
+SampleInputStream *Signal::openInputStream(unsigned int track,
+	InsertMode mode, unsigned int left, unsigned int right)
 {
     MutexGuard lock(m_lock_tracks);
 
@@ -135,6 +136,22 @@ SampleInputStream *Signal::openInputStream(unsigned int track, InsertMode mode,
     }
 
     return m_tracks.at(track)->openInputStream(mode, left, right);
+}
+
+//***************************************************************************
+unsigned int Signal::length()
+{
+    MutexGuard lock(m_lock_tracks);
+
+    unsigned int max = 0;
+    unsigned int len;
+
+    QListIterator<Track> it(m_tracks);
+    for ( ; it.current(); ++it) {
+	len = it.current()->length();
+	if (len > max) max = len;
+    }
+    return max;
 }
 
 ////**********************************************************

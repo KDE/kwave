@@ -88,17 +88,17 @@
 //***************************************************************************
 //***************************************************************************
 TopWidget::ZoomListPrivate::ZoomListPrivate()
-:QStrList(false)
+:QStringList()
 {
     clear();
-    append("400 %");
-    append("200 %");
-    append("100 %");
-    append("33 %");
-    append("10 %");
-    append("3 %");
-    append("1 %");
-    append("0.1 %");
+    append(("400 %"));
+    append(("200 %"));
+    append(("100 %"));
+    append(("33 %"));
+    append(("10 %"));
+    append(("3 %"));
+    append(("1 %"));
+    append(("0.1 %"));
 };
 
 /** list of predefined zoom factors */
@@ -106,16 +106,15 @@ static TopWidget::ZoomListPrivate zoom_factors;
 
 //*****************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
-    :KTMainWindow(),
+    :KMainWindow(),
     app(main_app),
     recentFiles(recent_files)
 {
     int id=1000; // id of toolbar items
 
-//    debug("TopWidget::TopWidget()");
+    debug("TopWidget::TopWidget() -- 1 --"); // ###
     bits = 16;
     m_blink_on = false;
-    caption = 0;
     dropZone = 0;
     m_id_zoomrange = -1;
     m_id_zoomin = -1;
@@ -126,19 +125,16 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     loadDir = 0;
     mainwidget = 0;
     menu = 0;
-    menu_bar = 0;
     m_pause_timer = 0;
     signalName = "";
     saveDir = 0;
-    status_bar = 0;
     m_toolbar = 0;
     m_zoomselect = 0;
 
-    menu_bar = new KMenuBar(this);
-    ASSERT(menu_bar);
-    if (!menu_bar) return;
-
-    menu = new MenuManager(this, *menu_bar);
+    KMenuBar *menubar = menuBar();
+    ASSERT(menubar);
+    if (!menubar) return;
+    menu = new MenuManager(this, *menubar);
     ASSERT(menu);
     if (!menu) return;
 
@@ -155,16 +151,16 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
 	    plugin_manager, SLOT(setSignalName(const QString &)));
 
-    status_bar = new KStatusBar(this);
+    debug("TopWidget::TopWidget() -- 2 --"); // ###
+
+    KStatusBar *status_bar = statusBar();
     ASSERT(status_bar);
     if (!status_bar) return;
-
     status_bar->insertItem(i18n("Length: 0 ms           "), 1);
     status_bar->insertItem(i18n("Rate: 0 kHz         "), 2);
     status_bar->insertItem(i18n("Samples: 0             "), 3);
     status_bar->insertItem(i18n("selected: 0 ms        "), 4);
     status_bar->insertItem(i18n("Clipboard: 0 ms      "), 5);
-    setStatusBar(status_bar);
 
     // connect clicked menu entries with main communication channel of kwave
     connect(menu, SIGNAL(sigMenuCommand(const QString &)),
@@ -177,13 +173,16 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 //    connect( dropZone, SIGNAL( dropAction( KDNDDropZone *)),
 //	     this, SLOT( dropEvent( KDNDDropZone *)));
 
+    debug("TopWidget::TopWidget() -- 3 --"); // ###
+
     // load the menu from file
     QString menufile = locate("data", "kwave/menus.config");
     FileLoader loader(menufile);
     ASSERT(loader.buffer());
     if (loader.buffer()) parseCommands(loader.buffer());
-    setMenu(menu_bar);
     updateMenu();
+
+    debug("TopWidget::TopWidget() -- 4 --"); // ###
 
     updateRecentFiles();
 
@@ -196,6 +195,8 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 	mainwidget=0;
 	return;
     }
+
+    debug("TopWidget::TopWidget() -- 5 --"); // ###
 
     connect(mainwidget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(executeCommand(const QString &)));
@@ -214,6 +215,8 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     m_toolbar->setHorizontalStretchable(false);
     this->addToolBar(m_toolbar);
     m_toolbar->insertSeparator(-1);
+
+    debug("TopWidget::TopWidget() -- 6 --"); // ###
 
     // --- file open and save ---
 
@@ -283,6 +286,8 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 //                  Go To Page/Home
 
 //                  Help
+
+    debug("TopWidget::TopWidget() -- 7 --"); // ###
 
     // separator between edit and playback
     QFrame *separator = new QFrame(m_toolbar, "separator line");
@@ -363,7 +368,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     m_id_zoomall = id++;
 	
     m_id_zoomselect = id++;
-    m_toolbar->insertCombo(&zoom_factors, m_id_zoomselect,
+    m_toolbar->insertCombo(zoom_factors, m_id_zoomselect,
 	true, SIGNAL(activated(int)),
 	this, SLOT(selectZoom(int)), true,
 	i18n("select zoom factor"));
@@ -372,6 +377,8 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     m_zoomselect = m_toolbar->getCombo(m_id_zoomselect);
     ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
+
+    debug("TopWidget::TopWidget() -- 8 --"); // ###
 
     m_zoomselect->adjustSize();
     int h = m_zoomselect->sizeHint().height();
@@ -394,7 +401,9 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
             this, SLOT(updateToolbar()));
 
     // set the MainWidget as the main view
-    setView(mainwidget);
+    setCentralWidget(mainwidget);
+
+    debug("TopWidget::TopWidget() -- 9 --"); // ###
 
     // limit the window to a reasonable minimum size
     int w = mainwidget->minimumSize().width();
@@ -406,10 +415,10 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     // returns -1  :-((     -> just try and find out...
     int wmax = max(w,100) * 10;
     int wmin = w;
-    int hmin = menu_bar->heightForWidth(wmax);
+    int hmin = menuBar()->heightForWidth(wmax);
     while (wmax-wmin > 5) {
 	w = (wmax + wmin) / 2;
-	int mh = menu_bar->heightForWidth(w);
+	int mh = menuBar()->heightForWidth(w);
 	if (mh > hmin) {
 	    wmin = w;
 	} else {
@@ -417,6 +426,8 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 	    hmin = mh;
 	}
     }
+
+    debug("TopWidget::TopWidget() -- 10 --"); // ###
 
     // set a nice initial size
     w = wmax;
@@ -427,18 +438,18 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     h = max(mainwidget->sizeHint().height(), w*6/10);
     resize(w, h);
 
-//    debug("TopWidget::TopWidget(): done.");
+    debug("TopWidget::TopWidget(): done."); // ###
 }
 
 //*****************************************************************************
 bool TopWidget::isOK()
 {
     ASSERT(menu);
-    ASSERT(menu_bar);
+    ASSERT(menuBar());
     ASSERT(mainwidget);
 //    ASSERT(dropZone);
     ASSERT(plugin_manager);
-    ASSERT(status_bar);
+    ASSERT(statusBar());
     ASSERT(m_toolbar);
     ASSERT(m_zoomselect);
 
@@ -459,9 +470,7 @@ TopWidget::~TopWidget()
     if (plugin_manager) delete plugin_manager;
     plugin_manager = 0;
 
-    KTMainWindow::setCaption(0);
-    if (caption) delete[] caption;
-    caption=0;
+    setCaption(0);
 
     if (loadDir) delete[] loadDir;
     loadDir=0;
@@ -475,16 +484,10 @@ TopWidget::~TopWidget()
     if (menu) delete menu;
     menu=0;
 
-    if (menu_bar) delete menu_bar;
-    menu_bar=0;
-
     signalName = "";
 
     if (saveDir) delete saveDir;
     saveDir=0;
-
-    if (status_bar) delete status_bar;
-    status_bar=0;
 
     app.closeWindow(this);
 
@@ -567,7 +570,7 @@ void TopWidget::executeCommand(const QString &command)
 }
 
 //*****************************************************************************
-void TopWidget::loadBatch(const char *str)
+void TopWidget::loadBatch(const QString &str)
 {
     Parser parser(str);
     FileLoader loader(parser.firstParam());
@@ -605,7 +608,7 @@ void TopWidget::revert()
 }
 
 //*****************************************************************************
-void TopWidget::resolution(const char *str)
+void TopWidget::resolution(const QString &str)
 {
     Parser parser (str);
     int bps = parser.toInt();
@@ -614,35 +617,14 @@ void TopWidget::resolution(const char *str)
 	bits = bps;
 	debug("bits=%d", bits);    // ###
     }
-    else debug ("out of range\n");
+    else warning("out of range");
 }
 
-//*****************************************************************************
-void TopWidget::setCaption(const QString &filename)
-{
-    const char *old_caption = caption;
-
-    int len = strlen(app.appName().data()) + strlen(filename) + strlen(" - ");
-    len ++; // don't forget the terminating zero !
-    QString caption = app.appName();
-
-    if (filename.length()) {
-	caption += " - ";
-	caption += filename;
-    }
-
-    KTMainWindow::setCaption(caption);
-    if (old_caption) delete[] old_caption;
-}
-
-//*****************************************************************************
+//***************************************************************************
 bool TopWidget::closeFile()
 {
     ASSERT(mainwidget);
     if (mainwidget) mainwidget->closeSignal();
-    //    if (!mainwidget->close()) {
-    //  return false;
-    //    }
 
     signalName = "";
     setCaption(0);
@@ -655,23 +637,26 @@ bool TopWidget::closeFile()
 }
 
 //*****************************************************************************
-int TopWidget::loadFile(const char *filename, int type)
+int TopWidget::loadFile(const QString &filename, int type)
 {
     ASSERT(mainwidget);
+    if (!mainwidget) return -1;
 
     // abort if new file not valid
-    if (!filename) return -1;
+    ASSERT(filename.length());
+    if (!filename.length()) return -1;
 
     closeFile();    // close the previous file
 
     signalName = filename;
     emit sigSignalNameChanged(signalName);
 
-    if (mainwidget) mainwidget->setSignal(filename, type);
+    mainwidget->setSignal(filename, type);
     app.addRecentFile(signalName);
+
     setCaption(signalName);
 
-    bits = (mainwidget) ? mainwidget->getBitsPerSample() : 0;
+    bits = mainwidget->getBitsPerSample();
     updateMenu();
     updateToolbar();
 
@@ -679,9 +664,9 @@ int TopWidget::loadFile(const char *filename, int type)
 }
 
 //*****************************************************************************
-void TopWidget::openRecent(const char *str)
+void TopWidget::openRecent(const QString &str)
 {
-    Parser parser (str);
+    Parser parser(str);
     loadFile(parser.firstParam(), WAV);
 }
 
@@ -779,10 +764,8 @@ void TopWidget::saveFileAs(bool selection)
 }
 
 //*****************************************************************************
-void TopWidget::setSignal(const char *newname)
+void TopWidget::setSignal(const QString &newname)
 {
-    ASSERT(newname);
-    if (!newname) return;
     loadFile(newname, WAV);
 }
 
@@ -812,8 +795,8 @@ void TopWidget::selectZoom(int index)
 	index = zoom_factors.count()-1;
 
     double new_zoom;
-    const char *text = zoom_factors.at(index);
-    new_zoom = strtod(text, 0);
+    QStringList::Iterator text = zoom_factors.at(index);
+    new_zoom = (text != 0) ? (*text).toDouble() : 0.0;
     if (new_zoom != 0.0) new_zoom = (100.0 / new_zoom);
     mainwidget->setZoom(new_zoom);
 }

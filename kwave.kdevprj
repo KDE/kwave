@@ -1159,7 +1159,7 @@ dist=true
 install=false
 type=HEADER
 [kwave/Makefile.am]
-files=kwave/TopWidget.cpp,kwave/TopWidget.h,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/MainWidget.cpp,kwave/MainWidget.h,kwave/MouseMark.cpp,kwave/MouseMark.h,kwave/PluginManager.cpp,kwave/PluginManager.h,kwave/ProgressDialog.cpp,kwave/ProgressDialog.h,kwave/SignalManager.cpp,kwave/SignalManager.h,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/SignalWidget.cpp,kwave/SignalWidget.h,
+files=kwave/TopWidget.cpp,kwave/TopWidget.h,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/MainWidget.cpp,kwave/MainWidget.h,kwave/MouseMark.cpp,kwave/MouseMark.h,kwave/PluginManager.cpp,kwave/PluginManager.h,kwave/ProgressDialog.cpp,kwave/ProgressDialog.h,kwave/SignalManager.cpp,kwave/SignalManager.h,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/SignalWidget.cpp,kwave/SignalWidget.h,kwave/main.cpp,
 files=kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/FFTContainer.cpp,kwave/FFTContainer.h,kwave/FFTWindow.cpp,kwave/FFTWindow.h,kwave/ImageView.cpp,kwave/ImageView.h,kwave/KwaveApp.cpp,kwave/KwaveApp.h,kwave/main.cpp,kwave/MainWidget.cpp,kwave/MainWidget.h,kwave/MouseMark.cpp,kwave/MouseMark.h,kwave/PitchContainer.cpp,kwave/PitchContainer.h,kwave/PitchWidget.cpp,kwave/PitchWidget.h,kwave/PitchWindow.cpp,kwave/PitchWindow.h,kwave/ProgressDialog.cpp,kwave/ProgressDialog.h,kwave/SignalManager.cpp,kwave/sampleop.h,kwave/SignalManager.h,kwave/TopWidget.cpp,kwave/TopWidget.h,kwave/menus.config,kwave/kxt.h,kwave/SignalWidget.cpp,kwave/SignalWidget.h,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/PluginManager.cpp,kwave/PluginManager.h,kwave/PlaybackController.h,kwave/PlaybackController.cpp,
 sub_dirs=
 type=prog_main

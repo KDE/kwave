@@ -25,7 +25,7 @@ SignalManager *ClipBoard::getSignal()
 //*****************************************************************************
 unsigned int ClipBoard::getLength ()
 {
-    return (signal) ? signal->getLength() : 0;
+    return (signal) ? signal->length() : 0;
 }
 
 //*****************************************************************************

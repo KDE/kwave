@@ -16,11 +16,11 @@
  ***************************************************************************/
 
 #ifndef _TOP_WIDGET_H_
-#define _TOP_WIDGET_H_ 1
+#define _TOP_WIDGET_H_
 
 #include <qcstring.h>
-#include <qlist.h>
-#include <ktmainwindow.h>
+#include <qstringlist.h>
+#include <kmainwindow.h>
 
 class QCloseEvent;
 class QDir;
@@ -36,7 +36,7 @@ class PluginManager;
 class SignalManager;
 class KwaveApp;
 
-class TopWidget : public KTMainWindow
+class TopWidget : public KMainWindow
 {
     Q_OBJECT
 
@@ -66,7 +66,7 @@ public:
      */
     inline KwaveApp &getKwaveApp() { return app; };
 
-    void setSignal(const char *name);
+    void setSignal(const QString &name);
 
     /**
      * Returns a reference to the current name of the signal. If no signal is
@@ -84,7 +84,7 @@ public:
      */
     void parseCommands(const QByteArray &buffer);
 
-    void loadBatch(const char *filename);
+    void loadBatch(const QString &filename);
 
     /**
      * Returns a pointer to the current signal manager or zero if
@@ -163,22 +163,13 @@ protected:
     void updateMenu();
 
     /**
-     * Sets a new caption of the this toplevel widget's window.
-     * If a file is loaded, the caption is set to the
-     * application's name + " - " + the filename. If no file is
-     * loaded the caption consists only of the application's name.
-     * @param filename path of the loaded file or 0 if no file loaded
-     */
-    virtual void setCaption(const QString &filename);
-
-    /**
      * Loads a new file and updates the widget's title, menu, status bar
      * and so on.
      * @param filename path to the file to be loaded
      * @param type format of the file (WAV or ASCII)
      * @return 0 if successful
      */
-    int loadFile(const char *filename, int type);
+    int loadFile(const QString &filename, int type);
 
     /**
      * Discards all changes to the current file and loads
@@ -200,10 +191,10 @@ protected:
 
     void importAsciiFile();
     void exportAsciiFile();
-    void openRecent (const char *str);
+    void openRecent (const QString &str);
     void saveFile();
     void saveFileAs(bool selection = false);
-    void resolution (const char *str);
+    void resolution (const QString &str);
 
 private:
 
@@ -211,10 +202,11 @@ private:
      * Primitive class that holds a list of predefined zoom
      * factors.
      */
-    class ZoomListPrivate: public QStrList
+    class ZoomListPrivate: public QStringList
     {
     public:
 	ZoomListPrivate();
+	virtual ~ZoomListPrivate() {};
     };
 
     /** reference to the main kwave application */
@@ -225,9 +217,6 @@ private:
 
     /** our internal plugin manager */
     PluginManager *plugin_manager;
-
-    /** caption of the main window */
-    char *caption;
 
     QDir *saveDir;
     QDir *loadDir;
@@ -247,16 +236,10 @@ private:
      */
     KToolBar *m_toolbar;
 
-    /** reference to the main window's status bar */
-    KStatusBar *status_bar;
-
     KDNDDropZone *dropZone;
 
     /** Name of the current signal or file. Zero-Length if nothing loaded */
     QString signalName;
-
-    /** the window's menu bar */
-    KMenuBar *menu_bar;
 
     /** menu manager for this window */
     MenuManager *menu;
@@ -300,7 +283,6 @@ private:
     /** member id of the "zoom factor" combobox in the toolbar */
     int m_id_zoomselect;
 
-}
-;
+};
 
 #endif // _TOP_WIDGET_H_

@@ -28,7 +28,8 @@
 SampleInputStream::SampleInputStream(Track &track, QList<Stripe> &stripes,
 	MutexSet &locks, InsertMode mode, unsigned int left,
 	unsigned int right)
-    :m_track(track), m_stripes(stripes), m_locks()
+    :m_track(track), m_stripes(stripes), m_locks(),
+     m_buffer(1024), m_buffer_used(0)
 {
     m_locks.takeOver(locks);
     debug("SampleInputStream::SampleInputStream(track, mode, %d, %d)",left,right);
@@ -37,11 +38,29 @@ SampleInputStream::SampleInputStream(Track &track, QList<Stripe> &stripes,
 //***************************************************************************
 SampleInputStream::~SampleInputStream()
 {
+    debug("SampleInputStream::~SampleInputStream()");
 }
 
 //***************************************************************************
-void SampleInputStream::operator << (const QArray<sample_t> &samples)
+SampleInputStream &SampleInputStream::operator << (
+	const QArray<sample_t> &samples)
 {
+}
+
+//***************************************************************************
+SampleInputStream &SampleInputStream::operator << (const sample_t &sample)
+{
+}
+
+//***************************************************************************
+SampleInputStream &SampleInputStream::flush()
+{
+}
+
+//***************************************************************************
+SampleInputStream &flush(SampleInputStream &s)
+{
+    return s.flush();
 }
 
 //***************************************************************************

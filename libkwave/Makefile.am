@@ -48,7 +48,10 @@ kwaveinclude_HEADERS = \
  Track.h\
  WindowFunction.h
 
-libkwave_la_LIBADD = $(topdir)/mt/libkwavemt.a 
+libkwave_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
+	--export-dynamic -shared -dy
+
+libkwave_la_LIBADD = $(topdir)/mt/libkwavemt.a
 
 lib_LTLIBRARIES = libkwave.la
 

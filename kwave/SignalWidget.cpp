@@ -597,8 +597,8 @@ void SignalWidget::setSignal(const QString &filename, int type)
     // load a new signal
     debug("SignalWidget::setSignal(%s, %d)",filename.data(), type); // ###
     m_signal_manager.loadFile(filename, type);
-    ASSERT(m_signal_manager.getLength());
-    if (m_signal_manager.getLength() <= 0) {
+    ASSERT(m_signal_manager.length());
+    if (m_signal_manager.length() <= 0) {
 	warning("SignalWidget::setSignal() failed:"\
 		" zero-length or out of memory?");
 	// signalmanage.clear(); ###

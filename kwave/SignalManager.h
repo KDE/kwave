@@ -122,7 +122,7 @@ public:
      * Returns the number of samples in the current signal. Will be
      * zero if no signal is loaded.
      */
-    unsigned int getLength();
+    unsigned int length();
 
     /**
      * Returns the start of the selection (inclusive).

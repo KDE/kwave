@@ -5,6 +5,7 @@
 #include <qstring.h>
 #include <qstrlist.h>
 
+#include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <kcrash.h>
 #include <kglobal.h>
@@ -18,14 +19,6 @@
 #include "SignalManager.h"
 #include "TopWidget.h"
 #include "KwaveApp.h"
-
-//*****************************************************************************
-//definitions of global variables needed/changed by read/save config routines
-
-//extern int mmap_threshold;    //threshold in MB for using mmapping
-//extern char *mmap_dir;        //storage of dir name
-///* ### extern ### */
-//char *mmapallocdir;    //really used directory
 
 //***************************************************************************
 playback_param_t KwaveApp::playback_params = {
@@ -41,13 +34,18 @@ static ClipBoard _clipboard;
 ClipBoard &KwaveApp::m_clipboard(_clipboard);
 
 //***************************************************************************
-KwaveApp::KwaveApp(int argc, char **argv)
-//    :KApplication(argc, argv),
-    :KApplication(true, true),
+KwaveApp::KwaveApp()
+#ifdef UNIQUE_APP
+   :KUniqueApplication(),
+#else // UNIQUE_APP
+   :KApplication(),
+#endif // UNIQUE_APP
     recentFiles(true),
     topwidgetlist()
 {
-    KCrash::setCrashHandler(0);
+//    KCrash::setCrashHandler(0);
+
+    debug("KwaveApp::KwaveApp() -- 1 --"); // ###
 
     playback_params.rate = 44100;
     playback_params.channels = 2;
@@ -58,24 +56,51 @@ KwaveApp::KwaveApp(int argc, char **argv)
     topwidgetlist.setAutoDelete(false);
     recentFiles.setAutoDelete(true);
 
+    debug("KwaveApp::KwaveApp() -- 2 --"); // ###
     readConfig();
 
     // load the list of plugins
     PluginManager::findPlugins();
+    debug("KwaveApp::KwaveApp() -- 3 --"); // ###
+
+#ifndef UNIQUE_APP
+    newInstance();
+#endif
+    debug("KwaveApp::KwaveApp() -- 4 --"); // ###
+}
+
+//***************************************************************************
+int KwaveApp::newInstance()
+{
+    debug("KwaveApp::newInstance() -- 1 --"); // ###
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    unsigned int argc = (args) ? args->count() : 0;
 
     // only one parameter -> open with empty window
-    if (argc <= 1) {
+    if (argc == 0) {
+	debug("KwaveApp::newInstance() -- 2 --"); // ###
 	newWindow();
+	debug("KwaveApp::newInstance() -- 3 --"); // ###
     } else {
 	// open a window for each file specified in the
 	// command line an load it
-	for (int file = 1; file < argc; file++) {
-	    newWindow(argv[file]);
+	QString filename;
+	for (unsigned int i = 0; i < argc; i++) {
+	debug("KwaveApp::newInstance() -- 4 --"); // ###
+	    filename = QFile::decodeName(args->arg(i));
+	    debug("KwaveApp:newInstance(): file=`%s`",filename.data());
+	    newWindow(&filename);
+	    debug("KwaveApp::newInstance() -- 5 --"); // ###
 	}
     }
+    debug("KwaveApp::newInstance() -- 6 --"); // ###
+    if (args) args->clear();
+    debug("KwaveApp::newInstance() -- 7 --"); // ###
+
+    return 0;
 }
 
-//*****************************************************************************
+//***************************************************************************
 bool KwaveApp::isOK()
 {
     ASSERT(!topwidgetlist.isEmpty());
@@ -104,7 +129,7 @@ bool KwaveApp::executeCommand(const QString &command)
 }
 
 //***************************************************************************
-void KwaveApp::addRecentFile(const char* newfile)
+void KwaveApp::addRecentFile(const QString &newfile)
 {
 //    debug("KwaveApp::addRecentFile(%s)", newfile);
 
@@ -128,18 +153,21 @@ void KwaveApp::addRecentFile(const char* newfile)
 }
 
 //*****************************************************************************
-bool KwaveApp::newWindow(const char *filename)
+bool KwaveApp::newWindow(const QString *filename)
 {
+    debug("KwaveApp::newWindow(const QString *filename) -- 1 --"); // ###
     TopWidget *new_top_widget = new TopWidget(*this, recentFiles);
     ASSERT(new_top_widget);
     if (!new_top_widget) return false;
 
+    debug("KwaveApp::newWindow(const QString *filename) -- 2 --"); // ###
     if ( !(new_top_widget->isOK()) ) {
-	debug("KwaveApp::newWindow(%s) failed!", filename);
+	debug("KwaveApp::newWindow() failed!");
 	delete new_top_widget;
 	return false;
     }
 
+    debug("KwaveApp::newWindow(const QString *filename) -- 3 --"); // ###
     if (topwidgetlist.isEmpty()) {
 	// the first widget is the main widget !
 	setMainWidget(new_top_widget); // sets geometry and other properties
@@ -151,15 +179,19 @@ bool KwaveApp::newWindow(const char *filename)
 	// tnew->setGeometry(geom); // would overlap :-(
 	new_top_widget->resize(geom.width(), geom.height());
     }
+    debug("KwaveApp::newWindow(const QString *filename) -- 4 --"); // ###
 
     topwidgetlist.append(new_top_widget);
+    debug("KwaveApp::newWindow(const QString *filename) -- 5 --"); // ###
     new_top_widget->show();
 
     // inform the widget about changes in the list of recent files
     connect(this, SIGNAL(recentFilesChanged()),
             new_top_widget, SLOT(updateRecentFiles()));
 
-    if (filename) new_top_widget->setSignal(filename);
+    debug("KwaveApp::newWindow(const QString *filename) -- 6 --"); // ###
+    if (filename) new_top_widget->setSignal(*filename);
+    debug("KwaveApp::newWindow(const QString *filename) -- 7 --"); // ###
 
     return true;
 }
@@ -234,6 +266,22 @@ void KwaveApp::saveConfig()
 // reads user config via KConfig, sets global variables accordingly
 void KwaveApp::readConfig()
 {
+    char *dummy = new char[256*1024];
+//    QString *leak = new QString(dummy);
+    int unitialized;
+    int x;
+    x=unitialized;
+    int unused_a;
+    int unsued_b;
+    int array[2];
+    for (int ii=0; ii < 4; ii++) { array[ii] = ii; };
+    dummy++;
+    dummy++;
+    dummy++;
+    dummy++;
+    dummy++;
+    // ###
+
     QString result;
     char buf[64];
 

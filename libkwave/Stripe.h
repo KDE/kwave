@@ -36,20 +36,27 @@ public:
 
     /**
      * Constructor. Creates a stripe with specified length.
+     * @param start position within the track
      * @param length number of samples
      */
-    Stripe(unsigned int length);
+    Stripe(unsigned int start, unsigned int length);
 
     /**
      * Constructor. Creates a stripe that already contains samples.
+     * @param start position within the track
      * @param samples array with initial samples
      */
-    Stripe(const QArray<sample_t> &samples);
+    Stripe(unsigned int start, const QArray<sample_t> &samples);
 
     /**
      * Returns a reference to alock for the whole stripe.
      */
     Mutex &mutex();
+
+    /**
+     * Returns the start position of the stripe within the track.
+     */
+    unsigned int start();
 
     /**
      * Returns the current length of the stripe in samples.
@@ -73,8 +80,12 @@ public:
     void operator << (const QArray<sample_t> &samples);
 
 private:
+
     /** lock for the whole stripe */
     Mutex m_lock;
+
+    /** start position within the track */
+    unsigned int m_start;
 
     /** array with sample values */
     QArray<sample_t> m_samples;

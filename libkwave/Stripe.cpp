@@ -26,16 +26,16 @@ Stripe::Stripe()
 }
 
 //***************************************************************************
-Stripe::Stripe(unsigned int length)
-    :m_lock(), m_samples(), m_lock_samples()
+Stripe::Stripe(unsigned int start, unsigned int length)
+    :m_lock(), m_start(start), m_samples(), m_lock_samples()
 {
     m_samples.resize(length);
     ASSERT(m_samples.size() == length);
 }
 
 //***************************************************************************
-Stripe::Stripe(const QArray<sample_t> &samples)
-    :m_lock(), m_samples(samples), m_lock_samples()
+Stripe::Stripe(unsigned int start, const QArray<sample_t> &samples)
+    :m_lock(), m_start(start), m_samples(samples), m_lock_samples()
 {
 }
 
@@ -43,6 +43,14 @@ Stripe::Stripe(const QArray<sample_t> &samples)
 Mutex &Stripe::mutex()
 {
     return m_lock;
+}
+
+
+//***************************************************************************
+unsigned int Stripe::start()
+{
+    MutexGuard lock(m_lock_samples);
+    return m_start;
 }
 
 //***************************************************************************

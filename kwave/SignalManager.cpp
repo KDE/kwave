@@ -162,11 +162,9 @@ void SignalManager::getMaxMin(unsigned int channel, int &max, int &min,
 }
 
 //***************************************************************************
-unsigned int SignalManager::getLength()
+unsigned int SignalManager::length()
 {
-//    if (!signal.count()) return 0;
-//    return signal.at(0) ? signal.at(0)->length() : 0;
-    return 0;
+    return m_signal.length();
 }
 
 //***************************************************************************
@@ -1103,8 +1101,8 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
     // debug("sign=%08X, negative=%08X, shift=%d",sign,negative,shift);
 
     for (unsigned int pos = 0; pos < length; ) {
-        // limit reading to end of wav chunk length
-        if ((pos + max_samples) > length) max_samples=length-pos;
+	// limit reading to end of wav chunk length
+	if ((pos + max_samples) > length) max_samples=length-pos;
 
 	int read_samples = fread((char *)loadbuffer, bytes_per_sample,
 				 max_samples, sigfile);
@@ -1118,24 +1116,26 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
 	}
 
 	unsigned char *buffer = loadbuffer;
+	sample_t s = 0;
 	while (read_samples--) {
-//	    for (register unsigned int channel = 0;
-//	         channel < channels;
-//	         channel++)
-//	    {
-//		register int *smp = sample[channel] + pos;
-//		if (bytes == 1) {
-//		    // 8-bit files are always unsigned !
-//		    *smp = (*(buffer++) - 128) << shift;
-//		} else {
-//		    // >= 16 bits is signed
-//		    for (register int byte = 0; byte < bytes; byte++)
-//			*smp |= *(buffer++) << ((byte << 3) + shift);
-//		    // sign correcture for negative values
-//		    if ((unsigned int)*smp & sign)
-//			*smp |= negative;
-//		}
-//	    }
+	    for (register unsigned int channel = 0;
+	         channel < channels;
+	         channel++)
+	    {
+		SampleInputStream *stream = samples.at(channel);
+		if (bytes == 1) {
+		    // 8-bit files are always unsigned !
+		    s = (*(buffer++) - 128) << shift;
+		} else {
+		    // >= 16 bits is signed
+		    for (register int byte = 0; byte < bytes; byte++)
+			s |= *(buffer++) << ((byte << 3) + shift);
+		    // sign correcture for negative values
+		    if ((unsigned int)s & sign)
+			s |= negative;
+		}
+		*stream << s;
+	    }
 	    pos++;
 	}
 

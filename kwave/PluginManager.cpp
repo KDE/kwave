@@ -320,7 +320,7 @@ void PluginManager::savePluginDefaults(const QString &name,
 unsigned int PluginManager::signalLength()
 {
     SignalManager *sig = m_top_widget.getSignalManager();
-    return ((sig) ? sig->getLength() : 0);
+    return ((sig) ? sig->length() : 0);
 }
 
 //***************************************************************************

@@ -84,9 +84,11 @@ public:
 	return m_bits;
     };
 
-    inline unsigned int length() {
-	return m_length;
-    };
+    /**
+     * Returns the length of the signal. This is determined by
+     * searching for the highest sample position of all tracks.
+     */
+    unsigned int length();
 
     inline unsigned int selectionStart() {
 	return m_selection_start;

@@ -72,14 +72,14 @@ void SampleReader::fillBuffer()
 	unsigned int st  = s->start();
 	unsigned int len = s->length();
 	if (!len) continue; // skip zero-length sripes
-	
+
 	if (m_src_position >= st+len) continue; // before our range
-	
+
 	if (m_src_position >= st) {
 	    unsigned int offset = m_src_position - st;
 	    unsigned int length = rest;
 	    if (offset+length > len) length = len - offset;
-	
+
 	    // read from the stripe
 	    unsigned int cnt = s->read(m_buffer, m_buffer_used,
 	                               offset, length);
@@ -114,10 +114,10 @@ unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
 	unsigned int cnt = rest;
 	unsigned int src = m_buffer_position;
 	unsigned int dst = dstoff;
-	
+
 	if (m_buffer_position + cnt > m_buffer_used)
 	    cnt = m_buffer_used - m_buffer_position;
-	
+
 	m_buffer_position += cnt;
 	count = cnt;
 	rest -= cnt;
@@ -129,7 +129,7 @@ unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
 #else
 	memmove(&(buffer[dst]), &(m_buffer[src]), cnt*sizeof(sample_t));
 #endif
-	
+
 	if (m_buffer_position >= m_buffer_used) {
 	    // buffer is empty now
 	    m_buffer_position = m_buffer_used = 0;
@@ -146,17 +146,17 @@ unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
 	unsigned int st  = s->start();
 	unsigned int len = s->length();
 	if (!len) continue; // skip zero-length stripes
-	
+
 	if (m_src_position >= st+len) continue; // not yet in range
-	
+
 	if (m_src_position >= st) {
 	    unsigned int offset = m_src_position - st;
 	    unsigned int cnt = rest;
 	    if (offset+cnt > len) cnt = len - offset;
-	
+
 	    // read from the stripe
 	    cnt = s->read(buffer, dstoff, offset, cnt);
-	
+
 	    m_src_position += cnt;
 	    dstoff += cnt;
 	    rest -= cnt;
@@ -164,6 +164,7 @@ unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
 	}
     }
 
+    emit proceeded();
     return count;
 }
 

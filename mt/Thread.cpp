@@ -41,12 +41,20 @@
 #include <error.h>   // for strerror()
 #include <time.h>    // for clock()
 #include <qglobal.h> // for qWarning()
+#include <signal.h>
 
 #include "mt/TSS_Object.h"
 #include "mt/MutexGuard.h"
 #include "mt/Mutex.h"
 #include "mt/Thread.h"
 
+//***************************************************************************
+extern "C" void _dummy_SIGHUP_handler(int)
+{
+    printf("\r\n--- SIGHUP ---\r\n");
+}
+
+//***************************************************************************
 /**
  * C wrapper function for Thread::thread_adapter.
  * @internal
@@ -57,8 +65,15 @@ extern "C" void* C_thread_adapter(void* arg)
     Q_CHECK_PTR(thread);
     if (!thread) return 0;
 
+    /* install handler for SIGHUP */
+    sighandler_t old_handler = signal(SIGHUP, _dummy_SIGHUP_handler);
+
     /* call the thread's function through a C++ adapter */
     void* result = thread->thread_adapter(arg);
+
+    /* restore previous signal handler */
+    old_handler = signal(SIGHUP, old_handler);
+
     return result;
 }
 
@@ -83,12 +98,13 @@ Thread::Thread(int */*grpid*/, const long /*flags*/)
 //***************************************************************************
 Thread::~Thread()
 {
-    if (this->running()) {
+    if (running()) {
 	qDebug("Thread::~Thread(): waiting for normal shutdown");
-	wait(1000);
+	wait(2000);
 	qDebug("Thread::~Thread(): stopping");
-	stop();
+	stop(2000);
     }
+    Q_ASSERT(!running());
 
     int res = pthread_attr_destroy(&m_attr);
     if (res)
@@ -131,9 +147,20 @@ int Thread::stop(unsigned int timeout)
     MutexGuard lock(m_lock);
     if (!running()) return 0; // already down
 
+    if (timeout < 1000) timeout = 1000;
+
     // try to stop cooperatively
     m_should_stop = true;
-    wait(timeout);
+    wait(timeout/10);
+    if (!running()) return 0;
+
+    // try to interrupt by INT signal
+    qDebug("Thread::stop(): sending SIGHUP");
+    for (unsigned int i=0; i < 8; i++) {
+	pthread_kill(m_tid, SIGHUP);
+	wait(timeout/10);
+	if (!running()) return 0;
+    }
 
     qDebug("Thread::stop(): canceling thread");
     int res = pthread_cancel(m_tid);
@@ -141,7 +168,7 @@ int Thread::stop(unsigned int timeout)
 	qWarning("Thread::stop(): thread cancel failed: %s", strerror(res));
 
     // wait some time until it is really done
-    wait(timeout);
+    wait(timeout/10);
 
     return res;
 }
@@ -168,10 +195,9 @@ void Thread::wait(unsigned int milliseconds)
 	sched_yield();
 	elapsed_ms = (((double)(clock()-t_start))/CLOCKS_PER_SEC)*1000.0;
     }
-
-    if (/*still */running()) {
-	qWarning("Thread::wait(): timed out after %d ms!", milliseconds);
-    }
+//    if (/*still */running()) {
+//	qWarning("Thread::wait(): timed out after %d ms!", milliseconds);
+//    }
 }
 
 //***************************************************************************

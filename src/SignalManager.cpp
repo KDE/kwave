@@ -8,6 +8,7 @@
 #include <byteswap.h>
 #include <limits.h>
 #include <math.h>
+#include <sched.h> // for sched_yield()
 
 #include <sys/ioctl.h>
 #include <linux/soundcard.h>
@@ -1140,7 +1141,8 @@ void SignalManager::stopplay()
     debug("SignalManager::stopplay(): waiting for thread termination");
     QTimer timeout;
     timeout.start(5000, true);
-    while (msg[processid]) {
+    while (msg[processid] != 0) {
+	sched_yield(); // ###
 	// wait for termination
 	if (!timeout.isActive()) {
 	    warning("SignalManager::stopplay(): TIMEOUT");

@@ -29,7 +29,7 @@ cd $1
 # get the current version number and the actual date/time
 #
 VERSION=`cat ./VERSION`
-DATE="`(LANG=en;date)`"
+DATE="`date --iso`"
 
 echo "   old version number : \"$VERSION"\"
 

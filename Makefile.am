@@ -5,22 +5,27 @@ srcdir  	 = $(shell pwd)
 VERSION	 	 = $(shell cat ./VERSION)
 ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
 SRC_DIR   	 = ${srcdir}
-SRC_PREFIX 	 = kwave
-SUBDIRS  	 = libgui src plugins po
+SRC_PREFIX 	 = ${PACKAGE}
+SUBDIRS  	 = libgui src plugins po doc
 
-DISTCLEANFILES 	 = *~ config.cache config.log \#*
+CLEANFILES       = *~ *.d *.dm *.moc *.moc.cpp *.ii \#*
+DISTCLEANFILES 	 = config.log
 
 configure.in: VERSION
 	touch configure.in
 
 clean-generic:
 	-rm -f -v `find -size 0`
+	-rm -fv `find . -name \*.ii`
+	-rm -fv `find . -name \*.lo`
+	-rm -fv `find . -name \*.la`
+	-rm -fv `find . -name \*.moc.cpp`
 	-rm -fv `find . -name \*.moc`
 	-rm -fv `find . -name \*.d`
 	-rm -fv `find . -name \*.dm`
-	-rm -rfv `find . -name .\* | grep -v ".." | grep -v "."`
+	-rm -rfv `find . -name .\* | grep -v "^\.\.$$" | grep -v "^\.$$"`
 
-distclean-generic:
+distclean-generic: clean-generic
 	-rm -f $(CONFIG_CLEAN_FILES)
 	-rm -f stamp-h stamp-h[0-9]*
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
@@ -28,64 +33,56 @@ distclean-generic:
 reallyclean: clean-generic distclean
 	-rm -f config.cache
 	-rm -f config.log
-	-rm -fv  `find -size 0`
-	-rm -fv  `find . -name \*.ii`
-	-rm -fv  `find . -name \*.moc`
-	-rm -fv  `find . -name \*.d`
-	-rm -fv  `find . -name \*.dm`
 	-rm -fv  `find . -type l`
-	-rm -fv  `find . -name Makefile`
 
 backup: kwave.spec
-	@ cp kwave.spec kwave.spec.saved ; \
+	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
 	${MAKE} reallyclean ; \
-	mv kwave.spec.saved kwave.spec ; \
+	mv ${PACKAGE}.spec.saved ${PACKAGE}.spec ; \
 	(cd ${srcdir}/..; \
-	tar -czh -f ${ARCHIVE_DIR}/kwave-${VERSION}-backup.tgz ${SRC_PREFIX} ) && \
-	echo source backed up to kwave-${VERSION}-backup.tgz
-
-#	( cd /tmp ; rm -Rf kwave-@RPM_VERSION@ ; \
-#	mkdir -p kwave-@RPM_VERSION@ ; \
-#	cd /tmp/kwave-@RPM_VERSION@ ; \
-#	cp -a ${SRC_DIR}/* . ; \
-#	cd ..; \
+	tar -czh -f ${ARCHIVE_DIR}/${PACKAGE}-${VERSION}-backup.tgz \
+	${SRC_PREFIX} ) && \
+	echo source backed up to ${PACKAGE}-${VERSION}-backup.tgz
 
 patch:
-	@ cp kwave.spec kwave.spec.saved ; \
+	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
 	${MAKE} reallyclean ; \
-	mv kwave.spec.saved kwave.spec ; \
+	mv ${PACKAGE}.spec.saved ${PACKAGE}.spec ; \
 	(cd ${srcdir}/..; \
-	tar -czh -f ${ARCHIVE_DIR}/kwave-${VERSION}.tar.gz ${SRC_PREFIX} ) && \
-	echo source backed up to kwave-${VERSION}.tar.gz
-	@ $(srcdir)/bin/make_patch.sh kwave `cat $(srcdir)/VERSION` \
+	tar -czh -f ${ARCHIVE_DIR}/${PACKAGE}-${VERSION}.tar.gz ${SRC_PREFIX} ) && \
+	echo source backed up to ${PACKAGE}-${VERSION}.tar.gz
+	@ $(srcdir)/bin/make_patch.sh ${PACKAGE} `cat $(srcdir)/VERSION` \
 		${ARCHIVE_DIR} ${SRC_DIR} ${SRC_PREFIX}
 
 patchlevel:
-	$(srcdir)/bin/increment_patchlevel.sh ${srcdir} && \
+	$(srcdir)/bin/increment_patchlevel.sh ${srcdir}
+	( cd doc ; ${MAKE} doc )
 	${MAKE} patch
 
 release:
-	@ $(srcdir)/bin/increment_release.sh ${srcdir} && \
+	@ $(srcdir)/bin/increment_release.sh ${srcdir}
+	( cd doc ; ${MAKE} doc )
 	${MAKE} patch
 
 messages:
 	rm -f po/*.gmo
 	(cd src ; ${MAKE} menus_config_i18n.cpp )
 	/usr/bin/xgettext -C -ki18n -x ${KDEDIR}/include/kde.pot \
-	`find . -name \*.h -o -name \*.cpp` -o ./po/kwave.pot
+	`find . -name \*.h -o -name \*.cpp` -o ./po/${PACKAGE}.pot
 	(cd po ; ${MAKE} merge )
 
-rpm_prep: clean ${PACKAGE}.spec
+rpm_prep: distclean-generic ${PACKAGE}.spec
 	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
 	mkdir -p /tmp/${PACKAGE}-@RPM_VERSION@
 	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_VERSION@ )
 	(cd /tmp/ ; \
-	tar -czh -f /usr/src/packages/SOURCES/kwave-@RPM_VERSION@.tar.gz \
+	tar -chz -f ${PACKAGE}-@RPM_VERSION@.tar.gz \
 		${SRC_PREFIX}-@RPM_VERSION@ )
 	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
 
+# does not work with SuSE-6.4   :-(
 rpm: rpm_prep
-	rpm -ba ${PACKAGE}.spec
+	rpm -ta /tmp/${PACKAGE}-@RPM_VERSION@.tar.gz
 
 src.rpm: rpm_prep
 	rpm -bs ${PACKAGE}.spec

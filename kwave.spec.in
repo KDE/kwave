@@ -1,13 +1,13 @@
 %define ver @RPM_VERSION@
 %define release @RPM_RELEASE@
-%define filelist %{name}/files.list.%{name}
+%define filelist %{name}-@RPM_VERSION@/files.list.%{name}
 %define rpm_opt_flags ${RPM_OPT_FLAGS}
 
 Summary: @RPM_SUMMARY@
 Name: @RPM_NAME@
 Version: 	@RPM_VERSION@
 Release: 	@RPM_RELEASE@
-Source0: 	@RPM_SOURCE0@
+Source0: 	kwave-@RPM_VERSION@.tar.gz
 Group:  	@RPM_GROUP@
 Copyright:	@RPM_COPYRIGHT@
 URL:     @RPM_URL@
@@ -21,23 +21,26 @@ Requires: 	libkwave >= 0.3.8-2
 
 %prep
 
-%setup -n kwave
+%setup -n kwave-@RPM_VERSION@
 rm -rf "$RPM_BUILD_ROOT"
 rm -f config.cache
+rm -f config.status
+rm -f config.log
+rm -f `find . -name Makefile`
+rm -fv  `find . -type l`
 touch config.in
-echo %{topdir}
 ./configure --with-install-root=$RPM_BUILD_ROOT \
-	--enable-shared=yes --enable-static=no --enable-debug=no
-# make distclean
+	--enable-shared=yes --enable-static=no --enable-debug=no \
+	--enable-insure=no
 
-%build -n kwave
+%build -n kwave-@RPM_VERSION@
 cd libgui
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT=""
 cd ..
 export LD_LIBRARY_PATH=`pwd`/libgui/.libs:${LD_LIBRARY_PATH}
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT=""
 
-%install -n kwave
+%install -n kwave-@RPM_VERSION@
 rm -rf "$RPM_BUILD_ROOT"
 cd libgui
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
@@ -49,7 +52,8 @@ find . -type f | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%
 find . -type l | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
 # remove files/directories that should not get into the package
 mv "$RPM_BUILD_DIR"/%{filelist} /tmp/files.lst.tmp
-cat /tmp/files.lst.tmp | grep -v /default$ > "$RPM_BUILD_DIR"/%{filelist}
+cat /tmp/files.lst.tmp | grep -v /default$ | \
+	grep -v /de$ | grep -v /en$ > "$RPM_BUILD_DIR"/%{filelist}
 
 %files -f files.list.%{name}
 
@@ -57,6 +61,13 @@ cat /tmp/files.lst.tmp | grep -v /default$ > "$RPM_BUILD_DIR"/%{filelist}
 
 %post
 ldconfig
+cd $RPM_BUILD_ROOT/${KDEDIR}/share/doc/HTML
+if test ! -e default/%{name}; then ln -s ../en/%{name} default; fi;
+if test ! -e de/%{name};      then ln -s ../en/%{name} de;      fi;
 
 %postun
 ldconfig
+cd $RPM_BUILD_ROOT/${KDEDIR}/share/doc/HTML
+if test -L default/%{name}; then rm -f default/%{name}; fi;
+if test -L de/%{name};      then rm -f de/%{name};      fi;
+

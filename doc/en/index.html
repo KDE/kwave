@@ -1,28 +1,243 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
-<html>
-  <head>
-    <title>Kwave Help</title>
-  </head>
-
-  <body>
-      <h1>Kwave Help</h1>
-
-<CENTER>
-<I>This help documentation was last updated on August. 4, 1998 for kwave 0.29 alpha</I>
-</CENTER>
-<p>
-Sorry, not much Documentation yet again. If you feel urgent need for it, write me. Of course I would be happy if you contribute Documentation, and will provide information, if you should be in need for it.</p>
-
-<li><a href="what.html">What is it ?</a></li>
-
-<P>Kwave is written by <A HREF="mailto:mwilz@ernie.mi.uni-koeln.de">Martin Wilz</A>.
-The code incorporates a part of another work: the FFT-Routines by
-the GNU Scientific Library project.<p>
-Also parts of KEdit were and will be used as guideline for implementation
-of specific KDE features. </P>
-This work is placed under public GNU-License. For more information check out the menu Help->About.
-</body>
-</html>
-
-
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>The Kwave Handbook</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
+REL="NEXT"
+TITLE="Introduction"
+HREF="introduction.html"><META
+NAME="KEYWORD"
+CONTENT="KDE"><META
+NAME="KEYWORD"
+CONTENT="multimedia"><META
+NAME="KEYWORD"
+CONTENT="sound"><META
+NAME="KEYWORD"
+CONTENT="audio"><META
+NAME="KEYWORD"
+CONTENT="Kwave"><META
+NAME="KEYWORD"
+CONTENT="wav"><META
+NAME="KEYWORD"
+CONTENT="editor"><META
+NAME="KEYWORD"
+CONTENT="sonagram"><META
+NAME="KEYWORD"
+CONTENT="FFT"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="en"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-English"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"><META
+NAME="KEYWORDS"
+CONTENT="KDE, multimedia, sound, audio, Kwave, wav, editor, sonagram, FFT"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#aa0000"
+STYLE="font-family: sans-serif;"
+><A
+HREF="http://www.kde.org/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="The K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+><HR
+WIDTH="100%"
+SIZE="2"
+ALIGN="CENTER"
+NOSHADE="NOSHADE"><DIV
+ALIGN="RIGHT"
+CLASS="NAVBAR"
+><P
+><A
+HREF="introduction.html"
+>Next</A
+> Prev Table of Contents</P
+></DIV
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+>The Kwave Handbook</A
+></H1
+>Version <SPAN
+CLASS="RELEASEINFO"
+>0.5.4<BR></SPAN
+>Last updated: <SPAN
+CLASS="DATE"
+>2000-07-12<BR></SPAN
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN5"
+>Martin Wilz</A
+></H3
+><DIV
+CLASS="AFFILIATION"
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>		mwilz@ernie.mi.uni-koeln.de&#62;<br>
+		</P
+></DIV
+></DIV
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN11"
+>Thomas Eschenbacher</A
+></H3
+><DIV
+CLASS="AFFILIATION"
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>		thomas.eschenbacher@gmx.de<br>
+		</P
+></DIV
+></DIV
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 1998-2000 by <SPAN
+CLASS="HOLDER"
+>Martin Wilz</SPAN
+></P
+><DIV
+><DIV
+CLASS="ABSTRACT"
+><P
+>	    <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> is a simple sound editor for KDE.
+	</P
+></DIV
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>1. <A
+HREF="introduction.html"
+>Introduction</A
+></DT
+><DD
+><DL
+><DT
+>1.1. <A
+HREF="introduction.html#KWAVE-RESOURCES"
+>Kwave Resources</A
+></DT
+><DT
+>1.2. <A
+HREF="kwave-revhistory.html"
+>Kwave Revision History</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="installation.html"
+>Installation</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="installation.html#GETTING-KWAVE"
+>How to obtain Kwave</A
+></DT
+><DT
+>2.2. <A
+HREF="requirements.html"
+>Requirements</A
+></DT
+><DT
+>2.3. <A
+HREF="manual_compilation.html"
+>Manual Compilation and installation</A
+></DT
+><DT
+>2.4. <A
+HREF="building_rpm_from_targz.html"
+>Building RPM packages from tar.gz archives</A
+></DT
+><DT
+>2.5. <A
+HREF="building_rpm_from_cvs.html"
+>Building RPM packages from CVS</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="using-kapp.html"
+>Using Kwave</A
+></DT
+><DT
+>4. <A
+HREF="developers.html"
+>Developer's Guide to Kapp</A
+></DT
+><DT
+>5. <A
+HREF="faq.html"
+>Questions and Answers</A
+></DT
+><DT
+>6. <A
+HREF="credits.html"
+>Credits and License</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+ALIGN="RIGHT"
+CLASS="NAVBAR"
+><P
+><A
+HREF="introduction.html"
+>Next</A
+> Prev Table of Contents</P
+></DIV
+><HR
+WIDTH="100%"
+SIZE="2"
+ALIGN="CENTER"
+NOSHADE="NOSHADE"></BODY
+></HTML
+>

@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Building RPM packages from CVS</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
+REL="HOME"
+TITLE="The Kwave Handbook"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation"
+HREF="installation.html"><LINK
+REL="PREVIOUS"
+TITLE="Building RPM packages from tar.gz archives"
+HREF="building_rpm_from_targz.html"><LINK
+REL="NEXT"
+TITLE="Using Kwave"
+HREF="using-kapp.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="en"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-English"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#aa0000"
+STYLE="font-family: sans-serif;"
+><A
+HREF="http://www.kde.org/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="The K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+><HR
+WIDTH="100%"
+SIZE="2"
+ALIGN="CENTER"
+NOSHADE="NOSHADE"><DIV
+ALIGN="RIGHT"
+CLASS="NAVBAR"
+><P
+><A
+HREF="using-kapp.html"
+>Next</A
+> <A
+HREF="building_rpm_from_targz.html"
+>Prev</A
+> <A
+HREF="index.html"
+>Table of Contents</A
+></P
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="BUILDING_RPM_FROM_CVS"
+>2.5. Building RPM packages from CVS</A
+></H1
+><P
+>	Building rpm archives from a CVS snapshot is quite simple. The procedure 
+	is nearly the same as described in the last section, so it unhappily also 
+	has the same problem with the "rpm -ta" command our method internally uses.
+	Like in the previous chapter, "[arch]" stands for the platform you have 
+	built the package and might be something like "i386", "i586", "sparc" 
+	or whatever, XXX stands for the version number you have checked out.
+    </P
+><DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	<I
+CLASS="EMPHASIS"
+>Note for SuSE users: </I
+>
+	here you have to specify the directory
+	"/usr/src/packages" instead of "/usr/src/redhat" too!
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><OL
+TYPE="1"
+><LI
+><P
+>	    First build the libkwave package and install it. Assuming that
+	    you are in the root of where you checked out from CVS, do the 
+	    following to create a Makefile, the libkwave package and 
+	    install it. If you already have a version of libkwave installed,
+	    please remove it first or use the parameter "-U" instead
+	    of "-i" for upgrading instead of installing.
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>cd libkwave</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make -f Makefile.dist</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>./configure</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make rpm</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>rpm -i /usr/src/redhat/BUILD/[arch]]/libkwave-XXX.[arch].rpm</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+><LI
+><P
+>	Then go on and do the same with the <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> package:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>cd kwave</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make -f Makefile.dist</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>./configure</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make rpm</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>rpm -i /usr/src/redhat/BUILD/[arch]]/kwave-XXX.[arch].rpm</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+	</P
+></LI
+></OL
+><DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	If you still have problems with "make rpm", you will find the tar.gz
+	archives that call has produced under /tmp. Please follow the
+	instructions in the
+	<A
+HREF="building_rpm_from_targz.html#MANUAL_RPM_CREATION"
+>previous</A
+> chapter.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+ALIGN="RIGHT"
+CLASS="NAVBAR"
+><P
+><A
+HREF="using-kapp.html"
+>Next</A
+> <A
+HREF="building_rpm_from_targz.html"
+>Prev</A
+> <A
+HREF="index.html"
+>Table of Contents</A
+></P
+></DIV
+><HR
+WIDTH="100%"
+SIZE="2"
+ALIGN="CENTER"
+NOSHADE="NOSHADE"></BODY
+></HTML
+>

@@ -30,12 +30,12 @@ dist=true
 install=false
 type=SOURCE
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.h,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.cpp,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.h,/usr/src/packages/multimedia/sound/kwave/src/SignalWidget.cpp,/usr/src/packages/multimedia/sound/kwave/plugins/dialogs/playback/module.cpp,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.h,/usr/src/packages/multimedia/sound/kwave/plugins/dialogs/playback/module.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuItem.h,/usr/src/packages/multimedia/sound/kwave/plugins/dialogs/playback/module.h,/usr/src/packages/multimedia/sound/kwave/po/de.po,/usr/src/packages/multimedia/sound/kwave/src/menus.config,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.h,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.cpp,/usr/src/packages/multimedia/sound/kwave/src/PitchWidget.h,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/src/SignalManager.h
-cpp_file=/usr/src/packages/multimedia/sound/kwave/plugins/dialogs/playback/module.cpp
-browser_file=file:/usr/X11/lib/qt/doc/html/pref-pref-cpp.html#QButtonGroup
+header_file=/usr/src/packages/multimedia/sound/kwave/src/PitchWidget.h
+cpp_file=/usr/src/packages/multimedia/sound/kwave/src/SignalManager.cpp
+browser_file=file:/usr/X11/lib/qt/doc/html/qlistbox.html#c3
 [src/LabelManager.cpp]
 install_location=
 dist=true
@@ -367,14 +367,14 @@ type=SOURCE
 [General]
 make_options=-w -j1
 makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,src/Makefile.am,libgui/Makefile.am,bin/Makefile.am,
-version_control=None
+version_control=CVS
 project_type=normal_kde
 author=Martin Wilz
 sub_dir=kwave/
 lfv_open_groups=Übersetzungen,Zusätzliche,Sources,
 workspace=1
 project_name=Kwave
-version=0.5.1
+version=0.5.2-13
 AMChanged=false
 short_info=,
 email=mwilz@ernie.MI.Uni-Koeln.DE

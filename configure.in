@@ -117,7 +117,6 @@ getlsm(RPM_VENDOR, Author)
 changequote(<<, >>)
 RPM_VERSION=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[1] }'`
 RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2]+0 }'`
-RPM_SOURCE0=<<kwave-`cat ./VERSION`.tar.gz>>
 RPM_GROUP=<<X11/Applications/Sound>>
 RPM_BUILDROOT=<</tmp/kwave-%{version}.root>>
 LD_VERSION_INFO=<<`cat ./VERSION | awk '{split($0, a, ".")} \
@@ -132,7 +131,6 @@ AC_SUBST(RPM_SUMMARY)
 AC_SUBST(RPM_NAME)
 AC_SUBST(RPM_VERSION)
 AC_SUBST(RPM_RELEASE)
-AC_SUBST(RPM_SOURCE0)
 AC_SUBST(RPM_GROUP)
 AC_SUBST(RPM_COPYRIGHT)
 AC_SUBST(RPM_URL)
@@ -148,5 +146,6 @@ AC_OUTPUT(Makefile \
 	plugins/dialogs/Makefile \
 	plugins/dialogs/template/Makefile \
 	po/Makefile \
+	doc/Makefile \
 	kwave.spec )
 

@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Manual Compilation and installation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
+REL="HOME"
+TITLE="The Kwave Handbook"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation"
+HREF="installation.html"><LINK
+REL="PREVIOUS"
+TITLE="Requirements"
+HREF="requirements.html"><LINK
+REL="NEXT"
+TITLE="Building RPM packages from tar.gz archives"
+HREF="building_rpm_from_targz.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="en"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-English"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#aa0000"
+STYLE="font-family: sans-serif;"
+><A
+HREF="http://www.kde.org/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="The K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+><HR
+WIDTH="100%"
+SIZE="2"
+ALIGN="CENTER"
+NOSHADE="NOSHADE"><DIV
+ALIGN="RIGHT"
+CLASS="NAVBAR"
+><P
+><A
+HREF="building_rpm_from_targz.html"
+>Next</A
+> <A
+HREF="requirements.html"
+>Prev</A
+> <A
+HREF="index.html"
+>Table of Contents</A
+></P
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="MANUAL_COMPILATION"
+>2.3. Manual Compilation and installation</A
+></H1
+><P
+>    	In order to compile and install libkwave on your system, type the 
+	following in the base directory of the source distribution:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>cd libkwave</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make -f Makefile.dist</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>./configure</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make install</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>cd ..</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>    	If libkwave is successfully installed, you can continue and compile and 
+	install <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> itself. Type the following in the base directory of the 
+	source distribution:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>cd kwave</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make -f Makefile.dist</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>./configure</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>make install</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>    	Since libkwave and <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> use autoconf and automake you should have no
+	trouble compiling it. Should you run into problems please report 
+	them to the <SPAN
+CLASS="APPLICATION"
+>Kwave</SPAN
+> <A
+HREF="introduction.html#MAILING-LIST"
+>mailing list</A
+>.
+    </P
+></DIV
+><DIV
+ALIGN="RIGHT"
+CLASS="NAVBAR"
+><P
+><A
+HREF="building_rpm_from_targz.html"
+>Next</A
+> <A
+HREF="requirements.html"
+>Prev</A
+> <A
+HREF="index.html"
+>Table of Contents</A
+></P
+></DIV
+><HR
+WIDTH="100%"
+SIZE="2"
+ALIGN="CENTER"
+NOSHADE="NOSHADE"></BODY
+></HTML
+>

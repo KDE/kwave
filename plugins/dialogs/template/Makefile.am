@@ -29,7 +29,7 @@ SUFFIXES = .h .moc
 
 SOURCES=module.cpp module.moc
 
-CLEANFILES = *.d *.dm *.moc core *~ ${MODNAME}
+CLEANFILES = *.d *.dm *.moc *.moc.cpp core *~ ${MODNAME}
 
 %d: %cpp
 	@echo plugin \"$(MODNAME)\": making dependencies for $<

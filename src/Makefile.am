@@ -118,8 +118,6 @@ install-data-local:
 	$(INSTALL_DATA) images/filesave.xpm $(PIXDIR)
 	$(mkinstalldirs) $(CONFDIR)
 	$(INSTALL_DATA) menus.config $(CONFDIR)
-	$(mkinstalldirs) $(kde_htmldir)/default/$(PACKAGE)
-	$(INSTALL_DATA) doc/*.* $(kde_htmldir)/default/$(PACKAGE)
 
 # remove ALL you have installed in install-data-local or install-exec-local
 uninstall-local:

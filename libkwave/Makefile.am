@@ -32,6 +32,7 @@ BUILTSOURCES=\
  Signal.moc.cpp\
  Stripe.moc.cpp\
  Track.moc.cpp\
+ TransmissionFunction.moc.cpp\
  ArtsSampleSink.h\
  ArtsSampleSink.cc\
  ArtsSampleSource.h\
@@ -75,6 +76,7 @@ libkwave_la_SOURCES=\
  SampleLock.cpp\
  Stripe.cpp\
  Track.cpp\
+ TransmissionFunction.cpp\
  VirtualAudioFile.cpp\
  WindowFunction.cpp
 

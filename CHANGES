@@ -1,13 +1,17 @@
 
-0.6.5 [2002-10-31]
+0.6.5 [2002-11-09]
 
  * MP3 import with ID3 tag support through id3lib and libmad
  * Ogg/Vorbis import and export (only ABR mode)
+ * new plugin "volume"
  * show selected range as time (feature requested by Christian Hollaender)
  * support for saving compressed .wav files
  * thrown away Qt2/KDE2 compatibility, now only supports Qt3/KDE3
  * playback plugin: enabled the "select..." button for choosing
    other playback devices (feature requested by Len Ovens)
+ * solved problem with name mangling in plugins and different gcc versions
+ * works with gcc-3.2 / solved __dso_handle problem
+ * stricter checks for programs in configure script
 
 0.6.4 [2002-06-30]
 

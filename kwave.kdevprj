@@ -221,18 +221,6 @@ install=false
 install_location=
 type=HEADER
 
-[kwave/FFTContainer.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[kwave/FFTContainer.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
 [kwave/FFTWindow.cpp]
 dist=true
 install=false
@@ -240,18 +228,6 @@ install_location=
 type=SOURCE
 
 [kwave/FFTWindow.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[kwave/ImageView.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[kwave/ImageView.h]
 dist=true
 install=false
 install_location=
@@ -295,7 +271,7 @@ type=HEADER
 
 [kwave/Makefile.am]
 dist=true
-files=kwave/MouseMark.cpp,kwave/menus.config,kwave/Makefile.am,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/FFTContainer.cpp,kwave/FFTContainer.h,kwave/TopWidget.h,kwave/TopWidget.cpp,kwave/SignalWidget.h,kwave/SignalWidget.cpp,kwave/SignalManager.h,kwave/SignalManager.cpp,kwave/FFTWindow.cpp,kwave/PluginManager.h,kwave/PluginManager.cpp,kwave/PlaybackController.h,kwave/PlaybackController.cpp,kwave/PitchWindow.h,kwave/PitchWindow.cpp,kwave/PitchWidget.h,kwave/PitchWidget.cpp,kwave/PitchContainer.h,kwave/PitchContainer.cpp,kwave/MouseMark.h,kwave/MainWidget.h,kwave/MainWidget.cpp,kwave/main.cpp,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/ImageView.h,kwave/ImageView.cpp,kwave/FFTWindow.h,kwave/UndoAction.h,kwave/UndoTransaction.h,kwave/UndoTransaction.cpp,kwave/UndoModifyAction.h,kwave/UndoModifyAction.cpp,kwave/UndoTransactionGuard.h,kwave/UndoTransactionGuard.cpp,kwave/UndoSelection.h,kwave/UndoSelection.cpp,kwave/UndoDeleteAction.h,kwave/UndoDeleteAction.cpp,kwave/UndoInsertAction.h,kwave/UndoInsertAction.cpp,kwave/UndoInsertTrack.cpp,kwave/UndoInsertTrack.h,kwave/UndoDeleteTrack.h,kwave/UndoDeleteTrack.cpp,kwave/kwave.desktop,kwave/MemoryManager.h,kwave/MemoryManager.cpp,kwave/SwapFile.h,kwave/SwapFile.cpp,kwave/CodecManager.h,kwave/CodecManager.cpp,kwave/x-aifc.desktop,kwave/x-ircam.desktop,kwave/UndoFileInfo.h,kwave/UndoFileInfo.cpp
+files=kwave/MouseMark.cpp,kwave/menus.config,kwave/Makefile.am,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/TopWidget.h,kwave/TopWidget.cpp,kwave/SignalWidget.h,kwave/SignalWidget.cpp,kwave/SignalManager.h,kwave/SignalManager.cpp,kwave/FFTWindow.cpp,kwave/PluginManager.h,kwave/PluginManager.cpp,kwave/PlaybackController.h,kwave/PlaybackController.cpp,kwave/MouseMark.h,kwave/MainWidget.h,kwave/MainWidget.cpp,kwave/main.cpp,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/FFTWindow.h,kwave/UndoAction.h,kwave/UndoTransaction.h,kwave/UndoTransaction.cpp,kwave/UndoModifyAction.h,kwave/UndoModifyAction.cpp,kwave/UndoTransactionGuard.h,kwave/UndoTransactionGuard.cpp,kwave/UndoSelection.h,kwave/UndoSelection.cpp,kwave/UndoDeleteAction.h,kwave/UndoDeleteAction.cpp,kwave/UndoInsertAction.h,kwave/UndoInsertAction.cpp,kwave/UndoInsertTrack.cpp,kwave/UndoInsertTrack.h,kwave/UndoDeleteTrack.h,kwave/UndoDeleteTrack.cpp,kwave/kwave.desktop,kwave/MemoryManager.h,kwave/MemoryManager.cpp,kwave/SwapFile.h,kwave/SwapFile.cpp,kwave/CodecManager.h,kwave/CodecManager.cpp,kwave/x-aifc.desktop,kwave/x-ircam.desktop,kwave/UndoFileInfo.h,kwave/UndoFileInfo.cpp
 install=false
 install_location=
 sub_dirs=libgui,pics,toolbar
@@ -320,42 +296,6 @@ install_location=
 type=SOURCE
 
 [kwave/MouseMark.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[kwave/PitchContainer.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[kwave/PitchContainer.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[kwave/PitchWidget.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[kwave/PitchWidget.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[kwave/PitchWindow.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[kwave/PitchWindow.h]
 dist=true
 install=false
 install_location=
@@ -870,18 +810,6 @@ install=false
 install_location=
 type=HEADER
 
-[libgui/FFTWidget.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[libgui/FFTWidget.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
 [libgui/FileProgress.cpp]
 dist=true
 install=false
@@ -889,30 +817,6 @@ install_location=
 type=SOURCE
 
 [libgui/FileProgress.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[libgui/FloatLine.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[libgui/FloatLine.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[libgui/FormantWidget.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[libgui/FormantWidget.h]
 dist=true
 install=false
 install_location=
@@ -930,21 +834,9 @@ install=false
 install_location=
 type=HEADER
 
-[libgui/KwavePlugin.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[libgui/KwavePlugin.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
 [libgui/Makefile.am]
 dist=true
-files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am,libgui/ConfirmCancelProxy.h,libgui/ConfirmCancelProxy.cpp,libgui/OverViewCache.h,libgui/OverViewCache.cpp,libgui/KwaveFileDialog.h,libgui/KwaveFileDialog.cpp
+files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am,libgui/ConfirmCancelProxy.h,libgui/ConfirmCancelProxy.cpp,libgui/OverViewCache.h,libgui/OverViewCache.cpp,libgui/KwaveFileDialog.h,libgui/KwaveFileDialog.cpp
 install=false
 install_location=
 sub_dirs=
@@ -1058,12 +950,6 @@ install=false
 install_location=
 type=HEADER
 
-[libgui/PluginContext.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
 [libgui/ScaleWidget.cpp]
 dist=true
 install=false
@@ -1071,18 +957,6 @@ install_location=
 type=SOURCE
 
 [libgui/ScaleWidget.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[libgui/TimeLine.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[libgui/TimeLine.h]
 dist=true
 install=false
 install_location=
@@ -1220,6 +1094,12 @@ install=false
 install_location=
 type=HEADER
 
+[libkwave/CurveStreamAdapter.idl]
+dist=true
+install=false
+install_location=
+type=CORBA_SOURCE
+
 [libkwave/CurveStreamAdapter_impl.cpp]
 dist=true
 install=false
@@ -1231,6 +1111,12 @@ dist=true
 install=false
 install_location=
 type=HEADER
+
+[libkwave/Decoder.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
 
 [libkwave/Decoder.h]
 dist=true
@@ -1346,6 +1232,18 @@ install=false
 install_location=
 type=HEADER
 
+[libkwave/KwavePlugin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[libkwave/KwavePlugin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [libkwave/Label.cpp]
 dist=true
 install=false
@@ -1396,7 +1294,7 @@ type=HEADER
 
 [libkwave/Makefile.am]
 dist=true
-files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/PointSet.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp,libkwave/ArtsSampleSink.idl,libkwave/ArtsSampleSource.idl,libkwave/ArtsSampleSink_impl.cpp,libkwave/ArtsSampleSink_impl.h,libkwave/ArtsSampleSource_impl.h,libkwave/ArtsSampleSource_impl.cpp,libkwave/ArtsMultiTrackFilter.h,libkwave/ArtsMultiSource.h,libkwave/ArtsMultiSink.h,libkwave/ArtsMultiIO.h,libkwave/ArtsMultiTrackSink.h,libkwave/ArtsMultiTrackSource.h,libkwave/ArtsKwaveMultiTrackFilter.h,libkwave/ArtsNativeMultiTrackFilter.h,libkwave/CurveStreamAdapter_impl.h,libkwave/CurveStreamAdapter_impl.cpp,libkwave/KwaveDrag.h,libkwave/KwaveDrag.cpp,libkwave/FileFormat.cpp,libkwave/Encoder.h,libkwave/Decoder.h,libkwave/CodecBase.h,libkwave/CodecBase.cpp,libkwave/FileInfo.cpp,libkwave/FileInfo.h,libkwave/VirtualAudioFile.cpp,libkwave/VirtualAudioFile.h,libkwave/CompressionType.h,libkwave/CompressionType.cpp,libkwave/SampleFormat.h,libkwave/SampleFormat.cpp,libkwave/GenreType.h,libkwave/GenreType.cpp
+files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp,libkwave/ArtsSampleSink.idl,libkwave/ArtsSampleSource.idl,libkwave/ArtsSampleSink_impl.cpp,libkwave/ArtsSampleSink_impl.h,libkwave/ArtsSampleSource_impl.h,libkwave/ArtsSampleSource_impl.cpp,libkwave/ArtsMultiTrackFilter.h,libkwave/ArtsMultiSource.h,libkwave/ArtsMultiSink.h,libkwave/ArtsMultiIO.h,libkwave/ArtsMultiTrackSink.h,libkwave/ArtsMultiTrackSource.h,libkwave/ArtsKwaveMultiTrackFilter.h,libkwave/ArtsNativeMultiTrackFilter.h,libkwave/CurveStreamAdapter_impl.h,libkwave/CurveStreamAdapter_impl.cpp,libkwave/KwaveDrag.h,libkwave/KwaveDrag.cpp,libkwave/FileFormat.cpp,libkwave/Encoder.h,libkwave/Decoder.h,libkwave/CodecBase.h,libkwave/CodecBase.cpp,libkwave/FileInfo.cpp,libkwave/FileInfo.h,libkwave/VirtualAudioFile.cpp,libkwave/VirtualAudioFile.h,libkwave/CompressionType.h,libkwave/CompressionType.cpp,libkwave/SampleFormat.h,libkwave/SampleFormat.cpp,libkwave/GenreType.h,libkwave/GenreType.cpp,libkwave/Decoder.cpp,libkwave/CurveStreamAdapter.idl,libkwave/KwavePlugin.h,libkwave/KwavePlugin.cpp,libkwave/PluginContext.h
 install=false
 install_location=
 sub_dirs=
@@ -1444,7 +1342,7 @@ install=false
 install_location=
 type=HEADER
 
-[libkwave/PointSet.h]
+[libkwave/PluginContext.h]
 dist=true
 install=false
 install_location=
@@ -2456,8 +2354,20 @@ install=false
 install_location=
 type=HEADER
 
+[plugins/sonagram/ImageView.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/sonagram/ImageView.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [plugins/sonagram/Makefile.am]
-files=plugins/sonagram/SonagramDialog.cpp,plugins/sonagram/SonagramDialog.h,plugins/sonagram/SonagramPlugin.cpp,plugins/sonagram/SonagramPlugin.h,plugins/sonagram/SonagramWindow.cpp,plugins/sonagram/SonagramWindow.h
+files=plugins/sonagram/SonagramDialog.cpp,plugins/sonagram/SonagramDialog.h,plugins/sonagram/SonagramPlugin.cpp,plugins/sonagram/SonagramPlugin.h,plugins/sonagram/SonagramWindow.cpp,plugins/sonagram/SonagramWindow.h,plugins/sonagram/ImageView.h,plugins/sonagram/ImageView.cpp
 type=static_library
 
 [plugins/sonagram/SonagramDialog.cpp]

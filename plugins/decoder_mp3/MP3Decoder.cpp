@@ -117,7 +117,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
     }
 
     /* bit rate */
-    if (header.bitrate > 0) m_info.set(INF_MPEG_BITRATE,
+    if (header.bitrate > 0) m_info.set(INF_BITRATE_NOMINAL,
         QVariant(header.bitrate));
     // NOTE: this is an enum value in libid3, but can also be treated
     // as unsigned integer without problems!

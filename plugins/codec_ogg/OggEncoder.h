@@ -19,6 +19,7 @@
 #define _OGG_ENCODER_H_
 
 #include "config.h"
+#include <vorbis/vorbisenc.h>
 #include "libkwave/Encoder.h"
 
 class QWidget;
@@ -47,7 +48,14 @@ public:
     virtual bool encode(QWidget *widget, MultiTrackReader &src,
                         QIODevice &dst, FileInfo &info);
 
+    /** Returns a list of supported file properties */
+    virtual QValueList<FileProperty> supportedProperties();
 
+private:
+
+    /** Encodes all file properties into a vorbis comment */
+    void encodeProperties(FileInfo &info, vorbis_comment *vc);
+    
 };
 
 #endif /* _OGG_ENCODER_H_ */

@@ -36,6 +36,9 @@ typedef enum {
     INF_ANNOTATION,          /**< annotation/comment */
     INF_ARCHIVAL,            /**< archival location */
     INF_AUTHOR,              /**< name of the author/artist */
+    INF_BITRATE_LOWER,       /**< lower bitrate limit */
+    INF_BITRATE_NOMINAL,     /**< nominal bitrate */
+    INF_BITRATE_UPPER,       /**< upper bitrate limit */
     INF_CD,                  /**< number of the CD in an album */
     INF_COMMISSIONED,        /**< commissioned */
     INF_COMMENTS,            /**< comments */
@@ -53,7 +56,6 @@ typedef enum {
     INF_LICENSE,             /**< license information */
     INF_MEDIUM,              /**< medium */
     INF_MIMETYPE,            /**< mime type of the file format */
-    INF_MPEG_BITRATE,        /**< MPEG bitrate */
     INF_MPEG_EMPHASIS,       /**< MPEG emphasis mode */
     INF_MPEG_LAYER,          /**< MPEG Layer, I/II/III */
     INF_MPEG_MODEEXT,        /**< MPEG mode extension */

@@ -221,6 +221,12 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     m_info.setBits(SAMPLE_BITS); // use Kwave's internal resolution
     m_info.setTracks(m_vi.channels);
     m_info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
+    m_info.set(INF_SOURCE, QString(m_vc.vendor));
+    m_info.set(INF_BITRATE_NOMINAL, QVariant((int)m_vi.bitrate_nominal));
+    if (m_vi.bitrate_lower)
+	m_info.set(INF_BITRATE_LOWER, QVariant((int)m_vi.bitrate_lower));
+    if (m_vi.bitrate_upper)
+	m_info.set(INF_BITRATE_UPPER, QVariant((int)m_vi.bitrate_upper));
     
     // the first comment sometimes is used for the software version
     {
@@ -247,6 +253,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     parseTag("LOCATION",     INF_SOURCE);
     parseTag("CONTACT",      INF_CONTACT);
     parseTag("ISRC",         INF_ISRC);
+    parseTag("ENCODE",       INF_SOFTWARE);
     
     return true;
 }
@@ -299,7 +306,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
     int eos = 0;
 
     // we repeat if the bitstream is chained
-    while (true) {
+    while (!dst.isCancelled()) {
 	// The rest is just a straight decode loop until end of stream
 	while (!eos) {
 	    while (!eos) {
@@ -349,7 +356,7 @@ bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 			    emit sourceProcessed(m_source->at());
 			}
 		    }
-		    if (ogg_page_eos(&m_og)) eos = 1;
+		    if (ogg_page_eos(&m_og) || dst.isCancelled()) eos = 1;
 		}
 	    }
 	

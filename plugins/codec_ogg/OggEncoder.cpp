@@ -25,6 +25,9 @@
 #include <kaboutdata.h>
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
+
+#include <vorbis/codec.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MultiTrackReader.h"
@@ -35,8 +38,31 @@
 #include "OggEncoder.h"
 
 /***************************************************************************/
+static const struct {
+    FileProperty property;
+    const char *name;
+} supported_properties[] = {
+	{ INF_NAME,         "TITLE" },
+	{ INF_VERSION,      "VERSION" },
+	{ INF_ALBUM,        "ALBUM" },
+	{ INF_TRACK,        "TRACKNUMBER" },
+	{ INF_AUTHOR,       "ARTIST" },
+	{ INF_PERFORMER,    "PERFORMER" },
+	{ INF_COPYRIGHT,    "COPYRIGHT" },
+	{ INF_LICENSE,      "LICENSE" },
+	{ INF_ORGANIZATION, "ORGANIZATION" },
+	{ INF_SUBJECT,      "DESCRIPTION" },
+	{ INF_GENRE,        "GENRE" },
+	{ INF_SOURCE,       "LOCATION" },
+	{ INF_CONTACT,      "CONTACT" },
+	{ INF_ISRC,         "ISRC" },
+	{ INF_SOFTWARE,     "ENCODE" },
+	{ INF_MIMETYPE,     0 }
+};
+
+/***************************************************************************/
 OggEncoder::OggEncoder()
-    :Encoder()//, m_property_map()
+    :Encoder()
 {
     LOAD_MIME_TYPES;
 }
@@ -53,272 +79,209 @@ Encoder *OggEncoder::instance()
 }
 
 /***************************************************************************/
-//QValueList<FileProperty> OggEncoder::supportedProperties()
-//{
-//    QValueList<FileProperty> list;
-//    QMap<QCString, FileProperty>::Iterator it;
-//    for (it=m_property_map.begin(); it != m_property_map.end(); ++it) {
-//        list.append(it.data());
-//    }
-//    return list;
-//}
+QValueList<FileProperty> OggEncoder::supportedProperties()
+{
+    QValueList<FileProperty> list;
+    for (unsigned int i=0; i < sizeof(supported_properties) /
+                               sizeof(supported_properties[0]); ++i)
+    {
+	list.append(supported_properties[i].property);
+    }
+    
+    return list;
+}
+
+/***************************************************************************/
+void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
+{
+    for (unsigned int i=0; i < sizeof(supported_properties) /
+                               sizeof(supported_properties[0]); ++i)
+    {
+	FileProperty property = supported_properties[i].property;
+	
+	if (!info.contains(property)) continue; // skip if not present
+	if (!info.canLoadSave(property)) continue;
+
+	// encode the property as string
+	const char *tag = supported_properties[i].name;
+	QString value = info.get(property).toString();
+	vorbis_comment_add_tag(vc, (char*)tag, (char*)value.data());
+    }
+}
 
 /***************************************************************************/
 bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
                         QIODevice &dst, FileInfo &info)
 {
-// ### TODO ###
-//    /* first get and check some header information */
-//    const unsigned int tracks = info.tracks();
-//    const unsigned int length = info.length();
-//    unsigned int bits = info.bits();
-//    const double rate = info.rate();
-//    int sample_format = info.contains(INF_SAMPLE_FORMAT) ?
-//                        info.get(INF_SAMPLE_FORMAT).toInt() :
-//                        AF_SAMPFMT_TWOSCOMP;
-//    int compression = info.contains(INF_COMPRESSION) ?
-//                      info.get(INF_COMPRESSION).toInt() :
-//                      AF_COMPRESSION_NONE;
-//
-//    // use default bit resolution if missing
-//    ASSERT(bits);
-//    if (!bits) bits = 16;
-//
-//    // check for a valid source
-//    ASSERT(tracks);
-//    ASSERT(length);
-//    if ((!tracks) || (!length)) return false;
-//    ASSERT(src.count() == tracks);
-//    if (src.count() != tracks) return false;
-//
-//    // check if the choosen compression mode is supported for saving
-//    if ((compression != AF_COMPRESSION_NONE) &&
-//        (compression != AF_COMPRESSION_G711_ULAW) &&
-//        (compression != AF_COMPRESSION_G711_ALAW) )
-//    {
-//	warning("compression mode %d not supported!", compression);
-//	int what_now = KMessageBox::warningYesNoCancel(widget,
-//	    i18n("Sorry, the currently selected compression type can "
-//	         "not be used for saving. Do you want to use "
-//	         "G711 ULAW compression instead?"), 0,
-//	    KGuiItem(i18n("&Yes, use G711")),
-//	    KGuiItem(i18n("&No, store uncompressed"))
-//	);
-//	switch (what_now) {
-//	    case (KMessageBox::Yes):
-//		compression = AF_COMPRESSION_G711_ULAW;
-//		break;
-//	    case (KMessageBox::No):
-//		compression = AF_COMPRESSION_NONE;
-//		break;
-//	    default:
-//		return false; // bye bye, save later...
-//	}
-//    }
-//
-//    // append some missing standard properties if they are missing
-//    QMap<FileProperty, QVariant> properties(info.properties());
-//    if (!properties.contains(INF_SOFTWARE)) {
-//        // add our Kwave Software tag
-//	const KAboutData *about_data = KGlobal::instance()->aboutData();
-//	QString software = about_data->programName() + "-" +
-//	    about_data->version() +
-//	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-//	QVariant value = software.utf8();
-//	debug("WavEncoder: adding software tag: '%s'", software.data());
-//	properties.insert(INF_SOFTWARE, value);
-//    }
-//    if (!properties.contains(INF_CREATION_DATE)) {
-//	// add a date tag
-//	QDate now(QDate::currentDate());
-//	QString date;
-//	date = date.sprintf("%04d-%02d-%02d",
-//	    now.year(), now.month(), now.day());
-//	QVariant value = date.utf8();
-//	debug("WavEncoder: adding date tag: '%s'", date.data());
-//	properties.insert(INF_CREATION_DATE, value);
-//    }
-//
-//    // open the output device
-//    if (!dst.open(IO_ReadWrite | IO_Truncate)) {
-//	KMessageBox::error(widget,
-//	    i18n("Unable to open the file for saving!"));
-//	return false;
-//    }
-//    AFfilesetup setup;
-//    setup = afNewFileSetup();
-//    afInitFileFormat(setup, AF_FILE_WAVE);
-//    afInitChannels(setup, AF_DEFAULT_TRACK, tracks);
-//    afInitSampleFormat(setup, AF_DEFAULT_TRACK, sample_format, bits);
-//    afInitCompression(setup, AF_DEFAULT_TRACK, compression);
-//    afInitRate (setup, AF_DEFAULT_TRACK, rate);
-//
-//    VirtualAudioFile outfile(dst);
-//    outfile.open(&outfile, setup);
-//
-//    AFfilehandle fh = outfile.handle();
-//    if (!fh || (outfile.lastError() >= 0)) {
-//	QString reason;
-//
-//	switch (outfile.lastError()) {
-//	    case AF_BAD_NOT_IMPLEMENTED:
-//	        reason = i18n("format or function is not implemented") /*+
-//		         "\n("+format_name+")"*/;
-//	        break;
-//	    case AF_BAD_MALLOC:
-//	        reason = i18n("out of memory");
-//	        break;
-//	    case AF_BAD_HEADER:
-//	        reason = i18n("file header is damaged");
-//	        break;
-//	    case AF_BAD_CODEC_TYPE:
-//	        reason = i18n("invalid codec type")/* +
-//		         "\n("+format_name+")"*/;
-//	        break;
-//	    case AF_BAD_OPEN:
-//	        reason = i18n("opening the file failed");
-//	        break;
-//	    case AF_BAD_READ:
-//	        reason = i18n("read access failed");
-//	        break;
-//	    case AF_BAD_SAMPFMT:
-//	        reason = i18n("invalid sample format");
-//	        break;
-//	    default:
-//		reason = reason.number(outfile.lastError());
-//	}
-//
-//	QString text= i18n("An error occurred while opening the "\
-//	    "file:\n'%1'").arg(reason);
-//	KMessageBox::error(widget, text);
-//
-//	return false;
-//    }
-//
-//    // set up libaudiofile to produce Kwave's internal sample format
-//#if defined(IS_BIG_ENDIAN)
-//    afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_BIGENDIAN);
-//#else
-//    afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);
-//#endif
-//    afSetVirtualSampleFormat(fh, AF_DEFAULT_TRACK,
-//	AF_SAMPFMT_TWOSCOMP, SAMPLE_STORAGE_BITS);
-//
-//    // allocate a buffer for input data
-//    const unsigned int frame_size = (unsigned int)afGetVirtualFrameSize(fh,
-//	AF_DEFAULT_TRACK, 1);
-//    const unsigned int buffer_frames = (8*1024);
-//    int32_t *buffer = (int32_t *)malloc(buffer_frames * frame_size);
-//    ASSERT(buffer);
-//    if (!buffer) return false;
-//
-//    // read in from the sample readers
-//    unsigned int rest = length;
-//    while (rest) {
-//	// merge the tracks into the sample buffer
-//	int32_t *p = buffer;
-//	unsigned int count = buffer_frames;
-//	if (rest < count) count = rest;
-//
-//	for (unsigned int pos=0; pos < count; pos++) {
-//	    for (unsigned int track = 0; track < tracks; track++) {
-//		SampleReader *stream = src[track];
-//		sample_t sample;
-//		(*stream) >> sample;
-//
-//		// the following cast is only necessary if
-//		// sample_t is not equal to a 32bit int
-//		register __uint32_t act = static_cast<__uint32_t>(sample);
-//		act *= (1 << (SAMPLE_STORAGE_BITS - SAMPLE_BITS));
-//		*p = act;
-//		p++;
-//	    }
-//	}
-//
-//	// write out through libaudiofile
-//	count = afWriteFrames(fh, AF_DEFAULT_TRACK, buffer, count);
-//
-//	// break if eof reached or disk full
-//	ASSERT(count);
-//	if (!count) break;
-//
-//	rest -= count;
-//
-//	// abort if the user pressed cancel
-//	// --> this would leave a corrupted file !!!
-//	if (src.isCancelled()) break;
-//    }
-//
-//    // close the audiofile stuff, we need control over the
-//    // fixed-up file on our own
-//    outfile.close();
-//
-//    // create a list of chunk names and properties for the INFO chunk
-//    QMap<QCString, QCString> info_chunks;
-//    unsigned int info_size = 0;
-//    QMap<FileProperty, QVariant>::Iterator it;
-//    for (it=properties.begin(); it!=properties.end(); ++it) {
-//	FileProperty property = it.key();
-//	if (!m_property_map.containsProperty(property)) continue;
-//
-//	QCString chunk_id = m_property_map.findProperty(property);
-//	QCString value = QVariant(properties[property]).asString().utf8();
-//	info_chunks.insert(chunk_id, value);
-//	info_size += 4 + 4 + value.length();
-//	if (value.length() & 0x01) info_size++;
-//    }
-//
-//    // if there are properties to save, create a LIST chunk
-//    if (!info_chunks.isEmpty()) {
-//	u_int32_t size;
-//
-//	// enlarge the main RIFF chunk by the size of the LIST chunk
-//	info_size += 4 + 4 + 4; // add the size of LIST(INFO)
-//	dst.at(4);
-//	dst.readBlock((char*)&size, 4);
-//#if defined(IS_BIG_ENDIAN)
-//	size = bswap_32(bswap_32(size) + info_size);
-//#else
-//	size += info_size;
-//#endif
-//	dst.at(4);
-//	dst.writeBlock((char*)&size, 4);
-//
-//	// add the LIST(INFO) chunk itself
-//	dst.at(dst.size());
-//	dst.writeBlock("LIST", 4);
-//#if defined(IS_BIG_ENDIAN)
-//	size = bswap_32(info_size - 8);
-//#else
-//	size = info_size - 8;
-//#endif
-//	dst.writeBlock((char*)&size, 4);
-//	dst.writeBlock("INFO", 4);
-//
-//	// append the chunks to the end of the file
-//	QMap<QCString, QCString>::Iterator it;
-//	for (it=info_chunks.begin(); it != info_chunks.end(); ++it) {
-//	    QCString name  = it.key();
-//	    QCString value = it.data();
-//
-//	    dst.writeBlock(name.data(), 4); // chunk name
-//	    u_int32_t size = value.length(); // length of the chunk
-//	    if (size & 0x01) size++;
-//#if defined(IS_BIG_ENDIAN)
-//	    size = bswap_32(size);
-//#endif
-//	    dst.writeBlock((char*)&size, 4);
-//	    dst.writeBlock(value.data(), value.length());
-//	    if (value.length() & 0x01) {
-//		const char zero = 0;
-//		dst.writeBlock(&zero, 1);
-//	    }
-//	}
-//    }
-//
-//    // clean up the sample buffer
-//    if (buffer) free(buffer);
-//    afFreeFileSetup(setup);
+    #define BUFFER_SIZE 1024
+
+    ogg_stream_state os; // take physical pages, weld into a logical
+                         // stream of packets
+    ogg_page         og; // one Ogg bitstream page.  Vorbis packets are inside
+    ogg_packet       op; // one raw packet of data for decode
+    vorbis_info      vi; // struct that stores all the static vorbis bitstream
+			 // settings
+    vorbis_comment   vc; // struct that stores all the user comments
+    vorbis_dsp_state vd; // central working state for the packet->PCM decoder
+    vorbis_block     vb; // local working space for packet->PCM decode
+
+    bool eos = false;
+    int ret;
+
+    // get info
+    const unsigned int tracks = info.tracks();
+    const long rate = (long)info.rate();
+    
+    // some checks first
+    ASSERT(tracks < 255);
+    if (tracks > 255) return false;
+
+    /********** Encode setup ************/
+    vorbis_info_init(&vi);
+
+    /* choose an encoding mode.  A few possibilities commented out, one
+       actually used: */
+
+    /*********************************************************************
+     Encoding using a VBR quality mode.  The usable range is -.1
+     (lowest quality, smallest file) to 1. (highest quality, largest file).
+     Example quality mode .4: 44kHz stereo coupled, roughly 128kbps VBR
+
+     ret = vorbis_encode_init_vbr(&vi,2,44100,.4);
+
+     ---------------------------------------------------------------------
+
+     Encoding using an average bitrate mode (ABR).
+     example: 44kHz stereo coupled, average 128kbps VBR
+
+     ret = vorbis_encode_init(&vi,2,44100,-1,128000,-1);
+
+     ---------------------------------------------------------------------
+
+     Encode using a qulity mode, but select that quality mode by asking for
+     an approximate bitrate.  This is not ABR, it is true VBR, but selected
+     using the bitrate interface, and then turning bitrate management off:
+
+     ret = ( vorbis_encode_setup_managed(&vi,2,44100,-1,128000,-1) ||
+             vorbis_encode_ctl(&vi,OV_ECTL_RATEMANAGE_AVG,NULL) ||
+             vorbis_encode_setup_init(&vi));
+
+     *********************************************************************/
+
+    ret = vorbis_encode_init_vbr(&vi, tracks, rate, .5);
+
+    /* do not continue if setup failed; this can happen if we ask for a
+       mode that libVorbis does not support (eg, too low a bitrate, etc,
+       will return 'OV_EIMPL') */
+    if (ret) {
+	KMessageBox::sorry(widget, i18n("One or more encoding "
+	    "parameters are not supported. Please change the "
+	    "settings and try again..."));
+	return false;
+    }
+
+    // add all supported properties as file comments
+    vorbis_comment_init(&vc);
+    encodeProperties(info, &vc);
+    
+    // set up the analysis state and auxiliary encoding storage
+    vorbis_analysis_init(&vd, &vi);
+    vorbis_block_init(&vd, &vb);
+
+    // set up our packet->stream encoder
+
+    // pick a random serial number; that way we can more likely build
+    // chained streams just by concatenation
+    srand(time(NULL));
+    ogg_stream_init(&os, rand());
+
+    // Vorbis streams begin with three headers; the initial header (with
+    // most of the codec setup parameters) which is mandated by the Ogg
+    // bitstream spec.  The second header holds any comment fields.  The
+    // third header holds the bitstream codebook.  We merely need to
+    // make the headers, then pass them to libvorbis one at a time;
+    // libvorbis handles the additional Ogg bitstream constraints
+    {
+	ogg_packet header;
+	ogg_packet header_comm;
+	ogg_packet header_code;
+	
+	vorbis_analysis_headerout(&vd,&vc,&header,&header_comm,&header_code);
+	ogg_stream_packetin(&os,&header); // automatically placed in its own
+					  // page
+	ogg_stream_packetin(&os,&header_comm);
+	ogg_stream_packetin(&os,&header_code);
+
+	// This ensures the actual audio data will start on a
+	// new page, as per spec
+	while (!eos) {
+	    if (!ogg_stream_flush(&os, &og)) break;
+	    dst.writeBlock((char*)og.header, og.header_len);
+	    dst.writeBlock((char*)og.body, og.body_len);
+	}
+    }
+
+    while (!eos) {
+	if (src.eof()) {
+	    // end of file.  this can be done implicitly in the mainline,
+	    // but it's easier to see here in non-clever fashion.
+	    // Tell the library we're at end of stream so that it can handle
+	    // the last frame and mark end of stream in the output properly
+	    vorbis_analysis_wrote(&vd, 0);
+	} else {
+	    // data to encode
+	
+	    // expose the buffer to submit data
+	    float **buffer = vorbis_analysis_buffer(&vd, BUFFER_SIZE);
+	    unsigned int pos;
+	    sample_t s;
+	    for (pos=0; (pos < BUFFER_SIZE)  && !src.eof(); ++pos) {
+		for (unsigned int track = 0; (track < tracks); ++track) {
+		    *(src[track]) >> s;
+		    buffer[track][pos] = s;
+		}
+	    }
+	    
+	    // tell the library how much we actually submitted
+	    vorbis_analysis_wrote(&vd, pos);
+	}
+	
+	// vorbis does some data preanalysis, then divvies up blocks for
+	// more involved (potentially parallel) processing.  Get a single
+	// block for encoding now
+	while(vorbis_analysis_blockout(&vd, &vb) == 1) {
+	    // analysis, assume we want to use bitrate management
+	    vorbis_analysis(&vb, NULL);
+	    vorbis_bitrate_addblock(&vb);
+	
+	    while(vorbis_bitrate_flushpacket(&vd, &op)) {
+		// weld the packet into the bitstream
+		ogg_stream_packetin(&os, &op);
+		
+		// write out pages (if any)
+		while (!eos) {
+		    int result = ogg_stream_pageout(&os,&og);
+		    if (!result) break;
+		    dst.writeBlock((char*)og.header, og.header_len);
+		    dst.writeBlock((char*)og.body, og.body_len);
+		
+		    // this could be set above, but for illustrative
+		    // purposes, I do it here (to show that vorbis
+		    // does know where the stream ends)
+		    if (ogg_page_eos(&og)) eos=true;
+		}
+	    }
+	}
+    }
+
+    // clean up and exit.  vorbis_info_clear() must be called last
+    ogg_stream_clear(&os);
+    vorbis_block_clear(&vb);
+    vorbis_dsp_clear(&vd);
+    vorbis_comment_clear(&vc);
+    vorbis_info_clear(&vi);
+    // ogg_page and ogg_packet structs always point to storage in
+    // libvorbis.  They're never freed or manipulated directly
 
     return true;
 }

@@ -43,6 +43,15 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Identifies the name of the author of the original\n"
              "subject of the file."
              "\nExample: 'van Beethoven, Ludwig'"));
+    append(INF_BITRATE_LOWER, FP_NO_LOAD_SAVE,
+        i18n("Lower Bitrate"),
+        i18n("Specifies the lower limit in a VBR bitstream."));
+    append(INF_BITRATE_NOMINAL, FP_NO_LOAD_SAVE,
+        i18n("Bitrate"),
+        i18n("Nominal bitrate of the audio stream in bits per second"));
+    append(INF_BITRATE_UPPER, FP_NO_LOAD_SAVE,
+        i18n("Upper Bitrate"),
+        i18n("Specifies the upper limit in a VBR bitstream."));
     append(INF_CD, 0,
         i18n("CD"),
         i18n("Number of the CD, if the source is \nan album of more CDROMs"));
@@ -116,12 +125,9 @@ void FileInfo::PropertyTypesMap::fill()
         i18n("Describes the original subject of the file,\n"
              "where it was first recorded."
              "\nExample: 'orchester'"));
-    append(INF_MIMETYPE, FP_READONLY,
+    append(INF_MIMETYPE, FP_READONLY | FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Mime Type"),
         i18n("Mime type of the file format"));
-    append(INF_MPEG_BITRATE, 0,
-        i18n("Bitrate"),
-        i18n("Bitrate of the MPEG stream in bits per second"));
     append(INF_MPEG_EMPHASIS, 0,
         i18n("Emphasis"),
         i18n("Audio emphasis mode"));

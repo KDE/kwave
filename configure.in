@@ -60,20 +60,6 @@ dnl AC_PROG_CXX
 dnl switch to C++
 AC_LANG_CPLUSPLUS
 
-dnl check if the c++ compiler is new enough to support references to functions
-AC_MSG_CHECKING("whether $CXX supports references to functions")
-AC_TRY_LINK(
-#include <sys/resource.h>
-,
-    typedef int(function_t)(int);
-    class dummy {
-    public:
-        function_t &function(int index);
-    };
-,
-AC_MSG_RESULT("yes")
-,AC_MSG_ERROR(FAILED! please get a newer C++ compiler))
-
 dnl check if nls is wanted
 AM_KDE_WITH_NLS(yes)
 
@@ -110,7 +96,21 @@ dnl ### AC_AIX
 dnl ### AC_MINIX
 dnl 
 dnl for NLS support. Call them in this order!
-dnl ### AC_LANG_CPLUSPLUS dnl switch to C++
+
+dnl check if the c++ compiler is new enough to support references to functions
+AC_LANG_CPLUSPLUS dnl switch to C++
+AC_MSG_CHECKING("whether $CXX supports references to functions")
+AC_TRY_LINK(
+#include <sys/resource.h>
+,
+    typedef int(function_t)(int);
+    class dummy {
+    public:
+        function_t &function(int index);
+    };
+,
+AC_MSG_RESULT("yes")
+,AC_MSG_ERROR(FAILED! please get a newer C++ compiler))
 
 AC_TYPE_SIZE_T
 AC_CHECK_SIZEOF(char,1)

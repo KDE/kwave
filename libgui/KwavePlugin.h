@@ -33,6 +33,7 @@ class MultiTrackWriter;
 class PluginManager;
 class PluginContext;
 class SampleReader;
+class SignalManager;
 class TopWidget;
 class QStringList;
 
@@ -44,9 +45,6 @@ class QStringList;
 	class_name *np = new class_name(c); \
 	return np; \
     }
-
-#define BUTTON_OK     i18n("&Ok")
-#define BUTTON_CANCEL i18n("&Cancel")
 
 /**
  * Generic class that should be used for all types of Kwave plugins.
@@ -154,6 +152,9 @@ public:
      */
     PluginManager &manager();
 
+    /** Returns a reference to the current signal manager */
+    SignalManager &signalManager();
+
     /**
      * Returns the parent widget of the plugin. This normally should be
      * a TopWidget of the Kwave main program.
@@ -244,6 +245,14 @@ public:
      * @return time formatted as user-readable string
      */
     static QString ms2string(double ms, int precision = 6);
+
+    /**
+     * Converts the given number into a string with the current locale's
+     * separator between the thousands.
+     * @param number the unsigned number to be converted
+     * @return QString with the number
+     */
+    static QString dottedNumber(unsigned int number);
 
 protected:
 

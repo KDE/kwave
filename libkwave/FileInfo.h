@@ -77,7 +77,21 @@ public:
     virtual ~FileInfo();
 
     /** Copy everything from another FileInfo */
-    virtual void copy(const FileInfo &source);
+    void copy(const FileInfo &source);
+
+    /** Return true if the info is equal to another info */
+    bool equals(const FileInfo &other);
+
+    /** Assignment operator */
+    inline FileInfo operator = (const FileInfo &source) {
+	copy(source);
+	return *this;
+    };
+
+    /** Compare operator */
+    inline bool operator == (const FileInfo &other) {
+	return equals(other);
+    }
 
     /** returns the number of samples */
     inline unsigned int length() const { return m_length; };
@@ -156,10 +170,10 @@ public:
     };
 
     /** Clears the list of all properties. */
-    virtual void clear();
+    void clear();
 
     /** dumps all properties to stdout, useful for debugging */
-    virtual void dump();
+    void dump();
 
 private:
 

@@ -25,7 +25,7 @@ email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
 lfv_open_groups=
 make_options=\s-j1
-makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am,plugins/amplifyfree/Makefile.am,plugins/noise/Makefile.am,plugins/codec_wav/Makefile.am,plugins/common/Makefile.am,plugins/codec_audiofile/Makefile.am,plugins/selectrange/Makefile.am
+makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am,plugins/amplifyfree/Makefile.am,plugins/noise/Makefile.am,plugins/codec_wav/Makefile.am,plugins/common/Makefile.am,plugins/codec_audiofile/Makefile.am,plugins/selectrange/Makefile.am,plugins/fileinfo/Makefile.am
 modifyMakefiles=false
 project_name=Kwave
 project_type=normal_kde
@@ -295,7 +295,7 @@ type=HEADER
 
 [kwave/Makefile.am]
 dist=true
-files=kwave/MouseMark.cpp,kwave/menus.config,kwave/Makefile.am,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/FFTContainer.cpp,kwave/FFTContainer.h,kwave/TopWidget.h,kwave/TopWidget.cpp,kwave/SignalWidget.h,kwave/SignalWidget.cpp,kwave/SignalManager.h,kwave/SignalManager.cpp,kwave/FFTWindow.cpp,kwave/PluginManager.h,kwave/PluginManager.cpp,kwave/PlaybackController.h,kwave/PlaybackController.cpp,kwave/PitchWindow.h,kwave/PitchWindow.cpp,kwave/PitchWidget.h,kwave/PitchWidget.cpp,kwave/PitchContainer.h,kwave/PitchContainer.cpp,kwave/MouseMark.h,kwave/MainWidget.h,kwave/MainWidget.cpp,kwave/main.cpp,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/ImageView.h,kwave/ImageView.cpp,kwave/FFTWindow.h,kwave/UndoAction.h,kwave/UndoTransaction.h,kwave/UndoTransaction.cpp,kwave/UndoModifyAction.h,kwave/UndoModifyAction.cpp,kwave/UndoTransactionGuard.h,kwave/UndoTransactionGuard.cpp,kwave/UndoSelection.h,kwave/UndoSelection.cpp,kwave/UndoDeleteAction.h,kwave/UndoDeleteAction.cpp,kwave/UndoInsertAction.h,kwave/UndoInsertAction.cpp,kwave/UndoInsertTrack.cpp,kwave/UndoInsertTrack.h,kwave/UndoDeleteTrack.h,kwave/UndoDeleteTrack.cpp,kwave/kwave.desktop,kwave/MemoryManager.h,kwave/MemoryManager.cpp,kwave/SwapFile.h,kwave/SwapFile.cpp,kwave/CodecManager.h,kwave/CodecManager.cpp,kwave/x-aifc.desktop,kwave/x-ircam.desktop
+files=kwave/MouseMark.cpp,kwave/menus.config,kwave/Makefile.am,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/FFTContainer.cpp,kwave/FFTContainer.h,kwave/TopWidget.h,kwave/TopWidget.cpp,kwave/SignalWidget.h,kwave/SignalWidget.cpp,kwave/SignalManager.h,kwave/SignalManager.cpp,kwave/FFTWindow.cpp,kwave/PluginManager.h,kwave/PluginManager.cpp,kwave/PlaybackController.h,kwave/PlaybackController.cpp,kwave/PitchWindow.h,kwave/PitchWindow.cpp,kwave/PitchWidget.h,kwave/PitchWidget.cpp,kwave/PitchContainer.h,kwave/PitchContainer.cpp,kwave/MouseMark.h,kwave/MainWidget.h,kwave/MainWidget.cpp,kwave/main.cpp,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/ImageView.h,kwave/ImageView.cpp,kwave/FFTWindow.h,kwave/UndoAction.h,kwave/UndoTransaction.h,kwave/UndoTransaction.cpp,kwave/UndoModifyAction.h,kwave/UndoModifyAction.cpp,kwave/UndoTransactionGuard.h,kwave/UndoTransactionGuard.cpp,kwave/UndoSelection.h,kwave/UndoSelection.cpp,kwave/UndoDeleteAction.h,kwave/UndoDeleteAction.cpp,kwave/UndoInsertAction.h,kwave/UndoInsertAction.cpp,kwave/UndoInsertTrack.cpp,kwave/UndoInsertTrack.h,kwave/UndoDeleteTrack.h,kwave/UndoDeleteTrack.cpp,kwave/kwave.desktop,kwave/MemoryManager.h,kwave/MemoryManager.cpp,kwave/SwapFile.h,kwave/SwapFile.cpp,kwave/CodecManager.h,kwave/CodecManager.cpp,kwave/x-aifc.desktop,kwave/x-ircam.desktop,kwave/UndoFileInfo.h,kwave/UndoFileInfo.cpp
 install=false
 install_location=
 sub_dirs=libgui,pics,toolbar
@@ -458,6 +458,18 @@ install_location=
 type=SOURCE
 
 [kwave/UndoDeleteTrack.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[kwave/UndoFileInfo.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[kwave/UndoFileInfo.h]
 dist=true
 install=false
 install_location=
@@ -864,18 +876,6 @@ install=false
 install_location=
 type=HEADER
 
-[libgui/Dialog.cpp]
-dist=true
-install=false
-install_location=
-type=SOURCE
-
-[libgui/Dialog.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
 [libgui/FFTWidget.cpp]
 dist=true
 install=false
@@ -950,7 +950,7 @@ type=HEADER
 
 [libgui/Makefile.am]
 dist=true
-files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am,libgui/ConfirmCancelProxy.h,libgui/ConfirmCancelProxy.cpp,libgui/OverViewCache.h,libgui/OverViewCache.cpp,libgui/KwaveFileDialog.h,libgui/KwaveFileDialog.cpp
+files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp,libgui/Makefile.am,libgui/ConfirmCancelProxy.h,libgui/ConfirmCancelProxy.cpp,libgui/OverViewCache.h,libgui/OverViewCache.cpp,libgui/KwaveFileDialog.h,libgui/KwaveFileDialog.cpp
 install=false
 install_location=
 sub_dirs=
@@ -1732,7 +1732,7 @@ dist=true
 files=plugins/Makefile.am
 install=false
 install_location=
-sub_dirs=dialogs,sonagram,playback,zero,memory,newsignal,template,amplifyfree,noise,about,codec_wav,common,codec_audiofile,selectrange
+sub_dirs=dialogs,sonagram,playback,zero,memory,newsignal,template,amplifyfree,noise,about,codec_wav,common,codec_audiofile,selectrange,fileinfo
 type=DATA
 
 [plugins/about/AboutDialog.cpp]
@@ -2040,6 +2040,43 @@ type=static_library
 
 [plugins/dialogs/sonagram/Makefile.am]
 files=
+sub_dirs=
+type=static_library
+
+[plugins/fileinfo/FileInfoDialog.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/fileinfo/FileInfoDialog.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/fileinfo/FileInfoDlg.ui]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/fileinfo/FileInfoPlugin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/fileinfo/FileInfoPlugin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/fileinfo/Makefile.am]
+files=plugins/fileinfo/FileInfoDialog.cpp,plugins/fileinfo/FileInfoDialog.h,plugins/fileinfo/FileInfoDlg.ui,plugins/fileinfo/FileInfoPlugin.cpp,plugins/fileinfo/FileInfoPlugin.h
+sharedlib_LDFLAGS=-version-info 0:0:0
+sharedlib_rootname=fileinfo
 sub_dirs=
 type=static_library
 

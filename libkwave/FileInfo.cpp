@@ -160,6 +160,23 @@ FileInfo::~FileInfo()
 }
 
 /***************************************************************************/
+bool FileInfo::equals(const FileInfo &other)
+{
+    if (m_bits   != other.bits())   return false;
+    if (m_length != other.length()) return false;
+    if (m_rate   != other.rate())   return false;
+    if (m_tracks != other.tracks()) return false;
+    if (m_properties.count() != other.properties().count()) return false;
+
+    QMap<FileProperty, QVariant>::Iterator it;
+    for (it=m_properties.begin(); it!=m_properties.end(); ++it) {
+	if (it.data() != other.get(it.key())) return false;
+    }
+
+    return true;
+}
+
+/***************************************************************************/
 void FileInfo::copy(const FileInfo &source)
 {
     m_length     = source.length();

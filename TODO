@@ -34,6 +34,10 @@ o virtual memory: multiple swap directories
 
 o install a new_handler() for cases in which we run out of memory
 
+o move undo classes into libkwave
+
+o move KwavePlugin from libgui to libkwave
+
 o implementation of locking, see SampleLock
 
 o open file dialog: add a preview widget that shows info about the file

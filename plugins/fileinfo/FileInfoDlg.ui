@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>540</width>
-            <height>337</height>
+            <height>376</height>
         </rect>
     </property>
     <property name="minimumSize">
@@ -63,9 +63,130 @@
                     <property name="spacing">
                         <number>6</number>
                     </property>
+                    <widget class="QLabel" row="1" column="0">
+                        <property name="name">
+                            <cstring>lblFileSize</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Size:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="4" column="0">
+                        <property name="name">
+                            <cstring>lblRate</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Sample Rate:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="6" column="0">
+                        <property name="name">
+                            <cstring>lblTracks</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Tracks:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="5" column="0">
+                        <property name="name">
+                            <cstring>lblResolution</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Resolution:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="7" column="0">
+                        <property name="name">
+                            <cstring>lblLength</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>MShape</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>MShadow</enum>
+                        </property>
+                        <property name="text">
+                            <string>Length:</string>
+                        </property>
+                    </widget>
+                    <spacer row="7" column="1">
+                        <property name="name">
+                            <cstring>Spacer95_3_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QFrame" row="8" column="0" rowspan="1" colspan="3">
+                        <property name="name">
+                            <cstring>Frame3_2</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>HLine</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Sunken</enum>
+                        </property>
+                    </widget>
+                    <widget class="QFrame" row="2" column="0" rowspan="2" colspan="3">
+                        <property name="name">
+                            <cstring>Frame3</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>HLine</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Sunken</enum>
+                        </property>
+                    </widget>
+                    <spacer row="9" column="2">
+                        <property name="name">
+                            <cstring>Spacer2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                    </spacer>
+                    <widget class="QLineEdit" row="0" column="2">
+                        <property name="name">
+                            <cstring>edFileName</cstring>
+                        </property>
+                        <property name="readOnly">
+                            <bool>true</bool>
+                        </property>
+                    </widget>
+                    <spacer row="1" column="1">
+                        <property name="name">
+                            <cstring>Spacer95_3_3_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
                     <widget class="QLabel" row="0" column="0">
                         <property name="name">
-                            <cstring>TextLabel1_3</cstring>
+                            <cstring>lblFileName</cstring>
                         </property>
                         <property name="text">
                             <string>Filename:</string>
@@ -88,44 +209,23 @@
                             </size>
                         </property>
                     </spacer>
-                    <widget class="QLineEdit" row="0" column="2" rowspan="1" colspan="2">
+                    <spacer row="6" column="1">
                         <property name="name">
-                            <cstring>edFilename</cstring>
-                        </property>
-                        <property name="readOnly">
-                            <bool>true</bool>
-                        </property>
-                    </widget>
-                    <spacer row="8" column="2">
-                        <property name="name">
-                            <cstring>Spacer2</cstring>
+                            <cstring>Spacer95_3</cstring>
                         </property>
                         <property name="orientation">
-                            <enum>Vertical</enum>
+                            <enum>Horizontal</enum>
                         </property>
                         <property name="sizeType">
-                            <enum>Expanding</enum>
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
                         </property>
                     </spacer>
-                    <widget class="QFrame" row="7" column="0" rowspan="1" colspan="4">
-                        <property name="name">
-                            <cstring>Frame3_2</cstring>
-                        </property>
-                        <property name="frameShape">
-                            <enum>HLine</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>Sunken</enum>
-                        </property>
-                    </widget>
-                    <widget class="QLabel" row="6" column="0">
-                        <property name="name">
-                            <cstring>lblTracks</cstring>
-                        </property>
-                        <property name="text">
-                            <string>Tracks:</string>
-                        </property>
-                    </widget>
                     <spacer row="5" column="1">
                         <property name="name">
                             <cstring>Spacer95_2</cstring>
@@ -160,17 +260,9 @@
                             </size>
                         </property>
                     </spacer>
-                    <widget class="QLabel" row="5" column="0">
+                    <widget class="QLayoutWidget" row="3" column="2" rowspan="2" colspan="1">
                         <property name="name">
-                            <cstring>lblResolution</cstring>
-                        </property>
-                        <property name="text">
-                            <string>Resolution:</string>
-                        </property>
-                    </widget>
-                    <widget class="QLayoutWidget" row="6" column="3">
-                        <property name="name">
-                            <cstring>Layout15</cstring>
+                            <cstring>Layout7</cstring>
                         </property>
                         <hbox>
                             <property name="name">
@@ -182,95 +274,76 @@
                             <property name="spacing">
                                 <number>6</number>
                             </property>
-                            <widget class="QLabel">
+                            <widget class="QComboBox">
+                                <item>
+                                    <property name="text">
+                                        <string>8000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>10000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>11025</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>12000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>16000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>22050</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>32000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>44100</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>48000</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>96000</string>
+                                    </property>
+                                </item>
                                 <property name="name">
-                                    <cstring>lblTracksVerbose</cstring>
+                                    <cstring>cbSampleRate</cstring>
                                 </property>
-                                <property name="text">
-                                    <string>%1</string>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>100</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="editable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="currentItem">
+                                    <number>7</number>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
                                 </property>
                             </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>Spacer99_2</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                            </spacer>
-                        </hbox>
-                    </widget>
-                    <widget class="QFrame" row="2" column="0" rowspan="1" colspan="4">
-                        <property name="name">
-                            <cstring>Frame3</cstring>
-                        </property>
-                        <property name="frameShape">
-                            <enum>HLine</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>Sunken</enum>
-                        </property>
-                    </widget>
-                    <widget class="QLabel" row="3" column="0" rowspan="2" colspan="1">
-                        <property name="name">
-                            <cstring>lblRate</cstring>
-                        </property>
-                        <property name="text">
-                            <string>Sample Rate:</string>
-                        </property>
-                    </widget>
-                    <widget class="QLayoutWidget" row="5" column="3">
-                        <property name="name">
-                            <cstring>Layout14_2</cstring>
-                        </property>
-                        <hbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <property name="margin">
-                                <number>0</number>
-                            </property>
-                            <property name="spacing">
-                                <number>6</number>
-                            </property>
-                            <widget class="QLabel">
-                                <property name="name">
-                                    <cstring>lblBits_2</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>bit</string>
-                                </property>
-                            </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>Spacer100_2</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                            </spacer>
-                        </hbox>
-                    </widget>
-                    <widget class="QLayoutWidget" row="3" column="3" rowspan="2" colspan="1">
-                        <property name="name">
-                            <cstring>Layout13</cstring>
-                        </property>
-                        <hbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <property name="margin">
-                                <number>0</number>
-                            </property>
-                            <property name="spacing">
-                                <number>6</number>
-                            </property>
                             <widget class="QLabel">
                                 <property name="name">
                                     <cstring>lblSamplesPerSecond_2</cstring>
@@ -292,155 +365,152 @@
                             </spacer>
                         </hbox>
                     </widget>
-                    <widget class="QSpinBox" row="6" column="2">
+                    <widget class="QLayoutWidget" row="5" column="2">
                         <property name="name">
-                            <cstring>sbTracks</cstring>
+                            <cstring>Layout8</cstring>
                         </property>
-                        <property name="minValue">
-                            <number>1</number>
-                        </property>
-                        <property name="value">
-                            <number>2</number>
-                        </property>
-                        <property name="whatsThis" stdset="0">
-                            <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks of the new signal. If you are not sure now, you can add or delete tracks later in the program.</string>
-                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>0</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QSpinBox">
+                                <property name="name">
+                                    <cstring>sbResolution</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>100</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maxValue">
+                                    <number>24</number>
+                                </property>
+                                <property name="minValue">
+                                    <number>8</number>
+                                </property>
+                                <property name="lineStep">
+                                    <number>8</number>
+                                </property>
+                                <property name="value">
+                                    <number>16</number>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as it's own internal resolution to give the best results when processing the audio data.</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>lblBits_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>bit</string>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>Spacer100_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                            </spacer>
+                        </hbox>
                     </widget>
-                    <widget class="QSpinBox" row="5" column="2">
+                    <widget class="QLayoutWidget" row="6" column="2">
                         <property name="name">
-                            <cstring>sbResolution</cstring>
+                            <cstring>Layout9</cstring>
                         </property>
-                        <property name="maxValue">
-                            <number>24</number>
-                        </property>
-                        <property name="minValue">
-                            <number>8</number>
-                        </property>
-                        <property name="lineStep">
-                            <number>8</number>
-                        </property>
-                        <property name="value">
-                            <number>16</number>
-                        </property>
-                        <property name="whatsThis" stdset="0">
-                            <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as it's own internal resolution to give the best results when processing the audio data.</string>
-                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>0</number>
+                            </property>
+                            <property name="spacing">
+                                <number>6</number>
+                            </property>
+                            <widget class="QSpinBox">
+                                <property name="name">
+                                    <cstring>sbTracks</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>100</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="minValue">
+                                    <number>1</number>
+                                </property>
+                                <property name="value">
+                                    <number>2</number>
+                                </property>
+                                <property name="whatsThis" stdset="0">
+                                    <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks of the new signal. If you are not sure now, you can add or delete tracks later in the program.</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>lblTracksVerbose</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>%1</string>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>Spacer99_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                            </spacer>
+                        </hbox>
                     </widget>
-                    <widget class="QComboBox" row="3" column="2" rowspan="2" colspan="1">
-                        <item>
-                            <property name="text">
-                                <string>8000</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property name="text">
-                                <string>10000</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property name="text">
-                                <string>11025</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property name="text">
-                                <string>12000</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property name="text">
-                                <string>16000</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property name="text">
-                                <string>22050</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property name="text">
-                                <string>32000</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property name="text">
-                                <string>44100</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property name="text">
-                                <string>48000</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property name="text">
-                                <string>96000</string>
-                            </property>
-                        </item>
+                    <widget class="QLineEdit" row="7" column="2">
                         <property name="name">
-                            <cstring>cbSampleRate</cstring>
+                            <cstring>txtLength</cstring>
                         </property>
-                        <property name="editable">
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>3</hsizetype>
+                                <vsizetype>0</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
+                        </property>
+                        <property name="alignment">
+                            <set>AlignLeft</set>
+                        </property>
+                        <property name="readOnly">
                             <bool>true</bool>
                         </property>
-                        <property name="currentItem">
-                            <number>7</number>
-                        </property>
-                        <property name="whatsThis" stdset="0">
-                            <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
-                        </property>
                     </widget>
-                    <spacer row="6" column="1">
+                    <widget class="QLayoutWidget" row="1" column="2">
                         <property name="name">
-                            <cstring>Spacer95_3</cstring>
-                        </property>
-                        <property name="orientation">
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property name="sizeType">
-                            <enum>Fixed</enum>
-                        </property>
-                        <property name="sizeHint">
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget class="QLabel" row="1" column="0">
-                        <property name="name">
-                            <cstring>TextLabel2_2</cstring>
-                        </property>
-                        <property name="frameShape">
-                            <enum>MShape</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>MShadow</enum>
-                        </property>
-                        <property name="text">
-                            <string>Length:</string>
-                        </property>
-                    </widget>
-                    <spacer row="1" column="1">
-                        <property name="name">
-                            <cstring>Spacer95_3_2</cstring>
-                        </property>
-                        <property name="orientation">
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property name="sizeType">
-                            <enum>Fixed</enum>
-                        </property>
-                        <property name="sizeHint">
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget class="QLayoutWidget" row="1" column="2" rowspan="1" colspan="2">
-                        <property name="name">
-                            <cstring>Layout13</cstring>
+                            <cstring>Layout10</cstring>
                         </property>
                         <hbox>
                             <property name="name">
@@ -454,18 +524,7 @@
                             </property>
                             <widget class="QLineEdit">
                                 <property name="name">
-                                    <cstring>txtLength</cstring>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>3</hsizetype>
-                                        <vsizetype>0</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="alignment">
-                                    <set>AlignLeft</set>
+                                    <cstring>edFileSize</cstring>
                                 </property>
                                 <property name="readOnly">
                                     <bool>true</bool>
@@ -586,11 +645,12 @@
     <tabstop>btOK</tabstop>
     <tabstop>btCancel</tabstop>
     <tabstop>InfoTab</tabstop>
-    <tabstop>edFilename</tabstop>
-    <tabstop>txtLength</tabstop>
+    <tabstop>edFileName</tabstop>
+    <tabstop>edFileSize</tabstop>
     <tabstop>cbSampleRate</tabstop>
     <tabstop>sbResolution</tabstop>
     <tabstop>sbTracks</tabstop>
+    <tabstop>txtLength</tabstop>
     <tabstop>btHelp</tabstop>
 </tabstops>
 <includes>

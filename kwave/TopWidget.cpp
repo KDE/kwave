@@ -48,7 +48,6 @@
 #include "libkwave/LineParser.h"
 #include "libkwave/Parser.h"
 
-#include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
 #include "libgui/KwaveFileDialog.h"
 #include "libgui/KwavePlugin.h" // for some helper functions
@@ -145,7 +144,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     int id=1000; // id of toolbar items
     KIconLoader icon_loader;
 
-    m_save_bits = 16;
     m_blink_on = false;
     m_id_undo = -1;
     m_id_redo = -1;
@@ -657,8 +655,6 @@ int TopWidget::executeCommand(const QString &line)
 	result = saveFile();
     CASE_COMMAND("close")
 	result = closeFile();
-    CASE_COMMAND("resolution")
-	result = resolution(command);
     CASE_COMMAND("revert")
 	result = revert();
     CASE_COMMAND("saveas")
@@ -746,21 +742,6 @@ int TopWidget::revert()
 }
 
 //***************************************************************************
-int TopWidget::resolution(const QString &str)
-{
-    Parser parser (str);
-    int bps = parser.toInt();
-
-    if ( (bps >= 0) && (bps <= 24) && (bps % 8 == 0)) {
-	m_save_bits = bps;
-	return 0;
-    } else {
-	warning("out of range");
-	return -EINVAL;
-    }
-}
-
-//***************************************************************************
 bool TopWidget::closeFile()
 {
     ThreadsafeX11Guard x11_guard;
@@ -811,7 +792,6 @@ int TopWidget::loadFile(const KURL &url)
 	// succeeded
 	m_url = url;
 	updateCaption();
-	m_save_bits = m_main_widget->bits();
     } else {
 	// load failed
 	closeFile();
@@ -850,7 +830,7 @@ int TopWidget::saveFile()
     if (!m_main_widget) return -EINVAL;
 
     if (signalName() != NEW_FILENAME) {
-	res = m_main_widget->saveFile(m_url, m_save_bits, false);
+	res = m_main_widget->saveFile(m_url, false);
     } else res = saveFileAs(false);
 
     updateCaption();
@@ -902,7 +882,7 @@ int TopWidget::saveFileAs(bool selection)
 	}
 	
 	m_url = url;
-	res = m_main_widget->saveFile(m_url, m_save_bits, selection);
+	res = m_main_widget->saveFile(m_url, selection);
 	
 	updateCaption();
 	m_app.addRecentFile(signalName());
@@ -925,7 +905,6 @@ int TopWidget::newSignal(unsigned int samples, double rate,
     m_main_widget->newSignal(samples, rate, bits, tracks);
 
     updateCaption();
-    m_save_bits = bits;
     updateMenu();
     updateToolbar();
 
@@ -1016,7 +995,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 	txt = " "+i18n("Length: %1")+" "+i18n("(%2 samples)")+" ";
 	ms = (rate) ? (((double)length / (double)rate) * 1E3) : 0;
 	txt = txt.arg(KwavePlugin::ms2string(ms));
-	txt = txt.arg(length);
+	txt = txt.arg(KwavePlugin::dottedNumber(length));
     } else txt = "";
     statusBar()->changeItem(txt, STATUS_ID_SIZE);
 
@@ -1066,7 +1045,8 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 	QString txt = " "+i18n("Selected")+": %1...%2 (%3) ";
 	if (sample_mode) {
 	    txt = txt.arg(offset).arg(last).arg(
-	          QString::number(length) + " " + i18n("samples"));
+	          KwavePlugin::dottedNumber(length) + " " +
+	          i18n("samples"));
 	} else {
 	    double ms_first = (double)offset * 1E3 / rate;
 	    double ms_last  = (double)(last+1)   * 1E3 / rate;

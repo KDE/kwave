@@ -23,7 +23,7 @@ install uninstall clean distclean all rpm:
 	list=$(dirs); for subdir in $$list; do \
 	target=`echo $@ | sed s/-recursive//`; \
 	echo "Making $$target in $$subdir"; \
-	(cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$target) \
+	$(MAKE) -C $$subdir $(AM_MAKEFLAGS) $$target \
 	|| case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
 	done && test -z "$$fail"
 	if test x$@ == xdistclean; then \

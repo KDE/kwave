@@ -36,9 +36,14 @@ public:
     /** Returns the current file info */
     FileInfo &info() { return m_info; };
 
+public slots:
+
+    /** applies the settings and closes the dialog (OK button) */
+    virtual void accept();
+
 private slots:
 
-    /* updates the verbose description of the number of tracks */
+    /** updates the verbose description of the number of tracks */
     void tracksChanged(int tracks);
 
 private:

@@ -39,6 +39,11 @@ public:
      */
     virtual QStringList *setup(QStringList &);
 
+protected:
+
+    /** Applies the new settings */
+    void apply(FileInfo &new_info);
+
 };
 
 #endif /* _FILE_INFO_PLUGIN_H_ */

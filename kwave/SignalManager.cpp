@@ -60,6 +60,7 @@
 #include "UndoAction.h"
 #include "UndoDeleteAction.h"
 #include "UndoDeleteTrack.h"
+#include "UndoFileInfo.h"
 #include "UndoInsertAction.h"
 #include "UndoInsertTrack.h"
 #include "UndoModifyAction.h"
@@ -145,7 +146,7 @@ int SignalManager::loadFile(const KURL &url)
 	// open the source file
 	QString filename = url.path();
 	QFile src(filename);
-	if (!decoder->open(m_parent_widget, src)) {
+	if (!(decoder->open(m_parent_widget, src))) {
 	    warning("unable to open source: '%s'", url.prettyURL().data());
 	    res = -EIO;
 	    break;
@@ -229,12 +230,13 @@ int SignalManager::loadFile(const KURL &url)
 }
 
 //***************************************************************************
-int SignalManager::save(const KURL &url, unsigned int bits, bool selection)
+int SignalManager::save(const KURL &url, bool selection)
 {
     int res = 0;
     unsigned int ofs = 0;
     unsigned int len = length();
     unsigned int tracks = this->tracks();
+    unsigned int bits = this->bits();
 
     if (selection) {
 	// zero-length -> nothing to do
@@ -1466,6 +1468,26 @@ void SignalManager::setModified(bool mod)
 void SignalManager::enableModifiedChange(bool en)
 {
     m_modified_enabled = en;
+}
+
+//***************************************************************************
+void SignalManager::setFileInfo(FileInfo &new_info)
+{
+    ThreadsafeX11Guard x11_guard;
+
+    /* save data for undo */
+    UndoTransactionGuard undo_transaction(*this, i18n("modify file info"));
+    UndoFileInfo *undo = new UndoFileInfo(*this);
+    ASSERT(undo);
+    if (!undo) return;
+
+    if (!registerUndoAction(undo)) return;
+
+    m_file_info = new_info;
+
+    setModified(true);
+    emitStatusInfo();
+    emitUndoRedoInfo();
 }
 
 //***************************************************************************

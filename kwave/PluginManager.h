@@ -38,6 +38,7 @@ class QString;
 class QStringList;
 class SampleWriter;
 class TopWidget;
+class UndoAction;
 class MultiTrackReader;
 class MultiTrackWriter;
 

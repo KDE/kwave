@@ -40,10 +40,10 @@
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 
-#include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
 #include "libgui/TrackPixmap.h"
 
+#include "CodecManager.h"
 #include "SignalWidget.h"
 #include "SignalManager.h"
 #include "MouseMark.h"
@@ -82,12 +82,8 @@ public:
 	decodeLocalFiles(source, files);
 	QStringList::Iterator it;
 	for (it = files.begin(); it != files.end(); ++it) {
-	    QString f;
-	    f = (*it).lower();
-	    int len = (*it).length();
-	    /** @todo go through a central file type registry */
-	    if (f.findRev(".wav") == len-4) return true;
-	    if (f.findRev(".asc") == len-4) return true;
+	    QString mimetype = CodecManager::whatContains(*it);
+	    if (CodecManager::canDecode(mimetype)) return true;
 	}
 	return false;
     };
@@ -218,9 +214,9 @@ SignalWidget::~SignalWidget()
 }
 
 //***************************************************************************
-int SignalWidget::saveFile(const KURL &url, unsigned int bits, bool selection)
+int SignalWidget::saveFile(const KURL &url, bool selection)
 {
-    return m_signal_manager.save(url, bits, selection);
+    return m_signal_manager.save(url, selection);
 }
 
 //***************************************************************************

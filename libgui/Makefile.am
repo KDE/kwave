@@ -7,7 +7,6 @@ BUILTSOURCES=\
  FloatLine.moc.cpp\
  MultiStateWidget.moc.cpp\
  CurveWidget.moc.cpp\
- Dialog.moc.cpp\
  FFTWidget.moc.cpp\
  FileProgress.moc.cpp\
  FormantWidget.moc.cpp\
@@ -31,7 +30,6 @@ libkwavegui_la_SOURCES =\
  FileProgress.cpp\
  FloatLine.cpp\
  FormantWidget.cpp\
- Dialog.cpp\
  KwaveFileDialog.cpp\
  KwavePlugin.cpp \
  MenuNode.cpp\

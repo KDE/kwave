@@ -243,11 +243,11 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const playback_param_t &params)
     m_test->setEnabled(false); // ### not implemented yet ###
 
     // buttons for OK and m_cancel
-    m_ok = new QPushButton(BUTTON_OK, this);
+    m_ok = new QPushButton(i18n("&OK"), this);
     ASSERT(m_ok);
     if (!m_ok) return;
 
-    m_cancel = new QPushButton(BUTTON_CANCEL, this);
+    m_cancel = new QPushButton(i18n("&Cancel"), this);
     ASSERT(m_cancel);
     if (!m_cancel) return;
 

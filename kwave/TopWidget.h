@@ -285,12 +285,6 @@ protected:
      */
     int openRecent(const QString &str);
 
-    /**
-     * Sets a new resolution for saving in bits per sample.
-     * @param str str the resolution in string representation
-     */
-    int resolution(const QString &str);
-
     /** Updates the caption with the filename */
     void updateCaption();
 
@@ -344,9 +338,6 @@ private:
 
     /** menu manager for this window */
     MenuManager *m_menu_manager;
-
-    /** bits per sample to save with */
-    int m_save_bits;
 
     /** Timer used to let the pause button blink... */
     QTimer *m_pause_timer;

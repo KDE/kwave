@@ -26,6 +26,8 @@
 #include <qwidget.h>
 
 #include <kapp.h>
+#include <kglobal.h>
+#include <klocale.h>
 
 #include "mt/Thread.h"
 #include "mt/MutexGuard.h"
@@ -191,6 +193,12 @@ PluginManager &KwavePlugin::manager()
 }
 
 //***************************************************************************
+SignalManager &KwavePlugin::signalManager()
+{
+    return m_context.top_widget.signalManager();
+}
+
+//***************************************************************************
 QWidget *KwavePlugin::parentWidget()
 {
     return &(m_context.top_widget);
@@ -317,6 +325,19 @@ QString KwavePlugin::ms2string(double ms, int precision)
     return result;
 }
 
+//***************************************************************************
+QString KwavePlugin::dottedNumber(unsigned int number)
+{
+    const QString num = QString::number(number);
+    QString dotted = "";
+    const QString &dot = KGlobal::locale()->thousandsSeparator();
+    const int len = num.length();
+    for (int i=len-1; i >= 0; i--) {
+	if ((i != len-1) && !((len-i-1) % 3)) dotted = dot + dotted;
+	dotted = num.at(i) + dotted;
+    }
+    return dotted;
+}
 //***************************************************************************
 void KwavePlugin::emitCommand(const QString &command)
 {

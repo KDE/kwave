@@ -20,6 +20,8 @@
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qspinbox.h>
+#include <qstring.h>
+
 #include "libkwave/FileInfo.h"
 #include "libgui/KwavePlugin.h"
 #include "FileInfoDialog.h"
@@ -30,14 +32,33 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
 {
     /* filename */
     QFileInfo fi(QVariant(m_info.get(INF_FILENAME)).asString());
-    edFilename->setText(fi.fileName());
-    edFilename->setEnabled(fi.fileName().length() != 0);
+    edFileName->setText(fi.fileName());
+    edFileName->setEnabled(fi.fileName().length() != 0);
+
+    /* file size in bytes */
+    if (m_info.contains(INF_FILESIZE)) {
+	unsigned int size = QVariant(m_info.get(INF_FILESIZE)).asUInt();
+	QString dotted = KwavePlugin::dottedNumber(size);
+	if (size < 10*1024) {
+	    edFileSize->setText(i18n("%1 bytes").arg(dotted));
+	} else if (size < 10*1024*1024) {
+	    edFileSize->setText(i18n("%1 kB (%2 byte)").arg(
+		QString::number(size / 1024)).arg(dotted));
+	} else {
+	    edFileSize->setText(i18n("%1 MB (%2 byte)").arg(
+		QString::number(size / (1024*1024))).arg(dotted));
+	}
+    } else {
+	edFileSize->setEnabled(false);
+    }
 
     /* sample rate, bits per sample */
     cbSampleRate->setCurrentText(QString::number(m_info.rate()));
     sbResolution->setValue(m_info.bits());
 
     /* number of tracks */
+    sbTracks->setMaxValue(m_info.tracks());
+    sbTracks->setMinValue(m_info.tracks());
     sbTracks->setValue(m_info.tracks());
     connect(sbTracks, SIGNAL(valueChanged(int)),
             this, SLOT(tracksChanged(int)));
@@ -49,11 +70,12 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
     if (rate != 0) {
 	double ms = (double)samples * 1E3 / rate;
 	txtLength->setText(i18n("%1 (%2 samples)").arg(
-	                   KwavePlugin::ms2string(ms)).arg(samples));
+	    KwavePlugin::ms2string(ms)).arg(
+	    KwavePlugin::dottedNumber(samples)));
     } else {
-	txtLength->setText(i18n("%2 samples").arg(samples));
+	txtLength->setText(i18n("%2 samples").arg(
+	    KwavePlugin::dottedNumber(samples)));
     }
-
 }
 
 //***************************************************************************
@@ -78,6 +100,20 @@ void FileInfoDialog::tracksChanged(int tracks)
 	    lblTracksVerbose->setText("");
 	    break;
     }
+}
+
+//***************************************************************************
+void FileInfoDialog::accept()
+{
+    debug("FileInfoDialog::accept()");
+
+    /* bits per sample */
+    m_info.setBits(sbResolution->value());
+
+    /* sample rate */
+    m_info.setRate(cbSampleRate->currentText().toDouble());
+
+    QDialog::accept();
 }
 
 //***************************************************************************

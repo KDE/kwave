@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-07-14 22:16+0200\n"
+"POT-Creation-Date: 2002-07-17 22:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,75 +74,83 @@ msgstr ""
 msgid "Zero"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:28
+#: libkwave/FileInfo.cpp:29
 msgid "Annotation"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:29 libkwave/FileInfo.cpp:51
+#: libkwave/FileInfo.cpp:30 libkwave/FileInfo.cpp:52
 msgid ""
 "Provides general comments about the file or the subject of the file. If the "
 "comment is several sentences long, end each sentence with a period. Do not "
 "include newline characters!"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:34
+#: libkwave/FileInfo.cpp:35
 msgid "Archival location"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:35
+#: libkwave/FileInfo.cpp:36
 msgid "Indicates where the subject of the file is archived."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:37
+#: libkwave/FileInfo.cpp:38
 msgid "Artist"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:38
+#: libkwave/FileInfo.cpp:39
 msgid ""
 "Lists the artist of the original subject of the file.\n"
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:41
+#: libkwave/FileInfo.cpp:42
 msgid "Author"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:42
+#: libkwave/FileInfo.cpp:43
 msgid ""
 "Identifies the name of the author of the original subject of the file.\n"
 "Example: 'van Beethoven, Ludwig'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:46
+#: libkwave/FileInfo.cpp:47
 msgid "Commisioned"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:47
+#: libkwave/FileInfo.cpp:48
 msgid ""
 "Lists the name of the person or organization that commissioned the subject "
 "of the file."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:50
+#: libkwave/FileInfo.cpp:51
 msgid "Comments"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:56
+#: libkwave/FileInfo.cpp:57
+msgid "Compression"
+msgstr ""
+
+#: libkwave/FileInfo.cpp:58
+msgid "Sets a mode for compressing the audio data to reduce disk space."
+msgstr ""
+
+#: libkwave/FileInfo.cpp:61
 msgid "Copyright"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:57
+#: libkwave/FileInfo.cpp:62
 msgid ""
 "Records the copyright information for the file. If there are multiple "
 "copyrights, separate them by a semicolon followed by a space.\n"
 "Example: 'Copyright Linux community 2002'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:62
+#: libkwave/FileInfo.cpp:67
 msgid "Date"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:63
+#: libkwave/FileInfo.cpp:68
 msgid ""
 "Specifies the date the subject of the file was created. List dates in year-"
 "month-day format, padding one-digit months and days with a zero on the left "
@@ -150,138 +158,138 @@ msgid ""
 "Example: '2001-12-24'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:68
+#: libkwave/FileInfo.cpp:73
 msgid "Engineer"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:69
+#: libkwave/FileInfo.cpp:74
 msgid ""
 "Shows the name of the engineer who worked on the file. If there are multiple "
 "engineers, separate the names by a semicolon and a blank."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:73
+#: libkwave/FileInfo.cpp:78
 msgid "Filename"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:74
+#: libkwave/FileInfo.cpp:79
 msgid "Name of the opened file"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:76
+#: libkwave/FileInfo.cpp:81
 msgid "Genre"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:77
+#: libkwave/FileInfo.cpp:82
 msgid ""
 "Describes the genre or style of the original work.\n"
 "Examples: 'classic', 'pop'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:80
+#: libkwave/FileInfo.cpp:85
 msgid "Keywords"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:81
+#: libkwave/FileInfo.cpp:86
 msgid ""
 "Provides a list of keywords that refer to the file or subject of the file. "
 "Separate multiple keywords with a semicolon and a blank."
 msgstr ""
 
-#: libkwave/FileInfo.cpp:85
+#: libkwave/FileInfo.cpp:90
 msgid "Medium"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:86
+#: libkwave/FileInfo.cpp:91
 msgid ""
 "Describes the original subject of the file, where it was first recorded.\n"
 "Example: 'orchester'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:90
+#: libkwave/FileInfo.cpp:95
 msgid "Mime Type"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:91
+#: libkwave/FileInfo.cpp:96
 msgid "Mime type of the file format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:93
+#: libkwave/FileInfo.cpp:98
 msgid "Name"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:94
+#: libkwave/FileInfo.cpp:99
 msgid ""
 "Stores the title of the subject of the file.\n"
 "Example: 'Symphony No.6, Op.68 \"Pastoral\"'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:97
+#: libkwave/FileInfo.cpp:102
 msgid "Product"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:98
+#: libkwave/FileInfo.cpp:103
 msgid ""
 "Specifies the name or the title the file was originally intended for.\n"
 "Example: 'Linux audio collection'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:104
+#: libkwave/FileInfo.cpp:109
 msgid "Sample Format"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:105
+#: libkwave/FileInfo.cpp:110
 msgid ""
 "Format used for storing the digitized audio samples.\n"
 "Example: '32-bit IEEE floating-point'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:108
+#: libkwave/FileInfo.cpp:113
 msgid "Software"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:109
+#: libkwave/FileInfo.cpp:114
 msgid ""
 "Identifies the name of the software package used to create the file. \n"
 "Example: 'Kwave v0.6.4-1'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:113
+#: libkwave/FileInfo.cpp:118
 msgid "Source"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:114
+#: libkwave/FileInfo.cpp:119
 msgid ""
 "Identifies the name of the person or organization who supplied the original "
 "subject of the file. \n"
 "Example: 'Chaotic Sound Research'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:118
+#: libkwave/FileInfo.cpp:123
 msgid "Source form"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:119
+#: libkwave/FileInfo.cpp:124
 msgid ""
 "Identifies the original form of the material that was digitized.\n"
 "Examples: 'Record/Vinyl/90RPM', 'Audio DAT', 'tape/CrO2/60min'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:124
+#: libkwave/FileInfo.cpp:129
 msgid "Subject"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:125
+#: libkwave/FileInfo.cpp:130
 msgid ""
 "Describes the subject of the file.\n"
 "Example: 'Bird voices at early morning'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:128
+#: libkwave/FileInfo.cpp:133
 msgid "Technican"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:129
+#: libkwave/FileInfo.cpp:134
 msgid ""
 "Identifies the technican who digitized the subject file. \n"
 "Example: 'Torvalds, Linus'"
@@ -307,47 +315,53 @@ msgstr ""
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:288
-msgid "An error occurred while reading the file!"
+#: kwave/SignalManager.cpp:274
+msgid ""
+"Saving in this format will loose some additional file attributes. Do you "
+"still want to continue?"
 msgstr ""
 
-#: kwave/SignalManager.cpp:297
+#: kwave/SignalManager.cpp:311
+msgid "An error occurred while saving the file!"
+msgstr ""
+
+#: kwave/SignalManager.cpp:320
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:304
+#: kwave/SignalManager.cpp:327
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:518
+#: kwave/SignalManager.cpp:541
 msgid "cut"
 msgstr ""
 
-#: kwave/SignalManager.cpp:521
+#: kwave/SignalManager.cpp:544
 msgid "crop"
 msgstr ""
 
-#: kwave/SignalManager.cpp:587
+#: kwave/SignalManager.cpp:610
 msgid "paste"
 msgstr ""
 
-#: kwave/SignalManager.cpp:630
+#: kwave/SignalManager.cpp:653
 msgid "append track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:637 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:660 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:671 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:694 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:754 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:777 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1226 kwave/SignalManager.cpp:1233
+#: kwave/SignalManager.cpp:1249 kwave/SignalManager.cpp:1256
 msgid "last action"
 msgstr ""
 
@@ -1477,37 +1491,65 @@ msgstr ""
 msgid "megabytes of virtual memory"
 msgstr ""
 
-#: plugins/codec_wav/WavEncoder.cpp:85
+#: plugins/codec_wav/WavEncoder.cpp:101
+msgid ""
+"Sorry, the currently selected compression type can not be used for saving. "
+"Do you want to use G711 ULAW compression instead?"
+msgstr ""
+
+#: plugins/codec_wav/WavEncoder.cpp:104
+msgid "&Yes, use G711"
+msgstr ""
+
+#: plugins/codec_wav/WavEncoder.cpp:105
+msgid "&No, store uncompressed"
+msgstr ""
+
+#: plugins/codec_wav/WavEncoder.cpp:126
+msgid " for KDE "
+msgstr ""
+
+#: plugins/codec_wav/WavEncoder.cpp:145
 msgid "Unable to open the file for saving!"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:108
+#: plugins/codec_wav/WavDecoder.cpp:316 plugins/codec_wav/WavEncoder.cpp:165
+msgid "format or function is not implemented"
+msgstr ""
+
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:111
-#: plugins/codec_wav/WavDecoder.cpp:320 plugins/codec_wav/WavEncoder.cpp:152
+#: plugins/codec_wav/WavDecoder.cpp:320 plugins/codec_wav/WavEncoder.cpp:169
 msgid "out of memory"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:114
-#: plugins/codec_wav/WavDecoder.cpp:323 plugins/codec_wav/WavEncoder.cpp:155
+#: plugins/codec_wav/WavDecoder.cpp:323 plugins/codec_wav/WavEncoder.cpp:172
 msgid "file header is damaged"
 msgstr ""
 
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:117
+#: plugins/codec_wav/WavDecoder.cpp:326 plugins/codec_wav/WavEncoder.cpp:175
+msgid "invalid codec type"
+msgstr ""
+
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:120
-#: plugins/codec_wav/WavDecoder.cpp:330 plugins/codec_wav/WavEncoder.cpp:162
+#: plugins/codec_wav/WavDecoder.cpp:330 plugins/codec_wav/WavEncoder.cpp:179
 msgid "opening the file failed"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:123
-#: plugins/codec_wav/WavDecoder.cpp:333 plugins/codec_wav/WavEncoder.cpp:165
+#: plugins/codec_wav/WavDecoder.cpp:333 plugins/codec_wav/WavEncoder.cpp:182
 msgid "read access failed"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:126
-#: plugins/codec_wav/WavDecoder.cpp:336 plugins/codec_wav/WavEncoder.cpp:168
+#: plugins/codec_wav/WavDecoder.cpp:336 plugins/codec_wav/WavEncoder.cpp:185
 msgid "invalid sample format"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:132
-#: plugins/codec_wav/WavDecoder.cpp:342 plugins/codec_wav/WavEncoder.cpp:174
+#: plugins/codec_wav/WavDecoder.cpp:342 plugins/codec_wav/WavEncoder.cpp:191
 #, ycp-format
 msgid ""
 "An error occurred while opening the file:\n"
@@ -1569,33 +1611,23 @@ msgstr ""
 msgid "Kwave auto-repair"
 msgstr ""
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:108
-#: plugins/codec_wav/WavDecoder.cpp:316
-msgid "format or function is not implemented"
-msgstr ""
-
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:117
-#: plugins/codec_wav/WavDecoder.cpp:326
-msgid "invalid codec type"
-msgstr ""
-
-#: plugins/codec_wav/WavDecoder.cpp:359
+#: plugins/codec_wav/WavDecoder.cpp:361
 msgid "linear two's complement"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:362
+#: plugins/codec_wav/WavDecoder.cpp:364
 msgid "unsigned integer"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:365
+#: plugins/codec_wav/WavDecoder.cpp:367
 msgid "32-bit IEEE floating-point"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:368
+#: plugins/codec_wav/WavDecoder.cpp:370
 msgid "64-bit IEEE double-precision floating-point"
 msgstr ""
 
-#: plugins/codec_wav/WavDecoder.cpp:371
+#: plugins/codec_wav/WavDecoder.cpp:373
 msgid "unknown"
 msgstr ""
 

@@ -72,6 +72,7 @@ kwave_SOURCES =\
  TopWidget.cpp\
  UndoDeleteAction.cpp\
  UndoDeleteTrack.cpp\
+ UndoFileInfo.cpp\
  UndoInsertAction.cpp\
  UndoInsertTrack.cpp\
  UndoModifyAction.cpp\

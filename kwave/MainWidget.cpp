@@ -35,7 +35,6 @@
 
 #include "libkwave/Parser.h"
 
-#include "libgui/Dialog.h"
 #include "libgui/MultiStateWidget.h"
 #include "libgui/OverViewWidget.h"
 #include "libgui/KwavePlugin.h" // for some helper functions

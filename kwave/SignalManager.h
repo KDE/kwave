@@ -145,11 +145,10 @@ public:
      * Saves the signal to a file with a given resolution. If the file
      * already exists, it will be overwritten.
      * @param url URL with the name of the file to be saved.
-     * @param bits number of bits per sample
      * @param selection if true, only the selected range will be saved
      * @return zero if succeeded or negative error code
      */
-    int save(const KURL &url, unsigned int bits, bool selection);
+    int save(const KURL &url, bool selection);
 
     /**
      * Exports ascii file with one sample per line and only one track.
@@ -309,6 +308,11 @@ public:
      * the signal will be mixed over all tracks.
      */
     void paste(ClipBoard &clipboard, unsigned int offset, unsigned int length);
+
+    /**
+     * Sets a complete set of file infos, including undo information
+     */
+    void setFileInfo(FileInfo &new_info);
 
 signals:
 
@@ -565,6 +569,12 @@ protected:
      */
     void flushRedoBuffer();
 
+    /**
+     * Sets the modified flag to a new value if m_modified_enabled is
+     * true, otherwise it will be ignored.
+     */
+    void setModified(bool mod);
+
 private:
 
     /** Shortcut for emitting a sigStatusInfo */
@@ -582,12 +592,6 @@ private:
      * @param needed the amount of memory that should be free afterwards
      */
     void freeUndoMemory(unsigned int needed);
-
-    /**
-     * Sets the modified flag to a new value if m_modified_enabled is
-     * true, otherwise it will be ignored.
-     */
-    void setModified(bool mod);
 
     /**
      * Enables changes of the modified flag.

@@ -103,7 +103,7 @@ public:
                    unsigned int bits, unsigned int tracks);
 
     /** @todo (re)implementation */
-    int saveFile(const KURL &url, unsigned int bits, bool selection = false);
+    int saveFile(const KURL &url, bool selection = false);
 
     /** @todo (re)implementation */
     void saveBlocks (int);

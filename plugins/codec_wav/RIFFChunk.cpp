@@ -49,8 +49,11 @@ bool RIFFChunk::isSane()
 
     unsigned int datalen = dataLength();
     if (m_type == Main) datalen += 4;
-    CHECK(datalen+1 <= m_phys_length);
-    CHECK(datalen > m_phys_length);
+    if ((datalen+1 < m_phys_length) || (datalen > m_phys_length)) {
+	warning("%s: dataLength=%u, phys_length=%u",
+	         path().data(), datalen, m_phys_length);
+	return false;
+    }
 
     QListIterator<RIFFChunk> it(subChunks());
     for (; it.current(); ++it) {

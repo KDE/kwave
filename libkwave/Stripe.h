@@ -99,6 +99,18 @@ public:
     void overwrite(unsigned int offset, const QArray<sample_t> &samples,
     	unsigned int srcoff, unsigned int srclen);
 
+
+    /**
+     * Reads out samples from the stripe into a buffer
+     * @param offset the offset within the stripe (source)
+     * @param samples array for samples to be read (destination)
+     * @param dstoff offset within the destination array
+     * @param dstlen length of the data in the destination array
+     * @return number of samples read
+     */
+    unsigned int read(unsigned int offset, QArray<sample_t> &samples,
+	unsigned int dstoff, unsigned int dstlen);
+
     /**
      * Operator for appending an array of samples to the
      * end of the stripe.

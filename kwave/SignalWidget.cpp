@@ -141,6 +141,7 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 //    markertype = globals.markertypes.first();
 
     setBackgroundColor(black);
+    setBackgroundMode(NoBackground); // this avoids flicker :-)
     setMouseTracking(true);
 
     zoomAll();
@@ -591,7 +592,7 @@ void SignalWidget::setZoom(double new_zoom)
     fixZoomAndOffset();
 
     // forward the zoom and offset to all track pixmaps
-    unsigned int n_tracks = tracks();
+    unsigned int n_tracks = m_track_pixmaps.count();
     for (unsigned int i = 0; i < n_tracks; i++) {
 	TrackPixmap *pix = m_track_pixmaps.at(i);
 	ASSERT(pix);
@@ -902,6 +903,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 
     width = QWidget::width();
     height = QWidget::height();
+
 //    debug("SignalWidget::paintEvent(): width=%d, height=%d",width,height);
 
     // --- detect size changes and refresh the whole display ---
@@ -929,14 +931,14 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	
 //	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
 	p.begin(m_layer[LAYER_SIGNAL]);
-
+	
 //	p.setPen(white);
 	p.setRasterOp(CopyROP);
 	p.fillRect(0, 0, width, height, black);
-
+	
 	// check and correct m_zoom and m_offset
 	fixZoomAndOffset();
-
+	
 	int track_height = (n_tracks) ? (height / n_tracks) : 0;
 	int top = 0;
 	for (unsigned int i = 0; i < n_tracks; i++) {
@@ -956,7 +958,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	
 	    top += track_height;
 	}
-
+	
 	p.flush();
 	p.end();
 
@@ -970,7 +972,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	     m_layer[LAYER_MARKERS] = new QPixmap(size());
 	ASSERT(m_layer[LAYER_MARKERS]);
 	if (!m_layer[LAYER_MARKERS]) return;
-
+	
 //	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
 	p.begin(m_layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, width, height, black);
@@ -1004,11 +1006,11 @@ void SignalWidget::paintEvent(QPaintEvent *)
 		// transform to pixel coordinates
 		left  = samples2pixels(left - m_offset);
 		right = samples2pixels(right - m_offset);
-
+		
 		if (left < 0) left = 0;
 		if (right >= width) right = width-1;
 		if (left > right) left = right;
-
+		
 		if (left == right) {
 		    p.setPen (green);
 		    p.drawLine(left, 0, left, height);
@@ -1020,7 +1022,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	}
 	p.flush();
 	p.end();
-
+	
 	m_update_layer[LAYER_SELECTION] = false;
 	update_pixmap = true;
     }
@@ -1031,15 +1033,17 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	ASSERT(pixmap);
 	if (!pixmap) return;
 	update_pixmap = true;
+	
+	p.begin(pixmap); // ###
+	p.fillRect(0, 0, width, height, white);
+	p.end(); // ###
     }
 
     if (update_pixmap) {
 	for (int i=0; i < 3; i++) {
-	    if (m_layer[i]) bitBlt(
-		pixmap, 0, 0,
-		m_layer[i], 0, 0,
-		width, height, m_layer_rop[i]
-	    );
+	    if (!m_layer[i]) continue;
+	    bitBlt(pixmap, 0, 0, m_layer[i], 0, 0,
+		width, height, m_layer_rop[i]);
 	}
 	lastplaypointer = -2;
     }
@@ -1052,10 +1056,10 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	p.begin(pixmap);
 	p.setPen(yellow);
 	p.setRasterOp(XorROP);
-
+	
 	if (lastplaypointer >= 0) p.drawLine(lastplaypointer, 0,
 	                                     lastplaypointer, height);
-
+	
 	if ( (m_playback_controller.running() ||
 	      m_playback_controller.paused() ) &&
 	     ((playpointer >= 0) && (playpointer < width)) )
@@ -1081,8 +1085,8 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //	t_elapsed); // ###
 //#endif
 
-    // restart the timer for refreshing the playpointer
-    if (m_playback_controller.running()) playback_startTimer();
+//    // restart the timer for refreshing the playpointer
+//    if (m_playback_controller.running()) playback_startTimer();
 }
 
 ////below are the methods of class SignalWidget that deal with labels
@@ -1732,6 +1736,8 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
 
     // redraw the signal if the track has not already been drawn
     if ((pix->height() <= 0) && (pix->width() <= 0)) {
+	pix->setOffset(m_offset);
+	pix->setZoom(m_zoom);
 	debug("SignalWidget(): slotTrackInserted(): need refresh"); // ###
 	refreshLayer(LAYER_SIGNAL);
     }
@@ -1758,8 +1764,8 @@ void SignalWidget::slotSamplesDeleted(unsigned int track,
 void SignalWidget::slotSamplesModified(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
-	offset, length);
+//    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
+//	offset, length);
 
     TrackPixmap *pix = m_track_pixmaps.at(track);
     ASSERT(pix);

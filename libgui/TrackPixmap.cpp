@@ -161,13 +161,11 @@ void TrackPixmap::setZoom(double zoom)
 	// switch to min/max mode
 	debug("TrackPixmap::setZoom(): switch to min/max mode");
 	invalidateBuffer();
-	resizeBuffer();
 	m_minmax_mode = true;
     } else if ((zoom <= 1.0) && m_minmax_mode) {
 	// switch to normal mode
 	debug("TrackPixmap::setZoom(): switch to normal mode");
 	invalidateBuffer();
-	resizeBuffer();
 	m_minmax_mode = false;
     }
 
@@ -204,7 +202,7 @@ void TrackPixmap::resize(int width, int height)
     int old_height = QPixmap::height();
     if ((old_width == width) && (old_height == height)) return; // no change
 
-//    debug("TrackPixmap::resize(%d, %d)", width, height); // ###
+//    debug("TrackPixmap(%p)::resize(%d, %d)", this, width, height); // ###
 
     QPixmap::resize(width, height);
     if (width != old_width) resizeBuffer();
@@ -265,24 +263,26 @@ bool TrackPixmap::validateBuffer()
 
 	    // fill our array(s) with fresh sample data
 	    // ###
-	    debug("TrackPixmap::validateBuffer(): locked at %u, %u samples",
-	    	offset, length);
+//	    debug("TrackPixmap::validateBuffer(): locked at %u, %u samples",
+//	    	offset, length);
 	    	
 	    if (m_minmax_mode) {
 	    } else {
 	    }
 	
+	/* ### */
 	    unsigned int pos;
 	    for (pos = 0; pos < m_valid.size(); pos++) {
 		double v = (1 << 23) * sin((double)pos*2.0*3.1415926535 /
 			(double)m_valid.size());
 		if (m_minmax_mode) {
-		    m_min_buffer[pos] = (sample_t)(-v);
-		    m_max_buffer[pos] = (sample_t)(+v);
+		    m_min_buffer[pos] = (sample_t)(+v*0.99);
+		    m_max_buffer[pos] = (sample_t)(+v*0.50);
 		} else {
 		    m_sample_buffer[pos] = (sample_t)v;
 		}
 	    }
+	/* ### */
 	
 	    // make the buffer valid
 	    for (;first<=last;m_valid.setBit(first++));
@@ -315,8 +315,6 @@ void TrackPixmap::repaint()
 	    drawOverview(h>>1, h, 0, w-1);
 	} else {
 	}
-	// ###
-	debug("TrackPixmap::repaint()");
 	
 	// draw the green zero-line
 	p.setPen(m_color_zero);
@@ -333,8 +331,6 @@ void TrackPixmap::drawOverview(int middle, int height, int first, int last)
     ASSERT(m_minmax_mode);
     ASSERT(width() <= (int)m_min_buffer.size());
     ASSERT(width() <= (int)m_max_buffer.size());
-
-    debug("TrackPixmap::drawOverview()");
 
     // scale_y: pixels per unit
     double scale_y = (double)height / (1 << 24);

@@ -51,8 +51,6 @@
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
 
-#undef HAVE_ARTS_SUPPORT // ###
-
 KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 
 /** Sets the number of screen refreshes per second when in playback mode */

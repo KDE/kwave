@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-02-05 20:44GMT\n"
+"PO-Revision-Date: 2002-02-05 22:56GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -349,7 +349,7 @@ msgid ""
 "tracks, the result will be mixed (still not optimized/slow)"
 msgstr ""
 "Quand on insére des données issues du presse papier vers un nombre de  "
-"pistes sonnores non cohérent, le résultat est mixé (opération non "
+"pistes sonores non cohérent, le résultat est mixé (opération non "
 "optimisée / lente)."
 
 #: index.docbook:210
@@ -2765,6 +2765,10 @@ msgid ""
 "the size and/or position of the first opened &kapp; window and or <literal>-"
 "display</literal> for starting the &kapp; on a different display."
 msgstr ""
+"En plus d'une liste de fichiers, vous pouvez spécifier une liste de d'options du "
+" <emphasis>serveur X</emphasis> comme <literal>-geometry</literal> pour spécifier "
+" la taille et/ou la position de la premiére fenêtre ouverte de &kapp; ou comme <literal>-"
+"display</literal> pour lancer &kapp; sur une instance du serveur X différente."
 
 #: index.docbook:1937
 msgid ""
@@ -2773,26 +2777,33 @@ msgid ""
 "positioned 30 pixels away from the right and 0 pixels away form the top of "
 "the screen."
 msgstr ""
+"Par exemple, la ligne de commande suivante lance &kapp; avec une fenêtre d'une largeur "
+" largeur initiale de 600 pixels et une hauteur de 400 pixels, avec la bordure droite positionnée "
+" à 30 pixels du bords droit de la fenêtre et 0 pixels du haut de la fenêtre."
 
 #: index.docbook:1937
 msgid ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
 "parameter></command>"
 msgstr ""
+"<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
+"parameter></command>"
 
 #: index.docbook:1950
 msgid "Opening and Saving files"
-msgstr ""
+msgstr "Ouverture et sauvegarde de fichiers"
 
 #: index.docbook:1952
 msgid "Opening files with &kapp; works like in most other applications, you can"
-msgstr ""
+msgstr "L'ouverture des fichiers avec &kapp; fonctionne comme dans toutes les autres KDE. Vous pouvez :"
 
 #: index.docbook:1952
 msgid ""
 "specify a list of files on the <link linkend=\"command_line\">command line</"
 "link> when starting &kapp;,"
 msgstr ""
+"Spécifier une liste de fichiers à partir de la <link linkend=\"command_line\">ligne de commande "
+"</link> quand vous lancez &kapp;."
 
 #: index.docbook:1952
 msgid ""
@@ -2802,6 +2813,11 @@ msgid ""
 "menuchoice> ) and put a file into it via <link linkend=\"drag_and_drop"
 "\">drag and drop</link>, or you can"
 msgstr ""
+"Ouvrir une fenêtre vide de &kapp; (par exemple à partir de <menuchoice>"
+"<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo> "
+"</shortcut><guimenu>Fichier</guimenu><guimenuitem>Nouveau...</guimenuitem> "
+"</menuchoice>) et mettre un fichier sonore dans l'espace de travail de cette fenêtre via le "
+" <link linkend=\"drag_and_drop\">tirer / lacher</link>."
 
 #: index.docbook:1952
 msgid ""
@@ -2810,12 +2826,17 @@ msgid ""
 "shortcut> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </"
 "menuchoice>"
 msgstr ""
+"Ouvrir un fichier à partir du menu <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap>"
+"<keycap>O</keycap></keycombo></shortcut><guimenu>Fichier</guimenu><guimenuitem>"
+"Ouvrir</guimenuitem></menuchoice>."
 
 #: index.docbook:1952
 msgid ""
 "or one of the last recently opened files under <menuchoice> <guimenu>File</"
 "guimenu><guimenuitem>Open Recent</guimenuitem> </menuchoice>"
 msgstr ""
+"Ouvrir un des fichiers récemment ouvert via le menu <menuchoice><guimenu>Fichier"
+"</guimenu><guimenuitem>Récemment ouvert(s)</guimenuitem></menuchoice>."
 
 #: index.docbook:1952
 msgid ""
@@ -2823,6 +2844,9 @@ msgid ""
 "keycap><keycap>S</keycap></keycombo></shortcut> <guimenu>File</"
 "guimenu><guimenuitem>Save</guimenuitem> </menuchoice>,"
 msgstr ""
+"Sauvegarder le fichier courrant via le menu <menuchoice><shortcut><keycombo><keycap>Ctrl"
+"</keycap><keycap>S</keycap></keycombo></shortcut><guimenu>Fichier"
+"</guimenu><guimenuitem>Enregistrer</guimenuitem></menuchoice>."
 
 #: index.docbook:1952
 msgid ""
@@ -2831,6 +2855,10 @@ msgid ""
 "keycap></keycombo></shortcut> <guimenu>File</guimenu><guimenuitem>Save</"
 "guimenuitem><guimenuitem>As</guimenuitem> </menuchoice>"
 msgstr ""
+"Sauvegarder le fichier courrant avec un nom différent via le menu <menuchoice>"
+"<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S"
+"</keycap></keycombo></shortcut><guimenu>Fichier</guimenu><guimenuitem>Sauvegarder"
+"</guimenuitem><guimenuitem>Dans...</guimenuitem></menuchoice>."
 
 #: index.docbook:1952
 msgid ""
@@ -2838,10 +2866,13 @@ msgid ""
 "guimenu><guimenuitem>Save</guimenuitem><guimenuitem>Selection</guimenuitem> "
 "</menuchoice>"
 msgstr ""
+"Sauvegarder la sélection courrante d'un fichier sonore via le menu <menuchoice>"
+"<guimenu>Fichier</guimenu><guimenuitem>Sauvegarder</guimenuitem><guimenuitem> "
+"Selection...</guimenuitem></menuchoice>."
 
 #: index.docbook:2002
 msgid "Supported File formats"
-msgstr ""
+msgstr "Formats de fichiers supportés"
 
 #: index.docbook:2003
 msgid ""
@@ -2849,6 +2880,9 @@ msgid ""
 "wav\". This format is very common to other \"operating systems\" but also is "
 "used within the KDE environment."
 msgstr ""
+"Le meilleur format de fichier pour &kapp; est (comme l'indique le nom de l'application) \"."
+"wav\". Ce format est trés commun vis à vis d'autre \"systèmes d'exploitation\" mais aussi "
+"pour l'environnement de bureau KDE."
 
 #: index.docbook:2009
 msgid ""
@@ -2859,10 +2893,15 @@ msgid ""
 "future version. The file format will be described <link linkend="
 "\"ascii_format\">below</link>."
 msgstr ""
+"Le second  format de fichier supporté par &kapp; est l'\"ASCII\". Vous pouvez importer et "
+" exporter vers de l'ASCII, mais il faut être prudent car ce format génère des fichiers de taille "
+" imposante ! Actuellement, &kapp; supporte seulement les fichiers ASCII avec un seul canal audio "
+" (mono), le support de plusieurs canaux étant prévu dans le futur. Le format du fichier ASCII est "
+" décrit <link linkend=\"ascii_format\">ici</link>."
 
 #: index.docbook:2020
 msgid "Converting to and from .wav"
-msgstr ""
+msgstr "Convertir un/vers un fichier .wav "
 
 #: index.docbook:2022
 msgid ""
@@ -2873,6 +2912,11 @@ msgid ""
 "at <ulink url=\"http://home.sprynet.com/~cbagwell/sox.html\">http://home."
 "sprynet.com/~cbagwell/sox.html</ulink>."
 msgstr ""
+"Pour le moment, le meilleurs moyen pour travailler avec des formats différents de <literal>.wav</"
+"literal> est d'utiliser un convertisseur externe. Un bon jeu d'utilitaires de convertion est fourni avec "
+" le paquetage <ulink url=\"http://home.sprynet.com/~cbagwell/sox.html\">SoX</ulink>, "
+" ainsi qu'une excélente documentation ! Vous pouvez la consulter en ligne sur le site internet "
+" <ulink url=\"http://home.sprynet.com/~cbagwell/sox.html\">http://home.sprynet.com/~cbagwell/sox.html</ulink>."
 
 #: index.docbook:2031
 msgid ""
@@ -2881,10 +2925,14 @@ msgid ""
 "external filter, so that even formats not supported by <literal>SoX</"
 "literal> (like MP3) can be read and/or written."
 msgstr ""
+"Les prochaines versions incluront des filtres d'importation pour d'autre formats et "
+" peut être quelques filtres qui utiliseront des scripts définissables par les utilisateurs "
+" avec des appels à des outils de convertion externes pour le traitement en écriture ou "
+" en lecture des formats de fichiers non supportés par <literal>SoX</literal> (comme le MP3)."
 
 #: index.docbook:2039
 msgid "Format of ASCII files"
-msgstr ""
+msgstr "Le format des fichiers ASCII"
 
 #: index.docbook:2040
 msgid ""
@@ -2895,14 +2943,19 @@ msgid ""
 "you should not have big problems in writing a converter and most scientific "
 "applications use to have some kind of their own ASCII format for export."
 msgstr ""
+"Le format des fichiers ASCII trés utilisé pour des traitements scientifiques ou pour "
+" dans l'éducation. C'est un format qui est simple à écrire à l'aide d'un éditeur de texte "
+" ou par des exportations ASCII disponibles sous d'autre applications dédiées aux traitements "
+" du son. Comme ce format est <emphasis>trés</emphasis> simple, vous ne devez pas avoir "
+" de problèmes pour l'écriture ou la convertion via des applications scientifiques."
 
 #: index.docbook:2052
 msgid "The format of an ASCII file is quite simple and has the following rules:"
-msgstr ""
+msgstr "Le format des fichiers ASCII est le suivant :"
 
 #: index.docbook:2052
 msgid "Each line represents one sample."
-msgstr ""
+msgstr "Chaque ligne représente un échantillon."
 
 #: index.docbook:2052
 msgid ""
@@ -2910,10 +2963,13 @@ msgid ""
 "files are supported too). But when saving, files will always be saved with "
 "line feed character as the end of the line."
 msgstr ""
+"Les fins de lignes doivent être constituées du caractère Retour Chariot (CR) et ou Fin de Ligne "
+" (LF) comme les fichiers disponible sous DOS, mais dans tous les cas le caractère Fin de Ligne (LF) "
+" doit être présent."
 
 #: index.docbook:2052
 msgid "Empty lines are ignored."
-msgstr ""
+msgstr "Les lignes vides sont ignorées."
 
 #: index.docbook:2052
 msgid ""
@@ -2921,16 +2977,22 @@ msgid ""
 "able to read and interprete as a floating point or integer number. But when "
 "saving, &kapp; will save as in signed floating point format with 9 decimals."
 msgstr ""
+"Les valeurs peuvent être données dans plusieurs formats qui doivent être lues et interprétés "
+" comme des valeur entiéres (int) ou des valeurs flottantes (float) comme cela est défini dans "
+" les librairies du langage C de votre système. Cependant, quand vous exportez vers de l'ASCII, "
+" &kapp; sauvegarde ces valeurs au format flottant signé avec 9 decimales."
 
 #: index.docbook:2052
 msgid "Example: <literal>-7.06999982e-01</literal>"
-msgstr ""
+msgstr "Exemple : <literal>-7.06999982e-01</literal>"
 
 #: index.docbook:2052
 msgid ""
 "All values are expected to be in signed format. So if you import a file with "
 "only positive values, you will only see samples that are above the zero line."
 msgstr ""
+"Toutes les valeurs sont signées. Si vous importez un fichier avec que des valeurs positives, "
+" vous ne verez que des échantillons qui sont au dessus de la ligne symbolisant la valeur zéro."
 
 #: index.docbook:2052
 msgid ""
@@ -2938,10 +3000,13 @@ msgid ""
 "the file to get the highest absolute value and defines that value as \"100%"
 "\" before really reading in the file."
 msgstr ""
+"Les plages de valeurs dans le fichier peuvent être définie arbitrairement, &kapp; effecuant "
+" toujours une première lecture du fichier pour déterminer les maximums afin de définir la valeur "
+" en interne correspondante au \"100%\"."
 
 #: index.docbook:2052
 msgid "Internally all values are stored with 24 bit precision (signed)."
-msgstr ""
+msgstr "En interne, toutes les valeurs sont stockées avec une précision de 24 bits (valeurs signées)."
 
 #: index.docbook:2091
 msgid ""
@@ -2959,10 +3024,22 @@ msgid ""
 " 0.000\n"
 "\t\t</screen> </example>"
 msgstr ""
+"Voici un exemple d'un fichier ASCII qui représente une sinusoïde avec 9 échantillons :"
+"<example> <title>Contenu d'un fichier ASCII avec un signal sinusoïdal</title> <screen>\n"
+" 0.000\n"
+" 0.707\n"
+" 1.000\n"
+" 0.707\n"
+" 0.000\n"
+"-0.707\n"
+"-1.000\n"
+"-0.707\n"
+" 0.000\n"
+"\t\t</screen> </example>"
 
 #: index.docbook:2117
 msgid "How to select"
-msgstr ""
+msgstr "Comment faire une sélection"
 
 #: index.docbook:2119
 msgid ""

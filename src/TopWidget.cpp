@@ -434,9 +434,10 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 
     // set a nice initial size
     w = wmax;
-    debug("TopWidget::TopWidget(): wmax = %d", wmax); // ###
+//    debug("TopWidget::TopWidget(): wmax = %d", wmax); // ###
     w = max(w, mainwidget->minimumSize().width());
     w = max(w, mainwidget->sizeHint().width());
+    w = max(w, m_toolbar->sizeHint().width());
     h = max(mainwidget->sizeHint().height(), w*6/10);
     resize(w, h);
 
@@ -511,7 +512,9 @@ void TopWidget::executeCommand(const char *command)
     ASSERT(command);
     if (!command) return;
 
-    if (app.executeCommand(command)) {
+    if (command[0] == '#') {
+	return; // only a comment
+    } else if (app.executeCommand(command)) {
 	return ;
     CASE_COMMAND("plugin")
 	Parser parser(command);

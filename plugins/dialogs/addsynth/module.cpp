@@ -41,9 +41,13 @@ extern int getMaxPrimeFactor(int);
 AddSynthWidget::AddSynthWidget(QWidget *parent) 
     :QWidget(parent) 
 {
-    this->setBackgroundColor (QColor(black));
-    count = 0;
+    this->setBackgroundColor(QColor(black));
+
     func = 0;
+    power = 0;
+    phase = 0;
+    mult = 0;
+    count = 0;
 }
 
 //****************************************************************************
@@ -86,8 +90,11 @@ void AddSynthWidget::paintEvent(QPaintEvent *)
 	double *dphase = new double [count];
 
 	if (dphase) {
-	    for (int j = 0; j < count; j++)
+	    for (int j = 0; j < count; j++) {
+		ASSERT(mult[j]);
+		if (!mult[j]) return;
 		dphase[j] = ((((double)phase[j]) / 180) * M_PI / mult[j]);
+	    }
 
 	    for (int j = 0; j < count; j++) max += (double) power[j];
 	    max /= 1000;
@@ -96,6 +103,9 @@ void AddSynthWidget::paintEvent(QPaintEvent *)
 	    for (int j = 0; j < count; j++)
 		y += (func(x * mult[j] + 
 		    (((double)phase[j]) / 180) * M_PI) * power[j]) / 1000;
+
+	    ASSERT(max*height);
+	    if (!max*height) return;
 
 	    ly = (int)(y / max * height) + height;
 
@@ -123,13 +133,56 @@ void AddSynthWidget::paintEvent(QPaintEvent *)
 AddSynthDialog::AddSynthDialog(int rate, int length, bool modal)
     :Dialog(modal) 
 {
+    sweep = 0;
+    times = 0;
+    view = 0;
+    x = 0;
+    y = 0;
+    corner = 0;
+    mult = 0;
+    powerlabel = 0;
+    phaselabel = 0;
+    power = 0;
+    phase = 0;
+    channel = 0;
+    channellabel = 0;
+    freqbutton = 0;
+    calculate = 0;
+    test = 0;
+    functype = 0;
+    menu = 0;
+    phaselab = 0;
+    powerlab = 0;
+    multlab = 0;
+    ok = 0;
+    cancel = 0;
+    apower = 0;
+    aphase = 0;
+    amult = 0;
+    num = 0;
+    rate = 0;
+    command = 0;
+    tflag = false;
+
     num = 10;
     command = 0;
     sweep = 0;
     menu = new QPopupMenu ();
+    ASSERT(menu);
+    if (!menu) return;
+
     QPopupMenu *multmenu = new QPopupMenu();
+    ASSERT(multmenu);
+    if (!multmenu) return;
+
     QPopupMenu *phasemenu = new QPopupMenu();
+    ASSERT(phasemenu);
+    if (!phasemenu) return;
+
     QPopupMenu *powermenu = new QPopupMenu();
+    ASSERT(powermenu);
+    if (!powermenu) return;
+
     tflag = false;
 
     menu->insertItem (i18n("&Power"), powermenu);
@@ -154,8 +207,16 @@ AddSynthDialog::AddSynthDialog(int rate, int length, bool modal)
 
 
     x = new ScaleWidget (this, 0, 360, "°");
+    ASSERT(x);
+    if (!x) return;
+
     y = new ScaleWidget (this, 100, -100, "%");
+    ASSERT(y);
+    if (!y) return;
+
     corner = new CornerPatchWidget (this);
+    ASSERT(corner);
+    if (!corner) return;
 
     Functions func;
     this->rate = rate;
@@ -163,29 +224,57 @@ AddSynthDialog::AddSynthDialog(int rate, int length, bool modal)
     setCaption ("Choose Signal Components:");
 
     multlab = new QLabel (i18n("Multiply :"), this);
+    ASSERT(multlab);
+    if (!multlab) return;
+
     phaselab = new QLabel (i18n("Phase in degree:"), this);
+    ASSERT(phaselab);
+    if (!phaselab) return;
+
     powerlab = new QLabel (i18n("Power in %:"), this);
+    ASSERT(powerlab);
+    if (!powerlab) return;
 
     freqbutton = new QPushButton(i18n("Frequency"), this);
+    ASSERT(freqbutton);
+    if (!freqbutton) return;
+
     calculate = new QPushButton(i18n("Calculate"), this);
+    ASSERT(calculate);
+    if (!calculate) return;
 
     aphase = 0;
     apower = 0;
     amult = 0;
 
     functype = new QComboBox (false, this);
+    ASSERT(functype);
+    if (!functype) return;
+
     functype->insertStrList (func.getTypes());
 
     view = new AddSynthWidget (this);
+    ASSERT(view);
+    if (!view) return;
 
     connect (functype, SIGNAL(activated(int)), view, SLOT (setFunction(int)));
 
     channel = new KIntegerLine (this);
+    ASSERT(channel);
+    if (!channel) return;
+
     channel->setText ("20");
     channellabel = new QLabel (i18n("# of :"), this);
+    ASSERT(channellabel);
+    if (!channellabel) return;
 
     ok = new QPushButton ("Ok", this);
+    ASSERT(ok);
+    if (!ok) return;
+
     cancel = new QPushButton ("Cancel", this);
+    ASSERT(cancel);
+    if (!cancel) return;
 
     getNSlider (20, true);
     printf ("returned\n");
@@ -258,7 +347,12 @@ const char *AddSynthDialog::getCommand()
 //**********************************************************
 void AddSynthDialog::oddMult() 
 {
-    for (int i = 0; i < num; i++) mult[i]->setValue (1 + i*2);
+    for (int i = 0; i < num; i++) {
+	ASSERT(mult[i]);
+	if (!mult[i]) continue;
+
+	mult[i]->setValue (1 + i*2);
+    }
 
     updateView ();
 }
@@ -269,12 +363,15 @@ void AddSynthDialog::fibonacciMult()
     int a = 1;
     int b = 1;
     int x;
-    mult[0]->setValue (1);
+
+    ASSERT(mult[0]);
+    if (mult[0]) mult[0]->setValue (1);
     for (int i = 1; i < num; i++) {
 	x = a;
 	a = b;
 	b = x + b;
-	mult[i]->setValue (b);
+	ASSERT(mult[i]);
+	if (mult[i]) mult[i]->setValue (b);
     }
 
     updateView ();
@@ -283,8 +380,13 @@ void AddSynthDialog::fibonacciMult()
 //**********************************************************
 void AddSynthDialog::evenMult() 
 {
-    for (int i = 1; i < num; i++) mult[i]->setValue (i*2);
-    mult[0]->setValue (1);
+    ASSERT(mult[0]);
+    if (mult[0]) mult[0]->setValue (1);
+
+    for (int i = 1; i < num; i++) {
+	ASSERT(mult[i]);
+	if (mult[i]) mult[i]->setValue (i*2);
+    }
 
     updateView ();
 }
@@ -292,7 +394,10 @@ void AddSynthDialog::evenMult()
 //**********************************************************
 void AddSynthDialog::enumerateMult() 
 {
-    for (int i = 0; i < num; i++) mult[i]->setValue (i + 1);
+    for (int i = 0; i < num; i++) {
+	ASSERT(mult[i]);
+	if (mult[i]) mult[i]->setValue (i + 1);
+    }
 
     updateView ();
 }
@@ -304,7 +409,8 @@ void AddSynthDialog::primeMult()
     for (int i = 0; i < num; i++) {
 	while (getMaxPrimeFactor (max) != max) max++;
 
-	mult[i]->setValue (max);
+	ASSERT(mult[i]);
+	if (mult[i]) mult[i]->setValue (max);
 	max++;
     }
     updateView ();
@@ -313,7 +419,10 @@ void AddSynthDialog::primeMult()
 //**********************************************************
 void AddSynthDialog::zeroPhase() 
 {
-    for (int i = 0; i < num; i++) phase[i]->setValue (0);
+    for (int i = 0; i < num; i++) {
+	ASSERT(phase[i]);
+	if (phase[i]) phase[i]->setValue (0);
+    }
 
     updateView ();
 }
@@ -321,7 +430,10 @@ void AddSynthDialog::zeroPhase()
 //**********************************************************
 void AddSynthDialog::negatePhase() 
 {
-    for (int i = 0; i < num; i++) phase[i]->setValue ( -(phase[i]->value()));
+    for (int i = 0; i < num; i++) {
+	ASSERT(phase[i]);
+	if (phase[i]) phase[i]->setValue ( -(phase[i]->value()));
+    }
 
     updateView ();
 }
@@ -337,7 +449,10 @@ void AddSynthDialog::sinusPhase()
 //**********************************************************
 void AddSynthDialog::maxPower() 
 {
-    for (int i = 0; i < num; i++) power[i]->setValue (1000);
+    for (int i = 0; i < num; i++) {
+	ASSERT(power[i]);
+	if (power[i]) power[i]->setValue (1000);
+    }
     updateView ();
 }
 
@@ -367,38 +482,49 @@ void AddSynthDialog::dbPower()
 //**********************************************************
 void AddSynthDialog::sinusPower() 
 {
-    for (int i = 0; i < num; i++) 
-	power[i]->setValue (500 + 500*sin((double) i*2*M_PI / num));
+    for (int i = 0; i < num; i++)  {
+	ASSERT(power[i]);
+	if (power[i]) power[i]->setValue(500 + 500*sin((double) i*2*M_PI / num));
+    }
     updateView ();
 }
 
 //**********************************************************
 void AddSynthDialog::invertPower() 
 {
-    for (int i = 0; i < num; i++) 
-	power[i]->setValue (1000-power[i]->value());
+    for (int i = 0; i < num; i++)  {
+	ASSERT(power[i]);
+	if (power[i]) power[i]->setValue (1000-power[i]->value());
+    }
     updateView ();
 }
 
 //**********************************************************
 void AddSynthDialog::randomizePower() 
 {
-    for (int i = 0; i < num; i++) 
-	power[i]->setValue ((int)(drand48()*1000));
+    for (int i = 0; i < num; i++) {
+	ASSERT(power[i]);
+	if (power[i]) power[i]->setValue ((int)(drand48()*1000));
+    }
     updateView ();
 }
 
 //**********************************************************
 void AddSynthDialog::randomizePhase() 
 {
-    for (int i = 0; i < num; i++) 
-	phase[i]->setValue ((int)(drand48()*360)-180);
+    for (int i = 0; i < num; i++) {
+	ASSERT(phase[i]);
+	if (phase[i]) phase[i]->setValue ((int)(drand48()*360)-180);
+    }
     updateView ();
 }
 
 //**********************************************************
 void AddSynthDialog::popMenu() 
 {
+    ASSERT(menu);
+    if (!menu) return;
+
     QPoint popup = QCursor::pos();
     menu->popup (popup);
 }
@@ -449,21 +575,43 @@ bool AddSynthDialog::getNSlider(int n, bool first)
 
     num = n;
     powerlabel = new (KIntegerLine *)[num];
+    ASSERT(powerlabel);
+    if (!powerlabel) return false;
+
     phaselabel = new (KIntegerLine *)[num];
+    ASSERT(phaselabel);
+    if (!phaselabel) return false;
+
     mult = new (KIntegerLine *)[num];
+    ASSERT(mult);
+    if (!mult) return false;
+
     power = new (Slider *)[num];
+    ASSERT(power);
+    if (!power) return false;
+
     phase = new (Slider *)[num];
+    ASSERT(phase);
+    if (!phase) return false;
 
     if (!(powerlabel && phaselabel && mult && power && phase)) return false;
 
-    printf ("allocated\n");
+    debug("allocated\n");
 
     for (int i = 0; i < num; i++) {
 	powerlabel[i] = new KIntegerLine (this);
+	ASSERT(powerlabel[i]);
+	if (!powerlabel) continue;
 	powerlabel[i]->setText ("0");
+	
 	phaselabel[i] = new KIntegerLine (this);
+	ASSERT(phaselabel[i]);
+	if (!phaselabel[i]) continue;
 	phaselabel[i]->setText ("0");
+	
 	mult[i] = new KIntegerLine (this);
+	ASSERT(mult[i]);
+	if (!mult[i]) continue;
 	mult[i]->setValue (i + 1);
     }
 
@@ -471,11 +619,19 @@ bool AddSynthDialog::getNSlider(int n, bool first)
 
     for (int i = 0; i < num; i++) {
 	power[i] = new Slider (0, 1000, 1, 0 , Slider::Horizontal, this);
+	ASSERT(power[i]);
 	phase[i] = new Slider ( -180, 179, 1, 0, Slider::Horizontal, this);
+	ASSERT(phase[i]);
     }
-    printf ("slider\n");
+    debug ("slider\n");
 
-    power[0]->setValue (1000);
+    ASSERT(power[0]);
+    if (power[0]) power[0]->setValue (1000);
+
+    ASSERT(ok);
+    ASSERT(powerlab);
+    ASSERT(powerlabel[0]);
+    if (!ok || !powerlab || !powerlabel[0]) return false;
 
     int bsize = ok->sizeHint().height();
     int lsize = powerlab->sizeHint().height();
@@ -485,6 +641,13 @@ bool AddSynthDialog::getNSlider(int n, bool first)
     if (!first) resize (bsize*16, (nsize*(num + 1) + bsize*2) + toppart);
 
     for (int i = 0; i < num; i++) {
+	ASSERT(power[i]);
+	ASSERT(phase[i]);
+	ASSERT(mult[i]);
+	if (!power[i]) continue;
+	if (!phase[i]) continue;
+	if (!mult[i]) continue;
+
 	power[i]->show();
 	phase[i]->show();
 	mult[i]->show();
@@ -512,8 +675,11 @@ void AddSynthDialog::updateView()
     int count = 0;
     int x = 0;
 
-    for (int i = 0; i < num; i++) 
+    for (int i = 0; i < num; i++) {
+	ASSERT(power[i]);
+	if (!power[i]) continue;
 	if (power[i]->value() > 0) count++;    //count active elements
+    }
 
     if (apower) delete apower;
     if (amult) delete amult;
@@ -522,14 +688,20 @@ void AddSynthDialog::updateView()
     apower = new int[count];
     aphase = new int[count];
     amult = new int[count];
+    ASSERT(apower);
+    ASSERT(aphase);
+    ASSERT(amult);
 
-    for (int i = 0; i < num; i++)
+    for (int i = 0; i < num; i++) {
+	ASSERT(this->power[i]);
+	if (!(this->power[i])) continue;
 	if (this->power[i]->value() > 0) {
 	    apower[x] = power[i]->value();
 	    amult[x] = mult[i]->value();
 	    aphase[x] = phase[i]->value();
 	    x++;
 	}
+    }
     view->setSines (count, apower, aphase, amult);
 }
 
@@ -538,8 +710,11 @@ int AddSynthDialog::getCount()
 {
     int count = 0;
 
-    for (int i = 0; i < num; i++) 
+    for (int i = 0; i < num; i++) {
+	ASSERT(power[i]);
+	if (!power[i]) continue;
 	if (power[i]->value() > 0) count++;    //count active elements
+    }
 
     return count;
 }
@@ -566,6 +741,8 @@ Signal *AddSynthDialog::getSignal()
 
 	//get new signal
 	Signal *add = new Signal (len, rate);
+	ASSERT(add);
+	if (!add) return 0;
 
 	if (add && add->getSample() && len); {
 	    int *sample = add->getSample();
@@ -630,39 +807,48 @@ void AddSynthDialog::showMult(const char *str)
 //**********************************************************
 void AddSynthDialog::showPhase(const char *str) 
 {
-    for (int i = 0; i < num; i++)
+    for (int i = 0; i < num; i++) {
+	ASSERT(phase[i]);
+	if (!phase[i]) continue;
 	if (strcmp(phaselabel[i]->text(), str) == 0) {
 	    tflag = true;
 	    phase[i]->setValue (strtol(str, 0, 0));
 	    tflag = false;
 	}
+    }
     updateView ();
 }
 
 //**********************************************************
 void AddSynthDialog::showPower(int newvalue) 
 {
-    for (int i = 0; i < num; i++)
+    for (int i = 0; i < num; i++) {
+	ASSERT(power[i]);
+	if (!power[i]) continue;
 	if (power[i]->value() == newvalue)
 	    if (!tflag) {
 		char buf[64];
 		snprintf(buf, sizeof(buf), "%d.%d", 
 		    newvalue / 10, newvalue % 10);
-		powerlabel[i]->setText (buf);
+		ASSERT(powerlabel[i]);
+		if (powerlabel[i]) powerlabel[i]->setText (buf);
 	    }
+    }
     updateView ();
 }
 
 //**********************************************************
 void AddSynthDialog::showPhase(int newvalue) 
 {
-    for (int i = 0; i < num; i++)
+    for (int i = 0; i < num; i++) {
 	if (phase[i]->value() == newvalue)
 	    if (!tflag) {
 		char buf[64];
 		snprintf(buf, sizeof(buf), "%d", newvalue);
-		phaselabel[i]->setText (buf);
+		ASSERT(phaselabel[i]);
+		if (phaselabel[i]) phaselabel[i]->setText (buf);
 	    }
+    }
     updateView ();
 }
 
@@ -674,6 +860,13 @@ void AddSynthDialog::showMult(int newvalue)
 //**********************************************************
 void AddSynthDialog::resizeEvent(QResizeEvent *) 
 {
+    ASSERT(ok);
+    ASSERT(powerlab);
+    ASSERT(powerlabel[0]);
+    if (!ok) return;
+    if (!powerlab) return;
+    if (!powerlabel[0]) return;
+
     int bsize = ok->sizeHint().height();
     int lsize = powerlab->sizeHint().height();
     int width = this->width();
@@ -708,6 +901,15 @@ void AddSynthDialog::resizeEvent(QResizeEvent *)
 	int yoffset = nsize * (i + 1) + toppart;
 	int w = width - textx - 16;
 
+	ASSERT(powerlabel[i]);
+	ASSERT(phaselabel[i]);
+	ASSERT(mult[i]);
+	ASSERT(power[i]);
+	if (!powerlabel[i]) continue;
+	if (!phaselabel[i]) continue;
+	if (!mult[i]) continue;
+	if (!power[i]) continue;
+	
 	powerlabel[i]->setGeometry (8, yoffset, textx, nsize);
 	phaselabel[i]->setGeometry (8 + w / 2, yoffset, textx, nsize);
 	mult [i]->setGeometry (8 + w, yoffset, textx, nsize);
@@ -726,6 +928,9 @@ void AddSynthDialog::resizeEvent(QResizeEvent *)
 //**********************************************************
 void AddSynthDialog::mousePressEvent(QMouseEvent *e) 
 {
+    ASSERT(menu);
+    if (!menu) return;
+
     if (e->button() == RightButton) {
 	QPoint popup = QCursor::pos();
 	menu->popup(popup);

@@ -389,22 +389,17 @@ void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
     ASSERT(p);
     ASSERT(!m_loaded_plugins.isEmpty());
 
-//    debug("PluginManager::pluginClosed(%p:%p) [slot]",p?p->getHandle():0,p);
     if (p) {
 //	void *h = p->getHandle();
-
 	// disconnect the signals to avoid recursion
 	disconnectPlugin(p);
 
-//	debug("PluginManager::pluginClosed(%p:%p): removeRef",h,p);
 	m_loaded_plugins.setAutoDelete(false);
 	m_loaded_plugins.removeRef(p);
 
 	if (remove) {
 	    debug("PluginManager::pluginClosed(%p): deleting",p);
 	    delete p;
-
-//	    debug("PluginManager::pluginClosed(): closing handle %p",h);
 //	    if (h) dlclose(h);
 	}
 
@@ -441,6 +436,7 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
 
 }
 
+//****************************************************************************
 void PluginManager::emitNameChanged()
 {
     ASSERT(m_spx_name_changed);
@@ -459,11 +455,7 @@ void PluginManager::setSignalName(const QString &name)
 {
     ASSERT(m_spx_name_changed);
     if (!m_spx_name_changed) return;
-
-    debug("PluginManager::setSignalName('%s')",name.data());
     m_spx_name_changed->enqueue(name);
-
-    debug("PluginManager::setSignalName(): done.");
 }
 
 //****************************************************************************

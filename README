@@ -76,7 +76,7 @@ compiles for pentium architecture.
 Assuming that you already have unpacked the source archive in some
 directory you can simply type
 
-./configure
+make -f Makefile.dist
 make src.rpm          (and you get only a source rpm)
 make rpm              (and you get both, a binary and a source rpm)
 
@@ -95,14 +95,14 @@ For example: you got the binary rpm from a friend who has a RedHat system
 (where KDEDIR is /usr) and want to install it on a SuSE system. Then just
 give a different prefix when installing the rpm:
 
-rpm -i --prefix=/opt/kde kwave-0.5.2-9.i586.rpm
+rpm -i --prefix=/opt/kde kwave-0.5.6.i586.rpm
 
 This modifies the path where the program is installed and it is strongly
 recommended that this is the same directory as specified in the KDEDIR
 environment variable, otherwise kwave would be unable to find it's menu
 configuration, plugins, preset files and so on...
 
-("rpm -i --prefix=${KDEDIR} kwave-0.5.2-9.i586.rpm" should always work !)
+("rpm -i --prefix=${KDEDIR} kwave-0.5.6.i586.rpm" should always work !)
 
 4. PENTIUM OPTIMIZATION:
 =======================

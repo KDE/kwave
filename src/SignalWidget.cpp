@@ -78,20 +78,8 @@
  */
 #define MINIMUM_SAMPLES_PER_SCREEN 5
 
+// this should disappear in future...
 extern Global globals;
-
-//****************************************************************************
-ProgressDialog *createProgressDialog(TimeOperation *operation,
-                                     const char *caption)
-{
-//    ProgressDialog *dialog = new ProgressDialog (operation, caption);
-//    if (dialog) {
-//	dialog->show();
-//	return dialog;
-//    }
-
-    return 0;
-}
 
 //****************************************************************************
 SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
@@ -2025,8 +2013,6 @@ void SignalWidget::playbackStart()
 //***************************************************************************
 void SignalWidget::playbackStopped()
 {
-    ASSERT(signalmanage);
-    if (!signalmanage) return;
     if (timer) timer->stop();
     repaint(false);
 }

@@ -268,10 +268,10 @@ QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
     for (x=0; x < width; x++) {
 	right = offset + (unsigned int)((x+1) * samples_per_pixel);
         // find minimum and maximum over all channels
-        min = (1<<24);
+        min =  (1<<24);
         max = -(1<<24);
         for (channel = 0; channel < channels; channel++) {
-	    int min2 = (1<<24);
+	    int min2 =  (1<<24);
 	    int max2 = -(1<<24);
 	    getMaxMin(channel, max2, min2, left, right-left+1);
 	    if (min2 < min) min = min2;
@@ -279,8 +279,8 @@ QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
         }
 
         // transform min/max into pixel coordinates
-        min = (height >> 1) + (int)(min * scale_y);
-        max = (height >> 1) + (int)(max * scale_y);
+        min = (height >> 1) - (int)(min * scale_y);
+        max = (height >> 1) - (int)(max * scale_y);
 
         // draw the line between min and max
         p.drawLine(x, min, x, max);
@@ -306,6 +306,9 @@ int SignalManager::getBitsPerSample()
 //***************************************************************************
 void SignalManager::deleteChannel(unsigned int channel)
 {
+    ASSERT(m_channels);
+    if (m_channels <= 1) return; // deleting the last channel is forbidden!
+
     signal.setAutoDelete(true);
     signal.remove(channel);
     signal.setAutoDelete(false);
@@ -581,7 +584,14 @@ void SignalManager::commandDone()
 SignalManager::~SignalManager()
 {
     stopplay();
-    while (m_channels) deleteChannel(m_channels-1);
+
+    emit signalChanged( -1, -1);
+    signal.setAutoDelete(true);
+    while (m_channels--) {
+	signal.remove(m_channels);
+	emit sigChannelDeleted(m_channels);
+    }
+
     if (name) delete[] name;
 }
 
@@ -592,6 +602,7 @@ void SignalManager::setRange(unsigned int l, unsigned int r)
 	ASSERT(signal.at(i));
 	if (signal.at(i)) signal.at(i)->setMarkers(l, r);
     }
+    if (!signal.count()) return;
     ASSERT(signal.at(0));
     if (signal.at(0)) {
 	lmarker = signal.at(0)->getLMarker();
@@ -1195,10 +1206,7 @@ void playThread(struct Play *par)
     ASSERT(par);
     if (!par) return;
     ASSERT(par->manage);
-    if (!par->manage) {
-	delete par;
-	return;
-    }
+    if (!par->manage) return;
 
     int device; // handle of the playback device
     unsigned char *buffer = 0;
@@ -1220,6 +1228,9 @@ void playThread(struct Play *par)
 		    buffer, bufsize, par->start, par->loop);
 		delete[] buffer;
 	    }
+	} else {
+	    // simulate playback done
+	    par->manage->m_spx_playback_done.AsyncHandler();
 	}
 	close (device);
     } else {

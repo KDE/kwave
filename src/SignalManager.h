@@ -352,16 +352,17 @@ private:
      */
     SignalProxy1<unsigned int> m_spx_playback_pos;
 
+    /** error string from the playback thread */
+    const char *m_playback_error;
+
+public:
+
     /**
      * Signal proxy that signals the end of playback out
      * of the playback thread.
      */
     SignalProxy<void> m_spx_playback_done;
 
-    /** error string from the playback thread */
-    const char *m_playback_error;
-
-public:
     /** buffer for communication with the soundcard access functions (play) */
     unsigned int msg[4];
 };

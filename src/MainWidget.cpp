@@ -73,7 +73,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
      status(status),
      menu(manage)
 {
-    debug("MainWidget::MainWidget()");
+//    debug("MainWidget::MainWidget()");
     int s[3];
     MultiStateWidget *msw;
 
@@ -229,7 +229,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     refreshChannelControls();
     refreshControls();
-    debug("MainWidget::MainWidget(): done.");
+//    debug("MainWidget::MainWidget(): done.");
 }
 
 //*****************************************************************************

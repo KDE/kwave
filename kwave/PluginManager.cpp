@@ -29,7 +29,6 @@
 #include <klocale.h>
 
 #include "mt/SignalProxy.h"
-#include "mt/TSS_Object.h"
 #include "mt/ThreadCondition.h"
 
 #include "libkwave/ArtsMultiPlaybackSink.h"

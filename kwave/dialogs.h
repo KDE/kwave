@@ -121,12 +121,18 @@ class ProgressDialog : public QDialog
  Q_OBJECT
 
  public:
-
+	ProgressDialog 	(int max,int *counter,char*caption="Progress");
  	ProgressDialog 	(int max=100,char*caption="Progress");
  	~ProgressDialog ();
  void	setProgress(int);
 
+ signals:
+
+ void done ();
+
  public slots:
+
+ void	timedProgress();
 
  protected:
 
@@ -138,6 +144,8 @@ class ProgressDialog : public QDialog
  int act;
  int last;
  int lastx,lasty;
+ int *counter;
+ QTimer *timer;
 };
 //*****************************************************************************
 class RateDialog : public QDialog

@@ -84,6 +84,7 @@ void MSignal::play8 (int loop)
   int	bufsize;
   int **samples=new int* [channels];
   int j=0;
+
   MSignal *tmp=this;
   while (tmp!=0)
     {

@@ -1,3 +1,8 @@
+Version 0.29
+
+Improved ProgressDialog to allow multiple tasks
+some minor bug fixes
+
 Version 0.28
 
 changes in curvewidget (recent point has another pixmap).

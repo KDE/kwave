@@ -29,7 +29,7 @@ static const char *notetext[]=
   "C 8","C# 8","D 8","D# 8","E 8","F 8","F# 8","G 8","G# 8","A 8","A# 8","B 8",
   0
 }; 
-float notefreq[]=
+float notefreq[]= //frequency in Hz for the above named notes...
 {
   16.4,  17.3,  18.4,  19.4,  20.6,  21.8,  23.1,  24.5,  26.0,  27.5,  29.1,  30.9,
   32.7,  34.6,  36.7,  38.9,  41.2,  43.7,  46.2,  49.0,  51.9,  55.0,  58.3,  61.7,
@@ -41,7 +41,6 @@ float notefreq[]=
   2093,  2217.5,2349.3,2489,  2637,  2793.8,2960,  3136,  3322.4,3520,  3729.3,3951,
   4186,  4435,  4699.6,4978,  5274,  5587.5,5920,  6272,  6644.8,7040,  7458.6,7902
 };
-
 static const char *FFT_Sizes[]={"64","128","256","512","1024","2048","4096",0};
 //**********************************************************
 TimeLine::TimeLine (QWidget *parent,int rate):KRestrictedLine (parent)
@@ -92,7 +91,7 @@ void TimeLine::setValue (const char *newvalue)
       value=(int) ((double)(rate*strtod (newvalue,0))+.5);
       break;
     case 3:
-      value=(int) ((double)(strtod (newvalue,0)*1024)/sizeof(int)+.5);
+      value=(int) ((double)(strtod (newvalue,0)*1024)/sizeof(int)-.5);
       break;
     }
 }
@@ -327,24 +326,53 @@ int DelayDialog::isRecursive ()
 //**********************************************************
 void DelayDialog::resizeEvent (QResizeEvent *)
 {
-int bsize=ok->sizeHint().height();
+  int bsize=ok->sizeHint().height();
 
- delaylabel->setGeometry (width()/10,	bsize/2,width()*3/10,bsize);  
- delay->setGeometry(width()*5/10,	bsize/2,width()*4/10,bsize);  
- ampllabel->setGeometry  (width()/10,	bsize*2,width()*8/10,bsize);  
- amplslider->setGeometry (width()/10,	bsize*3,width()*8/10,bsize);  
+  delaylabel->setGeometry (width()/10,	bsize/2,width()*3/10,bsize);  
+  delay->setGeometry(width()*5/10,	bsize/2,width()*4/10,bsize);  
+  ampllabel->setGeometry  (width()/10,	bsize*2,width()*8/10,bsize);  
+  amplslider->setGeometry (width()/10,	bsize*3,width()*8/10,bsize);  
 
- recursive->setGeometry  (width()/10,	bsize*9/2,width()*8/10,bsize);  
+  recursive->setGeometry  (width()/10,	bsize*9/2,width()*8/10,bsize);  
 
- ok->setGeometry	 (width()/10,height()-bsize*3/2,width()*3/10,bsize);  
- cancel->setGeometry	 (width()*6/10,height()-bsize*3/2,width()*3/10,bsize); }
+  ok->setGeometry	 (width()/10,height()-bsize*3/2,width()*3/10,bsize);  
+  cancel->setGeometry	 (width()*6/10,height()-bsize*3/2,width()*3/10,bsize); }
 //**********************************************************
 DelayDialog::~DelayDialog ()
 {
 }
 //**********************************************************
-//KProgresss doaes to much flickering, is unstable for high numbers, so here
+//KProgresss does flicker, is unstable when using high numbers, so here
 //follows my own implementation... 
+//**********************************************************
+ProgressDialog::ProgressDialog (int max,int *counter,char *caption): QDialog(0,caption)
+{
+  //timerbased variant
+  if (fancy)  
+    {
+      last=0;
+      setMinimumSize (128,128);
+      setMaximumSize (128,128);
+      setCaption (caption);
+      this->max=max;
+      act=0;
+      lastx=0;
+      lasty=0;
+      setBackgroundColor (black);
+    }
+  else
+    {
+      resize (320,20);
+      setCaption (caption);
+      this->max=max;
+      act=0;
+    }
+
+  this->counter=counter;
+  timer=new QTimer (this);
+  connect( timer, SIGNAL(timeout()),SLOT(timedProgress()));
+  timer->start( 200); //5 times per second should be enough
+}
 //**********************************************************
 ProgressDialog::ProgressDialog (int max,char *caption): QDialog(0,caption)
 {
@@ -367,12 +395,22 @@ ProgressDialog::ProgressDialog (int max,char *caption): QDialog(0,caption)
       this->max=max;
       act=0;
     }
+  timer=0;
+  counter=0;
+}
+//**********************************************************
+void ProgressDialog::timedProgress ()
+{
+  if (counter)
+    {
+      setProgress (*counter);
+      if ((*counter)<0) delete this; //signal for ending...
+    }
 }
 //**********************************************************
 void ProgressDialog::setProgress (int x)
 {
   act=x;
-
   repaint(false);
 }
 //**********************************************************
@@ -380,7 +418,6 @@ void ProgressDialog::paintEvent (QPaintEvent *)
 {
   QPainter p;
   int perc=(int)(((double)act)*100/max);
-
 
   if (fancy)  
     {
@@ -400,7 +437,7 @@ void ProgressDialog::paintEvent (QPaintEvent *)
 
       if (perc>last)
 	{
-	  char buf[8];
+	  char buf[10];
 	  sprintf (buf,"%d %%",perc);
 	  last=perc;
 
@@ -439,7 +476,7 @@ void ProgressDialog::paintEvent (QPaintEvent *)
       int w=(int)((((double)act)/max)*(width()-2));
       QPixmap map (width(),height());
       map.fill (colorGroup().background());
-      char buf[8];
+      char buf[10];
       sprintf (buf,"%d %%",perc);
 
       p.begin (&map);
@@ -476,11 +513,12 @@ void ProgressDialog::paintEvent (QPaintEvent *)
       p.drawText (0,0,width(),height(),AlignCenter,buf,5);
       p.end ();
     }
-
 }
 //**********************************************************
 ProgressDialog::~ProgressDialog ()
 {
+  emit done ();
+  if (timer) timer->stop();
 }
 //**********************************************************
 RateDialog::RateDialog (QWidget *par): QDialog(par, 0,true)

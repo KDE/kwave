@@ -1,4 +1,5 @@
-#include <unistd.h>
+#include <linux/unistd.h>
+#include <sched.h>
 #include "sample.h"
 #include <kmsgbox.h>
 #include <kprogress.h>
@@ -27,6 +28,7 @@ static int len;
 static int begin;
 
 static const char *NOMEM={"Not enough Memory for Operation !"};
+int start_thread(void (*fn)(), void *d1,void *d2,void *d3,void *d4=0,void *d5=0,void *d6=0,void *d7=0);
 //**********************************************************
 void MSignal::doRangeOp (int num)
 {
@@ -499,7 +501,7 @@ void MSignal::newSignal ()
   if (dialog->exec())
     {
       int	rate=dialog->getRate();
-      int	numsamples=(int) (((long long)(dialog->getLength()))*rate/1000);
+      int	numsamples=dialog->getLength();
 
       MSignal *tmp=this;
       while (tmp!=0)
@@ -915,28 +917,41 @@ void MSignal::distort ()
 	      if (tmp->isSelected()) tmp->distortChannel (interpolation);
 	      tmp=tmp->getNext();
 	    }
-	  delete interpolation;
+	  //	  delete interpolation;
 	}
-      emit sampleChanged();
+      //      emit sampleChanged();
       delete dialog; 
     }  
 }
 //*********************************************************
-void MSignal::distortChannel (Interpolation *interpolation)
+void distortThread (int *sample,int len,int *counter,Interpolation *interpolation)
 {
   int x;
   double oldy,y;
-
   for (int i=0;i<len;i++)
     {
-      x=sample[begin+i];
+      x=sample[i];
       oldy=((double) abs(x))/((1<<23)-1);
       y=interpolation->getSingleInterpolation(oldy);
 
       if (x>0)
-	sample[begin+i]=(int) (y*((1<<23)-1));
-      else 
-	sample[begin+i]=-(int) (y*((1<<23)-1));
+	sample[i]=(int) (y*((1<<23)-1));
+      else
+	sample[i]=-(int) (y*((1<<23)-1));
+      *counter=i;
+    }
+  *counter=-1;
+}
+//*********************************************************
+void MSignal::distortChannel (Interpolation *interpolation)
+{
+  ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Distorting channel");
+  if (dialog)
+    {
+      dialog->show ();
+      connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
+
+      start_thread((void (*)())distortThread,&sample[begin],(void *)len,&msg[2],(void*)interpolation);
     }
 }
 //*********************************************************
@@ -1217,7 +1232,6 @@ void MSignal::averagefftChannel (int points)
       gsl_fft_complex_wavetable_alloc (points,&table);
       gsl_fft_complex_init (points,&table);
 
-
       for (int i=0;i<points;i++)
 	{
 	  avgdata[i].real=0;
@@ -1358,6 +1372,7 @@ void MSignal::movingFilterChannel (Filter *filter,int tap,double *move)
   double val;
   double addup=0;
   int max=0;
+
   for (int j=0;j<filter->num;j++)
     {
       addup+=fabs(filter->mult[j]);
@@ -1475,14 +1490,28 @@ void MSignal::stutter ()
     }  
 }
 //*********************************************************
-void MSignal::replaceStutterChannel (int len1,int len2)
+void replaceStutterThread (int *sample,int len,int *counter,int len1,int len2)
 {
   int j;
   int i=len2;
   while (i<len-len1)
     {
-      for (j=0;j<len1;j++) sample[begin+i+j]=0;
+      for (j=0;j<len1;j++) sample[i+j]=0;
       i+=len1+len2;
+      *counter=i;
+    }
+  *counter=-1;
+}
+//*********************************************************
+void MSignal::replaceStutterChannel (int len1,int len2)
+{
+  ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Replacing signal with silence in channel");
+  if (dialog)
+    {
+      dialog->show ();
+      connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
+
+      start_thread((void (*)())replaceStutterThread,&sample[begin],(void *)len,&msg[2],(void*)len1,(void *)len2);
     }
 }
 //*********************************************************
@@ -1504,17 +1533,81 @@ void MSignal::reQuantize ()
     }  
 }
 //*********************************************************
-void MSignal::quantizeChannel (int bits)
+void quantizeThread (int *sample,int len,int *counter,int bits)
 {
   double a;
-  bits--;
-      for (int j=0;j<len;j++)
-	{
-	  a=(double)(sample[begin+j]+(1<<23))/(1<<24);
-	  a=floor(a*bits+.5);
-	  a/=bits;
-	  sample[begin+j]=(int)((a-.5)*((1<<24)-1));   //24 because of souble range
-	}
+  for (int j=0;j<len;j++)
+    {
+      a=(double)(sample[j]+(1<<23))/(1<<24);
+      a=floor(a*bits+.5);
+      a/=bits;
+      sample[j]=(int)((a-.5)*((1<<24)-1));   //24 because of double range (no more signed)
+      *counter=j;
+    }
+  *counter=-1;   //signal progress that action is performed...
 }
+//*********************************************************
+void MSignal::quantizeChannel (int bits)
+{
+  bits--; //really complex calculation is needed, to bend this variable into usable form
 
+  ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Quantizing channel");
+  if (dialog)
+    {
+      dialog->show ();
+      connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
 
+      start_thread((void (*)())quantizeThread,&sample[begin],(void *)len,&msg[2],(void*)bits);
+    }
+}
+//**********************************************************************
+//Here comes the start_thread-function from an example of linus, found in a threading faq... seems to work for this purpose. would have been a whole lot easier, if there were not this crappy c++... I guess.
+#include <signal.h> 
+#define STACKSIZE 4096 //I hope this is enough...
+
+#define CSIGNAL         0x000000ff      /* signal mask to be sent at exit */
+#define CLONE_VM        0x00000100      /* set if VM shared between processes */
+#define CLONE_FS        0x00000200      /* set if fs info shared between processes */
+
+//*********************************************************
+int start_thread(void (*fn)(), void *d1,void *d2,void *d3,void *d4,void *d5,void *d6,void *d7)
+{
+  long retval;
+  void **newstack;
+
+  /*
+   * allocate new stack for subthread
+   */
+  newstack = (void **) malloc(STACKSIZE);
+  if (!newstack)
+    return -1;
+
+  /*
+   * Set up the stack for child function, put the (void *)
+   * argument on the stack.
+   */
+  newstack = (void **) (STACKSIZE + (char *) newstack);
+  *--newstack = d7; 
+  *--newstack = d6; 
+  *--newstack = d5; 
+
+  *--newstack = d4; 
+  *--newstack = d3; 
+  *--newstack = d2; 
+  *--newstack = d1; 
+  __asm__ __volatile__(
+		       "int $0x80\n\t"         /* Linux/i386 system call */
+		       "testl %0,%0\n\t"       /* check return value */
+		       "jne 1f\n\t"            /* jump if parent */
+		       "call *%3\n\t"          /* start subthread function */
+		       "movl %2,%0\n\t"
+		       "int $0x80\n"           /* exit system call: exit subthread */
+		       "1:\t"
+		       :"=a" (retval)
+		       :"0" (__NR_clone),"i" (__NR_exit),
+		       "r" (fn),
+		       "b" (CLONE_VM | CLONE_FS | CLONE_SIGHAND | SIGCHLD),
+		       "c" (newstack));
+
+  return retval;
+}                                         

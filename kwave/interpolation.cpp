@@ -142,7 +142,7 @@ double Interpolation::getSingleInterpolation (double input)
       }
     case NPOLYNOMIAL:
       {
-	static double ny=y[0];
+	double ny=y[0];
 	for (int j=1;j<count;j++) ny=ny*(input-x[j])+y[j];
 	return ny;
       }

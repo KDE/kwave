@@ -78,7 +78,7 @@ QString PlayBackArts::open(const QString &, unsigned int rate,
 	if (errorcode < 0) {
 	    warning("PlayBackArts::open(): arts_init error: %s",
 	            arts_error_text(errorcode));
-	    return i18n(arts_error_text(errorcode));
+	    return artsErrorText(errorcode);
         }
     }
     g_arts_usage++;
@@ -192,6 +192,41 @@ int PlayBackArts::close()
 
     return 0;
 }
+
+//***************************************************************************
+QString PlayBackArts::artsErrorText(int errorcode)
+{
+    QString text = "?";
+    switch (errorcode) {
+	case ARTS_E_NOSERVER:
+	    return(i18n("Can't connect to aRts soundserver. "\
+	    "Maybe it is not properly installed or not running."));
+	    break;
+	case ARTS_E_NOBACKEND:
+	    return(i18n("Loading the aRts backend library failed. "\
+	    "This might be due to a problem with your aRts "\
+	    "installation."));
+	    break;
+	case ARTS_E_NOSTREAM:
+	    return(i18n("The aRts output stream is invalid."));
+	    break;
+	case ARTS_E_NOINIT:
+	    return(i18n("aRts output is not available because the "\
+	    "initialization of the aRts output has failed "\
+	    "or not been done."));
+	    break;
+	case ARTS_E_NOIMPL:
+	    return(i18n("The required aRts function is not yet "\
+	    "implemented. Maybe you should get a newer version of "
+	    "aRts or upgrade the kdelibs package."));
+	    break;
+	default:
+	    // unknown error: fall-back to aRts built-in error message
+	    text = i18n(arts_error_text(errorcode));
+    };
+
+    return text;
+};
 
 //***************************************************************************
 //***************************************************************************

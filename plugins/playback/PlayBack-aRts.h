@@ -57,6 +57,16 @@ public:
      */
     virtual int close();
 
+    /**
+     * Translates an aRts error code into a verbose and
+     * localized error string.
+     * @note we must do that on our own because aRts currently
+     *       has no support for i18n()
+     * @param errorcode one of the error codes defined in artsc.h
+     * @return localized error message
+     */
+    QString artsErrorText(int errorcode);
+
 protected:
 
     /** Writes the output buffer to the device */

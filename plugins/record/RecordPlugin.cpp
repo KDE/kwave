@@ -235,36 +235,38 @@ void RecordPlugin::changeDevice(const QString &dev)
 	KMessageBox::sorry(m_dialog,
 		i18n("The device %1 seems not to exist.").arg(dev));
 	closeDevice();
+    } else if ((res == -EPERM) || (res == -EACCES)) {
+	KMessageBox::sorry(m_dialog,
+		i18n("You do not have sufficient permissions to open "
+		     "the device %1 for reading.").arg(dev));
+	closeDevice();
     } else if (res == -EBUSY) {
 	// 1. find out where "lsof" is
 	// 2. create a subprocess to call it
-	// 3. evaluate thte return values
+	// 3. evaluate the return values
 	// 4. show PID, user, program, access mode and device name
 	KMessageBox::sorry(m_dialog,
 		i18n("The device %1 seems to be in use by another "
 		     "application.").arg(dev));
-	m_device->close();
-	m_dialog->setDevice(dev);
-	return;
     } else if (res < 0) {
 	// snap back to the previous device
 	// ASSUMPTION: the previous device already worked !?
-	res = m_device->open(m_dialog->params().device_name);
+	QString old_dev = m_dialog->params().device_name;
+	res = m_device->open(old_dev);
 	if (res < 0) {
 	    // oops: previous device did also not work
-	    KMessageBox::sorry(m_dialog,
+	    if (!dev.isEmpty()) KMessageBox::sorry(m_dialog,
 		i18n("Opening the device %1 failed, "
 		     "please select a different one.").arg(
 		     dev));
-	    m_device->close();
-	    m_dialog->setDevice("");
+	    closeDevice();
 	} else {
 	    KMessageBox::sorry(m_dialog,
 		i18n("Opening the device %1 failed, reverting to %2.").arg(
-		dev).arg(m_dialog->params().device_name));
-	    m_dialog->setDevice(m_dialog->params().device_name);
+		dev).arg(old_dev));
+	    m_dialog->setDevice(old_dev);
+	    return; /* recursion! */
 	}
-	return;
     }
 
     // detect minimum and maximm number of tracks
@@ -564,6 +566,7 @@ void RecordPlugin::enterInhibit()
     if ((m_inhibit_count == 1) && m_thread) {
 	qDebug("RecordPlugin::enterInhibit() - STOPPING");
 	m_thread->stop();
+	Q_ASSERT(!m_thread->running());
     }
 }
 
@@ -576,6 +579,7 @@ void RecordPlugin::leaveInhibit()
 	qDebug("RecordPlugin::leaveInhibit() - STARTING");
 
 	Q_ASSERT(!m_thread->running());
+	if (m_thread->running()) return;
 
 	// set new parameters for the recorder
 	setupRecordThread();

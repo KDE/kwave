@@ -78,7 +78,7 @@ function print_version(ver) {
 	#
 	# any other line
 	#
-	sub("\ ", "", $0);
+	sub("\\ ", "", $0);
 	if (length($0) != 0) printi(4,$0);
     }
 }

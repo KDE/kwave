@@ -1,6 +1,14 @@
-/* Cpu detection code, extracted from mmx.h ((c)1997-99 by H. Dietz
-   and R. Fisher). Converted to C and improved by Fabrice Bellard */
 /*
+ * Cpu detection code, extracted from mmx.h ((c)1997-99 by H. Dietz
+ * and R. Fisher). Converted to C and improved by Fabrice Bellard
+ *
+ * LICENSE: seems to be GPL2.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version
+ * 2 of the License, or (at your option) any later version.
+ *
  * 2004-12-06
  *   Copied this source into the Kwave project and adapted it to compile
  *   cleanly within this new environment
@@ -16,6 +24,8 @@
 #include "cputest.h"
 
 int mm_support(void);
+
+#if defined(ARCH_X86) || defined(ARCH_X86_64)
 
 /* ebx saving is necessary for PIC. gcc seems unable to see it alone */
 #define cpuid(index,eax,ebx,ecx,edx)\
@@ -131,6 +141,15 @@ int mm_support(void)
         return 0;
     }
 }
+
+#else
+
+int mm_support(void)
+{
+    return 0;
+}
+
+#endif
 
 #ifdef __TEST__
 int main ( void )

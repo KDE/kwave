@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-19 10:10GMT\n"
+"PO-Revision-Date: 2002-01-20 15:11GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,10 @@ msgstr ""
 
 #: index.docbook:24
 msgid "ROLES_OF_TRANSLATORS"
-msgstr "ROLES_OF_TRANSLATORS"
+msgstr ""
+"Traduction Française par <firstname>Gilles</firstname> "
+"<surname>CAULIER</surname> <affiliation> "
+"<address><email>caulier.gilles@free.fr</email></address> </affiliation>"
 
 #: index.docbook:28
 msgid "Martin Wilz"
@@ -36,7 +39,7 @@ msgstr "Thomas Eschenbacher"
 
 #: index.docbook:36
 msgid "&kapp; is a simple sound editor for KDE."
-msgstr "&kapp, est un éditeur de sons pour KDE."
+msgstr "&kapp; est un éditeur de sons pour KDE."
 
 #: index.docbook:39
 msgid "<keyword>KDE</keyword>"

@@ -37,6 +37,7 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 
+#include <kapplication.h> // for invokeHelp
 #include <kglobal.h>
 #include <kconfig.h>
 #include <kcombobox.h>
@@ -65,7 +66,7 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
 {
     QString mimetype = QVariant(m_info.get(INF_MIMETYPE)).toString();
     if (!mimetype.length()) mimetype = "audio/x-wav"; // default mimetype
-    
+
     m_is_mpeg = ((mimetype == "audio/x-mpga") ||
         (mimetype == "audio/x-mp2") || (mimetype == "audio/x-mp3") ||
         (mimetype == "audio/mpeg"));
@@ -74,6 +75,9 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
                 (mimetype == "application/ogg"));
 
     qDebug("mimetype = %s",mimetype.latin1());
+
+    connect(btHelp, SIGNAL(clicked()),
+            this,   SLOT(invokeHelp()));
 
     // open config for reading default settings
     KConfig *cfg = KGlobal::config();
@@ -89,7 +93,7 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
     setupSourceTab();
     setupAuthorCopyrightTab();
     setupMiscellaneousTab();
-    
+
 }
 
 //***************************************************************************
@@ -447,7 +451,7 @@ void FileInfoDialog::setupSourceTab()
 	QVariant(m_info.get(INF_TRACK)).toInt() : 0;
     sbTrack->setValue(track);
 
-    
+
     /* software, engineer, technican */
     initInfoText(lblSoftware,     edSoftware,     INF_SOFTWARE);
     initInfoText(lblEngineer,     edEngineer,     INF_ENGINEER);
@@ -578,7 +582,7 @@ void FileInfoDialog::autoGenerateKeywords()
 	    it = list.begin();
 	    continue;
 	}
-	
+
 	// remove simple numbers and too short stuff
 	bool ok;
 	token.toInt(&ok);
@@ -644,7 +648,7 @@ void FileInfoDialog::accept()
 	cfg->writeEntry("default_abr_nominal_bitrate", nominal);
 	cfg->writeEntry("default_abr_upper_bitrate", upper);
 	cfg->writeEntry("default_abr_lower_bitrate", lower);
-	
+
         int quality = compressionWidget->baseQuality();
 	cfg->writeEntry("default_vbr_quality", quality);
     }
@@ -668,7 +672,7 @@ void FileInfoDialog::accept()
     {
 	m_info.set(INF_SAMPLE_FORMAT, QVariant(sample_format));
     }
-    
+
     /* compression */
     CompressionType compressions;
     int compression = compressions.data(cbCompression->currentItem());
@@ -679,14 +683,14 @@ void FileInfoDialog::accept()
     if (m_is_ogg) {
         CompressionWidget::Mode mode = compressionWidget->mode();
         QVariant del;
-        
+
         switch (mode) {
 	    case CompressionWidget::ABR_MODE: {
 	        int nominal, upper, lower;
 	        compressionWidget->getABRrates(nominal, lower, upper);
 	        bool use_lowest  = compressionWidget->lowestEnabled();
 	        bool use_highest = compressionWidget->highestEnabled();
-	        
+
 	        m_info.set(INF_BITRATE_NOMINAL, QVariant(nominal));
 	        m_info.set(INF_BITRATE_LOWER,
 	                   (use_lowest) ? QVariant(lower) : del);
@@ -697,7 +701,7 @@ void FileInfoDialog::accept()
 	    }
 	    case CompressionWidget::VBR_MODE: {
 	        int quality = compressionWidget->baseQuality();
-	        
+
 	        m_info.set(INF_BITRATE_NOMINAL, del);
 	        m_info.set(INF_BITRATE_LOWER, del);
 	        m_info.set(INF_BITRATE_UPPER, del);
@@ -705,9 +709,9 @@ void FileInfoDialog::accept()
 	        break;
 	    }
 	}
-	
+
     }
-    
+
     /* name, subject, version, genre, title, author, organization,
        copyright */
     acceptEdit(INF_NAME,         edName->text());
@@ -754,6 +758,12 @@ void FileInfoDialog::accept()
     m_info.dump();
 
     QDialog::accept();
+}
+
+//***************************************************************************
+void FileInfoDialog::invokeHelp()
+{
+    kapp->invokeHelp("fileinfo");
 }
 
 //***************************************************************************

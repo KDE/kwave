@@ -57,6 +57,9 @@ private slots:
     /** auto-generate the list of keywords */
     void autoGenerateKeywords();
 
+    /** invoke the online help */
+    void invokeHelp();
+
 protected:
 
     /**
@@ -100,7 +103,7 @@ private:
 
     /** initialize the "MPEG" tab */
     void setupMpegTab();
-    
+
     /** initializes the "Content" tab */
     void setupContentTab();
 
@@ -113,7 +116,7 @@ private:
     /** initialize the "Miscellaneous" tab */
     void setupMiscellaneousTab();
 
-  
+
 private:
 
     /** FileInfo to be edited */
@@ -124,7 +127,7 @@ private:
 
     /** if true, we have an Ogg/Vorbis file */
     bool m_is_ogg;
-    
+
 };
 
 #endif /* _FILE_INFO_DIALOG_H_ */

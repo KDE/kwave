@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-20 20:37GMT\n"
+"PO-Revision-Date: 2002-01-21 00:39GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: index.docbook:24
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
-"Traduction : <firstname>Gilles</firstname><surname>CAULIER</surname>"
+"Traduction : <firstname>Gilles</firstname> <surname>CAULIER</surname>"
 "<affiliation> <address><email>caulier.gilles@free.fr</email></address> </affiliation>"
 
 #: index.docbook:28
@@ -848,7 +848,7 @@ msgstr ""
 
 #: index.docbook:210
 msgid "COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE"
-msgstr "COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE"
+msgstr "RESTRUCTURATION COMPLETE DES COMMANDES ET DES STRUCTURES INTERNES DU PROGRAMME"
 
 #: index.docbook:210
 msgid "made use of a combination of signals/slots and string messages"
@@ -2754,127 +2754,135 @@ msgstr ""
 
 #: index.docbook:2855
 msgid "Credits and License"
-msgstr ""
+msgstr "Credits et License"
 
 #: index.docbook:2857
 msgid "&kapp;"
-msgstr ""
+msgstr "&kapp;"
 
 #: index.docbook:2859
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
 "de</email>"
 msgstr ""
+"Programme sous copyright de 1998 à 2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
+"de</email>"
 
 #: index.docbook:2863
 msgid ""
 "Program copyright since 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 msgstr ""
+"Programme sous copyright depuis 2000 Thomas Eschenbacher <email>thomas."
+"eschenbacher@gmx.de</email>"
 
 #: index.docbook:2868
 msgid "Contributors:"
-msgstr ""
+msgstr "Contributions :"
 
 #: index.docbook:2868
 msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
-msgstr ""
+msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
 #: index.docbook:2868
 msgid "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage, german translation)"
-msgstr ""
+msgstr "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en Allemand)"
 
 #: index.docbook:2868
 msgid "Juhana Kouhia"
-msgstr ""
+msgstr "Juhana Kouhia"
 
 #: index.docbook:2868
 msgid "Gerhard Zintel"
-msgstr ""
+msgstr "Gerhard Zintel"
 
 #: index.docbook:2868
 msgid "Gael Duval"
-msgstr ""
+msgstr "Gael Duval"
 
 #: index.docbook:2868
 msgid "Aaron Johnson"
-msgstr ""
+msgstr "Aaron Johnson"
 
 #: index.docbook:2868
 msgid "Uwe Steinmann"
-msgstr ""
+msgstr "Uwe Steinmann"
 
 #: index.docbook:2868
 msgid "Dave Phillips"
-msgstr ""
+msgstr "Dave Phillips"
 
 #: index.docbook:2868
 msgid "Martin Petriska"
-msgstr ""
+msgstr "Martin Petriska"
 
 #: index.docbook:2868
 msgid "Winfried Truemper"
-msgstr ""
+msgstr "Winfried Truemper"
 
 #: index.docbook:2868
 msgid "Bruce Garlock"
-msgstr ""
+msgstr "Bruce Garlock"
 
 #: index.docbook:2868
 msgid "Christoph Raab"
-msgstr ""
+msgstr "Christoph Raab"
 
 #: index.docbook:2868
 msgid "tOpHEr lAfaTA"
-msgstr ""
+msgstr "tOpHEr lAfaTA"
 
 #: index.docbook:2868
 msgid "Nemosoft"
-msgstr ""
+msgstr "Nemosoft"
 
 #: index.docbook:2868
 msgid "Guido"
-msgstr ""
+msgstr "Guido"
 
 #: index.docbook:2868
 msgid "Eero"
-msgstr ""
+msgstr "Eero"
 
 #: index.docbook:2902
 msgid "Thanks to (in alphabetical order):"
-msgstr ""
+msgstr "Remerciements (par ordre alphabetique) :"
 
 #: index.docbook:2902
 msgid "Carsten Jacobi"
-msgstr ""
+msgstr "Carsten Jacobi"
 
 #: index.docbook:2902
 msgid "Frank Christian Stoffel"
-msgstr ""
+msgstr "Frank Christian Stoffel"
 
 #: index.docbook:2902
 msgid "Achim Dahlhaus"
-msgstr ""
+msgstr "Achim Dahlhaus"
 
 #: index.docbook:2902
 msgid ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (for information "
 "about RPM optimization) </emphasis>"
 msgstr ""
+"Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (pour toutes les informations "
+"concernant les optimisations sur les RPM) </emphasis>"
 
 #: index.docbook:2902
 msgid "Klaus Hendrik Lorenz"
-msgstr ""
+msgstr "Klaus Hendrik Lorenz"
 
 #: index.docbook:2902
 msgid "my girlfriend Ximena González<emphasis>(for her patience)</emphasis>"
-msgstr ""
+msgstr "Ma petite amie Ximena González<emphasis>(pour toute sa patience)</emphasis>"
 
 #: index.docbook:2923
 msgid ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 msgstr ""
+"Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
+"eschenbacher@gmx.de</email>"
 
 #: index.docbook:2942
 msgid ""

@@ -2,7 +2,7 @@
 Type=MimeType
 Comment=Compressed Audio Interchange Format
 Comment[de]=Compressed Audio Interchange Format
-Comment[fr]=Fichier audio Compressé au format Interchange
+Comment[fr]=Format audio Compressé Interchange
 MimeType=audio/x-ircam
 Icon=sound
 Patterns=*.sf;*.SF

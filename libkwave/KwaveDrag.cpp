@@ -20,6 +20,7 @@
 #include <qbuffer.h>
 
 #include "libkwave/Decoder.h"
+#include "libkwave/Encoder.h"
 #include "libkwave/KwaveDrag.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -72,47 +73,66 @@ bool KwaveDrag::canDecode(const QMimeSource* e)
 }
 
 //***************************************************************************
-bool KwaveDrag::encode(unsigned int rate, unsigned int bits,
-                       MultiTrackReader &src)
+bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
 {
-//    // use our default encoder
-//    Encoder *encoder = CodecManager::encoder(WAVE_FORMAT_PCM);
-//    ASSERT(encoder);
-//    if (!encoder) return false;
-//
-//    // create a buffer for the wav data
-//    m_data.resize(0);
-//    QBuffer dst(m_data);
-//
-//    // encode into the buffer
-//    encoder->encode(src, dst);
-//
-//    delete encoder;
-//    return true;
-    return false;
+    ASSERT(src.count());
+    if (!src.count()) return false;
+    ASSERT(src[0]);
+    if (!src[0]) return false;
+
+    // use our default encoder
+    Encoder *encoder = CodecManager::encoder(WAVE_FORMAT_PCM);
+    ASSERT(encoder);
+    if (!encoder) return false;
+
+    // create a buffer for the wav data
+    m_data.resize(0);
+    QBuffer dst(m_data);
+
+    // encode into the buffer
+    encoder->encode(widget, src, dst, info);
+
+    delete encoder;
+    return true;
 }
 
 //***************************************************************************
-bool KwaveDrag::decode(const QMimeSource *e, Signal &sig)
+bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e, Signal &sig)
 {
-//    // try to find a suitable decoder
-//    Decoder *decoder = CodecManager::decoder(e);
-//    ASSERT(decoder);
-//    if (!decoder) return false;
-//
-//    // decode, use the first format that matches
-//    int i;
-//    const char *format;
-//    for (i=0; (format = e->format(i)); ++i) {
-//	if (CodecManager::canDecode(format)) {
-//	    QBuffer src(e->encodedData(format));
-//	    decoder->decode(src, sig);
-//	    delete decoder;
-//	    return true;
-//	}
-//    }
-//    delete decoder;
-    return false;
+    // try to find a suitable decoder
+    Decoder *decoder = CodecManager::decoder(e);
+    ASSERT(decoder);
+    if (!decoder) return false;
+
+    // decode, use the first format that matches
+    int i;
+    const char *format;
+    bool ok = false;
+
+    for (i=0; (format = e->format(i)); ++i) {
+	if (CodecManager::canDecode(format)) {
+	    QBuffer src(e->encodedData(format));
+	
+	    // open the mime source and get header information
+	    ok = decoder->open(widget, src);
+	    if (!ok) break;
+	    FileInfo &info = decoder->info();
+
+	    // prepare the signal
+	    while (sig.tracks() < info.tracks())
+		sig.appendTrack(info.length());
+	    sig.setRate(info.rate());
+	    sig.setBits(info.bits());
+	    MultiTrackWriter dst;
+	    sig.openMultiTrackWriter(dst, sig.allTracks(), Overwrite,
+	                             0, sig.length()-1);
+	
+	    ok = decoder->decode(widget, dst);
+	    break;
+	}
+    }
+    delete decoder;
+    return ok;
 }
 
 //***************************************************************************

@@ -1,8 +1,10 @@
 
 o test for afOpenVirtualFile() in configure script and check if
-  system libaudiofile acan be used
+  system libaudiofile can be used
 
-o Save/Selection needs to be tested, might be buggy!
+o Save/Selection needs to be tested/fixed, seems to be buggy!
+
+o storage/handling of extra info (labels, cue list, author etc...)
 
 o plugins for import/export of different file formats (e.g. MP3)
   -> through aRts ?
@@ -27,7 +29,7 @@ o menu entries for playback control
 o open file dialog: add a preview widget that shows info about the file
   and maybe has "playback/pause/stop" buttons
 
-o display zero line in dark green if range is deleted
+o display zero line in dark green if range is deleted/not present
 
 o hourglass and process indicators for longer processes
 
@@ -38,6 +40,7 @@ o use time instead of zoom factor (e.g. set zoom to "1 minute")
 o context menu for the SignalWidget with Copy/Paste etc.
 
 o fast playback mode, playback with facor 1.5x, 3x, 5x, 7x...
+  -> look how noatun does that...
 
 o support for compressed wav files, like those found on www.montypython.net
 

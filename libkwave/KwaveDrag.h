@@ -28,6 +28,7 @@ class QImage;
 class QMimeSource;
 class QWidget;
 
+class FileInfo;
 class MultiTrackReader;
 class Signal;
 
@@ -68,13 +69,12 @@ public:
     /**
      * Encodes wave data received from a MultiTrackReader into a byte
      * array that is compatible with the format of a wav file.
-     * @param rate sample rate of the signal [samples/sec]
-     * @param bits resolution [bits per sample]
+     * @param widget the widget used for displaying error messages
      * @param src source of the samples
+     * @param info information about the signal, sample rate, resolution etc
      * @return true if successful
      */
-    bool encode(unsigned int rate, unsigned int bits,
-                MultiTrackReader &src);
+    bool encode(QWidget *widget, MultiTrackReader &src, FileInfo &info);
 
     /** Returns true if the mime type of the given source can be decoded */
     static bool canDecode(const QMimeSource* e);
@@ -82,11 +82,12 @@ public:
     /**
      * Decodes the encoded byte data of the given mime source and
      * initializes a MultiTrackReader.
+     * @param widget the widget used for displaying error messages
      * @param e mime source
      * @param sig signal that receives the mime data
      * @return true if successful, false if failed
      */
-    static bool decode(const QMimeSource *e, Signal &sig);
+    static bool decode(QWidget *widget, const QMimeSource *e, Signal &sig);
 
 private:
 

@@ -29,6 +29,7 @@
 #include <klocale.h>
 #include <kfiledialog.h>
 
+#include "libkwave/FileInfo.h"
 #include "libkwave/KwaveDrag.h"
 #include "libkwave/Label.h"
 #include "libkwave/LabelList.h"
@@ -1766,7 +1767,15 @@ void SignalWidget::startDragging()
 
     m_signal_manager.openMultiTrackReader(src,
 	m_signal_manager.selectedTracks(), first, last);
-    if (!d->encode(rate, bits, src)) {
+
+    // create the file info
+    FileInfo info;
+    info.setLength(last - first + 1);
+    info.setRate(rate);
+    info.setBits(bits);
+    info.setTracks(src.count());
+
+    if (!d->encode(this, src, info)) {
 	delete d;
 	return;
     }
@@ -1817,7 +1826,7 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	MultiTrackWriter dst;
 	Signal sig;
 	
-	if (KwaveDrag::decode(event, sig)) {
+	if (KwaveDrag::decode(this, event, sig)) {
 	    InhibitRepaintGuard inhibit(*this);
 	    unsigned int pos = m_offset + pixels2samples(event->pos().x());
 	    unsigned int len = sig.length();

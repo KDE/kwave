@@ -86,8 +86,12 @@ void addDataStrings(KAboutData& aboutdata)
                      i18n("debian packager"),
                      "aurel32@debian.org",
                      0);
+    aboutdata.addCredit("Michael Pruett",
+                     i18n("author of the 'audiofile' library"),
+                     "mpruett@sgi.com",
+                     "http://oss.sgi.com/projects/audiofile/");
     aboutdata.addCredit("Erik de Castro Lopo",
-                     i18n("creator of the 'libsndfile' library"),
+                     i18n("author of the 'sndfile' library"),
                      "erikd@zip.com.au",
                      "http://www.zip.com.au/~erikd/libsndfile/");
 

@@ -206,6 +206,22 @@ void RecordPlugin::changeDevice(const QString &dev)
     // check the settings of the device and set new parameters if necessary
     int res = m_device->open(dev);
     if (res < 0) {
+	qWarning("---- res=%d ----", res);
+    }
+
+    if (res == -EBUSY) {
+	// 1. find out where "lsof" is
+	// 2. create a subprocess to call it
+	// 3. evaluate thte return values
+	// 4. show PID, user, program, access mode and device name
+	KMessageBox::sorry(m_dialog,
+		i18n("The device %1 seems to be in use by another "
+		     "application.").arg(
+		     dev));
+	m_device->close();
+	m_dialog->setDevice(dev);
+	return;
+    } else if (res < 0) {
 	// snap back to the previous device
 	// ASSUMPTION: the previous device already worked !?
 	res = m_device->open(m_dialog->params().device_name);

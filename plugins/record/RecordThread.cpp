@@ -169,8 +169,7 @@ void RecordThread::run()
 		break;
 	    } else {
 		if (result != (int)len) {
-		    qDebug("RecordThread::run(): result=%d, len=%d (Interrupted?)",
-		           result, len);
+		    qDebug("RecordThread::run(): (Interrupted?)");
 		    interrupted = true;
 		    break;
 		}

@@ -556,7 +556,8 @@ void RecordPlugin::startRecording()
     // set up the record thread
     m_thread->setRecordDevice(m_device);
     unsigned int buf_count = m_dialog->params().buffer_count;
-    unsigned int buf_size  = (1 << m_dialog->params().buffer_size);
+    unsigned int buf_size  = m_decoder->rawBytesPerSample() *
+                            (1 << m_dialog->params().buffer_size);
     m_thread->setBuffers(buf_count, buf_size);
 
     // now the recording can be considered to be started
@@ -663,14 +664,16 @@ void RecordPlugin::split(QByteArray &raw_data, QByteArray &dest,
                          unsigned int track,
                          unsigned int tracks)
 {
-    unsigned int samples = raw_data.size() / bytes_per_sample;
+    unsigned int samples = raw_data.size() / bytes_per_sample / tracks;
     const unsigned int increment = (tracks-1) * bytes_per_sample;
     char *src = raw_data.data();
     char *dst = dest.data();
     src += (track * bytes_per_sample);
     while (samples--) {
 	for (unsigned int byte=0; byte < bytes_per_sample; byte++) {
-	    *(dst++) = *(src++);
+	    *dst = *src;
+	    dst++;
+	    src++;
 	}
 	src += increment;
     }
@@ -687,14 +690,11 @@ void RecordPlugin::processBuffer(QByteArray buffer)
     // we received a buffer -> update the progress bar
     updateBufferProgressBar();
 
-    qDebug("RecordPlugin::processBuffer([%u bytes])", buffer.size());
-
     // split into several single buffers
     const RecordParams &params = m_dialog->params();
-    unsigned int tracks = params.tracks;
-    unsigned int bits = params.bits_per_sample;
-    unsigned int bytes_per_sample = (bits + 7) >> 3;
-    unsigned int samples = buffer.size() / bytes_per_sample;
+    const unsigned int tracks = params.tracks;
+    const unsigned int bytes_per_sample = m_decoder->rawBytesPerSample();
+    const unsigned int samples = buffer.size() / bytes_per_sample / tracks;
 
     QByteArray buf;
     buf.resize(bytes_per_sample * samples);

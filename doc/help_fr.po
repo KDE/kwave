@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-21 06:51GMT\n"
+"PO-Revision-Date: 2002-01-21 23:43GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
 "Traduction Française : Gilles Caulier"
-"<affiliation> <address><email>caulier.gilles@free.fr</email></address> </affiliation>"
+"<affiliation> <address><email>caulier.gilles@free.fr</email></address> </affiliation> "
 
 #: index.docbook:28
 msgid "Martin Wilz"
@@ -580,23 +580,23 @@ msgstr "0.5.4-1 [2000-07-29]"
 
 #: index.docbook:210
 msgid "fixed layout of playback dialog"
-msgstr ""
+msgstr "Correction de la présentation de la boîte de dialogue des options de lecture."
 
 #: index.docbook:210
 msgid "started to implement a new plugin interface"
-msgstr ""
+msgstr "Commencement de l'implémentation d'une nouvelle interface pour les plugins."
 
 #: index.docbook:210
 msgid "geometry/layout management for the sonagram settings dialog"
-msgstr ""
+msgstr "Géométrie et présenation de la boîte de dialogues pour le paramètrage du sonogramme."
 
 #: index.docbook:210
 msgid "formatting of selection and file time (KwavePlugin::ms2string)"
-msgstr ""
+msgstr "Mise en forme de la sélection et du temps dans un fichier sonore (KwavePlugin::ms2string)."
 
 #: index.docbook:210
 msgid "plugins can now consist of multiple source files"
-msgstr ""
+msgstr "Les plugins peuvent maintenant être constitués de plusieurs fichiers sources."
 
 #: index.docbook:210
 msgid "0.5.4 [2000-07-12]"
@@ -604,11 +604,11 @@ msgstr "0.5.4 [2000-07-12]"
 
 #: index.docbook:210
 msgid "some more minor changes to the Makefiles"
-msgstr ""
+msgstr "Quelques petites corrections dans les Makefiles."
 
 #: index.docbook:210
 msgid "split the documentation output into \"de\" and \"en\" part"
-msgstr ""
+msgstr "Séparation de la documentation en deux parties distinctes : \"de\" et \"en\"."
 
 #: index.docbook:210
 msgid ""
@@ -617,28 +617,35 @@ msgid ""
 "and postun scripts of the specfile The user should at least get the english "
 "help..."
 msgstr ""
+"Création d'un lien symbolique des répertoires \"de\" et \"default\" vers le répertoire "
+" d'aide en anglais durant l'installation et la désinstallation, ainsi que avant et aprés l'éxécution "
+" des scripts du specfile. L'utilisateur doit au moins avoir l'aide en anglais..."
 
 #: index.docbook:210
 msgid "alpha version of english documentation done"
-msgstr ""
+msgstr "Version alpha de la documentation en anglais."
 
 #: index.docbook:210
 msgid ""
 "automatic update of the revision history in the docbook file if this file is "
 "modified (only english version)"
 msgstr ""
+"Mise à joour automatique de l'historique de révision dans le fichier docbook si le fichier est "
+" modifié (version anglaise seulement)."
 
 #: index.docbook:210
 msgid "CVS is up on sourceforge.net"
-msgstr ""
+msgstr "Le CVS est mis en service sur sourceforge.net."
 
 #: index.docbook:210
 msgid "changed some header lines in this file"
-msgstr ""
+msgstr "Changement de quelques lignes d'entête dans ce fichier."
 
 #: index.docbook:210
 msgid "started on writing a new documentation / online help using docbook"
 msgstr ""
+"Commencement de l'écriture d'une nouvelle documentation d'aide en ligne "
+" avec l'utilisation du format docbook."
 
 #: index.docbook:210
 msgid "0.5.3 [2000-06-12]"
@@ -2744,13 +2751,15 @@ msgstr ""
 
 #: index.docbook:2820
 msgid "What about MP3 support?"
-msgstr ""
+msgstr "Qu'en est-il du support des fichiers MP3 ?"
 
 #: index.docbook:2825
 msgid ""
 "Not for the moment, but maybe someone writes us a plugin for MP3 import / "
 "export?"
 msgstr ""
+"Pas pour le moment, mais peut être qu'une personne a écrit un plugin pour "
+" l'importation et l'exportation des fichiers MP3 ?"
 
 #: index.docbook:2855
 msgid "Credits and License"

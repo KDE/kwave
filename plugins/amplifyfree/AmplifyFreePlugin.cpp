@@ -37,6 +37,9 @@
 #include "libkwave/SampleReader.h" // ###
 #include "libkwave/SampleWriter.h" // ###
 
+#include "libkwave/ArtsSampleSource_impl.h"
+#include "libkwave/ArtsSampleSink_impl.h"
+
 #include "kwave/PluginManager.h"
 #include "kwave/UndoTransactionGuard.h"
 
@@ -95,119 +98,14 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
     return list;
 };
 
-// example_add_impl.cc
-
-using namespace Arts;
-
-#include "kwave_sample_source.h"
-#include "kwave_sample_sink.h"
-#include <flowsystem.h>
-#include <stdsynthmodule.h>
-#include "libkwave/Sample.h" // ###
-#include "libkwave/SampleReader.h" // ###
-
-class Kwave_SampleSource_impl
-    :virtual public Kwave_SampleSource_skel,
-     virtual public Arts::StdSynthModule
-{
-public:
-
-     Kwave_SampleSource_impl()
-	:Kwave_SampleSource_skel(), Arts::StdSynthModule(),
-	m_reader(0), m_done(false)
-     { }
-
-     Kwave_SampleSource_impl(SampleReader *rdr)
-	:Kwave_SampleSource_skel(), Arts::StdSynthModule(),
-	m_reader(rdr), m_done(false)
-    { }
-
-    void calculateBlock(unsigned long samples)
-    {
-	unsigned long i;
-	sample_t sample = 0;
-	
-	if (m_reader && !(m_reader->eof())) {
-	    for(i=0;i < samples;i++) {
-		*m_reader >> sample;
-		source[i] = sample / double(1 << 23);
-		if (m_reader->eof()) {
-		    break;
-		}
-	    }
-	}
-	
-	for (; i < samples; i++) {
-	    source[i] = 0;
-	}
-	
-	if (!m_reader || m_reader->eof()) {
-	    m_done = true;
-	}
-    }
-
-    bool done() { return m_done; };
-
-protected:
-
-    SampleReader *m_reader;
-
-    bool m_done;
-
-};
-
-class Kwave_SampleSink_impl
-    :virtual public Kwave_SampleSink_skel,
-     virtual public Arts::StdSynthModule
-{
-public:
-
-    Kwave_SampleSink_impl()
-	:Kwave_SampleSink_skel(), Arts::StdSynthModule(),
-	m_writer(0), m_done(false)
-    { }
-
-    Kwave_SampleSink_impl(SampleWriter *writer)
-	:Kwave_SampleSink_skel(), Arts::StdSynthModule(),
-	m_writer(writer), m_done(false)
-    { }
-
-    void calculateBlock(unsigned long samples)
-    {
-	if (!m_writer) return;
-	
-	unsigned long i;
-	sample_t sample = 0;
-	
-	for(i=0;i < samples;i++) {
-	    sample = sample_t(sink[i] * (1 << 23));
-	    *m_writer << sample;
-	}
-	
-	debug("Kwave_SampleSink_impl::calculateBlock(%lu)",samples);
-    }
-
-    /*
-     * this is the most tricky part here - since we will run in a context
-     * where no audio hardware will play the "give me more data role",
-     * we'll have to request things ourselves (requireFlow() tells the
-     * flowsystem that more signal flow should happen, so that
-     * calculateBlock will get called
-     */
-    void goOn()
-    {
-	_node()->requireFlow();
-    }
-
-protected:
-
-    SampleWriter *m_writer;
-
-    bool m_done;
-};
-
-REGISTER_IMPLEMENTATION(Kwave_SampleSource_impl);
-REGISTER_IMPLEMENTATION(Kwave_SampleSink_impl);
+//using namespace Arts;
+//
+//#include "kwave_sample_source.h"
+//#include "kwave_sample_sink.h"
+//#include <flowsystem.h>
+//#include <stdsynthmodule.h>
+//#include "libkwave/Sample.h" // ###
+//#include "libkwave/SampleReader.h" // ###
 
 
 //***************************************************************************
@@ -241,12 +139,12 @@ void AmplifyFreePlugin::run(QStringList)
     SampleWriter *writer = sink.at(0);
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-    Kwave_SampleSource src_adapter = Kwave_SampleSource::_from_base(
-	new Kwave_SampleSource_impl(reader));
+    ArtsSampleSource src_adapter = ArtsSampleSource::_from_base(
+	new ArtsSampleSource_impl(reader));
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-    Kwave_SampleSink dst_adapter = Kwave_SampleSink::_from_base(
-	new Kwave_SampleSink_impl(writer));
+    ArtsSampleSink dst_adapter = ArtsSampleSink::_from_base(
+	new ArtsSampleSink_impl(writer));
 
     fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
     Arts::connect(src_adapter, "source", dst_adapter, "sink");

@@ -1,8 +1,0 @@
-// kwave_sample_source.idl
-
-#include <artsflow.idl>
-
-interface Kwave_SampleSource : Arts::SynthModule {
-	default out audio stream source;
-	readonly attribute boolean done;
-};

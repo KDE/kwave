@@ -44,7 +44,7 @@ LogoWidget::LogoWidget(QWidget *parent)
     m_img = 0;
     m_timer = 0;
 
-    m_img = new QPixmap(aboutlogo);
+    m_img = new QPixmap(xpm_aboutlogo);
     ASSERT(m_img);
     if (!m_img) return;
 

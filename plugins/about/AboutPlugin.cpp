@@ -23,7 +23,7 @@
 
 #include "libgui/KwavePlugin.h"
 #include "AboutPlugin.h"
-#include "AboutDialog.h"
+#include "AboutKwaveDialog.h"
 
 KWAVE_PLUGIN(AboutPlugin,"about","Thomas Eschenbacher");
 
@@ -37,11 +37,8 @@ AboutPlugin::AboutPlugin(PluginContext &c)
 int AboutPlugin::start(QStringList &/*params*/)
 {
     // create a new "about" dialog and show it
+    AboutKwaveDialog* dlg = new AboutKwaveDialog(parentWidget());
 
-// for the next release, this should work:
-//    KAboutApplication *dlg = new KAboutApplication(parentWidget());
-
-    AboutDialog *dlg = new AboutDialog(parentWidget());
     ASSERT(dlg);
     if (!dlg) return ENOMEM;
 

@@ -1,9 +1,9 @@
 /***************************************************************************
-              AboutDialog.h  -  dialog for Kwave's "Help-About"
+     AboutKwaveDialog.h  -  dialog for Kwave's "Help-About"
                              -------------------
-    begin                : Sun Oct 29 2000
-    copyright            : (C) 2000 by Thomas Eschenbacher
-    email                : Thomas.Eschenbacher@gmx.de
+    begin                : Sun Feb 10 2002
+    copyright            : (C) 2002 by Ralf Waspe
+    email                : rwaspe@web.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,42 +15,30 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _ABOUT_DIALOG_H_
-#define _ABOUT_DIALOG_H_
+#ifndef _ABOUT_KWAVE_DIALOG_H_
+#define _ABOUT_KWAVE_DIALOG_H_
 
-#include <qdialog.h>
+#include <kaboutapplication.h>
 
-class LogoWidget;
-class QMultiLineEdit;
-class QPushButton;
-class QResizeEvent;
-
-//**********************************************************
 /**
- * @class AboutDialog
+ * @class AboutKwaveDialog
  * Dialog for Help/About
- * @todo use AboutData from the KwaveApp
  */
-class AboutDialog : public QDialog {
+class AboutKwaveDialog : public KAboutApplication
+{
     Q_OBJECT
 
 public:
-
-    /** Constructor */
-    AboutDialog(QWidget *parent);
+    /**
+     * Constructor
+     * @todo Change base class to KAboutDialog
+     * @todo Include logo or even better LogoWidget to the dialog front tab
+     * @todo Have tabs for developers, contributers, translators
+     */
+    AboutKwaveDialog(QWidget *parent);
 
     /** destructor */
-    virtual ~AboutDialog();
-
-private:
-    /** the text area on the right side */
-    QMultiLineEdit *m_abouttext;
-
-    /** the animated logo on the left side */
-    LogoWidget *m_logo;
-
-    /** the OK button at the buttom */
-    QPushButton *m_ok;
+    virtual ~AboutKwaveDialog();
 };
 
-#endif  /* _ABOUT_DIALOG_H_ */
+#endif  /* _ABOUT_KWAVE_DIALOG_H_ */

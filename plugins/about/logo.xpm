@@ -1,5 +1,5 @@
 /* XPM */
-const char *aboutlogo[] = {
+static const char *xpm_aboutlogo[] = {
 /* columns rows colors chars-per-pixel */
 "100 283 2 1",
 "  c Black",

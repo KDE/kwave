@@ -151,9 +151,10 @@ int SignalManager::loadFile(const KURL &url)
 	    break;
 	}
 	
-	// enter the filename into the decoder
+	// enter the filename and size into the decoder
 	QFileInfo fi(src);
 	decoder->info().set(INF_FILENAME, fi.absFilePath());
+	decoder->info().set(INF_FILESIZE, (unsigned int)src.size());
 	
 	// get the file info from the decoder
 	m_file_info = decoder->info();
@@ -187,8 +188,8 @@ int SignalManager::loadFile(const KURL &url)
 	//prepare and show the progress dialog
 	FileInfo &info = decoder->info();
 	FileProgress *dialog = new FileProgress(m_parent_widget,
-	    filename, info.tracks()*info.length(), info.length(),
-	    info.rate(), info.bits(), info.tracks());
+	    filename, info.tracks()*info.length()*(info.bits() >> 3),
+	    info.length(), info.rate(), info.bits(), info.tracks());
 	ASSERT(dialog);
 	QObject::connect(&writers, SIGNAL(progress(unsigned int)),
 	                 dialog, SLOT(setValue(unsigned int)));

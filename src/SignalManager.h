@@ -25,10 +25,12 @@
 #define samplepointer   2
 
 #include <qobject.h>
+#include <qarray.h>
 #include <qlist.h>
 #include <stdio.h>
 
 class ProgressDialog;
+class QBitmap;
 class Signal;
 class TimeOperation;
 
@@ -82,6 +84,20 @@ public:
     void getMaxMin(unsigned int channel, int &max, int& min,
                    unsigned int begin, unsigned int len);
 
+    /**
+     * Returns a QBitmap with an overview of all currently present
+     * signals.
+     * @param width width of the resulting bitmap in pixels
+     * @param height height of the resutling bitmap in pixels
+     * @param offset index of the first sample
+     * @param length number of samples
+     */
+    QBitmap *overview(unsigned int width, unsigned int height,
+                      unsigned int offset, unsigned int length);
+
+    /**
+     * Returns the current sample resolution in bits per sample
+     */
     int getBitsPerSample();
 
     /** Returns the current sample rate in samples per second */
@@ -132,18 +148,31 @@ public:
     };
 
     /**
+     * Returns an array of indices of currently selected channels.
+     */
+    const QArray<unsigned int> selectedChannels();
+
+    /**
      * Returns the value of one single sample of a specified channel.
      * If the channel does not exist or the index of the sample is
      * out of range the return value will be zero.
+     * @param channel index if the channel [0...N-1]
+     * @param offset sample offset [0...length-1]
+     * @return value of the sample
      */
     int singleSample(unsigned int channel, unsigned int offset);
 
     /**
      * Returns the value of one single sample averaged over all active channels.
-     * If no channel doe exist or the index of the sample is out of range the
-     * return value will be zero.
+     * If no channel do exist or the index of the sample is out of range the
+     * return value will be zero. If the optional list of channels is omitted,
+     * the sample will be averaged over all currently selected channels.
+     * @param offset sample offset [0...length-1]
+     * @param channels an array of channel numbers, optional
+     * @return value of the sample
      */
-    int averageSample(unsigned int offset);
+    int averageSample(unsigned int offset,
+                      const QArray<unsigned int> *channels = 0);
 
     void playback_setOp(int);
 

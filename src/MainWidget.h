@@ -66,7 +66,6 @@ public:
      */
     unsigned int getChannelCount();
 
-    unsigned char *getOverView (int);
     int getBitsPerSample();
 
     /** Returns the signal manager of the current signal */
@@ -104,6 +103,9 @@ public slots:
     void halt ();
     void loop ();
     void slot_ZoomChanged (double zoom);
+
+    /** Connected to the signal widget's signalChanged() signal */
+    void slot_SignalChanged(int left,int right);
 
 private slots:
 
@@ -148,23 +150,25 @@ signals:
 
 protected:
 
-    /**
-     * Update the menu and buttons.
-     */
+    /** Updates the menu and buttons. */
     void refreshControls();
 
-//Del by KDevelop:
+    /** Updates the overview in the horizontal slider */
+    void refreshOverView();
 
 private:
 
     QAccel *keys;
     QHBoxLayout *buttons;
-    OverViewWidget *slider;
+    OverViewWidget *m_slider;
     SignalWidget *signalview;
-    QPushButton *plusbutton, *minusbutton;
-    QPushButton *zoombutton, *nozoombutton;
+    QPushButton *plusbutton;
+    QPushButton *minusbutton;
+    QPushButton *zoombutton;
+    QPushButton *nozoombutton;
     QPushButton *zoomallbutton;
-    QPushButton *playbutton, *loopbutton;
+    QPushButton *playbutton;
+    QPushButton *loopbutton;
     QComboBox *zoomselect;
     KStatusBar &status;
     MenuManager &menu;

@@ -20,8 +20,9 @@
 #include <stdlib.h>
 
 #include <qaccel.h>
+#include <qbitmap.h>
+#include <qcombobox.h>
 #include <qframe.h>
-#include <qimage.h>
 #include <qkeycode.h>
 #include <qlayout.h>
 #include <qscrollbar.h>
@@ -53,11 +54,11 @@
 #define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
 
 #ifndef max
-#define max(x,y) (( x > y ) ? x : y )
+#define max(x,y) (( x > y ) ? (x) : (y) )
 #endif
 
 #ifndef min
-#define min(x,y) (( x < y ) ? x : y )
+#define min(x,y) (( x < y ) ? (x) : (y) )
 #endif
 
 static const int tbl_keys[10] = {
@@ -96,7 +97,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     plusbutton = 0;
     scrollbar = 0;
     signalview = 0;
-    slider = 0;
+    m_slider = 0;
     zoomallbutton = 0;
     zoombutton = 0;
     zoomselect = 0;
@@ -160,9 +161,9 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     // -- slider for horizontal scrolling --
 
-    slider = new OverViewWidget(this);
-    ASSERT(slider);
-    if (!slider) return;
+    m_slider = new OverViewWidget(this);
+    ASSERT(m_slider);
+    if (!m_slider) return;
 
     // -- buttons for playback and zoom --
 
@@ -272,8 +273,8 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     signalLayout->addWidget(frmSignal, 1, AlignLeft);
     signalLayout->addWidget(scrollbar, 0, AlignRight);
 
-    slider->setFixedHeight(playbutton->height()*3/4);
-    topLayout->addWidget(slider, 1, 1);
+    m_slider->setFixedHeight(playbutton->height()*3/4);
+    topLayout->addWidget(m_slider, 1, 1);
 
     topLayout->addLayout(buttons, 2, 1);
     buttons->addWidget(playbutton);
@@ -321,12 +322,12 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     connect(nozoombutton, SIGNAL(pressed()),
 	    signalview, SLOT(zoomNormal()));
 
-    connect(slider, SIGNAL(valueChanged(int)),
+    connect(m_slider, SIGNAL(valueChanged(int)),
 	    signalview, SLOT(slot_setOffset(int)));
     connect(zoomselect, SIGNAL(activated(int)),
 	    this, SLOT(zoomSelected(int)));
     connect(signalview, SIGNAL(viewInfo(int, int, int)),
-	    slider, SLOT(setRange(int, int, int)));
+	    m_slider, SLOT(setRange(int, int, int)));
     connect(signalview, SIGNAL(zoomInfo(double)),
 	    this, SLOT(slot_ZoomChanged(double)));
     connect(signalview, SIGNAL(playingfinished()),
@@ -343,6 +344,9 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 	    this, SLOT(setLengthInfo(int)));
     connect(signalview, SIGNAL(timeInfo(double)),
 	    this, SLOT(setTimeInfo(double)));
+
+    connect(signalview, SIGNAL(signalChanged(int,int)),
+            this, SLOT(slot_SignalChanged(int,int)));
     connect(signalview, SIGNAL(sigChannelAdded(unsigned int)),
             this, SLOT(channelAdded(unsigned int)));
     connect(signalview, SIGNAL(sigChannelDeleted(unsigned int)),
@@ -366,14 +370,14 @@ bool MainWidget::isOK()
     ASSERT(playbutton);
     ASSERT(scrollbar);
     ASSERT(signalview);
-    ASSERT(slider);
+    ASSERT(m_slider);
     ASSERT(zoomallbutton);
     ASSERT(zoombutton);
     ASSERT(zoomselect);
 
     return ( buttons && frmChannelControls && frmSignal && keys &&
              loopbutton && minusbutton && nozoombutton && playbutton &&
-             scrollbar && signalview && slider && zoomallbutton &&
+             scrollbar && signalview && m_slider && zoomallbutton &&
              zoombutton && zoomselect );
 }
 
@@ -403,6 +407,7 @@ MainWidget::~MainWidget()
 void MainWidget::resizeEvent(QResizeEvent *)
 {
     refreshChannelControls();
+    refreshOverView();
 }
 
 //*****************************************************************************
@@ -427,7 +432,7 @@ void MainWidget::refreshControls()
     menu.setItemEnabled("@SIGNAL", have_signal);
 
     // update the list of deletable channels
-    menu.clearNumberedMenu ("ID_EDIT_CHANNEL_DELETE");
+    menu.clearNumberedMenu("ID_EDIT_CHANNEL_DELETE");
     for (unsigned int i = 0; i < getChannelCount(); i++) {
 	char buf[64];
 	snprintf(buf, sizeof(buf), "%d", i);
@@ -443,6 +448,25 @@ void MainWidget::refreshControls()
     if (zoomallbutton) zoomallbutton->setEnabled(have_signal);
     if (zoombutton) zoombutton->setEnabled(have_signal);
     if (zoomselect) zoomselect->setEnabled(have_signal);
+
+    // refresh the overview (slider)
+    refreshOverView();
+}
+
+//***************************************************************************
+void MainWidget::refreshOverView()
+{
+    ASSERT(m_slider);
+    ASSERT(signalview);
+    if (!m_slider) return;
+    if (!signalview) return;
+
+    QBitmap *overview = signalview->overview(
+	m_slider->width(), m_slider->height());
+
+    m_slider->setOverView(overview);
+
+    if (overview) delete overview;
 }
 
 //**********************************************************
@@ -457,11 +481,9 @@ void MainWidget::saveSignal(const char *filename, int bits,
 void MainWidget::setSignal (const char *filename, int type)
 {
     ASSERT(signalview);
-    ASSERT(slider);
 
     closeSignal();
     if (signalview) signalview->setSignal(filename, type);
-    if (slider) slider->refresh();
     refreshControls();
 }
 
@@ -469,7 +491,6 @@ void MainWidget::setSignal (const char *filename, int type)
 void MainWidget::setSignal(SignalManager *signal)
 {
     ASSERT(signalview);
-    ASSERT(slider);
 
     closeSignal();
     if (signalview) signalview->setSignal(signal);
@@ -545,10 +566,10 @@ void MainWidget::slot_ZoomChanged(double zoom)
 }
 
 //*****************************************************************************
-unsigned char *MainWidget::getOverView(int val)
+void MainWidget::slot_SignalChanged(int left, int right)
 {
-    ASSERT(signalview);
-    return (signalview) ? signalview->getOverview(val) : 0;
+    debug("MainWidget::slot_SignalChanged(%d, %d)", left, right);
+    if (m_slider) refreshOverView();
 }
 
 //*****************************************************************************
@@ -593,7 +614,7 @@ void MainWidget::forwardCommand(const char *command)
 {
     ASSERT(command);
     if (!command) return;
-    debug("MainWidget::forwardCommand(%s)", command);    // ###
+//    debug("MainWidget::forwardCommand(%s)", command);
     emit sigCommand(command);
 }
 
@@ -601,24 +622,12 @@ void MainWidget::forwardCommand(const char *command)
 bool MainWidget::executeCommand(const char *command)
 {
     ASSERT(command);
-    debug("MainWidget::executeCommand(%s)", command);    // ###
+//    debug("MainWidget::executeCommand(%s)", command);
     if (!command) return false;
 
     if (false) {
-//    CASE_COMMAND("refreshchannels")
-//	//      resetChannels();
-//	setChannelInfo(signalview->getChannelCount());
-//      signalview->refresh();
-//      updateMenu();
-//    CASE_COMMAND("setplayback")
-//	Parser parser(command);
-//	playbit = parser.toInt();
-//	bufbase = parser.toInt();
-//    CASE_COMMAND("setmemory")
-//	Parser parser(command);
-//	
-//	mmap_threshold = parser.toInt();
-//	mmap_dir = strdup(parser.getNextParam());
+    CASE_COMMAND("zoomrange")
+	if (signalview) signalview->zoomRange();
     } else {
 	if (matchCommand(command, "selectchannels"))
 	    for (unsigned int i = 0; i < getChannelCount(); i++)
@@ -628,7 +637,7 @@ bool MainWidget::executeCommand(const char *command)
 	    for (unsigned int i = 0; i < getChannelCount(); i++)
 		if (lamps.at(i)) lamps.at(i)->nextState();
 
-	bool result = signalview->executeCommand(command);
+	bool result = (signalview)?signalview->executeCommand(command):false;
 	if (signalview) signalview->refreshAllLayers();
 	return result;
     }

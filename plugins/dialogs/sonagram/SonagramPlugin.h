@@ -18,6 +18,7 @@
 #ifndef _SONAGRAM_PLUGIN_H_
 #define _SONAGRAM_PLUGIN_H_
 
+#include <qarray.h>
 #include <qstring.h>
 #include <mt/SignalProxy.h>
 #include <libgui/KwavePlugin.h>
@@ -108,6 +109,9 @@ private:
 
     /** the main view of the plugin, a SonagramWindow */
     SonagramWindow *m_sonagram_window;
+
+    /** list of selected channels */
+    QArray<unsigned int> m_selected_channels;
 
     /** first sample of the selection, inclusive */
     unsigned int m_first_sample;

@@ -150,6 +150,12 @@ unsigned int KwavePlugin::signalRate()
 }
 
 //***************************************************************************
+const QArray<unsigned int> KwavePlugin::selectedChannels()
+{
+    return manager().selectedChannels();
+}
+
+//***************************************************************************
 unsigned int KwavePlugin::selection(unsigned int *left, unsigned int *right)
 {
     int l = manager().selectionStart();
@@ -166,17 +172,24 @@ int KwavePlugin::singleSample(unsigned int channel, unsigned int offset)
 }
 
 //***************************************************************************
-int KwavePlugin::averageSample(unsigned int offset)
+int KwavePlugin::averageSample(unsigned int offset,
+                               const QArray<unsigned int> *channels)
 {
-    return manager().averageSample(offset);
+    return manager().averageSample(offset, channels);
 }
 
 //***************************************************************************
-#include <kapp.h>
+QBitmap *KwavePlugin::overview(unsigned int width, unsigned int height,
+                               unsigned int offset, unsigned int length)
+{
+    return manager().overview(width, height, offset, length);
+}
+
+//***************************************************************************
 void KwavePlugin::yield()
 {
-   pthread_testcancel();
-   sched_yield();
+    pthread_testcancel();
+    sched_yield();
 }
 
 //***************************************************************************

@@ -92,8 +92,22 @@ CLASS="EMPHASIS"
     </P
 ><P
 >        For example: you got the binary rpm from a friend who has a 
-	RedHat system (where KDEDIR is /usr) and want to install it 
-	on a SuSE system (where KDEDIR is /opt/kde). Then just
+	RedHat system (where <SPAN
+CLASS="SYMBOL"
+>KDEDIR</SPAN
+> is 
+	<TT
+CLASS="FILENAME"
+>/usr</TT
+>) and want to install it 
+	on a SuSE system (where <SPAN
+CLASS="SYMBOL"
+>KDEDIR</SPAN
+> is
+	<TT
+CLASS="FILENAME"
+>/opt/kde</TT
+>). Then just
         give a different prefix when installing the rpm. Example:
 <TABLE
 BORDER="0"
@@ -106,11 +120,14 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->rpm -i --prefix=/opt/kde kwave-0.5.2-9.i586.rpm</B
+CLASS="COMMAND"
+>rpm -i --prefix=/opt/kde <TT
+CLASS="REPLACEABLE"
+><I
+>kwave-0.5.2-9.i586.rpm</I
 ></TT
+></B
 ></PRE
 ></TD
 ></TR
@@ -120,7 +137,11 @@ CLASS="USERINPUT"
 ><P
 >	This modifies the path where the program is installed and 
 	it is strongly recommended that this is the same directory as 
-	specified in the KDEDIR environment variable, otherwise <SPAN
+	specified in the <SPAN
+CLASS="SYMBOL"
+>KDEDIR</SPAN
+> environment variable, 
+	otherwise <SPAN
 CLASS="APPLICATION"
 >Kwave</SPAN
 >
@@ -147,7 +168,11 @@ ALIGN="LEFT"
 VALIGN="TOP"
 ><P
 >	The following should always work and install the desired 
-	package in the correct place - as long as the "KDEDIR" environment
+	package in the correct place - as long as 
+	the <SPAN
+CLASS="SYMBOL"
+>KDEDIR</SPAN
+> environment
 	variable is correctly set:
 <TABLE
 BORDER="0"

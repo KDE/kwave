@@ -20,6 +20,7 @@
 #include <limits.h>
 
 //#include <qdir.h>
+#include <qbitmap.h>
 #include <qimage.h>
 #include <qlayout.h>
 #include <qtimer.h>
@@ -31,7 +32,6 @@
 #include <libkwave/WindowFunction.h>
 
 #include "libgui/KwavePlugin.h"
-#include "libgui/OverViewWidget.h"
 #include "libgui/ScaleWidget.h"
 
 #include "../../../src/ImageView.h" // ### very bad, move class to libgui !!
@@ -158,20 +158,14 @@ SonagramWindow::SonagramWindow(const QString &name)
     m_yscale->setFixedWidth(m_yscale->sizeHint().width());
     top_layout->addWidget(m_yscale, 0, 0);
 
-    m_overview = new OverViewWidget(mainwidget);
+    m_overview = new ImageView(mainwidget);
     ASSERT(m_overview);
     if (!m_overview) return;
-    m_overview->setFixedHeight(m_overview->sizeHint().height());
+    m_overview->setFixedHeight(30);
     top_layout->addWidget(m_overview, 2, 1);
 
     connect(m_view, SIGNAL(sigCursorPos(const QPoint)),
 	    this, SLOT(cursorPosChanged(const QPoint)));
-    connect(m_overview, SIGNAL(valueChanged(int)),
-	    m_view, SLOT(setOffset(int)));
-    connect(m_view, SIGNAL(viewInfo(int, int, int)),
-	    this, SLOT(setRange(int, int, int)));
-    connect(m_view, SIGNAL(viewInfo(int, int, int)),
-	    m_overview, SLOT(setRange(int, int, int)));
     connect(&m_refresh_timer, SIGNAL(timeout()),
             this, SLOT(refresh_view()));
 		
@@ -192,6 +186,12 @@ SonagramWindow::SonagramWindow(const QString &name)
 
     resize(max(480,m_status->sizeHint().width()+40), 320);
     show();
+}
+
+//****************************************************************************
+void SonagramWindow::close()
+{
+    QWidget::close();
 }
 
 //****************************************************************************
@@ -268,6 +268,20 @@ void SonagramWindow::setImage(QImage *image)
 }
 
 //****************************************************************************
+void SonagramWindow::setOverView(QBitmap *overview)
+{
+    QImage *image = 0;
+    if (!m_overview) return;
+    if (overview) {
+	image = new QImage(overview->convertToImage());
+	ASSERT(image);
+    }
+    m_overview->setImage(image);
+    if (image) delete image;
+    if (overview) delete overview;
+}
+
+//****************************************************************************
 void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 	const QByteArray &stripe)
 {
@@ -321,16 +335,16 @@ void SonagramWindow::adjustBrightness()
 	sum += m_histogram[i];
     }
     // cut off all parts below the cutoff ration (e.g. 0.1%)
-    int cutoff = (int)(sum * COLOR_CUTOFF_RATIO);
+    unsigned int cutoff = (int)(sum * COLOR_CUTOFF_RATIO);
 
     // get the first used color
-    int first=0;
+    unsigned int first=0;
     while ((first < 253) && (m_histogram[first] <= cutoff)) {
 	first++;
     }
 
     QColor c;
-    for (int i=0; i < 255; i++) {
+    for (unsigned int i=0; i < 255; i++) {
 	int v;
 
 	if (i <= first) {

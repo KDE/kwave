@@ -18,12 +18,14 @@
 #ifndef _PLUGIN_MANAGER_H_
 #define _PLUGIN_MANAGER_H_ 1
 
-#include "qobject.h"
-#include "qlist.h"
+#include <qobject.h>
+#include <qarray.h>
+#include <qlist.h>
 
 #include "mt/SignalProxy.h"
 
 class KwavePlugin;
+class QBitmap;
 class QStrList;
 class TopWidget;
 
@@ -75,6 +77,11 @@ public:
     unsigned int signalRate();
 
     /**
+     * Returns an array of indices of currently selected channels.
+     */
+    const QArray<unsigned int> selectedChannels();
+
+    /**
      * Returns the start of the selection. If nothing is currently
      * selected this will be the first sample (0).
      */
@@ -95,10 +102,22 @@ public:
 
     /**
      * Returns the value of one single sample averaged over all active channels.
-     * If no channel doe exist or the index of the sample is out of range the
-     * return value will be zero.
+     * If no channel do exist or the index of the sample is out of range the
+     * return value will be zero. If the optional list of channels is omitted,
+     * the sample will be averaged over all currently selected channels.
+     * @param offset sample offset [0...length-1]
+     * @param channels an array of channel numbers, optional
+     * @return value of the sample
      */
-    int averageSample(unsigned int offset);
+    int averageSample(unsigned int offset,
+                      const QArray<unsigned int> *channels = 0);
+
+    /**
+     * Returns a QBitmap with an overview of all currently present
+     * signals.
+     */
+    QBitmap *overview(unsigned int width, unsigned int height,
+                      unsigned int offset, unsigned int length);
 
 signals:
     /**

@@ -1,42 +1,59 @@
+/***************************************************************************
+    OverViewWidget.h  -  horizontal slider with overview over a signal
+                             -------------------
+    begin                : Tue Oct 21 2000
+    copyright            : (C) 2000 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 #ifndef _OVER_VIEW_WIDGET_H_
 #define _OVER_VIEW_WIDGET_H_ 1
 
-#include <qpushbt.h>
-#include <qwidget.h>
-#include <qcombo.h>
-#include <qpixmap.h>
 #include <qtimer.h>
-#include <qframe.h>
-#include <kselect.h>
-//#include <ktopwidget.h>
-#include <kbuttonbox.h>
-#include <kbutton.h>
+#include <qwidget.h>
 
-//class MainWidget;
+class QBitmap;
+class QPixmap;
 
-//***********************************************************
-//OverviewWidget is the scrollbar in the main window
-//QScrollbar has proven to be unstable with high numbers.
-//this one also features a small overview of the part of the sample being
-//unseen
+/**
+ * \class OverViewWidget
+ * OverviewWidget can be used like a QSlider but has some background image
+ * that can show an overview over the whole data that is currently not
+ * visible. (QScrollbar has proven to be unstable with high numbers)
+ */
 class OverViewWidget : public QWidget
 {
     Q_OBJECT
 public:
     OverViewWidget(QWidget *parent = 0, const char *name = 0);
-//    OverViewWidget(MainWidget *parent = 0, const char *name = 0);
-    ~OverViewWidget();
-    void mousePressEvent(QMouseEvent *);
-    void mouseReleaseEvent(QMouseEvent *);
-    void mouseMoveEvent(QMouseEvent *);
-    void setSignal(char *);
+    virtual ~OverViewWidget();
+
+    /** sets the slider to a new offset */
     void setValue(int);
-    void refresh();
+
+    /** refreshes the overview */
+    void setOverView(QBitmap *overview);
 
     /** minimum size of the widtget, @see QWidget::minimumSize() */
     virtual const QSize minimumSize();
+
     /** optimal size for the widget, @see QWidget::sizeHint() */
     virtual const QSize sizeHint();
+
+protected:
+
+    void mousePressEvent(QMouseEvent *);
+    void mouseReleaseEvent(QMouseEvent *);
+    void mouseMoveEvent(QMouseEvent *);
 
 public slots:
 
@@ -49,29 +66,72 @@ public slots:
      */
     void setRange(int new_pos, int new_width, int new_length);
 
+    /** moves the slider one further bit left or right */
     void increase();
 
 signals:
 
-    void valueChanged (int);
+    /** will be emitted if the slider position has changed */
+    void valueChanged(int new_value);
 
 protected:
 
+    /** repaints the bar with overview and the slider */
     void paintEvent(QPaintEvent *);
+
+    /**
+     * Converts an offset in the user's coordinate system into
+     * a pixel offset withing the overview's drawing area.
+     * @param offset an offset in the user's coordinate system [0..length-1]
+     * @return the internal pixel coordinate [0...width-1]
+     */
+    int offset2pixels(int offset);
+
+    /**
+     * Converts a pixel offset within the overview's drawing area
+     * into the user's coordinate system.
+     * @param pixels the pixel coordinate [0...width-1]
+     * @return an offset [0..length-1]
+     */
+    int pixels2offset(int pixels);
 
 private:
 
-    int width, height;
-    bool grabbed;
-    int slider_width;
-    int slider_length;
-    int slider_pos;
-    int dir;           //addup for direction...
-    bool redraw;           //flag for redrawing pixmap
-//    MainWidget *mparent;
-    QWidget *parent;
-    QTimer *timer;        //to spare user repeated pressing of the widget...
-    QPixmap *pixmap;      //pixmap to be blitted to screen
+    /** width of the widget in pixels */
+    int m_width;
+
+    /** height of the widget in pixels */
+    int m_height;
+
+    /** position of the cursor within the slider when clicked */
+    int m_grabbed;
+
+    /** width of the slider in pixels */
+    int m_slider_width;
+
+    /** width of the visible area [user's coordinates] */
+    int m_view_width;
+
+    /** length of the whole area [user's coordinates] */
+    int m_view_length;
+
+    /** offset of the visible area [user's coordinates] */
+    int m_view_offset;
+
+    /** addup for direction... */
+    int m_dir;
+
+    /** flag for redrawing pixmap */
+    bool m_redraw;
+
+    /** to spare user repeated pressing of the widget... */
+    QTimer m_timer;
+
+    /** QBitmap with the overview */
+    QBitmap *m_overview;
+
+    /** QPixmap to be blitted to screen (avoiding flicker) */
+    QPixmap *m_pixmap;
 }
 ;
 

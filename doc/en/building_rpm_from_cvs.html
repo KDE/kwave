@@ -79,10 +79,36 @@ NAME="BUILDING_RPM_FROM_CVS"
 ><P
 >	Building rpm archives from a CVS snapshot is quite simple. The procedure 
 	is nearly the same as described in the last section, so it unhappily also 
-	has the same problem with the "rpm -ta" command our method internally uses.
-	Like in the previous chapter, "[arch]" stands for the platform you have 
-	built the package and might be something like "i386", "i586", "sparc" 
-	or whatever, XXX stands for the version number you have checked out.
+	has the same problem with the <B
+CLASS="COMMAND"
+>rpm -ta</B
+> command 
+	our method internally uses.
+	Like in the previous chapter, <TT
+CLASS="REPLACEABLE"
+><I
+>[arch]</I
+></TT
+> stands
+	for the platform you have Built the package and might be something 
+	like <TT
+CLASS="LITERAL"
+>i386</TT
+>, <TT
+CLASS="LITERAL"
+>i586</TT
+>, 
+	<TT
+CLASS="LITERAL"
+>sparc</TT
+> or whatever, 
+	<TT
+CLASS="REPLACEABLE"
+><I
+>XXX</I
+></TT
+> stands 
+	for the version number you have checked out.
     </P
 ><DIV
 CLASS="NOTE"
@@ -108,7 +134,14 @@ CLASS="EMPHASIS"
 >Note for SuSE users: </I
 >
 	here you have to specify the directory
-	"/usr/src/packages" instead of "/usr/src/redhat" too!
+	<TT
+CLASS="FILENAME"
+>/usr/src/packages</TT
+> instead 
+	of <TT
+CLASS="FILENAME"
+>/usr/src/redhat</TT
+> too!
     </P
 ></TD
 ></TR
@@ -122,8 +155,15 @@ TYPE="1"
 	    you are in the root of where you checked out from CVS, do the 
 	    following to create a Makefile, the libkwave package and 
 	    install it. If you already have a version of libkwave installed,
-	    please remove it first or use the parameter "-U" instead
-	    of "-i" for upgrading instead of installing.
+	    please remove it first or use the 
+	    parameter <TT
+CLASS="LITERAL"
+>-U</TT
+> instead
+	    of <TT
+CLASS="LITERAL"
+>-i</TT
+> for upgrading instead of installing.
 <TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -135,47 +175,42 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >cd libkwave</B
-></TT
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >make -f Makefile.dist</B
-></TT
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >./configure</B
-></TT
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >make rpm</B
-></TT
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->rpm -i /usr/src/redhat/BUILD/[arch]/libkwave-XXX.[arch].rpm</B
+CLASS="COMMAND"
+>rpm -i /usr/src/redhat/BUILD/<TT
+CLASS="REPLACEABLE"
+><I
+>[arch]/libkwave-XXX.[arch].rpm</I
 ></TT
+></B
 ></PRE
 ></TD
 ></TR
@@ -200,47 +235,42 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >cd kwave</B
-></TT
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >make -f Makefile.dist</B
-></TT
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >./configure</B
-></TT
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >make rpm</B
-></TT
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->rpm -i /usr/src/redhat/BUILD/[arch]/kwave-XXX.[arch].rpm</B
+CLASS="COMMAND"
+>rpm -i /usr/src/redhat/BUILD/<TT
+CLASS="REPLACEABLE"
+><I
+>[arch]/kwave-XXX.[arch].rpm</I
 ></TT
+></B
 ></PRE
 ></TD
 ></TR
@@ -268,9 +298,16 @@ ALT="Note"></TD
 ALIGN="LEFT"
 VALIGN="TOP"
 ><P
->	If you still have problems with "make rpm", you will find the tar.gz
-	archives that call has produced under /tmp. Please follow the
-	instructions in the
+>	If you still have problems with <B
+CLASS="COMMAND"
+>make rpm</B
+>, 
+	you will find the tar.gz
+	archives that call has produced under <TT
+CLASS="FILENAME"
+>/tmp</TT
+>. 
+	Please follow the instructions in the
 	<A
 HREF="building_rpm_from_targz.html#MANUAL_RPM_CREATION"
 >previous</A

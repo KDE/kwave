@@ -4,13 +4,14 @@
 #include <qwidget.h>
 #include <qpainter.h>
 
-class MouseMark;
 class LabelList;
 class LabelType;
+class MenuManager;
+class MouseMark;
+class QBitmap;
 class SignalManager;
 class ProgressDialog;
 class TimeOperation;
-class MenuManager;
 
 ProgressDialog *createProgressDialog (TimeOperation *operation,
 				      const char *caption);
@@ -75,7 +76,11 @@ public:
      */
     void setZoom(double new_zoom);
 
-    unsigned char *getOverview (int);
+    /**
+     * Returns a QBitmap with an overview of all currently present
+     * signals.
+     */
+    QBitmap *overview(unsigned int width, unsigned int height);
 
     bool checkPosition (int);
 
@@ -103,6 +108,12 @@ public slots:
     void forwardCommand(const char *command);
 
     /**
+     * Forwards signalChanged.
+     * @see signalChanged()
+     */
+    void forwardSignalChanged(int lmarker, int rmarker);
+
+    /**
      * Forwards sigChannelAdded()
      * @param channel index of the new channel [0...N-1]
      */
@@ -115,8 +126,6 @@ public slots:
     void forwardChannelDeleted(unsigned int channel);
 
     void showMessage(const char *caption, const char *text, int flags);
-
-    void signalChanged(int left, int right);
 
     void signalinserted(int, int);
     void signaldeleted(int, int);
@@ -196,6 +205,14 @@ signals:
      * @param zoom value [samples/pixel]
      */
     void zoomInfo(double zoom);
+
+    /**
+     * Indicates that the signal data within a range
+     * has changed.
+     * @param lmarker leftmost sample or -1 for "up to the left"
+     * @param rmarker rightmost sample or -1 for "up to the right"
+     */
+    void signalChanged(int lmarker, int rmarker);
 
     /**
      * Signals that a channel has been added/inserted. The channels

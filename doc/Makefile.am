@@ -30,7 +30,7 @@ doc.en: help_en.docbook
 	help_en.docbook
 
 #doc.de: help_de.docbook
-	# not done yet
+	# german documentation not done yet
 
 install-data-local:
 	$(mkinstalldirs) $(kde_htmldir)/en/$(PACKAGE)

@@ -6,6 +6,10 @@
 class QPaintEvent;
 
 //*****************************************************
+/**
+ * \class CornerPatchWidget
+ * \deprecated WAS USED IN THE TIMES BEFORE LAYOUT MANAGEMENT
+ */
 class CornerPatchWidget:public QWidget
 {
     Q_OBJECT

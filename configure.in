@@ -29,6 +29,18 @@ dnl AC_PROG_CXX
 dnl checks, if the debug code is wanted
 AC_CHECK_FLAGS
 
+dnl optimization flags for athlon
+dnl CFLAGS = -O3 -fomit-frame-pointer -Wall 
+dnl -mathlon -mcpu=athlon -march=athlon
+dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations 
+dnl -malign-double -fschedule-insns2 -mwide-multiply
+
+dnl optimization flags for pentium pro
+dnl CFLAGS = -s -O3 -fomit-frame-pointer -Wall 
+dnl -mpentiumpro -march=pentiumpro
+dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations 
+dnl -malign-double -fschedule-insns2 -mwide-multiply
+
 CFLAGS="${CFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 

@@ -110,9 +110,31 @@ CLASS="APPLICATION"
 >Kwave</SPAN
 >, 
 	create and install the RPMs just by doing the following steps:
-	([arch] stands for the platform you have built the package 
-	and might be something like "i386", "i586", "sparc" or whatever,
-	XXX stands for the version number you have downloaded.)
+	(<TT
+CLASS="REPLACEABLE"
+><I
+>[arch]</I
+></TT
+> stands for the platform you
+	have built the package and might be something like 
+	<TT
+CLASS="LITERAL"
+>i386</TT
+>, <TT
+CLASS="LITERAL"
+>i586</TT
+>, 
+	<TT
+CLASS="LITERAL"
+>sparc</TT
+> or whatever,
+	<TT
+CLASS="REPLACEABLE"
+><I
+>XXX</I
+></TT
+> stands for the version number 
+	you have downloaded.)
     </P
 ><OL
 TYPE="1"
@@ -130,20 +152,26 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->rpm -ta libkwave-XXX.tar.gz</B
+CLASS="COMMAND"
+>rpm -ta <TT
+CLASS="REPLACEABLE"
+><I
+>libkwave-XXX.tar.gz</I
 ></TT
+></B
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->rpm -i /usr/src/redhat/libkwave-XXX.[arch].rpm</B
+CLASS="COMMAND"
+>rpm -i <TT
+CLASS="REPLACEABLE"
+><I
+>/usr/src/redhat/libkwave-XXX.[arch].rpm</I
 ></TT
+></B
 ></PRE
 ></TD
 ></TR
@@ -168,20 +196,26 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->rpm -ta kwave-XXX.tar.gz</B
+CLASS="COMMAND"
+>rpm -ta <TT
+CLASS="REPLACEABLE"
+><I
+>kwave-XXX.tar.gz</I
 ></TT
+></B
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->rpm -i /usr/src/redhat/kwave-XXX.[arch].rpm</B
+CLASS="COMMAND"
+>rpm -i <TT
+CLASS="REPLACEABLE"
+><I
+>/usr/src/redhat/kwave-XXX.[arch].rpm</I
 ></TT
+></B
 ></PRE
 ></TD
 ></TR
@@ -214,7 +248,14 @@ CLASS="EMPHASIS"
 >Note for SuSE users: </I
 >
 	you have to specify the directory
-	"/usr/src/packages" instead of "/usr/src/redhat" !
+	<TT
+CLASS="FILENAME"
+>/usr/src/packages</TT
+> instead 
+	of <TT
+CLASS="FILENAME"
+>/usr/src/redhat</TT
+> !
     </P
 ></TD
 ></TR
@@ -245,10 +286,13 @@ ALT="Caution"></TD
 ALIGN="LEFT"
 VALIGN="TOP"
 ><P
->	The support for the "rpm -ta ..." might be broken on some
-	versions of rpm. The rpm program originally shipped with 
-	SuSE-6.4 (rpm-3.0.4) didn't work so far. You should update
-	your rpm package, e.g. from 
+>	The support for the <B
+CLASS="COMMAND"
+>rpm -ta ...</B
+> might be 
+	broken on some versions of rpm. The rpm program originally 
+	shipped with SuSE-6.4 (rpm-3.0.4) didn't work so far. You 
+	should update your rpm package, e.g. from 
 	<A
 HREF="ftp://ftp.suse.com/pub/suse_update/"
 TARGET="_top"
@@ -264,15 +308,26 @@ TARGET="_top"
 NAME="MANUAL_RPM_CREATION"
 ></A
 >
-	If you can't get "rpm -ta" working, here are the steps for
-	making that manually (the hard way):
+	If you can't get <B
+CLASS="COMMAND"
+>rpm -ta</B
+> working, here are 
+	the steps for making that manually (the hard way):
     </P
 ><OL
 TYPE="1"
 ><LI
 ><P
->	    Go to your RPM "topdir". This normally is "/usr/src/redhat"
-	    for the redhat distribution or "/usr/src/packages" if you
+>	    Go to your RPM "topdir". This normally 
+	    is <TT
+CLASS="FILENAME"
+>/usr/src/redhat</TT
+>
+	    for the redhat distribution 
+	    or <TT
+CLASS="FILENAME"
+>/usr/src/packages</TT
+> if you
 	    have the SuSE distribution.
 <TABLE
 BORDER="0"
@@ -285,11 +340,14 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->cd /usr/src/redhat</B
+CLASS="COMMAND"
+>cd /usr/src/<TT
+CLASS="REPLACEABLE"
+><I
+>redhat</I
 ></TT
+></B
 ></PRE
 ></TD
 ></TR
@@ -313,20 +371,26 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->cp /somewhere/libkwave-XXX.tar.gz SOURCES</B
+CLASS="COMMAND"
+>cp <TT
+CLASS="REPLACEABLE"
+><I
+>/somewhere/libkwave-XXX.tar.gz</I
 ></TT
+> SOURCES</B
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->cp /somewhere/kwave-XXX.tar.gz SOURCES</B
+CLASS="COMMAND"
+>cp <TT
+CLASS="REPLACEABLE"
+><I
+>/somewhere/kwave-XXX.tar.gz</I
 ></TT
+> SOURCES</B
 ></PRE
 ></TD
 ></TR
@@ -349,20 +413,26 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->tar -xOzf SOURCES/libkwave-XXX.tar.gz \*.spec &#62; SPECS/libkwave.spec</B
+CLASS="COMMAND"
+>tar -xOzf SOURCES/<TT
+CLASS="REPLACEABLE"
+><I
+>libkwave-XXX.tar.gz</I
 ></TT
+> \*.spec &#62; SPECS/libkwave.spec</B
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->tar -xOzf SOURCES/kwave-XXX.tar.gz \*.spec &#62; SPECS/kwave.spec</B
+CLASS="COMMAND"
+>tar -xOzf SOURCES/<TT
+CLASS="REPLACEABLE"
+><I
+>kwave-XXX.tar.gz</I
 ></TT
+> \*.spec &#62; SPECS/kwave.spec</B
 ></PRE
 ></TD
 ></TR
@@ -374,7 +444,17 @@ CLASS="USERINPUT"
 ><P
 >	    Let rpm do the compile job and generate the rpm of libkwave.
 	    If you only want to make a binary package, you
-	    can specify "-bb" instead of "-ba", or just "-bs" to build
+	    can specify <TT
+CLASS="LITERAL"
+>-bb</TT
+> instead of
+	    <TT
+CLASS="LITERAL"
+>-ba</TT
+>, or just <TT
+CLASS="LITERAL"
+>-bs</TT
+> to build
 	    only a source package.
 <TABLE
 BORDER="0"
@@ -387,11 +467,9 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >rpm -ba SPECS/libkwave.spec</B
-></TT
 ></PRE
 ></TD
 ></TR
@@ -404,8 +482,15 @@ CLASS="USERINPUT"
 >	    If everything was ok, you can install the binary rpm of
 	    libkwave, it will be in the BUILD directory.
 	    If you already have a version of libkwave installed,
-	    please remove it first or use the parameter "-U" instead
-	    of "-i" for upgrading instead of installing.
+	    please remove it first or use the parameter 
+	    <TT
+CLASS="LITERAL"
+>-U</TT
+> instead
+	    of <TT
+CLASS="LITERAL"
+>-i</TT
+> for upgrading instead of installing.
 <TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -417,11 +502,14 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->rpm -i BUILD/[arch]/libkwave-XXX.[arch].rpm</B
+CLASS="COMMAND"
+>rpm -i BUILD/<TT
+CLASS="REPLACEABLE"
+><I
+>[arch]/libkwave-XXX.[arch].rpm</I
 ></TT
+></B
 ></PRE
 ></TD
 ></TR
@@ -448,20 +536,21 @@ CLASS="SCREEN"
 > <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
+CLASS="COMMAND"
 >rpm -ba SPECS/kwave.spec</B
-></TT
 >
  <TT
 CLASS="PROMPT"
 >% </TT
-><TT
-CLASS="USERINPUT"
 ><B
->rpm -i BUILD/[arch]]/kwave-XXX.[arch].rpm</B
+CLASS="COMMAND"
+>rpm -i BUILD/<TT
+CLASS="REPLACEABLE"
+><I
+>[arch]]/kwave-XXX.[arch].rpm</I
 ></TT
+></B
 ></PRE
 ></TD
 ></TR

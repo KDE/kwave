@@ -85,11 +85,11 @@ SonagramPlugin::SonagramPlugin(PluginContext &c)
 //***************************************************************************
 SonagramPlugin::~SonagramPlugin()
 {
-    if (m_spx_insert_stripe) delete m_spx_insert_stripe;
-    m_spx_insert_stripe = 0;
-
     if (m_sonagram_window) delete m_sonagram_window;
     m_sonagram_window = 0;
+
+    if (m_spx_insert_stripe) delete m_spx_insert_stripe;
+    m_spx_insert_stripe = 0;
 
     if (m_image) delete m_image;
     m_image = 0;
@@ -198,6 +198,10 @@ int SonagramPlugin::start(QStrList &params)
 
     // activate the window with an initial image
     // and all necessary informations
+    m_selected_channels = selectedChannels();
+    m_sonagram_window->setOverView(overview(
+	2*m_sonagram_window->width(), 40, m_first_sample,
+	m_last_sample-m_first_sample+1));
     m_sonagram_window->setColorMode((m_color) ? 1 : 0);
     m_sonagram_window->setImage(m_image);
     m_sonagram_window->setPoints(m_fft_points);
@@ -208,9 +212,11 @@ int SonagramPlugin::start(QStrList &params)
     connect(m_sonagram_window, SIGNAL(destroyed()),
 	    this, SLOT(windowClosed()));
 
-    QObject::connect((QObject*)&(manager()),
-	SIGNAL(sigSignalNameChanged(const QString &)),
-	m_sonagram_window, SLOT(setName(const QString &)));
+    if (m_track_changes) {
+	QObject::connect((QObject*)&(manager()),
+	    SIGNAL(sigSignalNameChanged(const QString &)),
+	    m_sonagram_window, SLOT(setName(const QString &)));
+    }
 
     m_cmd_shutdown = false; // ###
 
@@ -331,7 +337,8 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
 	double value;
 
 	value = (sample_nr < m_last_sample) ?
-	    (double)averageSample(sample_nr)/(double)(1<<23): 0.0;
+	    (double)averageSample(sample_nr,
+	    &m_selected_channels)/(double)(1<<23): 0.0;
 
 	data[j].real = windowfunction[j] * value;
 	data[j].imag = 0;

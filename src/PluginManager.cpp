@@ -338,6 +338,15 @@ unsigned int PluginManager::signalRate()
 }
 
 //***************************************************************************
+const QArray<unsigned int> PluginManager::selectedChannels()
+{
+    const QArray<unsigned int> empty;
+
+    SignalManager *sig = m_top_widget.getSignalManager();
+    return ((sig) ? (sig->selectedChannels()) : (empty));
+}
+
+//***************************************************************************
 unsigned int PluginManager::selectionStart()
 {
     SignalManager *sig = m_top_widget.getSignalManager();
@@ -359,10 +368,19 @@ int PluginManager::singleSample(unsigned int channel, unsigned int offset)
 }
 
 //***************************************************************************
-int PluginManager::averageSample(unsigned int offset)
+int PluginManager::averageSample(unsigned int offset,
+                                 const QArray<unsigned int> *channels)
 {
     SignalManager *sig = m_top_widget.getSignalManager();
-    return (sig) ? sig->averageSample(offset) : 0;
+    return (sig) ? sig->averageSample(offset, channels) : 0;
+}
+
+//***************************************************************************
+QBitmap *PluginManager::overview(unsigned int width, unsigned int height,
+                                 unsigned int offset, unsigned int length)
+{
+    SignalManager *sig = m_top_widget.getSignalManager();
+    return (sig) ? sig->overview(width, height, offset, length) : 0;
 }
 
 //***************************************************************************

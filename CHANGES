@@ -1,6 +1,10 @@
 
 0.5.5 [not released yet]
 
+ * rework of the overview widget (used in main window and sonagram)
+ * fixed menu command "zoom selection"
+ * sonagram: saving to file, auto-brightness adjust
+ * replaced QFileDialog with KFileDialog
  * tested with AMD Athlon-optimized compiler (patched pegcs)
  * some fixes for safer multithreading
  * checking for much more header files at configure time (due to a

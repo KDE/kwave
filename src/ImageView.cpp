@@ -37,6 +37,7 @@ ImageView::ImageView(QWidget *parent, bool fit_width, bool fit_height)
 //****************************************************************************
 ImageView::~ImageView()
 {
+    if (m_image) delete m_image;
 }
 
 //****************************************************************************
@@ -65,7 +66,11 @@ void ImageView::mouseMoveEvent(QMouseEvent *e)
 //****************************************************************************
 void ImageView::setImage(const QImage *image)
 {
-    m_image = image;
+    if (m_image) delete m_image;
+    m_image = 0;
+
+    if (image) m_image = new QImage(*image);
+
     repaint();
 }
 

@@ -199,30 +199,11 @@ void SignalWidget::saveSignal(const char *filename, int bits,
 }
 
 //****************************************************************************
-unsigned char *SignalWidget::getOverview (int size)
+QBitmap *SignalWidget::overview(unsigned int width, unsigned int height)
 {
-//    int step, max = 0, min = 0;
-//
-//    unsigned char *overview = new unsigned char [size];
-//
-//    for (int i = 0; i < size; overview[i++] = 0);    //clear
-//
-//    if (overview && signalmanage) {
-//	double z = ((double)(signalmanage->getLength())) / size;
-//	int channels = signalmanage->getChannelCount();
-//
-//	for (int c = 0; c < channels; c++) {
-//	    for (int i = 0; i < size; i++) {
-//		step = ((int) (((double)i) * z));
-//		signalmanage->getMaxMin (c, max, min, step, (int) z + 2);
-//		if ( -min > max) max = -min;
-//		overview[i] += max / 65536;
-//	    }
-//	}
-//    }
-//    return overview;
-
-    return 0;
+    return (signalmanage) ?
+	signalmanage->overview(width, height,0,signalmanage->getLength())
+	: 0;
 }
 
 //****************************************************************************
@@ -516,26 +497,33 @@ void SignalWidget::connectSignal()
 
     connect(signalmanage, SIGNAL(sigCommand(const char*)),
 	    this, SLOT(forwardCommand(const char *)));
+    connect(signalmanage, SIGNAL(signalChanged(int,int)),
+	    this, SLOT(forwardSignalChanged(int,int)));
     connect(signalmanage, SIGNAL(sigChannelAdded(unsigned int)),
 	    this, SLOT(forwardChannelAdded(unsigned int)));
     connect(signalmanage, SIGNAL(sigChannelDeleted(unsigned int)),
 	    this, SLOT(forwardChannelDeleted(unsigned int)));
-    connect(signalmanage, SIGNAL(signalChanged(int, int)),
-	    this, SLOT(signalChanged(int, int)));
 
 }
 
 //****************************************************************************
 void SignalWidget::forwardCommand(const char *command)
 {
-    debug("SignalWidget::forwardCommand(%s)", command);    // ###
+//    debug("SignalWidget::forwardCommand(%s)", command);    // ###
     emit sigCommand(command);
+}
+
+//****************************************************************************
+void SignalWidget::forwardSignalChanged(int left, int right)
+{
+    debug("SignalWidget::forwardSignalChanged(%d,%d)", left, right);
+    emit signalChanged(left, right);
 }
 
 //****************************************************************************
 void SignalWidget::forwardChannelAdded(unsigned int channel)
 {
-    debug("SignalWidget::forwardChannelAdded(%u)", channel);
+//    debug("SignalWidget::forwardChannelAdded(%u)", channel);
     emit sigChannelAdded(channel);
 }
 
@@ -838,7 +826,7 @@ void SignalWidget::zoomRange()
 //****************************************************************************
 void SignalWidget::refreshAllLayers()
 {
-    debug("SignalWidget::refreshAllLayers()");
+//    debug("SignalWidget::refreshAllLayers()");
 
     for (int i=0; i < 3; i++) {
 	update_layer[i] = true;
@@ -878,13 +866,6 @@ void SignalWidget::refreshLayer(int layer)
 
     redraw = true;
     repaint(false);
-}
-
-//****************************************************************************
-void SignalWidget::signalChanged(int left, int right)
-{
-    debug("SignalWidget::signalChanged(%d,%d)", left, right);    // ###
-    refreshLayer(LAYER_SIGNAL);
 }
 
 //****************************************************************************

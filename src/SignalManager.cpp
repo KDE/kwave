@@ -29,6 +29,8 @@
 #include <sys/ioctl.h>
 #include <linux/soundcard.h>
 
+#include <qbitmap.h>
+#include <qpainter.h>
 #include <qtimer.h>
 #include <kmsgbox.h>
 
@@ -169,6 +171,26 @@ unsigned int SignalManager::getLength()
 }
 
 //***************************************************************************
+const QArray<unsigned int> SignalManager::selectedChannels()
+{
+    unsigned int channel;
+    unsigned int count = 0;
+    QArray<unsigned int> list(signal.count());
+
+    for (channel=0; channel < signal.count(); channel++) {
+	Signal *sig = signal.at(channel);
+	if (!sig) continue;
+	if (!sig->isSelected()) continue;
+	
+	list[count]=channel;
+	count++;
+    }
+
+    list.resize(count);
+    return list;
+}
+
+//***************************************************************************
 int SignalManager::singleSample(unsigned int channel, unsigned int offset)
 {
     ASSERT(channel >= 0);
@@ -180,22 +202,77 @@ int SignalManager::singleSample(unsigned int channel, unsigned int offset)
 }
 
 //***************************************************************************
-int SignalManager::averageSample(unsigned int offset)
+int SignalManager::averageSample(unsigned int offset,
+                                 const QArray<unsigned int> *channels)
 {
     unsigned int count = 0;
     unsigned int channel;
     double value = 0.0;
 
-    for (channel=0; channel < signal.count(); channel++) {
-	Signal *sig = signal.at(channel);
-	if (!sig) continue;
-	if (!sig->isSelected()) continue;
-	
-	value += sig->getSingleSample(offset);
-	count++;
+    if (channels) {
+	for (count=0; count < channels->size(); count++) {
+	    channel = (*channels)[count];
+	    Signal *sig = signal.at(channel);
+	    if (!sig) continue;
+	    value += sig->getSingleSample(offset);
+	}
+    } else {
+	for (channel=0; channel < signal.count(); channel++) {
+	    Signal *sig = signal.at(channel);
+	    if (!sig) continue;
+	    if (!sig->isSelected()) continue;
+
+	    value += sig->getSingleSample(offset);
+	    count++;
+	}
     }
 
     return (count) ? (int)(value/(double)count) : 0;
+}
+
+//****************************************************************************
+QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
+                                 unsigned int offset, unsigned int length)
+{
+    QBitmap *overview = new QBitmap(width, height);
+    ASSERT(overview);
+    if (!overview) return 0;
+
+    unsigned int channel;
+    unsigned int left;
+    unsigned int right;
+    unsigned int x;
+    unsigned int channels = getChannelCount();
+    double samples_per_pixel = (length-1) / (width-1);
+    int min;
+    int max;
+    float scale_y = (float)height / (float)(1 << 24);
+    QPainter p;
+
+    overview->fill(color0);
+
+    p.begin(overview);
+    p.setPen(color1);
+    left = offset;
+    for (x=0; x < width; x++) {
+	right = offset + (unsigned int)((x+1) * samples_per_pixel);
+        // find minimum and maximum over all channels
+        for (channel = 0; channel < channels; channel++) {
+	    getMaxMin(channel, max, min, left, right-left+1);
+        }
+
+        // transform min/max into pixel coordinates
+        min = (height >> 1) + (int)(min * scale_y);
+        max = (height >> 1) + (int)(max * scale_y);
+
+        // draw the line between min and max
+        p.drawLine(x, min, x, max);
+
+	left = right+1;
+    }
+    p.end ();
+
+    return overview;
 }
 
 //***************************************************************************

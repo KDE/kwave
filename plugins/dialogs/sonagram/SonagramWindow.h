@@ -22,7 +22,7 @@
 
 class ImageView;
 class KStatusBar;
-class OverViewWidget;
+class QBitmap;
 class QImage;
 class QTimer;
 class ScaleWidget;
@@ -56,6 +56,11 @@ public:
     void setImage(QImage *image);
 
     /**
+     * Sets a new overview bitmap for the signal space
+     */
+    void setOverView(QBitmap *overview);
+
+    /**
      * Inserts a stripe into the current image. If the stripe contains more
      * data than fits into the image, the remaining rest will be ignored,
      * if less data is present, it will be filled with 0xFF. The previous
@@ -66,6 +71,9 @@ public:
     void insertStripe(const unsigned int stripe_nr, const QByteArray &stripe);
 
 public slots:
+
+    /** closes the sonagram window */
+    void close();
 
     /** not implemented yet */
     void save();
@@ -158,7 +166,7 @@ private:
     ImageView *m_view;
 
     /** short overview over the signal */
-    OverViewWidget *m_overview;
+    ImageView *m_overview;
 
     /** number of fft points */
     unsigned int m_points;

@@ -51,7 +51,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-10-14</DATE>
+    <DATE>2000-10-22</DATE>
     <RELEASEINFO>0.5.4-4</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -142,8 +142,8 @@
 
     <PARA>
         Sorry, there is not so much documentation available yet. If you 
-    	feel urgent need for it, please write to one of the developers or
-	to the kwave mailing list and we will help you. Of course I would be 
+    	feel urgent need for information, please write to one of the developers
+	or to the kwave mailing list and we will help you. Of course I would be
     	happy if you contribute Documentation, and will provide information, 
     	if you need some. 
     </PARA>
@@ -230,6 +230,18 @@
         <LISTITEM>
             <PARA>0.5.5 [not released yet]</PARA>
             <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    rework of the overview widget (used in main window and sonagram)
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    fixed menu command "zoom selection"
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    sonagram: saving to file, auto-brightness adjust
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    replaced QFileDialog with KFileDialog
+                </PARA></LISTITEM>
                 <LISTITEM><PARA>
                     tested with AMD Athlon-optimized compiler (patched pegcs)
                 </PARA></LISTITEM>
@@ -1221,12 +1233,12 @@
     	In order to compile and install libkwave on your system, type the 
 	following in the base directory of the source distribution:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">cd libkwave</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make -f Makefile.dist</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">./configure</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make install</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">cd ..</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>cd libkwave</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make install</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>cd ..</COMMAND>
 </SCREEN>
     </PARA>
     <PARA>
@@ -1234,11 +1246,11 @@
 	install &kapp itself. Type the following in the base directory of the 
 	source distribution:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">cd kwave</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make -f Makefile.dist</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">./configure</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make install</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>cd kwave</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make install</COMMAND>
 </SCREEN>
     </PARA>
     
@@ -1271,25 +1283,28 @@
     <PARA>
 	If you have downloaded a tar-gz archives of libkwave and &kapp;, 
 	create and install the RPMs just by doing the following steps:
-	([arch] stands for the platform you have built the package 
-	and might be something like "i386", "i586", "sparc" or whatever,
-	XXX stands for the version number you have downloaded.)
+	(<REPLACEABLE>[arch]</REPLACEABLE> stands for the platform you
+	have built the package and might be something like 
+	<LITERAL>i386</LITERAL>, <LITERAL>i586</LITERAL>, 
+	<LITERAL>sparc</LITERAL> or whatever,
+	<REPLACEABLE>XXX</REPLACEABLE> stands for the version number 
+	you have downloaded.)
     </PARA>
     
     <ORDEREDLIST>
 	<LISTITEM><PARA>
 	First build the libkwave package and install it:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -ta libkwave-XXX.tar.gz</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i /usr/src/redhat/libkwave-XXX.[arch].rpm</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>rpm -ta <REPLACEABLE>libkwave-XXX.tar.gz</REPLACEABLE></COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
 	Then build the &kapp; package and install it too:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -ta kwave-XXX.tar.gz</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i /usr/src/redhat/kwave-XXX.[arch].rpm</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>rpm -ta <REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE></COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 	
@@ -1298,7 +1313,8 @@
     <NOTE><PARA>
 	<EMPHASIS>Note for SuSE users: </EMPHASIS>
 	you have to specify the directory
-	"/usr/src/packages" instead of "/usr/src/redhat" !
+	<FILENAME>/usr/src/packages</FILENAME> instead 
+	of <FILENAME>/usr/src/redhat</FILENAME> !
     </PARA></NOTE>
 
     <PARA>
@@ -1309,26 +1325,28 @@
     </PARA>
     
     <CAUTION><PARA>
-	The support for the "rpm -ta ..." might be broken on some
-	versions of rpm. The rpm program originally shipped with 
-	SuSE-6.4 (rpm-3.0.4) didn't work so far. You should update
-	your rpm package, e.g. from 
+	The support for the <COMMAND>rpm -ta ...</COMMAND> might be 
+	broken on some versions of rpm. The rpm program originally 
+	shipped with SuSE-6.4 (rpm-3.0.4) didn't work so far. You 
+	should update your rpm package, e.g. from 
 	<ULINK URL="ftp://ftp.suse.com/pub/suse_update/"><!--
 	-->the SuSE ftp server</ULINK>.
     </PARA></CAUTION>
 
     <PARA><ANCHOR ID="MANUAL_RPM_CREATION">
-	If you can't get "rpm -ta" working, here are the steps for
-	making that manually (the hard way):
+	If you can't get <COMMAND>rpm -ta</COMMAND> working, here are 
+	the steps for making that manually (the hard way):
     </PARA>
 
     <ORDEREDLIST>
 	<LISTITEM><PARA>
-	    Go to your RPM "topdir". This normally is "/usr/src/redhat"
-	    for the redhat distribution or "/usr/src/packages" if you
+	    Go to your RPM "topdir". This normally 
+	    is <FILENAME>/usr/src/redhat</FILENAME>
+	    for the redhat distribution 
+	    or <FILENAME>/usr/src/packages</FILENAME> if you
 	    have the SuSE distribution.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">cd /usr/src/redhat</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>cd /usr/src/<REPLACEABLE>redhat</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
@@ -1337,8 +1355,8 @@
 	    have to replace "somewhere" with the real directory where
 	    the files are, of course).
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">cp /somewhere/libkwave-XXX.tar.gz SOURCES</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">cp /somewhere/kwave-XXX.tar.gz SOURCES</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>cp <REPLACEABLE>/somewhere/libkwave-XXX.tar.gz</REPLACEABLE> SOURCES</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>cp <REPLACEABLE>/somewhere/kwave-XXX.tar.gz</REPLACEABLE> SOURCES</COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
@@ -1346,18 +1364,19 @@
 	    Extract the spec files from the archives and put them into
 	    the SPEC subdirectory.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">tar -xOzf SOURCES/libkwave-XXX.tar.gz \*.spec > SPECS/libkwave.spec</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">tar -xOzf SOURCES/kwave-XXX.tar.gz \*.spec > SPECS/kwave.spec</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>tar -xOzf SOURCES/<REPLACEABLE>libkwave-XXX.tar.gz</REPLACEABLE> \*.spec > SPECS/libkwave.spec</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>tar -xOzf SOURCES/<REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE> \*.spec > SPECS/kwave.spec</COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
 	    Let rpm do the compile job and generate the rpm of libkwave.
 	    If you only want to make a binary package, you
-	    can specify "-bb" instead of "-ba", or just "-bs" to build
+	    can specify <LITERAL>-bb</LITERAL> instead of
+	    <LITERAL>-ba</LITERAL>, or just <LITERAL>-bs</LITERAL> to build
 	    only a source package.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -ba SPECS/libkwave.spec</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>rpm -ba SPECS/libkwave.spec</COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
@@ -1365,10 +1384,11 @@
 	    If everything was ok, you can install the binary rpm of
 	    libkwave, it will be in the BUILD directory.
 	    If you already have a version of libkwave installed,
-	    please remove it first or use the parameter "-U" instead
-	    of "-i" for upgrading instead of installing.
+	    please remove it first or use the parameter 
+	    <LITERAL>-U</LITERAL> instead
+	    of <LITERAL>-i</LITERAL> for upgrading instead of installing.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i BUILD/[arch]/libkwave-XXX.[arch].rpm</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>rpm -i BUILD/<REPLACEABLE>[arch]/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
@@ -1377,8 +1397,8 @@
 	    install the &kapp; package itself. It goes the same way
 	    the creation and installation of libkwave did.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -ba SPECS/kwave.spec</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i BUILD/[arch]]/kwave-XXX.[arch].rpm</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>rpm -ba SPECS/kwave.spec</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -i BUILD/<REPLACEABLE>[arch]]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
@@ -1396,16 +1416,21 @@
     <PARA>
 	Building rpm archives from a CVS snapshot is quite simple. The procedure 
 	is nearly the same as described in the last section, so it unhappily also 
-	has the same problem with the "rpm -ta" command our method internally uses.
-	Like in the previous chapter, "[arch]" stands for the platform you have 
-	built the package and might be something like "i386", "i586", "sparc" 
-	or whatever, XXX stands for the version number you have checked out.
+	has the same problem with the <COMMAND>rpm -ta</COMMAND> command 
+	our method internally uses.
+	Like in the previous chapter, <REPLACEABLE>[arch]</REPLACEABLE> stands
+	for the platform you have Built the package and might be something 
+	like <LITERAL>i386</LITERAL>, <LITERAL>i586</LITERAL>, 
+	<LITERAL>sparc</LITERAL> or whatever, 
+	<REPLACEABLE>XXX</REPLACEABLE> stands 
+	for the version number you have checked out.
     </PARA>
 
     <NOTE><PARA>
 	<EMPHASIS>Note for SuSE users: </EMPHASIS>
 	here you have to specify the directory
-	"/usr/src/packages" instead of "/usr/src/redhat" too!
+	<FILENAME>/usr/src/packages</FILENAME> instead 
+	of <FILENAME>/usr/src/redhat</FILENAME> too!
     </PARA></NOTE>
 
     <ORDEREDLIST>
@@ -1414,33 +1439,35 @@
 	    you are in the root of where you checked out from CVS, do the 
 	    following to create a Makefile, the libkwave package and 
 	    install it. If you already have a version of libkwave installed,
-	    please remove it first or use the parameter "-U" instead
-	    of "-i" for upgrading instead of installing.
+	    please remove it first or use the 
+	    parameter <LITERAL>-U</LITERAL> instead
+	    of <LITERAL>-i</LITERAL> for upgrading instead of installing.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">cd libkwave</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make -f Makefile.dist</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">./configure</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make rpm</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i /usr/src/redhat/BUILD/[arch]/libkwave-XXX.[arch].rpm</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>cd libkwave</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make rpm</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -i /usr/src/redhat/BUILD/<REPLACEABLE>[arch]/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
 	Then go on and do the same with the &kapp; package:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">cd kwave</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make -f Makefile.dist</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">./configure</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make rpm</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i /usr/src/redhat/BUILD/[arch]/kwave-XXX.[arch].rpm</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>cd kwave</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>make rpm</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -i /usr/src/redhat/BUILD/<REPLACEABLE>[arch]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
     </ORDEREDLIST>
 
     <NOTE><PARA>
-	If you still have problems with "make rpm", you will find the tar.gz
-	archives that call has produced under /tmp. Please follow the
-	instructions in the
+	If you still have problems with <COMMAND>make rpm</COMMAND>, 
+	you will find the tar.gz
+	archives that call has produced under <FILENAME>/tmp</FILENAME>. 
+	Please follow the instructions in the
 	<LINK LINKEND="MANUAL_RPM_CREATION">previous</LINK> chapter.
     </PARA></NOTE>
 
@@ -1464,25 +1491,29 @@
     
     <PARA>
         For example: you got the binary rpm from a friend who has a 
-	RedHat system (where KDEDIR is /usr) and want to install it 
-	on a SuSE system (where KDEDIR is /opt/kde). Then just
+	RedHat system (where <SYMBOL>KDEDIR</SYMBOL> is 
+	<FILENAME>/usr</FILENAME>) and want to install it 
+	on a SuSE system (where <SYMBOL>KDEDIR</SYMBOL> is
+	<FILENAME>/opt/kde</FILENAME>). Then just
         give a different prefix when installing the rpm. Example:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i --prefix=/opt/kde kwave-0.5.2-9.i586.rpm</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>rpm -i --prefix=/opt/kde <REPLACEABLE>kwave-0.5.2-9.i586.rpm</REPLACEABLE></COMMAND>
 </SCREEN>
     </PARA>
 
     <PARA>
 	This modifies the path where the program is installed and 
 	it is strongly recommended that this is the same directory as 
-	specified in the KDEDIR environment variable, otherwise &kapp;
+	specified in the <SYMBOL>KDEDIR</SYMBOL> environment variable, 
+	otherwise &kapp;
 	would be unable to find it's menu configuration, plugins, 
 	preset files and so on...
     </PARA>
 
     <NOTE><PARA>
 	The following should always work and install the desired 
-	package in the correct place - as long as the "KDEDIR" environment
+	package in the correct place - as long as 
+	the <SYMBOL>KDEDIR</SYMBOL> environment
 	variable is correctly set:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i --prefix=${KDEDIR} kwave-0.5.2-9.i386.rpm</USERINPUT>
@@ -1538,14 +1569,99 @@
 	For example:
 
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"</USERINPUT>
+<PROMPT>% </PROMPT><COMMAND>export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"</COMMAND>
 </SCREEN>
     </PARA></NOTE>
     
     </SECT1>
 
-</CHAPTER>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: optimizations                                         +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
+    <SECT1 ID="COMPILER_OPTIMIZATIONS">
+    <TITLE>Compiler Optimizations</TITLE>
+
+    <PARA>
+	If you are owner of a Pentium, an AMD K6 or Athlon CPU, you might
+	want to use an optimized compiler to compile your version of
+	&kapp; that is running some percents faster. The gain in speed will
+	be up to 30% on some systems, whereas the functions dealing with 
+	signal manipulation and all functions that do complex time-frequency
+	operations (like FFT and Sonagram) will profit most from it.
+    </PARA>
+    <PARA>
+        You do not need to understand much about programming for using an
+	optimized compiler to compile &kapp;, but maybe you will need some
+	time to get the compiler itself working and installed.
+    </PARA>
+
+    <SECT2 ID="OPTIMIZE_INVOCATION">
+    <TITLE>How to invoke the optimized compiler</TITLE>
+    <PARA>
+	The invocation of an optimized compiler is quite simple. It normally
+	is sufficient to set the environment variable <SYMBOL>CXXFLAGS</SYMBOL>
+	in the correct way and then compile as usual. For the best settings
+	please consult the documentation or homepage of the corresponding
+	compiler.
+    </PARA>
+    <PARA>
+	If you build &kapp; from a source tree (unpacked tar.gz or from CVS)
+	the flags need to be specidied before the call 
+	to <COMMAND>configure</COMMAND>. This might look like this:
+<SCREEN>
+<PROMPT>% </PROMPT><!--
+--><COMMAND><SYMBOL>CXXFLAGS</SYMBOL>="-march=athlon -mcpu=athlon"<!--
+--> ./configure</COMMAND></SCREEN>
+    </PARA>
+    <PARA>
+	If you re-build &kapp; from a source rpm package
+	the flags need to be specidied before the call 
+	to <COMMAND>rpm --rebuild</COMMAND>. This might look like this:
+<SCREEN>
+<PROMPT>% </PROMPT><!--
+--><COMMAND><SYMBOL>CXXFLAGS</SYMBOL>="-march=athlon -mcpu=athlon"<!--
+--> rpm --rebuild <REPLACEABLE>filename</REPLACEABLE></COMMAND></SCREEN>
+	<NOTE><PARA>
+	And please don't give up if <COMMAND>rpm</COMMAND> refuses to install
+	your package because it seems not to fit to your computer's
+	architecture. Normally you can just install an optimized package
+	by specifying the additional parameter <COMMAND>--ignorearch</COMMAND>
+	and just don't care.
+	</PARA></NOTE>
+    </PARA>
+    </SECT2>
+    
+    <SECT2 ID="OPTIMIZE_PENTIUM">
+    <TITLE>Pentium and Compatibles</TITLE>
+    <PARA>
+	For all optimized versions I used pgcc-2.95.3. For informations on
+	obtaining the pgcc compiler, visit the Homepage of the
+	the <ULINK URL="http://pgcc.deu.edu.tr/"><!--
+	    -->Pentium Compiler Group</ULINK>. They also have binaries
+	for most common platforms. The compiler does not only work for all 
+	known Pentium derivates 
+	from <ULINK URL="http://www.intel.com/">Intel</ULINK> but also for
+        some other manufactors 
+	like <ULINK URL="http://www.cyrix.com/">Cyrix</ULINK>.
+    </PARA>
+    </SECT2>
+
+    <SECT2 ID="OPTIMIZE_ATHLON">
+    <TITLE>AMD Athlon</TITLE>
+    <PARA>
+	If you have a CPU from AMD, you can go one step further and
+	get the Athlon-GCC running. This is an additional patch for
+	the PGCC. For further informations, please visit the Homepage of
+	the <ULINK URL="http://athlonlinux.org/"><!--
+	    -->Athlon Linux Project</ULINK>. This compiler also works
+	for the K6, K6-II, K6-III and maybe some others.
+    </PARA>
+    </SECT2>
+
+    </SECT1>
+
+</CHAPTER>
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Using Kwave                                           ### -->
@@ -1571,9 +1687,9 @@
 	write some documentation.
     </PARA>
     <PARA>
-	Sorry, this chapter is still to be written. OK, here is a little
-	screenshot so that you might get an impression what &kapp;
-	looks like...
+	Sorry, this chapter still has many sections to be written. OK, here 
+	is a little screenshot so that you might get an impression what 
+	&kapp; looks like...
     </PARA>
 
     <PARA>
@@ -1650,25 +1766,51 @@
     If you start &kapp; from the command line, you can specify a list
     of files that should be opened. The first specified file will be opened 
     first, then the other files. Each file will be opened in an own new
-    window.
+    window of the same &kapp; instance. If you specify wildcards, you can
+    open a large number of files at once.
+    </PARA>
+    <PARA>
+    For example, the following command starts a &kapp; and opens all sounds
+    for window:
+    <SCREEN><PROMPT>% </PROMPT><COMMAND>kwave <FILENAME>/opt/kde/share/sounds/KDE_Window*.wav</FILENAME></COMMAND></SCREEN>
     </PARA>
     
     <PARA>
     In addition to a list of files, you can specify a list of 
-    <EMPHASIS>Xt toolkit</EMPHASIS> options like "-geometry" for
-    specifying the size and/or position of the first opened &kapp 
-    window and or "-display" for starting the &kapp on a different
-    display.
+    <EMPHASIS>Xt toolkit</EMPHASIS> options like <LITERAL>-geometry</LITERAL> 
+    for specifying the size and/or position of the first opened &kapp 
+    window and or <LITERAL>-display</LITERAL> for starting the &kapp on a 
+    different display.
+    </PARA>
+
+    <PARA>
+    For example, the following command starts a &kapp; window with an initial 
+    width of 600 pixels and a height of 400 pixels, with the right border 
+    positioned 30 pixels away from the right and 0 pixels away form the top
+    of the screen.
+    <SCREEN><PROMPT>% </PROMPT><COMMAND>kwave <PARAMETER>-geometry 600x400-30+0</PARAMETER></COMMAND></SCREEN>
     </PARA>
 
     </SECT1>
-        
-<!-- @@@ still to be done ... @@@
-    <SECT1 ID="KAPP-FEATURES"><TITLE>More Kapp features</TITLE>
+
+    <SECT1 ID="SELECTING"><TITLE>How to select</TITLE>
 
     <PARA>
-    	It slices! It dices! and it comes with a free toaster!
+    - about the selected range    
     </PARA>
+
+    <PARA>
+    - with mouse
+    </PARA>
+
+    <PARA>
+    - with keyboard
+    </PARA>
+
+    </SECT1>
+
+<!-- @@@ still to be done ... @@@
+    <SECT1 ID="KAPP-FEATURES"><TITLE>More Kapp features</TITLE>
 
     <PARA>
     	The Squiggle Tool 
@@ -1859,7 +2001,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-10-14</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-10-22</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

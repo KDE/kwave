@@ -416,7 +416,7 @@ dist=true
 install=false
 type=HEADER
 [src/Makefile.am]
-files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleop.h,src/SignalManager.h,src/SonagramContainer.cpp,src/SonagramWindow.cpp,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,src/kxt.h,src/SignalWidget.cpp,src/SignalWidget.h,src/LabelManager.h,src/LabelManager.cpp,src/PluginManager.cpp,src/PluginManager.h,
+files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleop.h,src/SignalManager.h,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,src/kxt.h,src/SignalWidget.cpp,src/SignalWidget.h,src/LabelManager.h,src/LabelManager.cpp,src/PluginManager.cpp,src/PluginManager.h,
 type=static_library
 sub_dirs=
 [src/FFTWindow.h]
@@ -496,7 +496,7 @@ version_control=CVS
 author=Thomas Eschenbacher
 project_type=normal_kde
 sub_dir=kwave/
-lfv_open_groups=
+lfv_open_groups=Zusätzliche,Sources,
 workspace=1
 version=0.5.2-13
 project_name=Kwave
@@ -587,17 +587,7 @@ install_location=
 dist=true
 install=false
 type=HEADER
-[src/SonagramWindow.cpp]
-install_location=
-dist=true
-install=false
-type=SOURCE
 [libgui/TimeLine.cpp]
-install_location=
-dist=true
-install=false
-type=SOURCE
-[src/SonagramContainer.cpp]
 install_location=
 dist=true
 install=false

@@ -127,6 +127,11 @@ public:
     virtual unsigned int signalRate();
 
     /**
+     * Returns an array of indices of currently selected channels.
+     */
+    virtual const QArray<unsigned int> selectedChannels();
+
+    /**
      * Returns the left and right sample of the current selection
      * in samples from 0 to (size-1). The left and right samples
      * are included in the selection and might be equal. The left
@@ -147,10 +152,22 @@ public:
 
     /**
      * Returns the value of one single sample averaged over all active channels.
-     * If no channel doe exist or the index of the sample is out of range the
-     * return value will be zero.
+     * If no channel does exist or the index of the sample is out of range the
+     * return value will be zero. If the optional list of channels is omitted,
+     * the sample will be averaged over all currently selected channels.
+     * @param offset sample offset [0...length-1]
+     * @param channels an array of channel numbers, optional
+     * @return value of the sample
      */
-    virtual int averageSample(unsigned int offset);
+    virtual int averageSample(unsigned int offset,
+                              const QArray<unsigned int> *channels = 0);
+
+    /**
+     * Returns a QBitmap with an overview of all currently present
+     * signals.
+     */
+    QBitmap *overview(unsigned int width, unsigned int height,
+                      unsigned int offset, unsigned int length);
 
     /**
      * Gives the control to the next thread. This can be called from

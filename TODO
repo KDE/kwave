@@ -68,8 +68,6 @@ o re-enable usage of memory mapped files
 
 o make a menu group for @SELECTION
 
-o remove all usages of KTopLevelWidget -> use KTMainWindow instead
-
 o import of multi-channel ASCII files
 
 o label handling doesn't work (currently disabled), work on LabelManager

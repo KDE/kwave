@@ -43,7 +43,7 @@ class Synth_PITCH_SHIFT_bugfixed_impl:
 protected:
 	float _speed, _frequency;
 
-	enum { MAXDELAY = 44100 };
+	static const int MAXDELAY = 44100;
 	float *dbuffer;
 	float lfopos, b1pos, b2pos, b1inc, b2inc;
 	bool b1reset, b2reset, initialized;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-13 19:49GMT\n"
+"PO-Revision-Date: 2002-01-13 20:09GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,116 +19,118 @@ msgid ""
 "<firstname>Thomas</firstname> <surname>Eschenbacher</surname> <affiliation> "
 "<address><email>thomas.eschenbacher@gmx.de</email></address> </affiliation>"
 msgstr ""
+"<firstname>Thomas</firstname> <surname>Eschenbacher</surname> <affiliation> "
+"<address><email>thomas.eschenbacher@gmx.de</email></address> </affiliation>"
 
 #: index.docbook:24
 msgid "ROLES_OF_TRANSLATORS"
-msgstr ""
+msgstr "ROLES_OF_TRANSLATORS"
 
 #: index.docbook:28
 msgid "Martin Wilz"
-msgstr ""
+msgstr "Martin Wilz"
 
 #: index.docbook:29
 msgid "Thomas Eschenbacher"
-msgstr ""
+msgstr "Thomas Eschenbacher"
 
 #: index.docbook:36
 msgid "&kapp; is a simple sound editor for KDE."
-msgstr ""
+msgstr "&kapp, est un éditeur de sons pour KDE."
 
 #: index.docbook:39
 msgid "<keyword>KDE</keyword>"
-msgstr ""
+msgstr "<keyword>KDE</keyword>"
 
 #: index.docbook:40
 msgid "multimedia"
-msgstr ""
+msgstr "multimédia"
 
 #: index.docbook:41
 msgid "sound"
-msgstr ""
+msgstr "son"
 
 #: index.docbook:42
 msgid "audio"
-msgstr ""
+msgstr "audio"
 
 #: index.docbook:43
 msgid "Kwave"
-msgstr ""
+msgstr "Kwave"
 
 #: index.docbook:44
 msgid "<keyword>wav</keyword>"
-msgstr ""
+msgstr "<keyword>wav</keyword>"
 
 #: index.docbook:45
 msgid "editor"
-msgstr ""
+msgstr "éditeur"
 
 #: index.docbook:46
 msgid "sonagram"
-msgstr ""
+msgstr "sonagramme"
 
 #: index.docbook:47
 msgid "<keyword>FFT</keyword>"
-msgstr ""
+msgstr "<keyword>FFT</keyword>"
 
 #: index.docbook:48
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: index.docbook:56
 msgid "Introduction"
-msgstr ""
+msgstr "Introduction"
 
 #: index.docbook:64
 msgid "This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
-msgstr ""
+msgstr "\"&kapp;\" est un éditeur de pistes sonores pour l'envirronnement de bureau KDE. Il inclu les fonctionnalités suivantes :"
 
 #: index.docbook:64
 msgid "simple cut, copy and paste functions"
-msgstr ""
+msgstr "les fonctions de couper, copier et coller"
 
 #: index.docbook:64
 msgid "undo/redo"
-msgstr ""
+msgstr "le défaire et refaire"
 
 #: index.docbook:64
 msgid "simple filter design tools"
-msgstr ""
+msgstr "des outils de manipulation du son sous forme de filtres"
 
 #: index.docbook:64
 msgid "a small editor for additive synthesis"
-msgstr ""
+msgstr "un petit éditeur sonore pour la synthése additive"
 
 #: index.docbook:64
 msgid "labeling of signals"
-msgstr ""
+msgstr "le marquage des signaux"
 
 #: index.docbook:64
 msgid "some analysis functions such as Sonagram or Fourier Transformation"
-msgstr ""
+msgstr "quelques fonctions d'analyse tel que le Sonogramme et le Transformée de Fourier"
 
 #: index.docbook:64
 msgid "internally uses 24 bit integer sample data"
-msgstr ""
+msgstr "l'utilisation de données échantillonnées sur 24 bits en interne"
 
 #: index.docbook:64
 msgid "free selectable sample rates"
-msgstr ""
+msgstr "une sélection libre du taux d'échantillonnage"
 
 #: index.docbook:64
 msgid "support for editing of multi-channel files"
-msgstr ""
+msgstr "le support pour l'édition de fichiers sonores multicanaux"
 
 #: index.docbook:64
 msgid ""
 "playback of multi-channel audio files (audio output will be mixed down to "
 "mono or stereo)"
-msgstr ""
+msgstr "la lecture de fichier sonores multicanaux (l'écoute des pistes audio est mixée en mono ou en stéreo)"
 
 #: index.docbook:64
 msgid "extendible through an easy-to-use plugin interface"
-msgstr ""
+msgstr "l'extension facile des carractérisques du programme par l'ajout de plugin"
 
 #: index.docbook:105
 msgid ""

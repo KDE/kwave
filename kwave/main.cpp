@@ -40,6 +40,55 @@ static KCmdLineOptions options[] =
     { 0, 0, 0 } // End of options.
 };
 
+/**
+ * Dummy define for the i18n macro. With this trick, we can use the
+ * i18n() macro so that the various messages in here are recognized
+ * by the i18n tools but the program does not crash when loaded.
+ * Note: without this, the program would crash because the i18n
+ * is called before the qApp is up!
+ */
+#define i18n(msg) msg
+
+/**
+ * add data concerning the developers and
+ * contributers to the about data
+ */
+void addDataStrings(KAboutData& aboutdata)
+{
+    //Developers
+    aboutdata.addAuthor("Thomas Eschenbacher" ,
+                    i18n("project leader since 2000, core development"),
+                    "Thomas.Eschenbacher@gmx.de",
+                    0);
+    aboutdata.addAuthor("Martin Wilz" ,
+                    i18n("creator of the project, development 1998-2000"),
+                    "martin@wilz.de",
+                    "http://www.wilz.de");
+    aboutdata.addAuthor("Ralf Waspe" ,
+                    i18n("creator of this dialog"),
+                    "rwaspe@web.de",
+                    0);
+    aboutdata.addAuthor("Caulier Gilles",
+                     i18n("french translation"),
+                     "caulier.gilles@free.fr",
+                     0);
+
+    // people who helped
+    aboutdata.addCredit("Sven-Steffen Arndt",
+                     i18n("Kwave homepage and german online help"),
+                     "ssa29@gmx.de",
+                     0);
+    aboutdata.addCredit("Martin Kuball",
+                     i18n("tester"),
+                     "makube@user.sourceforge.net",
+                     0);
+
+    aboutdata.addCredit("Carsten Jacobi",0,0,0);
+    aboutdata.addCredit("Frank Christian Stoffel",0,0,0);
+    aboutdata.addCredit("Achim Dahlhaus",0,0,0);
+    aboutdata.addCredit("Klaus Hendrik Lorenz",0,0,0);
+}
+
 //***************************************************************************
 int main( int argc, char **argv )
 {
@@ -58,29 +107,22 @@ int main( int argc, char **argv )
 	warning("arts_init error: %s", arts_error_text(errorcode));
     }
 
-    KAboutData about(PACKAGE, "Kwave", VERSION,
-	"sound editor for KDE2",
+    KAboutData about(
+	PACKAGE,
+	"Kwave",
+	VERSION,
+	i18n("sound editor for KDE2"),
 	KAboutData::License_GPL_V2,
-	"(c) 2001, Thomas Eschenbacher",
-	0 /*"...text..." */,
+        "(c) 2001, Thomas Eschenbacher",
+	"", //TODO : i18n("");
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"
     );
-
-    about.addAuthor("Thomas Eschenbacher" ,
-                    "project leader since 2000, core development",
-                    "Thomas.Eschenbacher@gmx.de",
-                    0);
-    about.addAuthor("Martin Wilz" ,
-                    "creator of the project, development 1998-2000",
-                    "mwilz@ernie.MI.Uni-Koeln.DE",
-                    "http://www.wilz.de");
+    addDataStrings(about);
 
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineArgs::addCmdLineOptions(options);
     KwaveApp::addCmdLineOptions();
-
-//    KCrash::setCrashHandler(0);
 
 #ifdef UNIQUE_APP
     if (!KUniqueApplication::start()) {
@@ -90,9 +132,7 @@ int main( int argc, char **argv )
 #endif // UNIQUE_APP
 
     KwaveApp app;
-    app.exec();
-
-    return 0;
+    return app.exec();
 }
 
 //***************************************************************************

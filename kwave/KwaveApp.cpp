@@ -50,8 +50,6 @@ KwaveApp::KwaveApp()
     m_recent_files(),
     m_topwidget_list()
 {
-    KCrash::setCrashHandler(0); // ###
-
     m_topwidget_list.setAutoDelete(false);
     readConfig();
 

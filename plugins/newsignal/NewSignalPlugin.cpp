@@ -109,6 +109,10 @@ QStringList *NewSignalPlugin::setup(QStringList &previous_params)
 	    QString::number(dialog->bitsPerSample())+","+
 	    QString::number(dialog->tracks())+")"
 	);
+    } else {
+	// user pressed "Cancel"
+	if (list) delete list;
+	list = 0;
     }
 
     if (dialog) delete dialog;

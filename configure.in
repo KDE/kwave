@@ -7,7 +7,7 @@ AC_CONFIG_AUX_DIR(admin)
 
 AC_CANONICAL_SYSTEM  
 AC_ARG_PROGRAM
-AM_INIT_AUTOMAKE(kwave,0.5.99-6)
+AM_INIT_AUTOMAKE(kwave,0.5.99-7)
 AC_LIBTOOL_DLOPEN
 KDE_PROG_LIBTOOL
 KDE_SET_PREFIX
@@ -15,9 +15,7 @@ AM_CONFIG_HEADER(config.h)
 AM_ENABLE_SHARED(yes)
 AM_ENABLE_STATIC(yes)
 
-CXXFLAGS="$(CXXFLAGS) -fno-check-new"
-
-
+dnl CXXFLAGS="$(CXXFLAGS) -fno-check-new"
 dnl CFLAGS="${CFLAGS}     -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
 dnl CXXFLAGS="${CXXFLAGS} -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
 dnl CFLAGS="${CFLAGS}     -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"

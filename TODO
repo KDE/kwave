@@ -1,6 +1,18 @@
 
-o check menu enry enable/disable conditions: Save/As works even 
-  when nothing is loaded
+o sometimes the file/new dialog gets the wrong width ?
+
+o enable/disable of tracks
+
+o audible/silent mode of tracks
+
+o new abstraction layer: "class SampleStorage" that does not crash on
+  resize() and creation if out of memory.
+
+o usage of virtual memory: "class MemoryManager"
+
+o configuration of virtual memory
+
+o install a new_handler() for cases in which we run out of memory
 
 o when pressing cancel during save, ask if the file should be deleted
   or fixed instead of only truncating
@@ -104,7 +116,7 @@ o macro recorder
 
 o positioning the cursor to start/end of the file with Pos1 / End
 
-o >>> COMPLETE DOCUMENTATION OF THE WHOLE API <<<
+o more complete documentation of the whole api
 
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width

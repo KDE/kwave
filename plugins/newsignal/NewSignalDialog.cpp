@@ -96,21 +96,26 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
             this, SLOT(samplesChanged(double)));
 
     // pre-initialize the size
-    setFixedSize(minimumSize());
+    setMaximumHeight(sizeHint().height());
+    setMaximumWidth(sizeHint().width());
 
     // initialize the controls
-    rbSamples->setChecked(!by_time);
-    rbTime->setChecked(by_time);
-    edSamples->setValue(samples);
     cbSampleRate->setEditText(QString::number(rate));
     sbResolution->setValue(bits);
     sbTracks->setValue(tracks);
+    if (by_time) {
+	rbTime->setChecked(true);
+	setHMS(samples);
+    } else {
+	rbSamples->setChecked(true);
+	edSamples->setValue(samples);
+    }
 
     tracksChanged(0);
     checkTimeAndLengthInfo(0);
 
-    // that dialog is big enough, limit it to it's minimum size
-    setFixedSize(minimumSize());
+    // that dialog is big enough, limit it to it's optimal size
+    setFixedSize(sizeHint().width(), sizeHint().height());
 }
 
 //***************************************************************************

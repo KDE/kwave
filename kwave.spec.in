@@ -32,6 +32,8 @@ rm -f config.log
 rm -f `find . -name Makefile`
 rm -fv  `find . -type l`
 touch config.in
+DESTDIR=""
+unset DESTDIR
 ./configure --with-install-root=$RPM_BUILD_ROOT \
 	--enable-shared=yes --enable-debug=no
 

@@ -17,7 +17,9 @@ configure.in: VERSION
 	touch configure.in
 
 clean-generic:
-	-rm -f -v `find -size 0`
+	-rm -fv `find -size 0`
+	-rm -fv `find . -name \*\~`
+	-rm -fv `find . -name \*.o`
 	-rm -fv `find . -name \*.ii`
 	-rm -fv `find . -name \*.lo`
 	-rm -fv `find . -name \*.la`
@@ -27,6 +29,8 @@ clean-generic:
 	-rm -fv `find . -name \*.d`
 	-rm -fv `find . -name \*.dm`
 	-rm -fv `find . -name .depend`
+	-rm -fv `find . -name \*.uih.h`
+	-rm -fv `find . -name \*.uic.cpp`
 	-rm -rfv `find . -name .\* | grep -v "^\.\.$$" | grep -v "^\.$$"`
 
 distclean-generic: clean-generic
@@ -62,7 +66,7 @@ patch:	${PACKAGE}.spec
 
 patchlevel:
 	$(srcdir)/bin/increment_patchlevel.sh ${srcdir}
-	( cd doc ; ${MAKE} doc )
+	${MAKE} doc
 	${MAKE} patch
 
 release:
@@ -82,8 +86,14 @@ rpm_prep: distclean-generic ${PACKAGE}.spec
 	mkdir -p /tmp/${PACKAGE}-@RPM_VERSION@
 	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_VERSION@ )
 	(cd /tmp/ ; \
-	tar -chz -f ${PACKAGE}-@RPM_VERSION@.tar.gz \
-		${SRC_PREFIX}-@RPM_VERSION@ )
+	find ${SRC_PREFIX}-@RPM_VERSION@ -name CVS > \
+		/tmp/${PACKAGE}-tar-excludes.lst ; \
+	echo "${SRC_PREFIX}-@RPM_VERSION@/doc/api" >> \
+		/tmp/${PACKAGE}-tar-excludes.lst ; \
+	tar --exclude-from=/tmp/${PACKAGE}-tar-excludes.lst \
+		-chzf ${PACKAGE}-@RPM_VERSION@.tar.gz \
+		${SRC_PREFIX}-@RPM_VERSION@ ; \
+	rm -f /tmp/${PACKAGE}-tar-excludes.lst )
 	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
 
 # does not work with original SuSE-6.4 rpm

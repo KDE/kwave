@@ -1,5 +1,5 @@
 /***************************************************************************
-           MainWidget.cpp  -  main widget of the Kwave TopWidget
+         MainWidget.cpp  -  main widget of the Kwave TopWidget
 			     -------------------
     begin                : 1999
     copyright            : (C) 1999 by Martin Wilz
@@ -41,7 +41,6 @@
 #include "libgui/OverViewWidget.h"
 #include "libgui/KwavePlugin.h" // for some helper functions
 
-//#include "sampleop.h"
 #include "SignalWidget.h"
 #include "SignalManager.h"
 #include "MainWidget.h"
@@ -220,13 +219,9 @@ bool MainWidget::isOK()
 //***************************************************************************
 MainWidget::~MainWidget()
 {
-    debug("MainWidget::~MainWidget()");
-
     if (keys) delete keys;
     lamps.clear();
     speakers.clear();
-
-    debug("MainWidget::~MainWidget(): done.");
 }
 
 //***************************************************************************
@@ -354,7 +349,6 @@ void MainWidget::parseKey(int key)
     ASSERT(lamps.at(key));
     if (!lamps.at(key)) return;
     lamps.at(key)->nextState();
-////    emit setOperation(TOGGLECHANNEL + key);
 }
 
 //***************************************************************************

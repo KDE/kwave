@@ -61,15 +61,15 @@ private:
     /** all parameters needed for playback */
     playback_param_t m_playback_params;
 
-    QLabel *bufferlabel;
-    Slider *buffersize;
-    QLabel *devicelabel;
-    QComboBox *devicebox;
-    QCheckBox *stereo;
-    QButtonGroup *bg;
-    QRadioButton *b24, *b16, *b8;
-    QFrame *separator;
-    QPushButton *select_device, *test, *ok, *cancel;
+    QLabel *m_buffer_label;
+    Slider *m_buffer_size;
+    QLabel *m_device_label;
+    QComboBox *m_device_box;
+    QCheckBox *m_stereo;
+    QButtonGroup *m_bg;
+    QRadioButton *m_b24, *m_b16, *m_b8;
+    QFrame *m_separator;
+    QPushButton *m_select_device, *m_test, *m_ok, *m_cancel;
 };
 
 //*****************************************************************************

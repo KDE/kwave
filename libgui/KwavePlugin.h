@@ -18,13 +18,16 @@
 #ifndef _KWAVE_PLUGIN_H_
 #define _KWAVE_PLUGIN_H_
 
+#include <qarray.h>
+#include <qvector.h>
 #include <qobject.h>
 #include "mt/Mutex.h"
 #include "mt/Asynchronous_Object.h"
 
+class KwavePlugin;
 class PluginManager;
 class PluginContext;
-class KwavePlugin;
+class SampleReader;
 class TopWidget;
 class QStringList;
 
@@ -39,6 +42,14 @@ class QStringList;
 
 #define BUTTON_OK     i18n("&Ok")
 #define BUTTON_CANCEL i18n("&Cancel")
+
+#ifndef min
+#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
+#endif
+
+#ifndef max
+#define max(x,y) (( (x) > (y) ) ? (x) : (y) )
+#endif
 
 /**
  * Generic class that should be used for all types of Kwave plugins.
@@ -169,7 +180,7 @@ public:
     /**
      * Returns an array of indices of currently selected channels.
      */
-    virtual const QArray<unsigned int> selectedChannels();
+    virtual const QArray<unsigned int> selectedTracks();
 
     /**
      * Returns the left and right sample index of the current selection
@@ -201,6 +212,26 @@ public:
      */
     virtual int averageSample(unsigned int offset,
                               const QArray<unsigned int> *channels = 0);
+
+    /**
+     * Returns a set of opened SampleReader objects for reading from
+     * multiple tracks. The list of tracks may contain indices of tracks
+     * in any order and even duplicate entries are allowed. One useful
+     * application is passing the output of selectedTracks() in order
+     * to read from only from selected tracks.
+     * @param readers vector that receives the SampleReader objects.
+     * @note the returned vector has set "autoDelete" to true, so you
+     *       don't have to care about cleaning up
+     * @param track_list array of indices of tracks for reading
+     * @param first index of the first sample
+     * @param last index of the last sample
+     * @see SampleReader
+     * @see selectedTracks()
+     */
+    void openSampleReaderSet(
+	QVector<SampleReader> &readers,
+	const QArray<unsigned int> &track_list,
+	unsigned int first, unsigned int last);
 
     /**
      * Returns a QBitmap with an overview of all currently present

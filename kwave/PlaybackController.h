@@ -63,8 +63,14 @@ public:
     /** sets a new start position */
     void setStartPos(unsigned long int pos);
 
+    /** sets a new end position */
+    void setEndPos(unsigned long int pos);
+
     /** returns the position where the playback starts */
     unsigned long int startPos();
+
+    /** returns the position where the playback ends */
+    unsigned long int endPos();
 
     /** returns the current position of the playback pointer */
     unsigned long int currentPos();
@@ -159,6 +165,9 @@ private:
 
     /** the start position for playback */
     unsigned long int m_playback_start;
+
+    /** the end position for playback */
+    unsigned long int m_playback_end;
 
 };
 

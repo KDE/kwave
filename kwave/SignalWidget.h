@@ -181,14 +181,6 @@ public slots:
 
     void toggleChannel(int);
 
-    void playback_time();
-
-    /**
-     * (Re-)starts the playback. If playback has successfully been
-     * started, the signal sigPlaybackStarted() will be emitted.
-     */
-    void playbackStart();
-
     /**
      * Called if the playback has been stopped.
      */
@@ -381,10 +373,10 @@ protected:
     void selectRange ();
 
     void resizeEvent(QResizeEvent *);
-    void mousePressEvent (QMouseEvent *);
-    void mouseReleaseEvent (QMouseEvent *);
-    void mouseMoveEvent (QMouseEvent *);
-    void paintEvent (QPaintEvent *);
+    void mousePressEvent(QMouseEvent *);
+    void mouseReleaseEvent(QMouseEvent *);
+    void mouseMoveEvent(QMouseEvent *);
+    void paintEvent(QPaintEvent *);
 
 //    void loadLabel ();
 //    void appendLabel ();
@@ -397,8 +389,6 @@ protected:
 //    void savePeriods ();
     void createSignal (const char *);
 
-////    void showDialog (const char *);
-//
 //    bool executeLabelCommand(const QString &command);
 
     /**
@@ -507,16 +497,18 @@ private:
     /** list of track pixmaps */
     QList<TrackPixmap> m_track_pixmaps;
 
-    QPainter p;
-    QPixmap *pixmap;      //pixmap to be blitted to screen
-    LabelList *labels;           //linked list of markers
-    LabelType *markertype;       //selected marker type
+    /** pixmap for avoiding flicker */
+    QPixmap *m_pixmap;
 
-    MenuManager &menu;
+//    LabelList *labels;           //linked list of markers
+//    LabelType *markertype;       //selected marker type
+
+    /** reference to the toplevel widget's menu manager */
+    MenuManager &m_menu_manager;
 
     /** mode of the mouse cursor */
     MouseMode m_mouse_mode;
 
 };
 
-#endif // _SIGNAL_WIDGET_H_
+#endif /* _SIGNAL_WIDGET_H_ */

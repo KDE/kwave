@@ -5,17 +5,6 @@
     copyright            : (C) 1999 by Martin Wilz
     email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
 
-    $Log$
-    Revision 1.20  2001/05/17 07:35:20  the
-    support for persistent plugins, new playback code started
-
-    Revision 1.19  2001/05/13 12:20:28  the
-    changed the status line, only shows selected range if the mouse cursor is over the selection or the selection is modified
-
-    Revision 1.18  2001/05/08 20:19:25  the
-    loading/saving in wav format works again
-
-
  ***************************************************************************/
 
 /***************************************************************************
@@ -311,15 +300,16 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // --- playback controls ---
 
+    QObject *playback = &(m_main_widget->playbackController());
     m_toolbar->insertButton(
 	QPixmap(xpm_play), id, SIGNAL(clicked()),
-	&(m_main_widget->playbackController()), SLOT(playbackStart()), true,
+	playback, SLOT(playbackStart()), true,
 	i18n("start playback"));
     m_id_play = id++;
 
     m_toolbar->insertButton(
 	QPixmap(xpm_loop), id, SIGNAL(clicked()),
-	&(m_main_widget->playbackController()), SLOT(playbackLoop()), true,
+	playback, SLOT(playbackLoop()), true,
 	i18n("start playback and loop"));
     m_id_loop = id++;
 
@@ -331,7 +321,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_toolbar->insertButton(
 	QPixmap(xpm_stop), id, SIGNAL(clicked()),
-	&(m_main_widget->playbackController()), SLOT(playbackStop()), true,
+	playback, SLOT(playbackStop()), true,
 	i18n("stop playback or loop"));
     m_id_stop = id++;
 
@@ -455,9 +445,9 @@ TopWidget::TopWidget(KwaveApp &main_app)
     setStatusInfo(0,0,0,0);
 
     // now we are initialized, load all plugins now
-    statusBar()->message(i18n("loading plugins..."));
+    statusBar()->message(i18n("Loading plugins..."));
     m_plugin_manager->loadAllPlugins();
-    statusBar()->message(i18n("ready."), 1000);
+    statusBar()->message(i18n("Ready."), 1000);
 
     debug("TopWidget::TopWidget(): done."); // ###
 }

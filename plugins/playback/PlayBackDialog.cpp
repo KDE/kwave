@@ -54,20 +54,20 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const playback_param_t &params)
     :KDialog(p.parentWidget(), i18n("sonagram"), true),
     m_playback_params(params)
 {
-    bg = 0;
-    b8 = 0;
-    b16 = 0;
-    b24 = 0;
-    bufferlabel = 0;
-    buffersize = 0;
-    cancel = 0;
-    devicelabel = 0;
-    devicebox = 0;
-    stereo = 0;
-    separator = 0;
-    select_device = 0;
-    test = 0;
-    ok = 0;
+    m_bg = 0;
+    m_b8 = 0;
+    m_b16 = 0;
+    m_b24 = 0;
+    m_buffer_label = 0;
+    m_buffer_size = 0;
+    m_cancel = 0;
+    m_device_label = 0;
+    m_device_box = 0;
+    m_stereo = 0;
+    m_separator = 0;
+    m_select_device = 0;
+    m_test = 0;
+    m_ok = 0;
 
     int h=0, w=0;
 
@@ -99,211 +99,211 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const playback_param_t &params)
     }
 
     // -- checkboxes for 8/16/24 Bits --
-    bg = new QButtonGroup(this, i18n("Resolution"));
-    bg->setTitle(i18n("Resolution"));
-    ASSERT(bg);
-    if (!bg) return;
+    m_bg = new QButtonGroup(this, i18n("Resolution"));
+    m_bg->setTitle(i18n("Resolution"));
+    ASSERT(m_bg);
+    if (!m_bg) return;
 
-    topLayout->addWidget(bg);
+    topLayout->addWidget(m_bg);
 
     // Create layouts for the check boxes
-    QVBoxLayout *bitsBoxLayout = new QVBoxLayout(bg, 10);
-    bitsBoxLayout->addSpacing(bg->fontMetrics().height() );
+    QVBoxLayout *bitsBoxLayout = new QVBoxLayout(m_bg, 10);
+    bitsBoxLayout->addSpacing(m_bg->fontMetrics().height() );
 
     QHBoxLayout *bitsLayout = new QHBoxLayout();
     ASSERT(bitsLayout);
     if (!bitsLayout) return;
     bitsBoxLayout->addLayout(bitsLayout);
-    bitsLayout->addSpacing(bg->fontMetrics().height() );
+    bitsLayout->addSpacing(m_bg->fontMetrics().height() );
 
-    b8 = new QRadioButton(i18n("&8 Bit"), bg);
-    ASSERT(b8);
-    if (!b8) return;
-    b8->setText(i18n("&8 Bit"));
-    b8->setMinimumSize(b8->sizeHint());
-    b8->setChecked(m_playback_params.bits_per_sample == 8);
-    QToolTip::add(b8,
+    m_b8 = new QRadioButton(i18n("&8 Bit"), m_bg);
+    ASSERT(m_b8);
+    if (!m_b8) return;
+    m_b8->setText(i18n("&8 Bit"));
+    m_b8->setMinimumSize(m_b8->sizeHint());
+    m_b8->setChecked(m_playback_params.bits_per_sample == 8);
+    QToolTip::add(m_b8,
         i18n("Set Playback-Mode to 8 Bit (poor quality)\n"\
 	     "should be supported by all sound hardware !"));
 
-    b16 = new QRadioButton(i18n("1&6 Bit"), bg);
-    ASSERT(b16);
-    if (!b16) return;
-    b16->setMinimumSize(b16->sizeHint());
-    b16->setChecked(m_playback_params.bits_per_sample == 16);
-    QToolTip::add( b16,
+    m_b16 = new QRadioButton(i18n("1&6 Bit"), m_bg);
+    ASSERT(m_b16);
+    if (!m_b16) return;
+    m_b16->setMinimumSize(m_b16->sizeHint());
+    m_b16->setChecked(m_playback_params.bits_per_sample == 16);
+    QToolTip::add( m_b16,
         i18n("Set Playback-Mode to 16 Bit (CD-like quality)\n"\
 	     "not supported by all sound hardware !"));
 
-    b24 = new QRadioButton(i18n("2&4 Bit"), bg);
-    ASSERT(b24);
-    if (!b24) return;
-    b24->setMinimumSize(b24->sizeHint());
-    b24->setChecked(m_playback_params.bits_per_sample == 24);
-    QToolTip::add( b24,
+    m_b24 = new QRadioButton(i18n("2&4 Bit"), m_bg);
+    ASSERT(m_b24);
+    if (!m_b24) return;
+    m_b24->setMinimumSize(m_b24->sizeHint());
+    m_b24->setChecked(m_playback_params.bits_per_sample == 24);
+    QToolTip::add( m_b24,
         i18n("Set Playback-Mode to 24 Bit (high quality)\n"\
 	     "only supported by some new sound hardware !"));
-    b24->setEnabled(false); // ### not implemented yet ###
+    m_b24->setEnabled(false); // ### not implemented yet ###
 
     // -- playback device --
-    devicelabel = new QLabel(i18n("Playback Device :"), this);
-    ASSERT(devicelabel);
-    if (!devicelabel) return;
+    m_device_label = new QLabel(i18n("Playback Device :"), this);
+    ASSERT(m_device_label);
+    if (!m_device_label) return;
 
-    devicebox = new QComboBox(true, this);
-    ASSERT(devicebox);
-    if (!devicebox) return;
-    devicebox->insertStrList(devicetext, -1);
-    devicebox->setMinimumWidth(devicebox->sizeHint().width()+10);
-    for (int i=0; i < devicebox->count(); i++) {
-	if (strcmp(m_playback_params.device, devicebox->text(i))==0) {
-	    devicebox->setCurrentItem(i);
+    m_device_box = new QComboBox(true, this);
+    ASSERT(m_device_box);
+    if (!m_device_box) return;
+    m_device_box->insertStrList(devicetext, -1);
+    m_device_box->setMinimumWidth(m_device_box->sizeHint().width()+10);
+    for (int i=0; i < m_device_box->count(); i++) {
+	if (strcmp(m_playback_params.device, m_device_box->text(i))==0) {
+	    m_device_box->setCurrentItem(i);
 	    break;
 	}
     }
 
-    h = max(devicelabel->sizeHint().height(),
-            devicebox->sizeHint().height());
-    w = devicelabel->sizeHint().width();
-    devicelabel->setFixedSize(w, h);
-    devicebox->setFixedHeight(h);
+    h = max(m_device_label->sizeHint().height(),
+            m_device_box->sizeHint().height());
+    w = m_device_label->sizeHint().width();
+    m_device_label->setFixedSize(w, h);
+    m_device_box->setFixedHeight(h);
 
-    select_device = new QPushButton(i18n("se&lect..."), this);
-    ASSERT(select_device);
-    if (!select_device) return;
-    QToolTip::add(select_device,
+    m_select_device = new QPushButton(i18n("se&lect..."), this);
+    ASSERT(m_select_device);
+    if (!m_select_device) return;
+    QToolTip::add(m_select_device,
 	i18n("Select a playback device not listed\n"\
 	     "in the standard selection.\n"\
 	     "(sorry, not implemented yet!)"));
-    select_device->setEnabled(false);
-    select_device->setFixedWidth(select_device->sizeHint().width());
+    m_select_device->setEnabled(false);
+    m_select_device->setFixedWidth(m_select_device->sizeHint().width());
     // ### not implemented yet ###
     //     -> needs support for ALSA,
     //        OSS/Free only supports up to 16 bits :-(
 
     // -- buffer size --
-    buffersize = new Slider(8, 16, 1, 5, Slider::Horizontal, this);
-    ASSERT(buffersize);
-    if (!buffersize) return;
-    buffersize->setValue(m_playback_params.bufbase);
+    m_buffer_size = new Slider(8, 16, 1, 5, Slider::Horizontal, this);
+    ASSERT(m_buffer_size);
+    if (!m_buffer_size) return;
+    m_buffer_size->setValue(m_playback_params.bufbase);
 
-    bufferlabel = new QLabel("", this);
-    ASSERT(bufferlabel);
-    if (!bufferlabel) return;
+    m_buffer_label = new QLabel("", this);
+    ASSERT(m_buffer_label);
+    if (!m_buffer_label) return;
     setBufferSize(m_playback_params.bufbase);
-    QToolTip::add(buffersize, i18n("This is the size of the buffer "\
+    QToolTip::add(m_buffer_size, i18n("This is the size of the buffer "\
 	"used for communication with the sound driver\n"\
 	"If your computer is rather slow select a big buffer"));
 
-    w = bufferlabel->sizeHint().width()+20;
-    bufferlabel->setFixedWidth(w);
-    buffersize->setMinimumWidth(w/2);
+    w = m_buffer_label->sizeHint().width()+20;
+    m_buffer_label->setFixedWidth(w);
+    m_buffer_size->setMinimumWidth(w/2);
 
-    // -- stereo checkbox --
-    stereo = new QCheckBox(i18n("&stereo playback"), this);
-    ASSERT(stereo);
-    if (!stereo) return;
-    stereo->setChecked(m_playback_params.channels >= 2);
-    stereo->setFixedHeight(stereo->sizeHint().height());
+    // -- m_stereo checkbox --
+    m_stereo = new QCheckBox(i18n("&stereo playback"), this);
+    ASSERT(m_stereo);
+    if (!m_stereo) return;
+    m_stereo->setChecked(m_playback_params.channels >= 2);
+    m_stereo->setFixedHeight(m_stereo->sizeHint().height());
 
     // -- separator --
-    separator = new QFrame(this, "separator line");
-    ASSERT(separator);
-    if (!separator) return;
-    separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
-    separator->setFixedHeight(separator->sizeHint().height());
+    m_separator = new QFrame(this, "separator line");
+    ASSERT(m_separator);
+    if (!m_separator) return;
+    m_separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+    m_separator->setFixedHeight(m_separator->sizeHint().height());
 
     // give all widgets the same height
-    h = max(bufferlabel->sizeHint().height(),
-            buffersize->sizeHint().height());
-    h = max(h, devicelabel->sizeHint().height());
-    h = max(h, devicebox->sizeHint().height());
-    h = max(h, select_device->sizeHint().height());
+    h = max(m_buffer_label->sizeHint().height(),
+            m_buffer_size->sizeHint().height());
+    h = max(h, m_device_label->sizeHint().height());
+    h = max(h, m_device_box->sizeHint().height());
+    h = max(h, m_select_device->sizeHint().height());
 
-    bufferlabel->setFixedHeight(h);
-    buffersize->setFixedHeight(h);
-    devicelabel->setFixedHeight(h);
-    devicebox->setFixedHeight(h);
-    select_device->setFixedHeight(h);
+    m_buffer_label->setFixedHeight(h);
+    m_buffer_size->setFixedHeight(h);
+    m_device_label->setFixedHeight(h);
+    m_device_box->setFixedHeight(h);
+    m_select_device->setFixedHeight(h);
 
     // button for "test settings"
-    test = new QPushButton(i18n("&test settings"), this);
-    ASSERT(test);
-    if (!test) return;
-    QToolTip::add(test,
+    m_test = new QPushButton(i18n("&test settings"), this);
+    ASSERT(m_test);
+    if (!m_test) return;
+    QToolTip::add(m_test,
 	i18n("Try to play a short sound\n"\
 	     "using the current settings.\n"\
 	     "(sorry, not implemented yet!)"));
-    test->setEnabled(false); // ### not implemented yet ###
+    m_test->setEnabled(false); // ### not implemented yet ###
 
-    // buttons for OK and Cancel
-    ok = new QPushButton(BUTTON_OK, this);
-    ASSERT(ok);
-    if (!ok) return;
+    // buttons for OK and m_cancel
+    m_ok = new QPushButton(BUTTON_OK, this);
+    ASSERT(m_ok);
+    if (!m_ok) return;
 
-    cancel = new QPushButton(BUTTON_CANCEL, this);
-    ASSERT(cancel);
-    if (!cancel) return;
+    m_cancel = new QPushButton(BUTTON_CANCEL, this);
+    ASSERT(m_cancel);
+    if (!m_cancel) return;
 
-    h = max(ok->sizeHint().height(), cancel->sizeHint().height());
-    w = max(ok->sizeHint().width(), cancel->sizeHint().width());
-    ok->setFixedSize(w, h);
-    cancel->setFixedSize(w,h);
-    test->setFixedSize(test->sizeHint().width(), h);
+    h = max(m_ok->sizeHint().height(), m_cancel->sizeHint().height());
+    w = max(m_ok->sizeHint().width(), m_cancel->sizeHint().width());
+    m_ok->setFixedSize(w, h);
+    m_cancel->setFixedSize(w,h);
+    m_test->setFixedSize(m_test->sizeHint().width(), h);
 
     // add controls to their layouts
-    bitsLayout->addWidget(b8, 0, AlignLeft | AlignCenter);
+    bitsLayout->addWidget(m_b8, 0, AlignLeft | AlignCenter);
     bitsLayout->addStretch(10);
-    bitsLayout->addWidget(b16, 0, AlignCenter | AlignCenter);
+    bitsLayout->addWidget(m_b16, 0, AlignCenter | AlignCenter);
     bitsLayout->addStretch(10);
-    bitsLayout->addWidget(b24, 0, AlignRight | AlignCenter);
+    bitsLayout->addWidget(m_b24, 0, AlignRight | AlignCenter);
 
     topLayout->addLayout(deviceLayout);
-    deviceLayout->addWidget(devicelabel, 0, AlignLeft | AlignCenter);
+    deviceLayout->addWidget(m_device_label, 0, AlignLeft | AlignCenter);
     deviceLayout->addSpacing(10);
-    deviceLayout->addWidget(devicebox, 0, AlignRight | AlignCenter);
-    deviceLayout->addWidget(select_device, 0, AlignRight | AlignCenter);
+    deviceLayout->addWidget(m_device_box, 0, AlignRight | AlignCenter);
+    deviceLayout->addWidget(m_select_device, 0, AlignRight | AlignCenter);
 
     topLayout->addLayout(bufferLayout);
-    bufferLayout->addWidget(bufferlabel, 0, AlignLeft | AlignCenter);
+    bufferLayout->addWidget(m_buffer_label, 0, AlignLeft | AlignCenter);
     bufferLayout->addSpacing(10);
-    bufferLayout->addWidget(buffersize,0, AlignRight | AlignCenter);
+    bufferLayout->addWidget(m_buffer_size,0, AlignRight | AlignCenter);
 
-    topLayout->addWidget(stereo);
-    topLayout->addWidget(separator);
+    topLayout->addWidget(m_stereo);
+    topLayout->addWidget(m_separator);
 
     topLayout->addLayout(buttonsLayout);
-    buttonsLayout->addWidget(test, 0, AlignLeft | AlignCenter);
+    buttonsLayout->addWidget(m_test, 0, AlignLeft | AlignCenter);
     buttonsLayout->addSpacing(30);
     buttonsLayout->addStretch(10);
-    buttonsLayout->addWidget(ok, 0, AlignRight | AlignCenter);
+    buttonsLayout->addWidget(m_ok, 0, AlignRight | AlignCenter);
     buttonsLayout->addSpacing(10);
-    buttonsLayout->addWidget(cancel, 0, AlignRight | AlignCenter);
+    buttonsLayout->addWidget(m_cancel, 0, AlignRight | AlignCenter);
 
     bitsBoxLayout->activate();
     topLayout->activate();
     topLayout->freeze(0,0);
 
-    ok->setFocus();
-    connect(ok ,SIGNAL(clicked()), SLOT (accept()));
-    connect(cancel, SIGNAL(clicked()), SLOT (reject()));
-    connect(buffersize, SIGNAL(valueChanged(int)),
-                        SLOT(setBufferSize(int)));
-    connect(select_device, SIGNAL(clicked()),
-                           SLOT(selectPlaybackDevice()));
+    m_ok->setFocus();
+    connect(m_ok ,SIGNAL(clicked()), SLOT (accept()));
+    connect(m_cancel, SIGNAL(clicked()), SLOT (reject()));
+    connect(m_buffer_size, SIGNAL(valueChanged(int)),
+            SLOT(setBufferSize(int)));
+    connect(m_select_device, SIGNAL(clicked()),
+            SLOT(selectPlaybackDevice()));
 }
 
 //***************************************************************************
 void PlayBackDialog::setBufferSize(int exp)
 {
-    ASSERT(bufferlabel);
-    if (!bufferlabel) return;
+    ASSERT(m_buffer_label);
+    if (!m_buffer_label) return;
 
     char buf[256];
     int val = 1 << exp;
 
     snprintf(buf, sizeof(buf), i18n("Buffer Size : %5d samples"), val);
-    bufferlabel->setText (buf);
+    m_buffer_label->setText (buf);
 
     m_playback_params.bufbase = exp;
 }
@@ -311,37 +311,33 @@ void PlayBackDialog::setBufferSize(int exp)
 //***************************************************************************
 void PlayBackDialog::parameters(QStringList &list)
 {
-    ASSERT(stereo);
-    ASSERT(b24);
-    ASSERT(b16);
-    ASSERT(devicebox);
+    ASSERT(m_stereo);
+    ASSERT(m_b24);
+    ASSERT(m_b16);
+    ASSERT(m_device_box);
 
     QString param;
     list.clear();
 
-    if (!stereo || !b24 || !b16 || !devicebox) return;
+    if (!m_stereo || !m_b24 || !m_b16 || !m_device_box) return;
 
-    // parameter #0: sample rate [44100]
-    param = param.setNum(m_playback_params.rate);
-    list.append(param);
-
-    // parameter #1: number of channels [1 | 2]
-    m_playback_params.channels = stereo->isChecked() ? 2 : 1;
+    // parameter #0: number of channels [1 | 2]
+    m_playback_params.channels = m_stereo->isChecked() ? 2 : 1;
     param = param.setNum(m_playback_params.channels);
     list.append(param);
 
-    // parameter #2: bits per sample [8 | 16 ]
-    m_playback_params.bits_per_sample = b24->isChecked() ? 24 :
-	(b16->isChecked() ? 16 : 8);
+    // parameter #1: bits per sample [8 | 16 ]
+    m_playback_params.bits_per_sample = m_b24->isChecked() ? 24 :
+	(m_b16->isChecked() ? 16 : 8);
     param = param.setNum(m_playback_params.bits_per_sample);
     list.append(param);
 
-    // parameter #3: playback device [/dev/dsp , ... ]
-    m_playback_params.device = devicebox->currentText();
+    // parameter #2: playback device [/dev/dsp , ... ]
+    m_playback_params.device = m_device_box->currentText();
     param = m_playback_params.device;
     list.append(param);
 
-    // parameter #4: base of buffer size [4...16]
+    // parameter #3: base of buffer size [4...16]
     // m_playback_params.bufbase = ...; already set by setBufferSize
     param = param.setNum(m_playback_params.bufbase);
     list.append(param);

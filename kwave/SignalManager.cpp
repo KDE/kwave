@@ -16,18 +16,12 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
+
 #include <errno.h>
 #include <endian.h>
 #include <byteswap.h>
 #include <limits.h>
 #include <math.h>
-#include <sched.h> // for sched_yield()
-
-#include <sys/ioctl.h>
-#include <linux/soundcard.h>
 
 #include <qbitmap.h>
 #include <qfile.h>
@@ -55,12 +49,6 @@
 #include "SignalManager.h"
 #include "SignalWidget.h"
 
-/** use at least 2^8 = 256 bytes for playback buffer !!! */
-#define MIN_PLAYBACK_BUFFER 8
-
-/** use at most 2^16 = 65536 bytes for playback buffer !!! */
-#define MAX_PLAYBACK_BUFFER 16
-
 #if __BYTE_ORDER==__BIG_ENDIAN
 #define IS_BIG_ENDIAN
 #endif
@@ -74,21 +62,14 @@
 SignalManager::SignalManager(QWidget *parent)
     :QObject(),
     m_parent_widget(parent),
+    m_name(""),
     m_closed(true),
     m_empty(true),
     m_signal(),
     m_selection(0,0),
     m_rate(0),
-    m_playback_controller(),
-    m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
-    m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
+    m_playback_controller()
 {
-    m_name = "";
-//    for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
-//	msg[i] = 0;
-
-    m_spx_playback_pos.setLimit(32); // limit for the queue
-
     // connect to the track's signals
     Signal *sig = &m_signal;
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
@@ -142,46 +123,19 @@ void SignalManager::close()
 }
 
 //***************************************************************************
-void SignalManager::getMaxMin(unsigned int /*channel*/, int &/*max*/, int &/*min*/,
-                              unsigned int /*begin*/, unsigned int /*len*/)
+const QArray<unsigned int> SignalManager::selectedTracks()
 {
-//    ASSERT(channel < signal.count());
-//    if (channel >= signal.count()) return;
-//    ASSERT(signal.at(channel));
-//    if (!signal.at(channel)) return;
-//
-//    unsigned int sig_len;
-//    sig_len = signal.at(channel)->length();
-//    ASSERT(sig_len);
-//
-//    if (begin + len > sig_len) len = sig_len - begin;
-// ###
-//    signal.at(channel)->getMaxMin(max, min, begin, len);
-}
+    unsigned int track;
+    unsigned int count = 0;
+    QArray<unsigned int> list(tracks());
 
-//***************************************************************************
-unsigned int SignalManager::length()
-{
-    return m_signal.length();
-}
+    for (track=0; track < list.count(); track++) {
+//	### TODO ### selection of tracks
+//	if (!m_track_selected(track)) continue;
+	list[count++] = track;
+    }
 
-//***************************************************************************
-const QArray<unsigned int> SignalManager::selectedChannels()
-{
-//    unsigned int channel;
-//    unsigned int count = 0;
-    QArray<unsigned int> list(0); // signal.count());
-
-//    for (channel=0; channel < signal.count(); channel++) {
-//	Signal *sig = signal.at(channel);
-//	if (!sig) continue;
-//	if (!sig->isSelected()) continue;
-//	
-//	list[count]=channel;
-//	count++;
-//    }
-//
-//    list.resize(count);
+    list.resize(count);
     return list;
 }
 
@@ -276,22 +230,6 @@ QBitmap *SignalManager::overview(unsigned int /*width*/, unsigned int /*height*/
 //    p.end ();
 //
 //    return overview;
-}
-
-//***************************************************************************
-unsigned int SignalManager::bits()
-{
-    return m_signal.bits();
-}
-
-//***************************************************************************
-void SignalManager::deleteChannel(unsigned int /*channel*/)
-{
-}
-
-//***************************************************************************
-void SignalManager::addChannel()
-{
 }
 
 //***************************************************************************
@@ -430,12 +368,6 @@ bool SignalManager::executeCommand(const QString &/*command*/)
 }
 
 //***************************************************************************
-void SignalManager::commandDone()
-{
-    debug("SignalManager::commandDone()");    // ###
-}
-
-//***************************************************************************
 void SignalManager::slotTrackInserted(unsigned int /*index*/,
 	Track &/*track*/)
 {
@@ -479,10 +411,6 @@ void SignalManager::selectRange(unsigned int offset, unsigned int length)
 
     m_selection.select(offset, length);
 }
-
-//**********************************************************
-//below are all methods of Class SignalManager that deal with I/O
-//such as loading and saving.
 
 //***************************************************************************
 int SignalManager::loadAscii()
@@ -1107,89 +1035,9 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 }
 
 //***************************************************************************
-////following are the playback routines
-//struct Play {
-//    SignalManager *manage;
-//    playback_param_t params;
-//    unsigned int start;
-//    bool loop;
-//};
-
-
-//***************************************************************************
 PlaybackController &SignalManager::playbackController()
 {
     return m_playback_controller;
-}
-
-//***************************************************************************
-//void playThread(struct Play *par)
-//{
-//    ASSERT(par);
-//    if (!par) return;
-//    ASSERT(par->manage);
-//    if (!par->manage) return;
-//
-//    int device; // handle of the playback device
-//    unsigned char *buffer = 0;
-//    unsigned int bufsize;
-//
-//    // prepeare for playback by opening the sound device
-//    // and initializing with the proper settings
-//    if ((device = open(par->params.device, O_WRONLY)) != -1 ) {
-//	bufsize = par->manage->setSoundParams(device,
-//	    par->params.bits_per_sample,
-//	    par->params.channels,
-//	    par->params.rate, par->params.bufbase);
-//
-//	if (bufsize) {
-//	    buffer = new unsigned char[bufsize];
-//	    ASSERT(buffer);
-//	    if (buffer) {
-//		par->manage->playback(device, par->params,
-//		    buffer, bufsize, par->start, par->loop);
-//		delete[] buffer;
-//	    }
-//	} else {
-//	    // simulate playback done
-//	    par->manage->m_spx_playback_done.AsyncHandler();
-//	}
-//	close (device);
-//    } else {
-//	warning("SignalManager::playback(): unable to open device");
-//    }
-//
-//    par->manage->msg[stopprocess] = true;
-//    par->manage->msg[processid] = 0;
-//
-//    if (par) delete par;
-//
-//    return;
-//}
-
-//***************************************************************************
-void SignalManager::updatePlaybackPos()
-{
-//    unsigned int count = m_spx_playback_pos.count();
-//    unsigned int pos = 0;
-//
-//    // dequeue all pointers and keep the latest one
-//    if (!count) return;
-//    while (count--) {
-//	unsigned int *ppos = m_spx_playback_pos.dequeue();
-//	ASSERT(ppos);
-//	if (!ppos) continue;
-//	pos = *ppos;
-//	delete ppos;
-//    }
-//
-//    emit sigPlaybackPos(pos);
-}
-
-//***************************************************************************
-void SignalManager::forwardPlaybackDone()
-{
-//    emit sigPlaybackDone();
 }
 
 //***************************************************************************

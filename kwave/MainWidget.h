@@ -167,15 +167,6 @@ private slots:
      */
     void slotTrackInserted(unsigned int track);
 
-    /* *
-     * Called if a channel has been deleted. Updates the display by
-     * resizing/re-positioning the channel controls and the signal
-     * display.
-     * @param #channelAdded()
-     * @param channel index of the added channel [0..n]
-     */
-    // void channelDeleted(unsigned int channel);
-
     /**
      * Connected to the vertical scrollbar and called if the value
      * has changed so that the signal display and the channel
@@ -203,9 +194,6 @@ signals:
 
     void sigCommand(const QString &command);
 
-    void setOperation (int);
-    void channelInfo (unsigned int);
-
 protected:
 
     /** Updates the menu and buttons. */
@@ -217,6 +205,7 @@ protected:
 private:
 
     QAccel *keys;
+
     OverViewWidget *m_slider;
 
     /** QFrame that contains the signal widget. */
@@ -244,4 +233,4 @@ private:
 
 };
 
-#endif // _MAIN_WIDGET_H_
+#endif /* _MAIN_WIDGET_H_ */

@@ -73,19 +73,17 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     m_signal_manager(this),
     m_refresh_timer(),
     m_track_pixmaps(),
-    menu(menu_manager),
+    m_menu_manager(menu_manager),
     m_mouse_mode(MouseNormal)
 {
 //    debug("SignalWidget::SignalWidget()");
     down = false;
     height = 0;
-////    labels = 0;
     lastHeight = 0;
     lastplaypointer = -1;
     lastWidth = 0;
-    markertype = 0;
     m_offset = 0;
-    pixmap = 0;
+    m_pixmap = 0;
     playpointer = -1;
     redraw = false;
     m_selection = 0;
@@ -130,11 +128,11 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 //    if (!labels) return;
 //    labels->setAutoDelete (true);
 
-//    menu.clearNumberedMenu("ID_LABELS_TYPE");
+//    m_menu_manager.clearNumberedMenu("ID_LABELS_TYPE");
 //    for (LabelType *tmp = globals.markertypes.first(); tmp;
 //         tmp = globals.markertypes.next())
 //    {
-//	menu.addNumberedMenuEntry("ID_LABELS_TYPE", (char *)tmp->name);
+//	m_menu_manager.addNumberedMenuEntry("ID_LABELS_TYPE", (char *)tmp->name);
 //    }
 //
 //    markertype = globals.markertypes.first();
@@ -175,8 +173,8 @@ SignalWidget::~SignalWidget()
 
     m_refresh_timer.stop();
 
-    if (pixmap == 0) delete pixmap;
-    pixmap = 0;
+    if (m_pixmap == 0) delete m_pixmap;
+    m_pixmap = 0;
 
 ////    if (labels) delete labels;
 ////    labels = 0;
@@ -367,34 +365,6 @@ bool SignalWidget::executeCommand(const QString &command)
 //***************************************************************************
 void SignalWidget::playback_startTimer()
 {
-////    debug("void SignalWidget::playback_startTimer()");
-//
-//    if (timer == 0) {
-//	timer = new QTimer(this);
-//	ASSERT(timer);
-//
-//	if (timer) connect(timer, SIGNAL(timeout()),
-//	                   this, SLOT(playback_time()));
-//    } else {
-//	timer->stop();
-//    }
-//    if (!timer) return;
-//
-//    // start a timer that refreshes after each pixel
-//    int ms;
-//    double rate = signalmanage->getRate();
-//    if (rate >= 0) {
-//	double samples_per_pixel = pixels2samples(1);
-//	double time_per_sample = (double)1.0/rate;
-//	double time = samples_per_pixel * time_per_sample;
-//	ms = (int)ceil(time*1000);
-//	if (ms < 50) ms = 50;
-//    } else {
-//	ms = 100;
-//    }
-//
-//    // start timer as single-shot
-//    timer->start(ms, true);
 }
 
 //***************************************************************************
@@ -950,23 +920,16 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 void SignalWidget::paintEvent(QPaintEvent *)
 {
     InhibitRepaintGuard inhibit(*this, false); // avoid recursion
+    QPainter p;
 
 //    debug("SignalWidget::paintEvent()");
-////#ifdef DEBUG
+//#ifdef DEBUG
 //    static struct timeval t_start;
 //    static struct timeval t_end;
 //    double t_elapsed;
-//    double t_rest_of_system;
 //    gettimeofday(&t_start,0);
-//
-//    t_elapsed = ((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec -
-//	((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec)) * 1E-3;
-//    debug("SignalWidget::paintEvent() -- starting, since last: t=%0.3fms --",
-//	t_rest_of_system); // ###
-//
-//    if (t_rest_of_system < 1000.0) return;
-////#endif
-	
+//#endif
+
     unsigned int n_tracks = m_signal_manager.isClosed() ? 0 : tracks();
     bool update_pixmap = false;
 
@@ -987,8 +950,8 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    m_layer[i] = 0;
 	    m_update_layer[i] = true;
 	}
-	if (!pixmap) delete pixmap;
-	pixmap = 0;
+	if (!m_pixmap) delete m_pixmap;
+	m_pixmap = 0;
 	update_pixmap = true;
 	
 	// check and correct m_zoom and m_offset
@@ -1098,17 +1061,17 @@ void SignalWidget::paintEvent(QPaintEvent *)
     }
 
     // --- re-create the buffer pixmap if it has been deleted ---
-    if (!pixmap) {
-	pixmap = new QPixmap(size());
-	ASSERT(pixmap);
-	if (!pixmap) return;
+    if (!m_pixmap) {
+	m_pixmap = new QPixmap(size());
+	ASSERT(m_pixmap);
+	if (!m_pixmap) return;
 	update_pixmap = true;
     }
 
     if (update_pixmap) {
 	for (int i=0; i < 3; i++) {
 	    if (!m_layer[i]) continue;
-	    bitBlt(pixmap, 0, 0, m_layer[i], 0, 0,
+	    bitBlt(m_pixmap, 0, 0, m_layer[i], 0, 0,
 		width, height, m_layer_rop[i]);
 	}
 	lastplaypointer = -2;
@@ -1119,7 +1082,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	m_signal_manager.playbackController().currentPos() - m_offset);
 
     if (n_tracks) {
-	p.begin(pixmap);
+	p.begin(m_pixmap);
 	p.setPen(yellow);
 	p.setRasterOp(XorROP);
 	
@@ -1139,33 +1102,19 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	p.end();
     }
 
-    bitBlt(this, 0, 0, pixmap, 0, 0, width, height, CopyROP);
+    bitBlt(this, 0, 0, m_pixmap, 0, 0, width, height, CopyROP);
 
-////#ifdef DEBUG
+//#ifdef DEBUG
 //    gettimeofday(&t_end,0);
 //    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
 //	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
 //    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
 //	t_elapsed); // ###
-////#endif
+//#endif
 
 //    // restart the timer for refreshing the playpointer
 //    if (m_playback_controller.running()) playback_startTimer();
 }
-
-////below are the methods of class SignalWidget that deal with labels
-//#define AUTOKORRWIN 320
-////windowsize for autocorellation, propably a little bit too short for
-////lower frequencies, but this will get configurable somewhere in another
-////dimension or for those of you who can't zap to other dimensions, it will
-////be done in future
-//
-//int findNextRepeat (int *, int);
-//int findNextRepeatOctave (int *, int, double = 1.005);
-//int findFirstMark (int *, int);
-//
-//float autotable [AUTOKORRWIN];
-//float weighttable[AUTOKORRWIN];
 
 //***************************************************************************
 unsigned int SignalWidget::ms2samples(double ms)
@@ -1710,46 +1659,15 @@ LabelType *findMarkerType (const char */*txt*/)
 //}
 
 //***************************************************************************
-void SignalWidget::playbackStart()
-{
-//    ASSERT(signalmanage);
-//    if (!signalmanage) return;
-//
-//    unsigned int start = m_playback_controller.currentPos();
-//    bool loop = m_playback_controller.loop();
-//    bool paused = m_playback_controller.paused();
-//
-//    if (!paused) {
-//	unsigned int l = signalmanage->getLMarker();
-//	unsigned int r = signalmanage->getRMarker();
-//	
-//	// start from left marker or zero if nothing selected
-//	start = (l == r) ? 0 : l;
-//	m_playback_controller.setStartPos(start);
-//    }
-//
-//    signalmanage->startplay(start, loop);
-//    playback_startTimer();
-}
-
-//***************************************************************************
 void SignalWidget::playbackStopped()
 {
     InhibitRepaintGuard inhibit(*this);
-
-//    m_playback_timer->stop();
-}
-
-//****************************************************************************
-void SignalWidget::playback_time()
-{
-    InhibitRepaintGuard inhibit(*this);
 }
 
 //***************************************************************************
-void SignalWidget::updatePlaybackPointer(unsigned int /*pos*/)
+void SignalWidget::updatePlaybackPointer(unsigned int)
 {
-//    if (timer && !timer->isActive()) playback_startTimer();
+    InhibitRepaintGuard inhibit(*this);
 }
 
 //***************************************************************************

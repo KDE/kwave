@@ -29,11 +29,16 @@
 
 #include "mt/Thread.h"
 #include "mt/MutexGuard.h"
+#include "libkwave/Sample.h"
+#include "libkwave/SampleReader.h"
+#include "libkwave/Signal.h"
+#include "libkwave/Track.h"
 #include "libgui/KwavePlugin.h"
 #include "libgui/PluginContext.h"
 
-#include "../kwave/TopWidget.h"
-#include "../kwave/PluginManager.h"
+#include "kwave/PluginManager.h"
+#include "kwave/TopWidget.h"
+#include "kwave/SignalManager.h"
 
 //***************************************************************************
 KwavePlugin::KwavePlugin(PluginContext &c)
@@ -179,9 +184,9 @@ unsigned int KwavePlugin::signalRate()
 }
 
 //***************************************************************************
-const QArray<unsigned int> KwavePlugin::selectedChannels()
+const QArray<unsigned int> KwavePlugin::selectedTracks()
 {
-    return manager().selectedChannels();
+    return manager().selectedTracks();
 }
 
 //***************************************************************************
@@ -205,6 +210,28 @@ int KwavePlugin::averageSample(unsigned int offset,
                                const QArray<unsigned int> *channels)
 {
     return manager().averageSample(offset, channels);
+}
+
+//***************************************************************************
+void KwavePlugin::openSampleReaderSet(
+    QVector<SampleReader> &readers,
+    const QArray<unsigned int> &track_list,
+    unsigned int first, unsigned int last)
+{
+    unsigned int count = track_list.count();
+    unsigned int track;
+    readers.clear();
+    readers.resize(count);
+    Signal &signal(m_context.top_widget.signalManager().signal());
+
+    for (unsigned int i=0; i < count; i++) {
+	track = track_list[i];
+	SampleReader *s = signal.openSampleReader(track, first, last);
+	ASSERT(s);
+	readers.insert(i, s);
+    }
+
+    readers.setAutoDelete(true);
 }
 
 //***************************************************************************

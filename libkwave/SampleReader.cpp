@@ -26,7 +26,7 @@
 SampleReader::SampleReader(Track &track, QList<Stripe> &stripes,
 	SampleLock *lock, unsigned int left, unsigned int right)
     :m_track(track), m_stripes(stripes), m_lock(lock),
-    m_position(left), m_last(right), m_buffer(16*1024),
+    m_position(left), m_first(left), m_last(right), m_buffer(16*1024),
     m_buffer_used(0), m_buffer_position(0), m_eof(false)
 {
 }
@@ -35,6 +35,15 @@ SampleReader::SampleReader(Track &track, QList<Stripe> &stripes,
 SampleReader::~SampleReader()
 {
     if (m_lock) delete m_lock;
+}
+
+//***************************************************************************
+void SampleReader::reset()
+{
+    m_position = m_first;
+    m_buffer_used = 0;
+    m_buffer_position = 0;
+    m_eof = false;
 }
 
 //***************************************************************************
@@ -84,6 +93,26 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
 	(*this) >> buffer[dstoff++];
     }
     return (dstoff-start);
+}
+
+//***************************************************************************
+void SampleReader::skip(unsigned int count)
+{
+    if (m_buffer_position+count < m_buffer_used) {
+	// skip within the buffer
+	m_buffer_position += count;
+    } else {
+	// skip out of the buffer
+	m_buffer_position = m_buffer_used;
+	count -= m_buffer_used;
+	m_position += count;
+    }
+}
+
+//***************************************************************************
+unsigned int SampleReader::pos()
+{
+    return (m_position + m_buffer_position - m_buffer_used);
 }
 
 //***************************************************************************

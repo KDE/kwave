@@ -98,7 +98,7 @@ public:
     /**
      * Returns an array of indices of currently selected channels.
      */
-    const QArray<unsigned int> selectedChannels();
+    const QArray<unsigned int> selectedTracks();
 
     /**
      * Returns the start of the selection. If nothing is currently

@@ -132,7 +132,6 @@ void PlaybackController::playbackDone()
     if (m_paused)
 	emit sigPlaybackPaused();
     else {
-	m_playback_position = m_playback_start;
 	emit sigPlaybackPos(m_playback_position);
 	emit sigPlaybackStopped();
     }
@@ -175,10 +174,23 @@ void PlaybackController::setStartPos(unsigned long int pos)
     m_playback_start = pos;
 }
 
+
+//***************************************************************************
+void PlaybackController::setEndPos(unsigned long int pos)
+{
+    m_playback_end = pos;
+}
+
 //***************************************************************************
 unsigned long int PlaybackController::startPos()
 {
     return m_playback_start;
+}
+
+//***************************************************************************
+unsigned long int PlaybackController::endPos()
+{
+    return m_playback_end;
 }
 
 //***************************************************************************

@@ -397,9 +397,9 @@ unsigned int PluginManager::signalRate()
 }
 
 //***************************************************************************
-const QArray<unsigned int> PluginManager::selectedChannels()
+const QArray<unsigned int> PluginManager::selectedTracks()
 {
-    return m_top_widget.signalManager().selectedChannels();
+    return m_top_widget.signalManager().selectedTracks();
 }
 
 //***************************************************************************

@@ -1,5 +1,5 @@
 /***************************************************************************
-          SignalManager.h -  manager class for multi-channel signals
+         SignalManager.h -  manager class for multi-channel signals
 			     -------------------
     begin                : Sun Oct 15 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -18,10 +18,6 @@
 #ifndef _SIGNAL_MANAGER_H_
 #define _SIGNAL_MANAGER_H_
 
-#define processid       0
-#define stopprocess     1
-#define samplepointer   2
-
 #include <stdio.h>
 
 #include <qobject.h>
@@ -36,10 +32,8 @@
 
 #include "PlaybackController.h"
 
-class ProgressDialog;
 class QBitmap;
 class QFile;
-class TimeOperation;
 
 /**
  * The SignalManager class manages multi-channel signals.
@@ -63,52 +57,19 @@ public:
     void close();
 
     /** Returns true if the signal is closed */
-    inline bool isClosed() {
-	return m_closed;
-    };
+    inline bool isClosed() { return m_closed; };
 
     /** Returns true if the signal is empty. */
-    inline bool isEmpty() {
-	return m_empty;
-    };
+    inline bool isEmpty() { return m_empty; };
 
     /** Returns a reference to the playback controller. */
     PlaybackController &playbackController();
 
     /** Returns a reference to the signal */
-    inline Signal &signal() {
-	return m_signal;
-    };
+    inline Signal &signal() { return m_signal; };
 
+    /** */
     bool executeCommand(const QString &command);
-
-    int setSoundParams(int audio, int bitspersample,
-                       unsigned int channels, int rate, int bufbase);
-
-//    /**
-//     * Internally used for playback.
-//     * @param device file descriptor of the opened playback device
-//     * @param param parameters used for playback
-//     * @param buffer pointer to a sample buffer used for playback
-//     * @param bufsize size of the buffer in bytes
-//     * @param start position where playback should start
-//     * @param loop true: looping instead of single play
-//     */
-//    void playback(int device, playback_param_t &param,
-//                  unsigned char *buffer, unsigned int bufsize,
-//                  unsigned int start, bool loop);
-
-    /**
-     * Determines the maximum and minimum values of a given range
-     * of samples.
-     * @param channel index of the channel
-     * @param max receives the highest sample value (most positive)
-     * @param min receives the lowest sample value (most negative)
-     * @param begin start of the sample range (inclusive)
-     * @param len number of samples to inspect
-     */
-    void getMaxMin(unsigned int channel, int &max, int& min,
-                   unsigned int begin, unsigned int len);
 
     /**
      * Returns a QBitmap with an overview of all currently present
@@ -124,33 +85,27 @@ public:
     /**
      * Returns the current sample resolution in bits per sample
      */
-    unsigned int bits();
+    inline unsigned int bits() { return m_signal.bits(); };
 
     /** Returns the current sample rate in samples per second */
-    inline int rate() {
-	return m_rate;
-    };
+    inline int rate() { return m_rate; };
 
     /** Returns the current number of tracks */
-    inline unsigned int tracks() {
-	return m_signal.tracks();
-    };
+    inline unsigned int tracks() { return m_signal.tracks(); };
 
     /**
      * Returns the number of samples in the current signal. Will be
      * zero if no signal is loaded.
      */
-    unsigned int length();
+    inline unsigned int length() { return m_signal.length(); };
 
     /** Returns a reference to the current selection */
-    inline Selection &selection() {
-	return m_selection;
-    };
+    inline Selection &selection() { return m_selection; };
 
     /**
      * Returns an array of indices of currently selected channels.
      */
-    const QArray<unsigned int> selectedChannels();
+    const QArray<unsigned int> selectedTracks();
 
     /**
      * Returns the value of one single sample of a specified channel.
@@ -288,23 +243,6 @@ private slots:
     void slotSamplesModified(unsigned int track, unsigned int offset,
                              unsigned int length);
 
-    /**
-     * Informs us that the last command of a plugin has completed.
-     */
-    void commandDone();
-
-    /**
-     * Called from the playback thread to notify about a new
-     * playback pointer.
-     * \internal
-     */
-    void updatePlaybackPos();
-
-    /**
-     * emits sigPlaybackDone() at end of playback
-     */
-    void forwardPlaybackDone();
-
 private:
 
     /** Shortcut for emitting a sigStatusInfo */
@@ -337,17 +275,6 @@ private:
      *           -EMEDIUMTYPE if the file has an invalid/unsupported format
      */
     int loadWav();
-
-    /**
-     * Appends a new empty channel to the current signal.
-     * It has the same length as the first channel.
-     */
-    void addChannel();
-
-    /**
-     * Removes a channel from the signal.
-     */
-    void deleteChannel(unsigned int channel);
 
     /**
      * Reads in the wav data chunk from a .wav-file. It creates
@@ -395,31 +322,12 @@ private:
     /** the current selection */
     Selection m_selection;
 
-    //sampling rate being used
-    int m_rate; // ###
+    /** sampling rate of the current signal */
+    int m_rate;
 
     /** the controller for handling of playback */
     PlaybackController m_playback_controller;
 
-    /**
-     * Signal proxy that brings the current playback position
-     * out of the playback thread.
-     */
-    SignalProxy1<unsigned int> m_spx_playback_pos;
-
-    /** error string from the playback thread */
-    const char *m_playback_error;
-
-public:
-
-    /**
-     * Signal proxy that signals the end of playback out
-     * of the playback thread.
-     */
-    SignalProxy<void> m_spx_playback_done;
-
-//    /** buffer for communication with the soundcard access functions (play) */
-//    unsigned int msg[4];
 };
 
-#endif  // _SIGNAL_MANAGER_H_
+#endif  /* _SIGNAL_MANAGER_H_ */

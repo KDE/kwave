@@ -202,7 +202,7 @@ int SonagramPlugin::start(QStringList &params)
 
     // activate the window with an initial image
     // and all necessary informations
-    m_selected_channels = selectedChannels();
+    m_selected_channels = selectedTracks();
     m_sonagram_window->setOverView(overview(
 	2*m_sonagram_window->width(), 40, m_first_sample,
 	m_last_sample-m_first_sample+1));

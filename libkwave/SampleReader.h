@@ -50,6 +50,9 @@ public:
     /** Destructor */
     virtual ~SampleReader();
 
+    /** Resets the stream to it's start */
+    void reset();
+
     /** Returns true if the end of the input range has been reached */
     inline bool eof() { return (m_eof); };
 
@@ -63,6 +66,16 @@ public:
     unsigned int read(QArray<sample_t> &buffer, unsigned int dstoff,
 	unsigned int length);
 
+    /**
+     * Skips a number of samples.
+     */
+    void skip(unsigned int count);
+
+    /**
+     * Returns the current read position.
+     */
+    unsigned int pos();
+	
     /**
      * Reads one single sample.
      */
@@ -85,6 +98,9 @@ private:
 
     /** current sample position */
     unsigned int m_position;
+
+    /** first sample index */
+    unsigned int m_first;
 
     /** last sample index */
     unsigned int m_last;

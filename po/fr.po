@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2003-07-09 12:20+0200\n"
-"PO-Revision-Date: 2003-07-09 12:21+0200\n"
+"POT-Creation-Date: 2003-07-09 14:47+0200\n"
+"PO-Revision-Date: 2003-07-09 14:49+0200\n"
 "Last-Translator: Gilles CAULIER <caulier.gilles@free.fr>\n"
 "Language-Team: Française <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2411,19 +2411,31 @@ msgstr "Fréquence : %d Hz"
 msgid "Amplitude: %d %%"
 msgstr "Amplitude : %d %%"
 
-#: plugins/about/AboutKwaveDialog.cpp:48
+#: plugins/about/AboutKwaveDialog.cpp:53
 msgid " (Using KDE %1)"
 msgstr " (utilise KDE %1)"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:401
+#: plugins/about/AboutKwaveDialog.cpp:89
+msgid "name"
+msgstr "nom"
+
+#: plugins/about/AboutKwaveDialog.cpp:90
+msgid "version"
+msgstr "version"
+
+#: plugins/about/AboutKwaveDialog.cpp:91
+msgid "author"
+msgstr "auteur"
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:414
 msgid "About Kwave"
 msgstr "A propos de Kwave"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:402
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:415
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr "<h1>Kwave - Un éditeur de sons pour KDE</h1>"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:403
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:416
 msgid ""
 " <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
 "h2><br>\n"
@@ -2447,15 +2459,23 @@ msgstr ""
 "Kwave inclut aussi beaucoup de modules externes pour transformer les\n"
 "fichiers audio. Un grand nombre sont cependant en cours de développement."
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:414
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:427
 msgid "Authors"
 msgstr "Auteurs"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:415
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:428
 msgid "Thanks To"
 msgstr "Remerciements à"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:416
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:430
+msgid "Plugins found:"
+msgstr "Nombre de modules externes trouvé :"
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:431
+msgid "Plugins info"
+msgstr "Modules externes"
+
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:432
 msgid "License agreement"
 msgstr "Accord de licence"
 

@@ -286,6 +286,67 @@ and scroll capability.</string>
             </widget>
             <widget class="QWidget">
                 <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Plugins info</string>
+                </attribute>
+                <widget class="QScrollView">
+                    <property name="name">
+                        <cstring>pluginsinfoframe</cstring>
+                    </property>
+                    <property name="geometry">
+                        <rect>
+                            <x>10</x>
+                            <y>40</y>
+                            <width>650</width>
+                            <height>300</height>
+                        </rect>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>7</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>pluginsnumval</cstring>
+                    </property>
+                    <property name="geometry">
+                        <rect>
+                            <x>280</x>
+                            <y>10</y>
+                            <width>70</width>
+                            <height>21</height>
+                        </rect>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="geometry">
+                        <rect>
+                            <x>10</x>
+                            <y>10</y>
+                            <width>260</width>
+                            <height>21</height>
+                        </rect>
+                    </property>
+                    <property name="text">
+                        <string>Plugins found:</string>
+                    </property>
+                </widget>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
                     <cstring>license_tab</cstring>
                 </property>
                 <attribute name="title">
@@ -452,6 +513,7 @@ and scroll capability.</string>
 <includehints>
     <includehint>logowidget.h</includehint>
     <includehint>kurllabel.h</includehint>
+    <includehint>qscrollview.h</includehint>
     <includehint>qscrollview.h</includehint>
     <includehint>qscrollview.h</includehint>
 </includehints>

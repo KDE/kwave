@@ -26,7 +26,7 @@
 #include "AboutPlugin.h"
 #include "AboutKwaveDialog.h"
 
-KWAVE_PLUGIN(AboutPlugin,"about","Ralf Waspe");
+KWAVE_PLUGIN(AboutPlugin,"about","Ralf Waspe & Gilles Caulier");
 
 //***************************************************************************
 AboutPlugin::AboutPlugin(PluginContext &c)

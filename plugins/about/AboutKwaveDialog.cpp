@@ -2,8 +2,8 @@
    AboutKwaveDialog.cpp  -  dialog for Kwave's "Help-About"
                              -------------------
     begin                : Sun Feb 10 2002
-    copyright            : (C) 2002 by Ralf Waspe
-    email                : rwaspe@web.de
+    copyright            : (C) 2002 by Ralf Waspe & Gilles Caulier
+    email                : rwaspe@web.de / caulier.gilles@free.fr
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,11 +15,14 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <dlfcn.h>
+ 
 #include <qlabel.h>
 #include <qframe.h>
 #include <qscrollview.h>
 #include <qstring.h>
 #include <qtextview.h>
+#include <qlistview.h>
 #include <qhbox.h>
 
 #include <kaboutdialog.h>
@@ -27,6 +30,8 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include <kurllabel.h>
+#include <klistview.h>
+#include <kstddirs.h>
 
 #include "AboutKwaveDialog.h"
 #include "KwaveAboutContainer.h"
@@ -62,7 +67,7 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
           }
     authorframe->setResizePolicy(QScrollView::AutoOneFit);
 
-    /* the frame containing the thanks to .. */
+    /* the frame containing the thanks to ... */
     QHBox *thanks_layout = new QHBox(thanksframe->viewport());
     thanksframe->addChild(thanks_layout);
     KAboutContainer* contrib = new KwaveAboutContainer(thanks_layout);
@@ -75,6 +80,47 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
         }
     thanksframe->setResizePolicy(QScrollView::AutoOneFit);
 
+    /* the frame containing the plugins info */
+    QHBox *pluginsinfo_layout = new QHBox(pluginsinfoframe->viewport());
+    pluginsinfoframe->addChild(pluginsinfo_layout);
+    KListView *pluginsinfo = new KListView(pluginsinfo_layout);
+
+    pluginsinfo->setSelectionMode (QListView::Single);
+    pluginsinfo->addColumn( i18n("name") );
+    pluginsinfo->addColumn( i18n("version") );
+    pluginsinfo->addColumn( i18n("author") );
+    pluginsinfo->setAllColumnsShowFocus( false );
+    pluginsinfo->setShowSortIndicator (false);
+    pluginsinfo->setSorting (0);
+
+    QStringList files = KGlobal::dirs()->findAllResources("data", "kwave/plugins/*", false, true);
+    QStringList::Iterator it_file;
+    for (it_file=files.begin(); it_file != files.end(); ++it_file)
+      {
+	    QString file = *it_file;
+	    void *handle = dlopen(file, RTLD_NOW);
+
+      if (handle)
+        {
+	      const char **name    = (const char **)dlsym(handle, "name");
+	      const char **version = (const char **)dlsym(handle, "version");
+	      const char **author  = (const char **)dlsym(handle, "author");
+
+	      // skip it if something is missing or null
+	      if (!name || !version || !author) continue;
+	      if (!*name || !*version || !*author) continue;
+
+        QListViewItem *PluginsItem;
+        PluginsItem = new QListViewItem (pluginsinfo, *name, *version, *author);
+	      dlclose (handle);
+        }
+     }
+
+    QString NumbPlugIns;
+    NumbPlugIns.setNum(pluginsinfo->childCount());
+    pluginsnumval->setText (NumbPlugIns);
+    pluginsinfoframe->setResizePolicy(QScrollView::AutoOneFit);
+    
     /* set the url of the kwave homepage */
     kwave_url_label->setText(about_data->homepage());
     kwave_url_label->setURL(about_data->homepage());

@@ -76,7 +76,10 @@ public:
     virtual int close() = 0;
 
     /** return a string list with supported device names */
-    virtual QStringList supportedDevices() = 0;
+    virtual QStringList supportedDevices() {
+	QStringList empty;
+	return empty;
+    };
 
     /** return a string suitable for a "File Open..." dialog */
     virtual QString fileFilter() { return ""; };

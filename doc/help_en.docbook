@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2004-05-15</date>
+<date>2004-06-12</date>
 <releaseinfo>0.7.1-pre1
 </releaseinfo>
 
@@ -190,8 +190,14 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.7.1 [2004-05-??]</para>
+            <para>0.7.1 [2004-06-??]</para>
             <itemizedlist>
+                <listitem><para>
+                    FLAC (Free Lossness Audio Codec) import/export plugin
+                </para></listitem>
+                <listitem><para>
+                    speedups for loading / saving files
+                </para></listitem>
                 <listitem><para>
                     removed our own copy of libmad from the source tree, now it
                       should be available in all common distributions
@@ -203,10 +209,13 @@
                     implemented recording time limit
                 </para></listitem>
                 <listitem><para>
-                    bugfix: minor fault in the recording state machine
+                    bugfix: minor bug in the recording state machine
                 </para></listitem>
                 <listitem><para>
                     bugfix: solved some layout issues in the about- and sonagram plugins
+                </para></listitem>
+                <listitem><para>
+                    bugfix: cancel while saving to .ogg works now
                 </para></listitem>
                 <listitem><para>
                     update of the online documentation, many screenshots
@@ -434,7 +443,7 @@
                       signals into an empty track
                 </para></listitem>
                 <listitem><para>
-                    fixed that weird layout behavior in dialogs, seems that Qt has 
+                    fixed that weird layout behavior in dialogs, seems that Qt has
                       problems with complex nested layouts :(
                 </para></listitem>
             </itemizedlist>
@@ -559,7 +568,7 @@
                     added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget
                 </para></listitem>
                 <listitem><para>
-                    sonagram: removed (need for) SonagramContainer, using 
+                    sonagram: removed (need for) SonagramContainer, using
                       QGridLayout instead
                 </para></listitem>
                 <listitem><para>
@@ -721,7 +730,7 @@
                       usage of the qt library
                 </para></listitem>
                 <listitem><para>
-                    moved handling of the "selected" flag from class SignalManager 
+                    moved handling of the "selected" flag from class SignalManager
                       to class Signal
                 </para></listitem>
                 <listitem><para>
@@ -736,7 +745,7 @@
                     included config.h in each source file (except the plugins)
                 </para></listitem>
                 <listitem><para>
-                    export to ASCII for multi-channel signal (multi-channel import has 
+                    export to ASCII for multi-channel signal (multi-channel import has
                       still to be done, currently only mono)
                 </para></listitem>
                 <listitem><para>
@@ -744,7 +753,7 @@
                       "delete" instead of "delete[]")
                 </para></listitem>
                 <listitem><para>
-                    included support for (and tested with) the error detection and memory 
+                    included support for (and tested with) the error detection and memory
                       debugging tool "Insure++ Lite 4.1" (./configure --enable-insure=yes ...)
                       -> thanks to ParaSoft Corporation for making this limited version of
                          the tool available (http://www.parasoft.com)
@@ -763,7 +772,7 @@
                 </para></listitem>
                 <listitem><para>
                     save the kwave.spec and include it into the source archive, this
-                      lets "rpmbuild -ta kwave-x.x.x-x.tar.gz" work
+                      lets "rpm -ta kwave-x.x.x-x.tar.gz" work
                 </para></listitem>
                 <listitem><para>
                     wrote a new README file, moved Martin's version to README.OLD
@@ -896,7 +905,7 @@
                 </itemizedlist>
                 </para></listitem>
                 <listitem><para>
-                    bugfix in KWaveApp: now sets globals.app to this if it was null before, 
+                    bugfix in KWaveApp: now sets globals.app to this if it was null before,
                       now doesn't crash if it loads a file specified at cmdline
                 </para></listitem>
             </itemizedlist>
@@ -1257,7 +1266,7 @@
                     kwave now keeps track of last directory saved to; for user convenience
                 </para></listitem>
                 <listitem><para>
-                    reestablished selection mechanism to match versions 
+                    reestablished selection mechanism to match versions
                       before 0.29.3 and corrected some otherwise screwed-up behaviour
                 </para></listitem>
                 <listitem><para>
@@ -1270,11 +1279,11 @@
             <itemizedlist>
                 <listitem><para>
                     developement has slowed down a bit, this release is not as complete as I
-                      wished but since 0.29.2 has a destructor with parameters accidently left 
+                      wished but since 0.29.2 has a destructor with parameters accidently left
                       in, and so does not compile on all systems -> here we go again...
                 </para></listitem>
                 <listitem><para>
-                    reworked selection routines into a new class, code is still rather 
+                    reworked selection routines into a new class, code is still rather
                       confusing, but seems to work
                 </para></listitem>
                 <listitem><para>
@@ -1321,8 +1330,8 @@
             <para>0.29.0</para>
             <itemizedlist>
                 <listitem><para>
-                    changed version numbering and filename as suggested by 
-                      Version 1.1 of "How To Name Things" from sunsite. The last digit will 
+                    changed version numbering and filename as suggested by
+                      Version 1.1 of "How To Name Things" from sunsite. The last digit will
                       always mark be 0 for releases uploaded to ftp.kde.org.
                 </para></listitem>
                 <listitem><para>
@@ -1353,8 +1362,8 @@
                     added as new Possibility to generate Signals: pulse trains
                 </para></listitem>
                 <listitem><para>
-                    added wrapper for systems with no posixthreads -> 
-                      still needs handling by configure script 
+                    added wrapper for systems with no posixthreads ->
+                      still needs handling by configure script
                       (change Makefile for not linking libpthread and doing a define)
                 </para></listitem>
                 <listitem><para>
@@ -1376,7 +1385,7 @@
                     Sonagram, FFTView and Distortion-Dialog  now use ScaleWidgets
                 </para></listitem>
                 <listitem><para>
-                    New ScaleWidget gives the user more information 
+                    New ScaleWidget gives the user more information
                 </para></listitem>
                 <listitem><para>
                     Improved ProgressDialog and Interpolation class to allow multiple threads

@@ -103,7 +103,9 @@ logged:
 		cd - ; \
 	}; done;
 	QTDIR=`cat ./QT-DIR` KDEDIR=${KDEDIR} \
-	./configure ${CONFIGURE_OPTS} --enable-debug=no
+	./configure --enable-debug=no ${CONFIGURE_OPTS} \
+		CXXFLAGS="${RPM_OPT_FLAGS}" \
+		CFLAGS="${RPM_OPT_FLAGS}"
 	@ ${MAKE} clean 2>/dev/null 1>/dev/null
 	# now you can run "make"
 

@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>KwaveAboutDialogBase</class>
 <widget class="QDialog">
     <property name="name">
@@ -73,121 +73,132 @@
                 <attribute name="title">
                     <string>About</string>
                 </attribute>
-                <hbox>
+                <widget class="QFrame">
                     <property name="name">
-                        <cstring>unnamed</cstring>
+                        <cstring>logoframe</cstring>
                     </property>
-                    <property name="margin">
-                        <number>0</number>
+                    <property name="geometry">
+                        <rect>
+                            <x>1</x>
+                            <y>1</y>
+                            <width>255</width>
+                            <height>345</height>
+                        </rect>
                     </property>
-                    <property name="spacing">
-                        <number>0</number>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>3</hsizetype>
+                            <vsizetype>7</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
                     </property>
-                    <widget class="QFrame">
+                    <property name="minimumSize">
+                        <size>
+                            <width>150</width>
+                            <height>200</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>400</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="frameShape">
+                        <enum>StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Raised</enum>
+                    </property>
+                    <property name="layoutMargin" stdset="0">
+                    </property>
+                    <property name="layoutSpacing" stdset="0">
+                    </property>
+                    <vbox>
                         <property name="name">
-                            <cstring>logoframe</cstring>
+                            <cstring>unnamed</cstring>
                         </property>
-                        <property name="sizePolicy">
-                            <sizepolicy>
-                                <hsizetype>3</hsizetype>
-                                <vsizetype>7</vsizetype>
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
+                        <property name="margin">
+                            <number>3</number>
                         </property>
-                        <property name="minimumSize">
-                            <size>
-                                <width>150</width>
-                                <height>200</height>
-                            </size>
+                        <property name="spacing">
+                            <number>3</number>
                         </property>
-                        <property name="maximumSize">
-                            <size>
-                                <width>400</width>
-                                <height>32767</height>
-                            </size>
-                        </property>
-                        <property name="frameShape">
-                            <enum>StyledPanel</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>Raised</enum>
-                        </property>
-                        <property name="layoutMargin" stdset="0">
-                        </property>
-                        <property name="layoutSpacing" stdset="0">
-                        </property>
-                        <vbox>
+                        <widget class="LogoWidget">
                             <property name="name">
-                                <cstring>unnamed</cstring>
+                                <cstring>logo_widget</cstring>
                             </property>
-                            <property name="margin">
-                                <number>3</number>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>7</hsizetype>
+                                    <vsizetype>7</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
                             </property>
-                            <property name="spacing">
-                                <number>3</number>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>400</width>
+                                    <height>32767</height>
+                                </size>
                             </property>
-                            <widget class="LogoWidget">
-                                <property name="name">
-                                    <cstring>logo_widget</cstring>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>7</hsizetype>
-                                        <vsizetype>7</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="maximumSize">
-                                    <size>
-                                        <width>400</width>
-                                        <height>32767</height>
-                                    </size>
-                                </property>
-                            </widget>
-                        </vbox>
-                    </widget>
-                    <widget class="QLayoutWidget">
-                        <property name="name">
-                            <cstring>Layout6</cstring>
-                        </property>
-                        <vbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <property name="margin">
-                                <number>0</number>
-                            </property>
-                            <property name="spacing">
-                                <number>6</number>
-                            </property>
-                            <widget class="QLabel">
-                                <property name="name">
-                                    <cstring>abouttext</cstring>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>7</hsizetype>
-                                        <vsizetype>3</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>400</width>
-                                        <height>300</height>
-                                    </size>
-                                </property>
-                                <property name="frameShape">
-                                    <enum>MShape</enum>
-                                </property>
-                                <property name="frameShadow">
-                                    <enum>MShadow</enum>
-                                </property>
-                                <property name="text">
-                                    <string> &lt;h2&gt;Kwave is a sound editor designed for the KDE-Desktop Environment. &lt;/h2&gt;&lt;br&gt;
+                        </widget>
+                    </vbox>
+                </widget>
+                <widget class="KURLLabel">
+                    <property name="name">
+                        <cstring>kwave_url_label</cstring>
+                    </property>
+                    <property name="geometry">
+                        <rect>
+                            <x>270</x>
+                            <y>320</y>
+                            <width>400</width>
+                            <height>20</height>
+                        </rect>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>200</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>abouttext</cstring>
+                    </property>
+                    <property name="geometry">
+                        <rect>
+                            <x>267</x>
+                            <y>12</y>
+                            <width>400</width>
+                            <height>290</height>
+                        </rect>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>3</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>380</width>
+                            <height>280</height>
+                        </size>
+                    </property>
+                    <property name="frameShape">
+                        <enum>MShape</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>MShadow</enum>
+                    </property>
+                    <property name="text">
+                        <string> &lt;h2&gt;Kwave is a sound editor designed for the KDE-Desktop Environment. &lt;/h2&gt;&lt;br&gt;
 With Kwave you can edit many sorts of 
 wav-files including multi-channel files. 
 You are able to alter and play back each 
@@ -197,37 +208,23 @@ are still under development) to transform
 the wave-file in several ways and presents 
 a graphical view with a complete zoom- 
 and scroll capability.</string>
-                                </property>
-                                <property name="textFormat">
-                                    <enum>RichText</enum>
-                                </property>
-                                <property name="scaledContents">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="alignment">
-                                    <set>WordBreak|AlignVCenter|AlignLeft</set>
-                                </property>
-                                <property name="hAlign" stdset="0">
-                                </property>
-                                <property name="vAlign" stdset="0">
-                                </property>
-                                <property name="wordwrap" stdset="0">
-                                </property>
-                            </widget>
-                            <widget class="KURLLabel">
-                                <property name="name">
-                                    <cstring>kwave_url_label</cstring>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>200</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </widget>
-                        </vbox>
-                    </widget>
-                </hbox>
+                    </property>
+                    <property name="textFormat">
+                        <enum>RichText</enum>
+                    </property>
+                    <property name="scaledContents">
+                        <bool>false</bool>
+                    </property>
+                    <property name="alignment">
+                        <set>WordBreak|AlignVCenter|AlignLeft</set>
+                    </property>
+                    <property name="hAlign" stdset="0">
+                    </property>
+                    <property name="vAlign" stdset="0">
+                    </property>
+                    <property name="wordwrap" stdset="0">
+                    </property>
+                </widget>
             </widget>
             <widget class="QWidget">
                 <property name="name">
@@ -236,30 +233,27 @@ and scroll capability.</string>
                 <attribute name="title">
                     <string>Authors</string>
                 </attribute>
-                <vbox>
+                <widget class="QScrollView">
                     <property name="name">
-                        <cstring>unnamed</cstring>
+                        <cstring>authorframe</cstring>
                     </property>
-                    <property name="margin">
-                        <number>0</number>
+                    <property name="geometry">
+                        <rect>
+                            <x>10</x>
+                            <y>10</y>
+                            <width>650</width>
+                            <height>330</height>
+                        </rect>
                     </property>
-                    <property name="spacing">
-                        <number>0</number>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>7</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
                     </property>
-                    <widget class="QScrollView">
-                        <property name="name">
-                            <cstring>authorframe</cstring>
-                        </property>
-                        <property name="sizePolicy">
-                            <sizepolicy>
-                                <hsizetype>7</hsizetype>
-                                <vsizetype>7</vsizetype>
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
-                        </property>
-                    </widget>
-                </vbox>
+                </widget>
             </widget>
             <widget class="QWidget">
                 <property name="name">
@@ -268,30 +262,27 @@ and scroll capability.</string>
                 <attribute name="title">
                     <string>Thanks To</string>
                 </attribute>
-                <vbox>
+                <widget class="QScrollView">
                     <property name="name">
-                        <cstring>unnamed</cstring>
+                        <cstring>thanksframe</cstring>
                     </property>
-                    <property name="margin">
-                        <number>0</number>
+                    <property name="geometry">
+                        <rect>
+                            <x>10</x>
+                            <y>10</y>
+                            <width>650</width>
+                            <height>330</height>
+                        </rect>
                     </property>
-                    <property name="spacing">
-                        <number>0</number>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>7</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
                     </property>
-                    <widget class="QScrollView">
-                        <property name="name">
-                            <cstring>thanksframe</cstring>
-                        </property>
-                        <property name="sizePolicy">
-                            <sizepolicy>
-                                <hsizetype>7</hsizetype>
-                                <vsizetype>7</vsizetype>
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
-                        </property>
-                    </widget>
-                </vbox>
+                </widget>
             </widget>
             <widget class="QWidget">
                 <property name="name">
@@ -300,22 +291,19 @@ and scroll capability.</string>
                 <attribute name="title">
                     <string>License agreement</string>
                 </attribute>
-                <vbox>
+                <widget class="QTextView">
                     <property name="name">
-                        <cstring>unnamed</cstring>
+                        <cstring>licenseframe</cstring>
                     </property>
-                    <property name="margin">
-                        <number>0</number>
+                    <property name="geometry">
+                        <rect>
+                            <x>10</x>
+                            <y>10</y>
+                            <width>650</width>
+                            <height>330</height>
+                        </rect>
                     </property>
-                    <property name="spacing">
-                        <number>0</number>
-                    </property>
-                    <widget class="QTextView">
-                        <property name="name">
-                            <cstring>licenseframe</cstring>
-                        </property>
-                    </widget>
-                </vbox>
+                </widget>
             </widget>
         </widget>
         <widget class="QLayoutWidget">
@@ -456,10 +444,15 @@ and scroll capability.</string>
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>
     <include location="global" impldecl="in declaration">kurllabel.h</include>
-    <include location="local" impldecl="in implementation">KwaveAboutDialogBase.ui.h</include>
 </includes>
 <slots>
     <slot access="protected">closeDialog()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>logowidget.h</includehint>
+    <includehint>kurllabel.h</includehint>
+    <includehint>qscrollview.h</includehint>
+    <includehint>qscrollview.h</includehint>
+</includehints>
 </UI>

@@ -1,3 +1,19 @@
+/***************************************************************************
+          SignalManager.cpp -  manager class for multi-channel signals
+			     -------------------
+    begin                : Sun Oct 15 2000
+    copyright            : (C) 2000 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "config.h"
 #include <unistd.h>
@@ -42,7 +58,7 @@ extern Global globals;
 
 #define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
 
-//**********************************************************
+//***************************************************************************
 void threadStub(TimeOperation *obj)
 {
     debug("thread started");
@@ -57,7 +73,7 @@ void threadStub(TimeOperation *obj)
     debug("thread done");
 }
 
-//**********************************************************
+//***************************************************************************
 SignalManager::SignalManager(Signal *sig)
     :QObject()
 {
@@ -72,7 +88,7 @@ SignalManager::SignalManager(Signal *sig)
     this->rate = sig->getRate();
 }
 
-//**********************************************************
+//***************************************************************************
 SignalManager::SignalManager(unsigned int numsamples,
                              int rate, unsigned int channels)
     :QObject()
@@ -91,7 +107,7 @@ SignalManager::SignalManager(unsigned int numsamples,
     }
 }
 
-//**********************************************************
+//***************************************************************************
 SignalManager::SignalManager(const char *name, int type)
     :QObject()
 {
@@ -111,7 +127,7 @@ SignalManager::SignalManager(const char *name, int type)
     }
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::initialize()
 {
     name = 0;
@@ -126,7 +142,7 @@ void SignalManager::initialize()
     signal.clear();
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::getMaxMin(unsigned int channel, int &max, int &min,
                               unsigned int begin, unsigned int len)
 {
@@ -145,15 +161,15 @@ void SignalManager::getMaxMin(unsigned int channel, int &max, int &min,
     signal.at(channel)->getMaxMin(max, min, begin, len);
 }
 
-//**********************************************************
+//***************************************************************************
 unsigned int SignalManager::getLength()
 {
     if (!signal.count()) return 0;
     return signal.at(0) ? signal.at(0)->getLength() : 0;
 }
 
-//**********************************************************
-int SignalManager::getSingleSample(unsigned int channel, unsigned int offset)
+//***************************************************************************
+int SignalManager::singleSample(unsigned int channel, unsigned int offset)
 {
     ASSERT(channel >= 0);
     ASSERT(channel < signal.count());
@@ -163,7 +179,26 @@ int SignalManager::getSingleSample(unsigned int channel, unsigned int offset)
 	   signal.at(channel)->getSingleSample(offset) : 0;
 }
 
-//**********************************************************
+//***************************************************************************
+int SignalManager::averageSample(unsigned int offset)
+{
+    unsigned int count = 0;
+    unsigned int channel;
+    double value = 0.0;
+
+    for (channel=0; channel < signal.count(); channel++) {
+	Signal *sig = signal.at(channel);
+	if (!sig) continue;
+	if (!sig->isSelected()) continue;
+	
+	value += sig->getSingleSample(offset);
+	count++;
+    }
+
+    return (count) ? (int)(value/(double)count) : 0;
+}
+
+//***************************************************************************
 int SignalManager::getBitsPerSample()
 {
     int max_bps = 0;
@@ -174,7 +209,7 @@ int SignalManager::getBitsPerSample()
     return max_bps;
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::deleteChannel(unsigned int channel)
 {
     signal.setAutoDelete(true);
@@ -187,14 +222,14 @@ void SignalManager::deleteChannel(unsigned int channel)
     emit signalChanged( -1, -1);
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::addChannel()
 {
     if (!getLength()) return ;
     appendChannel(new Signal(getLength(), rate));
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::appendChannel(Signal *newsig)
 {
     ASSERT(newsig);
@@ -207,7 +242,7 @@ void SignalManager::appendChannel(Signal *newsig)
     emit signalChanged( -1, -1);
 }
 	
-//**********************************************************
+//***************************************************************************
 void SignalManager::toggleChannel(const unsigned int channel)
 {
     ASSERT(channel < signal.count());
@@ -220,7 +255,7 @@ void SignalManager::toggleChannel(const unsigned int channel)
 	channel, signal.at(channel)->isSelected());
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::playback_setOp(int id)
 {
     debug("SignalManager::playback_setOp(%d)",id);
@@ -242,7 +277,7 @@ void SignalManager::playback_setOp(int id)
 	toggleChannel (id - TOGGLECHANNEL);
 }
 
-//**********************************************************
+//***************************************************************************
 bool SignalManager::executeCommand(const char *command)
 {
     ASSERT(command);
@@ -366,7 +401,7 @@ bool SignalManager::executeCommand(const char *command)
     return true;
 }
 
-//**********************************************************
+//***************************************************************************
 bool SignalManager::promoteCommand (const char *command)
 {
     debug("SignalManager::promoteCommand(%s)", command);    // ###
@@ -456,21 +491,21 @@ bool SignalManager::promoteCommand (const char *command)
     return true;
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::commandDone()
 {
     debug("SignalManager::commandDone()");    // ###
     emit signalChanged( -1, -1);
 }
 
-//**********************************************************
+//***************************************************************************
 SignalManager::~SignalManager()
 {
     while (channels) deleteChannel(channels-1);
     if (name) delete[] name;
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::setRange(unsigned int l, unsigned int r)
 {
     for (unsigned int i = 0; i < channels; i++) {
@@ -484,7 +519,7 @@ void SignalManager::setRange(unsigned int l, unsigned int r)
     }
 }
 
-//**********************************************************
+//***************************************************************************
 ProgressDialog *SignalManager::createProgressDialog(TimeOperation *operation,
                                                     const char *caption)
 {
@@ -501,7 +536,7 @@ ProgressDialog *SignalManager::createProgressDialog(TimeOperation *operation,
 //below are all methods of Class SignalManager that deal with I/O
 //such as loading and saving.
 
-//**********************************************************
+//***************************************************************************
 int SignalManager::loadAscii()
 {
     float value;
@@ -556,7 +591,7 @@ int SignalManager::loadAscii()
     return 0;
 }
 
-//**********************************************************
+//***************************************************************************
 int SignalManager::loadWav()
 {
     int result = 0;
@@ -655,7 +690,7 @@ int SignalManager::loadWav()
 // specified by names little/big endian problems are dealt with at compile time
 // The corresponding header should have already been written to the file before
 // invocation of this methods
-//**********************************************************
+//***************************************************************************
 void SignalManager::exportAscii(const char *name)
 {
     ASSERT(name);
@@ -720,7 +755,7 @@ void SignalManager::exportAscii(const char *name)
     fclose(sigout);
 }
 
-//**********************************************************
+//***************************************************************************
 int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
                                  unsigned int length, int bits)
 {
@@ -823,7 +858,7 @@ int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
     return 0;
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::save(const char *filename, int bits, bool selection)
 {
     debug("SignalManager::save(): %d Bit to %s ,%d", bits, filename, selection);
@@ -898,7 +933,7 @@ void SignalManager::save(const char *filename, int bits, bool selection)
     }
 }
 
-//**********************************************************
+//***************************************************************************
 int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
                                 unsigned int channels, int bits)
 {
@@ -1033,7 +1068,7 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
     return 0;
 }
 
-//**********************************************************
+//***************************************************************************
 int SignalManager::findWavChunk(FILE *sigin)
 {
     ASSERT(sigin);
@@ -1063,7 +1098,7 @@ int SignalManager::findWavChunk(FILE *sigin)
 /***************************************************************************/
 //below  all methods of Class SignalManager that deal with sound playback
 
-//**********************************************************
+//***************************************************************************
 //following are the playback routines
 struct Play {
     SignalManager *manage;
@@ -1071,7 +1106,7 @@ struct Play {
     bool loop;
 };
 
-//**********************************************************
+//***************************************************************************
 void *playThread(struct Play *par)
 {
     ASSERT(par);
@@ -1114,7 +1149,7 @@ void *playThread(struct Play *par)
     return 0;
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::play(bool loop)
 {
     msg[processid] = 1;
@@ -1131,7 +1166,7 @@ void SignalManager::play(bool loop)
     pthread_create(&thread, 0, (void * (*) (void *))playThread, par);
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::stopplay()
 {
     msg[stopprocess] = true;          //set flag for stopping
@@ -1151,7 +1186,7 @@ void SignalManager::stopplay()
     debug("SignalManager::stopplay(): threads stopped");
 }
 
-//**********************************************************
+//***************************************************************************
 int SignalManager::setSoundParams(int audio, int bitspersample,
                                   unsigned int channels, int rate,
                                   int bufbase)
@@ -1232,7 +1267,7 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
     return size;
 }
 
-//**********************************************************
+//***************************************************************************
 void SignalManager::playback(int device, playback_param_t &param,
                              unsigned char *buffer, unsigned int bufsize,
                              bool loop)
@@ -1360,5 +1395,5 @@ void SignalManager::playback(int device, playback_param_t &param,
     } while (loop && !msg[stopprocess]);
 }
 
-//**********************************************************
-//**********************************************************
+//***************************************************************************
+//***************************************************************************

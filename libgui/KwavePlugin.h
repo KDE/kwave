@@ -146,6 +146,13 @@ public:
     virtual int singleSample(unsigned int channel, unsigned int offset);
 
     /**
+     * Returns the value of one single sample averaged over all active channels.
+     * If no channel doe exist or the index of the sample is out of range the
+     * return value will be zero.
+     */
+    virtual int averageSample(unsigned int offset);
+
+    /**
      * Gives the control to the next thread. This can be called from
      * within the run() function.
      */

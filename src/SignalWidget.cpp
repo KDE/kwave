@@ -7,10 +7,10 @@
 
 #include <qobject.h>
 #include <qtimer.h>
-#include <qfiledlg.h>
 
 #include <kmsgbox.h>
 #include <kapp.h>
+#include <kfiledialog.h>
 
 #include <libkwave/Label.h>
 #include <libkwave/LabelList.h>
@@ -1145,7 +1145,7 @@ void SignalWidget::drawInterpolatedSignal(int channel, int middle, int height)
     sig = sig_buffer + (N / 2);
     while (x <= width + N / 2) {
 	if ((x >= -N / 2) && (offset + sample < length)) {
-	    sig[x] = signalmanage->getSingleSample(channel, offset + sample) *
+	    sig[x] = signalmanage->singleSample(channel, offset + sample) *
 		     scale_y;
 	}
 	sample++;
@@ -1215,7 +1215,7 @@ void SignalWidget::drawPolyLineSignal(int channel, int middle, int height)
     i = 0;
     while (x < width) {
 	// mark original samples
-	y = (int)(signalmanage->getSingleSample(channel, offset + sample) *
+	y = (int)(signalmanage->singleSample(channel, offset + sample) *
 		  scale_y);
 	points->setPoint(i++, x, middle - y);
 
@@ -1235,9 +1235,9 @@ void SignalWidget::drawPolyLineSignal(int channel, int middle, int height)
 
 	x1 = samples2pixels(sample - 1);
 	x2 = samples2pixels(sample);
-	y1 = (int)(signalmanage->getSingleSample(channel, offset + sample - 1) *
+	y1 = (int)(signalmanage->singleSample(channel, offset + sample - 1) *
 		   scale_y);
-	y2 = (int)(signalmanage->getSingleSample(channel, offset + sample) *
+	y2 = (int)(signalmanage->singleSample(channel, offset + sample) *
 		   scale_y);
 
 	x = width - 1;
@@ -1563,7 +1563,7 @@ void SignalWidget::loadLabel()
 //****************************************************************************
 void SignalWidget::appendLabel()
 {
-//    QString name = QFileDialog::getOpenFileName (0, "*.label", this);
+//    QString name = KFileDialog::getOpenFileName (0, "*.label", this);
 //    //  if (!name.isNull())
 //    //    {
 //    //      char *comstr=catString ("loadbatch (",name,")");
@@ -1575,7 +1575,7 @@ void SignalWidget::appendLabel()
 //****************************************************************************
 void SignalWidget::saveLabel (const char *typestring)
 {
-//    QString name = QFileDialog::getSaveFileName (0, "*.label", this);
+//    QString name = KFileDialog::getSaveFileName (0, "*.label", this);
 //    if (!name.isNull()) {
 //	FILE *out;
 //	out = fopen (name.data(), "w");
@@ -1713,7 +1713,7 @@ void SignalWidget::savePeriods ()
 //	    int last = 0;
 //	    int rate = signalmanage->getRate ();
 //
-//	    QString name = QFileDialog::getSaveFileName (0, "*.dat", this);
+//	    QString name = KFileDialog::getSaveFileName (0, "*.dat", this);
 //	    if (!name.isNull()) {
 //		QFile out(name.data());
 //		char buf[160];

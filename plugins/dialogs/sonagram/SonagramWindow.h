@@ -34,7 +34,9 @@ class ScaleWidget;
 class SonagramWindow : public KTMainWindow
 {
     Q_OBJECT
+
 public:
+
     /**
      * Constructor.
      * @param name reference to the initial name of the signal (used for
@@ -65,9 +67,13 @@ public:
 
 public slots:
 
-    void close();
+    /** not implemented yet */
     void save();
+
+    /** not implemented yet */
     void load();
+
+    /** not implemented yet */
     void toSignal();
 
     /**
@@ -75,6 +81,12 @@ public slots:
      * @param name the name of the signal
      */
     void setName(const QString &name);
+
+    /**
+     * Sets a new color mode. If the mode is different from the current
+     * one, the image will be automatically refreshed.
+     */
+    void setColorMode(int mode);
 
     /**
      * Used to update the display of the current position of the cursor.
@@ -98,17 +110,22 @@ public slots:
     void setRate(unsigned int rate);
 
 private slots:
+
     /** refreshes the image, connected to m_refresh_timer */
     void refresh_view();
 
 signals:
 
 protected:
-    /** removes old data and the current image */
-    void clear();
 
     /** updates the scale widgets */
     void updateScaleWidgets();
+
+    /**
+     * adjust the brightness so that the color space is optimally
+     * used and the user doesn't just see a white image
+     */
+    void adjustBrightness();
 
     /**
      * Translates pixel coordinates relative to the lower left corner
@@ -124,11 +141,18 @@ protected:
     void translatePixels2TF(const QPoint p, double *ms, double *f);
 
 private:
+
     /** the status bar at the bottom of the window */
     KStatusBar *m_status;
 
     /** the QImage to be displayed */
     QImage *m_image;
+
+    /**
+     * the color mode to be used. Currently only 0 (black/white)
+     * and 1 (rainbow colors) are used.
+     */
+    int m_color_mode;
 
     /** an ImageView to display the m_image and fit it into our window */
     ImageView *m_view;
@@ -150,6 +174,10 @@ private:
 
     /** timer used for refreshing the view from time to time */
     QTimer m_refresh_timer;
+
+    /** histogram of color indizes, used for auto-contrast */
+    unsigned int m_histogram[256];
+
 };
 
 #endif // _SONOGRAM_WINDOW_H_

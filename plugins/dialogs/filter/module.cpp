@@ -3,12 +3,13 @@
 #include <math.h>
 #include <qpushbutton.h>
 #include <qkeycode.h>
-#include <qfiledialog.h>
 #include <qlayout.h>
 #include <qbttngrp.h>
 #include <qtooltip.h>
 #include "module.h"
+
 #include <kapp.h>
+#include <kfiledialog.h>
 
 const char *version = "1.0";
 const char *author = "Martin Wilz";
@@ -204,7 +205,7 @@ const char *FilterDialog::getCommand()
 //**********************************************************
 void FilterDialog::loadFilter() 
 {
-    QString name = QFileDialog::getOpenFileName(
+    QString name = KFileDialog::getOpenFileName(
          filterDir->path(), "*.filter", this);
     if (!name.isNull()) {
 	filter->load (name.data());
@@ -218,7 +219,7 @@ void FilterDialog::loadFilter()
 //**********************************************************
 void FilterDialog::saveFilter() 
 {
-    QString name = QFileDialog::getSaveFileName(
+    QString name = KFileDialog::getSaveFileName(
 	filterDir->path(), "*.filter", this);
     if (!name.isNull())
 	filter->save (name.data());

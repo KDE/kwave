@@ -355,7 +355,14 @@ unsigned int PluginManager::selectionEnd()
 int PluginManager::singleSample(unsigned int channel, unsigned int offset)
 {
     SignalManager *sig = m_top_widget.getSignalManager();
-    return (sig) ? sig->getSingleSample(channel, offset) : 0;
+    return (sig) ? sig->singleSample(channel, offset) : 0;
+}
+
+//***************************************************************************
+int PluginManager::averageSample(unsigned int offset)
+{
+    SignalManager *sig = m_top_widget.getSignalManager();
+    return (sig) ? sig->averageSample(offset) : 0;
 }
 
 //***************************************************************************

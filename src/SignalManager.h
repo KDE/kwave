@@ -1,9 +1,9 @@
 /***************************************************************************
-		SignalManager.h  -  manager for multi-channel signals
+          SignalManager.h -  manager class for multi-channel signals
 			     -------------------
-    begin                : Thu May  04 2000
-    copyright            : (C) 2000 by Martin Wilz
-    email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
+    begin                : Sun Oct 15 2000
+    copyright            : (C) 2000 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -18,7 +18,7 @@
 #ifndef _SIGNAL_MANAGER_H_
 #define _SIGNAL_MANAGER_H_ 1
 
-#define MAXCHANNELS 64
+// #define MAXCHANNELS 64
 
 #define processid       0
 #define stopprocess     1
@@ -131,7 +131,19 @@ public:
 	return signal.at(channel);
     };
 
-    int getSingleSample(unsigned int channel, unsigned int offset);
+    /**
+     * Returns the value of one single sample of a specified channel.
+     * If the channel does not exist or the index of the sample is
+     * out of range the return value will be zero.
+     */
+    int singleSample(unsigned int channel, unsigned int offset);
+
+    /**
+     * Returns the value of one single sample averaged over all active channels.
+     * If no channel doe exist or the index of the sample is out of range the
+     * return value will be zero.
+     */
+    int averageSample(unsigned int offset);
 
     void playback_setOp(int);
 

@@ -198,6 +198,7 @@ int SonagramPlugin::start(QStrList &params)
 
     // activate the window with an initial image
     // and all necessary informations
+    m_sonagram_window->setColorMode((m_color) ? 1 : 0);
     m_sonagram_window->setImage(m_image);
     m_sonagram_window->setPoints(m_fft_points);
     m_sonagram_window->setRate(signalRate());
@@ -330,7 +331,7 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
 	double value;
 
 	value = (sample_nr < m_last_sample) ?
-	    (double)singleSample(0, sample_nr)/(double)(1<<23): 0.0;
+	    (double)averageSample(sample_nr)/(double)(1<<23): 0.0;
 
 	data[j].real = windowfunction[j] * value;
 	data[j].imag = 0;
@@ -401,22 +402,10 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     if (!m_image) return;
     m_image->setAlphaBuffer(true);
 
-    // set the image's palette
-    debug("SonagramPlugin::createNewImage(): setting palette");
-    QColor c;
+    // initialize the image's palette with transparecy
     for (int i=0; i < 256; i++) {
-	if (color) {
-	    // rainbow effect
-	    c.setHsv( (i*255)/256, 255, 255 );
-	} else {
-	    // grayscale palette
-	    c.setRgb(i, i, i);
-	}
-	m_image->setColor(i, c.rgb() | 0xFF000000);
+	m_image->setColor(i, 0x00000000);
     }
-
-    // use color 0xFF for transparency !
-    m_image->setColor(0xFF, 0x00000000);
 
     // fill the image with "empty"
     m_image->fill(0xFF);

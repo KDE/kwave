@@ -5,11 +5,11 @@
 #include <kapp.h>
 #include <qkeycode.h>
 #include <qdir.h>
-#include <qfiledlg.h>
 #include <drag.h>
 
 #include <kmsgbox.h>
 #include <kapp.h>
+#include <kfiledialog.h>
 
 #include <libkwave/DynamicLoader.h>
 #include <libkwave/DialogOperation.h>
@@ -454,19 +454,19 @@ void TopWidget::dropEvent(KDNDDropZone *drop)
 //*****************************************************************************
 void TopWidget::openFile()
 {
-    loadFile(QFileDialog::getOpenFileName(0, "*.wav", this), WAV);
+    loadFile(KFileDialog::getOpenFileName(0, "*.wav", this), WAV);
 }
 
 //*****************************************************************************
 void TopWidget::importAsciiFile()
 {
-    loadFile(QFileDialog::getOpenFileName(0, "*.*", this), WAV);
+    loadFile(KFileDialog::getOpenFileName(0, "*.*", this), WAV);
 }
 
 //*****************************************************************************
 void TopWidget::exportAsciiFile()
 {
-    QString name = QFileDialog::getSaveFileName(0, "*.asc", mainwidget);
+    QString name = KFileDialog::getSaveFileName(0, "*.asc", mainwidget);
     if (!name.isNull()) {
 	mainwidget->saveSignal(name, bits, ASCII, false);
     }
@@ -488,12 +488,12 @@ void TopWidget::saveFile()
 //*****************************************************************************
 void TopWidget::saveFileAs(bool selection)
 {
-    QFileDialog *dialog;
+    KFileDialog *dialog;
 
     if (saveDir)
-	dialog = new QFileDialog(saveDir->absPath().data(), "*.wav", this, 0, true);
+	dialog = new KFileDialog(saveDir->absPath().data(), "*.wav", this, 0, true);
     else
-	dialog = new QFileDialog(this, 0, true);
+	dialog = new KFileDialog(0, "*.wav", this, 0, true);
     ASSERT(dialog);
 
     if (dialog) {

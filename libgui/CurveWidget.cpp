@@ -12,11 +12,12 @@
 #include <qcursor.h>
 #include <qkeycode.h>
 #include <qaccel.h>
-#include <qfiledlg.h>
 #include <qpopupmenu.h>
+#include <qdir.h>
 
 #include <kapp.h>
 #include <kiconloader.h>
+#include <kfiledialog.h>
 
 #include <libkwave/Interpolation.h>
 #include <libkwave/FileLoader.h>
@@ -210,7 +211,7 @@ void CurveWidget::savePreset()
     if (!points) return;
     if (!presetDir) return;
 
-    QString name = QFileDialog::getSaveFileName(
+    QString name = KFileDialog::getSaveFileName(
 		       presetDir->path(), "*.curve", this);
 
     if (name.find (".curve") == -1) name.append(".curve");

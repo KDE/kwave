@@ -20,12 +20,12 @@
 #include <limits.h>
 
 //#include <qdir.h>
-//#include <qfiledialog.h>
 #include <qimage.h>
 #include <qlayout.h>
 #include <qtimer.h>
 
 #include <kapp.h>
+#include <kfiledialog.h>
 //#include <kmsgbox.h>
 
 #include <libkwave/WindowFunction.h>
@@ -33,17 +33,13 @@
 #include "libgui/KwavePlugin.h"
 #include "libgui/OverViewWidget.h"
 #include "libgui/ScaleWidget.h"
-#include "libgui/CornerPatchWidget.h"
 
-#include "../../../src/ImageView.h"
+#include "../../../src/ImageView.h" // ### very bad, move class to libgui !!
 
 #include "SonagramWindow.h"
 
-//#include <qtimer.h>
 //#include <qpushbt.h>
 //#include <qstring.h>
-//#include <qpainter.h>
-//#include <qpixmap.h>
 //#include <kmenubar.h>
 //#include <kstatusbar.h>
 
@@ -54,6 +50,13 @@
 #ifndef max
 #define max(x,y) (( (x) > (y) ) ? (x) : (y) )
 #endif
+
+/**
+ * Color values below this limit are cut off when adjusting the
+ * sonagram image's brightness
+ * I found out by experiments that 0.1% seems to be reasonable
+ */
+#define COLOR_CUTOFF_RATIO (0.1/100.0)
 
 static const char *background[] = {
 /* width height num_colors chars_per_pixel */
@@ -88,6 +91,7 @@ static const char *background[] = {
 SonagramWindow::SonagramWindow(const QString &name)
 :KTMainWindow()
 {
+    m_color_mode = 0;
     m_image = 0;
     m_overview = 0;
     m_points = 0;
@@ -96,6 +100,7 @@ SonagramWindow::SonagramWindow(const QString &name)
     m_view = 0;
     m_xscale = 0;
     m_yscale = 0;
+    for (int i=0; i<256; m_histogram[i++] = 0) {}
 
     QWidget *mainwidget = new QWidget(this);
     ASSERT(mainwidget);
@@ -122,7 +127,7 @@ SonagramWindow::SonagramWindow(const QString &name)
 //    bar->insertItem(i18n("&Spectral Data"), spectral);
 //
 //    file->insertItem(i18n("&Import from Bitmap ..."), this, SLOT(load()));
-//    file->insertItem(i18n("&Export to Bitmap ..."), this, SLOT(save()));
+    file->insertItem(i18n("&Export to Bitmap ..."), this, SLOT(save()));
     file->insertItem(i18n("E&xit"), this, SLOT(close()));
 //
 //    spectral->insertItem (i18n("&reTransform to signal"), this, SLOT(toSignal()));
@@ -134,7 +139,6 @@ SonagramWindow::SonagramWindow(const QString &name)
     m_status->insertItem(i18n("Time: ------ ms"), 1);
     m_status->insertItem(i18n("Frequency: ------ Hz"), 2);
     m_status->insertItem(i18n("Amplitude: --- %"), 3);
-//    m_status->insertItem(i18n("Phase: -----"), 4);
 
     m_view = new ImageView(mainwidget);
     ASSERT(m_view);
@@ -183,7 +187,7 @@ SonagramWindow::SonagramWindow(const QString &name)
     top_layout->activate();
 
     m_status->changeItem(i18n("Time: 0 ms"), 1);
-    m_status->changeItem(i18n("Frequency: 0 s"), 2);
+    m_status->changeItem(i18n("Frequency: 0 Hz"), 2);
     m_status->changeItem(i18n("Amplitude: 0 %"), 3);
 
     resize(max(480,m_status->sizeHint().width()+40), 320);
@@ -191,25 +195,20 @@ SonagramWindow::SonagramWindow(const QString &name)
 }
 
 //****************************************************************************
-void SonagramWindow::close()
-{
-    QWidget::close();
-}
-
-//****************************************************************************
 void SonagramWindow::save()
 {
-//    if (image) {
-//	QString filename = QFileDialog::getSaveFileName("", "*.bmp", this);
-//	if ( !filename.isEmpty() ) image->save( filename, "BMP" );
-//    }
+    ASSERT(m_image);
+    if (!m_image) return;
+
+    QString filename = KFileDialog::getSaveFileName("", "*.bmp", this);
+    if (!filename.isEmpty()) m_image->save(filename, "BMP");
 }
 
 //****************************************************************************
 void SonagramWindow::load()
 {
 //    if (image) {
-//	QString filename = QFileDialog::getOpenFileName("", "*.bmp", this);
+//	QString filename = KFileDialog::getOpenFileName("", "*.bmp", this);
 //	printf ("loading %s\n", filename.data());
 //	if (!filename.isNull()) {
 //	    printf ("loading %s\n", filename.data());
@@ -245,116 +244,6 @@ void SonagramWindow::load()
 //    }
 }
 
-////****************************************************************************
-//void SonagramWindow::setSignal(double *input, int size, int points,
-//			       int windowtype, int rate)
-//{
-//    ASSERT(points);
-//    ASSERT(rate);
-//    if (!points) return ;
-//    if (!rate) return ;
-//
-//    double rea, ima;
-//
-//    windowtype=0;
-//
-//    debug("SonagramWindow::setSignal: size=%d, points=%d, windowtype=%d, rate=%d",
-//	size,points,windowtype,rate);
-//
-//    debug("SonagramWindow::setSignal: size=%d",size);
-//    debug("SonagramWindow::setSignal: points=%d",points);
-//
-//    this->length = size;
-//    this->points = points;
-//    this->rate = rate;
-//    this->image_width = size;
-//
-//    // use at least 32 pixels for image
-//    stripes = max(1, image_width/points);
-//
-//    debug("SonagramWindow::setSignal:--1--");
-//
-//    yscale ->setMaxMin (0, rate / 2);
-//    xscale ->setMaxMin ((int)(((double)size) / rate*1000), 0);
-//
-//    debug("SonagramWindow::setSignal:--2--: stripes=%d",stripes);
-//
-//    data = new complex *[stripes];
-//    ASSERT(data);
-//
-//    debug("SonagramWindow::setSignal:--2a--");
-//
-//    WindowFunction func(windowtype);
-//
-//    debug("SonagramWindow::setSignal:--3--");
-//
-//    double* windowfunction = func.getFunction(points);
-//    ASSERT(windowfunction);
-//
-//    debug("SonagramWindow::setSignal:--4--");
-//
-//    ASSERT(data);
-//    ASSERT(image);
-//    ASSERT(windowfunction);
-//    if ((data) && (image) && windowfunction) {
-//
-//	debug("SonagramWindow::setSignal:--5--");
-//	gsl_fft_complex_wavetable table;
-//
-//	debug("SonagramWindow::setSignal:--6--");
-//	gsl_fft_complex_wavetable_alloc (points, &table);
-//	debug("SonagramWindow::setSignal:--7--");
-//	gsl_fft_complex_init (points, &table);
-//	debug("SonagramWindow::setSignal:--8--");
-//
-//	for (int i = 0; i < stripes; i++) {
-//	    complex *output = new complex[points];
-//	    ASSERT(output);
-//	    if (output) {
-//		for (int j = 0; j < points; j++) {
-//		    output[j].real = windowfunction[j] * input[i * points + j];
-//		    //copy data into complex array
-//		    output[j].imag = 0;
-//       	        }
-//		gsl_fft_complex_forward (output, points, &table);
-//
-//		for (int k = 0; k < points; k++) {
-//		    rea = output[k].real;
-//		    ima = output[k].imag;
-//		    rea = sqrt(rea * rea + ima * ima);
-//		    //get amplitude
-//		    if (max < rea) max = rea;
-//		    //and set maximum for display..
-//		}
-//	    }
-//	    debug("SonagramWindow::setSignal: fft %d of %d",i,stripes);
-//	    data[i] = output;
-//	}
-//	gsl_fft_complex_wavetable_free (&table);
-//    }
-//
-//    debug("SonagramWindow::setSignal:--A--");
-//
-//    // double rea, ima;
-//    for (int i = 0; i < stripes; i++) {
-//	if (!data[i]) continue;
-//	
-//	for (int j = 0; j < points / 2; j++) {
-//	    rea = data[i][j].real;
-//	    ima = data[i][j].imag;
-//	    rea = sqrt(rea * rea + ima * ima) / max;
-//
-//	    //get amplitude and scale to 1
-//	    rea = 1 - ((1 - rea) * (1 - rea));
-//	    *(image->scanLine((points / 2 - 1)-j) + i) = 255-(int)(rea * 255);
-//	}
-//    }
-//
-////    createImage();
-//    view->setImage(image);
-//    show();
-//}
-
 //****************************************************************************
 void SonagramWindow::setImage(QImage *image)
 {
@@ -362,8 +251,20 @@ void SonagramWindow::setImage(QImage *image)
     if (!m_view) return;
 
     m_image = image;
+
+    // re-initialize histogram over all pixels
+    for (int i=0; i<256; i++) m_histogram[i] = 0;
+    if (m_image) {
+	for (int x=0; x < m_image->width(); x++) {
+	    for (int y=0; y < m_image->height(); y++) {
+		unsigned char p = m_image->pixelIndex(x, y);
+		m_histogram[p]++;
+	    }
+	}
+    }
+
     m_view->setImage(m_image);
-    m_view->repaint();
+    refresh_view();
 }
 
 //****************************************************************************
@@ -385,10 +286,23 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
     unsigned int y;
     unsigned int size = stripe.size();
     for (y=0; y < size; y++) {
-	m_image->setPixel(stripe_nr, y, (unsigned char)stripe[size-y-1]);
+    	unsigned char p;
+    	
+    	// remove the current pixel from the histogram
+    	p = m_image->pixelIndex(stripe_nr, y);
+	m_histogram[p]--;
+	
+	// set the new pixel value
+	p = (unsigned char)stripe[size-y-1];
+	m_image->setPixel(stripe_nr, y, p);
+
+    	// insert the new pixel into the histogram
+	m_histogram[p]++;
     }
-    while (y < image_height)
+    while (y < image_height) { // fill the rest with blank
 	m_image->setPixel(stripe_nr, y++, 0xFE);
+	m_histogram[0xFE]++;
+    }
 
     if (!m_refresh_timer.isActive()) {
 	m_refresh_timer.start(100, true);
@@ -396,10 +310,59 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 }
 
 //****************************************************************************
+void SonagramWindow::adjustBrightness()
+{
+    ASSERT(m_image);
+    if (!m_image) return;
+
+    // get the sum of pixels != 0
+    unsigned long int sum = 0;
+    for (int i=0; i<254; i++) {
+	sum += m_histogram[i];
+    }
+    // cut off all parts below the cutoff ration (e.g. 0.1%)
+    int cutoff = (int)(sum * COLOR_CUTOFF_RATIO);
+
+    // get the first used color
+    int first=0;
+    while ((first < 253) && (m_histogram[first] <= cutoff)) {
+	first++;
+    }
+
+    QColor c;
+    for (int i=0; i < 255; i++) {
+	int v;
+
+	if (i <= first) {
+	    v = 0;
+	} else {
+	    // map [first...254] to [0...254]
+	    v = (i-first)*254/(254-first);
+	}
+
+	if (m_color_mode == 1) {
+	    // rainbow effect
+	    c.setHsv( (v*255)/256, 255, 255 );
+	} else {
+	    // greyscale palette
+	    c.setRgb(v, v, v);
+	}
+
+	m_image->setColor(i, c.rgb() | 0xFF000000);
+    }
+
+    // use color 0xFF for transparency !
+    m_image->setColor(0xFF, 0x00000000);
+
+}
+
+//****************************************************************************
 void SonagramWindow::refresh_view()
 {
     ASSERT(m_view);
-    if (m_view) m_view->repaint(false);
+    if (!m_view) return;
+    if (m_image) adjustBrightness();
+    m_view->repaint(false);
 }
 
 //****************************************************************************
@@ -467,20 +430,6 @@ void SonagramWindow::toSignal()
 //    }
 }
 
-//****************************************************************************
-void SonagramWindow::clear()
-{
-//    if (data) {
-//	for (int i = 0; i < image_width; i++)
-//	    if (data[i]) delete data[i];
-//	delete[] data;
-//    }
-//    data = 0;
-//
-//    if (image) delete image;
-//    image = 0;
-}
-
 //***************************************************************************
 void SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
 {
@@ -496,7 +445,7 @@ void SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
     if (f) {
 	// get the frequency coordinate
 	double y = ((m_points/2)-1) - p.y();
-	*f = y / (double)(m_points/2-1) * m_rate;
+	*f = y / (double)(m_points/2-1) * (m_rate/2);
     }
 }
 
@@ -515,7 +464,18 @@ void SonagramWindow::updateScaleWidgets()
 //***************************************************************************
 SonagramWindow::~SonagramWindow()
 {
-    clear();
+}
+
+//***************************************************************************
+void SonagramWindow::setColorMode(int mode)
+{
+    ASSERT(mode >= 0);
+    ASSERT(mode <= 1);
+
+    if (mode != m_color_mode) {
+	m_color_mode = mode;
+	if (m_image) setImage(m_image);
+    }
 }
 
 //***************************************************************************
@@ -567,24 +527,6 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     }
     snprintf(buf, sizeof(buf), i18n("Amplitude: %d %%"), (int)a);
     m_status->changeItem(buf, 3);
-
-//    if (data [(int)(x*image_width)]) {
-//	double rea = data [col][(int)(y * points / 2)].real;
-//	double ima = data [col][(int)(y * points / 2)].imag;
-//
-//	snprintf(buf, sizeof(buf), i18n("Amplitude: %d %%"),
-//		 (int)(sqrt(rea*rea + ima*ima) / max*100));
-//    } else snprintf(buf, sizeof(buf), i18n("Memory Leak !"));
-//    status->changeItem (buf, 3);
-//
-//    if (data [(int)(x*image_width)]) {
-//	double rea = data [col][(int)(y * points / 2)].real;
-//	double ima = data [col][(int)(y * points / 2)].imag;
-//	snprintf(buf, sizeof(buf), i18n("Phase: %d degree"),
-//		 (int) (atan(ima / rea)*360 / M_PI));
-//    } else snprintf(buf, sizeof(buf), i18n("Memory Leak !"));
-//
-//    status->changeItem (buf, 4);
 }
 
 //****************************************************************************

@@ -166,6 +166,12 @@ int KwavePlugin::singleSample(unsigned int channel, unsigned int offset)
 }
 
 //***************************************************************************
+int KwavePlugin::averageSample(unsigned int offset)
+{
+    return manager().averageSample(offset);
+}
+
+//***************************************************************************
 #include <kapp.h>
 void KwavePlugin::yield()
 {

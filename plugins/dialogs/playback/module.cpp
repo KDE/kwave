@@ -22,10 +22,11 @@
 #include <qkeycode.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qfiledlg.h>
 
 #include "module.h"
+
 #include <kapp.h>
+#include <kfiledialog.h>
 
 const char *version = "1.1";
 const char *author = "Thomas Eschenbacher";
@@ -386,7 +387,7 @@ void PlayBackDialog::selectPlaybackDevice()
 {
     if (!isOK()) return;
 
-    QString new_device = QFileDialog::getOpenFileName("/dev/", 0, this);
+    QString new_device = KFileDialog::getOpenFileName("/dev/", 0, this);
     if (new_device.isNull()) return;
 
 }

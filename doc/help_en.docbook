@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-06-03</date>
+<date>2002-06-09</date>
 <releaseinfo>0.6.4</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -69,19 +69,19 @@
 	    simple cut, copy and paste functions
 	</para></listitem>
     	<listitem><para>
-	    undo/redo
+	    multi-level undo/redo
 	</para></listitem>
-    	<listitem><para>
+<!-- @TODO@   	<listitem><para>
 	    simple filter design tools
-	</para></listitem>
-    	<listitem><para>
+	</para></listitem> -->
+<!-- @TODO@    	<listitem><para>
 	    a small editor for additive synthesis
-	</para></listitem>
-    	<listitem><para>
+	</para></listitem> -->
+<!-- @TODO@    	<listitem><para>
 	    labeling of signals
-	</para></listitem>
+	</para></listitem> -->
     	<listitem><para>
-	    some analysis functions such as Sonagram or Fourier Transformation
+	    some analysis functions such as Sonagram <!-- or Fourier Transformation -->
 	</para></listitem>
     	<listitem><para>
 	    internally uses 24 bit integer sample data
@@ -210,6 +210,9 @@
                 <listitem><para>
                     replaced KFileDialog with subclass KwaveFileDialog (fixes some
                       bugs in KDE)
+                </para></listitem>
+                <listitem><para>
+                    added a little chapter about digital audio basics
                 </para></listitem>
             </itemizedlist>
         </listitem>
@@ -1091,7 +1094,7 @@
                     kwave now keeps track of last directory saved to; for user convenience
                 </para></listitem>
                 <listitem><para>
-                    reestablished selection mechanism to match versions
+                    reestablished selection mechanism to match versions 
                       before 0.29.3 and corrected some otherwise screwed-up behaviour
                 </para></listitem>
                 <listitem><para>
@@ -1188,7 +1191,7 @@
                 </para></listitem>
                 <listitem><para>
                     added wrapper for systems with no posixthreads -> 
-                      still needs handling by configure script
+                      still needs handling by configure script 
                       (change Makefile for not linking libpthread and doing a define)
                 </para></listitem>
                 <listitem><para>
@@ -1669,7 +1672,7 @@
 	<filename>/opt/kde2</filename>). Then just
         give a different prefix when installing the rpm. Example:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-0.6.0.i386.rpm</replaceable></command>
+<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-0.6.4.i386.rpm</replaceable></command>
 </screen>
     </para>
 
@@ -1842,7 +1845,8 @@
 
     <para>
 	First of all, one must know that the
-	world is analogue - but computers work digitally. So there are
+	world is <emphasis>analogue</emphasis> - but computers work
+	<emphasis>digitally</emphasis>. So there are
 	several ways to convert analogue audio to digital audio and back
 	again. As the way from digital to analogue normally is the
 	reversion of the way from analogue to digital, we only describe
@@ -1861,15 +1865,14 @@
     <para>
 	Before continuing, analogue audio has to be transformed
 	into electronic signals in order to find it's way into a computer.
-	The most common way to do this is by using a microphone and an
+	One common way to do this is by using a microphone and an
 	amplifier. This combination gets sound (changes of air pressure) at
-	it's input and an electrical signal (voltage) at it's output. Higher
+	it's input and a voltage at it's output. Higher
 	amplitude of the pressure changes will be represented by higher voltages
-	at the amplifier's output. This output is called a
-	<emphasis>'signal'</emphasis>. Instead of a microphone you can also
-	imagine other sources of audio, that doesn't matter. And the
-	"amplifier" can be the one that is integrated into your sound card,
-	where you can't see it.
+	at the amplifier's output. This output is also called a
+	<emphasis>'signal'</emphasis>. Instead of a microphone you can of course
+	also imagine other sources of audio. And the "amplifier" can be the one
+	that is integrated into your sound card, where you normally can't see it.
     </para>
     <para>
 	<inlinemediaobject>
@@ -1889,14 +1892,14 @@
 		The <emphasis>amplitude</emphasis> (volume) is limited to
 		some maximum level.
 		This is a consequence of the electronic (amplifiers) that are
-		only able to handle voltages within some ranges. That's no problem as
-		long as sounds are not too loud. In that case the signal will
-		be <emphasis>clipped</emphasis>, which means that the electrical
-		signal will run against it's margins and the result will be
-		disturbed.
+		only able to handle voltages within some specific range.
+		That's no problem as long as sounds are not too loud. In that
+		case the signal would be <emphasis>clipped</emphasis>, which
+		means that the electrical signal will run against it's margins
+		and the result will be disturbed.
 	    </para></listitem>
 	    <listitem><para>
-		The <emphasis>frequency range</emphasis> is limited.
+		The <emphasis>frequency range</emphasis> is also limited.
 		Due to the mechanical
 		constrains of microphones and the limited frequency range of
 		amplifiers, a signal's frequency range is limited. There
@@ -1907,7 +1910,8 @@
 		of the electrical signal to rise and fall. By using high quality
 		amplifiers and microphones, the limits can be spread into ranges
 		where the human ear is no longer able to hear their results and
-		thus get out of interest.
+		thus get out of interest. The human ear normally is not able to
+		hear sound above 20 kHz.
 	    </para></listitem>
 	    <listitem><para>
 	        The signal contains <emphasis>noise</emphasis>.
@@ -1915,10 +1919,13 @@
 		signals in any way. Noise is a typical analogue effect, that makes
 		the audio signal "unsharp" and disturbed, it is always present
 		and cannot be avoided. One can only try to use high quality
-		components that produce so few noise that one can't hear it.
+		components that produce as low noise as possible, so that one
+		can't hear it.
 		Normally noise has a certain volume, so that the interesting sound
-		should be loader in comparism to the noise. Sounds that have lower
-		volume than the noise cannot be heart.
+		should be much louder in comparism to the noise. This is called the
+		<emphasis>signal to noise ratio (SNR)</emphasis>, the higher it is
+		the better the sound's quality will be. Sounds that have
+		lower volume than the noise cannot be heart.
 	    </para></listitem>
 	</orderedlist>
     </para>
@@ -1929,7 +1936,7 @@
 
     <para>
 	When we want to store and play audio in a computer, we must convert
-	the analogue sound into digital data. This process is called
+	the analogue sound into digital data first. This process is called
 	<emphasis>digitalization</emphasis>. It converts an electronic
 	signal into a sequence of digital values.
     </para>
@@ -1945,7 +1952,7 @@
 
     <para>
 	The conversion can be understood as a repetitive measurement of the
-	electonic signal's value at a certain time, so taking a
+	electonic signal's value at certain time, thus taking a
 	<emphasis>sample</emphasis> of the signal. The result is then encoded
 	as a digital value.
     </para>
@@ -1954,14 +1961,15 @@
 	intervals. The later method is much easier to handle, and thus it
 	is normally used, with a constant rate - the so-called
 	<emphasis>sample rate</emphasis>. Usual sample rates are 8000,
-	11025, 22050, and 44100 samples per second.
+	11025, 22050, and 44100 samples per second. In practice sample
+	rates are also given as frequencies, in Hz or kHz.
     </para>
     <para>
 	The sample rate limts the
-	highest frequency a digitized signal can represent, due to
+	highest frequency a digitized signal can represent. Due to
 	Shannon's theoreme the highest usable frequency is half of the sample
-	rate, so with 44100 Hz sample rate you cannot sample signals with
-	more than 22050 kHz. To avoid a violation of that half-sample rate
+	rate, so with 44.1 kHz sample rate you cannot sample signals with
+	more than 22 kHz. To avoid a violation of that half-sample rate
 	rule, your soundcard already has built-in filters that filter away
 	frequencies that are higher than half of the used sample rate.
     </para>
@@ -1985,17 +1993,18 @@
 	of a signal's value at a certain time.
     </para>
     <para>
-	The value of a sample can be represented in several ways. The simplest
-	one is <emphasis>linear</emphasis> encoding. This means that each sample's
-	value directly represents the analogue signal's value multiplied with a
-	constant factor. This is easy to handle, but has the disadvantage that
+	The value of a sample can be interpreted and encoded in several ways.
+	The simplest one is <emphasis>linear</emphasis> encoding. This means
+	that each sample's value directly represents the analogue signal's
+	value multiplied with a constant factor.
+	This is easy to handle, but has the disadvantage that
 	noise will be audibles especially on low amplitudes, where it disturbes
 	most, and less audible on high amplitudes, where it is less audible.
     </para>
     <para>
 	One way to reduce the influence of noise is <emphasis>non-linear</emphasis>
-	encoding. This means that lower amplitudes are amplified before processing
-	and higher amplitudes attenuated a bit. As lower amplitudes are amplified,
+	encoding. This means that lower amplitudes are amplified before processing.
+	As lower amplitudes are amplified,
 	their distance from noise increases and the quality improves. The most
 	common methods for this are <emphasis>A-Law</emphasis> and
 	<emphasis>U-Law</emphasis> encoding - some standardized logarithmic
@@ -2006,7 +2015,7 @@
 	<imageobject>
 	    <imagedata fileref="nonlinear.png" format="PNG"/>
 	</imageobject>
-	<textobject> <phrase>Nonlinear encoding</phrase> </textobject>
+	<textobject> <phrase>Nonlinear Encoding</phrase> </textobject>
 	</inlinemediaobject>
     </para>
     <para>Nonlinear Encoding</para>
@@ -2021,7 +2030,8 @@
 	Depending on where the zero line is defined, it
 	has to be destinguished between <emphasis>unsigned</emphasis> (only positive
 	values, "zero line" is at half of the numeric range)
-	and <emphasis>signed</emphasis> (positive and negative values).
+	and <emphasis>signed</emphasis> (positive and negative values)
+	integer formats.
     </para>
     <para>
 	<inlinemediaobject>
@@ -2067,7 +2077,7 @@
     </para></note>
 </sect1>
 
-<!-- TODO: some chapter about audio compression -->
+<!-- TODO: some chapter about audio compression codecs and so on -->
 
 </chapter>
 
@@ -2251,7 +2261,7 @@
             name) <filename>.wav</filename>. This format is very common to other
 	    "operating systems" and also is commonly used within the KDE environment.
         </para>
-<!-- disabled, will be re-integrated in v0.6.5 or later...
+<!-- @TODO@ disabled, will be re-integrated in v0.6.5 or later...
         <para>
             The second format that &kapp; supports is "ASCII". You can import from
             and export to ASCII, but always be aware that storing in this format
@@ -2287,10 +2297,12 @@
 	    The plans for future include support for import and also export filters
 	    for more formats and maybe some filter that uses a user-defineable script
 	    with a call to an external filter, so that even formats not supported
-	    by <literal>SoX</literal> (like MP3) can be read and/or written.
+	    by <literal>SoX</literal> (like MP3) can be read and/or written. Currently
+	    &kapp; only is able to save files in <filename>.wav</filename> format.
         </para>
     </sect2>
 
+<!-- @TODO@ disabled
     <sect2 id="ascii_format"><title>Format of ASCII files</title>
 	<para>
 	    The ASCII format is quite useful for scientific and educational
@@ -2362,7 +2374,7 @@
 	    </example>
 	</para>
     </sect2>
-
+-->
 
     </sect1>
 
@@ -2448,6 +2460,7 @@
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>All</guimenuitem>
 	</menuchoice>
     </para></listitem>
+<!-- @TODO@
     <listitem><para>
 	a range of samples, starting at the current cursor position:
 	<menuchoice>
@@ -2455,6 +2468,7 @@
 	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Range</guimenuitem>
 	</menuchoice>
     </para></listitem>
+-->
     <listitem><para>
 	the currently visible area:
 	<menuchoice>
@@ -2884,8 +2898,8 @@
 	    </question>
     	    <answer>
 	    	<para>
-		    Not for the moment, but maybe someone writes us
-		    a plugin for MP3 import / export?
+		    Not for the moment, but maybe MP3 import / export already
+		    is on the TODO list at a very high position.
 		</para>
 	    </answer>
 	</qandaentry>

@@ -101,23 +101,13 @@ msgid "simple cut, copy and paste functions"
 msgstr "Les fonctions de couper, copier et coller."
 
 #: index.docbook:64
-msgid "undo/redo"
+#, fuzzy
+msgid "multi-level undo/redo"
 msgstr "Le défaire et refaire des actions."
 
 #: index.docbook:64
-msgid "simple filter design tools"
-msgstr "Des outils de manipulation du son sous forme de filtres."
-
-#: index.docbook:64
-msgid "a small editor for additive synthesis"
-msgstr "Un petit éditeur sonore pour la synthése additive."
-
-#: index.docbook:64
-msgid "labeling of signals"
-msgstr "Le marquage des pistes sonores."
-
-#: index.docbook:64
-msgid "some analysis functions such as Sonagram or Fourier Transformation"
+#, fuzzy
+msgid "some analysis functions such as Sonagram"
 msgstr ""
 "Quelques fonctions d'analyses tel que le Sonogramme et les Transformées de "
 "Fourrier."
@@ -147,7 +137,13 @@ msgid "extendible through an easy-to-use plugin interface"
 msgstr ""
 "L'extension facile des carractérisques du programme par l'ajout de plugins."
 
-#: index.docbook:105
+#: index.docbook:64
+msgid ""
+"import/export of other audio formats through <ulink url=\"http://oss.sgi.com/"
+"projects/audiofile/\">libaudiofile</ulink>"
+msgstr ""
+
+#: index.docbook:109
 msgid ""
 "If you are interested what has been done and what has still to be done, then "
 "look at the files <filename>CHANGES</filename> and <filename>TODO</filename> "
@@ -159,11 +155,11 @@ msgstr ""
 "<filename>TODO</filename> inclus dans le paquetage des sources. De l'aide et "
 "des remarques constructives sont toujours les bienvenues."
 
-#: index.docbook:117
+#: index.docbook:121
 msgid "&kapp; Resources"
 msgstr "Les ressources de &kapp;"
 
-#: index.docbook:119
+#: index.docbook:123
 msgid ""
 "So if you want to get in contact with the developers, need some further help "
 "on using &kapp;, submit patches, bug reports or other stuf, the following "
@@ -174,11 +170,11 @@ msgstr ""
 "ou des dysfonctionnements, les informations suivantes peuvent vous "
 "intéresser :"
 
-#: index.docbook:125
+#: index.docbook:129
 msgid "Project Homepage"
 msgstr "La page WEB du projet."
 
-#: index.docbook:125
+#: index.docbook:129
 msgid ""
 "For informations about new up-to-date releases or some other information "
 "about this project, take a look at the <ulink url=\"http://kwave.sourceforge."
@@ -188,11 +184,11 @@ msgstr ""
 "projet, visitez l'URL de <ulink url=\"http://kwave.sourceforge.net/\">la "
 "page WEB officielle de &kapp;</ulink>"
 
-#: index.docbook:125
+#: index.docbook:129
 msgid "Mailing List"
 msgstr "La liste de diffusion."
 
-#: index.docbook:125
+#: index.docbook:129
 msgid ""
 "If you need some help on using &kapp; or want to get involved in the "
 "development, join the Kwave developer mailing list by visiting <ulink url="
@@ -205,11 +201,11 @@ msgstr ""
 "kwave-devel\"> \"https://lists.sourceforge.net/lists/listinfo/kwave-devel\"</"
 "ulink>."
 
-#: index.docbook:125
+#: index.docbook:129
 msgid "CVS Repository"
 msgstr "Le dépot CVS (Repository)."
 
-#: index.docbook:125
+#: index.docbook:129
 msgid ""
 "There also is a CVS repository, hosted by <ulink url=\"http://sourceforge.net"
 "\">SourceForge</ulink> where you can get the sources of the latest "
@@ -230,11 +226,11 @@ msgstr ""
 "l'arborescence CVS directement à travers votre navigateur internet. "
 "<emphasis>Un accés anonyme au dépot CVS est disponible !</emphasis>"
 
-#: index.docbook:161
+#: index.docbook:165
 msgid "&kapp; Revision History"
 msgstr "L'historique des différentes versions de &kapp;"
 
-#: index.docbook:163
+#: index.docbook:167
 msgid ""
 "This project has been started by Martin Wilz in summer 1998 and has been "
 "developed and improved by him an some other people. In November 1999 Thomas "
@@ -250,88 +246,92 @@ msgstr ""
 "Jusqu'à aujourd'hui, il a ajouté, réécri et corrigé progressivement chaque "
 "partie du logiciel et a consacré beaucoup de temps pour les améliorer."
 
-#: index.docbook:177
+#: index.docbook:181
 #, fuzzy
 msgid "0.6.4 [2002-06-??]"
 msgstr "0.6.3 [2002-03-01]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "support for different file formats / integrated libaudiofile"
 msgstr ""
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "drag and drop bugfix: dropping into the same signal left from the selection "
 "removed wrong range"
 msgstr ""
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "auto-repair for structurally damaged wav files"
 msgstr ""
 
-#: index.docbook:177
+#: index.docbook:181
 #, fuzzy
 msgid "bugfix: save selection works again"
 msgstr "Correction de bogues dans la sauvegarde d'une sélection."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "integrated libkwavemt into libkwave"
 msgstr ""
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "using time instead of zoom factor (e.g. set zoom to \"1 minute\")"
 msgstr ""
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "menu entries for playback control"
 msgstr ""
 
-#: index.docbook:177
+#: index.docbook:181
 #, fuzzy
 msgid "some more icons in the menues"
 msgstr "Quelques corrections de bogues mineurs dans les Makefiles."
 
-#: index.docbook:177
+#: index.docbook:181
 #, fuzzy
 msgid ""
 "replaced KFileDialog with subclass KwaveFileDialog (fixes some bugs in KDE)"
 msgstr "Remplacement de QFileDialog par KFileDialog."
 
-#: index.docbook:177
+#: index.docbook:181
+msgid "added a little chapter about digital audio basics"
+msgstr ""
+
+#: index.docbook:181
 msgid "0.6.3 [2002-03-01]"
 msgstr "0.6.3 [2002-03-01]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "simple drag and drop"
 msgstr "Le tirer / déposer simple"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "french translation"
 msgstr "Traduction Française"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "handling of \"signal modified\""
 msgstr "Traitement de \"signal modified\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "shows error message and aborts if loading failed"
 msgstr ""
 "Affichage d'un message d'erreur et d'arrêt si le chargement d'un fichier "
 "échoue."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.6.2 [2001-12-24]"
 msgstr "0.6.2 [2001-12-24]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "new plugin \"amplifyfree\""
 msgstr "Nouveau plugin \"amplification libre\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "new plugin \"noise\""
 msgstr "Nouveau plugin \"bruit\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "new aRts plugin adapter framework now Kwave is able to use existing aRts "
 "plugins in it's own plugins for sound processing"
@@ -339,11 +339,11 @@ msgstr ""
 "Un nouveau plugin pour le serveur de sons aRts fonctionne maintenant avec "
 "Kwave et il est possible de l'utiliser pour jouer des pistes sonores."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "changed documentation to XML / Docbook-4.1"
 msgstr "Changement du format de la documentation en XML / Docbook-4.1."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "recovery of damaged files if non-zero file length but data length entry in "
 "the wav header is zero (e.g. happens when krecord crashes during recording)"
@@ -353,22 +353,22 @@ msgstr ""
 "valeur nulle (tel que lorqu'une application comme krecord s'arrête "
 "indésirablement pendant l'enregistrement d'une piste sonore)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "bugfix: freeing virtual memory fixed in MemoryManager"
 msgstr ""
 "Correction de bogue : libération de la mémoire virtuelle allouée dans le "
 "gestionnaire de mémoire."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "bugfix: problem with TSS in TSS_Object cleanup"
 msgstr ""
 "Correction de bogue : problème avec TSS dans la libération de TSS_Object."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.6.1-1 [2001-09-01]"
 msgstr "0.6.1-1 [2001-09-01]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "bugfix: class Track made duplicate entry in stripe list when inserting "
 "signals into an empty track"
@@ -376,7 +376,7 @@ msgstr ""
 "Correction de bogue : la classe Track contruit une entrée en double dans la "
 "liste des pistes quand on insère des signaux dans une piste sonore vide."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "fixed that weird layout behavior in dialogs, seems that Qt has problems with "
 "complex nested layouts :("
@@ -385,15 +385,15 @@ msgstr ""
 "dialogues, depuis que la  librairie Qt a des problèmes avec la contruction "
 "de boîtes de dialogues complexes."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.6.1 [2001-08-24]"
 msgstr "0.6.1 [2001-08-24]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "USE OF VIRTUAL MEMORY"
 msgstr "UTILISATION DE LA MEMOIRE VIRTUELLE"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "changed Makefiles: html docu stays in distribution due to too much trouble "
 "with the KDE documentation tools"
@@ -402,7 +402,7 @@ msgstr ""
 "distribution  de l'application provoque des dysfonctionnements avec les "
 "outils de contruction de la documention pour KDE."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "when inserting from clipboard into a signal with a different number of "
 "tracks, the result will be mixed (still not optimized/slow)"
@@ -411,19 +411,19 @@ msgstr ""
 "pistes sonores non cohérent, le résultat est mixé (opération non optimisée / "
 "lente)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed compile problem with gcc-2.96 / gcc-3.0"
 msgstr "Correction de problèmes pour la compilation avec gcc-2.96 / gcc-3.0."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed missing header file in NewSigDlg.ui"
 msgstr "Correction de l'oubli d'un fichier d'entête dans NewSigDlg.ui."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "the RPM should be relocateable again"
 msgstr "Le RPM doit pouvoir être relogeable lors de l'installation."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "fixed bug in shutdown sequence, now clipboard is flushed before the "
 "application closes."
@@ -431,24 +431,24 @@ msgstr ""
 "Correction d'un bogue dans les séquences de fermeture de l'application.  Le "
 "presse papier est alors vidé de son contenu."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.6.0 [2001-07-29]"
 msgstr "0.6.0 [2001-07-29]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "PORTED TO QT-2 AND KDE2"
 msgstr "PORTAGE VERS QT-2 ET KDE2"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "completely new internal architecture"
 msgstr "Architecture interne revue et corrigé complètement."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "plugins can be located in a user directory"
 msgstr ""
 "Les plugins peuvent être installés dans les répertoires des utilisateurs."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "libkwave is included and no longer supported (at least by me) as a separate "
 "package"
@@ -456,25 +456,25 @@ msgstr ""
 "libkwave est inclue dans le programme alors qu'elle était avant un paquetage "
 "séparé."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "playback via aRts"
 msgstr "Ecoute des pistes audio via le module sonore aRts."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "many more bugfixes, too many to mention here..."
 msgstr "Nombreuses correction de bogues."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.5-1 [2001-02-23]"
 msgstr "0.5.5-1 [2001-02-23]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "bugfix: selection across end of file no longer possible"
 msgstr ""
 "Correction de bogues : impossible de sélectionner jusqu'à la fin des pistes "
 "sonores."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "bugfix: no overflow in wav header when saving large wav files above 268MB "
 "(bug reported by Sven-Steffen Arndt, ssa29@gmx.de )"
@@ -483,17 +483,17 @@ msgstr ""
 "entêtes  wav lors de la sauvegarde de fichiers de plus de 268Mo (bogue "
 "reporté par Sven-Steffen Arndt, ssa29@gmx.de)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.5 [2000-12-01]"
 msgstr "0.5.5 [2000-12-01]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "new playback handling, allows pause/continue"
 msgstr ""
 "Nouvelle gestion de la lecture de pistes sonores avec les fonctions Pause et "
 "Continuer."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "limited the playback buffer to be between 256 and 65536 bytes due to "
 "problems (system hang) with small playback buffers with 16..64 bytes (might "
@@ -504,46 +504,46 @@ msgstr ""
 "lecture dont la taille était  comprise entre 16 et 64 octets (peut être liés "
 "à des dysfonctionnements matériels)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "introduced a toolbar for some standard operations"
 msgstr "Ajout d'une barre d'outils comme dans toute application standard."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed some bugs concerning selection with the mouse"
 msgstr ""
 "Correction de quelques bogues concernant les selections avec la souris."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "rework of the overview widget (used in main window and sonagram)"
 msgstr ""
 "Reprise des widgets de l'IHM (utilisés dans la fenêtre principal et le "
 "sonogramme)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed menu command \"zoom selection\""
 msgstr "Correction de la commande \"zoomer à la selection\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "sonagram: saving to file, auto-brightness adjust"
 msgstr ""
 "Sonogramme : sauvegarde dans un fichier et ajustement automatique de la "
 "brillance."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "replaced QFileDialog with KFileDialog"
 msgstr "Remplacement de QFileDialog par KFileDialog."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "tested with AMD Athlon-optimized compiler (patched pegcs)"
 msgstr ""
 "Tests des optimisations de compilation pour un processeur AMD Athlon (patch "
 "pour pegcs)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "some fixes for safer multithreading"
 msgstr "Correction de bogues pour un fonctionnement correct du multithreading."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "checking for much more header files at configure time (due to a problem "
 "reported by issiac@evcom.net )"
@@ -551,50 +551,50 @@ msgstr ""
 "Vérification de quelques fichiers d'entête pour la séquence de configuration "
 "(Problèmes reportés par issiac@evcom.net)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.4-4 [2000-10-03]"
 msgstr "0.5.4-4 [2000-10-03]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added classes Mutex and MutexGuard"
 msgstr "Ajout des classes Mutex et MutexGuard."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "sonagram: set a transparent background for the image"
 msgstr "Sonagramme : ajout d'une image de fond transparente."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget"
 msgstr ""
 "Ajout des fonctions sizeHint() et minimumSize() pour ScaleWidget et "
 "OverViewWidget"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
 msgstr ""
 "Sonagramme : suppression de SonagramContainer, utilisé dans QGridLayout."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "moved SignalProxy to the mt subdirectory"
 msgstr ""
 "Déplacement de SignalProxy dans le répertoire contenant les classes mt."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed X11 synchronzation problem with SignalProxy"
 msgstr ""
 "Correction de problèmes de synchronisation avec X11 concernant SignalProxy."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added TSS (thread-specific-storage) support to the mt classes"
 msgstr "Ajout du support de TSS (Thread-Specific-Storage) dans les classes mt."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added some multithreading support classes: Thread, AsynchObject, ..."
 msgstr ""
 "Ajout de quelques classes pour le multithreading : Thread, AsynchObject, ..."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "removed the \"get\" prefix from all member functions. This is the new KDE/QT "
 "coding style."
@@ -602,7 +602,7 @@ msgstr ""
 "Suppression du prefixe \"get\" de toutes les fonctions membres. Ceci est le "
 "nouveau style de  codage pour KDE/QT."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "updated the online documentation to point to the new Kwave homepage on "
 "http://kwave.sourceforge.net/"
@@ -610,30 +610,30 @@ msgstr ""
 "Mise à jour de la documentation en ligne qui référence la nouvele page WEB "
 "de  Kwave sur http://kwave.sourceforge.net/."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "class ImageView: always repaints (maybe image data has changed)"
 msgstr ""
 "Classe ImageView : toujours redessiner (les images et les données peuvent "
 "changer)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "bugfix: selection and playpointer will not be drawn if no signal is loaded"
 msgstr ""
 "Correction de bogue : La selection et le curseur de lecture ne seront pas "
 "dessinés  si aucun fichier n'est chargé."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.4-3 [2000-09-09]"
 msgstr "0.5.4-3 [2000-09-09]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "the sonagram window updates it's title if the signal's name changed"
 msgstr ""
 "Le titre de la fenêtre du sonogramme est mise à jour si le nom du fichier a "
 "changé."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "found a solution for the problem of synchronizing X11 and QT in a "
 "multithreaded environment"
@@ -641,21 +641,21 @@ msgstr ""
 "Mise en place d'une solution au problème de synchronisation entre X11 et Qt  "
 "dans l'environnement multithread."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed bug in the \"Halt\" function (playback)"
 msgstr "Correction de bogue dans la fonction \"Halt\" (lecture audio)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.4-2 [2000-08-20]"
 msgstr "0.5.4-2 [2000-08-20]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "geometry/layout management for the MainWidget"
 msgstr ""
 "Management de la géométrie et des positions des widgets de la fenêtre "
 "principale."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "limited the displayed height of a signal. If not all signals fit onto the "
 "screen, a scrollbar appears on the right side of the signal."
@@ -664,59 +664,59 @@ msgstr ""
 "pistes sonores  sortent en dehors de l'écran, une barre de défilement "
 "horizontale apparait sur le coté droit  du fichier."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "limited the size of the TopWidget to a reasonable minimum size"
 msgstr "Limitation à une taille raisonnable du TopWidget."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "automatic dependencies for the plugins work again"
 msgstr "Dépendances automatiques pour le fonctionnement des plugins."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.4-1 [2000-07-29]"
 msgstr "0.5.4-1 [2000-07-29]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed layout of playback dialog"
 msgstr ""
 "Correction de la présentation de la boîte de dialogue des options de lecture."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "started to implement a new plugin interface"
 msgstr ""
 "Commencement de l'implémentation d'une nouvelle interface pour les plugins."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "geometry/layout management for the sonagram settings dialog"
 msgstr ""
 "Géométrie et présenation de la boîte de dialogues pour le paramètrage du "
 "sonogramme."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "formatting of selection and file time (KwavePlugin::ms2string)"
 msgstr ""
 "Mise en forme de la sélection et du temps dans un fichier sonore "
 "(KwavePlugin::ms2string)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "plugins can now consist of multiple source files"
 msgstr ""
 "Les plugins peuvent maintenant être constitués de plusieurs fichiers sources."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.4 [2000-07-12]"
 msgstr "0.5.4 [2000-07-12]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "some more minor changes to the Makefiles"
 msgstr "Quelques petites corrections dans les Makefiles."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "split the documentation output into \"de\" and \"en\" part"
 msgstr ""
 "Séparation de la documentation en deux parties distinctes : \"de\" et \"en\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "made symbolic links to the english help directory from the \"de\" and "
 "\"default\" directory during make install and uninstall and also in the post "
@@ -728,11 +728,11 @@ msgstr ""
 "ainsi que avant et aprés l'éxécution  des scripts du specfile. L'utilisateur "
 "doit au moins avoir l'aide en anglais..."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "alpha version of english documentation done"
 msgstr "Version alpha de la documentation en anglais."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "automatic update of the revision history in the docbook file if this file is "
 "modified (only english version)"
@@ -740,25 +740,25 @@ msgstr ""
 "Mise à jour automatique de l'historique de révision dans le fichier docbook "
 "si le fichier est  modifié (version anglaise seulement)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "CVS is up on sourceforge.net"
 msgstr "Le CVS est mis en service sur sourceforge.net."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "changed some header lines in this file"
 msgstr "Changement de quelques lignes d'entête dans ce fichier."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "started on writing a new documentation / online help using docbook"
 msgstr ""
 "Commencement de l'écriture d'une nouvelle documentation d'aide en ligne  "
 "avec l'utilisation du format docbook."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.3 [2000-06-12]"
 msgstr "0.5.3 [2000-06-12]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "if a file with invalid size (e.g. recorded by \"arecord\") is loaded, shows "
 "a message and truncates the input at the end of the file"
@@ -767,17 +767,17 @@ msgstr ""
 "est chargé,  on affiche un message et on ne tient pas compte des données "
 "lues à la fin du fichier sonore."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "found out that we need ALSA support for 24 and 32 bits/sample"
 msgstr ""
 "Trouver quel sortie sonore le programme a besoin avec le démon ALSA  pour un "
 "échantillonnage de 24 et 32 bits."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "playback in stereo"
 msgstr "Lecture d'un fichier sonore en stéréo."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "selected channels (x) are mixed to the output device's channels (y) at "
 "playback using a x:y translation matrix with linear scaling, all values for "
@@ -788,21 +788,21 @@ msgstr ""
 "une matrice de translation x:y avec une échelle  linéaire. Toutes les "
 "valeurs pour x et y excepté 0 sont admises."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "playback only for selected channels"
 msgstr "Lecture audio pour seulement les canaux sélectionnés."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "rework of the settings/playback dialog (plugin)"
 msgstr ""
 "Restructuration de la boite de dialogue des paramètres de lecture (plugin)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "heavy reword on the playback code"
 msgstr ""
 "Long travail de restructuration du code correspondant à la lecture audio."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "fixed severe bug in SignalManager::readWavChunk(), chrashed if there was "
 "data after the wav chunk"
@@ -810,11 +810,11 @@ msgstr ""
 "Correction d'un bogue grave dans SignalManager::readWavChunk(), qui rendait "
 "instable  l'application."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.2-12 [2000-06-02]"
 msgstr "0.5.2-12 [2000-06-02]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "copied the AsyncSync class into libgui, should be used for threadsafe usage "
 "of the qt library"
@@ -822,7 +822,7 @@ msgstr ""
 "Copie de la classe AsyncSync dans libgui, qui doit être utilisée pour un "
 "usage des theadsafe  de la librairie Qt."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "moved handling of the \"selected\" flag from class SignalManager to class "
 "Signal"
@@ -830,23 +830,23 @@ msgstr ""
 "Déplacement du drapeau \"selected\" de la classe SignalManager vers la "
 "classe Signal."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed selection of channels if appended or deleted"
 msgstr ""
 "Correction de bogues sur la selection d'un canal si on ajoute ou on supprime "
 "des données."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.2-11 [2000-05-28]"
 msgstr "0.5.2-11 [2000-05-28]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "included config.h in each source file (except the plugins)"
 msgstr ""
 "Ajout du fichier d'entête config.h dans chaque fichier source (exceptés les "
 "plugins)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "export to ASCII for multi-channel signal (multi-channel import has still to "
 "be done, currently only mono)"
@@ -854,7 +854,7 @@ msgstr ""
 "Exportation vers de l'ASCII pour un fichier sonore de plusieurs canaux. "
 "(l'importation ne fonctionne qu'avec des données en mono)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "fixed many memory leaks and inconsistent delete operations (e.g. used "
 "\"delete\" instead of \"delete[]\")"
@@ -863,7 +863,7 @@ msgstr ""
 "contradictoires (tel que l'utilisation de \"delete\" à la place de \"delete[]"
 "\")."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "included support for (and tested with) the error detection and memory "
 "debugging tool \"Insure++ Lite 4.1\" (./configure --enable-insure=yes ...) -"
@@ -875,7 +875,7 @@ msgstr ""
 "remerciements à ParaSoft Corporation  pour la mise à disposition d'une "
 "version limitée disponible sur http://www.parasoft.com."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "SignalWidget uses three layers for drawing, speeds up the redraws after "
 "mouse selection by about factor 14(!!!) on my system :-))"
@@ -884,15 +884,15 @@ msgstr ""
 "améliore le  réaffichage aprés une sélection avec la souris d'un facteur 14 "
 "(!!!) sur mon système."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.2-10 [2000-05-21]"
 msgstr "0.5.2-10 [2000-05-21]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "some minor bugfixes in the Makefiles"
 msgstr "Quelques corrections de bogues mineurs dans les Makefiles."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "save the kwave.spec and include it into the source archive, this lets \"rpm -"
 "ta kwave-x.x.x-x.tar.gz\" work"
@@ -900,13 +900,13 @@ msgstr ""
 "Sauvegarde et ajout du fichier .spec de Kwave dans l'archive des sources. "
 "Cela permet  à la commande \"rpm -ta kwave-x.x.x-x.tar.gz\" de fonctionner."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "wrote a new README file, moved Martin's version to README.OLD"
 msgstr ""
 "Ecriture d'un nouveau fichier README. Déplacement de l'ancienne version  "
 "écrite par Martin dans README.OLD."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "RPM_OPT_FLAGS are appended to the compiler options, this lets pentium "
 "optimizations work :-)"
@@ -914,23 +914,23 @@ msgstr ""
 "L'option RPM_OPT_FLAGS a été ajoutée dans la liste des options de "
 "compilation, pour  permettre aux optimisations du pentium de fonctionner."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "shows a message box if loading of a file failed"
 msgstr ""
 "Afficher une boîte de dialogue d'erreur sur le chargement d'un fichier a "
 "échoué."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.2-9 [2000-05-19]"
 msgstr "0.5.2-9 [2000-05-19]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "list of recent files is synchronized across all toplevel windows"
 msgstr ""
 "La liste des fichiers récemment ouverts est synchronisée avec entre toutes "
 "les instances du programme."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "fixed dozens of memory leaks, missing ASSERT constructions, missing variable "
 "initializations and possible divisions through zero"
@@ -938,7 +938,7 @@ msgstr ""
 "Correction de pertes de mémoires, d'oublis de constructions du type ASSERT, "
 "d'oublis  d'initialisations de variable et de possibles divisions par zéro."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "Help menu aligned to the right side (MenuRoot now is able to process the "
 "special command \"#separator\")"
@@ -946,11 +946,11 @@ msgstr ""
 "Le menu d'aide a été aligné sur le coté droit (Le menu principal est capable "
 "de gérer  la commande spéciale \"#separator\")."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.2-1...0.5.2-8 [...2000-05-18]"
 msgstr "0.5.2-1...0.5.2-8 [...2000-05-18]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "replaced all occurances of sprintf with snprintf, strcpy with strncpy (in 92 "
 "places) !"
@@ -958,29 +958,29 @@ msgstr ""
 "Remplacement de toutes les occurances de sprintf par snprintf, et de strcpy "
 "par  strncpy (92 fois)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "doesn't show any zoom factor if no signal is loaded"
 msgstr ""
 "Pas d'affichage du facteur de zoom si aucun fichier sonore n'est chargé."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "handling of channel add/delete: selection/speakers are shifted"
 msgstr ""
 "Dans le cas de l'ajout ou la suppression d'un canal, une sélection est "
 "décalée."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 msgstr ""
 "Changement de quelques variables et paramêtres en \"unsigned\" (pour "
 "simplifier la vérification des étendues de valeurs)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "beautified this file"
 msgstr "Ajout de ce fichier d'aide."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "beautified the whole source code according to my favorite coding style. -> "
 "thanks to the developers of the \"Artistic Style\" package, astyle-1.11.4-1 "
@@ -990,62 +990,62 @@ msgstr ""
 "programmation. -> Remerciements aux développeurs de \"Artistic Style\".  "
 "astyle-1.11.4-1 fait du bon travail."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed that annoying flicker in the help/about dialog"
 msgstr ""
 "Correction de quelques annotations incohérentes dans l'aide et dans la boîte "
 "de dialogue A propos de..."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "checking for sizes of char, short and int at configure time"
 msgstr ""
 "Vérification du format des types char, short, et int lors de la phase de "
 "configuration avant la compilation."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "globals.app will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "'globals.app' n'est maintenant plus utilisée (obsolete, sera retirée de la "
 "bibliothéque libkwave)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "MessagePort will not be used (obsolete, should be removed from libkwave)"
 msgstr ""
 "'MessagePort' n'est maintenant plus utilisée (obsolete, sera retirée de la "
 "bibliothéque libkwave)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "multiple toplevel windows are possible"
 msgstr ""
 "L'ouverture de plusieurs instances de l'application est maintenant possible."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "made X toolkit parameters work (especially \"-geometry\")"
 msgstr ""
 "Construction des options spécifiques au serveur X (spécialement \"-geometry"
 "\")."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)"
 msgstr ""
 "Corrections de bogues concernant le chargement et la sauvegarde de fichier "
 "wav au format 8 bits (toujours non-signés)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE"
 msgstr ""
 "RESTRUCTURATION COMPLETE DES COMMANDES ET DES STRUCTURES INTERNES DU "
 "PROGRAMME"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "made use of a combination of signals/slots and string messages"
 msgstr ""
 "Mise en place de combinaisons de signaux et de slots pour l'utilisation de "
 "chaînes  de messages."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "hierarchical processing: commands are are forwarded \"upwards\" until they "
 "reach a TopWidget"
@@ -1053,7 +1053,7 @@ msgstr ""
 "Hierarchie des processus : les commandes sont déplacées vers le haut jusqu'à "
 "atteindre  un TopWidget."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "the TopWidget (highest level) dispatches the comands and forwards them to "
 "the lower levels"
@@ -1061,11 +1061,11 @@ msgstr ""
 "Les TopWidget (de niveau haut) diffusent les commandes vers les niveaux les "
 "plus bas."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.2 [2000-04-24]"
 msgstr "0.5.2 [2000-04-24]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "rpm package should now be installable without conflicts and compile without "
 "any previous installation of kwave"
@@ -1073,7 +1073,7 @@ msgstr ""
 "Le paquetage RPM peut être maintenant installé sans confilts et compilé "
 "sans  une installation préalable de Kwave."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "removed the \"${KDEDIR}/share/doc/HTML/default\" directory from the rpm so "
 "that it doesn't conflict with the already existing one"
@@ -1082,7 +1082,7 @@ msgstr ""
 "qu'il  n'y ai pas de conflit avec une version de ce répertoire déjà "
 "existante."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "shift+Home/shift+End selects from the current left/right position up to the "
 "start/end of the signal"
@@ -1090,32 +1090,32 @@ msgstr ""
 "Shift+Home / Shift+End permettent la sélection de la position courante "
 "jusqu'au début / fin du fichier sonore."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "bugfix in display of signal: signal is no longer inverted"
 msgstr ""
 "Correction de bogues dans l'affichage du fichier sonore : il n'est plus "
 "inversé dans sa longueur."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "selectrange() works now"
 msgstr "La fonction Selectrange() fonctionne correctement maintenant."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "the zoom factor combo box reflects the current \"real\" zoom factor"
 msgstr ""
 "Le champs de sélection du facteur de zoom donne une valeur \"réelle\" du "
 "facteur zoom."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "some bugfixes in menu handling / cleanups"
 msgstr ""
 "Quelques corrrections de bogues dans le menu de sélection / déselection."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "complete rework of zoom and offset handling:"
 msgstr "Restructuration complète des fonctions de zoom et de sélection :"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "simple poly-lines instead of lowpass interpolation if zoom factor has less "
 "than 10 pixels per sample"
@@ -1123,11 +1123,11 @@ msgstr ""
 "Polynome simpleau lieu de d'une interpolation passe-bas si le facteur de "
 "zoom est  moins de 10 pixels par échantillons."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "lowpass interpolation if more than 10 pixels per sample"
 msgstr "Interpolation passe-bas si on a plus de 10 pixels par échantillons."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "bugfix in KWaveApp: now sets globals.app to this if it was null before, now "
 "doesn't crash if it loads a file specified at cmdline"
@@ -1136,11 +1136,11 @@ msgstr ""
 "(globals.app)  sont sauvegardés si il n'existait pas avant. Il n'y a plus de "
 "crash si on charge un fichier  spécifié dans la ligne de commande."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.1-4"
 msgstr "0.5.1-4"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "now compiles and runns under RedHat 6.1 / Halloween IV as well as under SuSE "
 "6.2"
@@ -1148,13 +1148,13 @@ msgstr ""
 "La compilation fonctionne maintenant sous RedHat 6.1 / Halloween IV comme "
 "pour SuSE 6.2."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "version info of libkwavegui.so is set to the package's version"
 msgstr ""
 "L'information de version de libkwavegui.so est maintenant renseignée à "
 "partir de la version du paquetage."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "bugfix in plugins/template/Makefile.am: will not create .moc files on make "
 "distclean and other targets"
@@ -1163,13 +1163,13 @@ msgstr ""
 "fichiers .moc lorsqu'il y a une éxécution d'un nettoyage des compilations ou "
 "d'une nouvelle construction."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "compiler flags are passed through to plugin compilation"
 msgstr ""
 "Les drapeaux de compilation sont passés comme paramètres lors de la "
 "compilation d'un plugin."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "compiling with --no-rtti. This was necessary to compile against the kde "
 "libraries of RedHat that seem to contain no rtti. As a side effect all "
@@ -1181,41 +1181,41 @@ msgstr ""
 "un effet important lors de la compilation : tous les  warnings lors du "
 "linkage du programme et des libraries ont disparu."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "configure-parameter --enable-debug has effect again"
 msgstr "Le script .configure positionne l'option --enable-debug."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "ASCII import and export works now (mono only)"
 msgstr ""
 "L'importation et l'exportation de l'ASCII fonctionne correctement maintenant "
 "(en mono seulement)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "bugfixes in some plugins, all compile now without warnings/errors"
 msgstr ""
 "Corrections de bogues dans quelques plugins. Toutes les compilation sont "
 "sans warnings  et sans erreurs."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "plugins are processed in alphabetical order"
 msgstr "Les plugins sont maintenant compilés dans un ordre alphabétique."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "all plugins are automatically found and compiled"
 msgstr "Tous les plugins sont automatiquement trouvés et compilés."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "new target \"make src.rpm\" makes only the source rpm"
 msgstr ""
 "Une nouvelle construction est disponible par la commande \"make src.rpm\". "
 "Elle permet  la fabrication d'un RPM de source."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.1-3"
 msgstr "0.5.1-3"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "display will be scrolled left or zoomed if something from the end of the "
 "signal is deleted"
@@ -1223,123 +1223,123 @@ msgstr ""
 "L'affichage est déplacé à gauche où il est zoomé si on supprime des données "
 "à la fin du fichier sonore."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "curve parameters of fade in / fade out work again"
 msgstr ""
 "Le paramètrage des courbes pour une amplification croissante ou décroissante "
 "fonctionne maintenant."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.1-2 [2000-03-16]"
 msgstr "0.5.1-2 [2000-03-16]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "converted many \"klocale->translate(...)\"s into \"i18n(...)\""
 msgstr ""
 "Convertion de plusieurs \"klocale->translate(...)\"s dans \"i18n(...)\""
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "target \"make messages\" works again"
 msgstr "La cible \"make messages\" fonctionne maintenant."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 msgstr ""
 "Convertion de menus.config pour la création d'une maquette d'un fichier .ccp "
 "qui sera utilisé  pour l'internationalisation."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.1-1 [2000-03-13]"
 msgstr "0.5.1-1 [2000-03-13]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "new target \"make rpm\" creates binary and source RPM packages"
 msgstr ""
 "Nouvelle cible \"make rpm\" pour la création d'un exécutable et d'un "
 "paquetage RPM."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed the shared-library-problem in the build system"
 msgstr ""
 "Correction de problèmes concernant le partage de bibliothéques dans la "
 "construction  du programme."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.1 [2000-02-28]"
 msgstr "0.5.1 [2000-02-28]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "menu items can belong to groups"
 msgstr "Les items des menus peuvent appartenir à des sous-groupes."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "renamed SignalWidget::info to \"refresh\""
 msgstr "Renomage de SignalWidget::info en \"refresh\""
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "many cleanups in the header-Files in src and libgui"
 msgstr ""
 "Plusieurs suppressions dans les fichiers d'entête dans les répertoires src "
 "et libgui."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "the menu management has completely been rewritten:"
 msgstr "Le contrôle des menus a été complètement réécrit :"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Menu, NumberedMenu and MenuCommand classes are deleted"
 msgstr "Les menus NumberedMenu et MenuCommand ont été supprimé."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "new classes: MenuNode, MenuItem, MenuSub, MenuToplevel and MenuRoot"
 msgstr ""
 "Nouvelles classes : MenuNode, MenuItem, MenuSub, MenuToplevel et MenuRoot."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "menu items can have icons"
 msgstr "Les items des menus peuvent avoir des icones."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "menu nodes can have unique string ids"
 msgstr ""
 "Les liens des menus n'ont qu'un seul indentifiant de chaîne de caractères."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "special menu commands start with a \"#\""
 msgstr "Les commandes spéciales des menus commencent par un \"#\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "first attempts for internationalization"
 msgstr "Première introduction de l'internationalisation."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "list of recent files is sorted by time of last usage"
 msgstr ""
 "La liste des fichiers réçemment ouverts est triée par la date de leur "
 "dernière utilisation."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.5.0-1 [1999-12-27]"
 msgstr "0.5.0-1 [1999-12-27]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "moved my modifications from the Makefiles to Makefile.am"
 msgstr ""
 "Déplacement de mes modifications du fichier Makefiles dans le fichier "
 "Makefile.am."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "included targets \"make release\", \"make patchlevel\" and some scripts"
 msgstr ""
 "Ajout des cibles \"make release\", \"make patchlevel\", et quelques autres "
 "scripts."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "1999-12-19 (by Thomas.Eschenbacher@gmx.de)"
 msgstr "1999-12-19 (par Thomas.Eschenbacher@gmx.de)"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "remade my modifications of some Makefiles and of the configure script that "
 "were lost during Martin's changes"
@@ -1348,22 +1348,22 @@ msgstr ""
 "script .configure qui ont  été perdues lors des changements réalisées par "
 "Martin."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "changed shortcut for mixpaste from CTRL-SHIFT-X to CTRL-SHIFT-C"
 msgstr ""
 "Changement des raccourcis clavier CTRL-SHIFT-X en CTRL-SHIFT-C pour les  "
 "opérations de mixages."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added the \"crop\" command to the edit menu"
 msgstr ""
 "Ajout de la fonction de \"couper à la sélection\" dans le menu édition."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "made the \"mixpaste\" command work"
 msgstr "Construction de la fonction de \"mixage par copier/coller\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "corrected the call of \"delete\", now really deletes instead of cutting and "
 "copying the selection to the clipboard (saves clipboard content)"
@@ -1372,34 +1372,34 @@ msgstr ""
 "données au lieu de couper et copier la sélection dans le presse-papier  "
 "(sauvegarde du contenu du presse-papier)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "1999-12-18 (by mwilz@ernie.mi.uni-koeln.de)"
 msgstr "1999-12-18 (par mwilz@ernie.mi.uni-koeln.de)"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "changed filenames to reflect class names"
 msgstr ""
 "Changement des noms de fichiers en correspondance avec les noms des classes."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "one class per file is now the standard"
 msgstr "Une classe par fichier est maintenant le standard."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "stripped leading \"Kwave\" in Classnames for most Classes"
 msgstr "Ajout à plusieurs noms de classes du suffixe \"Kwave\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "1999-12-10 (by Thomas.Eschenbacher@gmx.de)"
 msgstr "1999-12-10 (par Thomas.Eschenbacher@gmx.de)"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "removed -Werror compiler option (caused trouble with configure script)"
 msgstr ""
 "Suppression de l'option de compilation -Werror (problème avec le script de "
 "configuration)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "fixed a nasty bug in SignalManager::save that caused crashes on several "
 "positions in the program and libstdc++"
@@ -1407,11 +1407,11 @@ msgstr ""
 "Correction d'un bogue complexe dans SignalManager::save qui plante violement "
 "l'application  et la libstdc++."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "1999-12-09 (by Thomas.Eschenbacher@gmx.de)"
 msgstr "1999-12-09 (par Thomas.Eschenbacher@gmx.de)"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "gave the destructor of SignalManager some code, this fixes a huge memory "
 "leak !"
@@ -1419,42 +1419,42 @@ msgstr ""
 "Correction d'un bogue de perte de mémoire concernant le destructeur de la  "
 "classe SignalManager."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added a TODO file"
 msgstr "Ajout d'un fichier TODO."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added -Werror to the c++ compiler options when debuging enabled"
 msgstr ""
 "Ajout de l'option de compilation -Werror pour le compilateur c++ lorsque "
 "les  options de débuggage sont activées."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "some include file cleanups in libgui"
 msgstr "Nettoyage de quelques fichiers d'entête dans libgui."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "1999-12-07 (by Thomas.Eschenbacher@gmx.de)"
 msgstr "1999-12-07 (par Thomas.Eschenbacher@gmx.de)"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "SignalManager::writeWavChunk uses buffers for writing (much faster!)"
 msgstr ""
 "La fonction SignalManager::writeWavChunk utilise mainteant un buffer pour  "
 "l'écriture (plus rapide !)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "bugfix: caption of main window changes after \"SaveAs\""
 msgstr ""
 "Correction de bogue : le titre de la fenêtre principal change aprés un "
 "\"Sauvegarder Dans\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "bugfix: selected resolution takes effect"
 msgstr ""
 "Correction de bogue : la sélection d'une résolution fonctionne maintenant."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "bugfix: SignalManager::writeWavChunk now doesn't destroy the signal's data "
 "while saving"
@@ -1462,7 +1462,7 @@ msgstr ""
 "Correction de bogue : la fonction SignalManager::writeWavChunk ne détruit "
 "plus les données  du fichier sonore avant de l'avoir sauver."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "make distclean in the projekt root directory also removes zero-length files, "
 "*.orig, *.rej and *~ (just makes cleaner than before)"
@@ -1470,7 +1470,7 @@ msgstr ""
 "Un make distclean dans la racine du projet supprime aussi les fichiers "
 "vide,  *.orig, *.rej and *~."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "symbolic links to Makefile, Makefile.in and Makefile.am in the plugins "
 "directory are deleted with \"make distclean\" and rebuilt on \"make"
@@ -1481,48 +1481,48 @@ msgstr ""
 "répertoires  des plugins sont supprimés avec \"make distclean\" et "
 "reconstruit par \"make\"."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "cleanups, removed some old backup files"
 msgstr "Nettoyage : suppression de quelques anciens fichiers de sauvegarde."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "improved support for debugging accessible through"
 msgstr "Le support du débuggage est maintenant facile à utiliser."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "\"configure --enable-debug=yes\" (-g and -DDEBUG compiler flags)"
 msgstr ""
 "\"configure --enable-debug=yes\" (options de compilation -g et -DDEBUG)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "rewritten big parts of Makefile.in for the plugins"
 msgstr "Réécriture d'une grande partie de Makefile.in pour les plugins."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added -O2 compiler optimization"
 msgstr "Ajout de l'option de compilation -O2."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "1999-12-03 (by Thomas.Eschenbacher@gmx.de)"
 msgstr "1999-12-03 (par Thomas.Eschenbacher@gmx.de)"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "merged with Martin Wilz's version"
 msgstr "Fusion avec la version de Martin Wilz's."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "1999-11"
 msgstr "1999-11"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "version numbering script donated by Thomas Eschenbacher"
 msgstr "Script de Thomas Eschenbacher pour la numérotation des versions."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "now using KTMainwindow for top level widgets"
 msgstr "KTMainwindow est maintenant utilisée pour les widgets de haut niveau."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "using timer to check message port -> alternative (threadsafe) message "
 "passing instead of signal/slot"
@@ -1530,40 +1530,40 @@ msgstr ""
 "Utilisation d'un timer pour vérifier les messages systémes -> le message "
 "alternatif  (threadsafe) passe à la place d'un signal ou d'un slot."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "labelling code rewritten, now incompatible with old releases"
 msgstr ""
 "Les sources pour les fonctions de marquage ont été réécrites et sont "
 "maintenant  incompatibles avec les anciennes versions."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "batch loading routines"
 msgstr "Regroupement des routines de chargement."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "1999-10"
 msgstr "1999-10"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "deleting channels works again"
 msgstr "La suppression des canaux fonctionne."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed savelabel dialog"
 msgstr "Correction de la boîte de dialogue pour la sauvegarde du marquage."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "corrected envelope dialog, string handling"
 msgstr ""
 "Correction de la boîte de dialogue pour la modification de l'enveloppe d'un "
 "signal."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "connected many functions via the new string-based way of invocation"
 msgstr ""
 "Raccordement de plusieurs fonctions par une chaîne de caractères commune."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "fixed some dependencies between old code and new classes (there's still more "
 "to do !)"
@@ -1571,21 +1571,21 @@ msgstr ""
 "Correction de quelques dépendances entre l'ancien code et les nouvelles  "
 "classes (il reste encore des choses à faire !)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "saving should now work again"
 msgstr "La sauvegarde d'un fichier sonore fonctionne."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "trimmed down Clipboard class"
 msgstr "Correction de la classe Clipboard."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Color class as wrapper to QColor (may become independent later)"
 msgstr ""
 "La classe Color a été changée en QColor (elle pourra devenir indépendante "
 "plus tard)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "reworking Curve Class for creation via string, interpolation now uses curve "
 "objects"
@@ -1593,30 +1593,30 @@ msgstr ""
 "Restructuration de la classe Curve pour la création de chaîne. "
 "L'interpolation est maintenant  utilisée par les objets de cette classe."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "moved gui functions into a new library (libkwavegui)"
 msgstr ""
 "Déplacement des fontions graphiques dans une nouvelle librarie (libkwavegui)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "new Classes: Parser DynamicLoader Filter (prevously was a struct)"
 msgstr ""
 "Nouvelles classes : Parser, DynamicLoader, et Filter (elles étaient "
 "précédemment des structures)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "moved gui-independent functions into a library (libkwave)"
 msgstr ""
 "Déplacement des fonctions graphiques indépendantes dans une nouvelle "
 "librairie (libkwave)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "rework of dialogs into single files and single plugins"
 msgstr ""
 "Regroupement des boîtes de dialogue dans des fichiers uniques et dans des "
 "simples plugins."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "new calling scheme via string commands. This will allow scripting and macro "
 "definitions. Threading is made a whole lot easier, because a only a string "
@@ -1628,32 +1628,32 @@ msgstr ""
 "construis plus facilement, car  par une seule chaine de carractères sont  "
 "passés tous les paramétres."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "io functions and playback adapted to SignalManager"
 msgstr ""
 "Les fonctions d'entrées/sorties et de lecture sont adaptées à SignalManager."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Introduction of SignalManager class for multiple channel management"
 msgstr "Ajout de la classe SignalManager pour la gestion de plusieurs canaux."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.29.5 [1998-04]"
 msgstr "0.29.5 [1998-04]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Just a fix for an annoying bug while zooming out"
 msgstr "Juste la correction d'un bogue concernant le zoom arriére."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.29.4 [1998-03]"
 msgstr "0.29.4 [1998-03]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "removed a memory leak in playback"
 msgstr "Suppression d'une perte de mémoire dans la lecture audio."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "triple-checked the missing Accelerators in the Menumanager. It seems to be a "
 "bug in qpopmenu, I'll wait for qt to be fixed, or until a workaround is known"
@@ -1662,19 +1662,19 @@ msgstr ""
 "semble  être un bogue dans qpopmenu, j'attendrai que la librairie Qt soit "
 "corrigée, ou qu'une  solution paliative soit trouvée."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "recent Files are updated again, while the program is running"
 msgstr ""
 "La liste des fichiers récemment ouverts est constamment mise à jour pendant  "
 "l'exécution du programme."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "kwave now keeps track of last directory saved to; for user convenience"
 msgstr ""
 "Pour une plus grande facilité, Kwave utilise le répertoire récemment utilisé "
 "pour  l'ouverture un fichier."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "reestablished selection mechanism to match versions before 0.29.3 and "
 "corrected some otherwise screwed-up behaviour"
@@ -1682,15 +1682,15 @@ msgstr ""
 "Rétablissement des mécanismes de sélection pour rassembler les versions "
 "antérieures à la 0.29.3 et quelques corrections réçentes."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "_now_ all parameters to destructors should have vanished"
 msgstr "Maintenant tous les paramètres des destructeurs doivent avoir disparu."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.29.3 [1998-02]"
 msgstr "0.29.3 [1998-02]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "developement has slowed down a bit, this release is not as complete as I "
 "wished but since 0.29.2 has a destructor with parameters accidently left in, "
@@ -1701,7 +1701,7 @@ msgstr ""
 "classes a été mis de coté,  et le programme ne se compile pas sur tous les "
 "sytèmes -> On y reviendra plus tard..."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "reworked selection routines into a new class, code is still rather "
 "confusing, but seems to work"
@@ -1709,15 +1709,15 @@ msgstr ""
 "Restructuration des routines de sélection dans les nouvelles classes. Le "
 "code est plus confus,  mais il fonctionne."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added checkmark functionality again"
 msgstr "Ajout de marques de vérifications."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "converted file-menus to new menu-scheme"
 msgstr "Conversion du menu Fichier dans la nouvelle arborescence des menus."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "added gui to mix channels together, the needed functions for mixing are "
 "still missing"
@@ -1725,49 +1725,49 @@ msgstr ""
 "Ajout d'une interface graphique pour mixer 2 canaux ensemble. Le besoin de "
 "fonctions pour  le mixage sont toujours d'actualité."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Halt button by Gerhard Zintel"
 msgstr "Bouton d'arrêt par Gerhard Zintel."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.29.2"
 msgstr "0.29.2"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "moved clipboard functionality to its own class"
 msgstr ""
 "Déplacement des fonctionnalités du presse-papier dans une classe dédiée."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "dynamic allocation of menu entries used by all classes but TopWidget"
 msgstr ""
 "L'allocation dynamique des entrées des menus est utilisée par toutes les  "
 "classes sauf TopWidget."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "import of ascii data files"
 msgstr "Importation de fichier ASCII."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.29.1"
 msgstr "0.29.1"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "Bugfix for multichannel save. Now the saved files should work with other prgs"
 msgstr ""
 "Correction de bogues pour la sauvegarde de canaux multiples. Maintenant, la "
 "sauvegarde de  fichiers doit fonctionner avec d'autres programmes."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "local snap to peak by Gerhard Zintel"
 msgstr "Fonctionnalité d'écrétage de pics par Gerhard Zintel."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.29.0"
 msgstr "0.29.0"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "changed version numbering and filename as suggested by Version 1.1 of \"How "
 "To Name Things\" from sunsite. The last digit will always mark be 0 for "
@@ -1778,56 +1778,56 @@ msgstr ""
 "Le dernier nombre  sera toujours marqué d'un 0 pour une version qui sera "
 "chargée sur ftp.kde.org."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added windowing (Hamming Hanning, Blackmann) functions"
 msgstr ""
 "Ajout des boîtes de dialogues pour les fonctionnalités de fenêtrages "
 "(Hamming Hanning,  Blackmann)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "contribution from Gerhard Zintel displaying notes in fftview"
 msgstr ""
 "Contribution de la part de Gerhard Zintel pour l'affichage d'information "
 "concernant fftview."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Added pitch display window"
 msgstr "Ajout d'une fenêtre pour la gestion du pitch."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "implemented cursor and db scale for fft-view"
 msgstr ""
 "Implémentation du curseur et de l'échelle en db pour la vue sur les "
 "transformées de Fourrier."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added reselection and cursor change"
 msgstr ""
 "Ajout d'une fonctionnalité sur la resélection et le changement de place du "
 "curseur."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "added possibility of different display modes in Frequency representation"
 msgstr ""
 "Ajout de différentes possibilités d'affichage en fonction de la "
 "représentation des fréquences."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed severe quantisation bug in saving 16Bit routine, reported by ?"
 msgstr "Correction d'un gros bogue concernant la sauvegarde en 16 bits."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "mmaping support contributed by Juhana Kouhia"
 msgstr "Support du mmaping par Juhana Kouhia."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added as new Possibility to generate Signals: pulse trains"
 msgstr ""
 "Ajout de nouvelles possibilités pour la génération de signaux : trains "
 "d'impulsions."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "added wrapper for systems with no posixthreads -> still needs handling by "
 "configure script (change Makefile for not linking libpthread and doing a "
@@ -1838,104 +1838,104 @@ msgstr ""
 "(changement du Makefile pour ne pas avoir de  linkage avec la bibliothéque "
 "libpthread)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "First use of multiple threads (pthreads) in some functions"
 msgstr ""
 "Première utilisation du multithreading (pthreads) dans quelques fonctions."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Pitch generation now independent of additive synthesis"
 msgstr ""
 "La génération de pitchs est maintenant indépendante de la synthése "
 "additionnelle."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "added import function for ascii files"
 msgstr "Ajout des fonctions d'importations via des fichiers ASCII."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Ascii label saving now also by frequency"
 msgstr "Les lablels ASCII sont également sauvegardés via la fréquence."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Label generation according to Period Detection (autocorellation)"
 msgstr ""
 "La génération de labels est accordée avec la détection de périodes "
 "(autocoréllation)."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "Sonagram, FFTView and Distortion-Dialog now use ScaleWidgets"
 msgstr ""
 "Les classes Sonagram, FFTView et Distortion-Dialog utilise maintenant "
 "ScaleWidgets."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "New ScaleWidget gives the user more information"
 msgstr ""
 "Nouvelle classe ScaleWidget qui donne plus d'informations à l'utilisateur."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "Improved ProgressDialog and Interpolation class to allow multiple threads"
 msgstr ""
 "Ajout des classes ProgressDialog et Interpolation pour permettre le "
 "multithreading."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "fixed some minor bugs"
 msgstr "Correction de quelques bogues mineurs."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.28 [1998-07-15]"
 msgstr "0.28 [1998-07-15]"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "changes in curvewidget (recent point has another pixmap)."
 msgstr "Changement dans la classe curvewidget."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid ""
 "sorting of labels now works without overwriting of QGList::compareItems."
 msgstr ""
 "Le tri des lablels fonctionne maintenant sans écraser les opérations de "
 "QGList::compareItems."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "bug fix for saving selection."
 msgstr "Correction de bogues dans la sauvegarde d'une sélection."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "save Block function added."
 msgstr "Ajout d'une fonction de sauvegarde d'une sélection."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "signal finding function in markers.cpp: gui improved."
 msgstr ""
 "Fonction de recherche de signaux dans markers.cpp : interface graphique."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "some smaller bug fixes."
 msgstr "Quelques petites corrections de bogues."
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "0.27"
 msgstr "0.27"
 
-#: index.docbook:177
+#: index.docbook:181
 msgid "first release, but never uploaded, because ftp.kde.org was down."
 msgstr ""
 "Première version, qui n'a jamais été chargée sur ftp.kde.org (serveur FTP "
 "non opérationnel)."
 
-#: index.docbook:1260
+#: index.docbook:1267
 msgid "Installation"
 msgstr "Installation"
 
-#: index.docbook:1266
+#: index.docbook:1273
 msgid "How to obtain &kapp;"
 msgstr "Comment obtenir &kapp;"
 
-#: index.docbook:1268
+#: index.docbook:1275
 msgid ""
 "&kapp; has an own homepage under <ulink url=\"http://kwave.sourceforge.net/"
 "\"> http://kwave.sourceforge.net/</ulink>. Here you can find further "
@@ -1947,7 +1947,7 @@ msgstr ""
 "trouver davantages d'informations sur le projet, ainsi que les versions "
 "stables et en cours de développement du programme."
 
-#: index.docbook:1277
+#: index.docbook:1284
 msgid ""
 "Maybe older versions of &kapp; are currently included in some current linux "
 "distributions. We recommend not to use &kapp; versions 0.29 and older. And "
@@ -1962,7 +1962,7 @@ msgstr ""
 "être interprété comme \"0.2.9\". La numérotation de la version actuelle a "
 "débuté à partir de 0.5."
 
-#: index.docbook:1286
+#: index.docbook:1293
 msgid ""
 "If you want to get a &kapp; release, you should download a .tar.gz archive "
 "with the source code of a stable or a development version from the homepage "
@@ -1980,15 +1980,15 @@ msgstr ""
 "en un sur votre  système comme cela est décrit dans les chapitres qui "
 "suivent."
 
-#: index.docbook:1302
+#: index.docbook:1309
 msgid "Requirements"
 msgstr "Ce dont vous avez besoin."
 
-#: index.docbook:1304
+#: index.docbook:1311
 msgid "In order to successfully use &kapp;, you need:"
 msgstr "Dans l'ordre, pour pouvoir utiliser &kapp;, vous avez besoin :"
 
-#: index.docbook:1304
+#: index.docbook:1311
 msgid ""
 "a computer running Linux (&kapp; might also run under some other operating "
 "system, but we have never tested this, please let us know if you get it "
@@ -1999,7 +1999,7 @@ msgstr ""
 "possibilité. nous vous remercions de nous avertir si vous avez réussi à "
 "faire fonctionner le logiciel sur une autre plateforme)."
 
-#: index.docbook:1304
+#: index.docbook:1311
 msgid ""
 "working sound playback (not really required for using but what would you do "
 "with a sound editor if you can't <emphasis>hear</emphasis> the result of "
@@ -2009,7 +2009,7 @@ msgstr ""
 "absolument necessaire,  mais que faire avec un éditeur de pistes audios sans "
 "pouvoir <emphasis>écouter</emphasis>  le résultat de son travail)."
 
-#: index.docbook:1304
+#: index.docbook:1311
 msgid ""
 "KDE-2.2.1 or higher (at least the libraries, if you are a gnome fan, you can "
 "also run &kapp; if the proper libs are installed)."
@@ -2019,11 +2019,11 @@ msgstr ""
 "utilisé &kapp; à partir du  moment que les librairies de KDE sont "
 "installées.)."
 
-#: index.docbook:1304
+#: index.docbook:1311
 msgid "qt-2.3 or higher (normally comes with KDE2)"
 msgstr "De Qt-2.3 ou supérieure (normalement associée avec KDE2)."
 
-#: index.docbook:1304
+#: index.docbook:1311
 msgid ""
 "about 10 MB memory for starting &kapp; (but this may vary depending on your "
 "platform and configuration)"
@@ -2031,12 +2031,12 @@ msgstr ""
 "D'environ 10 Mo de mémoire pour lancer &kapp; (mais cela peut varier en "
 "fonction de votre plateforme et de votre configuration)."
 
-#: index.docbook:1333
+#: index.docbook:1340
 msgid "If you intend to compile &kapp; from the sources, you will also need:"
 msgstr ""
 "Si vous désirez compiler &kapp; à partir des sources, vous avez besoin :"
 
-#: index.docbook:1333
+#: index.docbook:1340
 msgid ""
 "A C/C++ compiler. GCC-2.95.3 works fine, some older and any newer version "
 "should work too. (Note: gcc-3.0 is not yet supported, it wil not work!)"
@@ -2045,7 +2045,7 @@ msgstr ""
 "anciennes et nouvelles versions fonctionnent également. (Nota : gcc-3.0 "
 "n'est pas encore complétement supporté. Il n'est pas encore utilisable !)"
 
-#: index.docbook:1333
+#: index.docbook:1340
 msgid ""
 "The glibc2 (libc-6) development environment. On SuSE systems the package is "
 "called \"libc\", on other systems it might be called \"libc-devel\"."
@@ -2054,7 +2054,7 @@ msgstr ""
 "SuSE Linux, le paquetage  s'appel \"libc\". Sur d'autres systèmes il peut "
 "s'appeler \"libc-devel\"."
 
-#: index.docbook:1333
+#: index.docbook:1340
 msgid ""
 "The KDE2 development environment: \"kdelibs-devel\", \"kdemultimedia-devel"
 "\", \"kdesdk-2\"."
@@ -2062,7 +2062,7 @@ msgstr ""
 "De l'environnement de développement de KDE2 : \"kdelibs-devel\", "
 "\"kdemultimedia-devel\", et \"kdesdk-2\"."
 
-#: index.docbook:1333
+#: index.docbook:1340
 msgid ""
 "The Qt development environment, the package is normally called \"qt-devel\" "
 "or similar."
@@ -2070,17 +2070,17 @@ msgstr ""
 "De l'environnement de developpement Qt. Le paquetage s'appel normalement "
 "\"qt-devel\" ou quelque chose de similaire."
 
-#: index.docbook:1333
+#: index.docbook:1340
 msgid "If you intend to use CVS, you will also need a current cvs package."
 msgstr ""
 "Si vous désirez utiliser CVS, il vous faut aussi la version actuelle du "
 "paquetage correspondant à CVS."
 
-#: index.docbook:1367
+#: index.docbook:1374
 msgid "Manual Compilation and installation"
 msgstr "Le manuel de compilation et d'installation."
 
-#: index.docbook:1369
+#: index.docbook:1376
 msgid ""
 "In order to compile and install &kapp; on your system, type the following in "
 "the base directory of the source distribution:"
@@ -2089,7 +2089,7 @@ msgstr ""
 "devez taper les lignes de commande qui suivent dans le répertoire de base où "
 "vous avez copié les sources du  programme :"
 
-#: index.docbook:1369
+#: index.docbook:1376
 msgid ""
 "<prompt>% </prompt><command>cd kwave</command>\n"
 "<prompt>% </prompt><command>make -f Makefile.dist</command>\n"
@@ -2103,7 +2103,7 @@ msgstr ""
 "<prompt>% </prompt><command>make</command>\n"
 "<prompt>% </prompt><command>su root -c \"make install\"</command>"
 
-#: index.docbook:1381
+#: index.docbook:1388
 msgid ""
 "Since &kapp; uses autoconf and automake you should have no trouble compiling "
 "it. Should you run into problems please report them to the &kapp; <link "
@@ -2114,7 +2114,7 @@ msgstr ""
 "problèmes sur la compilation  de &kapp; en nous contactant sur la <link "
 "linkend=\"mailing-list\">liste de diffusion</link>."
 
-#: index.docbook:1386
+#: index.docbook:1393
 msgid ""
 "If you have a system with old Qt-1 libraries you might get problems when "
 "compiling. Then you should set the following environment variable to specify "
@@ -2126,19 +2126,19 @@ msgstr ""
 "d'environnement pour spécifier les chemins d'accès corrects à la  "
 "bibliothéque Qt :"
 
-#: index.docbook:1386
+#: index.docbook:1393
 msgid "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>"
 msgstr "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>"
 
-#: index.docbook:1403
+#: index.docbook:1410
 msgid "Building RPM packages from tar.gz archives"
 msgstr "La construction du paquetage RPM à partir de l'archive tar.gz."
 
-#: index.docbook:1406
+#: index.docbook:1413
 msgid "With working rpm -ta"
 msgstr "Utilisation de la commande 'rpm -ta'"
 
-#: index.docbook:1408
+#: index.docbook:1415
 msgid ""
 "If you are runnig a system with RPM support, the preferred way to install "
 "&kapp; on your system will be the creation of a nice RPM package. First you "
@@ -2158,7 +2158,7 @@ msgstr ""
 "chapitre  concernant la <link linkend=\"building_rpm_from_cvs\">compilation "
 "d'un RPM à partir du CVS</link>."
 
-#: index.docbook:1419
+#: index.docbook:1426
 msgid ""
 "If you have downloaded a tar-gz archives of &kapp;, create and install the "
 "RPMs just by doing the following steps (where <replaceable>[arch]</"
@@ -2175,13 +2175,13 @@ msgstr ""
 "<replaceable>XXX</replaceable> correspond  au numéro de version de "
 "l'application que vous avez téléchargé)."
 
-#: index.docbook:1430
+#: index.docbook:1437
 msgid "To build the &kapp; package and install it do:"
 msgstr ""
 "Pour construire et installer le paquetage de &kapp; vous devez taper les "
 "lignes de  commande suivantes :"
 
-#: index.docbook:1430
+#: index.docbook:1437
 msgid ""
 "<prompt>% </prompt><command>rpm -ta <replaceable>kwave-XXX.tar.gz</"
 "replaceable></command>\n"
@@ -2193,7 +2193,7 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
 
-#: index.docbook:1438
+#: index.docbook:1445
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> you have to specify the directory "
 "<filename>/usr/src/packages</filename> instead of <filename>/usr/src/redhat</"
@@ -2203,7 +2203,7 @@ msgstr ""
 "vous devez  spécifier le répertoire <filename>/usr/src/packages</filename> à "
 "la place de  <filename>/usr/src/redhat</filename> !"
 
-#: index.docbook:1445
+#: index.docbook:1452
 msgid ""
 "If you haven't seen any errors, then that's it and you can skip the rest of "
 "this chapter. If rpm was unable to build the packages and says something "
@@ -2214,7 +2214,7 @@ msgstr ""
 "paquetages et qu'un message du genre  \"spec file not found\" est affiché, "
 "alors le reste du chapitre vous sera utile."
 
-#: index.docbook:1452
+#: index.docbook:1459
 msgid ""
 "The support for the <command>rpm -ta ...</command> might be broken on some "
 "versions of rpm. The rpm program originally shipped with SuSE-6.4 (rpm-"
@@ -2228,11 +2228,11 @@ msgstr ""
 "partir du <ulink url=\"ftp://ftp.suse.com/pub/suse_update/\">serveur ftp de "
 "SUSE</ulink>."
 
-#: index.docbook:1463
+#: index.docbook:1470
 msgid "With broken rpm -ta support"
 msgstr "Que faire lorsque la commande 'rpm -ta' ne fonctionne pas ?"
 
-#: index.docbook:1465
+#: index.docbook:1472
 msgid ""
 "If you can't get <command>rpm -ta</command> working, here are the steps for "
 "making that manually (the hard way):"
@@ -2241,7 +2241,7 @@ msgstr ""
 "existe plusieurs solutions pour réaliser cette tâche manuellement (solutions "
 "délicates) :"
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid ""
 "Go to your RPM \"topdir\". This normally is <filename>/usr/src/redhat</"
 "filename> for the redhat distribution or <filename>/usr/src/packages</"
@@ -2252,7 +2252,7 @@ msgstr ""
 "distribution du type RedHat ou <filename>/usr/src/packages</filename> pour "
 "la distribution SuSE."
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid ""
 "<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></"
 "command>"
@@ -2260,7 +2260,7 @@ msgstr ""
 "<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></"
 "command>"
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid ""
 "Put the tar.gz archive into the SOURCES subdirectory (you have to replace "
 "\"somewhere\" with the real directory where the files are, of course)."
@@ -2269,7 +2269,7 @@ msgstr ""
 "devez remplacer  \"NomRépertoire\" avec le nom du réperoire qui contient "
 "vorte archive tar.gz)."
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid ""
 "<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.gz</"
 "replaceable> SOURCES</command>"
@@ -2277,7 +2277,7 @@ msgstr ""
 "<prompt>% </prompt><command>cp <replaceable>/NomRépertoire/kwave-XXX.tar.gz</"
 "replaceable> SOURCES</command>"
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid ""
 "Extract the spec file from the archives and put it into the SPEC "
 "subdirectory."
@@ -2285,7 +2285,7 @@ msgstr ""
 "Extraire le fichier de specification (.spec) de l'archive tar.gz et copier "
 "le dans le sous-répertoire SPEC."
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid ""
 "<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
 "replaceable> \\*.spec > SPECS/kwave.spec</command>"
@@ -2293,7 +2293,7 @@ msgstr ""
 "<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</"
 "replaceable> \\*.spec > SPECS/kwave.spec</command>"
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid ""
 "Let rpm do the compile job and generate the rpm of &kapp;. If you only want "
 "to make a binary package, you can specify <literal>-bb</literal> instead of "
@@ -2306,11 +2306,11 @@ msgstr ""
 "ba</literal>, ou juste <literal>-bs</literal> pour construire  un paquetage "
 "contenant les sources."
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid "<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>"
 msgstr "<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>"
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid ""
 "If everything was ok, you can install the binary rpm of &kapp;, it will be "
 "in the BUILD directory. If you already have a version of &kapp; installed, "
@@ -2324,7 +2324,7 @@ msgstr ""
 "utiliser le paramêtre  <literal>-U</literal> à la place de <literal>-i</"
 "literal> pour mettre à jour automatiquement le paquetage."
 
-#: index.docbook:1470
+#: index.docbook:1477
 msgid ""
 "<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX."
 "[arch].rpm</replaceable></command>"
@@ -2332,15 +2332,15 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX."
 "[arch].rpm</replaceable></command>"
 
-#: index.docbook:1532
+#: index.docbook:1539
 msgid "Building RPM packages from CVS"
 msgstr "La construction d'un paquetage RPM à partir du CVS"
 
-#: index.docbook:1534
+#: index.docbook:1541
 msgid "Checking out the sources"
 msgstr "La vérification des mises à jour des sources"
 
-#: index.docbook:1536
+#: index.docbook:1543
 msgid ""
 "For initially checking out the sources you will need some disk space (about "
 "70 megabytes) in a directory of your choice, the cvs package of your "
@@ -2358,7 +2358,7 @@ msgstr ""
 "pas certaine connection depuis votre système. Le meilleur endroit pour "
 "stocker les fichiers sources est <filename>\"$HOME/src\"</filename>."
 
-#: index.docbook:1545
+#: index.docbook:1552
 msgid ""
 "First create the directory that will receive the subdirectoy with &kapp; "
 "sources and change into it:"
@@ -2366,7 +2366,7 @@ msgstr ""
 "En premier lieu, vous devez créer le repertoire où vous allez recevoir le "
 "sous-repertoire qui stockera les sources de &kapp; :"
 
-#: index.docbook:1545
+#: index.docbook:1552
 msgid ""
 "<prompt>% </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></"
 "command>\n"
@@ -2376,7 +2376,7 @@ msgstr ""
 "command>\n"
 "<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>"
 
-#: index.docbook:1545
+#: index.docbook:1552
 msgid ""
 "Then log in into the CVS server. As I guess that you want to do that as "
 "normal user, you log in as anonymous: <screen width=\"75\" format="
@@ -2395,7 +2395,7 @@ msgstr ""
 "simplement sur la touche 'Entrée'.  Il n'y a pas de mot de passe pour le "
 "compte anonyme."
 
-#: index.docbook:1545
+#: index.docbook:1552
 msgid ""
 "<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave."
 "sourceforge.net:/cvsroot/kwave co kwave</command>"
@@ -2403,7 +2403,7 @@ msgstr ""
 "<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave."
 "sourceforge.net:/cvsroot/kwave co kwave</command>"
 
-#: index.docbook:1572
+#: index.docbook:1579
 msgid ""
 "There <emphasis>must not</emphasis> be a directory named <filename>kwave</"
 "filename> under the directory you want to check out. Otherwise the cvs "
@@ -2416,11 +2416,11 @@ msgstr ""
 "enverra un message d'erreur indiquant qu'il existe déjà un  répertoire de ce "
 "nom et le téléchargement des sources sur votre machine échouera."
 
-#: index.docbook:1582
+#: index.docbook:1589
 msgid "Updating sources from CVS"
 msgstr "La mise à jour les sources à partir du CVS"
 
-#: index.docbook:1583
+#: index.docbook:1590
 msgid ""
 "The procedure described in the previous section is only necessary once. For "
 "further updates it is much easier. Just change into the directory you want "
@@ -2440,11 +2440,11 @@ msgstr ""
 "</screen> Vous pouvez alors passer à la section suivante pour faire une "
 "compilation du programme."
 
-#: index.docbook:1596
+#: index.docbook:1603
 msgid "Compiling"
 msgstr "La compilation"
 
-#: index.docbook:1597
+#: index.docbook:1604
 msgid ""
 "Building rpm package from a CVS snapshot is quite simple. The procedure is "
 "nearly the same as described in the last section, so it unhappily also has "
@@ -2465,7 +2465,7 @@ msgstr ""
 "<literal>sparc</literal>, etc..., et l'option  <replaceable>XXX</"
 "replaceable> indiquera le numéro de version de l'application."
 
-#: index.docbook:1610
+#: index.docbook:1617
 msgid ""
 "<emphasis>Note for SuSE users: </emphasis> here you have to specify the "
 "directory <filename>/usr/src/packages</filename> instead of <filename>/usr/"
@@ -2476,7 +2476,7 @@ msgstr ""
 "paquetages en remplaçant <filename>/usr/src/packages</filename> par "
 "<filename>/usr/src/redhat</filename> !"
 
-#: index.docbook:1617
+#: index.docbook:1624
 msgid ""
 "Assuming that you are in the root of where you checked out from CVS, do the "
 "following to create a Makefile, the &kapp; package and install it. If you "
@@ -2491,7 +2491,7 @@ msgstr ""
 "literal> à la place de  <literal>rpm -i</literal> pour faire une mise à jour "
 "automatique."
 
-#: index.docbook:1617
+#: index.docbook:1624
 msgid ""
 "<prompt>% </prompt><command>cd kwave</command>\n"
 "<prompt>% </prompt><command>make -f Makefile.dist</command>\n"
@@ -2507,7 +2507,7 @@ msgstr ""
 "<prompt>% </prompt><command>rpm -i /usr/src/redhat/BUILD/<replaceable>[arch]/"
 "kwave-XXX.[arch].rpm</replaceable></command>"
 
-#: index.docbook:1633
+#: index.docbook:1640
 msgid ""
 "If you still have problems with <command>make rpm</command>, you will find "
 "the tar.gz archive that were produced in <filename>/tmp</filename>. Please "
@@ -2520,13 +2520,13 @@ msgstr ""
 "création d'un RPM dans le <link linkend=\"manual_rpm_creation\">précédent</"
 "link> chapitre."
 
-#: index.docbook:1649
+#: index.docbook:1656
 msgid "Relocating the binary RPM packages"
 msgstr ""
 "Indiquer un emplacement d'installation pour les éxécutables d'un paquetage "
 "RPM"
 
-#: index.docbook:1651
+#: index.docbook:1658
 msgid ""
 "The binary rpm package of &kapp; is \"<emphasis>relocatable</emphasis>\". "
 "That means that you can build the package on a system with any KDE2 "
@@ -2541,11 +2541,12 @@ msgstr ""
 "installer un paquetage compilé sur une distribution SUSE vers une "
 "distribution  RedHat ou vice-versa."
 
-#: index.docbook:1660
+#: index.docbook:1667
+#, fuzzy
 msgid ""
 "For example: you got the binary rpm from a friend who has a RedHat system "
 "(where the KDE2 directory is <filename>/usr</filename>) and want to install "
-"it on a SuSE system (where the KDE2 directory is <filename>/opt/kde</"
+"it on a SuSE system (where the KDE2 directory is <filename>/opt/kde2</"
 "filename>). Then just give a different prefix when installing the rpm. "
 "Example:"
 msgstr ""
@@ -2555,15 +2556,16 @@ msgstr ""
 "répertoire de KDE2 est <filename>/opt/kde</filename>). Vous avez juste à "
 "passer un paramètre différent quand vous installez le paquetage :"
 
-#: index.docbook:1660
+#: index.docbook:1667
+#, fuzzy
 msgid ""
 "<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-"
-"0.6.0.i386.rpm</replaceable></command>"
+"0.6.4.i386.rpm</replaceable></command>"
 msgstr ""
 "<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-"
 "0.6.0.i386.rpm</replaceable></command>"
 
-#: index.docbook:1672
+#: index.docbook:1679
 msgid ""
 "This modifies the path where the program is installed and it is strongly "
 "recommended that this is a directory that is contained in the "
@@ -2579,11 +2581,11 @@ msgstr ""
 "pourra pas trouver la configuration des menus, les plugins, les valeurs par "
 "défaut, etc..."
 
-#: index.docbook:1691
+#: index.docbook:1698
 msgid "RPM optimizations"
 msgstr "Les optimisations pour la construction d'un paquetage RPM"
 
-#: index.docbook:1693
+#: index.docbook:1700
 msgid ""
 "Yes, you can compile the RPM packages optimized for pentium and pentium pro "
 "(or some other CPUs) by using some defines in your rpmrc file. You can "
@@ -2616,7 +2618,7 @@ msgstr ""
 "net/duesti/rpmopt.de.html\"> http://www.keywarrior.net/duesti/rpmopt.en."
 "html</ulink>. Remerciements à Matthias Düsterhöft !)."
 
-#: index.docbook:1715
+#: index.docbook:1722
 msgid ""
 "This means that on an i586 architecture the rpm package will be compiled "
 "using \"-march=pentium\" as compiler option and so on, you might extend or "
@@ -2632,7 +2634,7 @@ msgstr ""
 "d'exécutable  est construit à partir d'un paquetage source en utilisant la "
 "commande \"rpm --rebuild\"."
 
-#: index.docbook:1724
+#: index.docbook:1731
 msgid ""
 "The options specified here are set into the environment variable "
 "RPM_OPT_FLAGS during compilation, so if you don't have an rpm based "
@@ -2647,7 +2649,7 @@ msgstr ""
 "\"manual_compilation\">compilation manuelle</link>, vous pouvez activer "
 "cette variable manuellement  et obtenir le même effet. Par example :"
 
-#: index.docbook:1724
+#: index.docbook:1731
 msgid ""
 "<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O2 -march=pentium -fomit-"
 "frame-pointer\"</command>"
@@ -2655,11 +2657,11 @@ msgstr ""
 "<prompt>% </prompt><command>export RPM_OPT_FLAGS=\"-O2 -march=pentium -fomit-"
 "frame-pointer\"</command>"
 
-#: index.docbook:1744
+#: index.docbook:1751
 msgid "Compiler Optimizations"
 msgstr "Les optimisations de compilation"
 
-#: index.docbook:1746
+#: index.docbook:1753
 msgid ""
 "If you are owner of a Pentium, an AMD K6 or Athlon CPU, you might want to "
 "use an optimized compiler to compile your version of &kapp; that is running "
@@ -2675,7 +2677,7 @@ msgstr ""
 "signaux et les fonctions de calculs complexes sur les tableaux de fréquences "
 "(comme les Transformées de Fourrier ou le Sonagramme) sont activées."
 
-#: index.docbook:1754
+#: index.docbook:1761
 msgid ""
 "You do not need to understand much about programming for using an optimized "
 "compiler to compile &kapp;, but maybe you will need some time to get the "
@@ -2685,11 +2687,11 @@ msgstr ""
 "utiliser  et optimiser la compilation de &kapp;, mais peut-être quelques "
 "principes vous serons utiles  pour installer le compilateur et l'utiliser."
 
-#: index.docbook:1761
+#: index.docbook:1768
 msgid "How to invoke the optimized compiler"
 msgstr "Comment utiliser les optimisations de compilation"
 
-#: index.docbook:1762
+#: index.docbook:1769
 msgid ""
 "The invocation of an optimized compiler is quite simple. It normally is "
 "sufficient to set the environment variable <symbol>CXXFLAGS</symbol> in the "
@@ -2702,7 +2704,7 @@ msgstr ""
 "compilation. Cependant, pour un meilleur paramétrage, il est  préférable de "
 "consulter la documentation ou le site internet de votre compilateur."
 
-#: index.docbook:1769
+#: index.docbook:1776
 msgid ""
 "If you build &kapp; from a source tree (unpacked tar.gz or from CVS) the "
 "flags need to be specidied before the call to <command>configure</command>. "
@@ -2712,7 +2714,7 @@ msgstr ""
 "ou via le CVS) l'option  à activer doit l'être avant l'appel de la commande "
 "<command>configure</command>. Par exemple :"
 
-#: index.docbook:1769
+#: index.docbook:1776
 msgid ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" ./configure</command>"
@@ -2720,7 +2722,7 @@ msgstr ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" ./configure</command>"
 
-#: index.docbook:1776
+#: index.docbook:1783
 msgid ""
 "If you re-build &kapp; from a source rpm package the flags need to be "
 "specidied before the call to <command>rpm --rebuild</command>. This might "
@@ -2730,7 +2732,7 @@ msgstr ""
 "doit l'être avant  l'appel de la commande <command>rpm --rebuild</command>. "
 "Par exemple :"
 
-#: index.docbook:1776
+#: index.docbook:1783
 msgid ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" rpm --rebuild <replaceable>filename</replaceable></command>"
@@ -2738,7 +2740,7 @@ msgstr ""
 "<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>=\"-march=athlon -"
 "mcpu=athlon\" rpm --rebuild <replaceable>filename</replaceable></command>"
 
-#: index.docbook:1776
+#: index.docbook:1783
 msgid ""
 "And please don't give up if <command>rpm</command> refuses to install your "
 "package because it seems not to fit to your computer's architecture. "
@@ -2751,11 +2753,11 @@ msgstr ""
 "optimiser le paquetage en spécifiant l'option <command>--ignorearch</"
 "command>."
 
-#: index.docbook:1793
+#: index.docbook:1800
 msgid "Pentium and Compatibles"
 msgstr "Les processeurs Pentium et Compatibles"
 
-#: index.docbook:1794
+#: index.docbook:1801
 msgid ""
 "For all optimized versions I used pgcc-2.95.3. For informations on obtaining "
 "the pgcc compiler, visit the Homepage of the the <ulink url=\"http://www."
@@ -2773,11 +2775,235 @@ msgstr ""
 "et dérivés tels que ceux de <ulink url=\"http://www.intel.com/\">Intel</"
 "ulink> mais aussi ceux de <ulink url=\"http://www.cyrix.com/\">Cyrix</ulink>."
 
-#: index.docbook:1827
+#: index.docbook:1834
+msgid "Basics about digital audio"
+msgstr ""
+
+#: index.docbook:1836
+msgid ""
+"This chapter should give a short introduction about the basics of digital "
+"audio processing, without going too much into details. Of course this might "
+"be a bit incomplete, but if you have questions, you can ask at the &kapp; "
+"mailing list or consult some further literature."
+msgstr ""
+
+#: index.docbook:1844
+msgid "The analogue world"
+msgstr ""
+
+#: index.docbook:1846
+msgid ""
+"First of all, one must know that the world is <emphasis>analogue</emphasis> "
+"- but computers work <emphasis>digitally</emphasis>. So there are several "
+"ways to convert analogue audio to digital audio and back again. As the way "
+"from digital to analogue normally is the reversion of the way from analogue "
+"to digital, we only describe the way from analogue to digital."
+msgstr ""
+
+#: index.docbook:1855 index.docbook:1863
+msgid "Conversion from sound to bits"
+msgstr ""
+
+#: index.docbook:1865
+msgid ""
+"Before continuing, analogue audio has to be transformed into electronic "
+"signals in order to find it's way into a computer. One common way to do this "
+"is by using a microphone and an amplifier. This combination gets sound "
+"(changes of air pressure) at it's input and a voltage at it's output. Higher "
+"amplitude of the pressure changes will be represented by higher voltages at "
+"the amplifier's output. This output is also called a <emphasis>'signal'</"
+"emphasis>. Instead of a microphone you can of course also imagine other "
+"sources of audio. And the \"amplifier\" can be the one that is integrated "
+"into your sound card, where you normally can't see it."
+msgstr ""
+
+#: index.docbook:1877 index.docbook:1885
+msgid "Conversion to electronic signal"
+msgstr ""
+
+#: index.docbook:1887
+msgid ""
+"At this stage, the electrical signal has three limitations that one should "
+"keep in mind:"
+msgstr ""
+
+#: index.docbook:1887
+msgid ""
+"The <emphasis>amplitude</emphasis> (volume) is limited to some maximum "
+"level. This is a consequence of the electronic (amplifiers) that are only "
+"able to handle voltages within some specific range. That's no problem as "
+"long as sounds are not too loud. In that case the signal would be "
+"<emphasis>clipped</emphasis>, which means that the electrical signal will "
+"run against it's margins and the result will be disturbed."
+msgstr ""
+
+#: index.docbook:1887
+msgid ""
+"The <emphasis>frequency range</emphasis> is also limited. Due to the "
+"mechanical constrains of microphones and the limited frequency range of "
+"amplifiers, a signal's frequency range is limited. There are no hard borders "
+"besides which the sound abruptely disappears, but below some low and above "
+"some higher frequency the amplitude of the signal starts to decrease more "
+"and more. The existance of a maximum frequency can be easily understood as a "
+"limited speed of the electrical signal to rise and fall. By using high "
+"quality amplifiers and microphones, the limits can be spread into ranges "
+"where the human ear is no longer able to hear their results and thus get out "
+"of interest. The human ear normally is not able to hear sound above 20 kHz."
+msgstr ""
+
+#: index.docbook:1887
+msgid ""
+"The signal contains <emphasis>noise</emphasis>. Noise is the most ugly enemy "
+"of everyone who has to handle audio signals in any way. Noise is a typical "
+"analogue effect, that makes the audio signal \"unsharp\" and disturbed, it "
+"is always present and cannot be avoided. One can only try to use high "
+"quality components that produce as low noise as possible, so that one can't "
+"hear it. Normally noise has a certain volume, so that the interesting sound "
+"should be much louder in comparism to the noise. This is called the "
+"<emphasis>signal to noise ratio (SNR)</emphasis>, the higher it is the "
+"better the sound's quality will be. Sounds that have lower volume than the "
+"noise cannot be heart."
+msgstr ""
+
+#: index.docbook:1935
+#, fuzzy
+msgid "Digitalization"
+msgstr "Installation"
+
+#: index.docbook:1937
+msgid ""
+"When we want to store and play audio in a computer, we must convert the "
+"analogue sound into digital data first. This process is called "
+"<emphasis>digitalization</emphasis>. It converts an electronic signal into a "
+"sequence of digital values."
+msgstr ""
+
+#: index.docbook:1943 index.docbook:1951
+msgid "Digitalization of the electronic signal"
+msgstr ""
+
+#: index.docbook:1953
+msgid ""
+"The conversion can be understood as a repetitive measurement of the "
+"electonic signal's value at certain time, thus taking a <emphasis>sample</"
+"emphasis> of the signal. The result is then encoded as a digital value."
+msgstr ""
+
+#: index.docbook:1959
+msgid ""
+"The sampling could be done in arbitrary distances or in constant intervals. "
+"The later method is much easier to handle, and thus it is normally used, "
+"with a constant rate - the so-called <emphasis>sample rate</emphasis>. Usual "
+"sample rates are 8000, 11025, 22050, and 44100 samples per second. In "
+"practice sample rates are also given as frequencies, in Hz or kHz."
+msgstr ""
+
+#: index.docbook:1967
+msgid ""
+"The sample rate limts the highest frequency a digitized signal can "
+"represent. Due to Shannon's theoreme the highest usable frequency is half of "
+"the sample rate, so with 44.1 kHz sample rate you cannot sample signals with "
+"more than 22 kHz. To avoid a violation of that half-sample rate rule, your "
+"soundcard already has built-in filters that filter away frequencies that are "
+"higher than half of the used sample rate."
+msgstr ""
+
+#: index.docbook:1976 index.docbook:1984
+msgid "Sampled signal"
+msgstr ""
+
+#: index.docbook:1988
+msgid "Sample Encoding"
+msgstr ""
+
+#: index.docbook:1990
+msgid ""
+"The result of the digital sampling process is a sequence of single "
+"<emphasis>samples</emphasis>. One sample is a digital representation of a "
+"signal's value at a certain time."
+msgstr ""
+
+#: index.docbook:1995
+msgid ""
+"The value of a sample can be interpreted and encoded in several ways. The "
+"simplest one is <emphasis>linear</emphasis> encoding. This means that each "
+"sample's value directly represents the analogue signal's value multiplied "
+"with a constant factor. This is easy to handle, but has the disadvantage "
+"that noise will be audibles especially on low amplitudes, where it disturbes "
+"most, and less audible on high amplitudes, where it is less audible."
+msgstr ""
+
+#: index.docbook:2004
+msgid ""
+"One way to reduce the influence of noise is <emphasis>non-linear</emphasis> "
+"encoding. This means that lower amplitudes are amplified before processing. "
+"As lower amplitudes are amplified, their distance from noise increases and "
+"the quality improves. The most common methods for this are <emphasis>A-Law</"
+"emphasis> and <emphasis>U-Law</emphasis> encoding - some standardized "
+"logarithmic amplification curves, used in digital telephony (ITU G.711 "
+"standard)."
+msgstr ""
+
+#: index.docbook:2013 index.docbook:2021
+msgid "Nonlinear Encoding"
+msgstr ""
+
+#: index.docbook:2024
+#, fuzzy
+msgid "Sample Formats"
+msgstr "Formats de fichiers supportés"
+
+#: index.docbook:2026
+msgid ""
+"Samples can be stored in different formats and precisions. The most common "
+"ones are integer (fixed-point) formats, that store values with "
+"<emphasis>fixed quantisations</emphasis>. Depending on where the zero line "
+"is defined, it has to be destinguished between <emphasis>unsigned</emphasis> "
+"(only positive values, \"zero line\" is at half of the numeric range) and "
+"<emphasis>signed</emphasis> (positive and negative values) integer formats."
+msgstr ""
+
+#: index.docbook:2036 index.docbook:2044
+msgid "Signed Format"
+msgstr ""
+
+#: index.docbook:2045 index.docbook:2053
+msgid "Unsigned Format"
+msgstr ""
+
+#: index.docbook:2054
+msgid ""
+"As the quantisation looses some accuracy, it produces noise, the so-called "
+"<emphasis>quantisation noise</emphasis>. That kind of noise has more effect "
+"on low amplitudes, so this method of storing samples is not optimal, but "
+"quite easy and very fast to handle (computers are fast in calculating with "
+"fixed point numbers)."
+msgstr ""
+
+#: index.docbook:2062
+msgid ""
+"The second way of encoding samples is with <emphasis>floating point</"
+"emphasis> numbers. With floating point numbers, noise is spread nearly equal "
+"over all ranges of amplitudes and has advantages especially on low "
+"ampliudes. However, this format is much slower when used for processing "
+"(computers are much slower on calculating with floating point values in "
+"comparison to fixed point numbers)."
+msgstr ""
+
+#: index.docbook:2070
+msgid ""
+"&kapp; internally uses <emphasis>signed integer</emphasis> format with 24 "
+"bit precision, stored in 32 bit integers. This has the disadvantage of "
+"higher memory consumption when processing files with lower precision (e.g. 8 "
+"bits), but processing 32 bit numbers is very fast and also leaves some "
+"reserves for internal calculations, as only 24 bits are normally used."
+msgstr ""
+
+#: index.docbook:2088
 msgid "Using &kapp;"
 msgstr "Utilisation de &kapp;"
 
-#: index.docbook:1845
+#: index.docbook:2089
 msgid ""
 "Here is a little screenshot of the &kapp; main window, so that you get an "
 "impression what &kapp; looks like..."
@@ -2785,19 +3011,19 @@ msgstr ""
 "Voici une petite capture d'écran de la fenêtre pricipale de &kapp;, qui vous "
 "donnera une première impression  sur le programme..."
 
-#: index.docbook:1850
+#: index.docbook:2093
 msgid "Here's a screenshot of &kapp;"
 msgstr "Une capture d'écran de &kapp;"
 
-#: index.docbook:1850
+#: index.docbook:2093
 msgid "Screenshot"
 msgstr "Capture d'écran"
 
-#: index.docbook:1870
+#: index.docbook:2113
 msgid "Clipboard"
 msgstr "Le presse-papier"
 
-#: index.docbook:1872
+#: index.docbook:2115
 msgid ""
 "&kapp; unfortunately has to implement and use it's own clipboard. This is "
 "due to the lack of support for formats other than text and bitmaps in the "
@@ -2808,7 +3034,7 @@ msgstr ""
 "au texte et aux bitmaps dans KDE.  Cette situation changera probablement "
 "dans un futur proche."
 
-#: index.docbook:1878
+#: index.docbook:2121
 msgid ""
 "However, this has some disadvantages. So if you want to exchange data "
 "between two &kapp; instances through the clipboard, you will find out that "
@@ -2820,7 +3046,7 @@ msgstr ""
 "chaque instance de &kapp;  dispose de sa propre instance du presse papier "
 "pour travailler."
 
-#: index.docbook:1885
+#: index.docbook:2128
 msgid ""
 "So if you want to make use of the clipboard in &kapp;, you should only start "
 "<emphasis>one</emphasis> &kapp; instance and use multiple &kapp; windows. "
@@ -2831,11 +3057,11 @@ msgstr ""
 "plusieurs fenêtres de &kapp; à partir de cette même instance. Normalement "
 "cette fonctionnalité fonctionne !"
 
-#: index.docbook:1897
+#: index.docbook:2140
 msgid "Drag and Drop"
 msgstr "Le tirer / déposer"
 
-#: index.docbook:1899
+#: index.docbook:2142
 msgid ""
 "&kapp; supports the KDE Drag and Drop protocol. This enables you to open "
 "files just by picking them up in a <command>konqueror</command> window or "
@@ -2846,7 +3072,7 @@ msgstr ""
 "en le sélectionnant à partir de <command>konqueror</command> et en le "
 "déposant dans l'espace de travail de &kapp;."
 
-#: index.docbook:1905
+#: index.docbook:2148
 msgid ""
 "Please note that if you drop a file into a &kapp; window that already "
 "contains an opened file, the currently opened file will be closed first and "
@@ -2859,7 +3085,7 @@ msgstr ""
 "pas que le fichier précédemment ouvert soit fermé, vous devez ouvrir une  "
 "autre fenêtre de &kapp; afin d'y recevoir le fichier à ouvrir."
 
-#: index.docbook:1912
+#: index.docbook:2155
 msgid ""
 "You can also select a range of samples and drag or drop them into a &kapp; "
 "window. Per default the drag operation is done in <emphasis>move</emphasis> "
@@ -2875,11 +3101,11 @@ msgstr ""
 "sur la touche <keycap moreinfo=\"none\">Ctrl</keycap> vous pouvez modifier "
 "ce comportement  pour <emphasis>copier</emphasis> la sélection."
 
-#: index.docbook:1927
+#: index.docbook:2170
 msgid "Command Line"
 msgstr "Les options en ligne de commande"
 
-#: index.docbook:1929
+#: index.docbook:2172
 msgid ""
 "If you start &kapp; from the command line, you can specify a list of files "
 "that should be opened. The first specified file will be opened first, then "
@@ -2893,7 +3119,7 @@ msgstr ""
 "une fenêtre séparée mais à partir de la même  instance de &kapp;. Vous "
 "pouvez ainsi ouvrir un nombre important de fichiers sonores en même  temps."
 
-#: index.docbook:1936
+#: index.docbook:2179
 msgid ""
 "For example, the following command starts a &kapp; and opens all sounds of "
 "the KDE window manager, each in a new window:"
@@ -2902,7 +3128,7 @@ msgstr ""
 "ouvre dans des  fenêtres séparées, tous les fichiers sonores utilisés en "
 "internes par KDE :"
 
-#: index.docbook:1936
+#: index.docbook:2179
 msgid ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
 "KDE_Window*.wav</filename></command>"
@@ -2910,7 +3136,7 @@ msgstr ""
 "<prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/"
 "KDE_Window*.wav</filename></command>"
 
-#: index.docbook:1942
+#: index.docbook:2185
 msgid ""
 "In addition to a list of files, you can specify a list of <emphasis>Xt "
 "toolkit</emphasis> options like <literal>-geometry</literal> for specifying "
@@ -2923,7 +3149,7 @@ msgstr ""
 "ouverte de &kapp; ou comme <literal>-display</literal> pour lancer &kapp; "
 "sur une instance du serveur X différente."
 
-#: index.docbook:1950
+#: index.docbook:2193
 msgid ""
 "For example, the following command starts a &kapp; window with an initial "
 "width of 600 pixels and a height of 400 pixels, with the right border "
@@ -2935,7 +3161,7 @@ msgstr ""
 "avec la bordure droite positionnée  à 30 pixels du bords droit de la fenêtre "
 "et 0 pixels du haut de la fenêtre."
 
-#: index.docbook:1950
+#: index.docbook:2193
 msgid ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
 "parameter></command>"
@@ -2943,18 +3169,18 @@ msgstr ""
 "<prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</"
 "parameter></command>"
 
-#: index.docbook:1963
+#: index.docbook:2206
 msgid "Opening and Saving files"
 msgstr "Ouverture et sauvegarde de fichiers"
 
-#: index.docbook:1965
+#: index.docbook:2208
 msgid ""
 "Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "L'ouverture des fichiers avec &kapp; fonctionne comme dans toutes les autres "
 "applications de KDE. Vous pouvez :"
 
-#: index.docbook:1965
+#: index.docbook:2208
 msgid ""
 "specify a list of files on the <link linkend=\"command_line\">command line</"
 "link> when starting &kapp;,"
@@ -2962,7 +3188,7 @@ msgstr ""
 "Spécifier une liste de fichiers à partir de la <link linkend=\"command_line"
 "\">ligne de commande </link> quand vous lancez &kapp;."
 
-#: index.docbook:1965
+#: index.docbook:2208
 msgid ""
 "open an empty &kapp; window (for example with <menuchoice> "
 "<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></"
@@ -2977,7 +3203,7 @@ msgstr ""
 "travail de cette fenêtre via le  <link linkend=\"drag_and_drop\">tirer / "
 "déposer</link>."
 
-#: index.docbook:1965
+#: index.docbook:2208
 msgid ""
 "open a file through the menu with <menuchoice> "
 "<shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></"
@@ -2989,7 +3215,7 @@ msgstr ""
 "keycombo></shortcut><guimenu>Fichier</guimenu><guimenuitem>Ouvrir</"
 "guimenuitem></menuchoice>."
 
-#: index.docbook:1965
+#: index.docbook:2208
 msgid ""
 "or one of the last recently opened files under <menuchoice> <guimenu>File</"
 "guimenu><guimenuitem>Open Recent</guimenuitem> </menuchoice>"
@@ -2998,7 +3224,7 @@ msgstr ""
 "<menuchoice><guimenu>Fichier</guimenu><guimenuitem>Récemment ouvert(s)</"
 "guimenuitem></menuchoice>."
 
-#: index.docbook:1965
+#: index.docbook:2208
 msgid ""
 "save the current file with <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
 "keycap><keycap>S</keycap></keycombo></shortcut> <guimenu>File</"
@@ -3009,7 +3235,7 @@ msgstr ""
 "keycombo></shortcut><guimenu>Fichier</guimenu><guimenuitem>Enregistrer</"
 "guimenuitem></menuchoice>."
 
-#: index.docbook:1965
+#: index.docbook:2208
 msgid ""
 "save under a different name with <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</"
@@ -3022,7 +3248,7 @@ msgstr ""
 "guimenu><guimenuitem>Sauvegarder</guimenuitem><guimenuitem>Dans...</"
 "guimenuitem></menuchoice>."
 
-#: index.docbook:1965
+#: index.docbook:2208
 msgid ""
 "or only the current selection with <menuchoice> <guimenu>File</"
 "guimenu><guimenuitem>Save</guimenuitem><guimenuitem>Selection</guimenuitem> "
@@ -3032,48 +3258,43 @@ msgstr ""
 "<menuchoice><guimenu>Fichier</guimenu><guimenuitem>Sauvegarder</"
 "guimenuitem><guimenuitem> Selection...</guimenuitem></menuchoice>."
 
-#: index.docbook:2015
+#: index.docbook:2258
 msgid "Supported File formats"
 msgstr "Formats de fichiers supportés"
 
-#: index.docbook:2016
+#: index.docbook:2259
+#, fuzzy
 msgid ""
-"The fovourite file format of &kapp; is (like you can guess from the name) \"."
-"wav\". This format is very common to other \"operating systems\" but also is "
-"used within the KDE environment."
+"The favourite file format of &kapp; is (like you can guess from the name) "
+"<filename>.wav</filename>. This format is very common to other \"operating "
+"systems\" and also is commonly used within the KDE environment."
 msgstr ""
 "Le meilleur format de fichier pour &kapp; est (comme l'indique le nom de "
 "l'application) \".wav\". Ce format est trés commun vis à vis d'autre "
 "\"systèmes d'exploitation\" mais aussi pour l'environnement de bureau KDE."
 
-#: index.docbook:2022
+#: index.docbook:2274
 msgid ""
-"The second format that &kapp; supports is \"ASCII\". You can import from and "
-"export to ASCII, but always be aware that storing in this format might "
-"produce very large files! Currently &kapp; only supports ASCII files with "
-"only one channel (mono), support for multiple channels will be added in some "
-"future version. The file format will be described <link linkend="
-"\"ascii_format\">below</link>."
+"Additionally &kapp; supports many other common formats through the <ulink "
+"url=\"http://oss.sgi.com/projects/audiofile/\">audiofile</ulink> plugin. You "
+"can import files like <filename>*.au</filename> and <filename>*.snd</"
+"filename> (NeXT,Sun Audio), <filename>*.aiff</filename> (Audio Interchange "
+"Format) and <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format)."
 msgstr ""
-"Le second  format de fichier supporté par &kapp; est l'\"ASCII\". Vous "
-"pouvez importer et  exporter vers de l'ASCII, mais il faut être prudent car "
-"ce format génère des fichiers de taille  imposante ! Actuellement, &kapp; "
-"supporte seulement les fichiers ASCII avec un seul canal audio  (mono), le "
-"support de plusieurs canaux étant prévu dans le futur. Le format du fichier "
-"ASCII est  décrit <link linkend=\"ascii_format\">ici</link>."
 
-#: index.docbook:2033
+#: index.docbook:2285
 msgid "Converting to and from .wav"
 msgstr "Convertir vers/un fichier .wav "
 
-#: index.docbook:2035
+#: index.docbook:2287
+#, fuzzy
 msgid ""
-"For the moment, the best way to work with formats other than <literal>.wav</"
-"literal> is to use an external converter program. A good set of tools for "
-"this is in the <ulink url=\"http://home.sprynet.com/~cbagwell/sox.html"
-"\">SoX</ulink> package, they have also some nice documentation! Take a look "
-"at <ulink url=\"http://home.sprynet.com/~cbagwell/sox.html\">http://home."
-"sprynet.com/~cbagwell/sox.html</ulink>."
+"The best way to work with formats other than those supported by &kapp; is to "
+"use an external converter program. A good set of tools for this is in the "
+"<ulink url=\"http://home.sprynet.com/~cbagwell/sox.html\">SoX</ulink> "
+"package, they have also some nice documentation! Take a look at <ulink url="
+"\"http://home.sprynet.com/~cbagwell/sox.html\">http://home.sprynet.com/"
+"~cbagwell/sox.html</ulink>."
 msgstr ""
 "Pour le moment, le meilleurs moyen pour travailler avec des formats "
 "différents de <literal>.wav</literal> est d'utiliser un convertisseur "
@@ -3083,12 +3304,14 @@ msgstr ""
 "sur le site internet  <ulink url=\"http://home.sprynet.com/~cbagwell/sox.html"
 "\">http://home.sprynet.com/~cbagwell/sox.html</ulink>."
 
-#: index.docbook:2044
+#: index.docbook:2296
+#, fuzzy
 msgid ""
-"The plans for future include support for import filters for other formats "
-"and maybe some filter that uses a user-defineable script with a call to an "
-"external filter, so that even formats not supported by <literal>SoX</"
-"literal> (like MP3) can be read and/or written."
+"The plans for future include support for import and also export filters for "
+"more formats and maybe some filter that uses a user-defineable script with a "
+"call to an external filter, so that even formats not supported by "
+"<literal>SoX</literal> (like MP3) can be read and/or written. Currently "
+"&kapp; only is able to save files in <filename>.wav</filename> format."
 msgstr ""
 "Les prochaines versions incluront des filtres d'importation pour d'autres "
 "formats et peut être quelques filtres qui utiliseront des scripts "
@@ -3096,126 +3319,11 @@ msgstr ""
 "convertion externes pour le traitement en écriture ou en lecture des formats "
 "de fichiers non supportés par <literal>SoX</literal> (comme le MP3)."
 
-#: index.docbook:2052
-msgid "Format of ASCII files"
-msgstr "Le format des fichiers ASCII"
-
-#: index.docbook:2053
-msgid ""
-"The ASCII format is quite useful for scientific and educational purposes. "
-"Due to it's simple format, you can either write simple files on your own "
-"with a text editor or you can use the output of an other application and "
-"convert it into ASCII. As the format is <emphasis>really</emphasis> simple, "
-"you should not have big problems in writing a converter and most scientific "
-"applications use to have some kind of their own ASCII format for export."
-msgstr ""
-"Le format des fichiers ASCII trés utilisé pour des traitements scientifiques "
-"ou pour  dans l'éducation. C'est un format qui est simple à écrire à l'aide "
-"d'un éditeur de texte  ou par des exportations ASCII disponibles sous "
-"d'autre applications dédiées aux traitements  du son. Comme ce format est "
-"<emphasis>trés</emphasis> simple, vous ne devez pas avoir  de problèmes pour "
-"l'écriture ou la convertion via des applications scientifiques."
-
-#: index.docbook:2065
-msgid ""
-"The format of an ASCII file is quite simple and has the following rules:"
-msgstr "Le format des fichiers ASCII est le suivant :"
-
-#: index.docbook:2065
-msgid "Each line represents one sample."
-msgstr "Chaque ligne représente un échantillon."
-
-#: index.docbook:2065
-msgid ""
-"Lines might end with a carriage return and/or a line feed character (so DOS "
-"files are supported too). But when saving, files will always be saved with "
-"line feed character as the end of the line."
-msgstr ""
-"Les fins de lignes doivent être constituées du caractère Retour Chariot (CR) "
-"et ou Fin de Ligne  (LF) comme les fichiers disponibles sous DOS, mais dans "
-"tous les cas le caractère Fin de Ligne (LF)  doit être présent."
-
-#: index.docbook:2065
-msgid "Empty lines are ignored."
-msgstr "Les lignes vides sont ignorées."
-
-#: index.docbook:2065
-msgid ""
-"Values can be are given in any format that the C library of your system is "
-"able to read and interprete as a floating point or integer number. But when "
-"saving, &kapp; will save as in signed floating point format with 9 decimals."
-msgstr ""
-"Les valeurs peuvent être données dans plusieurs formats qui doivent être "
-"lues et interprétés comme des valeurs entiéres (int) ou des valeurs "
-"flottantes (float) comme cela est défini dans les librairies du langage C de "
-"votre système. Cependant, quand vous exportez vers de l'ASCII, &kapp; "
-"sauvegarde ces valeurs au format flottant signé avec 9 decimales."
-
-#: index.docbook:2065
-msgid "Example: <literal>-7.06999982e-01</literal>"
-msgstr "Exemple : <literal>-7.06999982e-01</literal>"
-
-#: index.docbook:2065
-msgid ""
-"All values are expected to be in signed format. So if you import a file with "
-"only positive values, you will only see samples that are above the zero line."
-msgstr ""
-"Toutes les valeurs sont signées. Si vous importez un fichier dont toutes les "
-"valeurs sont positives, vous ne verrez que des échantillons qui sont au "
-"dessus de la ligne symbolisant la valeur zéro."
-
-#: index.docbook:2065
-msgid ""
-"Values can be specified in any range, &kapp; always does a first pass over "
-"the file to get the highest absolute value and defines that value as \"100%"
-"\" before really reading in the file."
-msgstr ""
-"Les plages de valeurs dans le fichier peuvent être définies arbitrairement, "
-"&kapp; effecuant  toujours une première lecture du fichier pour déterminer "
-"les maximums afin de définir la valeur  en interne correspondante au \"100%"
-"\"."
-
-#: index.docbook:2065
-msgid "Internally all values are stored with 24 bit precision (signed)."
-msgstr ""
-"En interne, toutes les valeurs sont stockées avec une précision de 24 bits "
-"(valeurs signées)."
-
-#: index.docbook:2104
-msgid ""
-"Here is an example of a simple ASCII file that represents a sine wave with "
-"nine samples: <example> <title>content of an ASCII file with a single sine "
-"wave</title> <screen>\n"
-" 0.000\n"
-" 0.707\n"
-" 1.000\n"
-" 0.707\n"
-" 0.000\n"
-"-0.707\n"
-"-1.000\n"
-"-0.707\n"
-" 0.000\n"
-"\t\t</screen> </example>"
-msgstr ""
-"Voici un exemple d'un fichier ASCII qui représente une sinusoïde avec 9 "
-"échantillons :<example> <title>Contenu d'un fichier ASCII avec un signal "
-"sinusoïdal</title> <screen>\n"
-" 0.000\n"
-" 0.707\n"
-" 1.000\n"
-" 0.707\n"
-" 0.000\n"
-"-0.707\n"
-"-1.000\n"
-"-0.707\n"
-" 0.000\n"
-"\t\t</screen> </example>"
-
-#: index.docbook:2130
+#: index.docbook:2384
 msgid "How to select"
 msgstr "Comment faire une sélection"
 
-#: index.docbook:2132
+#: index.docbook:2386
 msgid ""
 "&kapp; allows you to select a continuous range of samples as well as any "
 "combination of channels (if you edit a multi-channel file). By selecting a "
@@ -3229,11 +3337,11 @@ msgstr ""
 "sur la selection. Si un canal n'est pas activé avant la sélection, son "
 "contenu ne sera  pas modifié."
 
-#: index.docbook:2139
+#: index.docbook:2393
 msgid "Selecting channels"
 msgstr "La sélection de canaux sonores"
 
-#: index.docbook:2140
+#: index.docbook:2394
 msgid ""
 "Selecting or de-selecting a channel is quite simple. Just click on the lamp "
 "symbol on the left side of the signal to toggle it's state:"
@@ -3242,34 +3350,34 @@ msgstr ""
 "cliquer sur le témoin lumineux  placé à la gauche des pistes sonores. Les "
 "états du témoins sont les suivants :"
 
-#: index.docbook:2144
+#: index.docbook:2398
 msgid "green lamb"
 msgstr "Lumiére verte"
 
-#: index.docbook:2144
+#: index.docbook:2398
 msgid "a green lamb means \"enabled\", whereas"
 msgstr "Un témoin vert indique que le canal est \"actif\"."
 
-#: index.docbook:2153
+#: index.docbook:2407
 msgid "red lamb"
 msgstr "Lumiére rouge"
 
-#: index.docbook:2153
+#: index.docbook:2407
 msgid "a red lamb means \"disabled\"."
 msgstr "Un témoin rouge indique que le canal est \"inactif\"."
 
-#: index.docbook:2163
+#: index.docbook:2417
 msgid ""
 "Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Si le canal est déselectionné, il ne sera pas écoutable lors d'une lecture "
 "des pistes sonores !"
 
-#: index.docbook:2168
+#: index.docbook:2422
 msgid "Selecting samples"
 msgstr "La sélection d'échantillons"
 
-#: index.docbook:2170
+#: index.docbook:2424
 msgid ""
 "If you select a range of samples in &kapp;, that range will be "
 "<emphasis>inclusive</emphasis>. That means that the first and the last "
@@ -3289,7 +3397,7 @@ msgstr ""
 "échantillon, la fonction  \"Supprimer\" appliquera les modifications "
 "uniquement sur ce dernier."
 
-#: index.docbook:2180
+#: index.docbook:2434
 msgid ""
 "The easiest way of selecting a range of samples is just to do that with "
 "mouse. It works like you are used from other applications: just press the "
@@ -3303,7 +3411,7 @@ msgstr ""
 "sélection,  et de déplacer la souris en maintenant appuyer le bouton gauche "
 "jusqu'a la fin de la sélection."
 
-#: index.docbook:2186
+#: index.docbook:2440
 msgid ""
 "If you want to adjust or move the selection's start or end, you can move the "
 "mouse cursor near to the start or the end of the selection until it changes "
@@ -3316,7 +3424,7 @@ msgstr ""
 "souris, de déplacer l'extrémité à l'emplacement voulu, puis de relacher  le "
 "bouton."
 
-#: index.docbook:2192
+#: index.docbook:2446
 msgid ""
 "You can also extend or shrink the selection to a specific point by holding "
 "down the shift button while klicking with the left mouse button. Depending "
@@ -3329,7 +3437,7 @@ msgstr ""
 "dans l'espace de travail vis à vis de la sélection, le bord gauche ou le "
 "bord droit de la sélection sera ajusté à la position pointée par le curseur."
 
-#: index.docbook:2198
+#: index.docbook:2452
 msgid ""
 "There are also some functions available via the menu and of course some "
 "keyboard shortcuts:"
@@ -3337,7 +3445,7 @@ msgstr ""
 "Il y a également quelques fonctions qui sont disponibles par le menu et bien "
 "sur quelques raccourçis clavier qui sont :"
 
-#: index.docbook:2198
+#: index.docbook:2452
 msgid ""
 "select the whole signal: <menuchoice> <shortcut><keycombo><keycap>Ctrl</"
 "keycap><keycap>A</keycap></keycombo></shortcut> <guimenu>Edit</"
@@ -3349,19 +3457,7 @@ msgstr ""
 "shortcut> <guimenu>Edition</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Tout</guimenuitem> </menuchoice>"
 
-#: index.docbook:2198
-msgid ""
-"a range of samples, starting at the current cursor position: <menuchoice> "
-"<shortcut><keycombo><keycap>R</keycap></keycombo></shortcut> <guimenu>Edit</"
-"guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Range</guimenuitem> "
-"</menuchoice>"
-msgstr ""
-"Une plage d'échantillons, commençant à la position courante du curseur : "
-"<menuchoice> <shortcut><keycombo><keycap>R</keycap></keycombo></shortcut> "
-"<guimenu>Edition</guimenu><guimenuitem>Selection</"
-"guimenuitem><guimenuitem>Plage</guimenuitem> </menuchoice>"
-
-#: index.docbook:2198
+#: index.docbook:2452
 msgid ""
 "the currently visible area: <menuchoice> <shortcut><keycombo><keycap>V</"
 "keycap></keycombo></shortcut> <guimenu>Edit</guimenu><guimenuitem>Selection</"
@@ -3372,7 +3468,7 @@ msgstr ""
 "guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Région visible</"
 "guimenuitem></menuchoice>"
 
-#: index.docbook:2198
+#: index.docbook:2452
 msgid ""
 "the next block of samples, starting one sample after the end of the current "
 "selection and with the same length: <menuchoice> "
@@ -3386,12 +3482,12 @@ msgstr ""
 "keycombo></shortcut><guimenu>Editon</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Suivant</guimenuitem></menuchoice>"
 
-#: index.docbook:2198
+#: index.docbook:2452
 msgid "(Hint: use the \"<keycap>+</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Astuce : utiliser la touche \"<keycap>+</keycap>\" du clavier numérique !)"
 
-#: index.docbook:2198
+#: index.docbook:2452
 msgid ""
 "the previous block of samples, ending one sample before the start of the "
 "current selection and with the same length: <menuchoice> "
@@ -3405,12 +3501,12 @@ msgstr ""
 "keycombo></shortcut><guimenu>Editon</guimenu><guimenuitem> Selection</"
 "guimenuitem><guimenuitem>Précédent</guimenuitem></menuchoice>"
 
-#: index.docbook:2198
+#: index.docbook:2452
 msgid "(Hint: use the \"<keycap>-</keycap>\" key from the numeric keypad!)"
 msgstr ""
 "(Astuce : utiliser la touche \"<keycap>-</keycap>\" du clavier numérique !)"
 
-#: index.docbook:2198
+#: index.docbook:2452
 msgid ""
 "expand the selection to the start of the signal (first sample): <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>Home</keycap></keycombo></"
@@ -3423,7 +3519,7 @@ msgstr ""
 "guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Au début</"
 "guimenuitem></menuchoice>"
 
-#: index.docbook:2198
+#: index.docbook:2452
 msgid ""
 "expand the selection to the end of the signal (last sample): <menuchoice> "
 "<shortcut><keycombo><keycap>Shift</keycap><keycap>End</keycap></keycombo></"
@@ -3436,7 +3532,7 @@ msgstr ""
 "guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>A la fin</"
 "guimenuitem></menuchoice>"
 
-#: index.docbook:2198
+#: index.docbook:2452
 msgid ""
 "remove any selection and select \"nothing\": <menuchoice> "
 "<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut> <guimenu>Edit</"
@@ -3448,15 +3544,15 @@ msgstr ""
 "shortcut><guimenu>Editon</guimenu><guimenuitem>Selection</"
 "guimenuitem><guimenuitem>Rien</guimenuitem></menuchoice>"
 
-#: index.docbook:2400
+#: index.docbook:2631
 msgid "Developer's Guide to &kapp;"
 msgstr "Le guide du développeur de &kapp;"
 
-#: index.docbook:2406
+#: index.docbook:2637
 msgid "under construction"
 msgstr "Ce chapitre est en cours de rédaction."
 
-#: index.docbook:2414
+#: index.docbook:2645
 msgid ""
 "Sorry, this chapter is still to be written... At the moment the source code "
 "is nearly completely documented with tags suitable with the KDE "
@@ -3473,7 +3569,7 @@ msgstr ""
 "avec  doxygen vers un document au format docbook (Le source de cette aide a "
 "été faite de cette manière)."
 
-#: index.docbook:2423
+#: index.docbook:2654
 msgid ""
 "If you want to write a plugin, contribute something to this project (or "
 "maybe write the converter mentioned above), please feel free to contact one "
@@ -3486,19 +3582,19 @@ msgstr ""
 "linkend=\"mailing-list\">liste de diffusion</link> de &kapp;.  De l'aide est "
 "toujours la bienvenue !"
 
-#: index.docbook:2440
+#: index.docbook:2671
 msgid "Questions and Answers"
 msgstr "Foire aux questions"
 
-#: index.docbook:2442
+#: index.docbook:2673
 msgid "<para></para>"
 msgstr "<para></para>"
 
-#: index.docbook:2448
+#: index.docbook:2679
 msgid "What do I need to compile &kapp;?"
 msgstr "De quoi ai je besoin pour compiler &kapp; ?"
 
-#: index.docbook:2453
+#: index.docbook:2684
 msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before. "
 "It compiles with gcc and egcs as well."
@@ -3506,11 +3602,11 @@ msgstr ""
 "Lisez les informations à ce <link linkend=\"requirements\">chapitre</link>. "
 "Il peut être compilé avec gcc ou egcs."
 
-#: index.docbook:2464
+#: index.docbook:2695
 msgid "Which sound cards does &kapp; support?"
 msgstr "Qu'elles sont les cartes sons supportées par &kapp; ?"
 
-#: index.docbook:2469
+#: index.docbook:2700
 msgid ""
 "&kapp; does not need support for any special sound card. The sound card only "
 "has to be supported by your operating system and &kapp; uses it's interface "
@@ -3523,13 +3619,13 @@ msgstr ""
 "Bien sur, &kapp; peut lire des pistes sonores sur toutes les cartes  sonores "
 "reconnues par KDE."
 
-#: index.docbook:2482
+#: index.docbook:2713
 msgid "Why are some menu entries / features always disabled?"
 msgstr ""
 "Pourquoi certaines entrées des menus ou certaines fonctionnalités sont "
 "désactivées ?"
 
-#: index.docbook:2487
+#: index.docbook:2718
 msgid ""
 "This is just because we decided that those actions are not working stable "
 "enough to present them to the normal user and therefore disabled them to "
@@ -3541,7 +3637,7 @@ msgstr ""
 "instables. Elles seront progressivement  activées au fur et à mesure de "
 "l'avancement des développements."
 
-#: index.docbook:2499
+#: index.docbook:2730
 msgid ""
 "Why does &kapp; consume more memory than it can be expected from the size of "
 "the opened file?"
@@ -3549,7 +3645,7 @@ msgstr ""
 "Pourquoi &kapp; utilise plus de mémoire système que celle nécessaire pour "
 "stocker un  fichier sonore ?"
 
-#: index.docbook:2505
+#: index.docbook:2736
 msgid ""
 "The reason for this is that &kapp; internally stores all samples in 32-bit "
 "integers. This was easy to program, made the application faster and a bit "
@@ -3563,25 +3659,27 @@ msgstr ""
 "taille de 1 Mo, il représentera  environ 4 Mo en mémoire. Cette "
 "caractéristique évoluera peut être dans le futur..."
 
-#: index.docbook:2518
+#: index.docbook:2749
 msgid "Which sound formats does &kapp; support?"
 msgstr "Quels sont les formats de fichiers sonores supportés par &kapp; ?"
 
-#: index.docbook:2523
+#: index.docbook:2754
+#, fuzzy
 msgid ""
 "&kapp; currently supports .wav files with 8, 16 and 24 bits per sample, with "
-"any number of channels (of course including mono and stereo)."
+"any number of channels (of course including mono and stereo). Additionally "
+"it can import all file types that libaudiofile supports."
 msgstr ""
 "&kapp; supporte actuellement les fichiers .wav codés en 8, 16 et 24 bits par "
 "échantillons, avec  plusieurs canaux sonores (cela inclue le mono et le "
 "stéréo)."
 
-#: index.docbook:2533
+#: index.docbook:2765
 msgid "What if I have files with a format not supported by &kapp;?"
 msgstr ""
 "Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
 
-#: index.docbook:2539
+#: index.docbook:2771
 msgid ""
 "If you have to work on an other format, you can convert it into .wav format. "
 "A good set of tools for this is in the <ulink url=\"http://home.sprynet.com/"
@@ -3594,12 +3692,12 @@ msgstr ""
 "~cbagwell/sox.html\">SoX</ulink>. Il est accompagné d'une  trés bonne "
 "documentation !"
 
-#: index.docbook:2551
+#: index.docbook:2783
 msgid "I get errors when I want to do playback?"
 msgstr ""
 "J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
 
-#: index.docbook:2556
+#: index.docbook:2788
 msgid ""
 "Maybe you have choosen a combination of playback rate and sample size that "
 "is not supported by your sound driver and / or sound hardware. Try playback "
@@ -3615,13 +3713,13 @@ msgstr ""
 "stéréo.  Noter que certaine carte sonore ne supporte pas certaine résolution "
 "d'échantillonage."
 
-#: index.docbook:2570
+#: index.docbook:2802
 msgid "The playback seems to do something but I hear nothing?"
 msgstr ""
 "La lecture d'une piste sonore semble fonctionner mais je n'entends rien. "
 "Pourquoi ?"
 
-#: index.docbook:2575
+#: index.docbook:2807
 msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
 "&kapp; is not responsible for changing the playback volume."
@@ -3629,22 +3727,22 @@ msgstr ""
 "Peut être avez vous oubliez d'augmenter le volume de votre carte sonore. "
 "&kapp;  ne controle pas directement le niveau du volume sonore."
 
-#: index.docbook:2585
+#: index.docbook:2817
 msgid "Some files are played with half-speed?"
 msgstr ""
 "Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
 
-#: index.docbook:2590
+#: index.docbook:2822
 msgid "Try choosing a different sound playback device."
 msgstr "Essayer de choisir un autre périphérique de lecture sonore."
 
-#: index.docbook:2598
+#: index.docbook:2830
 msgid "The playback sometimes is disturbed and interrupted?"
 msgstr ""
 "Quelques fichiers sont joués avec des coupures ou des perturbations. "
 "Pourquoi ?"
 
-#: index.docbook:2603
+#: index.docbook:2835
 msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
 "playback (this also makes the playback control reacting a bit slower)."
@@ -3652,13 +3750,13 @@ msgstr ""
 "Vous devez augmenter le buffer de lecture pour obtenir une lecture plus "
 "\"fluide\" (cela peut générer un contrôle sur la lecture un peu plus lent)."
 
-#: index.docbook:2613
+#: index.docbook:2845
 msgid "The playback does not stop if I immediately press the stop button?"
 msgstr ""
 "La lecture ne s'arrête pas imédiatement si j'appuie sur le bouton STOP. "
 "Pourquoi ?"
 
-#: index.docbook:2619
+#: index.docbook:2851
 msgid ""
 "The reason for this is that the sound driver already has received some "
 "playback data from &kapp; at the moment when you press the stop button. "
@@ -3670,11 +3768,11 @@ msgstr ""
 "Diminuer la taille du buffer de  lecture pour avoir une réaction plus rapide "
 "du programme (des problèmes de lecture  sont cependant à envisager)."
 
-#: index.docbook:2631
+#: index.docbook:2863
 msgid "Is ALSA supported?"
 msgstr "Les drivers ALSA sont ils supportés ?"
 
-#: index.docbook:2636
+#: index.docbook:2868
 msgid ""
 "Sorry, currently we don't have direct support for ALSA, but since version "
 "0.6 &kapp; has support for <ulink url=\"http://www.arts-project.org/\">aRts</"
@@ -3685,14 +3783,14 @@ msgstr ""
 "<ulink url=\"http://www.arts-project.org/\">aRts</ulink>, qui peut utiliser "
 "les drivers ALSA."
 
-#: index.docbook:2647
+#: index.docbook:2879
 msgid ""
 "What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
 "Qu'en est-il de la lecture de fichiers sonores sur 24 et 32 bits par "
 "échantillons ou avec plus de  2 pistes sonores ?"
 
-#: index.docbook:2653
+#: index.docbook:2885
 msgid ""
 "This is another feature that might get implemented in <ulink url=\"http://"
 "www.arts-project.org/\">aRts</ulink>, so we wait for aRts to support it."
@@ -3701,28 +3799,25 @@ msgstr ""
 "l'interface <ulink url=\"http://www.arts-project.org/\">aRts</ulink>. Il "
 "faut attendre que cette fonctionnalité soit opérationnelle."
 
-#: index.docbook:2663
+#: index.docbook:2895
 msgid "What about MP3 support?"
 msgstr "Qu'en est-il du support des fichiers MP3 ?"
 
-#: index.docbook:2668
+#: index.docbook:2900
 msgid ""
-"Not for the moment, but maybe someone writes us a plugin for MP3 import / "
-"export?"
+"Not for the moment, but maybe MP3 import / export already is on the TODO "
+"list at a very high position."
 msgstr ""
-"Cette fonctionnalité n'est pas disponible pour le moment, mais peut être "
-"qu'une personne a écrit un plugin pour l'importation et l'exportation des "
-"fichiers MP3 ?"
 
-#: index.docbook:2698
+#: index.docbook:2930
 msgid "Credits and License"
 msgstr "Crédits et Licence"
 
-#: index.docbook:2700
+#: index.docbook:2932
 msgid "&kapp;"
 msgstr "&kapp;"
 
-#: index.docbook:2702
+#: index.docbook:2934
 msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
 "de</email>"
@@ -3730,7 +3825,7 @@ msgstr ""
 "Programme sous copyright de 1998 à 2000 Martin Wilz <email>mwilz@ernie.mi."
 "uni-koeln.de</email>"
 
-#: index.docbook:2706
+#: index.docbook:2938
 msgid ""
 "Program copyright since 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
@@ -3738,94 +3833,71 @@ msgstr ""
 "Programme sous copyright depuis 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
-#: index.docbook:2711
-msgid "Contributors:"
+#: index.docbook:2943
+#, fuzzy
+msgid "Contributors / Authors:"
 msgstr "Contributions :"
 
-#: index.docbook:2711
+#: index.docbook:2943
 msgid "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 msgstr "Thomas Eschenbacher <email>thomas.eschenbacher@gmx.de</email>"
 
-#: index.docbook:2711
+#: index.docbook:2943
+#, fuzzy
 msgid ""
-"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (Homepage, german translation)"
+"Sven-Steffen Arndt <email>ssa29@gmx.de</email> (homepage, german translation)"
 msgstr ""
 "Sven-Steffen Arndt <email>ssa29@gmx.de</email> (page web, traductions en "
 "Allemand)"
 
-#: index.docbook:2711
-msgid "Juhana Kouhia"
-msgstr "Juhana Kouhia"
+#: index.docbook:2943
+msgid "Ralf Waspe <email>rwaspe@web.de</email> (Help/About plugin)"
+msgstr ""
 
-#: index.docbook:2711
-msgid "Gerhard Zintel"
-msgstr "Gerhard Zintel"
+#: index.docbook:2943
+msgid ""
+"Caulier Gilles <email>caulier.gilles@free.fr</email> (french translation)"
+msgstr ""
 
-#: index.docbook:2711
-msgid "Gael Duval"
-msgstr "Gael Duval"
+#: index.docbook:2943
+msgid "Martin Kuball <email>makube@user.sourceforge.net</email> (beta tester)"
+msgstr ""
 
-#: index.docbook:2711
-msgid "Aaron Johnson"
-msgstr "Aaron Johnson"
+#: index.docbook:2943
+msgid ""
+"Aurelien Jarno <email>aurel32@debian.org</email> (<ulink url=\"http://www."
+"debian.org\">debian</ulink> packager)"
+msgstr ""
 
-#: index.docbook:2711
-msgid "Uwe Steinmann"
-msgstr "Uwe Steinmann"
-
-#: index.docbook:2711
-msgid "Dave Phillips"
-msgstr "Dave Phillips"
-
-#: index.docbook:2711
-msgid "Martin Petriska"
-msgstr "Martin Petriska"
-
-#: index.docbook:2711
-msgid "Winfried Truemper"
-msgstr "Winfried Truemper"
-
-#: index.docbook:2711
-msgid "Bruce Garlock"
-msgstr "Bruce Garlock"
-
-#: index.docbook:2711
-msgid "Christoph Raab"
-msgstr "Christoph Raab"
-
-#: index.docbook:2711
-msgid "tOpHEr lAfaTA"
-msgstr "tOpHEr lAfaTA"
-
-#: index.docbook:2711
-msgid "Nemosoft"
-msgstr "Nemosoft"
-
-#: index.docbook:2711
-msgid "Guido"
-msgstr "Guido"
-
-#: index.docbook:2711
-msgid "Eero"
-msgstr "Eero"
-
-#: index.docbook:2745
+#: index.docbook:3007
 msgid "Thanks to (in alphabetical order):"
 msgstr "Remerciements (par ordre alphabetique) :"
 
-#: index.docbook:2745
+#: index.docbook:3007
+msgid ""
+"Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
+"\"http://oss.sgi.com/projects/audiofile/\"> audiofile library</ulink>)"
+msgstr ""
+
+#: index.docbook:3007
+msgid ""
+"Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
+"url=\"http://www.zip.com.au/~erikd/libsndfile/\">sndfile library </ulink>)"
+msgstr ""
+
+#: index.docbook:3007
 msgid "Carsten Jacobi"
 msgstr "Carsten Jacobi"
 
-#: index.docbook:2745
+#: index.docbook:3007
 msgid "Frank Christian Stoffel"
 msgstr "Frank Christian Stoffel"
 
-#: index.docbook:2745
+#: index.docbook:3007
 msgid "Achim Dahlhaus"
 msgstr "Achim Dahlhaus"
 
-#: index.docbook:2745
+#: index.docbook:3007
 msgid ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (for information "
 "about RPM optimization) </emphasis>"
@@ -3833,16 +3905,17 @@ msgstr ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (pour toutes les "
 "informations concernant les optimisations sur les RPM) </emphasis>"
 
-#: index.docbook:2745
+#: index.docbook:3007
 msgid "Klaus Hendrik Lorenz"
 msgstr "Klaus Hendrik Lorenz"
 
-#: index.docbook:2745
-msgid "my girlfriend Ximena González<emphasis>(for her patience)</emphasis>"
+#: index.docbook:3007
+#, fuzzy
+msgid "my girlfriend Ximena González<emphasis> (for her patience)</emphasis>"
 msgstr ""
 "Ma petite amie Ximena González<emphasis> (pour toute sa patience)</emphasis>"
 
-#: index.docbook:2766
+#: index.docbook:3045
 msgid ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
@@ -3850,7 +3923,7 @@ msgstr ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
-#: index.docbook:2785
+#: index.docbook:3064
 msgid ""
 "The current code contains some FFT routines and code fragments from the GNU "
 "Scientific Library project <ulink url=\"http://sources.redhat.com/gsl/"
@@ -3860,3 +3933,203 @@ msgstr ""
 "Fourrier et des morceaux de programme issus du projet GNU Scientific Library "
 "que l'on peut consulter à l'adresse  <ulink url=\"http://sources.redhat.com/"
 "gsl/\">http://sources.redhat.com/gsl/</ulink>."
+
+#: index.docbook:3070
+msgid ""
+"Import/export of sound files is achieved through a modified copy of "
+"libaudiofile, found at <ulink url=\"http://oss.sgi.com/projects/audiofile/"
+"\">http://oss.sgi.com/projects/audiofile/</ulink>."
+msgstr ""
+
+#~ msgid "simple filter design tools"
+#~ msgstr "Des outils de manipulation du son sous forme de filtres."
+
+#~ msgid "a small editor for additive synthesis"
+#~ msgstr "Un petit éditeur sonore pour la synthése additive."
+
+#~ msgid "labeling of signals"
+#~ msgstr "Le marquage des pistes sonores."
+
+#~ msgid ""
+#~ "The second format that &kapp; supports is \"ASCII\". You can import from "
+#~ "and export to ASCII, but always be aware that storing in this format "
+#~ "might produce very large files! Currently &kapp; only supports ASCII "
+#~ "files with only one channel (mono), support for multiple channels will be "
+#~ "added in some future version. The file format will be described <link "
+#~ "linkend=\"ascii_format\">below</link>."
+#~ msgstr ""
+#~ "Le second  format de fichier supporté par &kapp; est l'\"ASCII\". Vous "
+#~ "pouvez importer et  exporter vers de l'ASCII, mais il faut être prudent "
+#~ "car ce format génère des fichiers de taille  imposante ! Actuellement, "
+#~ "&kapp; supporte seulement les fichiers ASCII avec un seul canal audio  "
+#~ "(mono), le support de plusieurs canaux étant prévu dans le futur. Le "
+#~ "format du fichier ASCII est  décrit <link linkend=\"ascii_format\">ici</"
+#~ "link>."
+
+#~ msgid "Format of ASCII files"
+#~ msgstr "Le format des fichiers ASCII"
+
+#~ msgid ""
+#~ "The ASCII format is quite useful for scientific and educational purposes. "
+#~ "Due to it's simple format, you can either write simple files on your own "
+#~ "with a text editor or you can use the output of an other application and "
+#~ "convert it into ASCII. As the format is <emphasis>really</emphasis> "
+#~ "simple, you should not have big problems in writing a converter and most "
+#~ "scientific applications use to have some kind of their own ASCII format "
+#~ "for export."
+#~ msgstr ""
+#~ "Le format des fichiers ASCII trés utilisé pour des traitements "
+#~ "scientifiques ou pour  dans l'éducation. C'est un format qui est simple à "
+#~ "écrire à l'aide d'un éditeur de texte  ou par des exportations ASCII "
+#~ "disponibles sous d'autre applications dédiées aux traitements  du son. "
+#~ "Comme ce format est <emphasis>trés</emphasis> simple, vous ne devez pas "
+#~ "avoir  de problèmes pour l'écriture ou la convertion via des applications "
+#~ "scientifiques."
+
+#~ msgid ""
+#~ "The format of an ASCII file is quite simple and has the following rules:"
+#~ msgstr "Le format des fichiers ASCII est le suivant :"
+
+#~ msgid "Each line represents one sample."
+#~ msgstr "Chaque ligne représente un échantillon."
+
+#~ msgid ""
+#~ "Lines might end with a carriage return and/or a line feed character (so "
+#~ "DOS files are supported too). But when saving, files will always be saved "
+#~ "with line feed character as the end of the line."
+#~ msgstr ""
+#~ "Les fins de lignes doivent être constituées du caractère Retour Chariot "
+#~ "(CR) et ou Fin de Ligne  (LF) comme les fichiers disponibles sous DOS, "
+#~ "mais dans tous les cas le caractère Fin de Ligne (LF)  doit être présent."
+
+#~ msgid "Empty lines are ignored."
+#~ msgstr "Les lignes vides sont ignorées."
+
+#~ msgid ""
+#~ "Values can be are given in any format that the C library of your system "
+#~ "is able to read and interprete as a floating point or integer number. But "
+#~ "when saving, &kapp; will save as in signed floating point format with 9 "
+#~ "decimals."
+#~ msgstr ""
+#~ "Les valeurs peuvent être données dans plusieurs formats qui doivent être "
+#~ "lues et interprétés comme des valeurs entiéres (int) ou des valeurs "
+#~ "flottantes (float) comme cela est défini dans les librairies du langage C "
+#~ "de votre système. Cependant, quand vous exportez vers de l'ASCII, &kapp; "
+#~ "sauvegarde ces valeurs au format flottant signé avec 9 decimales."
+
+#~ msgid "Example: <literal>-7.06999982e-01</literal>"
+#~ msgstr "Exemple : <literal>-7.06999982e-01</literal>"
+
+#~ msgid ""
+#~ "All values are expected to be in signed format. So if you import a file "
+#~ "with only positive values, you will only see samples that are above the "
+#~ "zero line."
+#~ msgstr ""
+#~ "Toutes les valeurs sont signées. Si vous importez un fichier dont toutes "
+#~ "les valeurs sont positives, vous ne verrez que des échantillons qui sont "
+#~ "au dessus de la ligne symbolisant la valeur zéro."
+
+#~ msgid ""
+#~ "Values can be specified in any range, &kapp; always does a first pass "
+#~ "over the file to get the highest absolute value and defines that value as "
+#~ "\"100%\" before really reading in the file."
+#~ msgstr ""
+#~ "Les plages de valeurs dans le fichier peuvent être définies "
+#~ "arbitrairement, &kapp; effecuant  toujours une première lecture du "
+#~ "fichier pour déterminer les maximums afin de définir la valeur  en "
+#~ "interne correspondante au \"100%\"."
+
+#~ msgid "Internally all values are stored with 24 bit precision (signed)."
+#~ msgstr ""
+#~ "En interne, toutes les valeurs sont stockées avec une précision de 24 "
+#~ "bits (valeurs signées)."
+
+#~ msgid ""
+#~ "Here is an example of a simple ASCII file that represents a sine wave "
+#~ "with nine samples: <example> <title>content of an ASCII file with a "
+#~ "single sine wave</title> <screen>\n"
+#~ " 0.000\n"
+#~ " 0.707\n"
+#~ " 1.000\n"
+#~ " 0.707\n"
+#~ " 0.000\n"
+#~ "-0.707\n"
+#~ "-1.000\n"
+#~ "-0.707\n"
+#~ " 0.000\n"
+#~ "\t\t</screen> </example>"
+#~ msgstr ""
+#~ "Voici un exemple d'un fichier ASCII qui représente une sinusoïde avec 9 "
+#~ "échantillons :<example> <title>Contenu d'un fichier ASCII avec un signal "
+#~ "sinusoïdal</title> <screen>\n"
+#~ " 0.000\n"
+#~ " 0.707\n"
+#~ " 1.000\n"
+#~ " 0.707\n"
+#~ " 0.000\n"
+#~ "-0.707\n"
+#~ "-1.000\n"
+#~ "-0.707\n"
+#~ " 0.000\n"
+#~ "\t\t</screen> </example>"
+
+#~ msgid ""
+#~ "a range of samples, starting at the current cursor position: <menuchoice> "
+#~ "<shortcut><keycombo><keycap>R</keycap></keycombo></shortcut> "
+#~ "<guimenu>Edit</guimenu><guimenuitem>Selection</"
+#~ "guimenuitem><guimenuitem>Range</guimenuitem> </menuchoice>"
+#~ msgstr ""
+#~ "Une plage d'échantillons, commençant à la position courante du curseur : "
+#~ "<menuchoice> <shortcut><keycombo><keycap>R</keycap></keycombo></shortcut> "
+#~ "<guimenu>Edition</guimenu><guimenuitem>Selection</"
+#~ "guimenuitem><guimenuitem>Plage</guimenuitem> </menuchoice>"
+
+#~ msgid ""
+#~ "Not for the moment, but maybe someone writes us a plugin for MP3 import / "
+#~ "export?"
+#~ msgstr ""
+#~ "Cette fonctionnalité n'est pas disponible pour le moment, mais peut être "
+#~ "qu'une personne a écrit un plugin pour l'importation et l'exportation des "
+#~ "fichiers MP3 ?"
+
+#~ msgid "Juhana Kouhia"
+#~ msgstr "Juhana Kouhia"
+
+#~ msgid "Gerhard Zintel"
+#~ msgstr "Gerhard Zintel"
+
+#~ msgid "Gael Duval"
+#~ msgstr "Gael Duval"
+
+#~ msgid "Aaron Johnson"
+#~ msgstr "Aaron Johnson"
+
+#~ msgid "Uwe Steinmann"
+#~ msgstr "Uwe Steinmann"
+
+#~ msgid "Dave Phillips"
+#~ msgstr "Dave Phillips"
+
+#~ msgid "Martin Petriska"
+#~ msgstr "Martin Petriska"
+
+#~ msgid "Winfried Truemper"
+#~ msgstr "Winfried Truemper"
+
+#~ msgid "Bruce Garlock"
+#~ msgstr "Bruce Garlock"
+
+#~ msgid "Christoph Raab"
+#~ msgstr "Christoph Raab"
+
+#~ msgid "tOpHEr lAfaTA"
+#~ msgstr "tOpHEr lAfaTA"
+
+#~ msgid "Nemosoft"
+#~ msgstr "Nemosoft"
+
+#~ msgid "Guido"
+#~ msgstr "Guido"
+
+#~ msgid "Eero"
+#~ msgstr "Eero"

@@ -55,7 +55,7 @@ install-data-local:
 	    $(INSTALL_DATA) $${lang}/*.png ${DOCDIR}/$${lang}/$(PACKAGE) ; \
 	    if test ! -e ${DOCDIR}/$${lang}/$(PACKAGE)/common ; then \
 	    rm -f ${DOCDIR}/$${lang}/$(PACKAGE)/common ; fi ; \
-	    ln -sf ${DOCDIR}/$${lang}/common ${DOCDIR}/$${lang}/$(PACKAGE) ; \
+	    ( cd ${DOCDIR}/$${lang}/${PACKAGE} ; ln -s ../common . ) ; \
 	}; done
 	cd ${DOCDIR} ; \
 	if test ! -e default/$(PACKAGE) -a -e default ; then ln -s ../en/$(PACKAGE) default; fi;

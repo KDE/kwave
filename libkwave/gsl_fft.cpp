@@ -93,12 +93,12 @@ gsl_fft_complex_init (unsigned int n,
     wavetable->n = n;
 
     status = gsl_fft_complex_factorize (n, &n_factors, wavetable->factor);
-
+    if (!status) return status;
+    
     wavetable->nf = n_factors;
 
     status = gsl_fft_complex_generate_wavetable (n, wavetable);
-
-    return 0;
+    return status;
 }
 
 int
@@ -1434,8 +1434,8 @@ gsl_fft_complex_radix2 (complex data[],
     }
 
     /* bit reverse the ordering of input data for decimation in time algorithm */
-
     status = gsl_fft_complex_bitreverse_order(data, n, logn) ;
+    if (!status) return status;
 
     /* apply fft recursion */
 
@@ -1504,7 +1504,6 @@ gsl_fft_complex_radix2 (complex data[],
     }
 
     return 0;
-
 }
 
 
@@ -1581,9 +1580,7 @@ gsl_fft_complex_radix2_dif (complex data[],
        frequency algorithm */
 
     status = gsl_fft_complex_bitreverse_order(data, n, logn) ;
-
-    return 0;
-
+    return status;
 }
 
 int
@@ -1905,7 +1902,7 @@ gsl_fft_signal_complex_exp (const int k,
 	    freq = (n - k) % n ;
 	} else {
 	    freq = (k % n);
-	};
+	}
 
 	fft[freq].real = ((double) n) * z_real;
 	fft[freq].imag = ((double) n) * z_imag;
@@ -1958,13 +1955,13 @@ gsl_fft_signal_complex_exppair (const int k1,
 	    freq1 = (n - k1) % n;
 	} else {
 	    freq1 = (k1 % n);
-	};
+	}
 
 	if (k2 <= 0) {
 	    freq2 = (n - k2) % n;
 	} else {
 	    freq2 = (k2 % n);
-	};
+	}
 
 	fft[freq1].real += ((double) n) * z1_real;
 	fft[freq1].imag += ((double) n) * z1_imag;

@@ -177,7 +177,7 @@ void Filter::load(const QString &filename)
 	if (line.isEmpty() || line.isNull()) continue;
 	if ((line[0] == '#') || (line[0] == '/')) continue;
 	break;
-    };
+    }
     m_fir = line.startsWith("FIR ");
     debug("Filter::load(): fir = %d", m_fir);
 

@@ -501,7 +501,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	));
 	qApp->exit();
 	return;
-    };
+    }
 
     // now we are initialized, load all plugins now
     statusBar()->message(i18n("Loading plugins..."));
@@ -633,7 +633,7 @@ int TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("menu")
 	ASSERT(m_menu_manager);
 	if (m_menu_manager) /*result = */m_menu_manager->executeCommand(command);
-    CASE_COMMAND("newsignal");
+    CASE_COMMAND("newsignal")
 	unsigned int samples = parser.toUInt();
 	double       rate    = parser.toDouble();
 	unsigned int bits    = parser.toUInt();
@@ -1124,7 +1124,8 @@ void TopWidget::mouseChanged(int mode)
 	    setSelectedTimeInfo(offset, length, rate);
 	    break;
 	}
-	default: ;
+	default:
+	    ;
     }
 }
 

@@ -182,7 +182,7 @@ void ScaleWidget::paintEvent(QPaintEvent *)
 	w = height();
 	
 	inverse = true;
-    };
+    }
 
     (m_logmode) ? drawLog(p, w, h, inverse) : drawLinear(p, w, h, inverse);
 

@@ -469,7 +469,7 @@ void Interpolation::createPolynom(Curve *points, QArray<double> &x,
 	}
     }
 
-    Curve::Point *tmp = points->first();;
+    Curve::Point *tmp = points->first();
     for (int i = 0; i < pos; i++) tmp = points->next(tmp);
 
     for (; (count < degree) && (tmp); tmp = points->next(tmp)) {

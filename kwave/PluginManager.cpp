@@ -436,7 +436,6 @@ void PluginManager::savePluginDefaults(const QString &name,
                                        const QString &version,
                                        QStringList &params)
 {
-    QString def_version;
     QString section("plugin ");
     section += name;
 

@@ -1234,7 +1234,7 @@ bool SignalManager::saveUndoDelete(QArray<unsigned int> &track_list,
 	    undo_list.clear();
 	    return false;
 	}
-    };
+    }
 
     // do not delete the actions from the list, so it's important
     // to disable the auto-delete feature now!

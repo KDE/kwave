@@ -339,15 +339,12 @@ bool SignalWidget::executeCommand(const QString &command)
     InhibitRepaintGuard inhibit(*this);
 
     if (!command.length()) return true;
-    Parser parser(command);
-//    debug("SignalWidget::executeCommand(%s)", command.data());    // ###
 
-    if (false) {
-    } else if (executeNavigationCommand(command)) {
+    if (executeNavigationCommand(command)) {
 	return true;
     } else {
 	return m_signal_manager.executeCommand(command);
-    };
+    }
 
     return true;
 }
@@ -713,7 +710,7 @@ void SignalWidget::refreshAllLayers()
 
     fixZoomAndOffset();
     redraw = true;
-};
+}
 
 //***************************************************************************
 void SignalWidget::refreshLayer(int layer)

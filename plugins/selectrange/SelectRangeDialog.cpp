@@ -119,6 +119,8 @@ SelectRangeDialog::SelectRangeDialog(QWidget *widget,
     sbPercents->setValidator(px);
     connect(px, SIGNAL(valueChanged(int)),
             this, SLOT(percentsChanged(int)));
+    connect(sbPercents, SIGNAL(valueChanged(int)),
+            this, SLOT(percentsChanged(int)));
 
     // connect the timer for the sample edit
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(checkNewSampleEdit()));

@@ -1,4 +1,2 @@
 
-# EXTRA_LIBDIRS	+= -L${topdir}/libmad/.libs
-EXTRA_LDFLAGS  	+= -Wl,-dy -Wl,-static -lvorbisenc -lvorbis -logg -Wl,-dy
-
+EXTRA_LDFLAGS  	+= -Wl,-dy -lvorbisenc -lvorbis -logg

@@ -1,3 +1,4 @@
 
 EXTRA_LIBDIRS	+= -L${topdir}/libmad/.libs
-EXTRA_LDFLAGS   += -Wl,-dy -Wl,-static -lid3 -lmad -Wl,-dy
+EXTRA_LDFLAGS   += -Wl,-dy -lid3 -lmad
+

@@ -220,15 +220,14 @@ SampleReader *Track::openSampleReader(unsigned int left,
     QPtrListIterator<Stripe> it(m_stripes);
     for (; it.current(); ++it) {
 	Stripe *s = it.current();
-	unsigned int st  = s->start();
-	unsigned int len = s->length();
-	if (!len) continue; // skip zero-length tracks
+	unsigned int start = s->start();
+	unsigned int end   = s->end();
 
-	if (st > right) break; // ok, end reached
-	if (st+len-1 >= left) {
-	    // overlaps -> include to our list
-	    stripes.append(s);
-	}
+	if (end < left) continue; // too far left
+	if (start > right) break; // ok, end reached
+
+	// overlaps -> include to our list
+	stripes.append(s);
     }
 
 //     // no lock yet, that's not good...

@@ -187,18 +187,18 @@ void LevelMeter::enqueue(unsigned int track, float fast, float peak,
                          unsigned int queue_depth)
 {
     Q_ASSERT(track < m_tracks);
-    Q_ASSERT(m_peak_queue.count() == m_fast_queue.count());
-    Q_ASSERT(m_fast_queue.count() >= m_tracks);
-    Q_ASSERT(m_peak_queue.count() >= m_tracks);
-    if ((track >= m_tracks) || (m_fast_queue.count() < m_tracks) ||
-        (m_peak_queue.count() < m_tracks)) return;
-    Q_ASSERT(m_peak_queue[track].count() == m_fast_queue[track].count());
-    if (m_peak_queue[track].count() != m_fast_queue[track].count()) return;
+    Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
+    Q_ASSERT(m_fast_queue.size() >= m_tracks);
+    Q_ASSERT(m_peak_queue.size() >= m_tracks);
+    if ((track >= m_tracks) || (m_fast_queue.size() < m_tracks) ||
+        (m_peak_queue.size() < m_tracks)) return;
+    Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
+    if (m_peak_queue[track].size() != m_fast_queue[track].size()) return;
 
     // remove old entries
-    while (m_fast_queue[track].count() > queue_depth) {
+    while (m_fast_queue[track].size() > queue_depth) {
 //	qDebug("LevelMeter::enqueue(): purging old entry (%u/%u)",
-//	       m_fast_queue.count(), queue_depth);
+//	       m_fast_queue.size(), queue_depth);
 	m_fast_queue[track].erase(&m_fast_queue[track].first());
 	m_peak_queue[track].erase(&m_peak_queue[track].first());
     }
@@ -215,13 +215,13 @@ void LevelMeter::enqueue(unsigned int track, float fast, float peak,
 //***************************************************************************
 bool LevelMeter::dequeue(unsigned int track, float &fast, float &peak)
 {
-    Q_ASSERT(m_peak_queue.count() == m_fast_queue.count());
-    Q_ASSERT(m_fast_queue.count() >= m_tracks);
-    Q_ASSERT(m_peak_queue.count() >= m_tracks);
-    if ((track >= m_tracks) || (m_fast_queue.count() < m_tracks) ||
-        (m_peak_queue.count() < m_tracks)) return false;
-    Q_ASSERT(m_peak_queue[track].count() == m_fast_queue[track].count());
-    if (m_peak_queue[track].count() != m_fast_queue[track].count())
+    Q_ASSERT(m_peak_queue.size() == m_fast_queue.size());
+    Q_ASSERT(m_fast_queue.size() >= m_tracks);
+    Q_ASSERT(m_peak_queue.size() >= m_tracks);
+    if ((track >= m_tracks) || (m_fast_queue.size() < m_tracks) ||
+        (m_peak_queue.size() < m_tracks)) return false;
+    Q_ASSERT(m_peak_queue[track].size() == m_fast_queue[track].size());
+    if (m_peak_queue[track].size() != m_fast_queue[track].size())
         return false;
 
     // check if the queues are empty

@@ -82,11 +82,11 @@ void addDataStrings(KAboutData& aboutdata)
                      i18n("tester"),
                      "makube@user.sourceforge.net",
                      0);
+    aboutdata.addCredit("Aurelien Jarno",
+                     i18n("debian packager"),
+                     "aurel32@debian.org",
+                     0);
 
-    aboutdata.addCredit("Carsten Jacobi",0,0,0);
-    aboutdata.addCredit("Frank Christian Stoffel",0,0,0);
-    aboutdata.addCredit("Achim Dahlhaus",0,0,0);
-    aboutdata.addCredit("Klaus Hendrik Lorenz",0,0,0);
 }
 
 //***************************************************************************
@@ -113,7 +113,7 @@ int main( int argc, char **argv )
 	VERSION,
 	i18n("sound editor for KDE2"),
 	KAboutData::License_GPL_V2,
-        "(c) 2001, Thomas Eschenbacher",
+        "(c) 2002, Thomas Eschenbacher",
 	"", //TODO : i18n("");
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"

@@ -12,7 +12,8 @@
 #include <qpixmap.h>
 #include <qtimer.h>
 #include <qframe.h>
-#include "multistateimage.h"
+#include "../libgui/multistateimage.h"
+#include "../libgui/overview.h"
 #include "signalview.h"
 #include "menumanager.h"
 #include <kapp.h>
@@ -32,14 +33,13 @@ class MainWidget : public QWidget
  	MainWidget	(QWidget *parent,MenuManager *manage,KStatusBar *status=0);
  	~MainWidget	();
  void	setSignal	(QString *filename,int type=0);
- void	setSignal	(MSignal *);
+ void	setSignal	(SignalManager *);
  void 	saveSignal	(QString *filename,int,int=false);
- void	setOp	        (int);
  unsigned char *getOverView (int);
- MSignal *getSignalView	();
 
  public slots:
 
+ int  doCommand	        (const char *);
  void getChannelInfo	(int);
  void resetChannels	();
  void setRateInfo	(int);
@@ -55,6 +55,7 @@ class MainWidget : public QWidget
 
  signals:
 
+ void command	        (const char *);
  void setOperation	(int);
  void channelInfo       (int);
 
@@ -64,21 +65,21 @@ class MainWidget : public QWidget
 
  private:
 
- KButtonBox	*buttons;
- OverViewWidget	*slider;
- SignalWidget 	*signalview;
- QPushButton	*plusbutton,*minusbutton;
- QPushButton	*zoombutton,*nozoombutton;
- QPushButton	*playbutton,*loopbutton;
- QComboBox	*zoomselect;
- KStatusBar	*status;
+ KButtonBox	  *buttons;
+ OverViewWidget	  *slider;
+ SignalWidget 	  *signalview;
+ QPushButton	  *plusbutton,*minusbutton;
+ QPushButton	  *zoombutton,*nozoombutton;
+ QPushButton	  *playbutton,*loopbutton;
+ QComboBox	  *zoomselect;
+ KStatusBar	  *status;
  MultiStateWidget **lamps;
  MultiStateWidget **speakers;
- MenuManager    *manage;
- QWidget        *parent;
- int 		numsignals;
- int            bsize;
- bool           menushown;
+ MenuManager      *manage;
+ QWidget          *parent;
+ int 		  numsignals;
+ int              bsize;
+ bool             menushown;
 };
 #endif
 

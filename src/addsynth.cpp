@@ -3,12 +3,15 @@
 #include <qpainter.h>
 #include <qkeycode.h>
 #include <qlayout.h>
-#include "sample.h"
-#include "guiitems.h"
+#include "../libgui/guiitems.h"
 #include "addsynth.h"
 #include "fftview.h"
-#include "functions.h"
-#include "dialogs.h"
+#include <libkwave/kwavesignal.h>
+#include <libkwave/functions.h>
+#include <libkwave/dialogoperation.h>
+#include <libkwave/dynamicloader.h>
+#include "../libgui/kwavedialog.h"
+#include "dialog_frequency.h"
 
 extern int getMaxPrimeFactor (int);
 //****************************************************************************
@@ -160,12 +163,7 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   getNSlider (20,true);
   powerlabel [0]->setValue (100);
 
-
-  times=new QList<CPoint>;
-  CPoint *newpoint=new CPoint;
-  newpoint->x=100;
-  newpoint->y=(double)rate/440;
-  times->append (newpoint);
+  times->append (100,((double)rate)/440);
 
   cancel->setAccel(Key_Escape);
   ok->setFocus	();
@@ -258,11 +256,13 @@ void AddSynthDialog::maxPower ()
 //**********************************************************
 void AddSynthDialog::dbPower ()
 {
-  DoubleEnterDialog dialog (this,"Choose dB/octave",6);
+  KwaveDialog *dialog =DynamicLoader::getDialog
+    ("movingaverage",
+     new DialogOperation(klocale->translate("Choose dB/octave"),true));
 
-  if (dialog.exec())
+  if ((dialog)&&(dialog->exec()))
     {
-      double rise=-(dialog.value());
+      double rise=-strtod(dialog->getCommand(),0);
       if (rise>0) 
 	for (int i=0;i<num;i++)
 	  {
@@ -428,7 +428,7 @@ int AddSynthDialog::getCount ()
   return count;
 }
 //**********************************************************
-MSignal *AddSynthDialog::getSignal ()
+KwaveSignal *AddSynthDialog::getSignal ()
 //calculates final signal from choosed parameters...
 {
   Functions foo;
@@ -439,16 +439,16 @@ MSignal *AddSynthDialog::getSignal ()
 
   if (times)
     {
-      CPoint *t;
+      Point *t;
       int len=0;
       int dif;
       int lastz;
 
       //count number of samples
-      for (t=times->first();t;t=times->next()) len+=int (t->x*t->y);
+      for (t=times->first();t;t=times->next(t)) len+=int (t->x*t->y);
 
       //get new signal
-      MSignal *add=new MSignal ((QWidget *)parent(),len,rate);
+      KwaveSignal *add=new KwaveSignal (len,rate);
 
       if (add&&add->getSample()&&len);
       {
@@ -466,7 +466,7 @@ MSignal *AddSynthDialog::getSignal ()
 	    max/=1000;
 
 	    int z=0;
-	    for (t=times->first();t;t=times->next())
+	    for (t=times->first();t;t=times->next(t))
 	      {
 		lastz=z;
 		for (i=0;i<(int)(t->y);i++)
@@ -621,21 +621,7 @@ PulseDialog::PulseDialog (QWidget *par,int rate,int time,char *name): QDialog(pa
   y=new ScaleWidget (this,100,-100,"%");
   corner=new CornerPatchWidget (this);
 
-  QList<CPoint> init;
-  CPoint *newpoint=new CPoint;
-  newpoint->x=0;
-  newpoint->y=.5;
-  init.append (newpoint);
-  newpoint=new CPoint;
-  newpoint->x=.5;
-  newpoint->y=1;
-  init.append (newpoint);
-  newpoint=new CPoint;
-  newpoint->x=1;
-  newpoint->y=.5;
-  init.append (newpoint);
-
-  pulse=new CurveWidget (this,"",&init);
+  pulse=new CurveWidget (this,"curve (linear, 0 , 0.5, 0.5, 1, 1,.5)");
 
   Functions func;
   this->rate=rate;
@@ -651,11 +637,9 @@ PulseDialog::PulseDialog (QWidget *par,int rate,int time,char *name): QDialog(pa
   ok		=new QPushButton ("Ok",this);
   cancel	=new QPushButton ("Cancel",this);
 
-  times=new QList<CPoint>;
-  newpoint=new CPoint;
-  newpoint->x=100;
-  newpoint->y=(double)rate/440;
-  times->append (newpoint);
+  char buf[512];
+  sprintf (buf,"curve (linear,100, %f)",((double)rate)/440);
+  times=new Curve (buf);
 
   int bsize=ok->sizeHint().height();
   setMinimumSize (bsize*12,bsize*10);
@@ -679,24 +663,25 @@ void PulseDialog::getFrequency ()
     }
 }
 //**********************************************************
-MSignal *PulseDialog::getSignal ()
+KwaveSignal *PulseDialog::getSignal ()
 //calculates final signal from choosed parameters...
 {
   if (times)
     {
-      CPoint *t;
+      Point *t;
       int len=0;
       int pulselen=pulselength->getValue();
-      QList<CPoint> *points=this->pulse->getPoints ();
-      Interpolation interpolation (this->pulse->getInterpolationType());
+
+      Curve *points=new Curve(pulse->getCommand ());
+      Interpolation interpolation (0);
       double *tmp=interpolation.getInterpolation (points,pulselen);
       int    *pulse=new int[pulselen];
 
       //count number of samples
-      for (t=times->first();t;t=times->next()) len+=int (t->x*t->y);
+      for (t=times->first();t;t=times->next(t)) len+=int (t->x*t->y);
 
       //get new signal
-      MSignal *add=new MSignal ((QWidget *)parent(),len,rate);
+      KwaveSignal *add=new KwaveSignal (len,rate);
 
       if (pulse&&add&&add->getSample()&&len);
       {
@@ -705,7 +690,7 @@ MSignal *PulseDialog::getSignal ()
 	int i,j;
 	int *sample=add->getSample();
 	for (int i=0;i<pulselen;i++) pulse[i]=(int)((tmp[i]-.5)*((1<<24)-1));
-	for (t=times->first();t;t=times->next())
+	for (t=times->first();t;t=times->next(t))
 	  {
 	    for (i=0;i<t->x;i++)
 	      {

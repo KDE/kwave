@@ -2,25 +2,27 @@
 #define _ABOUT_H_ 1
 
 #include <stdlib.h>
-#include <qapp.h>
 #include <qwidget.h>
 #include <qpushbt.h>
-#include <qdialog.h>
 #include <qmlined.h>
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qtimer.h>
+#include "../../../libgui/kwavedialog.h"
+#include <libkwave/dialogoperation.h>
+#include <libkwave/globals.h>
+#include <kapp.h>
 
 #define MAXSIN 5
-
+//**********************************************************
 class LogoWidget : public QWidget
 {
  Q_OBJECT
 
  public:
 
- 	LogoWidget 	(QWidget *parent=NULL);
+ 	LogoWidget 	(QWidget *parent,KApplication *app);
  	~LogoWidget 	();
 
  public slots:
@@ -42,15 +44,17 @@ class LogoWidget : public QWidget
  QPixmap  *img;
  QTimer   *timer;
 };
-
-class AboutDialog : public QDialog
+//**********************************************************
+class AboutDialog : public KwaveDialog
 {
  Q_OBJECT
 
  public:
 
- 	AboutDialog 	(QWidget *parent=NULL);
+ 	AboutDialog 	(const Global *,bool);
  	~AboutDialog 	();
+
+ const char *getCommand ();
 
  public slots:
 

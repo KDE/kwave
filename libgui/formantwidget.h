@@ -1,21 +1,16 @@
-#ifndef _FORMANTDIALOG_H_
-#define _FORMANTDIALOG_H_ 1
+#ifndef _FORMANT_WIDGET_H_
+#define _FORMANT_WIDGET_H_ 1
 
-#include <qpushbt.h>
-#include <qstring.h>
 #include <qwidget.h>
-#include <qdialog.h>
-#include <qlabel.h>
-#include "slider.h"
-#include "scale.h"
-#include <kintegerline.h>
 
+//***********************************************************************
 class FormantWidget : public QWidget
 {
  Q_OBJECT
  public:
  	FormantWidget	(QWidget *parent,int rate);
  	~FormantWidget	();
+
  double *getPoints (int);
 
  public slots:
@@ -40,51 +35,4 @@ class FormantWidget : public QWidget
  double *points;
 };
 //***********************************************************************
-class FormantDialog : public QDialog
-{
- Q_OBJECT
-
- public:
- 	FormantDialog 	(QWidget *parent,int rate);
- 	~FormantDialog 	();
- int    getCurve ();
- void   getWidgets (int);
- double *FormantDialog::getPoints (int psize);
-
- public slots:
-
- void posChanged    (int);
- void setScale      (int,int);
- void widthChanged  (int);
- void numberChanged (const char *);
- void posChanged    (const char *);
- void widthChanged  (const char *);
-
- protected:
-
- void resizeEvent (QResizeEvent *);
- void refresh     ();
-
- private:
-
- ScaleWidget       *x,*y;
- CornerPatchWidget *corner;
- KIntegerLine   *num;
- KIntegerLine   **pos;
- KIntegerLine   **widths;
- KwaveSlider    **widthslider;
- KwaveSlider    **posslider;
- QLabel         *poslabel;
- QLabel         *numlabel;
- QPushButton	*ok,*cancel;
- FormantWidget	*formant;
-
- int            oldnum;
- int            rate;
- char           inwidget;
-};
-//***********************************************************************
 #endif
-
-
-

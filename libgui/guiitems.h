@@ -24,27 +24,30 @@ class TimeLine : public KRestrictedLine
 {
  Q_OBJECT
    public:
- TimeLine (QWidget* parent,int rate=48000);
- ~TimeLine ();
+              TimeLine      (QWidget* parent,int rate=48000);
+              ~TimeLine     ();
 
- void setSamples    (int);
- void setMs         (int);
- int  getValue      ();
+ void         setSamples    (int);
+ void         setMs         (int);
+ int          getValue      ();
+ double       getMs         ();
+ const char * getMsStr      ();
 
  public slots:
- void setSampleMode ();
- void setMsMode     ();
- void setKbMode     ();
- void setSMode      ();
- void setValue      (const char *);
- void setRate       (int);
+ void   setSampleMode ();
+ void   setMsMode     ();
+ void   setKbMode     ();
+ void   setSMode      ();
+ void   setValue      (const char *);
+ void   setRate       (int);
 
  protected:
- void mousePressEvent( QMouseEvent *);
+ void   mousePressEvent( QMouseEvent *);
 
- int value;
- int mode;     //flag for display and enter mode...
- int rate;
+ int    value;     //# of samples
+ int    mode;      //flag for display and enter mode...
+ int    rate;      //rate for calculating time
  QPopupMenu *menu;
+ char   *comstr;
 };
 #endif

@@ -8,15 +8,15 @@
 #include <qstring.h>
 #include <qwidget.h>
 #include <qpainter.h>
-#include "overview.h"
-#include "gsl_fft.h"
-#include "scale.h"
+#include "../libgui/overview.h"
+#include "../libgui/scale.h"
 
 #include <kapp.h>
 #include <ktopwidget.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>  
 
+#include <libkwave/gsl_fft.h>
 //***********************************************************************
 class ImageView : public QWidget
 {

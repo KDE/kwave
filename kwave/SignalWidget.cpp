@@ -68,14 +68,6 @@
  */
 #define MINIMUM_SAMPLES_PER_SCREEN 5
 
-#ifndef min
-#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
-#endif
-
-#ifndef max
-#define max(x,y) (( (x) > (y) ) ? (x) : (y) )
-#endif
-
 //***************************************************************************
 //***************************************************************************
 class KwaveFileDrag: public QUriDrag

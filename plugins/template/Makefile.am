@@ -14,7 +14,7 @@
 SUFFIXES= .h .cpp .o .d .moc .dm .ui .cc .idl
 
 # set the include path for X, qt and KDE
-INCLUDES= -I${topdir} $(ARTS_CFLAGS) `artsc-config --cflags` @all_includes@
+INCLUDES= -I${topdir} -I@ARTSDIR@/include/arts @ARTS_CFLAGS@ @all_includes@
 
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
@@ -47,6 +47,8 @@ DEP_FILES	:= $(h_files:.h=.dm)
 DEP_FILES	+= $(cpp_sources:.cpp=.d)
 DEP_FILES	+= $(uic_sources:.cpp=.d)
 
+h_files  	+= ${idl_header}
+
 CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 			.depend *.uih.h *.uic.cpp \
 			$(idl_header) $(idl_impl)
@@ -72,11 +74,11 @@ DISTCLEANFILES	 = Makefile.in Makefile
 
 %.cc: %.idl
 	@echo plugin \"$(MODNAME)\": creating idl implementation "'"$<"'"
-	${MCOPIDL} $(ARTS_CFLAGS) $<
+	@ ${MCOPIDL} -I@ARTSDIR@/include/arts $<
 
 %.h: %.idl
-	@echo plugin \"$(MODNAME)\": creating idl implementation "'"$<"'"
-	${MCOPIDL} $(ARTS_CFLAGS) $<
+	@echo plugin \"$(MODNAME)\": creating idl header "'"$<"'"
+	@ ${MCOPIDL} -I@ARTSDIR@/include/arts $<
 
 %.uih.h: %.ui
 	@echo plugin \"$(MODNAME)\": generating header from $<

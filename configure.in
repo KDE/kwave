@@ -241,7 +241,7 @@ AC_DEFUN(AC_REQUIRE_ARTS,
     fi
 
     dnl Check for proper Arts version and retrive paths
-    REQUIRED=0.5.2
+    REQUIRED=0.9.5
     AC_MSG_CHECKING(for ARTS - version >= $REQUIRED)
     ARTS_VERSION=[`$ARTSC_CONFIG --version | sed s/^[^0-9]*//g `]
     MC_CHECK_VERSION($ARTS_VERSION, $REQUIRED,
@@ -252,9 +252,15 @@ AC_DEFUN(AC_REQUIRE_ARTS,
     )
 
     dnl setup variables
-    ARTSDIR=[`$ARTSC_CONFIG --arts-prefix`]
-    ARTS_CFLAGS="-I$ARTSDIR/include/arts"
-    dnl ARTS_LIBS="-L$ARTSDIR/lib -lmcop"
+    AC_MSG_CHECKING(for ARTS base directory)
+    if ! $ARTSC_CONFIG --arts-prefix >/dev/null; then
+      ARTSDIR=[`kde-config --prefix`]
+      AC_MSG_RESULT(artsc-config is too old, guessing: $ARTSDIR)
+    else
+      ARTSDIR=[`$ARTSC_CONFIG --arts-prefix`]
+      AC_MSG_RESULT($ARTSDIR)
+    fi
+    ARTS_CFLAGS="`$ARTSC_CONFIG --cflags`"
     ARTS_LIBS="`$ARTSC_CONFIG --libs`"
 
     AC_SUBST(ARTSDIR)

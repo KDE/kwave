@@ -53,8 +53,10 @@ public:
     /** Resets the stream to it's start */
     void reset();
 
-    /** Returns true if the end of the input range has been reached */
-    inline bool eof() const { return (m_eof); };
+    /** Checks if the last read operation has reached the end of input */
+    inline bool eof() {
+	return (pos() > m_last);
+    };
 
     /**
      * Reads samples into a buffer.
@@ -74,14 +76,16 @@ public:
     /**
      * Returns the current read position.
      */
-    unsigned int pos();
+    inline unsigned int pos() {
+	return (m_src_position + m_buffer_position - m_buffer_used);
+    };
 
-    /** Returns the first sample */
+    /** Returns the position of the first sample */
     inline unsigned int first() const {
 	return m_first;
     };
 
-    /** Returns the last sample */
+    /** Returns the position of the last sample */
     inline unsigned int last() const {
 	return m_last;
     };
@@ -93,7 +97,7 @@ public:
 
     /**
      * Reads a full buffer of samples. If the buffer cannot be filled,
-     * it will be resized to the number of samples that were really
+     * it will be shrinked to the number of samples that were really
      * read.
      */
     SampleReader& operator >> (QArray<sample_t> &sample);
@@ -104,6 +108,7 @@ protected:
     void fillBuffer();
 
 private:
+
     /** the track to which we belong */
     Track &m_track;
 
@@ -119,7 +124,7 @@ private:
      * internal buffering.
      * @see pos() for the output position
      */
-    unsigned int m_position;
+    unsigned int m_src_position;
 
     /** first sample index */
     unsigned int m_first;
@@ -135,9 +140,6 @@ private:
 
     /** read position within the buffer */
     unsigned int m_buffer_position;
-
-    /** set to true if the end of data has been reached */
-    bool m_eof;
 
 };
 

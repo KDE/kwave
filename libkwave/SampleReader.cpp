@@ -31,8 +31,8 @@
 SampleReader::SampleReader(Track &track, QList<Stripe> &stripes,
 	SampleLock *lock, unsigned int left, unsigned int right)
     :m_track(track), m_stripes(stripes), m_lock(lock),
-    m_position(left), m_first(left), m_last(right), m_buffer(16*1024),
-    m_buffer_used(0), m_buffer_position(0), m_eof(false)
+    m_src_position(left), m_first(left), m_last(right), m_buffer(16*1024),
+    m_buffer_used(0), m_buffer_position(0)
 {
 }
 
@@ -45,55 +45,53 @@ SampleReader::~SampleReader()
 //***************************************************************************
 void SampleReader::reset()
 {
-    m_position = m_first;
+    m_src_position = m_first;
     m_buffer_used = 0;
     m_buffer_position = 0;
-    m_eof = false;
 }
 
 //***************************************************************************
 void SampleReader::fillBuffer()
 {
+    ASSERT(m_buffer_position >= m_buffer_used);
     m_buffer_used = 0;
     m_buffer_position = 0;
-    if (m_position > m_last) m_eof = true;
-    if (m_eof) return;
+    if (eof()) return;
 
     QListIterator<Stripe> it(m_stripes);
-    unsigned int rest = m_buffer.size();
+    unsigned int rest = m_buffer.size();/* - m_buffer_used (is 0) */
+    if (m_src_position+rest > m_last+1) rest = m_last+1 - m_src_position;
+    ASSERT(rest);
 
-    for (; it.current(); ++it) {
+    for (; rest && it.current(); ++it) {
 	Stripe *s = it.current();
-	unsigned int st = s->start();
+	unsigned int st  = s->start();
 	unsigned int len = s->length();
 	if (!len) continue; // skip zero-length sripes
 	
-	if (m_position >= st+len) continue; // after our range
+	if (m_src_position >= st+len) continue; // before our range
 	
-	if (m_position >= st) {
-	    unsigned int offset = m_position - st;
+	if (m_src_position >= st) {
+	    unsigned int offset = m_src_position - st;
 	    unsigned int length = rest;
 	    if (offset+length > len) length = len - offset;
 	
 	    // read from the stripe
-	    unsigned int cnt = s->read(m_buffer, 0, offset, length);
-	    ASSERT(cnt <= rest);
-	    m_buffer_used += cnt;
-	    m_position += cnt;
+	    unsigned int cnt = s->read(m_buffer, m_buffer_used,
+	                               offset, length);
+	    ASSERT(cnt == rest); /* ### */
+	    m_buffer_used  += cnt;
+	    m_src_position += cnt;
 	    rest -= cnt;
-	    if (!rest) break; // done, nothing left
 	}
     }
-
-    // we are also at eof if nothing was read
-    if (!m_buffer_used) m_eof = true;
 }
 
 //***************************************************************************
 unsigned int SampleReader::read(QArray<sample_t> &buffer,
 	unsigned int dstoff, unsigned int length)
 {
-    if (m_eof || !length) return 0; // already done or nothing to do
+    if (eof() || !length) return 0; // already done or nothing to do
 
     // just a sanity check
     ASSERT(dstoff < buffer.size());
@@ -101,6 +99,9 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
 
     unsigned int count = 0;
     unsigned int rest = length;
+    if (dstoff+rest > buffer.size()) rest = buffer.size() - dstoff;
+    ASSERT(rest);
+    if (!rest) return 0;
 
     // first try to read from the current buffer
     if (m_buffer_position < m_buffer_used) {
@@ -132,32 +133,30 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
 
     // take the rest directly out of the stripe(s)
     QListIterator<Stripe> it(m_stripes);
+    if (m_src_position+rest > m_last+1) rest = m_last+1 - m_src_position;
+
     for (; rest && it.current(); ++it) {
 	Stripe *s = it.current();
-	unsigned int st = s->start();
+	unsigned int st  = s->start();
 	unsigned int len = s->length();
 	if (!len) continue; // skip zero-length stripes
 	
-	if (m_position >= st+len) break; // end of range reached
+	if (m_src_position >= st+len) continue; // not yet in range
 	
-	if (m_position >= st) {
-	    unsigned int offset = m_position - st;
+	if (m_src_position >= st) {
+	    unsigned int offset = m_src_position - st;
 	    unsigned int cnt = rest;
 	    if (offset+cnt > len) cnt = len - offset;
 	
 	    // read from the stripe
 	    cnt = s->read(buffer, dstoff, offset, cnt);
 	
-	    m_position += cnt;
+	    m_src_position += cnt;
 	    dstoff += cnt;
 	    rest -= cnt;
 	    count += cnt;
 	}
     }
-
-    // if something remained, we have reached eof
-    if (rest) m_eof = true;
-    if (m_position > m_last) m_eof = true;
 
     return count;
 }
@@ -170,17 +169,10 @@ void SampleReader::skip(unsigned int count)
 	m_buffer_position += count;
     } else {
 	// skip out of the buffer
-	m_buffer_position = m_buffer_used;
 	count -= m_buffer_used;
-	m_position += count;
-	if (m_position > m_last) m_eof = true;
+	m_src_position += count;
+	m_buffer_position = m_buffer_used = 0;
     }
-}
-
-//***************************************************************************
-unsigned int SampleReader::pos()
-{
-    return (m_position + m_buffer_position - m_buffer_used);
 }
 
 //***************************************************************************

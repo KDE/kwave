@@ -3,5 +3,6 @@
 #include <artsflow.idl>
 
 interface Kwave_SampleSink : Arts::SynthModule {
-	in audio stream source;
+	default in audio stream sink;
+	void goOn();
 };

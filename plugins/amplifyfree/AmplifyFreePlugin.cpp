@@ -107,18 +107,19 @@ using namespace Arts;
 #include "libkwave/SampleReader.h" // ###
 
 class Kwave_SampleSource_impl
-    :public Kwave_SampleSource_skel, Arts::StdSynthModule
+    :virtual public Kwave_SampleSource_skel,
+     virtual public Arts::StdSynthModule
 {
 public:
 
      Kwave_SampleSource_impl()
 	:Kwave_SampleSource_skel(), Arts::StdSynthModule(),
-	reader(0)
+	m_reader(0), m_done(false)
      { }
 
      Kwave_SampleSource_impl(SampleReader *rdr)
 	:Kwave_SampleSource_skel(), Arts::StdSynthModule(),
-	reader(rdr)
+	m_reader(rdr), m_done(false)
     { }
 
     void calculateBlock(unsigned long samples)
@@ -126,11 +127,11 @@ public:
 	unsigned long i;
 	sample_t sample = 0;
 	
-	if (reader && !(reader->eof())) {
+	if (m_reader && !(m_reader->eof())) {
 	    for(i=0;i < samples;i++) {
-		*reader >> sample;
+		*m_reader >> sample;
 		source[i] = sample / double(1 << 23);
-		if (reader->eof()) {
+		if (m_reader->eof()) {
 		    break;
 		}
 	    }
@@ -140,23 +141,30 @@ public:
 	    source[i] = 0;
 	}
 	
-	if (!reader || reader->eof()) {
-//	    emit sigEof();
+	if (!m_reader || m_reader->eof()) {
+	    m_done = true;
 	}
     }
 
+    bool done() { return m_done; };
+
 protected:
-    SampleReader *reader;
+
+    SampleReader *m_reader;
+
+    bool m_done;
 
 };
 
 class Kwave_SampleSink_impl
-    :public Kwave_SampleSink_skel, Arts::StdSynthModule
+    :virtual public Kwave_SampleSink_skel,
+     virtual public Arts::StdSynthModule
 {
 public:
 
 	void calculateBlock(unsigned long samples)
 	{
+		debug("Kwave_SampleSink_impl::calculateBlock(%lu)",samples);
 //		if(samples > maxsamples)
 //		{
 //			maxsamples = samples;
@@ -205,72 +213,33 @@ void AmplifyFreePlugin::run(QStringList)
     openMultiTrackReader(source, selectedTracks(), first, last);
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-
-//    QArray<sample_t> m_zeroes;
-//    unsigned int ZERO_COUNT = 65536;
-//
-//    MultiTrackWriter writers;
-//    manager().openMultiTrackWriter(writers, Overwrite);
-//
-//    // break if aborted
-//    if (writers.isEmpty()) return;
-//
-//    unsigned int first = writers[0]->first();
-//    unsigned int last  = writers[0]->last();
-//    unsigned int count = writers.count();
-//
-//    // get the buffer with zeroes for faster filling
-//    if (m_zeroes.count() != ZERO_COUNT) {
-//	m_zeroes.resize(ZERO_COUNT);
-//	m_zeroes.fill(0);
-//    }
-//
-//    // loop over the sample range
-//    while ((first <= last) && (!m_stop)) {
-//	unsigned int rest = last - first + 1;
-//	if (rest < m_zeroes.count()) m_zeroes.resize(rest);
-//	
-//	// loop over all writers
-//	unsigned int w;
-//	for (w=0; w < count; w++) {
-//	    *(writers[w]) << m_zeroes;
-//	}
-//	
-//	first += m_zeroes.count();
-//    }
-
-    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
     Arts::Dispatcher dispatcher;
     dispatcher.lock();
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
 //    for (track=0; track < tracks; track++) {
-	SampleReader *reader = source.at(0);
-	
-    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+    SampleReader *reader = source.at(0);
 
+    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
     Kwave_SampleSource src_adapter = Kwave_SampleSource::_from_base(
 	new Kwave_SampleSource_impl(reader));
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-
-    Arts::Synth_PLAY      play;
-
-//    setValue(freq1, 440.0);	  // set frequencies
-//    Arts::connect(freq1, sin1);	  // object connection
-//    Arts::connect(sin1, play, "invalue_left");
-//    Arts::connect(sin2, play, "invalue_right");
+    Kwave_SampleSink dst_adapter = Kwave_SampleSink::_from_base(
+	new Kwave_SampleSink_impl());
 
     fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
-    Arts::connect(src_adapter, play, "invalue_left");
-    fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
+    Arts::connect(src_adapter, "source", dst_adapter, "sink");
 
+    fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
     src_adapter.start();
-    play.start();
+    dst_adapter.start();
 
-    dispatcher.run();
-
+//    dispatcher.run();
     fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
+    while (!src_adapter.done()) {
+	dst_adapter.goOn();
+    }
 
 //    writers.setAutoDelete(true);
 //    writers.clear();

@@ -3,5 +3,6 @@
 #include <artsflow.idl>
 
 interface Kwave_SampleSource : Arts::SynthModule {
-	out audio stream source;
+	default out audio stream source;
+	readonly attribute boolean done;
 };

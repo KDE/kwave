@@ -43,6 +43,8 @@
 
 #include "libgui/FileProgress.h"
 
+#include "mt/ThreadsafeX11Guard.h"
+
 #include "KwaveApp.h"
 #include "ClipBoard.h"
 #include "SignalManager.h"
@@ -394,6 +396,8 @@ bool SignalManager::executeCommand(const QString &command)
 void SignalManager::slotTrackInserted(unsigned int index,
 	Track &track)
 {
+    ThreadsafeX11Guard x11_guard;
+
     emit sigTrackInserted(index, track);
     emitStatusInfo();
 }
@@ -402,6 +406,8 @@ void SignalManager::slotTrackInserted(unsigned int index,
 void SignalManager::slotSamplesInserted(unsigned int track,
 	unsigned int offset, unsigned int length)
 {
+    ThreadsafeX11Guard x11_guard;
+
     emit sigSamplesInserted(track, offset, length);
     emitStatusInfo();
 }
@@ -410,6 +416,8 @@ void SignalManager::slotSamplesInserted(unsigned int track,
 void SignalManager::slotSamplesDeleted(unsigned int track,
 	unsigned int offset, unsigned int length)
 {
+    ThreadsafeX11Guard x11_guard;
+
     emit sigSamplesDeleted(track, offset, length);
     emitStatusInfo();
 }
@@ -418,6 +426,8 @@ void SignalManager::slotSamplesDeleted(unsigned int track,
 void SignalManager::slotSamplesModified(unsigned int track,
 	unsigned int offset, unsigned int length)
 {
+    ThreadsafeX11Guard x11_guard;
+
     emit sigSamplesModified(track, offset, length);
 }
 

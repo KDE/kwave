@@ -1,7 +1,8 @@
 
-0.6.5 [2002-10-xx]
+0.6.5 [2002-10-31]
 
  * MP3 import with ID3 tag support through id3lib and libmad
+ * Ogg/Vorbis import and export (only ABR mode)
  * show selected range as time (feature requested by Christian Hollaender)
  * support for saving compressed .wav files
  * thrown away Qt2/KDE2 compatibility, now only supports Qt3/KDE3

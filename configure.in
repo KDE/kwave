@@ -6,6 +6,8 @@ AC_INIT(admin/acinclude.m4.in)
 AC_CONFIG_AUX_DIR(admin)
 AC_CONFIG_SUBDIRS(libmad)
 
+AC_DEFINE([NEED_MAIN], 1)
+
 dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 unset CDPATH
 
@@ -15,7 +17,7 @@ dnl Perform program name transformation
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(kwave,0.6.5-pre1)
+AM_INIT_AUTOMAKE(kwave,0.6.5)
 
 KDE_SET_PREFIX
 

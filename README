@@ -1,11 +1,8 @@
-This is the "Kwave" source distribution, a sound editor for KDE2 and KDE3.
+This is the "Kwave" source distribution, a sound editor for KDE3.
 
  ----------------------------------------------------------------------------
-| It is now hosted on SourceForge, so you are welcome to visit               |
-| the Kwave homepage at: "http://kwave.sourceforge.net". Normally the        |
-| informations you can get there are more up to date than the stuff          |
-| you get in this file. This file is only intended for users who do          |
-| not have the possibility or do not like to read online.                    |
+| It is hosted on SourceForge, so you are welcome to visit                   |
+| the Kwave homepage at: "http://kwave.sourceforge.net".                     |
  ----------------------------------------------------------------------------
 
 If you are interested what has been done and what has to be done, then
@@ -18,13 +15,14 @@ in the source package.
 0. PREFACE:
 ==========
 
+Please note that required packages for compiling Kwave vary between
+different distributions and versions. It is practically impossible
+to give a complete list of packages and versions, so if you can't
+get along, please feel free to ask on the Kwave mailing list!
+
 If you run in problems when compiling, maybe your Qt/KDE paths are not
 properly set up. So try the following before the first make and watch
 carefully what the output of the compile/make system says:
-
-(for SuSE + Qt2/KDE2)
-export QTDIR=/usr/lib/qt2
-export KDEDIRS=/opt/kde2
 
 (for SuSE + Qt3/KDE3)
 export QTDIR=/usr/lib/qt3
@@ -76,15 +74,15 @@ Installing the rpm package normally requires root permissions.
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
 
-Simply get the source archive (for example kwave-0.6.4.tar.gz) and
+Simply get the source archive (for example kwave-0.6.5.tar.gz) and
 then type:
 
-rpm -ta kwave-0.6.4.tar.gz
+rpm -ta kwave-0.6.5.tar.gz
 
 If you want to build for a different architecture than your current, you
 might want to add the parameter "--target ...", for example:
 
-rpm -ta --target i586 kwave-0.6.4.tar.gz
+rpm -ta --target i586 kwave-0.6.5.tar.gz
 
 compiles for pentium architecture.
 
@@ -96,6 +94,7 @@ Assuming that you already have unpacked the source archive in some
 directory you can simply type
 
 make -f Makefile.dist
+
 make src.rpm          (and you get only a source rpm)
 ***OR***
 make rpm              (and you get both, a binary and a source rpm)
@@ -123,7 +122,7 @@ For example: you got the binary rpm from a friend who has a SuSE system
 on RedHat (where the KDE base dir is /usr). Then just give a different
 prefix when installing the rpm:
 
-rpm -ivh --prefix=/usr kwave-0.6.4.i386.rpm
+rpm -ivh --prefix=/usr kwave-0.6.5.i386.rpm
 
 This modifies the path where the program is installed and it is strongly
 recommended that this is a directory that is contained in the KDEDIRS
@@ -180,38 +179,45 @@ Instead you will need
 6. REQUIREMENTS:
 ===============
 
+>>> Please read the preface (section 0) before this <<<
+
+The revision codes (numbers after the '-') should not be so important.
+As a rule of thumb one can say that the nearer your version number is
+the better it will work.
+
 For compilation you need a working autoconf/automake environment, a good
 C/C++ compiler, the qt and the kde libraries. I am currently developing
-under a SuSE-7.3 distribution (i386 architecture) using at least the
+under a SuSE-8.0 distribution (i386 architecture) using at least the
 following packages:
 
-* autoconf-2.52-73
-* automake-1.4-p5-67
-* make-3.79.1-180
-* gcc-2.95.3-136                     (the C / C++ compiler)
-* libgpp-2.95.3-136                  (C++ library, including STL)
-* glibc-2.2.4-64                     (the GNU C library)
-* glibc-devel-2.2.4-64               (header files of the GNU C library)
+* autoconf-2.52-230                  always good for making trouble :-(
+* automake-1.5-151
+* gcc-2.95.3-216                     (the C / C++ compiler)
+
+* make-3.79.1-292
+* libgpp-2.95.3-216                  (C++ library, including STL)
+* glibc-2.2.5-158                    (the GNU C library)
+* glibc-devel-2.2.5-158              (header files of the GNU C library)
 * kernel-headers                     (needed by glibc-devel)
-* gettext-0.10.37-86                 (for internationalization)
-* rpm-3.0.6-165                      (for rpm support)
-* sed-3.02, awk-3.1.0, bash-2.05     (used by some scripts)
+* gettext-0.10.40-111                (for internationalization)
+* rpm-3.0.6-294                      (for rpm support)
 * convert from ImageMagick           (needed to create scaled Kwave icons)
 * recode                             (for online help)
 
 Some tools that are normally installed in every distribution:
-* msgmerge, msgfmt, xgettext, expand, cat, sort, uniq, find
+* sed, awk, bash, msgmerge, msgfmt, xgettext, expand, cat,
+  sort, uniq, find
 
 Nearly everything from ftp.kde.org, especially the following
 packets should be sufficient for building:
 
-* qt-2.3.1-80 + qtdevel-2.3.1-80     (the Qt library)
-* qt-designer-2.3.1-149              (for designing new-style dialogue windows)
-* kdelibs-(devel-)2.2.2-4            (the KDE base libraries)
-* kdemultimedia-(devel-)2.2.2-2      (multimedia/aRts support)
-* kdesdk-2.2.2-5                     (some additional tools)
-* kdelibs-artsd-2.2.2-42             (aRts sound server support)
-* id3lib-3.8.0-2                     (for MP3 import)
+* qt3-3.0.5-28 + q3-tdevel-3.0.5-28  (the Qt library)
+  qt3-devel-tools-3.0.5-28
+* kdelibs3-(devel-)3.0.3-10          (the KDE base libraries)
+* kdemultimedia3-(devel-)3.0.3-5     (multimedia/aRts support)
+* kdesdk3-3.0.3-9                    (some additional tools)
+* arts-(devel)-1.0.3-4               (aRts sound server support)
+* id3lib-3.8.0-21                    (for MP3 import, PATCHED VERSION!)
 * libogg-1.0, libogg-devel           (for Ogg/Vorbis codec)
 * libvorbis-1.0, libvorbis-devel     (for Ogg/Vorbis codec)
 
@@ -219,13 +225,14 @@ Depending on your distribution, one ore more components might require
 additional packages. For example if there is a package like
 kdelibs-artsd-devel, install it too!
 
-Instead of the Qt/KDE libraries above, you can also use the Qt3/KDE3 libraries!
-
 known distributions / architectures:
 ------------------------------------
 
-* SuSE-8.0 / i386 (with KDE2 and KDE3)
-  [should work]
+* SuSE-8.1 / i586
+  [is in work, will follow soon in v0.6.6]
+
+* SuSE-8.0 / i386 (with KDE3 updated to v3.0.3)
+  [works for me]
 
 * Debian on alpha, arm, i386, ia64, m68k, mips, mipsel, powerpc, s390
   and sparc (packages provided by Aurelien Jarno <aurelien@aurel32.net>)
@@ -233,13 +240,13 @@ known distributions / architectures:
 * Mandrake Linux 8.1, (packages provided by Gilles Caulier)
 
 * SuSE-7.3 / i386, i686 (with KDE-2.2.2 from ftp.kde.org)
-  [where I currently develop]
+  [no longer supported, worked until v0.6.4-3]
 
 * SuSE-7.2 / i386, i686 (also with KDE-2.2 from ftp.kde.org)
-  [no longer explictely supported, but should work the same as SuSE-7.3]
+  [no longer supported, but should work the same as SuSE-7.3]
 
 * SuSE-7.1 / i386, i586
-  [no longer explictely supported, but should work the same as SuSE-7.3]
+  [no longer supported, but should work the same as SuSE-7.3]
 
 * SuSE-7.0 / i386, i586
   [nearly the same as SuSE-6.4]
@@ -263,17 +270,29 @@ If the program does NOT compile, please let me know too - and/or consider
 an update of your system if your packages are older than those mentioned
 above.
 
-You need at least glibc > 2.07 for pthreads support - earlier versions of
-libpthread (included in glibc) seem to crash...
+7. KNOWN PROBLEMS:
+=================
+
+* autoconf/automake are always good for making trouble. Don't blame us,
+  it's the fault of the autoconf/automake programmers who invent new
+  features and incompatibilites without even thinking about keeping
+  compatibility.
+  -> solution: downgrade autoconf/automake or wait until v0.6.6
+
+* gcc-3.2 makes seems to make some problems with the plugins. You might
+  see messages like this:
+  undefined reference to `std::allocator<char>::allocator[in-charge]()
+  -> solution: downgrade your compiler or wait until v0.6.6, we will
+               fix that later...
 
 
-7. SOME HISTORY:
+8. SOME HISTORY:
 ===============
 
 This project has been started by Martin Wilz in summer 1998 and has been
 developed and improved by him an some other people. In November 1999 I started
 to fix some little bugs here and there and stepped into the source code of
-the program deeper and deeper. Up to today I have extended, rewritten or 
+the program deeper and deeper. Up to today I have extended, rewritten or
 revised nearly every component of the program and spend much time on it.
 Since summer 1999 I have taken over the project leadership and I am still
 working on it.

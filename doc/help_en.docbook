@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-10-16</date>
-<releaseinfo>0.6.5-pre1</releaseinfo>
+<date>2002-10-25</date>
+<releaseinfo>0.6.5</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -62,7 +62,7 @@
     Basically a long version of the abstract. -->
 
     <para>
-    	This is "&kapp;", a simple sound editor for KDE2.
+    	This is "&kapp;", a simple sound editor for KDE3.
 	Its features include:
 	<itemizedlist>
     	<listitem><para>
@@ -80,6 +80,12 @@
 <!-- @TODO@    	<listitem><para>
 	    labeling of signals
 	</para></listitem> -->
+    	<listitem><para>
+	    MP3 import
+	</para></listitem>
+    	<listitem><para>
+	    Ogg/Vorbis import/export
+	</para></listitem>
     	<listitem><para>
 	    some analysis functions such as Sonagram <!-- or Fourier Transformation -->
 	</para></listitem>
@@ -180,10 +186,13 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.6.5 [2002-10-xx]</para>
+            <para>0.6.5 [2002-10-31]</para>
             <itemizedlist>
                 <listitem><para>
                     MP3 import with ID3 tag support through id3lib and libmad
+                </para></listitem>
+                <listitem><para>
+                    Ogg/Vorbis import and export (only ABR mode)
                 </para></listitem>
                 <listitem><para>
                     show selected range as time (feature requested by Christian Hollaender)
@@ -1348,18 +1357,26 @@
 		<emphasis>hear</emphasis> the result of your work?)
 	    </para></listitem>
 	    <listitem><para>
-		KDE-2.2.1 or higher (at least the libraries, if you are
+		KDE-3.0.3 or higher (at least the libraries, if you are
 		a gnome fan, you can also run &kapp; if the proper
 		libs are installed).
 	    </para></listitem>
 	    <listitem><para>
-		qt-2.3 or higher (normally comes with KDE2)
+		qt-3.0.5 or higher (normally comes with KDE3)
 	    </para></listitem>
 	    <listitem><para>
 		about 10 MB memory for starting &kapp; (but this may
 		vary depending on your platform and configuration)
 	    </para></listitem>
 	</itemizedlist>
+    </para>
+
+    <para>
+	For a more complete and up-to-date list, please consult the
+	README file that is included in the source distribution or
+	can be found here: <ulink
+	url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">
+	"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README"</ulink>
     </para>
 
     <para>
@@ -1376,7 +1393,7 @@
 		called "libc-devel".
 	    </para></listitem>
 	    <listitem><para>
-		The KDE2 development environment: "kdelibs-devel",
+		The KDE3 development environment: "kdelibs-devel",
 		"kdemultimedia-devel", "kdesdk-2".
 	    </para></listitem>
 	    <listitem><para>
@@ -1683,7 +1700,7 @@
     <para>
 	The binary rpm package of &kapp;
 	is "<emphasis>relocatable</emphasis>". That means that you can
-	build the package on a system with any KDE2 directory
+	build the package on a system with any KDE3 directory
 	and install it on an other system and/or into a different
 	directory. This feature is very useful to install a package
 	compiled for SuSE under a RedHat system or vice-versa.
@@ -1691,13 +1708,13 @@
 
     <para>
         For example: you got the binary rpm from a friend who has a
-	RedHat system (where the KDE2 directory is
+	RedHat system (where the KDE3 directory is
 	<filename>/usr</filename>) and want to install it
-	on a SuSE system (where the KDE2 directory is
-	<filename>/opt/kde2</filename>). Then just
+	on a SuSE system (where the KDE3 directory is
+	<filename>/opt/kde3</filename>). Then just
         give a different prefix when installing the rpm. Example:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-0.6.4.i386.rpm</replaceable></command>
+<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde3 <replaceable>kwave-0.6.5.i386.rpm</replaceable></command>
 </screen>
     </para>
 
@@ -2204,7 +2221,7 @@
     <para>
     For example, the following command starts a &kapp; and opens all sounds
     of the KDE window manager, each in a new window:
-    <screen><prompt>% </prompt><command>kwave <filename>/opt/kde2/share/sounds/KDE_Window*.wav</filename></command></screen>
+    <screen><prompt>% </prompt><command>kwave <filename>/opt/kde3/share/sounds/KDE_Window*.wav</filename></command></screen>
     </para>
 
     <para>
@@ -2281,11 +2298,18 @@
     </para>
 
     <sect2 id="file_formats"><title>Supported File formats</title>
-	<para>
+
+        <para>
+	    &kapp; supports the following file formats:
+	</para>
+
+    <para>
+    <itemizedlist>
+	<listitem><para>
             The favourite file format of &kapp; is (like you can guess from the
             name) <filename>.wav</filename>. This format is very common to other
 	    "operating systems" and also is commonly used within the KDE environment.
-        </para>
+	</para></listitem>
 <!-- @TODO@ disabled, will be re-integrated in v0.6.5 or later...
         <para>
             The second format that &kapp; supports is "ASCII". You can import from
@@ -2296,14 +2320,35 @@
 	    <link linkend="ascii_format">below</link>.
         </para>
 -->
-	<para>
+	<listitem><para>
+	    <filename>.mp3</filename> and <filename>.mp2</filename> import
+	    is available through
+	    <ulink url="http://www.mars.org/home/rob/proj/mpeg/">libmad</ulink>
+	    for the MP3 decoding in combination with
+	    <ulink url="http://www.id3lib.org/">id3lib</ulink> for decoding
+	    ID3 tags.
+	</para></listitem>
+
+	<listitem><para>
+	    Ogg/Vorbis (<filename>*.ogg</filename>) import and export.
+	    See
+	    <ulink url="http://www.xiph.org">http://www.xiph.org</ulink>
+	    for details.
+	</para></listitem>
+
+	<listitem><para>
 	    Additionally &kapp; supports many other common formats through the
 	    <ulink url="http://oss.sgi.com/projects/audiofile/">audiofile</ulink>
 	    plugin. You can import files like <filename>*.au</filename> and
 	    <filename>*.snd</filename> (NeXT,Sun Audio),
 	    <filename>*.aiff</filename> (Audio Interchange Format) and
 	    <filename>*.sf</filename> (Berkeley,IRCAM,Carl Sound Format).
-	</para>
+	</para></listitem>
+
+    </itemizedlist>
+    </para>
+
+
     </sect2>
 
     <sect2 id="converting_to_and_from_wav">
@@ -2322,8 +2367,7 @@
 	    The plans for future include support for import and also export filters
 	    for more formats and maybe some filter that uses a user-defineable script
 	    with a call to an external filter, so that even formats not supported
-	    by <literal>SoX</literal> (like MP3) can be read and/or written. Currently
-	    &kapp; only is able to save files in <filename>.wav</filename> format.
+	    by <literal>SoX</literal> (like MP3) can be read and/or written.
         </para>
     </sect2>
 
@@ -3090,12 +3134,6 @@
 The current code contains some FFT routines and code fragments from the
 GNU Scientific Library project
 <ulink url="http://sources.redhat.com/gsl/">http://sources.redhat.com/gsl/</ulink>.
-</para>
-
-<para>
-Import/export of sound files is achieved through a modified copy of libaudiofile,
-found at
-<ulink url="http://oss.sgi.com/projects/audiofile/">http://oss.sgi.com/projects/audiofile/</ulink>.
 </para>
 
 &underFDL;

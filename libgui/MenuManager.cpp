@@ -134,7 +134,7 @@ void MenuManager::addNumberedMenuEntry (const char *uid, char *entry)
 	const char *cmd  = node->getCommand();
 	char *command = new char[strlen(cmd)+strlen(entry)+1];
         if (!command) {
-	    warning("unable to add entry '%s', out of memory ?");
+	    warning("unable to add entry '%s', out of memory ?", entry);
 	    return;
         }
 	sprintf(command, cmd, entry);

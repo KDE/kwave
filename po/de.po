@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-08 20:10+0100\n"
+"POT-Creation-Date: 2000-02-27 12:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,162 +131,7 @@ msgstr "Phase"
 msgid "Clipboard"
 msgstr "Zwischenablage"
 
-#: src/Todo/addsynth.cpp:104
-msgid "&Power"
-msgstr "&Leistung"
-
-#: src/Todo/addsynth.cpp:105
-msgid "&Phase"
-msgstr "&Phase"
-
-#: src/Todo/addsynth.cpp:106
-msgid "&Multipliers"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:107
-msgid "e&numerate"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:108
-msgid "&even"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:109
-msgid "&odd"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:110
-msgid "&prime"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:111
-msgid "&fibonacci"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:112
-msgid "&max"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:113
-msgid "&db/octave"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:114
-msgid "&invert"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:115
-msgid "&Sinus"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:116 src/Todo/addsynth.cpp:120
-msgid "&random"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:117
-msgid "&zero"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:118
-msgid "&negate"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:119
-msgid "&sinus"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:122
-msgid "&Reset all"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:132
-msgid "Multiply :"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:133
-msgid "Phase in degree:"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:134
-msgid "Power in %:"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:136 src/Todo/addsynth.cpp:630
-msgid "Frequency"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:137
-msgid "Calculate"
-msgstr ""
-
-#: plugins/dialogs/filter/module.cpp:64 src/Todo/addsynth.cpp:157
-msgid "# of :"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:260
-msgid "Choose dB/octave"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:631
-msgid "Test"
-msgstr ""
-
-#: src/Todo/addsynth.cpp:632
-msgid "Length of pulse :"
-msgstr ""
-
-#: src/Todo/dialog_fixedfreq.cpp:15
-msgid "Base: 440 Hz"
-msgstr ""
-
-#: src/Todo/dialog_fixedfreq.cpp:18
-msgid "Time: 1 ms"
-msgstr ""
-
-#: src/Todo/dialog_fixedfreq.cpp:35
-#, c-format
-msgid "Base: %d Hz"
-msgstr ""
-
-#: src/Todo/dialog_fixedfreq.cpp:46
-#, c-format
-msgid "Time: %s"
-msgstr ""
-
-#: src/Todo/dialog_frequency.cpp:22 src/Todo/dialog_frequency.cpp:42
-msgid "Fixed"
-msgstr ""
-
-#: src/Todo/dialog_frequency.cpp:23 src/Todo/dialog_frequency.cpp:45
-msgid "Sweep"
-msgstr ""
-
-#: src/Todo/dialog_sweep.cpp:46
-msgid "Time:"
-msgstr ""
-
-#: src/Todo/dialog_sweep.cpp:61
-msgid "From"
-msgstr ""
-
-#: src/Todo/dialog_sweep.cpp:62
-msgid "to"
-msgstr ""
-
-#: src/Todo/dialog_sweep.cpp:66
-msgid "Import"
-msgstr ""
-
-#: src/Todo/dialog_sweep.cpp:139
-msgid "could not open file !\n"
-msgstr ""
-
-#: src/Todo/dialog_sweep.cpp:141
-#, c-format
-msgid "file %s does not exist!\n"
-msgstr ""
-
-#: src/SignalWidget.cpp:1041
+#: src/SignalWidget.cpp:1053
 msgid "Dialog not loaded !"
 msgstr ""
 
@@ -489,6 +334,11 @@ msgstr ""
 msgid "Use recursive filtering, e.g. the impulse response could be infinite !"
 msgstr ""
 
+#: plugins/dialogs/addsynth/module.cpp:175
+#: plugins/dialogs/filter/module.cpp:64
+msgid "# of :"
+msgstr ""
+
 #: plugins/dialogs/filter/module.cpp:65
 msgid ""
 "Number of filter coefficients\n"
@@ -682,4 +532,127 @@ msgstr ""
 
 #: plugins/dialogs/labeltype/module.cpp:27
 msgid "individual name for each label"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:125
+msgid "&Power"
+msgstr "&Leistung"
+
+#: plugins/dialogs/addsynth/module.cpp:126
+msgid "&Phase"
+msgstr "&Phase"
+
+#: plugins/dialogs/addsynth/module.cpp:127
+msgid "&Multipliers"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:128
+msgid "e&numerate"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:129
+msgid "&even"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:130
+msgid "&odd"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:131
+msgid "&prime"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:132
+msgid "&fibonacci"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:133
+msgid "&max"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:134
+msgid "&db/octave"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:135
+msgid "&invert"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:136
+msgid "&Sinus"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:137
+#: plugins/dialogs/addsynth/module.cpp:141
+msgid "&random"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:138
+msgid "&zero"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:139
+msgid "&negate"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:140
+msgid "&sinus"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:143
+msgid "&Reset all"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:155
+msgid "Multiply :"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:156
+msgid "Phase in degree:"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:157
+msgid "Power in %:"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:159
+msgid "Frequency"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:160
+msgid "Calculate"
+msgstr ""
+
+#: plugins/dialogs/addsynth/module.cpp:329
+msgid "Choose dB/octave"
+msgstr ""
+
+#: plugins/dialogs/pulse/module.cpp:38
+msgid "Length of pulse :"
+msgstr ""
+
+#: plugins/dialogs/sweep/module.cpp:68
+msgid "From"
+msgstr ""
+
+#: plugins/dialogs/sweep/module.cpp:69
+msgid "to"
+msgstr ""
+
+#: plugins/dialogs/sweep/module.cpp:73
+msgid "Import"
+msgstr ""
+
+#: plugins/dialogs/sweep/module.cpp:74
+#, fuzzy
+msgid "Ok"
+msgstr "&Ok"
+
+#: plugins/dialogs/sweep/module.cpp:160
+msgid "could not open file !\n"
+msgstr ""
+
+#: plugins/dialogs/sweep/module.cpp:162
+#, c-format
+msgid "file %s does not exist!\n"
 msgstr ""

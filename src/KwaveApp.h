@@ -38,9 +38,3 @@ class KwaveApp : public KApplication
 };
 
 #endif // _KWAVE_APP_H
-
-
-
-
-
-

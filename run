@@ -1,6 +1,0 @@
-#!/bin/sh
-
-export LD_LIBRARY_PATH=`pwd`/libgui
-export LD_RUN_PATH=`pwd`/libgui
-
-src/kwave

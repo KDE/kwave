@@ -1,5 +1,11 @@
 this Development Version
 
+0.5.1 [by Thomas.Eschenbacher@gmx.de]
+
+menu items can belong to groups
+
+renamed SignalWidget::info to "refresh"
+
 many cleanups in the header-Files in src and libgui
 
 the menu management has completely been rewritten:

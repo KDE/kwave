@@ -158,7 +158,8 @@ void TopWidget::openRecent (const char *str)
 	setCaption (this->name);
 	bits = mainwidget->getBitsPerSample();
 	updateMenu();
-    } else warning("TopWidget::openRecent(%s) failed, filename==0 !?");
+    } else
+	warning("TopWidget::openRecent(%s) failed, filename==0 !?", str);
 }
 //*****************************************************************************
 void TopWidget::dropEvent (KDNDDropZone *drop)

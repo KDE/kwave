@@ -134,7 +134,7 @@ void MenuNode::setIcon(const QPixmap &icon)
 {
     this->icon = &icon;
     if (parentNode) parentNode->setItemIcon(id, icon);
-    else warning("MenuNode(%s)->parentNode == NULL!!!");
+    else warning("MenuNode(%s)->parentNode == NULL!!!", getName());
 }
 
 //*****************************************************************************
@@ -428,7 +428,6 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
     int index                     = sub->getIndex();
     int old_key                   = sub->getKey();
     char *old_uid                 = sub->getUID();
-    int old_id                    = sub->getId();
     const QPixmap *old_icon       = sub->getIcon();
     char *name                    = duplicateString(node->getName());
     char *command                 = duplicateString(node->getCommand());

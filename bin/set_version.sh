@@ -70,7 +70,7 @@ cat kwave.lsm | awk -v newver=$NEW_VERSION -v newdate="$NEW_DATE" '{
 	} else 
 	    print $0
 	}' > kwave.lsm.new
-mv kwave.lsm kwave.lsm.old
+mv kwave.lsm /tmp/kwave.lsm.old
 mv kwave.lsm.new kwave.lsm
 
 #
@@ -88,7 +88,7 @@ cat plugins/dialogs/about/module.h | \
 	} else
 	    print $0
 	}' > module.h.new
-mv plugins/dialogs/about/module.h module.h.old
+mv plugins/dialogs/about/module.h /tmp/module.h.old
 mv module.h.new plugins/dialogs/about/module.h
 
 echo "new version numbers set."

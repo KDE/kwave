@@ -1,3 +1,19 @@
+############################################################################
+#    Kwave                - Makefile.am
+#			     -------------------
+#    begin                : Sat Nov 11 2001
+#    copyright            : (C) 2000 by Thomas Eschenbacher
+#    email                : Thomas.Eschenbacher@gmx.de
+############################################################################
+
+############################################################################
+#                                                                          #
+#    This program is free software; you can redistribute it and/or modify  #
+#    it under the terms of the GNU General Public License as published by  #
+#    the Free Software Foundation; either version 2 of the License, or     #
+#    (at your option) any later version.                                   #
+#                                                                          #
+############################################################################
 
 AUTOMAKE_OPTIONS = 1.6.1   # Require Automake 1.6.1 or better.
 
@@ -21,7 +37,7 @@ configure.in: VERSION
 
 clean-generic:
 	-rm -fv `find -size 0`
-	-rm -fv `find . -name \*\~`
+	-rm -fv `find . -name \*\~ -o -name \.\#\*`
 	-rm -fv `find . -name \*.o`
 	-rm -fv `find . -name \*.ii`
 	-rm -fv `find . -name \*.lo`
@@ -34,6 +50,7 @@ clean-generic:
 	-rm -fv `find . -name .depend`
 	-rm -fv `find . -name \*.uih.h`
 	-rm -fv `find . -name \*.uic.cpp`
+	-rm -Rfv `find . -name \*.cache`
 	-rm -Rf doc/api
 
 backup: ${PACKAGE}.spec
@@ -88,7 +105,12 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name \.\* -type d >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name Makefile \
-		-o -name Makefile.in >> \
+		-o -name Makefile.in -o -name aclocal.m4 \
+		-o -name config.h.in -o -name config.h \
+		-o -name libtool -o -name stamp-h -o -name configure \
+		-o -name stamp-h1 -o -name \*.cache \
+		-o -name QT-KDIR -o -name KDE-VERSION  \
+		-o -name config.status -o -name \*.log >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	echo "${SRC_PREFIX}-@RPM_FULL_VERSION@/doc/api" >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \

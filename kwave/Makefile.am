@@ -1,3 +1,20 @@
+############################################################################
+#    Kwave                - kwave/Makefile.am
+#			     -------------------
+#    begin                : Sat Nov 11 2001
+#    copyright            : (C) 2000 by Thomas Eschenbacher
+#    email                : Thomas.Eschenbacher@gmx.de
+############################################################################
+
+############################################################################
+#                                                                          #
+#    This program is free software; you can redistribute it and/or modify  #
+#    it under the terms of the GNU General Public License as published by  #
+#    the Free Software Foundation; either version 2 of the License, or     #
+#    (at your option) any later version.                                   #
+#                                                                          #
+############################################################################
+
 # this 10 paths are KDE specific. Use them:
 # kde_htmldir       Where your docs should go to. (contains lang subdirs)
 # kde_appsdir       Where your application file (.kdelnk) should go to. 

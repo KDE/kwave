@@ -859,6 +859,10 @@ int TopWidget::saveFile()
 
     if (signalName() != NEW_FILENAME) {
 	res = m_main_widget->saveFile(m_url, false);
+
+	// if saving in current format is not possible (no encoder),
+	// then try to "save/as" instead...
+	if (res == -EMEDIUMTYPE) res = saveFileAs(false);
     } else res = saveFileAs(false);
 
     updateCaption();

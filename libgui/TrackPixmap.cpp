@@ -451,8 +451,8 @@ void TrackPixmap::drawOverview(QPainter &p, int middle, int height,
 
 	// make sure there is a connection between this
 	// section and the one before, avoid gaps
-	if (min > last_max) min = last_max;
-	if (max < last_min) max = last_min;
+	if (min > last_max+1) min = last_max+1;
+	if (max+1 < last_min) max = last_min-1;
 
 	p.drawLine(i, middle - max, i, middle - min);
 

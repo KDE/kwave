@@ -97,6 +97,12 @@ public:
     bool executeCommand(const QString &command);
 
     /**
+     * Returns a reference to the FileInfo object associated with the
+     * currently opened file.
+     */
+    FileInfo &fileInfo() { return m_file_info; };
+
+    /**
      * Returns the current sample resolution in bits per sample
      */
     inline unsigned int bits() const { return m_file_info.bits(); };

@@ -30,6 +30,7 @@
 #include "mt/SignalProxy.h"
 #include "libkwave/InsertMode.h"
 
+class FileInfo;
 class KwavePlugin;
 class PlaybackController;
 class QBitmap;
@@ -95,6 +96,12 @@ public:
      * and saved if the setup has not been aborted.
      */
     int setupPlugin(const QString &name);
+
+    /**
+     * Returns a reference to the FileInfo object associated with the
+     * currently opened file.
+     */
+    FileInfo &fileInfo();
 
     /**
      * Returns the length of the current signal in samples.

@@ -197,6 +197,12 @@ QWidget *KwavePlugin::parentWidget()
 }
 
 //***************************************************************************
+FileInfo &KwavePlugin::fileInfo()
+{
+    return manager().fileInfo();
+}
+
+//***************************************************************************
 QString KwavePlugin::signalName()
 {
     return (m_context.top_widget.signalName());

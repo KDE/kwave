@@ -26,6 +26,7 @@
 #include "mt/Asynchronous_Object.h"
 #include "mt/SignalProxy.h"
 
+class FileInfo;
 class KwavePlugin;
 class MultiTrackReader;
 class MultiTrackWriter;
@@ -158,6 +159,12 @@ public:
      * a TopWidget of the Kwave main program.
      */
     QWidget *parentWidget();
+
+    /**
+     * Returns a reference to the FileInfo object associated with the
+     * currently opened file.
+     */
+    FileInfo &fileInfo();
 
     /**
      * Returns the name of the current signal. This can be used to set the

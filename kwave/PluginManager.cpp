@@ -396,6 +396,12 @@ int PluginManager::setupPlugin(const QString &name)
 }
 
 //***************************************************************************
+FileInfo &PluginManager::fileInfo()
+{
+    return m_top_widget.signalManager().fileInfo();
+}
+
+//***************************************************************************
 QStringList PluginManager::loadPluginDefaults(const QString &name,
 	const QString &version)
 {

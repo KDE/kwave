@@ -23,6 +23,7 @@
 
 #include <qbitmap.h>
 #include <qfile.h>
+#include <qfileinfo.h>
 #include <qlist.h>
 #include <qpainter.h>
 #include <qstring.h>
@@ -151,7 +152,8 @@ int SignalManager::loadFile(const KURL &url)
 	}
 	
 	// enter the filename into the decoder
-	decoder->info().set(INF_FILENAME, url.prettyURL());
+	QFileInfo fi(src);
+	decoder->info().set(INF_FILENAME, fi.absFilePath());
 	
 	// get the file info from the decoder
 	m_file_info = decoder->info();

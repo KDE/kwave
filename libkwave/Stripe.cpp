@@ -17,17 +17,12 @@
 
 #include <string.h> // for some speed-ups like memmove, memcpy ...
 #include "mt/MutexGuard.h"
+#include "libkwave/memcpy.h"
 #include "libkwave/Stripe.h"
 #include "kwave/MemoryManager.h"
 
 // define this for using only slow Qt array functions
 #undef STRICTLY_QT
-
-/** use optimized memcpy() from xine */
-#define MEMCPY xine_fast_memcpy
-
-/* forward declaration to libkwave/memcpy.c */
-extern "C" void *(* xine_fast_memcpy)(void *to, const void *from, size_t len);
 
 //***************************************************************************
 //***************************************************************************
@@ -85,6 +80,7 @@ unsigned int Stripe::MappedArray::copy(unsigned int dst, unsigned int src,
     sample_t *_samples = m_guard.storage();
     Q_ASSERT(_samples);
     if (!_samples) return 0;
+    // no MEMCPY here !
     memmove(&(_samples[dst]), &(_samples[src]), cnt * sizeof(sample_t));
 #endif
 

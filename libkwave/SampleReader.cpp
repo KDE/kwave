@@ -16,8 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <string.h> // for some speed-ups like memmove, memcpy ...
-
+#include "libkwave/memcpy.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/SampleLock.h"
@@ -170,7 +169,7 @@ unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
 	    buffer[dst++] = m_buffer[src++];
 	}
 #else
-	memmove(&(buffer[dst]), &(m_buffer[src]), cnt*sizeof(sample_t));
+	MEMCPY(&(buffer[dst]), &(m_buffer[src]), cnt*sizeof(sample_t));
 #endif
 
 	if (m_buffer_position >= m_buffer_used) {

@@ -18,26 +18,30 @@
 INCLUDES= -I${topdir} @all_includes@
 
 BUILTSOURCES=\
- SelectTimeWidgetBase.uih.h \
- SelectTimeWidgetBase.uih.moc.cpp \
- SelectTimeWidgetBase.uic.cpp \
  ConfirmCancelProxy.moc.cpp\
- MultiStateWidget.moc.cpp\
  CurveWidget.moc.cpp\
  FileProgress.moc.cpp\
  FrequencyResponseWidget.moc.cpp\
+ HMSTimeWidget.moc.cpp\
+ HMSTimeWidgetBase.uih.h\
+ HMSTimeWidgetBase.uih.moc.cpp\
+ HMSTimeWidgetBase.uic.cpp\
  IntValidatorProxy.moc.cpp\
  InvertableSpinBox.moc.cpp\
  KwaveFileDialog.moc.cpp\
- OverViewCache.moc.cpp\
- OverViewWidget.moc.cpp\
- SelectTimeWidget.moc.cpp\
  MenuNode.moc.cpp\
  MenuGroup.moc.cpp \
  MenuItem.moc.cpp\
  MenuSub.moc.cpp\
  MenuRoot.moc.cpp\
  MenuManager.moc.cpp \
+ MultiStateWidget.moc.cpp\
+ OverViewCache.moc.cpp\
+ OverViewWidget.moc.cpp\
+ SelectTimeWidget.moc.cpp\
+ SelectTimeWidgetBase.uih.h \
+ SelectTimeWidgetBase.uih.moc.cpp \
+ SelectTimeWidgetBase.uic.cpp \
  TrackPixmap.moc.cpp
 
 # Which sources should be compiled for libgui.
@@ -47,6 +51,7 @@ libkwavegui_la_SOURCES =\
  ConfirmCancelProxy.cpp\
  FileProgress.cpp\
  FrequencyResponseWidget.cpp\
+ HMSTimeWidget.cpp\
  IntValidatorProxy.cpp\
  InvertableSpinBox.cpp\
  KwaveFileDialog.cpp\

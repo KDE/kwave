@@ -1,9 +1,6 @@
 
-o find out how to make a check for "artsmodules.h" in configure.in
-  without creating an endless loop
-
 o possible bug/problem: start of a plugin while another plugin is
-  still running -> deadlock ?
+  still running -> leads to SEGFAULT!
 
 o recording support
 

@@ -285,8 +285,7 @@ made running and what I had to install additionally:
          (manual install of id3lib-3.8.2)
 
 * Gentoo-1.4_rc2:
-         patch, imagemagick, recode, kdemultimedia, kdesdk, media-libs
-         (manual install of id3lib >= 3.8.1)
+         patch, imagemagick, recode, kdemultimedia, kdesdk, media-libs, id3lib
 
 * RedHat-8.0 / 9.0:
          ImageMagick, recode, id3lib, audiofile, audiofile-devel
@@ -300,7 +299,8 @@ made running and what I had to install additionally:
          libogg0, libogg0-devel, libvorbis0, libvorbis0-devel, libvorbisfile3,
          libvorbisenc2
 
-(not finished yet: Slackware 8.1 / 9.0)
+* Slackware 9.0:
+         (many packages)
 
 
 7. KNOWN PROBLEMS:

@@ -1193,3 +1193,6 @@ admin/ylwrap
 admin/CVS/Entries
 admin/CVS/Repository
 admin/CVS/Root
+plugins/record/RecordParams.cpp
+libgui/HMSTimeWidget.h
+libgui/HMSTimeWidget.cpp

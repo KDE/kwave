@@ -34,8 +34,8 @@ RecordParams::RecordParams()
     compression(0),
     bits_per_sample(16),
     sample_format(0),
-    buffer_count(16),
-    buffer_size(10), /* (1 << 10) == 1024 bytes */
+    buffer_count(32),
+    buffer_size(13), /* (1 << 13) == 8192 bytes */
     display_level_meter(false),
     display_oscilloscope(false),
     display_fft(false),

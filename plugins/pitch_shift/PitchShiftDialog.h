@@ -52,10 +52,10 @@ signals:
     void changed(double speed, double freq);
 
     /** Pre-listen mode has been started */
-    void startListening();
+    void startPreListen();
     
     /** Pre-listen mode has been stopped */
-    void stopListening();
+    void stopPreListen();
     
     
 protected slots:
@@ -86,7 +86,7 @@ protected:
      */
     typedef enum {
 	MODE_FACTOR  = 0,
-	MODE_PERCENT = 1,
+	MODE_PERCENT = 1
     } Mode;
 
     /** Sets a new volume selection mode */

@@ -140,12 +140,6 @@ void PitchShiftDialog::updateSpeed(double speed)
     bool old_enable_updates = m_enable_updates;
     m_enable_updates = false;
 
-    // emit changes
-    if (m_speed != speed) {
-	m_speed = speed;
-	emit changed(m_speed, m_frequency);
-    }
-    
     switch (m_mode) {
 	case MODE_FACTOR: {
 	    // -1 => /2
@@ -202,6 +196,8 @@ void PitchShiftDialog::sliderChanged(int pos)
 {
     if (!m_enable_updates) return;
 
+    double last_speed = m_speed;
+
     switch (m_mode) {
 	case MODE_FACTOR: {
 	    // -1 <=> /2
@@ -218,6 +214,11 @@ void PitchShiftDialog::sliderChanged(int pos)
 	case MODE_PERCENT:
 	    spinboxChanged(pos);
 	    break;
+    }
+
+    // emit changes
+    if (m_speed != last_speed) {
+	emit changed(m_speed, m_frequency);
     }
 }
 
@@ -297,11 +298,11 @@ void PitchShiftDialog::listenToggled(bool listen)
 {
     if (listen) {
 	// start pre-listen mode
-	emit startListening();
+	emit startPreListen();
 	btListen->setText(i18n("&Stop"));
     } else {
 	// stop pre-listen mode
-	emit stopListening();
+	emit stopPreListen();
 	btListen->setText(i18n("&Listen"));
     }
 }

@@ -51,6 +51,21 @@ public:
     /** Aborts the process (if running). */
     virtual int stop();
 
+protected slots:
+
+    /**
+     * Called when the parameters of the pre-listen have changed
+     * @param speed the speed factor, floating point
+     * @param frequency the frequency parameter in Hz
+     */
+    void setValues(double speed, double frequency);
+
+    /** Start the pre-listening */
+    void startPreListen();
+
+    /** Stop the pre-listening */
+    void stopPreListen();
+    
 protected:
 
     /** Reads values from the parameter list */

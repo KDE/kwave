@@ -93,7 +93,12 @@ QStringList *PitchShiftPlugin::setup(QStringList &previous_params)
     if (!m_params.isEmpty()) dialog->setParams(m_params);
 
     // connect the signals for pre-listen mode
-    // ###
+    connect(dialog, SIGNAL(changed(double,double)),
+            this, SLOT(setValues(double,double)));
+    connect(dialog, SIGNAL(startPreListen()),
+            this, SLOT(startPreListen()));
+    connect(dialog, SIGNAL(stopPreListen()),
+            this, SLOT(stopPreListen()));
     
     QStringList *list = new QStringList();
     ASSERT(list);
@@ -115,12 +120,14 @@ void PitchShiftPlugin::run(QStringList params)
 {
     unsigned int first, last;
 
+    debug("PitchShiftPlugin::run(), m_listen = %d", m_listen);
+    
     Arts::Dispatcher *dispatcher = manager().artsDispatcher();
-    dispatcher->lock();
     ASSERT(dispatcher);
     if (!dispatcher) close();
+    dispatcher->lock();
 
-    UndoTransactionGuard undo_guard(*this, i18n("pitch shift"));
+    UndoTransactionGuard *undo_guard = 0;
     m_stop = false;
 
     interpreteParameters(params);
@@ -131,52 +138,92 @@ void PitchShiftPlugin::run(QStringList params)
     selection(&first, &last, true);
     manager().openMultiTrackReader(source, selectedTracks(), first, last);
 
-    if (m_listen) {
-	// pre-listen mode
-	// manager().openMultiTrackPlayback(sink, selectedTracks());
-    } else {
-	// normal mode
-	manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite,
-	    first, last);
-    }
-
     // create all objects
     ArtsMultiTrackSource arts_source(source);
 
     unsigned int tracks = selectedTracks().count();
     ArtsNativeMultiTrackFilter pitch(tracks, "Arts::Synth_PITCH_SHIFT");
-    ArtsMultiTrackSink   arts_sink(sink);
+    ArtsMultiSink *arts_sink = 0;
 
+    if (m_listen) {
+	// pre-listen mode
+	arts_sink = manager().openMultiTrackPlayback(selectedTracks().count());
+    } else {
+	// normal mode, with undo
+	undo_guard = new UndoTransactionGuard(*this, i18n("pitch shift"));
+	ASSERT(undo_guard);
+	if (!undo_guard) {
+	    close();
+	    return;
+	}
+	manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite,
+	    first, last);
+	arts_sink = new ArtsMultiTrackSink(sink);
+    }
+    
+    ASSERT(arts_sink);
+    if (!arts_sink || arts_sink->done()) {
+	if (arts_sink)  delete arts_sink;
+	if (undo_guard) delete undo_guard;
+	if (!m_listen) close();
+	return;
+    }
+    
     pitch.setAttribute("frequency", m_frequency);
     pitch.setAttribute("speed", m_speed);
     
     // connect them
-    pitch.connectInput(arts_source, "source",   "invalue");
-    pitch.connectOutput(arts_sink,  "sink",    "outvalue");
+    pitch.connectInput(arts_source,  "source",  "invalue");
+    pitch.connectOutput(*arts_sink,  "sink",    "outvalue");
 
     // start all
     arts_source.start();
     pitch.start();
-    arts_sink.start();
+    arts_sink->start();
 
+    // remember last settings
+    double last_speed = m_speed;
+    double last_freq  = m_frequency;
+    
     // transport the samples
     while (!m_stop && (!arts_source.done() || m_listen)) {
-	arts_sink.goOn();
-	
+	arts_sink->goOn();
+
+	// watch out for changed parameters when in
+	// pre-listen mode
+	if (m_listen && ((m_speed != last_speed) ||
+	    (m_frequency != last_freq)))
+	{
+	    if (m_frequency != last_freq)
+		pitch.setAttribute("frequency", m_frequency);
+
+	    if (m_speed != last_speed)
+		pitch.setAttribute("speed", m_speed);
+
+	    last_freq  = m_frequency;
+	    last_speed = m_speed;
+        }
+
 	if (m_listen && arts_source.done()) {
 	    // start the next loop
+	    debug("--- restarting ---");
 	    source.reset();
 	    arts_source.start();
+	    continue;
 	}
+
     }
 
     // shutdown
     pitch.stop();
-    arts_sink.stop();
+    arts_sink->stop();
     arts_source.stop();
 
     dispatcher->unlock();
 
+    delete arts_sink;
+    
+    if (undo_guard) delete undo_guard;
     close();
 }
 
@@ -185,6 +232,30 @@ int PitchShiftPlugin::stop()
 {
     m_stop = true;
     return KwavePlugin::stop();
+}
+
+//***************************************************************************
+void PitchShiftPlugin::setValues(double speed, double frequency)
+{
+    debug("PitchShiftPlugin::setValues(%g, %g)", speed,frequency);
+}
+
+//***************************************************************************
+void PitchShiftPlugin::startPreListen()
+{
+    debug("PitchShiftPlugin::startPreListen()");
+    m_listen = true;
+    static QStringList empty_list;
+    use();
+    execute(empty_list);
+}
+
+//***************************************************************************
+void PitchShiftPlugin::stopPreListen()
+{
+    debug("PitchShiftPlugin::stopPreListen()");
+    stop();
+    m_listen = false;
 }
 
 //***************************************************************************

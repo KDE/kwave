@@ -110,8 +110,10 @@ logged:
 	} fi
 	@ for dir in . ; do { \
 		cd $$dir; \
-		export WANT_AUTOMAKE_1_6=1  ; \
+		export WANT_AUTOMAKE_1_7=1  ; \
 		export WANT_AUTOCONF_2_5=1  ; \
+		export WANT_AUTOMAKE=1.7    ; \
+		export WANT_AUTOCONF=2.5    ; \
 		libtoolize --force --copy --automake ; \
 		aclocal -I ./admin; \
 		autoheader${AUTOCONF_SUFFIX} ; \

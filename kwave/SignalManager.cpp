@@ -30,15 +30,19 @@
 #include <linux/soundcard.h>
 
 #include <qbitmap.h>
+#include <qlist.h>
 #include <qpainter.h>
+#include <qstring.h>
 #include <qtimer.h>
 
 #include <klocale.h>
 #include <kmessagebox.h>
 
-#include <libkwave/FileFormat.h>
-#include <libkwave/Parser.h>
-#include <libkwave/Signal.h>
+#include "libkwave/FileFormat.h"
+#include "libkwave/Parser.h"
+#include "libkwave/Sample.h"
+#include "libkwave/SampleInputStream.h"
+#include "libkwave/Signal.h"
 
 #include "KwaveApp.h"
 #include "sampleop.h"
@@ -63,8 +67,8 @@
 #define CASE_COMMAND(x) } else if (QString(command) == x) {
 
 //***************************************************************************
-void threadStub(TimeOperation *)
-{
+//void threadStub(TimeOperation *)
+//{
 //    debug("thread started");
 //
 //    ASSERT(obj);
@@ -75,54 +79,44 @@ void threadStub(TimeOperation *)
 //	}
 //    }
 //    debug("thread done");
-}
-
+//}
+//
 //***************************************************************************
-SignalManager::SignalManager(Signal *sig)
+SignalManager::SignalManager()
     :QObject(),
     m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
     m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
 {
     initialize();
-    ASSERT(sig);
-    if (!sig) return;
-
-    signal.append(sig);
-    signal.last()->select(true);
-
-    m_channels = 1;
-    this->rate = sig->getRate();
 }
 
 //***************************************************************************
-SignalManager::SignalManager(unsigned int numsamples,
-                             int rate, unsigned int channels)
-    :QObject(),
-    m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
-    m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
-{
-    initialize();
-    this->rate = rate;
-    m_name = i18n("noname");
-
-    for (unsigned int i = 0; i < channels; i++) {
-	Signal *new_signal = new Signal(numsamples, rate);
-	ASSERT(new_signal);
-	appendChannel(new_signal);
-    }
-
-}
+//SignalManager::SignalManager(unsigned int numsamples,
+//                             int rate, unsigned int channels)
+//    :QObject(),
+//    m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
+//    m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
+//{
+//    initialize();
+//    this->rate = rate;
+//    m_name = i18n("noname");
+//
+//    for (unsigned int i = 0; i < channels; i++) {
+//	Signal *new_signal = 0; // new Signal(numsamples, rate);
+//	ASSERT(new_signal);
+//	appendChannel(new_signal);
+//    }
+//
+//}
 
 //***************************************************************************
-SignalManager::SignalManager(const char *name, int type)
-    :QObject(),
-    m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
-    m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
+void SignalManager::loadFile(const QString &filename, int type)
 {
     initialize();
-    ASSERT(name);
-    m_name = name;
+    ASSERT(filename.length());
+    m_name = filename;
 
+    debug("SignalManager::loadFile(%s, %d)", filename.data(), type); // ###
     switch (type) {
 	case WAV:
 	    loadWav();
@@ -138,7 +132,7 @@ SignalManager::SignalManager(const char *name, int type)
 //***************************************************************************
 void SignalManager::initialize()
 {
-    m_name = QString(0);
+    m_name = "";
     lmarker = 0;
     rmarker = 0;
     m_channels = 0;
@@ -147,33 +141,32 @@ void SignalManager::initialize()
 	msg[i] = 0;
 
     m_spx_playback_pos.setLimit(32); // limit for the queue
-    signal.setAutoDelete(false);
-    signal.clear();
 }
 
 //***************************************************************************
 void SignalManager::getMaxMin(unsigned int channel, int &max, int &min,
                               unsigned int begin, unsigned int len)
 {
-    ASSERT(channel < signal.count());
-    if (channel >= signal.count()) return;
-    ASSERT(signal.at(channel));
-    if (!signal.at(channel)) return;
-
-    unsigned int sig_len;
-    sig_len = signal.at(channel)->getLength();
-    ASSERT(sig_len);
-
-    if (begin + len > sig_len) len = sig_len - begin;
-
-    signal.at(channel)->getMaxMin(max, min, begin, len);
+//    ASSERT(channel < signal.count());
+//    if (channel >= signal.count()) return;
+//    ASSERT(signal.at(channel));
+//    if (!signal.at(channel)) return;
+//
+//    unsigned int sig_len;
+//    sig_len = signal.at(channel)->length();
+//    ASSERT(sig_len);
+//
+//    if (begin + len > sig_len) len = sig_len - begin;
+// ###
+//    signal.at(channel)->getMaxMin(max, min, begin, len);
 }
 
 //***************************************************************************
 unsigned int SignalManager::getLength()
 {
-    if (!signal.count()) return 0;
-    return signal.at(0) ? signal.at(0)->getLength() : 0;
+//    if (!signal.count()) return 0;
+//    return signal.at(0) ? signal.at(0)->length() : 0;
+    return 0;
 }
 
 //***************************************************************************
@@ -181,58 +174,60 @@ const QArray<unsigned int> SignalManager::selectedChannels()
 {
     unsigned int channel;
     unsigned int count = 0;
-    QArray<unsigned int> list(signal.count());
+    QArray<unsigned int> list(0); // signal.count());
 
-    for (channel=0; channel < signal.count(); channel++) {
-	Signal *sig = signal.at(channel);
-	if (!sig) continue;
-	if (!sig->isSelected()) continue;
-	
-	list[count]=channel;
-	count++;
-    }
-
-    list.resize(count);
+//    for (channel=0; channel < signal.count(); channel++) {
+//	Signal *sig = signal.at(channel);
+//	if (!sig) continue;
+//	if (!sig->isSelected()) continue;
+//	
+//	list[count]=channel;
+//	count++;
+//    }
+//
+//    list.resize(count);
     return list;
 }
 
 //***************************************************************************
 int SignalManager::singleSample(unsigned int channel, unsigned int offset)
 {
-    ASSERT(channel < signal.count());
-    if (channel >= signal.count()) return 0;
-
-    return signal.at(channel) ?
-	   signal.at(channel)->getSingleSample(offset) : 0;
+//    ASSERT(channel < signal.count());
+//    if (channel >= signal.count()) return 0;
+//
+//    return signal.at(channel) ?
+//	   signal.at(channel)->getSingleSample(offset) : 0;
+    return 0;
 }
 
 //***************************************************************************
 int SignalManager::averageSample(unsigned int offset,
                                  const QArray<unsigned int> *channels)
 {
-    unsigned int count = 0;
-    unsigned int channel;
-    double value = 0.0;
-
-    if (channels) {
-	for (count=0; count < channels->size(); count++) {
-	    channel = (*channels)[count];
-	    Signal *sig = signal.at(channel);
-	    if (!sig) continue;
-	    value += sig->getSingleSample(offset);
-	}
-    } else {
-	for (channel=0; channel < signal.count(); channel++) {
-	    Signal *sig = signal.at(channel);
-	    if (!sig) continue;
-	    if (!sig->isSelected()) continue;
-
-	    value += sig->getSingleSample(offset);
-	    count++;
-	}
-    }
-
-    return (count) ? (int)(value/(double)count) : 0;
+//    unsigned int count = 0;
+//    unsigned int channel;
+//    double value = 0.0;
+//
+//    if (channels) {
+//	for (count=0; count < channels->size(); count++) {
+//	    channel = (*channels)[count];
+//	    Signal *sig = signal.at(channel);
+//	    if (!sig) continue;
+//	    value += sig->getSingleSample(offset);
+//	}
+//    } else {
+//	for (channel=0; channel < signal.count(); channel++) {
+//	    Signal *sig = signal.at(channel);
+//	    if (!sig) continue;
+//	    if (!sig->isSelected()) continue;
+//
+//	    value += sig->getSingleSample(offset);
+//	    count++;
+//	}
+//    }
+//
+//    return (count) ? (int)(value/(double)count) : 0;
+    return 0;
 }
 
 //****************************************************************************
@@ -243,45 +238,45 @@ QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
     ASSERT(overview);
     if (!overview) return 0;
 
-    unsigned int channel;
-    unsigned int left;
-    unsigned int right;
-    unsigned int x;
-    unsigned int channels = m_channels;
-    float samples_per_pixel = (float)(length-1) / (float)(width-1);
-    int min;
-    int max;
-    float scale_y = (float)height / (float)(1 << 24);
-    QPainter p;
-
-    overview->fill(color0);
-
-    p.begin(overview);
-    p.setPen(color1);
-    left = offset;
-    for (x=0; x < width; x++) {
-	right = offset + (unsigned int)((x+1) * samples_per_pixel);
-        // find minimum and maximum over all channels
-        min =  (1<<24);
-        max = -(1<<24);
-        for (channel = 0; channel < channels; channel++) {
-	    int min2 =  (1<<24);
-	    int max2 = -(1<<24);
-	    getMaxMin(channel, max2, min2, left, right-left+1);
-	    if (min2 < min) min = min2;
-	    if (max2 > max) max = max2;
-        }
-
-        // transform min/max into pixel coordinates
-        min = (height >> 1) - (int)(min * scale_y);
-        max = (height >> 1) - (int)(max * scale_y);
-
-        // draw the line between min and max
-        p.drawLine(x, min, x, max);
-
-	left = right+1;
-    }
-    p.end ();
+//    unsigned int channel;
+//    unsigned int left;
+//    unsigned int right;
+//    unsigned int x;
+//    unsigned int channels = m_channels;
+//    float samples_per_pixel = (float)(length-1) / (float)(width-1);
+//    int min;
+//    int max;
+//    float scale_y = (float)height / (float)(1 << 24);
+//    QPainter p;
+//
+//    overview->fill(color0);
+//
+//    p.begin(overview);
+//    p.setPen(color1);
+//    left = offset;
+//    for (x=0; x < width; x++) {
+//	right = offset + (unsigned int)((x+1) * samples_per_pixel);
+//        // find minimum and maximum over all channels
+//        min =  (1<<24);
+//        max = -(1<<24);
+//        for (channel = 0; channel < channels; channel++) {
+//	    int min2 =  (1<<24);
+//	    int max2 = -(1<<24);
+//	    getMaxMin(channel, max2, min2, left, right-left+1);
+//	    if (min2 < min) min = min2;
+//	    if (max2 > max) max = max2;
+//        }
+//
+//        // transform min/max into pixel coordinates
+//        min = (height >> 1) - (int)(min * scale_y);
+//        max = (height >> 1) - (int)(max * scale_y);
+//
+//        // draw the line between min and max
+//        p.drawLine(x, min, x, max);
+//
+//	left = right+1;
+//    }
+//    p.end ();
 
     return overview;
 }
@@ -290,81 +285,81 @@ QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
 int SignalManager::getBitsPerSample()
 {
     int max_bps = 0;
-    for (unsigned int i = 0; i < m_channels; i++) {
-	int bps = (signal.at(i)) ? signal.at(i)->getBits() : 0;
-	if (bps > max_bps) max_bps = bps;
-    }
+//    for (unsigned int i = 0; i < m_channels; i++) {
+//	int bps = (signal.at(i)) ? signal.at(i)->bits() : 0;
+//	if (bps > max_bps) max_bps = bps;
+//    }
     return max_bps;
 }
 
 //***************************************************************************
 void SignalManager::deleteChannel(unsigned int channel)
 {
-    ASSERT(m_channels);
-    if (m_channels <= 1) return; // deleting the last channel is forbidden!
-
-    signal.setAutoDelete(true);
-    signal.remove(channel);
-    signal.setAutoDelete(false);
-
-    m_channels--;                 //decrease number of channels...
-
-    emit sigChannelDeleted(channel);
-    emit signalChanged( -1, -1);
+//    ASSERT(m_channels);
+//    if (m_channels <= 1) return; // deleting the last channel is forbidden!
+//
+//    signal.setAutoDelete(true);
+//    signal.remove(channel);
+//    signal.setAutoDelete(false);
+//
+//    m_channels--;                 //decrease number of channels...
+//
+//    emit sigChannelDeleted(channel);
+//    emit signalChanged( -1, -1);
 }
 
 //***************************************************************************
 void SignalManager::addChannel()
 {
-    if (!getLength()) return ;
-    appendChannel(new Signal(getLength(), rate));
+//    if (!getLength()) return ;
+//    appendChannel(new Signal(getLength(), rate)); ###
 }
 
 //***************************************************************************
 void SignalManager::appendChannel(Signal *newsig)
 {
-    ASSERT(newsig);
-    if (!newsig) return;
-
-    signal.append(newsig);
-    m_channels++;
-
-    emit sigChannelAdded(signal.count()-1);
-    emit signalChanged( -1, -1);
+//    ASSERT(newsig);
+//    if (!newsig) return;
+//
+//    signal.append(newsig);
+//    m_channels++;
+//
+//    emit sigChannelAdded(signal.count()-1);
+//    emit signalChanged( -1, -1);
 }
 	
 //***************************************************************************
 void SignalManager::toggleChannel(const unsigned int channel)
 {
-    ASSERT(channel < signal.count());
-    if (channel >= signal.count()) return;
-    ASSERT(signal.at(channel));
-    if (!signal.at(channel)) return;
-
-    signal.at(channel)->select(!signal.at(channel)->isSelected());
-    debug("SignalManager::toggleChannel(%d): selected=%d",
-	channel, signal.at(channel)->isSelected());
+//    ASSERT(channel < signal.count());
+//    if (channel >= signal.count()) return;
+//    ASSERT(signal.at(channel));
+//    if (!signal.at(channel)) return;
+//
+//    signal.at(channel)->select(!signal.at(channel)->isSelected());
+//    debug("SignalManager::toggleChannel(%d): selected=%d",
+//	channel, signal.at(channel)->isSelected());
 }
 
 //***************************************************************************
 bool SignalManager::executeCommand(const QString &command)
 {
-    ASSERT(command);
-    if (!command) return false;
-
-    debug("SignalManager::executeCommand(%s)", command.data());    // ###
-
-    if (false) {
-    CASE_COMMAND("playback")
-	playback_param_t &params = KwaveApp::getPlaybackParams();
-	Parser parser(command);
-	
-	params.rate = parser.toInt();
-	params.channels = parser.toInt();
-	params.bits_per_sample = parser.toInt();
-	if (params.device) delete[] params.device;
-	params.device = parser.nextParam();
-	params.bufbase = parser.toInt();
+//    ASSERT(command);
+//    if (!command) return false;
+//
+//    debug("SignalManager::executeCommand(%s)", command.data());    // ###
+//
+//    if (false) {
+//    CASE_COMMAND("playback")
+//	playback_param_t &params = KwaveApp::getPlaybackParams();
+//	Parser parser(command);
+//	
+//	params.rate = parser.toInt();
+//	params.channels = parser.toInt();
+//	params.bits_per_sample = parser.toInt();
+//	if (params.device) delete[] params.device;
+//	params.device = parser.nextParam();
+//	params.bufbase = parser.toInt();
 //    CASE_COMMAND("copy")
 //	if (globals.clipboard) delete globals.clipboard;
 //	globals.clipboard = new ClipBoard();
@@ -400,13 +395,13 @@ bool SignalManager::executeCommand(const QString &command)
 //	    }
 //	}
 //	emit signalChanged( -1, -1);
-    CASE_COMMAND("delete")
-	for (unsigned int i = 0; i < m_channels; i++) {
-	    ASSERT(signal.at(i));
-	    if (signal.at(i)) signal.at(i)->deleteRange();
-	}
-	rmarker = lmarker;
-	emit signalChanged(getLMarker(), -1);
+//    CASE_COMMAND("delete")
+//	for (unsigned int i = 0; i < m_channels; i++) {
+//	    ASSERT(signal.at(i));
+//	    if (signal.at(i)) signal.at(i)->deleteRange();
+//	}
+//	rmarker = lmarker;
+//	emit signalChanged(getLMarker(), -1);
 //    CASE_COMMAND("paste")
 //	if (globals.clipboard) {
 //	    SignalManager *toinsert = globals.clipboard->getSignal();
@@ -456,23 +451,23 @@ bool SignalManager::executeCommand(const QString &command)
 //	    }
 //	    emit signalChanged(getLMarker(), -1);
 //	}
-    CASE_COMMAND("addchannel")
-	addChannel();
-    CASE_COMMAND("deletechannel")
-	Parser parser(command);
-	unsigned int i = parser.toInt();
-	deleteChannel(i);
-    CASE_COMMAND("selectchannels")
-	for (unsigned int i = 0; i < m_channels; i++)
-	    if (signal.at(i)) signal.at(i)->select(true);
-    CASE_COMMAND("invertchannels")
-	for (unsigned int i = 0; i < m_channels; i++)
-	    toggleChannel(i);
-    } else {
-	bool result = promoteCommand(command);
-	emit signalChanged( -1, -1);
-	return result;
-    }
+//    CASE_COMMAND("addchannel")
+//	addChannel();
+//    CASE_COMMAND("deletechannel")
+//	Parser parser(command);
+//	unsigned int i = parser.toInt();
+//	deleteChannel(i);
+//    CASE_COMMAND("selectchannels")
+//	for (unsigned int i = 0; i < m_channels; i++)
+//	    if (signal.at(i)) signal.at(i)->select(true);
+//    CASE_COMMAND("invertchannels")
+//	for (unsigned int i = 0; i < m_channels; i++)
+//	    toggleChannel(i);
+//    } else {
+//	bool result = promoteCommand(command);
+//	emit signalChanged( -1, -1);
+//	return result;
+//    }
 
     return true;
 }
@@ -480,8 +475,8 @@ bool SignalManager::executeCommand(const QString &command)
 //***************************************************************************
 bool SignalManager::promoteCommand(const QString &command)
 {
-    debug("SignalManager::promoteCommand(%s)", command.data());    // ###
-
+//    debug("SignalManager::promoteCommand(%s)", command.data());    // ###
+//
 ////    // loop over all channels
 ////    unsigned int i;
 ////    for (i = 0; i < m_channels; i++) {
@@ -577,29 +572,29 @@ void SignalManager::commandDone()
 //***************************************************************************
 SignalManager::~SignalManager()
 {
-    stopplay();
-
-    emit signalChanged( -1, -1);
-    signal.setAutoDelete(true);
-    while (m_channels--) {
-	signal.remove(m_channels);
-	emit sigChannelDeleted(m_channels);
-    }
+//    stopplay();
+//
+//    emit signalChanged( -1, -1);
+//    signal.setAutoDelete(true);
+//    while (m_channels--) {
+//	signal.remove(m_channels);
+//	emit sigChannelDeleted(m_channels);
+//    }
 }
 
 //***************************************************************************
 void SignalManager::setRange(unsigned int l, unsigned int r)
 {
-    for (unsigned int i = 0; i < m_channels; i++) {
-	ASSERT(signal.at(i));
-	if (signal.at(i)) signal.at(i)->setMarkers(l, r);
-    }
-    if (!signal.count()) return;
-    ASSERT(signal.at(0));
-    if (signal.at(0)) {
-	lmarker = signal.at(0)->getLMarker();
-	rmarker = signal.at(0)->getRMarker();
-    }
+//    for (unsigned int i = 0; i < m_channels; i++) {
+//	ASSERT(signal.at(i));
+//	if (signal.at(i)) signal.at(i)->setMarkers(l, r);
+//    }
+//    if (!signal.count()) return;
+//    ASSERT(signal.at(0));
+//    if (signal.at(0)) {
+//	lmarker = signal.at(0)->getLMarker();
+//	rmarker = signal.at(0)->getRMarker();
+//    }
 }
 
 //***************************************************************************
@@ -622,58 +617,58 @@ ProgressDialog *SignalManager::createProgressDialog(TimeOperation *operation,
 //***************************************************************************
 int SignalManager::loadAscii()
 {
-    float value;
-    int cnt = 0;
-    float max = 0;
-    float amp;
-    int *sample = 0;
-
-    FILE *sigin = fopen(m_name.data(), "r");
-    if (!sigin) {
-	KMessageBox::error(0, i18n("File does not exist !"), i18n("Info"), 2);
-	return -ENOENT;
-    }
-
-    // scan in the first line for the sample rate
-    // ### to be done ###
-    rate = 44100;        //will be asked in requester
-
-    // scan for number of channels
-    m_channels = 1;
-
-    // loop over all samples in file to get maximum value
-    while (!feof(sigin)) {
-	if (fscanf (sigin, "%e\n", &value) == 1) {
-	    if ( value > max) max = value;
-	    if ( -value > max) max = -value;
-	    cnt++;
-	}
-    }
-    debug("SignalManager::loadAscii(): reading ascii file with %d samples",
-	  cnt);    // ###
-
-    // get the maximum and the scale
-    amp = (float)((1 << 23)-1) / max;
-    Signal *new_signal = new Signal(cnt, rate);
-    ASSERT(new_signal);
-
-    if (new_signal) {
-	signal.append(new_signal);
-	new_signal->setBits(24);
-	sample = new_signal->getSample();
-    }
-
-    if (sample) {
-	fseek (sigin, 0, SEEK_SET);    //seek to beginning
-	cnt = 0;
-	while (!feof(sigin)) {
-	    if (fscanf(sigin, "%e\n", &value) == 1) {
-		sample[cnt++] = (int)(value * amp);
-	    }
-	}
-    }
-
-    fclose (sigin);
+//    float value;
+//    int cnt = 0;
+//    float max = 0;
+//    float amp;
+//    int *sample = 0;
+//
+//    FILE *sigin = fopen(m_name.data(), "r");
+//    if (!sigin) {
+//	KMessageBox::error(0, i18n("File does not exist !"), i18n("Info"), 2);
+//	return -ENOENT;
+//    }
+//
+//    // scan in the first line for the sample rate
+//    // ### to be done ###
+//    rate = 44100;        //will be asked in requester
+//
+//    // scan for number of channels
+//    m_channels = 1;
+//
+//    // loop over all samples in file to get maximum value
+//    while (!feof(sigin)) {
+//	if (fscanf (sigin, "%e\n", &value) == 1) {
+//	    if ( value > max) max = value;
+//	    if ( -value > max) max = -value;
+//	    cnt++;
+//	}
+//    }
+//    debug("SignalManager::loadAscii(): reading ascii file with %d samples",
+//	  cnt);    // ###
+//
+//    // get the maximum and the scale
+//    amp = (float)((1 << 23)-1) / max;
+//    Signal *new_signal = new Signal(cnt, rate);
+//    ASSERT(new_signal);
+//
+//    if (new_signal) {
+//	signal.append(new_signal);
+//	new_signal->setBits(24);
+//	sample = new_signal->getSample();
+//    }
+//
+//    if (sample) {
+//	fseek (sigin, 0, SEEK_SET);    //seek to beginning
+//	cnt = 0;
+//	while (!feof(sigin)) {
+//	    if (fscanf(sigin, "%e\n", &value) == 1) {
+//		sample[cnt++] = (int)(value * amp);
+//	    }
+//	}
+//    }
+//
+//    fclose (sigin);
 
     return 0;
 }
@@ -780,253 +775,252 @@ int SignalManager::loadWav()
 //***************************************************************************
 void SignalManager::exportAscii(const char *name)
 {
-    ASSERT(name);
-    if (!name) return ;
-
-    unsigned int length = getLength();
-    ASSERT(length);
-    if (!length) return;
-
-    ASSERT(m_channels);
-    if (!m_channels) return;
-
-    FILE *sigout = fopen(name, "w");
-    ASSERT(sigout);
-    if (!sigout) return;
-
-    //prepare and show the progress dialog
-    char progress_title[256];
-    char str_channels[128];
-    if (m_channels == 1)
-	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
-    else if (m_channels == 2)
-	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
-    else
-	snprintf(str_channels, sizeof(str_channels), "%d-channel", m_channels);
-    snprintf(progress_title, sizeof(progress_title),
-	i18n("Exporting %s ASCII file :"),
-	str_channels);
-
-    QString title = i18n(progress_title);
-    ProgressDialog *dialog = new ProgressDialog(100, title);
-    delete[] title;
-    if (dialog) dialog->show();
-
-    // loop for writing data
-    int *sample;
-    int percent_count = 0;
-    const double scale_y = (1 << 23)-1;
-    for (unsigned int pos = 0; pos < length ; pos++) {
-	// loop over all channels
-	for (unsigned int channel=0; channel < m_channels; channel++) {
-	    sample = signal.at(channel)->getSample();
-	    if (!sample) continue;
-	
-	    if (channel != 0) fprintf(sigout, ",");
-	    fprintf(sigout, "%0.8e", (double)sample[pos]/scale_y);
-	}
-	fprintf(sigout,"\n");
-
-	// update the progress bar
-	percent_count--;
-	if (dialog && (percent_count <= 0)) {
-	    percent_count = length / 200;
-	    float percent = (float)pos;
-	    percent /= (float)length;
-	    percent *= 100.0;
-	    dialog->setProgress (percent);
-	}
-    }
-
-    if (dialog) delete dialog;
-    fclose(sigout);
+//    ASSERT(name);
+//    if (!name) return ;
+//
+//    unsigned int length = getLength();
+//    ASSERT(length);
+//    if (!length) return;
+//
+//    ASSERT(m_channels);
+//    if (!m_channels) return;
+//
+//    FILE *sigout = fopen(name, "w");
+//    ASSERT(sigout);
+//    if (!sigout) return;
+//
+//    //prepare and show the progress dialog
+//    char progress_title[256];
+//    char str_channels[128];
+//    if (m_channels == 1)
+//	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
+//    else if (m_channels == 2)
+//	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
+//    else
+//	snprintf(str_channels, sizeof(str_channels), "%d-channel", m_channels);
+//    snprintf(progress_title, sizeof(progress_title),
+//	i18n("Exporting %s ASCII file :"),
+//	str_channels);
+//
+//    QString title = i18n(progress_title);
+//    ProgressDialog *dialog = new ProgressDialog(100, title);
+//    delete[] title;
+//    if (dialog) dialog->show();
+//
+//    // loop for writing data
+//    int *sample;
+//    int percent_count = 0;
+//    const double scale_y = (1 << 23)-1;
+//    for (unsigned int pos = 0; pos < length ; pos++) {
+//	// loop over all channels
+//	for (unsigned int channel=0; channel < m_channels; channel++) {
+//	    sample = signal.at(channel)->getSample();
+//	    if (!sample) continue;
+//	
+//	    if (channel != 0) fprintf(sigout, ",");
+//	    fprintf(sigout, "%0.8e", (double)sample[pos]/scale_y);
+//	}
+//	fprintf(sigout,"\n");
+//
+//	// update the progress bar
+//	percent_count--;
+//	if (dialog && (percent_count <= 0)) {
+//	    percent_count = length / 200;
+//	    float percent = (float)pos;
+//	    percent /= (float)length;
+//	    percent *= 100.0;
+//	    dialog->setProgress (percent);
+//	}
+//    }
+//
+//    if (dialog) delete dialog;
+//    fclose(sigout);
 }
 
 //***************************************************************************
 int SignalManager::writeWavChunk(FILE *sigout, unsigned int begin,
                                  unsigned int length, int bits)
 {
-    unsigned int bufsize = 16 * 1024 * sizeof(int);
-    unsigned char *savebuffer = 0;
-    sample_t **sample = 0;    // array of pointers to samples
-    int bytes = bits / 8;
-    int bytes_per_sample = bytes * m_channels;
-    bufsize -= bufsize % bytes_per_sample;
-
-    // try to allocate memory for the save buffer
-    // if failed, try again with the half buffer size as long
-    // as <1kB is not reached (then we are really out of memory)
-    while (savebuffer == 0) {
-	if (bufsize < 1024) {
-	    debug("SignalManager::writeWavSignal:not enough memory for buffer");
-	    return -ENOMEM;
-	}
-	savebuffer = new unsigned char[bufsize];
-	if (!savebuffer) {
-	    bufsize >>= 1;
-	    bufsize -= bufsize % bytes_per_sample;
-	}
-    }
-
-    //prepare and show the progress dialog
-    char progress_title[256];
-    char str_channels[128];
-    if (m_channels == 1)
-	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
-    else if (m_channels == 2)
-	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
-    else
-	snprintf(str_channels, sizeof(str_channels), "%d-channel", m_channels);
-
-    snprintf(progress_title, sizeof(progress_title), "Saving %d-Bit-%s File :",
-	    bits, str_channels);
-
-    QString title = i18n(progress_title);
-    ProgressDialog *dialog = new ProgressDialog (100, title);
-    if (dialog) dialog->show();
-
-    // prepare the store loop
-    int percent_count = length / 200;
-    unsigned int shift = 24-bits;
-
-    sample = new (int*)[m_channels];
-    for (unsigned int channel = 0; channel < m_channels; channel++) {
-	sample[channel] = signal.at(channel)->getSample();
-	ASSERT(sample[channel]);
-	if (!sample[channel]) {
-	    KMessageBox::error(0,
-		i18n("empty channel detected, channel count reduced by one"),
-		i18n("Warning"), 2);
-	    m_channels--;
-	}
-    }
-
-    // loop for writing data
-    for (unsigned int pos = begin; pos < length; ) {
-	unsigned char *buf = savebuffer;
-	unsigned int nsamples = 0;
-
-	while (pos < length && (nsamples < bufsize / bytes_per_sample)) {
-	    for (unsigned int channel = 0; channel < m_channels; channel++) {
-		int *smp = sample[channel] + pos;
-		int act = (*smp) >> shift;
-		if (bytes == 1) {
-		    // 8 bits -> unsigned
-		    *(buf++) = (char)((act - 128) & 0xFF);
-		} else {
-		    // >= 16 bits -> signed
-		    for (register int byte = bytes; byte; byte--) {
-			*(buf++) = (char)(act & 0xFF);
-			act >>= 8;
-		    }
-		}
-	    }
-	    nsamples++;
-	    pos++;
-	}
-
-	int written_bytes = fwrite(savebuffer,
-				   bytes_per_sample, nsamples, sigout);
-
-	percent_count -= written_bytes;
-	if (dialog && (percent_count <= 0)) {
-	    percent_count = length / 200;
-	    float percent = (float)pos;
-	    percent /= (float)length;
-	    percent *= 100.0;
-	    dialog->setProgress (percent);
-	}
-    }
-
-    if (sample) delete[] sample;
-    if (dialog) delete dialog;
-    if (savebuffer) delete[] savebuffer;
+//    unsigned int bufsize = 16 * 1024 * sizeof(int);
+//    unsigned char *savebuffer = 0;
+//    sample_t **sample = 0;    // array of pointers to samples
+//    int bytes = bits / 8;
+//    int bytes_per_sample = bytes * m_channels;
+//    bufsize -= bufsize % bytes_per_sample;
+//
+//    // try to allocate memory for the save buffer
+//    // if failed, try again with the half buffer size as long
+//    // as <1kB is not reached (then we are really out of memory)
+//    while (savebuffer == 0) {
+//	if (bufsize < 1024) {
+//	    debug("SignalManager::writeWavSignal:not enough memory for buffer");
+//	    return -ENOMEM;
+//	}
+//	savebuffer = new unsigned char[bufsize];
+//	if (!savebuffer) {
+//	    bufsize >>= 1;
+//	    bufsize -= bufsize % bytes_per_sample;
+//	}
+//    }
+//
+//    //prepare and show the progress dialog
+//    char progress_title[256];
+//    char str_channels[128];
+//    if (m_channels == 1)
+//	strncpy(str_channels, i18n("Mono"), sizeof(str_channels));
+//    else if (m_channels == 2)
+//	strncpy(str_channels, i18n("Stereo"), sizeof(str_channels));
+//    else
+//	snprintf(str_channels, sizeof(str_channels), "%d-channel", m_channels);
+//
+//    snprintf(progress_title, sizeof(progress_title), "Saving %d-Bit-%s File :",
+//	    bits, str_channels);
+//
+//    QString title = i18n(progress_title);
+//    ProgressDialog *dialog = new ProgressDialog (100, title);
+//    if (dialog) dialog->show();
+//
+//    // prepare the store loop
+//    int percent_count = length / 200;
+//    unsigned int shift = 24-bits;
+//
+//    sample = new (int*)[m_channels];
+//    for (unsigned int channel = 0; channel < m_channels; channel++) {
+//	sample[channel] = signal.at(channel)->getSample();
+//	ASSERT(sample[channel]);
+//	if (!sample[channel]) {
+//	    KMessageBox::error(0,
+//		i18n("empty channel detected, channel count reduced by one"),
+//		i18n("Warning"), 2);
+//	    m_channels--;
+//	}
+//    }
+//
+//    // loop for writing data
+//    for (unsigned int pos = begin; pos < length; ) {
+//	unsigned char *buf = savebuffer;
+//	unsigned int nsamples = 0;
+//
+//	while (pos < length && (nsamples < bufsize / bytes_per_sample)) {
+//	    for (unsigned int channel = 0; channel < m_channels; channel++) {
+//		int *smp = sample[channel] + pos;
+//		int act = (*smp) >> shift;
+//		if (bytes == 1) {
+//		    // 8 bits -> unsigned
+//		    *(buf++) = (char)((act - 128) & 0xFF);
+//		} else {
+//		    // >= 16 bits -> signed
+//		    for (register int byte = bytes; byte; byte--) {
+//			*(buf++) = (char)(act & 0xFF);
+//			act >>= 8;
+//		    }
+//		}
+//	    }
+//	    nsamples++;
+//	    pos++;
+//	}
+//
+//	int written_bytes = fwrite(savebuffer,
+//				   bytes_per_sample, nsamples, sigout);
+//
+//	percent_count -= written_bytes;
+//	if (dialog && (percent_count <= 0)) {
+//	    percent_count = length / 200;
+//	    float percent = (float)pos;
+//	    percent /= (float)length;
+//	    percent *= 100.0;
+//	    dialog->setProgress (percent);
+//	}
+//    }
+//
+//    if (sample) delete[] sample;
+//    if (dialog) delete dialog;
+//    if (savebuffer) delete[] savebuffer;
     return 0;
 }
 
 //***************************************************************************
 void SignalManager::save(const char *filename, int bits, bool selection)
 {
-    debug("SignalManager::save(): %d Bit to %s ,%d", bits, filename, selection);
-
-    int begin = 0;
-    int length = this->getLength();
-    struct wavheader header;
-
-    ASSERT(filename);
-    if (!filename) return;
-
-    if (selection && (lmarker != rmarker)) {
-	begin = lmarker;
-	length = rmarker - lmarker + 1;
-    }
-
-    FILE *sigout = fopen (filename, "w");
-    m_name = filename;
-    ASSERT(m_name.length());
-    if (!m_name.length()) return;
-
-    if (!m_channels) KMessageBox::sorry(0,
-	i18n("Signal is empty, nothing to save !"),
-	i18n("info"), 2);
-
-    if (sigout) {
-	fseek (sigout, 0, SEEK_SET);
-
-	strncpy ((char*)&(header.riffid), "RIFF", 4);
-	strncpy ((char*)&(header.wavid), "WAVE", 4);
-	strncpy ((char*)&(header.fmtid), "fmt ", 4);
-	header.fmtlength = 16;
-	header.filelength = (length * bits / 8 * m_channels + sizeof(struct wavheader));
-	header.mode = 1;
-	header.channels = m_channels;
-	header.rate = rate;
-	header.AvgBytesPerSec = rate * bits / 8 * m_channels;
-	header.BlockAlign = bits * m_channels / 8;
-	header.bitspersample = bits;
-
-	int datalen = length * header.channels * header.bitspersample / 8;
-
-#if defined(IS_BIG_ENDIAN)
-	header.mode = bswap_16(header.mode);
-	header.rate = bswap_32(header.rate);
-	header.channels = bswap_16(header.channels);
-	header.bitspersample = bswap_16(header.bitspersample);
-	header.AvgBytesPerSec = bswap_32(header.AvgBytesPerSec);
-	header.fmtlength = bswap_32(header.fmtlength);
-	header.filelength = bswap_32(header.filelength);
-	datalen = bswap_32(datalen);
-#endif
-
-	fwrite ((char *) &header, 1, sizeof (struct wavheader), sigout);
-	fwrite ("data", 1, 4, sigout);
-	fwrite ((char *)&datalen, 1, 4, sigout);
-
-	switch (bits) {
-	    case 8:
-	    case 16:
-	    case 24:
-		writeWavChunk(sigout, begin, length, bits);
-		break;
-	    default:
-		KMessageBox::sorry(0,
-		    i18n("Sorry only 8/16/24 Bits per Sample are supported !"),
-		    i18n("Info"), 2);
-	    break;
-	}
-
-	fclose(sigout);
-    }
+//    debug("SignalManager::save(): %d Bit to %s ,%d", bits, filename, selection);
+//
+//    int begin = 0;
+//    int length = this->getLength();
+//    struct wavheader header;
+//
+//    ASSERT(filename);
+//    if (!filename) return;
+//
+//    if (selection && (lmarker != rmarker)) {
+//	begin = lmarker;
+//	length = rmarker - lmarker + 1;
+//    }
+//
+//    FILE *sigout = fopen (filename, "w");
+//    m_name = filename;
+//    ASSERT(m_name.length());
+//    if (!m_name.length()) return;
+//
+//    if (!m_channels) KMessageBox::sorry(0,
+//	i18n("Signal is empty, nothing to save !"),
+//	i18n("info"), 2);
+//
+//    if (sigout) {
+//	fseek (sigout, 0, SEEK_SET);
+//
+//	strncpy ((char*)&(header.riffid), "RIFF", 4);
+//	strncpy ((char*)&(header.wavid), "WAVE", 4);
+//	strncpy ((char*)&(header.fmtid), "fmt ", 4);
+//	header.fmtlength = 16;
+//	header.filelength = (length * bits / 8 * m_channels + sizeof(struct wavheader));
+//	header.mode = 1;
+//	header.channels = m_channels;
+//	header.rate = rate;
+//	header.AvgBytesPerSec = rate * bits / 8 * m_channels;
+//	header.BlockAlign = bits * m_channels / 8;
+//	header.bitspersample = bits;
+//
+//	int datalen = length * header.channels * header.bitspersample / 8;
+//
+//#if defined(IS_BIG_ENDIAN)
+//	header.mode = bswap_16(header.mode);
+//	header.rate = bswap_32(header.rate);
+//	header.channels = bswap_16(header.channels);
+//	header.bitspersample = bswap_16(header.bitspersample);
+//	header.AvgBytesPerSec = bswap_32(header.AvgBytesPerSec);
+//	header.fmtlength = bswap_32(header.fmtlength);
+//	header.filelength = bswap_32(header.filelength);
+//	datalen = bswap_32(datalen);
+//#endif
+//
+//	fwrite ((char *) &header, 1, sizeof (struct wavheader), sigout);
+//	fwrite ("data", 1, 4, sigout);
+//	fwrite ((char *)&datalen, 1, 4, sigout);
+//
+//	switch (bits) {
+//	    case 8:
+//	    case 16:
+//	    case 24:
+//		writeWavChunk(sigout, begin, length, bits);
+//		break;
+//	    default:
+//		KMessageBox::sorry(0,
+//		    i18n("Sorry only 8/16/24 Bits per Sample are supported !"),
+//		    i18n("Info"), 2);
+//	    break;
+//	}
+//
+//	fclose(sigout);
+//    }
 }
 
 //***************************************************************************
 int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
                                 unsigned int channels, int bits)
 {
-    unsigned int bufsize = 16 * 1024 * sizeof(int);
+    unsigned int bufsize = 16 * 1024 * sizeof(sample_t);
     unsigned char *loadbuffer = 0;
-    sample_t **sample = 0;    // array of pointers to samples
-    int bytes = bits / 8;
+    int bytes = bits >> 3;
     unsigned int sign = 1 << (24-1);
     unsigned int negative = ~(sign - 1);
     unsigned int shift = 24-bits;
@@ -1057,24 +1051,31 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
 	debug("SignalManager::loadWavChunk: "\
 	      "length=%d, rest of file=%d",length,file_rest);
 	KMessageBox::error(0,
+	    i18n("Warning"),
 	    i18n("Error in input: file is smaller than stated "\
 	    "in the header. \n"\
-	    "File has been truncated."), i18n("Warning"), 2);
+	    "File has been truncated."), 2);
 	length = file_rest/bytes_per_sample;
     }
 
-    sample = new (sample_t*)[channels];
+    QList<SampleInputStream> samples;
+    samples.setAutoDelete(true);
+
     for (unsigned int channel = 0; channel < channels; channel++) {
-	Signal *new_signal = new Signal(length, rate);
-	ASSERT(new_signal);
-	if (!new_signal || !new_signal->getSample()) {
-	    KMessageBox::sorry(0, i18n("Out of Memory!"), i18n("Info"), 2);
+	Track *new_track = m_signal.appendTrack(length);
+	ASSERT(new_track);
+	if (!new_track) {
+	    KMessageBox::sorry(0, i18n("Out of Memory!"), i18n("Warning"), 2);
 	    return -ENOMEM;
 	}
-	signal.append(new_signal);
-	signal.at(channel)->setBits(bits);
-	signal.at(channel)->select(true);
-	sample[channel] = signal.at(channel)->getSample();
+
+	SampleInputStream *s = m_signal.openInputStream(channel, Append);
+	ASSERT(s);
+	if (!s) {
+	    KMessageBox::sorry(0, i18n("Out of Memory!"), i18n("Warning"), 2);
+	    return -ENOMEM;
+	}
+	samples.append(s);
     }
 
     //prepare and show the progress dialog
@@ -1118,23 +1119,23 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
 
 	unsigned char *buffer = loadbuffer;
 	while (read_samples--) {
-	    for (register unsigned int channel = 0;
-	         channel < channels;
-	         channel++)
-	    {
-		register int *smp = sample[channel] + pos;
-		if (bytes == 1) {
-		    // 8-bit files are always unsigned !
-		    *smp = (*(buffer++) - 128) << shift;
-		} else {
-		    // >= 16 bits is signed
-		    for (register int byte = 0; byte < bytes; byte++)
-			*smp |= *(buffer++) << ((byte << 3) + shift);
-		    // sign correcture for negative values
-		    if ((unsigned int)*smp & sign)
-			*smp |= negative;
-		}
-	    }
+//	    for (register unsigned int channel = 0;
+//	         channel < channels;
+//	         channel++)
+//	    {
+//		register int *smp = sample[channel] + pos;
+//		if (bytes == 1) {
+//		    // 8-bit files are always unsigned !
+//		    *smp = (*(buffer++) - 128) << shift;
+//		} else {
+//		    // >= 16 bits is signed
+//		    for (register int byte = 0; byte < bytes; byte++)
+//			*smp |= *(buffer++) << ((byte << 3) + shift);
+//		    // sign correcture for negative values
+//		    if ((unsigned int)*smp & sign)
+//			*smp |= negative;
+//		}
+//	    }
 	    pos++;
 	}
 
@@ -1149,7 +1150,6 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
 
     if (dialog) delete dialog;
     if (loadbuffer) delete[] loadbuffer;
-    if (sample) delete[] sample;
     return 0;
 }
 
@@ -1184,94 +1184,94 @@ int SignalManager::findWavChunk(FILE *sigin)
 //below  all methods of Class SignalManager that deal with sound playback
 
 //***************************************************************************
-//following are the playback routines
-struct Play {
-    SignalManager *manage;
-    playback_param_t params;
-    unsigned int start;
-    bool loop;
-};
-
+////following are the playback routines
+//struct Play {
+//    SignalManager *manage;
+//    playback_param_t params;
+//    unsigned int start;
+//    bool loop;
+//};
+//
 //***************************************************************************
-void playThread(struct Play *par)
-{
-    ASSERT(par);
-    if (!par) return;
-    ASSERT(par->manage);
-    if (!par->manage) return;
-
-    int device; // handle of the playback device
-    unsigned char *buffer = 0;
-    unsigned int bufsize;
-
-    // prepeare for playback by opening the sound device
-    // and initializing with the proper settings
-    if ((device = open(par->params.device, O_WRONLY)) != -1 ) {
-	bufsize = par->manage->setSoundParams(device,
-	    par->params.bits_per_sample,
-	    par->params.channels,
-	    par->params.rate, par->params.bufbase);
-
-	if (bufsize) {
-	    buffer = new unsigned char[bufsize];
-	    ASSERT(buffer);
-	    if (buffer) {
-		par->manage->playback(device, par->params,
-		    buffer, bufsize, par->start, par->loop);
-		delete[] buffer;
-	    }
-	} else {
-	    // simulate playback done
-	    par->manage->m_spx_playback_done.AsyncHandler();
-	}
-	close (device);
-    } else {
-	warning("SignalManager::playback(): unable to open device");
-    }
-
-    par->manage->msg[stopprocess] = true;
-    par->manage->msg[processid] = 0;
-
-    if (par) delete par;
-
-    return;
-}
+//void playThread(struct Play *par)
+//{
+//    ASSERT(par);
+//    if (!par) return;
+//    ASSERT(par->manage);
+//    if (!par->manage) return;
+//
+//    int device; // handle of the playback device
+//    unsigned char *buffer = 0;
+//    unsigned int bufsize;
+//
+//    // prepeare for playback by opening the sound device
+//    // and initializing with the proper settings
+//    if ((device = open(par->params.device, O_WRONLY)) != -1 ) {
+//	bufsize = par->manage->setSoundParams(device,
+//	    par->params.bits_per_sample,
+//	    par->params.channels,
+//	    par->params.rate, par->params.bufbase);
+//
+//	if (bufsize) {
+//	    buffer = new unsigned char[bufsize];
+//	    ASSERT(buffer);
+//	    if (buffer) {
+//		par->manage->playback(device, par->params,
+//		    buffer, bufsize, par->start, par->loop);
+//		delete[] buffer;
+//	    }
+//	} else {
+//	    // simulate playback done
+//	    par->manage->m_spx_playback_done.AsyncHandler();
+//	}
+//	close (device);
+//    } else {
+//	warning("SignalManager::playback(): unable to open device");
+//    }
+//
+//    par->manage->msg[stopprocess] = true;
+//    par->manage->msg[processid] = 0;
+//
+//    if (par) delete par;
+//
+//    return;
+//}
 
 //***************************************************************************
 void SignalManager::startplay(unsigned int start, bool loop)
 {
-    msg[processid] = 1;
-    msg[stopprocess] = false;
-
-    Play *par = new Play;
-    pthread_t thread;
-
-    par->manage = this;
-    par->start = start;
-    par->loop = loop;
-    par->params = KwaveApp::getPlaybackParams();
-    par->params.rate = this->getRate();
-
-    m_playback_error = 0;
-    pthread_create(&thread, 0, (void * (*) (void *))playThread, par);
+//    msg[processid] = 1;
+//    msg[stopprocess] = false;
+//
+//    Play *par = new Play;
+//    pthread_t thread;
+//
+//    par->manage = this;
+//    par->start = start;
+//    par->loop = loop;
+//    par->params = KwaveApp::getPlaybackParams();
+//    par->params.rate = this->getRate();
+//
+//    m_playback_error = 0;
+//    pthread_create(&thread, 0, (void * (*) (void *))playThread, par);
 }
 
 //***************************************************************************
 void SignalManager::stopplay()
 {
-    msg[stopprocess] = true;          //set flag for stopping
-
-    QTimer timeout;
-    timeout.start(5000, true);
-    while (msg[processid] != 0) {
-	sched_yield();
-	// wait for termination
-	if (!timeout.isActive()) {
-	    warning("SignalManager::stopplay(): TIMEOUT");
-	    break;
-	}
-    }
-    debug("SignalManager::stopplay(): threads stopped");
+//    msg[stopprocess] = true;          //set flag for stopping
+//
+//    QTimer timeout;
+//    timeout.start(5000, true);
+//    while (msg[processid] != 0) {
+//	sched_yield();
+//	// wait for termination
+//	if (!timeout.isActive()) {
+//	    warning("SignalManager::stopplay(): TIMEOUT");
+//	    break;
+//	}
+//    }
+//    debug("SignalManager::stopplay(): threads stopped");
 }
 
 //***************************************************************************
@@ -1280,79 +1280,79 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
                                   int bufbase)
 {
 //    const char *trouble = i18n("playback problem");
-
-    debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\
-	"rate=%d, bufbase=%d)", audio, bitspersample, channels,
-	rate, bufbase);
-
-// ### under construction ###
-
-// from standard oss interface (linux/soundcard.h)
-
-///*	Audio data formats (Note! U8=8 and S16_LE=16 for compatibility) */
-//#define SNDCTL_DSP_GETFMTS		_SIOR ('P',11, int) /* Returns a mask */
-//#define SNDCTL_DSP_SETFMT		_SIOWR('P',5, int) /* Selects ONE fmt*/
-//#	define AFMT_QUERY		0x00000000	/* Return current fmt */
-//#	define AFMT_MU_LAW		0x00000001
-//#	define AFMT_A_LAW		0x00000002
-//#	define AFMT_IMA_ADPCM		0x00000004
-//#	define AFMT_U8			0x00000008
-//#	define AFMT_S16_LE		0x00000010	/* Little endian signed 16*/
-//#	define AFMT_S16_BE		0x00000020	/* Big endian signed 16 */
-//#	define AFMT_S8			0x00000040
-//#	define AFMT_U16_LE		0x00000080	/* Little endian U16 */
-//#	define AFMT_U16_BE		0x00000100	/* Big endian U16 */
-//#	define AFMT_MPEG		0x00000200	/* MPEG (2) audio */
-
-// from ALSA interface (asound.h)
-
-//#define SND_PCM_SFMT_S8			0
-//#define SND_PCM_SFMT_U8			1
-//#define SND_PCM_SFMT_S16		SND_PCM_SFMT_S16_LE
-//#define SND_PCM_SFMT_U16		SND_PCM_SFMT_U16_LE
-//#define SND_PCM_SFMT_S24		SND_PCM_SFMT_S24_LE
-//#define SND_PCM_SFMT_U24		SND_PCM_SFMT_U24_LE
-//#define SND_PCM_SFMT_S32		SND_PCM_SFMT_S32_LE
-//#define SND_PCM_SFMT_U32		SND_PCM_SFMT_U32_LE
-//#define SND_PCM_SFMT_FLOAT		SND_PCM_SFMT_FLOAT_LE
-//#define SND_PCM_SFMT_FLOAT64		SND_PCM_SFMT_FLOAT64_LE
-//#define SND_PCM_SFMT_IEC958_SUBFRAME	SND_PCM_SFMT_IEC958_SUBFRAME_LE
-
-    int format = (bitspersample == 8) ? AFMT_U8 : AFMT_S16_LE;
-
-    // number of bits per sample
-    if (ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &format) == -1) {
-	m_playback_error = i18n("number of bits per samples not supported");
-	return 0;
-    }
-
-    // mono/stereo selection
-    int stereo = (channels >= 2) ? 1 : 0;
-    if (ioctl(audio, SNDCTL_DSP_STEREO, &stereo) == -1) {
-	m_playback_error = i18n("stereo not supported");
-	return 0;
-    }
-
-    // playback rate
-    if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) == -1) {
-	m_playback_error = i18n("playback rate not supported");
-	return 0;
-    }
-
-    // buffer size
-    ASSERT(bufbase >= MIN_PLAYBACK_BUFFER);
-    ASSERT(bufbase <= MAX_PLAYBACK_BUFFER);
-    if (bufbase < MIN_PLAYBACK_BUFFER) bufbase = MIN_PLAYBACK_BUFFER;
-    if (bufbase > MAX_PLAYBACK_BUFFER) bufbase = MAX_PLAYBACK_BUFFER;
-    if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
-	m_playback_error = i18n("unusable buffer size");
-	return 0;
-    }
-
-    // return the buffer size in bytes
-    int size;
-    ioctl(audio, SNDCTL_DSP_GETBLKSIZE, &size);
-    return size;
+//
+//    debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\
+//	"rate=%d, bufbase=%d)", audio, bitspersample, channels,
+//	rate, bufbase);
+//
+//// ### under construction ###
+//
+//// from standard oss interface (linux/soundcard.h)
+//
+/////*	Audio data formats (Note! U8=8 and S16_LE=16 for compatibility) */
+////#define SNDCTL_DSP_GETFMTS		_SIOR ('P',11, int) /* Returns a mask */
+////#define SNDCTL_DSP_SETFMT		_SIOWR('P',5, int) /* Selects ONE fmt*/
+////#	define AFMT_QUERY		0x00000000	/* Return current fmt */
+////#	define AFMT_MU_LAW		0x00000001
+////#	define AFMT_A_LAW		0x00000002
+////#	define AFMT_IMA_ADPCM		0x00000004
+////#	define AFMT_U8			0x00000008
+////#	define AFMT_S16_LE		0x00000010	/* Little endian signed 16*/
+////#	define AFMT_S16_BE		0x00000020	/* Big endian signed 16 */
+////#	define AFMT_S8			0x00000040
+////#	define AFMT_U16_LE		0x00000080	/* Little endian U16 */
+////#	define AFMT_U16_BE		0x00000100	/* Big endian U16 */
+////#	define AFMT_MPEG		0x00000200	/* MPEG (2) audio */
+//
+//// from ALSA interface (asound.h)
+//
+////#define SND_PCM_SFMT_S8			0
+////#define SND_PCM_SFMT_U8			1
+////#define SND_PCM_SFMT_S16		SND_PCM_SFMT_S16_LE
+////#define SND_PCM_SFMT_U16		SND_PCM_SFMT_U16_LE
+////#define SND_PCM_SFMT_S24		SND_PCM_SFMT_S24_LE
+////#define SND_PCM_SFMT_U24		SND_PCM_SFMT_U24_LE
+////#define SND_PCM_SFMT_S32		SND_PCM_SFMT_S32_LE
+////#define SND_PCM_SFMT_U32		SND_PCM_SFMT_U32_LE
+////#define SND_PCM_SFMT_FLOAT		SND_PCM_SFMT_FLOAT_LE
+////#define SND_PCM_SFMT_FLOAT64		SND_PCM_SFMT_FLOAT64_LE
+////#define SND_PCM_SFMT_IEC958_SUBFRAME	SND_PCM_SFMT_IEC958_SUBFRAME_LE
+//
+//    int format = (bitspersample == 8) ? AFMT_U8 : AFMT_S16_LE;
+//
+//    // number of bits per sample
+//    if (ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &format) == -1) {
+//	m_playback_error = i18n("number of bits per samples not supported");
+//	return 0;
+//    }
+//
+//    // mono/stereo selection
+//    int stereo = (channels >= 2) ? 1 : 0;
+//    if (ioctl(audio, SNDCTL_DSP_STEREO, &stereo) == -1) {
+//	m_playback_error = i18n("stereo not supported");
+//	return 0;
+//    }
+//
+//    // playback rate
+//    if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) == -1) {
+//	m_playback_error = i18n("playback rate not supported");
+//	return 0;
+//    }
+//
+//    // buffer size
+//    ASSERT(bufbase >= MIN_PLAYBACK_BUFFER);
+//    ASSERT(bufbase <= MAX_PLAYBACK_BUFFER);
+//    if (bufbase < MIN_PLAYBACK_BUFFER) bufbase = MIN_PLAYBACK_BUFFER;
+//    if (bufbase > MAX_PLAYBACK_BUFFER) bufbase = MAX_PLAYBACK_BUFFER;
+//    if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
+//	m_playback_error = i18n("unusable buffer size");
+//	return 0;
+//    }
+//
+//    // return the buffer size in bytes
+//    int size;
+//    ioctl(audio, SNDCTL_DSP_GETBLKSIZE, &size);
+//    return size;
 }
 
 //***************************************************************************
@@ -1360,149 +1360,149 @@ void SignalManager::playback(int device, playback_param_t &param,
                              unsigned char *buffer, unsigned int bufsize,
                              unsigned int start, bool loop)
 {
-    ASSERT(buffer);
-    ASSERT(bufsize);
-    ASSERT(param.channels);
-    if (!buffer || !bufsize || !param.channels) return;
-
-    unsigned int i;
-    unsigned int active_channels = 0;
-    unsigned int in_channels = m_channels;
-    unsigned int out_channels = param.channels;
-    unsigned int active_channel[in_channels]; // list of active channels
-
-    // get the number of channels with enabled playback
-    for (i=0; i < in_channels; i++) {
-	if (!signal.at(i)) continue;
-	// ### TODO: use state of play widget instead of "enabled" ###
-	if (!signal.at(i)->isSelected()) continue;
-
-	active_channel[active_channels++] = i;
-    }
-
-    // abort if no channels -> nothing to do
-    if (!active_channels) {
-	debug("SignalManager::playback(): no active channel, nothing to do");
-	msg[stopprocess] = true;
-    }
-
-    // set up the matrix for channel mixing
-    int matrix[active_channels][out_channels];
-    unsigned int x, y;
-    for (y=0; y < out_channels; y++) {
-	unsigned int m1, m2;
-	m1 = y * active_channels;
-	m2 = (y+1) * active_channels;
-	
-	for (x=0; x < active_channels; x++) {
-	    unsigned int n1, n2;
-	    n1 = x * out_channels;
-	    n2 = (x+1) * out_channels;
-
-	    // get the common area of [n1..n2] and [m1..m2]
-	    unsigned int left = max(n1, m1);
-	    unsigned int right = min(n2, m2);
-
-	    matrix[x][y] = (right > left) ? (right-left) : 0;
-	}
-    }
-
-    // loop until process is stopped
-    // or run once if not in loop mode
-    unsigned int pointer = start;
-    unsigned int last = rmarker;
-    int samples[active_channels];
-
-    if (lmarker == rmarker) last = getLength()-1;
-    m_spx_playback_pos.enqueue(pointer);
-    do {
-
-	while ((pointer <= last) && !msg[stopprocess]) {
-	
-	    // fill the buffer with audio data
-	    unsigned int cnt;
-	    for (cnt = 0; (cnt < bufsize) && (pointer <= last); pointer++) {
-                unsigned int channel;
-
-		for (y=0; y < out_channels; y++) {
-		    double s = 0;
-		    for (x=0; x < active_channels; x++) {
-			s += signal.at(
-				active_channel[x])->getSingleSample(
-				pointer) * matrix[x][y];
-		    }
-		    samples[y] = (int)(s / active_channels);
-		}
-
-		for (channel=0; channel < out_channels; channel++) {
-		    int sample = samples[channel];
-		
-		    switch (param.bits_per_sample) {
-			case 8:
-			    sample += 1 << 23;
-			    buffer[cnt++] = sample >> 16;
-			    break;
-			case 16:
-			    sample += 1 << 23;
-			    buffer[cnt++] = sample >> 8;
-			    buffer[cnt++] = (sample >> 16) + 128;
-			    break;
-			case 24:
-			    // play in 32 bit format
-			    buffer[cnt++] = 0x00;
-			    buffer[cnt++] = sample & 0x0FF;
-			    buffer[cnt++] = sample >> 8;
-			    buffer[cnt++] = (sample >> 16) + 128;
-
-			    break;
-			default:
-			    // invalid bits per sample
-			    msg[stopprocess] = true;
-			    pointer = last;
-			    cnt = 0;
-			    break;
-		    }
-		}
-	    }
-
-	    // write buffer to the playback device
-	    write(device, buffer, cnt);
-	    m_spx_playback_pos.enqueue(pointer);
-	}
-	
-	// maybe we loop. in this case the playback starts
-	// again from the left marker
-	if (loop && !msg[stopprocess]) pointer = lmarker;
-
-    } while (loop && !msg[stopprocess]);
-
-    // playback is done
-    m_spx_playback_done.AsyncHandler();
+//    ASSERT(buffer);
+//    ASSERT(bufsize);
+//    ASSERT(param.channels);
+//    if (!buffer || !bufsize || !param.channels) return;
+//
+//    unsigned int i;
+//    unsigned int active_channels = 0;
+//    unsigned int in_channels = m_channels;
+//    unsigned int out_channels = param.channels;
+//    unsigned int active_channel[in_channels]; // list of active channels
+//
+//    // get the number of channels with enabled playback
+//    for (i=0; i < in_channels; i++) {
+//	if (!signal.at(i)) continue;
+//	// ### TODO: use state of play widget instead of "enabled" ###
+//	if (!signal.at(i)->isSelected()) continue;
+//
+//	active_channel[active_channels++] = i;
+//    }
+//
+//    // abort if no channels -> nothing to do
+//    if (!active_channels) {
+//	debug("SignalManager::playback(): no active channel, nothing to do");
+//	msg[stopprocess] = true;
+//    }
+//
+//    // set up the matrix for channel mixing
+//    int matrix[active_channels][out_channels];
+//    unsigned int x, y;
+//    for (y=0; y < out_channels; y++) {
+//	unsigned int m1, m2;
+//	m1 = y * active_channels;
+//	m2 = (y+1) * active_channels;
+//	
+//	for (x=0; x < active_channels; x++) {
+//	    unsigned int n1, n2;
+//	    n1 = x * out_channels;
+//	    n2 = (x+1) * out_channels;
+//
+//	    // get the common area of [n1..n2] and [m1..m2]
+//	    unsigned int left = max(n1, m1);
+//	    unsigned int right = min(n2, m2);
+//
+//	    matrix[x][y] = (right > left) ? (right-left) : 0;
+//	}
+//    }
+//
+//    // loop until process is stopped
+//    // or run once if not in loop mode
+//    unsigned int pointer = start;
+//    unsigned int last = rmarker;
+//    int samples[active_channels];
+//
+//    if (lmarker == rmarker) last = getLength()-1;
+//    m_spx_playback_pos.enqueue(pointer);
+//    do {
+//
+//	while ((pointer <= last) && !msg[stopprocess]) {
+//	
+//	    // fill the buffer with audio data
+//	    unsigned int cnt;
+//	    for (cnt = 0; (cnt < bufsize) && (pointer <= last); pointer++) {
+//                unsigned int channel;
+//
+//		for (y=0; y < out_channels; y++) {
+//		    double s = 0;
+//		    for (x=0; x < active_channels; x++) {
+//			s += signal.at(
+//				active_channel[x])->getSingleSample(
+//				pointer) * matrix[x][y];
+//		    }
+//		    samples[y] = (int)(s / active_channels);
+//		}
+//
+//		for (channel=0; channel < out_channels; channel++) {
+//		    int sample = samples[channel];
+//		
+//		    switch (param.bits_per_sample) {
+//			case 8:
+//			    sample += 1 << 23;
+//			    buffer[cnt++] = sample >> 16;
+//			    break;
+//			case 16:
+//			    sample += 1 << 23;
+//			    buffer[cnt++] = sample >> 8;
+//			    buffer[cnt++] = (sample >> 16) + 128;
+//			    break;
+//			case 24:
+//			    // play in 32 bit format
+//			    buffer[cnt++] = 0x00;
+//			    buffer[cnt++] = sample & 0x0FF;
+//			    buffer[cnt++] = sample >> 8;
+//			    buffer[cnt++] = (sample >> 16) + 128;
+//
+//			    break;
+//			default:
+//			    // invalid bits per sample
+//			    msg[stopprocess] = true;
+//			    pointer = last;
+//			    cnt = 0;
+//			    break;
+//		    }
+//		}
+//	    }
+//
+//	    // write buffer to the playback device
+//	    write(device, buffer, cnt);
+//	    m_spx_playback_pos.enqueue(pointer);
+//	}
+//	
+//	// maybe we loop. in this case the playback starts
+//	// again from the left marker
+//	if (loop && !msg[stopprocess]) pointer = lmarker;
+//
+//    } while (loop && !msg[stopprocess]);
+//
+//    // playback is done
+//    m_spx_playback_done.AsyncHandler();
 }
 
 //***************************************************************************
 void SignalManager::updatePlaybackPos()
 {
-    unsigned int count = m_spx_playback_pos.count();
-    unsigned int pos = 0;
-
-    // dequeue all pointers and keep the latest one
-    if (!count) return;
-    while (count--) {
-	unsigned int *ppos = m_spx_playback_pos.dequeue();
-	ASSERT(ppos);
-	if (!ppos) continue;
-	pos = *ppos;
-	delete ppos;
-    }
-
-    emit sigPlaybackPos(pos);
+//    unsigned int count = m_spx_playback_pos.count();
+//    unsigned int pos = 0;
+//
+//    // dequeue all pointers and keep the latest one
+//    if (!count) return;
+//    while (count--) {
+//	unsigned int *ppos = m_spx_playback_pos.dequeue();
+//	ASSERT(ppos);
+//	if (!ppos) continue;
+//	pos = *ppos;
+//	delete ppos;
+//    }
+//
+//    emit sigPlaybackPos(pos);
 }
 
 //***************************************************************************
 void SignalManager::forwardPlaybackDone()
 {
-    emit sigPlaybackDone();
+//    emit sigPlaybackDone();
 }
 
 //***************************************************************************

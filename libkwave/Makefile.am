@@ -20,6 +20,9 @@ libkwave_la_SOURCES =\
  mmap.cpp\
  Parser.cpp\
  Signal.cpp\
+ SampleInputStream.cpp\
+ Stripe.cpp\
+ Track.cpp\
  WindowFunction.cpp
 
 kwaveinclude_HEADERS = \
@@ -29,6 +32,7 @@ kwaveinclude_HEADERS = \
  FileLoader.h\
  Functions.h\
  gsl_fft.h\
+ InsertMode.h\
  Interpolation.h\
  Label.h\
  LabelList.h\
@@ -38,8 +42,13 @@ kwaveinclude_HEADERS = \
  mmap.h\
  Parser.h\
  PointSet.h\
+ SampleInputStream.h\
  Signal.h\
+ Stripe.h\
+ Track.h\
  WindowFunction.h
+
+libkwave_la_LIBADD = $(topdir)/mt/libkwavemt.a 
 
 lib_LTLIBRARIES = libkwave.la
 

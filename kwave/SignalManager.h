@@ -31,9 +31,10 @@
 
 #include "mt/SignalProxy.h"
 
+#include "libkwave/Signal.h"
+
 class ProgressDialog;
 class QBitmap;
-class Signal;
 class TimeOperation;
 
 typedef struct {
@@ -52,11 +53,12 @@ class SignalManager : public QObject
     Q_OBJECT
 
 public:
-    SignalManager(Signal *sig);
-    SignalManager(const char *filename, int type = 0);
-    SignalManager(unsigned int length, int rate,
-                  unsigned int channels = 1);
+    /** Default constructor. */
+    SignalManager();
+
     virtual ~SignalManager();
+
+    void loadFile(const QString &filename, int type = 0);
 
     bool executeCommand(const QString &command);
 
@@ -140,7 +142,7 @@ public:
 
     inline Signal *getSignal (int channel)
     {
-	return signal.at(channel);
+	return 0; // ###
     };
 
     /**
@@ -341,8 +343,8 @@ private:
     /** name of the signal, normally equal to the filename */
     QString m_name;
 
-    /** list of all channels (signals) */
-    QList<Signal> signal;
+    /** signal with multiple tracks */
+    Signal m_signal;
 
     unsigned int lmarker;
     unsigned int rmarker;

@@ -324,10 +324,10 @@ void MainWidget::saveSignal(const char *filename, int bits,
 }
 
 //*****************************************************************************
-void MainWidget::setSignal (const char *filename, int type)
+void MainWidget::setSignal (const QString &filename, int type)
 {
     ASSERT(signalview);
-
+    debug("MainWidget::setSignal(%s, %d)", filename.data(), type); // ##
     closeSignal();
     if (signalview) signalview->setSignal(filename, type);
     refreshControls();
@@ -674,7 +674,7 @@ int MainWidget::getBitsPerSample()
 //*****************************************************************************
 SignalManager *MainWidget::getSignalManager()
 {
-    return (signalview ? signalview->getSignalManager() : 0);
+    return (signalview ? &(signalview->getSignalManager()) : 0);
 }
 
 //*****************************************************************************

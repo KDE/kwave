@@ -31,15 +31,16 @@ unsigned int ClipBoard::getLength ()
 //*****************************************************************************
 void ClipBoard::appendChannel(Signal *channel)
 {
-    ASSERT(channel);
-    if (!channel) return;
-
-    if (signal) {
-	signal->appendChannel(channel);
-    } else {
-	signal=new SignalManager(channel);
-	ASSERT(signal);
-    }
+// ###
+//    ASSERT(channel);
+//    if (!channel) return;
+//
+//    if (signal) {
+//	signal->appendChannel(channel);
+//    } else {
+//	signal=new SignalManager(channel);
+//	ASSERT(signal);
+//    }
 }
 
 //*****************************************************************************

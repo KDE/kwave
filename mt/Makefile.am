@@ -14,6 +14,7 @@ libkwavemt_a_SOURCES=\
  TSS_Object.cpp \
  Mutex.cpp \
  MutexGuard.cpp \
+ MutexSet.cpp \
  Thread.cpp \
  $(BUILTSOURCES)
 

@@ -22,6 +22,7 @@
 #include <qpainter.h>
 
 #include "PlaybackController.h"
+#include "SignalManager.h"
 
 class LabelList;
 class LabelType;
@@ -66,7 +67,7 @@ public:
      */
     double samples2ms(int samples);
 
-    void setSignal (const char *filename, int type);
+    void setSignal(const QString  &filename, int type);
     void saveSignal (const char *filename, int bits,
 		     int type, bool selection = false);
     void saveBlocks (int);
@@ -122,7 +123,7 @@ public:
     int getBitsPerSample ();
 
     /** returns the signal manager of the current signal */
-    SignalManager *getSignalManager();
+    SignalManager &getSignalManager();
 
     /** Returns the playback controller */
     PlaybackController &playbackController();
@@ -411,7 +412,10 @@ private:
     int playpointer, lastplaypointer;
     int redraw;                           //flag for redrawing pixmap
     MouseMark *select;
-    SignalManager *signalmanage;
+
+    /** our signal manager */
+    SignalManager m_signal_manager;
+
     QTimer *timer;
     QPainter p;
     QPixmap *pixmap;      //pixmap to be blitted to screen

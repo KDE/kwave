@@ -49,7 +49,7 @@ public:
     virtual bool isOK();
 
     ~MainWidget ();
-    void setSignal (const char *filename, int type = 0);
+    void setSignal (const QString &filename, int type = 0);
     void setSignal (SignalManager *);
     void saveSignal (const char *filename, int bits, int type, bool selection);
 

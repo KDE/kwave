@@ -703,13 +703,27 @@ void TopWidget::openRecent(const char *str)
 //*****************************************************************************
 void TopWidget::openFile()
 {
-    loadFile(KFileDialog::getOpenFileName(0, "*.wav", this), WAV);
+    static QString openDir;
+    QString filename;
+
+    filename = KFileDialog::getOpenFileName(openDir, "*.wav", this);
+    if (filename.length()) {
+	loadFile(filename, WAV);
+	openDir = filename;
+    }
 }
 
 //*****************************************************************************
 void TopWidget::importAsciiFile()
 {
-    loadFile(KFileDialog::getOpenFileName(0, "*.*", this), ASCII);
+    static QString openDir;
+    QString filename;
+
+    filename = KFileDialog::getOpenFileName(openDir, "*.asc", this);
+    if (filename.length()) {
+	loadFile(filename, ASCII);
+	openDir = filename;
+    }
 }
 
 //*****************************************************************************

@@ -8,15 +8,16 @@
 
 #include "SignalWidget.h"
 #include "SignalManager.h"
+
 #include <libkwave/DialogOperation.h>
 #include <libkwave/Label.h>
 #include <libkwave/Parser.h>
 #include <libkwave/Global.h>
 #include <libkwave/DynamicLoader.h>
-#include "../libgui/Menu.h"
 #include "../libgui/Dialog.h"
 #include "ProgressDialog.h"
 #include "PitchWidget.h"
+#include "libkwave/Signal.h"
 #include <libkwave/DialogOperation.h>
 #include <libkwave/MessagePort.h>
 #include <libkwave/Color.h>

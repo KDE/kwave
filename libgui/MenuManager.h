@@ -1,69 +1,70 @@
 #ifndef _KWAVE_MENU_MANAGER_H_
 #define _KWAVE_MENU_MANAGER_H_ 1
 
-#include <qobject.h>
+// #include <qobject.h>
 #include <qwidget.h>
-#include <qlist.h>
-#include <qdict.h>
-#include <qkeycode.h>
-#include <libkwave/MenuItem.h>
-#include "../libgui/Menu.h"
+// #include <qlist.h>
+// #include <qdict.h>
+// #include <qkeycode.h>
 
+// #include "MenuNode.h"
+
+class QWidget;
 class KMenuBar;
 class NumberedMenu;
+// class MenuRoot;
 
 //*****************************************************************************
-class MenuManager:public QObject
+class MenuManager: public QObject
 {
- Q_OBJECT
+    Q_OBJECT
+
  public:
+    MenuManager(QWidget *parent,KMenuBar &bar);
+//    ~MenuManager();
 
- MenuManager	                (QWidget *parent,KMenuBar *);
- ~MenuManager	                ();
- 
- void setCommand                (const char *);
+//    void setCommand(const char *);
 
- NumberedMenu *findNumberedMenu (const char *);                  //return id
- NumberedMenu *addNumberedMenu  (const char *);           
- //deletes all entries of a numbered Menu
- void clearNumberedMenu         (const char *);
- //add Entrys to numbered Window
- void addNumberedMenuEntry      (const char *name,const char *entry);
+    NumberedMenu *findNumberedMenu (const char *) {return 0;};
+    NumberedMenu *addNumberedMenu  (const char *) {return 0;};
+    //deletes all entries of a numbered Menu
+    void clearNumberedMenu         (const char *) {};
+    //add Entrys to numbered Window
+    void addNumberedMenuEntry      (const char *name,const char *entry) {};
 
- void selectItemChecked		(const char *id);
- void setItemChecked		(const char *id, bool check);
- void setItemEnabled		(const char *id, bool enable);
+    void selectItemChecked		(const char *id) {};
+    void setItemChecked		(const char *id, bool check) {};
+    void setItemEnabled		(const char *id, bool enable) {};
 
  signals:
 
  void command(const char *);
 
- public slots:
+/*
+// ### public slots:
 
    // void deliverCommand (const char *);
 
- protected:
+// protected:
 
- Menu                *findTopLevelMenu  (const char *name);
- void                registerID         (const char *id, Menu *menu);
+// ### MenuNode                *findTopLevelMenu  (const char *name);
+// ### void                registerID         (const char *id, MenuNode *menu);
 
- private:
+// private:
 
- KMenuBar            *bar;          //visible bar to which all toplevel menus
+ / ** root node of the menu structure * /
+// MenuRoot *menu_root;
+
+// ### KMenuBar            *bar;          //visible bar to which all toplevel menus
                                     //get attached
- QList<Menu>         toplevelmenus; //list of all top-level menus
- QList<NumberedMenu> numberedMenus; //list of special menus, that allow
+// ### QList<MenuNode>         toplevelmenus; //list of all top-level menus
+// ### QList<NumberedMenu> numberedMenus; //list of special menus, that allow
                                     //dynamical appending (for presets,
                                     //file list,etc)
- QDict<Menu> menuIDs;               //for mapping string ids of menues
+// ### QDict<MenuNode> menuIDs;               //for mapping string ids of menues
                                     //to references of menues
+*/
 
 };
+
 #endif
-
-
-
-
-
-
-

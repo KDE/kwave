@@ -1,4 +1,3 @@
-#include "ClipBoard.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -6,6 +5,7 @@
 #include <linux/soundcard.h>
 #include <endian.h>
 #include <limits.h>
+#include <kmsgbox.h>
 
 #include <libkwave/Signal.h>
 #include <libkwave/DynamicLoader.h>
@@ -18,14 +18,17 @@
 
 #include "sampleop.h"
 
+#include "ClipBoard.h"
 #include "ProgressDialog.h"
-#include <kmsgbox.h>
+
+#include "SignalManager.h"
 
 extern int play16bit;
 extern int bufbase;
 
 extern Global globals;
 extern void *createProgressDialog (TimeOperation *operation,const char *caption);
+
 //**********************************************************
 void SignalManager::getMaxMin (int channel,int&max, int &min,int begin,int len)
 {

@@ -1,7 +1,26 @@
 #include <math.h>
+
 #include <qkeycode.h>
-#include "FFTWindow.h"
+#include <qstring.h>
+#include <qwidget.h>
+#include <qpixmap.h>
+#include <qtimer.h>
+
+#include <kapp.h>
+#include <kselect.h>
+#include <ktopwidget.h>
+#include <kmenubar.h>
+#include <kbuttonbox.h>
+#include <kstatusbar.h>
+
+#include <libkwave/gsl_fft.h>
+
+#include "../libgui/FFTWidget.h"
+
 #include "TopWidget.h"
+#include "FFTContainer.h"
+
+#include "FFTWindow.h"
 
 //****************************************************************************
 FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())

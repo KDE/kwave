@@ -129,11 +129,13 @@ void KwaveApp::addRecentFile (char* newfile)
 void KwaveApp::newWindow ()
 {
   TopWidget *tnew=new TopWidget();
+
   if (tnew)
     {
       topwidgetlist.append (tnew);
       tnew->show();
     }
+
 }
 //*****************************************************************************
 void KwaveApp::closeWindow (TopWidget *todel)

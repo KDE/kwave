@@ -4,15 +4,15 @@
 #define MAXCHANNELS 64
 
 #include <stdio.h>
-#include <libkwave/Filter.h>
-#include <libkwave/Signal.h>
 
 #define processid	0
 #define stopprocess	1
 #define samplepointer	2
 
+class Signal;
 class KwaveSignal;
 class QWidget;
+
 //**********************************************************************
 class SignalManager
 {
@@ -36,14 +36,14 @@ class SignalManager
  inline int	getRate	        () {return rate;};
  inline int	getChannelCount	() {return channels;};
  inline int	getLength	()
-   {return signal[0] ? signal[0]->getLength() : 0;};
+   {return 0; /* ### signal[0] ? signal[0]->getLength() : 0; ### */ };
  inline int	getLMarker	() {return lmarker;};
  inline int	getRMarker	() {return rmarker;}; 
  inline int	getPlayPosition () {return msg[samplepointer];};
  inline Signal *getSignal	() {return signal[0];};
  inline Signal *getSignal	(int channel) {return signal[channel];};
  inline int     getSingleSample  (int channel,int offset)
-   {return signal[channel] ? signal[channel]->getSingleSample(offset) : 0;};
+   {return 0; /* ### signal[channel] ? signal[channel]->getSingleSample(offset) : 0; ### */};
  inline void   setParent        (QWidget *par)
    {parent=par;};
 
@@ -95,4 +95,3 @@ class SignalManager
  int            msg[4];
 };
 #endif  /* signalmanager.h */   
-

@@ -1,19 +1,16 @@
 #ifndef _FFTVIEW_H_
 #define _FFTVIEW_H_ 1
 
-#include <libkwave/gsl_fft.h>
-#include <qstring.h>
-#include <qwidget.h>
-#include <qpixmap.h>
-#include <qtimer.h>
-#include "../libgui/FFTWidget.h"
-#include "FFTContainer.h"
-#include <kapp.h>
-#include <kselect.h>
+#include <math.h>
 #include <ktopwidget.h>
-#include <kmenubar.h>
-#include <kbuttonbox.h>
-#include <kstatusbar.h>  
+#include "../libgui/FFTWidget.h"
+
+class QString;
+class FFTContainer;
+class QPopupMenu;
+class ScaleWidget;
+class CornerPatchWidget;
+class KStatusBar;
 
 //***********************************************************************
 class FFTWindow : public KTopLevelWidget
@@ -50,10 +47,5 @@ class FFTWindow : public KTopLevelWidget
  KStatusBar    *status;
  int           findPeakID;
 };
+
 #endif
-
-
-
-
-
-

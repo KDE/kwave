@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MenuItem.h  -  description
+                          MenuSub.cpp  -  description
                              -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Martin Wilz
@@ -14,3 +14,9 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+
+#include <stdio.h>
+#include "MenuCommand.h"
+#include "MenuNode.h"
+#include "MenuSub.h"
+

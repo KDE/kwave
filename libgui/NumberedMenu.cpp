@@ -1,6 +1,7 @@
+
 #include "NumberedMenu.h"
 #include <libkwave/String.h>
-#include "Menu.h"
+#include "MenuNode.h"
 
 NumberedMenu::NumberedMenu (const char *name)
 {
@@ -13,7 +14,7 @@ void NumberedMenu::clear ()
   refresh ();
 }
 //*****************************************************************************
-void NumberedMenu::notifyMenu (Menu *menu)
+void NumberedMenu::notifyMenu (MenuNode *menu)
 {
   notifymenus.append (menu);
 }
@@ -27,7 +28,7 @@ void NumberedMenu::addEntry (const char *entry)
 void NumberedMenu::refresh ()
 {
   //refresh of menus already in menu tree
-  Menu *tmp=notifymenus.first();
+  MenuNode *tmp=notifymenus.first();
 
   while (tmp)
     {
@@ -39,13 +40,13 @@ void NumberedMenu::refresh ()
 
       while ((entry)&&(itemcnt<MENUMAX))
 	{
-	  tmp->insertItem (entry,id+itemcnt);
+/* ###	  tmp->insertItem (entry,id+itemcnt); */
 	  entry=entries.next();
 	  itemcnt++;
 	}
 
       //call just in case an update of the checkmark is needed
-      tmp->checkEntry(tmp->getCheckedId());
+// ###      tmp->checkEntry(tmp->getCheckedId());
 
       tmp=notifymenus.next();
     }

@@ -1,4 +1,3 @@
-# not a GNU package.
 AUTOMAKE_OPTIONS = foreign
 
 srcdir  	 = $(shell pwd)

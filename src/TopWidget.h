@@ -1,8 +1,19 @@
-#include <qlist.h>
-#include "MainWidget.h"
-#include <drag.h>
-#include "KwaveApp.h"
-#include "../libgui/MenuManager.h"
+#include <qobject.h>
+// #include <kapp.h>
+// #include <qlist.h>
+// #include "MainWidget.h"
+// #include <drag.h>
+// #include "KwaveApp.h"
+// #include "../libgui/MenuManager.h"
+
+#include <ktmainwindow.h>
+
+// class KTMainWindow;
+class MenuManager;
+class MainWidget;
+class SignalManager;
+class KDNDDropZone;
+class KStatusBar;
 
 class TopWidget : public KTMainWindow
 {
@@ -17,11 +28,11 @@ class TopWidget : public KTMainWindow
  void   updateRecentFiles ();
  void   parseCommands     (const char *);
  void   loadBatch         (const char *);
+ void   updateMenu        ();
 
  public slots:
  void 	setOp             (const char *);
  void	dropEvent	  (KDNDDropZone *);
- void   updateMenu        ();
 
  protected:
 
@@ -38,7 +49,6 @@ class TopWidget : public KTMainWindow
  QDir           *saveDir;
  QDir           *loadDir;
  MainWidget	*mainwidget;
- KMenuBar	*bar;
  KStatusBar	*status;      //global status bar
  char           *name;        //filename
  MenuManager    *menumanage;  //menu manager object...

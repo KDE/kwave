@@ -1,4 +1,9 @@
 # KDE Config File
+[libgui/MenuItem.h]
+install_location=
+dist=true
+install=false
+type=HEADER
 [libgui/OverViewWidget.h]
 install_location=
 dist=true
@@ -20,12 +25,12 @@ dist=true
 install=false
 type=SOURCE
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/Menu.h,/usr/src/packages/multimedia/sound/kwave/libgui/Menu.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/NumberedMenu.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.h,/usr/src/packages/multimedia/sound/kwave/libgui/NumberedMenu.h,/usr/src/packages/multimedia/sound/kwave/src/MainWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/menus.config,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.h,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.h,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.h,/usr/src/packages/multimedia/sound/kwave/src/MainWidget.cpp,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/libgui/Menu.h
-cpp_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp
-browser_file=file:/usr/X11/lib/qt/doc/html/qpopupmenu-members.html
+header_file=/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.h
+cpp_file=/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.cpp
+browser_file=file:/usr/X11/lib/qt/doc/html/metaobjects.html
 [libgui/TimeLine.h]
 install_location=
 dist=true
@@ -46,10 +51,22 @@ install_location=
 dist=true
 install=false
 type=SOURCE
+[libgui/MenuNode.cpp]
+install_location=
+dist=true
+install=false
+type=SOURCE
 [Config for BinMakefileAm]
 ldflags=
+addcxxflags=
+ldadd=
 bin_program=kwave
 cxxflags=-O0 -g3 -Wall
+[libgui/MenuRoot.h]
+install_location=
+dist=true
+install=false
+type=HEADER
 [src/ImageView.h]
 install_location=
 dist=true
@@ -64,7 +81,7 @@ dist=true
 install=false
 type=DATA
 [libgui/Makefile.am]
-files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FaderWidget.cpp,libgui/FaderWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/Menu.cpp,libgui/Menu.h,libgui/MenuCommand.cpp,libgui/MenuCommand.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/MultiStateImage.cpp,libgui/MultiStateImage.h,libgui/NumberedMenu.cpp,libgui/NumberedMenu.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/Slider.h,libgui/TimeLine.cpp,libgui/TimeLine.h,
+files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FaderWidget.cpp,libgui/FaderWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/Menu.cpp,libgui/Menu.h,libgui/MenuCommand.cpp,libgui/MenuCommand.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/MultiStateImage.cpp,libgui/MultiStateImage.h,libgui/NumberedMenu.cpp,libgui/NumberedMenu.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/Slider.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,
 sub_dirs=
 type=static_library
 [README]
@@ -120,6 +137,11 @@ install_location=
 dist=true
 install=false
 type=HEADER
+[libgui/MenuRoot.cpp]
+install_location=
+dist=true
+install=false
+type=SOURCE
 [src/TopWidget.cpp]
 install_location=
 dist=true
@@ -177,6 +199,11 @@ install_location=
 dist=true
 install=false
 type=SOURCE
+[libgui/MenuSub.h]
+install_location=
+dist=true
+install=false
+type=HEADER
 [libgui/MenuManager.cpp]
 install_location=
 dist=true
@@ -241,6 +268,16 @@ type=HEADER
 files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleio.cpp,src/sampleop.h,src/SignalManager.h,src/SignalWidget.cpp,src/SignalWidget.h,src/SonagramContainer.cpp,src/SonagramContainer.h,src/SonagramWindow.cpp,src/SonagramWindow.h,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,
 sub_dirs=
 type=static_library
+[libgui/MenuItem.cpp]
+install_location=
+dist=true
+install=false
+type=SOURCE
+[libgui/MenuSub.cpp]
+install_location=
+dist=true
+install=false
+type=SOURCE
 [libgui/FormantWidget.h]
 install_location=
 dist=true
@@ -282,18 +319,21 @@ dist=true
 install=false
 type=SOURCE
 [General]
+make_options=-w -j1
 makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,src/Makefile.am,libgui/Makefile.am,bin/Makefile.am,
 version_control=None
-project_type=normal_empty
+project_type=normal_kde
 author=Martin Wilz
 sub_dir=kwave/
-lfv_open_groups=
+lfv_open_groups=Sources,
 workspace=1
 project_name=Kwave
 version=0.29.7
+short_info=,
 email=mwilz@ernie.MI.Uni-Koeln.DE
 kdevprj_version=1.0beta2
-configure_args=
+configure_args=--enable-debug=yes
+modifyMakefiles=false
 [libgui/MultiStateImage.cpp]
 install_location=
 dist=true
@@ -333,6 +373,7 @@ dist=true
 install=false
 type=SOURCE
 [kwave/Makefile.am]
+files=
 type=prog_main
 sub_dirs=
 [libgui/MenuCommand.h]
@@ -379,6 +420,11 @@ install_location=
 dist=true
 install=false
 type=SOURCE
+[libgui/MenuNode.h]
+install_location=
+dist=true
+install=false
+type=HEADER
 [libgui/NumberedMenu.cpp]
 install_location=
 dist=true

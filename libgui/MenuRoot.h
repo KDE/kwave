@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MenuItem.h  -  description
+                          MenuRoot.h  -  description
                              -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Martin Wilz
@@ -14,3 +14,33 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+
+#ifndef MENUROOT_H
+#define MENUROOT_H
+
+#include "MenuNode.h"
+
+/**
+ * This is the class for the root of a Menu (e.g. a MenuBar) that contains
+ * all toplevel menues of a menu hierarchy.
+ * @author Thomas Eschenbacher
+ */
+class MenuRoot : public MenuNode
+{
+  Q_OBJECT
+
+public: // Public methods
+
+    MenuRoot(KMenuBar &bar);
+
+    /** Inserts a new child node into the current structure. */
+    virtual int insertNode(MenuNode *node);
+
+private: // Private attributes
+
+  /** reference to a KMenuBar */
+  KMenuBar& menu_bar;
+
+};
+
+#endif

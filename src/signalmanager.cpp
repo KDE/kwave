@@ -16,7 +16,7 @@
 
 //some definitions of values follow
 
-//id's for functions...
+//ids for functions...
 
 extern int play16bit;
 extern int bufbase;
@@ -76,29 +76,11 @@ void SignalManager::appendChannel (KwaveSignal *newsig)
   channels++;
   info ();
 }
-//**********************************************************
-void SignalManager::checkRange ()
-//usually useless, or it introduces
-//new bugs, or even better makes old bug worse to debug... 
-{
-  if (lmarker<0) lmarker=0; //check markers for bounding
-  if (rmarker>length) lmarker=length; 
 
-  len=rmarker-lmarker;
-  begin=lmarker;
-
-  if (len==0) //if no part is selected select the whole signal
-    {
-      len=length;
-      begin=0;
-    }
-}
 //**********************************************************
 void SignalManager::setOp (int id)
 {
   stopplay();	//every operation cancels playing...
-
-  checkRange ();
 
   //decode dynamical allocated menu id's
   //into the ones used by the switch statement below
@@ -247,15 +229,23 @@ bool SignalManager::promoteCommand (const char *command)
 //**********************************************************
 void SignalManager::info ()
   //notifies attached slots about important events
-  //does a little bit to much, but nothing should hurt the performance
+  //does a little bit too much, but nothing should hurt the performance
 {
   length=signal[0]->getLength();
+
+  if (rate == 0) {
+    // this should never happen !
+    fprintf(stderr, "signalmanager.cpp:info:rate==0 !?\r\n");
+  }
+
   emit sampleChanged ();
   emit rateInfo (rate);
   emit channelInfo (channels);
-  emit selectedTimeInfo ((int)(((long long)(lmarker-rmarker))*10000/rate));
+  if (rate != 0)
+    emit selectedTimeInfo ((int)(((long long)(lmarker-rmarker+1))*10000/rate));
   emit lengthInfo (length);
-  emit timeInfo ((int)((((long long)length)*10000)/rate));
+  if (rate != 0)
+    emit timeInfo ((int)((((long long)length)*10000)/rate));
 }
 //**********************************************************
 const char *SignalManager::getName ()
@@ -307,9 +297,9 @@ SignalManager::~SignalManager ()
 void SignalManager::setMarkers (int l,int r )
   //this one sets the internal markers and promotes them to all channels
 {
-  lmarker=l;
-  rmarker=r;
-  emit selectedTimeInfo((int)(((long long)(r-l))*10000/rate));
   for (int i=0;i<channels;i++) signal[i]->setMarkers (l,r);
+  lmarker=signal[0]->getLMarker();
+  rmarker=signal[0]->getRMarker();
+  emit selectedTimeInfo((int)(((long long)(rmarker-lmarker+1))*10000/rate));
 }
 //**********************************************************

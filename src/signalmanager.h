@@ -86,7 +86,7 @@ class SignalManager : public QObject
  void	sampleChanged	();
  void	channelReset	();
  void   signaldeleted   (int,int);   //these are the notification used for keeping track of labels
- void   signalinserted  (int,int);  //dito, only for peaces of signal, being inserted...
+ void   signalinserted  (int,int);   //dito, only for pieces of signals, being inserted...
  void lengthInfo	(int);
  void rateInfo		(int);
  void timeInfo		(int);
@@ -107,7 +107,6 @@ class SignalManager : public QObject
  int            lmarker,rmarker;
  int            channels;
  int		length;                //number of samples
- int            len,begin;
  int		rate;                  //sampling rate being used
  int            msg[4];
 };

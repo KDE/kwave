@@ -674,6 +674,14 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 	      int chanheight=height/channels;
 	      int begin=+chanheight/2;
 
+	      //check and correction of current begin if needed
+	      if (zoom*width > signalmanage->getLength() + begin)
+		{
+/* ###
+	the check above does not work. please correct and insert some clever code here...
+*/
+		}
+
 	      //check and correction of current zoom value if needed
 	      if (zoom*width>signalmanage->getLength())
 		{
@@ -789,20 +797,3 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
       if (update[1]!=-1) bitBlt (this,update[1],0,pixmap,update[1],0,1,height);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

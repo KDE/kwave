@@ -17,7 +17,10 @@
 
 #include "config.h"
 #include <errno.h>
+
 #include <kapp.h>
+#include <kaboutapplication.h>
+
 #include "libgui/KwavePlugin.h"
 #include "AboutPlugin.h"
 #include "AboutDialog.h"
@@ -34,6 +37,10 @@ AboutPlugin::AboutPlugin(PluginContext &c)
 int AboutPlugin::start(QStrList &params)
 {
     // create a new "about" dialog and show it
+
+// for the next release, this should work:
+//    KAboutApplication *dlg = new KAboutApplication(parentWidget());
+
     AboutDialog *dlg = new AboutDialog(parentWidget());
     ASSERT(dlg);
     if (!dlg) return ENOMEM;

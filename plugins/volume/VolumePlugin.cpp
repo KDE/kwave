@@ -129,26 +129,19 @@ void VolumePlugin::run(QStringList params)
     ArtsMultiTrackSource arts_source(source);
 
     unsigned int tracks = selectedTracks().count();
-    ArtsNativeMultiTrackFilter mul(tracks, "Arts::Synth_MUL");
-    ArtsNativeMultiTrackFilter lim(tracks, "Arts::Synth_BRICKWALL_LIMITER");
+    ArtsNativeMultiTrackFilter pitch(tracks, "Arts::Synth_PITCH_SHIFT");
     ArtsMultiTrackSink   arts_sink(sink);
 
+    pitch.setAttribute("frequency", 5.0);
+    pitch.setAttribute("speed", 2.0);
+    
     // connect them
-    mul.setValue("invalue1", m_factor);
-    mul.connectInput(arts_source,   "source",   "invalue2");
-    if (m_factor > 1) {
-	// maybe we need a limiter, use a simple brickwall limiter
-	mul.connectOutput(lim,          "invalue",  "outvalue");
-	lim.connectOutput(arts_sink,    "sink",     "outvalue");
-    } else {
-	// in case of lower volume we never need to clip
-	mul.connectOutput(arts_sink,    "sink",     "outvalue");
-    }
+    pitch.connectInput(arts_source, "source",   "invalue");
+    pitch.connectOutput(arts_sink,  "sink",    "outvalue");
 
     // start all
     arts_source.start();
-    lim.start();
-    mul.start();
+    pitch.start();
     arts_sink.start();
 
     // transport the samples
@@ -157,8 +150,7 @@ void VolumePlugin::run(QStringList params)
     }
 
     // shutdown
-    lim.stop();
-    mul.stop();
+    pitch.stop();
     arts_sink.stop();
     arts_source.stop();
 

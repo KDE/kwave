@@ -34,11 +34,12 @@ class MenuNode: public QObject
     Q_OBJECT
 
 friend class MenuSub;
+friend class MenuItem;
 
 public:
     /**
      * Constructor.
-     * @param pointer to the node's parent (might be 0)
+     * @param parent pointer to the node's parent (might be 0)
      * @param name the non-localized name of the node
      * @param command the command to be sent when the node is
      *                selected (optional, default=0)
@@ -153,24 +154,12 @@ public:
     virtual bool isEnabled();
 
     /**
-     * Enables or disables a menu node. If the specified item is not
-     * a member of the current menu, this method will recursively call all
-     * of it's child nodes.
-     * @param id the item's menu id
-     * @param enable true to enable the item, false to disable
-     * @return true if the item has been found, false if not
-     */
-    virtual bool setItemEnabled(int item, bool enable);
-
-    /**
      * Enables/disables the current menu node.
      * @param enable true to enable the item, false to disable
      */
     virtual void setEnabled(bool enable);
 
-    /**
-     * Returns true if the node is checked.
-     */
+    /** Returns true if the node is checked. */
     virtual bool isChecked();
 
     /**
@@ -179,9 +168,8 @@ public:
      * call all of it's child nodes.
      * @param id the item's menu id
      * @param check true to set the mark, false to remove
-     * @return true if the item has been found, false if not
      */
-    virtual bool setItemChecked(int item, bool check);
+    virtual void setItemChecked(int item, bool check);
 
     /**
      * Sets/removes the checkmark from the current menu node.
@@ -212,11 +200,11 @@ public:
     MenuNode *findChild(int id);
 
     /**
-     * Removes a child, identified by it's unique id. If the child
+     * Removes a child node of the curren node. If the child
      * was not found or is already removed this does nothing.
-     * @param id menu id of the child node
+     * @param child pointer to the child node
      */
-    virtual void removeChild(int id);
+    virtual void removeChild(MenuNode *child);
 
     /**
      * Inserts a new branch node into the menu structure. The new node
@@ -299,10 +287,74 @@ public:
      */
     virtual void actionSelected();
 
+    /**
+     * Informs the node that the enabled state of a child node
+     * might have changed.
+     * @param id menu id of the child node
+     * @param enable true if the item has been enabled, false if disabled
+     */
+    virtual void actionChildEnableChanged(int id, bool enable);
+
+protected:
+    /**
+     * Adds the node to a group. If it is already a member of the
+     * group this function will do nothing. It recursively calls
+     * all parent node's joinGroup function until it reaches the
+     * root node of the menu structure that holds the list of
+     * groups and overwrites this function.
+     * @param group name of the group
+     */
+    void joinGroup(const char *group);
+
+    /**
+     * Removes the node from a group (opposite of joinGroup).
+     * @param group name of the group
+     */
+    void leaveGroup(const char *group);
+
+    /**
+     * Returns the address of the root node of the menu structure.
+     */
+    MenuNode *getRootNode();
+
+signals:
+    /**
+     * Parent nodes can connect to this signal in order to get notified
+     * when the enable state of their child node has changed.
+     * @param id menu id of the child node
+     * @param enable true if the item has been enabled, false if disabled
+     */
+    void sigChildEnableChanged(int id, bool enable);
+
+    /**
+     * Client nodes can be connected to this signal in order to get
+     * notified if the enable state of their parent has changed.
+     */
+    void sigParentEnableChanged();
+
+private slots:
+    /**
+     * Informs the node that the enabled state of a child node
+     * might have changed.
+     * @param id menu id of the child node
+     * @param enable true if the item has been enabled, false if disabled
+     */
+    void slotChildEnableChanged(int id, bool enable);
+
+    /**
+     * Informs the node that the enabled state of it's parent might
+     * have changed.
+     * @param enable true if the item has been enabled, false if disabled
+     */
+    void slotParentEnableChanged();
+
 protected:
 
     /** list with pointers to child menus */
     QList<MenuNode> children;
+
+    /** list of group names the item belongs to */
+    QList<const char> groups;
 
 private:
     /** numeric id in the menu */
@@ -329,8 +381,12 @@ private:
     /** true if the item is enabled (default=true) */
     bool enabled;
 
+    /** last value of the enabled flag (for detecting changes) */
+    bool last_enabled;
+
     /** true if the item is checked (default=false) */
     bool checked;
+
 };
 
 #endif // _MENU_NODE_H_

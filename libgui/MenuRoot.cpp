@@ -24,7 +24,7 @@
 
 //*****************************************************************************
 MenuRoot::MenuRoot(KMenuBar &bar)
-    :MenuNode(this, "(root)"), menu_bar(bar)
+    :MenuNode(0, "(root)"), menu_bar(bar)
 {
 }
 
@@ -61,18 +61,19 @@ MenuNode *MenuRoot::insertLeaf(char *name, char *command,
 }
 
 //*****************************************************************************
-void MenuRoot::removeChild(int id)
+void MenuRoot::removeChild(MenuNode *child)
 {
-    MenuNode::removeChild(id);
-    menu_bar.removeItem(id);
+    if (!child) return;
+    MenuNode::removeChild(child);
+    menu_bar.removeItem(child->getId());
 }
 
 //*****************************************************************************
-bool MenuRoot::setItemEnabled(int id, bool enable)
+void MenuRoot::actionChildEnableChanged(int id, bool enable)
 {
-    if (!findChild(id)) return false;
-    menu_bar.setItemEnabled(id, enable);
-    return true;
+    // do nothing, the child nodes of the toplevel menu have already
+    // been enabled/disabled
+    // menu_bar.setItemEnabled(id, enable);
 }
 
 /* end of MenuRoot.cpp */

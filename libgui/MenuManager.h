@@ -13,6 +13,16 @@ class MenuManager: public QObject
     Q_OBJECT
 
  public:
+    /**
+     * Constructor.
+     * @param pointer to the node's parent (might be 0)
+     * @param name the non-localized name of the node
+     * @param command the command to be sent when the node is
+     *                selected (optional, default=0)
+     * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
+     *            (optional, default=0)
+     * @param uid unique id string (optional, default=0)
+     */
     MenuManager(QWidget *parent,KMenuBar &bar);
     ~MenuManager();
 
@@ -23,7 +33,7 @@ class MenuManager: public QObject
     //add Entrys to numbered Window
     void addNumberedMenuEntry      (const char *uid, char *entry);
 
-    void selectItemChecked(const char *uid);
+    void selectItem(const char *group, const char *uid);
     void setItemChecked(const char *uid, bool check);
     void setItemEnabled(const char *uid, bool enable);
 

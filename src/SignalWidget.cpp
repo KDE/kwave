@@ -45,6 +45,7 @@ SignalWidget::SignalWidget (QWidget *parent,MenuManager *manage) : QWidget (pare
 
   this->manage=manage;
 
+  manage->clearNumberedMenu("ID_LABELS_TYPE");
   for (LabelType *tmp=globals.markertypes.first();tmp;tmp=globals.markertypes.next())
     manage->addNumberedMenuEntry ("ID_LABELS_TYPE", (char *)tmp->name);
 

@@ -27,3 +27,4 @@ MenuToplevel::MenuToplevel(MenuNode *parent, char *name,
 {
 }
 
+/* end of libgui/MenuToplevel.cpp */

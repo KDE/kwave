@@ -1,13 +1,23 @@
+#include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 #include <qpushbutton.h>
 #include <qkeycode.h>
-#include <qfiledlg.h>
-#include <kapp.h>
-#include "dialog_sweep.h"
+#include <qfiledialog.h>
+#include "module.h"
+#include <kintegerline.h>
 
-extern const char *OK;
-extern const char *CANCEL;
+#include "../../../libgui/TimeLine.h"
 
+const char *version="1.0";
+const char *author="Martin Wilz";
+const char *name="sweep";
+//**********************************************************
+Dialog *getDialog (DialogOperation *operation)
+{
+  return new SweepDialog(operation->getRate(),operation->isModal());
+}
+//**********************************************************
 static const char *notetext[]=
 {
   "C 0","C# 0","D 0","D# 0","E 0","F 0","F# 0","G 0","G# 0","A 0","A# 0","B 0",
@@ -21,6 +31,7 @@ static const char *notetext[]=
   "C 8","C# 8","D 8","D# 8","E 8","F 8","F# 8","G 8","G# 8","A 8","A# 8","B 8",
   0
 };
+
 float notefreq[]= //frequency in Hz for the above named notes...
 {
   16.4,  17.3,  18.4,  19.4,  20.6,  21.8,  23.1,  24.5,  26.0,  27.5,  29.1,  30.9,
@@ -33,18 +44,14 @@ float notefreq[]= //frequency in Hz for the above named notes...
   2093,  2217.5,2349.3,2489,  2637,  2793.8,2960,  3136,  3322.4,3520,  3729.3,3951,
   4186,  4435,  4699.6,4978,  5274,  5587.5,5920,  6272,  6644.8,7040,  7458.6,7902
 };
-
 //**********************************************************
-SweepDialog::SweepDialog (QWidget *parent,int rate,char *title): QWidget(parent, 0)
+SweepDialog::SweepDialog (int rate,bool modal): Dialog (modal)
 {
-  setCaption	(title);
+  command=0;
+  setCaption	("Select Sweep Function:");
   this->rate=rate;
 
   curve=new CurveWidget (this);
-
-  time=      new TimeLine (this,rate);
-  timelabel =new QLabel (klocale->translate("Time:"),this);
-  time->setMs (5000);
 
   lowfreq=new KIntegerLine (this);
   highfreq=new KIntegerLine (this);
@@ -63,7 +70,9 @@ SweepDialog::SweepDialog (QWidget *parent,int rate,char *title): QWidget(parent,
 
   showTime (100);
 
-  load=new QPushButton (klocale->translate("Import"),this);
+  load   =new QPushButton (klocale->translate("Import"),this);
+  ok     =new QPushButton (klocale->translate("Ok"),this);
+  cancel =new QPushButton (klocale->translate("Cancel"),this);
   int bsize=load->sizeHint().height();
 
   setMinimumSize (320,bsize*9);
@@ -72,6 +81,19 @@ SweepDialog::SweepDialog (QWidget *parent,int rate,char *title): QWidget(parent,
   connect 	(load,SIGNAL(clicked()),SLOT (import()));
   connect 	(note1,SIGNAL(activated(int)),SLOT (showLowFreq(int)));
   connect 	(note2,SIGNAL(activated(int)),SLOT (showHighFreq(int)));
+}
+//**********************************************************
+const char* SweepDialog::getCommand ()
+{
+  deleteString (command);
+  command=catString ("sweep(",
+		     lowfreq->text(),
+		     "",
+		     highfreq->text(),
+		     "",
+		     curve->getCommand(),
+		     ")");
+  return command;
 }
 //**********************************************************
 void SweepDialog::convert (Curve *times)
@@ -88,7 +110,6 @@ void SweepDialog::convert (Curve *times)
       if (tmp->y>max) max=ceil(tmp->y);
       if (tmp->y<min) min=floor(tmp->y);
     }
-  this->time->setMs (time);
 
   //rescale points for use with curvewidget...
   for (Point *tmp=times->first();tmp;tmp=times->next(tmp))
@@ -142,8 +163,6 @@ void SweepDialog::import ()
     }
 }
 //**********************************************************
-int SweepDialog::getTime (){return time->getValue();}
-//**********************************************************
 void SweepDialog::showLowFreq (int val)
 {
   char buf[16];
@@ -166,8 +185,6 @@ double SweepDialog::getLowFreq ()
   return (tmp.toDouble());
 }
 //**********************************************************
-const char *SweepDialog::getPoints (){return curve->getCommand();}
-//**********************************************************
 double SweepDialog::getHighFreq ()
 {
   QString tmp(highfreq->text ());
@@ -181,23 +198,38 @@ void SweepDialog::showTime (int)
 void SweepDialog::resizeEvent (QResizeEvent *)
 {
   int bsize=load->sizeHint().height();
-  int offset=height()-bsize*2-8;
+  int offset=height()-bsize*3-bsize/2-8;
+  curve->setGeometry(8,8,width()-16,offset-8);
+  offset+=bsize/4;
   notelabel1->setGeometry(8,offset+bsize/2,width()*3/20,bsize);
   notelabel2->setGeometry(width()*11/20,offset+bsize/2,width()*3/20,bsize);  
   note1->setGeometry	 (width()*4/20,offset,width()*5/20,bsize);  
   note2->setGeometry	 (width()*14/20,offset,width()*5/20,bsize);  
   lowfreq->setGeometry	 (width()*4/20,offset+bsize,width()*5/20,bsize);  
   highfreq->setGeometry	 (width()*14/20,offset+bsize,width()*5/20,bsize);  
-  offset-=bsize*5/4;
-  time->setGeometry      (width()*4/20,offset,width()*5/20,bsize);  
-  timelabel->setGeometry (8,offset,width()*3/20-8,bsize);
-  load->setGeometry      (width()*14/20,offset,width()*5/20,bsize);  
+  offset+=bsize*2+bsize/4;
+  ok->setGeometry        (width()*1/20,offset,width()*5/20,bsize);  
+  load->setGeometry      (width()*15/40,offset,width()*5/20,bsize);  
+  cancel->setGeometry    (width()*14/20,offset,width()*5/20,bsize);
 
-  offset-=bsize*1/4;
-  curve->setGeometry(8,8,width()-16,offset-8);
+
 }
 //**********************************************************
 SweepDialog::~SweepDialog ()
 {
+  deleteString (command);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 

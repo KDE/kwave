@@ -1,2 +1,2 @@
 #include "../../../libgui/Dialog.h"
-#include "../../../lib/DialogOperation.h"
+#include "libkwave/DialogOperation.h"

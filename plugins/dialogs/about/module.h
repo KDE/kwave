@@ -16,8 +16,8 @@
 
 // PLEASE DO NOT CHANGE THE FOLLOWING TWO LINES, THEY WILL BE
 // AUTOMATICALLY UPDATED BY THE VERSION MANAGEMENT SCRIPTS !
-#define VERSION "0.5.0-18"
-#define VERSION_DATE "Feb 08, 2000"
+#define VERSION "0.5.0-19"
+#define VERSION_DATE "Feb 26, 2000"
 
 #define MAXSIN 5
 //**********************************************************

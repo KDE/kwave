@@ -1,20 +1,17 @@
-#ifndef _ADDSYNTH_H_
-#define _ADDSYNTH_H_ 1
+#include "../../../libgui/Dialog.h"
+#include "../../../libgui/Slider.h"
+#include "libkwave/DialogOperation.h"
 
-#include <qpushbt.h>
-#include <qstring.h>
-#include <qwidget.h>
-
-#include "../libgui/curvewidget.h"
-#include "../libgui/curvewidget.h"
-#include "../libgui/ScaleWidget.h"
-#include "../libgui/slider.h"
-
-#include <kintegerline.h>
-
-class KwaveSignal;
+class Signal;
 class TimeLine;
+class Curve;
+class KIntegerLine;
+class ScaleWidget;
+class CornerPatchWidget;
+class QLabel;
+class QComboBox;
 
+//*****************************************************************************
 class AddSynthWidget : public QWidget
 {
  Q_OBJECT
@@ -42,16 +39,17 @@ class AddSynthWidget : public QWidget
  int count;
 };
 //***********************************************************************
-class AddSynthDialog : public QDialog
+class AddSynthDialog : public Dialog
 {
   Q_OBJECT
 
     public:
 
-  AddSynthDialog 	(QWidget *parent=0,int rate=48000,int time=0,char *name="Choose Signal Components :");
+  AddSynthDialog 	(int,int,bool);
   ~AddSynthDialog 	();
 
-  KwaveSignal *getSignal();
+  const char *getCommand ();
+  Signal *getSignal();
 
   public slots:
 
@@ -81,12 +79,13 @@ class AddSynthDialog : public QDialog
  protected:
   void mousePressEvent( QMouseEvent *e);      
   void updateView ();
-  void getNSlider (int,int);
+  bool getNSlider (int,bool);
   void resizeEvent (QResizeEvent *);
   int  getCount();        //get number of partials
   
  private:
 
+  Dialog            *sweep;
   Curve             *times;
 
   AddSynthWidget    *view;
@@ -97,15 +96,15 @@ class AddSynthDialog : public QDialog
   KIntegerLine	**powerlabel;
   KIntegerLine  **phaselabel;
 
-  KwaveSlider	**power;
-  KwaveSlider	**phase;
+  Slider	**power;
+  Slider	**phase;
   
   KIntegerLine	*channel;
   QLabel        *channellabel;
 
   QPushButton   *freqbutton;
   QPushButton   *calculate;
-  KwaveSignal   *test;           //for hearing not yet done...
+  Signal        *test;           //for hearing not yet done...
 
   QComboBox	*functype;
   QPopupMenu*   menu;
@@ -115,48 +114,11 @@ class AddSynthDialog : public QDialog
   QLabel	*multlab;
   QPushButton	*ok,*cancel;
 
+  int *apower,*aphase,*amult;
   int num;    //number of sines
   int rate;   //sampling rate
-  int *apower,*aphase,*amult;
+
+  char *command;
+  
   bool tflag; //flag if typing in integerline
 };
-//*****************************************************************************
-class PulseDialog : public QDialog
-{
-  Q_OBJECT
-
-    public:
-
-  PulseDialog 	(QWidget *parent=0,int rate=48000,int time=0,char *name="Choose pulse properties :");
-  ~PulseDialog 	();
-
-  KwaveSignal *getSignal();
-
-  public slots:
-
-  void getFrequency();
-
- protected:
-
-  void resizeEvent (QResizeEvent *);
-  
- private:
-
-  CurveWidget       *pulse;
-  ScaleWidget       *x,*y;
-  CornerPatchWidget *corner;
-
-  TimeLine      *pulselength;
-  QLabel        *pulselabel;
-  QLabel        *channel;
-
-  QPushButton   *freqbutton;
-  QPushButton   *hear;
-  KwaveSignal   *test;           //for hearing...
-
-
-  QPushButton	*ok,*cancel;
-  int rate;     //sampling rate
-  Curve         *times;
-};
-#endif

@@ -1,17 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <qpushbutton.h>
+#include <qkeycode.h>
+#include "module.h"
+#include <kapp.h>
 #include <math.h>
 #include <limits.h>
 #include <qpainter.h>
 #include <qkeycode.h>
 #include <qlayout.h>
-#include "../libgui/guiitems.h"
-#include "addsynth.h"
-#include <libkwave/kwavesignal.h>
-#include <libkwave/functions.h>
-#include <libkwave/dialogoperation.h>
-#include <libkwave/dynamicloader.h>
-#include "../libgui/kwavedialog.h"
-#include "dialog_frequency.h"
+#include <qlabel.h>
+#include <qcombobox.h>
 
+#include <libkwave/Signal.h>
+#include <libkwave/Functions.h>
+#include <libkwave/Curve.h>
+#include <libkwave/DialogOperation.h>
+#include <libkwave/DynamicLoader.h>
+#include "../../../libgui/Dialog.h"
+#include "../../../libgui/ScaleWidget.h"
+
+#include <kintegerline.h>
+
+const char *version="1.0";
+const char *author="Martin Wilz";
+const char *name="addsynth";
+//**********************************************************
+Dialog *getDialog (DialogOperation *operation)
+{
+  return new AddSynthDialog(operation->getRate(),operation->getLength(),operation->isModal());
+}
+//**********************************************************
 extern int getMaxPrimeFactor (int);
 //****************************************************************************
 AddSynthWidget::AddSynthWidget (QWidget *parent) : QWidget
@@ -92,9 +111,11 @@ void AddSynthWidget::paintEvent  (QPaintEvent *)
   p.end();
 }
 //**********************************************************
-AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDialog(par,0,true)
+AddSynthDialog::AddSynthDialog (int rate,int length,bool modal): Dialog(modal)
 {
   num=10;
+  command=0;
+  sweep=0;
   menu=new QPopupMenu ();
   QPopupMenu *multmenu=new QPopupMenu();
   QPopupMenu *phasemenu=new QPopupMenu();
@@ -121,6 +142,7 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
 
   menu->insertItem (klocale->translate("&Reset all"));
 
+
   x=new ScaleWidget (this,0,360,"°");
   y=new ScaleWidget (this,100,-100,"%");
   corner=new CornerPatchWidget (this);
@@ -128,7 +150,8 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   Functions func;
   this->rate=rate;
 
-  setCaption	(name);
+  setCaption	("Choose Signal Components:");
+
   multlab       =new QLabel	(klocale->translate("Multiply :"),this);
   phaselab	=new QLabel	(klocale->translate("Phase in degree:"),this);
   powerlab	=new QLabel	(klocale->translate("Power in %:"),this);
@@ -140,16 +163,11 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   apower=0;
   amult=0;
 
-  powerlabel=new KIntegerLine *[num];
-  phaselabel=new KIntegerLine *[num];
-  mult      =new KIntegerLine *[num];
-  power     =new KwaveSlider *[num];
-  phase     =new KwaveSlider *[num];
-
   functype=new QComboBox  (false,this);
   functype->insertStrList (func.getTypes());
 
   view=new AddSynthWidget (this);
+
   connect 	(functype,SIGNAL(activated(int)),view,SLOT (setFunction(int)));
 
   channel=new KIntegerLine (this);
@@ -160,9 +178,9 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   cancel	=new QPushButton ("Cancel",this);
 
   getNSlider (20,true);
+  printf ("returned\n");
   powerlabel [0]->setValue (100);
-
-  times->append (100,((double)rate)/440);
+  printf ("returned\n");
 
   cancel->setAccel(Key_Escape);
   ok->setFocus	();
@@ -171,7 +189,58 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   connect 	(channel,SIGNAL(textChanged(const char *)),SLOT (setChannels(const char *)));
   connect 	(freqbutton,SIGNAL(clicked()),SLOT (getFrequency()));
   connect 	(calculate,SIGNAL(clicked()),SLOT(popMenu()));
+
   updateView();
+}
+//**********************************************************
+const char *AddSynthDialog::getCommand ()
+{
+/*
+  char *tmp;
+  char phasestr[128];
+  char multstr [128];
+  char powstr  [128];
+
+  if (command) deleteString (command);
+
+  int count=getCount();
+  sprintf (multstr,"%d",count);
+
+  if (count)
+    {
+      command=catString ("addsynth(",multstr);
+
+      for (int i=0;i<count;i++)
+	{
+	  printf ("%s\n",command);
+	  printf ("%d\n",amult[i]);
+	  printf ("%d\n",apower[i]);
+	  printf ("%d\n",aphase[i]);
+
+	  sprintf (multstr, "%f",amult[i]);
+	  sprintf (powstr,  "%f",apower[i]);
+	  sprintf (phasestr,"%f",aphase[i]);
+
+	  printf ("%s\n",multstr);
+	  printf ("%s\n",powstr);
+	  printf ("%s\n",phasestr);
+
+	  tmp=command;
+	  command=catString(tmp,",",multstr,",",powstr,",");
+	  deleteString (tmp);
+	  tmp=command;
+	  command=catString(tmp,phasestr);
+	  deleteString (tmp);
+	}
+
+      tmp=command;
+      command=catString(tmp,")");
+      deleteString (tmp);
+
+      return command;
+    }
+*/
+  return ("requester(not yet implemented !)");
 }
 //**********************************************************
 void AddSynthDialog::oddMult ()
@@ -255,8 +324,8 @@ void AddSynthDialog::maxPower ()
 //**********************************************************
 void AddSynthDialog::dbPower ()
 {
-  KwaveDialog *dialog =DynamicLoader::getDialog
-    ("movingaverage",
+  Dialog *dialog =DynamicLoader::getDialog
+    ("stringenter",
      new DialogOperation(klocale->translate("Choose dB/octave"),true));
 
   if ((dialog)&&(dialog->exec()))
@@ -310,11 +379,21 @@ void AddSynthDialog::popMenu ()
 //**********************************************************
 void AddSynthDialog::getFrequency ()
 {
-  FrequencyDialog dialog(this,rate);
-  if (dialog.exec())
+  if (sweep)
     {
-      if (times) delete times;
-      times=dialog.getFrequency ();
+      delete sweep;
+      sweep=0;
+    }
+  else
+    {
+      sweep=DynamicLoader::getDialog
+	("sweep",
+	 new DialogOperation(true));
+
+      if ((sweep)&&(sweep->exec()))
+	{
+      
+	}
     }
 }
 //**********************************************************
@@ -327,7 +406,7 @@ void AddSynthDialog::setChannels (const char *n)
   if (x!=num) getNSlider (x,false);
 }
 //**********************************************************
-void AddSynthDialog::getNSlider (int n,int first)
+bool AddSynthDialog::getNSlider (int n,bool first)
 {
   if (!first)
     {
@@ -347,11 +426,15 @@ void AddSynthDialog::getNSlider (int n,int first)
     }
 
   num=n;
-  powerlabel=new KIntegerLine *[num];
-  phaselabel=new KIntegerLine *[num];
-  mult      =new KIntegerLine *[num];
-  power     =new KwaveSlider *[num];
-  phase     =new KwaveSlider *[num];
+  powerlabel=new (KIntegerLine *)[num];
+  phaselabel=new (KIntegerLine *)[num];
+  mult      =new (KIntegerLine *)[num];
+  power     =new (Slider *)[num];
+  phase     =new (Slider *)[num];
+
+  if (!(powerlabel&&phaselabel&&mult&&power&&phase)) return false;
+
+  printf ("allocated\n");
 
   for (int i=0;i<num;i++)
     {
@@ -362,19 +445,24 @@ void AddSynthDialog::getNSlider (int n,int first)
       mult[i]      =new KIntegerLine (this);
       mult[i]->setValue (i+1);
     }
+
+  printf ("label and mult\n");
+
   for (int i=0;i<num;i++)
     {
-      power[i]=new KwaveSlider (0,1000,1,0  ,KwaveSlider::Horizontal,this);
-      phase[i]=new KwaveSlider (-180,179,1,0,KwaveSlider::Horizontal,this);
+      power[i]=new Slider (0,1000,1,0  ,Slider::Horizontal,this);
+      phase[i]=new Slider (-180,179,1,0,Slider::Horizontal,this);
     }
+  printf ("slider\n");
 
   power[0]->setValue (1000);
+
   int bsize=ok->sizeHint().height();
   int lsize=powerlab->sizeHint().height();
   int nsize=powerlabel[0]->sizeHint().height();
   int toppart=lsize*12;
 
-  resize (bsize*16,(nsize*(num+1)+bsize*2)+toppart);
+  if (!first) resize (bsize*16,(nsize*(num+1)+bsize*2)+toppart);
 
   for (int i=0;i<num;i++)
   {
@@ -390,6 +478,8 @@ void AddSynthDialog::getNSlider (int n,int first)
       connect  (mult[i],SIGNAL (textChanged(const char *)),SLOT(showMult(const char *)));
   }
   setMinimumSize (bsize*16,(nsize*(num+1)+bsize*2)+toppart);
+  printf ("shown\n");
+  return true;
 }
 //**********************************************************
 void AddSynthDialog::updateView ()
@@ -427,7 +517,7 @@ int AddSynthDialog::getCount ()
   return count;
 }
 //**********************************************************
-KwaveSignal *AddSynthDialog::getSignal ()
+Signal *AddSynthDialog::getSignal ()
 //calculates final signal from choosed parameters...
 {
   Functions foo;
@@ -447,7 +537,7 @@ KwaveSignal *AddSynthDialog::getSignal ()
       for (t=times->first();t;t=times->next(t)) len+=int (t->x*t->y);
 
       //get new signal
-      KwaveSignal *add=new KwaveSignal (len,rate);
+      Signal *add=new Signal (len,rate);
 
       if (add&&add->getSample()&&len);
       {
@@ -606,134 +696,27 @@ void AddSynthDialog::mousePressEvent( QMouseEvent *e)
 //**********************************************************
 AddSynthDialog::~AddSynthDialog ()
 {
+  deleteString (command);
   if (powerlabel) delete powerlabel;
   if (phaselabel) delete phaselabel;
   if (apower) delete apower;
-  if (amult)  delete  amult;
+  if (amult)  delete amult;
   if (aphase) delete aphase;
   if (times) delete times;
+  if (sweep) delete sweep;
 }
 //**********************************************************
-PulseDialog::PulseDialog (QWidget *par,int rate,int time,char *name): QDialog(par,0,true)
-{
-  x=new ScaleWidget (this,0,360,"°");
-  y=new ScaleWidget (this,100,-100,"%");
-  corner=new CornerPatchWidget (this);
 
-  pulse=new CurveWidget (this,"curve (linear, 0 , 0.5, 0.5, 1, 1,.5)");
 
-  Functions func;
-  this->rate=rate;
 
-  setCaption	(name);
 
-  freqbutton    =new QPushButton(klocale->translate("Frequency"),this);
-  hear          =new QPushButton(klocale->translate("Test"),this);  
-  pulselabel    =new QLabel	(klocale->translate("Length of pulse :"),this);
-  pulselength   =new TimeLine (this,rate);
-  pulselength->setMs (5);
 
-  ok		=new QPushButton ("Ok",this);
-  cancel	=new QPushButton ("Cancel",this);
 
-  char buf[512];
-  sprintf (buf,"curve (linear,100, %f)",((double)rate)/440);
-  times=new Curve (buf);
 
-  int bsize=ok->sizeHint().height();
-  setMinimumSize (bsize*12,bsize*10);
-  resize (bsize*12,bsize*10);
 
-  cancel->setAccel(Key_Escape);
-  ok->setFocus	();
-  connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
-  connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
-  connect 	(freqbutton,SIGNAL(clicked()),SLOT(getFrequency()));
-}
-//**********************************************************
-void PulseDialog::getFrequency ()
-{
-  FrequencyDialog *dialog=new FrequencyDialog(this);
-  if (dialog)
-  if (dialog->exec())
-    {
-      if (times) delete times;
-       times=dialog->getFrequency ();
-    }
-}
-//**********************************************************
-KwaveSignal *PulseDialog::getSignal ()
-//calculates final signal from choosed parameters...
-{
-  if (times)
-    {
-      Point *t;
-      int len=0;
-      int pulselen=pulselength->getValue();
 
-      Curve *points=new Curve(pulse->getCommand ());
-      Interpolation interpolation (0);
-      double *tmp=interpolation.getInterpolation (points,pulselen);
-      int    *pulse=new int[pulselen];
 
-      //count number of samples
-      for (t=times->first();t;t=times->next(t)) len+=int (t->x*t->y);
 
-      //get new signal
-      KwaveSignal *add=new KwaveSignal (len,rate);
-
-      if (pulse&&add&&add->getSample()&&len);
-      {
-	int min;
-	int cnt=0;
-	int i,j;
-	int *sample=add->getSample();
-	for (int i=0;i<pulselen;i++) pulse[i]=(int)((tmp[i]-.5)*((1<<24)-1));
-	for (t=times->first();t;t=times->next(t))
-	  {
-	    for (i=0;i<t->x;i++)
-	      {
-		min=pulselen;
-		if (min>t->y) min=(int)t->y;
-		for (j=0;j<min;j++) sample[cnt+j]=pulse[j];
-		for (;j<t->y;j++) sample[cnt+j]=0;
-
-		cnt+=(int)t->y;
-	      }
-	  }
-
-       	return add;
-      }
-    }
-  return 0;
-}
-//**********************************************************
-PulseDialog::~PulseDialog ()
-{
-  if (times) delete times;
-}
-//**********************************************************
-void PulseDialog::resizeEvent (QResizeEvent *)
-{
-  int bsize=ok->sizeHint().height();
-  int width=this->width();
-  int height=this->height();
-  int toppart=height-bsize*7/2;
-
-  x->setGeometry (8+bsize,toppart-bsize,width-16-bsize,bsize);
-  y->setGeometry (8,0,bsize,toppart-bsize);
-  corner->setGeometry (8,toppart-bsize,bsize,bsize);
-  pulse->setGeometry  (8+bsize,0,width-16-bsize,toppart-bsize);
-
-  freqbutton->setGeometry (8,height-bsize*3,width*3/10-10,bsize);  
-  hear      ->setGeometry (width*3/10,height-bsize*3,width*2/10,bsize);
-  pulselabel->setGeometry (width*5/10+2,height-bsize*3,width*3/10-2,bsize);  
-  pulselength->setGeometry (width*8/10,height-bsize*3,width*2/10-8,bsize);  
-
-  ok->setGeometry	(width/10,height-bsize*3/2,width*3/10,bsize);  
-  cancel->setGeometry	(width*6/10,height-bsize*3/2,width*3/10,bsize);  
-}
-//**********************************************************
 
 
 

@@ -1,25 +1,27 @@
-#ifndef _DIALOGS_SWEEP_H_
-#define _DIALOGS_SWEEP_H 1
+#include "../../../libgui/Dialog.h"
+#include "libkwave/DialogOperation.h"
 
-#include <qdialog.h>
-#include <kintegerline.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include "../libgui/curvewidget.h"
-#include "../libgui/guiitems.h"
+#include "../../../libgui/CurveWidget.h"
 //*****************************************************************************
-class SweepDialog : public QWidget
+
+class QLabel;
+class QComboBox;
+class KIntegerLine;
+class QPushButton;
+
+class SweepDialog : public Dialog
 {
  Q_OBJECT
 
  public:
- 	     SweepDialog 	(QWidget *parent,int rate,char *name);
+ 	     SweepDialog 	(int rate,bool);
  	     ~SweepDialog 	();
  int         getTime();
  double      getLowFreq();
  double      getHighFreq();
  int         getInterpolationType();
- const char* getPoints ();
+ const char *getPoints ();
+ const char *getCommand ();
  void        convert (Curve *);
 
  public slots:
@@ -34,13 +36,11 @@ class SweepDialog : public QWidget
  void resizeEvent (QResizeEvent *);
 
  private:
- TimeLine       *time;
- QLabel         *timelabel; 
  QComboBox      *note1,*note2;
  QLabel         *notelabel1,*notelabel2; 
  KIntegerLine   *lowfreq,*highfreq;
  CurveWidget	*curve;
- QPushButton	*load;
- int rate;
+ QPushButton	*load,*ok,*cancel;
+ char           *command;
+ int             rate;
 };
-#endif

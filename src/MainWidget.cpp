@@ -47,6 +47,7 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   this->manage=manage;
   menushown=false;
 
+  manage->clearNumberedMenu ("ID_EDIT_CHANNEL_DELETE");
   manage->addNumberedMenuEntry("ID_EDIT_CHANNEL_DELETE", "none");
   updateMenu();
 
@@ -75,7 +76,10 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   zoomselect	=new QComboBox	(true,this);
   signalview	=new SignalWidget (this,manage);
 
-  QObject::connect (lamps[0],SIGNAL(clicked(int)),signalview,SLOT(toggleChannel(int)));
+  QObject::connect(
+    lamps[0],SIGNAL(clicked(int)),
+    signalview,SLOT(toggleChannel(int))
+  );
 
   zoomselect->insertStrList (zoomtext,6);
   connect       (slider,SIGNAL(valueChanged(int)),signalview,SLOT(setOffset(int)));
@@ -120,6 +124,7 @@ void MainWidget::updateMenu ()
 
   bool have_signal = (numsignals != 0);
 
+  /*
   manage->setItemEnabled("ID_FILE_SAVE", have_signal);
   manage->setItemEnabled("ID_FILE_SAVE_CURRENT", have_signal);
   manage->setItemEnabled("ID_FILE_REVERT", have_signal);
@@ -127,17 +132,21 @@ void MainWidget::updateMenu ()
   manage->setItemEnabled("ID_LABELS", have_signal);
   manage->setItemEnabled("ID_FX", have_signal);
   manage->setItemEnabled("ID_CALCULATE", have_signal);
+  */
+
+  manage->setItemEnabled("@SIGNAL", have_signal);
+
 }
 //*****************************************************************************
 void MainWidget::updateChannels (int cnt)
   // generates menu entries 
 {
-  manage->clearNumberedMenu ("Channels");
+  manage->clearNumberedMenu ("ID_EDIT_CHANNEL_DELETE");
   for (int i =0 ; i < cnt; i++)
     {
       char buf[16];
       sprintf (buf,"%d",i);
-      manage->addNumberedMenuEntry ("Channels",buf);
+      manage->addNumberedMenuEntry ("ID_EDIT_CHANNEL_DELETE",buf);
     }
 }
 //**********************************************************
@@ -314,12 +323,12 @@ void MainWidget::setChannelInfo  (int channels)
 	  menushown=true;
 	}
       char buf[8];
-      manage->clearNumberedMenu ("Channels");
+      manage->clearNumberedMenu ("ID_EDIT_CHANNEL_DELETE");
 
       for (int i=0;i<channels;i++)
 	{
 	  sprintf (buf,"%d",i);
-	  manage->addNumberedMenuEntry ("Channels",buf);
+	  manage->addNumberedMenuEntry ("ID_EDIT_CHANNEL_DELETE",buf);
 	}
 
       MultiStateWidget **newlamps=new MultiStateWidget*[channels+1];

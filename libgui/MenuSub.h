@@ -48,24 +48,28 @@ public: // Public methods
 
     virtual QPopupMenu *getPopupMenu();
 
-    virtual void removeChild(int id);
+    virtual void removeChild(MenuNode *child);
 
     virtual bool specialCommand(const char *command);
 
     virtual void setItemIcon(int id, const QPixmap &icon);
 
-    virtual void setEnabled(bool enable);
+    virtual void setItemChecked(int id, bool check);
 
-    virtual bool setItemEnabled(int id, bool enable);
-
-    virtual bool setItemChecked(int id, bool check);
+    /**
+     * Informs the node that the enabled state of a child node
+     * might have changed.
+     * @param id menu id of the child node
+     * @param enable true if the item has been enabled, false if disabled
+     */
+    virtual void actionChildEnableChanged(int id, bool enable);
 
 public slots:
 
-//    void slotChecked(int);
     void slotSelected(int);
 
 private:
+
     QPopupMenu *menu;
 };
 

@@ -12,6 +12,7 @@
 
 #include "MenuNode.h"
 #include "MenuRoot.h"
+#include "MenuGroup.h"
 #include "MenuManager.h"
 
 //*****************************************************************************
@@ -88,11 +89,11 @@ void MenuManager::setCommand (const char *command)
     char *id=0;  // string id (optional)
 
     // --- 1st parameter: command to be sent when selected ---
-    tmp=parser.getFirstParam ();
+    tmp=parser.getFirstParam();
     if (tmp) com=duplicateString (tmp);
 
     // --- 2nd parameter: position in the menu structure ---
-    tmp=parser.getNextParam ();
+    tmp=parser.getNextParam();
     if (tmp) pos=duplicateString (tmp);
 
     // bail out if no menu position is found
@@ -131,7 +132,7 @@ void MenuManager::addNumberedMenuEntry (const char *uid, char *entry)
     MenuNode *node = menu_root->findUID(uid);
     if (node) {
 	const char *cmd  = node->getCommand();
-	char *command = new char[strlen(cmd)+strlen(entry)];
+	char *command = new char[strlen(cmd)+strlen(entry)+1];
         if (!command) {
 	    warning("unable to add entry '%s', out of memory ?");
 	    return;
@@ -143,11 +144,31 @@ void MenuManager::addNumberedMenuEntry (const char *uid, char *entry)
 }
 
 //*****************************************************************************
-void MenuManager::selectItemChecked(const char *uid)
+void MenuManager::selectItem(const char *group, const char *uid)
 {
-    debug("MenuManager::setItemChecked('%s')", uid);
-    MenuNode *node = menu_root->findUID(uid);
-    if (node) node->setChecked(true);
+    if (!group || !*group) {
+	warning("MenuManager::selectItem('','%s'): no group!?", uid);
+	return;
+    }
+
+    if (*group != '@') {
+	warning("MenuManager::selectItem('%s','%s'): "\
+		"invalid group name, does not start with '@'!", group, uid);
+	return;
+    }
+
+    MenuNode *node = menu_root->findUID(group);
+    if (!node) {
+	warning("MenuManager::selectItem(): group '%s' not found!", group);
+	return;
+    }
+
+    if (!node->inherits("MenuGroup")) {
+	warning("MenuManager::selectItem(): '%s' is not a group!", group);
+	return;
+    }
+
+    ((MenuGroup *)node)->selectItem(uid);
 }
 
 //*****************************************************************************
@@ -164,6 +185,8 @@ void MenuManager::setItemEnabled(const char *uid, bool enable)
     // debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
     MenuNode *node = menu_root->findUID(uid);
     if (node) node->setEnabled(enable);
+    else warning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
+    	uid, enable);
 }
 
 //*****************************************************************************

@@ -28,10 +28,10 @@ class MenuToplevel : public MenuSub
 {
   Q_OBJECT
 
-public: // Public methods
+public:
+
     MenuToplevel(MenuNode *parent, char *name, char *command=0,
                  int key=0, char *uid=0);
-    // virtual bool setEnabled();
 
 };
 

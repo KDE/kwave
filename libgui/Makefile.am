@@ -29,6 +29,7 @@ BUILTSOURCES=\
  FormantWidget.moc.cpp\
  OverViewWidget.moc.cpp\
  MenuNode.moc.cpp\
+ MenuGroup.moc.cpp \
  MenuItem.moc.cpp\
  MenuSub.moc.cpp\
  MenuToplevel.moc.cpp\
@@ -44,6 +45,7 @@ libkwavegui_la_SOURCES =\
  FormantWidget.cpp\
  Dialog.cpp\
  MenuNode.cpp\
+ MenuGroup.cpp \
  MenuItem.cpp\
  MenuSub.cpp\
  MenuToplevel.cpp\
@@ -81,6 +83,8 @@ CurveWidget.moc.cpp: CurveWidget.h
 FormantWidget.moc.cpp: FormantWidget.h
 	$(MOC) $< -o $@
 MenuNode.moc.cpp: MenuNode.h
+	$(MOC) $< -o $@
+MenuGroup.moc.cpp: MenuGroup.h
 	$(MOC) $< -o $@
 MenuItem.moc.cpp: MenuItem.h
 	$(MOC) $< -o $@

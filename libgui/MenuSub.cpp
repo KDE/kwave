@@ -28,6 +28,7 @@ MenuSub::MenuSub(MenuNode *parent, char *name, char *command,
     :MenuItem(parent, name, command, key, uid)
 {
     menu = new QPopupMenu(0, klocale->translate(name));
+
     QObject::connect(menu,SIGNAL(activated(int)),
 	this,SLOT(slotSelected(int)));
 }
@@ -49,11 +50,14 @@ MenuNode *MenuSub::insertBranch(char *name, char *command, int key,
                                 char *uid, int index)
 {
     MenuSub *node = new MenuSub(this, name, command, key, uid);
+    if (!node) return 0;
+
     if (menu) {
 	int new_id = registerChild(node);
 	menu->insertItem(klocale->translate(node->getName()),
 	    node->getPopupMenu(), new_id);
     }
+
     return node;
 }
 
@@ -75,10 +79,11 @@ MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
 }
 
 //*****************************************************************************
-void MenuSub::removeChild(int id)
+void MenuSub::removeChild(MenuNode *child)
 {
-    MenuItem::removeChild(id);
-    menu->removeItem(id);
+    if (!child) return;
+    MenuItem::removeChild(child);
+    menu->removeItem(child->getId());
 }
 
 //*****************************************************************************
@@ -99,6 +104,13 @@ bool MenuSub::specialCommand(const char *command)
 }
 
 //*****************************************************************************
+void MenuSub::actionChildEnableChanged(int id, bool enable)
+{
+    MenuNode::actionChildEnableChanged(id, enable);
+    if (menu) menu->setItemEnabled(id, enable);
+}
+
+//*****************************************************************************
 void MenuSub::slotSelected(int id)
 {
     MenuNode *child = findChild(id);
@@ -116,27 +128,10 @@ void MenuSub::setItemIcon(int id, const QPixmap &icon)
 }
 
 //*****************************************************************************
-bool MenuSub::setItemEnabled(int id, bool enable)
+void MenuSub::setItemChecked(int id, bool enable)
 {
-    if ((!menu) || (!menu->findItem(id))) return false;
-    menu->setItemEnabled(id, enable);
-    return true;
-}
-
-//*****************************************************************************
-bool MenuSub::setItemChecked(int id, bool enable)
-{
-    if ((!menu) || (!menu->findItem(id))) return false;
+    if ((!menu) || (!menu->findItem(id))) return;
     menu->setItemChecked(id, enable);
-    return true;
-}
-
-//*****************************************************************************
-void MenuSub::setEnabled(bool enable)
-{
-    MenuItem::setEnabled(enable);
-    MenuNode *parent = getParentNode();
-    if (parent)	parent->setItemEnabled(getId(), enable);
 }
 
 /* end of libgui/MenuSub.cpp */

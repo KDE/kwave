@@ -275,7 +275,7 @@ void TopWidget::updateMenu ()
 
   format = "ID_FILE_SAVE_RESOLUTION_%d";
   sprintf(buffer, format, bits);
-  menumanage->selectItemChecked(buffer);
+  menumanage->selectItem("@BITS_PER_SAMPLE", (const char *)buffer);
 
   delete buffer;
 }

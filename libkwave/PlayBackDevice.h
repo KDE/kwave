@@ -22,6 +22,7 @@
 #include <qmemarray.h>
 #include <qobject.h>
 #include <qstring.h>
+#include <qstringlist.h>
 #include "libkwave/Sample.h"
 
 /**
@@ -36,9 +37,8 @@
  * @bug there are no precautions to prevent duplicate instances
  *
  */
-class PlayBackDevice: public QObject
+class PlayBackDevice
 {
-    Q_OBJECT
 public:
 
     /** Destructor */
@@ -74,6 +74,37 @@ public:
      * Closes the output device.
      */
     virtual int close() = 0;
+
+    /** return a string list with supported device names */
+    virtual QStringList supportedDevices() = 0;
+
+    /** return a string suitable for a "File Open..." dialog */
+    virtual QString fileFilter() { return ""; };
+
+    /**
+     * returns a list of supported bits per sample resolutions
+     * of a given device.
+     *
+     * @param device filename of the device
+     * @return list of supported bits per sample, or empty on errors
+     */
+    virtual QValueList<unsigned int> supportedBits(const QString &device) = 0;
+
+    /**
+     * Detect the minimum and maximum number of channels.
+     * If the detection fails, minimum and maximum are set to zero.
+     *
+     * @param device filename of the device
+     * @param min receives the lowest supported number of channels
+     * @param max receives the highest supported number of channels
+     * @return zero or positive number if ok, negative error number if failed
+     */
+    virtual int detectChannels(const QString &device,
+                               unsigned int &min, unsigned int &max)
+    {
+        (void)device;
+        return min = max = 0;
+    };
 
 };
 

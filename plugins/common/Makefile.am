@@ -22,7 +22,7 @@ INCLUDES += @all_includes@
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
 
-CXXFLAGS  = @CXXFLAGS@
+CXXFLAGS  = @CXXFLAGS@ -fPIC
 LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles -nostdlib
 
 MODDIR:=$(shell pwd)

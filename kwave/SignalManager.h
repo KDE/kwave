@@ -184,8 +184,6 @@ public:
      */
     void exportAscii(const char *name);
 
-    void appendChannel(Signal *);
-
     /**
      * Sets the internal markers and promotes them to all channels.
      * @param l left marker [0...length-1]
@@ -216,6 +214,12 @@ public slots:
     void stopplay();
 
 signals:
+
+    /**
+     * Emitted if the length of the signal has changed.
+     * @param length new length of the signal
+     */
+    void sigLengthChanged(unsigned int length);
 
     /**
      * Emitted if a command has to be executed by
@@ -321,8 +325,6 @@ private:
      * Removes a channel from the signal.
      */
     void deleteChannel(unsigned int channel);
-
-private:
 
     /**
      * Reads in the wav data chunk from a .wav-file. It creates

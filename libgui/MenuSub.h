@@ -18,10 +18,10 @@
 #ifndef _MENU_SUB_H_
 #define _MENU_SUB_H_ 1
 
+#include <qpopupmenu.h>
 #include "MenuItem.h"
 
 class QPixmap;
-class QPopupMenu;
 
 /**
  * This is the class for submenu entries in a Menu. It is normally owned by a
@@ -45,6 +45,9 @@ public:
      */
     MenuSub(MenuNode *parent, const QString &name, const QString &command = 0,
 	    int key = 0, const QString &uid = 0);
+	
+    /** Destructor */
+    virtual ~MenuSub();
 
     /**
      * Returns the positional index of a child node, identified by
@@ -103,7 +106,7 @@ public:
     /**
      * Returns the internally handled QPopupMenu
      */
-    virtual QPopupMenu *getPopupMenu();
+    virtual QPopupMenu &getPopupMenu();
 
     /**
      * Removes a child node of the curren node. If the child
@@ -152,7 +155,7 @@ public slots:
 private:
 
     /** the QPopupMenu that is controlled */
-    QPopupMenu *menu;
+    QPopupMenu m_menu;
 };
 
 #endif /* _MENU_SUB_H_ */

@@ -17,7 +17,6 @@
 
 #include "config.h"
 #include <stdio.h>
-#include <qpopupmenu.h>
 #include <klocale.h>
 
 #include "MenuItem.h"
@@ -26,30 +25,31 @@
 //***************************************************************************
 MenuSub::MenuSub(MenuNode *parent, const QString &name,
 	const QString &command, int key, const QString &uid)
-    :MenuItem(parent, name, command, key, uid)
+    :MenuItem(parent, name, command, key, uid),
+    m_menu(0, i18n(name))
 {
-    menu = new QPopupMenu(0, i18n(name));
-    ASSERT(menu);
-
-    if (menu) {
-	QObject::connect(menu, SIGNAL(activated(int)),
-		 	 this, SLOT(slotSelected(int)));
-    }
+    QObject::connect(&m_menu, SIGNAL(activated(int)),
+		     this, SLOT(slotSelected(int)));
 }
 
-//*****************************************************************************
+//***************************************************************************
+MenuSub::~MenuSub()
+{
+}
+
+//***************************************************************************
 int MenuSub::getChildIndex(int id)
 {
-    return (menu) ? menu->indexOf(id) : -1;
+    return m_menu.indexOf(id);
 }
 
-//*****************************************************************************
-QPopupMenu *MenuSub::getPopupMenu()
+//***************************************************************************
+QPopupMenu &MenuSub::getPopupMenu()
 {
-    return menu;
+    return m_menu;
 }
 
-//*****************************************************************************
+//***************************************************************************
 MenuNode *MenuSub::insertBranch(const QString &name, const QString &command,
                                 int key, const QString &uid, int /*index*/)
 {
@@ -57,47 +57,43 @@ MenuNode *MenuSub::insertBranch(const QString &name, const QString &command,
     ASSERT(node);
     if (!node) return 0;
 
-    if (menu) {
-	int new_id = registerChild(node);
-	menu->insertItem(i18n(node->getName()),
-			 node->getPopupMenu(), new_id);
-    }
+    int new_id = registerChild(node);
+    m_menu.insertItem(i18n(node->getName()),
+		      &(node->getPopupMenu()), new_id);
 
     return node;
 }
 
-//*****************************************************************************
+//***************************************************************************
 MenuNode *MenuSub::insertLeaf(const QString &name, const QString &command,
                               int key, const QString &uid, int /*index*/) {
     int new_id;
     ASSERT(name.length());
-    ASSERT(menu);
-    if ((!name.length()) || (!menu)) return 0;
+    if ( !name.length() ) return 0;
 
     MenuItem *item = new MenuItem(this, name, command, key, uid);
     ASSERT(item);
     if (!item) return 0;
 
     new_id = registerChild(item);
-    menu->insertItem(i18n(name), new_id);
-    menu->setAccel(key, new_id);
+    m_menu.insertItem(i18n(name), new_id);
+    m_menu.setAccel(key, new_id);
 
     return item;
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MenuSub::removeChild(MenuNode *child)
 {
     ASSERT(child);
     if (!child) return;
     if (m_children.findRef(child) == -1) return;
 
-    ASSERT(menu);
-    if (menu) menu->removeItem(child->getId());
+    m_menu.removeItem(child->getId());
     MenuItem::removeChild(child);
 }
 
-//*****************************************************************************
+//***************************************************************************
 bool MenuSub::specialCommand(const QString &command)
 {
     ASSERT(command.length());
@@ -110,45 +106,45 @@ bool MenuSub::specialCommand(const QString &command)
 	// debug("MenuSub(%s) >> number <<", getName());
 	return true;
     } else if (command.startsWith("#separator")) {
-	menu->insertSeparator( -1);
+	m_menu.insertSeparator( -1);
 	return true;
     }
 
     return MenuItem::specialCommand(command);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MenuSub::actionChildEnableChanged(int id, bool enable)
 {
-    ASSERT(menu);
     MenuNode::actionChildEnableChanged(id, enable);
-    if (menu) menu->setItemEnabled(id, enable);
+    m_menu.setItemEnabled(id, enable);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MenuSub::slotSelected(int id)
 {
+    debug("MenuSub::slotSelected(%d) --1--",id); // ###
     MenuNode *child = findChild(id);
+    debug("MenuSub::slotSelected(%d) --2--",id); // ###
     if (child) {
 	child->actionSelected();
     } else {
 	debug("MenuSub::slotSelected: child with id #%d not found!", id);
     }
+    debug("MenuSub::slotSelected(%d) --done--",id); // ###
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MenuSub::setItemIcon(int id, const QPixmap &icon)
 {
-    ASSERT(menu);
-    if (menu) menu->changeItem(icon, menu->text(id), id);
+    m_menu.changeItem(icon, m_menu.text(id), id);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void MenuSub::setItemChecked(int id, bool enable)
 {
-    ASSERT(menu);
-    if ((!menu) || (!menu->findItem(id))) return ;
-    menu->setItemChecked(id, enable);
+    if ( !m_menu.findItem(id) ) return ;
+    m_menu.setItemChecked(id, enable);
 }
 
 /* end of libgui/MenuSub.cpp */

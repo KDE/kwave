@@ -73,7 +73,7 @@ public:
      * @param filename name of the .wav or .asc file
      * @param type one of WAV or ASCII
      */
-    void loadSignal(const QString  &filename, int type);
+    void loadFile(const QString  &filename, int type);
 
     void saveSignal (const char *filename, int bits,
 		     int type, bool selection = false);
@@ -130,7 +130,7 @@ public:
     int getBitsPerSample ();
 
     /** returns the signal manager of the current signal */
-    SignalManager &getSignalManager();
+    SignalManager &signalManager();
 
     /** Returns the playback controller */
     PlaybackController &playbackController();
@@ -331,15 +331,15 @@ protected:
      */
     void drawPolyLineSignal(int channel, int middle, int height);
 
-    void loadLabel ();
-    void appendLabel ();
-    void deleteLabel ();
-    void saveLabel (const char *);
-    void addLabel (const char *);
-    void jumptoLabel ();
-    void markSignal (const char *);
-    void markPeriods (const char *);
-    void savePeriods ();
+//    void loadLabel ();
+//    void appendLabel ();
+//    void deleteLabel ();
+//    void saveLabel (const char *);
+//    void addLabel (const char *);
+//    void jumptoLabel ();
+//    void markSignal (const char *);
+//    void markPeriods (const char *);
+//    void savePeriods ();
     void createSignal (const char *);
 
     /**

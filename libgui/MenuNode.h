@@ -22,7 +22,7 @@
 #include <qlist.h>
 #include <qdict.h>
 #include <qstring.h>
-#include <qstrlist.h>
+#include <qstringlist.h>
 
 class QPixmap;
 class MenuNode;
@@ -402,7 +402,7 @@ protected:
     QList<MenuNode> m_children;
 
     /** list of group names the item belongs to */
-    QStrList m_groups;
+    QStringList m_groups;
 
 private:
     /** numeric id in the menu */

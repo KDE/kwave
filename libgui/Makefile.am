@@ -25,6 +25,7 @@ BUILTSOURCES=\
  Dialog.moc.cpp\
  FaderWidget.moc.cpp\
  FFTWidget.moc.cpp\
+ FileProgress.moc.cpp\
  FormantWidget.moc.cpp\
  KwavePlugin.moc.cpp \
  OverViewWidget.moc.cpp\
@@ -37,10 +38,11 @@ BUILTSOURCES=\
  MenuManager.moc.cpp
 
 # Which sources should be compiled for libgui.
-libkwavegui_la_SOURCES =\
+libkwavegui_a_SOURCES =\
  CurveWidget.cpp\
  FaderWidget.cpp\
  FFTWidget.cpp\
+ FileProgress.cpp\
  FloatLine.cpp\
  FormantWidget.cpp\
  Dialog.cpp\
@@ -59,12 +61,7 @@ libkwavegui_la_SOURCES =\
  TimeLine.cpp\
  $(BUILTSOURCES)
 
-lib_LTLIBRARIES = libkwavegui.la
-
-libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
-	--export-dynamic -shared -dy
-
-libkwavegui_la_LIBADD   = $(topdir)/mt/libkwavemt.a
+noinst_LIBRARIES = libkwavegui.a
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
@@ -72,6 +69,5 @@ DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/*
 
 %moc.cpp: %h
 	${MOC} $< -o $@
-
 
 # end of Makefile.am

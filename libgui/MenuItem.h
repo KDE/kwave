@@ -84,13 +84,13 @@ public:
 private:
 
     /** true if the item can be selected/checked (default=false) */
-    bool checkable;
+    bool m_checkable;
 
     /**
      * name of a group for exclusive selection
      * (optional, set by special command, default=0)
      */
-    QString exclusive_group;
+    QString m_exclusive_group;
 
 };
 

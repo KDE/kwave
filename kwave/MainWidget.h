@@ -63,7 +63,7 @@ public:
      * @param filename name of the .wav or .asc file
      * @param type one of WAV or ASCII
      */
-    void loadSignal(const QString &filename, int type = 0);
+    void loadFile(const QString &filename, int type = 0);
 
     void saveSignal(const char *filename, int bits, int type, bool selection);
 
@@ -73,15 +73,15 @@ public:
     void closeSignal();
 
     /**
-     * Returns the current number of channels of the signal or 0 if
+     * Returns the current number of tracks of the signal or 0 if
      * no signal is loaded.
      */
-    unsigned int getChannelCount();
+    unsigned int tracks();
 
     int getBitsPerSample();
 
     /** Returns the signal manager of the current signal */
-    SignalManager *getSignalManager();
+    SignalManager *signalManager();
 
     /** Returns the playback controller */
     PlaybackController *playbackController();
@@ -196,7 +196,10 @@ private:
     QAccel *keys;
     OverViewWidget *m_slider;
     SignalWidget *signalview;
-    KStatusBar &status;
+
+    /** Our top widget's status bar */
+    KStatusBar &m_status;
+
     MenuManager &menu;
     QFrame *frmChannelControls;
     QFrame *frmSignal;

@@ -32,6 +32,7 @@ dnl AC_PROG_CC
 dnl AC_PROG_CPP
 dnl AC_PROG_CXX
 
+AC_LIBTOOL_DLOPEN
 KDE_PROG_LIBTOOL
 
 dnl check if nls is wanted

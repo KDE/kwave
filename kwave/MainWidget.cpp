@@ -72,7 +72,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
      keys(0),
      m_slider(0),
      signalview(0),
-     status(status),
+     m_status(status),
      menu(manage),
      frmChannelControls(0),
      frmSignal(0),
@@ -282,37 +282,35 @@ void MainWidget::scrollbarMoved(int newval)
 //*****************************************************************************
 void MainWidget::refreshControls()
 {
-    bool have_signal = (getChannelCount() != 0);
-
-    // enable/disable all items that depend on having a signal
-    menu.setItemEnabled("@SIGNAL", have_signal);
-
-    // update the list of deletable channels
-    menu.clearNumberedMenu("ID_EDIT_CHANNEL_DELETE");
-    for (unsigned int i = 0; i < getChannelCount(); i++) {
-	char buf[64];
-	snprintf(buf, sizeof(buf), "%d", i);
-	menu.addNumberedMenuEntry("ID_EDIT_CHANNEL_DELETE", buf);
-    }
-
-    // refresh the overview (slider)
-    refreshOverView();
+//    bool have_signal = (tracks() != 0);
+//
+//    // enable/disable all items that depend on having a signal
+//    menu.setItemEnabled("@SIGNAL", have_signal);
+//
+//    // update the list of deletable channels
+//    menu.clearNumberedMenu("ID_EDIT_CHANNEL_DELETE");
+//    for (unsigned int i = 0; i < tracks(); i++) {
+//	QString num = QSstring::num(i);
+//	menu.addNumberedMenuEntry("ID_EDIT_CHANNEL_DELETE", buf);
+//    }
+//
+//    // refresh the overview (slider)
+//    refreshOverView();
 }
 
 //***************************************************************************
 void MainWidget::refreshOverView()
 {
-    ASSERT(m_slider);
-    ASSERT(signalview);
-    if (!m_slider) return;
-    if (!signalview) return;
-
-    QBitmap *overview = signalview->overview(
-	m_slider->width(), m_slider->height());
-
-    m_slider->setOverView(overview);
-
-    if (overview) delete overview;
+//    ASSERT(m_slider);
+//    ASSERT(signalview);
+//    if (!m_slider) return;
+//    if (!signalview) return;
+//
+//    QBitmap *overview = signalview->overview(
+//	m_slider->width(), m_slider->height());
+//    m_slider->setOverView(overview);
+//
+//    if (overview) delete overview;
 }
 
 //**********************************************************
@@ -324,13 +322,17 @@ void MainWidget::saveSignal(const char *filename, int bits,
 }
 
 //*****************************************************************************
-void MainWidget::loadSignal (const QString &filename, int type)
+void MainWidget::loadFile(const QString &filename, int type)
 {
     ASSERT(signalview);
-    debug("MainWidget::setSignal(%s, %d)", filename.data(), type); // ##
+    if (!signalview) return;
+
+    debug("MainWidget::loadFile(%s, %d)", filename.data(), type); // ###
     closeSignal();
-    if (signalview) signalview->loadSignal(filename, type);
+    signalview->loadFile(filename, type);
+    debug("MainWidget::loadFile(): --1--"); // ###
     refreshControls();
+    debug("MainWidget::loadFile(): done"); // ###
 }
 
 //*****************************************************************************
@@ -354,7 +356,7 @@ void MainWidget::setRateInfo(int rate)
     char buf[128];
     snprintf(buf, sizeof(buf), i18n("Rate: %d.%d kHz"), 
 	rate / 1000, (rate % 1000) / 100);
-    status.changeItem(buf, 2);
+    m_status.changeItem(buf, 2);
 }
 
 //*****************************************************************************
@@ -362,7 +364,7 @@ void MainWidget::setLengthInfo(int len)
 {
     char buf[128];
     snprintf(buf, sizeof(buf), i18n("Samples: %d"), len);
-    status.changeItem(buf, 3);
+    m_status.changeItem(buf, 3);
 }
 
 //*****************************************************************************
@@ -444,8 +446,8 @@ void MainWidget::channelDeleted(unsigned int channel)
 //*****************************************************************************
 void MainWidget::resetChannels()
 {
-    int channels = getChannelCount();
-    for (int i = 0; i < channels; i++) {
+    unsigned int t = tracks();
+    for (unsigned int i = 0; i < t; i++) {
 	ASSERT(lamps.at(i));
 	if (lamps.at(i)) lamps.at(i)->setState(0);
     }
@@ -454,7 +456,7 @@ void MainWidget::resetChannels()
 //*****************************************************************************
 void MainWidget::parseKey(int key)
 {
-    if ((key < 0) || ((unsigned int)key >= getChannelCount()))
+    if ((key < 0) || ((unsigned int)key >= tracks()))
 	return;
     ASSERT(lamps.at(key));
     if (!lamps.at(key)) return;
@@ -481,11 +483,11 @@ bool MainWidget::executeCommand(const QString &command)
 	if (signalview) signalview->zoomRange();
     } else {
 	if (parser.command() == "selectchannels")
-	    for (unsigned int i = 0; i < getChannelCount(); i++)
+	    for (unsigned int i = 0; i < tracks(); i++)
 		if (lamps.at(i)) lamps.at(i)->setState(0);
 
 	if (parser.command() == "invertchannels")
-	    for (unsigned int i = 0; i < getChannelCount(); i++)
+	    for (unsigned int i = 0; i < tracks(); i++)
 		if (lamps.at(i)) lamps.at(i)->nextState();
 
 	bool result = (signalview)?signalview->executeCommand(command):false;
@@ -504,7 +506,7 @@ void MainWidget::setSelectedTimeInfo(double ms)
 
     KwavePlugin::ms2string(ms_string, sizeof(ms_string), ms);
     snprintf(buffer, sizeof(buffer), i18n("selected: %s"), ms_string);
-    status.changeItem(buffer, 4);
+    m_status.changeItem(buffer, 4);
 }
 
 //*****************************************************************************
@@ -514,7 +516,7 @@ void MainWidget::setTimeInfo(double ms)
     char ms_string[64];
     KwavePlugin::ms2string(ms_string, sizeof(ms_string), ms);
     snprintf(buffer, sizeof(buffer), i18n("Length: %s"), ms_string);
-    status.changeItem(buffer, 1);
+    m_status.changeItem(buffer, 1);
 }
 
 //*****************************************************************************
@@ -530,7 +532,7 @@ void MainWidget::refreshChannelControls()
     if (!frmChannelControls) return;
     if (!signalview) return;
 
-    unsigned int channels = getChannelCount();
+    unsigned int channels = tracks();
     int min_height = (max(channels, 1) * MIN_PIXELS_PER_CHANNEL);
     bool need_scrollbar = (frmSignal->height() < min_height);
     bool scrollbar_visible = scrollbar->isVisible();
@@ -647,7 +649,7 @@ void MainWidget::refreshChannelControls()
 }
 
 //*****************************************************************************
-unsigned int MainWidget::getChannelCount()
+unsigned int MainWidget::tracks()
 {
     ASSERT(signalview);
     return (signalview) ? signalview->tracks() : 0;
@@ -661,9 +663,9 @@ int MainWidget::getBitsPerSample()
 }
 
 //*****************************************************************************
-SignalManager *MainWidget::getSignalManager()
+SignalManager *MainWidget::signalManager()
 {
-    return (signalview ? &(signalview->getSignalManager()) : 0);
+    return (signalview ? &(signalview->signalManager()) : 0);
 }
 
 //*****************************************************************************

@@ -125,11 +125,14 @@ void MenuManager::executeCommand(const QString &command)
 }
 
 //***************************************************************************
-void MenuManager::clearNumberedMenu (const QString &uid)
+void MenuManager::clearNumberedMenu(const QString &uid)
 {
+    debug("MenuManager::clearNumberedMenu() --1--"); // ###
     ASSERT(m_menu_root);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
+    debug("MenuManager::clearNumberedMenu() --2--"); // ###
     if (node) node->clear();
+    debug("MenuManager::clearNumberedMenu() --done--"); // ###
 }
 
 //***************************************************************************
@@ -143,14 +146,21 @@ void MenuManager::slotMenuCommand(const QString &command)
 void MenuManager::addNumberedMenuEntry(const QString &uid,
 	const QString &entry)
 {
+    ASSERT(entry.length());
+    if (!entry.length()) return;
+
+    debug("MenuManager::addNumberedMenuEntry() --1--"); // ###
     ASSERT(m_menu_root);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
+    debug("MenuManager::addNumberedMenuEntry() --2--"); // ###
     if (node) {
 	QString cmd = node->getCommand();
 	QString command = cmd.contains("%1") ? cmd.arg(entry) : cmd;
 	node->insertLeaf(entry, command, 0, 0, -1);
     } else
 	debug ("MenuManager: could not find numbered Menu '%s'", uid.data());
+
+    debug("MenuManager::addNumberedMenuEntry() --done--"); // ###
 }
 
 //***************************************************************************

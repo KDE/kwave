@@ -152,6 +152,8 @@ o somewhere in far future: compile on architectures with a different
 o use some audio library, like libasound for import/export of other
   file formats
 
+o plugin interface for aRts support
+
 o plugins for import/export of different file formats (e.g. MP3)
 
 o error handling in SignalWidget/Manager needs complete rework !

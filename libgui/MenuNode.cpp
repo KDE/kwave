@@ -72,24 +72,31 @@ MenuNode::~MenuNode()
 //*****************************************************************************
 void MenuNode::emitCommand(const QString &command)
 {
+    debug("MenuNode::emitCommand() --1--"); // ###
     ASSERT(command.length());
     if (!command.length()) return ;
 
+    debug("MenuNode::emitCommand() --2--"); // ###
     if (!getParentNode()) {
 	// no parent -> we are the root node -> we have to emit
+	debug("MenuNode::emitCommand() --3--"); // ###
 	emit sigCommand(command);
     } else {
 	// tell the root node to emit
+	debug("MenuNode::emitCommand() --4--"); // ###
 	MenuNode *root = getRootNode();
 	ASSERT(root);
 	if (root) root->emitCommand(command);
     }
+    debug("MenuNode::emitCommand() --done--"); // ###
 }
 
 //*****************************************************************************
 void MenuNode::actionSelected()
 {
+    debug("MenuNode::actionSelected() --1--"); // ###
     if (m_command.length()) emitCommand(m_command);
+    debug("MenuNode::actionSelected() --done--"); // ###
 }
 
 //*****************************************************************************
@@ -184,9 +191,10 @@ bool MenuNode::isEnabled()
     // find  out if all our groups are anabled
     MenuNode *root = getRootNode();
     if (root) {
-	QString group_name = m_groups.first();
-	while (group_name.length()) {
-	    int pos = m_groups.at();
+	QStringList::Iterator it = m_groups.begin();
+	for ( ; it != m_groups.end(); ++it) {
+	    ASSERT(it != 0);
+	    QString group_name = *it;
 	    MenuNode *group = root->findUID(group_name);
 	    if (group && group->inherits("MenuGroup")) {
 		if (!((MenuGroup*)group)->isEnabled()) {
@@ -195,8 +203,6 @@ bool MenuNode::isEnabled()
 		    return false;
 		}
 	    }
-	    m_groups.at(pos);
-	    group_name = m_groups.next();
 	}
     }
 
@@ -475,10 +481,10 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
     int index = sub->getIndex();
     int old_key = sub->getKey();
     QString old_uid = sub->getUID();
-    const QPixmap *old_icon = sub->getIcon();
+//    const QPixmap *old_icon = 0; // ### sub->getIcon();
     QString name = node->getName();
     QString command = node->getCommand();
-    QStrList &old_groups = sub->m_groups;
+    QStringList old_groups = sub->m_groups;
 
     // remove the old child node
     removeChild(sub);
@@ -487,16 +493,13 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
     sub = insertBranch(name, command, old_key, old_uid, index);
     if (sub) {
 	// join it to the same groups
-	QString group = old_groups.first();
-	while (group.length()) {
-	    int pos = old_groups.at();
-	    sub->joinGroup(group);
-	    old_groups.at(pos);
-	    group = old_groups.next();
+	QStringList::Iterator it = old_groups.begin();
+	for (; it != old_groups.end(); ++it) {
+	    sub->joinGroup(*it);
 	}
 
-	// set the old icon
-	if (old_icon) sub->setIcon(*old_icon);
+//	// set the old icon
+//	if (old_icon) sub->setIcon(*old_icon);
     }
 
     delete node;    // free the old node
@@ -516,7 +519,7 @@ void MenuNode::joinGroup(const QString &group)
 {
     ASSERT(m_parentNode);
     QDict<MenuNode> *group_list = getGroupList();
-    if (m_groups.find(group) != -1) return ;    // already joined
+    if (m_groups.contains(group)) return ;    // already joined
 
     MenuGroup *grp = (group_list) ? (MenuGroup *)group_list->find(group) : 0;
     if (!grp) {
@@ -536,12 +539,11 @@ void MenuNode::joinGroup(const QString &group)
 void MenuNode::leaveGroup(const QString &group)
 {
     QDict<MenuNode> *group_list = getGroupList();
-    int pos = m_groups.find(group);
+
     MenuGroup *grp = (group_list) ? (MenuGroup *)group_list->find(group) : 0;
 
     // remove the group from our list
-    m_groups.setAutoDelete(true);
-    if (pos != -1) m_groups.remove(pos);
+    m_groups.remove(group);
 
     // remove ourself from the group
     if (grp) grp->removeChild(this);

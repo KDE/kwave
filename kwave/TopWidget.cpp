@@ -1,5 +1,5 @@
 /***************************************************************************
-           TopWidget.cpp  -  Toplevel widget of Kwave
+          TopWidget.cpp  -  Toplevel widget of Kwave
 			     -------------------
     begin                : 1999
     copyright            : (C) 1999 by Martin Wilz
@@ -135,18 +135,19 @@ TopWidget::TopWidget(KwaveApp &main_app)
     ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
-    m_plugin_manager = new PluginManager(*this);
-    ASSERT(m_plugin_manager);
-    if (!m_plugin_manager) return;
-    if (!m_plugin_manager->isOK()) {
-	delete m_plugin_manager;
-	m_plugin_manager=0;
-	return;
-    }
-    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
-            this, SLOT(executeCommand(const QString &)));
-    connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
-	    m_plugin_manager, SLOT(setSignalName(const QString &)));
+    m_plugin_manager = 0;
+//    m_plugin_manager = new PluginManager(*this);
+//    ASSERT(m_plugin_manager);
+//    if (!m_plugin_manager) return;
+//    if (!m_plugin_manager->isOK()) {
+//	delete m_plugin_manager;
+//	m_plugin_manager=0;
+//	return;
+//    }
+//    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
+//            this, SLOT(executeCommand(const QString &)));
+//    connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
+//	    m_plugin_manager, SLOT(setSignalName(const QString &)));
 
     debug("TopWidget::TopWidget() -- 2 --"); // ###
 
@@ -441,14 +442,15 @@ TopWidget::TopWidget(KwaveApp &main_app)
 //***************************************************************************
 bool TopWidget::isOK()
 {
-    ASSERT(m_menu_manager);
-    ASSERT(m_main_widget);
-    ASSERT(m_plugin_manager);
-    ASSERT(m_toolbar);
-    ASSERT(m_zoomselect);
-
-    return ( m_menu_manager && m_main_widget &&
-	m_plugin_manager && m_toolbar && m_zoomselect );
+//    ASSERT(m_menu_manager);
+//    ASSERT(m_main_widget);
+//    ASSERT(m_plugin_manager);
+//    ASSERT(m_toolbar);
+//    ASSERT(m_zoomselect);
+//
+//    return ( m_menu_manager && m_main_widget &&
+//	m_plugin_manager && m_toolbar && m_zoomselect );
+    return true;
 }
 
 //***************************************************************************
@@ -563,9 +565,9 @@ void TopWidget::loadBatch(const QString &str)
 }
 
 //***************************************************************************
-SignalManager *TopWidget::getSignalManager()
+SignalManager *TopWidget::signalManager()
 {
-    return (m_main_widget) ? m_main_widget->getSignalManager() : 0;
+    return (m_main_widget) ? m_main_widget->signalManager() : 0;
 }
 
 //***************************************************************************
@@ -585,7 +587,9 @@ void TopWidget::revert()
 {
     ASSERT(m_main_widget);
     if (m_filename.length() && m_main_widget) {
-	m_main_widget->loadSignal(m_filename);
+	if (!closeFile()) return;
+
+	m_main_widget->loadFile(m_filename);
 	m_save_bits = m_main_widget->getBitsPerSample();
 	updateMenu();
 	updateToolbar();
@@ -608,19 +612,19 @@ void TopWidget::resolution(const QString &str)
 //***************************************************************************
 bool TopWidget::closeFile()
 {
-    ASSERT(m_main_widget);
-//    if (m_main_widget) {
-//	// if this failed, the used pressed "cancel"
-//	if (!m_main_widget->closeSignal()) return false;
-//    }
-    m_main_widget->closeSignal();
-
-    m_filename = "";
-    setCaption(0);
-    m_zoomselect->clearEdit();
-    emit sigSignalNameChanged(m_filename);
-    updateMenu();
-    updateToolbar();
+//    ASSERT(m_main_widget);
+////    if (m_main_widget) {
+////	// if this failed, the used pressed "cancel"
+////	if (!m_main_widget->closeSignal()) return false;
+////    }
+//    m_main_widget->closeSignal();
+//
+//    m_filename = "";
+//    setCaption(0);
+//    m_zoomselect->clearEdit();
+//    emit sigSignalNameChanged(m_filename);
+//    updateMenu();
+//    updateToolbar();
 
     return true;
 }
@@ -639,17 +643,23 @@ int TopWidget::loadFile(const QString &filename, int type)
     if (!closeFile()) return -1;
 
     m_filename = filename;
-    emit sigSignalNameChanged(m_filename);
+//    emit sigSignalNameChanged(m_filename);
 
-    m_main_widget->loadSignal(filename, type);
+    m_main_widget->loadFile(filename, type);
+    debug("TopWidget::loadFile() --1--"); // ###
     m_app.addRecentFile(m_filename);
+    debug("TopWidget::loadFile() --2--"); // ###
 
     setCaption(m_filename);
+    debug("TopWidget::loadFile() --3--"); // ###
 
     m_save_bits = m_main_widget->getBitsPerSample();
+    debug("TopWidget::loadFile() --4--"); // ###
     updateMenu();
+    debug("TopWidget::loadFile() --5--"); // ###
     updateToolbar();
 
+    debug("TopWidget::loadFile() --done--"); // ###
     return 0;
 }
 
@@ -704,10 +714,13 @@ void TopWidget::importAsciiFile()
 //***************************************************************************
 void TopWidget::exportAsciiFile()
 {
-    QString name = KFileDialog::getSaveFileName(0, "*.asc", m_main_widget);
-    if (!name.isNull()) {
-	KwaveApp::setDefaultSaveDir(name);
-	m_main_widget->saveSignal(name, m_save_bits, ASCII, false);
+    QString filename;
+    QString dir = KwaveApp::defaultOpenDir();
+
+    filename = KFileDialog::getSaveFileName(dir, "*.asc", this);
+    if (filename.length()) {
+	KwaveApp::setDefaultSaveDir(filename);
+	m_main_widget->saveSignal(filename, m_save_bits, ASCII, false);
     }
 }
 
@@ -735,7 +748,7 @@ void TopWidget::saveFileAs(bool selection)
     QString name = KFileDialog::getSaveFileName(dir, "*.wav", m_main_widget);
     if (!name.isNull()) {
 	KwaveApp::setDefaultSaveDir(name);
-	
+
 	m_filename = name;
 	m_main_widget->saveSignal(m_filename, m_save_bits, 0, selection);
 	setCaption(m_filename);
@@ -753,41 +766,41 @@ const QString &TopWidget::getSignalName()
 //***************************************************************************
 void TopWidget::selectZoom(int index)
 {
-    ASSERT(m_main_widget);
-    if (!m_main_widget) return;
-
-    if (index < 0) return;
-    if ((unsigned int)index >= zoom_factors.count())
-	index = zoom_factors.count()-1;
-
-    double new_zoom;
-    QStringList::Iterator text = zoom_factors.at(index);
-    new_zoom = (text != 0) ? (*text).toDouble() : 0.0;
-    if (new_zoom != 0.0) new_zoom = (100.0 / new_zoom);
-    m_main_widget->setZoom(new_zoom);
+//    ASSERT(m_main_widget);
+//    if (!m_main_widget) return;
+//
+//    if (index < 0) return;
+//    if ((unsigned int)index >= zoom_factors.count())
+//	index = zoom_factors.count()-1;
+//
+//    double new_zoom;
+//    QStringList::Iterator text = zoom_factors.at(index);
+//    new_zoom = (text != 0) ? (*text).toDouble() : 0.0;
+//    if (new_zoom != 0.0) new_zoom = (100.0 / new_zoom);
+//    m_main_widget->setZoom(new_zoom);
 }
 
 //***************************************************************************
 void TopWidget::setZoom(double zoom)
 {
-//    debug("void TopWidget::setZoom(%0.5f)", zoom);
-    ASSERT(zoom > 0);
-    ASSERT(m_zoomselect);
-
-    if (zoom <= 0.0) return; // makes no sense
-    if (!m_zoomselect) return;
-
-    double percent = (double)100.0 / zoom;
-    char buf[256];
-    buf[0] = 0;
-
-    if (m_main_widget) {
-	if (m_main_widget->getChannelCount() != 0)
-	    KwavePlugin::zoom2string(buf,sizeof(buf),percent);
-
-	m_main_widget->setZoom(zoom);
-    }
-    (strlen(buf)) ? m_zoomselect->setEditText(buf) : m_zoomselect->clearEdit();
+////    debug("void TopWidget::setZoom(%0.5f)", zoom);
+//    ASSERT(zoom > 0);
+//    ASSERT(m_zoomselect);
+//
+//    if (zoom <= 0.0) return; // makes no sense
+//    if (!m_zoomselect) return;
+//
+//    double percent = (double)100.0 / zoom;
+//    char buf[256];
+//    buf[0] = 0;
+//
+//    if (m_main_widget) {
+//	if (m_main_widget->tracks() != 0)
+//	    KwavePlugin::zoom2string(buf,sizeof(buf),percent);
+//
+//	m_main_widget->setZoom(zoom);
+//    }
+//    (strlen(buf)) ? m_zoomselect->setEditText(buf) : m_zoomselect->clearEdit();
 }
 
 //***************************************************************************
@@ -798,9 +811,11 @@ void TopWidget::updateRecentFiles()
 
     m_menu_manager->clearNumberedMenu("ID_FILE_OPEN_RECENT");
 
-    QStringList &recent_files = m_app.recentFiles();
+    QStringList recent_files = m_app.recentFiles();
     QStringList::Iterator it;
     for (it = recent_files.begin(); it != recent_files.end(); ++it) {
+	ASSERT(it != 0);
+	if (it == 0) break;
 	m_menu_manager->addNumberedMenuEntry("ID_FILE_OPEN_RECENT", *it);
     }
 }
@@ -825,7 +840,7 @@ void TopWidget::updateToolbar()
     ASSERT(m_main_widget->playbackController());
     if (!m_main_widget->playbackController()) return;
 
-    bool have_signal = m_main_widget->getChannelCount();
+    bool have_signal = m_main_widget->tracks();
     bool playing = m_main_widget->playbackController()->running();
     bool paused  = m_main_widget->playbackController()->paused();
 
@@ -874,7 +889,8 @@ void TopWidget::blinkPause()
     ASSERT(m_toolbar);
     if (!m_toolbar) return;
 
-    m_toolbar->setButtonPixmap(m_id_pause, m_blink_on ? xpm_pause2 : xpm_pause);
+    m_toolbar->setButtonPixmap(m_id_pause,
+	m_blink_on ? xpm_pause2 : xpm_pause);
     m_blink_on = !m_blink_on;
 }
 
@@ -884,7 +900,7 @@ void TopWidget::pausePressed()
     ASSERT(m_main_widget);
     if (!m_main_widget) return;
 
-    bool have_signal = m_main_widget->getChannelCount();
+    bool have_signal = m_main_widget->tracks();
     bool playing = m_main_widget->playbackController()->running();
 
     if (!have_signal) return;

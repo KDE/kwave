@@ -418,7 +418,7 @@ void SignalWidget::selectRange()
 
 ////    ASSERT(signalmanage);
 ////    if (!signalmanage) return;
-////    if (!getChannelCount()) return ;
+////    if (!tracks()) return ;
 ////
 ////    int rate = signalmanage->getRate();
 ////
@@ -538,7 +538,7 @@ PlaybackController &SignalWidget::playbackController()
 }
 
 //****************************************************************************
-SignalManager &SignalWidget::getSignalManager()
+SignalManager &SignalWidget::signalManager()
 {
     return m_signal_manager;
 }
@@ -593,28 +593,26 @@ void SignalWidget::setSignal(SignalManager *sigs)
 }
 
 //****************************************************************************
-void SignalWidget::loadSignal(const QString &filename, int type)
+void SignalWidget::loadFile(const QString &filename, int type)
 {
     close();
-////    ASSERT(labels);
-////    if (labels) labels->clear();
+//    ASSERT(labels);
+//    if (labels) labels->clear();
 
     // load a new signal
-    debug("SignalWidget::loadSignal(%s, %d)",filename.data(), type); // ###
+    debug("SignalWidget::loadFile(%s, %d)",filename.data(), type); // ###
     m_signal_manager.loadFile(filename, type);
     ASSERT(m_signal_manager.length());
     if (m_signal_manager.length() <= 0) {
-	warning("SignalWidget::loadSignal() failed:"\
+	warning("SignalWidget::loadFile() failed:"\
 		" zero-length or out of memory?");
-	// signalmanage.clear(); ###
+	close();
 	return ;
     }
 
     connectSignalManager();
-    selectRange(0, 0);
     zoomAll();
-//    for (unsigned int i=0; i < m_signal_manager.channels(); i++)
-//	emit sigChannelAdded(i);
+    debug("SignalWidget::loadFile, done"); // ###
 }
 
 //****************************************************************************
@@ -1209,7 +1207,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 ////    gettimeofday(&t_start,0);
 ////#endif
 //
-//    unsigned int channels = getChannelCount();
+//    unsigned int channels = tracks();
 //    bool update_pixmap = false;
 //
 //    layer_rop[LAYER_SIGNAL] = CopyROP;
@@ -1498,9 +1496,9 @@ void SignalWidget::signaldeleted (int start, int len)
 //    refreshAllLayers();
 }
 
-//****************************************************************************
-void SignalWidget::deleteLabel ()
-{
+////****************************************************************************
+//void SignalWidget::deleteLabel ()
+//{
 //    if (!signalmanage) return ;
 //
 //    Label *tmp;
@@ -1515,18 +1513,18 @@ void SignalWidget::deleteLabel ()
 //	}
 //    }
 //    refreshLayer(LAYER_MARKERS);
-}
-
-//****************************************************************************
-void SignalWidget::loadLabel()
-{
+//}
+//
+////****************************************************************************
+//void SignalWidget::loadLabel()
+//{
 //    labels->clear();    //remove old Label...
 //    appendLabel ();
-}
-
-//****************************************************************************
-void SignalWidget::appendLabel()
-{
+//}
+//
+////****************************************************************************
+//void SignalWidget::appendLabel()
+//{
 //    QString name = KFileDialog::getOpenFileName (0, "*.label", this);
 //    //  if (!name.isNull())
 //    //    {
@@ -1534,11 +1532,11 @@ void SignalWidget::appendLabel()
 //    //      globals.port->putMessage (comstr);
 //    //    }
 //    refresh ();
-}
-
-//****************************************************************************
-void SignalWidget::saveLabel (const char *typestring)
-{
+//}
+//
+////****************************************************************************
+//void SignalWidget::saveLabel (const char *typestring)
+//{
 //    QString name = KFileDialog::getSaveFileName (0, "*.label", this);
 //    if (!name.isNull()) {
 //	FILE *out;
@@ -1576,11 +1574,11 @@ void SignalWidget::saveLabel (const char *typestring)
 //
 //	fclose (out);
 //    }
-}
-
-//****************************************************************************
-void SignalWidget::addLabel (const char *params)
-{
+//}
+//
+////****************************************************************************
+//void SignalWidget::addLabel (const char *params)
+//{
 //    if (signalmanage && markertype) {
 //	Parser parser(params);
 //	Label *newmark;
@@ -1621,15 +1619,15 @@ void SignalWidget::addLabel (const char *params)
 //	    refreshLayer(LAYER_MARKERS);
 //	}
 //    }
-}
-
-//****************************************************************************
-void SignalWidget::jumptoLabel ()
+//}
+//
+////****************************************************************************
+//void SignalWidget::jumptoLabel ()
 // another fine function contributed by Gerhard Zintel
 // if lmarker == rmarker (no range selected) cursor jumps to the nearest label
 // if lmarker <  rmarker (range is selected) lmarker jumps to next lower label or zero
 // rmarker jumps to next higher label or end
-{
+//{
 //    if (signalmanage) {
 //	int lmarker = signalmanage->getLMarker();
 //	int rmarker = signalmanage->getRMarker();
@@ -1660,11 +1658,11 @@ void SignalWidget::jumptoLabel ()
 //	    refresh ();
 //	}
 //    }
-}
-
-//****************************************************************************
-void SignalWidget::savePeriods ()
-{
+//}
+//
+////****************************************************************************
+//void SignalWidget::savePeriods ()
+//{
 //    if (signalmanage) {
 //	Dialog *dialog =
 //	    DynamicLoader::getDialog ("marksave", new DialogOperation(&globals, signalmanage->getRate(), 0, 0));
@@ -1717,11 +1715,11 @@ void SignalWidget::savePeriods ()
 //	    }
 //	}
 //    }
-}
-
-//****************************************************************************
-void SignalWidget::saveBlocks (int bit)
-{
+//}
+//
+////****************************************************************************
+//void SignalWidget::saveBlocks (int bit)
+//{
 //    if (signalmanage) {
 //	Dialog *dialog =
 //	    DynamicLoader::getDialog("saveblock", new DialogOperation(&globals, signalmanage->getRate(), 0, 0));
@@ -1761,11 +1759,11 @@ void SignalWidget::saveBlocks (int bit)
 //	    signalmanage->setRange (l, r);
 //	}
 //    }
-}
-
-//****************************************************************************
-void SignalWidget::markSignal (const char *str)
-{
+//}
+//
+////****************************************************************************
+//void SignalWidget::markSignal (const char *str)
+//{
 //    if (signalmanage) {
 //	Label *newmark;
 //
@@ -1818,11 +1816,11 @@ void SignalWidget::markSignal (const char *str)
 //	    delete dialog;
 //	}
 //    }
-}
-
-//****************************************************************************
-void SignalWidget::markPeriods (const char *str)
-{
+//}
+//
+////****************************************************************************
+//void SignalWidget::markPeriods (const char *str)
+//{
 //    if (signalmanage) {
 //	Parser parser (str);
 //
@@ -1877,7 +1875,7 @@ void SignalWidget::markPeriods (const char *str)
 //	    refresh ();
 //	}
 //    }
-}
+//}
 
 ////*****************************************************************************
 //int findNextRepeat (int *sample, int high)
@@ -1977,20 +1975,20 @@ void SignalWidget::markPeriods (const char *str)
 //	}
 //    return i;
 //}
-
-//*****************************************************************************
-void SignalWidget::addLabelType (LabelType *marker)
-{
+//
+////*****************************************************************************
+//void SignalWidget::addLabelType (LabelType *marker)
+//{
 //    globals.markertypes.append (marker);
 //    if (manage) manage->addNumberedMenuEntry ("ID_LABELS_TYPE", (char *)marker->name);
-}
-
-//*****************************************************************************
-void SignalWidget::addLabelType (const char *str)
-{
+//}
+//
+////*****************************************************************************
+//void SignalWidget::addLabelType (const char *str)
+//{
 //    LabelType *marker = new LabelType(str);
 //    if (marker) addLabelType (marker);
-}
+//}
 
 //***************************************************************************
 void SignalWidget::playbackStart()

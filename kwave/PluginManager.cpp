@@ -319,14 +319,14 @@ void PluginManager::savePluginDefaults(const QString &name,
 //***************************************************************************
 unsigned int PluginManager::signalLength()
 {
-    SignalManager *sig = m_top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.signalManager();
     return ((sig) ? sig->length() : 0);
 }
 
 //***************************************************************************
 unsigned int PluginManager::signalRate()
 {
-    SignalManager *sig = m_top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.signalManager();
     return ((sig) ? sig->getRate() : 0);
 }
 
@@ -335,28 +335,28 @@ const QArray<unsigned int> PluginManager::selectedChannels()
 {
     const QArray<unsigned int> empty;
 
-    SignalManager *sig = m_top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.signalManager();
     return ((sig) ? (sig->selectedChannels()) : (empty));
 }
 
 //***************************************************************************
 unsigned int PluginManager::selectionStart()
 {
-    SignalManager *sig = m_top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.signalManager();
     return (sig) ? sig->getLMarker() : 0;
 }
 
 //***************************************************************************
 unsigned int PluginManager::selectionEnd()
 {
-    SignalManager *sig = m_top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.signalManager();
     return (sig) ? sig->getRMarker() : 0;
 }
 
 //***************************************************************************
 int PluginManager::singleSample(unsigned int channel, unsigned int offset)
 {
-    SignalManager *sig = m_top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.signalManager();
     return (sig) ? sig->singleSample(channel, offset) : 0;
 }
 
@@ -364,7 +364,7 @@ int PluginManager::singleSample(unsigned int channel, unsigned int offset)
 int PluginManager::averageSample(unsigned int offset,
                                  const QArray<unsigned int> *channels)
 {
-    SignalManager *sig = m_top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.signalManager();
     return (sig) ? sig->averageSample(offset, channels) : 0;
 }
 
@@ -372,7 +372,7 @@ int PluginManager::averageSample(unsigned int offset,
 QBitmap *PluginManager::overview(unsigned int width, unsigned int height,
                                  unsigned int offset, unsigned int length)
 {
-    SignalManager *sig = m_top_widget.getSignalManager();
+    SignalManager *sig = m_top_widget.signalManager();
     return (sig) ? sig->overview(width, height, offset, length) : 0;
 }
 

@@ -73,12 +73,12 @@ public:
     /**
      * Opens a new toplevel window. If a filename is specified the will
      * will be opened (should be a .wav-file).
-     * @param filename name of the .wav file, optional
+     * @param filename name of the .wav file, (optional, might be zero)
      * @return true if succeeded
      * @see #closeWindow()
      * @see TopWidget
      */
-    bool newWindow(const QString *filename = 0);
+    bool newWindow(const QString &filename);
 
     /**
      * Closes a previously opened toplevel window.
@@ -90,7 +90,7 @@ public:
     bool closeWindow(TopWidget *todel);
 
     /** Returns a reference to the list of recent files */
-    QStringList &recentFiles() {
+    QStringList recentFiles() {
 	return m_recent_files;
     };
 
@@ -99,8 +99,8 @@ public:
 	return m_playback_params;
     };
 
-    /** Returns a reference to Kwave's clipboard */
-    static ClipBoard &clipboard();
+ //    /** Returns a reference to Kwave's clipboard */
+//    static ClipBoard &clipboard();
 
     /**
      * Returns the default directory for opening files.
@@ -179,8 +179,8 @@ private:
     /** parameters for audio playback */
     static playback_param_t m_playback_params;
 
-    /** Kwave's clipboard */
-    static ClipBoard &m_clipboard;
+//    /** Kwave's clipboard */
+//    static ClipBoard &m_clipboard;
 
     /** Default directory for opening files */
     static QString m_default_open_dir;

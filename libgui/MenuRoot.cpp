@@ -26,8 +26,8 @@
 //***************************************************************************
 MenuRoot::MenuRoot(KMenuBar &bar)
     :MenuNode(0, "(root)"),
-    menu_bar(bar),
-    group_list()
+    m_menu_bar(bar),
+    m_group_list()
 {
 }
 
@@ -40,8 +40,8 @@ MenuRoot::~MenuRoot()
 //***************************************************************************
 int MenuRoot::getChildIndex(int id)
 {
-    for (unsigned int i = 0; i < menu_bar.count(); i++) {
-	if (menu_bar.idAt(i) == id) return i;
+    for (unsigned int i = 0; i < m_menu_bar.count(); i++) {
+	if (m_menu_bar.idAt(i) == id) return i;
     }
     return -1;
 }
@@ -49,7 +49,7 @@ int MenuRoot::getChildIndex(int id)
 //***************************************************************************
 QDict<MenuNode> *MenuRoot::getGroupList()
 {
-    return &group_list;
+    return &m_group_list;
 }
 
 //***************************************************************************
@@ -61,7 +61,7 @@ MenuNode *MenuRoot::insertBranch(const QString &name, const QString &command,
     if (!node) return 0;
 
     int new_id = registerChild(node);
-    menu_bar.insertItem(i18n(name), node->getPopupMenu(), new_id, index);
+    m_menu_bar.insertItem(i18n(name), &(node->getPopupMenu()), new_id, index);
     return node;
 }
 
@@ -75,7 +75,7 @@ MenuNode *MenuRoot::insertLeaf(const QString &name, const QString &command,
     if (!item) return 0;
 
     int new_id = registerChild(item);
-    menu_bar.insertItem(i18n(name), new_id, index);
+    m_menu_bar.insertItem(i18n(name), new_id, index);
     return item;
 }
 
@@ -90,7 +90,7 @@ void MenuRoot::removeChild(MenuNode *child)
     if (!group_list || (group_list->find(child->getName()) == 0)) {
         // only remove what has been added to the menu bar,
         // but not menu groups
-        menu_bar.removeItem(child->getId());
+        m_menu_bar.removeItem(child->getId());
     }
     MenuNode::removeChild(child);
 }
@@ -112,7 +112,7 @@ bool MenuRoot::specialCommand(const QString &command)
     if (!command) return false;
 
     if (strcmp(command, "#separator") == 0) {
-	menu_bar.insertSeparator();
+	m_menu_bar.insertSeparator();
 	return true;
     }
 

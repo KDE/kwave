@@ -1,12 +1,9 @@
 INCLUDES= @all_includes@
 
-kwavelibdir=$(libdir)
-
-kwaveincludedir=$(includedir)/libkwave
-libkwave_la_LDFLAGS = -version-info @LD_VERSION_INFO@
+BUILTSOURCES=""
 
 # Which sources should be compiled for kwave.
-libkwave_la_SOURCES =\
+libkwavestatic_a_SOURCES =\
  Curve.cpp\
  Filter.cpp\
  FileLoader.cpp\
@@ -23,39 +20,34 @@ libkwave_la_SOURCES =\
  SampleInputStream.cpp\
  Stripe.cpp\
  Track.cpp\
- WindowFunction.cpp
+ WindowFunction.cpp \
+ ${BUILTSOURCES}
 
-kwaveinclude_HEADERS = \
- Curve.h\
- Filter.h\
- FileFormat.h\
- FileLoader.h\
- Functions.h\
- gsl_fft.h\
- InsertMode.h\
- Interpolation.h\
- Label.h\
- LabelList.h\
- LabelType.h\
- LineParser.h\
- MenuItem.h\
- mmap.h\
- Parser.h\
- PointSet.h\
- SampleInputStream.h\
- Signal.h\
- Stripe.h\
- Track.h\
- WindowFunction.h
+noinst_LIBRARIES = libkwavestatic.a
 
-libkwave_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
-	--export-dynamic -shared -dy
+all: libkwave.so
 
-libkwave_la_LIBADD = $(topdir)/mt/libkwavemt.a
+libkwave.so: libkwavestatic.a ../mt/libkwavemt.a libkwavestatic.a ../libgui/libkwavegui.a
+	ld -o libkwave.so \
+	--whole-archive ../mt/libkwavemt.a \
+	--whole-archive libkwavestatic.a \
+	--whole-archive ../libgui/libkwavegui.a \
+	--shared
 
-lib_LTLIBRARIES = libkwave.la
+#libkwave_la_LIBADD = ../mt/libkwavemt.a ../libgui/libkwavegui.a
+#
+#libkwave_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
+#	-dy --dynamic -export-dynamic -whole-archive \
+#	-dynamic --export-dynamic --whole-archive
+#
+#lib_LTLIBRARIES = libkwave.la
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
-DISTCLEANFILES = core *~ .deps/*
 
+DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/*
+
+%moc.cpp: %h
+	${MOC} $< -o $@
+
+# end of Makefile.am

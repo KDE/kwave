@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <stdio.h>
+#include <qlist.h>
 #include <kapp.h>
 
 #include "MenuNode.h"
@@ -61,32 +62,28 @@ int MenuGroup::registerChild(MenuNode *child)
 void MenuGroup::removeChild(MenuNode *child)
 {
     if (!child) return;
+    if (!m_children.contains(child)) return;
 
-    int index = m_children.find(child);
-    if (index != -1) {
-//	debug("MenuGroup::removeChild(%s)",child->getName());
-	// notification for the childs that our enable state changed
-	QObject::disconnect(
-	    this, SIGNAL(sigParentEnableChanged()),
-	    child, SLOT(slotParentEnableChanged())
-	);
+//    debug("MenuGroup::removeChild(%s)",child->getName());
+    // notification for the childs that our enable state changed
+    QObject::disconnect(
+	this, SIGNAL(sigParentEnableChanged()),
+	child, SLOT(slotParentEnableChanged())
+    );
 
-	m_children.setAutoDelete(false);
-	m_children.remove(child);
+    m_children.setAutoDelete(false);
+    m_children.remove(child);
 
-	child->leaveGroup(getName());
-    }
+    child->leaveGroup(getName());
 }
 
 //*****************************************************************************
 void MenuGroup::setEnabled(bool enable)
 {
-    MenuNode *child = m_children.first();
-    while (child) {
-	int pos = m_children.at();
-	child->setEnabled(enable);
-	m_children.at(pos);
-	child = m_children.next();
+    QListIterator<MenuNode> it(m_children);
+    for ( ; it.current(); ++it) {
+	it.current()->setEnabled(enable);
+	++it;
     }
 }
 
@@ -94,16 +91,16 @@ void MenuGroup::setEnabled(bool enable)
 void MenuGroup::selectItem(const QString &uid)
 {
     MenuNode *new_selection = 0;
-    MenuNode *child = m_children.first();
-    while (child) {
-	int pos = m_children.at();
+
+    QListIterator<MenuNode> it(m_children);
+    for ( ; it.current(); ++it) {
+	MenuNode *child = it.current();
 	if (uid == child->getUID())
 	    new_selection = child;    // new selected child found !
 	else
 	    child->setChecked(false);    // remove check from others
 
-	m_children.at(pos);
-	child = m_children.next();
+	++it;
     }
 
     // select the new one if found

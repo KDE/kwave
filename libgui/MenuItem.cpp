@@ -32,8 +32,8 @@
 MenuItem::MenuItem(MenuNode *parent, const QString &name,
 	const QString &command, int key, const QString &uid)
     :MenuNode(parent, name, command, key, uid),
-    checkable(false),
-    exclusive_group(0)
+    m_checkable(false),
+    m_exclusive_group(0)
 {
 }
 
@@ -45,12 +45,13 @@ MenuItem::~MenuItem()
 //*****************************************************************************
 void MenuItem::actionSelected()
 {
+    debug("MenuItem::actionSelected() --1--"); // ###
     MenuGroup *group = 0;
 
     if (isCheckable()) {
-	if (exclusive_group.length()) {
+	if (m_exclusive_group.length()) {
 	    MenuNode *root = getRootNode();
-	    if (root) group = (MenuGroup*)root->findUID(exclusive_group);
+	    if (root) group = (MenuGroup*)root->findUID(m_exclusive_group);
 	}
 
 	if (group && ((MenuNode*)group)->inherits("MenuGroup")) {
@@ -62,7 +63,9 @@ void MenuItem::actionSelected()
 	}
     }
 
+    debug("MenuItem::actionSelected() --2--"); // ###
     MenuNode::actionSelected();
+    debug("MenuItem::actionSelected() --done--"); // ###
 }
 
 //*****************************************************************************
@@ -99,13 +102,13 @@ bool MenuItem::specialCommand(const QString &command)
 	// join to a list of groups
 	QString group = parser.firstParam();
 	while (group.length()) {
-	    if (!exclusive_group) {
-		exclusive_group = group;
+	    if (!m_exclusive_group.length()) {
+		m_exclusive_group = group;
 		joinGroup(group);
-	    } else if (exclusive_group != group) {
+	    } else if (m_exclusive_group != group) {
 		warning("menu item '%s' already member of "\
 			"exclusive group '%s'", getName().data(),
-			exclusive_group.data());
+			m_exclusive_group.data());
 	    }
 	    group = parser.nextParam();
 	}
@@ -121,7 +124,7 @@ bool MenuItem::specialCommand(const QString &command)
 //*****************************************************************************
 bool MenuItem::isCheckable()
 {
-    return checkable;
+    return m_checkable;
 }
 
 //*****************************************************************************
@@ -129,11 +132,11 @@ void MenuItem::setCheckable(bool checkable)
 {
     MenuNode *parent = getParentNode();
     if (parent && parent->inherits("MenuSub")) {
-	QPopupMenu *popup = ((MenuSub*)parent)->getPopupMenu();
-	if (popup) popup->setCheckable(checkable);
+	QPopupMenu &popup = ((MenuSub*)parent)->getPopupMenu();
+	popup.setCheckable(checkable);
     }
 
-    this->checkable = checkable;
+    m_checkable = checkable;
 }
 
 //*****************************************************************************

@@ -44,8 +44,8 @@ playback_param_t KwaveApp::m_playback_params = {
 
 //***************************************************************************
 // some static initializers
-static ClipBoard _clipboard;
-ClipBoard &KwaveApp::m_clipboard(_clipboard);
+//static ClipBoard _clipboard;
+//ClipBoard &KwaveApp::m_clipboard(_clipboard);
 QString KwaveApp::m_default_open_dir;
 QString KwaveApp::m_default_save_dir;
 
@@ -64,8 +64,8 @@ KwaveApp::KwaveApp()
     m_topwidget_list.setAutoDelete(false);
     readConfig();
 
-    // load the list of plugins
-    PluginManager::findPlugins();
+//    // load the list of plugins
+//    PluginManager::findPlugins();
 
 #ifndef UNIQUE_APP
     newInstance();
@@ -80,14 +80,14 @@ int KwaveApp::newInstance()
 
     // only one parameter -> open with empty window
     if (argc == 0) {
-	newWindow();
+	newWindow(0);
     } else {
 	// open a window for each file specified in the
 	// command line an load it
 	QString filename;
 	for (unsigned int i = 0; i < argc; i++) {
 	    filename = QFile::decodeName(args->arg(i));
-	    newWindow(&filename);
+	    newWindow(filename);
 	}
     }
     if (args) args->clear();
@@ -103,10 +103,10 @@ bool KwaveApp::isOK()
 }
 
 //***************************************************************************
-ClipBoard &KwaveApp::clipboard()
-{
-    return m_clipboard;
-}
+//ClipBoard &KwaveApp::clipboard()
+//{
+//    return m_clipboard;
+//}
 
 //***************************************************************************
 bool KwaveApp::executeCommand(const QString &command)
@@ -114,7 +114,7 @@ bool KwaveApp::executeCommand(const QString &command)
 //    debug("KwaveApp::executeCommand(%s)", command);    // ###
     Parser parser(command);
     if (parser.command() == "newwindow") {
-	newWindow();
+	newWindow(0);
     } else if (parser.command() == "help") {
 	invokeHTMLHelp("kwave/index.html", "");
     } else {
@@ -126,6 +126,9 @@ bool KwaveApp::executeCommand(const QString &command)
 //***************************************************************************
 void KwaveApp::addRecentFile(const QString &newfile)
 {
+    ASSERT(newfile.length() != 0);
+    if (!newfile.length()) return;
+
     // remove old entries if present
     m_recent_files.remove(newfile);
 
@@ -144,7 +147,7 @@ void KwaveApp::addRecentFile(const QString &newfile)
 }
 
 //***************************************************************************
-bool KwaveApp::newWindow(const QString *filename)
+bool KwaveApp::newWindow(const QString &filename)
 {
     TopWidget *new_top_widget = new TopWidget(*this);
     ASSERT(new_top_widget);
@@ -175,7 +178,7 @@ bool KwaveApp::newWindow(const QString *filename)
     connect(this, SIGNAL(recentFilesChanged()),
             new_top_widget, SLOT(updateRecentFiles()));
 
-    if (filename) new_top_widget->loadFile(*filename);
+    if (filename.length()) new_top_widget->loadFile(filename);
 
     return true;
 }
@@ -266,10 +269,10 @@ void KwaveApp::readConfig()
     for (unsigned int i = 0 ; i < 20; i++) {
 	key = QString::number(i);        // generate number
 	result = cfg->readEntry(key);    // and read corresponding entry
-	if (!result.isNull()) {
+	if (result.length()) {
 	    QFile file(result);
 	    //check if file exists and insert it if not already present
-	    if (file.exists() && (m_recent_files.findIndex(result) == -1))
+	    if (file.exists() && (m_recent_files.contains(result) == 0))
 		m_recent_files.append(result);
 	}
     }

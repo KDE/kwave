@@ -1,5 +1,5 @@
 /***************************************************************************
-             TopWidget.h  -  Toplevel widget of Kwave
+            TopWidget.h  -  Toplevel widget of Kwave
 			     -------------------
     begin                : 1999
     copyright            : (C) 1999 by Martin Wilz
@@ -22,9 +22,6 @@
 #include <qstringlist.h>
 #include <kmainwindow.h>
 
-class QCloseEvent;
-class QDir;
-class QStringList;
 class QTimer;
 class KCombo;
 class KDNDDropZone;
@@ -36,6 +33,10 @@ class PluginManager;
 class SignalManager;
 class KwaveApp;
 
+/**
+ * Toplevel widget of the Kwave application. Holds a main widget, a menu
+ * bar, a status bar and a toolbar.
+ */
 class TopWidget : public KMainWindow
 {
     Q_OBJECT
@@ -99,14 +100,17 @@ public:
      * Returns a pointer to the current signal manager or zero if
      * no signal is loaded.
      */
-    SignalManager *getSignalManager();
+    SignalManager *signalManager();
 
 public slots:
 
     void executeCommand(const QString &command);
 
-//    void dropEvent (KDNDDropZone *);
-
+    /**
+     * Updates the list of recent files in the menu, maybe some other
+     * window has changed it. The list of recent files is static and
+     * global in KwaveApp.
+     */
     void updateRecentFiles();
 
 private slots:
@@ -169,6 +173,7 @@ signals:
 
 protected:
 
+    /** Updates the menu by enabling/disabling some entries */
     void updateMenu();
 
     /**
@@ -177,7 +182,10 @@ protected:
      */
     void revert();
 
-
+    /**
+     * Shows an "open file" dialog and opens the .wav file the
+     * user has selected.
+     */
     void openFile();
 
     /**
@@ -189,11 +197,36 @@ protected:
      */
     bool closeFile();
 
+    /**
+     * Like openFile(), but reads in ASCII format.
+     * @see #openFile()
+     */
     void importAsciiFile();
-    void exportAsciiFile();
-    void openRecent (const QString &str);
+
+    /** Saves the current file. */
     void saveFile();
+
+    /**
+     * Opens a dialog for saving the current .wav file.
+     * @param selection if set to true, only the current selection
+     *        will be saved
+     */
     void saveFileAs(bool selection = false);
+
+    /**
+     * Like saveFileAs(), but saves in ASCII format. */
+    void exportAsciiFile();
+
+    /**
+     * Opens a file contained in the list of recent files.
+     * @param str the entry contained in the list
+     */
+    void openRecent (const QString &str);
+
+    /**
+     * Sets a new resolution for saving in bits per sample.
+     * @param str str the resolution in string representation
+     */
     void resolution (const QString &str);
 
 private:
@@ -277,4 +310,4 @@ private:
 
 };
 
-#endif // _TOP_WIDGET_H_
+#endif /* _TOP_WIDGET_H_ */

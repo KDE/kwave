@@ -118,10 +118,10 @@ public:    // Public methods
 private:    // Private attributes
 
     /** reference to a KMenuBar */
-    KMenuBar &menu_bar;
+    KMenuBar &m_menu_bar;
 
     /** list of menu groups */
-    QDict<MenuNode> group_list;
+    QDict<MenuNode> m_group_list;
 
 };
 

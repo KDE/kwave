@@ -19,9 +19,6 @@ PIXDIR = $(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
 INCLUDES= -I${topdir} @all_includes@
 
-# claim, which subdirectories you want to install
-
-####### This part is very kwave specific
 bin_PROGRAMS  = kwave
 
 # specifying the bindir is necessary in order to let make install
@@ -73,12 +70,26 @@ kwave_SOURCES =\
 
 # the library search path
 # kwave_LDFLAGS = -dy -L$(topdir)/libgui/.libs @all_libraries@ --export-dynamic
-kwave_LDFLAGS = -L$(topdir)/libkwave -L$(topdir)/libgui @all_libraries@ -dy -export-dynamic
+#kwave_LDFLAGS = @all_libraries@ --export-dynamic --whole-archive -export-dynamic
+#kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
+#	@all_libraries@ -Wl,--export-dynamic -dy
+# kwave_LDFLAGS = -L../libkwave @all_libraries@ --export-dynamic -export-dynamic -dy
+kwave_LDFLAGS = -L../libkwave @all_libraries@ -export-dynamic -dy
+
+# libkwavemain_a_LDFLAGS = -export-dynamic --whole-archive ../libgui/libkwavegui.a \
+#	--whole-archive ../libkwave/libkwave.a  \
+#	--whole-archive ../mt/libkwavemt.a @all_libraries@
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kwave_LDADD   = $(topdir)/mt/libkwavemt.a -lkwavegui -lkwave -lkfile \
-	-lkdeui -lkdecore -lqt -lX11 -lXext -lpthread -ldl
+#kwave_LDADD   =  -lkfile \
+#	-lkdeui -lkdecore -lqt -lX11 -lXext -lpthread -ldl
+
+#kwave_LDADD   = -lkwavegui -lkwave -lkwavemt -lkfile -lkdeui -lkdecore -lqt \
+#	-lX11 -lXext -lpthread -ldl
+
+kwave_LDADD   = -lkwave -lkfile -lkdeui -lkdecore -lqt-mt \
+	-lX11 -lXext -lpthread -ldl
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

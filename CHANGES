@@ -1,5 +1,5 @@
 
-0.6.2 [2001-12-??]
+0.6.2 [2001-12-24]
 
  * new plugin "amplifyfree"
  * new plugin "noise"
@@ -183,7 +183,7 @@
    the special command "#separator")
 
 0.5.2-1...0.5.2-8 [...2000-05-18]
- 
+
  * replaced all occurances of sprintf with snprintf, strcpy with strncpy
    (in 92 places) !
  * doesn't show any zoom factor if no signal is loaded
@@ -195,17 +195,17 @@
       astyle-1.11.4-1 made good work :-)
  * fixed that annoying flicker in the help/about dialog
  * checking for sizes of char, short and int at configure time
- * >>> COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE <<<
-   - made use of a combination of signals/slots and string messages
-   - hierarchical processing: commands are are forwarded "upwards"
-     until they reach a TopWidget
-   - the TopWidget (highest level) dispatches the comands and forwards 
-     them to the lower levels
  * globals.app will not be used (obsolete, should be removed from libkwave)
  * MessagePort will not be used (obsolete, should be removed from libkwave)
  * multiple toplevel windows are possible
  * made X toolkit parameters work (especially "-geometry")
  * bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
+ * >>> COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE <<<
+   - made use of a combination of signals/slots and string messages
+   - hierarchical processing: commands are are forwarded "upwards"
+     until they reach a TopWidget
+   - the TopWidget (highest level) dispatches the comands and forwards
+     them to the lower levels
 
 0.5.2 [2000-04-24]
 
@@ -327,7 +327,7 @@
    (changes in the referenced Makefiles in the template directory will not
    be reflected thousand times when creating a patch with diff)
  * cleanups, removed some old backup files
- * improved support for debugging accessible through 
+ * improved support for debugging accessible through
  * "configure --enable-debug=yes" (-g and -DDEBUG compiler flags)
  * rewritten big parts of Makefile.in for the plugins
  * added -O2 compiler optimization
@@ -336,11 +336,11 @@
 
  * merged with Martin Wilz's version
 
-19999-11
+1999-11
 
  * version numbering script donated by Thomas Eschenbacher
  * now using KTMainwindow for top level widgets
- * using timer to check message port -> alternative (threadsafe) message 
+ * using timer to check message port -> alternative (threadsafe) message
    passing instead of signal/slot
  * labelling code rewritten, now incompatible with old releases
  * batch loading routines
@@ -351,20 +351,20 @@
  * fixed savelabel dialog
  * corrected envelope dialog, string handling
  * connected many functions via the new string-based way of invocation
- * fixed some dependencies between old code and new classes 
+ * fixed some dependencies between old code and new classes
    (there's still more to do !)
  * saving should now work again
  * trimmed down Clipboard class
  * Color class as wrapper to QColor (may become independent later)
- * reworking Curve Class for creation via string, interpolation now 
+ * reworking Curve Class for creation via string, interpolation now
    uses curve objects
  * moved gui functions into a new library (libkwavegui)
  * new Classes: Parser DynamicLoader Filter (prevously was a struct)
  * moved gui-independent functions into a library (libkwave)
  * rework of dialogs into single files and single plugins
  * new calling scheme via string commands. This will allow scripting and macro
-   definitions. Threading is made a whole lot easier, because a only a 
-   string has to be passed and gets expanded into the needed set of 
+   definitions. Threading is made a whole lot easier, because a only a
+   string has to be passed and gets expanded into the needed set of
    parameters in each thread
  * io functions and playback adapted to SignalManager
  * Introduction of SignalManager class for multiple channel management
@@ -376,8 +376,8 @@
 0.29.4 [1998-03]
 
  * removed a memory leak in playback
- * triple-checked the missing Accelerators in the Menumanager. It seems to 
-   be a bug in qpopmenu, I'll wait for qt to be fixed, or until a workaround 
+ * triple-checked the missing Accelerators in the Menumanager. It seems to
+   be a bug in qpopmenu, I'll wait for qt to be fixed, or until a workaround
    is known
  * recent Files are updated again, while the program is running
  * kwave now keeps track of last directory saved to; for user convenience
@@ -395,7 +395,7 @@
    confusing, but seems to work
  * added checkmark functionality again
  * converted file-menus to new menu-scheme
- * added gui to mix channels together, the needed functions for mixing 
+ * added gui to mix channels together, the needed functions for mixing
    are still missing
  * Halt button by Gerhard Zintel
 

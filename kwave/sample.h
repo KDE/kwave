@@ -1,6 +1,15 @@
 #ifndef _SAMPLE_H_
 #define _SAMPLE_H_ 1
 
+//comment the next line to build a non-threading version of kwave
+#define  THREADS
+
+#ifdef   THREADS
+ #include <pthread.h>
+#else
+ #define pthread_t int
+#endif
+
 #include <stdlib.h>
 #include <qapp.h>
 #include <qdir.h>
@@ -17,21 +26,26 @@
 #include "gsl_fft.h"
 #include "sampleop.h"
 #include "dialogs.h"
+#include "addsynth.h"
 #include "filter.h"
 #include "interpolation.h"
 
-#define	PROGRESS_SIZE	2*3*4*128    //2*3*4 to insure buffer is an multible of these for loading routines....
+#define	PROGRESS_SIZE	2*3*4*128
+//2*3*4 to insure buffer is an multible of 2,3,4 because the loading routines
+//rely on fixed sizes for the buffers, will change with threaded loading
 //**********************************************************************
 struct FXParams
+// structure used to be passed to threads
 {
   int  *source;
   int  *counter;
   int  len;
   int  *dest;      //in case a new sample was created...
-  void *data[6];     //6 individual Parameters to use
+  void *data[6];   //6 individual Parameters to use
 };
 //**********************************************************************
 struct wavheader
+// header format for reading wav files
 {
 	char		riffid[4];
 	long		filelength;
@@ -56,7 +70,7 @@ class MSignal : public QObject
 	MSignal *getNext	();  //returns pointer to next channel...
 	int getLockState	();  //returns lock-state of signal
 
-
+ QString *getName ();
  void	detachChannels  ();
  void	setChannels	(int);
  void	setParent	(QWidget *);
@@ -72,10 +86,8 @@ class MSignal : public QObject
  int    newChannel      (int,int);
  void   noiseInsert     (int);
  void   noiseRange      ();
- void   distortChannel  (Interpolation *);
+ void   distortChannel  (Interpolation *,int type=0);
  void   amplifyChannel  (double *);
-
- void	newSignal	();
 
  int    setSoundParams  (int audio,int bitspersample,int channels,int rate,int bufbase);
  void	play8		(int);
@@ -132,14 +144,13 @@ class MSignal : public QObject
  void   changeChannelRate(int);
  void   resample        ();
  void   resampleChannel (int);
- void	playBackOptions ();
  void	addSynth        ();
  void	pulse           ();
  void	addSynthChannel (int num,int **power,int **phase, int **freq);
  void	delayRecursive  (int delay,int ampl,int startpos,int lastpos);
  void	delayOnce	(int delay,int ampl,int startpos,int lastpos);
  void	movingAverage	();
- void   averageChannel  (int);
+ void   averageChannel  (int,int);
  void	fft             ();
  void	reQuantize      ();
  void	quantizeChannel (int);
@@ -161,14 +172,16 @@ class MSignal : public QObject
 
  protected:
 
+ void   getridof        (int *mem);
+ int    *getNewMem      (int size);
  void	findDatainFile	(QFile *sigin);
  void	load8Bit	(QFile *sigin,int offset,int interleave);
  void	load16Bit	(QFile *sigin,int offset,int interleave);
  void	load24Bit	(QFile *sigin,int offset,int interleave);
  void	loadStereo16Bit	(QFile *sigin);
- void   writeData24Bit  (QFile *sigout,int begin,int end,int **samples,int numsamples);
- void   writeData16Bit  (QFile *sigout,int begin,int end,int **samples,int numsamples);
- void   writeData8Bit   (QFile *sigout,int begin,int end,int **samples,int numsamples);
+ // void   writeData24Bit  (QFile *sigout,int begin,int end,int **samples,int numsamples);
+ // void   writeData16Bit  (QFile *sigout,int begin,int end,int **samples,int numsamples);
+ //void   writeData8Bit   (QFile *sigout,int begin,int end,int **samples,int numsamples);
 
  signals:
 
@@ -192,10 +205,12 @@ class MSignal : public QObject
  int		*msg;                  //shared memory used for communication
  MSignal        *next;                 //next channel linked to this 
  QWidget	*parent;	       //pointer to connected widget, used for displaying requesters etc...
+ QString        *name;
  char           selected;              //flag if this channel is selected
- char           locked;                //boolean if sample is locked (intertask-semaphore)
+ char           locked;                //boolean if sample is locked (interthread-semaphore)
  char           speaker;               //code for playback speaker (e.g. left or right)
  unsigned char  channels;              //number of channels attached to this signal
+ char           mapped;                //flag if memory allocated is mmapped
 };
 #endif  /* sample.h */   
 

@@ -7,15 +7,20 @@ Since this is an alpha version, don't expect to much ...
 This distribution uses the standard template for a kde app, kexample.
 
 Therefore you need autoconf-2.12 and automake-1.2 or higher, not to
-mention the KDE-Distribution and then surely the qt-lib...
+mention the KDE-Distribution and then the qt-lib 1.40...
 
-Further requirements are glibc>2.07 for pthreads. Earlier versions of libpthread do not work with qt-lib (programm crashes), don't know why yet...
-Not tested are libc5 with linuxthreads, if someone succeeds with this combination please notify me !
+Further requirements are glibc>2.07 for pthreads. Earlier versions of
+libpthread (included in glibc) do not work with qt-lib (programm crashes at
+start), don't know why, yet...
+Not tested are libc5 with linuxthreads, if someone succeeds with this
+combination please notify me !
 (Note that linuxthreads has requirements for specific libc versions)
 
-It is also possible to build a non-threading version by removing the #define THREADS in kwave/sample.cpp and leaving out -lpthread in Makefile ! 
+It is also possible to build a non-threading version by removing the
+#define THREADS in kwave/sample.h and leaving out -lpthread
+in Makefile ! 
 
-Just run
+Then just run
 
 >./configure
 >make depend

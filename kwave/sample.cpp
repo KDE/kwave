@@ -1,9 +1,8 @@
-#define  THREADS
-#ifdef   THREADS
-#include <pthread.h>
-#endif
-
+// In this file you will find methods for changing time-domain signals
+// cut/copy/paste functions are included in sampleedit.cpp
+// I/O Functions such as loading/saving are in sampleio.cpp
 #include "sample.h"
+
 #include <kmsgbox.h>
 #include <kprogress.h>
 #include <sys/shm.h>
@@ -13,13 +12,26 @@
 #include <math.h>
 #include "fftview.h"
 #include "sonagram.h"
+#include "faderwidget.h"
 
 #define processid	0
 #define stopprocess	1
 #define samplepointer	2
 
-#define MAXPRIME 512   //choose biggest prime factor to be tolerated before popping up a requester
+//Here choose biggest prime factor to be tolerated before
+//popping up a requester, when doing a fft
 
+#ifndef THREADS
+  //use a wrapper to use functions also on Systems with no thread support...
+  //seems to work...
+void pthread_create (pthread_t *,void *,void* (*jumpto)(void *),void *arg)
+{
+  *(jumpto) (arg);
+}
+#endif
+
+#define MAXPRIME 512 
+		
 extern int play16bit;
 extern int bufbase;
 extern MSignal *clipboard; 
@@ -28,168 +40,193 @@ extern QDir *filterDir;
 
 static int len;
 static int begin;
-
+extern void *mmapalloc (int);
+extern void mmapfree   (void *);
+extern long mmap_threshold; //thresholf for using memory mapped to files
 static const char *NOMEM={"Not enough Memory for Operation !"};
 //**********************************************************
-
-#ifndef THREADS
-#define pthread_t int
-//use a wrapper to use functions also on Systems with no thread support...
-//not tested yet...
-void pthread_create (pthread_t *,void *,void* (*jumpto)(void *),void *arg)
+int *MSignal::getNewMem (int size)
+  //these are internal methods replacing new and delete if file-mapped
+  //memory is desired  
 {
-  *(jumpto) (arg);
+  int *mem;
+  if (size>(mmap_threshold<<20)) 
+    {
+      mapped=true;
+      mem=(int *) mmapalloc(size*sizeof(int));
+    }
+  else mem=new int[size];
+  return mem;
 }
-#endif
-
 //**********************************************************
-void MSignal::doRangeOp (int num)
+void MSignal::getridof (int *mem)
+
 {
-  stopplay();	//no id needed, since every operation should cancel playing...
-	
-  if (lmarker<0) lmarker=0;           //some safety against bad coding
-  if (rmarker>length) lmarker=length; //usually useless, or it introduces new bugs, or even better makes old bug worse to debug... 
+  if (mem)
+    if (mapped) mmapfree (mem);
+    else delete mem;
+}
+//**********************************************************
+void MSignal::doRangeOp (int id)
+  // this is the sample wrapper function 
+  // all methods should called by giving an id to this function
+  // this will improve independency of gui system should there be need of
+  // doing a port to another system...
+{
+  stopplay();	//every operation cancels playing...
+
+  if (lmarker<0) lmarker=0;           //check markers for bounding
+  if (rmarker>length) lmarker=length; 
+  //usually useless, or it introduces
+  //new bugs, or even better makes old bug worse to debug... 
 
   len=rmarker-lmarker;
   begin=lmarker;
-  if (len==0)
+
+  if (len==0) //if no part is selected select the whole signal
     {
       len=length;
       begin=0;
     }
+  
+  //now follow the operation that should only be executed within context of
+  //first channel...
 
-  if ((num>=TOGGLECHANNEL)&&(num<TOGGLECHANNEL+10)) toggleChannel (0,num-TOGGLECHANNEL);
-  else
-    if ((num>DELETECHANNEL)&&(num<DELETECHANNEL+999))
-      {
-	deleteChannel (0,num-DELETECHANNEL);
-	channels--;
-	emit sampleChanged();
-	emit channelReset();
-      }
-    else
-      if ((num>FILTER)&&(num<FILTEREND)) movingFilter (num-FILTER);
-      else
-	{
-	  switch (num)
-	    {
-	    case ALLCHANNEL:
-	      selected=true;
-	      if (next) next->doRangeOp (ALLCHANNEL);
-	      break;
-	    case PLAY:
-	      if (play16bit) play16(false);
-	      else play8(false);
-	      break;
-	    case LOOP:
-	      if (play16bit) play16(true);
-	      else play8(true);
-	      break;
-	    case COPY:
-	      copyRange();
-	      break;
-	    case FFT:
-	      fft();
-	      break;
-	    case PLAYBACKOPTIONS:
-	      playBackOptions();
-	      break;
-	    case ADDCHANNEL:
-	      addChannel();
-	      break;
-	    case PULSE:
-	      pulse();
-	      break;
-	    case SONAGRAM:
-	      sonagram ();
-	      break;
-	    case AVERAGEFFT:
-	      averagefft();
-	      break;
-	    case DELETE:
-	      deleteRange();
-	      break;
-	    case PASTE:
-	      pasteRange();
-	      break;
-	    case MIXPASTE:
-	      mixpasteRange();
-	      break;
-	    case CROP:
-	      cropRange();
-	      break;
-	    case CUT:
-	      cutRange();
-	      break;
-	    case ZERO:
-	      zeroRange();
-	      break;
-	    case FLIP:
-	      flipRange();
-	      break;
-	    case INVERTCHANNEL:
-	      selected=!selected;
-	      if (next) next->doRangeOp (INVERTCHANNEL);
-	      break;
-	    case NEW:
-	      newSignal();
-	      break;
-	    case STUTTER:
-	      stutter();
-	      break;
-	    case REQUANTISE:
-	      reQuantize();
-	      break;
-	    case FILTERCREATE:
-	      filterCreate ();
-	      break;
-	    case RESAMPLE:
-	      resample ();
-	      break;
-	    case MOVINGAVERAGE:
-	      movingAverage();
-	      break;
-	    case ADDSYNTH:
-	      addSynth();
-	      break;
-	    case HULLCURVE:
-	      hullCurve ();
-	      break;
-	    case DELAY:
-	      delay();
-	      break;
-	    case RATECHANGE:
-	      rateChange();
-	      break;
-	    case CENTER:
-	      center();
-	      break;
-	    case REVERSE:
-	      reverseRange();
-	      break;
-	    case FADEIN:
-	      fadeIn ();
-	      break;
-	    case FADEOUT:
-	      fadeOut ();
-	      break;
-	    case AMPLIFYMAX:
-	      amplifyMax ();
-	      break;
-	    case AMPLIFY:
-	      amplify ();
-	      break;
-	    case DISTORT:
-	      distort ();
-	      break;
-	    case AMPWITHCLIP:
-	      amplifywithClip ();
-	      break;
-	    case NOISE:
-	      noise ();
-	      break;
-	    }
-	}
+  //chaos is about to come
+  //first check for ranges of id that have to be decoded into a parameter
+
+  if ((id>=TOGGLECHANNEL)&&(id<TOGGLECHANNEL+10)) toggleChannel (0,id-TOGGLECHANNEL);
+
+  if ((id>DELETECHANNEL)&&(id<DELETECHANNEL+999))
+    {
+      deleteChannel (0,id-DELETECHANNEL);
+      channels--;
+      emit sampleChanged();
+      emit channelReset();
+    }
+
+  switch (id)
+    {
+    case PLAY:
+      if (play16bit) play16(false);
+      else play8(false);
+      break;
+    case LOOP:
+      if (play16bit) play16(true);
+      else play8(true);
+      break;
+    }
+  if ((id>FILTER)&&(id<FILTEREND)) movingFilter (id-FILTER);
+
+  switch (id)
+    {
+      //add your wrapper here
+      
+    case ALLCHANNEL:
+      selected=true;
+      break;
+    case INVERTCHANNEL:
+      selected=!selected;
+      break;
+    case COPY:
+      copyRange();
+      break;
+    case FFT:
+      fft();
+      break;
+    case ADDCHANNEL:
+      addChannel();
+      break;
+    case PULSE:
+      pulse();
+      break;
+    case SONAGRAM:
+      sonagram ();
+      break;
+    case AVERAGEFFT:
+      averagefft();
+      break;
+    case DELETE:
+      deleteRange();
+      break;
+    case PASTE:
+      pasteRange();
+      break;
+    case MIXPASTE:
+      mixpasteRange();
+      break;
+    case CROP:
+      cropRange();
+      break;
+    case CUT:
+      cutRange();
+      break;
+    case ZERO:
+      zeroRange();
+      break;
+    case FLIP:
+      flipRange();
+      break;
+    case STUTTER:
+      stutter();
+      break;
+    case REQUANTISE:
+      reQuantize();
+      break;
+    case FILTERCREATE:
+      filterCreate ();
+      break;
+    case RESAMPLE:
+      resample ();
+      break;
+    case MOVINGAVERAGE:
+      movingAverage();
+      break;
+    case ADDSYNTH:
+      addSynth();
+      break;
+    case HULLCURVE:
+      hullCurve ();
+      break;
+    case DELAY:
+      delay();
+      break;
+    case RATECHANGE:
+      rateChange();
+      break;
+    case CENTER:
+      center();
+      break;
+    case REVERSE:
+      reverseRange();
+      break;
+    case FADEIN:
+      fadeIn ();
+      break;
+    case FADEOUT:
+      fadeOut ();
+      break;
+    case AMPLIFYMAX:
+      amplifyMax ();
+      break;
+    case AMPLIFY:
+      amplify ();
+      break;
+    case DISTORT:
+      distort ();
+      break;
+    case AMPWITHCLIP:
+      amplifywithClip ();
+      break;
+    case NOISE:
+      noise ();
+      break;
+    }
+}
+//**********************************************************
+QString *MSignal::getName ()
+{
+  return name;
 }
 //**********************************************************
 void MSignal::setParent (QWidget *par)
@@ -198,11 +235,18 @@ void MSignal::setParent (QWidget *par)
 }
 //**********************************************************
 MSignal::MSignal (QWidget *par,int numsamples,int rate,int channels) :QObject ()
+  // constructor for creating a "silence"-sample 
+  // the other constructor which loads a file into memory is located in sampleio.cpp
 {
-  sample=new int[numsamples];
+  mapped=false;
+  name=new QString ("Unnamed");
+  sample=getNewMem (numsamples);
 
   if (sample)
     {
+      //get shared memory needed by playback, this will be changed, if 
+      //threading is standard
+
       int key = ftok(".", 'S');
       int memid =-1;
 
@@ -219,9 +263,11 @@ MSignal::MSignal (QWidget *par,int numsamples,int rate,int channels) :QObject ()
 	}
       else KMsgBox::message (parent,"Info","Could not get shared memory\n",2);
 
+      //initialise attributes
+
       locked=0;
       parent=par;
-      this->channels=channels;
+      this->channels=channels; //store how many channels are linked to this
       this->selected=true;
       this->rate=rate;
       this->length=numsamples;
@@ -230,21 +276,26 @@ MSignal::MSignal (QWidget *par,int numsamples,int rate,int channels) :QObject ()
       
       next=0;
 	  
+      //if there are more channels to be created create them recursively
       if (channels>1) next=new MSignal(par,numsamples,rate,channels-1);
       emit sampleChanged();
     }
   else KMsgBox::message (parent,"Info",NOMEM,2);
 }
 //**********************************************************
-void MSignal::detachChannels () {next=0;}
-int  MSignal::getLockState   () {return locked;}
+void MSignal::detachChannels ()
+// detach all channels linked to this one
+{
+  next=0;
+}
 //**********************************************************
 MSignal::~MSignal ()
 {
   if (sample!=0)
     {
       stopplay();
-      delete sample;
+
+      getridof (sample);
       
       sample=0;
     }
@@ -253,6 +304,8 @@ MSignal::~MSignal ()
   if (next!=0) delete next;
 }
 //**********************************************************
+//functions that return attribute to external callers
+int     MSignal::getLockState   () {return locked;}
 int	MSignal::getRate	() {return rate;}
 int	MSignal::isSelected	() {return selected;}
 int	MSignal::getChannels	() {return channels;}
@@ -264,6 +317,7 @@ int	MSignal::getRMarker	() {return rmarker;}
 int	MSignal::getPlayPosition() {return msg[samplepointer];} 
 //**********************************************************
 void	MSignal::setMarkers (int l,int r )
+  //this one sets the internal markers, most operations use
 {
 	lmarker=l;
 	rmarker=r;
@@ -273,13 +327,15 @@ void	MSignal::setMarkers (int l,int r )
 //**********************************************************
 void MSignal::insertZero (int ins)
 {
-  int *newsam=new int[length+ins];
+  int *newsam=getNewMem (length+ins);
+
   if (newsam)
     {
       memcpy (newsam,sample,lmarker*sizeof(int));
       for (int i=0;i<ins;i++) newsam[lmarker+i]=0;
       memcpy (&newsam[lmarker+ins],&sample[rmarker],(length-rmarker)*sizeof(int));
-      delete sample;
+      getridof (sample);
+
       sample=newsam;
       length+=ins;
       rmarker=lmarker+ins;
@@ -287,6 +343,7 @@ void MSignal::insertZero (int ins)
   else KMsgBox::message (parent,"Info",NOMEM,2);
 }
 //**********************************************************
+// now follow the various editing and effects functions
 void MSignal::zeroChannelRange ()
 {
  for (int i=lmarker;i<rmarker;sample[i++]=0);
@@ -463,7 +520,7 @@ void MSignal::fadeOut ()
 {
   if (rmarker!=lmarker)
     {
-      FadeDialog dialog(parent,-1);
+      FadeDialog dialog(parent,-1,(int)(((long)len)*1000/rate));
 
       if (dialog.exec ())
 	{
@@ -534,7 +591,7 @@ void MSignal::fadeIn ()
 {
   if (rmarker!=lmarker)
     {
-      FadeDialog dialog(parent,1);
+      FadeDialog dialog(parent,1,(int)(((long)len)*1000/rate));
 
       if (dialog.exec ())
 	{
@@ -552,27 +609,26 @@ void MSignal::fadeIn ()
 //**********************************************************
 int MSignal::newChannel (int numsamples, int rate)
 {
-      if (sample) delete sample;	//get rid of old sample
-      sample=new int[numsamples];
+  sample=getNewMem(numsamples);
 
-      if (sample)
-	{
-	  for (int i=0;i<numsamples;sample[i++]=0);
+  if (sample)
+    {
+      for (int i=0;i<numsamples;sample[i++]=0);
 
-	  this->rate=rate;
-	  this->length=numsamples;
-	  msg[processid]=0;
-	  msg[stopprocess]=false;
-	  msg[samplepointer]=0;
-	  lmarker=0;
-	  rmarker=0;
+      this->rate=rate;
+      this->length=numsamples;
+      msg[processid]=0;
+      msg[stopprocess]=false;
+      msg[samplepointer]=0;
+      lmarker=0;
+      rmarker=0;
 
-	  return true;
-	}
-      return false;
+      return true;
+    }
+  return false;
 }
 //**********************************************************
-void MSignal::newSignal ()
+/*void MSignal::newSignal ()
 {
   NewSampleDialog *dialog=new NewSampleDialog (parent);
   if (dialog->exec())
@@ -589,6 +645,7 @@ void MSignal::newSignal ()
       emit sampleChanged();
     }
 }
+*/
 //**********************************************************
 void MSignal::amplifyMax ()
 {
@@ -683,14 +740,17 @@ void MSignal::noiseRange()
 //*********************************************************
 void MSignal::noiseInsert(int ins)
 {
-  int *newsam=new int[length+ins];
+  int *newsam=getNewMem(length+ins);
+
   if (newsam)
     {
       memcpy (newsam,sample,lmarker*sizeof(int));
       for (int i=0;i<ins;i++)
 	newsam[lmarker+i]=(int)((drand48()*(1<<24)-1)-(1<<23));
       memcpy (&newsam[lmarker+ins],&sample[rmarker],(length-rmarker)*sizeof(int));
-      delete sample;
+
+      getridof (sample);
+
       sample=newsam;
       length+=ins;
       rmarker=lmarker+ins;
@@ -700,11 +760,10 @@ void MSignal::noiseInsert(int ins)
 void MSignal::noise()
 {
   int len=rmarker-lmarker;
-  srandom (0);
 
   if (len==0)
     {
-      TimeDialog dialog (parent,rate,"Insert Silence :");
+      TimeDialog dialog (parent,rate,klocale->translate("Insert Noise :"));
       if (dialog.exec())
 	{
 	  int ins=dialog.getLength();
@@ -783,7 +842,7 @@ void MSignal::delayOnce (int delay,int ampl,int start,int stop)
 //*********************************************************
 void MSignal::hullCurve ()
 {
-  HullCurveDialog dialog (parent);
+  HullCurveDialog dialog (parent,"Create Hullcurve from Signal:");
   if (dialog.exec())
     {
       MSignal *tmp=this;
@@ -888,7 +947,7 @@ void MSignal::resampleChannel (int newrate)
   int oldmax=getChannelMaximum();
 
   int newlen=(int)((double)length*(double)newrate/rate);
-  int *newsample=new int[newlen];
+  int *newsample=getNewMem (newlen);
 
   if (newsample&&points)
     {
@@ -904,7 +963,9 @@ void MSignal::resampleChannel (int newrate)
 	{
 	  delete points;
 	  points=0;
-	  delete sample;
+
+	  getridof (sample);
+      
 	  sample=newsample;
 	  for (int i=0;i<newlen;i++) newsample[i]=(int)y[i];
 
@@ -915,9 +976,9 @@ void MSignal::resampleChannel (int newrate)
 	  rate=newrate;
 	  delete y;
 	}
-      else if (newsample) delete newsample;      
+      else getridof (newsample);      
     }
-  else if (newsample) delete newsample;
+  else getridof (newsample);      
   if (points) delete points;
 }
 //*********************************************************
@@ -973,7 +1034,7 @@ void MSignal::amplifyChannel (double *y)
 //*********************************************************
 void MSignal::amplify ()
 {
-  AmplifyCurveDialog *dialog =new AmplifyCurveDialog (parent);
+  AmplifyCurveDialog *dialog =new AmplifyCurveDialog (parent,(int)(((double)len)*1000/rate));
   if (dialog->exec())
     {
       QList<CPoint> *points=dialog->getPoints ();
@@ -1005,19 +1066,19 @@ void MSignal::distort ()
     {
       QList<CPoint> *points=dialog->getPoints ();
 
-      Interpolation *interpolation=new Interpolation (dialog->getType());
+      Interpolation *interpolation=new Interpolation (dialog->getInterpolationType());
+      int type=dialog->getSymmetryType ();
 
       if ((interpolation)&&(interpolation->prepareInterpolation (points)))
 	{
 	  MSignal *tmp=this;
 	  while (tmp!=0)
 	    {
-	      if (tmp->isSelected()) tmp->distortChannel (interpolation);
+	      if (tmp->isSelected()) tmp->distortChannel (interpolation,type);
 	      tmp=tmp->getNext();
 	    }
-	  //	  delete interpolation;
+	  //	  delete interpolation; have to find a way for doing this in future...
 	}
-      //      emit sampleChanged();
       delete dialog; 
     }  
 }
@@ -1028,27 +1089,67 @@ void distortThread (struct FXParams *params)
   int len=params->len;
   int *counter=params->counter;
   Interpolation *interpolation=(Interpolation *) params->data[0];
+  int type=(int) params->data[1];
+
   int x;
   double oldy,y;
   interpolation->incUsage();
-  for (int i=0;i<len;i++)
-    {
-      x=sample[i];
-      oldy=((double) abs(x))/((1<<23)-1);
-      y=interpolation->getSingleInterpolation(oldy);
 
-      if (x>0)
-	sample[i]=(int) (y*((1<<23)-1));
-      else
-	sample[i]=-(int) (y*((1<<23)-1));
-      *counter=i;
+
+  switch (type)
+    {
+    case 0:
+      for (int i=0;i<len;i++)
+	{
+	  x=sample[i];
+	  oldy=((double) abs(x))/((1<<23)-1);
+	  y=interpolation->getSingleInterpolation(oldy);
+
+	  if (x>0)
+	    sample[i]=(int) (y*((1<<23)-1));
+	  else
+	    sample[i]=-(int) (y*((1<<23)-1));
+	  *counter=i;
+	}
+      break;
+    case 1: //only upper half...
+      for (int i=0;i<len;i++)
+	{
+	  x=sample[i];
+
+	  if (x>0)
+	    {
+	      oldy=((double) abs(x))/((1<<23)-1);
+	      y=interpolation->getSingleInterpolation(oldy);
+
+	      sample[i]=(int) (y*((1<<23)-1));
+	    }
+	  *counter=i;
+	}
+      break;
+    case 2: //only lower half...
+      for (int i=0;i<len;i++)
+	{
+	  x=sample[i];
+
+	  if (x<=0)
+	    {
+	      oldy=((double) abs(x))/((1<<23)-1);
+	      y=interpolation->getSingleInterpolation(oldy);
+
+	      sample[i]=-(int) (y*((1<<23)-1));
+	    }
+	  *counter=i;
+	}
+      break;
+
     }
   *counter=-1;
   interpolation->decUsage();
   if (interpolation->getUsage()<=0) delete interpolation;
 }
 //*********************************************************
-void MSignal::distortChannel (Interpolation *interpolation)
+void MSignal::distortChannel (Interpolation *interpolation,int type)
 {
   pthread_t thread;
   ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Distorting channel");
@@ -1060,7 +1161,7 @@ void MSignal::distortChannel (Interpolation *interpolation)
       connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
 
       pthread_create (&thread,0,(void *)distortThread,
-		      getFXParams((void *)interpolation));
+		      getFXParams((void *)interpolation,(void *)type));
     }
 }
 //*********************************************************
@@ -1103,16 +1204,20 @@ void MSignal::delay ()
     }
 }
 //*********************************************************
-int getMaxPrime (int len)
+int getMaxPrimeFactor (int len)
 {
-  int max=0;
+  int max=1;
   int tst=len;
 
  //here follows the cannonical slow prime factor search, but it does its job
- //with small numbers, that should occur within this program...
+ //with small numbers, greater ones should not occur within this program...
 
-  while ((tst%2)==0) tst/=2;  //remove prime factor 2
-
+  if (((tst%2))==0)
+    {
+      max=2;
+      tst/=2;
+      while ((tst%2)==0) tst/=2;  //remove prime factor 2
+    }
   for (int i=3;i<=sqrt(tst);i+=2)
 	if ((tst%i)==0)
 	  {
@@ -1126,17 +1231,18 @@ int getMaxPrime (int len)
 //*********************************************************
 void MSignal::fft ()
 {
-  int max=getMaxPrime (len);
+  int max=getMaxPrimeFactor (len);
   int reduce=1;
   int res=1;
 
   if (max>MAXPRIME)
     {
       char buf[512];
-      while ((len-reduce>MAXPRIME)&&(getMaxPrime(len-reduce)>MAXPRIME)) reduce++;
+      while ((len-reduce>MAXPRIME)&&(getMaxPrimeFactor(len-reduce)>MAXPRIME)) reduce++;
 
 
       sprintf (buf,"The selected number of samples, contains the large prime factor %d.\nThis may result in extremly long computing time\nIt is recommended to reduce the selected range by %d samples\nto gain lots of speed, but lose some accuracy !\nWhat do you want to go for ?",max,reduce);
+
       res=KMsgBox::yesNoCancel(parent,"Attention",buf,KMsgBox::QUESTION,"Accuracy","Speed","Cancel");
       if (res==2) len-=reduce;
     }
@@ -1186,7 +1292,7 @@ void MSignal::fftChannel ()
 	  if (max<rea) max=rea;
 	}
 
-      FFTWindow *win=new FFTWindow();
+      FFTWindow *win=new FFTWindow(name);
       if (win)
 	{
 	  win->show();
@@ -1202,16 +1308,6 @@ void MSignal::fftChannel ()
       KMsgBox::message
 	(parent,"Info","No Memory for FFT-buffers available !",2);
     }
-}
-//*********************************************************
-void MSignal::playBackOptions ()
-{
-      PlayBackDialog dialog (parent,play16bit,bufbase);
-      if (dialog.exec())
-	{
-	  play16bit=dialog.getResolution();
-	  bufbase=dialog.getBufferSize();
-	}  
 }
 //*********************************************************
 void MSignal::addSynth ()
@@ -1268,10 +1364,11 @@ void MSignal::movingAverage ()
   if (dialog->exec())
     {
       int average=dialog->getTaps();
+      int type=dialog->getType();
       MSignal *tmp=this;
       while (tmp!=0)
 	{
-	  if (tmp->isSelected()) tmp->averageChannel (average);
+	  if (tmp->isSelected()) tmp->averageChannel (average,type);
 	  tmp=tmp->getNext();
 	}
     }
@@ -1279,24 +1376,47 @@ void MSignal::movingAverage ()
   delete dialog; 
 }
 //*********************************************************
-void MSignal::averageChannel (int a)
+void averageThread (struct FXParams *params)
 {
+  int *sample=params->source;
+  int len=params->len;
+  int *counter=params->counter;
+  int a=(int)params->data[0];
   int b=a/2;
-  int newsam;
+  long int newsam;
   int i,j;
 
-  int *sam=new int [len];
+  int *sam=new int[len];
   if (sam)
     {
-      for (i=begin+b;i<begin+len-b;i++)
+      for (i=b;i<len-b;i++)
 	{
 	  newsam=0;
 	  for (j=-b;j<b;j++) newsam+=sample[i+j];
 	  newsam/=a;
-	  sam[i-begin]=newsam;
+	  sam[i]=newsam;
+	  *counter=i;
 	}
-      memcpy (&sample[begin+b],&sam[b],(len-a)*sizeof(int));
+      memcpy (&sample[b],&sam[b],(len-a)*sizeof(int));
       delete sam;
+    }
+  *counter=-1;
+}
+//*********************************************************
+void MSignal::averageChannel (int a,int type)
+{
+  pthread_t thread;
+
+  ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Quantizing channel");
+  if (dialog)
+    {
+      dialog->show ();
+      lockWrite ();
+      connect (dialog,SIGNAL(done()),this,SLOT(unlockWrite()));
+      connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
+
+      pthread_create (&thread,0,(void *)averageThread,
+		      getFXParams((void *)a));
     }
 }
 //*********************************************************
@@ -1419,7 +1539,7 @@ void MSignal::averagefftChannel (int points)
 	  if (max<rea) max=rea;
 	}
 
-      FFTWindow *win=new FFTWindow();
+      FFTWindow *win=new FFTWindow(name);
       if (win)
 	{
 	  win ->show();

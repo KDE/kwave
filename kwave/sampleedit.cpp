@@ -5,7 +5,7 @@
 #include <limits.h>
 
 extern MSignal *clipboard; 
-
+//**********************************************************
 void MSignal::toggleChannel (int a,int b)
 {
   if (a<b)
@@ -172,7 +172,7 @@ void MSignal::pasteChannelRange (MSignal *clipboard)
   int 	*clipsam	=clipboard->getSample();
   int	cliplength	=clipboard->getLength();
 
-  newsam=new int[length+cliplength-(rmarker-lmarker)];
+  newsam=getNewMem(length+cliplength-(rmarker-lmarker));
   if (newsam)
     {
       int r=rmarker;
@@ -180,7 +180,7 @@ void MSignal::pasteChannelRange (MSignal *clipboard)
       memcpy (newsam,sample,lmarker*sizeof(int));
       memcpy (&newsam[lmarker],clipsam,(cliplength)*sizeof(int));
       memcpy (&newsam[lmarker+cliplength],&sample[rmarker],(length-rmarker)*sizeof(int));
-      delete sample;
+      getridof (sample);
       sample=newsam;
       length+=cliplength-(rmarker-lmarker);
       rmarker=lmarker+cliplength;
@@ -223,7 +223,7 @@ void MSignal::mixpasteRange ()
 	    }
 	  else 
 	    { //not so simple, need to append ...
-	      newsam=new int[cliplength+lmarker];
+	      newsam=getNewMem(cliplength+lmarker);
 	      if (newsam)
 		{
 		  memcpy (newsam,sample,lmarker*sizeof(int));
@@ -232,7 +232,7 @@ void MSignal::mixpasteRange ()
 		  for (int i=length;i<cliplength+lmarker;i++)  
 		    newsam[i]=clipsam[i-lmarker]/2;
 
-		  delete sample;
+		  getridof (sample);
 		  sample=newsam;
 		  length=cliplength+lmarker;
 		  rmarker=lmarker+cliplength;
@@ -290,14 +290,14 @@ void MSignal::deleteChannelRange ()
      if (lmarker<0) lmarker=0;
      if (rmarker>length) rmarker=length;
 	
-     newsam=new int[length-(rmarker-lmarker)];
+     newsam=getNewMem (length-(rmarker-lmarker));
      if (newsam)
        {
 	 int r=rmarker;
 	 int l=lmarker;
 	 memcpy (newsam,sample,lmarker*sizeof(int));
 	 memcpy (&newsam[lmarker],&sample[rmarker],(length-rmarker)*sizeof(int));
-	 delete sample;
+	 getridof (sample);
 	 sample=newsam;
 	 length=length-(rmarker-lmarker);
 	 rmarker=lmarker;
@@ -327,7 +327,7 @@ void MSignal::cropChannelRange ()
       if (lmarker<0) lmarker=0;
       if (rmarker>length) rmarker=length;
 	
-      newsam=new int[rmarker-lmarker];
+      newsam=getNewMem(rmarker-lmarker);
       if (newsam)
 	{
 	  int r=rmarker;
@@ -335,7 +335,7 @@ void MSignal::cropChannelRange ()
 	  int le=length;
 
 	  memcpy (newsam,&sample[lmarker],(rmarker-lmarker)*sizeof(int));
-	  delete sample;
+	  getridof (sample);
 	  sample=newsam;
 	  length=rmarker-lmarker;
 	  rmarker=0;

@@ -7,7 +7,9 @@
 #include <qlayout.h>
 #include "functions.h"
 #include "sample.h"
+#include "dialogs.h"
 
+extern int getMaxPrimeFactor (int);
 //****************************************************************************
 AddSynthWidget::AddSynthWidget (QWidget *parent) : QWidget
 (parent)
@@ -43,6 +45,7 @@ void AddSynthWidget::paintEvent  (QPaintEvent *)
 
   int height=rect().height()/2;
   int width=rect().width();
+  QPainter p;
 
   p.begin (this);
   p.setPen (white);
@@ -88,15 +91,32 @@ void AddSynthWidget::paintEvent  (QPaintEvent *)
 //**********************************************************
 AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDialog(par,0,true)
 {
-  num=20;
+  num=10;
   menu=new QPopupMenu ();
   QPopupMenu *multmenu=new QPopupMenu();
+  QPopupMenu *phasemenu=new QPopupMenu();
+  QPopupMenu *powermenu=new QPopupMenu();
   tflag=false;
 
-  menu->insertItem (klocale->translate("Multipliers"),multmenu);
-  multmenu->insertItem (klocale->translate("all"));
-  multmenu->insertItem (klocale->translate("odd"));
-  menu->insertItem (klocale->translate("Reset all"));
+  menu->insertItem (klocale->translate("&Power"),powermenu);
+  menu->insertItem (klocale->translate("&Phase"),phasemenu);
+  menu->insertItem (klocale->translate("&Multipliers"),multmenu);
+  multmenu->insertItem (klocale->translate("e&numerate"),this,SLOT(enumerateMult()));
+  multmenu->insertItem (klocale->translate("&even"),this,SLOT(evenMult()));
+  multmenu->insertItem (klocale->translate("&odd"),this,SLOT(oddMult()));
+  multmenu->insertItem (klocale->translate("&prime"),this,SLOT(primeMult()));
+  multmenu->insertItem (klocale->translate("&fibonacci"),this,SLOT(fibonacciMult()));
+  powermenu->insertItem (klocale->translate("&max"),this,SLOT(maxPower()));
+  powermenu->insertItem (klocale->translate("&db/octave"),this,SLOT(dbPower()));
+  powermenu->insertItem (klocale->translate("&invert"),this,SLOT(invertPower()));
+  powermenu->insertItem (klocale->translate("&Sinus"),this,SLOT(sinusPower()));
+  powermenu->insertItem (klocale->translate("&random"),this,SLOT(randomizePower()));
+  phasemenu->insertItem (klocale->translate("&zero"),this,SLOT(zeroPhase()));
+  phasemenu->insertItem (klocale->translate("&negate"),this,SLOT(negatePhase()));
+  phasemenu->insertItem (klocale->translate("&sinus"),this,SLOT(sinusPhase()));
+  phasemenu->insertItem (klocale->translate("&random"),this,SLOT(randomizePhase()));
+
+  menu->insertItem (klocale->translate("&Reset all"));
 
   x=new ScaleWidget (this,0,360,"°");
   y=new ScaleWidget (this,100,-100,"%");
@@ -111,7 +131,7 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   powerlab	=new QLabel	(klocale->translate("Power in %:"),this);
 
   freqbutton    =new QPushButton(klocale->translate("Frequency"),this);  
-  hear          =new QPushButton(klocale->translate("Test"),this);  
+  calculate     =new QPushButton(klocale->translate("Calculate"),this);  
 
   aphase=0;
   apower=0;
@@ -126,9 +146,6 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   functype=new QComboBox  (false,this);
   functype->insertStrList (func.getTypes());
 
-  /*  signaltype=new QComboBox  (false,this);
-  signaltype->insertStrList (SignalTypes);
-  */
   view=new AddSynthWidget (this);
   connect 	(functype,SIGNAL(activated(int)),view,SLOT (setFunction(int)));
 
@@ -153,7 +170,140 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
   connect 	(channel,SIGNAL(textChanged(const char *)),SLOT (setChannels(const char *)));
   connect 	(freqbutton,SIGNAL(clicked()),SLOT (getFrequency()));
+  connect 	(calculate,SIGNAL(clicked()),SLOT(popMenu()));
   updateView();
+}
+//**********************************************************
+void AddSynthDialog::oddMult ()
+{
+  for (int i=0;i<num;i++) mult[i]->setValue (1+i*2);
+
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::fibonacciMult ()
+{
+  int a=1;
+  int b=1;
+  int x;
+  mult[0]->setValue (1);
+  for (int i=1;i<num;i++)
+    {
+      x=a;
+      a=b;
+      b=x+b;
+      mult[i]->setValue (b);
+    }
+
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::evenMult ()
+{
+  for (int i=1;i<num;i++) mult[i]->setValue (i*2);
+  mult[0]->setValue (1); 
+
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::enumerateMult ()
+{
+  for (int i=0;i<num;i++) mult[i]->setValue (i+1);
+
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::primeMult ()
+{
+  int max=1;
+  for (int i=0;i<num;i++)
+    {
+      while (getMaxPrimeFactor (max)!=max) max++;
+
+      mult[i]->setValue (max);
+      max++;
+    }
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::zeroPhase ()
+{
+  for (int i=0;i<num;i++) phase[i]->setValue (0);
+
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::negatePhase ()
+{
+  for (int i=0;i<num;i++) phase[i]->setValue (-(phase[i]->value()));
+
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::sinusPhase ()
+{
+  for (int i=0;i<num;i++) phase[i]->setValue (179*sin((double) i*2*M_PI/num));
+
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::maxPower ()
+{
+  for (int i=0;i<num;i++) power[i]->setValue (1000);
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::dbPower ()
+{
+  DoubleEnterDialog dialog (this,"Choose dB/octave",6);
+
+  if (dialog.exec())
+    {
+      double rise=-(dialog.value());
+      if (rise>0) 
+	for (int i=0;i<num;i++)
+	  {
+	    double mul=1/(pow (2,i*rise/6));
+	    power[i]->setValue (mul*1000);
+	  }
+      else
+	for (int i=0;i<num;i++)
+	  {
+	    double mul=1/(pow (2,i*-rise/6));
+	    power[num-i-1]->setValue (mul*1000);
+	  }
+      updateView ();
+    }
+}
+//**********************************************************
+void AddSynthDialog::sinusPower ()
+{
+  for (int i=0;i<num;i++) power[i]->setValue (500+500*sin((double) i*2*M_PI/num));
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::invertPower ()
+{
+  for (int i=0;i<num;i++) power[i]->setValue (1000-power[i]->value());
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::randomizePower ()
+{
+  for (int i=0;i<num;i++) power[i]->setValue ((int)(drand48()*1000));
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::randomizePhase ()
+{
+  for (int i=0;i<num;i++) phase[i]->setValue ((int)(drand48()*360)-180);
+  updateView ();
+}
+//**********************************************************
+void AddSynthDialog::popMenu ()
+{
+  QPoint popup=QCursor::pos();
+  menu->popup (popup);
 }
 //**********************************************************
 void AddSynthDialog::getFrequency ()
@@ -203,14 +353,12 @@ void AddSynthDialog::getNSlider (int n,int first)
 
   for (int i=0;i<num;i++)
     {
-      char buf[4];
       powerlabel[i]=new KIntegerLine (this);
       powerlabel[i]->setText ("0");
       phaselabel[i]=new KIntegerLine (this);
       phaselabel[i]->setText ("0");
       mult[i]      =new KIntegerLine (this);
-      sprintf (buf,"%d",i+1);
-      mult[i]->setText (buf);
+      mult[i]->setValue (i+1);
     }
   for (int i=0;i<num;i++)
     {
@@ -419,7 +567,7 @@ void AddSynthDialog::resizeEvent (QResizeEvent *)
   offset+=bsize+4;
   freqbutton->setGeometry    (width*2/3+8,offset,width/3-16,bsize);
   offset+=bsize+4;
-  hear->setGeometry          (width*2/3+8,offset,width/3-16,bsize);
+  calculate->setGeometry          (width*2/3+8,offset,width/3-16,bsize);
 
   powerlab->setGeometry	(8            ,toppart,width/3,lsize);
   phaselab->setGeometry	((width-lsize*3)/2,toppart,width/3,lsize);
@@ -534,7 +682,7 @@ MSignal *PulseDialog::getSignal ()
       int len=0;
       int pulselen=pulselength->getValue();
       QList<CPoint> *points=this->pulse->getPoints ();
-      Interpolation interpolation (this->pulse->getType());
+      Interpolation interpolation (this->pulse->getInterpolationType());
       double *tmp=interpolation.getInterpolation (points,pulselen);
       int    *pulse=new int[pulselen];
 
@@ -596,16 +744,6 @@ void PulseDialog::resizeEvent (QResizeEvent *)
   cancel->setGeometry	(width*6/10,height-bsize*3/2,width*3/10,bsize);  
 }
 //**********************************************************
-
-
-
-
-
-
-
-
-
-
 
 
 

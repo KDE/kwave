@@ -1,13 +1,14 @@
 Begin3
-Title: kwave
-Version: 0.28 alpha
-Entered-date: Wed July, 15  1998
-Description: A sound editor for KDE, first alpha release.
-Keywords: KDE, Qt, WAV, Sound, FFT, Sonagram, Sample, Effects, 24 Bit
-Author:  mwilz@ernie.mi.uni-koeln.de (Martin Wilz)
+Title:          kwave
+Version:        0.29 alpha
+Entered-date:   Wed July, 15  1998
+Description:    A sound editor for KDE, first alpha release.
+Keywords:       KDE, Qt, WAV, Sound, FFT, Sonagram, Sample, Effects, 24 Bit
+Author:         mwilz@ernie.mi.uni-koeln.de (Martin Wilz)
 Maintained-by:  mwilz@ernie.mi.uni-koeln.de (Martin Wilz)
-Primary-site: ftp://ftp.kde.org/pub/kde/unstable/apps/multimedia/sound
-Original-site: ftp://ftp.kde.org/pub/kde/unstable/apps/multimedia/sound
-Platform: Unix, needs Qt >= 1.3 by Troll Tech (www.troll.no) and the KDE libraries (www.kde.org)
+Homepage:       http://fs.spinfo.uni-koeln.de/kwave
+Primary-site:   ftp://ftp.kde.org/pub/kde/unstable/apps/multimedia/sound
+Original-site:  ftp://ftp.kde.org/pub/kde/unstable/apps/multimedia/sound
+Platform:       Unix, needs Qt >= 1.4 (www.troll.no) and KDE libs (www.kde.org)
 Copying-policy: GPL
 End

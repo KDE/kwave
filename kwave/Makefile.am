@@ -26,13 +26,14 @@ bin_PROGRAMS  = kwave
 
 # Which sources should be compiled for kwave.
 kwave_SOURCES = signalview.cpp main.cpp sample.cpp mainwidget.cpp sampleio.cpp\
- dialogs.cpp about.cpp fftview.cpp gsl_fft.cpp faderwidget.cpp\
+ configdialogs.cpp dialogs.cpp about.cpp fftview.cpp gsl_fft.cpp mmap.cpp\
  curvewidget.cpp interpolation.cpp sampleedit.cpp filter.cpp scale.cpp\
  multistateimage.cpp addsynth.cpp functions.cpp sonagram.cpp markers.cpp\
- mmain.cpp mclasses.cpp msample.cpp mabout.cpp\
- maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
+ formantwidget.cpp faderwidget.cpp pitchwidget.cpp\
+ mmain.cpp mclasses.cpp msample.cpp mabout.cpp mconfigdialogs.cpp\
+ mformantwidget.cpp maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
  mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp\
- mfilter.cpp mscale.cpp
+ mfilter.cpp mscale.cpp mpitchwidget.cpp
 
 # the library search path
 kwave_LDFLAGS = @all_libraries@
@@ -48,9 +49,9 @@ noinst_HEADERS =  classes.h sample.h main.h about.h fftview.h\
  sonagram.h filter.h scale.h
 
 # just to make sure, automake makes them 
-BUILTSOURCES =	mmain.cpp mclasses.cpp msample.cpp mabout.cpp\
- maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
- mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp mscale.cpp
+BUILTSOURCES =	mmain.cpp mclasses.cpp msample.cpp mabout.cpp maddsynth.cpp\
+ mconfigdialogs.cpp mdialogs.cpp mfftview.cpp msonagram.cpp mformantwidget.cpp\
+ mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp mscale.cpp mpitchwidget.cpp
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
@@ -79,6 +80,7 @@ install-data-local:
 	$(INSTALL_DATA) images/xspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) images/rspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) images/lspeaker.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/font.xpm $(PIXDIR)
 	$(mkinstalldirs) $(kde_htmldir)/default/$(PACKAGE)
 	$(INSTALL_DATA) doc/* $(kde_htmldir)/default/$(PACKAGE)
 
@@ -102,6 +104,8 @@ maddsynth.cpp: addsynth.h
 	$(MOC) -o maddsynth.cpp addsynth.h
 mdialogs.cpp: dialogs.h
 	$(MOC) -o mdialogs.cpp dialogs.h
+mconfigdialogs.cpp: dialogs.h
+	$(MOC) -o mconfigdialogs.cpp configdialogs.h
 mfilter.cpp: filter.h
 	$(MOC) -o mfilter.cpp filter.h
 mfftview.cpp: fftview.h
@@ -110,6 +114,10 @@ msonagram.cpp: sonagram.h
 	$(MOC) -o msonagram.cpp sonagram.h
 mfaderwidget.cpp: faderwidget.h
 	$(MOC) -o mfaderwidget.cpp faderwidget.h
+mpitchwidget.cpp: pitchwidget.h
+	$(MOC) -o mpitchwidget.cpp pitchwidget.h
+mformantwidget.cpp: formantwidget.h
+	$(MOC) -o mformantwidget.cpp formantwidget.h
 mcurvewidget.cpp: curvewidget.h
 	$(MOC) -o mcurvewidget.cpp curvewidget.h
 mmultistateimage.cpp: multistateimage.h

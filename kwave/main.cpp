@@ -1,3 +1,6 @@
+//Kwave main file
+//This one includes methods of the Topwidget Class.
+
 #include "main.h"
 #include "about.h"
 #include <unistd.h>
@@ -11,7 +14,7 @@ QDir *configDir;
 QDir *filterDir;
 QStrList *filterNameList;
 KApplication *app;
-//*****************************************************************************************
+//*****************************************************************************
 TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
 {
   app=a;
@@ -32,6 +35,7 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   QPopupMenu *freq=	new QPopupMenu ();
   QPopupMenu *marker=   new QPopupMenu ();
   QPopupMenu *genmenu=   new QPopupMenu ();
+  QPopupMenu *savemarkmenu=   new QPopupMenu ();
   recent=   new QPopupMenu ();
   save=     new QPopupMenu ();
   channels= new QPopupMenu ();
@@ -59,6 +63,9 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   bar=		new KMenuBar (this);
   mainwidget=	new MainWidget (this,"MainView",status);
   connect( mainwidget, SIGNAL(channelInfo(int)),this, SLOT(getChannelInfo(int)) ); 
+
+  //this is where the menus are created
+  //I will clean it up a tommorrow, mom...
 
   file->insertItem	(klocale->translate("&New..."),	this,SLOT(newOp()),CTRL+Key_N);
   file->insertItem	(klocale->translate("New &Window"),this,SLOT(newInstance()),CTRL+Key_W);
@@ -186,12 +193,12 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
    calculate->insertItem	(klocale->translate("&Silence"),	this,SLOT(zeroOp()));
   calculate->insertItem	(klocale->translate("&Noise"),	this,SLOT(noiseOp()));
   calculate->insertItem	(klocale->translate("&Additive Synthesis"),this,SLOT(addSynthOp()));
-  calculate->insertItem	(klocale->translate("&Pulse Series"),this,SLOT(pulseOp()));
+  calculate->insertItem	(klocale->translate("&Pulse Train"),this,SLOT(pulseOp()));
   calculate->insertSeparator	();
   calculate->insertItem	(klocale->translate("&Hullcurve"),this,SLOT(hullCurveOp()));
   calculate->insertSeparator	();
   calculate->insertItem	(klocale->translate("Frequencies"),freq);
-  freq->insertItem	(klocale->translate("&Spectrum"),	this,SLOT(fftOp()));
+  freq->insertItem	(klocale->translate("&Spectrum"),	this,SLOT(fftOp()),Key_S);
   freq->insertItem	(klocale->translate("&Average Spectrum"),	this,SLOT(averageFFTOp()));
   freq->insertItem	(klocale->translate("S&onagram"),	this,SLOT(sonagramOp()));
 
@@ -199,19 +206,24 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   marker->insertItem	(klocale->translate("&Delete"),	this,SLOT(deleteMarkOp()),Key_D);
   marker->insertSeparator	();
   marker->insertItem	(klocale->translate("&Generate"),genmenu);
-  genmenu->insertItem	(klocale->translate("&Signal Markers"),this,SLOT(signalMarkerOp()));
-  genmenu->insertItem	(klocale->translate("&Period Markers"),this,SLOT(periodMarkerOp()));
+  genmenu->insertItem	(klocale->translate("&Signal labels"),this,SLOT(signalMarkerOp()));
+  genmenu->insertItem	(klocale->translate("&Period labels"),this,SLOT(periodMarkerOp()));
   marker->insertSeparator	();
   marker->insertItem	(klocale->translate("&Load"),	this,SLOT(loadMarkOp()));
   marker->insertItem	(klocale->translate("&Insert"),	this,SLOT(appendMarkOp()));
-  marker->insertItem	(klocale->translate("&Save"),	this,SLOT(saveMarkOp()));
-  marker->insertItem	(klocale->translate("&Save Label Frequency"),
-			 this,SLOT(savePeriodsOp()));
+  marker->insertItem	(klocale->translate("&Save"),	savemarkmenu);
+  savemarkmenu->insertItem	(klocale->translate("&Labels"),
+				 this,SLOT(saveMarkOp()));
+  savemarkmenu->insertItem	(klocale->translate("Label &Frequency"),
+				 this,SLOT(savePeriodsOp()));
+  marker->insertSeparator	();
+  marker->insertItem         	(klocale->translate("&convert to Pitch"), this,SLOT(convertPitchOp()));
   marker->insertSeparator	();
   marker->insertItem	(klocale->translate("&Change Type"),mtypemenu);
   marker->insertItem	(klocale->translate("Create &Type"),this,SLOT(addMarkType()));
 
   options->insertItem	(klocale->translate("Playback"),this,SLOT(playBackOp()));
+  options->insertItem	(klocale->translate("Memory"),this,SLOT(memoryOp()));
 
   help->insertItem	(klocale->translate("&Contents"),this,SLOT(getHelp()));
   help->insertSeparator	();
@@ -280,13 +292,14 @@ void TopWidget::cliptoNew ()
     clipboard=0;
    }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::flushClip ()
 {
   if (clipboard) delete clipboard;
   clipboard=0;
 }
-//*****************************************************************************************
+//*****************************************************************************
+//add your favourite wrapper function here
 void TopWidget::newOp()		{mainwidget->setRangeOp (NEW);}
 void TopWidget::deleteOp()	{mainwidget->setRangeOp (DELETE);}
 void TopWidget::cutOp	()	{mainwidget->setRangeOp (CUT);}
@@ -318,6 +331,7 @@ void TopWidget::delayOp		()	{mainwidget->setRangeOp	(DELAY);}
 void TopWidget::rateChangeOp	()	{mainwidget->setRangeOp	(RATECHANGE);}
 void TopWidget::fftOp		()	{mainwidget->setRangeOp	(FFT);}
 void TopWidget::playBackOp	()	{mainwidget->setRangeOp (PLAYBACKOPTIONS);}
+void TopWidget::memoryOp	()	{mainwidget->setRangeOp (MEMORYOPTIONS);}
 void TopWidget::addChannelOp	()	{mainwidget->setRangeOp (ADDCHANNEL);}
 void TopWidget::allChannelOp	()	{mainwidget->setRangeOp (ALLCHANNEL);}
 void TopWidget::toggleChannelOp	()	{mainwidget->setRangeOp (INVERTCHANNEL);}
@@ -344,20 +358,21 @@ void TopWidget::signalMarkerOp  ()	{mainwidget->setRangeOp (MARKSIGNAL);}
 void TopWidget::periodMarkerOp  ()	{mainwidget->setRangeOp (MARKPERIOD);}
 void TopWidget::saveBlocksOp    ()	{mainwidget->setRangeOp (SAVEBLOCKS+bit);}
 void TopWidget::savePeriodsOp   ()	{mainwidget->setRangeOp (SAVEPERIODS);}
-//*****************************************************************************************
+void TopWidget::convertPitchOp  ()	{mainwidget->setRangeOp (TOPITCH);}
+//*****************************************************************************
 void TopWidget::doFilter    (int num)
  {
    if (num>=3)
      mainwidget->setRangeOp (FILTER+num-3); //ignore first three items, since they are covered by own signals ...
  }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::setMarkType    (int num)
 {
   for (unsigned int i=0;i<markertypes->count();i++) mtypemenu->setItemChecked (mtypemenu->idAt(i),false);
   mtypemenu->setItemChecked (mtypemenu->idAt(num),true);
   mainwidget->setRangeOp (SELECTMARK+num);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::getChannelInfo	(int num)
 {
   char buf[8];
@@ -369,12 +384,12 @@ void TopWidget::getChannelInfo	(int num)
       channels->insertItem (buf);
     }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::deleteChannel	(int num)
 {
   mainwidget->setRangeOp (DELETECHANNEL+num);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::revert ()
 {
  if (!name.isNull())
@@ -382,7 +397,7 @@ void TopWidget::revert ()
 	mainwidget->setSignal (&name);
   }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::openRecent (int num)
 {
  if (num-1>0)
@@ -399,7 +414,7 @@ void TopWidget::openRecent (int num)
        }
    }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::addRecentFile (char* newfile)
 {
   if (recentFiles->find(newfile) != -1) return;
@@ -417,7 +432,7 @@ void TopWidget::addRecentFile (char* newfile)
        tmp->updateRecentFiles(); //update all windows
 
 }           
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::updateRecentFiles ()
 {
   recent->clear();
@@ -428,7 +443,7 @@ void TopWidget::updateRecentFiles ()
   for (unsigned int i =0 ; i < recentFiles->count(); i++)
       recent->insertItem (recentFiles->at(i));
 }           
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::dropEvent (KDNDDropZone *drop)
 {
   QStrList & list =drop->getURLList();
@@ -474,7 +489,7 @@ void TopWidget::save16Bit ()
   save->setItemChecked (bit8,false);
   bit=16;
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::save8Bit ()
 {
   save->setItemChecked (bit24,false);
@@ -482,7 +497,7 @@ void TopWidget::save8Bit ()
   save->setItemChecked (bit8,true);
   bit=8;
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::saveFile ()
 {
  if (!name.isEmpty())
@@ -492,7 +507,7 @@ void TopWidget::saveFile ()
 	setCaption (name.data());
   }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::saveFileas ()
 {
   name=QFileDialog::getSaveFileName (0,"*.wav",this);
@@ -502,27 +517,27 @@ void TopWidget::saveFileas ()
       addRecentFile (name.data());
     }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::saveSelection ()
 {
  name=QFileDialog::getSaveFileName (0,"*.wav",this);
  if (!name.isNull())
  mainwidget->saveSignal (&name,bit,true);
 }
-//*****************************************************************************************
+//****************************************************************************
 void TopWidget::setSignal (QString name)
 {
  this->name=name;
  mainwidget->setSignal (&name);
  setCaption (name.data());
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::addMarkType (struct MarkerType *marker)
 {
-	  markertypes->append (marker);
-	  mtypemenu->insertItem (marker->name->data());
+  markertypes->append (marker);
+  mtypemenu->insertItem (marker->name->data());
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::addMarkType ()
 {
   MarkerTypeDialog dialog (this);
@@ -542,15 +557,18 @@ void TopWidget::addMarkType ()
       else delete marker;
     }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::setSignal (MSignal *signal)
 {
  mainwidget->setSignal (signal);
 }
-//*****************************************************************************************
-extern int play16bit;
-extern int bufbase;
-//*****************************************************************************************
+//*****************************************************************************
+extern int play16bit;      //flag for playing 16 Bit
+extern int bufbase;        //log of bufferrsize for playback... 
+extern int mmap_threshold; //threshold in MB for using mmapping
+extern char *mmap_dir;     //storage of dir name
+extern char *mmapallocdir; //really used directory
+//*****************************************************************************
 void saveConfig(KApplication *app)
 {
   char buf[64];
@@ -567,6 +585,10 @@ void saveConfig(KApplication *app)
   config->writeEntry ("16Bit",play16bit);
   config->writeEntry ("BufferSize",bufbase);
 
+  config->setGroup ("Memory Settings");
+  config->writeEntry ("Mmap threshold",mmap_threshold);
+  config->writeEntry ("Mmap dir",mmap_dir);
+
   config->setGroup ("Labels");
   for (unsigned int i =0 ; i < markertypes->count(); i++)
     {
@@ -581,7 +603,7 @@ void saveConfig(KApplication *app)
     }
   config->sync();
 }
-//*****************************************************************************************
+//*****************************************************************************
 void readConfig(KApplication *app)
 {
   QString result;
@@ -608,12 +630,17 @@ void readConfig(KApplication *app)
 
   result=config->readEntry ("16Bit");
   if (!result.isNull())  play16bit=result.toInt();
-
   result=config->readEntry ("BufferSize");
   if (!result.isNull())  bufbase=result.toInt();
 
-  config->setGroup ("Labels");
+  config->setGroup   ("Memory Settings");
+  result=config->readEntry ("Mmap threshold");
+  if (!result.isNull())  mmap_threshold=result.toInt();
+  result=config->readEntry ("Mmap dir");
+  if (!result.isNull())  mmap_dir=strdup(result.data());
+  mmapallocdir=mmap_dir;
 
+  config->setGroup ("Labels");
   for (unsigned int i =0 ; i < 20; i++)
     {
       sprintf (buf,"%dName",i);                
@@ -635,10 +662,12 @@ void readConfig(KApplication *app)
 	}
     }
 }
-//*****************************************************************************************
+//*****************************************************************************
 int main( int argc, char **argv )
 {
   app=new KApplication (argc, argv);
+
+  srandom (0); //just in case the random generator be used anywhere later
 
   if (app)
     {

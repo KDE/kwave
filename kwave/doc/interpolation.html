@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Types of Interpolation</title>
+  </head>
+
+  <body>
+      <h1>Short introduction into Interpolation</h1>
+
+<CENTER>
+<I>This part of help documentation was last updated on August. 26, 1998 for kwave 0.29 alpha</I>
+</CENTER>
+<p>
+
+To interpolate means, to find a rule to create points in between a given set of points based on a rule. Kwave supports different types of interpolation (rules). 
+<hr>
+The most simple one is the linear Interpolation.
+<p>
+<img src="linear.gif">
+<p>
+The linear interpolation connects all dots through a line. All points on the line define the points in between. This provides a statistical most errorfree interpolation, but does not provide a smooth function, that may be desirable for audio purposes ( )<p>
+<hr>
+A little bit more complex is the polynomial interpolation.
+<p>
+<img src="polynom1.gif">
+<p>
+The rule is to find a polynom that goes though all the given points. Based on the function of the polynom the points in between are calculated. This has some
+disadvantages.<p>
+When changing one point, the whole interpolation function is affected, an effect that may not be desired. Here is an example that demonstrates this effect.
+The red point was moved, and a new was function interpolated.
+Both functions differ slightly at every point, but the given ones, only becauseone value was changed!
+<p>
+<img src="overlay.jpg">
+<p>
+Furthermore the polynomial function is smooth, but does describe a rather long way. It oscillates around the given points. An interpolation rule (the cubic spline interpolation) that keeps closer to the points, while staying smooth will be introduced later<p>
+<hr>
+To be able to adjust one point, while leaving the rest of the interpolation untouched, one has take to a few points interpolate them, then take the next ones, and so on. This has been implemented in the piecewise polynomial interpolation, that takes 3 (5 or 7) points, interpolates them, but adds to the function only the interpolation between the first and the second point. Here follows an example for a 3rd order polynom. The red line is the unseen part of the interpolation starting at the point before the red one.
+<p>
+<img src="3polynom-mod.gif">
+<p>
+You can also see, that this solution has a flaw. You don't get a smooth function, because the interpolated pieces don't fit together all the times. So perhaps there should be a found a rule, that allows to fit them together.
+<hr>
+The cubic spline interpolation does this. It calcuates a derrivative at the end points of the piecewise interpolation and assures the derrivative is equal for both pieces of interpolation. This minimizes the statistical function error while still obtaining a smooth function. The advantage of local editing still exists.
+<p>
+<img src="spline1.gif">
+<p>
+One way to obtain derrivation of a point would be to take the two nearest point, draw a line through them, and then take the derrivation of this line.
+<hr>
+The next interpolation is again a rather simple one. It keeps the function on the value of the last point until a new point is given. This provides none of the above discussed properties, while still being useful for some effects or models. (for example a function of Pitch).
+<p>
+<img src="sample-hold.gif">
+<p>
+<a href="index.html">Go back to Main Help Page</a>
+</body>
+</html>
+
+
+

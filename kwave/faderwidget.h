@@ -1,13 +1,13 @@
-
+#ifndef _FADERDIALOG_H_
+#define _FADERDIALOG_H_ 1
 
 #include <qapp.h>
 #include <qpushbt.h>
 #include <qstring.h>
 #include <qwidget.h>
-#include <qpainter.h>
-#include <kapp.h>
-#include <kslider.h>
-#include <kselect.h>
+#include <qslider.h>
+#include <qdialog.h>
+#include "scale.h"
 
 class FaderWidget : public QWidget
 {
@@ -32,6 +32,31 @@ class FaderWidget : public QWidget
  int    dir;
  int    curve;
  int	width,height;		//of widget
- QPainter 	p;
 };
 //***********************************************************************
+class FadeDialog : public QDialog
+{
+ Q_OBJECT
+
+ public:
+ 	FadeDialog 	(QWidget *parent=0,int dir=1,int ms=100);
+ 	~FadeDialog 	();
+ int getCurve ();
+
+ public slots:
+
+ protected:
+
+ void resizeEvent (QResizeEvent *);
+
+ private:
+
+ ScaleWidget       *x,*y;
+ CornerPatchWidget *corner;
+ QPushButton	*ok,*cancel;
+ QSlider	*slider;
+ FaderWidget	*fade;
+
+};
+//*****************************************************************************
+#endif

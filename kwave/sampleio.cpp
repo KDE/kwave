@@ -1,4 +1,5 @@
-#define _REENTRANT
+//This file includes all methods of Class MSignal that deal with I/O such as 
+//loading, saving and playback.
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
@@ -18,39 +19,48 @@
 #define stopprocess	1
 #define samplepointer	2
 
+struct SaveInfo
+{
+  QFile *sigout;
+  int begin;
+  int end;
+  int **samples;
+  int channels;
+};
+
 int play16bit=false;
 int bufbase=5;
 extern MSignal *clipboard; 
 
 const char *sounddevice={"/dev/dsp"};
-
+//**********************************************************
+// now some helper functions... somewhere in clib there should be something
+// compareable. But as long the reinvented wheel works there is no need to
+// change 
 int swapEndian (int s)
   //yes you guessed it only for sizeof(int)==4 this
   //works as it should do ...
 {
  return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
 }
-
+//**********************************************************
 long swapEndian (long s)
-  //yes you guessed it only for sizeof(int)==4 this
-  //works as it should do ...
 {
  return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
 }
-
-
 //**********************************************************
 short int swapEndian (short int s)	//sizeof (short int ) must be 2
 {
  return ((s&0xff)<<8)|((s&0xff00)>>8);
 }
 //**********************************************************
+//following are the playback routines 
 void MSignal::stopplay ()
 {
- if (msg[processid]>=0)		//if there is a process running
-  {
-	msg[stopprocess]=true;	//set flag for stopping
-  }
+  if (msg[processid]>=0)		//if there is a process running
+    {
+      msg[stopprocess]=true;	//set flag for stopping
+    }
 }
 //**********************************************************
 int MSignal::setSoundParams (int audio,int bitspersample,int channels,int rate,int bufbase)
@@ -95,7 +105,6 @@ void MSignal::play8 (int loop)
 
   if (msg[processid]<=0)
     {
-
       msg[stopprocess]=false;
       int	proc=fork();
 
@@ -294,7 +303,9 @@ void MSignal::play16 (int loop)
 }
 //**********************************************************
 MSignal::MSignal (QWidget *par,QString *name,int channel=1) :QObject ()
+  // constructor that loads a file to memory 
 {
+  mapped=false;
   selected=true;
   sample=0;
   parent=par;
@@ -305,8 +316,9 @@ MSignal::MSignal (QWidget *par,QString *name,int channel=1) :QObject ()
 
   int key = ftok(".", 'S');
   int memid=-1;
+  this->name=new QString (name->data());
 
-  while (memid==-1) memid=shmget(key++,sizeof(int)*4,IPC_CREAT|IPC_EXCL|0660); //seems to be the only way to ensure to get a block of memory at all... 
+  while (memid==-1) memid=shmget(key++,sizeof(int)*4,IPC_CREAT|IPC_EXCL|0660);
   msg= (int*) shmat (memid,0,0);
   shmctl(memid, IPC_RMID, 0);  
   if (msg)
@@ -342,7 +354,6 @@ MSignal::MSignal (QWidget *par,QString *name,int channel=1) :QObject ()
 		  header.channels = swapEndian (header.channels);
 		  header.bitspersample = swapEndian (header.bitspersample);
 #endif
-		
 		  if (header.mode==1)
 		    {
 		      rate=header.rate;
@@ -359,7 +370,6 @@ MSignal::MSignal (QWidget *par,QString *name,int channel=1) :QObject ()
 			  switch (header.bitspersample)
 			    {
 			    case 8:
-
 			      load8Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
 			      break;
 			    case 16:
@@ -395,7 +405,83 @@ MSignal::MSignal (QWidget *par,QString *name,int channel=1) :QObject ()
   else  KMsgBox::message (parent,"Info","Shared Memory could not be allocated !",2);
 }
 //**********************************************************
-void	MSignal::save (QString *filename,int bit,int selection)
+// the following routines are for loading and saving in dataformats
+// specified by names little/big endian problems are dealt with at compile time
+// The corresponding header should have already been written to the file before
+// invocation of this methods
+void writeData8Bit (SaveInfo *saveinfo)
+{
+  QFile *sigout=saveinfo->sigout;
+  int begin=saveinfo->begin;
+  int end=saveinfo->end;
+  int **samples=saveinfo->samples;
+  int channels=saveinfo->channels;
+
+  char o;
+  for (int i=begin;i<end;i++)
+    {
+      for (int j=0;j<channels;j++)
+	{
+	  o=128+(char)(samples[j][i]/65536);
+	  sigout->putch (o);
+	}
+    }
+}
+//**********************************************************
+void writeData16Bit (SaveInfo *saveinfo)
+{
+  QFile *sigout=saveinfo->sigout;
+  int begin=saveinfo->begin;
+  int end=saveinfo->end;
+  int **samples=saveinfo->samples;
+  int channels=saveinfo->channels;
+  int act;
+
+  for (int i=begin;i<end;i++)
+    {
+      for (int j=0;j<channels;j++)
+	{
+	  act=samples[j][i];
+	  act+=1<<23;
+
+#if defined(IS_BIG_ENDIAN)
+	  sigout->putch ((char)((act>>16)+128));
+	  sigout->putch ((char)(act>>8));
+#else
+	  sigout->putch ((char)(act>>8));
+	  sigout->putch ((char)((act>>16)+128));
+#endif
+	}
+    }
+}
+//**********************************************************
+void writeData24Bit (SaveInfo *saveinfo)
+{
+  QFile *sigout=saveinfo->sigout;
+  int begin=saveinfo->begin;
+  int end=saveinfo->end;
+  int **samples=saveinfo->samples;
+  int channels=saveinfo->channels;
+
+  for (int i=begin;i<end;i++)
+    {
+      for (int j=0;j<channels;j++)
+	{
+
+#if defined(IS_BIG_ENDIAN)
+	  sigout->putch ((char)(samples[j][i]/65536));
+	  sigout->putch ((char)(samples[j][i]/256));
+	  sigout->putch ((char)(samples[j][i]));
+#else
+	  sigout->putch ((char)(samples[j][i]));
+	  sigout->putch ((char)(samples[j][i]/256));
+	  sigout->putch ((char)(samples[j][i]/65536));
+#endif
+	}
+    }
+}
+//**********************************************************
+void  MSignal::save (QString *filename,int bit,int selection)
 {
   int begin=0;
   int endp=this->length;
@@ -405,19 +491,20 @@ void	MSignal::save (QString *filename,int bit,int selection)
   int j=0;
 
   if (selection)
-  if (lmarker!=rmarker)
-    {
-      begin=lmarker;
-      endp=rmarker;
-    }
+    if (lmarker!=rmarker)
+      {
+	begin=lmarker;
+	endp=rmarker;
+      }
 
   QFile	*sigout=new QFile (filename->data());
+  name=new QString (filename->data());
   MSignal *tmp=this;
 
   while (tmp!=0)
     {
       if ((!selection)||(tmp->isSelected()))
-      samples[j++]=tmp->getSample();
+	samples[j++]=tmp->getSample();
       tmp=tmp->getNext();
     }
   channels=j;
@@ -461,78 +548,35 @@ void	MSignal::save (QString *filename,int bit,int selection)
       sigout->writeBlock ("data",4);
       sigout->writeBlock ((char *)&datalen,4);
 
+      SaveInfo saveinfo;
+      saveinfo.sigout=sigout;
+      saveinfo.begin=begin;
+      saveinfo.end=endp;
+      saveinfo.samples=samples;
+      saveinfo.channels=channels;
+
       switch (bit)
 	{
 	case 8:
-	  writeData8Bit (sigout,begin,endp,samples,channels);
-	break;
+	  writeData8Bit (&saveinfo);
+	  break;
 	case 16:
-	  writeData16Bit (sigout,begin,endp,samples,channels);
-	break;
+	  writeData16Bit (&saveinfo);
+	  break;
 	case 24:
-	  writeData24Bit (sigout,begin,endp,samples,channels);
-	break;
+	  writeData24Bit (&saveinfo);
+	  break;
 	}
+
       sigout->close();
     }
   if (sigout) delete sigout;
 }
 //**********************************************************
-void MSignal::writeData8Bit (QFile *sigout,int begin,int end,int **samples,int channels)
-{
-  char o;
-  for (int i=begin;i<end;i++)
-    {
-      for (int j=0;j<channels;j++)
-	{
-	  o=128+(char)(samples[j][i]/65536);
-	  sigout->putch (o);
-	}
-    }
-}
-//**********************************************************
-void MSignal::writeData16Bit (QFile *sigout,int begin,int end,int **samples,int channels)
-{
-  for (int i=begin;i<end;i++)
-    {
-      for (int j=0;j<channels;j++)
-	{
-
-#if defined(IS_BIG_ENDIAN)
-	  sigout->putch ((char)(samples[j][i]/65536));
-	  sigout->putch ((char)(samples[j][i]/256));
-#else
-	  sigout->putch ((char)(samples[j][i]/256));
-	  sigout->putch ((char)(samples[j][i]/65536));
-#endif
-	}
-    }
-}
-//**********************************************************
-void MSignal::writeData24Bit (QFile *sigout,int begin,int end,int **samples,int channels)
-{
-  for (int i=begin;i<end;i++)
-    {
-      for (int j=0;j<channels;j++)
-	{
-
-#if defined(IS_BIG_ENDIAN)
-	  sigout->putch ((char)(samples[j][i]/65536));
-	  sigout->putch ((char)(samples[j][i]/256));
-	  sigout->putch ((char)(samples[j][i]));
-#else
-	  sigout->putch ((char)(samples[j][i]));
-	  sigout->putch ((char)(samples[j][i]/256));
-	  sigout->putch ((char)(samples[j][i]/65536));
-#endif
-	}
-    }
-}
-//**********************************************************
 void MSignal::load24Bit (QFile *sigin,int offset,int interleave)
 {
   unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*3];
-  sample = new int [length];
+  sample = getNewMem (length);
   if ((sample)&&(loadbuffer))
     {
       ProgressDialog *dialog=new ProgressDialog (length,"Loading 24-Bit File :");
@@ -580,10 +624,10 @@ void MSignal::load24Bit (QFile *sigin,int offset,int interleave)
     }
 }
 //**********************************************************
-void	MSignal::load16Bit (QFile *sigin,int offset,int interleave)
+void MSignal::load16Bit (QFile *sigin,int offset,int interleave)
 {
   unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*2];
-  sample = new int [length];
+  sample = getNewMem (length);
   if ((sample)&&(loadbuffer))
     {
       ProgressDialog *dialog=new ProgressDialog (length,"Loading 16-Bit File :");
@@ -591,7 +635,8 @@ void	MSignal::load16Bit (QFile *sigin,int offset,int interleave)
 
       if (dialog)
 	{
-	  int i,j,pos;
+	  int i,j,pos=0;
+
 	  if (interleave==0)
 	    {
 	      sigin->at(sigin->at()+offset);
@@ -607,7 +652,8 @@ void	MSignal::load16Bit (QFile *sigin,int offset,int interleave)
 		    {
 		      sample[i]=loadbuffer[pos++]<<8;
 		      sample[i]+=loadbuffer[pos++]<<16;
-		      //		      sample[i]=(sigin->getch()<<8)+(sigin->getch()<<16);
+
+		      //convert to signed int
 		      if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
 		    }
 		  dialog->setProgress (i);
@@ -618,7 +664,8 @@ void	MSignal::load16Bit (QFile *sigin,int offset,int interleave)
 	      sigin->at(sigin->at()+offset);
 	      for (i=0;i<length;i++)
 		{
-		  sample[i]=(sigin->getch()<<8)+(sigin->getch()<<16);
+		  sample[i]=loadbuffer[pos++]<<8;
+		  sample[i]+=loadbuffer[pos++]<<16;
 		  if (sample[i]>(1<<23)) sample[i]=(-(1<<24))+sample[i];
 		  sigin->at(sigin->at()+interleave);
 		}
@@ -629,11 +676,15 @@ void	MSignal::load16Bit (QFile *sigin,int offset,int interleave)
     }
 }
 //**********************************************************
-void	MSignal::loadStereo16Bit (QFile *sigin)
+void  MSignal::loadStereo16Bit (QFile *sigin)
+  //explicit routine for faster loading of 16 bit stereo files,
+  //since they are widely-spread...
 {
-  sample = new int [length];
+  //the current object should be the first channel....
+  sample = getNewMem(length);
   unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*4];
 
+  // gets the next channel  
   next=new MSignal (parent,length,rate,1);
   int *lsample = next->getSample();
 
@@ -650,7 +701,6 @@ void	MSignal::loadStereo16Bit (QFile *sigin)
 	      if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;
 	      else j=length;
 
-	      //	      printf ("%d\n",
 	      sigin->readBlock((char *)loadbuffer,(j-i)*4);
 	      pos=0;
 
@@ -673,7 +723,7 @@ void	MSignal::loadStereo16Bit (QFile *sigin)
 //**********************************************************
 void MSignal::load8Bit (QFile *sigin,int offset,int interleave)
 {
-  sample = new int [length];
+  sample = getNewMem (length);
   if (sample)
     {
       ProgressDialog *dialog=new ProgressDialog (length,"Loading 8-Bit File :");
@@ -715,28 +765,30 @@ void MSignal::load8Bit (QFile *sigin,int offset,int interleave)
 }
 //**********************************************************
 void MSignal::findDatainFile (QFile *sigin)
+  //help function for finding data chunk in wav files
 {
-	char	buffer[4096];
-	int 	point=0,max=0;
-	int	filecount=sigin->at();
-	while ((point==max)&&(!sigin->atEnd()))
-	 {
-		max=sigin->readBlock (buffer,4096);
-		point=0;
-		while (point<max) if (strncmp (&buffer[point++],"data",4)==0) break;
+  char	buffer[4096];
+  int 	point=0,max=0;
+  int	filecount=sigin->at();
+  while ((point==max)&&(!sigin->atEnd()))
+    {
+      max=sigin->readBlock (buffer,4096);
+      point=0;
+      while (point<max) if (strncmp (&buffer[point++],"data",4)==0) break;
 
-		if (point==max)
-		 {
-			filecount+=point-4;	//rewind 4 Bytes;
-			sigin->at(filecount);
-		 }
-		else filecount+=point;
-	 }
-	if (point!=max)
-	 {
-		sigin->at(filecount+3);
-	 }
+      if (point==max)
+	{
+	  filecount+=point-4;	//rewind 4 Bytes;
+	  sigin->at(filecount);
+	}
+      else filecount+=point;
+    }
+  if (point!=max)
+    {
+      sigin->at(filecount+3);
+    }
 }
+
 
 
 

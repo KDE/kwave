@@ -32,10 +32,11 @@ class CurveWidget : public QWidget
   CurveWidget	(QWidget *parent=0,const char *name=0,QList<CPoint>*d=0,int=false);
   ~CurveWidget	 ();
   QList<CPoint> *getPoints ();
-  int   getType  ();
+  int   getInterpolationType  ();
   void  setType  (char *);
   void  setCurve (QList<CPoint> *);
-
+  void  addPoint (double,double);
+  CPoint*  findPoint (int,int);
 
   public slots:
 
@@ -43,9 +44,13 @@ class CurveWidget : public QWidget
   void  scaleFit ();
   void  VFlip ();
   void  HFlip ();
-  void  deleteLast ();
-  void  savePreset ();
-  void  loadPreset (int);
+  void  deleteLast   ();
+  void  deleteSecond ();
+  void  firstHalf    ();
+  void  doDouble     ();
+  void  secondHalf   ();
+  void  savePreset   ();
+  void  loadPreset   (int);
 
  signals:
 

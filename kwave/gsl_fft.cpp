@@ -1,4 +1,9 @@
 //code taken from gnu gsl project
+//this code is part of the gnu gsl library. The functions being useful
+//for kwave were concatenated, since gsl library is not far spread
+//so users won't have to search for this one.
+//Later on kwave may leave this out and use the shared library (that contains many more functions)
+
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -37,158 +42,6 @@ int gsl_fft_complex_bitreverse_order (complex data[],
 	}
     }
   return 0;
-}
-
-int gsl_fft_real_bitreverse_order (double data[], 
-				   const unsigned int n,
-				   const unsigned int logn)
-{
-  unsigned int i;
-
-  for (i = 0; i < n; i++)
-    {
-      unsigned int j = 0;
-      unsigned int i_tmp = i;
-      unsigned int bit;
-
-      for (bit = 0; bit < logn; bit++)
-	{
-	  j <<= 1;		/* reverse shift i into j */
-	  j |= i_tmp & 1;
-	  i_tmp >>= 1;
-	}
-      
-      if (i < j)
-	{
-	  const double data_tmp = data[i];
-	  data[i] = data[j];
-	  data[j] = data_tmp;
-	}
-    }
-  return 0;
-}
-
-
-int gsl_fft_complex_goldrader_bitreverse_order (complex data[], 
-						const unsigned int n)
-{
-  unsigned int i;
-  unsigned int j = 0;
-
-  for (i = 0; i < n - 1; i++)
-    {
-      unsigned int k = n / 2 ;
-
-      if (i < j)
-	{
-	  const complex data_tmp = data[i];
-	  data[i] = data[j];
-	  data[j] = data_tmp;
-	}
-
-      while (k <= j) 
-	{
-	  j = j - k ;
-	  k = k / 2 ;
-	}
-      
-      j += k ;
-
-    }
-
-  return 0;
-}
-
-
-int gsl_fft_complex_rodriguez_bitreverse_order (complex data[], 
-						const unsigned int n,
-						const unsigned int logn)
-{
-  unsigned int i;
-  unsigned int j = 0 ;
-  unsigned last = n - ( 1 << ((logn + 1)/2) ) ;
-
-  for (i = 1; i < last ; i++)
-    {
-      unsigned int k = n / 2 ;
-
-      while (k <= j) 
-	{
-	  j = j - k ;
-	  k = k / 2 ;
-	}
-
-      j += k ;
-
-      if (i < j)
-	{
-	  const complex data_tmp = data[i];
-	  data[i] = data[j];
-	  data[j] = data_tmp;
-	}
-
-    }
-
-  return 0;
-}
-
-
-
-
-
-
-
-int
-compare_complex_results (const char *name_a, const complex a[],
-			 const char *name_b, const complex b[],
-			 unsigned int n,
-			 const double allowed_ticks)
-{
-  unsigned int i;
-  double ticks, max_ticks = 0;
-  double dr, di;
-  const char *flag;
-
-  for (i = 0; i < n; i++)
-    {
-      dr = b[i].real - a[i].real;
-      di = b[i].imag - a[i].imag;
-      ticks = (fabs (dr) + fabs (di)) / DBL_EPSILON;
-      if (ticks > max_ticks)
-	{
-	  max_ticks = ticks;
-	}
-    }
-
-  if (max_ticks < allowed_ticks)
-    {
-      return 0;
-    }
-
-  printf ("\n%s vs %s : max_ticks = %f\n", name_a, name_b, max_ticks);
-
-  for (i = 0; i < n; i++)
-    {
-      dr = b[i].real - a[i].real;
-      di = b[i].imag - a[i].imag;
-      ticks = (fabs (dr) + fabs (di)) / DBL_EPSILON;
-
-      if (ticks > 1000)
-	{
-	  flag = "***";
-	}
-      else
-	{
-	  flag = "";
-	}
-
-      printf ("%15s: %d  %.16f %.16f %s\n", name_a, i,
-	      a[i].real, a[i].imag, flag);
-      printf ("%15s: %d  %.16f %.16f %e %s\n", name_b, i,
-	      b[i].real, b[i].imag, ticks, flag);
-    }
-
-  return -1;
 }
 
 int

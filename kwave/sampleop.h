@@ -41,6 +41,7 @@
 #define LOOP	1002
 #define PSTOP	1003
 #define PLAYBACKOPTIONS	1004
+#define MEMORYOPTIONS	1005
 
 #define ADDCHANNEL      2000
 #define ALLCHANNEL      2002
@@ -67,6 +68,7 @@
 #define MARKSIGNAL       7006
 #define MARKPERIOD       7007
 #define SAVEPERIODS	 7008
+#define TOPITCH 	 7009
 #define SELECTMARK	 7010
 #define SAVEBLOCKS	 7100
 

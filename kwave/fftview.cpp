@@ -5,24 +5,25 @@
 #include <limits.h>
 #include <qcursor.h>
 #include "dialogs.h"
+#include "formantwidget.h"
 #include "sample.h"
 #include "main.h"
 
 extern KApplication *app;
 //****************************************************************************
-__inline void  getMaxMinReal (complex *sample,int len,double &max,double &min)
+__inline void  getMaxMinPower (complex *sample,int len,double *max,double *min)
 {
   double rea,ima;
   double c;
-  min=INT_MAX;
-  max=INT_MIN;
+  *min=INT_MAX;
+  *max=INT_MIN;
   for (int i=0;i<len;i++)
     {
       rea=sample[i].real;
       ima=sample[i].imag;
       c=sqrt(rea*rea+ima*ima);
-      if (c>max) max=c;
-      if (c<min) min=c;
+      if (c>*max) *max=c;
+      if (c<*min) *min=c;
     }
 }
 //****************************************************************************
@@ -42,22 +43,24 @@ __inline void  getMaxMinPhase (complex *sample,int len,double &max,double &min)
     }
 }
 //****************************************************************************
-FFTWidget::FFTWidget (QWidget *parent,const char *name)
- : QWidget (parent,name)
+FFTWidget::FFTWidget (QWidget *parent)
+ : QWidget (parent)
 {
   data=0;
   autodelete=true;
   fftsize=0;
   height=-1;
   pixmap=0;
+  phaseview=false;
+  db=false;
   setCursor (crossCursor);
   setBackgroundColor (QColor(black) );
 }
 //****************************************************************************
 FFTWidget::~FFTWidget (QWidget *parent,const char *name)
 {
-	if (pixmap==0)	delete pixmap;
-	if (data&&autodelete)	delete data;
+  if (pixmap==0)	delete pixmap;
+  if (data&&autodelete)	delete data;
 }
 //****************************************************************************
 void FFTWidget::setAutoDelete  (int tr)
@@ -65,28 +68,94 @@ void FFTWidget::setAutoDelete  (int tr)
    autodelete=tr;
 }
 //****************************************************************************
-void FFTWidget::setPhase  (complex *data,double max,int size, int rate)
+void FFTWidget::phaseMode  ()
 {
-  phase=true;
-  this->max=max;
+  redraw=true;
+  phaseview=true;
+  repaint ();
+}
+//****************************************************************************
+void FFTWidget::dbMode  (int db)
+{
+  redraw=true;
+  phaseview=false;
+  this->db=db;
+  repaint ();
+}
+//****************************************************************************
+void FFTWidget::percentMode  ()
+{
+  redraw=true;
+  phaseview=false;
+  db=false;
+  repaint ();
+}
+//****************************************************************************
+void FFTWidget::setPhase  (complex *data,int size, int rate)
+{
+  phaseview=true;
   this->data=data;
   this->fftsize=size;
   this->rate=rate;
 }
 //****************************************************************************
-void FFTWidget::setSignal  (complex *data,double max,int size, int rate)
+void FFTWidget::getMaxMin ()
 {
-  phase=false;
-  this->max=max;
+  getMaxMinPower (data,fftsize/2,&this->max,&this->min);
+}
+//****************************************************************************
+void FFTWidget::setSignal  (complex *data,int size, int rate)
+{
+  phaseview=false;
   this->data=data;
   this->fftsize=size;
   this->rate=rate;
+  getMaxMin ();
 }
 //****************************************************************************
 void FFTWidget::refresh()
 {
+  getMaxMin ();
   redraw=true;
   repaint ();
+}
+//****************************************************************************
+void FFTWidget::formant()
+{
+  FormantDialog *dialog =new FormantDialog (this,rate);
+  if (dialog->exec())
+    {
+      int i;
+      double mul=0;
+      int size=5000*(fftsize)/(rate); //formant spectrum is limited to 5khz
+      double *points=dialog->getPoints (size);
+
+      if (points)
+	{
+	  for (i=0;i<size;i++) 
+	    {
+	      //reconvert db scale to linear multiplication factor 
+	      mul=1/(pow (2,(points[i]/6)));
+
+	      data[i].real*=mul;
+	      data[i].imag*=mul;
+	      data[fftsize-i].real*=mul;
+	      data[fftsize-i].imag*=mul;
+	    }
+	  for (;i<fftsize/2;i++) 
+	    {
+	      data[i].real*=mul;
+	      data[i].imag*=mul;
+	      data[fftsize-i].real*=mul;
+	      data[fftsize-i].imag*=mul;
+	    }
+	  delete points;
+	}
+
+      delete dialog;
+
+      refresh ();
+    }
 }
 //****************************************************************************
 void FFTWidget::smooth()
@@ -106,7 +175,6 @@ void FFTWidget::smooth()
 	  for (i=0;i<fftsize;i++)
 	    {
 	      abs=0;
-
 
 	      if ((i-b<0)||(i+b>=fftsize))
 	      for (j=-b;j<b;j++)
@@ -139,10 +207,8 @@ void FFTWidget::smooth()
 	  delete data;
 	  data=newdata;
 
-	  redraw=true;
-	  repaint ();
+	  refresh ();
 	}  
-
     }
 }
 //****************************************************************************
@@ -159,8 +225,8 @@ void FFTWidget::amplify()
 
       for (int i=0;i<fftsize/2;i++)
 	{
-	  data[i].real*=sqrt(2*y[i]);
-	  data[i].imag*=sqrt(2*y[i]);
+	  data[i].real*=2*y[i];
+	  data[i].imag*=2*y[i];
 	  data[fftsize-i].real*=2*y[i];
 	  data[fftsize-i].imag*=2*y[i];
 	}
@@ -242,25 +308,32 @@ void FFTWidget::mouseMoveEvent( QMouseEvent *e )
       int y=e->pos().y();
 
       emit freqInfo (rate/2*x/width+(rate/4)/width,(rate/4)/width);
+
+      if (db)
+	  emit dbInfo ((height-y)*db/(height),0);
+      else
       if ((y>=0)&&(y<height))
-	{
 	  emit ampInfo ((height-y)*100/(height),(int) floor(100/(double)height+.5));
-	}
-      /*
-	if (zoom<1)
-	{
-	emit phaseInfo((int) (data[(int)(x*zoom)].imag*360),0);
-	emit ampInfo  ((int) (data[(int)(x*zoom)].real*100),0);
-	}
-	else
-	{
-	double min,max;
-	getMaxMinImag (&data[(int)(x*zoom)],int (zoom)+1,min,max);
-	emit phaseInfo((int) ((max+min)*180),int ((max-min)*180));
-	getMaxMinReal (&data[(int)(x*zoom)],int (zoom)+1,min,max);
-	emit ampInfo((int) ((max+min)*180),int ((max-min)*180));
-	}
-	*/
+    }
+}
+//****************************************************************************
+void FFTWidget::drawOverviewPhase ()
+{	
+  if (fftsize)
+    {
+      int step;
+      double max=0,min=0;
+
+      p.setPen (white);
+
+	for (int i=0;i<width;i++)
+	  {
+	    step=((int) zoom*i);
+	    getMaxMinPhase (&data[step],(int)((zoom)+1),max,min);
+	    max=(max)*height;
+	    min=(min)*height;
+	    p.drawLine (i,-(int)max,i,-(int)min);
+	  }
     }
 }
 //****************************************************************************
@@ -273,25 +346,113 @@ void FFTWidget::drawOverviewFFT ()
 
       p.setPen (white);
 
+      for (int i=0;i<width;i++)
+	{
+	  step=((int) zoom*i);
+	  getMaxMinPower (&data[step],(int)((zoom)+1),&max,&min);
+	  max=(max)*height/this->max;
+	  min=(min)*height/this->max;
+	  p.drawLine (i,-(int)max,i,-(int)min);
+	}
+    }
+}
+//****************************************************************************
+void FFTWidget::drawInterpolatedDB ()
+{
+  if (fftsize)
+    {
+      int lx,ly,y,x;
+      double rea,ima;
 
-      if (phase)
-	for (int i=0;i<width;i++)
-	  {
-	    step=((int) zoom*i);
-	    getMaxMinPhase (&data[step],(int)((zoom)+1),max,min);
-	    max=(max)*height;
-	    min=(min)*height;
-	    p.drawLine (i,-(int)max,i,-(int)min);
-	  }
-      else
-	for (int i=0;i<width;i++)
-	  {
-	    step=((int) zoom*i);
-	    getMaxMinReal (&data[step],(int)((zoom)+1),max,min);
-	    max=(max)*height/this->max;
-	    min=(min)*height/this->max;
-	    p.drawLine (i,-(int)max,i,-(int)min);
-	  }
+      lx=0;
+      rea=data[0].real;
+      ima=data[0].imag;
+      rea=sqrt(rea*rea+ima*ima);
+
+      rea/=max;
+      if (rea!=0) rea=-6*(1/log10(2))*log10(rea)/db;
+      ly=(int)(rea-1)*height;
+
+
+      for (int i=0;i<fftsize/2;i++)
+	{
+	  x=(int) (i/zoom);	
+
+	  rea=data[i].real;
+	  ima=data[i].imag;
+	  rea=sqrt(rea*rea+ima*ima);
+	  rea/=max;
+	  if (rea!=0) rea=-6*(1/log10(2))*log10(rea)/db;
+	  else rea=2;
+	  y=(int)(rea-1)*height;
+
+	  p.drawLine (lx,ly,x,y);
+	  lx=x;
+	  ly=y;
+	}
+    }
+}
+//****************************************************************************
+__inline double getDB (double max,double x,double db)
+{
+  x/=max;
+  x=-6*(1/log10(2))*log10(x)/db;
+  x--;
+  return x;
+}
+//****************************************************************************
+void FFTWidget::drawOverviewDB ()
+{	
+  if (fftsize)
+    {
+      int step;
+      double stepmax=0,stepmin=0;
+
+      p.setPen (white);
+
+      for (int i=0;i<width;i++)
+	{
+	  step=((int) zoom*i);
+	  getMaxMinPower (&data[step],(int)((zoom)+1),&stepmax,&stepmin);
+
+	  if (stepmax!=0) stepmax=getDB (max,stepmax,db);
+	  else stepmax=1;
+	  if (stepmin!=0) stepmin=getDB (max,stepmin,db);
+	  else stepmin=1;
+
+	  stepmax=stepmax*height;
+	  stepmin=stepmin*height;
+	  p.drawLine (i,(int)stepmax,i,(int)stepmin);
+	}
+    }
+}
+//****************************************************************************
+void FFTWidget::drawInterpolatedPhase ()
+{
+  if (fftsize)
+    {
+      int lx,ly,y,x;
+      double rea,ima;
+
+      lx=0;
+      rea=data[0].real;
+      ima=data[0].imag;
+      rea=(atan(ima/rea)+M_PI/2)/M_PI;
+      ly=(int)(rea*height);
+
+      for (int i=0;i<fftsize/2;i++)
+	{
+	  x=(int) (i/zoom);	
+
+	  rea=data[i].real;
+	  ima=data[i].imag;
+	  rea=(atan(ima/rea)+M_PI/2)/M_PI;
+	  y=(int)(rea*height);
+
+	  p.drawLine (lx,-ly,x,-y);
+	  lx=x;
+	  ly=y;
+	}
     }
 }
 //****************************************************************************
@@ -302,55 +463,31 @@ void FFTWidget::drawInterpolatedFFT ()
       int      lx,ly,y,x;
       double rea,ima;
 
-      if (phase)
-	  {
-	    lx=0;
-	    rea=data[0].real;
-	    ima=data[0].imag;
-	    rea=(atan(ima/rea)+M_PI/2)/M_PI;
-	    ly=(int)(rea*height);
+      lx=0;
+      rea=data[0].real;
+      ima=data[0].imag;
+      rea=sqrt(rea*rea+ima*ima);
+      ly=(int)((rea/this->max)*height);
 
-	    for (int i=0;i<fftsize/2;i++)
-	      {
-		x=(int) (i/zoom);	
+      for (int i=0;i<fftsize/2;i++)
+	{
+	  x=(int) (i/zoom);	
 
-		rea=data[i].real;
-		ima=data[i].imag;
-		rea=(atan(ima/rea)+M_PI/2)/M_PI;
-		y=(int)(rea*height);
+	  rea=data[i].real;
+	  ima=data[i].imag;
+	  rea=sqrt(rea*rea+ima*ima);
+	  y=(int)((rea/this->max)*height);
 
-		p.drawLine (lx,-ly,x,-y);
-		lx=x;
-		ly=y;
-	      }
-	  }
-	else
-	  {
-	    lx=0;
-	    rea=data[0].real;
-	    ima=data[0].imag;
-	    rea=sqrt(rea*rea+ima*ima);
-	    ly=(int)((rea/this->max)*height);
-
-	    for (int i=0;i<fftsize/2;i++)
-	      {
-		x=(int) (i/zoom);	
-
-		rea=data[i].real;
-		ima=data[i].imag;
-		rea=sqrt(rea*rea+ima*ima);
-		y=(int)((rea/this->max)*height);
-
-		p.drawLine (lx,-ly,x,-y);
-		lx=x;
-		ly=y;
-	      }
-	  }
+	  p.drawLine (lx,-ly,x,-y);
+	  lx=x;
+	  ly=y;
+	}
     }
 }
 //****************************************************************************
 void FFTWidget::paintEvent  (QPaintEvent *)
 {
+
   ///if pixmap has to be resized ...
   if ((rect().height()!=height)||(rect().width()!=width)||redraw)
     {
@@ -365,42 +502,29 @@ void FFTWidget::paintEvent  (QPaintEvent *)
       p.begin (pixmap);
       p.translate (0,height);
 
-      double ticks=width/5;
-      if (ticks>16)
-	{
-	  p.setPen (gray);
-	  double subticks=ticks/4;
-
-	  for (int i=1;i<5*4;i++)
-	    p.drawLine ((int) (i*subticks),0,(int) (i*subticks),-4);
-
-
-	  for (int i=1;i<5;i++)
-	    p.drawLine ((int) (i*ticks),0,(int) (i*ticks),-height);
-	}
-
-      ticks=height/5;
-      if (ticks>16)
-	{
-	  p.setPen (gray);
-	  double subticks=ticks/4;
-
-	  for (int i=1;i<5*4;i++)
-	    p.drawLine (0,-(int) (i*subticks),4,-(int) (i*subticks));
-
-
-	  for (int i=1;i<5;i++)
-	    p.drawLine (0,-(int) (i*ticks),width,-(int) (i*ticks));
-	}
-
       p.setPen (white);
       if (fftsize!=0)
 	{
 	  zoom=((double)fftsize)/(width*2);
 
-	  if (zoom>1)
-	    drawOverviewFFT();
-	  else drawInterpolatedFFT();
+	  if (phaseview)
+	    {
+	      if (zoom>1) drawOverviewPhase();
+	      else drawInterpolatedPhase();
+	    }
+	  else
+	    {
+	      if (db)
+		{
+		  if (zoom>1) drawOverviewDB();
+		  else drawInterpolatedDB();
+		}
+	      else
+		{
+		  if (zoom>1) drawOverviewFFT();
+		  else drawInterpolatedFFT();
+		}
+	    }
 	}
       p.end();
     }
@@ -434,18 +558,21 @@ void FFTContainer::resizeEvent	(QResizeEvent *)
       view->setGeometry	(bsize,0,width()-bsize,height()-bsize);  
       xscale->setGeometry	(bsize,height()-bsize,width()-bsize,bsize);  
       yscale->setGeometry	(0,0,bsize,height()-bsize);
-      corner->setGeometry	(0,height()-bsize,bsize,bsize);  
+      corner->setGeometry	(0,height()-bsize,bsize,bsize);
     }
 }
 //****************************************************************************
-FFTWindow::FFTWindow (const char *name) : KTopLevelWidget (name)
+FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
 {
+  QPopupMenu *fft=	new QPopupMenu ();
   QPopupMenu *view=	new QPopupMenu ();
   QPopupMenu *edit=	new QPopupMenu ();
-  KMenuBar *bar=	new KMenuBar (this); 
+  QPopupMenu *dbmenu=	new QPopupMenu ();
+  KMenuBar   *bar=	new KMenuBar (this); 
 
-  bar->insertItem	(klocale->translate("Spectral Data"),view);
-  bar->insertItem	(klocale->translate("Edit"),edit);
+  bar->insertItem	(klocale->translate("&Spectral Data"),fft);
+  bar->insertItem	(klocale->translate("&Edit"),edit);
+  bar->insertItem	(klocale->translate("&View"),view);
 
   status=new KStatusBar (this,"Frequencies Status Bar");
   status->insertItem ("Frequency:          0 Hz     ",1);
@@ -461,35 +588,69 @@ FFTWindow::FFTWindow (const char *name) : KTopLevelWidget (name)
 
   mainwidget->setObjects (fftview,xscale,yscale,corner);
 
-  edit->insertItem	(klocale->translate("Multiply"),fftview,SLOT(amplify()));
+  edit->insertItem	(klocale->translate("Multiply with graph"),fftview,SLOT(amplify()));
+  edit->insertItem	(klocale->translate("Multiply with formant pattern"),fftview,SLOT(formant()));
   edit->insertItem	(klocale->translate("Smooth"),fftview,SLOT(smooth()));
   edit->insertSeparator	();
   edit->insertItem	(klocale->translate("Kill phase"),fftview,SLOT(killPhase()));
 
-  view->insertItem	(klocale->translate("Inverse FFT"),fftview,SLOT(iFFT()));
+  fft->insertItem	(klocale->translate("Inverse FFT"),fftview,SLOT(iFFT()));
+  view->insertItem	(klocale->translate("Amplitude in %"),this,SLOT(percentMode()));
+  view->insertItem	(klocale->translate("Amplitude in dB"),dbmenu);
+
+  for (int i=0;i<110;i+=10)
+    {
+      char buf[10];
+      sprintf (buf,"0-%d dB",i+50);
+      dbmenu->insertItem (buf);
+    }
+  connect (dbmenu,SIGNAL (activated(int)),this,SLOT(dbMode(int)));
+  
+  view->insertItem (klocale->translate("Phase"),this,SLOT(phaseMode()));
 
   connect (fftview,SIGNAL(freqInfo(int,int)),this,SLOT(setFreqInfo(int,int)));
   connect (fftview,SIGNAL(ampInfo(int,int)),this,SLOT(setAmpInfo(int,int)));
+  connect (fftview,SIGNAL(dbInfo(int,int)),this,SLOT(setDBInfo(int,int)));
   connect (fftview,SIGNAL(phaseInfo(int,int)),this,SLOT(setPhaseInfo(int,int)));
-
   setView (mainwidget);
   setStatusBar (status);
   setMenu (bar);
   
-  setCaption ("Frequencies :"); 
+ QString *windowname=new QString (QString ("Frequencies of ")+QString(name->data()));
+  setCaption (windowname->data()); 
   resize (480,300);
   setMinimumSize (480,300);
 }
 //****************************************************************************
+void FFTWindow::phaseMode  ()
+{
+  fftview->phaseMode ();
+  yscale->setMaxMin (180,-180);
+  yscale->setUnit   ("°");
+}
+//****************************************************************************
+void FFTWindow::percentMode  ()
+{
+  fftview->percentMode ();
+  yscale->setMaxMin (0,100);
+  yscale->setUnit   ("%");
+}
+//****************************************************************************
+void FFTWindow::dbMode  (int mode)
+{
+  fftview->dbMode (50+mode*10);
+  yscale->setMaxMin (-(50+mode*10),0);
+  yscale->setUnit   ("db");
+}
+//****************************************************************************
 void FFTWindow::setSignal (complex *data,double max,int size, int rate)
 {
-  fftview->setSignal (data,max,size,rate);
+  fftview->setSignal (data,size,rate);
   xscale ->setMaxMin (rate/2,0); 
 }
 //****************************************************************************
-FFTWindow::~FFTWindow (QWidget *parent,const char *name)
+FFTWindow::~FFTWindow ()
 {
-  if (fftview)	delete fftview;
 }
 //****************************************************************************
 void FFTWindow::setFreqInfo  (int hz,int err)
@@ -503,8 +664,15 @@ void FFTWindow::setFreqInfo  (int hz,int err)
 void FFTWindow::setAmpInfo  (int amp,int err)
 {
   char buf[64];
-
+  
   sprintf (buf,"Amplitude: %d +/-%d %%",amp,err);
+  status->changeItem (buf,2);
+}
+//****************************************************************************
+void FFTWindow::setDBInfo  (int amp,int err)
+{
+  char buf[64];
+  sprintf (buf,"Amplitude: %d dB",amp);
   status->changeItem (buf,2);
 }
 //****************************************************************************

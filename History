@@ -1,28 +1,37 @@
 Version 0.29
 
-added as new Possibility to generate Signals: pulse series...
+implemented db scale for fft-view
+
+added reselection and cursor change
+
+added possibility of different display modes in Frequency representation
+
+fixed severe quantisation bug in saving 16Bit routine, reported by 
+
+mmaping support contributed by Juhana Kouhia
+
+added as new Possibility to generate Signals: pulse trains
 
 added wrapper for systems with no posixthreads -> still needs handling by configure script (change Makefile for not linking libpthread and doing a define)
 
 First use of multiple threads (pthreads) in some functions
 
-Pitch generation now independent of additive synthesys
+Pitch generation now independent of additive synthesis
 added import function for ascii files
 
 Ascii label saving now also by frequency
 
-Sonagram now also uses ScaleWidgets
-
 Label generation according to Period Detection (autocorellation)
 
-FFTView and Distortiondialog  now use ScaleWidgets
+Sonagram, FFTView and Distortion-Dialog  now use ScaleWidgets
 
 New ScaleWidget gives the user more information 
 
 Improved ProgressDialog and Interpolation class to allow multiple threads
-some minor bug fixes
 
-Version 0.28
+fixed some minor bug fixes
+
+Version 0.28 (July, 15  1998)
 
 changes in curvewidget (recent point has another pixmap).
 sorting of labels now works without overwriting of QGList::compareItems.

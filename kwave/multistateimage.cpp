@@ -1,3 +1,5 @@
+//provides methods of multistateWidget a Class that switches the image it
+// displays on clicking, used for the channel enable/disable lamps...
 #include <stdio.h>
 #include <qaccel.h>
 #include <qpntarry.h>

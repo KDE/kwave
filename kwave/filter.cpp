@@ -5,7 +5,7 @@
 
 extern QDir *filterDir;
 extern QStrList *filterNameList;
-
+const char *allow_double="-0123456789.";
 //**********************************************************
 Filter::Filter ()
 {
@@ -273,8 +273,8 @@ void FilterDialog::refresh ()
 	    if (rea>maxp) maxp=rea;
 	  }
 
-	phasewidget->setPhase (data,maxp,points,filter.rate);
-	filterwidget->setSignal (data,maxp,points,filter.rate);
+	phasewidget->setPhase (data,points,filter.rate);
+	filterwidget->setSignal (data,points,filter.rate);
 	filterwidget->refresh();
 	phasewidget->refresh();
       }
@@ -471,10 +471,10 @@ MovingFilterDialog::MovingFilterDialog (QWidget *par=NULL,int num): QDialog(par,
   usecurve=new QCheckBox (klocale->translate("do filtering with changing coefficient"),this);
 
   low=new KRestrictedLine (this);
-  low->setValidChars ("-0123456789.");
+  low->setValidChars (allow_double);
   low->setText ("-100 %");
   high=new KRestrictedLine (this);
-  high->setValidChars ("-0123456789.");
+  high->setValidChars (allow_double);
   high->setText ("100 %");
 
   curve= new CurveWidget (this);
@@ -529,22 +529,17 @@ void MovingFilterDialog::checkTap (const char *text)
 //**********************************************************
 int MovingFilterDialog::getTap ()
 {
-  const char *buf=tap->text();
-  return strtol (buf,0,0);
+  return strtol (tap->text(),0,0);
 }
 //**********************************************************
 int MovingFilterDialog::getLow ()
 {
-  const char *buf=low->text();
-  double x=strtod (buf,0);
-  return (int) (x*10);
+  return (int) (10*strtod (low->text(),0));
 }
 //**********************************************************
 int MovingFilterDialog::getHigh ()
 {
-  const char *buf=high->text();
-  double x=strtod (buf,0);
-  return (int) (x*10);
+  return (int) (10*strtod (high->text(),0));
 }
 //**********************************************************
 int MovingFilterDialog::getState ()
@@ -559,7 +554,7 @@ QList<CPoint> *MovingFilterDialog::getPoints ()
 //**********************************************************
 int MovingFilterDialog::getType ()
 {
-  return curve->getType();
+  return curve->getInterpolationType();
 }
 //**********************************************************
 void MovingFilterDialog::resizeEvent (QResizeEvent *)

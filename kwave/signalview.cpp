@@ -1,6 +1,8 @@
-#define _REENTRANT
+//methods for SignalWidget the view for MSignal objects.
+//methods concerning markers may be found in markers.cpp
 #include <qobject.h>
 #include <qpainter.h>
+#include <qcursor.h>
 #include <math.h>
 #include <limits.h>
 #include "classes.h"
@@ -21,7 +23,7 @@ __inline void  getMaxMin (int *sample,int len,int &max,int &min)
     }
 }
 //****************************************************************************
-SigWidget::SigWidget (QWidget *parent,const char *name) : QWidget (parent,name)
+SignalWidget::SignalWidget (QWidget *parent,const char *name) : QWidget (parent,name)
 {
   playing=false;
   redraw=false;
@@ -46,22 +48,24 @@ SigWidget::SigWidget (QWidget *parent,const char *name) : QWidget (parent,name)
 
   setBackgroundColor (black);
 
+  setMouseTracking (true);
+
   connect (this,SIGNAL(channelReset()),this->parent(),SLOT(resetChannels()));
 }
 //****************************************************************************
-SigWidget::~SigWidget (QWidget *parent,const char *name)
+SignalWidget::~SignalWidget (QWidget *parent,const char *name)
 {
 	if (pixmap==0)	delete pixmap;
 	if (signal!=0)	delete signal;
 	if (markers)    delete markers;
 }
 //****************************************************************************
-void SigWidget::saveSignal  (QString *filename,int bit,int selection)
+void SignalWidget::saveSignal  (QString *filename,int bit,int selection)
 {
   if (signal) signal->save (filename,bit,selection);
 }
 //****************************************************************************
-unsigned char *SigWidget::getOverview (int size)
+unsigned char *SignalWidget::getOverview (int size)
 {
   int step,max=0,min=0;
 
@@ -90,13 +94,16 @@ unsigned char *SigWidget::getOverview (int size)
   return overview;
 }
 //****************************************************************************
-void SigWidget::toggleChannel (int channel)
+void SignalWidget::toggleChannel (int channel)
 {
   if (signal)
   signal->toggleChannel (0,channel);
 }
 //****************************************************************************
-void SigWidget::setRangeOp (int op)
+void SignalWidget::setRangeOp (int op)
+  //this one catches all functions from mainwidget and topwidget that should
+  //not be delivered to MSignal... 
+  //some id's need additional handling ... 
 {
   if (signal)
     {
@@ -147,6 +154,9 @@ void SigWidget::setRangeOp (int op)
 	      if (offset<0) offset=0;
 	      refresh();
 	    }
+	  break;
+	case TOPITCH:
+	  convertMarkstoPitch ();
 	  break;
 	case DELETEMARK:
 	  deleteMarks ();
@@ -238,18 +248,24 @@ void SigWidget::setRangeOp (int op)
 	    TimeDialog dialog (this,signal->getRate(),"Select Range");
 	    if (dialog.exec())
 	      {
-		int len=dialog.getLength()*signal->getRate()/1000;
-		setRange	(l,l+len);
+		int len=dialog.getLength();
+		int siglen=signal->getLength();
+		if ((l+len)>siglen) setRange (l,siglen); //overflow check
+		  else
+		setRange (l,l+len);
 	      }
 	    break;
 	  }
 	}
     }
-  else if (op==NEW)
+  if (op==NEW)
     {
       NewSampleDialog *dialog=new NewSampleDialog (this);
       if (dialog->exec())
 	{
+	  if (signal) delete signal;
+	  markers->clear ();	  
+
 	  int rate=dialog->getRate();
 	  int numsamples=dialog->getLength();
 
@@ -257,7 +273,7 @@ void SigWidget::setRangeOp (int op)
 
 	  if ((signal)&&(signal->getLength()))
 	    {
-	      markers->clear ();
+
 	      offset=0;
 	      connect (signal,SIGNAL(sampleChanged()),this,SLOT(refresh()));
 	      connect (signal,SIGNAL(signalinserted(int,int)),this,SLOT(signalinserted(int,int)));
@@ -276,7 +292,7 @@ void SigWidget::setRangeOp (int op)
     }
 }
 //****************************************************************************
-void SigWidget::setRange  (int l,int r)
+void SignalWidget::setRange  (int l,int r)
 {
   down=true;
   reset=true;
@@ -298,7 +314,7 @@ void SigWidget::setRange  (int l,int r)
    }
 }
 //****************************************************************************
-void SigWidget::setSignal  (MSignal *sig)
+void SignalWidget::setSignal  (MSignal *sig)
 {
   if (signal) delete signal;
   markers->clear ();
@@ -320,7 +336,7 @@ void SigWidget::setSignal  (MSignal *sig)
     }
 }
 //****************************************************************************
-void SigWidget::setSignal  (QString *filename)
+void SignalWidget::setSignal  (QString *filename)
 {
   if (signal) delete signal;
   signal=new MSignal (this,filename);
@@ -344,7 +360,7 @@ void SigWidget::setSignal  (QString *filename)
     }
 }
 //****************************************************************************
-void SigWidget::calcTimeInfo ()
+void SignalWidget::calcTimeInfo ()
 {
   if (signal)
     {
@@ -356,7 +372,7 @@ void SigWidget::calcTimeInfo ()
     }
 }
 //****************************************************************************
-void SigWidget::time ()
+void SignalWidget::time ()
 {
   int scr=signal->getPlayPosition()-offset;
 
@@ -376,7 +392,7 @@ void SigWidget::time ()
     emit playingfinished();
 }
 //****************************************************************************
-void SigWidget::setZoom (double zoom)
+void SignalWidget::setZoom (double zoom)
 {
   if (signal)
     this->zoom=(((double) signal->getLength())/width)*zoom/100;
@@ -384,13 +400,13 @@ void SigWidget::setZoom (double zoom)
   refresh();
 }
 //****************************************************************************
-void SigWidget::zoomNormal	()
+void SignalWidget::zoomNormal	()
 {
   zoom=1;
   refresh();
 }
 //****************************************************************************
-void SigWidget::zoomOut		()
+void SignalWidget::zoomOut		()
 {
   offset-=int (zoom*width);
   if (offset<0) offset=0;
@@ -398,7 +414,7 @@ void SigWidget::zoomOut		()
   refresh();
 }
 //****************************************************************************
-void SigWidget::zoomIn		()
+void SignalWidget::zoomIn		()
 {
   offset+=int (zoom*width/2);
   zoom/=3;
@@ -406,7 +422,7 @@ void SigWidget::zoomIn		()
   refresh();
 }
 //****************************************************************************
-void SigWidget::zoomRange	()
+void SignalWidget::zoomRange	()
 {
   if (signal)
     {
@@ -421,7 +437,7 @@ void SigWidget::zoomRange	()
     }
 }
 //****************************************************************************
-void SigWidget::refresh	()
+void SignalWidget::refresh	()
 {
   redraw=true;
   repaint (false);
@@ -441,7 +457,7 @@ void SigWidget::refresh	()
       }
 };
 //****************************************************************************
-void SigWidget::setOffset	(int no)
+void SignalWidget::setOffset	(int no)
 {
   if (signal!=0)
     {
@@ -451,25 +467,73 @@ void SigWidget::setOffset	(int no)
     }
 }
 //****************************************************************************
-void SigWidget::mousePressEvent( QMouseEvent *e)
+int SignalWidget::checkPosition (int x)
+  //returns true, if given x coordinates is within bonds of area,
+  // in which labels may be reset...
+{
+  if (signal)
+    {
+      int len=signal->getLength();
+      long int r=signal->getRMarker();
+      long int l=signal->getLMarker();
+
+      if (r-l!=0)
+	{
+	  int tol=width/50; //2 % of width tolerance
+
+	  r=r*width/len;
+	  l=l*width/len;
+
+	  if ((x<firstx+tol)&&(x>firstx-tol))
+	    return firstx+1;
+
+	  if ((x<lastx+tol)&&(x>lastx-tol))
+	    return lastx+1;
+	}
+    }
+  return false;
+}
+//****************************************************************************
+void SignalWidget::mousePressEvent(QMouseEvent *e)
 {
   if (!playing)
     {
       if (e->button()==LeftButton)
 	{
-	  down	= TRUE;
-	  reset	= TRUE;
-	  repaint(false);
-	  reset	= false;
-	  firstx =e->pos().x();
-	  lastx	=-1;
-	  nextx	=-1;
+	  int x=e->pos().x();
+	  int pos=checkPosition (x);
+	  if (pos)
+	    {
+	      down= true;
+	      nextx=x;
+	      if (pos-1==firstx)
+		{
+		  int x=lastx;
+		  reset=true;
+		  repaint (false);		  
+		  reset=false;
+		  firstx=x;
+		  lastx=-1;
+		  nextx=-1;
+		}	      
+	      repaint (false);
+	    }
+	  else
+	    {
+	      down	= true;
+	      reset	= true;
+	      repaint(false);
+	      reset	= false;
+	      firstx    =x;
+	      lastx	=-1;
+	      nextx	=-1;
+	    }
 	}
-      if (e->button()==RightButton) lasty=e->pos().y();
     }
+  if (e->button()==RightButton) lasty=e->pos().y();
 }
 //****************************************************************************
-void SigWidget::mouseReleaseEvent( QMouseEvent *e)
+void SignalWidget::mouseReleaseEvent( QMouseEvent *e)
 {
   if (down)
     {
@@ -486,23 +550,31 @@ void SigWidget::mouseReleaseEvent( QMouseEvent *e)
 	{
 	  if (firstx>lastx)
 	    {
-	      signal->setMarkers	((int)(((double)lastx)*zoom)+offset,(int)(((double)firstx)*zoom)+offset);
-	      emit selectedtimeInfo((int)((firstx-lastx)*zoom*10000/signal->getRate()));
+	      signal->setMarkers ((int)(((double)lastx)*zoom)+offset,
+				  (int)(((double)firstx)*zoom)+offset);
+	      emit selectedtimeInfo((int)((firstx-lastx)*zoom*10000/
+					  signal->getRate()));
 	    }
 	  else
 	    {
-	      signal->setMarkers ((int)(firstx*zoom)+offset,(int)(lastx*zoom)+offset);
-	      emit selectedtimeInfo((int)((lastx-firstx)*zoom*10000/signal->getRate()));
+	      signal->setMarkers ((int)(firstx*zoom)+offset,
+				  (int)(lastx*zoom)+offset);
+	      emit selectedtimeInfo((int)((lastx-firstx)*zoom*10000/
+					  signal->getRate()));
 	    }
 	}
     }
 }
 //****************************************************************************
-void SigWidget::mouseMoveEvent( QMouseEvent *e )
+void SignalWidget::mouseMoveEvent( QMouseEvent *e )
 {
   if (e->state()==RightButton)
     {
-	double old=zoomy;
+      //zooming on y axis... not very useful, will perhaps be replaced by
+      //more useful funcitonality...
+      // also very time consuming, because the hole viewable range of signal
+      //has to be redisplayed with every mousemove...
+      double old=zoomy;
 
       zoomy+=(double (e->pos().y()-lasty))*2/height;
 
@@ -512,31 +584,43 @@ void SigWidget::mouseMoveEvent( QMouseEvent *e )
 
       lasty=e->pos().y();
       
-	if (zoomy!=old)
-	 {
-	      redraw	= TRUE;
-	      repaint();
-	 }
+      if (zoomy!=old)
+	{
+	  redraw	= true;
+	  repaint();
+	}
     }
-  if (down) {
-    lastx=nextx;
-    nextx=e->pos().x();             // add point
-    if (nextx<0) nextx=0;
-    if (nextx>width) nextx=width;
 
-    repaint (false);
+  if (down)
+    {
+      //in move mode , a new selection was created, this does the changes
+      //with every mouse move...
+      lastx=nextx;
+      nextx=e->pos().x();             
+      if (nextx<0) nextx=0;
+      if (nextx>width) nextx=width;
 
-    if (signal)
-      {
-	if (firstx>lastx)
-	  emit	selectedtimeInfo((int)((firstx-lastx)*zoom*10000/signal->getRate()));
-	else
-	  emit	selectedtimeInfo((int)((lastx-firstx)*zoom*10000/signal->getRate()));
-      }
-  }
+      repaint (false);
+
+      if (signal)
+	{
+	  int rate=signal->getRate();
+	  if (firstx>lastx)
+	    emit selectedtimeInfo((int)((firstx-lastx)*zoom*10000/rate));
+	  else
+	    emit selectedtimeInfo((int)((lastx-firstx)*zoom*10000/rate));
+	}
+    }
+  else 
+    //yes, this bunch of code gives the nifty cursor change....
+
+    if (checkPosition (e->pos().x()))
+      setCursor (sizeHorCursor);
+    else 
+      setCursor (arrowCursor);
 }
 //****************************************************************************
-void SigWidget::deleteLastRange  ()
+void SignalWidget::deleteLastRange  ()
 {
   if (lastx>=0)
     if (lastx==firstx)	//is it a single line ?
@@ -549,7 +633,7 @@ void SigWidget::deleteLastRange  ()
       p.drawRect (firstx,-height/2,lastx-firstx,height);
 }
 //****************************************************************************
-void SigWidget::drawRange  ()
+void SignalWidget::drawRange  ()
 {
 
   if (firstx>=0)
@@ -565,7 +649,7 @@ void SigWidget::drawRange  ()
       }
 }
 //****************************************************************************
-void SigWidget::drawSignal (int *sam,int begin,int height)
+void SignalWidget::drawSignal (int *sam,int begin,int height)
 {
   int lx,x;
   int div=65536;
@@ -580,7 +664,7 @@ void SigWidget::drawSignal (int *sam,int begin,int height)
     }
 }
 //****************************************************************************
-void SigWidget::drawOverviewSignal (int *sam,int begin, int height)
+void SignalWidget::drawOverviewSignal (int *sam,int begin, int height)
 {
   int step,max=0,min=0;
   int div=65536;
@@ -596,7 +680,7 @@ void SigWidget::drawOverviewSignal (int *sam,int begin, int height)
     }
 }
 //****************************************************************************
-void SigWidget::drawInterpolatedSignal (int *sam,int begin, int height)
+void SignalWidget::drawInterpolatedSignal (int *sam,int begin, int height)
 {
   double	f;
   int 	j,lx,x,x1,x2;
@@ -620,219 +704,238 @@ void SigWidget::drawInterpolatedSignal (int *sam,int begin, int height)
     }
 }
 //****************************************************************************
-void SigWidget::paintEvent  (QPaintEvent *event)
+void SignalWidget::drawSelection (int r, int l)
 {
-  int updateall=false;
-  int update[2]={-1,-1};
-
-  ///if pixmap has to be resized ... or is not allocated ...
-  if ((rect().height()!=height)||(rect().width()!=width)||(pixmap==0))
+  if (lastx!=-1)
     {
-      height=rect().height();
-      width=rect().width();
+      firstx	=(int)((double)(l-offset)/zoom);
+      lastx	=(int)((double)(r-l)/zoom);
 
-      if (pixmap) delete pixmap;
-      pixmap=new QPixmap (size());
-      pixmap->fill (this,0,0);
-      updateall=true;
-    }
+      if (lastx!=0)	firstx++;
 
-  p.begin (pixmap);
-  p.setPen (QPen(NoPen));
-  p.translate (0,height/2);
-
-  if (updateall||redraw)
-    {
-      if (redraw)
+      if ((firstx<width)&&(firstx+lastx>0))  //just another error check
 	{
-	  p.fillRect	(0,-height/2,width,height,black);
-	  redraw=false;
-	}	
-
-      p.setPen (white);
-
-      if ((signal)&&(signal->getLength()))
-	{
-	  int chanheight=height/signal->getChannels ();
-
-	  int 	l=signal->getLMarker();
-	  int 	r=signal->getRMarker();
-
-	  //if zoom is to big find maximum zoom
-	  if (((zoom*width)>signal->getLength())||(zoom<=0))
-	    zoom=((double)signal->getLength())/width;
-
-	  //if zoom is to big for part of the signal to be displayed
-	  //show more of the signal by changing offset...
-	  if (((int)(((double)width)*zoom))>signal->getLength()-offset)
-	    offset=signal->getLength()-((int)((((double)width)*zoom)+.5));
-	  //seems to get in here, even when using double
-	  MSignal *tmp=signal;
-
-	  int begin=-height/2+chanheight/2;
-
-	  while (tmp!=0)
+	  if (firstx<0)
 	    {
-	      int *sam=tmp->getSample();
-
-
-	      if (sam)
-		{
-		  if (tmp->getLockState()>=0) //signal is not changed meanwhile 
-		    {
-		      if (zoom<1)        drawInterpolatedSignal(sam,begin,chanheight);
-		      else 	if (zoom>1)  drawOverviewSignal(sam,begin,chanheight);
-		      else	             drawSignal (sam,begin,chanheight);
-
-		    }
-		  p.setPen (green);
-		  p.drawLine (0,begin,width,begin);
-		  p.setPen (white);
-		  begin+=chanheight;
-		  tmp=tmp->getNext();
-		}
+	      lastx+=firstx;
+	      firstx=0;
 	    }
+	  if (lastx>width) lastx=width;
 
-	  // show selected range ...
-	  if (lastx!=-1)
-	    {
-	      firstx	=(int)((double)(l-offset)/zoom);
-	      lastx	=(int)((double)(r-l)/zoom);
-
-	      if (lastx!=0)	firstx++;
-
-	      if ((firstx<width)&&(firstx+lastx>0))  //just another error check
-		{
-		  if (firstx<0)
-		    {
-		      lastx+=firstx;
-		      firstx=0;
-		    }
-		  if (lastx>width) lastx=width;
-
-		  p.setBrush (yellow);
-		  p.setRasterOp (XorROP);
-
-		  if (r==l)
-		    {
-		      p.setPen 	(green);
-		      p.drawLine	(firstx,-height/2,firstx,height);
-		      lastx=firstx;
-		    }
-		  else
-		    {
-		      p.setPen	(yellow);
-		      p.drawRect	(firstx,-height/2,lastx,height);
-		      lastx=firstx+lastx;
-		    }
-		  nextx=-1;
-		}
-	    }
-	  updateall=true;
-	}
-      lastplaypointer=-1;
-
-
-	  p.setRasterOp (CopyROP);
-	  // show the labels
-	  Marker *act;
-	  int lastpos=(int)(offset+width*zoom);
-	  for (act=markers->first();act;act=markers->next())
-	    {
-	      if (((int)act->pos>=offset)&&((int)act->pos<lastpos))
-		{
-		  int x=(int)((act->pos-offset)/zoom);
-		  p.setPen (*(act->type->color));
-		  p.drawLine (x,-height/2,x,height/2);
-		  lastx=-1;
-
-		  if (act->name)
-		    {
-		      int w=p.fontMetrics().width (act->name->data());
-		      int h=p.fontMetrics().height();
-
-		      p.fillRect (x-w/2-1,-height/2+1,w+2,h+2,QBrush(gray));
-		      p.setPen (white);
-		      p.drawLine (x-w/2-2,-height/2+1,x+w/2+1,-height/2+1);
-		      p.drawLine (x-w/2-2,(-height/2)+1,x-w/2-2,(-height/2)+1+h);
-		      p.setPen (black);
-		      p.drawLine (x+w/2+1,(-height/2)+1,x+w/2+1,(-height/2)+1+h);
-		      p.drawText (x-w/2,-height/2+3,w,h,AlignCenter,act->name->data());
-		    }
-		  
-		}
-	    }
-    }
-  else
-    {	//no full repaint needed ... here only the playing marker or the range markers gets updated
-      if ((down)&&(!playing))
-	{
 	  p.setBrush (yellow);
-	  p.setPen (yellow);
 	  p.setRasterOp (XorROP);
 
-	  if (reset)			//initial redraw after click
-	    {				
-	      if (lastx!=-1) deleteLastRange ();
-	      lastx=-1;
-	    }
-	  else 
+	  if (r==l)
 	    {
-	      if (lastx!=nextx);
-	      {
-		if (lastx>=0) deleteLastRange ();
-		drawRange ();
-	      }
+	      p.setPen 	(green);
+	      p.drawLine	(firstx,-height/2,firstx,height);
+	      lastx=firstx;
 	    }
-	  updateall=true;
+	  else
+	    {
+	      p.setPen	(yellow);
+	      p.drawRect	(firstx,-height/2,lastx,height);
+	      lastx=firstx+lastx;
+	    }
+	  nextx=-1;
 	}
     }
+}
+//****************************************************************************
+void SignalWidget::paintEvent  (QPaintEvent *event)
+{
+  int update[2]={-1,-1};
+  int updateall=false;
 
-  if (playpointer>=0)
-    {
-      p.setRasterOp (XorROP);
-      p.setPen (green);
+  ///if pixmap has to be resized ... or is not yet allocated ...
 
-      if (lastplaypointer >=0)
-	p.drawLine (lastplaypointer,-height/2,lastplaypointer,height);
+    if ((rect().height()!=height)||(rect().width()!=width)||(pixmap==0))
+      {
+	height=rect().height();
+	width=rect().width();
 
-      p.drawLine (playpointer,-height/2,playpointer,height);
-      update[1]=lastplaypointer;
-      lastplaypointer=playpointer;
-      update[0]=playpointer;
-      playpointer=-1;
-    }
-  else
-    if (lastplaypointer >=0)
+	if (pixmap) delete pixmap;
+	pixmap=new QPixmap (size());
+	pixmap->fill (this,0,0);
+	updateall=true;
+      }
+
+    p.begin (pixmap);
+    p.setPen (QPen(NoPen));
+    p.translate (0,height/2);
+
+    if (updateall||redraw)
+      {
+	if (redraw)
+	  {
+	    p.fillRect	(0,-height/2,width,height,black);
+	    redraw=false;
+	  }	
+
+	p.setPen (white);
+
+	if ((signal)&&(signal->getLength()))
+	  {
+	    int chanheight=height/signal->getChannels ();
+
+	    int 	l=signal->getLMarker();
+	    int 	r=signal->getRMarker();
+
+	    //if zoom is to big find maximum zoom
+	    if (((zoom*width)>signal->getLength())||(zoom<=0))
+	      zoom=((double)signal->getLength())/width;
+
+	    //if zoom is to big for part of the signal to be displayed
+	    //show more of the signal by changing offset...
+	    if (((int)(((double)width)*zoom))>signal->getLength()-offset)
+	      offset=signal->getLength()-((int)((((double)width)*zoom)+.5));
+	    //seems to get in here, even when using double
+	    MSignal *tmp=signal;
+
+	    int begin=-height/2+chanheight/2;
+
+	    while (tmp!=0)
+	      {
+		int *sam=tmp->getSample();
+
+		if (sam)
+		  {
+		    if (tmp->getLockState()>=0) //signal is not changed meanwhile 
+		      {
+			if (zoom<1)        drawInterpolatedSignal(sam,begin,chanheight);
+			else 	if (zoom>1)  drawOverviewSignal(sam,begin,chanheight);
+			else	             drawSignal (sam,begin,chanheight);
+
+		      }
+		    p.setPen (green);
+		    p.drawLine (0,begin,width,begin);
+		    p.setPen (white);
+		    begin+=chanheight;
+		    tmp=tmp->getNext();
+		  }
+	      }
+
+	    // show selected range ...
+	    drawSelection (r,l);
+	    updateall=true;
+	  }
+	lastplaypointer=-1;
+
+
+	p.setRasterOp (CopyROP);
+	// show the labels
+	Marker *act;
+	int lastpos=(int)(offset+width*zoom);
+	for (act=markers->first();act;act=markers->next())
+	  {
+	    if (((int)act->pos>=offset)&&((int)act->pos<lastpos))
+	      {
+		int x=(int)((act->pos-offset)/zoom);
+		p.setPen (*(act->type->color));
+		p.drawLine (x,-height/2,x,height/2);
+		lastx=-1;
+
+		if (act->name)
+		  {
+		    int w=p.fontMetrics().width (act->name->data());
+		    int h=p.fontMetrics().height();
+
+		    p.fillRect (x-w/2-1,-height/2+1,w+2,h+2,QBrush(gray));
+		    p.setPen (white);
+		    p.drawLine (x-w/2-2,-height/2+1,x+w/2+1,-height/2+1);
+		    p.drawLine (x-w/2-2,(-height/2)+1,x-w/2-2,(-height/2)+1+h);
+		    p.setPen (black);
+		    p.drawLine (x+w/2+1,(-height/2)+1,x+w/2+1,(-height/2)+1+h);
+		    p.drawText (x-w/2,-height/2+3,w,h,AlignCenter,act->name->data());
+		  }
+	      }
+	  }
+      }
+    else
+      {	//no full repaint needed...
+	//only the playing marker or the range markers gets updated
+	if ((down)&&(!playing))
+	  {
+	    p.setBrush (yellow);
+	    p.setPen (yellow);
+	    p.setRasterOp (XorROP);
+
+	    if (reset)			//initial redraw after click
+	      {				
+		if (lastx!=-1) deleteLastRange ();
+		lastx=-1;
+	      }
+	    else 
+	      {
+		if (lastx!=nextx);
+		{
+		  if (lastx>=0) deleteLastRange ();
+		  drawRange ();
+		}
+	      }
+	    updateall=true;
+	  }
+      }
+
+    if (playpointer>=0)
       {
 	p.setRasterOp (XorROP);
 	p.setPen (green);
-	p.drawLine (lastplaypointer,-height/2,lastplaypointer,height);
-	update[0]=lastplaypointer;
-	lastplaypointer=-1;
+
+	if (lastplaypointer >=0)
+	  p.drawLine (lastplaypointer,-height/2,lastplaypointer,height);
+
+	p.drawLine (playpointer,-height/2,playpointer,height);
+	update[1]=lastplaypointer;
+	lastplaypointer=playpointer;
+	update[0]=playpointer;
+	playpointer=-1;
       }
-
-  p.end();
-
-  if (updateall)
-    {
-      if (signal)
+    else
+      if (lastplaypointer >=0)
 	{
-	  int maxofs=((int) (((double)width)*zoom+.5));
-	  emit viewInfo	(offset,maxofs,signal->getLength());
+	  p.setRasterOp (XorROP);
+	  p.setPen (green);
+	  p.drawLine (lastplaypointer,-height/2,lastplaypointer,height);
+	  update[0]=lastplaypointer;
+	  lastplaypointer=-1;
 	}
-      bitBlt (this,0,0,pixmap);
-    }
-  else
-    if (update[0]<0)
-      {
-	QRect	pos=event->rect();
-	bitBlt (this,pos.topLeft(),pixmap,pos);
-      }
 
-  if (update[0]!=-1) bitBlt (this,update[0],0,pixmap,update[0],0,1,height);
-  if (update[1]!=-1) bitBlt (this,update[1],0,pixmap,update[1],0,1,height);
+    p.end();
+
+    if (updateall)
+      {
+	if (signal)
+	  {
+	    int maxofs=((int) (((double)width)*zoom+.5));
+	    emit viewInfo	(offset,maxofs,signal->getLength());
+	  }
+	bitBlt (this,0,0,pixmap);
+      }
+    else
+      if (update[0]<0)
+	{
+	  QRect	pos=event->rect();
+	  bitBlt (this,pos.topLeft(),pixmap,pos);
+	}
+
+    if (update[0]!=-1) bitBlt (this,update[0],0,pixmap,update[0],0,1,height);
+    if (update[1]!=-1) bitBlt (this,update[1],0,pixmap,update[1],0,1,height);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

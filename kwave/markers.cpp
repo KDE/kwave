@@ -1,18 +1,25 @@
+//This File includes methods of class SignalWidget that deal with markers
+//it also contains methods of Marker and MarkerType class.
+
 #include <qobject.h>
 #include <qpainter.h>
 #include <math.h>
 #include <limits.h>
 #include "classes.h"
 #include "dialogs.h"
+#include "pitchwidget.h"
 
-#define	AUTOKORRWIN 320
+#define	AUTOKORRWIN 320 
+//windowsize for autocorellation, propably a little bit to short for
+//lower frequencies, but this will get configurable in future
 
 extern QList<MarkerType>*markertypes;
 int findNextRepeat       (int *,int);
-int findNextRepeatOctave (int *,int);
+int findNextRepeatOctave (int *,int,double =1.005);
 int findFirstMark  (int *,int);
 float autotable  [AUTOKORRWIN];
 float weighttable[AUTOKORRWIN];
+//****************************************************************************
 Marker::Marker ()
 {
   name=0;
@@ -51,7 +58,7 @@ MarkerType::~MarkerType ()
   if (color)delete color;
 }
 //****************************************************************************
-void SigWidget::signalinserted (int start, int len)
+void SignalWidget::signalinserted (int start, int len)
 {
   struct Marker *tmp;
   for (tmp=markers->first();tmp;tmp=markers->next()) 
@@ -59,19 +66,22 @@ void SigWidget::signalinserted (int start, int len)
   refresh ();
 }
 //****************************************************************************
-void SigWidget::signaldeleted (int start, int len)
+void SignalWidget::signaldeleted (int start, int len)
 {
   struct Marker *tmp;
-  for (tmp=markers->last();tmp;tmp=markers->prev())
+  for (tmp=markers->first();tmp;tmp=markers->next())
     {
-      if ((tmp->pos>start)&&(tmp->pos<start+len))
-   	markers->remove ();
-      if (tmp->pos>=start+len) tmp->pos-=len;
+      if ((tmp->pos>start)&&(tmp->pos<start+len)) //if marker position is within selected boundaries
+	{
+	  markers->remove ();
+	  tmp=markers->first();
+	}
+      if (tmp->pos>=start+len) tmp->pos-=len;  //if it is greater correct position
     }
   refresh ();
 }
 //****************************************************************************
-void SigWidget::deleteMarks ()
+void SignalWidget::deleteMarks ()
 {
   if (signal)
     {
@@ -80,20 +90,23 @@ void SigWidget::deleteMarks ()
       int r=signal->getRMarker();
 
       for (tmp=markers->first();tmp;tmp=markers->next())  
-	if ((tmp->pos>=l)&&(tmp->pos<r)) markers->removeRef (tmp);
-
+	if ((tmp->pos>=l)&&(tmp->pos<r))
+	  {
+	    markers->remove (tmp);
+	    tmp=markers->first();
+	  }
       refresh ();
     }
 }
 //****************************************************************************
-void SigWidget::loadMarks ()
+void SignalWidget::loadMarks ()
 {
   markers->clear(); //remove old marks...
 
   appendMarks ();
 }
 //****************************************************************************
-void SigWidget::appendMarks ()
+void SignalWidget::appendMarks ()
 {
   char buf[120];
   QString name=QFileDialog::getOpenFileName (0,"*.label",this);
@@ -177,7 +190,7 @@ void SigWidget::appendMarks ()
   refresh ();
 }
 //****************************************************************************
-void SigWidget::saveMarks ()
+void SignalWidget::saveMarks ()
 {
   MarkSaveDialog dialog(this);
   if (dialog.exec())
@@ -194,7 +207,8 @@ void SigWidget::saveMarks ()
 	  Marker     *tmp;
 	  MarkerType *act;
 
-	  for (act=markertypes->first();act;act=markertypes->next()) //write out label types
+	  for (act=markertypes->first();act;act=markertypes->next())
+	    //write out all label types
 	    if (act->selected)
 	      {
 		sprintf (buf,"Type %d %s %d %d %d %d\n",num,act->name->data(),act->named,act->color->red(),act->color->green(),act->color->blue());
@@ -204,7 +218,8 @@ void SigWidget::saveMarks ()
 	  out.writeBlock ("Samples\n",8);
 	  for (tmp=markers->first();tmp;tmp=markers->next())  //write out labels
 	    {
-	      if (tmp->type->named)
+	      //type must be named, and qstring name must be non-null
+	      if ((tmp->type->named)&&(tmp->name))
 		sprintf (buf,"%d %d %s\n",tmp->type->selected,tmp->pos,tmp->name->data());
 	      else 
 		sprintf (buf,"%d %d\n",tmp->type->selected,tmp->pos);
@@ -214,17 +229,17 @@ void SigWidget::saveMarks ()
     }
 }
 //****************************************************************************
-void SigWidget::addMark ()
+void SignalWidget::addMark ()
 {
   if (signal&&markertype)
     {
       Marker *newmark=new Marker;
-	    
+
       newmark->pos=signal->getLMarker();
       newmark->type=markertype;
       if (markertype->named)
 	{
-	  StringEnterDialog dialog(this);
+	  StringEnterDialog dialog(this,"Please Enter Name :");
 	  if (dialog.exec())
 	    {   
 	      newmark->name=new QString (dialog.getString());
@@ -241,11 +256,11 @@ void SigWidget::addMark ()
     }
 }
 //****************************************************************************
-void SigWidget::savePeriods ()
+void SignalWidget::savePeriods ()
 {
   if (signal)
     {
-      MarkSaveDialog dialog (this,"Select label type :",false);
+      MarkSaveDialog dialog (this,"Select label type(s) to be saved:",false);
       if (dialog.exec())
 	{
 	  dialog.getSelection();
@@ -300,7 +315,7 @@ void SigWidget::savePeriods ()
     }
 }
 //****************************************************************************
-void SigWidget::saveBlocks (int bit)
+void SignalWidget::saveBlocks (int bit)
 {
     if (signal)
     {
@@ -342,7 +357,7 @@ void SigWidget::saveBlocks (int bit)
     }
 }
 //****************************************************************************
-void SigWidget::markSignal ()
+void SignalWidget::markSignal ()
 {
   if (signal)
     {
@@ -402,22 +417,22 @@ void SigWidget::markSignal ()
     }
 }
 //****************************************************************************
-void SigWidget::markPeriods ()
+void SignalWidget::markPeriods ()
 {
   if (signal)
     {
-      PitchDialog dialog;
+      PitchDialog dialog (this,signal->getRate()) ;
       if (dialog.exec())
 	{
 	  int high   =signal->getRate()/dialog.getHigh();
 	  int low    =signal->getRate()/dialog.getLow();
-	  int octave =signal->getRate()/dialog.getLow();
+	  int octave =dialog.getOctave();
+	  double adjust=1+((double)dialog.getAdjust()/1000);
 
 	  for (int i=0;i<AUTOKORRWIN;i++)
-	    autotable[i]=1-(((double)i*i*i)/(AUTOKORRWIN*AUTOKORRWIN*AUTOKORRWIN));
-	  if (octave)
-	  for (int i=0;i<AUTOKORRWIN;i++)
-	    weighttable[i]=1;
+	    autotable[i]=1-(((double)i*i*i)/(AUTOKORRWIN*AUTOKORRWIN*AUTOKORRWIN)); //generate static weighting function
+
+	  if (octave) for (int i=0;i<AUTOKORRWIN;i++) weighttable[i]=1; //initialise moving weight table
 
 	  Marker *newmark;
 	  int next;
@@ -425,45 +440,57 @@ void SigWidget::markPeriods ()
 	  int *sam=signal->getSample();
 	  struct MarkerType *start=markertype;
 	  int cnt=findFirstMark (sam,len);
-	  newmark=new Marker();
-	  newmark->pos=cnt;
-	  newmark->type=start;
-	  newmark->name=0;
-	  markers->inSort (newmark);
 
-	  while (cnt<len-AUTOKORRWIN)
+	  ProgressDialog *dialog=new ProgressDialog (len-AUTOKORRWIN,"Correlating Signal to find Periods:");
+	  dialog->show();
+
+	  if (dialog)
 	    {
-	      //	      printf ("%d\n",cnt);
+	      newmark=new Marker();
+	      newmark->pos=cnt;
+	      newmark->type=start;
+	      newmark->name=0;
+	      markers->inSort (newmark);
 
-	      if (octave)
-	      next=findNextRepeatOctave (&sam[cnt],high);
-	      else
-	      next=findNextRepeat (&sam[cnt],high);
-
-	      if ((next<low)&&(next>high))
+	      while (cnt<len-2*AUTOKORRWIN)
 		{
-		  newmark=new Marker();
-		  newmark->pos=cnt;
-		  newmark->type=start;
-		  newmark->name=0;
-		  markers->inSort (newmark);
+		  if (octave)
+		    next=findNextRepeatOctave (&sam[cnt],high,adjust);
+		  else
+		    next=findNextRepeat (&sam[cnt],high);
+
+		  if ((next<low)&&(next>high))
+		    {
+		      newmark=new Marker();
+		      newmark->pos=cnt;
+		      newmark->type=start;
+		      newmark->name=0;
+		      markers->inSort (newmark);
+		    }
+		  if (next<AUTOKORRWIN) cnt+=next;
+		  else
+		    if (cnt<len-AUTOKORRWIN)
+		      {
+			int a=findFirstMark (&sam[cnt],len-cnt);
+			if (a>0) cnt+=a;
+			else cnt+=high;
+		      }
+		    else cnt=len;
+
+		  dialog->setProgress (cnt);
 		}
-	      if (next<AUTOKORRWIN) cnt+=next;
-	      else
-		if (cnt<len-AUTOKORRWIN)
-		  {
-		    int a=findFirstMark (&sam[cnt],len-cnt);
-		    if (a>0) cnt+=a;
-		    else cnt+=high;
-		  }
-		else cnt=len;
+
+	      delete dialog;
+
+	      refresh ();
 	    }
-	  refresh ();
 	}
     }
 }
 //*****************************************************************************
 int findNextRepeat (int *sample,int high)
+  //autocorellation of a windowed part of the sample
+  //returns length of period, if found
 {
   int	i,j;
   double gmax=0,max,c;
@@ -491,7 +518,9 @@ int findNextRepeat (int *sample,int high)
   return maxpos;
 } 
 //*****************************************************************************
-int findNextRepeatOctave (int *sample,int high)
+int findNextRepeatOctave (int *sample,int high,double adjust=1.005)
+  //autocorellation of a windowed part of the sample
+  //same as above only with an adaptive weighting to decrease fast period changes
 {
   int	i,j;
   double gmax=0,max,c;
@@ -518,8 +547,7 @@ int findNextRepeatOctave (int *sample,int high)
       i++;
     }
   
-    for (int i=0;i<AUTOKORRWIN;i++)
-      weighttable[i]/=1.005;
+    for (int i=0;i<AUTOKORRWIN;i++) weighttable[i]/=adjust;
 
   weighttable[maxpos]=1;
   weighttable[maxpos+1]=.9;
@@ -538,14 +566,11 @@ int findNextRepeatOctave (int *sample,int high)
        weighttable[i]=(buf[0]+buf[1]+buf[2]+buf[3]+buf[4]+buf[5]+buf[6])/7;
     }
 
-  /*  for (int i=high;i<high+240;i+=4)
-    printf ("%01d",(int)(weighttable[i]*9));
-    printf ("\n");
-  */
   return maxpos;
 } 
 //*****************************************************************************
 int findFirstMark (int *sample,int len)
+  //finds first sample that is non-zero, or one that preceeds a zero crossing
 {
   int i=1;
   int last=sample[0];
@@ -563,3 +588,47 @@ int findFirstMark (int *sample,int len)
   return i;
 }
 //*****************************************************************************
+void SignalWidget::convertMarkstoPitch ()
+{
+  if (signal)
+    {
+      MarkSaveDialog dialog (this,"Select type of labels to be converted :",false);
+      if (dialog.exec())
+	{
+	  MarkerType *act;
+	  Marker     *tmp;
+	  int   len=signal->getLength()/2;
+	  float *data=new float(len);
+	  float freq;
+	  float rate=(float)signal->getRate();
+
+
+	  for (act=markertypes->first();act;act=markertypes->next())
+	    if (act->selected)
+	      {
+		int   last=0;
+		//traverse list of all labels of the selected type...
+		for (tmp=markers->first();tmp;tmp=markers->next())
+		  {
+		    printf ("%d %d\n",tmp->type,act);
+		    if (tmp->type==act)
+		      {
+			if (tmp->pos!=last)
+			  {
+			    freq=rate/(tmp->pos-last);
+			    printf ("%f %d\n",rate,(tmp->pos-last));
+			  }	
+			else freq=0;
+
+			for (int i=last;i<tmp->pos;i+=2) data[i/2]=freq;
+
+			last=tmp->pos;
+		      }
+		  }
+		PitchWindow *window=new PitchWindow (signal->getName());
+		window->show ();
+		if (window) window->setSignal (data,len,rate/2);
+	      }
+	}
+    }
+}

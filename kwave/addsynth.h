@@ -1,16 +1,11 @@
 #ifndef _ADDSYNTH_H_
 #define _ADDSYNTH_H_ 1
 
-#include <qapp.h>
 #include <qpushbt.h>
 #include <qstring.h>
 #include <qwidget.h>
-#include <qpainter.h>
 #include "curvewidget.h"
 #include "dialogs.h"
-#include <kapp.h>
-#include <kslider.h>
-#include <kselect.h>
 #include <kintegerline.h>
 #include "dialogs.h"
 #include "curvewidget.h"
@@ -44,7 +39,6 @@ class AddSynthWidget : public QWidget
  int *phase;
  int *mult;
  int count;
- QPainter 	p;
 };
 //***********************************************************************
 class AddSynthDialog : public QDialog
@@ -68,7 +62,21 @@ class AddSynthDialog : public QDialog
   void showPhase (int);
   void showMult  (const char *);
   void showMult  (int);
-
+  void popMenu   ();
+  void oddMult   ();
+  void evenMult  ();
+  void primeMult ();
+  void zeroPhase ();
+  void sinusPhase ();
+  void negatePhase ();
+  void enumerateMult ();
+  void randomizePower ();
+  void randomizePhase ();
+  void fibonacciMult ();
+  void invertPower ();
+  void sinusPower ();
+  void maxPower ();
+  void dbPower ();
  protected:
   void mousePressEvent( QMouseEvent *e);      
   void updateView ();
@@ -99,8 +107,8 @@ class AddSynthDialog : public QDialog
   QLabel        *channellabel;
 
   QPushButton   *freqbutton;
-  QPushButton   *hear;
-  MSignal       *test;           //for hearing...
+  QPushButton   *calculate;
+  MSignal       *test;           //for hearing not yet done...
 
   QComboBox	*functype;
   QPopupMenu*   menu;

@@ -4,6 +4,7 @@
 #include <qframe.h>
 #include <qimage.h>
 #include <qaccel.h>
+#include "configdialogs.h"
 
 QPixmap  *lightoff=0;
 QPixmap  *lighton=0;
@@ -11,8 +12,11 @@ QPixmap  *lighton=0;
 static const int keys[10]={Key_1,Key_2,Key_3,Key_4,Key_5,Key_6,Key_7,Key_8,Key_9,Key_0};
 
 const char *zoomtext[]={"100 %","33 %","10 %","3 %","1 %","0.1 %"};
-
-//*****************************************************************************************
+extern int play16bit;
+extern int bufbase;
+extern int mmap_threshold;
+extern char *mmap_dir;     //storage of dir name
+//*****************************************************************************
 char *mstotimec (int ms)
 {
   static char buf[32];
@@ -34,7 +38,7 @@ char *mstotimec (int ms)
     }
   return (buf);
 }
-//*****************************************************************************************
+//*****************************************************************************
 QString mstotime (int ms)
 {
   return (QString(mstotimec(ms)));
@@ -64,7 +68,7 @@ OverViewWidget::~OverViewWidget ()
 {
   if (pixmap) delete pixmap;
 }
-//*****************************************************************************************
+//*****************************************************************************
 void OverViewWidget::mousePressEvent( QMouseEvent *e)
 {
   int x1=(int)(((double)act)*width/len);
@@ -121,13 +125,13 @@ void OverViewWidget::mouseMoveEvent( QMouseEvent *e)
       emit valueChanged (act);
     }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void OverViewWidget::refresh  ()
 {
   redraw=true;
   repaint (false);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void OverViewWidget::setRange  (int newval,int x,int y)
 {
   if ((newval!=act)||(len!=y)||(x!=max))
@@ -146,7 +150,7 @@ void OverViewWidget::setRange  (int newval,int x,int y)
 	}
     }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void OverViewWidget::setValue  (int newval)
 {
   if (act!=newval)
@@ -155,7 +159,7 @@ void OverViewWidget::setValue  (int newval)
       repaint (false);
     }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void OverViewWidget::paintEvent  (QPaintEvent *)
 {
   QPainter p;
@@ -216,12 +220,12 @@ void OverViewWidget::paintEvent  (QPaintEvent *)
   p.end ();
 
 }
-//*****************************************************************************************
+//*****************************************************************************
 MainWidget::~MainWidget () 
 {
   if (lamps) delete lamps;
 }
-//*****************************************************************************************
+//*****************************************************************************
 MainWidget::MainWidget (QWidget *parent,const char *name,KStatusBar *status) :
 QWidget (parent,name)
 {
@@ -251,7 +255,7 @@ QWidget (parent,name)
   slider	=new OverViewWidget (this); 
   buttons	=new KButtonBox (this,KButtonBox::HORIZONTAL);
   zoomselect	=new QComboBox	(true,this);
-  signalview	=new SigWidget	(this);
+  signalview	=new SignalWidget (this);
 
   QObject::connect (lamps[0],SIGNAL(clicked(int)),signalview,SLOT(toggleChannel(int)));
 
@@ -316,42 +320,42 @@ void MainWidget::setSignal  (QString *filename)
  signalview->setZoom 	(100.0);
  slider->refresh();
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::setSignal  (MSignal *signal)
 {
  signalview->setSignal	(signal);
  signalview->setZoom 	(100.0);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::setRateInfo (int rate)
 {
  char buf[64];
  sprintf (buf,"Rate : %d.%d kHz",rate/1000,(rate%1000)/100);
  status->changeItem (buf,2);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::setLengthInfo (int len)
 {
  char buf[64];
  sprintf (buf,"Samples :%d",len);
  status->changeItem (buf,3);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::selectedZoom (int num)
 {
  if (num<6) signalview->setZoom (strtod(zoomtext[num],0));
 }
-//*****************************************************************************************
+//*****************************************************************************
 unsigned char *MainWidget::getOverView	(int val)
 {
   return signalview->getOverview(val);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::resetChannels	()
 {
   for (int i=0;i<numsignals;i++) lamps[i]->setState (0);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::parseKey 	(int key)
 {
   if (key<numsignals)
@@ -360,17 +364,41 @@ void MainWidget::parseKey 	(int key)
       emit setOperation (TOGGLECHANNEL+key);
     }
 }
-//*****************************************************************************************
-void MainWidget::setRangeOp 	(int op)
+//*****************************************************************************
+void MainWidget::setRangeOp (int op)
 {
-  if (op==ALLCHANNEL)
+  switch (op)
+    {
+    case PLAYBACKOPTIONS:
+      {
+	PlayBackDialog dialog (parent,play16bit,bufbase);
+	if (dialog.exec())
+	  {
+	    play16bit=dialog.getResolution();
+	    bufbase=dialog.getBufferSize();
+	  }  
+      break;
+      }
+    case MEMORYOPTIONS:
+      {
+	MemoryDialog dialog (parent);
+	if (dialog.exec())
+	  {
+	    mmap_threshold=dialog.getThreshold();
+	    mmap_dir=dialog.getDir();
+	  }  
+      break;
+      }
+    case ALLCHANNEL:
       for (int i=0;i<numsignals;i++) lamps[i]->setState (0);
-  if (op==INVERTCHANNEL)
+      break;
+    case INVERTCHANNEL:
       for (int i=0;i<numsignals;i++) lamps[i]->nextState ();
-
+      break;
+    }
   emit setOperation (op);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::loop		()
  {
 	emit setOperation	(LOOP);
@@ -381,7 +409,7 @@ void MainWidget::loop		()
 	this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
 	this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
  }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::play		()
 {
 	emit setOperation 	(PLAY);
@@ -392,7 +420,7 @@ void MainWidget::play		()
 	this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
 	this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::stop	()
 {
 	playbutton->setText ("Play");
@@ -406,19 +434,19 @@ void MainWidget::stop	()
 	this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
 	this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::setSelectedTimeInfo ( int ms)
 {
  QString buf="selected :"+ mstotime (ms);
  status->changeItem (buf.data(),4);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::setTimeInfo ( int ms)
 {
  QString buf="Length :"+ mstotime (ms*10);
  status->changeItem (buf.data(),1);
 }
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::getChannelInfo  (int channels)
 {
   if (channels!=numsignals)

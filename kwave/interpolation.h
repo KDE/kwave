@@ -20,9 +20,11 @@ class Interpolation
   void   incUsage ();
   void   decUsage ();
   int    getUsage ();
-  double *getInterpolation    (QList<CPoint> *points,int);
-  int    prepareInterpolation (QList<CPoint> *);
-  double getSingleInterpolation  (double pos);
+  double *getInterpolation        (QList<CPoint> *points,int);
+  double *getLimitedInterpolation (QList<CPoint> *points,int);
+  int    prepareInterpolation     (QList<CPoint> *);
+  double getSingleLimitedInterpolation (double pos);
+  double getSingleInterpolation (double pos);
   const char** getTypes ();
   int    getCount ();
 

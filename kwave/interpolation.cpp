@@ -233,6 +233,17 @@ int Interpolation::prepareInterpolation (QList<CPoint> *points)
  return true;
 }
 //****************************************************************************
+double *Interpolation::getLimitedInterpolation (QList<CPoint> *points,int len)
+{
+  double *y=getInterpolation (points,len);
+  for (int i=0;i<len;i++)
+    {
+      if (y[i]>1) y[i]=1;
+      if (y[i]<0) y[i]=0;
+    }
+  return y;
+}
+//****************************************************************************
 double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 {
   CPoint *tmp;
@@ -379,7 +390,6 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 	  }
 	break;
       }
-      //**********************************************************************
     case SAH:
       {
 	double lx,ly,x,y;

@@ -42,11 +42,15 @@
 #include <time.h>    // for clock()
 #include <qglobal.h> // for qWarning()
 #include <signal.h>
+#include <sys/time.h>
 
 #include "mt/TSS_Object.h"
 #include "mt/MutexGuard.h"
 #include "mt/Mutex.h"
 #include "mt/Thread.h"
+
+/** lock for protecting SIGHUP <-> thread exit */
+static Mutex g_lock_sighup;
 
 //***************************************************************************
 extern "C" void _dummy_SIGHUP_handler(int)
@@ -59,7 +63,7 @@ extern "C" void _dummy_SIGHUP_handler(int)
  * C wrapper function for Thread::thread_adapter.
  * @internal
  */
-extern "C" void* C_thread_adapter(void* arg)
+extern "C" void *C_thread_adapter(void* arg)
 {
     Thread *thread = (Thread *)arg;
     Q_CHECK_PTR(thread);
@@ -69,11 +73,12 @@ extern "C" void* C_thread_adapter(void* arg)
     sighandler_t old_handler = signal(SIGHUP, _dummy_SIGHUP_handler);
 
     /* call the thread's function through a C++ adapter */
-    void* result = thread->thread_adapter(arg);
+    void *result = thread->thread_adapter(arg);
 
     /* restore previous signal handler */
     old_handler = signal(SIGHUP, old_handler);
 
+    g_lock_sighup.unlock();
     return result;
 }
 
@@ -119,10 +124,15 @@ void *Thread::thread_adapter(void *arg)
 
     Thread *object = (Thread *) arg;
     Q_CHECK_PTR(object);
-    if (!object) return (void*)-EINVAL;
-
+    if (!object) {
+	g_lock_sighup.lock();
+	return (void*)-EINVAL;
+    }
+    
     /* execute the thread function */
     object->run();
+    
+    g_lock_sighup.lock();
     return arg;
 }
 
@@ -148,16 +158,31 @@ int Thread::stop(unsigned int timeout)
     if (!running()) return 0; // already down
 
     if (timeout < 1000) timeout = 1000;
-
-    // try to stop cooperatively
+    
+    // set the "should stop" flag
     m_should_stop = true;
+
+    // send one SIGHUP in advance
+    {
+	MutexGuard lock_exit(g_lock_sighup);
+	if (!running()) return 0;
+	pthread_kill(m_tid, SIGHUP);
+    }
+    
+    // try to stop cooperatively
+    if (!running()) return 0;
     wait(timeout/10);
     if (!running()) return 0;
 
     // try to interrupt by INT signal
     qDebug("Thread::stop(): sending SIGHUP");
     for (unsigned int i=0; i < 8; i++) {
-	pthread_kill(m_tid, SIGHUP);
+	{
+	    MutexGuard lock_exit(g_lock_sighup);
+	    if (!running()) return 0;
+	    pthread_kill(m_tid, SIGHUP);
+	}
+	if (!running()) return 0;
 	wait(timeout/10);
 	if (!running()) return 0;
     }
@@ -189,15 +214,25 @@ bool Thread::running()
 void Thread::wait(unsigned int milliseconds)
 {
     double elapsed_ms = 0.0;
-    time_t t_start = clock();
+    struct timeval t1, t2;
+    gettimeofday(&t1, 0);
 
     while (running() && (elapsed_ms < milliseconds)) {
+	// just for fun...
 	sched_yield();
-	elapsed_ms = (((double)(clock()-t_start))/CLOCKS_PER_SEC)*1000.0;
+	
+	// sleep through select()
+	struct timeval tv;
+	tv.tv_sec = 0;
+	tv.tv_usec = 20*1000;
+	select(0, 0, 0, 0, &tv);
+	
+	gettimeofday(&t2, 0);
+	elapsed_ms = (double)t2.tv_sec  * 1.0E3 + 
+	             (double)t2.tv_usec / 1.0E3 -
+	             (double)t1.tv_sec  * 1.0E3 - 
+	             (double)t1.tv_usec / 1.0E3;
     }
-//    if (/*still */running()) {
-//	qWarning("Thread::wait(): timed out after %d ms!", milliseconds);
-//    }
 }
 
 //***************************************************************************

@@ -581,7 +581,7 @@ ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
     QString device_name;
     
     // locate the corresponding playback device factory (plugin)
-    device_name = (name) ? QString(*name) : "";
+    device_name = (name) ? QString(*name) : QString("");
     PlayBackDevice *device = 0;
     PlaybackDeviceFactory *factory = 0;
     QPtrListIterator<PlaybackDeviceFactory> it(m_playback_factories);

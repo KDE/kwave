@@ -23,7 +23,7 @@
 #include <stdio.h>
 
 #include <qobject.h>
-#include <qsocknot.h>
+#include <qsocketnotifier.h>
 
 #include "mt/Mutex.h"
 #include "mt/MutexGuard.h"

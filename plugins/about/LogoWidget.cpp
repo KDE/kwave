@@ -21,7 +21,7 @@
 #include <qdir.h>
 #include <qimage.h>
 #include <qkeycode.h>
-#include <qpntarry.h>
+#include <qpointarray.h>
 #include <qpushbutton.h>
 #include <qtimer.h>
 

@@ -186,10 +186,16 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	       bitrate_lower, bitrate_nominal, bitrate_upper);
     } else if ((vbr_quality < 0) && (bitrate_nominal > 0)) {
 	// Encoding using constant bitrate in ABR mode
-	ret = (vorbis_encode_setup_managed(&vi, tracks, sample_rate,
-	      -1, bitrate_nominal, -1) ||
-              vorbis_encode_ctl(&vi,OV_ECTL_RATEMANAGE_AVG,NULL) ||
-              vorbis_encode_setup_init(&vi));
+	ret = vorbis_encode_setup_managed(&vi, tracks, sample_rate,
+	      -1, bitrate_nominal, -1);
+	      
+	// ### this might not work with Debian / old Ogg/Vorbis ###
+#ifdef OV_ECTL_RATEMANAGE_AVG
+	if (!ret) ret =
+	      vorbis_encode_ctl(&vi,OV_ECTL_RATEMANAGE_AVG,NULL) ||
+              vorbis_encode_setup_init(&vi);
+#endif
+
 	qDebug("OggEncoder: CBR with %d Bits/s", bitrate_nominal);
     } else if (vbr_quality >= 0) {
 	// Encoding using VBR mode.

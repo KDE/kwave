@@ -43,3 +43,17 @@ uninstall-local:
 	  rmdir -p --ignore-fail-on-non-empty $$dir >/dev/null 2>&1; \
 	done
 
+merge:
+        @catalogs='$(POFILES)'; \
+        for cat in $$catalogs; do \
+        name=$(PACKAGE).pot ; \
+        echo $$cat $$name; \
+        msgmerge $$cat $$name > $$cat.new ; \
+        if diff $$cat $$cat.new; then \
+                rm $$cat.new;  \
+        else  \
+                mv $$cat.new $$cat ; \
+        fi; \
+        done
+
+

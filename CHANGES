@@ -1,5 +1,5 @@
 
-0.6.2 [2001-09-??]
+0.6.2 [2001-09-01]
 
  * bugfix: class Track made duplicate entry in stripe list when inserting
    signals into an empty track

@@ -56,7 +56,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2001-08-31</DATE>
+    <DATE>2001-09-01</DATE>
     <RELEASEINFO>0.6.1</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -225,7 +225,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <PARA><ITEMIZEDLIST>
         <LISTITEM>
-            <PARA>0.6.2 [2001-09-??]</PARA>
+            <PARA>0.6.2 [2001-09-01]</PARA>
             <ITEMIZEDLIST>
                 <LISTITEM><PARA>
                     bugfix: class Track made duplicate entry in stripe list when inserting
@@ -2448,7 +2448,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2001-08-31</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2001-09-01</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

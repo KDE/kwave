@@ -20,6 +20,7 @@
 
 #include <kapp.h>
 #include <kaboutapplication.h>
+#include <kaboutkde.h>
 
 #include "libgui/KwavePlugin.h"
 #include "AboutPlugin.h"
@@ -34,15 +35,25 @@ AboutPlugin::AboutPlugin(PluginContext &c)
 }
 
 //***************************************************************************
-int AboutPlugin::start(QStringList &/*params*/)
+int AboutPlugin::start(QStringList& params)
 {
-    // create a new "about" dialog and show it
-    AboutKwaveDialog* dlg = new AboutKwaveDialog(parentWidget());
+    if (params.first() == "kde") {
+        // create a new "about kde" dialog and show it
+        KAboutKDE *dlg = new KAboutKDE(parentWidget());
 
-    ASSERT(dlg);
-    if (!dlg) return ENOMEM;
-    dlg->exec();
-    delete dlg;
+        ASSERT(dlg);
+        if (!dlg) return ENOMEM;
+        dlg->exec();
+        delete dlg;
+    } else {
+        // create a new "about" dialog and show it
+        AboutKwaveDialog *dlg = new AboutKwaveDialog(parentWidget());
+
+        ASSERT(dlg);
+        if (!dlg) return ENOMEM;
+        dlg->exec();
+        delete dlg;
+    }
 
     return 0;
 }

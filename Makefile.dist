@@ -79,9 +79,10 @@ logged:
 	} fi
 	aclocal
 	autoheader
-	automake --foreign --add-missing --verbose
+	automake --foreign --add-missing --verbose --include-deps
 	autoconf
-	QTDIR=`cat ./QT-DIR` KDEDIR=${KDEDIR} ./configure ${CONFIGURE_OPTS} --enable-debug=yes
+	QTDIR=`cat ./QT-DIR` KDEDIR=${KDEDIR} \
+	./configure ${CONFIGURE_OPTS} --enable-debug=yes
 	@ ${MAKE} clean 2>/dev/null 1>/dev/null
 	# now you can run "make"
 

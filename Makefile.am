@@ -1,4 +1,7 @@
+
 AUTOMAKE_OPTIONS = foreign
+
+.PHONY: doc version-labels
 
 srcdir  	 = $(shell pwd)
 
@@ -8,11 +11,10 @@ SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
 SUBDIRS  	 = libaudiofile mt libgui libkwave kwave plugins po doc
 
-CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
+CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
+
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
 	stamp-h stamp-h[0-9]* aclocal.m4 configure QT-DIR KDE-VERSION
-
-.PHONY: doc version-labels
 
 configure.in: VERSION
 	touch configure.in
@@ -32,7 +34,6 @@ clean-generic:
 	-rm -fv `find . -name .depend`
 	-rm -fv `find . -name \*.uih.h`
 	-rm -fv `find . -name \*.uic.cpp`
-	-rm -rfv `find . -name .\* | grep -v "^\.\.$$" | grep -v "^\.$$"`
 	-rm -Rf doc/api
 	-rm -f make.log
 

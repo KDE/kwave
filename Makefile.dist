@@ -9,12 +9,21 @@
 .PHONY: all all-logged
 
 KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s-::-:-g | sed s-:-/bin/:-g )
-KDEDIR=$(shell PATH=${PATH}:${KDEBINDIRS} kde-config --prefix | sed s./$$..g)
+KDEDIR=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --prefix | sed s./$$..g)
+KDEVERSION=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --version | grep "KDE:" | \
+	cut -d ":" -f 2 | sed s-^\ --g)
+KDEMAJOR=$(shell echo ${KDEVERSION} | cut -d "." -f 1)
+
+KDEQTVER=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --version | grep "Qt:" | \
+	cut -d ":" -f 2 | sed s-^\ --g)
+QTDIRVER=$(shell cat ${QTDIR}/include/qglobal.h | \
+	grep "\#define" | grep "QT_VERSION_STR" | \
+	cut -d \" -f 2 )
 
 default: all
 
 logged:
-	@ (PATH=${PATH}:${KDEBINDIRS} kde-config 2>/dev/null) || ( \
+	@ (PATH=${KDEBINDIRS}:${PATH} kde-config 2>/dev/null) || ( \
 	    echo "----------------------------------------";\
 	    echo ""; \
 	    echo "";\
@@ -41,16 +50,37 @@ logged:
 	-rm -f config.cache
 	-rm -f config.status
 	-rm -fv `find . -name Makefile.in -o -name Makefile`
+	@ -touch -c doc/help_{de,fr}.po      2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_{de,fr}.docbook 2>/dev/null 1>/dev/null
+	@ echo "" ; echo "your system uses:"
+	@ PATH=${KDEBINDIRS}:${PATH} kde-config --version
+	@ echo ""
+	@ echo ">>> you are building for KDE-${KDEMAJOR} <<<"
+	@ echo ""
+	@ echo ${KDEMAJOR} > ./KDE-VERSION
+	@ rm -f ./QT-DIR;
+	@ echo "${QTDIR}" > ./QT-DIR
+	@ echo "QTDIR=${QTDIR}"
+	@ if test -f ${QTDIR}/include/qglobal.h ; then { \
+	    if test "${QTDIRVER}" \< "${KDEQTVER}"; then { \
+		echo "QTDIR is set and seems to contain Qt version ${QTDIRVER}"; \
+		echo "this does not match your KDE's Qt version: ${KDEQTVER}"; \
+		echo ">>> forcing QTDIR=\"\" <<<"; \
+		rm -f ./QT-DIR; \
+		echo "" > ./QT-DIR; \
+		echo ""; \
+		echo "if your build fails, please verify that your QTDIR "; \
+		echo "environment variable is pointing to the correct "; \
+		echo "directory and try again."; \
+		sleep 5; \
+		echo ""; \
+	    } fi \
+	} fi
 	aclocal
 	autoheader
 	automake --foreign --add-missing --verbose
 	autoconf
-	@ -touch -c doc/help_{de,fr}.po      2>/dev/null 1>/dev/null
-	@ -touch -c doc/help_{de,fr}.docbook 2>/dev/null 1>/dev/null
-	@ echo "" ; echo "your system uses:"
-	@ PATH=${PATH}:${KDEBINDIRS} kde-config --version
-	@ echo ""
-	KDEDIR=${KDEDIR} ./configure ${CONFIGURE_OPTS} --enable-debug=yes
+	QTDIR=`cat ./QT-DIR` KDEDIR=${KDEDIR} ./configure ${CONFIGURE_OPTS} --enable-debug=yes
 	# now you can run "make"
 
 all:

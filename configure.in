@@ -5,6 +5,8 @@ dnl acinclude.m4 makes the job for all programs ;-)
 AC_INIT(admin/acinclude.m4.in)
 AC_CONFIG_AUX_DIR(admin)
 
+KDEMAJOR=`cat ./KDE-VERSION`
+
 dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 unset CDPATH
 
@@ -66,13 +68,21 @@ dnl
 dnl test for usage of insure++
 dnl AC_CHECK_WITH_INSURE
 
-dnl check if nls is wanted
-dnl AM_KDE_WITH_NLS
+AC_MSG_CHECKING(which KDE/Qt to use)
+if test "$KDEMAJOR" = "2"; then {
+    AC_MSG_RESULT([KDE 2.x / Qt 2.1])
+    KDE_USE_QT(2.1)
+} else {
+    if test "$KDEMAJOR" = "3"; then {
+        AC_MSG_RESULT([KDE 3.x / Qt 3.1])
+        KDE_USE_QT(3.0.1)
+    } else {
+        AC_MSG_RESULT(unknown ?)
+        AC_MSG_ERROR([ unable to determine KDE/Qt versions ])
+    } fi
+} fi
 
-KDE_USE_QT(2.1)
 AC_PATH_KDE
-
-dnl AC_ARG_PROGRAM
 
 KDE_FIND_PATH(xml2pot, XML2POT, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(xml2pot)])
 AC_SUBST(XML2POT)
@@ -110,12 +120,6 @@ dnl ### CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 dnl
 dnl now create our libtool, the earlier the better...
 dnl AM_PROG_LIBTOOL
-dnl
-dnl find out some variables
-dnl ### AC_AIX
-dnl ### AC_MINIX
-dnl
-dnl for NLS support. Call them in this order!
 
 dnl CXXFLAGS="$(CXXFLAGS) -Wall -g -fcheck-memory-usage \
 dnl   -g -ansi  -U__i486__ -U__i586__ -U__i686__ -DMEMCHECK -D_REENTRANT -D_XOPEN_SOURCE -D_BSD_SOURCE \
@@ -144,28 +148,23 @@ if test $ac_cv_sizeof_char != 1 ; then
 	AC_MSG_WARN([******************************************************************])
 	AC_MSG_WARN([*** sizeof (char) != 1.                                            ])
 	AC_MSG_WARN([******************************************************************])
-	fi
+fi
 if test $ac_cv_sizeof_short != 2 ; then
 	AC_MSG_WARN([******************************************************************])
 	AC_MSG_WARN([*** sizeof (short) != 2.                                          ])
 	AC_MSG_WARN([******************************************************************])
-	fi
+fi
 if test $ac_cv_sizeof_int != 4 ; then
 	AC_MSG_WARN([******************************************************************])
 	AC_MSG_WARN([*** sizeof (int) != 4.                                            ])
 	AC_MSG_WARN([******************************************************************])
-	fi
+fi
 
 dnl check for dirent.h
 AC_HEADER_DIRENT
 
 dnl check for other stdc headers. More traditional ;)
 AC_HEADER_STDC
-dnl check for some more header files. You can remove some of
-dnl them, if you want to. But it doesn't hurt
-dnl AC_CHECK_HEADERS(fcntl.h sys/time.h unistd.h sys/cdefs.h)
-dnl AC_CHECK_HEADERS(fnmatch.h sysent.h strings.h sys/stat.h)
-dnl AC_CHECK_HEADERS(linux/soundcard.h)
 
 dnl name mangling would be fine, but not necessary
 AC_CHECK_HEADER(demangle.h)

@@ -71,6 +71,8 @@ void ZeroPlugin::run(QStringList)
 
     writers.setAutoDelete(true);
     writers.clear();
+
+    close();
 }
 
 //***************************************************************************

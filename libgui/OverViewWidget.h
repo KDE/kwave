@@ -100,6 +100,12 @@ protected slots:
     /** Refreshes all modified parts of the bitmap */
     void refreshBitmap();
 
+    /**
+     * connected to the m_repaint_timer, called when it has
+     * elapsed and the signal has to be repainted
+     */
+    void overviewChanged();
+
 signals:
 
     /**
@@ -175,6 +181,9 @@ private:
 
     /** cache with overview data */
     OverViewCache m_cache;
+
+    /** timer for limiting the number of repaints per second */
+    QTimer m_repaint_timer;
 
 };
 

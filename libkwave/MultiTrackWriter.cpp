@@ -174,6 +174,20 @@ unsigned int MultiTrackWriter::last()
 }
 
 //***************************************************************************
+void MultiTrackWriter::clear()
+{
+    flush();
+    setAutoDelete(false);
+    while (!isEmpty()) {
+	unsigned int last = count()-1;
+	SampleWriter *writer = at(last);
+	remove(last);
+	resize(last);
+	if (writer) delete writer;
+    }
+}
+
+//***************************************************************************
 void MultiTrackWriter::flush()
 {
     const unsigned int tracks = count();

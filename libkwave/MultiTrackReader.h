@@ -54,7 +54,7 @@ public:
     };
 
     /** @see QPtrVector::clear() */
-    inline virtual void clear() { QPtrVector<SampleReader>::clear(); };
+    virtual void clear();
 
     /** @see QPtrVector::isEmpty() */
     inline virtual bool isEmpty() {

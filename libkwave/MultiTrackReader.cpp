@@ -81,6 +81,19 @@ void MultiTrackReader::reset()
 }
 
 //***************************************************************************
+void MultiTrackReader::clear()
+{
+    setAutoDelete(false);
+    while (!isEmpty()) {
+	unsigned int last = count()-1;
+	SampleReader *reader = at(last);
+	remove(last);
+	resize(last);
+	if (reader) delete reader;
+    }
+}
+
+//***************************************************************************
 void MultiTrackReader::cancel()
 {
     m_cancelled = true;

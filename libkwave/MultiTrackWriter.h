@@ -67,7 +67,7 @@ public:
     void flush();
 
     /** @see QPtrVector::clear() */
-    inline virtual void clear() { QPtrVector<SampleWriter>::clear(); };
+    virtual void clear();
 
     /** @see QPtrVector::isEmpty() */
     inline virtual bool isEmpty() {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "POT-Creation-Date: 2003-07-23 12:02+0200\n"
-"PO-Revision-Date: 2003-07-28 09:41+0200\n"
+"PO-Revision-Date: 2003-07-28 09:45+0200\n"
 "Last-Translator: Gilles CAULIER <caulier.gilles@free.fr>\n"
 "Language-Team: Française <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -803,7 +803,7 @@ msgstr "&Pourcentage"
 
 #: libgui/SelectTimeWidgetBase.uic.cpp:219
 msgid "select by percentage of the signal's length"
-msgstr "paramètre la taille du fichier sonore par le pourcentage de sa taille"
+msgstr "Paramètre la taille du fichier sonore par le pourcentage de sa taille"
 
 #: libgui/SelectTimeWidgetBase.uic.cpp:220
 #: plugins/newsignal/NewSigDlg.uic.cpp:555
@@ -2284,7 +2284,7 @@ msgstr "Paramètres de la résolution de la FFT / temps"
 
 #: plugins/sonagram/SonagramDialog.cpp:113
 msgid "FFT settings"
-msgstr "Paramétrages de la transformée de Fourier rapide (FFT)"
+msgstr "Paramétres de la transformée de Fourier rapide (FFT)"
 
 #: plugins/sonagram/SonagramDialog.cpp:120
 msgid "Number of FFT points:"
@@ -3272,7 +3272,7 @@ msgstr "Amplification libre"
 
 #: plugins/memory/MemDlg.uic.cpp:166
 msgid "Memory Settings"
-msgstr "Paramétrages pour la gestion de la mémoire"
+msgstr "Paramétres pour la gestion de la mémoire"
 
 #: plugins/memory/MemDlg.uic.cpp:167
 msgid "&Physical Memory"
@@ -3670,7 +3670,7 @@ msgid ""
 msgstr ""
 "Essayer de jouer une piste sonore de petite taille\n"
 "en utilisant les paramètres courant.\n"
-"(désolé, pas encore implanté !)"
+"(désolé, cette fonction n'est pas encore implantée !)"
 
 #: plugins/playback/PlayBackDialog.cpp:311
 #, c-format

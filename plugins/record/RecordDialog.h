@@ -19,6 +19,7 @@
 #define _RECORD_DIALOG_H_
 
 #include "config.h"
+#include <qarray.h>
 #include <qstringlist.h>
 #include <qtimer.h>
 #include <qvaluelist.h>
@@ -26,6 +27,8 @@
 #include "RecordDlg.uih.h"
 #include "RecordParams.h"
 #include "RecordState.h"
+
+#include "libkwave/Sample.h"
 
 class QWidget;
 
@@ -111,6 +114,13 @@ public:
      */
     void updateBufferState(unsigned int count, unsigned int total);
 
+    /**
+     * updates all enabled visual effects
+     * @param track index of the track that is updated
+     * @param buffer array with Kwave sample data
+     */
+    void updateEffects(unsigned int track, QMemArray<sample_t> &buffer);
+
 signals:
 
     /** emitted when a new record device has been selected */
@@ -178,6 +188,9 @@ private slots:
     /** record trigger has changed */
     void triggerChanged(int trigger);
 
+    /** display: level meter enabled/disabled */
+    void displayLevelMeterChecked(bool enabled);
+
 private:
 
     /**
@@ -207,6 +220,7 @@ private:
 
     /** timer for slowly updating the buffer progress bar */
     QTimer m_buffer_progress_timer;
+
 };
 
 #endif /* _RECORD_PLUGIN_H_ */

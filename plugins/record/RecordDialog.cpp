@@ -36,6 +36,7 @@
 #include "libgui/HMSTimeWidget.h"
 #include "libgui/KwaveFileDialog.h"
 
+#include "LevelMeter.h"
 #include "RecordDevice.h"
 #include "RecordDialog.h"
 #include "RecordParams.h"
@@ -159,6 +160,10 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
             this, SLOT(forwardDeviceChanged(const QString &)));*/
     connect(cbSourceDevice, SIGNAL(textChanged(const QString &)),
             this, SLOT(forwardDeviceChanged(const QString &)));
+
+    // visualizations
+    connect(chkDisplayLevelMeter, SIGNAL(toggled(bool)),
+            this, SLOT(displayLevelMeterChecked(bool)));
 
     connect(chkRecordTrigger, SIGNAL(toggled(bool)),
             this, SLOT(triggerChecked(bool)));
@@ -712,6 +717,20 @@ void RecordDialog::triggerChanged(int trigger)
 }
 
 //***************************************************************************
+void RecordDialog::displayLevelMeterChecked(bool enabled)
+{
+    m_params.display_level_meter = enabled;
+
+    Q_ASSERT(level_meter);
+    if (!level_meter) return;
+    if (!enabled) {
+	level_meter->setTracks(0);    
+	level_meter->reset();
+    }
+    level_meter->setEnabled(enabled);
+}
+
+//***************************************************************************
 void RecordDialog::updateBufferProgressBar()
 {
 //     qDebug("RecordDialog::updateBufferProgressBar(): %u/%u",
@@ -720,6 +739,20 @@ void RecordDialog::updateBufferProgressBar()
     progress_bar->setPercentageVisible(true);
     progress_bar->setTotalSteps(m_buffer_progress_total);
     progress_bar->setProgress(m_buffer_progress_count);
+}
+
+//***************************************************************************
+void RecordDialog::updateEffects(unsigned int track,
+                                 QMemArray<sample_t> &buffer)
+{
+    if (!buffer.size()) return;
+
+    if (m_params.display_level_meter && level_meter) {
+	level_meter->setTracks(m_params.tracks);
+	level_meter->setSampleRate(m_params.sample_rate);
+	level_meter->updateTrack(track, buffer);
+    }
+
 }
 
 //***************************************************************************

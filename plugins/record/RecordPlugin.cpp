@@ -408,7 +408,7 @@ void RecordPlugin::changeBitsPerSample(unsigned int new_bits)
 	// revert to the current device setting if failed
 	bits = m_device->bitsPerSample();
 	KMessageBox::sorry(m_dialog,
-	    i18n("Setting the resolution % bits per sample failed, "\
+	    i18n("Setting the resolution %1 bits per sample failed, "\
 		 "using %2 bits per sample instead.").arg(
 		 (int)new_bits).arg(bits));
     }
@@ -758,8 +758,8 @@ bool RecordPlugin::checkTrigger(unsigned int track,
 
     // pass the buffer through a rectifier and a lowpass with
     // center frequency about 2Hz to get the amplitude
-    double trigger = (double)m_dialog->params().record_trigger / 100.0;
-    const double rate = (double)m_dialog->params().sample_rate;
+    float trigger = (float)m_dialog->params().record_trigger / 100.0;
+    const float rate = (float)m_dialog->params().sample_rate;
 
     /*
      * simple lowpass calculation:
@@ -781,24 +781,23 @@ bool RecordPlugin::checkTrigger(unsigned int track,
      */
 
     // rise coefficient: ~20Hz
-    const double f_rise = 20.0;
-    double Fg = f_rise / rate;
-    double n = 1.0 / tan(M_PI * Fg);
-    const double a0_r = 1.0 / (1.0 + n);
-    const double b1_r = (1.0 - n) / (1.0 + n);
+    const float f_rise = 20.0;
+    float Fg = f_rise / rate;
+    float n = 1.0 / tan(M_PI * Fg);
+    const float a0_r = 1.0 / (1.0 + n);
+    const float b1_r = (1.0 - n) / (1.0 + n);
 
     // fall coefficient: ~1.0Hz
-    const double f_fall = 1.0;
+    const float f_fall = 1.0;
     Fg = f_fall / rate;
     n = 1.0 / tan(M_PI * Fg);
-    const double a0_f = 1.0 / (1.0 + n);
-    const double b1_f = (1.0 - n) / (1.0 + n);
+    const float a0_f = 1.0 / (1.0 + n);
+    const float b1_f = (1.0 - n) / (1.0 + n);
 
-    double y = m_trigger_value[track];
-    double last_x = 0.0;
+    float y = m_trigger_value[track];
+    float last_x = y;
     for (unsigned int t=0; t < buffer.size(); ++t) {
-	double x = fabs((double)buffer[t]) / (double)(1 << (SAMPLE_BITS-1));
-	if (x < 0) x *= -1.0; /* rectifier */
+	float x = fabs(sample2float(buffer[t])); /* rectifier */
 
 	if (x > y) { /* diode */
 	    // rise if amplitude is above average (serial R)
@@ -873,7 +872,7 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 	m_decoder->decode(buf, decoded);
 
 	// update the level meter and other effects
-	// ### TODO ###
+	m_dialog->updateEffects(track, decoded);
 
 	switch (m_state) {
 	    case REC_EMPTY:

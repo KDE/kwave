@@ -8,14 +8,14 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>751</width>
-            <height>499</height>
+            <width>771</width>
+            <height>516</height>
         </rect>
     </property>
     <property name="caption">
         <string>Record</string>
     </property>
-    <grid>
+    <vbox>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
@@ -25,7 +25,7 @@
         <property name="spacing">
             <number>10</number>
         </property>
-        <widget class="QTabWidget" row="0" column="0">
+        <widget class="QTabWidget">
             <property name="name">
                 <cstring>tabRecord</cstring>
             </property>
@@ -1169,7 +1169,7 @@
                             <cstring>grpDisplay</cstring>
                         </property>
                         <property name="enabled">
-                            <bool>false</bool>
+                            <bool>true</bool>
                         </property>
                         <property name="title">
                             <string>Visualization</string>
@@ -1183,7 +1183,7 @@
                                     <cstring>chkDisplayLevelMeter</cstring>
                                 </property>
                                 <property name="enabled">
-                                    <bool>false</bool>
+                                    <bool>true</bool>
                                 </property>
                                 <property name="text">
                                     <string>Level Meter</string>
@@ -1227,20 +1227,20 @@
                 </vbox>
             </widget>
         </widget>
-        <widget class="QLayoutWidget" row="1" column="0">
+        <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout10</cstring>
+                <cstring>layout9</cstring>
             </property>
             <grid>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QLabel" row="1" column="0">
+                <widget class="QLabel" row="0" column="0">
                     <property name="name">
-                        <cstring>textLabel1_3</cstring>
+                        <cstring>textLabel1_2</cstring>
                     </property>
                     <property name="text">
-                        <string>Level:</string>
+                        <string>Buffer:</string>
                     </property>
                 </widget>
                 <widget class="QProgressBar" row="0" column="1">
@@ -1257,28 +1257,36 @@
                         <bool>false</bool>
                     </property>
                 </widget>
-                <widget class="QLabel" row="0" column="0">
+                <widget class="LevelMeter" row="1" column="1">
                     <property name="name">
-                        <cstring>textLabel1_2</cstring>
+                        <cstring>level_meter</cstring>
                     </property>
-                    <property name="text">
-                        <string>Buffer:</string>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>3</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>200</width>
+                            <height>30</height>
+                        </size>
                     </property>
                 </widget>
-                <widget class="QProgressBar" row="1" column="1">
+                <widget class="QLabel" row="1" column="0">
                     <property name="name">
-                        <cstring>progressBar2_2</cstring>
+                        <cstring>textLabel1_3</cstring>
                     </property>
-                    <property name="progress">
-                        <number>0</number>
-                    </property>
-                    <property name="percentageVisible">
-                        <bool>false</bool>
+                    <property name="text">
+                        <string>Level:</string>
                     </property>
                 </widget>
             </grid>
         </widget>
-        <widget class="QFrame" row="2" column="0">
+        <widget class="QFrame">
             <property name="name">
                 <cstring>frame3</cstring>
             </property>
@@ -1295,7 +1303,7 @@
                 <enum>Raised</enum>
             </property>
         </widget>
-        <widget class="QLayoutWidget" row="3" column="0">
+        <widget class="QLayoutWidget">
             <property name="name">
                 <cstring>layout6</cstring>
             </property>
@@ -1341,7 +1349,7 @@
                 </widget>
             </hbox>
         </widget>
-        <widget class="QFrame" row="4" column="0">
+        <widget class="QFrame">
             <property name="name">
                 <cstring>frm_state</cstring>
             </property>
@@ -1377,7 +1385,7 @@
                 </widget>
             </hbox>
         </widget>
-    </grid>
+    </vbox>
 </widget>
 <customwidgets>
     <customwidget>
@@ -1402,10 +1410,29 @@
         <slot access="public" specifier="">setEnabled(bool)</slot>
         <property type="Int">value</property>
     </customwidget>
+    <customwidget>
+        <class>LevelMeter</class>
+        <header location="local">LevelMeter.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>5</hordata>
+            <verdata>5</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image1</pixmap>
+    </customwidget>
 </customwidgets>
 <images>
     <image name="image0">
         <data format="XPM.GZ" length="2910">789cb595db522a571086ef7d0acabeb352bd9903c34ca57201088a0a02a21b4de5624e829c541814d895774f4fafeea91da452c9455ceaf055ffddfdf75a6bf4db5969d4eb94cebe9dacb3307b894bf1245c95ce92cd62b1fbfd8fdf7e9c9cda7689be2dcb29d9a7bf9c9cf6b3525ceabe2ed31c70450065fe626e17ec33a7c2aec4ad82390e46ef17bc15f625ff5638b6381fa29cad72be9877c29a3f5696f8bdb06ffa032a4bfc463896fc576589bf31fbaac781b0c6df0ddbeae75a58fb6f72b6cbca7825acf55ce6c0d67a7dc38eec270c0b36fb71a92cfaa46013ef09bbc25ccfb11c5ff8ddb0abf538df091cdf09b8de5a3816fd43ceaee52a3799c34a20f977ca260eecaf62173c104e647f5f94a55ec7b06749fc4e59f6c72fd8c417cab6993f14ae487e53d9c431660e2b4925e4f8b3614ffcc35459fa750b36fecacad26f2facf32c95e53cf87c3dbbaafe6d65f1b313ae48fdbdb2c4af85a51ff27df7a8be67fcd70c17fa0be144fcf1fb5275fc8acde7895b61f59f156ce2bc7fd5a81a54238e7f1a563d7ecfd98f02a98f2dc3a1ceb729d8cc93294bbf7365c7e2f8a7b0ce5f5516fd4a59f49073e00656e0727c6638d4f9de94cdfdc50fe150fcd50a36e7152b4bbf4ec1e6fef78453f1d7301cd9c24fcad29fe70be2223e5296fa50b0d1af955d335f45d813bff5824d3d4f58e7792cd8c46f94a5df47c1661ebe1fa11b79727ef7c29a3f54967850b0c94f8553f1cfef6f1847a9c7ff0ca06b389679d111f624bf2eacfe26c2a9e8f9fd8b5cad8733c3b12d3c51ae3acc63659fef2bbe0a7be6fdc6b9b2e42f8543f1db309cc8fec25c59fcf0df872889d290ef1b2e0c17f92dc389f8ef67ff7efdac47c010a3232bc604d3433d3ee31827f882539ce19cd68256fe5ce22bbee13bae7ed653ed31ae31c30d7ee0276e71877bfa5dc33a36689d63f3401f52ed0c5ba4b8c04b6ce38a561baff01a6f28a78e9d037d444e727597546dbcc51ef671c09fef7088f747f4537272c1951ff03b8ef0119fb08c16b18dce11fd8c7cbbac1e61053daca28f0169db8000107ed1cf69be3644549bd4104342bd1e20e51a5b783ea2dfe18a54a35c9dcf0c63d24de085f45d987ed12f68075734e523665c7b850398c11c16f4a90ccb23fadccf2b3e91827cc11b757b8715ace9991dd1cfb1061baa5b860ff2fd49b5e94c296f0b3b1cc2fe88be0e35d25bb88714ead0807340f29242135a47f50db8804b3ed74b7afab08636a6a4dfd07e5e1de863ba550d3af721edf8806f032dd851ed6bb881ce97f34ae80ee6fa47e802d0e4659ae3967cb768fe0ef4a07fa04fe9c636b10303fa09e119a6b0e4b5872bb88321dcff5d4f19ab7f5e5fdfaffffa3efe2ffa3f7f3df90bdf8dabe4</data>
+    </image>
+    <image name="image1">
+        <data format="XPM.GZ" length="2926">789c9d95594f32591086effd15c4ba3393fae895ee4ce6824540141011b7c95cf406a202caa6f065fefb549faaea0b24996fc623cb937aeb3d55754e871f67a587eb6ee9ecc7c96a1dada74929798e96a5b374339bedfefceb8f9f27a7b65da27fcb724bf6e96f27a783752929f516f32c070402289b3fc39d8203c3136157e276c1260eac0f0ade0907927f2d9c58261f929cad72be0cef8535ff5959e277c201ef0fa02cf1ae7022f9efca12ff301ca81e87c21a5f32db5acf95b0eebfcdd92e2be3a5b0fa7986435bfd6e981d99278c0ae6795c288b3e2b98e3036157d8f839961308af985df51b1b0e9dc0098ddf5a3811fd7dceaee52a370d475e28f9b7ca1c07539f67173c144e65be2fcae2d763f62d89df2acb7cc282393e57b6b9ff58d893fca632c7d1ccc78bbcd48b4c7cc2ec4bfdf0aa2cfbf50be6fa2c65d9af2aacfd2c94e53cccf9fa7645eb7794a59ebdb027fe5565895f09cb7e981a267f9febaf3117fab6702af599e7a5e2049e6dce1377c25affa6608e4786e34a58894dfc8b59f5f890731087e28f2de648fbdb16ccfd6c9465bf7365c732f12f61ed3f5016fd4a59f4e6790fddd00a5d137f638eb4bfa532df5ffc148ea4be5ac17c5ea9b2ecd72b98efff403893fa1accb12d5c5696fd4d7f6152c41f95c53f2a98f56b6597fbf3857da9b75e30fb5584b59fa78239de5596fd3e0be6fdccf311b99115f1fcdaccb12fe77927ac7e2365f1c382793e63e14cfccdf3132571e69b1f07e83327d23fbac2bee4d785d57f2a9c89de9c6fecaa1fce98135bf845b9e2189e2a07e6fee287b0cfcf3bce9525ff5d38927a1bcca9cc1b66ca528ff93d89d338e3f9e182b9c86f31a752ff609d2f847f5f83b5ea31c218137a4f8fac0cc738e10cd6d3b7189f718a2ff88a6f38c339ad05adfcf31d3f7089ab037d42ea356e708b9ff8853bdc6395de6b58c706ad736c1ee823f2de608b146dbcc08e8976f012afb04b3975ec1de853aa2457f749d5c16b1ce00d0ecdf75b1ce1dd11fd1b55d236cef7f8808ff88465b4d02676d03da29f51dd9e513fa28f150c3004246d07002288bfe9e7d45f0712f22635a490d15ef730361e3b389c67aedf2390ea3157e73dc333e9a6f042d13ebc7ed32f6882405d3ee1c678030ee10d6630a76f162c8ee8f37adeb14c0aaa0b3e68b725ac80a2b039a29f630db6e46bc127d5fd45de4b5226b0833d8ea07a445f871ae96dacc218ead08073c835136842eba8be016db830e77a419f21aca143f76c025b9ae7e5813ea35bd5a0731fd1c4877a7f614fde57d085deb7f31ad31dccf54fd087883ab7a88f6baabb45fdf760003707fa09ddd826f66048af1826f00a0bb3aa7009b73082bb03fd2faeffa7fff58cfffcbcfffdfbc93f7f7d62d7</data>
     </image>
 </images>
 <connections>
@@ -1620,5 +1647,6 @@
     <includehint>kcombobox.h</includehint>
     <includehint>kcombobox.h</includehint>
     <includehint>kcombobox.h</includehint>
+    <includehint>levelmeter.h</includehint>
 </includehints>
 </UI>

@@ -30,9 +30,12 @@ class CurveWidget : public QWidget
     public:
 
   CurveWidget	(QWidget *parent=0,const char *name=0,QList<CPoint>*d=0,int=false);
-  ~CurveWidget	();
+  ~CurveWidget	 ();
   QList<CPoint> *getPoints ();
-  int getType ();
+  int   getType  ();
+  void  setType  (char *);
+  void  setCurve (QList<CPoint> *);
+
 
   public slots:
 

@@ -93,23 +93,25 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   QPopupMenu *multmenu=new QPopupMenu();
   tflag=false;
 
-
-  times=0;
-
   menu->insertItem (klocale->translate("Multipliers"),multmenu);
   multmenu->insertItem (klocale->translate("all"));
   multmenu->insertItem (klocale->translate("odd"));
   menu->insertItem (klocale->translate("Reset all"));
 
+  x=new ScaleWidget (this,0,360,"°");
+  y=new ScaleWidget (this,100,-100,"%");
+  corner=new CornerPatchWidget (this);
+
   Functions func;
-  freq=440;
   this->rate=rate;
-  this->time=time;
 
   setCaption	(name);
-  multlab       =new QLabel	(klocale->translate("Frequency Multiplier :"),this);
+  multlab       =new QLabel	(klocale->translate("Multiply :"),this);
   phaselab	=new QLabel	(klocale->translate("Phase in degree:"),this);
   powerlab	=new QLabel	(klocale->translate("Power in %:"),this);
+
+  freqbutton    =new QPushButton(klocale->translate("Frequency"),this);  
+  hear          =new QPushButton(klocale->translate("Test"),this);  
 
   aphase=0;
   apower=0;
@@ -117,10 +119,9 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
 
   powerlabel=new KIntegerLine *[num];
   phaselabel=new KIntegerLine *[num];
-  multlabel =new KIntegerLine *[num];
+  mult      =new KIntegerLine *[num];
   power     =new QSlider *[num];
   phase     =new QSlider *[num];
-  mult      =new QSlider *[num];
 
   functype=new QComboBox  (false,this);
   functype->insertStrList (func.getTypes());
@@ -128,27 +129,6 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   /*  signaltype=new QComboBox  (false,this);
   signaltype->insertStrList (SignalTypes);
   */
-  bg = new QButtonGroup( this);
-  bg->setTitle(klocale->translate("Frequency"));  
-  QVBoxLayout *vbox = new QVBoxLayout(bg, 10);
-
-  vbox->addSpacing(bg->fontMetrics().height()/2);
-  fixed = new QRadioButton(bg);
-  fixed->setText(klocale->translate("Fixed"));
-  vbox->addWidget (fixed);
-  fixed->setChecked (true);
-  fixed->setMinimumSize(fixed->sizeHint());
-
-  sweep = new QRadioButton(bg);
-  sweep->setText(klocale->translate("Sweep"));
-  vbox->addWidget (sweep);
-  sweep->setMinimumSize( sweep->sizeHint() );
-
-  file = new QRadioButton (bg);
-  file->setText(klocale->translate("File"));
-  vbox->addWidget (file);
-  file->setMinimumSize( file->sizeHint() );
-
   view=new AddSynthWidget (this);
   connect 	(functype,SIGNAL(activated(int)),view,SLOT (setFunction(int)));
 
@@ -172,133 +152,20 @@ AddSynthDialog::AddSynthDialog (QWidget *par,int rate,int time,char *name): QDia
   connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
   connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
   connect 	(channel,SIGNAL(textChanged(const char *)),SLOT (setChannels(const char *)));
-  connect 	(fixed,SIGNAL(pressed()),SLOT (fixedMode()));
-  connect 	(sweep,SIGNAL(pressed()),SLOT (sweepMode()));
-  connect 	(file,SIGNAL(pressed()), SLOT (fileMode()));
+  connect 	(freqbutton,SIGNAL(clicked()),SLOT (getFrequency()));
   updateView();
 }
 //**********************************************************
-void AddSynthDialog::fixedMode ()
+void AddSynthDialog::getFrequency ()
 {
-  CPoint *newpoint;
-
-  fixed->setChecked (true);
-  file->setChecked (false);
-  sweep->setChecked (false);
-
-  FixedFrequencyDialog dialog;
+  FrequencyDialog dialog(this);
   if (dialog.exec())
     {
       if (times) delete times;
-
-      times=new QList<CPoint>;
-      newpoint=new CPoint;
-	
-      newpoint->x=(double)dialog.getTime();
-      newpoint->y=(double)rate/dialog.getFrequency();
-      times->append (newpoint);
+      times=dialog.getFrequency ();
     }
 }
 //**********************************************************
-void AddSynthDialog::sweepMode ()
-{
-  sweep->setChecked (true);
-  file->setChecked (false);
-  fixed->setChecked (false);
-  CPoint *newpoint;
-  SweepDialog dialog(this,rate);
-  if (dialog.exec())
-    {
-      double freq1=dialog.getFreq1();
-      double freq2=dialog.getFreq2();
-      double freq;
-      Interpolation interpolation(dialog.getInterpolationType());
-
-      interpolation.prepareInterpolation (dialog.getPoints());
-
-      int time=dialog.getTime();
-      int count=0;
-            
-      if (times) delete times;
-      times=new QList<CPoint>;
-
-      while (count<time)
-	{
-	  double dif=((double)count)/time;
-	  dif=interpolation.getSingleInterpolation (dif);
-	  freq=(freq2*dif+freq1*(1-dif));
-
-	  newpoint=new CPoint;
-
-	  newpoint->x=1;
-	  newpoint->y=floor (rate/freq);
-	  count+=(int)newpoint->y;
-	  times->append (newpoint);
-	}
-    }
-}
-//**********************************************************
-void AddSynthDialog::fileMode ()
-{
-  file->setChecked (true);
-  fixed->setChecked (false);
-  sweep->setChecked (false);
-  CPoint *newpoint;
-  QString name=QFileDialog::getOpenFileName (0,"*.dat",this);
-  if (!name.isNull())
-    {
-      QFile in(name.data());
-      if (in.exists())
-	{
-	  if (in.open(IO_ReadWrite))
-	    {
-	      CPoint *lastpoint=0;
-
-	      char buf[80];
-	      float time;
-	      float freq;
-
-	      if (times) delete times;
-
-	      times=new QList<CPoint>;
-
-	      while (in.readLine(&buf[0],80)>0)
-		{
-
-		  if ((buf[0]!='#')&&(buf[0]!='/'))    //check for commented lines
-		    {
-		      char *p;
-		      sscanf (buf,"%e",&time);
-		      p=strchr (buf,'\t');
-		      if (p==0) p=strchr (buf,' ');
-
-		      sscanf (p,"%e",&freq);
-
-		      newpoint=new CPoint;
-
-		      newpoint->x=(double)time;
-		      newpoint->y=(double)freq;
-			    
-		      if (lastpoint)
-			{
-			  if (lastpoint->y>0)
-			    {
-			      lastpoint->y=floor(rate/lastpoint->y);
-			      lastpoint->x=(newpoint->x-lastpoint->x)*rate/1000;
-			      lastpoint->x=floor(lastpoint->x/lastpoint->y);
-			      times->append (lastpoint);
-			    }
-			}
-		      lastpoint=newpoint;
-		    }
-		}
-	    }
-	  else printf (klocale->translate("could not open file !\n"));
-	}
-      else printf (klocale->translate("file %s does not exist!\n"),name.data());
-    }
-}
- //**********************************************************
 void AddSynthDialog::setChannels (const char *n)
 {
   int x=1;
@@ -316,14 +183,12 @@ void AddSynthDialog::getNSlider (int n,int first)
 	{
 	  delete powerlabel[i];
 	  delete phaselabel[i];
-	  delete multlabel[i];
 	  delete power[i];
 	  delete phase[i];
 	  delete mult[i];
 	}
       delete powerlabel;
       delete phaselabel;
-      delete multlabel;
       delete power;
       delete phase;
       delete mult;
@@ -332,10 +197,9 @@ void AddSynthDialog::getNSlider (int n,int first)
   num=n;
   powerlabel=new KIntegerLine *[num];
   phaselabel=new KIntegerLine *[num];
-  multlabel =new KIntegerLine *[num];
+  mult      =new KIntegerLine *[num];
   power     =new QSlider *[num];
   phase     =new QSlider *[num];
-  mult      =new QSlider *[num];
 
   for (int i=0;i<num;i++)
     {
@@ -344,15 +208,14 @@ void AddSynthDialog::getNSlider (int n,int first)
       powerlabel[i]->setText ("0");
       phaselabel[i]=new KIntegerLine (this);
       phaselabel[i]->setText ("0");
-      multlabel[i] =new KIntegerLine (this);
-      sprintf (buf,"%d",i);
-      multlabel[i]->setText (buf);
+      mult[i]      =new KIntegerLine (this);
+      sprintf (buf,"%d",i+1);
+      mult[i]->setText (buf);
     }
   for (int i=0;i<num;i++)
     {
-      power[i]=new QSlider (0,1000,1,0   ,QSlider::Horizontal,this);
+      power[i]=new QSlider (0,1000,1,0  ,QSlider::Horizontal,this);
       phase[i]=new QSlider (-180,179,1,0,QSlider::Horizontal,this);
-      mult[i ]=new QSlider (1,100,1,i+1  ,QSlider::Horizontal,this);
     }
 
   power[0]->setValue (1000);
@@ -370,15 +233,13 @@ void AddSynthDialog::getNSlider (int n,int first)
       mult[i]->show();
       powerlabel[i]->show();
       phaselabel[i]->show();
-      multlabel[i]->show();
       connect  (power[i],SIGNAL(valueChanged(int)),SLOT(showPower(int)));
       connect  (phase[i],SIGNAL(valueChanged(int)),SLOT(showPhase(int)));
-      connect  (mult[i],SIGNAL (valueChanged(int)),SLOT(showMult(int)));
       connect  (powerlabel[i],SIGNAL(textChanged(const char *)),SLOT(showPower(const char *)));
       connect  (phaselabel[i],SIGNAL(textChanged(const char *)),SLOT(showPhase(const char *)));
-      connect  (multlabel[i],SIGNAL (textChanged(const char *)),SLOT(showMult(const char *)));
+      connect  (mult[i],SIGNAL (textChanged(const char *)),SLOT(showMult(const char *)));
   }
- setMinimumSize (bsize*16,(nsize*(num+1)+bsize*2)+toppart);
+  setMinimumSize (bsize*16,(nsize*(num+1)+bsize*2)+toppart);
 }
 //**********************************************************
 void AddSynthDialog::updateView ()
@@ -389,7 +250,7 @@ void AddSynthDialog::updateView ()
   for (int i=0;i<num;i++) if (power[i]->value()>0) count++; //count active elements
 
   if (apower) delete apower;
-  if (amult) delete  amult;
+  if (amult)  delete  amult;
   if (aphase) delete aphase;
 
   apower=new int[count]; 
@@ -417,6 +278,7 @@ int AddSynthDialog::getCount ()
 }
 //**********************************************************
 MSignal *AddSynthDialog::getSignal ()
+//calculates final signal from choosed parameters...
 {
   Functions foo;
   int count=getCount();
@@ -431,14 +293,17 @@ MSignal *AddSynthDialog::getSignal ()
       int dif;
       int lastz;
 
-      for (t=times->first();t;t=times->next()) len+=int (t->x*t->y); //count number of samples
+      //count number of samples
+      for (t=times->first();t;t=times->next()) len+=int (t->x*t->y);
 
+      //get new signal
       MSignal *add=new MSignal ((QWidget *)parent(),len,rate);
 
       if (add&&add->getSample()&&len);
       {
 	int *sample=add->getSample();
 
+	//get pointer to choosed function
 	double (*func)(double)=(double (*)(double))foo.getFunc(functype->currentItem());
 
 	if (count)
@@ -489,13 +354,6 @@ void AddSynthDialog::showPower (const char *str)
 //**********************************************************
 void AddSynthDialog::showMult (const char *str)
 {
-  for (int i=0;i<num;i++) 
-    if (strcmp(multlabel[i]->text(),str)==0)
-      {
-	tflag=true;
-	mult[i]->setValue (strtol(str,0,0)*10);
-	tflag=false;
-      }
   updateView ();
 }
 //**********************************************************
@@ -536,15 +394,6 @@ void AddSynthDialog::showPhase (int newvalue)
 //**********************************************************
 void AddSynthDialog::showMult (int newvalue)
 {
-  for (int i=0;i<num;i++) 
-    if (mult[i]->value()==newvalue)
-      if (!tflag)
-      {
-	char buf[8];
-	sprintf (buf,"%d",newvalue);
-	multlabel[i]->setText (buf);
-      }
-  updateView ();
 }
 //**********************************************************
 void AddSynthDialog::resizeEvent (QResizeEvent *)
@@ -553,36 +402,39 @@ void AddSynthDialog::resizeEvent (QResizeEvent *)
   int lsize=powerlab->sizeHint().height();
   int width=this->width();
   int height=this->height();
-  int toppart=lsize*12;
-  int offset=0;
-
-  view->setGeometry (0,0,width*2/3,toppart);
-  channellabel->setGeometry   (width*2/3+lsize,lsize/2,width/3-bsize*2-lsize,lsize);
-  channel->setGeometry  (width*2/3+lsize+width/3-bsize*2-lsize,0,bsize+lsize,bsize);
-  offset+=bsize+4;
-  functype->setGeometry      (width*2/3+lsize,offset,width/3-bsize,bsize);
-  offset+=bsize+4;
-  bg->setGeometry      (width*2/3+lsize,offset,width/3-bsize,bsize*4);
-
-  width-=bsize; //create some border
-  powerlab->setGeometry	(0        ,toppart,width/3,lsize);
-  phaselab->setGeometry	(width*1/3,toppart,width/3,lsize);
-  multlab->setGeometry	(width*2/3,toppart,width/3,lsize);
-
   int nsize=powerlabel[0]->sizeHint().height();
+  int toppart=height-bsize*3-num*nsize;
+  int offset=0;
+  int textx=lsize*3;
+
+  x->setGeometry (8+bsize,toppart-bsize,width*2/3-8-bsize,bsize);
+  y->setGeometry (8,0,bsize,toppart-bsize);
+  corner->setGeometry (8,toppart-bsize,bsize,bsize);
+  view->setGeometry (8+bsize,0,width*2/3-8-bsize,toppart-bsize);
+
+  channellabel->setGeometry (width*2/3+8,lsize/2,width/3-bsize*2-lsize,lsize);
+  channel->setGeometry  (width*2/3+8+width/3-16-bsize-lsize,0,bsize+lsize,bsize);
+  offset+=bsize+4;
+  functype->setGeometry      (width*2/3+8,offset,width/3-16,bsize);
+  offset+=bsize+4;
+  freqbutton->setGeometry    (width*2/3+8,offset,width/3-16,bsize);
+  offset+=bsize+4;
+  hear->setGeometry          (width*2/3+8,offset,width/3-16,bsize);
+
+  powerlab->setGeometry	(8            ,toppart,width/3,lsize);
+  phaselab->setGeometry	((width-lsize*3)/2,toppart,width/3,lsize);
+  multlab->setGeometry	(width-textx-8,toppart,width/3,lsize);
 
   for (int i=0;i<num;i++)
     {
       int yoffset=nsize*(i+1)+toppart;
-      int textx=lsize*3;
+      int w=width-textx-16;
 
-      powerlabel[i]->setGeometry (lsize/2,yoffset,textx,nsize);
-      phaselabel[i]->setGeometry (lsize/2+width/3,yoffset,textx,nsize);
-      multlabel [i]->setGeometry (lsize/2+width*2/3,yoffset,textx,nsize);
-      textx+=lsize;
-      power[i]->setGeometry (textx,yoffset+2,width/3-textx,nsize-4);
-      phase[i]->setGeometry (width/3+textx,yoffset+2,width/3-textx,nsize-4);
-      mult[i]->setGeometry  (width*2/3+bsize+lsize,yoffset+2,width/3-bsize-lsize,nsize-4);
+      powerlabel[i]->setGeometry (8,yoffset,textx,nsize);
+      phaselabel[i]->setGeometry (8+w/2,yoffset,textx,nsize);
+      mult [i]->setGeometry      (8+w,yoffset,textx,nsize);
+      power[i]->setGeometry      (10+textx,yoffset+2,w/2-textx-10,nsize-4);
+      phase[i]->setGeometry      (10+w/2+textx,yoffset+2,w/2-textx-10,nsize-4);
     }
   width=this->width();
 
@@ -602,13 +454,148 @@ void AddSynthDialog::mousePressEvent( QMouseEvent *e)
 AddSynthDialog::~AddSynthDialog ()
 {
   if (powerlabel) delete powerlabel;
-  if (multlabel)  delete multlabel;
   if (phaselabel) delete phaselabel;
   if (apower) delete apower;
   if (amult)  delete  amult;
   if (aphase) delete aphase;
+  if (times) delete times;
 }
+//**********************************************************
+PulseDialog::PulseDialog (QWidget *par,int rate,int time,char *name): QDialog(par,0,true)
+{
+  x=new ScaleWidget (this,0,360,"°");
+  y=new ScaleWidget (this,100,-100,"%");
+  corner=new CornerPatchWidget (this);
 
+  QList<CPoint> init;
+  CPoint *newpoint=new CPoint;
+  newpoint->x=0;
+  newpoint->y=.5;
+  init.append (newpoint);
+  newpoint=new CPoint;
+  newpoint->x=.5;
+  newpoint->y=1;
+  init.append (newpoint);
+  newpoint=new CPoint;
+  newpoint->x=1;
+  newpoint->y=.5;
+  init.append (newpoint);
+
+  pulse=new CurveWidget (this,"",&init);
+
+  Functions func;
+  this->rate=rate;
+
+  setCaption	(name);
+
+  freqbutton    =new QPushButton(klocale->translate("Frequency"),this);
+  hear          =new QPushButton(klocale->translate("Test"),this);  
+  pulselabel    =new QLabel	(klocale->translate("Length of pulse :"),this);
+  pulselength   =new TimeLine (this,rate);
+  pulselength->setMs (5);
+
+  ok		=new QPushButton ("Ok",this);
+  cancel	=new QPushButton ("Cancel",this);
+
+  times=new QList<CPoint>;
+  newpoint=new CPoint;
+  newpoint->x=100;
+  newpoint->y=(double)rate/440;
+  times->append (newpoint);
+
+  int bsize=ok->sizeHint().height();
+  setMinimumSize (bsize*12,bsize*10);
+  resize (bsize*12,bsize*10);
+
+  cancel->setAccel(Key_Escape);
+  ok->setFocus	();
+  connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
+  connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
+  connect 	(freqbutton,SIGNAL(clicked()),SLOT(getFrequency()));
+}
+//**********************************************************
+void PulseDialog::getFrequency ()
+{
+  FrequencyDialog *dialog=new FrequencyDialog(this);
+  if (dialog)
+  if (dialog->exec())
+    {
+      if (times) delete times;
+      times=dialog->getFrequency ();
+    }
+}
+//**********************************************************
+MSignal *PulseDialog::getSignal ()
+//calculates final signal from choosed parameters...
+{
+  if (times)
+    {
+      CPoint *t;
+      int len=0;
+      int pulselen=pulselength->getValue();
+      QList<CPoint> *points=this->pulse->getPoints ();
+      Interpolation interpolation (this->pulse->getType());
+      double *tmp=interpolation.getInterpolation (points,pulselen);
+      int    *pulse=new int[pulselen];
+
+      //count number of samples
+      for (t=times->first();t;t=times->next()) len+=int (t->x*t->y);
+
+      //get new signal
+      MSignal *add=new MSignal ((QWidget *)parent(),len,rate);
+
+      if (pulse&&add&&add->getSample()&&len);
+      {
+	int min;
+	int cnt=0;
+	int i,j;
+	int *sample=add->getSample();
+	for (int i=0;i<pulselen;i++) pulse[i]=(int)((tmp[i]-.5)*((1<<24)-1));
+	for (t=times->first();t;t=times->next())
+	  {
+	    for (i=0;i<t->x;i++)
+	      {
+		min=pulselen;
+		if (min>t->y) min=(int)t->y;
+		for (j=0;j<min;j++) sample[cnt+j]=pulse[j];
+		for (;j<t->y;j++) sample[cnt+j]=0;
+
+		cnt+=(int)t->y;
+	      }
+	  }
+
+       	return add;
+      }
+    }
+  return 0;
+}
+//**********************************************************
+PulseDialog::~PulseDialog ()
+{
+  if (times) delete times;
+}
+//**********************************************************
+void PulseDialog::resizeEvent (QResizeEvent *)
+{
+  int bsize=ok->sizeHint().height();
+  int width=this->width();
+  int height=this->height();
+  int toppart=height-bsize*7/2;
+
+  x->setGeometry (8+bsize,toppart-bsize,width-16-bsize,bsize);
+  y->setGeometry (8,0,bsize,toppart-bsize);
+  corner->setGeometry (8,toppart-bsize,bsize,bsize);
+  pulse->setGeometry  (8+bsize,0,width-16-bsize,toppart-bsize);
+
+  freqbutton->setGeometry (8,height-bsize*3,width*3/10-10,bsize);  
+  hear      ->setGeometry (width*3/10,height-bsize*3,width*2/10,bsize);
+  pulselabel->setGeometry (width*5/10+2,height-bsize*3,width*3/10-2,bsize);  
+  pulselength->setGeometry (width*8/10,height-bsize*3,width*2/10-8,bsize);  
+
+  ok->setGeometry	(width/10,height-bsize*3/2,width*3/10,bsize);  
+  cancel->setGeometry	(width*6/10,height-bsize*3/2,width*3/10,bsize);  
+}
+//**********************************************************
 
 
 

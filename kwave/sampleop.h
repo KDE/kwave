@@ -52,6 +52,7 @@
 #define NOISE		5000
 #define HULLCURVE	5001
 #define ADDSYNTH 	5002
+#define PULSE	        5003
 
 #define FFT	        6000
 #define SONAGRAM        6001
@@ -65,6 +66,7 @@
 #define APPENDMARK       7005
 #define MARKSIGNAL       7006
 #define MARKPERIOD       7007
+#define SAVEPERIODS	 7008
 #define SELECTMARK	 7010
 #define SAVEBLOCKS	 7100
 

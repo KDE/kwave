@@ -64,7 +64,5 @@ class AboutDialog : public QDialog
  LogoWidget     *logo;
  QPushButton	*ok;
 };
-
-
 #endif  /* about.h */   
 

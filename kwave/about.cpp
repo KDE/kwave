@@ -13,6 +13,9 @@ Alpha-Testing by Carsten Jacobi\n\
 (carsten@jakes.kawo1.rwth-aachen.de)\n\
 \nFFT-Code by GNU gsl-Project, library version 0.3 beta\n\
 (GSL-Library may be retrieved from ftp://alpha.gnu.org/gnu/)\n\n\
+Thanks go to:\n\
+Frank Christian Stoffel\n\
+Achim Dahlhaus\n\n\
 This program is free software; you can redistribute it and/or\n\
 modify it under the terms of the GNU General Public License\n\
 as published by the Free Software Foundation; either version 2\n\

@@ -148,7 +148,7 @@ void FFTWidget::smooth()
 //****************************************************************************
 void FFTWidget::amplify()
 {
-  AmplifyCurveDialog *dialog =new AmplifyCurveDialog (this);
+  FrequencyMultDialog *dialog =new FrequencyMultDialog (this,rate);
   if (dialog->exec())
     {
       QList<CPoint> *points=dialog->getPoints ();
@@ -409,6 +409,35 @@ void FFTWidget::paintEvent  (QPaintEvent *)
   if (pixmap) bitBlt (this,0,0,pixmap);
 }
 //****************************************************************************
+FFTContainer::FFTContainer (QWidget *parent): QWidget (parent)
+{
+  this->view=0;
+}
+//****************************************************************************
+void FFTContainer::setObjects (FFTWidget *view,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner)
+{
+  this->view=view;
+  this->xscale=x;
+  this->yscale=y;
+  this->corner=corner;
+}
+//****************************************************************************
+FFTContainer::~FFTContainer ()
+{
+}
+//****************************************************************************
+void FFTContainer::resizeEvent	(QResizeEvent *)
+{
+  if (view)
+    {
+      int bsize=(QPushButton("test",this).sizeHint()).height();
+      view->setGeometry	(bsize,0,width()-bsize,height()-bsize);  
+      xscale->setGeometry	(bsize,height()-bsize,width()-bsize,bsize);  
+      yscale->setGeometry	(0,0,bsize,height()-bsize);
+      corner->setGeometry	(0,height()-bsize,bsize,bsize);  
+    }
+}
+//****************************************************************************
 FFTWindow::FFTWindow (const char *name) : KTopLevelWidget (name)
 {
   QPopupMenu *view=	new QPopupMenu ();
@@ -423,7 +452,15 @@ FFTWindow::FFTWindow (const char *name) : KTopLevelWidget (name)
   status->insertItem ("Amplitude:    0 %      ",2);
   status->insertItem ("Phase:    0        ",3);  
 
-  fftview=new FFTWidget (this);
+  mainwidget=new FFTContainer (this);
+
+  fftview=new FFTWidget (mainwidget);
+  xscale=new ScaleWidget (mainwidget,0,100,"Hz");
+  yscale=new ScaleWidget (mainwidget,100,0,"%");
+  corner=new CornerPatchWidget (mainwidget);
+
+  mainwidget->setObjects (fftview,xscale,yscale,corner);
+
   edit->insertItem	(klocale->translate("Multiply"),fftview,SLOT(amplify()));
   edit->insertItem	(klocale->translate("Smooth"),fftview,SLOT(smooth()));
   edit->insertSeparator	();
@@ -435,17 +472,19 @@ FFTWindow::FFTWindow (const char *name) : KTopLevelWidget (name)
   connect (fftview,SIGNAL(ampInfo(int,int)),this,SLOT(setAmpInfo(int,int)));
   connect (fftview,SIGNAL(phaseInfo(int,int)),this,SLOT(setPhaseInfo(int,int)));
 
-  setView (fftview);
+  setView (mainwidget);
   setStatusBar (status);
   setMenu (bar);
   
   setCaption ("Frequencies :"); 
-  resize (320,200);
+  resize (480,300);
+  setMinimumSize (480,300);
 }
 //****************************************************************************
 void FFTWindow::setSignal (complex *data,double max,int size, int rate)
 {
   fftview->setSignal (data,max,size,rate);
+  xscale ->setMaxMin (rate/2,0); 
 }
 //****************************************************************************
 FFTWindow::~FFTWindow (QWidget *parent,const char *name)

@@ -1,5 +1,8 @@
-#define _REENTRANT
+#define  THREADS
+#ifdef   THREADS
 #include <pthread.h>
+#endif
+
 #include "sample.h"
 #include <kmsgbox.h>
 #include <kprogress.h>
@@ -28,6 +31,18 @@ static int begin;
 
 static const char *NOMEM={"Not enough Memory for Operation !"};
 //**********************************************************
+
+#ifndef THREADS
+#define pthread_t int
+//use a wrapper to use functions also on Systems with no thread support...
+//not tested yet...
+void pthread_create (pthread_t *,void *,void* (*jumpto)(void *),void *arg)
+{
+  *(jumpto) (arg);
+}
+#endif
+
+//**********************************************************
 void MSignal::doRangeOp (int num)
 {
   stopplay();	//no id needed, since every operation should cancel playing...
@@ -53,123 +68,128 @@ void MSignal::doRangeOp (int num)
 	emit channelReset();
       }
     else
-      if ((num>=FILTER)&&(num<FILTEREND)) movingFilter (num-FILTER);
+      if ((num>FILTER)&&(num<FILTEREND)) movingFilter (num-FILTER);
       else
-	switch (num)
-	  {
-	  case ALLCHANNEL:
-	    selected=true;
-	    if (next) next->doRangeOp (ALLCHANNEL);
-	    break;
-	  case INVERTCHANNEL:
-	    selected=!selected;
-	    if (next) next->doRangeOp (INVERTCHANNEL);
-	    break;
-	  case NEW:
-	    newSignal();
-	    break;
-	  case PLAY:
-	    if (play16bit) play16(false);
-	    else play8(false);
-	    break;
-	  case LOOP:
-	    if (play16bit) play16(true);
-	    else play8(true);
-	    break;
-	  case DELETE:
-	    deleteRange();
-	    break;
-	  case PASTE:
-	    pasteRange();
-	    break;
-	  case MIXPASTE:
-	    mixpasteRange();
-	    break;
-	  case CROP:
-	    cropRange();
-	    break;
-	  case COPY:
-	    copyRange();
-	    break;
-	  case CUT:
-	    cutRange();
-	    break;
-	  case ZERO:
-	    zeroRange();
-	    break;
-	  case FLIP:
-	    flipRange();
-	    break;
-	  case CENTER:
-	    center();
-	    break;
-	  case REVERSE:
-	    reverseRange();
-	    break;
-	  case FADEIN:
-	    fadeIn ();
-	    break;
-	  case FADEOUT:
-	    fadeOut ();
-	    break;
-	  case AMPLIFYMAX:
-	    amplifyMax ();
-	    break;
-	  case AMPLIFY:
-	    amplify ();
-	    break;
-	  case DISTORT:
-	    distort ();
-	    break;
-	  case AMPWITHCLIP:
-	    amplifywithClip ();
-	    break;
-	  case NOISE:
-	    noise ();
-	    break;
-	  case HULLCURVE:
-	    hullCurve ();
-	    break;
-	  case DELAY:
-	    delay();
-	    break;
-	  case RATECHANGE:
-	    rateChange();
-	    break;
-	  case FFT:
-	    fft();
-	    break;
-	  case PLAYBACKOPTIONS:
-	    playBackOptions();
-	    break;
-	  case ADDCHANNEL:
-	    addChannel();
-	    break;
-	  case ADDSYNTH:
-	    addSynth();
-	    break;
-	  case MOVINGAVERAGE:
-	    movingAverage();
-	    break;
-	  case SONAGRAM:
-	    sonagram ();
-	    break;
-	  case RESAMPLE:
-	    resample ();
-	    break;
-	  case FILTERCREATE:
-	    filterCreate ();
-	    break;
-	  case AVERAGEFFT:
-	    averagefft();
-	    break;
-	  case STUTTER:
-	    stutter();
-	  break;
-	  case REQUANTISE:
-	    reQuantize();
-	  break;
-	  }
+	{
+	  switch (num)
+	    {
+	    case ALLCHANNEL:
+	      selected=true;
+	      if (next) next->doRangeOp (ALLCHANNEL);
+	      break;
+	    case PLAY:
+	      if (play16bit) play16(false);
+	      else play8(false);
+	      break;
+	    case LOOP:
+	      if (play16bit) play16(true);
+	      else play8(true);
+	      break;
+	    case COPY:
+	      copyRange();
+	      break;
+	    case FFT:
+	      fft();
+	      break;
+	    case PLAYBACKOPTIONS:
+	      playBackOptions();
+	      break;
+	    case ADDCHANNEL:
+	      addChannel();
+	      break;
+	    case PULSE:
+	      pulse();
+	      break;
+	    case SONAGRAM:
+	      sonagram ();
+	      break;
+	    case AVERAGEFFT:
+	      averagefft();
+	      break;
+	    case DELETE:
+	      deleteRange();
+	      break;
+	    case PASTE:
+	      pasteRange();
+	      break;
+	    case MIXPASTE:
+	      mixpasteRange();
+	      break;
+	    case CROP:
+	      cropRange();
+	      break;
+	    case CUT:
+	      cutRange();
+	      break;
+	    case ZERO:
+	      zeroRange();
+	      break;
+	    case FLIP:
+	      flipRange();
+	      break;
+	    case INVERTCHANNEL:
+	      selected=!selected;
+	      if (next) next->doRangeOp (INVERTCHANNEL);
+	      break;
+	    case NEW:
+	      newSignal();
+	      break;
+	    case STUTTER:
+	      stutter();
+	      break;
+	    case REQUANTISE:
+	      reQuantize();
+	      break;
+	    case FILTERCREATE:
+	      filterCreate ();
+	      break;
+	    case RESAMPLE:
+	      resample ();
+	      break;
+	    case MOVINGAVERAGE:
+	      movingAverage();
+	      break;
+	    case ADDSYNTH:
+	      addSynth();
+	      break;
+	    case HULLCURVE:
+	      hullCurve ();
+	      break;
+	    case DELAY:
+	      delay();
+	      break;
+	    case RATECHANGE:
+	      rateChange();
+	      break;
+	    case CENTER:
+	      center();
+	      break;
+	    case REVERSE:
+	      reverseRange();
+	      break;
+	    case FADEIN:
+	      fadeIn ();
+	      break;
+	    case FADEOUT:
+	      fadeOut ();
+	      break;
+	    case AMPLIFYMAX:
+	      amplifyMax ();
+	      break;
+	    case AMPLIFY:
+	      amplify ();
+	      break;
+	    case DISTORT:
+	      distort ();
+	      break;
+	    case AMPWITHCLIP:
+	      amplifywithClip ();
+	      break;
+	    case NOISE:
+	      noise ();
+	      break;
+	    }
+	}
 }
 //**********************************************************
 void MSignal::setParent (QWidget *par)
@@ -199,7 +219,7 @@ MSignal::MSignal (QWidget *par,int numsamples,int rate,int channels) :QObject ()
 	}
       else KMsgBox::message (parent,"Info","Could not get shared memory\n",2);
 
-      locked=samplenotlocked;
+      locked=0;
       parent=par;
       this->channels=channels;
       this->selected=true;
@@ -388,25 +408,55 @@ void MSignal::reverseChannelRange ()
     }
 }
 //**********************************************************
-void MSignal::fadeChannelOut (int curve) 
+void fadeOutThread (struct FXParams *params)
 {
-  //  int len=rmarker-lmarker;
+  int *sample=params->source;
+  int len=params->len;
+  int *counter=params->counter;
+  int curve=(int)params->data[0];
   int i=0;
 
   if (curve==0)
     for (;i<len;i++)
-      sample[lmarker+i]=
-	(int)(((long long) (sample[lmarker+i]))*(len-i)/len);
+      {
+	sample[i]=
+	  (int)(((long long) (sample[i]))*(len-i)/len);
+	*counter=i;
+      }
   else if (curve<0)
     for (;i<len;i++)
-      sample[lmarker+i]=
-	(int)((double)sample[lmarker+i]*
-	      log10(1+(-curve*((double)len-i)/len))/log10(1-curve));
+      {
+	sample[i]=
+	  (int)((double)sample[i]*
+		log10(1+(-curve*((double)len-i)/len))/log10(1-curve));
+	*counter=i;
+      }
   else 
     for (;i<len;i++)
-      sample[lmarker+i]=
-	(int)((double)sample[lmarker+i]*
-	      (1-log10(1+(curve*((double)i)/len))/log10(1+curve)));
+      {
+	sample[i]=
+	  (int)((double)sample[i]*
+		(1-log10(1+(curve*((double)i)/len))/log10(1+curve)));
+	*counter=i;
+      }
+  *counter=-1;   //signal progress that action is performed...
+}
+//**********************************************************
+void MSignal::fadeChannelOut (int curve) 
+{
+  pthread_t thread;
+
+  ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Fading channel");
+  if (dialog)
+    {
+      dialog->show ();
+      connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
+      lockWrite ();
+      connect (dialog,SIGNAL(done()),this,SLOT(unlockWrite()));
+
+      pthread_create (&thread,0,(void *)fadeOutThread,
+		      getFXParams((void *)curve));
+    }
 }
 //**********************************************************
 void MSignal::fadeOut () 
@@ -429,24 +479,55 @@ void MSignal::fadeOut ()
     }
 }
 //**********************************************************
-void MSignal::fadeChannelIn (int curve)
+void fadeInThread (struct FXParams *params)
 {
+  int *sample=params->source;
+  int len=params->len;
+  int *counter=params->counter;
+  int curve=(int)params->data[0];
   int i=0;
-
   if (curve==0)
     for (;i<len;i++)
-      sample[lmarker+i]=
-	(int)(((long long) (sample[lmarker+i]))*i/len);
+      {
+	sample[i]=
+	  (int)(((long long) (sample[i]))*i/len);
+	*counter=i;
+      }
   else if (curve<0)
     for (;i<len;i++)
-      sample[lmarker+i]=
-	(int)((double)sample[lmarker+i]*
-	      log10(1+(-curve*((double)i)/len))/log10(1-curve));
+      {
+	sample[i]=
+	  (int)((double)sample[i]*
+		log10(1+(-curve*((double)i)/len))/log10(1-curve));
+	*counter=i;
+      }
   else 
-    for (;i<len;i++)
-      sample[lmarker+i]=
-	(int)((double)sample[lmarker+i]*
-	      (1-log10(1+(curve*((double)len-i)/len))/log10(1+curve)));
+    {
+      for (;i<len;i++)
+	sample[i]=
+	  (int)((double)sample[i]*
+		(1-log10(1+(curve*((double)len-i)/len))/log10(1+curve)));
+      *counter=i;
+    }
+  *counter=-1;   //signal progress that action is performed...
+}
+//**********************************************************
+void MSignal::fadeChannelIn (int curve)
+{
+  pthread_t thread;
+
+  ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Fading channel");
+  if (dialog)
+    {
+      dialog->show ();
+
+      lockWrite ();
+      connect (dialog,SIGNAL(done()),this,SLOT(unlockWrite()));
+      connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
+
+      pthread_create (&thread,0,(void *)fadeInThread,
+		      getFXParams((void *)curve));
+    }
 }
 //**********************************************************
 void MSignal::fadeIn ()
@@ -564,7 +645,7 @@ void MSignal::amplifyChannelMax (int max)
 	  else j=len;
 
 	  for (;i<j;i++)
-	    sample[begin+i]=(int) (sample[begin+i]*prop);	    
+	    sample[begin+i]=(int) (sample[begin+i]*prop);
 
 	  dialog->setProgress (i+len);
 	}
@@ -572,11 +653,32 @@ void MSignal::amplifyChannelMax (int max)
     }
 }
 //*********************************************************
+void noiseThread (struct FXParams *params)
+{
+  int *sample=params->source;
+  int len=params->len;
+  int *counter=params->counter;
+  for (int i=0;i<len;i++)
+    {
+      sample[i]=(int)((drand48()*(1<<24)-1)-(1<<23));
+      *counter=i;
+    }
+  *counter=-1;
+}
+//*********************************************************
 void MSignal::noiseRange()
 {
-  int len=rmarker-lmarker;
-    for (int i=0;i<len;i++)
-      sample[lmarker+i]=(int)((drand48()*(1<<24)-1)-(1<<23));
+  pthread_t thread;
+
+  ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Generating Noise");
+  if (dialog)
+    {
+      dialog->show ();
+      connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
+
+      pthread_create (&thread,0,(void *)noiseThread,
+		      getFXParams());
+    }
 }
 //*********************************************************
 void MSignal::noiseInsert(int ins)
@@ -920,8 +1022,12 @@ void MSignal::distort ()
     }  
 }
 //*********************************************************
-void distortThread (int *sample,int len,int *counter,Interpolation *interpolation)
+void distortThread (struct FXParams *params)
 {
+  int *sample=params->source;
+  int len=params->len;
+  int *counter=params->counter;
+  Interpolation *interpolation=(Interpolation *) params->data[0];
   int x;
   double oldy,y;
   interpolation->incUsage();
@@ -939,18 +1045,22 @@ void distortThread (int *sample,int len,int *counter,Interpolation *interpolatio
     }
   *counter=-1;
   interpolation->decUsage();
-  if (interpolation->getUsage<=0) delete interpolation;
+  if (interpolation->getUsage()<=0) delete interpolation;
 }
 //*********************************************************
 void MSignal::distortChannel (Interpolation *interpolation)
 {
+  pthread_t thread;
   ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Distorting channel");
   if (dialog)
     {
       dialog->show ();
+      lockWrite ();
+      connect (dialog,SIGNAL(done()),this,SLOT(unlockWrite()));
       connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
 
-      //      start_thread((void (*)())distortThread,&sample[begin],(void *)len,&msg[2],(void*)interpolation);
+      pthread_create (&thread,0,(void *)distortThread,
+		      getFXParams((void *)interpolation));
     }
 }
 //*********************************************************
@@ -1107,6 +1217,30 @@ void MSignal::playBackOptions ()
 void MSignal::addSynth ()
 {
   AddSynthDialog *dialog =new AddSynthDialog (parent);
+  if (dialog->exec())
+    {
+      MSignal *add=dialog->getSignal ();
+      if (add)
+	{
+	  MSignal *tmp=this;
+	  while (tmp!=0)
+	    {
+	      if (tmp->isSelected()) tmp->pasteChannelRange (add);
+	      else tmp->insertZero ((int)(len));
+
+	      tmp=tmp->getNext();
+	    }
+
+	  emit sampleChanged();
+	  delete dialog; 
+	  delete add;
+	}
+    }
+}
+//*********************************************************
+void MSignal::pulse ()
+{
+  PulseDialog *dialog =new PulseDialog (parent);
   if (dialog->exec())
     {
       MSignal *add=dialog->getSignal ();
@@ -1489,8 +1623,14 @@ void MSignal::stutter ()
     }  
 }
 //*********************************************************
-void replaceStutterThread (int *sample,int len,int *counter,int len1,int len2)
+void replaceStutterThread (struct FXParams *params)
 {
+  int *sample=params->source;
+  int len=params->len;
+  int *counter=params->counter;
+  int len1=(int)params->data[0];
+  int len2=(int)params->data[1];
+
   int j;
   int i=len2;
   while (i<len-len1)
@@ -1507,10 +1647,15 @@ void MSignal::replaceStutterChannel (int len1,int len2)
   ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Replacing signal with silence in channel");
   if (dialog)
     {
+      pthread_t thread;
+
       dialog->show ();
+      lockWrite ();
+      connect (dialog,SIGNAL(done()),this,SLOT(unlockWrite()));
       connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
 
-      //      start_thread((void (*)())replaceStutterThread,&sample[begin],(void *)len,&msg[2],(void*)len1,(void *)len2);
+      pthread_create (&thread,0,(void *)replaceStutterThread,
+		      getFXParams((void *)len1,(void *)len2));
     }
 }
 //*********************************************************
@@ -1566,6 +1711,26 @@ FXParams *MSignal::getFXParams (void *a,void *b,void *c,void *d,void *e,void *f)
   return fx;
 }
 //*********************************************************
+void MSignal::lockRead ()
+{
+  locked++;
+}
+//*********************************************************
+void MSignal::unlockRead ()
+{
+  locked--;
+}
+//*********************************************************
+void MSignal::lockWrite ()
+{
+  locked=-1;
+}
+//*********************************************************
+void MSignal::unlockWrite ()
+{
+  locked=0;
+}
+//*********************************************************
 void MSignal::quantizeChannel (int bits)
 {
   bits--; //really complex calculation is needed, to bend this variable into usable form
@@ -1575,11 +1740,12 @@ void MSignal::quantizeChannel (int bits)
   if (dialog)
     {
       dialog->show ();
+      lockWrite ();
+      connect (dialog,SIGNAL(done()),this,SLOT(unlockWrite()));
       connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
 
-      //      start_thread((void (*)())quantizeThread,&sample[begin],(void *)len,&msg[2],(void*)bits);
-      //      pthread_create (&thread,0,(void *)quantizeThread,getFXParams(((void *)bits)));
+      pthread_create (&thread,0,(void *)quantizeThread,
+		      getFXParams((void *)bits));
     }
 }
 //**********************************************************************
-

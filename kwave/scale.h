@@ -14,6 +14,7 @@ class ScaleWidget : public QWidget
 
  	ScaleWidget 	(QWidget *parent=0,int=0,int=100,char *unittext="%");
  	~ScaleWidget 	();
+ void   setMaxMin       (int,int);	
 
  signals:
 

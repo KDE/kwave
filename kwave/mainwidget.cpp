@@ -39,16 +39,27 @@ QString mstotime (int ms)
 {
   return (QString(mstotimec(ms)));
 }
-//*****************************************************************************************
+//*****************************************************************************
+OverViewWidget::OverViewWidget (QWidget *parent,const char *name)
+ : QWidget (parent,name)
+{
+  pixmap=0;
+  this->parent=parent;
+  this->mparent=0;
+  grabbed=false;
+  timer=0;
+}
+//*****************************************************************************
 OverViewWidget::OverViewWidget (MainWidget *parent,const char *name)
  : QWidget (parent,name)
 {
   pixmap=0;
   this->parent=parent;
+  this->mparent=parent;
   grabbed=false;
   timer=0;
 }
-//*****************************************************************************************
+//*****************************************************************************
 OverViewWidget::~OverViewWidget ()
 {
   if (pixmap) delete pixmap;
@@ -108,7 +119,6 @@ void OverViewWidget::mouseMoveEvent( QMouseEvent *e)
       if (act>len-max) act=len-max;
       repaint (false);
       emit valueChanged (act);
-
     }
 }
 //*****************************************************************************************
@@ -164,13 +174,15 @@ void OverViewWidget::paintEvent  (QPaintEvent *)
       p.begin (pixmap);
       p.setPen (colorGroup().midlight());
 
-      unsigned char *overview=parent->getOverView(width);
-
-      if (overview)
+      if (mparent)
 	{
-	  for (int i=0;i<width;i++)
-	    p.drawLine (i,height-(((int)overview[i])*height)/256,i,height);
-	  delete overview;
+	  unsigned char *overview=mparent->getOverView(width);
+	  if (overview)
+	    {
+	      for (int i=0;i<width;i++)
+		p.drawLine (i,height-(((int)overview[i])*height)/128,i,height);
+	      delete overview;
+	    }
 	}
 
       p.end ();
@@ -248,7 +260,7 @@ QWidget (parent,name)
   QObject::connect	(signalview,SIGNAL(channelInfo(int)),
 			 this,SLOT(getChannelInfo(int)));
   QObject::connect	(signalview,SIGNAL(viewInfo(int,int,int)),
-			 this,SLOT(setSliderInfo(int,int,int)));
+			 slider,SLOT(setRange(int,int,int)));
   QObject::connect	(signalview,SIGNAL(rateInfo(int)),this,
 			 SLOT(setRateInfo(int)));
   QObject::connect 	(signalview,SIGNAL(lengthInfo(int)),this,
@@ -458,12 +470,7 @@ void MainWidget::getChannelInfo  (int channels)
       numsignals=channels;
     }
 }
-//*****************************************************************************************
-void MainWidget::setSliderInfo  (int offset,int max,int len)
-{
-  slider->setRange	(offset,max,len);
-}
-//*****************************************************************************************
+//*****************************************************************************
 void MainWidget::resizeEvent  (QResizeEvent *)
 {
  bsize=buttons->sizeHint().height();

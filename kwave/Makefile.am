@@ -17,7 +17,7 @@
 APPSDIR = $(kde_appsdir)/Multimedia
 PIXDIR = $(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
-INCLUDES= @all_includes@
+INCLUDES= @all_includes@ 
 
 # claim, which subdirectories you want to install
 
@@ -39,7 +39,7 @@ kwave_LDFLAGS = @all_libraries@
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kwave_LDADD   = -lkfm -lkdeui -lkdecore -lqt -lX11 -lXext
+kwave_LDADD   = -lkfm -lkdeui -lkdecore -lqt -lX11 -lXext -lpthread
 
 # this option you can leave out. Just, if you use "make dist", you need it
 noinst_HEADERS =  classes.h sample.h main.h about.h fftview.h\
@@ -54,7 +54,7 @@ BUILTSOURCES =	mmain.cpp mclasses.cpp msample.cpp mabout.cpp\
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
-DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/*
+DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* doc/*~
 
 # make messages.po. Move this one to ../po/ and "make merge" in po
 messages:
@@ -69,18 +69,18 @@ install-data-local:
 	$(mkinstalldirs) $(APPSDIR)
 	$(INSTALL_DATA) kwave.kdelnk $(APPSDIR)
 	$(mkinstalldirs) $(kde_icondir)
-	$(INSTALL_DATA) kwave.xpm $(kde_icondir)
+	$(INSTALL_DATA) images/kwave.xpm $(kde_icondir)
 	$(mkinstalldirs) $(PIXDIR)
-	$(INSTALL_DATA) light_on.xpm $(PIXDIR)
-	$(INSTALL_DATA) light_off.xpm $(PIXDIR)
-	$(INSTALL_DATA) logo.xpm $(PIXDIR)
-	$(INSTALL_DATA) knob.xpm $(PIXDIR)
-	$(INSTALL_DATA) selectedknob.xpm $(PIXDIR)
-	$(INSTALL_DATA) xspeaker.xpm $(PIXDIR)
-	$(INSTALL_DATA) rspeaker.xpm $(PIXDIR)
-	$(INSTALL_DATA) lspeaker.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/light_on.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/light_off.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/logo.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/knob.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/selectedknob.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/xspeaker.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/rspeaker.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/lspeaker.xpm $(PIXDIR)
 	$(mkinstalldirs) $(kde_htmldir)/default/$(PACKAGE)
-	$(INSTALL_DATA) index.html $(kde_htmldir)/default/$(PACKAGE)
+	$(INSTALL_DATA) doc/* $(kde_htmldir)/default/$(PACKAGE)
 
 # remove ALL you have installed in install-data-local or install-exec-local
 uninstall-local:

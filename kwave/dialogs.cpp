@@ -8,8 +8,8 @@
 #include "classes.h"
 
 extern QList<MarkerType>*markertypes;
-extern QString mstotime (int ms); 
-extern char*   mstotimec (int ms); 
+extern QString mstotime (int ms);
+extern char*   mstotimec (int ms);
 static const char *OK="&Ok";
 static const char *CANCEL="Cancel";
 int fancy=false;
@@ -210,8 +210,8 @@ NewSampleDialog::NewSampleDialog (QWidget *par=NULL): QDialog(par, 0,true)
 {
 
   setCaption	(klocale->translate("Choose Length and Rate :"));
-  timelabel	=new QLabel	(klocale->translate("Time :"),this);
-  time	=new TimeLine (this,44100);
+  timelabel	=new QLabel   (klocale->translate("Time :"),this);
+  time       	=new TimeLine (this,44100);
   time->setMs (1000);
 
   ratelabel	=new QLabel 	(klocale->translate("Rate in Hz :"),this);
@@ -476,7 +476,7 @@ void ProgressDialog::paintEvent (QPaintEvent *)
       int w=(int)((((double)act)/max)*(width()-2));
       QPixmap map (width(),height());
       map.fill (colorGroup().background());
-      char buf[10];
+      char buf[10]="         ";
       sprintf (buf,"%d %%",perc);
 
       p.begin (&map);
@@ -609,8 +609,8 @@ PlayBackDialog::PlayBackDialog (QWidget *par,int play16bit,int bufbase): QDialog
   int bsize=ok->sizeHint().height();
   int lsize=ok->sizeHint().width();
 
-  setMinimumSize (lsize*10,bsize*12);
-  resize	 (lsize*10,bsize*12);
+  setMinimumSize (lsize*8,bsize*12);
+  resize	 (lsize*8,bsize*12);
 
   ok->setFocus	();
   connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
@@ -753,15 +753,18 @@ TimeDialog::~TimeDialog ()
 {
 }
 //**********************************************************
-AmplifyCurveDialog::AmplifyCurveDialog (QWidget *par=NULL): QDialog(par, 0,true)
+AmplifyCurveDialog::AmplifyCurveDialog (QWidget *par=NULL,int time): QDialog(par, 0,true)
 {
-  setCaption	(klocale->translate("Choose Curve :"));
+  setCaption	(klocale->translate("Choose Amplification Curve :"));
 
   ok	 = new QPushButton (OK,this);
   cancel = new QPushButton (CANCEL,this);
 
+  xscale=new ScaleWidget (this,0,time,"ms");
+  yscale=new ScaleWidget (this,100,0,"%");
+  corner=new CornerPatchWidget (this);
+
   curve= new CurveWidget (this);
-  curve->setBackgroundColor	(QColor(black) );
 
   int bsize=ok->sizeHint().height();
 
@@ -789,7 +792,11 @@ void AmplifyCurveDialog::resizeEvent (QResizeEvent *)
 {
  int bsize=ok->sizeHint().height();
 
- curve->setGeometry	(width()/20,0,width()*18/20,height()-bsize*5/2);  
+ curve->setGeometry	(8+bsize,0,width()-bsize-16,height()-bsize*3);  
+ xscale->setGeometry	(8+bsize,height()-bsize*3,width()-bsize-16,bsize);  
+ yscale->setGeometry	(8,0,bsize,height()-bsize*3);
+ corner->setGeometry	(8,height()-bsize*3,bsize,bsize);
+
  ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
  cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
 }
@@ -797,6 +804,134 @@ void AmplifyCurveDialog::resizeEvent (QResizeEvent *)
 AmplifyCurveDialog::~AmplifyCurveDialog ()
 {
   delete curve ;
+}
+//**********************************************************
+FrequencyMultDialog::FrequencyMultDialog (QWidget *par=NULL,int rate): QDialog(par, 0,true)
+{
+  setCaption	(klocale->translate("Select Function :"));
+
+  ok	 = new QPushButton (OK,this);
+  cancel = new QPushButton (CANCEL,this);
+
+  xscale=new ScaleWidget (this,0,rate/2,"Hz");
+  yscale=new ScaleWidget (this,100,0,"%");
+  corner=new CornerPatchWidget (this);
+
+  curve= new CurveWidget (this);
+
+  x=new KIntegerLine (this);
+  y=new KIntegerLine (this);
+  add	 = new QPushButton (klocale->translate("&Add"),this);
+  xlabel = new QLabel (klocale->translate("Freq. in Hz"),this);
+  ylabel = new QLabel (klocale->translate("Ampl. in %"),this);
+
+  int bsize=ok->sizeHint().height();
+
+  setMinimumSize (320,bsize*10);
+  resize	 (320,bsize*10);
+
+  ok->setAccel	(Key_Return);
+  cancel->setAccel(Key_Escape);
+  ok->setFocus	();
+  connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
+  connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
+}
+//**********************************************************
+QList<CPoint> *FrequencyMultDialog::getPoints ()
+{
+  return curve->getPoints();
+}
+//**********************************************************
+int FrequencyMultDialog::getType ()
+{
+  return curve->getType();
+}
+//**********************************************************
+void FrequencyMultDialog::resizeEvent (QResizeEvent *)
+{
+ int bsize=ok->sizeHint().height();
+ int ch=height()-bsize*11/2;
+
+ curve->setGeometry	(bsize,0,width()-bsize,ch);  
+ xscale->setGeometry	(bsize,ch,width()-bsize,bsize);  
+ yscale->setGeometry	(0,0,bsize,ch);
+ corner->setGeometry	(0,ch,bsize,bsize);
+
+ xlabel->setGeometry	(8,height()-bsize*4,width()*3/10-8,bsize);
+ x->setGeometry         (8,height()-bsize*3,width()*3/10-8,bsize);  
+ ylabel->setGeometry	(width()*4/10,height()-bsize*4,width()*3/10-8,bsize);  
+ y->setGeometry         (width()*4/10,height()-bsize*3,width()*3/10-8,bsize);  
+ add->setGeometry       (width()*7/10,height()-bsize*4,width()*3/10-8,bsize*2);  
+ ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
+ cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
+}
+//**********************************************************
+FrequencyMultDialog::~FrequencyMultDialog ()
+{
+  delete curve ;
+}
+//**********************************************************
+PitchDialog::PitchDialog (QWidget *par=NULL,int rate): QDialog(par, 0,true)
+{
+  setCaption	(klocale->translate("Select frequency range :"));
+
+  ok	 = new QPushButton (OK,this);
+  cancel = new QPushButton (CANCEL,this);
+
+  high=new KIntegerLine (this);
+  low =new KIntegerLine (this);
+  highlabel = new QLabel (klocale->translate("Highest Freq. in Hz"),this);
+  lowlabel  = new QLabel (klocale->translate("Lowest Freq. in Hz"),this);
+  octave    = new QCheckBox  (klocale->translate("try to avoid octave jumps"),this);
+  octave->setChecked (true);
+
+  low->setValue  (200);
+  high->setValue (2000);
+
+  int bsize=ok->sizeHint().height();
+
+  setMinimumSize (320,bsize*6);
+  resize	 (320,bsize*6);
+
+  ok->setAccel	(Key_Return);
+  cancel->setAccel(Key_Escape);
+  ok->setFocus	();
+
+  connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
+  connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
+}
+//**********************************************************
+int PitchDialog::getLow ()
+{
+  return low->value();
+}
+//**********************************************************
+int PitchDialog::getOctave ()
+{
+  return octave->isChecked();
+}
+//**********************************************************
+int PitchDialog::getHigh ()
+{
+  return high->value();
+}
+//**********************************************************
+void PitchDialog::resizeEvent (QResizeEvent *)
+{
+ int bsize=ok->sizeHint().height();
+
+ lowlabel->setGeometry	(8,8,width()/2-8,bsize);
+ low->setGeometry       (width()/2,8,width()/2-8,bsize);  
+ highlabel->setGeometry	(8,16+bsize,width()/2-8,bsize);
+ high->setGeometry      (width()/2,16+bsize,width()/2-8,bsize);  
+ octave->setGeometry	(8,24+bsize*2,width()-16,bsize);
+
+ ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
+ cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
+}
+//**********************************************************
+PitchDialog::~PitchDialog ()
+{
 }
 //**********************************************************
 HullCurveDialog::HullCurveDialog (QWidget *par,char *name): QDialog(par,0,true)
@@ -874,7 +1009,7 @@ DistortDialog::DistortDialog (QWidget *par): QDialog(par,0,true)
   curve->setBackgroundColor	(QColor(black) );
 
   xscale=new ScaleWidget (this);
-  yscale=new ScaleWidget (this);
+  yscale=new ScaleWidget (this,100,0,"%");
   corner=new CornerPatchWidget (this);
 
   int bsize=ok->sizeHint().height();
@@ -1014,7 +1149,7 @@ void SonagramDialog::setPoints (int points)
   pointbox->setCurrentItem (0);
   sprintf (buf,klocale->translate("resulting window size: %s"),(mstotimec(points*10000/rate)));  
   windowlabel->setText(buf);
-  sprintf (buf,klocale->translate("size of bitmap: %dx%d"),2*length/(points)+1,points/2);  
+  sprintf (buf,klocale->translate("size of bitmap: %dx%d"),(length/points)+1,points/2);  
   bitmaplabel->setText(buf);
 }
 //**********************************************************
@@ -1190,7 +1325,78 @@ PercentDialog::~PercentDialog ()
 {
 }
 //**********************************************************
-FixedFrequencyDialog::FixedFrequencyDialog (QWidget *par,int rate,char *title): QDialog(par, 0,true)
+FrequencyDialog::FrequencyDialog (QWidget *par,int rate,char *title): QTabDialog(par, 0,true)
+{
+  setCaption	(title);
+  this->rate=rate;
+
+  fixed=new FixedFrequencyDialog (this);
+  sweep=new SweepDialog (this);
+  connect 	(this	,SIGNAL(selected(const char *)),SLOT (setSelected(const char *)));
+  addTab (fixed,klocale->translate("Fixed"));
+  addTab (sweep,klocale->translate("Sweep"));
+}
+//**********************************************************
+void FrequencyDialog::setSelected (const char *type)
+{
+  this->type=type;
+}
+//**********************************************************
+FrequencyDialog::~FrequencyDialog ()
+{
+}
+//**********************************************************
+QList<CPoint> *FrequencyDialog::getFrequency ()
+//gets frequency list based on the selected tab and gives it back to caller
+{
+  QList<CPoint> *times=new QList<CPoint>;
+
+  if (times)
+    {
+       if (strcmp (type,klocale->translate("Fixed"))==0)
+	{
+	  CPoint *newpoint=new CPoint;
+	
+	  newpoint->x=(double)fixed->getTime();
+	  newpoint->y=(double)fixed->getFrequency();
+	  times->append (newpoint);
+	}
+      else
+      if (strcmp (type,klocale->translate("Sweep"))==0)
+	  {
+	    double lowfreq=sweep->getLowFreq();
+	    double highfreq=sweep->getHighFreq();
+	    double freq;
+	    Interpolation interpolation(sweep->getInterpolationType());
+
+	    interpolation.prepareInterpolation (sweep->getPoints());
+
+	    double time=sweep->getTime();
+	    double count=0;
+            
+	    while (count<time)
+	      {
+		double dif=count/time;
+		dif=interpolation.getSingleInterpolation (dif);
+		freq=lowfreq+(highfreq-lowfreq)*dif;
+
+		CPoint *newpoint=new CPoint;
+
+		newpoint->x=1;
+		newpoint->y=floor (rate/freq);
+		count+=newpoint->y;
+		times->append (newpoint);
+	      }
+	  }
+    }
+  return times;
+}
+//**********************************************************
+void FrequencyDialog::resizeEvent (QResizeEvent *)
+{
+}
+//**********************************************************
+FixedFrequencyDialog::FixedFrequencyDialog (QWidget *par,int rate,char *title): QWidget (par, 0)
 {
   setCaption	(title);
   this->rate=rate;
@@ -1202,19 +1408,12 @@ FixedFrequencyDialog::FixedFrequencyDialog (QWidget *par,int rate,char *title): 
 
   showTime (100);
 
-  ok	 = new QPushButton (OK,this);
-  cancel = new QPushButton (CANCEL,this);
-
-  int bsize=ok->sizeHint().height();
+  QPushButton button(this);
+  int bsize=button.sizeHint().height();
 
   setMinimumSize (320,bsize*5);
   resize	 (320,bsize*5);
 
-  ok->setAccel	(Key_Return);
-  cancel->setAccel(Key_Escape);
-  ok->setFocus	();
-  connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
-  connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
   connect 	(timeslider	,SIGNAL(valueChanged(int)),SLOT (showTime(int)));
   connect 	(frequencyslider,SIGNAL(valueChanged(int)),SLOT (showFrequency(int)));
 }
@@ -1239,23 +1438,22 @@ void FixedFrequencyDialog::showTime (int newvalue)
 //**********************************************************
 void FixedFrequencyDialog::resizeEvent (QResizeEvent *)
 {
- int bsize=ok->sizeHint().height();
- int offset=bsize/2;
+  QPushButton button(this);
+  int bsize=button.sizeHint().height();
+  int offset=bsize/2;
 
- timelabel->setGeometry	(width()/20,offset,width()*8/20,bsize);  
- timeslider->setGeometry	(width()/2,offset,width()*9/20,bsize);
- offset+=bsize*3/2;
- frequencylabel->setGeometry	(width()/20,offset,width()*8/20,bsize);  
- frequencyslider->setGeometry	(width()/2,offset,width()*9/20,bsize);  
- ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
- cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
+  timelabel->setGeometry	(width()/20,offset,width()*8/20,bsize);  
+  timeslider->setGeometry(width()/2,offset,width()*9/20,bsize);
+  offset+=bsize*3/2;
+  frequencylabel->setGeometry	(width()/20,offset,width()*8/20,bsize);  
+  frequencyslider->setGeometry	(width()/2,offset,width()*9/20,bsize);  
 }
 //**********************************************************
 FixedFrequencyDialog::~FixedFrequencyDialog ()
 {
 }
 //**********************************************************
-SweepDialog::SweepDialog (QWidget *par,int rate,char *title): QDialog(par, 0,true)
+SweepDialog::SweepDialog (QWidget *par,int rate,char *title): QWidget(par, 0)
 {
   setCaption	(title);
   this->rate=rate;
@@ -1266,70 +1464,144 @@ SweepDialog::SweepDialog (QWidget *par,int rate,char *title): QDialog(par, 0,tru
   timelabel =new QLabel (klocale->translate("Time:"),this);
   time->setMs (100);
 
-  freq1=new KIntegerLine (this);
-  freq2=new KIntegerLine (this);
+  lowfreq=new KIntegerLine (this);
+  highfreq=new KIntegerLine (this);
 
   note1=new QComboBox  (true,this);
   note1->insertStrList (notetext,-1);
   note2=new QComboBox  (true,this);
   note2->insertStrList (notetext,-1);
-  note1->setCurrentItem (8);
+  note1->setCurrentItem (12);
   note2->setCurrentItem (64);
-  showFreq1 (8);
-  showFreq2 (64);
+  showLowFreq (12);
+  showHighFreq (64);
 
   notelabel1=new QLabel (klocale->translate("From"),this);
   notelabel2=new QLabel (klocale->translate("to"),this);
 
   showTime (100);
 
-  ok	 = new QPushButton (OK,this);
-  cancel = new QPushButton (CANCEL,this);
-
-  int bsize=ok->sizeHint().height();
+  load=new QPushButton (klocale->translate("Import"),this);
+  int bsize=load->sizeHint().height();
 
   setMinimumSize (320,bsize*9);
   resize	 (320,bsize*9);
 
-  ok->setAccel	(Key_Return);
-  cancel->setAccel(Key_Escape);
-  ok->setFocus	();
-  connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
-  connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
-  connect 	(note1,SIGNAL(activated(int)),SLOT (showFreq1(int)));
-  connect 	(note2,SIGNAL(activated(int)),SLOT (showFreq2(int)));
+  connect 	(load,SIGNAL(clicked()),SLOT (import()));
+  connect 	(note1,SIGNAL(activated(int)),SLOT (showLowFreq(int)));
+  connect 	(note2,SIGNAL(activated(int)),SLOT (showHighFreq(int)));
+}
+//**********************************************************
+void SweepDialog::convert (QList<CPoint> *times)
+//converts file format list to standard list with points with  range [0-1] for
+//frequency (y) and time (x)
+{
+  double time=times->last()->x;
+  double max=0;
+  double min=20000;
+
+  //get maximum and minim...
+  for (CPoint *tmp=times->first();tmp!=0;tmp=times->next())
+    {
+      if (tmp->y>max) max=ceil(tmp->y);
+      if (tmp->y<min) min=floor(tmp->y);
+    }
+  this->time->setMs (time);
+
+  //rescale points for use with curvewidget...
+  for (CPoint *tmp=times->first();tmp!=0;tmp=times->next())
+    {
+      tmp->x/=time;
+      tmp->y=(tmp->y-min)/(max-min);
+    }
+
+  curve->setCurve (times);
+
+  lowfreq->setValue (min);
+  highfreq->setValue (max);
+}
+//**********************************************************
+void SweepDialog::import ()
+//reads file as generated by label->savefrequency into list
+{
+  QString name=QFileDialog::getOpenFileName (0,"*.dat",this);
+  if (!name.isNull())
+    {
+      QList<CPoint> *times=new QList<CPoint>;
+      CPoint *newpoint;
+      QFile in(name.data());
+      if (times&&in.exists())
+	{
+	  if (in.open(IO_ReadWrite))
+	    {
+	      CPoint *lastpoint=0;
+
+	      char buf[80];
+	      float time;
+	      float freq;
+
+	      times=new QList<CPoint>;
+
+	      while (in.readLine(&buf[0],80)>0)
+		{
+		  if ((buf[0]!='#')&&(buf[0]!='/'))
+		    //check for commented lines
+		    {
+		      char *p;
+		      sscanf (buf,"%e",&time);
+		      p=strchr (buf,'\t');
+		      if (p==0) p=strchr (buf,' ');
+		      sscanf (p,"%e",&freq);
+
+		      newpoint=new CPoint;
+
+		      newpoint->x=(double)time;
+		      newpoint->y=(double)freq;
+
+		      
+		      times->append (newpoint);
+		      lastpoint=newpoint;
+		    }
+		}
+	      convert (times);
+	      delete times;
+	    }
+	  else printf (klocale->translate("could not open file !\n"));
+	}
+      else printf (klocale->translate("file %s does not exist!\n"),name.data());
+    }
 }
 //**********************************************************
 int SweepDialog::getTime (){return time->getValue();}
 //**********************************************************
-void SweepDialog::showFreq1 (int val)
+void SweepDialog::showLowFreq (int val)
 {
   char buf[16];
 
   sprintf (buf,"%4.2f Hz",notefreq[val]);
-  freq1->setText (buf);
+  lowfreq->setText (buf);
 }
 //**********************************************************
-void SweepDialog::showFreq2 (int val)
+void SweepDialog::showHighFreq (int val)
 {
   char buf[16];
 
   sprintf (buf,"%4.2f Hz",notefreq[val]);
-  freq2->setText (buf);
+  highfreq->setText (buf);
 }
 //**********************************************************
-double SweepDialog::getFreq1 ()
+double SweepDialog::getLowFreq ()
 {
-  QString tmp(freq1->text ());
+  QString tmp(lowfreq->text ());
   return (tmp.toDouble());
 }
 //**********************************************************
 int    SweepDialog::getInterpolationType() {return curve->getType();}
 QList<CPoint> *SweepDialog::getPoints ()   {return curve->getPoints();}
 //**********************************************************
-double SweepDialog::getFreq2 ()
+double SweepDialog::getHighFreq ()
 {
-  QString tmp(freq2->text ());
+  QString tmp(highfreq->text ());
   return (tmp.toDouble());
 }
 //**********************************************************
@@ -1339,22 +1611,21 @@ void SweepDialog::showTime (int)
 //**********************************************************
 void SweepDialog::resizeEvent (QResizeEvent *)
 {
- int bsize=ok->sizeHint().height();
+  int bsize=load->sizeHint().height();
+  int offset=height()-bsize*2-8;
+  notelabel1->setGeometry(8,offset+bsize/2,width()*3/20,bsize);
+  notelabel2->setGeometry(width()*11/20,offset+bsize/2,width()*3/20,bsize);  
+  note1->setGeometry	 (width()*4/20,offset,width()*5/20,bsize);  
+  note2->setGeometry	 (width()*14/20,offset,width()*5/20,bsize);  
+  lowfreq->setGeometry	 (width()*4/20,offset+bsize,width()*5/20,bsize);  
+  highfreq->setGeometry	 (width()*14/20,offset+bsize,width()*5/20,bsize);  
+  offset-=bsize*5/4;
+  time->setGeometry      (width()*4/20,offset,width()*5/20,bsize);  
+  timelabel->setGeometry (8,offset,width()*3/20-8,bsize);
+  load->setGeometry      (width()*14/20,offset,width()*5/20,bsize);  
 
- ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
- cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
- int offset= height()-bsize*4;
- notelabel1->setGeometry	(width()/20,offset+bsize/2,width()*3/20,bsize);
- notelabel2->setGeometry	(width()*11/20,offset+bsize/2,width()*3/20,bsize);  
- note1->setGeometry	 (width()*4/20,offset,width()*5/20,bsize);  
- note2->setGeometry	 (width()*14/20,offset,width()*5/20,bsize);  
- freq1->setGeometry	 (width()*4/20,offset+bsize,width()*5/20,bsize);  
- freq2->setGeometry	 (width()*14/20,offset+bsize,width()*5/20,bsize);  
- offset-=bsize*5/4;
- timelabel->setGeometry	(width()/20,offset,width()*8/20,bsize);  
- time->setGeometry(width()/2,offset,width()*9/20,bsize);
- offset-=bsize*1/4;
- curve->setGeometry(width()/20,0,width()*18/20,offset);
+  offset-=bsize*1/4;
+  curve->setGeometry(8,8,width()-16,offset-8);
 }
 //**********************************************************
 SweepDialog::~SweepDialog ()
@@ -1454,7 +1725,7 @@ QuantiseDialog::~QuantiseDialog ()
 {
 }
 //**********************************************************
-MarkSaveDialog::MarkSaveDialog (QWidget *par,char *name): QDialog(par, 0,true)
+MarkSaveDialog::MarkSaveDialog (QWidget *par,char *name,int multi): QDialog(par, 0,true)
 {
   setCaption	(name);
 
@@ -1466,7 +1737,7 @@ MarkSaveDialog::MarkSaveDialog (QWidget *par,char *name): QDialog(par, 0,true)
       save->insertItem (act->name->data());
       act->selected=false;
     }
-  save->setMultiSelection (true);
+  save->setMultiSelection (multi);
   
   ok		=new QPushButton (OK,this);
   cancel       	=new QPushButton (CANCEL,this);

@@ -301,6 +301,7 @@ MSignal::MSignal (QWidget *par,QString *name,int channel=1) :QObject ()
   lmarker=0;
   rmarker=0;
   next=0;
+  locked=0;
 
   int key = ftok(".", 'S');
   int memid=-1;

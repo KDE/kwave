@@ -1,4 +1,3 @@
-#define _REENTRANT
 #include "main.h"
 #include "about.h"
 #include <unistd.h>
@@ -187,30 +186,34 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
    calculate->insertItem	(klocale->translate("&Silence"),	this,SLOT(zeroOp()));
   calculate->insertItem	(klocale->translate("&Noise"),	this,SLOT(noiseOp()));
   calculate->insertItem	(klocale->translate("&Additive Synthesis"),this,SLOT(addSynthOp()));
+  calculate->insertItem	(klocale->translate("&Pulse Series"),this,SLOT(pulseOp()));
   calculate->insertSeparator	();
   calculate->insertItem	(klocale->translate("&Hullcurve"),this,SLOT(hullCurveOp()));
   calculate->insertSeparator	();
   calculate->insertItem	(klocale->translate("Frequencies"),freq);
-  freq->insertItem	(klocale->translate("Single Spectrum"),	this,SLOT(fftOp()));
-  freq->insertItem	(klocale->translate("Average Spectrum"),	this,SLOT(averageFFTOp()));
-  freq->insertItem	(klocale->translate("Sonagram"),	this,SLOT(sonagramOp()));
+  freq->insertItem	(klocale->translate("&Spectrum"),	this,SLOT(fftOp()));
+  freq->insertItem	(klocale->translate("&Average Spectrum"),	this,SLOT(averageFFTOp()));
+  freq->insertItem	(klocale->translate("S&onagram"),	this,SLOT(sonagramOp()));
 
   marker->insertItem	(klocale->translate("&Add"),	this,SLOT(addMarkOp()),Key_A);
   marker->insertItem	(klocale->translate("&Delete"),	this,SLOT(deleteMarkOp()),Key_D);
   marker->insertSeparator	();
   marker->insertItem	(klocale->translate("&Generate"),genmenu);
   genmenu->insertItem	(klocale->translate("&Signal Markers"),this,SLOT(signalMarkerOp()));
+  genmenu->insertItem	(klocale->translate("&Period Markers"),this,SLOT(periodMarkerOp()));
   marker->insertSeparator	();
   marker->insertItem	(klocale->translate("&Load"),	this,SLOT(loadMarkOp()));
   marker->insertItem	(klocale->translate("&Insert"),	this,SLOT(appendMarkOp()));
   marker->insertItem	(klocale->translate("&Save"),	this,SLOT(saveMarkOp()));
+  marker->insertItem	(klocale->translate("&Save Label Frequency"),
+			 this,SLOT(savePeriodsOp()));
   marker->insertSeparator	();
   marker->insertItem	(klocale->translate("&Change Type"),mtypemenu);
   marker->insertItem	(klocale->translate("Create &Type"),this,SLOT(addMarkType()));
 
   options->insertItem	(klocale->translate("Playback"),this,SLOT(playBackOp()));
 
-  help->insertItem	(klocale->translate("&Contents"));
+  help->insertItem	(klocale->translate("&Contents"),this,SLOT(getHelp()));
   help->insertSeparator	();
   help->insertItem	(klocale->translate("&About kwave"),	this,SLOT(about()));
 
@@ -244,6 +247,11 @@ void TopWidget::about ()
 {
   AboutDialog dialog (this);
   dialog.exec ();
+}
+//*****************************************************************************************
+void TopWidget::getHelp ()
+{
+  app->invokeHTMLHelp ("kwave/index.html","");
 }
 //*****************************************************************************************
 void TopWidget::quitInstance ()
@@ -303,6 +311,7 @@ void TopWidget::amplifyMaxOp	()	{mainwidget->setRangeOp	(AMPLIFYMAX);}
 void TopWidget::amplifyClipOp	()	{mainwidget->setRangeOp	(AMPWITHCLIP);}
 void TopWidget::noiseOp		()	{mainwidget->setRangeOp	(NOISE);}
 void TopWidget::addSynthOp	()	{mainwidget->setRangeOp	(ADDSYNTH);}
+void TopWidget::pulseOp  	()	{mainwidget->setRangeOp	(PULSE);}
 void TopWidget::distortOp	()	{mainwidget->setRangeOp	(DISTORT);}
 void TopWidget::hullCurveOp	()	{mainwidget->setRangeOp	(HULLCURVE);}
 void TopWidget::delayOp		()	{mainwidget->setRangeOp	(DELAY);}
@@ -332,7 +341,9 @@ void TopWidget::averageFFTOp    ()	{mainwidget->setRangeOp (AVERAGEFFT);}
 void TopWidget::stutterOp       ()	{mainwidget->setRangeOp (STUTTER);}
 void TopWidget::requantizeOp    ()	{mainwidget->setRangeOp (REQUANTISE);}
 void TopWidget::signalMarkerOp  ()	{mainwidget->setRangeOp (MARKSIGNAL);}
-void TopWidget::saveBlocksOp     ()	{mainwidget->setRangeOp (SAVEBLOCKS+bit);}
+void TopWidget::periodMarkerOp  ()	{mainwidget->setRangeOp (MARKPERIOD);}
+void TopWidget::saveBlocksOp    ()	{mainwidget->setRangeOp (SAVEBLOCKS+bit);}
+void TopWidget::savePeriodsOp   ()	{mainwidget->setRangeOp (SAVEPERIODS);}
 //*****************************************************************************************
 void TopWidget::doFilter    (int num)
  {

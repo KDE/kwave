@@ -16,6 +16,8 @@
 #include <qcolor.h> 
 #include <qfiledlg.h> 
 #include <qlistbox.h>
+#include <qtabdialog.h>
+#include <qwidgetstack.h>
 
 #include "addsynth.h"
 #include "faderwidget.h"
@@ -116,7 +118,7 @@ class DelayDialog : public QDialog
  QCheckBox	*recursive;
  QPushButton	*ok,*cancel;
 };
-//****************************************************************************************
+//****************************************************************************
 class ProgressDialog : public QDialog
 {
  Q_OBJECT
@@ -257,7 +259,7 @@ class AmplifyCurveDialog : public QDialog
   Q_OBJECT
 
     public:
-  AmplifyCurveDialog 	(QWidget *parent=0);
+  AmplifyCurveDialog 	(QWidget *parent=0,int time=100);
   ~AmplifyCurveDialog 	();
   QList<CPoint> *getPoints ();
   int   getType ();
@@ -270,8 +272,62 @@ class AmplifyCurveDialog : public QDialog
 
  private:
 
-  QPushButton	*ok,*cancel;
   CurveWidget	*curve;
+  ScaleWidget   *xscale,*yscale;
+  CornerPatchWidget *corner;
+  QPushButton	*ok,*cancel;
+};
+//*****************************************************************************
+class FrequencyMultDialog : public QDialog
+{
+  Q_OBJECT
+
+    public:
+  FrequencyMultDialog 	(QWidget *parent=0,int time=100);
+  ~FrequencyMultDialog 	();
+  QList<CPoint> *getPoints ();
+  int   getType ();
+
+  public slots:
+
+ protected:
+
+  void resizeEvent (QResizeEvent *);
+
+ private:
+
+  CurveWidget	*curve;
+  ScaleWidget   *xscale,*yscale;
+  CornerPatchWidget *corner;
+  QLabel        *xlabel,*ylabel;
+  KIntegerLine  *x,*y;
+  QPushButton	*add;
+  QPushButton	*ok,*cancel;
+};
+//*****************************************************************************
+class PitchDialog : public QDialog
+{
+  Q_OBJECT
+
+    public:
+  PitchDialog 	(QWidget *parent=0,int time=100);
+  ~PitchDialog 	();
+  int getLow    ();
+  int getHigh   ();
+  int getOctave ();
+
+  public slots:
+
+ protected:
+
+  void resizeEvent (QResizeEvent *);
+
+ private:
+
+  QLabel        *lowlabel,*highlabel;
+  KIntegerLine  *low,*high;
+  QPushButton	*ok,*cancel;
+  QCheckBox     *octave;
 };
 //*****************************************************************************
 class TimeDialog : public QDialog
@@ -446,12 +502,12 @@ class PercentDialog : public QDialog
  void resizeEvent (QResizeEvent *);
 
  private:
- QSlider *slider;
- QLabel *label; 
- QPushButton	*ok,*cancel;
+ QSlider     *slider;
+ QLabel      *label; 
+ QPushButton *ok,*cancel;
 };
 //*****************************************************************************
-class SweepDialog : public QDialog
+class SweepDialog : public QWidget
 {
  Q_OBJECT
 
@@ -459,32 +515,35 @@ class SweepDialog : public QDialog
  	SweepDialog 	(QWidget *parent=0,int rate=48000,char *name="Choose Parameters :");
  	~SweepDialog 	();
  int    getTime();
- double getFreq1();
- double getFreq2();
+ double getLowFreq();
+ double getHighFreq();
  int    getInterpolationType();
  QList<CPoint> *getPoints ();
+ void   convert (QList<CPoint>*);
+
  public slots:
 
- void showTime  (int);
- void showFreq1  (int);
- void showFreq2  (int);
+ void import       ();
+ void showTime     (int);
+ void showLowFreq  (int);
+ void showHighFreq (int);
 
   protected:
 
  void resizeEvent (QResizeEvent *);
 
  private:
- TimeLine  *time;
- QLabel    *timelabel; 
- QComboBox *note1,*note2;
- QLabel    *notelabel1,*notelabel2; 
- KIntegerLine *freq1,*freq2;
+ TimeLine       *time;
+ QLabel         *timelabel; 
+ QComboBox      *note1,*note2;
+ QLabel         *notelabel1,*notelabel2; 
+ KIntegerLine   *lowfreq,*highfreq;
  CurveWidget	*curve;
- QPushButton	*ok,*cancel;
+ QPushButton	*load;
  int rate;
 };
 //*****************************************************************************
-class FixedFrequencyDialog : public QDialog
+class FixedFrequencyDialog : public QWidget
 {
  Q_OBJECT
 
@@ -504,12 +563,36 @@ class FixedFrequencyDialog : public QDialog
  void resizeEvent (QResizeEvent *);
 
  private:
- QSlider *timeslider;
- QLabel  *timelabel; 
- QSlider *frequencyslider;
- QLabel  *frequencylabel; 
- QPushButton	*ok,*cancel;
+ QSlider     *timeslider;
+ QLabel      *timelabel; 
+ QSlider     *frequencyslider;
+ QLabel      *frequencylabel; 
  int rate;
+};
+//*****************************************************************************
+class FrequencyDialog : public QTabDialog
+{
+ Q_OBJECT
+
+ public:
+        FrequencyDialog 	(QWidget *parent=0,int rate=48000,char *name="Choose Parameters :");
+ 	~FrequencyDialog 	();
+	QList<CPoint> *FrequencyDialog::getFrequency ();
+
+ public slots:
+
+ void setSelected  (const char *);
+
+ protected:
+
+ void resizeEvent (QResizeEvent *);
+
+ private:
+
+ FixedFrequencyDialog *fixed;
+ SweepDialog          *sweep;
+ const char           *type;
+ int                  rate;
 };
 //*****************************************************************************
 class QuantiseDialog : public QDialog
@@ -522,7 +605,6 @@ class QuantiseDialog : public QDialog
  	~QuantiseDialog 	();
 
 	int getBits();
-
 
  public slots:
 
@@ -570,7 +652,7 @@ class MarkSaveDialog : public QDialog
 
  public:
 
- 	MarkSaveDialog 	(QWidget *parent=0,char *name="Select Label Types to be saved :");
+ 	MarkSaveDialog 	(QWidget *parent=0,char *name="Select label types to be saved :",int multi=true);
  	~MarkSaveDialog ();
 
 	void getSelection();

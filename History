@@ -1,6 +1,24 @@
 Version 0.29
 
-First use of multiple threads
+added as new Possibility to generate Signals: pulse series...
+
+added wrapper for systems with no posixthreads -> still needs handling by configure script (change Makefile for not linking libpthread and doing a define)
+
+First use of multiple threads (pthreads) in some functions
+
+Pitch generation now independent of additive synthesys
+added import function for ascii files
+
+Ascii label saving now also by frequency
+
+Sonagram now also uses ScaleWidgets
+
+Label generation according to Period Detection (autocorellation)
+
+FFTView and Distortiondialog  now use ScaleWidgets
+
+New ScaleWidget gives the user more information 
+
 Improved ProgressDialog and Interpolation class to allow multiple threads
 some minor bug fixes
 
@@ -15,7 +33,7 @@ some smaller bug fixes.
 
 Version 0.27
 
-first release, but probably never uploaded, because ftp.kde.org was down.
+first release, but never uploaded, because ftp.kde.org was down.
 
 
 

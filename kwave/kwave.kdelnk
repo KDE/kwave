@@ -1,6 +1,7 @@
 # KDE Config File 
 [KDE Desktop Entry]
 Name=Kwave
+Comment=a simple sound editor
 Exec=kwave
 Icon=kwave.xpm
 Type=Application

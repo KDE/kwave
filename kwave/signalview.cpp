@@ -7,7 +7,6 @@
 #include "dialogs.h"
 
 extern QList<MarkerType>*markertypes;
-
 //****************************************************************************
 __inline void  getMaxMin (int *sample,int len,int &max,int &min)
 {
@@ -54,7 +53,7 @@ SigWidget::~SigWidget (QWidget *parent,const char *name)
 {
 	if (pixmap==0)	delete pixmap;
 	if (signal!=0)	delete signal;
-	if (markers) delete markers;
+	if (markers)    delete markers;
 }
 //****************************************************************************
 void SigWidget::saveSignal  (QString *filename,int bit,int selection)
@@ -167,6 +166,12 @@ void SigWidget::setRangeOp (int op)
 	case MARKSIGNAL:
 	  markSignal ();
 	  break;
+	case MARKPERIOD:
+	  markPeriods ();
+	  break;
+	case SAVEPERIODS:
+	  savePeriods ();
+	  break;
 	case PLAY:
 	case LOOP:
 	  if (timer==0)
@@ -278,7 +283,7 @@ void SigWidget::setRange  (int l,int r)
   repaint(false);
   reset=false;
 
-  firstx	=(int)((l-offset)/zoom);
+  firstx=(int)((l-offset)/zoom);
   nextx	=(int)((r-offset)/zoom);
 
   if ((firstx<width)&&(nextx>0)) repaint (false);
@@ -670,19 +675,23 @@ void SigWidget::paintEvent  (QPaintEvent *event)
 	    {
 	      int *sam=tmp->getSample();
 
+
 	      if (sam)
 		{
-		  if (zoom<1)        drawInterpolatedSignal(sam,begin,chanheight);
-		  else 	if (zoom>1)  drawOverviewSignal(sam,begin,chanheight);
-		  else	             drawSignal (sam,begin,chanheight);
+		  if (tmp->getLockState()>=0) //signal is not changed meanwhile 
+		    {
+		      if (zoom<1)        drawInterpolatedSignal(sam,begin,chanheight);
+		      else 	if (zoom>1)  drawOverviewSignal(sam,begin,chanheight);
+		      else	             drawSignal (sam,begin,chanheight);
+
+		    }
 		  p.setPen (green);
 		  p.drawLine (0,begin,width,begin);
 		  p.setPen (white);
-		  tmp=tmp->getNext();
 		  begin+=chanheight;
+		  tmp=tmp->getNext();
 		}
 	    }
-
 
 	  // show selected range ...
 	  if (lastx!=-1)

@@ -84,6 +84,10 @@ class FilterDialog : public QDialog
  QPushButton	*dofilter;
  FFTWidget	*filterwidget;
  FFTWidget	*phasewidget;
+ ScaleWidget    *ampx,*ampy;
+ ScaleWidget    *phasex,*phasey;
+ CornerPatchWidget *phasecorner;
+ CornerPatchWidget *ampcorner;
 };
 //*****************************************************************************
 class MovingFilterDialog : public QDialog

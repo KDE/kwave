@@ -1,3 +1,6 @@
+#ifndef _KWAVECLASSES_H_
+#define _KWAVECLASSES_H_ 1
+
 #include <qapp.h>
 #include <qlayout.h>
 #include <qpushbt.h>
@@ -60,18 +63,19 @@ class OverViewWidget : public QWidget
 {
  Q_OBJECT
  public:
+ 	OverViewWidget	(QWidget *parent=0,const char *name=0);
  	OverViewWidget	(MainWidget *parent=0,const char *name=0);
  	~OverViewWidget	();
  void	mousePressEvent		(QMouseEvent * );
  void	mouseReleaseEvent	(QMouseEvent * );  
  void	mouseMoveEvent		(QMouseEvent * );  
  void 	setSignal		(char *);
- void 	setRange		(int,int,int);
  void   setValue                (int);
  void   refresh                 ();
 
  public slots:
 
+ void 	setRange		(int,int,int);
  void increase ();
 
  signals:
@@ -91,7 +95,8 @@ class OverViewWidget : public QWidget
  int        act;
  int        dir;        //addup for direction...
  int	    redraw;	//flag for redrawing pixmap
- MainWidget *parent;
+ MainWidget *mparent;
+ QWidget    *parent;
  QTimer     *timer;     //to spare user repeated pressing of the widget...
  QPixmap    *pixmap;	//pixmap to be blitted to screen
 };
@@ -158,7 +163,8 @@ class SigWidget : public QWidget
  void   saveMarks       ();
  void   addMark         ();
  void   markSignal      ();
- void   markPeriod      ();
+ void   markPeriods     ();
+ void   savePeriods     ();
 
  private:
  int	offset;
@@ -176,8 +182,8 @@ class SigWidget : public QWidget
  QTimer		*timer;
  QPainter 	p;
  QPixmap	*pixmap;	//pixmap to be blitted to screen
- MarkerList     *markers;
- MarkerType     *markertype;
+ MarkerList     *markers;       //linked list of markers
+ MarkerType     *markertype;    //selected marker type
 };
 //***********************************************************
 class MainWidget : public QWidget
@@ -198,7 +204,6 @@ class MainWidget : public QWidget
 
  void getChannelInfo	(int);
  void resetChannels	();
- void setSliderInfo	(int offset,int min,int max);
  void setRateInfo	(int);
  void setLengthInfo	(int);
  void setTimeInfo	(int);
@@ -234,3 +239,4 @@ class MainWidget : public QWidget
  int 		numsignals;
  int            bsize;
 };
+#endif //_KWAVECLASSES_H_

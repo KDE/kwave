@@ -134,6 +134,7 @@ class MSignal : public QObject
  void   resampleChannel (int);
  void	playBackOptions ();
  void	addSynth        ();
+ void	pulse           ();
  void	addSynthChannel (int num,int **power,int **phase, int **freq);
  void	delayRecursive  (int delay,int ampl,int startpos,int lastpos);
  void	delayOnce	(int delay,int ampl,int startpos,int lastpos);
@@ -146,18 +147,20 @@ class MSignal : public QObject
  void	averagefft      ();
  void   averagefftChannel(int);
  void   sonagram        ();
- void   sonagramChannel (int);
- void   filterCreate    ();
- void   filterChannel   (Filter *filter);
- void   stutter         ();
- void   replaceStutterChannel  (int,int);
- void   insertStutterChannel  (int,int);
- void   movingFilter    (int);
- void   movingFilterChannel (Filter*,int,double *);
+ void   sonagramChannel      (int);
+ void   filterCreate         ();
+ void   lockRead             ();
+ void   lockWrite            ();
+ void   filterChannel        (Filter *filter);
+ void   stutter              ();
+ void   replaceStutterChannel(int,int);
+ void   insertStutterChannel (int,int);
+ void   movingFilter         (int);
+ void   movingFilterChannel  (Filter*,int,double *);
+ FXParams *getFXParams       (void *a=0,void *b=0,void *c=0,void *d=0,void *e=0,void *f=0);
 
  protected:
 
- FXParams *getFXParams (void *a=0,void *b=0,void *c=0,void *d=0,void *e=0,void *f=0);
  void	findDatainFile	(QFile *sigin);
  void	load8Bit	(QFile *sigin,int offset,int interleave);
  void	load16Bit	(QFile *sigin,int offset,int interleave);
@@ -176,7 +179,9 @@ class MSignal : public QObject
 
  public slots:
 
- void setMarkers (int,int);
+ void   setMarkers (int,int);
+ void   unlockRead           ();
+ void   unlockWrite          ();
 
  private: 
 

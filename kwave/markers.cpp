@@ -5,8 +5,14 @@
 #include "classes.h"
 #include "dialogs.h"
 
-extern QList<MarkerType>*markertypes;
+#define	AUTOKORRWIN 320
 
+extern QList<MarkerType>*markertypes;
+int findNextRepeat       (int *,int);
+int findNextRepeatOctave (int *,int);
+int findFirstMark  (int *,int);
+float autotable  [AUTOKORRWIN];
+float weighttable[AUTOKORRWIN];
 Marker::Marker ()
 {
   name=0;
@@ -48,7 +54,7 @@ MarkerType::~MarkerType ()
 void SigWidget::signalinserted (int start, int len)
 {
   struct Marker *tmp;
-  for (tmp=markers->first();tmp;tmp=markers->next())  //write out labels
+  for (tmp=markers->first();tmp;tmp=markers->next()) 
       if (tmp->pos>start) tmp->pos+=len;
   refresh ();
 }
@@ -56,8 +62,12 @@ void SigWidget::signalinserted (int start, int len)
 void SigWidget::signaldeleted (int start, int len)
 {
   struct Marker *tmp;
-  for (tmp=markers->first();tmp;tmp=markers->next())  //write out labels
-      if ((tmp->pos>start)&&(tmp->pos<start+len)) markers->removeRef (tmp);
+  for (tmp=markers->last();tmp;tmp=markers->prev())
+    {
+      if ((tmp->pos>start)&&(tmp->pos<start+len))
+   	markers->remove ();
+      if (tmp->pos>=start+len) tmp->pos-=len;
+    }
   refresh ();
 }
 //****************************************************************************
@@ -106,7 +116,7 @@ void SigWidget::appendMarks ()
 		char name[120];
 		int r,g,b;
 		int set=false;
-		sscanf (buf,"Type %d %s %d %d %d %d",&num,&name,&named,&r,&g,&b);
+		sscanf (buf,"Type %d %s %d %d %d %d",&num,&name[0],&named,&r,&g,&b);
 		for (act=markertypes->first();act;act=markertypes->next()) //linear search for label type ...
 		  if (strcmp (act->name->data(),name)==0)
 		    {
@@ -138,7 +148,7 @@ void SigWidget::appendMarks ()
 	while (in.readLine (buf,120)>0)
 	  {
 	    name[0]=0;
-	    sscanf (buf,"%d %d %s",&num,&pos,&name);
+	    sscanf (buf,"%d %d %s",&num,&pos,&name[0]);
 
 	    struct Marker *newmark=new Marker;
 
@@ -169,7 +179,7 @@ void SigWidget::appendMarks ()
 //****************************************************************************
 void SigWidget::saveMarks ()
 {
-  MarkSaveDialog dialog;
+  MarkSaveDialog dialog(this);
   if (dialog.exec())
     {
       dialog.getSelection();
@@ -231,10 +241,70 @@ void SigWidget::addMark ()
     }
 }
 //****************************************************************************
+void SigWidget::savePeriods ()
+{
+  if (signal)
+    {
+      MarkSaveDialog dialog (this,"Select label type :",false);
+      if (dialog.exec())
+	{
+	  dialog.getSelection();
+	  MarkerType *act;
+	  Marker *tmp;
+	  int last=0;
+	  int rate=signal->getRate ();
+
+	  QString name=QFileDialog::getSaveFileName (0,"*.dat",this);
+	  if (!name.isNull())
+	    {
+	      QFile out(name.data());
+	      char buf[160];
+	      float freq=0,time,lastfreq=0;
+	      out.open (IO_WriteOnly);
+	      int first=true;
+
+	      for (act=markertypes->first();act;act=markertypes->next())
+		//write only selected label type
+		if (act->selected)
+		  //traverse list of all labels
+		  for (tmp=markers->first();tmp;tmp=markers->next())
+		    {
+		      if (tmp->type==act)
+			{
+			  freq=tmp->pos-last;
+			  time=last*1000/rate;
+
+			  if ((!first)&&(freq!=lastfreq))
+			    {
+			      lastfreq=freq;
+			      freq=1/(freq/rate);
+			      sprintf (buf,"%f %f\n",time,freq);
+			      out.writeBlock (&buf[0],strlen(buf));
+			    }
+			  else lastfreq=freq;
+			  first=false;
+			  last=tmp->pos;
+			}
+		    }
+
+	      if (!first) //make sure last tone gets its length
+		{
+		  time=last*1000/rate;
+		  sprintf (buf,"%f %f\n",time,freq);
+		  out.writeBlock (&buf[0],strlen(buf));
+		}
+
+	      out.close ();
+	    }
+	}
+    }
+}
+//****************************************************************************
 void SigWidget::saveBlocks (int bit)
 {
     if (signal)
     {
+      QString filename;
       SaveBlockDialog dialog (this);
       if (dialog.exec ())
 	{
@@ -256,10 +326,12 @@ void SigWidget::saveBlocks (int bit)
 		    if (tmp2->type==stop)
 		      {
 			char buf[128];
-			sprintf (buf,"%s%04d.wav",dialog.getName(),count); //lets hope noone tries to save more than 10000 blocks...
-			//			printf ("saving from %d to %d\n",tmp->pos,tmp2->pos);
+			sprintf (buf,"%s%04d.wav",dialog.getName(),count);
+			//lets hope noone tries to save more than 10000 blocks...
+
 			signal->setMarkers (tmp->pos,tmp2->pos);
-			signal->save (&savedir->absFilePath(buf),bit,true);  //save selected range...
+			filename=savedir->absFilePath(buf);
+			signal->save (&filename,bit,true);  //save selected range...
 			count++;
 			break;
 		      }
@@ -329,5 +401,165 @@ void SigWidget::markSignal ()
 	}
     }
 }
+//****************************************************************************
+void SigWidget::markPeriods ()
+{
+  if (signal)
+    {
+      PitchDialog dialog;
+      if (dialog.exec())
+	{
+	  int high   =signal->getRate()/dialog.getHigh();
+	  int low    =signal->getRate()/dialog.getLow();
+	  int octave =signal->getRate()/dialog.getLow();
 
+	  for (int i=0;i<AUTOKORRWIN;i++)
+	    autotable[i]=1-(((double)i*i*i)/(AUTOKORRWIN*AUTOKORRWIN*AUTOKORRWIN));
+	  if (octave)
+	  for (int i=0;i<AUTOKORRWIN;i++)
+	    weighttable[i]=1;
 
+	  Marker *newmark;
+	  int next;
+	  int len=signal->getLength();
+	  int *sam=signal->getSample();
+	  struct MarkerType *start=markertype;
+	  int cnt=findFirstMark (sam,len);
+	  newmark=new Marker();
+	  newmark->pos=cnt;
+	  newmark->type=start;
+	  newmark->name=0;
+	  markers->inSort (newmark);
+
+	  while (cnt<len-AUTOKORRWIN)
+	    {
+	      //	      printf ("%d\n",cnt);
+
+	      if (octave)
+	      next=findNextRepeatOctave (&sam[cnt],high);
+	      else
+	      next=findNextRepeat (&sam[cnt],high);
+
+	      if ((next<low)&&(next>high))
+		{
+		  newmark=new Marker();
+		  newmark->pos=cnt;
+		  newmark->type=start;
+		  newmark->name=0;
+		  markers->inSort (newmark);
+		}
+	      if (next<AUTOKORRWIN) cnt+=next;
+	      else
+		if (cnt<len-AUTOKORRWIN)
+		  {
+		    int a=findFirstMark (&sam[cnt],len-cnt);
+		    if (a>0) cnt+=a;
+		    else cnt+=high;
+		  }
+		else cnt=len;
+	    }
+	  refresh ();
+	}
+    }
+}
+//*****************************************************************************
+int findNextRepeat (int *sample,int high)
+{
+  int	i,j;
+  double gmax=0,max,c;
+  int	maxpos=AUTOKORRWIN;
+  int	down,up;	//flags
+
+  max=0;
+  for (j=0;j<AUTOKORRWIN;j++)
+    gmax+=((double)sample[j])*sample [j];
+
+  //correlate signal with itself for finding maximum integral
+
+  down=0;
+  up=0;
+  i=high;
+  max=0;
+  while (i<AUTOKORRWIN)
+    {
+      c=0;
+      for (j=0;j<AUTOKORRWIN;j++) c+=((double)sample[j])*sample [i+j];
+      c=c*autotable[i]; //multiply window with weight for preference of high frequencies
+      if (c>max) max=c,maxpos=i;
+      i++;
+    }
+  return maxpos;
+} 
+//*****************************************************************************
+int findNextRepeatOctave (int *sample,int high)
+{
+  int	i,j;
+  double gmax=0,max,c;
+  int	maxpos=AUTOKORRWIN;
+  int	down,up;	//flags
+
+  max=0;
+  for (j=0;j<AUTOKORRWIN;j++)
+    gmax+=((double)sample[j])*sample [j];
+
+  //correlate signal with itself for finding maximum integral
+
+  down=0;
+  up=0;
+  i=high;
+  max=0;
+  while (i<AUTOKORRWIN)
+    {
+      c=0;
+      for (j=0;j<AUTOKORRWIN;j++) c+=((double)sample[j])*sample [i+j];
+      c=c*autotable[i]*weighttable[i];
+      //multiply window with weight for preference of high frequencies
+      if (c>max) max=c,maxpos=i;
+      i++;
+    }
+  
+    for (int i=0;i<AUTOKORRWIN;i++)
+      weighttable[i]/=1.005;
+
+  weighttable[maxpos]=1;
+  weighttable[maxpos+1]=.9;
+  weighttable[maxpos-1]=.9;
+  weighttable[maxpos+2]=.8;
+  weighttable[maxpos-2]=.8;
+
+  float buf[7];
+
+  for (int i=0;i<7;buf[i++]=.1)
+
+    //low pass filter
+  for (int i=high;i<AUTOKORRWIN-3;i++)
+    {
+      buf[i%7]=weighttable[i+3];
+       weighttable[i]=(buf[0]+buf[1]+buf[2]+buf[3]+buf[4]+buf[5]+buf[6])/7;
+    }
+
+  /*  for (int i=high;i<high+240;i+=4)
+    printf ("%01d",(int)(weighttable[i]*9));
+    printf ("\n");
+  */
+  return maxpos;
+} 
+//*****************************************************************************
+int findFirstMark (int *sample,int len)
+{
+  int i=1;
+  int last=sample[0];
+  int act=last;
+  if ((last<100)&&(last>-100)) i=0;
+  else
+    while (i<len)
+      {
+	act=sample[i];
+	if ((act<0)&&(last>=0)) break;
+	if ((act>0)&&(last<=0)) break;
+	last=act;
+	i++;
+      }
+  return i;
+}
+//*****************************************************************************

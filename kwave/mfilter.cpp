@@ -1,8 +1,8 @@
 /****************************************************************************
 ** FilterDialog meta object code from reading C++ file 'filter.h'
 **
-** Created: Thu Jun 25 15:35:43 1998
-**      by: The Qt Meta Object Compiler ($Revision: 2.18 $)
+** Created: Sun Aug 23 00:12:30 1998
+**      by: The Qt Meta Object Compiler ($Revision: 2.25 $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,11 +10,11 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #define Q_MOC_OUTPUT_REVISION 2
 #elif Q_MOC_OUTPUT_REVISION != 2
-#error Moc format conflict - please regenerate all moc files
+#error "Moc format conflict - please regenerate all moc files"
 #endif
 
 #include "filter.h"
-#include <qmetaobj.h>
+#include <qmetaobject.h>
 
 
 const char *FilterDialog::className() const

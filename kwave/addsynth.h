@@ -12,8 +12,12 @@
 #include <kslider.h>
 #include <kselect.h>
 #include <kintegerline.h>
+#include "dialogs.h"
+#include "curvewidget.h"
+#include "scale.h"
 
 class MSignal;
+class TimeLine;
 
 class AddSynthWidget : public QWidget
 {
@@ -57,9 +61,7 @@ class AddSynthDialog : public QDialog
   public slots:
 
   void setChannels (const char *);
-  void fileMode();
-  void fixedMode();
-  void sweepMode();
+  void getFrequency();
   void showPower (const char *);
   void showPower (int);
   void showPhase (const char *);
@@ -72,7 +74,7 @@ class AddSynthDialog : public QDialog
   void updateView ();
   void getNSlider (int,int);
   void resizeEvent (QResizeEvent *);
-  int getCount();        //get number of partials
+  int  getCount();        //get number of partials
   
  private:
 
@@ -80,28 +82,28 @@ class AddSynthDialog : public QDialog
   int tflag; //flag if typing in integerline
   int num;   //number of sines
   int rate;  //sampling rate
-  int time;  //time in periods
-  int freq;  //frequency of period in Hz
+  int *apower,*aphase,*amult;
 
-  AddSynthWidget *view;
+  AddSynthWidget    *view;
+  ScaleWidget       *x,*y;
+  CornerPatchWidget *corner;
 
-  int            *apower,*aphase,*amult;
-
-  KIntegerLine	**multlabel;
+  KIntegerLine	**mult;
   KIntegerLine	**powerlabel;
-  KIntegerLine  	**phaselabel;
+  KIntegerLine  **phaselabel;
 
-  QSlider	**mult;
   QSlider	**power;
   QSlider	**phase;
   
   KIntegerLine	*channel;
   QLabel        *channellabel;
 
+  QPushButton   *freqbutton;
+  QPushButton   *hear;
+  MSignal       *test;           //for hearing...
+
   QComboBox	*functype;
-  QButtonGroup	*bg;
   QPopupMenu*   menu;
-  QRadioButton  *fixed,*file,*sweep;
 
   QLabel	*phaselab;
   QLabel	*powerlab;
@@ -109,4 +111,42 @@ class AddSynthDialog : public QDialog
   QPushButton	*ok,*cancel;
 };
 //*****************************************************************************
+class PulseDialog : public QDialog
+{
+  Q_OBJECT
+
+    public:
+
+  PulseDialog 	(QWidget *parent=0,int rate=48000,int time=0,char *name="Choose pulse properties :");
+  ~PulseDialog 	();
+
+  MSignal *getSignal();
+
+  public slots:
+
+  void getFrequency();
+
+ protected:
+
+  void resizeEvent (QResizeEvent *);
+  
+ private:
+
+  CurveWidget       *pulse;
+  ScaleWidget       *x,*y;
+  CornerPatchWidget *corner;
+
+  TimeLine      *pulselength;
+  QLabel        *pulselabel;
+  QLabel        *channel;
+
+  QPushButton   *freqbutton;
+  QPushButton   *hear;
+  MSignal       *test;           //for hearing...
+
+
+  QPushButton	*ok,*cancel;
+  int rate;     //sampling rate
+  QList<CPoint> *times;
+};
 #endif

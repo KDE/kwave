@@ -156,6 +156,21 @@ QList<CPoint> *CurveWidget::getPoints ()
   return points;
 }
 //****************************************************************************
+void CurveWidget::setCurve (QList<CPoint> *curve)
+{
+  //make deep copy of list
+  points->clear();
+  CPoint *tmp;
+
+  for (tmp=curve->first();tmp;tmp=curve->next())
+    {
+      CPoint *newpoint=new CPoint;
+      newpoint->x=tmp->x;
+      newpoint->y=tmp->y;
+      points->append (newpoint);
+    }
+}
+//****************************************************************************
 void CurveWidget::setType(int type)
 {
   interpolationtype=type;
@@ -395,11 +410,11 @@ void CurveWidget::paintEvent  (QPaintEvent *)
 
   p.setPen (darkGray);
 
-  p.drawLine (0,height/4,width,height/4);
+  /*  p.drawLine (0,height/4,width,height/4);
   p.drawLine (0,height*3/4,width,height*3/4);
   p.drawLine (width/4,0,width/4,height);
   p.drawLine (width*3/4,0,width*3/4,height);
-
+  */
   p.setPen (white);
 
   int kw=knob->width();

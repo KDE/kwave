@@ -168,7 +168,15 @@ FilterDialog::FilterDialog (QWidget *par,int rate): QDialog(par,0,true)
   offset=0;
 
   getNTaps (10);
-  
+
+  ampx=new ScaleWidget (this,0,rate/2,"Hz");
+  ampy=new ScaleWidget (this,100,0,"%");
+  ampcorner=new CornerPatchWidget (this);
+
+  phasex=new ScaleWidget (this,0,rate/2,"Hz");
+  phasey=new ScaleWidget (this,180,-180,"°");
+  phasecorner=new CornerPatchWidget (this);
+
   cancel->setAccel(Key_Escape);
   ok->setFocus	();
   connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
@@ -419,9 +427,17 @@ void FilterDialog::resizeEvent (QResizeEvent *)
  offs+=bsize+lsize/4;
  save->setGeometry   (tapl+lsize/2,offs,w-tapl-lsize,bsize);
  offs+=bsize+lsize/4;
- bg->setGeometry    (tapl+lsize/2,offs,w-tapl-lsize,top-offs);  
- filterwidget->setGeometry	(0,0,tapl,top/2);
- phasewidget->setGeometry	(0,top/2+lsize/4,tapl,top/2);
+ bg->setGeometry     (tapl+lsize/2,offs,w-tapl-lsize,top-offs);  
+ filterwidget->setGeometry (bsize,0,tapl-bsize,top/2-bsize);
+ phasewidget->setGeometry  (bsize,top/2+lsize/4,tapl-bsize,top/2-bsize);
+ phasey->setGeometry       (0,0,top/2-bsize,bsize);
+ ampcorner->setGeometry    (0,top/2-bsize,bsize,bsize);
+ phasecorner->setGeometry  (0,top-bsize,bsize,bsize);
+ ampy->setGeometry         (0,0,bsize,top/2-bsize);
+ phasey->setGeometry       (0,top/2,bsize,top/2-bsize);
+ ampx->setGeometry         (bsize,top/2-bsize,tapl-bsize,bsize);
+ phasex->setGeometry       (bsize,top-bsize,tapl-bsize,bsize);
+
  top+=lsize/2;
 
  for (int i=0;i<filter.num;i++)

@@ -41,6 +41,7 @@ class TopWidget : public KTopLevelWidget
  void	getChannelInfo	(int);
 
  void 	quitInstance();
+ void 	getHelp();
  void	newInstance();
  void	openFile();
  void   openRecent (int num);
@@ -92,6 +93,7 @@ class TopWidget : public KTopLevelWidget
  void   sonagramOp();
  void   resampleOp();
  void   addMarkOp();
+ void   pulseOp();
  void   loadMarkOp();
  void   appendMarkOp();
  void   saveMarkOp();
@@ -112,7 +114,9 @@ class TopWidget : public KTopLevelWidget
  void   requantizeOp();
  void   doFilter (int);
  void   signalMarkerOp  ();
+ void   periodMarkerOp  ();
  void   saveBlocksOp  ();
+ void   savePeriodsOp  ();
 };
 
 

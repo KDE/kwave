@@ -15,6 +15,7 @@
 #include <kstatusbar.h>  
 #include <qpixmap.h>
 #include <qtimer.h>
+#include "scale.h"
 #include "gsl_fft.h"
 
 class FFTWidget : public QWidget
@@ -66,6 +67,28 @@ class FFTWidget : public QWidget
  QPixmap	*pixmap;	//pixmap to be blitted to screen
 };
 //***********************************************************************
+class FFTContainer : public QWidget
+{
+ Q_OBJECT
+ public:
+ 	FFTContainer	(QWidget *parent);
+ 	~FFTContainer	();
+ void 	setObjects	(FFTWidget *fftview,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner);
+
+ public slots:
+
+ signals:
+
+ protected:
+
+ void	resizeEvent	(QResizeEvent *);
+
+ private:
+ FFTWidget     *view;
+ ScaleWidget   *xscale,*yscale;
+ CornerPatchWidget *corner;
+};
+//***********************************************************************
 class FFTWindow : public KTopLevelWidget
 {
  Q_OBJECT
@@ -84,13 +107,15 @@ class FFTWindow : public KTopLevelWidget
 
  protected:
 
-// void	resizeEvent	(QResizeEvent *);
-
  private:
- FFTWidget *fftview;
+ FFTContainer  *mainwidget;
+ FFTWidget     *fftview;
+ ScaleWidget   *xscale,*yscale;
+ CornerPatchWidget *corner;
  KStatusBar *status;
 };
 #endif
+
 
 
 

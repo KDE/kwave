@@ -10,13 +10,15 @@
 #include "main.h"
 
 extern KApplication *app;
-extern char*   mstotimec (int ms); 
+extern char *mstotimec (int ms); 
+//****************************************************************************
 ImageView::ImageView	(QWidget *parent) : QWidget (parent)
 {
   this->parent=parent;
   image=0;
-  x=0;
-  y=0;
+  lh=-1;
+  lw=-1;
+  offset=0;
   setCursor (crossCursor);
 }
 //****************************************************************************
@@ -27,32 +29,91 @@ ImageView::~ImageView ()
 void ImageView::mouseMoveEvent	(QMouseEvent *e)
 {
   int x=e->pos().x();
-  if ((x<width())&&(x>=0))
+  if ((x<width)&&(x>=0))
     {
       int y=e->pos().y();
 
-      if ((y>=0)&&(y<height()))
-	emit info ((double)x/width(),(double)(height()-y)/height());
+      if ((y>=0)&&(y<height))
+	emit info ((double)x/width,(double)(height-y)/height);
     }
 }
 //****************************************************************************
+int  ImageView::getOffset () {return offset;}
+int  ImageView::getWidth () {return width;}
 void ImageView::setImage (QImage *image)
 {
   this->image=image;
   repaint ();
 }
 //****************************************************************************
+void ImageView::setOffset (int offset)
+{
+  if (this->offset!=offset)
+    {
+      this->offset=offset;
+      repaint ();
+    }
+}
+//****************************************************************************
 void ImageView::paintEvent (QPaintEvent *)
 {
-    int height=rect().height();
-    int width=rect().width();
+  height=rect().height();
+  width=rect().width();
+
   if (image)
     {
-      QPixmap map;
-      QWMatrix matrix;
-      matrix.scale ((float)width/image->width(),(float)height/image->height());
-      if (map.convertFromImage (*image,0))
-      bitBlt (this,0,0,&(map.xForm (matrix)));
+      if ((lh!=height)||((lw!=width)&&(image->width()<width)))
+	{
+	  if (offset>image->width()-width) offset=image->width()-width;
+	  QWMatrix matrix;
+	  QPixmap newmap;
+	  newmap.convertFromImage (*image,0);
+
+	  if (image->width()<width)
+	    {
+	      offset=0; 
+	      matrix.scale (((float)width)/image->width(),((float)height)/image->height());
+	    }
+	  else
+	    matrix.scale (1,((float)height)/image->height());
+
+	  map=(newmap.xForm (matrix));
+	  lh=height;
+	  lw=width;
+	}
+      emit viewInfo	(offset,width,image->width());
+      bitBlt (this,0,0,&map,offset,0,width,height);
+    }
+}
+//****************************************************************************
+SonagramContainer::SonagramContainer (QWidget *parent): QWidget (parent)
+{
+  this->view=0;
+}
+//****************************************************************************
+void SonagramContainer::setObjects (ImageView *view,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner,OverViewWidget *overview)
+{
+  this->view=view;
+  this->xscale=x;
+  this->yscale=y;
+  this->corner=corner;
+  this->overview=overview;
+}
+//****************************************************************************
+SonagramContainer::~SonagramContainer ()
+{
+}
+//****************************************************************************
+void SonagramContainer::resizeEvent	(QResizeEvent *)
+{
+  if (view)
+    {
+      int bsize=(QPushButton("test",this).sizeHint()).height();
+      view->setGeometry	(bsize,0,width()-bsize,height()-bsize*2);  
+      xscale->setGeometry	(bsize,height()-bsize*2,width()-bsize,bsize);  
+      overview->setGeometry	(bsize,height()-bsize,width()-bsize,bsize);  
+      yscale->setGeometry	(0,0,bsize,height()-bsize*2);
+      corner->setGeometry	(0,height()-bsize*2,bsize,bsize);  
     }
 }
 //****************************************************************************
@@ -75,16 +136,30 @@ SonagramWindow::SonagramWindow () : KTopLevelWidget ()
   status->insertItem ("Amplitude:    0 %      ",3);
   status->insertItem ("Phase:    0        ",4);  
 
-  view=new ImageView (this);
-  setView (view);
+  mainwidget=new SonagramContainer (this);
 
+  view=new ImageView (mainwidget);
   connect (view,SIGNAL(info (double,double)),this,SLOT(setInfo(double,double)));
+  xscale=new ScaleWidget (mainwidget,0,100,"ms");
+  yscale=new ScaleWidget (mainwidget,100,0,"Hz");
+  corner=new CornerPatchWidget (mainwidget);
+  overview=new OverViewWidget (mainwidget);
+
+  QObject::connect      (overview,SIGNAL(valueChanged(int)),
+			 view,SLOT(setOffset(int)));
+  QObject::connect	(view,SIGNAL(viewInfo(int,int,int)),
+			 this,SLOT(setRange(int,int,int)));
+  QObject::connect	(view,SIGNAL(viewInfo(int,int,int)),
+			 overview,SLOT(setRange(int,int,int)));
+
+  mainwidget->setObjects (view,xscale,yscale,corner,overview);
+  setView (mainwidget);
 
   setStatusBar (status);
   setMenu (bar);
 
   setCaption ("Sonagram :"); 
-  resize (320,200);
+  resize (480,300);
 }
 //****************************************************************************
 void SonagramWindow::save ()
@@ -145,15 +220,17 @@ void SonagramWindow::load ()
 void SonagramWindow::setSignal (double *input,int size, int points,int rate)
 {
   double rea,ima;
-  int half=points/2;
 
   this->length=size;
-  this->x=(2*size/points)-1;
+  this->x=(size/points);
   this->points=points;
   this->rate=rate;
 
+  yscale ->setMaxMin (0,rate/2);
+  xscale ->setMaxMin ((int)(((double)size)/rate*1000),0);
+
   data= new complex *[x];
-  image=new QImage (x,half,8,256);
+  image=new QImage (x,points/2,8,256);
   if ((data)&&(image))
     {
       char buf [48];
@@ -176,7 +253,7 @@ void SonagramWindow::setSignal (double *input,int size, int points,int rate)
 		{
 		  for (int j=0;j<points;j++)
 		    {
-		      output[j].real=input[i*half+j]; //copy data into complex array
+		      output[j].real=input[i*points+j]; //copy data into complex array
 		      output[j].imag=0;
 		    }
 
@@ -211,7 +288,6 @@ void SonagramWindow::setSignal (double *input,int size, int points,int rate)
 //****************************************************************************
 void  SonagramWindow::toSignal ()
 {
-  int half=points/2;
   gsl_fft_complex_wavetable table;
       
   gsl_fft_complex_wavetable_alloc (points,&table);
@@ -222,50 +298,51 @@ void  SonagramWindow::toSignal ()
   if (win)
     {
       MSignal *newsig=new MSignal (win,length,rate);
-      win->show();
-
-      int *output=newsig->getSample();     //sample data
-      complex *tmp;                       //used for swapping
-      complex *w1= new complex [points];  //this two windows hold the data for ifft and after that part of the signal
-      complex *w2= new complex [points];
-
-      if (output&&w1&&w2&&data)
+      int slopesize=rate/10;           //assure 10 Hz for correction signal, this should not be audible
+      double *slope=new double [slopesize];
+      
+      if (slope&&newsig)
 	{
-	  if (data[0]) memcpy (w1,data[0],sizeof(complex)*points);
+	  for(int i=0;i<slopesize;i++)
+	    slope[i]=0.5+0.5*cos( ((double) i) * M_PI / slopesize);
 
-	  gsl_fft_complex_inverse	(w1,points,&table);
-	  //	  for (int j=0;j<half;j++) printf ("%e ",w1[j].real);
-	  //for (int j=0;j<half;j++) printf ("%e\n",w1[j].imag);
+	  win->show();
 
-	  //	  for (int j=0;j<half;j++) output[j]=(int)(w1[j].real*((1<<23)-1)); //do not fade first half of the window
-	  for (int j=0;j<points;j++) output[j]=(int)(w1[j].real*((1<<23)-1)); //do not fade first half of the window
+	  int *output=newsig->getSample();     //sample data
+	  complex *tmp= new complex [points];  //this window holds the data for ifft and after that part of the signal
 
-	  //	  for (int i=1;i<x;i++)
-	  for (int i=2;i<x;i+=2)
+	  if (output&&tmp&&data)
 	    {
-	      if (data[i]) memcpy (w2,data[i],sizeof(complex)*points);
-	      gsl_fft_complex_inverse	(w2,points,&table);
+	      for (int i=0;i<x;i++)
+		{
+		  if (data[i]) memcpy (tmp,data[i],sizeof(complex)*points);
+		  gsl_fft_complex_inverse	(tmp,points,&table);
 
-	      for (int j=0;j<points;j++) 
-		output[i*half+j]=(int)(w2[j].real*((1<<23)-1)); //do not fade first half of the window
-	      //	      for (int j=0;j<half;j++)
-	      //	output[(i*half)+j]=(int)((((w1[j+half].real*(half-j)/half)
-	      //			  +w2[j].real*j/half)*((1<<23)-1))); //crossfading the to window to avoid peaks
+		  for (int j=0;j<points;j++) 
+		    output[i*points+j]=(int)(tmp[j].real*((1<<23)-1));
+		}
+	      int dif;
+	      int max;
+	      for (int i=1;i<x;i++) //remove gaps between windows
+		{
+		  max=slopesize;
+		  if (max>length-i*points) max=length-i*points;
+		  dif=output[i*points]-output[i*points-1];
+		  if (dif<2)
+		  for (int j=0;j<max;j++) output[i*points+j]+=(int) (slope[j]*dif);		}
 
-	      tmp=w1;
-	      w1=w2;
-	      w2=w1;
+	      win->setSignal (newsig);
+
+	      if (tmp) delete tmp;
 	    }
-	  win->setSignal (newsig);
+	  else
+	    {
+	    if (newsig) delete newsig;
+	    if (win) delete win;
+	    KMsgBox::message (this,"Info","Out of memory !",2);
+	    }
 	}
-      else 
-	{
-	  if (newsig) delete newsig;
-	  if (win) delete win;
-	  KMsgBox::message (this,"Info","Out of memory !",2);
-	}
-      //      if (w1) delete w1;
-      //if (w2) delete w2;
+      if (slope) delete slope;
     }  
 }
 //****************************************************************************
@@ -285,7 +362,8 @@ void SonagramWindow::createImage ()
 	    {
 	      rea=data[i][j].real;
 	      ima=data[i][j].imag;
-	      rea=sqrt(rea*rea+ima*ima)/max;	        //get amplitude
+	      rea=sqrt(rea*rea+ima*ima)/max;	        //get amplitude and scale to 1
+	      rea=1-((1-rea)*(1-rea));
 	      *(image->scanLine((points/2-1)-j) + i)=255-(int)(rea*255);
 	    }
     }
@@ -304,15 +382,21 @@ SonagramWindow::~SonagramWindow (QWidget *parent,const char *name)
 void SonagramWindow::setInfo  (double x,double y)
 {
   char buf[64];
+  int col;
 
-  sprintf (buf,"Time: %s",mstotimec ((int) (x*length*10000/rate)));
+  if (view->getWidth()>this->x)
+    col=(int)(x*(this->x-1));
+  else
+    col=(int)(view->getOffset()+x*view->getWidth());
+
+  sprintf (buf,"Time: %s",mstotimec ((int)(((double) col)*points*10000/rate)));
   status->changeItem (buf,1);
   sprintf (buf,"Frequency: %d Hz",(int)(y*rate/2));
   status->changeItem (buf,2);
   if (data [(int)(x*this->x)])
     {
-      double rea= data [(int)(x*this->x)][(int)(y*points/2)].real;
-      double ima= data [(int)(x*this->x)][(int)(y*points/2)].imag;
+      double rea= data [col][(int)(y*points/2)].real;
+      double ima= data [col][(int)(y*points/2)].imag;
 
       sprintf (buf,"Amplitude: %d %%",(int)(sqrt(rea*rea+ima*ima)/max*100));
     }
@@ -320,13 +404,19 @@ void SonagramWindow::setInfo  (double x,double y)
   status->changeItem (buf,3);
   if (data [(int)(x*this->x)])
     {
-      double rea= data [(int)(x*this->x)][(int)(y*points/2)].real;
-      double ima= data [(int)(x*this->x)][(int)(y*points/2)].imag;
+      double rea= data [col][(int)(y*points/2)].real;
+      double ima= data [col][(int)(y*points/2)].imag;
       sprintf (buf,"Phase: %d degree",(int) (atan(ima/rea)*360/M_PI));
     }
   else sprintf (buf,"Memory Leak !");
 
   status->changeItem (buf,4);
+}
+//****************************************************************************
+void SonagramWindow::setRange (int offset,int width,int)
+{
+  xscale->setMaxMin ((int)(((double)offset+width)*points*1000/rate),
+		     (int)(((double)offset)*points*1000/rate)); 
 }
 
 

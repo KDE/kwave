@@ -1,0 +1,9 @@
+// ArtsSampleSink.idl
+
+#include <artsflow.idl>
+
+interface ArtsSampleSink : Arts::SynthModule {
+	default in audio stream sink;
+	void goOn();
+};
+

@@ -1,0 +1,9 @@
+// ArtsSampleSource.idl
+
+#include <artsflow.idl>
+
+interface ArtsSampleSource : Arts::SynthModule {
+	default out audio stream source;
+	readonly attribute boolean done;
+};
+

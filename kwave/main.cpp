@@ -52,7 +52,11 @@ int main( int argc, char **argv )
      * use the one that is created implicitely by this call to the artsc
      * interface.
      */
-    arts_init();
+    int errorcode = arts_init();
+    if (errorcode < 0) {
+	warning("PlayBackArts::open(): arts_init error: %s",
+	        arts_error_text(errorcode));
+    }
 
     KAboutData about(PACKAGE, "Kwave", VERSION,
 	"sound editor for KDE2",

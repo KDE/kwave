@@ -77,7 +77,12 @@ protected slots:
      * to start or stop the pre-listen mode
      */
     void listenToggled(bool listen);
-    
+
+    /**
+     * called when the pre-listen mode stopped/aborted
+     */
+    void listenStopped();
+            
 protected:
 
     /**

@@ -99,7 +99,9 @@ QStringList *PitchShiftPlugin::setup(QStringList &previous_params)
             this, SLOT(startPreListen()));
     connect(dialog, SIGNAL(stopPreListen()),
             this, SLOT(stopPreListen()));
-    
+    connect(this, SIGNAL(sigDone()),
+            dialog, SLOT(listenStopped()));
+
     QStringList *list = new QStringList();
     ASSERT(list);
     if (list && dialog->exec()) {
@@ -170,7 +172,7 @@ void PitchShiftPlugin::run(QStringList params)
     }
     
     pitch.setAttribute("frequency", m_frequency);
-    pitch.setAttribute("speed", m_speed);
+    pitch.setAttribute("speed",     m_speed);
     
     // connect them
     pitch.connectInput(arts_source,  "source",  "invalue");
@@ -188,25 +190,28 @@ void PitchShiftPlugin::run(QStringList params)
     // transport the samples
     while (!m_stop && (!arts_source.done() || m_listen)) {
 	arts_sink->goOn();
-
+	
 	// watch out for changed parameters when in
 	// pre-listen mode
 	if (m_listen && ((m_speed != last_speed) ||
 	    (m_frequency != last_freq)))
 	{
+	    pitch.stop();
+	    
 	    if (m_frequency != last_freq)
 		pitch.setAttribute("frequency", m_frequency);
-
+	
 	    if (m_speed != last_speed)
 		pitch.setAttribute("speed", m_speed);
-
+	
 	    last_freq  = m_frequency;
 	    last_speed = m_speed;
+
+	    pitch.start();
         }
 
 	if (m_listen && arts_source.done()) {
 	    // start the next loop
-	    debug("--- restarting ---");
 	    source.reset();
 	    arts_source.start();
 	    continue;
@@ -238,12 +243,13 @@ int PitchShiftPlugin::stop()
 void PitchShiftPlugin::setValues(double speed, double frequency)
 {
     debug("PitchShiftPlugin::setValues(%g, %g)", speed,frequency);
+    m_speed     = speed;
+    m_frequency = frequency;
 }
 
 //***************************************************************************
 void PitchShiftPlugin::startPreListen()
 {
-    debug("PitchShiftPlugin::startPreListen()");
     m_listen = true;
     static QStringList empty_list;
     use();
@@ -253,7 +259,6 @@ void PitchShiftPlugin::startPreListen()
 //***************************************************************************
 void PitchShiftPlugin::stopPreListen()
 {
-    debug("PitchShiftPlugin::stopPreListen()");
     stop();
     m_listen = false;
 }

@@ -227,6 +227,7 @@ void PitchShiftDialog::spinboxChanged(int pos)
 {
     if (!m_enable_updates) return;
 
+    double last_speed = m_speed;
     int sv = sbSpeed->value();
     switch (m_mode) {
 	case MODE_FACTOR: {
@@ -247,6 +248,11 @@ void PitchShiftDialog::spinboxChanged(int pos)
 	    m_speed = (double)pos / (double)100.0;
 	    break;
 	}
+    }
+
+    // emit changes
+    if (m_speed != last_speed) {
+	emit changed(m_speed, m_frequency);
     }
 
     updateSpeed(m_speed);
@@ -296,6 +302,9 @@ void PitchShiftDialog::setParams(QStringList &params)
 //***************************************************************************
 void PitchShiftDialog::listenToggled(bool listen)
 {
+    ASSERT(btListen);
+    if (!btListen) return;
+    
     if (listen) {
 	// start pre-listen mode
 	emit startPreListen();
@@ -305,6 +314,15 @@ void PitchShiftDialog::listenToggled(bool listen)
 	emit stopPreListen();
 	btListen->setText(i18n("&Listen"));
     }
+}
+
+//***************************************************************************
+void PitchShiftDialog::listenStopped()
+{
+    ASSERT(btListen);
+    if (!btListen) return;
+
+    btListen->setOn(false);
 }
 
 //***************************************************************************

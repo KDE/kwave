@@ -13,6 +13,7 @@ BUILTSOURCES=\
  FileProgress.moc.cpp\
  FormantWidget.moc.cpp\
  KwavePlugin.moc.cpp \
+ OverViewCache.moc.cpp\
  OverViewWidget.moc.cpp\
  MenuNode.moc.cpp\
  MenuGroup.moc.cpp \
@@ -39,6 +40,7 @@ libkwavegui_la_SOURCES =\
  MenuRoot.cpp\
  MenuManager.cpp\
  MultiStateWidget.cpp\
+ OverViewCache.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\
  CornerPatchWidget.cpp\

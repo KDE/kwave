@@ -16,28 +16,13 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "math.h"
-
-#include <qbitmap.h>
 #include <qpainter.h>
 #include <qpixmap.h>
-#include <qtimer.h>
-
-#include "mt/Mutex.h"
-#include "mt/MutexGuard.h"
-
-#include "libkwave/MultiTrackReader.h"
-#include "libkwave/Sample.h"
-#include "libkwave/SampleReader.h"
-#include "libkwave/Track.h"
-
-#include "kwave/SignalManager.h"
 
 #include "OverViewWidget.h"
 
 #define TIMER_INTERVAL 100        /* ms */
 #define MIN_SLIDER_WIDTH m_height /* pixel */
-#define CACHE_SIZE 8192           /* number of cache entries */
 
 #ifndef min
 #define min(x,y) (( (x) < (y) ) ? (x) : (y) )
@@ -54,44 +39,19 @@
 
 //*****************************************************************************
 OverViewWidget::OverViewWidget(SignalManager &signal, QWidget *parent)
-    :QWidget(parent), m_signal(signal), m_min(), m_max(), m_state(),
-     m_count(0), m_scale(1), m_lock()
+    :QWidget(parent), m_width(0), m_height(0), m_grabbed(0), m_mouse_pos(0),
+     m_slider_width(0), m_view_width(0), m_view_length(0),m_view_offset(0),
+     m_dir(0), m_redraw(false), m_timer(), m_bitmap(), m_pixmap(0),
+     m_cache(signal)
 {
-    m_bitmap = 0;
-    m_dir = 0;
-    m_grabbed = 0;
-    m_height = 0;
-    m_mouse_pos = 0;
-    m_pixmap = 0;
-    m_redraw = false;
-    m_slider_width = 0;
-    m_view_length = 0;
-    m_view_offset = 0;
-    m_view_width = 0;
-    m_width = 0;
-
-    // connect to the signal manager
-    SignalManager *sig = &signal;
-    ASSERT(sig);
-    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
-            this, SLOT(slotTrackInserted(unsigned int, Track &)));
-    connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
-            this, SLOT(slotTrackDeleted(unsigned int)));
-    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
-	unsigned int)));
-    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesInserted(unsigned int, unsigned int,
-	unsigned int)));
-    connect(sig, SIGNAL(sigSamplesModified(unsigned int, unsigned int,
-	unsigned int)),
-	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
-	unsigned int)));
-
-    setBackgroundMode(NoBackground); // this avoids flicker :-)
+    // connect the timer for scrolling
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(increase()));
+
+    // update the bitmap if the cache has changed
+    connect(&m_cache, SIGNAL(changed()), this, SLOT(refreshBitmap()));
+
+    // this avoids flicker :-)
+    setBackgroundMode(NoBackground);
 }
 
 //*****************************************************************************
@@ -99,7 +59,6 @@ OverViewWidget::~OverViewWidget()
 {
     m_timer.stop();
     if (m_pixmap) delete m_pixmap;
-    if (m_bitmap) delete m_bitmap;
 }
 
 //*****************************************************************************
@@ -339,16 +298,16 @@ void OverViewWidget::paintEvent(QPaintEvent *)
 	if (m_pixmap) delete m_pixmap;
 	m_pixmap = new QPixmap(size());
     }
-    if (!m_bitmap) refreshBitmap();
+    if (!m_bitmap.width() || !m_bitmap.height()) refreshBitmap();
     ASSERT(m_pixmap);
     if (!m_pixmap) return;
 
     // --- background of the widget ---
     p.begin(m_pixmap);
     m_pixmap->fill(BAR_BACKGROUND);
-    if (m_bitmap) {
+    if (m_bitmap.width() && m_bitmap.height()) {
 	QBrush brush;
-	brush.setPixmap(*m_bitmap);
+	brush.setPixmap(m_bitmap);
 	brush.setColor(BAR_FOREGROUND);
 	
 	p.setBrush(brush);
@@ -360,9 +319,9 @@ void OverViewWidget::paintEvent(QPaintEvent *)
 
     p.setBrush(SLIDER_BACKGROUND);
     p.drawRect(x, 0, m_slider_width, m_height);
-    if (m_bitmap) {
+    if (m_bitmap.width() && m_bitmap.height()) {
 	QBrush brush;
-	brush.setPixmap(*m_bitmap);
+	brush.setPixmap(m_bitmap);
 	brush.setColor(SLIDER_FOREGROUND);
 	p.setBrush(brush);
 	p.drawRect(x, 0, m_slider_width, m_height);
@@ -404,288 +363,10 @@ const QSize OverViewWidget::sizeHint()
 }
 
 //*****************************************************************************
-void OverViewWidget::scaleUp()
-{
-    // calculate the new scale
-    const unsigned int len = m_signal.length();
-    unsigned int new_scale = static_cast<unsigned int>(
-	rint(ceil((double)len/(double)CACHE_SIZE)));
-    if (!new_scale) new_scale = 1;
-
-    // get the shrink factor: "shrink" entries -> "1" entry
-    const unsigned int shrink = static_cast<unsigned int>(
-	rint(ceil(new_scale / m_scale)));
-
-    // loop over all tracks
-    for (unsigned int t=0; t < m_state.count(); ++t) {
-	unsigned int dst = 0;
-	unsigned int count = len / m_scale;
-	if (count > CACHE_SIZE) count = 0;
-	
-	// source pointers
-	char *smin = m_min.at(t)->data();
-	char *smax = m_max.at(t)->data();
-	CacheState *sstate = m_state.at(t)->data();
-	
-	// destination pointers
-	char *dmin = smin;
-	char *dmax = smax;
-	CacheState *dstate = sstate;
-	
-	// loop over all entries to be shrinked
-	while (dst < count) {
-	    char min = +127;
-	    char max = -127;
-	    CacheState state = Unused;
-	    for (unsigned int i = 0; i < shrink; ++i) {
-		if (*smin < min) min = *smin;
-		if (*smax > max) max = *smax;
-		if (*sstate < state) state = *sstate;
-		++smin;
-		++smax;
-		++sstate;
-	    }
-	    *dmin = min;
-	    *dmax = max;
-	    *dstate = state;
-	    ++dmin;
-	    ++dmax;
-	    ++dstate;
-	    ++dst;
-	}
-	
-	// the rest will be unused
-	while (dst++ < CACHE_SIZE) {
-	    *dstate = Unused;
-	    dstate++;
-	}
-    }
-
-    m_scale = new_scale;
-}
-
-//*****************************************************************************
-void OverViewWidget::scaleDown()
-{
-    const unsigned int len = m_signal.length();
-    unsigned int new_scale = static_cast<unsigned int>(
-	rint(ceil(len/CACHE_SIZE)));
-    if (!new_scale) new_scale = 1;
-    if (m_scale == new_scale) return;
-
-    m_scale = new_scale;
-    for (unsigned int track=0; track < m_state.count(); ++track) {
-	invalidateCache(track, 0, len / m_scale);
-    }
-}
-
-//*****************************************************************************
-void OverViewWidget::slotTrackInserted(unsigned int index, Track &track)
-{
-    MutexGuard lock(m_lock);
-
-    // just to be sure: check scale again, maybe it was the first track
-    if ((m_signal.length() / m_scale) > CACHE_SIZE)
-	scaleUp();
-    if ((m_signal.length() / m_scale) < (CACHE_SIZE/4))
-	scaleDown();
-
-    QArray<CacheState> *state = new QArray<CacheState>(CACHE_SIZE);
-    QByteArray *min = new QByteArray(CACHE_SIZE);
-    QByteArray *max = new QByteArray(CACHE_SIZE);
-
-    if (!state || !min || !max) {
-	ASSERT(state);
-	ASSERT(min);
-	ASSERT(max);
-	if (state) delete state;
-	if (min) delete min;
-	if (max) delete max;
-	return;
-    }
-
-    min->fill(+127);
-    max->fill(-127);
-    state->fill(Unused);
-
-    m_min.insert(index, min);
-    m_max.insert(index, max);
-    m_state.insert(index, state);
-
-    // mark the new cache content as invalid
-    invalidateCache(index, 0, (track.length() / m_scale) - 1);
-
-    refreshBitmap();
-}
-
-//*****************************************************************************
-void OverViewWidget::invalidateCache(unsigned int track, unsigned int first,
-                                     unsigned int last)
-{
-    QArray<CacheState> *state = m_state.at(track);
-    ASSERT(state);
-    if (!state) return;
-
-    ASSERT(last < CACHE_SIZE);
-    if (last >= CACHE_SIZE) last = CACHE_SIZE-1;
-
-    unsigned int pos;
-    for (pos = first; pos <= last; ++pos) {
-	(*state)[pos] = Invalid;
-    }
-}
-
-//*****************************************************************************
-void OverViewWidget::slotTrackDeleted(unsigned int index)
-{
-    MutexGuard lock(m_lock);
-
-    m_min.remove(index);
-    m_max.remove(index);
-    m_state.remove(index);
-
-    if (m_state.isEmpty()) m_scale = 1;
-    refreshBitmap();
-}
-
-//*****************************************************************************
-void OverViewWidget::slotSamplesInserted(unsigned int track,
-    unsigned int offset, unsigned int /*length*/)
-{
-    MutexGuard lock(m_lock);
-
-    if ((m_signal.length() / m_scale) > CACHE_SIZE)
-        scaleUp();
-
-    // invalidate all samples from offset to end of file
-    unsigned int first = offset / m_scale;
-    unsigned int last  = m_signal.length() / m_scale;
-    invalidateCache(track, first, last);
-    refreshBitmap();
-}
-
-//*****************************************************************************
-void OverViewWidget::slotSamplesDeleted(unsigned int track,
-    unsigned int offset, unsigned int /* length */)
-{
-    MutexGuard lock(m_lock);
-
-    if ((m_signal.length() / m_scale) < (CACHE_SIZE/4))
-        scaleDown();
-
-    // invalidate all samples from offset to end of file
-    unsigned int first = offset / m_scale;
-    unsigned int last  = m_signal.length() / m_scale;
-    invalidateCache(track, first, last);
-    refreshBitmap();
-}
-
-//*****************************************************************************
-void OverViewWidget::slotSamplesModified(unsigned int track,
-    unsigned int offset, unsigned int length)
-{
-    MutexGuard lock(m_lock);
-
-    unsigned int first = offset / m_scale;
-    unsigned int last  = ((offset+length-1) / m_scale) + 1;
-    invalidateCache(track, first, last);
-    refreshBitmap();
-}
-
-//*****************************************************************************
 void OverViewWidget::refreshBitmap()
 {
-    const unsigned int length = m_signal.length();
-    MultiTrackReader src;
-    m_signal.openMultiTrackReader(src, m_signal.allTracks(),
-                                  0, length-1);
-
-    // loop over all min/max buffers and make their content valid
-    for (unsigned int t=0; t < m_state.count(); ++t) {
-	unsigned int count = length / m_scale;
-	if (count > CACHE_SIZE) count = 0;
-	
-	char *min = m_min.at(t)->data();
-	char *max = m_max.at(t)->data();
-	CacheState *state = m_state.at(t)->data();
-	SampleReader *reader = src[t];
-	
-	for (unsigned int ofs=0; ofs < count; ++ofs) {
-	    if (state[ofs] == Valid)  continue;
-	    if (state[ofs] == Unused) continue;
-	
-	    sample_t min_sample = SAMPLE_MAX;
-	    sample_t max_sample = SAMPLE_MIN;
-	    unsigned int first = ofs*m_scale;
-	    unsigned int count = m_scale;
-	
-	    reader->seek(first);
-	    while (count--) {
-		sample_t sample;
-		(*reader) >> sample;
-		if (sample > max_sample) max_sample = sample;
-		if (sample < min_sample) min_sample = sample;
-	    }
-	
-	    min[ofs] = min_sample >> (SAMPLE_BITS - 8);
-	    max[ofs] = max_sample >> (SAMPLE_BITS - 8);
-	    state[ofs] = Valid;
-	}
-    }
-
-    // if bitmap has to be resized or re-created...
-    if (!m_bitmap || (m_bitmap->height() != m_height) ||
-        (m_bitmap->width() != m_width))
-    {
-	if (m_bitmap) delete m_bitmap;
-	if (m_width && m_height) m_bitmap = new QBitmap(m_width, m_height);
-    }
-    if (!m_width || !m_height) return; // empty ?
-
-    ASSERT(m_bitmap);
-    if (!m_bitmap) return;
-
-    m_bitmap->fill(color0);
-    QPainter p;
-    p.begin(m_bitmap);
-
-    // loop over all min/max buffers
-    for (int x=0; (x < m_width) && (m_state.count()); ++x) {
-	unsigned int count = length / m_scale;
-	if (count > CACHE_SIZE) count = 1;
-	
-	// get the corresponding cache index
-	unsigned int index = ((count-1) * x) / (m_width-1);
-	unsigned int last_index  = ((count-1) * (x+1)) / (m_width-1);
-	if (last_index > index) last_index--;
-	
-	// loop over all cache indices
-	int minimum = +127;
-	int maximum = -127;
-	for (; index <= last_index; ++index) {
-	    // loop over all tracks
-	    for (unsigned int t=0; t < m_state.count(); ++t) {
-		char *min = m_min.at(t)->data();
-		char *max = m_max.at(t)->data();
-		CacheState *state = m_state.at(t)->data();
-		if (state[index] != Valid) continue;
-		
-		if (min[index] < minimum) minimum = min[index];
-		if (max[index] > maximum) maximum = max[index];
-	    }
-	}
-	
-	// update the bitmap
-	p.setPen(color0);
-	p.drawLine(x, 0, x, m_height-1);
-	p.setPen(color1);
-	
-	const int middle = (m_height>>1);
-	p.drawLine(x, middle + (minimum * m_height)/254,
-	           x, middle + (maximum * m_height)/254);
-    }
-
-    p.end();
+    // let the bitmap be updated from the cache
+    m_bitmap = m_cache.getOverView(m_width, m_height);
 
     // update the display
     repaint(false);

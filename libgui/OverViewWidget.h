@@ -19,15 +19,12 @@
 #define _OVER_VIEW_WIDGET_H_
 
 #include "config.h"
-#include <qbitarray.h>
-#include <qcstring.h>
-#include <qlist.h>
+#include <qbitmap.h>
 #include <qtimer.h>
 #include <qwidget.h>
 
-#include "mt/Mutex.h"
+#include "OverViewCache.h"
 
-class QBitmap;
 class QPixmap;
 class SignalManager;
 class Track;
@@ -56,6 +53,7 @@ class OverViewWidget : public QWidget
 {
     Q_OBJECT
 public:
+
     OverViewWidget(SignalManager &signal, QWidget *parent = 0);
 
     /** Destructor */
@@ -99,54 +97,8 @@ protected slots:
     /** moves the slider one further bit left or right */
     void increase();
 
-    /**
-     * Connected to the signal's sigTrackInserted.
-     * @param track index of the inserted track
-     * @see Signal::sigTrackInserted
-     * @internal
-     */
-    void slotTrackInserted(unsigned int index, Track &track);
-
-    /**
-     * Connected to the signal's sigTrackInserted.
-     * @param track index of the inserted track
-     * @see Signal::sigTrackDeleted
-     * @internal
-     */
-    void slotTrackDeleted(unsigned int index);
-
-    /**
-     * Connected to the signal's sigSamplesInserted.
-     * @param track index of the source track [0...tracks-1]
-     * @param offset position from which the data was inserted
-     * @param length number of samples inserted
-     * @see Signal::sigSamplesInserted
-     * @internal
-     */
-    void slotSamplesInserted(unsigned int track, unsigned int offset,
-                             unsigned int length);
-
-    /**
-     * Connected to the signal's sigSamplesDeleted.
-     * @param track index of the source track [0...tracks-1]
-     * @param offset position from which the data was removed
-     * @param length number of samples deleted
-     * @see Signal::sigSamplesDeleted
-     * @internal
-     */
-    void slotSamplesDeleted(unsigned int track, unsigned int offset,
-                            unsigned int length);
-
-    /**
-     * Connected to the signal's sigSamplesModified
-     * @param track index of the source track [0...tracks-1]
-     * @param offset position from which the data was modified
-     * @param length number of samples modified
-     * @see Signal::sigSamplesModified
-     * @internal
-     */
-    void slotSamplesModified(unsigned int track, unsigned int offset,
-                             unsigned int length);
+    /** Refreshes all modified parts of the bitmap */
+    void refreshBitmap();
 
 signals:
 
@@ -179,34 +131,6 @@ protected:
 
     /** State of a cache entry */
     typedef enum {Invalid, Fuzzy, Valid, Unused} CacheState;
-
-private:
-
-    /**
-     * Compresses the cache to hold more samples per entry.
-     */
-    void scaleUp();
-
-    /**
-     * Expands the cache to hold less samples per entry. As this
-     * process looses accuracy, the cache must be "polished" in
-     * a second step.
-     */
-    void scaleDown();
-
-    /**
-     * Marks a range of cache entries of a track as invalid
-     * @param track index of the track to invalidate
-     * @param first index of the first entry
-     * @param last index of the last entry (will be truncated to CACHE_SIZE-1)
-     */
-    void invalidateCache(unsigned int track, unsigned int first,
-                         unsigned int last);
-
-    /**
-     * Refreshes all modified parts of the bitmap
-     */
-    void refreshBitmap();
 
 private:
 
@@ -244,31 +168,13 @@ private:
     QTimer m_timer;
 
     /** QBitmap with the overview */
-    QBitmap *m_bitmap;
+    QBitmap m_bitmap;
 
     /** QPixmap to be blitted to screen (avoiding flicker) */
     QPixmap *m_pixmap;
 
-    /** signal with the data to be shown */
-    SignalManager &m_signal;
-
-    /** list of minimum value arrays, one array per track */
-    QList<QByteArray> m_min;
-
-    /** list of maximum value arrays, one array per track */
-    QList<QByteArray> m_max;
-
-    /** bitmask for "validity" of the min/max values */
-    QList< QArray <CacheState> > m_state;
-
-    /** number of min/max values */
-    unsigned int m_count;
-
-    /** number of samples per cache entry */
-    unsigned int m_scale;
-
-    /** mutex for threadsafe access to the cache */
-    Mutex m_lock;
+    /** cache with overview data */
+    OverViewCache m_cache;
 
 };
 

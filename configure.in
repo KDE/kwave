@@ -202,6 +202,9 @@ KDE_CHECK_HEADER(kdeversion.h, AC_DEFINE(HAVE_KDEVERSION_H,1,
 AC_CHECK_HEADER(demangle.h, AC_DEFINE(HAVE_DEMANGLE_H,1,
     [name mangling would be fine, but not necessary]))
 
+AC_CHECK_HEADER(sys/soundcard.h, AC_DEFINE(HAVE_SYS_SOUNDCARD_H,1,
+    [needed for OSS playback and recording]))
+
 dnl rtti/type info would be fine for debugging
 AC_CHECK_HEADERS(typeinfo)
 

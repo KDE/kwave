@@ -27,8 +27,11 @@
 /* static initializer for the global/static X11 lock */
 Mutex ThreadsafeX11Guard::m_lock_X11;
 
-/* static initializer for the lock for entering/leaving the protected area */
-Mutex ThreadsafeX11Guard::m_lock_enter_leave;
+/* static initializer for the internal/static X11 lock */
+Mutex ThreadsafeX11Guard::m_internal_lock;
+
+/* static initializer for the lock for protection of recursion and owner */
+Mutex ThreadsafeX11Guard::m_lock_recursion;
 
 /* static initializer for the thread that currently has locked X11 */
 pthread_t ThreadsafeX11Guard::m_pid_owner = pthread_self();
@@ -48,14 +51,17 @@ ThreadsafeX11Guard::ThreadsafeX11Guard()
 	return;
     }
 
-    // protect the "enter" scenario
-    MutexGuard lock(m_lock_enter_leave);
-
-    if (m_pid_owner == pthread_self()) {
-	// recursive enter
-	m_recursion_level++;
-	return;
+    {
+	MutexGuard lock(m_lock_recursion);
+	if (m_pid_owner == pthread_self()) {
+	    // recursive enter
+	    m_recursion_level++;
+	    return;
+	}
     }
+
+    // lock the X11 system, no others may use it now
+    m_internal_lock.lock();
 
     // activate the X11 thread
     m_spx_X11_request.AsyncHandler();
@@ -68,8 +74,11 @@ ThreadsafeX11Guard::ThreadsafeX11Guard()
     m_sem_x11_locked.wait();
 
     // now we are the only owner of X11
-    m_pid_owner = pthread_self();
-    m_recursion_level = 1;
+    {
+	MutexGuard lock(m_lock_recursion);
+	m_pid_owner = pthread_self();
+	m_recursion_level = 1;
+    }
 }
 
 //***************************************************************************
@@ -79,17 +88,16 @@ ThreadsafeX11Guard::~ThreadsafeX11Guard()
 	return;
     }
 
-    // protect the "leave" scenario
-    MutexGuard lock(m_lock_enter_leave);
-
-    // decrease the recursion level (should always be at least 1)
-    ASSERT(m_recursion_level);
-    if (m_recursion_level) {
-	m_recursion_level--;
+    {
+	MutexGuard lock(m_lock_recursion);
+	
+	// decrease the recursion level (should always be at least 1)
+	ASSERT(m_recursion_level);
+	if (m_recursion_level) m_recursion_level--;
+	
+	// break if only recursion decreased and zero not reached
+	if (m_recursion_level) return;
     }
-
-    // break if only recursion decreased and zero not reached
-    if (m_recursion_level) return;
 
     // flush all X11 events
     QApplication::flushX();
@@ -101,8 +109,18 @@ ThreadsafeX11Guard::~ThreadsafeX11Guard()
     m_sem_x11_unlocked.wait();
 
     // release the control over X11
-    m_pid_owner = 0;
-    m_recursion_level = 0;
+    {
+	MutexGuard lock(m_lock_recursion);
+	m_pid_owner = 0;
+	m_recursion_level = 0;
+    }
+
+    // sometimes the X11 / GUI thread needs an extra wakeup
+    ASSERT(qApp);
+    if (qApp) qApp->wakeUpGuiThread();
+
+    // release the X11 system and let others lock it
+    m_internal_lock.unlock();
 }
 
 //***************************************************************************

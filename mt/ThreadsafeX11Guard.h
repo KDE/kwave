@@ -64,14 +64,20 @@ private slots:
 
 private:
 
-    /** the global/unique lock for X11 */
+    /** The global/unique lock for X11 */
     static Mutex m_lock_X11;
 
     /**
-     * the mutex for entering/leaving a protected area, used in our
-     * constructor and destructor.
+     * Internal lock for access to the X11 subsystem
      */
-    static Mutex m_lock_enter_leave;
+    static Mutex m_internal_lock;
+
+    /**
+     * The mutex for entering/leaving a protected area, used in our
+     * constructor and destructor. Protects m_recursion_level and
+     * m_pid_owner
+     */
+    static Mutex m_lock_recursion;
 
     /** thread id of the thread that is currently holding the X11 lock */
     static pthread_t m_pid_owner;

@@ -79,8 +79,23 @@ public:
 	return modifier(*this);
     }
 
-    /** flush the content of the intermediate buffer */
-    SampleWriter &flush();
+    /**
+     * Flush the content of a buffer. Normally the buffer is the
+     * internal intermediate buffer used for single-sample writes.
+     * When using block transfers, the internal buffer is bypassed
+     * and the written block is passed instead.
+     * @internal
+     * @param buffer reference to the buffer to be flushed
+     * @param count number of samples in the buffer to be flushed,
+     *              will be internally set to zero if successful
+     */
+    void flush(const QArray<sample_t> &buffer, unsigned int &count);
+
+    /**
+     * Shortcut for flush(m_buffer, m_buffer_used)
+     * @internal
+     */
+    inline void flush() { flush(m_buffer, m_buffer_used); };
 
     /** Returns the index of the first sample of the range. */
     inline unsigned int first() { return m_first; };

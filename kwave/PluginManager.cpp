@@ -459,14 +459,11 @@ SampleWriter *PluginManager::openSampleWriter(unsigned int track,
     right = writer->last();
 
     // enter a new undo transaction and let it close when the writer closes
-    debug("PluginManager::openSampleWriter(): starting undo transaction"); // ###
     manager.startUndoTransaction();
-    debug("PluginManager::openSampleWriter(): connecting"); // ###
     QObject::connect(writer, SIGNAL(destroyed()),
                      &manager, SLOT(closeUndoTransaction()));
 
     // create an undo action for the modification of the samples
-    debug("PluginManager::openSampleWriter(): creating undo action"); // ###
     UndoAction *action = 0;
     switch (mode) {
 	case Append:
@@ -481,7 +478,6 @@ SampleWriter *PluginManager::openSampleWriter(unsigned int track,
     }
     ASSERT(action);
 
-    debug("PluginManager::openSampleWriter(): registering action"); // ###
     {
 	ThreadsafeX11Guard x11_guard;
 	if (!manager.registerUndoAction(action)) {
@@ -492,12 +488,10 @@ SampleWriter *PluginManager::openSampleWriter(unsigned int track,
 	    delete writer;
 	    return 0;
 	} else {
-	    debug("PluginManager::openSampleWriter(): storing undo data"); // ###
 	    action->store(manager);
 	}
     }
 
-    debug("SignalManager::openSampleWriter(): done.");
     // Everything was ok, the action now is owned by the current undo
     // transaction. The transaction is owned by the SignalManager and
     // will be closed when the writer gets closed.

@@ -48,6 +48,8 @@ class Track;
  *
  * @todo Check setOffset()
  * @todo optimizations if zoom factor is multiple of last zoom factor
+ * @todo optimizations in slotSamplesDeleted and slotSamplesInserted if
+ *       parts of the current buffers can be re-used
  *
  * @author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  */

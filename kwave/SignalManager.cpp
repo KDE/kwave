@@ -473,7 +473,6 @@ void SignalManager::deleteRange(unsigned int offset, unsigned int length)
 	    abortUndoTransaction();
 	    return;
 	}
-	undo->store(*this);
     }
 
     // then delete the ranges in all tracks

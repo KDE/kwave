@@ -103,9 +103,68 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
     SampleLock * range_lock = 0;
 
     switch (mode) {
-	case Append: {
-//	    debug("Track::openSampleWriter(apppend)");
+	case Insert: {
+//	    debug("Track::openSampleWriter(insert, %u)", left);
 	
+	    // find the stripe into which we insert
+	    Stripe *target_stripe = 0;
+	    Stripe *stripe_before = 0;
+	
+	    // add all stripes within the specified range to the list
+	    QListIterator<Stripe> it(m_stripes);
+	    for (; it.current(); ++it) {
+		Stripe *s = it.current();
+		unsigned int st = s->start();
+		unsigned int len = s->length();
+		if (!len) continue; // skip zero-length tracks
+		
+		if (left >= st+len) stripe_before = s;
+		
+		if ((left >= st) && (left < st+len)) {
+		    // match found
+//		    debug("Track::openSampleWriter(): found matching range");
+		    target_stripe = s;
+		    break;
+		}
+	    }
+	
+	    // if insert is requested immediately after the last
+	    // stripe before
+	    if (stripe_before && (left == stripe_before->start()+
+	        stripe_before->length()))
+	    {
+		// append to the existing stripe
+//		debug("Track::openSampleWriter(): appending to existing stripe");
+		mode = Append;
+		target_stripe = stripe_before;
+	    }
+	
+	    // if no stripe was found, create a new one and
+	    // insert it between the existing ones
+	    if (!target_stripe) {
+		debug("Track::openSampleWriter(): creating a new stripe");
+		Stripe *target_Stripe = new Stripe(left);
+		ASSERT(target_Stripe);
+		if (!target_stripe) return 0;
+		
+		// insert into our stripes, if the stripe before
+		// is null, the new one will be prepended
+		int index = m_stripes.find(stripe_before) + 1;
+		debug("Track::openSampleWriter(): inserting at index %d", index);
+		m_stripes.insert(index, target_stripe);
+	    }
+	
+	    // append it to our stripes list and lock it
+	    range_lock = new SampleLock(*this, left, 0,
+		SampleLock::WriteShared);
+		
+	    // insert the stripe into the list of affected stripes,
+	    // it will be the only one
+	    stripes.append(target_stripe);
+	
+	    break;
+	}
+	case Append: {
 	    // create a new stripe
 	    unsigned int next_start = unlockedLength();
 	    Stripe *s = new Stripe(next_start);
@@ -113,7 +172,6 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	    if (!s) return 0;
 	
 	    // append it to our stripes list and lock it
-	    m_stripes.append(s);
 	    range_lock = new SampleLock(*this, next_start, 0,
 		SampleLock::WriteShared);
 	
@@ -121,13 +179,7 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	    stripes.append(s);
 	    break;
 	}
-	case Insert:
-	    debug("Track::openSampleWriter(insert, %u)", left);
-	    warning("--- NOT IMPLEMENTED YET ---"); // ###
-	    return 0;
-	    break;
 	case Overwrite:
-//	    debug("Track::openInputStream(overwrite, %u, %u)", left, right);
 	    if ((right == 0) || (right == left)) right = unlockedLength()-1;
 	
 	    // lock the needed range for shared writing

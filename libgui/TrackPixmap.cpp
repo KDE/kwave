@@ -674,7 +674,18 @@ void TrackPixmap::slotSamplesInserted(Track &, unsigned int offset,
 {
     {
 	MutexGuard lock(m_lock_buffer);
-	debug("TrackPixmap::slotSamplesInserted(track, %u, %u)", offset, length);
+	
+	convertOverlap(offset, length);
+	if (!length) return; // false alarm
+	
+	ASSERT(offset < m_valid.size());
+	ASSERT(offset + length <= m_valid.size());
+	
+	// mark all positions from here to right end as "invalid"
+	while (offset < m_valid.size()) m_valid.clearBit(offset++);
+	
+	// repaint of the signal is needed
+	m_modified = true;
     }
 
     // notify our owner about changed data -> screen refresh?

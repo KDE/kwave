@@ -31,14 +31,11 @@ UndoModifyAction::UndoModifyAction(unsigned int track, unsigned int offset,
     :UndoAction(), m_track(track), m_offset(offset), m_length(length),
      m_buffer(0)
 {
-    debug("UndoModifyAction::UndoModifyAction(%u,%u,%u)", track,
-	  offset, length); // ###
 }
 
 //***************************************************************************
 UndoModifyAction::~UndoModifyAction()
 {
-    debug("UndoModifyAction::~UndoModifyAction()"); // ###
     m_buffer.resize(0);
 }
 
@@ -58,19 +55,11 @@ unsigned int UndoModifyAction::undoSize()
 void UndoModifyAction::store(SignalManager &manager)
 {
     /* copy from left to right into our buffer */
-    debug("UndoModifyAction::store(), offset=%u, length=%u",
-	m_offset, m_length);
-    // ### TODO ###
-
     m_buffer.resize(m_length);
     SampleReader *reader = manager.openSampleReader(
 	m_track, m_offset, m_offset+m_length-1);
-    unsigned int ofs = 0;
-    unsigned int len = m_length;
-    while (reader && len--) {
-	*reader >> m_buffer[ofs++];
-    }
-
+    ASSERT(reader);
+    if (reader) reader->read(m_buffer, 0, m_length);
 }
 
 //***************************************************************************

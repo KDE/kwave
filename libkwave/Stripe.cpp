@@ -111,7 +111,7 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
 	ASSERT(count <= samples.size());
 	if (count > samples.size()) count = samples.size();
 
-//	debug("Stripe::append: adding %d samples", samples.count());
+//	debug("Stripe::append: adding %d samples", count);
 
 	old_length = m_samples.size();
 	unsigned int newlength = old_length + count;
@@ -132,6 +132,59 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
     if (appended) emit sigSamplesInserted(*this, old_length, appended);
 
     return appended;
+}
+
+//***************************************************************************
+unsigned int Stripe::insert(const QArray<sample_t> &samples,
+	unsigned int offset, unsigned int count)
+{
+    unsigned int old_length;
+    unsigned int inserted = 0;
+
+    {
+	MutexGuard lock(m_lock_samples);
+	
+	if (!count || !samples.size()) return 0; // nothing to do
+	ASSERT(count <= samples.size());
+	if (count > samples.size()) count = samples.size();
+	
+//	debug("Stripe::insert: inserting %d samples", count);
+	
+	old_length = m_samples.size();
+	unsigned int new_length = old_length + count;
+	m_samples.resize(new_length);
+	ASSERT(m_samples.size() == new_length);
+	new_length = m_samples.size();
+	
+	unsigned int src = old_length;
+	unsigned int dst = new_length;
+	unsigned int cnt;
+	
+	if (offset < old_length) {
+	    // move old samples right
+	    cnt = old_length - offset;
+	    while (cnt--) {
+		m_samples[--new_length] = m_samples[--old_length];
+	    }
+	}
+	
+	// insert at the given offset
+	src = 0;
+	dst = offset;
+	cnt = count;
+	while (cnt--) {
+	    m_samples[dst++] = samples[src++];
+	}
+	
+	inserted = count;
+    }
+
+//    debug("Stripe::insert(): resized to %d", m_samples.size());
+
+    // something has been inserted
+    if (inserted) emit sigSamplesInserted(*this, offset, inserted);
+
+    return inserted;
 }
 
 //***************************************************************************

@@ -151,7 +151,7 @@ public:
     void exportAscii(const char *name);
 
     /**
-     * Deletes a range of samples
+     * Deletes a range of samples and creates an undo action.
      * @param offset index of the first sample
      * @param length number of samples
      */
@@ -387,6 +387,24 @@ private slots:
      * @see sigUndoRedoInfo
      */
     void emitUndoRedoInfo();
+
+protected:
+
+    friend class UndoInsertAction;
+
+    /**
+     * Deletes a range of samples.
+     * @note only for internal usage in the UndoInsertAction!
+     * @param track index of the track
+     * @param offset index of the first sample
+     * @param length number of samples
+     * @see Signal::deleteRange
+     */
+    inline void deleteRange(unsigned int track, unsigned int offset,
+                            unsigned int length)
+    {
+	m_signal.deleteRange(track, offset, length);
+    };
 
 protected:
 

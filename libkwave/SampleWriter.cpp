@@ -40,42 +40,58 @@ SampleWriter::~SampleWriter()
 }
 
 //***************************************************************************
-SampleWriter &SampleWriter::operator << (
-	const QArray<sample_t> &samples)
+SampleWriter &SampleWriter::operator << (const QArray<sample_t> &samples)
 {
+    // first flush the single-sample buffer before doing block operation
+    if (m_buffer_used) flush();
+
+    // now flush the block that we received as parameter (pass-through)
     unsigned int count = samples.size();
-    unsigned int i;
-    for (i=0; i < count; i++) {
-	*this << samples[i];
-    }
+    flush(samples, count);
+
     return *this;
 }
 
 //***************************************************************************
 SampleWriter &SampleWriter::operator << (const sample_t &sample)
 {
-    if (m_buffer_used >= m_buffer.size()) flush();
     m_buffer[m_buffer_used++] = sample;
     if (m_buffer_used >= m_buffer.size()) flush();
     return *this;
 }
 
 //***************************************************************************
-SampleWriter &SampleWriter::flush()
+void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 {
-    if (m_buffer_used == 0) return *this; // nothing to flush
+    if (count == 0) return; // nothing to flush
 
     switch (m_mode) {
 	case Append: {
 	    Stripe *s = m_stripes.last();
 	    ASSERT(s);
-	    if (s) s->append(m_buffer, m_buffer_used);
+	    if (s) s->append(buffer, count);
+	    m_position += count;
 	    break;
 	}
-	case Insert:
-	    warning("---SampleWriter::flush(): Insert not implemented yet---");
+	case Insert: {
+	    // in insert mode we only have one stripe and it is clear
+	    // where to insert
+	    ASSERT(m_stripes.count() == 1);
+	    Stripe *s = m_stripes.first();
+	    ASSERT(s);
+	    if (!s) break;
+	
+	    // insert samples after the last insert position
+	    unsigned int ofs = s->start();
+	    ASSERT(ofs <= m_position);
+	    if (ofs > m_position) break;
+	    ofs = m_position - ofs;
+	
+	    s->insert(buffer, ofs, count);
+	    m_position += count;
 	    break;
-	case Overwrite:
+	}
+	case Overwrite: {
 	    // find the first stripe that contains the current position
 	    QListIterator<Stripe> it(m_stripes);
 	    unsigned int buf_offset = 0;
@@ -93,30 +109,31 @@ SampleWriter &SampleWriter::flush()
 		if (m_position >= st) {
 		    unsigned int offset = m_position - st;
 		    unsigned int length = len - offset;
-		    if (length > m_buffer_used) length = m_buffer_used;
+		    if (length > count) length = count;
 		
 		    // copy the portion of our buffer to the target
-		    s->overwrite(offset, m_buffer, buf_offset, length);
+		    s->overwrite(offset, buffer, buf_offset, length);
 
-		    m_buffer_used -= length;
+		    count -= length;
 		    buf_offset += length;
 		    m_position += length;
 		
 		    break;
 		}
 	    }
-	    ASSERT(m_buffer_used == 0);
+	    ASSERT(count == 0);
 	    break;
+	}
     }
 
-    m_buffer_used = 0;
-    return *this;
+    count = 0;
 }
 
 //***************************************************************************
 SampleWriter &flush(SampleWriter &s)
 {
-    return s.flush();
+    s.flush();
+    return s;
 }
 
 //***************************************************************************

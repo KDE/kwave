@@ -254,7 +254,7 @@ void MenuNode::setChecked(bool check)
 }
 
 //*****************************************************************************
-void MenuNode::setText(const QString &text)
+void MenuNode::setText(const QString &)
 {
     // not used here, only gives sense in MenuItem
 }

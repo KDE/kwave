@@ -23,7 +23,6 @@
 #include "config.h"
 #include <qcolor.h>
 #include <qmemarray.h>
-#include <qvector.h>
 #include <qvaluevector.h>
 #include <qwidget.h>
 #include "libkwave/Sample.h"

@@ -19,7 +19,7 @@
 #define _RECORD_PLUGIN_H_
 
 #include "config.h"
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qcstring.h>
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackWriter.h"
@@ -61,14 +61,6 @@ signals:
 
 protected:
 
-    friend class InhibitRecordGuard;
-
-    /** inhibits recording, stopping the recorder if necessary */
-    void enterInhibit();
-
-    /** leave the area with recording inhibited, restart recorder if needed */
-    void leaveInhibit();
-
     /**
      * internal guard class for inhibiting low level recording
      * at times where it should not occur.
@@ -92,6 +84,15 @@ protected:
     private:
 	RecordPlugin &m_recorder;
     };
+
+protected:
+    friend class InhibitRecordGuard;
+
+    /** inhibits recording, stopping the recorder if necessary */
+    void enterInhibit();
+
+    /** leave the area with recording inhibited, restart recorder if needed */
+    void leaveInhibit();
 
 protected slots:
 

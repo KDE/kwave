@@ -19,7 +19,6 @@
 #define _RECORD_DIALOG_H_
 
 #include "config.h"
-#include <qarray.h>
 #include <qstringlist.h>
 #include <qtimer.h>
 #include <qvaluelist.h>

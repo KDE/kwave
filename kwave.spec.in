@@ -3,27 +3,26 @@
 %define filelist %{name}-@RPM_FULL_VERSION@/files.list.%{name}
 %define rpm_opt_flags ${RPM_OPT_FLAGS}
 
-Summary: @RPM_SUMMARY@
-Name: @RPM_NAME@
+Summary:	@RPM_SUMMARY@
+Name:		@RPM_NAME@
 Version: 	@RPM_SHORT_VERSION@
 Release: 	@RPM_RELEASE@
 Source0: 	kwave-@RPM_FULL_VERSION@.tar.gz
 Group:  	@RPM_GROUP@
-Copyright:     @RPM_COPYRIGHT@
-URL:     @RPM_URL@
+Copyright:	@RPM_COPYRIGHT@
+URL:		@RPM_URL@
 Vendor: 	@RPM_VENDOR@
 BuildRoot: 	@RPM_BUILDROOT@
 Prefix:   	@prefix@
-Provides:@RPM_NAME@
+Provides:	@RPM_NAME@
 Requires: 	libqt-mt.so.3 >= 3.0
 Requires: 	kdelibs >= 3.0
 Requires:	id3lib >= 3.8.1
 Requires:	libvorbis.so.0 >= 0.2.0
 Requires:	libvorbisenc.so.2 >= 2.0.0
 Requires:	libogg.so.0 >= 0.4.0
-
-# libmad	(if not using builtin version)
-# libaudiofile	(if not using builtin version)
+@LIBMAD_REQUIRE@
+@LIBAUDIOFILE_REQUIRE@
 
 Conflicts: 	libkwave
 Obsoletes: 	libkwave

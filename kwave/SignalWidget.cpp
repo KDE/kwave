@@ -1793,7 +1793,14 @@ void SignalWidget::startDragging()
 	const unsigned int f = m_signal_manager.selection().first();
 	const unsigned int l = m_signal_manager.selection().last();
 	const unsigned int len = l-f+1;
-	m_signal_manager.deleteRange(first, len,
+	
+	// special case: when dropping into the same widget, before
+	// the previous selection, the previous range has already
+	// been moved to the right !
+	unsigned int src = first;
+	if ((d->target() == this) && (f < src)) src += len;
+	
+	m_signal_manager.deleteRange(src, len,
 		m_signal_manager.selectedTracks());
 		
 	// restore the new selection

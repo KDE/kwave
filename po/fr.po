@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-02-03 16:40+0100\n"
-"PO-Revision-Date: 2002-01-21 06:59GMT\n"
+"PO-Revision-Date: 2002-02-05 21:03GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -431,7 +431,7 @@ msgstr "selection"
 
 #: kwave/SignalWidget.cpp:1745 kwave/SignalWidget.cpp:1775
 msgid "drag and drop"
-msgstr ""
+msgstr "tirer et lacher"
 
 #: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:130
 msgid "1&6 Bit"
@@ -2002,14 +2002,3 @@ msgstr "silence"
 msgid "Choose Line of distortion :"
 msgstr "Choisir la ligne de distorsion :"
 
-#~ msgid "&Next"
-#~ msgstr "&Suivant"
-
-#~ msgid "Open &Recent"
-#~ msgstr "Ouvrir un fichier &récent"
-
-#~ msgid "&Previous"
-#~ msgstr "&Précédent"
-
-#~ msgid "Import"
-#~ msgstr "Importer"

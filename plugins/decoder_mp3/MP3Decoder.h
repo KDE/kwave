@@ -23,6 +23,8 @@
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
+#include "libmad/mad.h"
+
 class Mp3_Headerinfo;
 class ID3_Frame;
 class ID3_Tag;
@@ -63,6 +65,14 @@ public:
      */
     virtual void close();
 
+    /* Callback for filling libmad's input buffer */
+    enum mad_flow fillInput(struct mad_stream *stream);
+
+    /* Calback for processing libmad's output */
+    enum mad_flow processOutput(void *data,
+                                struct mad_header const *header,
+                                struct mad_pcm *pcm);
+
 private:
 
     /** parse MP3 headers */
@@ -76,8 +86,23 @@ private:
 
 private:
 
-    /** source of the audio data */
+    /** source of the raw mp3 data */
     QIODevice *m_source;
+
+    /** destination of the audio data */
+    MultiTrackWriter *m_dest;
+
+    /** buffer for libmad */
+    unsigned char *m_buffer;
+
+    /** size of m_buffer in bytes */
+    int m_buffer_size;
+
+    /** number of prepended bytes / id3v2 tag */
+    unsigned int m_prepended_bytes;
+
+    /** number of appended bytes / id3v1 tag */
+    unsigned int m_appended_bytes;
 
 };
 

@@ -31,14 +31,13 @@
 #include "libkwave/Signal.h"
 #include "libgui/ConfirmCancelProxy.h"
 
-#include "libmad/mad.h"
-
 #include "MP3Decoder.h"
 #include "ID3_QIODeviceReader.h"
 
 //***************************************************************************
 MP3Decoder::MP3Decoder()
-    :Decoder(), m_source(0)
+    :Decoder(), m_source(0), m_dest(0), m_buffer(0), m_buffer_size(0),
+     m_prepended_bytes(0), m_appended_bytes(0)
 {
     /* included in KDE: */
     addMimeType("audio/x-mpga",   i18n("MPEG layer1 audio"),
@@ -79,7 +78,7 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 	         "Do you still want to continue?"))
 	             != KMessageBox::Continue) return false;
     }
-
+   
     /* MPEG layer */
     switch (header.layer) {
 	case MPEGLAYER_I:
@@ -379,7 +378,11 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     debug("HasLyrics = %d", tag.HasLyrics());
     debug("HasV1Tag = %d",  tag.HasV1Tag());
     debug("HasV2Tag = %d",  tag.HasV2Tag());
-
+                            
+    m_prepended_bytes = tag.GetPrependedBytes();
+    m_appended_bytes  = tag.GetAppendedBytes();
+    debug("prepended=%u, appended=%u",m_prepended_bytes, m_appended_bytes);
+    
     const Mp3_Headerinfo *mp3hdr = tag.GetMp3HeaderInfo();
     if (!mp3hdr) {
 	KMessageBox::sorry(widget,
@@ -398,22 +401,206 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
     m_source = &src;
     m_info.set(INF_MIMETYPE, "audio/mpeg");
 
+
+    // allocate a transfer buffer with 128 kB
+    if (m_buffer) delete m_buffer;
+    m_buffer_size = (128 << 10);
+    
+    m_buffer = (unsigned char*)malloc(m_buffer_size);
+    if (!m_buffer) return false; // out of memory :-(
+    
     return true;
 }
+
+//***************************************************************************
+static enum mad_flow _input_adapter(void *data, struct mad_stream *stream)
+{
+    MP3Decoder *decoder = (MP3Decoder*)data;
+    ASSERT(decoder);
+    return (decoder) ? decoder->fillInput(stream) : MAD_FLOW_STOP;
+}
+
+//***************************************************************************
+static enum mad_flow _output_adapter(void *data,
+                                     struct mad_header const *header,
+                                     struct mad_pcm *pcm)
+{
+    MP3Decoder *decoder = (MP3Decoder*)data;
+    ASSERT(decoder);
+    return (decoder) ?
+        decoder->processOutput(data, header, pcm) : MAD_FLOW_STOP;
+}
+
+//***************************************************************************
+static enum mad_flow _error_adapter(void *data, struct mad_stream *stream,
+                                    struct mad_frame *frame)
+{
+    MP3Decoder *decoder = (MP3Decoder*)data;
+    ASSERT(decoder);
+    if (!decoder) return MAD_FLOW_BREAK;
+
+    debug("_error_adapter");
+    fprintf(stderr, "decoding error 0x%04x (%s) at byte offset %u\n",
+	  stream->error, mad_stream_errorstr(stream),
+	  stream->this_frame /* - buffer->start */);
+    
+    return MAD_FLOW_BREAK;
+}
+
+//***************************************************************************
+enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
+{
+    ASSERT(m_source);
+    if (!m_source) return MAD_FLOW_STOP;
+
+    // preserve the remaining bytes from the last pass
+    int rest = stream->bufend - stream->next_frame;
+    if (rest) memmove(m_buffer, stream->next_frame, rest);
+
+    // clip source at "eof-appended_bytes"
+    unsigned int bytes_to_read = m_buffer_size - rest;
+    if (m_source->at() + bytes_to_read > m_source->size()-m_appended_bytes)
+        bytes_to_read = m_source->size()-m_appended_bytes-m_source->at();
+
+    // abort if nothing more to read, even if there are
+    // some "left-overs" from the previous pass
+    if (!bytes_to_read) return MAD_FLOW_STOP;
+
+    // read from source to fill up the buffer
+    unsigned int size = rest;
+    if (bytes_to_read) size += m_source->readBlock(
+	(char*)m_buffer+rest, bytes_to_read);
+    if (!size) return MAD_FLOW_STOP; // no more data
+
+    // buffer is filled -> process it    
+    debug("rest=%u, bytes_to_read=%u, size=%u",rest,bytes_to_read,size);
+    mad_stream_buffer(stream, m_buffer, size);
+
+    return MAD_FLOW_CONTINUE;
+}
+
+/**
+ * (copied from mpg231, mad.c)
+ * @author Rob Leslie
+ */
+struct audio_dither {
+  mad_fixed_t error[3];
+  mad_fixed_t random;
+};
+
+/**
+ * 32-bit pseudo-random number generator
+ * (copied from mpg231, mad.c)
+ * @author Rob Leslie
+ */
+static inline unsigned long prng(unsigned long state)
+{
+  return (state * 0x0019660dL + 0x3c6ef35fL) & 0xffffffffL;
+}
+
+/**
+ * generic linear sample quantize and dither routine
+ * (copied from mpg231, mad.c)
+ * @author Rob Leslie
+ */
+static inline signed long audio_linear_dither(unsigned int bits,
+    mad_fixed_t sample, struct audio_dither *dither)
+{
+    unsigned int scalebits;
+    mad_fixed_t output, mask, random;
+
+    enum {
+	MIN = -MAD_F_ONE,
+	MAX =  MAD_F_ONE - 1
+    };
+
+    /* noise shape */
+    sample += dither->error[0] - dither->error[1] + dither->error[2];
+
+    dither->error[2] = dither->error[1];
+    dither->error[1] = dither->error[0] / 2;
+
+    /* bias */
+    output = sample + (1L << (MAD_F_FRACBITS + 1 - bits - 1));
+
+    scalebits = MAD_F_FRACBITS + 1 - bits;
+    mask = (1L << scalebits) - 1;
+
+    /* dither */
+    random  = prng(dither->random);
+    output += (random & mask) - (dither->random & mask);
+
+    dither->random = random;
+
+    /* clip */
+    if (output > MAX) {
+	output = MAX;
+	if (sample > MAX) sample = MAX;
+    } else if (output < MIN) {
+	output = MIN;
+	if (sample < MIN) sample = MIN;
+    }
+
+    /* quantize */
+    output &= ~mask;
+
+    /* error feedback */
+    dither->error[0] = sample - output;
+
+    /* scale */
+    return output >> scalebits;
+}
+
+//***************************************************************************
+enum mad_flow MP3Decoder::processOutput(void *data,
+    struct mad_header const *header, struct mad_pcm *pcm)
+{
+    struct audio_dither dither;
+    register signed int sample;
+
+    // loop over all tracks
+    const unsigned int tracks = m_dest->count();
+    for (unsigned int track = 0; track < tracks; ++track) {
+	register int nsamples = pcm->length;
+	mad_fixed_t const *p = pcm->samples[track];
+
+	// and render samples ino Kwave's internal format
+	while (nsamples--) {
+	    sample = (signed int)audio_linear_dither(SAMPLE_BITS,
+	    	                 (mad_fixed_t)(*p++), &dither);
+	    register sample_t s = static_cast<sample_t>(sample);
+	    *(*m_dest)[track] << s;
+	}
+    }
+
+    return MAD_FLOW_CONTINUE;
+}
+
 
 //***************************************************************************
 bool MP3Decoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 {
     ASSERT(m_source);
     if (!m_source) return false;
+    m_source->at(m_prepended_bytes); // skip id3v2 tag
 
-//    struct mad_stream stream;
-//
-//    mad_stream_init(&stream);
-//
-//    mad_stream_finish(&stream);
-    
-    return true; // ###
+    // set target of the decoding
+    m_dest = &dst;
+
+    // setup the decoder
+    struct mad_decoder decoder;
+    mad_decoder_init(&decoder, this,
+                     _input_adapter, 0 /* header */, 0 /* filter */,
+                     _output_adapter,
+                     _error_adapter, 0 /* message */);
+
+    // decode through libmad...
+    int result = mad_decoder_run(&decoder, MAD_DECODER_MODE_SYNC);
+
+    // release the decoder
+    mad_decoder_finish(&decoder);
+
+    return (result == 0);
 }
 
 //***************************************************************************

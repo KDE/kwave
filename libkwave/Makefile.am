@@ -26,6 +26,7 @@ BUILTSOURCES=\
  KwavePlugin.moc.cpp\
  MultiTrackReader.moc.cpp\
  MultiTrackWriter.moc.cpp\
+ PlayBackDevice.moc.cpp\
  SampleReader.moc.cpp\
  SampleWriter.moc.cpp\
  Selection.moc.cpp\

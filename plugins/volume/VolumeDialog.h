@@ -36,10 +36,10 @@ public:
     /** Destructor */
     virtual ~VolumeDialog();
 
-    /** Returns a command string for the curve */
-    QString getCommand();
+    /** Returns the parameters as string list */
+    QStringList params();
 
-    /** Sets the curve parameters and points from a list of parameters */
+    /** Sets the from a list of parameters */
     void setParams(QStringList &params);
 
 protected slots:

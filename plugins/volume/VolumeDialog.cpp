@@ -243,16 +243,12 @@ void VolumeDialog::spinboxChanged(int pos)
 }
 
 //***************************************************************************
-QString VolumeDialog::getCommand()
+QStringList VolumeDialog::params()
 {
-    QString cmd;
-    cmd = "volume(";
-    cmd += QString::number(m_factor);
-    cmd += ", ";
-    cmd += QString::number(m_mode);
-    cmd += ")";
-    debug("VolumeDialog::getCommand(): '"+cmd+"'");
-    return cmd;
+    QStringList list;
+    list << QString::number(m_factor);
+    list << QString::number((int)m_mode);
+    return list;
 }
 
 //***************************************************************************
@@ -266,6 +262,10 @@ void VolumeDialog::setParams(QStringList &params)
 	case 2: m_mode = MODE_DECIBEL; break;
 	default: m_mode = MODE_DECIBEL;
     }
+
+    // update factor and mode
+    updateDisplay(m_factor);
+    setMode(m_mode);
 }
 
 //***************************************************************************

@@ -55,6 +55,7 @@ int VolumePlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
+    ASSERT(params.count() == 2);
     if (params.count() != 2) return -EINVAL;
 
     param = params[0];
@@ -67,6 +68,9 @@ int VolumePlugin::interpreteParameters(QStringList &params)
     ASSERT(ok);
     if (!ok || (m_mode > 2)) return -EINVAL;
 
+    // all parameters accepted
+    m_params = params;
+    
     return 0;
 }
 
@@ -87,10 +91,7 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
     ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
-	QString cmd = dialog->getCommand();
-	Parser p(cmd);
-	while (!p.isDone()) *list << p.nextParam();
-	emitCommand(cmd);
+	*list = dialog->params();
     } else {
 	// user pressed "Cancel"
 	if (list) delete list;
@@ -129,26 +130,34 @@ void VolumePlugin::run(QStringList params)
 
     unsigned int tracks = selectedTracks().count();
     ArtsNativeMultiTrackFilter mul(tracks, "Arts::Synth_MUL");
+    ArtsNativeMultiTrackFilter lim(tracks, "Arts::Synth_BRICKWALL_LIMITER");
     ArtsMultiTrackSink   arts_sink(sink);
 
     // connect them
     mul.setValue("invalue1", m_factor);
     mul.connectInput(arts_source,   "source",   "invalue2");
-    mul.connectOutput(arts_sink,    "sink",     "outvalue");
+    if (m_factor > 1) {
+	// maybe we need a limiter, use a simple brickwall limiter
+	mul.connectOutput(lim,          "invalue",  "outvalue");
+	lim.connectOutput(arts_sink,    "sink",     "outvalue");
+    } else {
+	// in case of lower volume we never need to clip
+	mul.connectOutput(arts_sink,    "sink",     "outvalue");
+    }
 
     // start all
     arts_source.start();
+    lim.start();
     mul.start();
     arts_sink.start();
 
     // transport the samples
-    debug("VolumePlugin: filter started...");
     while (!m_stop && !(arts_source.done())) {
 	arts_sink.goOn();
     }
-    debug("VolumePlugin: filter done.");
 
     // shutdown
+    lim.stop();
     mul.stop();
     arts_sink.stop();
     arts_source.stop();

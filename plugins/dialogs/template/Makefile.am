@@ -59,7 +59,7 @@ OUT_FILES	:= $(ALL_CPP:.cpp=.o)
 	@ @MOC@ $< -o $@
 
 $(MODNAME): ${OUT_FILES}
-	@echo plugin \"$(MODNAME)\": linking
+	@echo plugin \"$(MODNAME)\": linking \"$^\" to \"$@\"
 	@ @CXX@ $(CXXFLAGS) ${OUT_FILES} -o ${MODNAME}
 
 all: $(MODNAME)

@@ -9,10 +9,9 @@
 #include "SonagramPlugin.h"
 #include "SonagramDialog.h"
 
-
 KWAVE_PLUGIN(SonagramPlugin,"sonagram","Martin Wilz");
 
-
+//***************************************************************************
 SonagramPlugin::SonagramPlugin(PluginContext *c)
     :KwavePlugin(c)
 {
@@ -40,19 +39,11 @@ QStrList *SonagramPlugin::setup(QStrList *previous_params)
 }
 
 //***************************************************************************
-int SonagramPlugin::execute(QStrList *params)
+int SonagramPlugin::execute(QStrList &params)
 {
+    debug("--- SonagramPlugin::execute() ---");
     return 0;
 }
-
-//***************************************************************************
-const char *FFT_Sizes[] =
-	{"64", "128", "256", "512", "1024", "2048", "4096", 0};
-
-#ifndef max
-#define max(x,y) (( x > y ) ? x : y )
-#endif
-
 
 //***************************************************************************
 //***************************************************************************

@@ -54,7 +54,7 @@ const char *AverageDialog::getCommand()
 
     char buf[512];
     snprintf(buf, sizeof(buf), 
-	i18n("movingaverage %d %s"), taps->value(), type->currentText());
+	"movingaverage %d %s", taps->value(), type->currentText());
 
     comstr = duplicateString (buf);
     return comstr;

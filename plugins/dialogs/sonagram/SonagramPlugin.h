@@ -12,7 +12,7 @@ public:
     /** Constructor */
     SonagramPlugin(PluginContext *c);
     virtual QStrList *setup(QStrList *previous_params);
-    virtual int execute(QStrList *params);
+    virtual int execute(QStrList &params);
 };
 
 #endif /* _SONAGRAM_PLUGIN_H_ */

@@ -1,7 +1,9 @@
 
 0.6.5 [2002-09-xx]
 
- * thrown away KDE2 compatibility
+ * thrown away Qt2/KDE2 compatibility, now only supports Qt3/KDE3
+ * playback plugin: enabled the "select..." button for choosing
+   other playback devices (feature requested by Len Ovens)
 
 0.6.4 [2002-06-30]
 
@@ -11,10 +13,11 @@
  * auto-repair for structurally damaged wav files
  * bugfix: save selection works again
  * integrated libkwavemt into libkwave
- * using time instead of zoom factor (e.g. set zoom to "1 minute")
+ * using time instead of zoom factor, e.g. set zoom to "1 minute"
+   (feature requested by Gilles Caulier)
  * menu entries for playback control
  * some more icons in the menues
- * replaced KFileDialog with subclass KwaveFileDialog (fixes works
+ * replaced KFileDialog with subclass KwaveFileDialog (works
    around some bugs in KDE)
  * added a little chapter about digital audio basics to online help
  * added "select range" plugin

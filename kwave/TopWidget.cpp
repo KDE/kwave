@@ -1053,6 +1053,20 @@ void TopWidget::setSelectedTimeInfo(unsigned int samples, double ms)
     if (!statusBar()) return;
 
     if (samples > 1) {
+// new version:
+// setSelectedTimeInfo(unsigned int offset, unsigned int length, double rate)
+// show offset and length
+// Selected: 02:00...05:00 (3 min), samples 1000...2000 (1000 samples)
+//	unsigned int last = offset + (length) ? length-1 : 0;
+//	double ms_first = (rate != 0) ? (offset / rate) : 0;
+//	double ms_last  = (rate != 0) ? (last   / rate) : 0;
+//	double ms = (rate != 0) ? (length / rate) : 0;
+//	QString txt = " "+i18n("Selected: %1...%2 (%3) - "
+//                             "samples %3...%4 (%4 samples)").arg(
+//	    KwavePlugin::ms2string(ms_first)).arg(
+//	    KwavePlugin::ms2string(ms_last)).arg(
+//	    KwavePlugin::ms2string(ms)).arg(
+//	    offset).arg(last).arg(length)+" ";
 	QString txt = " "+i18n("Selected: %1 (%2 samples)").arg(
 	    KwavePlugin::ms2string(ms)).arg(samples)+" ";
 	statusBar()->message(txt, 4000);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 21:27+0200PO-"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2002-07-06 16:04+0200\n"
+"POT-Creation-Date: 2002-07-14 22:16+0200\n"
 "PO-Revision-Date: 2002-07-06 16:04+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -521,20 +521,20 @@ msgstr "(%2 Samples)"
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr "Format: %0.3f kHz@%u Bit"
 
-#: kwave/TopWidget.cpp:1056
+#: kwave/TopWidget.cpp:1070
 #, ycp-format
 msgid "Selected: %1 (%2 samples)"
 msgstr "Ausgewählt: %1 (%2 Samples)"
 
-#: kwave/TopWidget.cpp:1103
+#: kwave/TopWidget.cpp:1117
 msgid "U&ndo"
 msgstr "&Rückgängig"
 
-#: kwave/TopWidget.cpp:1109
+#: kwave/TopWidget.cpp:1123
 msgid "R&edo"
 msgstr "Wieder&herstellen"
 
-#: kwave/TopWidget.cpp:1307
+#: kwave/TopWidget.cpp:1321
 msgid " (modified)"
 msgstr " (geändert)"
 
@@ -618,16 +618,16 @@ msgstr "Auswahl"
 msgid "drag and drop"
 msgstr "Drag & Drop"
 
-#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:129
+#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:136
 msgid "1&6 Bit"
 msgstr "1&6 Bit"
 
-#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:138
+#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:145
 msgid "2&4 Bit"
 msgstr "2&4 Bit"
 
-#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:119
-#: plugins/playback/PlayBackDialog.cpp:122
+#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:126
+#: plugins/playback/PlayBackDialog.cpp:129
 msgid "&8 Bit"
 msgstr "&8 Bit"
 
@@ -691,7 +691,7 @@ msgstr "&Zwischenablage"
 msgid "Clip&board"
 msgstr "&Zwischenablage"
 
-#: kwave/menus_config_i18n.cpp:33 plugins/codec_wav/WavDecoder.cpp:258
+#: kwave/menus_config_i18n.cpp:33 plugins/codec_wav/WavDecoder.cpp:238
 msgid "&Continue"
 msgstr "&Fortsetzen"
 
@@ -1162,7 +1162,7 @@ msgstr "ms"
 msgid "%"
 msgstr "%"
 
-#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:67
+#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:64
 msgid "Amplify Free"
 msgstr "Frei Verstärken"
 
@@ -1222,21 +1222,21 @@ msgstr "Puffer-Größe kann nicht verwendet werden: %1"
 msgid "unable to open '%1'"
 msgstr "'%1' kann nicht geöffnet werden"
 
-#: plugins/playback/PlayBackDialog.cpp:54
-#: plugins/sonagram/SonagramDialog.cpp:55
-msgid "sonagram"
-msgstr "Sonagramm"
+#: plugins/playback/PlayBackDialog.cpp:61
+#, fuzzy
+msgid "playback"
+msgstr "&Wiedergabe"
 
-#: plugins/playback/PlayBackDialog.cpp:74
+#: plugins/playback/PlayBackDialog.cpp:81
 msgid "Playback Options :"
 msgstr "Wiedergabe-Einstellungen :"
 
-#: plugins/playback/PlayBackDialog.cpp:102
-#: plugins/playback/PlayBackDialog.cpp:103
+#: plugins/playback/PlayBackDialog.cpp:109
+#: plugins/playback/PlayBackDialog.cpp:110
 msgid "Resolution"
 msgstr "Auflösung"
 
-#: plugins/playback/PlayBackDialog.cpp:126
+#: plugins/playback/PlayBackDialog.cpp:133
 msgid ""
 "Set Playback-Mode to 8 Bit (poor quality)\n"
 "should be supported by all sound hardware !"
@@ -1244,7 +1244,7 @@ msgstr ""
 "Setze Wiedergabe-Auflösung 8 Bit (geringe Qualität)\n"
 "Sollte von jeder Hardware unterstützt werden !"
 
-#: plugins/playback/PlayBackDialog.cpp:135
+#: plugins/playback/PlayBackDialog.cpp:142
 msgid ""
 "Set Playback-Mode to 16 Bit (CD-like quality)\n"
 "not supported by all sound hardware !"
@@ -1252,7 +1252,7 @@ msgstr ""
 "Setze Wiedergabe-Auflösung 16 Bit (CD-Qualit?)\n"
 "wird nicht von jeder Hardware unterstützt !"
 
-#: plugins/playback/PlayBackDialog.cpp:144
+#: plugins/playback/PlayBackDialog.cpp:151
 msgid ""
 "Set Playback-Mode to 24 Bit (high quality)\n"
 "only supported by some new sound hardware !"
@@ -1260,25 +1260,25 @@ msgstr ""
 "Setze Wiedergabe-Auflösung auf 24 Bit (hohe Qualität)\n"
 "wird nur von einiger neuer Hardware unterstützt !"
 
-#: plugins/playback/PlayBackDialog.cpp:149
+#: plugins/playback/PlayBackDialog.cpp:158
 msgid "Playback Device :"
 msgstr "Wiedergabegerät :"
 
-#: plugins/playback/PlayBackDialog.cpp:171
+#: plugins/playback/PlayBackDialog.cpp:181
 msgid "se&lect..."
 msgstr "Aus&wahl ..."
 
-#: plugins/playback/PlayBackDialog.cpp:175
+#: plugins/playback/PlayBackDialog.cpp:185
+#, fuzzy
 msgid ""
 "Select a playback device not listed\n"
-"in the standard selection.\n"
-"(sorry, not implemented yet!)"
+"in the standard selection."
 msgstr ""
 "Auswahl eines Wiedergabegeräts das nicht in der\n"
 "Standard-Auswahl enthalten ist.\n"
 "(Sorry, noch nicht implementiert!)"
 
-#: plugins/playback/PlayBackDialog.cpp:194
+#: plugins/playback/PlayBackDialog.cpp:200
 msgid ""
 "This is the size of the buffer used for communication with the sound driver\n"
 "If your computer is rather slow select a big buffer"
@@ -1288,15 +1288,15 @@ msgstr ""
 "(Verwenden Sie einen größeren Puffer wenn Sie einen langsamen\n"
 " Computer besitzen oder Aussetzer in der Wiedergabe hören.)"
 
-#: plugins/playback/PlayBackDialog.cpp:203
+#: plugins/playback/PlayBackDialog.cpp:209
 msgid "&stereo playback"
 msgstr "&Stereo-Wiedergabe"
 
-#: plugins/playback/PlayBackDialog.cpp:230
+#: plugins/playback/PlayBackDialog.cpp:236
 msgid "&test settings"
 msgstr "Einstellungen &testen"
 
-#: plugins/playback/PlayBackDialog.cpp:234
+#: plugins/playback/PlayBackDialog.cpp:240
 msgid ""
 "Try to play a short sound\n"
 "using the current settings.\n"
@@ -1306,10 +1306,29 @@ msgstr ""
 "aktuellen Einstellungen abzuspielen.\n"
 "Sorry, noch nicht implementiert!"
 
-#: plugins/playback/PlayBackDialog.cpp:305
+#: plugins/playback/PlayBackDialog.cpp:311
 #, c-format, ycp-format
 msgid "Buffer Size : %5d samples"
 msgstr "Buffer-Größe: %5d Samples"
+
+#: plugins/playback/PlayBackDialog.cpp:358
+#, fuzzy
+msgid "OSS playback device (dsp*)"
+msgstr "Wiedergabegerät :"
+
+#: plugins/playback/PlayBackDialog.cpp:359
+#, fuzzy
+msgid "ALSA playback device (adsp*)"
+msgstr "Wiedergabegerät :"
+
+#: plugins/playback/PlayBackDialog.cpp:360
+msgid "Any device (*)"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:366
+#, fuzzy
+msgid "Select Playback Device"
+msgstr "Wiedergabegerät :"
 
 #: plugins/playback/PlayBack-aRts.cpp:88
 msgid "unable to open aRts playback stream"
@@ -1352,15 +1371,15 @@ msgstr ""
 "versuchen, eine neuere Version von aRts zu installieren oder das kdelibs-"
 "Paket zu aktualisieren."
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:70
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:69
 msgid "About Kwave"
 msgstr "Über Kwave"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:77
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:76
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr "<h1>Kwave - Ein Sound-Editor für KDE2</h1>"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:107
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:106
 msgid ""
 " <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
 "h2><br>\n"
@@ -1385,15 +1404,15 @@ msgstr ""
 "und eine graphische Ansicht mit ausgereiften Zoom- und "
 "Navigationsmöglichkeiten."
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:136
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:135
 msgid "Authors"
 msgstr "Autoren"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:146
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:145
 msgid "Thanks To"
 msgstr "Dank an"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:153
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:152
 msgid "License agreement"
 msgstr "Lizenzbestimmungen"
 
@@ -1406,94 +1425,94 @@ msgstr "(für KDE-%1)"
 msgid "select range"
 msgstr "Bereich auswählen"
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:38
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:269
 msgid "Select Range..."
 msgstr "Bereich auswählen..."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:136
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:42
+#: plugins/newsignal/NewSigDlg.uic.cpp:367
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:273
 msgid "Length"
 msgstr "Länge"
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:50
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:281
 msgid "&Samples"
 msgstr "&Samples"
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:52
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:283
 msgid "select by number of samples"
 msgstr "Auswahl nach Anzahl der Samples"
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:57
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:288
 msgid "&Time"
 msgstr "&Zeit"
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:59
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:290
 msgid "select by time"
 msgstr "Auswahl nach Zeit"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:244
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:81
+#: plugins/newsignal/NewSigDlg.uic.cpp:477
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:307
 #, c-format
 msgid "0%"
 msgstr "0%"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:250
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:87
+#: plugins/newsignal/NewSigDlg.uic.cpp:483
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:313
 #, c-format
 msgid "50%"
 msgstr "50%"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:256
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:93
+#: plugins/newsignal/NewSigDlg.uic.cpp:489
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:319
 #, c-format
 msgid "100%"
 msgstr "100%"
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:106
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:332
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "Setzt die Auswahl über den Prozentsatz der gesamten Signallänge"
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:117
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:343
 msgid "&Percent"
 msgstr "&Prozent"
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:119
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:345
 msgid "select by percentage of the signal's length"
 msgstr "Auswahl nach Prozentsatz der Länge des Signals"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:172
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:142
+#: plugins/newsignal/NewSigDlg.uic.cpp:420
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:368
 msgid "Minutes"
 msgstr "Minuten"
 
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:157
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:383
 msgid "Milliseconds"
 msgstr "Millisekunden"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:177
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:163
+#: plugins/newsignal/NewSigDlg.uic.cpp:399
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:389
 msgid "Seconds"
 msgstr "Sekunden"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:159
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:178
+#: plugins/newsignal/NewSigDlg.uic.cpp:429
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:404
 msgid "Hours"
 msgstr "Stunden"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:285
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:195
+#: plugins/newsignal/NewSigDlg.uic.cpp:520
+#: plugins/selectrange/SelectRangeDlg.uic.cpp:426
 msgid "O&K"
 msgstr "O&K"
 
-#: plugins/memory/MemDlg.uic.cpp:37
+#: plugins/memory/MemDlg.uic.cpp:36
 msgid "Memory Settings"
 msgstr "Speicher Einstellungen"
 
-#: plugins/memory/MemDlg.uic.cpp:42
+#: plugins/memory/MemDlg.uic.cpp:41
 msgid "&Physical Memory"
 msgstr "&Physikalischer Speicher"
 
-#: plugins/memory/MemDlg.uic.cpp:43
+#: plugins/memory/MemDlg.uic.cpp:42
 msgid ""
 "<b>Limit the usage of physical memory (RAM).</b><br>\n"
 "\n"
@@ -1507,23 +1526,23 @@ msgstr ""
 "physikalischen Speichers in Ihrem Computer als Limit verwendet. Sie können "
 "kein Limit setzen das höher ist als die Menge des installierten Speichers."
 
-#: plugins/memory/MemDlg.uic.cpp:53
+#: plugins/memory/MemDlg.uic.cpp:52
 msgid "Limit &to"
 msgstr "Begrenzen &auf"
 
-#: plugins/memory/MemDlg.uic.cpp:68 plugins/memory/MemDlg.uic.cpp:131
+#: plugins/memory/MemDlg.uic.cpp:67 plugins/memory/MemDlg.uic.cpp:130
 msgid " MB"
 msgstr " MB"
 
-#: plugins/memory/MemDlg.uic.cpp:72
+#: plugins/memory/MemDlg.uic.cpp:71
 msgid "megabytes of physical memory"
 msgstr "Megabytes physiklischer Speicher"
 
-#: plugins/memory/MemDlg.uic.cpp:77
+#: plugins/memory/MemDlg.uic.cpp:76
 msgid "&Virtual Memory"
 msgstr "&Auslagerungsdateien"
 
-#: plugins/memory/MemDlg.uic.cpp:78
+#: plugins/memory/MemDlg.uic.cpp:77
 msgid ""
 "<b>Configure the usage of virtual memory (swap files).</b><br>\n"
 "\n"
@@ -1545,41 +1564,76 @@ msgstr ""
 "    Natürlich können Sie die Menge an Speicher in den Auslagerungsdateien "
 "auch begrenzen."
 
-#: plugins/memory/MemDlg.uic.cpp:90
+#: plugins/memory/MemDlg.uic.cpp:89
 msgid "&Enable usage of virtual memory"
 msgstr "Auslagerungsdateien &aktivieren"
 
-#: plugins/memory/MemDlg.uic.cpp:96
+#: plugins/memory/MemDlg.uic.cpp:95
 msgid "Directory:"
 msgstr "Verzeichnis:"
 
-#: plugins/memory/MemDlg.uic.cpp:101
+#: plugins/memory/MemDlg.uic.cpp:100
 msgid "/tmp"
 msgstr "/tmp"
 
-#: plugins/memory/MemDlg.uic.cpp:102
+#: plugins/memory/MemDlg.uic.cpp:101
 msgid "directory for storing swap files"
 msgstr "Verzeichnis für Auslagerungsdateien"
 
-#: plugins/memory/MemDlg.uic.cpp:107
+#: plugins/memory/MemDlg.uic.cpp:106
 msgid "&Search..."
 msgstr "&Suchen..."
 
-#: plugins/memory/MemDlg.uic.cpp:108
+#: plugins/memory/MemDlg.uic.cpp:107
 msgid "browse for a directory to hold page files"
 msgstr "Verzeichnis für Auslagerungsdateien wählen"
 
-#: plugins/memory/MemDlg.uic.cpp:113
+#: plugins/memory/MemDlg.uic.cpp:112
 msgid "&Limit to"
 msgstr "&Begrenzen auf"
 
-#: plugins/memory/MemDlg.uic.cpp:136
+#: plugins/memory/MemDlg.uic.cpp:135
 msgid "megabytes of virtual memory"
 msgstr "Megabytes in Auslagerungsdateien"
 
-#: plugins/codec_wav/WavEncoder.cpp:75
+#: plugins/codec_wav/WavEncoder.cpp:85
 msgid "Unable to open the file for saving!"
 msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:111
+#: plugins/codec_wav/WavDecoder.cpp:320 plugins/codec_wav/WavEncoder.cpp:152
+msgid "out of memory"
+msgstr "zu wenig Speicher"
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:114
+#: plugins/codec_wav/WavDecoder.cpp:323 plugins/codec_wav/WavEncoder.cpp:155
+msgid "file header is damaged"
+msgstr "Datei-Header ist beschädigt"
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:120
+#: plugins/codec_wav/WavDecoder.cpp:330 plugins/codec_wav/WavEncoder.cpp:162
+msgid "opening the file failed"
+msgstr "Datei konnte nicht geöffnet werden"
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:123
+#: plugins/codec_wav/WavDecoder.cpp:333 plugins/codec_wav/WavEncoder.cpp:165
+msgid "read access failed"
+msgstr "Lesezugriff fehlgeschlagen"
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:126
+#: plugins/codec_wav/WavDecoder.cpp:336 plugins/codec_wav/WavEncoder.cpp:168
+msgid "invalid sample format"
+msgstr "ungültiges Sample-Format"
+
+#: plugins/codec_audiofile/AudiofileDecoder.cpp:132
+#: plugins/codec_wav/WavDecoder.cpp:342 plugins/codec_wav/WavEncoder.cpp:174
+#, ycp-format
+msgid ""
+"An error occurred while opening the file:\n"
+"'%1'"
+msgstr ""
+"Beim Öffnen der Datei ist ein Fehler aufgetreten:\n"
+"%1"
 
 #: plugins/codec_wav/WavFileFormat.h:194 plugins/codec_wav/WavFileFormat.h:196
 msgid "wav audio"
@@ -1598,7 +1652,7 @@ msgstr "bestimme Byte-Order (statistische Suche)..."
 msgid "searching for missing chunk '%1'..."
 msgstr "suche fehlenden Chunk '%1'..."
 
-#: plugins/codec_wav/WavDecoder.cpp:177
+#: plugins/codec_wav/WavDecoder.cpp:156
 msgid ""
 "The file has been structurally damaged or is no .wav file.\n"
 "Should Kwave try to repair it?"
@@ -1606,15 +1660,15 @@ msgstr ""
 "Die Datei ist entweder strukturell beschädigt oder ist keine .wav-Datei.\n"
 "Soll Kwave versuchen sie zu reparieren?"
 
-#: plugins/codec_wav/WavDecoder.cpp:180
+#: plugins/codec_wav/WavDecoder.cpp:159
 msgid "Kwave auto repair"
 msgstr "Kwave automatische Reparatur"
 
-#: plugins/codec_wav/WavDecoder.cpp:181
+#: plugins/codec_wav/WavDecoder.cpp:160
 msgid "&Repair"
 msgstr "&Reparieren"
 
-#: plugins/codec_wav/WavDecoder.cpp:238
+#: plugins/codec_wav/WavDecoder.cpp:218
 msgid ""
 "The opened file is no .WAV file or damaged:\n"
 "There is not enough valid sound data.\n"
@@ -1626,7 +1680,7 @@ msgstr ""
 "\n"
 "Es macht keinen Sinn hier fortzufahren..."
 
-#: plugins/codec_wav/WavDecoder.cpp:250
+#: plugins/codec_wav/WavDecoder.cpp:230
 msgid ""
 "The WAV file seems to be damaged: \n"
 "some chunks are duplicate or missing! \n"
@@ -1647,72 +1701,37 @@ msgstr ""
 "an die Kwave Mailingliste und wir werden versuchen \n"
 "Ihnen zu helfen..."
 
-#: plugins/codec_wav/WavDecoder.cpp:257
+#: plugins/codec_wav/WavDecoder.cpp:237
 msgid "Kwave auto-repair"
 msgstr "Kwave automatische Reparatur"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:108
-#: plugins/codec_wav/WavDecoder.cpp:337
+#: plugins/codec_wav/WavDecoder.cpp:316
 msgid "format or function is not implemented"
 msgstr "Format oder Funktion ist nicht implementiert"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:111
-#: plugins/codec_wav/WavDecoder.cpp:341
-msgid "out of memory"
-msgstr "zu wenig Speicher"
-
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:114
-#: plugins/codec_wav/WavDecoder.cpp:344
-msgid "file header is damaged"
-msgstr "Datei-Header ist beschädigt"
-
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:117
-#: plugins/codec_wav/WavDecoder.cpp:347
+#: plugins/codec_wav/WavDecoder.cpp:326
 msgid "invalid codec type"
 msgstr "ungültiger Codec-Typ"
 
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:120
-#: plugins/codec_wav/WavDecoder.cpp:351
-msgid "opening the file failed"
-msgstr "Datei konnte nicht geöffnet werden"
-
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:123
-#: plugins/codec_wav/WavDecoder.cpp:354
-msgid "read access failed"
-msgstr "Lesezugriff fehlgeschlagen"
-
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:126
-#: plugins/codec_wav/WavDecoder.cpp:357
-msgid "invalid sample format"
-msgstr "ungültiges Sample-Format"
-
-#: plugins/codec_audiofile/AudiofileDecoder.cpp:132
-#: plugins/codec_wav/WavDecoder.cpp:363
-#, ycp-format
-msgid ""
-"An error occurred while opening the file:\n"
-"'%1'"
-msgstr ""
-"Beim Öffnen der Datei ist ein Fehler aufgetreten:\n"
-"%1"
-
-#: plugins/codec_wav/WavDecoder.cpp:380
+#: plugins/codec_wav/WavDecoder.cpp:359
 msgid "linear two's complement"
 msgstr "Linear im Zweierkomplement"
 
-#: plugins/codec_wav/WavDecoder.cpp:383
+#: plugins/codec_wav/WavDecoder.cpp:362
 msgid "unsigned integer"
 msgstr "Vorzeichenloser Integer"
 
-#: plugins/codec_wav/WavDecoder.cpp:386
+#: plugins/codec_wav/WavDecoder.cpp:365
 msgid "32-bit IEEE floating-point"
 msgstr "32-Bit IEEE Fliesskomma"
 
-#: plugins/codec_wav/WavDecoder.cpp:389
+#: plugins/codec_wav/WavDecoder.cpp:368
 msgid "64-bit IEEE double-precision floating-point"
 msgstr "64-Bit IEEE Fliesskomma mit doppelter Genauigkeit"
 
-#: plugins/codec_wav/WavDecoder.cpp:392
+#: plugins/codec_wav/WavDecoder.cpp:371
 msgid "unknown"
 msgstr "unbekannt"
 
@@ -1772,6 +1791,10 @@ msgstr "Frequenz: %d Hz"
 #, c-format
 msgid "Amplitude: %d %%"
 msgstr "Amplitude: %d %%"
+
+#: plugins/sonagram/SonagramDialog.cpp:55
+msgid "sonagram"
+msgstr "Sonagramm"
 
 #: plugins/sonagram/SonagramDialog.cpp:79
 msgid "Set FFT/time resolution parameter"
@@ -1881,55 +1904,55 @@ msgstr "(Quadro)"
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resultierende Dateigröße: %1 MB)"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:39
+#: plugins/newsignal/NewSigDlg.uic.cpp:270
 msgid "Form1"
 msgstr "Form1"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:43
+#: plugins/newsignal/NewSigDlg.uic.cpp:274
 msgid "Format"
 msgstr "Format"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:51
+#: plugins/newsignal/NewSigDlg.uic.cpp:282
 msgid "8000"
 msgstr "8000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:52
+#: plugins/newsignal/NewSigDlg.uic.cpp:283
 msgid "10000"
 msgstr "10000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:53
+#: plugins/newsignal/NewSigDlg.uic.cpp:284
 msgid "11025"
 msgstr "11025"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:54
+#: plugins/newsignal/NewSigDlg.uic.cpp:285
 msgid "12000"
 msgstr "12000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:55
+#: plugins/newsignal/NewSigDlg.uic.cpp:286
 msgid "16000"
 msgstr "16000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:56
+#: plugins/newsignal/NewSigDlg.uic.cpp:287
 msgid "22050"
 msgstr "22050"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:57
+#: plugins/newsignal/NewSigDlg.uic.cpp:288
 msgid "32000"
 msgstr "32000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:58
+#: plugins/newsignal/NewSigDlg.uic.cpp:289
 msgid "44100"
 msgstr "44100"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:59
+#: plugins/newsignal/NewSigDlg.uic.cpp:290
 msgid "48000"
 msgstr "48000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:60
+#: plugins/newsignal/NewSigDlg.uic.cpp:291
 msgid "96000"
 msgstr "96000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:63
+#: plugins/newsignal/NewSigDlg.uic.cpp:294
 msgid ""
 "<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
 "sample rates or you can enter any sample rate on your own."
@@ -1937,33 +1960,33 @@ msgstr ""
 "<b>Sample-Rate</b><br>Hier können Sie eine der allgemein bekannten Sample-"
 "Raten auswählen oder direkt eine eigene Sample-Rate eingeben."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:68
+#: plugins/newsignal/NewSigDlg.uic.cpp:299
 msgid "Sample Rate:"
 msgstr "Abtastrate:"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:81
+#: plugins/newsignal/NewSigDlg.uic.cpp:312
 msgid "samples per second"
 msgstr "Samples pro Sekunde"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:89
+#: plugins/newsignal/NewSigDlg.uic.cpp:320
 msgid "Tracks:"
 msgstr "Tracks: "
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:94
+#: plugins/newsignal/NewSigDlg.uic.cpp:325
 msgid "Resolution:"
 msgstr "Auflösung:"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:101
+#: plugins/newsignal/NewSigDlg.uic.cpp:332
 msgid "bit"
 msgstr "Bit"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:111
-#: plugins/newsignal/NewSigDlg.uic.cpp:268
+#: plugins/newsignal/NewSigDlg.uic.cpp:342
+#: plugins/newsignal/NewSigDlg.uic.cpp:501
 #, c-format, ycp-format
 msgid "%1"
 msgstr "%1"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:121
+#: plugins/newsignal/NewSigDlg.uic.cpp:352
 msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
@@ -1972,7 +1995,7 @@ msgstr ""
 "Wenn Sie jetzt noch nicht sicher sind, dann können Sie im Programm jederzeit "
 "Tracks hinzufügen oder löschen."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:130
+#: plugins/newsignal/NewSigDlg.uic.cpp:361
 msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "saved. However, Kwave always uses 24 bits as it's own internal resolution to "
@@ -1982,35 +2005,35 @@ msgstr ""
 "die Datei gespeichert werden soll. Wie auch immer, Kwave verwendet intern 24 "
 "Bit um die besten Resultate bei der Bearbeitung der Audio-Daten zu erhalten."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:149
+#: plugins/newsignal/NewSigDlg.uic.cpp:380
 msgid "Time"
 msgstr "Zeit"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:150
+#: plugins/newsignal/NewSigDlg.uic.cpp:381
 msgid "select this to set the length of the file by time"
 msgstr "wählen Sie dies um die Länge der Datei nach Zeit auszuwählen"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:190
+#: plugins/newsignal/NewSigDlg.uic.cpp:386
 msgid "Samples"
 msgstr "Samples"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:191
+#: plugins/newsignal/NewSigDlg.uic.cpp:387
 msgid "select this to enter the number of samples directly"
 msgstr "wählen Sie diese um die Anzahl der Samples direkt einzugeben"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:211
+#: plugins/newsignal/NewSigDlg.uic.cpp:444
 msgid "minimum"
 msgstr "Minimum"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:218
+#: plugins/newsignal/NewSigDlg.uic.cpp:451
 msgid "(file size)"
 msgstr "(Dateigröße)"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:225
+#: plugins/newsignal/NewSigDlg.uic.cpp:458
 msgid "maximum"
 msgstr "Maximum"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:238
+#: plugins/newsignal/NewSigDlg.uic.cpp:471
 msgid "sets the file size by the percentage of the possible maximum"
 msgstr ""
 "Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."

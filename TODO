@@ -9,9 +9,20 @@ o Ogg/Vorbis support
 
 o more precise handling of the playback pointer
 
+o find out why the KDoubleNumInput controls use such a stipid format with
+  spaces and get rid of them (newsignal and selectrange plugin)
+
+o selectrange: select also start time
+
+o function for "Edit/Selection/Insert at..." or a "goto position" function
+
 o hourglass and process indicators for longer processes
 
 o ruler that shows the current cursor position as time
+
+o display of the current position in playback mode
+
+o display start and end time of the selection as time (status bar)
 
 o currently load/save uses the file extension to identify the mime type
   should be changed to an extra parameter with a KMimeType's name

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-06-30</date>
+<date>2002-07-14</date>
 <releaseinfo>0.6.4-1</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -183,7 +183,11 @@
             <para>0.6.5 [2002-09-xx]</para>
             <itemizedlist>
                 <listitem><para>
-                    thrown away KDE2 compatibility
+                    thrown away Qt2/KDE2 compatibility, now only supports Qt3/KDE3
+                </para></listitem>
+                <listitem><para>
+                    playback plugin: enabled the "select..." button for choosing
+                      other playback devices (feature requested by Len Ovens)
                 </para></listitem>
             </itemizedlist>
         </listitem>
@@ -207,7 +211,8 @@
                     integrated libkwavemt into libkwave
                 </para></listitem>
                 <listitem><para>
-                    using time instead of zoom factor (e.g. set zoom to "1 minute")
+                    using time instead of zoom factor, e.g. set zoom to "1 minute"
+                      (feature requested by Gilles Caulier)
                 </para></listitem>
                 <listitem><para>
                     menu entries for playback control
@@ -216,7 +221,7 @@
                     some more icons in the menues
                 </para></listitem>
                 <listitem><para>
-                    replaced KFileDialog with subclass KwaveFileDialog (fixes works
+                    replaced KFileDialog with subclass KwaveFileDialog (works
                       around some bugs in KDE)
                 </para></listitem>
                 <listitem><para>

@@ -45,7 +45,10 @@ public:
      * Gets a block of memory, either in physical memory or in a swap file
      * if there is not enough physical memory. If there is not enough
      * memory at all, the return value will be a null pointer.
+     *
      * @param size number of bytes to allocate
+     * @return pointer to a storage object, to be used to be mapped
+     *         into physical memory through map()
      */
     void *allocate(size_t size);
 
@@ -98,6 +101,22 @@ public:
      */
     static MemoryManager &instance();
 
+    /**
+     * Map a portion of memory and return the physical address.
+     *
+     * @param block pointer to the object that identifies the
+     *        memory block
+     * @return pointer to the mapped area or null if failed
+     */
+    void *map(void *block);
+
+    /**
+     * Unmap a memory area, previously mapped with map()
+     *
+     * @param block pointer to the previously mapped block
+     */
+    void unmap(void *block);
+
 protected:
 
     /** Returns the currently allocated physical memory */
@@ -115,8 +134,23 @@ protected:
     /** Tries to allocate physical memory */
     void *allocatePhysical(size_t size);
 
-    /** Tries to allocate virtual memory */
-    void *allocateVirtual(size_t size);
+    /**
+     * Tries to allocate virtual memory
+     *
+     * @param size number of bytes to allocate
+     * @return pointer to a SwapFile object or null if failed
+     */
+    SwapFile *allocateVirtual(size_t size);
+
+private:
+
+    /**
+     * Makes sure that the object is not a swapfile in cache. If so,
+     * it will be unmapped and moved to the m_unmapped_swap list.
+     *
+     * @param block pointer to a block
+     */
+    void unmapFromCache(void *block);
 
 private:
 
@@ -135,11 +169,18 @@ private:
     /** Path where to store swap files */
     QDir m_swap_dir;
 
+    /** List of swapfile objects that are not mapped into memory */
+    QPtrList<SwapFile> m_unmapped_swap;
+
+    /** List of swapfile objects that are already mapped into memory */
+    QPtrList<SwapFile> m_mapped_swap;
+
     /**
-     * Map for translating virtual memory addresses
-     * into SwapFile objects.
+     * Cache for swapfiles that have been recently used, are mapped
+     * and get unmapped if the queue is full. The queue will be used
+     * as a FIFO with fixed size.
      */
-    QMap<void*, SwapFile*> m_swap_files;
+    QPtrList<SwapFile> m_cached_swap;
 
     /**
      * Map for sizes of objects in physical memory.
@@ -148,6 +189,9 @@ private:
 
     /** Mutex for ensuring exclusive access */
     Mutex m_lock;
+
+    /** pagesize of the system, used for mmapping files */
+    unsigned int m_pagesize;
 
 };
 

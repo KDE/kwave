@@ -26,22 +26,44 @@
 
 #include "SwapFile.h"
 
+// just for debugging: number of open swapfiles
+static unsigned int g_instances = 0;
+
 //***************************************************************************
 SwapFile::SwapFile()
-    :m_file(), m_address(0), m_size(0)
+    :m_file(), m_address(0), m_size(0), m_pagesize(1 << 16)
 {
+    // determine the system's native page size
+    m_pagesize = 64*1024; // ### fake 64kMB pagesize
+    // ### MUST be a power of two !!!
+
+    g_instances++;
 }
 
 //***************************************************************************
 SwapFile::~SwapFile()
 {
     close();
+    g_instances--;
 }
 
 //***************************************************************************
-void *SwapFile::allocate(size_t size, const QString &filename)
+static inline unsigned int round_up(unsigned int size, unsigned int units)
 {
-    if (m_address || m_size) close();
+    unsigned int modulo = (size % units);
+    if (modulo) size += (units-modulo);
+    return size;
+}
+
+//***************************************************************************
+bool SwapFile::allocate(size_t size, const QString &filename)
+{
+    Q_ASSERT(!m_address); // MUST NOT be mapped !
+    if (m_address) return false;
+
+    if (m_size) close();
+    qDebug("SwapFile::allocate(%u), instances: %u",
+	   size, g_instances);
 
     // try to create the temporary file
     // when it is created, also try to unlink it so that it will always
@@ -50,7 +72,11 @@ void *SwapFile::allocate(size_t size, const QString &filename)
     char *name = qstrdup(filename.local8Bit());
     int fd = mkstemp(name);
     Q_ASSERT(fd >= 0);
-    if (fd < 0) return 0;
+    if (fd < 0) {
+	qDebug("SwapFile::allocate(%u) failed, instances: %u",
+	       size, g_instances);
+	return false;
+    }
     m_file.open(IO_Raw | IO_WriteOnly, fd);
 #ifdef HAVE_UNLINK
     unlink(name);
@@ -64,55 +90,53 @@ void *SwapFile::allocate(size_t size, const QString &filename)
 #endif /* HAVE_UNLINK */
 #endif/* HAVE_MKSTEMP */
 
-    m_file.at(size+4096);
+    m_file.at(round_up(size, m_pagesize));
+    if (m_file.at()+1 < size) {
+	qWarning("SwapFile::allocate(%d MB) failed, DISK FULL ?",
+	        size >> 20);
+	m_size = 0;
+	return false;
+    }
     m_file.putch(0);
 
-    m_address = mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED,
-	m_file.handle(), 0);
-    if (m_address == (void*)(-1)) m_address = 0;
-    if (m_address) m_size = size;
+    // now the size is valid
+    m_size = size;
 
-    qDebug("SwapFile::allocate(%d MB) at %p",size>>20, m_address);
-    return m_address;
+//  qDebug("SwapFile::allocate(%d kB)",size >> 10);
+    return true;
 }
 
 //***************************************************************************
-void *SwapFile::resize(size_t size)
+SwapFile *SwapFile::resize(size_t size)
 {
-    Q_ASSERT(m_address);
-    if (!m_address) return 0;
-    if (size == m_size) return m_address; // nothing to do
+    Q_ASSERT(!m_address); // MUST NOT be mappped !
+    if (m_address) return 0;
+    if (size == m_size) return this; // nothing to do
 
+    // special case: shutdown
     if (size == 0) {
 	close();
-	return 0;
+	return this;
     }
 
-    // unmap the old memory
-    munmap(m_address, m_size);
+    // round up the new size to a full page
+    size = round_up(size, m_pagesize);
 
     // resize the file
-//  qDebug("SwapFile::resize(%u)", size);
-
+    //  qDebug("SwapFile::resize(%u)", size);
     if (lseek(m_file.handle(), size, SEEK_SET) > 0) {
 	ftruncate(m_file.handle(), size);
-	
+
 	static char dummy = 0;
 	write(m_file.handle(), &dummy, 1);
 	m_size = size;
     } else {
-	qWarning("SwapFile::resize(): seek failed !");
-	size = 0;
+	qWarning("SwapFile::resize(): seek failed. DISK FULL !?");
+	return 0;
     }
 
-    // re-map the memory
-    m_address = mmap(0, m_size, PROT_READ | PROT_WRITE, MAP_SHARED,
-	m_file.handle(), 0);
-    Q_ASSERT(m_address);
-    if (!m_address) m_size = 0;
-//  qDebug("SwapFile::resize(): new area mmapped to %p", m_address);
-
-    return (size) ? m_address : 0;
+//  qDebug("SwapFile::resize() to size=%u", m_size);
+    return this;
 }
 
 //***************************************************************************
@@ -123,6 +147,33 @@ void SwapFile::close()
     m_size = 0;
     if (m_file.isOpen()) m_file.close();
     if (m_file.exists()) m_file.remove();
+}
+
+//***************************************************************************
+void *SwapFile::map()
+{
+//  qDebug("    SwapFile::map() - m_size=%u", m_size);
+    m_address = mmap(0, m_size,
+                     PROT_READ | PROT_WRITE, MAP_SHARED,
+                     m_file.handle(), 0);
+    if (m_address == (void*)(-1)) m_address = 0;
+
+    return m_address;
+}
+
+//***************************************************************************
+void *SwapFile::unmap()
+{
+    Q_ASSERT(m_address);
+    Q_ASSERT(m_size);
+
+    if (m_size && m_address) {
+//	qDebug("      --- SwapFile::unmap() (%p)", this);
+	munmap(m_address, m_size);
+    }
+
+    m_address = 0;
+    return this;
 }
 
 //***************************************************************************

@@ -22,6 +22,7 @@
 #include <sys/types.h>  // for size_t
 #include <qfile.h>
 
+class MemoryManager;
 class QString;
 
 class SwapFile
@@ -34,33 +35,60 @@ public:
     virtual ~SwapFile();
 
     /**
-     * Allocates virtual memory by creating a swap file and
-     * mapping it into cpu memory space with <c>mmap</c>.
+     * Allocates virtual memory by creating an empty swap file.
+     * Must be mapped into memory before used.
+     *
      * @param size number of bytes to allocate
      * @param filename full path to the swap file, actually a template
      *                 that <b>must</b> contain 6 "X" characters at the end!
-     * @return pointer to the allocated memory or 0 if failed
+     * @return true if succeeded, false if failed
      */
-    void *allocate(size_t size, const QString &filename);
+    bool allocate(size_t size, const QString &filename);
 
     /**
      * Returns the address of the allocated memory or 0 if
      * nothing has been allocated.
      */
-    inline void *address() { return m_address; };
+    inline void *address()   { return m_address; };
 
     /**
      * Returns the size of the allocated memory or 0 if
      * nothing has been allocated.
      */
-    inline size_t size()   {return m_size; };
+    inline size_t size()     { return m_size; };
+
+    /**
+     * Returns the size of one storage unit in bytes
+     */
+    inline size_t pagesize() { return m_pagesize; };
 
     /**
      * Resizes the allocated swap file.
      * @param size the new size
-     * @return pointer to new resized storage or 0 if failed
+     * @return pointer to this object or 0 if failed
      */
-    void *resize(size_t size);
+    SwapFile *resize(size_t size);
+
+protected:
+
+    friend class MemoryManager;
+
+    /**
+     * Map the memory and return the physical address.
+     *
+     * @return pointer to the mapped area or null if failed
+     */
+    void *map();
+
+    /**
+     * Unmap a memory area, previously mapped with map()
+     *
+     * @param block pointer to the previously mapped block
+     * @param pointer to this
+     */
+    void *unmap();
+
+private:
 
     /**
      * Frees the allocated memory by unmapping and deleting
@@ -76,8 +104,11 @@ private:
     /** Address of the allocated virtual memory or 0 */
     void *m_address;
 
-    /** Number of alocated bytes or 0 */
+    /** Number of allocated bytes or 0 */
     size_t m_size;
+
+    /** size of one storage unit */
+    size_t m_pagesize;
 
 };
 

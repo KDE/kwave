@@ -297,7 +297,8 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     if (!parent) return false;
 
     do {
-//        qDebug("RIFFParser::parse(offset=0x%08X, length=%u)", offset, length);
+        qDebug("RIFFParser::parse(offset=0x%08X, length=0x%08X)",
+	       offset, length);
 
         // make sure that we are still in the source (file)
         if (offset >= m_dev.size()) {
@@ -330,9 +331,10 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
 
         // check if the name really contains only ASCII characters
         if (!isValidName(name)) {
-//            qWarning("invalid chunk name at offset 0x%08X", offset);
+            qWarning("invalid chunk name at offset 0x%08X", offset);
             // unreadable name -> make it a "garbage" chunk
-//            qDebug("addGarbageChunk(offset=0x%08X, length=%u)",offset,length);
+            qDebug("addGarbageChunk(offset=0x%08X, length=0x%08X)",
+	            offset, length);
             addGarbageChunk(parent, offset, length);
             error = true;
             break;
@@ -368,8 +370,10 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         if (phys_len & 1) phys_len++;
 
         // now create a new chunk, per default type is "sub-chunk"
-//        qDebug("new chunk, name='%s', len=%u, ofs=0x%08X, phys_len=%u",
-//            name,len,offset,phys_len);
+        qDebug("new chunk, name='%s', len=0x%08X, ofs=0x%08X, "\
+	       "phys_len=0x%08X (next=0x%08X)",
+	       name.data(),
+	       len,offset,phys_len, offset+phys_len+8);
         RIFFChunk *chunk = addChunk(parent, name, format, len, offset,
                                     phys_len, RIFFChunk::Sub);
         if (!chunk) break;
@@ -378,7 +382,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         // if not at the end of the file, parse all further chunks
         length -= chunk->physLength() + 8;
         offset  = chunk->physEnd() + 1;
-//        qDebug("parse loop end: offset=0x%08X, length=%u",offset,length);
+        qDebug("   parse loop end: offset=0x%08X, length=0x%08X",offset,length);
     } while (length && !m_cancel);
 
     // parse for sub-chunks in the chunks we newly found
@@ -393,9 +397,10 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
 
             QCString path = (parent ? parent->path() : QCString("")) +
                             "/" + chunk->name();
-            qDebug("scanning for chunks in '%s' (format='%s'), offset=0x%08X, length=%u",
-                  path.data(), chunk->format().data(),
-                  chunk->dataStart(), chunk->dataLength());
+            qDebug("scanning for chunks in '%s' (format='%s'), "\
+	           "offset=0x%08X, length=0x%08X",
+                   path.data(), chunk->format().data(),
+                   chunk->dataStart(), chunk->dataLength());
             if (!parse(chunk, chunk->dataStart(), chunk->dataLength())) {
                 error = true;
             }

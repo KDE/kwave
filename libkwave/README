@@ -4,13 +4,18 @@ This is the kwave library 0.3
 
 This library evolved from the parts the kwave project, that should not be
 bound to a specific gui library. Currently there is a dependency to libqt, 
-but this problem should be feasible... (only qcolor/qlist is being used)
+but this problem should be feasible soon... (only qcolor/qlist is being used)
 
 The library provides the following classes/services:
 
 a discrete Time Signal Container Class with runtime linking modules (plugins)
 
 some general purpose functions (window function generator, interpolation, parser for strings, file loading & label class)
+
+A part (the fft routines )of the gsl 0.3 (Gnu Scientific Library) is used in
+this library. As the library will become more wide-spread, this will vanish
+and replaced by the  original shared libraries. Fast conversion is not that
+easy to do since the api of gsl has changed a bit lately.
 
 Installation:
 

@@ -2,8 +2,6 @@
 #define _KWAVEPARSER_H_ 1
 
 bool   matchCommand     (const char *,const char *);
-char   *duplicateString (const char *);
-void   deleteString     (char *);
 
 class KwaveParser
 {

@@ -7,7 +7,7 @@
 #include <dirent.h>
 #include "globals.h"
 #include "dynamicloader.h"
-
+//for debugging purposes
 //#define NOMODULES
 
 extern Global globals;

@@ -1,9 +1,10 @@
 Begin3
 Title:          kwavelib
-Version:        0.3.1
+Version:        0.3.3
 Entered-date:   Sunday, May 23 1999
 Description:    shared library for kwave, and other applications
-Keywords:       sound processing library
+Keywords:       sound signal processing library, 24 Bit, window function,
+		interpolation, plugins
 Author:         mwilz@ernie.mi.uni-koeln.de (Martin Wilz)
 Maintained-by:  mwilz@ernie.mi.uni-koeln.de (Martin Wilz)
 report-bugs-to: kwave-list@fs.spinfo.uni-koeln.de

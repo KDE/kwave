@@ -25,6 +25,7 @@ extern "C" {
 #include "libaudiofile/af_vfs.h"    // from libaudiofile
 }
 
+#include <qlist.h>
 #include <qprogressdialog.h>
 
 #include <klocale.h>
@@ -37,6 +38,10 @@ extern "C" {
 #include "libkwave/Signal.h"
 #include "libgui/ConfirmCancelProxy.h"
 
+#include "RecoveryBuffer.h"
+#include "RecoveryMapping.h"
+#include "RecoverySource.h"
+#include "RepairVirtualAudioFile.h"
 #include "RIFFChunk.h"
 #include "RIFFParser.h"
 #include "VirtualAudioFile.h"
@@ -71,6 +76,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 {
     info().clear();
     ASSERT(!m_source);
+    bool need_repair = false;
     if (m_source) warning("WavDecoder::open(), already open !");
 
     // try to open the source
@@ -165,6 +171,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    // user didn't let us try :-(
 	    return false;
 	}
+
+	need_repair = true;
     }
 
     // collect all missing chunks
@@ -172,17 +180,19 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     if (progress.wasCancelled()) return false;
 
     if (!fmt_chunk) {
-        parser.findMissingChunk("fmt ");
-        fmt_chunk = parser.findChunk("/RIFF/fmt ");
-        if (progress.wasCancelled()) return false;
-        if (!fmt_chunk)  fmt_chunk  = parser.findChunk("fmt ");
+	parser.findMissingChunk("fmt ");
+	fmt_chunk = parser.findChunk("/RIFF/fmt ");
+	if (progress.wasCancelled()) return false;
+	if (!fmt_chunk)  fmt_chunk  = parser.findChunk("fmt ");
+	need_repair = true;
     }
 
     if (!data_chunk) {
-        parser.findMissingChunk("data");
-        data_chunk = parser.findChunk("/RIFF/data");
-        if (progress.wasCancelled()) return false;
-        if (!data_chunk) data_chunk = parser.findChunk("data");
+	parser.findMissingChunk("data");
+	data_chunk = parser.findChunk("/RIFF/data");
+	if (progress.wasCancelled()) return false;
+	if (!data_chunk) data_chunk = parser.findChunk("data");
+	need_repair = true;
     }
 
     // not everything found -> need heavy repair actions !
@@ -196,6 +206,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
         if (!fmt_chunk)  fmt_chunk  = parser.findChunk("fmt ");
         if (!data_chunk) data_chunk = parser.findChunk("/RIFF/data");
         if (!data_chunk) data_chunk = parser.findChunk("data");
+	need_repair = true;
     }
 
     u_int32_t fmt_offset = 0;
@@ -239,6 +250,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    // good luck!
 	    return false;
 	}
+	need_repair = true;
     }
 
     // source successfully opened
@@ -256,8 +268,6 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     // get the encoded block of data from the mime source
     CHECK(src.size() > sizeof(wav_header_t)+8);
 
-//    unsigned int datalen = src.size() - (sizeof(wav_header_t) + 8);
-
     // get the header
     src.readBlock((char *)&header, sizeof(wav_fmt_header_t));
 #if defined(IS_BIG_ENDIAN)
@@ -271,45 +281,40 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     unsigned int tracks = header.min.channels;
     rate = header.min.samplerate;
     bits = header.min.bitwidth;
-//    const unsigned int bytes = (bits >> 3);
 
     WavFormatMap known_formats;
     QString format_name = known_formats.findName(header.min.format);
 
-    debug("-------------------------");
-    debug("wav header:");
-    debug("mode        = 0x%04X, (%s)", header.min.format, format_name.data());
-    debug("channels    = %d", header.min.channels);
-    debug("rate        = %u", header.min.samplerate);
-    debug("bytes/s     = %u", header.min.bytespersec);
-    debug("block align = %d", header.min.blockalign);
-    debug("bits/sample = %d", header.min.bitwidth);
-    debug("-------------------------");
-
-
-//    if (src.size() != header.filelength+8) {
-//	debug("WavDecoder::open(), header=%d, rest of file=%d",
-//	      header.filelength, src.size());
-//	KMessageBox::error(widget,
-//	    i18n("Error in input: file is smaller than stated "
-//	         "in the header. \nFile will be truncated."));
-//	
-//	datalen = src.size();
-//	header.filelength = src.size()-8;
-//	datalen = header.filelength - sizeof(wav_header_t);
-//    }
-
-    // some sanity checks
-//    CHECK(header.min.bytespersec == rate * bytes * tracks);
-//    CHECK(static_cast<unsigned int>(header.min.blockalign) == bytes*tracks);
-//    CHECK(header.filelength == (datalen + sizeof(wav_header_t)));
-//    CHECK(header.fmtlength == 16);
-//    CHECK(header.min.format == 1); /* currently only mode 1 is supported :-( */
+//    debug("-------------------------");
+//    debug("wav header:");
+//    debug("mode        = 0x%04X, (%s)", header.min.format, format_name.data());
+//    debug("channels    = %d", header.min.channels);
+//    debug("rate        = %u", header.min.samplerate);
+//    debug("bytes/s     = %u", header.min.bytespersec);
+//    debug("block align = %d", header.min.blockalign);
+//    debug("bits/sample = %d", header.min.bitwidth);
+//    debug("-------------------------");
 
     // open the file through libaudiofile :)
-    m_src_adapter = new VirtualAudioFile(*m_source);
+    if (need_repair) {
+	QList<RecoverySource> *repair_list = new QList<RecoverySource>();
+	ASSERT(repair_list);
+	if (!repair_list) return false;
+	
+	RIFFChunk *root = (riff_chunk) ? riff_chunk : parser.findChunk("");
+	parser.dumpStructure();
+	debug("riff chunk = %p, parser.findChunk('')=%p", riff_chunk,
+	    parser.findChunk(""));
+	repair(repair_list, root, fmt_chunk, data_chunk);
+	m_src_adapter = new RepairVirtualAudioFile(*m_source, repair_list);
+    } else {
+	m_src_adapter = new VirtualAudioFile(*m_source);
+    }
+
     ASSERT(m_src_adapter);
     if (!m_src_adapter) return false;
+
+    m_src_adapter->open(m_src_adapter);
 
     AFfilehandle fh = m_src_adapter->handle();
     ASSERT(fh);
@@ -460,6 +465,150 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
     // return with a valid Signal, even if the user pressed cancel !
     if (buffer) free(buffer);
     return true;
+}
+
+//***************************************************************************
+bool WavDecoder::repairChunk(QList<RecoverySource> *repair_list,
+    RIFFChunk *chunk, u_int32_t &offset)
+{
+    ASSERT(chunk);
+    ASSERT(m_source);
+    ASSERT(repair_list);
+    if (!chunk) return false;
+    if (!m_source) return false;
+    if (!repair_list) return false;
+
+    char buffer[16];
+    u_int32_t length;
+    RecoverySource *repair = 0;
+
+    // create buffer with header
+    strncpy(buffer, chunk->name().data(), 4);
+    length = (chunk->type() == RIFFChunk::Main) ? chunk->physLength() :
+                                                  chunk->dataLength();
+    buffer[4] = (length      ) & 0xFF;
+    buffer[5] = (length >>  8) & 0xFF;
+    buffer[6] = (length >> 16) & 0xFF;
+    buffer[7] = (length >> 24) & 0xFF;
+    if (chunk->type() == RIFFChunk::Main) {
+	strncpy(&(buffer[8]), chunk->format().data(), 4);
+	repair = new RecoveryBuffer(offset, 12, buffer);
+	debug("[0x%08X-0x%08X] - main header '%s' (%s), len=%u",
+	      offset, offset+11, chunk->name().data(),
+	      chunk->format().data(), length);
+	offset += 12;
+    } else {
+	repair = new RecoveryBuffer(offset, 8, buffer);
+	debug("[0x%08X-0x%08X] - sub header '%s', len=%u",
+	      offset, offset+7, chunk->name().data(), length);
+	offset += 8;
+    }
+    ASSERT(repair);
+    if (!repair) return false;
+    repair_list->append(repair);
+
+    // map the chunk's data if not main or root
+    if ((chunk->type() != RIFFChunk::Root) &&
+        (chunk->type() != RIFFChunk::Main))
+    {
+	repair = new RecoveryMapping(offset, chunk->physLength(),
+	                             *m_source, chunk->dataStart());
+	debug("[0x%08X-0x%08X] - restoring from offset 0x%08X (%u)",
+	      offset, offset+chunk->physLength()-1, chunk->dataStart(),
+	      chunk->physLength());
+	ASSERT(repair);
+	if (!repair) return false;
+	repair_list->append(repair);
+	
+	offset += chunk->physLength();
+    }
+
+    // recursively go over all sub-chunks
+    RIFFChunkList &list = chunk->subChunks();
+    QListIterator<RIFFChunk> it(list);
+    bool ok = true;
+    for (; ok && it.current(); ++it) {
+	RIFFChunk *chunk = it.current();
+	ok = repairChunk(repair_list, chunk, offset);
+    }
+
+    return ok;
+}
+
+//***************************************************************************
+bool WavDecoder::repair(QList<RecoverySource> *repair_list,
+    RIFFChunk *riff_chunk, RIFFChunk *fmt_chunk, RIFFChunk *data_chunk)
+{
+    ASSERT(fmt_chunk);
+    ASSERT(data_chunk);
+    if (!fmt_chunk || !data_chunk) return false;
+
+    // --- first create a chunk tree for the structure ---
+
+    // make a new "RIFF" chunk as root
+    RIFFChunk new_root(0, "RIFF", "WAVE", 0,0,0);
+    new_root.setType(RIFFChunk::Main);
+
+    // create a new "fmt " chunk
+    RIFFChunk *new_fmt = new RIFFChunk(&new_root, "fmt ",0,0,
+	fmt_chunk->physStart(), fmt_chunk->physLength());
+    ASSERT(new_fmt);
+    if (!new_fmt) return false;
+    new_root.subChunks().append(new_fmt);
+
+    // create a new "data" chunk
+    RIFFChunk *new_data = new RIFFChunk(&new_root, "data",0,0,
+	data_chunk->physStart(), data_chunk->physLength());
+    ASSERT(new_data);
+    if (!new_data) return false;
+    new_root.subChunks().append(new_data);
+
+    // if we have a RIFF chunk, add it's subchunks, except "fmt " and "data"
+    // we keep only pointers here, just for getting the right structure,
+    // sizes and start positions.
+    // NOTE: The sizes might be re-assigned and get invalid afterwards!!!
+    if (riff_chunk) {
+	RIFFChunkList &list = riff_chunk->subChunks();
+	QListIterator<RIFFChunk> it(list);
+	for (; it.current(); ++it) {
+	    RIFFChunk *chunk = it.current();
+	    if (chunk->name() == "fmt ") continue;
+	    if (chunk->name() == "data") continue;
+	    if (chunk->name() == "RIFF") continue;
+	    if (chunk->type() == RIFFChunk::Empty) continue;
+	    if (chunk->type() == RIFFChunk::Garbage) continue;
+	
+	    new_root.subChunks().append(chunk);
+	}
+    }
+
+    // fix all node sizes (compress)
+    new_root.fixSize();
+
+    // attention: some of the offsets belong to source file, some belong
+    // to reconstructed buffers! only the sizes are correct.
+//    new_root.dumpStructure();
+
+    // --- set up the repair list ---
+
+    // RIFF chunk length
+    u_int32_t offset = 0;
+    bool repaired = repairChunk(repair_list, &new_root, offset);
+
+    // clean up...
+    new_root.subChunks().setAutoDelete(false);
+    new_root.subChunks().clear();
+    delete new_fmt;
+    delete new_data;
+
+//    QListIterator<RecoverySource> it(repair_list);
+//    for (; it.current(); ++it) {
+//	RecoverySource *src = it.current();
+//	QString name = "";
+//	debug("[0x%08X-0x%08X] - %s", src->offset(), src->end(), name.data());
+//    }
+
+    return (repaired);
 }
 
 //***************************************************************************

@@ -42,7 +42,10 @@ public:
     /** Destructor */
     virtual ~VirtualAudioFile();
 
-    /** Returns the handle for usein libaudiofile */
+    /** opens the file through libaudiofile */
+    virtual void open(VirtualAudioFile *x);
+
+    /** Returns the handle for use in libaudiofile */
     inline AFfilehandle &handle() { return m_file_handle; };
 
     /** Returns the virtual file for use in libaudiofile */
@@ -52,13 +55,13 @@ public:
     inline long lastError() { return m_last_error; };
 
     /** reads a block of data */
-    virtual ssize_t read(void *data, size_t nbytes);
+    virtual unsigned int read(char *data, unsigned int nbytes);
 
     /** returns the length of the file */
     virtual long length();
 
     /** writes a block of data */
-    virtual ssize_t write(const void *data, size_t nbytes);
+    virtual unsigned int write(const char *data, unsigned int nbytes);
 
     /** called to close the source */
     virtual void destroy();

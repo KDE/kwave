@@ -144,6 +144,13 @@ public:
     bool isChildOf(RIFFChunk *chunk);
 
     /**
+     * Fixes descrepancies in the size of the chunk. The new size will be
+     * computed as the size of all sub-chunks (that will be recursively
+     * fixed too) plus the own header.
+     */
+    void fixSize();
+
+    /**
      * Dumps the structure of this chunks and all sub-chunks,
      * useful for debugging.
      */

@@ -41,7 +41,7 @@ RIFFChunk::~RIFFChunk()
 u_int32_t RIFFChunk::physEnd()
 {
     u_int32_t end = m_phys_offset + m_phys_length;
-    if (end) --end;
+    if (m_phys_length) --end;
     if ((m_type != Root) && (m_type != Garbage)) end += 8;
     return end;
 }
@@ -72,6 +72,54 @@ bool RIFFChunk::isChildOf(RIFFChunk *chunk)
     if (chunk == m_parent) return true;
     if (m_parent) return m_parent->isChildOf(chunk);
     return false;
+}
+
+//***************************************************************************
+void RIFFChunk::fixSize()
+{
+    QListIterator<RIFFChunk> it(subChunks());
+
+    // pass one: fix sizes of sub chunks recursively
+    for (; it.current(); ++it) {
+	it.current()->fixSize();
+    }
+
+    // pass two: sum up sub-chunks if type is main or root.
+    if ((m_type == Main) || (m_type == Root)) {
+	u_int32_t old_length = m_phys_length;
+	m_phys_length = 0;
+	if (m_type == Main) m_phys_length += 4;
+	
+	for (it.toFirst(); it.current(); ++it) {
+	    u_int32_t len = it.current()->physEnd() -
+	                    it.current()->physStart() + 1;
+	    m_phys_length += len;
+	}
+	if (m_phys_length != old_length) {
+	    debug("%s: setting size from %u to %u",
+	        path().data(), old_length, m_phys_length);
+	}
+	// chunk length is always equal to physical length for
+	// main and root !
+	m_chunk_length = m_phys_length;
+    } else {
+	// just round up if no main or root chunk
+	if (m_phys_length & 0x1) {
+	    m_phys_length++;
+	    debug("%s: rounding up size to %u", path().data(), m_phys_length);
+	}
+	
+	// adjust chunk size to physical size if not long enough
+	if ((m_chunk_length+1 != m_phys_length) &&
+	    (m_chunk_length != m_phys_length))
+	{
+	    debug("%s: resizing chunk from %u to %u",
+	        path().data(), m_chunk_length, m_phys_length);
+	    m_chunk_length = m_phys_length;
+	}
+	
+    }
+
 }
 
 //***************************************************************************

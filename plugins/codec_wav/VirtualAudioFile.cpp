@@ -54,7 +54,7 @@ static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
                             unsigned int nbytes)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->read(data, nbytes) : 0;
+    return (adapter) ? adapter->read((char*)data, nbytes) : 0;
 }
 
 //***************************************************************************
@@ -69,7 +69,7 @@ static ssize_t af_file_write (AFvirtualfile *vfile, const void *data,
 	unsigned int nbytes)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
-    return (adapter) ? adapter->write(data, nbytes) : 0;
+    return (adapter) ? adapter->write((char*)data, nbytes) : 0;
 }
 
 //***************************************************************************
@@ -97,7 +97,7 @@ VirtualAudioFile::VirtualAudioFile(QIODevice &device)
       m_last_error(-1)
 {
     // create the virtual file structure for libaudiofile
-    AFvirtualfile *m_virtual_file = af_virtual_file_new();
+    m_virtual_file = af_virtual_file_new();
     ASSERT(m_virtual_file);
     if (!m_virtual_file) return;
 
@@ -109,17 +109,22 @@ VirtualAudioFile::VirtualAudioFile(QIODevice &device)
     m_virtual_file->destroy = af_file_destroy;
     m_virtual_file->seek    = af_file_seek;
     m_virtual_file->tell    = af_file_tell;
+}
 
+//***************************************************************************
+void VirtualAudioFile::open(VirtualAudioFile *x)
+{
     // register ourself
     adapter(0); // dummy lookup, for creating a new map if needed
     ASSERT(_adapter_map);
-    if (_adapter_map) _adapter_map->insert(m_virtual_file, this);
+    if (_adapter_map) _adapter_map->insert(m_virtual_file, x);
 
     // determine the mode: rw/w/r
-    const char *mode = "?";
+    const char *mode = 0;
     if (m_device.isReadWrite()) mode = "rw";
     else if (m_device.isWritable()) mode = "w";
     else if (m_device.isReadable()) mode = "r";
+    ASSERT(mode);
 
     AFerrfunc old_handler;
     old_handler = afSetErrorHandler(_handle_audiofile_error);
@@ -142,11 +147,11 @@ VirtualAudioFile::~VirtualAudioFile()
 }
 
 //***************************************************************************
-ssize_t VirtualAudioFile::read(void *data, size_t nbytes)
+unsigned int VirtualAudioFile::read(char *data, unsigned int nbytes)
 {
     ASSERT(data);
     if (!data) return 0;
-    return m_device.readBlock((char *)data, nbytes);
+    return m_device.readBlock(data, nbytes);
 }
 
 //***************************************************************************
@@ -156,11 +161,11 @@ long VirtualAudioFile::length()
 }
 
 //***************************************************************************
-ssize_t VirtualAudioFile::write(const void *data, size_t nbytes)
+unsigned int VirtualAudioFile::write(const char *data, unsigned int nbytes)
 {
     ASSERT(data);
     if (!data) return 0;
-    return m_device.writeBlock((char *)data, nbytes);
+    return m_device.writeBlock(data, nbytes);
 }
 
 //***************************************************************************

@@ -181,7 +181,8 @@ size_t MemoryManager::virtualUsed()
     size_t used = 0;
     QMap<void*,SwapFile*>::Iterator it;
     for (it=m_swap_files.begin(); it != m_swap_files.end(); ++it) {
-	used += (it.data()->size() >> 10) + 1;
+	ASSERT(it.data());
+	if (it.data()) used += (it.data()->size() >> 10) + 1;
     }
     return (used >> 10);
 }
@@ -221,8 +222,8 @@ void *MemoryManager::allocateVirtual(size_t size)
     unsigned int available = (used < limit) ? (limit-used) : 0;
     if ((size >> 20) >= available) return 0;
 
-    debug("MemoryManager::allocateVirtual(%u): limit=%u, used=%u, avail=%d",
-	size>>10, limit, used, available);
+    debug("MemoryManager::allocateVirtual(%u kB): limit=%u MB, used=%u MB "\
+	  ", avail=%d MB", size>>10, limit, used, available);
 
     // try to allocate
     SwapFile *swap = new SwapFile();
@@ -289,22 +290,23 @@ void MemoryManager::free(void *&block)
     if (m_swap_files.contains(block)) {
 	// remove the pagefile
 	SwapFile *swap = m_swap_files[block];
+	debug("MemoryManager::free(swapfile=%p)",swap);
 	ASSERT(swap);
 	if (swap) {
-	    // ### m_swap_files.remove(block);
 	    m_swap_files[block] = 0;
 	    delete swap;
 	}
+	m_swap_files.remove(block);
     };
 
     if (m_physical_size.contains(block)) {
 	// physical memory
 	void *b = block;
-	debug("MemoryManager::free(%p)",b);
+	debug("MemoryManager::free(physical=%p)",b);
 	ASSERT(b);
 	m_physical_size[block] = 0;
 	if (b) ::free(b);
-	// ### m_physical_size.remove(block);
+	m_physical_size.remove(block);
     }
 
     block = 0;

@@ -381,10 +381,3 @@ NumberedMenu *MenuManager::findNumberedMenu (const char *name)
 MenuManager::~MenuManager ()
 {
 }
-
-
-
-
-
-
-

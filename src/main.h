@@ -42,8 +42,19 @@ class TopWidget : public KTMainWindow
  KStatusBar	*status;      //global status bar
  char           *name;        //filename
  MenuManager    *menumanage;  //menu manager object...
- int            bit;          //bit resolution to save with
+ int            bits;         //bit resolution to save with
 };
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -108,8 +108,10 @@ void KwaveApp::setOp (const char* str)
 //****************************************************************************
 void KwaveApp::addRecentFile (char* newfile)
 {
+  debug("KwaveApp::addRecentFile:---start---"); // ###
   if (recentFiles.find(newfile) != -1) return;
 
+  debug("KwaveApp::addRecentFile:---1---"); // ###
   if (recentFiles.count() < 20) recentFiles.insert(0,newfile);
   else
     {
@@ -119,9 +121,11 @@ void KwaveApp::addRecentFile (char* newfile)
 
    TopWidget *tmp;
 
-   for (tmp=topwidgetlist.first();tmp;tmp=topwidgetlist.next())
+  debug("KwaveApp::addRecentFile:---2---"); // ###
+  for (tmp=topwidgetlist.first();tmp;tmp=topwidgetlist.next())
        tmp->updateRecentFiles(); //update all windows
-}           
+  debug("KwaveApp::addRecentFile:---end---"); // ###
+}
 //*****************************************************************************
 void KwaveApp::newWindow ()
 {
@@ -243,6 +247,7 @@ KwaveApp::~KwaveApp	  ()
   saveConfig ();
   if (check) delete check;
 }
+
 
 
 

@@ -34,7 +34,7 @@ class MainWidget : public QWidget
  	~MainWidget	();
  void	setSignal	(const char *filename,int type=0);
  void	setSignal	(SignalManager *);
- void 	saveSignal	(const char *filename,int,int=false);
+ void 	saveSignal	(const char *filename,int bits,bool selection=false);
  unsigned char *getOverView (int);
 
  protected:
@@ -87,6 +87,15 @@ class MainWidget : public QWidget
  bool             menushown;
 };
 #endif
+
+
+
+
+
+
+
+
+
 
 
 

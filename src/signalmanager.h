@@ -53,7 +53,7 @@ class SignalManager
 
  void	setOp      	(int);  //triggers function via given id
 
- void	save	        (const char *filename,int,int=false);
+ void	save	        (const char *filename,int bits,bool selection=false);
 
 
  void   appendChannel        (KwaveSignal *);
@@ -73,9 +73,6 @@ class SignalManager
 
  void	play		(bool);
  void	stopplay	();
-
- void   getridof        (int *mem);
- int    *getNewMem      (int size);
 
  int	findDatainFile	(FILE *);    //searches for data chunk in wav file
                                      //returns 0 if failed, else position
@@ -98,3 +95,4 @@ class SignalManager
  int            msg[4];
 };
 #endif  /* signalmanager.h */   
+

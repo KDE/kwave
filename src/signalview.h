@@ -27,9 +27,9 @@ class SignalWidget : public QWidget
 
  int    mstosamples             (double);
  void 	setSignal		(const char *filename,int type=0);
- void 	saveSignal		(const char *filename,int,int=false);
+ void 	saveSignal		(const char *filename,int bits,bool selection=false);
  void 	saveBlocks		(int);
- void 	saveSelectedSignal	(const char *filename,int,int=false);
+ void 	saveSelectedSignal	(const char *filename,int bits,bool selection=true);
  void 	setSignal		(SignalManager *signal);
  void	setZoom			(double);
  unsigned char   *getOverview   (int);
@@ -118,3 +118,4 @@ class SignalWidget : public QWidget
 };
 
 #endif //_KWAVESIGNALVIEW_H_
+

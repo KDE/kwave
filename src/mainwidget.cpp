@@ -114,20 +114,16 @@ void MainWidget::updateChannels (int cnt)
     }
 }
 //**********************************************************
-void MainWidget::saveSignal  (const char *filename,int bit,int selection)
+void MainWidget::saveSignal  (const char *filename,int bits,bool selection)
 {
-  signalview->saveSignal (filename,bit,selection);
+  signalview->saveSignal (filename,bits,selection);
 }
 //*****************************************************************************
 void MainWidget::setSignal  (const char *filename,int type)
 {
-  fprintf(stderr, "mainwidget.cpp:setSignal:---start---\n"); // ###
   signalview->setSignal	(filename,type);
-  fprintf(stderr, "mainwidget.cpp:setSignal:---setZoom---\n"); // ###
   signalview->setZoom 	(100.0);
-  fprintf(stderr, "mainwidget.cpp:setSignal:---refresh---\n"); // ###
   slider->refresh();
-  fprintf(stderr, "mainwidget.cpp:setSignal:---end---\n"); // ###
 }
 //*****************************************************************************
 void MainWidget::setSignal  (SignalManager *signal)
@@ -362,3 +358,19 @@ void MainWidget::resizeEvent  (QResizeEvent *)
      speakers[i]->setGeometry (0,i*(height()-bsize-20)/numsignals+20,20,20);
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -224,7 +224,30 @@ void SignalManager::exportAscii ()
 //**********************************************************
 void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
 {
+  unsigned int bufsize=16*1024*sizeof(int);
+  unsigned char *savebuffer = 0;
   int **sample=0; // array of pointers to samples
+  int bytes=bits/8;
+  int bytes_per_sample=bytes * channels;
+  bufsize -= bufsize % bytes_per_sample;
+
+  // try to allocate memory for the save buffer
+  // if failed, try again with the half buffer size as long
+  // as "0" is not reached (then we are really out of memory)
+  while (savebuffer==0)
+    {
+      if (bufsize<=1024)
+	{
+	  debug("SignalManager::writeWavSignal:not enough memory for buffer");
+	  return;
+	}
+      savebuffer = new unsigned char[bufsize];
+      if (!savebuffer)
+	{
+	  bufsize>>=1;
+	  bufsize-=bufsize % bytes_per_sample;
+	}
+    }
 
   //prepare and show the progress dialog
   char progress_title[64];
@@ -239,54 +262,62 @@ void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
   sprintf((char *)&progress_title,"Saving %d-Bit-%s File :",
     bits, str_channels);
 
-  ProgressDialog *dialog=new ProgressDialog (100,
-    (char *)klocale->translate(progress_title));
+  char *title = duplicateString(klocale->translate(progress_title));
+  ProgressDialog *dialog=new ProgressDialog (100,title);
+  delete title;
   if (dialog) dialog->show();
 
   //prepare the store loop
   int percent_count = length/200;
-  int bytes=bits/8;
-  unsigned int sign=1 << (24-1);
   unsigned int shift=24-bits;
 
   sample=new (int*)[channels];
   for (int channel=0; channel<channels; channel++)
     sample[channel]=signal[channel]->getSample();
 
-  debug("sign=%08X, shift=%d",sign,shift);
-
   //loop for writing data
-  for (int pos=begin;pos<length;pos++)
+  for (int pos=begin;pos<length;)
     {
-      for (int channel=0;channel<channels;channel++)
+      unsigned char *buf = savebuffer;
+      unsigned int nsamples=0;
+
+      while (pos++<length && (nsamples<bufsize/bytes_per_sample))
 	{
-	  register int *smp=sample[channel] + pos;
-	  register int act=(*smp) >>= shift;
-	  for (register int byte=bytes; byte; byte--)
+	  for (int channel=0;channel<channels;channel++)
 	    {
-	      fputc((char)(act&0xFF), sigout);
-	      act >>= 8;
+	      int *smp=sample[channel] + pos;
+	      int act=(*smp) >> shift;
+	      for (register int byte=bytes; byte; byte--)
+		{
+		  *(buf++) = (char)(act&0xFF);
+		  act >>= 8;
+		}
 	    }
+	  nsamples++;
 	}
 
-      if (dialog && (percent_count-- <= 0))
+      int written_bytes = fwrite(savebuffer,
+	bytes_per_sample,nsamples,sigout);
+
+      percent_count -= written_bytes;
+      if (dialog && (percent_count <= 0))
 	{
 	  percent_count=length/200;
 	  float percent=(float)pos;
 	  percent/=(float)length;
 	  percent*=100.0;
 	  dialog->setProgress (percent);
-	  debug("setProgress(%d)", percent); // ###
 	}
     }
 
   if (sample) delete sample;
   if (dialog) delete dialog;
+  if (savebuffer) delete savebuffer;
 }
 //**********************************************************
-void  SignalManager::save (const char *filename,int bit,int selection)
+void  SignalManager::save (const char *filename,int bits,bool selection)
 {
-  printf ("saving %d Bit to %s ,%d\n",bit,filename,selection);
+  printf ("saving %d Bit to %s ,%d\n",bits,filename,selection);
   int begin=0;
   int length=this->getLength();
   struct wavheader header;
@@ -309,13 +340,13 @@ void  SignalManager::save (const char *filename,int bit,int selection)
       strncpy (header.wavid,"WAVE",4);
       strncpy (header.fmtid,"fmt ",4);
       header.fmtlength=16;
-      header.filelength=(length*bit/8*channels+sizeof(struct wavheader));
+      header.filelength=(length*bits/8*channels+sizeof(struct wavheader));
       header.mode=1;
       header.channels=channels;
       header.rate=rate;
-      header.AvgBytesPerSec=rate*bit/8*channels;
-      header.BlockAlign=bit*channels/8;
-      header.bitspersample=bit;
+      header.AvgBytesPerSec=rate*bits/8*channels;
+      header.BlockAlign=bits*channels/8;
+      header.bitspersample=bits;
 
       int datalen=length*header.channels*header.bitspersample/8;
 
@@ -334,12 +365,12 @@ void  SignalManager::save (const char *filename,int bit,int selection)
       fwrite ("data",1,4,sigout);
       fwrite ((char *)&datalen,1,4,sigout);
 
-      switch (bit)
+      switch (bits)
 	{
 	case 8:
 	case 16:
 	case 24:
-	  writeWavChunk(sigout,begin,length,bit);
+	  writeWavChunk(sigout,begin,length,bits);
 	  break;
 	default:
 	  KMsgBox::message(parent,"Info",
@@ -404,9 +435,10 @@ void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
 
   sprintf((char *)&progress_title,"Loading %d-Bit-%s File :",
     bits, str_channels);
+  char *title = duplicateString(klocale->translate(progress_title));
+  ProgressDialog *dialog=new ProgressDialog (100,title);
+  delete title;
 
-  ProgressDialog *dialog=new ProgressDialog (100,
-    (char *)klocale->translate(progress_title));
   if (dialog) dialog->show();
 
   //prepare the load loop
@@ -419,7 +451,7 @@ void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
   unsigned int max_samples=bufsize/bytes_per_sample;
   long int start_offset=ftell(sigfile);
 
-  debug("sign=%08X, negative=%08X, shift=%d",sign,negative,shift);
+  // debug("sign=%08X, negative=%08X, shift=%d",sign,negative,shift);
 
   for (int pos=0;pos<length;)
     {
@@ -461,6 +493,7 @@ void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
 	  dialog->setProgress (percent);
 	}
     }
+
   if (dialog) delete dialog;
   if (loadbuffer) delete loadbuffer;
   if (sample) delete sample;
@@ -491,7 +524,6 @@ int SignalManager::findDatainFile (FILE *sigin)
 
   return 0;
 }
-
 
 
 

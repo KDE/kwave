@@ -64,7 +64,7 @@ void TopWidget::parseCommands (const char *str)
 //*****************************************************************************
 TopWidget::TopWidget () : KTMainWindow ()
 {
-  bit=16;
+  bits=16;
 
   saveDir=0;
   loadDir=0;
@@ -146,8 +146,8 @@ void TopWidget::resolution (const char *str)
 
   if ((cnt>=0)&&(cnt<=2))
     {
-      cnt=(++cnt * 8);
-      debug("bit=%d", cnt); // ###
+      bits=(++cnt * 8);
+      debug("bits=%d", bits); // ###
     }
   else debug ("out of range\n");
 }
@@ -218,7 +218,7 @@ void TopWidget::saveFile ()
 {
   if (name)
     {
-      mainwidget->saveSignal (name,bit);
+      mainwidget->saveSignal (name,bits);
       setCaption (name);
     }
   else saveFileAs (false);
@@ -242,8 +242,9 @@ void TopWidget::saveFileAs (bool selection)
 	  if (saveDir) delete saveDir;
 	  saveDir=new QDir (dialog->dirPath());
 
-	  mainwidget->saveSignal (name,bit,selection);
+	  mainwidget->saveSignal (name,bits,selection);
 	  globals.app->addRecentFile (name);
+	  setCaption (name);
 	}
       delete dialog;
     }
@@ -268,7 +269,7 @@ void TopWidget::updateRecentFiles ()
   menumanage->clearNumberedMenu ("recentfiles");
   for (unsigned int i =0 ; i < recentFiles.count(); i++)
     menumanage->addNumberedMenuEntry ("recentfiles",recentFiles.at(i));
-}           
+}
 //*****************************************************************************
 TopWidget::~TopWidget ()
 {
@@ -289,5 +290,11 @@ int main( int argc, char **argv )
     }
   return -1;
 }
+
+
+
+
+
+
 
 

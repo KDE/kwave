@@ -1,5 +1,39 @@
 this Development Version
 
+(19991207) [by Thomas.Eschenbacher@gmx.de]
+
+SignalManager::writeWavChunk uses buffers for writing (much faster!)
+
+bugfix: caption of main window changes after "SaveAs"
+
+bugfix: selected resolution takes effect
+
+bugfix: caption of main window changes after "SaveAs"
+
+bugfix: SignalManager::writeWavChunk now doesn't destroy the signal's
+data while saving
+
+make distclean in the projekt root directory also removes zero-length
+files, *.orig, *.rej and *~ (just makes cleaner than before)
+
+symbolic links to Makefile, Makefile.in and Makefile.am in the plugins
+directory are deleted with "make distclean" and rebuilt on "make"
+(changes in the referenced Makefiles in the template directory will not be
+reflected thousand times when creating a patch with diff)
+
+cleanups, removed some old backup files
+
+improved support for debugging accessible through 
+"configure --enable-debug=yes" (-g and -DDEBUG compiler flags)
+
+rewritten big parts of Makefile.in for the plugins
+
+added -O2 compiler optimization
+
+(19991203) [by Thomas.Eschenbacher@gmx.de]
+
+merged with Martin Wilz's version
+
 (11.99)
 
 version numbering script donated by Thomas Eschenbacher

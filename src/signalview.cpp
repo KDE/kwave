@@ -72,9 +72,9 @@ SignalWidget::~SignalWidget ()
   if (labels)      delete labels;
 }
 //****************************************************************************
-void SignalWidget::saveSignal  (const char *filename,int bit,int selection)
+void SignalWidget::saveSignal  (const char *filename,int bits,bool selection)
 {
-  if (signalmanage) signalmanage->save (filename,bit,selection);
+  if (signalmanage) signalmanage->save (filename,bits,selection);
 }
 //****************************************************************************
 unsigned char *SignalWidget::getOverview (int size)
@@ -838,6 +838,9 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
       if (update[1]!=-1) bitBlt (this,update[1],0,pixmap,update[1],0,1,height);
     }
 }
+
+
+
 
 
 

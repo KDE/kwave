@@ -1,10 +1,16 @@
 
 o possible bug/problem: start of a plugin while another plugin is
   still running -> leads to SEGFAULT!
+  -> use pid()/waitpid() for detecting thread termination
+  + some precautions that the thread's pid already is valid,
+  maybe initialize with parent pid [ppid()]
+  PROBLEM: is this garantized to work with other threading packages
+           than pthread under linux?
 
 o recording support
 
 o more precise handling of the playback pointer
+  -> use the delay information from aRts
 
 o function for "Edit/Selection/Insert at..." or a "goto position" function
 
@@ -24,6 +30,17 @@ o dithering/noise shaping when loading/saving
 o volume plugin: show a little "overview" for guessing the level
 
 o volume plugin: implement a "normalize to maximum" button
+
+o auto-detect pause and set markers, for splitting recorded stuff into several
+  parts and then save them to disc as separate files
+  (feature requested by Stefan Macher)
+
+o record plugin: free selectable sample rates
+
+o record plugin: support for ALSA, important for kernel 2.6 support!
+
+o record plugin: support for aRts
+  currently aRts has no working recording support :-(
 
 o virtual memory: multiple swap directories
 

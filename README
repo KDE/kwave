@@ -191,7 +191,7 @@ under a SuSE-8.2 distribution (i386 architecture) using at least the
 following packages:
 
 * autoconf-2.57-129                  always good for making trouble :-(
-* automake-1.7.32
+* automake-1.7.32                    or at least version 1.6.1 !
 * libtool-1.4.2-325                  (needed for configure)
 * gcc-3.2-36                         (the C / C++ compiler)
 
@@ -299,8 +299,12 @@ made running and what I had to install additionally:
          libogg0, libogg0-devel, libvorbis0, libvorbis0-devel, libvorbisfile3,
          libvorbisenc2
 
+* Mandrake-9.1:
+	like Mandrake-9.0, but additionally:
+	 libnas2, libnas2-devel, libfam0-devel, libpng3, libpng3-devel
+
 * Slackware 9.0:
-         (many packages)
+	(too many packages to mention here...)
 
 
 7. KNOWN PROBLEMS:

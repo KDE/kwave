@@ -100,6 +100,10 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     // pre-record
     STD_SETUP_SLIDER(pre_record_enabled, pre_record_time, RecordPre);
+    connect(chkRecordPre, SIGNAL(toggled(bool)),
+            this,         SLOT(preRecordingChecked(bool)));
+    connect(sbRecordPre,  SIGNAL(valueChanged(int)),
+            this,         SLOT(preRecordingTimeChanged(int)));
 
     // record time
     STD_SETUP(record_time_limited, record_time, RecordTime);
@@ -673,6 +677,10 @@ void RecordDialog::setState(RecordState state)
     updateRecordButton();
 
     // enable disable all controls (groups) for setup
+    chkRecordPre->setEnabled(enable_settings);
+    sbRecordPre->setEnabled(enable_settings && 
+                            chkRecordPre->isChecked());
+    
     chkRecordTime->setEnabled(enable_settings);
     sbRecordTime->setEnabled(enable_settings &&
                              chkRecordTime->isChecked());
@@ -712,6 +720,19 @@ void RecordDialog::updateBufferState(unsigned int count, unsigned int total)
 	}
     }
 
+}
+
+//***************************************************************************
+void RecordDialog::preRecordingChecked(bool enabled)
+{
+    m_params.pre_record_enabled = enabled;
+    emit sigPreRecordingChanged(enabled);
+}
+    
+//***************************************************************************
+void RecordDialog::preRecordingTimeChanged(int time)
+{
+    m_params.pre_record_time = time;
 }
 
 //***************************************************************************

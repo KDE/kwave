@@ -149,7 +149,9 @@ signals:
     /** emitted when the record trigger has been enabled/disabled */
     void sigTriggerChanged(bool enabled);
 
-
+    /** emitted when the prerecording has been enabled/disabled */
+    void sigPreRecordingChanged(bool enabled);
+    
 public slots:
 
     /** updates the number of recorded samples */
@@ -190,6 +192,12 @@ private slots:
     /** updates the buffer progress bar */
     void updateBufferProgressBar();
 
+    /** prerecording has been enabled/disabled */
+    void preRecordingChecked(bool enabled);
+    
+    /** the prerecording time has been changed */
+    void preRecordingTimeChanged(int time);
+    
     /** record time has been enabled/disabled */
     void recordTimeChecked(bool limited);
 

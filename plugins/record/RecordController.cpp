@@ -37,7 +37,7 @@ static const char *state2str(const RecordState state)
 //***************************************************************************
 RecordController::RecordController()
     :QObject(), m_state(REC_EMPTY), m_next_state(REC_EMPTY),
-     m_trigger_set(false), m_use_prerecording(false),
+     m_trigger_set(false), m_enable_prerecording(false),
      m_empty(true)
 {
 }
@@ -51,6 +51,12 @@ RecordController::~RecordController()
 void RecordController::setEmpty(bool empty)
 {
     m_empty = empty;
+}
+
+//***************************************************************************
+void RecordController::enablePrerecording(bool enable)
+{
+    m_enable_prerecording = enable;
 }
 
 //***************************************************************************
@@ -212,7 +218,7 @@ void RecordController::deviceBufferFull()
 		qDebug("RecordController::deviceBufferFull "\
 		       "-> REC_WAITING_FOR_TRIGGER");
 		m_state = REC_WAITING_FOR_TRIGGER;
-	    } else if (m_use_prerecording) {
+	    } else if (m_enable_prerecording) {
 		// prerecording was set
 		qDebug("RecordController::deviceBufferFull "\
 		       "-> REC_PRERECORDING");
@@ -256,7 +262,7 @@ void RecordController::deviceTriggerReached()
 	    break;
 	case REC_WAITING_FOR_TRIGGER:
 	    Q_ASSERT(m_trigger_set);
-	    if (m_use_prerecording) {
+	    if (m_enable_prerecording) {
 		// prerecording was set
 		qDebug("RecordController::deviceTriggerReached "\
 		       "-> REC_PRERECORDING");

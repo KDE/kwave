@@ -43,6 +43,14 @@ public slots:
      */
     void setEmpty(bool empty);
 
+    /**
+     * Enable the prerecording. Has to be called before any status
+     * change to enable/disable the prerecording mode
+     * 
+     * @param enable if true, enable prerecording
+     */
+    void enablePrerecording(bool enable);
+
     /** Clear all recorded data and prepare for new recording */
     void actionReset();
 
@@ -99,7 +107,7 @@ private:
     bool m_trigger_set;
 
     /** use prerecording */
-    bool m_use_prerecording;
+    bool m_enable_prerecording;
 
     /** if true the current file is empty */
     bool m_empty;

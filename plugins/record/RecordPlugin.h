@@ -19,8 +19,9 @@
 #define _RECORD_PLUGIN_H_
 
 #include "config.h"
-#include <qmemarray.h>
 #include <qcstring.h>
+#include <qmemarray.h>
+#include <qvaluevector.h>
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
@@ -49,24 +50,6 @@ public:
     virtual QStringList *setup(QStringList &previous_params);
 
 signals:
-
-    /**
-     * emitted when the file is empty or no longer empty
-     * @param empty false if something has been recorded, true if not
-     */
-    void sigFileIsEmpty(bool empty);
-
-    /** emitted when the recording has been started */
-    void sigStarted();
-
-    /** emitted when the record buffer has been filled */
-    void sigBufferFull();
-
-    /** emitted when the trigger level has been reached */
-    void sigTriggerReached();
-
-    /** emitted when the recording is done */
-    void sigRecordingDone();
 
     /** emitted to promote the recording progress to the dialog */
     void sigRecordedSamples(unsigned int samples_recorded);
@@ -186,13 +169,29 @@ private:
                unsigned int track,
                unsigned int tracks);
 
+    /**
+     * Enqueue a buffer with decoded samples into a prerecording 
+     * buffer of the corresponding track.
+     * 
+     * @param track index of the track [0...tracks-1]
+     * @param decoded array with decoded samples, in Kwave's internal format
+     */
+    void enqueuePrerecording(unsigned int track, 
+                             const QMemArray<sample_t> &decoded);
+
+    /**
+     * Flush the content of the prerecording queue to the output
+     * @see m_writers
+     */
+    void flushPrerecordingQueue();
+
 private:
+
+    /** controller for the recording engine */
+    RecordController m_controller;
 
     /** global state of the plugin */
     RecordState m_state;
-
-    /** record control: pre-record enabled */
-    bool m_prerecord_enabled;
 
     /** device used for recording */
     RecordDevice *m_device;
@@ -206,6 +205,13 @@ private:
     /** decoder for converting raw data to samples */
     SampleDecoder *m_decoder;
 
+    /** 
+     * set of queues for buffering prerecording data. Organized as a list
+     * of queues, one for each thread, holding a number of buffers with
+     * samples.
+     */
+    QValueVector< QValueVector< QMemArray<sample_t> > > m_prerecording_queue;
+    
     /** sink for the audio data */
     MultiTrackWriter m_writers;
 

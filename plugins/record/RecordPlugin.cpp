@@ -51,9 +51,11 @@ KWAVE_PLUGIN(RecordPlugin,"record","Thomas Eschenbacher");
 
 //***************************************************************************
 RecordPlugin::RecordPlugin(PluginContext &context)
-    :KwavePlugin(context), m_state(REC_EMPTY), m_device(0),
-     m_dialog(0), m_thread(0), m_decoder(0), m_writers(),
-     m_buffers_recorded(0), m_inhibit_count(0), m_trigger_value()
+    :KwavePlugin(context), m_controller(),
+     m_state(REC_EMPTY), m_device(0),
+     m_dialog(0), m_thread(0), m_decoder(0), m_prerecording_queue(),
+     m_writers(), m_buffers_recorded(0), m_inhibit_count(0),
+     m_trigger_value()
 {
     i18n("record");
 }
@@ -82,11 +84,9 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 {
     qDebug("RecordPlugin::setup");
 
-    // use a new record controller
-    RecordController controller;
-
     // create the setup dialog
-    m_dialog = new RecordDialog(parentWidget(), previous_params, &controller);
+    m_dialog = new RecordDialog(parentWidget(), previous_params,
+                                &m_controller);
     Q_ASSERT(m_dialog);
     if (!m_dialog) return 0;
 
@@ -101,48 +101,41 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 
     // connect some signals of the setup dialog
     connect(m_dialog, SIGNAL(deviceChanged(const QString &)),
-            this, SLOT(changeDevice(const QString &)));
+            this,     SLOT(changeDevice(const QString &)));
     connect(m_dialog, SIGNAL(sigTracksChanged(unsigned int)),
-            this, SLOT(changeTracks(unsigned int)));
+            this,     SLOT(changeTracks(unsigned int)));
     connect(m_dialog, SIGNAL(sampleRateChanged(double)),
-            this, SLOT(changeSampleRate(double)));
+            this,     SLOT(changeSampleRate(double)));
     connect(m_dialog, SIGNAL(sigCompressionChanged(int)),
-            this, SLOT(changeCompression(int)));
+            this,     SLOT(changeCompression(int)));
     connect(m_dialog, SIGNAL(sigBitsPerSampleChanged(unsigned int)),
-            this, SLOT(changeBitsPerSample(unsigned int)));
+            this,     SLOT(changeBitsPerSample(unsigned int)));
     connect(m_dialog, SIGNAL(sigSampleFormatChanged(int)),
-            this, SLOT(changeSampleFormat(int)));
+            this,     SLOT(changeSampleFormat(int)));
     connect(m_dialog, SIGNAL(sigBuffersChanged()),
-            this, SLOT(buffersChanged()));
-    connect(this, SIGNAL(sigRecordedSamples(unsigned int)),
+            this,     SLOT(buffersChanged()));
+    connect(this,     SIGNAL(sigRecordedSamples(unsigned int)),
             m_dialog, SLOT(setRecordedSamples(unsigned int)));
-    connect(m_dialog, SIGNAL(sigTriggerChanged(bool)),
-            &controller, SLOT(enableTrigger(bool)));
-    controller.enableTrigger(m_dialog->params().record_trigger_enabled);
+    connect(m_dialog,      SIGNAL(sigTriggerChanged(bool)),
+            &m_controller, SLOT(enableTrigger(bool)));
+    m_controller.enableTrigger(m_dialog->params().record_trigger_enabled);
+    connect(m_dialog, SIGNAL(sigPreRecordingChanged(bool)),
+            &m_controller, SLOT(enablePrerecording(bool)));
+    m_controller.enablePrerecording(m_dialog->params().pre_record_enabled);
 
     // connect the record controller and this
-    connect(this, SIGNAL(sigFileIsEmpty(bool)),
-            &controller, SLOT(setEmpty(bool)));
-    connect(&controller, SIGNAL(sigReset(bool &)),
-            this, SLOT(resetRecording(bool &)));
-    connect(&controller, SIGNAL(sigStartRecord()),
-            this, SLOT(startRecording()));
-    connect(&controller, SIGNAL(sigStopRecord(int)),
-            &controller, SLOT(deviceRecordStopped(int)));
-    connect(&controller, SIGNAL(stateChanged(RecordState)),
-            this, SLOT(stateChanged(RecordState)));
-    connect(this, SIGNAL(sigRecordingDone()),
-            &controller, SLOT(actionStop()));
+    connect(&m_controller, SIGNAL(sigReset(bool &)),
+            this,          SLOT(resetRecording(bool &)));
+    connect(&m_controller, SIGNAL(sigStartRecord()),
+            this,          SLOT(startRecording()));
+    connect(&m_controller, SIGNAL(sigStopRecord(int)),
+            &m_controller, SLOT(deviceRecordStopped(int)));
+    connect(&m_controller, SIGNAL(stateChanged(RecordState)),
+            this,          SLOT(stateChanged(RecordState)));
 
     // connect record controller and record thread
-    connect(this,        SIGNAL(sigStarted()),
-            &controller, SLOT(deviceRecordStarted()));
-    connect(this,        SIGNAL(sigBufferFull()),
-            &controller, SLOT(deviceBufferFull()));
-    connect(this, SIGNAL(sigTriggerReached()),
-            &controller, SLOT(deviceTriggerReached()));
-    connect(m_thread,    SIGNAL(stopped(int)),
-            &controller, SLOT(deviceRecordStopped(int)));
+    connect(m_thread,      SIGNAL(stopped(int)),
+            &m_controller, SLOT(deviceRecordStopped(int)));
 
     // connect us to the record thread
     connect(m_thread, SIGNAL(stopped(int)),
@@ -172,6 +165,9 @@ QStringList *RecordPlugin::setup(QStringList &previous_params)
 
     if (m_decoder) delete m_decoder;
     m_decoder = 0;
+
+    // flush away all prerecording buffers
+    m_prerecording_queue.clear();
 
     return list;
 }
@@ -513,7 +509,7 @@ void RecordPlugin::resetRecording(bool &accepted)
     m_writers.resize(0);
     m_buffers_recorded = 0;
 
-    emit sigFileIsEmpty(true);
+    m_controller.setEmpty(true);
     emit sigRecordedSamples(0);
 }
 
@@ -521,7 +517,8 @@ void RecordPlugin::resetRecording(bool &accepted)
 void RecordPlugin::setupRecordThread()
 {
     Q_ASSERT(m_thread);
-    if (!m_thread) return;
+    Q_ASSERT(m_dialog);
+    if (!m_thread || !m_dialog) return;
 
     // stop the thread if necessary (should never happen)
     Q_ASSERT(!m_thread->running());
@@ -532,16 +529,19 @@ void RecordPlugin::setupRecordThread()
     if (m_decoder) delete m_decoder;
     m_decoder = 0;
 
+    // our own reference to the record parameters
+    const RecordParams &params = m_dialog->params();
+
     // create a decoder for the current sample format
-    switch (m_dialog->params().compression) {
+    switch (params.compression) {
 	case AF_COMPRESSION_NONE:
-	    switch (m_dialog->params().sample_format) {
+	    switch (params.sample_format) {
 		case AF_SAMPFMT_UNSIGNED:
 		case AF_SAMPFMT_TWOSCOMP:
 		    // decoder for all linear formats
 		    m_decoder = new SampleDecoderLinear(
-			m_dialog->params().sample_format,
-			m_dialog->params().bits_per_sample
+			params.sample_format,
+			params.bits_per_sample
 		    );
 		    break;
 		default:
@@ -566,16 +566,23 @@ void RecordPlugin::setupRecordThread()
 	return;
     }
 
+    // set up the prerecording queues
+    m_prerecording_queue.clear();
+    if (params.pre_record_enabled) {
+	// prepare a queue for each track
+	m_prerecording_queue.resize(params.tracks);
+    }
+
     // set up the recording trigger values
-    m_trigger_value.resize(m_dialog->params().tracks);
+    m_trigger_value.resize(params.tracks);
     m_trigger_value.fill((double)0.0);
 
     // set up the record thread
     m_thread->setRecordDevice(m_device);
-    unsigned int buf_count = m_dialog->params().buffer_count;
-    unsigned int buf_size  = m_dialog->params().tracks *
+    unsigned int buf_count = params.buffer_count;
+    unsigned int buf_size  = params.tracks *
                              m_decoder->rawBytesPerSample() *
-                            (1 << m_dialog->params().buffer_size);
+                            (1 << params.buffer_size);
     m_thread->setBuffers(buf_count, buf_size);
 }
 
@@ -648,7 +655,7 @@ void RecordPlugin::startRecording()
     }
 
     // now the recording can be considered to be started
-    emit sigStarted();
+    m_controller.deviceRecordStarted();
 }
 
 //***************************************************************************
@@ -677,6 +684,9 @@ void RecordPlugin::recordStopped(int reason)
     m_writers.flush();
     qDebug("RecordPlugin::recordStopped(): wrote %u samples",
            m_writers.last());
+
+    // flush away all prerecording buffers
+    m_prerecording_queue.clear();
 }
 
 //***************************************************************************
@@ -830,6 +840,121 @@ bool RecordPlugin::checkTrigger(unsigned int track,
 }
 
 //***************************************************************************
+void RecordPlugin::enqueuePrerecording(unsigned int track,
+                                       const QMemArray<sample_t> &decoded)
+{
+    Q_ASSERT(m_dialog);
+    Q_ASSERT(track < m_prerecording_queue.size());
+    if (!m_dialog) return;
+    if (track >= m_prerecording_queue.size()) return;
+    if (!decoded.size()) return;
+
+    QValueVector<QMemArray<sample_t> > &queue =
+        m_prerecording_queue.at(track);
+
+    const RecordParams &params = m_dialog->params();
+    unsigned int max_buffers = (unsigned int)(ceil(params.pre_record_time *
+		    params.sample_rate) / decoded.size());
+    Q_ASSERT(max_buffers);
+    if (!max_buffers) return;
+
+//     qDebug("RecordPlugin::enqueuePrerecording(%d,...) %d/%d",
+//            track, queue.size(), max_buffers); // ###
+
+    while (queue.size() >= max_buffers) {
+        // make space for the new buffer
+	// remove buffer from the tail
+	queue.erase(queue.begin());
+    }
+
+    // append the array with decoded sample to the prerecording buffer
+    // to the head of the list
+    queue.append(decoded);
+
+}
+
+//***************************************************************************
+void RecordPlugin::flushPrerecordingQueue()
+{
+//    InhibitRepaintGuard(this);
+
+    qDebug("RecordPlugin::flushPrerecordingQueue()"); // ###
+    if (!m_prerecording_queue.size()) return;
+    Q_ASSERT(m_dialog);
+    Q_ASSERT(m_thread);
+    Q_ASSERT(m_decoder);
+    if (!m_dialog || !m_thread || !m_decoder) return;
+
+    const RecordParams &params = m_dialog->params();
+    const unsigned int tracks = params.tracks;
+    Q_ASSERT(tracks);
+    if (!tracks) return;
+    Q_ASSERT(tracks == m_writers.count());
+    if (!tracks || (tracks != m_writers.count())) return;
+
+    qDebug("RecordPlugin::flushPrerecordingQueue() --1--"); // ###
+    unsigned int max_samples = (unsigned int)ceil((
+        params.pre_record_time * params.sample_rate));
+
+    qDebug("RecordPlugin::flushPrerecordingQueue() --2--"); // ###
+    for (unsigned int track=0; track < tracks; ++track) {
+	unsigned int remaining = max_samples;
+	QValueVector<QMemArray<sample_t> > &queue =
+	    m_prerecording_queue.at(track);
+	Q_ASSERT(!queue.isEmpty());
+	if (queue.isEmpty()) return;
+
+	QValueVector<QMemArray<sample_t> >::iterator it = queue.end();
+	Q_ASSERT(it);
+	it--;
+	qDebug("RecordPlugin::flushPrerecordingQueue() --3--"); // ###
+
+	// seek back from the head back to the tail to find out where to cut
+	while (remaining) {
+	    qDebug("RecordPlugin::flushPrerecordingQueue() --4--"); // ###
+	    unsigned int len = it->size();
+	    qDebug("size=%d",len);
+
+	    if (remaining < len) {
+		// truncate the buffer to the remaining samples
+		qDebug("remaining=%d, len=%d",remaining,len);
+		QMemArray<sample_t> &buf = *it;
+//		memcpy(buf.data(), buf.data()+buf.size()-remaining,
+//		       remaining);
+		buf.resize(remaining);
+
+		// remove all buffers before the current one
+		if (it != queue.begin()) queue.erase(queue.begin(), --it);
+		break;
+	    } else {
+	        remaining -= len;
+		if (it == queue.begin()) break;
+	        --it;
+	    }
+	}
+	qDebug("RecordPlugin::flushPrerecordingQueue() --5--"); // ###
+
+	// push all buffers to the writer, starting at the tail
+	SampleWriter *writer = m_writers[track];
+	Q_ASSERT(writer);
+	for (it = queue.begin(); it != queue.end(); ++it) {
+	    qDebug("writing, track %d", track);
+	    if (writer) *writer << (*it);
+	}
+
+	qDebug("RecordPlugin::flushPrerecordingQueue() --6--"); // ###
+	queue.clear();
+    }
+
+    // the queues are no longer needed
+    m_prerecording_queue.clear();
+
+    // we have transferred data to the writers, we are no longer empty
+    m_controller.setEmpty(false);
+
+}
+
+//***************************************************************************
 void RecordPlugin::processBuffer(QByteArray buffer)
 {
     bool recording_done = false;
@@ -884,10 +1009,15 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 	    split(buffer, buf, bytes_per_sample, track, tracks);
 	    m_decoder->decode(buf, decoded);
 	    if (checkTrigger(track, decoded)) {
-		emit sigTriggerReached();
+		m_controller.deviceTriggerReached();
 		break;
 	    }
 	}
+    }
+
+    if ((m_state == REC_RECORDING) && (!m_prerecording_queue.isEmpty())) {
+	// flush all prerecorded buffers to the output
+	flushPrerecordingQueue();
     }
 
     for (unsigned int track=0; track < tracks; ++track) {
@@ -905,10 +1035,11 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 		// first buffer is full
 		// -> leave REC_BUFFERING
 		if ((m_buffers_recorded > 1) && buffer.size())
-		    emit sigBufferFull();
+		    m_controller.deviceBufferFull();
 		break;
 	    case REC_PRERECORDING:
 		// enqueue the buffers into a FIFO
+		enqueuePrerecording(track, decoded);
 		break;
 	    case REC_WAITING_FOR_TRIGGER:
 		// already handled before...
@@ -921,7 +1052,7 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 		SampleWriter *writer = m_writers[track];
 		Q_ASSERT(writer);
 		if (writer) (*writer) << decoded;
-		emit sigFileIsEmpty(false);
+		m_controller.setEmpty(false);
 
 		break;
 	    }
@@ -937,7 +1068,7 @@ void RecordPlugin::processBuffer(QByteArray buffer)
 
     // if this was the last received buffer, change state
     if (recording_done && (m_state != REC_DONE) && (m_state != REC_EMPTY)) {
-	emit sigRecordingDone();
+	m_controller.actionStop();
 	return;
     }
 

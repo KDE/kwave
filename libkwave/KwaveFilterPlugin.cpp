@@ -48,8 +48,10 @@ KwaveFilterPlugin::KwaveFilterPlugin(PluginContext &context)
 //***************************************************************************
 KwaveFilterPlugin::~KwaveFilterPlugin()
 {
-    if (!m_progress) delete m_progress;
+    if (m_progress) m_progress->deleteLater();
     m_progress = 0;
+    if (m_confirm_cancel) m_confirm_cancel->deleteLater();
+    m_confirm_cancel = 0;
 }
 
 //***************************************************************************
@@ -215,13 +217,14 @@ void KwaveFilterPlugin::run(QStringList params)
 
     dispatcher->unlock();
 
+    // cleanup
     delete arts_sink;
-    if (m_progress) m_progress->deleteLater();
-    m_progress = 0;
-    if (m_confirm_cancel) m_confirm_cancel->deleteLater();
-    m_confirm_cancel = 0;
-
     if (undo_guard) delete undo_guard;
+
+    m_pause  = false;
+    m_stop   = false;
+    m_listen = false;
+    
     close();
 }
 

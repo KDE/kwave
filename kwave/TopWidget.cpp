@@ -802,7 +802,7 @@ int TopWidget::saveFile()
 //***************************************************************************
 int TopWidget::saveFileAs(bool selection)
 {
-    int res;
+    int res = 0;
     ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
 

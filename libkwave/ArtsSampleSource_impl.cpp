@@ -41,7 +41,7 @@ ArtsSampleSource_impl::ArtsSampleSource_impl(SampleReader *rdr)
 //***************************************************************************
 void ArtsSampleSource_impl::calculateBlock(unsigned long samples)
 {
-    unsigned long i;
+    unsigned long i = 0;
     sample_t sample = 0;
 	
     if (m_reader && !(m_reader->eof())) {

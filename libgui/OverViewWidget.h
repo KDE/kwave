@@ -8,7 +8,7 @@
 #include <qtimer.h>
 #include <qframe.h>
 #include <kselect.h>
-#include <ktopwidget.h>
+//#include <ktopwidget.h>
 #include <kbuttonbox.h>
 #include <kbutton.h>
 

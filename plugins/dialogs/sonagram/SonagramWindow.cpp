@@ -35,7 +35,7 @@
 //extern char *mstotimec (int ms);
 
 //****************************************************************************
-SonagramWindow::SonagramWindow(QString *name)
+SonagramWindow::SonagramWindow(const QString &name)
 :KTMainWindow()
 {
     debug("SonagramWindow::SonagramWindow(): start"); // ###
@@ -120,13 +120,11 @@ SonagramWindow::SonagramWindow(QString *name)
     setView(mainwidget);
     setStatusBar(status);
     setMenu(bar);
-    QString *windowname = new QString(
-			      QString(i18n("Sonagram of ")) +
-			      QString(name->data()));
-    ASSERT(windowname);
-    if (!windowname) return ;
 
-    setCaption(windowname->data());
+    QString windowname(i18n("Sonagram of "));
+    windowname += name;
+
+    setCaption(windowname.data());
     resize (480, 300);
     debug("SonagramWindow::SonagramWindow(): end"); // ###
 }
@@ -367,6 +365,8 @@ void SonagramWindow::createImage()
 //****************************************************************************
 SonagramWindow::~SonagramWindow()
 {
+    debug("SonagramWindow::~SonagramWindow()"); // ###
+
 //    if (data) {
 //	for (int i = 0; i < x; i++)
 //	    if (data[i]) delete data[i];

@@ -1,6 +1,7 @@
 #ifndef _CURVE_WIDGET_H_
 #define _CURVE_WIDGET_H_ 1
 
+#include <qstrlist.h>
 #include <qwidget.h>
 #include <qpainter.h>
 
@@ -11,7 +12,6 @@ class QPopupMenu;
 class Point;
 class QPixmap;
 class QDir;
-class QStrList;
 
 class CurveWidget : public QWidget
 {
@@ -63,7 +63,7 @@ private:
     QPainter p;
     QPixmap *pixmap;          //pixmap to be blitted to screen
     QDir *presetDir;        //directory for Presets
-    QStrList *namelist;
+    QStrList namelist;
 
     bool down;
     int knobcount;

@@ -9,7 +9,7 @@ SRC_PREFIX 	 = ${PACKAGE}
 SUBDIRS  	 = libgui src plugins po doc
 
 CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
-DISTCLEANFILES 	 = config.log
+DISTCLEANFILES 	 = config.log ${CLEANFILES}
 
 configure.in: VERSION
 	touch configure.in

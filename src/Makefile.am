@@ -45,6 +45,7 @@ BUILTSOURCES=\
  PitchContainer.moc.cpp\
  PitchWidget.moc.cpp\
  PitchWindow.moc.cpp\
+ PluginManager.moc.cpp\
  ProgressDialog.moc.cpp\
  SignalManager.moc.cpp\
  SignalWidget.moc.cpp\
@@ -63,6 +64,7 @@ kwave_SOURCES =\
  PitchContainer.cpp\
  PitchWidget.cpp\
  PitchWindow.cpp\
+ PluginManager.cpp\
  ProgressDialog.cpp\
  SignalManager.cpp\
  SignalWidget.cpp\
@@ -123,3 +125,4 @@ uninstall-local:
 # dependencies for moc files
 %moc.cpp: %h
 	${MOC} -o $@ $<
+

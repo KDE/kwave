@@ -132,11 +132,10 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
 
     presetDir->setNameFilter ("*.curve");
 
-    namelist = (QStrList *)presetDir->entryList();
-    ASSERT(namelist);
-    if (!namelist) return;
+//    namelist = presetDir->encodedEntryList();
+    namelist = presetDir->entryList();
 
-    for (char *tmp = namelist->first(); tmp; tmp = namelist->next()) {
+    for (const char *tmp = namelist.first(); tmp; tmp = namelist.next()) {
 	char buf[strlen(tmp) - 5];
 	strncpy (buf, tmp, strlen(tmp) - 6);
 	buf[strlen(tmp) - 6] = 0;
@@ -224,12 +223,10 @@ void CurveWidget::savePreset()
 //****************************************************************************
 void CurveWidget::loadPreset(int num)
 {
-    ASSERT(namelist);
     ASSERT(presetDir);
-    if (!namelist) return;
     if (!presetDir) return;
 
-    char *name = namelist->at(num);
+    char *name = namelist.at(num);
 
     FileLoader loader (presetDir->absFilePath(name));
 

@@ -213,7 +213,7 @@ void MenuManager::setItemEnabled(const char *uid, bool enable)
 {
     ASSERT(menu_root);
 
-    debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
+//    debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
     MenuNode *node = (menu_root) ? menu_root->findUID(uid) : 0;
     if (node) node->setEnabled(enable);
     else warning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",

@@ -20,10 +20,6 @@
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
-#include <libkwave/Plugin.h>      // ### for "executePlugin"
-#include <dlfcn.h>                // ###
-#include "libgui/KwavePlugin.h"   // ###
-#include "libgui/PluginContext.h" // ###
 
 #include "sampleop.h"
 
@@ -31,6 +27,7 @@
 #include "ClipBoard.h"
 #include "MainWidget.h"
 #include "TopWidget.h"
+#include "PluginManager.h"
 
 extern Global globals;
 
@@ -57,7 +54,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     mainwidget = 0;
     menu = 0;
     menu_bar = 0;
-    name = 0;
+    signalName = "";
     saveDir = 0;
     status_bar = 0;
 
@@ -68,6 +65,17 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     menu = new MenuManager(this, *menu_bar);
     ASSERT(menu);
     if (!menu) return;
+
+    plugin_manager = new PluginManager(*this);
+    ASSERT(plugin_manager);
+    if (!plugin_manager) return;
+    if (!plugin_manager->isOK()) {
+	delete plugin_manager;
+	plugin_manager=0;
+	return;
+    }
+    connect(plugin_manager, SIGNAL(sigCommand(const char *)),
+            this, SLOT(executeCommand(const char *)));
 
     status_bar = new KStatusBar(this);
     ASSERT(status_bar);
@@ -147,19 +155,22 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     // Find out the width for which the menu bar would only use
     // one line. This is tricky because sizeHint().width() just
     // returns -1 :-(     -> just try and find out...
-    int wmax = w*3;
-    int wmin = wmax;
-    int hmin = 0xFFFFFF;
-    for (w=10; w < wmax; w+=10) {
+    int wmax = w*10;
+    int wmin = w;
+    int hmin = menu_bar->heightForWidth(wmax);
+    while (wmax-wmin > 5) {
+	w = (wmax + wmin) / 2;
 	int mh = menu_bar->heightForWidth(w);
-	if (mh < hmin) {
+	if (mh > hmin) {
 	    wmin = w;
+	} else {
+	    wmax = w;
 	    hmin = mh;
 	}
     }
 
     // set a nice initial size
-    w = wmin;
+    w = wmax;
     w = max(w, mainwidget->minimumSize().width());
     w = max(w, mainwidget->sizeHint().width());
     h = max(mainwidget->sizeHint().height(), w*6/10);
@@ -175,10 +186,11 @@ bool TopWidget::isOK()
     ASSERT(menu_bar);
     ASSERT(mainwidget);
     ASSERT(dropZone);
+    ASSERT(plugin_manager);
     ASSERT(status_bar);
 
     return ( menu && menu_bar && mainwidget &&
-             dropZone && status_bar );
+             dropZone && plugin_manager && status_bar );
 }
 
 //*****************************************************************************
@@ -187,10 +199,12 @@ TopWidget::~TopWidget()
 //    debug("TopWidget::~TopWidget()");
     ASSERT(KApplication::getKApplication());
 
-    // inform all plugins and client windows that we close now
-    emit sigClosed();
-
+    // close the current file
     closeFile();
+
+    // close all plugins and the plugin manager itself
+    if (plugin_manager) delete plugin_manager;
+    plugin_manager = 0;
 
     KTMainWindow::setCaption(0);
     if (caption) delete[] caption;
@@ -208,8 +222,7 @@ TopWidget::~TopWidget()
     if (menu_bar) delete menu_bar;
     menu_bar=0;
 
-    if (name) delete[] name;
-    name=0;
+    signalName = "";
 
     if (saveDir) delete saveDir;
     saveDir=0;
@@ -220,144 +233,6 @@ TopWidget::~TopWidget()
     app.closeWindow(this);
 
 //    debug("TopWidget::~TopWidget(): done.");
-}
-
-//**********************************************************
-void TopWidget::executePlugin(const char *name, QStrList *params)
-{
-    QString command;
-
-    /* find the plugin in the global plugin list */
-    unsigned int index = 0;
-    bool found = false;
-    for (index=0; globals.dialogplugins[index]; index++) {
-	Plugin *p = globals.dialogplugins[index];
-	if (strcmp(name, p->getName()) == 0) {
-	    found=true;
-	    break;
-	}
-    }
-
-    /* show a warning and abort if the plugin was not found */
-    if ((!found) || (globals.dialogplugins[index] == 0)) {
-	char message[256];
-	
-	snprintf(message, 256, i18n("oops, plugin '%s' is unknown !"), name);
-	KMsgBox::message(this,
-	    i18n("error on loading plugin"),
-	    (const char *)&message,
-	    KMsgBox::EXCLAMATION
-	);
-	return;
-    }
-
-    /* try to get the file handle of the plugin's binary */
-    void *handle = dlopen(globals.dialogplugins[index]->getFileName(),
-	RTLD_NOW);
-    if (!handle) {
-	char message[256];
-
-	snprintf(message, 256, i18n(
-	    "unable to load the file \n'%s'\n that contains the plugin '%s' !"),
-	    globals.dialogplugins[index]->getFileName(), name
-	);
-	KMsgBox::message(this,
-	    i18n("error on loading plugin"),
-	    (const char *)&message,
-	    KMsgBox::EXCLAMATION
-	);
-	return;
-    }
-
-    KwavePlugin *(*plugin_loader)(PluginContext *c) = 0;
-
-#ifdef HAVE_CPLUS_MANGLE_OPNAME
-    // would be fine, but needs libiberty
-    const char *sym=cplus_mangle_opname("load(PluginContext *)",0);
-#else
-    // hardcoded, fails on some systems :-(
-    const char *sym = "load__FR13PluginContext";
-#endif
-
-    plugin_loader = (KwavePlugin *(*)(PluginContext *))dlsym(handle, sym);
-    ASSERT(plugin_loader);
-    if (plugin_loader) {
-	PluginContext *context = new PluginContext();
-	ASSERT(context);
-	if (context) {
-	    // fill the context structure
-	    context->kwave_app = &app;
-	    context->label_manager = 0; // ###
-	    context->menu_manager = menu;
-	    context->top_widget = this;
-	    context->signal_manager =
-		mainwidget ? mainwidget->getSignalManager() : 0;
-	    context->handle = handle;
-
-	    KwavePlugin *plugin = (*plugin_loader)(context);
-	    ASSERT(plugin);
-	    if (plugin) {
-		// now the plugin is present and loaded
-		QStrList *last_params = 0;
-
-		if (params) {
-		    // parameters were specified -> call directly
-		    // without setup dialog
-		    debug("TopWidget: starting plugin"); // ###
-		    int result = plugin->start(*params);
-		    debug("TopWidget: result: %d", result);// ###
-		    if (result >= 0) {
-			debug("TopWidget: executing plugin"); // ###
-			plugin->execute(*params);
-			debug("TopWidget: execute plugin done"); // ###
-
-			// now it's the the task of the plugin's thread
-			// to clean up after execution
-			plugin = 0;
-			handle = 0;
-			context = 0;
-		    };
-		} else {
-	            // call the plugin's setup function
-		    params = plugin->setup(last_params);
-		
-		    if (params) {
-			// we have a non-zero parameter list, so
-			// the setup function has not been aborted.
-			// Now we can create a command string and
-			// emit a new command.
-			
-			// We DO NOT call the plugin's "execute"
-			// function directly, as it should be possible
-			// to record all function calls in the
-			// macro recorder
-			
-			command = "plugin:execute(";
-			command += name;
-			for (unsigned int i=0; i < params->count(); i++) {
-			    command += ", ";
-			    command += params->at(i);
-			}
-			delete params;
-			command += ")";
-		    } else {
-			// aborted: delete the plugin
-			// (this also closes the handle, so set it to 0)
-			delete plugin;
-			handle = 0;
-		    }
-		}
-	    } else {
-		// plugin is null, out of memory or not found
-		warning("plugin = null");
-		delete context;
-	    }
-	}
-    } else warning("%s", dlerror());
-
-    if (handle) dlclose(handle);
-
-    if (!command.isNull()) emit sigCommand(command);
 }
 
 //*****************************************************************************
@@ -384,7 +259,8 @@ void TopWidget::executeCommand(const char *command)
 	}
 
 	debug("TopWidget::executeCommand(): loading plugin '%s'", name);
-	executePlugin(name, params);
+	ASSERT(plugin_manager);
+	if (plugin_manager) plugin_manager->executePlugin(name, params);
     CASE_COMMAND("plugin:execute")
 	Parser parser(command);
 	QStrList params;
@@ -400,7 +276,8 @@ void TopWidget::executeCommand(const char *command)
 	debug("TopWidget::executeCommand(): executing plugin '%s'",
 	    name.data());
 #endif
-	executePlugin(name.data(), &params);
+	ASSERT(plugin_manager);
+	if (plugin_manager) plugin_manager->executePlugin(name.data(), &params);
 #ifdef DEBUG
 	debug("TopWidget::executeCommand(): returned from plugin '%s'",
 	    name.data());
@@ -465,8 +342,8 @@ void TopWidget::parseCommands(const char *str)
 void TopWidget::revert()
 {
     ASSERT(mainwidget);
-    if (name && mainwidget) {
-	mainwidget->setSignal(name);
+    if (signalName.length() && mainwidget) {
+	mainwidget->setSignal(signalName);
 	bits = mainwidget->getBitsPerSample();
 	updateMenu();
     }
@@ -513,8 +390,7 @@ bool TopWidget::closeFile()
     //  return false;
     //    }
 
-    if (name) delete[] name;
-    name = 0;
+    signalName = "";
     setCaption(0);
     updateMenu();
 
@@ -531,10 +407,10 @@ int TopWidget::loadFile(const char *filename, int type)
 
     closeFile();    // close the previous file
 
-    name = duplicateString(filename);
+    signalName = filename;
     if (mainwidget) mainwidget->setSignal(filename, type);
-    app.addRecentFile(name);
-    setCaption(name);
+    app.addRecentFile(signalName);
+    setCaption(duplicateString(signalName));
 
     bits = (mainwidget) ? mainwidget->getBitsPerSample() : 0;
     updateMenu();
@@ -591,9 +467,9 @@ void TopWidget::saveFile()
     ASSERT(mainwidget);
     if (!mainwidget) return;
 
-    if (name) {
-	mainwidget->saveSignal(name, bits, 0, false);
-	setCaption(name);
+    if (signalName.length()) {
+	mainwidget->saveSignal(signalName, bits, 0, false);
+	setCaption(duplicateString(signalName));
 	updateMenu();
     } else saveFileAs (false);
 }
@@ -611,15 +487,15 @@ void TopWidget::saveFileAs(bool selection)
 
     if (dialog) {
 	dialog->exec();
-	name = duplicateString (dialog->selectedFile());
-	if (name) {
+	signalName = dialog->selectedFile();
+	if (signalName.length()) {
 	    if (saveDir) delete saveDir;
 	    saveDir = new QDir(dialog->dirPath());
 	    ASSERT(saveDir);
 
-	    mainwidget->saveSignal(name, bits, 0, selection);
-	    setCaption (name);
-	    app.addRecentFile(name);
+	    mainwidget->saveSignal(signalName, bits, 0, selection);
+	    setCaption(duplicateString(signalName));
+	    app.addRecentFile(signalName);
 	    updateMenu();
 	}
 	delete dialog;
@@ -632,6 +508,12 @@ void TopWidget::setSignal(const char *newname)
     ASSERT(newname);
     if (!newname) return;
     loadFile(newname, WAV);
+}
+
+//*****************************************************************************
+const QString &TopWidget::getSignalName()
+{
+    return signalName;
 }
 
 //*****************************************************************************

@@ -97,7 +97,6 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     markertype = 0;
     offset = 0;
     pixmap = 0;
-    playing = false;
     playpointer = -1;
     redraw = false;
     select = 0;
@@ -442,13 +441,11 @@ void SignalWidget::playback_setOp(int op)
 	switch (op) {
 	    case PLAY:
 	    case LOOP:
-		playing = true;
 		playback_startTimer();
 		break;
 	    case PSTOP:
 		ASSERT(timer);
 		if (timer) timer->stop();
-		playing = false;
 		playpointer = -1;
 //		update_layer[LAYER_MARKERS] = true;
 		repaint(false);
@@ -457,12 +454,13 @@ void SignalWidget::playback_setOp(int op)
 		{
 		    ASSERT(timer);
 		    if (timer) timer->stop();
-		    playing = false;
+		
 		    int lmarker = signalmanage->getPlayPosition();
 		    int rmarker = signalmanage->getRMarker();
-
+		    debug("SignalWidget::playback_setOp: l=%d, r=%d", lmarker,rmarker);
 		    if (rmarker < lmarker) rmarker = lmarker;
 		    setRange(lmarker, rmarker);
+		
 		    playpointer = -1;
 //		    update_layer[LAYER_MARKERS] = true;
 		    repaint(false);
@@ -921,7 +919,10 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
     // abort if no signal is loaded
     if (!signalmanage) return;
 
-    if ( (!playing) && (e->button() == LeftButton) ) {
+    // ignore all mouse press event in playback mode
+    if (signalmanage->isPlaying()) return;
+
+    if (e->button() == LeftButton) {
 	int x = e->pos().x();
 	down = true;
 	(checkPosition(x)) ? select->grep(x) : select->set(x, x);
@@ -940,6 +941,9 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 
     // abort if no signal is loaded
     if (!signalmanage) return;
+
+    // ignore all mouse release events in playback mode
+    if (signalmanage->isPlaying()) return;
 
     if (down) {
 	int x = e->pos().x();
@@ -1432,8 +1436,10 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 //	t_elapsed); // ###
 //#endif
 
-    // restart the timer for refreshing the playpointer
-    if (playing) playback_startTimer();
+    if (signalmanage) {
+	// restart the timer for refreshing the playpointer
+	if (signalmanage->isPlaying()) playback_startTimer();
+    }
 
 }
 

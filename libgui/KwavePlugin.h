@@ -93,7 +93,14 @@ public:
      * Returns the parent widget of the plugin. This normally should be
      * a TopWidget of the Kwave main program.
      */
-    virtual QWidget* getParentWidget();
+    QWidget* getParentWidget();
+
+    /**
+     * Returns the name of the current signal. This can be used to set the
+     * caption of a plugin's main window. If no signal is currently loaded
+     * the returned string is empty.
+     */
+    const QString &getSignalName();
 
     /**
      * Returns the left and right sample of the current selection
@@ -142,7 +149,9 @@ public:
      */
     static void ms2string(char *buf, unsigned int bufsize, double ms);
 
-// protected:
+protected:
+
+    friend class PluginManager;
 
     /**
      * Gets called to execute the plugin's run function in a separate thread.
@@ -150,9 +159,14 @@ public:
      * @return an error code if the execution failed or zero if everything
      *         was ok.
      */
-    friend class TopWidget;
     int execute(QStrList &params);
-    	
+
+    /**
+     * Returns the handle to the dynamically loaded shared object.
+     * For internal usage only!
+     */
+    void *getHandle();
+        	
 signals:
     void sigParentWidgetDestroyed();
 
@@ -160,8 +174,17 @@ signals:
 
     void sigCommand(const char *command);
 
+    /** will be emitted in the plugin's destructor */
+    void sigClosed(KwavePlugin *p, bool remove);
+
 public slots:
-    virtual void close();
+
+    /**
+     * Called to close the plugin. This will be called from the plugin
+     * manager and can as well be used from inside the plugin if it
+     * wishes to close itself.
+     */
+    void close();
 
 private:
     PluginContext &context;

@@ -13,13 +13,22 @@ class SonagramPlugin: public KwavePlugin
 public:
     /** Constructor */
     SonagramPlugin(PluginContext &c);
+
+    /** Destructor */
+    virtual ~SonagramPlugin();
     virtual QStrList *setup(QStrList *previous_params);
     virtual int start(QStrList &params);
 
-public slots:
-    virtual void close();
+private slots:
+
+    /**
+     * Connected to the SonagramWindow's "destroyed()" signal.
+     * @see #sonagram_window
+     */
+    void windowClosed();
 
 private:
+    /** the main view of the plugin, a SonagramWindow */
     SonagramWindow *sonagram_window;
 
 };

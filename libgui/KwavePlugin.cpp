@@ -35,10 +35,6 @@
 KwavePlugin::KwavePlugin(PluginContext &c)
     :context(c)
 {
-    if (context.top_widget) {
-	QObject::connect(context.top_widget, SIGNAL(sigClosed()),
-	                 this, SLOT(close()));
-    }
 }
 
 //***************************************************************************
@@ -46,13 +42,9 @@ KwavePlugin::~KwavePlugin()
 {
     debug("KwavePlugin::~KwavePlugin()");
 
-    if (context.top_widget) {
-	QObject::disconnect(context.top_widget, SIGNAL(sigClosed()),
-	                    this, SLOT(close()));
-    }
-
-//    if (context.handle) dlclose(context.handle);
-//    context.handle=0;
+    // inform our owner that we close. This allows the plugin to
+    // delete itself
+    close();
     debug("KwavePlugin::~KwavePlugin(), done.");
 }
 
@@ -85,13 +77,20 @@ int KwavePlugin::run(QStrList &params)
 //***************************************************************************
 void KwavePlugin::close()
 {
-    debug("void KwavePlugin::close()");
+    debug("void KwavePlugin::close() [slot]");
+    emit sigClosed(this, true);
 }
 
 //***************************************************************************
-QWidget* KwavePlugin::getParentWidget()
+QWidget *KwavePlugin::getParentWidget()
 {
-    return (QWidget *)context.top_widget;
+    return &(context.top_widget);
+}
+
+//***************************************************************************
+const QString &KwavePlugin::getSignalName()
+{
+    return (context.top_widget.getSignalName());
 }
 
 //***************************************************************************
@@ -117,6 +116,12 @@ int KwavePlugin::getRate()
 {
     ASSERT(context.signal_manager);
     return context.signal_manager ? context.signal_manager->getRate() : 0;
+}
+
+//***************************************************************************
+void *KwavePlugin::getHandle()
+{
+    return context.handle;
 }
 
 //***************************************************************************

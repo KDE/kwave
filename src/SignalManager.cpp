@@ -1109,7 +1109,6 @@ void *playThread(struct Play *par)
 
 
     par->manage->msg[stopprocess] = true;
-    par->manage->msg[samplepointer] = 0;
     par->manage->msg[processid] = 0;
 
     if (par) delete par;
@@ -1142,7 +1141,7 @@ void SignalManager::stopplay()
     QTimer timeout;
     timeout.start(5000, true);
     while (msg[processid] != 0) {
-	sched_yield(); // ###
+	sched_yield();
 	// wait for termination
 	if (!timeout.isActive()) {
 	    warning("SignalManager::stopplay(): TIMEOUT");

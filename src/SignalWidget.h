@@ -352,7 +352,6 @@ private:
     double zoom;                     //number of samples represented by 1
     //vertical line on the screen
     int playpointer, lastplaypointer;
-    int playing;                  //flag if playing task is running...
     int redraw;                           //flag for redrawing pixmap
     MouseMark *select;
     SignalManager *signalmanage;

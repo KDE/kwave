@@ -20,7 +20,7 @@ class SonagramWindow : public KTMainWindow
 {
     Q_OBJECT
 public:
-    SonagramWindow(QString *);
+    SonagramWindow(const QString &);
     ~SonagramWindow();
     void setSignal(double*, int, int, int, int);
 

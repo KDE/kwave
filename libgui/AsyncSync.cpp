@@ -65,7 +65,7 @@ AsyncSync::~AsyncSync()
 }
 
 //*****************************************************************************
-void AsyncSync::SyncHandler()
+void AsyncSync::SyncHandler(QGList &params)
 {
     // First remove message from pipe ( the writer only wrote 1 byte )
     static char buf;
@@ -74,11 +74,11 @@ void AsyncSync::SyncHandler()
     }
 
     // Now emit activated signal, and let user decide what to do
-    emit Activated();
+    emit Activated(params);
 }
 
 //*****************************************************************************
-void AsyncSync::AsyncHandler()
+void AsyncSync::AsyncHandler(QGList &params)
 {
     // Just send a single byte of data;
     static const char *buf = "";

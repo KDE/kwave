@@ -24,6 +24,7 @@
 
 #include <qobject.h>
 
+class QGList;
 class QSocketNotifier;
 
 class AsyncSync : public QObject
@@ -48,7 +49,7 @@ protected slots :
      * Slot called synchronously by the X server in response to the
      * asynchronous file descriptor it is watching having data ready.
      */
-    virtual void SyncHandler();
+    virtual void SyncHandler(QGList &params);
 
 public slots :
 
@@ -57,14 +58,14 @@ public slots :
      * than write to pipe, which will trigger the X server to respond
      * to the file descriptor, and synchronously call the SyncHandler
      */
-    virtual void AsyncHandler();
+    virtual void AsyncHandler(QGList &params);
 
 signals :
 
     /**
      * Signal emitted when the sync handler gets called
      */
-    void Activated();
+    void Activated(QGList &params);
 
 private :
 

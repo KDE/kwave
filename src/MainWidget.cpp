@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <math.h>
+#include <stdlib.h>
 
 #include <qaccel.h>
 #include <qframe.h>
@@ -28,6 +29,7 @@
 
 #include <kapp.h>
 #include <kbuttonbox.h>
+#include <kstatusbar.h>
 
 #include <libkwave/String.h>
 #include <libkwave/DynamicLoader.h>

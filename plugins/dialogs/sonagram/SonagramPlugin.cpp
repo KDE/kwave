@@ -20,6 +20,12 @@ SonagramPlugin::SonagramPlugin(PluginContext &c)
 }
 
 //***************************************************************************
+SonagramPlugin::~SonagramPlugin()
+{
+    if (sonagram_window) delete sonagram_window;
+}
+
+//***************************************************************************
 QStrList *SonagramPlugin::setup(QStrList *previous_params)
 {
     QStrList *result = 0;
@@ -45,24 +51,29 @@ int SonagramPlugin::start(QStrList &params)
 {
     debug("--- SonagramPlugin::start() ---");
 
-    QString n("sonagram of something...");
-    sonagram_window = new SonagramWindow(&n);
+    sonagram_window = new SonagramWindow(getSignalName());
     ASSERT(sonagram_window);
     if (sonagram_window) {
+	connect(sonagram_window, SIGNAL(destroyed()),
+	        this, SLOT(windowClosed()));
+
 	sonagram_window->show();
 	// delete sono;
     }
 
     debug("### SonagramPlugin::run() done. ###");
+
     return 0;
 }
 
 //***************************************************************************
-void SonagramPlugin::close()
+void SonagramPlugin::windowClosed()
 {
-    debug("void SonagramPlugin::close()");
-    if (sonagram_window) delete sonagram_window;
+    // the SonagramWindow closes itself !
     sonagram_window = 0;
+
+    // close the plugin too
+    close();
 }
 
 //***************************************************************************

@@ -1,12 +1,14 @@
 #ifndef _TOP_WIDGET_H_
 #define _TOP_WIDGET_H_ 1
 
+#include <qlist.h>
 #include <ktmainwindow.h>
 
 class QCloseEvent;
 class QStrList;
 class MenuManager;
 class MainWidget;
+class PluginManager;
 class SignalManager;
 class KDNDDropZone;
 class KStatusBar;
@@ -32,15 +34,30 @@ public:
      */
     virtual bool isOK();
 
-    ~TopWidget ();
+    /**
+     * Destructor.
+     */
+    ~TopWidget();
 
-//    void closeEvent(QCloseEvent *e);
+    /**
+     * Returns the reference to the Kwave application
+     */
+    inline KwaveApp &getKwaveApp() { return app; };
+
     void setSignal(const char *name);
+
+    /**
+     * Returns a reference to the current name of the signal. If no signal is
+     * loaded the string is zero-length.
+     */
+    const QString &getSignalName();
+
     void setSignal(SignalManager *);
     void parseCommands(const char *);
     void loadBatch(const char *);
 
 public slots:
+
     void executeCommand(const char *command);
 
     void dropEvent (KDNDDropZone *);
@@ -52,11 +69,6 @@ signals:
      * Tells this TopWidget's parent to execute a command
      */
     void sigCommand(const char *command);
-
-    /**
-     * Informs all plugins and client windows that this window has closed
-     */
-    void sigClosed();
 
 protected:
 
@@ -100,15 +112,14 @@ protected:
     void resolution (const char *str);
 
 private:
-    /** intermediate, should go into the PluginManager that is not
-        written yet... */
-    void executePlugin(const char *name, QStrList *params);
-
     /** reference to the main kwave application */
     KwaveApp &app;
 
     /** reference to the application's list of recent files */
     QStrList &recentFiles;
+
+    /** our internal plugin manager */
+    PluginManager *plugin_manager;
 
     /** caption of the main window */
     char *caption;
@@ -122,7 +133,8 @@ private:
 
     KDNDDropZone *dropZone;
 
-    char *name;           //filename
+    /** Name of the current signal or file. Zero-Length if nothing loaded */
+    QString signalName;
 
     /** the window's menu bar */
     KMenuBar *menu_bar;

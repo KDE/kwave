@@ -27,15 +27,30 @@ class LabelManager;
 class PluginContext
 {
 public:
-    KwaveApp      *kwave_app;
+    /** Constructor */
+    PluginContext(
+	KwaveApp      &app,
+	LabelManager  *label_mgr,
+	MenuManager   *menu_mgr,
+	TopWidget     &topwidget,
+	SignalManager *signal_mgr,
+	void *mod_handle
+    )
+    :kwave_app(app),
+    label_manager(label_mgr),
+    menu_manager(menu_mgr),
+    top_widget(topwidget),
+    signal_manager(signal_mgr)
+    {};
+    KwaveApp      &kwave_app;
     LabelManager  *label_manager;
     MenuManager   *menu_manager;
-    TopWidget     *top_widget;
+    TopWidget     &top_widget;
     SignalManager *signal_manager;
 
     void *handle;
 };
 
- #endif // _PLUGIN_CONTEXT_H_
+#endif // _PLUGIN_CONTEXT_H_
 
 /* end of libgui/PluginContext.h */

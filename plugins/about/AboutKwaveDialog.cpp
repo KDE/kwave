@@ -15,12 +15,16 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <kaboutdialog.h>
-#include <kapp.h>
-#include <kstddirs.h>
 #include <qlabel.h>
 #include <qframe.h>
+#include <qstring.h>
 #include <qtextview.h>
+
+#include <kaboutdialog.h>
+#include <kapp.h>
+#include <kglobal.h>
+#include <klocale.h>
+#include <kurllabel.h>
 
 #include "AboutKwaveDialog.h"
 #include "KwaveAboutContainer.h"
@@ -30,8 +34,6 @@
 AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
     :KwaveAboutDialogBase(parent,"kwaveabout",true)
 {
-    /** @todo : handle resize event properly */
-    setFixedSize(640,480);
 
     /* get the about data defined in main() */
     const KAboutData *about_data = KGlobal::instance()->aboutData();
@@ -41,18 +43,11 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
     QString kwave_version = about_data->programName()+
         " "+about_data->version();
     QString header_text = "<h2>"+kwave_version+
-        " (Using KDE "+kde_version+")</h2>";
+        i18n(" (Using KDE %1)").arg(kde_version)+"</h2>";
     header->setText(header_text);
 
-    /* this container is just a dummy to make the url clickable */
-    KAboutContainer* home = new KwaveAboutContainer(kwave_url_frame);
-    home->setFrameStyle(QFrame::NoFrame);
-    home->setFrameShadow(QFrame::Plain);
-    home->addPerson("","",about_data->homepage(),"");
-
-    /* the  logo */
-    LogoWidget* logo = new LogoWidget(logoframe);
-    logo->setMinimumSize(logoframe->size());
+    /* set the url of the kwave homepage */
+    kwave_url_label->setText(about_data->homepage());
 
     /* the frame containing the developer information */
     QValueList<KAboutPerson>::ConstIterator it;
@@ -68,7 +63,7 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
     for (it = about_data->credits().begin();
         it != about_data->credits().end(); ++it){
         contrib->addPerson((*it).name(),(*it).emailAddress(),
-            (*it).webAddress(),(*it).task());
+            (*it).webAddress(),i18n((*it).task()));
     }
 
     /* the frame containing the license */

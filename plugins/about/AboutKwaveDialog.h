@@ -18,11 +18,10 @@
 #ifndef _ABOUT_KWAVE_DIALOG_H_
 #define _ABOUT_KWAVE_DIALOG_H_
 
-#include <kaboutdata.h>
-#include <kdialog.h>
-
+#include <qobject.h>
 #include "KwaveAboutDialogBase.uih.h"
-#include "LogoWidget.h"
+
+class QWidget;
 
 /**
  * @class AboutKwaveDialog

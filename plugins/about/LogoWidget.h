@@ -34,7 +34,7 @@ class LogoWidget : public QWidget
 
 public:
     /** Constructor */
-    LogoWidget(QWidget *parent);
+    LogoWidget(QWidget *parent, const char *name);
 
     /** Destructor */
     virtual ~LogoWidget();

@@ -1,5 +1,5 @@
 /***************************************************************************
-         AboutPlugin.cpp  -  plugin that shows the Kwave's about dialog
+        AboutPlugin.cpp  -  plugin that shows the Kwave's about dialog
                              -------------------
     begin                : Sun Oct 29 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -25,8 +25,7 @@
 #include "AboutPlugin.h"
 #include "AboutKwaveDialog.h"
 
-
-KWAVE_PLUGIN(AboutPlugin,"about","Thomas Eschenbacher");
+KWAVE_PLUGIN(AboutPlugin,"about","Ralf Waspe");
 
 //***************************************************************************
 AboutPlugin::AboutPlugin(PluginContext &c)
@@ -51,4 +50,3 @@ int AboutPlugin::start(QStringList &/*params*/)
 
 //***************************************************************************
 //***************************************************************************
-/* end of AboutPlugin.cpp */

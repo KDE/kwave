@@ -31,8 +31,8 @@
 #include "LogoWidget.h"
 
 //**********************************************************
-LogoWidget::LogoWidget(QWidget *parent)
-    :QWidget(parent)
+LogoWidget::LogoWidget(QWidget *parent, const char *name)
+    :QWidget(parent, name)
 {
     for (int i=0; i < MAXSIN; m_deg[i++] = 0);
 

@@ -76,6 +76,8 @@ PlayBackALSA::~PlayBackALSA()
 //***************************************************************************
 int PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params, unsigned int bits)
 {
+//     qDebug("PlayBackALSA::setFormat(..., bits=%u)", bits);
+
     // round the number of effectively used bits up to whole bytes
     if (bits & 0x03) bits = (bits & ~0x3) + 8;
 
@@ -119,9 +121,33 @@ int PlayBackALSA::setFormat(snd_pcm_hw_params_t *hw_params, unsigned int bits)
 	    m_format = SND_PCM_FORMAT_UNKNOWN;
 	    m_bytes_per_sample = 0;
     }
+    Q_ASSERT(m_bits);
+    Q_ASSERT(m_bytes_per_sample);
+    Q_ASSERT(m_format != SND_PCM_FORMAT_UNKNOWN);
+
+    int err;
+
+    // check if the format really is okay
+    if (m_format == SND_PCM_FORMAT_UNKNOWN) {
+	qWarning("PlayBackALSA::setFormat(): %u bit is not supported", bits);
+	return -EINVAL;
+    }
+
+    err = snd_pcm_hw_params_test_format(m_handle, hw_params, m_format);
+    Q_ASSERT(!err);
+    if (err) {
+	qWarning("PlayBackALSA::setFormat(): %u bit is not supported", bits);
+	m_bits = 0;
+	m_format = SND_PCM_FORMAT_UNKNOWN;
+	m_bytes_per_sample = 0;
+	return -EINVAL;
+    }
 
     // activate the settings
-    return snd_pcm_hw_params_set_format(m_handle, hw_params, m_format);
+    err = snd_pcm_hw_params_set_format(m_handle, hw_params, m_format);
+    Q_ASSERT(!err);
+
+    return err;
 }
 
 //***************************************************************************
@@ -156,7 +182,6 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     if (!rate) return -EINVAL;
     if (!channels) return -EINVAL;
     if (!bits) return -EINVAL;
-
 
     err = snd_output_stdio_attach(&output, stderr, 0);
     if (err < 0) {
@@ -363,7 +388,7 @@ QString PlayBackALSA::open(const QString &device, double rate,
     m_device_name = device;
     m_rate        = rate;
     m_channels    = channels;
-    m_bits        = bits;
+    m_bits        = 0;
     m_bufbase     = bufbase;
     m_buffer_size = 0;
     m_buffer_used = 0;
@@ -373,7 +398,7 @@ QString PlayBackALSA::open(const QString &device, double rate,
     if (m_handle) snd_pcm_close(m_handle);
     m_handle = 0;
 
-    int err = openDevice(device, (unsigned int)rate, channels, m_bits);
+    int err = openDevice(device, (unsigned int)rate, channels, bits);
     if (err) {
 	QString reason;
 	switch (err) {
@@ -402,7 +427,11 @@ QString PlayBackALSA::open(const QString &device, double rate,
     }
 
     // resize our buffer and reset it
+    Q_ASSERT(m_chunk_size);
+    Q_ASSERT(m_bytes_per_sample);
     unsigned int chunk_bytes = m_chunk_size * m_bytes_per_sample;
+    Q_ASSERT(chunk_bytes);
+    if (!chunk_bytes) return 0;
     unsigned int n = (unsigned int)(ceil((float)(1 << m_bufbase) /
                                          (float)chunk_bytes));
     if (n < 1) n = 1;

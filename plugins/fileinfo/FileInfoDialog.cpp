@@ -300,8 +300,8 @@ void FileInfoDialog::setupMpegTab()
     } else cbMpegVersion->setCurrentItem(ver);
 
     /* Bitrate in bits/s */
-    initInfo(lblMpegBitrate, cbMpegBitrate,  INF_MPEG_BITRATE);
-    int bitrate = QVariant(m_info.get(INF_MPEG_BITRATE)).toInt();
+    initInfo(lblMpegBitrate, cbMpegBitrate,  INF_BITRATE_NOMINAL);
+    int bitrate = QVariant(m_info.get(INF_BITRATE_NOMINAL)).toInt();
     if (bitrate) {
 	QString s;
 	s.setNum(bitrate / 1000);

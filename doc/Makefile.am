@@ -1,6 +1,6 @@
 
 MAINTAINERCLEANFILES = de/*.html en/*.html
-CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook de/*.html en/*.html
+CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook de/*.html en/*.html help_en-shifted.docbook
 DISTCLEANFILES = Makefile.in Makefile
 
 LANGUAGES = en de fr
@@ -11,19 +11,19 @@ DOCDIR = $(DESTDIR)${kde_htmldir}
 # --- translated html help, not needed in distribution ---
 
 de/index.html: help_de.docbook
-	cd de ; $(MEINPROC) --check ../help_de.docbook
+	cd de ; @MEINPROC@ --check ../help_de.docbook
 	rm -Rf de/common
 	mkdir -p de/common
 	cp -R ${DOCDIR}/de/common/* de/common/
 
 fr/index.html: help_fr.docbook
-	cd fr ; $(MEINPROC) --check ../help_fr.docbook
+	cd fr ; @MEINPROC@ --check ../help_fr.docbook
 	rm -Rf fr/common
 	mkdir -p fr/common
 	cp -R ${DOCDIR}/fr/common/* fr/common/
 
 it/index.html: help_it.docbook
-	cd it ; $(MEINPROC) --check ../help_it.docbook
+	cd it ; @MEINPROC@ --check ../help_it.docbook
 	rm -Rf it/common
 	mkdir -p it/common
 	cp -R ${DOCDIR}/it/common/* fr/common/
@@ -31,14 +31,14 @@ it/index.html: help_it.docbook
 # --------------------------------------------------------
 
 en/index.html: help_en.docbook
-	cd en ; $(MEINPROC) --check ../help_en.docbook
+	cd en ; @MEINPROC@ --check ../help_en.docbook
 	rm -Rf en/common
 	mkdir -p en/common
 	cp -R ${DOCDIR}/en/common/* en/common/
 	cd en/common ; mv gpl-license.html gpl-translated.html
 
 help_en.pot: help_en.docbook
-	$(XML2POT) help_en.docbook > help_en.pot
+	@XML2POT@ help_en.docbook > help_en.pot
 
 html-doc: en/index.html de/index.html fr/index.html
 
@@ -50,42 +50,42 @@ html-clean:
 # --- translated docbook online help ---
 
 help_de.po: help_en.pot
-	$(MSGMERGE) -o help_de.po help_de.po help_en.pot
+	@MSGMERGE@ -o help_de.po help_de.po help_en.pot
 
 help_fr.po: help_en.pot
-	$(MSGMERGE) -o help_fr.po help_fr.po help_en.pot
+	@MSGMERGE@ -o help_fr.po help_fr.po help_en.pot
 
 help_it.po: help_en.pot
-	$(MSGMERGE) -o help_it.po help_it.po help_en.pot
+	@MSGMERGE@ -o help_it.po help_it.po help_en.pot
+
+help_en-shifted.docbook: help_en.docbook
+	@CAT@ help_en.docbook | @EXPAND@ | @SED@ s/^[\ ]*// > help_en-shifted.docbook
 
 help_de.docbook: help_en.docbook help_en.pot
-	${MAKE} help_de.po
+	${MAKE} help_de.po help_en-shifted.docbook
 	@echo "converting german help"
-	@echo "(this takes very very long, please be patient...)"
-	@ $(PO2XML) help_en.docbook help_de.po | \
-	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g > $@
+	@PO2XML@ help_en-shifted.docbook help_de.po | \
+	@SED@ s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g > $@
 	@CHECKXML@ $@
 
 help_fr.docbook: help_en.docbook help_en.pot
-	${MAKE} help_fr.po
+	${MAKE} help_fr.po help_en-shifted.docbook
 	@echo "converting french help"
-	@echo "(this takes very very long, please be patient...)"
-	@ $(PO2XML) help_en.docbook help_fr.po | \
-	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ French\ /g > $@
+	@PO2XML@ help_en-shifted.docbook help_fr.po | \
+	@SED@ s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ French\ /g > $@
 	@CHECKXML@ $@
 
 help_it.docbook: help_en.docbook help_en.pot
-	${MAKE} help_it.po
+	${MAKE} help_it.po help_en-shifted.docbook
 	@echo "converting italian help"
-	@echo "(this takes very very long, please be patient...)"
-	@ $(PO2XML) help_en.docbook help_it.po | \
-	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ Italian\ /g > $@
+	@PO2XML@ help_en-shifted.docbook help_it.po | \
+	@SED@ s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ Italian\ /g > $@
 	@CHECKXML@ $@
 
 # --------------------------------------
 
 changes.docbook: ../CHANGES ../bin/changes-to-docbook.sh
-	cat ../CHANGES | sed s/\>\>\>//g | sed s/\<\<\<//g | \
+	@CAT@ ../CHANGES | @SED@ s/\>\>\>//g | @SED@ s/\<\<\<//g | \
 	../bin/changes-to-docbook.sh | @RECODE@ lat1..utf-8 > changes.docbook
 
 help_en.docbook: ../bin/insert-changes.sh ../VERSION ../CHANGES
@@ -93,10 +93,10 @@ help_en.docbook: ../bin/insert-changes.sh ../VERSION ../CHANGES
 	cp help_en.docbook help_en.docbook.orig
 	cat help_en.docbook.orig | \
 	../bin/insert-changes.sh  changes.docbook | \
-	awk -v newval=`date --iso` \
+	@AWK@ -v newval=`date --iso` \
 	'{ sub(/<date>.*<\/date>/, \
 	"<date>"newval"</date>", $$0); print; }' | \
-	awk -v newval=`cat ../VERSION` \
+	@AWK@ -v newval=`cat ../VERSION` \
 	'{ sub(/<releaseinfo>.*<\/releaseinfo>/, \
 	"<releaseinfo>"newval"</releaseinfo>", $$0); print; }' > \
 	help_en.docbook

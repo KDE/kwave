@@ -30,6 +30,7 @@
 #include <qdir.h>
 #include <qevent.h>
 #include <qframe.h>
+#include <qstringlist.h>
 #include <qtoolbutton.h>
 #include <qtooltip.h>
 
@@ -846,9 +847,9 @@ int TopWidget::saveFileAs(bool selection)
     ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
 
-    KwaveFileDialog dlg(":<kwave_save_dir>", CodecManager::encodingFilter(),
-        this, "Kwave save file", true, 0, "*.wav");
-    dlg.setKeepLocation(true);
+    KwaveFileDialog dlg(":<kwave_save_as>", CodecManager::encodingFilter(),
+        this, "Kwave save file", true, m_url.prettyURL(), "*.wav");
+    // dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));
     if (dlg.exec() != QDialog::Accepted) return -1;
@@ -859,8 +860,10 @@ int TopWidget::saveFileAs(bool selection)
 	QFileInfo path(name);
 	
 	// add the correct extension if necessary
-	if (path.extension(false) == "") {
+	if (!path.extension(false).length()) {
 	    QString ext = dlg.selectedExtension();
+	    QStringList extensions = QStringList::split(" ", ext);
+	    ext = extensions.first();
 	    name += ext.mid(1);
 	    path = name;
 	    url.setPath(name);

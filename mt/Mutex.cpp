@@ -30,8 +30,8 @@
 
 //***************************************************************************
 Mutex::Mutex(const char *name)
+    :m_name(name), m_locked_by(0)
 {
-    m_name = name;
     int ret = pthread_mutex_init(&m_mutex, 0);
     if (ret) qWarning("Mutex::Mutex(): mutex creation failed: %s",
 	strerror(ret));
@@ -42,14 +42,14 @@ Mutex::~Mutex()
 {
     if (locked()) {
 	qWarning("Mutex::~Mutex(): destroying locked mutex!");
-	
+
 #ifdef DEBUG
 	qDebug("pthread_self()=%08X", (unsigned int)pthread_self());
 	void *buf[256];
 	size_t n = backtrace(buf, 256);
 	backtrace_symbols_fd(buf, n, 2);
 #endif
-	
+
 	unlock();
     }
 

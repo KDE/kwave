@@ -593,19 +593,19 @@ void TopWidget::resolution(const QString &str)
 //***************************************************************************
 bool TopWidget::closeFile()
 {
-//    ASSERT(m_main_widget);
-////    if (m_main_widget) {
-////	// if this failed, the used pressed "cancel"
-////	if (!m_main_widget->closeSignal()) return false;
-////    }
-//    m_main_widget->closeSignal();
-//
-//    m_filename = "";
-//    setCaption(0);
-//    m_zoomselect->clearEdit();
-//    emit sigSignalNameChanged(m_filename);
-//    updateMenu();
-//    updateToolbar();
+    ASSERT(m_main_widget);
+//    if (m_main_widget) {
+//	// if this failed, the used pressed "cancel"
+//	if (!m_main_widget->closeSignal()) return false;
+//    }
+    m_main_widget->closeSignal();
+
+    m_filename = "";
+    setCaption(0);
+    m_zoomselect->clearEdit();
+    emit sigSignalNameChanged(m_filename);
+    updateMenu();
+    updateToolbar();
 
     return true;
 }

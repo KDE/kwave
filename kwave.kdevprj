@@ -22,7 +22,7 @@ email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
 lfv_open_groups=GNU
 make_options=-w -j1
-makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,
+makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am
 modifyMakefiles=false
 project_name=Kwave
 project_type=normal_kde
@@ -189,7 +189,7 @@ dist=true
 files=kwave/TopWidget.cpp,kwave/TopWidget.h,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/MainWidget.cpp,kwave/MainWidget.h,kwave/MouseMark.cpp,kwave/MouseMark.h,kwave/PluginManager.cpp,kwave/PluginManager.h,kwave/ProgressDialog.cpp,kwave/ProgressDialog.h,kwave/SignalManager.cpp,kwave/SignalManager.h,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/SignalWidget.cpp,kwave/SignalWidget.h,kwave/main.cpp,kwave/menus.config,kwave/Makefile.am,kwave/PlaybackController.cpp,kwave/PlaybackController.h
 install=false
 install_location=
-sub_dirs=
+sub_dirs=libgui
 type=static_library
 [kwave/MouseMark.cpp]
 dist=true
@@ -292,6 +292,10 @@ dist=true
 install=false
 install_location=
 type=HEADER
+[kwave/libgui/Makefile.am]
+files=
+sub_dirs=
+type=static_library
 [kwave/main.cpp]
 dist=true
 install=false
@@ -522,7 +526,7 @@ install=false
 install_location=
 type=HEADER
 [libgui/Makefile.am]
-files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FaderWidget.cpp,libgui/FaderWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/Menu.cpp,libgui/Menu.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/Slider.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/WidgetPlugin.h,libgui/FileProgress.h,libgui/FileProgress.cpp
+files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FaderWidget.cpp,libgui/FaderWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/Menu.cpp,libgui/Menu.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/Slider.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/KwavePlugin.cpp,libgui/KwavePlugin.h,libgui/PluginContext.h,libgui/WidgetPlugin.h,libgui/FileProgress.h,libgui/FileProgress.cpp,libgui/TrackPixmap.h,libgui/TrackPixmap.cpp
 sub_dirs=
 type=static_library
 [libgui/Menu.cpp]
@@ -641,6 +645,16 @@ install=false
 install_location=
 type=SOURCE
 [libgui/TimeLine.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+[libgui/TrackPixmap.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+[libgui/TrackPixmap.h]
 dist=true
 install=false
 install_location=

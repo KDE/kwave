@@ -1,6 +1,7 @@
 #ifndef _SCALE_WIDGET_H_
 #define _SCALE_WIDGET_H_ 1
 
+#include <qstring.h>
 #include <qwidget.h>
 
 class QPainter;
@@ -14,7 +15,7 @@ public:
     ~ScaleWidget();
     void paintText(QPainter *, int, int, int, int, char *);
     void setMaxMin(int, int);
-    void setUnit(char *);
+    void setUnit(const char *text);
     void setLogMode(bool);
     void drawLinear(QPainter *, int, int);
     void drawLog(QPainter *, int, int);
@@ -32,7 +33,10 @@ private:
 
     int low, high;       //range of display
     bool logmode;        //conditional: logarithmic mode or not
-    char *unittext;      //string containing the name of the unit
+
+    /** string containing the name of the unit */
+    QString m_unittext;
+
 };
 
 #endif // SCALE_WIDGET_H

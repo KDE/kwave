@@ -19,9 +19,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <qobject.h>
-#include <qtimer.h>
-
 #include <kglobal.h>
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -34,6 +31,7 @@
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
+#include "libgui/TrackPixmap.h"
 
 #include "SignalWidget.h"
 #include "SignalManager.h"
@@ -74,10 +72,12 @@
  */
 #define MINIMUM_SAMPLES_PER_SCREEN 5
 
-//****************************************************************************
+//***************************************************************************
 SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     :QWidget(parent),
     m_signal_manager(this),
+    m_refresh_timer(),
+    m_track_pixmaps(),
     menu(menu_manager),
     m_playback_controller()
 {
@@ -97,7 +97,6 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     playpointer = -1;
     redraw = false;
     select = 0;
-    timer = 0;
     width = 0;
     m_zoom = 1.0;
     zoomy = 1;
@@ -165,13 +164,13 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 //    debug("SignalWidget::SignalWidget(): done.");
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::refreshSelection()
 {
     refreshLayer(LAYER_SELECTION);
 }
 
-//****************************************************************************
+//***************************************************************************
 bool SignalWidget::isOK()
 {
 ////    ASSERT(labels);
@@ -179,15 +178,14 @@ bool SignalWidget::isOK()
     return ( /* labels && */ select );
 }
 
-//****************************************************************************
+//***************************************************************************
 SignalWidget::~SignalWidget()
 {
 //    debug("SignalWidget::~SignalWidget()");
 
     close();
 
-    if (timer) delete timer;
-    timer = 0;
+    m_refresh_timer.stop();
 
     if (pixmap == 0) delete pixmap;
     pixmap = 0;
@@ -202,14 +200,13 @@ SignalWidget::~SignalWidget()
     interpolation_alpha = 0;
 
     for (int i=0; i < 3; i++) {
-	if (layer[i]) layer[i] = 0;
 	layer[i] = 0;
     }
 
 //    debug("SignalWidget::~SignalWidget(): done");
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::saveSignal(const char *filename, int bits,
 			      int type, bool selection)
 {
@@ -220,7 +217,7 @@ void SignalWidget::saveSignal(const char *filename, int bits,
     }
 }
 
-//****************************************************************************
+//***************************************************************************
 QBitmap *SignalWidget::overview(unsigned int /*width*/, unsigned int /*height*/)
 {
     return 0;
@@ -229,14 +226,14 @@ QBitmap *SignalWidget::overview(unsigned int /*width*/, unsigned int /*height*/)
 //	: 0;
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::toggleChannel(int /*channel*/)
 {
 //    ASSERT(signalmanage);
 //    if (signalmanage) signalmanage->toggleChannel(channel);
 }
 
-//****************************************************************************
+//***************************************************************************
 //bool SignalWidget::executeNavigationCommand(const QString &command)
 //{
 //    if (!signalmanage) return false;
@@ -291,7 +288,7 @@ void SignalWidget::toggleChannel(int /*channel*/)
 //    return true;
 //}
 //
-////****************************************************************************
+//***************************************************************************
 //bool SignalWidget::executeLabelCommand(const QString &command)
 //{
 //    if (false) {
@@ -329,7 +326,7 @@ void SignalWidget::toggleChannel(int /*channel*/)
 //    return true;
 //}
 
-//****************************************************************************
+//***************************************************************************
 bool SignalWidget::executeCommand(const QString &command)
 {
     if (!command.length()) return true;
@@ -386,7 +383,7 @@ bool SignalWidget::executeCommand(const QString &command)
 ////    }
 ////}
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::playback_startTimer()
 {
 ////    debug("void SignalWidget::playback_startTimer()");
@@ -419,7 +416,7 @@ void SignalWidget::playback_startTimer()
 //    timer->start(ms, true);
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::selectRange()
 {
 
@@ -450,7 +447,7 @@ void SignalWidget::selectRange()
 ////    }
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::selectRange(int /*left*/, int /*right*/)
 {
 ////    debug("SignalWidget::selectRange(%d,%d)",left,right);
@@ -466,19 +463,19 @@ void SignalWidget::selectRange(int /*left*/, int /*right*/)
 //    estimateRange(left, right);
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::forwardCommand(const QString &command)
 {
     emit sigCommand(command);
 }
 
-//****************************************************************************
+//***************************************************************************
 int SignalWidget::tracks()
 {
     return m_signal_manager.tracks();
 }
 
-//****************************************************************************
+//***************************************************************************
 int SignalWidget::getBitsPerSample()
 {
 //    ASSERT(signalmanage);
@@ -486,19 +483,19 @@ int SignalWidget::getBitsPerSample()
     return 16;
 }
 
-//****************************************************************************
+//***************************************************************************
 PlaybackController &SignalWidget::playbackController()
 {
     return m_playback_controller;
 }
 
-//****************************************************************************
+//***************************************************************************
 SignalManager &SignalWidget::signalManager()
 {
     return m_signal_manager;
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::createSignal(const char */*str*/)
 {
 //    closeSignal();
@@ -525,13 +522,13 @@ void SignalWidget::createSignal(const char */*str*/)
 //    }
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::estimateRange(int l, int r)
 {
     emit selectedTimeInfo(samples2ms(r - l + 1));
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::setSignal(SignalManager */*sigs*/)
 {
 //    closeSignal();
@@ -547,7 +544,7 @@ void SignalWidget::setSignal(SignalManager */*sigs*/)
 //    }
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::loadFile(const QString &filename, int type)
 {
     // close the previous signal
@@ -565,12 +562,16 @@ void SignalWidget::loadFile(const QString &filename, int type)
     zoomAll();
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::close()
 {
     // first stop playback
     m_playback_controller.playbackStop();
     m_playback_controller.reset();
+
+    // clear the display
+    m_track_pixmaps.setAutoDelete(true);
+    m_track_pixmaps.clear();
 
     // close the signal manager
     m_signal_manager.close();
@@ -584,13 +585,13 @@ void SignalWidget::close()
     refreshAllLayers();
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::setOffset(int new_offset)
 {
     offset = new_offset;
 }
 
-//****************************************************************************
+//***************************************************************************
 double SignalWidget::getFullZoom()
 {
 //    ASSERT(signalmanage);
@@ -605,13 +606,13 @@ double SignalWidget::getFullZoom()
     return 1.0;
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::setZoom(double new_zoom)
 {
     m_zoom = new_zoom;
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::fixZoomAndOffset()
 {
 //    double max_zoom;
@@ -671,7 +672,7 @@ void SignalWidget::fixZoomAndOffset()
 //	emit zoomInfo(m_zoom);
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::zoomAll()
 {
 //    if (!signalmanage) return;
@@ -679,7 +680,7 @@ void SignalWidget::zoomAll()
 //    refreshAllLayers();
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::zoomNormal()
 {
 //    if (!signalmanage) return ;
@@ -689,7 +690,7 @@ void SignalWidget::zoomNormal()
 //    refreshAllLayers();
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::zoomOut()
 {
 //    setOffset(offset + pixels2samples(width) / 2);
@@ -698,7 +699,7 @@ void SignalWidget::zoomOut()
 //    refreshAllLayers();
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::zoomIn()
 {
 //    setOffset(offset + pixels2samples(width) / 2);
@@ -707,7 +708,7 @@ void SignalWidget::zoomIn()
 //    refreshAllLayers();
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::zoomRange()
 {
 //    if (!signalmanage) return ;
@@ -722,7 +723,7 @@ void SignalWidget::zoomRange()
 //    }
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::resizeEvent(QResizeEvent *)
 {
 //    int maxofs = pixels2samples(width - 1) + 1;
@@ -730,7 +731,7 @@ void SignalWidget::resizeEvent(QResizeEvent *)
 //    emit viewInfo(offset, maxofs, length);
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::refreshAllLayers()
 {
     debug("SignalWidget::refreshAllLayers()");
@@ -756,7 +757,7 @@ void SignalWidget::refreshAllLayers()
     repaint(false);
 };
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::refreshLayer(int layer)
 {
     ASSERT(layer >= 0);
@@ -769,7 +770,14 @@ void SignalWidget::refreshLayer(int layer)
     repaint(false);
 }
 
-//****************************************************************************
+//***************************************************************************
+//void SignalWidget::timedRepaint()
+//{
+//    if (m_timer.isActive()) return;
+//    m_timer.start(300, true);
+//}
+
+//***************************************************************************
 void SignalWidget::slot_setOffset(int /*new_offset*/)
 {
 //    if (new_offset != offset) {
@@ -778,7 +786,7 @@ void SignalWidget::slot_setOffset(int /*new_offset*/)
 //    }
 }
 
-//****************************************************************************
+//***************************************************************************
 bool SignalWidget::checkPosition(int x)
 {
     ASSERT(select);
@@ -788,7 +796,7 @@ bool SignalWidget::checkPosition(int x)
     return select->checkPosition(x, pixels2samples(width / 50));
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::mousePressEvent(QMouseEvent *)
 {
 //    ASSERT(e);
@@ -811,7 +819,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *)
 //    if (e->button() == RightButton) lasty = e->pos().y();
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::mouseReleaseEvent(QMouseEvent */*e*/)
 {
 //    ASSERT(e);
@@ -835,7 +843,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent */*e*/)
 //    }
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::mouseMoveEvent( QMouseEvent */*e*/ )
 {
 //    ASSERT(e);
@@ -885,7 +893,7 @@ void SignalWidget::mouseMoveEvent( QMouseEvent */*e*/ )
 //    }
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::drawOverviewSignal(int /*channel*/, int /*middle*/, int /*height*/,
 				      int /*first*/, int /*last*/)
 {
@@ -909,7 +917,7 @@ void SignalWidget::drawOverviewSignal(int /*channel*/, int /*middle*/, int /*hei
 //    }
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::calculateInterpolation()
 {
     float f;
@@ -968,7 +976,7 @@ void SignalWidget::calculateInterpolation()
 
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::drawInterpolatedSignal(int /*channel*/, int /*middle*/, int /*height*/)
 {
 //    register float y;
@@ -1070,7 +1078,7 @@ void SignalWidget::drawInterpolatedSignal(int /*channel*/, int /*middle*/, int /
 //    delete points;
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::drawPolyLineSignal(int /*channel*/, int /*middle*/, int /*height*/)
 {
 //    float scale_y;
@@ -1141,7 +1149,7 @@ void SignalWidget::drawPolyLineSignal(int /*channel*/, int /*middle*/, int /*hei
 //    delete points;
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::paintEvent(QPaintEvent *)
 {
 //    debug("SignalWidget::paintEvent()");
@@ -1360,7 +1368,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //float autotable [AUTOKORRWIN];
 //float weighttable[AUTOKORRWIN];
 
-//****************************************************************************
+//***************************************************************************
 int SignalWidget::ms2samples(double /*ms*/)
 {
 //    ASSERT(signalmanage);
@@ -1370,7 +1378,7 @@ int SignalWidget::ms2samples(double /*ms*/)
     return 0;
 }
 
-//****************************************************************************
+//***************************************************************************
 double SignalWidget::samples2ms(int /*samples*/)
 {
 //    if (!signalmanage) return 0.0;
@@ -1378,13 +1386,13 @@ double SignalWidget::samples2ms(int /*samples*/)
     return 0.0;
 }
 
-//****************************************************************************
+//***************************************************************************
 int SignalWidget::pixels2samples(int pixels)
 {
     return (int)(pixels*m_zoom);
 }
 
-//****************************************************************************
+//***************************************************************************
 int SignalWidget::samples2pixels(int samples)
 {
     ASSERT(m_zoom);
@@ -1392,13 +1400,13 @@ int SignalWidget::samples2pixels(int samples)
     return (int)(samples / m_zoom);
 }
 
-//****************************************************************************
+//***************************************************************************
 void selectMarkers(const char */*command*/)
 {
 //    Parser parser(command);
 }
 
-//****************************************************************************
+//***************************************************************************
 LabelType *findMarkerType (const char */*txt*/)
 {
 //    int cnt = 0;
@@ -1411,7 +1419,7 @@ LabelType *findMarkerType (const char */*txt*/)
 //    warning("could not find Labeltype %s\n", txt);
     return 0;
 }
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::signalinserted(int /*start*/, int /*len*/)
 {
 //    Label *tmp;
@@ -1421,7 +1429,7 @@ void SignalWidget::signalinserted(int /*start*/, int /*len*/)
 //    refreshAllLayers();
 }
 
-//****************************************************************************
+//***************************************************************************
 void SignalWidget::signaldeleted(int /*start*/, int /*len*/)
 {
 //    Label *tmp;
@@ -1438,7 +1446,7 @@ void SignalWidget::signaldeleted(int /*start*/, int /*len*/)
 //    refreshAllLayers();
 }
 
-////****************************************************************************
+////***************************************************************************
 //void SignalWidget::deleteLabel ()
 //{
 //    if (!signalmanage) return ;
@@ -1958,7 +1966,7 @@ void SignalWidget::playbackStart()
 //***************************************************************************
 void SignalWidget::playbackStopped()
 {
-    if (timer) timer->stop();
+//    m_playback_timer->stop();
     repaint(false);
 }
 
@@ -1971,13 +1979,28 @@ void SignalWidget::playback_time()
 //***************************************************************************
 void SignalWidget::updatePlaybackPointer(unsigned int /*pos*/)
 {
-    if (timer && !timer->isActive()) playback_startTimer();
+//    if (timer && !timer->isActive()) playback_startTimer();
 }
 
 //***************************************************************************
 void SignalWidget::slotTrackInserted(unsigned int track)
 {
     debug("SignalWidget(): slotTrackInserted(%u)", track);
+
+    // insert a new track into the track pixmap list
+    TrackPixmap *pix = new TrackPixmap();
+    ASSERT(pix);
+    m_track_pixmaps.insert(track, pix);
+    if (!pix) return;
+
+    // set offset and zoom factor
+    pix->setOffset(offset);
+    pix->setZoom(m_zoom);
+
+    // connect all signals
+
+    // redraw the signal
+    // refreshLayer(LAYER_SIGNAL);
 }
 
 //***************************************************************************

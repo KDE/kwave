@@ -25,7 +25,7 @@ static KCmdLineOptions options[] =
 int main( int argc, char **argv )
 {
     KAboutData about("Kwave",
-	"Kwave",
+	"kwave",
 	"0.5.99",
 	"sound editor for KDE2",
 	KAboutData::License_GPL_V2,

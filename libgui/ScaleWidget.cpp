@@ -27,7 +27,7 @@ ScaleWidget::ScaleWidget (QWidget *parent, int low, int high, const char *text)
     this->high = high;
     logmode = false;
     this->low = low;
-    this->unittext = text;
+    m_unittext = text;
 
     if (!scalefont) {
 	scalefont = new QPixmap();
@@ -57,9 +57,9 @@ ScaleWidget::~ScaleWidget()
 }
 
 //**********************************************************
-void ScaleWidget::setUnit(char *text)
+void ScaleWidget::setUnit(const char *text)
 {
-    unittext = text;
+    m_unittext = text;
     repaint ();
 }
 
@@ -178,7 +178,7 @@ void ScaleWidget::drawLinear (QPainter *p, int w, int h)
 	for (a = 0; a < 5; a++) {
 	    char buf[64];
 	    snprintf(buf, sizeof(buf), "%d %s", low + ((high - low)*a / 5),
-	             unittext);
+	             m_unittext.data());
 	    x = (w - 1) * a / 5;
 	    paintText (p, x + 2, h - FONTSIZE - 2, FONTSIZE, true, buf);
 	}
@@ -207,7 +207,7 @@ void ScaleWidget::drawLinear (QPainter *p, int w, int h)
 	for (a = 0; a < 5; a++) {
 	    char buf[64];
 	    snprintf(buf, sizeof(buf), "%d%s", low + ((high - low)*a / 5), 
-	        unittext);
+	        m_unittext.data());
 	    y = (h - 1) * a / 5 + 1;
 	    paintText (p, 2, y, FONTSIZE, false, buf);
 	}

@@ -34,7 +34,8 @@ BUILTSOURCES=\
  MenuItem.moc.cpp\
  MenuSub.moc.cpp\
  MenuRoot.moc.cpp\
- MenuManager.moc.cpp
+ MenuManager.moc.cpp \
+ TrackPixmap.moc.cpp
 
 # Which sources should be compiled for libgui.
 libkwavegui_la_SOURCES =\
@@ -57,6 +58,7 @@ libkwavegui_la_SOURCES =\
  ScaleWidget.cpp\
  CornerPatchWidget.cpp\
  TimeLine.cpp\
+ TrackPixmap.cpp\
  $(BUILTSOURCES)
 
 #noinst_LIBRARIES = libkwavegui.a

@@ -16,10 +16,12 @@
  ***************************************************************************/
 
 #ifndef _SIGNAL_WIDGET_H_
-#define _SIGNAL_WIDGET_H_ 1
+#define _SIGNAL_WIDGET_H_
 
-#include <qwidget.h>
+#include <qlist.h>
+#include <qtimer.h>
 #include <qpainter.h>
+#include <qwidget.h>
 
 #include "PlaybackController.h"
 #include "SignalManager.h"
@@ -32,6 +34,7 @@ class QBitmap;
 class SignalManager;
 class ProgressDialog;
 class TimeOperation;
+class TrackPixmap;
 
 /**
  * This class is mainly responsible for displaying
@@ -127,7 +130,7 @@ public:
     int tracks();
 
     /** returns the number of bits per sample of the current signal */
-    int getBitsPerSample ();
+    int getBitsPerSample();
 
     /** returns the signal manager of the current signal */
     SignalManager &signalManager();
@@ -248,6 +251,12 @@ private slots:
      */
     void slotSamplesModified(unsigned int track, unsigned int offset,
                              unsigned int length);
+
+//    /**
+//     * Starts the timer for repainting the signal if necessary. If
+//     * the timer is currently running then it does nothing.
+//     */
+//    void startRepaintTimer();
 
     void updatePlaybackPointer(unsigned int pos);
 
@@ -387,6 +396,7 @@ private:
      */
     void calculateInterpolation();
 
+
     /**
      * order of the low pass filter used for interpolation
      */
@@ -420,13 +430,21 @@ private:
 
     //vertical line on the screen
     int playpointer, lastplaypointer;
-    int redraw;                           //flag for redrawing pixmap
+
+    // flag for redrawing pixmap
+    bool redraw;
+
     MouseMark *select;
 
     /** our signal manager */
     SignalManager m_signal_manager;
 
-    QTimer *timer;
+    /** timer for delayed screen refreshes (don't refresh too often) */
+    QTimer m_refresh_timer;
+
+    /** list of track pixmaps */
+    QList<TrackPixmap> m_track_pixmaps;
+
     QPainter p;
     QPixmap *pixmap;      //pixmap to be blitted to screen
     LabelList *labels;           //linked list of markers

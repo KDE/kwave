@@ -2,6 +2,7 @@
 INCLUDES= @all_includes@ -I$(includedir)/arts
 
 BUILTSOURCES=\
+ KwaveDrag.moc.cpp\
  SampleWriter.moc.cpp\
  Selection.moc.cpp\
  Signal.moc.cpp\
@@ -26,6 +27,7 @@ libkwave_la_SOURCES=\
  Functions.cpp\
  gsl_fft.cpp\
  Interpolation.cpp\
+ KwaveDrag.cpp\
  Label.cpp\
  LabelType.cpp\
  LabelList.cpp\

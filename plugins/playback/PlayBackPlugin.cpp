@@ -72,7 +72,9 @@ PlayBackPlugin::PlayBackPlugin(PluginContext &context)
     m_playback_controller(manager().playbackController()),
     m_spx_playback_done(&m_playback_controller, SLOT(playbackDone())),
     m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
-    m_stop(false)
+    m_stop(false),
+    m_old_first(0),
+    m_old_last(0)
 {
     m_playback_params.rate = 44100;
     m_playback_params.channels = 2;
@@ -231,6 +233,8 @@ void PlayBackPlugin::closeDevice()
     if (!m_device) return; // already closed
     if (m_device) delete m_device;
     m_device = 0;
+    m_old_first = 0;
+    m_old_last = 0;
 }
 
 //***************************************************************************
@@ -247,24 +251,52 @@ void PlayBackPlugin::startDevicePlayBack()
 	return;
     }
 
-    static QStringList empty_list;
+    unsigned int first;
+    unsigned int last;
+    selection(&first, &last);
 
-    // determine first and last sample if not in paused mode
-    if (!m_playback_controller.paused()) {
-	unsigned int first;
-	unsigned int last;
-	selection(&first, &last);
+    if (m_playback_controller.paused()) {
+	// continue after pause
+	if ((m_old_first != first) || (m_old_last != last)) {
+	    // selection has changed
+	    if (first != last) {
+		// something selected -> set new range
+		m_playback_controller.setStartPos(first);
+		m_playback_controller.setEndPos(last);
+		
+		unsigned int pos = m_playback_controller.currentPos();
+		if ((pos < first) || (pos > last)) {
+		    // completely new area selected, or the right margin
+		    // has been moved before the current playback pointer
+		    // -> play from start of new selection
+		    m_playback_controller.updatePlaybackPos(first);
+		}
+	    } else {
+		// nothing selected -> select all and move to position
+		m_playback_controller.setStartPos(first);
+		m_playback_controller.setEndPos(signalLength()-1);
+		m_playback_controller.updatePlaybackPos(first);
+	    }
+	}
+    } else {
+	// determine first and last sample if not in paused mode
 	if (first == last) {
 	    // nothing selected -> play everything
-	    // first = current;
-	    last  = signalLength()-1;
+	    m_playback_controller.setStartPos(0);
+	    m_playback_controller.setEndPos(signalLength()-1);
+	} else {
+	    // play only in selection
+	    m_playback_controller.setStartPos(first);
+	    m_playback_controller.setEndPos(last);
 	}
-	m_playback_controller.setStartPos(first);
-	m_playback_controller.setEndPos(last);
 	m_playback_controller.updatePlaybackPos(first);
     }
 
+    m_old_first = first;
+    m_old_last = last;
     m_stop = false;
+
+    static QStringList empty_list;
     execute(empty_list);
 }
 

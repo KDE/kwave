@@ -27,7 +27,7 @@
 /** use at most 2^16 = 65536 bytes for playback buffer */
 #define MAX_PLAYBACK_BUFFER 16U
 
-/** Usage counter for arts_init/artl_free */
+/** Usage counter for arts_init/arts_free */
 static int g_arts_usage = 0;
 
 //***************************************************************************
@@ -84,7 +84,7 @@ QString PlayBackArts::open(const QString &, unsigned int rate,
     g_arts_usage++;
 
     // open the stream
-    m_stream = arts_play_stream(m_rate, m_bits, m_channels, "?");
+    m_stream = arts_play_stream(m_rate, m_bits, m_channels, "Kwave");
     ASSERT(m_stream);
     if (!m_stream) return i18n("unable to open aRts playback stream");
     debug("PlayBackArts::open(): stream opened");

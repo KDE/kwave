@@ -145,6 +145,12 @@ private:
     /** command flag for stopping the playback thread */
     bool m_stop;
 
+    /** start of the selection when playback started */
+    unsigned int m_old_first;
+
+    /** end of the selection when playback started */
+    unsigned int m_old_last;
+
 };
 
 //*****************************************************************************

@@ -265,15 +265,15 @@ made running and what I had to install additionally:
 
 * Debian / Sid (supported by Aurelien Jarno):
 	 make imagemagick gettext gcc g++ recode libtool automake1.6
-         xlibs-dev kdelibs4-dev kdemultimedia-dev poxml
-	 khelpcenter
+	 xlibs-dev kdelibs4-dev kdemultimedia-dev poxml
+	 khelpcenter libflac-dev libflac++-dev
 	 (had to do: 'apt-get install -t testing libid3-3.8.3-dev')
 
 * Gentoo-1.4_rc2:
-         patch, imagemagick, recode, kdemultimedia, kdesdk, id3lib
+	 patch, imagemagick, recode, kdemultimedia, kdesdk, id3lib
 
 * RedHat-8.0 / 9.0:
-         ImageMagick, recode, id3lib, audiofile, audiofile-devel
+	 ImageMagick, recode, id3lib, audiofile, audiofile-devel
 	 needs "export QTDIR=/usr/lib/qt-3.1" to compile
 
 * Mandrake-9.0:
@@ -283,6 +283,10 @@ made running and what I had to install additionally:
          gettext, XFree86-devel, id3lib-3.8.2-1, id3lib-3.8.2-1-devel,
          libogg0, libogg0-devel, libvorbis0, libvorbis0-devel, libvorbisfile3,
          libvorbisenc2
+
+* Mandrake-10.0:
+	 kdemultimedia1-common-devel
+
 
 * Mandrake-9.1:
 	like Mandrake-9.0, but additionally:

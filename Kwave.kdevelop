@@ -12,7 +12,7 @@
     </ignoreparts>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
-    <description></description>
+    <description/>
     <secondaryLanguages>
       <language>Bash</language>
       <language>C</language>
@@ -21,7 +21,7 @@
   <kdevcustomproject>
     <run>
       <mainprogram>kwave/.libs/lt-kwave</mainprogram>
-      <programargs></programargs>
+      <programargs/>
       <terminal>false</terminal>
       <envvars>
         <envvar value="libkwave/.libs:mt/.libs:libgui/.libs" name="LD_LIBRARY_PATH" />
@@ -32,16 +32,16 @@
     </run>
     <build>
       <buildtool>make</buildtool>
-      <builddir></builddir>
+      <builddir/>
     </build>
     <make>
       <abortonerror>true</abortonerror>
-      <numberofjobs>4</numberofjobs>
+      <numberofjobs>1</numberofjobs>
       <dontact>false</dontact>
-      <makebin></makebin>
+      <makebin/>
       <environments>
         <default>
-          <envvar value="localhost 192.168.2.99" name="DISTCC_HOSTS" />
+          <envvar value="localhost " name="DISTCC_HOSTS" />
         </default>
       </environments>
       <selectedenvironment>default</selectedenvironment>
@@ -49,16 +49,16 @@
   </kdevcustomproject>
   <kdevdebugger>
     <general>
-      <dbgshell></dbgshell>
-      <programargs></programargs>
+      <dbgshell/>
+      <programargs/>
       <gdbpath>/usr/bin/gdb</gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript></configGdbScript>
-      <runShellScript></runShellScript>
-      <runGdbScript></runGdbScript>
+      <configGdbScript/>
+      <runShellScript/>
+      <runGdbScript/>
     </general>
     <display>
       <staticmembers>false</staticmembers>

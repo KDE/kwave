@@ -74,8 +74,6 @@ o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 
 o support for Spex codec: http://www.speex.org/
 
-o support for flac: http://flac.sourceforge.net/
-
 o fileinfo plugin: auto-generate filename from "track - title"
 
 o Filter: class needs to be tested
@@ -148,8 +146,6 @@ o use namespace "Kwave" for all Kwave components
 
 o splitting of i18n for kwave and each plugin
 
-o more complete i18n
-
 o use the KDE's clipboard
 
 o support for KDE's session management
@@ -157,8 +153,6 @@ o support for KDE's session management
 o fix bug in Fx->Periodic Silence (segmentation fault)
 
 o macro recorder
-
-o more complete documentation of the whole api
 
 o navigation buttons on the overview widget
 

@@ -1,5 +1,5 @@
 
-0.7.1 [2004-06-??]
+0.7.1 [2004-07-10]
 
  * FLAC (Free Lossness Audio Codec) import/export plugin
  * speedups for loading / saving files

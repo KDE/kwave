@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2004-06-12</date>
+<date>2004-07-10</date>
 <releaseinfo>0.7.1-pre1
 </releaseinfo>
 
@@ -190,7 +190,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.7.1 [2004-06-??]</para>
+            <para>0.7.1 [2004-07-10]</para>
             <itemizedlist>
                 <listitem><para>
                     FLAC (Free Lossness Audio Codec) import/export plugin

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: help_de\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2004-06-12 17:21+0200\n"
+"PO-Revision-Date: 2004-07-10 15:48+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -342,8 +342,8 @@ msgstr ""
 #. Tag: para
 #: help_en.docbook:193
 #, no-c-format
-msgid "0.7.1 [2004-06-??]"
-msgstr "0.7.1 [2004-06-??]"
+msgid "0.7.1 [2004-07-10]"
+msgstr "0.7.1 [2004-07-10]"
 
 #. Tag: para
 #: help_en.docbook:195

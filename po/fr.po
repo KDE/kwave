@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-12 08:09+0200\n"
+"POT-Creation-Date: 2004-07-10 15:49+0200\n"
 "PO-Revision-Date: 2004-06-15 17:14+0200\n"
 "Last-Translator: Caulier Gilles <caulier dot gilles at free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
@@ -450,15 +450,15 @@ msgstr "&Rétrécir"
 msgid "Zoom to &Selection"
 msgstr "Zoomer sur la &sélection"
 
-#: kwave/PluginManager.cpp:212
+#: kwave/PluginManager.cpp:213
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Avertissement : le module externe « %1 » est inconnu ou non valable !"
 
-#: kwave/PluginManager.cpp:215 kwave/PluginManager.cpp:227
+#: kwave/PluginManager.cpp:216 kwave/PluginManager.cpp:228
 msgid "error on loading plugin"
 msgstr "Erreur pendant le chargement du module externe"
 
-#: kwave/PluginManager.cpp:223
+#: kwave/PluginManager.cpp:224
 msgid ""
 "unable to load the file \n"
 "'%1'\n"
@@ -468,16 +468,16 @@ msgstr ""
 "« %1 »\n"
 " qui contient le module externe « %2 » !"
 
-#: kwave/PluginManager.cpp:245 kwave/PluginManager.cpp:252
+#: kwave/PluginManager.cpp:246 kwave/PluginManager.cpp:253
 msgid "(unknown)"
 msgstr "(inconnu)"
 
-#: kwave/PluginManager.cpp:776
+#: kwave/PluginManager.cpp:773
 #, c-format
 msgid "%16s %5s written by %s"
 msgstr "%16s %5s écrit par %s"
 
-#: kwave/PluginManager.cpp:780
+#: kwave/PluginManager.cpp:777
 #, c-format
 msgid ""
 "error in '%s':\n"
@@ -486,7 +486,7 @@ msgstr ""
 "erreur dans « %s » :\n"
 "\t %s"
 
-#: kwave/PluginManager.cpp:785
+#: kwave/PluginManager.cpp:782
 #, c-format
 msgid ""
 "--- \n"
@@ -503,11 +503,11 @@ msgstr "insérer"
 msgid "modify file information"
 msgstr "modifier les informations du fichier"
 
-#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:832
+#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:882
 msgid "delete"
 msgstr "supprimer"
 
-#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:715
+#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:761
 msgid "insert track"
 msgstr "insérer une piste"
 
@@ -515,21 +515,21 @@ msgstr "insérer une piste"
 msgid "modify samples"
 msgstr "modifier les échantillons"
 
-#: kwave/SignalWidget.cpp:410 plugins/record/RecordPlugin.cpp:198
+#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:198
 #: plugins/record/RecordPlugin.cpp:567 plugins/record/RecordPlugin.cpp:585
 #: plugins/record/RecordPlugin.cpp:640
 msgid "Out of memory"
 msgstr "Pas assez de mémoire"
 
-#: kwave/SignalWidget.cpp:413 plugins/playback/PlayBackPlugin.cpp:264
+#: kwave/SignalWidget.cpp:421 plugins/playback/PlayBackPlugin.cpp:264
 msgid "unable to open '%1'"
 msgstr "impossible d'ouvrir « %1 »"
 
-#: kwave/SignalWidget.cpp:416
+#: kwave/SignalWidget.cpp:425
 msgid "invalid or unknown file type: '%1'"
 msgstr "Fichier non valable ou de type inconnu : « %1 »"
 
-#: kwave/SignalWidget.cpp:1800 kwave/SignalWidget.cpp:1839
+#: kwave/SignalWidget.cpp:1824 kwave/SignalWidget.cpp:1863
 msgid "drag and drop"
 msgstr "glisser - déposer"
 
@@ -547,7 +547,8 @@ msgstr "Concepteur de cette boîte de dialogue."
 
 #: kwave/main.cpp:72
 msgid "french translations, splashscreen, tests and bugsfix"
-msgstr "Traductions Françaises, logo de démarrage, tests et corrections de bogues."
+msgstr ""
+"Traductions Françaises, logo de démarrage, tests et corrections de bogues."
 
 #: kwave/main.cpp:76
 msgid "notch filter plugin"
@@ -685,7 +686,7 @@ msgstr "Chargement des modules externes..."
 msgid "Ready."
 msgstr "Prêt."
 
-#: kwave/TopWidget.cpp:780
+#: kwave/TopWidget.cpp:782
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -693,40 +694,40 @@ msgstr ""
 "Ce fichier a été modifié.\n"
 "Voulez-vous l'enregistrer ?"
 
-#: kwave/TopWidget.cpp:907
+#: kwave/TopWidget.cpp:909
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr "Le fichier « %1 » existe déjà. Voulez-vous réellement l'écraser ?"
 
-#: kwave/TopWidget.cpp:1063
+#: kwave/TopWidget.cpp:1065
 msgid "Length: %1"
 msgstr "Taille : %1"
 
-#: kwave/TopWidget.cpp:1063
+#: kwave/TopWidget.cpp:1065
 msgid "(%2 samples)"
 msgstr "(%2 échantillons)"
 
-#: kwave/TopWidget.cpp:1072
+#: kwave/TopWidget.cpp:1074
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr "Format : %0.3f kHz @ %u Bits"
 
-#: kwave/TopWidget.cpp:1113
+#: kwave/TopWidget.cpp:1115
 msgid "Selected"
 msgstr "Sélectionné"
 
-#: kwave/TopWidget.cpp:1117
+#: kwave/TopWidget.cpp:1119
 msgid "samples"
 msgstr "échantillons"
 
-#: kwave/TopWidget.cpp:1172
+#: kwave/TopWidget.cpp:1174
 msgid "U&ndo"
 msgstr "An&nuler"
 
-#: kwave/TopWidget.cpp:1178
+#: kwave/TopWidget.cpp:1180
 msgid "R&edo"
 msgstr "R&efaire"
 
-#: kwave/TopWidget.cpp:1378
+#: kwave/TopWidget.cpp:1380
 msgid " (modified)"
 msgstr " (modifié)"
 
@@ -734,11 +735,11 @@ msgstr " (modifié)"
 msgid "selection"
 msgstr "Sélection"
 
-#: kwave/SignalManager.cpp:291
+#: kwave/SignalManager.cpp:301
 msgid "Signal is empty, nothing to save !"
 msgstr "Le signal est vide, il n'y a rien à enregistrer !"
 
-#: kwave/SignalManager.cpp:325
+#: kwave/SignalManager.cpp:336
 msgid ""
 "Saving in this format will loose the following additional file attribute"
 "(s):\n"
@@ -750,43 +751,47 @@ msgstr ""
 "%1\n"
 "Voulez vous continuer ?"
 
-#: kwave/SignalManager.cpp:366
+#: kwave/SignalManager.cpp:373 plugins/record/RecordPlugin.cpp:659
+msgid " for KDE "
+msgstr " pour KDE "
+
+#: kwave/SignalManager.cpp:409
 msgid "An error occurred while saving the file!"
 msgstr "Une erreur est apparue lors de l'enregistrement du fichier !"
 
-#: kwave/SignalManager.cpp:375
+#: kwave/SignalManager.cpp:418
 msgid "The file has been truncated and might be corrupted!"
 msgstr "Le fichier a été écrasé et peut être corrompu !"
 
-#: kwave/SignalManager.cpp:382
+#: kwave/SignalManager.cpp:425
 msgid "Sorry, the file type is not supported!"
 msgstr "Désolé, le type de fichier n'est pas géré !"
 
-#: kwave/SignalManager.cpp:596
+#: kwave/SignalManager.cpp:642
 msgid "cut"
 msgstr "couper"
 
-#: kwave/SignalManager.cpp:599
+#: kwave/SignalManager.cpp:645
 msgid "crop"
 msgstr "couper la sélection"
 
-#: kwave/SignalManager.cpp:665
+#: kwave/SignalManager.cpp:711
 msgid "paste"
 msgstr "coller"
 
-#: kwave/SignalManager.cpp:708
+#: kwave/SignalManager.cpp:754
 msgid "append track"
 msgstr "ajouter une piste"
 
-#: kwave/SignalManager.cpp:749 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:797 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "supprimer une piste"
 
-#: kwave/SignalManager.cpp:1306 kwave/SignalManager.cpp:1313
+#: kwave/SignalManager.cpp:1355 kwave/SignalManager.cpp:1362
 msgid "last action"
 msgstr "dernière action"
 
-#: kwave/SignalManager.cpp:1532
+#: kwave/SignalManager.cpp:1588
 msgid "modify file info"
 msgstr "modifier les informations du fichier"
 
@@ -1552,6 +1557,10 @@ msgstr "MPEG niveau III"
 msgid "Ogg/Vorbis"
 msgstr "Ogg / Vorbis"
 
+#: libkwave/CompressionType.cpp:82
+msgid "FLAC"
+msgstr ""
+
 #: libkwave/SampleFormat.cpp:35
 msgid "linear two's complement"
 msgstr "Linéaire avec complément à deux"
@@ -1566,7 +1575,8 @@ msgstr "Nombre à virgule flottante sur 32 bits au format IEEE"
 
 #: libkwave/SampleFormat.cpp:41
 msgid "64-bit IEEE double-precision floating-point"
-msgstr "Nombre à virgule flottante en double précision sur 64 bits au format IEEE"
+msgstr ""
+"Nombre à virgule flottante en double précision sur 64 bits au format IEEE"
 
 #: libkwave/Functions.cpp:97
 msgid "Sinus"
@@ -2360,7 +2370,9 @@ msgstr "Dans les modifications"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:197
 msgid "automatically update the sonagram <br>if the signal data has changed"
-msgstr "met à jour automatiquement le sonogramme<br>si le la piste sonore à été modifiée."
+msgstr ""
+"met à jour automatiquement le sonogramme<br>si le la piste sonore à été "
+"modifiée."
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:198
 msgid "follow selection"
@@ -2371,8 +2383,8 @@ msgid ""
 "automatically update the sonagram if the selection<br>has been enlarged, "
 "reduced or moved"
 msgstr ""
-"met à jour automatiquement le sonogramme si la sélection"
-"<br>a été élargie, réduite, ou déplacée."
+"met à jour automatiquement le sonogramme si la sélection<br>a été élargie, "
+"réduite, ou déplacée."
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:200
 msgid "FFT settings"
@@ -2433,7 +2445,10 @@ msgid ""
 "if choosing big window sizes.<br>\n"
 "The computation will be much faster !"
 msgstr ""
-"<b>Nombre de points pour la FFT:</b><p></p>si vous choisissez une grande taille de fenêtre, <br>\nessayer de choisir des nombres avec des facteurs de premier ordre de faible valeur. <br>\n"
+"<b>Nombre de points pour la FFT:</b><p></p>si vous choisissez une grande "
+"taille de fenêtre, <br>\n"
+"essayer de choisir des nombres avec des facteurs de premier ordre de faible "
+"valeur. <br>\n"
 "Les calculs seront alors plus rapides !"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:224
@@ -2486,20 +2501,20 @@ msgstr "Amplitude : 0 %"
 msgid "Sonagram of "
 msgstr "Sonagramme de "
 
-#: plugins/sonagram/SonagramWindow.cpp:504
+#: plugins/sonagram/SonagramWindow.cpp:502
 msgid "<nothing>"
 msgstr "<rien>"
 
-#: plugins/sonagram/SonagramWindow.cpp:529
+#: plugins/sonagram/SonagramWindow.cpp:527
 msgid "Time: %1"
 msgstr "Temps : %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:533
+#: plugins/sonagram/SonagramWindow.cpp:531
 #, c-format
 msgid "Frequency: %d Hz"
 msgstr "Fréquence : %d Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:543
+#: plugins/sonagram/SonagramWindow.cpp:541
 #, c-format
 msgid "Amplitude: %d %%"
 msgstr "Amplitude : %d %%"
@@ -2550,11 +2565,11 @@ msgstr ""
 "KDE.</h2><br>\n"
 "Avec Kwave vous pouvez éditer plusieurs types de fichiers sonores\n"
 "y compris les fichiers audio multicanaux. Vous pouvez aussi modifier et\n"
-"rejouer chaque piste de manière indépendante. "
-"<br>\n"
+"rejouer chaque piste de manière indépendante. <br>\n"
 "Kwave inclut aussi beaucoup de modules externes pour transformer les\n"
 "fichiers audio. Un grand nombre sont cependant en cours de développement.\n"
-"Kwave propose une interface graphique avec entre autre des fonctions de zoom\n"
+"Kwave propose une interface graphique avec entre autre des fonctions de "
+"zoom\n"
 "et de défilement."
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:176
@@ -2588,6 +2603,31 @@ msgstr "FLAC audio"
 #: plugins/codec_flac/FlacCodecPlugin.cpp:33
 msgid "codec_flac"
 msgstr "codec FLAC"
+
+#: plugins/codec_flac/FlacEncoder.cpp:206 plugins/codec_ogg/OggEncoder.cpp:246
+#: plugins/codec_wav/WavEncoder.cpp:121
+msgid "Unable to open the file for saving!"
+msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
+
+#: plugins/codec_flac/FlacEncoder.cpp:216
+#, fuzzy
+msgid "Unable to open the FLAC encoder!"
+msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
+
+#: plugins/codec_flac/FlacEncoder.cpp:256
+#, fuzzy
+msgid "Out of memory!"
+msgstr "Pas assez de mémoire"
+
+#: plugins/codec_flac/FlacDecoder.cpp:274
+#, fuzzy
+msgid "opening the FLAC bitstream failed."
+msgstr "L'ouverture du fichier a échouée"
+
+#: plugins/codec_flac/FlacDecoder.cpp:284
+#, c-format
+msgid "error while parsing FLAC metadata. (%s)"
+msgstr ""
 
 #: plugins/band_pass/BandPassDlg.uic.cpp:150
 msgid "Band Pass"
@@ -2651,7 +2691,7 @@ msgstr ""
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:474
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:116
-#: plugins/codec_wav/WavEncoder.cpp:168 plugins/codec_wav/WavDecoder.cpp:325
+#: plugins/codec_wav/WavEncoder.cpp:145 plugins/codec_wav/WavDecoder.cpp:326
 msgid "out of memory"
 msgstr "Pas assez de mémoire"
 
@@ -3148,7 +3188,8 @@ msgstr "Résolution "
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
-msgstr "Sélectionner une résolution en bits pour chaque fichier qui sera enregistré."
+msgstr ""
+"Sélectionner une résolution en bits pour chaque fichier qui sera enregistré."
 
 #: plugins/fileinfo/FileInfoDialog.cpp:200
 msgid "Tracks"
@@ -3278,37 +3319,37 @@ msgid "Berkeley,IRCAM,Carl Sound Format"
 msgstr "Berkeley, IRCAM, Format audio Carl"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:113
-#: plugins/codec_wav/WavEncoder.cpp:164 plugins/codec_wav/WavDecoder.cpp:321
+#: plugins/codec_wav/WavEncoder.cpp:141 plugins/codec_wav/WavDecoder.cpp:322
 msgid "format or function is not implemented"
 msgstr "Format ou fonction non implantée"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:119
-#: plugins/codec_wav/WavEncoder.cpp:171 plugins/codec_wav/WavDecoder.cpp:328
+#: plugins/codec_wav/WavEncoder.cpp:148 plugins/codec_wav/WavDecoder.cpp:329
 msgid "file header is damaged"
 msgstr "L'en-tête du fichier est endommagée"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:122
-#: plugins/codec_wav/WavEncoder.cpp:174 plugins/codec_wav/WavDecoder.cpp:331
+#: plugins/codec_wav/WavEncoder.cpp:151 plugins/codec_wav/WavDecoder.cpp:332
 msgid "invalid codec type"
 msgstr "Type de codec non valable"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:125
-#: plugins/codec_wav/WavEncoder.cpp:178 plugins/codec_wav/WavDecoder.cpp:335
+#: plugins/codec_wav/WavEncoder.cpp:155 plugins/codec_wav/WavDecoder.cpp:336
 msgid "opening the file failed"
 msgstr "L'ouverture du fichier a échouée"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:128
-#: plugins/codec_wav/WavEncoder.cpp:181 plugins/codec_wav/WavDecoder.cpp:338
+#: plugins/codec_wav/WavEncoder.cpp:158 plugins/codec_wav/WavDecoder.cpp:339
 msgid "read access failed"
 msgstr "Accès en lecture interdite"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:131
-#: plugins/codec_wav/WavEncoder.cpp:184 plugins/codec_wav/WavDecoder.cpp:341
+#: plugins/codec_wav/WavEncoder.cpp:161 plugins/codec_wav/WavDecoder.cpp:342
 msgid "invalid sample format"
 msgstr "Format d'échantillonnage non valable"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:137
-#: plugins/codec_wav/WavEncoder.cpp:190 plugins/codec_wav/WavDecoder.cpp:347
+#: plugins/codec_wav/WavEncoder.cpp:167 plugins/codec_wav/WavDecoder.cpp:348
 msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
@@ -3454,7 +3495,8 @@ msgstr "/tmp"
 
 #: plugins/memory/MemDlg.uic.cpp:182
 msgid "directory for storing swap files"
-msgstr "Le dossier qui sera utilisé pour stocker les fichiers de la mémoire virtuelle"
+msgstr ""
+"Le dossier qui sera utilisé pour stocker les fichiers de la mémoire virtuelle"
 
 #: plugins/memory/MemDlg.uic.cpp:183
 msgid "&Search..."
@@ -3515,8 +3557,9 @@ msgid ""
 "If checked, the <b>record time</b> is limited and recording will "
 "automatically stop when the selected time is reached."
 msgstr ""
-"Si cette option est activée; le <b>temps d'enregistrement</b> sera limité et l'enregistrement "
-"sera automatiquement arrêter quand la durée choisi sera dépassée."
+"Si cette option est activée; le <b>temps d'enregistrement</b> sera limité et "
+"l'enregistrement sera automatiquement arrêter quand la durée choisi sera "
+"dépassée."
 
 #: plugins/record/RecordDlg.uic.cpp:607
 msgid "Record Trigger:"
@@ -3843,13 +3886,9 @@ msgstr "Désolé, le format courant pour les échantillons n'est pas géré !"
 msgid "The current compression type is not supported!"
 msgstr "Désolé, le type de fichier n'est pas géré !"
 
-#: plugins/record/RecordPlugin.cpp:659 plugins/codec_ogg/OggEncoder.cpp:256
-#: plugins/codec_wav/WavEncoder.cpp:126
-msgid " for KDE "
-msgstr " pour KDE "
-
 #: plugins/record/RecordPlugin.cpp:686
-msgid "Buffer overrun. Please increase the number and/or size of the record buffers."
+msgid ""
+"Buffer overrun. Please increase the number and/or size of the record buffers."
 msgstr ""
 "Un vidage de la mémoire tampon est apparu. Veuillez augmenter le nombre ou "
 "la taille de la mémoire tampon pour l'enregistrement."
@@ -3939,17 +3978,14 @@ msgstr ""
 "Un ou plusieurs paramètres pour l'encodeur ne sont pas supportés. Veuillez "
 "modifier le paramétrage et réessayer..."
 
-#: plugins/codec_ogg/OggEncoder.cpp:246 plugins/codec_wav/WavEncoder.cpp:144
-msgid "Unable to open the file for saving!"
-msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
-
 #: plugins/codec_ogg/OggDecoder.cpp:94
 msgid "Ogg bitstream has zero-length."
 msgstr "Le flux de données au format « Ogg » à une taille nulle."
 
 #: plugins/codec_ogg/OggDecoder.cpp:106
 msgid "Input does not appear to be an Ogg bitstream."
-msgstr "Le fichier d'entrée ne semble pas être un flux de données au format « Ogg »."
+msgstr ""
+"Le fichier d'entrée ne semble pas être un flux de données au format « Ogg »."
 
 #: plugins/codec_ogg/OggDecoder.cpp:126
 msgid "Error reading first page of Ogg bitstream data."
@@ -3957,7 +3993,8 @@ msgstr "Erreur de lecture de la première page de données du flux « Ogg »."
 
 #: plugins/codec_ogg/OggDecoder.cpp:133
 msgid "Error reading initial header packet."
-msgstr "Erreur lors de la lecture du paquet correspondant à l'en-tête du fichier."
+msgstr ""
+"Erreur lors de la lecture du paquet correspondant à l'en-tête du fichier."
 
 #: plugins/codec_ogg/OggDecoder.cpp:140
 msgid "This Ogg bitstream does not contain Vorbis audio data."
@@ -4002,7 +4039,7 @@ msgstr "Détection de l'encodage des octets (recherche par statistique)..."
 msgid "searching for missing chunk '%1'..."
 msgstr "Recherche pour le portion manquante « %1 »..."
 
-#: plugins/codec_wav/WavEncoder.cpp:101
+#: plugins/codec_wav/WavEncoder.cpp:100
 msgid ""
 "Sorry, the currently selected compression type can not be used for saving. "
 "Do you want to use G711 ULAW compression instead?"
@@ -4011,11 +4048,11 @@ msgstr ""
 "enregistrer le fichier. Voulez vous utiliser le type de compression « G711 "
 "ULAW » à la place ?"
 
-#: plugins/codec_wav/WavEncoder.cpp:104
+#: plugins/codec_wav/WavEncoder.cpp:103
 msgid "&Yes, use G711"
 msgstr "&Oui, utiliser « G711 »"
 
-#: plugins/codec_wav/WavEncoder.cpp:105
+#: plugins/codec_wav/WavEncoder.cpp:104
 msgid "&No, store uncompressed"
 msgstr "&Non, ne pas compresser"
 
@@ -4342,4 +4379,3 @@ msgstr "(Taille du fichier cible : %1 Mo)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "nouveau signal audio"
-

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-12 17:17+0200\n"
+"POT-Creation-Date: 2004-07-10 15:49+0200\n"
 "PO-Revision-Date: 2004-06-12 17:17+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -459,12 +459,12 @@ msgstr ""
 msgid "(unknown)"
 msgstr "(unbekannt)"
 
-#: kwave/PluginManager.cpp:781
+#: kwave/PluginManager.cpp:773
 #, c-format
 msgid "%16s %5s written by %s"
 msgstr "%16s %5s geschrieben von %s"
 
-#: kwave/PluginManager.cpp:785
+#: kwave/PluginManager.cpp:777
 #, c-format
 msgid ""
 "error in '%s':\n"
@@ -473,7 +473,7 @@ msgstr ""
 "Fehler in '%s':\n"
 "\t %s"
 
-#: kwave/PluginManager.cpp:790
+#: kwave/PluginManager.cpp:782
 #, c-format
 msgid ""
 "--- \n"
@@ -490,11 +490,11 @@ msgstr "Einfügen"
 msgid "modify file information"
 msgstr "Datei-Information ändern"
 
-#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:870
+#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:882
 msgid "delete"
 msgstr "Löschen"
 
-#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:753
+#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:761
 msgid "insert track"
 msgstr "Track einfügen"
 
@@ -502,21 +502,21 @@ msgstr "Track einfügen"
 msgid "modify samples"
 msgstr "Samples ändern"
 
-#: kwave/SignalWidget.cpp:417 plugins/record/RecordPlugin.cpp:198
+#: kwave/SignalWidget.cpp:418 plugins/record/RecordPlugin.cpp:198
 #: plugins/record/RecordPlugin.cpp:567 plugins/record/RecordPlugin.cpp:585
 #: plugins/record/RecordPlugin.cpp:640
 msgid "Out of memory"
 msgstr "Zu wenig Speicher"
 
-#: kwave/SignalWidget.cpp:420 plugins/playback/PlayBackPlugin.cpp:264
+#: kwave/SignalWidget.cpp:421 plugins/playback/PlayBackPlugin.cpp:264
 msgid "unable to open '%1'"
 msgstr "'%1' kann nicht geöffnet werden"
 
-#: kwave/SignalWidget.cpp:424
+#: kwave/SignalWidget.cpp:425
 msgid "invalid or unknown file type: '%1'"
 msgstr "Ungültiger oder unbekannter Dateityp: '%1'"
 
-#: kwave/SignalWidget.cpp:1823 kwave/SignalWidget.cpp:1862
+#: kwave/SignalWidget.cpp:1824 kwave/SignalWidget.cpp:1863
 msgid "drag and drop"
 msgstr "Drag & Drop"
 
@@ -719,11 +719,11 @@ msgstr " (geändert)"
 msgid "selection"
 msgstr "Auswahl"
 
-#: kwave/SignalManager.cpp:297
+#: kwave/SignalManager.cpp:301
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: kwave/SignalManager.cpp:332
+#: kwave/SignalManager.cpp:336
 msgid ""
 "Saving in this format will loose the following additional file attribute"
 "(s):\n"
@@ -735,48 +735,48 @@ msgstr ""
 "%1\n"
 "Wollen Sie trotzdem fortsetzen?"
 
-#: kwave/SignalManager.cpp:369 plugins/record/RecordPlugin.cpp:659
+#: kwave/SignalManager.cpp:373 plugins/record/RecordPlugin.cpp:659
 msgid " for KDE "
 msgstr " für KDE "
 
-#: kwave/SignalManager.cpp:405
+#: kwave/SignalManager.cpp:409
 msgid "An error occurred while saving the file!"
 msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
-#: kwave/SignalManager.cpp:414
+#: kwave/SignalManager.cpp:418
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
-#: kwave/SignalManager.cpp:421
+#: kwave/SignalManager.cpp:425
 msgid "Sorry, the file type is not supported!"
 msgstr "Sorry, dieser Datei-Typ wird nicht unterstützt!"
 
-#: kwave/SignalManager.cpp:634
+#: kwave/SignalManager.cpp:642
 msgid "cut"
 msgstr "Ausschneiden"
 
-#: kwave/SignalManager.cpp:637
+#: kwave/SignalManager.cpp:645
 msgid "crop"
 msgstr "Zuschneiden"
 
-#: kwave/SignalManager.cpp:703
+#: kwave/SignalManager.cpp:711
 msgid "paste"
 msgstr "Einfügen"
 
-#: kwave/SignalManager.cpp:746
+#: kwave/SignalManager.cpp:754
 msgid "append track"
 msgstr "Track anhängen"
 
-#: kwave/SignalManager.cpp:787 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:797 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "Track löschen"
 
-#: kwave/SignalManager.cpp:1344 kwave/SignalManager.cpp:1351
+#: kwave/SignalManager.cpp:1355 kwave/SignalManager.cpp:1362
 msgid "last action"
 msgstr "letzte Aktion"
 
-#: kwave/SignalManager.cpp:1570
+#: kwave/SignalManager.cpp:1588
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 

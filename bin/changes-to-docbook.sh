@@ -15,7 +15,7 @@ BEGIN {
     initial_indent=1;
     n_versions=0;
     n_items=0;
-    printi(0,"<para><itemizedlist>");
+    printi(0,"<para>");
 }
 function printi(indent,line) {
     for (i=0;i<indent+initial_indent;i++) {
@@ -93,6 +93,6 @@ END {
     }
     if (n_versions != 0) printi(1,"</listitem>");
 
-    printi(0,"</itemizedlist></para>");
+    printi(0,"</para>");
 }
 '

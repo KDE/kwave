@@ -243,6 +243,7 @@ protected:
      * @param rate sample rate
      * @param bits number of bits per sample
      * @param tracks number of tracks
+     * @return zero if successful, -1 if failed or canceled
      */
     int newSignal(unsigned int samples, double rate,
                   unsigned int bits, unsigned int tracks);

@@ -28,7 +28,7 @@ noinst_LIBRARIES = libkwavestatic.a
 all: libkwave.so
 
 libkwave.so: libkwavestatic.a ../mt/libkwavemt.a libkwavestatic.a ../libgui/libkwavegui.a
-	ld -o libkwave.so \
+	ld -o libkwave.so --export-dynamic \
 	--whole-archive ../mt/libkwavemt.a \
 	--whole-archive libkwavestatic.a \
 	--whole-archive ../libgui/libkwavegui.a \

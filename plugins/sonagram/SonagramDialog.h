@@ -27,7 +27,7 @@ class QComboBox;
 class QLabel;
 class QPushButton;
 class QRadioButton;
-class QStrList;
+class QStringList;
 class KwavePlugin;
 
 //*****************************************************************************
@@ -46,7 +46,7 @@ public:
      * The second parameter will contain the id of a window function
      * or zero if no window function was selected ("<none>").
      */
-    void parameters(QStrList &list);
+    void parameters(QStringList &list);
 
 public slots:
     /** sets the number of fft points */

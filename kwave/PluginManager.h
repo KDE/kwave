@@ -28,7 +28,7 @@
 class KwavePlugin;
 class QBitmap;
 class QString;
-class QStrList;
+class QStringList;
 class TopWidget;
 
 /**
@@ -64,7 +64,7 @@ public:
     /**
      * Executes a plugin in the context of a given parent widget.
      */
-    void executePlugin(const QString &name, QStrList *params);
+    void executePlugin(const QString &name, QStringList *params);
 
     /**
      * Returns the length of the current signal in samples.
@@ -188,8 +188,8 @@ private:
      * @param var the version number of the plugin
      * @return list of strings
      */
-    QStrList *loadPluginDefaults(const QString &name,
-                                 const QString &version);
+    QStringList loadPluginDefaults(const QString &name,
+                                   const QString &version);
 
     /**
      * Saves a plugin's default parameters to the user's configuration
@@ -201,7 +201,7 @@ private:
      * @param param a list of configuration strings
      */
     void savePluginDefaults(const QString &name, const QString &version,
-                            QStrList &params);
+                            QStringList &params);
 
     /** connects all signals of and for a plugin */
     void connectPlugin(KwavePlugin *plugin);

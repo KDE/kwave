@@ -126,8 +126,8 @@ void *PluginManager::loadPlugin(const QString &name)
     return handle;
 }
 
-//**********************************************************
-void PluginManager::executePlugin(const QString &name, QStrList *params)
+//***************************************************************************
+void PluginManager::executePlugin(const QString &name, QStringList *params)
 {
     QString command;
 
@@ -181,7 +181,7 @@ void PluginManager::executePlugin(const QString &name, QStrList *params)
 		connectPlugin(plugin);
 
 		// now the plugin is present and loaded
-		QStrList *last_params = loadPluginDefaults(name, version);
+		QStringList last_params = loadPluginDefaults(name, version);
 
 		if (params) {
 		    // parameters were specified -> call directly
@@ -210,8 +210,10 @@ void PluginManager::executePlugin(const QString &name, QStrList *params)
 			context = 0;
 		    };
 		} else {
-	            // call the plugin's setup function
+		    // call the plugin's setup function
+		    debug("PluginManager: calling setup"); // ###
 		    params = plugin->setup(last_params);
+		    debug("PluginManager: setup done"); // ###
 		
 		    if (params) {
 			// we have a non-zero parameter list, so
@@ -230,7 +232,7 @@ void PluginManager::executePlugin(const QString &name, QStrList *params)
 			command += name;
 			for (unsigned int i=0; i < params->count(); i++) {
 			    command += ", ";
-			    command += params->at(i);
+			    command += *(params->at(i));
 			}
 			delete params;
 			command += ")";
@@ -238,10 +240,6 @@ void PluginManager::executePlugin(const QString &name, QStrList *params)
 		    }
 		}
 
-		// previous parameters are no longer needed
-		if (last_params) delete last_params;
-		last_params=0;
-		
 		// now the plugin is no longer needed here, so delete it
 		// if it has not already been detached
 		if (plugin) {
@@ -257,20 +255,21 @@ void PluginManager::executePlugin(const QString &name, QStrList *params)
     } else warning("%s", dlerror());
 
     if (handle) dlclose(handle);
-    if (!command.isNull()) emit sigCommand(command);
+    if (command.length()) emit sigCommand(command);
 }
 
 //***************************************************************************
-QStrList *PluginManager::loadPluginDefaults(const QString &name,
+QStringList PluginManager::loadPluginDefaults(const QString &name,
 	const QString &version)
 {
     QString def_version;
     QString section("plugin ");
+    QStringList list;
     section += name;
 
     KConfig *cfg = KGlobal::config();
     ASSERT(cfg);
-    if (!cfg) return 0;
+    if (!cfg) return list;
 
     cfg->sync();
     cfg->setGroup(section);
@@ -279,27 +278,26 @@ QStrList *PluginManager::loadPluginDefaults(const QString &name,
     if (!def_version.length()) {
 	debug("PluginManager::loadPluginDefaults: "\
 	      "plugin '%s': no defaults found", name.data());
-	return 0;
+	return list;
     }
     if (!(def_version == version)) {
 	debug("PluginManager::loadPluginDefaults: "\
 	    "plugin '%s': defaults for version '%s' not loaded, found "\
 	    "old ones of version '%s'.", name.data(), version.data(),
 	    def_version.data());
+	return list;
     }
 
-    QStrList list;
-    int count = cfg->readListEntry("defaults", list, ',');
+    list = cfg->readListEntry("defaults", ',');
     debug("PluginManager::loadPluginDefaults: list with %d entries loaded",
-	  count);
-
-    return new QStrList(list);
+	  list.count() );
+    return list;
 }
 
 //***************************************************************************
 void PluginManager::savePluginDefaults(const QString &name,
                                        const QString &version,
-                                       QStrList &params)
+                                       QStringList &params)
 {
     QString def_version;
     QString section("plugin ");

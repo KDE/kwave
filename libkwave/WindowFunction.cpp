@@ -36,6 +36,7 @@ window_function_t &operator++(window_function_t &f)
 
 WindowFunction::InitializedTypesMap::InitializedTypesMap()
 {
+    debug("WindowFunction::InitializedTypesMap::InitializedTypesMap()"); // ###
     append(WINDOW_FUNC_NONE,       WINDOW_FUNC_NONE,
            "none", "None");          i18n("None");
     append(WINDOW_FUNC_HAMMING,    WINDOW_FUNC_HAMMING,

@@ -26,7 +26,7 @@ class PluginManager;
 class PluginContext;
 class KwavePlugin;
 class TopWidget;
-class QStrList;
+class QStringList;
 
 #define KWAVE_PLUGIN(class_name,plugin_name,author_name) \
     const char *version = "2.0"; \
@@ -71,7 +71,7 @@ public:
      *         has to be set up) or null if the setup (dialog) has been
      *         aborted and the plugin should not get executed
      */
-    virtual QStrList *setup(QStrList *previous_params = 0);
+    virtual QStringList *setup(QStringList &previous_params);
 
     /**
      * Is called from the main program before the run() function and can
@@ -81,7 +81,7 @@ public:
      * @return an error code if the execution failed or zero if everything
      *         was ok.
      */
-    virtual int start(QStrList &params);
+    virtual int start(QStringList &params);
 
     /**
      * Stops any threads and is called from the close() function and
@@ -94,7 +94,7 @@ public:
      * perform some action. This function runs in a separate thread!
      * @param list of strings with parameters
      */
-    virtual void run(QStrList params);
+    virtual void run(QStringList params);
 
     /**
      * Returns a reference to the manager of this plugin.
@@ -210,7 +210,7 @@ protected:
      * Gets called to execute the plugin's run function in a separate thread.
      * @param list of strings with parameters
      */
-    int execute(QStrList &params);
+    int execute(QStringList &params);
 
     /**
      * Returns the handle to the dynamically loaded shared object.
@@ -248,7 +248,7 @@ private:
     /**
      * Thread that executes the run() member function.
      */
-    Asynchronous_Object_with_1_arg<KwavePlugin, QStrList> *m_thread;
+    Asynchronous_Object_with_1_arg<KwavePlugin, QStringList> *m_thread;
 
     /** Mutex for control over the thread */
     Mutex m_thread_lock;

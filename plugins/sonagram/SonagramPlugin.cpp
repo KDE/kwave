@@ -96,12 +96,13 @@ SonagramPlugin::~SonagramPlugin()
 }
 
 //***************************************************************************
-QStrList *SonagramPlugin::setup(QStrList *previous_params)
+QStringList *SonagramPlugin::setup(QStringList &previous_params)
 {
-    QStrList *result = 0;
+    QStringList *result = 0;
+    debug("SonagramPlugin::setup()");
 
     // try to interprete the list of previous parameters, ignore errors
-    if (previous_params) interpreteParameters(*previous_params);
+    if (previous_params.count()) interpreteParameters(previous_params);
 
     SonagramDialog *dlg = new SonagramDialog(*this);
     ASSERT(dlg);
@@ -113,20 +114,22 @@ QStrList *SonagramPlugin::setup(QStrList *previous_params)
     dlg->setFollowSelection(m_follow_selection);
 
     if (dlg->exec() == QDialog::Accepted) {
-	result = new QStrList();
+	result = new QStringList();
 	ASSERT(result);
 	if (result) dlg->parameters(*result);
     };
 
     delete dlg;
+    debug("SonagramPlugin::setup(): done.");
     return result;
 }
 
 //***************************************************************************
-int SonagramPlugin::interpreteParameters(QStrList &params)
+int SonagramPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
+    debug("SonagramPlugin::interpreteParameters()"); // ###
 
     // evaluate the parameter list
     ASSERT(params.count() == 5);
@@ -136,38 +139,39 @@ int SonagramPlugin::interpreteParameters(QStrList &params)
 	return -EINVAL;
     }
 	
-    param = params.at(0);
+    param = params[0];
     m_fft_points = param.toUInt(&ok);
     ASSERT(ok);
     if (!ok) return -EINVAL;
     ASSERT(m_fft_points <= 32767);
     if (m_fft_points > 32767) m_fft_points=32767;
 
-    param = params.at(1);
+    param = params[1];
     m_window_type = WindowFunction::findFromName(param);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 
-    param = params.at(2);
+    param = params[2];
     m_color = (param.toUInt(&ok) != 0);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 
-    param = params.at(3);
+    param = params[3];
     m_track_changes = (param.toUInt(&ok) != 0);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 
-    param = params.at(4);
+    param = params[4];
     m_follow_selection = (param.toUInt(&ok) != 0);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 
+    debug("SonagramPlugin::interpreteParameters(): done"); // ###
     return 0;
 }
 
 //***************************************************************************
-int SonagramPlugin::start(QStrList &params)
+int SonagramPlugin::start(QStringList &params)
 {
     debug("--- SonagramPlugin::start() ---");
 
@@ -194,7 +198,7 @@ int SonagramPlugin::start(QStrList &params)
     if (m_stripes > 32767) m_stripes = 32767;
 
     // create a new empty image
-    createNewImage(m_stripes, m_fft_points/2, m_color);
+    createNewImage(m_stripes, m_fft_points/2);
 
     // activate the window with an initial image
     // and all necessary informations
@@ -233,7 +237,7 @@ int SonagramPlugin::stop()
 }
 
 //***************************************************************************
-void SonagramPlugin::run(QStrList params)
+void SonagramPlugin::run(QStringList /* params */)
 {
     debug("SonagramPlugin::run()");
 
@@ -383,7 +387,7 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
 
 //***************************************************************************
 void SonagramPlugin::createNewImage(const unsigned int width,
-	const unsigned int height, const bool color)
+	const unsigned int height)
 {
     debug("SonagramPlugin::createNewImage()");
 

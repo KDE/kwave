@@ -22,7 +22,7 @@
 #include <qstring.h>
 #include <libgui/KwavePlugin.h>
 
-class QStrList;
+class QStringList;
 class PluginContext;
 
 class AboutPlugin: public KwavePlugin
@@ -38,7 +38,7 @@ public:
      * shows the about dialog,
      * @see KwavePlugin::start()
      */
-    virtual int start(QStrList &params);
+    virtual int start(QStringList &params);
 
 };
 

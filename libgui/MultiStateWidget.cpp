@@ -6,14 +6,14 @@
 #include <qimage.h>
 #include <qstring.h>
 #include <qlist.h>
-#include <qstrlist.h>
+#include <qstringlist.h>
 #include <qdir.h>
 #include <qpixmap.h>
 #include "kstddirs.h"
 #include "MultiStateWidget.h"
 
 QList <QPixmap> *pixmaps = 0;
-QStrList *pixnames = 0;
+QStringList *pixnames = 0;
 
 //**********************************************************
 MultiStateWidget::MultiStateWidget(QWidget *parent, int num, int count)
@@ -32,7 +32,7 @@ MultiStateWidget::MultiStateWidget(QWidget *parent, int num, int count)
     if (pixmaps == 0) pixmaps = new QList<QPixmap>();
     ASSERT(pixmaps);
 
-    if (pixnames == 0) pixnames = new QStrList(true);
+    if (pixnames == 0) pixnames = new QStringList();
     ASSERT(pixnames);
 
     resize(20, 20);
@@ -52,7 +52,7 @@ int MultiStateWidget::addPixmap(const QString &filename)
     if (!pixmaps) return -1;
     if (!pixnames) return -1;
 
-    int result = pixnames->find(filename);
+    int result = pixnames->findIndex(filename);
     if (result == -1) {
 	QPixmap *newpix = new QPixmap();
 	ASSERT(newpix);

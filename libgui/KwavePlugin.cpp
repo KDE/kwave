@@ -52,15 +52,15 @@ KwavePlugin::~KwavePlugin()
 }
 
 //***************************************************************************
-QStrList *KwavePlugin::setup(QStrList *)
+QStringList *KwavePlugin::setup(QStringList &)
 {
-    QStrList *result = new QStrList();
+    QStringList *result = new QStringList();
     ASSERT(result);
     return result;
 }
 
 //***************************************************************************
-int KwavePlugin::start(QStrList &)
+int KwavePlugin::start(QStringList &)
 {
     MutexGuard lock(m_thread_lock);
     return 0;
@@ -87,11 +87,11 @@ int KwavePlugin::stop()
 }
 
 //***************************************************************************
-int KwavePlugin::execute(QStrList &params)
+int KwavePlugin::execute(QStringList &params)
 {
     MutexGuard lock(m_thread_lock);
 
-    m_thread = new Asynchronous_Object_with_1_arg<KwavePlugin, QStrList>(
+    m_thread = new Asynchronous_Object_with_1_arg<KwavePlugin, QStringList>(
 	this, &KwavePlugin::run,params);
     ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
@@ -107,7 +107,7 @@ int KwavePlugin::execute(QStrList &params)
 }
 
 //***************************************************************************
-void KwavePlugin::run(QStrList)
+void KwavePlugin::run(QStringList)
 {
 }
 

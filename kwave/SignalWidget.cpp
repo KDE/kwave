@@ -1151,7 +1151,7 @@ void SignalWidget::drawPolyLineSignal(int channel, int middle, int height)
 }
 
 //****************************************************************************
-void SignalWidget::paintEvent(QPaintEvent *event)
+void SignalWidget::paintEvent(QPaintEvent *)
 {
 //    debug("SignalWidget::paintEvent()");
 

@@ -492,11 +492,11 @@ void TopWidget::executeCommand(const QString &command)
 	return ;
     CASE_COMMAND("plugin")
 	QString name = parser.firstParam();
-	QStrList *params = 0;
+	QStringList *params = 0;
 
 	int cnt=parser.count();
 	if (cnt > 1) {
-	    params = new QStrList();
+	    params = new QStringList();
 	    ASSERT(params);
 	    while (params && cnt--) {
 		const QString &par = parser.nextParam();
@@ -511,7 +511,7 @@ void TopWidget::executeCommand(const QString &command)
 	ASSERT(m_plugin_manager);
 	if (m_plugin_manager) m_plugin_manager->executePlugin(name, params);
     CASE_COMMAND("plugin:execute")
-	QStrList params;
+	QStringList params;
 	int cnt = parser.count();
 	QString name(parser.firstParam());
 	while (--cnt > 0) {

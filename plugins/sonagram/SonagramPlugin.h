@@ -25,7 +25,7 @@
 #include "libgui/KwavePlugin.h"
 
 class QImage;
-class QStrList;
+class QStringList;
 class PluginContext;
 class SonagramWindow;
 class StripeInfoPrivate;
@@ -41,10 +41,10 @@ public:
     virtual ~SonagramPlugin();
 
     /** @see KwavePlugin::setup() */
-    virtual QStrList *setup(QStrList *previous_params);
+    virtual QStringList *setup(QStringList &previous_params);
 
     /** @see KwavePlugin::start() */
-    virtual int start(QStrList &params);
+    virtual int start(QStringList &params);
 
     /** @see KwavePlugin::stop() */
     virtual int stop();
@@ -54,7 +54,7 @@ public:
      * calculated.
      * @see KwavePlugin::run()
      */
-    virtual void run(QStrList params);
+    virtual void run(QStringList params);
 
 private slots:
 
@@ -77,10 +77,10 @@ protected:
     /**
      * interpretes a given parameter list and sets up internal
      * coordinates accordingly
-     * @param params reference to a QStrList with parameters
+     * @param params reference to a QStringList with parameters
      * @return 0 if ok, or an error code if failed
      */
-    int interpreteParameters(QStrList &params);
+    int interpreteParameters(QStringList &params);
 
 private:
 
@@ -93,10 +93,9 @@ private:
      * @param width number of horizontal pixels (stripes = signal
      *        length / fft points, rounded up) [1..32767]
      * @param height number of vertical pixels (= fft points / 2) [1..32767]
-     * @param color if true, use rainbow colors, if false use greyscale
      */
     void createNewImage(const unsigned int width,
-	const unsigned int height, const bool color);
+	const unsigned int height);
 
     /**
      * Calculates the fft for one stripe. If the input data range runns

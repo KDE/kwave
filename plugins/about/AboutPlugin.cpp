@@ -34,7 +34,7 @@ AboutPlugin::AboutPlugin(PluginContext &c)
 }
 
 //***************************************************************************
-int AboutPlugin::start(QStrList &params)
+int AboutPlugin::start(QStringList &/*params*/)
 {
     // create a new "about" dialog and show it
 

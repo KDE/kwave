@@ -695,7 +695,7 @@ card 0: I82801DBICH4 [Intel 82801DB-ICH4], device 4: Intel ICH - IEC958 [Intel 8
 
 //  	    qDebug("  Subdevices: %i/%i\n",
 // 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
-	    if (count > 0) {
+	    if (count > 1) {
 		for (idx = 0; idx < (int)count; idx++) {
 		    snd_pcm_info_set_subdevice(pcminfo, idx);
 		    if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
@@ -707,8 +707,9 @@ card 0: I82801DBICH4 [Intel 82801DB-ICH4], device 4: Intel ICH - IEC958 [Intel 8
 			QString name = card_dev_name + QString("S%1").arg(idx);
 			name += QString(" [%1 / %2]").arg(card_dev_verbose).arg(
 			        snd_pcm_info_get_subdevice_name(pcminfo));
-			qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
-			m_device_list.insert(name, hw_device);
+			QString hwdev = hw_device + QString(",%1").arg(idx);
+			qDebug("# '%s' -> '%s'", hwdev.data(), name.data());
+			m_device_list.insert(name, hwdev);
 		    }
 		}
 	    } else {

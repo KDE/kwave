@@ -85,7 +85,7 @@ Thread::~Thread()
 {
     if (this->running()) {
 	qDebug("Thread::~Thread(): waiting for normal shutdown");
-	wait(100);
+	wait(1000);
 	qDebug("Thread::~Thread(): stopping");
 	stop();
     }

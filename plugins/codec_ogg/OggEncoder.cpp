@@ -92,7 +92,7 @@ QValueList<FileProperty> OggEncoder::supportedProperties()
     {
 	list.append(supported_properties[i].property);
     }
-    
+
     return list;
 }
 
@@ -103,13 +103,13 @@ void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
                                sizeof(supported_properties[0]); ++i)
     {
 	FileProperty property = supported_properties[i].property;
-	
+
 	if (!info.contains(property)) continue; // skip if not present
 
 	// encode the property as string
 	const char *tag = supported_properties[i].name;
 	if (!tag) continue;
-	
+
 	QString value = info.get(property).toString();
 	vorbis_comment_add_tag(vc, (char*)tag, (char*)value.latin1());
     }
@@ -162,12 +162,12 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	         DEFAULT_BITRATE/1000)) !=
 	    KMessageBox::Continue)
 	    return false; // <- Cancelled
-	
+
 	bitrate_nominal = DEFAULT_BITRATE;
 	bitrate_lower = -1;
 	bitrate_upper = -1;
     }
-    
+
     // some checks first
     Q_ASSERT(tracks < 255);
     if (tracks > 255) return false;
@@ -188,7 +188,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// Encoding using constant bitrate in ABR mode
 	ret = vorbis_encode_setup_managed(&vi, tracks, sample_rate,
 	      -1, bitrate_nominal, -1);
-	      
+
 	// ### this might not work with Debian / old Ogg/Vorbis ###
 #ifdef OV_ECTL_RATEMANAGE_AVG
 	if (!ret) ret =
@@ -208,9 +208,9 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	         "ABR lower=%d, ABR highest=%d, ABR nominal=%d",
 	         vbr_quality, bitrate_lower, bitrate_upper,
 	         bitrate_nominal);
-	return false;    
+	return false;
     }
-    
+
     /*********************************************************************
      Encoding using a VBR quality mode.  The usable range is -.1
      (lowest quality, smallest file) to 1. (highest quality, largest file).
@@ -246,7 +246,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    i18n("Unable to open the file for saving!"));
 	return false;
     }
-    
+
     // append some missing standard properties if they are missing
     if (!info.contains(INF_SOFTWARE)) {
         // add our Kwave Software tag
@@ -272,7 +272,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     // add all supported properties as file comments
     vorbis_comment_init(&vc);
     encodeProperties(info, &vc);
-    
+
     // set up the analysis state and auxiliary encoding storage
     vorbis_analysis_init(&vd, &vi);
     vorbis_block_init(&vd, &vb);
@@ -294,7 +294,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	ogg_packet header;
 	ogg_packet header_comm;
 	ogg_packet header_code;
-	
+
 	vorbis_analysis_headerout(&vd, &vc, &header, &header_comm,
 	                          &header_code);
 	// automatically placed in its own page
@@ -311,7 +311,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	}
     }
 
-    while (!eos) {
+    while (!eos && !src.isCancelled()) {
 	if (src.eof()) {
 	    // end of file.  this can be done implicitly in the mainline,
 	    // but it's easier to see here in non-clever fashion.
@@ -320,7 +320,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    vorbis_analysis_wrote(&vd, 0);
 	} else {
 	    // data to encode
-	
+
 	    // expose the buffer to submit data
 	    float **buffer = vorbis_analysis_buffer(&vd, BUFFER_SIZE);
 	    unsigned int pos;
@@ -331,11 +331,11 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 		    buffer[track][pos] = (float)s / (float)SAMPLE_MAX;
 		}
 	    }
-	    
+
 	    // tell the library how much we actually submitted
 	    vorbis_analysis_wrote(&vd, pos);
 	}
-	
+
 	// vorbis does some data preanalysis, then divvies up blocks for
 	// more involved (potentially parallel) processing.  Get a single
 	// block for encoding now
@@ -343,18 +343,18 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    // analysis, assume we want to use bitrate management
 	    vorbis_analysis(&vb, NULL);
 	    vorbis_bitrate_addblock(&vb);
-	
+
 	    while(vorbis_bitrate_flushpacket(&vd, &op)) {
 		// weld the packet into the bitstream
 		ogg_stream_packetin(&os, &op);
-		
+
 		// write out pages (if any)
 		while (!eos) {
 		    int result = ogg_stream_pageout(&os,&og);
 		    if (!result) break;
 		    dst.writeBlock((char*)og.header, og.header_len);
 		    dst.writeBlock((char*)og.body, og.body_len);
-		
+
 		    // this could be set above, but for illustrative
 		    // purposes, I do it here (to show that vorbis
 		    // does know where the stream ends)

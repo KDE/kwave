@@ -44,12 +44,7 @@ int NewSignalPlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    ASSERT(params.count() == 5);
-    if (params.count() != 5) {
-	warning("NewSignalPlugin::interpreteParams(): params.count()=%d",
-	      params.count());
-	return -EINVAL;
-    }
+    if (params.count() != 5) return -EINVAL;
 
     param = params[0];
     m_samples = param.toUInt(&ok);

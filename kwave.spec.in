@@ -35,10 +35,11 @@ touch config.in
 DESTDIR=""
 unset DESTDIR
 ./configure --with-install-root=$RPM_BUILD_ROOT \
-	--enable-shared=yes --enable-debug=no
+	--enable-static=no --enable-shared=yes --enable-debug=no
 
 %build -n kwave-@RPM_VERSION@
-make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT=""
+unset DESTDIR
+make
 
 %install -n kwave-@RPM_VERSION@
 rm -rf "$RPM_BUILD_ROOT"

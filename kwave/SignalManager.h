@@ -118,6 +118,15 @@ public:
     inline Selection &selection() { return m_selection; };
 
     /**
+     * Returns true if a given track is selected. If the track does
+     * not exist or is not selected the return value is false.
+     */
+    inline bool trackSelected(unsigned int track) {
+	return (m_signal.trackSelected(track));
+    };
+
+
+    /**
      * Returns an array of indices of currently selected tracks.
      */
     const QArray<unsigned int> selectedTracks();
@@ -184,10 +193,12 @@ public:
     void selectTracks(QArray<unsigned int> &track_list);
 
     /**
-     * Toggles the selection flag of a track.
+     * Sets the selection flag of a track.
      * @param track index of the track [0..N-1]
+     * @param select if true, the track will be enabled,
+     *               if false it will be disabled
      */
-    void toggleChannel(const unsigned int track);
+    void selectTrack(unsigned int track, bool select);
 
     /**
      * Opens an input stream for a track, starting at a specified sample

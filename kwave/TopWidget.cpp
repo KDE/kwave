@@ -943,14 +943,13 @@ void TopWidget::setSelectedTimeInfo(unsigned int samples, double ms)
     ASSERT(statusBar());
     if (!statusBar()) return;
 
-    QString txt = " "+i18n("Selected: %1 (%2 samples)").arg(
-	KwavePlugin::ms2string(ms)).arg(samples)+" ";
-
-    if (samples != 1) {
+    if (samples > 1) {
+	QString txt = " "+i18n("Selected: %1 (%2 samples)").arg(
+	    KwavePlugin::ms2string(ms)).arg(samples)+" ";
 	statusBar()->message(txt, 4000);
-	m_menu_manager->setItemEnabled("@SELECTION", false);
-    } else {
 	m_menu_manager->setItemEnabled("@SELECTION", true);
+    } else {
+	m_menu_manager->setItemEnabled("@SELECTION", false);
     }
 }
 

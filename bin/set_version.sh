@@ -16,7 +16,7 @@
 # the updated files are: 
 # - VERSION
 # - kwave.lsm
-# - plugins/dialogs/about/module.h
+# - plugins/about/AboutDialog.cpp
 #
 # NOTE: - this should be considered a quick hack, no error 
 #         checking is performed !!!

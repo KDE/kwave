@@ -240,10 +240,10 @@ private:
     QScrollBar *scrollbar;
 
     /** array of lamps, one for each channel */
-    QList<MultiStateWidget> lamps;
+    QList<MultiStateWidget> m_lamps;
 
-    /** array of speaker icons, one for each channel */
-    QList<MultiStateWidget> speakers;
+//    /** array of speaker icons, one for each channel */
+//    QList<MultiStateWidget> m_speakers;
 
     /** the last number of channels (for detecting changes) */
     unsigned int lastChannels;

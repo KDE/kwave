@@ -1173,7 +1173,7 @@ type=HEADER
 
 [libkwave/Makefile.am]
 dist=true
-files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/PointSet.h,libkwave/PlayBackParam.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/mmap.h,libkwave/mmap.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp
+files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/PointSet.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/mmap.h,libkwave/mmap.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp
 install=false
 install_location=
 sub_dirs=
@@ -1216,12 +1216,6 @@ install_location=
 type=SOURCE
 
 [libkwave/Parser.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[libkwave/PlayBackParam.h]
 dist=true
 install=false
 install_location=
@@ -1656,7 +1650,7 @@ install_location=
 type=HEADER
 
 [plugins/playback/Makefile.am]
-files=plugins/playback/PlayBackDialog.h,plugins/playback/PlayBackDialog.cpp,plugins/playback/PlayBackPlugin.h,plugins/playback/PlayBackPlugin.cpp,plugins/playback/PlayBackDevice.h,plugins/playback/PlayBack-OSS.h,plugins/playback/PlayBack-OSS.cpp,plugins/playback/PlayBack-aRts.h,plugins/playback/PlayBack-aRts.cpp
+files=plugins/playback/PlayBackDialog.h,plugins/playback/PlayBackDialog.cpp,plugins/playback/PlayBackPlugin.h,plugins/playback/PlayBackPlugin.cpp,plugins/playback/PlayBackDevice.h,plugins/playback/PlayBack-OSS.h,plugins/playback/PlayBack-OSS.cpp,plugins/playback/PlayBack-aRts.h,plugins/playback/PlayBack-aRts.cpp,plugins/playback/PlayBackParam.h
 sub_dirs=
 type=static_library
 
@@ -1697,6 +1691,12 @@ install_location=
 type=SOURCE
 
 [plugins/playback/PlayBackDialog.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/playback/PlayBackParam.h]
 dist=true
 install=false
 install_location=

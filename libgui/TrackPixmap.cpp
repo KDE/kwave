@@ -387,6 +387,7 @@ void TrackPixmap::repaint()
 
     QPainter p(this);
     p.setRasterOp(CopyROP);
+
     p.fillRect(0, 0, w, h, m_color_background);
 
     if (m_zoom ) {

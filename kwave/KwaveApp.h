@@ -33,7 +33,7 @@ class TopWidget;
  * for opening and saving files, opening new windows and holds global
  * configuration data.
  */
-class KwaveApp :public KApplication
+class KwaveApp :public KUniqueApplication
 {
     Q_OBJECT
 public:

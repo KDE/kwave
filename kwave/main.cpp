@@ -10,6 +10,7 @@
 #include <kapp.h>
 #endif // UNIQUE_APP
 
+#include <kcrash.h>
 #include <klocale.h>
 #include <kcmdlineargs.h>
 
@@ -45,6 +46,8 @@ int main( int argc, char **argv )
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineArgs::addCmdLineOptions(options);
     KwaveApp::addCmdLineOptions();
+
+    KCrash::setCrashHandler(0);
 
 #ifdef UNIQUE_APP
     if (!KUniqueApplication::start()) {

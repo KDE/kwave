@@ -33,6 +33,8 @@
 #include "TopWidget.h"
 #include "KwaveApp.h"
 
+#define UNIQUE_APP
+
 //***************************************************************************
 // some static initializers
 static ClipBoard _clipboard;
@@ -225,14 +227,6 @@ void KwaveApp::saveConfig()
     ASSERT(cfg);
     if (!cfg) return;
 
-//    // playback settings
-//    cfg->setGroup("Playback Settings");
-//    cfg->writeEntry("SampleRate", m_playback_params.rate);
-//    cfg->writeEntry("Channels", m_playback_params.channels);
-//    cfg->writeEntry("BitsPerSample", m_playback_params.bits_per_sample);
-//    cfg->writeEntry("Device", m_playback_params.device);
-//    cfg->writeEntry("BufferBase", m_playback_params.bufbase);
-
     // default directories
     cfg->setGroup("Directories");
     cfg->writeEntry("DefaultOpen", m_default_open_dir);
@@ -265,20 +259,6 @@ void KwaveApp::readConfig()
 		m_recent_files.append(result);
 	}
     }
-
-//    // playback settings
-//    cfg->setGroup("Playback Settings");
-//    m_playback_params.rate =
-//	cfg->readUnsignedNumEntry("SampleRate", 44100);
-//    m_playback_params.channels =
-//	cfg->readUnsignedNumEntry("Channels", 2);
-//    m_playback_params.bits_per_sample =
-//	cfg->readUnsignedNumEntry("BitsPerSample", 16);
-//    m_playback_params.device =
-//	cfg->readEntry("Device", "/dev/dsp");
-//    m_playback_params.bufbase =
-//	cfg->readUnsignedNumEntry("BufferBase", 10);
-//    ASSERT(m_playback_params.device.length());
 
     // default directories
     cfg->setGroup("Directories");

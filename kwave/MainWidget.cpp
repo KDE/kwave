@@ -68,7 +68,7 @@ MainWidget::MainWidget(QWidget *parent)
     :QWidget(parent), keys(0), m_slider(0), m_signal_frame(this),
      m_signal_widget(&m_signal_frame),
      frmChannelControls(0),
-     scrollbar(0), lamps(), speakers(), lastChannels(0)
+     scrollbar(0), m_lamps()/*, m_speakers()*/, lastChannels(0)
 {
 //    debug("MainWidget::MainWidget()");
     int s[3];
@@ -106,27 +106,27 @@ MainWidget::MainWidget(QWidget *parent)
 
     // -- multistate widgets for lamps and speakers (channel controls) --
 
-    lamps.setAutoDelete(true);
-    lamps.clear();
+    m_lamps.setAutoDelete(true);
+    m_lamps.clear();
     MultiStateWidget *msw =
 	new MultiStateWidget(frmChannelControls, 0);
     ASSERT(msw);
     if (!msw) return;
-    lamps.append(msw);
-    s[0] = lamps.at(0)->addPixmap("light_on.xpm");
-    s[1] = lamps.at(0)->addPixmap("light_off.xpm");
-    lamps.at(0)->setStates(s);
+    m_lamps.append(msw);
+    s[0] = m_lamps.at(0)->addPixmap("light_on.xpm");
+    s[1] = m_lamps.at(0)->addPixmap("light_off.xpm");
+    m_lamps.at(0)->setStates(s);
 
-    speakers.setAutoDelete(true);
-    speakers.clear();
-    msw = new MultiStateWidget(frmChannelControls, 0, 3);
-    ASSERT(msw);
-    if (!msw) return;
-    speakers.append(msw);
-    s[0] = speakers.at(0)->addPixmap("rspeaker.xpm");
-    s[1] = speakers.at(0)->addPixmap("lspeaker.xpm");
-    s[2] = speakers.at(0)->addPixmap("xspeaker.xpm");
-    speakers.at(0)->setStates(s);
+//    m_speakers.setAutoDelete(true);
+//    m_speakers.clear();
+//    msw = new MultiStateWidget(frmChannelControls, 0, 3);
+//    ASSERT(msw);
+//    if (!msw) return;
+//    m_speakers.append(msw);
+//    s[0] = m_speakers.at(0)->addPixmap("rspeaker.xpm");
+//    s[1] = m_speakers.at(0)->addPixmap("lspeaker.xpm");
+//    s[2] = m_speakers.at(0)->addPixmap("xspeaker.xpm");
+//    m_speakers.at(0)->setStates(s);
 
     // -- accelerator keys for 1...9 --
 
@@ -221,8 +221,8 @@ bool MainWidget::isOK()
 MainWidget::~MainWidget()
 {
     if (keys) delete keys;
-    lamps.clear();
-    speakers.clear();
+    m_lamps.clear();
+//    m_speakers.clear();
 }
 
 //***************************************************************************
@@ -329,8 +329,8 @@ void MainWidget::resetChannels()
 {
     unsigned int t = tracks();
     for (unsigned int i = 0; i < t; i++) {
-	ASSERT(lamps.at(i));
-	if (lamps.at(i)) lamps.at(i)->setState(0);
+	ASSERT(m_lamps.at(i));
+	if (m_lamps.at(i)) m_lamps.at(i)->setState(0);
     }
 }
 
@@ -339,9 +339,9 @@ void MainWidget::parseKey(int key)
 {
     if ((key < 0) || ((unsigned int)key >= tracks()))
 	return;
-    ASSERT(lamps.at(key));
-    if (!lamps.at(key)) return;
-    lamps.at(key)->nextState();
+    ASSERT(m_lamps.at(key));
+    if (!m_lamps.at(key)) return;
+    m_lamps.at(key)->nextState();
 }
 
 //***************************************************************************
@@ -364,11 +364,11 @@ bool MainWidget::executeCommand(const QString &command)
     } else {
 	if (parser.command() == "selectchannels")
 	    for (unsigned int i = 0; i < tracks(); i++)
-		if (lamps.at(i)) lamps.at(i)->setState(0);
+		if (m_lamps.at(i)) m_lamps.at(i)->setState(0);
 
 	if (parser.command() == "invertchannels")
 	    for (unsigned int i = 0; i < tracks(); i++)
-		if (lamps.at(i)) lamps.at(i)->nextState();
+		if (m_lamps.at(i)) m_lamps.at(i)->nextState();
 
 	return m_signal_widget.executeCommand(command);
     }
@@ -435,21 +435,21 @@ void MainWidget::refreshChannelControls()
 
     // move the existing lamps and speakers to their new position
     for (unsigned int i = 0; (i < lastChannels) && (i < channels); i++) {
-	ASSERT(lamps.at(i));
-	ASSERT(speakers.at(i));
-	if (!lamps.at(i)) continue;
-	if (!speakers.at(i)) continue;
+	ASSERT(m_lamps.at(i));
+//	ASSERT(m_speakers.at(i));
+	if (!m_lamps.at(i)) continue;
+//	if (!m_speakers.at(i)) continue;
 
 	y = (i*h)/max(channels,1);
-	lamps.at(i)->setGeometry(x, y+5, 20, 20);
-	speakers.at(i)->setGeometry(x, y+25, 20, 20);
+	m_lamps.at(i)->setGeometry(x, y+5, 20, 20);
+//	m_speakers.at(i)->setGeometry(x, y+25, 20, 20);
     }
 
     // delete now unused lamps and speakers
-    while (lamps.count() > channels)
-	lamps.remove(lamps.last());
-    while (speakers.count() > channels)
-	speakers.remove(speakers.last());
+    while (m_lamps.count() > channels)
+	m_lamps.remove(m_lamps.last());
+//    while (m_speakers.count() > channels)
+//	m_speakers.remove(m_speakers.last());
 
     // add lamps+speakers for new channels
     for (unsigned int i = lastChannels; i < channels; i++) {
@@ -458,45 +458,45 @@ void MainWidget::refreshChannelControls()
 	ASSERT(msw);
 	if (!msw) continue;
 
-	lamps.append(msw);
-	ASSERT(lamps.at(i));
-	if (!lamps.at(i)) continue;
-	s[0] = lamps.at(i)->addPixmap("light_on.xpm");
-	s[1] = lamps.at(i)->addPixmap("light_off.xpm");
+	m_lamps.append(msw);
+	ASSERT(m_lamps.at(i));
+	if (!m_lamps.at(i)) continue;
+	s[0] = m_lamps.at(i)->addPixmap("light_on.xpm");
+	s[1] = m_lamps.at(i)->addPixmap("light_off.xpm");
 	QObject::connect(
-	    lamps.at(i), SIGNAL(clicked(int)),
-	    &m_signal_widget, SLOT(toggleChannel(int))
+	    m_lamps.at(i), SIGNAL(clicked(int)),
+	    &m_signal_widget, SLOT(toggleTrackSelection(int))
 	);
-	lamps.at(i)->setStates(s);
+	m_lamps.at(i)->setStates(s);
 
-        msw = new MultiStateWidget(frmChannelControls, 0, 3);
-        ASSERT(msw);
-        if (!msw) continue;
-	speakers.append(msw);
-	ASSERT(speakers.at(i));
-	if (!speakers.at(i)) continue;
-	s[0] = speakers.at(i)->addPixmap("rspeaker.xpm");
-	s[1] = speakers.at(i)->addPixmap("lspeaker.xpm");
-	s[2] = speakers.at(i)->addPixmap("xspeaker.xpm");
-	speakers.at(i)->setStates(s);
+//        msw = new MultiStateWidget(frmChannelControls, 0, 3);
+//        ASSERT(msw);
+//        if (!msw) continue;
+//	m_speakers.append(msw);
+//	ASSERT(m_speakers.at(i));
+//	if (!m_speakers.at(i)) continue;
+//	s[0] = m_speakers.at(i)->addPixmap("rspeaker.xpm");
+//	s[1] = m_speakers.at(i)->addPixmap("lspeaker.xpm");
+//	s[2] = m_speakers.at(i)->addPixmap("xspeaker.xpm");
+//	m_speakers.at(i)->setStates(s);
 
 	y = (i*h)/max(channels,1);
-	lamps.at(i)->setGeometry(x, y+5, 20, 20);
-	speakers.at(i)->setGeometry(x, y+25, 20, 20);
+	m_lamps.at(i)->setGeometry(x, y+5, 20, 20);
+//	m_speakers.at(i)->setGeometry(x, y+25, 20, 20);
 	
-	lamps.at(i)->show();
-	speakers.at(i)->show();
+	m_lamps.at(i)->show();
+//	m_speakers.at(i)->show();
     }
 
     // set the updated identifiers of the widgets
     for (unsigned int i = 0; i < channels; i++) {
-	ASSERT(lamps.at(i));
-	ASSERT(speakers.at(i));
-	if (!lamps.at(i)) continue;
-	if (!speakers.at(i)) continue;
+	ASSERT(m_lamps.at(i));
+//	ASSERT(m_speakers.at(i));
+	if (!m_lamps.at(i)) continue;
+//	if (!m_speakers.at(i)) continue;
 
-	lamps.at(i)->setNumber(i);
-	speakers.at(i)->setNumber(i);
+	m_lamps.at(i)->setNumber(i);
+//	m_speakers.at(i)->setNumber(i);
     }
 
     lastChannels = channels;

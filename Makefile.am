@@ -11,7 +11,7 @@ SUBDIRS  	 = mt libgui libkwave kwave plugins po doc
 CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
 DISTCLEANFILES 	 = config.cache config.log ${CLEANFILES}
 
-.PHONY: doc
+.PHONY: doc version-labels
 
 configure.in: VERSION
 	touch configure.in
@@ -63,6 +63,11 @@ patch:	${PACKAGE}.spec
 	echo source backed up to ${PACKAGE}-${VERSION}.tar.gz
 	@ $(srcdir)/bin/make_patch.sh ${PACKAGE} `cat $(srcdir)/VERSION` \
 		${ARCHIVE_DIR} ${SRC_DIR} ${SRC_PREFIX}
+
+version-labels:
+	$(srcdir)/bin/set_version.sh $(srcdir) \
+	`cat $(srcdir)/VERSION` \
+	`date --iso`
 
 patchlevel:
 	$(srcdir)/bin/increment_patchlevel.sh ${srcdir}

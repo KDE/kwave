@@ -20,7 +20,7 @@
 
 #include <kdialog.h>
 
-#include "libkwave/PlayBackParam.h" // for playback_param_t
+#include "PlayBackParam.h" // for playback_param_t
 
 class QLabel;
 class QFrame;

@@ -112,6 +112,12 @@ public slots:
      */
     void playbackStop();
 
+    /**
+     * If playback is currently running, it will be paused and
+     * then restarted with current track and time selection.
+     */
+    void reload();
+
     /** Updates the current playback position */
     void updatePlaybackPos(unsigned int pos);
 
@@ -151,6 +157,15 @@ signals:
     void sigPlaybackPos(unsigned int pos);
 
 private:
+
+    /**
+     * If true, we are in "reload" mode. In this mode the playback is
+     * paused and continued without emitting a sigPlaybackDone. This
+     * is useful if playback parameters or signal selection has changed
+     * during playback.
+     */
+    bool m_reload_mode;
+
     /** if set to true, the playback will be done in loop mode */
     bool m_loop_mode;
 

@@ -266,19 +266,6 @@ QBitmap *SignalManager::overview(unsigned int /*width*/, unsigned int /*height*/
 }
 
 //***************************************************************************
-void SignalManager::toggleChannel(const unsigned int /*channel*/)
-{
-//    ASSERT(channel < signal.count());
-//    if (channel >= signal.count()) return;
-//    ASSERT(signal.at(channel));
-//    if (!signal.at(channel)) return;
-//
-//    signal.at(channel)->select(!signal.at(channel)->isSelected());
-//    debug("SignalManager::toggleChannel(%d): selected=%d",
-//	channel, signal.at(channel)->isSelected());
-}
-
-//***************************************************************************
 SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right,
 	bool with_undo)
@@ -679,6 +666,21 @@ void SignalManager::selectTracks(QArray<unsigned int> &track_list)
 	if (new_select != old_select) {
 	    m_signal.selectTrack(track, new_select);
 	    emit sigTrackSelected(track, new_select);
+	}
+    }
+}
+
+//***************************************************************************
+void SignalManager::selectTrack(unsigned int track, bool select)
+{
+    bool old_select = m_signal.trackSelected(track);
+    if (select != old_select) {
+	m_signal.selectTrack(track, select);
+	emit sigTrackSelected(track, select);
+	
+	// if selection changed during playback, reload with pause/continue
+	if (m_playback_controller.running()) {
+	    m_playback_controller.reload();
 	}
     }
 }

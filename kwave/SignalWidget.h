@@ -186,7 +186,11 @@ public slots:
 
     void forwardCommand(const QString &command);
 
-    void toggleChannel(int);
+    /**
+     * Toggles the "selected" flag of a track.
+     * @param track index of the track [0...tracks()-1]
+     */
+    void toggleTrackSelection(int track);
 
     /**
      * Called if the playback has been stopped.

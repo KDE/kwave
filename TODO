@@ -1,16 +1,14 @@
 
 o sometimes the file/new dialog gets the wrong width ?
 
-o enable/disable of tracks
-
-o audible/silent mode of tracks
+o audible/silent mode of tracks (speakers)
 
 o new abstraction layer: "class SampleStorage" that does not crash on
   resize() and creation if out of memory.
 
 o usage of virtual memory: "class MemoryManager"
 
-o configuration of virtual memory
+o configuration of virtual memory (usage of memory mapped files)
 
 o install a new_handler() for cases in which we run out of memory
 
@@ -19,7 +17,15 @@ o when pressing cancel during save, ask if the file should be deleted
 
 o implementation of locking, see SampleLock
 
+o detection of "file modified"
+
+o menu entries for playback control
+
+o ask user if he wants to save before closing a modified file
+
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
+
+o TrackPixmap: different color sets if selected/deselected
 
 o i18n for strings in main.cpp
 
@@ -81,10 +87,6 @@ o use standard KDE accelerators (see KStdAccel)
 
 o playback with 24 and 32 bit (or 18, 20 bits) -> maybe needs ALSA support
 
-o re-enable usage of memory mapped files
-
-o make a menu group for @SELECTION
-
 o import of multi-channel ASCII files
 
 o label handling doesn't work (currently disabled), work on LabelManager
@@ -113,8 +115,6 @@ o pluginize/ put into library  the following files in src/ :
 o context menu for right mouse button in SignalWidget
 
 o macro recorder
-
-o positioning the cursor to start/end of the file with Pos1 / End
 
 o more complete documentation of the whole api
 

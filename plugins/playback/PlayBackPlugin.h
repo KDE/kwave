@@ -22,8 +22,9 @@
 
 #include "mt/Mutex.h"
 #include "mt/SignalProxy.h"
-#include "libkwave/PlayBackParam.h" // for struct playback_param_t
 #include "libgui/KwavePlugin.h"
+
+#include "PlayBackParam.h" // for struct playback_param_t
 
 class QStringList;
 class PlaybackController;
@@ -145,10 +146,10 @@ private:
     /** command flag for stopping the playback thread */
     bool m_stop;
 
-    /** start of the selection when playback started */
+    /** Start of the selection when playback started */
     unsigned int m_old_first;
 
-    /** end of the selection when playback started */
+    /** End of the selection when playback started */
     unsigned int m_old_last;
 
 };

@@ -211,10 +211,14 @@ QBitmap *SignalWidget::overview(unsigned int /*width*/, unsigned int /*height*/)
 }
 
 //***************************************************************************
-void SignalWidget::toggleChannel(int /*channel*/)
+void SignalWidget::toggleTrackSelection(int track)
 {
-//    ASSERT(signalmanage);
-//    if (signalmanage) signalmanage->toggleChannel(channel);
+    // here we have to convert to unsigned
+    ASSERT(track >= 0);
+    if (track < 0) return;
+    unsigned int t = static_cast<unsigned int>(track);
+    bool select = !m_signal_manager.trackSelected(t);
+    m_signal_manager.selectTrack(t, select);
 }
 
 //***************************************************************************
@@ -238,6 +242,12 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
     CASE_COMMAND("scrollleft")
 	setOffset(((visible_samples / 10) < m_offset) ?
 	          (m_offset - visible_samples / 10) : 0);
+    CASE_COMMAND("viewstart")
+	setOffset(0);
+	selectRange(0,0);
+    CASE_COMMAND("viewend")
+	unsigned int len = m_signal_manager.length();
+	if (len >= visible_samples) setOffset(len - visible_samples);
     CASE_COMMAND("viewnext")
 	setOffset(m_offset + visible_samples);
     CASE_COMMAND("viewprev")

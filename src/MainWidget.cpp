@@ -1,11 +1,29 @@
+/***************************************************************************
+           MainWidget.cpp  -  main widget of the Kwave TopWidget
+			     -------------------
+    begin                : 1999
+    copyright            : (C) 1999 by Martin Wilz
+    email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "config.h"
 #include <math.h>
 
-#include <qkeycode.h>
+#include <qaccel.h>
 #include <qframe.h>
 #include <qimage.h>
-#include <qaccel.h>
+#include <qkeycode.h>
+#include <qlayout.h>
+#include <qscrollbar.h>
 #include <qwidget.h>
 
 #include <kapp.h>
@@ -32,6 +50,14 @@
  */
 #define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
 
+#ifndef max
+#define max(x,y) (( x > y ) ? x : y )
+#endif
+
+#ifndef min
+#define min(x,y) (( x < y ) ? x : y )
+#endif
+
 static const int tbl_keys[10] = {
     Key_1, Key_2, Key_3, Key_4, Key_5, Key_6, Key_7, Key_8, Key_9, Key_0
 };
@@ -39,6 +65,8 @@ static const int tbl_keys[10] = {
 static const char *zoomtext[] = {
     "400 %", "200 %", "100 %", "33 %", "10 %", "3 %", "1 %", "0.1 %"
 };
+
+#define MIN_PIXELS_PER_CHANNEL 50
 
 //***************************************************************************
 MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
@@ -49,10 +77,14 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 {
     debug("MainWidget::MainWidget()");
     int s[3];
+    int w;
+    int h;
     MultiStateWidget *msw;
 
     bsize = 0;
     buttons = 0;
+    frmChannelControls = 0;
+    frmSignal = 0;
     keys = 0;
     loopbutton = 0;
     lastChannels = 0;
@@ -60,17 +92,41 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     nozoombutton = 0;
     playbutton = 0;
     plusbutton = 0;
+    scrollbar = 0;
     signalview = 0;
     slider = 0;
     zoomallbutton = 0;
     zoombutton = 0;
     zoomselect = 0;
 
-    // -- multistate widgets for lamps and speakers --
+    // -- frames for the channel controls and the signal --
+
+    // background frame of the channel controls, does the
+    // clipping for us
+    QFrame *frmChannelsBack = new QFrame(this);
+    ASSERT(frmChannelsBack);
+    if (!frmChannelsBack) return;
+    frmChannelsBack->setFrameStyle(0);
+    frmChannelsBack->setFixedWidth(30);
+
+    frmChannelControls = new QFrame(frmChannelsBack);
+    ASSERT(frmChannelControls);
+    if (!frmChannelControls) return;
+    frmChannelControls->setFrameStyle(0);
+    frmChannelControls->setFixedWidth(30);
+
+    // background for the SignalWidget, does the clipping
+    frmSignal = new QFrame(this);
+    ASSERT(frmSignal);
+    if (!frmSignal) return;
+    frmSignal->setFrameStyle(0);
+    frmSignal->setMinimumSize(20, MIN_PIXELS_PER_CHANNEL);
+
+    // -- multistate widgets for lamps and speakers (channel controls) --
 
     lamps.setAutoDelete(true);
     lamps.clear();
-    msw = new MultiStateWidget(this, 0);
+    msw = new MultiStateWidget(frmChannelControls, 0);
     ASSERT(msw);
     if (!msw) return;
     lamps.append(msw);
@@ -80,7 +136,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     speakers.setAutoDelete(true);
     speakers.clear();
-    msw = new MultiStateWidget(this, 0, 3);
+    msw = new MultiStateWidget(frmChannelControls, 0, 3);
     ASSERT(msw);
     if (!msw) return;
     speakers.append(msw);
@@ -108,7 +164,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     // -- buttons for playback and zoom --
 
-    buttons = new KButtonBox(this,KButtonBox::HORIZONTAL);
+    buttons = new QHBoxLayout();
     ASSERT(buttons);
     if (!buttons) return;
 
@@ -118,55 +174,68 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     zoomselect->insertStrList(zoomtext, sizeof(zoomtext) / sizeof(char *));
     zoomselect->setEditText("");
 
-    buttons->addStretch();
-
     // [Play]
-    playbutton = buttons->addButton(i18n("Play"));
+    playbutton = new QPushButton(i18n("Play"), this);
     ASSERT(playbutton);
     if (!playbutton) return;
     playbutton->setAccel(Key_Space);
 
     // [Loop]
-    loopbutton = buttons->addButton(i18n("&Loop"));
+    loopbutton = new QPushButton(i18n("&Loop"), this);
     ASSERT(loopbutton);
     if (!loopbutton) return;
     loopbutton->setAccel(Key_L);
 
-    buttons->addStretch();
-
     // [Zoom]
-    zoombutton = buttons->addButton (i18n("&Zoom"));
+    zoombutton = new QPushButton(i18n("&Zoom"), this);
     ASSERT(zoombutton);
     if (!zoombutton) return;
     zoombutton->setAccel(Key_Z);
 
     // [+]
-    plusbutton = buttons->addButton("+");
+    plusbutton = new QPushButton("+", this);
     ASSERT(plusbutton);
     if (!plusbutton) return;
     plusbutton->setAccel(Key_Plus);
 
     // [-]
-    minusbutton = buttons->addButton ("-");
+    minusbutton = new QPushButton("-", this);
     ASSERT(minusbutton);
     if (!minusbutton) return;
     minusbutton->setAccel (Key_Minus);
 
     // [All]
-    zoomallbutton = buttons->addButton(i18n("All"));
+    zoomallbutton = new QPushButton(i18n("All"), this);
     ASSERT(zoomallbutton);
     if (!zoomallbutton) return;
 
     // [1:1]	
-    nozoombutton = buttons->addButton(i18n("1:1"));
+    nozoombutton = new QPushButton(i18n("1:1"), this);
     ASSERT(nozoombutton);
     if (!nozoombutton) return;
 
-    buttons->addStretch();
+    // create the layout objects
+    QGridLayout *topLayout = new QGridLayout(this, 3, 2, 0);
+    ASSERT(topLayout);
+    if (!topLayout) return;
+
+    QHBoxLayout *signalLayout = new QHBoxLayout();
+    ASSERT(signalLayout);
+    if (!signalLayout) return;
+
+    // -- scrollbar for the signal widget and the channel controls --
+
+    scrollbar = new QScrollBar(this);
+    ASSERT(scrollbar);
+    if (!scrollbar) return;
+    scrollbar->setOrientation(QScrollBar::Vertical);
+    scrollbar->setFixedWidth(scrollbar->sizeHint().width());
+    scrollbar->hide();
+    scrollbar->setFixedWidth(0);
 
     // -- signal widget --
 
-    signalview = new SignalWidget(this, menu);
+    signalview = new SignalWidget(frmSignal, menu);
     ASSERT(signalview);
     if (!signalview) return;
     if (!signalview->isOK()) {
@@ -175,9 +244,66 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 	signalview = 0;
 	return;
     }
+    signalview->setMinimumSize(0, MIN_PIXELS_PER_CHANNEL);
+
+    // -- do all the geometry management stuff --
+
+    h = playbutton->sizeHint().height();
+    w = max(playbutton->sizeHint().width(), loopbutton->sizeHint().width());
+    playbutton->setFixedSize(w, h);
+    loopbutton->setFixedSize(w, h);
+
+    zoombutton->setFixedSize(zoombutton->sizeHint().width(), h);
+    plusbutton->setFixedSize(plusbutton->sizeHint().width(), h);
+    minusbutton->setFixedSize(minusbutton->sizeHint().width(), h);
+    zoomallbutton->setFixedSize(zoomallbutton->sizeHint().width(), h);
+    nozoombutton->setFixedSize(nozoombutton->sizeHint().width(), h);
+
+    zoomselect->adjustSize();
+    h = zoomselect->sizeHint().height();
+    zoomselect->setFixedHeight(h);
+    zoomselect->setMinimumWidth(max(zoomselect->sizeHint().width()+10, 4*h));
+
+    topLayout->addWidget(frmChannelsBack, 0, 0);
+
+    topLayout->addLayout(signalLayout, 0, 1);
+    signalLayout->addWidget(frmSignal, 1, AlignLeft);
+    signalLayout->addWidget(scrollbar, 0, AlignRight);
+
+    slider->setFixedHeight(playbutton->height()*3/4);
+    topLayout->addWidget(slider, 1, 1);
+
+    topLayout->addLayout(buttons, 2, 1);
+    buttons->addWidget(playbutton);
+    buttons->addSpacing(10);
+    buttons->addWidget(loopbutton);
+    buttons->addSpacing(20);
+    buttons->addStretch(10);
+    buttons->addWidget(zoombutton);
+    buttons->addSpacing(10);
+    buttons->addWidget(plusbutton);
+    buttons->addSpacing(10);
+    buttons->addWidget(minusbutton);
+    buttons->addSpacing(10);
+    buttons->addWidget(zoomallbutton);
+    buttons->addSpacing(10);
+    buttons->addWidget(nozoombutton);
+    buttons->addSpacing(10);
+    buttons->addStretch(10);
+    buttons->addWidget(zoomselect);
+    buttons->addSpacing(10);
+
+    topLayout->setRowStretch(0, 1);
+    topLayout->setRowStretch(1, 0);
+    topLayout->setRowStretch(2, 0);
+    topLayout->setColStretch(0, 0);
+    topLayout->setColStretch(1, 1);
+    topLayout->activate();
 
     // -- connect all signals from/to the signal widget --
 
+    connect(scrollbar, SIGNAL(valueChanged(int)),
+            this, SLOT(scrollbarMoved(int)));
     connect(playbutton, SIGNAL(pressed()),
 	    this, SLOT(play()));
     connect(loopbutton, SIGNAL(pressed()),
@@ -220,6 +346,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     connect(signalview, SIGNAL(sigChannelDeleted(unsigned int)),
             this, SLOT(channelDeleted(unsigned int)));
 
+    refreshChannelControls();
     refreshControls();
     debug("MainWidget::MainWidget(): done.");
 }
@@ -228,21 +355,24 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 bool MainWidget::isOK()
 {
     ASSERT(buttons);
+    ASSERT(frmChannelControls);
+    ASSERT(frmSignal);
     ASSERT(keys);
     ASSERT(loopbutton);
     ASSERT(minusbutton);
     ASSERT(nozoombutton);
     ASSERT(playbutton);
+    ASSERT(scrollbar);
     ASSERT(signalview);
     ASSERT(slider);
     ASSERT(zoomallbutton);
     ASSERT(zoombutton);
     ASSERT(zoomselect);
 
-    return ( buttons && keys && loopbutton && minusbutton &&
-             nozoombutton && playbutton && signalview &&
-             slider && zoomallbutton && zoombutton &&
-             zoomselect );
+    return ( buttons && frmChannelControls && frmSignal && keys &&
+             loopbutton && minusbutton && nozoombutton && playbutton &&
+             scrollbar && signalview && slider && zoomallbutton &&
+             zoombutton && zoomselect );
 }
 
 //*****************************************************************************
@@ -265,6 +395,25 @@ MainWidget::~MainWidget()
     speakers.clear();
 
     debug("MainWidget::~MainWidget(): done.");
+}
+
+//*****************************************************************************
+void MainWidget::resizeEvent(QResizeEvent *)
+{
+    refreshChannelControls();
+}
+
+//*****************************************************************************
+void MainWidget::scrollbarMoved(int newval)
+{
+    ASSERT(signalview);
+    ASSERT(frmChannelControls);
+    if (!signalview) return;
+    if (!frmChannelControls) return;
+
+    // move the signal and the channel controls
+    signalview->move(0, -newval);
+    frmChannelControls->move(0, -newval);
 }
 
 //*****************************************************************************
@@ -381,10 +530,8 @@ void MainWidget::slot_ZoomChanged(double zoom)
     if (zoom <= 0.0) return;
     if (!zoomselect) return;
 
-
-    double percent = 100.0 / zoom;
+    double percent = (double)100.0 / zoom;
     char buf[256];
-
 
     if (getChannelCount() == 0) {
 	buf[0] = 0;
@@ -584,22 +731,63 @@ void MainWidget::setTimeInfo(double ms)
 //*****************************************************************************
 void MainWidget::refreshChannelControls()
 {
-//    ASSERT(parent);
-//    debug("MainWidget::refreshChannelControls()");
-    unsigned int channels = getChannelCount();
+    ASSERT(frmChannelControls);
+    if (!frmChannelControls) return;
 
-    if (lastChannels == channels) {
-	// nothing to do...
-	return ;
+    debug("MainWidget::refreshChannelControls()");
+
+    ASSERT(frmSignal);
+    ASSERT(frmChannelControls);
+    ASSERT(signalview);
+    if (!frmSignal) return;
+    if (!frmChannelControls) return;
+    if (!signalview) return;
+
+    unsigned int channels = getChannelCount();
+    int min_height = (max(channels, 1) * MIN_PIXELS_PER_CHANNEL);
+    bool need_scrollbar = (frmSignal->height() < min_height);
+    bool scrollbar_visible = scrollbar->isVisible();
+    int h = max(min_height, frmSignal->height());
+    int w = frmSignal->width();
+    int b = scrollbar->sizeHint().width();
+
+    if (need_scrollbar && !scrollbar_visible) {
+	// -- show the scrollbar --
+	scrollbar->setFixedWidth(b);
+	scrollbar->setValue(0);
+	scrollbar->show();
+	w -= b;
+	scrollbar_visible = true;
+	debug(" - scrollbar shown");
+    } else if (!need_scrollbar && scrollbar_visible) {
+	// -- hide the scrollbar --
+	scrollbar->hide();
+	scrollbar->setFixedWidth(0);
+	w += b;
+	scrollbar_visible = false;
+	debug(" - scrollbar hidden");
     }
 
-//    // resize the TopWidget if one signal is smaller than the size
-//    // of the lamp/speaker icon
-//    if ( (lastChannels < channels) &&
-//	 ((unsigned int)parent->height() < (channels + 4)*40) ) {
-//	debug("MainWidget::setChannelInfo() -> resizing topwidget ");
-//	parent->resize(width(), (channels + 4)*40);
-//    }
+    if (scrollbar_visible) {
+	// adjust the limits of the scrollbar
+	int min = scrollbar->minValue();
+	int max = scrollbar->maxValue();
+	double val = (scrollbar->value()-(double)min) / (double)(max-min);
+	
+	min = 0;
+	max = h-frmSignal->height();
+	scrollbar->setRange(min, max);
+	scrollbar->setValue(floor(val * (double)max));
+	scrollbar->setSteps(1, frmSignal->height());
+    }
+
+    // resize the signal widget and the frame with the channel controls
+    signalview->resize(w, h);
+    frmChannelControls->resize(frmChannelControls->width(), h);
+
+    h = frmChannelControls->height();
+    int x = (frmChannelControls->width()-20) / 2;
+    int y;
 
     // move the existing lamps and speakers to their new position
     for (unsigned int i = 0; (i < lastChannels) && (i < channels); i++) {
@@ -608,11 +796,9 @@ void MainWidget::refreshChannelControls()
 	if (!lamps.at(i)) continue;
 	if (!speakers.at(i)) continue;
 
-	lamps.at(i)->setGeometry(0, i*(height() - bsize - 20) /
-	    channels, 20, 20);
-
-	speakers.at(i)->setGeometry(0, i*(height() - bsize - 20) /
-	    channels + 20, 20, 20);
+	y = (i*h)/max(channels,1);
+	lamps.at(i)->setGeometry(x, y+5, 20, 20);
+	speakers.at(i)->setGeometry(x, y+25, 20, 20);
     }
 
     // delete now unused lamps and speakers
@@ -624,7 +810,7 @@ void MainWidget::refreshChannelControls()
     // add lamps+speakers for new channels
     for (unsigned int i = lastChannels; i < channels; i++) {
 	int s[3];
-	MultiStateWidget *msw = new MultiStateWidget(this, i);
+	MultiStateWidget *msw = new MultiStateWidget(frmChannelControls, i);
 	ASSERT(msw);
 	if (!msw) continue;
 
@@ -639,7 +825,7 @@ void MainWidget::refreshChannelControls()
 	);
 	lamps.at(i)->setStates(s);
 
-        msw = new MultiStateWidget(this, 0, 3);
+        msw = new MultiStateWidget(frmChannelControls, 0, 3);
         ASSERT(msw);
         if (!msw) continue;
 	speakers.append(msw);
@@ -650,10 +836,10 @@ void MainWidget::refreshChannelControls()
 	s[2] = speakers.at(i)->addPixmap("xspeaker.xpm");
 	speakers.at(i)->setStates(s);
 
-	lamps.at(i)->setGeometry(0, i*(height() - bsize - 20) / channels,
-	                         20, 20);
-	speakers.at(i)->setGeometry(0, i*(height()-bsize-20) / channels + 20,
-	                            20, 20);
+	y = (i*h)/max(channels,1);
+	lamps.at(i)->setGeometry(x, y+5, 20, 20);
+	speakers.at(i)->setGeometry(x, y+25, 20, 20);
+	
 	lamps.at(i)->show();
 	speakers.at(i)->show();
     }
@@ -671,42 +857,6 @@ void MainWidget::refreshChannelControls()
 
     lastChannels = channels;
     refreshControls();
-}
-
-//*****************************************************************************
-void MainWidget::resizeEvent(QResizeEvent *)
-{
-    ASSERT(buttons);
-    ASSERT(zoomselect);
-    ASSERT(slider);
-    ASSERT(signalview);
-
-    if (!buttons) return;
-    if (!zoomselect) return;
-    if (!slider) return;
-    if (!signalview) return;
-
-    bsize = buttons->sizeHint().height();
-
-    buttons->setGeometry(0, height() - bsize,
-                         width()*3 / 4, bsize);
-    zoomselect->setGeometry(width()*3 / 4, height() - bsize,
-                            width() / 4, bsize);
-    slider->setGeometry (20, height() - (bsize + 20), width() - 20, 20);
-    signalview->setGeometry (20, 0, width() - 20, height() - (bsize + 20));
-
-    for (unsigned int i = 0; i < getChannelCount(); i++) {
-	if (lamps.count() < getChannelCount()) continue;
-	if (speakers.count() < getChannelCount()) continue;
-	ASSERT(lamps.at(i));
-	if (lamps.at(i)) lamps.at(i)->setGeometry(
-		0, i*(height() - bsize - 20) / getChannelCount(), 20, 20);
-
-	ASSERT(speakers.at(i));		
-	if (speakers.at(i)) speakers.at(i)->setGeometry(
-	    0, i*(height() - bsize - 20) / getChannelCount() + 20, 20, 20);
-    }
-//    debug("MainWidget::resizeEvent(): done.");
 }
 
 //*****************************************************************************

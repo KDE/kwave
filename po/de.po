@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSION\n"
-"POT-Creation-Date: 2000-08-05 12:22+0200\n"
+"POT-Creation-Date: 2000-08-20 20:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -187,36 +187,36 @@ msgstr "Wiedergabe-Rate wird nicht unterstützt"
 msgid "unusable buffer size"
 msgstr "Puffer-Größe kann nicht verwendet werden"
 
-#: src/TopWidget.cpp:73
+#: src/TopWidget.cpp:76
 msgid "Length: 0 ms           "
 msgstr "Länge: 0ms             "
 
-#: src/TopWidget.cpp:74
+#: src/TopWidget.cpp:77
 msgid "Rate: 0 kHz         "
-msgstr "Rate: 0kHz"
+msgstr "Rate: 0kHz          "
 
-#: src/TopWidget.cpp:75
+#: src/TopWidget.cpp:78
 msgid "Samples: 0             "
-msgstr "Samples: 0"
+msgstr "Samples: 0             "
 
-#: src/TopWidget.cpp:76
+#: src/TopWidget.cpp:79
 msgid "selected: 0 ms        "
 msgstr "ausgewählt: 0ms       "
 
-#: src/TopWidget.cpp:77
+#: src/TopWidget.cpp:80
 msgid "Clipboard: 0 ms      "
 msgstr "Zwischenablage: 0ms     "
 
-#: src/TopWidget.cpp:209
+#: src/TopWidget.cpp:245
 #, c-format
 msgid "oops, plugin '%s' is unknown !"
 msgstr "Hoppla, Plugin '%s' ist unbekannt !"
 
-#: src/TopWidget.cpp:211 src/TopWidget.cpp:229
+#: src/TopWidget.cpp:247 src/TopWidget.cpp:265
 msgid "error on loading plugin"
 msgstr "Fehler beim Laden des Plugins"
 
-#: src/TopWidget.cpp:225
+#: src/TopWidget.cpp:261
 #, c-format
 msgid ""
 "unable to load the file \n"
@@ -253,132 +253,47 @@ msgstr "Frequenz : %.1f Hz\n"
 msgid "Time : %s\n"
 msgstr "Zeit : %s\n"
 
-#: src/FFTWindow.cpp:65 src/SonagramWindow.cpp:70
-msgid "&Spectral Data"
-msgstr "&Spektrale Daten"
-
-#: src/SonagramWindow.cpp:72
-msgid "&Import from Bitmap ..."
-msgstr "&Import von Bitmap ..."
-
-#: src/SonagramWindow.cpp:73
-msgid "&Export to Bitmap ..."
-msgstr "&Exportiere als Bitmap ..."
-
-#: src/SonagramWindow.cpp:74
-msgid "&reTransform to signal"
-msgstr "&retransformiere zu Signal"
-
-#: src/SonagramWindow.cpp:76
-#, fuzzy
-msgid "Frequencies Status Bar"
-msgstr "Frequenzen Statuszeile"
-
-#: src/SonagramWindow.cpp:80
-#, fuzzy
-msgid "Time:          0 ms     "
-msgstr "Zeit:         0ms      "
-
-#: src/SonagramWindow.cpp:81
-#, fuzzy
-msgid "Frequency:          0 Hz     "
-msgstr "Frequenz:          0 Hz"
-
-#: src/SonagramWindow.cpp:82
-#, fuzzy, c-format
-msgid "Amplitude:    0 %      "
-msgstr "Amplitude in %"
-
-#: src/SonagramWindow.cpp:83
-#, fuzzy
-msgid "Phase:    0        "
-msgstr "Länge: 0ms             "
-
-#: src/SonagramWindow.cpp:123
-#, fuzzy
-msgid "Sonagram of "
-msgstr "Sonagramm von "
-
-#: src/SonagramWindow.cpp:169
-#, c-format
-msgid "Bitmap must be %dx%d"
-msgstr "Bitmap muss %dx%d sein"
-
-#: src/SonagramWindow.cpp:175
-#, fuzzy
-msgid "Could not open Bitmap"
-msgstr "kann Bitmap nicht öffnen"
-
-#: src/SonagramWindow.cpp:325
-msgid "Out of memory !"
-msgstr "Zu wenig Speicher !"
-
-#: src/SonagramWindow.cpp:393
-#, fuzzy, c-format
-msgid "Time: %s"
-msgstr "Zeit: %s"
-
-#: src/SonagramWindow.cpp:396
-#, fuzzy, c-format
-msgid "Frequency: %d Hz"
-msgstr "Frequenz: %d Hz"
-
-#: src/SonagramWindow.cpp:403
-#, fuzzy
-msgid "Amplitude: %d %%"
-msgstr "Amplitude: %d %%"
-
-#: src/SonagramWindow.cpp:405 src/SonagramWindow.cpp:412
-#, fuzzy
-msgid "Memory Leak !"
-msgstr "Speicherleck!"
-
-#: src/SonagramWindow.cpp:410
-#, fuzzy, c-format
-msgid "Phase: %d degree"
-msgstr "Phase: %d Grad"
-
-#: src/MainWidget.cpp:124 src/MainWidget.cpp:532 src/MainWidget.cpp:552
+#: src/MainWidget.cpp:178 src/MainWidget.cpp:679 src/MainWidget.cpp:699
 msgid "Play"
 msgstr "Spielen"
 
-#: src/MainWidget.cpp:130 src/MainWidget.cpp:533 src/MainWidget.cpp:553
+#: src/MainWidget.cpp:184 src/MainWidget.cpp:680 src/MainWidget.cpp:700
 msgid "&Loop"
 msgstr "&Schleife"
 
-#: src/MainWidget.cpp:138
+#: src/MainWidget.cpp:190
 msgid "&Zoom"
 msgstr "&Zoom"
 
-#: src/MainWidget.cpp:156
+#: src/MainWidget.cpp:208
 #, fuzzy
 msgid "All"
 msgstr "&Alles"
 
-#: src/MainWidget.cpp:161
+#: src/MainWidget.cpp:213
 msgid "1:1"
 msgstr "1:1"
 
-#: src/MainWidget.cpp:351
+#: src/MainWidget.cpp:500
 #, c-format
 msgid "Rate: %d.%d kHz"
 msgstr "Rate: %d.%d kHz"
 
-#: src/MainWidget.cpp:360
+#: src/MainWidget.cpp:509
 #, c-format
 msgid "Samples: %d"
 msgstr "Samples: %d"
 
-#: src/MainWidget.cpp:500 src/MainWidget.cpp:517
+#: src/MainWidget.cpp:647 src/MainWidget.cpp:664
 msgid "Halt"
 msgstr "Halt"
 
-#: src/MainWidget.cpp:570
+#: src/MainWidget.cpp:717
 #, fuzzy, c-format
 msgid "selected: %s"
 msgstr "ausgewählt: %s"
 
-#: src/MainWidget.cpp:580
+#: src/MainWidget.cpp:727
 #, fuzzy, c-format
 msgid "Length: %s"
 msgstr "Länge: %s"
@@ -774,6 +689,10 @@ msgstr "Verkleinern"
 msgid "Zoom to &Selection"
 msgstr "Zoom auf &Auswahl"
 
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:71 src/FFTWindow.cpp:65
+msgid "&Spectral Data"
+msgstr "&Spektrale Daten"
+
 #: src/FFTWindow.cpp:68
 msgid "&Cursor"
 msgstr "&Cursor"
@@ -893,11 +812,11 @@ msgstr "&ungerade"
 
 #: plugins/dialogs/addsynth/module.cpp:141
 msgid "&prime"
-msgstr ""
+msgstr "&prim"
 
 #: plugins/dialogs/addsynth/module.cpp:142
 msgid "&fibonacci"
-msgstr ""
+msgstr "&Fibonacci"
 
 #: plugins/dialogs/addsynth/module.cpp:143
 msgid "&max"
@@ -905,7 +824,7 @@ msgstr ""
 
 #: plugins/dialogs/addsynth/module.cpp:144
 msgid "&db/octave"
-msgstr ""
+msgstr "&dB/Oktave"
 
 #: plugins/dialogs/addsynth/module.cpp:145
 msgid "&invert"
@@ -930,7 +849,7 @@ msgstr "&negieren"
 
 #: plugins/dialogs/addsynth/module.cpp:150
 msgid "&sinus"
-msgstr ""
+msgstr "&Sinus"
 
 #: plugins/dialogs/addsynth/module.cpp:153
 msgid "&Reset all"
@@ -1288,6 +1207,48 @@ msgstr "Wert eingeben"
 msgid "Length of pulse :"
 msgstr "Pulslänge :"
 
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:73
+msgid "&Import from Bitmap ..."
+msgstr "&Import von Bitmap ..."
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:74
+msgid "&Export to Bitmap ..."
+msgstr "&Exportiere als Bitmap ..."
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:75
+msgid "&reTransform to signal"
+msgstr "&retransformiere zu Signal"
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:77
+#, fuzzy
+msgid "Frequencies Status Bar"
+msgstr "Frequenzen Statuszeile"
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:81
+#, fuzzy
+msgid "Time:          0 ms     "
+msgstr "Zeit:         0ms      "
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:82
+#, fuzzy
+msgid "Frequency:          0 Hz     "
+msgstr "Frequenz:          0 Hz"
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:83
+#, fuzzy, c-format
+msgid "Amplitude:    0 %      "
+msgstr "Amplitude:       0 %     "
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:84
+#, fuzzy
+msgid "Phase:    0        "
+msgstr "Länge: 0ms             "
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:124
+#, fuzzy
+msgid "Sonagram of "
+msgstr "Sonagramm von "
+
 #: plugins/dialogs/sonagram/SonagramDialog.cpp:50
 #, fuzzy
 msgid "sonagram"
@@ -1319,12 +1280,12 @@ msgstr ""
 "Wählen Sie hier eine Fensterfunktion. Wenn die Transformation umkehrbar sein "
 "soll, wählen Sie den Typ <keine>"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:214
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:215
 #, c-format
 msgid "resulting window size: %s"
 msgstr "resultierende Fenstergröße: %s"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:216
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:217
 #, c-format
 msgid "size of bitmap: %dx%d"
 msgstr "Größe der Bitmap: %dx%d"
@@ -1394,6 +1355,36 @@ msgstr "&Stimme %d :"
 #: plugins/dialogs/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
+
+#~ msgid "Bitmap must be %dx%d"
+#~ msgstr "Bitmap muss %dx%d sein"
+
+#, fuzzy
+#~ msgid "Could not open Bitmap"
+#~ msgstr "kann Bitmap nicht öffnen"
+
+#~ msgid "Out of memory !"
+#~ msgstr "Zu wenig Speicher !"
+
+#, fuzzy
+#~ msgid "Time: %s"
+#~ msgstr "Zeit: %s"
+
+#, fuzzy
+#~ msgid "Frequency: %d Hz"
+#~ msgstr "Frequenz: %d Hz"
+
+#, fuzzy
+#~ msgid "Amplitude: %d %%"
+#~ msgstr "Amplitude: %d %%"
+
+#, fuzzy
+#~ msgid "Memory Leak !"
+#~ msgstr "Speicherleck!"
+
+#, fuzzy
+#~ msgid "Phase: %d degree"
+#~ msgstr "Phase: %d Grad"
 
 #
 #~ msgid "None"

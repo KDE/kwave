@@ -1001,7 +1001,7 @@ void SignalWidget::mouseMoveEvent( QMouseEvent *e )
 void SignalWidget::drawOverviewSignal(int channel, int middle, int height,
 				      int first, int last)
 {
-    debug("SignalWidget::drawOverviewSignal()");
+//    debug("SignalWidget::drawOverviewSignal()");
 
     float scale_y;
     int step, max = 0, min = 0;
@@ -1029,7 +1029,7 @@ void SignalWidget::calculateInterpolation()
     int k;
     int N;
 
-    debug("SignalWidget::calculateInterpolation()");
+//    debug("SignalWidget::calculateInterpolation()");
 
     // remove all previous coefficents and signal buffer
     if (interpolation_alpha != 0) {
@@ -1094,7 +1094,7 @@ void SignalWidget::drawInterpolatedSignal(int channel, int middle, int height)
     int sample;
     int x;
 
-    debug("SignalWidget::drawInterpolatedSignal");
+//    debug("SignalWidget::drawInterpolatedSignal");
 
     ASSERT(signalmanage);
     if (!signalmanage) return;
@@ -1192,7 +1192,7 @@ void SignalWidget::drawPolyLineSignal(int channel, int middle, int height)
     int sample;
     int x;
 
-    debug("SignalWidget::drawPolyLineSignal");
+//    debug("SignalWidget::drawPolyLineSignal");
 
     ASSERT(signalmanage);
     if (!signalmanage) return;
@@ -1258,12 +1258,12 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 {
 //    debug("SignalWidget::paintEvent()");
 
-#ifdef DEBUG
-    struct timeval t_start;
-    struct timeval t_end;
-    double t_elapsed;
-    gettimeofday(&t_start,0);
-#endif
+//#ifdef DEBUG
+//    struct timeval t_start;
+//    struct timeval t_end;
+//    double t_elapsed;
+//    gettimeofday(&t_start,0);
+//#endif
 
     unsigned int channels = getChannelCount();
     bool update_pixmap = false;
@@ -1278,7 +1278,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 
     // --- detect size changes and refresh the whole display ---
     if ((width != lastWidth) || (height != lastHeight)) {
-	debug("SignalWidget::paintEvent(): window size changed");
+//	debug("SignalWidget::paintEvent(): window size changed");
 	for (int i=0; i<3; i++) {
 	    if (layer[i]) delete layer[i];
 	    layer[i] = 0;
@@ -1348,7 +1348,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	ASSERT(layer[LAYER_MARKERS]);
 	if (!layer[LAYER_MARKERS]) return;
 
-	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
+//	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
 	p.begin(layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, width, height, black);
 //	p.setPen (green);
@@ -1423,14 +1423,14 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 
     bitBlt(this, 0, 0, pixmap, 0, 0, width, height, CopyROP);
 
-#ifdef DEBUG
-    gettimeofday(&t_end,0);
-    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
-	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
-
-    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
-	t_elapsed); // ###
-#endif
+//#ifdef DEBUG
+//    gettimeofday(&t_end,0);
+//    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
+//	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
+//
+//    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
+//	t_elapsed); // ###
+//#endif
 
     // restart the timer for refreshing the playpointer
     if (playing) playback_startTimer();

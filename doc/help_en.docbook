@@ -51,7 +51,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-08-02</DATE>
+    <DATE>2000-08-20</DATE>
     <RELEASEINFO>0.5.4-2</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -227,6 +227,26 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <PARA><ITEMIZEDLIST>
+        <LISTITEM>
+            <PARA>0.5.4-2 [2000-08-20]</PARA>
+            <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    geometry/layout management for the MainWidget
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    limited the displayed height of a signal. If not all signals fit
+                       onto the screen, a scrollbar appears on the right side of the
+                       signal.
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    limited the size of the TopWidget to a reasonable
+                      minimum size
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    automatic dependencies for the plugins work again
+                </PARA></LISTITEM>
+            </ITEMIZEDLIST>
+        </LISTITEM>
         <LISTITEM>
             <PARA>0.5.4-1 [2000-07-29]</PARA>
             <ITEMIZEDLIST>
@@ -1775,7 +1795,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-08-02</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-08-20</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

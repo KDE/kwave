@@ -34,6 +34,10 @@
 
 extern Global globals;
 
+#ifndef max
+#define max(x,y) (( x > y ) ? x : y )
+#endif
+
 /**
  * useful macro for command parsing
  */
@@ -131,8 +135,36 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 //    /*playbutton = */buttons->insertButton(*pix, (int)0); // , i18n("Play"));
 //
 //    this->addToolBar(buttons);
-	
+
+    // set the MainWidget as the main view
     setView(mainwidget);
+
+    // limit the window to a reasonable minimum size
+    int w = mainwidget->minimumSize().width();
+    int h = max(mainwidget->minimumSize().height(), 150);
+    setMinimumSize(w, h);
+
+    // Find out the width for which the menu bar would only use
+    // one line. This is tricky because sizeHint().width() just
+    // returns -1 :-(     -> just try and find out...
+    int wmax = w*3;
+    int wmin = wmax;
+    int hmin = 0xFFFFFF;
+    for (w=10; w < wmax; w+=10) {
+	int mh = menu_bar->heightForWidth(w);
+	if (mh < hmin) {
+	    wmin = w;
+	    hmin = mh;
+	}
+    }
+
+    // set a nice initial size
+    w = wmin;
+    w = max(w, mainwidget->minimumSize().width());
+    w = max(w, mainwidget->sizeHint().width());
+    h = max(mainwidget->sizeHint().height(), w*6/10);
+    resize(w, h);
+
 //    debug("TopWidget::TopWidget(): done.");
 }
 

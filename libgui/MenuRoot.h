@@ -1,5 +1,5 @@
 /***************************************************************************
-			  MenuRoot.h  -  description
+			  MenuRoot.h  - root node of a menu structure
 			     -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher

@@ -1,4 +1,14 @@
 
+0.5.4-2 [2000-08-20]
+
+ * geometry/layout management for the MainWidget
+ * limited the displayed height of a signal. If not all signals fit
+    onto the screen, a scrollbar appears on the right side of the
+    signal.
+ * limited the size of the TopWidget to a reasonable
+   minimum size
+ * automatic dependencies for the plugins work again
+
 0.5.4-1 [2000-07-29]
 
  * fixed layout of playback dialog

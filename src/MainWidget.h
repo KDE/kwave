@@ -1,3 +1,20 @@
+/***************************************************************************
+            MainWidget.h  -  main widget of the Kwave TopWidget
+			     -------------------
+    begin                : 1999
+    copyright            : (C) 1999 by Martin Wilz
+    email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 #ifndef _KMAIN_WDIGET_H_
 #define _KMAIN_WIDGET_H_ 1
 
@@ -6,7 +23,10 @@
 
 class QAccel;
 class QComboBox;
+class QFrame;
 class QPushButton;
+class QScrollBar;
+class QHBoxLayout;
 class KButtonBox;
 class KStatusBar;
 class MenuManager;
@@ -49,10 +69,16 @@ public:
     unsigned char *getOverView (int);
     int getBitsPerSample();
 
-    /** returns the signal manager of the current signal */
+    /** Returns the signal manager of the current signal */
     SignalManager *getSignalManager();
 
 protected:
+
+    /**
+     * Called if the main widget has been resized and resizes/moves
+     * the signal widget and the channel controls
+     */
+    virtual void resizeEvent(QResizeEvent *);
 
     void refreshChannelControls();
 
@@ -82,15 +108,36 @@ public slots:
 private slots:
 
     /**
-     * Informs that a zoom factor has been selected out of the list
+     * Called if a zoom factor has been selected out of the list
      * of predefined zoom factors.
      * @param index the index within the list [0...N-1]
      */
     void zoomSelected(int index);
 
+    /**
+     * Called if a channel has been added. Updates the display by
+     * resizing/re-positioning the channel controls and the signal
+     * display.
+     * @see #channelDeleted()
+     * @param channel index of the added channel [0..n]
+     */
     void channelAdded(unsigned int channel);
 
+    /**
+     * Called if a channel has been deleted. Updates the display by
+     * resizing/re-positioning the channel controls and the signal
+     * display.
+     * @param #channelAdded()
+     * @param channel index of the added channel [0..n]
+     */
     void channelDeleted(unsigned int channel);
+
+    /**
+     * Connected to the vertical scrollbar and called if the value
+     * has changed so that the signal display and the channel
+     * controls have to be moved.
+     */
+    void scrollbarMoved(int newval);
 
 signals:
 
@@ -106,12 +153,12 @@ protected:
      */
     void refreshControls();
 
-    virtual void resizeEvent(QResizeEvent *);
+//Del by KDevelop:
 
 private:
 
     QAccel *keys;
-    KButtonBox *buttons;
+    QHBoxLayout *buttons;
     OverViewWidget *slider;
     SignalWidget *signalview;
     QPushButton *plusbutton, *minusbutton;
@@ -121,6 +168,9 @@ private:
     QComboBox *zoomselect;
     KStatusBar &status;
     MenuManager &menu;
+    QFrame *frmChannelControls;
+    QFrame *frmSignal;
+    QScrollBar *scrollbar;
 
     /** array of lamps, one for each channel */
     QList<MultiStateWidget> lamps;

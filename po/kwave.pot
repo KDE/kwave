@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-08-05 12:22+0200\n"
+"POT-Creation-Date: 2000-08-20 20:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,36 +181,36 @@ msgstr ""
 msgid "unusable buffer size"
 msgstr ""
 
-#: src/TopWidget.cpp:73
+#: src/TopWidget.cpp:76
 msgid "Length: 0 ms           "
 msgstr ""
 
-#: src/TopWidget.cpp:74
+#: src/TopWidget.cpp:77
 msgid "Rate: 0 kHz         "
 msgstr ""
 
-#: src/TopWidget.cpp:75
+#: src/TopWidget.cpp:78
 msgid "Samples: 0             "
 msgstr ""
 
-#: src/TopWidget.cpp:76
+#: src/TopWidget.cpp:79
 msgid "selected: 0 ms        "
 msgstr ""
 
-#: src/TopWidget.cpp:77
+#: src/TopWidget.cpp:80
 msgid "Clipboard: 0 ms      "
 msgstr ""
 
-#: src/TopWidget.cpp:209
+#: src/TopWidget.cpp:245
 #, c-format
 msgid "oops, plugin '%s' is unknown !"
 msgstr ""
 
-#: src/TopWidget.cpp:211 src/TopWidget.cpp:229
+#: src/TopWidget.cpp:247 src/TopWidget.cpp:265
 msgid "error on loading plugin"
 msgstr ""
 
-#: src/TopWidget.cpp:225
+#: src/TopWidget.cpp:261
 #, c-format
 msgid ""
 "unable to load the file \n"
@@ -244,123 +244,46 @@ msgstr ""
 msgid "Time : %s\n"
 msgstr ""
 
-#: src/FFTWindow.cpp:65 src/SonagramWindow.cpp:70
-msgid "&Spectral Data"
-msgstr ""
-
-#: src/SonagramWindow.cpp:72
-msgid "&Import from Bitmap ..."
-msgstr ""
-
-#: src/SonagramWindow.cpp:73
-msgid "&Export to Bitmap ..."
-msgstr ""
-
-#: src/SonagramWindow.cpp:74
-msgid "&reTransform to signal"
-msgstr ""
-
-#: src/SonagramWindow.cpp:76
-msgid "Frequencies Status Bar"
-msgstr ""
-
-#: src/SonagramWindow.cpp:80
-msgid "Time:          0 ms     "
-msgstr ""
-
-#: src/SonagramWindow.cpp:81
-msgid "Frequency:          0 Hz     "
-msgstr ""
-
-#: src/SonagramWindow.cpp:82
-#, c-format
-msgid "Amplitude:    0 %      "
-msgstr ""
-
-#: src/SonagramWindow.cpp:83
-msgid "Phase:    0        "
-msgstr ""
-
-#: src/SonagramWindow.cpp:123
-msgid "Sonagram of "
-msgstr ""
-
-#: src/SonagramWindow.cpp:169
-#, c-format
-msgid "Bitmap must be %dx%d"
-msgstr ""
-
-#: src/SonagramWindow.cpp:175
-msgid "Could not open Bitmap"
-msgstr ""
-
-#: src/SonagramWindow.cpp:325
-msgid "Out of memory !"
-msgstr ""
-
-#: src/SonagramWindow.cpp:393
-#, c-format
-msgid "Time: %s"
-msgstr ""
-
-#: src/SonagramWindow.cpp:396
-#, c-format
-msgid "Frequency: %d Hz"
-msgstr ""
-
-#: src/SonagramWindow.cpp:403
-msgid "Amplitude: %d %%"
-msgstr ""
-
-#: src/SonagramWindow.cpp:405 src/SonagramWindow.cpp:412
-msgid "Memory Leak !"
-msgstr ""
-
-#: src/SonagramWindow.cpp:410
-#, c-format
-msgid "Phase: %d degree"
-msgstr ""
-
-#: src/MainWidget.cpp:124 src/MainWidget.cpp:532 src/MainWidget.cpp:552
+#: src/MainWidget.cpp:178 src/MainWidget.cpp:679 src/MainWidget.cpp:699
 msgid "Play"
 msgstr ""
 
-#: src/MainWidget.cpp:130 src/MainWidget.cpp:533 src/MainWidget.cpp:553
+#: src/MainWidget.cpp:184 src/MainWidget.cpp:680 src/MainWidget.cpp:700
 msgid "&Loop"
 msgstr ""
 
-#: src/MainWidget.cpp:138
+#: src/MainWidget.cpp:190
 msgid "&Zoom"
 msgstr ""
 
-#: src/MainWidget.cpp:156
+#: src/MainWidget.cpp:208
 msgid "All"
 msgstr ""
 
-#: src/MainWidget.cpp:161
+#: src/MainWidget.cpp:213
 msgid "1:1"
 msgstr ""
 
-#: src/MainWidget.cpp:351
+#: src/MainWidget.cpp:500
 #, c-format
 msgid "Rate: %d.%d kHz"
 msgstr ""
 
-#: src/MainWidget.cpp:360
+#: src/MainWidget.cpp:509
 #, c-format
 msgid "Samples: %d"
 msgstr ""
 
-#: src/MainWidget.cpp:500 src/MainWidget.cpp:517
+#: src/MainWidget.cpp:647 src/MainWidget.cpp:664
 msgid "Halt"
 msgstr ""
 
-#: src/MainWidget.cpp:570
+#: src/MainWidget.cpp:717
 #, c-format
 msgid "selected: %s"
 msgstr ""
 
-#: src/MainWidget.cpp:580
+#: src/MainWidget.cpp:727
 #, c-format
 msgid "Length: %s"
 msgstr ""
@@ -744,6 +667,10 @@ msgstr ""
 
 #: src/menus_config_i18n.cpp:121
 msgid "Zoom to &Selection"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:71 src/FFTWindow.cpp:65
+msgid "&Spectral Data"
 msgstr ""
 
 #: src/FFTWindow.cpp:68
@@ -1235,6 +1162,43 @@ msgstr ""
 msgid "Length of pulse :"
 msgstr ""
 
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:73
+msgid "&Import from Bitmap ..."
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:74
+msgid "&Export to Bitmap ..."
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:75
+msgid "&reTransform to signal"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:77
+msgid "Frequencies Status Bar"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:81
+msgid "Time:          0 ms     "
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:82
+msgid "Frequency:          0 Hz     "
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:83
+#, c-format
+msgid "Amplitude:    0 %      "
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:84
+msgid "Phase:    0        "
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:124
+msgid "Sonagram of "
+msgstr ""
+
 #: plugins/dialogs/sonagram/SonagramDialog.cpp:50
 msgid "sonagram"
 msgstr ""
@@ -1260,12 +1224,12 @@ msgid ""
 "reversible, use the type <none>"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:214
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:215
 #, c-format
 msgid "resulting window size: %s"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:216
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:217
 #, c-format
 msgid "size of bitmap: %dx%d"
 msgstr ""

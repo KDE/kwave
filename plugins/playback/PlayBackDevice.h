@@ -59,7 +59,7 @@ public:
      * @return zero-length string if successful, or an error
      *         message if failed
      */
-    virtual QString open(const QString &device, unsigned int rate,
+    virtual QString open(const QString &device, double rate,
                          unsigned int channels, unsigned int bits,
                          unsigned int bufbase) = 0;
 

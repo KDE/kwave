@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include <errno.h>
+#include <math.h>
 #include "mt/MutexGuard.h"
 #include "mt/ThreadsafeX11Guard.h"
 #include <klocale.h>
@@ -52,11 +53,11 @@ PlayBackArts::~PlayBackArts()
 }
 
 //***************************************************************************
-QString PlayBackArts::open(const QString &, unsigned int rate,
+QString PlayBackArts::open(const QString &, double rate,
                            unsigned int channels, unsigned int bits,
                            unsigned int bufbase)
 {
-    debug("PlayBackArts::open(rate=%u,channels=%u,"\
+    debug("PlayBackArts::open(rate=%f,channels=%u,"\
 	  "bits=%u, bufbase=%u)", rate, channels,
 	  bits, bufbase);
 
@@ -83,7 +84,7 @@ QString PlayBackArts::open(const QString &, unsigned int rate,
     g_arts_usage++;
 
     // open the stream
-    m_stream = arts_play_stream(m_rate, m_bits, m_channels, "Kwave");
+    m_stream = arts_play_stream((int)m_rate, m_bits, m_channels, "Kwave");
     ASSERT(m_stream);
     if (!m_stream) return i18n("unable to open aRts playback stream");
     debug("PlayBackArts::open(): stream opened");

@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <sys/ioctl.h>
 #include <linux/soundcard.h>
+#include <math.h>
 
 #include <klocale.h>
 
@@ -54,11 +55,11 @@ PlayBackOSS::~PlayBackOSS()
 }
 
 //***************************************************************************
-QString PlayBackOSS::open(const QString &device, unsigned int rate,
+QString PlayBackOSS::open(const QString &device, double rate,
                           unsigned int channels, unsigned int bits,
                           unsigned int bufbase)
 {
-    debug("PlayBackOSS::open(device=%s,rate=%u,channels=%u,"\
+    debug("PlayBackOSS::open(device=%s,rate=%f,channels=%u,"\
 	"bits=%u, bufbase=%u)", device.data(), rate, channels,
 	bits, bufbase);
 
@@ -124,8 +125,9 @@ QString PlayBackOSS::open(const QString &device, unsigned int rate,
     }
 
     // playback rate
-    if (ioctl(m_handle, SNDCTL_DSP_SPEED, &m_rate) == -1) {
-	return i18n("playback rate %1 Hz is not supported").arg(m_rate);
+    int int_rate = (int)m_rate;
+    if (ioctl(m_handle, SNDCTL_DSP_SPEED, &int_rate) == -1) {
+	return i18n("playback rate %1 Hz is not supported").arg(int_rate);
     }
 
     // buffer size

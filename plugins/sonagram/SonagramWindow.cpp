@@ -452,7 +452,7 @@ void SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
     if (ms) {
 	// get the time coordinate [0...(N_samples-1)* (1/f_sample) ]
 	if (m_rate != 0) {
-	    *ms = (double)p.x() * (double)m_points * 1000.0 / (double)m_rate;
+	    *ms = (double)p.x() * (double)m_points * 1000.0 / m_rate;
 	} else {
 	    *ms = 0;
 	}
@@ -475,8 +475,8 @@ void SonagramWindow::updateScaleWidgets()
 
     translatePixels2TF(QPoint(m_image->width()-1, 0), &ms, &f);
 
-    m_xscale->setMinMax(ms, 0);
-    m_yscale->setMinMax(f, 0);
+    m_xscale->setMinMax((int)rint(ms), 0);
+    m_yscale->setMinMax((int)rint(f), 0);
 }
 
 //***************************************************************************
@@ -515,11 +515,11 @@ void SonagramWindow::cursorPosChanged(const QPoint pos)
     ASSERT(status);
     ASSERT(m_image);
     ASSERT(m_points);
-    ASSERT(m_rate);
+    ASSERT(m_rate != 0);
     if (!status) return ;
     if (!m_image) return ;
     if (!m_points) return;
-    if (!m_rate) return;
+    if (m_rate == 0) return;
 
     char buf[64];
     double ms;
@@ -554,7 +554,7 @@ void SonagramWindow::setPoints(unsigned int points)
 }
 
 //****************************************************************************
-void SonagramWindow::setRate(unsigned int rate)
+void SonagramWindow::setRate(double rate)
 {
     m_rate = rate;
     updateScaleWidgets();

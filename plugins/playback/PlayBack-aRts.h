@@ -41,7 +41,7 @@ public:
      * Opens the device for playback.
      * @see PlayBackDevice::open
      */
-    virtual QString open(const QString &, unsigned int rate,
+    virtual QString open(const QString &, double rate,
                          unsigned int channels, unsigned int bits,
                          unsigned int bufbase);
 
@@ -76,7 +76,7 @@ protected:
     arts_stream_t m_stream;
 
     /** Playback rate [samples/second] */
-    unsigned int m_rate;
+    double m_rate;
 
     /** Number of channels */
     unsigned int m_channels;

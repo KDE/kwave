@@ -116,7 +116,7 @@ public slots:
      * translating cursor coordinates into time
      * @param rate sample rate in samples per second
      */
-    void setRate(unsigned int rate);
+    void setRate(double rate);
 
 private slots:
 
@@ -168,7 +168,7 @@ private:
     unsigned int m_points;
 
     /** sample rate, needed for translating pixel coordinates */
-    unsigned int m_rate;
+    double m_rate;
 
     /** widget for the scale on the time (x) axis */
     ScaleWidget *m_xscale;

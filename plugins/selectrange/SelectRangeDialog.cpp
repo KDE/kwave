@@ -80,7 +80,7 @@ SelectRangeDialog::SelectRangeDialog(QWidget *widget,
 	    break;
 	}
 	case SelectRangePlugin::byPercents: {
-	    sbPercents->setValue(m_range);
+	    sbPercents->setValue((int)rint(m_range));
 	    break;
 	}
     }
@@ -255,7 +255,7 @@ void SelectRangeDialog::timeChanged(int)
 
     // update the other widgets
     edSamples->setValue(ceil((double)ms * m_rate * 1E-3));
-    sbPercents->setValue(100.0 * (double)ms / (m_length/m_rate*1E3));
+    sbPercents->setValue((int)(100.0 * (double)ms / (m_length/m_rate*1E3)));
 
     // set range in byTime mode [ms]
     m_range = ms;
@@ -295,7 +295,7 @@ void SelectRangeDialog::samplesChanged(double)
     sbHours->setValue(t);
 
     double percents = 100.0*(double)samples/(double)(m_length-m_offset);
-    sbPercents->setValue(percents);
+    sbPercents->setValue((int)percents);
 
     // update in samples mode
     m_range = samples;

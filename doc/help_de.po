@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-11-03 10:10+0100\n"
+"PO-Revision-Date: 2002-11-03 22:07+0100\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2355,10 +2355,10 @@ msgid ""
 "type=text/vnd.viewcvs-markup\"> \"README\"</ulink> file included in the "
 "source package."
 msgstr ""
-"...einige andere Pakete, bitte lesen Sie hierzu die Datei <ulink url=\"http://cvs."
-"sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README?rev=HEAD&amp;content-"
-"type=text/vnd.viewcvs-markup\"> \"README\"</ulink>, die im Quellpaket "
-"enthalten ist."
+"...einige andere Pakete, bitte lesen Sie hierzu die Datei <ulink url="
+"\"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README?"
+"rev=HEAD&amp;content-type=text/vnd.viewcvs-markup\"> \"README\"</ulink>, die "
+"im Quellpaket enthalten ist."
 
 #: index.docbook:1438
 #, no-c-format
@@ -2733,16 +2733,16 @@ msgid ""
 "further updates it is much easier. Just change into the directory you want "
 "to update and do the following: <screen width=\"75\" format=\"linespecific"
 "\">\n"
-"<prompt>% </prompt><command>make clean</command>\n"
-"<prompt>% </prompt><command>cvs update</command>\n"
+"<prompt>% </prompt><command>make distclean</command>\n"
+"<prompt>% </prompt><command>cvs update -dP -C</command>\n"
 "</screen> Then go on to the next section and compile as usual."
 msgstr ""
 "Die Prozedur, die im vorhergehenden Abschnitt beschrieben wurde, ist nur "
 "einmal notwendig. Für weitere Aktualisierungen ist es wesentlich einfacher. "
 "Wechseln Sie einfach in das Verzeichnis, welches Sie aktualisieren wollen "
 "und machen Sie folgendes: <screen width=\"75\" format=\"linespecific\">\n"
-"<prompt>% </prompt><command>make clean</command>\n"
-"<prompt>% </prompt><command>cvs update</command>\n"
+"<prompt>% </prompt><command>make distclean</command>\n"
+"<prompt>% </prompt><command>cvs update -dP -C</command>\n"
 "</screen> Gehen Sie dann zum nächsten Abschnitt über und compilieren Sie wie "
 "gewöhnlich."
 
@@ -2755,10 +2755,10 @@ msgid ""
 "directory </emphasis>and then try again."
 msgstr ""
 "Wenn der Inhalt Ihres lokalen &kapp;-Quellenverzeichnisses durcheinander "
-"geraten ist, oder wenn es beim Aktualisieren Konflikte gegeben hat, so können "
-"Sie alle Dateien und Unterverzeichnisse <emphasis>ausser dem "
-"<filename>CVS</filename>-Verzeichnis </emphasis> löschen und "
-"nochmals versuchen."
+"geraten ist, oder wenn es beim Aktualisieren Konflikte gegeben hat, so "
+"können Sie alle Dateien und Unterverzeichnisse <emphasis>ausser dem "
+"<filename>CVS</filename>-Verzeichnis </emphasis> löschen und nochmals "
+"versuchen."
 
 #: index.docbook:1672
 #, no-c-format
@@ -2922,10 +2922,10 @@ msgid ""
 "will profit most from it."
 msgstr ""
 "Wenn Sie eine Pentium, eine AMD K6, Athlon oder Athlon-XP CPU besitzen, "
-"wollen Sie vielleicht einen optimierten Compiler für die Übersetzung Ihrer eigenen "
-"Version von &kapp; verwenden, die einige Prozente schneller läuft. Der "
-"Geschwindigkeitsgewinn beträgt bei einigen Systemen bis zu 30%, wobei die "
-"Signalbearbeitungs-Funktionen sowie alle Funktionen die komplexe Zeit-"
+"wollen Sie vielleicht einen optimierten Compiler für die Übersetzung Ihrer "
+"eigenen Version von &kapp; verwenden, die einige Prozente schneller läuft. "
+"Der Geschwindigkeitsgewinn beträgt bei einigen Systemen bis zu 30%, wobei "
+"die Signalbearbeitungs-Funktionen sowie alle Funktionen die komplexe Zeit-"
 "Frequenz-Operationen (wie FFT und Sonagramm) behandeln, am meisten davon "
 "profitieren."
 
@@ -2970,11 +2970,12 @@ msgid ""
 "net/duesti/rpmopt.de.html\"> http://www.keywarrior.net/duesti/rpmopt.en."
 "html</ulink>. Thanks to Matthias Düsterhöft!)."
 msgstr ""
-"Sie können relativ einfach ein für Athlon, Athlon-XP, Pentium und Pentium Pro (oder "
-"einige andere CPUs) optimiertes Paket compilieren, indem Sie einige Definitionen in Ihrer rpmrc "
-"Datei setzen. Sie können auch Ihre systemweite /etc/rpmrc Datei oder die ."
-"rpmrc Datei in ihrem Home-Verzeichnis verändern. Dort können Sie zum "
-"Beispiel folgende Options-Zeilen angeben: <screen width=\"40\" format=\"linespecific\">\n"
+"Sie können relativ einfach ein für Athlon, Athlon-XP, Pentium und Pentium "
+"Pro (oder einige andere CPUs) optimiertes Paket compilieren, indem Sie "
+"einige Definitionen in Ihrer rpmrc Datei setzen. Sie können auch Ihre "
+"systemweite /etc/rpmrc Datei oder die .rpmrc Datei in ihrem Home-Verzeichnis "
+"verändern. Dort können Sie zum Beispiel folgende Options-Zeilen angeben: "
+"<screen width=\"40\" format=\"linespecific\">\n"
 "<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
 "i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</userinput>\n"
 "<prompt moreinfo=\"none\">% </prompt><userinput moreinfo=\"none\">optflags: "
@@ -3001,14 +3002,14 @@ msgid ""
 "or where a binary RPM is to be created out of a source rpm using "
 "<command>rpm --rebuild</command>."
 msgstr ""
-"Das bedeutet, dass auf einer <literal>K7-Architektur</literal> das rpm Paket unter "
-"Benutzung von <literal>-O3 -march=athlon-xp -mcpu=athlon-xp -"
-"DNDEBUG -fomit-frame-pointer</literal> als Compiler Option compiliert wird. Sie "
+"Das bedeutet, dass auf einer <literal>K7-Architektur</literal> das rpm Paket "
+"unter Benutzung von <literal>-O3 -march=athlon-xp -mcpu=athlon-xp -DNDEBUG -"
+"fomit-frame-pointer</literal> als Compiler Option compiliert wird. Sie "
 "sollten dies für ihre eigenen Bedürfnisse erweitern oder anpassen. Die "
 "Einstellungen sind für alle vorhergehenden Sektionen anwendbar, wo ein "
-"<command>rpm -ta</command> benutzt wurde oder ein binary RPM mittels "
-"eines Source RPM unter Benutzung von <command>rpm --rebuild</command> "
-"erstellt wurde."
+"<command>rpm -ta</command> benutzt wurde oder ein binary RPM mittels eines "
+"Source RPM unter Benutzung von <command>rpm --rebuild</command> erstellt "
+"wurde."
 
 #: index.docbook:1825
 #, no-c-format
@@ -3043,11 +3044,10 @@ msgid ""
 "optimized package by specifying the additional parameter <command>--"
 "ignorearch</command> and don't care."
 msgstr ""
-"Falls es <command>rpm</command> ablehnt Ihr "
-"Paket aufgrund von scheinbarer Unstimmigkeit mit ihrer Computer- Architektur "
-"zu installieren, können Sie ein optimiertes Paket trotzdem problemlos "
-"mit der zusätzlichen Angabe des Parameters <command>--ignorearch</command> "
-"installieren."
+"Falls es <command>rpm</command> ablehnt Ihr Paket aufgrund von scheinbarer "
+"Unstimmigkeit mit ihrer Computer- Architektur zu installieren, können Sie "
+"ein optimiertes Paket trotzdem problemlos mit der zusätzlichen Angabe des "
+"Parameters <command>--ignorearch</command> installieren."
 
 #: index.docbook:1849
 #, no-c-format
@@ -3063,9 +3063,9 @@ msgid ""
 "documentation or homepage of the corresponding compiler."
 msgstr ""
 "Der Aufruf eines optimierten Compilers ist recht einfach. Es reicht "
-"normalerweise aus, die Umgebungsvariable <symbol>RPM_OPT_FLAGS</symbol> in der "
-"korrekten Weise zu setzen und dann wie immer zu bersetzen. Für die besten "
-"Einstellungen lesen Sie bitte in der Dokumentation oder Homepage des "
+"normalerweise aus, die Umgebungsvariable <symbol>RPM_OPT_FLAGS</symbol> in "
+"der korrekten Weise zu setzen und dann wie immer zu bersetzen. Für die "
+"besten Einstellungen lesen Sie bitte in der Dokumentation oder Homepage des "
 "entsprechenden Compilers nach."
 
 #: index.docbook:1858
@@ -3077,8 +3077,7 @@ msgid ""
 msgstr ""
 "Wenn Sie &kapp; von einem Quellverzeichnis (entpacktes tar.gz oder via CVS) "
 "erstellen, sollten die Flags vor dem Aufruf von <command>make -f Makefile."
-"dist</command> "
-"angegeben werden. Dies sollte wie folgt aussehen:"
+"dist</command> angegeben werden. Dies sollte wie folgt aussehen:"
 
 #: index.docbook:1858
 #, no-c-format
@@ -4465,39 +4464,6 @@ msgstr "Dank an (in alphabetischer Reihenfolge):"
 #: index.docbook:3080
 #, no-c-format
 msgid ""
-"Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
-"\"http://oss.sgi.com/projects/audiofile/\"> audiofile library</ulink>)"
-msgstr ""
-"Michael Pruett <email>mpruett@sgi.com</email> (Autor der <ulink url=\"http://"
-"oss.sgi.com/projects/audiofile/\"> audiofile Bibliothek</ulink>)"
-
-#: index.docbook:3080
-#, no-c-format
-msgid ""
-"Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
-"url=\"http://www.zip.com.au/~erikd/libsndfile/\">sndfile library </ulink>)"
-msgstr ""
-"Erik de Castro Lopo <email>erikd@zip.com.au</email> (Autor der <ulink url="
-"\"http://www.zip.com.au/~erikd/libsndfile/\">sndfile Bibliothek </ulink>)"
-
-#: index.docbook:3080
-#, no-c-format
-msgid "Carsten Jacobi"
-msgstr "Carsten Jacobi"
-
-#: index.docbook:3080
-#, no-c-format
-msgid "Frank Christian Stoffel"
-msgstr "Frank Christian Stoffel"
-
-#: index.docbook:3080
-#, no-c-format
-msgid "Achim Dahlhaus"
-msgstr "Achim Dahlhaus"
-
-#: index.docbook:3080
-#, no-c-format
-msgid ""
 "Matthias Düsterhöft <email>duesti@gmx.de</email> <emphasis> (for information "
 "about RPM optimization) </emphasis>"
 msgstr ""
@@ -4506,15 +4472,46 @@ msgstr ""
 
 #: index.docbook:3080
 #, no-c-format
-msgid "Klaus Hendrik Lorenz"
-msgstr "Klaus Hendrik Lorenz"
-
-#: index.docbook:3080
-#, no-c-format
 msgid "my girlfriend Ximena González<emphasis> (for her patience)</emphasis>"
 msgstr "meine Freundin Ximena González<emphasis>(für ihre Geduld)</emphasis>"
 
-#: index.docbook:3118
+#: index.docbook:3080
+#, no-c-format
+msgid ""
+"T.H.F. Klok and Cedric Tefft (maintainers of the <ulink url=\"http://www."
+"id3lib.org/\"> id3lib</ulink> library)"
+msgstr ""
+"T.H.F. Klok und Cedric Tefft (Maintainer der <ulink url=\"http://www."
+"id3lib.org/\"> id3lib</ulink> Bibliothek)"
+
+#: index.docbook:3080
+#, no-c-format
+msgid ""
+"Robert Leslie <email>rob@mars.org</email> (author of the <ulink url=\"http://"
+"www.mars.org/home/rob/proj/mpeg/\"> mad</ulink> mp3 decoder library)"
+msgstr ""
+"Robert Leslie <email>rob@mars.org</email> (Author der <ulink url=\"http://"
+"www.mars.org/home/rob/proj/mpeg/\"> mad</ulink> mp3-Decoder-Bibliothek)"
+
+#: index.docbook:3080
+#, no-c-format
+msgid ""
+"Erik de Castro Lopo <email>erikd@zip.com.au</email> (author of the <ulink "
+"url=\"http://www.zip.com.au/~erikd/libsndfile/\">sndfile </ulink> library)"
+msgstr ""
+"Erik de Castro Lopo <email>erikd@zip.com.au</email> (Autor der <ulink url="
+"\"http://www.zip.com.au/~erikd/libsndfile/\">sndfile </ulink>-Bibliothek)"
+
+#: index.docbook:3080
+#, no-c-format
+msgid ""
+"Michael Pruett <email>mpruett@sgi.com</email> (author of the <ulink url="
+"\"http://oss.sgi.com/projects/audiofile/\"> audiofile</ulink> library)"
+msgstr ""
+"Michael Pruett <email>mpruett@sgi.com</email> (Autor der <ulink url=\"http://"
+"oss.sgi.com/projects/audiofile/\"> audiofile</ulink> Bibliothek)"
+
+#: index.docbook:3133
 #, no-c-format
 msgid ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
@@ -4523,7 +4520,7 @@ msgstr ""
 "Documentation copyright (C) 2000 Thomas Eschenbacher <email>thomas."
 "eschenbacher@gmx.de</email>"
 
-#: index.docbook:3137
+#: index.docbook:3152
 #, no-c-format
 msgid ""
 "The current code contains some FFT routines and code fragments from the GNU "
@@ -4533,6 +4530,18 @@ msgstr ""
 "Der aktuelle Code enthält einige FFT-Routinen und Codefragmente vom GNU "
 "Scientific Library project <ulink url=\"http://sources.redhat.com/gsl/\"> "
 "http://sources.redhat.com/gsl/</ulink>."
+
+#~ msgid "Carsten Jacobi"
+#~ msgstr "Carsten Jacobi"
+
+#~ msgid "Frank Christian Stoffel"
+#~ msgstr "Frank Christian Stoffel"
+
+#~ msgid "Achim Dahlhaus"
+#~ msgstr "Achim Dahlhaus"
+
+#~ msgid "Klaus Hendrik Lorenz"
+#~ msgstr "Klaus Hendrik Lorenz"
 
 #~ msgid "Compiler Optimizations"
 #~ msgstr "Compiler-Optimierungen"

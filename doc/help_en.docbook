@@ -1656,8 +1656,8 @@
 	once. For further updates it is much easier. Just change into the
 	directory you want to update and do the following:
 <screen width="75" format="linespecific">
-<prompt>% </prompt><command>make clean</command>
-<prompt>% </prompt><command>cvs update</command>
+<prompt>% </prompt><command>make distclean</command>
+<prompt>% </prompt><command>cvs update -dP -C</command>
 </screen>
 	Then go on to the next section and compile as usual.
     </para>
@@ -3080,26 +3080,9 @@
     <para>
     	Thanks to (in alphabetical order):
     	<itemizedlist>
-	    <listitem>
-	        <para>
-		    Michael Pruett
-		    <email>mpruett@sgi.com</email>
-		    (author of the <ulink url="http://oss.sgi.com/projects/audiofile/">
-		     audiofile library</ulink>)
-		</para>
-	    </listitem>
-	    <listitem>
-	        <para>
-		    Erik de Castro Lopo
-		    <email>erikd@zip.com.au</email>
-		    (author of the
-		     <ulink url="http://www.zip.com.au/~erikd/libsndfile/">sndfile library
-		     </ulink>)
-		</para>
-	    </listitem>
-	    <listitem><para>Carsten Jacobi</para></listitem>
-    	    <listitem><para>Frank Christian Stoffel</para></listitem>
-    	    <listitem><para>Achim Dahlhaus</para></listitem>
+<!--	    <listitem><para>Carsten Jacobi</para></listitem> -->
+<!--	    <listitem><para>Frank Christian Stoffel</para></listitem> -->
+<!--	    <listitem><para>Achim Dahlhaus</para></listitem> -->
 	    <listitem>
 		<para>
 		    Matthias Düsterhöft
@@ -3108,10 +3091,42 @@
 		    </emphasis>
 		</para>
 	    </listitem>
-    	    <listitem><para>Klaus Hendrik Lorenz</para></listitem>
 	    <listitem><para>my girlfriend Ximena González<emphasis> (for
 	    her patience)</emphasis>
 	    </para></listitem>
+	    <listitem>
+	        <para>
+		    T.H.F. Klok and Cedric Tefft
+		    (maintainers of the <ulink url="http://www.id3lib.org/">
+		     id3lib</ulink> library)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Robert Leslie
+		    <email>rob@mars.org</email>
+		    (author of the <ulink url="http://www.mars.org/home/rob/proj/mpeg/">
+		     mad</ulink> mp3 decoder library)
+		</para>
+	    </listitem>
+	    <listitem>
+	        <para>
+		    Erik de Castro Lopo
+		    <email>erikd@zip.com.au</email>
+		    (author of the
+		     <ulink url="http://www.zip.com.au/~erikd/libsndfile/">sndfile
+		     </ulink> library)
+		</para>
+	    </listitem>
+<!--    	    <listitem><para>Klaus Hendrik Lorenz</para></listitem> -->
+	    <listitem>
+	        <para>
+		    Michael Pruett
+		    <email>mpruett@sgi.com</email>
+		    (author of the <ulink url="http://oss.sgi.com/projects/audiofile/">
+		     audiofile</ulink> library)
+		</para>
+	    </listitem>
 	</itemizedlist>
     </para>
 

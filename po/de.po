@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-18 21:50+0200\n"
-"PO-Revision-Date: 2004-04-18 21:50+0200\n"
+"POT-Creation-Date: 2004-04-21 21:15+0200\n"
+"PO-Revision-Date: 2004-04-20 20:36+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -3721,31 +3721,31 @@ msgstr "Anderes Wiedergabegerät (*)"
 msgid "Select Record Device"
 msgstr "Auswahl des Aufnahmegeräts"
 
-#: plugins/record/RecordDialog.cpp:620
+#: plugins/record/RecordDialog.cpp:621
 msgid "(empty)"
 msgstr "(leer)"
 
-#: plugins/record/RecordDialog.cpp:628
+#: plugins/record/RecordDialog.cpp:630
 msgid "buffering..."
 msgstr "buffern..."
 
-#: plugins/record/RecordDialog.cpp:636
+#: plugins/record/RecordDialog.cpp:639
 msgid "prerecording..."
 msgstr "Vorab-Aufnahme..."
 
-#: plugins/record/RecordDialog.cpp:644
+#: plugins/record/RecordDialog.cpp:648
 msgid "waiting for trigger..."
 msgstr "warte auf Trigger..."
 
-#: plugins/record/RecordDialog.cpp:652
+#: plugins/record/RecordDialog.cpp:657
 msgid "recording..."
 msgstr "Aufnahme läuft..."
 
-#: plugins/record/RecordDialog.cpp:660
+#: plugins/record/RecordDialog.cpp:666
 msgid "paused"
 msgstr "Angehalten"
 
-#: plugins/record/RecordDialog.cpp:668
+#: plugins/record/RecordDialog.cpp:675
 msgid "done."
 msgstr "Fertig."
 
@@ -4259,7 +4259,7 @@ msgstr ""
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:294
 msgid "New Signal"
-msgstr "Neues Signal"
+msgstr "Neue Datei"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:308
 msgid ""

@@ -334,6 +334,12 @@ private slots:
      */
     void refreshSignalLayer();
 
+    /**
+     * connected to the m_repaint_timer, called when it has
+     * elapsed and the signal has to be repainted
+     */
+    void timedRepaint();
+
 signals:
 
     /**
@@ -420,15 +426,15 @@ protected:
 	{
 	    m_widget.inhibitRepaint();
 	};
-	
+
 	/** Destructor, allows repaints */
 	~InhibitRepaintGuard() {
 	    m_widget.allowRepaint(m_repaint);
 	};
-	
+
 	/** reference to our owner */
 	SignalWidget &m_widget;
-	
+
 	/** true if repaint is needed after allow */
 	bool m_repaint;
     };
@@ -518,6 +524,7 @@ private:
     void setMouseMode(MouseMode mode);
 
 private:
+
     /** Pixmaps for buffering each layer */
     QPixmap *m_layer[3];
 
@@ -591,6 +598,9 @@ private:
      * finding out where to start a drag&drop operation
      */
     int m_mouse_down_x;
+
+    /** timer for limiting the number of repaints per second */
+    QTimer m_repaint_timer;
 
 };
 

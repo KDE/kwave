@@ -76,6 +76,9 @@
  */
 #define DEFAULT_DISPLAY_TIME 60.0
 
+/** number of milliseconds between repaints */
+#define REPAINT_INTERVAL 333
+
 //***************************************************************************
 //***************************************************************************
 class KwaveFileDrag: public QUriDrag
@@ -84,7 +87,7 @@ public:
     static bool canDecode(const QMimeSource *source) {
 	if (!source) return false;
 	if (!QUriDrag::canDecode(source)) return false;
-	
+
 	QStringList files;
 	decodeLocalFiles(source, files);
 	QStringList::Iterator it;
@@ -106,7 +109,7 @@ SignalWidget::SignalWidget(QWidget *parent)
     m_signal_manager(this),
     m_track_pixmaps(), m_pixmap(0),
     m_mouse_mode(MouseNormal),
-    m_mouse_down_x(0)
+    m_mouse_down_x(0), m_repaint_timer()
 {
 //    qDebug("SignalWidget::SignalWidget()");
 
@@ -147,6 +150,10 @@ SignalWidget::SignalWidget(QWidget *parent)
     // connect to the playback controller
     connect(&(playbackController()), SIGNAL(sigPlaybackPos(unsigned int)),
             this, SLOT(updatePlaybackPointer(unsigned int)));
+
+    // connect repaint timer
+    connect(&m_repaint_timer, SIGNAL(timeout()),
+            this, SLOT(timedRepaint()));
 
 //    labels = new LabelList();
 //    Q_ASSERT(labels);
@@ -363,7 +370,7 @@ void SignalWidget::slotSelectionChanged(unsigned int offset,
     m_signal_manager.selectRange(offset, length);
     offset = m_signal_manager.selection().offset();
     length = m_signal_manager.selection().length();
-    
+
     refreshSelection();
     emit selectedTimeInfo(offset, length, m_signal_manager.rate());
 }
@@ -403,7 +410,7 @@ int SignalWidget::loadFile(const KURL &url)
     if (m_signal_manager.isClosed() || (res)) {
 	qWarning("SignalWidget::loadFile() failed:"\
 		" zero-length or out of memory?");
-		
+
 	QString reason;
 	switch (res) {
 	    case -ENOMEM:
@@ -424,14 +431,14 @@ int SignalWidget::loadFile(const KURL &url)
 	if (reason.length()) {
 	    KMessageBox::error(this, reason);
 	}
-	
+
 	close();
     }
 
     // if the signal is smaller than expected,
     // zoom it to full size
     if (m_zoom > getFullZoom()) setZoom(getFullZoom());
-    
+
     return res;
 }
 
@@ -482,7 +489,7 @@ void SignalWidget::setOffset(unsigned int new_offset)
 	TrackPixmap *pix = m_track_pixmaps.at(i);
 	Q_ASSERT(pix);
 	if (!pix) continue;
-	
+
 	pix->setOffset(m_offset);
 	pix->setZoom(m_zoom);
     }
@@ -529,7 +536,7 @@ void SignalWidget::setZoom(double new_zoom)
 	TrackPixmap *pix = m_track_pixmaps.at(i);
 	Q_ASSERT(pix);
 	if (!pix) continue;
-	
+
 	pix->setOffset(m_offset);
 	pix->setZoom(m_zoom);
     }
@@ -715,8 +722,23 @@ void SignalWidget::allowRepaint(bool repaint)
     m_inhibit_repaint--;
 
     // if the number reached zero, *do* the repaint if allowed
-    if (!m_inhibit_repaint && repaint) this->repaint(false);
+    if (!m_inhibit_repaint && repaint) {
+	if (m_repaint_timer.isActive()) {
+	    // repainting is inhibited -> wait until the
+	    // repaint timer is elapsed
+	    return;
+	} else {
+	    // start the repaint timer
+	    m_repaint_timer.start(REPAINT_INTERVAL, true);
+	}
+    }
 
+}
+
+//***************************************************************************
+void SignalWidget::timedRepaint()
+{
+    this->repaint(false);
 }
 
 //***************************************************************************
@@ -786,7 +808,7 @@ bool SignalWidget::isSelectionBorder(int x)
 {
     SelectionPos pos = static_cast<SignalWidget::SelectionPos>(
 	selectionPosition(x) & ~Selection);
-	
+
     return ((pos == LeftBorder) || (pos == RightBorder));
 }
 
@@ -868,10 +890,10 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 	case MouseSelect: {
 	    unsigned int x = m_offset + pixels2samples(e->pos().x());
 	    m_selection->update(x);
-	
+
 	    unsigned int len = m_selection->right() - m_selection->left() + 1;
 	    selectRange(m_selection->left(), len);
-	
+
 	    setMouseMode(MouseNormal);
 	    break;
 	}
@@ -913,10 +935,10 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 	    int mx = e->pos().x();
 	    if (mx < 0) mx = 0;
 	    if (mx >= m_width) mx = m_width-1;
-	
+
 	    unsigned int x = m_offset + pixels2samples(mx);
 	    m_selection->update(x);
-	
+
 	    unsigned int len = m_selection->right() - m_selection->left() + 1;
 	    selectRange(m_selection->left(), len);
 	    break;
@@ -998,29 +1020,29 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //	qDebug("SignalWidget::paintEvent(): - redraw of signal layer -");
 	p.begin(m_layer[LAYER_SIGNAL]);
 	p.setRasterOp(CopyROP);
-	
+
 	// all black if empty
 	if (!n_tracks) p.fillRect(0, 0, m_width, m_height, black);
-	
+
 	int track_height = (n_tracks) ? (m_height / n_tracks) : 0;
 	int top = 0;
 	for (unsigned int i = 0; i < n_tracks; i++) {
 	    if (i >= m_track_pixmaps.count()) break; // closed or not ready
 	    TrackPixmap *pix = m_track_pixmaps.at(i);
 	    if (!pix) continue; // signal closed ?
-	
+
 	    // fix the width and height of the track pixmap
 	    if ((pix->width() != m_width) || (pix->height() != track_height)) {
 		pix->resize(m_width, track_height);
 	    }
 	    if (pix->isModified()) {
-//		qDebug("SignalWidget::paintEvent(): redrawing track %d",i); // ###
+//		qDebug("SignalWidget::paintEvent(): track %d",i); // ###
 		pix->repaint();
 	    }
-	
+
 	    bitBlt(m_layer[LAYER_SIGNAL], 0, top,
 		pix, 0, 0, m_width, track_height, CopyROP);
-	
+
 	    top += track_height;
 	}
 
@@ -1036,15 +1058,15 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	     m_layer[LAYER_MARKERS] = new QPixmap(size());
 	Q_ASSERT(m_layer[LAYER_MARKERS]);
 	if (!m_layer[LAYER_MARKERS]) return;
-	
+
 //	qDebug("SignalWidget::paintEvent(): - redraw of markers layer -");
 	p.begin(m_layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, m_width, m_height, black);
-	
+
 	// ### nothing to do yet
-	
+
 	p.end();
-	
+
 	m_update_layer[LAYER_MARKERS] = false;
 	update_pixmap = true;
     }
@@ -1057,11 +1079,11 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	if (!m_layer[LAYER_SELECTION]) return;
 
 //	qDebug("SignalWidget::paintEvent(): - redraw of selection layer -");
-	
+
 	p.begin(m_layer[LAYER_SELECTION]);
 	p.fillRect(0, 0, m_width, m_height, black);
 	p.setRasterOp(CopyROP);
-	
+
 	if (n_tracks) {
 	    unsigned int left  = m_signal_manager.selection().first();
 	    unsigned int right = m_signal_manager.selection().last();
@@ -1070,10 +1092,10 @@ void SignalWidget::paintEvent(QPaintEvent *)
 		if (left < m_offset) left = m_offset;
 		left  = samples2pixels(left - m_offset);
 		right = samples2pixels(right - m_offset);
-		
+
 		if (right >= (unsigned int)(m_width)) right=m_width-1;
 		if (left > right) left = right;
-		
+
 		if (left == right) {
 		    p.setPen (green);
 		    p.drawLine(left, 0, left, m_height);
@@ -1084,7 +1106,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    }
 	}
 	p.end();
-	
+
 	m_update_layer[LAYER_SELECTION] = false;
 	update_pixmap = true;
     }
@@ -1395,7 +1417,7 @@ LabelType *findMarkerType (const char */*txt*/)
 //				if ((!first) && (freq != lastfreq)) {
 //				    lastfreq = freq;
 //				    freq = 1 / (freq / rate);
-//				    snprintf (buf, sizeof(buf), "%f %f\n", 
+//				    snprintf (buf, sizeof(buf), "%f %f\n",
 //					time, freq);
 //				    out.writeBlock (&buf[0], strlen(buf));
 //				} else lastfreq = freq;
@@ -1803,16 +1825,16 @@ void SignalWidget::startDragging()
 	const unsigned int f = m_signal_manager.selection().first();
 	const unsigned int l = m_signal_manager.selection().last();
 	const unsigned int len = l-f+1;
-	
+
 	// special case: when dropping into the same widget, before
 	// the previous selection, the previous range has already
 	// been moved to the right !
 	unsigned int src = first;
 	if ((d->target() == this) && (f < src)) src += len;
-	
+
 	m_signal_manager.deleteRange(src, len,
 		m_signal_manager.selectedTracks());
-		
+
 	// restore the new selection
 	selectRange((first < f) ? f-len : f, len);
     }
@@ -1840,24 +1862,24 @@ void SignalWidget::dropEvent(QDropEvent* event)
 	MultiTrackReader src;
 	MultiTrackWriter dst;
 	Signal sig;
-	
+
 	if (KwaveDrag::decode(this, event, sig)) {
 	    InhibitRepaintGuard inhibit(*this);
 	    unsigned int pos = m_offset + pixels2samples(event->pos().x());
 	    unsigned int len = sig.length();
-	
+
 	    /**
 	     * @todo after the drop operation: enter the new file info into
 	     * the signal manager if our own file was empty
 	     */
-	
+
 	    sig.openMultiTrackReader(src, sig.allTracks(), 0, len-1);
 	    m_signal_manager.openMultiTrackWriter(dst,
 		m_signal_manager.selectedTracks(), Insert,
 		pos, pos+len-1);
 	    /** @todo add a converter if rate does not match */
 	    dst << src;
-	
+
 	    // set selection to the new area where the drop was done
 	    selectRange(pos, len);
 	} else {
@@ -1887,22 +1909,22 @@ void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
     if ((event->source() == this) && isInSelection(x)) {
 	// disable drag&drop into the selection itself
 	// this would be nonsense
-	
+
 	unsigned int left  = m_signal_manager.selection().first();
 	unsigned int right = m_signal_manager.selection().last();
 	const unsigned int w = pixels2samples(m_width);
 	QRect r(this->rect());
-	
+
 	// crop selection to widget borders
 	if (left < m_offset) left = m_offset;
 	if (right > m_offset+w) right = m_offset+w-1;
-	
+
 	// transform to pixel coordinates
 	left  = samples2pixels(left - m_offset);
 	right = samples2pixels(right - m_offset);
 	if (right >= (unsigned int)(m_width)) right=m_width-1;
 	if (left > right) left = right;
-	
+
 	r.setLeft(left);
 	r.setRight(right);
 	event->ignore(r);

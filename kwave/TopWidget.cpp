@@ -28,6 +28,7 @@
 #include <qdir.h>
 #include <qframe.h>
 #include <qtoolbutton.h>
+#include <qtooltip.h>
 
 #include <kcombobox.h>
 #include <kfiledialog.h>
@@ -906,9 +907,8 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
     button = m_toolbar->getButton(m_id_undo);
     ASSERT(button);
     if (button) {
-	QString old_text = button->textLabel();
-	button->setTextLabel(txt, true);
-	button->setTextLabel(old_text, false);
+	QToolTip::remove(button);
+	QToolTip::add(button, txt);
     }
 
     // set the state and tooltip of the redo toolbar button
@@ -918,9 +918,8 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
     button = m_toolbar->getButton(m_id_redo);
     ASSERT(button);
     if (button) {
-	QString old_text = button->textLabel();
-	button->setTextLabel(txt, true);
-	button->setTextLabel(old_text, false);
+	QToolTip::remove(button);
+	QToolTip::add(button, txt);
     }
 
     ASSERT(m_menu_manager);

@@ -14,6 +14,7 @@ BUILTSOURCES=\
 
 # Which sources should be compiled for kwave.
 libkwave_la_SOURCES=\
+ ${BUILTSOURCES}\
  ArtsSampleSource_impl.cpp\
  ArtsSampleSink_impl.cpp\
  Curve.cpp\
@@ -35,8 +36,7 @@ libkwave_la_SOURCES=\
  SampleLock.cpp\
  Stripe.cpp\
  Track.cpp\
- WindowFunction.cpp \
- ${BUILTSOURCES}
+ WindowFunction.cpp
 
 libkwave_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
 	--dynamic --export-dynamic

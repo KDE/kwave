@@ -3,9 +3,9 @@
 #include <qpainter.h>
 #include "mousemark.h"
 
-MouseMark::MouseMark (QWidget *parent):QObject (parent)
+MouseMark::MouseMark (QWidget *parent):QObject ()
 {
-  connect (this,SIGNAL(refresh()),this->parent(),SLOT(refresh()));
+  QObject::connect (this,SIGNAL(refresh()),(QObject*) parent,SLOT(refresh()));
   initial=-1;
   last=-1;
   offset=0;

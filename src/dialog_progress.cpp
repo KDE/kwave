@@ -3,7 +3,10 @@
 #include <qpixmap.h>
 #include "dialog_progress.h"
 
-//uncomment this to get a rather fancy Progress indicator, that shows I've to
+#include <libkwave/globals.h>
+
+extern Global globals;
+//uncomment this to get a rather fancy Progress indicator, which shows that I've to
 //much free time
 //#define FANCY
 
@@ -11,7 +14,7 @@
 //KProgresss does flicker a lot, has bugs, that appear when using high
 //numeric values, so here follows my own implementation... 
 //**********************************************************
-ProgressDialog::ProgressDialog (TimeOperation *operation,char *caption): QDialog(0,caption)
+ProgressDialog::ProgressDialog (TimeOperation *operation,const char *caption): QDialog(0,caption)
   //timerbased variant, peeks at address "counter" to gain progress information
 {
 #ifdef FANCY  
@@ -70,7 +73,7 @@ void ProgressDialog::timedProgress ()
 
       if ((prog)<0) //signal for ending...
 	{
-	  emit done ();
+	  globals.port->putMessage ("refresh()");
 	  delete this;
 	}
       else
@@ -197,7 +200,6 @@ void ProgressDialog::paintEvent (QPaintEvent *)
 //**********************************************************
 ProgressDialog::~ProgressDialog ()
 {
-  emit done ();
   if (timer) timer->stop();
   setCursor (arrowCursor);
   if (operation) delete operation;

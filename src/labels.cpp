@@ -246,8 +246,8 @@ void SignalWidget::jumptoLabel ()
 	  if (tmp->pos > rmarker)
 	    if (abs(rmarker-position)>abs(rmarker-mstosamples(tmp->pos))) position = mstosamples(tmp->pos);
 	rmarker = position;
-	if (RangeSelected) signalmanage->setMarkers (lmarker,rmarker);
-	else signalmanage->setMarkers (lmarker,lmarker);
+	if (RangeSelected) setRange (lmarker,rmarker);
+	else setRange (lmarker,lmarker);
 	refresh ();
       }
     }
@@ -349,7 +349,7 @@ void SignalWidget::saveBlocks (int bit)
 			sprintf (buf,"%s%04d.wav",filename,count);
 			//lets hope noone tries to save more than 10000 blocks...
 
-			signalmanage->setMarkers (tmp->pos,tmp2->pos);
+			signalmanage->setRange (tmp->pos,tmp2->pos); //changes don't have to be visible...
 			filename=savedir->absFilePath(buf);
 			signalmanage->save (filename,bit,true);  //save selected range...
 			count++;
@@ -357,7 +357,7 @@ void SignalWidget::saveBlocks (int bit)
 		      }
 		}
 	    }
-	  signalmanage->setMarkers (l,r);
+	  signalmanage->setRange (l,r);
 	}
     }
 }

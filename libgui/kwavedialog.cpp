@@ -23,7 +23,6 @@ void KwaveDialog::accept ()
       const char *c=getCommand(); //call virtual function getcommand
       if (globals.port) globals.port->putMessage (c);
       else printf ("Error:Port is missing\n");
-      //      if (c) emit command (c);    //and emit result of dialog
       delete this;
     }
   setResult (true);

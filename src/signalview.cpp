@@ -13,8 +13,20 @@
 #include <libkwave/dynamicloader.h>
 #include "../libgui/kwavemenu.h"
 #include "../libgui/kwavedialog.h"
+#include "dialog_progress.h"
 
 extern Global globals;
+//****************************************************************************
+void *createProgressDialog (TimeOperation *operation,const char *caption)
+{
+  ProgressDialog *dialog=new ProgressDialog (operation,caption);
+  if (dialog)
+    {
+      dialog->show ();
+      return (void *) dialog;
+    }
+  return 0;
+}
 //****************************************************************************
 SignalWidget::SignalWidget (QWidget *parent,MenuManager *manage) : QWidget (parent)
 {
@@ -76,7 +88,7 @@ unsigned char *SignalWidget::getOverview (int size)
   if (overview&&signalmanage)
     {
       double zoom=((double) signalmanage->getLength())/size;
-      int channels=signalmanage->getChannels();
+      int channels=signalmanage->getChannelCount ();
 
       for (int c=0;c<channels;c++)
       	{
@@ -218,6 +230,8 @@ int SignalWidget::doCommand (const char *str)
       showDialog (name);
     }
   else
+    if (matchCommand (str,"refresh")) refresh ();
+    else
     if (matchCommand (str,"newsignal")) createSignal (str);
     else
       if (checkForLabelCommand (str));
@@ -242,7 +256,7 @@ void SignalWidget::showDialog (const char *name)
   int channels=0;
   if (signalmanage) length=signalmanage->getLength ();
   if (signalmanage) rate=signalmanage->getRate ();
-  if (signalmanage) channels=signalmanage->getChannels ();
+  if (signalmanage) channels=signalmanage->getChannelCount ();
 
   DialogOperation *operation=
     new DialogOperation (&globals,length,rate,channels);
@@ -329,30 +343,29 @@ void SignalWidget::selectRange ()
 //****************************************************************************
 void SignalWidget::connectSignal ()
 {
-  connect (signalmanage,SIGNAL(sampleChanged()),
-	   this,SLOT(refresh()));
-  connect (signalmanage,SIGNAL(signalinserted(int,int)),
-	   this,SLOT(signalinserted(int,int)));
-  connect (signalmanage,SIGNAL(signaldeleted(int,int)),this,
-	   SLOT(signaldeleted(int,int)));
-  connect (signalmanage,SIGNAL(channelReset()),
-	   parent(),SLOT(resetChannels()));
-  connect (signalmanage,SIGNAL(selectedTimeInfo(int)),
-	   parent(),SLOT(setSelectedTimeInfo(int)));
+  // connect (signalmanage,SIGNAL(signalinserted(int,int)),
+  //	   this,SLOT(signalinserted(int,int)));
+  //  connect (signalmanage,SIGNAL(signaldeleted(int,int)),this,
+  //	   SLOT(signaldeleted(int,int)));
+  connect (this,SIGNAL(selectedTimeInfo(int)),
+  	   parent(),SLOT(setSelectedTimeInfo(int)));
 
-  connect (signalmanage,SIGNAL(channelInfo(int)),
-	   parent(),SLOT(getChannelInfo(int)));
-
-  connect (signalmanage,SIGNAL(rateInfo(int)),parent(),
+  connect (this,SIGNAL(rateInfo(int)),parent(),
 	   SLOT(setRateInfo(int)));
-  connect (signalmanage,SIGNAL(lengthInfo(int)),parent(),
-	   SLOT(setLengthInfo(int)));
-  connect (signalmanage,SIGNAL(timeInfo(int)),parent(),
-	   SLOT(setTimeInfo( int)));
-  connect (select,SIGNAL(selection(int,int)),signalmanage,
-	   SLOT(setMarkers( int,int)));
+  connect (this,SIGNAL(lengthInfo(int)),parent(),
+  	   SLOT(setLengthInfo(int)));
+  connect (this,SIGNAL(timeInfo(int)),parent(),
+  	   SLOT(setTimeInfo( int)));
+  connect (select,SIGNAL(selection(int,int)),this,
+  	   SLOT(estimateRange( int,int)));
 
   signalmanage->info ();
+}
+//****************************************************************************
+int SignalWidget::getSignalCount ()
+{
+  if (signalmanage) return signalmanage->getChannelCount ();
+    return 0;
 }
 //****************************************************************************
 void SignalWidget::createSignal (const char *str)
@@ -381,10 +394,19 @@ void SignalWidget::createSignal (const char *str)
     }
 }
 //****************************************************************************
-void SignalWidget::setRange  (int l,int r)
+void SignalWidget::estimateRange  (int l,int r)
 {
-  select->set (((l-offset)/zoom),((r-offset)/zoom));
-  if (signalmanage) signalmanage->setMarkers (l,r);
+      emit selectedTimeInfo((int)(((long long)(r-l))*10000/signalmanage->getRate()));
+}
+//****************************************************************************
+void SignalWidget::setRange  (int l,int r,bool set)
+{
+  if (set)  select->set (((l-offset)/zoom),((r-offset)/zoom));
+  if (signalmanage)
+    {
+      signalmanage->setRange (l,r);
+      estimateRange (l,r);
+    }
 }
 //****************************************************************************
 void SignalWidget::setSignal  (SignalManager *sigs)
@@ -412,7 +434,7 @@ void SignalWidget::setSignal  (const char *filename,int type)
       offset=0;
 
       connectSignal ();
-      signalmanage->setMarkers (0,0);
+      setRange (0,0);
 
       emit channelReset	();
     }
@@ -495,12 +517,18 @@ void SignalWidget::refresh()
 {
   if (signalmanage)
     {
+      int rate=signalmanage->getRate();
+      int length=signalmanage->getLength();
+
       select->setOffset (offset);
-      select->setLength (signalmanage->getLength());
+      select->setLength (length);
       select->setZoom (zoom);
+
+      emit timeInfo((int)(((long long)(length))*10000/rate));
+      emit rateInfo (rate);
+      emit lengthInfo (length);
     }
   redraw=true;
-
   repaint (false);
 };
 //****************************************************************************
@@ -550,6 +578,7 @@ void SignalWidget::mouseReleaseEvent( QMouseEvent *e)
       if (x>=width) x=width; //check for some bounds
       if (x<0) x=0;
       select->update (x);
+      setRange (select->getLeft(),select->getRight(),false);
       down=false;
     }
 }
@@ -670,17 +699,9 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 
 	  if (signalmanage)
 	    {
-	      int channels=signalmanage->getChannels ();
+	      int channels=signalmanage->getChannelCount ();
 	      int chanheight=height/channels;
 	      int begin=+chanheight/2;
-
-	      //check and correction of current begin if needed
-	      if (zoom*width > signalmanage->getLength() + begin)
-		{
-/* ###
-	the check above does not work. please correct and insert some clever code here...
-*/
-		}
 
 	      //check and correction of current zoom value if needed
 	      if (zoom*width>signalmanage->getLength())
@@ -797,3 +818,20 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
       if (update[1]!=-1) bitBlt (this,update[1],0,pixmap,update[1],0,1,height);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,14 +10,10 @@ class ProgressDialog : public QDialog
  Q_OBJECT
 
  public:
-	ProgressDialog 	(TimeOperation *,char *caption);
+	ProgressDialog 	(TimeOperation *,const char *caption);
  	ProgressDialog 	(int max=100,char*caption="Progress");
  	~ProgressDialog ();
  void	setProgress(int);
-
- signals:
-
- void done ();
 
  public slots:
 

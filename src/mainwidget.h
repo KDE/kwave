@@ -37,10 +37,13 @@ class MainWidget : public QWidget
  void 	saveSignal	(const char *filename,int,int=false);
  unsigned char *getOverView (int);
 
+ protected:
+
+ void setChannelInfo	(int);
+
  public slots:
 
  int  doCommand	        (const char *);
- void getChannelInfo	(int);
  void resetChannels	();
  void setRateInfo	(int);
  void setLengthInfo	(int);

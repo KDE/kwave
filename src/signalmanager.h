@@ -14,9 +14,8 @@
 
 class KwaveSignal;
 //**********************************************************************
-class SignalManager : public QObject
+class SignalManager
 {
- Q_OBJECT
  public:
 	SignalManager	(KwaveSignal *);
 	SignalManager	(QWidget *parent,const char *filename,int channel=1,int type=0);
@@ -34,7 +33,7 @@ class SignalManager : public QObject
  void   getMaxMin       (int channel,int& max,int& min,int begin,int len);
 
  inline int	getRate	        () {return rate;};
- inline int	getChannels	() {return channels;};
+ inline int	getChannelCount	() {return channels;};
  inline int	getLength	() {return length;};
  inline int	getLMarker	() {return lmarker;};
  inline int	getRMarker	() {return rmarker;}; 
@@ -49,12 +48,17 @@ class SignalManager : public QObject
  void  command          (const char *);
  const char *getName	();
 
+
  void	setOp      	(int);  //triggers function via given id
 
  void	save	        (const char *filename,int,int=false);
 
+
+ void   appendChannel        (KwaveSignal *);
+ void   setRange             (int,int);
+ bool   promoteCommand       (const char *command);
+
  inline void toggleChannel   (int c) {selected[c]=!selected[c];};
- void   appendChannel   (KwaveSignal *);
 
  private:
  void   checkRange      ();
@@ -71,32 +75,16 @@ class SignalManager : public QObject
  void   getridof        (int *mem);
  int    *getNewMem      (int size);
 
- void	findDatainFile	(QFile *sigin);
+ int	findDatainFile	(FILE *);    //searches for data chunk in wav file
+                                     //returns 0 if failed, else position
  void	loadWav	        (int);
  void	loadAscii	(int);
- void	load8Bit	(QFile *sigin,int offset,int interleave);
- void	load16Bit	(QFile *sigin,int offset,int interleave);
- void	load24Bit	(QFile *sigin,int offset,int interleave);
- void	loadStereo16Bit	(QFile *sigin);
+ void	load8Bit	(FILE *,int offset,int interleave);
+ void	load16Bit	(FILE *,int offset,int interleave);
+ void	load24Bit	(FILE *,int offset,int interleave);
+ void	loadStereo16Bit	(FILE *);
 
  void	exportAscii	();
-
- signals:
-
- void	sampleChanged	();
- void	channelReset	();
- void   signaldeleted   (int,int);   //these are the notification used for keeping track of labels
- void   signalinserted  (int,int);   //dito, only for pieces of signals, being inserted...
- void lengthInfo	(int);
- void rateInfo		(int);
- void timeInfo		(int);
- void selectedTimeInfo	(int);
- void channelInfo       (int);
-
- public slots:
-
- void   setMarkers      (int,int);
- bool   promoteCommand  (const char *command);
 
  private: 
 
@@ -107,6 +95,7 @@ class SignalManager : public QObject
  int            lmarker,rmarker;
  int            channels;
  int		length;                //number of samples
+ int            len,begin;
  int		rate;                  //sampling rate being used
  int            msg[4];
 };

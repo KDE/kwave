@@ -38,7 +38,7 @@ kwave_SOURCES =  $(SINGLE_DIALOGS) $(SINGLE_DIALOG_SRC) \
  mmain.cpp msignalview.cpp mmainwidget.cpp \
  maddsynth.cpp mfftview.cpp msonagram.cpp\
  mmousemark.cpp mfilterwidget.cpp mkwaveapp.cpp\
- mpitchwidget.cpp msignalmanager.cpp
+ mpitchwidget.cpp
 
 # the library search path
 kwave_LDFLAGS = @all_libraries@ -L$(topdir)/libgui/.libs
@@ -51,7 +51,7 @@ kwave_LDADD   = -lkfm -lkdeui -lkdecore -lkwavegui -lqt -lX11 -lXext \
 # just to make sure, automake makes them 
  BUILTSOURCES =	 $(SINGLE_DIALOGS) mmain.cpp msignalview.cpp \
  maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp mkwaveapp.cpp\
- mpitchwidget.cpp mmainwidget.cpp mmousemark.cpp msignalmanager.cpp
+ mpitchwidget.cpp mmainwidget.cpp mmousemark.cpp
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
@@ -114,8 +114,7 @@ mmousemark.cpp: mousemark.h
 	$(MOC) -o mmousemark.cpp mousemark.h
 mpitchwidget.cpp: pitchwidget.h
 	$(MOC) -o mpitchwidget.cpp pitchwidget.h
-msignalmanager.cpp: signalmanager.h
-	$(MOC) -o msignalmanager.cpp signalmanager.h
+
 #single dialogs
 mdialog_progress.cpp: dialog_progress.h
 	$(MOC) -o mdialog_progress.cpp dialog_progress.h

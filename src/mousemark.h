@@ -1,8 +1,7 @@
 #ifndef _KWAVEMOUSEMARK_H_
 #define _KWAVEMOUSEMARK_H_ 1
-
-#include <qwidget.h>
-
+#include <qobject.h>
+class QWidget;
 class MouseMark:public QObject
 {
  Q_OBJECT
@@ -16,6 +15,8 @@ class MouseMark:public QObject
  void grep            (int);          //regetting a already existing selection
  bool checkPosition   (int,int);      //checks for bound to reget the selection
  void drawSelection   (QPainter *,int,int);
+ inline int  getLeft  () {return (initial<last)?initial:last;};
+ inline int  getRight () {return (last>initial)?last:initial;};
 
  public slots:
  void setZoom         (double);
@@ -24,14 +25,14 @@ class MouseMark:public QObject
 
  signals:
  void refresh         ();
- void selection       (int,int);
+ void selection       (int,int);      //sends the current selection for updating of gui elements
 
  private:
  int	 initial;       //initial position of mouse
  int     last;          //last known position
- int     offset;
- int     length;
- double  zoom;
+ int     offset;        //display offset in signal
+ int     length;        //length of signal in samples
+ double  zoom;          //current zoom
 };
 //***********************************************************
 #endif //_KWAVEMOUSEMARK_H_

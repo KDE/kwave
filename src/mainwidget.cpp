@@ -176,6 +176,13 @@ void MainWidget::parseKey  (int key)
 //*****************************************************************************
 int MainWidget::doCommand (const char *str)
 {
+  if (matchCommand (str,"refreshchannels"))
+    {
+      resetChannels();
+      signalview->refresh();
+      setChannelInfo (signalview->getSignalCount());
+    }
+  else
   if (matchCommand (str,"setplayback"))
     {
       KwaveParser parser (str);
@@ -265,7 +272,7 @@ void MainWidget::setTimeInfo ( int ms)
  status->changeItem (buf.data(),1);
 }
 //*****************************************************************************
-void MainWidget::getChannelInfo  (int channels)
+void MainWidget::setChannelInfo  (int channels)
 {
   if (channels!=numsignals)
     {

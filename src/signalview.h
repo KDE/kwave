@@ -35,9 +35,11 @@ class SignalWidget : public QWidget
  unsigned char   *getOverview   (int);
  int    checkPosition	        (int);
  void 	drawSelection		(int,int);
- void   addLabelType             (const char *);
- void   addLabelType             (MarkerType *marker);
+
+ void   addLabelType            (MarkerType *);
+ void   addLabelType            (const char *);
  int	doCommand	        (const char *);
+ int    getSignalCount          ();
 
  public slots:
 
@@ -51,26 +53,27 @@ class SignalWidget : public QWidget
  void	zoomOut		();
  void	zoomNormal	();
 
- void   signalinserted (int,int);
- void   signaldeleted  (int,int);
-
+ void   signalinserted  (int,int);
+ void   signaldeleted   (int,int);
+ void	estimateRange   (int,int);
  signals:
 
  void channelReset	();
  void playingfinished	();
  void viewInfo		(int,int,int);
- void addLabelerType     (MarkerType *);
+ void selectedTimeInfo	(int);
+ void timeInfo          (int);
+ void rateInfo	        (int);
+ void lengthInfo	(int);
 
  protected:
-
-
- void	setRange		(int,int);
+ void	setRange                (int,int,bool=true);
  void	selectRange		();
  void	updateChannels	        ();
 
- void	mousePressEvent		(QMouseEvent * );
- void	mouseReleaseEvent	(QMouseEvent * );  
- void	mouseMoveEvent		(QMouseEvent * );  
+ void	mousePressEvent		(QMouseEvent *);
+ void	mouseReleaseEvent	(QMouseEvent *);  
+ void	mouseMoveEvent		(QMouseEvent *);  
  void	paintEvent	        (QPaintEvent *);
  void	drawInterpolatedSignal	(int,int,int);
  void	drawOverviewSignal	(int,int,int);

@@ -5,11 +5,11 @@
 #include <kmsgbox.h>
 #include <endian.h>
 #include <limits.h>
-#include <qfiledialog.h>
 #include "dialog_progress.h"
 #include "signalmanager.h"
 #include <libkwave/kwavesignal.h>
 #include <libkwave/fileformat.h>
+#include <libkwave/globals.h>
 
 #if __BYTE_ORDER==__BIG_ENDIAN
 #define IS_BIG_ENDIAN
@@ -19,6 +19,7 @@
 #define stopprocess	1
 #define samplepointer	2
 
+extern Global globals;
 //**********************************************************
 // now some helper functions... somewhere in c-lib there should be something
 // compareable. But as long the reinvented wheel works there is no need for
@@ -52,7 +53,7 @@ static inline short int swapEndian (short int s)
  return ((s&0xff)<<8)|((s&0xff00)>>8);
 }
 //**********************************************************
-SignalManager::SignalManager (QWidget *par,const char *name,int channel,int type) :QObject ()
+SignalManager::SignalManager (QWidget *par,const char *name,int channel,int type)
 // constructor that loads a signal file to memory 
 {
   parent=par;
@@ -76,57 +77,66 @@ void SignalManager::loadAscii (int channel)
   //import ascii files with one sample per line, everything unparseable
   //by strtod is ignored
 {
-  QFile *sigin=new QFile (name);
-  if (sigin->exists())
+  //  QFile *sigin=new QFile (name);
+  FILE *sigin=fopen(name,"r");
+
+  if (sigin)
     {
-      if (sigin->open(IO_ReadWrite))
+      //      char buf[80];
+      float value;
+
+      int cnt=0;
+      float max=0;
+      float min=INT_MAX;
+
+      //	  while (sigin->readLine(&buf[0],80)>0)
+      //	    {
+
+      //loop over all samples in file to get maximum and minimum
+      if (fscanf (sigin,"%e\n",&value)!=0)
+	//	      if (sscanf (buf,"%e",&value)!=0)
 	{
-	  char buf[80];
-	  float value;
-
-	  int cnt=0;
-	  float max=0;
-	  float min=INT_MAX;
-
-	  while (sigin->readLine(&buf[0],80)>0)
-	    {
-	      if (sscanf (buf,"%e",&value)!=0)
-		{
-		  if (value>max) max=value;
-		  if (value<min) min=value;
-		  cnt++;
-		}
-	    }
-
-	  float amp=max;
-	  if (-min>max) amp=-min;
-
-	  sigin->at(0); //seek to beginning
-
-	  rate=10000;	//will be asked in requester 
-	  length=cnt;
-	  channels=1;
-
-	  signal[0]=new KwaveSignal (length,rate);
-	  int *sample = signal[0]->getSample();
-	  if (sample)
-	    {
-	      cnt=0;
-	      while (sigin->readLine(&buf[0],80)>0)
-		{
-		  if (sscanf (buf,"%e",&value)!=0)
-		    sample[cnt++]=(int)(value/amp*((1<<23)-1));
-		}
-	    }
+	  if (value>max) max=value;
+	  if (value<min) min=value;
+	  cnt++;
+	  //		}
 	}
+
+      float amp=max;
+      if (-min>max) amp=-min;
+
+      fseek (sigin,0,SEEK_SET);
+      //      sigin->at(0); //seek to beginning
+
+      rate=10000;	//will be asked in requester
+      length=cnt;
+      channels=1;
+
+      signal[0]=new KwaveSignal (length,rate);
+      int *sample = signal[0]->getSample();
+      if (sample)
+	{
+	  cnt=0;
+
+	  if (fscanf (sigin,"%e\n",&value)!=0)
+	    sample[cnt++]=(int)(value/amp*((1<<23)-1));
+	  //	  while (sigin->readLine(&buf[0],80)>0)
+	  //	    {
+	  //	      if (sscanf (buf,"%e",&value)!=0)
+
+	  //	    }
+	}
+      fclose (sigin);
     }
-  else  KMsgBox::message (parent,"Info","File does not exist !",2);
+  else printf ("File does not exist !\n");
 }
 //**********************************************************
 void SignalManager::loadWav (int channel)
 {
-  QFile *sigin=new QFile (name);
-  if (sigin->exists())
+  FILE *sigfile=fopen (name,"r");
+  //  QFile *sigin=new QFile (name);
+
+  if (sigfile)
     {
       union
       {
@@ -139,10 +149,9 @@ void SignalManager::loadWav (int channel)
 	int	 length;
       };
 
-      printf ("begin loading ...");
+      int num=fread (rheader,1,sizeof(wavheader),sigfile);
+      printf ("%d %d\n",num,sizeof(wavheader));
 
-      sigin->open(IO_ReadOnly);
-      int num=sigin->readBlock (rheader,sizeof(wavheader));
       if (num==sizeof(struct wavheader))
 	{
 	  if ((strncmp("RIFF",header.riffid,4)==0)&&
@@ -157,27 +166,31 @@ void SignalManager::loadWav (int channel)
 	      if (header.mode==1)
 		{
 		  rate=header.rate;
-		  findDatainFile (sigin);
-		  if (sigin->atEnd()) KMsgBox::message (parent,"Info","File contains no data chunk!",2);
+
+		  int res=findDatainFile (sigfile);
+
+		  if (res==0) printf("File contains no data chunk!\n");
 		  else
 		    {
-		      sigin->readBlock (rlength,4);
+		      fseek (sigfile,res,SEEK_SET);           //seek after DATA
+		      fread (rlength,1,sizeof (int),sigfile); //load length of data chunk
 #if defined(IS_BIG_ENDIAN)
 		      length=swapEndian (length);	
 #endif
+		      printf ("length is %d,res is %d\n",length,res);
 
 		      this->length=(length/(header.bitspersample/8))/header.channels;
 		      switch (header.bitspersample)
 			{
 			case 8:
-			  load8Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
+			  load8Bit (sigfile,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
 			  break;
 			case 16:
-			  if (header.channels==2) loadStereo16Bit (sigin);
-			  else load16Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
+			  if (header.channels==2) loadStereo16Bit (sigfile);
+			  else load16Bit (sigfile,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
 			  break;
 			case 24:
-			  load24Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
+			  load24Bit (sigfile,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
 			  break;
 			default:
 			  KMsgBox::message
@@ -187,26 +200,26 @@ void SignalManager::loadWav (int channel)
 		      channels=header.channels;
 
 		      info ();
-		      emit channelReset();
+		      globals.port->putMessage ("refreshchannels()");
 		    }
 		}
-	      else KMsgBox::message (parent,"Info","File must be uncompressed (Mode 1) !",2);
+	      else printf ("File must be uncompressed (Mode 1) !");
 	    }
-	  else  KMsgBox::message (parent,"Info","File is no RIFF Wave File !",2);
-
+	  else  printf ("File is no RIFF Wave File !");
 	}
-      else  KMsgBox::message (parent,"Info","File does not contain enough data !",2);
+      else  printf ("File does not contain enough data !");
+      fclose (sigfile);
     }
-  else  KMsgBox::message (parent,"Info","File does not exist !",2);
+  else  printf ("File does not exist !");
 }
 //**********************************************************
 // the following routines are for loading and saving in dataformats
 // specified by names little/big endian problems are dealt with at compile time
 // The corresponding header should have already been written to the file before
 // invocation of this methods
-void writeData8Bit (QFile *sigout,int begin,int end,SignalManager *manage)
+void writeData8Bit (FILE *sigout,int begin,int end,SignalManager *manage)
 {
-  int channels=manage->getChannels();
+  int channels=manage->getChannelCount();
 
   char o;
   for (int i=begin;i<end;i++)
@@ -214,19 +227,20 @@ void writeData8Bit (QFile *sigout,int begin,int end,SignalManager *manage)
       for (int j=0;j<channels;j++)
 	{
 	  o=128+(char)(manage->getSingleSample(j,i)/65536);
-	  sigout->putch (o);
+	  fputc (o,sigout);
 	}
     }
 }
 //**********************************************************
 void SignalManager::exportAscii ()
 {
-  QString name=QFileDialog::getSaveFileName (0,"*.dat",parent);
-  if (!name.isNull())
+  //  QString name=QFileDialog::getSaveFileName (0,"*.dat",parent);
+  const char *name="test.dat";
+  if (name)
     {
       char buf[64];
 
-      QFile sigout(name.data());
+      QFile sigout(name);
       sigout.open (IO_WriteOnly);
 
       sprintf (buf,"%d\n",length);
@@ -246,9 +260,9 @@ void SignalManager::exportAscii ()
     }
 }
 //**********************************************************
-void writeData16Bit (QFile *sigout,int begin,int end,SignalManager *manage)
+void writeData16Bit (FILE *sigout,int begin,int end,SignalManager *manage)
 {
-  int channels=manage->getChannels();
+  int channels=manage->getChannelCount();
   int act;
 
   for (int i=begin;i<end;i++)
@@ -259,19 +273,24 @@ void writeData16Bit (QFile *sigout,int begin,int end,SignalManager *manage)
 	  act+=1<<23;
 
 #if defined(IS_BIG_ENDIAN)
-	  sigout->putch ((char)((act>>16)+128));
-	  sigout->putch ((char)(act>>8));
+	  fputc ((char)((act>>16)+128),sigout);
+	  fputc ((char)(act>>8),sigout);
+
+	  //	  sigout->putch ((char)((act>>16)+128));
+	  //sigout->putch ((char)(act>>8));
 #else
-	  sigout->putch ((char)(act>>8));
-	  sigout->putch ((char)((act>>16)+128));
+	  fputc ((char)(act>>8),sigout);
+	  fputc ((char)((act>>16)+128),sigout);
+	  //	  sigout->putch ((char)(act>>8));
+	  // sigout->putch ((char)((act>>16)+128));
 #endif
 	}
     }
 }
 //**********************************************************
-void writeData24Bit (QFile *sigout,int begin,int end,SignalManager *manage)
+void writeData24Bit (FILE *sigout,int begin,int end,SignalManager *manage)
 {
-  int channels=manage->getChannels();
+  int channels=manage->getChannelCount();
   int act;
 
   for (int i=begin;i<end;i++)
@@ -281,13 +300,21 @@ void writeData24Bit (QFile *sigout,int begin,int end,SignalManager *manage)
 	  act=(manage->getSingleSample(j,i));
 
 #if defined(IS_BIG_ENDIAN)
-	  sigout->putch ((char)(act/65536));
-	  sigout->putch ((char)(act/256));
-	  sigout->putch ((char)(act));
+	  fputc ((char)(act/65536),sigout);
+	  fputc ((char)(act/256),sigout);
+	  fputc ((char)(act),sigout);
+
+	  //	  sigout->putch ((char)(act/65536));
+	  //	  sigout->putch ((char)(act/256));
+	  //	  sigout->putch ((char)(act));
 #else
-	  sigout->putch ((char)(act));
-	  sigout->putch ((char)(act/256));
-	  sigout->putch ((char)(act/65536));
+	  fputc ((char)(act),sigout);
+	  fputc ((char)(act/256),sigout);
+	  fputc ((char)(act/65536),sigout);
+
+	  //	  sigout->putch ((char)(act));
+	  // sigout->putch ((char)(act/256));
+	  //sigout->putch ((char)(act/65536));
 #endif
 	}
     }
@@ -308,7 +335,7 @@ void  SignalManager::save (const char *filename,int bit,int selection)
 	endp=rmarker;
       }
 
-  QFile	*sigout=new QFile (filename);
+  FILE	*sigout=fopen (filename,"w");
   if (name) deleteString (name);
   name=duplicateString (filename);
 
@@ -317,13 +344,14 @@ void  SignalManager::save (const char *filename,int bit,int selection)
 
   if (sigout&&samples)
     {
-      if (sigout->exists())
-	{
-	  debug ("File Exists overwriting !\n");
-	}
+      //      if (sigout->exists())
+      //	{
+      //	  debug ("File Exists overwriting !\n");
+      //	}
 
-      sigout->open (IO_WriteOnly);
-      sigout->at (0);
+      //      sigout->open (IO_WriteOnly);
+      //      sigout->at (0);
+      fseek (sigout,0,SEEK_SET);
 
       strncpy (header.riffid,"RIFF",4);
       strncpy (header.wavid,"WAVE",4);
@@ -350,9 +378,12 @@ void  SignalManager::save (const char *filename,int bit,int selection)
       datalen= swapEndian (datalen);
 #endif
 
-      sigout->writeBlock ((char *) &header,sizeof (struct wavheader));
-      sigout->writeBlock ("data",4);
-      sigout->writeBlock ((char *)&datalen,4);
+      fwrite ((char *) &header,1,sizeof (struct wavheader),sigout);
+      //      sigout->writeBlock ((char *) &header,sizeof (struct wavheader));
+      fwrite ("data",1,4,sigout);
+      //    sigout->writeBlock ("data",4);
+      fwrite ((char *)&datalen,1,4,sigout);
+      // sigout->writeBlock ((char *)&datalen,4);
 
       switch (bit)
 	{
@@ -367,12 +398,13 @@ void  SignalManager::save (const char *filename,int bit,int selection)
 	  break;
 	}
       delete []samples;
-      sigout->close();
+      fclose (sigout);
+	//      sigout->close();
     }
   if (sigout) delete sigout;
 }
 //**********************************************************
-void SignalManager::load24Bit (QFile *sigin,int offset,int interleave)
+void SignalManager::load24Bit (FILE *sigin,int offset,int interleave)
 {
   unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*3];
 
@@ -390,13 +422,13 @@ void SignalManager::load24Bit (QFile *sigin,int offset,int interleave)
 	  int i,j,pos;
 	  if (interleave==0)
 	    {
-	      sigin->at(sigin->at()+offset);
+	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
 	      for (i=0;i<length;)
 		{
 		  if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;//determine number of sample to fill buffer with...
 		  else j=length;
 
-		  sigin->readBlock((char *)loadbuffer,(j-i)*3);
+		  fread ((char *)loadbuffer,1,(j-i)*3,sigin);
 		  pos=0;
 
 		  for (;i<j;i++)
@@ -413,12 +445,15 @@ void SignalManager::load24Bit (QFile *sigin,int offset,int interleave)
 	    }
 	  else
 	    {	//non zero interleave for multichannel-files !
-	      sigin->at(sigin->at()+offset);
+	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
+	      //	      sigin->at(sigin->at()+offset);
 	      for (i=0;i<length;i++)
 		{
-		  sample[i]=(sigin->getch()+sigin->getch()<<8)+(sigin->getch()<<16);
+		  sample[i]=(fgetc(sigin)+fgetc(sigin)<<8)+(fgetc(sigin)<<16);
+		  //		  sample[i]=(sigin->getch()+sigin->getch()<<8)+(sigin->getch()<<16);
 		  if (sample[i]>(1<<23)) sample[i]=(-(1<<24))+sample[i];
-		  sigin->at(sigin->at()+interleave);
+	      fseek (sigin,(ftell(sigin)+interleave),SEEK_SET);
+	      //		  sigin->at(sigin->at()+interleave);
 		}
 	    }
 	  delete dialog;
@@ -427,7 +462,7 @@ void SignalManager::load24Bit (QFile *sigin,int offset,int interleave)
     }
 }
 //**********************************************************
-void SignalManager::load16Bit (QFile *sigin,int offset,int interleave)
+void SignalManager::load16Bit (FILE *sigin,int offset,int interleave)
 {
   unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*2];
 
@@ -445,13 +480,15 @@ void SignalManager::load16Bit (QFile *sigin,int offset,int interleave)
 
 	  if (interleave==0)
 	    {
-	      sigin->at(sigin->at()+offset);
+	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
+	      //	      sigin->at(sigin->at()+offset);
 	      for (i=0;i<length;)
 		{
 		  if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;
 		  else j=length;
 
-		  sigin->readBlock((char *)loadbuffer,(j-i)*2);
+		  fread ((char *)loadbuffer,1,(j-i)*2,sigin);
+		  //		  sigin->readBlock((char *)loadbuffer,(j-i)*2);
 		  pos=0;
 
 		  for (;i<j;i++)
@@ -467,13 +504,15 @@ void SignalManager::load16Bit (QFile *sigin,int offset,int interleave)
 	    }
 	  else
 	    {	//non zero interleave for multichannel-files !
-	      sigin->at(sigin->at()+offset);
+	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
+	      //sigin->at(sigin->at()+offset);
 	      for (i=0;i<length;i++)
 		{
 		  sample[i]=loadbuffer[pos++]<<8;
 		  sample[i]+=loadbuffer[pos++]<<16;
 		  if (sample[i]>(1<<23)) sample[i]=(-(1<<24))+sample[i];
-		  sigin->at(sigin->at()+interleave);
+		  fseek (sigin,(ftell(sigin)+interleave),SEEK_SET);
+	      //		  sigin->at(sigin->at()+interleave);
 		}
 	    }
 	  delete dialog;
@@ -482,7 +521,7 @@ void SignalManager::load16Bit (QFile *sigin,int offset,int interleave)
     }
 }
 //**********************************************************
-void  SignalManager::loadStereo16Bit (QFile *sigin)
+void  SignalManager::loadStereo16Bit (FILE *sigin)
   //explicit routine for faster loading of 16 bit stereo files,
   //since they are widely-spread...
 {
@@ -514,7 +553,8 @@ void  SignalManager::loadStereo16Bit (QFile *sigin)
 	      if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;
 	      else j=length;
 
-	      sigin->readBlock((char *)loadbuffer,(j-i)*4);
+	      fread ((char *)loadbuffer,1,(j-i)*4,sigin);
+	      //	      sigin->readBlock((char *)loadbuffer,(j-i)*4);
 	      pos=0;
 
 	      for (;i<j;i++)
@@ -535,7 +575,7 @@ void  SignalManager::loadStereo16Bit (QFile *sigin)
   if (loadbuffer) delete loadbuffer;
 }
 //**********************************************************
-void SignalManager::load8Bit (QFile *sigin,int offset,int interleave)
+void SignalManager::load8Bit (FILE *sigin,int offset,int interleave)
 {
   signal[0]=new KwaveSignal (length,rate);
   int *sample = signal[0]->getSample();
@@ -551,7 +591,8 @@ void SignalManager::load8Bit (QFile *sigin,int offset,int interleave)
 
 	  if (interleave==0)
 	    {
-	      sigin->at(sigin->at()+offset);
+	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
+	      //	      sigin->at(sigin->at()+offset);
 	      for (i=0;i<length;)
 		{
 		  if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;
@@ -559,7 +600,9 @@ void SignalManager::load8Bit (QFile *sigin,int offset,int interleave)
 
 		  for (;i<j;i++)
 		    {
-		      sample[i]=(((int) sigin->getch())-128)*(1<<16);
+		      sample[i]=(fgetc(sigin)-128)*(1<<16);
+		      //sample[i]=(((int) sigin->getch())-128)*(1<<16);
+
 		      if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
 		    }
 		  dialog->setProgress (i);
@@ -567,12 +610,15 @@ void SignalManager::load8Bit (QFile *sigin,int offset,int interleave)
 	    }
 	  else
 	    {	//non zero interleave for multichannel-files !
-	      sigin->at(sigin->at()+offset);
+	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
+	      //	      sigin->at(sigin->at()+offset);
 	      for (i=0;i<length;i++)
 		{
-		  sample[i]=(((int) sigin->getch())-128)*(1<<16);
+		  sample[i]=(((int) fgetc(sigin))-128)*(1<<16);
+		  //		  sample[i]=(((int) sigin->getch())-128)*(1<<16);
 		  if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
-		  sigin->at(sigin->at()+interleave);
+		  fseek (sigin,(ftell(sigin)+interleave),SEEK_SET);
+		  //sigin->at(sigin->at()+interleave);
 		}
 	    }
 	  delete dialog;
@@ -580,29 +626,30 @@ void SignalManager::load8Bit (QFile *sigin,int offset,int interleave)
     }
 }
 //**********************************************************
-void SignalManager::findDatainFile (QFile *sigin)
+int SignalManager::findDatainFile (FILE *sigin)
   //help function for finding data chunk in wav files
 {
   char	buffer[4096];
   int 	point=0,max=0;
-  int	filecount=sigin->at();
-  while ((point==max)&&(!sigin->atEnd()))
+  int	filecount=ftell(sigin);
+  int   res=(filecount>=0)?0:-1;
+ 
+  while ((point==max)&&(res==0))
     {
-      max=sigin->readBlock (buffer,4096);
+      max=fread (buffer,1,4096,sigin);
+      //      max=sigin->readBlock (buffer,4096);
       point=0;
       while (point<max) if (strncmp (&buffer[point++],"data",4)==0) break;
 
       if (point==max)
 	{
 	  filecount+=point-4;	//rewind 4 Bytes;
-	  sigin->at(filecount);
+	  res=fseek (sigin,filecount,SEEK_SET);
 	}
-      else filecount+=point;
+      else return filecount+point+3;
     }
-  if (point!=max)
-    {
-      sigin->at(filecount+3);
-    }
+
+  return 0;
 }
 
 

@@ -1,10 +1,4 @@
-#include <dlfcn.h>
-#include <kmsgbox.h>
-#include "fftview.h"
-#include "sonagram.h"
-
 #include "clipboard.h"
-#include "dialog_progress.h"
 
 #include <libkwave/kwavesignal.h>
 #include <libkwave/dynamicloader.h>
@@ -12,33 +6,12 @@
 #include <libkwave/globals.h>
 #include <libkwave/dialogoperation.h>
 #include <libkwave/parser.h>
-#include "../libgui/kwavedialog.h"
-
-//some definitions of values follow
-
-//ids for functions...
 
 extern int play16bit;
 extern int bufbase;
 
 extern Global globals;
-static QStrList filterNameList;
-//**********************************************************
-//append items only if the Menu is created from scratch
-//  if (manage->addNumberedMenu ("FilterPresets"))
-//  {
-//    QDir filterDir (globals.filterDir);
-//    filterDir.setNameFilter ("*.filter");
-//    filterNameList=(QStrList *)filterDir.entryList ();
-//
-//      for (char *tmp=filterNameList.first();tmp;tmp=filterNameList.next())
-//	{
-//	  char buf[strlen(tmp)-6];
-//	  strncpy (buf,tmp,strlen(tmp)-6);
-//	  buf[strlen(tmp)-7]=0;
-//	  manage->addNumberedMenuEntry ("FilterPresets",buf);
-//	}
-//  }
+extern void *createProgressDialog (TimeOperation *operation,const char *caption);
 //**********************************************************
 void SignalManager::getMaxMin (int channel,int&max, int &min,int begin,int len)
 {
@@ -56,7 +29,8 @@ void SignalManager::deleteChannel (int channel)
     }
   delete (todelete);
   channels--;              //decrease number of channels...
-  emit channelReset();
+
+  globals.port->putMessage ("refreshchannels()");
   info ();                 //and let everybody know about it
 
 }
@@ -76,11 +50,29 @@ void SignalManager::appendChannel (KwaveSignal *newsig)
   channels++;
   info ();
 }
+//**********************************************************
+void SignalManager::checkRange ()
+//usually useless, or it introduces
+//new bugs, or even better makes old bug worse to debug... 
+{
+  if (lmarker<0) lmarker=0; //check markers for bounding
+  if (rmarker>length) lmarker=length; 
 
+  len=rmarker-lmarker;
+  begin=lmarker;
+
+  if (len==0) //if no part is selected select the whole signal
+    {
+      len=length;
+      begin=0;
+    }
+}
 //**********************************************************
 void SignalManager::setOp (int id)
 {
   stopplay();	//every operation cancels playing...
+
+  checkRange ();
 
   //decode dynamical allocated menu id's
   //into the ones used by the switch statement below
@@ -145,7 +137,7 @@ int SignalManager::doCommand (const char *str)
 		SignalManager *toinsert=globals.clipboard->getSignal();
 		if (toinsert)
 		  {
-		    int clipchan=toinsert->getChannels();
+		    int clipchan=toinsert->getChannelCount();
 		    int sourcechan=0;
 
 		    for (int i=0;i<channels;i++)
@@ -195,19 +187,14 @@ bool SignalManager::promoteCommand (const char *command)
 	    {
 	      //create a new progress dialog, that watches an memory address
 	      //that is updated by the modules
-	      ProgressDialog *dialog=new ProgressDialog (operation,caption);
-	      if (dialog)
+
+	      void *dialog=createProgressDialog(operation,caption);
+		if (dialog)
 		{
 		  pthread_t thread;
-
-		  dialog->show ();
 	  
-		  //so when the dialog closes, everything is done
-		  //view may be refreshed
-		  connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
-
 		  //create the new thread 
-		  if (pthread_create (&thread, 
+		  if (pthread_create (&thread,
 				      0,
 				      (void *(*)(void *))(threadStub),
 				      (void *)operation)!=0)
@@ -228,32 +215,12 @@ bool SignalManager::promoteCommand (const char *command)
 }
 //**********************************************************
 void SignalManager::info ()
-  //notifies attached slots about important events
-  //does a little bit too much, but nothing should hurt the performance
 {
-  length=signal[0]->getLength();
-
-  if (rate == 0) {
-    // this should never happen !
-    fprintf(stderr, "signalmanager.cpp:info:rate==0 !?\r\n");
-  }
-
-  emit sampleChanged ();
-  emit rateInfo (rate);
-  emit channelInfo (channels);
-  if (rate != 0)
-    emit selectedTimeInfo ((int)(((long long)(lmarker-rmarker+1))*10000/rate));
-  emit lengthInfo (length);
-  if (rate != 0)
-    emit timeInfo ((int)((((long long)length)*10000)/rate));
+  globals.port->putMessage ("refreshchannels()");
+  globals.port->putMessage ("refresh()");
 }
 //**********************************************************
-const char *SignalManager::getName ()
-{
-  return name;
-}
-//**********************************************************
-SignalManager::SignalManager (KwaveSignal *sample):QObject ()
+SignalManager::SignalManager (KwaveSignal *sample)
 {
   if (sample)
     {
@@ -268,7 +235,7 @@ SignalManager::SignalManager (KwaveSignal *sample):QObject ()
     }
 }
 //**********************************************************
-SignalManager::SignalManager (QWidget *parent,int numsamples,int rate,int channels) :QObject ()
+SignalManager::SignalManager (QWidget *parent,int numsamples,int rate,int channels)
 {
   if (channels>MAXCHANNELS) channels=MAXCHANNELS;
 
@@ -294,12 +261,11 @@ SignalManager::~SignalManager ()
 {
 }
 //**********************************************************
-void SignalManager::setMarkers (int l,int r )
+void SignalManager::setRange (int l,int r )
   //this one sets the internal markers and promotes them to all channels
 {
+  lmarker=l;
+  rmarker=r;
   for (int i=0;i<channels;i++) signal[i]->setMarkers (l,r);
-  lmarker=signal[0]->getLMarker();
-  rmarker=signal[0]->getRMarker();
-  emit selectedTimeInfo((int)(((long long)(rmarker-lmarker+1))*10000/rate));
 }
 //**********************************************************

@@ -11,11 +11,10 @@
 # kde_toolbardir    Where general toolbar icons should go to.
 # kde_wallpaperdir  Where general wallpapers should go to.
 
-SUFFIXES= .h .cpp .o .d .moc .dm .ui
+SUFFIXES= .h .cpp .o .d .moc .dm .ui .cc .idl
 
 # set the include path for X, qt and KDE
-
-INCLUDES= -I${topdir} `artsc-config --cflags` @all_includes@
+INCLUDES= -I${topdir} $(ARTS_CFLAGS) `artsc-config --cflags` @all_includes@
 
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
@@ -26,9 +25,6 @@ LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles -nostdlib
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 
-CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm .depend *.uih.h *.uic.cpp
-DISTCLEANFILES	 = Makefile.in Makefile
-
 ui_files	:= $(shell find . -name \*.ui)
 uih_files	:= $(ui_files:.ui=.uih.h)
 uic_files	:= $(ui_files:.ui=.uic.cpp)
@@ -36,16 +32,26 @@ uic_files	:= $(ui_files:.ui=.uic.cpp)
 h_files		:= $(shell find . ! -name \*.uih.h -name \*.h)
 h_files   	+= ${uih_files}
 cpp_sources 	:= $(shell find . ! -name \*.uic.cpp -name \*.cpp)
+idl_files	:= $(shell find . -name \*.idl)
+idl_header	:= $(idl_files:.idl=.h)
+idl_impl	:= $(idl_files:.idl=.cc)
 
 moc_files	:= $(h_files:.h=.moc.cxx)
 
 OUT_FILES	:= $(cpp_sources:.cpp=.o)
 OUT_FILES	+= $(uic_files:.uic.cpp=.uic.o)
 OUT_FILES	+= $(h_files:.h=.moc.o)
+OUT_FILES	+= $(idl_files:.idl=.o)
 
 DEP_FILES	:= $(h_files:.h=.dm)
 DEP_FILES	+= $(cpp_sources:.cpp=.d)
 DEP_FILES	+= $(uic_sources:.cpp=.d)
+
+CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
+			.depend *.uih.h *.uic.cpp \
+			$(idl_header) $(idl_impl)
+
+DISTCLEANFILES	 = Makefile.in Makefile
 
 %.uic.o: %.uic.cpp
 	@echo plugin \"$(MODNAME)\": compiling dialog "'"$<"'"
@@ -55,10 +61,22 @@ DEP_FILES	+= $(uic_sources:.cpp=.d)
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
 	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
 
+%.o: %.cc
+	@echo plugin \"$(MODNAME)\": compiling idl implementation "'"$<"'"
+	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
+
 %.moc.o: %.moc.cxx
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
 	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -x c++ -c $< -o $@
 	@ echo "" >> $@
+
+%.cc: %.idl
+	@echo plugin \"$(MODNAME)\": creating idl implementation "'"$<"'"
+	${MCOPIDL} $(ARTS_CFLAGS) $<
+
+%.h: %.idl
+	@echo plugin \"$(MODNAME)\": creating idl implementation "'"$<"'"
+	${MCOPIDL} $(ARTS_CFLAGS) $<
 
 %.uih.h: %.ui
 	@echo plugin \"$(MODNAME)\": generating header from $<
@@ -84,6 +102,10 @@ DEP_FILES	+= $(uic_sources:.cpp=.d)
 
         # make the right order: first build the .d/.dm files then the .o
 # ${OUT_FILES}: ${DEP_FILES}
+
+${idl_header}: ${idl_files}
+
+${idl_impl}: ${idl_files}
 
 .depend: ${DEP_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@

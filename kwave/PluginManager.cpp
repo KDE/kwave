@@ -187,8 +187,9 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	KwavePlugin *p = itp.current();
 	if (p->isPersistent() && (p->name() == name)) {
 	    Q_ASSERT(p->isPersistent());
-	    qDebug("PluginManager::loadPlugin('"+name+
-	           "') -> returning pointer to persistent");
+	    qDebug("PluginManager::loadPlugin('%s')"\
+	           "-> returning pointer to persistent",
+	           name.local8Bit().data());
 	    return p;
 	}
     }
@@ -200,8 +201,9 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	if (p->name() == name) {
 	    Q_ASSERT(p->isUnique());
 	    Q_ASSERT(p->isPersistent());
-	    qDebug("PluginManager::loadPlugin('"+name+
-	           "') -> returning pointer to unique+persistent");
+	    qDebug("PluginManager::loadPlugin('%s')"\
+	           "-> returning pointer to unique+persistent",
+	           name.local8Bit().data());
 	    return p;
 	}
     }
@@ -255,9 +257,10 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     Q_ASSERT(plugin_loader);
     if (!plugin_loader) {
 	// plugin is null, out of memory or not found
-	qWarning("PluginManager::loadPlugin('"+name+"'): "\
+	qWarning("PluginManager::loadPlugin('%s'): "\
 		"plugin does not contain a loader, "\
-		"maybe it is damaged or the wrong version?");
+		"maybe it is damaged or the wrong version?",
+		name.local8Bit().data());
 	dlclose(handle);
 	return 0;
     }
@@ -276,7 +279,8 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 
     Q_ASSERT(context);
     if (!context) {
-	qWarning("PluginManager::loadPlugin('"+name+"'): out of memory");
+	qWarning("PluginManager::loadPlugin('%s'): out of memory",
+	         name.local8Bit().data());
 	dlclose(handle);
 	return 0;
     }
@@ -285,7 +289,8 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     KwavePlugin *plugin = (*plugin_loader)(context);
     Q_ASSERT(plugin);
     if (!plugin) {
-	qWarning("PluginManager::loadPlugin('"+name+"'): out of memory");
+	qWarning("PluginManager::loadPlugin('%s'): out of memory",
+	         name.local8Bit().data());
 	dlclose(handle);
 	return 0;
     }

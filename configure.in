@@ -160,29 +160,6 @@ if $UIC -o /dev/null -impl test-uic.h test-uic.ui 2>/dev/null 1>/dev/null; then 
 } fi;
 rm -f test-uic.*
 
-dnl
-dnl optimization flags for athlon
-dnl CFLAGS = -O3 -fomit-frame-pointer -Wall
-dnl -mathlon -mcpu=athlon -march=athlon
-dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations
-dnl -malign-double -fschedule-insns2 -mwide-multiply
-dnl
-dnl optimization flags for pentium pro
-dnl CFLAGS = -s -O3 -fomit-frame-pointer -Wall
-dnl -mpentiumpro -march=pentiumpro
-dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations
-dnl -malign-double -fschedule-insns2 -mwide-multiply
-dnl
-dnl ### CFLAGS="${CFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
-dnl ### CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
-dnl
-
-dnl CXXFLAGS="$(CXXFLAGS) -Wall -g -fcheck-memory-usage \
-dnl   -g -ansi  -U__i486__ -U__i586__ -U__i686__ -DMEMCHECK -D_REENTRANT -D_XOPEN_SOURCE -D_BSD_SOURCE \
-dnl   -Wbad-function-cast -Wcast-align -Wundef -Wconversion -fno-exceptions \
-dnl   -fcheck-new -Wall -pedantic -W -Wpointer-arith -Wmissing-prototypes \
-dnl   -Wwrite-strings -Wno-long-long -Wnon-virtual-dtor -fno-builtin "
-
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_TIME
 
@@ -221,7 +198,7 @@ KDE_CHECK_HEADER(kdeversion.h, AC_DEFINE(HAVE_KDEVERSION_H,1,
 AC_CHECK_HEADER(demangle.h, AC_DEFINE(HAVE_DEMANGLE_H,1,
     [name mangling would be fine, but not necessary]))
 
-dnl rtti/type info woulf be fine for debugging
+dnl rtti/type info would be fine for debugging
 AC_CHECK_HEADERS(typeinfo)
 
 dnl check for multithreading support
@@ -237,7 +214,7 @@ dnl *** check for id3lib in a new enough version ***
 
 AC_LANG_PUSH(C++)
 saved_libs="$LDFLAGS"
-LDFLAGS="-lid3 -lz"
+LDFLAGS="-lid3 -lstdc++ -lz"
 ac_found_id3lib="yes"
 AC_MSG_CHECKING(for id3lib)
 AC_TRY_LINK([
@@ -284,6 +261,12 @@ LDFLAGS="$saved_libs"
 dnl ***                                          ***
 dnl ************************************************
 
+dnl check for libogg-devel support
+AC_CHECK_HEADER(ogg/ogg.h,,[AC_MSG_ERROR([libogg-devel is missing.])])
+
+dnl check for libogg support (needed by libvorbis)
+AC_CHECK_LIB(ogg, ogg_stream_init,,[AC_MSG_ERROR([libogg is missing.])])
+
 dnl check for libvorbis support
 AC_CHECK_HEADER(vorbis/codec.h,,[AC_MSG_ERROR([
 
@@ -303,7 +286,7 @@ AC_CHECK_LIB(vorbis, vorbis_bitrate_addblock,,[AC_MSG_ERROR([
     at least "libvorbis-1.0rc3-75" or higher and try again.
     
 ])])
-    
+   
 dnl AC_CHECK_HEADERS(utility string,,AC_MSG_ERROR(""
 dnl "    "
 dnl "    your system seems to lack support for one or more STL classes."
@@ -381,14 +364,12 @@ AC_CHECK_HEADERS( artsflow.idl artsc.h, [arts_headers_found=1], [
 CPPFLAGS="$arts_check_saved_cppflags";
 
 
-dnl Checks for libraries.
-
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
 
 dnl not usable yet :-(
-AC_CHECK_LIB(audiofile, main, [LIBAUDIOFILE="-laudiofile"])
-AC_SUBST(LIBAUDIOFILE)
+dnl AC_CHECK_LIB(audiofile, main, [LIBAUDIOFILE="-laudiofile"])
+dnl AC_SUBST(LIBAUDIOFILE)
 
 dnl output files
 topdir=`pwd`
@@ -409,7 +390,7 @@ RPM_VENDOR="Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>"
 changequote(<<, >>)
 RPM_SHORT_VERSION=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[1] }'`
 RPM_FULL_VERSION=`cat ./VERSION`
-RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2]+0 }'`
+RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2]+0 ? a[2] : 1}'`
 RPM_GROUP=<<X11/Applications/Sound>>
 RPM_BUILDROOT=<</tmp/kwave-%{version}.root>>
 LD_VERSION_INFO=<<`cat ./VERSION | awk '{split($0, a, ".")} \
@@ -442,6 +423,6 @@ esac],[debug=false])
 AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 
 dnl add here all your Makefiles
-dnl      (Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
+dnl             (Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
 AC_CONFIG_FILES([Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec])
 AC_OUTPUT

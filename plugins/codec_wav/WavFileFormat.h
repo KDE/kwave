@@ -194,6 +194,8 @@ typedef struct {
 addMimeType("audio/x-wav",    i18n("wav audio"), "*.wav"); \
     /* defined in RFC 2361 */ \
 addMimeType("audio/vnd.wave", i18n("wav audio"), "*.wav"); \
+    /* defined nowhere, but someone has used that */ \
+addMimeType("audio/wav", i18n("wav audio"), "*.wav"); \
 }
 
 #endif /* _WAV_FILE_FORMAT_H_ */

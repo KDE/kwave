@@ -50,6 +50,7 @@ find . -type l | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%
 mv "$RPM_BUILD_DIR"/%{filelist} /tmp/files.lst.tmp
 cat /tmp/files.lst.tmp | grep -v /default$ | \
 	grep -v /de$ | grep -v /en$ > "$RPM_BUILD_DIR"/%{filelist}
+rm -f /tmp/files.lst.tmp
 
 %files -f files.list.%{name}
 
@@ -57,13 +58,6 @@ cat /tmp/files.lst.tmp | grep -v /default$ | \
 
 %post
 ldconfig
-cd $RPM_BUILD_ROOT/${KDEDIR}/share/doc/HTML
-if test ! -e default/%{name}; then ln -s ../en/%{name} default; fi;
-if test ! -e de/%{name};      then ln -s ../en/%{name} de;      fi;
 
 %postun
 ldconfig
-cd $RPM_BUILD_ROOT/${KDEDIR}/share/doc/HTML
-if test -L default/%{name}; then rm -f default/%{name}; fi;
-if test -L de/%{name};      then rm -f de/%{name};      fi;
-

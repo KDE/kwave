@@ -30,7 +30,6 @@
 #include <klocale.h>
 
 #include "mt/Thread.h"
-#include "mt/MutexGuard.h"
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
@@ -86,7 +85,7 @@ KwavePlugin::~KwavePlugin()
     close();
 
     {
-	MutexGuard lock(m_thread_lock);
+	QMutexLocker lock(&m_thread_lock);
 	if (m_thread) {
 	    if (m_thread->running()) m_thread->wait(5000);
 	    if (m_thread->running()) m_thread->stop();
@@ -135,7 +134,7 @@ QStringList *KwavePlugin::setup(QStringList &)
 //***************************************************************************
 int KwavePlugin::start(QStringList &)
 {
-    MutexGuard lock(m_thread_lock);
+    QMutexLocker lock(&m_thread_lock);
     return 0;
 }
 
@@ -161,7 +160,7 @@ int KwavePlugin::stop()
     }
 
     {
-	MutexGuard lock(m_thread_lock);
+	QMutexLocker lock(&m_thread_lock);
 	if (m_thread) {
 	    if (m_thread->running()) m_thread->wait(5000);
 	    if (m_thread->running()) m_thread->stop();
@@ -180,7 +179,7 @@ int KwavePlugin::stop()
 //***************************************************************************
 int KwavePlugin::execute(QStringList &params)
 {
-    MutexGuard lock(m_thread_lock);
+    QMutexLocker lock(&m_thread_lock);
 
     m_thread = new Asynchronous_Object_with_1_arg<KwavePlugin, QStringList>(
 	this, &KwavePlugin::run_wrapper,params);
@@ -251,7 +250,7 @@ void KwavePlugin::close()
 //***************************************************************************
 void KwavePlugin::use()
 {
-    MutexGuard lock(m_usage_lock);
+    QMutexLocker lock(&m_usage_lock);
     m_usage_count++;
 }
 
@@ -261,7 +260,7 @@ void KwavePlugin::release()
     bool finished = false;
 
     {
-	MutexGuard lock(m_usage_lock);
+	QMutexLocker lock(&m_usage_lock);
 	Q_ASSERT(m_usage_count);
 	if (m_usage_count) {
 	    m_usage_count--;

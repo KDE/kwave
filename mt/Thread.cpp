@@ -45,7 +45,6 @@
 #include <signal.h>
 #include <sys/time.h>
 
-#include "mt/MutexGuard.h"
 #include "mt/Thread.h"
 
 /** lock for protecting SIGHUP <-> thread exit */
@@ -86,7 +85,7 @@ Thread::Thread(int */*grpid*/, const long /*flags*/)
     :QObject(), m_tid((pthread_t)-1), m_lock(),
     m_thread_running(), m_should_stop(false)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
     int res;
     res = pthread_attr_init(&m_attr);
     if (res)
@@ -119,7 +118,7 @@ Thread::~Thread()
 //***************************************************************************
 void *Thread::thread_adapter(void *arg)
 {
-    MutexGuard lock(m_thread_running);
+    QMutexLocker lock(&m_thread_running);
 
     Thread *object = (Thread *) arg;
     Q_CHECK_PTR(object);
@@ -138,7 +137,7 @@ void *Thread::thread_adapter(void *arg)
 //***************************************************************************
 int Thread::start()
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     // reset the "should stop" command flag
     m_should_stop = false;
@@ -153,7 +152,7 @@ int Thread::start()
 //***************************************************************************
 int Thread::stop(unsigned int timeout)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
     if (!running()) return 0; // already down
 
     if (timeout < 1000) timeout = 1000;
@@ -163,7 +162,7 @@ int Thread::stop(unsigned int timeout)
 
     // send one SIGHUP in advance
     {
-	MutexGuard lock_exit(g_lock_sighup);
+	QMutexLocker lock_exit(&g_lock_sighup);
 	if (!running()) return 0;
 	pthread_kill(m_tid, SIGHUP);
     }
@@ -177,7 +176,7 @@ int Thread::stop(unsigned int timeout)
     qDebug("Thread::stop(): sending SIGHUP");
     for (unsigned int i=0; i < 8; i++) {
 	{
-	    MutexGuard lock_exit(g_lock_sighup);
+	    QMutexLocker lock_exit(&g_lock_sighup);
 	    if (!running()) return 0;
 	    pthread_kill(m_tid, SIGHUP);
 	}

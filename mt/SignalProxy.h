@@ -22,7 +22,6 @@
 #include <qmutex.h>
 #include <qptrqueue.h>
 #include "mt/AsyncSync.h"
-#include "mt/MutexGuard.h"
 
 //***************************************************************************
 template <class T>
@@ -84,7 +83,7 @@ SignalProxy1<T>::SignalProxy1(QObject *owner,
 template <class T>
 SignalProxy1<T>::~SignalProxy1()
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
     m_queue.setAutoDelete(true);
     m_queue.clear();
 }
@@ -93,7 +92,7 @@ SignalProxy1<T>::~SignalProxy1()
 template <class T>
 void SignalProxy1<T>::enqueue(const T &param)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
     bool call_async = true;
 
     // dequeue the first (oldest) object of the queue if the limit
@@ -121,7 +120,7 @@ void SignalProxy1<T>::enqueue(const T &param)
 template <class T>
 T *SignalProxy1<T>::dequeue()
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
     T *p1 = m_queue.dequeue();
     Q_ASSERT(p1);
     T *copy = 0;
@@ -137,7 +136,7 @@ T *SignalProxy1<T>::dequeue()
 template <class T>
 unsigned int SignalProxy1<T>::count()
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
     return m_queue.count();
 }
 
@@ -145,7 +144,7 @@ unsigned int SignalProxy1<T>::count()
 template <class T>
 void SignalProxy1<T>::setLimit(unsigned int limit)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
     m_limit = limit;
 }
 
@@ -153,7 +152,7 @@ void SignalProxy1<T>::setLimit(unsigned int limit)
 template <class T>
 unsigned int SignalProxy1<T>::limit()
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
     return m_limit;
 }
 

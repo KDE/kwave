@@ -21,8 +21,6 @@
 #include <qmutex.h>
 #include <qpainter.h>
 
-#include "mt/MutexGuard.h"
-
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -203,7 +201,7 @@ void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
 //*****************************************************************************
 void OverViewCache::slotTrackInserted(unsigned int index, Track &)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     // just to be sure: check scale again, maybe it was the first track
     if ((sourceLength() / m_scale) > CACHE_SIZE)
@@ -276,7 +274,7 @@ void OverViewCache::slotTrackInserted(unsigned int index, Track &)
 //*****************************************************************************
 void OverViewCache::slotTrackDeleted(unsigned int index)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     int cache_track = trackIndex(index);
     if (cache_track >= 0) {
@@ -317,7 +315,7 @@ void OverViewCache::slotTrackDeleted(unsigned int index)
 void OverViewCache::slotSamplesInserted(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     if ((sourceLength() / m_scale) > CACHE_SIZE)
         scaleUp();
@@ -358,7 +356,7 @@ void OverViewCache::slotSamplesInserted(unsigned int track,
 void OverViewCache::slotSamplesDeleted(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     if ((sourceLength() / m_scale) < (CACHE_SIZE/4))
         scaleDown();
@@ -404,7 +402,7 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
 void OverViewCache::slotSamplesModified(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     if (!length) return; // nothing to do
 

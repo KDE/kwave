@@ -26,8 +26,6 @@
 #include <qmutex.h>
 #include <qstring.h>
 
-#include "mt/MutexGuard.h"
-
 class SwapFile;
 
 class MemoryManager

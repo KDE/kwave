@@ -28,7 +28,6 @@ BUILTSOURCES=\
 # Which sources should be compiled for libkwavemt.
 libkwavemt_la_SOURCES=\
  AsyncSync.cpp\
- MutexGuard.cpp \
  SharedLock.cpp \
  SharedLockGuard.cpp \
  Thread.cpp \

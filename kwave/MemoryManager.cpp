@@ -77,7 +77,7 @@ MemoryManager &MemoryManager::instance()
 //***************************************************************************
 void MemoryManager::setPhysicalLimit(unsigned int mb)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     m_physical_limit = mb;
     mb = totalPhysical();
@@ -87,7 +87,7 @@ void MemoryManager::setPhysicalLimit(unsigned int mb)
 //***************************************************************************
 void MemoryManager::setVirtualLimit(unsigned int mb)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     m_virtual_limit = mb;
 /** @todo write a function to find out the limit of virtual memory */
@@ -98,7 +98,7 @@ void MemoryManager::setVirtualLimit(unsigned int mb)
 //***************************************************************************
 void MemoryManager::setSwapDirectory(const QString &dir)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
     m_swap_dir = dir;
 }
 
@@ -145,7 +145,7 @@ unsigned int MemoryManager::totalPhysical()
 //***************************************************************************
 void *MemoryManager::allocate(size_t size)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     void *block = 0;
     block = allocatePhysical(size);
@@ -279,7 +279,7 @@ void *MemoryManager::convertToVirtual(void *block, size_t old_size,
 //***************************************************************************
 void *MemoryManager::resize(void *block, size_t size)
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     // case 1: physical memory
     if (m_physical_size.contains(block)) {
@@ -329,7 +329,7 @@ void *MemoryManager::resize(void *block, size_t size)
 void MemoryManager::free(void *&block)
 {
     if (!block) return;
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     Q_ASSERT(!m_mapped_swap.contains(reinterpret_cast<SwapFile *>(block)));
     if (m_mapped_swap.contains(reinterpret_cast<SwapFile *>(block))) {

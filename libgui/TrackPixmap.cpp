@@ -18,7 +18,6 @@
 #include <math.h>
 #include <qpainter.h>
 
-#include "mt/MutexGuard.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/Track.h"
 #include "libgui/TrackPixmap.h"
@@ -73,7 +72,7 @@ TrackPixmap::TrackPixmap(Track &track)
 //***************************************************************************
 TrackPixmap::~TrackPixmap()
 {
-    MutexGuard lock(m_lock_buffer);
+    QMutexLocker lock(&m_lock_buffer);
 
     if (m_interpolation_alpha) delete[] m_interpolation_alpha;
     m_interpolation_alpha = 0;
@@ -82,7 +81,7 @@ TrackPixmap::~TrackPixmap()
 //***************************************************************************
 void TrackPixmap::setOffset(unsigned int offset)
 {
-    MutexGuard lock(m_lock_buffer);
+    QMutexLocker lock(&m_lock_buffer);
     if (offset == m_offset) return; // no change
 
     unsigned int diff;
@@ -203,7 +202,7 @@ void TrackPixmap::resizeBuffer()
 //***************************************************************************
 void TrackPixmap::setZoom(double zoom)
 {
-    MutexGuard lock(m_lock_buffer);
+    QMutexLocker lock(&m_lock_buffer);
 
     if (zoom == m_zoom) return; // no change
 
@@ -236,7 +235,7 @@ void TrackPixmap::setZoom(double zoom)
 //***************************************************************************
 void TrackPixmap::resize(int width, int height)
 {
-    MutexGuard lock(m_lock_buffer);
+    QMutexLocker lock(&m_lock_buffer);
 
     int old_width = QPixmap::width();
     int old_height = QPixmap::height();
@@ -379,7 +378,7 @@ bool TrackPixmap::validateBuffer()
 //***************************************************************************
 void TrackPixmap::repaint()
 {
-    MutexGuard lock(m_lock_buffer);
+    QMutexLocker lock(&m_lock_buffer);
 
     int w = width();
     int h = height();
@@ -425,7 +424,7 @@ void TrackPixmap::repaint()
 //***************************************************************************
 bool TrackPixmap::isModified()
 {
-    MutexGuard lock(m_lock_buffer);
+    QMutexLocker lock(&m_lock_buffer);
     return m_modified;
 }
 
@@ -701,7 +700,7 @@ void TrackPixmap::slotSamplesInserted(Track &, unsigned int offset,
                                       unsigned int length)
 {
     {
-	MutexGuard lock(m_lock_buffer);
+	QMutexLocker lock(&m_lock_buffer);
 
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
@@ -725,7 +724,7 @@ void TrackPixmap::slotSamplesDeleted(Track &, unsigned int offset,
                                      unsigned int length)
 {
     {
-	MutexGuard lock(m_lock_buffer);
+	QMutexLocker lock(&m_lock_buffer);
 
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
@@ -749,7 +748,7 @@ void TrackPixmap::slotSamplesModified(Track &, unsigned int offset,
                                       unsigned int length)
 {
     {
-	MutexGuard lock(m_lock_buffer);
+	QMutexLocker lock(&m_lock_buffer);
 
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm

@@ -26,7 +26,6 @@
 #include <qobject.h>
 #include <qsocketnotifier.h>
 
-#include "mt/MutexGuard.h"
 #include "mt/AsyncSync.h"
 
 /** global lock for creating/deleting socket notifiers */
@@ -36,7 +35,7 @@ QMutex AsyncSync::m_lock;
 AsyncSync::AsyncSync()
     :QObject()
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     // Create IPC pipe for async/sync communication with X server
     if ( ::pipe(m_fds) == -1 ) {
@@ -58,7 +57,7 @@ AsyncSync::AsyncSync()
 //*****************************************************************************
 AsyncSync::~AsyncSync()
 {
-    MutexGuard lock(m_lock);
+    QMutexLocker lock(&m_lock);
 
     // Delete socket notifier
     if (m_sn) delete m_sn;

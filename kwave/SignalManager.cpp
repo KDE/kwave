@@ -1113,7 +1113,7 @@ void SignalManager::startUndoTransaction(const QString &name)
 {
     if (!m_undo_enabled) return; // undo is currently not enabled
 
-    MutexGuard lock(m_undo_transaction_lock);
+    QMutexLocker lock(&m_undo_transaction_lock);
 
     // increase recursion level
     m_undo_transaction_level++;
@@ -1141,7 +1141,7 @@ void SignalManager::startUndoTransaction(const QString &name)
 //***************************************************************************
 void SignalManager::closeUndoTransaction()
 {
-    MutexGuard lock(m_undo_transaction_lock);
+    QMutexLocker lock(&m_undo_transaction_lock);
 
     // decrease recursion level
     if (!m_undo_transaction_level) return; // undo was not enabled ?
@@ -1184,7 +1184,7 @@ void SignalManager::disableUndo()
 //***************************************************************************
 void SignalManager::flushUndoBuffers()
 {
-    MutexGuard lock(m_undo_transaction_lock);
+    QMutexLocker lock(&m_undo_transaction_lock);
 
     Q_ASSERT(m_undo_transaction_level == 0);
 
@@ -1209,7 +1209,7 @@ void SignalManager::flushUndoBuffers()
 //***************************************************************************
 void SignalManager::abortUndoTransaction()
 {
-    MutexGuard lock(m_undo_transaction_lock);
+    QMutexLocker lock(&m_undo_transaction_lock);
 
     if (!m_undo_transaction) return;
     delete m_undo_transaction;
@@ -1226,7 +1226,7 @@ void SignalManager::flushRedoBuffer()
 //***************************************************************************
 bool SignalManager::registerUndoAction(UndoAction *action)
 {
-    MutexGuard lock(m_undo_transaction_lock);
+    QMutexLocker lock(&m_undo_transaction_lock);
     Q_ASSERT(action);
     if (!action) return false;
 
@@ -1375,7 +1375,7 @@ void SignalManager::emitUndoRedoInfo()
 //***************************************************************************
 void SignalManager::undo()
 {
-    MutexGuard lock(m_undo_transaction_lock);
+    QMutexLocker lock(&m_undo_transaction_lock);
 
     // get the last undo transaction and abort if none present
     if (m_undo_buffer.isEmpty()) return;
@@ -1475,7 +1475,7 @@ void SignalManager::undo()
 //***************************************************************************
 void SignalManager::redo()
 {
-    MutexGuard lock(m_undo_transaction_lock);
+    QMutexLocker lock(&m_undo_transaction_lock);
 
     // get the last redo transaction and abort if none present
     if (m_redo_buffer.isEmpty()) return;

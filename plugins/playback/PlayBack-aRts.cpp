@@ -22,7 +22,6 @@
 #include <math.h>
 #include <klocale.h>
 
-#include "mt/MutexGuard.h"
 #include "mt/ThreadsafeX11Guard.h"
 #include "PlayBack-aRts.h"
 
@@ -71,7 +70,7 @@ QString PlayBackArts::open(const QString &, double rate,
     m_buffer_size = 0;
     m_buffer_used = 0;
     m_stream      = 0;
-    MutexGuard lock(m_lock_aRts);
+    QMutexLocker lock(&m_lock_aRts);
 
     Q_ASSERT(m_closed);
     m_closed = false;
@@ -161,7 +160,7 @@ void PlayBackArts::flush()
 
     Q_ASSERT(m_stream);
     if (m_stream) {
-	MutexGuard lock(m_lock_aRts);
+	QMutexLocker lock(&m_lock_aRts);
 
 	// fill rest of buffer with zeroes
 	while (m_buffer_used < m_buffer_size)
@@ -184,7 +183,7 @@ int PlayBackArts::close()
     flush();
 
     {
-	MutexGuard lock(m_lock_aRts);
+	QMutexLocker lock(&m_lock_aRts);
 
 	// close the playback stream
 	if (m_stream) arts_close_stream(m_stream);

@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include <string.h> // for some speed-ups like memmove, memcpy ...
-#include "mt/MutexGuard.h"
 #include "libkwave/memcpy.h"
 #include "libkwave/Stripe.h"
 #include "kwave/MemoryManager.h"
@@ -181,35 +180,35 @@ Stripe::Stripe(unsigned int start, Stripe &stripe, unsigned int offset)
 //***************************************************************************
 Stripe::~Stripe()
 {
-    MutexGuard lock(m_lock_samples);
+    QMutexLocker lock(&m_lock_samples);
     resizeStorage(0);
 }
 
 //***************************************************************************
 unsigned int Stripe::start()
 {
-    MutexGuard lock(m_lock_samples);
+    QMutexLocker lock(&m_lock_samples);
     return m_start;
 }
 
 //***************************************************************************
 void Stripe::setStart(unsigned int start)
 {
-    MutexGuard lock(m_lock_samples);
+    QMutexLocker lock(&m_lock_samples);
     m_start = start;
 }
 
 //***************************************************************************
 unsigned int Stripe::length()
 {
-    MutexGuard lock(m_lock_samples);
+    QMutexLocker lock(&m_lock_samples);
     return m_length;
 }
 
 //***************************************************************************
 unsigned int Stripe::end()
 {
-    MutexGuard lock(m_lock_samples);
+    QMutexLocker lock(&m_lock_samples);
     return m_start + ((m_length) ? (m_length - 1) : 0);
 }
 
@@ -262,7 +261,7 @@ unsigned int Stripe::resize(unsigned int length, bool initialize)
 {
     unsigned int old_length = 0;
     {
-	MutexGuard lock(m_lock_samples);
+	QMutexLocker lock(&m_lock_samples);
 
 	old_length = m_length;
 	if (m_length == length) return old_length; // nothing to do
@@ -320,7 +319,7 @@ unsigned int Stripe::append(const QMemArray<sample_t> &samples,
     if (!count) return 0; // nothing to do
 
     {
-	MutexGuard lock(m_lock_samples);
+	QMutexLocker lock(&m_lock_samples);
 
 	Q_ASSERT(offset + count <= samples.size());
 	if (offset + count > samples.size()) return 0;
@@ -355,7 +354,7 @@ unsigned int Stripe::insert(const QMemArray<sample_t> &samples,
     unsigned int inserted = 0;
 
     {
-	MutexGuard lock(m_lock_samples);
+	QMutexLocker lock(&m_lock_samples);
 
 	if (!count || !m_length) return 0; // nothing to do
 	Q_ASSERT(offset + count <= samples.size());
@@ -400,7 +399,7 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
     if (!length) return; // nothing to do
 
     {
-	MutexGuard lock(m_lock_samples);
+	QMutexLocker lock(&m_lock_samples);
 
 	const unsigned int size = m_length;
 	if (!size) return;
@@ -445,7 +444,7 @@ void Stripe::overwrite(unsigned int offset,
 {
     unsigned int count = srclen;
     {
-	MutexGuard lock(m_lock_samples);
+	QMutexLocker lock(&m_lock_samples);
 
 	count = MemoryManager::instance().writeTo(m_storage,
 	    offset * sizeof(sample_t),
@@ -462,7 +461,7 @@ unsigned int Stripe::read(QMemArray<sample_t> &buffer, unsigned int dstoff,
     Q_ASSERT(length);
     if (!length) return 0; // nothing to do !?
 
-    MutexGuard lock(m_lock_samples);
+    QMutexLocker lock(&m_lock_samples);
 
 //  for (unsigned int x=dstoff; (dstoff+x < length) && (x < buffer.size()); x++)
 //      buffer[x] = -(SAMPLE_MAX >> 2);

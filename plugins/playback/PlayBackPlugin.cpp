@@ -90,7 +90,7 @@ PlayBackPlugin::~PlayBackPlugin()
     manager().unregisterPlaybackDeviceFactory(this);
 
     // close the device now if it accidentally is still open
-    MutexGuard lock_for_delete(m_lock_device);
+    QMutexLocker lock_for_delete(&m_lock_device);
     m_stop = true;
     if (m_device) delete m_device;
     m_device = 0;
@@ -403,7 +403,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 //***************************************************************************
 void PlayBackPlugin::closeDevice()
 {
-    MutexGuard lock_for_delete(m_lock_device);
+    QMutexLocker lock_for_delete(&m_lock_device);
 
     if (!m_device) return; // already closed
     delete m_device;
@@ -418,7 +418,7 @@ void PlayBackPlugin::startDevicePlayBack()
     // set the real sample rate for playback from the signal itself
     m_playback_params.rate = signalRate();
 
-    MutexGuard lock_for_delete(m_lock_device);
+    QMutexLocker lock_for_delete(&m_lock_device);
 
     // remove the old device if still one exists
     if (m_device) {
@@ -498,7 +498,7 @@ void PlayBackPlugin::stopDevicePlayBack()
 //***************************************************************************
 void PlayBackPlugin::run(QStringList)
 {
-    MutexGuard lock(m_lock_device);
+    QMutexLocker lock(&m_lock_device);
 
     unsigned int first = m_playback_controller.startPos();
     unsigned int last  = m_playback_controller.endPos();

@@ -110,7 +110,7 @@ int main( int argc, char **argv )
     KAboutData about(
 	PACKAGE,
 	"Kwave",
-	VERSION,
+	PACKAGE_VERSION,
 	i18n("sound editor for KDE3"),
 	KAboutData::License_GPL_V2,
         "(c) 2002, Thomas Eschenbacher",

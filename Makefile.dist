@@ -95,8 +95,9 @@ logged:
 	} fi
 	@ for dir in . libmad ; do { \
 		cd $$dir; \
+		export WANT_AUTOMAKE_1_6=1  ; \
 		libtoolize --force --copy --automake ; \
-		aclocal ; \
+		aclocal; \
 		autoheader${AUTOCONF_SUFFIX} ; \
 		automake --foreign --add-missing --copy --include-deps ; \
 		autoconf${AUTOCONF_SUFFIX} ; \

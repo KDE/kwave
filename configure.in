@@ -9,12 +9,13 @@ AC_CONFIG_SUBDIRS(libmad)
 unset CDPATH            dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 AC_CANONICAL_TARGET([]) dnl Checking host/target/build systems, for make, install etc.
 AC_ARG_PROGRAM          dnl Perform program name transformation
-AM_INIT_AUTOMAKE(1.6.3) dnl Require Automake 1.6.3 or better.
+AM_INIT_AUTOMAKE(1.6.3) dnl Require Automake 1.6.3 or higher
+AC_PREREQ(2.50)         dnl Require Autoconf 2.50 or higher
 
 KDE_SET_PREFIX
 
 dnl generate the config header
-AM_CONFIG_HEADER([config.h])
+AM_CONFIG_HEADER(config.h)
 
 AC_LANG([C])
 AC_LANG([C++])

@@ -16,12 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <byteswap.h>
 #include <stdlib.h>
 #include <math.h>
 
+#include <qdatetime.h>
 #include <qlist.h>
-#include <qprogressdialog.h>
 
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -222,10 +221,11 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     m_info.setTracks(m_vi.channels);
     m_info.set(INF_MIMETYPE, DEFAULT_MIME_TYPE);
     m_info.set(INF_SOURCE, QString(m_vc.vendor));
-    m_info.set(INF_BITRATE_NOMINAL, QVariant((int)m_vi.bitrate_nominal));
-    if (m_vi.bitrate_lower)
+    if (m_vi.bitrate_nominal > 0)
+	m_info.set(INF_BITRATE_NOMINAL, QVariant((int)m_vi.bitrate_nominal));
+    if (m_vi.bitrate_lower > 0)
 	m_info.set(INF_BITRATE_LOWER, QVariant((int)m_vi.bitrate_lower));
-    if (m_vi.bitrate_upper)
+    if (m_vi.bitrate_upper > 0)
 	m_info.set(INF_BITRATE_UPPER, QVariant((int)m_vi.bitrate_upper));
     
     // the first comment sometimes is used for the software version
@@ -239,6 +239,23 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	}
     }
 
+    /** convert the date property to a QDate */
+    parseTag("DATE",         INF_CREATION_DATE);
+    if (m_info.contains(INF_CREATION_DATE)) {
+	QString str_date  = QVariant(m_info.get(
+	    INF_CREATION_DATE)).toString();
+	QDate date;
+	date = QDate::fromString(str_date, Qt::ISODate);
+	if (!date.isValid()) {
+	    warning("invalid date: '%s', interpreting as year...",
+	        str_date.data());
+	    int year = str_date.toInt();
+	    date.setYMD(year, 1, 1);
+	}
+	if (date.isValid()) m_info.set(INF_CREATION_DATE, date);
+    }
+
+    // parse all other (simple) properties    
     parseTag("TITLE",        INF_NAME);
     parseTag("VERSION",      INF_VERSION);
     parseTag("ALBUM",        INF_ALBUM);
@@ -254,7 +271,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
     parseTag("CONTACT",      INF_CONTACT);
     parseTag("ISRC",         INF_ISRC);
     parseTag("ENCODE",       INF_SOFTWARE);
-    
+
     return true;
 }
 

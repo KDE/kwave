@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-11-30 20:38+0100\n"
-"PO-Revision-Date: 2003-12-03 16:00+0100\n"
+"PO-Revision-Date: 2003-12-03 16:11+0100\n"
 "Last-Translator: Gilles CAULIER <caulier.gilles@free.fr>\n"
 "Language-Team: Française <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3528,20 +3528,17 @@ msgid ""
 msgstr ""
 
 #: plugins/record/RecordDlg.uic.cpp:641
-#, fuzzy
 msgid "Sample Format:"
-msgstr "Format d'échantillonnage "
+msgstr "Format d'échantillonnage :"
 
 #: plugins/record/RecordDlg.uic.cpp:642
-#, fuzzy
 msgid ""
 "<b>Resolution</b><br>Select a resolution in bits in which the file will be "
 "recorded. Higher values give better quality but also more system load."
 msgstr ""
 "<b>Résolution</b><br>Paramètre la résolution en bits pour laquelle le "
-"fichier sera enregistré. Cependant, Kwave utilise toujours 24 bits comme "
-"résolution interne pour obtenir les meilleurs résultats quand il effectue "
-"des calculs sur des fichiers sonores."
+"fichier sera enregistré. Les grandes valeurs donne une meilleure qualité mais "
+"nécessite plus de ressources processeur."
 
 #: plugins/record/RecordDlg.uic.cpp:643
 #: plugins/newsignal/NewSigDlg.uic.cpp:311
@@ -3599,7 +3596,7 @@ msgstr "Niveau :"
 
 #: plugins/record/RecordDlg.uic.cpp:663
 msgid "STATE"
-msgstr ""
+msgstr "ETAT"
 
 #: plugins/record/RecordDialog.cpp:261
 msgid "OSS record device (dsp*)"
@@ -3710,13 +3707,12 @@ msgstr ""
 "La résolution de %2 bits par échantillon sera utilisé à la place."
 
 #: plugins/record/RecordPlugin.cpp:411
-#, fuzzy
 msgid ""
 "Setting the resolution %1 bits per sample failed, using %2 bits per sample "
 "instead."
 msgstr ""
 "Le paramètrage de la résolution de %1 bits par échantillon a échoué.\n"
-"La résolution de %2 bits par échantillon sera utilisé à la place."
+"La résolution de %2 bits par échantillon sera utilisée à la place."
 
 #: plugins/record/RecordPlugin.cpp:441
 msgid "The sample format '%1' is not supported, using '%2' instead."

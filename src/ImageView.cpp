@@ -1,3 +1,19 @@
+/***************************************************************************
+           ImageView.cpp  -  simple widget class for displaying a QImage
+			     -------------------
+    begin                : 1999
+    copyright            : (C) 1999 by Martin Wilz
+    email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "config.h"
 #include <qimage.h>
@@ -5,15 +21,14 @@
 #include "ImageView.h"
 
 //****************************************************************************
-ImageView::ImageView (QWidget *parent)
-    :QWidget(parent)
+ImageView::ImageView(QWidget *parent, bool fit_width, bool fit_height)
+    :QWidget(parent), m_offset(0,0), m_last_rect(0,0,0,0)
 {
-    height = 0;
-    image = 0;
-    lh = -1;
-    lw = -1;
-    offset = 0;
-    width = 0;
+    m_image = 0;
+    m_fit_width = fit_width;
+    m_fit_height = fit_height;
+    m_scale_x = 1.0;
+    m_scale_y = 1.0;
 
     setCursor (crossCursor);
 }
@@ -30,38 +45,48 @@ void ImageView::mouseMoveEvent(QMouseEvent *e)
     if (!e) return;
 
     int x = e->pos().x();
-    if ((x < width) && (x >= 0)) {
-	int y = e->pos().y();
+    int y = e->pos().y();
 
-	if ((y >= 0) && (y < height))
-	    emit info ((double)x / width, (double)(height - y) / height);
-    }
-}
+    if ((x > width()) || (x < 0)) return;
+    if ((y > height()) || (y < 0)) return;
 
-//****************************************************************************
-int ImageView::getOffset()
-{
-    return offset;
-}
-
-//****************************************************************************
-int ImageView::getWidth()
-{
-    return width;
+    /*
+     * re-transform the coordinates from the screen (pixmap) coordinates to
+     * the original image coordinates and emit a cursor position signal
+     */
+    x = m_offset.x() + (int)((m_scale_x != 0) ? ((double)x / m_scale_x) : 0);
+    y = m_offset.y() + (int)((m_scale_y != 0) ? ((double)y / m_scale_y) : 0);
+    emit sigCursorPos(QPoint(x, y));
 }
 
 //****************************************************************************
 void ImageView::setImage(const QImage *image)
 {
-    this->image = image;
+    m_image = image;
     repaint();
 }
 
 //****************************************************************************
-void ImageView::setOffset(int offset)
+QRect ImageView::imageRect()
 {
-    if (this->offset != offset) {
-	this->offset = offset;
+    return QRect(m_offset.x(), m_offset.y(),
+	m_image ? m_image->width() : 0, m_image ? m_image->height() : 0);
+}
+
+//****************************************************************************
+void ImageView::setHorizOffset(int offset)
+{
+    if (m_offset.x() != offset) {
+	m_offset.setX(offset);
+	repaint();
+    }
+}
+
+//****************************************************************************
+void ImageView::setVertOffset(int offset)
+{
+    if (m_offset.y() != offset) {
+	m_offset.setY(offset);
 	repaint();
     }
 }
@@ -69,40 +94,38 @@ void ImageView::setOffset(int offset)
 //****************************************************************************
 void ImageView::paintEvent(QPaintEvent *)
 {
-    height = rect().height();
-    width = rect().width();
+    if (!m_image) return;
 
-    if (!image) return;
-
-    ASSERT(image->width());
-    ASSERT(image->height());
-    if (!image->width()) return;
-    if (!image->height()) return;
+    ASSERT(m_image->width());
+    ASSERT(m_image->height());
+    if (!m_image->width()) return;
+    if (!m_image->height()) return;
 	
-    if (offset > image->width() - width)
-	offset = image->width() - width;
-
     QWMatrix matrix;
     QPixmap newmap;
-    newmap.convertFromImage(*image, ColorOnly|ThresholdDither|AvoidDither);
+    newmap.convertFromImage(*m_image, ColorOnly|ThresholdDither|AvoidDither);
 
-    if (image->width() < width) {
-	offset = 0;
-	matrix.scale(((float)width) / image->width(),
-	            ((float)height) / image->height());
-    } else
-	matrix.scale (1, ((float)height) / image->height());
+    m_scale_x = m_fit_width ? (float)width()  / (float)m_image->width()  : 1.0;
+    m_scale_y = m_fit_height ?(float)height() / (float)m_image->height() : 1.0;
 
-    map = (newmap.xForm (matrix));
+    if (m_offset.x() + m_scale_x * m_image->width() > width())
+	m_offset.setX( m_scale_x * m_image->width() - width());
+    if (m_offset.y() + m_scale_y * m_image->height() > height())
+	m_offset.setY( m_scale_y * m_image->height() - height());
 
-    bitBlt (this, 0, 0, &map, offset, 0, width, height);
+    matrix.scale(m_scale_x, m_scale_y);
+    m_pixmap = newmap.xForm(matrix);
 
-    if ( (lh != height) || (lw != width)) {
-	emit viewInfo (offset, width, image->width());
+    bitBlt(this, 0, 0, &m_pixmap,
+	m_offset.x(), m_offset.y(),
+	width(), height()
+    );
+
+    if (imageRect() != m_last_rect) {
+// ###	emit viewInfo (offset, width, image->width());
+	m_last_rect = imageRect();
     }
 
-    lh = height;
-    lw = width;
 }
 
 //****************************************************************************

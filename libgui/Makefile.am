@@ -20,7 +20,6 @@ BUILTSOURCES=\
  TimeLine.moc.cpp\
  FloatLine.moc.cpp\
  MultiStateWidget.moc.cpp\
- ScaleWidget.moc.cpp\
  CornerPatchWidget.moc.cpp\
  CurveWidget.moc.cpp\
  Dialog.moc.cpp\

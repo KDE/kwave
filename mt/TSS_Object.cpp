@@ -16,7 +16,11 @@
  ***************************************************************************/
 
 #include "config.h"
-#include <kapp.h> // only for debug() and warning()
+#include <errno.h>
+#include <error.h>        // for strerror
+#include <qapplication.h> // for debug() and warning()
+#include <pthread.h>
+#include <limits.h>       // for PTHREAD_KEYS_MAX
 
 #include "mt/TSS_Object.h"
 
@@ -38,8 +42,10 @@ extern "C" {
  */
 extern "C" void TSS_Object_cleanup_func(void *ptr)
 {
+    ASSERT(ptr);
     if (!ptr) {
-	warning("cleanup handler for NULL pointer ?\n");
+	warning("cleanup handler for NULL pointer ?  => bailing out!");
+	return;
     }
 
 #ifdef HAVE_TYPEINFO
@@ -72,28 +78,49 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
 	warning("cleanup handler for %p failed", ptr);
     }
 #else // HAVE_TYPEINFO
-    warning("cleanup handler for %p", ptr);
+//    warning("cleanup handler for %p", ptr);
+
+    warning("cleanup handler for %s", ((QObject*)ptr)->className());
+
 #endif // HAVE_TYPEINFO
 
 }
 
 //***************************************************************************
+unsigned int TSS_Object::m_count(0); // initializer for number of instances
+
+//***************************************************************************
 TSS_Object::TSS_Object()
    :m_key(0)
 {
-    if (pthread_key_create(&m_key, TSS_Object_cleanup_func) == -1) {
-	warning("TSS_Object::keycreate failed");
-    }
+    m_count++;
 
-    if (pthread_setspecific(m_key, (void *)this) == -1) {
-	warning("TSS_Object::setspecific failed");
+    int res = pthread_key_create(&m_key, TSS_Object_cleanup_func);
+    if (res == EAGAIN) {
+	// number of keys exceeded
+	warning("TSS_Object: keycreate failed: "
+	    "number of keys exceeded limit: %d (limit=%d)",
+	    m_count, PTHREAD_KEYS_MAX);
+	debug("[maybe too many unfreed objects or memory leak?]");
+    } else if (res) {
+	// some other error
+	warning("TSS_Object: keycreate failed: %s", strerror(res));
+    } else {
+	// key allocated, associate this object's instance with it
+	res = pthread_setspecific(m_key, (void *)this);
+	if (res) warning("TSS_Object::setspecific failed: %s",
+	    strerror(res));
     }
 }
 
 //***************************************************************************
 TSS_Object::~TSS_Object()
 {
-    pthread_key_delete(m_key);
+    int res = pthread_key_delete(m_key);
+    if (res) warning(
+	"TSS_Object::~TSS_Object: key deletion failed: %s",
+	strerror(res));
+    m_count--;
 }
 
 //***************************************************************************

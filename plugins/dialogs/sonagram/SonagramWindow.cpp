@@ -23,6 +23,7 @@
 //#include <qfiledialog.h>
 #include <qimage.h>
 #include <qlayout.h>
+#include <qtimer.h>
 
 #include <kapp.h>
 //#include <kmsgbox.h>
@@ -88,8 +89,6 @@ static const char *background[] = {
 SonagramWindow::SonagramWindow(const QString &name)
 :KTMainWindow()
 {
-    debug("SonagramWindow::SonagramWindow(): start"); // ###
-
     m_image = 0;
     m_overview = 0;
     m_status = 0;
@@ -163,13 +162,16 @@ SonagramWindow::SonagramWindow(const QString &name)
     m_overview->setFixedHeight(m_overview->sizeHint().height());
     top_layout->addWidget(m_overview, 2, 1);
 
-    QObject::connect (m_overview, SIGNAL(valueChanged(int)),
-		      m_view, SLOT(setOffset(int)));
-    QObject::connect (m_view, SIGNAL(viewInfo(int, int, int)),
-		      this, SLOT(setRange(int, int, int)));
-    QObject::connect (m_view, SIGNAL(viewInfo(int, int, int)),
-		      m_overview, SLOT(setRange(int, int, int)));
+    QObject::connect(m_overview, SIGNAL(valueChanged(int)),
+		     m_view, SLOT(setOffset(int)));
+    QObject::connect(m_view, SIGNAL(viewInfo(int, int, int)),
+		     this, SLOT(setRange(int, int, int)));
+    QObject::connect(m_view, SIGNAL(viewInfo(int, int, int)),
+		     m_overview, SLOT(setRange(int, int, int)));
 
+    QObject::connect(&m_refresh_timer, SIGNAL(timeout()),
+                     this, SLOT(refresh_view()));
+		
     setStatusBar(m_status);
     setMenu(bar);
     setName(name);
@@ -183,7 +185,6 @@ SonagramWindow::SonagramWindow(const QString &name)
 
     resize(480, 300);
     show();
-    debug("SonagramWindow::SonagramWindow(): end"); // ###
 }
 
 //****************************************************************************
@@ -366,8 +367,6 @@ void SonagramWindow::setImage(QImage *image)
 void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 	const QByteArray &stripe)
 {
-    debug("SonagramWindow::insertStripe(%d,...",stripe_nr);
-
     ASSERT(m_view);
     ASSERT(m_image);
     if (!m_view) return;
@@ -388,7 +387,16 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
     while (y < image_height)
 	m_image->setPixel(stripe_nr, y++, 0xFE);
 
-    m_view->repaint(false);
+    if (!m_refresh_timer.isActive()) {
+	m_refresh_timer.start(100, true);
+    }
+}
+
+//****************************************************************************
+void SonagramWindow::refresh_view()
+{
+    ASSERT(m_view);
+    if (m_view) m_view->repaint(false);
 }
 
 //****************************************************************************
@@ -473,7 +481,6 @@ void SonagramWindow::clear()
 //***************************************************************************
 SonagramWindow::~SonagramWindow()
 {
-    debug("SonagramWindow::~SonagramWindow()"); // ###
     clear();
 }
 

@@ -27,8 +27,10 @@
 
 #include <kapp.h>
 
-#include <libgui/KwavePlugin.h>
-#include <libgui/PluginContext.h>
+#include "mt/Thread.h"
+#include "mt/MutexGuard.h"
+#include "libgui/KwavePlugin.h"
+#include "libgui/PluginContext.h"
 
 #include "../src/TopWidget.h"
 #include "../src/PluginManager.h"
@@ -37,13 +39,12 @@
 KwavePlugin::KwavePlugin(PluginContext &c)
     :m_context(c), m_thread(0)
 {
+    m_thread_lock.setName("KwavePlugin");
 }
 
 //***************************************************************************
 KwavePlugin::~KwavePlugin()
 {
-    debug("KwavePlugin::~KwavePlugin()");
-
     // inform our owner that we close. This allows the plugin to
     // delete itself
     close();
@@ -61,25 +62,42 @@ QStrList *KwavePlugin::setup(QStrList *previous_params = 0)
 //***************************************************************************
 int KwavePlugin::start(QStrList &params)
 {
+    MutexGuard lock(m_thread_lock);
     return 0;
 }
 
 //***************************************************************************
 int KwavePlugin::stop()
 {
+    MutexGuard lock(m_thread_lock);
     if (m_thread) {
-	debug("KwavePlugin::stop()");
-	m_thread->stop();
+	if (m_thread->running()) {
+	    m_thread->wait(5000);
+	    debug("KwavePlugin::stop(): stopping thread");
+	    m_thread->stop();
+	    debug("KwavePlugin::stop(): waiting for thread");
+//	    while (m_thread->running()) {
+//		KApplication::getKApplication()->processEvents(100);
+//		yield();
+//	    }
+	   if (m_thread->running()) m_thread->wait(1000);
+	}
+	if (m_thread->running()) {
+	    // show a message box
+	    warning("KwavePlugin::stop(): stale thread !");
+	}
+	debug("KwavePlugin::stop(): deleting thread");
+	delete m_thread;
+	debug("KwavePlugin::stop(): thread deleted");
+	m_thread = 0;
     }
-    debug("KwavePlugin::stop(): done.");
     return 0;
 }
 
 //***************************************************************************
 int KwavePlugin::execute(QStrList &params)
 {
-
-    debug("KwavePlugin::execute()");
+    MutexGuard lock(m_thread_lock);
 
     m_thread = new Asynchronous_Object_with_1_arg<KwavePlugin, QStrList>(
 	this, &KwavePlugin::run,params);
@@ -104,7 +122,7 @@ void KwavePlugin::run(QStrList params)
 //***************************************************************************
 void KwavePlugin::close()
 {
-    debug("void KwavePlugin::close() [slot]");
+    debug("KwavePlugin::close() [slot]");
     stop();
     emit sigClosed(this, true);
 }
@@ -156,8 +174,10 @@ int KwavePlugin::singleSample(unsigned int channel, unsigned int offset)
 }
 
 //***************************************************************************
+#include <kapp.h>
 void KwavePlugin::yield()
 {
+   pthread_testcancel();
    sched_yield();
 }
 

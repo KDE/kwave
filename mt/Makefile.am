@@ -2,7 +2,11 @@
 INCLUDES= @all_includes@
 
 BUILTSOURCES=\
- AsyncSync.moc.cpp
+ AsyncSync.moc.cpp \
+ Mutex.moc.cpp \
+ MutexGuard.moc.cpp \
+ Thread.moc.cpp \
+ TSS_Object.moc.cpp
 
 # Which sources should be compiled for libkwavemt.
 libkwavemt_a_SOURCES =\

@@ -1,4 +1,6 @@
 
+o create a ThreadCondition class for synchronizing
+
 o use a MenuManager in the plugins (e.g. sonagram)
 
 o resample signal before inserting into a signal with a different sample 
@@ -19,7 +21,10 @@ o links to the kwave help: do recursive cleanup in rpm's %postun section
 o check at program startup: does the help directory exist? If not, show
   a message and make a symbolic link
 
-o make the SonagramWindow work
+o in some rare cases there are deadlocks if a plugin's thread does not
+  respond to stop() and has to be shut down. This blocks the whole
+  application. However, this should never happen if all plugins can
+  shut down synchronously / per stop()
 
 o look at CurveWidget::CurveWidget()
 o ProgressDialog::timedProgress()
@@ -47,7 +52,7 @@ o search for plugins and other files only in the global directory,
 
 o bugfix: crash on "additive synthesis"
 
-o some commands do not work: fft, averagefft, sonagram, options/menu,
+o some commands do not work: fft, averagefft, options/menu,
   options/memory, distort
 
 o bugfix: channel mixer dialog causes segmentation fault -> disabled

@@ -18,17 +18,21 @@
 #include "mt/Mutex.h"
 #include "mt/MutexGuard.h"
 
+#include "qapplication.h" // for debug()
+
 //***************************************************************************
 MutexGuard::MutexGuard(Mutex &lock)
 :TSS_Object(), m_lock(lock)
 {
     m_lock.lock();
+//    debug("MutexGuard: locked '%s'",m_lock.name());
 }
 
 //***************************************************************************
 MutexGuard::~MutexGuard()
 {
     m_lock.unlock();
+//    debug("MutexGuard: unlocked '%s'",m_lock.name());
 }
 
 //***************************************************************************

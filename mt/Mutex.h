@@ -19,6 +19,7 @@
 #define _MUTEX_H_
 
 #include <pthread.h> // for POSIX threads, included in libc > 2.0
+#include <qobject.h>
 
 /**
  * \class Mutex
@@ -29,24 +30,53 @@
  * \author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  * \data 2000-10-03
  */
-class Mutex
+class Mutex: public QObject
 {
+    Q_OBJECT
 public:
     /** Constructor, initializes the lock */
-    Mutex();
+    Mutex(const char *name = 0);
 
     /** Destructor, destroys the lock */
     virtual ~Mutex();
 
-    /** locks the mutex */
-    virtual void lock();
+    /**
+     * Locks the mutex.
+     * @return zero if successful or an error code if failed
+     * @see errno.h
+     */
+    virtual int lock();
 
-    /** unlocks the mutex */
-    virtual void unlock();
+    /**
+     * Unlocks the mutex.
+     * @return zero if successful or an error code if failed
+     * @see errno.h
+     */
+    virtual int unlock();
+
+    /**
+     * returns the lock state of the mutex
+     * @return true if the mutex is locked, false if it is not locked or
+     *         an error has occurred
+     */
+    virtual bool locked();
+
+    /**
+     * Sets a (new) name for this mutex. <b>NOTE:</b> this function is
+     * not threadsafe and should only be called on initialization !
+     * @param name pointer to a const string, 0 is allowed
+     */
+    void setName(const char *name);
+
+    /** returns the name of the mutex */
+    const char *name();
 
 private:
     /** the mutex handle internally used */
     pthread_mutex_t m_mutex;
+
+    /** name of the mutex, optional but fine for debugging */
+    const char *m_name;
 };
 
 #endif _MUTEX_H_

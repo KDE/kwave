@@ -18,7 +18,6 @@
 #ifndef _SONAGRAM_PLUGIN_H_
 #define _SONAGRAM_PLUGIN_H_
 
-#include <utility>               // for pair<...>
 #include <qstring.h>
 #include <mt/SignalProxy.h>
 #include <libgui/KwavePlugin.h>
@@ -27,6 +26,7 @@ class QImage;
 class QStrList;
 class PluginContext;
 class SonagramWindow;
+class StripeInfoPrivate;
 
 class SonagramPlugin: public KwavePlugin
 {
@@ -37,8 +37,21 @@ public:
 
     /** Destructor */
     virtual ~SonagramPlugin();
+
+    /** @see KwavePlugin::setup() */
     virtual QStrList *setup(QStrList *previous_params);
+
+    /** @see KwavePlugin::start() */
     virtual int start(QStrList &params);
+
+    /** @see KwavePlugin::stop() */
+    virtual int stop();
+
+    /**
+     * Runns once until all stripes of the sonagram are
+     * calculated.
+     * @see KwavePlugin::run()
+     */
     virtual void run(QStrList params);
 
 private slots:
@@ -112,7 +125,11 @@ private:
      * sonagram data into the current image and updating the
      * display.
      */
-    SignalProxy1< pair<unsigned int,QByteArray> > *m_spx_insert_stripe;
+    SignalProxy1<StripeInfoPrivate> *m_spx_insert_stripe;
+
+    /** will be set to true in order to stop the run() loop */
+    bool m_cmd_shutdown;
+
 };
 
 #endif /* _SONAGRAM_PLUGIN_H_ */

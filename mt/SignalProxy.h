@@ -24,14 +24,16 @@
 #include "mt/MutexGuard.h"
 
 //***************************************************************************
-template <class T> class SignalProxy: protected AsyncSync
+template <class T>
+class SignalProxy: protected AsyncSync
 {
 public:
     SignalProxy(QObject *owner, const char *slot);
 };
 
 //***************************************************************************
-template <class T> SignalProxy<T>::SignalProxy(QObject *owner, const char *slot)
+template <class T>
+SignalProxy<T>::SignalProxy(QObject *owner, const char *slot)
     :AsyncSync(owner)
 {
     QObject::connect(this, SIGNAL(Activated()), owner, slot);
@@ -39,12 +41,13 @@ template <class T> SignalProxy<T>::SignalProxy(QObject *owner, const char *slot)
 
 //***************************************************************************
 //***************************************************************************
-template <class T> class SignalProxy1: protected AsyncSync
+template <class T>
+class SignalProxy1: protected AsyncSync
 {
 public:
     SignalProxy1(QObject *owner, const char *slot);
     virtual ~SignalProxy1();
-    virtual void enqueue(const T &param);
+    virtual void enqueue(T &param);
     virtual T *dequeue();
     virtual unsigned int count();
 private:
@@ -53,14 +56,18 @@ private:
 };
 
 //***************************************************************************
-template <class T> SignalProxy1<T>::SignalProxy1(QObject *owner, const char *slot)
+template <class T>
+SignalProxy1<T>::SignalProxy1(QObject *owner,
+    const char *slot)
+    :AsyncSync(), m_lock("SignalProxy1")
 {
     m_queue.setAutoDelete(false);
     QObject::connect(this, SIGNAL(Activated()), owner, slot);
 }
 
 //***************************************************************************
-template <class T> SignalProxy1<T>::~SignalProxy1()
+template <class T>
+SignalProxy1<T>::~SignalProxy1()
 {
     MutexGuard lock(m_lock);
 
@@ -69,24 +76,36 @@ template <class T> SignalProxy1<T>::~SignalProxy1()
 }
 
 //***************************************************************************
-template <class T> void SignalProxy1<T>::enqueue(const T &param)
+template <class T>
+void SignalProxy1<T>::enqueue(T &param)
 {
     MutexGuard lock(m_lock);
 
     T *copy = new T(param);
+    ASSERT(copy);
     m_queue.enqueue(copy);
     AsyncHandler();
 }
 
 //***************************************************************************
-template <class T> T *SignalProxy1<T>::dequeue()
+template <class T>
+T *SignalProxy1<T>::dequeue()
 {
     MutexGuard lock(m_lock);
-    return m_queue.dequeue();
+    T *p1 = m_queue.dequeue();
+    ASSERT(p1);
+    T *copy = 0;
+    if (p1) {
+	copy = new T(*p1);
+	ASSERT(copy);
+	delete p1;
+    }
+    return copy;
 }
 
 //***************************************************************************
-template <class T> unsigned int SignalProxy1<T>::count()
+template <class T>
+unsigned int SignalProxy1<T>::count()
 {
     MutexGuard lock(m_lock);
     return m_queue.count();

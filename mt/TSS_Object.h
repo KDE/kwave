@@ -19,6 +19,7 @@
 #define _TSS_OBJECT_H_
 
 #include <pthread.h>
+#include <qobject.h>
 
 /**
  * \class TSS_Object
@@ -37,8 +38,9 @@
  * \author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  * \date 2000-10-01
  */
-class TSS_Object
+class TSS_Object: public QObject
 {
+    Q_OBJECT
 public:
     /**
      * Constructor, creates the TSS key
@@ -53,6 +55,9 @@ public:
 private:
     /** thread specific key */
     pthread_key_t m_key;
+
+    /** number of allocated instances */
+    static unsigned int m_count;
 };
 
 #endif /* _TSS_OBJECT_H_ */

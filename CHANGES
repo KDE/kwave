@@ -1,4 +1,11 @@
 
+0.5.5 [not released yet]
+
+ * tested with AMD Athlon-optimized compiler (patched pegcs)
+ * some fixes for safer multithreading
+ * checking for much more header files at configure time (due to a
+   problem reported by issiac@evcom.net )
+
 0.5.4-4 [2000-10-03]
 
  * added classes Mutex and MutexGuard

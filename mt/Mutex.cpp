@@ -16,30 +16,81 @@
  ***************************************************************************/
 
 #include <pthread.h>
+#include <errno.h>
+#include <error.h>
+#include <qapplication.h> // for warning()
 #include "mt/Mutex.h"
 
 //***************************************************************************
-Mutex::Mutex()
+Mutex::Mutex(const char *name)
 {
-    pthread_mutex_init(&m_mutex, 0);
+    m_name = name;
+    int ret = pthread_mutex_init(&m_mutex, 0);
+    if (ret) warning("Mutex::Mutex(): mutex creation failed: %s",
+	strerror(ret));
 }
 
 //***************************************************************************
 Mutex::~Mutex()
 {
-    pthread_mutex_destroy(&m_mutex);
+    if (locked()) {
+	warning("Mutex::~Mutex(): destroying locked mutex!");
+	unlock();
+    }
+
+    int ret = pthread_mutex_destroy(&m_mutex);
+    if (ret) warning("Mutex::~Mutex(): mutex destruction failed: %s",
+	strerror(ret));
 }
 
 //***************************************************************************
-void Mutex::lock()
+int Mutex::lock()
 {
-    pthread_mutex_lock(&m_mutex);
+    int ret = pthread_mutex_lock(&m_mutex);
+    if (ret) warning("Mutex::lock(): lock of mutex failed: %s",
+	strerror(ret));
+    return ret;
 }
 
 //***************************************************************************
-void Mutex::unlock()
+int Mutex::unlock()
 {
-    pthread_mutex_unlock(&m_mutex);
+    int ret = pthread_mutex_unlock(&m_mutex);
+    if (ret) warning("Mutex::unlock(): unlock of mutex failed: %s",
+	strerror(ret));
+    return ret;
+}
+
+//***************************************************************************
+bool Mutex::locked()
+{
+    // try to lock the mutex
+    int ret = pthread_mutex_trylock(&m_mutex);
+
+    // if it failed, it is busy
+    if (ret == EBUSY) return true;
+    if (ret) warning("Mutex::locked(): getting mutex state failed: %s",
+	strerror(ret));
+
+    // if it succeeded, unlock the mutex, we didn't really want to
+    // lock it !
+    ret = pthread_mutex_unlock(&m_mutex);
+    if (ret) warning("Mutex::locked(): unlock of mutex failed: %s",
+	strerror(ret));
+
+    return false;
+}
+
+//***************************************************************************
+void Mutex::setName(const char *name)
+{
+    m_name = name;
+}
+
+//***************************************************************************
+const char *Mutex::name()
+{
+    return m_name;
 }
 
 //***************************************************************************

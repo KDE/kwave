@@ -19,6 +19,7 @@
 #define _KWAVE_PLUGIN_H_
 
 #include <qobject.h>
+#include "mt/Mutex.h"
 #include "mt/Asynchronous_Object.h"
 
 class PluginManager;
@@ -225,6 +226,8 @@ private:
      */
     Asynchronous_Object_with_1_arg<KwavePlugin, QStrList> *m_thread;
 
+    /** Mutex for control over the thread */
+    Mutex m_thread_lock;
 };
 
 #endif _KWAVE_PLUGIN_H_

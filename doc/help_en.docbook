@@ -51,7 +51,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-10-03</DATE>
+    <DATE>2000-10-05</DATE>
     <RELEASEINFO>0.5.4-4</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -228,7 +228,16 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <PARA><ITEMIZEDLIST>
         <LISTITEM>
-            <PARA>0.5.4-5 [2000-10-03]</PARA>
+            <PARA>0.5.5</PARA>
+            <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    checking for much more header files at configure time (due to a
+                      problem reported by issiac@evcom.net )
+                </PARA></LISTITEM>
+            </ITEMIZEDLIST>
+        </LISTITEM>
+        <LISTITEM>
+            <PARA>0.5.4-4 [2000-10-03]</PARA>
             <ITEMIZEDLIST>
                 <LISTITEM><PARA>
                     added classes Mutex and MutexGuard
@@ -1844,7 +1853,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-10-03</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-10-05</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

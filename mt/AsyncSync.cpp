@@ -24,39 +24,46 @@
 
 #include <qsocknot.h>
 
-#include "AsyncSync.h"
+#include "mt/Mutex.h"
+#include "mt/MutexGuard.h"
+#include "mt/AsyncSync.h"
 
 //*****************************************************************************
 AsyncSync::AsyncSync()
 {
+    MutexGuard lock(m_lock);
+
     // Create IPC pipe for async/sync communication with X server
-    if ( ::pipe( fds ) == -1 ) {
+    if ( ::pipe(m_fds) == -1 ) {
 	perror( "Creating pipe" );
-	fds[0] = fds[1] = -1;
+	m_fds[0] = m_fds[1] = -1;
     }
 
     // Create new socket notifier to monitor when data is ready to be
     // read from pipe
-    sn = new QSocketNotifier( fds[0], QSocketNotifier::Read );
-    ASSERT(sn);
+    m_sn = new QSocketNotifier(m_fds[0], QSocketNotifier::Read);
+    ASSERT(m_sn);
 
     // Connect up the socket notifier's activated routine to dequeue
     // any new clients added to Database
-    if (sn) connect( sn, SIGNAL(activated(int)), this, SLOT(SyncHandler()) );
+    if (m_sn) connect(m_sn, SIGNAL(activated(int)),
+                      this, SLOT(SyncHandler()) );
 }
 
 //*****************************************************************************
 AsyncSync::~AsyncSync()
 {
+    MutexGuard lock(m_lock);
+
     // Delete socket notifier
-    if (sn) delete sn;
+    if (m_sn) delete m_sn;
 
     // Close pipe file descriptors
-    if ( ::close( fds[0] ) == -1 ) {
+    if ( ::close(m_fds[0] ) == -1 ) {
 	perror( "Closing read file descriptor" );
     }
 
-    if ( ::close( fds[1] ) == -1 ) {
+    if ( ::close(m_fds[1] ) == -1 ) {
 	perror( "Closing writing file descriptor" );
     }
 }
@@ -64,9 +71,11 @@ AsyncSync::~AsyncSync()
 //*****************************************************************************
 void AsyncSync::SyncHandler()
 {
+    MutexGuard lock(m_lock);
+
     // First remove message from pipe ( the writer only wrote 1 byte )
     static char buf;
-    if ( ::read( fds[0], &buf, 1 ) == -1 ) {
+    if ( ::read( m_fds[0], &buf, 1 ) == -1 ) {
 	::perror( "Reading from pipe" );
     }
 
@@ -79,7 +88,7 @@ void AsyncSync::AsyncHandler()
 {
     // Just send a single byte of data;
     static const char *buf = "";
-    if ( ::write( fds[1], buf, 1 ) == -1 ) {
+    if ( ::write( m_fds[1], buf, 1 ) == -1 ) {
 	::perror( "Writing to pipe" );
     }
 }

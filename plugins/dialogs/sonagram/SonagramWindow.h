@@ -22,11 +22,12 @@
 
 #include <libkwave/gsl_fft.h>
 
-class KStatusBar;
-class QImage;
-class OverViewWidget;
-class ScaleWidget;
 class ImageView;
+class KStatusBar;
+class OverViewWidget;
+class QImage;
+class QTimer;
+class ScaleWidget;
 
 //***********************************************************************
 class SonagramWindow : public KTMainWindow
@@ -71,6 +72,10 @@ public slots:
     void setInfo(double, double);
     void setRange(int, int, int);
 
+private slots:
+    /** refreshes the image, connected to m_refresh_timer */
+    void refresh_view();
+
 signals:
 
 protected:
@@ -84,6 +89,9 @@ private:
     OverViewWidget *m_overview;
     ScaleWidget *m_xscale;
     ScaleWidget *m_yscale;
+
+    /** timer used for refreshing the view from time to time */
+    QTimer m_refresh_timer;
 };
 
 #endif // _SONOGRAM_WINDOW_H_

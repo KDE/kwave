@@ -20,9 +20,11 @@
 
 #include <pthread.h>       // for POSIX threads, included in libc > 2.0
 #include "mt/TSS_Object.h"
+#include "mt/Mutex.h"
 
 class Thread : public TSS_Object
 {
+    Q_OBJECT
 public:
     /**
      * Constructor. Initializes the thread's attributes and the thread's
@@ -51,20 +53,40 @@ public:
      */
     virtual ~Thread();
 
-    /** starts the thread's execution */
-    void start();
+    /**
+     * Starts the thread's execution.
+     * @return zero if successful or an error code if failed
+     * @see errno.h
+     */
+    int start();
 
     /**
      * Stops the thread execution. Please note that you <b>MUST</b> call
      * this function at the end if you derived a class from this one.
+     * @return zero if successful or an error code if failed
+     * @see errno.h
      */
-    virtual void stop();
+    virtual int stop();
 
     /**
      * The "run()" function of the thread. This is the function you
      * should overwrite to perform your thread's action.
      */
     virtual void run() = 0;
+
+    /**
+     * Returns true if the thread is currently running
+     */
+    bool running();
+
+    /**
+     * Waits for termination of the thread with timeout. If the thread
+     * is currently not running this function immediately returns.
+     * @param milliseconds the time to wait in milliseconds, with
+     *        precision of abt. 10ms under Linux. Don't use values
+     *        below 200ms, the default is one second.
+     */
+    void wait(unsigned int milliseconds = 1000);
 
     /**
      * wrapper to call the run() function, called internally
@@ -81,6 +103,15 @@ private:
 
     /** thread attributes, like defined in pthread.h */
     pthread_attr_t m_attr;
+
+    /** Mutex to control access to the thread itself */
+    Mutex m_lock;
+
+    /**
+     * This mutex is locked as long as the thread is running and
+     * is internally used for the running() function.
+     */
+    Mutex m_thread_running;
 };
 
 #endif /* _THREAD_H_ */

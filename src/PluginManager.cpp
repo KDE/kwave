@@ -296,6 +296,7 @@ void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
 
     }
 
+    debug("PluginManager::pluginClosed(): done");
 }
 
 //****************************************************************************

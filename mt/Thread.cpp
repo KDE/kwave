@@ -38,8 +38,13 @@
 
 #include "config.h"
 #include <errno.h>
+#include <error.h>        // for strerror()
+#include <time.h>         // for clock()
+#include <qapplication.h> // for warning()
 
 #include "mt/TSS_Object.h"
+#include "mt/MutexGuard.h"
+#include "mt/Mutex.h"
 #include "mt/Thread.h"
 
 /**
@@ -49,31 +54,57 @@
 extern "C" void* C_thread_adapter(void* arg)
 {
     Thread *thread = (Thread *)arg;
+    ASSERT(thread);
     if (!thread) return 0;
 
-    /* call the daemon's function */
+    /* call the thread's function through a C++ adapter */
     void* result = thread->thread_adapter(arg);
     return result;
 }
 
 //***************************************************************************
 Thread::Thread(int *grpid, const long flags)
-    :TSS_Object(), m_tid(0)
+    :TSS_Object(), m_tid(0), m_lock("thread"),
+    m_thread_running("thread_running")
 {
-    pthread_attr_init(&m_attr);
-    pthread_attr_setdetachstate(&m_attr, PTHREAD_CREATE_DETACHED);
+    MutexGuard lock(m_lock);
+    int res;
+    res = pthread_attr_init(&m_attr);
+    if (res)
+        warning("Thread::Thread(): initializing thread attributes failed: %s",
+	strerror(res));
+
+    res = pthread_attr_setdetachstate(&m_attr, PTHREAD_CREATE_DETACHED);
+    if (res)
+	warning("Thread::Thread(): setting thread detach state failed: %s",
+	strerror(res));
 }
 
 //***************************************************************************
 Thread::~Thread()
 {
-    pthread_attr_destroy(&m_attr);
+    if (this->running()) {
+	debug("Thread::~Thread(): waiting for normal shutdown");
+	wait(100);
+	debug("Thread::~Thread(): stopping");
+	stop();
+    }
+
+    int res = pthread_attr_destroy(&m_attr);
+    if (res)
+	warning("Thread::~Thread(): destruction of attributes failed: %s",
+	strerror(res));
+
+//    debug("Thread::~Thread(): done.");
 }
 
 //***************************************************************************
 void *Thread::thread_adapter(void *arg)
 {
+    MutexGuard lock(m_thread_running);
+
     Thread *object = (Thread *) arg;
+    ASSERT(object);
     if (!object) return (void*)-EINVAL;
 
     /* execute the thread function */
@@ -82,15 +113,53 @@ void *Thread::thread_adapter(void *arg)
 }
 
 //***************************************************************************
-void Thread::start()
+int Thread::start()
 {
-    pthread_create(&m_tid, &m_attr, C_thread_adapter, this);
+    MutexGuard lock(m_lock);
+    int res = pthread_create(&m_tid, &m_attr, C_thread_adapter, this);
+    if (res)
+	warning("Thread::start(): thread creation failed: %s",
+	strerror(res));
+    return res;
 }
 
 //***************************************************************************
-void Thread::stop()
+int Thread::stop()
 {
-    pthread_cancel(m_tid);
+    MutexGuard lock(m_lock);
+    if (!running()) return 0; // already down
+
+    debug("Thread::stop(): canceling thread");
+    int res = pthread_cancel(m_tid);
+    if (res) warning("Thread::stop(): thread cancel failed: %s",
+	strerror(res));
+
+    // wait some time until it is really done
+    wait(500);
+
+    return res;
+}
+
+//***************************************************************************
+bool Thread::running()
+{
+    return m_thread_running.locked();
+}
+
+//***************************************************************************
+void Thread::wait(unsigned int milliseconds)
+{
+    double elapsed_ms = 0.0;
+    time_t t_start = clock();
+
+    while (running() && (elapsed_ms < milliseconds)) {
+	sched_yield();
+	elapsed_ms = (((double)(clock()-t_start))/CLOCKS_PER_SEC)*1000.0;
+    }
+
+    if (/*still */running()) {
+	warning("Thread::wait(): timed out after %d ms!", milliseconds);
+    }
 }
 
 //***************************************************************************

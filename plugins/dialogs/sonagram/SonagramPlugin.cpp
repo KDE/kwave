@@ -41,14 +41,35 @@
 #include "SonagramDialog.h"
 #include "SonagramWindow.h"
 
-KWAVE_PLUGIN(SonagramPlugin,"sonagram","Martin Wilz");
+KWAVE_PLUGIN(SonagramPlugin,"sonagram","Thomas Eschenbacher");
 
-#define MAX_QUEUE_USAGE 16
+#define MAX_QUEUE_USAGE 8
+
+/**
+ * simple private container class for stripe number and data
+ */
+class StripeInfoPrivate: public TSS_Object
+{
+public:
+    StripeInfoPrivate(unsigned int nr, QByteArray data)
+	:TSS_Object(), m_nr(nr), m_data(data)
+	{};
+    StripeInfoPrivate(StripeInfoPrivate &copy)
+	:TSS_Object(), m_nr(copy.nr()), m_data(copy.data())
+	{};
+    virtual ~StripeInfoPrivate() {} ;
+    unsigned int nr() { return m_nr; };
+    QByteArray &data() { return m_data; };
+private:
+    unsigned int m_nr;
+    QByteArray m_data;
+};
 
 //***************************************************************************
 SonagramPlugin::SonagramPlugin(PluginContext &c)
     :KwavePlugin(c)
 {
+    m_cmd_shutdown = false; // ###
     m_color = true;
     m_fft_points = 0;
     m_first_sample = 0;
@@ -57,6 +78,8 @@ SonagramPlugin::SonagramPlugin(PluginContext &c)
     m_sonagram_window = 0;
     m_spx_insert_stripe = 0;
     m_stripes = 0;
+    m_spx_insert_stripe = new SignalProxy1< StripeInfoPrivate >
+	(this, SLOT(insertStripe()));
 }
 
 //***************************************************************************
@@ -156,8 +179,18 @@ int SonagramPlugin::start(QStrList &params)
 	SIGNAL(sigSignalNameChanged(const QString &)),
 	m_sonagram_window, SLOT(setName(const QString &)));
 
+    m_cmd_shutdown = false; // ###
+
     debug("SonagramPlugin::start() done.");
     return 0;
+}
+
+//***************************************************************************
+int SonagramPlugin::stop()
+{
+   debug("int SonagramPlugin::stop()"); // ###
+   m_cmd_shutdown = true;
+   return KwavePlugin::stop();
 }
 
 //***************************************************************************
@@ -165,19 +198,15 @@ void SonagramPlugin::run(QStrList params)
 {
     debug("SonagramPlugin::run()");
 
-    if (!m_spx_insert_stripe) m_spx_insert_stripe =
-	new SignalProxy1< pair<unsigned int, QByteArray> >
-	(this, SLOT(insertStripe()));
     ASSERT(m_spx_insert_stripe);
     if (!m_spx_insert_stripe) return;
 
-    bool done = false;
-    while (!done) {
+    while (!m_cmd_shutdown) {
 	QByteArray *stripe_data;
 	unsigned int stripe_nr;
 	for (stripe_nr = 0; stripe_nr < m_stripes; stripe_nr++) {
-	    debug("SonagramPlugin::run(): calculating stripe %d of %d",
-	        stripe_nr,m_stripes);
+//	    debug("SonagramPlugin::run(): calculating stripe %d of %d",
+//	        stripe_nr,m_stripes);
 
 	    // create a new stripe data array
 	    stripe_data = new QByteArray(m_fft_points/2);
@@ -188,23 +217,32 @@ void SonagramPlugin::run(QStrList params)
 	    calculateStripe(m_first_sample+stripe_nr*m_fft_points,
 	        m_fft_points, *stripe_data);
 
-	    pair<unsigned int, QByteArray> stripe_info(stripe_nr, *stripe_data);
+	    StripeInfoPrivate *stripe_info = new
+		StripeInfoPrivate(stripe_nr, *stripe_data);
 
 	    // emit the stripe data to be synchronously inserted into
 	    // the current image
-	    m_spx_insert_stripe->enqueue(stripe_info);
+	    m_spx_insert_stripe->enqueue(*stripe_info);
 
 	    // don't let the pipe grow too much
 	    if (m_spx_insert_stripe->count() >= MAX_QUEUE_USAGE) {
-		while (m_spx_insert_stripe->count() >= MAX_QUEUE_USAGE/2)
+		while (m_spx_insert_stripe->count() >= MAX_QUEUE_USAGE/2) {
 		    yield();
+		    if (m_cmd_shutdown) break; // ###
+		}
 	    }
 	
 	    delete stripe_data;
+	    delete stripe_info;
+	    yield();
+	
+	    if (m_cmd_shutdown) break; // ###
 	}
 
-	done = true;
+	m_cmd_shutdown = true;
     }
+
+    debug("SonagramPlugin::run(): done.");
 }
 
 //***************************************************************************
@@ -214,23 +252,20 @@ void SonagramPlugin::insertStripe()
     ASSERT(m_spx_insert_stripe);
     if (!m_spx_insert_stripe) return;
 
-    pair<unsigned int,QByteArray> *stripe_info = m_spx_insert_stripe->dequeue();
+    StripeInfoPrivate *stripe_info = m_spx_insert_stripe->dequeue();
     ASSERT(stripe_info);
     if (!stripe_info) return;
 
-    unsigned int stripe_nr = stripe_info->first;
-//    debug("SonagramPlugin::insertStripe(): stripe nr = %d",stripe_nr);
-    QByteArray stripe = stripe_info->second;
-    ASSERT(stripe);
-    if (!stripe) return;
+    unsigned int stripe_nr = stripe_info->nr();
+    QByteArray *stripe = &(stripe_info->data());
 
     // forward the stripe to the window to display it
     ASSERT(m_sonagram_window);
     if (m_sonagram_window) m_sonagram_window->insertStripe(
-	stripe_nr, stripe);
+	stripe_nr, *stripe);
 
-    // remove the stripe data, it's our own copy
-    delete stripe;
+    // remove the stripe info and stripe data, it's our own copy
+    delete stripe_info;
 }
 
 //***************************************************************************

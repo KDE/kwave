@@ -23,6 +23,7 @@
 #define _ASYNC_SYNC_H_
 
 #include <qobject.h>
+#include "mt/Mutex.h"
 
 class QGList;
 class QSocketNotifier;
@@ -72,12 +73,17 @@ private :
     /**
      * IPC pipe for async/sync communication with X server
      */
-    int fds[2];
+    int m_fds[2];
 
     /**
      * Socket notifier to call slot when pipe has message to read
      */
-    QSocketNotifier *sn;
+    QSocketNotifier *m_sn;
+
+    /**
+     * Mutex for securing the SyncHandler
+     */
+    Mutex m_lock;
 
 };
 

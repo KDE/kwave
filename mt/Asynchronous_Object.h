@@ -41,6 +41,7 @@
 
 template <class T>class Asynchronous_Object: public Thread
 {
+    Q_OBJECT
 public:
     typedef void (T::*PTMF) (void);
 

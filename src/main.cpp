@@ -18,6 +18,6 @@ int main( int argc, char **argv )
 	            &app, SLOT(quit()) );
 	result = app.exec();
     }
-
+    debug("Kwave: graceful shutdown, return code = %d", result);
     return result;
 }

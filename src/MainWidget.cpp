@@ -123,6 +123,7 @@ void MainWidget::saveSignal  (const char *filename,int bits,bool selection)
 void MainWidget::setSignal  (const char *filename,int type)
 {
   signalview->setSignal	(filename,type);
+// ###  if (signal) setBitsPerSample(signal->getBitsPerSample());
   signalview->setZoom 	(100.0);
   slider->refresh();
 }
@@ -130,6 +131,7 @@ void MainWidget::setSignal  (const char *filename,int type)
 void MainWidget::setSignal  (SignalManager *signal)
 {
   signalview->setSignal	(signal);
+// ###  if (signal) setBitsPerSample(signal->getBitsPerSample());
   signalview->setZoom 	(100.0);
 }
 //*****************************************************************************
@@ -222,12 +224,6 @@ void MainWidget::loop()
   this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
   this->connect         (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
   this->connect         (loopbutton,SIGNAL(pressed()),this,SLOT(halt()));
-}
-//*****************************************************************************
-void MainWidget::checkMenu(const char *name, bool check)
-{
-  fprintf(stderr, "MainWidget::checkMenu(const char*, bool)\n"); // ###
-  emit checkMenuEntry(name, check);
 }
 //*****************************************************************************
 void MainWidget::play ()
@@ -360,18 +356,8 @@ void MainWidget::resizeEvent  (QResizeEvent *)
    }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//*****************************************************************************
+void MainWidget::setBitsPerSample(int bits)
+{
+  debug("MainWidget::setBitsPerSample(%d)", bits);
+}

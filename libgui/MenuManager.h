@@ -4,13 +4,33 @@
 #include <qobject.h>
 #include <qwidget.h>
 #include <qlist.h>
+#include <qdict.h>
 #include <qkeycode.h>
-//#include <qpopmenu.h>
-#include "../libgui/Menu.h"
 #include <libkwave/MenuItem.h>
+#include "../libgui/Menu.h"
 
 class KMenuBar;
 class NumberedMenu;
+
+class MenuIdentifier: public QObject
+{
+  Q_OBJECT
+  public:
+
+  MenuIdentifier(QMenuData *m, int id)
+  {
+    menu  = m;
+    ident = id;
+  }
+
+  QMenuData *getMenu() { return menu; };
+  int        getID()   { return ident;};
+
+  protected:
+  QMenuData *menu;
+  int       ident;
+};
+
 //*****************************************************************************
 class MenuManager:public QObject
 {
@@ -26,11 +46,14 @@ class MenuManager:public QObject
  void deleteMenus               (MenuItem *);               //delete menus
  NumberedMenu *findNumberedMenu (const char *);                  //return id
  NumberedMenu *addNumberedMenu  (const char *);           
- void clearNumberedMenu         (const char *);
  //deletes all entries of a numbered Menu
- void addNumberedMenuEntry      (const char *name,const char *entry);
+ void clearNumberedMenu         (const char *);
  //add Entrys to numbered Window
- void checkMenuEntry		(const char *name,bool check);
+ void addNumberedMenuEntry      (const char *name,const char *entry);
+
+ void setItemChecked		(const char *id, bool check);
+ void setItemEnabled		(const char *id, bool enable);
+ void setMenuEnabled		(const char *id, bool enable);
 
  signals:
 
@@ -42,7 +65,7 @@ class MenuManager:public QObject
 
  protected:
 
- Menu                *findMenu (const char *name);
+ Menu                 *findMenu (const char *name);
  int                  getIdRange (int);
 
  private:
@@ -53,6 +76,9 @@ class MenuManager:public QObject
  QList<NumberedMenu> numberedMenus; //list of special menus, that allow
                                     //dynamical appending (for presets,
                                     //file list,etc)
+ QDict<MenuIdentifier> menuIDs;     //for mapping string ids of menues
+                                    //to references to menu item objects
+
 };
 #endif
 

@@ -23,7 +23,6 @@ distclean-generic:
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 reallyclean: clean-generic distclean
-	-rm -f libtool
 	-rm -f config.cache
 	-rm -f config.log
 	-rm -f -v `find -size 0`

@@ -112,26 +112,14 @@ TopWidget::TopWidget () : KTMainWindow ()
       menumanage->addNumberedMenuEntry ("bits",klocale->translate(entry));
     }
 
-  //enable checking/unchecking of menues
-  connect(mainwidget, SIGNAL( checkMenuEntry(const char *, bool)),
-	  this, SLOT(checkMenuEntry(const char *, bool)));
+  // check the default bits per sample
+  // ### TODO ### //
+
+// ### //
+  menumanage->setItemEnabled("ID_FILE_SAVE", false);
 
 }
-//*****************************************************************************
-void TopWidget::checkMenuEntry (const char *name, bool check)
-{
-  fprintf(stderr, "TopWidget:checkMenuEntry(%s, %d)\n", name, check); // ###
-  /* menumanage->checkMenuEntry(name, check); */
 
-  NumberedMenu *menu = menumanage->findNumberedMenu ("bits");
-  fprintf(stderr, "TopWidget:checkMenuEntry:menu=%p\n", menu); // ###
-/*
-  if (menu != 0)
-    {
-      menu->
-    }
-*/
-}
 //*****************************************************************************
 void TopWidget::revert ()
 {
@@ -166,6 +154,8 @@ void TopWidget::openRecent (const char *str)
 	  this->name=duplicateString (name.data());
 	  mainwidget->setSignal (this->name);
 	  setCaption (this->name);
+// ### //
+	  menumanage->setItemEnabled("ID_FILE_SAVE", true);
 	}
     }
   else debug ("out of range\n");
@@ -199,6 +189,8 @@ void TopWidget::openFile ()
       globals.app->addRecentFile (this->name);
       setCaption (this->name);
       mainwidget->setSignal (this->name);
+// ### //
+      menumanage->setItemEnabled("ID_FILE_SAVE", true);
     }
 }
 //*****************************************************************************

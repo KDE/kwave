@@ -38,7 +38,7 @@ Menu::Menu (const char *name,int id): QPopupMenu()
 }
 //*****************************************************************************
 void Menu::setCommand (const char *com)
-  //enables checking of menu entries
+  //sets the command emitted when selecting the menu entry
 {
   this->com=duplicateString (com);
 }

@@ -1,20 +1,85 @@
+# Original Author was Kalle@kde.org
+# I lifted it in some mater. (Stephan Kulow)
+# I used much code from Janos Farkas
 
-dnl without this order in this file, autoconf will not work!
-dnl the argument is a source file out of your sources. But
-dnl acinclude.m4 makes the job for all programs ;-)
-AC_INIT(acinclude.m4)
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(acinclude.m4) dnl a source file from your sub dir, but acinclude.m4 does the job
+AC_CANONICAL_SYSTEM  
+AC_ARG_PROGRAM
 
-dnl without this order in this file, automake will be confused!
-dnl the argument 
-AM_CONFIG_HEADER(config.h)
+dnl You have to change this
+AM_INIT_AUTOMAKE(kwave, 0.29.4) dnl searches for some needed programs
 
-dnl insert here your program name and version number
+dnl make $KDEDIR the default for the installation
+AC_PREFIX_DEFAULT(${KDEDIR:-/usr/local/kde})
+
+dnl generate the config header
+AM_CONFIG_HEADER(config.h) dnl at the distribution this done
+
+dnl checks, if the debug code is wanted
+AC_CHECK_FLAGS
+
+dnl Checks for programs.
 AC_PROG_CC
-KDE_DO_IT_ALL(testprojekt,0.1)
+AC_PROG_CPP
+AC_PROG_CXX
+AC_PROG_LN_S
 
-dnl in this space add everything you want to check for
-dnl examples are specific headers, libraries, etc.
-dnl everything to compile and run a KDE program is already checked
+dnl find out some variables 
+AC_AIX
+AC_MINIX
 
-dnl add here all your Makefiles. This are created by configure
-AC_OUTPUT(Makefile po/Makefile )
+dnl for NLS support. Call them in this order!
+AC_LANG_CPLUSPLUS dnl switch to C++
+AM_KDE_WITH_NLS dnl check if nls is wanted
+
+dnl Checks for header files.
+AC_LANG_CPLUSPLUS dnl switch to C++
+AC_HEADER_DIRENT dnl check for dirent.h
+AC_HEADER_STDC dnl check for other stdc headers. More traditional ;)
+dnl check for some more header files. You can remove some of
+dnl them, if you want to. But it doesn't hurt
+AC_CHECK_HEADERS(fcntl.h sys/time.h unistd.h sys/cdefs.h)
+AC_CHECK_HEADERS(fnmatch.h sysent.h strings.h sys/stat.h)
+
+dnl Checks for libraries.
+AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' X11
+AC_SUBST(LIBSOCKET)
+AC_PATH_KDE dnl check X, Qt and KDE
+AC_PATH_KWAVELIB dnl check for libkwave
+AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
+AC_SUBST(LIBCOMPAT)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_TIME
+
+dnl check if the compiler has bool
+AC_CHECK_BOOL
+dnl check if the system needs some #defines
+AC_CHECK_GNU_EXTENSIONS
+
+dnl Checks for library functions. 
+AC_CHECK_FUNCS(socket vsnprintf)
+AC_CHECK_SETENV
+AC_LANG_CPLUSPLUS
+AC_CHECK_FUNCS(getdomainname)
+AC_CHECK_KSIZE_T
+
+dnl Perform program name transformation
+AC_ARG_PROGRAM
+
+dnl output files
+topdir=`pwd`
+AC_SUBST(topdir)
+
+AM_PROG_LIBTOOL
+
+dnl add here all your Makefiles
+AC_OUTPUT(Makefile \
+	libgui/Makefile \
+	src/Makefile \
+	plugins/Makefile \
+	plugins/dialogs/Makefile \
+	plugins/dialogs/template/Makefile \
+	po/Makefile)
+

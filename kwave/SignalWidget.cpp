@@ -369,6 +369,9 @@ void SignalWidget::slotSelectionChanged(unsigned int offset,
                                         unsigned int length)
 {
     m_signal_manager.selectRange(offset, length);
+    offset = m_signal_manager.selection().offset();
+    length = m_signal_manager.selection().length();
+    
     refreshSelection();
     emit selectedTimeInfo(offset, length, m_signal_manager.rate());
 }
@@ -417,6 +420,10 @@ int SignalWidget::loadFile(const KURL &url)
 	close();
     }
 
+    // if the signal is smaller than expected,
+    // zoom it to full size
+    if (m_zoom > getFullZoom()) setZoom(getFullZoom());
+    
     return res;
 }
 
@@ -560,21 +567,26 @@ void SignalWidget::fixZoomAndOffset()
     //          -> available space = pixels2samples(width-1) + 1
     //             = (99/49.5) + 1 = 3
     //          -> decrease offset by 3 - 2 = 1
+    ASSERT(length >= m_offset);
     if (pixels2samples(m_width - 1) + 1 > length-m_offset) {
-	// there is space after the signal -> move offset left
-	int shift = pixels2samples(m_width - 1) + 1 - (length - m_offset);
-	if ((shift < 0) && (static_cast<unsigned int>(-shift) > m_offset))
+	// there is space after the signal -> move offset right
+	unsigned int shift = pixels2samples(m_width - 1) + 1 -
+	                     (length - m_offset);
+	if (shift >= m_offset) {
 	    m_offset = 0;
-	else
+	} else {
 	    m_offset -= shift;
+	}
     }
 
-    // if reducing the offset was not enough, zoom in
-    if (pixels2samples(m_width - 1) + 1 > length - m_offset) {
-	// there is still space after the signal -> zoom in
-	// (this should never happen as the zoom has been limited before)
-	m_zoom = max_zoom;
-    }
+// not really needed, has side-effects e.g. when a .ogg file
+// has been loaded
+//    // if reducing the offset was not enough, zoom in
+//    if (pixels2samples(m_width - 1) + 1 > length - m_offset) {
+//	// there is still space after the signal -> zoom in
+//	// (this should never happen as the zoom has been limited before)
+//	m_zoom = max_zoom;
+//    }
 
 // this made some strange effects, so I disabled it :-[
 //    // adjust the zoom factor in order to make a whole number
@@ -708,7 +720,6 @@ void SignalWidget::refreshAllLayers()
 	m_update_layer[i] = true;
     }
 
-    fixZoomAndOffset();
     redraw = true;
 }
 
@@ -798,7 +809,6 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 	if (mx >= m_width) mx = m_width-1;
 	unsigned int x = m_offset + pixels2samples(mx);
 	unsigned int len = m_selection->right() - m_selection->left() + 1;
-	
 	switch (e->state() & KeyButtonMask) {
 	    case ShiftButton: {
 		// expand the selection to "here"

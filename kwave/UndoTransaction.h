@@ -1,7 +1,7 @@
 /***************************************************************************
       UndoTransaction.h  -  groups moulitple UndoAction objects together
 			     -------------------
-    begin                : May 25 2001
+    begin                : Fri May 25 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
  ***************************************************************************/
@@ -35,14 +35,30 @@ class UndoTransaction: public QList<UndoAction>
 
 public:
 
+    /**
+     * Constructor.
+     * @param name description of the undo transaction as a user-readable
+     * localized string.
+     */
+    UndoTransaction(const QString &name);
+
     /** Returns the size in bytes summed up over all undo actions */
-    unsigned int size();
+    unsigned int undoSize();
+
+    /** Returns the additional memory needed for storing redo data */
+    unsigned int redoSize();
 
     /**
-     * Returns the list of descriptions
+     * Returns the description of the undo transaction as a user-readable
+     * localized string. If no name has been passed at initialization
+     * time, a list of all action's descriptions will be generated.
      * @todo avoid duplicates, give a useful name/description
      */
     QString description();
+
+private:
+    /** name of the action */
+    QString m_description;
 
 };
 

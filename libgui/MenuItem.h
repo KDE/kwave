@@ -81,6 +81,13 @@ public:
      */
     virtual void setChecked(bool check);
 
+    /**
+     * Sets the visible text of an item to a new value. (Only useful
+     * for a MenuItem)
+     * @param text the new text
+     */
+    virtual void setText(const QString &text);
+
 private:
 
     /** true if the item can be selected/checked (default=false) */
@@ -91,6 +98,9 @@ private:
      * (optional, set by special command, default=0)
      */
     QString m_exclusive_group;
+
+    /** the user visible text, normally equal to the name */
+    QString m_text;
 
 };
 

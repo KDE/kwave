@@ -28,11 +28,11 @@ public:
     /**
      * Constructor.
      * @param track index of the track
-     * @param left index of the first modified sample
-     * @param right index of the first modified sample
+     * @param offset index of the first modified sample
+     * @param length number of samples
      */
-    UndoModifyAction(unsigned int track, unsigned int left,
-                    unsigned int right);
+    UndoModifyAction(unsigned int track, unsigned int offset,
+                     unsigned int length);
 
     /** Destructor */
     virtual ~UndoModifyAction();
@@ -40,14 +40,16 @@ public:
     /** @see UndoAction::description() */
     virtual QString description();
 
-    /** @see UndoAction::size() */
-    virtual unsigned int size();
+    /** @see UndoAction::undoSize() */
+    virtual unsigned int undoSize();
+
+    /** @see UndoAction::redoSize() */
+    virtual int redoSize() { return 0; } ;
 
     /**
      * @see UndoAction::store()
-     * @todo implementation
      */
-    virtual void store();
+    virtual void store(SignalManager &manager);
 
     /**
      * Exchange samples from the current signal and the internal undo
@@ -63,10 +65,10 @@ private:
     unsigned int m_track;
 
     /** first sample */
-    unsigned int m_left;
+    unsigned int m_offset;
 
-    /** last sample */
-    unsigned int m_right;
+    /** number of samples */
+    unsigned int m_length;
 
     /** buffer with undo data */
     QArray<sample_t> m_buffer;

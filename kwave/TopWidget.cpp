@@ -27,6 +27,7 @@
 #include <qcombobox.h>
 #include <qdir.h>
 #include <qframe.h>
+#include <qtoolbutton.h>
 
 #include <kcombobox.h>
 #include <kfiledialog.h>
@@ -34,6 +35,7 @@
 #include <kmessagebox.h>
 #include <kmenubar.h>
 #include <kstddirs.h>
+#include <ktoolbarbutton.h>
 
 #include "libkwave/FileFormat.h"
 #include "libkwave/FileLoader.h"
@@ -214,7 +216,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // --- set up the toolbar ---
 
-    m_toolbar = new KToolBar(this, "toolbar");
+    m_toolbar = new KToolBar(this, "toolbar", true, true);
     ASSERT(m_toolbar);
     if (!m_toolbar) return;
     m_toolbar->setBarPos(KToolBar::Top);
@@ -256,17 +258,17 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_toolbar->insertButton(
 	icon_loader.loadIcon("undo.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
+	id, SIGNAL(clicked()),
 	this, SLOT(toolbarEditUndo()), true,
 	i18n("Undo"));
-    m_id_undo = id;
+    m_id_undo = id++;
 
     m_toolbar->insertButton(
 	icon_loader.loadIcon("redo.png", KIcon::Toolbar),
-	-1, SIGNAL(clicked()),
+	id, SIGNAL(clicked()),
 	this, SLOT(toolbarEditRedo()), true,
 	i18n("Redo"));
-    m_id_redo = id;
+    m_id_redo = id++;
 
     m_toolbar->insertButton(
 	icon_loader.loadIcon("editcut.png", KIcon::Toolbar),
@@ -422,11 +424,14 @@ TopWidget::TopWidget(KwaveApp &main_app)
             this, SLOT(updateToolbar()));
 
     // connect the signal manager
-    connect(&(m_main_widget->signalManager()),
-        SIGNAL(sigStatusInfo(unsigned int, unsigned int,
-        unsigned int, unsigned int)),
-        this, SLOT(setStatusInfo(unsigned int, unsigned int,
-        unsigned int, unsigned int)));
+    SignalManager *signal_manager = &(m_main_widget->signalManager());
+    connect(signal_manager, SIGNAL(sigStatusInfo(unsigned int, unsigned int,
+	unsigned int, unsigned int)),
+	this, SLOT(setStatusInfo(unsigned int, unsigned int,
+	unsigned int, unsigned int)));
+    connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
+	const QString&)),
+	this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
 
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
@@ -462,6 +467,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     resize(w, h);
 
     setStatusInfo(0,0,0,0);
+    setUndoRedoInfo(0,0);
 
     // now we are initialized, load all plugins now
     statusBar()->message(i18n("Loading plugins..."));
@@ -883,6 +889,55 @@ void TopWidget::setSelectedTimeInfo(double ms)
 }
 
 //***************************************************************************
+void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
+{
+    ASSERT(m_toolbar);
+    if (!m_toolbar) return;
+
+    QString txt;
+    QToolButton *button;
+    bool undo_enabled = (undo.length() != 0);
+    bool redo_enabled = (redo.length() != 0);
+
+    // set the state and tooltip of the undo toolbar button
+    m_toolbar->setItemEnabled(m_id_undo, undo_enabled);
+    txt = i18n("Undo");
+    if (undo_enabled) txt += " (" + undo + ")";
+    button = m_toolbar->getButton(m_id_undo);
+    if (button) {
+	QString old_text = button->textLabel();
+	button->setTextLabel(txt, true);
+	button->setTextLabel(old_text, false);
+    }
+
+    // set the state and tooltip of the redo toolbar button
+    m_toolbar->setItemEnabled(m_id_redo, redo_enabled);
+    txt = i18n("Redo");
+    if (redo_enabled) txt += " (" + redo + ")";
+    button = m_toolbar->getButton(m_id_redo);
+    if (button) {
+	QString old_text = button->textLabel();
+	button->setTextLabel(txt, true);
+	button->setTextLabel(old_text, false);
+    }
+
+    ASSERT(m_menu_manager);
+    if (!m_menu_manager) return;
+
+    // set new enable and text of the undo menu entry
+    m_menu_manager->setItemEnabled("ID_EDIT_UNDO", undo_enabled);
+    txt = i18n("U&ndo");
+    if (undo_enabled) txt += " (" + undo + ")";
+    m_menu_manager->setItemText("ID_EDIT_UNDO", txt);
+
+    // set new enable and text of the undo menu entry
+    m_menu_manager->setItemEnabled("ID_EDIT_REDO", redo_enabled);
+    txt = i18n("R&edo");
+    if (redo_enabled) txt += " (" + redo + ")";
+    m_menu_manager->setItemText("ID_EDIT_REDO", txt);
+}
+
+//***************************************************************************
 void TopWidget::mouseChanged(int mode)
 {
     switch (static_cast<SignalWidget::MouseMode>(mode)) {
@@ -938,8 +993,6 @@ void TopWidget::updateToolbar()
     bool have_signal = m_main_widget->tracks();
     bool playing = m_main_widget->playbackController().running();
     bool paused  = m_main_widget->playbackController().paused();
-    bool undo_possible = true; // ###
-    bool redo_possible = true; // ###
 
     if (m_pause_timer) {
 	m_pause_timer->stop();
@@ -949,8 +1002,6 @@ void TopWidget::updateToolbar()
     }
 
     // enable/disable the buttons
-    m_toolbar->setItemEnabled(m_id_undo,  undo_possible);
-    m_toolbar->setItemEnabled(m_id_redo,  redo_possible);
 
     m_toolbar->setItemEnabled(m_id_play,  have_signal && !playing);
     m_toolbar->setItemEnabled(m_id_loop,  have_signal && !playing);

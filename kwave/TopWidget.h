@@ -146,6 +146,13 @@ private slots:
     void setSelectedTimeInfo(double ms);
 
     /**
+     * Sets the descriptions of the last undo and redo action. If the
+     * name is zero or zero-length, the undo / redo is currently not
+     * available.
+     */
+    void setUndoRedoInfo(const QString &undo, const QString &redo);
+
+    /**
      * Updates the status bar's content depending on the current status
      * or position of the mouse cursor.
      */

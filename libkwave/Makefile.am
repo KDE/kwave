@@ -19,7 +19,6 @@ libkwave_la_SOURCES=\
  LabelType.cpp\
  LabelList.cpp\
  LineParser.cpp\
- mmap.cpp\
  Parser.cpp\
  Signal.cpp\
  SampleReader.cpp\

@@ -199,6 +199,13 @@ public:
     virtual void setChecked(bool check);
 
     /**
+     * Sets the visible text of an item to a new value. (Only useful
+     * for a MenuItem)
+     * @param text the new text
+     */
+    virtual void setText(const QString &text);
+
+    /**
      * Tries to find a menu node by it's unique id string. It descends
      * recursively through all child nodes if necessary.
      * @param uid the unique id string to be searched

@@ -12,7 +12,7 @@
 #endif
 
 mmapallocnode *mmapallocbase = NULL;
-char *mmapallocdir = "/tmp";
+char *mmapallocdir = (char *)"/tmp";
 
 /* I used mcopy.c in Stevens' book "Advanced Programming in the Unix
 * Environment" in making this stuff.

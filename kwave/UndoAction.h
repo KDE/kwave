@@ -47,22 +47,31 @@ public:
     virtual QString description() = 0;
 
     /**
-     * Returns the really used size in bytes that is needed for
-     * the operation. This will be called to determine the free
-     * memory to be reserved.
+     * Returns the required amount of memory that is needed for storing
+     * undo data for the operation. This will be called to determine the
+     * free memory to be reserved.
      * @note this is the first step (after the constructor)
      */
-    virtual unsigned int size() = 0;
+    virtual unsigned int undoSize() = 0;
+
+    /**
+     * Returns the difference of needed memory that is needed for
+     * redo in comparism to undo. Some actions might return zero or a negative
+     * number if the undo action uses the same or less amount of memory.
+     */
+    virtual int redoSize() = 0;
 
     /**
      * Stores the data needed for undo.
+     * @param manager the SignalManager for modifying the signal
      * @note this is the second step, after size() has been called
      */
-    virtual void store() = 0;
+    virtual void store(SignalManager &manager) = 0;
 
     /**
      * Takes back an action by creating a new undo action (for further
      * redo) and restoring the previous state.
+     * @param manager the SignalManager for modifying the signal
      * @note The return value is allowed to be the same object. This
      *       is useful for objects that can re-use their data for
      *       undo/redo. You have to check for this when deleting an

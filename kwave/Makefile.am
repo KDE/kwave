@@ -67,6 +67,7 @@ kwave_SOURCES =\
  TopWidget.cpp\
  UndoModifyAction.cpp\
  UndoTransaction.cpp\
+ UndoTransactionGuard.cpp\
  $(BUILTSOURCES)
 
 # the library search path

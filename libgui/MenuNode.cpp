@@ -245,13 +245,18 @@ bool MenuNode::isChecked()
 //*****************************************************************************
 void MenuNode::setItemChecked(int /*id*/, bool /*check*/)
 {
-    return ;
 }
 
 //*****************************************************************************
 void MenuNode::setChecked(bool check)
 {
     m_checked = check;
+}
+
+//*****************************************************************************
+void MenuNode::setText(const QString &text)
+{
+    // not used here, only gives sense in MenuItem
 }
 
 //*****************************************************************************

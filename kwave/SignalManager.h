@@ -283,6 +283,24 @@ signals:
      */
     void sigTrackInserted(unsigned int track);
 
+    /**
+     * Emitted if the state or description of undo/redo has changed. If
+     * undo or redo is unavailable the description will be zero.
+     * @see emitUndoRedoInfo
+     */
+    void sigUndoRedoInfo(const QString &undo, const QString &redo);
+
+public slots:
+
+    /**
+     * Un-does the last action if possible.
+     */
+    void undo();
+
+    /**
+     * re-does the last undone action.
+     */
+    void redo();
 
 private slots:
 
@@ -355,8 +373,10 @@ protected:
     /**
      * Starts an undo transaction or enters a currently running transaction
      * recursively.
+     * @param name the name of the transaction. Will be ignored if there
+     *        already is an active transaction (optional)
      */
-    void startUndoTransaction();
+    void startUndoTransaction(const QString &name = 0);
 
     /**
      * Removes all undo and redo transactions.
@@ -371,8 +391,34 @@ protected:
 
 private:
 
+    /** Built-in command Erases a range of samples */
+    void builtinCmdErase(unsigned int offset, unsigned int length);
+
     /** Shortcut for emitting a sigStatusInfo */
     void emitStatusInfo();
+
+    /**
+     * Determines the description of undo and redo actions and emits
+     * a sigUndoRedoInfo. If undo or redo is currently not available,
+     * the descriptions will be zero-length. If an action is available
+     * but does not have a description, the description will be set
+     * to "last action".
+     * @see sigUndoRedoInfo
+     */
+    void emitUndoRedoInfo();
+
+    /**
+     * Returns the amount of memory currently used for undo + redo.
+     */
+    unsigned int usedUndoRedoMemory();
+
+    /**
+     * Makes sure that enough memory for a following undo (or redo) action
+     * is available. If necessary, it deletes old undo transactions and if
+     * still no enough, it also removes old redo transactions.
+     * @param needed the amount of memory that should be free afterwards
+     */
+    void freeUndoMemory(unsigned int needed);
 
     /**
      * Try to find a chunk within a RIFF file. If the chunk
@@ -471,6 +517,9 @@ private:
 
     /** mutex for locking undo transactions */
     Mutex m_undo_transaction_lock;
+
+    /** maximum memory for undo */
+    unsigned int m_undo_limit;
 
 };
 

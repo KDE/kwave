@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-24 11:52+0200\n"
+"POT-Creation-Date: 2001-05-27 11:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,203 +90,207 @@ msgstr ""
 msgid "Blackman"
 msgstr ""
 
-#: kwave/SignalManager.cpp:64
-msgid "dummy"
-msgstr ""
-
-#: kwave/SignalManager.cpp:508
+#: kwave/SignalManager.cpp:593
 msgid "File does not exist !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:517
+#: kwave/SignalManager.cpp:602
 msgid "File is no RIFF File !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:521
+#: kwave/SignalManager.cpp:606
 msgid "File has incorrect length! (maybe truncated?)"
 msgstr ""
 
-#: kwave/SignalManager.cpp:529
+#: kwave/SignalManager.cpp:614
 msgid "File is no WAVE File !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:540
+#: kwave/SignalManager.cpp:625
 msgid "File does not contain format information!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:555
+#: kwave/SignalManager.cpp:640
 msgid "File must be uncompressed (Mode 1) !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:567
+#: kwave/SignalManager.cpp:652
 msgid "File does not contain data!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:587 kwave/SignalManager.cpp:843
+#: kwave/SignalManager.cpp:672 kwave/SignalManager.cpp:928
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:712 kwave/SignalManager.cpp:957
-#: kwave/SignalManager.cpp:964
+#: kwave/SignalManager.cpp:797 kwave/SignalManager.cpp:1042
+#: kwave/SignalManager.cpp:1049
 msgid "Out of Memory!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:794
+#: kwave/SignalManager.cpp:879
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:801
+#: kwave/SignalManager.cpp:886
 msgid "Opening the file for writing failed!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:944
+#: kwave/SignalManager.cpp:1029
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
 msgstr ""
 
-#: kwave/SignalManager.cpp:1084
+#: kwave/SignalManager.cpp:1269
 #, ycp-format
 msgid ""
 "The operation '%1' requires %2 MB for storing undo data.\n"
 "This would exceed the limit of %3 MB."
 msgstr ""
 
-#: kwave/SignalManager.cpp:1087
+#: kwave/SignalManager.cpp:1272
 msgid "You can now either press:"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1091
+#: kwave/SignalManager.cpp:1276
 msgid "Allow"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1092
+#: kwave/SignalManager.cpp:1277
 msgid "to continue without the possibility to undo, or"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1095
+#: kwave/SignalManager.cpp:1280
 msgid "Ignore"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1096
+#: kwave/SignalManager.cpp:1281
 msgid "to continue, discard all previous undo data and ignore the memory limit"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1103
+#: kwave/SignalManager.cpp:1288
 msgid "to abort the current operation."
 msgstr ""
 
-#: kwave/SignalManager.cpp:1117
+#: kwave/SignalManager.cpp:1303
 msgid "&Allow"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1118
+#: kwave/SignalManager.cpp:1304
 msgid "&Ignore"
 msgstr ""
 
-#: kwave/TopWidget.cpp:227
+#: kwave/SignalManager.cpp:1378 kwave/SignalManager.cpp:1385
+msgid "last action"
+msgstr ""
+
+#: kwave/TopWidget.cpp:233
 msgid "create a new empty file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:232
+#: kwave/TopWidget.cpp:239
 msgid "open an existing file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:237
+#: kwave/TopWidget.cpp:245
 msgid "save the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:242
-msgid "save the current file under a different name"
-msgstr ""
-
-#: kwave/TopWidget.cpp:262
+#: kwave/TopWidget.cpp:277
 msgid "cut the current selection and move it to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:267
+#: kwave/TopWidget.cpp:283
 msgid "copy the current selection to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:272
+#: kwave/TopWidget.cpp:289
 msgid "insert the content of clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:277
+#: kwave/TopWidget.cpp:295
 msgid "mute the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:282
+#: kwave/TopWidget.cpp:301
 msgid "delete the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:307
+#: kwave/TopWidget.cpp:326
 msgid "start playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:313
+#: kwave/TopWidget.cpp:332
 msgid "start playback and loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:319
+#: kwave/TopWidget.cpp:338
 msgid "pause playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:325
+#: kwave/TopWidget.cpp:344
 msgid "stop playback or loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:343
+#: kwave/TopWidget.cpp:362
 msgid "zoom to selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:349
+#: kwave/TopWidget.cpp:369
 msgid "zoom in"
 msgstr ""
 
-#: kwave/TopWidget.cpp:355
+#: kwave/TopWidget.cpp:376
 msgid "zoom out"
 msgstr ""
 
-#: kwave/TopWidget.cpp:361
+#: kwave/TopWidget.cpp:382
 #, c-format
 msgid "zoom to 100%"
 msgstr ""
 
-#: kwave/TopWidget.cpp:367
+#: kwave/TopWidget.cpp:388
 msgid "zoom to all"
 msgstr ""
 
-#: kwave/TopWidget.cpp:374
+#: kwave/TopWidget.cpp:395
 msgid "select zoom factor"
 msgstr ""
 
-#: kwave/TopWidget.cpp:448
+#: kwave/TopWidget.cpp:473
 msgid "Loading plugins..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:450
+#: kwave/TopWidget.cpp:475
 msgid "Ready."
 msgstr ""
 
-#: kwave/TopWidget.cpp:834
+#: kwave/TopWidget.cpp:859
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:834 kwave/TopWidget.cpp:858
+#: kwave/TopWidget.cpp:859 kwave/TopWidget.cpp:885
 #, ycp-format
 msgid "(%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:843
+#: kwave/TopWidget.cpp:868
 #, c-format
 msgid "Mode: %u bit@%0.3f kHz"
 msgstr ""
 
-#: kwave/TopWidget.cpp:855
+#: kwave/TopWidget.cpp:880
 #, c-format, ycp-format
 msgid "Selected: %1"
+msgstr ""
+
+#: kwave/TopWidget.cpp:930
+msgid "U&ndo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:936
+msgid "R&edo"
 msgstr ""
 
 #: kwave/PluginManager.cpp:135
@@ -308,6 +312,10 @@ msgstr ""
 
 #: kwave/PluginManager.cpp:174 kwave/PluginManager.cpp:181
 msgid "(unknown)"
+msgstr ""
+
+#: kwave/UndoModifyAction.cpp:42
+msgid "modify samples"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:129

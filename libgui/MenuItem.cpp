@@ -33,7 +33,8 @@ MenuItem::MenuItem(MenuNode *parent, const QString &name,
 	const QString &command, int key, const QString &uid)
     :MenuNode(parent, name, command, key, uid),
     m_checkable(false),
-    m_exclusive_group(0)
+    m_exclusive_group(0),
+    m_text(name)
 {
 }
 
@@ -153,4 +154,19 @@ void MenuItem::setChecked(bool check)
     if (parent) parent->setItemChecked(getId(), check);
 }
 
+//*****************************************************************************
+void MenuItem::setText(const QString &text)
+{
+    if (text == m_text) return; // no change
+    m_text = text;
+
+    MenuNode *parent = getParentNode();
+    if (parent && parent->inherits("MenuSub")) {
+	QPopupMenu &popup = ((MenuSub*)parent)->getPopupMenu();
+	popup.changeItem(getId(), m_text);
+    }
+}
+
+//*****************************************************************************
+//*****************************************************************************
 /* end of libgui/MenuItem.cpp */

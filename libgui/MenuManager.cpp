@@ -206,10 +206,16 @@ void MenuManager::selectItem(const QString &group, const QString &uid)
 void MenuManager::setItemChecked(const QString &uid, bool check)
 {
     ASSERT(m_menu_root);
-
-//    debug("MenuManager::setItemChecked('%s', %d)", uid, check);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setChecked(check);
+}
+
+//***************************************************************************
+void MenuManager::setItemText(const QString &uid, const QString &text)
+{
+    ASSERT(m_menu_root);
+    MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
+    if (node) node->setText(text);
 }
 
 //***************************************************************************

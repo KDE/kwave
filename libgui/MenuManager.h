@@ -78,6 +78,13 @@ public:
      */
     void setItemEnabled(const QString &uid, bool enable);
 
+    /**
+     * Sets the text of a menu entry to a new value.
+     * @param uid unique id string of the menu node
+     * @param text the new text of the item
+     */
+    void setItemText(const QString &uid, const QString &text);
+
 signals:
 
     /**

@@ -104,14 +104,12 @@ void SampleWriter::flush(const QMemArray<sample_t> &buffer,
     if ((m_mode == Overwrite) && (m_position + count > m_last)) {
 	// need clipping
 	count = m_last + 1 - m_position;
-	qDebug("SampleWriter::flush() clipped to count=%u", count);
+// 	qDebug("SampleWriter::flush() clipped to count=%u", count);
     }
 
     m_track.writeSamples(m_mode, m_position, buffer, 0, count);
     m_position += count;
     if (m_position+1 > m_last) m_last = m_position-1;
-
-    Q_ASSERT(m_position <= m_last+1);
     count = 0;
 
     // inform others that we proceeded

@@ -1,0 +1,1906 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-01-07 23:11+0100\n"
+"PO-Revision-Date: 2002-01-01 14:53GMT\n"
+"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
+"Language-Team:  <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: libkwave/Interpolation.cpp:32
+msgid "linear"
+msgstr ""
+
+#: libkwave/Interpolation.cpp:33
+msgid "spline"
+msgstr ""
+
+#: libkwave/Interpolation.cpp:34
+msgid "n-polynom"
+msgstr ""
+
+#: libkwave/Interpolation.cpp:35
+msgid "3-polynom"
+msgstr ""
+
+#: libkwave/Interpolation.cpp:36
+msgid "5-polynom"
+msgstr ""
+
+#: libkwave/Interpolation.cpp:37
+msgid "7-polynom"
+msgstr ""
+
+#: libkwave/Interpolation.cpp:38
+msgid "sample and hold"
+msgstr ""
+
+#: libkwave/Functions.cpp:97
+msgid "Sinus"
+msgstr ""
+
+#: libkwave/Functions.cpp:98
+msgid "Rectangular"
+msgstr ""
+
+#: libkwave/Functions.cpp:99
+msgid "Sawtooth"
+msgstr ""
+
+#: libkwave/Functions.cpp:100
+msgid "Inverse Sawtooth"
+msgstr ""
+
+#: libkwave/Functions.cpp:101 libkwave/WindowFunction.cpp:58
+msgid "Triangular"
+msgstr ""
+
+#: libkwave/Functions.cpp:102
+msgid "Square Sinus"
+msgstr ""
+
+#: libkwave/Functions.cpp:103
+msgid "Cubic Sinus"
+msgstr ""
+
+#: libkwave/Functions.cpp:104
+msgid "Zero"
+msgstr ""
+
+#: libkwave/WindowFunction.cpp:54
+msgid "None"
+msgstr ""
+
+#: libkwave/WindowFunction.cpp:55
+msgid "Hamming"
+msgstr ""
+
+#: libkwave/WindowFunction.cpp:56
+msgid "Hanning"
+msgstr ""
+
+#: libkwave/WindowFunction.cpp:57
+msgid "Blackman"
+msgstr ""
+
+#: kwave/SignalManager.cpp:409
+msgid "cut"
+msgstr ""
+
+#: kwave/SignalManager.cpp:412
+msgid "crop"
+msgstr ""
+
+#: kwave/SignalManager.cpp:478
+msgid "paste"
+msgstr ""
+
+#: kwave/SignalManager.cpp:521
+msgid "append track"
+msgstr ""
+
+#: kwave/SignalManager.cpp:528 kwave/UndoInsertTrack.cpp:39
+msgid "insert track"
+msgstr ""
+
+#: kwave/SignalManager.cpp:563 kwave/UndoDeleteTrack.cpp:43
+msgid "delete track"
+msgstr ""
+
+#: kwave/SignalManager.cpp:646 kwave/UndoDeleteAction.cpp:36
+msgid "delete"
+msgstr ""
+
+#: kwave/SignalManager.cpp:799
+msgid "File does not exist !"
+msgstr ""
+
+#: kwave/SignalManager.cpp:808
+msgid "File is no RIFF File !"
+msgstr ""
+
+#: kwave/SignalManager.cpp:821
+msgid "File is no WAVE File !"
+msgstr ""
+
+#: kwave/SignalManager.cpp:832
+msgid "File does not contain format information!"
+msgstr ""
+
+#: kwave/SignalManager.cpp:847
+msgid "File must be uncompressed (Mode 1) !"
+msgstr ""
+
+#: kwave/SignalManager.cpp:863
+msgid ""
+"File is damaged: the file header reports zero length\n"
+"but the file seems to contain some data. \n"
+"\n"
+"Kwave can try to recover the file, but the\n"
+"result might contain trash at it's start and/or\n"
+"it's end. It is strongly advisable to edit the\n"
+"damaged parts manually and save the file again\n"
+"to fix the problem.\n"
+"\n"
+"Try to recover?"
+msgstr ""
+
+#: kwave/SignalManager.cpp:871
+msgid "Damaged File"
+msgstr ""
+
+#: kwave/SignalManager.cpp:872
+msgid "&Recover"
+msgstr ""
+
+#: kwave/SignalManager.cpp:878
+msgid "File does not contain data!"
+msgstr ""
+
+#: kwave/SignalManager.cpp:899 kwave/SignalManager.cpp:1164
+msgid "Sorry only 8/16/24 Bits per Sample are supported !"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1025 kwave/SignalManager.cpp:1284
+msgid "Out of Memory!"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1115
+msgid "Signal is empty, nothing to save !"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1122
+msgid "Opening the file for writing failed!"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1265
+msgid ""
+"Error in input: file is smaller than stated in the header. \n"
+"File will be truncated."
+msgstr ""
+
+#: kwave/SignalManager.cpp:1520
+#, ycp-format
+msgid ""
+"The operation '%1' requires more than %2 MB for storing undo data.\n"
+"This would exceed the limit of %3 MB."
+msgstr ""
+
+#: kwave/SignalManager.cpp:1524
+msgid "You can now either press:"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1527
+msgid "Allow"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1528
+msgid "to continue without the possibility to undo, or"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1530
+msgid "Ignore"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1531
+msgid "to continue, discard all previous undo data and ignore the memory limit"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1537
+msgid "to abort the current operation."
+msgstr ""
+
+#: kwave/SignalManager.cpp:1552
+msgid "&Allow"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1553
+msgid "&Ignore"
+msgstr ""
+
+#: kwave/SignalManager.cpp:1673 kwave/SignalManager.cpp:1680
+msgid "last action"
+msgstr ""
+
+#: kwave/TopWidget.cpp:103
+msgid "New File"
+msgstr ""
+
+#: kwave/TopWidget.cpp:239
+msgid "create a new empty file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:245
+msgid "open an existing file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:251
+msgid "save the current file"
+msgstr ""
+
+#: kwave/TopWidget.cpp:283
+msgid "cut the current selection and move it to the clipboard"
+msgstr ""
+
+#: kwave/TopWidget.cpp:289
+msgid "copy the current selection to the clipboard"
+msgstr ""
+
+#: kwave/TopWidget.cpp:295
+msgid "insert the content of clipboard"
+msgstr ""
+
+#: kwave/TopWidget.cpp:301
+msgid "mute the current selection"
+msgstr ""
+
+#: kwave/TopWidget.cpp:307
+msgid "delete the current selection"
+msgstr ""
+
+#: kwave/TopWidget.cpp:332
+msgid "start playback"
+msgstr ""
+
+#: kwave/TopWidget.cpp:338
+msgid "start playback and loop"
+msgstr ""
+
+#: kwave/TopWidget.cpp:344
+msgid "pause playback"
+msgstr ""
+
+#: kwave/TopWidget.cpp:350
+msgid "stop playback or loop"
+msgstr ""
+
+#: kwave/TopWidget.cpp:368
+msgid "zoom to selection"
+msgstr ""
+
+#: kwave/TopWidget.cpp:375
+msgid "zoom in"
+msgstr ""
+
+#: kwave/TopWidget.cpp:382
+msgid "zoom out"
+msgstr ""
+
+#: kwave/TopWidget.cpp:388
+#, c-format
+msgid "zoom to 100%"
+msgstr ""
+
+#: kwave/TopWidget.cpp:394
+msgid "zoom to all"
+msgstr ""
+
+#: kwave/TopWidget.cpp:401
+msgid "select zoom factor"
+msgstr ""
+
+#: kwave/TopWidget.cpp:486
+msgid ""
+"<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
+"using kwave.</b><br>You can setup aRts through the KDE control panel. For "
+"more information, please refer to the documentation shipped with KDE or <a "
+"href=http://www.arts-project.org>http://www.arts-project.org</a>."
+msgstr ""
+
+#: kwave/TopWidget.cpp:498
+msgid "Loading plugins..."
+msgstr ""
+
+#: kwave/TopWidget.cpp:500
+msgid "Ready."
+msgstr ""
+
+#: kwave/TopWidget.cpp:683
+msgid ""
+"This file has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+
+#: kwave/TopWidget.cpp:827
+#, ycp-format
+msgid "The file '%1' already exists. Do you really want to overwrite it?"
+msgstr ""
+
+#: kwave/TopWidget.cpp:924
+#, c-format, ycp-format
+msgid "Length: %1"
+msgstr ""
+
+#: kwave/TopWidget.cpp:924
+#, ycp-format
+msgid "(%2 samples)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:933
+#, c-format
+msgid "Mode: %u bit@%0.3f kHz"
+msgstr ""
+
+#: kwave/TopWidget.cpp:967
+#, ycp-format
+msgid "Selected: %1 (%2 samples)"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1014
+msgid "U&ndo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1020
+msgid "R&edo"
+msgstr ""
+
+#: kwave/TopWidget.cpp:1175
+msgid " (modified)"
+msgstr ""
+
+#: kwave/UndoInsertAction.cpp:35
+msgid "insert"
+msgstr ""
+
+#: kwave/PluginManager.cpp:144
+#, ycp-format
+msgid "oops, plugin '%1' is unknown or invalid!"
+msgstr ""
+
+#: kwave/PluginManager.cpp:147 kwave/PluginManager.cpp:159
+msgid "error on loading plugin"
+msgstr ""
+
+#: kwave/PluginManager.cpp:155
+#, ycp-format
+msgid ""
+"unable to load the file \n"
+"'%1'\n"
+" that contains the plugin '%2' !"
+msgstr ""
+
+#: kwave/PluginManager.cpp:183 kwave/PluginManager.cpp:190
+msgid "(unknown)"
+msgstr ""
+
+#: kwave/UndoModifyAction.cpp:45
+msgid "modify samples"
+msgstr ""
+
+#: kwave/UndoSelection.cpp:39
+msgid "selection"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:130
+msgid "1&6 Bit"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:139
+msgid "2&4 Bit"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:120
+#: plugins/playback/PlayBackDialog.cpp:123
+msgid "&8 Bit"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:16
+msgid "&About kwave..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:17 plugins/freqmult/module.cpp:35
+msgid "&Add"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:18
+msgid "&Additive Synthesis"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:19
+msgid "&All"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:20
+msgid "&Amplify"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:21
+msgid "&As..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:22
+msgid "&Average spectrum"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:23
+msgid "&Blocks..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:24
+msgid "&Calculate"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:25
+msgid "&Center Signal"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:26
+msgid "&Change rate"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:27
+msgid "&Choose type"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:28
+msgid "&Clipboard"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:29
+msgid "Clip&board"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:32
+msgid "&Continue"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:33
+msgid "&Convert label distance to pitch"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:35
+msgid "&Create"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:36
+msgid "Create &type"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:37
+msgid "&Crop"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:38
+msgid "Cu&t"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:39
+msgid "De&lay"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:41
+msgid "&Distort"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:43
+msgid "&End"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:44
+msgid "&Enter Command"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:45
+msgid "&Envelope"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:46
+msgid "E&xecute"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:47
+msgid "&Expand to labels"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:48
+msgid "&Export to Ascii..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:50 plugins/filter/module.cpp:34
+msgid "&Filter"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:51
+msgid "&Flip Phase"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:52
+msgid "&Flush"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:53
+msgid "&Free"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:54
+msgid "&Frequencies"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:55
+msgid "F&x"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:56
+msgid "&Generate"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:58
+msgid "&Import Ascii..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:59
+msgid "&Insert labels..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:60
+msgid "&Invert Selection"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:61
+msgid "Label by &Intensity"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:62
+msgid "Label by &Period"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:63
+msgid "&Labels"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:64
+msgid "Labels..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:65
+msgid " linear"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:66
+msgid "&Load labels..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:67
+msgid "&Loop"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:68
+msgid "&Macro"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:69
+msgid "&Memory"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:70
+msgid "&Mix"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:71
+msgid "&Mix & Paste"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:72
+msgid "&Moving Average"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:73
+msgid "&New..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:74
+msgid "New &Window"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:75
+msgid "&Next"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:76
+msgid "&Next Page"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:77
+msgid "&Noise"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:78
+msgid "&Nothing"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:79
+msgid "&Open"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:80
+msgid "Open &Recent"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:83
+msgid "&Pause"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:84
+msgid "&Periodic Silence"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:85
+msgid "Periods..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:86
+msgid " &Play"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:87
+msgid "&Play"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:88
+msgid "&Playback"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:89
+msgid "&Presets"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:90
+msgid "&Previous"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:91
+msgid "&Previous Page"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:92
+msgid "&Pulse Train"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:94
+msgid "&Range"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:96
+msgid "Re&quantize"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:97
+msgid "&Resample"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:98
+msgid "&Reverse"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:99
+msgid "Revert"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:101
+msgid "S&ave"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:102
+msgid "Save resol&ution"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:103
+msgid "Scroll &left"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:104
+msgid "Scroll &right"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:105
+msgid "&Select all"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:106
+msgid "&Selection"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:107
+msgid "&Selection..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:108
+msgid "&Silence"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:109 plugins/sonagram/SonagramWindow.cpp:129
+msgid "&Sonagram"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:110
+msgid "Spe&ctrum"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:112
+msgid "&Start recording"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:113
+msgid "S&top"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:114
+msgid "S&top recording"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:115
+msgid "to be done..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:116
+msgid "&to end"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:117
+msgid "to &Maximum"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:118
+msgid "&to new Window"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:119
+msgid "&to start"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:120
+msgid "&Track"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:121
+msgid "Tri&m"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:123
+msgid "&Undo and Redo"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:125
+msgid "&Visible area"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:126
+msgid "with &Clipboard"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:127
+msgid "Zoom &In"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:128
+msgid "Zoom &Out"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:129
+msgid "Zoom to &Selection"
+msgstr ""
+
+#: libgui/TimeLine.cpp:30
+msgid "as number of samples"
+msgstr ""
+
+#: libgui/TimeLine.cpp:32
+msgid "in ms"
+msgstr ""
+
+#: libgui/TimeLine.cpp:33
+msgid "in s"
+msgstr ""
+
+#: libgui/TimeLine.cpp:34
+msgid "in kb"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:89
+msgid "Flip Horizontal"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:91
+msgid "Flip Vertical"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:94
+msgid "into 1st half"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:96
+msgid "into 2nd half"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:99
+msgid "Interpolation"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:101
+msgid "Transform"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:103
+msgid "Fit In"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:105
+msgid "Presets"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:106
+msgid "Save Preset"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:108
+msgid "recently selected Point"
+msgstr ""
+
+#: libgui/CurveWidget.cpp:110
+msgid "every 2nd Point"
+msgstr ""
+
+#: libgui/Dialog.h:23 libgui/KwavePlugin.h:46
+#: plugins/doubleenter/module.cpp:26 plugins/envelope/module.cpp:34
+#: plugins/movingaverage/module.cpp:35 plugins/quantize/module.cpp:31
+msgid "&Ok"
+msgstr ""
+
+#: libgui/FileProgress.cpp:73
+msgid "source: "
+msgstr ""
+
+#: libgui/FileProgress.cpp:79
+msgid "length: "
+msgstr ""
+
+#: libgui/FileProgress.cpp:87
+#, ycp-format
+msgid "%1 samples"
+msgstr ""
+
+#: libgui/FileProgress.cpp:92
+msgid "sample rate: "
+msgstr ""
+
+#: libgui/FileProgress.cpp:93
+#, ycp-format
+msgid "%1 samples per second"
+msgstr ""
+
+#: libgui/FileProgress.cpp:97
+msgid "resolution: "
+msgstr ""
+
+#: libgui/FileProgress.cpp:98
+#, ycp-format
+msgid "%1 bits per sample"
+msgstr ""
+
+#: libgui/FileProgress.cpp:102
+msgid "tracks: "
+msgstr ""
+
+#: libgui/FileProgress.cpp:105
+msgid "1 (mono)"
+msgstr ""
+
+#: libgui/FileProgress.cpp:108
+msgid "2 (stereo)"
+msgstr ""
+
+#: libgui/FileProgress.cpp:111
+msgid "4 (quadro)"
+msgstr ""
+
+#: libgui/FileProgress.cpp:184
+msgid "Do you really want to abort the operation?"
+msgstr ""
+
+#: libgui/FileProgress.cpp:253
+#, ycp-format
+msgid "%1 KB/s (%2 remain)"
+msgstr ""
+
+#: libgui/FileProgress.cpp:268
+#, ycp-format
+msgid "%1 MB of %2 MB done"
+msgstr ""
+
+#: libgui/FileProgress.cpp:285
+msgid "(%1%) %2"
+msgstr ""
+
+#: plugins/amptolabel/module.cpp:29
+msgid "Choose labeling criteria"
+msgstr ""
+
+#: plugins/amptolabel/module.cpp:35 plugins/saveblock/module.cpp:37
+msgid "Start label:"
+msgstr ""
+
+#: plugins/amptolabel/module.cpp:36 plugins/saveblock/module.cpp:38
+msgid "Stop label:"
+msgstr ""
+
+#: plugins/amptolabel/module.cpp:38
+msgid "Length of silence:"
+msgstr ""
+
+#: plugins/amptolabel/module.cpp:40
+msgid ""
+"this is the timespan below the defined sound level\n"
+"that is assumed to separate two signals ..."
+msgstr ""
+
+#: plugins/amptolabel/module.cpp:42
+#, c-format
+msgid "Max. silence level in %"
+msgstr ""
+
+#: plugins/freqmult/module.cpp:17
+msgid "Select Function :"
+msgstr ""
+
+#: plugins/freqmult/module.cpp:36
+msgid "Freq. in Hz"
+msgstr ""
+
+#: plugins/freqmult/module.cpp:37
+#, c-format
+msgid "Ampl. in %"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:188
+msgid "&Power"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:189
+msgid "&Phase"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:190
+msgid "&Multipliers"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:191
+msgid "e&numerate"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:192
+msgid "&even"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:193
+msgid "&odd"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:194
+msgid "&prime"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:195
+msgid "&fibonacci"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:196
+msgid "&max"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:197
+msgid "&db/octave"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:198
+msgid "&invert"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:199
+msgid "&Sinus"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:200 plugins/addsynth/module.cpp:204
+msgid "&random"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:201
+msgid "&zero"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:202
+msgid "&negate"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:203
+msgid "&sinus"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:206
+msgid "&Reset all"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:226
+msgid "Multiply :"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:230
+msgid "Phase in degree:"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:234
+msgid "Power in %:"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:238
+msgid "Frequency"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:242
+msgid "Calculate"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:267 plugins/filter/module.cpp:70
+msgid "# of :"
+msgstr ""
+
+#: plugins/addsynth/module.cpp:464
+msgid "Choose dB/octave"
+msgstr ""
+
+#: plugins/quantize/module.cpp:25
+msgid "Choose new virtual resolution"
+msgstr ""
+
+#: plugins/quantize/module.cpp:27
+msgid "Number of quantisation steps"
+msgstr ""
+
+#: plugins/fadein/module.cpp:22 plugins/fadeout/module.cpp:18
+msgid "Choose fading degree :"
+msgstr ""
+
+#: plugins/amplifyfree/AmplifyFreePlugin.cpp:112
+msgid "amplify free"
+msgstr ""
+
+#: plugins/amplifyfree/AmplifyFreeDialog.cpp:33
+msgid "ms"
+msgstr ""
+
+#: plugins/amplifyfree/AmplifyFreeDialog.cpp:38
+#, c-format
+msgid "%"
+msgstr ""
+
+#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:34
+msgid "Amplify Free"
+msgstr ""
+
+#: plugins/playback/PlayBack-OSS.cpp:85
+msgid ""
+"i/o error, maybe the driver\n"
+"is not present in your kernel or it is not\n"
+"properly configured."
+msgstr ""
+
+#: plugins/playback/PlayBack-OSS.cpp:91
+#, ycp-format
+msgid ""
+"The device is busy. Maybe an other application is \n"
+"currently using it. Please try again later. \n"
+"(Hint: you might find out the name and process id of \n"
+"the program by calling: \"fuser -v %1\" \n"
+"on the command line.)"
+msgstr ""
+
+#: plugins/playback/PlayBack-OSS.cpp:109
+#, ycp-format
+msgid "The device '%1' cannot be opened in the correct mode."
+msgstr ""
+
+#: plugins/playback/PlayBack-OSS.cpp:117
+#, ycp-format
+msgid "%1 bits per sample are not supported"
+msgstr ""
+
+#: plugins/playback/PlayBack-OSS.cpp:123
+msgid "stereo playback is not supported"
+msgstr ""
+
+#: plugins/playback/PlayBack-OSS.cpp:128
+#, ycp-format
+msgid "playback rate %1 Hz is not supported"
+msgstr ""
+
+#: plugins/playback/PlayBack-OSS.cpp:137
+#, c-format, ycp-format
+msgid "unusable buffer size: %1"
+msgstr ""
+
+#: plugins/playback/PlayBackPlugin.cpp:222
+#, ycp-format
+msgid "unable to open '%1'"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:55
+#: plugins/sonagram/SonagramDialog.cpp:54
+msgid "sonagram"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:75
+msgid "Playback Options :"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:103
+#: plugins/playback/PlayBackDialog.cpp:104
+msgid "Resolution"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:127
+msgid ""
+"Set Playback-Mode to 8 Bit (poor quality)\n"
+"should be supported by all sound hardware !"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:136
+msgid ""
+"Set Playback-Mode to 16 Bit (CD-like quality)\n"
+"not supported by all sound hardware !"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:145
+msgid ""
+"Set Playback-Mode to 24 Bit (high quality)\n"
+"only supported by some new sound hardware !"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:150
+msgid "Playback Device :"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:172
+msgid "se&lect..."
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:176
+msgid ""
+"Select a playback device not listed\n"
+"in the standard selection.\n"
+"(sorry, not implemented yet!)"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:195
+msgid ""
+"This is the size of the buffer used for communication with the sound driver\n"
+"If your computer is rather slow select a big buffer"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:204
+msgid "&stereo playback"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:231
+msgid "&test settings"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:235
+msgid ""
+"Try to play a short sound\n"
+"using the current settings.\n"
+"(sorry, not implemented yet!)"
+msgstr ""
+
+#: plugins/playback/PlayBackDialog.cpp:306
+#, c-format, ycp-format
+msgid "Buffer Size : %5d samples"
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:88
+msgid "unable to open aRts playback stream"
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:201
+msgid ""
+"Can't connect to aRts soundserver. Maybe it is not properly installed or not "
+"running."
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:205
+msgid ""
+"Loading the aRts backend library failed. This might be due to a problem with "
+"your aRts installation."
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:210
+msgid "The aRts output stream is invalid."
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:213
+msgid ""
+"aRts output is not available because the initialization of the aRts output "
+"has failed or not been done."
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:218
+msgid ""
+"The required aRts function is not yet implemented. Maybe you should get a "
+"newer version of aRts or upgrade the kdelibs package."
+msgstr ""
+
+#: plugins/filter/module.cpp:29
+msgid "Choose filter parameters:"
+msgstr ""
+
+#: plugins/filter/module.cpp:39
+msgid "&load filter"
+msgstr ""
+
+#: plugins/filter/module.cpp:40
+msgid "&save filter"
+msgstr ""
+
+#: plugins/filter/module.cpp:42
+msgid "resulting changes in spectrum"
+msgstr ""
+
+#: plugins/filter/module.cpp:43
+msgid "resulting changes in phase"
+msgstr ""
+
+#: plugins/filter/module.cpp:49
+msgid "Filter Type"
+msgstr ""
+
+#: plugins/filter/module.cpp:55
+msgid "Use normal filtering, e.g. the impulse response is finite !"
+msgstr ""
+
+#: plugins/filter/module.cpp:60
+msgid "&IIR"
+msgstr ""
+
+#: plugins/filter/module.cpp:63
+msgid "Use recursive filtering, e.g. the impulse response could be infinite !"
+msgstr ""
+
+#: plugins/filter/module.cpp:71
+msgid ""
+"Number of filter coefficients\n"
+" Keep this low and you won't need any coffee break..."
+msgstr ""
+
+#: plugins/averagefft/module.cpp:29
+msgid "Choose window type and length :"
+msgstr ""
+
+#: plugins/averagefft/module.cpp:31
+msgid "Length of window :"
+msgstr ""
+
+#: plugins/averagefft/module.cpp:37
+msgid "Choose windowing function here."
+msgstr ""
+
+#: plugins/averagefft/module.cpp:39 plugins/sonagram/SonagramDialog.cpp:158
+msgid "Window Function :"
+msgstr ""
+
+#: plugins/rate/module.cpp:22
+msgid "Choose New Rate :"
+msgstr ""
+
+#: plugins/rate/module.cpp:24
+msgid "Rate in Hz :"
+msgstr ""
+
+#: plugins/time/module.cpp:19
+msgid "Enter length :"
+msgstr ""
+
+#: plugins/time/module.cpp:20
+msgid "Time :"
+msgstr ""
+
+#: plugins/labeltype/module.cpp:18
+msgid "Choose new label type"
+msgstr ""
+
+#: plugins/labeltype/module.cpp:19
+msgid "Name :"
+msgstr ""
+
+#: plugins/labeltype/module.cpp:25
+msgid "individual name for each label"
+msgstr ""
+
+#: plugins/sweep/module.cpp:82
+msgid "From"
+msgstr ""
+
+#: plugins/sweep/module.cpp:83
+msgid "to"
+msgstr ""
+
+#: plugins/sweep/module.cpp:87
+msgid "Import"
+msgstr ""
+
+#: plugins/about/AboutDialog.cpp:144 plugins/sweep/module.cpp:88
+msgid "Ok"
+msgstr ""
+
+#: plugins/sweep/module.cpp:170
+msgid "could not open file !\n"
+msgstr ""
+
+#: plugins/sweep/module.cpp:171
+#, c-format
+msgid "file %s does not exist!\n"
+msgstr ""
+
+#: plugins/about/AboutDialog.cpp:105
+msgid "About Kwave"
+msgstr ""
+
+#: plugins/delay/module.cpp:24
+msgid "Choose Length and Rate :"
+msgstr ""
+
+#: plugins/delay/module.cpp:25
+msgid "Delay :"
+msgstr ""
+
+#: plugins/delay/module.cpp:29
+#, c-format
+msgid "Amplitude of delayed signal :50 %"
+msgstr ""
+
+#: plugins/delay/module.cpp:31
+msgid "do recursive delaying"
+msgstr ""
+
+#: plugins/delay/module.cpp:61
+msgid "Amplitude of delayed signal :%d %%"
+msgstr ""
+
+#: plugins/saveblock/module.cpp:21
+msgid "Choose Labels to be used for dividing signal:"
+msgstr ""
+
+#: plugins/saveblock/module.cpp:32
+msgid "Base name:"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:102 plugins/saveblock/module.cpp:33
+msgid "Directory:"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:37
+msgid "Memory Settings"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:44
+msgid "&Physical Memory"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:45
+msgid ""
+"<b>Limit the usage of physical memory (RAM).</b><br>\n"
+"\n"
+"If you do not set a limit, the size of the physically installed memory in "
+"your computer will be determined and used as limit. You cannot set a limit "
+"higher than the totally installed amount of memory."
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:57
+msgid "Limit &to"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:72 plugins/memory/MemDlg.uic.cpp:137
+msgid " MB"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:76
+msgid "megabytes of physical memory"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:81
+msgid "&Virtual Memory"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:82
+msgid ""
+"<b>Configure the usage of virtual memory (swap files).</b><br>\n"
+"\n"
+"If you enable the use of virtual memory, you can specify a directory where "
+"Kwave creates temporary files that it can use as an extension to the "
+"physical memory. This enables you to process files that are much larger than "
+"your physical memory.\n"
+"<br>\n"
+"    Of course you can also set a limit for the total size of the page files."
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:96
+msgid "&Enable usage of virtual memory"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:107
+msgid "/tmp"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:108
+msgid "directory for storing swap files"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:113
+msgid "&Search..."
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:114
+msgid "browse for a directory to hold page files"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:119
+msgid "&Limit to"
+msgstr ""
+
+#: plugins/memory/MemDlg.uic.cpp:142
+msgid "megabytes of virtual memory"
+msgstr ""
+
+#: plugins/noise/NoisePlugin.cpp:49
+msgid "noise"
+msgstr ""
+
+#: plugins/movingaverage/module.cpp:25
+msgid "Choose Parameters :"
+msgstr ""
+
+#: plugins/movingaverage/module.cpp:26
+msgid "# of Filter Taps :"
+msgstr ""
+
+#: plugins/movingaverage/module.cpp:27
+msgid "Filter Type :"
+msgstr ""
+
+#: plugins/movingaverage/module.cpp:32
+msgid "Lowpass filter"
+msgstr ""
+
+#: plugins/movingaverage/module.cpp:33
+msgid "Highpass filter"
+msgstr ""
+
+#: plugins/pitch/module.cpp:23
+msgid "Select frequency range :"
+msgstr ""
+
+#: plugins/pitch/module.cpp:31
+msgid "Highest Freq. in Hz"
+msgstr ""
+
+#: plugins/pitch/module.cpp:32
+msgid "Lowest Freq. in Hz"
+msgstr ""
+
+#: plugins/pitch/module.cpp:33
+msgid "avoid octave jumps with twiddle factor"
+msgstr ""
+
+#: plugins/doubleenter/module.cpp:20
+msgid "Enter a value"
+msgstr ""
+
+#: plugins/pulse/module.cpp:47
+msgid "Length of pulse :"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:133
+msgid "&Export to Bitmap ..."
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:138
+msgid "Frequencies Status Bar"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:142
+msgid "Time: ------ ms"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:143
+msgid "Frequency: ------ Hz"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:144
+#, c-format
+msgid "Amplitude: --- %"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:186
+msgid "Time: 0 ms"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:187
+msgid "Frequency: 0 Hz"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:188
+#, c-format
+msgid "Amplitude: 0 %"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:502
+msgid "Sonagram of "
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:505
+msgid "<nothing>"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:529
+#, c-format, ycp-format
+msgid "Time: %1"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:533
+#, c-format
+msgid "Frequency: %d Hz"
+msgstr ""
+
+#: plugins/sonagram/SonagramWindow.cpp:543
+msgid "Amplitude: %d %%"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:78
+msgid "Set FFT/time resolution parameter"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:112
+msgid "FFT settings"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:119
+msgid "Number of FFT points:"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:128
+msgid ""
+"Try to choose numbers with small prime-factors, if choosing big window "
+"sizes.\n"
+"The computation will be much faster !"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:145
+msgid ""
+"Choose windowing function here. If fourier transformation should stay "
+"reversible, use the type <none>"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:232
+msgid "display"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:243
+msgid "use colors"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:247
+msgid "use different colors for amplitude"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:252
+msgid "greyscale"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:255
+msgid "use greyscale only for amplitude"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:264
+msgid "update"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:275
+msgid "on modifications"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:279
+msgid ""
+"automatically update the sonagram\n"
+"if the signal data has modified"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:285
+msgid "follow selection"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:289
+msgid ""
+"automatically update the sonagram if the selection\n"
+"has been enlarged, reduced or moved"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:416
+#, ycp-format
+msgid "( resulting window size: %1 )"
+msgstr ""
+
+#: plugins/sonagram/SonagramDialog.cpp:419
+#, c-format, ycp-format
+msgid "size of bitmap: %1x%2"
+msgstr ""
+
+#: plugins/savelabel/module.cpp:22
+msgid "Select label types to be saved :"
+msgstr ""
+
+#: plugins/envelope/module.cpp:27
+msgid "Choose Envelope Parameters"
+msgstr ""
+
+#: plugins/envelope/module.cpp:28
+msgid "Points are taken 20 times/s"
+msgstr ""
+
+#: plugins/envelope/module.cpp:30
+msgid "Type of Interpolation :"
+msgstr ""
+
+#: plugins/envelope/module.cpp:70
+#, c-format
+msgid "Points are taken %d.%01d times/s"
+msgstr ""
+
+#: plugins/newsignal/NewSignalDialog.cpp:314
+msgid "(Mono)"
+msgstr ""
+
+#: plugins/newsignal/NewSignalDialog.cpp:317
+msgid "(Stereo)"
+msgstr ""
+
+#: plugins/newsignal/NewSignalDialog.cpp:320
+msgid "(Quadro)"
+msgstr ""
+
+#: plugins/newsignal/NewSignalDialog.cpp:345
+#, ycp-format
+msgid "(Resulting file size: %1 MB)"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:39
+msgid "Form1"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:45
+msgid "Format"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:55
+msgid "8000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:56
+msgid "10000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:57
+msgid "11025"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:58
+msgid "12000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:59
+msgid "16000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:60
+msgid "22050"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:61
+msgid "32000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:62
+msgid "44100"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:63
+msgid "48000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:64
+msgid "96000"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:67
+msgid ""
+"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
+"sample rates or you can enter any sample rate on your own."
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:72
+msgid "Sample Rate:"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:87
+msgid "samples per second"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:95
+msgid "Tracks:"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:100
+msgid "Resolution:"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:109
+msgid "bit"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:121
+#: plugins/newsignal/NewSigDlg.uic.cpp:290
+#, c-format, ycp-format
+msgid "%1"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:131
+msgid ""
+"<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
+"you are not sure now, you can add or delete tracks later in the program."
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:140
+msgid ""
+"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
+"saved. However, Kwave always uses 24 bits as it's own internal resolution to "
+"give the best results when processing the audio data."
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:146
+msgid "Length"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:163
+msgid "Time"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:164
+msgid "select this to set the length of the file by time"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:173
+msgid "Hours"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:186
+msgid "Minutes"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:191
+msgid "Seconds"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:204
+msgid "Samples"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:205
+msgid "select this to enter the number of samples directly"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:227
+msgid "minimum"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:234
+msgid "(file size)"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:241
+msgid "maximum"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:254
+msgid "sets the file size by the percentage of the possible maximum"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:262
+#, c-format
+msgid "0%"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:268
+#, c-format
+msgid "50%"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:274
+#, c-format
+msgid "100%"
+msgstr ""
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:309
+msgid "O&K"
+msgstr ""
+
+#: plugins/gap/module.cpp:23
+msgid "Set Length of Gap & Signal"
+msgstr ""
+
+#: plugins/gap/module.cpp:25
+msgid "length of gap"
+msgstr ""
+
+#: plugins/gap/module.cpp:28
+msgid "length of signal"
+msgstr ""
+
+#: plugins/formant/module.cpp:22
+msgid "Choose formant positions and widths :"
+msgstr ""
+
+#: plugins/formant/module.cpp:37
+msgid "Formant center in Hz:"
+msgstr ""
+
+#: plugins/formant/module.cpp:38
+msgid "Number of formants:"
+msgstr ""
+
+#: plugins/mix/module.cpp:38
+msgid "mix to channel :"
+msgstr ""
+
+#: plugins/mix/module.cpp:40
+msgid "use dB scale"
+msgstr ""
+
+#: plugins/mix/module.cpp:42
+msgid "new"
+msgstr ""
+
+#: plugins/mix/module.cpp:48
+#, c-format
+msgid "Channel %d :"
+msgstr ""
+
+#: plugins/zero/ZeroPlugin.cpp:40
+msgid "silence"
+msgstr ""
+
+#: plugins/distort/module.cpp:23
+msgid "Choose Line of distortion :"
+msgstr ""

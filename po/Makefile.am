@@ -1,5 +1,5 @@
 
-POFILES = de.po fr.po
+POFILES = de.po fr.po it.po
 GMOFILES = $(POFILES:.po=.gmo)
 
 localedir = $(DESTDIR)$(kde_locale)
@@ -7,7 +7,7 @@ localedir = $(DESTDIR)$(kde_locale)
 DISTCLEANFILES = Makefile.in Makefile
 MAINTAINERCLEANFILES = $(GMOFILES)
 
-GMSGFMT = @GMSGFMT@
+GMSGFMT = @MSGFMT@
 MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
 EXTRA_DIST = $(PACKAGE).pot $(POFILES) $(GMOFILES)
@@ -23,7 +23,7 @@ SUFFIXES = .po .gmo
 
 .po.gmo:
 	file=$(srcdir)/`echo $* | sed 's,.*/,,'`.gmo \
-	&& rm -f $$file && $(GMSGFMT) -o $$file $< 
+	&& rm -f $$file && $(GMSGFMT) -o $$file $<
 
 all: all-yes
 all-yes: $(GMOFILES)

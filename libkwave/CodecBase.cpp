@@ -44,12 +44,12 @@ void CodecBase::addMimeType(const QString &name, const QString &description,
     type = new KMimeType(*KMimeType::mimeType(name));
     ASSERT(type);
     if (type && (type->name() == type->defaultMimeType())) {
-	// warning("mime type '"+name+"' not registered, using built-in!");
+//	warning("mime type '"+name+"' not registered, using built-in!");
 	delete type;
 	type = 0;
 	
 	QStringList p = QStringList::split("; ", patterns, false);
-	type = new KMimeType("", name, "sound", description, p);
+	type = new KMimeType(0, name, "sound", description, p);
     }
     if (type) m_supported_mime_types.append(type);
 }

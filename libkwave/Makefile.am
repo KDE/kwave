@@ -28,6 +28,7 @@ libkwave_la_SOURCES=\
  CodecBase.cpp\
  Curve.cpp\
  CurveStreamAdapter_impl.cpp\
+ Decoder.cpp\
  Filter.cpp\
  FileInfo.cpp\
  FileLoader.cpp\

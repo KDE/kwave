@@ -1378,7 +1378,7 @@ type=HEADER
 
 [libkwave/Makefile.am]
 dist=true
-files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/PointSet.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/mmap.h,libkwave/mmap.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp,libkwave/ArtsSampleSink.idl,libkwave/ArtsSampleSource.idl,libkwave/ArtsSampleSink_impl.cpp,libkwave/ArtsSampleSink_impl.h,libkwave/ArtsSampleSource_impl.h,libkwave/ArtsSampleSource_impl.cpp,libkwave/ArtsMultiTrackFilter.h,libkwave/ArtsMultiSource.h,libkwave/ArtsMultiSink.h,libkwave/ArtsMultiIO.h,libkwave/ArtsMultiTrackSink.h,libkwave/ArtsMultiTrackSource.h,libkwave/ArtsKwaveMultiTrackFilter.h,libkwave/ArtsNativeMultiTrackFilter.h,libkwave/CurveStreamAdapter_impl.h,libkwave/CurveStreamAdapter_impl.cpp,libkwave/KwaveDrag.h,libkwave/KwaveDrag.cpp,libkwave/FileFormat.cpp,libkwave/WavFileFormat.h,libkwave/Encoder.h,libkwave/Decoder.h,libkwave/CodecBase.h,libkwave/CodecBase.cpp,libkwave/FileInfo.cpp,libkwave/FileInfo.h,libkwave/VirtualAudioFile.cpp,libkwave/VirtualAudioFile.h
+files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/PointSet.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/mmap.h,libkwave/mmap.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp,libkwave/ArtsSampleSink.idl,libkwave/ArtsSampleSource.idl,libkwave/ArtsSampleSink_impl.cpp,libkwave/ArtsSampleSink_impl.h,libkwave/ArtsSampleSource_impl.h,libkwave/ArtsSampleSource_impl.cpp,libkwave/ArtsMultiTrackFilter.h,libkwave/ArtsMultiSource.h,libkwave/ArtsMultiSink.h,libkwave/ArtsMultiIO.h,libkwave/ArtsMultiTrackSink.h,libkwave/ArtsMultiTrackSource.h,libkwave/ArtsKwaveMultiTrackFilter.h,libkwave/ArtsNativeMultiTrackFilter.h,libkwave/CurveStreamAdapter_impl.h,libkwave/CurveStreamAdapter_impl.cpp,libkwave/KwaveDrag.h,libkwave/KwaveDrag.cpp,libkwave/FileFormat.cpp,libkwave/Encoder.h,libkwave/Decoder.h,libkwave/CodecBase.h,libkwave/CodecBase.cpp,libkwave/FileInfo.cpp,libkwave/FileInfo.h,libkwave/VirtualAudioFile.cpp,libkwave/VirtualAudioFile.h
 install=false
 install_location=
 sub_dirs=
@@ -1535,12 +1535,6 @@ install_location=
 type=SOURCE
 
 [libkwave/VirtualAudioFile.h]
-dist=true
-install=false
-install_location=
-type=HEADER
-
-[libkwave/WavFileFormat.h]
 dist=true
 install=false
 install_location=

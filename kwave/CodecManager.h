@@ -111,6 +111,15 @@ public:
      */
     static QString decodingFilter();
 
+
+    /**
+     * Tries to find the name of a mime type of a decoder by a URL.
+     * If not found, it returns the default mime type, never an empty string.
+     * @param url a KURL, only the filename's extension will be inspected
+     * @return name of the mime type or the default mime type
+     */
+    static QString whatContains(const KURL &url);
+
 private:
     /** list of all encoders */
     static QList<Encoder> m_encoders;

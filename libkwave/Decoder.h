@@ -27,6 +27,7 @@
 
 class FileInfo;
 class KMimeType;
+class KURL;
 class MultiTrackWriter;
 class QIODevice;
 class QWidget;
@@ -36,7 +37,7 @@ class Decoder: public QObject, public CodecBase
     Q_OBJECT
 public:
     /** Constructor */
-    Decoder() :QObject(), CodecBase() {};
+    Decoder();
 
     /** Destructor */
     virtual ~Decoder() {};
@@ -72,6 +73,14 @@ public:
      * open() has successfully been called.
      */
     virtual inline FileInfo &info() { return m_info;};
+
+    /**
+     * Tries to find the name of a mime type by a URL. If not found, it
+     * returns the default mime type, never an empty string.
+     * @param url a KURL, only the filename's extension will be inspected
+     * @return name of the mime type or the default mime type
+     */
+    virtual QString whatContains(const KURL &url);
 
 protected:
 

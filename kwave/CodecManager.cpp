@@ -83,6 +83,18 @@ bool CodecManager::canDecode(const QString &mimetype_name)
 }
 
 /***************************************************************************/
+QString CodecManager::whatContains(const KURL &url)
+{
+    QListIterator<Decoder> it(m_decoders);
+    for (; it.current(); ++it) {
+	Decoder &d = *(it.current());
+	QString mime_type = d.whatContains(url);
+	if (mime_type != KMimeType::defaultMimeType()) return mime_type;
+    }
+    return KMimeType::findByURL(url)->name();
+}
+
+/***************************************************************************/
 Decoder *CodecManager::decoder(const QString &mimetype_name)
 {
     QListIterator<Decoder> it(m_decoders);

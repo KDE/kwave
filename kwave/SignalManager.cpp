@@ -132,7 +132,7 @@ int SignalManager::loadFile(const KURL &url)
     // disable undo (discards all undo/redo data)
     disableUndo();
 
-    QString mimetype = KMimeType::findByURL(url)->name();
+    QString mimetype = CodecManager::whatContains(url);
     debug("SignalManager::loadFile(%s) - [%s]", url.prettyURL().data(),
           mimetype.data());
     Decoder *decoder = CodecManager::decoder(mimetype);

@@ -2,39 +2,62 @@ dnl without this order in this file, autoconf will not work!
 dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
 
-AC_INIT(acinclude.m4)
-
+AC_INIT(admin/acinclude.m4.in)
 AC_CONFIG_AUX_DIR(admin)
 
 AC_CANONICAL_SYSTEM  
 AC_ARG_PROGRAM
-
-dnl You have to change this
 AM_INIT_AUTOMAKE(kwave,0.5.99-6)
-
+AC_LIBTOOL_DLOPEN
+KDE_PROG_LIBTOOL
 KDE_SET_PREFIX
-dnl generate the config header
-AM_CONFIG_HEADER(config.h) dnl at the distribution this done
-
+AM_CONFIG_HEADER(config.h)
 AM_ENABLE_SHARED(yes)
 AM_ENABLE_STATIC(yes)
+
+CXXFLAGS="$(CXXFLAGS) -fno-check-new"
+
 
 dnl CFLAGS="${CFLAGS}     -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
 dnl CXXFLAGS="${CXXFLAGS} -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
 dnl CFLAGS="${CFLAGS}     -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
 dnl CXXFLAGS="${CXXFLAGS} -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
 dnl CXXFLAGS="$(CXXFLAGS) -fexceptions -g"
-
+dnl 
+dnl AC_DEFUN(AC_CHECK_WITH_INSURE,
+dnl [
+dnl     ac_use_insure=no
+dnl     AC_MSG_CHECKING(whether to use insure++);
+dnl 
+dnl     AC_ARG_ENABLE(insure, 
+dnl [  --enable-insure         enable support for insure++ debugging [default=no]],
+dnl    [ 
+dnl     if test $enableval = "no"; then 
+dnl          ac_use_insure="no"
+dnl        else 
+dnl          ac_use_insure="yes"
+dnl     fi
+dnl    ], [ac_use_insure="no"])
+dnl 
+dnl  if test "$ac_use_insure" = "yes"; then
+dnl    CC=insure
+dnl    CPP=insure
+dnl    CXX=insure
+dnl    AC_SUBST(CC)
+dnl    AC_SUBST(CPP)
+dnl    AC_SUBST(CXX)
+dnl  fi
+dnl 
+dnl  AC_MSG_RESULT($ac_use_insure);
+dnl ])
+dnl 
 dnl test for usage of insure++
-AC_CHECK_WITH_INSURE
+dnl AC_CHECK_WITH_INSURE
 
 AC_CHECK_COMPILERS
 dnl AC_PROG_CC
 dnl AC_PROG_CPP
 dnl AC_PROG_CXX
-
-AC_LIBTOOL_DLOPEN
-KDE_PROG_LIBTOOL
 
 dnl check if nls is wanted
 AM_KDE_WITH_NLS(yes)
@@ -42,38 +65,35 @@ AM_KDE_WITH_NLS(yes)
 AC_PATH_KDE
 AC_ARG_PROGRAM
 
-dnl make $KDEDIR the default for the installation
-dnl AC_PREFIX_DEFAULT(${KDEDIR:-/usr})
-
 dnl Checks for programs.
 AC_PROG_INSTALL
 AC_PROG_LN_S
 
 dnl checks, if the debug code is wanted
 dnl ### AC_CHECK_FLAGS
-
+dnl 
 dnl optimization flags for athlon
 dnl CFLAGS = -O3 -fomit-frame-pointer -Wall 
 dnl -mathlon -mcpu=athlon -march=athlon
 dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations 
 dnl -malign-double -fschedule-insns2 -mwide-multiply
-
+dnl 
 dnl optimization flags for pentium pro
 dnl CFLAGS = -s -O3 -fomit-frame-pointer -Wall 
 dnl -mpentiumpro -march=pentiumpro
 dnl -malign-functions=4 -funroll-loops -fexpensive-optimizations 
 dnl -malign-double -fschedule-insns2 -mwide-multiply
-
+dnl 
 dnl ### CFLAGS="${CFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 dnl ### CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
-
+dnl 
 dnl now create our libtool, the earlier the better...
 dnl AM_PROG_LIBTOOL
-
+dnl 
 dnl find out some variables 
 dnl ### AC_AIX
 dnl ### AC_MINIX
-
+dnl 
 dnl for NLS support. Call them in this order!
 dnl ### AC_LANG_CPLUSPLUS dnl switch to C++
 
@@ -145,9 +165,6 @@ dnl Checks for libraries.
 dnl AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' X11
 dnl AC_SUBST(LIBSOCKET)
 
-dnl check X, Qt and KDE
-dnl ### AC_PATH_KDE
-
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
 
@@ -161,7 +178,7 @@ AC_CHECK_GNU_EXTENSIONS
 
 dnl Checks for library functions. 
 dnl AC_CHECK_FUNCS(socket vsnprintf)
-AC_CHECK_SETENV
+dnl AC_CHECK_SETENV
 dnl AC_CHECK_FUNCS(getdomainname)
 dnl AC_CHECK_KSIZE_T
 

@@ -57,7 +57,7 @@ int NewSignalPlugin::interpreteParameters(QStringList &params)
     if (!ok) return -EINVAL;
 
     param = params[1];
-    m_rate = param.toDouble(&ok);
+    m_rate = (unsigned int)param.toDouble(&ok);
     ASSERT(ok);
     if (!ok) return -EINVAL;
 

@@ -11,6 +11,8 @@ SUBDIRS  	 = mt libgui libkwave kwave plugins po doc
 CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
 DISTCLEANFILES 	 = config.cache config.log ${CLEANFILES}
 
+.PHONY: doc
+
 configure.in: VERSION
 	touch configure.in
 
@@ -93,7 +95,7 @@ src.rpm: rpm_prep
 	rpm -bs ${PACKAGE}.spec
 
 doc:
-	(cd doc ; ${MAKE} doc )
+	(cd ./doc ; ${MAKE} all )
 
 apidoc:
 	-rm -Rf `find . -name \*.moc.cpp`

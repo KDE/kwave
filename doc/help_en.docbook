@@ -55,7 +55,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2001-07-22</DATE>
+    <DATE>2001-07-26</DATE>
     <RELEASEINFO>0.5.99-6</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -2371,7 +2371,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2001-07-22</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2001-07-26</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

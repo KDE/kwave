@@ -32,7 +32,9 @@ It's quite simple. First get the source archive, unpack it under your
 favorite source-code directory (or under /tmp), change to this directory
 and then type:
 
-./configure --with-qt-dir=/usr/lib/qt2 --prefix=/opt/kde2
+export KDEDIR=/opt/kde2
+export QTDIR=/usr/lib/qt2
+./configure
 make
 make install
 
@@ -43,7 +45,7 @@ to your distribution)
 ==============
 
 You can build nice binary and/or source rpm packages of kwave in one
-of the following ways. Note: Either you do everything as root or you 
+of the following ways. Note: Either you do everything as root or you
 must have write permissions in the following directories:
 
 * /tmp
@@ -80,7 +82,8 @@ directory you can simply type
 
 export QTDIR=/usr/lib/qt2
 export KDEDIR=/opt/kde2
-make -f Makefile.dist
+make -f admin/Makefile.common
+./configure
 make src.rpm          (and you get only a source rpm)
 make rpm              (and you get both, a binary and a source rpm)
 
@@ -127,7 +130,7 @@ optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer
 
 This means that on an i586 architecture the rpm package will be compiled
 using -march=pentium and so on, you might extend or adapt these to your
-own needs. 
+own needs.
 
 The options specified here are set into the environment variable 
 RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
@@ -168,11 +171,7 @@ packets should be sufficient for building:
 And for generating the online help:
 
 * jade-1.2.1-6
-* docbook-dtd30-sgml-1.0-6
-* docbook-dtd40-sgml-1.0-6
 * docbook-dtd31-sgml-1.0-6
-* docbook-dtd41-sgml-1.0-6
-* docbook-dtd41-xml-1.0-3
 * docbook-utils-0.6.6-1
 * docbook-style-dsssl-1.61-1
 * jadetex-2.20-6

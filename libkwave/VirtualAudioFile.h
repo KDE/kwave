@@ -45,6 +45,14 @@ public:
     /** opens the file through libaudiofile */
     virtual void open(VirtualAudioFile *x, AFfilesetup setup);
 
+    /**
+     * Closes the file from libaudiofile side. The associated
+     * QIODevice will not be touched.
+     * @note This has not necessarily to be called, it will closed
+     *       automatically in the destructor.
+     */
+    virtual void close();
+
     /** Returns the handle for use in libaudiofile */
     inline AFfilehandle &handle() { return m_file_handle; };
 

@@ -121,8 +121,7 @@ void VirtualAudioFile::open(VirtualAudioFile *x, AFfilesetup setup)
 
     // determine the mode: rw/w/r
     const char *mode = 0;
-    if (m_device.isReadWrite()) mode = "rw";
-    else if (m_device.isWritable()) mode = "w";
+    if      (m_device.isWritable()) mode = "w";
     else if (m_device.isReadable()) mode = "r";
     ASSERT(mode);
 
@@ -137,13 +136,22 @@ void VirtualAudioFile::open(VirtualAudioFile *x, AFfilesetup setup)
 }
 
 //***************************************************************************
-VirtualAudioFile::~VirtualAudioFile()
+void VirtualAudioFile::close()
 {
     // close libaudiofile stuff
     afCloseFile(m_file_handle);
 
     // de-register ourself
     if (_adapter_map) _adapter_map->remove(m_virtual_file);
+
+    m_virtual_file = 0;
+    m_file_handle = 0;
+}
+
+//***************************************************************************
+VirtualAudioFile::~VirtualAudioFile()
+{
+    if (m_virtual_file) close();
 }
 
 //***************************************************************************

@@ -51,7 +51,7 @@ static long _lastAudiofileError()
 
 //***************************************************************************
 static ssize_t af_file_read(AFvirtualfile *vfile, void *data,
-                            unsigned int nbytes)
+                            size_t nbytes)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
     return (adapter) ? adapter->read((char*)data, nbytes) : 0;
@@ -65,8 +65,8 @@ static long af_file_length(AFvirtualfile *vfile)
 }
 
 //***************************************************************************
-static ssize_t af_file_write (AFvirtualfile *vfile, const void *data,
-	unsigned int nbytes)
+static ssize_t af_file_write(AFvirtualfile *vfile, const void *data,
+	                     size_t nbytes)
 {
     VirtualAudioFile *adapter = VirtualAudioFile::adapter(vfile);
     return (adapter) ? adapter->write((char*)data, nbytes) : 0;

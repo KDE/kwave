@@ -43,6 +43,13 @@ bin_PROGRAMS  = kwave
 # use the correct directory when building a binary rpm package
 bindir=$(prefix)/bin
 
+# extra data, icons etc
+ICONS = \
+ pics/$(PACKAGE)-16x16.png \
+ pics/$(PACKAGE)-22x22.png \
+ pics/$(PACKAGE)-32x32.png \
+ pics/$(PACKAGE)-48x48.png
+
 # Which sources should be compiled for kwave.
 
 BUILTSOURCES=\
@@ -55,7 +62,8 @@ BUILTSOURCES=\
  SignalManager.moc.cpp\
  SignalWidget.moc.cpp\
  TopWidget.moc.cpp\
- UndoInsertAction.moc.cpp
+ UndoInsertAction.moc.cpp \
+ $(ICONS)
 
 kwave_SOURCES =\
  main.cpp\
@@ -107,15 +115,6 @@ PIXMAPS=\
  rspeaker.xpm\
  selectedknob.xpm\
  xspeaker.xpm
-
-# extra data, icons etc
-ICONS = \
- pics/$(PACKAGE)-16x16.png \
- pics/$(PACKAGE)-22x22.png \
- pics/$(PACKAGE)-32x32.png \
- pics/$(PACKAGE)-48x48.png
-
-dist_pkgdata_DATA = $(ICONS)
 
 # the library search path
 kwave_LDFLAGS = -L../libkwave -L../libgui \

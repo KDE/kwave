@@ -85,9 +85,10 @@ unsigned int Stripe::resizeStorage(unsigned int length)
 
     if (length == 0) {
 	// delete the array
-	sample_t *oldstorage = m_samples.data();
-	m_samples.resetRawData(oldstorage, m_samples.size());
-	mem.free(reinterpret_cast<void*>(oldstorage));
+	void *oldstorage = m_samples.data();
+	m_samples.resetRawData(reinterpret_cast<sample_t *>(oldstorage), 
+	                       m_samples.size());
+	mem.free(oldstorage);
 	return 0;
     }
 

@@ -595,7 +595,7 @@ void PlayBackALSA::scanDevices()
 {
     snd_ctl_t *handle;
     int card, err, dev;
-//  int idx;
+    int idx;
     snd_ctl_card_info_t *info;
     snd_pcm_info_t *pcminfo;
     snd_ctl_card_info_alloca(&info);
@@ -629,7 +629,7 @@ void PlayBackALSA::scanDevices()
 	}
 	dev = -1;
 	while (1) {
-// 	    unsigned int count;
+	    unsigned int count;
 	    if (snd_ctl_pcm_next_device(handle, &dev)<0)
 		qWarning("snd_ctl_pcm_next_device");
 	    if (dev < 0)
@@ -643,6 +643,8 @@ void PlayBackALSA::scanDevices()
 		             snd_strerror(err));
 		continue;
 	    }
+	    count = snd_pcm_info_get_subdevices_count(pcminfo);
+
 	    qDebug("card %i: %s [%s], device %i: %s [%s]",
 		card,
 		snd_ctl_card_info_get_id(info),
@@ -656,22 +658,65 @@ void PlayBackALSA::scanDevices()
 	    hw_device = "plughw:%1,%2";
 	    hw_device = hw_device.arg(card).arg(dev);
 
-	    QString device_name = "%1 - %2";
-	    device_name = device_name.arg(
-	        snd_ctl_card_info_get_name(info)).arg(
-		snd_pcm_info_get_name(pcminfo));
-	    m_device_list.insert(device_name, hw_device);
+	    QString card_dev_name = i18n("pcmC%1D%2").arg(card).arg(dev);;
+	    QString card_name = snd_ctl_card_info_get_name(info);
+	    QString dev_name  = snd_pcm_info_get_name(pcminfo);
 
-// 	    count = snd_pcm_info_get_subdevices_count(pcminfo);
-// 	    fprintf(stderr, "  Subdevices: %i/%i\n", snd_pcm_info_get_subdevices_avail(pcminfo), count);
-// 	    for (idx = 0; idx < (int)count; idx++) {
-// 		snd_pcm_info_set_subdevice(pcminfo, idx);
-// 		if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
-// 		    qWarning("control digital audio playback info (%i): %s", card, snd_strerror(err));
-// 		} else {
-// 		    fprintf(stderr, "  Subdevice #%i: %s\n", idx, snd_pcm_info_get_subdevice_name(pcminfo));
-// 		}
-// 	    }
+	    QString card_dev_verbose = card_name;
+	    if (card_name != dev_name) {
+		card_dev_verbose += " / ";
+		card_dev_verbose += dev_name;
+	    }
+
+#if 0
+
+# just some examples:
+
+**** List of PLAYBACK Hardware Devices ****
+card 0: V8235 [VIA 8235], device 0: VIA 8235 [VIA 8235]
+  Subdevices: 4/4
+  Subdevice #0: subdevice #0
+  Subdevice #1: subdevice #1
+  Subdevice #2: subdevice #2
+  Subdevice #3: subdevice #3
+card 0: V8235 [VIA 8235], device 1: VIA 8235 [VIA 8235]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+
+*** List of PLAYBACK Hardware Devices ****
+card 0: I82801DBICH4 [Intel 82801DB-ICH4], device 0: Intel ICH [Intel 82801DB-ICH4]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: I82801DBICH4 [Intel 82801DB-ICH4], device 4: Intel ICH - IEC958 [Intel 82801DB-ICH4 - IEC958]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+
+#endif
+
+//  	    qDebug("  Subdevices: %i/%i\n",
+// 		snd_pcm_info_get_subdevices_avail(pcminfo), count);
+	    if (count > 0) {
+		for (idx = 0; idx < (int)count; idx++) {
+		    snd_pcm_info_set_subdevice(pcminfo, idx);
+		    if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
+			qWarning("ctrl digital audio playback info (%i): %s",
+			         card, snd_strerror(err));
+		    } else {
+// 			qDebug("  Subdevice #%i: %s\n", idx,
+// 			       snd_pcm_info_get_subdevice_name(pcminfo));
+			QString name = card_dev_name + QString("S%1").arg(idx);
+			name += QString(" [%1 / %2]").arg(card_dev_verbose).arg(
+			        snd_pcm_info_get_subdevice_name(pcminfo));
+			qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
+			m_device_list.insert(name, hw_device);
+		    }
+		}
+	    } else {
+		// no sub-devices
+		QString name = card_dev_name + QString(" [%1]").arg(card_dev_verbose);
+		qDebug("# '%s' -> '%s'", hw_device.data(), name.data());
+		m_device_list.insert(name, hw_device);
+	    }
 	}
 	snd_ctl_close(handle);
 next_card:

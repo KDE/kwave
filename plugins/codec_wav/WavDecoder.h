@@ -22,6 +22,8 @@
 #include <qobject.h>
 #include "libkwave/Decoder.h"
 
+class VirtualAudioFile;
+
 class WavDecoder: public Decoder
 {
 public:
@@ -62,6 +64,8 @@ protected:
     /** source of the audio data */
     QIODevice *m_source;
 
+    /** adapter for libaudiofile */
+    VirtualAudioFile *m_src_adapter;
 };
 
 #endif /* _WAV_DECODER_H_ */

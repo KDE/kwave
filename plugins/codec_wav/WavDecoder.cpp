@@ -18,6 +18,12 @@
 #include "config.h"
 #include <endian.h>
 #include <byteswap.h>
+#include <stdlib.h>
+
+extern "C" {
+#include "libaudiofile/audiofile.h" // from libaudiofile
+#include "libaudiofile/af_vfs.h"    // from libaudiofile
+}
 
 #include <qprogressdialog.h>
 
@@ -33,6 +39,7 @@
 
 #include "RIFFChunk.h"
 #include "RIFFParser.h"
+#include "VirtualAudioFile.h"
 #include "WavDecoder.h"
 #include "WavFileFormat.h"
 #include "WavFormatMap.h"
@@ -41,7 +48,7 @@
 
 //***************************************************************************
 WavDecoder::WavDecoder()
-    :Decoder(), m_source(0)
+    :Decoder(), m_source(0), m_src_adapter(0)
 {
     LOAD_MIME_TYPES;
 }
@@ -50,6 +57,7 @@ WavDecoder::WavDecoder()
 WavDecoder::~WavDecoder()
 {
     if (m_source) close();
+    if (m_src_adapter) delete m_src_adapter;
 }
 
 //***************************************************************************
@@ -248,7 +256,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     // get the encoded block of data from the mime source
     CHECK(src.size() > sizeof(wav_header_t)+8);
 
-    unsigned int datalen = src.size() - (sizeof(wav_header_t) + 8);
+//    unsigned int datalen = src.size() - (sizeof(wav_header_t) + 8);
 
     // get the header
     src.readBlock((char *)&header, sizeof(wav_fmt_header_t));
@@ -260,10 +268,10 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     header.min.blockalign  = bswap_16(header.min.blockalign);
     header.min.bitwidth    = bswap_16(header.min.bitwidth);
 #endif
-    const unsigned int tracks = header.min.channels;
+    unsigned int tracks = header.min.channels;
     rate = header.min.samplerate;
     bits = header.min.bitwidth;
-    const unsigned int bytes = (bits >> 3);
+//    const unsigned int bytes = (bits >> 3);
 
     WavFormatMap known_formats;
     QString format_name = known_formats.findName(header.min.format);
@@ -292,59 +300,157 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 //    }
 
     // some sanity checks
-    CHECK(header.min.bytespersec == rate * bytes * tracks);
-    CHECK(static_cast<unsigned int>(header.min.blockalign) == bytes*tracks);
+//    CHECK(header.min.bytespersec == rate * bytes * tracks);
+//    CHECK(static_cast<unsigned int>(header.min.blockalign) == bytes*tracks);
 //    CHECK(header.filelength == (datalen + sizeof(wav_header_t)));
 //    CHECK(header.fmtlength == 16);
-    CHECK(header.min.format == 1); /* currently only mode 1 is supported :-( */
+//    CHECK(header.min.format == 1); /* currently only mode 1 is supported :-( */
+
+    // open the file through libaudiofile :)
+    m_src_adapter = new VirtualAudioFile(*m_source);
+    ASSERT(m_src_adapter);
+    if (!m_src_adapter) return false;
+
+    AFfilehandle fh = m_src_adapter->handle();
+    ASSERT(fh);
+    if (!fh || (m_src_adapter->lastError() >= 0)) {
+	QString reason;
+	
+	switch (m_src_adapter->lastError()) {
+	    case AF_BAD_NOT_IMPLEMENTED:
+	        reason = i18n("format or function is not implemented");
+	        break;
+	    case AF_BAD_MALLOC:
+	        reason = i18n("out of memory");
+	        break;
+	    case AF_BAD_HEADER:
+	        reason = i18n("file header is damaged");
+	        break;
+	    case AF_BAD_CODEC_TYPE:
+	        reason = i18n("invalid codec type");
+	        break;
+	    case AF_BAD_OPEN:
+	        reason = i18n("opening the file failed");
+	        break;
+	    case AF_BAD_READ:
+	        reason = i18n("read access failed");
+	        break;
+	    case AF_BAD_SAMPFMT:
+	        reason = i18n("invalid sample format");
+	        break;
+	    default:
+		reason = reason.number(m_src_adapter->lastError());
+	}
+	
+	QString text= i18n("An error occurred while opening the "\
+	    "file:\n'%1'").arg(reason);
+	KMessageBox::error(widget, text);
+	
+	return false;
+    }
+
+    unsigned int length = afGetFrameCount(fh, AF_DEFAULT_TRACK);
+    tracks = afGetVirtualChannels(fh, AF_DEFAULT_TRACK);
+
+    int sample_format;
+    afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &sample_format,
+	(int *)(&bits));
+
+    QString sample_format_name;
+    switch (sample_format) {
+	case AF_SAMPFMT_TWOSCOMP:
+	    sample_format_name = "linear two's complement";
+	    break;
+	case AF_SAMPFMT_UNSIGNED:
+	    sample_format_name = "unsigned integer";
+	    break;
+	case AF_SAMPFMT_FLOAT:
+	    sample_format_name = "32-bit IEEE floating-point";
+	    break;
+	case AF_SAMPFMT_DOUBLE:
+	    sample_format_name = "64-bit IEEE double-precision floating-point";
+	    break;
+	default:
+	    format_name = "(unknown)";
+    }
+    if (static_cast<signed int>(bits) < 0) bits = 0;
 
     info().setRate(rate);
     info().setBits(bits);
     info().setTracks(tracks);
-    info().setLength(datalen / bytes / tracks);
+    info().setLength(length);
+    debug("-------------------------");
+    debug("info:");
+    debug("channels    = %d", info().tracks());
+    debug("rate        = %0.0f", info().rate());
+    debug("bits/sample = %d", info().bits());
+    debug("length      = %d samples", info().length());
+    debug("format      = %d (%s)", sample_format, sample_format_name.data());
+    debug("-------------------------");
 
-    src.at(data_offset);
+    // set up libaudiofile to produce Kwave's internal sample format
+#if defined(IS_BIG_ENDIAN)
+    afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_BIGENDIAN);
+#else
+    afSetVirtualByteOrder(fh, AF_DEFAULT_TRACK, AF_BYTEORDER_LITTLEENDIAN);
+#endif
+    afSetVirtualSampleFormat(fh, AF_DEFAULT_TRACK,
+	AF_SAMPFMT_TWOSCOMP, SAMPLE_STORAGE_BITS);
+
     return true;
 }
 
 //***************************************************************************
 bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 {
+    ASSERT(m_src_adapter);
     ASSERT(m_source);
     if (!m_source) return false;
+    if (!m_src_adapter) return false;
 
-    const unsigned int bits   = info().bits();
+    AFfilehandle fh = m_src_adapter->handle();
+    ASSERT(fh);
+    if (!fh) return false;
+
+    unsigned int frame_size = (unsigned int)afGetVirtualFrameSize(fh,
+	AF_DEFAULT_TRACK, 1);
+
+    // allocate a buffer for input data
+    const unsigned int buffer_frames = (8*1024);
+    int32_t *buffer = (int32_t *)malloc(buffer_frames * frame_size);
+    ASSERT(buffer);
+    if (!buffer) return false;
+
+    // read in from the audiofile source
     const unsigned int tracks = info().tracks();
-    const unsigned int bytes = (bits >> 3);
-
-    // fill the signal with data
-    const __uint32_t sign = 1 << (24-1);
-    const unsigned int negative = ~(sign - 1);
-    const unsigned int shift = 24-bits;
-
     unsigned int rest = info().length();
-    while (rest--) {
-	__uint32_t s = 0; // raw 32bit value
-	for (unsigned int track = 0; track < tracks; track++) {
-	    SampleWriter *stream = dst[track];
+    while (rest) {
+	unsigned int frames = buffer_frames;
+	if (frames > rest) frames = rest;
+	unsigned int buffer_used = afReadFrames(fh,
+	    AF_DEFAULT_TRACK, (char *)buffer, frames);
 	
-	    if (bytes == 1) {
-		// 8-bit files are always unsigned !
-		s = (static_cast<__uint8_t>(m_source->getch() - 128))<<shift;
-	    } else {
-		// >= 16 bits is signed
-		s = 0;
-		for (register unsigned int byte = 0; byte < bytes; byte++) {
-		    s |= (static_cast<__uint8_t>(m_source->getch())
-		        << ((byte << 3) + shift));
+	// break if eof reached	
+	ASSERT(buffer_used);
+	if (!buffer_used) break;
+	rest -= buffer_used;
+	
+	// split into the tracks
+	int32_t *p = buffer;
+	unsigned int count = buffer_used;
+	while (count--) {
+	    for (unsigned int track = 0; track < tracks; track++) {
+		register int32_t s = *p++;
+		
+		// adjust precision
+		if (SAMPLE_STORAGE_BITS != SAMPLE_BITS) {
+		    s /= (1 << (SAMPLE_STORAGE_BITS-SAMPLE_BITS));
 		}
-		// sign correcture for negative values
-		if (s & sign) s |= negative;
+		
+		// the following cast is only necessary if
+		// sample_t is not equal to a u_int32_t
+		*(dst[track]) << static_cast<sample_t>(s);
 	    }
-	
-	    // the following cast is only necessary if
-	    // sample_t is not equal to a 32bit int
-	    *stream << static_cast<sample_t>(s);
 	}
 	
 	// abort if the user pressed cancel
@@ -352,228 +458,17 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
     }
 
     // return with a valid Signal, even if the user pressed cancel !
+    if (buffer) free(buffer);
     return true;
 }
 
 //***************************************************************************
 void WavDecoder::close()
 {
+    if (m_src_adapter) delete m_src_adapter;
+    m_src_adapter = 0;
     m_source = 0;
 }
-
-/* ###
-
-below comes some old code from the SignalManager. It's features should
-get merged into the new code again...
-
-int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
-                                unsigned int channels, int bits)
-{
-    debug("SignalManager::loadWavChunk(): offset     = %d", sigfile.at());
-    debug("SignalManager::loadWavChunk(): length     = %d samples", length);
-    debug("SignalManager::loadWavChunk(): tracks     = %d", channels);
-    debug("SignalManager::loadWavChunk(): resoultion = %d bits/sample", bits);
-
-    // check if the file is large enough for "length" samples
-    size_t file_rest = sigfile.size() - sigfile.at();
-    if (length > file_rest/bytes_per_sample) {
-	debug("SignalManager::loadWavChunk: "\
-	      "length=%d, rest of file=%d",length,file_rest);
-	KMessageBox::error(m_parent_widget,
-	    i18n("Error in input: file is smaller than stated "\
-	    "in the header. \n"\
-	    "File will be truncated."));
-	length = file_rest/bytes_per_sample;
-    }
-
-	    warning("SignalManager::loadWavChunk:EOF reached?"\
-		    " (at sample %ld, expected length=%d",
-		    sigfile.at() / bytes_per_sample - start_offset, length);
-	    break;
-	}
-}
-### */
-
-//    /**
-//     * Try to find a chunk within a RIFF file. If the chunk
-//     * was found, the current position will be at the start
-//     * of the chunk's data.
-//     * @param sigfile file to read from
-//     * @param chunk name of the chunk
-//     * @param offset the file offset for start of the search
-//     * @return the size of the chunk, 0 if not found
-//     */
-//    __uint32_t findChunk(QFile &sigfile, const char *chunk,
-//	__uint32_t offset = 12);
-//
-//    /**
-//     * Imports ascii file with one sample per line and only one
-//     * track. Everything that cannot be parsed by strod will be ignored.
-//     * @return 0 if succeeded or error number if failed
-//     */
-//    int loadAscii();
-//
-//    /**
-//     * Loads a .wav-File.
-//     * @return 0 if succeeded or a negative error number if failed:
-//     *           -ENOENT if file does not exist,
-//     *           -ENODATA if the file has no data chunk or is zero-length,
-//     *           -EMEDIUMTYPE if the file has an invalid/unsupported format
-//     */
-//    int loadWav();
-//
-//    /**
-//     * Reads in the wav data chunk from a .wav-file. It creates
-//     * a new empty Signal for each track and fills it with
-//     * data read from an opened file. The file's actual position
-//     * must already be set to the correct position.
-//     * @param sigin reference to the already opened file
-//     * @param length number of samples to be read
-//     * @param tracks number of tracks [1..n]
-//     * @param number of bits per sample [8,16,24,...]
-//     * @return 0 if succeeded or error number if failed
-//     */
-//    int loadWavChunk(QFile &sigin, unsigned int length,
-//                     unsigned int tracks, int bits);
-//
-//    /**
-//     * Writes the chunk with the signal to a .wav file (not including
-//     * the header!).
-//     * @param sigout reference to the already opened file
-//     * @param offset start position from where to save
-//     * @param length number of samples to be written
-//     * @param bits number of bits per sample [8,16,24,...]
-//     * @return 0 if succeeded or error number if failed
-//     */
-//    int writeWavChunk(QFile &sigout, unsigned int offset, unsigned int length,
-//                      unsigned int bits);
-
-/* ###
-int SignalManager::loadWav()
-{
-    wav_fmt_header_t fmt_header;
-    int result = 0;
-    __uint32_t num;
-    __uint32_t length;
-
-    ASSERT(m_closed);
-    ASSERT(m_empty);
-
-    QFile sigfile(m_name);
-    if (!sigfile.open(IO_ReadOnly)) {
-	KMessageBox::error(m_parent_widget,
-		i18n("File does not exist !"));
-	return -ENOENT;
-    }
-
-    // --- check if the file starts with "RIFF" ---
-    num = sigfile.size();
-    length = findChunk(sigfile, "RIFF", 0);
-    if ((length == 0) || (sigfile.at() != 8)) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("File is no RIFF File !"));
-	// maybe recoverable...
-    } else if (length+8 != num) {
-//	KMessageBox::error(m_parent_widget,
-//	    i18n("File has incorrect length! (maybe truncated?)"));
-	// will be warned anyway later...
-	// maybe recoverable...
-    } else {
-	// check if the chunk data contains "WAVE"
-	char file_type[16];
-	num = sigfile.readBlock((char*)(&file_type), 4);
-	if ((num != 4) || strncmp("WAVE", file_type, 4)) {
-	    KMessageBox::error(m_parent_widget,
-		i18n("File is no WAVE File !"));
-	    // maybe recoverable...
-	}
-    }
-
-    // ------- read the "fmt " chunk -------
-    ASSERT(sizeof(fmt_header) == 16);
-    num = findChunk(sigfile, "fmt ");
-    if (num != sizeof(fmt_header)) {
-	debug("SignalManager::loadWav(): length of fmt chunk = %d", num);
-	KMessageBox::error(m_parent_widget,
-	    i18n("File does not contain format information!"));
-	return -EMEDIUMTYPE;
-    }
-    num = sigfile.readBlock((char*)(&fmt_header), sizeof(fmt_header));
-#ifdef IS_BIG_ENDIAN
-    fmt_header.length = bswap_32(fmt_header.length);
-    fmt_header.mode = bswap_16(fmt_header.mode);
-    fmt_header.channels = bswap_16(fmt_header.channels);
-    fmt_header.rate = bswap_32(fmt_header.rate);
-    fmt_header.AvgBytesPerSec = bswap_32(fmt_header.AvgBytesPerSec);
-    fmt_header.BlockAlign = bswap_32(fmt_header.BlockAlign);
-    fmt_header.bitspersample = bswap_16(fmt_header.bitspersample);
-#endif
-    if (fmt_header.mode != 1) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("File must be uncompressed (Mode 1) !"),
-	    i18n("Sorry"), 2);
-	return -EMEDIUMTYPE;
-    }
-
-    m_rate = fmt_header.rate;
-    m_signal.setBits(fmt_header.bitspersample);
-
-    // ------- search for the data chunk -------
-    length = findChunk(sigfile, "data");
-    if (!length) {
-	warning("length = 0, but file size = %u, current pos = %u",
-	    sigfile.size(), sigfile.at());
-	
-	if (sigfile.size() - sigfile.at() > 0) {
-	    if (KMessageBox::warningContinueCancel(m_parent_widget,
-		i18n("File is damaged: the file header reports zero length\n"\
-		     "but the file seems to contain some data. \n\n"\
-		     "Kwave can try to recover the file, but the\n"\
-		     "result might contain trash at it's start and/or\n"\
-		     "it's end. It is strongly advisable to edit the\n"\
-		     "damaged parts manually and save the file again\n"\
-		     "to fix the problem.\n\n"\
-		     "Try to recover?"),
-		     i18n("Damaged File"),
-		     i18n("&Recover")) == KMessageBox::Continue)
-	    {
-		length = sigfile.size() - sigfile.at();
-	    } else return -EMEDIUMTYPE;
-	} else {
-	    KMessageBox::error(m_parent_widget,
-	        i18n("File does not contain data!"));
-	    return -EMEDIUMTYPE;
-	}
-    }
-
-    length = (length/(fmt_header.bitspersample/8))/fmt_header.channels;
-    switch (fmt_header.bitspersample) {
-	case 8:
-	case 16:
-	case 24:
-	    ASSERT(m_empty);
-	    // currently the signal should be closed and empty
-	    // now make it opened but empty
-	    m_closed = false;
-	    emitStatusInfo();
-	    result = loadWavChunk(sigfile, length,
-				  fmt_header.channels,
-				  fmt_header.bitspersample);
-	    break;
-	default:
-	    KMessageBox::error(m_parent_widget,
-		i18n("Sorry only 8/16/24 Bits per Sample"\
-		" are supported !"), i18n("Sorry"), 2);
-	    result = -EMEDIUMTYPE;
-    }
-
-    if (result == 0) {
-	debug("SignalManager::loadWav(): successfully opened");
-    }
-
-    return result;
-}
-### */
 
 //***************************************************************************
 //***************************************************************************

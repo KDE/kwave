@@ -47,7 +47,7 @@ int main( int argc, char **argv )
     KCmdLineArgs::addCmdLineOptions(options);
     KwaveApp::addCmdLineOptions();
 
-    KCrash::setCrashHandler(0);
+//    KCrash::setCrashHandler(0);
 
 #ifdef UNIQUE_APP
     if (!KUniqueApplication::start()) {

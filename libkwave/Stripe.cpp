@@ -18,7 +18,6 @@
 #include <string.h> // for some speed-ups like memmove, memcpy ...
 #include "mt/MutexGuard.h"
 #include "libkwave/Stripe.h"
-#include "kwave/KwaveApp.h"
 #include "kwave/MemoryManager.h"
 
 // define this for using only slow Qt array functions
@@ -70,7 +69,7 @@ unsigned int Stripe::resizeStorage(unsigned int length)
 {
     if (m_samples.size() == length) return length; // nothing to do
 
-    MemoryManager &mem = KwaveApp::memoryManager();
+    MemoryManager &mem = MemoryManager::instance();
 
 #ifndef STRICTLY_QT
     if (m_samples.size() == 0) {

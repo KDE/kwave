@@ -67,6 +67,12 @@ protected:
      */
     int interpreteParameters(QStringList &params);
 
+    /**
+     * Applies the current settings by passing them to
+     * Kwave's global MemoryManager
+     */
+    void applySettings();
+
 private:
 
     /** If true, the physical memory is limited */

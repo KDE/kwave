@@ -161,7 +161,7 @@ AC_CHECK_HEADERS( assert.h byteswap.h ctype.h dlfcn.h endian.h errno.h \
 
 dnl Check for memory info and see if we can determine
 dnl the total amount of installed memory
-AC_MSG_CHECKING("memory info")
+AC_MSG_CHECKING("for memory info")
 AC_TRY_LINK(
 #include <sys/sysinfo.h>
 #include <linux/kernel.h>
@@ -178,6 +178,20 @@ AC_MSG_RESULT("present")
 !!! You might get inaccurate behaviour of the memory management !!!
 
 ))
+
+dnl check for resource query functions
+AC_MSG_CHECKING("for resource usage")
+AC_TRY_LINK(
+#include <sys/resource.h>
+,
+    struct rlimit limit;
+    getrlimit(RLIMIT_DATA, &limit);
+    unsigned int ulimit = limit.rlim_cur >> 20;
+    getrlimit(RLIMIT_AS, &limit);
+,
+AC_DEFINE(HAVE_GETRLIMIT)
+AC_MSG_RESULT("present")
+,AC_MSG_WARN(MISSING!))
 
 dnl Checks for libraries.
 dnl AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' X11

@@ -22,6 +22,7 @@
 #include <qstringlist.h>
 
 #include "libgui/KwavePlugin.h"
+#include "kwave/MemoryManager.h"
 #include "MemoryPlugin.h"
 #include "MemoryDialog.h"
 
@@ -95,6 +96,16 @@ int MemoryPlugin::interpreteParameters(QStringList &params)
 void MemoryPlugin::load(QStringList &params)
 {
     interpreteParameters(params);
+    applySettings();
+}
+
+//***************************************************************************
+void MemoryPlugin::applySettings()
+{
+    MemoryManager &mem = MemoryManager::instance();
+    mem.setPhysicalLimit(m_physical_limit);
+    mem.setVirtualLimit(m_virtual_limit);
+    mem.setSwapDirectory(m_virtual_directory);
 }
 
 //***************************************************************************
@@ -118,6 +129,7 @@ QStringList *MemoryPlugin::setup(QStringList &previous_params)
 	if (result) {
 	    dlg->params(*result);
 	    interpreteParameters(*result);
+	    applySettings();
 	}
     };
 

@@ -9,15 +9,10 @@
 /* Define if you can safely include both <sys/time.h> and <time.h>.  */
 #undef TIME_WITH_SYS_TIME
 
-/* Define to `unsigned' if <sys/types.h> doesn't define.  */
-#undef size_t
+/* check for sys/resource.h and getrlimit */
+#undef HAVE_GETRLIMIT
 
-/* Define if you have the ANSI C header files.  */
-#undef STDC_HEADERS
-
-/* Define if you can safely include both <sys/time.h> and <time.h>.  */
-#undef TIME_WITH_SYS_TIME
-
+/* check for sysinfo to query total ram */
 #undef HAVE_MEMINFO
 
 /* The number of bytes in a char.  */

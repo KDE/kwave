@@ -19,11 +19,6 @@
 #include <limits.h>
 #include <unistd.h>
 
-#ifdef HAVE_MEMINFO
-#include <linux/kernel.h> // for struct sysinfo
-#include <sys/sysinfo.h>  // for sysinfo()
-#endif
-
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qlineedit.h>
@@ -37,6 +32,7 @@
 #include <kfiledialog.h>
 
 #include "MemoryDialog.h"
+#include "kwave/MemoryManager.h"
 
 //***************************************************************************
 MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
@@ -44,15 +40,12 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     unsigned int virtual_limit, const QString &virtual_dir)
     : MemDlg(parent, 0, true)
 {
-    unsigned int installed_physical = 4096;
-
-#ifdef HAVE_MEMINFO
-    struct sysinfo info;
-    sysinfo(&info); // get physical memory
-    installed_physical = (info.totalram >> 20); // convert to megabytes
-#endif
+    MemoryManager &mem = MemoryManager::instance();
+    unsigned int total_physical = mem.totalPhysical();
 
     if (!isOK()) return;
+
+    if (physical_limit > total_physical) physical_limit = total_physical;
 
     // connect the controls
     connect(chkEnableVirtual, SIGNAL(toggled(bool)),
@@ -62,8 +55,8 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
 
     // initialize all controls
     chkLimitPhysical->setChecked(physical_limited);
-    slPhysical->setMaxValue(installed_physical);
-    sbPhysical->setMaxValue(installed_physical);
+    slPhysical->setMaxValue(total_physical);
+    sbPhysical->setMaxValue(total_physical);
     slPhysical->setValue(physical_limit);
     sbPhysical->setValue(physical_limit);
     chkEnableVirtual->setChecked(virtual_enabled);

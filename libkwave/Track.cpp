@@ -44,6 +44,7 @@ Track::~Track()
     SharedLockGuard lock(m_lock, true);
 
     while (m_stripes.count()) {
+	m_stripes.setAutoDelete(true);
 	m_stripes.remove(m_stripes.last());
     }
 }

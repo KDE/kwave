@@ -54,9 +54,13 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     /* first get and check some header information */
     const unsigned int tracks = info.tracks();
     const unsigned int length = info.length();
-    const unsigned int bits   = info.bits();
+    unsigned int bits         = info.bits();
     const unsigned int rate   = static_cast<unsigned int>(
 	rint(info.rate()));
+
+    // use default bit resolution if missing
+    ASSERT(bits);
+    if (!bits) bits = 16;
 
     // check for a valid source
     ASSERT(tracks);

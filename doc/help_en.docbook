@@ -194,6 +194,9 @@
                 <listitem><para>
                     added a new tab in About dialogbox with a list of installed plugins
                 </para></listitem>
+                <listitem><para>
+                    fix an i18n problem in the About dialogbox
+                </para></listitem>
             </itemizedlist>
         </listitem>
         <listitem>

@@ -1,6 +1,6 @@
 %define ver @RPM_SHORT_VERSION@
 %define release @RPM_RELEASE@
-%define filelist %{name}-@RPM_FULL_VERSION@/files.list.%{name}
+%define filelist %{name}-@RPM_SHORT_VERSION@/files.list.%{name}
 %define rpm_opt_flags ${RPM_OPT_FLAGS}
 
 Summary:	@RPM_SUMMARY@

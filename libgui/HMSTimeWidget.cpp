@@ -44,7 +44,7 @@ int HMSTimeWidget::value()
 void HMSTimeWidget::setValue(int value)
 {
     if (value < 0) value = 0;
-    if (value > m_limit) value = m_limit;
+    if ((unsigned int)value > m_limit) value = m_limit;
     m_time = value;
 
     const int seconds = (m_time % 60);

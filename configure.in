@@ -15,7 +15,7 @@ dnl Perform program name transformation
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(kwave,0.6.5-cvs)
+AM_INIT_AUTOMAKE(kwave,0.6.5-pre1)
 
 KDE_SET_PREFIX
 

@@ -19,6 +19,7 @@
 #include "mt/MutexGuard.h"
 #include "mt/MutexSet.h"
 
+#include "libkwave/SampleReader.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
@@ -178,8 +179,8 @@ SampleReader *Track::openSampleReader(unsigned int left,
 
     // lock the needed range for shared writing
     range_lock = new SampleLock(*this, left, right-left+1,
-	SampleLock::WriteShared);
-	
+	SampleLock::ReadShared);
+
     // add all stripes within the specified range to the list
     QListIterator<Stripe> it(m_stripes);
     for (; it.current(); ++it) {
@@ -195,6 +196,17 @@ SampleReader *Track::openSampleReader(unsigned int left,
 	}
     }
 
+    // no lock yet, that's not good...
+    ASSERT(range_lock);
+    if (!range_lock) return 0;
+
+    // create the input stream
+    SampleReader *stream = new SampleReader(*this, stripes,
+	range_lock, left, right);
+    ASSERT(stream);
+    if (stream) return stream;
+
+    // stream creation failed, clean up
     if (range_lock) delete range_lock;
     return 0;
 }

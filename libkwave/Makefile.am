@@ -20,6 +20,7 @@ libkwave_la_SOURCES=\
  mmap.cpp\
  Parser.cpp\
  Signal.cpp\
+ SampleReader.cpp\
  SampleWriter.cpp\
  SampleLock.cpp\
  Stripe.cpp\

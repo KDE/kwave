@@ -40,11 +40,11 @@ class SampleWriter
 {
 public:
     /**
-     * Constructor. Creates an input stream an locks all
+     * Constructor. Creates an input stream and locks all
      * necessary stripes within the track.
      * @param track
      * @param stripes list of stripes, already locked for us
-     * @param locks set of locks for the stripes
+     * @param lock the lock for the needed range of samples
      * @param mode specifies where and how to insert
      * @param left start of the input (only useful in insert and
      *             overwrite mode)

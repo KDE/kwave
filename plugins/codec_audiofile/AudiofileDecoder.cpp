@@ -50,18 +50,18 @@ AudiofileDecoder::AudiofileDecoder()
     /* defined in RFC 1521 */
     addMimeType("audio/basic",
                 i18n("NeXT,Sun Audio"),
-                "*.au; *.snd");
+                "*.au; *.AU; *.snd; *.SND");
 
     /* some others, mime types might be wrong (I found no RFC or similar)  */
     addMimeType("audio/x-aifc",
                 i18n("Compressed Audio Interchange Format"),
-                "*.aifc");
+                "*.aifc; *.AIFC");
     addMimeType("audio/x-aif", /* included in KDE */
                 i18n("Audio Interchange Format"),
-                "*.aif; *.aiff");
+                "*.aif; *.AIF; *.aiff; *.AIFF");
     addMimeType("audio/ircam",
                 i18n("Berkeley,IRCAM,Carl Sound Format"),
-                "*.sf");
+                "*.sf; *.SF");
 }
 
 //***************************************************************************

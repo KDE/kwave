@@ -6,11 +6,10 @@
 #include <qfiledlg.h>
 #include <qwidget.h>
 #include <qtimer.h>
-#include "sample.h"
-#include "multistateimage.h"
-#include "overview.h"
+#include "mousemark.h"
+#include "../libgui/multistateimage.h"
 #include "menumanager.h"
-#include "markers.h"
+#include "../lib/markers.h"
 #include <kapp.h>
 #include <kselect.h>
 #include <kstatusbar.h>  
@@ -37,6 +36,7 @@
 #define ADDMARKTYPE 	 7010
 #define SELECTMARK	 7100 //leave #MAXMENU Items space behind !
 
+class SignalManager;
 //***********************************************************
 class SignalWidget : public QWidget
 //this class is mainly responsible for displaying signals in the time-domain
@@ -51,16 +51,15 @@ class SignalWidget : public QWidget
  void 	saveSignal		(QString *filename,int,int=false);
  void 	saveBlocks		(int);
  void 	saveSelectedSignal	(QString *filename,int,int=false);
- void 	setSignal		(MSignal *signal);
+ void 	setSignal		(SignalManager *signal);
  void	setZoom			(double);
- void	setRange		(int,int);
  unsigned char   *getOverview   (int);
  int    checkPosition	        (int);
  void 	drawSelection		(int,int);
- void   setMarkType(int);
- void   addMarkType();
- void   addMarkType (struct MarkerType *marker);
-
+ void   setMarkType             (int);
+ void   addMarkType             ();
+ void   addMarkType             (struct MarkerType *marker);
+ int	doCommand	        (const char *);
 
  public slots:
 
@@ -82,24 +81,21 @@ class SignalWidget : public QWidget
  void channelReset	();
  void playingfinished	();
  void viewInfo		(int,int,int);
- void lengthInfo	(int);
- void rateInfo		(int);
- void timeInfo		(int);
- void selectedtimeInfo	(int);
- void channelInfo       (int);
  void addMarkerType     (struct MarkerType *);
 
  protected:
 
+
+ void	setRange		(int,int);
+ void	selectRange		();
+
  void	mousePressEvent		(QMouseEvent * );
  void	mouseReleaseEvent	(QMouseEvent * );  
  void	mouseMoveEvent		(QMouseEvent * );  
- void	paintEvent	(QPaintEvent *);
- void	deleteLastRange	();
- void	drawRange	();
- void	drawSignal	(int *,int,int);
- void	drawInterpolatedSignal	(int *,int,int);
- void	drawOverviewSignal	(int *,int,int);
+ void	paintEvent	        (QPaintEvent *);
+ void	drawInterpolatedSignal	(int,int,int);
+ void	drawOverviewSignal	(int,int,int);
+
  void	calcTimeInfo	();
  void   loadMarks       ();
  void   appendMarks     ();
@@ -112,22 +108,23 @@ class SignalWidget : public QWidget
  void   markPeriods     ();
  void   savePeriods     ();
  void   createSignal    ();
+ void   connectSignal   ();
 
  private:
- int	offset;
- int	width,height;		//of widget
- int	down,reset;		//flags for drawing
+ int	offset;                 //offset from which signal is beeing displayed
+ int	width,height;		//of this widget
+ int	down;       		//flags if mouse is pressed
+ double lasty; 
  double zoomy;
  double	zoom;			//number of samples represented by 1
 				//vertical line on the screen
- int	firstx,lastx,nextx;	//markers for mouse mark operation
- int    lasty;			//marker for mouse zoom...      
  int	playpointer,lastplaypointer;	 
  int	playing;		//flag if playing task is running...
  int	redraw;		        //flag for redrawing pixmap
- MSignal	*signal;
+ MouseMark      *select;
+ SignalManager	*signalmanage;
  QTimer		*timer;
- QPainter 	p;
+ QPainter       p;
  QPixmap	*pixmap;	//pixmap to be blitted to screen
  MarkerList     *markers;       //linked list of markers
  MarkerType     *markertype;    //selected marker type

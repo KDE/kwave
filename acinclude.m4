@@ -138,11 +138,11 @@ all_includes=$X_INCLUDES
 ## and $(QT_INCLUDES) will be -Iqthdrlocation (if needed)
 ## ------------------------------------------------------------------------
 ##
-AC_DEFUN(AC_PATH_QT_1_3,
+AC_DEFUN(AC_PATH_QT_1_4,
 [
 AC_REQUIRE([K_PATH_X])
 
-AC_MSG_CHECKING([for QT-1.30])
+AC_MSG_CHECKING([for QT-1.40])
 ac_qt_includes=NO ac_qt_libraries=NO
 qt_libraries=""
 qt_includes=""
@@ -176,7 +176,7 @@ ac_qt_includes=$qt_incdir
 
 qt_libdirs="/usr/lib/qt/lib /usr/local/qt/lib /usr/lib/qt /usr/lib $x_libraries $QTLIB"
 test -n "$QTDIR" && qt_libdirs="$QTDIR/lib $QTDIR $qt_libdirs"
-AC_FIND_FILE(libqt.so libqt.so.1.30 libqt.so.1 libqt.a libqt.sl, $qt_libdirs, qt_libdir)
+AC_FIND_FILE(libqt.so libqt.so.1.4? libqt.so.1 libqt.a libqt.sl, $qt_libdirs, qt_libdir)
 ac_qt_libraries=$qt_libdir
 
 ac_cxxflags_safe=$CXXFLAGS
@@ -222,7 +222,7 @@ if test "$ac_qt_includes" = NO || test "$ac_qt_libraries" = NO; then
     ac_qt_notfound="(libraries)";
   fi
 
-  AC_MSG_ERROR([QT-1.30 $ac_qt_notfound not found. Please check your installation! ]);
+  AC_MSG_ERROR([QT-1.40 $ac_qt_notfound not found. Please check your installation! ]);
 else
   have_qt="yes"
 fi
@@ -267,7 +267,7 @@ AC_PATH_QT_MOC
 
 AC_DEFUN(AC_PATH_QT,
 [
-AC_PATH_QT_1_3
+AC_PATH_QT_1_4
 ])
 
 ## ------------------------------------------------------------------------
@@ -539,8 +539,8 @@ fi
 AC_DEFUN(AC_SET_NODEBUG,
 [
 if  test "x$ac_use_gcc_flags" = "xyes"; then
- test "$CFLAGS" = "" && CFLAGS="-O2 -Wall"
- test "$CXXFLAGS" = "" && CXXFLAGS="-O2 -Wall"
+ test "$CFLAGS" = "" && CFLAGS="-Wall"
+ test "$CXXFLAGS" = "" && CXXFLAGS="-Wall"
  test "$LDFLAGS" = "" && LDFLAGS="-s"
 fi
 ])

@@ -1,5 +1,5 @@
-#ifndef _FUNCTIONS_H_
-#define _FUNCTIONS_H_ 1
+#ifndef _KWAVE_FUNCTIONS_H_
+#define _KWAVE_FUNCTIONS_H_ 1
 #include <math.h>
 
 

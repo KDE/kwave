@@ -1,12 +1,30 @@
-Hello,
+Hi,
 
 This is the kwave source distribution, a simple soundeditor for KDE.
-Since last version kwave has become a little bit more stable. But still use it with care (save often), since it has not left ALPHA-State yet.
+
+Use kwave with care (save often, and to different files...), since it has not left ALPHA-State yet.
+
+Since I didn't get the Makefiles right, it is necessary first to compile and install the libraries, then you can compile the binary and the plugins...
+
+So step by step starting in the main distribution directory you do this:
+./configure 
+cd lib
+make 
+make install
+cd ..
+cd libgui
+make 
+make install
+cd ..
+make
+make install
+
+Requirements:
 
 This distribution uses the standard template for a kde app, kexample.
 
 Therefore you need autoconf-2.12 and automake-1.2 or higher, not to
-mention the KDE-Distribution and then the qt-lib 1.40...
+mention the KDE-libs-Distribution and then the qt-lib 1.40...
 
 Further requirements are glibc>2.07 for pthreads. Earlier versions of
 libpthread (included in glibc) do not work with qt-lib (programm crashes at
@@ -15,21 +33,7 @@ Not tested are libc5 with linuxthreads, if someone succeeds with this
 combination please notify me !
 (Note that linuxthreads has requirements for specific libc versions)
 
-It is also possible to build a non-threading version by removing the
-#define THREADS in kwave/sample.h and leaving out -lpthread
-in Makefile ! 
-
-Then just run
-
->./configure
->make depend
->make
-
-Now you have to swap to superuser...
-
->make install
-
-Good Luck, and if not, mail me the bugs...
+Good Luck, and if not, mail me about the bugs...
 
 Martin Wilz
 

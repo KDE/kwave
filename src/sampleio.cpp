@@ -11,6 +11,7 @@
 #include <endian.h>
 #include <bytesex.h>
 #include <limits.h>
+#include "dialogs.h"
 
 #if __BYTE_ORDER==__BIG_ENDIAN
 #define IS_BIG_ENDIAN
@@ -25,7 +26,7 @@ struct SaveInfo
   QFile *sigout;
   int begin;
   int end;
-  int **samples;
+  int *samples;
   int channels;
 };
 
@@ -64,6 +65,29 @@ void MSignal::stopplay ()
     }
 }
 //**********************************************************
+int **MSignal::summonChannels ()
+{
+  MSignal *tmp=this;
+  int **samples=new int* [channels];
+  if (samples)
+    {
+      int j=0;
+      while (tmp!=0)
+	{
+	  samples[j++]=tmp->getSample();
+	  tmp=tmp->getNext();
+	}
+
+      if (j!=channels)
+	{
+	  delete [] samples;
+	  samples=0;
+	  debug ("number of channels corrupted !");
+	}
+    }
+  return samples;
+}
+//**********************************************************
 int MSignal::setSoundParams (int audio,int bitspersample,int channels,int rate,int bufbase)
 {
   if ( ioctl(audio,SNDCTL_DSP_SAMPLESIZE,&bitspersample)!=-1)
@@ -78,13 +102,13 @@ int MSignal::setSoundParams (int audio,int bitspersample,int channels,int rate,i
 		  ioctl(audio,SNDCTL_DSP_GETBLKSIZE,&size);
 		  return size;
 		}
-	      else printf ("unusable buffer size\n");
+	      else debug ("unusable buffer size\n");
 	    }
-	  else printf ("unusable rate\n");
+	  else debug ("unusable rate\n");
 	}
-      else printf ("wrong number of channels\n");
+      else debug ("wrong number of channels\n");
     }
-  else printf ("number of bits per samples not supported\n");
+  else debug ("number of bits per samples not supported\n");
   return 0;
 }
 //**********************************************************
@@ -94,15 +118,7 @@ void MSignal::play8 (int loop)
   int   act;
   char	*buffer=0;
   int	bufsize;
-  int **samples=new int* [channels];
-  int j=0;
-
-  MSignal *tmp=this;
-  while (tmp!=0)
-    {
-      samples[j++]=tmp->getSample();
-      tmp=tmp->getNext();
-    }
+  int **samples=summonChannels ();
 
   if (msg[processid]<=0)
     {
@@ -178,11 +194,12 @@ void MSignal::play8 (int loop)
 			      write (audio,buffer,bufsize);
 			    }
 			}
+		      delete [] samples;
 		    }
 		}
 
 	      close (audio);
-	      if (buffer) delete buffer;
+	      if (buffer) delete [] buffer;
 	      msg[stopprocess]=false;
 	      msg[samplepointer]=0;
 	    }
@@ -201,15 +218,7 @@ void MSignal::play16 (int loop)
   int 	audio;			//file handle for /dev/dsp
   unsigned char *buffer=0;
   int	bufsize;
-
-  int **samples=new int* [channels];  //read linear list of channels into array
-  int j=0;
-  MSignal *tmp=this;
-  while (tmp!=0)
-    {
-      samples[j++]=tmp->getSample();
-      tmp=tmp->getNext();
-    }
+  int **samples=summonChannels ();
 
   if (msg[processid]<=0)
     {
@@ -224,7 +233,7 @@ void MSignal::play16 (int loop)
 
 	      buffer=new unsigned char[bufsize];
 		
-	      if (buffer)
+	      if (buffer&&samples)
 		{
 		  int	&pointer=msg[samplepointer];
 		  int	last=rmarker;
@@ -288,8 +297,9 @@ void MSignal::play16 (int loop)
 			}
 		    }
 		}
+	      delete [] samples;
 	      close (audio);
-	      if (buffer) delete buffer; 
+	      if (buffer) delete [] buffer; 
 	      msg[stopprocess]=false;
 	      msg[samplepointer]=0;
 	    }
@@ -376,7 +386,7 @@ void MSignal::loadAscii (QString *name, int channel)
 		}
 	    }
 
-	  printf ("%d samples, min/max= %f %f\n",cnt,min,max);
+	  //	  printf ("%d samples, min/max= %f %f\n",cnt,min,max);
 	  float amp=max;
 	  if (-min>max) amp=-min;
 
@@ -465,7 +475,7 @@ void MSignal::loadWav (QString *name, int channel)
 			if (header.channels>channel)
 			  next=new MSignal (parent,manage,name,channel+1,WAV);
 
-		      emit sampleChanged();
+		      info ();
 		      emit channelReset();
 		    }
 		}
@@ -483,20 +493,16 @@ void MSignal::loadWav (QString *name, int channel)
 // specified by names little/big endian problems are dealt with at compile time
 // The corresponding header should have already been written to the file before
 // invocation of this methods
-void writeData8Bit (SaveInfo *saveinfo)
+void writeData8Bit (QFile *sigout, int begin, int end, SignalManager *manage)
 {
-  QFile *sigout=saveinfo->sigout;
-  int begin=saveinfo->begin;
-  int end=saveinfo->end;
-  int **samples=saveinfo->samples;
-  int channels=saveinfo->channels;
+  int channels=manage->getChannels();
 
   char o;
   for (int i=begin;i<end;i++)
     {
       for (int j=0;j<channels;j++)
 	{
-	  o=128+(char)(samples[j][i]/65536);
+	  o=128+(char)(manage->getSignal[j]->getSingleSample(i)/65536);
 	  sigout->putch (o);
 	}
     }
@@ -655,7 +661,7 @@ void  MSignal::save (QString *filename,int bit,int selection)
       switch (bit)
 	{
 	case 8:
-	  writeData8Bit (&saveinfo);
+	  writeData8Bit (sigout,begin,endp,this);
 	  break;
 	case 16:
 	  writeData16Bit (&saveinfo);
@@ -778,6 +784,7 @@ void  MSignal::loadStereo16Bit (QFile *sigin)
   //since they are widely-spread...
 {
   //the current object should be the first channel....
+
   sample = getNewMem(length);
   unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*4];
 
@@ -805,9 +812,10 @@ void  MSignal::loadStereo16Bit (QFile *sigin)
 		{
 		  sample[i]=loadbuffer[pos++]<<8;
 		  sample[i]+=loadbuffer[pos++]<<16;
-		  if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
 		  lsample[i]=loadbuffer[pos++]<<8;
 		  lsample[i]+=loadbuffer[pos++]<<16;
+
+		  if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
 		  if (lsample[i]>=(1<<23)) lsample[i]=(-(1<<24))+lsample[i];
 		}
 	      dialog->setProgress (i);

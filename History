@@ -1,13 +1,60 @@
 newer Versions still to come
 
+Version 0.30.0 (3.98)
 
-Version 0.29.3
+Color class as wrapper to QColor
+
+reworking Curve Class for creation via string, interpolation now uses curve objects
+
+moved gui functions into a new library (libkwavegui)
+
+new Classes: Parser DynamicLoader Filter (prevously was a struct)
+
+moved gui-independent functions into a library (libkwave)
+
+rework of dialogs into single files and single modules
+
+new calling scheme via string commands. this will allow scripting and macro
+definitions. Threading is made a whole lot easier, because a only a string has
+to be passed and gets expanded into the needed set of parameters in each thread
+
+io functions and playback adapted to SignalManager
+
+Introduction of SignalManager class for multiple channel management
+
+Version 0.29.5 (4.98)
+
+Just a fix for an annoying bug while zooming out
+
+Version 0.29.4 (3.98)
+
+removed a memory leak in playback
+
+triple-checked the missing Accelerators in the Menumanager. it seems to be a
+bug in qpopmenu, I'll wait for qt to be fixed, or until a workaround is known
+
+recent Files are updated again, while the program is running
+
+kwave now keeps track of last directory saved to; for user convenience
+
+reestablished selection mechanism to match versions before 0.29.3 and corrected some otherwise screwed-up behaviour
+
+_now_ all parameters to destructors should have vanished
+
+Version 0.29.3 (2.98)
+
+developement has slowed down a bit, this release is not as complete as i wished
+but since 0.29.2 has a destructor with parameters accidently left in, and so
+does not compile on all systems -> here we go again...
+
+reworked selection routines into a new class, code is still rather confusing,
+but seems to work
 
 added checkmark functionality again
 
 converted file-menus to new menu-scheme
 
-mix channels together
+added gui to mix channels together, the needed functions for mixing are still missing
 
 Halt button by Gerhard Zint
 

@@ -8,41 +8,38 @@ class TopWidget : public KTopLevelWidget
  Q_OBJECT
  public:
 
- 	TopWidget	(KApplication   *app);
-	~TopWidget	();
- void   closeWindow     ();
- void	setSignal	(QString name);
- void	setSignal	(MSignal *);
- void   addRecentFile   (char *);
+ 	TopWidget	  ();
+	~TopWidget	  ();
+ void   closeWindow       ();
+ void	setSignal	  (QString name);
+ void	setSignal	  (SignalManager *);
+ void   addRecentFile     (char *);
  void   updateRecentFiles ();
+ void   parseBatch        (const char *);
 
  public slots:
-
+ void 	setOp             (const char *);
  void	dropEvent	(KDNDDropZone *);
- void 	setOp           (int);
 
  protected:
 
  void	newInstance();
- void 	getHelp();
- void	about();
  void	revert();
- void 	quitInstance();
  void	openFile();
  void   importAsciiFile();
  void   openRecent (int num);
  void	saveFile();
- void	saveFileAs();
- void	saveSelection();
+ void	saveFileAs(bool selection=false);
 
  private:
 
- KApplication   *app;
+ QDir           *saveDir;
+ QDir           *loadDir;
  MainWidget	*mainwidget;
  KMenuBar	*bar;
  KStatusBar	*status;      //global status bar
  QString	name;         //filename
- MenuManager    *manage;      //menu manager object...
+ MenuManager    *menumanage;  //menu manager object...
  int            bit;          //bit resolution to save with
 };
 

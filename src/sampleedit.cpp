@@ -4,26 +4,52 @@
 #include <kprogress.h>
 #include <limits.h>
 #include "clipboard.h"
+#include "dialogs.h"
 
 extern ClipBoard *clipboard; 
+extern int **summonChannels (MSignal *tmp,int channels);
+//**********************************************************
+void mixChannels (int **sigs,int *mixto,double *amps)
+{
+  
+}
 //**********************************************************
 void MSignal::mix ()
 {
   if (channels>1)
-   {
-     ChannelMixDialog *dialog=new ChannelMixDialog (parent,channels);
-     if (dialog)
-      {
-	if (dialog->exec())
-	  {
-	    printf ("mixing\n");
-	  }
-	delete dialog;
-      }
-   }
+    {
+      ChannelMixDialog *dialog=new ChannelMixDialog (parent,channels);
+      if (dialog)
+	{
+	  if (dialog->exec())
+	    {
+	      int    channel=dialog->getChannel();
+	      double *amps=dialog->getAmpl ();
+	      int    *mixto=0;
+	      int    **sigs=summonChannels ();
+
+	      if (sigs&&amps)
+		{
+		  if (channel) mixto=sigs[channel-1];
+		  else 
+		    {
+		      MSignal *ins=new MSignal (parent,length,rate,1);
+		      this->appendChannel (ins);
+		      mixto=ins->getSample();
+		    }
+		  if (mixto) mixChannels (sigs,mixto,amps);
+
+		  delete [] sigs;
+		}
+	      info ();
+	    }
+	  delete dialog;
+	}
+    }
   else KMsgBox::message (parent,"Info","Mixing makes no sense with less than two channels !",2);
 }
 //**********************************************************
+//toggles selection for channel # b with recursive calls
 void MSignal::toggleChannel (int a,int b)
 {
   if (a<b)
@@ -36,6 +62,8 @@ void MSignal::toggleChannel (int a,int b)
     }
 }
 //**********************************************************
+//deletes channel # b with recursive calls until channel # b-1
+//this one detaches channel #b from the chain, and calls its destructor 
 void MSignal::deleteChannel (int a,int b)
 {
   if (a<b)
@@ -59,18 +87,20 @@ void MSignal::addChannel ()
 {
   MSignal *ins=new MSignal (parent,length,rate,1);
   this->appendChannel (ins);
-  emit sampleChanged();
+  info ();
 }
 //**********************************************************
+//sets number of channels, only used if first channel is deleted...
 void MSignal::setChannels (int num)
 {
   channels=num;
 }
 //**********************************************************
+//finds last channel and appends this new signal to it
 void MSignal::appendChannel (MSignal *ins)
 {
   MSignal *tmp=this;
-  while (tmp->getNext()!=0) tmp=tmp->getNext();  //find last channel
+  while (tmp->getNext()) tmp=tmp->getNext();  //find last channel
   tmp->appendChanneltoThis (ins);
   channels++;
 }
@@ -90,7 +120,7 @@ void MSignal::copyRange ()
 	  clipboard=0;
 	}
       MSignal *tmp=this;
-      while (tmp!=0)
+      while (tmp)
 	{
 	  if (tmp->isSelected()) tmp->copyChannelRange ();
 	  tmp=tmp->getNext();
@@ -108,15 +138,17 @@ void MSignal::copyChannelRange ()
   temp=new MSignal (parent,rmarker-lmarker,rate);
   if (temp)
     {
-      int j=0;
+      //int j=0;
       tsample=temp->getSample();
 
-      for (int i=lmarker;i<rmarker;tsample[j++]=sample[i++]);
+      //for (int i=lmarker;i<rmarker;tsample[j++]=sample[i++]);
+      //memcopy should be more optimized
+      memcpy (tsample,&sample[lmarker],sizeof(int)*(rmarker-lmarker));
 
       if (!clipboard) clipboard=new ClipBoard (temp);
       else clipboard->appendChannel(temp);
 
-      emit sampleChanged();
+      info ();
     }
   else KMsgBox::message (parent,"Info","Not enough Memory for Operation !",2);
 }
@@ -129,7 +161,7 @@ void MSignal::pasteRange ()
       MSignal *tmp=this;
       int all=true;
 
-      while (tmp!=0) //check if all Channels are selected ....
+      while (tmp) //check if all Channels are selected ....
 	{
 	  if (!tmp->isSelected()) all=false;
 	  tmp=tmp->getNext();
@@ -139,7 +171,7 @@ void MSignal::pasteRange ()
 
       if (all)
 	{
-	  while (tmp!=0)
+	  while (tmp)
 	    {
 	      tmp->pasteChannelRange (clip);
 
@@ -150,7 +182,7 @@ void MSignal::pasteRange ()
 	}
       else
 	{
-	  while (tmp!=0)
+	  while (tmp)
 	    {
 	      if (tmp->isSelected())
 	      tmp->overwriteChannelRange (clip);
@@ -160,8 +192,7 @@ void MSignal::pasteRange ()
 	      tmp=tmp->getNext();
 	    }
 	}
-  
-      emit sampleChanged();
+      info ();
     }
 }
 //**********************************************************
@@ -229,7 +260,7 @@ void MSignal::mixpasteRange ()
 	{
 	  for (int i=0;(i<len)&&(i<cliplength);i++)  // mix range with clipboard...
 	    sample[lmarker+i]=(sample[lmarker+i]+clipsam[i])/2;
-	  emit sampleChanged();
+	  info ();
 	}
       else
 	{
@@ -237,10 +268,10 @@ void MSignal::mixpasteRange ()
 	    {
 	      for (int i=0;i<cliplength;i++)  // mix clipboard to signal
 		sample[lmarker+i]=(sample[lmarker+i]+clipsam[i])/2;
-	      emit sampleChanged();
+	      info ();
 	    }
 	  else 
-	    { //not so simple, need to append ...
+	    { //not that simple, need to append ...
 	      newsam=getNewMem(cliplength+lmarker);
 	      if (newsam)
 		{
@@ -254,7 +285,7 @@ void MSignal::mixpasteRange ()
 		  sample=newsam;
 		  length=cliplength+lmarker;
 		  rmarker=lmarker+cliplength;
-		  emit sampleChanged();
+		  info ();
 		}
 	      else KMsgBox::message (parent,"Info","Not enough Memory for Operation !",2);
 	    }
@@ -263,6 +294,8 @@ void MSignal::mixpasteRange ()
 }
 //**********************************************************
 void MSignal::cutRange ()
+//fine example for reusal of code, my prof would say, don't show him the rest
+// of my code
 {
  copyRange();
  deleteRange();
@@ -273,7 +306,7 @@ void MSignal::deleteRange ()
   MSignal *tmp=this;
   int all=true;
 
-  while (tmp!=0)
+  while (tmp)
     {
       if (!tmp->isSelected()) all=false;
       tmp=tmp->getNext();
@@ -282,21 +315,30 @@ void MSignal::deleteRange ()
   tmp=this;
   if (all)
     {
-      while (tmp!=0)
+      int r=rmarker;
+      int l=lmarker;
+
+      if (lmarker<0) lmarker=0;
+      if (rmarker>length) rmarker=length;
+	
+      while (tmp)
 	{
 	  tmp->deleteChannelRange();
 	  tmp=tmp->getNext();
 	}  
+      length=length-(rmarker-lmarker);
+      rmarker=lmarker;
+      emit signaldeleted (l,r-l);
     }
   else
     {
-      while (tmp!=0)
+      while (tmp)
 	{
 	  if (tmp->isSelected()) tmp->zeroChannelRange();
 	  tmp=tmp->getNext();
 	}  
     }
-  emit sampleChanged();
+  info ();
 }
 //**********************************************************
 void MSignal::deleteChannelRange ()
@@ -305,21 +347,13 @@ void MSignal::deleteChannelRange ()
    {
      int *newsam;
 
-     if (lmarker<0) lmarker=0;
-     if (rmarker>length) rmarker=length;
-	
      newsam=getNewMem (length-(rmarker-lmarker));
      if (newsam)
        {
-	 int r=rmarker;
-	 int l=lmarker;
 	 memcpy (newsam,sample,lmarker*sizeof(int));
 	 memcpy (&newsam[lmarker],&sample[rmarker],(length-rmarker)*sizeof(int));
 	 getridof (sample);
 	 sample=newsam;
-	 length=length-(rmarker-lmarker);
-	 rmarker=lmarker;
-	 emit signaldeleted (l,r-l);
        }
      else KMsgBox::message (parent,"Info","Not enough Memory for Operation !",2);
    }
@@ -328,12 +362,12 @@ void MSignal::deleteChannelRange ()
 void MSignal::cropRange ()
 {
   MSignal *tmp=this;
-  while (tmp!=0)
+  while (tmp)
     {
       tmp->cropChannelRange ();
       tmp=tmp->getNext();
     }  
-  emit sampleChanged();
+  info ();
 }
 //**********************************************************
 void MSignal::cropChannelRange ()

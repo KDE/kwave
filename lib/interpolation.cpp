@@ -1,9 +1,20 @@
+#include <stdio.h>
 #include "interpolation.h"
-#include "curvewidget.h"
+#include "curve.h"
 
 #define INT_COUNT 7
-const char *NAMES[]={"Linear","Spline","N-Polynom","3-Polynom","5-Polynom","7-Polynom","Sample and Hold",NULL};
-
+const char *interpolationnames[]=
+{
+  "Linear",
+  "Spline",
+  "N-Polynom",
+  "3-Polynom",
+  "5-Polynom",
+  "7-Polynom",
+  "Sample and Hold",
+  0
+};
+//****************************************************************************
 void get2Derivate (double *x, double *y, double *ab,int n)
 {
   int 	i, k;
@@ -30,9 +41,9 @@ void get2Derivate (double *x, double *y, double *ab,int n)
   for (k=n-1; k>0; k--)  ab[k] = ab[k]*ab[k+1]+u[k];
 }
 //****************************************************************************
-void createPolynom  (QList<CPoint> *points,double x[],double y[],int pos,int degree)
+void createPolynom  (Curve *points,double x[],double y[],int pos,int degree)
 {
-  CPoint *tmp;
+  Point *tmp;
   int count=0;
 
   if (pos<0)
@@ -53,7 +64,11 @@ void createPolynom  (QList<CPoint> *points,double x[],double y[],int pos,int deg
 	  pos=0;
 	}
     }
-  for (tmp=points->at(pos);(count<degree)&&(tmp!=0);tmp=points->next())
+
+  tmp=points->first();
+  for (int i=0;i<pos;i++) tmp=points->next(tmp);
+
+  for (;(count<degree)&&(tmp);tmp=points->next(tmp))
     {
       x[count]=tmp->x;
       y[count++]=tmp->y;
@@ -71,12 +86,12 @@ void createPolynom  (QList<CPoint> *points,double x[],double y[],int pos,int deg
       y[j]=(y[j]-y[j+1])/(x[j]-x[k]);
 }
 //****************************************************************************
-void createFullPolynom  (QList<CPoint> *points,double *x,double *y)
+void createFullPolynom  (Curve *points,double *x,double *y)
 {
   int count=0;
-  CPoint *tmp;
+  Point *tmp;
 
-  for (tmp=points->first();tmp!=NULL;tmp=points->next())
+  for (tmp=points->first();tmp;tmp=points->next(tmp))
     {
       x[count]=tmp->x;
       y[count++]=tmp->y;
@@ -122,13 +137,13 @@ Interpolation::~Interpolation ()
 //****************************************************************************
 const char** Interpolation::getTypes ()
 {
-  return NAMES;
+  return interpolationnames;
 }
 //****************************************************************************
-int Interpolation::getCount ()
-{
-  return INT_COUNT;
-}
+//int Interpolation::getCount ()
+//{
+//  return INT_COUNT;
+//}
 //****************************************************************************
 double Interpolation::getSingleInterpolation (double input)
 {
@@ -195,10 +210,11 @@ double Interpolation::getSingleInterpolation (double input)
   return 0;
 }
 //****************************************************************************
-int Interpolation::prepareInterpolation (QList<CPoint> *points)
+int Interpolation::prepareInterpolation (Curve *points)
 {
   this->count=points->count();
   this->points=points;
+
   if (x)     delete x;
   if (y)     delete y;
   if (der)   delete der;
@@ -209,9 +225,9 @@ int Interpolation::prepareInterpolation (QList<CPoint> *points)
   if (x&&y)
     {
       int c=0;
-      CPoint *tmp;
+      Point *tmp;
 
-      for (tmp=points->first();tmp!=NULL;tmp=points->next())
+      for (tmp=points->first();tmp;tmp=points->next(tmp))
 	{
 	  x[c]=tmp->x;
 	  y[c++]=tmp->y;
@@ -233,7 +249,7 @@ int Interpolation::prepareInterpolation (QList<CPoint> *points)
  return true;
 }
 //****************************************************************************
-double *Interpolation::getLimitedInterpolation (QList<CPoint> *points,int len)
+double *Interpolation::getLimitedInterpolation (Curve *points,int len)
 {
   double *y=getInterpolation (points,len);
   for (int i=0;i<len;i++)
@@ -244,9 +260,9 @@ double *Interpolation::getLimitedInterpolation (QList<CPoint> *points,int len)
   return y;
 }
 //****************************************************************************
-double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
+double *Interpolation::getInterpolation (Curve *points,int len)
 {
-  CPoint *tmp;
+  Point *tmp;
 
   if (y_out) delete y_out;
   y_out=new double[len];
@@ -258,12 +274,12 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
       {
 	double x,y,lx,ly;
 	tmp=points->first();
-	if (tmp!=0)
+	if (tmp)
 	  {
 	    lx=tmp->x;
 	    ly=tmp->y;
 
-	    for ( tmp=points->next(); tmp != 0; tmp=points->next() )
+	    for (tmp=points->next(tmp); tmp; tmp=points->next(tmp))
 	      {
 		x=tmp->x;
 		y=tmp->y;
@@ -294,7 +310,7 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 	double y[count+1];
 	double der[count+1];
 
-	for (tmp=points->first();tmp!=NULL;tmp=points->next())
+	for (tmp=points->first();tmp;tmp=points->next(tmp))
 	  {
 	    x[t]=tmp->x;
 	    y[t++]=tmp->y;
@@ -341,7 +357,7 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 	double ent,start;
 
 	tmp=points->first();
-	if (tmp!=0)
+	if (tmp)
 	  {
 	    for (int px=0;px<count-1;px++)
 	      {
@@ -400,7 +416,7 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 	    lx=tmp->x;
 	    ly=tmp->y;
 
-	    for ( tmp=points->next(); tmp != 0; tmp=points->next() )
+	    for ( tmp=points->next(tmp); tmp; tmp=points->next(tmp) )
 	      {
 		x=tmp->x;
 		y=tmp->y;

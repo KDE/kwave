@@ -1,89 +1,53 @@
 //Kwave main file
 //This one includes methods of the Topwidget Class.
 
-#include "main.h"
-#include "about.h"
 #include <unistd.h>
 #include <qkeycode.h>
+#include "main.h"
 #include "clipboard.h"
+#include "../lib/dynamicloader.h"
+#include "../lib/dialogoperation.h"
+#include "../lib/parser.h"
+#include "../lib/globals.h"
+#include "../lib/fileloader.h"
+#include "../libgui/kwavedialog.h"
 
-QList<TopWidget>   topwidget; 
-QList<MarkerType>  markertypes;
+struct Global      globals;
+QList<TopWidget>   topwidgetlist; 
 QStrList           recentFiles; 
-ClipBoard          *clipboard=0;
-QDir               *configDir;
-KApplication       *app;
-
-#define KLOC 1000
-
-#define NEWWINDOW      (KLOC+0)
-#define OPENFILE       (KLOC+1)
-#define SAVEFILE       (KLOC+3)
-#define SAVEFILEAS     (KLOC+4)
-#define SAVESELECTION  (KLOC+5)
-#define REVERT         (KLOC+6)
-#define IMPORTASCII    (KLOC+7)
-#define QUIT           (KLOC+8)
-#define ABOUT          (KLOC+9)
-#define HELP           (KLOC+10)
-#define PLAYBACK       (KLOC+11)
-#define MEMORY         (KLOC+12)
-#define BITRES         (KLOC+15)
-
-#define BIT24       (BITRES+0)
-#define BIT16       (BITRES+1)
-#define BIT8        (BITRES+2)
-
-#define OPENRECENT (KLOC+21)
-
-KWaveMenuItem file_menus[]=
-{
-  //internalID    ,name                 ,type  ,id  ,shortcut
-  {0              ,"&File"              ,KMENU ,-1   ,KEXCLUSIVE},
-  {NEW            ,"&New..."            ,KITEM ,-1   ,CTRL+Key_N},
-  {NEWWINDOW      ,"New &window"        ,KITEM ,-1   ,CTRL+Key_W},
-  {0              ,0                    ,KSEP  ,KSEP ,-1},  
-  {OPENFILE       ,"&Open"              ,KITEM ,-1   ,CTRL+Key_O},
-  {0              ,"O&pen recent"       ,KMENU ,-1   ,KEXCLUSIVE},
-  {OPENRECENT     ,"RecentFiles"        ,KREF  ,-1   ,-1},
-  {0              ,0                    ,KEND  ,KEND ,-1},
-  {IMPORTASCII    ,"&Import Ascii"      ,KITEM ,-1   ,CTRL+Key_I},
-  {0              ,0                    ,KSEP  ,KSEP ,-1},  
-  {SAVEFILE       ,"S&ave"              ,KITEM ,-1   ,CTRL+Key_S},
-  {0              ,"&Save"              ,KMENU ,-1   ,KEXCLUSIVE},
-  {SAVEFILEAS     ,"&As ..."            ,KITEM ,-1   ,CTRL+SHIFT+Key_S},
-  {SAVESELECTION  ,"&Selection ..."     ,KITEM ,-1   ,-1},
-  {SAVEBLOCKS     ,"&Blocks ..."        ,KITEM ,-1   ,-1},
-  {EXPORTASCII    ,"&Export to Ascii"   ,KITEM ,-1   ,CTRL+Key_E},
-  {0              ,0                    ,KSEP  ,KSEP ,-1},  
-  {0               ,"Save &resolution"   ,KCHECK,-1   ,KEXCLUSIVE},
-  {BITRES          ,"Bits"              ,KREF  ,-1   ,-1},
-  {0              ,0                    ,KEND  ,KEND ,-1},
-  {0              ,0                    ,KEND  ,KEND ,-1},
-  {0              ,0                    ,KSEP  ,KSEP ,-1},  
-  {REVERT         ,"&Revert"            ,KITEM ,-1   ,CTRL+Key_R},
-
-  {0              ,0                    ,KSEP  ,KSEP ,-1},  
-  {QUIT           ,"&Quit"              ,KITEM ,-1   ,CTRL+Key_Q},
-  {0              ,0                    ,KEND  ,KEND ,-1},
-
-  {0              ,"&Options"           ,KMENU ,-1   ,KEXCLUSIVE},
-  {PLAYBACK       ,"&Playback"          ,KITEM ,-1   ,-1},
-  {MEMORY         ,"&Memory"            ,KITEM ,-1   ,-1},
-  {0              ,0                    ,KEND  ,KEND ,-1},
-
-  {0              ,"&Help"              ,KMENU ,-1   ,KEXCLUSIVE},
-  {HELP           ,"&Contents"          ,KITEM ,-1   ,Key_F1},
-  {0              ,0                    ,KSEP  ,KSEP ,-1},  
-  {ABOUT          ,"&About"             ,KITEM ,-1   ,-1},
-  {0              ,0                    ,KEND  ,KEND ,-1},
-  {0,0,0,0,0} //Terminates
-};
 //*****************************************************************************
-TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
+void TopWidget::setOp (const char *str)
 {
-  app=a;
+  if (strncmp(str,"menu",4)==0) menumanage->setCommand (str);
+
+  //  else
+  if (strncmp(str,"help",4)==0) globals.app->invokeHTMLHelp ("kwave/index.html","");
+  else
+  if (strncmp(str,"newwindow",9)==0) newInstance ();
+  else
+  if (strncmp(str,"quit",4)==0) delete this;
+  //    else mainwidget->doCommand (str);
+}
+//*****************************************************************************
+void TopWidget::parseBatch (const char *str)
+  //parses a list a of commands separated by newlines
+{
+  LineParser lineparser(str);
+  const char *line=lineparser.getLine ();
+
+  while (line)
+    {
+      setOp (line);
+      line=lineparser.getLine ();
+    }
+}
+//*****************************************************************************
+TopWidget::TopWidget () : KTopLevelWidget ()
+{
   bit=24;
+
+  saveDir=0;
+  loadDir=0;
 
   status=new KStatusBar (this);
 
@@ -94,140 +58,54 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   status->insertItem (klocale->translate("Clipboard: 0 ms      "),5);
 
   bar=		new KMenuBar    (this);
-  manage=       new MenuManager (this,bar);
-
-  //this is where the menus are created
-  //now  cleaned  up even more, mom ! just a little bit of dirt left
-
-  manage->addNumberedMenu("RecentFiles");
-  if (recentFiles.count()>0)
-  for ( unsigned int i =0 ; i < recentFiles.count(); i++)
-  manage->addNumberedMenuEntry ("RecentFiles",recentFiles.at(i));
-
-  if (manage->addNumberedMenu("Bits"))
-    {
-      manage->addNumberedMenuEntry ("Bits","&24 Bit");
-      manage->addNumberedMenuEntry ("Bits","&16 Bit");
-      manage->addNumberedMenuEntry ("Bits"," &8 Bit");
-    }
-
-
-  KDNDDropZone *dropZone = new KDNDDropZone( this , DndURL);
-  connect( dropZone, SIGNAL( dropAction( KDNDDropZone *) ),
-           this, SLOT( dropEvent( KDNDDropZone *) ) );        
-
-  manage->appendMenus (file_menus);
-
-  mainwidget=new MainWidget (this,manage,status);
+  menumanage=   new MenuManager (this,bar);
 
   //connect clicked menu entrys with main communication channel of kwave
-  connect(manage, SIGNAL(id(int)),this, SLOT(setOp(int))); 
+  connect(menumanage, SIGNAL(command(const char *)),
+	  this, SLOT(setOp(const char *))); 
 
+  //enable drop of local files onto kwave window
+  KDNDDropZone *dropZone = new KDNDDropZone( this ,DndURL);
+  connect( dropZone, SIGNAL( dropAction( KDNDDropZone *)),
+           this, SLOT( dropEvent( KDNDDropZone *)));        
+
+  //read menus and create them...
+  QDir configDir (globals.globalconfigDir);
+
+  FileLoader loader (configDir.absFilePath("menus.config"));  
+  parseBatch (loader.getMem());
+
+  printf ("menu loading done !");
+
+  mainwidget=new MainWidget (this,menumanage,status);
   setView (mainwidget);
-
-  ClipBoard ().registerMenu (manage);
 
   setMenu (bar);
   setStatusBar (status);
+  topwidgetlist.append (this);
 }
 //*****************************************************************************
 TopWidget::~TopWidget ()
 {
   //remove this instance from list of widgets
-  topwidget.removeRef(this);	
+  topwidgetlist.removeRef(this);	
 
-  ClipBoard ().unregisterMenu (manage);
+  if (saveDir) delete saveDir;
+  if (loadDir) delete loadDir;
 
-  if (topwidget.isEmpty()) app->exit (0); //if list is empty -> no more windows there 
-}
-//*****************************************************************************
-void TopWidget::about ()
-{
-  AboutDialog dialog (this);
-  dialog.exec ();
-}
-//*****************************************************************************
-void TopWidget::getHelp ()
-{
-  app->invokeHTMLHelp ("kwave/index.html","");
-}
-//*****************************************************************************
-void TopWidget::quitInstance ()
-{
-  delete this;
+  ClipBoard ().unregisterMenu (menumanage);
+
+  //if list is empty -> no more windows there -> exit application
+  if (topwidgetlist.isEmpty()) globals.app->exit (0);
 }
 //*****************************************************************************
 void TopWidget::newInstance ()
 {
-  TopWidget *tnew=new TopWidget(app);
-  topwidget.append (tnew);
+  TopWidget *tnew=new TopWidget();
 
   tnew->show();
 }
 //****************************************************************************
-void TopWidget::setOp (int id)
-{
-  int oldid=id;
-  if (manage) id=manage->translateId (file_menus,id);
-
-  if ((id>=OPENRECENT)&&(id<(OPENRECENT+MENUMAX))) openRecent (id-OPENRECENT);
-
-  switch (id)
-    {
-    case PLAYBACK:
-      mainwidget->setOp (PLAYBACKOPTIONS);
-      break;
-    case MEMORY:
-      mainwidget->setOp (MEMORYOPTIONS);
-      break;
-    case ABOUT:
-      about();
-      break;
-    case HELP:
-      getHelp();
-      break;
-    case BIT24:
-      bit=24;
-      break;
-    case BIT16:
-      bit=16;
-      break;
-    case BIT8:
-      bit=8;
-      break;
-    case NEWWINDOW:
-      newInstance ();
-      break;
-    case REVERT:
-      revert ();
-      break;
-    case OPENFILE:
-      openFile ();
-      break;
-    case SAVEFILE:
-      saveFile ();
-      break;
-    case SAVEFILEAS:
-      saveFileAs ();
-      break;
-    case SAVESELECTION:
-      saveSelection ();
-      break;
-    case IMPORTASCII:
-      importAsciiFile ();
-      break;
-    case SAVEBLOCKS:
-      id=SAVEBLOCKS+bit; //change id for further use in children
-      break;
-    }
-  
-  if ((oldid==id)||(id<KLOC)) //id must be unchanged or global
-    {
-      mainwidget->setOp (id);
-      if (clipboard) clipboard->setOp (id);
-    }
-}
-//*****************************************************************************
 void TopWidget::revert ()
 {
  if (!name.isNull())
@@ -263,20 +141,15 @@ void TopWidget::addRecentFile (char* newfile)
 
    TopWidget *tmp;
 
-   for (tmp=topwidget.first();tmp!=0;tmp=topwidget.next())
+   for (tmp=topwidgetlist.first();tmp;tmp=topwidgetlist.next())
        tmp->updateRecentFiles(); //update all windows
-
 }           
 //*****************************************************************************
 void TopWidget::updateRecentFiles ()
 {
-  //  recent->clear();
-
-  //  recent->insertItem	(klocale->translate("&New ..."),this,SLOT(openFile()),CTRL+Key_O);
-  // recent->insertSeparator	();
-
-  //  for (unsigned int i =0 ; i < recentFiles.count(); i++)
-    //      recent->insertItem (recentFiles.at(i));
+  menumanage->clearNumberedMenu ("RecentFiles");
+  for (unsigned int i =0 ; i < recentFiles.count(); i++)
+    menumanage->addNumberedMenuEntry ("RecentFiles",recentFiles.at(i));
 }           
 //*****************************************************************************
 void TopWidget::dropEvent (KDNDDropZone *drop)
@@ -311,52 +184,60 @@ void TopWidget::openFile ()
 //*****************************************************************************
 void TopWidget::importAsciiFile ()
 {
- QString name=QFileDialog::getOpenFileName (0,"*.*",this);
- if (!name.isNull())
-  {
-	this->name=name;
-	mainwidget->setSignal (&name,ASCII);
-	setCaption (name.data());
-  }
+  QString name=QFileDialog::getOpenFileName (0,"*.*",this);
+  if (!name.isNull())
+    {
+      this->name=name;
+      mainwidget->setSignal (&name,ASCII);
+      setCaption (name.data());
+    }
 }
 //*****************************************************************************
 void TopWidget::saveFile ()
 {
- if (!name.isEmpty())
-  {
-	this->name=name;
-	mainwidget->saveSignal (&name,bit);
-	setCaption (name.data());
-  }
-}
-//*****************************************************************************
-void TopWidget::saveFileAs ()
-{
-  name=QFileDialog::getSaveFileName (0,"*.wav",this);
-  if (!name.isNull())
+  if (!name.isEmpty())
     {
+      this->name=name;
       mainwidget->saveSignal (&name,bit);
-      addRecentFile (name.data());
+      setCaption (name.data());
     }
 }
 //*****************************************************************************
-void TopWidget::saveSelection ()
+void TopWidget::saveFileAs (bool selection)
 {
- name=QFileDialog::getSaveFileName (0,"*.wav",this);
- if (!name.isNull())
- mainwidget->saveSignal (&name,bit,true);
-}
-//****************************************************************************
-void TopWidget::setSignal (QString name)
-{
- this->name=name;
- mainwidget->setSignal (&name);
- setCaption (name.data());
+  QFileDialog *dialog;
+
+  if (saveDir)
+    dialog=new QFileDialog (saveDir->absPath().data(),"*.wav",this,0,true);
+  else
+    dialog=new QFileDialog (this,0,true);
+
+  if (dialog)
+    {
+      dialog->exec();
+      name=dialog->selectedFile();
+      if (!name.isNull())
+	{
+	  if (saveDir) delete saveDir;
+	  saveDir=new QDir (dialog->dirPath());
+
+	  mainwidget->saveSignal (&name,bit,selection);
+	  addRecentFile (name.data());
+	}
+      delete dialog;
+    }
 }
 //*****************************************************************************
-void TopWidget::setSignal (MSignal *signal)
+void TopWidget::setSignal (QString name)
 {
- mainwidget->setSignal (signal);
+  this->name=name;
+  mainwidget->setSignal (&name);
+  setCaption (name.data());
+}
+//*****************************************************************************
+void TopWidget::setSignal (SignalManager *signal)
+{
+  mainwidget->setSignal (signal);
 }
 //*****************************************************************************
 //definitions of global variables needed/changed by read/save config routines
@@ -388,21 +269,21 @@ void saveConfig(KApplication *app)
 
   config->setGroup ("Labels");
 
-  for (unsigned int i =0 ; i < markertypes.count(); i++)
+  for (unsigned int i =0 ; i < globals.markertypes.count(); i++)
     {
       sprintf (buf,"%dName",i);
-      config->writeEntry (buf,markertypes.at(i)->name->data());
+      config->writeEntry (buf,globals.markertypes.at(i)->name->data());
 
       sprintf (buf,"%dhasName",i);
-      config->writeEntry (buf,markertypes.at(i)->named);
+      config->writeEntry (buf,globals.markertypes.at(i)->named);
 
       sprintf (buf,"%dColor",i);
-      config->writeEntry (buf,*((markertypes.at(i))->color));
+      config->writeEntry (buf,*((globals.markertypes.at(i))->color));
     }
   config->sync();
 }
 //*****************************************************************************
-// reads in Configuration via KConfig, sets global variables accordingly
+// reads user config via KConfig, sets global variables accordingly
 void readConfig(KApplication *app)
 {
   QString result;
@@ -436,7 +317,7 @@ void readConfig(KApplication *app)
   result=config->readEntry ("Mmap threshold");
   if (!result.isNull())  mmap_threshold=result.toInt();
   result=config->readEntry ("Mmap dir");
-  if (!result.isNull())  mmap_dir=strdup(result.data());
+  if (!result.isNull())  mmap_dir=duplicateString(result.data());
   mmapallocdir=mmap_dir;
 
   config->setGroup ("Labels");
@@ -458,45 +339,82 @@ void readConfig(KApplication *app)
 	  marker->name=new QString(name);
 	  marker->named=hasname;
 	  marker->color=new QColor(color);
-	  markertypes.append (marker);
+	  globals.markertypes.append (marker);
 	}
     }
 }
 //*****************************************************************************
+void findDirectories ()
+  //finds/creates configuration/plugin directories and stores them in 
+  //the globals struct
+{
+  QDir localconfig((globals.app->localkdedir()).data());
+  if (localconfig.cd ("share"))
+    {
+      if (!localconfig.cd ("apps"))
+	{
+	  localconfig.mkdir ("apps");
+	  localconfig.cd ("apps");
+	}
+      if (!localconfig.cd ("kwave"))
+	{
+	  localconfig.mkdir ("kwave");
+	  localconfig.cd ("kwave");
+	}
+      globals.localconfigDir=duplicateString (localconfig.absPath());
+    }
+  else debug ("no local user kdedir found !\n");
+
+  QDir globalconfig((globals.app->kde_datadir()).data());
+  if (!globalconfig.cd ("kwave"))
+    debug ("no global kwave config dir found !\n");
+  globals.globalconfigDir=duplicateString (globalconfig.absPath());
+
+  QDir timepluginDir (globals.globalconfigDir);
+  if (timepluginDir.cd ("modules"))
+    if (timepluginDir.cd ("time"))
+      globals.timeplugins=DynamicLoader::getPlugins (timepluginDir.absPath().data());
+
+  QDir pluginDir (globals.globalconfigDir);
+  if (pluginDir.cd ("modules"))
+    if (pluginDir.cd ("dialogs"))
+      globals.dialogplugins=DynamicLoader::getPlugins (pluginDir.absPath().data());
+
+  QDir filter(globals.localconfigDir);
+
+  if (!filter.cd ("presets"))
+    {
+      filter.mkdir ("presets");
+      filter.cd ("presets");
+    }
+
+  if (!filter.cd ("filters"))
+    {
+      filter.mkdir ("filters");
+      filter.cd ("filters");
+    }
+  globals.filterDir=duplicateString (filter.absPath());
+}
+//*****************************************************************************
 int main( int argc, char **argv )
 {
-  app=new KApplication (argc, argv);
+  globals.app=new KApplication (argc, argv);
 
-  if (app)
+  if (globals.app)
     {
-      configDir=new QDir((app->localkdedir()).data());
-      if (configDir->cd ("share"))
-	{
-	  if (!configDir->cd ("apps"))
-	    {
-	      configDir->mkdir ("apps");
-	      configDir->cd ("apps");
-	    }
-	  if (!configDir->cd ("kwave"))
-	    {
-	      configDir->mkdir ("kwave");
-	      configDir->cd ("kwave");
-	    }
-	}  
-      else debug ("no local kdedir found \n");
-
       TopWidget *tnew;
 
-      markertypes.setAutoDelete (true);
+      findDirectories (); //puts directory pointers into Global structure
+
+      globals.markertypes.setAutoDelete (true);
 
       recentFiles=new QStrList (true);
       recentFiles.setAutoDelete (false);
-      readConfig (app);
+      readConfig (globals.app);
 
-      tnew=new TopWidget(app);
-      topwidget.append (tnew);
+      tnew=new TopWidget();
 
-      app->setMainWidget (tnew);
+      globals.app->setMainWidget (tnew);
 
       if (argc==2) 
 	{
@@ -506,9 +424,9 @@ int main( int argc, char **argv )
 	}
       tnew->show();
 
-      int result=app->exec();
+      int result=globals.app->exec();
 
-      saveConfig (app);
+      saveConfig (globals.app);
 
       return result;
     }

@@ -1,13 +1,26 @@
-#include "about.h"
+#include <math.h>
+
 #include <qaccel.h>
 #include <qpntarry.h>
 #include <qdir.h>
-#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <qpushbutton.h>
+#include <qkeycode.h>
+#include "module.h"
 #include <kapp.h>
 
-extern KApplication *app;
-char about_text[]="\nKwave Version 0.29.3 alpha release\n\
-(c) 1998 by Martin Wilz (mwilz@ernie.mi.uni-koeln.de)\n\n\
+const char *version="1.0";
+const char *author="Martin Wilz";
+const char *name="about";
+//**********************************************************
+KwaveDialog *getDialog (DialogOperation *operation)
+{
+  return new AboutDialog(operation->getGlobals(),operation->isModal());
+}
+//**********************************************************
+char about_text[]="\nKwave Version 0.29.4 alpha release\n\
+(c) 1998-99 by Martin Wilz (mwilz@ernie.mi.uni-koeln.de)\n\n\
 \nFFT-Code by GNU gsl-Project, library version 0.3 beta\n\
 (GSL-Library may be retrieved from ftp://alpha.gnu.org/gnu/)\n\n\
 Memory Mapping routines by Juhana Kouhia\n\n\
@@ -16,8 +29,25 @@ Thanks go to:\n\
 
 Carsten Jacobi\n\
 Frank Christian Stoffel\n\
-Achim Dahlhaus\n
+Achim Dahlhaus\n\
 Klaus Hendrik Lorenz\n\n
+People, who provided valuable feedback (in no particular order)\n\
+
+Gerhard Zintel\n\
+Gael Duval\n\
+Aaron Johnson\n\
+Uwe Steinmann\n\
+Juhana Kouhia\n\
+Dave Phillips\n\
+Martin Petriska\n\
+Winfried Truemper\n\
+Bruce Garlock\n\
+Christoph Raab\n\
+tOpHEr lAfaTA\n\
+Nemosoft\n\
+Guido\n\
+Eero\n\
+
 This program is free software; you can redistribute it and/or\n\
 modify it under the terms of the GNU General Public License\n\
 as published by the Free Software Foundation; either version 2\n\
@@ -28,17 +58,18 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n\
 GNU General Public License for more details.\n\n\
 You should have received a copy of the GNU General Public License\n\
 along with this program; if not, write to the Free Software\n\
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.\n";
-
-AboutDialog::AboutDialog (QWidget *par=NULL): QDialog(par, "Choose Length and Rate",true)
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.\n\
+";
+//**********************************************************
+AboutDialog::AboutDialog (const Global *globals,bool modal): KwaveDialog(modal)
 {
-  resize 		(480,200);
+  resize 	(480,200);
   setCaption	("About KWave");
 
   abouttext=new QMultiLineEdit (this);
   ok		=new QPushButton ("Ok",this);
 
-  logo=new LogoWidget (this);
+  logo=new LogoWidget (this,globals->app);
 
   abouttext->setText(about_text);
   abouttext->setReadOnly(TRUE);
@@ -62,11 +93,16 @@ void AboutDialog::resizeEvent (QResizeEvent *)
   ok->setGeometry	(width()/20,height()-bsize*5/4,width()*18/20,bsize);  
 }
 //**********************************************************
+const char *AboutDialog::getCommand ()
+{
+  return 0; //about does nothing
+}
+//**********************************************************
 AboutDialog::~AboutDialog ()
 {
 }
 //**********************************************************
-LogoWidget::LogoWidget (QWidget *parent): QWidget (parent)
+LogoWidget::LogoWidget (QWidget *parent,KApplication *app): QWidget (parent)
 {
   for (int i=0;i<MAXSIN;deg[i++]=0);
   height=-1;
@@ -167,3 +203,16 @@ void LogoWidget::paintEvent  (QPaintEvent *)
       bitBlt (this,0,0,pixmap,0,0,width,height,XorROP);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,21 +1,24 @@
 #include <qdir.h>
-#include "sonagram.h"
 #include <qpainter.h>
 #include <math.h>
 #include <limits.h>
 #include <qcursor.h>
-#include <kmsgbox.h>
-#include "dialogs.h"
-#include "sample.h"
+
+#include "dialog_progress.h"
 #include "main.h"
-#include "windowfunction.h"
+#include "sonagram.h"
+#include "signalmanager.h"
+
+#include <kmsgbox.h>
+
+#include "../lib/kwavesignal.h"
+#include "../lib/windowfunction.h"
 
 extern KApplication *app;
 extern char *mstotimec (int ms); 
 //****************************************************************************
 ImageView::ImageView	(QWidget *parent) : QWidget (parent)
 {
-  this->parent=parent;
   image=0;
   lh=-1;
   lw=-1;
@@ -299,12 +302,14 @@ void  SonagramWindow::toSignal ()
   gsl_fft_complex_wavetable_alloc (points,&table);
   gsl_fft_complex_init (points,&table);
 
-  TopWidget *win=new TopWidget (app);
+  TopWidget *win=new TopWidget ();
 
   if (win)
     {
-      MSignal *newsig=new MSignal (win,length,rate);
-      int slopesize=rate/10;           //assure 10 Hz for correction signal, this should not be audible
+      KwaveSignal *newsig=new KwaveSignal (length,rate);
+      //assure 10 Hz for correction signal, this should not be audible
+      int slopesize=rate/10;
+
       double *slope=new double [slopesize];
       
       if (slope&&newsig)
@@ -337,7 +342,7 @@ void  SonagramWindow::toSignal ()
 		  if (dif<2)
 		  for (int j=0;j<max;j++) output[i*points+j]+=(int) (slope[j]*dif);		}
 
-	      win->setSignal (newsig);
+	      win->setSignal (new SignalManager (newsig));
 
 	      if (tmp) delete tmp;
 	    }
@@ -375,7 +380,7 @@ void SonagramWindow::createImage ()
     }
 }
 //****************************************************************************
-SonagramWindow::~SonagramWindow (QWidget *parent,const char *name)
+SonagramWindow::~SonagramWindow ()
 {
   if (data)
     {

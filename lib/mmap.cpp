@@ -7,6 +7,10 @@
 #include <stdlib.h>
 #include "mmap.h"
 
+#ifndef MAP_FILE
+#define MAP_FILE 0      //for suns, where this dummy does not get defined
+#endif
+
 mmapallocnode *mmapallocbase = NULL;
 char *mmapallocdir= "/tmp";
 
@@ -137,7 +141,7 @@ void mmapfree(void *mmapaddr)
     }
   if (m->mmapaddr == mmapaddr)
     {
-      (void) munmap(m->mmapaddr,m->mmapsize);
+      munmap((void *)m->mmapaddr,(size_t) m->mmapsize);
       if (unlink(m->filename) == -1)
 	fprintf(stderr,"mmapfree: cannot unlink the file\n");
       free(m->filename);
@@ -146,6 +150,14 @@ void mmapfree(void *mmapaddr)
       free(m);
     }
 }
+
+
+
+
+
+
+
+
 
 
 

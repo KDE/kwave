@@ -8,7 +8,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl You have to change this
-AM_INIT_AUTOMAKE(kwave, 0.25) dnl searches for some needed programs
+AM_INIT_AUTOMAKE(kwave, 0.29.4) dnl searches for some needed programs
 
 dnl make $KDEDIR the default for the installation
 AC_PREFIX_DEFAULT(${KDEDIR:-/usr/local/kde})
@@ -48,8 +48,6 @@ AC_SUBST(LIBSOCKET)
 AC_PATH_KDE dnl check X, Qt and KDE
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
-AC_FIND_GIF dnl only needed, if you need gif, but doesn't hurt
-AC_FIND_JPEG dnl only needed, if you need jpeg, but doesn't hurt
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_TIME
@@ -73,7 +71,17 @@ dnl output files
 topdir=`pwd`
 AC_SUBST(topdir)
 
+AM_PROG_LIBTOOL
+
 dnl add here all your Makefiles
 AC_OUTPUT(Makefile \
-	kwave/Makefile \
+	lib/Makefile \
+	libgui/Makefile \
+	src/Makefile \
+	plugins/Makefile \
+	plugins/time/Makefile \
+	plugins/time/template/Makefile \
+	plugins/dialogs/Makefile \
+	plugins/dialogs/template/Makefile \
 	po/Makefile)
+

@@ -590,27 +590,6 @@ int PlayBackALSA::close()
     return 0;
 }
 
-#if 0
-static void pcm_list(void)
-{
-	snd_config_t *conf;
-	snd_output_t *out;
-	int err = snd_config_update();
-	if (err < 0) {
-		error("snd_config_update: %s", snd_strerror(err));
-		return;
-	}
-	err = snd_output_stdio_attach(&out, stderr, 0);
-	assert(err >= 0);
-	err = snd_config_search(snd_config, "pcm", &conf);
-	if (err < 0)
-		return;
-	fprintf(stderr, "PCM list:\n");
-	snd_config_save(conf, out);
-	snd_output_close(out);
-}
-#endif
-
 //***************************************************************************
 void PlayBackALSA::scanDevices()
 {
@@ -762,7 +741,7 @@ snd_pcm_t *PlayBackALSA::openDevice(const QString &device)
 	    qWarning("PlayBackALSA::openDevice('%s') - "\
 	             "failed, err=%d (%s)",
 	             alsa_device.local8Bit().data(),
-	             err, strerror(err));
+	             err, snd_strerror(err));
 	}
     }
 

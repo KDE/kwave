@@ -79,13 +79,13 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     // update the GUI elements
     // order is: Method -> Device -> "Select..."-button
     // -> Channels -> Bits per Sample
-    setMethod(m_playback_params.method);
-    setDevice(m_playback_params.device);
-    setBitsPerSample(m_playback_params.bits_per_sample);
-    setChannels(m_playback_params.channels);
+    setMethod(params.method);
+    setDevice(params.device);
+    setBitsPerSample(params.bits_per_sample);
+    setChannels(params.channels);
 
     // buffer size is independend
-    setBufferSize(m_playback_params.bufbase);
+    setBufferSize(params.bufbase);
 }
 
 //***************************************************************************
@@ -121,6 +121,7 @@ void PlayBackDialog::setSupportedDevices(QStringList devices)
 {
     Q_ASSERT(cbDevice);
     if (!cbDevice) return;
+    QString current_device = m_playback_params.device;
 
     if (devices.contains("#EDIT#")) {
 	devices.remove("#EDIT#");
@@ -137,10 +138,10 @@ void PlayBackDialog::setSupportedDevices(QStringList devices)
 	btSelectDevice->setEnabled(false);
 	btSelectDevice->hide();
     }
+    cbDevice->clearEdit();
     cbDevice->clear();
     cbDevice->insertStringList(devices);
 
-    QString current_device = m_playback_params.device;
     if (devices.contains(current_device)) {
 	// current device is in the list
 	cbDevice->setCurrentText(current_device);
@@ -153,8 +154,8 @@ void PlayBackDialog::setSupportedDevices(QStringList devices)
 	    cbDevice->setCurrentItem(0);
 	} else {
 	    // empty list of possibilities
-	    cbDevice->clear();
 	    cbDevice->clearEdit();
+	    cbDevice->clear();
 	}
     }
 
@@ -175,7 +176,9 @@ void PlayBackDialog::setDevice(const QString &device)
 	}
     } else {
 	// one from the list
-	cbDevice->setCurrentText(device);
+	if (cbDevice->listBox()->findItem(device)) {
+	    cbDevice->setCurrentText(device);
+	}
     }
 
     if (m_playback_params.device != device) {
@@ -193,7 +196,6 @@ void PlayBackDialog::setBufferSize(int exp)
 
     if (exp <  8) exp =  8;
     if (exp > 18) exp = 18;
-    qDebug("PlayBackDialog::setBufferSize(%d)", exp);
 
     // update the slider if necessary
     if (slBufferSize->value() != exp) slBufferSize->setValue(exp);
@@ -258,13 +260,13 @@ void PlayBackDialog::setBitsPerSample(unsigned int bits)
     if (!cbBitsPerSample) return;
 
 //     qDebug("PlayBackDialog::setBitsPerSample(%u)", bits);
-    if (bits != m_playback_params.bits_per_sample) {
-	m_playback_params.bits_per_sample = bits;
-    }
 
     QString txt;
     txt.setNum(bits);
-    cbBitsPerSample->setCurrentText(txt);
+    if (cbBitsPerSample->listBox()->findItem(txt)) {
+	cbBitsPerSample->setCurrentText(txt);
+	m_playback_params.bits_per_sample = bits;
+    }
 }
 
 //***************************************************************************
@@ -291,11 +293,17 @@ void PlayBackDialog::setChannels(int channels)
     Q_ASSERT(sbChannels);
     if (!sbChannels) return;
 
-    if (sbChannels->value() != channels) {
-	sbChannels->setValue(channels);
-    }
+//     qDebug("PlayBackDialog::setChannels(%d)", channels);
+    m_playback_params.channels = channels;
 
-    channels = sbChannels->value();
+    if ((sbChannels->value() != channels) &&
+        (sbChannels->minValue() != sbChannels->maxValue()) &&
+	(sbChannels->maxValue() > 0))
+    {
+	sbChannels->setValue(channels);
+	channels = sbChannels->value();
+    }
+//     qDebug("PlayBackDialog::setChannels --> %d", channels);
 
     QString txt;
     switch (channels) {
@@ -305,8 +313,6 @@ void PlayBackDialog::setChannels(int channels)
 	default: txt = "";
     }
     lblChannels->setText(txt);
-
-    m_playback_params.channels = channels;
 }
 
 //***************************************************************************

@@ -247,6 +247,17 @@ AC_CHECK_HEADER(mad.h,,[AC_MSG_ERROR([
 
 ])])
 
+dnl determine the name of the package that contains libmad
+dnl on RPM based systems
+if ! test -z ${RPM}; then {
+    AC_MSG_CHECKING([which RPM package provides libmad.so.0])
+    RPM_REQUIRE_LIBMAD=`${RPM} -q --whatprovides libmad.so.0 2>/dev/null | cut -d \- -f 1`
+    AC_MSG_RESULT([${RPM_REQUIRE_LIBMAD}])
+} fi
+if test -z ${RPM_REQUIRE_LIBMAD}; then {
+    RPM_REQUIRE_LIBMAD="libmad.so.0"
+} fi
+    
 dnl ************************************************
 dnl *** check for id3lib in a new enough version ***
 
@@ -298,6 +309,23 @@ AC_LANG_POP(C++)
 LDFLAGS="$saved_libs"
 dnl ***                                          ***
 dnl ************************************************
+
+dnl determine the name of the package that contains id3lib
+dnl on RPM based systems, especially under Mandrake which
+dnl gives it's best to get away from any standards...
+if ! test -z ${RPM}; then {
+    AC_MSG_CHECKING([which RPM package provides id3lib])
+    RPM_REQUIRE_ID3LIB=`\
+	(( ${RPM} --quiet -q --whatprovides id3lib 2>/dev/null && \
+	   ${RPM} -q --whatprovides id3lib 2>/dev/null ) || \
+	 ( ${RPM} --quiet -q --whatprovides libid3-3.8.so.2 2>/dev/null && \
+	   ${RPM} -q --whatprovides libid3-3.8.so.2 2>/dev/null ) \
+	) | cut -d \- -f 1`
+    AC_MSG_RESULT([${RPM_REQUIRE_ID3LIB}])
+} fi
+if test -z ${RPM_REQUIRE_ID3LIB}; then {
+    RPM_REQUIRE_ID3LIB="id3lib"
+} fi
 
 dnl check for libogg-devel support
 AC_CHECK_HEADER(ogg/ogg.h,,[AC_MSG_ERROR([libogg-devel is missing.])])
@@ -474,6 +502,8 @@ AC_SUBST(RPM_COPYRIGHT)
 AC_SUBST(RPM_URL)
 AC_SUBST(RPM_VENDOR)
 AC_SUBST(RPM_BUILDROOT)
+AC_SUBST(RPM_REQUIRE_LIBMAD)
+AC_SUBST(RPM_REQUIRE_ID3LIB)
 AC_SUBST(LD_VERSION_INFO)
 
 AC_ARG_ENABLE(debug,

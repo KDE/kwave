@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-06-25 21:40+0200\n"
+"POT-Creation-Date: 2003-06-26 23:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgid "&About Kwave"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:15
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:80
 msgid "&Add"
 msgstr ""
 
@@ -714,75 +714,75 @@ msgstr ""
 msgid "modify file info"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:213
+#: libgui/SelectTimeWidgetBase.uic.cpp:212
 msgid "frmLength"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:214
+#: libgui/SelectTimeWidgetBase.uic.cpp:213
 #: plugins/fileinfo/FileInfoDialog.cpp:209
 #: plugins/newsignal/NewSigDlg.uic.cpp:548
 msgid "Length"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:215
+#: libgui/SelectTimeWidgetBase.uic.cpp:214
 msgid "&Samples"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:216
+#: libgui/SelectTimeWidgetBase.uic.cpp:215
 msgid "select by number of samples"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:217
+#: libgui/SelectTimeWidgetBase.uic.cpp:216
 msgid "&Time"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:218
+#: libgui/SelectTimeWidgetBase.uic.cpp:217
 msgid "select by time"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:219
+#: libgui/SelectTimeWidgetBase.uic.cpp:218
 msgid "&Percent"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:220
+#: libgui/SelectTimeWidgetBase.uic.cpp:219
 msgid "select by percentage of the signal's length"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:221
+#: libgui/SelectTimeWidgetBase.uic.cpp:220
 #: plugins/newsignal/NewSigDlg.uic.cpp:555
 msgid "Minutes"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:222
+#: libgui/SelectTimeWidgetBase.uic.cpp:221
 msgid "Milliseconds"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:223
+#: libgui/SelectTimeWidgetBase.uic.cpp:222
 #: plugins/newsignal/NewSigDlg.uic.cpp:554
 msgid "Seconds"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:224
+#: libgui/SelectTimeWidgetBase.uic.cpp:223
 #: plugins/newsignal/NewSigDlg.uic.cpp:556
 msgid "Hours"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:225
+#: libgui/SelectTimeWidgetBase.uic.cpp:224
 #: plugins/newsignal/NewSigDlg.uic.cpp:561
 msgid "0%"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:226
+#: libgui/SelectTimeWidgetBase.uic.cpp:225
 #: plugins/newsignal/NewSigDlg.uic.cpp:562
 msgid "50%"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:227
+#: libgui/SelectTimeWidgetBase.uic.cpp:226
 #: plugins/newsignal/NewSigDlg.uic.cpp:563
 msgid "100%"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:228
+#: libgui/SelectTimeWidgetBase.uic.cpp:227
 msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
@@ -1090,7 +1090,7 @@ msgid ""
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:79
+#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:78
 msgid "Keywords"
 msgstr ""
 
@@ -1295,7 +1295,7 @@ msgid "Track of the CD if the source was a CDROM."
 msgstr ""
 
 #: libkwave/FileInfo.cpp:199
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:404
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:403
 msgid "Base Quality"
 msgstr ""
 
@@ -2688,77 +2688,77 @@ msgstr ""
 msgid "Author/Copyright"
 msgstr ""
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
 msgid "A&uto"
 msgstr ""
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
 msgid "auto-generate keywords"
 msgstr ""
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:84
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
 msgid ""
 "<b>Auto-Generate Keywords</b><br>\n"
 "Create a list of keywords by going through all present file informations and "
 "merge them with the current list of keywords."
 msgstr ""
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:86
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:85
 msgid "List of keywords."
 msgstr ""
 
-#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:296
+#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:295
 #: plugins/newsignal/NewSigDlg.uic.cpp:525
 msgid "Form1"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:388
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:387
 msgid "CompressionWidgetBase"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:390
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:389
 msgid "ABR:"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:390
 msgid "Average Bitrate Mode"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:392
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
 msgid ""
 "<b>Average Bitrate Mode</b><br>\n"
 "Bitrate is set to an average value, \n"
 "with optional upper and lower limit."
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:395
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:403
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:394
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:402
 msgid "lowest"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:395
 msgid "VBR:"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
 msgid "Variable Bitrate Mode"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:398
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
 msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:399
 msgid "highest"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
 msgid "Nominal Bitrate"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:402
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
 msgid " %"
 msgstr ""
 

@@ -65,6 +65,7 @@ class SignalWidget : public QWidget
  void timeInfo          (int);
  void rateInfo	        (int);
  void lengthInfo	(int);
+ void checkMenu 	(const char*, bool);
 
  protected:
  void	setRange                (int,int,bool=true);

@@ -41,7 +41,7 @@ class KwavePopMenu: public QPopupMenu
   static int           getIdRange  (int); 
          void          insertMenu  (KwavePopMenu *);
 	 void          setCommand  (const char *);
-         void          insertEntry (const char *name,const char *com, int key);
+         int           insertEntry (const char *name,const char *com, int key);
          void          removeMenu  (const char *name);
          KwavePopMenu *findMenu    (const char *name);
          void          check       ();

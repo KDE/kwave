@@ -45,6 +45,7 @@ class MenuManager:public QObject
  //delete all entries of a numbered Menu
  void addNumberedMenuEntry      (const char *name,const char *entry);
  //add Entrys to numbered Window
+ void checkMenuEntry		(const char *name,bool check);
 
  signals:
 
@@ -69,6 +70,7 @@ class MenuManager:public QObject
                                     //file list,etc)
 };
 #endif
+
 
 
 

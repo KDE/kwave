@@ -53,88 +53,72 @@ static inline short int swapEndian (short int s)
  return ((s&0xff)<<8)|((s&0xff00)>>8);
 }
 //**********************************************************
-SignalManager::SignalManager (QWidget *par,const char *name,int channel,int type)
+SignalManager::SignalManager (QWidget *par,const char *name,int type)
 // constructor that loads a signal file to memory 
 {
+  initialize();
   parent=par;
-  lmarker=0;
-  rmarker=0;
 
   this->name=duplicateString (name);
 
   switch (type)
     {
     case WAV:
-      loadWav (channel);
+      loadWav();
       break;
     case ASCII:
-      loadAscii(channel);
+      loadAscii();
       break;
     }
 }
 //**********************************************************
-void SignalManager::loadAscii (int channel)
+void SignalManager::loadAscii ()
   //import ascii files with one sample per line, everything unparseable
   //by strtod is ignored
 {
-  //  QFile *sigin=new QFile (name);
   FILE *sigin=fopen(name,"r");
 
   if (sigin)
     {
-      //      char buf[80];
       float value;
 
       int cnt=0;
       float max=0;
       float min=INT_MAX;
 
-      //	  while (sigin->readLine(&buf[0],80)>0)
-      //	    {
-
       //loop over all samples in file to get maximum and minimum
       if (fscanf (sigin,"%e\n",&value)!=0)
-	//	      if (sscanf (buf,"%e",&value)!=0)
-	{
-	  if (value>max) max=value;
-	  if (value<min) min=value;
-	  cnt++;
-	  //		}
-	}
+      {
+	if (value>max) max=value;
+	if (value<min) min=value;
+	cnt++;
+      }
 
       float amp=max;
       if (-min>max) amp=-min;
 
-      fseek (sigin,0,SEEK_SET);
-      //      sigin->at(0); //seek to beginning
+      fseek (sigin,0,SEEK_SET); //seek to beginning
 
-      rate=10000;	//will be asked in requester
-      length=cnt;
+      rate=10000;     //will be asked in requester
       channels=1;
 
-      signal[0]=new KwaveSignal (length,rate);
+      signal[0]=new KwaveSignal (cnt,rate);
       int *sample = signal[0]->getSample();
       if (sample)
-	{
-	  cnt=0;
+      {
+	cnt=0;
 
-	  if (fscanf (sigin,"%e\n",&value)!=0)
-	    sample[cnt++]=(int)(value/amp*((1<<23)-1));
-	  //	  while (sigin->readLine(&buf[0],80)>0)
-	  //	    {
-	  //	      if (sscanf (buf,"%e",&value)!=0)
-
-	  //	    }
+	if (fscanf (sigin,"%e\n",&value)!=0)
+	  sample[cnt++]=(int)(value/amp*((1<<23)-1));
 	}
       fclose (sigin);
     }
   else printf ("File does not exist !\n");
 }
 //**********************************************************
-void SignalManager::loadWav (int channel)
+void SignalManager::loadWav ()
 {
   FILE *sigfile=fopen (name,"r");
-  //  QFile *sigin=new QFile (name);
 
   if (sigfile)
     {
@@ -166,9 +150,7 @@ void SignalManager::loadWav (int channel)
 	      if (header.mode==1)
 		{
 		  rate=header.rate;
-
 		  int res=findDatainFile (sigfile);
-
 		  if (res==0) printf("File contains no data chunk!\n");
 		  else
 		    {
@@ -177,20 +159,15 @@ void SignalManager::loadWav (int channel)
 #if defined(IS_BIG_ENDIAN)
 		      length=swapEndian (length);	
 #endif
-		      printf ("length is %d,res is %d\n",length,res);
+		      debug ("length is %d,res is %d",length,res);
 
-		      this->length=(length/(header.bitspersample/8))/header.channels;
+		      length=(length/(header.bitspersample/8))/header.channels;
 		      switch (header.bitspersample)
 			{
 			case 8:
-			  load8Bit (sigfile,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
-			  break;
 			case 16:
-			  if (header.channels==2) loadStereo16Bit (sigfile);
-			  else load16Bit (sigfile,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
-			  break;
 			case 24:
-			  load24Bit (sigfile,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
+			  loadWavChunk(sigfile,length, header.channels,header.bitspersample);
 			  break;
 			default:
 			  KMsgBox::message
@@ -199,38 +176,22 @@ void SignalManager::loadWav (int channel)
 			}
 		      channels=header.channels;
 
-		      info ();
-		      globals.port->putMessage ("refreshchannels()");
 		    }
 		}
-	      else printf ("File must be uncompressed (Mode 1) !");
+	      else KMsgBox::message (parent,"Info","File must be uncompressed (Mode 1) !",2);
 	    }
-	  else  printf ("File is no RIFF Wave File !");
+	  else  KMsgBox::message (parent,"Info","File is no RIFF Wave File !",2);
+
 	}
-      else  printf ("File does not contain enough data !");
-      fclose (sigfile);
+      else  KMsgBox::message (parent,"Info","File does not contain enough data !",2);
     }
-  else  printf ("File does not exist !");
+  else  KMsgBox::message (parent,"Info","File does not exist !",2);
 }
 //**********************************************************
 // the following routines are for loading and saving in dataformats
 // specified by names little/big endian problems are dealt with at compile time
 // The corresponding header should have already been written to the file before
 // invocation of this methods
-void writeData8Bit (FILE *sigout,int begin,int end,SignalManager *manage)
-{
-  int channels=manage->getChannelCount();
-
-  char o;
-  for (int i=begin;i<end;i++)
-    {
-      for (int j=0;j<channels;j++)
-	{
-	  o=128+(char)(manage->getSingleSample(j,i)/65536);
-	  fputc (o,sigout);
-	}
-    }
-}
 //**********************************************************
 void SignalManager::exportAscii ()
 {
@@ -239,6 +200,7 @@ void SignalManager::exportAscii ()
   if (name)
     {
       char buf[64];
+      int length=getLength();
 
       QFile sigout(name);
       sigout.open (IO_WriteOnly);
@@ -260,104 +222,94 @@ void SignalManager::exportAscii ()
     }
 }
 //**********************************************************
-void writeData16Bit (FILE *sigout,int begin,int end,SignalManager *manage)
+void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
 {
-  int channels=manage->getChannelCount();
-  int act;
+  int **sample=0; // array of pointers to samples
 
-  for (int i=begin;i<end;i++)
+  //prepare and show the progress dialog
+  char progress_title[64];
+  char str_channels[32];
+  if (channels==1)
+    strcpy((char *)&str_channels,"Mono");
+  else if (channels==2)
+    strcpy((char *)&str_channels,"Stereo");
+  else
+    sprintf((char *)&str_channels,"%d-channel", channels);
+
+  sprintf((char *)&progress_title,"Saving %d-Bit-%s File :",
+    bits, str_channels);
+
+  ProgressDialog *dialog=new ProgressDialog (100,
+    (char *)klocale->translate(progress_title));
+  if (dialog) dialog->show();
+
+  //prepare the store loop
+  int percent_count = length/200;
+  int bytes=bits/8;
+  unsigned int sign=1 << (24-1);
+  unsigned int shift=24-bits;
+
+  sample=new (int*)[channels];
+  for (int channel=0; channel<channels; channel++)
+    sample[channel]=signal[channel]->getSample();
+
+  debug("sign=%08X, shift=%d",sign,shift);
+
+  //loop for writing data
+  for (int pos=begin;pos<length;pos++)
     {
-      for (int j=0;j<channels;j++)
+      for (int channel=0;channel<channels;channel++)
 	{
-	  act=(manage->getSingleSample(j,i));
-	  act+=1<<23;
+	  register int *smp=sample[channel] + pos;
+	  register int act=(*smp) >>= shift;
+	  for (register int byte=bytes; byte; byte--)
+	    {
+	      fputc((char)(act&0xFF), sigout);
+	      act >>= 8;
+	    }
+	}
 
-#if defined(IS_BIG_ENDIAN)
-	  fputc ((char)((act>>16)+128),sigout);
-	  fputc ((char)(act>>8),sigout);
-
-	  //	  sigout->putch ((char)((act>>16)+128));
-	  //sigout->putch ((char)(act>>8));
-#else
-	  fputc ((char)(act>>8),sigout);
-	  fputc ((char)((act>>16)+128),sigout);
-	  //	  sigout->putch ((char)(act>>8));
-	  // sigout->putch ((char)((act>>16)+128));
-#endif
+      if (dialog && (percent_count-- <= 0))
+	{
+	  percent_count=length/200;
+	  float percent=(float)pos;
+	  percent/=(float)length;
+	  percent*=100.0;
+	  dialog->setProgress (percent);
+	  debug("setProgress(%d)", percent); // ###
 	}
     }
-}
-//**********************************************************
-void writeData24Bit (FILE *sigout,int begin,int end,SignalManager *manage)
-{
-  int channels=manage->getChannelCount();
-  int act;
 
-  for (int i=begin;i<end;i++)
-    {
-      for (int j=0;j<channels;j++)
-	{
-	  act=(manage->getSingleSample(j,i));
-
-#if defined(IS_BIG_ENDIAN)
-	  fputc ((char)(act/65536),sigout);
-	  fputc ((char)(act/256),sigout);
-	  fputc ((char)(act),sigout);
-
-	  //	  sigout->putch ((char)(act/65536));
-	  //	  sigout->putch ((char)(act/256));
-	  //	  sigout->putch ((char)(act));
-#else
-	  fputc ((char)(act),sigout);
-	  fputc ((char)(act/256),sigout);
-	  fputc ((char)(act/65536),sigout);
-
-	  //	  sigout->putch ((char)(act));
-	  // sigout->putch ((char)(act/256));
-	  //sigout->putch ((char)(act/65536));
-#endif
-	}
-    }
+  if (sample) delete sample;
+  if (dialog) delete dialog;
 }
 //**********************************************************
 void  SignalManager::save (const char *filename,int bit,int selection)
 {
   printf ("saving %d Bit to %s ,%d\n",bit,filename,selection);
   int begin=0;
-  int endp=this->length;
+  int length=this->getLength();
   struct wavheader header;
-  int **samples=new int* [channels];
 
-  if (selection)
-    if (lmarker!=rmarker)
-      {
-	begin=lmarker;
-	endp=rmarker;
-      }
+  if (selection && (lmarker!=rmarker))
+    {
+      begin=lmarker;
+      length=rmarker-lmarker+1;
+    }
 
-  FILE	*sigout=fopen (filename,"w");
+  FILE *sigout=fopen (filename,"w");
   if (name) deleteString (name);
   name=duplicateString (filename);
 
-  for (int i=0;i<channels;i++)
-    samples[i]=signal[i]->getSample();
-
-  if (sigout&&samples)
+  if (sigout)
     {
-      //      if (sigout->exists())
-      //	{
-      //	  debug ("File Exists overwriting !\n");
-      //	}
-
-      //      sigout->open (IO_WriteOnly);
-      //      sigout->at (0);
       fseek (sigout,0,SEEK_SET);
 
       strncpy (header.riffid,"RIFF",4);
       strncpy (header.wavid,"WAVE",4);
       strncpy (header.fmtid,"fmt ",4);
       header.fmtlength=16;
-      header.filelength=((endp-begin)*bit/8*channels+sizeof(struct wavheader));
+      header.filelength=(length*bit/8*channels+sizeof(struct wavheader));
       header.mode=1;
       header.channels=channels;
       header.rate=rate;
@@ -365,7 +317,7 @@ void  SignalManager::save (const char *filename,int bit,int selection)
       header.BlockAlign=bit*channels/8;
       header.bitspersample=bit;
 
-      int datalen=(endp-begin)*header.channels*header.bitspersample/8;
+      int datalen=length*header.channels*header.bitspersample/8;
 
 #if defined(IS_BIG_ENDIAN)
       header.mode 		= swapEndian (header.mode);
@@ -379,251 +331,139 @@ void  SignalManager::save (const char *filename,int bit,int selection)
 #endif
 
       fwrite ((char *) &header,1,sizeof (struct wavheader),sigout);
-      //      sigout->writeBlock ((char *) &header,sizeof (struct wavheader));
       fwrite ("data",1,4,sigout);
-      //    sigout->writeBlock ("data",4);
       fwrite ((char *)&datalen,1,4,sigout);
-      // sigout->writeBlock ((char *)&datalen,4);
 
       switch (bit)
 	{
 	case 8:
-	  writeData8Bit (sigout,begin,endp,this);
-	  break;
 	case 16:
-	  writeData16Bit (sigout,begin,endp,this);
-	  break;
 	case 24:
-	  writeData24Bit (sigout,begin,endp,this);
+	  writeWavChunk(sigout,begin,length,bit);
+	  break;
+	default:
+	  KMsgBox::message(parent,"Info",
+	    "Sorry only 8/16/24 Bits per Sample are supported !",2);
 	  break;
 	}
-      delete []samples;
-      fclose (sigout);
-	//      sigout->close();
+
+      fclose(sigout);
     }
   if (sigout) delete sigout;
 }
 //**********************************************************
-void SignalManager::load24Bit (FILE *sigin,int offset,int interleave)
+/**
+ * Reads in the wav data chunk from a .wav-file. It creates
+ * a new empty KwaveSignal for each channel and fills it with
+ * data read from an opened file. The file's actual position
+ * must already be set to the correct position.
+ * <p>
+ * \param sigfile FILE* pointer to the already opened file
+ * \param channels int number of channels [1,2,...]
+ * \param bits resolution in bits [8,16,24]
+ */
+void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
 {
-  unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*3];
+//int bufsize=PROGRESS_SIZE*sizeof(int) << 1;
+  unsigned int bufsize=16*1024*sizeof(int);
+  unsigned char *loadbuffer = 0;
+  int **sample=0; // array of pointers to samples
 
-  signal[0]=new KwaveSignal (length,rate);
-  int *sample = signal[0]->getSample();
-  if (sample)
-
-  if ((sample)&&(loadbuffer))
+  // try to allocate memory for the load buffer
+  // if failed, try again with the half buffer size as long
+  // as "0" is not reached (then we are really out of memory)
+  while (loadbuffer==0)
     {
-      ProgressDialog *dialog=new ProgressDialog (length,"Loading 24-Bit File :");
-
-      if (dialog)
+      if (bufsize<=1024)
 	{
-	  dialog->show();
-	  int i,j,pos;
-	  if (interleave==0)
-	    {
-	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
-	      for (i=0;i<length;)
-		{
-		  if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;//determine number of sample to fill buffer with...
-		  else j=length;
-
-		  fread ((char *)loadbuffer,1,(j-i)*3,sigin);
-		  pos=0;
-
-		  for (;i<j;i++)
-		    {
-		      //		      sample[i]=(sigin->getch()+sigin->getch()<<8)+(sigin->getch()<<16);
-		      sample[i]=loadbuffer[pos++];
-		      sample[i]+=loadbuffer[pos++]<<8;
-		      sample[i]+=loadbuffer[pos++]<<16;
-		      
-		      if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
-		    }
-		  dialog->setProgress (i);
-		}
-	    }
-	  else
-	    {	//non zero interleave for multichannel-files !
-	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
-	      //	      sigin->at(sigin->at()+offset);
-	      for (i=0;i<length;i++)
-		{
-		  sample[i]=(fgetc(sigin)+fgetc(sigin)<<8)+(fgetc(sigin)<<16);
-		  //		  sample[i]=(sigin->getch()+sigin->getch()<<8)+(sigin->getch()<<16);
-		  if (sample[i]>(1<<23)) sample[i]=(-(1<<24))+sample[i];
-	      fseek (sigin,(ftell(sigin)+interleave),SEEK_SET);
-	      //		  sigin->at(sigin->at()+interleave);
-		}
-	    }
-	  delete dialog;
+	  debug("SignalManager::loadWavSignal:not enough memory for buffer");
+	  return;
 	}
-      if (loadbuffer) delete loadbuffer;
+      loadbuffer = new unsigned char[bufsize];
+      if (!loadbuffer) bufsize>>=1;
     }
-}
-//**********************************************************
-void SignalManager::load16Bit (FILE *sigin,int offset,int interleave)
-{
-  unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*2];
 
-  signal[0]=new KwaveSignal (length,rate);
-  int *sample = signal[0]->getSample();
-
-  if ((sample)&&(loadbuffer))
+  sample=new (int*)[channels];
+  for (int channel=0; channel<channels; channel++)
     {
-      ProgressDialog *dialog=new ProgressDialog (length,"Loading 16-Bit File :");
-      dialog->show();
+      signal[channel]=new KwaveSignal (length,rate);
+      signal[channel]->setBits(bits);
+      selected[channel]=true;
+      sample[channel]=signal[channel]->getSample();
+    }
 
-      if (dialog)
+  //prepare and show the progress dialog
+  char progress_title[64];
+  char str_channels[32];
+  if (channels==1)
+    strcpy((char *)&str_channels,"Mono");
+  else if (channels==2)
+    strcpy((char *)&str_channels,"Stereo");
+  else
+    sprintf((char *)&str_channels,"%d-channel", channels);
+
+  sprintf((char *)&progress_title,"Loading %d-Bit-%s File :",
+    bits, str_channels);
+
+  ProgressDialog *dialog=new ProgressDialog (100,
+    (char *)klocale->translate(progress_title));
+  if (dialog) dialog->show();
+
+  //prepare the load loop
+  int percent_count=length/1000;
+  int bytes=bits/8;
+  unsigned int sign=1 << (24-1);
+  unsigned int negative=~(sign-1);
+  unsigned int shift=24-bits;
+  unsigned int bytes_per_sample=bytes*channels;
+  unsigned int max_samples=bufsize/bytes_per_sample;
+  long int start_offset=ftell(sigfile);
+
+  debug("sign=%08X, negative=%08X, shift=%d",sign,negative,shift);
+
+  for (int pos=0;pos<length;)
+    {
+      int read_samples=fread((char *)loadbuffer,bytes_per_sample,
+	max_samples,sigfile);
+      percent_count -= read_samples;
+      // debug("read %d samples", read_samples);
+      if (read_samples<=0)
 	{
-	  int i,j,pos=0;
-
-	  if (interleave==0)
-	    {
-	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
-	      //	      sigin->at(sigin->at()+offset);
-	      for (i=0;i<length;)
-		{
-		  if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;
-		  else j=length;
-
-		  fread ((char *)loadbuffer,1,(j-i)*2,sigin);
-		  //		  sigin->readBlock((char *)loadbuffer,(j-i)*2);
-		  pos=0;
-
-		  for (;i<j;i++)
-		    {
-		      sample[i]=loadbuffer[pos++]<<8;
-		      sample[i]+=loadbuffer[pos++]<<16;
-
-		      //convert to signed int
-		      if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
-		    }
-		  dialog->setProgress (i);
-		}
-	    }
-	  else
-	    {	//non zero interleave for multichannel-files !
-	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
-	      //sigin->at(sigin->at()+offset);
-	      for (i=0;i<length;i++)
-		{
-		  sample[i]=loadbuffer[pos++]<<8;
-		  sample[i]+=loadbuffer[pos++]<<16;
-		  if (sample[i]>(1<<23)) sample[i]=(-(1<<24))+sample[i];
-		  fseek (sigin,(ftell(sigin)+interleave),SEEK_SET);
-	      //		  sigin->at(sigin->at()+interleave);
-		}
-	    }
-	  delete dialog;
+	  debug("SignalManager::loadWavChunk:EOF reached?"\
+	    " (at sample %ld, expected length=%d",
+	    ftell(sigfile)/bytes_per_sample-start_offset, length);
+	  break;
 	}
-      if (loadbuffer) delete loadbuffer;
-    }
-}
-//**********************************************************
-void  SignalManager::loadStereo16Bit (FILE *sigin)
-  //explicit routine for faster loading of 16 bit stereo files,
-  //since they are widely-spread...
-{
-  //the current object should be the first channel....
 
-  printf ("loadstereo16bit...\n");
-
-  signal[0]=new KwaveSignal (length,rate);
-  int *sample = signal[0]->getSample();
-
-  printf ("second channel coming up\n");
-
-  signal[1]=new KwaveSignal (length,rate);
-  printf ("signal is %p\n",signal[1]);  
-  int *lsample = signal[1]->getSample();
-
-  unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*4];
-
-  if (lsample&&sample&&loadbuffer)
-    {
-      ProgressDialog *dialog=new ProgressDialog (length,"Loading Stereo 16-Bit File :");
-      dialog->show();
-
-      if (dialog)
+      unsigned char *buffer=loadbuffer;
+      while (read_samples--)
 	{
-	  int i,j,pos;
-	  for (i=0;i<length;)
+	  for (register int channel=0; channel<channels; channel++)
 	    {
-	      if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;
-	      else j=length;
+	      register int *smp=sample[channel] + pos;
 
-	      fread ((char *)loadbuffer,1,(j-i)*4,sigin);
-	      //	      sigin->readBlock((char *)loadbuffer,(j-i)*4);
-	      pos=0;
+	      for (register int byte=0; byte<bytes; byte++)
+		*smp|=*(buffer++) << ((byte<<3)+shift);
 
-	      for (;i<j;i++)
-		{
-		  sample[i]=loadbuffer[pos++]<<8;
-		  sample[i]+=loadbuffer[pos++]<<16;
-		  lsample[i]=loadbuffer[pos++]<<8;
-		  lsample[i]+=loadbuffer[pos++]<<16;
-
-		  if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
-		  if (lsample[i]>=(1<<23)) lsample[i]=(-(1<<24))+lsample[i];
-		}
-	      dialog->setProgress (i);
+	      // sign correcture for negative values
+	      if ((unsigned int)*smp & sign)
+		*smp|=negative;
 	    }
-	  delete dialog;
+	  pos++;
+	}
+
+      if (dialog && (percent_count <= 0))
+	{
+	  percent_count=length/1000;
+	  float percent=(float)pos;
+	  percent/=(float)length;
+	  percent*=100.0;
+	  dialog->setProgress (percent);
 	}
     }
+  if (dialog) delete dialog;
   if (loadbuffer) delete loadbuffer;
-}
-//**********************************************************
-void SignalManager::load8Bit (FILE *sigin,int offset,int interleave)
-{
-  signal[0]=new KwaveSignal (length,rate);
-  int *sample = signal[0]->getSample();
-
-  if (sample)
-    {
-      ProgressDialog *dialog=new ProgressDialog (length,"Loading 8-Bit File :");
-      dialog->show();
-
-      if (dialog)
-	{
-	  int i,j;
-
-	  if (interleave==0)
-	    {
-	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
-	      //	      sigin->at(sigin->at()+offset);
-	      for (i=0;i<length;)
-		{
-		  if (i<length-PROGRESS_SIZE) j=i+PROGRESS_SIZE;
-		  else j=length;
-
-		  for (;i<j;i++)
-		    {
-		      sample[i]=(fgetc(sigin)-128)*(1<<16);
-		      //sample[i]=(((int) sigin->getch())-128)*(1<<16);
-
-		      if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
-		    }
-		  dialog->setProgress (i);
-		}
-	    }
-	  else
-	    {	//non zero interleave for multichannel-files !
-	      fseek (sigin,(ftell(sigin)+offset),SEEK_SET);
-	      //	      sigin->at(sigin->at()+offset);
-	      for (i=0;i<length;i++)
-		{
-		  sample[i]=(((int) fgetc(sigin))-128)*(1<<16);
-		  //		  sample[i]=(((int) sigin->getch())-128)*(1<<16);
-		  if (sample[i]>=(1<<23)) sample[i]=(-(1<<24))+sample[i];
-		  fseek (sigin,(ftell(sigin)+interleave),SEEK_SET);
-		  //sigin->at(sigin->at()+interleave);
-		}
-	    }
-	  delete dialog;
-	}
-    }
+  if (sample) delete sample;
 }
 //**********************************************************
 int SignalManager::findDatainFile (FILE *sigin)

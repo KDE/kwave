@@ -21,6 +21,7 @@ class TopWidget : public KTMainWindow
  public slots:
  void 	setOp             (const char *);
  void	dropEvent	  (KDNDDropZone *);
+ void	checkMenuEntry	  (const char *name, bool check);
 
  protected:
 
@@ -30,6 +31,7 @@ class TopWidget : public KTMainWindow
  void   openRecent (const char *str);
  void	saveFile();
  void	saveFileAs(bool selection=false);
+ void	resolution (const char *str);
 
  private:
 

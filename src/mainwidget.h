@@ -55,12 +55,14 @@ class MainWidget : public QWidget
  void stop		();
  void halt		();
  void loop		();
+ void checkMenu 	(const char*, bool);
 
  signals:
 
  void command	        (const char *);
  void setOperation	(int);
  void channelInfo       (int);
+ void checkMenuEntry	(const char*, bool);
 
  protected:
  void updateChannels    (int);

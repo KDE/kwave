@@ -68,12 +68,14 @@ void KwavePopMenu::checkable ()
   checked=-1; 
 }
 //*****************************************************************************
-void KwavePopMenu::insertEntry (const char *name,const char *command, int keycode)
+int KwavePopMenu::insertEntry (const char *name,const char *command, int keycode)
 {
   int id=getUniqueId();
+  int key;
   commands.append (new MenuCommand (command,id));
-  this->insertItem (name,id);
+  key=this->insertItem (name,id);
   this->setAccel (keycode,id);
+  return key; // return the real id of the menu entry
 }
 //*****************************************************************************
 void KwavePopMenu::selected (int num)
@@ -165,3 +167,4 @@ KwavePopMenu::~KwavePopMenu ()
   deleteString (com);
 }
 //*****************************************************************************
+

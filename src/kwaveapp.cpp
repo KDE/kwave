@@ -229,7 +229,7 @@ void KwaveApp::readConfig()
 //*****************************************************************************
 void KwaveApp::timer ()
 {
-  const char *message;
+  const char *message=0;
   if (globals.port) message=globals.port->getMessage ();
   if (message)
     {

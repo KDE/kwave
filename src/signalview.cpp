@@ -379,17 +379,15 @@ void SignalWidget::createSignal (const char *str)
 
   if (signalmanage) delete signalmanage;
   labels->clear ();	  
-	  
+
   signalmanage=new SignalManager (this,numsamples,rate,1);
 
   if (signalmanage) 
     {
-
       connectSignal ();
-
       emit	channelReset	();
+      // ### emit checkMenu("bits(8)", true);
       setZoom (100);
-
       refresh ();
     }
 }
@@ -420,13 +418,15 @@ void SignalWidget::setSignal  (SignalManager *sigs)
     {
       connectSignal ();
       emit channelReset	();
+      // ### debug("emit checkMenu(bits(8), true);\n");
+      // ### emit checkMenu("bits(8)", true);
     }
 }
 //****************************************************************************
 void SignalWidget::setSignal  (const char *filename,int type)
 {
   if (signalmanage) delete signalmanage;  //get rid of old signal
-  signalmanage=new SignalManager (this,filename,1,type);
+  signalmanage=new SignalManager (this,filename,type);
   labels->clear ();
 
   if (signalmanage)
@@ -437,6 +437,7 @@ void SignalWidget::setSignal  (const char *filename,int type)
       setRange (0,0);
 
       emit channelReset	();
+      // ### emit checkMenu("bits(8)", true);
     }
 }
 //****************************************************************************
@@ -520,12 +521,18 @@ void SignalWidget::refresh()
       int rate=signalmanage->getRate();
       int length=signalmanage->getLength();
 
+      if (rate==0)
+	{
+	  debug("SignalWidget::refresh:rate==0");
+	  // return; // ###
+	}
+
       select->setOffset (offset);
       select->setLength (length);
       select->setZoom (zoom);
 
-      emit timeInfo((int)(((long long)(length))*10000/rate));
-      emit rateInfo (rate);
+      if (rate) emit timeInfo((int)(((long long)(length))*10000/rate));
+      if (rate) emit rateInfo (rate);
       emit lengthInfo (length);
     }
   redraw=true;
@@ -624,6 +631,8 @@ void SignalWidget::mouseMoveEvent( QMouseEvent *e )
 //****************************************************************************
 void SignalWidget::drawOverviewSignal (int channel,int begin, int height)
 {
+  debug("SignalWidget::drawOverviewSignal(channel=%d,begin=%d,height=%d)",
+    channel, begin, height); // ###
   int step,max=0,min=0;
   int div=65536;
   div=(int)((double)div/zoomy);
@@ -642,6 +651,8 @@ void SignalWidget::drawOverviewSignal (int channel,int begin, int height)
 //****************************************************************************
 void SignalWidget::drawInterpolatedSignal (int channel,int begin, int height)
 {
+  debug("SignalWidget::drawOvdrawOverviewSignalerviewSignal(channel=%d,begin=%d,height=%d)",
+    channel, begin, height); // ###
   double f;
   int 	j,lx,x,x1,x2;
   int div=65536;
@@ -703,6 +714,14 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 	      int chanheight=height/channels;
 	      int begin=+chanheight/2;
 
+	      //check and correction of current begin if needed
+	      if (zoom*width > signalmanage->getLength() + begin)
+		{
+/* ###
+	the check above does not work. please correct and insert some clever code here...
+*/
+		}
+
 	      //check and correction of current zoom value if needed
 	      if (zoom*width>signalmanage->getLength())
 		{
@@ -711,6 +730,7 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 		}
 	      for (int i=0;i<channels;i++)
 		{
+		  if (!signalmanage->getSignal(i)) continue; // skip non-existent signals
 		  if (zoom<=1)
 		    drawInterpolatedSignal(i,begin,chanheight);
 		  else if (zoom>1)
@@ -818,12 +838,6 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
       if (update[1]!=-1) bitBlt (this,update[1],0,pixmap,update[1],0,1,height);
     }
 }
-
-
-
-
-
-
 
 
 

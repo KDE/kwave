@@ -102,6 +102,8 @@ int SignalManager::setSoundParams (int audio,int bitspersample,int channels,int 
 //**********************************************************
 void SignalManager::play8 (bool loop)
 {
+  debug("SignalManager::play8 (%d)", loop); // ###
+
   int 	audio;			//file handle for /dev/dsp
   int   act;
   char	*buffer=0;
@@ -115,6 +117,7 @@ void SignalManager::play8 (bool loop)
       if (bufsize)
 	{
 	  buffer=new char[bufsize];
+	  memset(buffer, 0, bufsize);
 		
 	  if (buffer)
 	    {
@@ -125,7 +128,7 @@ void SignalManager::play8 (bool loop)
 
 	      if (loop)
 		{
-		  if (lmarker==rmarker) last=length;
+		  if (lmarker==rmarker) last=getLength();
 
 		  while (msg[stopprocess]==false)
 		    {
@@ -145,7 +148,7 @@ void SignalManager::play8 (bool loop)
 		}
 	      else
 		{
-		  if (last==pointer) last=length;
+		  if (last==pointer) last=getLength();
 
 		  while ((last-pointer>bufsize)&&(msg[stopprocess]==false))
 		    {
@@ -193,6 +196,7 @@ void SignalManager::play8 (bool loop)
 //**********************************************************
 void SignalManager::play16 (bool loop)
 {
+  debug("SignalManager::play16 (%d)", loop); // ###
   int 	        audio;			//file handle for /dev/dsp
   unsigned char *buffer=0;
   int	        bufsize;
@@ -203,14 +207,15 @@ void SignalManager::play16 (bool loop)
       bufsize=setSoundParams(audio,16,0,rate,bufbase);
 
       buffer=new unsigned char[bufsize];
-		
+      memset(buffer, 0, bufsize);
+
       if (buffer)
 	{
 	  int	&pointer=msg[samplepointer];
 	  int	last=rmarker;
 	  int	act,cnt=0;
 	  pointer=lmarker;
-	  if (last==pointer) last=length;
+	  if (last==pointer) last=getLength();
 
 	  if (loop)
 	    {
@@ -282,6 +287,9 @@ void SignalManager::play16 (bool loop)
     }
 }
 //**********************************************************
+
+
+
 
 
 

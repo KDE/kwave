@@ -1,6 +1,7 @@
 //Kwave main file
 //This one includes methods of the Topwidget Class.
 
+#include <stdio.h>
 #include <unistd.h>
 #include <qkeycode.h>
 #include "main.h"
@@ -25,6 +26,8 @@ void TopWidget::setOp (const char *str)
   else
   if (matchCommand (str,"save")) saveFile();
   else
+  if (matchCommand (str,"resolution")) resolution(str);
+  else
   if (matchCommand (str,"revert")) revert();
   else
   if (matchCommand (str,"importascii")) importAsciiFile();
@@ -32,12 +35,6 @@ void TopWidget::setOp (const char *str)
   if (matchCommand (str,"saveas")) saveFileAs(false);
   else
   if (matchCommand (str,"loadbatch")) loadBatch(str);
-  else
-  if (matchCommand (str,"bits"))
-    {
-      KwaveParser parser (str);
-      bit=parser.toInt ();
-    }
   else
   if (matchCommand (str,"saveselect")) saveFileAs(true);
   else
@@ -67,7 +64,7 @@ void TopWidget::parseCommands (const char *str)
 //*****************************************************************************
 TopWidget::TopWidget () : KTMainWindow ()
 {
-  bit=24;
+  bit=16;
 
   saveDir=0;
   loadDir=0;
@@ -84,7 +81,7 @@ TopWidget::TopWidget () : KTMainWindow ()
   bar=		new KMenuBar    (this);
   menumanage=   new MenuManager (this,bar);
 
-  //connect clicked menu entrys with main communication channel of kwave
+  //connect clicked menu entries with main communication channel of kwave
   connect(menumanage, SIGNAL(command(const char *)),
 	  this, SLOT(setOp(const char *))); 
 
@@ -100,17 +97,59 @@ TopWidget::TopWidget () : KTMainWindow ()
   parseCommands (loader.getMem());
 
   updateRecentFiles ();
-
+  
   mainwidget=new MainWidget (this,menumanage,status);
   setView (mainwidget);
 
   setMenu (bar);
   setStatusBar (status);
+
+  //add a numbered menu for the resolution
+  menumanage->clearNumberedMenu ("bits");
+  for (int i=8; i<=24; i+=8)
+    {
+      char *entry = new char[16];
+      sprintf(entry, "%d Bits",i);
+      menumanage->addNumberedMenuEntry ("bits",klocale->translate(entry));
+    }
+
+  //enable checking/unchecking of menues
+  connect(mainwidget, SIGNAL( checkMenuEntry(const char *, bool)),
+	  this, SLOT(checkMenuEntry(const char *, bool)));
+
+}
+//*****************************************************************************
+void TopWidget::checkMenuEntry (const char *name, bool check)
+{
+  fprintf(stderr, "TopWidget:checkMenuEntry(%s, %d)\n", name, check); // ###
+  /* menumanage->checkMenuEntry(name, check); */
+
+  NumberedMenu *menu = menumanage->findNumberedMenu ("bits");
+  fprintf(stderr, "TopWidget:checkMenuEntry:menu=%p\n", menu); // ###
+/*
+  if (menu != 0)
+    {
+      menu->
+    }
+*/
 }
 //*****************************************************************************
 void TopWidget::revert ()
 {
  if (name) mainwidget->setSignal (name);
+}
+//*****************************************************************************
+void TopWidget::resolution (const char *str)
+{
+  KwaveParser parser (str);
+  int cnt=parser.toInt();
+
+  if ((cnt>=0)&&(cnt<=2))
+    {
+      cnt=(++cnt * 8);
+      debug("bit=%d", cnt); // ###
+    }
+  else debug ("out of range\n");
 }
 //*****************************************************************************
 void TopWidget::openRecent (const char *str)
@@ -237,6 +276,7 @@ TopWidget::~TopWidget ()
   if (loadDir) delete loadDir;
   if (name)    deleteString (name);
 }
+
 //*****************************************************************************
 int main( int argc, char **argv )
 {
@@ -245,9 +285,9 @@ int main( int argc, char **argv )
   if (globals.app)
     {
       int result=globals.app->exec();
-
       return result;
     }
   return -1;
 }
+
 

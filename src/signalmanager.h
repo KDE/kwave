@@ -18,7 +18,7 @@ class SignalManager
 {
  public:
 	SignalManager	(KwaveSignal *);
-	SignalManager	(QWidget *parent,const char *filename,int channel=1,int type=0);
+	SignalManager	(QWidget *parent,const char *filename,int type=0);
 	SignalManager	(QWidget *parent,int length,int rate,int channel=1);
   	~SignalManager	();
 
@@ -31,17 +31,19 @@ class SignalManager
  void	play16		(bool);
 
  void   getMaxMin       (int channel,int& max,int& min,int begin,int len);
+ int    getBitsPerSample();
 
  inline int	getRate	        () {return rate;};
  inline int	getChannelCount	() {return channels;};
- inline int	getLength	() {return length;};
+ inline int	getLength	()
+   {return signal[0] ? signal[0]->getLength() : 0;};
  inline int	getLMarker	() {return lmarker;};
  inline int	getRMarker	() {return rmarker;}; 
  inline int	getPlayPosition () {return msg[samplepointer];};
  inline KwaveSignal *getSignal	() {return signal[0];};
  inline KwaveSignal *getSignal	(int channel) {return signal[channel];};
  inline int    getSingleSample  (int channel,int offset)
-   {return signal[channel]->getSingleSample(offset);};
+   {return signal[channel] ? signal[channel]->getSingleSample(offset) : 0;};
  inline void   setParent        (QWidget *par)
    {parent=par;};
 
@@ -61,8 +63,8 @@ class SignalManager
  inline void toggleChannel   (int c) {selected[c]=!selected[c];};
 
  private:
+ void   initialize      ();
  void   checkRange      ();
- void   prepareChannels ();
  void	deleteChannel	(int);
  int    newChannel      (int);
  void   rateChange      ();
@@ -77,14 +79,12 @@ class SignalManager
 
  int	findDatainFile	(FILE *);    //searches for data chunk in wav file
                                      //returns 0 if failed, else position
- void	loadWav	        (int);
- void	loadAscii	(int);
- void	load8Bit	(FILE *,int offset,int interleave);
- void	load16Bit	(FILE *,int offset,int interleave);
- void	load24Bit	(FILE *,int offset,int interleave);
- void	loadStereo16Bit	(FILE *);
+ void	loadAscii	();
+ void	loadWav	        ();
+ void	loadWavChunk	(FILE *sigin,int length,int channels,int bits);
 
  void	exportAscii	();
+ void	writeWavChunk	(FILE *sigout,int begin,int length,int bits);
 
  private: 
 
@@ -94,16 +94,7 @@ class SignalManager
  bool           selected[MAXCHANNELS];
  int            lmarker,rmarker;
  int            channels;
- int		length;                //number of samples
- int            len,begin;
  int		rate;                  //sampling rate being used
  int            msg[4];
 };
 #endif  /* signalmanager.h */   
-
-
-
-
-
-
-

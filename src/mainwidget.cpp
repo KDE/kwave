@@ -69,6 +69,8 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
 			 slider,SLOT(setRange(int,int,int)));
   connect 	(signalview,SIGNAL(playingfinished()),
 			 this,SLOT(stop()));
+  connect 	(signalview,SIGNAL(checkMenu(const char*, bool)),
+			 this,SLOT(checkMenu(const char*, bool)));
   connect	(zoomselect,SIGNAL(activated(int)),
 			 this,SLOT(selectedZoom(int)));
   connect	(this,SIGNAL(setOperation(int)),
@@ -119,9 +121,13 @@ void MainWidget::saveSignal  (const char *filename,int bit,int selection)
 //*****************************************************************************
 void MainWidget::setSignal  (const char *filename,int type)
 {
+  fprintf(stderr, "mainwidget.cpp:setSignal:---start---\n"); // ###
   signalview->setSignal	(filename,type);
+  fprintf(stderr, "mainwidget.cpp:setSignal:---setZoom---\n"); // ###
   signalview->setZoom 	(100.0);
+  fprintf(stderr, "mainwidget.cpp:setSignal:---refresh---\n"); // ###
   slider->refresh();
+  fprintf(stderr, "mainwidget.cpp:setSignal:---end---\n"); // ###
 }
 //*****************************************************************************
 void MainWidget::setSignal  (SignalManager *signal)
@@ -219,6 +225,12 @@ void MainWidget::loop()
   this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
   this->connect         (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
   this->connect         (loopbutton,SIGNAL(pressed()),this,SLOT(halt()));
+}
+//*****************************************************************************
+void MainWidget::checkMenu(const char *name, bool check)
+{
+  fprintf(stderr, "MainWidget::checkMenu(const char*, bool)\n"); // ###
+  emit checkMenuEntry(name, check);
 }
 //*****************************************************************************
 void MainWidget::play ()

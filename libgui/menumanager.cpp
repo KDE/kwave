@@ -199,6 +199,7 @@ void MenuManager::setCommand (const char *command)
 			    if (key) keycode=parseToKeyCode (key);
 			  
 			    // insert the entry into the current parent menu
+//			    debug("new entry='%s'", pos+begin); // ###
 			    if (parentmenu)
 			      parentmenu->insertEntry (&pos[begin],com,keycode);
 			  }
@@ -213,6 +214,7 @@ void MenuManager::setCommand (const char *command)
 		  newmenu=new KwavePopMenu (&pos[begin],KwavePopMenu::getUniqueId());
 		  if (newmenu)
 		    {
+//		      debug("new menu='%s'", pos+begin); // ###
 		      if (parentmenu) parentmenu->insertMenu (newmenu);
 		      else
 			{
@@ -299,6 +301,36 @@ void MenuManager::appendMenus (KwaveMenuItem *newmenus)
 	}
     }
   else debug ("no menu bar!\n");
+}
+//*****************************************************************************
+void MenuManager::checkMenuEntry (const char *name,bool check)
+{
+
+  KwavePopMenu *top=toplevelmenus.first();
+  while (top)
+    {
+//      fprintf(stderr, "toplevel menu name='%s'\n", top->getName()); // ###
+      if (strcmp(top->getName(),"&File")==0)
+	{
+	  debug("menu found!\n");
+	}
+
+//      KwavePopMenu *child = top->
+
+      top=toplevelmenus.next();
+    }
+
+
+
+  //straight forward linear search
+
+  NumberedMenu *tmp=numberedMenus.first();
+  while (tmp)
+    {
+      if (strcmp(tmp->name(),name)==0) break;
+      tmp=numberedMenus.next();
+    }
+
 }
 //*****************************************************************************
 void MenuManager::clearNumberedMenu (const char *name)

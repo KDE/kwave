@@ -15,7 +15,30 @@ extern void *createProgressDialog (TimeOperation *operation,const char *caption)
 //**********************************************************
 void SignalManager::getMaxMin (int channel,int&max, int &min,int begin,int len)
 {
-  if (channel<channels) signal[channel]->getMaxMin (max,min,begin,len);
+  if (channel>=channels)
+    {
+      debug("SignalManager::getMaxMin:warning: channel %d >= %d",
+	channel, channels);
+      return;
+    }
+  if (signal[channel]==0)
+    {
+      debug("SignalManager::getMaxMin:warning: signal[%d]==0", channel);
+      return;
+    }
+  signal[channel]->getMaxMin (max,min,begin,len);
+}
+//**********************************************************
+  //gets the highest number of bits per sample of all channels
+int SignalManager::getBitsPerSample()
+{
+  int max_bps=0;
+  for (int i=0;i<channels;i++)
+    {
+      int bps = signal[i]->getBits();
+      if (bps>max_bps) max_bps=bps;
+    }
+  return max_bps;
 }
 //**********************************************************
 void SignalManager::deleteChannel (int channel)
@@ -32,13 +55,12 @@ void SignalManager::deleteChannel (int channel)
 
   globals.port->putMessage ("refreshchannels()");
   info ();                 //and let everybody know about it
-
 }
 //**********************************************************
 void SignalManager::addChannel ()
   //adds a channel with silence
 {
-  signal[channels]=new KwaveSignal (length,rate);
+  signal[channels]=new KwaveSignal (getLength(),rate);
   selected[channels]=true; //enable channel
   channels++;              //increase number of channels...
   info ();                 //and let everybody know about it
@@ -47,32 +69,15 @@ void SignalManager::addChannel ()
 void SignalManager::appendChannel (KwaveSignal *newsig)
 {
   signal[channels]=newsig;
+  selected[channels]=true; //enable channel
   channels++;
   info ();
 }
-//**********************************************************
-void SignalManager::checkRange ()
-//usually useless, or it introduces
-//new bugs, or even better makes old bug worse to debug... 
-{
-  if (lmarker<0) lmarker=0; //check markers for bounding
-  if (rmarker>length) lmarker=length; 
 
-  len=rmarker-lmarker;
-  begin=lmarker;
-
-  if (len==0) //if no part is selected select the whole signal
-    {
-      len=length;
-      begin=0;
-    }
-}
 //**********************************************************
 void SignalManager::setOp (int id)
 {
   stopplay();	//every operation cancels playing...
-
-  checkRange ();
 
   //decode dynamical allocated menu id's
   //into the ones used by the switch statement below
@@ -100,6 +105,7 @@ void threadStub (TimeOperation *obj)
 //**********************************************************
 int SignalManager::doCommand (const char *str)
 {
+  debug("signalmanager.cpp:doCommand(%s)\n", str); // ###
   if (matchCommand(str,"copy"))
     {
       if (globals.clipboard) delete globals.clipboard;
@@ -169,11 +175,21 @@ bool SignalManager::promoteCommand (const char *command)
   int i;
   for (i=0;i<channels;i++)       //for all channels
     {
+      if (!signal[i])   debug("signal[%d]==0\n", i);   // ###
+      if (!selected[i]) debug("selected[%d]==0\n", i); // ###
       if ((signal[i])&&(selected[i]))  //that exist and are selected
 	{
-	  int len=rmarker-lmarker;
-	  int begin=lmarker;
-	  if (len==0) begin=0,len=signal[i]->getLength ();
+	  int begin, len;
+	  if (lmarker!=rmarker)
+	    {
+	      begin=lmarker;
+	      len=rmarker-lmarker+1;
+	    }
+	  else
+	    {
+	      begin=0;
+	      len=signal[i]->getLength();
+	    }
 
 	  char buf[32];
 	  sprintf (buf,"%d",i+1);
@@ -220,41 +236,49 @@ void SignalManager::info ()
   globals.port->putMessage ("refresh()");
 }
 //**********************************************************
+void SignalManager::initialize()
+{
+  name=0;
+  parent=0;
+  lmarker=0;
+  rmarker=0;
+  channels=0;
+  rate=0;
+  for (unsigned int i=0;i<sizeof(msg)/sizeof(msg[0]); i++) msg[i]=0;
+  for (int i=0;i<MAXCHANNELS;i++)
+    {
+      signal[i]=0;
+      selected[i]=false;
+    }
+}
+//**********************************************************
 SignalManager::SignalManager (KwaveSignal *sample)
 {
+  initialize();
   if (sample)
     {
       this->channels=1;
       this->rate=sample->getRate();
-      this->length=sample->getLength();
 
       signal[0]=sample;
-
-      for (int i=1;i<MAXCHANNELS;i++) signal[i]=0;
-      for (int i=0;i<channels;i++) selected[i]=true;
+      selected[0]=true;
     }
 }
 //**********************************************************
 SignalManager::SignalManager (QWidget *parent,int numsamples,int rate,int channels)
 {
+  initialize();
   if (channels>MAXCHANNELS) channels=MAXCHANNELS;
 
   this->channels=channels; //store how many channels are linked to this
   this->rate=rate;
-  this->length=numsamples;
   this->parent=parent;
 
-  for (int i=0;i<channels;i++) selected[i]=true;
-
   for (int i=0;i<channels;i++)
-    signal[i]=new KwaveSignal (numsamples,rate);
-
-  prepareChannels ();
-}
-//**********************************************************
-void SignalManager::prepareChannels ()
-{
-  for (int i=channels;i<MAXCHANNELS;i++) signal[i]=0;
+    {
+      signal[i]=new KwaveSignal (numsamples,rate);
+      selected[i]=true;
+    }
 }
 //**********************************************************
 SignalManager::~SignalManager ()
@@ -264,8 +288,14 @@ SignalManager::~SignalManager ()
 void SignalManager::setRange (int l,int r )
   //this one sets the internal markers and promotes them to all channels
 {
-  lmarker=l;
-  rmarker=r;
-  for (int i=0;i<channels;i++) signal[i]->setMarkers (l,r);
+  for (int i=0;i<channels;i++)
+    {
+      if (signal[i])
+	signal[i]->setMarkers (l,r);
+      else
+	debug("WARNING: channel[%d] is null", i);
+    }
+  lmarker=signal[0]->getLMarker();
+  rmarker=signal[0]->getRMarker();
 }
 //**********************************************************

@@ -83,6 +83,7 @@ void MemoryManager::setVirtualLimit(unsigned int mb)
     MutexGuard lock(m_lock);
 
     m_virtual_limit = mb;
+/** @todo write a function to find out the limit of virtual memory */
 //    mb = totalVirtual();
 //    if (m_virtual_limit > mb) m_virtual_limit = mb;
 }
@@ -160,7 +161,6 @@ void *MemoryManager::allocatePhysical(size_t size)
     void *block = ::malloc(size);
     if (block) m_physical_size.insert(block, size);
 
-    debug("MemoryManager::allocatePhysical(%u kB) at %p", size >> 10, block);
     return block;
 }
 
@@ -221,9 +221,6 @@ void *MemoryManager::allocateVirtual(size_t size)
     unsigned int used = virtualUsed();
     unsigned int available = (used < limit) ? (limit-used) : 0;
     if ((size >> 20) >= available) return 0;
-
-    debug("MemoryManager::allocateVirtual(%u kB): limit=%u MB, used=%u MB "\
-	  ", avail=%d MB", size>>10, limit, used, available);
 
     // try to allocate
     SwapFile *swap = new SwapFile();
@@ -290,7 +287,6 @@ void MemoryManager::free(void *&block)
     if (m_swap_files.contains(block)) {
 	// remove the pagefile
 	SwapFile *swap = m_swap_files[block];
-	debug("MemoryManager::free(swapfile=%p)",swap);
 	ASSERT(swap);
 	if (swap) {
 	    m_swap_files[block] = 0;
@@ -302,7 +298,6 @@ void MemoryManager::free(void *&block)
     if (m_physical_size.contains(block)) {
 	// physical memory
 	void *b = block;
-	debug("MemoryManager::free(physical=%p)",b);
 	ASSERT(b);
 	m_physical_size[block] = 0;
 	if (b) ::free(b);

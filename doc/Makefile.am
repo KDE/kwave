@@ -61,24 +61,24 @@ help_fr.it: help_en.pot
 	$(MSGMERGE) -o help_it.po help_it.po help_en.pot
 	# kbabel -nofork help_it.po
 
-help_de.docbook: help_en.docbook help_de.po
-	# ${MAKE} help_de.po
+help_de.docbook: help_en.docbook help_en.pot
+	${MAKE} help_de.po
 	@echo "converting german help"
 	@echo "(this takes very very long, please be patient...)"
 	@ $(PO2XML) help_en.docbook help_de.po | \
 	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g \
 	> help_de.docbook
 
-help_fr.docbook: help_en.docbook help_fr.po
-	# ${MAKE} help_fr.po
+help_fr.docbook: help_en.docbook help_en.pot
+	${MAKE} help_fr.po
 	@echo "converting french help"
 	@echo "(this takes very very long, please be patient...)"
 	@ $(PO2XML) help_fr.docbook help_fr.po | \
 	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ French\ /g \
 	> help_fr.docbook
 
-help_it.docbook: help_en.docbook help_it.po
-	# ${MAKE} help_it.po
+help_it.docbook: help_en.docbook help_en.pot
+	${MAKE} help_it.po
 	@echo "converting italian help"
 	@echo "(this takes very very long, please be patient...)"
 	@ $(PO2XML) help_it.docbook help_it.po | \

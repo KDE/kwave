@@ -1,4 +1,11 @@
 
+0.7.2-2 [2005-01-??]
+
+ * smoother signal display in overview mode (no gaps) and improved
+   polyline mode
+ * record plugin: detect when device is alread open, now no longer
+   blocks. Show an error message.
+
 0.7.2 [2004-12-31]
 
  * big rework of the internal streaming/storage subsystem,

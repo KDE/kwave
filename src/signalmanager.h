@@ -19,7 +19,7 @@ class SignalManager : public QObject
  Q_OBJECT
  public:
 	SignalManager	(KwaveSignal *);
-	SignalManager	(QWidget *parent,QString *filename,int channel=1,int type=0);
+	SignalManager	(QWidget *parent,const char *filename,int channel=1,int type=0);
 	SignalManager	(QWidget *parent,int length,int rate,int channel=1);
   	~SignalManager	();
 
@@ -40,6 +40,7 @@ class SignalManager : public QObject
  inline int	getRMarker	() {return rmarker;}; 
  inline int	getPlayPosition () {return msg[samplepointer];};
  inline KwaveSignal *getSignal	() {return signal[0];};
+ inline KwaveSignal *getSignal	(int channel) {return signal[channel];};
  inline int    getSingleSample  (int channel,int offset)
    {return signal[channel]->getSingleSample(offset);};
  inline void   setParent        (QWidget *par)
@@ -50,7 +51,7 @@ class SignalManager : public QObject
 
  void	setOp      	(int);  //triggers function via given id
 
- void	save	        (QString *filename,int,int=false);
+ void	save	        (const char *filename,int,int=false);
 
  inline void toggleChannel   (int c) {selected[c]=!selected[c];};
  void   appendChannel   (KwaveSignal *);
@@ -72,8 +73,8 @@ class SignalManager : public QObject
  int    *getNewMem      (int size);
 
  void	findDatainFile	(QFile *sigin);
- void	loadWav	        (QString *name,int);
- void	loadAscii	(QString *name,int);
+ void	loadWav	        (int);
+ void	loadAscii	(int);
  void	load8Bit	(QFile *sigin,int offset,int interleave);
  void	load16Bit	(QFile *sigin,int offset,int interleave);
  void	load24Bit	(QFile *sigin,int offset,int interleave);
@@ -100,7 +101,7 @@ class SignalManager : public QObject
 
  private: 
 
- QString        *name;
+ char           *name;
  QWidget        *parent;
  KwaveSignal    *signal[MAXCHANNELS];
  bool           selected[MAXCHANNELS];

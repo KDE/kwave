@@ -2,7 +2,7 @@
 dirs = doubleenter movingaverage envelope quantize gap delay averagefft \
  amplifyfree distort command rate freqmult mark marktype fadein fadeout \
  formant newsignal time about sonagram mix saveblock marksave playback \
- memory
+ memory pitch
 
 install clean distclean all:
 	@set fnord $(MAKEFLAGS); amf=$$2; \

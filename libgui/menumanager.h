@@ -41,8 +41,10 @@ class MenuManager:public QObject
  void deleteMenus               (KwaveMenuItem *);               //delete menus
  NumberedMenu *findNumberedMenu (const char *);                  //return id
  NumberedMenu *addNumberedMenu  (const char *);           
- void clearNumberedMenu         (const char *);                  //delete all entries of a numbered Menu
- void addNumberedMenuEntry      (const char *name,char *entry);  //add Entrys to numbered Window
+ void clearNumberedMenu         (const char *);
+ //delete all entries of a numbered Menu
+ void addNumberedMenuEntry      (const char *name,const char *entry);
+ //add Entrys to numbered Window
 
  signals:
 

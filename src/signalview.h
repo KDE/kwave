@@ -2,7 +2,6 @@
 #define _KWAVESIGNALVIEW_H_ 1
 
 #include <qfile.h>
-#include <qstring.h>
 #include <qfiledlg.h>
 #include <qwidget.h>
 #include <qtimer.h>
@@ -47,10 +46,10 @@ class SignalWidget : public QWidget
  // 	SignalWidget	(QWidget *parent,MenuManager *manage,const char *name=0);
  	~SignalWidget	();
 
- void 	setSignal		(QString *filename,int type=0);
- void 	saveSignal		(QString *filename,int,int=false);
+ void 	setSignal		(const char *filename,int type=0);
+ void 	saveSignal		(const char *filename,int,int=false);
  void 	saveBlocks		(int);
- void 	saveSelectedSignal	(QString *filename,int,int=false);
+ void 	saveSelectedSignal	(const char *filename,int,int=false);
  void 	setSignal		(SignalManager *signal);
  void	setZoom			(double);
  unsigned char   *getOverview   (int);
@@ -58,7 +57,7 @@ class SignalWidget : public QWidget
  void 	drawSelection		(int,int);
  void   setMarkType             (int);
  void   addMarkType             (const char *);
- void   addMarkType             (struct MarkerType *marker);
+ void   addMarkType             (MarkerType *marker);
  int	doCommand	        (const char *);
 
  public slots:
@@ -81,7 +80,7 @@ class SignalWidget : public QWidget
  void channelReset	();
  void playingfinished	();
  void viewInfo		(int,int,int);
- void addMarkerType     (struct MarkerType *);
+ void addMarkerType     (MarkerType *);
 
  protected:
 

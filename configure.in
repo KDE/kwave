@@ -46,6 +46,7 @@ dnl Checks for libraries.
 AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' X11
 AC_SUBST(LIBSOCKET)
 AC_PATH_KDE dnl check X, Qt and KDE
+AC_PATH_KWAVELIB dnl check for libkwave
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
 

@@ -32,9 +32,9 @@ class MainWidget : public QWidget
 
  	MainWidget	(QWidget *parent,MenuManager *manage,KStatusBar *status=0);
  	~MainWidget	();
- void	setSignal	(QString *filename,int type=0);
+ void	setSignal	(const char *filename,int type=0);
  void	setSignal	(SignalManager *);
- void 	saveSignal	(QString *filename,int,int=false);
+ void 	saveSignal	(const char *filename,int,int=false);
  unsigned char *getOverView (int);
 
  public slots:

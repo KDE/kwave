@@ -28,7 +28,7 @@ MarkSaveDialog::MarkSaveDialog (Global *globals,bool modal): KwaveDialog(modal)
   //traverse all markertypes, add them to widget, selection state set to  false
   for (act=globals->markertypes.first();act;act=globals->markertypes.next())
     {
-      save->insertItem (act->name->data());
+      save->insertItem (act->name);
       act->selected=false;
     }
 
@@ -60,7 +60,7 @@ const char *MarkSaveDialog::getCommand ()
   for (act=globals->markertypes.first();act;act=globals->markertypes.next())
     {
       tmpstr=comstr;
-      comstr=catString (comstr,act->name->data(),",");
+      comstr=catString (comstr,act->name,",");
       free (tmpstr);
     }
 

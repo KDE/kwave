@@ -45,7 +45,7 @@ MarkerType *findMarkerType (const char *txt)
 
   for (act=globals.markertypes.first();act;act=globals.markertypes.next())
     {
-      if (strcmp (act->name->data(),txt)==0) return act;
+      if (strcmp (act->name,txt)==0) return act;
       cnt++;
     }
   debug ("could not find Markertype %s\n",txt);
@@ -54,7 +54,7 @@ MarkerType *findMarkerType (const char *txt)
 //****************************************************************************
 void SignalWidget::signalinserted (int start, int len)
 {
-  struct Marker *tmp;
+  Marker *tmp;
   for (tmp=markers->first();tmp;tmp=markers->next()) 
       if (tmp->pos>start) tmp->pos+=len;
   setRange (start,start+len); 
@@ -63,7 +63,7 @@ void SignalWidget::signalinserted (int start, int len)
 //****************************************************************************
 void SignalWidget::signaldeleted (int start, int len)
 {
-  struct Marker *tmp;
+  Marker *tmp;
   for (tmp=markers->first();tmp;tmp=markers->next())
     {
       if ((tmp->pos>start)&&(tmp->pos<start+len)) //if marker position is within selected boundaries
@@ -112,58 +112,54 @@ void SignalWidget::appendMarks ()
       in.open (IO_ReadOnly);
       {
 	MarkerType *act;
+
+	//Skip lines until keywords label follows
 	while ((strncmp (buf,"Labels",6)!=0)&&(in.readLine(buf,120)>0));
 
-	for (act=globals.markertypes.first();act;act=globals.markertypes.next()) act->selected=-1;
+	//unchoose all label types
+	for (act=globals.markertypes.first();
+	     act;
+	     act=globals.markertypes.next()) act->selected=-1;
 
 	while (in.readLine (buf,120)>0)
 	  {
-	    if (strncmp(buf,"Type",4)==0)
+	    if (matchCommand(buf,"labeltype"))
 	      {
-		int num;
-		int named;
-		char name[120];
-		int r,g,b;
-		int set=false;
-		sscanf (buf,"Type %d %s %d %d %d %d",&num,&name[0],&named,&r,&g,&b);
-		for (act=globals.markertypes.first();act;act=globals.markertypes.next()) //linear search for label type ...
-		  if (strcmp (act->name->data(),name)==0)
-		    {
-		      set=true;
-		      act->selected=num;
-		    }
-		if (!set) //generate new type...
-		  {
-		    struct MarkerType *newtype=new MarkerType;
-		    if (newtype)
-		      {
-			newtype->name=new QString (name);
-			newtype->named=named;
-			newtype->selected=num;
-			newtype->color=new QColor (r,g,b);
+		KwaveParser parser (buf);
+		const char *name=parser.getFirstParam ();
+		bool isthere=false;
 
-			addMarkType (newtype);
-		      }
+		//check if label is already in list of known labels
+		for (act=globals.markertypes.first()
+		       ;act;
+		     act=globals.markertypes.next())
+		  if (strcmp (act->name,name)==0) isthere=true;
+
+
+		if (!isthere) //nope ... ->generate new type...
+		  {
+		    MarkerType *newtype=new MarkerType (buf);
+		    if (newtype) addMarkType (newtype);
 		  }
 	      }
-	    if (strncmp(buf,"Samples",7)==0) break;
+	    else
+	      //if keyword samples is following, break to read in data entries
+	      if (strncmp(buf,"Samples",7)==0) break;
 	  }
 	//left above loop, so begin to pick up marker positions...
 
 	int num;
 	int pos;
-	char name [120];
+	char *name;
+	char *name2=new char[512];
 
-	while (in.readLine (buf,120)>0)
+	if (name2)
 	  {
-	    name[0]=0;
-	    sscanf (buf,"%d %d %s",&num,&pos,&name[0]);
-
-	    struct Marker *newmark=new Marker;
-
-	    if (newmark)
+	    while (in.readLine (buf,120)>0)
 	      {
-		newmark->pos=pos;
+		name=name2;
+		name[0]=0;
+		sscanf (buf,"%d %d %s",&num,&pos,&name[0]);
 
 		if (globals.markertypes.current())
 		  {
@@ -172,14 +168,17 @@ void SignalWidget::appendMarks ()
 		  }
 		else
 		  for (act=globals.markertypes.first();act->selected!=num;act=globals.markertypes.next());   
-		newmark->type=globals.markertypes.current();
 
-		if (globals.markertypes.current()->named)
-		  if (name[0]!=0) newmark->name=new QString (name);
-		  else newmark->name=0;
+		if (name[0]==0) name=0;
+		if (!globals.markertypes.current()->named) name=0;
 
-		markers->append (newmark);
+		Marker *newmark=new Marker(pos,globals.markertypes.current(),name);
+
+		if (newmark)
+		  markers->append (newmark);
+
 	      }
+	    delete [] name2;
 	  }
       }
     }
@@ -198,31 +197,31 @@ void SignalWidget::saveMarks ()
       QString name=QFileDialog::getSaveFileName (0,"*.label",this);
       if (!name.isNull())
 	{
-	  QFile out(name.data());
-	  int num=0;
+	  FILE *out;
+	  out=fopen (name.data(),"w");
 	  char buf[160];
-	  out.open (IO_WriteOnly);
-	  out.writeBlock ("Labels\n",7);
+
+
+	  //write file header for later identification
+	  fprintf (out,"Labels\n");
 	  Marker     *tmp;
 	  MarkerType *act;
 
 	  for (act=globals.markertypes.first();act;act=globals.markertypes.next())
-	    //write out all label types
+	    //write out all selected label types
 	    if (act->selected)
-	      {
-		sprintf (buf,"Type %d %s %d %d %d %d\n",num,act->name->data(),act->named,act->color->red(),act->color->green(),act->color->blue());
-		act->selected=num++;
-		out.writeBlock (&buf[0],strlen(buf));
-	      }
-	  out.writeBlock ("Samples\n",8);
+		fprintf (out,"%s\n",act->getCommand());
+
+	  //ended writing of types, so go on with the labels...
+	  fprintf (out,"Samples\n");
 	  for (tmp=markers->first();tmp;tmp=markers->next())  //write out labels
 	    {
 	      //type must be named, and qstring name must be non-null
 	      if ((tmp->type->named)&&(tmp->name))
-		sprintf (buf,"%d %d %s\n",tmp->type->selected,tmp->pos,tmp->name->data());
+		sprintf (buf,"%d %d %s\n",tmp->type->selected,tmp->pos,tmp->name);
 	      else 
 		sprintf (buf,"%d %d\n",tmp->type->selected,tmp->pos);
-	      out.writeBlock (&buf[0],strlen(buf));
+	      fprintf (out,buf);
 	    }
 	}
     }
@@ -232,18 +231,17 @@ void SignalWidget::addMark ()
 {
   if (signalmanage&&markertype)
     {
-      Marker *newmark=new Marker;
+      Marker *newmark=new Marker (signalmanage->getLMarker(),markertype);
 
-      newmark->pos=signalmanage->getLMarker();
-      newmark->type=markertype;
+      //should it need a name ?
       if (markertype->named)
 	{
 	  KwaveDialog *dialog =
-	    DynamicLoader::getDialog ("command",new DialogOperation("Enter name of label :",true));
+	    DynamicLoader::getDialog ("command",new DialogOperation("Enter name of label :",true)); //create a modal dialog
 
 	  if ((dialog)&&(dialog->exec()))
-	    {   
-	      newmark->name=new QString (dialog->getCommand());
+	    {
+	      newmark->name=duplicateString (dialog->getCommand());
 	      markers->inSort (newmark);
 	      delete dialog;
 	    }
@@ -270,7 +268,7 @@ void SignalWidget::jumptoLabel ()
       bool RangeSelected = (rmarker - lmarker) > 0;
       if (markers)
       {
-	struct Marker *tmp;
+        Marker *tmp;
 	int position = 0;
 	for (tmp=markers->first();tmp;tmp=markers->next())
 	  if (RangeSelected) {
@@ -364,14 +362,14 @@ void SignalWidget::saveBlocks (int bit)
 	{   
 	  KwaveParser parser (dialog->getCommand());
 
-	  QString filename=parser.getFirstParam();
+	  const char *filename=parser.getFirstParam();
 	  QDir *savedir=new QDir (parser.getNextParam());
 
-	  struct MarkerType *start=findMarkerType(parser.getNextParam());
-	  struct MarkerType *stop=findMarkerType (parser.getNextParam());
+	  MarkerType *start=findMarkerType(parser.getNextParam());
+	  MarkerType *stop=findMarkerType (parser.getNextParam());
 	  
-	  struct Marker *tmp;
-	  struct Marker *tmp2;
+	  Marker *tmp;
+	  Marker *tmp2;
 	  int count=0;
 	  int l=signalmanage->getLMarker(); //save old marker positions...
 	  int r=signalmanage->getRMarker(); //
@@ -384,12 +382,12 @@ void SignalWidget::saveBlocks (int bit)
 		    if (tmp2->type==stop)
 		      {
 			char buf[128];
-			sprintf (buf,"%s%04d.wav",filename.data(),count);
+			sprintf (buf,"%s%04d.wav",filename,count);
 			//lets hope noone tries to save more than 10000 blocks...
 
 			signalmanage->setMarkers (tmp->pos,tmp2->pos);
 			filename=savedir->absFilePath(buf);
-			signalmanage->save (&filename,bit,true);  //save selected range...
+			signalmanage->save (filename,bit,true);  //save selected range...
 			count++;
 			break;
 		      }
@@ -404,7 +402,6 @@ void SignalWidget::markSignal (const char *str)
 {
   if (signalmanage)
     {
-
       Marker *newmark;
 
       KwaveParser parser (str);
@@ -413,16 +410,19 @@ void SignalWidget::markSignal (const char *str)
 
       int len=signalmanage->getLength();
       int *sam=signalmanage->getSignal()->getSample();
-      struct MarkerType *start=findMarkerType(parser.getNextParam());
-      struct MarkerType *stop=findMarkerType (parser.getNextParam());
-      int time=(int) (parser.toDouble ()*signalmanage->getRate());
+      MarkerType *start=findMarkerType(parser.getNextParam());
+      MarkerType *stop=findMarkerType (parser.getNextParam());
+      int time=(int) (parser.toDouble ()*signalmanage->getRate()/1000);
 
-      if (start&&stop)
+      ProgressDialog *dialog=
+	new ProgressDialog (len,"Searching for Signal portions...");
+
+      if (dialog&&start&&stop)
 	{
-	  newmark=new Marker();  //generate initial marker
-	  newmark->pos=0;
-	  newmark->type=start;
-	  newmark->name=0;
+	  dialog->show();
+
+	  newmark=new Marker(0,start);  //generate initial marker
+
 	  markers->inSort (newmark);
 
 	  for (int i=0;i<len;i++)
@@ -431,34 +431,28 @@ void SignalWidget::markSignal (const char *str)
 		{
 		  int j=i;
 		  while ((i<len) &&(abs(sam[i])<level)) i++;
+
 		  if (i-j>time)
 		    {
 		      //insert markers...
-		      newmark=new Marker();
-		      newmark->pos=i;
-		      newmark->type=start;
-		      newmark->name=0;
+		      newmark=new Marker(i,start);
 		      markers->inSort (newmark);
 
 		      if (start!=stop)
 			{
-			  newmark=new Marker();
-			  newmark->pos=j;
-			  newmark->type=stop;
-			  newmark->name=0;
+			  newmark=new Marker(j,stop);
 			  markers->inSort (newmark);
 			}
 		    }
 		}
+	      dialog->setProgress (i);
 	    }
 
-	  newmark=new Marker();
-	  newmark->pos=len-1;
-	  newmark->type=stop;
-	  newmark->name=0;
+	  newmark=new Marker(len-1,stop);
 	  markers->inSort (newmark);
 
 	  refresh ();
+	  delete dialog;
 	}
     }
 }
@@ -483,18 +477,15 @@ void SignalWidget::markPeriods (const char *str)
       int next;
       int len=signalmanage->getLength();
       int *sam=signalmanage->getSignal()->getSample();
-      struct MarkerType *start=markertype;
+      MarkerType *start=markertype;
       int cnt=findFirstMark (sam,len);
 
       ProgressDialog *dialog=new ProgressDialog (len-AUTOKORRWIN,"Correlating Signal to find Periods:");
-      dialog->show();
-
       if (dialog)
 	{
-	  newmark=new Marker();
-	  newmark->pos=cnt;
-	  newmark->type=start;
-	  newmark->name=0;
+	  dialog->show();
+
+	  newmark=new Marker(cnt,start);
 	  markers->inSort (newmark);
 
 	  while (cnt<len-2*AUTOKORRWIN)
@@ -506,10 +497,8 @@ void SignalWidget::markPeriods (const char *str)
 
 	      if ((next<low)&&(next>high))
 		{
-		  newmark=new Marker();
-		  newmark->pos=cnt;
-		  newmark->type=start;
-		  newmark->name=0;
+		  newmark=new Marker(cnt,start);
+
 		  markers->inSort (newmark);
 		}
 	      if (next<AUTOKORRWIN) cnt+=next;
@@ -637,10 +626,10 @@ void SignalWidget::setMarkType  (int num)
   this->setOp (SELECTMARK+num);
 }
 //*****************************************************************************
-void SignalWidget::addMarkType (struct MarkerType *marker)
+void SignalWidget::addMarkType (MarkerType *marker)
 {
   globals.markertypes.append (marker);
-  if (manage) manage->addNumberedMenuEntry ("labeltypes",marker->name->data());
+  if (manage) manage->addNumberedMenuEntry ("labeltypes",marker->name);
 }
 //*****************************************************************************
 void SignalWidget::addMarkType (const char *str)

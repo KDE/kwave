@@ -41,13 +41,12 @@ MarkerTypeDialog::MarkerTypeDialog (bool modal): KwaveDialog(modal)
   connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
   connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
   connect 	(color	,SIGNAL(activated(const QColor &))
-		 ,SLOT (setColor(const QColor &)));
+		 ,SLOT (setColor(const Color &)));
 }
 //**********************************************************
 const char *MarkerTypeDialog::getCommand ()
 {
   if (comstr) free (comstr);
-
 
   comstr=catString ("newlabeltype (",
 		    name->text(),

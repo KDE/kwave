@@ -1,10 +1,8 @@
 #ifndef _KWAVECLIPBOARD_H_
 #define _KWAVECLIPBOARD_H_ 1
-
 #include "signalmanager.h"
 
 class KwaveSignal;
-class MenuManager;
 
 class ClipBoard
 {
@@ -14,16 +12,13 @@ class ClipBoard
   ClipBoard::~ClipBoard ();
 
   void toWindow ();
-  int  getLength ();
   void appendChannel  (KwaveSignal *);
-  void registerMenu   (MenuManager *);
-  void unregisterMenu (MenuManager *);
-  void setOp          (const char *);
 
-  SignalManager *getSignal ();
+  inline SignalManager *getSignal () {return signal;};
+  inline int            getLength ()
+    {if (signal) return signal->getLength(); else return 0;};
 
  private:
   SignalManager *signal;
-  bool hasmenu;
 };
 #endif

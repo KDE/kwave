@@ -11,7 +11,7 @@
 
 const char *version="1.0";
 const char *author="Martin Wilz";
-const char *name="mark";
+const char *name="amptolabel";
 //**********************************************************
 KwaveDialog *getDialog (DialogOperation *operation)
 {
@@ -46,10 +46,12 @@ MarkSignalDialog::MarkSignalDialog (const Global *globals,int rate,bool modal): 
 
   for (act=(globals->markertypes).first();act;act=(globals->markertypes).next())
     {
-      marktype1->insertItem (act->name->data());
-      marktype2->insertItem (act->name->data());
-      if (act->name->find("start",0,false)>=0) marktype1->setCurrentItem (cnt);  //just for convenience
-      if (act->name->find("stop",0,false)>=0) marktype2->setCurrentItem (cnt);
+      marktype1->insertItem (act->name);
+      marktype2->insertItem (act->name);
+
+      //just for convenience check for these to label names
+      if (strcasecmp("start",act->name)==0) marktype1->setCurrentItem (cnt);
+      if (strcasecmp("stop",act->name)==0) marktype2->setCurrentItem (cnt);
       cnt++;
     }
   int bsize=ok->sizeHint().height();
@@ -68,7 +70,7 @@ MarkSignalDialog::MarkSignalDialog (const Global *globals,int rate,bool modal): 
 const char *MarkSignalDialog::getCommand ()
 {
   if (comstr) free (comstr);
-  comstr=catString ("mark (100.0",
+  comstr=catString ("amptolabel (100.0",
 		    ",", //level
 		    marktype1->currentText(),
 		    ",",

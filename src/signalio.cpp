@@ -52,31 +52,31 @@ static inline short int swapEndian (short int s)
  return ((s&0xff)<<8)|((s&0xff00)>>8);
 }
 //**********************************************************
-SignalManager::SignalManager (QWidget *par,QString *name,int channel,int type) :QObject ()
+SignalManager::SignalManager (QWidget *par,const char *name,int channel,int type) :QObject ()
 // constructor that loads a signal file to memory 
 {
   parent=par;
   lmarker=0;
   rmarker=0;
 
-  this->name=new QString (name->data());
+  this->name=duplicateString (name);
 
   switch (type)
     {
     case WAV:
-      loadWav (name,channel);
+      loadWav (channel);
       break;
     case ASCII:
-      loadAscii(name,channel);
+      loadAscii(channel);
       break;
     }
 }
 //**********************************************************
-void SignalManager::loadAscii (QString *name, int channel)
+void SignalManager::loadAscii (int channel)
   //import ascii files with one sample per line, everything unparseable
   //by strtod is ignored
 {
-  QFile *sigin=new QFile (name->data());
+  QFile *sigin=new QFile (name);
   if (sigin->exists())
     {
       if (sigin->open(IO_ReadWrite))
@@ -123,9 +123,9 @@ void SignalManager::loadAscii (QString *name, int channel)
   else  KMsgBox::message (parent,"Info","File does not exist !",2);
 }
 //**********************************************************
-void SignalManager::loadWav (QString *name, int channel)
+void SignalManager::loadWav (int channel)
 {
-  QFile *sigin=new QFile (name->data());
+  QFile *sigin=new QFile (name);
   if (sigin->exists())
     {
       union
@@ -291,13 +291,13 @@ void writeData24Bit (QFile *sigout,int begin,int end,SignalManager *manage)
     }
 }
 //**********************************************************
-void  SignalManager::save (QString *filename,int bit,int selection)
+void  SignalManager::save (const char *filename,int bit,int selection)
 {
+  printf ("saving %d Bit to %s ,%d\n",bit,filename,selection);
   int begin=0;
   int endp=this->length;
   struct wavheader header;
   int **samples=new int* [channels];
-  int channels;
 
   if (selection)
     if (lmarker!=rmarker)
@@ -306,10 +306,12 @@ void  SignalManager::save (QString *filename,int bit,int selection)
 	endp=rmarker;
       }
 
-  QFile	*sigout=new QFile (filename->data());
-  name=new QString (filename->data());
+  QFile	*sigout=new QFile (filename);
+  if (name) deleteString (name);
+  name=duplicateString (filename);
 
-  samples=0; //has to be done yet
+  for (int i=0;i<channels;i++)
+    samples[i]=signal[i]->getSample();
 
   if (sigout&&samples)
     {
@@ -362,6 +364,7 @@ void  SignalManager::save (QString *filename,int bit,int selection)
 	  writeData24Bit (sigout,begin,endp,this);
 	  break;
 	}
+      delete []samples;
       sigout->close();
     }
   if (sigout) delete sigout;

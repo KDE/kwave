@@ -48,10 +48,10 @@ SaveBlockDialog::SaveBlockDialog (Global *globals,bool modal): KwaveDialog(modal
 
   for (act=globals->markertypes.first();act;act=globals->markertypes.next())
     {
-      marktype1->insertItem (act->name->data());
-      marktype2->insertItem (act->name->data());
-      if (act->name->find("start",0,false)>=0) marktype1->setCurrentItem (cnt);  //just for convenience
-      if (act->name->find("stop",0,false)>=0) marktype2->setCurrentItem (cnt);
+      marktype1->insertItem (act->name);
+      marktype2->insertItem (act->name);
+      if (strcasecmp("start",act->name)==0) marktype1->setCurrentItem (cnt);
+      if (strcasecmp("stop",act->name)==0) marktype2->setCurrentItem (cnt);
       cnt++;
     }
   int bsize=ok->sizeHint().height();

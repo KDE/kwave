@@ -1,8 +1,14 @@
-newer Versions still to come
+this Development Version
 
-Version 0.30.0 (3.98)
+connected many functions via the new string-based way of invocation
 
-Color class as wrapper to QColor
+fixed some dependencies between old code and new classes (there's still more to do !)
+
+saving should now work again
+
+trimmed down Clipboard class
+
+Color class as wrapper to QColor (may become independent later)
 
 reworking Curve Class for creation via string, interpolation now uses curve objects
 
@@ -12,7 +18,7 @@ new Classes: Parser DynamicLoader Filter (prevously was a struct)
 
 moved gui-independent functions into a library (libkwave)
 
-rework of dialogs into single files and single modules
+rework of dialogs into single files and single plugins
 
 new calling scheme via string commands. this will allow scripting and macro
 definitions. Threading is made a whole lot easier, because a only a string has

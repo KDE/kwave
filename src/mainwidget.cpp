@@ -100,12 +100,12 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   this->status=status;
 }
 //*****************************************************************************
-void MainWidget::saveSignal  (QString *filename,int bit,int selection)
+void MainWidget::saveSignal  (const char *filename,int bit,int selection)
 {
   signalview->saveSignal (filename,bit,selection);
 }
 //*****************************************************************************
-void MainWidget::setSignal  (QString *filename,int type)
+void MainWidget::setSignal  (const char *filename,int type)
 {
   signalview->setSignal	(filename,type);
   signalview->setZoom 	(100.0);
@@ -163,14 +163,14 @@ void MainWidget::parseKey  (int key)
 //*****************************************************************************
 int MainWidget::doCommand (const char *str)
 {
-  if (strncmp ("setplayback",str,11)==0)
+  if (matchCommand (str,"setplayback"))
     {
       KwaveParser parser (str);
       playbit=parser.toInt();
       bufbase=parser.toInt();
     }
   else
-    if (strncmp ("setmemory",str,9)==0)
+    if (matchCommand (str,"setmemory"))
       {
 	KwaveParser parser (str);
 
@@ -178,18 +178,15 @@ int MainWidget::doCommand (const char *str)
 	mmap_dir=strdup(parser.getNextParam());
       }
     else
-      if (strncmp ("selectchannels",str,13)==0)
-	{
+      {
+	if (matchCommand (str,"selectchannels"))
 	  for (int i=0;i<numsignals;i++) lamps[i]->setState (0);
-	}
-      else
-	if (strncmp ("invertchannels",str,13)==0)
-	  {
-	    for (int i=0;i<numsignals;i++) lamps[i]->nextState ();
-	  }
-	else
-	  return signalview->doCommand (str);
 
+	if (matchCommand (str,"invertchannels"))
+	  for (int i=0;i<numsignals;i++) lamps[i]->nextState ();
+
+	return signalview->doCommand (str);
+      }
   return true;
 }
 //*****************************************************************************

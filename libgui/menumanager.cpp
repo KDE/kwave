@@ -320,7 +320,7 @@ NumberedMenu* MenuManager::addNumberedMenu (const char *name)
   return newmenu; 
 }
 //*****************************************************************************
-void MenuManager::addNumberedMenuEntry (const char *name,char *entry)
+void MenuManager::addNumberedMenuEntry (const char *name,const char *entry)
 {
   NumberedMenu *menu=findNumberedMenu (name);
   if (menu) menu->addEntry (entry);

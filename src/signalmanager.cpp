@@ -146,36 +146,6 @@ void SignalManager::setOp (int id)
       emit channelReset();
     }
 
-  switch (id)
-    {
-      //add your wrapper here
-    case COPY:
-      if (globals.clipboard) delete globals.clipboard;
-      globals.clipboard=new ClipBoard ();
-      if (globals.clipboard)
-      for (int i=0;i<channels;i++) globals.clipboard->appendChannel (signal[i]->copyRange());
-      break;
-    case CUT:
-      if (globals.clipboard) delete globals.clipboard;
-      globals.clipboard=new ClipBoard ();
-      if (globals.clipboard)
-      for (int i=0;i<channels;i++) globals.clipboard->appendChannel (signal[i]->cutRange());
-      info ();
-      break;
-    case PASTE:
-      if (globals.clipboard)
-	{
-	  debug ("not done yet\n");
-	}
-      info ();
-      break;
-    case ALLCHANNEL:
-      for (int i=0;i<channels;i++) selected[i]=true;
-      break;
-    case INVERTCHANNEL:
-      for (int i=0;i<channels;i++) selected[i]=!selected[i];
-      break;
-    }
 }
 //**********************************************************
 void threadStub (TimeOperation *obj)
@@ -185,9 +155,59 @@ void threadStub (TimeOperation *obj)
 //**********************************************************
 int SignalManager::doCommand (const char *str)
 {
-  if (matchCommand(str,"addchannel")) addChannel ();
+  if (matchCommand(str,"copy"))
+    {
+      if (globals.clipboard) delete globals.clipboard;
+      globals.clipboard=new ClipBoard ();
+      if (globals.clipboard)
+	for (int i=0;i<channels;i++) globals.clipboard->appendChannel (signal[i]->copyRange());
+    }
   else
-  return promoteCommand (str);
+    if (matchCommand(str,"cut"))
+      {
+	if (globals.clipboard) delete globals.clipboard;
+	globals.clipboard=new ClipBoard ();
+	if (globals.clipboard)
+	  for (int i=0;i<channels;i++) globals.clipboard->appendChannel (signal[i]->cutRange());
+	info ();
+      }
+    else
+      if (matchCommand(str,"delete"))
+	{
+	  for (int i=0;i<channels;i++) signal[i]->cutRange();
+	  info ();
+	}
+      else
+	if (matchCommand(str,"paste"))
+	  {
+	    if (globals.clipboard)
+	      {
+		SignalManager *toinsert=globals.clipboard->getSignal();
+		if (toinsert)
+		  {
+		    int clipchan=toinsert->getChannels();
+		    int sourcechan=0;
+
+		    for (int i=0;i<channels;i++)
+		      {
+			signal[i]->insertPaste (toinsert->getSignal (sourcechan));
+			sourcechan++;
+			if (sourcechan<clipchan) sourcechan=0;
+		      }
+		  }
+	      }
+	    info ();
+	  }
+	else
+	  if (matchCommand (str,"selectchannels"))
+	    for (int i=0;i<channels;i++) selected[i]=true;
+	  else
+	    if (matchCommand (str,"invertchannels"))
+	      for (int i=0;i<channels;i++) selected[i]=!selected[i];
+	    else
+	      if (matchCommand(str,"addchannel")) addChannel ();
+	      else
+		return promoteCommand (str);
 
   return true;
 }
@@ -197,7 +217,6 @@ bool SignalManager::promoteCommand (const char *command)
   int i;
   for (i=0;i<channels;i++)       //for all channels
     {
-      printf ("%d of %d\n",i,channels);
       if ((signal[i])&&(selected[i]))  //that exist and are selected
 	{
 	  int len=rmarker-lmarker;
@@ -263,7 +282,7 @@ void SignalManager::info ()
 //**********************************************************
 const char *SignalManager::getName ()
 {
-  return name->data();
+  return name;
 }
 //**********************************************************
 SignalManager::SignalManager (KwaveSignal *sample):QObject ()

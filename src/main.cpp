@@ -32,6 +32,12 @@ void TopWidget::setOp (const char *str)
   else
   if (matchCommand (str,"saveas")) saveFileAs(false);
   else
+  if (matchCommand (str,"bits"))
+    {
+      KwaveParser parser (str);
+      bit=parser.toInt ();
+    }
+  else
   if (matchCommand (str,"saveselect")) saveFileAs(true);
   else
   if (matchCommand(str,"help")) globals.app->invokeHTMLHelp ("kwave/index.html","");
@@ -61,6 +67,7 @@ TopWidget::TopWidget () : KTopLevelWidget ()
 
   saveDir=0;
   loadDir=0;
+  name=0;
 
   status=new KStatusBar (this);
 
@@ -105,8 +112,7 @@ TopWidget::~TopWidget ()
 
   if (saveDir) delete saveDir;
   if (loadDir) delete loadDir;
-
-  ClipBoard ().unregisterMenu (menumanage);
+  if (name)    deleteString (name);
 
   //if list is empty -> no more windows there -> exit application
   if (topwidgetlist.isEmpty()) globals.app->exit (0);
@@ -121,10 +127,7 @@ void TopWidget::newInstance ()
 //****************************************************************************
 void TopWidget::revert ()
 {
- if (!name.isNull())
-  {
-    mainwidget->setSignal (&name);
-  }
+ if (name) mainwidget->setSignal (name);
 }
 //*****************************************************************************
 void TopWidget::openRecent (const char *str)
@@ -136,11 +139,12 @@ void TopWidget::openRecent (const char *str)
     {
       QString name=recentFiles.at(cnt);
 
-      if (!name.isNull())
+      if (name)
 	{
-	  this->name=name;
-	  mainwidget->setSignal (&name);
-	  setCaption (name.data());
+	  if (this->name) deleteString (this->name);
+	  this->name=duplicateString (name.data());
+	  mainwidget->setSignal (this->name);
+	  setCaption (this->name);
 	}
     }
   else debug ("out of range\n");
@@ -180,8 +184,9 @@ void TopWidget::dropEvent (KDNDDropZone *drop)
       if ( name.left(5) == "file:")
 	{
 	  name=name.right (name.length()-5);
-	  this->name=name;
-	  mainwidget->setSignal (&name);
+
+	  this->name=duplicateString (name.data());
+	  mainwidget->setSignal (name);
 	  addRecentFile (name.data());
 	  setCaption (name.data());
 	}
@@ -193,10 +198,10 @@ void TopWidget::openFile ()
   QString name=QFileDialog::getOpenFileName (0,"*.wav",this);
   if (!name.isNull())
     {
-      this->name=name;
-      mainwidget->setSignal (&name);
-      addRecentFile (name.data());
-      setCaption (name.data());
+      this->name=duplicateString (name.data());
+      mainwidget->setSignal (this->name);
+      addRecentFile (this->name);
+      setCaption (this->name);
     }
 }
 //*****************************************************************************
@@ -205,19 +210,18 @@ void TopWidget::importAsciiFile ()
   QString name=QFileDialog::getOpenFileName (0,"*.*",this);
   if (!name.isNull())
     {
-      this->name=name;
-      mainwidget->setSignal (&name,ASCII);
-      setCaption (name.data());
+      this->name=duplicateString (name.data());
+      mainwidget->setSignal (this->name,ASCII);
+      setCaption (this->name);
     }
 }
 //*****************************************************************************
 void TopWidget::saveFile ()
 {
-  if (!name.isEmpty())
+  if (name)
     {
-      this->name=name;
-      mainwidget->saveSignal (&name,bit);
-      setCaption (name.data());
+      mainwidget->saveSignal (name,bit);
+      setCaption (name);
     }
   else saveFileAs (false);
 }
@@ -234,24 +238,25 @@ void TopWidget::saveFileAs (bool selection)
   if (dialog)
     {
       dialog->exec();
-      name=dialog->selectedFile();
-      if (!name.isNull())
+      name=duplicateString (dialog->selectedFile());
+      if (name)
 	{
 	  if (saveDir) delete saveDir;
 	  saveDir=new QDir (dialog->dirPath());
 
-	  mainwidget->saveSignal (&name,bit,selection);
-	  addRecentFile (name.data());
+	  mainwidget->saveSignal (name,bit,selection);
+	  addRecentFile (name);
 	}
       delete dialog;
     }
 }
 //*****************************************************************************
-void TopWidget::setSignal (QString name)
+void TopWidget::setSignal (const char *newname)
 {
-  this->name=name;
-  mainwidget->setSignal (&name);
-  setCaption (name.data());
+  if (name) deleteString (name);
+  this->name=duplicateString (newname);
+  mainwidget->setSignal (name);
+  setCaption (name);
 }
 //*****************************************************************************
 void TopWidget::setSignal (SignalManager *signal)
@@ -290,14 +295,8 @@ void saveConfig(KApplication *app)
 
   for (unsigned int i =0 ; i < globals.markertypes.count(); i++)
     {
-      sprintf (buf,"%dName",i);
-      config->writeEntry (buf,globals.markertypes.at(i)->name->data());
-
-      sprintf (buf,"%dhasName",i);
-      config->writeEntry (buf,globals.markertypes.at(i)->named);
-
-      sprintf (buf,"%dColor",i);
-      config->writeEntry (buf,*((globals.markertypes.at(i))->color));
+      sprintf (buf,"%dCommand",i);
+      config->writeEntry (buf,globals.markertypes.at(i)->getCommand());
     }
   config->sync();
 }
@@ -342,22 +341,11 @@ void readConfig(KApplication *app)
   config->setGroup ("Labels");
   for (unsigned int i =0 ; i < 20; i++)
     {
-      sprintf (buf,"%dName",i);                
+      sprintf (buf,"%dCommand",i);                
       QString name=config->readEntry (buf);
       if (!name.isEmpty())
 	{
-	  sprintf (buf,"%dColor",i);                
-	  QColor color=config->readColorEntry (buf);
-
-	  sprintf (buf,"%dhasName",i);
-	  int hasname=config->readNumEntry (buf,-1);
-
-
-	  MarkerType *marker=new MarkerType();
-
-	  marker->name=new QString(name);
-	  marker->named=hasname;
-	  marker->color=new QColor(color);
+	  MarkerType *marker=new MarkerType(name.data());
 	  globals.markertypes.append (marker);
 	}
     }

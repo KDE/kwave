@@ -11,7 +11,7 @@ class TopWidget : public KTopLevelWidget
  	TopWidget	  ();
 	~TopWidget	  ();
  void   closeWindow       ();
- void	setSignal	  (QString name);
+ void	setSignal	  (const char *name);
  void	setSignal	  (SignalManager *);
  void   addRecentFile     (char *);
  void   updateRecentFiles ();
@@ -38,7 +38,7 @@ class TopWidget : public KTopLevelWidget
  MainWidget	*mainwidget;
  KMenuBar	*bar;
  KStatusBar	*status;      //global status bar
- QString	name;         //filename
+ char           *name;        //filename
  MenuManager    *menumanage;  //menu manager object...
  int            bit;          //bit resolution to save with
 };

@@ -26,7 +26,7 @@ SignalWidget::SignalWidget (QWidget *parent,MenuManager *manage) : QWidget (pare
   manage->addNumberedMenu ("labeltypes");
 
   for (MarkerType *tmp=globals.markertypes.first();tmp;tmp=globals.markertypes.next())
-    manage->addNumberedMenuEntry ("labeltypes",tmp->name->data());
+    manage->addNumberedMenuEntry ("labeltypes",tmp->name);
 
   timer=0;
   signalmanage=0;
@@ -60,7 +60,7 @@ SignalWidget::~SignalWidget ()
   if (markers)      delete markers;
 }
 //****************************************************************************
-void SignalWidget::saveSignal  (QString *filename,int bit,int selection)
+void SignalWidget::saveSignal  (const char *filename,int bit,int selection)
 {
   if (signalmanage) signalmanage->save (filename,bit,selection);
 }
@@ -169,30 +169,40 @@ bool SignalWidget::checkForNavigationCommand (const char *str)
   return true;
 }
 //****************************************************************************
-  bool SignalWidget::checkForLabelCommand (const char *str)
+bool SignalWidget::checkForLabelCommand (const char *str)
 {
-  if (matchCommand (str,"labeltopitch"))   convertMarkstoPitch ("");
+  if (matchCommand (str,"chooselabel"))
+  {
+    KwaveParser parser (str);
+    markertype=globals.markertypes.at(parser.toInt());
+  }
   else
-    if (matchCommand (str,"deletelabel"))   deleteMarks ();
+    if (matchCommand (str,"amptolabel")) markSignal (str);
     else
-      if (matchCommand (str,"insertlabel"))   appendMarks ();
+      if (matchCommand (str,"pitch")) markPeriods (str);
       else
-	if (matchCommand (str,"loadlabel"))  loadMarks ();
+	if (matchCommand (str,"labeltopitch"))   convertMarkstoPitch (str);
 	else
-	  if (matchCommand (str,"savelabel"))  saveMarks ();
+	  if (matchCommand (str,"deletelabel"))   deleteMarks ();
 	  else
-	    if (matchCommand (str,"addlabel"))   addMark ();
+	    if (matchCommand (str,"insertlabel"))   appendMarks ();
 	    else
-	      if (matchCommand (str,"newlabeltype")) addMarkType (str);
+	      if (matchCommand (str,"loadlabel"))  loadMarks ();
 	      else
-		if (matchCommand (str,"expandtolabel")) jumptoLabel ();
+		if (matchCommand (str,"savelabel"))  saveMarks ();
 		else
-		  if (matchCommand (str,"mark")) markSignal (str);
-		  else 
-		    if (matchCommand (str,"markperiod")) markPeriods (str);
+		  if (matchCommand (str,"addlabel"))   addMark ();
+		  else
+		    if (matchCommand (str,"newlabeltype")) addMarkType (str);
 		    else
-		      if (matchCommand (str,"saveperiods")) savePeriods ();
-		      else return false;
+		      if (matchCommand (str,"expandtolabel")) jumptoLabel ();
+		      else
+			if (matchCommand (str,"mark")) markSignal (str);
+			else 
+			  if (matchCommand (str,"markperiod")) markPeriods (str);
+			  else
+			    if (matchCommand (str,"saveperiods")) savePeriods ();
+			    else return false;
 
   return true;
 }
@@ -213,8 +223,16 @@ int SignalWidget::doCommand (const char *str)
       if (checkForLabelCommand (str));
       else
 	if (checkForNavigationCommand (str));
+
 	else
-	  return signalmanage->doCommand (str);
+	  if (matchCommand (str,"cut")) //set range after cutting
+	    {
+	      bool x=signalmanage->doCommand (str);
+	      setRange (signalmanage->getLMarker(),signalmanage->getLMarker());
+	      return x;
+	    }
+	  else
+	    return signalmanage->doCommand (str);
   return false;
 }
 //**********************************************************
@@ -253,17 +271,10 @@ void SignalWidget::setOp (int op)
     {
       signalmanage->setOp (op);
 
-      if (op>=SELECTMARK&&op<SELECTMARK+MENUMAX)
-	markertype=globals.markertypes.at(op-SELECTMARK);
-      //set active Markertype
-
       if ((op>=SAVEBLOCKS)&&(op<=SAVEBLOCKS+24)) saveBlocks (op-SAVEBLOCKS);
 
       switch (op)
 	{
-	case CUT:
-	  setRange (signalmanage->getLMarker(),signalmanage->getLMarker());
-	  break;
 	case PLAY:
 	case LOOP:
 	  if (timer==0)
@@ -393,7 +404,7 @@ void SignalWidget::setSignal  (SignalManager *sigs)
     }
 }
 //****************************************************************************
-void SignalWidget::setSignal  (QString *filename,int type)
+void SignalWidget::setSignal  (const char *filename,int type)
 {
   if (signalmanage) delete signalmanage;  //get rid of old signal
   signalmanage=new SignalManager (this,filename,1,type);
@@ -432,9 +443,12 @@ void SignalWidget::time ()
 //****************************************************************************
 void SignalWidget::setZoom (double zoom)
 {
-  if (signalmanage) this->zoom=(((double) signalmanage->getLength())/width)*zoom/100;
+  if (signalmanage) this->zoom=(((double) signalmanage->getLength())/width)*(zoom/100);
   else this->zoom=1.0;
   
+  if (offset+zoom*width>signalmanage->getLength())
+    zoom=((double)signalmanage->getLength()-offset)/width;
+
   refresh();
 }
 //****************************************************************************
@@ -702,7 +716,7 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 
 		  if (act->name)
 		    {
-		      int w=p.fontMetrics().width (act->name->data());
+		      int w=p.fontMetrics().width (act->name);
 		      int h=8;
 		      h=p.fontMetrics().height();
 
@@ -712,7 +726,7 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 		      p.drawLine (x-w/2-2,1,x-w/2-2,1+h);
 		      p.setPen (black);
 		      p.drawLine (x+w/2+1,1,x+w/2+1,1+h);
-		      p.drawText (x-w/2,3,w,h,AlignCenter,act->name->data());
+		      p.drawText (x-w/2,3,w,h,AlignCenter,act->name);
 		    }
 		}
 	    }

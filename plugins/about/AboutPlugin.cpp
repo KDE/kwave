@@ -41,8 +41,7 @@ int AboutPlugin::start(QStringList &/*params*/)
 
     ASSERT(dlg);
     if (!dlg) return ENOMEM;
-
-    dlg->show();
+    dlg->exec();
     delete dlg;
 
     return 0;

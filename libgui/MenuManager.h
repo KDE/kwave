@@ -3,11 +3,23 @@
 
 #include <qwidget.h>
 
+#include "mt/SignalProxy.h"
+
 class QWidget;
 class KMenuBar;
 class MenuRoot;
 
 //*****************************************************************************
+/**
+ * @class MenuManager
+ * @brief Manager class for access to Kwave's menu subsystem.
+ *
+ * @note All commands must be emitted synchronously during X11 event
+ *       processing instead of  immediately through normal signal
+ *       handling. This avoids trouble when a signal handler within
+ *       the MenuNode class causes an action that deletes that menu
+ *       node. <em>It took me one week to find that bug!</em>
+ */
 class MenuManager: public QObject {
     Q_OBJECT
 
@@ -76,15 +88,26 @@ signals:
      */
     void sigMenuCommand(const QString &command);
 
-private slots:
+protected slots:
 
     /**
-     * Will be connected to the sigCommand() signal of the menu
-     * structure's root node and gets called if a menu node's command
-     * should be executed.
-     * @see MenuNode.sigCommand()
+     * Enqueues a command from a menu entry into the internal
+     * SignalProxy.
+     * @see m_spx_command()
+     * @see SignalProxy1
      */
-    void slotMenuCommand(const QString &command);
+    void slotEnqueueCommand(const QString &command);
+
+    /**
+     * Will be indirectly connected to the sigCommand() signal of the menu
+     * structure's root node and gets called if a menu node's command
+     * should be executed. Internally the commands are queued through
+     * a SignalProxy to be executed during normal X11 event processing
+     * after finishing the internal menu subsystem work.
+     * @see MenuNode.sigCommand()
+     * @see SignalProxy1
+     */
+    void slotMenuCommand();
 
 private:
     /**
@@ -98,6 +121,10 @@ private:
 
     /** root node of the menu structure */
     MenuRoot *m_menu_root;
+
+    /** threadsafe message queue for emitted commands */
+    SignalProxy1<QString> m_spx_command;
+
 };
 
 #endif // _MENU_MANAGER_H_

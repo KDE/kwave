@@ -123,15 +123,12 @@ void MenuSub::actionChildEnableChanged(int id, bool enable)
 //***************************************************************************
 void MenuSub::slotSelected(int id)
 {
-    debug("MenuSub::slotSelected(%d) --1--",id); // ###
     MenuNode *child = findChild(id);
-    debug("MenuSub::slotSelected(%d) --2--",id); // ###
     if (child) {
 	child->actionSelected();
     } else {
-	debug("MenuSub::slotSelected: child with id #%d not found!", id);
+	warning("MenuSub::slotSelected: child with id #%d not found!", id);
     }
-    debug("MenuSub::slotSelected(%d) --done--",id); // ###
 }
 
 //***************************************************************************

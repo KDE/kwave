@@ -71,8 +71,6 @@ AsyncSync::~AsyncSync()
 //*****************************************************************************
 void AsyncSync::SyncHandler()
 {
-    MutexGuard lock(m_lock);
-
     // First remove message from pipe ( the writer only wrote 1 byte )
     static char buf;
     if ( ::read( m_fds[0], &buf, 1 ) == -1 ) {

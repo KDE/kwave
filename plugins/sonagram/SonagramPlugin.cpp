@@ -52,12 +52,12 @@ public:
     StripeInfoPrivate(unsigned int nr, QByteArray data)
 	:TSS_Object(), m_nr(nr), m_data(data)
 	{};
-    StripeInfoPrivate(StripeInfoPrivate &copy)
+    StripeInfoPrivate(const StripeInfoPrivate &copy)
 	:TSS_Object(), m_nr(copy.nr()), m_data(copy.data())
 	{};
     virtual ~StripeInfoPrivate() {} ;
-    unsigned int nr() { return m_nr; };
-    QByteArray &data() { return m_data; };
+    unsigned int nr() const { return m_nr; };
+    const QByteArray &data() const { return m_data; };
 private:
     unsigned int m_nr;
     QByteArray m_data;
@@ -296,7 +296,7 @@ void SonagramPlugin::insertStripe()
     if (!stripe_info) return;
 
     unsigned int stripe_nr = stripe_info->nr();
-    QByteArray *stripe = &(stripe_info->data());
+    const QByteArray *stripe = &(stripe_info->data());
 
     // forward the stripe to the window to display it
     ASSERT(m_sonagram_window);

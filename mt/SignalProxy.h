@@ -52,12 +52,12 @@ SignalProxy<T>::SignalProxy(QObject *owner, const char *slot)
  * This class is completely threadsafe !
  */
 template <class T>
-class SignalProxy1: protected AsyncSync
+class SignalProxy1: public AsyncSync
 {
 public:
     SignalProxy1(QObject *owner, const char *slot, unsigned int limit=0);
     virtual ~SignalProxy1();
-    virtual void enqueue(T &param);
+    virtual void enqueue(const T &param);
     virtual T *dequeue();
     virtual unsigned int count();
     virtual void setLimit(unsigned int limit);
@@ -83,15 +83,13 @@ SignalProxy1<T>::SignalProxy1(QObject *owner,
 template <class T>
 SignalProxy1<T>::~SignalProxy1()
 {
-    MutexGuard lock(m_lock);
-
     m_queue.setAutoDelete(true);
     m_queue.clear();
 }
 
 //***************************************************************************
 template <class T>
-void SignalProxy1<T>::enqueue(T &param)
+void SignalProxy1<T>::enqueue(const T &param)
 {
     MutexGuard lock(m_lock);
     bool call_async = true;

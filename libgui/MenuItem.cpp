@@ -45,7 +45,6 @@ MenuItem::~MenuItem()
 //*****************************************************************************
 void MenuItem::actionSelected()
 {
-    debug("MenuItem::actionSelected() --1--"); // ###
     MenuGroup *group = 0;
 
     if (isCheckable()) {
@@ -63,9 +62,7 @@ void MenuItem::actionSelected()
 	}
     }
 
-    debug("MenuItem::actionSelected() --2--"); // ###
     MenuNode::actionSelected();
-    debug("MenuItem::actionSelected() --done--"); // ###
 }
 
 //*****************************************************************************

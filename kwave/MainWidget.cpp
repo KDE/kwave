@@ -328,10 +328,10 @@ void MainWidget::loadFile(const QString &filename, int type)
     if (!signalview) return;
 
     debug("MainWidget::loadFile(%s, %d)", filename.data(), type); // ###
-    closeSignal();
-    signalview->loadFile(filename, type);
-    debug("MainWidget::loadFile(): --1--"); // ###
-    refreshControls();
+//    closeSignal();
+//    signalview->loadFile(filename, type);
+//    debug("MainWidget::loadFile(): --1--"); // ###
+//    refreshControls();
     debug("MainWidget::loadFile(): done"); // ###
 }
 

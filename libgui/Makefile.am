@@ -33,7 +33,6 @@ BUILTSOURCES=\
  MenuGroup.moc.cpp \
  MenuItem.moc.cpp\
  MenuSub.moc.cpp\
- MenuToplevel.moc.cpp\
  MenuRoot.moc.cpp\
  MenuManager.moc.cpp
 
@@ -51,7 +50,6 @@ libkwavegui_a_SOURCES =\
  MenuGroup.cpp \
  MenuItem.cpp\
  MenuSub.cpp\
- MenuToplevel.cpp\
  MenuRoot.cpp\
  MenuManager.cpp\
  MultiStateWidget.cpp\

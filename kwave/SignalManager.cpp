@@ -30,6 +30,7 @@
 #include <linux/soundcard.h>
 
 #include <qbitmap.h>
+#include <qfile.h>
 #include <qlist.h>
 #include <qpainter.h>
 #include <qstring.h>
@@ -665,102 +666,97 @@ int SignalManager::loadAscii()
 //***************************************************************************
 int SignalManager::loadWav()
 {
-    int result = 0;
-    __uint32_t num;
-    __uint32_t length;
-    wav_fmt_header_t fmt_header;
-
-    FILE *sigfile = fopen(m_name.data(), "r");
-    if (!sigfile) {
-	KMessageBox::error(m_parent_widget,
-		i18n("File does not exist !"), i18n("Error"), 2);
-	return -ENOENT;
-    }
-
-    // --- check if the file starts with "RIFF" ---
-    fseek(sigfile, 0, SEEK_END);
-    num = ftell(sigfile);
-
-    length = findChunk(sigfile, "RIFF", 0);
-    if ((length == 0) || (ftell(sigfile) != 8)) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("File is no RIFF File !"), i18n("Warning"), 2);
-	// maybe recoverable...
-    } else if (length+8 != num) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("File has incorrect length! (maybe truncated?)"),
-	    i18n("Warning"), 2);
-	// maybe recoverable...
-    } else {
-	// check if the chunk data contains "WAVE"
-	char file_type[4];
-	num = fread(&file_type, 1, 4, sigfile);
-	if ((num != 4) || strncmp("WAVE", file_type, 4)) {
-	    KMessageBox::error(m_parent_widget,
-		i18n("File is no WAVE File !"),
-		i18n("Warning"), 2);
-	    // maybe recoverable...
-	}
-    }
-
-    // ------- read the "fmt " chunk -------
-    ASSERT(sizeof(fmt_header) == 16);
-    num = findChunk(sigfile, "fmt ");
-    if (num != sizeof(fmt_header)) {
-	debug("SignalManager::loadWav(): length of fmt chunk = %d", num);
-	KMessageBox::error(m_parent_widget,
-	    i18n("File does not contain format information!"),
-	    i18n("Error"), 2);
-	fclose(sigfile);
-	return -EMEDIUMTYPE;
-    }
-    num = fread(&fmt_header, 1, sizeof(fmt_header), sigfile);
-#ifdef IS_BIG_ENDIAN
-    fmt_header.length = bswap_32(fmt_header.length);
-    fmt_header.mode = bswap_16(fmt_header.mode);
-    fmt_header.channels = bswap_16(fmt_header.channels);
-    fmt_header.rate = bswap_32(fmt_header.rate);
-    fmt_header.AvgBytesPerSec = bswap_32(fmt_header.AvgBytesPerSec);
-    fmt_header.BlockAlign = bswap_32(fmt_header.BlockAlign);
-    fmt_header.bitspersample = bswap_16(fmt_header.bitspersample);
-#endif
-    if (fmt_header.mode != 1) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("File must be uncompressed (Mode 1) !"),
-	    i18n("Sorry"), 2);
-	fclose(sigfile);
-	return -EMEDIUMTYPE;
-    }
-    rate = fmt_header.rate;
-
-    // ------- search for the data chunk -------
-    length = findChunk(sigfile, "data");
-    if (!length) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("File does not contain data!"),
-	    i18n("Error"), 2);
-	fclose(sigfile);
-	return -EMEDIUMTYPE;
-    }
-
-    length = (length/(fmt_header.bitspersample/8))/fmt_header.channels;
-    switch (fmt_header.bitspersample) {
-	case 8:
-	case 16:
-	case 24:
-	    result = loadWavChunk(sigfile, length,
-				  fmt_header.channels,
-				  fmt_header.bitspersample);
-	    break;
-	default:
-	    KMessageBox::error(m_parent_widget,
-		i18n("Sorry only 8/16/24 Bits per Sample"\
-		" are supported !"), i18n("Sorry"), 2);
-	    result = -EMEDIUMTYPE;
-    }
-
-    fclose(sigfile);
-    return result;
+    return 1234;
+//    wav_fmt_header_t fmt_header;
+//    int result = 0;
+//    __uint32_t num;
+//    __uint32_t length;
+//
+//    QFile sigfile(m_name);
+//    if (!sigfile.open(IO_ReadOnly)) {
+//	KMessageBox::error(m_parent_widget,
+//		i18n("File does not exist !"), i18n("Error"), 2);
+//	return -ENOENT;
+//    }
+//
+//    // --- check if the file starts with "RIFF" ---
+//    num = sigfile.size();
+//    length = findChunk(sigfile, "RIFF", 0);
+//    if ((length == 0) || (sigfile.at() != 8)) {
+//	KMessageBox::error(m_parent_widget,
+//	    i18n("File is no RIFF File !"), i18n("Warning"), 2);
+//	// maybe recoverable...
+//    } else if (length+8 != num) {
+//	KMessageBox::error(m_parent_widget,
+//	    i18n("File has incorrect length! (maybe truncated?)"),
+//	    i18n("Warning"), 2);
+//	// maybe recoverable...
+//    } else {
+//	// check if the chunk data contains "WAVE"
+//	char file_type[16];
+//	num = sigfile.readBlock((char*)(&file_type), 4);
+//	if ((num != 4) || strncmp("WAVE", file_type, 4)) {
+//	    KMessageBox::error(m_parent_widget,
+//		i18n("File is no WAVE File !"),
+//		i18n("Warning"), 2);
+//	    // maybe recoverable...
+//	}
+//    }
+//
+//    // ------- read the "fmt " chunk -------
+//    ASSERT(sizeof(fmt_header) == 16);
+//    num = findChunk(sigfile, "fmt ");
+//    if (num != sizeof(fmt_header)) {
+//	debug("SignalManager::loadWav(): length of fmt chunk = %d", num);
+//	KMessageBox::error(m_parent_widget,
+//	    i18n("File does not contain format information!"),
+//	    i18n("Error"), 2);
+//	return -EMEDIUMTYPE;
+//    }
+//    num = sigfile.readBlock((char*)(&fmt_header), sizeof(fmt_header));
+//#ifdef IS_BIG_ENDIAN
+//    fmt_header.length = bswap_32(fmt_header.length);
+//    fmt_header.mode = bswap_16(fmt_header.mode);
+//    fmt_header.channels = bswap_16(fmt_header.channels);
+//    fmt_header.rate = bswap_32(fmt_header.rate);
+//    fmt_header.AvgBytesPerSec = bswap_32(fmt_header.AvgBytesPerSec);
+//    fmt_header.BlockAlign = bswap_32(fmt_header.BlockAlign);
+//    fmt_header.bitspersample = bswap_16(fmt_header.bitspersample);
+//#endif
+//    if (fmt_header.mode != 1) {
+//	KMessageBox::error(m_parent_widget,
+//	    i18n("File must be uncompressed (Mode 1) !"),
+//	    i18n("Sorry"), 2);
+//	return -EMEDIUMTYPE;
+//    }
+//    rate = fmt_header.rate;
+//
+//    // ------- search for the data chunk -------
+//    length = findChunk(sigfile, "data");
+//    if (!length) {
+//	KMessageBox::error(m_parent_widget,
+//	    i18n("File does not contain data!"),
+//	    i18n("Error"), 2);
+//	return -EMEDIUMTYPE;
+//    }
+//
+//    length = (length/(fmt_header.bitspersample/8))/fmt_header.channels;
+//    switch (fmt_header.bitspersample) {
+//	case 8:
+//	case 16:
+//	case 24:
+////	    result = loadWavChunk(sigfile, length,
+////				  fmt_header.channels,
+////				  fmt_header.bitspersample);
+//	    break;
+//	default:
+//	    KMessageBox::error(m_parent_widget,
+//		i18n("Sorry only 8/16/24 Bits per Sample"\
+//		" are supported !"), i18n("Sorry"), 2);
+//	    result = -EMEDIUMTYPE;
+//    }
+//
+//    return result;
 }
 
 //**********************************************************
@@ -1013,7 +1009,7 @@ void SignalManager::save(const char *filename, int bits, bool selection)
 }
 
 //***************************************************************************
-__uint32_t SignalManager::findChunk(FILE *sigfile, const char *chunk,
+__uint32_t SignalManager::findChunk(QFile &sigfile, const char *chunk,
 	__uint32_t offset)
 {
     char current_name[16];
@@ -1023,11 +1019,11 @@ __uint32_t SignalManager::findChunk(FILE *sigfile, const char *chunk,
     ASSERT(sizeof(length) == 4);
     ASSERT(sizeof(int) == 4);
 
-    fseek(sigfile, offset, SEEK_SET);
-    while (!feof(sigfile)) {
-	debug("findChunk('%s'): position=%lu", chunk, ftell(sigfile));
+    sigfile.at(offset);
+    while (!sigfile.atEnd()) {
+	debug("findChunk('%s'): position=%u", chunk, sigfile.at());
 	// get name of the chunk
-	len = fread(&current_name, 1, 4, sigfile);
+	len = sigfile.readBlock((char*)(&current_name), 4);
 	if (len < 4) {
 	    debug("findChunk('%s'): not found, reached EOF while reading name",
 	    	chunk);
@@ -1035,7 +1031,7 @@ __uint32_t SignalManager::findChunk(FILE *sigfile, const char *chunk,
 	}
 
 	// get length of the chunk
-	len = fread(&length, 1, sizeof(length), sigfile);
+	len = sigfile.readBlock((char*)(&length), sizeof(length));
 	if (len < 4) {
 	    debug("findChunk('%s'): not found, reached EOF :-(", chunk);
 	    return 0; // reached EOF
@@ -1054,8 +1050,8 @@ __uint32_t SignalManager::findChunk(FILE *sigfile, const char *chunk,
 		current_name[2], current_name[3]);
         }
 
-        // not found -> skip
-        fseek(sigfile, length, SEEK_CUR);
+	// not found -> skip
+	sigfile.at(sigfile.at()+length);
     };
 
     debug("findChunk('%s'): not found :-(", chunk);
@@ -1063,7 +1059,7 @@ __uint32_t SignalManager::findChunk(FILE *sigfile, const char *chunk,
 }
 
 //***************************************************************************
-int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
+int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
                                 unsigned int channels, int bits)
 {
 //    unsigned int bufsize = 16 * 1024 * sizeof(sample_t);

@@ -35,6 +35,7 @@
 
 class ProgressDialog;
 class QBitmap;
+class QFile;
 class TimeOperation;
 
 typedef struct {
@@ -296,7 +297,7 @@ private:
      * @param offset the file offset for start of the search
      * @return the size of the chunk, 0 if not found
      */
-    __uint32_t findChunk(FILE *sigfile, const char *chunk,
+    __uint32_t findChunk(QFile &sigfile, const char *chunk,
 	__uint32_t offset = 12);
 
     /**
@@ -337,7 +338,7 @@ private:
      * @param number of bits per sample [8,16,24,...]
      * @return 0 if succeeded or error number if failed
      */
-    int loadWavChunk(FILE *sigin, unsigned int length,
+    int loadWavChunk(QFile &sigin, unsigned int length,
                      unsigned int channels, int bits);
 
     /**

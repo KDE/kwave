@@ -20,7 +20,7 @@
 #include <kmenubar.h>
 
 #include "MenuItem.h"
-#include "MenuToplevel.h"
+#include "MenuSub.h"
 #include "MenuRoot.h"
 
 //***************************************************************************
@@ -56,7 +56,7 @@ QDict<MenuNode> *MenuRoot::getGroupList()
 MenuNode *MenuRoot::insertBranch(const QString &name, const QString &command,
                                  int key, const QString &uid, int index)
 {
-    MenuToplevel *node = new MenuToplevel(this, name, command, key, uid);
+    MenuSub *node = new MenuSub(this, name, command, key, uid);
     ASSERT(node);
     if (!node) return 0;
 

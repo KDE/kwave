@@ -56,9 +56,6 @@ MenuNode::MenuNode(MenuNode *parent, const QString &name,
 //*****************************************************************************
 MenuNode::~MenuNode()
 {
-    // deregister from our parent
-    if (m_parentNode) m_parentNode->removeChild(this);
-
     // leave all groups
     QString group = m_groups.first();
     while (group) {
@@ -67,36 +64,32 @@ MenuNode::~MenuNode()
     }
 
     clear();
+
+    // deregister from our parent
+    if (m_parentNode) m_parentNode->removeChild(this);
 }
 
 //*****************************************************************************
 void MenuNode::emitCommand(const QString &command)
 {
-    debug("MenuNode::emitCommand() --1--"); // ###
     ASSERT(command.length());
     if (!command.length()) return ;
 
-    debug("MenuNode::emitCommand() --2--"); // ###
     if (!getParentNode()) {
 	// no parent -> we are the root node -> we have to emit
-	debug("MenuNode::emitCommand() --3--"); // ###
 	emit sigCommand(command);
     } else {
 	// tell the root node to emit
-	debug("MenuNode::emitCommand() --4--"); // ###
 	MenuNode *root = getRootNode();
 	ASSERT(root);
 	if (root) root->emitCommand(command);
     }
-    debug("MenuNode::emitCommand() --done--"); // ###
 }
 
 //*****************************************************************************
 void MenuNode::actionSelected()
 {
-    debug("MenuNode::actionSelected() --1--"); // ###
     if (m_command.length()) emitCommand(m_command);
-    debug("MenuNode::actionSelected() --done--"); // ###
 }
 
 //*****************************************************************************
@@ -395,7 +388,7 @@ int MenuNode::insertNode(const QString &name, const QString &position,
     int pos = 0;
 
     if (!position.length()) {
-	debug("MenuNode::parseCommand: no position!");    // ###
+	warning("MenuNode::parseCommand: no position!");
 	return result;
     }
 

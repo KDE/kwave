@@ -33,8 +33,8 @@
 
 // PLEASE DO NOT CHANGE THE FOLLOWING TWO LINES, THEY WILL BE
 // AUTOMATICALLY UPDATED BY THE VERSION MANAGEMENT SCRIPTS !
-#define KWAVE_VERSION "0.6.0-2"
-#define KWAVE_VERSION_DATE "Aug 24, 2001"
+#define KWAVE_VERSION "0.6.1"
+#define KWAVE_VERSION_DATE "Aug 26, 2001"
 
 //***************************************************************************
 static const char about_text[] = "\nKwave Version "KWAVE_VERSION"\n\

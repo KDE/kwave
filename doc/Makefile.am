@@ -54,7 +54,7 @@ doc.en: en/index.html
 doc.timestamp: de/index.html en/index.html
 	LC_ALL=en date > doc.timestamp
 
-all: doc.timestamp
+all doc: doc.timestamp
 
 doc-clean:
 	for lang in ${LANGUAGES}; do { rm -fv $${lang}/*.html; }; done

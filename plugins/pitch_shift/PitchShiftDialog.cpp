@@ -31,8 +31,10 @@
 
 //***************************************************************************
 PitchShiftDialog::PitchShiftDialog(QWidget *parent)
-    :PitchShiftDlg(parent, 0, true), m_speed(1.0),
-     m_frequency(5.0), m_mode(MODE_FACTOR), m_enable_updates(true)
+    :PitchShiftDlg(parent, 0, true),
+     KwavePluginSetupDialog(),
+     m_speed(1.0), m_frequency(5.0), m_mode(MODE_FACTOR),
+     m_enable_updates(true)
 {
     setMode(m_mode);
 

@@ -21,11 +21,14 @@
 #include "config.h"
 #include <qobject.h>
 #include <qstring.h>
+#include "libkwave/KwavePluginSetupDialog.h"
 #include "PitchShiftDlg.uih.h"
 
+class QDialog;
 class QStringList;
 
-class PitchShiftDialog: public PitchShiftDlg
+class PitchShiftDialog: public PitchShiftDlg,
+                        public KwavePluginSetupDialog
 {
     Q_OBJECT
 public:
@@ -37,11 +40,14 @@ public:
     virtual ~PitchShiftDialog();
 
     /** Returns the parameters as string list */
-    QStringList params();
+    virtual QStringList params();
 
     /** Sets the from a list of parameters */
-    void setParams(QStringList &params);
+    virtual void setParams(QStringList &params);
 
+    /** retruns a pointer to this as a QDialog */
+    virtual QDialog *dialog() { return this; };
+    
 signals:
 
     /**

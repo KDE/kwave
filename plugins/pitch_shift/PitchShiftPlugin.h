@@ -23,11 +23,14 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
+#include "libkwave/KwavePluginSetupDialog.h"
+#include "libkwave/KwaveFilterPlugin.h"
 #include "libkwave/KwavePlugin.h"
 
+class ArtsMultiTrackFilter;
 class QStringList;
 
-class PitchShiftPlugin: public KwavePlugin
+class PitchShiftPlugin: public KwaveFilterPlugin
 {
     Q_OBJECT
 
@@ -39,17 +42,35 @@ public:
     /** Destructor */
     virtual ~PitchShiftPlugin();
 
+    /** Creates the setup dialog and connects it's signals */
+    virtual KwavePluginSetupDialog *createDialog(QWidget *parent);
+
     /**
-     * Shows a dialog for selecting a pitch shift
-     * @see KwavePlugin::setup
+     * Creates a multi-track filter with the given number of tracks
+     * @param tracks number of tracks that the filter should have
+     * @return pointer to the filter or null if failed
      */
-    virtual QStringList *setup(QStringList &previous_params);
+    virtual ArtsMultiTrackFilter *createFilter(unsigned int tracks);
 
-    /** Does the amplification operation */
-    virtual void run(QStringList);
+    /**
+     * Returns true if the parameters have changed during pre-listen.
+     */
+    virtual bool paramsChanged();
 
-    /** Aborts the process (if running). */
-    virtual int stop();
+    /**
+     * Update the filter with new parameters if it has changed
+     * changed during the pre-listen.
+     * @param filter the ArtsMultiTrackFilter to be updated, should be the
+     *               same one as created with createFilter()
+     * @param force if true, even update if no settings have changed
+     */
+    virtual void updateFilter(ArtsMultiTrackFilter *filter, bool force=0);
+    
+    /**
+     * Returns a verbose name of the performed action. Used for giving
+     * the undo action a readable name.
+     */
+    virtual QString actionName();
 
 protected slots:
 
@@ -60,20 +81,12 @@ protected slots:
      */
     void setValues(double speed, double frequency);
 
-    /** Start the pre-listening */
-    void startPreListen();
-
-    /** Stop the pre-listening */
-    void stopPreListen();
-    
 protected:
 
     /** Reads values from the parameter list */
     int interpreteParameters(QStringList &params);
 
 private:
-    /** List of parameters */
-    QStringList m_params;
 
     /** speed factor */
     double m_speed;
@@ -84,12 +97,8 @@ private:
     /** mode for selecting speed (factor or percentage) */
     bool m_percentage_mode;
     
-    /** flag for stopping the process */
-    bool m_stop;
-
-    /** flag for indicating pre-listen mode */
-    bool m_listen;
-    
+    double m_last_speed;
+    double m_last_freq;
 };
 
 #endif /* _PITCH_SHIFT_PLUGIN_H_ */

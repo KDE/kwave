@@ -100,6 +100,8 @@ Create a list of keywords by going through all present file informations and mer
 </tabstops>
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>
+    <include location="global" impldecl="in declaration">klineedit.h</include>
+    <include location="global" impldecl="in declaration">klistbox.h</include>
 </includes>
 <layoutdefaults spacing="10" margin="10"/>
 </UI>

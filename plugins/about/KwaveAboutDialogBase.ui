@@ -458,6 +458,7 @@ and scroll capability.</string>
 </tabstops>
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>
+    <include location="global" impldecl="in declaration">kurllabel.h</include>
     <include location="local" impldecl="in implementation">KwaveAboutDialogBase.ui.h</include>
 </includes>
 <slots>

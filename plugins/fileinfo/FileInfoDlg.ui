@@ -2803,6 +2803,11 @@ The bitrate is selected by an average quality.</string>
 </tabstops>
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>
+    <include location="global" impldecl="in declaration">knuminput.h</include>
+    <include location="global" impldecl="in declaration">kcombobox.h</include>
+    <include location="global" impldecl="in declaration">kdatewidget.h</include>
+    <include location="global" impldecl="in declaration">klineedit.h</include>
+    <include location="global" impldecl="in declaration">klineedit.h</include>
 </includes>
 <layoutdefaults spacing="10" margin="10"/>
 </UI>

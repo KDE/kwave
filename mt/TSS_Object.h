@@ -19,7 +19,6 @@
 #define _TSS_OBJECT_H_
 
 #include <pthread.h>
-#include <qobject.h>
 
 /**
  * @class TSS_Object
@@ -38,12 +37,11 @@
  * @author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  * @date 2000-10-01
  *
- * @bug I disabled TSS because it led into too many problems. The cleanup
- *      handlers work nevertheless...
+ * @bug I disabled TSS because it led into too many problems.
+ * @see bug with id "libc/2650" of glibc !
  */
-class TSS_Object: public QObject
+class TSS_Object
 {
-    Q_OBJECT
 public:
     /**
      * Constructor, creates the TSS key
@@ -58,6 +56,9 @@ public:
 private:
     /** thread specific key */
     pthread_key_t m_key;
+
+    /** identifier of the thread that created the object */
+    pthread_t m_thread;
 
     /** number of allocated instances */
     static unsigned int m_count;

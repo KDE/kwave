@@ -44,7 +44,7 @@ unsigned int ThreadsafeX11Guard::m_recursion_level = 0;
 
 //***************************************************************************
 ThreadsafeX11Guard::ThreadsafeX11Guard()
-    :TSS_Object(), m_sem_x11_locked(), m_sem_x11_done(),
+    :QObject(), TSS_Object(), m_sem_x11_locked(), m_sem_x11_done(),
      m_sem_x11_unlocked(), m_spx_X11_request(this, SLOT(lockX11()))
 {
     if (m_pid_x11 == pthread_self()) {

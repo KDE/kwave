@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <limits.h>       // for PTHREAD_KEYS_MAX
 
+#include "mt/Mutex.h" // ###
 #include "mt/TSS_Object.h"
 
 #ifdef HAVE_DEMANGLE_H
@@ -92,34 +93,61 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
 // static initializers
 unsigned int TSS_Object::m_count(0); // for number of instances
 
+//static Mutex _lock;
+
 //***************************************************************************
 TSS_Object::TSS_Object()
-    :m_key(0)
+   :m_key(0), m_thread(pthread_self())
 {
-    m_count++;
-
-    int res = pthread_key_create(&m_key, TSS_Object_cleanup_func);
-    if (res == EAGAIN) {
-	// number of keys exceeded
-	warning("TSS_Object: keycreate failed: "
-	    "number of keys exceeded limit: %d (limit=%d)",
-	    m_count, PTHREAD_KEYS_MAX);
-	debug("[maybe too many unfreed objects or memory leak?]");
-    } else if (res) {
-	// some other error
-	warning("TSS_Object: keycreate failed: %s", strerror(res));
-    }
+//    _lock.lock(); // ###
+//    m_count++;
+//
+//    int res = pthread_key_create(&m_key, TSS_Object_cleanup_func);
+//    if (res == EAGAIN) {
+//	// number of keys exceeded
+//	warning("TSS_Object: keycreate failed: "
+//	    "number of keys exceeded limit: %d (limit=%d)",
+//	    m_count, PTHREAD_KEYS_MAX);
+//	debug("[maybe too many unfreed objects or memory leak?]");
+//    } else if (res) {
+//	// some other error
+//	warning("TSS_Object: keycreate failed: %s", strerror(res));
+//    } else {
+//	// key allocated, associate this object's instance with it
+//	res = pthread_setspecific(m_key, (void *)this);
+//	if (res) warning("TSS_Object::setspecific failed: %s",
+//	    strerror(res));
+//    }
+//
+//    debug("TSS_Object::TSS_Object():  this=%p, tid=%d, key=%p, count=%d",
+//	this, pthread_self(), m_key, m_count);
+//
+//    _lock.unlock(); // ###
 }
 
 //***************************************************************************
 TSS_Object::~TSS_Object()
 {
-    int res = pthread_key_delete(m_key);
-    if (res) warning(
-	"TSS_Object::~TSS_Object: key deletion failed: %s",
-	strerror(res));
-    m_key = 0;
-    m_count--;
+//    _lock.lock(); // ###
+//
+//    ASSERT(pthread_getspecific(m_key) != 0);
+//    ASSERT(pthread_getspecific(m_key) == (void *)this);
+//    ASSERT(m_thread == pthread_self());
+//
+//    debug("TSS_Object::~TSS_Object(): this=%p, tid=%d, key=%p, count=%d",
+//	this, pthread_self(), m_key, m_count);
+//
+////    pthread_setspecific(m_key, 0);
+//
+//    int res = pthread_key_delete(m_key);
+//    if (res) warning(
+//	"TSS_Object::~TSS_Object: key deletion failed: %s",
+//	strerror(res));
+//
+//    ASSERT(m_count != 0);
+//    m_count--;
+//
+//    _lock.unlock(); // ###
 }
 
 //***************************************************************************

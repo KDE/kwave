@@ -19,10 +19,11 @@
 #define _THREAD_H_
 
 #include <pthread.h>       // for POSIX threads, included in libc > 2.0
+#include <qobject.h>
 #include "mt/TSS_Object.h"
 #include "mt/Mutex.h"
 
-class Thread : public TSS_Object
+class Thread : public QObject, public TSS_Object
 {
     Q_OBJECT
 public:

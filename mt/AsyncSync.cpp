@@ -22,6 +22,7 @@
 #include <unistd.h> // for pipe
 #include <stdio.h>
 
+#include <qobject.h>
 #include <qsocknot.h>
 
 #include "mt/Mutex.h"
@@ -30,6 +31,7 @@
 
 //*****************************************************************************
 AsyncSync::AsyncSync()
+    :QObject()
 {
     MutexGuard lock(m_lock);
 

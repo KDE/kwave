@@ -33,7 +33,6 @@ class AsyncSync : public QObject
     Q_OBJECT
 
 public :
-
     /**
      * Default Constructor
      */

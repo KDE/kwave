@@ -18,6 +18,8 @@
 #ifndef _THREADSAFE_X11_GUARD_H_
 #define _THREADSAFE_X11_GUARD_H_
 
+#include <qobject.h>
+
 #include "mt/SignalProxy.h"
 #include "mt/Semaphore.h"
 #include "mt/TSS_Object.h"
@@ -39,7 +41,7 @@
  *          leads to incomprehensible program crahes like bus errors or
  *          segmentation faults.
  */
-class ThreadsafeX11Guard: public TSS_Object
+class ThreadsafeX11Guard: public QObject, public TSS_Object
 {
     Q_OBJECT
 

@@ -34,7 +34,7 @@ class Mutex;
  */
 class MutexGuard: public TSS_Object
 {
-    Q_OBJECT
+
 public:
     /**
      * Constructor, takes a Mutex object and automatically locks it

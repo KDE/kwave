@@ -19,7 +19,6 @@
 #define _MUTEX_H_
 
 #include <pthread.h> // for POSIX threads, included in libc > 2.0
-#include <qobject.h>
 
 /**
  * \class Mutex
@@ -30,9 +29,8 @@
  * \author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  * \data 2000-10-03
  */
-class Mutex: public QObject
+class Mutex
 {
-    Q_OBJECT
 public:
     /** Constructor, initializes the lock */
     Mutex(const char *name = 0);

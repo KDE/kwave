@@ -130,6 +130,19 @@ public:
 	                  *(sink[i]),     input_name);
     };
 
+    /**
+     * Set all input of the filters to the same constant value.
+     * @param input_name name of the input of the sinks
+     * @param value float value to be set
+     */
+    virtual void setValue(
+	const std::string &input_name,
+	const float value)
+    {
+	for (unsigned i=0; i < m_count; ++i)
+	    Arts::setValue(*(m_filter[i]), input_name, value);
+    };
+
     /** Starts all filters. */
     virtual void start() {
 	for (unsigned int i=0; i < m_count; ++i) m_filter[i]->start();

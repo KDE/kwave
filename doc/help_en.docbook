@@ -1,2087 +1,2050 @@
-<!DOCTYPE book PUBLIC  "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN" [
-<!ENTITY kapp "<application>Kwave</application>">
-<!ENTITY kappname "&kwave;">
-<!ENTITY % addindex "IGNORE">
-<!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V1.0//EN">
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
+  <!ENTITY kapp "<application>Kwave</application>">
+  <!ENTITY kappname "&kapp;">
+  <!ENTITY % English "INCLUDE"> <!-- change language only here -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Application-Variable Entities V2.0//EN" "entities/kde-prologue.entities">
 ]>
 
-<BOOK LANG="EN">
+<book lang="&language;">
 
-<BOOKINFO>
-    <TITLE>The Kwave Handbook</TITLE>
-    <AUTHORGROUP>
-	<AUTHOR>
-	    <FIRSTNAME>Thomas</FIRSTNAME>
-		<SURNAME>Eschenbacher</SURNAME>
-		<AFFILIATION>
-		<ADDRESS FORMAT="LINESPECIFIC">
-		<EMAIL>thomas.eschenbacher@gmx.de</EMAIL>
-		</ADDRESS>
-    	    </AFFILIATION>
-	</AUTHOR>
-	<AUTHOR>
-    	    <FIRSTNAME>Martin</FIRSTNAME>
-    	    <SURNAME>Wilz</SURNAME>
-	    <AFFILIATION>
-		<ADDRESS FORMAT="LINESPECIFIC">
-		<EMAIL>mwilz@ernie.mi.uni-koeln.de></EMAIL>
-		</ADDRESS>
-	    </AFFILIATION>
-	</AUTHOR>
-    </AUTHORGROUP>
+<bookinfo>
+<title>The &kapp; Handbook</title>
 
-    <COPYRIGHT>
-	<YEAR>2000</YEAR>
-	<HOLDER>Thomas Eschenbacher</HOLDER>
-    </COPYRIGHT>
-    <COPYRIGHT>
-	<YEAR>1998-2000</YEAR>
-	<HOLDER>Martin Wilz</HOLDER>
-    </COPYRIGHT>
-	
-    <!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
-    and in the FDL itself on how to use it. -->
+<authorgroup>
+<author>
+<firstname>Thomas</firstname>
+<surname>Eschenbacher</surname>
+<affiliation>
+<address><email>thomas.eschenbacher@gmx.de</email></address></affiliation>
+</author>
 
-<!-- funktioniert nicht, warum nur ???
-    <LEGALNOTICE>
-	<PARA>Copyright (C) 2000 Martin Wilz</PARA>
-    	&GPLnotice;
-    </LEGALNOTICE>
--->
-	
-    <!-- Date and version information of the documentation
-    Don't forget to include this last date and this last revision number, we
-    need them for translation coordination !
-    Please respect the format of the date (DD/MM/YYYY) and of the version
-    (Major.minor.lesser), it could be used by automation scripts -->
-	
-    <DATE>2001-09-23</DATE>
-    <RELEASEINFO>0.6.1-1</RELEASEINFO>
+<othercredit role="developer">
+<firstname>Martin</firstname>
+<surname>Wilz</surname>
+<affiliation>
+<address><email>mwilz@ernie.mi.uni-koeln.de></email></address>
+</affiliation>
+<contrib>Founder</contrib>
+</othercredit>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
 
-    <!-- Abstract about this handbook -->
-    <ABSTRACT>
-	<PARA>
-	    &kapp; is a simple sound editor for KDE.
-	</PARA>
-    </ABSTRACT>
-	
-    <!-- This is a set of Keywords for indexing by search engines.
-    Please at least include KDE, the KDE package it is in, the name
-    of your application, and a few relevant keywords. -->
-    <KEYWORDSET>
-	<KEYWORD>KDE</KEYWORD>
-	<KEYWORD>multimedia</KEYWORD>
-	<KEYWORD>sound</KEYWORD>
-	<KEYWORD>audio</KEYWORD>
-	<KEYWORD>Kwave</KEYWORD>
-	<KEYWORD>wav</KEYWORD>
-	<KEYWORD>editor</KEYWORD>
-	<KEYWORD>sonagram</KEYWORD>
-	<KEYWORD>FFT</KEYWORD>
-	<KEYWORD>Linux</KEYWORD>
-    </KEYWORDSET>
-</BOOKINFO>
+<date>23/09/2001</date>
+<releaseinfo>0.6.1-1</releaseinfo>
+
+<copyright><year>2000</year><holder>Thomas Eschenbacher</holder></copyright>
+<copyright><year>1998-2000</year><holder>Martin Wilz</holder></copyright>
+
+<legalnotice>&GPLnotice;</legalnotice>
+
+<abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>multimedia</keyword>
+<keyword>sound</keyword>
+<keyword>audio</keyword>
+<keyword>Kwave</keyword>
+<keyword>wav</keyword>
+<keyword>editor</keyword>
+<keyword>sonagram</keyword>
+<keyword>FFT</keyword>
+<keyword>Linux</keyword>
+</keywordset>
+</bookinfo>
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Introduction                                          ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="INTRODUCTION"><TITLE>Introduction</TITLE>
+<chapter id="INTRODUCTION"><title>Introduction</title>
 
-    <!-- The introduction chapter contains a brief introduction for 
-    the application that explains what it does, where to get new 
-    versions of the app, where to report problems, and a brief 
-    revision history of the app. 
+    <!-- The introduction chapter contains a brief introduction for
+    the application that explains what it does, where to get new
+    versions of the app, where to report problems, and a brief
+    revision history of the app.
     Basically a long version of the abstract. -->
 
-    <PARA>
-    	This is "&kapp;", a simple sound editor for KDE2. 
+    <para>
+    	This is "&kapp;", a simple sound editor for KDE2.
 	Its features include:
-	<ITEMIZEDLIST>
-    	<LISTITEM><PARA>
+	<itemizedlist>
+    	<listitem><para>
 	    simple cut, copy and paste functions
-	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
+	</para></listitem>
+    	<listitem><para>
 	    undo/redo
-	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
+	</para></listitem>
+    	<listitem><para>
 	    simple filter design tools
-	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
+	</para></listitem>
+    	<listitem><para>
 	    a small editor for additive synthesis
-	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
-	    labeling of signals 
-	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
+	</para></listitem>
+    	<listitem><para>
+	    labeling of signals
+	</para></listitem>
+    	<listitem><para>
 	    some analysis functions such as Sonagram or Fourier Transformation
-	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
+	</para></listitem>
+    	<listitem><para>
 	    internally uses 24 bit integer sample data
-    	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
+    	</para></listitem>
+    	<listitem><para>
 	    free selectable sample rates
-	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
+	</para></listitem>
+    	<listitem><para>
 	    support for editing of multi-channel files
-	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
+	</para></listitem>
+    	<listitem><para>
 	    playback of multi-channel audio files (audio output will be
 	    mixed down to mono or stereo)
-	</PARA></LISTITEM>
-    	<LISTITEM><PARA>
+	</para></listitem>
+    	<listitem><para>
 	    extendible through an easy-to-use plugin interface
-	</PARA></LISTITEM>
-    	</ITEMIZEDLIST>	    
-    </PARA>
+	</para></listitem>
+    	</itemizedlist>
+    </para>
 
-    <PARA>
-	If you are interested what has been done and what has still to be 
-        done, then look at the files "CHANGES" and "TODO" included in the 
+    <para>
+	If you are interested what has been done and what has still to be
+        done, then look at the files <filename>CHANGES</filename> and
+	<filename>TODO</filename> included in the
         source package. Help and constructive critics are always welcome.
-    </PARA>
+    </para>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Kwave Resources                                       +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="KWAVE-RESOURCES">
-    <TITLE>Kwave Resources</TITLE>
+    <sect1 id="KWAVE-RESOURCES">
+    <title>&kapp; Resources</title>
 
-    <PARA>
+    <para>
     	So if you want to get in contact with the developers, need some
-	further help on using kwave, submit patches, bug reports or other
+	further help on using &kapp;, submit patches, bug reports or other
 	stuf, the following resources might be of interest for you:
-    </PARA>
+    </para>
 
-    <SEGMENTEDLIST>
-        <SEGTITLE>Project Homepage</SEGTITLE>
-        <SEGTITLE>Mailing List</SEGTITLE>
-        <SEGTITLE>FTP Server</SEGTITLE>
-        <SEGTITLE>CVS Repository</SEGTITLE>
-        <SEGLISTITEM>
-        <SEG><ANCHOR ID="PROJECT-HOMEPAGE">
+    <segmentedlist>
+        <segtitle>Project Homepage</segtitle>
+        <segtitle>Mailing List</segtitle>
+        <segtitle>FTP Server</segtitle>
+        <segtitle>CVS Repository</segtitle>
+        <seglistitem>
+        <seg><anchor id="PROJECT-HOMEPAGE"/>
             For informations about new up-to-date releases or some other
-	    information about this project, take a look at 
-	    the <ULINK URL="http://kwave.sourceforge.net/"><!--
-	    -->Kwave homepage</ULINK>
-        </SEG>
-        <SEG><ANCHOR ID="MAILING-LIST">
-            If you need some help on using kwave or want to get involved
+	    information about this project, take a look at
+	    the <ulink url="http://kwave.sourceforge.net/">&kapp; homepage</ulink>
+        </seg>
+        <seg><anchor id="MAILING-LIST"/>
+            If you need some help on using &kapp; or want to get involved
 	    in the development, join the mailinglist by writing a mail 
-	    to <EMAIL>majordomo@fs.spinfo.uni-koeln.de</EMAIL>
-	    with the text "<LITERAL>subscribe kwave-list</LITERAL>"
+	    to <email>majordomo@fs.spinfo.uni-koeln.de</email>
+	    with the text "<literal>subscribe kwave-list</literal>"
 	    in the body.
-        </SEG>
-	<SEG><ANCHOR ID="FTP-SERVER">
+        </seg>
+	<seg><anchor id="FTP-SERVER"/>
 	    You can download tar.gz archives as well as some rpm
 	    packages from ftp server via our anonymous ftp 
-	    from <ULINK URL="ftp://kwave.sourceforge.net/pub/kwave/">
-	    ftp://kwave.sourceforge.net/pub/kwave/</ULINK>.
-	</SEG>
-        <SEG><ANCHOR ID="CVS-REPOSITORY">
+	    from <ulink url="ftp://kwave.sourceforge.net/pub/kwave/">
+	    ftp://kwave.sourceforge.net/pub/kwave/</ulink>.
+	</seg>
+        <seg><anchor id="CVS-REPOSITORY"/>
 	    There also is a CVS repository, hosted by
-	    <ULINK URL="http://sourceforge.net">SourceForge</ULINK> where
+	    <ulink url="http://sourceforge.net">SourceForge</ulink> where
 	    you can get the sources of the latest development version.
 	    For instructions on how to get access to the repository, read
 	    in the chapter 
-	    about <LINK LINKEND="BUILDING_RPM_FROM_CVS">building from CVS</LINK>, 
-	    look at <ULINK URL="http://sourceforge.net/cvs/?group_id=6478"><!--
-	    -->"http://sourceforge.net/cvs/?group_id=6478"</ULINK>, or just
+	    about <link linkend="BUILDING_RPM_FROM_CVS">building from CVS</link>, 
+	    look at <ulink url="http://sourceforge.net/cvs/?group_id=6478">"http://sourceforge.net/cvs/?group_id=6478"</ulink>, or just
 	    browse through the CVS tree through a nice web interface.
-	    <EMPHASIS>Anonymous CVS access is allowed!</EMPHASIS>
-        </SEG>
-        </SEGLISTITEM>
-    </SEGMENTEDLIST>
+	    <emphasis>Anonymous CVS access is allowed!</emphasis>
+        </seg>
+        </seglistitem>
+    </segmentedlist>
     
-    </SECT1>
+    </sect1>
     
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Revision History                                      +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="KWAVE-REVHISTORY">
-    <TITLE>Kwave Revision History</TITLE>
+    <sect1 id="KWAVE-REVHISTORY">
+    <title>&kapp; Revision History</title>
 
-    <PARA>
+    <para>
 	This project has been started by Martin Wilz in summer 1998 
 	and has been developed and improved by him an some other 
-	people. In November 1999 Thomas Eschenbacher has started 
+	people. In November 1999 Thomas Eschenbacher has started
 	to fix some little bugs here and there and stepped into 
 	the source code of the program deeper and deeper. Up to 
 	today he has extended, rewritten or revised nearly every 
 	component of the program and spent much time on improving it.
-    </PARA>
+    </para>
 
     <!-- Do never change the lines between the special comments below!
          The list of changes is automatically generated/updated by some
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
-    <PARA><ITEMIZEDLIST>
-        <LISTITEM>
-            <PARA>0.6.2 [2001-??-??]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+    <para><itemizedlist>
+        <listitem>
+            <para>0.6.2 [2001-??-??]</para>
+            <itemizedlist>
+                <listitem><para>
                     ...
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     recovery of damaged files if non-zero file length but data length
                       entry in the wav header is zero (e.g. happens when krecord crashes
                       during recording)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix: freeing virtual memory fixed in MemoryManager
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.6.1-1 [2001-09-01]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.6.1-1 [2001-09-01]</para>
+            <itemizedlist>
+                <listitem><para>
                     bugfix: class Track made duplicate entry in stripe list when inserting
                       signals into an empty track
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    fixed that weird layout behavior in dialogs, seems that Qt has 
+                </para></listitem>
+                <listitem><para>
+                    fixed that weird layout behavior in dialogs, seems that Qt has
                       problems with complex nested layouts :(
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.6.1 [2001-08-24]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
-                    >>> USE OF VIRTUAL MEMORY <<<
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.6.1 [2001-08-24]</para>
+            <itemizedlist>
+                <listitem><para>
+                    --- USE OF VIRTUAL MEMORY ---
+                </para></listitem>
+                <listitem><para>
                     changed Makefiles: html docu stays in distribution due to too much
                       trouble with the KDE documentation tools
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     when inserting from clipboard into a signal with a different number
                       of tracks, the result will be mixed (still not optimized/slow)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed compile problem with gcc-2.96 / gcc-3.0
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed missing header file in NewSigDlg.ui
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     the RPM should be relocateable again
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed bug in shutdown sequence, now clipboard is flushed before the
                       application closes.
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.6.0 [2001-07-29]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
-                    >>> PORTED TO QT-2 AND KDE2 <<<
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.6.0 [2001-07-29]</para>
+            <itemizedlist>
+                <listitem><para>
+                    --- PORTED TO QT-2 AND KDE2 ---
+                </para></listitem>
+                <listitem><para>
                     completely new internal architecture
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     plugins can be located in a user directory
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     libkwave is included and no longer supported (at least by me) as
                       a separate package
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     playback via aRts
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     many more bugfixes, too many to mention here...
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.5-1 [2001-02-23]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.5-1 [2001-02-23]</para>
+            <itemizedlist>
+                <listitem><para>
                     bugfix: selection across end of file no longer possible
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix: no overflow in wav header when saving large wav
                       files above 268MB
                       (bug reported by Sven-Steffen Arndt, ssa29@gmx.de )
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.5 [2000-12-01]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.5 [2000-12-01]</para>
+            <itemizedlist>
+                <listitem><para>
                     new playback handling, allows pause/continue
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     limited the playback buffer to be between 256 and 65536 bytes
                       due to problems (system hang) with small playback buffers with
                       16..64 bytes (might be a hardware problem)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     introduced a toolbar for some standard operations
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed some bugs concerning selection with the mouse
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     rework of the overview widget (used in main window and sonagram)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed menu command "zoom selection"
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     sonagram: saving to file, auto-brightness adjust
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     replaced QFileDialog with KFileDialog
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     tested with AMD Athlon-optimized compiler (patched pegcs)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     some fixes for safer multithreading
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     checking for much more header files at configure time (due to a
                       problem reported by issiac@evcom.net )
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.4-4 [2000-10-03]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.4-4 [2000-10-03]</para>
+            <itemizedlist>
+                <listitem><para>
                     added classes Mutex and MutexGuard
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     sonagram: set a transparent background for the image
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    sonagram: removed (need for) SonagramContainer, using 
+                </para></listitem>
+                <listitem><para>
+                    sonagram: removed (need for) SonagramContainer, using
                       QGridLayout instead
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     moved SignalProxy to the mt subdirectory
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed X11 synchronzation problem with SignalProxy
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added TSS (thread-specific-storage) support to the mt classes
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added some multithreading support classes: Thread, AsynchObject, ...
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     removed the "get" prefix from all member functions. This is the
                       new KDE/QT coding style.
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    updated the online documentation to point to the new Kwave
+                </para></listitem>
+                <listitem><para>
+                    updated the online documentation to point to the new &kapp;
                       homepage on http://kwave.sourceforge.net/
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     class ImageView: always repaints (maybe image data has changed)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix: selection and playpointer will not be drawn if no signal
                       is loaded
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.4-3 [2000-09-09]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.4-3 [2000-09-09]</para>
+            <itemizedlist>
+                <listitem><para>
                     the sonagram window updates it's title if the signal's
                       name changed
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     found a solution for the problem of synchronizing X11
                       and QT in a multithreaded environment
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed bug in the "Halt" function (playback)
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.4-2 [2000-08-20]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.4-2 [2000-08-20]</para>
+            <itemizedlist>
+                <listitem><para>
                     geometry/layout management for the MainWidget
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     limited the displayed height of a signal. If not all signals fit
                        onto the screen, a scrollbar appears on the right side of the
                        signal.
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     limited the size of the TopWidget to a reasonable
                       minimum size
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     automatic dependencies for the plugins work again
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.4-1 [2000-07-29]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.4-1 [2000-07-29]</para>
+            <itemizedlist>
+                <listitem><para>
                     fixed layout of playback dialog
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     started to implement a new plugin interface
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     geometry/layout management for the sonagram settings dialog
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     formatting of selection and file time (KwavePlugin::ms2string)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     plugins can now consist of multiple source files
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.4 [2000-07-12]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.4 [2000-07-12]</para>
+            <itemizedlist>
+                <listitem><para>
                     some more minor changes to the Makefiles
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     split the documentation output into "de" and "en" part
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     made symbolic links to the english help directory from the "de"
                       and "default" directory during make install and uninstall and also
                       in the post and postun scripts of the specfile
                       The user should at least get the english help...
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     alpha version of english documentation done
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     automatic update of the revision history in the docbook file if this
                       file is modified (only english version)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     CVS is up on sourceforge.net
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     changed some header lines in this file
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     started on writing a new documentation / online help using docbook
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.3 [2000-06-12]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.3 [2000-06-12]</para>
+            <itemizedlist>
+                <listitem><para>
                     if a file with invalid size (e.g. recorded by "arecord") is loaded,
                       shows a message and truncates the input at the end of the file
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     found out that we need ALSA support for 24 and 32 bits/sample
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    >>> playback in stereo <<<
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
+                    --- playback in stereo ---
+                </para></listitem>
+                <listitem><para>
                     selected channels (x) are mixed to the output device's channels (y)
                       at playback using a x:y translation matrix with linear scaling, all
                       values for x and y except zero are allowed
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     playback only for selected channels
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     rework of the settings/playback dialog (plugin)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     heavy reword on the playback code
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed severe bug in SignalManager::readWavChunk(), chrashed if there
                       was data after the wav chunk
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.2-12 [2000-06-02]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.2-12 [2000-06-02]</para>
+            <itemizedlist>
+                <listitem><para>
                     copied the AsyncSync class into libgui, should be used for threadsafe
                       usage of the qt library
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    moved handling of the "selected" flag from class SignalManager 
+                </para></listitem>
+                <listitem><para>
+                    moved handling of the "selected" flag from class SignalManager
                       to class Signal
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed selection of channels if appended or deleted
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.2-11 [2000-05-28]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.2-11 [2000-05-28]</para>
+            <itemizedlist>
+                <listitem><para>
                     included config.h in each source file (except the plugins)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    export to ASCII for multi-channel signal (multi-channel import has 
+                </para></listitem>
+                <listitem><para>
+                    export to ASCII for multi-channel signal (multi-channel import has
                       still to be done, currently only mono)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed many memory leaks and inconsistent delete operations (e.g. used
                       "delete" instead of "delete[]")
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    included support for (and tested with) the error detection and memory 
+                </para></listitem>
+                <listitem><para>
+                    included support for (and tested with) the error detection and memory
                       debugging tool "Insure++ Lite 4.1" (./configure --enable-insure=yes ...)
                       -> thanks to ParaSoft Corporation for making this limited version of
                          the tool available (http://www.parasoft.com)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     SignalWidget uses three layers for drawing, speeds up the redraws
                       after mouse selection by about factor 14(!!!) on my system :-))
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.2-10 [2000-05-21]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.2-10 [2000-05-21]</para>
+            <itemizedlist>
+                <listitem><para>
                     some minor bugfixes in the Makefiles
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     save the kwave.spec and include it into the source archive, this
                       lets "rpm -ta kwave-x.x.x-x.tar.gz" work
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     wrote a new README file, moved Martin's version to README.OLD
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     RPM_OPT_FLAGS are appended to the compiler options, this lets
                       pentium optimizations work :-)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     shows a message box if loading of a file failed
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.2-9 [2000-05-19]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.2-9 [2000-05-19]</para>
+            <itemizedlist>
+                <listitem><para>
                     list of recent files is synchronized across all toplevel windows
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed dozens of memory leaks, missing ASSERT constructions, missing
                       variable initializations and possible divisions through zero
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Help menu aligned to the right side (MenuRoot now is able to process
                       the special command "#separator")
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.2-1...0.5.2-8 [...2000-05-18]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.2-1...0.5.2-8 [...2000-05-18]</para>
+            <itemizedlist>
+                <listitem><para>
                     replaced all occurances of sprintf with snprintf, strcpy with strncpy
                       (in 92 places) !
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     doesn't show any zoom factor if no signal is loaded
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     handling of channel add/delete: selection/speakers are shifted
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     changed some variables/parameters to "unsigned" (simplifies range checks)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     beautified this file
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     beautified the whole source code according to my favorite coding style.
                       -> thanks to the developers of the "Artistic Style" package,
                          astyle-1.11.4-1 made good work :-)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed that annoying flicker in the help/about dialog
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     checking for sizes of char, short and int at configure time
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    >>> COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE <<<
-                    <ITEMIZEDLIST>
-                    <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
+                    --- COMPLETE REWORK OF THE INTERNAL COMMAND STRUCTURE ---
+                    <itemizedlist>
+                    <listitem><para>
                          made use of a combination of signals/slots and string messages
-                    </PARA></LISTITEM>
-                    <LISTITEM><PARA>
+                    </para></listitem>
+                    <listitem><para>
                          hierarchical processing: commands are are forwarded "upwards"
                         until they reach a TopWidget
-                    </PARA></LISTITEM>
-                    <LISTITEM><PARA>
+                    </para></listitem>
+                    <listitem><para>
                          the TopWidget (highest level) dispatches the comands and forwards 
                         them to the lower levels
-                    </PARA></LISTITEM>
-                </ITEMIZEDLIST>
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                    </para></listitem>
+                </itemizedlist>
+                </para></listitem>
+                <listitem><para>
                     globals.app will not be used (obsolete, should be removed from libkwave)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     MessagePort will not be used (obsolete, should be removed from libkwave)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     multiple toplevel windows are possible
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     made X toolkit parameters work (especially "-geometry")
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix concerning loading/saving 8 bit .wav-files (always unsigned !)
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.2 [2000-04-24]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.2 [2000-04-24]</para>
+            <itemizedlist>
+                <listitem><para>
                     rpm package should now be installable without conflicts and compile
-                      without any previous installation of kwave
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                      without any previous installation of &kapp;
+                </para></listitem>
+                <listitem><para>
                     removed the "${KDEDIR}/share/doc/HTML/default" directory from the rpm
                       so that it doesn't conflict with the already existing one
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     shift+Home/shift+End selects from the current left/right position
                       up to the start/end of the signal
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix in display of signal: signal is no longer inverted
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     selectrange() works now
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     the zoom factor combo box reflects the current "real" zoom factor
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     some bugfixes in menu handling / cleanups
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     complete rework of zoom and offset handling:
-                    <ITEMIZEDLIST>
-                    <LISTITEM><PARA>
+                    <itemizedlist>
+                    <listitem><para>
                          simple poly-lines instead of lowpass interpolation if zoom factor
                         has less than 10 pixels per sample
-                    </PARA></LISTITEM>
-                    <LISTITEM><PARA>
+                    </para></listitem>
+                    <listitem><para>
                          lowpass interpolation if more than 10 pixels per sample
-                    </PARA></LISTITEM>
-                </ITEMIZEDLIST>
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                    </para></listitem>
+                </itemizedlist>
+                </para></listitem>
+                <listitem><para>
                     bugfix in KWaveApp: now sets globals.app to this if it was null before, 
                       now doesn't crash if it loads a file specified at cmdline
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.1-4</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
-                    >>> now compiles and runns under RedHat 6.1 / Halloween IV <<<
-                      >>> as well as under SuSE 6.2                              <<<
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.1-4</para>
+            <itemizedlist>
+                <listitem><para>
+                    --- now compiles and runns under RedHat 6.1 / Halloween IV ---
+                      --- as well as under SuSE 6.2                              ---
+                </para></listitem>
+                <listitem><para>
                     version info of libkwavegui.so is set to the package's version
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix in plugins/template/Makefile.am: will not create .moc files on
                       make distclean and other targets
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     compiler flags are passed through to plugin compilation
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     compiling with --no-rtti. This was necessary to compile against the
                       kde libraries of RedHat that seem to contain no rtti. As a side effect
                       all warnings on linking programs/libs disappeared :-)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     configure-parameter --enable-debug has effect again
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    >>> ASCII import and export works now (mono only) <<<
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
+                    --- ASCII import and export works now (mono only) ---
+                </para></listitem>
+                <listitem><para>
                     bugfixes in some plugins, all compile now without warnings/errors
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     plugins are processed in alphabetical order
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     all plugins are automatically found and compiled
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     new target "make src.rpm" makes only the source rpm
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.1-3</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.1-3</para>
+            <itemizedlist>
+                <listitem><para>
                     display will be scrolled left or zoomed if something from the end
                       of the signal is deleted
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     curve parameters of fade in / fade out work again
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.1-2 [2000-03-16]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.1-2 [2000-03-16]</para>
+            <itemizedlist>
+                <listitem><para>
                     converted many "klocale->translate(...)"s into "i18n(...)"
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     target "make messages" works again
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     converter for menus.config, creates a dummy .cpp-file that is handled
                       by i18n
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.1-1 [2000-03-13]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.1-1 [2000-03-13]</para>
+            <itemizedlist>
+                <listitem><para>
                     new target "make rpm" creates binary and source RPM packages
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed the shared-library-problem in the build system
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.1 [2000-02-28]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.1 [2000-02-28]</para>
+            <itemizedlist>
+                <listitem><para>
                     menu items can belong to groups
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     renamed SignalWidget::info to "refresh"
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     many cleanups in the header-Files in src and libgui
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     the menu management has completely been rewritten:
-                    <ITEMIZEDLIST>
-                    <LISTITEM><PARA>
+                    <itemizedlist>
+                    <listitem><para>
                          Menu, NumberedMenu and MenuCommand classes are deleted
-                    </PARA></LISTITEM>
-                    <LISTITEM><PARA>
+                    </para></listitem>
+                    <listitem><para>
                          new classes: MenuNode, MenuItem, MenuSub, MenuToplevel and MenuRoot
-                    </PARA></LISTITEM>
-                </ITEMIZEDLIST>
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                    </para></listitem>
+                </itemizedlist>
+                </para></listitem>
+                <listitem><para>
                     menu items can have icons
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     menu nodes can have unique string ids
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     special menu commands start with a "#"
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     first attempts for internationalization
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     list of recent files is sorted by time of last usage
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.5.0-1 [1999-12-27]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.5.0-1 [1999-12-27]</para>
+            <itemizedlist>
+                <listitem><para>
                     moved my modifications from the Makefiles to Makefile.am
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     included targets "make release", "make patchlevel" and some scripts
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>1999-12-19 (by Thomas.Eschenbacher@gmx.de)</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>1999-12-19 (by Thomas.Eschenbacher@gmx.de)</para>
+            <itemizedlist>
+                <listitem><para>
                     remade my modifications of some Makefiles and of the configure script that
                       were lost during Martin's changes
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     changed shortcut for mixpaste from CTRL-SHIFT-X to CTRL-SHIFT-C
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added the "crop" command to the edit menu
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     made the "mixpaste" command work
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     corrected the call of "delete", now really deletes instead of cutting
                       and copying the selection to the clipboard (saves clipboard content)
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>1999-12-18 (by mwilz@ernie.mi.uni-koeln.de)</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>1999-12-18 (by mwilz@ernie.mi.uni-koeln.de)</para>
+            <itemizedlist>
+                <listitem><para>
                     changed filenames to reflect class names
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     one class per file is now the standard
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     stripped leading "Kwave" in Classnames for most Classes
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>1999-12-10 (by Thomas.Eschenbacher@gmx.de)</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>1999-12-10 (by Thomas.Eschenbacher@gmx.de)</para>
+            <itemizedlist>
+                <listitem><para>
                     removed -Werror compiler option (caused trouble with configure script)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed a nasty bug in SignalManager::save that caused crashes on
                       several positions in the program and libstdc++
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>1999-12-09 (by Thomas.Eschenbacher@gmx.de)</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>1999-12-09 (by Thomas.Eschenbacher@gmx.de)</para>
+            <itemizedlist>
+                <listitem><para>
                     gave the destructor of SignalManager some code, this fixes
                       a huge memory leak !
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added a TODO file
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added -Werror to the c++ compiler options when debuging enabled
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     some include file cleanups in libgui
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>1999-12-07 (by Thomas.Eschenbacher@gmx.de)</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>1999-12-07 (by Thomas.Eschenbacher@gmx.de)</para>
+            <itemizedlist>
+                <listitem><para>
                     SignalManager::writeWavChunk uses buffers for writing (much faster!)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix: caption of main window changes after "SaveAs"
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix: selected resolution takes effect
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix: caption of main window changes after "SaveAs"
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bugfix: SignalManager::writeWavChunk now doesn't destroy the signal's
                       data while saving
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     make distclean in the projekt root directory also removes zero-length
                       files, *.orig, *.rej and *~ (just makes cleaner than before)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     symbolic links to Makefile, Makefile.in and Makefile.am in the plugins
                       directory are deleted with "make distclean" and rebuilt on "make"
                       (changes in the referenced Makefiles in the template directory will not
                       be reflected thousand times when creating a patch with diff)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     cleanups, removed some old backup files
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     improved support for debugging accessible through 
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     "configure --enable-debug=yes" (-g and -DDEBUG compiler flags)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     rewritten big parts of Makefile.in for the plugins
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added -O2 compiler optimization
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>1999-12-03 (by Thomas.Eschenbacher@gmx.de)</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>1999-12-03 (by Thomas.Eschenbacher@gmx.de)</para>
+            <itemizedlist>
+                <listitem><para>
                     merged with Martin Wilz's version
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>19999-11</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>19999-11</para>
+            <itemizedlist>
+                <listitem><para>
                     version numbering script donated by Thomas Eschenbacher
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     now using KTMainwindow for top level widgets
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     using timer to check message port -> alternative (threadsafe) message 
                       passing instead of signal/slot
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     labelling code rewritten, now incompatible with old releases
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     batch loading routines
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>1999-10</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>1999-10</para>
+            <itemizedlist>
+                <listitem><para>
                     deleting channels works again
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed savelabel dialog
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     corrected envelope dialog, string handling
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     connected many functions via the new string-based way of invocation
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed some dependencies between old code and new classes 
                       (there's still more to do !)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     saving should now work again
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     trimmed down Clipboard class
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Color class as wrapper to QColor (may become independent later)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     reworking Curve Class for creation via string, interpolation now 
                       uses curve objects
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     moved gui functions into a new library (libkwavegui)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     new Classes: Parser DynamicLoader Filter (prevously was a struct)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     moved gui-independent functions into a library (libkwave)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     rework of dialogs into single files and single plugins
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     new calling scheme via string commands. This will allow scripting and macro
                       definitions. Threading is made a whole lot easier, because a only a 
                       string has to be passed and gets expanded into the needed set of 
                       parameters in each thread
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     io functions and playback adapted to SignalManager
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Introduction of SignalManager class for multiple channel management
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.29.5 [1998-04]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.29.5 [1998-04]</para>
+            <itemizedlist>
+                <listitem><para>
                     Just a fix for an annoying bug while zooming out
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.29.4 [1998-03]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.29.4 [1998-03]</para>
+            <itemizedlist>
+                <listitem><para>
                     removed a memory leak in playback
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     triple-checked the missing Accelerators in the Menumanager. It seems to 
                       be a bug in qpopmenu, I'll wait for qt to be fixed, or until a workaround 
                       is known
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     recent Files are updated again, while the program is running
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
-                    kwave now keeps track of last directory saved to; for user convenience
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
+                    &kapp; now keeps track of last directory saved to; for user convenience
+                </para></listitem>
+                <listitem><para>
                     reestablished selection mechanism to match versions 
                       before 0.29.3 and corrected some otherwise screwed-up behaviour
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     _now_ all parameters to destructors should have vanished
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.29.3 [1998-02]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.29.3 [1998-02]</para>
+            <itemizedlist>
+                <listitem><para>
                     developement has slowed down a bit, this release is not as complete as I
                       wished but since 0.29.2 has a destructor with parameters accidently left 
                       in, and so does not compile on all systems -> here we go again...
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     reworked selection routines into a new class, code is still rather 
                       confusing, but seems to work
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added checkmark functionality again
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     converted file-menus to new menu-scheme
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added gui to mix channels together, the needed functions for mixing 
                       are still missing
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Halt button by Gerhard Zintel
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.29.2</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.29.2</para>
+            <itemizedlist>
+                <listitem><para>
                     moved clipboard functionality to its own class
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     dynamic allocation of menu entries used by all classes but TopWidget
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     import of ascii data files
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.29.1</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.29.1</para>
+            <itemizedlist>
+                <listitem><para>
                     Bugfix for multichannel save. Now the saved files should work with other prgs
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     local snap to peak by Gerhard Zintel
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.29.0</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.29.0</para>
+            <itemizedlist>
+                <listitem><para>
                     changed version numbering and filename as suggested by 
                       Version 1.1 of "How To Name Things" from sunsite. The last digit will 
                       always mark be 0 for releases uploaded to ftp.kde.org.
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added windowing (Hamming Hanning, Blackmann) functions
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     contribution from Gerhard Zintel displaying notes in fftview
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Added pitch display window
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     implemented cursor and db scale for fft-view
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added reselection and cursor change
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added possibility of different display modes in Frequency representation
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed severe quantisation bug in saving 16Bit routine, reported by ?
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     mmaping support contributed by Juhana Kouhia
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added as new Possibility to generate Signals: pulse trains
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added wrapper for systems with no posixthreads -> 
                       still needs handling by configure script 
                       (change Makefile for not linking libpthread and doing a define)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     First use of multiple threads (pthreads) in some functions
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Pitch generation now independent of additive synthesis
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     added import function for ascii files
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Ascii label saving now also by frequency
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Label generation according to Period Detection (autocorellation)
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Sonagram, FFTView and Distortion-Dialog  now use ScaleWidgets
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     New ScaleWidget gives the user more information 
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     Improved ProgressDialog and Interpolation class to allow multiple threads
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     fixed some minor bugs
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.28 [1998-07-15]</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.28 [1998-07-15]</para>
+            <itemizedlist>
+                <listitem><para>
                     changes in curvewidget (recent point has another pixmap).
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     sorting of labels now works without overwriting of QGList::compareItems.
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     bug fix for saving selection.
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     save Block function added.
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     signal finding function in markers.cpp: gui improved.
-                </PARA></LISTITEM>
-                <LISTITEM><PARA>
+                </para></listitem>
+                <listitem><para>
                     some smaller bug fixes.
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-        <LISTITEM>
-            <PARA>0.27</PARA>
-            <ITEMIZEDLIST>
-                <LISTITEM><PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
+            <para>0.27</para>
+            <itemizedlist>
+                <listitem><para>
                     first release, but never uploaded, because ftp.kde.org was down.
-                </PARA></LISTITEM>
-            </ITEMIZEDLIST>
-        </LISTITEM>
-    </ITEMIZEDLIST></PARA>
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+    </itemizedlist></para>
     <!-- AUTO_GENERATED_CHANGES_LIST_END -->
 
-    </SECT1>
-</CHAPTER>
+    </sect1>
+</chapter>
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Installation                                          ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="INSTALLATION"><TITLE>Installation</TITLE>
+<chapter id="INSTALLATION"><title>Installation</title>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Getting Kwave                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="GETTING-KWAVE"><TITLE>How to obtain Kwave</TITLE>
+    <sect1 id="GETTING-KWAVE"><title>How to obtain &kapp;</title>
     
-    <PARA>
+    <para>
     	&kapp; has an own homepage under
-    	<ULINK URL="http://kwave.sourceforge.net/">
-	http://kwave.sourceforge.net/</ULINK>. Here you can
+    	<ulink url="http://kwave.sourceforge.net/">
+	http://kwave.sourceforge.net/</ulink>. Here you can
 	find further informations about the project, as well as 
 	informations about current stable and up-to-date development 
 	versions.
-    </PARA>
+    </para>
 
-    <WARNING><PARA>
+    <warning><para>
 	Maybe older versions of &kapp; are currently included in some 
 	current linux distributions. We recommend not to use &kapp; versions
 	0.29 and older.
 	And please don't get confused by the version number,
 	"0.29" should actually mean "0.2.9" and was not consistent. The 
 	current version numbering starts from 0.5.
-    </PARA></WARNING>
+    </para></warning>
 
-    <PARA>
-	If you want to get a &kapp release, you should download a .tar.gz
+    <para>
+	If you want to get a &kapp; release, you should download a .tar.gz
 	archive with the source code of a stable or a development version 
 	from the homepage above (or check it out from CVS) and compile it 
 	on your own. Don't be afraid, this should be quite simple even if 
 	you are not a programmer. If you need a rpm package, please let us 
 	know or build it on your own like described in the following
 	chapters.
-	<!-- ### @@@ ### <LINK LINKED=""></LINK>. -->
-    </PARA>
+    </para>
     
-    </SECT1>
+    </sect1>
     
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Requirements                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="REQUIREMENTS"><TITLE>Requirements</TITLE>
+    <sect1 id="REQUIREMENTS"><title>Requirements</title>
     
-    <PARA>
+    <para>
     	In order to successfully use &kapp;, you need:
-	<ITEMIZEDLIST>
-	    <LISTITEM><PARA>
-		a computer running Linux (&kapp might also run under
+	<itemizedlist>
+	    <listitem><para>
+		a computer running Linux (&kapp; might also run under
 		some other operating system, but we have never tested
 		this, please let us know if you get it working under
 		some other platform / operating system)
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
+	    </para></listitem>
+	    <listitem><para>
 		working sound playback (not really required for using but
 		what would you do with a sound editor if you can't
-		<EMPHASIS>hear</EMPHASIS> the result of your work?)
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
+		<emphasis>hear</emphasis> the result of your work?)
+	    </para></listitem>
+	    <listitem><para>
 		KDE-2.1 or higher (at least the libraries, if you are
-		a gnome fan, you can also run &kapp if the proper
+		a gnome fan, you can also run &kapp; if the proper
 		libs are installed).
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
+	    </para></listitem>
+	    <listitem><para>
 		qt-2.3 or higher (normally comes with KDE2)
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
-		about 10 MB memory for starting &kapp (but this may 
+	    </para></listitem>
+	    <listitem><para>
+		about 10 MB memory for starting &kapp; (but this may 
 		vary depending on your platform and configuration)
-	    </PARA></LISTITEM>
-	</ITEMIZEDLIST>
-    </PARA>
+	    </para></listitem>
+	</itemizedlist>
+    </para>
 
-    <PARA>
+    <para>
     	If you intend to compile &kapp; from the sources, you will also need:
-	<ITEMIZEDLIST>
-	    <LISTITEM><PARA>
+	<itemizedlist>
+	    <listitem><para>
 		A C/C++ compiler. GCC-2.95.3 works fine, some older and any
 		newer version should work too.
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
+	    </para></listitem>
+	    <listitem><para>
 		The glibc2 (libc-6) development environment. On SuSE systems
 		the package is called "libc", on other systems it might be
 		called "libc-devel".
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
+	    </para></listitem>
+	    <listitem><para>
 		The KDE2 development environment: "kdelibs-devel",
 		"kdemultimedia-devel", "kdesdk-2".
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
+	    </para></listitem>
+	    <listitem><para>
 		The Qt development environment,
 		the package is normally called "qt-devel" or similar.
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
+	    </para></listitem>
+	    <listitem><para>
 		If you intend to use CVS, you will also need a current
 		cvs package.
-	    </PARA></LISTITEM>
-	</ITEMIZEDLIST>
-    </PARA>
+	    </para></listitem>
+	</itemizedlist>
+    </para>
 
-    </SECT1>
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Manual Compilation                                    +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="MANUAL_COMPILATION"><TITLE>Manual Compilation and installation</TITLE>
+    <sect1 id="MANUAL_COMPILATION"><title>Manual Compilation and installation</title>
 
-    <PARA>
+    <para>
     	In order to compile and install &kapp; on your system, type the 
 	following in the base directory of the source distribution:
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT> % </PROMPT><COMMAND>cd kwave</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>su root -c "make install"</COMMAND>
-</SCREEN>
-    </PARA>
+<screen width="40" format="linespecific">
+<prompt> % </prompt><command>cd kwave</command>
+<prompt>% </prompt><command>make -f Makefile.dist</command>
+<prompt>% </prompt><command>./configure</command>
+<prompt>% </prompt><command>make</command>
+<prompt>% </prompt><command>su root -c "make install"</command>
+</screen>
+    </para>
     
-    <PARA>
-    	Since &kapp uses autoconf and automake you should have no
+    <para>
+    	Since &kapp; uses autoconf and automake you should have no
 	trouble compiling it. Should you run into problems please report 
-	them to the &kapp <link linkend="MAILING-LIST">mailing list</link>.
-    </PARA>
-    <NOTE><PARA>
+	them to the &kapp; <link linkend="MAILING-LIST">mailing list</link>.
+    </para>
+    <note><para>
 	If you have a system with Qt-1 and/or KDE-1 you might get
 	problems when compiling. Then you should set the following
 	environment variables to specify the correct paths of your
 	Qt and KDE2 installation and try again:
-<SCREEN WIDTH="30" FORMAT="LINESPECIFIC">
-<PROMPT> % </PROMPT><COMMAND>export QTDIR=/usr/lib/qt2</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>export KDEDIR=/opt/kde2</COMMAND>
-</SCREEN>
-    </PARA></NOTE>
+<screen width="30" format="linespecific">
+<prompt> % </prompt><command>export QTDIR=/usr/lib/qt2</command>
+<prompt>% </prompt><command>export KDEDIR=/opt/kde2</command>
+</screen>
+    </para></note>
     
-    </SECT1>
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Building RPM packages from tar.gz archives            +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="BUILDING_RPM_FROM_TARGZ">
-    <TITLE>Building RPM packages from tar.gz archives</TITLE>
+    <sect1 id="BUILDING_RPM_FROM_TARGZ">
+    <title>Building RPM packages from tar.gz archives</title>
 
-    <SECT2 ID="BUILDING_WITH_RPM_TA">
-    <TITLE>With working rpm -ta</TITLE>
+    <sect2 id="BUILDING_WITH_RPM_TA">
+    <title>With working rpm -ta</title>
 
-    <PARA>
+    <para>
 	If you are runnig a system with RPM support, the preferred way to 
-	install &kapp on your system will be the creation of a nice RPM
+	install &kapp; on your system will be the creation of a nice RPM
 	package. First you should get the current source of &kapp;, either
 	as a tar.gz archive from the
-	<LINK LINKEND="FTP-SERVER">&kapp; anonymous ftp server</LINK> or
+	<link linkend="FTP-SERVER">&kapp; anonymous ftp server</link> or
 	check out an up-to-date copy via
-	<LINK LINKEND="CVS-REPOSITORY">anonymous CVS</LINK> (like described in
-	the <LINK LINKEND="CVS_CHECKOUT">chapter about CVS</LINK>) and read the
-	<LINK LINKEND="BUILDING_RPM_FROM_CVS">next</LINK> chapter.
-    </PARA>
+	<link linkend="CVS-REPOSITORY">anonymous CVS</link> (like described in
+	the <link linkend="CVS_CHECKOUT">chapter about CVS</link>) and read the
+	<link linkend="BUILDING_RPM_FROM_CVS">next</link> chapter.
+    </para>
 
-    <PARA>
+    <para>
 	If you have downloaded a tar-gz archives of &kapp;, 
 	create and install the RPMs just by doing the following steps
-	(where <REPLACEABLE>[arch]</REPLACEABLE> stands for the platform you
+	(where <replaceable>[arch]</replaceable> stands for the platform you
 	have built the package and might be something like 
-	<LITERAL>i386</LITERAL>, <LITERAL>i586</LITERAL>, 
-	<LITERAL>sparc</LITERAL> or whatever,
-	<REPLACEABLE>XXX</REPLACEABLE> stands for the version number 
+	<literal>i386</literal>, <literal>i586</literal>, 
+	<literal>sparc</literal> or whatever,
+	<replaceable>XXX</replaceable> stands for the version number 
 	you have downloaded).
-    </PARA>
+    </para>
     
-    <PARA>
+    <para>
     To build the &kapp; package and install it do:
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT> % </PROMPT><COMMAND>rpm -ta <REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE></COMMAND>
-<PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
-</SCREEN>
-    </PARA>
+<screen width="40" format="linespecific">
+<prompt> % </prompt><command>rpm -ta <replaceable>kwave-XXX.tar.gz</replaceable></command>
+<prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+</screen>
+    </para>
 
-    <NOTE><PARA>
-	<EMPHASIS>Note for SuSE users: </EMPHASIS>
+    <note><para>
+	<emphasis>Note for SuSE users: </emphasis>
 	you have to specify the directory
-	<FILENAME>/usr/src/packages</FILENAME> instead 
-	of <FILENAME>/usr/src/redhat</FILENAME> !
-    </PARA></NOTE>
+	<filename>/usr/src/packages</filename> instead 
+	of <filename>/usr/src/redhat</filename> !
+    </para></note>
 
-    <PARA>
+    <para>
 	If you haven't seen any errors, then that's it and you can skip the
 	rest of this chapter. If rpm was unable to build the packages
 	and says something like "spec file not found", then go on and
 	read the rest of this section.
-    </PARA>
+    </para>
     
-    <CAUTION><PARA>
-	The support for the <COMMAND>rpm -ta ...</COMMAND> might be 
+    <caution><para>
+	The support for the <command>rpm -ta ...</command> might be 
 	broken on some versions of rpm. The rpm program originally 
-	shipped with SuSE-6.4 (rpm-3.0.4) didn't work so far. You 
-	should update your rpm package, e.g. from 
-	<ULINK URL="ftp://ftp.suse.com/pub/suse_update/"><!--
-	-->the SuSE ftp server</ULINK>.
-    </PARA></CAUTION>
+	shipped with SuSE-6.4 (rpm-3.0.4) didn't work. You
+	should update your rpm package, e.g. from
+	<ulink url="ftp://ftp.suse.com/pub/suse_update/">the SuSE ftp server</ulink>.
+    </para></caution>
 
-    </SECT2>
+    </sect2>
 
-    <SECT2 ID="RPM_BUILD_WITH_BROKEN_RPM">
-    <TITLE>With broken rpm -ta support</TITLE>
+    <sect2 id="RPM_BUILD_WITH_BROKEN_RPM">
+    <title>With broken rpm -ta support</title>
 
-    <PARA><ANCHOR ID="MANUAL_RPM_CREATION">
-	If you can't get <COMMAND>rpm -ta</COMMAND> working, here are 
+    <para><anchor id="MANUAL_RPM_CREATION"/>
+	If you can't get <command>rpm -ta</command> working, here are 
 	the steps for making that manually (the hard way):
-    </PARA>
+    </para>
 
-    <ORDEREDLIST>
-	<LISTITEM><PARA>
+    <orderedlist>
+	<listitem><para>
 	    Go to your RPM "topdir". This normally 
-	    is <FILENAME>/usr/src/redhat</FILENAME>
+	    is <filename>/usr/src/redhat</filename>
 	    for the redhat distribution 
-	    or <FILENAME>/usr/src/packages</FILENAME> if you
+	    or <filename>/usr/src/packages</filename> if you
 	    have the SuSE distribution.
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cd /usr/src/<REPLACEABLE>redhat</REPLACEABLE></COMMAND>
-</SCREEN>
-	</PARA></LISTITEM>
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>cd /usr/src/<replaceable>redhat</replaceable></command>
+</screen>
+	</para></listitem>
 
-	<LISTITEM><PARA>
+	<listitem><para>
 	    Put the tar.gz archive into the SOURCES subdirectory (you
 	    have to replace "somewhere" with the real directory where
 	    the files are, of course).
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cp <REPLACEABLE>/somewhere/kwave-XXX.tar.gz</REPLACEABLE> SOURCES</COMMAND>
-</SCREEN>
-	</PARA></LISTITEM>
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>cp <replaceable>/somewhere/kwave-XXX.tar.gz</replaceable> SOURCES</command>
+</screen>
+	</para></listitem>
 
-	<LISTITEM><PARA>
+	<listitem><para>
 	    Extract the spec file from the archives and put it into
 	    the SPEC subdirectory.
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>tar -xOzf SOURCES/<REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE> \*.spec > SPECS/kwave.spec</COMMAND>
-</SCREEN>
-	</PARA></LISTITEM>
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>tar -xOzf SOURCES/<replaceable>kwave-XXX.tar.gz</replaceable> \*.spec > SPECS/kwave.spec</command>
+</screen>
+	</para></listitem>
 
-	<LISTITEM><PARA>
+	<listitem><para>
 	    Let rpm do the compile job and generate the rpm of &kapp;.
 	    If you only want to make a binary package, you
-	    can specify <LITERAL>-bb</LITERAL> instead of
-	    <LITERAL>-ba</LITERAL>, or just <LITERAL>-bs</LITERAL> to build
+	    can specify <literal>-bb</literal> instead of
+	    <literal>-ba</literal>, or just <literal>-bs</literal> to build
 	    only a source package.
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>rpm -ba SPECS/kwave.spec</COMMAND>
-</SCREEN>
-	</PARA></LISTITEM>
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>
+</screen>
+	</para></listitem>
 
-	<LISTITEM><PARA>
+	<listitem><para>
 	    If everything was ok, you can install the binary rpm of
-	    kwave, it will be in the BUILD directory.
+	    &kapp;, it will be in the BUILD directory.
 	    If you already have a version of &kapp; installed,
 	    please remove it first or use the parameter 
-	    <LITERAL>-U</LITERAL> instead
-	    of <LITERAL>-i</LITERAL> for upgrading instead of installing.
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>rpm -i BUILD/<REPLACEABLE>[arch]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
-</SCREEN>
-	</PARA></LISTITEM>
+	    <literal>-U</literal> instead
+	    of <literal>-i</literal> for upgrading instead of installing.
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+</screen>
+	</para></listitem>
 
-    </ORDEREDLIST>
+    </orderedlist>
 
-    </SECT2>
-    </SECT1>
+    </sect2>
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Building RPM packages from CVS                        +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="BUILDING_RPM_FROM_CVS">
-    <TITLE>Building RPM packages from CVS</TITLE>
+    <sect1 id="BUILDING_RPM_FROM_CVS">
+    <title>Building RPM packages from CVS</title>
 
-    <SECT2 ID="CVS_CHECKOUT"><TITLE>Checking out the sources</TITLE>
+    <sect2 id="CVS_CHECKOUT"><title>Checking out the sources</title>
 
-    <PARA>
+    <para>
 	For initially checking out the sources you will need some disk space
 	(about 70 megabytes) in a directory of your choice, the cvs package
 	of your favorite distribution and full access to the internet. If you 
 	get error messages about rejected connections you either have typed
 	something wrong or your provider doesn't give you full access.
-	A good place for the source files will be <FILENAME>"$HOME/src"</FILENAME>.
-    </PARA>
+	A good place for the source files will be <filename>"$HOME/src"</filename>.
+    </para>
 
-    <ORDEREDLIST>
-    <LISTITEM><PARA>
+    <orderedlist>
+    <listitem><para>
 	First create the directory that will receive the subdirectoy with
 	&kapp; sources and change into it:
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT> % </PROMPT><COMMAND>mkdir -p <REPLACEABLE>$HOME/src</REPLACEABLE></COMMAND>
-<PROMPT>% </PROMPT><COMMAND>cd <REPLACEABLE>$HOME/src</REPLACEABLE></COMMAND>
-</SCREEN>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+<screen width="40" format="linespecific">
+<prompt> % </prompt><command>mkdir -p <replaceable>$HOME/src</replaceable></command>
+<prompt>% </prompt><command>cd <replaceable>$HOME/src</replaceable></command>
+</screen>
+    </para></listitem>
+    <listitem><para>
 	Then log in into the CVS server. As I guess that you want to do that
 	as normal user, you log in as anonymous:
-<SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave login</COMMAND>
-</SCREEN>
+<screen width="75" format="linespecific">
+<prompt>% </prompt><command>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave login</command>
+</screen>
 	Then the server asks you for a password. Simply press enter, as we
 	do not have a password for anonymous access.
-    </PARA></LISTITEM>
+    </para></listitem>
 
-    <LISTITEM><PARA>
-<SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cvs -z3 -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave co kwave</COMMAND>
-</SCREEN>
-    </PARA></LISTITEM>
+    <listitem><para>
+<screen width="75" format="linespecific">
+<prompt>% </prompt><command>cvs -z3 -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave co kwave</command>
+</screen>
+    </para></listitem>
 
-    </ORDEREDLIST>
+    </orderedlist>
 
-    <WARNING><PARA>
-	There <EMPHASIS>must not</EMPHASIS> be a directory named 
-	<FILENAME>kwave</FILENAME> under 
+    <warning><para>
+	There <emphasis>must not</emphasis> be a directory named 
+	<filename>kwave</filename> under
 	the directory you want to check out. Otherwise the cvs program will
 	complain about already existing files and the checkout will
 	not work.
-    </PARA></WARNING>
+    </para></warning>
 
-    </SECT2>
+    </sect2>
 
-    <SECT2 ID="CVS_UPDATE"><TITLE>Updating sources from CVS</TITLE>
-    <PARA>
+    <sect2 id="CVS_UPDATE"><title>Updating sources from CVS</title>
+    <para>
 	The procedure described in the previous section is only necessary
 	once. For further updates it is much easier. Just change into the
 	directory you want to update and do the following:
-<SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
-<PROMPT> % </PROMPT><COMMAND>make clean</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>cvs update</COMMAND>
-</SCREEN>
+<screen width="75" format="linespecific">
+<prompt> % </prompt><command>make clean</command>
+<prompt>% </prompt><command>cvs update</command>
+</screen>
 	Then go on to the next section and compile as usual.
-    </PARA>
-    </SECT2>
+    </para>
+    </sect2>
 
 
-    <SECT2 ID="CVS_COMPILING"><TITLE>Compiling</TITLE>
-    <PARA>
+    <sect2 id="CVS_COMPILING"><title>Compiling</title>
+    <para>
 	Building rpm package from a CVS snapshot is quite simple. The procedure 
 	is nearly the same as described in the last section, so it unhappily also 
-	has the same problem with the <COMMAND>rpm -ta</COMMAND> command 
+	has the same problem with the <command>rpm -ta</command> command 
 	our method internally uses.
-	Like in the previous chapter, <REPLACEABLE>[arch]</REPLACEABLE> stands
+	Like in the previous chapter, <replaceable>[arch]</replaceable> stands
 	for the platform you have Built the package and might be something 
-	like <LITERAL>i386</LITERAL>, <LITERAL>i586</LITERAL>, 
-	<LITERAL>sparc</LITERAL> or whatever, 
-	<REPLACEABLE>XXX</REPLACEABLE> stands 
+	like <literal>i386</literal>, <literal>i586</literal>, 
+	<literal>sparc</literal> or whatever, 
+	<replaceable>XXX</replaceable> stands 
 	for the version number you have checked out.
-    </PARA>
+    </para>
 
-    <NOTE><PARA>
-	<EMPHASIS>Note for SuSE users: </EMPHASIS>
+    <note><para>
+	<emphasis>Note for SuSE users: </emphasis>
 	here you have to specify the directory
-	<FILENAME>/usr/src/packages</FILENAME> instead 
-	of <FILENAME>/usr/src/redhat</FILENAME> too!
-    </PARA></NOTE>
+	<filename>/usr/src/packages</filename> instead 
+	of <filename>/usr/src/redhat</filename> too!
+    </para></note>
 
-    <PARA>
+    <para>
 	Assuming that
 	you are in the root of where you checked out from CVS, do the 
-	following to create a Makefile, the kwave package and 
+	following to create a Makefile, the &kapp; package and 
 	install it. If you already have a version of &kapp; installed,
-	please remove it first or use <LITERAL>rpm -U</LITERAL> instead
-	of <LITERAL>rpm -i</LITERAL> for updating instead of installing.
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT> % </PROMPT><COMMAND>cd kwave</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make rpm</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>rpm -i /usr/src/redhat/BUILD/<REPLACEABLE>[arch]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
-</SCREEN>
-    </PARA>
+	please remove it first or use <literal>rpm -U</literal> instead
+	of <literal>rpm -i</literal> for updating instead of installing.
+<screen width="40" format="linespecific">
+<prompt> % </prompt><command>cd kwave</command>
+<prompt>% </prompt><command>make -f Makefile.dist</command>
+<prompt>% </prompt><command>./configure</command>
+<prompt>% </prompt><command>make rpm</command>
+<prompt>% </prompt><command>rpm -i /usr/src/redhat/BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+</screen>
+    </para>
 
-    <NOTE><PARA>
-	If you still have problems with <COMMAND>make rpm</COMMAND>, 
+    <note><para>
+	If you still have problems with <command>make rpm</command>, 
 	you will find the tar.gz
-	archive that were produced in <FILENAME>/tmp</FILENAME>.
+	archive that were produced in <filename>/tmp</filename>.
 	Please follow the instructions in the
-	<LINK LINKEND="MANUAL_RPM_CREATION">previous</LINK> chapter.
-    </PARA></NOTE>
+	<link linkend="MANUAL_RPM_CREATION">previous</link> chapter.
+    </para></note>
 
-    </SECT2>
-    </SECT1>
+    </sect2>
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Relocating RPM packages                               +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="RELOCATING_RPM">
-    <TITLE>Relocating the binary RPM packages</TITLE>
+    <sect1 id="RELOCATING_RPM">
+    <title>Relocating the binary RPM packages</title>
 
-    <PARA>
+    <para>
 	The binary rpm package of &kapp; 
-	is "<EMPHASIS>relocatable</EMPHASIS>". That means that you can
+	is "<emphasis>relocatable</emphasis>". That means that you can
 	build the package on a system with any KDE2 directory
 	and install it on an other system and/or into a different 
 	directory. This feature is very useful to install a package
 	compiled for SuSE under a RedHat system or vice-versa.
-    </PARA>
+    </para>
     
-    <PARA>
+    <para>
         For example: you got the binary rpm from a friend who has a 
 	RedHat system (where the KDE2 directory is 
-	<FILENAME>/usr</FILENAME>) and want to install it 
+	<filename>/usr</filename>) and want to install it 
 	on a SuSE system (where the KDE2 directory is
-	<FILENAME>/opt/kde</FILENAME>). Then just
+	<filename>/opt/kde</filename>). Then just
         give a different prefix when installing the rpm. Example:
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>rpm -ivh --prefix=/opt/kde2 <REPLACEABLE>kwave-0.6.0.i386.rpm</REPLACEABLE></COMMAND>
-</SCREEN>
-    </PARA>
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>rpm -ivh --prefix=/opt/kde2 <replaceable>kwave-0.6.0.i386.rpm</replaceable></command>
+</screen>
+    </para>
 
-    <PARA>
+    <para>
 	This modifies the path where the program is installed and 
 	it is strongly recommended that this is a directory that is 
-	contained in the <SYMBOL>KDEDIRS</SYMBOL> environment variable, 
+	contained in the <symbol>KDEDIRS</symbol> environment variable, 
 	otherwise &kapp;
 	would be unable to find it's menu configuration, plugins, 
 	preset files and so on...
-    </PARA>
+    </para>
 
     
-    </SECT1>
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: RPM optimizations                                     +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="RPM_OPTIMIZATIONS">
-    <TITLE>RPM optimizations</TITLE>
+    <sect1 id="RPM_OPTIMIZATIONS">
+    <title>RPM optimizations</title>
 
-    <PARA>
+    <para>
 	Yes, you can compile the RPM packages optimized for pentium and pentium pro 
 	(or some other CPUs) by using some defines in your rpmrc file. 
 	You can either modify your system's /etc/rpmrc file or the 
 	.rpmrc file in your home directory. There you can specify option
 	lines like these:
 
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE"> % </PROMPT><USERINPUT MOREINFO="NONE">optflags: i386 -O2 -m486 -DNDEBUG</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</USERINPUT>
-</SCREEN>
+<screen width="40" format="linespecific">
+<prompt moreinfo="none"> % </prompt><userinput moreinfo="none">optflags: i386 -O2 -m486 -DNDEBUG</userinput>
+<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</userinput>
+<prompt moreinfo="none">% </prompt><userinput moreinfo="none">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</userinput>
+</screen>
 
 	(I found those nice tricks at 
-	<ULINK URL="http://www.keywarrior.net/duesti/rpmopt.de.html">
-	http://www.keywarrior.net/duesti/rpmopt.en.html</ULINK>.
-	Thanks to Matthias D�sterh�ft!).
-    </PARA>
+	<ulink url="http://www.keywarrior.net/duesti/rpmopt.de.html">
+	http://www.keywarrior.net/duesti/rpmopt.en.html</ulink>.
+	Thanks to Matthias DÃÂ¼sterhÃÂ¶ft!).
+    </para>
     <!-- german version:
 	http://www.keywarrior.net/duesti/rpmopt.de.html
     -->
 
-    <PARA>
+    <para>
 	This means that on an i586 architecture the rpm package will 
 	be compiled using "-march=pentium" as compiler option and so 
 	on, you might extend or adapt these to your own needs.
 	The settings apply to all of the sections before in all
 	places where "rpm -ta" is used or wher a binary RPM is to be
 	created out of a source rpm using "rpm --rebuild".
-    </PARA>
+    </para>
 
-    <NOTE><PARA>
+    <note><para>
 	The options specified here are set into the environment variable 
 	RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
 	environment and have to compile like described in the chapter
-	<LINK LINKEND="MANUAL_COMPILATION">Manual compilation</LINK>, you 
+	<link linkend="MANUAL_COMPILATION">Manual compilation</link>, you 
 	can set this variable manually and get the same effect.
 	For example:
 
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"</COMMAND>
-</SCREEN>
-    </PARA></NOTE>
+<screen width="40" format="linespecific">
+<prompt>% </prompt><command>export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"</command>
+</screen>
+    </para></note>
     
-    </SECT1>
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: optimizations                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="COMPILER_OPTIMIZATIONS">
-    <TITLE>Compiler Optimizations</TITLE>
+    <sect1 id="COMPILER_OPTIMIZATIONS">
+    <title>Compiler Optimizations</title>
 
-    <PARA>
+    <para>
 	If you are owner of a Pentium, an AMD K6 or Athlon CPU, you might
 	want to use an optimized compiler to compile your version of
 	&kapp; that is running some percents faster. The gain in speed will
 	be up to 30% on some systems, whereas the functions dealing with 
 	signal manipulation and all functions that do complex time-frequency
 	operations (like FFT and Sonagram) will profit most from it.
-    </PARA>
-    <PARA>
+    </para>
+    <para>
         You do not need to understand much about programming for using an
 	optimized compiler to compile &kapp;, but maybe you will need some
 	time to get the compiler itself working and installed.
-    </PARA>
+    </para>
 
-    <SECT2 ID="OPTIMIZE_INVOCATION">
-    <TITLE>How to invoke the optimized compiler</TITLE>
-    <PARA>
+    <sect2 id="OPTIMIZE_INVOCATION">
+    <title>How to invoke the optimized compiler</title>
+    <para>
 	The invocation of an optimized compiler is quite simple. It normally
-	is sufficient to set the environment variable <SYMBOL>CXXFLAGS</SYMBOL>
+	is sufficient to set the environment variable <symbol>CXXFLAGS</symbol>
 	in the correct way and then compile as usual. For the best settings
 	please consult the documentation or homepage of the corresponding
 	compiler.
-    </PARA>
-    <PARA>
+    </para>
+    <para>
 	If you build &kapp; from a source tree (unpacked tar.gz or from CVS)
 	the flags need to be specidied before the call 
-	to <COMMAND>configure</COMMAND>. This might look like this:
-<SCREEN>
-<PROMPT>% </PROMPT><!--
---><COMMAND><SYMBOL>CXXFLAGS</SYMBOL>="-march=athlon -mcpu=athlon"<!--
---> ./configure</COMMAND></SCREEN>
-    </PARA>
-    <PARA>
+	to <command>configure</command>. This might look like this:
+<screen>
+<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>="-march=athlon -mcpu=athlon" ./configure</command></screen>
+    </para>
+    <para>
 	If you re-build &kapp; from a source rpm package
-	the flags need to be specidied before the call 
-	to <COMMAND>rpm --rebuild</COMMAND>. This might look like this:
-<SCREEN>
-<PROMPT>% </PROMPT><!--
---><COMMAND><SYMBOL>CXXFLAGS</SYMBOL>="-march=athlon -mcpu=athlon"<!--
---> rpm --rebuild <REPLACEABLE>filename</REPLACEABLE></COMMAND></SCREEN>
-	<NOTE><PARA>
-	And please don't give up if <COMMAND>rpm</COMMAND> refuses to install
+	the flags need to be specidied before the call
+	to <command>rpm --rebuild</command>. This might look like this:
+<screen>
+<prompt>% </prompt><command><symbol>CXXFLAGS</symbol>="-march=athlon -mcpu=athlon" rpm --rebuild <replaceable>filename</replaceable></command></screen>
+	<note><para>
+	And please don't give up if <command>rpm</command> refuses to install
 	your package because it seems not to fit to your computer's
 	architecture. Normally you can just install an optimized package
-	by specifying the additional parameter <COMMAND>--ignorearch</COMMAND>
+	by specifying the additional parameter <command>--ignorearch</command>
 	and just don't care.
-	</PARA></NOTE>
-    </PARA>
-    </SECT2>
-    
-    <SECT2 ID="OPTIMIZE_PENTIUM">
-    <TITLE>Pentium and Compatibles</TITLE>
-    <PARA>
+	</para></note>
+    </para>
+    </sect2>
+
+    <sect2 id="OPTIMIZE_PENTIUM">
+    <title>Pentium and Compatibles</title>
+    <para>
 	For all optimized versions I used pgcc-2.95.3. For informations on
 	obtaining the pgcc compiler, visit the Homepage of the
-	the <ULINK URL="http://pgcc.deu.edu.tr/"><!--
-	    -->Pentium Compiler Group</ULINK>. They also have binaries
+	the <ulink url="http://pgcc.deu.edu.tr/">Pentium Compiler Group</ulink>. They also have binaries
 	for most common platforms. The compiler does not only work for all 
 	known Pentium derivates 
-	from <ULINK URL="http://www.intel.com/">Intel</ULINK> but also for
+	from <ulink url="http://www.intel.com/">Intel</ulink> but also for
         some other manufactors 
-	like <ULINK URL="http://www.cyrix.com/">Cyrix</ULINK>.
-    </PARA>
-    </SECT2>
+	like <ulink url="http://www.cyrix.com/">Cyrix</ulink>.
+    </para>
+    </sect2>
 
-    <SECT2 ID="OPTIMIZE_ATHLON">
-    <TITLE>AMD Athlon</TITLE>
-    <PARA>
+    <sect2 id="OPTIMIZE_ATHLON">
+    <title>AMD Athlon</title>
+    <para>
 	If you have a CPU from AMD, you can go one step further and
 	get the Athlon-GCC running. This is an additional patch for
 	the PGCC. For further informations, please visit the Homepage of
-	the <ULINK URL="http://athlonlinux.org/"><!--
-	    -->Athlon Linux Project</ULINK>. This compiler also works
+	the <ulink url="http://athlonlinux.org/">Athlon Linux Project</ulink>. This compiler also works
 	for the K6, K6-II, K6-III and maybe some others.
-    </PARA>
-    </SECT2>
+    </para>
+    </sect2>
 
-    </SECT1>
+    </sect1>
 
-</CHAPTER>
+</chapter>
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Using Kwave                                           ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="USING-KAPP"><TITLE>Using Kwave</TITLE>
+<chapter id="USING-KAPP"><title>Using &kapp;</title>
 
 <!--
-    <PARA>
-	<INLINEMEDIAOBJECT>
-	<IMAGEOBJECT>
-	    <IMAGEDATA fileref="common/under-construction.png" format="png"> 
-	</IMAGEOBJECT>
-	<TEXTOBJECT> <PHRASE>under construction</PHRASE> </TEXTOBJECT>
-	</INLINEMEDIAOBJECT>
-    </PARA>
-    <PARA>
+    <para>
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="under-construction.png" format="PNG"/> 
+	</imageobject>
+	<textobject> <phrase>under construction</phrase> </textobject>
+	</inlinemediaobject>
+    </para>
+    <para>
 	... is quite simple. In addition to this I don't have enough time
-	to both improve the program itself <EMPHASIS>and</EMPHASIS> to
+	to both improve the program itself <emphasis>and</emphasis> to
 	write some documentation.
-    </PARA>
+    </para>
 -->
 
-    <PARA>
+    <para>
 	Here is a little screenshot of the &kapp; main window, so that you 
 	get an impression what &kapp; looks like...
-    </PARA>
+    </para>
 
-    <PARA>
-	<SCREENSHOT>
-    	    <SCREENINFO>
+    <para>
+	<screenshot>
+    	    <screeninfo>
 		Here's a screenshot of &kapp;
-	    </SCREENINFO>
-    	    <MEDIAOBJECT>
-		<IMAGEOBJECT>
-	    	    <IMAGEDATA fileref="common/screenshot1.png" format="png">
-		</IMAGEOBJECT>
-		<TEXTOBJECT>
-	    	    <PHRASE>Screenshot</PHRASE>
-		</TEXTOBJECT>
-	    </MEDIAOBJECT>
-	</SCREENSHOT>
-    </PARA>
+	    </screeninfo>
+    	    <mediaobject>
+		<imageobject>
+	    	    <imagedata fileref="screenshot1.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+	    	    <phrase>Screenshot</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
+    </para>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Clipboard                                             +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="CLIPBOARD"><TITLE>Clipboard</TITLE>
+    <sect1 id="CLIPBOARD"><title>Clipboard</title>
 
-    <PARA>
+    <para>
     &kapp; unfortunately has to implement and use it's own clipboard. This
     is due to the lack of support for formats other than text and bitmaps
     in the KDE environment and might be solved in some future release.
-    </PARA>
+    </para>
 
-    <PARA>
+    <para>
     However, this has some disadvantages. So if you want to exchange
     data between two &kapp; instances through the clipboard, you will 
-    find out that this is simply not possible. Each instance of &kapp
+    find out that this is simply not possible. Each instance of &kapp;
     uses it's own clipboard and so that can't work.
-    </PARA>
+    </para>
 
-    <PARA>
+    <para>
     So if you want to make use of the clipboard in &kapp;, you should
-    only start <EMPHASIS>one</EMPHASIS> &kapp; instance and use
+    only start <emphasis>one</emphasis> &kapp; instance and use
     multiple &kapp; windows. That's the way it works!
-    </PARA>
+    </para>
     
-    </SECT1>
+    </sect1>
     
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Drag and Drop                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="DRAG_AND_DROP"><TITLE>Drag and Drop</TITLE>
+    <sect1 id="DRAG_AND_DROP"><title>Drag and Drop</title>
 
-    <PARA>
+    <para>
     &kapp; supports the KDE Drag and Drop protocol. This enables you
     to open files just by picking them up in a kfm window or the
     Desktop and let them drop into a window of &kapp;.
-    </PARA>
+    </para>
 
-    <PARA>
+    <para>
     Please note that if you drop a file into a &kapp; window that already
     contains an opened file, the currently opened file will be closed first 
     and then the file you dropped will be opened in it. If you don't want that, 
     you should open a new empty &kapp; window first.
-    </PARA>
+    </para>
 
-    </SECT1>
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Command Line                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <SECT1 ID="COMMAND_LINE"><TITLE>Command Line</TITLE>
+    <sect1 id="COMMAND_LINE"><title>Command Line</title>
 
-    <PARA>
+    <para>
     If you start &kapp; from the command line, you can specify a list
     of files that should be opened. The first specified file will be opened 
     first, then the other files. Each file will be opened in an own new
     window of the same &kapp; instance. If you specify wildcards, you can
     open a large number of files at once.
-    </PARA>
-    <PARA>
+    </para>
+    <para>
     For example, the following command starts a &kapp; and opens all sounds
     for window:
-    <SCREEN><PROMPT>% </PROMPT><COMMAND>kwave <FILENAME>/opt/kde/share/sounds/KDE_Window*.wav</FILENAME></COMMAND></SCREEN>
-    </PARA>
+    <screen><prompt>% </prompt><command>kwave <filename>/opt/kde/share/sounds/KDE_Window*.wav</filename></command></screen>
+    </para>
     
-    <PARA>
+    <para>
     In addition to a list of files, you can specify a list of 
-    <EMPHASIS>Xt toolkit</EMPHASIS> options like <LITERAL>-geometry</LITERAL> 
-    for specifying the size and/or position of the first opened &kapp 
-    window and or <LITERAL>-display</LITERAL> for starting the &kapp on a 
+    <emphasis>Xt toolkit</emphasis> options like <literal>-geometry</literal> 
+    for specifying the size and/or position of the first opened &kapp; 
+    window and or <literal>-display</literal> for starting the &kapp; on a 
     different display.
-    </PARA>
+    </para>
 
-    <PARA>
+    <para>
     For example, the following command starts a &kapp; window with an initial 
     width of 600 pixels and a height of 400 pixels, with the right border 
     positioned 30 pixels away from the right and 0 pixels away form the top
     of the screen.
-    <SCREEN><PROMPT>% </PROMPT><COMMAND>kwave <PARAMETER>-geometry 600x400-30+0</PARAMETER></COMMAND></SCREEN>
-    </PARA>
+    <screen><prompt>% </prompt><command>kwave <parameter>-geometry 600x400-30+0</parameter></command></screen>
+    </para>
 
-    </SECT1>
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Opening and Saving files                              +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <SECT1 ID="OPEN_AND_SAVE"><TITLE>Opening and Saving files</TITLE>
+    <sect1 id="OPEN_AND_SAVE"><title>Opening and Saving files</title>
 
-    <PARA>
+    <para>
     Opening files with &kapp; works like in most other applications, you
     can 
-    <ITEMIZEDLIST>
-    <LISTITEM><PARA>specify a list of files on the 
-    <LINK LINKEND="COMMAND_LINE">command line</LINK> when starting &kapp;,</PARA></LISTITEM>
-    <LISTITEM><PARA>open an empty &kapp; window (for example with
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>W</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>New...</GUIMENUITEM>
-	</MENUCHOICE>
+    <itemizedlist>
+    <listitem><para>specify a list of files on the 
+    <link linkend="COMMAND_LINE">command line</link> when starting &kapp;,</para></listitem>
+    <listitem><para>open an empty &kapp; window (for example with
+	<menuchoice>
+	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>New...</guimenuitem>
+	</menuchoice>
     ) and put a file into it via
-    <LINK LINKEND="DRAG_AND_DROP">drag and drop</LINK>,
-      or you can </PARA></LISTITEM>
-    <LISTITEM><PARA>open a file through the menu with
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>O</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Open</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+    <link linkend="DRAG_AND_DROP">drag and drop</link>,
+      or you can </para></listitem>
+    <listitem><para>open a file through the menu with
+	<menuchoice>
+	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Open</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
 	or one of the last recently opened files under
-	<MENUCHOICE>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Open Recent</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<guimenu>File</guimenu><guimenuitem>Open Recent</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
 	save the current file with
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>S</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Save</GUIMENUITEM>
-	</MENUCHOICE>,
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem>
+	</menuchoice>,
+    </para></listitem>
+    <listitem><para>
 	save under a different name with 
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>Ctrl</KEYCAP><KEYCAP>S</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Save</GUIMENUITEM><GUIMENUITEM>As</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>As</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
 	or only the current selection with
-	<MENUCHOICE>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Save</GUIMENUITEM><GUIMENUITEM>Selection</GUIMENUITEM>
-	</MENUCHOICE> 
-    </PARA></LISTITEM>
+	<menuchoice>
+	<guimenu>File</guimenu><guimenuitem>Save</guimenuitem><guimenuitem>Selection</guimenuitem>
+	</menuchoice> 
+    </para></listitem>
 
-    </ITEMIZEDLIST>
-    </PARA>
+    </itemizedlist>
+    </para>
 
-    <SECT2 ID="FILE_FORMATS"><TITLE>Supported File formats</TITLE>
-	<PARA>
+    <sect2 id="FILE_FORMATS"><title>Supported File formats</title>
+	<para>
             The fovourite file format of &kapp; is (like you can guess from the
             name) ".wav". This format is very common to other "operating systems"
             but also is used within the KDE environment.
-        </PARA>
+        </para>
 
-        <PARA>
+        <para>
             The second format that &kapp; supports is "ASCII". You can import from
             and export to ASCII, but always be aware that storing in this format
             might produce very large files! Currently &kapp; only supports
             ASCII files with only one channel (mono), support for multiple channels
             will be added in some future version. The file format will be described
-	    <LINK LINKEND="ASCII_FORMAT">below</LINK>.
-        </PARA>
-    </SECT2>
+	    <link linkend="ASCII_FORMAT">below</link>.
+        </para>
+    </sect2>
 
-    <SECT2 ID="CONVERTING_TO_AND_FROM_WAV">
-    <TITLE>Converting to and from .wav</TITLE>
+    <sect2 id="CONVERTING_TO_AND_FROM_WAV">
+    <title>Converting to and from .wav</title>
 
-	<PARA>
+	<para>
 	    For the moment, the best way to work with formats other than 
-	    <LITERAL>.wav</LITERAL> is to use an external converter program.
+	    <literal>.wav</literal> is to use an external converter program.
 	    A good set of tools for this is in the
-	    <ULINK URL="http://home.sprynet.com/~cbagwell/sox.html">SoX</ULINK>
+	    <ulink url="http://home.sprynet.com/~cbagwell/sox.html">SoX</ulink>
 	   package, they have also some nice documentation! Take a look at
-	   <ULINK URL="http://home.sprynet.com/~cbagwell/sox.html"><!--
-	   -->http://home.sprynet.com/~cbagwell/sox.html</ULINK>.
-	</PARA>
+	   <ulink url="http://home.sprynet.com/~cbagwell/sox.html">http://home.sprynet.com/~cbagwell/sox.html</ulink>.
+	</para>
 
-	<PARA>
+	<para>
 	    The plans for future include support for import filters for other 
 	    formats and maybe some filter that uses a user-defineable script
 	    with a call to an external filter, so that even formats not supported 
-	    by <LITERAL>SoX</LITERAL> (like MP3) can be read and/or written.
-        </PARA>
-    </SECT2>
+	    by <literal>SoX</literal> (like MP3) can be read and/or written.
+        </para>
+    </sect2>
 
-    <SECT2 ID="ASCII_FORMAT"><TITLE>Format of ASCII files</TITLE>
-	<PARA>
+    <sect2 id="ASCII_FORMAT"><title>Format of ASCII files</title>
+	<para>
 	    The ASCII format is quite useful for scientific and educational 
 	    purposes. 
 	    Due to it's simple format, you can either write simple
 	    files on your own with a text editor or you can use the output 
 	    of an other application and convert it into ASCII. As the format is 
-	    <EMPHASIS>really</EMPHASIS> simple, you
+	    <emphasis>really</emphasis> simple, you
 	    should not have big problems in writing a converter and most scientific
 	    applications use to have some kind of their own ASCII format for
 	    export.
-	</PARA>
+	</para>
 
-        <PARA>
+        <para>
             The format of an ASCII file is quite simple and has the following rules:
-            <ORDEREDLIST>
-            <LISTITEM><PARA>
+            <orderedlist>
+            <listitem><para>
 		Each line represents one sample.
-	    </PARA></LISTITEM>
-            <LISTITEM><PARA>
+	    </para></listitem>
+            <listitem><para>
 		Lines might end with a carriage return and/or a line feed 
 		character (so DOS files are supported too). But when saving, 
 		files will always be saved with line feed character as the 
 		end of the line.
-	    </PARA></LISTITEM>
-            <LISTITEM><PARA>
+	    </para></listitem>
+            <listitem><para>
 		Empty lines are ignored.
-	    </PARA></LISTITEM>
-            <LISTITEM><PARA>
+	    </para></listitem>
+            <listitem><para>
 		Values can be are given in any format that the C library of
 		your system is able to read and interprete as a floating
 		point or integer number. But when saving, &kapp; will save
 		as in signed floating point format with 9 decimals.
-		</PARA><PARA>Example: <LITERAL>-7.06999982e-01</LITERAL>
-            </PARA></LISTITEM>
-            <LISTITEM><PARA>
+		</para><para>Example: <literal>-7.06999982e-01</literal>
+            </para></listitem>
+            <listitem><para>
 		All values are expected to be in signed format. So if you
 		import a file with only positive values, you will only see
 		samples that are above the zero line.
-            </PARA></LISTITEM>
-            <LISTITEM><PARA>
+            </para></listitem>
+            <listitem><para>
 		Values can be specified in any range, &kapp; always
 		does a first pass over the file to get the highest absolute
 		value and defines that value as "100%" before really reading
 		in the file.
-            </PARA></LISTITEM>
-            <LISTITEM><PARA>
+            </para></listitem>
+            <listitem><para>
 		Internally all values are stored with 24 bit precision (signed).
-            </PARA></LISTITEM>
-	    </ORDEREDLIST>
-        </PARA>
+            </para></listitem>
+	    </orderedlist>
+        </para>
 
-	<PARA>
+	<para>
 	    Here is an example of a simple ASCII file that represents a
 	    sine wave with nine samples:
-	    <EXAMPLE>
-		<TITLE>content of an ASCII file with a single sine wave</TITLE>
-		<SCREEN>
+	    <example>
+		<title>content of an ASCII file with a single sine wave</title>
+		<screen>
  0.000
  0.707
  1.000
@@ -2091,188 +2054,188 @@
 -1.000
 -0.707
  0.000
-		</SCREEN>
-	    </EXAMPLE>
-	</PARA>
-    </SECT2>
+		</screen>
+	    </example>
+	</para>
+    </sect2>
 
 
-    </SECT1>
+    </sect1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: How to select                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <SECT1 ID="SELECTING"><TITLE>How to select</TITLE>
+    <sect1 id="SELECTING"><title>How to select</title>
 
-    <PARA>
+    <para>
     &kapp; allows you to select a continuous range of samples as well as any 
     combination of channels (if you edit a multi-channel file). By selecting
     a range of samples (time scope) all following commands will be limited to
     that range and by de-selecting a channel it's content will not be changed.
-    </PARA>
+    </para>
 
-    <SECT2 ID="SELECTING_CHANNELS"><TITLE>Selecting channels</TITLE>
-    <PARA>
+    <sect2 id="SELECTING_CHANNELS"><title>Selecting channels</title>
+    <para>
     Selecting or de-selecting a channel is quite simple. Just click on the
     lamp symbol on the left side of the signal to toggle it's state:
-    </PARA>
-    <PARA>
-    <INLINEMEDIAOBJECT>
-	<IMAGEOBJECT>
-	<IMAGEDATA fileref="common/light_on.png" format="png"> 
-	</IMAGEOBJECT>
-	<TEXTOBJECT> <PHRASE>green lamb</PHRASE> </TEXTOBJECT>
-    </INLINEMEDIAOBJECT>
+    </para>
+    <para>
+    <inlinemediaobject>
+	<imageobject>
+	<imagedata fileref="light_on.png" format="PNG"/> 
+	</imageobject>
+	<textobject> <phrase>green lamb</phrase> </textobject>
+    </inlinemediaobject>
     a green lamb means "enabled", whereas
-    </PARA>
-    <PARA>
-    <INLINEMEDIAOBJECT>
-	<IMAGEOBJECT>
-	<IMAGEDATA fileref="common/light_off.png" format="png"> 
-	</IMAGEOBJECT>
-	<TEXTOBJECT> <PHRASE>red lamb</PHRASE> </TEXTOBJECT>
-    </INLINEMEDIAOBJECT>
+    </para>
+    <para>
+    <inlinemediaobject>
+	<imageobject>
+	<imagedata fileref="light_off.png" format="PNG"/> 
+	</imageobject>
+	<textobject> <phrase>red lamb</phrase> </textobject>
+    </inlinemediaobject>
     a red lamb means "disabled".
-    </PARA>
+    </para>
     
-    <NOTE><PARA>
+    <note><para>
     Note: If a channel is de-selected it will also not be audible for playback!
-    </PARA></NOTE>
-    </SECT2>
+    </para></note>
+    </sect2>
 
-    <SECT2 ID="SELECTING_SAMPLES"><TITLE>Selecting samples</TITLE>
+    <sect2 id="SELECTING_SAMPLES"><title>Selecting samples</title>
 
-    <PARA>
+    <para>
     If you select a range of samples in &kapp;, that range will be
-    <EMPHASIS>inclusive</EMPHASIS>. That means that the first and the last
+    <emphasis>inclusive</emphasis>. That means that the first and the last
     selected sample both belong to the selection and will be used for the
-    following actions. So even if you not selected a <EMPHASIS>range</EMPHASIS>
+    following actions. So even if you not selected a <emphasis>range</emphasis>
     but only a single sample, the selection will never be really "empty". So for
     example if you see no selected range, the "delete" function applies to that
     single sample.
-    </PARA>
+    </para>
     
-    <PARA>
+    <para>
     The easiest way of selecting a range of samples is just to do that
     with mouse. It works like you are used from other applications: just press
     the left mouse button at the point you want to let the selection start
     and release the button where you want it to end.
-    </PARA>
-    <PARA>
+    </para>
+    <para>
     If you want to move or adjust the selection's start or end, you can move the
     mouse cursor near to the start or the end of the selection until it changes
     from the standard arrow cursor into the left-right arrow cursor and then
     press the left mouse button and adjust.
-    </PARA>
+    </para>
 
-    <PARA>
+    <para>
     There are also some functions available via the menu and of course some 
     keyboard shortcuts:
-    <ITEMIZEDLIST>
-    <LISTITEM><PARA>
+    <itemizedlist>
+    <listitem><para>
 	select the whole signal:
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Ctrl</KEYCAP><KEYCAP>A</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>Edit</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>All</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo></shortcut>
+	<guimenu>Edit</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>All</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
 	a range of samples, starting at the current cursor position:
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>R</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Range</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>R</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Range</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
 	the currently visible area:
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>V</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Visible</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>V</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Visible</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
 	the next block of samples, starting one sample after the end of the current
 	selection and with the same length:
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>+</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Next</GUIMENUITEM>
-	</MENUCHOICE> 
-    </PARA>
-    <PARA>
-	(Hint: use the "<KEYCAP>+</KEYCAP>" key from the numeric keypad!)
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>Shift</keycap><keycap>+</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Next</guimenuitem>
+	</menuchoice> 
+    </para>
+    <para>
+	(Hint: use the "<keycap>+</keycap>" key from the numeric keypad!)
+    </para></listitem>
+    <listitem><para>
 	the previous block of samples, ending one sample before the start of the current
 	selection and with the same length:
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>-</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Previous</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA>
-    <PARA>
-	(Hint: use the "<KEYCAP>-</KEYCAP>" key from the numeric keypad!)
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>Shift</keycap><keycap>-</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Previous</guimenuitem>
+	</menuchoice>
+    </para>
+    <para>
+	(Hint: use the "<keycap>-</keycap>" key from the numeric keypad!)
+    </para></listitem>
+    <listitem><para>
 	expand the selection to the start of the signal (first sample):
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>Home</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>to start</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>Shift</keycap><keycap>Home</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to start</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
 	expand the selection to the end of the signal (last sample):
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>Shift</KEYCAP><KEYCAP>End</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>to end</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    <LISTITEM><PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>Shift</keycap><keycap>End</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>to end</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    <listitem><para>
 	remove any selection and select "nothing":
-	<MENUCHOICE>
-	<SHORTCUT><KEYCOMBO><KEYCAP>N</KEYCAP></KEYCOMBO></SHORTCUT>
-	<GUIMENU>File</GUIMENU><GUIMENUITEM>Selection</GUIMENUITEM><GUIMENUITEM>Nothing</GUIMENUITEM>
-	</MENUCHOICE>
-    </PARA></LISTITEM>
-    </ITEMIZEDLIST>
-    </PARA>
+	<menuchoice>
+	<shortcut><keycombo><keycap>N</keycap></keycombo></shortcut>
+	<guimenu>File</guimenu><guimenuitem>Selection</guimenuitem><guimenuitem>Nothing</guimenuitem>
+	</menuchoice>
+    </para></listitem>
+    </itemizedlist>
+    </para>
 
-    </SECT2>
+    </sect2>
 
-    </SECT1>
+    </sect1>
 
 <!-- @@@ still to be done ... @@@
-    <SECT1 ID="KAPP-FEATURES"><TITLE>More Kapp features</TITLE>
+    <sect1 id="KAPP-FEATURES"><title>More Kapp features</title>
 
-    <PARA>
+    <para>
     	The Squiggle Tool 
-	<GUIICON MOREINFO="NONE">
-	<INLINEMEDIAOBJECT>
-	    <IMAGEOBJECT>
-	    	<IMAGEDATA FILEREF="squiggle.png" FORMAT="PNG">
-	    </IMAGEOBJECT>
-    	    <IMAGEOBJECT>
-	    	<IMAGEDATA FILEREF="squiggle.eps" FORMAT="EPS">
-	    </IMAGEOBJECT>
-    	    <TEXTOBJECT>
-	    	<PHRASE>Squiggle</PHRASE>
-	    </TEXTOBJECT>
-    	</INLINEMEDIAOBJECT>
-	</GUIICON> 
+	<guiicon moreinfo="none">
+	<inlinemediaobject>
+	    <imageobject>
+	    	<imagedata FILEREF="squiggle.png" format="PNG"/>
+	    </imageobject>
+    	    <imageobject>
+	    	<imagedata FILEREF="squiggle.eps" format="EPS"/>
+	    </imageobject>
+    	    <textobject>
+	    	<phrase>Squiggle</phrase>
+	    </textobject>
+    	</inlinemediaobject>
+	</guiicon> 
 	
 	is used to draw squiggly lines all over
     	the &kapp; main window. It's not a bug, it's a feature!
-    </PARA>
-    </SECT1>
+    </para>
+    </sect1>
 -->
 
-</CHAPTER>
+</chapter>
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Command Reference                                     ### -->
 <!-- ###################################################################### -->
 
 <!-- @@@ still to be done ... @@@
-<CHAPTER ID="COMMANDS"><TITLE>Command Reference</TITLE>
+<chapter id="COMMANDS"><title>Command Reference</title>
 
     < ! - - (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
     application windows and their menubar and toolbar commands for easy reference.
@@ -2280,86 +2243,86 @@
     menus or toolbars. This may not be necessary for small apps or apps with no tool
     or menu bars. - - >
 
-    <PARA></PARA>
+    <para></para>
 -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: The main Kwave window                                 +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
 <!-- @@@ still to be done ... @@@
-    <SECT1 ID="KAPP-MAINWINDOW"><TITLE>The main Kwave window</TITLE>
+    <sect1 id="KAPP-MAINWINDOW"><title>The main &kapp; window</title>
 
-        <PARA></PARA>
-    	<SECT2><TITLE>The File Menu</TITLE>
-    	<PARA>
-    	    <VARIABLELIST>
-	    	<VARLISTENTRY>
-		    <TERM>
-		    	<MENUCHOICE MOREINFO="NONE">
-			    <SHORTCUT MOREINFO="NONE">
-			    	<KEYCOMBO MOREINFO="NONE">
-    			    	    <KEYCAP MOREINFO="NONE">Ctrl</KEYCAP>
-    	    	    	    	    <KEYCAP MOREINFO="NONE">n</KEYCAP>
-			    	</KEYCOMBO>
-			    </SHORTCUT>
-    	    	    	    <GUIMENU MOREINFO="NONE">File</GUIMENU>
-    	    	    	    <GUIMENUITEM MOREINFO="NONE">New</GUIMENUITEM>
-			</MENUCHOICE>
-		    </TERM>
-		    <LISTITEM>
-		    	<PARA>
-			    <ACTION MOREINFO="NONE">Creates a new document</ACTION>
-			</PARA>
-		    </LISTITEM>
-		</VARLISTENTRY>
+        <para></para>
+    	<sect2><title>The File Menu</title>
+    	<para>
+    	    <variablelist>
+	    	<varlistentry>
+		    <term>
+		    	<menuchoice moreinfo="none">
+			    <shortcut moreinfo="none">
+			    	<keycombo moreinfo="none">
+    			    	    <keycap moreinfo="none">Ctrl</keycap>
+    	    	    	    	    <keycap moreinfo="none">n</keycap>
+			    	</keycombo>
+			    </shortcut>
+    	    	    	    <guimenu moreinfo="none">File</guimenu>
+    	    	    	    <guimenuitem moreinfo="none">New</guimenuitem>
+			</menuchoice>
+		    </term>
+		    <listitem>
+		    	<para>
+			    <action moreinfo="none">Creates a new document</action>
+			</para>
+		    </listitem>
+		</varlistentry>
 		
-    	    	<VARLISTENTRY>
-		    <TERM>
-		    	<MENUCHOICE MOREINFO="NONE">
-			    <SHORTCUT MOREINFO="NONE">
-			    	<KEYCOMBO MOREINFO="NONE">
-				    <KEYCAP MOREINFO="NONE">Ctrl</KEYCAP>
-    	    	    	    	    <KEYCAP MOREINFO="NONE">s</KEYCAP>
-				</KEYCOMBO>
-			    </SHORTCUT>
-    	    	    	    <GUIMENU MOREINFO="NONE">File</GUIMENU>
-    	    	    	    <GUIMENUITEM MOREINFO="NONE">Save</GUIMENUITEM>
-			</MENUCHOICE>
-		    </TERM>
+    	    	<varlistentry>
+		    <term>
+		    	<menuchoice moreinfo="none">
+			    <shortcut moreinfo="none">
+			    	<keycombo moreinfo="none">
+				    <keycap moreinfo="none">Ctrl</keycap>
+    	    	    	    	    <keycap moreinfo="none">s</keycap>
+				</keycombo>
+			    </shortcut>
+    	    	    	    <guimenu moreinfo="none">File</guimenu>
+    	    	    	    <guimenuitem moreinfo="none">Save</guimenuitem>
+			</menuchoice>
+		    </term>
 
-    	    	    <LISTITEM>
-		    	<PARA>
-			    <ACTION MOREINFO="NONE">Saves the document</ACTION>
-			</PARA>
-		    </LISTITEM>
-		</VARLISTENTRY>
+    	    	    <listitem>
+		    	<para>
+			    <action moreinfo="none">Saves the document</action>
+			</para>
+		    </listitem>
+		</varlistentry>
 		
-    	    	<VARLISTENTRY>
-		    <TERM>
-		    	<MENUCHOICE MOREINFO="NONE">
-			    <SHORTCUT MOREINFO="NONE">
-			    	<KEYCOMBO MOREINFO="NONE">
-			    	    <KEYCAP MOREINFO="NONE">Ctrl</KEYCAP>
-    	    	    	    	    <KEYCAP MOREINFO="NONE">q</KEYCAP>
-			    	</KEYCOMBO>
-			    </SHORTCUT>
-    	    	    	    <GUIMENU MOREINFO="NONE">File</GUIMENU>
-    	    	    	    <GUIMENUITEM MOREINFO="NONE">Quit</GUIMENUITEM>
-			</MENUCHOICE>
-		    </TERM>
+    	    	<varlistentry>
+		    <term>
+		    	<menuchoice moreinfo="none">
+			    <shortcut moreinfo="none">
+			    	<keycombo moreinfo="none">
+			    	    <keycap moreinfo="none">Ctrl</keycap>
+    	    	    	    	    <keycap moreinfo="none">q</keycap>
+			    	</keycombo>
+			    </shortcut>
+    	    	    	    <guimenu moreinfo="none">File</guimenu>
+    	    	    	    <guimenuitem moreinfo="none">Quit</guimenuitem>
+			</menuchoice>
+		    </term>
     	    	    
-		    <LISTITEM>
-		    	<PARA>
-			    <ACTION MOREINFO="NONE">Quits</ACTION> &kapp;
-			</PARA>
-		    </LISTITEM>
-		</VARLISTENTRY>
-	    </VARIABLELIST>
+		    <listitem>
+		    	<para>
+			    <action moreinfo="none">Quits</action> &kapp;
+			</para>
+		    </listitem>
+		</varlistentry>
+	    </variablelist>
 
-    	</PARA>
-	</SECT2>
-    </SECT1>
-</CHAPTER>
+    	</para>
+	</sect2>
+    </sect1>
+</chapter>
 
 -->
 
@@ -2367,341 +2330,338 @@
 <!-- ### Chapter: Developer's Guide to Kwave                            ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="DEVELOPERS"><TITLE>Developer's Guide to Kapp</TITLE>
+<chapter id="DEVELOPERS"><title>Developer's Guide to Kapp</title>
 
     <!-- (OPTIONAL) A Programming/Scripting reference chapter should be
     used for apps that use plugins or that provide their own scripting hooks
     and/or development libraries. -->
 
-    <PARA>
-	<INLINEMEDIAOBJECT>
-	<IMAGEOBJECT>
-	    <IMAGEDATA fileref="common/under-construction.png" format="png"> 
-	</IMAGEOBJECT>
-	<TEXTOBJECT> <PHRASE>under construction</PHRASE> </TEXTOBJECT>
-	</INLINEMEDIAOBJECT>
-     </PARA>
-    <PARA>
+    <para>
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="under-construction.png" format="PNG"/>
+	</imageobject>
+	<textobject> <phrase>under construction</phrase> </textobject>
+	</inlinemediaobject>
+     </para>
+    <para>
 	Sorry, this chapter is still to be written... At the moment the
 	source code is partially documented with tags suitable with
 	the KDE documentation tools. We currently prefer using 
-	<ULINK URL="http://www.stack.nl/~dimitri/doxygen"><!--
-	-->doxygen</ULINK>. Maybe some day we will spend some time for
+	<ulink url="http://www.stack.nl/~dimitri/doxygen">doxygen</ulink>. Maybe some day we will spend some time for
 	writing a tool that converts the doxygen output into something
 	we can include into the docbook source (the source this page has
 	been built of).
-    </PARA>
-    <PARA>
+    </para>
+    <para>
         If you want to write a plugin, contribute something to this
         project (or maybe write the converter mentioned above), please 
 	feel free to contact one of the authors directly
 	and / or subscribe to
-	the &kapp <link linkend="MAILING-LIST">mailing list</link>.
+	the &kapp; <link linkend="MAILING-LIST">mailing list</link>.
 	Help is always welcome!
-    </PARA>
+    </para>
 
 <!-- @@@ still to be done ... @@@
 
-    <PARA>
+    <para>
     	Programming &kapp; plugins is a joy to behold. Just read through the next
     	66 pages of API's to learn how!
-    </PARA>
+    </para>
     
     < ! - - Use refentries to describe APIs.  Refentries are fairly complicated 
     and you should consult the docbook reference for further details. The 
     example below was taken from that reference and shortened a bit for 
     readability. - - >
 
-    <REFENTRY ID="RE-1007-UNMANAGECHILDREN-1">
-    	<REFMETA>
-	    <REFENTRYTITLE>XtUnmanageChildren</REFENTRYTITLE>
-    	    <REFMISCINFO>Xt - Geometry Management</REFMISCINFO>
-	</REFMETA>
-    	<REFNAMEDIV>
-	    <REFNAME>XtUnmanageChildren</REFNAME>
-    	    <REFPURPOSE>
+    <refentry id="RE-1007-UNMANAGECHILDREN-1">
+    	<refmeta>
+	    <refentrytitle>XtUnmanageChildren</refentrytitle>
+    	    <refmiscinfo>Xt - Geometry Management</refmiscinfo>
+	</refmeta>
+    	<refnamediv>
+	    <refname>XtUnmanageChildren</refname>
+    	    <refpurpose>
 	    	remove a list of children from a parent widget's managed list.
-    	    </REFPURPOSE>
-    	    <INDEXTERM SIGNIFICANCE="NORMAL" ID="IX-1007-UNMANAGECHILDREN-1">
-	    	<PRIMARY>widgets</PRIMARY>
-    	    	<SECONDARY>removing</SECONDARY>
-	    </INDEXTERM>
-    	    <INDEXTERM SIGNIFICANCE="NORMAL" ID="IX-1007-UNMANAGECHILDREN-2">
-	    <PRIMARY>XtUnmanageChildren</PRIMARY>
-	    </INDEXTERM>
-    	</REFNAMEDIV>
+    	    </refpurpose>
+    	    <indexterm SIGNIFICANCE="NORMAL" id="IX-1007-UNMANAGECHILDREN-1">
+	    	<primary>widgets</primary>
+    	    	<secondary>removing</secondary>
+	    </indexterm>
+    	    <indexterm SIGNIFICANCE="NORMAL" id="IX-1007-UNMANAGECHILDREN-2">
+	    <primary>XtUnmanageChildren</primary>
+	    </indexterm>
+    	</refnamediv>
 
-    	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2001-09-23</DATE></REFSYNOPSISDIVINFO>
-    	    <SYNOPSIS FORMAT="LINESPECIFIC">
+    	<refsynopsisdiv>
+	    <refsynopsisdivinfo><date>2001-09-23</date></refsynopsisdivinfo>
+    	    <synopsis format="linespecific">
     	    	void XtUnmanageChildren(
-		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 
-		    <REPLACEABLE CLASS="PARAMETER">num_children</REPLACEABLE>)
+		    <replaceable CLASS="PARAMETER">children</replaceable>, 
+		    <replaceable CLASS="PARAMETER">num_children</replaceable>)
     	    	    WidgetList 
-		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>;
+		    <replaceable CLASS="PARAMETER">children</replaceable>;
     	    	    Cardinal 
-		    <REPLACEABLE CLASS="PARAMETER">num_children</REPLACEABLE>;
-    	    </SYNOPSIS>
+		    <replaceable CLASS="PARAMETER">num_children</replaceable>;
+    	    </synopsis>
     	    
-	    <REFSECT2 ID="R2-1007-UNMANAGECHILDREN-1">
-	    	<TITLE>Inputs</TITLE>
-    	    	<VARIABLELIST>
-	    	    <VARLISTENTRY>
-		    	<TERM>
-		    	    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>
-    	    	    	</TERM>
-    	    	    	<LISTITEM>
-		    	    <PARA>
+	    <refsect2 id="R2-1007-UNMANAGECHILDREN-1">
+	    	<title>Inputs</title>
+    	    	<variablelist>
+	    	    <varlistentry>
+		    	<term>
+		    	    <replaceable CLASS="PARAMETER">children</replaceable>
+    	    	    	</term>
+    	    	    	<listitem>
+		    	    <para>
 		    	    	Specifies an array of child widgets. Each child 
 				must be of class RectObj or any subclass thereof.
-    	    	    	    </PARA>
-		    	</LISTITEM>
-	    	    </VARLISTENTRY>
+    	    	    	    </para>
+		    	</listitem>
+	    	    </varlistentry>
 	    
-    	    	    <VARLISTENTRY>
-	    	    	<TERM>
-		    	    <REPLACEABLE CLASS="PARAMETER">num_children</REPLACEABLE>
-    	    	    	</TERM>
-    	    	    	<LISTITEM>
-		    	    <PARA>
+    	    	    <varlistentry>
+	    	    	<term>
+		    	    <replaceable CLASS="PARAMETER">num_children</replaceable>
+    	    	    	</term>
+    	    	    	<listitem>
+		    	    <para>
 		    	    	Specifies the number of elements in 
-		    	    	<REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>.
-    	    	    	    </PARA>
-		    	</LISTITEM>
-	    	    </VARLISTENTRY>
-	    	</VARIABLELIST>
-    	    </REFSECT2>
-    	</REFSYNOPSISDIV>
+		    	    	<replaceable CLASS="PARAMETER">children</replaceable>.
+    	    	    	    </para>
+		    	</listitem>
+	    	    </varlistentry>
+	    	</variablelist>
+    	    </refsect2>
+    	</refsynopsisdiv>
 
-    	<REFSECT1 ID="R1-1007-UNMANAGECHILDREN-1"><TITLE>Description</TITLE>
-	    <PARA>
-	    	<FUNCTION MOREINFO="NONE">XtUnmanageChildren()</FUNCTION> 
+    	<refsect1 id="R1-1007-UNMANAGECHILDREN-1"><title>Description</title>
+	    <para>
+	    	<function moreinfo="none">XtUnmanageChildren()</function> 
 	    	unmaps the specified widgets and removes them from their parent's 
     	    	geometry management. The widgets will disappear from the screen, 
 	    	and (depending on its parent) may no longer have screen space 
 	    	allocated for them.
-    	    </PARA>
+    	    </para>
 	
-    	    <PARA>
+    	    <para>
 	    	Each of the widgets in the 
-	    	<REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE> 
+	    	<replaceable CLASS="PARAMETER">children</replaceable> 
 	    	array must have the same parent.
-    	    </PARA>
+    	    </para>
 
-    	    <PARA>
+    	    <para>
 	    	See the &ldquo;Algorithm&rdquo; section below for full details 
 	    	of the widget unmanagement procedure.
-    	    </PARA>
-	</REFSECT1>
+    	    </para>
+	</refsect1>
 
-    	<REFSECT1 ID="R1-1007-UNMANAGECHILDREN-2"><TITLE>Usage</TITLE>
-    	    <PARA>
+    	<refsect1 id="R1-1007-UNMANAGECHILDREN-2"><title>Usage</title>
+    	    <para>
 		Unmanaging widgets is the usual method for temporarily
     		making them invisible.  They can be re-managed with
-    		<FUNCTION MOREINFO="NONE">XtManageChildren()</FUNCTION>.
-    	    </PARA>
+    		<function moreinfo="none">XtManageChildren()</function>.
+    	    </para>
 
-    	    <PARA>
+    	    <para>
 		You can unmap a widget, but leave it under geometry
     		management by calling 
-		<FUNCTION MOREINFO="NONE">XtUnmapWidget()</FUNCTION>.  
+		<function moreinfo="none">XtUnmapWidget()</function>.  
 		You can destroy a widget's window without destroying the widget by
     		calling 
-		<FUNCTION MOREINFO="NONE">XtUnrealizeWidget()</FUNCTION>.  
+		<function moreinfo="none">XtUnrealizeWidget()</function>.  
 		You can destroy a widget completely with 
-		<FUNCTION MOREINFO="NONE">XtDestroyWidget()</FUNCTION>.
-    	    </PARA>
+		<function moreinfo="none">XtDestroyWidget()</function>.
+    	    </para>
 
-    	    <PARA>
+    	    <para>
 		If you are only going to unmanage a single widget, it is
     		more convenient to call 
-		<FUNCTION MOREINFO="NONE">XtUnmanageChild()</FUNCTION>.  
+		<function moreinfo="none">XtUnmanageChild()</function>.  
 		It is often more convenient to call 
-		<FUNCTION MOREINFO="NONE">XtUnmanageChild()</FUNCTION>
+		<function moreinfo="none">XtUnmanageChild()</function>
     		several times than it is to declare and initialize an array
     		of widgets to pass to
-		<FUNCTION MOREINFO="NONE">XtUnmanageChildren()</FUNCTION>.  
+		<function moreinfo="none">XtUnmanageChildren()</function>.  
 		Calling
-		<FUNCTION MOREINFO="NONE">XtUnmanageChildren()</FUNCTION> 
+		<function moreinfo="none">XtUnmanageChildren()</function> 
 		is more efficient, however, because it only calls the parent's 
-		<FUNCTION MOREINFO="NONE">change_managed()</FUNCTION>
+		<function moreinfo="none">change_managed()</function>
     		method once.
-    	    </PARA>
-	</REFSECT1>
+    	    </para>
+	</refsect1>
 
-	<REFSECT1 ID="R1-1007-UNMANAGECHILDREN-3"><TITLE>Algorithm</TITLE>
+	<refsect1 id="R1-1007-UNMANAGECHILDREN-3"><title>Algorithm</title>
 
-    	    <PARA>
-    		<FUNCTION MOREINFO="NONE">XtUnmanageChildren()</FUNCTION> 
+    	    <para>
+    		<function moreinfo="none">XtUnmanageChildren()</function> 
 		performs the following:
-    	    </PARA>
+    	    </para>
 
-    	    <VARIABLELIST>
-    		<VARLISTENTRY>
-	    	    <TERM>-</TERM>
-    	    	    <LISTITEM>
-	    		<PARA>
+    	    <variablelist>
+    		<varlistentry>
+	    	    <term>-</term>
+    	    	    <listitem>
+	    		<para>
 	    	    	    Ignores the child if it already is unmanaged or is being
     	    	    	    destroyed.
-    	    		</PARA>
-	    	    </LISTITEM>
-		</VARLISTENTRY>
+    	    		</para>
+	    	    </listitem>
+		</varlistentry>
 
-    		<VARLISTENTRY>
-	    	    <TERM>-</TERM>
-    	    	    <LISTITEM>
-	    		<PARA>
+    		<varlistentry>
+	    	    <term>-</term>
+    	    	    <listitem>
+	    		<para>
 		    	    Otherwise, if the child is realized, it makes it nonvisible
     	    	    	    by unmapping it.
-    	    		</PARA>
-	    	    </LISTITEM>
-		</VARLISTENTRY>
-    	    </VARIABLELIST>
+    	    		</para>
+	    	    </listitem>
+		</varlistentry>
+    	    </variablelist>
 
-    	    <PARA></PARA>
+    	    <para></para>
 
-	</REFSECT1>
-    
-	<REFSECT1 ID="R1-1007-UNMANAGECHILDREN-4"><TITLE>Structures</TITLE>
+	</refsect1>
 
-    	    <PARA>
-    		The <TYPE>WidgetList</TYPE> type is simply an array of widgets:
-    	    </PARA>
+	<refsect1 id="R1-1007-UNMANAGECHILDREN-4"><title>Structures</title>
 
-    	    <SCREEN FORMAT="LINESPECIFIC" ID="SC-1007-UNMANAGECHILDREN-1">
+    	    <para>
+    		The <type>WidgetList</type> type is simply an array of widgets:
+    	    </para>
+
+    	    <screen format="linespecific" id="SC-1007-UNMANAGECHILDREN-1">
     		typedef Widget *WidgetList;
-    	    </SCREEN>
-	</REFSECT1>
-    
-    </REFENTRY>
+    	    </screen>
+	</refsect1>
+
+    </refentry>
 
 -->
 
-</CHAPTER>
+</chapter>
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Questions and Answers                                 ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="FAQ"><TITLE>Questions and Answers</TITLE>
+<chapter id="FAQ"><title>Questions and Answers</title>
 
-    <PARA></PARA>
-    
-    <QANDASET>
+    <para></para>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
-		    What do I need to compile &kapp?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+    <qandaset>
+
+    	<qandaentry>
+	    <question>
+	    	<para>
+		    What do I need to compile &kapp;?
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    Read in the
-		    <LINK LINKEND="REQUIREMENTS">chapter</LINK>
+		    <link linkend="REQUIREMENTS">chapter</link>
 		    mentioned before. It compiles with
 		    gcc and egcs as well.
-		    Note that you will also need the libkwave package!
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    Which sound cards does &kapp; support?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    &kapp; does not need support for any special sound card.
 		    The sound card only has to be supported by your
-		    operating system and &kapp uses it's interface to the
+		    operating system and &kapp; uses it's interface to the
 		    operating system's sound driver through a standard
 		    interface. So &kapp; can play on any sound card that
 		    KDE is able to play on.
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    Why are some menu entries / features always disabled?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    This is just because we decided that those actions
-		    are not working stable enough to present them to 
+		    are not working stable enough to present them to
 		    the normal user and therefore disabled them to
 		    avoid trouble. You will get access to them if they
 		    are tested and stable enough.
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    Why does &kapp; consume more memory than it can be
 		    expected from the size of the opened file?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    The reason for this is that &kapp; internally stores
 		    all samples in 32-bit integers. This was easy to program,
 		    made the application faster and a bit more reliable.
-		    So if you load an 8-bit file with about one megabyte 
-		    it will consume about four megabytes. 
+		    So if you load an 8-bit file with about one megabyte
+		    it will consume about four megabytes.
 		    Maybe we will change this somewhere in the future...
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    Which sound formats does &kapp; support?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    &kapp; currently supports .wav files with 8, 16 and
 		    24 bits per sample, with any number of channels
 		    (of course including mono and stereo).
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
-		    What if I have files with a format not 
+    	<qandaentry>
+	    <question>
+	    	<para>
+		    What if I have files with a format not
 		    supported by &kapp;?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    If you have to work on an other format, you can convert
-		    it into .wav format. A good set of tools for this is 
+		    it into .wav format. A good set of tools for this is
 		    in the
-	            <ULINK URL="http://home.sprynet.com/~cbagwell/sox.html"><!--
-	            -->SoX</ULINK> package, they have also some nice
+	            <ulink url="http://home.sprynet.com/~cbagwell/sox.html">SoX</ulink> package, they have also some nice
 		    documentation!
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    I get errors when I want to do playback?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    Maybe you have choosen a combination of playback
 		    rate and sample size that is not supported by your
 		    sound driver and / or sound hardware. Try playback with
@@ -2709,267 +2669,233 @@
 		    work. Then try to increase the bits per sample and
 		    stereo playback step by step. Note that some playback
 		    rates are not at all supported by some sound hardware.
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    The playback seems to do something but I hear nothing?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    Maybe you have forgotten to increase the volume of
 		    the playback channel. &kapp; is not responsible for
 		    changing the playback volume.
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    Some files are played with half-speed?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
-		    Try choosing a different sound playback device. 
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
+		    Try choosing a different sound playback device.
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    The playback sometimes is disturbed and interrupted?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    You should increase the size of the playback buffer
 		    to get a "smoother" playback (this also makes the
 		    playback control reacting a bit slower).
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
-		    The playback does not stop if I immediately 
+    	<qandaentry>
+	    <question>
+	    	<para>
+		    The playback does not stop if I immediately
 		    press the stop button?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    The reason for this is that the sound driver already
 		    has received some playback data from &kapp; at the
-		    moment when you press the stop button. Decrease the 
+		    moment when you press the stop button. Decrease the
 		    size of the playback buffer and it should react faster
 		    (but makes interruptions more probable).
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    Is ALSA supported?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
-		    Sorry, currently we don't have support for ALSA, but
-		    it's planned for the future. However, ALSA has a 
-		    standard linux sound card interface that we can use
-		    instead.
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
+		    Sorry, currently we don't have direct support for ALSA, but
+		    since version 0.6 &kapp; has support
+		    for <ulink url="http://www.arts-project.org/">aRts</ulink>,
+		    which can use ALSA.
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
-		    What about playback with 24 and 32 bits per sample?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
-		    There currently is no support for that in the
-		    standard linux sound interface. It should be no
-		    big problem to enable this when we implement
-		    <ULINK URL="http://www.alsa-project.org"><!--
-	            -->ALSA</ULINK> support.
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+    	<qandaentry>
+	    <question>
+	    	<para>
+		    What about playback with 24 and 32 bits per sample
+		    or more than two channels?
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
+		    This is another feature that might get implemented
+		    in <ulink url="http://www.arts-project.org/">aRts</ulink>,
+		    so we wait for aRts to support it.
+		</para>
+	    </answer>
+	</qandaentry>
 
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
-		    What about support of more than two channels?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
-		    Hmm, I thought about that too, but there is no
-		    support from the standard linux sound interface. So
-		    maybe this could be done if we include
-		    <ULINK URL="http://www.alsa-project.org"><!--
-	            -->ALSA</ULINK> support.
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
-
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    What about MP3 support?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    Not for the moment, but maybe someone writes us
 		    a plugin for MP3 import / export?
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 
 <!--
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
+    	<qandaentry>
+	    <question>
+	    	<para>
 		    ...
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
+		</para>
+	    </question>
+    	    <answer>
+	    	<para>
 		    ...
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
+		</para>
+	    </answer>
+	</qandaentry>
 -->
 
 
-    </QANDASET>
-</CHAPTER>
+    </qandaset>
+</chapter>
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Credits                                               ### -->
 <!-- ###################################################################### -->
 
-<CHAPTER ID="CREDITS"><TITLE>Credits and License</TITLE>
+<chapter id="CREDITS"><title>Credits and License</title>
 
-    <!-- Include credits for the programmers, documentation writers, and
-    contributors here. The license for your software should then be included 
-    below the credits with a reference to the appropriate license file 
-    included in the KDE distribution. -->
+    <para>&kapp;</para>
 
-    <PARA>&kapp;</PARA>
+    <para>
+    	Program copyright from 1998-2000 Martin Wilz
+	<email>mwilz@ernie.mi.uni-koeln.de</email>
+    </para>
+    <para>
+    	Program copyright since 2000 Thomas Eschenbacher
+	<email>thomas.eschenbacher@gmx.de</email>
+    </para>
 
-    <PARA>
-    	Program copyright 1998-2000 Martin Wilz 
-	<EMAIL>mwilz@ernie.mi.uni-koeln.de</EMAIL>
-    </PARA>
-
-    <PARA>
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-    </PARA>
-
-    <PARA>
-        The current code contains some FFT routines and code fragments from the 
-        GNU Scientific Library project 
-    	<ULINK URL="ftp://alpha.gnu.org/gnu/">ftp://alpha.gnu.org/gnu</ULINK>.
-    </PARA>
-
-    <PARA>
+    <para>
     	Contributors:
-    	<ITEMIZEDLIST>
-	    <LISTITEM>
-	    	<PARA>
-		    Thomas Eschenbacher 
-		    <EMAIL>thomas.eschenbacher@gmx.de</EMAIL>
-		</PARA>
-	    </LISTITEM>
-    	    <LISTITEM><PARA>Juhana Kouhia</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Gerhard Zintel</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Gael Duval</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Aaron Johnson</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Uwe Steinmann</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Juhana Kouhia</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Dave Phillips</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Martin Petriska</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Winfried Truemper</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Bruce Garlock</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Christoph Raab</PARA></LISTITEM>
-    	    <LISTITEM><PARA>tOpHEr lAfaTA</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Nemosoft</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Guido</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Eero</PARA></LISTITEM>
-	</ITEMIZEDLIST>
-    </PARA>
-    
-    <PARA>
+    	<itemizedlist>
+	    <listitem>
+	    	<para>
+		    Thomas Eschenbacher
+		    <email>thomas.eschenbacher@gmx.de</email>
+		</para>
+	    </listitem>
+    	    <listitem><para>Juhana Kouhia</para></listitem>
+    	    <listitem><para>Gerhard Zintel</para></listitem>
+    	    <listitem><para>Gael Duval</para></listitem>
+    	    <listitem><para>Aaron Johnson</para></listitem>
+    	    <listitem><para>Uwe Steinmann</para></listitem>
+    	    <listitem><para>Juhana Kouhia</para></listitem>
+    	    <listitem><para>Dave Phillips</para></listitem>
+    	    <listitem><para>Martin Petriska</para></listitem>
+    	    <listitem><para>Winfried Truemper</para></listitem>
+    	    <listitem><para>Bruce Garlock</para></listitem>
+    	    <listitem><para>Christoph Raab</para></listitem>
+    	    <listitem><para>tOpHEr lAfaTA</para></listitem>
+    	    <listitem><para>Nemosoft</para></listitem>
+    	    <listitem><para>Guido</para></listitem>
+    	    <listitem><para>Eero</para></listitem>
+	</itemizedlist>
+    </para>
+
+    <para>
     	Thanks to (in alphabetical order):
-    	<ITEMIZEDLIST>
-	    <LISTITEM><PARA>Carsten Jacobi</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Frank Christian Stoffel</PARA></LISTITEM>
-    	    <LISTITEM><PARA>Achim Dahlhaus</PARA></LISTITEM>
-	    <LISTITEM>
-		<PARA>
-		    Matthias D�sterh�ft
-		    <EMAIL>duesti@gmx.de</EMAIL>
-		    <EMPHASIS> (for information about RPM optimization)
-		    </EMPHASIS>
-		</PARA>
-	    </LISTITEM>
-    	    <LISTITEM><PARA>Klaus Hendrik Lorenz</PARA></LISTITEM>
-	    <LISTITEM><PARA>my girlfriend Ximena Gonz�lez <EMPHASIS>(who
-	    heart "just a few minutes, only want to fix this little
-	    bug" too often)</EMPHASIS>
-	    </PARA></LISTITEM>
-	</ITEMIZEDLIST>
-    </PARA>
-    
-    <PARA>
-    	Documentation copyright (C) 2000 Thomas Eschenbacher 
-	<EMAIL>thomas.eschenbacher@gmx.de</EMAIL>
-    </PARA>
+    	<itemizedlist>
+	    <listitem><para>Carsten Jacobi</para></listitem>
+    	    <listitem><para>Frank Christian Stoffel</para></listitem>
+    	    <listitem><para>Achim Dahlhaus</para></listitem>
+	    <listitem>
+		<para>
+		    Matthias Düsterhöft
+		    <email>duesti@gmx.de</email>
+		    <emphasis> (for information about RPM optimization)
+		    </emphasis>
+		</para>
+	    </listitem>
+    	    <listitem><para>Klaus Hendrik Lorenz</para></listitem>
+	    <listitem><para>my girlfriend Ximena González<emphasis>(for
+	    her patience)</emphasis>
+	    </para></listitem>
+	</itemizedlist>
+    </para>
+
+    <para>
+    	Documentation copyright (C) 2000 Thomas Eschenbacher
+	<email>thomas.eschenbacher@gmx.de</email>
+    </para>
 
 <!--
-    <PARA>
+    <para>
     	Translations will be done by:
-    	<ITEMIZEDLIST>
-	    <LISTITEM>
-	    	<PARA>
-		    Babel D. Fish 
-		    <EMAIL>babelfish@kde.org</EMAIL> (Sanskrit)
-		</PARA>
-	    </LISTITEM>
-	</ITEMIZEDLIST>
-    </PARA>
+    	<itemizedlist>
+	    <listitem>
+	    	<para>
+		    Babel D. Fish
+		    <email>babelfish@kde.org</email> (Sanskrit)
+		</para>
+	    </listitem>
+	</itemizedlist>
+    </para>
 -->
+
+<para>
+The current code contains some FFT routines and code fragments from the
+GNU Scientific Library project
+<ulink url="ftp://alpha.gnu.org/gnu/">ftp://alpha.gnu.org/gnu</ulink>.
+</para>
+
+&underFDL;
+&underGPL;
 
 <!-- &license-links; -->
 
-</CHAPTER>
+</chapter>
 
-<![%addindex; [ &kdedocindex; ]]>
+</book>
 
-</BOOK>
 

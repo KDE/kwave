@@ -235,6 +235,20 @@ signals:
 
 protected:
 
+    friend class RecordPlugin;
+
+    /**
+     * Closes the current file and creates a new empty signal.
+     * @param samples number of samples per track
+     * @param rate sample rate
+     * @param bits number of bits per sample
+     * @param tracks number of tracks
+     */
+    int newSignal(unsigned int samples, double rate,
+                  unsigned int bits, unsigned int tracks);
+
+protected:
+
     /** Updates the menu by enabling/disabling some entries */
     void updateMenu();
 
@@ -268,16 +282,6 @@ protected:
      *        will be saved
      */
     int saveFileAs(bool selection = false);
-
-    /**
-     * Closes the current file and creates a new empty signal.
-     * @param samples number of samples per track
-     * @param rate sample rate
-     * @param bits number of bits per sample
-     * @param tracks number of tracks
-     */
-    int newSignal(unsigned int samples, double rate,
-                  unsigned int bits, unsigned int tracks);
 
     /**
      * Opens a file contained in the list of recent files.

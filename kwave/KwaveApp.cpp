@@ -94,12 +94,6 @@ bool KwaveApp::isOK()
 }
 
 //***************************************************************************
-//ClipBoard &KwaveApp::clipboard()
-//{
-//    return m_clipboard;
-//}
-
-//***************************************************************************
 bool KwaveApp::executeCommand(const QString &command)
 {
 //    debug("KwaveApp::executeCommand(%s)", command);    // ###
@@ -107,7 +101,7 @@ bool KwaveApp::executeCommand(const QString &command)
     if (parser.command() == "newwindow") {
 	newWindow(0);
     } else if (parser.command() == "help") {
-	invokeHTMLHelp("kwave/index.html", "");
+	invokeHelp();
     } else {
 	return false;
     }

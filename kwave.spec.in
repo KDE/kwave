@@ -14,7 +14,10 @@ URL:     @RPM_URL@
 Vendor: @RPM_VENDOR@
 BuildRoot: 	@RPM_BUILDROOT@
 Provides: @RPM_NAME@
-Requires: 	qt >= 2.2, kdelibs >= 2.0
+Requires: qt >= 2.2
+Requires: kdelibs >= 2.0
+Conflicts: libkwave
+Obsoletes: libkwave
 
 %description
 @RPM_DESCRIPTION@
@@ -30,21 +33,13 @@ rm -f `find . -name Makefile`
 rm -fv  `find . -type l`
 touch config.in
 ./configure --with-install-root=$RPM_BUILD_ROOT \
-	--enable-shared=yes --enable-static=yes --enable-debug=no \
-	--enable-insure=no
+	--enable-shared=yes --enable-debug=no
 
 %build -n kwave-@RPM_VERSION@
-cd libgui
-make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT=""
-cd ..
-export LD_LIBRARY_PATH=`pwd`/libgui/.libs:${LD_LIBRARY_PATH}
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT=""
 
 %install -n kwave-@RPM_VERSION@
 rm -rf "$RPM_BUILD_ROOT"
-cd libgui
-make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
-cd ..
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 cd "$RPM_BUILD_ROOT"
 find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' > "$RPM_BUILD_DIR"/%{filelist}

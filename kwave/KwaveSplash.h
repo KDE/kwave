@@ -1,59 +1,48 @@
-//////////////////////////////////////////////////////////////////////////////
-//
-//    KWAVESPLASH.H
-//
-//    Copyright (C) 2003 Gilles CAULIER <caulier.gilles@free.fr>
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
-//////////////////////////////////////////////////////////////////////////////
+/*************************************************************************
+          KwaveSplash.h  -  splash screen for Kwave
+                             -------------------
+    begin                : Tue Jun 24 2003
+    copyright            : Copyright (C) 2003 Gilles CAULIER
+    email                : Gilles CAULIER <caulier.gilles@free.fr>
+ ***************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
-#ifndef KWAVESPLASH_H
-#define KWAVESPLASH_H
+#ifndef _KWAVE_SPLASH_H_
+#define _KWAVE_SPLASH_H_
 
-// Qt includes
-
+#include <qobject.h>
 #include <qwidget.h>
 #include <qstring.h>
-#include <qpixmap.h>
-#include <qlabel.h>
-#include <qapplication.h>
 #include <qtimer.h>
-
-// KDElib includes
-
-#include <klocale.h>
-#include <kstandarddirs.h>
-
-
-class QTimer;
 
 class KwaveSplash : public QWidget
 {
 Q_OBJECT
 
 public:
-    KwaveSplash(QString PNGImageFileName);
-    ~KwaveSplash();
+    /**
+     * Constructor
+     * @param PNGImageFileName name of a file to be shown as splashscreen,
+     *        should be found in one of the "appdata" directories.
+     */
+    KwaveSplash(const QString &PNGImageFileName);
 
-public slots:
-    void slot_close();
+    /** Destructor */
+    virtual ~KwaveSplash();
 
 private:
-    QTimer* mTimer;
+
+    /** timer for auto-destruction of the splashscreen */
+    QTimer m_timer;
+    
 };
 
-#endif // KWAVESPLASH_H
+#endif /* _KWAVE_SPLASH_H_ */

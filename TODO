@@ -49,6 +49,8 @@ o record plugin: support for aRts
 
 o virtual memory: multiple swap directories
 
+o change from id3lib to taglib
+
 o install a new_handler() for cases in which we run out of memory
 
 o move undo classes into libkwave

@@ -34,7 +34,6 @@
  * @bug there aren no checks for avoiding close without open,
  *      opening twice or similar
  * @bug there are no precautions to prevent duplicate instances
- * @bug maybe the playback rate type has to be changed to double
  *
  */
 class PlayBackDevice: public QObject

@@ -21,12 +21,14 @@
 #include "config.h"
 #include <qobject.h>
 #include <qstring.h>
+#include "libkwave/KwavePluginSetupDialog.h"
 #include "LowPassDlg.uih.h"
 
 class QStringList;
 class LowPassFilter;
 
-class LowPassDialog: public LowPassDlg
+class LowPassDialog: public LowPassDlg,
+                     public KwavePluginSetupDialog
 {
     Q_OBJECT
 public:
@@ -44,16 +46,44 @@ public:
     virtual ~LowPassDialog();
 
     /** Returns the parameters as string list */
-    QStringList params();
+    virtual QStringList params();
 
     /** Sets the from a list of parameters */
-    void setParams(QStringList &params);
+    virtual void setParams(QStringList &params);
+
+    /** retruns a pointer to this as a QDialog */
+    virtual QDialog *dialog() { return this; };
+
+signals:
+
+    /**
+     * Emitted whenever the frequency changes
+     * @param freq the frequency parameter in Hz
+     */
+    void changed(double freq);
+
+    /** Pre-listen mode has been started */
+    void startPreListen();
+
+    /** Pre-listen mode has been stopped */
+    void stopPreListen();
 
 protected slots:
 
     /** called when the spinbox or spinbox value has changed */
     void valueChanged(int pos);
     
+    /**
+     * called when the "Listen" button has been toggled,
+     * to start or stop the pre-listen mode
+     */
+    void listenToggled(bool listen);
+
+    /**
+     * called when the pre-listen mode stopped/aborted
+     */
+    void listenStopped();
+
 protected:
 
     /** Update the graphic display */

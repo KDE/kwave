@@ -17,19 +17,14 @@
 
 #include "config.h"
 #include <errno.h>
-
 #include <qstringlist.h>
 #include <klocale.h>
+#include <arts/artsflow.h>
+#include <arts/connect.h>
+#include <arts/objectmanager.h>
+#include <arts/dynamicrequest.h>
 
-#include "libkwave/Parser.h"
-
-#include "libkwave/ArtsMultiTrackSink.h"
-#include "libkwave/ArtsMultiTrackSource.h"
-#include "libkwave/ArtsKwaveMultiTrackFilter.h"
 #include "libkwave/ArtsNativeMultiTrackFilter.h"
-
-#include "kwave/PluginManager.h"
-#include "kwave/UndoTransactionGuard.h"
 
 #include "LowPassPlugin.h"
 #include "LowPassDialog.h"
@@ -38,7 +33,8 @@ KWAVE_PLUGIN(LowPassPlugin,"lowpass","Thomas Eschenbacher");
 
 //***************************************************************************
 LowPassPlugin::LowPassPlugin(PluginContext &context)
-    :KwavePlugin(context), m_params(), m_frequency(3500.0), m_stop(false)
+    :KwaveFilterPlugin(context),
+     m_frequency(3500.0), m_last_freq(100)
 {
 }
 
@@ -62,100 +58,59 @@ int LowPassPlugin::interpreteParameters(QStringList &params)
     Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
-    // all parameters accepted
-    m_params = params;
-    
     return 0;
 }
 
 //***************************************************************************
-QStringList *LowPassPlugin::setup(QStringList &previous_params)
+KwavePluginSetupDialog *LowPassPlugin::createDialog(QWidget *parent)
 {
-    // try to interprete the previous parameters
-    interpreteParameters(previous_params);
-
-    // create the setup dialog
-    LowPassDialog *dialog = new LowPassDialog(parentWidget(), signalRate());
+    LowPassDialog *dialog = new LowPassDialog(parent, signalRate());
     Q_ASSERT(dialog);
     if (!dialog) return 0;
 
-    if (!m_params.isEmpty()) dialog->setParams(m_params);
+    // connect the signals for detecting value changes in pre-listen mode
+    connect(dialog, SIGNAL(changed(double)),
+            this, SLOT(setValue(double)));
 
-    QStringList *list = new QStringList();
-    Q_ASSERT(list);
-    if (list && dialog->exec()) {
-	// user has pressed "OK"
-	*list = dialog->params();
-    } else {
-	// user pressed "Cancel"
-	if (list) delete list;
-	list = 0;
-    }
-
-    if (dialog) delete dialog;
-    return list;
-};
-
-//***************************************************************************
-void LowPassPlugin::run(QStringList params)
-{
-    unsigned int first, last;
-
-    Arts::Dispatcher *dispatcher = manager().artsDispatcher();
-    dispatcher->lock();
-    Q_ASSERT(dispatcher);
-    if (!dispatcher) close();
-
-    UndoTransactionGuard undo_guard(*this, i18n("low pass"));
-    m_stop = false;
-
-    interpreteParameters(params);
-
-    MultiTrackReader source;
-    MultiTrackWriter sink;
-
-    /*unsigned int input_length =*/ selection(&first, &last, true);
-    manager().openMultiTrackReader(source, selectedTracks(), first, last);
-    manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite,
-	first, last);
-
-    // create all objects
-    ArtsMultiTrackSource arts_source(source);
-
-    unsigned int tracks = selectedTracks().count();
-    ArtsNativeMultiTrackFilter filter(tracks, "Arts::Synth_SHELVE_CUTOFF");
-    ArtsMultiTrackSink   arts_sink(sink);
-
-    // connect them
-    filter.setValue("frequency", m_frequency);
-    filter.connectInput(arts_source, "source",  "invalue");
-    filter.connectOutput(arts_sink,  "sink",    "outvalue");
-
-    // start all
-    arts_source.start();
-    filter.start();
-    arts_sink.start();
-
-    // transport the samples
-    while (!m_stop && !(arts_source.done())) {
-	arts_sink.goOn();
-    }
-
-    // shutdown
-    filter.stop();
-    arts_sink.stop();
-    arts_source.stop();
-
-    dispatcher->unlock();
-
-    close();
+    return dialog;
 }
 
 //***************************************************************************
-int LowPassPlugin::stop()
+ArtsMultiTrackFilter *LowPassPlugin::createFilter(unsigned int tracks)
 {
-    m_stop = true;
-    return KwavePlugin::stop();
+    return new ArtsNativeMultiTrackFilter(
+        tracks,"Arts::Synth_SHELVE_CUTOFF"
+    );
+}
+
+//***************************************************************************
+bool LowPassPlugin::paramsChanged()
+{
+    return (m_frequency != m_last_freq);
+}
+
+//***************************************************************************
+void LowPassPlugin::updateFilter(ArtsMultiTrackFilter *filter,
+                                 bool force)
+{
+    if (!filter) return;
+
+    if ((m_frequency != m_last_freq) || force)
+	filter->setValue("frequency", m_frequency);
+
+    m_last_freq  = m_frequency;
+}
+
+//***************************************************************************
+QString LowPassPlugin::actionName()
+{
+    return i18n("low pass");
+}
+
+//***************************************************************************
+void LowPassPlugin::setValue(double frequency)
+{
+    m_frequency = frequency;
 }
 
 //***************************************************************************

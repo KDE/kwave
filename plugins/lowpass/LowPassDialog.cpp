@@ -18,10 +18,12 @@
 #include "config.h"
 #include "math.h"
 
-#include <qwidget.h>
+#include <qobject.h>
 #include <qpainter.h>
+#include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qslider.h>
+#include <qwidget.h>
 #include <knuminput.h>
 
 #include <klocale.h>
@@ -34,7 +36,9 @@
 
 //***************************************************************************
 LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
-    :LowPassDlg(parent, 0, true), m_frequency(3500),
+    :LowPassDlg(parent, 0, true),
+     KwavePluginSetupDialog(),
+     m_frequency(3500),
      m_sample_rate(sample_rate), m_filter(0)
 {
 
@@ -69,7 +73,18 @@ LowPassDialog::LowPassDialog(QWidget *parent, double sample_rate)
     // changes in the slider or spinbox
     connect(spinbox, SIGNAL(valueChanged(int)),
             this, SLOT(valueChanged(int)));
+    // click to the "Listen" button
+    connect(btListen, SIGNAL(toggled(bool)),
+            this, SLOT(listenToggled(bool)));
 
+    // expand the "Listen" button to it's maximum width
+    listenToggled(true);
+    if (btListen->width() > btListen->minimumWidth())
+        btListen->setMinimumWidth(btListen->width());
+    listenToggled(false);
+    if (btListen->width() > btListen->minimumWidth())
+        btListen->setMinimumWidth(btListen->width());
+        
     // set the initial size of the dialog
     int h = (width() * 3) / 5;
     if (height() < h) resize(width(), h);
@@ -90,6 +105,8 @@ void LowPassDialog::valueChanged(int pos)
     if ((int)m_frequency != pos) {
 	m_frequency = pos;
 	updateDisplay();
+
+	emit changed(m_frequency);
     }
 }
 
@@ -122,6 +139,32 @@ void LowPassDialog::updateDisplay()
     double f_max = m_sample_rate / 2.0;
     if (m_filter && (f_max != 0.0))
         m_filter->setFrequency((m_frequency/f_max)*M_PI);
+}
+
+//***************************************************************************
+void LowPassDialog::listenToggled(bool listen)
+{
+    Q_ASSERT(btListen);
+    if (!btListen) return;
+
+    if (listen) {
+	// start pre-listen mode
+	emit startPreListen();
+	btListen->setText(i18n("&Stop"));
+    } else {
+	// stop pre-listen mode
+	emit stopPreListen();
+	btListen->setText(i18n("&Listen"));
+    }
+}
+
+//***************************************************************************
+void LowPassDialog::listenStopped()
+{
+    Q_ASSERT(btListen);
+    if (!btListen) return;
+
+    btListen->setOn(false);
 }
 
 //***************************************************************************

@@ -1,31 +1,29 @@
 <!DOCTYPE UI><UI>
-<class>MemoryDialog</class>
+<class>MemDlg</class>
+<comment>Setup of virtual memory and physical memory usage.</comment>
 <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
 <widget>
     <class>QDialog</class>
     <property stdset="1">
         <name>name</name>
-        <cstring>Memory_Dialog</cstring>
+        <cstring>MemDlg</cstring>
     </property>
     <property stdset="1">
         <name>geometry</name>
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>439</width>
-            <height>310</height>
+            <width>454</width>
+            <height>318</height>
         </rect>
-    </property>
-    <property stdset="1">
-        <name>sizePolicy</name>
-        <sizepolicy>
-            <hsizetype>0</hsizetype>
-            <vsizetype>0</vsizetype>
-        </sizepolicy>
     </property>
     <property stdset="1">
         <name>caption</name>
         <string>Memory Settings</string>
+    </property>
+    <property stdset="1">
+        <name>sizeGripEnabled</name>
+        <bool>false</bool>
     </property>
     <property>
         <name>layoutMargin</name>
@@ -46,39 +44,32 @@
             <class>QGroupBox</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>GroupBox1</cstring>
-            </property>
-            <property stdset="1">
-                <name>maximumSize</name>
-                <size>
-                    <width>32767</width>
-                    <height>32767</height>
-                </size>
+                <cstring>GroupBox9</cstring>
             </property>
             <property stdset="1">
                 <name>title</name>
-                <string>System Memory</string>
+                <string>&amp;Physical Memory</string>
             </property>
             <property>
-                <name>layoutMargin</name>
-            </property>
-            <property>
-                <name>layoutSpacing</name>
+                <name>whatsThis</name>
+                <string>&lt;b&gt;Limit the usage of physical memory (RAM).&lt;/b&gt;&lt;br&gt;
+
+If you do not set a limit, the size of the physically installed memory in your computer will be determined and used as limit. You cannot set a limit higher than the totally installed amount of memory.</string>
             </property>
             <vbox>
                 <property stdset="1">
                     <name>margin</name>
-                    <number>10</number>
+                    <number>11</number>
                 </property>
                 <property stdset="1">
                     <name>spacing</name>
-                    <number>10</number>
+                    <number>6</number>
                 </property>
                 <widget>
                     <class>QLayoutWidget</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>Layout9</cstring>
+                        <cstring>Layout5</cstring>
                     </property>
                     <hbox>
                         <property stdset="1">
@@ -93,63 +84,34 @@
                             <class>QCheckBox</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>chk_ram_limit</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>sizePolicy</name>
-                                <sizepolicy>
-                                    <hsizetype>1</hsizetype>
-                                    <vsizetype>1</vsizetype>
-                                </sizepolicy>
+                                <cstring>chkLimitPhysical</cstring>
                             </property>
                             <property stdset="1">
                                 <name>text</name>
-                                <string>Limit to (Megabytes)</string>
-                            </property>
-                            <property stdset="1">
-                                <name>checked</name>
-                                <bool>true</bool>
+                                <string>Limit &amp;to</string>
                             </property>
                         </widget>
                         <widget>
                             <class>QSlider</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>sb_ram</cstring>
+                                <cstring>slPhysical</cstring>
                             </property>
                             <property stdset="1">
-                                <name>sizePolicy</name>
-                                <sizepolicy>
-                                    <hsizetype>7</hsizetype>
-                                    <vsizetype>0</vsizetype>
-                                </sizepolicy>
-                            </property>
-                            <property stdset="1">
-                                <name>minimumSize</name>
-                                <size>
-                                    <width>150</width>
-                                    <height>0</height>
-                                </size>
+                                <name>enabled</name>
+                                <bool>false</bool>
                             </property>
                             <property stdset="1">
                                 <name>minValue</name>
-                                <number>5</number>
+                                <number>1</number>
                             </property>
                             <property stdset="1">
                                 <name>maxValue</name>
-                                <number>500</number>
-                            </property>
-                            <property stdset="1">
-                                <name>lineStep</name>
-                                <number>5</number>
-                            </property>
-                            <property stdset="1">
-                                <name>pageStep</name>
-                                <number>100</number>
+                                <number>4096</number>
                             </property>
                             <property stdset="1">
                                 <name>value</name>
-                                <number>5</number>
+                                <number>1</number>
                             </property>
                             <property stdset="1">
                                 <name>orientation</name>
@@ -161,44 +123,38 @@
                             </property>
                             <property stdset="1">
                                 <name>tickInterval</name>
-                                <number>100</number>
+                                <number>64</number>
                             </property>
                         </widget>
                         <widget>
                             <class>QSpinBox</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>val_ram</cstring>
+                                <cstring>sbPhysical</cstring>
                             </property>
                             <property stdset="1">
-                                <name>sizePolicy</name>
-                                <sizepolicy>
-                                    <hsizetype>1</hsizetype>
-                                    <vsizetype>1</vsizetype>
-                                </sizepolicy>
+                                <name>enabled</name>
+                                <bool>false</bool>
                             </property>
                             <property stdset="1">
-                                <name>minimumSize</name>
-                                <size>
-                                    <width>60</width>
-                                    <height>0</height>
-                                </size>
+                                <name>suffix</name>
+                                <string> MB</string>
                             </property>
                             <property stdset="1">
                                 <name>maxValue</name>
-                                <number>500</number>
+                                <number>4096</number>
                             </property>
                             <property stdset="1">
                                 <name>minValue</name>
-                                <number>5</number>
-                            </property>
-                            <property stdset="1">
-                                <name>lineStep</name>
-                                <number>5</number>
+                                <number>1</number>
                             </property>
                             <property stdset="1">
                                 <name>value</name>
-                                <number>5</number>
+                                <number>4096</number>
+                            </property>
+                            <property>
+                                <name>toolTip</name>
+                                <string>megabytes of physical memory</string>
                             </property>
                         </widget>
                     </hbox>
@@ -209,43 +165,38 @@
             <class>QGroupBox</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>GroupBox5</cstring>
+                <cstring>MemDlg1</cstring>
             </property>
             <property stdset="1">
                 <name>title</name>
-                <string>Virtual Memory</string>
+                <string>&amp;Virtual Memory</string>
             </property>
             <property>
-                <name>layoutMargin</name>
-            </property>
-            <property>
-                <name>layoutSpacing</name>
+                <name>whatsThis</name>
+                <string>&lt;b&gt;Configure the usage of virtual memory (swap files).&lt;/b&gt;&lt;br&gt;
+
+If you enable the use of virtual memory, you can specify a directory where Kwave creates temporary files that it can use as an extension to the physical memory. This enables you to process files that are much larger than your physical memory.
+&lt;br&gt;
+    Of course you can also set a limit for the total size of the page files.</string>
             </property>
             <vbox>
                 <property stdset="1">
                     <name>margin</name>
-                    <number>10</number>
+                    <number>11</number>
                 </property>
                 <property stdset="1">
                     <name>spacing</name>
-                    <number>10</number>
+                    <number>6</number>
                 </property>
                 <widget>
                     <class>QCheckBox</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>chk_disk_enable</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>sizePolicy</name>
-                        <sizepolicy>
-                            <hsizetype>3</hsizetype>
-                            <vsizetype>1</vsizetype>
-                        </sizepolicy>
+                        <cstring>chkEnableVirtual</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>enable usage of virtual Memory</string>
+                        <string>&amp;Enable usage of virtual memory</string>
                     </property>
                     <property stdset="1">
                         <name>checked</name>
@@ -256,7 +207,7 @@
                     <class>QLayoutWidget</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>Layout11</cstring>
+                        <cstring>Layout5</cstring>
                     </property>
                     <hbox>
                         <property stdset="1">
@@ -271,63 +222,41 @@
                             <class>QCheckBox</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>chk_disk_enable_limit</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>sizePolicy</name>
-                                <sizepolicy>
-                                    <hsizetype>1</hsizetype>
-                                    <vsizetype>1</vsizetype>
-                                </sizepolicy>
+                                <cstring>chkLimitVirtual</cstring>
                             </property>
                             <property stdset="1">
                                 <name>text</name>
-                                <string>Limit to (Megabytes)</string>
-                            </property>
-                            <property stdset="1">
-                                <name>checked</name>
-                                <bool>true</bool>
+                                <string>&amp;Limit to</string>
                             </property>
                         </widget>
                         <widget>
                             <class>QSlider</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>sb_disk</cstring>
+                                <cstring>slVirtual</cstring>
                             </property>
                             <property stdset="1">
-                                <name>sizePolicy</name>
-                                <sizepolicy>
-                                    <hsizetype>7</hsizetype>
-                                    <vsizetype>0</vsizetype>
-                                </sizepolicy>
+                                <name>enabled</name>
+                                <bool>false</bool>
                             </property>
                             <property stdset="1">
                                 <name>minimumSize</name>
                                 <size>
-                                    <width>150</width>
-                                    <height>0</height>
+                                    <width>200</width>
+                                    <height>20</height>
                                 </size>
                             </property>
                             <property stdset="1">
-                                <name>minValue</name>
-                                <number>5</number>
-                            </property>
-                            <property stdset="1">
                                 <name>maxValue</name>
-                                <number>500</number>
+                                <number>4096</number>
                             </property>
                             <property stdset="1">
                                 <name>lineStep</name>
-                                <number>5</number>
+                                <number>10</number>
                             </property>
                             <property stdset="1">
                                 <name>pageStep</name>
                                 <number>100</number>
-                            </property>
-                            <property stdset="1">
-                                <name>value</name>
-                                <number>5</number>
                             </property>
                             <property stdset="1">
                                 <name>orientation</name>
@@ -339,44 +268,42 @@
                             </property>
                             <property stdset="1">
                                 <name>tickInterval</name>
-                                <number>100</number>
+                                <number>500</number>
                             </property>
                         </widget>
                         <widget>
                             <class>QSpinBox</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>val_disk</cstring>
+                                <cstring>sbVirtual</cstring>
                             </property>
                             <property stdset="1">
-                                <name>sizePolicy</name>
-                                <sizepolicy>
-                                    <hsizetype>1</hsizetype>
-                                    <vsizetype>1</vsizetype>
-                                </sizepolicy>
+                                <name>enabled</name>
+                                <bool>false</bool>
                             </property>
                             <property stdset="1">
-                                <name>minimumSize</name>
-                                <size>
-                                    <width>60</width>
-                                    <height>0</height>
-                                </size>
+                                <name>suffix</name>
+                                <string> MB</string>
                             </property>
                             <property stdset="1">
                                 <name>maxValue</name>
-                                <number>500</number>
+                                <number>4096</number>
                             </property>
                             <property stdset="1">
                                 <name>minValue</name>
-                                <number>5</number>
+                                <number>10</number>
                             </property>
                             <property stdset="1">
                                 <name>lineStep</name>
-                                <number>5</number>
+                                <number>10</number>
                             </property>
                             <property stdset="1">
                                 <name>value</name>
-                                <number>5</number>
+                                <number>4096</number>
+                            </property>
+                            <property>
+                                <name>toolTip</name>
+                                <string>megabytes of virtual memory</string>
                             </property>
                         </widget>
                     </hbox>
@@ -385,7 +312,7 @@
                     <class>QLayoutWidget</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>Layout12</cstring>
+                        <cstring>Layout6</cstring>
                     </property>
                     <hbox>
                         <property stdset="1">
@@ -400,18 +327,7 @@
                             <class>QLabel</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>TextLabel2_2_2</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>enabled</name>
-                                <bool>true</bool>
-                            </property>
-                            <property stdset="1">
-                                <name>sizePolicy</name>
-                                <sizepolicy>
-                                    <hsizetype>1</hsizetype>
-                                    <vsizetype>1</vsizetype>
-                                </sizepolicy>
+                                <cstring>txtDirectory</cstring>
                             </property>
                             <property stdset="1">
                                 <name>text</name>
@@ -422,44 +338,30 @@
                             <class>QLineEdit</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>bt_disk_path</cstring>
+                                <cstring>edDirectory</cstring>
                             </property>
                             <property stdset="1">
-                                <name>enabled</name>
-                                <bool>true</bool>
+                                <name>text</name>
+                                <string>/tmp</string>
                             </property>
-                            <property stdset="1">
-                                <name>sizePolicy</name>
-                                <sizepolicy>
-                                    <hsizetype>3</hsizetype>
-                                    <vsizetype>5</vsizetype>
-                                </sizepolicy>
+                            <property>
+                                <name>toolTip</name>
+                                <string>directory for storing swap files</string>
                             </property>
                         </widget>
                         <widget>
                             <class>QPushButton</class>
                             <property stdset="1">
                                 <name>name</name>
-                                <cstring>bt_disk_search_path</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>enabled</name>
-                                <bool>true</bool>
-                            </property>
-                            <property stdset="1">
-                                <name>sizePolicy</name>
-                                <sizepolicy>
-                                    <hsizetype>1</hsizetype>
-                                    <vsizetype>1</vsizetype>
-                                </sizepolicy>
+                                <cstring>btSearch</cstring>
                             </property>
                             <property stdset="1">
                                 <name>text</name>
-                                <string>Search...</string>
+                                <string>&amp;Search...</string>
                             </property>
                             <property>
                                 <name>toolTip</name>
-                                <string>choose a directory for the temporary files</string>
+                                <string>browse for a directory to hold page files</string>
                             </property>
                         </widget>
                     </hbox>
@@ -507,6 +409,10 @@
                     <property stdset="1">
                         <name>name</name>
                         <cstring>btHelp</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>enabled</name>
+                        <bool>false</bool>
                     </property>
                     <property stdset="1">
                         <name>sizePolicy</name>
@@ -575,62 +481,80 @@
     <connection>
         <sender>btOK</sender>
         <signal>clicked()</signal>
-        <receiver>Memory_Dialog</receiver>
+        <receiver>MemDlg</receiver>
         <slot>accept()</slot>
     </connection>
     <connection>
         <sender>btCancel</sender>
         <signal>clicked()</signal>
-        <receiver>Memory_Dialog</receiver>
+        <receiver>MemDlg</receiver>
         <slot>reject()</slot>
     </connection>
     <connection>
-        <sender>chk_ram_limit</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>sb_ram</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>chk_ram_limit</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>val_ram</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>sb_ram</sender>
+        <sender>slVirtual</sender>
         <signal>valueChanged(int)</signal>
-        <receiver>val_ram</receiver>
+        <receiver>sbVirtual</receiver>
         <slot>setValue(int)</slot>
     </connection>
     <connection>
-        <sender>val_ram</sender>
+        <sender>sbVirtual</sender>
         <signal>valueChanged(int)</signal>
-        <receiver>sb_ram</receiver>
+        <receiver>slVirtual</receiver>
         <slot>setValue(int)</slot>
     </connection>
     <connection>
-        <sender>chk_disk_enable_limit</sender>
+        <sender>chkLimitPhysical</sender>
         <signal>toggled(bool)</signal>
-        <receiver>sb_disk</receiver>
+        <receiver>sbPhysical</receiver>
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
-        <sender>sb_disk</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>val_disk</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>val_disk</sender>
-        <signal>valueChanged(int)</signal>
-        <receiver>sb_disk</receiver>
-        <slot>setValue(int)</slot>
-    </connection>
-    <connection>
-        <sender>chk_disk_enable_limit</sender>
+        <sender>chkLimitPhysical</sender>
         <signal>toggled(bool)</signal>
-        <receiver>val_disk</receiver>
+        <receiver>slPhysical</receiver>
         <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkLimitVirtual</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>slVirtual</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkLimitVirtual</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>sbVirtual</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkEnableVirtual</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>chkLimitVirtual</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkEnableVirtual</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>edDirectory</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>chkEnableVirtual</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>btSearch</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>slPhysical</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>sbPhysical</receiver>
+        <slot>setValue(int)</slot>
+    </connection>
+    <connection>
+        <sender>sbPhysical</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>slPhysical</receiver>
+        <slot>setValue(int)</slot>
     </connection>
 </connections>
 </UI>

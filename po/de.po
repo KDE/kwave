@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSION\n"
-"POT-Creation-Date: 2000-09-09 22:15+0200\n"
+"POT-Creation-Date: 2000-09-15 11:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,76 +75,73 @@ msgid "every 2nd Point"
 msgstr "jeder zweite Punkt"
 
 #: src/ProgressDialog.cpp:62
-#, fuzzy
 msgid "Progress"
 msgstr "Fortschritt"
 
-#: src/SignalManager.cpp:395
-#, fuzzy
+#: src/SignalManager.cpp:394
 msgid " on channel "
 msgstr " auf Kanal "
 
-#: src/SignalManager.cpp:516 src/SignalManager.cpp:569
-#: src/SignalManager.cpp:600 src/SignalManager.cpp:625
-#: src/SignalManager.cpp:634 src/SignalManager.cpp:639
-#: src/SignalManager.cpp:644 src/SignalManager.cpp:892
-#: src/SignalManager.cpp:951
+#: src/SignalManager.cpp:515 src/SignalManager.cpp:568
+#: src/SignalManager.cpp:599 src/SignalManager.cpp:624
+#: src/SignalManager.cpp:633 src/SignalManager.cpp:638
+#: src/SignalManager.cpp:643 src/SignalManager.cpp:891
+#: src/SignalManager.cpp:950
 msgid "Info"
 msgstr "Info"
 
-#: src/SignalManager.cpp:516 src/SignalManager.cpp:569
+#: src/SignalManager.cpp:515 src/SignalManager.cpp:568
 msgid "File does not exist !"
 msgstr "Datei existiert nicht!"
 
-#: src/SignalManager.cpp:601
+#: src/SignalManager.cpp:600
 msgid "File has no data chunk!"
 msgstr "Datei enthält keine Daten!"
 
-#: src/SignalManager.cpp:626 src/SignalManager.cpp:893
+#: src/SignalManager.cpp:625 src/SignalManager.cpp:892
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
 
-#: src/SignalManager.cpp:635
+#: src/SignalManager.cpp:634
 msgid "File must be uncompressed (Mode 1) !"
 msgstr "Datei ist nicht im unkompimierten Modus (Mode 1)!"
 
-#: src/SignalManager.cpp:640
+#: src/SignalManager.cpp:639
 msgid "File is no RIFF Wave File !"
 msgstr "Datei ist nicht im RIFF Wave Format!"
 
-#: src/SignalManager.cpp:645
+#: src/SignalManager.cpp:644
 msgid "File does not contain enough data !"
 msgstr "Datei ist unvollständig!"
 
-#: src/SignalManager.cpp:680 src/SignalManager.cpp:754
-#: src/SignalManager.cpp:964
+#: src/SignalManager.cpp:679 src/SignalManager.cpp:753
+#: src/SignalManager.cpp:963
 msgid "Mono"
 msgstr "Mono"
 
-#: src/SignalManager.cpp:682 src/SignalManager.cpp:756
-#: src/SignalManager.cpp:966
+#: src/SignalManager.cpp:681 src/SignalManager.cpp:755
+#: src/SignalManager.cpp:965
 msgid "Stereo"
 msgstr "Stereo"
 
-#: src/SignalManager.cpp:686
+#: src/SignalManager.cpp:685
 #, c-format
 msgid "Exporting %s ASCII file :"
 msgstr "Exportiere %s ASCII-Datei :"
 
-#: src/SignalManager.cpp:778
+#: src/SignalManager.cpp:777
 msgid "empty channel detected, channel count reduced by one"
 msgstr "leere Stimme gefunden, Anzahl wird um 1 reduziert"
 
-#: src/SignalManager.cpp:850
-#, fuzzy
+#: src/SignalManager.cpp:849
 msgid "info"
 msgstr "Info"
 
-#: src/SignalManager.cpp:851
+#: src/SignalManager.cpp:850
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: src/SignalManager.cpp:940
+#: src/SignalManager.cpp:939
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File has been truncated."
@@ -152,38 +149,37 @@ msgstr ""
 "Fehler in Eingabe: Datei ist kleiner als im Header angegeben. \n"
 "Datei wurde abgeschnitten."
 
-#: src/SignalManager.cpp:951
+#: src/SignalManager.cpp:950
 msgid "Out of Memory!"
 msgstr "Zu wenig Speicher!"
 
-#: src/SignalManager.cpp:969
+#: src/SignalManager.cpp:968
 #, c-format
 msgid "%d voices"
 msgstr "%d Stimmen"
 
-#: src/SignalManager.cpp:972
-#, fuzzy, c-format
+#: src/SignalManager.cpp:971
+#, c-format
 msgid "Loading %d-Bit (%s) File :"
 msgstr "Lade %d-Bit-%s Datei :"
 
-#: src/SignalManager.cpp:1160
+#: src/SignalManager.cpp:1159
 msgid "playback problem"
 msgstr "Problem bei der Wiedergabe"
 
-#: src/SignalManager.cpp:1204
-#, fuzzy
+#: src/SignalManager.cpp:1203
 msgid "number of bits per samples not supported"
 msgstr "Anzahl der Bits/Sample wird nicht unterstützt!"
 
-#: src/SignalManager.cpp:1212
+#: src/SignalManager.cpp:1211
 msgid "stereo not supported"
 msgstr "Stereo wird nicht unterstützt"
 
-#: src/SignalManager.cpp:1219
+#: src/SignalManager.cpp:1218
 msgid "playback rate not supported"
 msgstr "Wiedergabe-Rate wird nicht unterstützt"
 
-#: src/SignalManager.cpp:1226
+#: src/SignalManager.cpp:1225
 msgid "unusable buffer size"
 msgstr "Puffer-Größe kann nicht verwendet werden"
 
@@ -207,16 +203,16 @@ msgstr "ausgewählt: 0ms       "
 msgid "Clipboard: 0 ms      "
 msgstr "Zwischenablage: 0ms     "
 
-#: src/PluginManager.cpp:97
+#: src/PluginManager.cpp:98
 #, c-format
 msgid "oops, plugin '%s' is unknown !"
 msgstr "Hoppla, Plugin '%s' ist unbekannt !"
 
-#: src/PluginManager.cpp:99 src/PluginManager.cpp:117
+#: src/PluginManager.cpp:100 src/PluginManager.cpp:118
 msgid "error on loading plugin"
 msgstr "Fehler beim Laden des Plugins"
 
-#: src/PluginManager.cpp:113
+#: src/PluginManager.cpp:114
 #, c-format
 msgid ""
 "unable to load the file \n"
@@ -240,7 +236,6 @@ msgid "&Zoom"
 msgstr "&Zoom"
 
 #: src/MainWidget.cpp:210
-#, fuzzy
 msgid "All"
 msgstr "&Alles"
 
@@ -263,12 +258,12 @@ msgid "Halt"
 msgstr "Halt"
 
 #: src/MainWidget.cpp:719
-#, fuzzy, c-format
+#, c-format
 msgid "selected: %s"
 msgstr "ausgewählt: %s"
 
 #: src/MainWidget.cpp:729
-#, fuzzy, c-format
+#, c-format
 msgid "Length: %s"
 msgstr "Länge: %s"
 
@@ -306,7 +301,6 @@ msgid "&Amplify"
 msgstr "&Verstärken"
 
 #: src/menus_config_i18n.cpp:21
-#, fuzzy
 msgid "&As..."
 msgstr "&Unter ..."
 
@@ -315,7 +309,6 @@ msgid "&Average spectrum"
 msgstr "&Mittleres Spektrum"
 
 #: src/menus_config_i18n.cpp:23
-#, fuzzy
 msgid "&Blocks..."
 msgstr "&Blöcke ..."
 
@@ -388,7 +381,6 @@ msgid "&Expand to labels"
 msgstr "auf Marker &erweitern"
 
 #: src/menus_config_i18n.cpp:46
-#, fuzzy
 msgid "&Export to Ascii..."
 msgstr "&Exportiere als ASCII ..."
 
@@ -429,12 +421,10 @@ msgid "&Generate"
 msgstr "&Erzeuge"
 
 #: src/menus_config_i18n.cpp:58
-#, fuzzy
 msgid "&Import Ascii..."
 msgstr "&Importiere ASCII"
 
 #: src/menus_config_i18n.cpp:59
-#, fuzzy
 msgid "&Insert labels..."
 msgstr "Marker &einfügen ..."
 
@@ -455,12 +445,10 @@ msgid "&Labels"
 msgstr "&Marker"
 
 #: src/menus_config_i18n.cpp:64
-#, fuzzy
 msgid "Labels..."
 msgstr "Marker ..."
 
 #: src/menus_config_i18n.cpp:65
-#, fuzzy
 msgid "&Load labels..."
 msgstr "Marker &Laden ..."
 
@@ -525,7 +513,6 @@ msgid "&Periodic Silence"
 msgstr "&Periodische Stille"
 
 #: src/menus_config_i18n.cpp:83
-#, fuzzy
 msgid "Periods..."
 msgstr "Periode..."
 
@@ -594,7 +581,6 @@ msgid "&Selection"
 msgstr "Au&swahl"
 
 #: src/menus_config_i18n.cpp:103
-#, fuzzy
 msgid "&Selection..."
 msgstr "Auswahl ..."
 
@@ -602,6 +588,7 @@ msgstr "Auswahl ..."
 msgid "&Silence"
 msgstr "&Stille"
 
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:79
 #: src/menus_config_i18n.cpp:105
 msgid "&Sonagram"
 msgstr "&Sonagramm"
@@ -623,7 +610,6 @@ msgid "to be done..."
 msgstr "noch zu erledigen..."
 
 #: src/menus_config_i18n.cpp:110
-#, fuzzy
 msgid "&to end"
 msgstr "bis zum Ende"
 
@@ -838,7 +824,6 @@ msgid "Resolution"
 msgstr "Auflösung"
 
 #: plugins/dialogs/playback/module.cpp:118
-#, fuzzy
 msgid ""
 "Set Playback-Mode to 8 Bit (poor quality)\n"
 "should be supported by all sound hardware !"
@@ -847,7 +832,6 @@ msgstr ""
 "Sollte von jeder Hardware unterstützt werden !"
 
 #: plugins/dialogs/playback/module.cpp:127
-#, fuzzy
 msgid ""
 "Set Playback-Mode to 16 Bit (CD-like quality)\n"
 "not supported by all sound hardware !"
@@ -868,7 +852,6 @@ msgid "Playback Device :"
 msgstr "Wiedergabegerät :"
 
 #: plugins/dialogs/playback/module.cpp:163
-#, fuzzy
 msgid "se&lect..."
 msgstr "Aus&wahl ..."
 
@@ -893,7 +876,6 @@ msgstr ""
 " Computer besitzen oder Aussetzer in der Wiedergabe hören.)"
 
 #: plugins/dialogs/playback/module.cpp:194
-#, fuzzy
 msgid "&stereo playback"
 msgstr "&Stereo-Wiedergabe"
 
@@ -912,7 +894,7 @@ msgstr ""
 "Sorry, noch nicht implementiert!"
 
 #: plugins/dialogs/playback/module.cpp:321
-#, fuzzy, c-format, ycp-format
+#, c-format, ycp-format
 msgid "Buffer Size : %5d samples"
 msgstr "Buffer-Größe: %5d Samples"
 
@@ -974,7 +956,7 @@ msgid "Choose windowing function here."
 msgstr "Fensterfunktion wählen"
 
 #: plugins/dialogs/averagefft/module.cpp:39
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:85
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:146
 msgid "Window Function :"
 msgstr "Fensterfunktion :"
 
@@ -1049,6 +1031,7 @@ msgid "do recursive delaying"
 msgstr "umgekehrte Verzögerung"
 
 #: plugins/dialogs/delay/module.cpp:61
+#, c-format
 msgid "Amplitude of delayed signal :%d %%"
 msgstr "Amplitude des verzögerten Signals :%d %%"
 
@@ -1128,72 +1111,31 @@ msgstr "Wert eingeben"
 msgid "Length of pulse :"
 msgstr "Pulslänge :"
 
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:71
-msgid "&Spectral Data"
-msgstr "&Spektrale Daten"
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:73
-msgid "&Import from Bitmap ..."
-msgstr "&Import von Bitmap ..."
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:74
-msgid "&Export to Bitmap ..."
-msgstr "&Exportiere als Bitmap ..."
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:75
-msgid "&reTransform to signal"
-msgstr "&retransformiere zu Signal"
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:77
-#, fuzzy
-msgid "Frequencies Status Bar"
-msgstr "Frequenzen Statuszeile"
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:81
-#, fuzzy
-msgid "Time:          0 ms     "
-msgstr "Zeit:         0ms      "
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:82
-#, fuzzy
-msgid "Frequency:          0 Hz     "
-msgstr "Frequenz:          0 Hz"
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:83
-#, fuzzy, c-format
-msgid "Amplitude:    0 %      "
-msgstr "Amplitude:       0 %     "
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:84
-#, fuzzy
-msgid "Phase:    0        "
-msgstr "Länge: 0ms             "
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:379
-#, fuzzy
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:427
 msgid "Sonagram of "
 msgstr "Sonagramm von "
 
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:382
-#, fuzzy
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:430
 msgid "<nothing>"
 msgstr "&Nichts"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:50
-#, fuzzy
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:55
 msgid "sonagram"
-msgstr "&Sonagramm"
+msgstr "Sonagramm"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:61
-#, fuzzy
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:69
 msgid "Set FFT/time resolution parameter"
-msgstr "Parameter der FFT/Zeit-Ausflösungs"
+msgstr "Parameter der FFT/Zeit-Auflösung"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:63
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:103
+msgid "FFT settings"
+msgstr "FFT-Einstellungen"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:110
 msgid "Number of FFT points:"
 msgstr "Anzahl der FFT-Punkte:"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:67
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:119
 msgid ""
 "Try to choose numbers with small prime-factors, if choosing big window "
 "sizes.\n"
@@ -1202,7 +1144,7 @@ msgstr ""
 "Bei großen Fenstern wählen Sie bitte Zahlen mit kleinen Primfaktoren.\n"
 "Die Berechnung geht dadurch um einiges schneller !"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:79
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:133
 msgid ""
 "Choose windowing function here. If fourier transformation should stay "
 "reversible, use the type <none>"
@@ -1210,12 +1152,60 @@ msgstr ""
 "Wählen Sie hier eine Fensterfunktion. Wenn die Transformation umkehrbar sein "
 "soll, wählen Sie den Typ <keine>"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:215
-#, c-format
-msgid "resulting window size: %s"
-msgstr "resultierende Fenstergröße: %s"
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:228
+msgid "display"
+msgstr "Anzeige"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:217
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:239
+msgid "use colors"
+msgstr "Farben verwenden"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:243
+msgid "use different colors for amplitude"
+msgstr "verwendet verschiedene Farben für die Amplitude"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:248
+msgid "greyscale"
+msgstr "Graustufen"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:251
+msgid "use greyscale only for amplitude"
+msgstr "verwendet nur Graustufen für die Amplitude"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:260
+msgid "update"
+msgstr "Aktualisieren"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:271
+msgid "on modifications"
+msgstr "bei Veränderungen"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:275
+msgid ""
+"automatically update the sonagram\n"
+"if the signal data has modified"
+msgstr ""
+"aktualisiert das Sonagram automatisch,\n"
+"wenn das Signal verändert wurde"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:281
+msgid "follow selection"
+msgstr "Auswahl folgen"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:285
+msgid ""
+"automatically update the sonagram if the selection\n"
+"has been enlarged, reduced or moved"
+msgstr ""
+"aktualisiert das Sonagram automatisch, wenn die\n"
+"Auswahl vergrößert, reduziert oder verschoben wurde"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:375
+#, c-format
+msgid "( resulting window size: %s )"
+msgstr "( resultierende Fenstergröße: %s )"
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:377
 #, c-format
 msgid "size of bitmap: %dx%d"
 msgstr "Größe der Bitmap: %dx%d"
@@ -1278,13 +1268,40 @@ msgid "new"
 msgstr "neu"
 
 #: plugins/dialogs/mix/module.cpp:48
-#, fuzzy, c-format
+#, c-format
 msgid "Channel %d :"
 msgstr "&Stimme %d :"
 
 #: plugins/dialogs/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
+
+#~ msgid "&Spectral Data"
+#~ msgstr "&Spektrale Daten"
+
+#~ msgid "&Import from Bitmap ..."
+#~ msgstr "&Import von Bitmap ..."
+
+#~ msgid "&Export to Bitmap ..."
+#~ msgstr "&Exportiere als Bitmap ..."
+
+#~ msgid "&reTransform to signal"
+#~ msgstr "&retransformiere zu Signal"
+
+#~ msgid "Frequencies Status Bar"
+#~ msgstr "Frequenzen Statuszeile"
+
+#~ msgid "Time:          0 ms     "
+#~ msgstr "Zeit:         0ms      "
+
+#~ msgid "Frequency:          0 Hz     "
+#~ msgstr "Frequenz:          0 Hz"
+
+#~ msgid "Amplitude:    0 %      "
+#~ msgstr "Amplitude:       0 %     "
+
+#~ msgid "Phase:    0        "
+#~ msgstr "Länge: 0ms             "
 
 #~ msgid "&Pitch"
 #~ msgstr "&Frequenzverschiebung"
@@ -1343,30 +1360,24 @@ msgstr "Störgerade wählen :"
 #~ msgid "Bitmap must be %dx%d"
 #~ msgstr "Bitmap muss %dx%d sein"
 
-#, fuzzy
 #~ msgid "Could not open Bitmap"
 #~ msgstr "kann Bitmap nicht öffnen"
 
 #~ msgid "Out of memory !"
 #~ msgstr "Zu wenig Speicher !"
 
-#, fuzzy
 #~ msgid "Time: %s"
 #~ msgstr "Zeit: %s"
 
-#, fuzzy
 #~ msgid "Frequency: %d Hz"
 #~ msgstr "Frequenz: %d Hz"
 
-#, fuzzy
 #~ msgid "Amplitude: %d %%"
 #~ msgstr "Amplitude: %d %%"
 
-#, fuzzy
 #~ msgid "Memory Leak !"
 #~ msgstr "Speicherleck!"
 
-#, fuzzy
 #~ msgid "Phase: %d degree"
 #~ msgstr "Phase: %d Grad"
 
@@ -1401,7 +1412,6 @@ msgstr "Störgerade wählen :"
 #~ msgid "Dialog not loaded !"
 #~ msgstr "Dialog nicht geladen !"
 
-#, fuzzy
 #~ msgid "%d-channel"
 #~ msgstr "%d-&Kanal"
 

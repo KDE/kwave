@@ -140,6 +140,7 @@ AC_SUBST(LD_VERSION_INFO)
 
 dnl add here all your Makefiles
 AC_OUTPUT(Makefile \
+	mt/Makefile \
 	libgui/Makefile \
 	src/Makefile \
 	plugins/Makefile \

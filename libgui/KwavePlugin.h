@@ -85,10 +85,8 @@ public:
      * Gets called from the plugin's execute function and should be overwritten to
      * perform some action. This function runs in a separate thread!
      * @param list of strings with parameters
-     * @return an error code if the execution failed or zero if everything
-     *         was ok.
      */
-    virtual int run(QStrList &params);
+    virtual void run(QStrList params);
 
     /**
      * Returns a reference to the manager of this plugin.
@@ -141,6 +139,12 @@ public:
     virtual int getSingleSample(unsigned int channel, unsigned int offset);
 
     /**
+     * Gives the control to the next thread. This can be called from
+     * within the run() function.
+     */
+    virtual void yield();
+
+    /**
      * Converts a zoom factor into a string. The number of decimals
      * is automatically adjusted in order to give a nice formated
      * percent value. If the zoom factor gets too high for a reasonable
@@ -174,8 +178,6 @@ protected:
     /**
      * Gets called to execute the plugin's run function in a separate thread.
      * @param list of strings with parameters
-     * @return an error code if the execution failed or zero if everything
-     *         was ok.
      */
     int execute(QStrList &params);
 

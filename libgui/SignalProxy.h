@@ -23,17 +23,17 @@
 
 //***************************************************************************
 
-//template <class T> class SignalProxy: protected AsyncSync
-//{
-//public:
-//    SignalProxy(QObject *owner, const char *slot);
-//};
-//
-//template <class T> SignalProxy<T>::SignalProxy(QObject *owner, const char *slot)
-//    :AsyncSync(owner)
-//{
-//    QObject::connect(this, SIGNAL(Activated()), owner, slot);
-//}
+template <class T> class SignalProxy: protected AsyncSync
+{
+public:
+    SignalProxy(QObject *owner, const char *slot);
+};
+
+template <class T> SignalProxy<T>::SignalProxy(QObject *owner, const char *slot)
+    :AsyncSync(owner)
+{
+    QObject::connect(this, SIGNAL(Activated()), owner, slot);
+}
 
 //***************************************************************************
 
@@ -42,8 +42,9 @@ template <class T> class SignalProxy1: protected AsyncSync
 public:
     SignalProxy1(QObject *owner, const char *slot);
     virtual ~SignalProxy1();
-    virtual void enqueue(T param);
+    virtual void enqueue(const T &param);
     virtual T *dequeue();
+    virtual unsigned int count();
 private:
     QQueue<T> queue;
 };
@@ -60,7 +61,7 @@ template <class T> SignalProxy1<T>::~SignalProxy1()
     queue.clear();
 }
 
-template <class T> void SignalProxy1<T>::enqueue(T param)
+template <class T> void SignalProxy1<T>::enqueue(const T &param)
 {
     T *copy = new T(param);
     queue.enqueue(copy);
@@ -70,6 +71,11 @@ template <class T> void SignalProxy1<T>::enqueue(T param)
 template <class T> T *SignalProxy1<T>::dequeue()
 {
     return queue.dequeue();
+}
+
+template <class T> unsigned int SignalProxy1<T>::count()
+{
+    return queue.count();
 }
 
 #endif //  _SIGNAL_PROXY_H_

@@ -16,10 +16,12 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <errno.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
 #include <dlfcn.h>
+#include <sched.h>
 
 #include <qwidget.h>
 
@@ -62,16 +64,41 @@ int KwavePlugin::start(QStrList &params)
     return 0;
 }
 
+
+//void plugin_thread(void *p)
+//{
+//    run(params);
+//}
+
+#include "mt/Asynchronous_Object.h"
+
 //***************************************************************************
 int KwavePlugin::execute(QStrList &params)
 {
-    return run(params);
+
+    debug("KwavePlugin::execute()");
+
+    Asynchronous_Object_with_1_arg<KwavePlugin, QStrList> *controller =
+	new Asynchronous_Object_with_1_arg<KwavePlugin, QStrList>(
+	this, &KwavePlugin::run,params);
+
+    ASSERT(controller);
+    if (!controller) return -ENOMEM;
+
+    debug("KwavePlugin::execute(): activating thread");
+    Thread_Manager thr_mgr;
+    int gid;
+    controller->activate(thr_mgr, gid);
+
+    return 0;
 }
 
 //***************************************************************************
-int KwavePlugin::run(QStrList &params)
+void KwavePlugin::run(QStrList params)
 {
-    return 0;
+    debug("------- KwavePlugin::run(QStrList params) -------");
+    debug("------- KwavePlugin::run(QStrList params: done) -------");
+    return;
 }
 
 //***************************************************************************
@@ -129,6 +156,12 @@ int KwavePlugin::getSingleSample(unsigned int channel, unsigned int offset)
 }
 
 //***************************************************************************
+void KwavePlugin::yield()
+{
+   sched_yield();
+}
+
+//***************************************************************************
 void *KwavePlugin::getHandle()
 {
     return context.handle;
@@ -157,15 +190,17 @@ void KwavePlugin::ms2string(char *buf, unsigned int bufsize, double ms)
 {
     if (ms < 1.0) {
 	char format[128];
-	int digits = (int)ceil(1.0 - log10(ms));
+	// limit to 6 digits, use 0.0 for exact zero
+	int digits = (ms != 0.0) ? (int)ceil(1.0 - log10(ms)) : 1;
+	if ( (digits < 0) || (digits > 6)) digits = 6;
 
 	snprintf(format, sizeof(format), "%%0.%df ms", digits);
 	snprintf(buf, bufsize, format, ms);
     } else if (ms < 1000.0) {
 	snprintf(buf, bufsize, "%0.1f ms", ms);
     } else {
-	int s = (int)round(ms / 1000);
-	int m = (int)floor(s / 60);
+	int s = (int)round(ms / 1000.0);
+	int m = (int)floor(s / 60.0);
 	
 	if (m < 1) {
 	    char format[128];

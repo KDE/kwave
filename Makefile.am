@@ -6,7 +6,7 @@ VERSION	 	 = $(shell cat ./VERSION)
 ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
 SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
-SUBDIRS  	 = libgui src plugins po doc
+SUBDIRS  	 = mt libgui src plugins po doc
 
 CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
 DISTCLEANFILES 	 = config.log ${CLEANFILES}

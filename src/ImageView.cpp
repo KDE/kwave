@@ -51,10 +51,10 @@ int ImageView::getWidth()
 }
 
 //****************************************************************************
-void ImageView::setImage(QImage *image)
+void ImageView::setImage(const QImage *image)
 {
     this->image = image;
-    repaint ();
+    repaint();
 }
 
 //****************************************************************************
@@ -62,7 +62,7 @@ void ImageView::setOffset(int offset)
 {
     if (this->offset != offset) {
 	this->offset = offset;
-	repaint ();
+	repaint();
     }
 }
 
@@ -72,34 +72,37 @@ void ImageView::paintEvent(QPaintEvent *)
     height = rect().height();
     width = rect().width();
 
-    if (image) {
-	ASSERT(image->width());
-	ASSERT(image->height());
-	if (!image->width()) return;
-	if (!image->height()) return;
+    if (!image) return;
+
+    ASSERT(image->width());
+    ASSERT(image->height());
+    if (!image->width()) return;
+    if (!image->height()) return;
 	
-	if ((lh != height) || ((lw != width) && (image->width() < width))) {
-	    if (offset > image->width() - width)
-		offset = image->width() - width;
+    if (offset > image->width() - width)
+	offset = image->width() - width;
 		
-	    QWMatrix matrix;
-	    QPixmap newmap;
-	    newmap.convertFromImage (*image, 0);
+    QWMatrix matrix;
+    QPixmap newmap;
+    newmap.convertFromImage(*image, 0);
 
-	    if (image->width() < width) {
-		offset = 0;
-		matrix.scale(((float)width) / image->width(),
-		            ((float)height) / image->height());
-	    } else
-		matrix.scale (1, ((float)height) / image->height());
+    if (image->width() < width) {
+	offset = 0;
+	matrix.scale(((float)width) / image->width(),
+	            ((float)height) / image->height());
+    } else
+	matrix.scale (1, ((float)height) / image->height());
 
-	    map = (newmap.xForm (matrix));
-	    lh = height;
-	    lw = width;
-	}
+    map = (newmap.xForm (matrix));
+
+    bitBlt (this, 0, 0, &map, offset, 0, width, height);
+
+    if ( (lh != height) || (lw != width)) {
 	emit viewInfo (offset, width, image->width());
-	bitBlt (this, 0, 0, &map, offset, 0, width, height);
     }
+
+    lh = height;
+    lw = width;
 }
 
 //****************************************************************************

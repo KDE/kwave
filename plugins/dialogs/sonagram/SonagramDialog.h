@@ -24,6 +24,7 @@ class Slider;
 class QComboBox;
 class QLabel;
 class QPushButton;
+class QRadioButton;
 class QStrList;
 class KwavePlugin;
 
@@ -58,7 +59,9 @@ private:
     QLabel *windowtypelabel;
     QComboBox *pointbox;
     QComboBox *windowtypebox;
-    QPushButton *ok, *cancel;
+    QRadioButton *rbColor;
+    QPushButton *ok;
+    QPushButton *cancel;
     int length, rate;
 };
 

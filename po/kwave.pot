@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-09 22:15+0200\n"
+"POT-Creation-Date: 2000-09-15 12:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,106 +78,106 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: src/SignalManager.cpp:395
+#: src/SignalManager.cpp:394
 msgid " on channel "
 msgstr ""
 
-#: src/SignalManager.cpp:516 src/SignalManager.cpp:569
-#: src/SignalManager.cpp:600 src/SignalManager.cpp:625
-#: src/SignalManager.cpp:634 src/SignalManager.cpp:639
-#: src/SignalManager.cpp:644 src/SignalManager.cpp:892
-#: src/SignalManager.cpp:951
+#: src/SignalManager.cpp:515 src/SignalManager.cpp:568
+#: src/SignalManager.cpp:599 src/SignalManager.cpp:624
+#: src/SignalManager.cpp:633 src/SignalManager.cpp:638
+#: src/SignalManager.cpp:643 src/SignalManager.cpp:891
+#: src/SignalManager.cpp:950
 msgid "Info"
 msgstr ""
 
-#: src/SignalManager.cpp:516 src/SignalManager.cpp:569
+#: src/SignalManager.cpp:515 src/SignalManager.cpp:568
 msgid "File does not exist !"
 msgstr ""
 
-#: src/SignalManager.cpp:601
+#: src/SignalManager.cpp:600
 msgid "File has no data chunk!"
 msgstr ""
 
-#: src/SignalManager.cpp:626 src/SignalManager.cpp:893
+#: src/SignalManager.cpp:625 src/SignalManager.cpp:892
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr ""
 
-#: src/SignalManager.cpp:635
+#: src/SignalManager.cpp:634
 msgid "File must be uncompressed (Mode 1) !"
 msgstr ""
 
-#: src/SignalManager.cpp:640
+#: src/SignalManager.cpp:639
 msgid "File is no RIFF Wave File !"
 msgstr ""
 
-#: src/SignalManager.cpp:645
+#: src/SignalManager.cpp:644
 msgid "File does not contain enough data !"
 msgstr ""
 
-#: src/SignalManager.cpp:680 src/SignalManager.cpp:754
-#: src/SignalManager.cpp:964
+#: src/SignalManager.cpp:679 src/SignalManager.cpp:753
+#: src/SignalManager.cpp:963
 msgid "Mono"
 msgstr ""
 
-#: src/SignalManager.cpp:682 src/SignalManager.cpp:756
-#: src/SignalManager.cpp:966
+#: src/SignalManager.cpp:681 src/SignalManager.cpp:755
+#: src/SignalManager.cpp:965
 msgid "Stereo"
 msgstr ""
 
-#: src/SignalManager.cpp:686
+#: src/SignalManager.cpp:685
 #, c-format
 msgid "Exporting %s ASCII file :"
 msgstr ""
 
-#: src/SignalManager.cpp:778
+#: src/SignalManager.cpp:777
 msgid "empty channel detected, channel count reduced by one"
 msgstr ""
 
-#: src/SignalManager.cpp:850
+#: src/SignalManager.cpp:849
 msgid "info"
 msgstr ""
 
-#: src/SignalManager.cpp:851
+#: src/SignalManager.cpp:850
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: src/SignalManager.cpp:940
+#: src/SignalManager.cpp:939
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File has been truncated."
 msgstr ""
 
-#: src/SignalManager.cpp:951
+#: src/SignalManager.cpp:950
 msgid "Out of Memory!"
 msgstr ""
 
-#: src/SignalManager.cpp:969
+#: src/SignalManager.cpp:968
 #, c-format
 msgid "%d voices"
 msgstr ""
 
-#: src/SignalManager.cpp:972
+#: src/SignalManager.cpp:971
 #, c-format
 msgid "Loading %d-Bit (%s) File :"
 msgstr ""
 
-#: src/SignalManager.cpp:1160
+#: src/SignalManager.cpp:1159
 msgid "playback problem"
 msgstr ""
 
-#: src/SignalManager.cpp:1204
+#: src/SignalManager.cpp:1203
 msgid "number of bits per samples not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1212
+#: src/SignalManager.cpp:1211
 msgid "stereo not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1219
+#: src/SignalManager.cpp:1218
 msgid "playback rate not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1226
+#: src/SignalManager.cpp:1225
 msgid "unusable buffer size"
 msgstr ""
 
@@ -201,16 +201,16 @@ msgstr ""
 msgid "Clipboard: 0 ms      "
 msgstr ""
 
-#: src/PluginManager.cpp:97
+#: src/PluginManager.cpp:98
 #, c-format
 msgid "oops, plugin '%s' is unknown !"
 msgstr ""
 
-#: src/PluginManager.cpp:99 src/PluginManager.cpp:117
+#: src/PluginManager.cpp:100 src/PluginManager.cpp:118
 msgid "error on loading plugin"
 msgstr ""
 
-#: src/PluginManager.cpp:113
+#: src/PluginManager.cpp:114
 #, c-format
 msgid ""
 "unable to load the file \n"
@@ -583,6 +583,7 @@ msgstr ""
 msgid "&Silence"
 msgstr ""
 
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:79
 #: src/menus_config_i18n.cpp:105
 msgid "&Sonagram"
 msgstr ""
@@ -929,7 +930,7 @@ msgid "Choose windowing function here."
 msgstr ""
 
 #: plugins/dialogs/averagefft/module.cpp:39
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:85
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:146
 msgid "Window Function :"
 msgstr ""
 
@@ -1083,82 +1084,93 @@ msgstr ""
 msgid "Length of pulse :"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:71
-msgid "&Spectral Data"
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:73
-msgid "&Import from Bitmap ..."
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:74
-msgid "&Export to Bitmap ..."
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:75
-msgid "&reTransform to signal"
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:77
-msgid "Frequencies Status Bar"
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:81
-msgid "Time:          0 ms     "
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:82
-msgid "Frequency:          0 Hz     "
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:83
-#, c-format
-msgid "Amplitude:    0 %      "
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:84
-msgid "Phase:    0        "
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:379
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:427
 msgid "Sonagram of "
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:382
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:430
 msgid "<nothing>"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:50
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:55
 msgid "sonagram"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:61
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:69
 msgid "Set FFT/time resolution parameter"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:63
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:103
+msgid "FFT settings"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:110
 msgid "Number of FFT points:"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:67
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:119
 msgid ""
 "Try to choose numbers with small prime-factors, if choosing big window "
 "sizes.\n"
 "The computation will be much faster !"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:79
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:133
 msgid ""
 "Choose windowing function here. If fourier transformation should stay "
 "reversible, use the type <none>"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:215
-#, c-format
-msgid "resulting window size: %s"
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:228
+msgid "display"
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:217
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:239
+msgid "use colors"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:243
+msgid "use different colors for amplitude"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:248
+msgid "greyscale"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:251
+msgid "use greyscale only for amplitude"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:260
+msgid "update"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:271
+msgid "on modifications"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:275
+msgid ""
+"automatically update the sonagram\n"
+"if the signal data has modified"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:281
+msgid "follow selection"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:285
+msgid ""
+"automatically update the sonagram if the selection\n"
+"has been enlarged, reduced or moved"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:375
+#, c-format
+msgid "( resulting window size: %s )"
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:377
 #, c-format
 msgid "size of bitmap: %dx%d"
 msgstr ""

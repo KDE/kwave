@@ -5188,6 +5188,7 @@ ac_given_srcdir=$srcdir
 ac_given_INSTALL="$INSTALL"
 
 trap 'rm -fr `echo "Makefile \
+	mt/Makefile \
 	libgui/Makefile \
 	src/Makefile \
 	plugins/Makefile \
@@ -5363,6 +5364,7 @@ EOF
 cat >> $CONFIG_STATUS <<EOF
 
 CONFIG_FILES=\${CONFIG_FILES-"Makefile \
+	mt/Makefile \
 	libgui/Makefile \
 	src/Makefile \
 	plugins/Makefile \

@@ -27,24 +27,40 @@ MenuManager::MenuManager (QWidget *parent, KMenuBar &bar)
     menu_root = new MenuRoot(bar);
 }
 
-//*****************************************************************************
-int parseToKeyCode (char *key)
-  //parse the key string into integer qt keycode
+int MenuManager::parseToKeyCode(const char *key_name)
 {
-  int keycode=0;
-  int len=strlen(key);
-  int cnt=0;
-  if (len==1) keycode=Key_A+key[0]-'A';
-  else
-    while (cnt<len)
-      {
+    char *key = duplicateString(key_name);
+    int keycode=0;
+    int len;
+    int cnt=0;
+
+    len=strlen(key);
+    if (len==1) {
+	keycode=Key_A+key[0]-'A';
+	delete key;
+	return keycode;
+    }
+
+    while (cnt<len) {
 	int pos=cnt;
-	while ((key[cnt])&&(key[cnt]!='+')) cnt++;		    
+	while ((key[cnt])&&(key[cnt]!='+')) cnt++;		
 	if (cnt<len) key[cnt]=0;
-	if (strlen(&key[pos])==1)
-	  {
-	    if ((key[pos]>='A')&&(key[pos]<='Z'))	keycode+=Key_A+key[pos]-'A';
-	  }			  
+	
+	// keys [A...Z]
+	if (strlen(&key[pos])==1) {
+	    if ((key[pos]>='A')&&(key[pos]<='Z'))
+		keycode+=Key_A+key[pos]-'A';
+	}
+	
+	// function keys [F1...F35] ?
+	if (key[pos] == 'F') {
+	    int nr = atoi(key+pos+1);
+	    if ((nr >= 1) && (nr <= 35)) {
+		keycode+=Key_F1+nr-1;
+	    }
+	}
+	
+	// other known keys
 	if (!strcmp (&key[pos],"PLUS")) keycode+=Key_Plus;
 	if (!strcmp (&key[pos],"MINUS")) keycode+=Key_Minus;
 	if (!strcmp (&key[pos],"SPACE")) keycode+=Key_Space;
@@ -59,8 +75,10 @@ int parseToKeyCode (char *key)
 	if (!strcmp (&key[pos],"SHIFT")) keycode+=SHIFT;
 
 	cnt++;
-      }
-  return keycode;
+    }
+
+    delete key;
+    return keycode;
 }
 
 void MenuManager::setCommand (const char *command)
@@ -72,7 +90,7 @@ void MenuManager::setCommand (const char *command)
     const char *tmp;
     char *com=0;
     char *pos=0;
-    char *key=0; // keyboard shortcut (optional)
+    int   key;   // keyboard shortcut (optional)
     char *id=0;  // string id (optional)
 
     tmp=parser.getFirstParam ();
@@ -89,15 +107,14 @@ void MenuManager::setCommand (const char *command)
     }
 
     tmp=parser.getNextParam();
-    if (tmp) key=duplicateString(tmp);
+    key = (tmp) ? parseToKeyCode(tmp) : 0;
 
     tmp=parser.getNextParam();
     if (tmp) id=duplicateString(tmp);
 
     menu_root->insertNode(com, 0, pos, key, id); // ###
-/* ###
 
-    debug("com='%s', pos='%s', key='%s', id='%s'", com, pos, key, id); // ###
+/* ###
 
     MenuNode *parentmenu=0;
     MenuNode *newmenu=0;
@@ -219,14 +236,11 @@ void MenuManager::setCommand (const char *command)
 // ###	    }
 // ###	  else debug ("creation of menu failed !\n");
 	}
-
-	parentmenu=newmenu;
     }
 */
 
   if (com) deleteString(com);
   if (pos) deleteString(pos);
-  if (key) deleteString(key);
   if (id)  deleteString(id);
 }
 

@@ -37,11 +37,11 @@ public: // Public methods
     virtual int getChildIndex(const int id);
     virtual bool isBranch() {return true;};
 
-    virtual MenuNode *insertBranch(char *name, const char *key,
+    virtual MenuNode *insertBranch(char *name, const int key,
                                    const char *uid, const int index=-1);
 
     virtual MenuNode *insertLeaf(const char *command, char *name,
-                                 const char *key, const char *uid,
+                                 const int key, const char *uid,
                                  const int index=-1);
 
     virtual QPopupMenu *getPopupMenu();

@@ -38,7 +38,7 @@ QPopupMenu *MenuSub::getPopupMenu()
     return menu;
 }
 
-MenuNode *MenuSub::insertBranch(char *name, const char *key, const char *uid,
+MenuNode *MenuSub::insertBranch(char *name, const int key, const char *uid,
 				const int index)
 {
     MenuSub *node = new MenuSub(name);
@@ -52,7 +52,7 @@ MenuNode *MenuSub::insertBranch(char *name, const char *key, const char *uid,
 }
 
 MenuNode *MenuSub::insertLeaf(const char *command, char *name,
-                              const char *key, const char *uid,
+                              const int key, const char *uid,
                               const int index=-1)
 {
     int new_id;
@@ -63,6 +63,7 @@ MenuNode *MenuSub::insertLeaf(const char *command, char *name,
 
     new_id = registerChild(item);
     menu->insertItem(klocale->translate(name), new_id);
+    menu->setAccel(key, new_id);
 
 //    debug("MenuSub(%s): insertLeaf(%s)", getName(), name);
     return item;

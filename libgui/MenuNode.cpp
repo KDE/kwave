@@ -289,7 +289,6 @@ MenuNode::~MenuNode ()
     deleteString (name);
 // ###    deleteString (com);
 }
-//*****************************************************************************
 
 /** removes all entries */
 void MenuNode::clear()
@@ -410,7 +409,7 @@ void MenuNode::removeChild(const int id)
     }
 }
 
-MenuNode *MenuNode::insertBranch(char *name, const char *key, const char *uid,
+MenuNode *MenuNode::insertBranch(char *name, const int key, const char *uid,
 	                         const int index)
 {
     debug("!!! MenuNode(%s): insertBranch(%s) !!!", this->name, name);
@@ -418,7 +417,7 @@ MenuNode *MenuNode::insertBranch(char *name, const char *key, const char *uid,
 }
 
 MenuNode *MenuNode::insertLeaf(const char *command, char *name,
-                               const char *key, const char *uid,
+                               const int key, const char *uid,
                                const int index)
 {
     debug("!!! MenuNode(%s): insertLeaf(%s) !!!", this->name, name);
@@ -426,7 +425,7 @@ MenuNode *MenuNode::insertLeaf(const char *command, char *name,
 }
 
 int MenuNode::insertNode(const char *command, char *name, char *position,
-                         const char *key, const char *uid)
+                         const int key, const char *uid)
 {
     int result = -1;
 

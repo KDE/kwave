@@ -39,19 +39,20 @@ int MenuRoot::getChildIndex(const int id)
     return -1;
 }
 
-MenuNode *MenuRoot::insertBranch(char *name, const char *key,
+MenuNode *MenuRoot::insertBranch(char *name, const int key,
                                  const char *uid, const int index)
 {
     MenuToplevel *node = new MenuToplevel(name);
     int new_id = registerChild(node);
     int retval=menu_bar.insertItem(klocale->translate(name),
 	node->getPopupMenu(), new_id, index);
+	
     debug("MenuRoot::insertBranch(%s): retval=%d, new_id=%d", name, retval, new_id);
     return node;
 }
 
 MenuNode *MenuRoot::insertLeaf(const char *command, char *name,
-                               const char *key, const char *uid,
+                               const int key, const char *uid,
                                const int index)
 {
     MenuItem *item = new MenuItem(name);

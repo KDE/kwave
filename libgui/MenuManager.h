@@ -43,6 +43,8 @@ class MenuManager: public QObject
    // void deliverCommand (const char *);
 
  private:
+    int parseToKeyCode(const char *key_name);
+
     /** root node of the menu structure */
     MenuRoot *menu_root;
 };

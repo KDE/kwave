@@ -104,11 +104,11 @@ public:
 
     virtual void removeChild(const int id);
 
-    virtual MenuNode *insertBranch(char *name, const char *key,
+    virtual MenuNode *insertBranch(char *name, const int key,
                                    const char *uid, const int index=-1);
 
     virtual MenuNode *insertLeaf(const char *command, char *name,
-                                 const char *key, const char *uid,
+                                 const int key, const char *uid,
                                  const int index=-1);
 
     /** Inserts a new child node into the current menu node. */
@@ -116,7 +116,7 @@ public:
 
     /** Inserts a new child node into the structure (also children) */
     virtual int insertNode(const char *command, char *name, char *position,
-	                   const char *key, const char *uid);
+	                   const int key, const char *uid);
 
     virtual bool specialCommand(const char *command);
 

@@ -14,9 +14,12 @@ KwaveDialog::KwaveDialog (const char *name,bool modal):QDialog (0,name,modal)
 void KwaveDialog::accept ()
 {
   hide ();
-  const char *c=getCommand();
-  if (c) emit command (c);
-  if (!modal) delete this;
+  if (!modal)
+    {
+      const char *c=getCommand();
+      if (c) emit command (c);
+      delete this;
+    }
 }
 //**********************************************************************
 void KwaveDialog::reject ()

@@ -17,35 +17,6 @@
 //some definitions of values follow
 
 //id's for functions...
-#define KLOC 1000
-
-#define NOISE		(KLOC+3)
-#define HULLCURVE	(KLOC+4)
-#define ADDSYNTH 	(KLOC+5)
-#define PULSE	        (KLOC+6)
-#define ZERO            (KLOC+7)
-
-#define FLIP            (KLOC+8)
-#define REVERSE 	(KLOC+9)
-#define FADEIN 		(KLOC+10)
-#define FADEOUT		(KLOC+11)
-#define AMPLIFYMAX 	(KLOC+12)
-#define DELAY           (KLOC+13)
-#define AMPLIFY 	(KLOC+14)
-#define AMPWITHCLIP 	(KLOC+15)
-#define RATECHANGE 	(KLOC+16)
-#define DISTORT 	(KLOC+17)
-#define MOVINGAVERAGE 	(KLOC+18)
-#define STUTTER 	(KLOC+19)
-#define REQUANTISE      (KLOC+20)
-#define FILTERCREATE 	(KLOC+21)
-#define FILTER    	(KLOC+22)
-#define CHANNELMIX    	(KLOC+23)
-#define MIXPASTE	(KLOC+24)
-#define CENTER		(KLOC+25)
-#define RESAMPLE	(KLOC+26)
-
-#define FILTERPRESET    (KLOC+100)   //leave space behind this
 
 extern int play16bit;
 extern int bufbase;

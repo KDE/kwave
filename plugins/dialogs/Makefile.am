@@ -1,8 +1,8 @@
 # make sure all subdirs get a makefile....
 dirs = doubleenter movingaverage envelope quantize gap delay averagefft \
- amplifyfree distort command rate freqmult mark marktype fadein fadeout \
+ amplifyfree distort stringenter rate freqmult amptolabel marktype fadein \
  formant newsignal time about sonagram mix saveblock marksave playback \
- memory pitch filter
+ memory pitch filter fadeout 
 
 install clean distclean all:
 	@set fnord $(MAKEFLAGS); amf=$$2; \

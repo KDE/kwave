@@ -711,12 +711,13 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 	      if (((int)act->pos>=offset)&&((int)act->pos<lastpos))
 		{
 		  int x=(int)((act->pos-offset)/zoom);
-		  p.setPen (*(act->type->color));
+		  p.setPen (*(act->getType()->color));
 		  p.drawLine (x,0,x,height);
 
-		  if (act->name)
+		  printf ("%s\n",act->getName());
+		  if (act->getName())
 		    {
-		      int w=p.fontMetrics().width (act->name);
+		      int w=p.fontMetrics().width (act->getName());
 		      int h=8;
 		      h=p.fontMetrics().height();
 
@@ -726,7 +727,7 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 		      p.drawLine (x-w/2-2,1,x-w/2-2,1+h);
 		      p.setPen (black);
 		      p.drawLine (x+w/2+1,1,x+w/2+1,1+h);
-		      p.drawText (x-w/2,3,w,h,AlignCenter,act->name);
+		      p.drawText (x-w/2,3,w,h,AlignCenter,act->getName());
 		    }
 		}
 	    }

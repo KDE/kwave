@@ -15,6 +15,7 @@
 #include <libkwave/dialogoperation.h>
 #include <libkwave/dynamicloader.h>
 #include "../libgui/kwavedialog.h"
+#include <kmsgbox.h>
 
 extern Global globals;
 
@@ -135,7 +136,6 @@ void SignalWidget::appendMarks ()
 		     act=globals.markertypes.next())
 		  if (strcmp (act->name,name)==0) isthere=true;
 
-
 		if (!isthere) //nope ... ->generate new type...
 		  {
 		    MarkerType *newtype=new MarkerType (buf);
@@ -190,7 +190,8 @@ void SignalWidget::saveMarks ()
   KwaveDialog *dialog =
     DynamicLoader::getDialog ("marksave",new DialogOperation(&globals,signalmanage->getRate(),0,0));
 
-  if ((dialog)&&(dialog->exec()))
+  if (dialog)
+    if (dialog->exec())
     {   
       selectMarkers (dialog->getCommand());
 
@@ -216,11 +217,11 @@ void SignalWidget::saveMarks ()
 	  fprintf (out,"Samples\n");
 	  for (tmp=markers->first();tmp;tmp=markers->next())  //write out labels
 	    {
-	      //type must be named, and qstring name must be non-null
-	      if ((tmp->type->named)&&(tmp->name))
-		sprintf (buf,"%d %d %s\n",tmp->type->selected,tmp->pos,tmp->name);
+	      //type must be named, and string name must be non-null
+	      if ((tmp->getType()->named)&&(tmp->getName()))
+		sprintf (buf,"%d %d %s\n",tmp->getType()->selected,tmp->pos,tmp->getName());
 	      else 
-		sprintf (buf,"%d %d\n",tmp->type->selected,tmp->pos);
+		sprintf (buf,"%d %d\n",tmp->getType()->selected,tmp->pos);
 	      fprintf (out,buf);
 	    }
 	}
@@ -237,27 +238,39 @@ void SignalWidget::addMark ()
       if (markertype->named)
 	{
 	  KwaveDialog *dialog =
-	    DynamicLoader::getDialog ("command",new DialogOperation("Enter name of label :",true)); //create a modal dialog
+	    DynamicLoader::getDialog ("stringenter",new DialogOperation("Enter name of label :",true)); //create a modal dialog
 
-	  if ((dialog)&&(dialog->exec()))
+	  if (dialog)
 	    {
-	      newmark->name=duplicateString (dialog->getCommand());
-	      markers->inSort (newmark);
-	      delete dialog;
+	      dialog->show ();
+	      if (dialog->result())
+		{
+		  printf ("dialog:%s\n",dialog->getCommand());
+		  newmark->setName (dialog->getCommand());
+		  markers->inSort (newmark);
+		  delete dialog;
+		}
+	      else
+		{
+		  printf ("exec rejected\n");
+		  delete newmark;
+		}
 	    }
-	  else delete newmark;
+	  else
+	    {
+	      KMsgBox::message (this,"Errory",klocale->translate("Dialog not loaded !"));
+	      delete newmark;
+	    }
 	}
       else
-	{
-	  newmark->name=0;
-	  markers->inSort (newmark);
-	}
+	markers->inSort (newmark);
+
       refresh();
     }
 }
 //****************************************************************************
 void SignalWidget::jumptoLabel ()
-//another fine function contributed by Gerhard Zintel
+// another fine function contributed by Gerhard Zintel
 // if lmarker == rmarker (no range selected) cursor jumps to the nearest label
 // if lmarker <  rmarker (range is selected) lmarker jumps to next lower label or zero
 // rmarker jumps to next higher label or end
@@ -320,7 +333,7 @@ void SignalWidget::savePeriods ()
 		  //traverse list of all labels
 		  for (tmp=markers->first();tmp;tmp=markers->next())
 		    {
-		      if (tmp->type==act)
+		      if (tmp->getType()==act)
 			{
 			  freq=tmp->pos-last;
 			  time=last*1000/rate;
@@ -376,10 +389,10 @@ void SignalWidget::saveBlocks (int bit)
 
 	  for (tmp=markers->first();tmp;tmp=markers->next())  //traverse list of markers
 	    {
-	      if (tmp->type==start)
+	      if (tmp->getType()==start)
 		{
 		  for (tmp2=tmp;tmp2;tmp2=markers->next())  //traverse rest of list to find next stop marker
-		    if (tmp2->type==stop)
+		    if (tmp2->getType()==stop)
 		      {
 			char buf[128];
 			sprintf (buf,"%s%04d.wav",filename,count);
@@ -406,13 +419,16 @@ void SignalWidget::markSignal (const char *str)
 
       KwaveParser parser (str);
 	  
-      int level=(int) (parser.toDouble()*(1<<23)/100);
+      int level=(int) (parser.toDouble()/100*(1<<23));
 
       int len=signalmanage->getLength();
       int *sam=signalmanage->getSignal()->getSample();
       MarkerType *start=findMarkerType(parser.getNextParam());
       MarkerType *stop=findMarkerType (parser.getNextParam());
       int time=(int) (parser.toDouble ()*signalmanage->getRate()/1000);
+
+      printf ("%d %d\n",level,time);
+      printf ("%s %s\n",start->name,stop->name);
 
       ProgressDialog *dialog=
 	new ProgressDialog (len,"Searching for Signal portions...");
@@ -666,7 +682,7 @@ void SignalWidget::convertMarkstoPitch (const char *)
 		  //traverse list of all labels of the selected type...
 		  for (tmp=markers->first();tmp;tmp=markers->next())
 		    {
-		      if (tmp->type==act)
+		      if (tmp->getType()==act)
 			{
 			  if (tmp->pos!=last)
 			    {

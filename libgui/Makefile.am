@@ -25,6 +25,7 @@ BUILTSOURCES=\
  MultiStateWidget.moc.cpp\
  CurveWidget.moc.cpp\
  FileProgress.moc.cpp\
+ FrequencyResponseWidget.moc.cpp\
  IntValidatorProxy.moc.cpp\
  KwaveFileDialog.moc.cpp\
  OverViewCache.moc.cpp\
@@ -44,6 +45,7 @@ libkwavegui_la_SOURCES =\
  CurveWidget.cpp\
  ConfirmCancelProxy.cpp\
  FileProgress.cpp\
+ FrequencyResponseWidget.cpp\
  IntValidatorProxy.cpp\
  KwaveFileDialog.cpp\
  MenuNode.cpp\

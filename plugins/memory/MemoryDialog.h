@@ -50,6 +50,14 @@ public:
     /** Returns all parameters as a list. */
     void params(QStringList &par);
 
+protected slots:
+
+    /** Called if the virtual memory has been enabled / disabled */
+    void virtualMemoryEnabled(bool enable);
+
+    /** Connected to the Search button to select a new swap directory */
+    void searchSwapDir();
+
 };
 
 #endif /* _MEMORY_DIALOG_H_ */

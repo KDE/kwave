@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 "
 "21:27+0200PO-Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2001-07-20 19:17+0200\n"
-"PO-Revision-Date: 2001-07-20 19:17+GMT\n"
+"POT-Creation-Date: 2001-08-06 22:15+0200\n"
+"PO-Revision-Date: 2001-08-06 22:14+GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -87,76 +87,76 @@ msgstr "Hanning"
 msgid "Blackman"
 msgstr "Blackman"
 
-#: kwave/SignalManager.cpp:373
+#: kwave/SignalManager.cpp:383
 msgid "cut"
 msgstr "Ausschneiden"
 
-#: kwave/SignalManager.cpp:376
+#: kwave/SignalManager.cpp:386
 msgid "crop"
 msgstr "Zuschneiden"
 
-#: kwave/SignalManager.cpp:442
+#: kwave/SignalManager.cpp:452
 msgid "paste"
 msgstr "Einfügen"
 
-#: kwave/SignalManager.cpp:485
+#: kwave/SignalManager.cpp:495
 msgid "append track"
 msgstr "Track anhängen"
 
-#: kwave/SignalManager.cpp:492 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:502 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr "Track einfügen"
 
-#: kwave/SignalManager.cpp:527 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:537 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "Track löschen"
 
-#: kwave/SignalManager.cpp:604 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:614 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr "Löschen"
 
-#: kwave/SignalManager.cpp:742
+#: kwave/SignalManager.cpp:767
 msgid "File does not exist !"
 msgstr "Datei existiert nicht!"
 
-#: kwave/SignalManager.cpp:751
+#: kwave/SignalManager.cpp:776
 msgid "File is no RIFF File !"
 msgstr "Datei ist nicht im RIFF-Format!"
 
-#: kwave/SignalManager.cpp:764
+#: kwave/SignalManager.cpp:789
 msgid "File is no WAVE File !"
 msgstr "Datei ist nicht im Wave Format!"
 
-#: kwave/SignalManager.cpp:775
+#: kwave/SignalManager.cpp:800
 msgid "File does not contain format information!"
 msgstr "Datei ist unvollständig!"
 
-#: kwave/SignalManager.cpp:790
+#: kwave/SignalManager.cpp:815
 msgid "File must be uncompressed (Mode 1) !"
 msgstr "Datei ist nicht im unkompimierten Modus (Mode 1) !"
 
-#: kwave/SignalManager.cpp:802
+#: kwave/SignalManager.cpp:827
 msgid "File does not contain data!"
 msgstr "Datei enthält keine Daten!"
 
-#: kwave/SignalManager.cpp:822 kwave/SignalManager.cpp:1081
+#: kwave/SignalManager.cpp:847 kwave/SignalManager.cpp:1106
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
 
-#: kwave/SignalManager.cpp:947 kwave/SignalManager.cpp:1186
-#: kwave/SignalManager.cpp:1193
+#: kwave/SignalManager.cpp:972 kwave/SignalManager.cpp:1211
+#: kwave/SignalManager.cpp:1218
 msgid "Out of Memory!"
 msgstr "Zu wenig Speicher!"
 
-#: kwave/SignalManager.cpp:1032
+#: kwave/SignalManager.cpp:1057
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: kwave/SignalManager.cpp:1039
+#: kwave/SignalManager.cpp:1064
 msgid "Opening the file for writing failed!"
 msgstr "Datei konnte nicht zum Schreiben geöffnet werden!"
 
-#: kwave/SignalManager.cpp:1173
+#: kwave/SignalManager.cpp:1198
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
@@ -164,7 +164,7 @@ msgstr ""
 "Fehler in Eingabe: Datei ist kleiner als im Header angegeben. \n"
 "Datei wird abgeschnitten."
 
-#: kwave/SignalManager.cpp:1423
+#: kwave/SignalManager.cpp:1448
 #, ycp-format
 msgid ""
 "The operation '%1' requires more than %2 MB for storing undo data.\n"
@@ -174,156 +174,156 @@ msgstr ""
 "Wiederherstellungs-\n"
 "informationen. Dies würde das Limit von %3 MB überschreiten."
 
-#: kwave/SignalManager.cpp:1427
+#: kwave/SignalManager.cpp:1452
 msgid "You can now either press:"
 msgstr "Drücken Sie bitte:"
 
-#: kwave/SignalManager.cpp:1430
+#: kwave/SignalManager.cpp:1455
 msgid "Allow"
 msgstr "Erlauben"
 
-#: kwave/SignalManager.cpp:1431
+#: kwave/SignalManager.cpp:1456
 msgid "to continue without the possibility to undo, or"
 msgstr "um ohne Möglichkeit zur Wiederherstellung fortzusetzen, oder"
 
-#: kwave/SignalManager.cpp:1433
+#: kwave/SignalManager.cpp:1458
 msgid "Ignore"
 msgstr "Ignorieren"
 
-#: kwave/SignalManager.cpp:1434
+#: kwave/SignalManager.cpp:1459
 msgid "to continue, discard all previous undo data and ignore the memory limit"
 msgstr ""
 "um fortzusetzen, alle vorherigen Wiederherstellungsinformationen zu "
 "verwerfen und das Limit zu ignorieren"
 
-#: kwave/SignalManager.cpp:1440
+#: kwave/SignalManager.cpp:1465
 msgid "to abort the current operation."
 msgstr "um den aktuellen Vorgang abzubrechen."
 
-#: kwave/SignalManager.cpp:1455
+#: kwave/SignalManager.cpp:1480
 msgid "&Allow"
 msgstr "&Erlauben"
 
-#: kwave/SignalManager.cpp:1456
+#: kwave/SignalManager.cpp:1481
 msgid "&Ignore"
 msgstr "&Ignorieren"
 
-#: kwave/SignalManager.cpp:1571 kwave/SignalManager.cpp:1578
+#: kwave/SignalManager.cpp:1596 kwave/SignalManager.cpp:1603
 msgid "last action"
 msgstr "letzte Aktion"
 
-#: kwave/TopWidget.cpp:234
+#: kwave/TopWidget.cpp:238
 msgid "create a new empty file"
 msgstr "neue leere Datei erzeugen"
 
-#: kwave/TopWidget.cpp:240
+#: kwave/TopWidget.cpp:244
 msgid "open an existing file"
 msgstr "existierende Datei öffnen"
 
-#: kwave/TopWidget.cpp:246
+#: kwave/TopWidget.cpp:250
 msgid "save the current file"
 msgstr "aktuelle Datei speichern"
 
-#: kwave/TopWidget.cpp:278
+#: kwave/TopWidget.cpp:282
 msgid "cut the current selection and move it to the clipboard"
 msgstr "Auswahl ausschneiden und in Zwischenablage speichern"
 
-#: kwave/TopWidget.cpp:284
+#: kwave/TopWidget.cpp:288
 msgid "copy the current selection to the clipboard"
 msgstr "Auswahl in die Zwischenablage kopieren"
 
-#: kwave/TopWidget.cpp:290
+#: kwave/TopWidget.cpp:294
 msgid "insert the content of clipboard"
 msgstr "Inhalt der Zwischenablage einfügen"
 
-#: kwave/TopWidget.cpp:296
+#: kwave/TopWidget.cpp:300
 msgid "mute the current selection"
 msgstr "Auswahl auf Null setzen"
 
-#: kwave/TopWidget.cpp:302
+#: kwave/TopWidget.cpp:306
 msgid "delete the current selection"
 msgstr "Auswahl löschen"
 
-#: kwave/TopWidget.cpp:327
+#: kwave/TopWidget.cpp:331
 msgid "start playback"
 msgstr "Wiedergabe starten"
 
-#: kwave/TopWidget.cpp:333
+#: kwave/TopWidget.cpp:337
 msgid "start playback and loop"
 msgstr "Wiedergabe mit Wiederholung"
 
-#: kwave/TopWidget.cpp:339
+#: kwave/TopWidget.cpp:343
 msgid "pause playback"
 msgstr "Wiedergabe anhalten/fortsetzen"
 
-#: kwave/TopWidget.cpp:345
+#: kwave/TopWidget.cpp:349
 msgid "stop playback or loop"
 msgstr "Wiedergabe beenden"
 
-#: kwave/TopWidget.cpp:363
+#: kwave/TopWidget.cpp:367
 msgid "zoom to selection"
 msgstr "auf Auswahl vergrößern"
 
-#: kwave/TopWidget.cpp:370
+#: kwave/TopWidget.cpp:374
 msgid "zoom in"
 msgstr "Vergrößern"
 
-#: kwave/TopWidget.cpp:377
+#: kwave/TopWidget.cpp:381
 msgid "zoom out"
 msgstr "Verkleinern"
 
-#: kwave/TopWidget.cpp:383
+#: kwave/TopWidget.cpp:387
 #, c-format
 msgid "zoom to 100%"
 msgstr "auf 100% vergrößern"
 
-#: kwave/TopWidget.cpp:389
+#: kwave/TopWidget.cpp:393
 msgid "zoom to all"
 msgstr "auf gesamtes Signal vergrößern"
 
-#: kwave/TopWidget.cpp:396
+#: kwave/TopWidget.cpp:400
 msgid "select zoom factor"
 msgstr "Vergrößerungsfaktor auswählen"
 
-#: kwave/TopWidget.cpp:474
+#: kwave/TopWidget.cpp:478
 msgid "Loading plugins..."
 msgstr "Fehler beim Laden des Plugins..."
 
-#: kwave/TopWidget.cpp:476
+#: kwave/TopWidget.cpp:480
 msgid "Ready."
 msgstr "Bereit."
 
-#: kwave/TopWidget.cpp:803
+#: kwave/TopWidget.cpp:787
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
-#: kwave/TopWidget.cpp:879
+#: kwave/TopWidget.cpp:881
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr "Länge: %1"
 
-#: kwave/TopWidget.cpp:879 kwave/TopWidget.cpp:907
+#: kwave/TopWidget.cpp:881
 #, ycp-format
 msgid "(%2 samples)"
 msgstr "(%2 Samples)"
 
-#: kwave/TopWidget.cpp:888
+#: kwave/TopWidget.cpp:890
 #, c-format
 msgid "Mode: %u bit@%0.3f kHz"
 msgstr "Modus: %u Bit@%0.3f kHz"
 
-#: kwave/TopWidget.cpp:900
-#, c-format, ycp-format
-msgid "Selected: %1"
-msgstr "ausgewählt: %1"
+#: kwave/TopWidget.cpp:924
+#, ycp-format
+msgid "Selected: %1 (%2 samples)"
+msgstr "Ausgewählt: %1 (%2 Samples)"
 
-#: kwave/TopWidget.cpp:951
+#: kwave/TopWidget.cpp:971
 msgid "U&ndo"
 msgstr "&Rückgängig"
 
-#: kwave/TopWidget.cpp:957
+#: kwave/TopWidget.cpp:977
 msgid "R&edo"
 msgstr "Wieder&herstellen"
 
@@ -331,16 +331,16 @@ msgstr "Wieder&herstellen"
 msgid "insert"
 msgstr "Einfügen"
 
-#: kwave/PluginManager.cpp:150
+#: kwave/PluginManager.cpp:149
 #, ycp-format
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Hoppla, Plugin '%1' ist unbekannt oder ungültig!"
 
-#: kwave/PluginManager.cpp:153 kwave/PluginManager.cpp:165
+#: kwave/PluginManager.cpp:152 kwave/PluginManager.cpp:164
 msgid "error on loading plugin"
 msgstr "Fehler beim Laden des Plugins"
 
-#: kwave/PluginManager.cpp:161
+#: kwave/PluginManager.cpp:160
 #, ycp-format
 msgid ""
 "unable to load the file \n"
@@ -351,7 +351,7 @@ msgstr ""
 "mit dem Plugin '%2' \n"
 "konnte nicht geladen werden !"
 
-#: kwave/PluginManager.cpp:189 kwave/PluginManager.cpp:196
+#: kwave/PluginManager.cpp:188 kwave/PluginManager.cpp:195
 msgid "(unknown)"
 msgstr "(unbekannt)"
 
@@ -425,322 +425,335 @@ msgid "&Choose type"
 msgstr "&Typ auswählen"
 
 #: kwave/menus_config_i18n.cpp:28
+#, fuzzy
+msgid "&Clipboard"
+msgstr "&Zwischenablage"
+
+#: kwave/menus_config_i18n.cpp:29
 msgid "Clip&board"
 msgstr "&Zwischenablage"
 
-#: kwave/menus_config_i18n.cpp:31
+#: kwave/menus_config_i18n.cpp:32
 msgid "&Convert label distance to pitch"
 msgstr "&Abstand der Marker in Verschiebung umwandeln"
 
-#: kwave/menus_config_i18n.cpp:33
+#: kwave/menus_config_i18n.cpp:34
 msgid "&Create"
 msgstr "&Erzeuge"
 
-#: kwave/menus_config_i18n.cpp:34
+#: kwave/menus_config_i18n.cpp:35
 msgid "Create &type"
 msgstr "&Typ erzeugen"
 
-#: kwave/menus_config_i18n.cpp:35
+#: kwave/menus_config_i18n.cpp:36
 msgid "&Crop"
 msgstr "Z&uschneiden"
 
-#: kwave/menus_config_i18n.cpp:36
+#: kwave/menus_config_i18n.cpp:37
 msgid "Cu&t"
 msgstr "&Ausschneiden"
 
-#: kwave/menus_config_i18n.cpp:37
+#: kwave/menus_config_i18n.cpp:38
 msgid "De&lay"
 msgstr "Ver&zögerung"
 
-#: kwave/menus_config_i18n.cpp:39
+#: kwave/menus_config_i18n.cpp:40
 msgid "&Distort"
 msgstr "S&tören"
 
-#: kwave/menus_config_i18n.cpp:41
+#: kwave/menus_config_i18n.cpp:42
+msgid "&End"
+msgstr "&Ende"
+
+#: kwave/menus_config_i18n.cpp:43
 msgid "&Enter Command"
 msgstr "&Befehl eingeben"
 
-#: kwave/menus_config_i18n.cpp:42
+#: kwave/menus_config_i18n.cpp:44
 msgid "&Envelope"
 msgstr "&Hüllkurve"
 
-#: kwave/menus_config_i18n.cpp:43
+#: kwave/menus_config_i18n.cpp:45
 msgid "E&xecute"
 msgstr "&Ausführen"
 
-#: kwave/menus_config_i18n.cpp:44
+#: kwave/menus_config_i18n.cpp:46
 msgid "&Expand to labels"
 msgstr "auf Marker &erweitern"
 
-#: kwave/menus_config_i18n.cpp:45
+#: kwave/menus_config_i18n.cpp:47
 msgid "&Export to Ascii..."
 msgstr "&Exportiere als ASCII ..."
 
-#: kwave/menus_config_i18n.cpp:46
+#: kwave/menus_config_i18n.cpp:48
 msgid "Fade &In"
 msgstr "&Einblenden"
 
-#: kwave/menus_config_i18n.cpp:47
+#: kwave/menus_config_i18n.cpp:49
 msgid "Fade &Out"
 msgstr "&Ausblenden"
 
-#: kwave/menus_config_i18n.cpp:49 plugins/filter/module.cpp:34
+#: kwave/menus_config_i18n.cpp:51 plugins/filter/module.cpp:34
 msgid "&Filter"
 msgstr "&Filter"
 
-#: kwave/menus_config_i18n.cpp:50
+#: kwave/menus_config_i18n.cpp:52
 msgid "&Flip Phase"
 msgstr "&Phase umkehren"
 
-#: kwave/menus_config_i18n.cpp:51
+#: kwave/menus_config_i18n.cpp:53
 msgid "&Flush"
 msgstr "&Leeren"
 
-#: kwave/menus_config_i18n.cpp:52
+#: kwave/menus_config_i18n.cpp:54
 msgid "&Free"
 msgstr "&Frei"
 
-#: kwave/menus_config_i18n.cpp:53
+#: kwave/menus_config_i18n.cpp:55
 msgid "&Frequencies"
 msgstr "&Frequenzen"
 
-#: kwave/menus_config_i18n.cpp:54
+#: kwave/menus_config_i18n.cpp:56
 msgid "F&x"
 msgstr "E&ffekte"
 
-#: kwave/menus_config_i18n.cpp:55
+#: kwave/menus_config_i18n.cpp:57
 msgid "&Generate"
 msgstr "&Erzeuge"
 
-#: kwave/menus_config_i18n.cpp:57
+#: kwave/menus_config_i18n.cpp:59
 msgid "&Import Ascii..."
 msgstr "&Importiere ASCII"
 
-#: kwave/menus_config_i18n.cpp:58
+#: kwave/menus_config_i18n.cpp:60
 msgid "&Insert labels..."
 msgstr "Marker &einfügen ..."
 
-#: kwave/menus_config_i18n.cpp:59
+#: kwave/menus_config_i18n.cpp:61
 msgid "&Invert Selection"
 msgstr "Auswahl &umkehren"
 
-#: kwave/menus_config_i18n.cpp:60
+#: kwave/menus_config_i18n.cpp:62
 msgid "Label by &Intensity"
 msgstr "Marker nach &Lautstärke"
 
-#: kwave/menus_config_i18n.cpp:61
+#: kwave/menus_config_i18n.cpp:63
 msgid "Label by &Period"
 msgstr "Marker nach &Periode"
 
-#: kwave/menus_config_i18n.cpp:62
+#: kwave/menus_config_i18n.cpp:64
 msgid "&Labels"
 msgstr "&Marker"
 
-#: kwave/menus_config_i18n.cpp:63
+#: kwave/menus_config_i18n.cpp:65
 msgid "Labels..."
 msgstr "Marker ..."
 
-#: kwave/menus_config_i18n.cpp:64
+#: kwave/menus_config_i18n.cpp:66
 msgid "&Load labels..."
 msgstr "Marker &Laden ..."
 
-#: kwave/menus_config_i18n.cpp:65
+#: kwave/menus_config_i18n.cpp:67
 msgid "&Macro"
 msgstr "&Makro"
 
-#: kwave/menus_config_i18n.cpp:66
+#: kwave/menus_config_i18n.cpp:68
 msgid "&Memory"
 msgstr "&Speicher"
 
-#: kwave/menus_config_i18n.cpp:67
+#: kwave/menus_config_i18n.cpp:69
 msgid "&Menus"
 msgstr "&Menues"
 
-#: kwave/menus_config_i18n.cpp:68
+#: kwave/menus_config_i18n.cpp:70
 msgid "&Mix"
 msgstr "&Mischen"
 
-#: kwave/menus_config_i18n.cpp:69
+#: kwave/menus_config_i18n.cpp:71
 msgid "&Mix & Paste"
 msgstr "&Mischen und Einfügen"
 
-#: kwave/menus_config_i18n.cpp:70
+#: kwave/menus_config_i18n.cpp:72
 msgid "&Moving Average"
 msgstr "&Mittelwert-Verschiebung"
 
-#: kwave/menus_config_i18n.cpp:71
+#: kwave/menus_config_i18n.cpp:73
 msgid "&New..."
 msgstr "&Neu..."
 
-#: kwave/menus_config_i18n.cpp:72
+#: kwave/menus_config_i18n.cpp:74
 msgid "New &Window"
 msgstr "Neues &Fenster"
 
-#: kwave/menus_config_i18n.cpp:73
+#: kwave/menus_config_i18n.cpp:75
 msgid "&Next"
 msgstr "&Nächste"
 
-#: kwave/menus_config_i18n.cpp:74
+#: kwave/menus_config_i18n.cpp:76
 msgid "&Next Page"
 msgstr "&Nächste Seite"
 
-#: kwave/menus_config_i18n.cpp:75
+#: kwave/menus_config_i18n.cpp:77
 msgid "&Noise"
 msgstr "&Rauschen"
 
-#: kwave/menus_config_i18n.cpp:76
+#: kwave/menus_config_i18n.cpp:78
 msgid "&Nothing"
 msgstr "N&ichts"
 
-#: kwave/menus_config_i18n.cpp:77
+#: kwave/menus_config_i18n.cpp:79
 msgid "&Open"
 msgstr "&Öffnen"
 
-#: kwave/menus_config_i18n.cpp:78
+#: kwave/menus_config_i18n.cpp:80
 msgid "Open &Recent"
 msgstr "&Zuletzt geöffnete Dateien"
 
-#: kwave/menus_config_i18n.cpp:81
+#: kwave/menus_config_i18n.cpp:83
 msgid "&Periodic Silence"
 msgstr "&Periodische Stille"
 
-#: kwave/menus_config_i18n.cpp:82
+#: kwave/menus_config_i18n.cpp:84
 msgid "Periods..."
 msgstr "Periode..."
 
-#: kwave/menus_config_i18n.cpp:83
+#: kwave/menus_config_i18n.cpp:85
 msgid "&Playback"
 msgstr "&Wiedergabe"
 
-#: kwave/menus_config_i18n.cpp:84
+#: kwave/menus_config_i18n.cpp:86
 msgid "&Presets"
 msgstr "&Voreinstelungen"
 
-#: kwave/menus_config_i18n.cpp:85
+#: kwave/menus_config_i18n.cpp:87
 msgid "&Previous"
 msgstr "&Vorherige"
 
-#: kwave/menus_config_i18n.cpp:86
+#: kwave/menus_config_i18n.cpp:88
 msgid "&Previous Page"
 msgstr "&Vorherige Seite"
 
-#: kwave/menus_config_i18n.cpp:87
+#: kwave/menus_config_i18n.cpp:89
 msgid "&Pulse Train"
 msgstr "Im&pulsfolge"
 
-#: kwave/menus_config_i18n.cpp:89
+#: kwave/menus_config_i18n.cpp:91
 msgid "&Range"
 msgstr "&Bereich"
 
-#: kwave/menus_config_i18n.cpp:91
+#: kwave/menus_config_i18n.cpp:93
 msgid "Re&quantize"
 msgstr "&Neuabtasten"
 
-#: kwave/menus_config_i18n.cpp:92
+#: kwave/menus_config_i18n.cpp:94
 msgid "&Resample"
 msgstr "Neu &samplen"
 
-#: kwave/menus_config_i18n.cpp:93
+#: kwave/menus_config_i18n.cpp:95
 msgid "&Reverse"
 msgstr "&Umkehren"
 
-#: kwave/menus_config_i18n.cpp:94
+#: kwave/menus_config_i18n.cpp:96
 msgid "Revert"
 msgstr "Zurücksetzen"
 
-#: kwave/menus_config_i18n.cpp:96
+#: kwave/menus_config_i18n.cpp:98
 msgid "S&ave"
 msgstr "S&peichern"
 
-#: kwave/menus_config_i18n.cpp:97
+#: kwave/menus_config_i18n.cpp:99
 msgid "Save resol&ution"
 msgstr "&Auflösung"
 
-#: kwave/menus_config_i18n.cpp:98
+#: kwave/menus_config_i18n.cpp:100
 msgid "Scroll &left"
 msgstr "&links rollen"
 
-#: kwave/menus_config_i18n.cpp:99
+#: kwave/menus_config_i18n.cpp:101
 msgid "Scroll &right"
 msgstr "&rechts rollen"
 
-#: kwave/menus_config_i18n.cpp:100
+#: kwave/menus_config_i18n.cpp:102
 msgid "&Select all"
 msgstr "&Alles auswählen"
 
-#: kwave/menus_config_i18n.cpp:101
+#: kwave/menus_config_i18n.cpp:103
 msgid "&Selection"
 msgstr "Aus&wahl"
 
-#: kwave/menus_config_i18n.cpp:102
+#: kwave/menus_config_i18n.cpp:104
 msgid "&Selection..."
 msgstr "Aus&wahl..."
 
-#: kwave/menus_config_i18n.cpp:103
+#: kwave/menus_config_i18n.cpp:105
 msgid "&Silence"
 msgstr "&Stille"
 
-#: kwave/menus_config_i18n.cpp:104 plugins/sonagram/SonagramWindow.cpp:130
+#: kwave/menus_config_i18n.cpp:106 plugins/sonagram/SonagramWindow.cpp:129
 msgid "&Sonagram"
 msgstr "&Sonagramm"
 
-#: kwave/menus_config_i18n.cpp:105
+#: kwave/menus_config_i18n.cpp:107
 msgid "Spe&ctrum"
 msgstr "Spe&ktrum"
 
-#: kwave/menus_config_i18n.cpp:106
+#: kwave/menus_config_i18n.cpp:109
 msgid "&Start recording"
 msgstr "Aufzeichnung &starten"
 
-#: kwave/menus_config_i18n.cpp:107
+#: kwave/menus_config_i18n.cpp:110
 msgid "S&top recording"
 msgstr "Aufzeichnung &beenden"
 
-#: kwave/menus_config_i18n.cpp:108
+#: kwave/menus_config_i18n.cpp:111
 msgid "to be done..."
 msgstr "noch zu erledigen..."
 
-#: kwave/menus_config_i18n.cpp:109
+#: kwave/menus_config_i18n.cpp:112
 msgid "&to end"
 msgstr "bis zum &Ende"
 
-#: kwave/menus_config_i18n.cpp:110
+#: kwave/menus_config_i18n.cpp:113
 msgid "to &Maximum"
 msgstr "finde &Maximum"
 
-#: kwave/menus_config_i18n.cpp:111
+#: kwave/menus_config_i18n.cpp:114
 msgid "&to new Window"
 msgstr "in &neues Fenster"
 
-#: kwave/menus_config_i18n.cpp:112
+#: kwave/menus_config_i18n.cpp:115
 msgid "&to start"
 msgstr "bis zum &Anfang"
 
-#: kwave/menus_config_i18n.cpp:113
+#: kwave/menus_config_i18n.cpp:116
 msgid "&Track"
 msgstr "&Track"
 
-#: kwave/menus_config_i18n.cpp:114
+#: kwave/menus_config_i18n.cpp:117
 msgid "Tri&m"
 msgstr "&Trimmen"
 
-#: kwave/menus_config_i18n.cpp:117
+#: kwave/menus_config_i18n.cpp:119
+msgid "&Undo and Redo"
+msgstr "&Rückgängig und Wiederherstellen"
+
+#: kwave/menus_config_i18n.cpp:121
 msgid "&Visible area"
 msgstr "&Sichtbarer Bereich"
 
-#: kwave/menus_config_i18n.cpp:118
+#: kwave/menus_config_i18n.cpp:122
 msgid "with &Clipboard"
 msgstr "mit &Zwischenablage"
 
-#: kwave/menus_config_i18n.cpp:119
+#: kwave/menus_config_i18n.cpp:123
 msgid "Zoom &In"
 msgstr "Ver&größern"
 
-#: kwave/menus_config_i18n.cpp:120
+#: kwave/menus_config_i18n.cpp:124
 msgid "Zoom &Out"
 msgstr "Ver&kleinern"
 
-#: kwave/menus_config_i18n.cpp:121
+#: kwave/menus_config_i18n.cpp:125
 msgid "Zoom to &Selection"
 msgstr "Zoom auf &Auswahl"
 
@@ -1174,11 +1187,11 @@ msgstr ""
 msgid "Buffer Size : %5d samples"
 msgstr "Buffer-Größe: %5d Samples"
 
-#: plugins/playback/PlayBack-aRts.cpp:89
+#: plugins/playback/PlayBack-aRts.cpp:88
 msgid "unable to open aRts playback stream"
 msgstr "aRts-Stream für Wiedergabe konnte nicht geöffnet werden"
 
-#: plugins/playback/PlayBack-aRts.cpp:202
+#: plugins/playback/PlayBack-aRts.cpp:201
 msgid ""
 "Can't connect to aRts soundserver. Maybe it is not properly installed or not "
 "running."
@@ -1186,7 +1199,7 @@ msgstr ""
 "Die Verbindung zum aRst Sound-Server konnt nicht hergestellt werden. "
 "Möglicherweise ist dieser nicht richtig installiert oder er läuft nicht."
 
-#: plugins/playback/PlayBack-aRts.cpp:206
+#: plugins/playback/PlayBack-aRts.cpp:205
 msgid ""
 "Loading the aRts backend library failed. This might be due to a problem with "
 "your aRts installation."
@@ -1194,11 +1207,11 @@ msgstr ""
 "Die aRts backend-Bibliothek konnte nicht geladen werden. Dies könnte "
 "einProblem mit Ihrer aRts-Installation sein."
 
-#: plugins/playback/PlayBack-aRts.cpp:211
+#: plugins/playback/PlayBack-aRts.cpp:210
 msgid "The aRts output stream is invalid."
 msgstr "Der aRts-Ausgabestrom ist ungültig."
 
-#: plugins/playback/PlayBack-aRts.cpp:214
+#: plugins/playback/PlayBack-aRts.cpp:213
 msgid ""
 "aRts output is not available because the initialization of the aRts output "
 "has failed or not been done."
@@ -1206,7 +1219,7 @@ msgstr ""
 "Die aRts-Ausgabe ist nicht verfügbar weil die Initialisierung der "
 "aRts-Ausgabefehl schlug oder nicht durchgeführt wurde."
 
-#: plugins/playback/PlayBack-aRts.cpp:219
+#: plugins/playback/PlayBack-aRts.cpp:218
 msgid ""
 "The required aRts function is not yet implemented. Maybe you should get a "
 "newer version of aRts or upgrade the kdelibs package."
@@ -1316,7 +1329,7 @@ msgstr "bis"
 msgid "Import"
 msgstr "Importiere"
 
-#: plugins/about/AboutDialog.cpp:145 plugins/sweep/module.cpp:88
+#: plugins/about/AboutDialog.cpp:144 plugins/sweep/module.cpp:88
 msgid "Ok"
 msgstr "Ok"
 
@@ -1329,7 +1342,7 @@ msgstr "kann Datei nicht öffnen !\n"
 msgid "file %s does not exist!\n"
 msgstr "Datei %s existiert nicht!\n"
 
-#: plugins/about/AboutDialog.cpp:106
+#: plugins/about/AboutDialog.cpp:105
 msgid "About Kwave"
 msgstr "Über Kwave..."
 
@@ -1366,38 +1379,97 @@ msgstr "Marker zur Aufteilung des Signals wählen:"
 msgid "Base name:"
 msgstr "Basisname:"
 
-#: plugins/memory/MemoryDialog.uic.cpp:143 plugins/saveblock/module.cpp:33
+#: plugins/memory/MemDlg.uic.cpp:133 plugins/saveblock/module.cpp:33
 msgid "Directory:"
 msgstr "Verzeichnis:"
 
-#: plugins/memory/MemoryDialog.uic.cpp:37
+#: plugins/memory/MemDlg.uic.cpp:36
 msgid "Memory Settings"
 msgstr "Speicher Einstellungen"
 
-#: plugins/memory/MemoryDialog.uic.cpp:44
-msgid "System Memory"
-msgstr "Arbeitsspeicher"
+#: plugins/memory/MemDlg.uic.cpp:43
+msgid "&Physical Memory"
+msgstr "&Auslagerungsdateien"
 
-#: plugins/memory/MemoryDialog.uic.cpp:59
-#: plugins/memory/MemoryDialog.uic.cpp:109
-msgid "Limit to (Megabytes)"
-msgstr "Begrenzen auf (Megabytes)"
+#: plugins/memory/MemDlg.uic.cpp:44
+msgid ""
+"<b>Limit the usage of physical memory (RAM).</b><br>\n"
+"\n"
+"If you do not set a limit, the size of the physically installed memory in "
+"your computer will be determined and used as limit. You cannot set a limit "
+"higher than the totally installed amount of memory."
+msgstr ""
+"<b>Begrenzt die Verwendung physikalischen Speichers (RAM)</b><br>\n"
+"\n"
+"Wenn Sie keine Begrenzung angeben, wird die Größe des installierten "
+"physikalischen Speichers in Ihrem Computer als Limit verwendet. Siekönnen "
+"kein Limit setzen das höher ist als die Menge des installiertenSpeichers."
 
-#: plugins/memory/MemoryDialog.uic.cpp:88
-msgid "Virtual Memory"
-msgstr "Auslagerungsdateien"
+#: plugins/memory/MemDlg.uic.cpp:58
+msgid "Limit &to"
+msgstr "Begrenzen &auf"
 
-#: plugins/memory/MemoryDialog.uic.cpp:99
-msgid "enable usage of virtual Memory"
-msgstr "Auslagerungsdateien aktivieren"
+#: plugins/memory/MemDlg.uic.cpp:73 plugins/memory/MemDlg.uic.cpp:119
+msgid " MB"
+msgstr " MB"
 
-#: plugins/memory/MemoryDialog.uic.cpp:154
-msgid "Search..."
-msgstr "Suchen..."
+#: plugins/memory/MemDlg.uic.cpp:77
+msgid "megabytes of physical memory"
+msgstr "Megabytes physiklischer Speicher"
 
-#: plugins/memory/MemoryDialog.uic.cpp:155
-msgid "choose a directory for the temporary files"
-msgstr "Verzeichnis für Auslagerungsdateien auswählen"
+#: plugins/memory/MemDlg.uic.cpp:83
+msgid "&Virtual Memory"
+msgstr "&Auslagerungsdateien"
+
+#: plugins/memory/MemDlg.uic.cpp:84
+msgid ""
+"<b>Configure the usage of virtual memory (swap files).</b><br>\n"
+"\n"
+"If you enable the use of virtual memory, you can specify a directory where "
+"Kwave creates temporary files that it can use as an extension to the "
+"physical memory. This enables you to process files that are much larger than "
+"your physical memory.\n"
+"<br>\n"
+"    Of course you can also set a limit for the total size of the page files."
+msgstr ""
+"<b>Konfiguration der Auslagerungsdateien.</b><br>\n"
+"\n"
+"Wenn Sie die Verwendung von Auslagerungsdateien aktivieren, können Sieein "
+"Verzeichnis angeben in dem Kwave Auslagerungsdateien erstellt, "
+"diezusätzlich zu dem physikalischen Speicher (RAM) verwendet werden. "
+"Aufdiese Art und Weise können Sie Dateien bearbeiten die größer sind als "
+"dasIhr physikalischer Speicher erlauben würde.\n"
+"<br>\n"
+"    Natürlich können Sie die Menge an Speicher in den Auslagerungsdateien "
+"auch begrenzen."
+
+#: plugins/memory/MemDlg.uic.cpp:94
+msgid "&Enable usage of virtual memory"
+msgstr "Auslagerungsdateien &aktivieren"
+
+#: plugins/memory/MemDlg.uic.cpp:103
+msgid "&Limit to"
+msgstr "&Begrenzen auf"
+
+#: plugins/memory/MemDlg.uic.cpp:124
+msgid "megabytes of virtual memory"
+msgstr "Megabytes in Auslagerungsdateien"
+
+#: plugins/memory/MemDlg.uic.cpp:137
+msgid "/tmp"
+msgstr "/tmp"
+
+#: plugins/memory/MemDlg.uic.cpp:138
+msgid "directory for storing swap files"
+msgstr "Verzeichnis für Auslagerungsdateien"
+
+#: plugins/memory/MemDlg.uic.cpp:142
+msgid "&Search..."
+msgstr "&Suchen..."
+
+#: plugins/memory/MemDlg.uic.cpp:143
+msgid "browse for a directory to hold page files"
+msgstr "Verzeichnis für Auslagerungsdateien wählen"
 
 #: plugins/movingaverage/module.cpp:25
 msgid "Choose Parameters :"
@@ -1443,59 +1515,59 @@ msgstr "Wert eingeben"
 msgid "Length of pulse :"
 msgstr "Pulslänge :"
 
-#: plugins/sonagram/SonagramWindow.cpp:134
+#: plugins/sonagram/SonagramWindow.cpp:133
 msgid "&Export to Bitmap ..."
 msgstr "&Exportiere als Bitmap ..."
 
-#: plugins/sonagram/SonagramWindow.cpp:139
+#: plugins/sonagram/SonagramWindow.cpp:138
 msgid "Frequencies Status Bar"
 msgstr "Frequenzen Statuszeile"
 
-#: plugins/sonagram/SonagramWindow.cpp:143
+#: plugins/sonagram/SonagramWindow.cpp:142
 msgid "Time: ------ ms"
 msgstr "Zeit: ------ ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:144
+#: plugins/sonagram/SonagramWindow.cpp:143
 msgid "Frequency: ------ Hz"
 msgstr "Frequenz: ------ Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:145
+#: plugins/sonagram/SonagramWindow.cpp:144
 #, c-format
 msgid "Amplitude: --- %"
 msgstr "Amplitude: --- %"
 
-#: plugins/sonagram/SonagramWindow.cpp:187
+#: plugins/sonagram/SonagramWindow.cpp:186
 msgid "Time: 0 ms"
 msgstr "Zeit: 0 ms"
 
-#: plugins/sonagram/SonagramWindow.cpp:188
+#: plugins/sonagram/SonagramWindow.cpp:187
 msgid "Frequency: 0 Hz"
 msgstr "Frequenz: 0 Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:189
+#: plugins/sonagram/SonagramWindow.cpp:188
 #, c-format
 msgid "Amplitude: 0 %"
 msgstr "Amplitude: 0 %"
 
-#: plugins/sonagram/SonagramWindow.cpp:503
+#: plugins/sonagram/SonagramWindow.cpp:502
 msgid "Sonagram of "
 msgstr "Sonagramm von "
 
-#: plugins/sonagram/SonagramWindow.cpp:506
+#: plugins/sonagram/SonagramWindow.cpp:505
 msgid "<nothing>"
 msgstr "<Nichts>"
 
-#: plugins/sonagram/SonagramWindow.cpp:530
+#: plugins/sonagram/SonagramWindow.cpp:529
 #, c-format, ycp-format
 msgid "Time: %1"
 msgstr "Zeit: %1"
 
-#: plugins/sonagram/SonagramWindow.cpp:534
+#: plugins/sonagram/SonagramWindow.cpp:533
 #, c-format
 msgid "Frequency: %d Hz"
 msgstr "Frequenz: %d Hz"
 
-#: plugins/sonagram/SonagramWindow.cpp:544
+#: plugins/sonagram/SonagramWindow.cpp:543
 msgid "Amplitude: %d %%"
 msgstr "Amplitude: %d %%"
 
@@ -1607,134 +1679,189 @@ msgstr "Typ der Interpolation :"
 msgid "Points are taken %d.%01d times/s"
 msgstr "%d.%01d Abtastungen / Sekunde"
 
-#: plugins/newsignal/NewSignalDialog.cpp:209
+#: plugins/newsignal/NewSignalDialog.cpp:311
 msgid "(Mono)"
 msgstr "(Mono)"
 
-#: plugins/newsignal/NewSignalDialog.cpp:212
+#: plugins/newsignal/NewSignalDialog.cpp:314
 msgid "(Stereo)"
 msgstr "(Stereo)"
 
-#: plugins/newsignal/NewSignalDialog.cpp:215
+#: plugins/newsignal/NewSignalDialog.cpp:317
 msgid "(Quadro)"
 msgstr "(Quadro)"
 
-#: plugins/newsignal/NewSignalDialog.cpp:241
+#: plugins/newsignal/NewSignalDialog.cpp:342
 #, ycp-format
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resultierende Dateigröße: %1 MB)"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:37
+#: plugins/newsignal/NewSigDlg.uic.cpp:38
 msgid "New File..."
 msgstr "Neue Datei..."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:43
+#: plugins/newsignal/NewSigDlg.uic.cpp:44
 msgid "Format"
 msgstr "Format"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:53
+#: plugins/newsignal/NewSigDlg.uic.cpp:54
 msgid "8000"
 msgstr "8000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:54
+#: plugins/newsignal/NewSigDlg.uic.cpp:55
 msgid "10000"
 msgstr "10000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:55
+#: plugins/newsignal/NewSigDlg.uic.cpp:56
 msgid "11025"
 msgstr "11025"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:56
+#: plugins/newsignal/NewSigDlg.uic.cpp:57
 msgid "12000"
 msgstr "12000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:57
+#: plugins/newsignal/NewSigDlg.uic.cpp:58
 msgid "16000"
 msgstr "16000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:58
+#: plugins/newsignal/NewSigDlg.uic.cpp:59
 msgid "22050"
 msgstr "22050"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:59
+#: plugins/newsignal/NewSigDlg.uic.cpp:60
 msgid "32000"
 msgstr "32000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:60
+#: plugins/newsignal/NewSigDlg.uic.cpp:61
 msgid "44100"
 msgstr "44100"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:61
+#: plugins/newsignal/NewSigDlg.uic.cpp:62
 msgid "48000"
 msgstr "48000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:62
+#: plugins/newsignal/NewSigDlg.uic.cpp:63
 msgid "96000"
 msgstr "96000"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:69
+#: plugins/newsignal/NewSigDlg.uic.cpp:66
+msgid ""
+"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
+"sample rates or you can enter any sample rate on your own."
+msgstr ""
+"<b>Sample-Rate</b><br>Hier können Sie eine der allgemein bekannten "
+"Sample-Raten auswählen oder direkt eine eigene Sample-Rate eingeben."
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:71
 msgid "Sample Rate:"
 msgstr "Abtastrate:"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:84
+#: plugins/newsignal/NewSigDlg.uic.cpp:86
 msgid "samples per second"
 msgstr "Samples pro Sekunde"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:92
+#: plugins/newsignal/NewSigDlg.uic.cpp:94
 msgid "Tracks:"
 msgstr "Stimmen: "
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:97
+#: plugins/newsignal/NewSigDlg.uic.cpp:99
 msgid "Resolution:"
 msgstr "Auflösung:"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:106
+#: plugins/newsignal/NewSigDlg.uic.cpp:108
 msgid "bit"
 msgstr "Bit"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:118
-#: plugins/newsignal/NewSigDlg.uic.cpp:282
+#: plugins/newsignal/NewSigDlg.uic.cpp:120
+#: plugins/newsignal/NewSigDlg.uic.cpp:306
 #, c-format, ycp-format
 msgid "%1"
 msgstr "%1"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:132
-msgid "8"
-msgstr "8"
+#: plugins/newsignal/NewSigDlg.uic.cpp:130
+msgid ""
+"<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
+"you are not sure now, you can add or delete tracks later in the program."
+msgstr ""
+"<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks der neuen "
+"Datei.Wenn Sie jetzt noch nicht sicher sind, dann können Sie im Programm "
+"jederzeitTracks hinzufügen oder löschen."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:133
-msgid "16"
-msgstr "16"
+#: plugins/newsignal/NewSigDlg.uic.cpp:139
+msgid ""
+"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
+"saved. However, Kwave always uses 24 bits as it's own internal resolution to "
+"give the best results when processing the audio data."
+msgstr ""
+"<b>Auflösung</b><br>Wähen Sie hier eine Auflösung in Bits pro Sample in "
+"derdie Datei gespeichert werden soll. Wie auch immer, Kwave verwendet intern "
+"24 Bitum die besten Resultate bei der Bearbeitung der Audio-Daten zu "
+"erhalten."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:134
-msgid "24"
-msgstr "24"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:141
+#: plugins/newsignal/NewSigDlg.uic.cpp:145
 msgid "Length"
 msgstr "Länge"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:182
-msgid "Hours"
-msgstr "Stunden"
+#: plugins/newsignal/NewSigDlg.uic.cpp:146
+msgid ""
+"<b>Length of the signal</b><br>You can select the length of the signal "
+"either by time or directly by the number of samples. The length will be "
+"limited by the maximum file size and the available memory."
+msgstr ""
+"<b>Länge der Datei</b><br>Sie können die Länge der Datei entweder "
+"überdie Zeit oder die Anzahl der Samples auswählen. Die Länge wird durch "
+"diemaximale Größe einer datei und durch den verfügbaren Speicher begrenzt."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:196
-msgid "Minutes"
-msgstr "Minuten"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:214
-msgid "Seconds"
-msgstr "Sekunden"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:233
-msgid "Samples"
-msgstr "Samples"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:248
+#: plugins/newsignal/NewSigDlg.uic.cpp:183
 msgid "Time"
 msgstr "Zeit"
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:305
+#: plugins/newsignal/NewSigDlg.uic.cpp:184
+msgid "select this to set the length of the file by time"
+msgstr "wählen Sie dies um die Länge der Datei nach Zeit auszuwählen"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:207
+msgid "Hours"
+msgstr "Stunden"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:221
+msgid "Minutes"
+msgstr "Minuten"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:239
+msgid "Seconds"
+msgstr "Sekunden"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:256
+msgid "Samples"
+msgstr "Samples"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:257
+msgid "select this to enter the number of samples directly"
+msgstr "wählen Sie diese um die Anzahl der Samples direkt einzugeben"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:270
+msgid "sets the file size by the percentage of the possible maximum"
+msgstr ""
+"Setzt die Dateigröße über den Prozentsatz der maximal möglichen "
+"Dateigröße."
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:278
+#, c-format
+msgid "0%"
+msgstr "0%"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:284
+#, c-format
+msgid "50%"
+msgstr "50%"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:290
+#, c-format
+msgid "100%"
+msgstr "100%"
+
+#: plugins/newsignal/NewSigDlg.uic.cpp:329
 msgid "O&K"
 msgstr "O&K"
 

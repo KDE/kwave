@@ -12,8 +12,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>597</width>
-            <height>512</height>
+            <width>500</width>
+            <height>507</height>
         </rect>
     </property>
     <property stdset="1">
@@ -121,6 +121,10 @@
                     <property stdset="1">
                         <name>currentItem</name>
                         <number>7</number>
+                    </property>
+                    <property>
+                        <name>whatsThis</name>
+                        <string>&lt;b&gt;Sample Rate&lt;/b&gt;&lt;br&gt;Here you can select one of the predefined well-known sample rates or you can enter any sample rate on your own.</string>
                     </property>
                 </widget>
                 <widget row="0"  column="0" >
@@ -380,6 +384,10 @@
                         <name>value</name>
                         <number>2</number>
                     </property>
+                    <property>
+                        <name>whatsThis</name>
+                        <string>&lt;b&gt;Number of Tracks&lt;/b&gt;&lt;br&gt;Select a number of tracks of the new signal. If you are not sure now, you can add or delete tracks later in the program.</string>
+                    </property>
                 </widget>
                 <widget row="1"  column="2" >
                     <class>QSpinBox</class>
@@ -403,6 +411,10 @@
                         <name>value</name>
                         <number>16</number>
                     </property>
+                    <property>
+                        <name>whatsThis</name>
+                        <string>&lt;b&gt;Resolution&lt;/b&gt;&lt;br&gt;Select a resolution in bits in which the file will be saved. However, Kwave always uses 24 bits as it's own internal resolution to give the best results when processing the audio data.</string>
+                    </property>
                 </widget>
             </grid>
         </widget>
@@ -415,6 +427,10 @@
             <property stdset="1">
                 <name>title</name>
                 <string>Length</string>
+            </property>
+            <property>
+                <name>whatsThis</name>
+                <string>&lt;b&gt;Length of the signal&lt;/b&gt;&lt;br&gt;You can select the length of the signal either by time or directly by the number of samples. The length will be limited by the maximum file size and the available memory.</string>
             </property>
             <vbox>
                 <property stdset="1">

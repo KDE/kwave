@@ -527,24 +527,6 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
         <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
-        <sender>chkEnableVirtual</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>chkLimitVirtual</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>chkEnableVirtual</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>edDirectory</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>chkEnableVirtual</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>btSearch</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
         <sender>slPhysical</sender>
         <signal>valueChanged(int)</signal>
         <receiver>sbPhysical</receiver>

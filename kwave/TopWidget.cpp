@@ -725,46 +725,26 @@ void TopWidget::openRecent(const QString &str)
 //***************************************************************************
 void TopWidget::openFile()
 {
-    QString filename;
-    QString dir = KwaveApp::defaultOpenDir();
-
-    filename = KFileDialog::getOpenFileName(dir, "*.wav", this);
-    if (filename.length()) {
-	QFileInfo path(filename);
-	KwaveApp::setDefaultOpenDir(path.dirPath());
-	
-	loadFile(filename, WAV);
-    }
+    QString filename = KFileDialog::getOpenFileName(
+	":kwave-open-dir", "*.wav", this);
+    if (filename.length()) loadFile(filename, WAV);
 }
 
 //***************************************************************************
 void TopWidget::importAsciiFile()
 {
-    QString filename;
-    QString dir = KwaveApp::defaultOpenDir();
-
-    filename = KFileDialog::getOpenFileName(dir, "*.asc", this);
-    if (filename.length()) {
-	QFileInfo path(filename);
-	KwaveApp::setDefaultOpenDir(path.dirPath());
-	
-	loadFile(filename, ASCII);
-    }
+    QString filename = KFileDialog::getOpenFileName(
+	":kwave-open-dir", "*.asc", this);
+    if (filename.length()) loadFile(filename, ASCII);
 }
 
 //***************************************************************************
 void TopWidget::exportAsciiFile()
 {
-    QString name;
-    QString dir = KwaveApp::defaultOpenDir();
-
-    name = KFileDialog::getSaveFileName(dir, "*.asc", this);
-    if (name.length()) {
-	QFileInfo path(name);
-	KwaveApp::setDefaultSaveDir(path.dirPath());
-	
-	m_main_widget->saveFile(name, m_save_bits, ASCII, false);
-    }
+    QString filename = KFileDialog::getOpenFileName(
+	":kwave-open-dir", "*.asc", this);
+    if (filename.length()) m_main_widget->saveFile(filename,
+    	m_save_bits, ASCII, false);
 }
 
 //***************************************************************************
@@ -774,9 +754,6 @@ void TopWidget::saveFile()
     if (!m_main_widget) return;
 
     if (m_filename.length() && (m_filename != NEW_FILENAME)) {
-	QFileInfo path(m_filename);
-	KwaveApp::setDefaultSaveDir(path.dirPath());
-	
 	m_main_widget->saveFile(m_filename, m_save_bits, 0, false);
 	setCaption(m_filename);
 	updateMenu();
@@ -789,11 +766,11 @@ void TopWidget::saveFileAs(bool selection)
     ASSERT(m_main_widget);
     if (!m_main_widget) return;
 
-    QString dir = KwaveApp::defaultSaveDir();
-    QString name = KFileDialog::getSaveFileName(dir, "*.wav", m_main_widget);
+    QString name = KFileDialog::getSaveFileName(":kwave-savedir",
+	"*.wav", m_main_widget);
+
     if (!name.isNull()) {
 	QFileInfo path(name);
-	KwaveApp::setDefaultSaveDir(path.dirPath());
 	
 	// add the extension .wav if necessary
 	if ((path.extension(false) != "wav") &&

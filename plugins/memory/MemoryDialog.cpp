@@ -27,10 +27,14 @@
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qlineedit.h>
+#include <qobject.h>
+#include <qpushbutton.h>
 #include <qslider.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qspinbox.h>
+
+#include <kfiledialog.h>
 
 #include "MemoryDialog.h"
 
@@ -50,6 +54,12 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
 
     if (!isOK()) return;
 
+    // connect the controls
+    connect(chkEnableVirtual, SIGNAL(toggled(bool)),
+            this, SLOT(virtualMemoryEnabled(bool)));
+    connect(btSearch, SIGNAL(clicked()),
+            this, SLOT(searchSwapDir()));
+
     // initialize all controls
     chkLimitPhysical->setChecked(physical_limited);
     slPhysical->setMaxValue(installed_physical);
@@ -60,6 +70,8 @@ MemoryDialog::MemoryDialog(QWidget* parent, bool physical_limited,
     chkLimitVirtual->setChecked(virtual_limited);
     sbVirtual->setValue(virtual_limit);
     edDirectory->setText(virtual_dir);
+
+    virtualMemoryEnabled(virtual_enabled);
 
     // set fixed size
     setFixedWidth(sizeHint().width());
@@ -98,6 +110,28 @@ void MemoryDialog::params(QStringList &par)
     par << QString::number(chkLimitVirtual->isChecked() ? 1 : 0);
     par << QString::number(sbVirtual->value());
     par << edDirectory->text();
+}
+
+//***************************************************************************
+void MemoryDialog::virtualMemoryEnabled(bool enable)
+{
+    bool limit = enable && (chkLimitVirtual->isChecked());
+
+    chkLimitVirtual->setEnabled(enable);
+    slVirtual->setEnabled(limit);
+    sbVirtual->setEnabled(limit);
+
+    txtDirectory->setEnabled(enable);
+    edDirectory->setEnabled(enable);
+    btSearch->setEnabled(enable);
+}
+
+//***************************************************************************
+void MemoryDialog::searchSwapDir()
+{
+    QString dir = KFileDialog::getExistingDirectory(
+	edDirectory->text(), this);
+    if (dir.length()) edDirectory->setText(dir);
 }
 
 //***************************************************************************

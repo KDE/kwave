@@ -93,35 +93,6 @@ public:
     /** Returns a reference to Kwave's clipboard */
     static ClipBoard &clipboard();
 
-    /**
-     * Returns the default directory for opening files.
-     * @note This might be extended to contain a file category
-     *       in future.
-     */
-    static QString defaultOpenDir() {
-	return m_default_open_dir;
-    };
-
-    /**
-     * Returns the default directory for saving files.
-     * @see defaultOpenDir()
-     */
-    static QString defaultSaveDir() {
-	return m_default_save_dir;
-    };
-
-    /**
-     * Sets the default directory for opening files. This should be
-     * called whenever the user has loaded a file.
-     */
-    static void setDefaultOpenDir(const QString &dir);
-
-    /**
-     * Sets the default directory for saving files. This should be
-     * called whenever the user has saved a file.
-     */
-    static void setDefaultSaveDir(const QString &dir);
-
 signals:
     /**
      * Will be emitted if the list of recent files has changed. Can
@@ -169,12 +140,6 @@ private:
 
     /** Kwave's clipboard */
     static ClipBoard &m_clipboard;
-
-    /** Default directory for opening files */
-    static QString m_default_open_dir;
-
-    /** Default directory for saving files */
-    static QString m_default_save_dir;
 
 };
 

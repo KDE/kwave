@@ -39,8 +39,6 @@
 // some static initializers
 static ClipBoard _clipboard;
 ClipBoard &KwaveApp::m_clipboard(_clipboard);
-QString KwaveApp::m_default_open_dir;
-QString KwaveApp::m_default_save_dir;
 
 //***************************************************************************
 KwaveApp::KwaveApp()
@@ -191,18 +189,6 @@ ClipBoard &KwaveApp::clipboard()
 }
 
 //***************************************************************************
-void KwaveApp::setDefaultOpenDir(const QString &dir)
-{
-    m_default_open_dir = dir;
-}
-
-//***************************************************************************
-void KwaveApp::setDefaultSaveDir(const QString &dir)
-{
-    m_default_save_dir = dir;
-}
-
-//***************************************************************************
 void KwaveApp::saveRecentFiles()
 {
     KConfig *cfg = KGlobal::config();
@@ -226,13 +212,6 @@ void KwaveApp::saveConfig()
     KConfig *cfg = KGlobal::config();
     ASSERT(cfg);
     if (!cfg) return;
-
-    // default directories
-    cfg->setGroup("Directories");
-    cfg->writeEntry("DefaultOpen", m_default_open_dir);
-    cfg->writeEntry("DefaultSave", m_default_save_dir);
-
-    cfg->sync();
 
     // also save the list of recent files
     saveRecentFiles();
@@ -259,11 +238,6 @@ void KwaveApp::readConfig()
 		m_recent_files.append(result);
 	}
     }
-
-    // default directories
-    cfg->setGroup("Directories");
-    m_default_open_dir = cfg->readEntry("DefaultOpen", ".");
-    m_default_save_dir = cfg->readEntry("DefaultSave", ".");
 
 }
 

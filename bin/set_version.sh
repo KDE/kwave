@@ -23,12 +23,12 @@
 #       - there must be no additional spaces at the VERSION line
 #         between the word "VERSION" and the "=".
 #
-# 08.11.1999 THE, adapted the script to work for the kwave project
+# 1999-11-08 THE, adapted the script to work for the kwave project
 #
-# 12.11.1999 Martin Wilz, added date for .lsm file and changed file 
+# 1999-11-12 Martin Wilz, added date for .lsm file and changed file 
 #            permissions of configure script back to executable
 #
-# 26.12.1999 THE, split the former "make_release" script into four parts:
+# 1999-12-26 THE, split the former "make_release" script into four parts:
 #            - set_version: feeds a new version number/date into various files
 #            - increment_release: starts a new release, version number will
 #                                 be incremented, patchlevel will be removed
@@ -39,7 +39,10 @@
 #                          current version
 #            the configure script and Makefiles will no longer be modified
 #
-# 20.02.2002 THE, no longer modifying about plugin
+# 2002-02-20 THE, no longer modifying about plugin
+#
+# 2003-06-21 THE, also setting AM_INIT_AUTOMAKE in configure.in
+#
 
 # uncomment the next line for debugging
 # set -x
@@ -67,8 +70,7 @@ cat kwave.lsm | awk -v newver=$NEW_VERSION \
 	split($0, a, ":") } {
 	if (a[1] == "Version") {
 	    printf("Version:\t%s\n", newver)
-	} else
-	if (a[1] == "Entered-date") {
+	} else if (a[1] == "Entered-date") {
 	    printf("Entered-date:\t%s\n", toupper(newdate))
 	} else 
 	    print $0
@@ -84,6 +86,8 @@ cat configure.in | \
 	split($0, a, "(") } {
 	if (a[1] == "AC_INIT") {
 	    printf("AC_INIT(kwave,%s)\n", newver)
+	} else if (a[1] == "AM_INIT_AUTOMAKE") {
+	    printf("AM_INIT_AUTOMAKE(kwave,%s)\n", newver)
 	} else
 	    print $0
 	}' > configure.in.new

@@ -93,21 +93,25 @@ private:
     /** initializes the "File" tab */
     void setupFileInfoTab();
 
+    /** initialize the "Compression" tab */
+    void setupCompressionTab();
+
+    /** initialize the "MPEG" tab */
+    void setupMpegTab();
+    
     /** initializes the "Content" tab */
     void setupContentTab();
 
     /** initialize the "Source" tab */
     void setupSourceTab();
-    
+
+    /** initialize the "Author/Copyright" tab */
+    void setupAuthorCopyrightTab();
+
     /** initialize the "Miscellaneous" tab */
     void setupMiscellaneousTab();
 
-    /** initialize the "MPEG" tab */
-    void setupMpegTab();
-
-    /** initialize the "ID3 Tags" tab */
-    void setupID3Tab();
-    
+  
 private:
 
     /** FileInfo to be edited */
@@ -116,6 +120,9 @@ private:
     /** if true, we have an MPEG file */
     bool m_is_mpeg;
 
+    /** if true, we have an Ogg/Vorbis file */
+    bool m_is_ogg;
+    
 };
 
 #endif /* _FILE_INFO_DIALOG_H_ */

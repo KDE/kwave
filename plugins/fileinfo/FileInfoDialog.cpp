@@ -24,6 +24,7 @@
 #include <qlistbox.h>
 #include <qcombobox.h>
 #include <qpushbutton.h>
+#include <qradiobutton.h>
 #include <qspinbox.h>
 #include <qstring.h>
 #include <qstringlist.h>
@@ -34,6 +35,7 @@
 #include <kcombobox.h>
 #include <kdatewidget.h>
 #include <klistbox.h>
+#include <kmimetype.h>
 #include <knuminput.h>
 
 #include "libkwave/FileInfo.h"
@@ -50,17 +52,22 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
     :FileInfoDlg(parent), m_info(info)
 {
     QString mimetype = QVariant(m_info.get(INF_MIMETYPE)).toString();
+
     m_is_mpeg = ((mimetype == "audio/x-mpga") ||
         (mimetype == "audio/x-mp2") || (mimetype == "audio/x-mp3") ||
         (mimetype == "audio/mpeg"));
-    debug("mimetype = %s",mimetype.data());
+    m_is_ogg = ((mimetype == "audio/x-ogg") ||
+                (mimetype == "application/x-ogg"));
 
+    debug("mimetype = %s",mimetype.data());
+   
     setupFileInfoTab();
+    setupCompressionTab();
+    setupMpegTab();
     setupContentTab();
     setupSourceTab();
+    setupAuthorCopyrightTab();
     setupMiscellaneousTab();
-    setupMpegTab();
-    setupID3Tab();
     
 }
 
@@ -124,6 +131,29 @@ void FileInfoDialog::setupFileInfoTab()
 	edFileSize->setEnabled(false);
     }
 
+    /* file format (from mime type) */
+
+/** @todo using description instead of bare mime type would
+          be fine, but doesn't work yet. Currently it gives
+          only "Unknown" :-(
+*/
+//    QString mimetype = QVariant(m_info.get(INF_MIMETYPE)).toString();
+//    lblFileFormat->setText(i18n("File Format")+":");
+//    describeWidget(edFileFormat, lblFileFormat->text().left(
+//        lblFileFormat->text().length()-1),
+//        i18n("Format of the file from which the\n"
+//             "audio data was loaded from"));
+//    debug("mimetype='%s'",mimetype.data()); // ###
+//    KMimeType::Ptr mime = KMimeType::mimeType(mimetype);
+//    QString format =
+//       (mime != KMimeType::mimeType(KMimeType::defaultMimeType())) ?
+//        mime->comment() : mimetype;
+//    debug("comment='%s'",mime->comment().data()); // ###
+//    edFileFormat->setText(format);
+
+    // use mimetype instead
+    initInfoText(lblFileFormat,   edFileFormat,   INF_MIMETYPE);
+
     /* sample rate */
     lblSampleRate->setText(i18n("Sample Rate")+":");
     describeWidget(cbSampleRate, lblSampleRate->text().left(
@@ -178,7 +208,13 @@ void FileInfoDialog::setupFileInfoTab()
     cbSampleFormat->insertStringList(sample_formats.allNames());
     int sample_format = QVariant(m_info.get(INF_SAMPLE_FORMAT)).toInt();
     cbSampleFormat->setCurrentItem(sample_formats.findFromData(sample_format));
-    if (m_is_mpeg) cbSampleFormat->setEnabled(false);
+    if (m_is_mpeg || m_is_ogg) cbSampleFormat->setEnabled(false);
+
+}
+
+//***************************************************************************
+void FileInfoDialog::setupCompressionTab()
+{
 
     /* compression */
     CompressionType compressions;
@@ -186,82 +222,24 @@ void FileInfoDialog::setupFileInfoTab()
     cbCompression->insertStringList(compressions.allNames());
     int compression = QVariant(m_info.get(INF_COMPRESSION)).toInt();
     cbCompression->setCurrentItem(compressions.findFromData(compression));
-    if (m_is_mpeg) cbCompression->setEnabled(false);
+    if (m_is_mpeg || m_is_ogg) cbCompression->setEnabled(false);
 
-}
-
-//***************************************************************************
-void FileInfoDialog::setupContentTab()
-{
-    /* name, subject, version, genre, title, author, organization,
-       copyright, license */
-    initInfoText(lblName,         edName,         INF_NAME);
-    initInfoText(lblSubject,      edSubject,      INF_SUBJECT);
-    initInfoText(lblVersion,      edVersion,      INF_VERSION);
-    initInfoText(lblGenre,        edGenre,        INF_GENRE);
-    initInfoText(lblAuthor,       edAuthor,       INF_AUTHOR);
-    initInfoText(lblOrganization, edOrganization, INF_ORGANIZATION);
-    initInfoText(lblCopyright,    edCopyright,    INF_COPYRIGHT);
-    initInfoText(lblLicense,      edLicense,      INF_LICENSE);
-
-    /* date widget */
-    initInfo(lblDate, dateEdit, INF_CREATION_DATE);
-    QDate date;
-    date = (m_info.contains(INF_CREATION_DATE)) ?
-        QDate::fromString(QVariant(m_info.get(INF_CREATION_DATE)).toString(),
-        Qt::ISODate) : QDate::currentDate();
-    dateEdit->setDate(date);
-    connect(btSelectDate, SIGNAL(clicked()), this, SLOT(selectDate()));
-    connect(btSelectDateNow, SIGNAL(clicked()), this, SLOT(setDateNow()));
-}
-
-//***************************************************************************
-void FileInfoDialog::setupSourceTab()
-{
-    /* source, source form, album */
-    initInfoText(lblSource,     edSource,     INF_SOURCE);
-    initInfoText(lblSourceForm, edSourceForm, INF_SOURCE_FORM);
-    initInfoText(lblAlbum,      edAlbum,      INF_ALBUM);
-
-    /* CD and track */
-    initInfo(lblCD, sbCD, INF_CD);
-    int cd = (m_info.contains(INF_CD)) ?
-	QVariant(m_info.get(INF_CD)).toInt() : 0;
-    sbCD->setValue(cd);
-
-    initInfo(lblTrack, sbTrack, INF_TRACK);
-    int track = (m_info.contains(INF_TRACK)) ?
-	QVariant(m_info.get(INF_TRACK)).toInt() : 0;
-    sbTrack->setValue(track);
-
-    /* product, archival, contact */
-    initInfoText(lblProduct,  edProduct,  INF_PRODUCT);
-    initInfoText(lblArchival, edArchival, INF_ARCHIVAL);
-    initInfoText(lblContact,  edContact,  INF_CONTACT);
-
-}
-
-//***************************************************************************
-void FileInfoDialog::setupMiscellaneousTab()
-{
-    /* software, engineer, technican, commissioned, ISRC, keywords */
-    initInfoText(lblSoftware,     edSoftware,     INF_SOFTWARE);
-    initInfoText(lblEngineer,     edEngineer,     INF_ENGINEER);
-    initInfoText(lblTechnican,    edTechnican,    INF_TECHNICAN);
-    initInfoText(lblCommissioned, edCommissioned, INF_COMMISSIONED);
-    initInfoText(lblISRC,         edISRC,         INF_ISRC);
-
-    /* list of keywords */
-    lblKeywords->setText(m_info.name(INF_KEYWORDS));
-    QWhatsThis::add(lstKeywords, "<b>"+m_info.name(INF_KEYWORDS)+
-        "</b><br>"+m_info.description(INF_KEYWORDS));
-    if (m_info.contains(INF_KEYWORDS)) {
-	QString keywords = QVariant(m_info.get(INF_KEYWORDS)).toString();
-	lstKeywords->setKeywords(QStringList::split(";", keywords));
+    if (m_is_mpeg) {
+	// MPEG file    
+    } else if (m_is_ogg) {
+	// Ogg/Vorbis file    
+    } else {
+	// other...    
+	rbCompressionABR->setEnabled(false);
+	rbCompressionVBR->setEnabled(false);
     }
-    connect(lstKeywords, SIGNAL(autoGenerate()),
-            this, SLOT(autoGenerateKeywords()));
 
+//    // this is not visible, not implemented yet...
+//    InfoTab->setCurrentPage(5);
+//    QWidget *page = InfoTab->currentPage();
+//    InfoTab->removePage(page);
+//    InfoTab->setCurrentPage(0);
+//    return;
 }
 
 //***************************************************************************
@@ -269,7 +247,7 @@ void FileInfoDialog::setupMpegTab()
 {
     // the whole tab is only enabled in mpeg mode
     if (!m_is_mpeg) {
-	InfoTab->setCurrentPage(4);
+	InfoTab->setCurrentPage(2);
 	QWidget *page = InfoTab->currentPage();
 	InfoTab->setTabEnabled(page, false);
 	InfoTab->setCurrentPage(0);
@@ -285,7 +263,7 @@ void FileInfoDialog::setupMpegTab()
 	cbMpegLayer->setEnabled(false);
     } else cbMpegLayer->setCurrentItem(layer-1);
 
-    /* MPEG version */    
+    /* MPEG version */
     initInfo(lblMpegVersion, cbMpegVersion,  INF_MPEG_VERSION);
     int ver = m_is_mpeg ?
         (int)(2.0 * QVariant(m_info.get(INF_MPEG_VERSION)).toDouble()) : 0;
@@ -351,7 +329,7 @@ void FileInfoDialog::setupMpegTab()
 	case 3: cbMpegEmphasis->setCurrentItem(2); break;
 	default: cbMpegEmphasis->setEnabled(false);
     }
-    
+
     /* Copyrighted */
     initInfo(lblMpegCopyrighted, chkMpegCopyrighted, INF_COPYRIGHTED);
     bool copyrighted = QVariant(m_info.get(INF_COPYRIGHTED)).toBool();
@@ -363,18 +341,90 @@ void FileInfoDialog::setupMpegTab()
     bool original = QVariant(m_info.get(INF_ORIGINAL)).toBool();
     chkMpegOriginal->setChecked(original);
     chkMpegOriginal->setText((original) ? i18n("yes") : i18n("no"));
-    
+
 }
 
 //***************************************************************************
-void FileInfoDialog::setupID3Tab()
+void FileInfoDialog::setupContentTab()
 {
-    // this is not visible, not implemented yet...
-    InfoTab->setCurrentPage(5);
-    QWidget *page = InfoTab->currentPage();
-    InfoTab->removePage(page);
-    InfoTab->setCurrentPage(0);
-    return;
+    /* name, subject, version, genre, title, author, organization,
+       copyright, license */
+    initInfoText(lblName,         edName,         INF_NAME);
+    initInfoText(lblSubject,      edSubject,      INF_SUBJECT);
+    initInfoText(lblVersion,      edVersion,      INF_VERSION);
+    initInfoText(lblGenre,        edGenre,        INF_GENRE);
+
+    /* date widget */
+    initInfo(lblDate, dateEdit, INF_CREATION_DATE);
+    QDate date;
+    date = (m_info.contains(INF_CREATION_DATE)) ?
+        QDate::fromString(QVariant(m_info.get(INF_CREATION_DATE)).toString(),
+        Qt::ISODate) : QDate::currentDate();
+    dateEdit->setDate(date);
+    connect(btSelectDate, SIGNAL(clicked()), this, SLOT(selectDate()));
+    connect(btSelectDateNow, SIGNAL(clicked()), this, SLOT(setDateNow()));
+}
+
+//***************************************************************************
+void FileInfoDialog::setupSourceTab()
+{
+    /* source, source form */
+    initInfoText(lblSource,     edSource,     INF_SOURCE);
+    initInfoText(lblSourceForm, edSourceForm, INF_SOURCE_FORM);
+
+    /* Album, CD and track */
+    initInfoText(lblAlbum,      edAlbum,      INF_ALBUM);
+    initInfo(lblCD, sbCD, INF_CD);
+    int cd = (m_info.contains(INF_CD)) ?
+	QVariant(m_info.get(INF_CD)).toInt() : 0;
+    sbCD->setValue(cd);
+
+    initInfo(lblTrack, sbTrack, INF_TRACK);
+    int track = (m_info.contains(INF_TRACK)) ?
+	QVariant(m_info.get(INF_TRACK)).toInt() : 0;
+    sbTrack->setValue(track);
+
+    
+    /* software, engineer, technican */
+    initInfoText(lblSoftware,     edSoftware,     INF_SOFTWARE);
+    initInfoText(lblEngineer,     edEngineer,     INF_ENGINEER);
+    initInfoText(lblTechnican,    edTechnican,    INF_TECHNICAN);
+
+}
+
+//***************************************************************************
+void FileInfoDialog::setupAuthorCopyrightTab()
+{
+    /* author organization, copyright, license, ISRC */
+    initInfoText(lblAuthor,       edAuthor,       INF_AUTHOR);
+    initInfoText(lblOrganization, edOrganization, INF_ORGANIZATION);
+    initInfoText(lblCopyright,    edCopyright,    INF_COPYRIGHT);
+    initInfoText(lblLicense,      edLicense,      INF_LICENSE);
+    initInfoText(lblISRC,         edISRC,         INF_ISRC);
+
+    /* product, archival, contact */
+    initInfoText(lblProduct,  edProduct,  INF_PRODUCT);
+    initInfoText(lblArchival, edArchival, INF_ARCHIVAL);
+    initInfoText(lblContact,  edContact,  INF_CONTACT);
+}
+
+//***************************************************************************
+void FileInfoDialog::setupMiscellaneousTab()
+{
+    /* commissioned */
+    initInfoText(lblCommissioned, edCommissioned, INF_COMMISSIONED);
+
+    /* list of keywords */
+    lblKeywords->setText(m_info.name(INF_KEYWORDS));
+    QWhatsThis::add(lstKeywords, "<b>"+m_info.name(INF_KEYWORDS)+
+        "</b><br>"+m_info.description(INF_KEYWORDS));
+    if (m_info.contains(INF_KEYWORDS)) {
+	QString keywords = QVariant(m_info.get(INF_KEYWORDS)).toString();
+	lstKeywords->setKeywords(QStringList::split(";", keywords));
+    }
+    connect(lstKeywords, SIGNAL(autoGenerate()),
+            this, SLOT(autoGenerateKeywords()));
+
 }
 
 //***************************************************************************

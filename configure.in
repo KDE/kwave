@@ -57,6 +57,23 @@ dnl AC_PROG_CC
 dnl AC_PROG_CPP
 dnl AC_PROG_CXX
 
+dnl switch to C++
+AC_LANG_CPLUSPLUS
+
+dnl check if the c++ compiler is new enough to support references to functions
+AC_MSG_CHECKING("whether $CXX supports references to functions")
+AC_TRY_LINK(
+#include <sys/resource.h>
+,
+    typedef int(function_t)(int);
+    class dummy {
+    public:
+        function_t &function(int index);
+    };
+,
+AC_MSG_RESULT("yes")
+,AC_MSG_ERROR(FAILED! please get a newer C++ compiler))
+
 dnl check if nls is wanted
 AM_KDE_WITH_NLS(yes)
 
@@ -114,9 +131,6 @@ if test $ac_cv_sizeof_int != 4 ; then
 	AC_MSG_WARN([*** sizeof (int) != 4.                                            ])
 	AC_MSG_WARN([******************************************************************])
 	fi
-
-dnl switch to C++
-AC_LANG_CPLUSPLUS
 
 dnl check for dirent.h
 AC_HEADER_DIRENT
@@ -255,7 +269,7 @@ AC_DEFUN(AC_REQUIRE_ARTS,
     AC_MSG_CHECKING(for ARTS base directory)
     if ! $ARTSC_CONFIG --arts-prefix >/dev/null; then
       ARTSDIR=[`kde-config --prefix`]
-      AC_MSG_RESULT(artsc-config is too old, guessing: $ARTSDIR)
+      AC_MSG_RESULT(artsc-config is too old - guessing: $ARTSDIR)
     else
       ARTSDIR=[`$ARTSC_CONFIG --arts-prefix`]
       AC_MSG_RESULT($ARTSDIR)

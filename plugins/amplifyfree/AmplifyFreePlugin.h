@@ -19,10 +19,13 @@
 #define _AMPLIFY_FREE_PLUGIN_H_
 
 #include <qobject.h>
+#include <qstring.h>
+#include <qstringlist.h>
 #include "libgui/KwavePlugin.h"
 
 class QStringList;
 
+/** @todo add support for logarithmic scale */
 class AmplifyFreePlugin: public KwavePlugin
 {
     Q_OBJECT
@@ -46,6 +49,10 @@ protected:
 
     /** Reads values from the parameter list */
     int interpreteParameters(QStringList &params);
+
+private:
+    /** List of parameters */
+    QStringList m_params;
 
 };
 

@@ -146,6 +146,7 @@ QString CurveWidget::getCommand()
 void CurveWidget::setCurve(const QString &command)
 {
     m_curve.fromCommand(command);
+    repaint();
 }
 
 //****************************************************************************

@@ -55,7 +55,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2001-09-16</DATE>
+    <DATE>2001-09-23</DATE>
     <RELEASEINFO>0.6.1-1</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -222,7 +222,15 @@
             <PARA>0.6.2 [2001-??-??]</PARA>
             <ITEMIZEDLIST>
                 <LISTITEM><PARA>
-                    ?
+                    ...
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    recovery of damaged files if non-zero file length but data length
+                      entry in the wav header is zero (e.g. happens when krecord crashes
+                      during recording)
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    bugfix: freeing virtual memory fixed in MemoryManager
                 </PARA></LISTITEM>
             </ITEMIZEDLIST>
         </LISTITEM>
@@ -2424,7 +2432,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2001-09-16</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2001-09-23</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

@@ -23,6 +23,8 @@
 #include <qstring.h>
 #include "AmplifyFreeDlg.uih.h"
 
+class QStringList;
+
 class AmplifyFreeDialog: public AmplifyFreeDlg
 {
     Q_OBJECT
@@ -36,6 +38,9 @@ public:
 
     /** Returns a command string for the curve */
     QString getCommand();
+
+    /** Sets the curve parameters and points from a list of parameters */
+    void setParams(QStringList &params);
 
 };
 

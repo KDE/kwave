@@ -58,6 +58,7 @@ void Curve::fromCommand(const QString &command)
     double x, y;
     while (!parse.isDone()) {
 	x = parse.toDouble();
+	if (parse.isDone()) break; // half point ?
 	y = parse.toDouble();
 	append(x, y);
     }

@@ -1,7 +1,11 @@
 
 0.6.2 [2001-??-??]
 
- * ?
+ * ...
+ * recovery of damaged files if non-zero file length but data length
+   entry in the wav header is zero (e.g. happens when krecord crashes
+   during recording)
+ * bugfix: freeing virtual memory fixed in MemoryManager
 
 0.6.1-1 [2001-09-01]
 

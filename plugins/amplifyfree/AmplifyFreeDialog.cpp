@@ -60,4 +60,17 @@ QString AmplifyFreeDialog::getCommand()
 }
 
 //***************************************************************************
+void AmplifyFreeDialog::setParams(QStringList &params)
+{
+    QStringList::Iterator it;
+    QString cmd = "curve(";
+
+    for (it = params.begin(); it != params.end(); ++it)
+	cmd += *it + ",";
+    cmd += ")";
+
+    if (curveWidget) curveWidget->setCurve(cmd);
+}
+
+//***************************************************************************
 //***************************************************************************

@@ -20,6 +20,7 @@
 
 #include <qstringlist.h>
 
+#include "libkwave/Parser.h"
 #include "AmplifyFreePlugin.h"
 #include "AmplifyFreeDialog.h"
 
@@ -27,7 +28,7 @@ KWAVE_PLUGIN(AmplifyFreePlugin,"amplifyfree","Thomas Eschenbacher");
 
 //***************************************************************************
 AmplifyFreePlugin::AmplifyFreePlugin(PluginContext &context)
-    :KwavePlugin(context)
+    :KwavePlugin(context), m_params()
 {
 }
 
@@ -39,50 +40,14 @@ AmplifyFreePlugin::~AmplifyFreePlugin()
 //***************************************************************************
 int AmplifyFreePlugin::interpreteParameters(QStringList &params)
 {
-//    bool ok;
-//    QString param;
-//
-//    // evaluate the parameter list
-//    ASSERT(params.count() == 5);
-//    if (params.count() != 5) {
-//	warning("AmplifyFreePlugin::interpreteParams(): params.count()=%d",
-//	      params.count());
-//	return -EINVAL;
-//    }
-//
-//    param = params[0];
-//    m_samples = param.toUInt(&ok);
-//    ASSERT(ok);
-//    if (!ok) return -EINVAL;
-//
-//    param = params[1];
-//    m_rate = (unsigned int)param.toDouble(&ok);
-//    ASSERT(ok);
-//    if (!ok) return -EINVAL;
-//
-//    param = params[2];
-//    m_bits = param.toUInt(&ok);
-//    ASSERT(ok);
-//    if (!ok) return -EINVAL;
-//
-//    param = params[3];
-//    m_tracks = param.toUInt(&ok);
-//    ASSERT(ok);
-//    if (!ok) return -EINVAL;
-//
-//    param = params[4];
-//    m_bytime = (param.toUInt(&ok) != 0);
-//    ASSERT(ok);
-//    if (!ok) return -EINVAL;
-
+    // all params are curve params
+    m_params = params;
     return 0;
 }
 
 //***************************************************************************
 QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 {
-    debug("AmplifyFreePlugin::setup");
-
     // try to interprete the previous parameters
     interpreteParameters(previous_params);
 
@@ -91,22 +56,16 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
     ASSERT(dialog);
     if (!dialog) return 0;
 
+    if (!m_params.isEmpty()) dialog->setParams(m_params);
+
     QStringList *list = new QStringList();
     ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
-//	*list << QString::number(dialog->samples());
-//	*list << QString::number(dialog->rate());
-//	*list << QString::number(dialog->bitsPerSample());
-//	*list << QString::number(dialog->tracks());
-//	*list << (dialog->byTime() ? "1" : "0");
-//	
-//	emitCommand("newsignal("+
-//	    QString::number(dialog->samples())+","+
-//	    QString::number(dialog->rate())+","+
-//	    QString::number(dialog->bitsPerSample())+","+
-//	    QString::number(dialog->tracks())+")"
-//	);
+	QString cmd = dialog->getCommand();
+	Parser p(cmd);
+	while (!p.isDone()) *list << p.nextParam();
+	emitCommand(cmd);
     } else {
 	// user pressed "Cancel"
 	if (list) delete list;

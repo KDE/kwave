@@ -1,3 +1,4 @@
+# KTranslator Generated File
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <Thomas.Eschenbacher@gmx.de>, 2000.
@@ -5,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSION\n"
-"POT-Creation-Date: 2000-07-29 14:38+0200\n"
+"POT-Creation-Date: 2000-08-02 23:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -172,7 +173,7 @@ msgstr "Problem bei der Wiedergabe"
 #: src/SignalManager.cpp:1205
 #, fuzzy
 msgid "number of bits per samples not supported"
-msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
+msgstr "Anzahl der Bits/Sample wird nicht unterstützt!"
 
 #: src/SignalManager.cpp:1213
 msgid "stereo not supported"
@@ -192,11 +193,11 @@ msgstr "Länge: 0ms             "
 
 #: src/TopWidget.cpp:74
 msgid "Rate: 0 kHz         "
-msgstr ""
+msgstr "Rate: 0kHz"
 
 #: src/TopWidget.cpp:75
 msgid "Samples: 0             "
-msgstr ""
+msgstr "Samples: 0"
 
 #: src/TopWidget.cpp:76
 msgid "selected: 0 ms        "
@@ -206,26 +207,29 @@ msgstr "ausgewählt: 0ms       "
 msgid "Clipboard: 0 ms      "
 msgstr "Zwischenablage: 0ms     "
 
-#: src/TopWidget.cpp:212
+#: src/TopWidget.cpp:209
 #, c-format
 msgid "oops, plugin '%s' is unknown !"
-msgstr ""
+msgstr "Hoppla, Plugin '%s' ist unbekannt !"
 
-#: src/TopWidget.cpp:214 src/TopWidget.cpp:232
+#: src/TopWidget.cpp:211 src/TopWidget.cpp:229
 msgid "error on loading plugin"
-msgstr ""
+msgstr "Fehler beim Laden des Plugins"
 
-#: src/TopWidget.cpp:228
+#: src/TopWidget.cpp:225
 #, c-format
 msgid ""
 "unable to load the file \n"
 "'%s'\n"
 " that contains the plugin '%s' !"
 msgstr ""
+"Problem beim Laden der Datei \n"
+"%s\n"
+"die das Plugin '%s' enthält !"
 
 #: src/PitchWindow.cpp:35
 msgid "&Pitch"
-msgstr ""
+msgstr "&Frequenzverschiebung"
 
 #: src/PitchWindow.cpp:41
 msgid "Time:         0 ms      "
@@ -237,7 +241,7 @@ msgstr "Frequenz:          0 Hz"
 
 #: src/PitchWindow.cpp:75
 msgid "Pitch of "
-msgstr ""
+msgstr "Verschiebung von"
 
 #: src/PitchWindow.cpp:98
 #, c-format
@@ -298,21 +302,21 @@ msgstr "Sonagramm von "
 #: src/SonagramWindow.cpp:169
 #, c-format
 msgid "Bitmap must be %dx%d"
-msgstr "Bitmap muss $dx%d sein"
+msgstr "Bitmap muss %dx%d sein"
 
 #: src/SonagramWindow.cpp:175
 #, fuzzy
 msgid "Could not open Bitmap"
-msgstr "kann Datei nicht öffnen !\n"
+msgstr "kann Bitmap nicht öffnen"
 
 #: src/SonagramWindow.cpp:325
 msgid "Out of memory !"
-msgstr "Zu wenig Speicher!"
+msgstr "Zu wenig Speicher !"
 
 #: src/SonagramWindow.cpp:393
 #, fuzzy, c-format
 msgid "Time: %s"
-msgstr "Zeit : %s\n"
+msgstr "Zeit: %s"
 
 #: src/SonagramWindow.cpp:396
 #, fuzzy, c-format
@@ -334,66 +338,67 @@ msgstr "Speicherleck!"
 msgid "Phase: %d degree"
 msgstr "Phase: %d Grad"
 
-#: src/MainWidget.cpp:123 src/MainWidget.cpp:538 src/MainWidget.cpp:558
+#: src/MainWidget.cpp:124 src/MainWidget.cpp:532 src/MainWidget.cpp:552
 msgid "Play"
 msgstr "Spielen"
 
-#: src/MainWidget.cpp:129 src/MainWidget.cpp:539 src/MainWidget.cpp:559
+#: src/MainWidget.cpp:130 src/MainWidget.cpp:533 src/MainWidget.cpp:553
 msgid "&Loop"
 msgstr "&Schleife"
 
-#: src/MainWidget.cpp:137
+#: src/MainWidget.cpp:138
 msgid "&Zoom"
 msgstr "&Zoom"
 
-#: src/MainWidget.cpp:155
+#: src/MainWidget.cpp:156
 #, fuzzy
 msgid "All"
 msgstr "&Alles"
 
-#: src/MainWidget.cpp:160
+#: src/MainWidget.cpp:161
 msgid "1:1"
 msgstr "1:1"
 
-#: src/MainWidget.cpp:350
+#: src/MainWidget.cpp:351
 #, c-format
 msgid "Rate: %d.%d kHz"
 msgstr "Rate: %d.%d kHz"
 
-#: src/MainWidget.cpp:359
+#: src/MainWidget.cpp:360
 #, c-format
 msgid "Samples: %d"
 msgstr "Samples: %d"
 
-#: src/MainWidget.cpp:506 src/MainWidget.cpp:523
+#: src/MainWidget.cpp:500 src/MainWidget.cpp:517
 msgid "Halt"
 msgstr "Halt"
 
-#: src/MainWidget.cpp:574
+#: src/MainWidget.cpp:570
 #, fuzzy, c-format
-msgid "selected: %0.1f ms"
-msgstr "ausgewählt: %0.1f ms"
+msgid "selected: %s"
+msgstr "ausgewählt: %s"
 
-#: src/MainWidget.cpp:582
+#: src/MainWidget.cpp:580
 #, fuzzy, c-format
-msgid "Length: %0.1f ms"
-msgstr "Länge: %0.1f ms"
+msgid "Length: %s"
+msgstr "Länge: %s"
 
-#: plugins/dialogs/playback/module.cpp:81 src/menus_config_i18n.cpp:13
+#: plugins/dialogs/playback/module.cpp:121 src/menus_config_i18n.cpp:13
 msgid "1&6 Bit"
 msgstr "1&6 Bit"
 
-#: plugins/dialogs/playback/module.cpp:90 src/menus_config_i18n.cpp:14
+#: plugins/dialogs/playback/module.cpp:130 src/menus_config_i18n.cpp:14
 msgid "2&4 Bit"
 msgstr "2&4 Bit"
 
-#: plugins/dialogs/playback/module.cpp:72 src/menus_config_i18n.cpp:15
+#: plugins/dialogs/playback/module.cpp:111
+#: plugins/dialogs/playback/module.cpp:114 src/menus_config_i18n.cpp:15
 msgid "&8 Bit"
 msgstr "&8 Bit"
 
 #: src/menus_config_i18n.cpp:16
 msgid "&About kwave..."
-msgstr "Über kwave..."
+msgstr "Über k&wave..."
 
 #: plugins/dialogs/freqmult/module.cpp:35 src/menus_config_i18n.cpp:17
 msgid "&Add"
@@ -409,7 +414,7 @@ msgstr "&Alles"
 
 #: src/menus_config_i18n.cpp:20
 msgid "&Amplify"
-msgstr "&Verstärkung"
+msgstr "&Verstärken"
 
 #: src/menus_config_i18n.cpp:21
 #, fuzzy
@@ -451,7 +456,7 @@ msgstr "&Zwischenablage"
 
 #: src/menus_config_i18n.cpp:32
 msgid "&Convert label distance to pitch"
-msgstr ""
+msgstr "&Abstand der Marker in Verschiebung umwandeln"
 
 #: src/menus_config_i18n.cpp:34
 msgid "&Create"
@@ -983,15 +988,16 @@ msgstr "Grad der Einblendung :"
 msgid "Choose Amplification Curve :"
 msgstr "Verstärkungskurve wählen :"
 
-#: plugins/dialogs/playback/module.cpp:65
+#: plugins/dialogs/playback/module.cpp:68
 msgid "Playback Options :"
 msgstr "Wiedergabe-Optionen :"
 
-#: plugins/dialogs/playback/module.cpp:68
+#: plugins/dialogs/playback/module.cpp:96
+#: plugins/dialogs/playback/module.cpp:97
 msgid "Resolution"
 msgstr "Auflösung"
 
-#: plugins/dialogs/playback/module.cpp:78
+#: plugins/dialogs/playback/module.cpp:118
 #, fuzzy
 msgid ""
 "Set Playback-Mode to 8 Bit (poor quality)\n"
@@ -1000,7 +1006,7 @@ msgstr ""
 "Setze Wiedergabe-Auflösung 8 Bit (geringe Qualität)\n"
 "Sollte von jeder Hardware unterstützt werden !"
 
-#: plugins/dialogs/playback/module.cpp:87
+#: plugins/dialogs/playback/module.cpp:127
 #, fuzzy
 msgid ""
 "Set Playback-Mode to 16 Bit (CD-like quality)\n"
@@ -1009,7 +1015,7 @@ msgstr ""
 "Setze Wiedergabe-Auflösung 16 Bit (CD-Qualität)\n"
 "wird nicht von jeder Hardware unterstützt !"
 
-#: plugins/dialogs/playback/module.cpp:96
+#: plugins/dialogs/playback/module.cpp:136
 msgid ""
 "Set Playback-Mode to 24 Bit (high quality)\n"
 "only supported by some new sound hardware !"
@@ -1017,16 +1023,16 @@ msgstr ""
 "Setze Wiedergabe-Auflösung auf 24 Bit (hohe Qualität)\n"
 "wird nur von einiger neuer Hardware unterstützt !"
 
-#: plugins/dialogs/playback/module.cpp:101
+#: plugins/dialogs/playback/module.cpp:141
 msgid "Playback Device :"
 msgstr "Wiedergabegerät :"
 
-#: plugins/dialogs/playback/module.cpp:123
+#: plugins/dialogs/playback/module.cpp:163
 #, fuzzy
 msgid "se&lect..."
 msgstr "Aus&wahl ..."
 
-#: plugins/dialogs/playback/module.cpp:128
+#: plugins/dialogs/playback/module.cpp:167
 msgid ""
 "Select a playback device not listed\n"
 "in the standard selection.\n"
@@ -1036,7 +1042,7 @@ msgstr ""
 "Standard-Auswahl enthalten ist.\n"
 "(Sorry, noch nicht implementiert!)"
 
-#: plugins/dialogs/playback/module.cpp:179
+#: plugins/dialogs/playback/module.cpp:185
 msgid ""
 "This is the size of the buffer used for communication with the sound driver\n"
 "If your computer is rather slow select a big buffer"
@@ -1046,16 +1052,16 @@ msgstr ""
 "(Verwenden Sie einen größeren Puffer wenn Sie einen langsamen\n"
 " Computer besitzen oder Aussetzer in der Wiedergabe hören.)"
 
-#: plugins/dialogs/playback/module.cpp:188
+#: plugins/dialogs/playback/module.cpp:194
 #, fuzzy
 msgid "&stereo playback"
 msgstr "&Stereo-Wiedergabe"
 
-#: plugins/dialogs/playback/module.cpp:215
+#: plugins/dialogs/playback/module.cpp:221
 msgid "&test settings"
 msgstr "Einstellungen &testen"
 
-#: plugins/dialogs/playback/module.cpp:219
+#: plugins/dialogs/playback/module.cpp:225
 msgid ""
 "Try to play a short sound\n"
 "using the current settings.\n"
@@ -1065,7 +1071,7 @@ msgstr ""
 "aktuellen Einstellungen abzuspielen.\n"
 "Sorry, noch nicht implementiert!"
 
-#: plugins/dialogs/playback/module.cpp:318
+#: plugins/dialogs/playback/module.cpp:325
 #, fuzzy, c-format, ycp-format
 msgid "Buffer Size : %5d samples"
 msgstr "Buffer-Größe: %5d Samples"
@@ -1128,7 +1134,7 @@ msgid "Choose windowing function here."
 msgstr "Fensterfunktion wählen"
 
 #: plugins/dialogs/averagefft/module.cpp:39
-#: plugins/dialogs/sonagram/module.cpp:82
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:80
 msgid "Window Function :"
 msgstr "Fensterfunktion :"
 
@@ -1258,11 +1264,6 @@ msgstr "Tiefpas-Filter"
 msgid "Highpass filter"
 msgstr "Hochpass-Filter"
 
-#: plugins/dialogs/movingaverage/module.cpp:57
-#, c-format
-msgid "movingaverage %d %s"
-msgstr ""
-
 #: plugins/dialogs/pitch/module.cpp:23
 msgid "Select frequency range :"
 msgstr "Frequenzbereich wählen :"
@@ -1287,20 +1288,21 @@ msgstr "Wert eingeben"
 msgid "Length of pulse :"
 msgstr "Pulslänge :"
 
-#: plugins/dialogs/sonagram/module.cpp:52
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:50
 #, fuzzy
 msgid "sonagram"
 msgstr "&Sonagramm"
 
-#: plugins/dialogs/sonagram/module.cpp:64
-msgid "Set FFT/time resolution parameter :"
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:60
+#, fuzzy
+msgid "Set FFT/time resolution parameter"
 msgstr "Parameter der FFT/Zeit-Ausflösungs"
 
-#: plugins/dialogs/sonagram/module.cpp:65
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:62
 msgid "Number of FFT points:"
 msgstr "Anzahl der FFT-Punkte:"
 
-#: plugins/dialogs/sonagram/module.cpp:69
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:66
 msgid ""
 "Try to choose numbers with small prime-factors, if choosing big window "
 "sizes.\n"
@@ -1309,18 +1311,18 @@ msgstr ""
 "Bei großen Fenstern wählen Sie bitte Zahlen mit kleinen Primfaktoren.\n"
 "Die Berechnung geht dadurch um einiges schneller !"
 
-#: plugins/dialogs/sonagram/module.cpp:75
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:74
 msgid ""
 "Choose windowing function here. If fourier transformation should stay "
 "reversible, use the type <none>"
 msgstr ""
 
-#: plugins/dialogs/sonagram/module.cpp:123
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:210
 #, c-format
 msgid "resulting window size: %s"
 msgstr "resultierende Fenstergröße: %s"
 
-#: plugins/dialogs/sonagram/module.cpp:126
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:212
 #, c-format
 msgid "size of bitmap: %dx%d"
 msgstr "Größe der Bitmap: %dx%d"
@@ -1389,7 +1391,7 @@ msgstr "&Stimme %d :"
 
 #: plugins/dialogs/distort/module.cpp:23
 msgid "Choose Line of distortion :"
-msgstr ""
+msgstr "Störgerade wählen :"
 
 #~ msgid "&About"
 #~ msgstr "Über"

@@ -1425,11 +1425,11 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 
 #ifdef DEBUG
     gettimeofday(&t_end,0);
-//    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
-//	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
-//
-//    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
-//	t_elapsed); // ###
+    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
+	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
+
+    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
+	t_elapsed); // ###
 #endif
 
     // restart the timer for refreshing the playpointer

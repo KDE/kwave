@@ -118,6 +118,11 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     connect(mainwidget, SIGNAL(sigCommand(const char*)),
 	    this, SLOT(executeCommand(const char*)));
 
+    // connect the sigCommand signal to ourself, this is needed
+    // for the plugins
+    connect(this, SIGNAL(sigCommand(const char *)),
+	    this, SLOT(executeCommand(const char *)));
+
 //    KToolBar *buttons = new KToolBar(this); // , i18n("playback"));
 //    ASSERT(buttons);
 //    if (!buttons) return;
@@ -186,8 +191,6 @@ TopWidget::~TopWidget()
 //**********************************************************
 void TopWidget::executePlugin(const char *name, QStrList *params)
 {
-    debug("SignalWidget::executePlugin(%s)", name);
-
     /* find the plugin in the global plugin list */
     unsigned int index = 0;
     bool found = false;
@@ -257,18 +260,40 @@ void TopWidget::executePlugin(const char *name, QStrList *params)
 	    KwavePlugin *plugin = (*plugin_loader)(context);
 	    ASSERT(plugin);
 	
+	    // now the plugin is present and loaded
 	    if (plugin) {
 		QStrList *last_params = 0;
-		
+
 		if (params) {
-		    plugin->execute(params);
-		    // last_params = duplicateString(params);
+		    // parameters were specified -> call directly
+		    // without setup dialog
+		    plugin->execute(*params);
+
 		    delete plugin;
 		} else {
+	            // call the plugin's setup function
 		    params = plugin->setup(last_params);
+		
 		    if (params) {
-			// last_params = duplicateString(params);
-			emit sigCommand("?");
+			// we have a non-zero parameter list, so
+			// the setup function has not been aborted.
+			// Now we can create a command string and
+			// emit a new command.
+			
+			// We DO NOT call the plugin's "execute"
+			// function directly, as it should be possible
+			// to record all function calls in the
+			// macro recorder
+			
+			QString command("plugin:execute(");
+			command += name;
+			for (unsigned int i=0; i<params->count(); i++) {
+			    command += ", ";
+			    command += params->at(i);
+			}
+			delete params;
+			command += ")";
+			emit sigCommand(command);
 		    }
 		    delete plugin;
 		}
@@ -279,9 +304,7 @@ void TopWidget::executePlugin(const char *name, QStrList *params)
 	}
     } else warning("%s", dlerror());
 
-    debug("SignalWidget::executePlugin(): dlclose(handle)");
     dlclose(handle);
-    debug("SignalWidget::executePlugin(): done");
 }
 
 //*****************************************************************************
@@ -307,8 +330,28 @@ void TopWidget::executeCommand(const char *command)
 	    }
 	}
 
-	debug("TopWidget::executeCommand(): loading plugin %s", name);
+	debug("TopWidget::executeCommand(): loading plugin '%s'", name);
 	executePlugin(name, params);
+    CASE_COMMAND("plugin:execute")
+	Parser parser(command);
+	QStrList params;
+	int cnt = parser.countParams();
+	
+	parser.getCommand(); // remove the command name
+	QString name(parser.getFirstParam());
+	while (--cnt) {
+	    params.append(parser.getNextParam());
+	}
+
+#ifdef DEBUG
+	debug("TopWidget::executeCommand(): executing plugin '%s'",
+	    name.data());
+#endif
+	executePlugin(name.data(), &params);
+#ifdef DEBUG
+	debug("TopWidget::executeCommand(): returned from plugin '%s'",
+	    name.data());
+#endif
     CASE_COMMAND("menu")
 	ASSERT(menu);
 	if (menu) menu->executeCommand(command);

@@ -30,7 +30,8 @@ public:
     enum {
 	MPEG_LAYER_I = 600,
 	MPEG_LAYER_II,
-	MPEG_LAYER_III
+	MPEG_LAYER_III,
+	OGG_VORBIS
     };
 
     /** Constructor */

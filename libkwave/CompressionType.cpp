@@ -75,7 +75,10 @@ void CompressionType::fill()
            i18n("MPEG Layer II"), 0);
     append(i++, MPEG_LAYER_III,
            i18n("MPEG Layer III"), 0);
-          
+
+    append(i++, OGG_VORBIS,
+           i18n("Ogg/Vorbis"), 0);
+
 }
 
 //***************************************************************************

@@ -725,19 +725,19 @@ void PluginManager::findPlugins()
 	    if (!*name || !*version || !*author) continue;
 	
 	    m_plugin_files.insert(*name, file);
-	    printf("%16s %5s written by %s", *name, *version, *author);
+	    printf(i18n("%16s %5s written by %s"), *name, *version, *author);
 	
 	    dlclose (handle);
 	
 	} else {
-	    printf("error in '%s':\n\t %s\n", file.latin1(),
+	    printf(i18n("error in '%s':\n\t %s\n"), file.latin1(),
 		dlerror());
 	}
 	
 	printf("\n");
     }
 
-    printf("--- \n found %d plugins\n", m_plugin_files.count());
+    printf(i18n("--- \n found %d plugins\n"), m_plugin_files.count());
 }
 
 //****************************************************************************

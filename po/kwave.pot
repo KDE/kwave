@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-07-09 12:14+0200\n"
+"POT-Creation-Date: 2003-07-09 12:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -449,6 +449,25 @@ msgstr ""
 
 #: kwave/PluginManager.cpp:235 kwave/PluginManager.cpp:242
 msgid "(unknown)"
+msgstr ""
+
+#: kwave/PluginManager.cpp:728
+#, c-format
+msgid "%16s %5s written by %s"
+msgstr ""
+
+#: kwave/PluginManager.cpp:733
+#, c-format
+msgid ""
+"error in '%s':\n"
+"\t %s\n"
+msgstr ""
+
+#: kwave/PluginManager.cpp:740
+#, c-format
+msgid ""
+"--- \n"
+" found %d plugins\n"
 msgstr ""
 
 #: kwave/UndoInsertAction.cpp:35

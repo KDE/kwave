@@ -49,6 +49,8 @@
 /** sleep seconds, only used for recording, not used here */
 static const unsigned int g_sleep_min = 0;
 
+QMap<QString, QString> PlayBackALSA::m_device_list;
+
 //***************************************************************************
 PlayBackALSA::PlayBackALSA()
     :PlayBackDevice(),
@@ -63,7 +65,8 @@ PlayBackALSA::PlayBackALSA()
     m_buffer_size(0),
     m_buffer_used(0),
     m_format(),
-    m_chunk_size(0)
+    m_chunk_size(0)//,
+//     m_device_list()
 {
 }
 
@@ -172,9 +175,14 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
 
     m_chunk_size = 0;
 
+    // translate verbose name to internal ALSA name
+    QString alsa_device = alsaDeviceName(device);
+    qDebug("PlayBackALSA::openDevice() - opening ALSA device '%s'",
+           alsa_device.data());
+
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (device.endsWith(",")) return -ENODEV;
+    if (alsa_device.endsWith(",")) return -ENODEV;
 
     Q_ASSERT(rate);
     Q_ASSERT(channels);
@@ -189,7 +197,7 @@ int PlayBackALSA::openDevice(const QString &device, unsigned int rate,
     }
 
     // open a new one
-    err = snd_pcm_open(&m_handle, device.local8Bit().data(),
+    err = snd_pcm_open(&m_handle, alsa_device.local8Bit().data(),
                             SND_PCM_STREAM_PLAYBACK,
                             SND_PCM_NONBLOCK);
     if (err < 0) return err;
@@ -495,10 +503,10 @@ int PlayBackALSA::write(QMemArray<sample_t> &samples)
 //***************************************************************************
 int PlayBackALSA::flush()
 {
+    if (!m_buffer_used) return 0; // nothing to do
     Q_ASSERT(m_channels);
     Q_ASSERT(m_bytes_per_sample);
     if (!m_channels || !m_bytes_per_sample) return -EINVAL;
-    if (!m_buffer_used) return 0; // nothing to do
 
     if (m_handle) {
 	unsigned int samples = m_buffer_used / m_bytes_per_sample;
@@ -582,17 +590,142 @@ int PlayBackALSA::close()
     return 0;
 }
 
+#if 0
+static void pcm_list(void)
+{
+	snd_config_t *conf;
+	snd_output_t *out;
+	int err = snd_config_update();
+	if (err < 0) {
+		error("snd_config_update: %s", snd_strerror(err));
+		return;
+	}
+	err = snd_output_stdio_attach(&out, stderr, 0);
+	assert(err >= 0);
+	err = snd_config_search(snd_config, "pcm", &conf);
+	if (err < 0)
+		return;
+	fprintf(stderr, "PCM list:\n");
+	snd_config_save(conf, out);
+	snd_output_close(out);
+}
+#endif
+
+//***************************************************************************
+void PlayBackALSA::scanDevices()
+{
+    snd_ctl_t *handle;
+    int card, err, dev;
+//  int idx;
+    snd_ctl_card_info_t *info;
+    snd_pcm_info_t *pcminfo;
+    snd_ctl_card_info_alloca(&info);
+    snd_pcm_info_alloca(&pcminfo);
+
+    m_device_list.clear();
+
+    // per default: offer the dmix plugin
+    m_device_list.insert(i18n("DMIX plugin"), "plug:dmix");
+
+    card = -1;
+    if (snd_card_next(&card) < 0 || card < 0) {
+	qWarning("no soundcards found...");
+	return;
+    }
+
+    qDebug("**** List of PLAYBACK Hardware Devices ****");
+    while (card >= 0) {
+	QString name;
+	name = "hw:%1";
+	name = name.arg(card);
+	if ((err = snd_ctl_open(&handle, name.data(), 0)) < 0) {
+	    qWarning("control open (%i): %s", card, snd_strerror(err));
+	    goto next_card;
+	}
+	if ((err = snd_ctl_card_info(handle, info)) < 0) {
+	    qWarning("control hardware info (%i): %s",
+	             card, snd_strerror(err));
+	    snd_ctl_close(handle);
+	    goto next_card;
+	}
+	dev = -1;
+	while (1) {
+// 	    unsigned int count;
+	    if (snd_ctl_pcm_next_device(handle, &dev)<0)
+		qWarning("snd_ctl_pcm_next_device");
+	    if (dev < 0)
+		break;
+	    snd_pcm_info_set_device(pcminfo, dev);
+	    snd_pcm_info_set_subdevice(pcminfo, 0);
+	    snd_pcm_info_set_stream(pcminfo, SND_PCM_STREAM_PLAYBACK);
+	    if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
+		if (err != -ENOENT)
+		    qWarning("control digital audio info (%i): %s", card,
+		             snd_strerror(err));
+		continue;
+	    }
+	    qDebug("card %i: %s [%s], device %i: %s [%s]",
+		card,
+		snd_ctl_card_info_get_id(info),
+		snd_ctl_card_info_get_name(info),
+		dev,
+		snd_pcm_info_get_id(pcminfo),
+		snd_pcm_info_get_name(pcminfo));
+
+	    // add the device to the list
+	    QString hw_device;
+	    hw_device = "plughw:%1,%2";
+	    hw_device = hw_device.arg(card).arg(dev);
+
+	    QString device_name = "%1 - %2";
+	    device_name = device_name.arg(
+	        snd_ctl_card_info_get_name(info)).arg(
+		snd_pcm_info_get_name(pcminfo));
+	    m_device_list.insert(device_name, hw_device);
+
+// 	    count = snd_pcm_info_get_subdevices_count(pcminfo);
+// 	    fprintf(stderr, "  Subdevices: %i/%i\n", snd_pcm_info_get_subdevices_avail(pcminfo), count);
+// 	    for (idx = 0; idx < (int)count; idx++) {
+// 		snd_pcm_info_set_subdevice(pcminfo, idx);
+// 		if ((err = snd_ctl_pcm_info(handle, pcminfo)) < 0) {
+// 		    qWarning("control digital audio playback info (%i): %s", card, snd_strerror(err));
+// 		} else {
+// 		    fprintf(stderr, "  Subdevice #%i: %s\n", idx, snd_pcm_info_get_subdevice_name(pcminfo));
+// 		}
+// 	    }
+	}
+	snd_ctl_close(handle);
+next_card:
+	if (snd_card_next(&card) < 0) {
+	    qWarning("snd_card_next");
+	    break;
+	}
+    }
+
+    snd_config_update_free_global();
+}
+
+//***************************************************************************
+QString PlayBackALSA::alsaDeviceName(const QString &name)
+{
+    if (m_device_list.isEmpty() || (name.length() &&
+        !m_device_list.contains(name))) scanDevices();
+
+    if (!m_device_list.contains(name)) return name;
+    return m_device_list[name];
+}
+
 //***************************************************************************
 QStringList PlayBackALSA::supportedDevices()
 {
     QStringList list;
 
-    list.append("hw:0,0");
-    list.append("hw:0,1");
-    list.append("plughw:0,0");
-    list.append("plughw:0,1");
-    list.append("dmix");
-    list.append("#EDIT#");
+    // re-validate the list if necessary
+    alsaDeviceName(m_device_name);
+
+    QMap<QString, QString>::Iterator it;
+    for (it = m_device_list.begin(); it != m_device_list.end(); ++it)
+	list.append(it.key());
 
     return list;
 }
@@ -609,22 +742,26 @@ snd_pcm_t *PlayBackALSA::openDevice(const QString &device)
     snd_pcm_t *pcm = m_handle;
 
 //     qDebug("PlayBackALSA::openDevice(%s)", device.local8Bit().data());
-    if (!device.length()) return 0;
+
+    // translate verbose name to internal ALSA name
+    QString alsa_device = alsaDeviceName(device);
+
+    if (!alsa_device.length()) return 0;
 
     // workaround for bug in ALSA
     // if the device name ends with "," -> invalid name
-    if (device.endsWith(",")) return 0;
+    if (alsa_device.endsWith(",")) return 0;
 
     if (!pcm) {
 	// open the device in case it's not already open
-	int err = snd_pcm_open(&pcm, device.local8Bit().data(),
+	int err = snd_pcm_open(&pcm, alsa_device.local8Bit().data(),
 	                       SND_PCM_STREAM_PLAYBACK,
 	                       SND_PCM_NONBLOCK);
 	if (err < 0) {
 	    pcm = 0;
 	    qWarning("PlayBackALSA::openDevice('%s') - "\
 	             "failed, err=%d (%s)",
-	             device.local8Bit().data(),
+	             alsa_device.local8Bit().data(),
 	             err, strerror(err));
 	}
     }

@@ -23,6 +23,7 @@
 
 #include <alsa/asoundlib.h>
 #include <qstring.h>
+#include <qmap.h>
 
 #include "libkwave/PlayBackDevice.h"
 
@@ -125,6 +126,19 @@ protected:
     /** Writes the output buffer to the device */
     int flush();
 
+    /** scan all ALSA devices, re-creates m_device_list */
+    void scanDevices();
+
+    /**
+     * Translate a verbose device name into a ALSA hardware device name.
+     *
+     * @param name verbose name of the device
+     * @return device name that can be used for snd_pcm_open()
+     */
+    QString alsaDeviceName(const QString &name);
+
+private:
+
     /** Name of the output device */
     QString m_device_name;
 
@@ -163,6 +177,12 @@ protected:
 
     /** number of sample per period */
     snd_pcm_uframes_t m_chunk_size;
+
+    /**
+     * dictionary for translating verbose device names
+     * into ALSA hardware device names
+     */
+    static QMap<QString, QString> m_device_list;
 
 };
 

@@ -135,15 +135,15 @@ TopWidget::TopWidget(KwaveApp &main_app)
     ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
-    m_plugin_manager = 0;
-//    m_plugin_manager = new PluginManager(*this);
-//    ASSERT(m_plugin_manager);
-//    if (!m_plugin_manager) return;
-//    if (!m_plugin_manager->isOK()) {
-//	delete m_plugin_manager;
-//	m_plugin_manager=0;
-//	return;
-//    }
+    m_plugin_manager = new PluginManager(*this);
+    ASSERT(m_plugin_manager);
+    if (!m_plugin_manager) return;
+    if (!m_plugin_manager->isOK()) {
+	delete m_plugin_manager;
+	m_plugin_manager=0;
+	return;
+    }
+
 //    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
 //            this, SLOT(executeCommand(const QString &)));
 //    connect(this, SIGNAL(sigSignalNameChanged(const QString &)),

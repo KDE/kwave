@@ -104,8 +104,8 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 
     for (int i=0; i < 3; i++) {
 	layer[i] = 0;
-	update_layer[i] = true;
-	layer_rop[i] = CopyROP;
+	m_update_layer[i] = true;
+	m_layer_rop[i] = CopyROP;
     }
 
     select = new MouseMark(this);
@@ -217,8 +217,8 @@ void SignalWidget::toggleChannel(int channel)
 }
 
 //****************************************************************************
-bool SignalWidget::executeNavigationCommand(const QString &command)
-{
+//bool SignalWidget::executeNavigationCommand(const QString &command)
+//{
 //    if (!signalmanage) return false;
 //    if (!command.length()) return false;
 //    Parser parser(command);
@@ -268,13 +268,13 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 //	selectRange();
 //    } else return false;
 //
-    return true;
-}
-
-//****************************************************************************
-bool SignalWidget::executeLabelCommand(const QString &command)
-{
-    if (false) {
+//    return true;
+//}
+//
+////****************************************************************************
+//bool SignalWidget::executeLabelCommand(const QString &command)
+//{
+//    if (false) {
 //    CASE_COMMAND("chooselabel")
 //	Parser parser(command);
 //	markertype = globals.markertypes.at(parser.toInt());
@@ -304,10 +304,10 @@ bool SignalWidget::executeLabelCommand(const QString &command)
 //	markPeriods(command);
 //    CASE_COMMAND("saveperiods")
 //	savePeriods();
-    } else return false;
-
-    return true;
-}
+//    } else return false;
+//
+//    return true;
+//}
 
 //****************************************************************************
 bool SignalWidget::executeCommand(const QString &command)
@@ -326,8 +326,8 @@ bool SignalWidget::executeCommand(const QString &command)
 	refreshAllLayers();
     CASE_COMMAND("newsignal")
 	createSignal(command);
-    } else if (executeNavigationCommand(command)) {
-	return true;
+//    } else if (executeNavigationCommand(command)) {
+//	return true;
     } else {
 	bool res = m_signal_manager.executeCommand(command);
 //	selectRange(signalmanage->getLMarker(), signalmanage->getRMarker());
@@ -457,42 +457,6 @@ void SignalWidget::selectRange(int left, int right)
 //    estimateRange(left, right);
 }
 
-//***************************************************************************
-void SignalWidget::connectSignalManager()
-{
-    debug("SignalWidget::connectSignalManager()");
-    ASSERT(select);
-    if (!select) return;
-
-//    connect(signalmanage,SIGNAL(signalinserted(int,int)),
-//            this,SLOT(signalinserted(int,int)));
-//    connect(signalmanage,SIGNAL(signaldeleted(int,int)),
-//            this, SLOT(signaldeleted(int,int)));
-//
-//    connect(signalmanage, SIGNAL(sigPlaybackPos(unsigned int)),
-//            &m_playback_controller, SLOT(updatePlaybackPos(unsigned int)));
-//    connect(signalmanage, SIGNAL(sigPlaybackDone()),
-//            &m_playback_controller, SLOT(playbackDone()));
-//    connect(&m_playback_controller, SIGNAL(sigStopPlayback()),
-//            signalmanage, SLOT(stopplay()));
-//
-//    connect(signalmanage, SIGNAL(sigCommand(const QString &)),
-//	    this, SLOT(forwardCommand(const QString &)));
-//    connect(signalmanage, SIGNAL(signalChanged(int,int)),
-//	    this, SLOT(forwardSignalChanged(int,int)));
-//    connect(signalmanage, SIGNAL(sigChannelAdded(unsigned int)),
-//	    this, SLOT(forwardChannelAdded(unsigned int)));
-//    connect(signalmanage, SIGNAL(sigChannelDeleted(unsigned int)),
-//	    this, SLOT(forwardChannelDeleted(unsigned int)));
-
-}
-
-//***************************************************************************
-void SignalWidget::disconnectSignalManager()
-{
-    debug("SignalWidget::disconnectSignalManager()");
-}
-
 //****************************************************************************
 void SignalWidget::forwardCommand(const QString &command)
 {
@@ -595,21 +559,18 @@ void SignalWidget::setSignal(SignalManager *sigs)
 //****************************************************************************
 void SignalWidget::loadFile(const QString &filename, int type)
 {
+    // close the previous signal
     close();
-//    ASSERT(labels);
-//    if (labels) labels->clear();
 
     // load a new signal
     m_signal_manager.loadFile(filename, type);
     ASSERT(m_signal_manager.length());
-    if (m_signal_manager.length() <= 0) {
+    if (m_signal_manager.closed()) {
 	warning("SignalWidget::loadFile() failed:"\
 		" zero-length or out of memory?");
 	close();
 	return ;
     }
-
-    connectSignalManager();
     zoomAll();
 }
 
@@ -619,10 +580,6 @@ void SignalWidget::close()
     // first stop playback
     m_playback_controller.playbackStop();
     m_playback_controller.reset();
-
-    // we are no longer interested in signals from our signal manager, this
-    // prevents us from superfluous gui redraws and thus saves time
-    disconnectSignalManager();
 
     // close the signal manager
     m_signal_manager.close();
@@ -785,16 +742,16 @@ void SignalWidget::resizeEvent(QResizeEvent *e)
 //****************************************************************************
 void SignalWidget::refreshAllLayers()
 {
-////    debug("SignalWidget::refreshAllLayers()");
-//
-//    for (int i=0; i < 3; i++) {
-//	update_layer[i] = true;
-//    }
-//
-//    fixZoomAndOffset();
-//
-//    int rate = (signalmanage) ? signalmanage->getRate() : 0;
-//    int length = (signalmanage) ? signalmanage->getLength() : 0;
+    debug("SignalWidget::refreshAllLayers()");
+
+    for (int i=0; i < 3; i++) {
+	m_update_layer[i] = true;
+    }
+
+    fixZoomAndOffset();
+
+//    int rate = m_signal_manager.getRate() : 0;
+//    int length = m_signal_manager.getLength() : 0;
 //
 //    if (rate) emit timeInfo(samples2ms(length));
 //    if (rate) emit rateInfo(rate);
@@ -803,22 +760,22 @@ void SignalWidget::refreshAllLayers()
 //    emit viewInfo(offset, maxofs, length);
 //    emit lengthInfo(length);
 //    emit zoomInfo(m_zoom);
-//
-//    redraw = true;
-//    repaint(false);
+
+    redraw = true;
+    repaint(false);
 };
 
 //****************************************************************************
 void SignalWidget::refreshLayer(int layer)
 {
-//    ASSERT(layer >= 0);
-//    ASSERT(layer < 3);
-//    if ((layer < 0) || (layer >= 3)) return;
-//
-//    update_layer[layer] = true;
-//
-//    redraw = true;
-//    repaint(false);
+    ASSERT(layer >= 0);
+    ASSERT(layer < 3);
+    if ((layer < 0) || (layer >= 3)) return;
+
+    m_update_layer[layer] = true;
+
+    redraw = true;
+    repaint(false);
 }
 
 //****************************************************************************
@@ -1196,210 +1153,204 @@ void SignalWidget::drawPolyLineSignal(int channel, int middle, int height)
 //****************************************************************************
 void SignalWidget::paintEvent(QPaintEvent *event)
 {
-////    debug("SignalWidget::paintEvent()");
+//    debug("SignalWidget::paintEvent()");
+
+//#ifdef DEBUG
+//    struct timeval t_start;
+//    struct timeval t_end;
+//    double t_elapsed;
+//    gettimeofday(&t_start,0);
+//#endif
+
+    unsigned int channels = m_signal_manager.closed() ? 0 : tracks();
+    bool update_pixmap = false;
+
+    m_layer_rop[LAYER_SIGNAL] = CopyROP;
+    m_layer_rop[LAYER_SELECTION] = XorROP;
+    m_layer_rop[LAYER_MARKERS] = XorROP;
+
+    width = QWidget::width();
+    height = QWidget::height();
+    debug("SignalWidget::paintEvent(): width=%d, height=%d",width,height);
+
+    // --- detect size changes and refresh the whole display ---
+    if ((width != lastWidth) || (height != lastHeight)) {
+	debug("SignalWidget::paintEvent(): window size changed");
+	for (int i=0; i<3; i++) {
+	    if (layer[i]) delete layer[i];
+	    layer[i] = 0;
+	    m_update_layer[i] = true;
+	}
+	if (!pixmap) delete pixmap;
+	pixmap = 0;
+	update_pixmap = true;
+	
+	lastWidth = width;
+	lastHeight = height;
+    }
+
+    // --- repaint of the signal layer ---
+    if ( m_update_layer[LAYER_SIGNAL] || !layer[LAYER_SIGNAL]) {
+	if (!layer[LAYER_SIGNAL])
+	     layer[LAYER_SIGNAL] = new QPixmap(size());
+	ASSERT(layer[LAYER_SIGNAL]);
+	if (!layer[LAYER_SIGNAL]) return;
+	
+	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
+	p.begin(layer[LAYER_SIGNAL]);
+
+	p.setPen(white);
+	p.setRasterOp(CopyROP);
+	p.fillRect(0, 0, width, height, black);
+
+	// check and correct m_zoom and offset
+	fixZoomAndOffset();
+
+	int chanheight = (channels) ? (height / channels) : 0;
+	int zero = chanheight / 2;
+
+	for (unsigned int i = 0; i < channels; i++) {
+	    if (m_zoom < 0.1) {
+		drawInterpolatedSignal(i, zero, chanheight);
+	    } else if (m_zoom <= 1.0)
+		drawPolyLineSignal(i, zero, chanheight);
+	    else
+		drawOverviewSignal(i, zero, chanheight,
+		                   0, m_zoom*width);
+
+	    // draw the baseline
+	    p.setPen(green);
+	    p.drawLine(0, zero, width, zero);
+	    p.setPen(white);
+	    zero += chanheight;
+	}
+
+	p.flush();
+	p.end();
+
+	m_update_layer[LAYER_SIGNAL] = false;
+	update_pixmap = true;
+    }
+
+    // --- repaint of the markers layer ---
+    if ( m_update_layer[LAYER_MARKERS] || !layer[LAYER_MARKERS] ) {
+	if (!layer[LAYER_MARKERS])
+	     layer[LAYER_MARKERS] = new QPixmap(size());
+	ASSERT(layer[LAYER_MARKERS]);
+	if (!layer[LAYER_MARKERS]) return;
+
+	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
+	p.begin(layer[LAYER_MARKERS]);
+	p.fillRect(0, 0, width, height, black);
+	
+	// ### nothing to do yet
+	
+	p.flush();
+	p.end();
+	
+	m_update_layer[LAYER_MARKERS] = false;
+	update_pixmap = true;
+    }
+
+    // --- repaint of the selection layer ---
+    if (( m_update_layer[LAYER_SELECTION] || !layer[LAYER_SELECTION] )) {
+	if (!layer[LAYER_SELECTION])
+	    layer[LAYER_SELECTION] = new QPixmap(size());
+	ASSERT(layer[LAYER_SELECTION]);
+	if (!layer[LAYER_SELECTION]) return;
+
+	debug("SignalWidget::paintEvent(): - redraw of selection layer -");
+	
+	p.begin(layer[LAYER_SELECTION]);
+	p.fillRect(0, 0, width, height, black);
+	p.setRasterOp(CopyROP);
+	
+	if (select && channels) {
+	    int left  = select->left();
+	    int right = select->right();
+	    if ((right > offset) && (left < offset+pixels2samples(width))) {
+		// transform to pixel coordinates
+		left  = samples2pixels(left - offset);
+		right = samples2pixels(right - offset);
+
+		if (left < 0) left = 0;
+		if (right >= width) right = width-1;
+		if (left > right) left = right;
+
+		if (left == right) {
+		    p.setPen (green);
+		    p.drawLine(left, 0, left, height);
+		} else {
+		    p.setBrush(yellow);
+		    p.drawRect(left, 0, right-left+1, height);
+		}
+	    }
+	}
+	p.flush();
+	p.end();
+
+	m_update_layer[LAYER_SELECTION] = false;
+	update_pixmap = true;
+    }
+
+    // --- re-create the buffer pixmap if it has been deleted ---
+    if (!pixmap) {
+	pixmap = new QPixmap(size());
+	ASSERT(pixmap);
+	if (!pixmap) return;
+	update_pixmap = true;
+    }
+
+    if (update_pixmap) {
+	for (int i=0; i < 3; i++) {
+	    if (layer[i]) bitBlt(
+		pixmap, 0, 0,
+		layer[i], 0, 0,
+		width, height, m_layer_rop[i]
+	    );
+	}
+	lastplaypointer = -2;
+    }
+
+    // --- redraw the playpointer if a signal is present ---
+    playpointer = samples2pixels(
+	m_playback_controller.currentPos() - offset);
+
+    if (channels) {
+	p.begin(pixmap);
+	p.setPen(yellow);
+	p.setRasterOp(XorROP);
+
+	if (lastplaypointer >= 0) p.drawLine(lastplaypointer, 0,
+	                                     lastplaypointer, height);
+
+	if ( (m_playback_controller.running() ||
+	      m_playback_controller.paused() ) &&
+	     ((playpointer >= 0) && (playpointer < width)) )
+	{
+	    p.drawLine(playpointer, 0, playpointer, height);
+	    lastplaypointer = playpointer;
+	} else {
+	    lastplaypointer = -1;
+	}
+	
+	p.flush();
+	p.end();
+    }
+
+    bitBlt(this, 0, 0, pixmap, 0, 0, width, height, CopyROP);
+
+//#ifdef DEBUG
+//    gettimeofday(&t_end,0);
+//    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
+//	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
 //
-////#ifdef DEBUG
-////    struct timeval t_start;
-////    struct timeval t_end;
-////    double t_elapsed;
-////    gettimeofday(&t_start,0);
-////#endif
-//
-//    unsigned int channels = tracks();
-//    bool update_pixmap = false;
-//
-//    layer_rop[LAYER_SIGNAL] = CopyROP;
-//    layer_rop[LAYER_SELECTION] = XorROP;
-//    layer_rop[LAYER_MARKERS] = XorROP;
-//
-//    width = QWidget::width();
-//    height = QWidget::height();
-////    debug("SignalWidget::paintEvent(): width=%d, height=%d",width,height);
-//
-//    // --- detect size changes and refresh the whole display ---
-//    if ((width != lastWidth) || (height != lastHeight)) {
-////	debug("SignalWidget::paintEvent(): window size changed");
-//	for (int i=0; i<3; i++) {
-//	    if (layer[i]) delete layer[i];
-//	    layer[i] = 0;
-//	    update_layer[i] = true;
-//	}
-//	if (!pixmap) delete pixmap;
-//	pixmap = 0;
-//	update_pixmap = true;
-//	
-//	lastWidth = width;
-//	lastHeight = height;
-//    }
-//
-//    // --- repaint of the signal layer ---
-//    if ( update_layer[LAYER_SIGNAL] || !layer[LAYER_SIGNAL]) {
-//	if (!layer[LAYER_SIGNAL])
-//	     layer[LAYER_SIGNAL] = new QPixmap(size());
-//	ASSERT(layer[LAYER_SIGNAL]);
-//	if (!layer[LAYER_SIGNAL]) return;
-//	
-////	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
-//	p.begin(layer[LAYER_SIGNAL]);
-//
-//	p.setPen(white);
-//	p.setRasterOp(CopyROP);
-//	p.fillRect(0, 0, width, height, black);
-//
-//	//check and correct m_zoom and offset
-//	fixZoomAndOffset();
-//
-//	int chanheight = (channels) ? (height / channels) : 0;
-//	int begin = chanheight / 2;
-//
-//	for (unsigned int i = 0; i < channels; i++) {
-//	    // skip non-existent signals
-//	    ASSERT(signalmanage);
-//	    if (!signalmanage) continue;
-//	    ASSERT(signalmanage->getSignal(i));
-//	    if (!signalmanage->getSignal(i)) continue;
-//
-//	    if (m_zoom < 0.1) {
-//		drawInterpolatedSignal(i, begin, chanheight);
-//	    } else if (m_zoom <= 1.0)
-//		drawPolyLineSignal(i, begin, chanheight);
-//	    else
-//		drawOverviewSignal(i, begin, chanheight,
-//		                   0, m_zoom*width);
-//
-//	    // draw the baseline
-//	    p.setPen(green);
-//	    p.drawLine(0, begin, width, begin);
-//	    p.setPen(white);
-//	    begin += chanheight;
-//	}
-//
-//	p.flush();
-//	p.end();
-//
-//	update_layer[LAYER_SIGNAL] = false;
-//	update_pixmap = true;
-//    }
-//
-//    // --- repaint of the markers layer ---
-//    if ( update_layer[LAYER_MARKERS] || !layer[LAYER_MARKERS] ) {
-//	if (!layer[LAYER_MARKERS])
-//	     layer[LAYER_MARKERS] = new QPixmap(size());
-//	ASSERT(layer[LAYER_MARKERS]);
-//	if (!layer[LAYER_MARKERS]) return;
-//
-////	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
-//	p.begin(layer[LAYER_MARKERS]);
-//	p.fillRect(0, 0, width, height, black);
-//	
-//	// ### nothing to do yet
-//	
-//	p.flush();
-//	p.end();
-//	
-//	update_layer[LAYER_MARKERS] = false;
-//	update_pixmap = true;
-//    }
-//
-//    // --- repaint of the selection layer ---
-//    if (( update_layer[LAYER_SELECTION] || !layer[LAYER_SELECTION] )) {
-//	if (!layer[LAYER_SELECTION])
-//	    layer[LAYER_SELECTION] = new QPixmap(size());
-//	ASSERT(layer[LAYER_SELECTION]);
-//	if (!layer[LAYER_SELECTION]) return;
-//
-////	debug("SignalWidget::paintEvent(): - redraw of selection layer -");
-//	
-//	p.begin(layer[LAYER_SELECTION]);
-//	p.fillRect(0, 0, width, height, black);
-//	p.setRasterOp(CopyROP);
-//	
-//	if (select && channels) {
-//	    int left  = select->left();
-//	    int right = select->right();
-//	    if ((right > offset) && (left < offset+pixels2samples(width))) {
-//		// transform to pixel coordinates
-//		left  = samples2pixels(left - offset);
-//		right = samples2pixels(right - offset);
-//
-//		if (left < 0) left = 0;
-//		if (right >= width) right = width-1;
-//		if (left > right) left = right;
-//
-//		if (left == right) {
-//		    p.setPen (green);
-//		    p.drawLine(left, 0, left, height);
-//		} else {
-//		    p.setBrush(yellow);
-//		    p.drawRect(left, 0, right-left+1, height);
-//		}
-//	    }
-//	}
-//	p.flush();
-//	p.end();
-//
-//	update_layer[LAYER_SELECTION] = false;
-//	update_pixmap = true;
-//    }
-//
-//    // --- re-create the buffer pixmap if it has been deleted ---
-//    if (!pixmap) {
-//	pixmap = new QPixmap(size());
-//	ASSERT(pixmap);
-//	if (!pixmap) return;
-//	update_pixmap = true;
-//    }
-//
-//    if (update_pixmap) {
-//	for (int i=0; i < 3; i++) {
-//	    if (layer[i]) bitBlt(
-//		pixmap, 0, 0,
-//		layer[i], 0, 0,
-//		width, height, layer_rop[i]
-//	    );
-//	}
-//	lastplaypointer = -2;
-//    }
-//
-//    // --- redraw the playpointer if a signal is present ---
-//    playpointer = samples2pixels(
-//	m_playback_controller.currentPos() - offset);
-//
-//    if (channels) {
-//	p.begin(pixmap);
-//	p.setPen(yellow);
-//	p.setRasterOp(XorROP);
-//
-//	if (lastplaypointer >= 0) p.drawLine(lastplaypointer, 0,
-//	                                     lastplaypointer, height);
-//
-//	if ( (m_playback_controller.running() ||
-//	      m_playback_controller.paused() ) &&
-//	     ((playpointer >= 0) && (playpointer < width)) )
-//	{
-//	    p.drawLine(playpointer, 0, playpointer, height);
-//	    lastplaypointer = playpointer;
-//	} else {
-//	    lastplaypointer = -1;
-//	}
-//	
-//	p.flush();
-//	p.end();
-//    }
-//
-//    bitBlt(this, 0, 0, pixmap, 0, 0, width, height, CopyROP);
-//
-////#ifdef DEBUG
-////    gettimeofday(&t_end,0);
-////    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
-////	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
-////
-////    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
-////	t_elapsed); // ###
-////#endif
-//
-//    // restart the timer for refreshing the playpointer
-//    if (m_playback_controller.running()) playback_startTimer();
+//    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
+//	t_elapsed); // ###
+//#endif
+
+    // restart the timer for refreshing the playpointer
+    if (m_playback_controller.running()) playback_startTimer();
 }
 
 ////below are the methods of class SignalWidget that deal with labels

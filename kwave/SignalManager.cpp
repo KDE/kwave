@@ -88,6 +88,8 @@
 SignalManager::SignalManager(QWidget *parent)
     :QObject(),
     m_parent_widget(parent),
+    m_closed(true),
+    m_signal(),
     m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
     m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
 {
@@ -140,8 +142,8 @@ void SignalManager::initialize()
     lmarker = 0;
     rmarker = 0;
     rate = 0;
-    for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
-	msg[i] = 0;
+//    for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
+//	msg[i] = 0;
 
     m_spx_playback_pos.setLimit(32); // limit for the queue
 }
@@ -150,6 +152,7 @@ void SignalManager::initialize()
 void SignalManager::close()
 {
     debug("SignalManager::close()");
+    m_closed = true;
     m_name = "";
     m_signal.close();
 }
@@ -755,6 +758,11 @@ int SignalManager::loadWav()
 	    result = -EMEDIUMTYPE;
     }
 
+    if (result == 0) {
+	debug("SignalManager::loadWav(): successfully opened");
+	m_closed = false;
+    }
+
     return result;
 }
 
@@ -1061,7 +1069,7 @@ __uint32_t SignalManager::findChunk(QFile &sigfile, const char *chunk,
 int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
                                 unsigned int channels, int bits)
 {
-    unsigned int bufsize = 16 * 1024 * sizeof(sample_t);
+    unsigned int bufsize = 32 * 1024 * sizeof(sample_t);
     unsigned char *loadbuffer = 0;
     int bytes = bits >> 3;
     unsigned int sign = 1 << (24-1);

@@ -48,7 +48,7 @@ int main( int argc, char **argv )
     KwaveApp app;
     app.exec();
 
-    exit(0);
+    return 0;
 }
 
 //***************************************************************************

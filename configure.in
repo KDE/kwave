@@ -21,8 +21,8 @@ AM_ENABLE_STATIC(yes)
 
 dnl CFLAGS="${CFLAGS}     -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
 dnl CXXFLAGS="${CXXFLAGS} -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
-CFLAGS="${CFLAGS}     -g -O0 -Wall -pedantic ${RPM_OPT_FLAGS}"
-CXXFLAGS="${CXXFLAGS} -g -O0 -Wall -pedantic ${RPM_OPT_FLAGS}"
+dnl CFLAGS="${CFLAGS}     -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
+dnl CXXFLAGS="${CXXFLAGS} -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
 
 dnl test for usage of insure++
 AC_CHECK_WITH_INSURE

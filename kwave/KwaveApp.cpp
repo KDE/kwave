@@ -64,8 +64,8 @@ KwaveApp::KwaveApp()
     m_topwidget_list.setAutoDelete(false);
     readConfig();
 
-//    // load the list of plugins
-//    PluginManager::findPlugins();
+    // load the list of plugins
+    PluginManager::findPlugins();
 
 #ifndef UNIQUE_APP
     newInstance();

@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
 #include "mt/MutexSet.h"
 
 #include "libkwave/InsertMode.h"
@@ -29,7 +28,7 @@ SampleInputStream::SampleInputStream(Track &track, QList<Stripe> &stripes,
 	MutexSet &locks, InsertMode mode, unsigned int left,
 	unsigned int right)
     :m_mode(mode), m_track(track), m_stripes(stripes), m_locks(),
-     m_position(left), m_buffer(65536), m_buffer_used(0)
+     m_position(left), m_buffer(16*1024), m_buffer_used(0)
 {
     m_locks.takeOver(locks);
     debug("SampleInputStream::SampleInputStream(track, mode, %d, %d)",left,right);

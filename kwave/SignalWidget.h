@@ -115,8 +115,8 @@ public:
      */
     bool checkPosition(int x);
 
-    void addLabelType (LabelType *);
-    void addLabelType (const char *);
+//    void addLabelType (LabelType *);
+//    void addLabelType (const char *);
 
     bool executeCommand(const QString &command);
 
@@ -342,24 +342,10 @@ protected:
 //    void savePeriods ();
     void createSignal (const char *);
 
-    /**
-     * Connects all needed signals/slots from/to the signal manager.
-     * @see disconnectSignalManager
-     */
-    void connectSignalManager();
-
-    /**
-     * Disconnects all signals/slots from/to the signal manager. This
-     * is useful in order to prevent the gui to redraw too often if
-     * the signal changes many properties (e.g. when closing) and we
-     * are not interested.
-     */
-    void disconnectSignalManager();
-
 ////    void showDialog (const char *);
-
-    bool executeLabelCommand(const QString &command);
-    bool executeNavigationCommand(const QString &command);
+//
+//    bool executeLabelCommand(const QString &command);
+//    bool executeNavigationCommand(const QString &command);
 
 private:
 
@@ -415,8 +401,12 @@ private:
     float *interpolation_alpha;
 
     QPixmap *layer[3];
-    bool update_layer[3];
-    RasterOp layer_rop[3];
+
+    /** flags for updating each layer */
+    bool m_update_layer[3];
+
+    /** raster operation for each layer (XOR, AND, OR, ...) */
+    RasterOp m_layer_rop[3];
 
     int offset;                    //offset from which signal is beeing displayed
     int width, height;            //of this widget

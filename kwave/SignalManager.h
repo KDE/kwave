@@ -67,6 +67,11 @@ public:
      */
     void close();
 
+    /** Returns true if the signal is closed */
+    inline bool closed() {
+	return m_closed;
+    };
+
     bool executeCommand(const QString &command);
 
     int setSoundParams(int audio, int bitspersample,
@@ -114,8 +119,7 @@ public:
     int getBitsPerSample();
 
     /** Returns the current sample rate in samples per second */
-    inline int getRate()
-    {
+    inline int getRate() {
 	return rate;
     };
 
@@ -133,22 +137,15 @@ public:
     /**
      * Returns the start of the selection (inclusive).
      */
-    inline unsigned int getLMarker()
-    {
+    inline unsigned int getLMarker() {
 	return lmarker;
     };
 
     /**
      * Returns the end of the selection (inclusive).
      */
-    inline unsigned int getRMarker()
-    {
+    inline unsigned int getRMarker() {
 	return rmarker;
-    };
-
-    inline Signal *getSignal (int channel)
-    {
-	return 0; // ###
     };
 
     /**
@@ -359,12 +356,17 @@ private:
     /** name of the signal, normally equal to the filename */
     QString m_name;
 
+    /** true if the signal is closed / nothing loaded */
+    bool m_closed;
+
     /** signal with multiple tracks */
     Signal m_signal;
 
-    unsigned int lmarker;
-    unsigned int rmarker;
-    int rate;                    //sampling rate being used
+    unsigned int lmarker; // ###
+    unsigned int rmarker; // ###
+
+    //sampling rate being used
+    int rate; // ###
 
     /**
      * Signal proxy that brings the current playback position
@@ -383,8 +385,8 @@ public:
      */
     SignalProxy<void> m_spx_playback_done;
 
-    /** buffer for communication with the soundcard access functions (play) */
-    unsigned int msg[4];
+//    /** buffer for communication with the soundcard access functions (play) */
+//    unsigned int msg[4];
 };
 
 #endif  // _SIGNAL_MANAGER_H_

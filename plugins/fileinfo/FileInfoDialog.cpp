@@ -363,6 +363,12 @@ void FileInfoDialog::setupMpegTab()
 //***************************************************************************
 void FileInfoDialog::setupID3Tab()
 {
+    // this is not visible, not implemented yet...
+    InfoTab->setCurrentPage(5);
+    QWidget *page = InfoTab->currentPage();
+    InfoTab->removePage(page);
+    InfoTab->setCurrentPage(0);
+    return;
 }
 
 //***************************************************************************

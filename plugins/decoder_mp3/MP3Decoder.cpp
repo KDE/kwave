@@ -21,8 +21,10 @@
 
 #include <id3/globals.h>
 #include <id3/tag.h>
+#include <id3/misc_support.h>
 
 #include "libkwave/CompressionType.h"
+#include "libkwave/GenreType.h"
 #include "libkwave/MultiTrackWriter.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
@@ -186,6 +188,172 @@ bool MP3Decoder::parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget)
 }
 
 //***************************************************************************
+bool MP3Decoder::parseID3Tags(ID3_Tag &tag)
+{
+    if (tag.NumFrames() < 1) return true; // no tags, nothing to do
+
+    ID3_Tag::Iterator *it = tag.CreateIterator();
+    ID3_Frame *frame;
+    while (it && (frame = it->GetNext())) {
+	ID3_FrameID id = frame->GetID();
+        switch (id) {
+	    //ID3FID_AUDIOCRYPTO       // Audio encryption.
+	    //ID3FID_PICTURE           // Attached picture.
+	    //ID3FID_AUDIOSEEKPOINT    // Audio seek point index.
+	
+	    case ID3FID_COMMENT: // Comments.
+		parseId3Frame(frame, INF_COMMENTS); break;
+	
+	    //ID3FID_COMMERCIAL        // Commercial frame.
+	    //ID3FID_CRYPTOREG         // Encryption method registration.
+	    //ID3FID_EQUALIZATION2     // Equalisation (2).
+	    //ID3FID_EQUALIZATION      // Equalization.
+	    //ID3FID_EVENTTIMING       // Event timing codes.
+	    //ID3FID_GENERALOBJECT     // General encapsulated object.
+	    //ID3FID_GROUPINGREG       // Group identification registration.
+	    //ID3FID_INVOLVEDPEOPLE    // Involved people list.
+	    //ID3FID_LINKEDINFO        // Linked information.
+	    //ID3FID_CDID              // Music CD identifier.
+	    //ID3FID_MPEGLOOKUP        // MPEG location lookup table.
+	    //ID3FID_OWNERSHIP         // Ownership frame.
+	    //ID3FID_PRIVATE           // Private frame.
+	    //ID3FID_PLAYCOUNTER       // Play counter.
+	    //ID3FID_POPULARIMETER     // Popularimeter.
+	    //ID3FID_POSITIONSYNC      // Position synchronisation frame.
+	    //ID3FID_BUFFERSIZE        // Recommended buffer size.
+	    //ID3FID_VOLUMEADJ2        // Relative volume adjustment (2).
+	    //ID3FID_VOLUMEADJ         // Relative volume adjustment.
+	    //ID3FID_REVERB            // Reverb.
+	    //ID3FID_SEEKFRAME         // Seek frame.
+	    //ID3FID_SIGNATURE         // Signature frame.
+	    //ID3FID_SYNCEDLYRICS      // Synchronized lyric/text.
+	    //ID3FID_SYNCEDTEMPO       // Synchronized tempo codes.
+ 
+	    case ID3FID_ALBUM:         // Album/Movie/Show title.
+		parseId3Frame(frame, INF_ALBUM); break;
+
+	    //ID3FID_BPM               // BPM (beats per minute).
+	    //ID3FID_COMPOSER          // Composer.
+	    case ID3FID_CONTENTTYPE: { // Content type (Genre)
+		parseId3Frame(frame, INF_GENRE);
+		QString genre = QVariant(m_info.get(INF_GENRE)).toString();
+		int id = GenreType::fromID3(genre);
+		m_info.set(INF_GENRE, GenreType::name(id));
+		break;
+	    }
+	    case ID3FID_COPYRIGHT:     // Copyright message.
+		parseId3Frame(frame, INF_COPYRIGHT); break;
+        
+	    //ID3FID_DATE              // Date.
+	    //ID3FID_ENCODINGTIME      // Encoding time.
+	    //ID3FID_PLAYLISTDELAY     // Playlist delay.
+	    //ID3FID_ORIGRELEASETIME   // Original release time.
+	    //ID3FID_RECORDINGTIME     // Recording time.
+	    //ID3FID_RELEASETIME       // Release time.
+	    //ID3FID_TAGGINGTIME       // Tagging time.
+	    //ID3FID_INVOLVEDPEOPLE2   // Involved people list.
+	    //ID3FID_ENCODEDBY         // Encoded by.
+	    //ID3FID_LYRICIST          // Lyricist/Text writer.
+	    //ID3FID_FILETYPE          // File type.
+	    //ID3FID_TIME              // Time.
+	    //ID3FID_CONTENTGROUP      // Content group description.
+
+	    case ID3FID_TITLE:        // Title/songname/content description.
+		parseId3Frame(frame, INF_NAME); break;
+
+	    //ID3FID_SUBTITLE         // Subtitle/Description refinement.
+	    //ID3FID_INITIALKEY       // Initial key.
+	    //ID3FID_LANGUAGE         // Language(s).
+	    //ID3FID_SONGLEN          // Length.
+	    //ID3FID_MUSICIANCREDITLIST // Musician credits list.
+
+	    case ID3FID_MEDIATYPE:    // Medium type.
+		parseId3Frame(frame, INF_MEDIUM); break;
+
+	    //ID3FID_MOOD             // Mood.
+	    //ID3FID_ORIGALBUM        // Original album/movie/show title.
+	    //ID3FID_ORIGFILENAME     // Original filename.
+	    //ID3FID_ORIGLYRICIST     // Original lyricist(s)/text writer(s).
+
+	    case ID3FID_ORIGARTIST:   // Original artist(s)/performer(s).
+		parseId3Frame(frame, INF_AUTHOR); break;
+	    
+	    //ID3FID_ORIGYEAR         // Original release year.
+	    //ID3FID_FILEOWNER        // File owner/licensee.
+	    case ID3FID_LEADARTIST:   // Lead performer(s)/Soloist(s).
+		parseId3Frame(frame, INF_ARTIST); break;
+	    
+	    //ID3FID_BAND             // Band/orchestra/accompaniment.
+	    //ID3FID_CONDUCTOR        // Conductor/performer refinement.
+	    //ID3FID_MIXARTIST        // Interpreted, remixed, or otherwise
+	                              // modified by.
+	    case ID3FID_PARTINSET:    // Part of a set.
+		parseId3Frame(frame, INF_CD); break;
+	    
+	    //ID3FID_PRODUCEDNOTICE   // Produced notice.
+	    //ID3FID_PUBLISHER        // Publisher.
+
+	    case ID3FID_TRACKNUM:     // Track number/Position in set.
+		parseId3Frame(frame, INF_TRACK); break;
+
+	    //ID3FID_RECORDINGDATES   // Recording dates.
+	    //ID3FID_NETRADIOSTATION  // Internet radio station name.
+	    //ID3FID_NETRADIOOWNER    // Internet radio station owner.
+	    //ID3FID_SIZE             // Size.
+	    //ID3FID_ALBUMSORTORDER   // Album sort order.
+	    //ID3FID_PERFORMERSORTORDER// Performer sort order.
+	    //ID3FID_TITLESORTORDER   // Title sort order.
+	    //ID3FID_ISRC             // ISRC (international standard
+	                              // recording code).
+	    //ID3FID_ENCODERSETTINGS  // Software/Hardware and settings
+	                              // used for encoding.
+	    //ID3FID_SETSUBTITLE      // Set subtitle.
+
+	    case ID3FID_USERTEXT:     // User defined text information.
+		parseId3Frame(frame, INF_ANNOTATION); break;
+
+	    //ID3FID_YEAR             // Year.
+	    //ID3FID_UNIQUEFILEID     // Unique file identifier.
+	    //ID3FID_TERMSOFUSE       // Terms of use.
+	    //ID3FID_UNSYNCEDLYRICS   // Unsynchronized lyric/text
+	                              // transcription
+	    //ID3FID_WWWCOMMERCIALINFO// Commercial information.
+	    //ID3FID_WWWCOPYRIGHT     // Copyright/Legal information.
+	    //ID3FID_WWWAUDIOFILE     // Official audio file webpage.
+	    //ID3FID_WWWARTIST        // Official artist/performer webpage.
+	    //ID3FID_WWWAUDIOSOURCE   // Official audio source webpage.
+	    //ID3FID_WWWRADIOPAGE     // Official internet radio station
+	                              // homepage.
+	    //ID3FID_WWWPAYMENT       // Payment.
+	    //ID3FID_WWWPUBLISHER     // Official publisher webpage.
+	    //ID3FID_WWWUSER          // User defined URL link.
+	    //ID3FID_METACRYPTO       // Encrypted meta frame (id3v2.2.x).
+	    //ID3FID_METACOMPRESSION  // Compressed meta frame (id3v2.2.1).
+
+	    default:
+		char *text = ID3_GetString(frame, ID3FN_TEXT);
+		debug("frame with id=%d, descr=%s, text=%s",
+		      id, frame->GetDescription(), text);
+		if (text) delete [] text;
+	}
+
+    }
+    
+    return true;
+}
+
+//***************************************************************************
+void MP3Decoder::parseId3Frame(ID3_Frame *frame, FileProperty property)
+{
+    if (!frame) return;
+    char *text = ID3_GetString(frame, ID3FN_TEXT);
+    if (text) {
+	m_info.set(property, QVariant(text));
+	delete [] text;
+    }
+}
+
+//***************************************************************************
 bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 {
     debug("MP3Decoder::open()"); // ###
@@ -219,11 +387,12 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 	    "No header information has been found..."));
 	return false;
     }
-    debug("header info = %p", mp3hdr);
 
     /* parse the MP3 header */
-    parseMp3Header(*mp3hdr, widget);
-    
+    if (!parseMp3Header(*mp3hdr, widget)) return false;
+
+    /* parse the ID3 tags */
+    if (!parseID3Tags(tag)) return false;
     
     /* accept the source */
     m_source = &src;

@@ -24,6 +24,8 @@
 #include "libkwave/FileInfo.h"
 
 class Mp3_Headerinfo;
+class ID3_Frame;
+class ID3_Tag;
 
 class MP3Decoder: public Decoder
 {
@@ -66,6 +68,12 @@ private:
     /** parse MP3 headers */
     bool parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget);
     
+    /** parse all known ID3 tags */
+    bool parseID3Tags(ID3_Tag &tag);
+
+    /** parse a FileInfo property from a ID3 frame */
+    void parseId3Frame(ID3_Frame *frame, FileProperty property);
+
 private:
 
     /** source of the audio data */

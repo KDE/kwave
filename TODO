@@ -9,7 +9,9 @@ o possible bug/problem: start of a plugin while another plugin is
 
 o related to above: app crashes on shutdown when a plugin is still running
 
-o recording support
+o crashes at startup when no aRts server can be connected (seen on Mandrake-9)
+
+o finish recording support
   -> currently work in progress
 
 o more precise handling of the playback pointer

@@ -1,11 +1,11 @@
 
-0.7.0 [2003-11-??]
- * added project files for kdevelop-3
- * started work on recording plugin
+0.7.0 [2003-12-01]
+ * first version with recording functionality (still alpha)
  * removed workaround for uic invocation
  * bugfix: handling of persistent and unique plugins was wrong,
    which caused playback to work only in the first main window
    instance
+ * added project files for kdevelop-3
 
 0.6.7 [2003-06-28]
 

@@ -35,7 +35,6 @@ clean-generic:
 	-rm -fv `find . -name \*.uih.h`
 	-rm -fv `find . -name \*.uic.cpp`
 	-rm -Rf doc/api
-	-rm -f make.log
 
 backup: ${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \

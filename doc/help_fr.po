@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-02-07 00:24GMT\n"
+"PO-Revision-Date: 2002-02-07 22:36GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3345,12 +3345,11 @@ msgid ""
 "time for writing a tool that converts the doxygen output into something we "
 "can include into the docbook source (the source this page has been built of)."
 msgstr ""
-"Désolé, mais ce chapitre n'est pas encore écrit... pour le moment, le code source "
-" n'est pas encore documenté avec des anotations écrites avec les outils de rédaction de "
-" documentation fournis avec KDE. Nous préférons utiliser le logiciel <ulink url=\"http://www.stack."
-"nl/~dimitri/doxygen\">doxygen</ulink>. Peut être que dans quelques temps un utilitaire pourra "
-" convertir les annotations faites avec doxygen vers un document au format docbook "
-" (Le source de cette aide à été faite de cette maniére)."
+"Désolé, mais ce chapitre n'est pas encore écrit... Pour le moment, le code source "
+" n'est pas encore documenté avec les outils de rédaction de documentation fournis "
+" avec KDE. Nous préférons utiliser le logiciel <ulink url=\"http://www.stack.nl/~dimitri/doxygen\">doxygen</ulink>. "
+" Peut être que dans quelques temps un utilitaire pourra convertir les annotations faites avec "
+" doxygen vers un document au format docbook (Le source de cette aide a été faite de cette maniére)."
 
 #: index.docbook:2419
 msgid ""
@@ -3361,8 +3360,8 @@ msgid ""
 msgstr ""
 "Si vous voulez écrire un plugin, contribuer au projet (ou peut être écrire un outil de conversion "
 " mentionné précédement), veuillez prendre contact directement avec un des auteurs et / ou "
-" vous enregistrer à la <link linkend=\"mailing-list\">liste de diffusion</link> de &kapp;. "
-" De l'aide est toujours la bien venue !"
+" vous enregistrer sur la <link linkend=\"mailing-list\">liste de diffusion</link> de &kapp;. "
+" De l'aide est toujours la bienvenue !"
 
 #: index.docbook:2436
 msgid "Questions and Answers"
@@ -3374,17 +3373,19 @@ msgstr "<para></para>"
 
 #: index.docbook:2444
 msgid "What do I need to compile &kapp;?"
-msgstr ""
+msgstr "De quoi ai je besoin pour compiler &kapp; ?"
 
 #: index.docbook:2449
 msgid ""
 "Read in the <link linkend=\"requirements\">chapter</link> mentioned before. "
 "It compiles with gcc and egcs as well."
 msgstr ""
+"Lisez les informations à ce <link linkend=\"requirements\">chapitre</link>. "
+"Il peut être compilé avec gcc ou egcs."
 
 #: index.docbook:2460
 msgid "Which sound cards does &kapp; support?"
-msgstr ""
+msgstr "Qu'elles sont les cartes sons supportées par &kapp; ?"
 
 #: index.docbook:2465
 msgid ""
@@ -3393,10 +3394,14 @@ msgid ""
 "to the operating system's sound driver through a standard interface. So "
 "&kapp; can play on any sound card that KDE is able to play on."
 msgstr ""
+"&kapp; ne supporte pas une carte sonore en particulier. La carte sonore est supportée par "
+" le système d'exploitation et &kapp; est une interface graphique pour le driver de la carte qui "
+" l'utilise de manière standard. Bien sur, &kapp; peut lire des pistes sonores sur toutes les cartes "
+" sonores reconnues par KDE."
 
 #: index.docbook:2478
 msgid "Why are some menu entries / features always disabled?"
-msgstr ""
+msgstr "Pourquoi certaine entrées des menus ou certaine fonctionnalités sont désactivées ?"
 
 #: index.docbook:2483
 msgid ""
@@ -3405,12 +3410,17 @@ msgid ""
 "avoid trouble. You will get access to them if they are tested and stable "
 "enough."
 msgstr ""
+"Toutes les actions qui necessites des fonctionnalités en cours de developpement ont été "
+" désactivé car elles sont encore considérées comme instables. Elles seront progressivement "
+" activées au fur et à mesure de l'avancement des développements."
 
 #: index.docbook:2495
 msgid ""
 "Why does &kapp; consume more memory than it can be expected from the size of "
 "the opened file?"
 msgstr ""
+"Pourquoi &kapp; utilise plus de mémoire système que celle nécéssaire pour stocker un "
+" fichier sonore ?"
 
 #: index.docbook:2501
 msgid ""
@@ -3420,20 +3430,26 @@ msgid ""
 "consume about four megabytes. Maybe we will change this somewhere in the "
 "future..."
 msgstr ""
+"&kapp; stocke tous les échantillons en interne avec des entiers codés sur 32 bits. "
+" Cela facilite la programmation, et génére une application plus rapide et plus stable."
+" Si vous chargez un fichier sonore codé sur 8 bits d'une taille de 1 Mo, il représentera "
+" environ 4 Mo en mémoire. Cette carractèristique évoluera peut être dans le futur..."
 
 #: index.docbook:2514
 msgid "Which sound formats does &kapp; support?"
-msgstr ""
+msgstr "Quels sont les formats de fichiers sonores supportés par &kapp; ?"
 
 #: index.docbook:2519
 msgid ""
 "&kapp; currently supports .wav files with 8, 16 and 24 bits per sample, with "
 "any number of channels (of course including mono and stereo)."
 msgstr ""
+"&kapp; supporte actuellement les fichiers .wav codés en 8, 16 et 24 bits par échantillons, avec "
+" plusieurs canaux sonores (cela inclue le mono et le stéréo)."
 
 #: index.docbook:2529
 msgid "What if I have files with a format not supported by &kapp;?"
-msgstr ""
+msgstr "Quels sont les formats de fichiers qui ne sont pas supportés par &kapp; ?"
 
 #: index.docbook:2535
 msgid ""
@@ -3442,10 +3458,14 @@ msgid ""
 "~cbagwell/sox.html\">SoX</ulink> package, they have also some nice "
 "documentation!"
 msgstr ""
+"Si vous désirez travailler sur d'autres formats de fichiers sonores, vous pouvez les convertir "
+" en .wav. Un bon jeu d'utilitaires pour la manipulation des fichiers sonores est le paquetage "
+" <ulink url=\"http://home.sprynet.com/~cbagwell/sox.html\">SoX</ulink>. Il est accompagné d'une "
+" trés bonne documentation !"
 
 #: index.docbook:2547
 msgid "I get errors when I want to do playback?"
-msgstr ""
+msgstr "J'obtiens des erreurs quand je veux lire des pistes sonores. Pourquoi ?"
 
 #: index.docbook:2552
 msgid ""
@@ -3455,38 +3475,47 @@ msgid ""
 "increase the bits per sample and stereo playback step by step. Note that "
 "some playback rates are not at all supported by some sound hardware."
 msgstr ""
+"Peut être avez vous choisi une combinaison entre le taux d'échantillonage et la taille des "
+" échantillons qui n'est pas supportée par le driver de la carte sonore ou par le materiel. Essayez"
+" une lecture avec des échantillons sur 8 bits et en mono, cela devrait normalement fonctionner. "
+" Si c'est le cas, essayez d'augmenter le nombre de bits par échantillon et de passer en stéréo. "
+" Noter que certaine carte sonore ne supporte pas certaine résolution d'échantillonage."
 
 #: index.docbook:2566
 msgid "The playback seems to do something but I hear nothing?"
-msgstr ""
+msgstr "La lecture d'une piste sonore semble fonctionner mais je n'entend rien. Pourquoi ?"
 
 #: index.docbook:2571
 msgid ""
 "Maybe you have forgotten to increase the volume of the playback channel. "
 "&kapp; is not responsible for changing the playback volume."
 msgstr ""
+"Peut être avez vous oubliez d'augmenter le volume de votre carte sonore. &kapp; "
+" ne controle pas directement le niveau du volume sonore."
 
 #: index.docbook:2581
 msgid "Some files are played with half-speed?"
-msgstr ""
+msgstr "Quelques fichiers sont joués avec une vitesse réduite de moitié. Pourquoi ?"
 
 #: index.docbook:2586
 msgid "Try choosing a different sound playback device."
-msgstr ""
+msgstr "Essayer de choisir un autre périphérique de lecture sonore."
 
 #: index.docbook:2594
 msgid "The playback sometimes is disturbed and interrupted?"
-msgstr ""
+msgstr "Quelques fichiers sont joués avec des coupures ou des perturbations. Pourquoi ?"
 
 #: index.docbook:2599
 msgid ""
 "You should increase the size of the playback buffer to get a \"smoother\" "
 "playback (this also makes the playback control reacting a bit slower)."
 msgstr ""
+"Vous devez augmenter le buffer de lecture pour obtenir une lecture plus \"fluide\" "
+"(cela peut générer un contrôle sur la lecture un peu plus lent)."
 
 #: index.docbook:2609
 msgid "The playback does not stop if I immediately press the stop button?"
-msgstr ""
+msgstr "La lecture ne s'arrête pas imédiatement si j'appuie sur le bouton STOP. Pourquoi ?"
 
 #: index.docbook:2615
 msgid ""
@@ -3495,10 +3524,14 @@ msgid ""
 "Decrease the size of the playback buffer and it should react faster (but "
 "makes interruptions more probable)."
 msgstr ""
+"La raison est que le périphérique de la carte sonore reçoie encore des données à jouer en "
+" provenance de &kapp; au moment ou vous appuyez sur STOP. Diminuer la taille du buffer de "
+" lecture pour avoir une réaction plus rapide du programme (des problèmes de lecture "
+" sont cependant à envisager)."
 
 #: index.docbook:2627
 msgid "Is ALSA supported?"
-msgstr ""
+msgstr "Les drivers ALSA sont ils supportés ?"
 
 #: index.docbook:2632
 msgid ""
@@ -3506,16 +3539,23 @@ msgid ""
 "0.6 &kapp; has support for <ulink url=\"http://www.arts-project.org/\">aRts</"
 "ulink>, which can use ALSA."
 msgstr ""
+"Désolé, mais actuellement il n'y as pas de support direct des drivers ALSA, mais depuis la version "
+"0.6 de &kapp; le programme supporte l'interface <ulink url=\"http://www.arts-project.org/\">aRts</"
+"ulink>, qui peut utiliser les drivers ALSA."
 
 #: index.docbook:2643
 msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
 msgstr ""
+"Qu'en est-il de la lecture de fichiers sonores sur 24 et 32 bits par échantillons ou avec plus de "
+" 2 pistes sonores ?"
 
 #: index.docbook:2649
 msgid ""
 "This is another feature that might get implemented in <ulink url=\"http://"
 "www.arts-project.org/\">aRts</ulink>, so we wait for aRts to support it."
 msgstr ""
+"Ceci est une autre carractéristique qui doit être implentée dans l'interface <ulink url=\"http://"
+"www.arts-project.org/\">aRts</ulink>. Il faut attendre que cette fonctionnalité soit opérationnelle."
 
 #: index.docbook:2659
 msgid "What about MP3 support?"
@@ -3669,4 +3709,7 @@ msgid ""
 "Scientific Library project <ulink url=\"http://sources.redhat.com/gsl/"
 "\">http://sources.redhat.com/gsl/</ulink>."
 msgstr ""
+"Le code courrant du logiciel contient des routines de Transformées de Fourrier et des morceaux "
+" de programme issus du projet GNU Scientific Library que l'on peut consulter à l'adresse "
+" <ulink url=\"http://sources.redhat.com/gsl/\">http://sources.redhat.com/gsl/</ulink>."
 

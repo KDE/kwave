@@ -193,6 +193,10 @@ AC_DEFINE(HAVE_GETRLIMIT)
 AC_MSG_RESULT("present")
 ,AC_MSG_WARN(MISSING!))
 
+AC_CHECK_FUNC(geteuid, AC_DEFINE(HAVE_GETEUID))
+AC_CHECK_FUNC(mkstemp, AC_DEFINE(HAVE_MKSTEMP))
+AC_CHECK_FUNC(unlink,  AC_DEFINE(HAVE_UNLINK))
+
 dnl Checks for libraries.
 dnl AC_CHECK_LIB(socket, socket, [LIBSOCKET="-lsocket -lnsl"]) dnl for Solaris' X11
 dnl AC_SUBST(LIBSOCKET)

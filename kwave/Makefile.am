@@ -66,6 +66,7 @@ kwave_SOURCES =\
  PluginManager.cpp\
  SignalManager.cpp\
  SignalWidget.cpp\
+ SwapFile.cpp\
  TopWidget.cpp\
  UndoDeleteAction.cpp\
  UndoDeleteTrack.cpp\

@@ -15,11 +15,20 @@
 
 
 
+/* check for geteuid */
+#undef HAVE_GETEUID
+
 /* check for sys/resource.h and getrlimit */
 #undef HAVE_GETRLIMIT
 
+/* check for ability to create temporary files with mkstemp(...) */
+#undef HAVE_MKSTEMP
+
 /* check for sysinfo to query total ram */
 #undef HAVE_MEMINFO
+
+/* check for unlink */
+#undef HAVE_UNLINK
 
 
 /* Leave that blank line there!!  Autoheader needs it.

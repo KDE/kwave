@@ -17,6 +17,12 @@
 
 #include "config.h"
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+#include <qfile.h>
+#include <qfileinfo.h>
+#include <qstring.h>
 
 #ifdef HAVE_MEMINFO
 #include <linux/kernel.h> // for struct sysinfo
@@ -29,11 +35,13 @@
 
 #include "KwaveApp.h"
 #include "MemoryManager.h"
+#include "SwapFile.h"
 
 //***************************************************************************
 MemoryManager::MemoryManager()
     :m_physical_allocated(0), m_physical_limit(0), m_virtual_allocated(0),
-     m_virtual_limit(0), m_swap_dir("/tmp"), m_lock()
+     m_virtual_limit(0), m_swap_dir("/tmp"), m_swap_files(),
+     m_physical_size(), m_lock()
 {
 
     m_physical_limit = totalPhysical();
@@ -144,51 +152,158 @@ void *MemoryManager::allocatePhysical(size_t size)
     // check for limits
     unsigned limit = totalPhysical();
     if (m_physical_limit < limit) limit = m_physical_limit;
-    unsigned int used = 0; // ### physicalUsed();
+    unsigned int used = physicalUsed();
     unsigned int available = (used < limit) ? (limit-used) : 0;
-    if (size >= (available << 20)) return 0;
+    if ((size >> 20) >= available) return 0;
 
     // try to allocate
     void *block = ::malloc(size);
+    if (block) m_physical_size.insert(block, size);
 
+    debug("MemoryManager::allocatePhysical(%u kB) at %p", size >> 10, block);
     return block;
+}
+
+//***************************************************************************
+size_t MemoryManager::physicalUsed()
+{
+    size_t used = 0;
+    QMap<void*,size_t>::Iterator it;
+    for (it=m_physical_size.begin(); it != m_physical_size.end(); ++it) {
+	used += (it.data() >> 10) + 1;
+    }
+    return (used >> 10);
+}
+
+//***************************************************************************
+size_t MemoryManager::virtualUsed()
+{
+    size_t used = 0;
+    QMap<void*,SwapFile*>::Iterator it;
+    for (it=m_swap_files.begin(); it != m_swap_files.end(); ++it) {
+	used += (it.data()->size() >> 10) + 1;
+    }
+    return (used >> 10);
+}
+
+//***************************************************************************
+QString MemoryManager::nextSwapFileName()
+{
+    static unsigned int nr = 0;
+    QFileInfo file;
+    QString filename;
+
+    filename = qApp->name();
+    filename += "-";
+    filename += QString::number(nr++);
+    filename += "-";
+
+    // these 6 chars are needed for mkstemp !
+    filename += "XXXXXX";
+
+    file.setFile(m_swap_dir, filename);
+    return file.absFilePath();
 }
 
 //***************************************************************************
 void *MemoryManager::allocateVirtual(size_t size)
 {
+    // round up to whole pages
+    if (size & (4096-1)) {
+	size |= (4096-1);
+	size++;
+    }
+
     // check for limits
     unsigned int limit = 4096; // totalVirtual();
     if (m_virtual_limit < limit) limit = m_virtual_limit;
-    unsigned int used = 0; // ### virtualUsed();
+    unsigned int used = virtualUsed();
     unsigned int available = (used < limit) ? (limit-used) : 0;
-    if (size >= (available << 20)) return 0;
+    if ((size >> 20) >= available) return 0;
+
+    debug("MemoryManager::allocateVirtual(%u): limit=%u, used=%u, avail=%d",
+	size>>10, limit, used, available);
 
     // try to allocate
+    SwapFile *swap = new SwapFile();
+    ASSERT(swap);
+    if (!swap) return 0;
+
+    void *block = swap->allocate(size, nextSwapFileName());
+    if (block) {
+	// succeeded, remember the block<->object in our map
+	m_swap_files.insert(block, swap);
+	return block;
+    } else {
+	delete swap;
+    }
 
     return 0;
 }
 
 //***************************************************************************
-unsigned int MemoryManager::resize(void *&block, size_t size)
+void *MemoryManager::resize(void *block, size_t size)
 {
     MutexGuard lock(m_lock);
 
-    void *n = ::realloc(block, size);
-    if (n) {
-	block = n;
-	return size;
-    } else {
-	return 0;
+    if (m_physical_size.contains(block)) {
+	// try to resize the physical memory
+	void *new_block = ::realloc(block, size);
+	if (new_block) {
+	    m_physical_size.remove(block);
+	    m_physical_size.insert(new_block, size);
+	    return new_block;
+	}
+	
+	// resizing failed, try to allocate virtual memory for it
+	/**
+	 * @todo try to allocate virtual memory and copy
+	 * if resizing physical failed
+	 */
     }
+
+    if (m_swap_files.contains(block)) {
+	// resize the pagefile
+	SwapFile *swap = m_swap_files[block];
+	ASSERT(swap);
+	if (!swap) return 0;
+	
+	void *new_block = swap->resize(size);
+	if (new_block) {
+	    // update the map entry
+	    m_swap_files.remove(block);
+	    m_swap_files.insert(new_block, swap);
+	    return new_block;
+	}
+    }
+
+    return 0;
 }
 
 //***************************************************************************
 void MemoryManager::free(void *&block)
 {
+    if (!block) return;
     MutexGuard lock(m_lock);
 
-    if (block) ::free(block);
+    if (m_swap_files.contains(block)) {
+	// remove the pagefile
+	SwapFile *swap = m_swap_files[block];
+	ASSERT(swap);
+	if (swap) {
+	    m_swap_files.remove(block);
+	    delete swap;
+	}
+    };
+
+    if (m_physical_size.contains(block)) {
+	// physical memory
+	void *b = block;
+	debug("MemoryManager::free(%p)",b);
+	::free(b);
+	m_physical_size.remove(block);
+    }
+
     block = 0;
 }
 

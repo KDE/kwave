@@ -69,13 +69,14 @@ unsigned int Stripe::resizeStorage(unsigned int length)
 {
     if (m_samples.size() == length) return length; // nothing to do
 
+    debug("Stripe::resizeStorage(%u)", length);
     MemoryManager &mem = MemoryManager::instance();
 
 #ifndef STRICTLY_QT
     if (m_samples.size() == 0) {
 	// allocate new storage
-	sample_t *newstorage = (sample_t *)mem.allocate(
-		length*sizeof(sample_t));
+	sample_t *newstorage = reinterpret_cast<sample_t*>(mem.allocate(
+		length*sizeof(sample_t)));
 	if (!newstorage) return 0;
 	
 	m_samples.setRawData(newstorage, length);
@@ -91,18 +92,20 @@ unsigned int Stripe::resizeStorage(unsigned int length)
     }
 
     // resize the array to another size
-    sample_t *storage = m_samples.data();
-    unsigned int oldlength = m_samples.size();
-    m_samples.resetRawData(storage, m_samples.size());
+    sample_t *old_storage = m_samples.data();
+    unsigned int old_length = m_samples.size();
+    m_samples.resetRawData(old_storage, old_length);
 
-    unsigned int newsize = mem.resize(
-	reinterpret_cast<void*>(storage), length*sizeof(sample_t));
-    if (newsize < length*sizeof(sample_t)) {
+    sample_t *new_storage = reinterpret_cast<sample_t*>(mem.resize(
+	reinterpret_cast<void*>(old_storage), length*sizeof(sample_t)));
+    ASSERT(new_storage);
+    if (!new_storage) {
 	// resize failed
-	m_samples.setRawData(storage, oldlength);
-	return oldlength;
+	warning("Stripe::resizeStorage(%u) failed!", length);
+	m_samples.setRawData(old_storage, old_length);
+	return old_length;
     }
-    m_samples.setRawData(storage, length);
+    m_samples.setRawData(new_storage, length);
     return length;
 
 #else
@@ -124,7 +127,7 @@ unsigned int Stripe::resize(unsigned int length)
 
 //	debug("Stripe::resize() from %d to %d samples", old_length, length);
 	resizeStorage(length);
-	ASSERT(length = m_samples.size());
+	ASSERT(length == m_samples.size());
 	if (length < m_samples.size()) {
 	    warning("Stripe::resize(%u) failed, out of memory ?", length);
 	}
@@ -216,12 +219,17 @@ unsigned int Stripe::insert(const QArray<sample_t> &samples,
 	ASSERT(count <= samples.size());
 	if (count > samples.size()) count = samples.size();
 	
-//	debug("Stripe::insert: inserting %d samples", count);
+	debug("Stripe::insert: inserting %d samples", count);
 	
 	old_length = m_samples.size();
 	unsigned int new_length = old_length + count;
 	resizeStorage(new_length);
-	ASSERT(m_samples.size() == new_length);
+	ASSERT(m_samples.size() >= new_length);
+	if (m_samples.size() != new_length) {
+	    warning("Stripe::insert(): m_samples.size()=%u, old=%u, wanted=%u",
+		m_samples.size(), old_length, new_length);
+	    return 0;
+	}
 	new_length = m_samples.size();
 	
 	unsigned int src = old_length;

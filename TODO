@@ -1,5 +1,8 @@
 
-o sometimes the file/new dialog gets the wrong width ?
+o sometimes the file/new or options/playback dialog gets the wrong width ?
+  - only if a wav file was specified on the command line?
+  - not so often if Help/About was called before?
+  - sizeHint() gives weird values
 
 o audible/silent mode of tracks (speakers)
 

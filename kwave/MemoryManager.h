@@ -20,9 +20,13 @@
 
 #include <stddef.h>  // for size_t
 
+#include <qdir.h>
+#include <qmap.h>
 #include <qstring.h>
 #include "mt/Mutex.h"
 #include "mt/MutexGuard.h"
+
+class SwapFile;
 
 class MemoryManager
 {
@@ -47,12 +51,12 @@ public:
     /**
      * Resizes a block of memory to a new size. If the block will no longer
      * fit in physical memory, the block will be swapped out to a page file
-     * and the given pointer will be modified.
-     * @param block reference to the pointer to the existing block
+     * and a pointer different to the passed one will be returned.
+     * @param block pointer to the existing block
      * @param size new size of the block in bytes
-     * @return the number of bytes after the resize
+     * @return the new memory block
      */
-    unsigned int resize(void *&block, size_t size);
+    void *resize(void *block, size_t size);
 
     /**
      * Frees a block of memory that has been previously allocated with the
@@ -95,6 +99,15 @@ public:
 
 protected:
 
+    /** Returns the currently allocated physical memory */
+    size_t physicalUsed();
+
+    /** Returns the currently allocated virtual memory */
+    size_t virtualUsed();
+
+    /** Returns a new swap file name */
+    QString nextSwapFileName();
+
     /** Tries to allocate physical memory */
     void *allocatePhysical(size_t size);
 
@@ -116,7 +129,18 @@ private:
     unsigned int m_virtual_limit;
 
     /** Path where to store swap files */
-    QString m_swap_dir;
+    QDir m_swap_dir;
+
+    /**
+     * Map for translating virtual memory addresses
+     * into SwapFile objects.
+     */
+    QMap<void*, SwapFile*> m_swap_files;
+
+    /**
+     * Map for sizes of objects in physical memory.
+     */
+    QMap<void*, size_t> m_physical_size;
 
     /** Mutex for ensuring exclusive access */
     Mutex m_lock;

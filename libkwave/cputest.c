@@ -14,6 +14,11 @@
  *   cleanly within this new environment
  *   by Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
  *   had to include config.h and cputest.h
+ *
+ * 2005-01-07, Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
+ *   changed "popl %0" to "pop %0", patch supplied by
+ *   Kurt Roeckx <Q@ping.be> to fix compilation under amd64
+ *   (closes: debian bug#288781)
  */
 
 #ifdef HAVE_CONFIG_H
@@ -47,7 +52,7 @@ int mm_support(void)
                           /* See if CPUID instruction is supported ... */
                           /* ... Get copies of EFLAGS into eax and ecx */
                           "pushf\n\t"
-                          "popl %0\n\t"
+                          "pop %0\n\t"
                           "movl %0, %1\n\t"
 
                           /* ... Toggle the ID bit in one copy and store */
@@ -58,7 +63,7 @@ int mm_support(void)
 
                           /* ... Get the (hopefully modified) EFLAGS */
                           "pushf\n\t"
-                          "popl %0\n\t"
+                          "pop %0\n\t"
                           : "=a" (eax), "=c" (ecx)
                           :
                           : "cc"

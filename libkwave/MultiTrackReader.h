@@ -88,6 +88,9 @@ public slots:
      */
     void cancel();
 
+    /** Resets all readers to zero */
+    void reset();
+    
 private slots:
 
     /**

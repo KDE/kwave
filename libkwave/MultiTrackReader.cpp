@@ -62,6 +62,19 @@ void MultiTrackReader::proceeded()
 }
 
 //***************************************************************************
+void MultiTrackReader::reset()
+{
+    unsigned int pos = 0;
+    unsigned int track;
+    const unsigned int tracks = count();
+    for (track=0; track < tracks; ++track) {
+	SampleReader *r = (*this)[track];
+	if (r) r->reset();
+    }
+    emit progress(pos);
+}
+
+//***************************************************************************
 void MultiTrackReader::cancel()
 {
     m_cancelled = true;

@@ -188,9 +188,8 @@ public:
     static void findPlugins();
 
     /** Returns a reference to the global aRts dispatcher */
-    inline Arts::Dispatcher &artsDispatcher() {
-	ASSERT(Arts::Dispatcher::the());
-	return *(Arts::Dispatcher::the());
+    inline Arts::Dispatcher *artsDispatcher() {
+	return Arts::Dispatcher::the();
     };
 
 signals:

@@ -54,11 +54,8 @@ int main( int argc, char **argv )
      * interface.
      */
     int errorcode = arts_init();
-    volatile Arts::Dispatcher *dispatcher;
     if (errorcode < 0) {
 	warning("arts_init error: %s", arts_error_text(errorcode));
-	dispatcher = new Arts::Dispatcher();
-	ASSERT(dispatcher);
     }
 
     KAboutData about(PACKAGE, "Kwave", VERSION,

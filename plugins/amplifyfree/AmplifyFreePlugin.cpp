@@ -104,6 +104,11 @@ void AmplifyFreePlugin::run(QStringList params)
 {
     unsigned int first, last;
 
+    Arts::Dispatcher *dispatcher = manager().artsDispatcher();
+    dispatcher->lock();
+    ASSERT(dispatcher);
+    if (!dispatcher) close();
+
     UndoTransactionGuard undo_guard(*this, i18n("amplify free"));
     m_stop = false;
 
@@ -116,9 +121,6 @@ void AmplifyFreePlugin::run(QStringList params)
     openMultiTrackReader(source, selectedTracks(), first, last);
     manager().openMultiTrackWriter(sink, selectedTracks(), Overwrite,
 	first, last);
-
-    Arts::Dispatcher &dispatcher = manager().artsDispatcher();
-    dispatcher.lock();
 
     // create all objects
     ArtsMultiTrackSource arts_source(source);
@@ -156,7 +158,7 @@ void AmplifyFreePlugin::run(QStringList params)
     arts_sink.stop();
     arts_source.stop();
 
-    dispatcher.unlock();
+    dispatcher->unlock();
 
     close();
 }

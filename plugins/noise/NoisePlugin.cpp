@@ -41,6 +41,11 @@ void NoisePlugin::run(QStringList)
     unsigned int first, last;
     MultiTrackWriter sink;
 
+    Arts::Dispatcher *dispatcher = manager().artsDispatcher();
+    dispatcher->lock();
+    ASSERT(dispatcher);
+    if (!dispatcher) close();
+
     UndoTransactionGuard undo_guard(*this, i18n("noise"));
     m_stop = false;
 
@@ -49,8 +54,7 @@ void NoisePlugin::run(QStringList)
 	first, last);
 
     // lock the dispatcher exclusively
-    Arts::Dispatcher &dispatcher = manager().artsDispatcher();
-    dispatcher.lock();
+    dispatcher->lock();
 
     // create all objects
     unsigned int tracks = selectedTracks().count();
@@ -75,7 +79,7 @@ void NoisePlugin::run(QStringList)
     noise.stop();
     arts_sink.stop();
 
-    dispatcher.unlock();
+    dispatcher->unlock();
 
     close();
 }

@@ -823,9 +823,29 @@ int SignalManager::loadWav()
     // ------- search for the data chunk -------
     length = findChunk(sigfile, "data");
     if (!length) {
-	KMessageBox::error(m_parent_widget,
-	    i18n("File does not contain data!"));
-	return -EMEDIUMTYPE;
+	warning("length = 0, but file size = %u, current pos = %u",
+	    sigfile.size(), sigfile.at());
+	
+	if (sigfile.size() - sigfile.at() > 0) {
+	    if (KMessageBox::warningContinueCancel(m_parent_widget,
+		i18n("File is damaged: the file header reports zero length\n"\
+		     "but the file seems to contain some data. \n\n"\
+		     "Kwave can try to recover the file, but the\n"\
+		     "result might contain trash at it's start and/or\n"\
+		     "it's end. It is strongly advisable to edit the\n"\
+		     "damaged parts manually and save the file again\n"\
+		     "to fix the problem.\n\n"\
+		     "Try to recover?"),
+		     i18n("Damaged File"),
+		     i18n("&Recover")) == KMessageBox::Continue)
+	    {
+		length = sigfile.size() - sigfile.at();
+	    } else return -EMEDIUMTYPE;
+	} else {
+	    KMessageBox::error(m_parent_widget,
+	        i18n("File does not contain data!"));
+	    return -EMEDIUMTYPE;
+	}
     }
 
     length = (length/(fmt_header.bitspersample/8))/fmt_header.channels;

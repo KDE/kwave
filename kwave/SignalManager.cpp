@@ -98,6 +98,10 @@ SignalManager::SignalManager(QWidget *parent)
     /** @todo the undo memory limit should be user-configurable. */
     m_file_info()
 {
+    // per default we use auto-delete for the und/redo buffers
+    m_undo_buffer.setAutoDelete(true);
+    m_redo_buffer.setAutoDelete(true);
+
     // connect to the track's signals
     Signal *sig = &m_signal;
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
@@ -476,6 +480,10 @@ void SignalManager::close()
     // disable undo and discard all undo buffers
     // undo will be re-enabled when a signal is loaded or created
     disableUndo();
+
+    // for safety: flush all undo/redo buffer
+    flushUndoBuffers();
+    flushRedoBuffer();
 
     m_empty = true;
     m_name = "";
@@ -1199,9 +1207,6 @@ void SignalManager::abortUndoTransaction()
     MutexGuard lock(m_undo_transaction_lock);
 
     if (!m_undo_transaction) return;
-    m_undo_transaction->setAutoDelete(true);
-    m_undo_transaction->clear();
-
     delete m_undo_transaction;
     m_undo_transaction = 0;
 }
@@ -1312,7 +1317,6 @@ void SignalManager::freeUndoMemory(unsigned int needed)
     unsigned int size = usedUndoRedoMemory() + needed;
 
     // remove old undo actions if not enough free memory
-    m_undo_buffer.setAutoDelete(true);
     while (!m_undo_buffer.isEmpty() && (size > m_undo_limit)) {
 	unsigned int s = m_undo_buffer.first()->undoSize();
 	size = (size >= s) ? (size - s) : 0;
@@ -1326,7 +1330,6 @@ void SignalManager::freeUndoMemory(unsigned int needed)
     }
 
     // remove old redo actions if still not enough memory
-    m_redo_buffer.setAutoDelete(true);
     while (!m_redo_buffer.isEmpty() && (size > m_undo_limit)) {
 	unsigned int s = m_redo_buffer.last()->undoSize();
 	size = (size >= s) ? (size - s) : 0;
@@ -1420,6 +1423,7 @@ void SignalManager::undo()
 	undo_transaction->setAutoDelete(false);
 	undo_action = undo_transaction->last();
 	undo_transaction->removeLast();
+	undo_transaction->setAutoDelete(true);
 	Q_ASSERT(undo_action);
 	if (!undo_action) continue;
 
@@ -1446,7 +1450,6 @@ void SignalManager::undo()
 	// if there is not more than the UndoSelection action,
 	// there are no real redo actions -> no redo possible
 	qWarning("SignalManager::undo(): no redo possible");
-	m_redo_buffer.setAutoDelete(true);
 	m_redo_buffer.remove(redo_transaction);
     }
 
@@ -1499,7 +1502,6 @@ void SignalManager::redo()
     // if *one* undo fails, all following undoes will also fail or
     // produce inconsistent data -> remove all of them !
     if (!undo_transaction) {
-	m_undo_buffer.setAutoDelete(true);
 	m_undo_buffer.clear();
 	qDebug("SignalManager::redo(): undo buffer flushed!");
     } else {
@@ -1516,6 +1518,7 @@ void SignalManager::redo()
 	redo_transaction->setAutoDelete(false);
 	redo_action = redo_transaction->first();
 	redo_transaction->removeFirst();
+	redo_transaction->setAutoDelete(true);
 	Q_ASSERT(redo_action);
 	if (!redo_action) continue;
 
@@ -1542,7 +1545,6 @@ void SignalManager::redo()
 	// if there is not more than the UndoSelection action,
 	// there are no real undo actions -> no undo possible
 	qWarning("SignalManager::redo(): no undo possible");
-	m_undo_buffer.setAutoDelete(true);
 	m_undo_buffer.remove(undo_transaction);
     }
 

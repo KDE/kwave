@@ -622,14 +622,14 @@ void Track::writeSamples(InsertMode mode,
 		if (end > right) end = right;
 
 		unsigned int len = end - start + 1;
-		qDebug("R: overlap at [%u ... %u]", start, end);
+// 		qDebug("R: overlap at [%u ... %u]", start, end);
 		// ###
-		qDebug("R: overwrite(left=%u - start=%u, buf_offset=%u, len=%u",
-		       left, start, buf_offset, len);
+// 		qDebug("R: overwrite(left=%u - start=%u, buf_offset=%u, len=%u",
+// 		       left, start, buf_offset, len);
 // 		qDebug("R: [%u ....... %u]",start, end);
-		qDebug("R:     [%u ... %u]", end-len+1, end);
+// 		qDebug("R:     [%u ... %u]", end-len+1, end);
 		s->overwrite(0, buffer, buf_offset + (start-left), len); // ###
-		qDebug("R: overwrite done.");
+// 		qDebug("R: overwrite done.");
 
 		buf_offset += len;
 		right      -= len;
@@ -639,7 +639,7 @@ void Track::writeSamples(InsertMode mode,
 
 	    // erase everything from left to the right, because
 	    // it contains gaps and would lead to fragmentation
-	    qDebug("left=%u ... right=%u, length=%u", left, right, length);
+// 	    qDebug("left=%u ... right=%u, length=%u", left, right, length);
 	    if (!length) break; // nothing more to do
 
 	    Q_ASSERT(length == (right-left+1));
@@ -654,19 +654,19 @@ void Track::writeSamples(InsertMode mode,
 		// complete overlap
 		if ((start >= left) && (end <= right)) {
 		    // delete the whole stripe
-		    qDebug("deleting [%u ... %u]", start, end);
+// 		    qDebug("deleting [%u ... %u]", start, end);
 		    deleteStripe(s);
 		    continue;
 		}
 
 		// partial overlap ? should not happen !!!
 		ASSERT(!s);
-		qDebug("partial overlap: [%u ... %u]", start, end);
+// 		qDebug("partial overlap: [%u ... %u]", start, end);
 	    }
 
 	    // add the rest between the left and right border
-	    if (stripe_before) qDebug("before: [%u ... %u]",
-	        stripe_before->start(), stripe_before->end()); // ###
+// 	    if (stripe_before) qDebug("before: [%u ... %u]",
+//	        stripe_before->start(), stripe_before->end()); // ###
 
 	    if (stripe_before && (stripe_before->end()+1 != left))
 		stripe_before = 0;

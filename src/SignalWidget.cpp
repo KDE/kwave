@@ -45,10 +45,8 @@ SignalWidget::SignalWidget (QWidget *parent,MenuManager *manage) : QWidget (pare
 
   this->manage=manage;
 
-  manage->addNumberedMenu ("labeltypes");
-
   for (LabelType *tmp=globals.markertypes.first();tmp;tmp=globals.markertypes.next())
-    manage->addNumberedMenuEntry ("labeltypes",tmp->name);
+    manage->addNumberedMenuEntry ("ID_LABELS_TYPE", (char *)tmp->name);
 
   timer=0;
   signalmanage=0;
@@ -1427,8 +1425,9 @@ int findFirstMark (int *sample,int len)
 void SignalWidget::addLabelType (LabelType *marker)
 {
   globals.markertypes.append (marker);
-  if (manage) manage->addNumberedMenuEntry ("labeltypes",marker->name);
+  if (manage) manage->addNumberedMenuEntry ("ID_LABELS_TYPE", (char *)marker->name);
 }
+
 //*****************************************************************************
 void SignalWidget::addLabelType (const char *str)
 {
@@ -1436,16 +1435,4 @@ void SignalWidget::addLabelType (const char *str)
   if (marker) addLabelType (marker);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* end of src/SignalWidget.cpp */

@@ -63,7 +63,6 @@ MenuNode *MenuRoot::insertLeaf(char *name, char *command,
 //*****************************************************************************
 void MenuRoot::removeChild(int id)
 {
-//    debug("MenuRoot::removeChild(%d)", id);
     MenuNode::removeChild(id);
     menu_bar.removeItem(id);
 }
@@ -71,7 +70,6 @@ void MenuRoot::removeChild(int id)
 //*****************************************************************************
 bool MenuRoot::setItemEnabled(int id, bool enable)
 {
-    debug("MenuRoot(%s)::setItemEnabled(%d, %d)", getName(), id, enable);
     if (!findChild(id)) return false;
     menu_bar.setItemEnabled(id, enable);
     return true;

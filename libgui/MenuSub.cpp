@@ -49,14 +49,11 @@ QPopupMenu *MenuSub::getPopupMenu()
 MenuNode *MenuSub::insertBranch(char *name, int key, char *uid, int index)
 {
     MenuSub *node = new MenuSub(this, name, 0, key, uid);
-
     if (menu) {
 	int new_id = registerChild(node);
 	menu->insertItem(klocale->translate(node->getName()),
 	    node->getPopupMenu(), new_id);
     }
-
-//    debug("MenuSub(%s): insertBranch(%s)", getName(), name);
     return node;
 }
 
@@ -74,7 +71,6 @@ MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
     menu->insertItem(klocale->translate(name), new_id);
     menu->setAccel(key, new_id);
 
-//    debug("MenuSub(%s): insertLeaf(%s)", getName(), name);
     return item;
 }
 
@@ -88,20 +84,22 @@ void MenuSub::removeChild(int id)
 //*****************************************************************************
 bool MenuSub::specialCommand(const char *command)
 {
+
     if (strcmp(command, "listmenu") == 0) {
-	// insert a list menu
+	// insert an empty submenu for the list items
+    	debug("MenuSub(%s) >> listmenu <<", getName());
 	return true;
     } else if (strcmp(command, "exclusive") == 0) {
 	//
+    	debug("MenuSub(%s) >> exclusive <<", getName());
 	return true;
     } else if (strcmp(command, "number") == 0) {
 	//
+    	debug("MenuSub(%s) >> number <<", getName());
 	return true;
     } else if (strcmp(command, "separator") == 0) {
 	menu->insertSeparator(-1);
     	return true;
-    } else if (strcmp(command, "checkable") == 0) {
-	return true;
     }
 
     return false;
@@ -121,7 +119,6 @@ void MenuSub::slotSelected(int id)
 //*****************************************************************************
 bool MenuSub::setItemEnabled(int id, bool enable)
 {
-    debug("MenuSub(%s)::setItemEnabled(%d, %d)", getName(), id, enable);
     if ((!menu) || (!menu->findItem(id))) return false;
     menu->setItemEnabled(id, enable);
     return true;
@@ -130,18 +127,9 @@ bool MenuSub::setItemEnabled(int id, bool enable)
 //*****************************************************************************
 void MenuSub::setEnabled(bool enable)
 {
-    debug("MenuSub(%s)::setEnabled(%d)", getName(), enable);
-    MenuNode *parent = getParentNode();
-
-    debug("--1--");
     MenuNode::setEnabled(enable);
-    debug("--2--");
-
-    if (parent) {
-	debug("--3--");
-	parent->setItemEnabled(getId(), enable);
-	debug("--4--");
-    }
-    debug("--5--");
+    MenuNode *parent = getParentNode();
+    if (parent)	parent->setItemEnabled(getId(), enable);
 }
 
+/* end of libgui/MenuSub.cpp */

@@ -5,7 +5,6 @@
 
 class QWidget;
 class KMenuBar;
-class NumberedMenu;
 class MenuRoot;
 
 //*****************************************************************************
@@ -19,12 +18,10 @@ class MenuManager: public QObject
 
     void setCommand(const char *);
 
-    NumberedMenu *findNumberedMenu (const char *);
-    NumberedMenu *addNumberedMenu  (const char *);
     //deletes all entries of a numbered Menu
-    void clearNumberedMenu         (const char *);
+    void clearNumberedMenu         (const char *uid);
     //add Entrys to numbered Window
-    void addNumberedMenuEntry      (const char *name,const char *entry);
+    void addNumberedMenuEntry      (const char *uid, char *entry);
 
     void selectItemChecked(const char *uid);
     void setItemChecked(const char *uid, bool check);

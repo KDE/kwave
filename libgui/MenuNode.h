@@ -21,6 +21,8 @@
 #include <qobject.h>
 #include <qlist.h>
 
+class MenuSub;
+
 /**
  * Base class for the MenuRoot, MenuEntry, SubMenu and
  * the ToplevelMenu class.
@@ -29,6 +31,8 @@
 class MenuNode: public QObject
 {
     Q_OBJECT
+
+friend class MenuSub;
 
 public:
     /**
@@ -106,16 +110,6 @@ public:
      * (overwritten in MenuSub etc.)
      */
     virtual bool isBranch() {return false;};
-
-/* ###
-         void          setEnabled  (bool enable);
-         void          checkEntry  (int id);
-         void          checkEntry  (int id, const bool check);
-         int           getCheckedId() { return checked; };
-         void          setCheckedId(int id) { this->checked = id;};
-         void          setCheckable ();
-         void          setNumberable();
-### */
 
     /**
      * Removes all child entries from the menu node (gui) and
@@ -265,11 +259,12 @@ public:
      */
     virtual void actionSelected();
 
-private:
+protected:
 
     /** list with pointers to child menus */
     QList<MenuNode> children;
 
+private:
     /** numeric id in the menu */
     int id;
 

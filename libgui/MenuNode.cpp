@@ -132,7 +132,6 @@ bool MenuNode::setItemEnabled(int id, bool enable)
 //*****************************************************************************
 void MenuNode::setEnabled(bool enable)
 {
-    debug("MenuNode(%s)::setEnabled(%d)", getName(), enable);
     enabled = enable;
 }
 
@@ -326,11 +325,10 @@ int MenuNode::insertNode(char *name, char *position, char *command,
 	if (sub) {
 	    result = sub->insertNode(0, position, command, key, uid);
 	} else {
-	    debug("MenuNode::insertNode: branch failed!"); // ###
+	    debug("MenuNode::insertNode: branch failed!");
 	}
     }
 
-//    debug("MenuNode::insertNode: returning with %d", result);
     return result;
 }
 
@@ -339,6 +337,5 @@ bool MenuNode::specialCommand(const char *command)
 {
     return false;
 }
-
 	
 /* end of MenuNode.cpp */

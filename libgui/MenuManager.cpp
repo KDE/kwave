@@ -1,9 +1,7 @@
 
 #include <stdio.h>
-
 #include <stdlib.h>
-// #include <string.h>
-// #include <qstack.h>
+
 #include <qkeycode.h>
 
 #include <kapp.h>
@@ -12,20 +10,18 @@
 #include <libkwave/Parser.h>
 #include <libkwave/String.h>
 
-// #include "NumberedMenu.h"
 #include "MenuNode.h"
 #include "MenuRoot.h"
-#include "MenuSub.h" // ###
 #include "MenuManager.h"
 
 //*****************************************************************************
 MenuManager::MenuManager (QWidget *parent, KMenuBar &bar)
   :QObject(parent)
 {
-    debug("MenuManager::MenuManager(%p,%p)", parent, &bar);
     menu_root = new MenuRoot(bar);
 }
 
+//*****************************************************************************
 int MenuManager::parseToKeyCode(const char *key_name)
 {
     char *key = duplicateString(key_name);
@@ -80,6 +76,7 @@ int MenuManager::parseToKeyCode(const char *key_name)
     return keycode;
 }
 
+//*****************************************************************************
 void MenuManager::setCommand (const char *command)
 {
     Parser parser(command);
@@ -121,37 +118,21 @@ void MenuManager::setCommand (const char *command)
     if (id)  deleteString(id);
 }
 
-
 //*****************************************************************************
 void MenuManager::clearNumberedMenu (const char *name)
 {
-/*
-    MenuNode *menu = menu_root->findNodeByUID(name);
-    if (menu) menu->clear();
-*/
+    MenuNode *node = menu_root->findUID(name);
+    if (node) node->clear();
 }
-//*****************************************************************************
-NumberedMenu* MenuManager::addNumberedMenu (const char *name)
-{/* ###
-  debug("MenuManager::addNumberedMenu(%s)", name); // ###
-  NumberedMenu *newmenu=findNumberedMenu (name);
 
-  if (newmenu) return newmenu;
-
-  newmenu=new NumberedMenu (name);
-  numberedMenus.append (newmenu);
-  return newmenu;  */
-  return 0;
-}
 //*****************************************************************************
-void MenuManager::addNumberedMenuEntry (const char *name,const char *entry)
+void MenuManager::addNumberedMenuEntry (const char *name, char *entry)
 {
-/* ###
-  NumberedMenu *menu=findNumberedMenu (name);
-  if (menu) menu->addEntry (entry);
-  else debug ("could not find numbered Menu %s\n",name);
-*/
+    MenuNode *node = menu_root->findUID(name);
+    if (node) node->insertLeaf(entry, 0, 0, 0, -1);
+    else debug ("could not find numbered Menu %s\n",name);
 }
+
 //*****************************************************************************
 void MenuManager::selectItemChecked(const char *uid)
 {
@@ -165,6 +146,7 @@ void MenuManager::selectItemChecked(const char *uid)
     }
 */
 }
+
 //*****************************************************************************
 void MenuManager::setItemChecked(const char *uid, bool check)
 {
@@ -178,33 +160,15 @@ void MenuManager::setItemChecked(const char *uid, bool check)
     }
 */
 }
+
 //*****************************************************************************
 void MenuManager::setItemEnabled(const char *uid, bool enable)
 {
   debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
   MenuNode *node = menu_root->findUID(uid);
-  debug("found menu=%p", node);
   if (node) node->setEnabled(enable);
 }
-//*****************************************************************************
-NumberedMenu *MenuManager::findNumberedMenu (const char *name)
-{
-  //straight forward linear search
-/* ###
-  NumberedMenu *tmp=numberedMenus.first();
-  while (tmp)
-    {
-      if (strcmp(tmp->name(),name)==0) return tmp;
-      tmp=numberedMenus.next();
-    }
-### */
-    return 0;
-}
-//*****************************************************************************
-//void MenuManager::deliverCommand (const char *c)
-//{
-//  emit command(c);
-//}
+
 //*****************************************************************************
 MenuManager::~MenuManager ()
 {

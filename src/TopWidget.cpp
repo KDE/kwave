@@ -268,9 +268,9 @@ void TopWidget::setSignal (SignalManager *signal)
 //*****************************************************************************
 void TopWidget::updateRecentFiles ()
 {
-  menumanage->clearNumberedMenu ("recentfiles");
+  menumanage->clearNumberedMenu("ID_FILE_OPEN_RECENT");
   for (unsigned int i =0 ; i < recentFiles.count(); i++)
-    menumanage->addNumberedMenuEntry ("recentfiles",recentFiles.at(i));
+    menumanage->addNumberedMenuEntry ("ID_FILE_OPEN_RECENT",recentFiles.at(i));
 }
 //*****************************************************************************
 void TopWidget::updateMenu ()

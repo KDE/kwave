@@ -10,25 +10,9 @@
 
 #include <libkwave/String.h>
 
+#include "libgui/MenuManager.h"
 #include "libgui/MultiStateWidget.h"
 #include "libgui/OverViewWidget.h"
-//#include "../libgui/MenuManager.h"
-
-//#include <qlayout.h>
-//#include <qpushbt.h>
-//#include <qfont.h>
-//#include <qfile.h>
-//#include <qstring.h>
-//#include <qfiledlg.h>
-//#include <qcombo.h>
-//#include <qpixmap.h>
-//#include <qtimer.h>
-//#include <qframe.h>
-//#include <kselect.h>
-//#include <ktopwidget.h>
-//#include <kmenubar.h>
-//#include <kstatusbar.h>
-//#include <kbutton.h>
 
 #include "sampleop.h"
 #include "SignalWidget.h"
@@ -63,7 +47,7 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
   this->manage=manage;
   menushown=false;
 
-  if (manage->addNumberedMenu ("Channels")) manage->addNumberedMenuEntry ("Channels","none");
+  manage->addNumberedMenuEntry("ID_EDIT_CHANNEL_DELETE", "none");
   updateMenu();
 
   this->parent=parent;

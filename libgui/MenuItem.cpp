@@ -20,26 +20,29 @@
 #include "MenuNode.h"
 #include "MenuItem.h"
 
+//*****************************************************************************
 MenuItem::MenuItem(MenuNode *parent, char *name, char *command,
                    int key, char *uid)
   :MenuNode(parent, name, command, key, uid)
 {
 }
 
+//*****************************************************************************
 int MenuItem::getIndex()
 {
     MenuNode *parent = getParentNode();
     return (parent) ? parent->getChildIndex(getId()) : -1;
 }
 
+//*****************************************************************************
 void MenuItem::setEnabled(bool enable)
 {
-    debug("MenuItem(%s)::setEnabled(%d)", getName(), enable);
-    MenuNode *parent = getParentNode();
-
     MenuNode::setEnabled(enable);
 
+    MenuNode *parent = getParentNode();
     if (parent) {
 	parent->setItemEnabled(getId(), enable);
     }
 }
+
+/* end of libgui/MenuItem.cpp */

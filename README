@@ -269,7 +269,7 @@ made running and what I had to install additionally:
          (manual install of id3lib-3.8.2)
 
 * Gentoo-1.4_rc2:
-         patch, imagemagick, recode, kdemultimedia, kdesdk, media-libs, id3lib
+         patch, imagemagick, recode, kdemultimedia, kdesdk, id3lib
 
 * RedHat-8.0 / 9.0:
          ImageMagick, recode, id3lib, audiofile, audiofile-devel
@@ -285,7 +285,7 @@ made running and what I had to install additionally:
 
 * Mandrake-9.1:
 	like Mandrake-9.0, but additionally:
-	 libnas2, libnas2-devel, libfam0-devel, libpng3, libpng3-devel
+	libnas2, libnas2-devel, libfam0-devel, libpng3, libpng3-devel
 
 * Slackware 9.0:
 	(too many packages to mention here, I have given it up...)

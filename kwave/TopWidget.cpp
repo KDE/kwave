@@ -112,7 +112,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
 {
     int id=1000; // id of toolbar items
 
-    debug("TopWidget::TopWidget() -- 1 --"); // ###
     m_save_bits = 16;
     m_blink_on = false;
     m_id_zoomrange = -1;
@@ -144,12 +143,10 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	return;
     }
 
-//    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
-//            this, SLOT(executeCommand(const QString &)));
+    connect(m_plugin_manager, SIGNAL(sigCommand(const QString &)),
+            this, SLOT(executeCommand(const QString &)));
 //    connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
 //	    m_plugin_manager, SLOT(setSignalName(const QString &)));
-
-    debug("TopWidget::TopWidget() -- 2 --"); // ###
 
     KStatusBar *status_bar = statusBar();
     ASSERT(status_bar);
@@ -171,16 +168,12 @@ TopWidget::TopWidget(KwaveApp &main_app)
 //    connect( dropZone, SIGNAL( dropAction( KDNDDropZone *)),
 //	     this, SLOT( dropEvent( KDNDDropZone *)));
 
-    debug("TopWidget::TopWidget() -- 3 --"); // ###
-
     // load the menu from file
     QString menufile = locate("data", "kwave/menus.config");
     FileLoader loader(menufile);
     ASSERT(loader.buffer());
     if (loader.buffer()) parseCommands(loader.buffer());
     updateMenu();
-
-    debug("TopWidget::TopWidget() -- 4 --"); // ###
 
     updateRecentFiles();
 
@@ -193,8 +186,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	m_main_widget=0;
 	return;
     }
-
-    debug("TopWidget::TopWidget() -- 5 --"); // ###
 
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(executeCommand(const QString &)));
@@ -213,8 +204,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     m_toolbar->setHorizontalStretchable(false);
     this->addToolBar(m_toolbar);
     m_toolbar->insertSeparator(-1);
-
-    debug("TopWidget::TopWidget() -- 6 --"); // ###
 
     // --- file open and save ---
 
@@ -284,8 +273,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
 //                  Go To Page/Home
 
 //                  Help
-
-    debug("TopWidget::TopWidget() -- 7 --"); // ###
 
     // separator between edit and playback
     QFrame *separator = new QFrame(m_toolbar, "separator line");
@@ -376,8 +363,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
 
-    debug("TopWidget::TopWidget() -- 8 --"); // ###
-
     m_zoomselect->adjustSize();
     int h = m_zoomselect->sizeHint().height();
     m_zoomselect->setFixedHeight(h);
@@ -402,8 +387,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
 
-    debug("TopWidget::TopWidget() -- 9 --"); // ###
-
     // limit the window to a reasonable minimum size
     int w = m_main_widget->minimumSize().width();
     h = max(m_main_widget->minimumSize().height(), 150);
@@ -425,8 +408,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	    hmin = mh;
 	}
     }
-
-    debug("TopWidget::TopWidget() -- 10 --"); // ###
 
     // set a nice initial size
     w = wmax;

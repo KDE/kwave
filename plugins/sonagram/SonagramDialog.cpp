@@ -75,8 +75,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // if nothing selected, select all
     if (m_length <= 1) m_length = p.signalLength();
 
-    debug("SonagramDialog()::SonagramDialog()");
-
     setCaption(i18n("Set FFT/time resolution parameter"));
 
     // ----------------------------------------------------------------------
@@ -87,7 +85,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     QVBoxLayout *topLayout = new QVBoxLayout(this, 10);
     ASSERT(topLayout);
     if (!topLayout) return;
-    debug("SonagramDialog()::SonagramDialog() --1--"); // ###
 
     QHBoxLayout *pointsLayout = new QHBoxLayout();
     ASSERT(pointsLayout);
@@ -108,7 +105,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // ----------------------------------------------------------------------
     // ---   FFT settings   -------------------------------------------------
     // ----------------------------------------------------------------------
-    debug("SonagramDialog()::SonagramDialog() --2--"); // ###
 
     QGroupBox *fft_frame = new QGroupBox(this);
     ASSERT(fft_frame);
@@ -141,13 +137,9 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     ASSERT(m_windowtypebox);
     if (!m_windowtypebox) return;
     window_function_t wf = WINDOW_FUNC_NONE;
-    debug("SonagramDialog()::SonagramDialog() --2a--"); // ###
     for (unsigned int i=0; i < WindowFunction::count(); i++) {
-	debug("SonagramDialog()::SonagramDialog() --2c--"); // ###
 	m_windowtypebox->insertItem(WindowFunction::description(wf, true));
-	debug("SonagramDialog()::SonagramDialog() --2b--"); // ###
 	++wf;
-	debug("SonagramDialog()::SonagramDialog() --2c--"); // ###
     }
     QToolTip::add(m_windowtypebox,
 	i18n("Choose windowing function here. "\
@@ -169,7 +161,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 
     // -- create the fft frame's layout --
 
-    debug("SonagramDialog()::SonagramDialog() --3--"); // ###
     setPoints(1);    // must set the minimum number of points to get
     setBoxPoints(0); // the largest windowlabel
 
@@ -234,7 +225,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // ----------------------------------------------------------------------
     // ---   display type selection: color/grayscale   ----------------------
     // ----------------------------------------------------------------------
-    debug("SonagramDialog()::SonagramDialog() --4--"); // ###
 
     QButtonGroup *display_group = new QButtonGroup(this);
     ASSERT(display_group);
@@ -301,7 +291,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 
     m_cbTrackChanges->setEnabled(false);    // ###
     m_cbFollowSelection->setEnabled(false); // ###
-    debug("SonagramDialog()::SonagramDialog() --5--"); // ###
 
     // ----------------------------------------------------------------------
     // ---   OK and Cancel buttons   ----------------------------------------
@@ -368,7 +357,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     if (bits > 16) bits = 16;
     setPoints(1 << (bits-1));
     setBoxPoints(0);
-    debug("SonagramDialog()::SonagramDialog() --6--"); // ###
 
     m_ok->setAccel(Key_Return);
     m_cancel->setAccel(Key_Escape);
@@ -378,8 +366,6 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     connect(m_cancel ,     SIGNAL(clicked()),         SLOT(reject()));
     connect(m_pointslider, SIGNAL(valueChanged(int)), SLOT(setPoints(int)));
     connect(m_pointbox,    SIGNAL(activated(int)),    SLOT(setBoxPoints(int)));
-
-    debug("SonagramDialog::SonagramDialog(): done."); // ###
 }
 
 //***************************************************************************

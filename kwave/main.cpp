@@ -21,8 +21,6 @@ static KCmdLineOptions options[] =
     { 0, 0, 0 } // End of options.
 };
 
-#include "libkwave/WindowFunction.h"
-
 //***************************************************************************
 int main( int argc, char **argv )
 {
@@ -48,9 +46,6 @@ int main( int argc, char **argv )
 #endif // UNIQUE_APP
 
     KwaveApp app;
-
-    WindowFunction::count(); // ###
-
     app.exec();
 
     return 0;

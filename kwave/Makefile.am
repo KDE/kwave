@@ -69,26 +69,12 @@ kwave_SOURCES =\
  $(BUILTSOURCES)
 
 # the library search path
-# kwave_LDFLAGS = -dy -L$(topdir)/libgui/.libs @all_libraries@ --export-dynamic
-#kwave_LDFLAGS = @all_libraries@ --export-dynamic --whole-archive -export-dynamic
-#kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
-#	@all_libraries@ -Wl,--export-dynamic -dy
-# kwave_LDFLAGS = -L../libkwave @all_libraries@ --export-dynamic -export-dynamic -dy
-kwave_LDFLAGS = -L../libkwave @all_libraries@ -export-dynamic -dy
-
-# libkwavemain_a_LDFLAGS = -export-dynamic --whole-archive ../libgui/libkwavegui.a \
-#	--whole-archive ../libkwave/libkwave.a  \
-#	--whole-archive ../mt/libkwavemt.a @all_libraries@
+kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
+	@all_libraries@ -export-dynamic -dy
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-#kwave_LDADD   =  -lkfile \
-#	-lkdeui -lkdecore -lqt -lX11 -lXext -lpthread -ldl
-
-#kwave_LDADD   = -lkwavegui -lkwave -lkwavemt -lkfile -lkdeui -lkdecore -lqt \
-#	-lX11 -lXext -lpthread -ldl
-
-kwave_LDADD   = -lkwave -lkfile -lkdeui -lkdecore -lqt-mt \
+kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt -lkfile -lkdeui -lkdecore -lqt \
 	-lX11 -lXext -lpthread -ldl
 
 # if you "make distclean", this files get removed. If you want to remove

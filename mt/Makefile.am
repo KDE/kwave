@@ -9,7 +9,7 @@ BUILTSOURCES=\
  TSS_Object.moc.cpp
 
 # Which sources should be compiled for libkwavemt.
-libkwavemt_a_SOURCES=\
+libkwavemt_la_SOURCES=\
  AsyncSync.cpp\
  TSS_Object.cpp \
  Mutex.cpp \
@@ -18,13 +18,11 @@ libkwavemt_a_SOURCES=\
  Thread.cpp \
  $(BUILTSOURCES)
 
-noinst_LIBRARIES = libkwavemt.a
+#noinst_LIBRARIES = libkwavemt.a
+libkwavemt_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
+	--dynamic --export-dynamic
 
-# libkwavemt_a_LDFLAGS = -version-info @LD_VERSION_INFO@ -static
-# \ 
-#	--export-dynamic -dynamic
-# libkwavemt_a_LDFLAGS = -static --export-dynamic -dynamic
-
+lib_LTLIBRARIES = libkwavemt.la
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

@@ -37,7 +37,7 @@ BUILTSOURCES=\
  MenuManager.moc.cpp
 
 # Which sources should be compiled for libgui.
-libkwavegui_a_SOURCES =\
+libkwavegui_la_SOURCES =\
  CurveWidget.cpp\
  FaderWidget.cpp\
  FFTWidget.cpp\
@@ -59,7 +59,11 @@ libkwavegui_a_SOURCES =\
  TimeLine.cpp\
  $(BUILTSOURCES)
 
-noinst_LIBRARIES = libkwavegui.a
+#noinst_LIBRARIES = libkwavegui.a
+libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
+	--dynamic --export-dynamic
+
+lib_LTLIBRARIES = libkwavegui.la
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

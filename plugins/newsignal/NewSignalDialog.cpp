@@ -62,10 +62,6 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 
     // connect the timer for the sample edit
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(checkNewSampleEdit()));
-
-    // emulate the behaviour of an exclusive selection
-    connect(rbSamples, SIGNAL(toggled(bool)),
-            this, SLOT(rbSamplesToggled(bool)));
     connect(rbTime, SIGNAL(toggled(bool)),
             this, SLOT(rbTimeToggled(bool)));
 
@@ -198,18 +194,8 @@ double NewSignalDialog::maxSamples()
 }
 
 //***************************************************************************
-void NewSignalDialog::rbSamplesToggled(bool)
-{
-    if (rbSamples->isChecked() == rbTime->isChecked())
-	rbTime->setChecked(!rbSamples->isChecked());
-}
-
-//***************************************************************************
 void NewSignalDialog::rbTimeToggled(bool)
 {
-    if (rbTime->isChecked() == rbSamples->isChecked())
-	rbSamples->setChecked(!rbTime->isChecked());
-	
     if (rbTime->isChecked()) {
 	m_timer.stop();
     } else {

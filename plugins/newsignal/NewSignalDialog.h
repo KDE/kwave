@@ -74,10 +74,7 @@ private slots:
     /** Checks for changes in the samples or time info */
     void checkTimeAndLengthInfo(int);
 
-    /** updates rbTime if rbSamples has been toggled */
-    void rbSamplesToggled(bool);
-
-    /** updates rbSignal if rbTime has been toggled */
+    /** starts/stops the sample edit's timer if rbTime has been toggled */
     void rbTimeToggled(bool);
 
     /** updates the number of samples if the time changed */

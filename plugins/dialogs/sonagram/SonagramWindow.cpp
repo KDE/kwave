@@ -28,7 +28,6 @@
 #include <kapp.h>
 //#include <kmsgbox.h>
 
-#include <libkwave/gsl_fft.h>
 #include <libkwave/WindowFunction.h>
 
 #include "libgui/KwavePlugin.h"
@@ -91,6 +90,8 @@ SonagramWindow::SonagramWindow(const QString &name)
 {
     m_image = 0;
     m_overview = 0;
+    m_points = 0;
+    m_rate = 0;
     m_status = 0;
     m_view = 0;
     m_xscale = 0;
@@ -130,10 +131,10 @@ SonagramWindow::SonagramWindow(const QString &name)
     ASSERT(m_status);
     if (!m_status) return ;
 
-    m_status->insertItem(i18n("Time:          0 ms     "), 1);
-    m_status->insertItem(i18n("Frequency:          0 Hz     "), 2);
-    m_status->insertItem(i18n("Amplitude:    0 %      "), 3);
-    m_status->insertItem(i18n("Phase:    0        "), 4);
+    m_status->insertItem(i18n("Time: ------ ms"), 1);
+    m_status->insertItem(i18n("Frequency: ------ Hz"), 2);
+    m_status->insertItem(i18n("Amplitude: --- %"), 3);
+//    m_status->insertItem(i18n("Phase: -----"), 4);
 
     m_view = new ImageView(mainwidget);
     ASSERT(m_view);
@@ -141,9 +142,6 @@ SonagramWindow::SonagramWindow(const QString &name)
     top_layout->addWidget(m_view, 0, 1);
     m_view->setBackgroundPixmap(QPixmap(background));
 
-    connect(m_view, SIGNAL(info (double, double)),
-	    this, SLOT(setInfo(double, double)));
-	
     m_xscale = new ScaleWidget(mainwidget, 0, 100, "ms");
     ASSERT(m_xscale);
     if (!m_xscale) return;
@@ -162,15 +160,16 @@ SonagramWindow::SonagramWindow(const QString &name)
     m_overview->setFixedHeight(m_overview->sizeHint().height());
     top_layout->addWidget(m_overview, 2, 1);
 
-    QObject::connect(m_overview, SIGNAL(valueChanged(int)),
-		     m_view, SLOT(setOffset(int)));
-    QObject::connect(m_view, SIGNAL(viewInfo(int, int, int)),
-		     this, SLOT(setRange(int, int, int)));
-    QObject::connect(m_view, SIGNAL(viewInfo(int, int, int)),
-		     m_overview, SLOT(setRange(int, int, int)));
-
-    QObject::connect(&m_refresh_timer, SIGNAL(timeout()),
-                     this, SLOT(refresh_view()));
+    connect(m_view, SIGNAL(sigCursorPos(const QPoint)),
+	    this, SLOT(cursorPosChanged(const QPoint)));
+    connect(m_overview, SIGNAL(valueChanged(int)),
+	    m_view, SLOT(setOffset(int)));
+    connect(m_view, SIGNAL(viewInfo(int, int, int)),
+	    this, SLOT(setRange(int, int, int)));
+    connect(m_view, SIGNAL(viewInfo(int, int, int)),
+	    m_overview, SLOT(setRange(int, int, int)));
+    connect(&m_refresh_timer, SIGNAL(timeout()),
+            this, SLOT(refresh_view()));
 		
     setStatusBar(m_status);
     setMenu(bar);
@@ -183,7 +182,11 @@ SonagramWindow::SonagramWindow(const QString &name)
     top_layout->setColStretch(1, 100);
     top_layout->activate();
 
-    resize(480, 300);
+    m_status->changeItem(i18n("Time: 0 ms"), 1);
+    m_status->changeItem(i18n("Frequency: 0 s"), 2);
+    m_status->changeItem(i18n("Amplitude: 0 %"), 3);
+
+    resize(max(480,m_status->sizeHint().width()+40), 320);
     show();
 }
 
@@ -479,6 +482,37 @@ void SonagramWindow::clear()
 }
 
 //***************************************************************************
+void SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
+{
+    if (ms) {
+	// get the time coordinate [0...(N_samples-1)* (1/f_sample) ]
+	if (m_rate != 0) {
+	    *ms = (double)p.x() * (double)m_points * 1000.0 / (double)m_rate;
+	} else {
+	    *ms = 0;
+	}
+    }
+
+    if (f) {
+	// get the frequency coordinate
+	double y = ((m_points/2)-1) - p.y();
+	*f = y / (double)(m_points/2-1) * m_rate;
+    }
+}
+
+//***************************************************************************
+void SonagramWindow::updateScaleWidgets()
+{
+    double ms;
+    double f;
+
+    translatePixels2TF(QPoint(m_image->width()-1, 0), &ms, &f);
+
+    m_xscale->setMaxMin(ms, 0);
+    m_yscale->setMaxMin(0, f);
+}
+
+//***************************************************************************
 SonagramWindow::~SonagramWindow()
 {
     clear();
@@ -497,31 +531,43 @@ void SonagramWindow::setName(const QString &name)
 }
 
 //****************************************************************************
-void SonagramWindow::setInfo(double x, double y)
+void SonagramWindow::cursorPosChanged(const QPoint pos)
 {
-//    ASSERT(data);
-//    ASSERT(status);
-//    ASSERT(view);
-//    if (!data) return ;
-//    if (!status) return ;
-//    if (!view) return ;
-//
-//    char buf[128];
-//    int col;
-//
-//    if (view->getWidth() > image_width)
-//	col = (int)(x * (image_width - 1));
-//    else
-//	col = (int)(view->getOffset() + x * view->getWidth());
-//
-//    char ms_buf[32];
-//    KwavePlugin::ms2string(ms_buf, sizeof(ms_buf),
-//	((double)col) * points*1000/rate );
-//    snprintf(buf, sizeof(buf), i18n("Time: %s"), ms_buf);
-//    status->changeItem (buf, 1);
-//    snprintf(buf, sizeof(buf), i18n("Frequency: %d Hz"),
-//	     (int)(y*rate / 2));
-//    status->changeItem (buf, 2);
+    ASSERT(m_status);
+    ASSERT(m_image);
+    ASSERT(m_points);
+    ASSERT(m_rate);
+    if (!m_status) return ;
+    if (!m_image) return ;
+    if (!m_points) return;
+    if (!m_rate) return;
+
+    char buf[64];
+    double ms;
+    double f;
+    double a;
+    translatePixels2TF(pos, &ms, &f);
+
+    // item 1: time in milliseconds
+    char ms_buf[32];
+    KwavePlugin::ms2string(ms_buf, sizeof(ms_buf), ms);
+    snprintf(buf, sizeof(buf), i18n("Time: %s"), ms_buf);
+    m_status->changeItem(buf, 1);
+
+    // item 2: frequency in Hz
+    snprintf(buf, sizeof(buf), i18n("Frequency: %d Hz"), (int)f);
+    m_status->changeItem(buf, 2);
+
+    // item 3: amplitude in %
+    if (m_image->valid(pos.x(), pos.y())) {
+	a = (254.0-m_image->pixelIndex(pos.x(), pos.y())) *
+	    (100.0 / 254.0);
+    } else {
+	a = 0.0;
+    }
+    snprintf(buf, sizeof(buf), i18n("Amplitude: %d %%"), (int)a);
+    m_status->changeItem(buf, 3);
+
 //    if (data [(int)(x*image_width)]) {
 //	double rea = data [col][(int)(y * points / 2)].real;
 //	double ima = data [col][(int)(y * points / 2)].imag;
@@ -530,6 +576,7 @@ void SonagramWindow::setInfo(double x, double y)
 //		 (int)(sqrt(rea*rea + ima*ima) / max*100));
 //    } else snprintf(buf, sizeof(buf), i18n("Memory Leak !"));
 //    status->changeItem (buf, 3);
+//
 //    if (data [(int)(x*image_width)]) {
 //	double rea = data [col][(int)(y * points / 2)].real;
 //	double ima = data [col][(int)(y * points / 2)].imag;
@@ -541,13 +588,17 @@ void SonagramWindow::setInfo(double x, double y)
 }
 
 //****************************************************************************
-void SonagramWindow::setRange (int offset, int width, int)
+void SonagramWindow::setPoints(unsigned int points)
 {
-//    ASSERT(rate);
-//    if (rate) return ;
-//
-//    xscale->setMaxMin ((int)(((double)offset + width)*points*1000 / rate),
-//		       (int)(((double)offset)*points*1000 / rate));
+    m_points = points;
+    updateScaleWidgets();
+}
+
+//****************************************************************************
+void SonagramWindow::setRate(unsigned int rate)
+{
+    m_rate = rate;
+    updateScaleWidgets();
 }
 
 //****************************************************************************

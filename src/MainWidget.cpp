@@ -736,8 +736,6 @@ void MainWidget::refreshChannelControls()
     ASSERT(frmChannelControls);
     if (!frmChannelControls) return;
 
-    debug("MainWidget::refreshChannelControls()");
-
     ASSERT(frmSignal);
     ASSERT(frmChannelControls);
     ASSERT(signalview);

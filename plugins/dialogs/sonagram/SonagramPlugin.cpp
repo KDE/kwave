@@ -25,12 +25,10 @@
 
 #include <qstring.h>
 #include <qimage.h>
-#include <qbitmap.h>  // ###
-#include <qpixmap.h>  // ###
-#include <qpainter.h> // ###
 
 #include <kapp.h>
 
+#include <libkwave/gsl_fft.h>
 #include <libkwave/WindowFunction.h>
 
 #include <libgui/KwavePlugin.h>
@@ -46,7 +44,7 @@ KWAVE_PLUGIN(SonagramPlugin,"sonagram","Thomas Eschenbacher");
 #define MAX_QUEUE_USAGE 8
 
 /**
- * simple private container class for stripe number and data
+ * simple private container class for stripe number and data (TSS-safe)
  */
 class StripeInfoPrivate: public TSS_Object
 {
@@ -73,6 +71,7 @@ SonagramPlugin::SonagramPlugin(PluginContext &c)
     m_color = true;
     m_fft_points = 0;
     m_first_sample = 0;
+    m_follow_selection = false;
     m_image = 0;
     m_last_sample = 0;
     m_sonagram_window = 0;
@@ -80,6 +79,7 @@ SonagramPlugin::SonagramPlugin(PluginContext &c)
     m_stripes = 0;
     m_spx_insert_stripe = new SignalProxy1< StripeInfoPrivate >
 	(this, SLOT(insertStripe()));
+    m_track_changes = false;
 }
 
 //***************************************************************************
@@ -100,9 +100,17 @@ QStrList *SonagramPlugin::setup(QStrList *previous_params)
 {
     QStrList *result = 0;
 
+    // try to interprete the list of previous parameters, ignore errors
+    if (previous_params) interpreteParameters(*previous_params);
+
     SonagramDialog *dlg = new SonagramDialog(*this);
     ASSERT(dlg);
     if (!dlg) return 0;
+
+    dlg->setWindowFunction(m_window_type);
+    dlg->setColorMode(m_color ? 1 : 0);
+    dlg->setTrackChanges(m_track_changes);
+    dlg->setFollowSelection(m_follow_selection);
 
     if (dlg->exec() == QDialog::Accepted) {
 	result = new QStrList();
@@ -115,19 +123,18 @@ QStrList *SonagramPlugin::setup(QStrList *previous_params)
 }
 
 //***************************************************************************
-int SonagramPlugin::start(QStrList &params)
+int SonagramPlugin::interpreteParameters(QStrList &params)
 {
-    debug("--- SonagramPlugin::start() ---");
-
-    // evaluate the parameter list
-    ASSERT(params.count() == 3);
-    if (params.count() != 3) {
-	debug("SonagramPlugin::start(): params.count()=%d",params.count());
-	return -EINVAL;
-    }
-
     bool ok;
     QString param;
+
+    // evaluate the parameter list
+    ASSERT(params.count() == 5);
+    if (params.count() != 5) {
+	debug("SonagramPlugin::interpreteParams(): params.count()=%d",
+	      params.count());
+	return -EINVAL;
+    }
 	
     param = params.at(0);
     m_fft_points = param.toUInt(&ok);
@@ -145,6 +152,28 @@ int SonagramPlugin::start(QStrList &params)
     m_color = (param.toUInt(&ok) != 0);
     ASSERT(ok);
     if (!ok) return -EINVAL;
+
+    param = params.at(3);
+    m_track_changes = (param.toUInt(&ok) != 0);
+    ASSERT(ok);
+    if (!ok) return -EINVAL;
+
+    param = params.at(4);
+    m_follow_selection = (param.toUInt(&ok) != 0);
+    ASSERT(ok);
+    if (!ok) return -EINVAL;
+
+    return 0;
+}
+
+//***************************************************************************
+int SonagramPlugin::start(QStrList &params)
+{
+    debug("--- SonagramPlugin::start() ---");
+
+    // interprete parameter list and abort if it contains invalid data
+    int result = interpreteParameters(params);
+    if (result) return result;
 
     // create an empty sonagram window
     m_sonagram_window = new SonagramWindow(signalName());
@@ -168,7 +197,10 @@ int SonagramPlugin::start(QStrList &params)
     createNewImage(m_stripes, m_fft_points/2, m_color);
 
     // activate the window with an initial image
+    // and all necessary informations
     m_sonagram_window->setImage(m_image);
+    m_sonagram_window->setPoints(m_fft_points);
+    m_sonagram_window->setRate(signalRate());
     m_sonagram_window->show();
 
     // connect all needed signals
@@ -368,22 +400,6 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     ASSERT(m_image);
     if (!m_image) return;
     m_image->setAlphaBuffer(true);
-
-//    QBitmap *mask = new QBitmap(width, height, true);
-//    QPainter p;
-//    p.begin(mask);
-//    for (int x=0; x < m_image->width(); x ++) {
-//	for (int y=0; y < m_image->height(); y ++) {
-//	    p.setPen(((((x/20)&1)^((y/20)&1))) ? color0 : color1);
-//	    p.drawPoint(x,y);
-//	}
-//    }
-//    p.end();
-//
-//    QPixmap pix;
-//    pix.convertFromImage(*m_image);
-//    pix.setMask(*mask);
-//    m_image=&(pix.convertToImage());
 
     // set the image's palette
     debug("SonagramPlugin::createNewImage(): setting palette");

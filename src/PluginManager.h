@@ -133,6 +133,39 @@ private slots:
 
 private:
 
+    /**
+     * Uses the dynamic linker to load a plugin into memory.
+     * @param name the name of the plugin (filename)
+     * @return memory handle of the loaded plugin or zero if the
+     *         plugin was not found or invalid
+     */
+    void *loadPlugin(const char *name);
+
+    /**
+     * loads a plugin's default parameters from the user's
+     * configuration file. If nothing is found in the config file,
+     * the return value will be 0. If the current version number of
+     * the plugin does not match the version number in the config file,
+     * the return value will also be 0.
+     * @param name the name of the plugin
+     * @param var the version number of the plugin
+     * @return list of strings
+     */
+    QStrList *loadPluginDefaults(const QString &name,
+                                 const QString &version);
+
+    /**
+     * Saves a plugin's default parameters to the user's configuration
+     * file. The whole section in the configuration file will be deleted
+     * before saving the new settings in order to wipe out invalid
+     * entries and settings that belong to an older version.
+     * @param name the name of the plugin
+     * @param ver the version number of the plugin
+     * @param param a list of configuration strings
+     */
+    void savePluginDefaults(const QString &name, const QString &version,
+                            QStrList &params);
+
     /** connects all signals of and for a plugin */
     void connectPlugin(KwavePlugin *plugin);
 

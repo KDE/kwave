@@ -71,17 +71,9 @@ int KwavePlugin::stop()
 {
     MutexGuard lock(m_thread_lock);
     if (m_thread) {
-	if (m_thread->running()) {
-	    m_thread->wait(5000);
-	    debug("KwavePlugin::stop(): stopping thread");
-	    m_thread->stop();
-	    debug("KwavePlugin::stop(): waiting for thread");
-//	    while (m_thread->running()) {
-//		KApplication::getKApplication()->processEvents(100);
-//		yield();
-//	    }
-	   if (m_thread->running()) m_thread->wait(1000);
-	}
+	if (m_thread->running()) m_thread->wait(5000);
+	if (m_thread->running()) m_thread->stop();
+	if (m_thread->running()) m_thread->wait(1000);
 	if (m_thread->running()) {
 	    // show a message box
 	    warning("KwavePlugin::stop(): stale thread !");

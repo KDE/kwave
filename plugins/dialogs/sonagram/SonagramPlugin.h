@@ -70,6 +70,16 @@ private slots:
      */
     void insertStripe();
 
+protected:
+
+    /**
+     * interpretes a given parameter list and sets up internal
+     * coordinates accordingly
+     * @param params reference to a QStrList with parameters
+     * @return 0 if ok, or an error code if failed
+     */
+    int interpreteParameters(QStrList &params);
+
 private:
 
     /**
@@ -116,6 +126,12 @@ private:
 
     /** if true, use color display, else use greyscale */
     bool m_color;
+
+    /** if true, update the sonagram if the signal changes */
+    bool m_track_changes;
+
+    /** if true, update the sonagram if the selection changed */
+    bool m_follow_selection;
 
     /** stores the image that is currently in process */
     QImage *m_image;

@@ -20,8 +20,6 @@
 
 #include <ktmainwindow.h>
 
-#include <libkwave/gsl_fft.h>
-
 class ImageView;
 class KStatusBar;
 class OverViewWidget;
@@ -29,7 +27,10 @@ class QImage;
 class QTimer;
 class ScaleWidget;
 
-//***********************************************************************
+/**
+ * Window for displaying a sonagram with scale, status bar and
+ * a small menu.
+ */
 class SonagramWindow : public KTMainWindow
 {
     Q_OBJECT
@@ -68,9 +69,33 @@ public slots:
     void save();
     void load();
     void toSignal();
+
+    /**
+     * Sets the name of the signal / title of the window
+     * @param name the name of the signal
+     */
     void setName(const QString &name);
-    void setInfo(double, double);
-    void setRange(int, int, int);
+
+    /**
+     * Used to update the display of the current position of the cursor.
+     * Position is given in coordinates of the QImage.
+     * @param pos current cursor position
+     */
+    void cursorPosChanged(const QPoint pos);
+
+    /**
+     * sets information about the number of fft points (needed
+     * for translating cursor coordinates into time)
+     * @param points the number of fft points [1...]
+     */
+    void setPoints(unsigned int points);
+
+    /**
+     * sets information about the sample rate (needed for
+     * translating cursor coordinates into time
+     * @param rate sample rate in samples per second
+     */
+    void setRate(unsigned int rate);
 
 private slots:
     /** refreshes the image, connected to m_refresh_timer */
@@ -82,12 +107,45 @@ protected:
     /** removes old data and the current image */
     void clear();
 
+    /** updates the scale widgets */
+    void updateScaleWidgets();
+
+    /**
+     * Translates pixel coordinates relative to the lower left corner
+     * of the QImage into time and frequency coordinates of the signal.
+     * This requires a valid sample rate to be set, otherwise the
+     * time coordinate will be returned as zero.
+     * @param p a QPoint with the pixel position, upper left is 0/0
+     * @param ms pointer to a double that receives the time coordinate
+     *        in milliseconds (can be 0 to ignore)
+     * @param f pointer to a double that receives the frequency
+     *        coordinate (can be 0 to ignore)
+     */
+    void translatePixels2TF(const QPoint p, double *ms, double *f);
+
 private:
+    /** the status bar at the bottom of the window */
     KStatusBar *m_status;
+
+    /** the QImage to be displayed */
     QImage *m_image;
+
+    /** an ImageView to display the m_image and fit it into our window */
     ImageView *m_view;
+
+    /** short overview over the signal */
     OverViewWidget *m_overview;
+
+    /** number of fft points */
+    unsigned int m_points;
+
+    /** sample rate, needed for translating pixel coordinates */
+    unsigned int m_rate;
+
+    /** widget for the scale on the time (x) axis */
     ScaleWidget *m_xscale;
+
+    /** widget for the scale on the frequency (y) axis */
     ScaleWidget *m_yscale;
 
     /** timer used for refreshing the view from time to time */

@@ -19,6 +19,7 @@
 
 #include <kmsgbox.h>
 #include <kapp.h>
+#include <kconfig.h>
 
 #include <libkwave/DynamicLoader.h>
 #include <libkwave/DialogOperation.h>
@@ -77,10 +78,8 @@ PluginManager::~PluginManager()
 }
 
 //**********************************************************
-void PluginManager::executePlugin(const char *name, QStrList *params)
+void *PluginManager::loadPlugin(const char *name)
 {
-    QString command;
-
     /* find the plugin in the global plugin list */
     unsigned int index = 0;
     bool found = false;
@@ -102,7 +101,7 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 	    (const char *)&message,
 	    KMsgBox::EXCLAMATION
 	);
-	return;
+	return 0;
     }
 
     /* try to get the file handle of the plugin's binary */
@@ -120,20 +119,40 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 	    (const char *)&message,
 	    KMsgBox::EXCLAMATION
 	);
-	return;
+	return 0;
     }
+
+    return handle;
+}
+
+//**********************************************************
+void PluginManager::executePlugin(const char *name, QStrList *params)
+{
+    QString command;
+
+    // load the plugin
+    void* handle = loadPlugin(name);
+    if (!handle) return;
 
     KwavePlugin *(*plugin_loader)(PluginContext *c) = 0;
 
 #ifdef HAVE_CPLUS_MANGLE_OPNAME
     // would be fine, but needs libiberty
-    const char *sym=cplus_mangle_opname("load(PluginContext *)",0);
+    const char *sym_loader  = cplus_mangle_opname("load(PluginContext *)",0);
+    const char *sym_version = cplus_mangle_opname("const char *)", 0);
 #else
     // hardcoded, fails on some systems :-(
-    const char *sym = "load__FR13PluginContext";
+    const char *sym_loader  = "load__FR13PluginContext";
+    const char *sym_version = "version";
 #endif
 
-    plugin_loader = (KwavePlugin *(*)(PluginContext *))dlsym(handle, sym);
+    const char *version = "";
+    const char **pver = (const char **)dlsym(handle, sym_version);
+    ASSERT(pver);
+    if (pver) version=*pver;
+    if (!version) version = "?";
+
+    plugin_loader = (KwavePlugin *(*)(PluginContext *))dlsym(handle, sym_loader);
     ASSERT(plugin_loader);
     if (plugin_loader) {
 	PluginContext *context = new PluginContext(
@@ -161,7 +180,7 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 		connectPlugin(plugin);
 
 		// now the plugin is present and loaded
-		QStrList *last_params = 0;
+		QStrList *last_params = loadPluginDefaults(name, version);
 
 		if (params) {
 		    // parameters were specified -> call directly
@@ -198,7 +217,9 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 			// the setup function has not been aborted.
 			// Now we can create a command string and
 			// emit a new command.
-			
+
+			savePluginDefaults(name, version, *params);
+
 			// We DO NOT call the plugin's "execute"
 			// function directly, as it should be possible
 			// to record all function calls in the
@@ -215,6 +236,10 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 			debug("PluginManager: command='%s'",command.data()); // ###
 		    }
 		}
+
+		// previous parameters are no longer needed
+		if (last_params) delete last_params;
+		last_params=0;
 		
 		// now the plugin is no longer needed here, so delete it
 		// if it has not already been detached
@@ -232,6 +257,70 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
 
     if (handle) dlclose(handle);
     if (!command.isNull()) emit sigCommand(command);
+}
+
+//***************************************************************************
+QStrList *PluginManager::loadPluginDefaults(const QString &name,
+	const QString &version)
+{
+    QString def_version;
+    QString section("plugin ");
+    section += name;
+
+    KApplication *app = KApplication::getKApplication();
+    ASSERT(app);
+    if (!app) return 0;
+
+    KConfig *config = app->getConfig();
+    ASSERT(config);
+    if (!config) return 0;
+
+    config->sync();
+    config->setGroup(section);
+
+    def_version = config->readEntry("version");
+    if (!def_version.length()) {
+	debug("PluginManager::loadPluginDefaults: "\
+	      "plugin '%s': no defaults found", name.data());
+	return 0;
+    }
+    if (!(def_version == version)) {
+	debug("PluginManager::loadPluginDefaults: "\
+	    "plugin '%s': defaults for version '%s' not loaded, found "\
+	    "old ones of version '%s'.", name.data(), version.data(),
+	    def_version.data());
+    }
+
+    QStrList list;
+    int count = config->readListEntry("defaults", list, ',');
+    debug("PluginManager::loadPluginDefaults: list with %d entries loaded",
+	  count);
+
+    return new QStrList(list);
+}
+
+//***************************************************************************
+void PluginManager::savePluginDefaults(const QString &name,
+                                       const QString &version,
+                                       QStrList &params)
+{
+    QString def_version;
+    QString section("plugin ");
+    section += name;
+
+    KApplication *app = KApplication::getKApplication();
+    ASSERT(app);
+    if (!app) return;
+
+    KConfig *config = app->getConfig();
+    ASSERT(config);
+    if (!config) return;
+
+    config->sync();
+    config->setGroup(section);
+    config->writeEntry("version", version);
+    config->writeEntry("defaults", params);
+    config->sync();
 }
 
 //***************************************************************************

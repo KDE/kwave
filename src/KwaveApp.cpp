@@ -111,7 +111,7 @@ bool KwaveApp::findDirectories()
 	warning("no global kwave config dir found !\n");
     globals.globalconfigDir = duplicateString(globalconfig.absPath());
 
-    debug("globals.globalconfigDir=%s",globals.globalconfigDir);
+    debug("globals.globalconfigDir='%s'",globals.globalconfigDir);
     QDir timePluginDir(globals.globalconfigDir);
     if (timePluginDir.cd("modules"))
 	if (timePluginDir.cd("time"))
@@ -134,6 +134,10 @@ bool KwaveApp::findDirectories()
 	filter.cd ("filters");
     }
     globals.filterDir = duplicateString(filter.absPath());
+
+    debug("time plugins are under '%s'",timePluginDir.absPath().data());
+    debug("dialog plugins are under '%s'",dialogPluginDir.absPath().data());
+    debug("filter presets are under '%s'",globals.filterDir);
 
     return true;
 }

@@ -51,7 +51,7 @@ AC_CHECK_SIZEOF(short,2)
 AC_CHECK_SIZEOF(int,4)
 if test $ac_cv_sizeof_char != 1 ; then
 	AC_MSG_WARN([******************************************************************])
-	AC_MSG_WARN([*** sizeof (char) != 1                                            ])
+	AC_MSG_WARN([*** sizeof (char) != 1.                                            ])
 	AC_MSG_WARN([******************************************************************])
 	fi
 if test $ac_cv_sizeof_short != 2 ; then
@@ -65,12 +65,17 @@ if test $ac_cv_sizeof_int != 4 ; then
 	AC_MSG_WARN([******************************************************************])
 	fi
 
-AM_KDE_WITH_NLS dnl check if nls is wanted
+dnl check if nls is wanted
+AM_KDE_WITH_NLS
 
-dnl Checks for header files.
-AC_LANG_CPLUSPLUS dnl switch to C++
-AC_HEADER_DIRENT dnl check for dirent.h
-AC_HEADER_STDC dnl check for other stdc headers. More traditional ;)
+dnl switch to C++
+AC_LANG_CPLUSPLUS
+
+dnl check for dirent.h
+AC_HEADER_DIRENT
+
+dnl check for other stdc headers. More traditional ;)
+AC_HEADER_STDC
 dnl check for some more header files. You can remove some of
 dnl them, if you want to. But it doesn't hurt
 dnl AC_CHECK_HEADERS(fcntl.h sys/time.h unistd.h sys/cdefs.h)
@@ -96,7 +101,7 @@ AC_CHECK_HEADERS(utility string,,AC_MSG_ERROR(""
 
 AC_CHECK_HEADERS( assert.h byteswap.h ctype.h dlfcn.h endian.h errno.h \
 	fcntl.h features.h float.h limits.h sched.h stdarg.h stddef.h \
-	stdio.h stdlib.h string.h sys/ioctl.h sys/param.h \
+	stdio.h stdlib.h string.h sys/ioctl.h sys/param.h limits.h \
 	sys/time.h sys/types.h time.h unistd.h,,AC_MSG_ERROR(""
 "    "
 "    your system seems to lack one or more needed header files."

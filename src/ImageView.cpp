@@ -30,7 +30,8 @@ ImageView::ImageView(QWidget *parent, bool fit_width, bool fit_height)
     m_scale_x = 1.0;
     m_scale_y = 1.0;
 
-    setCursor (crossCursor);
+    setCursor(crossCursor);
+    setMouseTracking(true);
 }
 
 //****************************************************************************
@@ -43,6 +44,8 @@ void ImageView::mouseMoveEvent(QMouseEvent *e)
 {
     ASSERT(e);
     if (!e) return;
+
+    if (!m_image) return; // image not yet loaded
 
     int x = e->pos().x();
     int y = e->pos().y();

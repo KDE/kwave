@@ -51,7 +51,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-10-05</DATE>
+    <DATE>2000-10-14</DATE>
     <RELEASEINFO>0.5.4-4</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -228,8 +228,14 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <PARA><ITEMIZEDLIST>
         <LISTITEM>
-            <PARA>0.5.5</PARA>
+            <PARA>0.5.5 [not released yet]</PARA>
             <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    tested with AMD Athlon-optimized compiler (patched pegcs)
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    some fixes for safer multithreading
+                </PARA></LISTITEM>
                 <LISTITEM><PARA>
                     checking for much more header files at configure time (due to a
                       problem reported by issiac@evcom.net )
@@ -1853,7 +1859,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-10-05</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-10-14</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

@@ -35,9 +35,7 @@
 #include <libkwave/WindowFunction.h>
 
 #include <libgui/KwavePlugin.h>
-#include <libgui/PluginContext.h>
 #include <libgui/Slider.h>
-#include <libgui/Dialog.h>
 
 #include <kapp.h>
 
@@ -62,6 +60,9 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     m_pointlabel = 0;
     m_pointslider = 0;
     m_rbColor = 0;
+    m_rbGreyScale = 0;
+    m_cbTrackChanges = 0;
+    m_cbFollowSelection = 0;
     m_windowlabel = 0;
     m_windowtypebox = 0;
     m_windowtypelabel = 0;
@@ -247,7 +248,7 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     m_rbColor->setMinimumSize(m_rbColor->sizeHint());
     QToolTip::add(m_rbColor, i18n("use different colors for amplitude"));
 
-    QRadioButton *m_rbGreyScale = new QRadioButton(display_group);
+    m_rbGreyScale = new QRadioButton(display_group);
     ASSERT(m_rbGreyScale);
     if (!m_rbGreyScale) return;
     m_rbGreyScale->setText(i18n("greyscale"));
@@ -270,29 +271,29 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     if (!updateLayout) return;
     updateLayout->addSpacing(update_group->fontMetrics().height());
 
-    QCheckBox *cbTrackChanges = new QCheckBox(update_group);
-    ASSERT(cbTrackChanges);
-    if (!cbTrackChanges) return;
-    cbTrackChanges->setText(i18n("on modifications"));
-    updateLayout->addWidget(cbTrackChanges);
-    cbTrackChanges->setMinimumSize(cbTrackChanges->sizeHint());
-    QToolTip::add(cbTrackChanges, i18n(
+    m_cbTrackChanges = new QCheckBox(update_group);
+    ASSERT(m_cbTrackChanges);
+    if (!m_cbTrackChanges) return;
+    m_cbTrackChanges->setText(i18n("on modifications"));
+    updateLayout->addWidget(m_cbTrackChanges);
+    m_cbTrackChanges->setMinimumSize(m_cbTrackChanges->sizeHint());
+    QToolTip::add(m_cbTrackChanges, i18n(
 	"automatically update the sonagram\n"\
 	"if the signal data has modified"));
 
-    QCheckBox *cbFollowSelection = new QCheckBox(update_group);
-    ASSERT(cbFollowSelection);
-    if (!cbFollowSelection) return;
-    cbFollowSelection->setText(i18n("follow selection"));
-    updateLayout->addWidget(cbFollowSelection);
-    cbFollowSelection->setMinimumSize(cbFollowSelection->sizeHint());
-    QToolTip::add(cbFollowSelection, i18n(
+    m_cbFollowSelection = new QCheckBox(update_group);
+    ASSERT(m_cbFollowSelection);
+    if (!m_cbFollowSelection) return;
+    m_cbFollowSelection->setText(i18n("follow selection"));
+    updateLayout->addWidget(m_cbFollowSelection);
+    m_cbFollowSelection->setMinimumSize(m_cbFollowSelection->sizeHint());
+    QToolTip::add(m_cbFollowSelection, i18n(
 	"automatically update the sonagram if the selection\n"\
 	"has been enlarged, reduced or moved"));
 
-    cbTrackChanges->setEnabled(false);    // ###
-    cbFollowSelection->setEnabled(false); // ###
-	
+    m_cbTrackChanges->setEnabled(false);    // ###
+    m_cbFollowSelection->setEnabled(false); // ###
+
     // ----------------------------------------------------------------------
     // ---   OK and Cancel buttons   ----------------------------------------
     // ----------------------------------------------------------------------
@@ -305,11 +306,11 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     separator->setFixedHeight(separator->sizeHint().height());
     topLayout->addWidget(separator);
 
-    m_ok = new QPushButton (OK, this);
+    m_ok = new QPushButton(i18n("OK"), this);
     ASSERT(m_ok);
     if (!m_ok) return;
 
-    m_cancel = new QPushButton (CANCEL, this);
+    m_cancel = new QPushButton(i18n("Cancel"), this);
     ASSERT(m_cancel);
     if (!m_cancel) return;
 
@@ -393,6 +394,14 @@ void SonagramDialog::parameters(QStrList &list)
     param.setNum(m_rbColor ? (m_rbColor->isChecked() ? 1 : 0) : 0);
     list.append(param);
 
+    // parameter #3: flag: track changes
+    param.setNum(m_rbColor ? (m_cbTrackChanges->isChecked() ? 1 : 0) : 0);
+    list.append(param);
+
+    // parameter #4: flag: floow selection
+    param.setNum(m_rbColor ? (m_cbFollowSelection->isChecked() ? 1 : 0) : 0);
+    list.append(param);
+
 }
 
 //***************************************************************************
@@ -413,6 +422,45 @@ void SonagramDialog::setPoints(int points)
     snprintf(buf, sizeof(buf), i18n("size of bitmap: %dx%d"), 
 	(m_length / points) + 1, points/2);
     m_bitmaplabel->setText(buf);
+}
+
+//***************************************************************************
+void SonagramDialog::setWindowFunction(int index)
+{
+    ASSERT(m_windowtypebox);
+    if (!m_windowtypebox) return;
+
+    ASSERT(index >= 0);
+    if (index < 0) return;
+    ASSERT(index < m_windowtypebox->count());
+
+    m_windowtypebox->setCurrentItem(index);
+}
+
+//***************************************************************************
+void SonagramDialog::setColorMode(int color)
+{
+    ASSERT(m_rbColor);
+    if (!m_rbColor) return;
+
+    m_rbColor->setChecked(color);
+    m_rbGreyScale->setChecked(!color);
+}
+
+//***************************************************************************
+void SonagramDialog::setTrackChanges(bool track_changes)
+{
+    ASSERT(m_cbTrackChanges);
+    if (!m_cbTrackChanges) return;
+    m_cbTrackChanges->setChecked(track_changes);
+}
+
+//***************************************************************************
+void SonagramDialog::setFollowSelection(bool follow_selection)
+{
+    ASSERT(m_cbFollowSelection);
+    if (!m_cbFollowSelection) return;
+    m_cbFollowSelection->setChecked(follow_selection);
 }
 
 //***************************************************************************

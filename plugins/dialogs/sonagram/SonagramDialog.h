@@ -21,6 +21,7 @@
 #include <qdialog.h>
 
 class Slider;
+class QCheckBox;
 class QComboBox;
 class QLabel;
 class QPushButton;
@@ -47,7 +48,24 @@ public:
     void parameters(QStrList &list);
 
 public slots:
+    /** sets the number of fft points */
     void setPoints(int points);
+
+    /** selects a window function */
+    void setWindowFunction(int index);
+
+    /**
+     * sets the color mode. Currently only black/white (0) and
+     * rainbow color (1) are supported.
+     */
+    void setColorMode(int color);
+
+    /** enables/disables the "track changes" mode */
+    void setTrackChanges(bool track_changes);
+
+    /** enables/disables the "follow selection mode */
+    void setFollowSelection(bool follow_selection);
+
     void setBoxPoints(int num);
 
 private:
@@ -58,7 +76,10 @@ private:
     QLabel *m_windowtypelabel;
     QComboBox *m_pointbox;
     QComboBox *m_windowtypebox;
+    QRadioButton *m_rbGreyScale;
     QRadioButton *m_rbColor;
+    QCheckBox *m_cbTrackChanges;
+    QCheckBox *m_cbFollowSelection;
     QPushButton *m_ok;
     QPushButton *m_cancel;
     unsigned int m_length;

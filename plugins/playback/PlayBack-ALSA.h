@@ -21,8 +21,8 @@
 #include "config.h"
 #ifdef HAVE_ALSA_SUPPORT
 
-#include <qstring.h>
 #include <alsa/asoundlib.h>
+#include <qstring.h>
 
 #include "libkwave/PlayBackDevice.h"
 
@@ -87,14 +87,43 @@ protected:
 
     /**
      * Opens a physical device and returns its file descriptor
+     * (short version, used for probing / detecting)
      *
      * @param device filename of the device
      * @return pcm stream or null pointer on errors
      */
     snd_pcm_t *openDevice(const QString &device);
 
+    /**
+     * Open the device and set all internal member variables that
+     * need to be initialized for playback.
+     *
+     * @param device name of the ALSA device
+     * @param rate sample rate, rounded as unsigned int
+     * @param channels number of tracks/channels to use
+     * @param bits number of bits per sample
+     * @return zero or positive if succeeded, or negative error
+     *         code if failed
+     */
+    int openDevice(const QString &device, unsigned int rate,
+                   unsigned int channels, unsigned int bits);
+
+    /**
+     * Used in "openDevice()" to set the member variables m_format,
+     * m_bytes_per_sample and m_bits according the the given
+     * resolution in bits per sample. The number of bits per sample
+     * will be rounded up to the next multiple of 8. m_handle must
+     * already be an opened device.
+     *
+     * @param hw_params valid ALSA hardware parameters
+     * @param bits number of bits per sample [1...32]
+     * @return zero or positive if succeeded, or negative error
+     *         code if failed
+     */
+    int setFormat(snd_pcm_hw_params_t *hw_params, unsigned int bits);
+
     /** Writes the output buffer to the device */
-    void flush();
+    int flush();
 
     /** Name of the output device */
     QString m_device_name;
@@ -111,6 +140,12 @@ protected:
     /** Resolution in bits per sample */
     unsigned int m_bits;
 
+    /**
+     * Number of bytes per sample, already multiplied with
+     * the number of channels (m_channels)
+     */
+    unsigned int m_bytes_per_sample;
+
     /** Exponent of the buffer size */
     unsigned int m_bufbase;
 
@@ -122,6 +157,12 @@ protected:
 
     /** number of bytes in the buffer */
     unsigned int m_buffer_used;
+
+    /** sample format, used for ALSA */
+    snd_pcm_format_t m_format;
+
+    /** number of sample per period */
+    snd_pcm_uframes_t m_chunk_size;
 
 };
 

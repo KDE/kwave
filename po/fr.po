@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-02-17 20:55+0100\n"
-"PO-Revision-Date: 2002-02-17 21:00GMT\n"
+"PO-Revision-Date: 2002-02-17 21:56GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -483,7 +483,7 @@ msgstr "Testeurs."
 
 #: kwave/main.cpp:114
 msgid "sound editor for KDE2"
-msgstr "Editeurs de sons pour KDE2"
+msgstr "Un éditeur de sons pour KDE"
 
 #: kwave/TopWidget.cpp:103
 msgid "New File"

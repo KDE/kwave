@@ -43,7 +43,7 @@ ID3_Reader::pos_type ID3_QIODeviceReader::getBeg()
 //***************************************************************************
 ID3_Reader::pos_type ID3_QIODeviceReader::getEnd()
 {
-    return m_source.size() - 1;
+    return m_source.size() ? m_source.size() - 1 : 0;
 }
 
 //***************************************************************************

@@ -2,13 +2,13 @@ dnl without this order in this file, autoconf will not work!
 dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
 
-AC_INIT(kwave,0.6.7)
+AC_INIT(kwave,0.6.7-3)
 AC_CONFIG_SRCDIR([admin/acinclude.m4.in])
 AC_CONFIG_AUX_DIR(admin)
 unset CDPATH            dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 AC_CANONICAL_TARGET([]) dnl Checking host/target/build systems, for make, install etc.
 AC_ARG_PROGRAM          dnl Perform program name transformation
-AM_INIT_AUTOMAKE(kwave,0.6.3)
+AM_INIT_AUTOMAKE(kwave,0.6.7-3)
 AC_PREREQ(2.50)         dnl Require Autoconf 2.50 or higher
 
 KDE_SET_PREFIX
@@ -425,13 +425,17 @@ AC_MSG_RESULT(${ARTS_INCLUDES})
 AC_SUBST(ARTS_INCLUDES)
 
 dnl ...and check that the aRts headers are found from them
+AC_LANG_PUSH(C++)
 arts_check_saved_cppflags="$CPPFLAGS"
 CPPFLAGS="$ARTS_INCLUDES $CPPFLAGS"
 AC_CHECK_HEADERS( artsflow.idl artsc.h, [arts_headers_found=1], [
   AC_MSG_ERROR( ARTS headers not found - can't compile. )
 ])
+AC_CHECK_HEADERS( artsmodules.h stdsynthmodule.h, [kdemultimedia_headers_found=1], [
+AC_MSG_ERROR( kdemultimedia-devel package is missing? )
+])
+AC_LANG_POP(C++)
 CPPFLAGS="$arts_check_saved_cppflags";
-
 
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)

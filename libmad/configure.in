@@ -31,10 +31,10 @@ dnl Checks for programs.
 AC_PROG_CC
 
 AC_DISABLE_SHARED         dnl generate only static lib
-AM_PROG_LIBTOOL           dnl Support for libtool.
+AC_PROG_LIBTOOL           dnl Support for libtool.
 AC_SUBST(LIBTOOL_DEPS)
-AM_PROG_AS                dnl GNU assembler
 
+AM_PROG_AS                dnl GNU assembler
 dnl Compiler options.
 
 arch=""

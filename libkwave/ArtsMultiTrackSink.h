@@ -45,11 +45,19 @@ public:
 
     /** @see ArtsMultiSink::goOn() */
     virtual void goOn() {
-	unsigned int t;
-	for (t=0; t < m_count; ++t) {
+	for (unsigned int t=0; t < m_count; ++t) {
 	    m_ios[t]->goOn();
 	}
-    }
+    };
+
+    /** @see ArtsMultiSink::done() */
+    virtual bool done() {
+	for (unsigned int t=0; t < m_count; ++t) {
+	    if (!m_ios[t]->done()) return false;
+	}
+	return true;
+    };
+
 };
 
 #endif /* _ARTS_MULTI_TRACK_SINK_H_ */

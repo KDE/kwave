@@ -33,12 +33,22 @@ public:
     virtual Arts::Object *operator [] (unsigned int i) = 0;
 
     /**
-     * Can be overwritten in a base class that is used as the
+     * Can be overwritten in a derived class that is used as the
      * last sink in a chain of aRts (compatible) objects to
      * start/continue the data processing.
      */
     virtual void goOn() {
 	fatal("ArtsMultiSink::goOn(): SHOULD NEVER BE CALLED!");
+    };
+
+    /**
+     * Can be overwritten in a derived class that is used as the
+     * last sink in a chain of aRts (compatible) objects to
+     * determine the end of data processing (sink is full/eof detection).
+     */
+    virtual bool done() {
+	fatal("ArtsMultiSink::done(): SHOULD NEVER BE CALLED!");
+	return true;
     };
 
     /** @see Arts::StdSynthModule::start() */

@@ -55,6 +55,9 @@ public:
      */
     void goOn();
 
+    /** Signals that the end of the write buffer has been reached (eof) */
+    bool done();
+
 protected:
 
     /** receiver for the converted aRts sample stream */

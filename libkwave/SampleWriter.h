@@ -104,6 +104,14 @@ public:
      */
     inline void flush() { flush(m_buffer, m_buffer_used); };
 
+    /**
+     * Returns true if the end of the writeable area has been reached if the
+     * writer has been opened in "overwrite" mode. Note that this does not
+     * make sense in append or insert mode, so in these cases the return
+     * value will always be false.
+     */
+    bool eof();
+
     /** Returns the index of the first sample of the range. */
     inline unsigned int first() { return m_first; };
 

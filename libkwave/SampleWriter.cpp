@@ -123,6 +123,7 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 
 	    for (; it.current(); ++it) {
 		if (!count) break; // nothing to do
+		if (m_position > m_last) break;
 		
 		Stripe *s = it.current();
 		unsigned int st = s->start();
@@ -142,19 +143,23 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 		    // copy the portion of our buffer to the target
 		    s->overwrite(offset, buffer, buf_offset, length);
 		
-		    count = 0;
+		    count -= length;
 		    buf_offset += length;
 		    m_position += length;
-		
-		    break;
 		}
 	    }
-	    ASSERT(count == 0);
+	    count = 0;
 	    break;
 	}
     }
 
     count = 0;
+}
+
+//***************************************************************************
+bool SampleWriter::eof()
+{
+    return (m_mode == Overwrite) ? (m_position > m_last) : false;
 }
 
 //***************************************************************************

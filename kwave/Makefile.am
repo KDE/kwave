@@ -30,7 +30,7 @@ APPSDIR= $(DESTDIR)$(kde_appsdir)/Multimedia
 CONFDIR= $(DESTDIR)$(kde_datadir)/$(PACKAGE)
 PIXDIR = $(DESTDIR)$(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
-INCLUDES= -I${topdir} @all_includes@
+INCLUDES= -I${topdir} @all_includes@ @ARTS_INCLUDES@
 ICONDIR = $(DESTDIR)$(kde_icondir)
 
 mimedir = $(kde_mimedir)/audio

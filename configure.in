@@ -6,8 +6,6 @@ AC_INIT(admin/acinclude.m4.in)
 AC_CONFIG_AUX_DIR(admin)
 AC_CONFIG_SUBDIRS(libmad)
 
-AC_DEFINE([NEED_MAIN], 1)
-
 dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 unset CDPATH
 
@@ -37,7 +35,7 @@ KDE_PROG_LIBTOOL
 dnl Checks for some programs/tools
 AC_PROG_INSTALL
 AC_PROG_LN_S
-AC_PATH_PROG(CONVERT,convert)
+AC_PATH_PROG(CONVERT,convert,,AC_MSG_ERROR(convert / ImageMagick is not installed))
 AC_PATH_PROG(MSGMERGE, msgmerge)
 AC_PATH_PROG(MSGFMT, msgfmt)
 AC_PATH_PROG(XGETTEXT, xgettext)
@@ -90,7 +88,7 @@ dnl AC_CHECK_WITH_INSURE
 KDEMAJOR=`$CAT ./KDE-VERSION`
 AC_MSG_CHECKING(which KDE/Qt to use)
 if test "$KDEMAJOR" = "2"; then {
-    AC_MSG_RESULT([KDE 2.x / Qt 2.1])
+    AC_MSG_ERROR([KDE 2.x / Qt 2.1 - this does no longer work since v0.6.5])
     KDE_USE_QT(2.1)
     KDE_VERSION_SPECIFIC_LIBS="-lartsc -lartsflow -lartsflow_idl -lmcop \
                                -lkfile -lkdeui -lkdecore -lqt"
@@ -147,8 +145,6 @@ if $UIC -o /dev/null -impl test-uic.h test-uic.ui 2>/dev/null 1>/dev/null; then 
 } fi;
 rm -f test-uic.*
 
-dnl checks, if the debug code is wanted
-dnl ### AC_CHECK_FLAGS
 dnl
 dnl optimization flags for athlon
 dnl CFLAGS = -O3 -fomit-frame-pointer -Wall
@@ -165,8 +161,6 @@ dnl
 dnl ### CFLAGS="${CFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 dnl ### CXXFLAGS="${CXXFLAGS} --no-rtti ${RPM_OPT_FLAGS}"
 dnl
-dnl now create our libtool, the earlier the better...
-dnl AM_PROG_LIBTOOL
 
 dnl CXXFLAGS="$(CXXFLAGS) -Wall -g -fcheck-memory-usage \
 dnl   -g -ansi  -U__i486__ -U__i586__ -U__i686__ -DMEMCHECK -D_REENTRANT -D_XOPEN_SOURCE -D_BSD_SOURCE \
@@ -262,11 +256,12 @@ AC_MSG_ERROR([
     id3lib seems not to be installed or too old !
 
     You can download id3lib from http://id3lib.sourceforge.net/
-    and fetch the latest version from there. Please don't forget
-    to fetch id3tag-devel too, it is needed for compiling
-    Kwave!
+    or from http://kwave.sf.net/id3lib/
+    and fetch the latest version from there. If you download the
+    rpm package, please don't forget to fetch id3tag-devel too,
+    it is needed for compiling Kwave!
 
-    Note: at least version 3.8.0-2 is needed.
+    Note: at least version 3.8.0-21 is needed.
 
     ])
 fi

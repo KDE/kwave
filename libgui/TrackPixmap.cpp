@@ -46,7 +46,7 @@ TrackPixmap::TrackPixmap(Track &track)
     m_interpolation_order(0), m_interpolation_alpha(0)
 {
     m_color_background = black;
-    m_color_sample = white;
+    m_color_sample = yellow; // white;
     m_color_interpolated = lightGray;
     m_color_zero = green;
 
@@ -439,101 +439,105 @@ void TrackPixmap::calculateInterpolation()
 //***************************************************************************
 void TrackPixmap::drawInterpolatedSignal(int width, int middle, int height)
 {
-//    register float y;
-//    register float *sig;
-//    float *sig_buffer;
-//    float scale_y;
-//    int i;
-//    register int k;
-//    int N;
-//    int length;
-//    int sample;
-//    int x;
+    register float y;
+    register float *sig;
+    float *sig_buffer;
+    float scale_y;
+    int i;
+    register int k;
+    int N;
+    int sample;
+    int x;
+    int buflen = m_valid.size();
 
     debug("TrackPixmap::drawInterpolatedSignal()");
 
-//    length = signalmanage->getLength();
-//    if (!length) return;
-//
-//    // scale_y: pixels per unit
-//    scale_y = height * zoomy / (1 << 24);
-//
-//    // N: order of the filter, at least 2 * (1/m_zoom)
-//    N = INTERPOLATION_PRECISION * samples2pixels(1);
-//    N |= 0x01;    // make N an odd number !
-//
-//    // re-calculate the interpolation's filter and buffers
-//    // if the current order has changed
-//    if (m_interpolation_order != N) {
-//	calculateInterpolation();
-//	N = m_interpolation_order;
-//    }
-//
-//    ASSERT(m_interpolation_alpha);
-//    if (!m_interpolation_alpha) return;
-//
-//    // buffer for intermediate resampled data
-//    sig_buffer = new float[width + N + 2];
-//    ASSERT(sig_buffer);
-//    if (!sig_buffer) return;
-//
-//    // array with sample points
-//    QPointArray *points = new QPointArray(width);
-//    ASSERT(points);
-//    if (!points) {
-//	delete[] sig_buffer;
-//	return;
-//    }
-//
-//    // fill the sample buffer with zeroes
-//    for (i = 0; i < width + N + 2; i++)
-//	sig_buffer[i] = 0.0;
-//
-//    // resample
-//    sample = -2;    // start some samples left of the window
-//    x = samples2pixels(sample);
-//    sig = sig_buffer + (N / 2);
-//    while (x <= width + N / 2) {
-//	if ((x >= -N / 2) && (m_offset + sample < length)) {
-//	    sig[x] = signalmanage->singleSample(channel, m_offset + sample) *
-//		     scale_y;
-//	}
-//	sample++;
-//	x = samples2pixels(sample);
-//    }
-//
-//    // pass the signal data through the filter
-//    for (i = 0; i < width; i++) {
-//	sig = sig_buffer + (i + N);
-//	y = 0.0;
-//	for (k = 0; k <= N; k++)
-//	    y += *(sig--) * m_interpolation_alpha[k];
-//
-//	points->setPoint(i, i, middle - (int)y);
-//    }
-//
-//    // display the filter's interpolated output
-//    p.setPen(darkGray);
-//    p.drawPolyline(*points, 0, i);
-//
-//    // display the original samples
-//    sample = 0;
-//    x = samples2pixels(sample);
-//    sig = sig_buffer + (N / 2);
-//    p.setPen(white);
-//    i = 0;
-//    while (x < width) {
-//	if ((x >= 0) && (x < width)) {
-//	    // mark original samples
-//	    points->setPoint(i++, x, middle - (int)sig[x]);
-//	}
-//	sample++;
-//	x = samples2pixels(sample);
-//    }
-//    p.drawPoints(*points, 0, i);
-//
-//    delete[] sig_buffer;
-//    delete points;
+    ASSERT(m_zoom);
+    if (m_zoom == 0.0) return;
+
+//    for (x=0; x < buflen; x++) debug("sample[%d] = %d", x, m_sample_buffer[x]);
+
+    // scale_y: pixels per unit
+    scale_y = (double)height / (double)((SAMPLE_MAX+1)<<1);
+
+    // N: order of the filter, at least 2 * (1/m_zoom)
+    N = INTERPOLATION_PRECISION * samples2pixels(1);
+    N |= 0x01;    // make N an odd number !
+
+    // re-calculate the interpolation's filter and buffers
+    // if the current order has changed
+    if (m_interpolation_order != N) {
+	calculateInterpolation();
+	N = m_interpolation_order;
+    }
+
+    ASSERT(m_interpolation_alpha);
+    if (!m_interpolation_alpha) return;
+
+    // buffer for intermediate resampled data
+    sig_buffer = new float[width + N + 2];
+    ASSERT(sig_buffer);
+    if (!sig_buffer) return;
+
+    // array with sample points
+    QPointArray *points = new QPointArray(width);
+    ASSERT(points);
+    if (!points) {
+	delete[] sig_buffer;
+	return;
+    }
+
+    // fill the sample buffer with zeroes
+    for (i = 0; i < width + N + 2; i++)
+	sig_buffer[i] = 0.0;
+
+    // resample
+    sample = -2;    // start some samples left of the window
+    x = samples2pixels(sample);
+    sig = sig_buffer + (N / 2);
+    while (x <= width + N / 2) {
+	if ((x >= -N / 2) && (sample > 0) && (sample < buflen)) {
+	    sig[x] = m_sample_buffer[sample] * scale_y;
+	}
+	sample++;
+	x = samples2pixels(sample);
+    }
+
+    // pass the signal data through the filter
+    for (i = 0; i < width; i++) {
+	sig = sig_buffer + (i + N);
+	y = 0.0;
+	for (k = 0; k <= N; k++)
+	    y += *(sig--) * m_interpolation_alpha[k];
+
+	points->setPoint(i, i, middle - (int)y);
+    }
+
+    // display the filter's interpolated output
+    QPainter p;
+    p.begin(this);
+    p.setPen(m_color_interpolated);
+    p.drawPolyline(*points, 0, i);
+
+    // display the original samples
+    sample = 0;
+    x = samples2pixels(sample);
+    sig = sig_buffer + (N / 2);
+    p.setPen(m_color_sample);
+    i = 0;
+    while (x < width) {
+	if ((x >= 0) && (x < width)) {
+	    // mark original samples
+	    points->setPoint(i++, x, middle - (int)sig[x]);
+	}
+	sample++;
+	x = samples2pixels(sample);
+    }
+    p.drawPoints(*points, 0, i);
+    p.end();
+
+    delete[] sig_buffer;
+    delete points;
 }
 
 //***************************************************************************

@@ -11,5 +11,5 @@ Comment[fr]=Un éditor de sons pour KDE2
 TryExec=kwave
 Exec=kwave %F
 Icon=kwave.png
-MimeType=audio/wav;audio/x-wav;
+MimeType=audio/wav;audio/x-wav;audio/basic;audio/x-aifc;audio/x-aiff;audio/x-ircam
 Terminal=0

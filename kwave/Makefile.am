@@ -16,6 +16,10 @@ PIXDIR = $(DESTDIR)$(kde_datadir)/$(PACKAGE)/pics
 INCLUDES= -I${topdir} @all_includes@
 ICONDIR = $(DESTDIR)$(kde_icondir)
 
+mimedir = $(kde_mimedir)/audio
+mime_DATA = x-aifc.desktop x-ircam.desktop
+EXTRA_DIST = $(mime_DATA)
+
 bin_PROGRAMS  = kwave
 
 # specifying the bindir is necessary in order to let make install

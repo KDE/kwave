@@ -6,7 +6,6 @@ BUILTSOURCES=\
  TimeLine.moc.cpp\
  FloatLine.moc.cpp\
  MultiStateWidget.moc.cpp\
- CornerPatchWidget.moc.cpp\
  CurveWidget.moc.cpp\
  Dialog.moc.cpp\
  FFTWidget.moc.cpp\
@@ -45,7 +44,6 @@ libkwavegui_la_SOURCES =\
  OverViewCache.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\
- CornerPatchWidget.cpp\
  TimeLine.cpp\
  TrackPixmap.cpp\
  $(BUILTSOURCES)

@@ -26,6 +26,8 @@
 #include "libkwave/Parser.h"
 #include "libgui/CurveWidget.h"
 #include "libgui/ScaleWidget.h"
+
+#include "InvertableSpinBox.h"
 #include "VolumeDialog.h"
 
 //***************************************************************************
@@ -63,7 +65,7 @@ VolumeDialog::~VolumeDialog()
 //***************************************************************************
 void VolumeDialog::setMode(Mode mode)
 {
-    debug("VolumeDialog::setMode(%d), f=%g", (int)mode, m_factor); // ###
+//  debug("VolumeDialog::setMode(%d), f=%g", (int)mode, m_factor); // ###
     double value = m_factor;
     m_mode = mode;
     bool old_enable_updates = m_enable_updates;
@@ -128,7 +130,7 @@ void VolumeDialog::updateDisplay(double value)
 {
 //    debug("VolumeDialog::updateDisplay(%f)", value); // ###
     int new_spinbox_value = 0;
-    int new_slider_value = 0;
+    int new_slider_value  = 0;
     bool old_enable_updates = m_enable_updates;
     m_enable_updates = false;
     m_factor = value;
@@ -143,6 +145,7 @@ void VolumeDialog::updateDisplay(double value)
 		int new_value = (int)rint(value);
 		spinbox->setPrefix("x ");
 		spinbox->setSuffix("");
+		spinbox->setInverse(false);
 		
 		new_spinbox_value = new_value;
 		new_slider_value = new_value-1;
@@ -154,6 +157,7 @@ void VolumeDialog::updateDisplay(double value)
 		
 		spinbox->setPrefix("1/");
 		spinbox->setSuffix("");
+		spinbox->setInverse(true);
 		
 		new_spinbox_value = -1*new_value;
 		new_slider_value  = (new_value+1);
@@ -171,6 +175,7 @@ void VolumeDialog::updateDisplay(double value)
 	    new_slider_value = new_spinbox_value;
 	    spinbox->setPrefix("");
 	    spinbox->setSuffix("%");
+	    spinbox->setInverse(false);
 //	    debug("VolumeDialog::updateDisplay(): percent = %d", new_slider_value); // ###
 	    break;
 	}
@@ -185,6 +190,7 @@ void VolumeDialog::updateDisplay(double value)
 		spinbox->setPrefix("");
 	    }
 	    spinbox->setSuffix(" dB");
+	    spinbox->setInverse(false);
 //	    debug("VolumeDialog::updateDisplay(): decibel = %d", new_spinbox_value); // ###
 	    break;
 	}
@@ -237,6 +243,7 @@ void VolumeDialog::spinboxChanged(int pos)
 //    debug("spinboxChanged(%d)",pos); // ###
 
     int sv = spinbox->value();
+    
     switch (m_mode) {
 	case MODE_FACTOR: {
 	    // multiply or divide by factor
@@ -279,7 +286,7 @@ QStringList VolumeDialog::params()
 void VolumeDialog::setParams(QStringList &params)
 {
     // evaluate the parameter list
-    m_factor = params[0].toDouble();
+    double factor = params[0].toDouble();
     switch (params[1].toUInt()) {
 	case 0: m_mode = MODE_FACTOR;  break;
 	case 1: m_mode = MODE_PERCENT; break;
@@ -287,9 +294,13 @@ void VolumeDialog::setParams(QStringList &params)
 	default: m_mode = MODE_DECIBEL;
     }
 
-    // update factor and mode
-    updateDisplay(m_factor);
+    // update mode, using default factor 1.0
+    m_factor = 1.0; // works with every mode
     setMode(m_mode);
+
+    // update factor
+    m_factor = factor;
+    updateDisplay(factor);
 }
 
 //***************************************************************************

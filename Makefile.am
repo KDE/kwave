@@ -81,7 +81,7 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
 	mkdir -p /tmp/${PACKAGE}-@RPM_VERSION@
 	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_VERSION@ )
-	(cd /tmp/ ; \
+	(cd /tmp/ ; chmod -Rx a+rwX ${PACKAGE}-@RPM_VERSION@ ; \
 	touch ${PACKAGE}-@RPM_VERSION@/doc/help_{de,fr}.docbook ; \
 	find ${SRC_PREFIX}-@RPM_VERSION@ -name CVS > \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \

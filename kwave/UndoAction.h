@@ -72,12 +72,13 @@ public:
      * Takes back an action by creating a new undo action (for further
      * redo) and restoring the previous state.
      * @param manager the SignalManager for modifying the signal
+     * @param with_redo if true a UndoAction for redo will be created
      * @note The return value is allowed to be the same object. This
      *       is useful for objects that can re-use their data for
      *       undo/redo. You have to check for this when deleting an
      *       UndoAction object after undo.
      */
-    virtual UndoAction *undo(SignalManager &manager) = 0;
+    virtual UndoAction *undo(SignalManager &manager, bool with_redo) = 0;
 
 };
 

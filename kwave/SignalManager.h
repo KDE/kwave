@@ -105,31 +105,36 @@ public:
     inline Selection &selection() { return m_selection; };
 
     /**
-     * Returns an array of indices of currently selected channels.
+     * Returns an array of indices of currently selected tracks.
      */
     const QArray<unsigned int> selectedTracks();
 
     /**
-     * Returns the value of one single sample of a specified channel.
-     * If the channel does not exist or the index of the sample is
+     * Returns an array of indices of all present tracks.
+     */
+    const QArray<unsigned int> allTracks();
+
+    /**
+     * Returns the value of one single sample of a specified track.
+     * If the track does not exist or the index of the sample is
      * out of range the return value will be zero.
-     * @param channel index if the channel [0...N-1]
+     * @param track index if the track [0...N-1]
      * @param offset sample offset [0...length-1]
      * @return value of the sample
      */
-    int singleSample(unsigned int channel, unsigned int offset);
+    int singleSample(unsigned int track, unsigned int offset);
 
     /**
-     * Returns the value of one single sample averaged over all active channels.
-     * If no channel do exist or the index of the sample is out of range the
-     * return value will be zero. If the optional list of channels is omitted,
-     * the sample will be averaged over all currently selected channels.
+     * Returns the value of one single sample averaged over all active tracks.
+     * If no tracks do exist or the index of the sample is out of range the
+     * return value will be zero. If the optional list of tracks is omitted,
+     * the sample will be averaged over all currently selected tracks.
      * @param offset sample offset [0...length-1]
-     * @param channels an array of channel numbers, optional
+     * @param tracks an array of track numbers, optional
      * @return value of the sample
      */
     int averageSample(unsigned int offset,
-                      const QArray<unsigned int> *channels = 0);
+                      const QArray<unsigned int> *tracks = 0);
 
     /**
      * Saves the signal to a file with a given resolution. If the file
@@ -141,9 +146,16 @@ public:
     void save(const QString &filename, unsigned int bits, bool selection);
 
     /**
-     * Exports ascii file with one sample per line and only one channel.
+     * Exports ascii file with one sample per line and only one track.
      */
     void exportAscii(const char *name);
+
+    /**
+     * Deletes a range of samples
+     * @param offset index of the first sample
+     * @param length number of samples
+     */
+    void deleteRange(unsigned int offset, unsigned int length);
 
     /**
      * Sets the current start and length of the selection to new values.
@@ -159,10 +171,10 @@ public:
     void selectTracks(QArray<unsigned int> &track_list);
 
     /**
-     * Toggles the selection flag of a channel.
-     * @param channel index of the channel [0..N-1]
+     * Toggles the selection flag of a track.
+     * @param track index of the track [0..N-1]
      */
-    void toggleChannel(const unsigned int channel);
+    void toggleChannel(const unsigned int track);
 
     /**
      * Opens an input stream for a track, starting at a specified sample
@@ -397,6 +409,11 @@ protected:
     bool registerUndoAction(UndoAction *action);
 
     /**
+     * Aborts an undo transaction by deleting all of it's undo actions.
+     */
+    void abortUndoTransaction();
+
+    /**
      * Starts an undo transaction or enters a currently running transaction
      * recursively.
      * @param name the name of the transaction. Will be ignored if there
@@ -416,9 +433,6 @@ protected:
     void flushRedoBuffer();
 
 private:
-
-    /** Built-in command Erases a range of samples */
-    void builtinCmdErase(unsigned int offset, unsigned int length);
 
     /** Shortcut for emitting a sigStatusInfo */
     void emitStatusInfo();
@@ -450,7 +464,7 @@ private:
 
     /**
      * Imports ascii file with one sample per line and only one
-     * channel. Everything that cannot be parsed by strod will be ignored.
+     * track. Everything that cannot be parsed by strod will be ignored.
      * @return 0 if succeeded or error number if failed
      */
     int loadAscii();
@@ -466,17 +480,17 @@ private:
 
     /**
      * Reads in the wav data chunk from a .wav-file. It creates
-     * a new empty Signal for each channel and fills it with
+     * a new empty Signal for each track and fills it with
      * data read from an opened file. The file's actual position
      * must already be set to the correct position.
      * @param sigin reference to the already opened file
      * @param length number of samples to be read
-     * @param channels number of channels [1..n]
+     * @param tracks number of tracks [1..n]
      * @param number of bits per sample [8,16,24,...]
      * @return 0 if succeeded or error number if failed
      */
     int loadWavChunk(QFile &sigin, unsigned int length,
-                     unsigned int channels, int bits);
+                     unsigned int tracks, int bits);
 
     /**
      * Writes the chunk with the signal to a .wav file (not including

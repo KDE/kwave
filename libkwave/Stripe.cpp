@@ -135,6 +135,41 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
 }
 
 //***************************************************************************
+void Stripe::deleteRange(unsigned int offset, unsigned int length)
+{
+    {
+	MutexGuard lock(m_lock_samples);
+	unsigned int size = m_samples.size();
+	
+	if (offset >= m_start+size) return;
+	if (offset < m_start) {
+	    // put offset into our area
+	    unsigned int shift = m_start - offset;
+	    if (shift >= length) return;
+	    length -= shift;
+	    offset = m_start;
+	}
+	if (offset+length > m_start+size) {
+	    // limit the size to the end of the samples
+	    length = size - m_start;
+	}
+	if (!length) return;
+	
+	// move all samples after the deleted area to the left
+	unsigned int dst = offset - m_start;
+	unsigned int src = dst + length;
+	unsigned int len = size - src;
+	while (len--) {
+	    m_samples[dst++] = m_samples[src++];
+	}
+	// resize the buffer to it's new size
+	m_samples.resize(size - length);
+    }
+//
+//    if (length) emit sigSamplesDeleted(*this, offset, length);
+}
+
+//***************************************************************************
 void Stripe::overwrite(unsigned int offset, const QArray<sample_t> &samples,
     	unsigned int srcoff, unsigned int srclen)
 {

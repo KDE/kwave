@@ -1,5 +1,6 @@
-#ifndef _KWAVE_SIGNAL_H_
-#define _KWAVE_SIGNAL_H_ 1
+
+#ifndef _SIGNAL_H_
+#define _SIGNAL_H_
 
 #define PROGRESS_SIZE 512*3*5
 
@@ -7,7 +8,7 @@
 
 #include <qlist.h>
 
-#include "mt/Mutex.h"
+#include "mt/SharedLock.h"
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
@@ -84,6 +85,15 @@ public:
      * Returns the number of tracks.
      */
     unsigned int tracks();
+
+    /**
+     * Deletes a range of samples
+     * @param track index of the track
+     * @param offset index of the first sample
+     * @param length number of samples
+     */
+    void deleteRange(unsigned int track, unsigned int offset,
+                     unsigned int length);
 
 //    Signal *copyRange ();
 //    Signal *cutRange ();
@@ -235,7 +245,7 @@ private:
     QList<Track> m_tracks;
 
     /** mutex for access to the track list */
-    Mutex m_lock_tracks;
+    SharedLock m_lock_tracks;
 
     /** number of samples */
     unsigned int m_length;
@@ -249,4 +259,4 @@ private:
 };
 
 //**********************************************************************
-#endif  /* signal.h */
+#endif  /* _SIGNAL_H_ */

@@ -672,8 +672,10 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 void TrackPixmap::slotSamplesInserted(Track &, unsigned int offset,
                                       unsigned int length)
 {
-    MutexGuard lock(m_lock_buffer);
-    debug("TrackPixmap::slotSamplesInserted(track, %u, %u)", offset, length);
+    {
+	MutexGuard lock(m_lock_buffer);
+	debug("TrackPixmap::slotSamplesInserted(track, %u, %u)", offset, length);
+    }
 
     // notify our owner about changed data -> screen refresh?
     emit sigModified();
@@ -683,8 +685,21 @@ void TrackPixmap::slotSamplesInserted(Track &, unsigned int offset,
 void TrackPixmap::slotSamplesDeleted(Track &, unsigned int offset,
                                      unsigned int length)
 {
-    MutexGuard lock(m_lock_buffer);
-    debug("TrackPixmap::slotSamplesDeleted(track, %u, %u)", offset, length);
+    {
+	MutexGuard lock(m_lock_buffer);
+	
+	convertOverlap(offset, length);
+	if (!length) return; // false alarm
+	
+	ASSERT(offset < m_valid.size());
+	ASSERT(offset + length <= m_valid.size());
+	
+	// mark all positions from here to right end as "invalid"
+	while (offset < m_valid.size()) m_valid.clearBit(offset++);
+	
+	// repaint of the signal is needed
+	m_modified = true;
+    }
 
     // notify our owner about changed data -> screen refresh?
     emit sigModified();

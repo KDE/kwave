@@ -171,7 +171,6 @@ bool SignalWidget::isOK()
 //***************************************************************************
 SignalWidget::~SignalWidget()
 {
-//    debug("SignalWidget::~SignalWidget()");
     close();
 
     m_refresh_timer.stop();
@@ -188,8 +187,6 @@ SignalWidget::~SignalWidget()
     for (int i=0; i < 3; i++) {
 	m_layer[i] = 0;
     }
-
-//    debug("SignalWidget::~SignalWidget(): done");
 }
 
 //***************************************************************************
@@ -315,6 +312,8 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 //***************************************************************************
 bool SignalWidget::executeCommand(const QString &command)
 {
+    InhibitRepaintGuard inhibit(*this);
+
     if (!command.length()) return true;
     Parser parser(command);
 //    debug("SignalWidget::executeCommand(%s)", command.data());    // ###
@@ -749,7 +748,6 @@ void SignalWidget::resizeEvent(QResizeEvent *)
 void SignalWidget::inhibitRepaint()
 {
     m_inhibit_repaint++;
-//    debug("SignalWidget::inhibitRepaint(): count=%u", m_inhibit_repaint);
 }
 
 //***************************************************************************
@@ -763,6 +761,7 @@ void SignalWidget::allowRepaint(bool repaint)
 
     // if the number reached zero, *do* the repaint if allowed
     if (!m_inhibit_repaint && repaint) this->repaint(false);
+
 }
 
 //***************************************************************************
@@ -985,6 +984,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    if (i >= m_track_pixmaps.count()) break; // closed or not ready
 	    TrackPixmap *pix = m_track_pixmaps.at(i);
 	    if (!pix) continue; // signal closed ?
+//	    debug("SignalWidget::paintEvent(): redrawing track %d",i); // ###
 	
 	    // fix the width and height of the track pixmap
 	    if ((pix->width() != width) || (pix->height() != track_height)) {
@@ -992,7 +992,6 @@ void SignalWidget::paintEvent(QPaintEvent *)
 	    }
 	    if (pix->isModified()) pix->repaint();
 	
-//	    debug("SignalWidget::paintEvent(): redrawing track %d",i); // ###
 	    bitBlt(m_layer[LAYER_SIGNAL], 0, top,
 		pix, 0, 0, width, track_height, CopyROP);
 	

@@ -83,6 +83,13 @@ public:
     unsigned int append(const QArray<sample_t> &samples, unsigned int count);
 
     /**
+     * Deletes a range of samples
+     * @param offset index of the first sample
+     * @param length number of samples
+     */
+    void deleteRange(unsigned int offset, unsigned int length);
+
+    /**
      * Copies the content of an array of samples into the stripe.
      * @param offset the offset within the stripe (target)
      * @param samples array of samples to be copied

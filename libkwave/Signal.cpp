@@ -1,7 +1,5 @@
 // I/O Functions such as loading/saving are in sampleio.cpp
 
-//Here choose biggest prime factor to be tolerated before
-//popping up a requester, when doing a fft
 #include <math.h>
 #include <limits.h>
 #include <stdio.h>
@@ -23,7 +21,7 @@
 #include "Filter.h"
 #include "FileFormat.h"
 
-#include "mt/MutexGuard.h"
+#include "mt/SharedLockGuard.h"
 
 #include "libkwave/Track.h"
 
@@ -76,7 +74,7 @@ Signal::~Signal()
 //***************************************************************************
 void Signal::close()
 {
-    MutexGuard lock(m_lock_tracks);
+    SharedLockGuard lock(m_lock_tracks, true);
 
     m_tracks.setAutoDelete(true);
     while (m_tracks.count()) {
@@ -92,7 +90,7 @@ Track *Signal::appendTrack(unsigned int length)
     unsigned int track_nr = 0;
     Track *t = 0;
     {
-	MutexGuard lock(m_lock_tracks);
+	SharedLockGuard lock(m_lock_tracks, true);
 
 	t = new Track(length);
 	ASSERT(t);
@@ -126,7 +124,7 @@ Track *Signal::appendTrack(unsigned int length)
 SampleWriter *Signal::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {
-    MutexGuard lock(m_lock_tracks);
+    SharedLockGuard lock(m_lock_tracks, false);
 
     ASSERT(track < m_tracks.count());
     if (track >= m_tracks.count()) {
@@ -140,27 +138,37 @@ SampleWriter *Signal::openSampleWriter(unsigned int track,
 SampleReader *Signal::openSampleReader(unsigned int track,
 	unsigned int left, unsigned int right)
 {
-    MutexGuard lock(m_lock_tracks);
+    SharedLockGuard lock(m_lock_tracks, false);
 
     ASSERT(track < m_tracks.count());
-    if (track >= m_tracks.count()) {
-	return 0; // track does not exist !
-    }
+    if (track >= m_tracks.count()) return 0; // track does not exist !
 
     return m_tracks.at(track)->openSampleReader(left, right);
 }
 
 //***************************************************************************
+void Signal::deleteRange(unsigned int track, unsigned int offset,
+                         unsigned int length)
+{
+    SharedLockGuard lock(m_lock_tracks, false);
+
+    ASSERT(track < m_tracks.count());
+    if (track >= m_tracks.count()) return; // track does not exist !
+
+    m_tracks.at(track)->deleteRange(offset, length);
+}
+
+//***************************************************************************
 unsigned int Signal::tracks()
 {
-    MutexGuard lock(m_lock_tracks);
+    SharedLockGuard lock(m_lock_tracks, false);
     return m_tracks.count();
 }
 
 //***************************************************************************
 unsigned int Signal::length()
 {
-    MutexGuard lock(m_lock_tracks);
+    SharedLockGuard lock(m_lock_tracks, false);
 
     unsigned int max = 0;
     unsigned int len;
@@ -177,7 +185,7 @@ unsigned int Signal::length()
 //***************************************************************************
 bool Signal::trackSelected(unsigned int track)
 {
-    MutexGuard lock(m_lock_tracks);
+    SharedLockGuard lock(m_lock_tracks, false);
 
     if (track >= m_tracks.count()) return false;
     if (!m_tracks.at(track)) return false;
@@ -188,7 +196,7 @@ bool Signal::trackSelected(unsigned int track)
 //***************************************************************************
 void Signal::selectTrack(unsigned int track, bool select)
 {
-    MutexGuard lock(m_lock_tracks);
+    SharedLockGuard lock(m_lock_tracks, false);
 
     ASSERT(track < m_tracks.count());
     if (track >= m_tracks.count()) return;
@@ -623,6 +631,8 @@ void Signal::selectTrack(unsigned int track, bool select)
 //***************************************************************************
 unsigned int Signal::trackIndex(const Track &track)
 {
+    SharedLockGuard lock(m_lock_tracks, false);
+
     int index = m_tracks.findRef(&track);
     ASSERT(index >= 0);
     return (index >= 0) ? index : m_tracks.count();
@@ -640,8 +650,10 @@ void Signal::slotSamplesInserted(Track &src, unsigned int offset,
 void Signal::slotSamplesDeleted(Track &src, unsigned int offset,
                                 unsigned int length)
 {
+    debug("Signal::slotSamplesDeleted()"); // ###
     unsigned int track = trackIndex(src);
-    emit sigSamplesDeleted(track, offset, length);
+//    emit sigSamplesDeleted(track, offset, length);
+    debug("Signal::slotSamplesDeleted(): done."); // ###
 }
 
 //***************************************************************************

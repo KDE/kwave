@@ -50,6 +50,7 @@
 #include "SignalManager.h"
 #include "SignalWidget.h"
 #include "UndoAction.h"
+#include "UndoDeleteAction.h"
 #include "UndoModifyAction.h"
 #include "UndoSelection.h"
 #include "UndoTransaction.h"
@@ -153,12 +154,24 @@ const QArray<unsigned int> SignalManager::selectedTracks()
     QArray<unsigned int> list(tracks());
 
     for (track=0; track < list.count(); track++) {
-//	### TODO ### selection of tracks
-//	if (!m_track_selected(track)) continue;
+	if (!m_signal.trackSelected(track)) continue;
 	list[count++] = track;
     }
 
     list.resize(count);
+    return list;
+}
+
+//***************************************************************************
+const QArray<unsigned int> SignalManager::allTracks()
+{
+    unsigned int track;
+    QArray<unsigned int> list(tracks());
+
+    for (track=0; track < list.count(); track++) {
+	list[track] = track;
+    }
+
     return list;
 }
 
@@ -280,8 +293,8 @@ bool SignalManager::executeCommand(const QString &command)
 {
     debug("SignalManager::executeCommand(%s)", command.data());    // ###
 
-//    unsigned int offset = m_selection.offset();
-//    unsigned int length = m_selection.length();
+    unsigned int offset = m_selection.offset();
+    unsigned int length = m_selection.length();
 
     if (!command.length()) return true;
     Parser parser(command);
@@ -325,7 +338,7 @@ bool SignalManager::executeCommand(const QString &command)
 //	    }
 //	}
     CASE_COMMAND("delete")
-//	deleteRange(offset, length);
+	deleteRange(offset, length);
 
 //    CASE_COMMAND("paste")
 //	if (globals.clipboard) {
@@ -436,6 +449,41 @@ void SignalManager::slotSamplesModified(unsigned int track,
 SignalManager::~SignalManager()
 {
     close();
+}
+
+//***************************************************************************
+void SignalManager::deleteRange(unsigned int offset, unsigned int length)
+{
+    if (!length) return; // nothing to do
+    UndoTransactionGuard undo(*this, i18n("delete"));
+
+    QArray<unsigned int> track_list = allTracks();
+    unsigned int count = track_list.count();
+    if (!count) return; // nothing to do
+
+    // first store undo data for all tracks
+    unsigned int track;
+    unsigned int i;
+    for (i=0; i < count; i++) {
+	track = track_list[i];
+	UndoAction *undo = new UndoDeleteAction(track, offset, length);
+	if (!registerUndoAction(undo)) {
+	    // abort
+	    if (undo) delete undo;
+	    abortUndoTransaction();
+	    return;
+	}
+	undo->store(*this);
+    }
+
+    // then delete the ranges in all tracks
+    for (i=0; i < count; i++) {
+	track = track_list[i];
+	m_signal.deleteRange(track, offset, length);
+    }
+
+    // finally set the current selection to zero-length
+    selectRange(m_selection.offset(), 0);
 }
 
 //***************************************************************************
@@ -1186,6 +1234,19 @@ void SignalManager::flushUndoBuffers()
 }
 
 //***************************************************************************
+void SignalManager::abortUndoTransaction()
+{
+    MutexGuard lock(m_undo_transaction_lock);
+
+    if (!m_undo_transaction) return;
+    m_undo_transaction->setAutoDelete(true);
+    m_undo_transaction->clear();
+
+    delete m_undo_transaction;
+    m_undo_transaction = 0;
+}
+
+//***************************************************************************
 void SignalManager::flushRedoBuffer()
 {
     m_redo_buffer.clear();
@@ -1410,7 +1471,7 @@ void SignalManager::undo()
 	if (!undo_action) continue;
 	
 	// execute the undo operation
-	redo_action = undo_action->undo(*this);
+	redo_action = undo_action->undo(*this, (redo_transaction != 0));
 	
 	// remove the old undo action if no longer used
 	if (redo_action != undo_action) {
@@ -1418,12 +1479,22 @@ void SignalManager::undo()
 	}
 	
 	// queue the action into the redo transaction
-	if (redo_transaction) {
-	    redo_transaction->prepend(redo_action);
-	} else {
-	    // redo is not usable :-(
-	    if (redo_action) delete redo_action;
+	if (redo_action) {
+	    if (redo_transaction) {
+		redo_transaction->prepend(redo_action);
+	    } else {
+		// redo is not usable :-(
+		delete redo_action;
+	    }
 	}
+    }
+
+    if (redo_transaction && (redo_transaction->count() <= 1)) {
+	// if there is not more than the UndoSelection action,
+	// there are no real redo actions -> no redo possible
+	warning("SignalManager::undo(): no redo possible");
+	m_redo_buffer.setAutoDelete(true);
+	m_redo_buffer.remove(redo_transaction);
     }
 
     // finished / buffers have changed, emit new undo/redo info
@@ -1437,7 +1508,6 @@ void SignalManager::redo()
 
     // get the last redo transaction and abort if none present
     UndoTransaction *redo_transaction = m_redo_buffer.first();
-    ASSERT(redo_transaction);
     if (!redo_transaction) return;
 
     // remove the redo transaction from the list without deleting it
@@ -1490,7 +1560,7 @@ void SignalManager::redo()
 	if (!redo_action) continue;
 	
 	// execute the redo operation
-	undo_action = redo_action->undo(*this);
+	undo_action = redo_action->undo(*this, (undo_transaction != 0));
 	
 	// remove the old redo action if no longer used
 	if (redo_action != undo_action) {
@@ -1498,12 +1568,22 @@ void SignalManager::redo()
 	}
 	
 	// queue the action into the undo transaction
-	if (undo_transaction) {
-	    undo_transaction->append(undo_action);
-	} else {
-	    // undo is not usable :-(
-	    if (undo_action) delete undo_action;
+	if (undo_action) {
+	    if (undo_transaction) {
+		undo_transaction->append(undo_action);
+	    } else {
+		// undo is not usable :-(
+		delete undo_action;
+	    }
 	}
+    }
+
+    if (undo_transaction && (undo_transaction->count() <= 1)) {
+	// if there is not more than the UndoSelection action,
+	// there are no real undo actions -> no undo possible
+	warning("SignalManager::redo(): no undo possible");
+	m_undo_buffer.setAutoDelete(true);
+	m_undo_buffer.remove(undo_transaction);
     }
 
     // finished / buffers have changed, emit new undo/redo info

@@ -15,6 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
+#ifndef _UNDO_MODIFY_ACTION_H_
+#define _UNDO_MODIFY_ACTION_H_
+
 #include <qarray.h>
 #include <qstring.h>
 
@@ -57,9 +60,9 @@ public:
      * require any extra memory for redo.
      * @see UndoAction::undo()
      */
-    virtual UndoAction *undo(SignalManager &manager);
+    virtual UndoAction *undo(SignalManager &manager, bool with_redo);
 
-private:
+protected:
 
     /** index of the modified track */
     unsigned int m_track;
@@ -74,3 +77,5 @@ private:
     QArray<sample_t> m_buffer;
 
 };
+
+#endif /* _UNDO_MODIFY_ACTION_H_ */

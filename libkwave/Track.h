@@ -22,7 +22,7 @@
 #include <qobject.h>
 #include <qlist.h>
 
-#include "mt/Mutex.h"
+#include "mt/SharedLock.h"
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/SampleLock.h"
@@ -85,6 +85,13 @@ public:
     SampleReader *openSampleReader(unsigned int left = 0,
 	unsigned int right = UINT_MAX);
 
+    /**
+     * Deletes a range of samples
+     * @param offset index of the first sample
+     * @param length number of samples
+     */
+    void deleteRange(unsigned int offset, unsigned int length);
+
     /** Returns the "selected" flag. */
     inline bool selected() { return m_selected; };
 
@@ -121,14 +128,6 @@ signals:
      */
     void sigSamplesModified(Track &src, unsigned int offset,
                             unsigned int length);
-
-protected:
-friend class SampleIputStream;
-
-    /** returns the mutex for access to the whole track. */
-    inline Mutex &mutex() {
-	return m_lock;
-    };
 
 private slots:
 
@@ -172,14 +171,11 @@ private:
      */
     unsigned int unlockedLength();
 
-    /** mutex for access to the whole track */
-    Mutex m_lock;
+    /** read/write lock for access to the whole track */
+    SharedLock m_lock;
 
     /** list of stripes (a track actually is a container for stripes) */
     QList<Stripe> m_stripes;
-
-    /** mutex for access to the stripes list */
-    Mutex m_lock_stripes;
 
     /** True if the track is selected */
     bool m_selected;

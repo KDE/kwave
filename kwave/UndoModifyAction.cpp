@@ -74,30 +74,29 @@ void UndoModifyAction::store(SignalManager &manager)
 }
 
 //***************************************************************************
-UndoAction *UndoModifyAction::undo(SignalManager &manager)
+UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
 {
-    /* exchange samples from current signal and buffer and return this */
-    // ### TODO ###
-    debug("UndoModifyAction::undo(), offset=%u, length=%u",
-	m_offset, m_length);
-
     SampleWriter *writer = manager.openSampleWriter(
 	m_track, Overwrite, m_offset, m_offset+m_length-1);
-    SampleReader *reader = manager.openSampleReader(
-	m_track, m_offset, m_offset+m_length-1);
+    SampleReader *reader = (with_redo) ? manager.openSampleReader(
+	m_track, m_offset, m_offset+m_length-1) : 0;
     unsigned int ofs = 0;
     unsigned int len = m_length;
     sample_t s;
     while (reader && writer && len--) {
-	*reader >> s;
-	*writer << m_buffer[ofs];
-	m_buffer[ofs] = s;
-	ofs++;
+	if (with_redo) {
+	    *reader >> s;
+	    *writer << m_buffer[ofs];
+	    m_buffer[ofs] = s;
+	    ofs++;
+	} else {
+	    *writer << m_buffer[ofs++];
+	}
     }
     if (writer) delete writer;
     if (reader) delete reader;
 
-    return this;
+    return (with_redo) ? this : 0;
 }
 
 //***************************************************************************

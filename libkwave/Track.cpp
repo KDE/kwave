@@ -15,8 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "mt/Mutex.h"
-#include "mt/MutexGuard.h"
+#include "mt/SharedLockGuard.h"
 #include "mt/MutexSet.h"
 
 #include "libkwave/SampleReader.h"
@@ -26,23 +25,24 @@
 
 //***************************************************************************
 Track::Track()
-    :m_stripes(), m_lock_stripes()
+    :m_lock(), m_stripes(), m_selected(true)
 {
+    m_stripes.setAutoDelete(true);
 }
 
 //***************************************************************************
 Track::Track(unsigned int length)
-    :m_stripes(), m_lock_stripes()
+    :m_lock(), m_stripes(), m_selected(true)
 {
+    m_stripes.setAutoDelete(true);
     appendStripe(length);
 }
 
 //***************************************************************************
 Track::~Track()
 {
-    MutexGuard lock(m_lock_stripes);
+    SharedLockGuard lock(m_lock, true);
 
-    m_stripes.setAutoDelete(true);
     while (m_stripes.count()) {
 	m_stripes.remove(m_stripes.last());
     }
@@ -51,7 +51,7 @@ Track::~Track()
 //***************************************************************************
 Stripe *Track::appendStripe(unsigned int length)
 {
-    MutexGuard lock(m_lock_stripes);
+    SharedLockGuard lock(m_lock, true);
 
     unsigned int last = unlockedLength();
     Stripe *s = new Stripe(last, 0);
@@ -81,7 +81,7 @@ Stripe *Track::appendStripe(unsigned int length)
 //***************************************************************************
 unsigned int Track::length()
 {
-    MutexGuard lock(m_lock_stripes);
+    SharedLockGuard lock(m_lock, false);
     return unlockedLength();
 }
 
@@ -98,7 +98,7 @@ unsigned int Track::unlockedLength()
 SampleWriter *Track::openSampleWriter(InsertMode mode,
 	unsigned int left, unsigned int right)
 {
-    MutexGuard lock(m_lock_stripes);
+    SharedLockGuard lock(m_lock, false);
     QList<Stripe> stripes;
     SampleLock * range_lock = 0;
 
@@ -171,13 +171,11 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 SampleReader *Track::openSampleReader(unsigned int left,
 	unsigned int right)
 {
-    MutexGuard lock(m_lock_stripes);
+    SharedLockGuard lock(m_lock, false);
     QList<Stripe> stripes;
-    SampleLock * range_lock = 0;
-
 
     // lock the needed range for shared writing
-    range_lock = new SampleLock(*this, left, right-left+1,
+    SampleLock *range_lock = new SampleLock(*this, left, right-left+1,
 	SampleLock::ReadShared);
 
     // add all stripes within the specified range to the list
@@ -208,6 +206,40 @@ SampleReader *Track::openSampleReader(unsigned int left,
     // stream creation failed, clean up
     if (range_lock) delete range_lock;
     return 0;
+}
+
+//***************************************************************************
+void Track::deleteRange(unsigned int offset, unsigned int length)
+{
+    if (!length) return;
+
+    {
+	SharedLockGuard lock(m_lock, false);
+	
+	// lock the needed range for exclusive writing
+	SampleLock range_lock(*this, offset, length,
+	    SampleLock::WriteExclusive);
+	
+	// add all stripes within the specified range to the list
+	QListIterator<Stripe> it(m_stripes);
+	for (it.toLast(); it.current(); --it) {
+	    Stripe *s = it.current();
+	    unsigned int st = s->start();
+	    unsigned int len = s->length();
+	
+	    if ((st+len >= offset) && (st < offset+length)) {
+		// stripe overlaps
+		s->deleteRange(offset, length);
+		if (!s->length()) {
+		    // stripe now is empty -> remove it
+		    m_stripes.remove(s);
+		}
+	    }
+	}
+	
+    }
+
+    emit sigSamplesDeleted(*this, offset, length);
 }
 
 //***************************************************************************

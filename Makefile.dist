@@ -77,7 +77,7 @@ logged:
 		echo ""; \
 	    } fi \
 	} fi
-	@ for dir in . libid3tag libmad ; do { \
+	@ for dir in . libmad ; do { \
 		cd $$dir; \
 		aclocal ; \
 		autoheader ; \

@@ -9,7 +9,7 @@ VERSION	 	 = $(shell cat ./VERSION)
 ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
 SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
-SUBDIRS  	 = libid3tag libmad libaudiofile mt libgui libkwave kwave plugins po doc
+SUBDIRS  	 = libmad libaudiofile mt libgui libkwave kwave plugins po doc
 
 CLEANFILES	 = *~ *.d *.dm *.moc *.moc.c?? *.ii \#* *.dep .depend
 

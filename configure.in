@@ -4,7 +4,7 @@ dnl acinclude.m4 makes the job for all programs ;-)
 
 AC_INIT(admin/acinclude.m4.in)
 AC_CONFIG_AUX_DIR(admin)
-AC_CONFIG_SUBDIRS(libid3tag libmad)
+AC_CONFIG_SUBDIRS(libmad)
 
 dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 unset CDPATH
@@ -197,21 +197,6 @@ AC_TYPE_SIZE_T
 AC_CHECK_SIZEOF(char,1)
 AC_CHECK_SIZEOF(short,2)
 AC_CHECK_SIZEOF(int,4)
-if test $ac_cv_sizeof_char != 1 ; then
-	AC_MSG_WARN([******************************************************************])
-	AC_MSG_WARN([*** sizeof (char) != 1.                                            ])
-	AC_MSG_WARN([******************************************************************])
-fi
-if test $ac_cv_sizeof_short != 2 ; then
-	AC_MSG_WARN([******************************************************************])
-	AC_MSG_WARN([*** sizeof (short) != 2.                                          ])
-	AC_MSG_WARN([******************************************************************])
-fi
-if test $ac_cv_sizeof_int != 4 ; then
-	AC_MSG_WARN([******************************************************************])
-	AC_MSG_WARN([*** sizeof (int) != 4.                                            ])
-	AC_MSG_WARN([******************************************************************])
-fi
 
 dnl check for dirent.h
 AC_HEADER_DIRENT
@@ -229,11 +214,64 @@ dnl rtti/type info woulf be fine for debugging
 AC_CHECK_HEADERS(typeinfo)
 
 dnl check for multithreading support
-AC_CHECK_HEADER(pthread.h,,AC_MSG_ERROR(""
-"    "
-"    your system lacks support for posix threads."
-"    please install a current version of gnu libc !"
-"    "))
+AC_CHECK_HEADER(pthread.h,,[AC_MSG_ERROR([
+
+    your system lacks support for posix threads.
+    please install a current version of gnu libc!
+
+    ])])
+
+dnl ************************************************
+dnl *** check for id3lib in a new enough version ***
+
+AC_LANG_PUSH(C++)
+saved_libs="$LDFLAGS"
+LDFLAGS="-lid3 -lz"
+ac_found_id3lib="yes"
+AC_MSG_CHECKING(for id3lib)
+AC_TRY_LINK([
+	#include <id3/globals.h>
+	#include <id3/readers.h>
+	#include <id3/tag.h>
+], [ID3_Tag tag;],
+[
+    AC_TRY_LINK(
+	[
+		#include <id3/globals.h>
+		#include <id3/readers.h>
+		#include <id3/tag.h>
+	],[
+		ID3_Tag tag;
+		ID3_MemoryReader reader;
+		tag.Link(reader);
+	],
+		[AC_MSG_RESULT([yes, version is new enough])],
+	{
+		[AC_MSG_RESULT([yes, but version is too old])] ;
+		ac_found_id3lib="no" ;
+	}
+    )
+],
+ [ac_found_id3lib="no"]
+)
+if test $ac_found_id3lib = "no"; then
+AC_MSG_ERROR([
+
+    id3lib seems not to be installed or too old !
+
+    You can download id3lib from http://id3lib.sourceforge.net/
+    and fetch the latest version from there. Please don't forget
+    to fetch id3tag-devel too, it is needed for compiling
+    Kwave!
+
+    Note: at least version 3.8.0-2 is needed.
+
+    ])
+fi
+AC_LANG_POP(C++)
+LDFLAGS="$saved_libs"
+dnl ***                                          ***
+dnl ************************************************
 
 dnl AC_CHECK_HEADERS(utility string,,AC_MSG_ERROR(""
 dnl "    "
@@ -371,5 +409,5 @@ esac],[debug=false])
 AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 
 dnl add here all your Makefiles
-dnl      (Makefile libid3tag/Makefile libmad/Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
+dnl      (Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
 AC_OUTPUT(Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)

@@ -69,7 +69,7 @@ QString PlayBackArts::open(const QString &, double rate,
     m_stream      = 0;
     MutexGuard lock(m_lock_aRts);
 
-    ASSERT(m_closed);
+    Q_ASSERT(m_closed);
     m_closed = false;
 
     // initialize aRts playback
@@ -85,16 +85,15 @@ QString PlayBackArts::open(const QString &, double rate,
 
     // open the stream
     m_stream = arts_play_stream((int)m_rate, m_bits, m_channels, "Kwave");
-    ASSERT(m_stream);
+    Q_ASSERT(m_stream);
     if (!m_stream) return i18n("unable to open aRts playback stream");
-    debug("PlayBackArts::open(): stream opened");
     m_closed = false;
 
     // calculate the buffer size and limit it if necessary
     // ask aRts for the optimum and ignore the user's setting
     m_buffer_size = arts_stream_get(m_stream, ARTS_P_PACKET_SIZE);
-    ASSERT(m_buffer_size >= (1U << MIN_PLAYBACK_BUFFER));
-    ASSERT(m_buffer_size <= (1U << MAX_PLAYBACK_BUFFER));
+    Q_ASSERT(m_buffer_size >= (1U << MIN_PLAYBACK_BUFFER));
+    Q_ASSERT(m_buffer_size <= (1U << MAX_PLAYBACK_BUFFER));
     if (m_buffer_size < (1U << MIN_PLAYBACK_BUFFER))
 	m_buffer_size = (1U << MIN_PLAYBACK_BUFFER);
     if (m_buffer_size > (1U << MAX_PLAYBACK_BUFFER))
@@ -107,14 +106,15 @@ QString PlayBackArts::open(const QString &, double rate,
 }
 
 //***************************************************************************
-int PlayBackArts::write(QArray<sample_t> &samples)
+int PlayBackArts::write(QMemArray<sample_t> &samples)
 {
-    ASSERT (m_buffer_used < m_buffer_size);
+    Q_ASSERT (m_buffer_used < m_buffer_size);
     if (m_buffer_used >= m_buffer_size) {
 	warning("PlayBackArts::write(): buffer overflow ?!");
 	return -EIO;
     }
-
+    Q_ASSERT(samples.count() == m_channels);
+    
     // convert into byte stream
     unsigned int channel;
     for (channel=0; channel < m_channels; channel++) {
@@ -152,9 +152,9 @@ int PlayBackArts::write(QArray<sample_t> &samples)
 void PlayBackArts::flush()
 {
     if (!m_buffer_used) return; // nothing to do
-    ASSERT(m_buffer_used <= m_buffer_size);
+    Q_ASSERT(m_buffer_used <= m_buffer_size);
 
-    ASSERT(m_stream);
+    Q_ASSERT(m_stream);
     if (m_stream) {
 	MutexGuard lock(m_lock_aRts);
 	

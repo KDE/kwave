@@ -23,7 +23,8 @@ ClipBoard::~ClipBoard()
 }
 
 //***************************************************************************
-void ClipBoard::copy(Signal &signal, const QArray<unsigned int> &track_list,
+void ClipBoard::copy(Signal &signal,
+                     const QMemArray<unsigned int> &track_list,
                      unsigned int offset, unsigned int length,
                      double rate)
 {
@@ -43,17 +44,17 @@ void ClipBoard::copy(Signal &signal, const QArray<unsigned int> &track_list,
     unsigned int i;
     for (i = 0; i < track_list.count(); i++) {
 	Track *t = new Track(length);
-	ASSERT(t);
+	Q_ASSERT(t);
 	if (!t) continue;
 	
 	// transfer with sample reader and writer	
 	SampleWriter *writer = t->openSampleWriter(Overwrite, 0, length-1);
-	ASSERT(writer);
+	Q_ASSERT(writer);
 	if (!writer) continue;
 	
 	SampleReader *reader = signal.openSampleReader(track_list[i],
 	                       offset, offset+length-1);
-	ASSERT(reader);
+	Q_ASSERT(reader);
 	if (reader) {
 	    // transfer the samples from the source track out buffer track
 	    *writer << *reader;
@@ -73,19 +74,19 @@ void ClipBoard::openMultiTrackReader(MultiTrackReader &readers)
 
     unsigned int count = m_buffer.count();
     readers.clear();
-    ASSERT(length());
+    Q_ASSERT(length());
     if (!length()) return; // clipboard is empty ?
 
     readers.resize(count);
-    QListIterator<Track> it(m_buffer);
+    QPtrListIterator<Track> it(m_buffer);
     unsigned int i = 0;
     for ( ; it.current(); ++it ) {
 	Track *track = it.current();
-	ASSERT(track);
+	Q_ASSERT(track);
 	if (!track) continue;
 	
 	SampleReader *reader = track->openSampleReader(0, length()-1);
-	ASSERT(reader);
+	Q_ASSERT(reader);
 	if (reader) readers.insert(i++, reader);
     }
 
@@ -114,11 +115,11 @@ unsigned int ClipBoard::length()
     unsigned int count = m_buffer.count();
     if (!count) return 0;
 
-    QListIterator<Track> it(m_buffer);
+    QPtrListIterator<Track> it(m_buffer);
     unsigned int max_len = 0;
     for (; it.current(); ++it) {
 	Track *track = it.current();
-	ASSERT(track);
+	Q_ASSERT(track);
 	if (!track) continue;
 	
 	unsigned int len = track->length();

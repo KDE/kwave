@@ -75,14 +75,14 @@ bool KwaveDrag::canDecode(const QMimeSource* e)
 //***************************************************************************
 bool KwaveDrag::encode(QWidget *widget, MultiTrackReader &src, FileInfo &info)
 {
-    ASSERT(src.count());
+    Q_ASSERT(src.count());
     if (!src.count()) return false;
-    ASSERT(src[0]);
+    Q_ASSERT(src[0]);
     if (!src[0]) return false;
 
     // use our default encoder
     Encoder *encoder = CodecManager::encoder(WAVE_FORMAT_PCM);
-    ASSERT(encoder);
+    Q_ASSERT(encoder);
     if (!encoder) return false;
 
     // create a buffer for the wav data
@@ -101,7 +101,7 @@ bool KwaveDrag::decode(QWidget *widget, const QMimeSource *e, Signal &sig)
 {
     // try to find a suitable decoder
     Decoder *decoder = CodecManager::decoder(e);
-    ASSERT(decoder);
+    Q_ASSERT(decoder);
     if (!decoder) return false;
 
     // decode, use the first format that matches

@@ -25,11 +25,11 @@
 KeywordWidget::KeywordWidget(QWidget *parent, const char *name)
     :KeywordWidgetBase(parent, name)
 {
-    ASSERT(edKeyword);
-    ASSERT(btAdd);
-    ASSERT(btAuto);
-    ASSERT(btRemove);
-    ASSERT(lstKeywords);
+    Q_ASSERT(edKeyword);
+    Q_ASSERT(btAdd);
+    Q_ASSERT(btAuto);
+    Q_ASSERT(btRemove);
+    Q_ASSERT(lstKeywords);
 
     connect(edKeyword, SIGNAL(textChanged(const QString &)),
             this, SLOT(editChanged(const QString &)));

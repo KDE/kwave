@@ -44,7 +44,7 @@ AsyncSync::AsyncSync()
     // Create new socket notifier to monitor when data is ready to be
     // read from pipe
     m_sn = new QSocketNotifier(m_fds[0], QSocketNotifier::Read);
-    ASSERT(m_sn);
+    Q_ASSERT(m_sn);
 
     // Connect up the socket notifier's activated routine to dequeue
     // any new clients added to Database

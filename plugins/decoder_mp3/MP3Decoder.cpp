@@ -375,11 +375,11 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 {
     debug("MP3Decoder::open()");
     info().clear();
-    ASSERT(!m_source);
+    Q_ASSERT(!m_source);
     if (m_source) warning("MP3Decoder::open(), already open !");
 
     /* open the file in readonly mode with seek enabled */
-    ASSERT(src.isDirectAccess());
+    Q_ASSERT(src.isDirectAccess());
     if (!src.isDirectAccess()) return false;
     if (!src.open(IO_ReadOnly)) {
 	warning("unable to open source in read-only mode!");
@@ -434,7 +434,7 @@ bool MP3Decoder::open(QWidget *widget, QIODevice &src)
 static enum mad_flow _input_adapter(void *data, struct mad_stream *stream)
 {
     MP3Decoder *decoder = (MP3Decoder*)data;
-    ASSERT(decoder);
+    Q_ASSERT(decoder);
     return (decoder) ? decoder->fillInput(stream) : MAD_FLOW_STOP;
 }
 
@@ -444,7 +444,7 @@ static enum mad_flow _output_adapter(void *data,
                                      struct mad_pcm *pcm)
 {
     MP3Decoder *decoder = (MP3Decoder*)data;
-    ASSERT(decoder);
+    Q_ASSERT(decoder);
     return (decoder) ?
         decoder->processOutput(data, header, pcm) : MAD_FLOW_STOP;
 }
@@ -454,7 +454,7 @@ static enum mad_flow _error_adapter(void *data, struct mad_stream *stream,
                                     struct mad_frame *frame)
 {
     MP3Decoder *decoder = (MP3Decoder*)data;
-    ASSERT(decoder);
+    Q_ASSERT(decoder);
     return (decoder) ?
         decoder->handleError(data, stream, frame) : MAD_FLOW_BREAK;
 }
@@ -524,7 +524,7 @@ enum mad_flow MP3Decoder::handleError(void */*data*/,
 //***************************************************************************
 enum mad_flow MP3Decoder::fillInput(struct mad_stream *stream)
 {
-    ASSERT(m_source);
+    Q_ASSERT(m_source);
     if (!m_source) return MAD_FLOW_STOP;
 
     // check if the user pressed cancel
@@ -655,7 +655,7 @@ enum mad_flow MP3Decoder::processOutput(void */*data*/,
 //***************************************************************************
 bool MP3Decoder::decode(QWidget *widget, MultiTrackWriter &dst)
 {
-    ASSERT(m_source);
+    Q_ASSERT(m_source);
     if (!m_source) return false;
     m_source->at(m_prepended_bytes); // skip id3v2 tag
 

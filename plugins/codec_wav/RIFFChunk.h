@@ -20,13 +20,13 @@
 
 #include "config.h"
 #include <sys/types.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstring.h>
 
 class RIFFChunk;
 
 /** shortcut for list of RIFF chunks */
-typedef QList<RIFFChunk> RIFFChunkList;
+typedef QPtrList<RIFFChunk> RIFFChunkList;
 
 /**
  * @class RIFFChunk

@@ -1,4 +1,10 @@
 
+0.6.7 [2003-06-xx]
+
+ * new plugin: "pitch_shift"
+ * new plugin: "lowpass"
+ * ported to work with Qt-3.1 without Qt-2 compatibility
+
 0.6.6 [2003-03-29]
 
  * works with KDE-3.1

@@ -302,7 +302,7 @@ void PitchShiftDialog::setParams(QStringList &params)
 //***************************************************************************
 void PitchShiftDialog::listenToggled(bool listen)
 {
-    ASSERT(btListen);
+    Q_ASSERT(btListen);
     if (!btListen) return;
     
     if (listen) {
@@ -319,7 +319,7 @@ void PitchShiftDialog::listenToggled(bool listen)
 //***************************************************************************
 void PitchShiftDialog::listenStopped()
 {
-    ASSERT(btListen);
+    Q_ASSERT(btListen);
     if (!btListen) return;
 
     btListen->setOn(false);

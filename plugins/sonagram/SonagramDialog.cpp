@@ -84,23 +84,23 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 
     // create the toplevel layout
     QVBoxLayout *topLayout = new QVBoxLayout(this, 10);
-    ASSERT(topLayout);
+    Q_ASSERT(topLayout);
     if (!topLayout) return;
 
     QHBoxLayout *pointsLayout = new QHBoxLayout();
-    ASSERT(pointsLayout);
+    Q_ASSERT(pointsLayout);
     if (!pointsLayout) return;
 
     QHBoxLayout *windowsizeLayout = new QHBoxLayout();
-    ASSERT(windowsizeLayout);
+    Q_ASSERT(windowsizeLayout);
     if (!windowsizeLayout) return;
 
     QHBoxLayout *bitmapLayout = new QHBoxLayout();
-    ASSERT(bitmapLayout);
+    Q_ASSERT(bitmapLayout);
     if (!bitmapLayout) return;
 
     QHBoxLayout *windowfuncLayout = new QHBoxLayout();
-    ASSERT(windowfuncLayout);
+    Q_ASSERT(windowfuncLayout);
     if (!windowfuncLayout) return;
 
     // ----------------------------------------------------------------------
@@ -108,21 +108,21 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // ----------------------------------------------------------------------
 
     QGroupBox *fft_frame = new QGroupBox(this);
-    ASSERT(fft_frame);
+    Q_ASSERT(fft_frame);
     if (!fft_frame) return;
     fft_frame->setTitle(i18n("FFT settings"));
     topLayout->addWidget(fft_frame);
 
     QVBoxLayout *fftLayout = new QVBoxLayout(fft_frame, 10);
-    ASSERT(fftLayout);
+    Q_ASSERT(fftLayout);
     if (!fftLayout) return;
 
     m_pointlabel = new QLabel(i18n("Number of FFT points:"), fft_frame);
-    ASSERT(m_pointlabel);
+    Q_ASSERT(m_pointlabel);
     if (!m_pointlabel) return;
 
     m_pointbox = new QComboBox (true, fft_frame);
-    ASSERT(m_pointbox);
+    Q_ASSERT(m_pointbox);
     if (!m_pointbox) return;
     m_pointbox->insertStrList (FFT_Sizes, -1);
     QToolTip::add(m_pointbox,
@@ -131,11 +131,11 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 	"The computation will be much faster !"));
 
     m_windowlabel = new QLabel("", fft_frame);
-    ASSERT(m_windowlabel);
+    Q_ASSERT(m_windowlabel);
     if (!m_windowlabel) return;
 
     m_windowtypebox = new QComboBox (true, fft_frame);
-    ASSERT(m_windowtypebox);
+    Q_ASSERT(m_windowtypebox);
     if (!m_windowtypebox) return;
     window_function_t wf = WINDOW_FUNC_NONE;
     for (unsigned int i=0; i < WindowFunction::count(); i++) {
@@ -148,16 +148,16 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 	"use the type <none>"));
 
     m_bitmaplabel = new QLabel("", fft_frame);
-    ASSERT(m_bitmaplabel);
+    Q_ASSERT(m_bitmaplabel);
     if (!m_bitmaplabel) return;
 
     m_pointslider = new QSlider (2, (m_length / 16), 1, 5,
 	QSlider::Horizontal, fft_frame);
-    ASSERT(m_pointslider);
+    Q_ASSERT(m_pointslider);
     if (!m_pointslider) return;
 
     m_windowtypelabel = new QLabel (i18n("Window Function :"), fft_frame);
-    ASSERT(m_windowtypelabel);
+    Q_ASSERT(m_windowtypelabel);
     if (!m_windowtypelabel) return;
 
     // -- create the fft frame's layout --
@@ -219,7 +219,7 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // ----------------------------------------------------------------------
 
     QHBoxLayout *guiLayout = new QHBoxLayout();
-    ASSERT(guiLayout);
+    Q_ASSERT(guiLayout);
     if (!guiLayout) return;
     topLayout->addLayout(guiLayout);
 
@@ -228,18 +228,18 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // ----------------------------------------------------------------------
 
     QButtonGroup *display_group = new QButtonGroup(this);
-    ASSERT(display_group);
+    Q_ASSERT(display_group);
     if (!display_group) return;
     display_group->setTitle(i18n("display"));
     guiLayout->addWidget(display_group);
 
     QVBoxLayout *displayLayout = new QVBoxLayout(display_group, 10);
-    ASSERT(displayLayout);
+    Q_ASSERT(displayLayout);
     if (!displayLayout) return;
     displayLayout->addSpacing(display_group->fontMetrics().height());
 
     m_rbColor = new QRadioButton(display_group);
-    ASSERT(m_rbColor);
+    Q_ASSERT(m_rbColor);
     if (!m_rbColor) return;
     m_rbColor->setText(i18n("use colors"));
     m_rbColor->setChecked(TRUE);
@@ -248,7 +248,7 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     QToolTip::add(m_rbColor, i18n("use different colors for amplitude"));
 
     m_rbGreyScale = new QRadioButton(display_group);
-    ASSERT(m_rbGreyScale);
+    Q_ASSERT(m_rbGreyScale);
     if (!m_rbGreyScale) return;
     m_rbGreyScale->setText(i18n("greyscale"));
     displayLayout->addWidget(m_rbGreyScale);
@@ -260,18 +260,18 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // ----------------------------------------------------------------------
 
     QButtonGroup *update_group = new QButtonGroup(this);
-    ASSERT(update_group);
+    Q_ASSERT(update_group);
     if (!update_group) return;
     update_group->setTitle(i18n("update"));
     guiLayout->addWidget(update_group);
 
     QVBoxLayout *updateLayout = new QVBoxLayout(update_group, 10);
-    ASSERT(updateLayout);
+    Q_ASSERT(updateLayout);
     if (!updateLayout) return;
     updateLayout->addSpacing(update_group->fontMetrics().height());
 
     m_cbTrackChanges = new QCheckBox(update_group);
-    ASSERT(m_cbTrackChanges);
+    Q_ASSERT(m_cbTrackChanges);
     if (!m_cbTrackChanges) return;
     m_cbTrackChanges->setText(i18n("on modifications"));
     updateLayout->addWidget(m_cbTrackChanges);
@@ -281,7 +281,7 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 	"if the signal data has modified"));
 
     m_cbFollowSelection = new QCheckBox(update_group);
-    ASSERT(m_cbFollowSelection);
+    Q_ASSERT(m_cbFollowSelection);
     if (!m_cbFollowSelection) return;
     m_cbFollowSelection->setText(i18n("follow selection"));
     updateLayout->addWidget(m_cbFollowSelection);
@@ -299,22 +299,22 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 
     // -- separator --
     QFrame *separator = new QFrame(this, "separator line");
-    ASSERT(separator);
+    Q_ASSERT(separator);
     if (!separator) return;
     separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
     separator->setFixedHeight(separator->sizeHint().height());
     topLayout->addWidget(separator);
 
     m_ok = new QPushButton(i18n("OK"), this);
-    ASSERT(m_ok);
+    Q_ASSERT(m_ok);
     if (!m_ok) return;
 
     m_cancel = new QPushButton(i18n("Cancel"), this);
-    ASSERT(m_cancel);
+    Q_ASSERT(m_cancel);
     if (!m_cancel) return;
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();
-    ASSERT(buttonsLayout);
+    Q_ASSERT(buttonsLayout);
     if (!buttonsLayout) return;
     topLayout->addLayout(buttonsLayout);
 
@@ -372,9 +372,9 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
 //***************************************************************************
 void SonagramDialog::parameters(QStringList &list)
 {
-    ASSERT(m_pointbox);
-    ASSERT(m_windowtypebox);
-    ASSERT(m_rbColor);
+    Q_ASSERT(m_pointbox);
+    Q_ASSERT(m_windowtypebox);
+    Q_ASSERT(m_rbColor);
 
     QString param;
     list.clear();
@@ -408,7 +408,7 @@ void SonagramDialog::parameters(QStringList &list)
 //***************************************************************************
 void SonagramDialog::setPoints(int points)
 {
-    ASSERT(points >= 0);
+    Q_ASSERT(points >= 0);
     QString text;
     points *= 2;
 
@@ -428,7 +428,7 @@ void SonagramDialog::setPoints(int points)
 //***************************************************************************
 void SonagramDialog::setWindowFunction(window_function_t type)
 {
-    ASSERT(m_windowtypebox);
+    Q_ASSERT(m_windowtypebox);
     if (!m_windowtypebox) return;
     m_windowtypebox->setCurrentItem(WindowFunction::index(type));
 }
@@ -436,7 +436,7 @@ void SonagramDialog::setWindowFunction(window_function_t type)
 //***************************************************************************
 void SonagramDialog::setColorMode(int color)
 {
-    ASSERT(m_rbColor);
+    Q_ASSERT(m_rbColor);
     if (!m_rbColor) return;
 
     m_rbColor->setChecked(color);
@@ -446,7 +446,7 @@ void SonagramDialog::setColorMode(int color)
 //***************************************************************************
 void SonagramDialog::setTrackChanges(bool track_changes)
 {
-    ASSERT(m_cbTrackChanges);
+    Q_ASSERT(m_cbTrackChanges);
     if (!m_cbTrackChanges) return;
     m_cbTrackChanges->setChecked(track_changes);
 }
@@ -454,7 +454,7 @@ void SonagramDialog::setTrackChanges(bool track_changes)
 //***************************************************************************
 void SonagramDialog::setFollowSelection(bool follow_selection)
 {
-    ASSERT(m_cbFollowSelection);
+    Q_ASSERT(m_cbFollowSelection);
     if (!m_cbFollowSelection) return;
     m_cbFollowSelection->setChecked(follow_selection);
 }
@@ -462,7 +462,7 @@ void SonagramDialog::setFollowSelection(bool follow_selection)
 //***************************************************************************
 void SonagramDialog::setBoxPoints(int num)
 {
-    ASSERT(num >= 0);
+    Q_ASSERT(num >= 0);
     int points = strtol(m_pointbox->text (num), 0, 0);
     m_pointslider->setValue(points / 2);
 }

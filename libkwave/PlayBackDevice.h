@@ -19,7 +19,7 @@
 #define _PLAY_BACK_DEVICE_H_
 
 #include "config.h"
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qobject.h>
 #include <qstring.h>
 #include "libkwave/Sample.h"
@@ -68,7 +68,7 @@ public:
      * @param samples array of samples for output
      * @return 0 if successful, or an error code if failed
      */
-    virtual int write(QArray<sample_t> &samples) = 0;
+    virtual int write(QMemArray<sample_t> &samples) = 0;
 
     /**
      * Closes the output device.

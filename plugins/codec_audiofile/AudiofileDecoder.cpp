@@ -30,7 +30,7 @@ extern "C" {
 #endif /* USE_BUILTIN_LIBAUDIOFILE */
 }
 
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qprogressdialog.h>
 
 #include <klocale.h>
@@ -46,7 +46,7 @@ extern "C" {
 
 #include "AudiofileDecoder.h"
 
-#define CHECK(cond) ASSERT(cond); if (!(cond)) { src.close(); return false; }
+#define CHECK(cond) Q_ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
 //***************************************************************************
 AudiofileDecoder::AudiofileDecoder()
@@ -86,7 +86,7 @@ Decoder *AudiofileDecoder::instance()
 bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 {
     info().clear();
-    ASSERT(!m_source);
+    Q_ASSERT(!m_source);
     if (m_source) warning("AudiofileDecoder::open(), already open !");
 
     // try to open the source
@@ -99,7 +99,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     m_source = &src;
     m_src_adapter = new VirtualAudioFile(*m_source);
 
-    ASSERT(m_src_adapter);
+    Q_ASSERT(m_src_adapter);
     if (!m_src_adapter) return false;
 
     m_src_adapter->open(m_src_adapter, 0);
@@ -179,7 +179,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     debug("rate        = %0.0f", info().rate());
     debug("bits/sample = %d", info().bits());
     debug("length      = %d samples", info().length());
-    debug("format      = %d (%s)", sample_format, sample_format_name.data());
+    debug("format      = %d (%s)", sample_format, sample_format_name.latin1());
     debug("-------------------------");
 
     // set up libaudiofile to produce Kwave's internal sample format
@@ -197,13 +197,13 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
 //***************************************************************************
 bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 {
-    ASSERT(m_src_adapter);
-    ASSERT(m_source);
+    Q_ASSERT(m_src_adapter);
+    Q_ASSERT(m_source);
     if (!m_source) return false;
     if (!m_src_adapter) return false;
 
     AFfilehandle fh = m_src_adapter->handle();
-    ASSERT(fh);
+    Q_ASSERT(fh);
     if (!fh) return false;
 
     unsigned int frame_size = (unsigned int)afGetVirtualFrameSize(fh,
@@ -212,7 +212,7 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
     // allocate a buffer for input data
     const unsigned int buffer_frames = (8*1024);
     int32_t *buffer = (int32_t *)malloc(buffer_frames * frame_size);
-    ASSERT(buffer);
+    Q_ASSERT(buffer);
     if (!buffer) return false;
 
     // read in from the audiofile source
@@ -225,7 +225,7 @@ bool AudiofileDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	    AF_DEFAULT_TRACK, (char *)buffer, frames);
 	
 	// break if eof reached	
-	ASSERT(buffer_used);
+	Q_ASSERT(buffer_used);
 	if (!buffer_used) break;
 	rest -= buffer_used;
 	

@@ -2,13 +2,13 @@
 #ifndef _LABEL_LIST_H_
 #define _LABEL_LIST_H_
 
-//#include <qlist.h>
+//#include <qptrlist.h>
 //
 //#include "Label.h"
 //
-//// Class for list of Labels has to inherit from QList to implement own
+//// Class for list of Labels has to inherit from QPtrList to implement own
 //// compareItems method for sorting
-//class LabelList: public QList<Label>
+//class LabelList: public QPtrList<Label>
 //{
 //public:
 //    LabelList();

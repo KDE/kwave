@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qframe.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qwidget.h>
 
 #include "kwave/SignalWidget.h"
@@ -247,10 +247,10 @@ private:
     QScrollBar *m_scrollbar;
 
     /** array of lamps, one for each channel */
-    QList<MultiStateWidget> m_lamps;
+    QPtrList<MultiStateWidget> m_lamps;
 
 //    /** array of speaker icons, one for each channel */
-//    QList<MultiStateWidget> m_speakers;
+//    QPtrList<MultiStateWidget> m_speakers;
 
     /** the last number of channels (for detecting changes) */
     unsigned int m_last_tracks;

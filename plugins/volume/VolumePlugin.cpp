@@ -55,17 +55,17 @@ int VolumePlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    ASSERT(params.count() == 2);
+    Q_ASSERT(params.count() == 2);
     if (params.count() != 2) return -EINVAL;
 
     param = params[0];
     m_factor = param.toDouble(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[1];
     m_mode = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok || (m_mode > 2)) return -EINVAL;
 
     // all parameters accepted
@@ -82,13 +82,13 @@ QStringList *VolumePlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     VolumeDialog *dialog = new VolumeDialog(parentWidget());
-    ASSERT(dialog);
+    Q_ASSERT(dialog);
     if (!dialog) return 0;
 
     if (!m_params.isEmpty()) dialog->setParams(m_params);
 
     QStringList *list = new QStringList();
-    ASSERT(list);
+    Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
 	*list = dialog->params();
@@ -109,7 +109,7 @@ void VolumePlugin::run(QStringList params)
 
     Arts::Dispatcher *dispatcher = manager().artsDispatcher();
     dispatcher->lock();
-    ASSERT(dispatcher);
+    Q_ASSERT(dispatcher);
     if (!dispatcher) close();
 
     UndoTransactionGuard undo_guard(*this, i18n("volume"));

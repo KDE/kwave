@@ -7,7 +7,7 @@
 #include "config.h"
 #include <limits.h>
 #include <pthread.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include "mt/SharedLock.h"
 #include "libkwave/InsertMode.h"
@@ -78,7 +78,7 @@ public:
     /**
      * Returns an array of indices of all present tracks.
      */
-    const QArray<unsigned int> allTracks();
+    const QMemArray<unsigned int> allTracks();
 
     /**
      * Opens an input stream for a track, starting at a specified sample
@@ -120,7 +120,7 @@ public:
      * @see SampleReader
      */
     void openMultiTrackReader(MultiTrackReader &readers,
-	const QArray<unsigned int> &track_list,
+	const QMemArray<unsigned int> &track_list,
 	unsigned int first, unsigned int last);
 
     /**
@@ -135,7 +135,7 @@ public:
      * @see InsertMode
      */
     void openMultiTrackWriter(MultiTrackWriter &writers,
-	const QArray<unsigned int> &track_list, InsertMode mode,
+	const QMemArray<unsigned int> &track_list, InsertMode mode,
 	unsigned int left, unsigned int right);
 
     /**
@@ -273,7 +273,7 @@ private:
 //    void averageFFT (int points, window_function_t windowtype);
 
     /** list of tracks */
-    QList<Track> m_tracks;
+    QPtrList<Track> m_tracks;
 
     /** mutex for access to the track list */
     SharedLock m_lock_tracks;

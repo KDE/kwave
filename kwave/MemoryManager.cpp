@@ -181,7 +181,7 @@ size_t MemoryManager::virtualUsed()
     size_t used = 0;
     QMap<void*,SwapFile*>::Iterator it;
     for (it=m_swap_files.begin(); it != m_swap_files.end(); ++it) {
-	ASSERT(it.data());
+	Q_ASSERT(it.data());
 	if (it.data()) used += (it.data()->size() >> 10) + 1;
     }
     return (used >> 10);
@@ -224,7 +224,7 @@ void *MemoryManager::allocateVirtual(size_t size)
 
     // try to allocate
     SwapFile *swap = new SwapFile();
-    ASSERT(swap);
+    Q_ASSERT(swap);
     if (!swap) return 0;
 
     void *block = swap->allocate(size, nextSwapFileName());
@@ -244,7 +244,7 @@ void *MemoryManager::convertToVirtual(void *block, size_t old_size,
                                       size_t new_size)
 {
     size_t current_size = m_physical_size[block];
-    ASSERT(current_size);
+    Q_ASSERT(current_size);
     void *new_block = allocateVirtual(new_size);
     if (!new_block) return 0;
 
@@ -291,7 +291,7 @@ void *MemoryManager::resize(void *block, size_t size)
     if (m_swap_files.contains(block)) {
 	// resize the pagefile
 	SwapFile *swap = m_swap_files[block];
-	ASSERT(swap);
+	Q_ASSERT(swap);
 	if (!swap) return 0;
 	
 	void *new_block = swap->resize(size);
@@ -315,7 +315,7 @@ void MemoryManager::free(void *&block)
     if (m_swap_files.contains(block)) {
 	// remove the pagefile
 	SwapFile *swap = m_swap_files[block];
-	ASSERT(swap);
+	Q_ASSERT(swap);
 	if (swap) {
 	    m_swap_files[block] = 0;
 	    delete swap;
@@ -326,7 +326,7 @@ void MemoryManager::free(void *&block)
     if (m_physical_size.contains(block)) {
 	// physical memory
 	void *b = block;
-	ASSERT(b);
+	Q_ASSERT(b);
 	m_physical_size[block] = 0;
 	if (b) ::free(b);
 	m_physical_size.remove(block);

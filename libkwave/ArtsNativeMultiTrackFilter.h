@@ -21,7 +21,7 @@
 #include "config.h"
 #include <string.h>
 #include <qglobal.h> // for warning()
-#include <qvector.h>
+#include <qptrvector.h>
 
 #include <arts/artsflow.h>
 #include <arts/connect.h>
@@ -180,7 +180,7 @@ private:
     unsigned int m_count;
 
     /** list of the filters */
-    QVector<Arts::SynthModule> m_filter;
+    QPtrVector<Arts::SynthModule> m_filter;
 
 };
 

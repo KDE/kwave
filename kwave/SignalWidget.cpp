@@ -125,7 +125,7 @@ SignalWidget::SignalWidget(QWidget *parent)
     }
 
     m_selection = new MouseMark();
-    ASSERT(m_selection);
+    Q_ASSERT(m_selection);
     if (!m_selection) return;
 
     // connect to the signal manager's signals
@@ -157,7 +157,7 @@ SignalWidget::SignalWidget(QWidget *parent)
             this, SLOT(updatePlaybackPointer(unsigned int)));
 
 //    labels = new LabelList();
-//    ASSERT(labels);
+//    Q_ASSERT(labels);
 //    if (!labels) return;
 //    labels->setAutoDelete (true);
 
@@ -195,8 +195,8 @@ void SignalWidget::refreshSignalLayer()
 //***************************************************************************
 bool SignalWidget::isOK()
 {
-////    ASSERT(labels);
-    ASSERT(m_selection);
+////    Q_ASSERT(labels);
+    Q_ASSERT(m_selection);
     return ( /* labels && */ m_selection );
 }
 
@@ -229,7 +229,7 @@ int SignalWidget::saveFile(const KURL &url, bool selection)
 void SignalWidget::toggleTrackSelection(int track)
 {
     // here we have to convert to unsigned
-    ASSERT(track >= 0);
+    Q_ASSERT(track >= 0);
     if (track < 0) return;
     unsigned int t = static_cast<unsigned int>(track);
     bool select = !m_signal_manager.trackSelected(t);
@@ -465,7 +465,7 @@ void SignalWidget::setOffset(unsigned int new_offset)
     unsigned int n_tracks = m_track_pixmaps.count();
     for (unsigned int i = 0; i < n_tracks; i++) {
 	TrackPixmap *pix = m_track_pixmaps.at(i);
-	ASSERT(pix);
+	Q_ASSERT(pix);
 	if (!pix) continue;
 	
 	pix->setOffset(m_offset);
@@ -512,7 +512,7 @@ void SignalWidget::setZoom(double new_zoom)
     unsigned int n_tracks = m_track_pixmaps.count();
     for (unsigned int i = 0; i < n_tracks; i++) {
 	TrackPixmap *pix = m_track_pixmaps.at(i);
-	ASSERT(pix);
+	Q_ASSERT(pix);
 	if (!pix) continue;
 	
 	pix->setOffset(m_offset);
@@ -688,7 +688,7 @@ void SignalWidget::inhibitRepaint()
 //***************************************************************************
 void SignalWidget::allowRepaint(bool repaint)
 {
-    ASSERT(m_inhibit_repaint);
+    Q_ASSERT(m_inhibit_repaint);
     if (!m_inhibit_repaint) return;
 
     // decrease the number of repaint locks
@@ -717,8 +717,8 @@ void SignalWidget::refreshLayer(int layer)
 {
     InhibitRepaintGuard inhibit(*this);
 
-    ASSERT(layer >= 0);
-    ASSERT(layer < 3);
+    Q_ASSERT(layer >= 0);
+    Q_ASSERT(layer < 3);
     if ((layer < 0) || (layer >= 3)) return;
 
     m_update_layer[layer] = true;
@@ -729,7 +729,7 @@ void SignalWidget::refreshLayer(int layer)
 //***************************************************************************
 int SignalWidget::selectionPosition(const int x)
 {
-    ASSERT(m_selection);
+    Q_ASSERT(m_selection);
     if (!m_selection) return None;
 
     /** @todo selection tolerance should depend on some KDE setting,
@@ -739,7 +739,7 @@ int SignalWidget::selectionPosition(const int x)
     const unsigned int last  = m_signal_manager.selection().last();
     const unsigned int ofs   = m_offset;
     const unsigned int w     = pixels2samples(w);
-    ASSERT(first <= last);
+    Q_ASSERT(first <= last);
 
     // get pixel coordinates
     const int l = (first < ofs) ? -(2*tol) : (samples2pixels(first-ofs));
@@ -781,8 +781,8 @@ bool SignalWidget::isInSelection(int x)
 //***************************************************************************
 void SignalWidget::mousePressEvent(QMouseEvent *e)
 {
-    ASSERT(e);
-    ASSERT(m_selection);
+    Q_ASSERT(e);
+    Q_ASSERT(m_selection);
     if (!e) return;
     if (!m_selection) return;
 
@@ -836,8 +836,8 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 //***************************************************************************
 void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 {
-    ASSERT(e);
-    ASSERT(m_selection);
+    Q_ASSERT(e);
+    Q_ASSERT(m_selection);
     if (!e) return;
     if (!m_selection) return;
 
@@ -879,9 +879,9 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
 //***************************************************************************
 void SignalWidget::mouseMoveEvent(QMouseEvent *e)
 {
-    ASSERT(e);
-    ASSERT(m_selection);
-    ASSERT(m_width);
+    Q_ASSERT(e);
+    Q_ASSERT(m_selection);
+    Q_ASSERT(m_width);
     if (!e) return;
     if (!m_selection) return;
     if (!m_width) return;
@@ -975,7 +975,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     if ( m_update_layer[LAYER_SIGNAL] || !m_layer[LAYER_SIGNAL]) {
 	if (!m_layer[LAYER_SIGNAL])
 	     m_layer[LAYER_SIGNAL] = new QPixmap(size());
-	ASSERT(m_layer[LAYER_SIGNAL]);
+	Q_ASSERT(m_layer[LAYER_SIGNAL]);
 	if (!m_layer[LAYER_SIGNAL]) return;
 	
 //	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
@@ -1017,7 +1017,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     if ( m_update_layer[LAYER_MARKERS] || !m_layer[LAYER_MARKERS] ) {
 	if (!m_layer[LAYER_MARKERS])
 	     m_layer[LAYER_MARKERS] = new QPixmap(size());
-	ASSERT(m_layer[LAYER_MARKERS]);
+	Q_ASSERT(m_layer[LAYER_MARKERS]);
 	if (!m_layer[LAYER_MARKERS]) return;
 	
 //	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
@@ -1036,7 +1036,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     if (( m_update_layer[LAYER_SELECTION] || !m_layer[LAYER_SELECTION] )) {
 	if (!m_layer[LAYER_SELECTION])
 	    m_layer[LAYER_SELECTION] = new QPixmap(size());
-	ASSERT(m_layer[LAYER_SELECTION]);
+	Q_ASSERT(m_layer[LAYER_SELECTION]);
 	if (!m_layer[LAYER_SELECTION]) return;
 
 //	debug("SignalWidget::paintEvent(): - redraw of selection layer -");
@@ -1075,7 +1075,7 @@ void SignalWidget::paintEvent(QPaintEvent *)
     // --- re-create the buffer pixmap if it has been deleted ---
     if (!m_pixmap) {
 	m_pixmap = new QPixmap(size());
-	ASSERT(m_pixmap);
+	Q_ASSERT(m_pixmap);
 	if (!m_pixmap) return;
 	update_pixmap = true;
     }
@@ -1223,7 +1223,7 @@ LabelType *findMarkerType (const char */*txt*/)
 //    QString name = KFileDialog::getSaveFileName (0, "*.label", this);
 //    if (!name.isNull()) {
 //	FILE *out;
-//	out = fopen (name.data(), "w");
+//	out = fopen (name.latin1(), "w");
 //
 //	Parser parser (typestring);
 //	Label *tmp;
@@ -1360,7 +1360,7 @@ LabelType *findMarkerType (const char */*txt*/)
 //
 //	    QString name = KFileDialog::getSaveFileName (0, "*.dat", this);
 //	    if (!name.isNull()) {
-//		QFile out(name.data());
+//		QFile out(name.latin1());
 //		char buf[160];
 //		float freq = 0, time, lastfreq = 0;
 //		out.open (IO_WriteOnly);
@@ -1690,7 +1690,7 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
 {
     // insert a new track into the track pixmap list
     TrackPixmap *pix = new TrackPixmap(track);
-    ASSERT(pix);
+    Q_ASSERT(pix);
     m_track_pixmaps.insert(index, pix);
     if (!pix) return;
 
@@ -1754,7 +1754,7 @@ void SignalWidget::startDragging()
     if (!length) return;
 
     KwaveDrag *d = new KwaveDrag(this);
-    ASSERT(d);
+    Q_ASSERT(d);
     if (!d) return;
 
     MultiTrackReader src;

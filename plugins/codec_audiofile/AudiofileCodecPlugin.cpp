@@ -39,7 +39,7 @@ AudiofileCodecPlugin::~AudiofileCodecPlugin()
 void AudiofileCodecPlugin::load(QStringList &/* params */)
 {
     if (!m_decoder) m_decoder = new AudiofileDecoder();
-    ASSERT(m_decoder);
+    Q_ASSERT(m_decoder);
     if (m_decoder) CodecManager::registerDecoder(*m_decoder);
 }
 

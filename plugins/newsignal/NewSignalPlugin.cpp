@@ -48,27 +48,27 @@ int NewSignalPlugin::interpreteParameters(QStringList &params)
 
     param = params[0];
     m_samples = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[1];
     m_rate = (unsigned int)param.toDouble(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[2];
     m_bits = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[3];
     m_tracks = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[4];
     m_bytime = (param.toUInt(&ok) != 0);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     return 0;
@@ -83,11 +83,11 @@ QStringList *NewSignalPlugin::setup(QStringList &previous_params)
     // create the setup dialog
     NewSignalDialog *dialog = new NewSignalDialog(parentWidget(),
         m_samples, m_rate, m_bits, m_tracks, m_bytime);
-    ASSERT(dialog);
+    Q_ASSERT(dialog);
     if (!dialog) return 0;
 
     QStringList *list = new QStringList();
-    ASSERT(list);
+    Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
 	*list << QString::number(dialog->samples());

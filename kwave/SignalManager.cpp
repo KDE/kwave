@@ -24,7 +24,7 @@
 #include <qbitmap.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qpainter.h>
 #include <qstring.h>
 #include <qtimer.h>
@@ -133,8 +133,8 @@ int SignalManager::loadFile(const KURL &url)
     disableUndo();
 
     QString mimetype = CodecManager::whatContains(url);
-    debug("SignalManager::loadFile(%s) - [%s]", url.prettyURL().data(),
-          mimetype.data());
+    debug("SignalManager::loadFile(%s) - [%s]", url.prettyURL().latin1(),
+          mimetype.latin1());
     Decoder *decoder = CodecManager::decoder(mimetype);
     while (decoder) {
 	// be sure that the current signal is really closed
@@ -144,7 +144,7 @@ int SignalManager::loadFile(const KURL &url)
 	QString filename = url.path();
 	QFile src(filename);
 	if (!(decoder->open(m_parent_widget, src))) {
-	    warning("unable to open source: '%s'", url.prettyURL().data());
+	    warning("unable to open source: '%s'", url.prettyURL().latin1());
 	    res = -EIO;
 	    break;
 	}
@@ -170,10 +170,10 @@ int SignalManager::loadFile(const KURL &url)
 	unsigned int track;
 	const unsigned int tracks = decoder->info().tracks();
 	const unsigned int length = decoder->info().length();
-	ASSERT(tracks);
+	Q_ASSERT(tracks);
 	for (track=0; track < tracks; ++track) {
 	    Track *t = m_signal.appendTrack(length);
-	    ASSERT(t);
+	    Q_ASSERT(t);
 	    if (!t || (t->length() != length)) {
 		warning("out of memory");
 		res = -ENOMEM;
@@ -202,7 +202,7 @@ int SignalManager::loadFile(const KURL &url)
 	dialog = new FileProgress(m_parent_widget,
 	    filename, resulting_size,
 	    info.length(), info.rate(), info.bits(), info.tracks());
-	ASSERT(dialog);
+	Q_ASSERT(dialog);
 	if (use_src_size) {
 	    // use source size for progress / stream mode
 	    QObject::connect(decoder, SIGNAL(sourceProcessed(unsigned int)),
@@ -291,7 +291,7 @@ int SignalManager::save(const KURL &url, bool selection)
     QString mimetype_name;
     mimetype_name = KMimeType::findByURL(url)->name();
     debug("SignalManager::save(%s) - [%s] (%d bit, selection=%d)",
-	url.prettyURL().data(), mimetype_name.data(), bits, selection);
+	url.prettyURL().latin1(), mimetype_name.latin1(), bits, selection);
 
     Encoder *encoder = CodecManager::encoder(mimetype_name);
     if (encoder) {
@@ -310,7 +310,7 @@ int SignalManager::save(const KURL &url, bool selection)
                  (m_file_info.canLoadSave(it.key())) )
 	    {
 		warning("SignalManager::save(): unsupported property '%s'",
-		    m_file_info.name(it.key()).data());
+		    m_file_info.name(it.key()).latin1());
 		all_supported = false;
 		lost_properties += m_file_info.name(it.key()) + "\n";
 	    }
@@ -350,7 +350,7 @@ int SignalManager::save(const KURL &url, bool selection)
 	    (m_file_info.bits() >> 3),
 	    m_file_info.length(), m_file_info.rate(), m_file_info.bits(),
 	    m_file_info.tracks());
-	ASSERT(dialog);
+	Q_ASSERT(dialog);
 	QObject::connect(&src,   SIGNAL(progress(unsigned int)),
 	                 dialog, SLOT(setValue(unsigned int)));
 	QObject::connect(dialog, SIGNAL(cancelled()),
@@ -445,11 +445,11 @@ void SignalManager::close()
 }
 
 //***************************************************************************
-const QArray<unsigned int> SignalManager::selectedTracks()
+const QMemArray<unsigned int> SignalManager::selectedTracks()
 {
     unsigned int track;
     unsigned int count = 0;
-    QArray<unsigned int> list(tracks());
+    QMemArray<unsigned int> list(tracks());
 
     for (track=0; track < list.count(); track++) {
 	if (!m_signal.trackSelected(track)) continue;
@@ -461,7 +461,7 @@ const QArray<unsigned int> SignalManager::selectedTracks()
 }
 
 //***************************************************************************
-const QArray<unsigned int> SignalManager::allTracks()
+const QMemArray<unsigned int> SignalManager::allTracks()
 {
     return m_signal.allTracks();
 }
@@ -506,7 +506,7 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 	    action = new UndoModifyAction(track, left, right-left+1);
 	    break;
     }
-    ASSERT(action);
+    Q_ASSERT(action);
 
     {
 	ThreadsafeX11Guard x11_guard;
@@ -530,7 +530,7 @@ SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 
 //***************************************************************************
 void SignalManager::openMultiTrackReader(MultiTrackReader &readers,
-    const QArray<unsigned int> &track_list,
+    const QMemArray<unsigned int> &track_list,
     unsigned int first, unsigned int last)
 {
     m_signal.openMultiTrackReader(readers, track_list, first, last);
@@ -538,7 +538,7 @@ void SignalManager::openMultiTrackReader(MultiTrackReader &readers,
 
 //***************************************************************************
 void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
-    const QArray<unsigned int> &track_list, InsertMode mode,
+    const QMemArray<unsigned int> &track_list, InsertMode mode,
     unsigned int left, unsigned int right)
 {
     UndoTransactionGuard guard(*this, 0);
@@ -567,7 +567,7 @@ void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
 //***************************************************************************
 bool SignalManager::executeCommand(const QString &command)
 {
-//    debug("SignalManager::executeCommand(%s)", command.data());    // ###
+//    debug("SignalManager::executeCommand(%s)", command.latin1());    // ###
 
     unsigned int offset = m_selection.offset();
     unsigned int length = m_selection.length();
@@ -595,7 +595,7 @@ bool SignalManager::executeCommand(const QString &command)
 	UndoTransactionGuard undo(*this, i18n("crop"));
 	unsigned int rest = this->length() - offset;
 	rest = (rest > length) ? (rest-length) : 0;
-	QArray<unsigned int> tracks = selectedTracks();
+	QMemArray<unsigned int> tracks = selectedTracks();
 	if (saveUndoDelete(tracks, offset+length, rest) &&
 	    saveUndoDelete(tracks, 0, offset))
 	{
@@ -620,7 +620,7 @@ bool SignalManager::executeCommand(const QString &command)
 //		/* ### check if the signal has to be re-sampled ### */
 //
 //		for (unsigned int i = 0; i < m_channels; i++) {
-//		    ASSERT(signal.at(i));
+//		    Q_ASSERT(signal.at(i));
 //		    if (signal.at(i)) {
 //			signal.at(i)->mixPaste(
 //			    toinsert->getSignal(sourcechan)
@@ -654,7 +654,7 @@ bool SignalManager::executeCommand(const QString &command)
 void SignalManager::paste(ClipBoard &clipboard, unsigned int offset,
                           unsigned int length)
 {
-    QArray<unsigned int> selected_tracks = selectedTracks();
+    QMemArray<unsigned int> selected_tracks = selectedTracks();
     if (clipboard.isEmpty()) return;
     if (!selected_tracks.size()) return;
 
@@ -718,7 +718,7 @@ void SignalManager::insertTrack(unsigned int index)
     }
 
     unsigned int count = tracks();
-    ASSERT(index <= count);
+    Q_ASSERT(index <= count);
     if (index > count) index = count;
 
     // if the signal is currently empty, use the last
@@ -822,7 +822,7 @@ SignalManager::~SignalManager()
 
 //***************************************************************************
 bool SignalManager::deleteRange(unsigned int offset, unsigned int length,
-                                const QArray<unsigned int> &track_list)
+                                const QMemArray<unsigned int> &track_list)
 {
     if (!length) return true; // nothing to do
     UndoTransactionGuard undo(*this, i18n("delete"));
@@ -875,7 +875,7 @@ void SignalManager::selectRange(unsigned int offset, unsigned int length)
 }
 
 //***************************************************************************
-void SignalManager::selectTracks(QArray<unsigned int> &track_list)
+void SignalManager::selectTracks(QMemArray<unsigned int> &track_list)
 {
     unsigned int track;
     unsigned int n_tracks = tracks();
@@ -915,7 +915,7 @@ int SignalManager::loadAscii()
     float amp;
     int *sample = 0;
 
-    FILE *sigin = fopen(m_name.data(), "r");
+    FILE *sigin = fopen(m_name.latin1(), "r");
     if (!sigin) {
 	KMessageBox::error(0, i18n("File does not exist !"), i18n("Info"), 2);
 	return -ENOENT;
@@ -942,7 +942,7 @@ int SignalManager::loadAscii()
     // get the maximum and the scale
     amp = (float)((1 << 23)-1) / max;
     Signal *new_signal = new Signal(cnt, rate);
-    ASSERT(new_signal);
+    Q_ASSERT(new_signal);
 
     if (new_signal) {
 	signal.append(new_signal);
@@ -976,18 +976,18 @@ void SignalManager::emitStatusInfo()
 
 int SignalManager::exportAscii(const char *name)
 {
-    ASSERT(name);
+    Q_ASSERT(name);
     if (!name) return ;
 
     unsigned int length = getLength();
-    ASSERT(length);
+    Q_ASSERT(length);
     if (!length) return;
 
-    ASSERT(m_channels);
+    Q_ASSERT(m_channels);
     if (!m_channels) return;
 
     FILE *sigout = fopen(name, "w");
-    ASSERT(sigout);
+    Q_ASSERT(sigout);
     if (!sigout) return;
 
     //prepare and show the progress dialog
@@ -1062,13 +1062,13 @@ void SignalManager::startUndoTransaction(const QString &name)
 	flushRedoBuffer();
 	
 	m_undo_transaction = new UndoTransaction(name);
-	ASSERT(m_undo_transaction);
+	Q_ASSERT(m_undo_transaction);
 	if (!m_undo_transaction) return;
 	
 	// if it is the start of the transaction, also create one
 	// for the selection
 	UndoAction *selection = new UndoSelection(*this);
-	ASSERT(selection);
+	Q_ASSERT(selection);
 	if (selection) {
 	    selection->store(*this);
 	    m_undo_transaction->append(selection);
@@ -1113,7 +1113,7 @@ void SignalManager::enableUndo()
 //***************************************************************************
 void SignalManager::disableUndo()
 {
-    ASSERT(m_undo_transaction_level == 0);
+    Q_ASSERT(m_undo_transaction_level == 0);
 
     m_undo_enabled = false;
     flushUndoBuffers();
@@ -1124,7 +1124,7 @@ void SignalManager::flushUndoBuffers()
 {
     MutexGuard lock(m_undo_transaction_lock);
 
-    ASSERT(m_undo_transaction_level == 0);
+    Q_ASSERT(m_undo_transaction_level == 0);
 
     // close the current transaction
     if (m_undo_transaction) delete m_undo_transaction;
@@ -1168,7 +1168,7 @@ void SignalManager::flushRedoBuffer()
 bool SignalManager::registerUndoAction(UndoAction *action)
 {
     MutexGuard lock(m_undo_transaction_lock);
-    ASSERT(action);
+    Q_ASSERT(action);
     if (!action) return false;
 
     // if undo is not enabled, return a faked "ok"
@@ -1212,14 +1212,14 @@ bool SignalManager::registerUndoAction(UndoAction *action)
 }
 
 //***************************************************************************
-bool SignalManager::saveUndoDelete(QArray<unsigned int> &track_list,
+bool SignalManager::saveUndoDelete(QMemArray<unsigned int> &track_list,
                                    unsigned int offset, unsigned int length)
 {
     if (!m_undo_enabled) return true;
     if (track_list.isEmpty()) return true;
 
     unsigned int count = track_list.count();
-    QList<UndoDeleteAction> undo_list;
+    QPtrList<UndoDeleteAction> undo_list;
     undo_list.setAutoDelete(true);
 
     // loop over all tracks
@@ -1244,11 +1244,11 @@ unsigned int SignalManager::usedUndoRedoMemory()
 {
     unsigned int size = 0;
 
-    QListIterator<UndoTransaction> undo_it(m_undo_buffer);
+    QPtrListIterator<UndoTransaction> undo_it(m_undo_buffer);
     for ( ; undo_it.current(); ++undo_it ) {
 	size += undo_it.current()->undoSize();
     }
-    QListIterator<UndoTransaction> redo_it(m_redo_buffer);
+    QPtrListIterator<UndoTransaction> redo_it(m_redo_buffer);
     for ( ; redo_it.current(); ++redo_it ) {
 	size += redo_it.current()->undoSize();
     }
@@ -1322,7 +1322,7 @@ void SignalManager::undo()
     // get the last undo transaction and abort if none present
     if (m_undo_buffer.isEmpty()) return;
     UndoTransaction *undo_transaction = m_undo_buffer.last();
-    ASSERT(undo_transaction);
+    Q_ASSERT(undo_transaction);
     if (!undo_transaction) return;
 
     // remove the undo transaction from the list without deleting it
@@ -1348,7 +1348,7 @@ void SignalManager::undo()
 	// create a new redo transaction
 	QString name = undo_transaction->description();
 	redo_transaction = new UndoTransaction(name);
-	ASSERT(redo_transaction);
+	Q_ASSERT(redo_transaction);
     }
 
     // if *one* redo fails, all following redoes will also fail or
@@ -1370,7 +1370,7 @@ void SignalManager::undo()
 	undo_transaction->setAutoDelete(false);
 	undo_action = undo_transaction->last();
 	undo_transaction->removeLast();
-	ASSERT(undo_action);
+	Q_ASSERT(undo_action);
 	if (!undo_action) continue;
 	
 	// execute the undo operation
@@ -1443,7 +1443,7 @@ void SignalManager::redo()
 	// create a new undo transaction
 	QString name = redo_transaction->description();
 	undo_transaction = new UndoTransaction(name);
-	ASSERT(undo_transaction);
+	Q_ASSERT(undo_transaction);
     }
 
     // if *one* undo fails, all following undoes will also fail or
@@ -1466,7 +1466,7 @@ void SignalManager::redo()
 	redo_transaction->setAutoDelete(false);
 	redo_action = redo_transaction->first();
 	redo_transaction->removeFirst();
-	ASSERT(redo_action);
+	Q_ASSERT(redo_action);
 	if (!redo_action) continue;
 	
 	// execute the redo operation
@@ -1527,7 +1527,7 @@ void SignalManager::setFileInfo(FileInfo &new_info, bool with_undo)
 	/* save data for undo */
 	UndoTransactionGuard undo_transaction(*this, i18n("modify file info"));
 	UndoFileInfo *undo = new UndoFileInfo(*this);
-	ASSERT(undo);
+	Q_ASSERT(undo);
 	if (!undo) return;
 	if (!registerUndoAction(undo)) return;
     }

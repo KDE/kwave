@@ -46,12 +46,12 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
     m_offset = offset;
     m_length = signal_length;
     
-    ASSERT(m_rate);
-    ASSERT(m_length);
-    ASSERT(rbTime);
-    ASSERT(rbSamples);
-    ASSERT(rbPercents);
-    ASSERT(m_offset < m_length);
+    Q_ASSERT(m_rate);
+    Q_ASSERT(m_length);
+    Q_ASSERT(rbTime);
+    Q_ASSERT(rbSamples);
+    Q_ASSERT(rbPercents);
+    Q_ASSERT(m_offset < m_length);
     if (!m_rate) m_rate = 1.0;
     if (!m_length) m_length = 1;
 
@@ -89,7 +89,7 @@ void SelectTimeWidget::init(Mode mode, double range, double sample_rate,
 	}
 	case bySamples: {
             unsigned int samples = (unsigned int)rint(m_range);
-	    ASSERT(samples <= INT_MAX);
+	    Q_ASSERT(samples <= INT_MAX);
 	    if (samples > INT_MAX) samples = INT_MAX;
 	    edSamples->setValue((int)samples);
 	    break;
@@ -276,7 +276,7 @@ void SelectTimeWidget::timeChanged(int)
 	seconds = 0;
 	milliseconds = 0;
     }
-    ASSERT((hours>=0) && (minutes>=0) && (seconds>=0) && (milliseconds>=0));
+    Q_ASSERT((hours>=0) && (minutes>=0) && (seconds>=0) && (milliseconds>=0));
 
     int ms =
         (int)milliseconds +
@@ -303,7 +303,7 @@ void SelectTimeWidget::timeChanged(int)
 
     // update the other widgets
     unsigned int samples = (unsigned int)ceil((double)ms * m_rate * 1E-3);
-    ASSERT(samples <= INT_MAX);
+    Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
     sbPercents->setValue((int)(100.0 * (double)ms / (m_length/m_rate*1E3)));
 
@@ -385,7 +385,7 @@ void SelectTimeWidget::percentsChanged(int p)
 
     // update the other widgets
     unsigned int samples = (unsigned int)((double)m_length*percents/100.0);
-    ASSERT(samples <= INT_MAX);
+    Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
     edSamples->setValue(samples);
 
@@ -436,7 +436,7 @@ void SelectTimeWidget::setOffset(unsigned int offset)
     t /= 60;
     sbHours->setValue(t);
 
-    ASSERT(samples <= INT_MAX);
+    Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
     edSamples->setValue(samples);
 

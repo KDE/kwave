@@ -21,7 +21,7 @@
 #include "config.h"
 #include <string.h>
 #include <qglobal.h> // for warning()
-#include <qvector.h>
+#include <qptrvector.h>
 
 #include <arts/artsflow.h>
 #include <arts/connect.h>
@@ -46,7 +46,7 @@ public:
 	    m_filter.insert(i, 0);
 	
 	    FILTER_IMPL *f = new FILTER_IMPL();
-	    ASSERT(f);
+	    Q_ASSERT(f);
 	    if (f) m_filter.insert(i, new FILTER(FILTER::_from_base(f)));
 	
 	    if (!m_filter[i]) {
@@ -140,7 +140,7 @@ private:
     unsigned int m_count;
 
     /** list of the filters */
-    QVector<FILTER> m_filter;
+    QPtrVector<FILTER> m_filter;
 };
 
 #endif /* _ARTS_KWAVE_MULTI_TRACK_FILTER_H_ */

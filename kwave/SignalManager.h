@@ -22,8 +22,8 @@
 #include <stdio.h>
 
 #include <qobject.h>
-#include <qarray.h>
-#include <qlist.h>
+#include <qmemarray.h>
+#include <qptrlist.h>
 #include <qstring.h>
 
 #include "mt/Mutex.h"
@@ -134,12 +134,12 @@ public:
     /**
      * Returns an array of indices of currently selected tracks.
      */
-    const QArray<unsigned int> selectedTracks();
+    const QMemArray<unsigned int> selectedTracks();
 
     /**
      * Returns an array of indices of all present tracks.
      */
-    const QArray<unsigned int> allTracks();
+    const QMemArray<unsigned int> allTracks();
 
     /**
      * Saves the signal to a file with a given resolution. If the file
@@ -166,7 +166,7 @@ public:
      *         memory for undo
      */
     bool deleteRange(unsigned int offset, unsigned int length,
-                     const QArray<unsigned int> &track_list);
+                     const QMemArray<unsigned int> &track_list);
 
     /**
      * Deletes a range of samples and creates an undo action. Same as
@@ -209,7 +209,7 @@ public:
      * Selects multiple tracks, all other tracks will be disabled.
      * @param track_list list od track indices
      */
-    void selectTracks(QArray<unsigned int> &track_list);
+    void selectTracks(QMemArray<unsigned int> &track_list);
 
     /**
      * Sets the selection flag of a track.
@@ -266,7 +266,7 @@ public:
      * @see Signal::openMultiTrackWriter
      */
     void openMultiTrackReader(MultiTrackReader &readers,
-	const QArray<unsigned int> &track_list,
+	const QMemArray<unsigned int> &track_list,
 	unsigned int first, unsigned int last);
 
     /**
@@ -281,7 +281,7 @@ public:
      * @see Signal::openMultiTrackWriter
      */
     void openMultiTrackWriter(MultiTrackWriter &writers,
-	const QArray<unsigned int> &track_list, InsertMode mode,
+	const QMemArray<unsigned int> &track_list, InsertMode mode,
 	unsigned int left, unsigned int right);
 
     /** Returns true if undo/redo is currently enabled */
@@ -542,7 +542,7 @@ protected:
      * @param length number of samples to delete
      * @return true if successful, false if out of memory or aborted
      */
-    bool saveUndoDelete(QArray<unsigned int> &track_list,
+    bool saveUndoDelete(QMemArray<unsigned int> &track_list,
                         unsigned int offset, unsigned int length);
 
     /**
@@ -644,10 +644,10 @@ private:
     bool m_undo_enabled;
 
     /** fifo used for storing all undo transactions */
-    QList<UndoTransaction> m_undo_buffer;
+    QPtrList<UndoTransaction> m_undo_buffer;
 
     /** fifo for storing all redo transactions */
-    QList<UndoTransaction> m_redo_buffer;
+    QPtrList<UndoTransaction> m_redo_buffer;
 
     /** the current undo transaction */
     UndoTransaction *m_undo_transaction;

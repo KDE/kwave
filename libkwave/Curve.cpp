@@ -19,7 +19,7 @@
 #include <float.h>
 #include <math.h>
 
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstring.h>
 
 #include "Parser.h"
@@ -85,7 +85,7 @@ Interpolation &Curve::interpolation()
 };
 
 //***************************************************************************
-QArray<double> Curve::interpolation(unsigned int points)
+QMemArray<double> Curve::interpolation(unsigned int points)
 {
     m_interpolation.prepareInterpolation(this);
     return m_interpolation.interpolation(this, points);
@@ -153,7 +153,7 @@ void Curve::insert(double x, double y)
     }
 
     Point *ins = new Point;
-    ASSERT(ins);
+    Q_ASSERT(ins);
     if (!ins) return;
     ins->x = x;
     ins->y = y;
@@ -184,7 +184,7 @@ Curve::Point *Curve::next(Curve::Point *act)
 void Curve::append(double x, double y)
 {
     Point *insert = new Point;
-    ASSERT(insert);
+    Q_ASSERT(insert);
     if (!insert) return;
 
     insert->x = x;
@@ -237,7 +237,7 @@ void Curve::scaleFit(unsigned int range)
 
     Interpolation interpolation(m_interpolation.type());
 
-    QArray<double> y = interpolation.interpolation(this, range);
+    QMemArray<double> y = interpolation.interpolation(this, range);
     for (unsigned int i = 0; i < range; i++) {
 	if (y[i] > max) max = y[i];
 	if (y[i] < min) min = y[i];

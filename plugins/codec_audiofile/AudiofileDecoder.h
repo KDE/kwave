@@ -19,7 +19,7 @@
 #define _WAV_DECODER_H_
 
 #include "config.h"
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qobject.h>
 #include "libkwave/Decoder.h"
 

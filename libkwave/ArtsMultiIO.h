@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qglobal.h> // for warning()
-#include <qvector.h>
+#include <qptrvector.h>
 #include <arts/artsflow.h>
 
 template <class BASE, class ARTS_IO, class ARTS_IMPL, class KWAVE_IO>
@@ -43,11 +43,11 @@ public:
 	    m_ios.insert(t, 0);
 	
 	    ARTS_IMPL *r = new ARTS_IMPL(io[t]);
-	    ASSERT(r);
+	    Q_ASSERT(r);
 	    if (r) m_ios.insert(t, new ARTS_IO(
 		ARTS_IO::_from_base(r)));
 	
-	    ASSERT(m_ios[t]);
+	    Q_ASSERT(m_ios[t]);
 	    if (!m_ios[t]) {
 		warning("ArtsMultiIO: creation of adapter failed!!!");
 		m_count = t;
@@ -74,7 +74,7 @@ public:
      */
     virtual Arts::Object *operator[](unsigned int i)
     {
-	ASSERT(i < m_count);
+	Q_ASSERT(i < m_count);
 	return (i < m_count) ? m_ios[i] : 0;
     };
 
@@ -94,7 +94,7 @@ protected:
     unsigned int m_count;
 
     /** vector of aRts i/o objects */
-    QVector<ARTS_IO> m_ios;
+    QPtrVector<ARTS_IO> m_ios;
 };
 
 #endif /* _ARTS_MULTI_IO_H_ */

@@ -31,7 +31,7 @@ class QLabel;
 class QResizeEvent;
 class KProgress;
 
-class FileProgress: public QSemiModal
+class FileProgress: public KDialog
 {
     Q_OBJECT
 public:

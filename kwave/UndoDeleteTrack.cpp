@@ -60,11 +60,11 @@ void UndoDeleteTrack::store(SignalManager &manager)
 {
     // allocate the buffer
     m_buffer.resize(m_length);
-    ASSERT(m_buffer.size() == m_length);
+    Q_ASSERT(m_buffer.size() == m_length);
 
     // create a reader for the whole range
     SampleReader *reader = manager.openSampleReader(m_track, 0, m_length-1);
-    ASSERT(reader);
+    Q_ASSERT(reader);
     if (!reader) return;
 
     // read into the save buffer
@@ -82,7 +82,7 @@ UndoAction *UndoDeleteTrack::undo(SignalManager &manager, bool with_redo)
     // create a redo action
     if (with_redo) {
 	redo = new UndoInsertTrack(m_signal, m_track);
-	ASSERT(redo);
+	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }
 
@@ -92,7 +92,7 @@ UndoAction *UndoDeleteTrack::undo(SignalManager &manager, bool with_redo)
     // restore the sample data from the internal buffer
     SampleWriter *writer = m_signal.openSampleWriter(m_track,
 	Overwrite, 0, m_length-1);
-    ASSERT(writer);
+    Q_ASSERT(writer);
     if (writer) {
 	*writer << m_buffer;
 	delete writer;

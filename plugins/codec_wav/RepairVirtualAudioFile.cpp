@@ -22,7 +22,7 @@
 
 //***************************************************************************
 RepairVirtualAudioFile::RepairVirtualAudioFile(QIODevice &device,
-    QList<RecoverySource> *repair_list)
+    QPtrList<RecoverySource> *repair_list)
     :VirtualAudioFile(device), m_position(0),
      m_repair_list(repair_list)
 {
@@ -40,19 +40,19 @@ RepairVirtualAudioFile::~RepairVirtualAudioFile()
 //***************************************************************************
 unsigned int RepairVirtualAudioFile::read(char *data, unsigned int nbytes)
 {
-    ASSERT(m_repair_list);
-    ASSERT(data);
+    Q_ASSERT(m_repair_list);
+    Q_ASSERT(data);
     if (!m_repair_list) return 0;
     if (!nbytes) return 0;
     if (!data) return 0;
 
     bzero(data, nbytes);
     size_t read_bytes = 0;
-    QListIterator<RecoverySource> it(*m_repair_list);
+    QPtrListIterator<RecoverySource> it(*m_repair_list);
 
     for (; it.current(); ++it) {
 	unsigned int len = it.current()->read(m_position, data, nbytes);
-	ASSERT(len <= nbytes);
+	Q_ASSERT(len <= nbytes);
 	nbytes     -= len;
 	m_position += len;
 	data       += len;
@@ -67,10 +67,10 @@ unsigned int RepairVirtualAudioFile::read(char *data, unsigned int nbytes)
 //***************************************************************************
 long RepairVirtualAudioFile::length()
 {
-    ASSERT(m_repair_list);
+    Q_ASSERT(m_repair_list);
     if (!m_repair_list) return 0;
     RecoverySource *last = m_repair_list->last();
-    ASSERT(last);
+    Q_ASSERT(last);
     if (!last) return 0;
 
     return last->offset() + last->length();

@@ -30,7 +30,7 @@ extern "C" {
 #endif /* USE_BUILTIN_LIBAUDIOFILE */
 }
 
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qprogressdialog.h>
 
 #include <klocale.h>
@@ -54,7 +54,7 @@ extern "C" {
 #include "WavFileFormat.h"
 #include "WavFormatMap.h"
 
-#define CHECK(cond) ASSERT(cond); if (!(cond)) { src.close(); return false; }
+#define CHECK(cond) Q_ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
 //***************************************************************************
 WavDecoder::WavDecoder()
@@ -109,7 +109,7 @@ Decoder *WavDecoder::instance()
 bool WavDecoder::open(QWidget *widget, QIODevice &src)
 {
     info().clear();
-    ASSERT(!m_source);
+    Q_ASSERT(!m_source);
     bool need_repair = false;
     if (m_source) warning("WavDecoder::open(), already open !");
 
@@ -283,7 +283,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     debug("-------------------------");
     debug("wav header:");
-    debug("mode        = 0x%04X, (%s)", header.min.format, format_name.data());
+    debug("mode        = 0x%04X, (%s)", header.min.format, format_name.latin1());
     debug("channels    = %d", header.min.channels);
     debug("rate        = %u", header.min.samplerate);
     debug("bytes/s     = %u", header.min.bytespersec);
@@ -293,8 +293,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // open the file through libaudiofile :)
     if (need_repair) {
-	QList<RecoverySource> *repair_list = new QList<RecoverySource>();
-	ASSERT(repair_list);
+	QPtrList<RecoverySource> *repair_list = new QPtrList<RecoverySource>();
+	Q_ASSERT(repair_list);
 	if (!repair_list) return false;
 	
 	RIFFChunk *root = (riff_chunk) ? riff_chunk : parser.findChunk("");
@@ -307,7 +307,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	m_src_adapter = new VirtualAudioFile(*m_source);
     }
 
-    ASSERT(m_src_adapter);
+    Q_ASSERT(m_src_adapter);
     if (!m_src_adapter) return false;
 
     m_src_adapter->open(m_src_adapter, 0);
@@ -373,7 +373,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     if (info_chunk && info_chunk->format() == "INFO") {
 	// found info chunk !
 	RIFFChunkList &list = info_chunk->subChunks();
-	QListIterator<RIFFChunk> it(list);
+	QPtrListIterator<RIFFChunk> it(list);
 	for (; it.current(); ++it) {
 	    RIFFChunk &chunk = (*it.current());
 	    if (!m_property_map.contains(chunk.name())) continue;
@@ -383,7 +383,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    unsigned int offset = chunk.dataStart();
 	    unsigned int length = chunk.dataLength();
 	    char *buffer = (char*)malloc(length+1);
-	    ASSERT(buffer);
+	    Q_ASSERT(buffer);
 	    if (!buffer) continue;
 	
 	    src.at(offset);
@@ -412,13 +412,13 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 //***************************************************************************
 bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 {
-    ASSERT(m_src_adapter);
-    ASSERT(m_source);
+    Q_ASSERT(m_src_adapter);
+    Q_ASSERT(m_source);
     if (!m_source) return false;
     if (!m_src_adapter) return false;
 
     AFfilehandle fh = m_src_adapter->handle();
-    ASSERT(fh);
+    Q_ASSERT(fh);
     if (!fh) return false;
 
     info().dump(); // ###
@@ -429,7 +429,7 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
     // allocate a buffer for input data
     const unsigned int buffer_frames = (8*1024);
     int32_t *buffer = (int32_t *)malloc(buffer_frames * frame_size);
-    ASSERT(buffer);
+    Q_ASSERT(buffer);
     if (!buffer) return false;
 
     // read in from the audiofile source
@@ -442,7 +442,7 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 	    AF_DEFAULT_TRACK, (char *)buffer, frames);
 	
 	// break if eof reached	
-	ASSERT(buffer_used);
+	Q_ASSERT(buffer_used);
 	if (!buffer_used) break;
 	rest -= buffer_used;
 	
@@ -474,12 +474,12 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 }
 
 //***************************************************************************
-bool WavDecoder::repairChunk(QList<RecoverySource> *repair_list,
+bool WavDecoder::repairChunk(QPtrList<RecoverySource> *repair_list,
     RIFFChunk *chunk, u_int32_t &offset)
 {
-    ASSERT(chunk);
-    ASSERT(m_source);
-    ASSERT(repair_list);
+    Q_ASSERT(chunk);
+    Q_ASSERT(m_source);
+    Q_ASSERT(repair_list);
     if (!chunk) return false;
     if (!m_source) return false;
     if (!repair_list) return false;
@@ -509,7 +509,7 @@ bool WavDecoder::repairChunk(QList<RecoverySource> *repair_list,
 	      offset, offset+7, chunk->name().data(), length);
 	offset += 8;
     }
-    ASSERT(repair);
+    Q_ASSERT(repair);
     if (!repair) return false;
     repair_list->append(repair);
 
@@ -522,7 +522,7 @@ bool WavDecoder::repairChunk(QList<RecoverySource> *repair_list,
 	debug("[0x%08X-0x%08X] - restoring from offset 0x%08X (%u)",
 	      offset, offset+chunk->physLength()-1, chunk->dataStart(),
 	      chunk->physLength());
-	ASSERT(repair);
+	Q_ASSERT(repair);
 	if (!repair) return false;
 	repair_list->append(repair);
 	
@@ -531,7 +531,7 @@ bool WavDecoder::repairChunk(QList<RecoverySource> *repair_list,
 
     // recursively go over all sub-chunks
     RIFFChunkList &list = chunk->subChunks();
-    QListIterator<RIFFChunk> it(list);
+    QPtrListIterator<RIFFChunk> it(list);
     bool ok = true;
     for (; ok && it.current(); ++it) {
 	RIFFChunk *chunk = it.current();
@@ -542,11 +542,11 @@ bool WavDecoder::repairChunk(QList<RecoverySource> *repair_list,
 }
 
 //***************************************************************************
-bool WavDecoder::repair(QList<RecoverySource> *repair_list,
+bool WavDecoder::repair(QPtrList<RecoverySource> *repair_list,
     RIFFChunk *riff_chunk, RIFFChunk *fmt_chunk, RIFFChunk *data_chunk)
 {
-    ASSERT(fmt_chunk);
-    ASSERT(data_chunk);
+    Q_ASSERT(fmt_chunk);
+    Q_ASSERT(data_chunk);
     if (!fmt_chunk || !data_chunk) return false;
 
     // --- first create a chunk tree for the structure ---
@@ -558,14 +558,14 @@ bool WavDecoder::repair(QList<RecoverySource> *repair_list,
     // create a new "fmt " chunk
     RIFFChunk *new_fmt = new RIFFChunk(&new_root, "fmt ",0,0,
 	fmt_chunk->physStart(), fmt_chunk->physLength());
-    ASSERT(new_fmt);
+    Q_ASSERT(new_fmt);
     if (!new_fmt) return false;
     new_root.subChunks().append(new_fmt);
 
     // create a new "data" chunk
     RIFFChunk *new_data = new RIFFChunk(&new_root, "data",0,0,
 	data_chunk->physStart(), data_chunk->physLength());
-    ASSERT(new_data);
+    Q_ASSERT(new_data);
     if (!new_data) return false;
     new_root.subChunks().append(new_data);
 
@@ -575,7 +575,7 @@ bool WavDecoder::repair(QList<RecoverySource> *repair_list,
     // NOTE: The sizes might be re-assigned and get invalid afterwards!!!
     if (riff_chunk) {
 	RIFFChunkList &list = riff_chunk->subChunks();
-	QListIterator<RIFFChunk> it(list);
+	QPtrListIterator<RIFFChunk> it(list);
 	for (; it.current(); ++it) {
 	    RIFFChunk *chunk = it.current();
 	    if (chunk->name() == "fmt ") continue;
@@ -606,13 +606,6 @@ bool WavDecoder::repair(QList<RecoverySource> *repair_list,
     new_root.subChunks().clear();
     delete new_fmt;
     delete new_data;
-
-//    QListIterator<RecoverySource> it(repair_list);
-//    for (; it.current(); ++it) {
-//	RecoverySource *src = it.current();
-//	QString name = "";
-//	debug("[0x%08X-0x%08X] - %s", src->offset(), src->end(), name.data());
-//    }
 
     return (repaired);
 }

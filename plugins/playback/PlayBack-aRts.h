@@ -49,7 +49,7 @@ public:
      * Writes an array of samples to the output device.
      * @see PlayBackDevice::write
      */
-    virtual int write(QArray<sample_t> &samples);
+    virtual int write(QMemArray<sample_t> &samples);
 
     /**
      * Closes the output device.

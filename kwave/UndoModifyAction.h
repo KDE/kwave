@@ -19,7 +19,7 @@
 #define _UNDO_MODIFY_ACTION_H_
 
 #include "config.h"
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qstring.h>
 
 #include "libkwave/Sample.h"
@@ -75,7 +75,7 @@ protected:
     unsigned int m_length;
 
     /** buffer with undo data */
-    QArray<sample_t> m_buffer;
+    QMemArray<sample_t> m_buffer;
 
 };
 

@@ -64,7 +64,7 @@ OverViewWidget::~OverViewWidget()
 //*****************************************************************************
 void OverViewWidget::mousePressEvent(QMouseEvent *e)
 {
-    ASSERT(e);
+    Q_ASSERT(e);
     if (!e) return;
 
     int x = offset2pixels(m_view_offset);
@@ -93,7 +93,7 @@ void OverViewWidget::mouseDoubleClickEvent(QMouseEvent *e)
 {
     unsigned int old_offset = m_view_offset;
 
-    ASSERT(e);
+    Q_ASSERT(e);
     if (!e) return;
 
     m_mouse_pos = e->x();
@@ -215,8 +215,8 @@ unsigned int OverViewWidget::pixels2offset(int pixels)
 //****************************************************************************
 void OverViewWidget::mouseMoveEvent( QMouseEvent *e)
 {
-    ASSERT(e);
-    ASSERT(m_width);
+    Q_ASSERT(e);
+    Q_ASSERT(m_width);
     if (!e) return;
     if (!m_width) return;
 
@@ -299,7 +299,7 @@ void OverViewWidget::paintEvent(QPaintEvent *)
 	m_pixmap = new QPixmap(size());
     }
     if (!m_bitmap.width() || !m_bitmap.height()) refreshBitmap();
-    ASSERT(m_pixmap);
+    Q_ASSERT(m_pixmap);
     if (!m_pixmap) return;
 
     // --- background of the widget ---

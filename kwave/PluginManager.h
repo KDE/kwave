@@ -20,9 +20,9 @@
 
 #include "config.h"
 #include <qobject.h>
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qptrlist.h>
-#include <qvector.h>
+#include <qptrvector.h>
 #include <qmap.h>
 
 #include <arts/artsflow.h>
@@ -122,7 +122,7 @@ public:
     /**
      * Returns an array of indices of currently selected channels.
      */
-    const QArray<unsigned int> selectedTracks();
+    const QMemArray<unsigned int> selectedTracks();
 
     /**
      * Returns the start of the selection. If nothing is currently
@@ -162,7 +162,7 @@ public:
      * @see selectedTracks()
      */
     void openMultiTrackReader(MultiTrackReader &readers,
-	const QArray<unsigned int> &track_list,
+	const QMemArray<unsigned int> &track_list,
 	unsigned int first, unsigned int last);
 
     /**
@@ -191,7 +191,7 @@ public:
      * @see InsertMode
      */
     void openMultiTrackWriter(MultiTrackWriter &writers,
-	const QArray<unsigned int> &track_list, InsertMode mode,
+	const QMemArray<unsigned int> &track_list, InsertMode mode,
 	unsigned int left, unsigned int right);
 
     /**

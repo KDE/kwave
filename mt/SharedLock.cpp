@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qobject.h> // for ASSERT(...)
+#include <qobject.h> // for Q_ASSERT(...)
 #include "mt/SharedLock.h"
 
 //***************************************************************************
@@ -28,7 +28,7 @@ SharedLock::SharedLock()
 //***************************************************************************
 SharedLock::~SharedLock()
 {
-    ASSERT(!m_shared_count);
+    Q_ASSERT(!m_shared_count);
 }
 
 //***************************************************************************
@@ -79,7 +79,7 @@ void SharedLock::unlock_shared()
     m_lock_exclusive.lock();
 
     // reduce the number of concurrent shared locks
-    ASSERT(m_shared_count);
+    Q_ASSERT(m_shared_count);
     if (m_shared_count) m_shared_count--;
 
     // wake up all threads that are waiting for exclusive access

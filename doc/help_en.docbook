@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2003-02-28</date>
+<date>2003-05-31</date>
 <releaseinfo>0.6.6</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -185,6 +185,14 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.6.7 [2003-xx-xx]</para>
+            <itemizedlist>
+                <listitem><para>
+                    new plugin: "lowpass"
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.6.6 [2003-03-29]</para>
             <itemizedlist>

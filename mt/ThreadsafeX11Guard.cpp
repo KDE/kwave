@@ -67,7 +67,7 @@ ThreadsafeX11Guard::ThreadsafeX11Guard()
     m_spx_X11_request.AsyncHandler();
 
     // sometimes the X11 / GUI thread needs an extra wakeup
-    ASSERT(qApp);
+    Q_ASSERT(qApp);
     if (qApp) qApp->wakeUpGuiThread();
 
     // wait until the X11 thread is locked and suspended
@@ -92,7 +92,7 @@ ThreadsafeX11Guard::~ThreadsafeX11Guard()
 	MutexGuard lock(m_lock_recursion);
 	
 	// decrease the recursion level (should always be at least 1)
-	ASSERT(m_recursion_level);
+	Q_ASSERT(m_recursion_level);
 	if (m_recursion_level) m_recursion_level--;
 	
 	// break if only recursion decreased and zero not reached
@@ -116,7 +116,7 @@ ThreadsafeX11Guard::~ThreadsafeX11Guard()
     }
 
     // sometimes the X11 / GUI thread needs an extra wakeup
-    ASSERT(qApp);
+    Q_ASSERT(qApp);
     if (qApp) qApp->wakeUpGuiThread();
 
     // release the X11 system and let others lock it

@@ -17,7 +17,7 @@
 
 #include "config.h"
 #include <stdio.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <kapp.h>
 
 #include "MenuNode.h"
@@ -79,7 +79,7 @@ void MenuGroup::removeChild(MenuNode *child)
 //*****************************************************************************
 void MenuGroup::setEnabled(bool enable)
 {
-    QListIterator<MenuNode> it(m_children);
+    QPtrListIterator<MenuNode> it(m_children);
     while (it.current()) {
 	it.current()->setEnabled(enable);
 	++it;
@@ -91,7 +91,7 @@ void MenuGroup::selectItem(const QString &uid)
 {
     MenuNode *new_selection = 0;
 
-    QListIterator<MenuNode> it(m_children);
+    QPtrListIterator<MenuNode> it(m_children);
     for ( ; it.current(); ++it) {
 	MenuNode *child = it.current();
 	if (uid == child->getUID())

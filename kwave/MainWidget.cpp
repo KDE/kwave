@@ -70,11 +70,11 @@ MainWidget::MainWidget(QWidget *parent)
 
     // create the layout objects
     QGridLayout *topLayout = new QGridLayout(this, 3, 2, 0);
-    ASSERT(topLayout);
+    Q_ASSERT(topLayout);
     if (!topLayout) return;
 
     QHBoxLayout *signalLayout = new QHBoxLayout();
-    ASSERT(signalLayout);
+    Q_ASSERT(signalLayout);
     if (!signalLayout) return;
     topLayout->addLayout(signalLayout, 0, 1);
 
@@ -83,13 +83,13 @@ MainWidget::MainWidget(QWidget *parent)
     // background frame of the channel controls, does the
     // clipping for us
     QFrame *frmChannelsBack = new QFrame(this);
-    ASSERT(frmChannelsBack);
+    Q_ASSERT(frmChannelsBack);
     if (!frmChannelsBack) return;
     frmChannelsBack->setFrameStyle(0);
     frmChannelsBack->setFixedWidth(30);
 
     frmChannelControls = new QFrame(frmChannelsBack);
-    ASSERT(frmChannelControls);
+    Q_ASSERT(frmChannelControls);
     if (!frmChannelControls) return;
     frmChannelControls->setFrameStyle(0);
     frmChannelControls->setFixedWidth(30);
@@ -105,7 +105,7 @@ MainWidget::MainWidget(QWidget *parent)
     m_lamps.clear();
     MultiStateWidget *msw =
 	new MultiStateWidget(frmChannelControls, 0);
-    ASSERT(msw);
+    Q_ASSERT(msw);
     if (!msw) return;
     m_lamps.append(msw);
     s[0] = m_lamps.at(0)->addPixmap("light_on.xpm");
@@ -115,7 +115,7 @@ MainWidget::MainWidget(QWidget *parent)
 //    m_speakers.setAutoDelete(true);
 //    m_speakers.clear();
 //    msw = new MultiStateWidget(frmChannelControls, 0, 3);
-//    ASSERT(msw);
+//    Q_ASSERT(msw);
 //    if (!msw) return;
 //    m_speakers.append(msw);
 //    s[0] = m_speakers.at(0)->addPixmap("rspeaker.xpm");
@@ -126,7 +126,7 @@ MainWidget::MainWidget(QWidget *parent)
     // -- accelerator keys for 1...9 --
 
 // ###     keys = new QAccel(this);
-// ###     ASSERT(keys);
+// ###     Q_ASSERT(keys);
 // ###     if (!keys) return;
 // ###     for (int i=0; i < 10; i++) {
 // ### 	keys->insertItem(tbl_keys[i]);
@@ -137,7 +137,7 @@ MainWidget::MainWidget(QWidget *parent)
     // -- slider for horizontal scrolling --
 
     m_slider = new OverViewWidget(m_signal_widget.signalManager(), this);
-    ASSERT(m_slider);
+    Q_ASSERT(m_slider);
     if (!m_slider) return;
     m_slider->setFixedHeight(20/*playbutton->height()*3/4*/);
     topLayout->addWidget(m_slider, 1, 1);
@@ -145,7 +145,7 @@ MainWidget::MainWidget(QWidget *parent)
     // -- scrollbar for the signal widget and the channel controls --
 
     m_scrollbar = new QScrollBar(this);
-    ASSERT(m_scrollbar);
+    Q_ASSERT(m_scrollbar);
     if (!m_scrollbar) return;
     m_scrollbar->setOrientation(QScrollBar::Vertical);
     m_scrollbar->setFixedWidth(m_scrollbar->sizeHint().width());
@@ -205,10 +205,10 @@ MainWidget::MainWidget(QWidget *parent)
 //***************************************************************************
 bool MainWidget::isOK()
 {
-    ASSERT(frmChannelControls);
-//    ASSERT(keys); ###
-    ASSERT(m_scrollbar);
-    ASSERT(m_slider);
+    Q_ASSERT(frmChannelControls);
+//    Q_ASSERT(keys); ###
+    Q_ASSERT(m_scrollbar);
+    Q_ASSERT(m_slider);
 
     return ( frmChannelControls /* ### && keys */ &&
     	m_scrollbar && m_slider );
@@ -231,7 +231,7 @@ void MainWidget::resizeEvent(QResizeEvent *)
 //***************************************************************************
 void MainWidget::scrollbarMoved(int newval)
 {
-    ASSERT(frmChannelControls);
+    Q_ASSERT(frmChannelControls);
     if (!frmChannelControls) return;
 
     // move the signal and the channel controls
@@ -307,7 +307,7 @@ void MainWidget::resetChannels()
 {
     unsigned int t = tracks();
     for (unsigned int i = 0; i < t; i++) {
-	ASSERT(m_lamps.at(i));
+	Q_ASSERT(m_lamps.at(i));
 	if (m_lamps.at(i)) m_lamps.at(i)->setState(0);
     }
 }
@@ -317,7 +317,7 @@ void MainWidget::parseKey(int key)
 {
     if ((key < 0) || ((unsigned int)key >= tracks()))
 	return;
-    ASSERT(m_lamps.at(key));
+    Q_ASSERT(m_lamps.at(key));
     if (!m_lamps.at(key)) return;
     m_lamps.at(key)->nextState();
 }
@@ -357,10 +357,10 @@ bool MainWidget::executeCommand(const QString &command)
 //***************************************************************************
 void MainWidget::refreshChannelControls()
 {
-    ASSERT(frmChannelControls);
+    Q_ASSERT(frmChannelControls);
     if (!frmChannelControls) return;
 
-    ASSERT(frmChannelControls);
+    Q_ASSERT(frmChannelControls);
     if (!frmChannelControls) return;
 
     unsigned int channels = tracks();
@@ -413,8 +413,8 @@ void MainWidget::refreshChannelControls()
 
     // move the existing lamps and speakers to their new position
     for (unsigned int i = 0; (i < m_last_tracks) && (i < channels); i++) {
-	ASSERT(m_lamps.at(i));
-//	ASSERT(m_speakers.at(i));
+	Q_ASSERT(m_lamps.at(i));
+//	Q_ASSERT(m_speakers.at(i));
 	if (!m_lamps.at(i)) continue;
 //	if (!m_speakers.at(i)) continue;
 
@@ -433,11 +433,11 @@ void MainWidget::refreshChannelControls()
     for (unsigned int i = m_last_tracks; i < channels; i++) {
 	int s[3];
 	MultiStateWidget *msw = new MultiStateWidget(frmChannelControls, i);
-	ASSERT(msw);
+	Q_ASSERT(msw);
 	if (!msw) continue;
 
 	m_lamps.append(msw);
-	ASSERT(m_lamps.at(i));
+	Q_ASSERT(m_lamps.at(i));
 	if (!m_lamps.at(i)) continue;
 	s[0] = m_lamps.at(i)->addPixmap("light_on.xpm");
 	s[1] = m_lamps.at(i)->addPixmap("light_off.xpm");
@@ -448,10 +448,10 @@ void MainWidget::refreshChannelControls()
 	m_lamps.at(i)->setStates(s);
 
 //        msw = new MultiStateWidget(frmChannelControls, 0, 3);
-//        ASSERT(msw);
+//        Q_ASSERT(msw);
 //        if (!msw) continue;
 //	m_speakers.append(msw);
-//	ASSERT(m_speakers.at(i));
+//	Q_ASSERT(m_speakers.at(i));
 //	if (!m_speakers.at(i)) continue;
 //	s[0] = m_speakers.at(i)->addPixmap("rspeaker.xpm");
 //	s[1] = m_speakers.at(i)->addPixmap("lspeaker.xpm");
@@ -468,8 +468,8 @@ void MainWidget::refreshChannelControls()
 
     // set the updated identifiers of the widgets
     for (unsigned int i = 0; i < channels; i++) {
-	ASSERT(m_lamps.at(i));
-//	ASSERT(m_speakers.at(i));
+	Q_ASSERT(m_lamps.at(i));
+//	Q_ASSERT(m_speakers.at(i));
 	if (!m_lamps.at(i)) continue;
 //	if (!m_speakers.at(i)) continue;
 

@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qobject.h>
-#include <qarray.h>
+#include <qmemarray.h>
 
 #include "mt/Mutex.h"
 #include "libkwave/Sample.h"
@@ -47,7 +47,7 @@ public:
      * @param start position within the track
      * @param samples array with initial samples
      */
-    Stripe(unsigned int start, const QArray<sample_t> &samples);
+    Stripe(unsigned int start, const QMemArray<sample_t> &samples);
 
     /**
      * Destructor.
@@ -80,7 +80,8 @@ public:
      * @param count number of samples in the array
      * @return number of samples appended
      */
-    unsigned int append(const QArray<sample_t> &samples, unsigned int count);
+    unsigned int append(const QMemArray<sample_t> &samples,
+                        unsigned int count);
 
     /**
      * Inserts an array of samples into the stripe.
@@ -90,8 +91,8 @@ public:
      * @param count number of samples in the array
      * @return number of samples appended
      */
-    unsigned int insert(const QArray<sample_t> &samples, unsigned int offset,
-                        unsigned int count);
+    unsigned int insert(const QMemArray<sample_t> &samples,
+                        unsigned int offset, unsigned int count);
 
     /**
      * Deletes a range of samples
@@ -109,7 +110,7 @@ public:
      * @warning this method is intended to be used only internally
      *          and waives any error-checking in order to be fast!
      */
-    void overwrite(unsigned int offset, const QArray<sample_t> &samples,
+    void overwrite(unsigned int offset, const QMemArray<sample_t> &samples,
     	unsigned int srcoff, unsigned int srclen);
 
 
@@ -123,14 +124,14 @@ public:
      * @warning this method is intended to be used only internally
      *          and waives any error-checking in order to be fast!
      */
-    unsigned int read(QArray<sample_t> &buffer, unsigned int dstoff,
+    unsigned int read(QMemArray<sample_t> &buffer, unsigned int dstoff,
 	unsigned int offset, unsigned int length);
 
     /**
      * Operator for appending an array of samples to the
      * end of the stripe.
      */
-    Stripe &operator << (const QArray<sample_t> &samples);
+    Stripe &operator << (const QMemArray<sample_t> &samples);
 
 signals:
 
@@ -180,7 +181,7 @@ private:
     unsigned int m_start;
 
     /** array with sample values */
-    QArray<sample_t> m_samples;
+    QMemArray<sample_t> m_samples;
 
     /** mutex for array of samples */
     Mutex m_lock_samples;

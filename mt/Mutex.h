@@ -28,7 +28,7 @@
  * MutexGuard that also uses TSS and thus is much safer.
  *
  * \author Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
- * \data 2000-10-03
+ * \date 2000-10-03
  */
 class Mutex
 {

@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 #include <stdio.h> // for perror(...)
-#include <qobject.h> // for ASSERT(...)
+#include <qobject.h> // for Q_ASSERT(...)
 #include "mt/Semaphore.h"
 
 //***************************************************************************
@@ -36,7 +36,7 @@ Semaphore::~Semaphore()
 void Semaphore::post()
 {
     int result = sem_post(&m_semaphore);
-    ASSERT(result == 0);
+    Q_ASSERT(result == 0);
     if (result) perror(strerror(result));
 }
 

@@ -66,7 +66,7 @@ UndoAction *UndoSelection::undo(SignalManager &manager, bool with_redo)
     // store current selection for later redo
     unsigned int old_offset = manager.selection().offset();
     unsigned int old_length = manager.selection().length();
-    QArray<unsigned int> old_selected_tracks = manager.selectedTracks();
+    QMemArray<unsigned int> old_selected_tracks = manager.selectedTracks();
 
     // restore the previous selection
     manager.selectRange(m_offset, m_length);

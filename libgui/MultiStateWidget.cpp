@@ -5,14 +5,14 @@
 #include <qdir.h>
 #include <qimage.h>
 #include <qstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstringlist.h>
 #include <qdir.h>
 #include <qpixmap.h>
 #include "kstddirs.h"
 #include "MultiStateWidget.h"
 
-QList <QPixmap> *pixmaps = 0;
+QPtrList <QPixmap> *pixmaps = 0;
 QStringList *pixnames = 0;
 
 //**********************************************************
@@ -23,17 +23,17 @@ MultiStateWidget::MultiStateWidget(QWidget *parent, int num, int count)
     this->count = count;
     this->number = num;
     this->states = new int[count];
-    ASSERT(states);
+    Q_ASSERT(states);
     if (!states) return;
 
     for (int i = 0; i < count; i++)
     	states[i] = 0;
 
-    if (pixmaps == 0) pixmaps = new QList<QPixmap>();
-    ASSERT(pixmaps);
+    if (pixmaps == 0) pixmaps = new QPtrList<QPixmap>();
+    Q_ASSERT(pixmaps);
 
     if (pixnames == 0) pixnames = new QStringList();
-    ASSERT(pixnames);
+    Q_ASSERT(pixnames);
 
     resize(20, 20);
 }
@@ -47,20 +47,20 @@ void MultiStateWidget::setNumber(int number)
 //**********************************************************
 int MultiStateWidget::addPixmap(const QString &filename)
 {
-    ASSERT(pixmaps);
-    ASSERT(pixnames);
+    Q_ASSERT(pixmaps);
+    Q_ASSERT(pixnames);
     if (!pixmaps) return -1;
     if (!pixnames) return -1;
 
     int result = pixnames->findIndex(filename);
     if (result == -1) {
 	QPixmap *newpix = new QPixmap();
-	ASSERT(newpix);
+	Q_ASSERT(newpix);
 	if (!newpix) return -1;
 	
 	QString file = locate("data", QString("kwave/pics/")+filename);
 	QImage *img = new QImage(file);
-	ASSERT(img);
+	Q_ASSERT(img);
 	if (!img) return -1;
 	
 	newpix->convertFromImage(*img);
@@ -100,7 +100,7 @@ void MultiStateWidget::nextState()
 //**********************************************************
 void MultiStateWidget::mouseReleaseEvent( QMouseEvent *e)
 {
-    ASSERT(e);
+    Q_ASSERT(e);
     if (!e) return;
 
     if (e->button() == LeftButton) {
@@ -118,7 +118,7 @@ MultiStateWidget::~MultiStateWidget()
 //**********************************************************
 void MultiStateWidget::paintEvent (QPaintEvent *)
 {
-    ASSERT(pixmaps);
+    Q_ASSERT(pixmaps);
     if (!pixmaps) return;
 
     QPixmap *img;

@@ -45,7 +45,7 @@ extern "C" {
 extern "C" void TSS_Object_cleanup_func(void *ptr)
 {
     fprintf(stderr, "cleanup handler for %p\n", ptr);
-    ASSERT(ptr);
+    Q_ASSERT(ptr);
     if (!ptr) {
 	warning("cleanup handler for NULL pointer ?  => bailing out!");
 	return;
@@ -130,9 +130,9 @@ TSS_Object::~TSS_Object()
 {
 //    _lock.lock(); // ###
 //
-//    ASSERT(pthread_getspecific(m_key) != 0);
-//    ASSERT(pthread_getspecific(m_key) == (void *)this);
-//    ASSERT(m_thread == pthread_self());
+//    Q_ASSERT(pthread_getspecific(m_key) != 0);
+//    Q_ASSERT(pthread_getspecific(m_key) == (void *)this);
+//    Q_ASSERT(m_thread == pthread_self());
 //
 //    debug("TSS_Object::~TSS_Object(): this=%p, tid=%d, key=%p, count=%d",
 //	this, pthread_self(), m_key, m_count);
@@ -144,7 +144,7 @@ TSS_Object::~TSS_Object()
 //	"TSS_Object::~TSS_Object: key deletion failed: %s",
 //	strerror(res));
 //
-//    ASSERT(m_count != 0);
+//    Q_ASSERT(m_count != 0);
 //    m_count--;
 //
 //    _lock.unlock(); // ###

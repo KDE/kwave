@@ -19,6 +19,10 @@ o audible/silent mode of tracks (speakers)
 
 o dithering/noise shaping when loading/saving
 
+o volume plugin: show a little "overview" for guessing the level
+
+o volume plugin: implement a "normalize to maximum" button
+
 o virtual memory: multiple swap directories
 
 o install a new_handler() for cases in which we run out of memory

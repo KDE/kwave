@@ -43,7 +43,7 @@ ImageView::~ImageView()
 //****************************************************************************
 void ImageView::mouseMoveEvent(QMouseEvent *e)
 {
-    ASSERT(e);
+    Q_ASSERT(e);
     if (!e) return;
 
     if (!m_image) return; // image not yet loaded
@@ -104,8 +104,8 @@ void ImageView::paintEvent(QPaintEvent *)
 {
     if (!m_image) return;
 
-    ASSERT(m_image->width());
-    ASSERT(m_image->height());
+    Q_ASSERT(m_image->width());
+    Q_ASSERT(m_image->height());
     if (!m_image->width()) return;
     if (!m_image->height()) return;
 	

@@ -19,7 +19,7 @@
 #define _KWAVE_APP_H_
 
 #include "config.h"
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstringlist.h>
 
 #include <kuniqueapp.h>
@@ -145,7 +145,7 @@ private:
     QStringList m_recent_files;
 
     /** list of toplevel widgets */
-    QList<TopWidget> m_topwidget_list;
+    QPtrList<TopWidget> m_topwidget_list;
 
     /** Kwave's clipboard */
     static ClipBoard &m_clipboard;

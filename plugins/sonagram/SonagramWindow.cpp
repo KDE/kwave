@@ -99,24 +99,24 @@ SonagramWindow::SonagramWindow(const QString &name)
     for (int i=0; i<256; m_histogram[i++] = 0) {}
 
     QWidget *mainwidget = new QWidget(this);
-    ASSERT(mainwidget);
+    Q_ASSERT(mainwidget);
     if (!mainwidget) return;
     setCentralWidget(mainwidget);
 
     QGridLayout *top_layout = new QGridLayout(mainwidget, 3, 2);
-    ASSERT(top_layout);
+    Q_ASSERT(top_layout);
     if (!top_layout) return;
 
     KMenuBar *bar = menuBar();
-    ASSERT(bar);
+    Q_ASSERT(bar);
     if (!bar) return ;
 
 //    QPopupMenu *spectral = new QPopupMenu();
-//    ASSERT(spectral);
+//    Q_ASSERT(spectral);
 //    if (!spectral) return ;
 
     QPopupMenu *file = new QPopupMenu();
-    ASSERT(file);
+    Q_ASSERT(file);
     if (!file) return ;
 
     bar->insertItem(i18n("&Sonagram"), file);
@@ -129,7 +129,7 @@ SonagramWindow::SonagramWindow(const QString &name)
 //    spectral->insertItem (i18n("&reTransform to signal"), this, SLOT(toSignal()));
 
     KStatusBar *status = statusBar();
-    ASSERT(status);
+    Q_ASSERT(status);
     if (!status) return ;
 
     status->insertItem(i18n("Time: ------ ms"), 1);
@@ -137,26 +137,26 @@ SonagramWindow::SonagramWindow(const QString &name)
     status->insertItem(i18n("Amplitude: --- %"), 3);
 
     m_view = new ImageView(mainwidget);
-    ASSERT(m_view);
+    Q_ASSERT(m_view);
     if (!m_view) return;
     top_layout->addWidget(m_view, 0, 1);
     m_view->setBackgroundPixmap(QPixmap(background));
 
     m_xscale = new ScaleWidget(mainwidget, 0, 100, "ms");
-    ASSERT(m_xscale);
+    Q_ASSERT(m_xscale);
     if (!m_xscale) return;
     m_xscale->setFixedHeight(m_xscale->sizeHint().height());
     top_layout->addWidget(m_xscale, 1, 1);
 
     m_yscale = new ScaleWidget(mainwidget, 100, 0, "Hz");
-    ASSERT(m_yscale);
+    Q_ASSERT(m_yscale);
     if (!m_yscale) return ;
     m_yscale->setFixedWidth(m_yscale->sizeHint().width());
     m_yscale->setMinimumHeight(9*6*5);
     top_layout->addWidget(m_yscale, 0, 0);
 
     m_overview = new ImageView(mainwidget);
-    ASSERT(m_overview);
+    Q_ASSERT(m_overview);
     if (!m_overview) return;
     m_overview->setFixedHeight(30);
     top_layout->addWidget(m_overview, 2, 1);
@@ -198,7 +198,7 @@ void SonagramWindow::close()
 //****************************************************************************
 void SonagramWindow::save()
 {
-    ASSERT(m_image);
+    Q_ASSERT(m_image);
     if (!m_image) return;
 
     QString filename = KFileDialog::getSaveFileName("", "*.bmp", this);
@@ -210,11 +210,11 @@ void SonagramWindow::load()
 {
 //    if (image) {
 //	QString filename = KFileDialog::getOpenFileName("", "*.bmp", this);
-//	printf ("loading %s\n", filename.data());
+//	printf ("loading %s\n", filename.latin1());
 //	if (!filename.isNull()) {
-//	    printf ("loading %s\n", filename.data());
+//	    printf ("loading %s\n", filename.latin1());
 //	    QImage *newimage = new QImage (filename);
-//	    ASSERT(newimage);
+//	    Q_ASSERT(newimage);
 //	    if (newimage) {
 //		if ((image->height() == newimage->height())
 //		    && (image->width() == newimage->width())) {
@@ -248,7 +248,7 @@ void SonagramWindow::load()
 //****************************************************************************
 void SonagramWindow::setImage(QImage *image)
 {
-    ASSERT(m_view);
+    Q_ASSERT(m_view);
     if (!m_view) return;
 
     m_image = image;
@@ -275,7 +275,7 @@ void SonagramWindow::setOverView(QBitmap *overview)
     if (!m_overview) return;
     if (overview) {
 	image = new QImage(overview->convertToImage());
-	ASSERT(image);
+	Q_ASSERT(image);
     }
     m_overview->setImage(image);
     if (image) delete image;
@@ -285,8 +285,8 @@ void SonagramWindow::setOverView(QBitmap *overview)
 void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 	const QByteArray &stripe)
 {
-    ASSERT(m_view);
-    ASSERT(m_image);
+    Q_ASSERT(m_view);
+    Q_ASSERT(m_image);
     if (!m_view) return;
     if (!m_image) return;
 
@@ -294,7 +294,7 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
     unsigned int image_height = m_image->height();
 
     // stripe is out of range ?
-    ASSERT(stripe_nr < image_width);
+    Q_ASSERT(stripe_nr < image_width);
     if ((stripe_nr) >= image_width) return;
 
     unsigned int y;
@@ -326,7 +326,7 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
 //****************************************************************************
 void SonagramWindow::adjustBrightness()
 {
-    ASSERT(m_image);
+    Q_ASSERT(m_image);
     if (!m_image) return;
 
     // get the sum of pixels != 0
@@ -373,7 +373,7 @@ void SonagramWindow::adjustBrightness()
 //****************************************************************************
 void SonagramWindow::refresh_view()
 {
-    ASSERT(m_view);
+    Q_ASSERT(m_view);
     if (!m_view) return;
     if (m_image) adjustBrightness();
     m_view->repaint(false);
@@ -392,11 +392,11 @@ void SonagramWindow::toSignal()
 //	((KwaveApp*)KApplication::getKApplication())->getRecentFiles()
 //    );
 //
-//    ASSERT(win);
+//    Q_ASSERT(win);
 //    if (win) {
 //
 //	Signal *newsig = new Signal (length, rate);
-//	ASSERT(newsig);
+//	Q_ASSERT(newsig);
 //
 //	//assure 10 Hz for correction signal, this should not be audible
 //	int slopesize = rate / 10;
@@ -485,8 +485,8 @@ SonagramWindow::~SonagramWindow()
 //***************************************************************************
 void SonagramWindow::setColorMode(int mode)
 {
-    ASSERT(mode >= 0);
-    ASSERT(mode <= 1);
+    Q_ASSERT(mode >= 0);
+    Q_ASSERT(mode <= 1);
 
     if (mode != m_color_mode) {
 	m_color_mode = mode;
@@ -500,20 +500,20 @@ void SonagramWindow::setName(const QString &name)
     QString windowname("Kwave - ");
     windowname += i18n("Sonagram of ");
 
-    setCaption(windowname.data());
+    setCaption(windowname.latin1());
     windowname += name.length() ? name : QString(i18n("<nothing>"));
 
-    setCaption(windowname.data());
+    setCaption(windowname.latin1());
 }
 
 //****************************************************************************
 void SonagramWindow::cursorPosChanged(const QPoint pos)
 {
     KStatusBar *status = statusBar();
-    ASSERT(status);
-    ASSERT(m_image);
-    ASSERT(m_points);
-    ASSERT(m_rate != 0);
+    Q_ASSERT(status);
+    Q_ASSERT(m_image);
+    Q_ASSERT(m_points);
+    Q_ASSERT(m_rate != 0);
     if (!status) return ;
     if (!m_image) return ;
     if (!m_points) return;

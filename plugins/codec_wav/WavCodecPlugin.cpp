@@ -40,11 +40,11 @@ WavCodecPlugin::~WavCodecPlugin()
 void WavCodecPlugin::load(QStringList &/* params */)
 {
     if (!m_encoder) m_encoder = new WavEncoder();
-    ASSERT(m_encoder);
+    Q_ASSERT(m_encoder);
     if (m_encoder) CodecManager::registerEncoder(*m_encoder);
 
     if (!m_decoder) m_decoder = new WavDecoder();
-    ASSERT(m_decoder);
+    Q_ASSERT(m_decoder);
     if (m_decoder) CodecManager::registerDecoder(*m_decoder);
 }
 

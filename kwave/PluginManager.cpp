@@ -76,7 +76,7 @@ PluginManager::PluginDeleter::~PluginDeleter()
 
 // static initializers
 QMap<QString, QString> PluginManager::m_plugin_files;
-QList<KwavePlugin> PluginManager::m_persistent_plugins;
+QPtrList<KwavePlugin> PluginManager::m_persistent_plugins;
 static QPtrList<PlaybackDeviceFactory> m_playback_factories;
 
 //****************************************************************************
@@ -91,7 +91,7 @@ PluginManager::PluginManager(TopWidget &parent)
     QPtrListIterator<KwavePlugin> itp(m_persistent_plugins);
     for ( ; itp.current(); ++itp ) {
 	KwavePlugin *p = itp.current();
-	ASSERT(p && p->isPersistent());
+	Q_ASSERT(p && p->isPersistent());
 	if (p && p->isPersistent()) {
 	    p->use();
 
@@ -121,7 +121,7 @@ PluginManager::~PluginManager()
     for (itp.toLast() ; itp.current(); ) {
 	KwavePlugin *p = itp.current();
 	--itp;
-	ASSERT(p && p->isPersistent());
+	Q_ASSERT(p && p->isPersistent());
 	if (p && p->isPersistent()) {
 	    p->release();
 	}
@@ -132,7 +132,7 @@ PluginManager::~PluginManager()
     for (it.toLast() ; it.current(); ) {
 	KwavePlugin *p = it.current();
 	--it;
-	ASSERT(p);
+	Q_ASSERT(p);
 	if (p) p->release();
     }
 }
@@ -155,7 +155,7 @@ void PluginManager::loadAllPlugins()
 	} else {
 	    // loading failed => remove it from the list
 	    warning("PluginManager::loadAllPlugins(): removing '%s' "\
-	            "from list", name.data());
+	            "from list", name.latin1());
 	    m_plugin_files.remove(name);
 	}
     }
@@ -170,9 +170,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     for ( ; itp.current(); ++itp ) {
 	KwavePlugin *p = itp.current();
 	if (p->name() == name) {
-	    ASSERT(p->isPersistent());
-//	    debug("PluginManager::loadPlugin(): returning reference "\
-//		  "to persistent plugin '%s'", name.data());
+	    Q_ASSERT(p->isPersistent());
 	    return p;
 	}
     }
@@ -182,11 +180,11 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     for ( ; it.current(); ++it ) {
 	KwavePlugin *p = it.current();
 	if (p->name() == name) {
-	    ASSERT(!p->isPersistent());
+	    Q_ASSERT(!p->isPersistent());
 	    if (p->isUnique()) {
 		// prevent from re-loading of a unique plugin
 		warning("PluginManager::loadPlugin(): attempt to re-load "\
-		        "unique plugin '%s'", name.data());
+		        "unique plugin '%s'", name.latin1());
 		return 0;
 	    }
 	}
@@ -232,14 +230,14 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     // get the plugin's author
     const char *author = "";
     const char **pauthor = (const char **)dlsym(handle, sym_author);
-    ASSERT(pauthor);
+    Q_ASSERT(pauthor);
     if (pauthor) author=*pauthor;
     if (!author) author = i18n("(unknown)");
 
     // get the plugin's version string
     const char *version = "";
     const char **pver = (const char **)dlsym(handle, sym_version);
-    ASSERT(pver);
+    Q_ASSERT(pver);
     if (pver) version=*pver;
     if (!version) version = i18n("(unknown)");
 
@@ -260,13 +258,13 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 
 #endif
 
-    ASSERT(plugin_loader);
+    Q_ASSERT(plugin_loader);
     if (!plugin_loader) {
 	// plugin is null, out of memory or not found
 	warning("PluginManager::loadPlugin(): "\
 		"plugin '%s' does not contain a loader, "\
 		"maybe it is damaged or the wrong version?",
-		name.data());
+		name.latin1());
 	dlclose(handle);
 	return 0;
     }
@@ -283,7 +281,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 	author
     );
 
-    ASSERT(context);
+    Q_ASSERT(context);
     if (!context) {
 	warning("PluginManager::loadPlugin(): out of memory");
 	dlclose(handle);
@@ -292,7 +290,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 
     // call the loader function to create an instance
     KwavePlugin *plugin = (*plugin_loader)(context);
-    ASSERT(plugin);
+    Q_ASSERT(plugin);
     if (!plugin) {
 	warning("PluginManager::loadPlugin(): out of memory");
 	dlclose(handle);
@@ -378,7 +376,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 	    }
 	    delete params;
 	    command += ")";
-	    debug("PluginManager: command='%s'",command.data()); // ###
+	    debug("PluginManager: command='%s'",command.latin1()); // ###
 	}
     }
 
@@ -400,12 +398,12 @@ void PluginManager::sync()
     while (one_is_running) {
 	{
 //	    MutexGuard lock_list(m_lock_plugin_list);
-	    QListIterator<KwavePlugin> it(m_loaded_plugins);
+	    QPtrListIterator<KwavePlugin> it(m_loaded_plugins);
 	    one_is_running = false;
 	    for (; it.current(); ++it) {
 		KwavePlugin *plugin = it.current();
 		if (plugin->isRunning()) {
-		    debug("waiting for plugin '%s'", plugin->name().data());
+		    debug("waiting for plugin '%s'", plugin->name().latin1());
 		    one_is_running = true;
 		    break;
 		}
@@ -457,7 +455,7 @@ QStringList PluginManager::loadPluginDefaults(const QString &name,
     section += name;
 
     KConfig *cfg = KGlobal::config();
-    ASSERT(cfg);
+    Q_ASSERT(cfg);
     if (!cfg) return list;
 
     cfg->sync();
@@ -470,8 +468,8 @@ QStringList PluginManager::loadPluginDefaults(const QString &name,
     if (!(def_version == version)) {
 	debug("PluginManager::loadPluginDefaults: "\
 	    "plugin '%s': defaults for version '%s' not loaded, found "\
-	    "old ones of version '%s'.", name.data(), version.data(),
-	    def_version.data());
+	    "old ones of version '%s'.", name.latin1(), version.latin1(),
+	    def_version.latin1());
 	return list;
     }
 
@@ -488,7 +486,7 @@ void PluginManager::savePluginDefaults(const QString &name,
     section += name;
 
     KConfig *cfg = KGlobal::config();
-    ASSERT(cfg);
+    Q_ASSERT(cfg);
     if (!cfg) return;
 
     cfg->sync();
@@ -511,7 +509,7 @@ double PluginManager::signalRate()
 }
 
 //***************************************************************************
-const QArray<unsigned int> PluginManager::selectedTracks()
+const QMemArray<unsigned int> PluginManager::selectedTracks()
 {
     return m_top_widget.signalManager().selectedTracks();
 }
@@ -544,7 +542,7 @@ SampleWriter *PluginManager::openSampleWriter(unsigned int track,
 
 //***************************************************************************
 void PluginManager::openMultiTrackReader(MultiTrackReader &readers,
-    const QArray<unsigned int> &track_list,
+    const QMemArray<unsigned int> &track_list,
     unsigned int first, unsigned int last)
 {
     SignalManager &manager = m_top_widget.signalManager();
@@ -553,7 +551,7 @@ void PluginManager::openMultiTrackReader(MultiTrackReader &readers,
 
 //***************************************************************************
 void PluginManager::openMultiTrackWriter(MultiTrackWriter &writers,
-    const QArray<unsigned int> &track_list, InsertMode mode,
+    const QMemArray<unsigned int> &track_list, InsertMode mode,
     unsigned int left, unsigned int right)
 {
     SignalManager &manager = m_top_widget.signalManager();
@@ -565,7 +563,7 @@ void PluginManager::openMultiTrackWriter(MultiTrackWriter &writers,
                                          InsertMode mode)
 {
     SignalManager &manager = m_top_widget.signalManager();
-    QArray<unsigned int> tracks = manager.selectedTracks();
+    QMemArray<unsigned int> tracks = manager.selectedTracks();
     unsigned int left  = selectionStart();
     unsigned int right = selectionEnd();
     if (left == right) {
@@ -589,23 +587,23 @@ ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
     QPtrListIterator<PlaybackDeviceFactory> it(m_playback_factories);
     for (; it.current(); ++it) {
 	PlaybackDeviceFactory *f = it.current();
-	ASSERT(f);
+	Q_ASSERT(f);
 	if (f && f->supportsDevice(device_name)) {
 	    factory = f;
 	    break;
 	}
     }
-    ASSERT(factory);
+    Q_ASSERT(factory);
     if (!factory) return 0;
 
     // open the playback device with it's default parameters
     device = factory->openDevice(device_name, 0);
-    ASSERT(device);
+    Q_ASSERT(device);
     if (!device) return 0;
     
     // create the multi track playback sink
     ArtsMultiSink *sink = new ArtsMultiPlaybackSink(tracks, device);
-    ASSERT(sink);
+    Q_ASSERT(sink);
     if (!sink) return 0;
     
     return sink;
@@ -636,8 +634,8 @@ void PluginManager::forwardCommand()
 //***************************************************************************
 void PluginManager::pluginClosed(KwavePlugin *p)
 {
-    ASSERT(p);
-    ASSERT(!m_loaded_plugins.isEmpty() || !m_persistent_plugins.isEmpty());
+    Q_ASSERT(p);
+    Q_ASSERT(!m_loaded_plugins.isEmpty() || !m_persistent_plugins.isEmpty());
     if (!p) return;
     
     // disconnect the signals to avoid recursion
@@ -654,9 +652,9 @@ void PluginManager::pluginClosed(KwavePlugin *p)
 
     // schedule the deferred delete/unload of the plugin
     void *handle = p->handle();
-    ASSERT(handle);
+    Q_ASSERT(handle);
     PluginDeleter *delete_later = new PluginDeleter(p, handle);
-    ASSERT(delete_later);
+    Q_ASSERT(delete_later);
     if (delete_later) delete_later->deleteLater();
 
 //    debug("PluginManager::pluginClosed(): done");
@@ -665,7 +663,7 @@ void PluginManager::pluginClosed(KwavePlugin *p)
 //****************************************************************************
 void PluginManager::connectPlugin(KwavePlugin *plugin)
 {
-    ASSERT(plugin);
+    Q_ASSERT(plugin);
     if (!plugin) return;
 
     connect(this, SIGNAL(sigClosed()),
@@ -678,7 +676,7 @@ void PluginManager::connectPlugin(KwavePlugin *plugin)
 //****************************************************************************
 void PluginManager::disconnectPlugin(KwavePlugin *plugin)
 {
-    ASSERT(plugin);
+    Q_ASSERT(plugin);
     if (!plugin) return;
 
     disconnect(this, SIGNAL(sigClosed()),
@@ -693,7 +691,7 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
 void PluginManager::emitNameChanged()
 {
     const QString *name = m_spx_name_changed.dequeue();
-    ASSERT(name);
+    Q_ASSERT(name);
     if (name) {
 	emit sigSignalNameChanged(*name);
 	delete name;
@@ -732,7 +730,7 @@ void PluginManager::findPlugins()
 	    dlclose (handle);
 	
 	} else {
-	    printf("error in '%s':\n\t %s\n", file.data(),
+	    printf("error in '%s':\n\t %s\n", file.latin1(),
 		dlerror());
 	}
 	

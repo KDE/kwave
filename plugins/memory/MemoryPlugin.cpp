@@ -53,31 +53,31 @@ int MemoryPlugin::interpreteParameters(QStringList &params)
     // parameter #0: physical memory is limited ?
     param = params[0];
     m_physical_limited = param.toUInt(&ok) != 0;
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #1: limit for physical memory
     param = params[1];
     m_physical_limit = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #2: virtual memory is enabled ?
     param = params[2];
     m_virtual_enabled = param.toUInt(&ok) != 0;
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #3: virtual memory is limited ?
     param = params[3];
     m_virtual_limited = param.toUInt(&ok) != 0;
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #4: limit for virtual memory
     param = params[4];
     m_virtual_limit = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #5: directory for virtual memory files
@@ -114,13 +114,13 @@ QStringList *MemoryPlugin::setup(QStringList &previous_params)
     MemoryDialog *dlg = new MemoryDialog(parentWidget(), m_physical_limited,
 	m_physical_limit, m_virtual_enabled, m_virtual_limited,
 	m_virtual_limit, m_virtual_directory);
-    ASSERT(dlg);
+    Q_ASSERT(dlg);
     if (!dlg) return 0;
 
     if (dlg->exec() == QDialog::Accepted) {
 	// get the new parameters and let them take effect
 	result = new QStringList();
-	ASSERT(result);
+	Q_ASSERT(result);
 	if (result) {
 	    dlg->params(*result);
 	    interpreteParameters(*result);

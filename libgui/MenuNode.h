@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qdict.h>
 #include <qpixmap.h>
 #include <qstring.h>
@@ -407,7 +407,7 @@ private slots:
 protected:
 
     /** list with pointers to child menus */
-    QList<MenuNode> m_children;
+    QPtrList<MenuNode> m_children;
 
     /** list of group names the item belongs to */
     QStringList m_groups;

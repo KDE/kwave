@@ -60,7 +60,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
                           unsigned int bufbase)
 {
     debug("PlayBackOSS::open(device=%s,rate=%f,channels=%u,"\
-	"bits=%u, bufbase=%u)", device.data(), rate, channels,
+	"bits=%u, bufbase=%u)", device.latin1(), rate, channels,
 	bits, bufbase);
 
     m_device_name = device;
@@ -74,7 +74,7 @@ QString PlayBackOSS::open(const QString &device, double rate,
 
     // prepeare for playback by opening the sound device
     // and initializing with the proper settings
-    m_handle = ::open(m_device_name.data(), O_WRONLY | O_NONBLOCK);
+    m_handle = ::open(m_device_name.latin1(), O_WRONLY | O_NONBLOCK);
     debug("PlayBackOSS::open(): file descriptor=%u", m_handle);
     if (m_handle == -1) {
 	QString reason;
@@ -131,8 +131,8 @@ QString PlayBackOSS::open(const QString &device, double rate,
     }
 
     // buffer size
-    ASSERT(bufbase >= MIN_PLAYBACK_BUFFER);
-    ASSERT(bufbase <= MAX_PLAYBACK_BUFFER);
+    Q_ASSERT(bufbase >= MIN_PLAYBACK_BUFFER);
+    Q_ASSERT(bufbase <= MAX_PLAYBACK_BUFFER);
     if (bufbase < MIN_PLAYBACK_BUFFER) bufbase = MIN_PLAYBACK_BUFFER;
     if (bufbase > MAX_PLAYBACK_BUFFER) bufbase = MAX_PLAYBACK_BUFFER;
     if (ioctl(m_handle, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
@@ -149,9 +149,9 @@ QString PlayBackOSS::open(const QString &device, double rate,
 }
 
 //***************************************************************************
-int PlayBackOSS::write(QArray<sample_t> &samples)
+int PlayBackOSS::write(QMemArray<sample_t> &samples)
 {
-    ASSERT (m_buffer_used < m_buffer_size);
+    Q_ASSERT (m_buffer_used < m_buffer_size);
     if (m_buffer_used >= m_buffer_size) {
 	warning("PlayBackOSS::write(): buffer overflow ?!");
 	return -EIO;

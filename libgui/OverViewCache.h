@@ -21,7 +21,7 @@
 #include "config.h"
 #include <qbitmap.h>
 #include <qcstring.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qmemarray.h>
 #include <qobject.h>
 #include <qvaluelist.h>
@@ -54,7 +54,7 @@ public:
      */
     OverViewCache(SignalManager &signal, unsigned int src_offset = 0,
                   unsigned int src_length = 0,
-                  const QArray<unsigned int> *src_tracks = 0);
+                  const QMemArray<unsigned int> *src_tracks = 0);
 
     /** Destructor */
     virtual ~OverViewCache();
@@ -182,13 +182,13 @@ private:
     SignalManager &m_signal;
 
     /** list of minimum value arrays, one array per track */
-    QList< QMemArray <signed char> > m_min;
+    QPtrList< QMemArray <signed char> > m_min;
 
     /** list of maximum value arrays, one array per track */
-    QList< QMemArray <signed char> > m_max;
+    QPtrList< QMemArray <signed char> > m_max;
 
     /** bitmask for "validity" of the min/max values */
-    QList< QArray <CacheState> > m_state;
+    QPtrList< QMemArray <CacheState> > m_state;
 
     /** number of min/max values */
     unsigned int m_count;

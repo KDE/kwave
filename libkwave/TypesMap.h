@@ -59,7 +59,7 @@ public:
     {
 	Triple<DATA, QString, QString> *triple;
 	triple = new Triple<DATA, QString, QString>(data, name, description);
-	ASSERT(triple);
+	Q_ASSERT(triple);
 	if (triple) m_list.insert(index, *triple);
     };
 

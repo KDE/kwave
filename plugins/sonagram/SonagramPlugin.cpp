@@ -102,7 +102,7 @@ QStringList *SonagramPlugin::setup(QStringList &previous_params)
     if (previous_params.count()) interpreteParameters(previous_params);
 
     SonagramDialog *dlg = new SonagramDialog(*this);
-    ASSERT(dlg);
+    Q_ASSERT(dlg);
     if (!dlg) return 0;
 
     dlg->setWindowFunction(m_window_type);
@@ -112,7 +112,7 @@ QStringList *SonagramPlugin::setup(QStringList &previous_params)
 
     if (dlg->exec() == QDialog::Accepted) {
 	result = new QStringList();
-	ASSERT(result);
+	Q_ASSERT(result);
 	if (result) dlg->parameters(*result);
     };
 
@@ -131,29 +131,29 @@ int SonagramPlugin::interpreteParameters(QStringList &params)
 	
     param = params[0];
     m_fft_points = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
-    ASSERT(m_fft_points <= 32767);
+    Q_ASSERT(m_fft_points <= 32767);
     if (m_fft_points > 32767) m_fft_points=32767;
 
     param = params[1];
     m_window_type = WindowFunction::findFromName(param);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[2];
     m_color = (param.toUInt(&ok) != 0);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[3];
     m_track_changes = false; // (param.toUInt(&ok) != 0);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[4];
     m_follow_selection = false; // (param.toUInt(&ok) != 0);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     return 0;
@@ -168,7 +168,7 @@ int SonagramPlugin::start(QStringList &params)
 
     // create an empty sonagram window
     m_sonagram_window = new SonagramWindow(signalName());
-    ASSERT(m_sonagram_window);
+    Q_ASSERT(m_sonagram_window);
     if (!m_sonagram_window) return -ENOMEM;
 
     unsigned int input_length = selection(&m_first_sample, &m_last_sample);
@@ -181,7 +181,7 @@ int SonagramPlugin::start(QStringList &params)
     // calculate the number of stripes (width of image)
     m_stripes = (unsigned int)
 	(ceil((double)input_length/(double)m_fft_points));
-    ASSERT(m_stripes <= 32767);
+    Q_ASSERT(m_stripes <= 32767);
     if (m_stripes > 32767) m_stripes = 32767;
 
     // create a new empty image
@@ -190,11 +190,11 @@ int SonagramPlugin::start(QStringList &params)
     // set the overview
     m_selected_channels = selectedTracks();
     SignalManager &sig_mgr = manager().topWidget().signalManager();
-    QArray<unsigned int> tracks = sig_mgr.selectedTracks();
+    QMemArray<unsigned int> tracks = sig_mgr.selectedTracks();
     m_overview_cache = new OverViewCache(sig_mgr,
         m_first_sample, m_last_sample-m_first_sample+1,
         tracks.isEmpty() ? 0 : &tracks);
-    ASSERT(m_overview_cache);
+    Q_ASSERT(m_overview_cache);
     if (!m_overview_cache) return -ENOMEM;
 
     refreshOverview();
@@ -246,7 +246,7 @@ void SonagramPlugin::run(QStringList /* params */)
 {
 //    debug("SonagramPlugin::run()");
 
-    ASSERT(m_spx_insert_stripe);
+    Q_ASSERT(m_spx_insert_stripe);
     if (!m_spx_insert_stripe) return;
 
     MultiTrackReader source;
@@ -263,7 +263,7 @@ void SonagramPlugin::run(QStringList /* params */)
 	
 	    // create a new stripe data array
 	    stripe_data = new QByteArray(m_fft_points/2);
-	    ASSERT(stripe_data);
+	    Q_ASSERT(stripe_data);
 	    if (!stripe_data) continue;
 	
 	    // calculate one stripe
@@ -301,11 +301,11 @@ void SonagramPlugin::run(QStringList /* params */)
 void SonagramPlugin::insertStripe()
 {
 //    debug("SonagramPlugin::insertStripe()");
-    ASSERT(m_spx_insert_stripe);
+    Q_ASSERT(m_spx_insert_stripe);
     if (!m_spx_insert_stripe) return;
 
     StripeInfoPrivate *stripe_info = m_spx_insert_stripe->dequeue();
-    ASSERT(stripe_info);
+    Q_ASSERT(stripe_info);
     if (!stripe_info) return;
 
     unsigned int stripe_nr = stripe_info->nr();
@@ -327,12 +327,12 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
     output.fill(0);
 
     WindowFunction func(m_window_type);
-    QArray<double> windowfunction = func.points(points);
-    ASSERT(windowfunction.count() == points);
+    QMemArray<double> windowfunction = func.points(points);
+    Q_ASSERT(windowfunction.count() == points);
     if (windowfunction.count() != points) return;
 
-    QArray<complex> input(points);
-    ASSERT(input.size() == points);
+    QMemArray<complex> input(points);
+    Q_ASSERT(input.size() == points);
     if (input.size() < points) return;
 
     // initialize the table for fft
@@ -349,7 +349,7 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 	    for (t=0; t < count; t++) {
 		sample_t s = 0;
 		SampleReader *reader = source[t];
-		ASSERT(reader);
+		Q_ASSERT(reader);
 		if (reader) *reader >> s;
 		value += (double)s;
 	    }
@@ -407,20 +407,20 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     m_image = 0;
 
     // do not create a new image if one dimension is zero!
-    ASSERT(width);
-    ASSERT(height);
+    Q_ASSERT(width);
+    Q_ASSERT(height);
     if (!width || !height) return;
 
     // also do not create if the image size is out of range
-    ASSERT(width <= 32767);
-    ASSERT(height <= 32767);
+    Q_ASSERT(width <= 32767);
+    Q_ASSERT(height <= 32767);
     if ((width >= 32767) || (height >= 32767)) return;
 
 //    debug("SonagramPlugin::createNewImage(): settings ok, creating image");
 
     // create the new image object
     m_image = new QImage(width, height, 8, 256);
-    ASSERT(m_image);
+    Q_ASSERT(m_image);
     if (!m_image) return;
     m_image->setAlphaBuffer(true);
 

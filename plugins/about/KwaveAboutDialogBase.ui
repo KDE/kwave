@@ -373,9 +373,6 @@ and scroll capability.</string>
                     <property name="text">
                         <string>&amp;Close</string>
                     </property>
-                    <property name="autoResize">
-                        <bool>true</bool>
-                    </property>
                     <property name="default">
                         <bool>true</bool>
                     </property>

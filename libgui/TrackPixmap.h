@@ -19,7 +19,7 @@
 #define _TRACK_PIXMAP_H_
 
 #include "config.h"
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qbitarray.h>
 #include <qcolor.h>
 #include <qobject.h>
@@ -271,17 +271,17 @@ private:
      * This might sometimes include one sample before or after the
      * current view.
      */
-    QArray<sample_t> m_sample_buffer;
+    QMemArray<sample_t> m_sample_buffer;
 
     /**
      * Array with minimum sample values, if in min/max mode.
      */
-    QArray<sample_t> m_min_buffer;
+    QMemArray<sample_t> m_min_buffer;
 
     /**
      * Array with maximum sample values, if in min/max mode.
      */
-    QArray<sample_t> m_max_buffer;
+    QMemArray<sample_t> m_max_buffer;
 
     /** Indicates that the buffer content was modified */
     bool m_modified;

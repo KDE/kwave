@@ -107,7 +107,7 @@ void LowPassDialog::setParams(QStringList &params)
     // evaluate the parameter list
     bool ok;
     double frequency = params[0].toDouble(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (ok) m_frequency = frequency;
 
     slider->setValue((int)m_frequency);

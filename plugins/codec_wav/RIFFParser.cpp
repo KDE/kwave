@@ -23,7 +23,7 @@
 #include <stdlib.h>
 
 #include <qiodevice.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <klocale.h>
@@ -226,34 +226,25 @@ RIFFChunk *RIFFParser::addChunk(RIFFChunk *parent, const QCString &name,
 {
     // do not add anything to garbage, use the garbage's parent instead
     while (parent && (parent->type() == RIFFChunk::Garbage)) {
-//        debug("parenting '%s' to '%s'", name.data(),
-//            parent->parent() ? parent->parent()->name().data() : "");
         parent = parent->parent();
     }
 
     // if no parent found, use root
     if (!parent) {
-//        debug("parenting chunk at 0x%08X to root", phys_offset);
         parent = &m_root;
     }
-    ASSERT(parent);
+    Q_ASSERT(parent);
 
     // create a new chunk object
     RIFFChunk *chunk = new RIFFChunk(parent, name, format, length,
                                      phys_offset, phys_length);
-    ASSERT(chunk);
+    Q_ASSERT(chunk);
     if (!chunk) return 0;
-
-//    debug("new chunk, name='%s', len=%u, ofs=0x%08X, phys_len=%u, root=%p '%s'",
-//          name.data(),length,phys_offset,phys_length, parent,
-//          parent ? parent->name().data() : ""
-//    );
-
     chunk->setType(type);
 
     // sort the chunk into the parent, order by physical start
     RIFFChunkList &chunks = parent->subChunks();
-    QListIterator<RIFFChunk> it(chunks);
+    QPtrListIterator<RIFFChunk> it(chunks);
     RIFFChunk *before = 0;
     for (; it.current(); ++it) {
 	RIFFChunk *c = it.current();
@@ -301,8 +292,8 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     RIFFChunkList found_chunks;
     found_chunks.setAutoDelete(false);
 
-    ASSERT(parent);
-    ASSERT(m_dev.isDirectAccess());
+    Q_ASSERT(parent);
+    Q_ASSERT(m_dev.isDirectAccess());
     if (!m_dev.isDirectAccess()) return false;
     if (!parent) return false;
 
@@ -392,7 +383,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
     } while (length && !m_cancel);
 
     // parse for sub-chunks in the chunks we newly found
-    QListIterator<RIFFChunk> it(found_chunks);
+    QPtrListIterator<RIFFChunk> it(found_chunks);
     for (; it.current() && !m_cancel; ++it) {
 	RIFFChunk *chunk = it.current();
 	
@@ -434,7 +425,7 @@ RIFFChunk *RIFFParser::findChunk(const QCString &path)
     RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
 
-    QListIterator<RIFFChunk> it(chunks);
+    QPtrListIterator<RIFFChunk> it(chunks);
     for (; it.current(); ++it) {
 	RIFFChunk *chunk = it.current();
 	if (path.contains("/")) {
@@ -456,7 +447,7 @@ unsigned int RIFFParser::chunkCount(const QCString &path)
     RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
 
-    QListIterator<RIFFChunk> it(chunks);
+    QPtrListIterator<RIFFChunk> it(chunks);
     for (; it.current(); ++it) {
 	RIFFChunk *chunk = it.current();
 	if (path.contains("/")) {
@@ -477,7 +468,7 @@ QValueList<u_int32_t> RIFFParser::scanForName(const QCString &name,
     int progress_start, int progress_count)
 {
     QValueList<u_int32_t> matches;
-    ASSERT(length >= 4);
+    Q_ASSERT(length >= 4);
     u_int32_t end = offset + ((length > 4) ? (length - 4) : 0);
     char buffer[5];
     memset(buffer, 0x00, sizeof(buffer));
@@ -517,7 +508,7 @@ void RIFFParser::listAllChunks(RIFFChunk &parent, RIFFChunkList &list)
 {
     list.setAutoDelete(false);
     list.append(&parent);
-    QListIterator<RIFFChunk> it(parent.subChunks());
+    QPtrListIterator<RIFFChunk> it(parent.subChunks());
     for (; it.current(); ++it) {
         listAllChunks(*it.current(), list);
     }
@@ -528,7 +519,7 @@ RIFFChunk *RIFFParser::chunkAt(u_int32_t offset)
 {
     RIFFChunkList list;
     listAllChunks(m_root, list);
-    QListIterator<RIFFChunk> it(list);
+    QPtrListIterator<RIFFChunk> it(list);
     for (; it.current(); ++it) {
         if ((*it.current()).physStart() == offset) return it.current();
     }
@@ -547,7 +538,7 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
     RIFFChunkList all_chunks;
     listAllChunks(m_root, all_chunks);
 
-    QListIterator<RIFFChunk> ic(all_chunks);
+    QPtrListIterator<RIFFChunk> ic(all_chunks);
     int index = 0;
     int count = all_chunks.count();
     for (; ic.current() && !m_cancel; ++ic, ++index) {
@@ -634,7 +625,7 @@ void RIFFParser::collectGarbage()
         start_over = false;
         RIFFChunkList chunks;
         listAllChunks(m_root, chunks);
-        QListIterator<RIFFChunk> it(chunks);
+        QPtrListIterator<RIFFChunk> it(chunks);
 
         for ( ;it.current() && !start_over && !m_cancel; ++it) {
             RIFFChunk *chunk = it.current();
@@ -644,7 +635,7 @@ void RIFFParser::collectGarbage()
 
             RIFFChunkList &subchunks = chunk->subChunks();
             bool contains_only_garbage = true;
-            QListIterator<RIFFChunk> sub(subchunks);
+            QPtrListIterator<RIFFChunk> sub(subchunks);
             for (; sub.current() && !m_cancel; ++sub) {
                 RIFFChunk::ChunkType type = (*sub.current()).type();
                 if (type != RIFFChunk::Garbage) {
@@ -680,8 +671,8 @@ void RIFFParser::fixGarbageEnds()
 
     RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
-    QListIterator<RIFFChunk> it1(chunks);
-    QListIterator<RIFFChunk> it2(chunks);
+    QPtrListIterator<RIFFChunk> it1(chunks);
+    QPtrListIterator<RIFFChunk> it2(chunks);
 
     // try all combinations of chunks
     for (++it1; it1.current() && !m_cancel; ++it1) {
@@ -726,8 +717,8 @@ bool RIFFParser::joinGarbageToEmpty()
 
     RIFFChunkList chunks;
     listAllChunks(m_root, chunks);
-    QListIterator<RIFFChunk> it1(chunks);
-    QListIterator<RIFFChunk> it2(chunks);
+    QPtrListIterator<RIFFChunk> it1(chunks);
+    QPtrListIterator<RIFFChunk> it2(chunks);
 
     // join garbage to empty chunks
     for (++it2; it2.current() && it1.current() && !m_cancel; ++it1, ++it2) {
@@ -786,7 +777,7 @@ bool RIFFParser::joinGarbageToEmpty()
 void RIFFParser::discardGarbage(RIFFChunk &chunk)
 {
     RIFFChunkList &sub_chunks = chunk.subChunks();
-    QListIterator<RIFFChunk> it(sub_chunks);
+    QPtrListIterator<RIFFChunk> it(sub_chunks);
 
     for (; it.current() && !m_cancel; ++it) {
         RIFFChunk *ch = it.current();

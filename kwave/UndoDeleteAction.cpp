@@ -48,7 +48,7 @@ UndoAction *UndoDeleteAction::undo(SignalManager &manager, bool with_redo)
     // open a SampleWriter for reading back the data from the buffer
     SampleWriter *writer = manager.openSampleWriter(m_track, Insert,
         m_offset, m_offset+m_length-1);
-    ASSERT(writer);
+    Q_ASSERT(writer);
     if (!writer) return 0;
 
     // read back the buffer

@@ -19,7 +19,7 @@
 #define _MUTEX_SET_H_
 
 #include "config.h"
-#include <qlist.h>
+#include <qptrlist.h>
 #include "mt/TSS_Object.h"
 
 class Mutex;
@@ -56,7 +56,7 @@ public:
 protected:
 
     /** list of mutex guards */
-    QList<MutexGuard> m_guards;
+    QPtrList<MutexGuard> m_guards;
 };
 
 #endif /* _MUTEX_SET_H_ */

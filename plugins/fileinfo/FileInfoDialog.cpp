@@ -22,7 +22,7 @@
 #include <qdatetime.h>
 #include <qdialog.h>
 #include <qfileinfo.h>
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qlistbox.h>
@@ -67,7 +67,7 @@ FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
                 (mimetype == "application/x-ogg") ||
                 (mimetype == "application/ogg"));
 
-    debug("mimetype = %s",mimetype.data());
+    debug("mimetype = %s",mimetype.latin1());
    
     setupFileInfoTab();
     setupCompressionTab();
@@ -97,8 +97,8 @@ void FileInfoDialog::describeWidget(QWidget *widget, const QString &name,
 void FileInfoDialog::initInfo(QLabel *label, QWidget *widget,
                               FileProperty property)
 {
-    ASSERT(label);
-    ASSERT(widget);
+    Q_ASSERT(label);
+    Q_ASSERT(widget);
     if (label) label->setText(m_info.name(property) + ":");
     describeWidget(widget, m_info.name(property),
                    m_info.description(property));
@@ -151,12 +151,12 @@ void FileInfoDialog::setupFileInfoTab()
 //        lblFileFormat->text().length()-1),
 //        i18n("Format of the file from which the\n"
 //             "audio data was loaded from"));
-//    debug("mimetype='%s'",mimetype.data()); // ###
+//    debug("mimetype='%s'",mimetype.latin1()); // ###
 //    KMimeType::Ptr mime = KMimeType::mimeType(mimetype);
 //    QString format =
 //       (mime != KMimeType::mimeType(KMimeType::defaultMimeType())) ?
 //        mime->comment() : mimetype;
-//    debug("comment='%s'",mime->comment().data()); // ###
+//    debug("comment='%s'",mime->comment().latin1()); // ###
 //    edFileFormat->setText(format);
 
     // use mimetype instead

@@ -21,7 +21,7 @@
 #include "config.h"
 #include <math.h>
 
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstringlist.h>
 #include <qmap.h>
 

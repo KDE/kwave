@@ -17,8 +17,8 @@
 //{
 //    Label *c = (Label *)a;
 //    Label *d = (Label *)b;
-//    ASSERT(c);
-//    ASSERT(d);
+//    Q_ASSERT(c);
+//    Q_ASSERT(d);
 //    if (!c || !d) return -1;
 //
 //    double res = (c->pos - d->pos);

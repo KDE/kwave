@@ -55,7 +55,7 @@ MenuNode *MenuSub::insertBranch(const QString &name, const QString &command,
                                 int key, const QString &uid, int /*index*/)
 {
     MenuSub *node = new MenuSub(this, name, command, key, uid);
-    ASSERT(node);
+    Q_ASSERT(node);
     if (!node) return 0;
 
     int new_id = registerChild(node);
@@ -69,11 +69,11 @@ MenuNode *MenuSub::insertBranch(const QString &name, const QString &command,
 MenuNode *MenuSub::insertLeaf(const QString &name, const QString &command,
                               int key, const QString &uid, int /*index*/) {
     int new_id;
-    ASSERT(name.length());
+    Q_ASSERT(name.length());
     if ( !name.length() ) return 0;
 
     MenuItem *item = new MenuItem(this, name, command, key, uid);
-    ASSERT(item);
+    Q_ASSERT(item);
     if (!item) return 0;
 
     new_id = registerChild(item);
@@ -86,7 +86,7 @@ MenuNode *MenuSub::insertLeaf(const QString &name, const QString &command,
 //***************************************************************************
 void MenuSub::removeChild(MenuNode *child)
 {
-    ASSERT(child);
+    Q_ASSERT(child);
     if (!child) return;
     if (m_children.findRef(child) == -1) return;
 
@@ -97,7 +97,7 @@ void MenuSub::removeChild(MenuNode *child)
 //***************************************************************************
 bool MenuSub::specialCommand(const QString &command)
 {
-    ASSERT(command.length());
+    Q_ASSERT(command.length());
     if (!command.length()) return false;
 
     if (command.startsWith("#exclusive")) {

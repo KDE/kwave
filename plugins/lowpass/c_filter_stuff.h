@@ -242,5 +242,5 @@ int readringbufferi();
 void writeringbufferi();
 #endif
 
-#endif // C_FILTER_STUFF_H
+#endif /* C_FILTER_STUFF_H */
 

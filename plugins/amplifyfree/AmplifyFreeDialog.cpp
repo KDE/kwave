@@ -48,7 +48,7 @@ AmplifyFreeDialog::~AmplifyFreeDialog()
 QString AmplifyFreeDialog::getCommand()
 {
     QString cmd;
-    ASSERT(curveWidget);
+    Q_ASSERT(curveWidget);
     Parser p(curveWidget->getCommand());
 
     cmd = "amplifyfree(";

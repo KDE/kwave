@@ -19,7 +19,7 @@
 #define _CODEC_BASE_H_
 
 #include "config.h"
-#include <qlist.h>
+#include <qptrlist.h>
 
 class KMimeType;
 class QString;
@@ -41,7 +41,7 @@ public:
     virtual bool supports(const QString &mimetype_name);
 
     /** Returns a list of supported mime types */
-    virtual const QList<KMimeType> &mimeTypes();
+    virtual const QPtrList<KMimeType> &mimeTypes();
 
     /**
      * Adds a new mime type to the internal list of supported mime
@@ -60,7 +60,7 @@ public:
 
 private:
     /** list of supported mime types */
-    QList<KMimeType> m_supported_mime_types;
+    QPtrList<KMimeType> m_supported_mime_types;
 
 };
 

@@ -30,7 +30,7 @@
 #define BUFFER_SIZE (256*1024)
 
 //***************************************************************************
-SampleReader::SampleReader(Track &track, QList<Stripe> &stripes,
+SampleReader::SampleReader(Track &track, QPtrList<Stripe> &stripes,
 	SampleLock *lock, unsigned int left, unsigned int right)
     :m_track(track), m_stripes(stripes), m_lock(lock),
     m_src_position(left), m_first(left), m_last(right), m_buffer(BUFFER_SIZE),
@@ -57,15 +57,15 @@ void SampleReader::reset()
 //***************************************************************************
 void SampleReader::fillBuffer()
 {
-    ASSERT(m_buffer_position >= m_buffer_used);
+    Q_ASSERT(m_buffer_position >= m_buffer_used);
     m_buffer_used = 0;
     m_buffer_position = 0;
     if (eof()) return;
 
-    QListIterator<Stripe> it(m_stripes);
+    QPtrListIterator<Stripe> it(m_stripes);
     unsigned int rest = m_buffer.size();/* - m_buffer_used (is 0) */
     if (m_src_position+rest-1 > m_last) rest = (m_last-m_src_position+1);
-    ASSERT(rest);
+    Q_ASSERT(rest);
 
     for (; rest && it.current(); ++it) {
 	Stripe *s = it.current();
@@ -83,7 +83,7 @@ void SampleReader::fillBuffer()
 	    // read from the stripe
 	    unsigned int cnt = s->read(m_buffer, m_buffer_used,
 	                               offset, length);
-	    ASSERT(cnt <= rest);
+	    Q_ASSERT(cnt <= rest);
 	    m_buffer_used  += cnt;
 	    m_src_position += cnt;
 	    rest -= cnt;
@@ -94,19 +94,19 @@ void SampleReader::fillBuffer()
 }
 
 //***************************************************************************
-unsigned int SampleReader::read(QArray<sample_t> &buffer,
+unsigned int SampleReader::read(QMemArray<sample_t> &buffer,
 	unsigned int dstoff, unsigned int length)
 {
     if (eof() || !length) return 0; // already done or nothing to do
 
     // just a sanity check
-    ASSERT(dstoff < buffer.size());
+    Q_ASSERT(dstoff < buffer.size());
     if (dstoff >= buffer.size()) return 0;
 
     unsigned int count = 0;
     unsigned int rest = length;
     if (dstoff+rest > buffer.size()) rest = buffer.size() - dstoff;
-    ASSERT(rest);
+    Q_ASSERT(rest);
     if (!rest) return 0;
 
     // first try to read from the current buffer
@@ -138,7 +138,7 @@ unsigned int SampleReader::read(QArray<sample_t> &buffer,
     }
 
     // take the rest directly out of the stripe(s)
-    QListIterator<Stripe> it(m_stripes);
+    QPtrListIterator<Stripe> it(m_stripes);
     if (m_src_position+rest-1 > m_last) rest = (m_last - m_src_position)+1;
 
     for (; rest && it.current(); ++it) {
@@ -217,7 +217,7 @@ SampleReader &SampleReader::operator >> (sample_t &sample)
 }
 
 //***************************************************************************
-SampleReader &SampleReader::operator >> (QArray<sample_t> &buffer)
+SampleReader &SampleReader::operator >> (QMemArray<sample_t> &buffer)
 {
     unsigned int size = buffer.size();
     unsigned int count = read(buffer, 0, size);

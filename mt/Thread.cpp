@@ -54,7 +54,7 @@
 extern "C" void* C_thread_adapter(void* arg)
 {
     Thread *thread = (Thread *)arg;
-    ASSERT(thread);
+    Q_CHECK_PTR(thread);
     if (!thread) return 0;
 
     /* call the thread's function through a C++ adapter */
@@ -104,7 +104,7 @@ void *Thread::thread_adapter(void *arg)
     MutexGuard lock(m_thread_running);
 
     Thread *object = (Thread *) arg;
-    ASSERT(object);
+    Q_CHECK_PTR(object);
     if (!object) return (void*)-EINVAL;
 
     /* execute the thread function */

@@ -76,10 +76,10 @@ WindowFunction::~WindowFunction()
 }
 
 //***************************************************************************
-QArray<double> WindowFunction::points(unsigned int len)
+QMemArray<double> WindowFunction::points(unsigned int len)
 {
-    QArray<double> out(len);
-    ASSERT(out.count() == len);
+    QMemArray<double> out(len);
+    Q_ASSERT(out.count() == len);
     if (out.count() != len) {
 	out.resize(0);
 	return out;

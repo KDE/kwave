@@ -19,8 +19,8 @@
 #define _KWAVE_PLUGIN_H_
 
 #include "config.h"
-#include <qarray.h>
-#include <qvector.h>
+#include <qmemarray.h>
+#include <qmemarray.h>
 #include <qobject.h>
 #include "mt/Mutex.h"
 #include "mt/Asynchronous_Object.h"
@@ -190,7 +190,7 @@ public:
     /**
      * Returns an array of indices of currently selected channels.
      */
-    virtual const QArray<unsigned int> selectedTracks();
+    virtual const QMemArray<unsigned int> selectedTracks();
 
     /**
      * Returns the left and right sample index of the current selection

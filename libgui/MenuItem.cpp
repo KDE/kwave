@@ -86,12 +86,12 @@ bool MenuItem::specialCommand(const QString &command)
 	    QPixmap icon = loader.loadIcon(filename,
 		KIcon::Small,0,KIcon::DefaultState,0L,true);
 	
-            ASSERT(!icon.isNull());
+            Q_ASSERT(!icon.isNull());
 	    if (!icon.isNull()) {
 		setIcon(icon);
 	    } else {
 		debug("MenuItem '%s': icon '%s' not found !",
-		    name(), filename.data());
+		    name(), filename.latin1());
 	    }
 	}
 	return true;
@@ -115,8 +115,8 @@ bool MenuItem::specialCommand(const QString &command)
 		joinGroup(group);
 	    } else if (m_exclusive_group != group) {
 		warning("menu item '%s' already member of "\
-			"exclusive group '%s'", getName().data(),
-			m_exclusive_group.data());
+			"exclusive group '%s'", getName().latin1(),
+			m_exclusive_group.latin1());
 	    }
 	    group = parser.nextParam();
 	}

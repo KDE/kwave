@@ -66,7 +66,7 @@ UndoAction *UndoInsertTrack::undo(SignalManager &manager, bool with_redo)
     // store data for redo
     if (with_redo) {
 	redo = new UndoDeleteTrack(m_signal, m_track);
-	ASSERT(redo);
+	Q_ASSERT(redo);
 	if (redo) redo->store(manager);
     }
 

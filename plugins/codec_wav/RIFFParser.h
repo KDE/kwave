@@ -19,7 +19,7 @@
 #define _RIFF_PARSER_H_
 
 #include "config.h"
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qobject.h>
 #include <qstringlist.h>
 #include <qvaluelist.h>

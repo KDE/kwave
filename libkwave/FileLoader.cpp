@@ -27,7 +27,7 @@
 FileLoader::FileLoader(const QString &name)
 {
     m_buf = 0;
-    FILE *in = fopen(name.data(), "r");
+    FILE *in = fopen(name.latin1(), "r");
     if (in) {
 	fseek (in, 0, SEEK_END);
 	unsigned int size = ftell (in);

@@ -41,19 +41,19 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 	bool by_time)
     :NewSigDlg(parent, 0, true), m_timer(this), m_recursive(false)
 {
-    ASSERT(btOK);
-    ASSERT(cbSampleRate);
-    ASSERT(sbResolution);
-    ASSERT(sbTracks);
-    ASSERT(rbTime);
-    ASSERT(lblTracksVerbose);
-    ASSERT(sbHours);
-    ASSERT(sbMinutes);
-    ASSERT(sbSeconds);
-    ASSERT(rbSamples);
-    ASSERT(edSamples);
-    ASSERT(slideLength);
-    ASSERT(lblFileSize);
+    Q_ASSERT(btOK);
+    Q_ASSERT(cbSampleRate);
+    Q_ASSERT(sbResolution);
+    Q_ASSERT(sbTracks);
+    Q_ASSERT(rbTime);
+    Q_ASSERT(lblTracksVerbose);
+    Q_ASSERT(sbHours);
+    Q_ASSERT(sbMinutes);
+    Q_ASSERT(sbSeconds);
+    Q_ASSERT(rbSamples);
+    Q_ASSERT(edSamples);
+    Q_ASSERT(slideLength);
+    Q_ASSERT(lblFileSize);
 
     if (!ok()) return;
 
@@ -267,7 +267,7 @@ void NewSignalDialog::timeChanged(int)
     }
 
     // update the other controls
-    ASSERT(samples <= INT_MAX);
+    Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
     edSamples->setValue(samples);
     slideLength->setValue((int)(100.0 * samples / max_samples));
@@ -290,7 +290,7 @@ void NewSignalDialog::samplesChanged(int)
     if (samples > max_samples) {
 	samples = max_samples;
 
-	ASSERT(samples <= INT_MAX);
+	Q_ASSERT(samples <= INT_MAX);
 	if (samples > INT_MAX) samples = INT_MAX;
 	edSamples->setValue(samples);
     }
@@ -357,7 +357,7 @@ void NewSignalDialog::setLengthPercentage(int percent)
     m_recursive = true;
 
     unsigned int samples = (unsigned int)(maxSamples()*(double)percent/100.0);
-    ASSERT(samples <= INT_MAX);
+    Q_ASSERT(samples <= INT_MAX);
     if (samples > INT_MAX) samples = INT_MAX;
 
     // update the other controls

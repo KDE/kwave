@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstring.h>
 
 #include "RIFFChunk.h"
@@ -38,7 +38,7 @@ RIFFChunk::~RIFFChunk()
 }
 
 //***************************************************************************
-#define CHECK(x) ASSERT(!(x)); if (x) return false;
+#define CHECK(x) Q_ASSERT(!(x)); if (x) return false;
 bool RIFFChunk::isSane()
 {
     CHECK(m_type == Empty);
@@ -61,7 +61,7 @@ bool RIFFChunk::isSane()
 	return false;
     }
 
-    QListIterator<RIFFChunk> it(subChunks());
+    QPtrListIterator<RIFFChunk> it(subChunks());
     for (; it.current(); ++it) {
 	if (!it.current()->isSane()) return false;
     }
@@ -108,7 +108,7 @@ bool RIFFChunk::isChildOf(RIFFChunk *chunk)
 //***************************************************************************
 void RIFFChunk::fixSize()
 {
-    QListIterator<RIFFChunk> it(subChunks());
+    QPtrListIterator<RIFFChunk> it(subChunks());
 
     // pass one: fix sizes of sub chunks recursively
     for (; it.current(); ++it) {
@@ -172,11 +172,11 @@ void RIFFChunk::dumpStructure()
 
     debug("[0x%08X-0x%08X] (%10u/%10u) %7s, '%s'",
           m_phys_offset, physEnd(), physLength(), length(),
-          t.data(), p.data()
+          t.latin1(), p.data()
     );
 
     // recursively dump all sub-chunks
-    QListIterator<RIFFChunk> it(m_sub_chunks);
+    QPtrListIterator<RIFFChunk> it(m_sub_chunks);
     for (; it.current(); ++it) {
         RIFFChunk *chunk = it.current();
         chunk->dumpStructure();

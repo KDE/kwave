@@ -44,11 +44,11 @@ QStringList *FileInfoPlugin::setup(QStringList &)
 
     // create the setup dialog
     FileInfoDialog *dialog = new FileInfoDialog(parentWidget(), oldInfo);
-    ASSERT(dialog);
+    Q_ASSERT(dialog);
     if (!dialog) return 0;
 
     QStringList *list = new QStringList();
-    ASSERT(list);
+    Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK" -> apply the new properties
 	apply(dialog->info());

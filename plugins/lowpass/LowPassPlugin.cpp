@@ -54,12 +54,12 @@ int LowPassPlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    ASSERT(params.count() == 1);
+    Q_ASSERT(params.count() == 1);
     if (params.count() != 1) return -EINVAL;
 
     param = params[0];
     m_frequency = param.toDouble(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // all parameters accepted
@@ -76,13 +76,13 @@ QStringList *LowPassPlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     LowPassDialog *dialog = new LowPassDialog(parentWidget(), signalRate());
-    ASSERT(dialog);
+    Q_ASSERT(dialog);
     if (!dialog) return 0;
 
     if (!m_params.isEmpty()) dialog->setParams(m_params);
 
     QStringList *list = new QStringList();
-    ASSERT(list);
+    Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
 	*list = dialog->params();
@@ -103,7 +103,7 @@ void LowPassPlugin::run(QStringList params)
 
     Arts::Dispatcher *dispatcher = manager().artsDispatcher();
     dispatcher->lock();
-    ASSERT(dispatcher);
+    Q_ASSERT(dispatcher);
     if (!dispatcher) close();
 
     UndoTransactionGuard undo_guard(*this, i18n("low pass"));

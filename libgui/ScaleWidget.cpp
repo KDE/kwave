@@ -130,11 +130,10 @@ void ScaleWidget::drawLog(QPainter &p, int w, int h, bool inverse)
     p.setPen (colorGroup().text());
 
     int a, x;
-    double ofs;
     const int h2 = h;
 
-    ASSERT(m_low >= 0);
-    ASSERT(m_high > m_low);
+    Q_ASSERT(m_low >= 0);
+    Q_ASSERT(m_high > m_low);
     
     int dec_lo = (m_low) ? (int)floor(log(m_low)/log(base)) : 0;
     int dec_hi = (int)ceil(log(m_high)/log(base));

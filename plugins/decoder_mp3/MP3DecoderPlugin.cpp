@@ -38,7 +38,7 @@ MP3DecoderPlugin::~MP3DecoderPlugin()
 void MP3DecoderPlugin::load(QStringList &/* params */)
 {
     if (!m_decoder) m_decoder = new MP3Decoder();
-    ASSERT(m_decoder);
+    Q_ASSERT(m_decoder);
     if (m_decoder) CodecManager::registerDecoder(*m_decoder);
 }
 

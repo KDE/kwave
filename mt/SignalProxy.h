@@ -19,7 +19,7 @@
 #define _SIGNAL_PROXY_H_
 
 #include "config.h"
-#include <qqueue.h>
+#include <qptrqueue.h>
 #include "mt/AsyncSync.h"
 #include "mt/Mutex.h"
 #include "mt/MutexGuard.h"
@@ -64,7 +64,7 @@ public:
     virtual void setLimit(unsigned int limit);
     virtual unsigned int limit();
 private:
-    QQueue<T> m_queue;
+    QPtrQueue<T> m_queue;
     Mutex m_lock;
     unsigned int m_limit;
 };
@@ -100,7 +100,7 @@ void SignalProxy1<T>::enqueue(const T &param)
     // has been reached.
     if ((m_limit) && (m_queue.count() >= m_limit)) {
 	T *p1 = m_queue.dequeue();
-	ASSERT(p1);
+	Q_ASSERT(p1);
 	if (p1) delete p1;
 
 	// if the queue already was full, don't call the AsyncHandler()
@@ -111,7 +111,7 @@ void SignalProxy1<T>::enqueue(const T &param)
 
     // enqueue a copy of the object
     T *copy = new T(param);
-    ASSERT(copy);
+    Q_ASSERT(copy);
     m_queue.enqueue(copy);
 
     if (call_async) AsyncHandler();
@@ -123,11 +123,11 @@ T *SignalProxy1<T>::dequeue()
 {
     MutexGuard lock(m_lock);
     T *p1 = m_queue.dequeue();
-    ASSERT(p1);
+    Q_ASSERT(p1);
     T *copy = 0;
     if (p1) {
 	copy = new T(*p1);
-	ASSERT(copy);
+	Q_CHECK_PTR(copy);
 	delete p1;
     }
     return copy;

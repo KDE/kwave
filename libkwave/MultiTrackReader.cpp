@@ -21,7 +21,7 @@
 
 //***************************************************************************
 MultiTrackReader::MultiTrackReader()
-    :QObject(), QVector<SampleReader>(), m_cancelled(false)
+    :QObject(), QPtrVector<SampleReader>(), m_cancelled(false)
 {
     setAutoDelete(true);
 }
@@ -32,7 +32,7 @@ bool MultiTrackReader::eof() const
     unsigned int c = this->count();
     for (unsigned int r = 0; r < c; r++) {
 	SampleReader *reader = this->at(r);
-	ASSERT(reader);
+	Q_ASSERT(reader);
 	if (!reader) continue;
 	if (reader->eof()) return true;
     }
@@ -45,7 +45,7 @@ bool MultiTrackReader::insert(unsigned int track, const SampleReader *reader)
     if (reader) {
         connect(reader, SIGNAL(proceeded()), this, SLOT(proceeded()));
     }
-    return QVector<SampleReader>::insert(track, reader);
+    return QPtrVector<SampleReader>::insert(track, reader);
 }
 
 //***************************************************************************

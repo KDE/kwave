@@ -19,8 +19,8 @@
 #define _SAMPLE_WRITER_H_
 
 #include "config.h"
-#include <qarray.h>
-#include <qlist.h>
+#include <qmemarray.h>
+#include <qptrlist.h>
 #include <qobject.h>
 
 #include "libkwave/InsertMode.h"
@@ -59,7 +59,7 @@ public:
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleWriter(Track &track, QList<Stripe> &stripes,
+    SampleWriter(Track &track, QPtrList<Stripe> &stripes,
 	SampleLock *lock, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
 
@@ -69,7 +69,7 @@ public:
     virtual ~SampleWriter();
 
     /** operator for inserting an array of samples */
-    SampleWriter &operator << (const QArray<sample_t> &samples);
+    SampleWriter &operator << (const QMemArray<sample_t> &samples);
 
     /** operator for inserting a single sample */
     SampleWriter &operator << (const sample_t &sample);
@@ -97,7 +97,7 @@ public:
      * @param count number of samples in the buffer to be flushed,
      *              will be internally set to zero if successful
      */
-    void flush(const QArray<sample_t> &buffer, unsigned int &count);
+    void flush(const QMemArray<sample_t> &buffer, unsigned int &count);
 
     /**
      * Shortcut for flush(m_buffer, m_buffer_used)
@@ -153,7 +153,7 @@ private:
     Track &m_track;
 
     /** array with our stripes */
-    QList<Stripe> m_stripes;
+    QPtrList<Stripe> m_stripes;
 
     /** locks for our range of samples */
     SampleLock *m_lock;
@@ -162,7 +162,7 @@ private:
     unsigned int m_position;
 
     /** intermediate buffer for the input data */
-    QArray<sample_t> m_buffer;
+    QMemArray<sample_t> m_buffer;
 
     /** number of used elements in the buffer */
     unsigned int m_buffer_used;

@@ -307,7 +307,7 @@ void FileInfo::dump()
         FileProperty key = it.key();
         QVariant val = it.data();
         QString name = m_property_map.name(key);
-        debug("   '%s' = '%s'", name.data(), val.toString().data());
+        debug("   '%s' = '%s'", name.latin1(), val.toString().latin1());
     }
     debug("-------------------------");
 }

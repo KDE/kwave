@@ -39,7 +39,7 @@ FileProgress::FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
 	unsigned int samples, double rate, unsigned int bits,
 	unsigned int tracks)
-    :QSemiModal(parent, "FileProgress", true),
+    :KDialog(parent, "FileProgress", true),
     m_url(url),
     m_size(size),
     m_lbl_url(0),
@@ -64,12 +64,12 @@ FileProgress::FileProgress(QWidget *parent,
 
     // toplevel uses a vbox layout
     QVBoxLayout *top_layout = new QVBoxLayout(this, 10, 10);
-    ASSERT(top_layout);
+    Q_ASSERT(top_layout);
     if (!top_layout) return;
 
     // sublayout for the lines with the file info
     QGridLayout *info_layout = new QGridLayout(5, 2, 0);
-    ASSERT(info_layout);
+    Q_ASSERT(info_layout);
     if (!info_layout) return;
     info_layout->setColStretch(0,0);
     info_layout->setColStretch(1,100);
@@ -117,13 +117,13 @@ FileProgress::FileProgress(QWidget *parent,
 
     // progress bar
     m_progress = new KProgress(100, this);
-    ASSERT(m_progress);
+    Q_ASSERT(m_progress);
     if (!m_progress) return;
     top_layout->addWidget(m_progress, 0, 0);
 
     // sublayout for the line with estimated time
     QGridLayout *status_layout = new QGridLayout(1, 3, 1);
-    ASSERT(status_layout);
+    Q_ASSERT(status_layout);
     if (!status_layout) return;
     status_layout->addColSpacing(1, 20);
     top_layout->addLayout(status_layout);
@@ -145,7 +145,7 @@ FileProgress::FileProgress(QWidget *parent,
 
     // right lower edge: the "cancel" button
     KPushButton *bt_cancel = new KPushButton(this);
-    ASSERT(bt_cancel);
+    Q_ASSERT(bt_cancel);
     if (!bt_cancel) return;
     bt_cancel->setText(i18n("&Cancel"));
     bt_cancel->setFixedSize(bt_cancel->sizeHint());
@@ -175,7 +175,7 @@ void FileProgress::resizeEvent(QResizeEvent *)
 //***************************************************************************
 void FileProgress::closeEvent(QCloseEvent *e)
 {
-    ASSERT(e);
+    Q_ASSERT(e);
     if (!e) return;
 
     // if not already cancelled -> ask user to confirm
@@ -224,7 +224,7 @@ QLabel *FileProgress::addInfoLabel(QGridLayout *layout, const QString text,
 	int row, int col)
 {
     QLabel *label = new QLabel(this);
-    ASSERT(label);
+    Q_ASSERT(label);
     if (!label) return 0;
 
     label->setText(text);

@@ -161,14 +161,14 @@ TopWidget::TopWidget(KwaveApp &main_app)
     m_zoomselect = 0;
 
     KMenuBar *menubar = menuBar();
-    ASSERT(menubar);
+    Q_ASSERT(menubar);
     if (!menubar) return;
     m_menu_manager = new MenuManager(this, *menubar);
-    ASSERT(m_menu_manager);
+    Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
     m_plugin_manager = new PluginManager(*this);
-    ASSERT(m_plugin_manager);
+    Q_ASSERT(m_plugin_manager);
     if (!m_plugin_manager) return;
     if (!m_plugin_manager->isOK()) {
 	delete m_plugin_manager;
@@ -187,7 +187,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
 
     KStatusBar *status_bar = statusBar();
-    ASSERT(status_bar);
+    Q_ASSERT(status_bar);
     if (!status_bar) return;
     status_bar->insertItem("", STATUS_ID_SIZE);
     status_bar->insertItem("", STATUS_ID_MODE);
@@ -197,14 +197,14 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // load the menu from file
     QString menufile = locate("data", "kwave/menus.config");
     FileLoader loader(menufile);
-    ASSERT(loader.buffer());
+    Q_ASSERT(loader.buffer());
     if (loader.buffer()) parseCommands(loader.buffer());
     updateMenu();
 
     updateRecentFiles();
 
     m_main_widget = new MainWidget(this);
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_main_widget);
     if (!m_main_widget) return;
     if (!(m_main_widget->isOK())) {
 	warning("TopWidget::TopWidget(): failed at creating main widget");
@@ -233,7 +233,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // --- set up the toolbar ---
 
     m_toolbar = new KToolBar(this, "toolbar", true, true);
-    ASSERT(m_toolbar);
+    Q_ASSERT(m_toolbar);
     if (!m_toolbar) return;
     m_toolbar->setBarPos(KToolBar::Top);
     m_toolbar->setHorizontalStretchable(false);
@@ -262,7 +262,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // separator between file and edit
     QFrame *separator1 = new QFrame(m_toolbar, "separator line");
-    ASSERT(separator1);
+    Q_ASSERT(separator1);
     if (!separator1) return;
     separator1->setFrameStyle(QFrame::VLine | QFrame::Sunken);
     separator1->setFixedWidth(separator1->sizeHint().width());
@@ -325,7 +325,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // separator between edit and playback
     QFrame *separator = new QFrame(m_toolbar, "separator line");
-    ASSERT(separator);
+    Q_ASSERT(separator);
     if (!separator) return;
     separator->setFrameStyle(QFrame::VLine | QFrame::Sunken);
     separator->setFixedWidth(separator->sizeHint().width());
@@ -362,7 +362,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // separator between playback and zoom
     QFrame *separator3 = new QFrame(m_toolbar, "separator line");
-    ASSERT(separator3);
+    Q_ASSERT(separator3);
     if (!separator3) return;
     separator3->setFrameStyle(QFrame::VLine | QFrame::Sunken);
     separator3->setFixedWidth(separator3->sizeHint().width());
@@ -415,7 +415,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     connect(m_main_widget, SIGNAL(sigZoomChanged(double)),
             this, SLOT(setZoomInfo(double)));
     m_zoomselect = m_toolbar->getCombo(m_id_zoomselect);
-    ASSERT(m_zoomselect);
+    Q_ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
 
     int h = m_zoomselect->sizeHint().height();
@@ -540,11 +540,11 @@ TopWidget::TopWidget(KwaveApp &main_app)
 //***************************************************************************
 bool TopWidget::isOK()
 {
-    ASSERT(m_menu_manager);
-    ASSERT(m_main_widget);
-    ASSERT(m_plugin_manager);
-    ASSERT(m_toolbar);
-    ASSERT(m_zoomselect);
+    Q_ASSERT(m_menu_manager);
+    Q_ASSERT(m_main_widget);
+    Q_ASSERT(m_plugin_manager);
+    Q_ASSERT(m_toolbar);
+    Q_ASSERT(m_zoomselect);
 
     return ( m_menu_manager && m_main_widget &&
 	m_plugin_manager && m_toolbar && m_zoomselect &&
@@ -587,7 +587,7 @@ int TopWidget::executeCommand(const QString &line)
     bool use_recorder = true;
     QString command = line;
 
-//    debug("TopWidget::executeCommand(%s)", command.data()); // ###
+//    debug("TopWidget::executeCommand(%s)", command.latin1()); // ###
     if (!command.length()) return 0; // empty line -> nothing to do
     if (command.stripWhiteSpace().startsWith("#")) return 0; // only a comment
 
@@ -598,15 +598,15 @@ int TopWidget::executeCommand(const QString &line)
 	QStringList macro = parse_list.commandList();
 	for (QStringList::Iterator it=macro.begin(); it!=macro.end(); ++it) {
 	    result = executeCommand("nomacro:"+(*it));
-	    ASSERT(!result);
+	    Q_ASSERT(!result);
 	    if (result) {
 		warning("macro execution of '%s' failed: %d",
-		        (*it).data(), result);
+		        (*it).latin1(), result);
 		return result; // macro failed :-(
 	    }
 	
 	    // wait until the command has completed !
-	    ASSERT(m_plugin_manager);
+	    Q_ASSERT(m_plugin_manager);
 	    if (m_plugin_manager) m_plugin_manager->sync();
 	}
 	return result;
@@ -630,17 +630,17 @@ int TopWidget::executeCommand(const QString &line)
 	int cnt=parser.count();
 	if (cnt > 1) {
 	    params = new QStringList();
-	    ASSERT(params);
+	    Q_ASSERT(params);
 	    while (params && cnt--) {
 		const QString &par = parser.nextParam();
-		debug("TopWidget::executeCommand(): %s", par.data());
+		debug("TopWidget::executeCommand(): %s", par.latin1());
 		params->append(par);
 	    }
 	}
-	debug("TopWidget::executeCommand(): loading plugin '%s'",name.data());
+	debug("TopWidget::executeCommand(): loading plugin '%s'",name.latin1());
 	debug("TopWidget::executeCommand(): with %d parameter(s)",
 		(params) ? params->count() : 0);
-	ASSERT(m_plugin_manager);
+	Q_ASSERT(m_plugin_manager);
 	if (m_plugin_manager)
 	    result = m_plugin_manager->executePlugin(name, params);
     CASE_COMMAND("plugin:execute")
@@ -650,15 +650,15 @@ int TopWidget::executeCommand(const QString &line)
 	while (--cnt > 0) {
 	    params.append(parser.nextParam());
 	}
-	ASSERT(m_plugin_manager);
+	Q_ASSERT(m_plugin_manager);
 	result = (m_plugin_manager) ?
 	          m_plugin_manager->executePlugin(name, &params) : -ENOMEM;
     CASE_COMMAND("plugin:setup")
 	QString name(parser.firstParam());
-	ASSERT(m_plugin_manager);
+	Q_ASSERT(m_plugin_manager);
 	if (m_plugin_manager) result = m_plugin_manager->setupPlugin(name);
     CASE_COMMAND("menu")
-	ASSERT(m_menu_manager);
+	Q_ASSERT(m_menu_manager);
 	if (m_menu_manager) /*result = */m_menu_manager->executeCommand(command);
     CASE_COMMAND("newsignal")
 	unsigned int samples = parser.toUInt();
@@ -694,7 +694,7 @@ int TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("quit")
 	result = close();
     } else {
-	ASSERT(m_main_widget);
+	Q_ASSERT(m_main_widget);
 	result = (m_main_widget &&
 	    m_main_widget->executeCommand(command)) ? 0 : -1;
     }
@@ -718,7 +718,7 @@ int TopWidget::loadBatch(const QString &str)
 //***************************************************************************
 int TopWidget::executePlaybackCommand(const QString &command)
 {
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -1;
 
     PlaybackController &controller = m_main_widget->playbackController();
@@ -741,7 +741,7 @@ int TopWidget::executePlaybackCommand(const QString &command)
 //***************************************************************************
 SignalManager &TopWidget::signalManager()
 {
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_main_widget);
     return m_main_widget->signalManager();
 }
 
@@ -762,7 +762,7 @@ int TopWidget::parseCommands(const QByteArray &buffer)
 //***************************************************************************
 int TopWidget::revert()
 {
-    ASSERT(m_url.isValid() && !m_url.isMalformed());
+    Q_ASSERT(m_url.isValid() && !m_url.isMalformed());
     if (!m_url.isValid() || m_url.isMalformed()) return -EINVAL;
 
     KURL url(m_url);
@@ -774,7 +774,7 @@ bool TopWidget::closeFile()
 {
     ThreadsafeX11Guard x11_guard;
 
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_main_widget);
     if (signalManager().isModified()) {
 	int res =  KMessageBox::warningYesNoCancel(this,
 	    i18n("This file has been modified.\nDo you want to save it?"));
@@ -804,11 +804,11 @@ bool TopWidget::closeFile()
 //***************************************************************************
 int TopWidget::loadFile(const KURL &url)
 {
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -1;
 
     // abort if new file not valid and local
-    ASSERT(url.isLocalFile());
+    Q_ASSERT(url.isLocalFile());
     if (!url.isLocalFile()) return -1;
 
     // try to close the previous file
@@ -854,7 +854,7 @@ int TopWidget::openFile()
 int TopWidget::saveFile()
 {
     int res = 0;
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
 
     if (signalName() != NEW_FILENAME) {
@@ -875,7 +875,7 @@ int TopWidget::saveFile()
 int TopWidget::saveFileAs(bool selection)
 {
     int res = 0;
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_main_widget);
     if (!m_main_widget) return -EINVAL;
 
     KwaveFileDialog dlg(":<kwave_save_as>", CodecManager::encodingFilter(),
@@ -926,8 +926,8 @@ int TopWidget::saveFileAs(bool selection)
 	    // has already been selected to satisfy the fileinfo
 	    // plugin
 	    debug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
-		m_url.prettyURL().data(), new_mimetype_name.data(),
-		previous_mimetype_name.data() );
+		m_url.prettyURL().latin1(), new_mimetype_name.latin1(),
+		previous_mimetype_name.latin1() );
 	
 	    // set the new mimetype
 	    signalManager().fileInfo().set(INF_MIMETYPE,
@@ -940,7 +940,7 @@ int TopWidget::saveFileAs(bool selection)
 	
 	    // now call the fileinfo plugin with the new filename and
 	    // mimetype
-	    ASSERT(m_plugin_manager);
+	    Q_ASSERT(m_plugin_manager);
 	    res = (m_plugin_manager) ?
 	        res = m_plugin_manager->setupPlugin("fileinfo") : -1;
 	
@@ -990,7 +990,7 @@ QString TopWidget::signalName()
 //***************************************************************************
 void TopWidget::selectZoom(int index)
 {
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_main_widget);
     if (!m_main_widget) return;
 
     if (index < 0) return;
@@ -1000,7 +1000,7 @@ void TopWidget::selectZoom(int index)
     const double rate = signalManager().rate();
     const double ms = m_zoom_factors.ms(index);
     unsigned int width = m_main_widget->displayWidth();
-    ASSERT(width > 1);
+    Q_ASSERT(width > 1);
     if (width <= 1) width = 2;
     const double new_zoom = rint(((rate*ms)/1E3)-1) / (double)(width-1);
     m_main_widget->setZoom(new_zoom);
@@ -1014,8 +1014,8 @@ void TopWidget::selectZoom(int index)
 //***************************************************************************
 void TopWidget::setZoomInfo(double zoom)
 {
-    ASSERT(zoom >= 0);
-    ASSERT(m_zoomselect);
+    Q_ASSERT(zoom >= 0);
+    Q_ASSERT(m_zoomselect);
 
     if (zoom <= 0.0) return; // makes no sense or signal is empty
     if (!m_zoomselect) return;
@@ -1053,8 +1053,8 @@ void TopWidget::setZoomInfo(double zoom)
 void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
                               double rate, unsigned int bits)
 {
-    ASSERT(statusBar());
-    ASSERT(m_menu_manager);
+    Q_ASSERT(statusBar());
+    Q_ASSERT(m_menu_manager);
     if (!statusBar() || !m_menu_manager) return;
     double ms;
     QString txt;
@@ -1080,7 +1080,7 @@ void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
 //***************************************************************************
 void TopWidget::setTrackInfo(unsigned int tracks)
 {
-    ASSERT(m_menu_manager);
+    Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
     // update the list of deletable tracks
@@ -1100,7 +1100,7 @@ void TopWidget::setTrackInfo(unsigned int tracks)
 void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
                                     double rate)
 {
-    ASSERT(statusBar());
+    Q_ASSERT(statusBar());
     if (!statusBar()) return;
 
     if (length > 1) {
@@ -1135,7 +1135,7 @@ void TopWidget::setSelectedTimeInfo(unsigned int offset, unsigned int length,
 //***************************************************************************
 void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 {
-    ASSERT(m_toolbar);
+    Q_ASSERT(m_toolbar);
     if (!m_toolbar) return;
 
     QString txt;
@@ -1148,7 +1148,7 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
     txt = i18n("Undo");
     if (undo_enabled) txt += " (" + undo + ")";
     button = m_toolbar->getButton(m_id_undo);
-    ASSERT(button);
+    Q_ASSERT(button);
     if (button) {
 	QToolTip::remove(button);
 	QToolTip::add(button, txt);
@@ -1159,13 +1159,13 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
     txt = i18n("Redo");
     if (redo_enabled) txt += " (" + redo + ")";
     button = m_toolbar->getButton(m_id_redo);
-    ASSERT(button);
+    Q_ASSERT(button);
     if (button) {
 	QToolTip::remove(button);
 	QToolTip::add(button, txt);
     }
 
-    ASSERT(m_menu_manager);
+    Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
     // set new enable and text of the undo menu entry
@@ -1202,7 +1202,7 @@ void TopWidget::mouseChanged(int mode)
 //***************************************************************************
 void TopWidget::updateRecentFiles()
 {
-    ASSERT(m_menu_manager);
+    Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
     m_menu_manager->clearNumberedMenu("ID_FILE_OPEN_RECENT");
@@ -1210,7 +1210,7 @@ void TopWidget::updateRecentFiles()
     QStringList recent_files = m_app.recentFiles();
     QStringList::Iterator it;
     for (it = recent_files.begin(); it != recent_files.end(); ++it) {
-	ASSERT(it != 0);
+	Q_ASSERT(it != 0);
 	if (it == 0) break;
 	m_menu_manager->addNumberedMenuEntry("ID_FILE_OPEN_RECENT", *it);
     }
@@ -1219,7 +1219,7 @@ void TopWidget::updateRecentFiles()
 //***************************************************************************
 void TopWidget::updateMenu()
 {
-    ASSERT(m_menu_manager);
+    Q_ASSERT(m_menu_manager);
     if (!m_menu_manager) return;
 
     // enable/disable all items that depend on having a file
@@ -1230,8 +1230,8 @@ void TopWidget::updateMenu()
 //***************************************************************************
 void TopWidget::updateToolbar()
 {
-    ASSERT(m_toolbar);
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_toolbar);
+    Q_ASSERT(m_main_widget);
     if (!m_toolbar) return;
     if (!m_main_widget) return;
 
@@ -1250,8 +1250,8 @@ void TopWidget::updateToolbar()
 //***************************************************************************
 void TopWidget::updatePlaybackControls()
 {
-    ASSERT(m_toolbar);
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_toolbar);
+    Q_ASSERT(m_main_widget);
     if (!m_toolbar) return;
     if (!m_main_widget) return;
 
@@ -1267,7 +1267,7 @@ void TopWidget::updatePlaybackControls()
 	// NOTE: working with toolbar->getButton is ugly and NOT
 	//       recommended, but the only way this works in KDE3 :-(
 	KToolBarButton *button = m_toolbar->getButton(m_id_pause);
-	ASSERT(button);
+	Q_ASSERT(button);
 	if (!button) return;
 	button->setDefaultPixmap(xpm_pause);
 	
@@ -1302,7 +1302,7 @@ void TopWidget::playbackPaused()
 
     if (!m_pause_timer) {
 	m_pause_timer = new QTimer(this);
-	ASSERT(m_pause_timer);
+	Q_ASSERT(m_pause_timer);
 	if (!m_pause_timer) return;
 
 	m_pause_timer->start(500, false);
@@ -1316,13 +1316,13 @@ void TopWidget::playbackPaused()
 //***************************************************************************
 void TopWidget::blinkPause()
 {
-    ASSERT(m_toolbar);
+    Q_ASSERT(m_toolbar);
     if (!m_toolbar) return;
 
     // NOTE: working with toolbar->getButton is ugly and NOT
     //       recommended, but the only way this works in KDE3 :-(
     KToolBarButton *button = m_toolbar->getButton(m_id_pause);
-    ASSERT(button);
+    Q_ASSERT(button);
     if (!button) return;
     button->setDefaultPixmap(m_blink_on ? xpm_pause2 : xpm_pause);
 
@@ -1337,7 +1337,7 @@ void TopWidget::blinkPause()
 //***************************************************************************
 void TopWidget::pausePressed()
 {
-    ASSERT(m_main_widget);
+    Q_ASSERT(m_main_widget);
     if (!m_main_widget) return;
 
     bool have_signal = (m_main_widget->tracks());

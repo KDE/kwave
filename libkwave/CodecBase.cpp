@@ -42,7 +42,7 @@ void CodecBase::addMimeType(const QString &name, const QString &description,
 {
     KMimeType *type;
     type = new KMimeType(*KMimeType::mimeType(name));
-    ASSERT(type);
+    Q_ASSERT(type);
     if (type && (type->name() == type->defaultMimeType())) {
 //	warning("mime type '"+name+"' not registered, using built-in!");
 	delete type;
@@ -57,7 +57,7 @@ void CodecBase::addMimeType(const QString &name, const QString &description,
 /***************************************************************************/
 bool CodecBase::supports(const KMimeType &mimetype)
 {
-    QListIterator<KMimeType> it(m_supported_mime_types);
+    QPtrListIterator<KMimeType> it(m_supported_mime_types);
     const QString &name = mimetype.name();
     for (; it.current(); ++it) {
 	if (it.current()->name() == name) return true;
@@ -68,7 +68,7 @@ bool CodecBase::supports(const KMimeType &mimetype)
 /***************************************************************************/
 bool CodecBase::supports(const QString &mimetype_name)
 {
-    QListIterator<KMimeType> it(m_supported_mime_types);
+    QPtrListIterator<KMimeType> it(m_supported_mime_types);
     for (; it.current(); ++it) {
 	if (it.current()->name() == mimetype_name) return true;
     }
@@ -76,7 +76,7 @@ bool CodecBase::supports(const QString &mimetype_name)
 }
 
 /***************************************************************************/
-const QList<KMimeType> &CodecBase::mimeTypes()
+const QPtrList<KMimeType> &CodecBase::mimeTypes()
 {
     return m_supported_mime_types;
 }

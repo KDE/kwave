@@ -78,12 +78,12 @@ void FrequencyResponseWidget::paintEvent(QPaintEvent*)
     const int width  = this->width();
     const int height = this->height();
     
-    ASSERT(width > 0);
-    ASSERT(height > 0);
+    Q_ASSERT(width > 0);
+    Q_ASSERT(height > 0);
     if ((width <= 0) || (height <= 0)) return;
     
     if (!m_pixmap) m_pixmap = new QPixmap(width, height);
-    ASSERT(m_pixmap);
+    Q_ASSERT(m_pixmap);
     if (!m_pixmap) return;
     if ((m_pixmap->width() != width) || (m_pixmap->height() != height))
 	m_pixmap->resize(width, height);

@@ -57,11 +57,11 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
 
     SelectRangeDialog *dialog = new SelectRangeDialog(parentWidget(),
         m_start_mode, m_range_mode, m_range, rate, offset, length);
-    ASSERT(dialog);
+    Q_ASSERT(dialog);
     if (!dialog) return 0;
 
     QStringList *list = new QStringList();
-    ASSERT(list);
+    Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
 	*list << QString::number(dialog->startMode());
@@ -165,9 +165,9 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
     // selection mode for start
     param = params[0];
     mode = param.toInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
-    ASSERT((mode == (int)SelectTimeWidget::byTime) ||
+    Q_ASSERT((mode == (int)SelectTimeWidget::byTime) ||
            (mode == (int)SelectTimeWidget::bySamples) ||
            (mode == (int)SelectTimeWidget::byPercents));
     if ((mode != (int)SelectTimeWidget::byTime) &&
@@ -182,9 +182,9 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
     // selection mode
     param = params[1];
     mode = param.toInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
-    ASSERT((mode == (int)SelectTimeWidget::byTime) ||
+    Q_ASSERT((mode == (int)SelectTimeWidget::byTime) ||
            (mode == (int)SelectTimeWidget::bySamples) ||
            (mode == (int)SelectTimeWidget::byPercents));
     if ((mode != (int)SelectTimeWidget::byTime) &&
@@ -198,13 +198,13 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
     // offset in ms, samples or percent
     param = params[2];
     m_start = (unsigned int)param.toDouble(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // range in ms, samples or percent
     param = params[3];
     m_range = (unsigned int)param.toDouble(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     return 0;

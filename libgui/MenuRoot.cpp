@@ -57,7 +57,7 @@ MenuNode *MenuRoot::insertBranch(const QString &name, const QString &command,
                                  int key, const QString &uid, int index)
 {
     MenuSub *node = new MenuSub(this, name, command, key, uid);
-    ASSERT(node);
+    Q_ASSERT(node);
     if (!node) return 0;
 
     int new_id = registerChild(node);
@@ -71,7 +71,7 @@ MenuNode *MenuRoot::insertLeaf(const QString &name, const QString &command,
 			       int index)
 {
     MenuItem *item = new MenuItem(this, name, command, key, uid);
-    ASSERT(item);
+    Q_ASSERT(item);
     if (!item) return 0;
 
     int new_id = registerChild(item);
@@ -82,7 +82,7 @@ MenuNode *MenuRoot::insertLeaf(const QString &name, const QString &command,
 //***************************************************************************
 void MenuRoot::removeChild(MenuNode *child)
 {
-    ASSERT(child);
+    Q_ASSERT(child);
     if (!child) return ;
     if (m_children.findRef(child) == -1) return ;
 
@@ -108,7 +108,7 @@ bool MenuRoot::specialCommand(const QString &command)
 {
 //    debug("MenuRoot::specialCommand(%s)", command);
 
-    ASSERT(command);
+    Q_ASSERT(command);
     if (!command) return false;
 
     if (strcmp(command, "#separator") == 0) {

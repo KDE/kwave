@@ -55,7 +55,7 @@ Track::~Track()
 Stripe *Track::newStripe(unsigned int start, unsigned int length)
 {
     Stripe *s = new Stripe(start);
-    ASSERT(s);
+    Q_ASSERT(s);
     if (s) {
 	connect(s, SIGNAL(sigSamplesDeleted(Stripe&, unsigned int,
 	    unsigned int)),
@@ -120,7 +120,7 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	unsigned int left, unsigned int right)
 {
     SharedLockGuard lock(m_lock, false);
-    QList<Stripe> stripes;
+    QPtrList<Stripe> stripes;
     SampleLock * range_lock = 0;
 
     switch (mode) {
@@ -132,7 +132,7 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	    Stripe *stripe_before = 0;
 	
 	    // add all stripes within the specified range to the list
-	    QListIterator<Stripe> it(m_stripes);
+	    QPtrListIterator<Stripe> it(m_stripes);
 	    for (; it.current(); ++it) {
 		Stripe *s = it.current();
 		unsigned int st = s->start();
@@ -162,7 +162,7 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	    // insert it between the existing ones
 	    if (!target_stripe) {
 		target_stripe = newStripe(left, 0);
-		ASSERT(target_stripe);
+		Q_ASSERT(target_stripe);
 		if (!target_stripe) return 0;
 		
 		// insert into our stripes, if the stripe before
@@ -185,7 +185,7 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	    // create a new stripe
 	    unsigned int next_start = unlockedLength();
 	    Stripe *s = newStripe(next_start, 0);
-	    ASSERT(s);
+	    Q_ASSERT(s);
 	    if (!s) return 0;
 	
 	    // append it to our stripes list and lock it
@@ -206,7 +206,7 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 		SampleLock::WriteShared);
 	
 	    // add all stripes within the specified range to the list
-	    QListIterator<Stripe> it(m_stripes);
+	    QPtrListIterator<Stripe> it(m_stripes);
 	    for (; it.current(); ++it) {
 		Stripe *s = it.current();
 		unsigned int st = s->start();
@@ -224,13 +224,13 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
     }
 
     // no lock yet, that's not good...
-    ASSERT(range_lock);
+    Q_ASSERT(range_lock);
     if (!range_lock) return 0;
 
     // create the input stream
     SampleWriter *stream = new SampleWriter(*this, stripes,
 	range_lock, mode, left, right);
-    ASSERT(stream);
+    Q_ASSERT(stream);
     if (stream) return stream;
 
     // stream creation failed, clean up
@@ -243,14 +243,14 @@ SampleReader *Track::openSampleReader(unsigned int left,
 	unsigned int right)
 {
     SharedLockGuard lock(m_lock, false);
-    QList<Stripe> stripes;
+    QPtrList<Stripe> stripes;
 
     // lock the needed range for shared writing
     SampleLock *range_lock = new SampleLock(*this, left, right-left+1,
 	SampleLock::ReadShared);
 
     // add all stripes within the specified range to the list
-    QListIterator<Stripe> it(m_stripes);
+    QPtrListIterator<Stripe> it(m_stripes);
     for (; it.current(); ++it) {
 	Stripe *s = it.current();
 	unsigned int st = s->start();
@@ -265,13 +265,13 @@ SampleReader *Track::openSampleReader(unsigned int left,
     }
 
     // no lock yet, that's not good...
-    ASSERT(range_lock);
+    Q_ASSERT(range_lock);
     if (!range_lock) return 0;
 
     // create the input stream
     SampleReader *stream = new SampleReader(*this, stripes,
 	range_lock, left, right);
-    ASSERT(stream);
+    Q_ASSERT(stream);
     if (stream) return stream;
 
     // stream creation failed, clean up
@@ -292,7 +292,7 @@ void Track::deleteRange(unsigned int offset, unsigned int length)
 	    SampleLock::WriteExclusive);
 	
 	// add all stripes within the specified range to the list
-	QListIterator<Stripe> it(m_stripes);
+	QPtrListIterator<Stripe> it(m_stripes);
 	for (it.toLast(); it.current(); --it) {
 	    Stripe *s = it.current();
 	    unsigned int st = s->start();

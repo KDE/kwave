@@ -21,12 +21,12 @@
 #include <limits.h>
 
 #include <qaccel.h>
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qcursor.h>
 #include <qdir.h>
 #include <qfileinfo.h>
 #include <qkeycode.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qpainter.h>
 #include <qpopupmenu.h>
 #include <qstring.h>
@@ -64,24 +64,24 @@ CurveWidget::CurveWidget(QWidget *parent, const char *name)
 
     // set up the context menu for the right mouse button
     m_menu = new QPopupMenu();
-    ASSERT(m_menu);
+    Q_ASSERT(m_menu);
     if (!m_menu) return;
 
     QPopupMenu *interpolation = new QPopupMenu();
-    ASSERT(interpolation);
+    Q_ASSERT(interpolation);
     if (!interpolation) return;
 
     QPopupMenu *del = new QPopupMenu();
-    ASSERT(del);
+    Q_ASSERT(del);
     if (!del) return;
 
     QPopupMenu *transform = new QPopupMenu();
-    ASSERT(transform);
+    Q_ASSERT(transform);
     if (!transform) return;
 
     /* list of presets */
     m_preset_menu = new QPopupMenu();
-    ASSERT(m_preset_menu);
+    Q_ASSERT(m_preset_menu);
     if (!m_preset_menu) return;
     loadPresetList();
     connect(m_preset_menu, SIGNAL(activated(int)), SLOT(loadPreset(int)) );
@@ -122,7 +122,7 @@ CurveWidget::CurveWidget(QWidget *parent, const char *name)
     setMouseTracking(true);
 
     QAccel *delkey = new QAccel (this);
-    ASSERT(delkey);
+    Q_ASSERT(delkey);
     if (!delkey) return;
 
     delkey->connectItem(delkey->insertItem(Key_Delete),
@@ -173,7 +173,7 @@ void CurveWidget::savePreset()
     QFile out(name);
     out.open(IO_WriteOnly);
     QString cmd = m_curve.getCommand();
-    out.writeBlock(cmd.data(), cmd.length()+1);
+    out.writeBlock(cmd.latin1(), cmd.length()+1);
 
     // reload the list of known presets
     loadPresetList();
@@ -201,7 +201,7 @@ void CurveWidget::loadPresetList()
 //****************************************************************************
 void CurveWidget::loadPreset(int id)
 {
-    ASSERT(m_preset_menu);
+    Q_ASSERT(m_preset_menu);
     if (!m_preset_menu) return;
 
     // invalidate the current selection
@@ -290,8 +290,8 @@ void CurveWidget::addPoint(double newx, double newy)
 Curve::Point *CurveWidget::findPoint(int sx, int sy)
 // checks, if given coordinates fit to a control point in the list...
 {
-    ASSERT(m_width > 1);
-    ASSERT(m_height > 1);
+    Q_ASSERT(m_width > 1);
+    Q_ASSERT(m_height > 1);
     if ((m_width <= 1) || (m_width <= 1)) return 0;
 
     return m_curve.findPoint(((double)sx) / (m_width-1),
@@ -301,9 +301,9 @@ Curve::Point *CurveWidget::findPoint(int sx, int sy)
 //****************************************************************************
 void CurveWidget::mousePressEvent(QMouseEvent *e)
 {
-    ASSERT(e);
-    ASSERT(m_width > 1);
-    ASSERT(m_height > 1);
+    Q_ASSERT(e);
+    Q_ASSERT(m_width > 1);
+    Q_ASSERT(m_height > 1);
     if (!e || (m_width <= 1) || (m_width <= 1)) return;
 
     if (e->button() == RightButton) {
@@ -336,9 +336,9 @@ void CurveWidget::mouseReleaseEvent(QMouseEvent *)
 //****************************************************************************
 void CurveWidget::mouseMoveEvent(QMouseEvent *e )
 {
-    ASSERT(e);
-    ASSERT(m_width > 1);
-    ASSERT(m_height > 1);
+    Q_ASSERT(e);
+    Q_ASSERT(m_width > 1);
+    Q_ASSERT(m_height > 1);
     if (!e || (m_width <= 1) || (m_width <= 1)) return;
 
     int x = e->pos().x();
@@ -387,8 +387,8 @@ void CurveWidget::paintEvent(QPaintEvent *)
     const int kw = m_knob.width();
     const int kh = m_knob.height();
 
-    QArray<double> y = m_curve.interpolation(m_width);
-    ASSERT(static_cast<int>(y.count()) == m_width);
+    QMemArray<double> y = m_curve.interpolation(m_width);
+    Q_ASSERT(static_cast<int>(y.count()) == m_width);
     if (static_cast<int>(y.count()) < m_width) {
 	warning("CurveWidget: unable to get interpolation !");
 	return;

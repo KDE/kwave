@@ -19,7 +19,7 @@
 #define _WAV_DECODER_H_
 
 #include "config.h"
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
@@ -74,7 +74,7 @@ protected:
      * Fix all inconsistencies and create a repar list.
      * @internal
      */
-    bool repair(QList<RecoverySource> *repair_list,
+    bool repair(QPtrList<RecoverySource> *repair_list,
                 RIFFChunk *riff_chunk, RIFFChunk *fmt_chunk,
                 RIFFChunk *data_chunk);
 
@@ -82,7 +82,7 @@ protected:
      * Adds a chunk to a repair list
      * @internal
      */
-    bool repairChunk(QList<RecoverySource> *repair_list, RIFFChunk *chunk,
+    bool repairChunk(QPtrList<RecoverySource> *repair_list, RIFFChunk *chunk,
                      u_int32_t &offset);
 
 private:

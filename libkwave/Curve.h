@@ -19,7 +19,7 @@
 #define _CURVE_H_
 
 #include "config.h"
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qobject.h>
 #include <qstring.h>
 
@@ -175,7 +175,7 @@ public:
      * @return Array of interpolated values or null if the
      *         number of points was zero or the curve was empty.
      */
-    QArray<double> interpolation(unsigned int points);
+    QMemArray<double> interpolation(unsigned int points);
 
 protected:
     /**
@@ -189,7 +189,7 @@ protected:
 private:
 
     /** list of points, sorted by x coordinates */
-    QList<Point> m_points;
+    QPtrList<Point> m_points;
 
     /** interpolation object */
     Interpolation m_interpolation;

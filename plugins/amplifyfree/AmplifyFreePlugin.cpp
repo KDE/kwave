@@ -76,13 +76,13 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     AmplifyFreeDialog *dialog = new AmplifyFreeDialog(parentWidget());
-    ASSERT(dialog);
+    Q_ASSERT(dialog);
     if (!dialog) return 0;
 
     if (!m_params.isEmpty()) dialog->setParams(m_params);
 
     QStringList *list = new QStringList();
-    ASSERT(list);
+    Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
 	QString cmd = dialog->getCommand();
@@ -106,7 +106,7 @@ void AmplifyFreePlugin::run(QStringList params)
 
     Arts::Dispatcher *dispatcher = manager().artsDispatcher();
     dispatcher->lock();
-    ASSERT(dispatcher);
+    Q_ASSERT(dispatcher);
     if (!dispatcher) close();
 
     UndoTransactionGuard undo_guard(*this, i18n("amplify free"));

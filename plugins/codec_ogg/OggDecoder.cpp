@@ -20,7 +20,7 @@
 #include <math.h>
 
 #include <qdatetime.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -81,7 +81,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 
     // submit a 4k block to libvorbis' Ogg layer
     m_buffer = ogg_sync_buffer(&m_oy, 4096);
-    ASSERT(m_buffer);
+    Q_ASSERT(m_buffer);
     if (!m_buffer) return -1;
     
     unsigned int bytes = m_source->readBlock(m_buffer,4096);
@@ -196,7 +196,7 @@ int OggDecoder::parseHeader(QWidget *widget)
 bool OggDecoder::open(QWidget *widget, QIODevice &src)
 {
     info().clear();
-    ASSERT(!m_source);
+    Q_ASSERT(!m_source);
     if (m_source) warning("OggDecoder::open(), already open !");
 
     // try to open the source
@@ -250,7 +250,7 @@ bool OggDecoder::open(QWidget *widget, QIODevice &src)
 	date = QDate::fromString(str_date, Qt::ISODate);
 	if (!date.isValid()) {
 	    warning("invalid date: '%s', interpreting as year...",
-	        str_date.data());
+	        str_date.latin1());
 	    int year = str_date.toInt();
 	    date.setYMD(year, 1, 1);
 	}
@@ -319,7 +319,7 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 //***************************************************************************
 bool OggDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 {
-    ASSERT(m_source);
+    Q_ASSERT(m_source);
     if (!m_source) return false;
 
     int eos = 0;

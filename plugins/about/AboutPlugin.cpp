@@ -41,7 +41,7 @@ int AboutPlugin::start(QStringList& params)
         // create a new "about kde" dialog and show it
         KAboutKDE *dlg = new KAboutKDE(parentWidget());
 
-        ASSERT(dlg);
+        Q_ASSERT(dlg);
         if (!dlg) return ENOMEM;
         dlg->exec();
         delete dlg;
@@ -49,7 +49,7 @@ int AboutPlugin::start(QStringList& params)
         // create a new "about" dialog and show it
         AboutKwaveDialog *dlg = new AboutKwaveDialog(parentWidget());
 
-        ASSERT(dlg);
+        Q_ASSERT(dlg);
         if (!dlg) return ENOMEM;
         dlg->exec();
         delete dlg;

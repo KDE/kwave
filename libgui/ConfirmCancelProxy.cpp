@@ -31,8 +31,8 @@ ConfirmCancelProxy::ConfirmCancelProxy(QWidget *widget,
     QObject *receiver, const QString &slot)
     :QObject(), m_widget(widget)
 {
-    ASSERT(sender);
-    ASSERT(receiver);
+    Q_ASSERT(sender);
+    Q_ASSERT(receiver);
     if (!sender || !receiver) return;
 
     QObject::connect(sender, signal, this, SLOT(cancel()));

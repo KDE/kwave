@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-02-28 22:15+0100\n"
+"POT-Creation-Date: 2003-06-02 21:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgid "&About Kwave"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:15
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:80
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
 msgid "&Add"
 msgstr ""
 
@@ -213,225 +213,237 @@ msgid "&Loop"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:69
-msgid "&Macro"
+msgid "&Low pass"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:70
-msgid "&Memory"
+msgid "&Macro"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:71
-msgid "&Mix"
+msgid "&Memory"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:72
-msgid "&Mix & Paste"
+msgid "&Mix"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:73
-msgid "&Moving Average"
+msgid "&Mix & Paste"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:74
-msgid "&New..."
+msgid "&Moving Average"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:75
+msgid "&New..."
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:76
 msgid "New &Window"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:77
+#: kwave/menus_config_i18n.cpp:78
 msgid "&Next Page"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:78
+#: kwave/menus_config_i18n.cpp:79
 msgid "&Noise"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:79
+#: kwave/menus_config_i18n.cpp:80
+msgid "&Notch Filter"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:81
 msgid "&Nothing"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:80
+#: kwave/menus_config_i18n.cpp:82
 msgid "&Open"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:84
+#: kwave/menus_config_i18n.cpp:86
 msgid "&Pause"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:85
+#: kwave/menus_config_i18n.cpp:87
 msgid "&Periodic Silence"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:86
+#: kwave/menus_config_i18n.cpp:88
 msgid "Periods..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:87
-msgid " &Play"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:88
-msgid "&Play"
-msgstr ""
-
 #: kwave/menus_config_i18n.cpp:89
-msgid "&Playback"
+msgid "&Pitch Shift"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:90
-msgid "&Presets"
+msgid " &Play"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:91
+msgid "&Play"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:92
-msgid "&Previous Page"
+msgid "&Playback"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:93
-msgid "&Pulse Train"
+msgid "&Presets"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:95
-msgid "&Range"
+msgid "&Previous Page"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:97
-msgid "Re&quantize"
+#: kwave/menus_config_i18n.cpp:96
+msgid "&Pulse Train"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:98
-msgid "&Resample"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:99
-msgid "&Reverse"
+msgid "&Range"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:100
-msgid "Revert"
+msgid "Re&quantize"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:101
+msgid "&Resample"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:102
-msgid "S&ave"
+msgid "&Reverse"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:103
-msgid "Scroll &left"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:104
-msgid "Scroll &right"
+msgid "Revert"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:105
-msgid "&Select all"
+msgid "S&ave"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:106
-msgid "&Selection"
+msgid "Scroll &left"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:107
-msgid "&Selection..."
+msgid "Scroll &right"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:108
-msgid "&Silence"
+msgid "&Select all"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:109 plugins/sonagram/SonagramWindow.cpp:122
-msgid "&Sonagram"
+#: kwave/menus_config_i18n.cpp:109
+msgid "&Selection"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:110
-msgid "Spe&ctrum"
+msgid "&Selection..."
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:112
-msgid "&Start recording"
+#: kwave/menus_config_i18n.cpp:111
+msgid "&Silence"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:112 plugins/sonagram/SonagramWindow.cpp:122
+msgid "&Sonagram"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:113
-msgid "S&top"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:114
-msgid "S&top recording"
+msgid "Spe&ctrum"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:115
-msgid "to be done..."
+msgid "&Start recording"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:116
-msgid "to &End"
+msgid "S&top"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:117
-msgid "to &Maximum"
+msgid "S&top recording"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:118
-msgid "&to new Window"
+msgid "to be done..."
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:119
-msgid "to &Start"
+msgid "to &End"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:120
-msgid "&Track"
+msgid "to &Maximum"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:121
-msgid "Tri&m"
+msgid "&to new Window"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:122
+msgid "to &Start"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:123
-msgid "&Undo and Redo"
+msgid "&Track"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:125
-msgid "&Visible area"
+#: kwave/menus_config_i18n.cpp:124
+msgid "Tri&m"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:126
-msgid "&Volume"
-msgstr ""
-
-#: kwave/menus_config_i18n.cpp:127
-msgid "with &Clipboard"
+msgid "&Undo and Redo"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:128
-msgid "Zoom &In"
+msgid "&Visible area"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:129
-msgid "Zoom &Out"
+msgid "&Volume"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:130
+msgid "with &Clipboard"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:131
+msgid "Zoom &In"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:132
+msgid "Zoom &Out"
+msgstr ""
+
+#: kwave/menus_config_i18n.cpp:133
 msgid "Zoom to &Selection"
 msgstr ""
 
-#: kwave/PluginManager.cpp:161
+#: kwave/PluginManager.cpp:195
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr ""
 
-#: kwave/PluginManager.cpp:164 kwave/PluginManager.cpp:176
+#: kwave/PluginManager.cpp:198 kwave/PluginManager.cpp:210
 msgid "error on loading plugin"
 msgstr ""
 
-#: kwave/PluginManager.cpp:172
+#: kwave/PluginManager.cpp:206
 msgid ""
 "unable to load the file \n"
 "'%1'\n"
 " that contains the plugin '%2' !"
 msgstr ""
 
-#: kwave/PluginManager.cpp:201 kwave/PluginManager.cpp:208
+#: kwave/PluginManager.cpp:235 kwave/PluginManager.cpp:242
 msgid "(unknown)"
 msgstr ""
 
@@ -698,75 +710,75 @@ msgstr ""
 msgid "modify file info"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:212
+#: libgui/SelectTimeWidgetBase.uic.cpp:213
 msgid "frmLength"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:213
-#: plugins/fileinfo/FileInfoDialog.cpp:195
+#: libgui/SelectTimeWidgetBase.uic.cpp:214
+#: plugins/fileinfo/FileInfoDialog.cpp:196
 #: plugins/newsignal/NewSigDlg.uic.cpp:548
 msgid "Length"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:214
+#: libgui/SelectTimeWidgetBase.uic.cpp:215
 msgid "&Samples"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:215
+#: libgui/SelectTimeWidgetBase.uic.cpp:216
 msgid "select by number of samples"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:216
+#: libgui/SelectTimeWidgetBase.uic.cpp:217
 msgid "&Time"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:217
+#: libgui/SelectTimeWidgetBase.uic.cpp:218
 msgid "select by time"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:218
+#: libgui/SelectTimeWidgetBase.uic.cpp:219
 msgid "&Percent"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:219
+#: libgui/SelectTimeWidgetBase.uic.cpp:220
 msgid "select by percentage of the signal's length"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:220
+#: libgui/SelectTimeWidgetBase.uic.cpp:221
 #: plugins/newsignal/NewSigDlg.uic.cpp:555
 msgid "Minutes"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:221
+#: libgui/SelectTimeWidgetBase.uic.cpp:222
 msgid "Milliseconds"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:222
+#: libgui/SelectTimeWidgetBase.uic.cpp:223
 #: plugins/newsignal/NewSigDlg.uic.cpp:554
 msgid "Seconds"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:223
+#: libgui/SelectTimeWidgetBase.uic.cpp:224
 #: plugins/newsignal/NewSigDlg.uic.cpp:556
 msgid "Hours"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:224
+#: libgui/SelectTimeWidgetBase.uic.cpp:225
 #: plugins/newsignal/NewSigDlg.uic.cpp:561
 msgid "0%"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:225
+#: libgui/SelectTimeWidgetBase.uic.cpp:226
 #: plugins/newsignal/NewSigDlg.uic.cpp:562
 msgid "50%"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:226
+#: libgui/SelectTimeWidgetBase.uic.cpp:227
 #: plugins/newsignal/NewSigDlg.uic.cpp:563
 msgid "100%"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:227
+#: libgui/SelectTimeWidgetBase.uic.cpp:228
 msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
@@ -1074,7 +1086,7 @@ msgid ""
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:78
+#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:79
 msgid "Keywords"
 msgstr ""
 
@@ -1965,6 +1977,102 @@ msgstr ""
 msgid "silence"
 msgstr ""
 
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:395
+msgid "Pitch Shift"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:397
+#: plugins/lowpass/LowPassDlg.uic.cpp:162
+#: plugins/notch_filter/NotchDlg.uic.cpp:184
+msgid "F1"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:398
+#: plugins/pitch_shift/PitchShiftDialog.cpp:315
+msgid "&Listen"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:399
+msgid "Alt+L"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:400
+msgid "start/stop pre-listening"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:401
+msgid ""
+"Start or stop the pre-listening of the current settings. If pre-listening is "
+"enabled, you will nearly immediately hear any change in the selected "
+"parameters."
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:406
+msgid "Frequency:"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:407
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:410
+msgid "Frequency parameter"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:408
+msgid "Speed:"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:409
+#: plugins/lowpass/LowPassDlg.uic.cpp:167
+#: plugins/notch_filter/NotchDlg.uic.cpp:182
+#: plugins/notch_filter/NotchDlg.uic.cpp:189
+msgid " Hz"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:411
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:412
+msgid "Speed"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:413
+#: plugins/volume/VolumeDlg.uic.cpp:383
+msgid "Mode"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:414
+msgid "by Percentage"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:415
+msgid "change speed by percentage"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:416
+msgid ""
+"Sets the speed to a relative percentage of the original speed. \n"
+"For example: \"50 %\", \"75%\" or \"125%\""
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:418
+msgid "by Factor"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:419
+msgid "change speed by a factor"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:420
+msgid ""
+"Increments or decrements the speed by a factor. \n"
+"For example: \"x1\", \"x2\", \"/ 4\""
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDialog.cpp:311
+msgid "&Stop"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftPlugin.cpp:155
+msgid "pitch shift"
+msgstr ""
+
 #: plugins/sonagram/SonagramDialog.cpp:55
 msgid "sonagram"
 msgstr ""
@@ -2104,15 +2212,15 @@ msgstr ""
 msgid " (Using KDE %1)"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:410
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:408
 msgid "About Kwave"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:411
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:409
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:412
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:410
 msgid ""
 " <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
 "h2><br>\n"
@@ -2127,15 +2235,15 @@ msgid ""
 "and scroll capability."
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:423
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:421
 msgid "Authors"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:424
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:422
 msgid "Thanks To"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:425
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:423
 msgid "License agreement"
 msgstr ""
 
@@ -2214,6 +2322,24 @@ msgstr ""
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:515
 msgid "Do you want to continue and ignore all following errors?"
+msgstr ""
+
+#: plugins/lowpass/LowPassDlg.uic.cpp:160
+msgid "Low Pass"
+msgstr ""
+
+#: plugins/lowpass/LowPassDialog.cpp:50
+#: plugins/notch_filter/NotchDialog.cpp:50
+msgid "Hz"
+msgstr ""
+
+#: plugins/lowpass/LowPassDialog.cpp:55
+#: plugins/notch_filter/NotchDialog.cpp:55
+msgid "dB"
+msgstr ""
+
+#: plugins/lowpass/LowPassPlugin.cpp:109
+msgid "low pass"
 msgstr ""
 
 #: plugins/fileinfo/SelectDateDlg.uic.cpp:310
@@ -2412,8 +2538,8 @@ msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1123
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1160
-#: plugins/fileinfo/FileInfoDialog.cpp:411
-#: plugins/fileinfo/FileInfoDialog.cpp:417
+#: plugins/fileinfo/FileInfoDialog.cpp:412
+#: plugins/fileinfo/FileInfoDialog.cpp:418
 msgid "yes"
 msgstr ""
 
@@ -2562,126 +2688,126 @@ msgstr ""
 msgid "Author/Copyright"
 msgstr ""
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
 msgid "A&uto"
 msgstr ""
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
 msgid "auto-generate keywords"
 msgstr ""
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:84
 msgid ""
 "<b>Auto-Generate Keywords</b><br>\n"
 "Create a list of keywords by going through all present file informations and "
 "merge them with the current list of keywords."
 msgstr ""
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:85
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:86
 msgid "List of keywords."
 msgstr ""
 
-#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:295
+#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:296
 #: plugins/newsignal/NewSigDlg.uic.cpp:525
 msgid "Form1"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:129
+#: plugins/fileinfo/FileInfoDialog.cpp:130
 msgid "%1 bytes"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:131
+#: plugins/fileinfo/FileInfoDialog.cpp:132
 msgid "%1 kB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:134
+#: plugins/fileinfo/FileInfoDialog.cpp:135
 msgid "%1 MB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:165
+#: plugins/fileinfo/FileInfoDialog.cpp:166
 msgid "Sample Rate"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:168
+#: plugins/fileinfo/FileInfoDialog.cpp:169
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
 "any sample rate on your own."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:174
+#: plugins/fileinfo/FileInfoDialog.cpp:175
 #: plugins/playback/PlayBackDialog.cpp:109
 #: plugins/playback/PlayBackDialog.cpp:110
 msgid "Resolution"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:177
+#: plugins/fileinfo/FileInfoDialog.cpp:178
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:182
+#: plugins/fileinfo/FileInfoDialog.cpp:183
 msgid "Tracks"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:185
+#: plugins/fileinfo/FileInfoDialog.cpp:186
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:198
+#: plugins/fileinfo/FileInfoDialog.cpp:199
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:204
+#: plugins/fileinfo/FileInfoDialog.cpp:205
 msgid "%1 (%2 samples)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:208
+#: plugins/fileinfo/FileInfoDialog.cpp:209
 msgid "%2 samples"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:284
 #: plugins/fileinfo/FileInfoDialog.cpp:285
+#: plugins/fileinfo/FileInfoDialog.cpp:286
 msgid "no limit"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:380
+#: plugins/fileinfo/FileInfoDialog.cpp:381
 msgid "bands 0 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:381
+#: plugins/fileinfo/FileInfoDialog.cpp:382
 msgid "bands 8 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:382
+#: plugins/fileinfo/FileInfoDialog.cpp:383
 msgid "bands 12 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:383
+#: plugins/fileinfo/FileInfoDialog.cpp:384
 msgid "bands 16 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:411
-#: plugins/fileinfo/FileInfoDialog.cpp:417
+#: plugins/fileinfo/FileInfoDialog.cpp:412
+#: plugins/fileinfo/FileInfoDialog.cpp:418
 msgid "no"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:526
+#: plugins/fileinfo/FileInfoDialog.cpp:527
 #: plugins/newsignal/NewSignalDialog.cpp:318
 msgid "(Mono)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:529
+#: plugins/fileinfo/FileInfoDialog.cpp:530
 #: plugins/newsignal/NewSignalDialog.cpp:321
 msgid "(Stereo)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:532
+#: plugins/fileinfo/FileInfoDialog.cpp:533
 #: plugins/newsignal/NewSignalDialog.cpp:324
 msgid "(Quadro)"
 msgstr ""
@@ -2770,6 +2896,14 @@ msgstr ""
 msgid ""
 "An error occurred while opening the file:\n"
 "'%1'"
+msgstr ""
+
+#: plugins/notch_filter/NotchDlg.uic.cpp:181
+msgid "Notch Filter"
+msgstr ""
+
+#: plugins/notch_filter/NotchPlugin.cpp:114
+msgid "notch filter"
 msgstr ""
 
 #: plugins/amplifyfree/AmplifyFreeDialog.cpp:33
@@ -2869,12 +3003,9 @@ msgstr ""
 msgid "volume"
 msgstr ""
 
-#: plugins/volume/VolumeDlg.uic.cpp:380 plugins/volume/VolumeDlg.uic.cpp:393
+#: plugins/volume/VolumeDlg.uic.cpp:380 plugins/volume/VolumeDlg.uic.cpp:396
+#: plugins/volume/VolumeDlg.uic.cpp:397
 msgid "Volume"
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:383
-msgid "Mode"
 msgstr ""
 
 #: plugins/volume/VolumeDlg.uic.cpp:384
@@ -2882,26 +3013,38 @@ msgid "&Factor"
 msgstr ""
 
 #: plugins/volume/VolumeDlg.uic.cpp:385
+msgid "change volume by factor"
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:386
 msgid ""
 "Increments or decrements the volume by a factor. \n"
 "For example: \"x1\", \"x2\", \"/ 4\""
 msgstr ""
 
-#: plugins/volume/VolumeDlg.uic.cpp:387
+#: plugins/volume/VolumeDlg.uic.cpp:388
 msgid "&Percentage"
 msgstr ""
 
-#: plugins/volume/VolumeDlg.uic.cpp:388
+#: plugins/volume/VolumeDlg.uic.cpp:389
+msgid "change volume by percentage"
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:390
 msgid ""
 "Sets the volume to a relative percentage of the original level. \n"
 "For example: \"50 %\", \"75%\" or \"125%\""
 msgstr ""
 
-#: plugins/volume/VolumeDlg.uic.cpp:390
+#: plugins/volume/VolumeDlg.uic.cpp:392
 msgid "&Logarithmic"
 msgstr ""
 
-#: plugins/volume/VolumeDlg.uic.cpp:391
+#: plugins/volume/VolumeDlg.uic.cpp:393
+msgid "change volume in dB"
+msgstr ""
+
+#: plugins/volume/VolumeDlg.uic.cpp:394
 msgid ""
 "Increments or decrements the volume in logarithmic scale (decibel). \n"
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
@@ -2956,6 +3099,7 @@ msgid "Corrupt or missing data in bitstream; continuing..."
 msgstr ""
 
 #: plugins/codec_ogg/OggCodecPlugin.h:59 plugins/codec_ogg/OggCodecPlugin.h:61
+#: plugins/codec_ogg/OggCodecPlugin.h:63
 msgid "Ogg, Vorbis audio"
 msgstr ""
 
@@ -2967,7 +3111,7 @@ msgstr ""
 msgid "detecting endianness (statistic search)..."
 msgstr ""
 
-#: plugins/codec_wav/RIFFParser.cpp:541
+#: plugins/codec_wav/RIFFParser.cpp:532
 msgid "searching for missing chunk '%1'..."
 msgstr ""
 
@@ -3123,7 +3267,7 @@ msgstr ""
 msgid "Select Playback Device"
 msgstr ""
 
-#: plugins/playback/PlayBackPlugin.cpp:231
+#: plugins/playback/PlayBackPlugin.cpp:263
 msgid "unable to open '%1'"
 msgstr ""
 

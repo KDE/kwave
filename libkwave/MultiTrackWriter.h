@@ -21,7 +21,7 @@
 
 #include "config.h"
 #include <qobject.h>
-#include <qvector.h>
+#include <qptrvector.h>
 #include "SampleWriter.h"
 
 class MultiTrackReader;
@@ -30,7 +30,7 @@ class MultiTrackReader;
  * A MultiTrackWriter encapsulates a set of <c>SampleWriter</c>s for
  * easier use of multi-track signals.
  */
-class MultiTrackWriter: public QObject, private QVector<SampleWriter>
+class MultiTrackWriter: public QObject, private QPtrVector<SampleWriter>
 {
     Q_OBJECT
 public:
@@ -50,14 +50,14 @@ public:
      */
     MultiTrackWriter &operator << (const MultiTrackReader &source);
 
-    /** @see QVector::operator[] */
+    /** @see QPtrVector::operator[] */
     inline virtual SampleWriter* operator[] (int i) const {
-	return QVector<SampleWriter>::at(i);
+	return QPtrVector<SampleWriter>::at(i);
     };
 
-    /** @see QVector::count() */
+    /** @see QPtrVector::count() */
     inline virtual unsigned int count() const {
-	return QVector<SampleWriter>::count();
+	return QPtrVector<SampleWriter>::count();
     };
 
     /** Returns the last sample index of all streams */
@@ -66,20 +66,20 @@ public:
     /** Flushes all streams */
     void flush();
     
-    /** @see QVector::clear() */
-    inline virtual void clear() { QVector<SampleWriter>::clear(); };
+    /** @see QPtrVector::clear() */
+    inline virtual void clear() { QPtrVector<SampleWriter>::clear(); };
 
-    /** @see QVector::isEmpty() */
+    /** @see QPtrVector::isEmpty() */
     inline virtual bool isEmpty() {
-        return QVector<SampleWriter>::isEmpty();
+        return QPtrVector<SampleWriter>::isEmpty();
     };
 
-    /** @see QVector::insert() */
+    /** @see QPtrVector::insert() */
     virtual bool insert(unsigned int track, const SampleWriter *writer);
 
-    /** @see QVector::resize() */
+    /** @see QPtrVector::resize() */
     virtual bool resize(unsigned int size) {
-        return QVector<SampleWriter>::resize(size);
+        return QPtrVector<SampleWriter>::resize(size);
     };
 
     /** returns true if the transfer has been cancelled */

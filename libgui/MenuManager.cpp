@@ -25,7 +25,7 @@ MenuManager::MenuManager(QWidget *parent, KMenuBar &bar)
     m_spx_command(this, SLOT(slotMenuCommand()))
 {
     m_menu_root = new MenuRoot(bar);
-    ASSERT(m_menu_root);
+    Q_ASSERT(m_menu_root);
     if (m_menu_root) {
 	connect(
 	    m_menu_root, SIGNAL(sigCommand(const QString &)),
@@ -40,7 +40,7 @@ int MenuManager::parseToKeyCode(const QString &key_name)
 // would be fine, but doesn't support most codes like +/-
 //    return QAccel::stringToKey(key_name);
 
-    ASSERT(key_name);
+    Q_ASSERT(key_name);
     QString key = key_name;
     int keycode = 0;
 
@@ -91,8 +91,8 @@ int MenuManager::parseToKeyCode(const QString &key_name)
 //***************************************************************************
 void MenuManager::executeCommand(const QString &command)
 {
-    ASSERT(command);
-    ASSERT(m_menu_root);
+    Q_ASSERT(command);
+    Q_ASSERT(m_menu_root);
     if (!m_menu_root) return; // makes no sense if no menu root
 
     Parser parser(command);
@@ -128,7 +128,7 @@ void MenuManager::executeCommand(const QString &command)
 //***************************************************************************
 void MenuManager::clearNumberedMenu(const QString &uid)
 {
-    ASSERT(m_menu_root);
+    Q_ASSERT(m_menu_root);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->clear();
 }
@@ -143,7 +143,7 @@ void MenuManager::slotEnqueueCommand(const QString &command)
 void MenuManager::slotMenuCommand()
 {
     QString *command = m_spx_command.dequeue();
-    ASSERT(command);
+    Q_ASSERT(command);
     if (!command) return;
 
     emit sigMenuCommand(*command);
@@ -154,47 +154,47 @@ void MenuManager::slotMenuCommand()
 void MenuManager::addNumberedMenuEntry(const QString &uid,
 	const QString &entry)
 {
-    ASSERT(entry.length());
+    Q_ASSERT(entry.length());
     if (!entry.length()) return;
 
-    ASSERT(m_menu_root);
+    Q_ASSERT(m_menu_root);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) {
 	QString cmd = node->getCommand();
 	QString command = cmd.contains("%1") ? cmd.arg(entry) : cmd;
 	node->insertLeaf(entry, command, 0, 0, -1);
     } else
-	warning("MenuManager: could not find numbered Menu '%s'", uid.data());
+	warning("MenuManager: could not find numbered Menu '%s'", uid.latin1());
 
 }
 
 //***************************************************************************
 void MenuManager::selectItem(const QString &group, const QString &uid)
 {
-    ASSERT(m_menu_root);
+    Q_ASSERT(m_menu_root);
 
     if (!group || !*group) {
-	warning("MenuManager::selectItem('','%s'): no group!?", uid.data());
+	warning("MenuManager::selectItem('','%s'): no group!?", uid.latin1());
 	return ;
     }
 
     if (*group != '@') {
 	warning("MenuManager::selectItem('%s','%s'): "\
 		"invalid group name, does not start with '@'!",
-		group.data(), uid.data());
+		group.latin1(), uid.latin1());
 	return ;
     }
 
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(group) : 0;
     if (!node) {
 	warning("MenuManager::selectItem(): group '%s' not found!",
-	    group.data());
+	    group.latin1());
 	return ;
     }
 
     if (!node->inherits("MenuGroup")) {
 	warning("MenuManager::selectItem(): '%s' is not a group!",
-	    group.data());
+	    group.latin1());
 	return ;
     }
 
@@ -204,7 +204,7 @@ void MenuManager::selectItem(const QString &group, const QString &uid)
 //***************************************************************************
 void MenuManager::setItemChecked(const QString &uid, bool check)
 {
-    ASSERT(m_menu_root);
+    Q_ASSERT(m_menu_root);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setChecked(check);
 }
@@ -212,7 +212,7 @@ void MenuManager::setItemChecked(const QString &uid, bool check)
 //***************************************************************************
 void MenuManager::setItemText(const QString &uid, const QString &text)
 {
-    ASSERT(m_menu_root);
+    Q_ASSERT(m_menu_root);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setText(text);
 }
@@ -220,19 +220,19 @@ void MenuManager::setItemText(const QString &uid, const QString &text)
 //***************************************************************************
 void MenuManager::setItemEnabled(const QString &uid, bool enable)
 {
-    ASSERT(m_menu_root);
+    Q_ASSERT(m_menu_root);
 
 //    debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
     MenuNode *node = (m_menu_root) ? m_menu_root->findUID(uid) : 0;
     if (node) node->setEnabled(enable);
     else warning("MenuManager::setItemEnabled('%s', '%d'): uid not found!",
-		     uid.data(), enable);
+		     uid.latin1(), enable);
 }
 
 //***************************************************************************
 MenuManager::~MenuManager()
 {
-    ASSERT(m_menu_root);
+    Q_ASSERT(m_menu_root);
     if (m_menu_root) delete m_menu_root;
 }
 

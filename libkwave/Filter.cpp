@@ -102,35 +102,35 @@ unsigned int Filter::resize(unsigned int newnum)
 //***************************************************************************
 unsigned int Filter::count()
 {
-    ASSERT(m_coeff.count() == m_delay.count());
+    Q_ASSERT(m_coeff.count() == m_delay.count());
     return m_coeff.count();
 }
 
 //***************************************************************************
 double Filter::coeff(unsigned int index)
 {
-    ASSERT(index < m_coeff.count());
+    Q_ASSERT(index < m_coeff.count());
     return m_coeff[index];
 }
 
 //***************************************************************************
 void Filter::setCoeff(unsigned int index, double newval)
 {
-    ASSERT(index < m_coeff.count());
+    Q_ASSERT(index < m_coeff.count());
     m_coeff[index] = newval;
 }
 
 //***************************************************************************
 unsigned int Filter::delay(unsigned int index)
 {
-    ASSERT(index < m_delay.count());
+    Q_ASSERT(index < m_delay.count());
     return m_delay[index];
 }
 
 //***************************************************************************
 void Filter::setDelay(unsigned int index, unsigned int newval)
 {
-    ASSERT(index < m_delay.count());
+    Q_ASSERT(index < m_delay.count());
     m_delay[index] = newval;
 }
 
@@ -138,7 +138,7 @@ void Filter::setDelay(unsigned int index, unsigned int newval)
 void Filter::save(const QString &filename)
 {
     QString name(filename);
-    ASSERT(name.length());
+    Q_ASSERT(name.length());
     if (!name.length()) return;
 
     if (name.findRev(".filter") != static_cast<int>(name.length()-7)){
@@ -206,7 +206,7 @@ void Filter::load(const QString &filename)
 	    i++;
 	} else {
 	    debug("Filter::load(%s): syntax error in line %d",
-		filename.data(), linenr);
+		filename.latin1(), linenr);
 	}
     }
 }

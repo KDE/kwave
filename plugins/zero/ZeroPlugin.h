@@ -52,7 +52,7 @@ private:
     bool m_stop;
 
     /** use an array with zeroes for faster filling */
-    QArray<sample_t> m_zeroes;
+    QMemArray<sample_t> m_zeroes;
 
 };
 

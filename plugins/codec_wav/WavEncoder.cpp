@@ -81,14 +81,14 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
                       AF_COMPRESSION_NONE;
 
     // use default bit resolution if missing
-    ASSERT(bits);
+    Q_ASSERT(bits);
     if (!bits) bits = 16;
 
     // check for a valid source
-    ASSERT(tracks);
-    ASSERT(length);
+    Q_ASSERT(tracks);
+    Q_ASSERT(length);
     if ((!tracks) || (!length)) return false;
-    ASSERT(src.count() == tracks);
+    Q_ASSERT(src.count() == tracks);
     if (src.count() != tracks) return false;
 
     // check if the choosen compression mode is supported for saving
@@ -124,7 +124,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	QString software = about_data->programName() + "-" +
 	    about_data->version() +
 	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-	debug("WavEncoder: adding software tag: '%s'", software.data());
+	debug("WavEncoder: adding software tag: '%s'", software.latin1());
 	properties.insert(INF_SOFTWARE, software);
     }
     if (!properties.contains(INF_CREATION_DATE)) {
@@ -134,7 +134,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	date = date.sprintf("%04d-%02d-%02d",
 	    now.year(), now.month(), now.day());
 	QVariant value = date.utf8();
-	debug("WavEncoder: adding date tag: '%s'", date.data());
+	debug("WavEncoder: adding date tag: '%s'", date.latin1());
 	properties.insert(INF_CREATION_DATE, value);
     }
 
@@ -208,7 +208,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	AF_DEFAULT_TRACK, 1);
     const unsigned int buffer_frames = (8*1024);
     int32_t *buffer = (int32_t *)malloc(buffer_frames * frame_size);
-    ASSERT(buffer);
+    Q_ASSERT(buffer);
     if (!buffer) return false;
 
     // read in from the sample readers
@@ -238,7 +238,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	count = afWriteFrames(fh, AF_DEFAULT_TRACK, buffer, count);
 	
 	// break if eof reached or disk full
-	ASSERT(count);
+	Q_ASSERT(count);
 	if (!count) break;
 	
 	rest -= count;

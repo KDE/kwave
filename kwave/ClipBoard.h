@@ -20,8 +20,8 @@
 #define _CLIP_BOARD_H_
 
 #include "config.h"
-#include <qarray.h>
-#include <qlist.h>
+#include <qmemarray.h>
+#include <qptrlist.h>
 #include "mt/SharedLock.h"
 
 class MultiTrackReader;
@@ -53,7 +53,7 @@ public:
      * @param rate sample rate [samples/second]
      * @todo support for multiple stripes
      */
-    void copy(Signal &signal, const QArray<unsigned int> &track_list,
+    void copy(Signal &signal, const QMemArray<unsigned int> &track_list,
               unsigned int offset, unsigned int length, double rate);
 
     /**
@@ -102,7 +102,7 @@ private:
     double m_rate;
 
     /** Internal buffer, implemented as a list of tracks */
-    QList<Track> m_buffer;
+    QPtrList<Track> m_buffer;
 
 };
 

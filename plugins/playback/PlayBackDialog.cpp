@@ -83,22 +83,22 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     // -- create all layout objects --
 
     QVBoxLayout *topLayout = new QVBoxLayout(this, 10);
-    ASSERT(topLayout);
+    Q_ASSERT(topLayout);
     if (!topLayout) return;
 
     QHBoxLayout *deviceLayout = new QHBoxLayout();
-    ASSERT(deviceLayout);
+    Q_ASSERT(deviceLayout);
     if (!deviceLayout) return;
 
     QHBoxLayout *bufferLayout = new QHBoxLayout();
-    ASSERT(bufferLayout);
+    Q_ASSERT(bufferLayout);
     if (!bufferLayout) {
 	delete deviceLayout;
 	return;
     }
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();
-    ASSERT(buttonsLayout);
+    Q_ASSERT(buttonsLayout);
     if (!buttonsLayout) {
 	delete deviceLayout;
 	delete bufferLayout;
@@ -108,7 +108,7 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     // -- checkboxes for 8/16/24 Bits --
     m_bg = new QButtonGroup(this, i18n("Resolution"));
     m_bg->setTitle(i18n("Resolution"));
-    ASSERT(m_bg);
+    Q_ASSERT(m_bg);
     if (!m_bg) return;
 
     topLayout->addWidget(m_bg);
@@ -118,13 +118,13 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     bitsBoxLayout->addSpacing(m_bg->fontMetrics().height() );
 
     QHBoxLayout *bitsLayout = new QHBoxLayout();
-    ASSERT(bitsLayout);
+    Q_ASSERT(bitsLayout);
     if (!bitsLayout) return;
     bitsBoxLayout->addLayout(bitsLayout);
     bitsLayout->addSpacing(m_bg->fontMetrics().height() );
 
     m_b8 = new QRadioButton(i18n("&8 Bit"), m_bg);
-    ASSERT(m_b8);
+    Q_ASSERT(m_b8);
     if (!m_b8) return;
     m_b8->setText(i18n("&8 Bit"));
     m_b8->setMinimumSize(m_b8->sizeHint());
@@ -134,7 +134,7 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 	     "should be supported by all sound hardware !"));
 
     m_b16 = new QRadioButton(i18n("1&6 Bit"), m_bg);
-    ASSERT(m_b16);
+    Q_ASSERT(m_b16);
     if (!m_b16) return;
     m_b16->setMinimumSize(m_b16->sizeHint());
     m_b16->setChecked(m_playback_params.bits_per_sample == 16);
@@ -143,7 +143,7 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 	     "not supported by all sound hardware !"));
 
     m_b24 = new QRadioButton(i18n("2&4 Bit"), m_bg);
-    ASSERT(m_b24);
+    Q_ASSERT(m_b24);
     if (!m_b24) return;
     m_b24->setMinimumSize(m_b24->sizeHint());
     m_b24->setChecked(m_playback_params.bits_per_sample == 24);
@@ -156,11 +156,11 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 
     // -- playback device --
     m_device_label = new QLabel(i18n("Playback Device :"), this);
-    ASSERT(m_device_label);
+    Q_ASSERT(m_device_label);
     if (!m_device_label) return;
 
     m_device_box = new QComboBox(true, this);
-    ASSERT(m_device_box);
+    Q_ASSERT(m_device_box);
     if (!m_device_box) return;
     m_device_box->insertStrList(devicetext, -1);
     m_device_box->setMinimumWidth(m_device_box->sizeHint().width()+10);
@@ -179,7 +179,7 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     m_device_box->setFixedHeight(h);
 
     m_select_device = new QPushButton(i18n("se&lect..."), this);
-    ASSERT(m_select_device);
+    Q_ASSERT(m_select_device);
     if (!m_select_device) return;
     QToolTip::add(m_select_device,
 	i18n("Select a playback device not listed\n"\
@@ -189,12 +189,12 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 
     // -- buffer size --
     m_buffer_size = new QSlider(8, 16, 1, 5, QSlider::Horizontal, this);
-    ASSERT(m_buffer_size);
+    Q_ASSERT(m_buffer_size);
     if (!m_buffer_size) return;
     m_buffer_size->setValue(m_playback_params.bufbase);
 
     m_buffer_label = new QLabel("", this);
-    ASSERT(m_buffer_label);
+    Q_ASSERT(m_buffer_label);
     if (!m_buffer_label) return;
     setBufferSize(m_playback_params.bufbase);
     QToolTip::add(m_buffer_size, i18n("This is the size of the buffer "\
@@ -207,14 +207,14 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 
     // -- m_stereo checkbox --
     m_stereo = new QCheckBox(i18n("&stereo playback"), this);
-    ASSERT(m_stereo);
+    Q_ASSERT(m_stereo);
     if (!m_stereo) return;
     m_stereo->setChecked(m_playback_params.channels >= 2);
     m_stereo->setFixedHeight(m_stereo->sizeHint().height());
 
     // -- separator --
     m_separator = new QFrame(this, "separator line");
-    ASSERT(m_separator);
+    Q_ASSERT(m_separator);
     if (!m_separator) return;
     m_separator->setFrameStyle(QFrame::HLine | QFrame::Sunken);
     m_separator->setFixedHeight(m_separator->sizeHint().height());
@@ -234,7 +234,7 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 
     // button for "test settings"
     m_test = new QPushButton(i18n("&test settings"), this);
-    ASSERT(m_test);
+    Q_ASSERT(m_test);
     if (!m_test) return;
     QToolTip::add(m_test,
 	i18n("Try to play a short sound\n"\
@@ -244,11 +244,11 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 
     // buttons for OK and m_cancel
     m_ok = new QPushButton(i18n("&OK"), this);
-    ASSERT(m_ok);
+    Q_ASSERT(m_ok);
     if (!m_ok) return;
 
     m_cancel = new QPushButton(i18n("&Cancel"), this);
-    ASSERT(m_cancel);
+    Q_ASSERT(m_cancel);
     if (!m_cancel) return;
 
     h = max(m_ok->sizeHint().height(), m_cancel->sizeHint().height());
@@ -302,7 +302,7 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
 //***************************************************************************
 void PlayBackDialog::setBufferSize(int exp)
 {
-    ASSERT(m_buffer_label);
+    Q_ASSERT(m_buffer_label);
     if (!m_buffer_label) return;
 
     char buf[256];
@@ -317,10 +317,10 @@ void PlayBackDialog::setBufferSize(int exp)
 //***************************************************************************
 void PlayBackDialog::parameters(QStringList &list)
 {
-    ASSERT(m_stereo);
-    ASSERT(m_b24);
-    ASSERT(m_b16);
-    ASSERT(m_device_box);
+    Q_ASSERT(m_stereo);
+    Q_ASSERT(m_b24);
+    Q_ASSERT(m_b16);
+    Q_ASSERT(m_device_box);
 
     QString param;
     list.clear();

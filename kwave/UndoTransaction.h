@@ -19,7 +19,7 @@
 #define _UNDO_TRANSACTION_H_
 
 #include "config.h"
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstring.h>
 
 class UndoAction;
@@ -31,7 +31,7 @@ class UndoAction;
  * and don't make sense or leave an inconsistent state if separated, they
  * get grouped together to one transaction.
  */
-class UndoTransaction: public QList<UndoAction>
+class UndoTransaction: public QPtrList<UndoAction>
 {
 
 public:

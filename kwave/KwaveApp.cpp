@@ -18,7 +18,7 @@
 #include "config.h"
 
 #include <qfile.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstring.h>
 #include <qstringlist.h>
 
@@ -101,7 +101,7 @@ int KwaveApp::newInstance()
 //***************************************************************************
 bool KwaveApp::isOK()
 {
-    ASSERT(!m_topwidget_list.isEmpty());
+    Q_ASSERT(!m_topwidget_list.isEmpty());
     return (!m_topwidget_list.isEmpty());
 }
 
@@ -146,7 +146,7 @@ void KwaveApp::addRecentFile(const QString &newfile)
 bool KwaveApp::newWindow(const KURL &url)
 {
     TopWidget *new_top_widget = new TopWidget(*this);
-    ASSERT(new_top_widget);
+    Q_ASSERT(new_top_widget);
     if (!new_top_widget) return false;
 
     if ( !(new_top_widget->isOK()) ) {
@@ -182,7 +182,7 @@ bool KwaveApp::newWindow(const KURL &url)
 //***************************************************************************
 bool KwaveApp::closeWindow(TopWidget *todel)
 {
-    ASSERT(todel);
+    Q_ASSERT(todel);
 
     // save the configuration, including the list of recent files
     saveConfig();
@@ -210,7 +210,7 @@ MemoryManager &KwaveApp::memoryManager()
 void KwaveApp::saveRecentFiles()
 {
     KConfig *cfg = KGlobal::config();
-    ASSERT(cfg);
+    Q_ASSERT(cfg);
     if (!cfg) return;
 
     cfg->setGroup("Recent Files");
@@ -238,7 +238,7 @@ void KwaveApp::readConfig()
     QString key;
 
     KConfig *cfg = config();
-    ASSERT(cfg);
+    Q_ASSERT(cfg);
     if (!cfg) return;
 
     cfg->setGroup("Recent Files");

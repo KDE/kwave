@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qdragobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qtimer.h>
 #include <qpainter.h>
 #include <qwidget.h>
@@ -554,7 +554,7 @@ private:
     SignalManager m_signal_manager;
 
     /** list of track pixmaps */
-    QList<TrackPixmap> m_track_pixmaps;
+    QPtrList<TrackPixmap> m_track_pixmaps;
 
     /** pixmap for avoiding flicker */
     QPixmap *m_pixmap;

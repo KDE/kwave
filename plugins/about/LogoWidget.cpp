@@ -45,11 +45,11 @@ LogoWidget::LogoWidget(QWidget *parent, const char *name)
     m_timer = 0;
 
     m_img = new QPixmap(xpm_aboutlogo);
-    ASSERT(m_img);
+    Q_ASSERT(m_img);
     if (!m_img) return;
 
     m_timer = new QTimer(this);
-    ASSERT(m_timer);
+    Q_ASSERT(m_timer);
     if (!m_timer) return;
     connect(m_timer, SIGNAL(timeout()), this, SLOT(doAnim()));
 

@@ -49,7 +49,7 @@ void *SwapFile::allocate(size_t size, const QString &filename)
 #ifdef HAVE_MKSTEMP
     char *name = qstrdup(filename.local8Bit());
     int fd = mkstemp(name);
-    ASSERT(fd >= 0);
+    Q_ASSERT(fd >= 0);
     if (fd < 0) return 0;
     m_file.open(IO_Raw | IO_WriteOnly, fd);
 #ifdef HAVE_UNLINK
@@ -79,7 +79,7 @@ void *SwapFile::allocate(size_t size, const QString &filename)
 //***************************************************************************
 void *SwapFile::resize(size_t size)
 {
-    ASSERT(m_address);
+    Q_ASSERT(m_address);
     if (!m_address) return 0;
     if (size == m_size) return m_address; // nothing to do
 
@@ -108,7 +108,7 @@ void *SwapFile::resize(size_t size)
     // re-map the memory
     m_address = mmap(0, m_size, PROT_READ | PROT_WRITE, MAP_SHARED,
 	m_file.handle(), 0);
-    ASSERT(m_address);
+    Q_ASSERT(m_address);
     if (!m_address) m_size = 0;
 //  debug("SwapFile::resize(): new area mmapped to %p", m_address);
 

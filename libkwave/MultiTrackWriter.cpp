@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qarray.h>
-#include <qlist.h>
+#include <qmemarray.h>
+#include <qptrlist.h>
 
 #include "libkwave/Matrix.h"
 #include "libkwave/MultiTrackReader.h"
@@ -36,7 +36,7 @@
 
 //***************************************************************************
 MultiTrackWriter::MultiTrackWriter()
-    :QObject(), QVector<SampleWriter>(), m_cancelled(false)
+    :QObject(), QPtrVector<SampleWriter>(), m_cancelled(false)
 {
     setAutoDelete(true);
 }
@@ -48,8 +48,8 @@ MultiTrackWriter &MultiTrackWriter::operator << (
     unsigned int src_tracks = source.count();
     unsigned int dst_tracks = count();
 
-    ASSERT(src_tracks);
-    ASSERT(dst_tracks);
+    Q_ASSERT(src_tracks);
+    Q_ASSERT(dst_tracks);
     if (!src_tracks || !dst_tracks) return *this;
 
     if (src_tracks != dst_tracks) {
@@ -81,8 +81,8 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 	    }
 	}
 	
-	QArray<sample_t> in_samples(src_tracks);
-	QArray<sample_t> out_samples(dst_tracks);
+	QMemArray<sample_t> in_samples(src_tracks);
+	QMemArray<sample_t> out_samples(dst_tracks);
 	
 	while (!(source.eof())) {
 	    // read input vector
@@ -90,7 +90,7 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 	    for (x=0; x < src_tracks; x++) {
 		in_samples[x] = 0;
 		SampleReader *stream = source[x];
-		ASSERT(stream);
+		Q_ASSERT(stream);
 		if (!stream) continue;
 		
 		sample_t act;
@@ -134,7 +134,7 @@ bool MultiTrackWriter::insert(unsigned int track, const SampleWriter *writer)
     if (writer) {
         connect(writer, SIGNAL(proceeded()), this, SLOT(proceeded()));
     }
-    return QVector<SampleWriter>::insert(track, writer);
+    return QPtrVector<SampleWriter>::insert(track, writer);
 }
 
 //***************************************************************************

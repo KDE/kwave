@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include "mt/TSS_Object.h"
 #include "mt/Mutex.h"
@@ -54,7 +54,7 @@ void MutexSet::takeOver(MutexSet &set)
 bool MutexSet::addLock(Mutex &mutex)
 {
     MutexGuard *guard = new MutexGuard(mutex);
-    ASSERT(guard);
+    Q_ASSERT(guard);
     if (!guard) return false;
 
     m_guards.append(guard);

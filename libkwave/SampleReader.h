@@ -20,8 +20,8 @@
 #define _SAMPLE_READER_H_
 
 #include "config.h"
-#include <qarray.h>
-#include <qlist.h>
+#include <qmemarray.h>
+#include <qptrlist.h>
 #include <qobject.h>
 
 #include "libkwave/InsertMode.h"
@@ -47,7 +47,7 @@ public:
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleReader(Track &track, QList<Stripe> &stripes,
+    SampleReader(Track &track, QPtrList<Stripe> &stripes,
 	SampleLock *lock, unsigned int left, unsigned int right);
 
     /** Destructor */
@@ -68,7 +68,7 @@ public:
      * @param length number of samples to read
      * @return number of read samples
      */
-    unsigned int read(QArray<sample_t> &buffer, unsigned int dstoff,
+    unsigned int read(QMemArray<sample_t> &buffer, unsigned int dstoff,
 	unsigned int length);
 
     /** Skips a number of samples. */
@@ -104,7 +104,7 @@ public:
      * it will be shrinked to the number of samples that were really
      * read.
      */
-    SampleReader& operator >> (QArray<sample_t> &sample);
+    SampleReader& operator >> (QMemArray<sample_t> &sample);
 
 signals:
 
@@ -122,7 +122,7 @@ private:
     Track &m_track;
 
     /** list of stripes with sample data */
-    QList<Stripe> m_stripes;
+    QPtrList<Stripe> m_stripes;
 
     /** lock for the needed range of samples */
     SampleLock* m_lock;
@@ -142,7 +142,7 @@ private:
     unsigned int m_last;
 
     /** intermediate buffer for the input data */
-    QArray<sample_t> m_buffer;
+    QMemArray<sample_t> m_buffer;
 
     /** number of used elements in the buffer */
     unsigned int m_buffer_used;

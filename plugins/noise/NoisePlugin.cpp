@@ -43,7 +43,7 @@ void NoisePlugin::run(QStringList)
 
     Arts::Dispatcher *dispatcher = manager().artsDispatcher();
     dispatcher->lock();
-    ASSERT(dispatcher);
+    Q_ASSERT(dispatcher);
     if (!dispatcher) close();
 
     UndoTransactionGuard undo_guard(*this, i18n("noise"));

@@ -21,7 +21,7 @@
 #include "config.h"
 #include <limits.h>  // for UINT_MAX
 #include <qobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 #include "mt/SharedLock.h"
 #include "libkwave/InsertMode.h"
@@ -187,7 +187,7 @@ private:
     SharedLock m_lock;
 
     /** list of stripes (a track actually is a container for stripes) */
-    QList<Stripe> m_stripes;
+    QPtrList<Stripe> m_stripes;
 
     /** True if the track is selected */
     bool m_selected;

@@ -98,7 +98,7 @@ VirtualAudioFile::VirtualAudioFile(QIODevice &device)
 {
     // create the virtual file structure for libaudiofile
     m_virtual_file = af_virtual_file_new();
-    ASSERT(m_virtual_file);
+    Q_ASSERT(m_virtual_file);
     if (!m_virtual_file) return;
 
     // enter our wrapper functions
@@ -116,14 +116,14 @@ void VirtualAudioFile::open(VirtualAudioFile *x, AFfilesetup setup)
 {
     // register ourself
     adapter(0); // dummy lookup, for creating a new map if needed
-    ASSERT(_adapter_map);
+    Q_ASSERT(_adapter_map);
     if (_adapter_map) _adapter_map->insert(m_virtual_file, x);
 
     // determine the mode: rw/w/r
     const char *mode = 0;
     if      (m_device.isWritable()) mode = "w";
     else if (m_device.isReadable()) mode = "r";
-    ASSERT(mode);
+    Q_ASSERT(mode);
 
     AFerrfunc old_handler;
     old_handler = afSetErrorHandler(_handle_audiofile_error);
@@ -157,7 +157,7 @@ VirtualAudioFile::~VirtualAudioFile()
 //***************************************************************************
 unsigned int VirtualAudioFile::read(char *data, unsigned int nbytes)
 {
-    ASSERT(data);
+    Q_ASSERT(data);
     if (!data) return 0;
     return m_device.readBlock(data, nbytes);
 }
@@ -171,7 +171,7 @@ long VirtualAudioFile::length()
 //***************************************************************************
 unsigned int VirtualAudioFile::write(const char *data, unsigned int nbytes)
 {
-    ASSERT(data);
+    Q_ASSERT(data);
     if (!data) return 0;
     return m_device.writeBlock(data, nbytes);
 }
@@ -205,7 +205,7 @@ VirtualAudioFile *VirtualAudioFile::adapter(AFvirtualfile *vfile)
     // create a new empty map if necessary
     if (!_adapter_map) _adapter_map =
         new QMap<AFvirtualfile*,VirtualAudioFile*>();
-    ASSERT(_adapter_map);
+    Q_ASSERT(_adapter_map);
     if (!_adapter_map) return 0;
 
     // lookup in the map

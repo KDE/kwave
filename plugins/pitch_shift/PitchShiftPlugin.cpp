@@ -60,17 +60,17 @@ int PitchShiftPlugin::interpreteParameters(QStringList &params)
 
     param = params[0];
     m_speed = param.toDouble(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[1];
     m_frequency = param.toDouble(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     param = params[2];
     m_percentage_mode = (param.toUInt(&ok));
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // all parameters accepted
@@ -87,7 +87,7 @@ QStringList *PitchShiftPlugin::setup(QStringList &previous_params)
 
     // create the setup dialog
     PitchShiftDialog *dialog = new PitchShiftDialog(parentWidget());
-    ASSERT(dialog);
+    Q_ASSERT(dialog);
     if (!dialog) return 0;
 
     if (!m_params.isEmpty()) dialog->setParams(m_params);
@@ -103,7 +103,7 @@ QStringList *PitchShiftPlugin::setup(QStringList &previous_params)
             dialog, SLOT(listenStopped()));
 
     QStringList *list = new QStringList();
-    ASSERT(list);
+    Q_ASSERT(list);
     if (list && dialog->exec()) {
 	// user has pressed "OK"
 	*list = dialog->params();
@@ -125,7 +125,7 @@ void PitchShiftPlugin::run(QStringList params)
     debug("PitchShiftPlugin::run(), m_listen = %d", m_listen);
     
     Arts::Dispatcher *dispatcher = manager().artsDispatcher();
-    ASSERT(dispatcher);
+    Q_ASSERT(dispatcher);
     if (!dispatcher) close();
     dispatcher->lock();
 
@@ -153,7 +153,7 @@ void PitchShiftPlugin::run(QStringList params)
     } else {
 	// normal mode, with undo
 	undo_guard = new UndoTransactionGuard(*this, i18n("pitch shift"));
-	ASSERT(undo_guard);
+	Q_ASSERT(undo_guard);
 	if (!undo_guard) {
 	    close();
 	    return;
@@ -163,7 +163,7 @@ void PitchShiftPlugin::run(QStringList params)
 	arts_sink = new ArtsMultiTrackSink(sink);
     }
     
-    ASSERT(arts_sink);
+    Q_ASSERT(arts_sink);
     if (!arts_sink || arts_sink->done()) {
 	if (arts_sink)  delete arts_sink;
 	if (undo_guard) delete undo_guard;

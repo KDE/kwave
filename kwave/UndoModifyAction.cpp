@@ -58,7 +58,7 @@ void UndoModifyAction::store(SignalManager &manager)
     m_buffer.resize(m_length);
     SampleReader *reader = manager.openSampleReader(
 	m_track, m_offset, m_offset+m_length-1);
-    ASSERT(reader);
+    Q_ASSERT(reader);
     if (reader) {
 	*reader >> m_buffer;
 	m_length = m_buffer.size();
@@ -70,7 +70,7 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
 {
     SampleWriter *writer = manager.openSampleWriter(
 	m_track, Overwrite, m_offset, m_offset+m_length-1);
-    ASSERT(writer);
+    Q_ASSERT(writer);
     if (!writer) return 0;
 
     unsigned int ofs = 0;
@@ -89,7 +89,7 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager, bool with_redo)
 	}
 	if (reader) delete reader;
     } else {
-	ASSERT(m_buffer.size() == m_length);
+	Q_ASSERT(m_buffer.size() == m_length);
 	*writer << m_buffer;
     }
 

@@ -19,7 +19,7 @@
 #define _CODEC_MANAGER_H_
 
 #include "config.h"
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <kmimetype.h>
@@ -122,10 +122,10 @@ public:
 
 private:
     /** list of all encoders */
-    static QList<Encoder> m_encoders;
+    static QPtrList<Encoder> m_encoders;
 
     /** list of decoders */
-    static QList<Decoder> m_decoders;
+    static QPtrList<Decoder> m_decoders;
 };
 
 #endif /* _CODEC_MANAGER_H_ */

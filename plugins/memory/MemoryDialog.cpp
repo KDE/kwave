@@ -79,14 +79,14 @@ MemoryDialog::~MemoryDialog()
 //***************************************************************************
 bool MemoryDialog::isOK()
 {
-    ASSERT(chkEnableVirtual);
-    ASSERT(chkLimitPhysical);
-    ASSERT(chkLimitVirtual);
-    ASSERT(edDirectory);
-    ASSERT(sbPhysical);
-    ASSERT(sbVirtual);
-    ASSERT(slPhysical);
-    ASSERT(slVirtual);
+    Q_ASSERT(chkEnableVirtual);
+    Q_ASSERT(chkLimitPhysical);
+    Q_ASSERT(chkLimitVirtual);
+    Q_ASSERT(edDirectory);
+    Q_ASSERT(sbPhysical);
+    Q_ASSERT(sbVirtual);
+    Q_ASSERT(slPhysical);
+    Q_ASSERT(slVirtual);
 
     return chkEnableVirtual && chkLimitPhysical && chkLimitVirtual &&
            edDirectory && sbPhysical && sbVirtual && slPhysical &&

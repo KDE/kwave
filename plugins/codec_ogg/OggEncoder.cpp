@@ -109,7 +109,7 @@ void OggEncoder::encodeProperties(FileInfo &info, vorbis_comment *vc)
 	// encode the property as string
 	const char *tag = supported_properties[i].name;
 	QString value = info.get(property).toString();
-	vorbis_comment_add_tag(vc, (char*)tag, (char*)value.data());
+	vorbis_comment_add_tag(vc, (char*)tag, (char*)value.latin1());
     }
 }
 
@@ -158,7 +158,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     }
     
     // some checks first
-    ASSERT(tracks < 255);
+    Q_ASSERT(tracks < 255);
     if (tracks > 255) return false;
 
     /********** Encode setup ************/
@@ -221,7 +221,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	QString software = about_data->programName() + "-" +
 	    about_data->version() +
 	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
-	debug("OggEncoder: adding software tag: '%s'", software.data());
+	debug("OggEncoder: adding software tag: '%s'", software.latin1());
 	info.set(INF_SOFTWARE, software);
     }
 
@@ -232,7 +232,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	date = date.sprintf("%04d-%02d-%02d",
 	    now.year(), now.month(), now.day());
 	QVariant value = date.utf8();
-	debug("OggEncoder: adding date tag: '%s'", date.data());
+	debug("OggEncoder: adding date tag: '%s'", date.latin1());
 	info.set(INF_CREATION_DATE, value);
     }
 

@@ -93,8 +93,8 @@ void TrackPixmap::setOffset(unsigned int offset)
     if (m_minmax_mode) {
 	// move content of min and max buffer
 	// one buffer element = one screen pixel
-	ASSERT(buflen == m_min_buffer.size());
-	ASSERT(buflen == m_max_buffer.size());
+	Q_ASSERT(buflen == m_min_buffer.size());
+	Q_ASSERT(buflen == m_max_buffer.size());
 	if ((buflen != m_min_buffer.size()) || (buflen != m_max_buffer.size())) {
 	    debug("TrackPixmap::setOffset(): buflen = %u", buflen);
 	    debug("TrackPixmap::setOffset(): min_buffer : %u", m_min_buffer.size());
@@ -121,8 +121,8 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    // move left
 	    diff = samples2pixels(offset - m_offset);
 //	    debug("TrackPixmap::setOffset(): moving left (min/max): %u",diff);
-	    ASSERT(diff);
-	    ASSERT(buflen);
+	    Q_ASSERT(diff);
+	    Q_ASSERT(buflen);
 	    if (diff && buflen) {
 		for (src = diff, dst = 0; src < buflen; ++dst, ++src) {
 		    m_min_buffer[dst] = m_min_buffer[src];
@@ -135,8 +135,8 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    // move right
 	    diff = samples2pixels(m_offset - offset);
 //	    debug("TrackPixmap::setOffset(): moving right (min/max): %u",diff);
-	    ASSERT(diff);
-	    ASSERT(buflen);
+	    Q_ASSERT(diff);
+	    Q_ASSERT(buflen);
 	    if (diff && buflen) {
 		for (dst=buflen-1, src=dst-diff; dst>=diff; --dst, --src) {
 		    m_min_buffer[dst] = m_min_buffer[src];
@@ -150,7 +150,7 @@ void TrackPixmap::setOffset(unsigned int offset)
     } else {
 	// move content of sample buffer
 	// one buffer element = one sample
-	ASSERT(buflen == m_sample_buffer.size());
+	Q_ASSERT(buflen == m_sample_buffer.size());
 	
 	if (offset > m_offset) {
 	    // move left
@@ -165,7 +165,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    // move right
 //	    debug("TrackPixmap::setOffset(): moving right (normal)"); // ###
 	    diff = m_offset - offset;
-	    ASSERT(buflen);
+	    Q_ASSERT(buflen);
 	    if (buflen) {
 		for (dst=buflen-1, src=dst-diff; dst>=diff; --dst, --src) {
 		    m_sample_buffer[dst] = m_sample_buffer[src];
@@ -265,10 +265,10 @@ bool TrackPixmap::validateBuffer()
     unsigned int buflen = m_valid.size();
 
     if (m_minmax_mode) {
-	ASSERT(m_min_buffer.size() == buflen);
-	ASSERT(m_max_buffer.size() == buflen);
+	Q_ASSERT(m_min_buffer.size() == buflen);
+	Q_ASSERT(m_max_buffer.size() == buflen);
     } else {
-	ASSERT(m_sample_buffer.size() == buflen);
+	Q_ASSERT(m_sample_buffer.size() == buflen);
     }
 
     // ### FIXME:
@@ -304,12 +304,12 @@ bool TrackPixmap::validateBuffer()
 
 	    // open a reader for the whole modified range	
 	    SampleReader *in = m_track.openSampleReader(s1, s2);
-	    ASSERT(in);
+	    Q_ASSERT(in);
 	    if (!in) break;
 	
 	    // allocate a buffer for one more sample (pixels2samples may
 	    // vary by +/-1 !
-	    QArray<sample_t> buffer((int)ceil(m_zoom)/*pixels2samples(1) + 1*/);
+	    QMemArray<sample_t> buffer((int)ceil(m_zoom));
 	    sample_t min;
 	    sample_t max;
 	
@@ -347,7 +347,7 @@ bool TrackPixmap::validateBuffer()
 	    // each index is one sample
 	    SampleReader *in = m_track.openSampleReader(
 		m_offset+first, m_offset+last);
-	    ASSERT(in);
+	    Q_ASSERT(in);
 	    if (!in) break;
 	
 	    // read directly into the buffer
@@ -364,7 +364,7 @@ bool TrackPixmap::validateBuffer()
 	    delete in;
 	}
 	
-	ASSERT(first >= last);
+	Q_ASSERT(first >= last);
         ++last;
     }
 
@@ -433,9 +433,9 @@ bool TrackPixmap::isModified()
 void TrackPixmap::drawOverview(QPainter &p, int middle, int height,
 	int first, int last)
 {
-    ASSERT(m_minmax_mode);
-    ASSERT(width() <= (int)m_min_buffer.size());
-    ASSERT(width() <= (int)m_max_buffer.size());
+    Q_ASSERT(m_minmax_mode);
+    Q_ASSERT(width() <= (int)m_min_buffer.size());
+    Q_ASSERT(width() <= (int)m_max_buffer.size());
 
     // scale_y: pixels per unit
     double scale_y = (double)height / (1 << 24);
@@ -443,7 +443,7 @@ void TrackPixmap::drawOverview(QPainter &p, int middle, int height,
 
     p.setPen(m_color_sample);
     for (int i = first; i <= last; i++) {
-	ASSERT(m_valid[i]);
+	Q_ASSERT(m_valid[i]);
 	max = (int)(m_max_buffer[i] * scale_y);
 	min = (int)(m_min_buffer[i] * scale_y);
 	p.drawLine(i, middle - max, i, middle - min);
@@ -466,7 +466,7 @@ void TrackPixmap::calculateInterpolation()
 	m_interpolation_alpha = 0;
     }
 
-    ASSERT(m_zoom != 0.0);
+    Q_ASSERT(m_zoom != 0.0);
     if (m_zoom == 0.0) return;
 
     // offset: index of first visible sample (left) [0...length-1]
@@ -486,7 +486,7 @@ void TrackPixmap::calculateInterpolation()
     m_interpolation_alpha = new float[N + 1];
     m_interpolation_order = N;
 
-    ASSERT(m_interpolation_alpha);
+    Q_ASSERT(m_interpolation_alpha);
     if (!m_interpolation_alpha) return;
 
     // calculate the raw coefficients and
@@ -527,7 +527,7 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 
 //    debug("TrackPixmap::drawInterpolatedSignal()");
 
-    ASSERT(m_zoom);
+    Q_ASSERT(m_zoom);
     if (m_zoom == 0.0) return;
 
     // scale_y: pixels per unit
@@ -544,17 +544,17 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
 	N = m_interpolation_order;
     }
 
-    ASSERT(m_interpolation_alpha);
+    Q_ASSERT(m_interpolation_alpha);
     if (!m_interpolation_alpha) return;
 
     // buffer for intermediate resampled data
     sig_buffer = new float[width + N + 2];
-    ASSERT(sig_buffer);
+    Q_ASSERT(sig_buffer);
     if (!sig_buffer) return;
 
     // array with sample points
     QPointArray *points = new QPointArray(width);
-    ASSERT(points);
+    Q_ASSERT(points);
     if (!points) {
 	delete[] sig_buffer;
 	return;
@@ -627,7 +627,7 @@ void TrackPixmap::drawPolyLineSignal(QPainter &p, int width,
 
     // array with sample points
     QPointArray *points = new QPointArray(width + 1);
-    ASSERT(points);
+    Q_ASSERT(points);
     if (!points) return;
 
     // display the original samples
@@ -689,8 +689,8 @@ void TrackPixmap::slotSamplesInserted(Track &, unsigned int offset,
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
 	
-	ASSERT(offset < m_valid.size());
-	ASSERT(offset + length <= m_valid.size());
+	Q_ASSERT(offset < m_valid.size());
+	Q_ASSERT(offset + length <= m_valid.size());
 	
 	// mark all positions from here to right end as "invalid"
 	while (offset < m_valid.size()) m_valid.clearBit(offset++);
@@ -713,8 +713,8 @@ void TrackPixmap::slotSamplesDeleted(Track &, unsigned int offset,
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
 	
-	ASSERT(offset < m_valid.size());
-	ASSERT(offset + length <= m_valid.size());
+	Q_ASSERT(offset < m_valid.size());
+	Q_ASSERT(offset + length <= m_valid.size());
 	
 	// mark all positions from here to right end as "invalid"
 	while (offset < m_valid.size()) m_valid.clearBit(offset++);
@@ -737,8 +737,8 @@ void TrackPixmap::slotSamplesModified(Track &, unsigned int offset,
 	convertOverlap(offset, length);
 	if (!length) return; // false alarm
 	
-	ASSERT(offset < m_valid.size());
-	ASSERT(offset + length <= m_valid.size());
+	Q_ASSERT(offset < m_valid.size());
+	Q_ASSERT(offset + length <= m_valid.size());
 	
 	// mark all overlapping positions as "invalid"
 	while (length--) m_valid.clearBit(offset++);
@@ -754,7 +754,7 @@ void TrackPixmap::slotSamplesModified(Track &, unsigned int offset,
 //***************************************************************************
 void TrackPixmap::convertOverlap(unsigned int &offset, unsigned int &length)
 {
-    ASSERT(m_zoom != 0.0);
+    Q_ASSERT(m_zoom != 0.0);
     if (m_zoom == 0.0) length = 0;
     if (!length) return;
     if ((offset + length) <= m_offset) {
@@ -763,7 +763,7 @@ void TrackPixmap::convertOverlap(unsigned int &offset, unsigned int &length)
     }
 
     unsigned int buflen = m_valid.size();
-    ASSERT(buflen);
+    Q_ASSERT(buflen);
 
     // calculate the length
     if (m_minmax_mode) {
@@ -798,7 +798,7 @@ void TrackPixmap::convertOverlap(unsigned int &offset, unsigned int &length)
     // limit the length to the end of the buffer
     if (offset+length > buflen) length = buflen-offset;
 
-    ASSERT(length);
+    Q_ASSERT(length);
 }
 
 //***************************************************************************

@@ -82,7 +82,7 @@ void KwaveFileDialog::loadConfig(const QString &section)
 {
     if (!section.length()) return;
     KConfig *cfg = KApplication::kApplication()->config();
-    ASSERT(cfg);
+    Q_ASSERT(cfg);
     if (!cfg) return;
 
     cfg->setGroup(section);
@@ -97,7 +97,7 @@ void KwaveFileDialog::saveConfig()
     if (!m_config_group.length()) return;
 
     KConfig *cfg = KApplication::kApplication()->config();
-    ASSERT(cfg);
+    Q_ASSERT(cfg);
     if (!cfg) return;
 
     // store the last URL
@@ -115,12 +115,17 @@ void KwaveFileDialog::saveConfig()
 	QString filter = filterWidget->currentFilter();
 	QStringList masks = QStringList::split(" ", filter);
 	QStringList::Iterator it;
+	m_last_ext = "";
 	for (it = masks.begin(); it != masks.end(); ++it) {
 	    QRegExp mask((*it), true, true);
-	    if (mask.match(filename, 0) >= 0) {
+	    if (mask.search(filename, 0) >= 0) {
 		m_last_ext = (*it);
 		break;
 	    }
+	}
+	if (!m_last_ext.length()) {
+	    // no extension given -> use the first of the filter
+	    m_last_ext = *(masks.begin());
 	}
     }
 

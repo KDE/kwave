@@ -17,7 +17,7 @@ typedef enum {
 
 interpolation_t &operator ++(interpolation_t &i);
 
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qstringlist.h>
 
 #include "libkwave/TypesMap.h"
@@ -35,9 +35,9 @@ public:
 
     bool prepareInterpolation(Curve *points);
 
-    QArray<double> interpolation(Curve *points, unsigned int len);
+    QMemArray<double> interpolation(Curve *points, unsigned int len);
 
-    QArray<double> limitedInterpolation(Curve *points, unsigned int len);
+    QMemArray<double> limitedInterpolation(Curve *points, unsigned int len);
 
     /**
      * Returns a single point of the interpolation.
@@ -116,8 +116,8 @@ private:
      * @param x receives all x coordinates ???
      * @param y receives all y coordinates ???
      */
-    void createFullPolynom(Curve *points, const QArray<double> &x,
-	const QArray<double> &y);
+    void createFullPolynom(Curve *points, const QMemArray<double> &x,
+	const QMemArray<double> &y);
 
     /**
      * ???
@@ -126,8 +126,9 @@ private:
      * @param ab array for return values
      * @param n ???
      */
-    void get2Derivate(const QArray<double> &x, const QArray<double> &y,
-                      QArray<double> &ab, unsigned int n);
+    void get2Derivate(const QMemArray<double> &x,
+                      const QMemArray<double> &y,
+                      QMemArray<double> &ab, unsigned int n);
 
     /**
      * ???
@@ -137,8 +138,9 @@ private:
      * @param pos ???
      * @param degree ???
      */
-    void createPolynom (Curve *points, QArray<double> &x, QArray<double> &y,
-	int pos, unsigned int degree);
+    void createPolynom (Curve *points, QMemArray<double> &x,
+                        QMemArray<double> &y,
+                        int pos, unsigned int degree);
 
 private:
 
@@ -146,13 +148,13 @@ private:
     Curve *m_curve;
 
     /** ??? used for temporary purposes */
-    QArray<double> m_x;
+    QMemArray<double> m_x;
 
     /** ??? used for temporary purposes */
-    QArray<double> m_y;
+    QMemArray<double> m_y;
 
     /** ??? used for temporary purposes */
-    QArray<double> m_der;
+    QMemArray<double> m_der;
 
     /** Map with type and name of interpolations */
     static InterpolationMap m_interpolation_map;

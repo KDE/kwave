@@ -20,7 +20,7 @@
 #define _UNDO_SELECTION_H_
 
 #include "config.h"
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qstring.h>
 #include "UndoAction.h"
 
@@ -71,7 +71,7 @@ private:
     unsigned int m_length;
 
     /** Array with indices of selected tracks. */
-    QArray<unsigned int> m_selected_tracks;
+    QMemArray<unsigned int> m_selected_tracks;
 
 };
 

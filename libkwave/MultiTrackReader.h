@@ -21,7 +21,7 @@
 
 #include "config.h"
 #include <qobject.h>
-#include <qvector.h>
+#include <qptrvector.h>
 
 #include "libkwave/SampleReader.h"
 
@@ -29,7 +29,7 @@
  * A MultiTrackReader encapsulates a set of <c>SampleReader</c>s for
  * easier use of multi-track signals.
  */
-class MultiTrackReader: public QObject, private QVector<SampleReader>
+class MultiTrackReader: public QObject, private QPtrVector<SampleReader>
 {
     Q_OBJECT
 public:
@@ -43,30 +43,30 @@ public:
     /** Returns true if one of the readers has reached eof() */
     virtual bool eof() const;
 
-    /** @see QVector::operator[] */
+    /** @see QPtrVector::operator[] */
     inline virtual SampleReader* operator[] (int i) const {
-	return QVector<SampleReader>::at(i);
+	return QPtrVector<SampleReader>::at(i);
     };
 
-    /** @see QVector::count() */
+    /** @see QPtrVector::count() */
     inline virtual unsigned int count() const {
-	return QVector<SampleReader>::count();
+	return QPtrVector<SampleReader>::count();
     };
 
-    /** @see QVector::clear() */
-    inline virtual void clear() { QVector<SampleReader>::clear(); };
+    /** @see QPtrVector::clear() */
+    inline virtual void clear() { QPtrVector<SampleReader>::clear(); };
 
-    /** @see QVector::isEmpty() */
+    /** @see QPtrVector::isEmpty() */
     inline virtual bool isEmpty() {
-        return QVector<SampleReader>::isEmpty();
+        return QPtrVector<SampleReader>::isEmpty();
     };
 
-    /** @see QVector::insert() */
+    /** @see QPtrVector::insert() */
     virtual bool insert(unsigned int track, const SampleReader *reader);
 
-    /** @see QVector::resize() */
+    /** @see QPtrVector::resize() */
     virtual bool resize(unsigned int size) {
-        return QVector<SampleReader>::resize(size);
+        return QPtrVector<SampleReader>::resize(size);
     };
 
     /** returns true if the transfer has been cancelled */

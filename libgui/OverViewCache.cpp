@@ -37,14 +37,14 @@
 //*****************************************************************************
 OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
                              unsigned int src_length,
-                             const QArray<unsigned int> *src_tracks)
+                             const QMemArray<unsigned int> *src_tracks)
     :m_signal(signal), m_min(), m_max(), m_state(), m_count(0), m_scale(1),
      m_lock(), m_src_offset(src_offset), m_src_length(src_length),
      m_src_tracks(), m_src_deleted()
 {
     // connect to the signal manager
     SignalManager *sig = &signal;
-    ASSERT(sig);
+    Q_ASSERT(sig);
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
             this, SLOT(slotTrackInserted(unsigned int, Track &)));
     connect(sig, SIGNAL(sigTrackDeleted(unsigned int)),
@@ -88,24 +88,24 @@ unsigned int OverViewCache::sourceLength()
 //*****************************************************************************
 void OverViewCache::scaleUp()
 {
-    ASSERT(m_scale);
+    Q_ASSERT(m_scale);
     if (!m_scale) return;
     
     // calculate the new scale
     const unsigned int len = sourceLength();
     unsigned int shrink = len / (m_scale * CACHE_SIZE);
-    ASSERT(shrink);
+    Q_ASSERT(shrink);
     while (len > CACHE_SIZE * m_scale * shrink) {
 	shrink++;
     }
-    ASSERT(shrink > 1);
+    Q_ASSERT(shrink > 1);
     if (shrink <= 1) return; // nothing to shrink, just ignore new scale
 
     // loop over all tracks
     for (unsigned int t=0; t < m_state.count(); ++t) {
 	unsigned int dst = 0;
 	unsigned int count = CACHE_SIZE / shrink;
-        ASSERT(count <= CACHE_SIZE);
+        Q_ASSERT(count <= CACHE_SIZE);
 	
 	// source pointers
 	signed char *smin = m_min.at(t)->data();
@@ -182,8 +182,8 @@ void OverViewCache::invalidateCache(unsigned int track, unsigned int first,
     int cache_track = trackIndex(track);
     if (cache_track < 0) return;
 
-    QArray<CacheState> *state = m_state.at(cache_track);
-    ASSERT(state);
+    QMemArray<CacheState> *state = m_state.at(cache_track);
+    Q_ASSERT(state);
     if (!state) return;
 
     if (last >= CACHE_SIZE) last = CACHE_SIZE-1;
@@ -219,7 +219,7 @@ void OverViewCache::slotTrackInserted(unsigned int index, Track &)
 	    for (it=m_src_tracks.begin(); it != m_src_tracks.end(); ++it)
 		if (*it >= index) (*it)++;
 		
-	    ASSERT(!m_src_tracks.contains(index));
+	    Q_ASSERT(!m_src_tracks.contains(index));
 	    m_src_tracks.append(index);
 	    dumpTracks();
 	} else {
@@ -233,14 +233,14 @@ void OverViewCache::slotTrackInserted(unsigned int index, Track &)
 	}
     }
 
-    QArray<CacheState> *state = new QArray<CacheState>(CACHE_SIZE);
+    QMemArray<CacheState> *state = new QMemArray<CacheState>(CACHE_SIZE);
     QMemArray<signed char> *min = new QMemArray<signed char>(CACHE_SIZE);
     QMemArray<signed char> *max = new QMemArray<signed char>(CACHE_SIZE);
 
     if (!state || !min || !max) {
-	ASSERT(state);
-	ASSERT(min);
-	ASSERT(max);
+	Q_ASSERT(state);
+	Q_ASSERT(min);
+	Q_ASSERT(max);
 	if (state) delete state;
 	if (min) delete min;
 	if (max) delete max;
@@ -434,7 +434,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
     if (!length) return bitmap; // stay empty if no data available
     
     MultiTrackReader src;
-    QArray<unsigned int> track_list;
+    QMemArray<unsigned int> track_list;
     if (!m_src_tracks.isEmpty() || !m_src_deleted.isEmpty()) {
 	track_list.resize(m_src_tracks.count());
 	for (unsigned int i=0; i < m_src_tracks.count(); ++i)
@@ -446,7 +446,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	m_src_offset+length-1);
 
     // loop over all min/max buffers and make their content valid
-    ASSERT(m_state.count() == src.count());
+    Q_ASSERT(m_state.count() == src.count());
     for (unsigned int t=0; (t < m_state.count()) && !src.isEmpty(); ++t) {
 	unsigned int count = length / m_scale;
 	if (count > CACHE_SIZE) count = 0;
@@ -493,7 +493,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	// get the corresponding cache index
 	unsigned int index = ((count-1) * x) / (width-1);
 	unsigned int last_index  = ((count-1) * (x+1)) / (width-1);
-	ASSERT(index < CACHE_SIZE);
+	Q_ASSERT(index < CACHE_SIZE);
 	if (index >= CACHE_SIZE) index = CACHE_SIZE-1;
 	if (last_index > index) last_index--;
 	if (last_index >= CACHE_SIZE) last_index = CACHE_SIZE-1;
@@ -507,7 +507,7 @@ QBitmap OverViewCache::getOverView(int width, int height)
 		signed char *min = m_min.at(t)->data();
 		signed char *max = m_max.at(t)->data();
 		CacheState *state = m_state.at(t)->data();
-		ASSERT(state);
+		Q_ASSERT(state);
 		if (!state) continue;
 		if (state[index] != Valid) continue;
 		

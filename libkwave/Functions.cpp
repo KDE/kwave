@@ -118,7 +118,7 @@ Functions::~Functions()
 //***************************************************************************
 QString Functions::name(unsigned int index)
 {
-    ASSERT(index < m_functions_map.count());
+    Q_ASSERT(index < m_functions_map.count());
     if (index >= m_functions_map.count()) return "Zero";
     return m_functions_map.name(index);
 }
@@ -128,7 +128,7 @@ periodic_function_t &Functions::function(unsigned int index)
 {
     periodic_function_t *f = 0;
 
-    ASSERT(index < m_functions_map.count());
+    Q_ASSERT(index < m_functions_map.count());
     if (index < m_functions_map.count()) f = m_functions_map.data(index);
 
     if (!f) return *(&zero);

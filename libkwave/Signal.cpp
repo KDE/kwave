@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <dlfcn.h>
 
-#include <qarray.h>
-#include <qlist.h>
+#include <qmemarray.h>
+#include <qptrlist.h>
 
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -66,7 +66,7 @@ Track *Signal::insertTrack(unsigned int index, unsigned int length)
 	SharedLockGuard lock(m_lock_tracks, true);
 	
 	t = new Track(length);
-	ASSERT(t);
+	Q_ASSERT(t);
 	if (!t) return 0;
 	
 	if (index < m_tracks.count()) {
@@ -136,13 +136,13 @@ SampleWriter *Signal::openSampleWriter(unsigned int track,
 {
     SharedLockGuard lock(m_lock_tracks, false);
 
-    ASSERT(track < m_tracks.count());
+    Q_ASSERT(track < m_tracks.count());
     if (track >= m_tracks.count()) {
 	return 0; // track does not exist !
     }
 
     Track *t = m_tracks.at(track);
-    ASSERT(t);
+    Q_ASSERT(t);
     return (t) ? t->openSampleWriter(mode, left, right) : 0;
 }
 
@@ -152,17 +152,17 @@ SampleReader *Signal::openSampleReader(unsigned int track,
 {
     SharedLockGuard lock(m_lock_tracks, false);
 
-    ASSERT(track < m_tracks.count());
+    Q_ASSERT(track < m_tracks.count());
     if (track >= m_tracks.count()) return 0; // track does not exist !
 
     Track *t = m_tracks.at(track);
-    ASSERT(t);
+    Q_ASSERT(t);
     return (t) ? t->openSampleReader(left, right) : 0;
 }
 
 //***************************************************************************
 void Signal::openMultiTrackReader(MultiTrackReader &readers,
-    const QArray<unsigned int> &track_list,
+    const QMemArray<unsigned int> &track_list,
     unsigned int first, unsigned int last)
 {
     unsigned int count = track_list.count();
@@ -173,7 +173,7 @@ void Signal::openMultiTrackReader(MultiTrackReader &readers,
     for (unsigned int i=0; i < count; i++) {
 	track = track_list[i];
 	SampleReader *s = openSampleReader(track, first, last);
-	ASSERT(s);
+	Q_ASSERT(s);
 	readers.insert(i, s);
     }
 
@@ -181,7 +181,7 @@ void Signal::openMultiTrackReader(MultiTrackReader &readers,
 
 //***************************************************************************
 void Signal::openMultiTrackWriter(MultiTrackWriter &writers,
-    const QArray<unsigned int> &track_list, InsertMode mode,
+    const QMemArray<unsigned int> &track_list, InsertMode mode,
     unsigned int left, unsigned int right)
 {
     unsigned int count = track_list.count();
@@ -205,10 +205,10 @@ void Signal::openMultiTrackWriter(MultiTrackWriter &writers,
 }
 
 //***************************************************************************
-const QArray<unsigned int> Signal::allTracks()
+const QMemArray<unsigned int> Signal::allTracks()
 {
     unsigned int track;
-    QArray<unsigned int> list(tracks());
+    QMemArray<unsigned int> list(tracks());
 
     for (track=0; track < list.count(); track++) {
 	list[track] = track;
@@ -223,11 +223,11 @@ void Signal::deleteRange(unsigned int track, unsigned int offset,
 {
     SharedLockGuard lock(m_lock_tracks, false);
 
-    ASSERT(track < m_tracks.count());
+    Q_ASSERT(track < m_tracks.count());
     if (track >= m_tracks.count()) return; // track does not exist !
 
     Track *t = m_tracks.at(track);
-    ASSERT(t);
+    Q_ASSERT(t);
     if (t) t->deleteRange(offset, length);
 }
 
@@ -244,7 +244,7 @@ unsigned int Signal::length()
     SharedLockGuard lock(m_lock_tracks, false);
 
     unsigned int max = 0;
-    QListIterator<Track> it(m_tracks);
+    QPtrListIterator<Track> it(m_tracks);
     for ( ; it.current(); ++it) {
 	unsigned int len = it.current()->length();
 	if (len > max) max = len;
@@ -268,9 +268,9 @@ void Signal::selectTrack(unsigned int track, bool select)
 {
     SharedLockGuard lock(m_lock_tracks, false);
 
-    ASSERT(track < m_tracks.count());
+    Q_ASSERT(track < m_tracks.count());
     if (track >= m_tracks.count()) return;
-    ASSERT(m_tracks.at(track));
+    Q_ASSERT(m_tracks.at(track));
     if (!m_tracks.at(track)) return;
 
     m_tracks.at(track)->select(select);
@@ -302,7 +302,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //	for (int i = 0; i < length; i++)
 //	    points->append (((double) i) / length, (double) sample[i]);
 //
-//	QArray<double> *y = interpolation.interpolation(points, newlen);
+//	QMemArray<double> *y = interpolation.interpolation(points, newlen);
 //	if (y) {
 //	    delete points;
 //	    points = 0;
@@ -473,7 +473,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //{
 //    Interpolation interpolation (0);
 //
-//    QArray<double> *move = interpolation.interpolation (points, len);
+//    QMemArray<double> *move = interpolation.interpolation (points, len);
 //    if (move) {
 //	for (int i = 0; i < len; i++)
 //	    //rescale range of filtermovement...
@@ -575,7 +575,7 @@ unsigned int Signal::trackIndex(const Track &track)
     SharedLockGuard lock(m_lock_tracks, false);
 
     int index = m_tracks.findRef(&track);
-    ASSERT(index >= 0);
+    Q_ASSERT(index >= 0);
     return (index >= 0) ? index : m_tracks.count();
 }
 

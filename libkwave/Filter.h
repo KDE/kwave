@@ -112,10 +112,10 @@ private:
     unsigned int m_rate;
 
     /** array of coefficients */
-    QArray<double> m_coeff;
+    QMemArray<double> m_coeff;
 
     /** array of delay times */
-    QArray<int> m_delay;
+    QMemArray<int> m_delay;
 
 };
 

@@ -101,8 +101,8 @@ int BitrateSpinBox::nearestIndex(int rate)
     int index = m_rates.findIndex(nearest);
 
     // limit the index into a reasonable range
-    ASSERT(index >= 0);
-    ASSERT(index < (int)m_rates.size());
+    Q_ASSERT(index >= 0);
+    Q_ASSERT(index < (int)m_rates.size());
     if (index < 0)                    index = 0;
     if (index >= (int)m_rates.size()) index = m_rates.size()-1;
 

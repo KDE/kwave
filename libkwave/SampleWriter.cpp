@@ -26,7 +26,7 @@
 #define BUFFER_SIZE (256*1024)
 
 //***************************************************************************
-SampleWriter::SampleWriter(Track &track, QList<Stripe> &stripes,
+SampleWriter::SampleWriter(Track &track, QPtrList<Stripe> &stripes,
 	SampleLock *lock, InsertMode mode, unsigned int left,
 	unsigned int right)
     :QObject(), m_first(left), m_last(right), m_mode(mode), m_track(track),
@@ -39,7 +39,7 @@ SampleWriter::SampleWriter(Track &track, QList<Stripe> &stripes,
 SampleWriter::~SampleWriter()
 {
     flush();
-    ASSERT(m_position <= m_last+1);
+    Q_ASSERT(m_position <= m_last+1);
 
     // inform others that we proceeded
     emit proceeded();
@@ -48,7 +48,7 @@ SampleWriter::~SampleWriter()
 }
 
 //***************************************************************************
-SampleWriter &SampleWriter::operator << (const QArray<sample_t> &samples)
+SampleWriter &SampleWriter::operator << (const QMemArray<sample_t> &samples)
 {
     // first flush the single-sample buffer before doing block operation
     if (m_buffer_used) flush();
@@ -56,7 +56,7 @@ SampleWriter &SampleWriter::operator << (const QArray<sample_t> &samples)
     // now flush the block that we received as parameter (pass-through)
     unsigned int count = samples.size();
     flush(samples, count);
-    ASSERT(!count);
+    Q_ASSERT(!count);
 
     return *this;
 }
@@ -80,36 +80,37 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
 	if (m_position+buflen-1 > m_last) buflen = (m_last-m_position)+1;
 	
 	m_buffer_used = reader.read(m_buffer, 0, buflen);
-	ASSERT(m_buffer_used);
+	Q_ASSERT(m_buffer_used);
 	if (!m_buffer_used) break;
 	
 	flush();
     }
 
     // pad the rest with zeroes
-    ASSERT(m_position <= m_last+1);
+    Q_ASSERT(m_position <= m_last+1);
     while (m_buffer_used + m_position <= m_last) {
 	*this << static_cast<sample_t>(0);
 	m_position++;
     }
-    ASSERT(m_position <= m_last+1);
+    Q_ASSERT(m_position <= m_last+1);
 
     return *this;
 }
 
 //***************************************************************************
-void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
+void SampleWriter::flush(const QMemArray<sample_t> &buffer,
+                         unsigned int &count)
 {
     if (count == 0) return; // nothing to flush
 
-    ASSERT(m_position <= m_last+1);
+    Q_ASSERT(m_position <= m_last+1);
     switch (m_mode) {
 	case Append: {
 	    Stripe *s = m_stripes.last();
-	    ASSERT(s);
+	    Q_ASSERT(s);
 	    if (!s) break;
 	    unsigned int cnt = s->append(buffer, count);
-	    ASSERT(cnt == count);
+	    Q_ASSERT(cnt == count);
 	    m_position += count;
 	    if (m_position+1 > m_last) m_last = m_position-1;
 	    break;
@@ -117,29 +118,29 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 	case Insert: {
 	    // in insert mode we only have one stripe and it is clear
 	    // where to insert
-	    ASSERT(m_stripes.count() == 1);
+	    Q_ASSERT(m_stripes.count() == 1);
 	    Stripe *s = m_stripes.first();
-	    ASSERT(s);
+	    Q_ASSERT(s);
 	    if (!s) break;
 	
 	    // insert samples after the last insert position
 	    unsigned int ofs = s->start();
-	    ASSERT(ofs <= m_position);
+	    Q_ASSERT(ofs <= m_position);
 	    if (ofs > m_position) break;
 	    ofs = m_position - ofs;
 	
 	    unsigned int cnt = s->insert(buffer, ofs, count);
-	    ASSERT(cnt == count);
+	    Q_ASSERT(cnt == count);
 	    m_position += count;
-	    ASSERT(m_position <= m_last+1);
+	    Q_ASSERT(m_position <= m_last+1);
 	    break;
 	}
 	case Overwrite: {
 	    // find the first stripe that contains the current position
-	    QListIterator<Stripe> it(m_stripes);
+	    QPtrListIterator<Stripe> it(m_stripes);
 	    unsigned int buf_offset = 0;
 
-	    ASSERT(m_position <= m_last+1);
+	    Q_ASSERT(m_position <= m_last+1);
 	    for (; it.current(); ++it) {
 		if (!count) break; // nothing to do
 		if (m_position > m_last) break;
@@ -157,7 +158,7 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 		    if (length > count) length = count;
 		    if (m_position+length-1 > m_last)
 			length = (m_last-m_position)+1;
-		    ASSERT(length);
+		    Q_ASSERT(length);
 		
 		    // copy the portion of our buffer to the target
 		    s->overwrite(offset, buffer, buf_offset, length);
@@ -165,7 +166,7 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 		    count -= length;
 		    buf_offset += length;
 		    m_position += length;
-		    ASSERT(m_position <= m_last+1);
+		    Q_ASSERT(m_position <= m_last+1);
 		}
 	    }
 	    count = 0;
@@ -173,7 +174,7 @@ void SampleWriter::flush(const QArray<sample_t> &buffer, unsigned int &count)
 	}
     }
 
-    ASSERT(m_position <= m_last+1);
+    Q_ASSERT(m_position <= m_last+1);
     count = 0;
 
     // inform others that we proceeded

@@ -114,7 +114,7 @@ void KwavePlugin::load(QStringList &)
 QStringList *KwavePlugin::setup(QStringList &)
 {
     QStringList *result = new QStringList();
-    ASSERT(result);
+    Q_ASSERT(result);
     return result;
 }
 
@@ -133,7 +133,7 @@ int KwavePlugin::stop()
 	warning("KwavePlugin::stop(): plugin '%s' called stop() from "\
 	        "within it's own worker thread (from run() ?). "\
 	        "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
-	        name().data(), author().data());
+	        name().latin1(), author().latin1());
 
 #ifdef DEBUG
 	debug("pthread_self()=%08X, tid=%08X", (unsigned int)pthread_self(),
@@ -169,7 +169,7 @@ int KwavePlugin::execute(QStringList &params)
 
     m_thread = new Asynchronous_Object_with_1_arg<KwavePlugin, QStringList>(
 	this, &KwavePlugin::run_wrapper,params);
-    ASSERT(m_thread);
+    Q_ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
 
     // start the thread, this executes run()
@@ -178,7 +178,7 @@ int KwavePlugin::execute(QStringList &params)
     // sometimes the signal proxies remain blocked until an initial
     // X11 event occurs and thus might block the thread :-(
     QApplication::syncX();
-    ASSERT(qApp);
+    Q_ASSERT(qApp);
     if (qApp) qApp->wakeUpGuiThread();
 
     return 0;
@@ -228,8 +228,6 @@ void KwavePlugin::use()
 {
     MutexGuard lock(m_usage_lock);
     m_usage_count++;
-//    debug("KwavePlugin::use(%s) -> usage count now is %u",
-//           name().data(), m_usage_count);
 }
 
 //***************************************************************************
@@ -239,17 +237,14 @@ void KwavePlugin::release()
 
     {    
 	MutexGuard lock(m_usage_lock);
-	ASSERT(m_usage_count);
+	Q_ASSERT(m_usage_count);
 	if (m_usage_count) {
 	    m_usage_count--;
-//	    debug("KwavePlugin::release(%s) -> usage count now is %u",
-//	          name().data(), m_usage_count);
 	    if (!m_usage_count) finished = true;
 	}
     }
 
     if (finished) {
-//	debug("KwavePlugin::release(%s) -> DONE", name().data());
 	emit sigClosed(this);
     }
 }
@@ -297,7 +292,7 @@ double KwavePlugin::signalRate()
 }
 
 //***************************************************************************
-const QArray<unsigned int> KwavePlugin::selectedTracks()
+const QMemArray<unsigned int> KwavePlugin::selectedTracks()
 {
     return manager().selectedTracks();
 }

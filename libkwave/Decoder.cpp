@@ -37,7 +37,7 @@ QString Decoder::whatContains(const KURL &url)
     extension = "*."+extension;
 
     // try to find in the list of supported mime types
-    QListIterator<KMimeType> it(mimeTypes());
+    QPtrListIterator<KMimeType> it(mimeTypes());
     for (; it.current(); ++it) {
 	KMimeType &mime_type = *(it.current());
 	if (mime_type.patterns().contains(extension))

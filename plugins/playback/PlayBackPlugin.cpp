@@ -23,9 +23,9 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qfile.h>
-#include <qvector.h>
+#include <qptrvector.h>
 #include <qstring.h>
 
 #include <kapp.h>
@@ -122,13 +122,13 @@ int PlayBackPlugin::interpreteParameters(QStringList &params)
     // parameter #0: number of channels [1 | 2]
     param = params[0];
     m_playback_params.channels = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #1: bits per sample [8 | 16 ]
     param = params[1];
     m_playback_params.bits_per_sample = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     // parameter #2: playback device [/dev/dsp , ... ]
@@ -138,7 +138,7 @@ int PlayBackPlugin::interpreteParameters(QStringList &params)
     // parameter #3: base of buffer size [4...16]
     param = params[3];
     m_playback_params.bufbase = param.toUInt(&ok);
-    ASSERT(ok);
+    Q_ASSERT(ok);
     if (!ok) return -EINVAL;
 
     return 0;
@@ -164,13 +164,13 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
     if (previous_params.count()) interpreteParameters(previous_params);
 
     PlayBackDialog *dlg = new PlayBackDialog(*this, m_playback_params);
-    ASSERT(dlg);
+    Q_ASSERT(dlg);
     if (!dlg) return 0;
 
     if (dlg->exec() == QDialog::Accepted) {
 	// get the new parameters and let them take effect
 	result = new QStringList();
-	ASSERT(result);
+	Q_ASSERT(result);
 	if (result) {
 	    dlg->parameters(*result);
 	    interpreteParameters(*result);
@@ -226,7 +226,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	// if no mutex exists: make a new one, parent is the global app!
 	/** @todo this mutex is actually never deleted ! */
 	if (!g_arts_lock) g_arts_lock = new Mutex();
-	ASSERT(g_arts_lock);
+	Q_ASSERT(g_arts_lock);
 	
 	device = new PlayBackArts(*g_arts_lock);
     } else {
@@ -234,7 +234,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	device = new PlayBackOSS();
     }
 
-    ASSERT(device);
+    Q_ASSERT(device);
     if (!device) {
 	warning("PlayBackPlugin::openDevice(): "\
 		"creating device failed.");
@@ -249,7 +249,7 @@ PlayBackDevice *PlayBackPlugin::openDevice(const QString &name,
 	params.bits_per_sample,
 	params.bufbase
     );
-    ASSERT(!result.length());
+    Q_ASSERT(!result.length());
     if (result.length()) {
 	warning("PlayBackPlugin::openDevice(): "\
 	        "opening the device failed.");
@@ -294,7 +294,8 @@ void PlayBackPlugin::startDevicePlayBack()
     }
 
     // open the device and abort if not possible
-    debug("PlayBackPlugin::startDevicePlayBack(), device='%s'", m_playback_params.device.data());
+    debug("PlayBackPlugin::startDevicePlayBack(), device='%s'",
+          m_playback_params.device.latin1());
     m_device = openDevice(m_playback_params.device, &m_playback_params);
     if (!m_device) {
 	// simulate a "playback done" on errors
@@ -369,7 +370,7 @@ void PlayBackPlugin::run(QStringList)
     unsigned int out_channels = m_playback_params.channels;
 
     // get the list of selected channels
-    QArray<unsigned int> audible_tracks = selectedTracks();
+    QMemArray<unsigned int> audible_tracks = selectedTracks();
     unsigned int audible_count = audible_tracks.count();
     if (!audible_count) {
 	// not even one selected track
@@ -407,8 +408,8 @@ void PlayBackPlugin::run(QStringList)
 
     // loop until process is stopped
     // or run once if not in loop mode
-    QArray<sample_t> in_samples(audible_count);
-    QArray<sample_t> out_samples(out_channels);
+    QMemArray<sample_t> in_samples(audible_count);
+    QMemArray<sample_t> out_samples(out_channels);
     unsigned int pos = m_playback_controller.currentPos();
 
     // counter for refresh of the playback position
@@ -431,7 +432,7 @@ void PlayBackPlugin::run(QStringList)
 	    for (x=0; x < audible_count; x++) {
 		in_samples[x] = 0;
 		SampleReader *stream = input[x];
-		ASSERT(stream);
+		Q_ASSERT(stream);
 		if (!stream) continue;
 
 		sample_t act;
@@ -495,7 +496,7 @@ void PlayBackPlugin::updatePlaybackPos()
     if (!count) return;
     while (count--) {
 	unsigned int *ppos = m_spx_playback_pos.dequeue();
-	ASSERT(ppos);
+	Q_ASSERT(ppos);
 	if (!ppos) continue;
 	pos = *ppos;
 	delete ppos;

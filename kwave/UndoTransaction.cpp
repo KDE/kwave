@@ -20,7 +20,7 @@
 
 //***************************************************************************
 UndoTransaction::UndoTransaction(const QString &name)
-    :QList<UndoAction>(), m_description(name)
+    :QPtrList<UndoAction>(), m_description(name)
 {
 }
 
@@ -28,7 +28,7 @@ UndoTransaction::UndoTransaction(const QString &name)
 unsigned int UndoTransaction::undoSize()
 {
     unsigned int s = 0;
-    QListIterator<UndoAction> it(*this);
+    QPtrListIterator<UndoAction> it(*this);
     for ( ; it.current(); ++it ) {
 	s += it.current()->undoSize();
     }
@@ -41,7 +41,7 @@ unsigned int UndoTransaction::redoSize()
     long int current = 0;
     long int max = 0;
 
-    QListIterator<UndoAction> it(*this);
+    QPtrListIterator<UndoAction> it(*this);
     for (it.toLast() ; it.current(); --it ) {
 	int s = it.current()->redoSize();
 	current += s;
@@ -57,7 +57,7 @@ QString UndoTransaction::description()
     if (m_description.length()) return m_description;
 
     QString str("");
-    QListIterator<UndoAction> it(*this);
+    QPtrListIterator<UndoAction> it(*this);
     for ( ; it.current(); ++it ) {
 	QString d = it.current()->description();
 	// skip duplicates

@@ -42,6 +42,16 @@
 /*#define SPN MINDOUBLE*/
 #define SPN 0.00001
 
+/* some prototypes */
+double bw2angle(double a, double bw);
+void presence(double cf, double boost, double bw,
+              double *a0, double *a1, double *a2, double *b1, double *b2);
+void setfilter_presence(filter *f, double freq, double boost, double bw);
+void setfilter_2polebp(filter *f, double freq, double R);
+void setfilter_peaknotch(filter *f, double freq, double M, double bw);
+void setfilter_peaknotch2(filter *f, double freq, double gdb, double bw);
+double applyfilter(filter *f, double x);
+
 double bw2angle(a,bw)
 double a,bw;
 {

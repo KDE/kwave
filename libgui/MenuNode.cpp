@@ -72,7 +72,7 @@ MenuNode::~MenuNode()
 //*****************************************************************************
 void MenuNode::emitCommand(const QString &command)
 {
-    ASSERT(command.length());
+    Q_ASSERT(command.length());
     if (!command.length()) return ;
 
     if (!getParentNode()) {
@@ -81,7 +81,7 @@ void MenuNode::emitCommand(const QString &command)
     } else {
 	// tell the root node to emit
 	MenuNode *root = getRootNode();
-	ASSERT(root);
+	Q_ASSERT(root);
 	if (root) root->emitCommand(command);
     }
 }
@@ -160,7 +160,8 @@ void MenuNode::setIcon(const QPixmap icon)
 //*****************************************************************************
 void MenuNode::setItemIcon(int id, const QPixmap &icon)
 {
-    debug("MenuNode(%s)::setItemIcon(%d, %p)", getName().data(), id, &icon);
+    debug("MenuNode(%s)::setItemIcon(%d, %p)", getName().latin1(), id,
+          (void*)&icon);
 }
 
 //*****************************************************************************
@@ -175,13 +176,13 @@ bool MenuNode::isEnabled()
     if (root) {
 	QStringList::Iterator it = m_groups.begin();
 	for ( ; it != m_groups.end(); ++it) {
-	    ASSERT(it != 0);
+	    Q_ASSERT(it != 0);
 	    QString group_name = *it;
 	    MenuNode *group = root->findUID(group_name);
 	    if (group && group->inherits("MenuGroup")) {
 		if (!((MenuGroup*)group)->isEnabled()) {
 		    debug("MenuNode(%s).isEnabled(): group %s is disabled",
-			  getName().data(), group_name.data());
+			  getName().latin1(), group_name.latin1());
 		    return false;
 		}
 	    }
@@ -258,7 +259,7 @@ int MenuNode::getNeededIDs()
 int MenuNode::registerChild(MenuNode *node)
 {
     int new_id;
-    ASSERT(node);
+    Q_ASSERT(node);
     if (!node) return -1;
 
     new_id = unique_menu_id;
@@ -308,7 +309,7 @@ MenuNode *MenuNode::findUID(const QString &uid)
 //*****************************************************************************
 MenuNode *MenuNode::findChild(const QString &name)
 {
-    ASSERT(name);
+    Q_ASSERT(name);
     MenuNode *child = m_children.first();
     while (child) {
 	int pos = m_children.at();
@@ -337,7 +338,7 @@ MenuNode *MenuNode::findChild(int id)
 //*****************************************************************************
 void MenuNode::removeChild(MenuNode *child)
 {
-    ASSERT(child);
+    Q_ASSERT(child);
     if (!child) return ;
 
     // notification for the childs that our enable state changed
@@ -361,7 +362,8 @@ MenuNode *MenuNode::insertBranch(const QString &name,
 	const QString &/*command*/, int /*key*/, const QString &/*uid*/,
 	int /*index*/)
 {
-    debug("!!! MenuNode(%s): insertBranch(%s) !!!", m_name.data(), name.data());
+    debug("!!! MenuNode(%s): insertBranch(%s) !!!", m_name.latin1(),
+          name.latin1());
     return 0;
 }
 
@@ -370,7 +372,8 @@ MenuNode *MenuNode::insertLeaf(const QString &name,
 	const QString &/*command*/, int /*key*/, const QString &/*uid*/,
 	int /*index*/)
 {
-    debug("!!! MenuNode(%s): insertLeaf(%s) !!!", m_name.data(), name.data());
+    debug("!!! MenuNode(%s): insertLeaf(%s) !!!", m_name.latin1(),
+          name.latin1());
     return 0;
 }
 
@@ -398,13 +401,6 @@ int MenuNode::insertNode(const QString &name, const QString &position,
     }
     n = position.left(pos);
     p.remove(0, pos+1);
-//
-//    debug("MenuNode::parseCommand: ---");    // ###
-//    debug("MenuNode::parseCommand:      pos=%d'",pos);    // ###
-//    debug("MenuNode::parseCommand:     name='%s'",n.data());    // ###
-//    debug("MenuNode::parseCommand: position='%s'",p.data());    // ###
-//    debug("MenuNode::parseCommand: ---");    // ###
-//
     if ((n.length()) && (specialCommand(n))) {
 	// no new branch, only a special command
 	return 0;
@@ -459,7 +455,7 @@ int MenuNode::insertNode(const QString &name, const QString &position,
 //*****************************************************************************
 MenuNode *MenuNode::leafToBranch(MenuNode *node)
 {
-    ASSERT(node);
+    Q_ASSERT(node);
 //    debug("MenuNode::leafToBranch(%s)", node->getName());
     if (!node) return 0;
     MenuNode *sub = node;
@@ -497,14 +493,14 @@ MenuNode *MenuNode::leafToBranch(MenuNode *node)
 //*****************************************************************************
 QDict<MenuNode> *MenuNode::getGroupList()
 {
-    ASSERT(m_parentNode);
+    Q_ASSERT(m_parentNode);
     return (m_parentNode) ? m_parentNode->getGroupList() : 0;
 }
 
 //*****************************************************************************
 void MenuNode::joinGroup(const QString &group)
 {
-    ASSERT(m_parentNode);
+    Q_ASSERT(m_parentNode);
     QDict<MenuNode> *group_list = getGroupList();
     if (m_groups.contains(group)) return ;    // already joined
 

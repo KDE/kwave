@@ -1,7 +1,6 @@
 #ifndef _SONAGRAM_H_
 #define _SONAGRAM_H_ 1
 
-#include "classes.h"
 #include <qapp.h>
 #include <qpushbt.h>
 #include <qstring.h>
@@ -16,6 +15,8 @@
 #include <qtimer.h>
 #include "gsl_fft.h"
 #include "scale.h"
+#include "overview.h"
+
 //***********************************************************************
 class ImageView : public QWidget
 {

@@ -5,7 +5,8 @@
 #include <qpainter.h>
 #include <math.h>
 #include <limits.h>
-#include "classes.h"
+#include "signalview.h"
+#include "markers.h"
 #include "dialogs.h"
 #include "pitchwidget.h"
 
@@ -146,7 +147,7 @@ void SignalWidget::appendMarks ()
 			newtype->selected=num;
 			newtype->color=new QColor (r,g,b);
 
-			emit addMarkerType (newtype);
+			addMarkType (newtype);
 		      }
 		  }
 	      }
@@ -255,6 +256,39 @@ void SignalWidget::addMark ()
       refresh();
     }
 }
+//****************************************************************************
+void SignalWidget::jumptoLabel ()
+//another fine function contributed by Gerhard Zintel
+// if lmarker == rmarker (no range selected) cursor jumps to the nearest label
+// if lmarker <  rmarker (range is selected) lmarker jumps to next lower label or zero
+// rmarker jumps to next higher label or end
+{
+  if (signal)
+    {
+      int lmarker=signal->getLMarker(), rmarker=signal->getRMarker();
+      bool RangeSelected = (rmarker - lmarker) > 0;
+      if (markers)
+      {
+	struct Marker *tmp;
+	int position = 0;
+	for (tmp=markers->first();tmp;tmp=markers->next())
+	  if (RangeSelected) {
+	    if (tmp->pos < lmarker)
+	      if (abs(lmarker-position)>abs(lmarker-tmp->pos)) position = tmp->pos;
+	}
+	else if (abs(lmarker-position)>abs(lmarker-tmp->pos)) position = tmp->pos;
+	lmarker = position;
+	position = signal->getLength();
+	for (tmp=markers->first();tmp;tmp=markers->next())
+	  if (tmp->pos > rmarker)
+	    if (abs(rmarker-position)>abs(rmarker-tmp->pos)) position = tmp->pos;
+	rmarker = position;
+	if (RangeSelected) signal->setMarkers (lmarker,rmarker);
+	else signal->setMarkers (lmarker,lmarker);
+	refresh ();
+      }
+    }
+}   
 //****************************************************************************
 void SignalWidget::savePeriods ()
 {
@@ -586,6 +620,40 @@ int findFirstMark (int *sample,int len)
 	i++;
       }
   return i;
+}
+//*****************************************************************************
+void SignalWidget::setMarkType  (int num)
+{
+  //  for (unsigned int i=0;i<markertypes->count();i++)
+  //   mtypemenu->setItemChecked (mtypemenu->idAt(i),false);
+  //  mtypemenu->setItemChecked (mtypemenu->idAt(num),true);
+  this->setRangeOp (SELECTMARK+num);
+}
+//*****************************************************************************
+void SignalWidget::addMarkType (struct MarkerType *marker)
+{
+  markertypes->append (marker);
+  if (manage) manage->addNumberedMenuEntry ("MarkerTypes",marker->name->data());
+}
+//*****************************************************************************
+void SignalWidget::addMarkType ()
+{
+  MarkerTypeDialog dialog (this);
+
+  if (dialog.exec())
+    {
+      MarkerType *marker=new MarkerType();
+
+      marker->name=new QString (dialog.getName());
+      if (!marker->name->isEmpty())
+	{
+	  marker->named=dialog.getIndividual();
+	  marker->color=new QColor(dialog.getColor());
+
+	  addMarkType (marker);
+	}
+      else delete marker;
+    }
 }
 //*****************************************************************************
 void SignalWidget::convertMarkstoPitch ()

@@ -3,8 +3,9 @@
 #include <kmsgbox.h>
 #include <kprogress.h>
 #include <limits.h>
+#include "clipboard.h"
 
-extern MSignal *clipboard; 
+extern ClipBoard *clipboard; 
 //**********************************************************
 void MSignal::toggleChannel (int a,int b)
 {
@@ -40,7 +41,7 @@ void MSignal::deleteChannel (int a,int b)
 void MSignal::addChannel ()
 {
   MSignal *ins=new MSignal (parent,length,rate,1);
-  appendChannel (ins);
+  this->appendChannel (ins);
   emit sampleChanged();
 }
 //**********************************************************
@@ -64,7 +65,7 @@ void MSignal::appendChanneltoThis (MSignal *ins)
 //**********************************************************
 void MSignal::copyRange ()
 {
-  if (clipboard)
+  if (clipboard) //kill current clipboard if it exists...
     {
       delete clipboard;
       clipboard=0;
@@ -86,7 +87,7 @@ void MSignal::copyChannelRange ()
     {
       if (lmarker<0) lmarker=0;
       if (rmarker>length) rmarker=length;
-      temp=new MSignal (parent,rmarker-lmarker,rate);
+      temp=new MSignal (parent,manage,rmarker-lmarker,rate);
       if (temp)
 	{
 	  int j=0;
@@ -94,7 +95,7 @@ void MSignal::copyChannelRange ()
 
 	  for (int i=lmarker;i<rmarker;tsample[j++]=sample[i++]);
 
-	  if (!clipboard) clipboard=temp;
+	  if (!clipboard) clipboard=new ClipBoard (temp);
 	  else clipboard->appendChannel(temp);
 
 	  emit sampleChanged();
@@ -107,7 +108,7 @@ void MSignal::pasteRange ()
 {
   if (clipboard)
     {
-      MSignal *clip=clipboard;
+      MSignal *clip=clipboard->getSignal();
       MSignal *tmp=this;
       int all=true;
 
@@ -126,7 +127,7 @@ void MSignal::pasteRange ()
 	      tmp->pasteChannelRange (clip);
 
 	      clip=clip->getNext();
-	      if (!clip) clip=clipboard;
+	      if (!clip) clip=clipboard->getSignal();
 	      tmp=tmp->getNext();
 	    }
 	}
@@ -138,7 +139,7 @@ void MSignal::pasteRange ()
 	      tmp->overwriteChannelRange (clip);
 
 	      clip=clip->getNext();
-	      if (!clip) clip=clipboard;
+	      if (!clip) clip=clipboard->getSignal();
 	      tmp=tmp->getNext();
 	    }
 	}
@@ -204,8 +205,8 @@ void MSignal::mixpasteRange ()
       if (rmarker>length) rmarker=length;
       len=rmarker-lmarker;
 	
-      int 	*clipsam	=clipboard->getSample();
-      int	cliplength	=clipboard->getLength();
+      int *clipsam	=(clipboard->getSignal())->getSample();
+      int  cliplength	=clipboard->getLength();
 
       if (len>0)
 	{

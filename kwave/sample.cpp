@@ -1,6 +1,11 @@
 // In this file you will find methods for changing time-domain signals
 // cut/copy/paste functions are included in sampleedit.cpp
 // I/O Functions such as loading/saving are in sampleio.cpp
+
+//Here choose biggest prime factor to be tolerated before
+//popping up a requester, when doing a fft
+#define MAXPRIME 512 
+		
 #include "sample.h"
 
 #include <kmsgbox.h>
@@ -8,36 +13,120 @@
 #include <sys/shm.h>
 #include <limits.h>
 #include <time.h>
-
 #include <math.h>
 #include "fftview.h"
 #include "sonagram.h"
 #include "faderwidget.h"
 #include "windowfunction.h"
+#include "clipboard.h"
+
+//some definitions of values follow
 
 #define processid	0
 #define stopprocess	1
 #define samplepointer	2
 
-//Here choose biggest prime factor to be tolerated before
-//popping up a requester, when doing a fft
+//id's for functions...
 
-#ifndef THREADS
-//use a wrapper to use functions also on Systems with no thread support...
-//seems to work...
-void pthread_create (pthread_t *,void *,void* (*jumpto)(void *),void *arg)
+#define FFT	        6000
+#define SONAGRAM        6001
+#define AVERAGEFFT      6002
+
+#define NOISE		5000
+#define HULLCURVE	5001
+#define ADDSYNTH 	5002
+#define PULSE	        5003
+#define ZERO            5004
+
+#define REVERSE 	101
+#define FADEIN 		102
+#define FADEOUT		103
+#define AMPLIFYMAX 	104
+#define DELAY           105
+#define AMPLIFY 	106
+#define AMPWITHCLIP 	107
+#define RATECHANGE 	108
+#define DISTORT 	109
+#define MOVINGAVERAGE 	110
+#define STUTTER 	111
+#define REQUANTISE 	112
+#define FILTERCREATE 	149
+#define FILTER    	150 
+#define FILTERPRESET    11000   //leave space behind this
+
+//the menu structure being allocated by this Object
+
+KWaveMenuItem sample_menus[]=
 {
-  *(jumpto) (arg);
-}
-#endif
+  //internalID    ,name                 ,type  ,id  ,shortcut
 
-#define MAXPRIME 512 
-		
+  {0              ,"&Calculate"         ,KMENU ,-1   ,KEXCLUSIVE},
+  {ZERO           ,"&Silence"           ,KITEM ,-1   ,-1},
+  {NOISE          ,"&Noise"             ,KITEM ,-1   ,-1},
+  {ADDSYNTH       ,"&Additive Synthesis",KITEM ,-1   ,-1},
+  {PULSE          ,"&Pulse Train"       ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},
+  {HULLCURVE      ,"&Envelope"          ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},
+
+  {0              ,"&Frequencies"       ,KMENU ,-1   ,KEXCLUSIVE},
+  {FFT            ,"&Spectrum"          ,KITEM ,-1   ,Key_F},
+  {AVERAGEFFT     ,"&Average Spectrum"  ,KITEM ,-1   ,SHIFT+Key_F},
+  {SONAGRAM       ,"S&onagram"          ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+
+  //second menu 
+
+  {0              ,"F&x"                ,KMENU ,-1   ,KEXCLUSIVE},
+  {0              ,"&Amplify"           ,KMENU ,-1   ,KEXCLUSIVE},
+  {DISTORT        ,"&Distort"           ,KITEM ,-1   ,-1},
+  {FADEIN         ,"Fade &in"           ,KITEM ,-1   ,-1},
+  {FADEOUT        ,"Fade &out"          ,KITEM ,-1   ,-1},
+  {AMPLIFY        ,"&Free"              ,KITEM ,-1   ,-1},
+  {AMPLIFYMAX     ,"to &Maximum"        ,KITEM ,-1   ,Key_M},
+  {AMPWITHCLIP    ,"with &Clipboard"    ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},  
+  {0              ,0                    ,KSEP  ,KSEP ,-1},  
+
+  {0              ,"&Filter"            ,KMENU ,-1   ,KEXCLUSIVE},
+  {MOVINGAVERAGE  ,"&Moving Average"    ,KITEM ,-1   ,-1},
+  {FILTERCREATE   ,"&Create"            ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},
+  {0              ,"&Presets"           ,KMENU ,-1   ,KEXCLUSIVE},
+  //reference to grouped menu items attached at runtime
+  {FILTERPRESET   ,"FilterPresets"      ,KREF  ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},  
+  {0              ,0                    ,KEND  ,KEND ,-1},  
+  {0              ,0                    ,KSEP  ,KSEP ,-1},
+
+  {DELAY          ,"&Delay"             ,KITEM ,-1   ,-1},
+  {REVERSE        ,"&Reverse"           ,KITEM ,-1   ,-1},
+  {STUTTER        ,"&Periodic Silence"  ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},
+  {RATECHANGE     ,"&Change rate"       ,KITEM ,-1   ,-1},
+  {REQUANTISE     ,"Re&Quantize"        ,KITEM ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+
+  //third menu, only partially added to an alreay existent menu 
+  {0              ,"&Edit"              ,KMENU ,-1   ,KSHARED}, //allocate as shared
+  {0              ,0                    ,KSEP  ,KSEP ,-1},
+  {MIXPASTE       ,"&Mix & Paste"       ,KITEM ,-1   ,CTRL+SHIFT+Key_X},
+  {CROP           ,"Tri&m"              ,KITEM ,-1   ,CTRL+Key_T},
+  {DELETE         ,"&Delete"            ,KITEM ,-1   ,Key_Delete},
+  {0              ,0                    ,KSEP  ,KSEP ,-1},
+  {FLIP           ,"&Flip Phase"        ,KITEM ,-1   ,-1},
+  {CENTER         ,"&Center Signal"     ,KITEM ,-1   ,-1},
+  {RESAMPLE       ,"&Resample"          ,KITEM ,-1   ,SHIFT+Key_R},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+
+  {0,0,0,0,0} //Terminates
+};
+
 extern int play16bit;
 extern int bufbase;
-extern MSignal *clipboard; 
-extern QStrList *filterNameList;
-extern QDir *filterDir;
+extern ClipBoard *clipboard; 
+extern QDir *configDir;
 
 static int len;
 static int begin;
@@ -45,6 +134,18 @@ extern void *mmapalloc (int);
 extern void mmapfree   (void *);
 extern long mmap_threshold; //thresholf for using memory mapped to files
 static const char *NOMEM={"Not enough Memory for Operation !"};
+QDir        *filterDir=0;
+QStrList    *filterNameList=0;
+//**********************************************************
+#ifndef THREADS
+
+//use a wrapper to use functions also on Systems with no thread support...
+//seems to work...
+void pthread_create (pthread_t *,void *,void* (*jumpto)(void *),void *arg)
+{
+  *(jumpto) (arg);
+}
+#endif
 //**********************************************************
 int *MSignal::getNewMem (int size)
   //these are internal methods replacing new and delete if file-mapped
@@ -61,11 +162,51 @@ int *MSignal::getNewMem (int size)
 }
 //**********************************************************
 void MSignal::getridof (int *mem)
-
 {
   if (mem)
     if (mapped) mmapfree (mem);
     else delete mem;
+}
+//**********************************************************
+void MSignal::appendMenus ()
+{
+  if (manage->addNumberedMenu ("FilterPresets")) //append items only if the Menu is created from scratch
+    {
+      filterDir=new QDir(configDir->path());
+
+      if (!filterDir->cd ("presets"))
+	{
+	  filterDir->mkdir ("presets");
+	  filterDir->cd ("presets");
+	}
+      if (!filterDir->cd ("filters"))
+	{
+	  filterDir->mkdir ("filters");
+	  filterDir->cd ("filters");
+	}
+
+      filterDir->setNameFilter ("*.filter");
+
+      filterNameList=(QStrList *)filterDir->entryList ();
+
+      for (char *tmp=filterNameList->first();tmp!=0;tmp=filterNameList->next())
+	{
+	  char buf[strlen(tmp)-6];
+	  strncpy (buf,tmp,strlen(tmp)-6);
+	  buf[strlen(tmp)-7]=0;
+	  manage->addNumberedMenuEntry ("FilterPresets",buf);
+	}
+    }
+  manage->appendMenus (sample_menus);
+}
+//**********************************************************
+void MSignal::deleteMenus ()
+{
+  manage->deleteMenus (sample_menus);
+}
+//**********************************************************
+void MSignal::getIDs ()
+{
 }
 //**********************************************************
 void MSignal::doRangeOp (int id)
@@ -76,8 +217,9 @@ void MSignal::doRangeOp (int id)
 {
   stopplay();	//every operation cancels playing...
 
-  if (lmarker<0) lmarker=0;           //check markers for bounding
+  if (lmarker<0) lmarker=0; //check markers for bounding
   if (rmarker>length) lmarker=length; 
+
   //usually useless, or it introduces
   //new bugs, or even better makes old bug worse to debug... 
 
@@ -90,21 +232,12 @@ void MSignal::doRangeOp (int id)
       begin=0;
     }
   
-  //now follow the operation that should only be executed within context of
-  //first channel...
+  //decode dynamical allocated menu id's
+  //into the ones used by the switch statement below
 
-  //chaos is about to come
-  //first check for ranges of id that have to be decoded into a parameter
+  if (manage) id=manage->translateId (sample_menus,id);
 
-  if ((id>=TOGGLECHANNEL)&&(id<TOGGLECHANNEL+10)) toggleChannel (0,id-TOGGLECHANNEL);
-
-  if ((id>DELETECHANNEL)&&(id<DELETECHANNEL+999))
-    {
-      deleteChannel (0,id-DELETECHANNEL);
-      channels--;
-      emit sampleChanged();
-      emit channelReset();
-    }
+  printf (" id is %d\n",id);
 
   switch (id)
     {
@@ -117,7 +250,22 @@ void MSignal::doRangeOp (int id)
       else play8(true);
       break;
     }
-  if ((id>FILTER)&&(id<FILTEREND)) movingFilter (id-FILTER);
+
+  //chaos is about to come
+  //check for ranges of id that have to be decoded into a parameter
+
+  if ((id>=TOGGLECHANNEL)&&(id<TOGGLECHANNEL+10)) toggleChannel (0,id-TOGGLECHANNEL);
+  if ((id>DELETECHANNEL)&&(id<DELETECHANNEL+256))
+    {
+      deleteChannel (0,id-DELETECHANNEL);
+      channels--;
+      emit sampleChanged();
+      emit channelReset();
+    }
+
+  if ((id>=FILTERPRESET)&&(id<FILTERPRESET+MENUMAX)) movingFilter (id-FILTERPRESET);
+
+
 
   switch (id)
     {
@@ -235,17 +383,48 @@ void MSignal::setParent (QWidget *par)
   parent=par;
 }
 //**********************************************************
+MSignal::MSignal (QWidget *par,MenuManager *manage,int numsamples,int rate,int channels) :QObject ()
+{
+  this->manage=manage;
+  getIDs ();
+  appendMenus ();
+  this->channels=channels; //store how many channels are linked to this
+  this->rate=rate;
+  this->length=numsamples;
+  parent=par;
+
+  initSignal ();
+}
+//**********************************************************
 MSignal::MSignal (QWidget *par,int numsamples,int rate,int channels) :QObject ()
   // constructor for creating a "silence"-sample 
   // the other constructor which loads a file into memory is located in sampleio.cpp
 {
+  this->channels=channels; //store how many channels are linked to this
+  this->rate=rate;
+  this->length=numsamples;
+  parent=par;
+
+  initSignal();
+}
+//**********************************************************
+void MSignal::setMenuManager (MenuManager *manage)
+{
+  this->manage=manage;
+  appendMenus ();
+}
+//**********************************************************
+void MSignal::initSignal ()
+{
   mapped=false;
   name=new QString ("Unnamed");
-  sample=getNewMem (numsamples);
+  sample=getNewMem (length);
 
   if (sample)
     {
-      for (int i=0;i<numsamples;sample[i++]=0); //erase, because not all memory is clearedy
+      //erase, because not all memory is clearedy
+      for (int i=0;i<length;sample[i++]=0);
+
       //get shared memory needed by playback, this will be changed, if 
       //threading is standard
 
@@ -268,18 +447,14 @@ MSignal::MSignal (QWidget *par,int numsamples,int rate,int channels) :QObject ()
       //initialise attributes
 
       locked=0;
-      parent=par;
-      this->channels=channels; //store how many channels are linked to this
-      this->selected=true;
-      this->rate=rate;
-      this->length=numsamples;
+      selected=true;
       lmarker=0;
       rmarker=0;
       
       next=0;
-	  
+
       //if there are more channels to be created create them recursively
-      if (channels>1) next=new MSignal(par,numsamples,rate,channels-1);
+      if (channels>1) next=new MSignal(parent,manage,length,rate,channels-1);
       emit sampleChanged();
     }
   else KMsgBox::message (parent,"Info",NOMEM,2);
@@ -293,12 +468,11 @@ void MSignal::detachChannels ()
 //**********************************************************
 MSignal::~MSignal ()
 {
+  if (manage) deleteMenus();
   if (sample!=0)
     {
       stopplay();
-
       getridof (sample);
-      
       sample=0;
     }
   if (msg) shmdt ((char *)msg); 
@@ -1007,13 +1181,13 @@ void MSignal::amplifywithClip ()
   if (clipboard)
     {
       MSignal *tmp=this;
-      MSignal *clip=clipboard;
+      MSignal *clip=clipboard->getSignal();
       while (tmp!=0)
 	{
 	  if (tmp->isSelected()) tmp->amplifyChannelwithClip (clip);
 	  tmp=tmp->getNext();
 	  clip=clip->getNext();
-	  if (!clip) clip=clipboard;
+	  if (!clip) clip=clipboard->getSignal();
 	}
       emit sampleChanged();
     }
@@ -1696,11 +1870,12 @@ void MSignal::movingFilter (int number)
   QString name=filterNameList->at(number);
 
   MovingFilterDialog *dialog =new MovingFilterDialog (parent,1);
-  Filter *filter=new Filter;
+  Filter *filter=new Filter();
 
-  if (dialog&&filter)
+  if (dialog&&filter&&filterDir)
     {
       QString fullname=filterDir->filePath(name);
+
       filter->load (&fullname);
 
       if (dialog->exec())

@@ -8,13 +8,16 @@
 extern KApplication *app;
 char about_text[]="\nKwave Version 0.29 alpha release\n\
 (c) 1998 by Martin Wilz (mwilz@ernie.mi.uni-koeln.de)\n\n\
-Alpha-Testing by Carsten Jacobi\n\
 \nFFT-Code by GNU gsl-Project, library version 0.3 beta\n\
 (GSL-Library may be retrieved from ftp://alpha.gnu.org/gnu/)\n\n\
-Memory Mapping routines by Juhana Kouhia (kouhia@nic.funet.fi)\n\n\
-Additional Thanks go to:\n\
+Memory Mapping routines by Juhana Kouhia\n\n\
+some Gui modifications and additional functionality by Gerhard Zintel\n\n\
+Thanks go to:\n\
+
+Carsten Jacobi\n\
 Frank Christian Stoffel\n\
-Achim Dahlhaus\n\n\
+Achim Dahlhaus\n
+Klaus Hendrik Lorenz\n\n
 This program is free software; you can redistribute it and/or\n\
 modify it under the terms of the GNU General Public License\n\
 as published by the Free Software Foundation; either version 2\n\

@@ -5,8 +5,8 @@
 #include <qtooltip.h>
 #include <qkeycode.h>
 #include "interpolation.h"
-#include "classes.h"
 #include "windowfunction.h"
+#include "markers.h"
 #include <kmsgbox.h>
 
 extern QList<MarkerType>*markertypes;

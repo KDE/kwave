@@ -44,6 +44,34 @@ __inline void  getMaxMinPhase (complex *sample,int len,double &max,double &min)
     }
 }
 //****************************************************************************
+__inline void  getLocalMax (complex *sample,int upperLimit, int &nr)
+//also contributed by Gerhard Zintel
+{
+  double rea,ima;
+  double c, max;
+  int direction = 1;
+  rea=sample[nr].real;
+  ima=sample[nr++].imag;
+  max= rea*rea+ima*ima;
+  rea=sample[nr].real;
+  ima=sample[nr].imag;
+  c = rea*rea+ima*ima;
+  if (c < max)
+    {
+      direction = -1; c = max; nr--;
+    }
+  do
+    {
+      max = c;
+      nr += direction;
+      rea=sample[nr].real;
+      ima=sample[nr].imag;
+      c = rea*rea+ima*ima;
+    }
+  while (c > max && nr > 0 && nr < upperLimit);
+  nr -= direction;
+}
+//****************************************************************************
 FFTWidget::FFTWidget (QWidget *parent)
  : QWidget (parent)
 {
@@ -58,12 +86,13 @@ FFTWidget::FFTWidget (QWidget *parent)
   db=false;
   setCursor (crossCursor);
   setBackgroundColor (QColor(black) );
+  findLocalMax = true;
 }
 //****************************************************************************
 FFTWidget::~FFTWidget (QWidget *parent,const char *name)
 {
-  if (pixmap==0)	delete pixmap;
-  if (data&&autodelete)	delete data;
+  if (pixmap==0)        delete pixmap;
+  if (data&&autodelete) delete data;
 }
 //****************************************************************************
 void FFTWidget::setAutoDelete  (int tr)
@@ -75,9 +104,10 @@ void FFTWidget::setFreqRange  (int min,int max)
 {
 }
 //****************************************************************************
-void FFTWidget::findPeak  ()
-  //left as an excersize...
+void FFTWidget::togglefindPeak  (bool *send)
 {
+  findLocalMax = !findLocalMax;
+  *send = findLocalMax;
 }
 //****************************************************************************
 void FFTWidget::findMaxPeak  ()
@@ -101,7 +131,7 @@ void FFTWidget::findMinimum  ()
 {
   double min=INT_MAX;
   double rea,ima,c;
-  
+
   oldcursor=cursor;
   for (int i=0;i<fftsize/2;i++)
     {
@@ -371,7 +401,7 @@ void FFTWidget::mouseMoveEvent( QMouseEvent *e )
 }
 //****************************************************************************
 void FFTWidget::drawOverviewPhase ()
-{	
+{       
   if (fftsize)
     {
       int step;
@@ -391,7 +421,7 @@ void FFTWidget::drawOverviewPhase ()
 }
 //****************************************************************************
 void FFTWidget::drawOverviewFFT ()
-{	
+{       
   if (fftsize)
     {
       int step;
@@ -429,7 +459,7 @@ void FFTWidget::drawInterpolatedDB ()
 
       for (int i=0;i<fftsize/2;i++)
 	{
-	  x=(int) (i/zoom);	
+	  x=(int) (i/zoom);     
 
 	  rea=data[i].real;
 	  ima=data[i].imag;
@@ -455,7 +485,7 @@ __inline double getDB (double max,double x,double db)
 }
 //****************************************************************************
 void FFTWidget::drawOverviewDB ()
-{	
+{       
   if (fftsize)
     {
       int step;
@@ -495,7 +525,7 @@ void FFTWidget::drawInterpolatedPhase ()
 
       for (int i=0;i<fftsize/2;i++)
 	{
-	  x=(int) (i/zoom);	
+	  x=(int) (i/zoom);     
 
 	  rea=data[i].real;
 	  ima=data[i].imag;
@@ -524,7 +554,7 @@ void FFTWidget::drawInterpolatedFFT ()
 
       for (int i=0;i<fftsize/2;i++)
 	{
-	  x=(int) (i/zoom);	
+	  x=(int) (i/zoom);     
 
 	  rea=data[i].real;
 	  ima=data[i].imag;
@@ -587,6 +617,14 @@ void FFTWidget::paintEvent  (QPaintEvent *)
 
   if (redrawcursor&&cursor!=-1)
     {
+      int f  = (int)((cursor*rate)/fftsize);
+
+      if (findLocalMax) {
+	int nr = (int)((f*(fftsize-1))/rate);
+	getLocalMax (data, fftsize/2, nr);
+	f = (nr * rate) / (fftsize - 1);
+	cursor = (int) ((((float)f) * fftsize) / rate + 0.5);
+      }
       int x=(((long int)cursor)*width/(fftsize/2));
       int oldx=(((long int)oldcursor)*width/(fftsize/2));
       p.begin (pixmap);
@@ -597,8 +635,10 @@ void FFTWidget::paintEvent  (QPaintEvent *)
       if (oldcursor!=-1) p.drawLine (oldx,0,oldx,-height);
       p.drawLine (x,0,x,-height);
       p.end();
-      emit freqInfo ((cursor*rate)/fftsize,(rate/4)/width);
-      emit noteInfo ((cursor*rate)/fftsize,0);
+//      emit freqInfo ((cursor*rate)/fftsize,(rate/4)/width);
+//      emit noteInfo ((cursor*rate)/fftsize,0);
+      emit freqInfo (f,(rate/4)/width);
+      emit noteInfo (f,0);
       redrawcursor=false;
     }
 
@@ -623,31 +663,31 @@ FFTContainer::~FFTContainer ()
 {
 }
 //****************************************************************************
-void FFTContainer::resizeEvent	(QResizeEvent *)
+void FFTContainer::resizeEvent  (QResizeEvent *)
 {
   if (view)
     {
       int bsize=(QPushButton("test",this).sizeHint()).height();
-      view->setGeometry	(bsize,0,width()-bsize,height()-bsize);  
-      xscale->setGeometry	(bsize,height()-bsize,width()-bsize,bsize);  
-      yscale->setGeometry	(0,0,bsize,height()-bsize);
-      corner->setGeometry	(0,height()-bsize,bsize,bsize);
+      view->setGeometry (bsize,0,width()-bsize,height()-bsize);  
+      xscale->setGeometry       (bsize,height()-bsize,width()-bsize,bsize);  
+      yscale->setGeometry       (0,0,bsize,height()-bsize);
+      corner->setGeometry       (0,height()-bsize,bsize,bsize);
     }
 }
 //****************************************************************************
 FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
 {
-  QPopupMenu *fft=	new QPopupMenu ();
-  QPopupMenu *view=	new QPopupMenu ();
-  QPopupMenu *cursor=	new QPopupMenu ();
-  QPopupMenu *edit=	new QPopupMenu ();
-  QPopupMenu *dbmenu=	new QPopupMenu ();
-  KMenuBar   *bar=	new KMenuBar (this); 
+  QPopupMenu *fft=      new QPopupMenu ();
+  QPopupMenu *view=     new QPopupMenu ();
+	      cursor=   new QPopupMenu ();
+  QPopupMenu *edit=     new QPopupMenu ();
+  QPopupMenu *dbmenu=   new QPopupMenu ();
+  KMenuBar   *bar=      new KMenuBar (this); 
 
-  bar->insertItem	(klocale->translate("&Spectral Data"),fft);
-  bar->insertItem	(klocale->translate("&Edit"),edit);
-  bar->insertItem	(klocale->translate("&View"),view);
-  bar->insertItem	(klocale->translate("&Cursor"),cursor);
+  bar->insertItem       (klocale->translate("&Spectral Data"),fft);
+  bar->insertItem       (klocale->translate("&Edit"),edit);
+  bar->insertItem       (klocale->translate("&View"),view);
+  bar->insertItem       (klocale->translate("&Cursor"),cursor);
 
   status=new KStatusBar (this,"Frequencies Status Bar");
   status->insertItem ("Frequency:          0 Hz     ",1);
@@ -664,18 +704,22 @@ FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
 
   mainwidget->setObjects (fftview,xscale,yscale,corner);
 
-  edit->insertItem	(klocale->translate("Multiply with graph"),fftview,SLOT(amplify()));
-  edit->insertItem	(klocale->translate("Multiply with formant pattern"),fftview,SLOT(formant()));
-  edit->insertItem	(klocale->translate("Smooth"),fftview,SLOT(smooth()));
-  edit->insertSeparator	();
-  edit->insertItem	(klocale->translate("Kill phase"),fftview,SLOT(killPhase()));
-  cursor->insertItem	(klocale->translate("find Maximum"),fftview,SLOT(findMaxPeak()),Key_M);
-  cursor->insertItem	(klocale->translate("find Minimum"),fftview,SLOT(findMinimum()),SHIFT+Key_M);
-  //  cursor->insertItem	(klocale->translate("find nearest Peak"),fftview,SLOT(findPeak()),Key_Tab);
-  fft->insertItem	(klocale->translate("Inverse FFT"),fftview,SLOT(iFFT()));
+  edit->insertItem      (klocale->translate("Multiply with graph"),fftview,SLOT(amplify()));
+  edit->insertItem      (klocale->translate("Multiply with formant pattern"),fftview,SLOT(formant()));
+  edit->insertItem      (klocale->translate("Smooth"),fftview,SLOT(smooth()));
+  edit->insertSeparator ();
+  edit->insertItem      (klocale->translate("Kill phase"),fftview,SLOT(killPhase()));
+  cursor->insertItem    (klocale->translate("find Maximum"),fftview,SLOT(findMaxPeak()),Key_M);
+  cursor->insertItem    (klocale->translate("find Minimum"),fftview,SLOT(findMinimum()),SHIFT+Key_M);
+  findPeakID = cursor->insertItem (klocale->translate("find nearest Peak"),this,SLOT(findPeak()),Key_Tab);
+  cursor->setCheckable( TRUE );
+  cursor->setItemChecked( findPeakID, true );
 
-  view->insertItem	(klocale->translate("Amplitude in %"),this,SLOT(percentMode()));
-  view->insertItem	(klocale->translate("Amplitude in dB"),dbmenu);
+
+  fft->insertItem       (klocale->translate("Inverse FFT"),fftview,SLOT(iFFT()));
+
+  view->insertItem      (klocale->translate("Amplitude in %"),this,SLOT(percentMode()));
+  view->insertItem      (klocale->translate("Amplitude in dB"),dbmenu);
 
   for (int i=0;i<110;i+=10)
     {
@@ -684,7 +728,7 @@ FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
       dbmenu->insertItem (buf);
     }
   connect (dbmenu,SIGNAL (activated(int)),this,SLOT(dbMode(int)));
-  
+
   view->insertItem (klocale->translate("Phase"),this,SLOT(phaseMode()));
 
   connect (fftview,SIGNAL(freqInfo(int,int)),this,SLOT(setFreqInfo(int,int)));
@@ -695,7 +739,7 @@ FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
   setView (mainwidget);
   setStatusBar (status);
   setMenu (bar);
-  
+
  QString *windowname=new QString (QString ("Frequencies of ")+QString(name->data()));
   setCaption (windowname->data()); 
   resize (480,300);
@@ -729,6 +773,16 @@ void FFTWindow::setSignal (complex *data,double max,int size, int rate)
   xscale ->setMaxMin (rate/2,0); 
 }
 //****************************************************************************
+void FFTWindow::findPeak  ()
+{
+  bool snap = 0;
+  fftview->togglefindPeak (&snap);
+  cursor->setItemChecked( findPeakID, snap );
+  if (snap) {
+    fftview->repaint (false);
+  }
+}
+//****************************************************************************
 void FFTWindow::askFreqRange ()
 {
 }
@@ -748,7 +802,7 @@ void FFTWindow::setFreqInfo  (int hz,int err)
 void FFTWindow::setAmpInfo  (int amp,int err)
 {
   char buf[64];
-  
+
   sprintf (buf,"Amplitude: %d +/-%d %%",amp,err);
   status->changeItem (buf,2);
 }
@@ -768,7 +822,7 @@ void FFTWindow::setPhaseInfo  (int ph,int err)
   status->changeItem (buf,3);
 }
 //****************************************************************************
-//Note detection contributed by Gerhardt Zintel
+//Note detection contributed by Gerhard Zintel
 void FFTWindow::setNoteInfo  (int hz,int x)
 {
   char buf[64];
@@ -776,7 +830,7 @@ void FFTWindow::setNoteInfo  (int hz,int x)
   static char *notename[] = {
      "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"
   };
-  int octave, note; // note = round(45 + 12 * (log(hz) - log(440)) / log(2))
+  int octave, note; // note = round(57 + 12 * (log(hz) - log(440)) / log(2))
   note = 45 + (int) (12.0*(log(hz)-log(BaseNoteA))/log(2)+0.5);
   if (note < 0) note = 0;
   octave = note / 12;

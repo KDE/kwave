@@ -1,4 +1,4 @@
-#include "classes.h"
+#include "mainwidget.h"
 #include "sample.h"
 #include <qkeycode.h>
 #include <qframe.h>
@@ -16,6 +16,19 @@ extern int play16bit;
 extern int bufbase;
 extern int mmap_threshold;
 extern char *mmap_dir;     //storage of dir name
+
+KWaveMenuItem channel_menus[]=
+{
+  {0              ,"&Channel"           ,KMENU ,-1   ,KEXCLUSIVE},
+  {ADDCHANNEL     ,"&Add"               ,KITEM ,-1   ,SHIFT+Key_A},
+  {0              ,"&Delete"            ,KMENU ,-1   ,KEXCLUSIVE},
+  {DELETECHANNEL  ,"Channels"           ,KREF  ,-1   ,-1},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+  {ALLCHANNEL     ,"&Select all"        ,KITEM ,-1   ,SHIFT+CTRL+Key_A},
+  {INVERTCHANNEL  ,"&Invert Selection"  ,KITEM ,-1   ,SHIFT+Key_I},
+  {0              ,0                    ,KEND  ,KEND ,-1},
+  {0,0,0,0,0}
+};
 //*****************************************************************************
 char *mstotimec (int ms)
 {
@@ -31,10 +44,10 @@ char *mstotimec (int ms)
 					 (ms%(60*1000))/1000,		//seconds
 					 (ms%1000)/10);			//ms
       else if (ms<24*60*60*1000)	sprintf (buf,"%d h %d:%d.%d m",
-						 ms/(60*60*1000),		//hours
-						 ms%(60*60*1000)/(60*1000),	//minutes
-						 (ms%(60*1000))/1000,		//seconds
-						 (ms%1000)/10);			//ms
+       					 ms/(60*60*1000),		//hours
+	       				 ms%(60*60*1000)/(60*1000),	//minutes
+		       			 (ms%(60*1000))/1000,		//seconds
+			       		 (ms%1000)/10);			//ms
     }
   return (buf);
 }
@@ -216,9 +229,7 @@ void OverViewWidget::paintEvent  (QPaintEvent *)
   p.drawLine (x1+x2,1,x1+x2,height);
   p.drawLine (x1+x2-1,1,x1+x2-1,height);
 
-
   p.end ();
-
 }
 //*****************************************************************************
 MainWidget::~MainWidget () 
@@ -226,11 +237,17 @@ MainWidget::~MainWidget ()
   if (lamps) delete lamps;
 }
 //*****************************************************************************
-MainWidget::MainWidget (QWidget *parent,const char *name,KStatusBar *status) :
-QWidget (parent,name)
+MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) :QWidget (parent)
 {
   int s[3];
   numsignals=1;
+
+  this->manage=manage;
+
+
+  if (manage->addNumberedMenu ("Channels")) manage->addNumberedMenuEntry ("Channels","none");
+
+  manage->appendMenus (channel_menus);
 
   this->parent=parent;
   lamps=new MultiStateWidget*[1];
@@ -255,7 +272,7 @@ QWidget (parent,name)
   slider	=new OverViewWidget (this); 
   buttons	=new KButtonBox (this,KButtonBox::HORIZONTAL);
   zoomselect	=new QComboBox	(true,this);
-  signalview	=new SignalWidget (this);
+  signalview	=new SignalWidget (this,manage);
 
   QObject::connect (lamps[0],SIGNAL(clicked(int)),signalview,SLOT(toggleChannel(int)));
 
@@ -279,9 +296,6 @@ QWidget (parent,name)
 			 this,SLOT(selectedZoom(int)));
   QObject::connect	(this,SIGNAL(setOperation(int)),
 			 signalview,SLOT(setRangeOp(int)));
-  QObject::connect	(signalview,SIGNAL(addMarkerType(struct MarkerType *)),
-			 parent,SLOT(addMarkType(struct MarkerType *)));
-
 
   buttons->addStretch	();
   this->connect	(playbutton=buttons->addButton	("Play"),SIGNAL(pressed()),
@@ -314,36 +328,37 @@ void MainWidget::saveSignal  (QString *filename,int bit,int selection)
   signalview->saveSignal (filename,bit,selection);
 }
 //*****************************************************************************
-void MainWidget::setSignal  (QString *filename)
+void MainWidget::setSignal  (QString *filename,int type)
 {
- signalview->setSignal	(filename);
- signalview->setZoom 	(100.0);
- slider->refresh();
+  signalview->setSignal	(filename,type);
+  signalview->setZoom 	(100.0);
+  slider->refresh();
 }
 //*****************************************************************************
 void MainWidget::setSignal  (MSignal *signal)
 {
- signalview->setSignal	(signal);
- signalview->setZoom 	(100.0);
+  signal->setMenuManager (manage);
+  signalview->setSignal	(signal);
+  signalview->setZoom 	(100.0);
 }
 //*****************************************************************************
 void MainWidget::setRateInfo (int rate)
 {
- char buf[64];
- sprintf (buf,"Rate : %d.%d kHz",rate/1000,(rate%1000)/100);
- status->changeItem (buf,2);
+  char buf[64];
+  sprintf (buf,"Rate : %d.%d kHz",rate/1000,(rate%1000)/100);
+  status->changeItem (buf,2);
 }
 //*****************************************************************************
 void MainWidget::setLengthInfo (int len)
 {
- char buf[64];
- sprintf (buf,"Samples :%d",len);
- status->changeItem (buf,3);
+  char buf[64];
+  sprintf (buf,"Samples :%d",len);
+  status->changeItem (buf,3);
 }
 //*****************************************************************************
 void MainWidget::selectedZoom (int num)
 {
- if (num<6) signalview->setZoom (strtod(zoomtext[num],0));
+  if (num<6) signalview->setZoom (strtod(zoomtext[num],0));
 }
 //*****************************************************************************
 unsigned char *MainWidget::getOverView	(int val)
@@ -367,6 +382,8 @@ void MainWidget::parseKey 	(int key)
 //*****************************************************************************
 void MainWidget::setRangeOp (int op)
 {
+  if (manage) op=manage->translateId (channel_menus,op);
+
   switch (op)
     {
     case PLAYBACKOPTIONS:
@@ -399,40 +416,40 @@ void MainWidget::setRangeOp (int op)
   emit setOperation (op);
 }
 //*****************************************************************************
-void MainWidget::loop		()
- {
-	emit setOperation	(LOOP);
-	loopbutton->setText	("Stop");
-	playbutton->setText	("Stop");
-	this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(play()));
-	this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(stop()));
-	this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
-	this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
- }
-//*****************************************************************************
-void MainWidget::play		()
+void MainWidget::loop ()
 {
-	emit setOperation 	(PLAY);
-	playbutton->setText	("Stop");
-	loopbutton->setText	("Stop");
-	this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(play()));
-	this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(stop()));
-	this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
-	this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  emit setOperation	(LOOP);
+  loopbutton->setText	("Stop");
+  playbutton->setText	("Stop");
+  this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(play()));
+  this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
+  this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(stop())); 
+  this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
+}
+//*****************************************************************************
+void MainWidget::play ()
+{
+  emit setOperation 	(PLAY);
+  playbutton->setText	("Stop");
+  loopbutton->setText	("Stop");
+  this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(play()));
+  this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
+  this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
 }
 //*****************************************************************************
 void MainWidget::stop	()
 {
-	playbutton->setText ("Play");
-	loopbutton->setText ("&Loop");
-	loopbutton->setAccel (Key_L);
+  playbutton->setText ("Play");
+  loopbutton->setText ("&Loop");
+  loopbutton->setAccel (Key_L);
 
-	emit setOperation (PSTOP);
+  emit setOperation (PSTOP);
 
-	this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(stop()));
-	this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(play()));
-	this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
-	this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
+  this->disconnect	(playbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  this->disconnect	(loopbutton,SIGNAL(pressed()),this,SLOT(stop()));
+  this->connect		(playbutton,SIGNAL(pressed()),this,SLOT(play()));
+  this->connect		(loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
 }
 //*****************************************************************************
 void MainWidget::setSelectedTimeInfo ( int ms)
@@ -451,13 +468,20 @@ void MainWidget::getChannelInfo  (int channels)
 {
   if (channels!=numsignals)
     {
-      emit channelInfo (channels);
+      char buf[8];
+      manage->clearNumberedMenu ("Channels");
+
+      for (int i=0;i<channels;i++)
+	{
+	  sprintf (buf,"%d",i);
+	  manage->addNumberedMenuEntry ("Channels",buf);
+	}
 
       MultiStateWidget **newlamps=new MultiStateWidget*[channels+1];
       MultiStateWidget **newspeakers=new MultiStateWidget*[channels+1];
 
       if ((numsignals<channels)&&(parent->height()<(channels+4)*40))
-	  parent->resize (width(),(channels+4)*40);
+	parent->resize (width(),(channels+4)*40);
 
       for (int i=0;(i<numsignals)&&(i<channels);i++)
 	{

@@ -22,13 +22,13 @@ class FFTWidget : public QWidget
 {
  Q_OBJECT
  public:
- 	FFTWidget	(QWidget *parent=0);
- 	~FFTWidget	();
- void	mousePressEvent		(QMouseEvent * );
- void	mouseReleaseEvent	(QMouseEvent * );  
- void	mouseMoveEvent		(QMouseEvent * );  
- void 	setSignal		(complex *data,int size,int rate);
- void 	setPhase		(complex *data,int size,int rate);
+	FFTWidget       (QWidget *parent=0);
+	~FFTWidget      ();
+ void   mousePressEvent         (QMouseEvent * );
+ void   mouseReleaseEvent       (QMouseEvent * );  
+ void   mouseMoveEvent          (QMouseEvent * );  
+ void   setSignal               (complex *data,int size,int rate);
+ void   setPhase                (complex *data,int size,int rate);
  void   refresh                 ();
  void   setAutoDelete           (int);
  void   setFreqRange            (int,int);
@@ -44,7 +44,7 @@ class FFTWidget : public QWidget
  void   phaseMode    ();
  void   dbMode       (int);
  void   percentMode  ();
- void   findPeak     ();
+ void   togglefindPeak (bool *);
  void   findMaxPeak  ();
  void   findMinimum  ();
 
@@ -58,43 +58,44 @@ class FFTWidget : public QWidget
 
  protected:
 
- void	paintEvent              (QPaintEvent *);
- void	drawInterpolatedFFT	();
- void	drawOverviewFFT	        ();
- void	drawInterpolatedDB	();
- void	drawOverviewDB          ();
- void	drawInterpolatedPhase	();
- void	drawOverviewPhase	();
+ void   paintEvent              (QPaintEvent *);
+ void   drawInterpolatedFFT     ();
+ void   drawOverviewFFT         ();
+ void   drawInterpolatedDB      ();
+ void   drawOverviewDB          ();
+ void   drawInterpolatedPhase   ();
+ void   drawOverviewPhase       ();
 
  private:
  complex *data;
- int	 fftsize,rate;
- int	 width,height;	 //of widget
+ int     fftsize,rate;
+ int     width,height;   //of widget
  double  max;           
  double  min;
- double	 zoom;		 //number of samples represented by 1
+ double  zoom;           //number of samples represented by 1
 			 //vertical line on the screen
  int     lmarker,rmarker;
  int     oldcursor;      //position of cursor;
  int     cursor;         //position of cursor;
  int     db;             //flag, if decibel scale is to be used
-                         //if !false, range of scale in db
+			 //if !false, range of scale in db
+ bool    findLocalMax;   //if true --> show frequency and note of nearest maximum
  bool    phaseview;      //flag for displaying phase instead of power spectrum
- bool	 redraw;	 //flag for redrawing pixmap
- bool	 redrawcursor;	 //flag for fast redrawing of cursor
+ bool    redraw;         //flag for redrawing pixmap
+ bool    redrawcursor;   //flag for fast redrawing of cursor
  bool    autodelete;     //flag if deleting data is allowed
- 
+
  QPainter p;
- QPixmap  *pixmap;	 //pixmap to be blitted to screen
+ QPixmap  *pixmap;       //pixmap to be blitted to screen
 };
 //***********************************************************************
 class FFTContainer : public QWidget
 {
  Q_OBJECT
  public:
- 	FFTContainer	(QWidget *parent);
- 	~FFTContainer	();
- void 	setObjects	(FFTWidget *fftview,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner);
+	FFTContainer    (QWidget *parent);
+	~FFTContainer   ();
+ void   setObjects      (FFTWidget *fftview,ScaleWidget *x,ScaleWidget *y,CornerPatchWidget *corner);
 
  public slots:
 
@@ -102,7 +103,7 @@ class FFTContainer : public QWidget
 
  protected:
 
- void	resizeEvent	(QResizeEvent *);
+ void   resizeEvent     (QResizeEvent *);
 
  private:
  FFTWidget     *view;
@@ -114,21 +115,22 @@ class FFTWindow : public KTopLevelWidget
 {
  Q_OBJECT
  public:
- 	FFTWindow	(QString *name);
- 	~FFTWindow	();
- void 	setSignal	(complex *,double,int,int);	//reaches through to class FFTWidget...
+	FFTWindow       (QString *name);
+	~FFTWindow      ();
+ void   setSignal       (complex *,double,int,int);     //reaches through to class FFTWidget...
 
  public slots:
 
- void	setFreqInfo  (int,int);
- void	setAmpInfo   (int,int);
- void	setDBInfo    (int,int);
- void	setPhaseInfo (int,int);
- void	setNoteInfo  (int,int);
+ void   setFreqInfo  (int,int);
+ void   setAmpInfo   (int,int);
+ void   setDBInfo    (int,int);
+ void   setPhaseInfo (int,int);
+ void   setNoteInfo  (int,int);
  void   phaseMode    ();
  void   dbMode       (int);
  void   percentMode  ();
  void   askFreqRange ();
+ void   findPeak     ();
 
  signals:
 
@@ -137,9 +139,11 @@ class FFTWindow : public KTopLevelWidget
  private:
  FFTContainer  *mainwidget;
  FFTWidget     *fftview;
+ QPopupMenu    *cursor;
  ScaleWidget   *xscale,*yscale;
  CornerPatchWidget *corner;
  KStatusBar    *status;
+ int           findPeakID;
 };
 #endif
 

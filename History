@@ -1,6 +1,18 @@
 newer Versions still to come
 
-Version 0.2.9.0
+Version 0.29.2
+
+prepared dynamic allocation of menu entries, partially used
+
+import of ascii data files
+
+Version 0.29.1
+
+Bugfix for multichannel save. Now the saved files should work with other prgs
+
+local snap to peak by Gerhard Zintel
+
+Version 0.29.0
 
 changed version numbering and filename as suggested by Version 1.1 of "How To Name Things" from sunsite. The last digit will always mark be 0 for releases uploaded to ftp.kde.org.
 

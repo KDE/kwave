@@ -120,9 +120,9 @@ void MSignal::play8 (int loop)
 		
 		  if ((buffer)&&(samples))
 		    {
-		      int	&pointer=msg[samplepointer];
-		      int	last=rmarker;
-		      int	cnt=0;
+		      int &pointer=msg[samplepointer];
+		      int last=rmarker;
+		      int cnt=0;
 		      pointer=lmarker;
 
 		      if (loop)
@@ -302,9 +302,12 @@ void MSignal::play16 (int loop)
     }
 }
 //**********************************************************
-MSignal::MSignal (QWidget *par,QString *name,int channel=1) :QObject ()
-  // constructor that loads a file to memory 
+MSignal::MSignal (QWidget *par,MenuManager *manage,QString *name,int channel,int type) :QObject ()
+// constructor that loads a signal file to memory 
 {
+  this->manage=manage;
+  getIDs ();
+  appendMenus ();
   mapped=false;
   selected=true;
   sample=0;
@@ -327,82 +330,147 @@ MSignal::MSignal (QWidget *par,QString *name,int channel=1) :QObject ()
       msg[stopprocess]=false;
       msg[samplepointer]=0;
 	
-      QFile *sigin=new QFile (name->data());
-      if (sigin->exists())
+      switch (type)
 	{
-	  union
-	  {
-	    char rheader[sizeof(struct wavheader)];
-	    wavheader header;
-	  };
-	  union 
-	  {
-	    char rlength [4];
-	    int	 length;
-	  };
-
-	  sigin->open(IO_ReadOnly);
-	  int num=sigin->readBlock (rheader,sizeof(wavheader));
-	  if (num==sizeof(struct wavheader))
-	    {
-	      if ((strncmp("RIFF",header.riffid,4)==0)&&
-		  (strncmp("WAVE",header.wavid,4)==0)&&(strncmp("fmt ",header.fmtid,4)==0))
-		{
-#if defined(IS_BIG_ENDIAN)
-		  header.mode 	= swapEndian (header.mode);
-		  header.rate 	= swapEndian (header.rate);
-		  header.channels = swapEndian (header.channels);
-		  header.bitspersample = swapEndian (header.bitspersample);
-#endif
-		  if (header.mode==1)
-		    {
-		      rate=header.rate;
-		      findDatainFile (sigin);
-		      if (sigin->atEnd()) KMsgBox::message (parent,"Info","File contains no data chunk!",2);
-		      else
-			{
-			  sigin->readBlock (rlength,4);
-#if defined(IS_BIG_ENDIAN)
-			  length=swapEndian (length);	
-#endif
-
-			  this->length=(length/(header.bitspersample/8))/header.channels;
-			  switch (header.bitspersample)
-			    {
-			    case 8:
-			      load8Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
-			      break;
-			    case 16:
-			      if (header.channels==2) loadStereo16Bit (sigin);
-			      else load16Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
-			      break;
-			    case 24:
-			      load24Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
-			      break;
-			    default:
-			      KMsgBox::message
-				(parent,"Info","Sorry only 8/16/24 Bits per Sample are supported !",2);
-			      break;	
-			    }
-			  channels=header.channels;
-
-			  if ((header.channels!=2)||(header.bitspersample!=16))
-			  if (header.channels>channel)
-			      next=new MSignal (par,name,channel+1);
-
-			  emit sampleChanged();
-			  emit channelReset();
-			}
-		    }
-		  else KMsgBox::message (parent,"Info","File must be uncompressed (Mode 1) !",2);
-		}
-	      else  KMsgBox::message (parent,"Info","File is no RIFF Wave File !",2);
-	    }
-	  else  KMsgBox::message (parent,"Info","File does not contain enough data !",2);
+	case WAV:
+	  loadWav (name,channel);
+	  break;
+	case ASCII:
+	  loadAscii(name,channel);
+	  break;
 	}
-      else  KMsgBox::message (parent,"Info","File does not exist !",2);
     }
   else  KMsgBox::message (parent,"Info","Shared Memory could not be allocated !",2);
+
+}
+//**********************************************************
+void MSignal::loadAscii (QString *name, int channel)
+  //import ascii files with one sample per line, everything unparseable is ignored
+{
+  QFile *sigin=new QFile (name->data());
+  if (sigin->exists())
+    {
+      if (sigin->open(IO_ReadWrite))
+	{
+	  char buf[80];
+	  float value;
+	  printf ("loadascii\n");
+
+	  int cnt=0;
+	  float max=0;
+	  float min=INT_MAX;
+
+	  while (sigin->readLine(&buf[0],80)>0)
+	    {
+	      if (sscanf (buf,"%e",&value)!=0)
+		{
+		  if (value>max) max=value;
+		  if (value<min) min=value;
+		  cnt++;
+		}
+	    }
+
+	  printf ("%d samples, min/max= %f %f\n",cnt,min,max);
+	  float amp=max;
+	  if (-min>max) amp=-min;
+
+	  sigin->at(0); //seek to beginning
+
+	  rate=10000;	//will be asked in requester 
+	  length=cnt;
+	  channels=1;
+	  sample = getNewMem (length);
+	  if (sample)
+	    {
+	      cnt=0;
+	      while (sigin->readLine(&buf[0],80)>0)
+		{
+		  if (sscanf (buf,"%e",&value)!=0)
+		    sample[cnt++]=(int)(value/amp*((1<<23)-1));
+		}
+	    }
+	}
+    }
+  else  KMsgBox::message (parent,"Info","File does not exist !",2);
+}
+//**********************************************************
+void MSignal::loadWav (QString *name, int channel)
+{
+  QFile *sigin=new QFile (name->data());
+  if (sigin->exists())
+    {
+      union
+      {
+	char      rheader[sizeof(struct wavheader)];
+	wavheader header;
+      };
+      union 
+      {
+	char     rlength [4];
+	int	 length;
+      };
+
+      sigin->open(IO_ReadOnly);
+      int num=sigin->readBlock (rheader,sizeof(wavheader));
+      if (num==sizeof(struct wavheader))
+	{
+	  if ((strncmp("RIFF",header.riffid,4)==0)&&
+	      (strncmp("WAVE",header.wavid,4)==0)&&(strncmp("fmt ",header.fmtid,4)==0))
+	    {
+#if defined(IS_BIG_ENDIAN)
+	      header.mode 	= swapEndian (header.mode);
+	      header.rate 	= swapEndian (header.rate);
+	      header.channels = swapEndian (header.channels);
+	      header.bitspersample = swapEndian (header.bitspersample);
+#endif
+	      if (header.mode==1)
+		{
+		  rate=header.rate;
+		  findDatainFile (sigin);
+		  if (sigin->atEnd()) KMsgBox::message (parent,"Info","File contains no data chunk!",2);
+		  else
+		    {
+		      sigin->readBlock (rlength,4);
+#if defined(IS_BIG_ENDIAN)
+		      length=swapEndian (length);	
+#endif
+
+		      this->length=(length/(header.bitspersample/8))/header.channels;
+		      switch (header.bitspersample)
+			{
+			case 8:
+			  load8Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
+			  break;
+			case 16:
+			  if (header.channels==2) loadStereo16Bit (sigin);
+			  else load16Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
+			  break;
+			case 24:
+			  load24Bit (sigin,(channel-1)*(header.bitspersample/8),(header.channels-1)*(header.bitspersample/8));
+			  break;
+			default:
+			  KMsgBox::message
+			    (parent,"Info","Sorry only 8/16/24 Bits per Sample are supported !",2);
+			  break;	
+			}
+		      channels=header.channels;
+
+		      if ((header.channels!=2)||(header.bitspersample!=16))
+			if (header.channels>channel)
+			  next=new MSignal (parent,manage,name,channel+1,WAV);
+
+		      emit sampleChanged();
+		      emit channelReset();
+		    }
+		}
+	      else KMsgBox::message (parent,"Info","File must be uncompressed (Mode 1) !",2);
+	    }
+	  else  KMsgBox::message (parent,"Info","File is no RIFF Wave File !",2);
+
+	}
+      else  KMsgBox::message (parent,"Info","File does not contain enough data !",2);
+    }
+  else  KMsgBox::message (parent,"Info","File does not exist !",2);
 }
 //**********************************************************
 // the following routines are for loading and saving in dataformats
@@ -485,7 +553,7 @@ void  MSignal::save (QString *filename,int bit,int selection)
 {
   int begin=0;
   int endp=this->length;
-  struct wavheader	header;
+  struct wavheader header;
   int **samples=new int* [channels];
   int channels;
   int j=0;
@@ -523,12 +591,12 @@ void  MSignal::save (QString *filename,int bit,int selection)
       strncpy (header.wavid,"WAVE",4);
       strncpy (header.fmtid,"fmt ",4);
       header.fmtlength=16;
-      header.filelength=((endp-begin)*bit/8+sizeof(struct wavheader));
+      header.filelength=((endp-begin)*bit/8*channels+sizeof(struct wavheader));
       header.mode=1;
       header.channels=channels;
       header.rate=rate;
-      header.AvgBytesPerSec=rate*bit/8;
-      header.BlockAlign=bit/8;
+      header.AvgBytesPerSec=rate*bit/8*channels;
+      header.BlockAlign=bit*channels/8;
       header.bitspersample=bit;
 
       int datalen=(endp-begin)*header.channels*header.bitspersample/8;
@@ -684,7 +752,7 @@ void  MSignal::loadStereo16Bit (QFile *sigin)
   sample = getNewMem(length);
   unsigned char *loadbuffer = new unsigned char[PROGRESS_SIZE*4];
 
-  // gets the next channel  
+  // gets the next channel
   next=new MSignal (parent,length,rate,1);
   int *lsample = next->getSample();
 

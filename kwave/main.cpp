@@ -5,14 +5,13 @@
 #include "about.h"
 #include <unistd.h>
 #include <qkeycode.h>
+#include "clipboard.h"
 
-MSignal *clipboard=0;
+ClipBoard *clipboard=0;
 QList<TopWidget>*topwidget=0; 
 QList<MarkerType>*markertypes=0;
 QStrList *recentFiles=0; 
 QDir *configDir;
-QDir *filterDir;
-QStrList *filterNameList;
 KApplication *app;
 //*****************************************************************************
 TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
@@ -20,37 +19,13 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   app=a;
   bit=24;
 
-  QPopupMenu *file= new QPopupMenu ();
-  QPopupMenu *edit=	new QPopupMenu ();
-  QPopupMenu *clip=	new QPopupMenu ();
-  QPopupMenu *effects=	new QPopupMenu ();
-  QPopupMenu *calculate=new QPopupMenu ();
+  QPopupMenu *file=     new QPopupMenu ();
   QPopupMenu *help=     new QPopupMenu ();
-  QPopupMenu *select=	new QPopupMenu ();
-  QPopupMenu *amplify=	new QPopupMenu ();
-  QPopupMenu *filter=	new QPopupMenu ();
-  QPopupMenu *view=	new QPopupMenu ();
   QPopupMenu *options=	new QPopupMenu ();
-  QPopupMenu *channel=	new QPopupMenu ();
-  QPopupMenu *freq=	new QPopupMenu ();
-  QPopupMenu *marker=   new QPopupMenu ();
-  QPopupMenu *genmenu=   new QPopupMenu ();
-  QPopupMenu *savemarkmenu=   new QPopupMenu ();
   recent=   new QPopupMenu ();
   save=     new QPopupMenu ();
-  channels= new QPopupMenu ();
-  mtypemenu=new QPopupMenu ();
-  mtypemenu->setCheckable (true);
 
-  MarkerType *act;
-  for (act=markertypes->first();act;act=markertypes->next())
-	mtypemenu->insertItem(act->name->data());  
-  if (markertypes->count()!=0) mtypemenu->setItemChecked (mtypemenu->idAt(0),true);
-
-  channels->insertItem (klocale->translate("none"));
   connect( recent, SIGNAL(activated(int)), SLOT(openRecent(int)) ); 
-  connect( mtypemenu, SIGNAL(activated(int)), SLOT(setMarkType(int)) ); 
-  connect( channels, SIGNAL(activated(int)), SLOT(deleteChannel(int)) ); 
 
   status=new KStatusBar (this);
 
@@ -60,9 +35,8 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   status->insertItem (klocale->translate("selected: 0 ms        "),4);
   status->insertItem (klocale->translate("Clipboard: 0 ms      "),5);
 
-  bar=		new KMenuBar (this);
-  mainwidget=	new MainWidget (this,"MainView",status);
-  connect( mainwidget, SIGNAL(channelInfo(int)),this, SLOT(getChannelInfo(int)) ); 
+  bar=		new KMenuBar    (this);
+  manage=       new MenuManager (this,bar);
 
   //this is where the menus are created
   //I will clean it up a tommorrow, mom...
@@ -78,15 +52,15 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
 	recent->insertItem(recentFiles->at(i));
 
   file->insertItem	(klocale->translate("&Save"),	this,SLOT(saveFile()),CTRL+Key_S);
-  file->insertItem	(klocale->translate("Save"),	save);
+  file->insertItem	(klocale->translate("&Save"),	save);
   
-  save->insertItem	(klocale->translate("As ..."),this,SLOT(saveFileas()),CTRL+SHIFT+Key_S);
-  save->insertItem	(klocale->translate("Selection ..."),this,SLOT(saveSelection()));
-  save->insertItem	(klocale->translate("Blocks ..."),this,SLOT(saveBlocksOp()));
+  save->insertItem	(klocale->translate("&As ..."),this,SLOT(saveFileas()),CTRL+SHIFT+Key_S);
+  save->insertItem	(klocale->translate("&Selection ..."),this,SLOT(saveSelection()));
+  save->insertItem	(klocale->translate("&Blocks ..."),this,SLOT(saveBlocksOp()));
   save->insertSeparator	();
-  bit24=save->insertItem (klocale->translate("24 bit"));
-  bit16=save->insertItem (klocale->translate("16 bit"));
-  bit8=save->insertItem	 (klocale->translate(" 8 bit"));
+  bit24=save->insertItem (klocale->translate("&24 bit"));
+  bit16=save->insertItem (klocale->translate("&16 bit"));
+  bit8=save->insertItem	 (klocale->translate(" &8 bit"));
   save->setCheckable (true);
   save->setItemChecked (bit24,true);
   save->connectItem (bit24,this,SLOT(save24Bit()));
@@ -94,133 +68,11 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   save->connectItem (bit8,this,SLOT(save8Bit()));
   
   file->insertSeparator	();
-  file->insertItem	(klocale->translate("Revert"),	this,SLOT(revert()),CTRL+Key_R);
+  file->insertItem	(klocale->translate("&Revert"),	this,SLOT(revert()),CTRL+Key_R);
+  file->insertSeparator	();
+  file->insertItem	(klocale->translate("&Import Ascii"),this,SLOT(importAsciiFile()),CTRL+Key_I);
   file->insertSeparator	();
   file->insertItem	(klocale->translate("&Quit"),	this,SLOT(quitInstance()),CTRL+Key_Q);
-
-  edit->insertItem	(klocale->translate("Cut"),	this,SLOT(cutOp()),CTRL+Key_X);
-  edit->insertItem	(klocale->translate("Copy"),	this,SLOT(copyOp()),CTRL+Key_C);
-  edit->insertItem	(klocale->translate("Paste"),	this,SLOT(pasteOp()),CTRL+Key_V);
-  edit->insertItem	(klocale->translate("Mix & Paste"),this,SLOT(mixpasteOp()),CTRL+SHIFT+Key_V);
-
-  edit->insertItem	(klocale->translate("Trim"),	this,SLOT(cropOp()),CTRL+Key_T);
-  edit->insertItem	(klocale->translate("Delete"),	this,SLOT(deleteOp()),Key_Delete);
-  edit->insertSeparator	();
-  edit->insertItem	(klocale->translate("Flip Phase"), this,SLOT(flipOp()));
-  edit->insertItem	(klocale->translate("Center Wave"),this,SLOT(centerOp()),Key_C);
-  edit->insertItem	(klocale->translate("Resample"),this,SLOT(resampleOp()),SHIFT+Key_R);
-  edit->insertSeparator	();
-
-  edit->insertItem	(klocale->translate("Channel"),	channel);
-  channel->insertItem	(klocale->translate("add")   ,this,SLOT(addChannelOp()),SHIFT+Key_A);
-  channel->insertItem	(klocale->translate("delete"),channels);
-  channel->insertItem	(klocale->translate("select all"),this,SLOT(allChannelOp()),Key_A);
-  channel->insertItem	(klocale->translate("invert all"),this,SLOT(toggleChannelOp()),Key_I);
-
-  edit->insertItem	(klocale->translate("Select"),	select);
-  select->insertItem	(klocale->translate("&All"),    this,SLOT(selectAllOp()),CTRL+Key_A);
-  select->insertItem	(klocale->translate("Range"),	this,SLOT(selectRangeOp()),Key_R);
-  select->insertItem	(klocale->translate("Visible area"),	this,SLOT(selectVisibleOp()),Key_V);
-  select->insertItem	(klocale->translate("Next"),	this,SLOT(selectNextOp()),Key_Plus);
-  select->insertItem	(klocale->translate("Prev"),	this,SLOT(selectPrevOp()),Key_Minus);
-  select->insertItem	(klocale->translate("None"),	this,SLOT(selectNoneOp()),Key_N);
-  edit->insertSeparator	();
-  clip->insertItem	(klocale->translate("Flush"),	this,SLOT(flushClip()));
-  clip->insertItem	(klocale->translate("To new window"),this,SLOT(cliptoNew()));
-  edit->insertItem	(klocale->translate("Clipboard"),clip);
-
-  view->insertItem	(klocale->translate("Next page"),    this,SLOT(nextPageOp()),Key_PageUp);
-  view->insertItem	(klocale->translate("Previous page"),this,SLOT(prevPageOp()),Key_PageDown);
-  view->insertItem	(klocale->translate("Scroll right"),this,SLOT(scrollRightOp()),Key_Right);
-  view->insertItem	(klocale->translate("Scroll left"), this,SLOT(scrollLeftOp()),Key_Left);
-  view->insertSeparator	();
-  view->insertItem	(klocale->translate("Zoom In"),this,SLOT(zoomInOp()),CTRL+Key_Plus);
-  view->insertItem	(klocale->translate("Zoom Out"), this,SLOT(zoomOutOp()),CTRL+Key_Minus);
-  view->insertItem	(klocale->translate("Zoom to Range"), this,SLOT(zoomRangeOp()),CTRL+Key_Space);
-
-  effects->insertItem	(klocale->translate("Amplify"),	amplify);
-
-  amplify->insertItem	(klocale->translate("Distort"),	this,SLOT(distortOp()));
-  amplify->insertItem	(klocale->translate("Fade In"), this,SLOT(fadeInOp()));
-  amplify->insertItem	(klocale->translate("Fade Out"),this,SLOT(fadeOutOp()));
-  amplify->insertItem	(klocale->translate("Free"),	this,SLOT(amplifyOp()));
-  amplify->insertItem	(klocale->translate("To maximum"),this,SLOT(amplifyMaxOp()),Key_M);
-  amplify->insertItem	(klocale->translate("With clipboard"),this,SLOT(amplifyClipOp()));
-
-  effects->insertSeparator ();
-  effects->insertItem	(klocale->translate("Filter"), filter);
-  filter->insertItem    (klocale->translate("moving Average"),this,SLOT(mAverageFilterOp()));
-  filter->insertItem    (klocale->translate("Create"),this,SLOT(filterCreateOp()));
-  
-  filter->insertSeparator ();
-  
-  filterDir=new QDir(configDir->path());
-
-  if (!filterDir->cd ("presets"))
-    {
-      filterDir->mkdir ("presets");
-      filterDir->cd ("presets");
-    }
-  if (!filterDir->cd ("filters"))
-    {
-      filterDir->mkdir ("filters");
-      filterDir->cd ("filters");
-    }
-
-  filterDir->setNameFilter ("*.filter");
-
-  filterNameList=(QStrList *)filterDir->entryList ();
-
-  for (char *tmp=filterNameList->first();tmp!=0;tmp=filterNameList->next())
-    {
-      char buf[strlen(tmp)-6];
-      strncpy (buf,tmp,strlen(tmp)-6);
-      buf[strlen(tmp)-7]=0;
-      filter->insertItem (buf);
-    }
-
-  connect( filter, SIGNAL(activated(int)), SLOT(doFilter(int)) ); 
-
-  effects->insertSeparator	();
-  effects->insertItem	(klocale->translate("&Delay"),	this,SLOT(delayOp()));
-  effects->insertItem	(klocale->translate("Reverse"),	this,SLOT(reverseOp()));
-  effects->insertItem	(klocale->translate("&Periodic Silence"),	this,SLOT(stutterOp()));
-
-  effects->insertSeparator	();
-  effects->insertItem	(klocale->translate("&Change Rate"),this,SLOT(rateChangeOp()));
-  effects->insertItem	(klocale->translate("Re&quantize"),	this,SLOT(requantizeOp()));
-
-   calculate->insertItem	(klocale->translate("&Silence"),	this,SLOT(zeroOp()));
-  calculate->insertItem	(klocale->translate("&Noise"),	this,SLOT(noiseOp()));
-  calculate->insertItem	(klocale->translate("&Additive Synthesis"),this,SLOT(addSynthOp()));
-  calculate->insertItem	(klocale->translate("&Pulse Train"),this,SLOT(pulseOp()));
-  calculate->insertSeparator	();
-  calculate->insertItem	(klocale->translate("&Envelope"),this,SLOT(hullCurveOp()));
-  calculate->insertSeparator	();
-  calculate->insertItem	(klocale->translate("Frequencies"),freq);
-  freq->insertItem	(klocale->translate("&Spectrum"),	this,SLOT(fftOp()),Key_S);
-  freq->insertItem	(klocale->translate("&Average Spectrum"),	this,SLOT(averageFFTOp()));
-  freq->insertItem	(klocale->translate("S&onagram"),	this,SLOT(sonagramOp()));
-
-  marker->insertItem	(klocale->translate("&Add"),	this,SLOT(addMarkOp()),Key_A);
-  marker->insertItem	(klocale->translate("&Delete"),	this,SLOT(deleteMarkOp()),Key_D);
-  marker->insertSeparator	();
-  marker->insertItem	(klocale->translate("&Generate"),genmenu);
-  genmenu->insertItem	(klocale->translate("&Signal labels"),this,SLOT(signalMarkerOp()));
-  genmenu->insertItem	(klocale->translate("&Period labels"),this,SLOT(periodMarkerOp()));
-  marker->insertSeparator	();
-  marker->insertItem	(klocale->translate("&Load"),	this,SLOT(loadMarkOp()));
-  marker->insertItem	(klocale->translate("&Insert"),	this,SLOT(appendMarkOp()));
-  marker->insertItem	(klocale->translate("&Save"),	savemarkmenu);
-  savemarkmenu->insertItem	(klocale->translate("&Labels"),
-				 this,SLOT(saveMarkOp()));
-  savemarkmenu->insertItem	(klocale->translate("Label &Frequency"),
-				 this,SLOT(savePeriodsOp()));
-  marker->insertSeparator	();
-  marker->insertItem         	(klocale->translate("&convert to Pitch"), this,SLOT(convertPitchOp()));
-  marker->insertSeparator	();
-  marker->insertItem	(klocale->translate("&Change Type"),mtypemenu);
-  marker->insertItem	(klocale->translate("Create &Type"),this,SLOT(addMarkType()));
 
   options->insertItem	(klocale->translate("Playback"),this,SLOT(playBackOp()));
   options->insertItem	(klocale->translate("Memory"),this,SLOT(memoryOp()));
@@ -230,11 +82,6 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   help->insertItem	(klocale->translate("&About kwave"),	this,SLOT(about()));
 
   bar->insertItem	(klocale->translate("&File"),	file);
-  bar->insertItem	(klocale->translate("&Edit"),	edit);
-  bar->insertItem	(klocale->translate("&View"),	view);
-  bar->insertItem	(klocale->translate("F&x"),	effects);
-  bar->insertItem	(klocale->translate("&Calculate"),calculate);
-  bar->insertItem	(klocale->translate("&Labels") ,marker);
   bar->insertItem	(klocale->translate("&Options") ,options);
   bar->insertItem	(klocale->translate("&Help"),	help);
 
@@ -242,11 +89,17 @@ TopWidget::TopWidget (KApplication *a) : KTopLevelWidget ()
   connect( dropZone, SIGNAL( dropAction( KDNDDropZone *) ),
            this, SLOT( dropEvent( KDNDDropZone *) ) );        
 
+  mainwidget=new MainWidget (this,manage,status);
+
+  //connect clicked menu entrys with main communication channel of kwave
+  connect(manage, SIGNAL(id(int)),this, SLOT(setRangeOp(int))); 
+
   setView (mainwidget);
+
   setMenu (bar);
   setStatusBar (status);
 }
-//*****************************************************************************************
+//*****************************************************************************
 TopWidget::~TopWidget ()
 {
   //remove this instance from list of widgets
@@ -254,23 +107,23 @@ TopWidget::~TopWidget ()
 
   if (topwidget->isEmpty()) app->exit (0); //if list is empty -> no more windows there 
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::about ()
 {
   AboutDialog dialog (this);
   dialog.exec ();
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::getHelp ()
 {
   app->invokeHTMLHelp ("kwave/index.html","");
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::quitInstance ()
 {
   delete this;
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::newInstance ()
 {
   TopWidget *tnew=new TopWidget(app);
@@ -278,19 +131,11 @@ void TopWidget::newInstance ()
 
   tnew->show();
 }
-//*****************************************************************************************
+//****************************************************************************
 void TopWidget::cliptoNew ()
 {
-  if (clipboard)
-   {
-    TopWidget *tnew=new TopWidget(app);
-    topwidget->append (tnew);
-    tnew->setSignal (clipboard);
-
-    tnew->show();
-    tnew->setCaption (klocale->translate("Clipboard"));
-    clipboard=0;
-   }
+  if (clipboard) clipboard->toWindow ();
+  else debug ("clipboard is empty !\n");
 }
 //*****************************************************************************
 void TopWidget::flushClip ()
@@ -299,90 +144,14 @@ void TopWidget::flushClip ()
   clipboard=0;
 }
 //*****************************************************************************
-//add your favourite wrapper function here
 void TopWidget::newOp()		{mainwidget->setRangeOp (NEW);}
-void TopWidget::deleteOp()	{mainwidget->setRangeOp (DELETE);}
-void TopWidget::cutOp	()	{mainwidget->setRangeOp (CUT);}
-void TopWidget::copyOp	()	{mainwidget->setRangeOp (COPY);}
-void TopWidget::pasteOp	()	{mainwidget->setRangeOp (PASTE);}
-void TopWidget::cropOp	()	{mainwidget->setRangeOp (CROP);}
-void TopWidget::zeroOp	()	{mainwidget->setRangeOp (ZERO);}
-void TopWidget::flipOp	()	{mainwidget->setRangeOp (FLIP);}
-void TopWidget::mixpasteOp	()	{mainwidget->setRangeOp	(MIXPASTE);}
-void TopWidget::centerOp	()	{mainwidget->setRangeOp (CENTER);}
-void TopWidget::reverseOp	()	{mainwidget->setRangeOp (REVERSE);}
-void TopWidget::fadeInOp	()	{mainwidget->setRangeOp	(FADEIN);}
-void TopWidget::fadeOutOp	()	{mainwidget->setRangeOp	(FADEOUT);}
-void TopWidget::selectAllOp	()	{mainwidget->setRangeOp	(SELECTALL);}
-void TopWidget::selectRangeOp	()	{mainwidget->setRangeOp	(SELECTRANGE);}
-void TopWidget::selectVisibleOp	()	{mainwidget->setRangeOp	(SELECTVISIBLE);}
-void TopWidget::selectNoneOp	()	{mainwidget->setRangeOp	(SELECTNONE);}
-void TopWidget::selectNextOp	()	{mainwidget->setRangeOp	(SELECTNEXT);}
-void TopWidget::selectPrevOp	()	{mainwidget->setRangeOp	(SELECTPREV);}
-void TopWidget::amplifyOp	()	{mainwidget->setRangeOp	(AMPLIFY);}
-void TopWidget::amplifyMaxOp	()	{mainwidget->setRangeOp	(AMPLIFYMAX);}
-void TopWidget::amplifyClipOp	()	{mainwidget->setRangeOp	(AMPWITHCLIP);}
-void TopWidget::noiseOp		()	{mainwidget->setRangeOp	(NOISE);}
-void TopWidget::addSynthOp	()	{mainwidget->setRangeOp	(ADDSYNTH);}
-void TopWidget::pulseOp  	()	{mainwidget->setRangeOp	(PULSE);}
-void TopWidget::distortOp	()	{mainwidget->setRangeOp	(DISTORT);}
-void TopWidget::hullCurveOp	()	{mainwidget->setRangeOp	(HULLCURVE);}
-void TopWidget::delayOp		()	{mainwidget->setRangeOp	(DELAY);}
-void TopWidget::rateChangeOp	()	{mainwidget->setRangeOp	(RATECHANGE);}
-void TopWidget::fftOp		()	{mainwidget->setRangeOp	(FFT);}
-void TopWidget::playBackOp	()	{mainwidget->setRangeOp (PLAYBACKOPTIONS);}
-void TopWidget::memoryOp	()	{mainwidget->setRangeOp (MEMORYOPTIONS);}
-void TopWidget::addChannelOp	()	{mainwidget->setRangeOp (ADDCHANNEL);}
-void TopWidget::allChannelOp	()	{mainwidget->setRangeOp (ALLCHANNEL);}
-void TopWidget::toggleChannelOp	()	{mainwidget->setRangeOp (INVERTCHANNEL);}
-void TopWidget::mAverageFilterOp()	{mainwidget->setRangeOp (MOVINGAVERAGE);}
-void TopWidget::sonagramOp      ()	{mainwidget->setRangeOp (SONAGRAM);}
-void TopWidget::resampleOp      ()	{mainwidget->setRangeOp (RESAMPLE);}
-void TopWidget::addMarkOp       ()	{mainwidget->setRangeOp (ADDMARK);}
-void TopWidget::loadMarkOp      ()	{mainwidget->setRangeOp (LOADMARK);}
-void TopWidget::appendMarkOp    ()	{mainwidget->setRangeOp (APPENDMARK);}
-void TopWidget::saveMarkOp      ()	{mainwidget->setRangeOp (SAVEMARK);}
-void TopWidget::deleteMarkOp    ()	{mainwidget->setRangeOp (DELETEMARK);}
-void TopWidget::scrollLeftOp    ()	{mainwidget->setRangeOp (SCROLLLEFT);}
-void TopWidget::scrollRightOp   ()	{mainwidget->setRangeOp (SCROLLRIGHT);}
-void TopWidget::nextPageOp      ()	{mainwidget->setRangeOp (NEXTPAGE);}
-void TopWidget::prevPageOp      ()	{mainwidget->setRangeOp (PREVPAGE);}
-void TopWidget::zoomInOp        ()	{mainwidget->setRangeOp (ZOOMIN);}
-void TopWidget::zoomOutOp       ()	{mainwidget->setRangeOp (ZOOMOUT);}
-void TopWidget::zoomRangeOp     ()	{mainwidget->setRangeOp (ZOOMRANGE);}
-void TopWidget::filterCreateOp  ()	{mainwidget->setRangeOp (FILTERCREATE);}
-void TopWidget::averageFFTOp    ()	{mainwidget->setRangeOp (AVERAGEFFT);}
-void TopWidget::stutterOp       ()	{mainwidget->setRangeOp (STUTTER);}
-void TopWidget::requantizeOp    ()	{mainwidget->setRangeOp (REQUANTISE);}
-void TopWidget::signalMarkerOp  ()	{mainwidget->setRangeOp (MARKSIGNAL);}
-void TopWidget::periodMarkerOp  ()	{mainwidget->setRangeOp (MARKPERIOD);}
-void TopWidget::saveBlocksOp    ()	{mainwidget->setRangeOp (SAVEBLOCKS+bit);}
-void TopWidget::savePeriodsOp   ()	{mainwidget->setRangeOp (SAVEPERIODS);}
-void TopWidget::convertPitchOp  ()	{mainwidget->setRangeOp (TOPITCH);}
+void TopWidget::playBackOp()	{mainwidget->setRangeOp (PLAYBACKOPTIONS);}
+void TopWidget::memoryOp()	{mainwidget->setRangeOp (MEMORYOPTIONS);}
+void TopWidget::saveBlocksOp()	{mainwidget->setRangeOp (SAVEBLOCKS+bit);}
 //*****************************************************************************
-void TopWidget::doFilter    (int num)
- {
-   if (num>=3)
-     mainwidget->setRangeOp (FILTER+num-3); //ignore first three items, since they are covered by own signals ...
- }
-//*****************************************************************************
-void TopWidget::setMarkType    (int num)
+void TopWidget::setRangeOp (int id)
 {
-  for (unsigned int i=0;i<markertypes->count();i++) mtypemenu->setItemChecked (mtypemenu->idAt(i),false);
-  mtypemenu->setItemChecked (mtypemenu->idAt(num),true);
-  mainwidget->setRangeOp (SELECTMARK+num);
-}
-//*****************************************************************************
-void TopWidget::getChannelInfo	(int num)
-{
-  char buf[8];
-  channels->clear();
-
-  for (int i =0 ; i < num; i++)
-    {
-      sprintf (buf,"%d",i);
-      channels->insertItem (buf);
-    }
+  mainwidget->setRangeOp (id);
 }
 //*****************************************************************************
 void TopWidget::deleteChannel	(int num)
@@ -394,7 +163,7 @@ void TopWidget::revert ()
 {
  if (!name.isNull())
   {
-	mainwidget->setSignal (&name);
+    mainwidget->setSignal (&name);
   }
 }
 //*****************************************************************************
@@ -461,7 +230,7 @@ void TopWidget::dropEvent (KDNDDropZone *drop)
 	}
     }
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::openFile ()
 {
  QString name=QFileDialog::getOpenFileName (0,"*.wav",this);
@@ -473,7 +242,18 @@ void TopWidget::openFile ()
 	setCaption (name.data());
   }
 }
-//*****************************************************************************************
+//*****************************************************************************
+void TopWidget::importAsciiFile ()
+{
+ QString name=QFileDialog::getOpenFileName (0,"*.*",this);
+ if (!name.isNull())
+  {
+	this->name=name;
+	mainwidget->setSignal (&name,ASCII);
+	setCaption (name.data());
+  }
+}
+//*****************************************************************************
 void TopWidget::save24Bit ()
 {
   save->setItemChecked (bit24,true);
@@ -481,7 +261,7 @@ void TopWidget::save24Bit ()
   save->setItemChecked (bit8,false);
   bit=24;
 }
-//*****************************************************************************************
+//*****************************************************************************
 void TopWidget::save16Bit ()
 {
   save->setItemChecked (bit24,false);
@@ -532,32 +312,6 @@ void TopWidget::setSignal (QString name)
  setCaption (name.data());
 }
 //*****************************************************************************
-void TopWidget::addMarkType (struct MarkerType *marker)
-{
-  markertypes->append (marker);
-  mtypemenu->insertItem (marker->name->data());
-}
-//*****************************************************************************
-void TopWidget::addMarkType ()
-{
-  MarkerTypeDialog dialog (this);
-
-  if (dialog.exec())
-    {
-      MarkerType *marker=new MarkerType();
-
-      marker->name=new QString (dialog.getName());
-      if (!marker->name->isEmpty())
-	{
-	  marker->named=dialog.getIndividual();
-	  marker->color=new QColor(dialog.getColor());
-
-	  addMarkType (marker);
-	}
-      else delete marker;
-    }
-}
-//*****************************************************************************
 void TopWidget::setSignal (MSignal *signal)
 {
  mainwidget->setSignal (signal);
@@ -590,6 +344,7 @@ void saveConfig(KApplication *app)
   config->writeEntry ("Mmap dir",mmap_dir);
 
   config->setGroup ("Labels");
+
   for (unsigned int i =0 ; i < markertypes->count(); i++)
     {
       sprintf (buf,"%dName",i);
@@ -653,6 +408,7 @@ void readConfig(KApplication *app)
 
 	  sprintf (buf,"%dhasName",i);
 	  int hasname=config->readNumEntry (buf,-1);
+
 
 	  MarkerType *marker=new MarkerType();
 

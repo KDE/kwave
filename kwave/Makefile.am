@@ -30,10 +30,12 @@ kwave_SOURCES = signalview.cpp main.cpp sample.cpp mainwidget.cpp sampleio.cpp\
  curvewidget.cpp interpolation.cpp sampleedit.cpp filter.cpp scale.cpp\
  multistateimage.cpp addsynth.cpp functions.cpp sonagram.cpp markers.cpp\
  formantwidget.cpp faderwidget.cpp pitchwidget.cpp windowfunction.cpp\
- mmain.cpp mclasses.cpp msample.cpp mabout.cpp mconfigdialogs.cpp\
+ menumanager.cpp clipboard.cpp\
+ mmain.cpp msignalview.cpp mmainwidget.cpp msample.cpp mabout.cpp\
+ mconfigdialogs.cpp moverview.cpp\
  mformantwidget.cpp maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
  mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp\
- mfilter.cpp mscale.cpp mpitchwidget.cpp
+ mfilter.cpp mscale.cpp mpitchwidget.cpp mmenumanager.cpp
 
 # the library search path
 kwave_LDFLAGS = @all_libraries@
@@ -43,15 +45,16 @@ kwave_LDFLAGS = @all_libraries@
 kwave_LDADD   = -lkfm -lkdeui -lkdecore -lqt -lX11 -lXext -lpthread
 
 # this option you can leave out. Just, if you use "make dist", you need it
-noinst_HEADERS =  classes.h sample.h main.h about.h fftview.h\
+noinst_HEADERS =  signalview.h mainwidget.h sample.h main.h about.h fftview.h\
  gsl_fft.h faderwidget.h curvewidget.h interpolation.h\
- multistateimage.h dialogs.h addsynth.h functions.h\
- sonagram.h filter.h scale.h
+ multistateimage.h dialogs.h addsynth.h functions.h clipboard.h\
+ sonagram.h filter.h scale.h menumanager.h overview.h markers.h
 
 # just to make sure, automake makes them 
-BUILTSOURCES =	mmain.cpp mclasses.cpp msample.cpp mabout.cpp maddsynth.cpp\
+BUILTSOURCES =	mmain.cpp msignalview.cpp msample.cpp mabout.cpp maddsynth.cpp\
  mconfigdialogs.cpp mdialogs.cpp mfftview.cpp msonagram.cpp mformantwidget.cpp\
- mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp mscale.cpp mpitchwidget.cpp
+ mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp mscale.cpp\
+ mpitchwidget.cpp mmenumanager.cpp mmainwidget.cpp moverview.cpp mmarker.cpp
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
@@ -94,8 +97,14 @@ uninstall-local:
 main.cpp: mmain.cpp
 mmain.cpp: main.h
 	$(MOC) -o mmain.cpp main.h
-mclasses.cpp: classes.h
-	$(MOC) -o mclasses.cpp classes.h
+mmarkers.cpp: markers.h
+	$(MOC) -o mmarkers.cpp markers.h
+msignalview.cpp: signalview.h
+	$(MOC) -o msignalview.cpp signalview.h
+mmainwidget.cpp: mainwidget.h
+	$(MOC) -o mmainwidget.cpp mainwidget.h
+moverview.cpp: overview.h
+	$(MOC) -o moverview.cpp overview.h
 msample.cpp: sample.h
 	$(MOC) -o msample.cpp sample.h
 mabout.cpp: about.h
@@ -122,6 +131,8 @@ mcurvewidget.cpp: curvewidget.h
 	$(MOC) -o mcurvewidget.cpp curvewidget.h
 mmultistateimage.cpp: multistateimage.h
 	$(MOC) -o mmultistateimage.cpp multistateimage.h 
+mmenumanager.cpp: menumanager.h
+	$(MOC) -o mmenumanager.cpp menumanager.h 
 mscale.cpp: scale.h
 	$(MOC) -o mscale.cpp scale.h 
 

@@ -1,5 +1,5 @@
-#ifndef _SAMPLE_H_
-#define _SAMPLE_H_ 1
+#ifndef _KWAVESAMPLE_H_
+#define _KWAVESAMPLE_H_ 1
 
 //comment the next line to build a non-threading version of kwave
 #define  THREADS
@@ -23,6 +23,7 @@
 #include <qradiobt.h> 
 #include <kapp.h>
 
+#include "menumanager.h"
 #include "gsl_fft.h"
 #include "sampleop.h"
 #include "dialogs.h"
@@ -47,28 +48,32 @@ struct FXParams
 struct wavheader
 // header format for reading wav files
 {
-	char		riffid[4];
-	long		filelength;
-	char		wavid[4];
-	char		fmtid[4];
-	long		fmtlength;
-	short int	mode;
-	short int	channels;
-	long		rate;
-	long		AvgBytesPerSec;
-	short int	BlockAlign;
-	short int	bitspersample;
+  char		riffid[4];
+  long		filelength;
+  char		wavid[4];
+  char		fmtid[4];
+  long		fmtlength;
+  short int	mode;
+  short int	channels;
+  long		rate;
+  long		AvgBytesPerSec;
+  short int	BlockAlign;
+  short int	bitspersample;
 };
 //**********************************************************************
 class MSignal : public QObject
 {
  Q_OBJECT
  public:
-	MSignal		(QWidget *parent,QString *filename,int channels=1);
+	MSignal		(QWidget *parent,MenuManager *manage,QString *filename,int channel=1,int type=0);
+ 	MSignal		(QWidget *parent,MenuManager *manage,int size,int rate,int channels=1);
  	MSignal		(QWidget *parent,int size,int rate,int channels=1);
  	~MSignal	();
-	MSignal *getNext	();  //returns pointer to next channel...
-	int getLockState	();  //returns lock-state of signal
+
+ void   setMenuManager  (MenuManager *);
+ void 	initSignal      ();
+ MSignal *getNext();  //returns pointer to next channel...
+ int    getLockState();  //returns lock-state of signal
 
  QString *getName ();
  void	detachChannels  ();
@@ -172,16 +177,18 @@ class MSignal : public QObject
 
  protected:
 
+ void   getIDs          ();
+ void   appendMenus     ();
+ void   deleteMenus     ();
  void   getridof        (int *mem);
  int    *getNewMem      (int size);
  void	findDatainFile	(QFile *sigin);
+ void	loadWav	        (QString *name,int);
+ void	loadAscii	(QString *name,int);
  void	load8Bit	(QFile *sigin,int offset,int interleave);
  void	load16Bit	(QFile *sigin,int offset,int interleave);
  void	load24Bit	(QFile *sigin,int offset,int interleave);
  void	loadStereo16Bit	(QFile *sigin);
- // void   writeData24Bit  (QFile *sigout,int begin,int end,int **samples,int numsamples);
- // void   writeData16Bit  (QFile *sigout,int begin,int end,int **samples,int numsamples);
- //void   writeData8Bit   (QFile *sigout,int begin,int end,int **samples,int numsamples);
 
  signals:
 
@@ -205,7 +212,8 @@ class MSignal : public QObject
  int		*msg;                  //shared memory used for communication
  MSignal        *next;                 //next channel linked to this 
  QWidget	*parent;	       //pointer to connected widget, used for displaying requesters etc...
- QString        *name;
+ QString        *name;                 //filename of the signal
+ MenuManager    *manage;               //interface to dynamically add menuitems
  char           selected;              //flag if this channel is selected
  char           locked;                //boolean if sample is locked (interthread-semaphore)
  char           speaker;               //code for playback speaker (e.g. left or right)

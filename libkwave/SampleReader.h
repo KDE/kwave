@@ -71,10 +71,11 @@ public:
     unsigned int read(QArray<sample_t> &buffer, unsigned int dstoff,
 	unsigned int length);
 
-    /**
-     * Skips a number of samples.
-     */
+    /** Skips a number of samples. */
     void skip(unsigned int count);
+
+    /** Seeks to a given position */
+    void seek(unsigned int pos);
 
     /**
      * Returns the current read position.

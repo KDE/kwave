@@ -182,6 +182,31 @@ void SampleReader::skip(unsigned int count)
 }
 
 //***************************************************************************
+void SampleReader::seek(unsigned int pos)
+{
+    const unsigned int current_pos = m_src_position +
+	m_buffer_position - m_buffer_used;
+
+    if (pos == current_pos) return; // nothing to do
+
+    if (pos < current_pos) {
+	// seek backwards
+	const unsigned int count = current_pos - pos;
+	if (count <= m_buffer_position) {
+	    // go back within the buffer
+	    m_buffer_position -= count;
+	} else {
+	    // skip out of the buffer
+	    m_src_position = pos;
+	    m_buffer_position = m_buffer_used = 0;
+	}
+    } else {
+	// seek forward
+	skip(pos - current_pos);
+    }
+}
+
+//***************************************************************************
 SampleReader &SampleReader::operator >> (sample_t &sample)
 {
     // get new buffer if end of last buffer reached

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-29 00:02+0200\n"
-"PO-Revision-Date: 2002-06-29 00:00+0200\n"
+"POT-Creation-Date: 2002-06-29 08:44+0200\n"
+"PO-Revision-Date: 2002-06-29 08:42+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -356,7 +356,7 @@ msgstr "Un éditeur de sons pour KDE"
 
 #: kwave/UndoSelection.cpp:39
 msgid "selection"
-msgstr "selection"
+msgstr "Sélection"
 
 #: kwave/SignalWidget.cpp:1777 kwave/SignalWidget.cpp:1816
 msgid "drag and drop"
@@ -926,7 +926,7 @@ msgstr "Niveau maximum du silence en %"
 
 #: plugins/freqmult/module.cpp:17
 msgid "Select Function :"
-msgstr "Slectionner une fonction :"
+msgstr "Selectionner une fonction :"
 
 #: plugins/freqmult/module.cpp:36
 msgid "Freq. in Hz"
@@ -1160,7 +1160,7 @@ msgstr "Périphérique de lecture :"
 
 #: plugins/playback/PlayBackDialog.cpp:171
 msgid "se&lect..."
-msgstr "se&lectionné..."
+msgstr "se&lectionner..."
 
 #: plugins/playback/PlayBackDialog.cpp:175
 msgid ""
@@ -1378,15 +1378,15 @@ msgstr ""
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:136
 msgid "Authors"
-msgstr ""
+msgstr "Auteurs"
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:146
 msgid "Thanks To"
-msgstr ""
+msgstr "Remerciements à"
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:153
 msgid "License agreement"
-msgstr ""
+msgstr "Accord de licence"
 
 #: plugins/about/AboutKwaveDialog.cpp:46
 #, ycp-format
@@ -1417,12 +1417,11 @@ msgstr "Amplitude du signal retardé :%d %%"
 
 #: plugins/selectrange/SelectRangePlugin.cpp:123
 msgid "select range"
-msgstr "plage de selection"
+msgstr "Sélectionner plage"
 
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:38
-#, fuzzy
 msgid "Select Range..."
-msgstr "plage de selection"
+msgstr "Sélectionner plage..."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:136
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:42
@@ -1434,18 +1433,16 @@ msgid "&Samples"
 msgstr "écha&ntillons"
 
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:52
-#, fuzzy
 msgid "select by number of samples"
-msgstr "comme nombre d'échantillons"
+msgstr "Sélectionner comme nombre d'échantillons"
 
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:57
 msgid "&Time"
 msgstr "&Temps"
 
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:59
-#, fuzzy
 msgid "select by time"
-msgstr "plage de selection"
+msgstr "Sélectionner du temps"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:244
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:81
@@ -1466,11 +1463,8 @@ msgid "100%"
 msgstr "100%"
 
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:106
-#, fuzzy
 msgid "sets the selection by the percentage of the whole signal"
-msgstr ""
-"paramètre la taille du fichier sonore par le pourcentage de sa taille "
-"maximale possible"
+msgstr "Sélectionner par le pourcentage de la taille complete"
 
 #: plugins/selectrange/SelectRangeDlg.uic.cpp:117
 msgid "&Percent"

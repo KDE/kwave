@@ -362,7 +362,7 @@ void OverViewCache::slotSamplesDeleted(unsigned int track,
     if (!m_src_tracks.isEmpty() && !(m_src_tracks.contains(track))) return;
 
     // right out of our range -> out of interest
-    if (offset >= (m_src_offset + sourceLength())) return;
+    if (offset > (m_src_offset + sourceLength())) return;
 
     // completely left from us -> just move our own offset left
     if (offset+length <= m_src_offset) {

@@ -5,6 +5,7 @@ BUILTSOURCES=""
 
 # Which sources should be compiled for libkwavemt.
 libkwavemt_a_SOURCES =\
+ TSS_Object.cpp \
  Thread.cpp \
  $(BUILTSOURCES)
 

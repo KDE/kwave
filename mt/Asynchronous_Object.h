@@ -56,7 +56,7 @@ public:
     {};
 
     /*! Wrapper function to execute the object's method as a thread */
-    void execute() { (o_->*m_) (); }
+    void run() { (o_->*m_) (); }
     
 private:
     T* o_;          /*!< pointer to the object */
@@ -71,7 +71,7 @@ public:
     Asynchronous_Object_with_1_arg (T* o, PTMF m, Arg1 a1)
     : Thread(), o_ (o), m_ (m), a1_(a1)
     {};
-    void execute () { (o_->*m_) (a1_); }
+    void run() { (o_->*m_) (a1_); }
 private:
     T* o_;
     PTMF m_;

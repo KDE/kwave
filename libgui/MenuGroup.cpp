@@ -80,10 +80,9 @@ void MenuGroup::removeChild(MenuNode *child)
 //*****************************************************************************
 void MenuGroup::setEnabled(bool enable)
 {
-    QListIterator<MenuNode> it(m_children);
-    for ( ; it.current(); ++it) {
-	it.current()->setEnabled(enable);
-	++it;
+    for (unsigned int i=0; i < m_children.count(); i++) {
+	MenuNode *node = m_children.at(i);
+	if (node) node->setEnabled(enable);
     }
 }
 
@@ -92,20 +91,17 @@ void MenuGroup::selectItem(const QString &uid)
 {
     MenuNode *new_selection = 0;
 
-    QListIterator<MenuNode> it(m_children);
-    for ( ; it.current(); ++it) {
-	MenuNode *child = it.current();
+    for (unsigned int i=0; i < m_children.count(); i++) {
+	MenuNode *child = m_children.at(i);
 	if (uid == child->getUID())
 	    new_selection = child;    // new selected child found !
 	else
 	    child->setChecked(false);    // remove check from others
 
-	++it;
     }
 
     // select the new one if found
     if (new_selection) new_selection->setChecked(true);
-
 }
 
 //*****************************************************************************

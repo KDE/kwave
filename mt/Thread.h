@@ -89,9 +89,14 @@ public:
     void wait(unsigned int milliseconds = 1000);
 
     /**
+     * Returns the id of this thread.
+     */
+    pthread_t threadID();
+
+    /**
      * wrapper to call the run() function, called internally
      * from the thread function with "C" linkage.
-     * \internal
+     * @internal
      */
     void *thread_adapter(void *arg);
 

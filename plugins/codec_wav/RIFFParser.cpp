@@ -501,7 +501,7 @@ QValueList<u_int32_t> RIFFParser::scanForName(const QCString &name,
         buffer[3] = m_dev.getch();
 
         // update progress bar
-        if (!--next) {
+        if (!--next && progress_count && (end > offset)) {
 	    int percent = (((100*progress_start + (100*(pos-offset)) /
                       (end-offset))) / progress_count);
 	    emit progress(percent);

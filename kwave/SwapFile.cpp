@@ -92,7 +92,7 @@ void *SwapFile::resize(size_t size)
     munmap(m_address, m_size);
 
     // resize the file
-    debug("SwapFile::resize(%u)", size);
+//  debug("SwapFile::resize(%u)", size);
 
     if (lseek(m_file.handle(), size, SEEK_SET) > 0) {
 	ftruncate(m_file.handle(), size);
@@ -110,7 +110,7 @@ void *SwapFile::resize(size_t size)
 	m_file.handle(), 0);
     ASSERT(m_address);
     if (!m_address) m_size = 0;
-    debug("SwapFile::resize(): new area mmapped to %p", m_address);
+//  debug("SwapFile::resize(): new area mmapped to %p", m_address);
 
     return (size) ? m_address : 0;
 }

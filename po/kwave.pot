@@ -7,8 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-17 18:55+0100\n"
+"POT-Creation-Date: 2003-11-23 08:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +24,6 @@ msgid "&About Kwave"
 msgstr ""
 
 #: kwave/menus_config_i18n.cpp:15
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
 msgid "&Add"
 msgstr ""
 
@@ -755,95 +753,6 @@ msgstr ""
 msgid "modify file info"
 msgstr ""
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:213
-msgid "frmLength"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:214
-#: plugins/fileinfo/FileInfoDialog.cpp:209
-#: plugins/newsignal/NewSigDlg.uic.cpp:316
-msgid "Length"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:215
-msgid "&Samples"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:216
-msgid "select by number of samples"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:217
-msgid "&Time"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:218
-msgid "select by time"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:219
-msgid "&Percent"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:220
-msgid "select by percentage of the signal's length"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:221
-#: plugins/newsignal/NewSigDlg.uic.cpp:323
-msgid "Minutes"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:222
-msgid "Milliseconds"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:223
-#: plugins/newsignal/NewSigDlg.uic.cpp:322
-msgid "Seconds"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:224
-#: plugins/newsignal/NewSigDlg.uic.cpp:324
-msgid "Hours"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:225
-#: plugins/newsignal/NewSigDlg.uic.cpp:329
-msgid "0%"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:226
-#: plugins/newsignal/NewSigDlg.uic.cpp:330
-msgid "50%"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:227
-#: plugins/newsignal/NewSigDlg.uic.cpp:331
-msgid "100%"
-msgstr ""
-
-#: libgui/SelectTimeWidgetBase.uic.cpp:228
-msgid "sets the selection by the percentage of the whole signal"
-msgstr ""
-
-#: libgui/HMSTimeWidgetBase.uic.cpp:66
-msgid "HMSTimeWidgetBase"
-msgstr ""
-
-#: libgui/HMSTimeWidgetBase.uic.cpp:67
-msgid " h"
-msgstr ""
-
-#: libgui/HMSTimeWidgetBase.uic.cpp:68
-msgid " min"
-msgstr ""
-
-#: libgui/HMSTimeWidgetBase.uic.cpp:69 plugins/record/RecordDlg.uic.cpp:632
-#: plugins/record/RecordDlg.uic.cpp:633
-msgid " sec"
-msgstr ""
-
 #: libgui/ConfirmCancelProxy.cpp:50
 msgid "Do you really want to abort the current action?"
 msgstr ""
@@ -904,8 +813,7 @@ msgstr ""
 msgid "(%1%) %2"
 msgstr ""
 
-#: libgui/FileProgress.cpp:334 plugins/record/RecordDlg.uic.cpp:655
-#: plugins/record/RecordDialog.cpp:246
+#: libgui/FileProgress.cpp:334 plugins/record/RecordDialog.cpp:246
 msgid "%1 samples"
 msgstr ""
 
@@ -1050,7 +958,7 @@ msgid ""
 "characters!"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:69 plugins/fileinfo/FileInfoDlg.uic.cpp:767
+#: libkwave/FileInfo.cpp:69
 msgid "Compression"
 msgstr ""
 
@@ -1149,7 +1057,7 @@ msgid ""
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:79
+#: libkwave/FileInfo.cpp:112
 msgid "Keywords"
 msgstr ""
 
@@ -1303,8 +1211,7 @@ msgid ""
 "Example: 'Kwave v0.6.4-1'"
 msgstr ""
 
-#: libkwave/FileInfo.cpp:177 plugins/fileinfo/FileInfoDlg.uic.cpp:837
-#: plugins/record/RecordDlg.uic.cpp:650 plugins/record/RecordDlg.uic.cpp:656
+#: libkwave/FileInfo.cpp:177
 msgid "Source"
 msgstr ""
 
@@ -1355,7 +1262,6 @@ msgid "Track of the CD if the source was a CDROM."
 msgstr ""
 
 #: libkwave/FileInfo.cpp:199
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:172
 msgid "Base Quality"
 msgstr ""
 
@@ -2002,7 +1908,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: libkwave/WindowFunction.cpp:54 plugins/fileinfo/FileInfoDlg.uic.cpp:782
+#: libkwave/WindowFunction.cpp:54
 msgid "None"
 msgstr ""
 
@@ -2074,124 +1980,16 @@ msgstr ""
 msgid "silence"
 msgstr ""
 
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:164
-msgid "Pitch Shift"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:166
-#: plugins/band_pass/BandPassDlg.uic.cpp:154
-#: plugins/lowpass/LowPassDlg.uic.cpp:146
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:170
-msgid "F1"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:167
-#: plugins/pitch_shift/PitchShiftDialog.cpp:317
-#: plugins/band_pass/BandPassDlg.uic.cpp:155
-#: plugins/band_pass/BandPassDialog.cpp:186
-#: plugins/lowpass/LowPassDlg.uic.cpp:147
-#: plugins/lowpass/LowPassDialog.cpp:160
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:171
-#: plugins/notch_filter/NotchFilterDialog.cpp:190
-msgid "&Listen"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:168
-#: plugins/band_pass/BandPassDlg.uic.cpp:156
-#: plugins/lowpass/LowPassDlg.uic.cpp:148
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:172
-msgid "Alt+L"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:169
-#: plugins/band_pass/BandPassDlg.uic.cpp:157
-#: plugins/lowpass/LowPassDlg.uic.cpp:149
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:173
-msgid "start/stop pre-listening"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:170
-#: plugins/band_pass/BandPassDlg.uic.cpp:158
-#: plugins/lowpass/LowPassDlg.uic.cpp:150
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:174
-msgid ""
-"Start or stop the pre-listening of the current settings. If pre-listening is "
-"enabled, you will nearly immediately hear any change in the selected "
-"parameters."
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:175
-msgid "Frequency:"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:176
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:180
-msgid "chopper frequency"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:177
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:181
-msgid ""
-"<b>chopper frequency</b><br>This setting determines how small the pieces of "
-"audio data are before they get processed by the pitch shift. If your audio "
-"data sounds interrupted, you might get better result with higher values."
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:178
-msgid "Speed:"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:179
-#: plugins/band_pass/BandPassDlg.uic.cpp:151
-#: plugins/lowpass/LowPassDlg.uic.cpp:140
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:151
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:164
-msgid " Hz"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:182
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:183
-msgid "Speed"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:184
-#: plugins/volume/VolumeDlg.uic.cpp:151
-msgid "Mode"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:185
-msgid "by Percentage"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:186
-msgid "change speed by percentage"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:187
-msgid ""
-"Sets the speed to a relative percentage of the original speed. \n"
-"For example: \"50 %\", \"75%\" or \"125%\""
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:189
-msgid "by Factor"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:190
-msgid "change speed by a factor"
-msgstr ""
-
-#: plugins/pitch_shift/PitchShiftDlg.uic.cpp:191
-msgid ""
-"Increments or decrements the speed by a factor. \n"
-"For example: \"x1\", \"x2\", \"/ 4\""
-msgstr ""
-
 #: plugins/pitch_shift/PitchShiftDialog.cpp:313
-#: plugins/band_pass/BandPassDialog.cpp:182
 #: plugins/lowpass/LowPassDialog.cpp:156
 #: plugins/notch_filter/NotchFilterDialog.cpp:186
 msgid "&Stop"
+msgstr ""
+
+#: plugins/pitch_shift/PitchShiftDialog.cpp:317
+#: plugins/lowpass/LowPassDialog.cpp:160
+#: plugins/notch_filter/NotchFilterDialog.cpp:190
+msgid "&Listen"
 msgstr ""
 
 #: plugins/pitch_shift/PitchShiftPlugin.cpp:41
@@ -2358,71 +2156,8 @@ msgstr ""
 msgid "authors"
 msgstr ""
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:154
-msgid "About Kwave"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:155
-msgid "<h1>Kwave - a sound editor for KDE</h1>"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:156
-msgid ""
-" <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
-"h2><br>\n"
-"With Kwave you can edit many sorts of \n"
-"wav-files including multi-channel files. \n"
-"You are able to alter and play back each \n"
-"channel on its own.<br>\n"
-"Kwave also includes many plugins (most \n"
-"are still under development) to transform \n"
-"the wave-file in several ways and presents \n"
-"a graphical view with a complete zoom- \n"
-"and scroll capability."
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:167
-msgid "Authors"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:168
-msgid "Thanks To"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:170
-msgid "Plugins found:"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:171
-msgid "Plugins info"
-msgstr ""
-
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:172
-msgid "License agreement"
-msgstr ""
-
 #: plugins/noise/NoisePlugin.cpp:49
 msgid "noise"
-msgstr ""
-
-#: plugins/band_pass/BandPassDlg.uic.cpp:150
-msgid "Band Pass"
-msgstr ""
-
-#: plugins/band_pass/BandPassDialog.cpp:54
-#: plugins/lowpass/LowPassDialog.cpp:54
-#: plugins/notch_filter/NotchFilterDialog.cpp:57
-msgid "Hz"
-msgstr ""
-
-#: plugins/band_pass/BandPassDialog.cpp:59
-#: plugins/lowpass/LowPassDialog.cpp:59
-#: plugins/notch_filter/NotchFilterDialog.cpp:62
-msgid "dB"
-msgstr ""
-
-#: plugins/band_pass/BandPassPlugin.cpp:124
-msgid "band_pass"
 msgstr ""
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:44
@@ -2502,21 +2237,14 @@ msgstr ""
 msgid "decoder_mp3"
 msgstr ""
 
-#: plugins/lowpass/LowPassDlg.uic.cpp:135
-msgid "Low Pass"
+#: plugins/lowpass/LowPassDialog.cpp:54
+#: plugins/notch_filter/NotchFilterDialog.cpp:57
+msgid "Hz"
 msgstr ""
 
-#: plugins/lowpass/LowPassDlg.uic.cpp:136
-#: plugins/lowpass/LowPassDlg.uic.cpp:141
-msgid "cutoff frequency"
-msgstr ""
-
-#: plugins/lowpass/LowPassDlg.uic.cpp:137
-#: plugins/lowpass/LowPassDlg.uic.cpp:142
-msgid ""
-"<b>cutoff frequency</b>\n"
-"Determines the highest audible frequency, higher\n"
-"frequencies will be cut off."
+#: plugins/lowpass/LowPassDialog.cpp:59
+#: plugins/notch_filter/NotchFilterDialog.cpp:62
+msgid "dB"
 msgstr ""
 
 #: plugins/lowpass/LowPassPlugin.cpp:39
@@ -2525,380 +2253,6 @@ msgstr ""
 
 #: plugins/lowpass/LowPassPlugin.cpp:107
 msgid "low pass"
-msgstr ""
-
-#: plugins/fileinfo/SelectDateDlg.uic.cpp:78
-msgid "Select Date"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:740
-msgid "File Info"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:741
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:742
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:743
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:745
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:746
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:747
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:762
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:763
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:765
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:772
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:777
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:779
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:780
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:785
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:786
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:812
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:817
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:818
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:819
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:820
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:821
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:829
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:830
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:831
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:832
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:833
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:834
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:835
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:836
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:838
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:839
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:840
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:841
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:842
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:843
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:844
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:845
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:847
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:848
-msgid "#"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:744
-#: plugins/record/RecordDlg.uic.cpp:641
-#: plugins/newsignal/NewSigDlg.uic.cpp:313
-#: plugins/newsignal/NewSigDlg.uic.cpp:332
-msgid "%1"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:748
-#: plugins/record/RecordDlg.uic.cpp:648
-#: plugins/newsignal/NewSigDlg.uic.cpp:312
-msgid "bit"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:750
-#: plugins/newsignal/NewSigDlg.uic.cpp:296
-msgid "8000"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:751
-#: plugins/newsignal/NewSigDlg.uic.cpp:297
-msgid "10000"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:752
-#: plugins/newsignal/NewSigDlg.uic.cpp:298
-msgid "11025"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:753
-#: plugins/newsignal/NewSigDlg.uic.cpp:299
-msgid "12000"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:754
-#: plugins/newsignal/NewSigDlg.uic.cpp:300
-msgid "16000"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:755
-#: plugins/newsignal/NewSigDlg.uic.cpp:301
-msgid "22050"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:756
-#: plugins/newsignal/NewSigDlg.uic.cpp:302
-msgid "32000"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:757
-#: plugins/newsignal/NewSigDlg.uic.cpp:303
-msgid "44100"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:758
-#: plugins/newsignal/NewSigDlg.uic.cpp:304
-msgid "48000"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:759
-#: plugins/newsignal/NewSigDlg.uic.cpp:305
-msgid "96000"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:761
-#: plugins/record/RecordDlg.uic.cpp:637
-#: plugins/newsignal/NewSigDlg.uic.cpp:309
-msgid "samples per second"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:766
-msgid "Encoding Mode:"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:769
-msgid "MPEG Version 1 (ISO/IEC 11172-3)"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:770
-msgid "MPEG Version 2 (ISO/IEC 13818-3)"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:771
-msgid "MPEG Version 2.5 (unofficial)"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:774
-msgid "Layer I"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:775
-msgid "Layer II"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:776
-msgid "Layer III"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:778
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:815
-#: plugins/fileinfo/FileInfoDialog.cpp:400
-#: plugins/fileinfo/FileInfoDialog.cpp:406
-msgid "yes"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:783
-msgid "50/15ms"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:784
-msgid "CCIT J.17"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:788
-msgid "(variable)"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:789
-msgid "8K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:790
-msgid "16K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:791
-msgid "24K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:792
-msgid "32K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:793
-msgid "40K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:794
-msgid "56K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:795
-msgid "64K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:796
-msgid "80K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:797
-msgid "96K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:798
-msgid "112K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:799
-msgid "128K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:800
-msgid "144K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:801
-msgid "160K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:802
-msgid "176K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:803
-msgid "192K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:804
-msgid "224K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:805
-msgid "256K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:806
-msgid "288K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:807
-msgid "320K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:808
-msgid "352K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:809
-msgid "384K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:810
-msgid "416K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:811
-msgid "448K"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:813
-msgid "Intensity Stereo"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:814
-msgid "MS Stereo"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:816
-msgid "MPEG"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:822
-msgid "&Select..."
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:823
-msgid "Select a date from the calendar."
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:824
-msgid "Opens a dialog for selecting a date from the calendar."
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:825
-msgid "&Today"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:826
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:827
-msgid "Set the date to today."
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:828
-msgid "Content"
-msgstr ""
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:846
-msgid "Author/Copyright"
-msgstr ""
-
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
-msgid "A&uto"
-msgstr ""
-
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
-msgid "auto-generate keywords"
-msgstr ""
-
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:84
-msgid ""
-"<b>Auto-Generate Keywords</b><br>\n"
-"Create a list of keywords by going through all present file informations and "
-"merge them with the current list of keywords."
-msgstr ""
-
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:86
-msgid "List of keywords."
-msgstr ""
-
-#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:64
-#: plugins/newsignal/NewSigDlg.uic.cpp:293
-msgid "Form1"
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:156
-msgid "CompressionWidgetBase"
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:158
-msgid "ABR:"
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:159
-msgid "Average Bitrate Mode"
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:160
-msgid ""
-"<b>Average Bitrate Mode</b><br>\n"
-"Bitrate is set to an average value, \n"
-"with optional upper and lower limit."
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:163
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:171
-msgid "lowest"
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:164
-msgid "VBR:"
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:165
-msgid "Variable Bitrate Mode"
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:166
-msgid ""
-"<b>Variable Bitrate Mode</b><br>\n"
-"The bitrate is selected by an average quality."
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:168
-msgid "highest"
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:169
-msgid "Nominal Bitrate"
-msgstr ""
-
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:170
-#: plugins/record/RecordDlg.uic.cpp:622
-msgid " %"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDialog.cpp:143
@@ -2946,6 +2300,10 @@ msgid ""
 "You can add or delete tracks via the Edit menu."
 msgstr ""
 
+#: plugins/fileinfo/FileInfoDialog.cpp:209
+msgid "Length"
+msgstr ""
+
 #: plugins/fileinfo/FileInfoDialog.cpp:212
 msgid ""
 "Shows the length of the file in samples\n"
@@ -2974,6 +2332,11 @@ msgstr ""
 
 #: plugins/fileinfo/FileInfoDialog.cpp:372
 msgid "bands 16 to 31"
+msgstr ""
+
+#: plugins/fileinfo/FileInfoDialog.cpp:400
+#: plugins/fileinfo/FileInfoDialog.cpp:406
+msgid "yes"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDialog.cpp:400
@@ -3026,15 +2389,6 @@ msgstr ""
 
 #: plugins/selectrange/SelectRangePlugin.cpp:147
 msgid "select range"
-msgstr ""
-
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:88
-msgid "Select Range..."
-msgstr ""
-
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:90
-#: plugins/newsignal/NewSigDlg.uic.cpp:334
-msgid "O&K"
 msgstr ""
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:57
@@ -3094,36 +2448,6 @@ msgstr ""
 msgid "codec_audiofile"
 msgstr ""
 
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:150
-msgid "Notch Filter"
-msgstr ""
-
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:152
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:156
-msgid "center frequency"
-msgstr ""
-
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:153
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:157
-msgid ""
-"<b>center frequency</b>\n"
-"Determines the center of the frequency range that\n"
-"should be removed."
-msgstr ""
-
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:160
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:165
-msgid "bandwidth"
-msgstr ""
-
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:161
-#: plugins/notch_filter/NotchFilterDlg.uic.cpp:166
-msgid ""
-"<b>bandwidth</b>\n"
-"Determines the width of the frequency range that\n"
-"should be removed."
-msgstr ""
-
 #: plugins/notch_filter/NotchFilterPlugin.cpp:120
 msgid "notch_filter"
 msgstr ""
@@ -3144,260 +2468,8 @@ msgstr ""
 msgid "amplify free"
 msgstr ""
 
-#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:101
-msgid "Amplify Free"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:166
-msgid "Memory Settings"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:167
-msgid "&Physical Memory"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:168
-msgid ""
-"<b>Limit the usage of physical memory (RAM).</b><br>\n"
-"\n"
-"If you do not set a limit, the size of the physically installed memory in "
-"your computer will be determined and used as limit. You cannot set a limit "
-"higher than the totally installed amount of memory."
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:171
-msgid "Limit &to"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:172 plugins/memory/MemDlg.uic.cpp:187
-msgid " MB"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:173
-msgid "megabytes of physical memory"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:174
-msgid "&Virtual Memory"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:175
-msgid ""
-"<b>Configure the usage of virtual memory (swap files).</b><br>\n"
-"\n"
-"If you enable the use of virtual memory, you can specify a directory where "
-"Kwave creates temporary files that it can use as an extension to the "
-"physical memory. This enables you to process files that are much larger than "
-"your physical memory.\n"
-"<br>\n"
-"    Of course you can also set a limit for the total size of the page files."
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:180
-msgid "&Enable usage of virtual memory"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:181
-msgid "Directory:"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:182
-msgid "/tmp"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:183
-msgid "directory for storing swap files"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:184
-msgid "&Search..."
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:185
-msgid "browse for a directory to hold page files"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:186
-msgid "&Limit to"
-msgstr ""
-
-#: plugins/memory/MemDlg.uic.cpp:188
-msgid "megabytes of virtual memory"
-msgstr ""
-
 #: plugins/memory/MemoryPlugin.cpp:37
 msgid "memory"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:612
-msgid "Record"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:613
-msgid "Record Control"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:614
-msgid "Pre-Record:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:615
-msgid "Record Time:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:616
-msgid "Record Trigger:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:621
-msgid " s"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:623
-msgid "Recording"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:624 plugins/record/RecordDlg.uic.cpp:634
-msgid "Level"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:625
-msgid "AGC:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:626
-msgid "Amplify:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:627
-msgid " dB"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:628
-msgid " ms"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:629
-msgid "Fading"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:630
-msgid "Fade In"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:631
-msgid "Fade Out"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:635 plugins/record/RecordDlg.uic.cpp:649
-#: plugins/newsignal/NewSigDlg.uic.cpp:294
-msgid "Format"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:636
-msgid ""
-"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
-"sample rates that your sound card supports."
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:638
-#: plugins/newsignal/NewSigDlg.uic.cpp:308
-msgid "Sample Rate:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:639
-#: plugins/newsignal/NewSigDlg.uic.cpp:310
-msgid "Tracks:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:640
-msgid ""
-"<b>Number of Tracks</b><br>Select a number of tracks, e.g. for mono or "
-"stereo recording."
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:642
-msgid "Compression:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:643
-msgid ""
-"<b>Compression</b><br>Here you can select one of the compression types if "
-"your audio hardware supports it."
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:644
-msgid ""
-"<b>Sample Format</b><br>Here you can select one of the sample formats that "
-"your audio hardware supports. This normally has no big influence on the "
-"result, so you can just leave it as it is."
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:645
-msgid "Sample Format:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:646
-msgid ""
-"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
-"recorded. Higher values give better quality but also more system load."
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:647
-#: plugins/newsignal/NewSigDlg.uic.cpp:311
-msgid "Resolution:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:651
-msgid "Device:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:652
-msgid "Select..."
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:653
-msgid "Buffer Count:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:654
-msgid "Buffer Size:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:657
-msgid "Visualization"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:658
-msgid "Level Meter"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:659
-msgid "Oscilloscope"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:660
-msgid "FFT"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:661
-msgid "Overview"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:662
-msgid "Display"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:663
-msgid "Level:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:664
-msgid "Buffer:"
-msgstr ""
-
-#: plugins/record/RecordDlg.uic.cpp:667
-msgid "STATE"
 msgstr ""
 
 #: plugins/record/RecordDialog.cpp:256
@@ -3490,7 +2562,7 @@ msgstr ""
 
 #: plugins/record/RecordPlugin.cpp:411
 msgid ""
-"Setting the resolution %1 bits per sample failed, using %2 bits per sample "
+"Setting the resolution % bits per sample failed, using %2 bits per sample "
 "instead."
 msgstr ""
 
@@ -3530,53 +2602,6 @@ msgstr ""
 
 #: plugins/volume/VolumePlugin.cpp:114
 msgid "volume"
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:148 plugins/volume/VolumeDlg.uic.cpp:164
-#: plugins/volume/VolumeDlg.uic.cpp:165
-msgid "Volume"
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:152
-msgid "&Factor"
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:153
-msgid "change volume by factor"
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:154
-msgid ""
-"Increments or decrements the volume by a factor. \n"
-"For example: \"x1\", \"x2\", \"/ 4\""
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:156
-msgid "&Percentage"
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:157
-msgid "change volume by percentage"
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:158
-msgid ""
-"Sets the volume to a relative percentage of the original level. \n"
-"For example: \"50 %\", \"75%\" or \"125%\""
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:160
-msgid "&Logarithmic"
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:161
-msgid "change volume in dB"
-msgstr ""
-
-#: plugins/volume/VolumeDlg.uic.cpp:162
-msgid ""
-"Increments or decrements the volume in logarithmic scale (decibel). \n"
-"For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 msgstr ""
 
 #: plugins/codec_ogg/OggEncoder.cpp:159
@@ -3867,57 +2892,6 @@ msgstr ""
 msgid ""
 "The required aRts function is not yet implemented. Maybe you should get a "
 "newer version of aRts or upgrade the kdelibs package."
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:307
-msgid ""
-"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
-"sample rates or you can enter any sample rate on your own."
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:314
-msgid ""
-"<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
-"you are not sure now, you can add or delete tracks later in the program."
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:315
-msgid ""
-"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
-"saved. However, Kwave always uses 24 bits as it's own internal resolution to "
-"give the best results when processing the audio data."
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:318
-msgid "Time"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:319
-msgid "select this to set the length of the file by time"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:320
-msgid "Samples"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:321
-msgid "select this to enter the number of samples directly"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:325
-msgid "minimum"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:326
-msgid "(file size)"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:327
-msgid "maximum"
-msgstr ""
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:328
-msgid "sets the file size by the percentage of the possible maximum"
 msgstr ""
 
 #: plugins/newsignal/NewSignalDialog.cpp:349

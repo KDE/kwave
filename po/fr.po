@@ -1,25 +1,33 @@
+# translation of fr.po to 
 # translation of fr.po to Deutsch
 # translation of fr.po to Français
 # translation of fr.po to FRANCAIS
 # translation of fr.po to Française
 # Copyright (C) 2003, 2004 Free Software Foundation, Inc.
+# Caulier Gilles <caulier dot gilles at free.fr>, 2004.
+# Caulier Gilles <caulier dot gilles at free.fr>, 2004.
+# Caulier Gilles <caulier dot gilles at free.fr>, 2004.
+# Caulier Gilles <caulier dot gilles at free.fr>, 2004.
+# Caulier Gilles <caulier dot gilles at free.fr>, 2004.
+# Caulier Gilles <caulier dot gilles at free.fr>, 2004.
 # Gilles CAULIER <caulier.gilles@free.fr>, 2003.
 # CAULIER Gilles <caulier.gilles@free.fr>, 2003.
 # Gilles Caulier <caulier.gilles@free.fr>, 2003.
 # Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>, 2004.
+# Caulier Gilles <caulier dot gilles at free.fr>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-05-12 08:09+0200\n"
-"PO-Revision-Date: 2004-05-12 08:32+0200\n"
-"Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
-"Language-Team: Deutsch <de@li.org>\n"
+"PO-Revision-Date: 2004-06-15 17:14+0200\n"
+"Last-Translator: Caulier Gilles <caulier dot gilles at free.fr>\n"
+"Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.3\n"
 
 #: kwave/menus_config_i18n.cpp:13
 msgid "About &KDE"
@@ -2312,7 +2320,6 @@ msgid "pitch shift"
 msgstr "décalage fréquentiel"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:183
-#, fuzzy
 msgid "Set FFT/time resolution parameters"
 msgstr "Paramètres de la résolution de la FFT / temps"
 
@@ -2320,9 +2327,8 @@ msgstr "Paramètres de la résolution de la FFT / temps"
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:855 plugins/memory/MemDlg.uic.cpp:189
 #: plugins/record/RecordDlg.uic.cpp:663
 #: plugins/newsignal/NewSigDlg.uic.cpp:335
-#, fuzzy
 msgid "Alt+H"
-msgstr "Alt+L"
+msgstr "Alt+H"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:190
 msgid "display"
@@ -2421,17 +2427,14 @@ msgstr "4096"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:218
 #: plugins/sonagram/SonagramDlg.uic.cpp:221
-#, fuzzy
 msgid ""
 "<b>Number of FFT points:</b><p></p>Try to choose numbers with small prime-"
 "factors,<br>\n"
 "if choosing big window sizes.<br>\n"
 "The computation will be much faster !"
 msgstr ""
-"si vous choisissez une grande taille de fenêtre, essayer de choisir des "
-"nombres\n"
-"avec des facteurs de premier ordre de faible valeur. Les calculs seront "
-"alors plus rapides !"
+"<b>Nombre de points pour la FFT:</b><p></p>si vous choisissez une grande taille de fenêtre, <br>\nessayer de choisir des nombres avec des facteurs de premier ordre de faible valeur. <br>\n"
+"Les calculs seront alors plus rapides !"
 
 #: plugins/sonagram/SonagramDlg.uic.cpp:224
 #: plugins/sonagram/SonagramDlg.uic.cpp:225
@@ -2530,7 +2533,6 @@ msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr "<h1>Kwave - Un éditeur de sons pour KDE</h1>"
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:165
-#, fuzzy
 msgid ""
 "<h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
 "h2><br>\n"
@@ -2548,11 +2550,12 @@ msgstr ""
 "KDE.</h2><br>\n"
 "Avec Kwave vous pouvez éditer plusieurs types de fichiers sonores\n"
 "y compris les fichiers audio multicanaux. Vous pouvez aussi modifier et\n"
-"rejouer chaque piste de manière indépendante. Kwave propose une\n"
-"interface graphique avec entre autre des fonctions de zoom et de défilement."
+"rejouer chaque piste de manière indépendante. "
 "<br>\n"
 "Kwave inclut aussi beaucoup de modules externes pour transformer les\n"
-"fichiers audio. Un grand nombre sont cependant en cours de développement."
+"fichiers audio. Un grand nombre sont cependant en cours de développement.\n"
+"Kwave propose une interface graphique avec entre autre des fonctions de zoom\n"
+"et de défilement."
 
 #: plugins/about/KwaveAboutDialogBase.uic.cpp:176
 msgid "Authors"
@@ -3023,9 +3026,8 @@ msgid "Author/Copyright"
 msgstr "Auteur et droits d'auteur"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:857
-#, fuzzy
 msgid "Alt+O"
-msgstr "Alt+L"
+msgstr "Alt+O"
 
 #: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
 msgid "A&uto"
@@ -3489,9 +3491,8 @@ msgid "Pre-Record:"
 msgstr "Pré-enregistrement :"
 
 #: plugins/record/RecordDlg.uic.cpp:602
-#, fuzzy
 msgid "enable pre-recording"
-msgstr "pré-enregistrement..."
+msgstr "activer le pré-enregistrement"
 
 #: plugins/record/RecordDlg.uic.cpp:603
 msgid ""
@@ -3506,15 +3507,16 @@ msgid "Record Time:"
 msgstr "Durée de l'enregistrement :"
 
 #: plugins/record/RecordDlg.uic.cpp:605
-#, fuzzy
 msgid "Limit the recording time"
-msgstr "Démarrer l'enregi&strement"
+msgstr "Limiter le temps d'enregistrement"
 
 #: plugins/record/RecordDlg.uic.cpp:606
 msgid ""
 "If checked, the <b>record time</b> is limited and recording will "
 "automatically stop when the selected time is reached."
 msgstr ""
+"Si cette option est activée; le <b>temps d'enregistrement</b> sera limité et l'enregistrement "
+"sera automatiquement arrêter quand la durée choisi sera dépassée."
 
 #: plugins/record/RecordDlg.uic.cpp:607
 msgid "Record Trigger:"
@@ -3522,7 +3524,7 @@ msgstr "Seuil d'enregistrement :"
 
 #: plugins/record/RecordDlg.uic.cpp:608
 msgid "trigger level"
-msgstr ""
+msgstr "niveau du seuil"
 
 #: plugins/record/RecordDlg.uic.cpp:609
 msgid ""
@@ -3535,14 +3537,12 @@ msgid "Stop Recording"
 msgstr "Arrêter l'enregistrement"
 
 #: plugins/record/RecordDlg.uic.cpp:615
-#, fuzzy
 msgid "Pause/Continue"
-msgstr "&Continuer"
+msgstr "Pause / Continuer"
 
 #: plugins/record/RecordDlg.uic.cpp:617
-#, fuzzy
 msgid "Record!"
-msgstr "Enregistrer"
+msgstr "Enregistrer !"
 
 #: plugins/record/RecordDlg.uic.cpp:618
 msgid " s"
@@ -4269,9 +4269,8 @@ msgstr ""
 "une nouvelle version du serveur aRts ou du paquetage « kdelibs »."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:294
-#, fuzzy
 msgid "New Signal"
-msgstr "nouveau signal audio"
+msgstr "Nouveau signal audio"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:308
 msgid ""
@@ -4343,319 +4342,4 @@ msgstr "(Taille du fichier cible : %1 Mo)"
 #: plugins/newsignal/NewSignalPlugin.cpp:33
 msgid "newsignal"
 msgstr "nouveau signal audio"
-
-#~ msgid "Frequency parameter"
-#~ msgstr "Paramètre pour la fréquence"
-
-#~ msgid "no limit"
-#~ msgstr "aucune limite"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "&to end"
-#~ msgstr "&A la fin"
-
-#~ msgid "as number of samples"
-#~ msgstr "comme nombre d'échantillons"
-
-#~ msgid "in ms"
-#~ msgstr "en ms"
-
-#~ msgid "in kb"
-#~ msgstr "en ko"
-
-#~ msgid "Artist"
-#~ msgstr "Artiste"
-
-#~ msgid ""
-#~ "Lists the artist of the original subject of the file.\n"
-#~ "Example: 'van Beethoven, Ludwig'"
-#~ msgstr ""
-#~ "Affiche l'artiste qui identifie le fichier.\n"
-#~ "Exemple : «van Beethoven, Ludwig»"
-
-#~ msgid ""
-#~ "Specifies the date the subject of the file was created. List dates in "
-#~ "year-month-day format, padding one-digit months and days with a zero on "
-#~ "the left (ISO format).\n"
-#~ "Example: '2001-12-24'"
-#~ msgstr ""
-#~ "Specifie la date de création du fichier. La date doit être au format ISO "
-#~ "sous la forme «année-mois-jour».\n"
-#~ "Exemple: «2001-12-24»."
-
-#~ msgid "Selected: %1 (%2 samples)"
-#~ msgstr "Sélection %1 (%2 échantillons)"
-
-#~ msgid "Save resol&ution"
-#~ msgstr "Résol&ution de sauvegarde"
-
-#~ msgid "&Ok"
-#~ msgstr "&Ok"
-
-#~ msgid "Choose labeling criteria"
-#~ msgstr "Choisir un critére de Labellisation"
-
-#~ msgid "Start label:"
-#~ msgstr "Label de départ :"
-
-#~ msgid "Stop label:"
-#~ msgstr "Label de fin :"
-
-#~ msgid "Length of silence:"
-#~ msgstr "Longueur du silence :"
-
-#~ msgid ""
-#~ "this is the timespan below the defined sound level\n"
-#~ "that is assumed to separate two signals ..."
-#~ msgstr ""
-#~ "ceci est la largeur de temps entre les niveaux sonores définis\n"
-#~ "Cela permet de séparer deux signaux..."
-
-#~ msgid "Max. silence level in %"
-#~ msgstr "Niveau maximum du silence en %"
-
-#~ msgid "Select Function :"
-#~ msgstr "Selectionner une fonction :"
-
-#~ msgid "Freq. in Hz"
-#~ msgstr "Freq. en Hz"
-
-#~ msgid "Ampl. in %"
-#~ msgstr "Ampl. en %"
-
-#~ msgid "&Power"
-#~ msgstr "&Puissance"
-
-#~ msgid "&Phase"
-#~ msgstr "&Phase"
-
-#~ msgid "&Multipliers"
-#~ msgstr "&Multiplicateur"
-
-#~ msgid "e&numerate"
-#~ msgstr "é&numération"
-
-#~ msgid "&prime"
-#~ msgstr "&premier"
-
-#~ msgid "&fibonacci"
-#~ msgstr "&fibonacci"
-
-#~ msgid "&max"
-#~ msgstr "&max"
-
-#~ msgid "&db/octave"
-#~ msgstr "&db/octave"
-
-#~ msgid "&Sinus"
-#~ msgstr "&Sinusoïdal"
-
-#~ msgid "&random"
-#~ msgstr "&aléatoire"
-
-#~ msgid "&sinus"
-#~ msgstr "&sinusoïdal"
-
-#~ msgid "&Reset all"
-#~ msgstr "&Réinitialiser tout"
-
-#~ msgid "Multiply :"
-#~ msgstr "Multiplicateur :"
-
-#~ msgid "Phase in degree:"
-#~ msgstr "Phase en degrée :"
-
-#~ msgid "Power in %:"
-#~ msgstr "Puissance en % :"
-
-#~ msgid "Calculate"
-#~ msgstr "Calculer"
-
-#~ msgid "# of :"
-#~ msgstr "# de :"
-
-#~ msgid "Choose dB/octave"
-#~ msgstr "Choisir les dB/octave"
-
-#~ msgid "Choose new virtual resolution"
-#~ msgstr "Choisir une nouvelle résolution virtuelle"
-
-#~ msgid "Number of quantisation steps"
-#~ msgstr "Nombre de pas pour la numérisation"
-
-#~ msgid "Choose fading degree :"
-#~ msgstr "Choisir un degré d'affaiblissement :"
-
-#~ msgid "Choose filter parameters:"
-#~ msgstr "Choisir les paramètres d'un filtre :"
-
-#~ msgid "&save filter"
-#~ msgstr "&sauvegarder un filtre"
-
-#~ msgid "resulting changes in spectrum"
-#~ msgstr "résultats des modifications dans le spectre"
-
-#~ msgid "resulting changes in phase"
-#~ msgstr "résultats des modifications dans la phase"
-
-#~ msgid "Use normal filtering, e.g. the impulse response is finite !"
-#~ msgstr "Utiliser un filtre normal, tel que la réponse d'impulsion bornée !"
-
-#~ msgid "&IIR"
-#~ msgstr "&IIR"
-
-#~ msgid ""
-#~ "Use recursive filtering, e.g. the impulse response could be infinite !"
-#~ msgstr ""
-#~ "utiliser un filtre récursif, tel que la réponse d'impulsion infinie !"
-
-#~ msgid ""
-#~ "Number of filter coefficients\n"
-#~ " Keep this low and you won't need any coffee break..."
-#~ msgstr ""
-#~ "Nombre de coefficients du filtre important\n"
-#~ " Cette opération est longue. Prennez un café..."
-
-#~ msgid "Choose window type and length :"
-#~ msgstr "Choisir le type et la largeur d'une fenêtre :"
-
-#~ msgid "Length of window :"
-#~ msgstr "Largeur de la fenêtre : "
-
-#~ msgid "Choose windowing function here."
-#~ msgstr "Choisir la fonction de la fenêtre ici."
-
-#~ msgid "Choose New Rate :"
-#~ msgstr "Choisir un nouveau taux :"
-
-#~ msgid "Rate in Hz :"
-#~ msgstr "Taux en Hz :"
-
-#~ msgid "Enter length :"
-#~ msgstr "Saisissez la largeur :"
-
-#~ msgid "Time :"
-#~ msgstr "Temps :"
-
-#~ msgid "Choose new label type"
-#~ msgstr "Choisir un nouveau type de label"
-
-#~ msgid "individual name for each label"
-#~ msgstr "un nom individuel pour chaque label"
-
-#~ msgid "From"
-#~ msgstr "de"
-
-#~ msgid "to"
-#~ msgstr "à"
-
-#~ msgid "Ok"
-#~ msgstr "Ok"
-
-#~ msgid "could not open file !\n"
-#~ msgstr "Impossible d'ouvrir le fichier !\n"
-
-#~ msgid "file %s does not exist!\n"
-#~ msgstr "le fichier %s n'existe pas !\n"
-
-#~ msgid "Choose Length and Rate :"
-#~ msgstr "Choisir la largeur et le taux :"
-
-#~ msgid "Delay :"
-#~ msgstr "Retard :"
-
-#~ msgid "Amplitude of delayed signal :50 %"
-#~ msgstr "Amplitude du signal retardé : 50%"
-
-#~ msgid "do recursive delaying"
-#~ msgstr "faire un retard récurssif"
-
-#~ msgid "Amplitude of delayed signal :%d %%"
-#~ msgstr "Amplitude du signal retardé : %d %%"
-
-#~ msgid "Choose Labels to be used for dividing signal:"
-#~ msgstr "Choisir des Labels qui seront utilisés pour un signal divisé :"
-
-#~ msgid "Base name:"
-#~ msgstr "Nom :"
-
-#~ msgid "Choose Parameters :"
-#~ msgstr "Choisir les paramètres :"
-
-#~ msgid "# of Filter Taps :"
-#~ msgstr "# of Filter Taps :"
-
-#~ msgid "Filter Type :"
-#~ msgstr "Type de filtre :"
-
-#~ msgid "Highpass filter"
-#~ msgstr "Filtre passe-haut"
-
-#~ msgid "Select frequency range :"
-#~ msgstr "Sélectionner une plage de fréquences :"
-
-#~ msgid "Highest Freq. in Hz"
-#~ msgstr "Fréquence haute en Hz"
-
-#~ msgid "Lowest Freq. in Hz"
-#~ msgstr "Fréquence basse en HZ"
-
-#~ msgid "avoid octave jumps with twiddle factor"
-#~ msgstr "eviter les sauts d'octave avec un facteur tournant"
-
-#~ msgid "Enter a value"
-#~ msgstr "Saisissez une valeur"
-
-#~ msgid "Length of pulse :"
-#~ msgstr "Largeur de l'impulsion :"
-
-#~ msgid "Select label types to be saved :"
-#~ msgstr "Sélectionnez le type de label à sauvegarder :"
-
-#~ msgid "Choose Envelope Parameters"
-#~ msgstr "Choisir les paramètres de l'enveloppe"
-
-#~ msgid "Points are taken 20 times/s"
-#~ msgstr "Les points prennent 20 unités de temps par secondes"
-
-#~ msgid "Type of Interpolation :"
-#~ msgstr "Type d'interpolation :"
-
-#~ msgid "Points are taken %d.%01d times/s"
-#~ msgstr "Les points prennent %d.%01d unités de temps par secondes"
-
-#~ msgid "Set Length of Gap & Signal"
-#~ msgstr "Paramètre la largeur de l'intervalle et du signal"
-
-#~ msgid "length of gap"
-#~ msgstr "largeur de l'intervalle"
-
-#~ msgid "length of signal"
-#~ msgstr "largeur du signal"
-
-#~ msgid "Choose formant positions and widths :"
-#~ msgstr "choisir la forme des positions et des largeurs :"
-
-#~ msgid "Formant center in Hz:"
-#~ msgstr "Forme centrale en HZ :"
-
-#~ msgid "Number of formants:"
-#~ msgstr "Nombres de formes :"
-
-#~ msgid "mix to channel :"
-#~ msgstr "mixer au canal :"
-
-#~ msgid "use dB scale"
-#~ msgstr "utiliser une échelle en dB"
-
-#~ msgid "new"
-#~ msgstr "nouveau"
-
-#~ msgid "Channel %d :"
-#~ msgstr "Canal %d :"
-
-#~ msgid "Choose Line of distortion :"
-#~ msgstr "Choisir la ligne de distorsion :"
 

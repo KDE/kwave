@@ -30,7 +30,7 @@ rm -rf "$RPM_BUILD_ROOT"
 DESTDIR=""
 unset DESTDIR
 CONFIGURE_OPTS="--with-install-root=$RPM_BUILD_ROOT \
-	--enable-static=no --enable-shared=yes "
+	--enable-static=no --enable-shared=yes ${CONFIGURE_OPTS}"
 make -f Makefile.dist 
 
 %build -n kwave-@RPM_FULL_VERSION@

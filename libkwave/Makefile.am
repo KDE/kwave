@@ -21,6 +21,7 @@ libkwave_la_SOURCES=\
  Parser.cpp\
  Signal.cpp\
  SampleInputStream.cpp\
+ SampleLock.cpp\
  Stripe.cpp\
  Track.cpp\
  WindowFunction.cpp \

@@ -29,7 +29,7 @@ unsigned int ClipBoard::getLength()
 }
 
 //***************************************************************************
-void ClipBoard::appendChannel(Signal *channel)
+void ClipBoard::appendChannel(Signal */*channel*/)
 {
 // ###
 //    ASSERT(channel);

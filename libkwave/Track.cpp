@@ -111,7 +111,7 @@ SampleInputStream *Track::openInputStream(InsertMode mode,
 	    ASSERT(s);
 	    if (!s) return 0;
 	
-	    // add to our stripes list and lock it
+	    // append it to our stripes list and lock it
 	    m_stripes.append(s);
 	    stripe_locks.addLock(s->mutex());
 

@@ -131,9 +131,10 @@ signals:
 
     /**
      * Signals that a track has been inserted.
-     * @param track index of the new track [0...tracks()-1]
+     * @param index position of the new track [0...tracks()-1]
+     * @param track reference to the new track
      */
-    void sigTrackInserted(unsigned int track);
+    void sigTrackInserted(unsigned int index, Track &track);
 
     /**
      * Emitted if samples have been inserted into a track. This implies

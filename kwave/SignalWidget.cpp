@@ -53,20 +53,6 @@
 #define CASE_COMMAND(x) } else if (parser.command() == x) {
 
 /**
- * math.h didn't define PI :-(
- */
-#define PI 3.14159265358979323846264338327
-
-/**
- * This factor determines how many times the order is over than
- * the minimum required order. Higher values give less problems with
- * aliasing but some amplitude errors. Lower values make less
- * amplitude errors but more aliasing problems.
- * This should be a good compromise...
- */
-#define INTERPOLATION_PRECISION 4
-
-/**
  * Limits the zoom to a minimum number of samples visible in one
  * screen.
  */
@@ -84,8 +70,6 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 //    debug("SignalWidget::SignalWidget()");
     down = false;
     height = 0;
-    interpolation_alpha = 0;
-    interpolation_order = 0;
 ////    labels = 0;
     lastHeight = 0;
     lastplaypointer = -1;
@@ -125,8 +109,8 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     // connect to the track's signals
     Signal *sig = &(m_signal_manager.signal());
 
-    connect(sig, SIGNAL(sigTrackInserted(unsigned int)),
-            this, SLOT(slotTrackInserted(unsigned int)));
+    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
+            this, SLOT(slotTrackInserted(unsigned int, Track &)));
 
     connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
 	unsigned int)),
@@ -195,9 +179,6 @@ SignalWidget::~SignalWidget()
 
     if (select) delete select;
     select = 0;
-
-    if (interpolation_alpha) delete[] interpolation_alpha;
-    interpolation_alpha = 0;
 
     for (int i=0; i < 3; i++) {
 	m_layer[i] = 0;
@@ -898,262 +879,6 @@ void SignalWidget::mouseMoveEvent( QMouseEvent */*e*/ )
 //	else
 //	    setCursor(arrowCursor);
 //    }
-}
-
-//***************************************************************************
-void SignalWidget::drawOverviewSignal(int /*channel*/, int /*middle*/, int /*height*/,
-				      int /*first*/, int /*last*/)
-{
-////    debug("SignalWidget::drawOverviewSignal()");
-//
-//    float scale_y;
-//    int step, max = 0, min = 0;
-//
-//    ASSERT(signalmanage);
-//    if (!signalmanage) return;
-//
-//    // scale_y: pixels per unit
-//    scale_y = height * zoomy / (1 << 24);
-//
-//    for (int i = 0; i < width; i++) {
-//	step = m_offset + pixels2samples(i);
-//	signalmanage->getMaxMin(channel, max, min, step, pixels2samples(1));
-//	max = (int)(max * scale_y);
-//	min = (int)(min * scale_y);
-//	p.drawLine(i, middle - max, i, middle - min);
-//    }
-}
-
-//***************************************************************************
-void SignalWidget::calculateInterpolation()
-{
-    float f;
-    float Fg;
-    int k;
-    int N;
-
-//    debug("SignalWidget::calculateInterpolation()");
-
-    // remove all previous coefficents and signal buffer
-    if (interpolation_alpha != 0) {
-	delete[] interpolation_alpha;
-	interpolation_alpha = 0;
-    }
-
-    ASSERT(m_zoom != 0.0);
-    if (m_zoom == 0.0) return;
-
-    // offset: index of first visible sample (left) [0...length-1]
-    // m_zoom: number of samples / pixel
-
-    // approximate the 3dB frequency of the low pass as
-    // Fg = f_g / f_a
-    // f_a: current "sample rate" of display (pixels) = 1.0
-    // f_g: signal rate = (m_zoom/2)
-    Fg = m_zoom / 2;
-
-    // N: order of the filter, at least 2 * (1/m_zoom)
-    N = (int)(INTERPOLATION_PRECISION / m_zoom);
-    N |= 0x01;    // make N an odd number !
-
-    // allocate a buffer for the coefficients
-    interpolation_alpha = new float[N + 1];
-    interpolation_order = N;
-
-    ASSERT(interpolation_alpha);
-    if (!interpolation_alpha) return;
-
-    // calculate the raw coefficients and
-    // apply a Hamming window
-    //
-    //                    sin( (2k-N) * Pi * Fg )                       2kPi
-    // alpha_k = 2 * Fg * ----------------------- * [ 0,54 - 0,46 * cos ---- ]
-    //                      (2k - N) * Pi * Fg                            N
-    //
-    f = 0.0;    // (store the sum of all coefficients in "f")
-    for (k = 0; k <= N; k++) {
-	interpolation_alpha[k] = sin((2 * k - N) * PI * Fg) / ((2 * k - N) * PI * Fg);
-	interpolation_alpha[k] *= (0.54 - 0.46 * cos(2 * k * PI / N));
-	f += interpolation_alpha[k];
-    }
-    // norm the coefficients to 1.0 / m_zoom
-    f *= m_zoom;
-    for (k = 0; k <= N; k++)
-	interpolation_alpha[k] /= f;
-
-}
-
-//***************************************************************************
-void SignalWidget::drawInterpolatedSignal(int /*channel*/, int /*middle*/, int /*height*/)
-{
-//    register float y;
-//    register float *sig;
-//    float *sig_buffer;
-//    float scale_y;
-//    int i;
-//    register int k;
-//    int N;
-//    int length;
-//    int sample;
-//    int x;
-//
-////    debug("SignalWidget::drawInterpolatedSignal");
-//
-//    ASSERT(signalmanage);
-//    if (!signalmanage) return;
-//    length = signalmanage->getLength();
-//    if (!length) return;
-//
-//    // scale_y: pixels per unit
-//    scale_y = height * zoomy / (1 << 24);
-//
-//    // N: order of the filter, at least 2 * (1/m_zoom)
-//    N = INTERPOLATION_PRECISION * samples2pixels(1);
-//    N |= 0x01;    // make N an odd number !
-//
-//    // re-calculate the interpolation's filter and buffers
-//    // if the current order has changed
-//    if (interpolation_order != N) {
-//	calculateInterpolation();
-//	N = interpolation_order;
-//    }
-//
-//    ASSERT(interpolation_alpha);
-//    if (!interpolation_alpha) return;
-//
-//    // buffer for intermediate resampled data
-//    sig_buffer = new float[width + N + 2];
-//    ASSERT(sig_buffer);
-//    if (!sig_buffer) return;
-//
-//    // array with sample points
-//    QPointArray *points = new QPointArray(width);
-//    ASSERT(points);
-//    if (!points) {
-//	delete[] sig_buffer;
-//	return;
-//    }
-//
-//    // fill the sample buffer with zeroes
-//    for (i = 0; i < width + N + 2; i++)
-//	sig_buffer[i] = 0.0;
-//
-//    // resample
-//    sample = -2;    // start some samples left of the window
-//    x = samples2pixels(sample);
-//    sig = sig_buffer + (N / 2);
-//    while (x <= width + N / 2) {
-//	if ((x >= -N / 2) && (m_offset + sample < length)) {
-//	    sig[x] = signalmanage->singleSample(channel, m_offset + sample) *
-//		     scale_y;
-//	}
-//	sample++;
-//	x = samples2pixels(sample);
-//    }
-//
-//    // pass the signal data through the filter
-//    for (i = 0; i < width; i++) {
-//	sig = sig_buffer + (i + N);
-//	y = 0.0;
-//	for (k = 0; k <= N; k++)
-//	    y += *(sig--) * interpolation_alpha[k];
-//
-//	points->setPoint(i, i, middle - (int)y);
-//    }
-//
-//    // display the filter's interpolated output
-//    p.setPen(darkGray);
-//    p.drawPolyline(*points, 0, i);
-//
-//    // display the original samples
-//    sample = 0;
-//    x = samples2pixels(sample);
-//    sig = sig_buffer + (N / 2);
-//    p.setPen(white);
-//    i = 0;
-//    while (x < width) {
-//	if ((x >= 0) && (x < width)) {
-//	    // mark original samples
-//	    points->setPoint(i++, x, middle - (int)sig[x]);
-//	}
-//	sample++;
-//	x = samples2pixels(sample);
-//    }
-//    p.drawPoints(*points, 0, i);
-//
-//    delete[] sig_buffer;
-//    delete points;
-}
-
-//***************************************************************************
-void SignalWidget::drawPolyLineSignal(int /*channel*/, int /*middle*/, int /*height*/)
-{
-//    float scale_y;
-//    int y;
-//    int i;
-//    int n;
-//    int sample;
-//    int x;
-//
-////    debug("SignalWidget::drawPolyLineSignal");
-//
-//    ASSERT(signalmanage);
-//    if (!signalmanage) return;
-//
-//    // scale_y: pixels per unit
-//    scale_y = height * zoomy / (1 << 24);
-//
-//    // array with sample points
-//    QPointArray *points = new QPointArray(width + 1);
-//    ASSERT(points);
-//    if (!points) return;
-//
-//    // display the original samples
-//    sample = 0;
-//    x = samples2pixels(sample);
-//    i = 0;
-//    while (x < width) {
-//	// mark original samples
-//	y = (int)(signalmanage->singleSample(channel, m_offset + sample) *
-//		  scale_y);
-//	points->setPoint(i++, x, middle - y);
-//
-//	sample++;
-//	x = samples2pixels(sample);
-//    }
-//
-//    // set "n" to the number of displayed original samples
-//    n = i;
-//
-//    // interpolate the rest of the display if necessary
-//    if (samples2pixels(sample - 1) < width - 1) {
-//	int x1;
-//	int x2;
-//	float y1;
-//	float y2;
-//
-//	x1 = samples2pixels(sample - 1);
-//	x2 = samples2pixels(sample);
-//	y1 = (int)(signalmanage->singleSample(channel, m_offset + sample - 1) *
-//		   scale_y);
-//	y2 = (int)(signalmanage->singleSample(channel, m_offset + sample) *
-//		   scale_y);
-//
-//	x = width - 1;
-//	y = (int)((float)(x - x1) * (float)(y2 - y1) / (float)(x2 - x1));
-//
-//	points->setPoint(i++, x, middle - y);
-//    }
-//
-//    // show the poly-line
-//    p.setPen(darkGray);
-//    p.drawPolyline(*points, 0, i);
-//
-//    // show the original points
-//    p.setPen(white);
-//    p.drawPoints(*points, 0, n);
-//
-//    delete points;
 }
 
 //***************************************************************************
@@ -1988,14 +1713,14 @@ void SignalWidget::updatePlaybackPointer(unsigned int /*pos*/)
 }
 
 //***************************************************************************
-void SignalWidget::slotTrackInserted(unsigned int track)
+void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
 {
 //    debug("SignalWidget(): slotTrackInserted(%u)", track);
 
     // insert a new track into the track pixmap list
-    TrackPixmap *pix = new TrackPixmap();
+    TrackPixmap *pix = new TrackPixmap(track);
     ASSERT(pix);
-    m_track_pixmaps.insert(track, pix);
+    m_track_pixmaps.insert(index, pix);
     if (!pix) return;
 
     // connect all signals
@@ -2003,7 +1728,7 @@ void SignalWidget::slotTrackInserted(unsigned int track)
 
     // emit the signal sigTrackInserted now, so that the signal widget
     // gets resized if needed, but the new pixmap is still empty
-    emit sigTrackInserted(track);
+    emit sigTrackInserted(index);
 
     // redraw the signal if the track has not already been drawn
     if ((pix->height() <= 0) && (pix->width() <= 0)) {
@@ -2033,8 +1758,14 @@ void SignalWidget::slotSamplesDeleted(unsigned int track,
 void SignalWidget::slotSamplesModified(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-//    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
-//	offset, length);
+    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
+	offset, length);
+
+    TrackPixmap *pix = m_track_pixmaps.at(track);
+    ASSERT(pix);
+    if (!pix) return;
+//
+//    pix->samplesModified(offset, length);
 }
 
 //***************************************************************************

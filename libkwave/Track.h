@@ -24,6 +24,7 @@
 #include "mt/Mutex.h"
 
 #include "libkwave/InsertMode.h"
+#include "libkwave/SampleLock.h"
 #include "libkwave/Stripe.h"
 
 class SampleInputStream;
@@ -72,6 +73,16 @@ public:
      */
     SampleInputStream *openInputStream(InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
+
+    /**
+     * Locks a range of samples for shared or exclusive access.
+     * @param offset index of the first sample
+     * @param length number of samples to be locked
+     * @param mode the mode of the lock
+     * @returns a lock object for the range
+     */
+    SampleLock *lockRange(unsigned int offset, unsigned int length,
+	SampleLock::LockMode mode);
 
 signals:
 

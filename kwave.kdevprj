@@ -785,7 +785,7 @@ install=false
 install_location=
 type=HEADER
 [libkwave/Makefile.am]
-files=libkwave/Color.cpp,libkwave/Color.h,libkwave/Curve.cpp,libkwave/Curve.h,libkwave/DynamicLoader.cpp,libkwave/DynamicLoader.h,libkwave/FileFormat.h,libkwave/FileLoader.cpp,libkwave/FileLoader.h,libkwave/Filter.cpp,libkwave/Filter.h,libkwave/Functions.cpp,libkwave/Functions.h,libkwave/gsl_fft.cpp,libkwave/gsl_fft.h,libkwave/Interpolation.cpp,libkwave/Interpolation.h,libkwave/Label.cpp,libkwave/Label.h,libkwave/LabelList.cpp,libkwave/LabelList.h,libkwave/LabelType.cpp,libkwave/LabelType.h,libkwave/LineParser.cpp,libkwave/LineParser.h,libkwave/mmap.cpp,libkwave/mmap.h,libkwave/Parser.cpp,libkwave/Parser.h,libkwave/PointSet.h,libkwave/Signal.cpp,libkwave/Signal.h,libkwave/String.h,libkwave/String.cpp,libkwave/TimeOperation.h,libkwave/WindowFunction.cpp,libkwave/WindowFunction.h,libkwave/Triple.h,libkwave/TypesMap.h,libkwave/Sample.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/NativeStripe.cpp,libkwave/SampleInputStream.h,libkwave/SampleInputStream.cpp,libkwave/InsertMode.h,
+files=libkwave/Color.cpp,libkwave/Color.h,libkwave/Curve.cpp,libkwave/Curve.h,libkwave/DynamicLoader.cpp,libkwave/DynamicLoader.h,libkwave/FileFormat.h,libkwave/FileLoader.cpp,libkwave/FileLoader.h,libkwave/Filter.cpp,libkwave/Filter.h,libkwave/Functions.cpp,libkwave/Functions.h,libkwave/gsl_fft.cpp,libkwave/gsl_fft.h,libkwave/Interpolation.cpp,libkwave/Interpolation.h,libkwave/Label.cpp,libkwave/Label.h,libkwave/LabelList.cpp,libkwave/LabelList.h,libkwave/LabelType.cpp,libkwave/LabelType.h,libkwave/LineParser.cpp,libkwave/LineParser.h,libkwave/mmap.cpp,libkwave/mmap.h,libkwave/Parser.cpp,libkwave/Parser.h,libkwave/PointSet.h,libkwave/Signal.cpp,libkwave/Signal.h,libkwave/String.h,libkwave/String.cpp,libkwave/TimeOperation.h,libkwave/WindowFunction.cpp,libkwave/WindowFunction.h,libkwave/Triple.h,libkwave/TypesMap.h,libkwave/Sample.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/NativeStripe.cpp,libkwave/SampleInputStream.h,libkwave/SampleInputStream.cpp,libkwave/InsertMode.h,libkwave/SampleLock.cpp,libkwave/SampleLock.h
 sub_dirs=
 type=static_library
 [libkwave/NativeStripe.cpp]
@@ -819,6 +819,16 @@ install=false
 install_location=
 type=SOURCE
 [libkwave/SampleInputStream.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+[libkwave/SampleLock.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+[libkwave/SampleLock.h]
 dist=true
 install=false
 install_location=

@@ -118,7 +118,7 @@ Track *Signal::appendTrack(unsigned int length)
     }
 
     // track has been inserted at the end
-    emit sigTrackInserted(track_nr);
+    if (t) emit sigTrackInserted(track_nr, *t);
     return t;
 }
 

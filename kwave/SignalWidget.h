@@ -34,6 +34,7 @@ class QBitmap;
 class SignalManager;
 class ProgressDialog;
 class TimeOperation;
+class Track;
 class TrackPixmap;
 
 /**
@@ -217,7 +218,7 @@ private slots:
      * @see Signal::trackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int track);
+    void slotTrackInserted(unsigned int index, Track &track);
 
     /**
      * Connected to the signal's sigSamplesInserted.
@@ -308,43 +309,6 @@ protected:
     void mouseMoveEvent (QMouseEvent *);
     void paintEvent (QPaintEvent *);
 
-    /**
-     * Draws the signal as an overview with multiple samples per
-     * pixel.
-     * @param channel the index of the channel [0..channels-1]
-     * @param middle the y position of the zero line in the drawing
-     *               area [pixels]
-     * @param height the height of the drawing are [pixels]
-     * @param first the index of the first sample
-     * @param last the index of the last sample
-     */
-    void drawOverviewSignal(int channel, int middle, int height,
-			    int first, int last);
-
-    /**
-     * Draws the signal and interpolates the pixels between the
-     * samples. The interpolation is done by using a simple FIR
-     * lowpass filter.
-     * @param channel the index of the channel [0..channels-1]
-     * @param middle the y position of the zero line in the drawing
-     *               area [pixels]
-     * @param height the height of the drawing are [pixels]
-     * @see #calculateInterpolation()
-     */
-    void drawInterpolatedSignal(int channel, int middle, int height);
-
-    /**
-     * Draws the signal and connects the pixels between the samples
-     * by using a simple poly-line. This gets used if the current zoom
-     * factor is not suitable for either an overview nor an interpolated
-     * signal display.
-     * @param channel the index of the channel [0..channels-1]
-     * @param middle the y position of the zero line in the drawing
-     *               area [pixels]
-     * @param height the height of the drawing are [pixels]
-     */
-    void drawPolyLineSignal(int channel, int middle, int height);
-
 //    void loadLabel ();
 //    void appendLabel ();
 //    void deleteLabel ();
@@ -393,27 +357,6 @@ private:
      * current display window of the signal fits into the screen.
      */
     void fixZoomAndOffset();
-
-    /**
-     * Calculates the parameters for interpolation of the graphical
-     * display when zoomed in. Allocates (new) buffer for the
-     * filter coefficients of the low pass filter used for interpolation.
-     * @see #interpolation_alpha
-     */
-    void calculateInterpolation();
-
-
-    /**
-     * order of the low pass filter used for interpolation
-     */
-    int interpolation_order;
-
-    /**
-     * buffer for filter coefficients of the low pass used for
-     * interpolation
-     * @see #calculateInterpolation()
-     */
-    float *interpolation_alpha;
 
     /** Pixmaps for buffering each layer */
     QPixmap *m_layer[3];

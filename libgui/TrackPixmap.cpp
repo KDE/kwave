@@ -15,14 +15,35 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <math.h>
 #include <qpainter.h>
 
+#include "mt/MutexGuard.h"
+#include "libkwave/SampleLock.h"
+#include "libkwave/Track.h"
 #include "libgui/TrackPixmap.h"
 
+/**
+ * This factor determines how many times the order is over than
+ * the minimum required order. Higher values give less problems with
+ * aliasing but some amplitude errors. Lower values make less
+ * amplitude errors but more aliasing problems.
+ * This should be a good compromise...
+ */
+#define INTERPOLATION_PRECISION 4
+
+/**
+ * math.h didn't define PI :-(
+ */
+#define PI 3.14159265358979323846264338327
+
 //***************************************************************************
-TrackPixmap::TrackPixmap()
-    :QPixmap(), m_offset(0), m_zoom(0.0), m_minmax_mode(false),
-    m_sample_buffer(), m_min_buffer(), m_max_buffer()
+TrackPixmap::TrackPixmap(Track &track)
+    :QPixmap(), m_track(track), m_offset(0), m_zoom(0.0),
+    m_minmax_mode(false),
+    m_sample_buffer(), m_min_buffer(), m_max_buffer(),
+    m_valid(0), m_lock_buffer(),
+    m_interpolation_order(0), m_interpolation_alpha(0)
 {
     debug("TrackPixmap::TrackPixmap()"); // ###
 }
@@ -31,20 +52,127 @@ TrackPixmap::TrackPixmap()
 TrackPixmap::~TrackPixmap()
 {
     debug("TrackPixmap::~TrackPixmap()"); // ###
+    MutexGuard lock(m_lock_buffer);
+
+    if (m_interpolation_alpha) delete[] m_interpolation_alpha;
+    m_interpolation_alpha = 0;
 }
 
 //***************************************************************************
 void TrackPixmap::setOffset(unsigned int offset)
 {
+    MutexGuard lock(m_lock_buffer);
+
+    if (offset == m_offset) return; // no change
     debug("TrackPixmap::setOffset(%u)", offset);
+
+    unsigned int diff;
+    unsigned int src;
+    unsigned int dst;
+    unsigned int buflen = m_valid.size();
+
+    if (m_minmax_mode) {
+	// move content of min and max buffer
+	// one buffer element = one screen pixel
+	ASSERT(buflen == m_min_buffer.size() == m_max_buffer.size());
+
+	if (offset > m_offset) {
+	    // move left
+	    diff = samples2pixels(offset - m_offset);
+	    for (src = diff, dst = 0; src < buflen; ++dst, ++src) {
+		m_min_buffer[dst] = m_min_buffer[src];
+		m_max_buffer[dst] = m_max_buffer[src];
+		m_valid[dst] = m_valid[src];
+	    }
+	    while (dst < buflen) m_valid.clearBit(dst++);
+	} else {
+	    // move right
+	    diff = samples2pixels(m_offset - offset);
+	    for (dst = buflen-1, src = dst-diff; dst >= diff; --dst, --src) {
+		m_min_buffer[dst] = m_min_buffer[src];
+		m_max_buffer[dst] = m_max_buffer[src];
+		m_valid[dst] = m_valid[src];
+	    }
+	    while (diff--) m_valid[dst--] = 0;
+	}
+    } else {
+	// move content of sample buffer
+	// one buffer element = one sample
+	ASSERT(buflen == m_sample_buffer.size());
+	
+	if (offset > m_offset) {
+	    // move left
+	    diff = offset - m_offset;
+	    for (src = diff, dst = 0; src < buflen; ++dst, ++src) {
+		m_sample_buffer[dst] = m_sample_buffer[src];
+		m_valid[dst] = m_valid[src];
+	    }
+	    while (dst < buflen) m_valid[dst++] = 0;
+	} else {
+	    // move right
+	    diff = m_offset - offset;
+	    for (dst= buflen-1, src = dst-diff; dst >= diff; --dst, --src) {
+		m_sample_buffer[dst] = m_sample_buffer[src];
+		m_valid[dst] = m_valid[src];
+	    }
+	    while (diff--) m_valid.clearBit(dst--);
+	}
+    }
+
     m_offset = offset;
+    repaint();
+}
+
+//***************************************************************************
+void TrackPixmap::resizeBuffer()
+{
+    debug("TrackPixmap::resizeBuffer()"); // ###
+
+    unsigned int buflen;
+    unsigned int oldlen;
+    if (m_minmax_mode) {
+	// one buffer index == one screen pixel
+	buflen = width();
+	oldlen = m_valid.size();
+	ASSERT(m_min_buffer.size() == m_max_buffer.size() == oldlen);
+	m_min_buffer.resize(buflen);
+	m_max_buffer.resize(buflen);
+    } else {
+	// one buffer index == one sample
+	buflen = pixels2samples(width());
+	oldlen = m_valid.size();
+	ASSERT(m_sample_buffer.size() == oldlen);
+	m_sample_buffer.resize(buflen);
+    }
+    m_valid.resize(buflen);
+    while (oldlen < buflen) m_valid[oldlen++] = 0;
 }
 
 //***************************************************************************
 void TrackPixmap::setZoom(double zoom)
 {
+    MutexGuard lock(m_lock_buffer);
+
+    if (zoom == m_zoom) return; // no change
     debug("TrackPixmap::setZoom(%0.3f)", zoom);
+
+    if ((m_zoom > 1.0) && !m_minmax_mode) {
+	// switch to min/max mode
+	debug("TrackPixmap::validateBuffer(): switch to min/max mode");
+	invalidateBuffer();
+	m_minmax_mode = true;
+    } else if ((m_zoom <= 1.0) && m_minmax_mode) {
+	// switch to normal mode
+	debug("TrackPixmap::validateBuffer(): switch to normal mode");
+	invalidateBuffer();
+	m_minmax_mode = false;
+    }
+
+    // take the new zoom and resize the buffer
     m_zoom = zoom;
+    resizeBuffer();
+
+    repaint();
 }
 
 //***************************************************************************
@@ -67,21 +195,330 @@ void TrackPixmap::setZoom(double zoom)
 //***************************************************************************
 void TrackPixmap::resize(int width, int height)
 {
-    debug("TrackPixmap::resize(%d, %d)", width, height); // ###
+    MutexGuard lock(m_lock_buffer);
+
+    int old_width = QPixmap::width();
+    int old_height = QPixmap::height();
+    if ((old_width == width) && (old_height == height)) return; // no change
+
+//    debug("TrackPixmap::resize(%d, %d)", width, height); // ###
 
     QPixmap::resize(width, height);
+    if (width != old_width) resizeBuffer();
+
+    repaint();
+}
+
+//***************************************************************************
+void TrackPixmap::invalidateBuffer()
+{
+    debug("TrackPixmap::invalidateBuffer()"); // ###
+    for (unsigned int i=0; i < m_valid.size(); ++i) {
+	m_valid.clearBit(i);
+    }
+}
+
+//***************************************************************************
+void TrackPixmap::validateBuffer()
+{
+//    unsigned int length = pixels2samples(width());
+
+    debug("TrackPixmap::validateBuffer()");
+
+//    {
+//	// lock the range that we need for shared read-only access
+//	SampleLock lock(m_track, m_offset, length,
+//	                SampleLock::ReadShared);
+//	
+//	// fill our array(s) with fresh sample data
+//	// ###
+//    }
+}
+
+//***************************************************************************
+void TrackPixmap::repaint()
+{
+    int w = width();
+    int h = height();
+
+    if (!w || !h) return; // not valid yet
 
     QPainter p(this);
     p.setRasterOp(CopyROP);
-    p.fillRect(0, 0, width, height, black);
+    p.fillRect(0, 0, w, h, black);
 
-    p.setPen(green);
-    p.drawLine(0, 0, width-1, height-1);
-    p.drawLine(0, height-1, width-1, 0);
+    if (m_zoom ) {
+	// first make the buffer valid
+	validateBuffer();
+	
+	// then draw the samples
+	// ###
+	debug("TrackPixmap::repaint()");
+	
+	// draw the green zero-line
+	p.setPen(green);
+	p.drawLine(0, h>>1, w-1, h>>1);
+    }
 
     p.flush();
     p.end();
+}
 
+//***************************************************************************
+void TrackPixmap::drawOverviewSignal(int /*channel*/, int /*middle*/, int /*height*/,
+                                     int /*first*/, int /*last*/)
+{
+////    debug("TrackPixmap::drawOverviewSignal()");
+//
+//    float scale_y;
+//    int step, max = 0, min = 0;
+//
+//    ASSERT(signalmanage);
+//    if (!signalmanage) return;
+//
+//    // scale_y: pixels per unit
+//    scale_y = height * zoomy / (1 << 24);
+//
+//    for (int i = 0; i < width; i++) {
+//	step = m_offset + pixels2samples(i);
+//	signalmanage->getMaxMin(channel, max, min, step, pixels2samples(1));
+//	max = (int)(max * scale_y);
+//	min = (int)(min * scale_y);
+//	p.drawLine(i, middle - max, i, middle - min);
+//    }
+}
+
+//***************************************************************************
+void TrackPixmap::calculateInterpolation()
+{
+    float f;
+    float Fg;
+    int k;
+    int N;
+
+//    debug("TrackPixmap::calculateInterpolation()");
+
+    // remove all previous coefficents and signal buffer
+    if (m_interpolation_alpha != 0) {
+	delete[] m_interpolation_alpha;
+	m_interpolation_alpha = 0;
+    }
+
+    ASSERT(m_zoom != 0.0);
+    if (m_zoom == 0.0) return;
+
+    // offset: index of first visible sample (left) [0...length-1]
+    // m_zoom: number of samples / pixel
+
+    // approximate the 3dB frequency of the low pass as
+    // Fg = f_g / f_a
+    // f_a: current "sample rate" of display (pixels) = 1.0
+    // f_g: signal rate = (m_zoom/2)
+    Fg = m_zoom / 2;
+
+    // N: order of the filter, at least 2 * (1/m_zoom)
+    N = (int)(INTERPOLATION_PRECISION / m_zoom);
+    N |= 0x01;    // make N an odd number !
+
+    // allocate a buffer for the coefficients
+    m_interpolation_alpha = new float[N + 1];
+    m_interpolation_order = N;
+
+    ASSERT(m_interpolation_alpha);
+    if (!m_interpolation_alpha) return;
+
+    // calculate the raw coefficients and
+    // apply a Hamming window
+    //
+    //                    sin( (2k-N) * Pi * Fg )                       2kPi
+    // alpha_k = 2 * Fg * ----------------------- * [ 0,54 - 0,46 * cos ---- ]
+    //                      (2k - N) * Pi * Fg                            N
+    //
+    f = 0.0;    // (store the sum of all coefficients in "f")
+    for (k = 0; k <= N; k++) {
+	m_interpolation_alpha[k] =
+	    sin((2 * k - N) * PI * Fg) / ((2 * k - N) * PI * Fg);
+	m_interpolation_alpha[k] *= (0.54 - 0.46 * cos(2 * k * PI / N));
+	f += m_interpolation_alpha[k];
+    }
+    // norm the coefficients to 1.0 / m_zoom
+    f *= m_zoom;
+    for (k = 0; k <= N; k++)
+	m_interpolation_alpha[k] /= f;
+
+}
+
+//***************************************************************************
+void TrackPixmap::drawInterpolatedSignal(int /*channel*/, int /*middle*/, int /*height*/)
+{
+//    register float y;
+//    register float *sig;
+//    float *sig_buffer;
+//    float scale_y;
+//    int i;
+//    register int k;
+//    int N;
+//    int length;
+//    int sample;
+//    int x;
+//
+////    debug("TrackPixmap::drawInterpolatedSignal");
+//
+//    ASSERT(signalmanage);
+//    if (!signalmanage) return;
+//    length = signalmanage->getLength();
+//    if (!length) return;
+//
+//    // scale_y: pixels per unit
+//    scale_y = height * zoomy / (1 << 24);
+//
+//    // N: order of the filter, at least 2 * (1/m_zoom)
+//    N = INTERPOLATION_PRECISION * samples2pixels(1);
+//    N |= 0x01;    // make N an odd number !
+//
+//    // re-calculate the interpolation's filter and buffers
+//    // if the current order has changed
+//    if (m_interpolation_order != N) {
+//	calculateInterpolation();
+//	N = m_interpolation_order;
+//    }
+//
+//    ASSERT(m_interpolation_alpha);
+//    if (!m_interpolation_alpha) return;
+//
+//    // buffer for intermediate resampled data
+//    sig_buffer = new float[width + N + 2];
+//    ASSERT(sig_buffer);
+//    if (!sig_buffer) return;
+//
+//    // array with sample points
+//    QPointArray *points = new QPointArray(width);
+//    ASSERT(points);
+//    if (!points) {
+//	delete[] sig_buffer;
+//	return;
+//    }
+//
+//    // fill the sample buffer with zeroes
+//    for (i = 0; i < width + N + 2; i++)
+//	sig_buffer[i] = 0.0;
+//
+//    // resample
+//    sample = -2;    // start some samples left of the window
+//    x = samples2pixels(sample);
+//    sig = sig_buffer + (N / 2);
+//    while (x <= width + N / 2) {
+//	if ((x >= -N / 2) && (m_offset + sample < length)) {
+//	    sig[x] = signalmanage->singleSample(channel, m_offset + sample) *
+//		     scale_y;
+//	}
+//	sample++;
+//	x = samples2pixels(sample);
+//    }
+//
+//    // pass the signal data through the filter
+//    for (i = 0; i < width; i++) {
+//	sig = sig_buffer + (i + N);
+//	y = 0.0;
+//	for (k = 0; k <= N; k++)
+//	    y += *(sig--) * m_interpolation_alpha[k];
+//
+//	points->setPoint(i, i, middle - (int)y);
+//    }
+//
+//    // display the filter's interpolated output
+//    p.setPen(darkGray);
+//    p.drawPolyline(*points, 0, i);
+//
+//    // display the original samples
+//    sample = 0;
+//    x = samples2pixels(sample);
+//    sig = sig_buffer + (N / 2);
+//    p.setPen(white);
+//    i = 0;
+//    while (x < width) {
+//	if ((x >= 0) && (x < width)) {
+//	    // mark original samples
+//	    points->setPoint(i++, x, middle - (int)sig[x]);
+//	}
+//	sample++;
+//	x = samples2pixels(sample);
+//    }
+//    p.drawPoints(*points, 0, i);
+//
+//    delete[] sig_buffer;
+//    delete points;
+}
+
+//***************************************************************************
+void TrackPixmap::drawPolyLineSignal(int /*channel*/, int /*middle*/, int /*height*/)
+{
+//    float scale_y;
+//    int y;
+//    int i;
+//    int n;
+//    int sample;
+//    int x;
+//
+////    debug("TrackPixmap::drawPolyLineSignal");
+//
+//    ASSERT(signalmanage);
+//    if (!signalmanage) return;
+//
+//    // scale_y: pixels per unit
+//    scale_y = height * zoomy / (1 << 24);
+//
+//    // array with sample points
+//    QPointArray *points = new QPointArray(width + 1);
+//    ASSERT(points);
+//    if (!points) return;
+//
+//    // display the original samples
+//    sample = 0;
+//    x = samples2pixels(sample);
+//    i = 0;
+//    while (x < width) {
+//	// mark original samples
+//	y = (int)(signalmanage->singleSample(channel, m_offset + sample) *
+//		  scale_y);
+//	points->setPoint(i++, x, middle - y);
+//
+//	sample++;
+//	x = samples2pixels(sample);
+//    }
+//
+//    // set "n" to the number of displayed original samples
+//    n = i;
+//
+//    // interpolate the rest of the display if necessary
+//    if (samples2pixels(sample - 1) < width - 1) {
+//	int x1;
+//	int x2;
+//	float y1;
+//	float y2;
+//
+//	x1 = samples2pixels(sample - 1);
+//	x2 = samples2pixels(sample);
+//	y1 = (int)(signalmanage->singleSample(channel, m_offset + sample - 1) *
+//		   scale_y);
+//	y2 = (int)(signalmanage->singleSample(channel, m_offset + sample) *
+//		   scale_y);
+//
+//	x = width - 1;
+//	y = (int)((float)(x - x1) * (float)(y2 - y1) / (float)(x2 - x1));
+//
+//	points->setPoint(i++, x, middle - y);
+//    }
+//
+//    // show the poly-line
+//    p.setPen(darkGray);
+//    p.drawPolyline(*points, 0, i);
+//
+//    // show the original points
+//    p.setPen(white);
+//    p.drawPoints(*points, 0, n);
+//
+//    delete points;
 }
 
 //***************************************************************************

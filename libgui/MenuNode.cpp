@@ -117,19 +117,8 @@ void MenuNode::slotHilighted(int id)
 //*****************************************************************************
 void MenuNode::clear()
 {
-    MenuNode *child;
-
-//    debug("------- start -----------");
-//    child = children.first();
-//    while (child) {
-//	debug("MenuNode(%s)::clear: %s : %p, id=%d", getName(),
-//	    child->getName(),child,child->getId());
-//       child = children.next();
-//    }
-//    debug("------- end -----------");
-
     // clear all children
-    child = m_children.first();
+    MenuNode *child = m_children.first();
     while (child) {
 	removeChild(child);
 	delete child;
@@ -211,14 +200,14 @@ void MenuNode::setEnabled(bool enable)
     // store our own individual enable flag
     m_enabled = enable;
 
-    new_enable = isEnabled();    // get the current effictive state
+    new_enable = isEnabled();    // get the current effective state
 
     if (new_enable != m_last_enabled) { // on changes:
 	m_last_enabled = new_enable;
-
+	
 	// notify our parent that our enabled state has changed
 	emit sigChildEnableChanged(m_id, new_enable);
-
+	
 	// notify all child nodes that our enable has changed
 	emit sigParentEnableChanged();
     }

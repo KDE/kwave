@@ -44,6 +44,7 @@ AC_PATH_PROG(CAT, cat)
 AC_PATH_PROG(SORT, sort)
 AC_PATH_PROG(UNIQ, uniq)
 AC_PATH_PROG(FIND, find)
+AC_PATH_PROG(AWK,awk)
 
 dnl CXXFLAGS="$(CXXFLAGS) -fno-check-new"
 dnl CFLAGS="${CFLAGS}     -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"

@@ -112,7 +112,7 @@ VirtualAudioFile::VirtualAudioFile(QIODevice &device)
 }
 
 //***************************************************************************
-void VirtualAudioFile::open(VirtualAudioFile *x)
+void VirtualAudioFile::open(VirtualAudioFile *x, AFfilesetup setup)
 {
     // register ourself
     adapter(0); // dummy lookup, for creating a new map if needed
@@ -130,7 +130,7 @@ void VirtualAudioFile::open(VirtualAudioFile *x)
     old_handler = afSetErrorHandler(_handle_audiofile_error);
 
     // open the virtual file and get a handle for it
-    m_file_handle = afOpenVirtualFile(m_virtual_file, mode, 0);
+    m_file_handle = afOpenVirtualFile(m_virtual_file, mode, setup);
     m_last_error = _lastAudiofileError();
 
     afSetErrorHandler(old_handler);
@@ -139,11 +139,11 @@ void VirtualAudioFile::open(VirtualAudioFile *x)
 //***************************************************************************
 VirtualAudioFile::~VirtualAudioFile()
 {
-    // de-register ourself
-    if (_adapter_map) _adapter_map->remove(m_virtual_file);
-
     // close libaudiofile stuff
     afCloseFile(m_file_handle);
+
+    // de-register ourself
+    if (_adapter_map) _adapter_map->remove(m_virtual_file);
 }
 
 //***************************************************************************

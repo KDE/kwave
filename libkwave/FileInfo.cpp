@@ -122,7 +122,7 @@ void FileInfo::PropertyTypesMap::fill()
              "'tape/CrO2/60min'"));
     append(INF_SUBJECT, 0,
         i18n("Subject"),
-        i18n("Describes the conbittents of the file."
+        i18n("Describes the subject of the file."
              "\nExample: 'Bird voices at early morning'"));
     append(INF_TECHNICAN, 0,
         i18n("Technican"),
@@ -143,7 +143,7 @@ FileInfo::FileInfo()
 /***************************************************************************/
 FileInfo::FileInfo(const FileInfo &inf)
     :m_length(inf.length()), m_rate(inf.rate()), m_bits(inf.bits()),
-     m_tracks(inf.tracks()), m_properties(inf.m_properties)
+     m_tracks(inf.tracks()), m_properties(inf.properties())
 {
 }
 
@@ -165,9 +165,16 @@ void FileInfo::set(FileProperty key, const QVariant &value)
 }
 
 /***************************************************************************/
-const QVariant &FileInfo::get(FileProperty key)
+const QVariant &FileInfo::get(FileProperty key) const
 {
     return m_properties[key];
+}
+
+/***************************************************************************/
+bool FileInfo::isInternal(FileProperty key)
+{
+    int flags = m_property_map.data(key);
+    return (flags & FP_INTERNAL);
 }
 
 /***************************************************************************/

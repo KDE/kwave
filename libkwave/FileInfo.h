@@ -99,7 +99,7 @@ public:
     inline void setTracks(unsigned int tracks) { m_tracks = tracks; };
 
     /** Returns true if the given property exists */
-    inline bool contains(const FileProperty property) {
+    inline bool contains(const FileProperty property) const {
 	return m_properties.contains(property);
     };
 
@@ -118,7 +118,17 @@ public:
      * @param key identifies the property
      * @return value of the property or empty if not found
      */
-    virtual const QVariant &get(FileProperty key);
+    virtual const QVariant &get(FileProperty key) const;
+
+    /**
+     * Returns true if a property is only internal.
+     */
+    virtual bool isInternal(FileProperty key);
+
+    /** Returns a reference to the list of non-standard properties */
+    virtual const QMap<FileProperty, QVariant> &properties() const {
+	return m_properties;
+    };
 
     /** Clears the list of all properties. */
     virtual void clear();
@@ -126,7 +136,7 @@ public:
     /** dumps all properties to stdout, useful for debugging */
     virtual void dump();
 
-protected:
+private:
 
     /** length in samples */
     unsigned int m_length;
@@ -140,12 +150,8 @@ protected:
     /** number of tracks */
     unsigned int m_tracks;
 
-protected: /* needed by copy constructor */
-
     /** list of properties */
     QMap<FileProperty, QVariant> m_properties;
-
-private:
 
     /**
      * Pre-filled map with property names and descriptions

@@ -43,7 +43,7 @@ public:
     virtual ~VirtualAudioFile();
 
     /** opens the file through libaudiofile */
-    virtual void open(VirtualAudioFile *x);
+    virtual void open(VirtualAudioFile *x, AFfilesetup setup);
 
     /** Returns the handle for use in libaudiofile */
     inline AFfilehandle &handle() { return m_file_handle; };

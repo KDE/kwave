@@ -70,6 +70,7 @@ int MenuManager::parseToKeyCode(const QString &key_name)
 	}
 
 	// other known keys
+	if (name == "ESC")      keycode += Key_Escape;
 	if (name == "PLUS")     keycode += Key_Plus;
 	if (name == "MINUS")    keycode += Key_Minus;
 	if (name == "SPACE")    keycode += Key_Space;

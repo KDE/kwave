@@ -292,7 +292,7 @@ void FileProgress::setBytePosition(unsigned int pos)
     if (percent <= m_last_percent) return;
     m_last_percent = percent;
 
-    if (m_progress->value() != percent) {
+    if (m_progress->progress() != percent) {
 	QString newcap;
 	newcap = i18n("(%1%) %2");
 	newcap = newcap.arg(percent);

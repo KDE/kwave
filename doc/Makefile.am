@@ -30,7 +30,7 @@ help_de.po: help_en.pot
 
 help_de.docbook: help_de.po help_en.docbook
 	@echo "converting german help"
-	@echo (this takes very very long, please be patient...)"
+	@echo "(this takes very very long, please be patient...)"
 	po2xml help_en.docbook help_de.po | \
 	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g \
 	> help_de.docbook

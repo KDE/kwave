@@ -1,4 +1,8 @@
 
+0.5.x [2001-02-03]
+  
+  * split off the "old-0_5_x" branch in cvs
+
 0.5.5 [2000-12-01]
 
  * new playback handling, allows pause/continue

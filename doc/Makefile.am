@@ -28,7 +28,8 @@ help_de.po: help_en.pot
 	$(MSGMERGE) -o help_de.po help_de.po help_en.pot
 	# kbabel help_de.po
 
-help_de.docbook: help_de.po help_en.docbook
+help_de.docbook: help_en.docbook
+	${MAKE} help_de.po
 	@echo "converting german help"
 	@echo "(this takes very very long, please be patient...)"
 	@ $(PO2XML) help_en.docbook help_de.po | \
@@ -39,7 +40,8 @@ changes.docbook: ../CHANGES ../bin/changes-to-docbook.sh
 	cat ../CHANGES | sed s/\>\>\>//g | sed s/\<\<\<//g | \
 	../bin/changes-to-docbook.sh | recode lat1..utf-8 > changes.docbook
 
-help_en.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
+help_en.docbook: ../bin/insert-changes.sh ../VERSION ../CHANGES
+	${MAKE} changes.docbook
 	cp help_en.docbook help_en.docbook.orig
 	cat help_en.docbook.orig | \
 	../bin/insert-changes.sh  changes.docbook | \
@@ -51,7 +53,7 @@ help_en.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
 	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
 	help_en.docbook
 
-doc: help_de.docbook
+doc: help_en.docbook help_de.docbook
 
 html-doc: en/index.html de/index.html
 

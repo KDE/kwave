@@ -229,7 +229,12 @@ SwapFile *MemoryManager::allocateVirtual(size_t size)
     if (m_virtual_limit < limit) limit = m_virtual_limit;
     unsigned int used = virtualUsed();
     unsigned int available = (used < limit) ? (limit-used) : 0;
-    if ((size >> 20) >= available) return 0;
+    if ((size >> 20) >= available) {
+	qDebug("MemoryManager::allocateVirtual(%u): out of memory, "\
+	       "(used: %uMB, available: %uMB, limit=%uMB)",
+	       size, used, available, limit);
+        return 0;
+    }
 
     // try to allocate
     SwapFile *swap = new SwapFile();

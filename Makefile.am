@@ -91,6 +91,7 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 	echo "${SRC_PREFIX}-@RPM_VERSION@/doc/api" >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	tar --exclude-from=/tmp/${PACKAGE}-tar-excludes.lst \
+		--owner=root --group=root \
 		-chzf ${PACKAGE}-@RPM_VERSION@.tar.gz \
 		${SRC_PREFIX}-@RPM_VERSION@ ; \
 	rm -f /tmp/${PACKAGE}-tar-excludes.lst )

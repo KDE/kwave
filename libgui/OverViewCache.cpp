@@ -545,7 +545,7 @@ void OverViewCache::dumpTracks()
     for (it=m_src_deleted.begin(); it != m_src_deleted.end(); ++it) {
 	list += " " + list.number(*it);
     }
-    qDebug(list.data());
+    qDebug("%s", list.local8Bit().data());
 }
 
 //*****************************************************************************

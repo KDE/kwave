@@ -27,14 +27,10 @@ msgstr "Gründer"
 #: index.docbook:31
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
-"<othercredit role=\"translator\">"
-"<firstname>Sven-Steffen</firstname>"
-"<surname>Arndt</surname>"
-"<affiliation>"
-"<address><email>ssa29@gmx.de</email></address>"
-"</affiliation>"
-"<contrib>Deutsche Übersetzung</contrib>"
-"</othercredit>"
+"<othercredit role=\"translator\"><firstname>Sven-Steffen</"
+"firstname><surname>Arndt</surname><affiliation><address><email>ssa29@gmx.de</"
+"email></address></affiliation><contrib>Deutsche Übersetzung</contrib></"
+"othercredit>"
 
 #: index.docbook:37
 msgid "Thomas Eschenbacher"
@@ -93,7 +89,8 @@ msgid "Introduction"
 msgstr "Einleitung"
 
 #: index.docbook:70
-msgid "This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
+msgid ""
+"This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
 msgstr ""
 "Dies ist \"&kapp;\", ein einfacher Sound-Editor für KDE2. Er enthält "
 "folgende Funktionalität:"
@@ -155,8 +152,8 @@ msgid ""
 msgstr ""
 "Wenn sie daran interessiert sind, was getan wurde oder was noch getan werden "
 "muss, dann schauen sie in die Dateien <filename>CHANGES</filename> und "
-"<filename>TODO</filename>, die den "
-"Quelldateien beiligen. Hilfe und konstruktive Kritik sind immer willkommen."
+"<filename>TODO</filename>, die den Quelldateien beiligen. Hilfe und "
+"konstruktive Kritik sind immer willkommen."
 
 #: index.docbook:123
 msgid "&kapp; Resources"
@@ -403,8 +400,10 @@ msgid "added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget"
 msgstr "added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget"
 
 #: index.docbook:192
-msgid "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
-msgstr "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
+msgid ""
+"sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
+msgstr ""
+"sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
 
 #: index.docbook:192
 msgid "moved SignalProxy to the mt subdirectory"
@@ -443,8 +442,10 @@ msgid "class ImageView: always repaints (maybe image data has changed)"
 msgstr "class ImageView: always repaints (maybe image data has changed)"
 
 #: index.docbook:192
-msgid "bugfix: selection and playpointer will not be drawn if no signal is loaded"
-msgstr "bugfix: selection and playpointer will not be drawn if no signal is loaded"
+msgid ""
+"bugfix: selection and playpointer will not be drawn if no signal is loaded"
+msgstr ""
+"bugfix: selection and playpointer will not be drawn if no signal is loaded"
 
 #: index.docbook:192
 msgid "0.5.4-3 [2000-09-09]"
@@ -757,8 +758,10 @@ msgid "handling of channel add/delete: selection/speakers are shifted"
 msgstr "handling of channel add/delete: selection/speakers are shifted"
 
 #: index.docbook:192
-msgid "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
-msgstr "changed some variables/parameters to \"unsigned\" (simplifies range checks)"
+msgid ""
+"changed some variables/parameters to \"unsigned\" (simplifies range checks)"
+msgstr ""
+"changed some variables/parameters to \"unsigned\" (simplifies range checks)"
 
 #: index.docbook:192
 msgid "beautified this file"
@@ -807,12 +810,16 @@ msgstr ""
 "the lower levels"
 
 #: index.docbook:192
-msgid "globals.app will not be used (obsolete, should be removed from libkwave)"
-msgstr "globals.app will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"globals.app will not be used (obsolete, should be removed from libkwave)"
+msgstr ""
+"globals.app will not be used (obsolete, should be removed from libkwave)"
 
 #: index.docbook:192
-msgid "MessagePort will not be used (obsolete, should be removed from libkwave)"
-msgstr "MessagePort will not be used (obsolete, should be removed from libkwave)"
+msgid ""
+"MessagePort will not be used (obsolete, should be removed from libkwave)"
+msgstr ""
+"MessagePort will not be used (obsolete, should be removed from libkwave)"
 
 #: index.docbook:192
 msgid "multiple toplevel windows are possible"
@@ -985,8 +992,10 @@ msgid "target \"make messages\" works again"
 msgstr "target \"make messages\" works again"
 
 #: index.docbook:192
-msgid "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
-msgstr "converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
+msgid ""
+"converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
+msgstr ""
+"converter for menus.config, creates a dummy .cpp-file that is handled by i18n"
 
 #: index.docbook:192
 msgid "0.5.1-1 [2000-03-13]"
@@ -1058,7 +1067,8 @@ msgstr "moved my modifications from the Makefiles to Makefile.am"
 
 #: index.docbook:192
 msgid "included targets \"make release\", \"make patchlevel\" and some scripts"
-msgstr "included targets \"make release\", \"make patchlevel\" and some scripts"
+msgstr ""
+"included targets \"make release\", \"make patchlevel\" and some scripts"
 
 #: index.docbook:192
 msgid "1999-12-19 (by Thomas.Eschenbacher@gmx.de)"
@@ -1363,7 +1373,8 @@ msgstr "recent Files are updated again, while the program is running"
 
 #: index.docbook:192
 msgid "&kapp; now keeps track of last directory saved to; for user convenience"
-msgstr "&kapp; now keeps track of last directory saved to; for user convenience"
+msgstr ""
+"&kapp; now keeps track of last directory saved to; for user convenience"
 
 #: index.docbook:192
 msgid ""
@@ -1440,8 +1451,10 @@ msgid "0.29.1"
 msgstr "0.29.1"
 
 #: index.docbook:192
-msgid "Bugfix for multichannel save. Now the saved files should work with other prgs"
-msgstr "Bugfix for multichannel save. Now the saved files should work with other prgs"
+msgid ""
+"Bugfix for multichannel save. Now the saved files should work with other prgs"
+msgstr ""
+"Bugfix for multichannel save. Now the saved files should work with other prgs"
 
 #: index.docbook:192
 msgid "local snap to peak by Gerhard Zintel"
@@ -1482,8 +1495,10 @@ msgid "added reselection and cursor change"
 msgstr "added reselection and cursor change"
 
 #: index.docbook:192
-msgid "added possibility of different display modes in Frequency representation"
-msgstr "added possibility of different display modes in Frequency representation"
+msgid ""
+"added possibility of different display modes in Frequency representation"
+msgstr ""
+"added possibility of different display modes in Frequency representation"
 
 #: index.docbook:192
 msgid "fixed severe quantisation bug in saving 16Bit routine, reported by ?"
@@ -1536,8 +1551,10 @@ msgid "New ScaleWidget gives the user more information"
 msgstr "New ScaleWidget gives the user more information"
 
 #: index.docbook:192
-msgid "Improved ProgressDialog and Interpolation class to allow multiple threads"
-msgstr "Improved ProgressDialog and Interpolation class to allow multiple threads"
+msgid ""
+"Improved ProgressDialog and Interpolation class to allow multiple threads"
+msgstr ""
+"Improved ProgressDialog and Interpolation class to allow multiple threads"
 
 #: index.docbook:192
 msgid "fixed some minor bugs"
@@ -1552,8 +1569,10 @@ msgid "changes in curvewidget (recent point has another pixmap)."
 msgstr "changes in curvewidget (recent point has another pixmap)."
 
 #: index.docbook:192
-msgid "sorting of labels now works without overwriting of QGList::compareItems."
-msgstr "sorting of labels now works without overwriting of QGList::compareItems."
+msgid ""
+"sorting of labels now works without overwriting of QGList::compareItems."
+msgstr ""
+"sorting of labels now works without overwriting of QGList::compareItems."
 
 #: index.docbook:192
 msgid "bug fix for saving selection."
@@ -2578,7 +2597,8 @@ msgid "Opening and Saving files"
 msgstr "Öffnen und Speichern von Dateien"
 
 #: index.docbook:1903
-msgid "Opening files with &kapp; works like in most other applications, you can"
+msgid ""
+"Opening files with &kapp; works like in most other applications, you can"
 msgstr ""
 "Das Öffnen von Dateien mit &kapp; funktioniert genauso wie in den meisten "
 "anderen Anwendungen auch, sie können"
@@ -2746,7 +2766,8 @@ msgstr ""
 "sollten selbst eine eigene Art von ASCII Format für den Export besitzen."
 
 #: index.docbook:2003
-msgid "The format of an ASCII file is quite simple and has the following rules:"
+msgid ""
+"The format of an ASCII file is quite simple and has the following rules:"
 msgstr ""
 "Das Format von einer ASCII Datei ist recht einfach und nach folgenden Regeln "
 "aufgebaut:"
@@ -2805,7 +2826,8 @@ msgstr ""
 
 #: index.docbook:2003
 msgid "Internally all values are stored with 24 bit precision (signed)."
-msgstr "Intern werden alle Werte mit einer 24 Bit Genauigkeit (signed) gespeichert."
+msgstr ""
+"Intern werden alle Werte mit einer 24 Bit Genauigkeit (signed) gespeichert."
 
 #: index.docbook:2042
 msgid ""
@@ -2884,7 +2906,8 @@ msgid "a red lamb means \"disabled\"."
 msgstr "eine rote Lampe \"deaktiviert\" bedeutet."
 
 #: index.docbook:2101
-msgid "Note: If a channel is de-selected it will also not be audible for playback!"
+msgid ""
+"Note: If a channel is de-selected it will also not be audible for playback!"
 msgstr ""
 "Hinweis: Wird ein Kanal deselektiert, wird er bei der Wiedergabe nicht "
 "hörbar sein!"
@@ -3280,22 +3303,25 @@ msgid ""
 "0.6 &kapp; has support for <ulink url=\"http://www.arts-project.org/\">aRts</"
 "ulink>, which can use ALSA."
 msgstr ""
-"Sorry, im Moment haben wir keine direkte Unterstützung für ALSA, aber seit Version "
-"0.6 unterstützt &kapp; die Ausgabe über <ulink url=\"http://www.arts-project.org/\">aRts</"
-"ulink>, der widerum ALSA verwenden kann."
+"Sorry, im Moment haben wir keine direkte Unterstützung für ALSA, aber seit "
+"Version 0.6 unterstützt &kapp; die Ausgabe über <ulink url=\"http://www.arts-"
+"project.org/\">aRts</ulink>, der widerum ALSA verwenden kann."
 
 #: index.docbook:2755
-msgid "What about playback with 24 and 32 bits per sample or more than two channels?"
-msgstr "Wie steht es mit der Wiedergabe von 24 und 32 bits pro Sample oder mehr als zwei Kanälen?"
+msgid ""
+"What about playback with 24 and 32 bits per sample or more than two channels?"
+msgstr ""
+"Wie steht es mit der Wiedergabe von 24 und 32 bits pro Sample oder mehr als "
+"zwei Kanälen?"
 
 #: index.docbook:2761
 msgid ""
 "This is another feature that might get implemented in <ulink url=\"http://"
 "www.arts-project.org/\">aRts</ulink>, so we wait for aRts to support it."
 msgstr ""
-"Dies ist ein weiteres Feature, das wahrscheinlich in <ulink url=\"http://"
-"www.arts-project.org/\">aRts</ulink> implementiert wird, somit warten wir "
-"bis die Unterstützung von aRts vorhanden ist."
+"Dies ist ein weiteres Feature, das wahrscheinlich in <ulink url=\"http://www."
+"arts-project.org/\">aRts</ulink> implementiert wird, somit warten wir bis "
+"die Unterstützung von aRts vorhanden ist."
 
 #: index.docbook:2771
 msgid "What about MP3 support?"
@@ -3322,8 +3348,8 @@ msgid ""
 "Program copyright from 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
 "de</email>"
 msgstr ""
-"Programm Copyright von 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln.de</"
-"email>"
+"Programm Copyright von 1998-2000 Martin Wilz <email>mwilz@ernie.mi.uni-koeln."
+"de</email>"
 
 #: index.docbook:2814
 msgid ""
@@ -3447,4 +3473,3 @@ msgstr ""
 "Der aktuelle Code enthält einige FFT-Routinen und Codefragmente vom GNU "
 "Scientific Library project <ulink url=\"ftp://alpha.gnu.org/gnu/\">ftp://"
 "alpha.gnu.org/gnu</ulink>."
-

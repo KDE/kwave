@@ -105,7 +105,9 @@ kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt -lkfile -lkdeui -lkdecore -lqt \
+kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt \
+	-lartsflow -lartsflow_idl -lmcop \
+	-lkfile -lkdeui -lkdecore -lqt \
 	-lX11 -lXext -lpthread -ldl -lm
 
 # if you "make distclean", this files get removed. If you want to remove

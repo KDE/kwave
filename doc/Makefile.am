@@ -1,6 +1,6 @@
 
 MAINTAINERCLEANFILES = de/*.html en/*.html
-CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook
+CLEANFILES = core *~ .deps/* doc/*~ *.orig changes.docbook de/*.html en/*.html
 DISTCLEANFILES = Makefile.in Makefile
 
 LANGUAGES = en de
@@ -8,44 +8,11 @@ SUFFIXES = .docbook .po .pot
 SGMLDIR=$(kde_datadir)/ksgmltools2
 DOCDIR = $(DESTDIR)${kde_htmldir}
 
-#changes.docbook: ../CHANGES ../bin/changes-to-docbook.sh
-#	cat ../CHANGES | ../bin/changes-to-docbook.sh > changes.docbook
-#
-# help_en.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
-#	cp help_en.docbook help_en.docbook.orig
-#	cat help_en.docbook.orig | \
-#	../bin/insert-changes.sh  changes.docbook | \
-#	awk -v newval=`date --iso` \
-#	'{ sub(/<DATE>.*<\/DATE>/, \
-#	"<DATE>"newval"</DATE>", $$0); print; }' | \
-#	awk -v newval=`cat ../VERSION` \
-#	'{ sub(/<RELEASEINFO>.*<\/RELEASEINFO>/, \
-#	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
-#	help_en.docbook
-#
-# help_de.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
-#	cp help_de.docbook help_de.docbook.orig
-#	cat help_de.docbook.orig | \
-#	../bin/insert-changes.sh  changes.docbook | \
-#	awk -v newval=`date --iso` \
-#	'{ sub(/<DATE>.*<\/DATE>/, \
-#	"<DATE>"newval"</DATE>", $$0); print; }' | \
-#	awk -v newval=`cat ../VERSION` \
-#	'{ sub(/<RELEASEINFO>.*<\/RELEASEINFO>/, \
-#	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
-#	help_de.docbook
-#
-#en/index.html: help_en.docbook
-#	rm -f en/*.html
-#	${JW} -o en -c ${SGMLDIR}/catalog \
-#	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
-#	help_en.docbook
-#
-#de/index.html: help_de.docbook
-#	rm -f de/*.html
-#	${JW} -o de -c ${SGMLDIR}/catalog \
-#	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
-#	help_de.docbook
+de/index.html: help_de.docbook
+	cd de ; meinproc --check ../help_de.docbook
+
+en/index.html: help_en.docbook
+	cd en ; meinproc --check ../help_en.docbook
 
 help_en.pot: help_en.docbook
 	xml2pot help_en.docbook > help_en.pot
@@ -61,8 +28,7 @@ help_de.docbook: help_de.po help_en.docbook
 
 doc: help_de.docbook
 
-# doc.timestamp: de/index.html en/index.html
-# 	LC_ALL=en date > doc.timestamp
+html-doc: en/index.html de/index.html
 
 all: doc
 

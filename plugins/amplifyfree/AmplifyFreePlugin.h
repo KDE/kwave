@@ -45,6 +45,12 @@ public:
      */
     virtual QStringList *setup(QStringList &previous_params);
 
+    /** Does the fade operation */
+    virtual void run(QStringList);
+
+    /** Aborts the process (if running). */
+    virtual int stop();
+
 protected:
 
     /** Reads values from the parameter list */
@@ -53,6 +59,9 @@ protected:
 private:
     /** List of parameters */
     QStringList m_params;
+
+    /** flag for stopping the process */
+    bool m_stop;
 
 };
 

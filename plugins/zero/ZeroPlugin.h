@@ -37,9 +37,7 @@ public:
     /** Constructor */
     ZeroPlugin(PluginContext &c);
 
-    /**
-     * Does playback in a thread.
-     */
+    /** Fills the selected area with zeroes */
     virtual void run(QStringList);
 
     /**

@@ -849,23 +849,18 @@ int TopWidget::saveFileAs(bool selection)
     KwaveFileDialog dlg(":<kwave_save_dir>", CodecManager::encodingFilter(),
         this, "Kwave save file", true);
     dlg.setKeepLocation(true);
-//    dlg.setMode(static_cast<KFile::Mode>(KFile::));
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));
     if (dlg.exec() != QDialog::Accepted) return -1;
 
     KURL url = dlg.selectedURL();
-//    getSaveURL(":<kwave-savedir>",
-//	CodecManager::encodingFilter(), m_main_widget,
-//	"Kwave open file", true);
-
     if (!url.isEmpty()) {
 	QString name = url.path();
 	QFileInfo path(name);
 	
 	// add the correct extension if necessary
 	if (path.extension(false) == "") {
-	    QString ext = dlg.extension();
+	    QString ext = dlg.selectedExtension();
 	    name += ext.mid(1);
 	    path = name;
 	    url.setPath(name);

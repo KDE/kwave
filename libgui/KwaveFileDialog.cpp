@@ -122,4 +122,11 @@ void KwaveFileDialog::saveConfig()
 }
 
 //***************************************************************************
+QString KwaveFileDialog::selectedExtension()
+{
+    QStringList ext_list = QStringList::split("; ", currentFilter());
+    return *(ext_list.begin());
+}
+
+//***************************************************************************
 //***************************************************************************

@@ -44,7 +44,7 @@ public:
     /**
      * Returns the last used extension, including "*."
      */
-    inline QString extension() { return m_last_ext; };
+    QString selectedExtension();
     
 protected:
 

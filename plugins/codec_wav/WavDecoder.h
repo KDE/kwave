@@ -19,9 +19,8 @@
 #define _WAV_DECODER_H_
 
 #include "config.h"
+#include <qobject.h>
 #include "libkwave/Decoder.h"
-
-class QWidget;
 
 class WavDecoder: public Decoder
 {

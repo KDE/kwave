@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include <qlist.h>
+#include <qobject.h>
 #include <qstringlist.h>
 #include <qvaluelist.h>
 
@@ -29,8 +30,9 @@ class QIODevice;
 class QCString;
 class RIFFChunk;
 
-class RIFFParser
+class RIFFParser: public QObject
 {
+    Q_OBJECT
 public:
 
     /** endianness of the RIFF's chunk format */
@@ -94,6 +96,19 @@ public:
      * @see discardGarbage()
      */
     void repair();
+
+public slots:
+
+   /** Cancels the current action. */
+   void cancel();
+
+signals:
+
+    /** emits the name of the currently performed action */
+    void action(const QString &name);
+
+    /** emits a progress in percent */
+    void progress(int percent);
 
 protected:
 
@@ -187,14 +202,19 @@ protected:
 
     /**
      * Performs a scan for a 4-character chunk name over a range of the
-     * source.
+     * source. Also emits progress bar info from
+     * [(start/count) ... ((start+1)/count-1)]
      * @param name the name of the chunk to be found
      * @param offset position for start of the scan
      * @param length number of bytes to scan
+     * @param progress_start start of the progress [0..progress_count-1]
+     * @param progress_count number of progress sections
      * @return list of positions of where the name exists
      */
     QValueList<u_int32_t> scanForName(const QCString &name, u_int32_t offset,
-                                      u_int32_t length);
+                                      u_int32_t length,
+                                      int progress_start = 0,
+                                      int progress_count = 1);
 
 private:
 
@@ -214,8 +234,8 @@ private:
     /** fixes the end of garbage chunks to no longer overlap valid chunks */
     void fixGarbageEnds();
 
-    /** Discards all garbage chunks */
-    void discardGarbage();
+    /** Discards all garbage sub-chunks */
+    void discardGarbage(RIFFChunk &chunk);
 
     /** I/O device with the source of the file */
     QIODevice &m_dev;
@@ -231,6 +251,9 @@ private:
 
     /** endianness of the RIFF file, auto-detected */
     Endianness m_endianness;
+
+    /** can be set to true in order to cancel a running operation */
+    bool m_cancel;
 
 };
 

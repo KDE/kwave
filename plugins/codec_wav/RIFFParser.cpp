@@ -26,6 +26,7 @@
 #include <qlist.h>
 #include <qstring.h>
 #include <qstringlist.h>
+#include <klocale.h>
 
 #include "RIFFChunk.h"
 #include "RIFFParser.h"
@@ -41,7 +42,7 @@ RIFFParser::RIFFParser(QIODevice &device, const QStringList &main_chunks,
                        const QStringList &known_subchunks)
     :m_dev(device), m_root(0, "", "", device.size(), 0, device.size()),
      m_main_chunk_names(main_chunks), m_sub_chunk_names(known_subchunks),
-     m_endianness(Unknown)
+     m_endianness(Unknown), m_cancel(false)
 {
     m_root.setType(RIFFChunk::Root);
 }
@@ -85,15 +86,34 @@ bool RIFFParser::isKnownName(const QCString &name)
 //***************************************************************************
 void RIFFParser::detectEndianness()
 {
+    // first try the easy way, works if file is sane
+    QString sane_name = read4ByteString(0);
+    if (sane_name == "RIFF") {
+        m_endianness = LittleEndian;
+        return;
+    }
+    if (sane_name == "RIFX") {
+        m_endianness = BigEndian;
+        return;
+    }
+
+    // ok, our file is damaged at least a bit, try to discover
+    emit action(i18n("detecting endianness (standard search)..."));
+    emit progress(0);
+
     QValueList<u_int32_t> riff_offsets = scanForName("RIFF",
-        m_root.physStart(), m_root.physLength());
+        m_root.physStart(), m_root.physLength(), 0, 2);
+    if (m_cancel) return;
+
     QValueList<u_int32_t> rifx_offsets = scanForName("RIFX",
-        m_root.physStart(), m_root.physLength());
+        m_root.physStart(), m_root.physLength(), 1, 2);
+    if (m_cancel) return;
 
     // if RIFF found and RIFX not found -> little endian
     if (riff_offsets.count() && !rifx_offsets.count()) {
         debug("detected little endian format");
         m_endianness = LittleEndian;
+        emit progress(100);
         return;
     }
 
@@ -101,11 +121,13 @@ void RIFFParser::detectEndianness()
     if (rifx_offsets.count() && !riff_offsets.count()) {
         debug("detected big endian format");
         m_endianness = BigEndian;
+        emit progress(100);
         return;
     }
 
     // not detectable -> detect by searching all known chunks and
     // detect best match
+    emit action(i18n("detecting endianness (statistic search)..."));
     debug("doing statistic search to determine endianness...");
     unsigned int le_matches = 0;
     unsigned int be_matches = 0;
@@ -118,11 +140,15 @@ void RIFFParser::detectEndianness()
     double half = (m_dev.size() >> 1);
 
     // loop over all chunk names
+    int count = names.count();
+    int index = 0;
     for (it = names.begin(); it != names.end(); ++it ) {
         // scan all offsets where the name matches
         QCString name = (*it).latin1();
         QValueList<u_int32_t> offsets = scanForName(name,
-            m_root.physStart(), m_root.physLength());
+            m_root.physStart(), m_root.physLength(),
+            index, count);
+        if (m_cancel) return;
 
         // loop over all found offsets
         QValueList<u_int32_t>::Iterator it_ofs = offsets.begin();
@@ -143,6 +169,8 @@ void RIFFParser::detectEndianness()
             if (dist_be > dist_le) ++le_matches;
             if (dist_le > dist_be) ++be_matches;
         }
+
+        emit progress(100 * (++index) / count);
     }
     debug("big endian matches:    %u", be_matches);
     debug("little endian matches: %u", le_matches);
@@ -158,6 +186,8 @@ void RIFFParser::detectEndianness()
         debug("unable to determine endianness");
         m_endianness = Unknown;
     }
+
+    emit progress(100);
 }
 
 //***************************************************************************
@@ -359,11 +389,11 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         length -= chunk->physLength() + 8;
         offset  = chunk->physEnd() + 1;
 //        debug("parse loop end: offset=0x%08X, length=%u",offset,length);
-    } while (length);
+    } while (length && !m_cancel);
 
     // parse for sub-chunks in the chunks we newly found
     QListIterator<RIFFChunk> it(found_chunks);
-    for (; it.current(); ++it) {
+    for (; it.current() && !m_cancel; ++it) {
 	RIFFChunk *chunk = it.current();
 	
 	if ( (guessType(chunk->name()) == RIFFChunk::Main) &&
@@ -383,7 +413,7 @@ bool RIFFParser::parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length)
         }
     }
 
-    return (!error);
+    return (!error && !m_cancel);
 }
 
 //***************************************************************************
@@ -409,10 +439,10 @@ RIFFChunk *RIFFParser::findChunk(const QCString &path)
 
 //***************************************************************************
 QValueList<u_int32_t> RIFFParser::scanForName(const QCString &name,
-    u_int32_t offset, u_int32_t length)
+    u_int32_t offset, u_int32_t length,
+    int progress_start, int progress_count)
 {
     QValueList<u_int32_t> matches;
-
     ASSERT(length >= 4);
     u_int32_t end = offset + ((length > 4) ? (length - 4) : 0);
     char buffer[5];
@@ -424,7 +454,8 @@ QValueList<u_int32_t> RIFFParser::scanForName(const QCString &name,
     debug("scannig for '%s' at [0x%08X...0x%08X] ...", name.data(),
           offset, end);
     u_int32_t pos;
-    for (pos = offset; pos <= end; ++pos) {
+    int next = 1;
+    for (pos = offset; (pos <= end) && !m_cancel; ++pos) {
         if (name == buffer) {
             // found the name
             matches.append(pos);
@@ -434,6 +465,14 @@ QValueList<u_int32_t> RIFFParser::scanForName(const QCString &name,
         buffer[1] = buffer[2];
         buffer[2] = buffer[3];
         buffer[3] = m_dev.getch();
+
+        // update progress bar
+        if (!--next) {
+	    int percent = (((100*progress_start + (100*(pos-offset)) /
+                      (end-offset))) / progress_count);
+	    emit progress(percent);
+	    next = (end-offset)/100;
+        }
     }
 
     return matches;
@@ -465,6 +504,9 @@ RIFFChunk *RIFFParser::chunkAt(u_int32_t offset)
 //***************************************************************************
 RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
 {
+    emit action(i18n("searching for missing chunk '%1'...").arg(name));
+    emit progress(0);
+
     bool found_something = false;
 
     // first search in all garbage areas
@@ -472,19 +514,22 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
     listAllChunks(m_root, all_chunks);
 
     QListIterator<RIFFChunk> ic(all_chunks);
-    for (; ic.current(); ++ic) {
+    int index = 0;
+    int count = all_chunks.count();
+    for (; ic.current() && !m_cancel; ++ic, ++index) {
         RIFFChunk *chunk = ic.current();
         if (chunk->type() == RIFFChunk::Garbage) {
             // search for the name
             debug("searching in garbage at 0x%08X", chunk->physStart());
             QValueList<u_int32_t> offsets = scanForName(name,
-                chunk->physStart(), chunk->physLength());
+                chunk->physStart(), chunk->physLength(),
+                index, count);
             if (offsets.count()) found_something = true;
 
             // process the results -> convert them into chunks
             QValueList<u_int32_t>::Iterator it = offsets.begin();
             u_int32_t end = chunk->physEnd();
-            for (;it != offsets.end(); ++it) {
+            for (;(it != offsets.end()) && !m_cancel; ++it) {
                 u_int32_t pos = (*it);
                 u_int32_t len = end-pos+1;
                 debug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
@@ -495,7 +540,7 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
     }
 
     // not found in garbage? search over the rest of the file"
-    if (!found_something) {
+    if (!found_something && !m_cancel) {
         debug("brute-force search from 0x%08X to 0x%08X",
               0, m_root.physEnd());
         QValueList<u_int32_t> offsets = scanForName(name,
@@ -504,7 +549,7 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
         // process the results -> convert them into chunks
         QValueList<u_int32_t>::Iterator it = offsets.begin();
         u_int32_t end = m_root.physEnd();
-        for (;it != offsets.end(); ++it) {
+        for (;(it != offsets.end())  && !m_cancel; ++it) {
             u_int32_t pos = (*it);
             u_int32_t len = end-pos+1;
             debug("found at [0x%08X...0x%08X] len=%u", pos, end, len);
@@ -521,7 +566,7 @@ void RIFFParser::repair()
 {
     bool one_more_pass = true;
 
-    while (one_more_pass) {
+    while (one_more_pass && !m_cancel) {
         // crawl in garbage for all known chunks and sub-chunks
         // crawlInGarbage();
 
@@ -533,11 +578,12 @@ void RIFFParser::repair()
         // join garbage to empty chunks
         if (joinGarbageToEmpty()) continue;
 
-        // resolve overlaps
+        // resolve overlaps of garbage with other chunks
         fixGarbageEnds();
 
         // throw away all remaining garbage
-        discardGarbage();
+        debug("discarding garbage...");
+        discardGarbage(m_root);
 
         // done, no more passes needed
         one_more_pass = false;
@@ -556,7 +602,7 @@ void RIFFParser::collectGarbage()
         listAllChunks(m_root, chunks);
         QListIterator<RIFFChunk> it(chunks);
 
-        for ( ;it.current() && !start_over; ++it) {
+        for ( ;it.current() && !start_over && !m_cancel; ++it) {
             RIFFChunk *chunk = it.current();
 
             // skip garbage chunks themselfes
@@ -565,7 +611,7 @@ void RIFFParser::collectGarbage()
             RIFFChunkList &subchunks = chunk->subChunks();
             bool contains_only_garbage = true;
             QListIterator<RIFFChunk> sub(subchunks);
-            for (; sub.current(); ++sub) {
+            for (; sub.current() && !m_cancel; ++sub) {
                 RIFFChunk::ChunkType type = (*sub.current()).type();
                 if (type != RIFFChunk::Garbage) {
                     contains_only_garbage = false;
@@ -580,7 +626,7 @@ void RIFFParser::collectGarbage()
                 debug("chunk at 0x%08X contains only garbage!", start);
                 // -> convert into a garbage chunk !
                 chunk->setType(RIFFChunk::Garbage);
-                chunk->setLength(end - start + 8);
+                chunk->setLength(end - start + 4 + 1);
                 subchunks.setAutoDelete(true);
                 subchunks.clear();
                 chunks.clear();
@@ -590,7 +636,7 @@ void RIFFParser::collectGarbage()
                 break;
             }
         }
-    } while (start_over);
+    } while (start_over && !m_cancel);
 }
 
 //***************************************************************************
@@ -604,8 +650,8 @@ void RIFFParser::fixGarbageEnds()
     QListIterator<RIFFChunk> it2(chunks);
 
     // try all combinations of chunks
-    for (++it1; it1.current(); ++it1) {
-        for (it2 = it1, ++it2; it2.current(); ++it2) {
+    for (++it1; it1.current() && !m_cancel; ++it1) {
+        for (it2 = it1, ++it2; it2.current() && !m_cancel; ++it2) {
             RIFFChunk *c1 = it1.current();
             RIFFChunk *c2 = it2.current();
 
@@ -625,10 +671,6 @@ void RIFFParser::fixGarbageEnds()
                     s1, e1, c1->name().data());
                 debug("    at 0x%08X...0x%08X '%s'",
                     s2, e2, c2->name().data());
-
-//                if ((c1->type() == c2->type() == RIFFChunk::Garbage)) {
-//                    debug("shortening garbage to %u bytes", len);
-//                }
 
                 if ((c1->type() == RIFFChunk::Garbage) && (s1 < s2)) {
                     // shorten garbage
@@ -654,7 +696,7 @@ bool RIFFParser::joinGarbageToEmpty()
     QListIterator<RIFFChunk> it2(chunks);
 
     // join garbage to empty chunks
-    for (++it2; it2.current() && it1.current(); ++it1, ++it2) {
+    for (++it2; it2.current() && it1.current() && !m_cancel; ++it1, ++it2) {
         RIFFChunk *chunk = it1.current();
         RIFFChunk *next = it2.current();
         bool join = false;
@@ -707,9 +749,30 @@ bool RIFFParser::joinGarbageToEmpty()
 }
 
 //***************************************************************************
-void RIFFParser::discardGarbage()
+void RIFFParser::discardGarbage(RIFFChunk &chunk)
 {
-    debug("discarding garbage...");
+    RIFFChunkList &sub_chunks = chunk.subChunks();
+    QListIterator<RIFFChunk> it(sub_chunks);
+
+    for (; it.current() && !m_cancel; ++it) {
+        RIFFChunk *ch = it.current();
+        if (ch->type() == RIFFChunk::Garbage) {
+            // garbage found -> deleting it
+            sub_chunks.setAutoDelete(true);
+            sub_chunks.remove(ch);
+        } else {
+            // recursively delete garbage
+            discardGarbage(*ch);
+        }
+    }
+
+}
+
+//***************************************************************************
+void RIFFParser::cancel()
+{
+    debug("RIFFParser: --- cancel ---");
+    m_cancel = true;
 }
 
 //***************************************************************************

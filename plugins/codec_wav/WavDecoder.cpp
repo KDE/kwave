@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <qprogressdialog.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmimetype.h>
@@ -24,6 +25,7 @@
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libgui/ConfirmCancelProxy.h"
 
 #include "RIFFChunk.h"
 #include "RIFFParser.h"
@@ -54,7 +56,7 @@ Decoder *WavDecoder::instance()
 }
 
 //***************************************************************************
-bool WavDecoder::open(QWidget *, QIODevice &src)
+bool WavDecoder::open(QWidget *widget, QIODevice &src)
 {
     info().clear();
     ASSERT(!m_source);
@@ -70,81 +72,122 @@ bool WavDecoder::open(QWidget *, QIODevice &src)
     main_chunks.append("RIFF"); /* RIFF, little-endian */
     main_chunks.append("RIFX"); /* RIFF, big-endian */
     main_chunks.append("FORM"); /* used in AIFF, big-endian or IFF/.lbm */
-//    main_chunks.append("LIST"); /* additional information */
-//    main_chunks.append("adtl"); /* Associated Data */
+    main_chunks.append("LIST"); /* additional information */
+    main_chunks.append("adtl"); /* Associated Data */
 
     QStringList known_chunks;
 
-//    // native WAVE chunk names
-//    known_chunks.append("cue "); /* Markers */
+    // native WAVE chunk names
+    known_chunks.append("cue "); /* Markers */
     known_chunks.append("data"); /* Sound Data */
     known_chunks.append("fmt "); /* Format */
-//    known_chunks.append("inst"); /* Instrument */
-//    known_chunks.append("labl"); /* label */
-//    known_chunks.append("ltxt"); /* labeled text */
-//    known_chunks.append("note"); /* note chunk */
-//    known_chunks.append("plst"); /* Play List */
-//    known_chunks.append("smpl"); /* Sampler */
-//
-//    // some sub-chunks from the LIST chunk
-//    known_chunks.append("IART");
-//    known_chunks.append("ICMT");
-//    known_chunks.append("ICOP");
-//    known_chunks.append("IENG");
-//    known_chunks.append("IGNR");
-//    known_chunks.append("IKEY");
-//    known_chunks.append("IMED");
-//    known_chunks.append("INAM");
-//    known_chunks.append("ISRC");
-//    known_chunks.append("ITCH");
-//    known_chunks.append("ISBJ");
-//    known_chunks.append("ISRF");
-//
-//    // some chunks known from AIFF format
-//    known_chunks.append("FVER");
-//    known_chunks.append("COMM");
-//    known_chunks.append("wave");
-//    known_chunks.append("SSND");
+    known_chunks.append("inst"); /* Instrument */
+    known_chunks.append("labl"); /* label */
+    known_chunks.append("ltxt"); /* labeled text */
+    known_chunks.append("note"); /* note chunk */
+    known_chunks.append("plst"); /* Play List */
+    known_chunks.append("smpl"); /* Sampler */
 
-//    // chunks of .lbm image files, IFF format
-//    known_chunks.append("BMHD");
-//    known_chunks.append("CMAP");
-//    known_chunks.append("BODY");
+    // some sub-chunks from the LIST chunk
+    known_chunks.append("IART");
+    known_chunks.append("ICMT");
+    known_chunks.append("ICOP");
+    known_chunks.append("IENG");
+    known_chunks.append("IGNR");
+    known_chunks.append("IKEY");
+    known_chunks.append("IMED");
+    known_chunks.append("INAM");
+    known_chunks.append("ISRC");
+    known_chunks.append("ITCH");
+    known_chunks.append("ISBJ");
+    known_chunks.append("ISRF");
+
+    // some chunks known from AIFF format
+    known_chunks.append("FVER");
+    known_chunks.append("COMM");
+    known_chunks.append("wave");
+    known_chunks.append("SSND");
+
+    // chunks of .lbm image files, IFF format
+    known_chunks.append("BMHD");
+    known_chunks.append("CMAP");
+    known_chunks.append("BODY");
 
     RIFFParser parser(src, main_chunks, known_chunks);
+
+    // prepare a progress dialog
+    QProgressDialog progress(widget, "Auto-Repair", true);
+    progress.setMinimumDuration(0);
+    progress.setTotalSteps(100);
+    progress.setAutoClose(true);
+    progress.setProgress(0);
+    progress.setLabelText("reading...");
+    connect(&parser,   SIGNAL(progress(int)),
+            &progress, SLOT(setProgress(int)));
+    connect(&parser,   SIGNAL(action(const QString &)),
+            &progress, SLOT(setLabelText(const QString &)));
+    ConfirmCancelProxy confirm_cancel(widget,
+                       &progress, SIGNAL(cancelled()),
+                       &parser,   SLOT(cancel()));
+
+    // parse, including endianness detection
     parser.parse();
-//    parser.dumpStructure();
-    debug("--- after first pass ---");
+    progress.reset();
+    if (progress.wasCancelled()) return false;
+
+    debug("--- RIFF file structure after first pass ---");
     parser.dumpStructure();
 
-    RIFFChunk *chunk;
-
     // check if there is a RIFF chunk at all...
-    chunk = parser.findChunk("/RIFF");
-    if (!chunk) {
-        warning("RIFF chunk not found");
-        chunk = parser.findMissingChunk("RIFF");
-    } else debug("RIFF chunk found.");
+    RIFFChunk *riff_chunk = parser.findChunk("/RIFF");
+    RIFFChunk *fmt_chunk  = parser.findChunk("/RIFF/fmt ");
+    RIFFChunk *data_chunk = parser.findChunk("/RIFF/data");
+
+    if (!riff_chunk || !fmt_chunk || !data_chunk) {
+	warning("structural damage detected!");
+	if (KMessageBox::warningContinueCancel(widget,
+	    i18n("The file has been structurally damaged or "
+	         "is no .wav file.\n"
+	         "Kwave will try to recover it!"),
+	    i18n("Kwave auto repair"),
+	    i18n("&Repair")) != KMessageBox::Continue)
+	{
+	    // user didn't let us try :-(
+	    return false;
+	}
+    }
+
+    // collect all missing chunks
+    if (!riff_chunk) riff_chunk = parser.findMissingChunk("RIFF");
+    if (progress.wasCancelled()) return false;
+
+    if (!fmt_chunk) {
+        parser.findMissingChunk("fmt ");
+        fmt_chunk = parser.findChunk("/RIFF/fmt ");
+        if (progress.wasCancelled()) return false;
+    }
+
+    if (!data_chunk) {
+        parser.findMissingChunk("data");
+        data_chunk = parser.findChunk("/RIFF/data");
+        if (progress.wasCancelled()) return false;
+    }
+
+    // not everything found -> need heavy repair actions !
+    if (!fmt_chunk || !data_chunk) {
+	parser.dumpStructure();
+	parser.repair();
+	parser.dumpStructure();
+        if (progress.wasCancelled()) return false;
+    }
 
     u_int32_t fmt_offset = 0;
-    if (!(chunk = parser.findChunk("/RIFF/fmt "))) {
-        parser.findMissingChunk("fmt ");
-        chunk = parser.findChunk("/RIFF/fmt ");
-    }
-    if (chunk) fmt_offset = chunk->dataStart();
+    if (fmt_chunk) fmt_offset = fmt_chunk->dataStart();
     debug("fmt chunk starts at 0x%08X", fmt_offset);
 
     u_int32_t data_offset = 0;
-    if (!(chunk = parser.findChunk("/RIFF/data"))) {
-        parser.findMissingChunk("data");
-        chunk = parser.findChunk("/RIFF/data");
-    }
-    if (chunk) data_offset = chunk->dataStart();
+    if (data_chunk) data_offset = data_chunk->dataStart();
     debug("data chunk starts at 0x%08X", data_offset);
-
-    parser.dumpStructure();
-    parser.repair();
-    parser.dumpStructure();
 
     // source successfully opened
     m_source = &src;
@@ -189,7 +232,7 @@ bool WavDecoder::open(QWidget *, QIODevice &src)
 //	debug("WavDecoder::open(), header=%d, rest of file=%d",
 //	      header.filelength, src.size());
 //	KMessageBox::error(widget,
-//	    i18n("Error in input: file is smaller than stated "\
+//	    i18n("Error in input: file is smaller than stated "
 //	         "in the header. \nFile will be truncated."));
 //	
 //	datalen = src.size();

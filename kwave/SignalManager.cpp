@@ -304,6 +304,7 @@ int SignalManager::save(const KURL &url, bool selection)
 	QMap<FileProperty, QVariant> properties(m_file_info.properties());
 	bool all_supported = true;
 	QMap<FileProperty, QVariant>::Iterator it;
+	QString lost_properties;
 	for (it=properties.begin(); it!=properties.end(); ++it) {
 	    if ( (! supported.contains(it.key())) &&
                  (m_file_info.canLoadSave(it.key())) )
@@ -311,13 +312,17 @@ int SignalManager::save(const KURL &url, bool selection)
 		warning("SignalManager::save(): unsupported property '%s'",
 		    m_file_info.name(it.key()).data());
 		all_supported = false;
+		lost_properties += m_file_info.name(it.key()) + "\n";
 	    }
 	}
 	if (!all_supported) {
 	    // show a warning to the user and ask him if he wants to continue
 	    if (KMessageBox::warningContinueCancel(m_parent_widget,
-		i18n("Saving in this format will loose some additional "
-		     "file attributes. Do you still want to continue?")
+		i18n("Saving in this format will loose the following "
+		     "additional file attribute(s):\n"
+		     "%1\n"
+		     "Do you still want to continue?").arg(
+		     lost_properties)
 		) != KMessageBox::Continue) return -1;
 	}
 

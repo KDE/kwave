@@ -194,13 +194,6 @@ public:
                                    bool expand_if_empty = false);
 
     /**
-     * Returns a QBitmap with an overview of all currently present
-     * tracks.
-     */
-    QBitmap *overview(unsigned int width, unsigned int height,
-                      unsigned int offset, unsigned int length);
-
-    /**
      * Gives the control to the next thread. This can be called from
      * within the run() function.
      */

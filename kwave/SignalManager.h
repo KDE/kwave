@@ -28,7 +28,6 @@
 
 #include "mt/Mutex.h"
 #include "mt/SignalProxy.h"
-
 #include "libkwave/Selection.h"
 #include "libkwave/Signal.h"
 
@@ -95,17 +94,6 @@ public:
 
     /** Executes a Kwave text command */
     bool executeCommand(const QString &command);
-
-    /**
-     * Returns a QBitmap with an overview of all currently present
-     * signals.
-     * @param width width of the resulting bitmap in pixels
-     * @param height height of the resutling bitmap in pixels
-     * @param offset index of the first sample
-     * @param length number of samples
-     */
-    QBitmap *overview(unsigned int width, unsigned int height,
-                      unsigned int offset, unsigned int length);
 
     /**
      * Returns the current sample resolution in bits per sample

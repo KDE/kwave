@@ -122,12 +122,6 @@ public:
     void setZoom(double new_zoom);
 
     /**
-     * Returns a QBitmap with an overview of all currently present
-     * signals.
-     */
-    QBitmap *overview(unsigned int width, unsigned int height);
-
-    /**
      * Checks if a pixel position is near to the left or right border
      * of a selection. The tolerance is 2% of the currently
      * visible area.

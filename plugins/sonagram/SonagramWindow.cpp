@@ -274,7 +274,6 @@ void SonagramWindow::setOverView(QBitmap *overview)
     }
     m_overview->setImage(image);
     if (image) delete image;
-    if (overview) delete overview;
 }
 
 //****************************************************************************

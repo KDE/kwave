@@ -34,6 +34,8 @@
 #include <kprogress.h>
 #include <kurl.h>
 
+#include "mt/ThreadsafeX11Guard.h"
+
 #include "libkwave/Decoder.h"
 #include "libkwave/Encoder.h"
 #include "libkwave/InsertMode.h"
@@ -47,8 +49,7 @@
 #include "libkwave/Track.h"
 
 #include "libgui/FileProgress.h"
-
-#include "mt/ThreadsafeX11Guard.h"
+#include "libgui/OverViewCache.h"
 
 #include "KwaveApp.h"
 #include "ClipBoard.h"
@@ -385,60 +386,6 @@ const QArray<unsigned int> SignalManager::allTracks()
     return m_signal.allTracks();
 }
 
-//****************************************************************************
-QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
-                                 unsigned int offset, unsigned int length)
-{
-    debug("SignalManager::overview(%u,%u,%u,%u)",width,height,offset,length);
-    QBitmap *overview = new QBitmap(width, height);
-    ASSERT(overview);
-    if (!overview) return 0;
-
-//    unsigned int track;
-//    unsigned int left;
-//    unsigned int right;
-//    unsigned int x;
-//    unsigned int tracks = this->tracks();
-//    double samples_per_pixel = (float)(length-1) / (float)(width-1);
-//    int min;
-//    int max;
-//    double scale_y = (double)height / ((SAMPLE_MAX+1) << 1);
-//
-//    QPainter p;
-//    MultiTrackReader src;
-//    openMultiTrackReader(src, allTracks(), 0, length-1);
-//
-//    overview->fill(color0);
-//
-//    p.begin(overview);
-//    p.setPen(color1);
-//    left = offset;
-//    for (x=0; x < width; x++) {
-//	right = offset + (unsigned int)((x+1) * samples_per_pixel);
-//	// find minimum and maximum over all channels
-//	min = SAMPLE_MAX;
-//	max = SAMPLE_MIN;
-////	while (left++ <= right) {
-////	    for (track = 0; track < tracks; track++) {
-////		sample_t s;
-////		*(src[track]) >> s;
-////		if (s < min) min = s;
-////		if (s > max) max = s;
-////	    }
-////	}
-//	
-//	// transform min/max into pixel coordinates
-//	min = (height >> 1) - (int)(min * scale_y);
-//	max = (height >> 1) - (int)(max * scale_y);
-//	
-//	// draw the line between min and max
-////	p.drawLine(x, min, x, max);
-//    }
-//    p.end ();
-//
-    return overview;
-}
-
 //***************************************************************************
 SampleWriter *SignalManager::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right,
@@ -681,7 +628,6 @@ void SignalManager::appendTrack()
 void SignalManager::insertTrack(unsigned int index)
 {
     UndoTransactionGuard u(*this, i18n("insert track"));
-    debug("void SignalManager::insertTrack(%u)",index);
 
     UndoAction *undo = new UndoInsertTrack(m_signal, index);
     if (!registerUndoAction(undo)) {
@@ -700,11 +646,11 @@ void SignalManager::insertTrack(unsigned int index)
 
     if (index >= count) {
 	// do an "append"
-	debug("SignalManager::insertTrack(): appending");
+//	debug("SignalManager::insertTrack(): appending");
 	m_signal.appendTrack(len);
     } else {
 	// insert into the list
-	debug("m_signal.insertTrack(index, len);"); // ###
+	warning("m_signal.insertTrack(index, len) - NOT IMPLEMENTED !");
 	// ### TODO ### m_signal.insertTrack(index, len);
     }
 

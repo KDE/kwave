@@ -227,13 +227,6 @@ int SignalWidget::saveFile(const KURL &url, unsigned int bits, bool selection)
 }
 
 //***************************************************************************
-QBitmap *SignalWidget::overview(unsigned int width, unsigned int height)
-{
-    return m_signal_manager.overview(width, height, 0,
-                                     m_signal_manager.length());
-}
-
-//***************************************************************************
 void SignalWidget::toggleTrackSelection(int track)
 {
     // here we have to convert to unsigned

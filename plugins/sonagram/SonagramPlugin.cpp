@@ -28,17 +28,17 @@
 
 #include <kapp.h>
 
+#include "mt/SignalProxy.h"
 #include "libkwave/gsl_fft.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/WindowFunction.h"
-
 #include "libgui/KwavePlugin.h"
-
-#include "mt/SignalProxy.h"
-
+#include "libgui/OverViewCache.h"
 #include "kwave/PluginManager.h"
+#include "kwave/SignalManager.h"
+#include "kwave/TopWidget.h"
 
 #include "SonagramPlugin.h"
 #include "SonagramDialog.h"
@@ -207,9 +207,19 @@ int SonagramPlugin::start(QStringList &params)
     // activate the window with an initial image
     // and all necessary informations
     m_selected_channels = selectedTracks();
-    m_sonagram_window->setOverView(overview(
-	2*m_sonagram_window->width(), 40, m_first_sample,
-	m_last_sample-m_first_sample+1));
+//    m_sonagram_window->setOverView(overview(
+//	2*m_sonagram_window->width(), 40, m_first_sample,
+//	m_last_sample-m_first_sample+1));
+
+    SignalManager &sig_mgr = manager().topWidget().signalManager();
+    QArray<unsigned int> tracks = sig_mgr.selectedTracks();
+    OverViewCache cache(sig_mgr,
+        m_first_sample, m_last_sample-m_first_sample+1,
+        tracks.isEmpty() ? 0 : &tracks);
+    QBitmap overview = cache.getOverView(
+        2*m_sonagram_window->width(), 40);
+    m_sonagram_window->setOverView(&overview);
+
     m_sonagram_window->setColorMode((m_color) ? 1 : 0);
     m_sonagram_window->setImage(m_image);
     m_sonagram_window->setPoints(m_fft_points);

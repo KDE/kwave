@@ -233,13 +233,6 @@ unsigned int KwavePlugin::selection(unsigned int *left, unsigned int *right,
 }
 
 //***************************************************************************
-QBitmap *KwavePlugin::overview(unsigned int width, unsigned int height,
-                               unsigned int offset, unsigned int length)
-{
-    return manager().overview(width, height, offset, length);
-}
-
-//***************************************************************************
 void KwavePlugin::yield()
 {
     pthread_testcancel();

@@ -124,13 +124,6 @@ public:
     inline TopWidget &topWidget() { return m_top_widget; };
 
     /**
-     * Returns a QBitmap with an overview of all currently present
-     * signals.
-     */
-    QBitmap *overview(unsigned int width, unsigned int height,
-                      unsigned int offset, unsigned int length);
-
-    /**
      * Returns a set of opened SampleReader objects for reading from
      * multiple tracks. The list of tracks may contain indices of tracks
      * in any order and even duplicate entries are allowed. One useful

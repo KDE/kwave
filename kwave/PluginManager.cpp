@@ -451,13 +451,6 @@ unsigned int PluginManager::selectionEnd()
 }
 
 //***************************************************************************
-QBitmap *PluginManager::overview(unsigned int width, unsigned int height,
-                                 unsigned int offset, unsigned int length)
-{
-    return m_top_widget.signalManager().overview(width,height,offset,length);
-}
-
-//***************************************************************************
 SampleWriter *PluginManager::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {

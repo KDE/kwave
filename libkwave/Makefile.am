@@ -51,8 +51,10 @@ libkwave_la_SOURCES=\
  Track.cpp\
  WindowFunction.cpp
 
-libkwave_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
+libkwave_la_LDFLAGS = -L../libaudiofile -version-info @LD_VERSION_INFO@ \
 	--dynamic --export-dynamic
+
+libkwave_la_LIBADD = ../libaudiofile/libaudiofile.la
 
 lib_LTLIBRARIES = libkwave.la
 

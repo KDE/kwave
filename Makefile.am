@@ -6,7 +6,7 @@ VERSION	 	 = $(shell cat ./VERSION)
 ARCHIVE_DIR	 = ${srcdir}/../ARCHIVE
 SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
-SUBDIRS  	 = mt libgui libkwave kwave plugins po doc
+SUBDIRS  	 = libaudiofile mt libgui libkwave kwave plugins po doc
 
 CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \

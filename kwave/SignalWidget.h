@@ -238,6 +238,23 @@ public slots:
 
     void refreshAllLayers();
 
+protected:
+
+    /** Starts a drag & drop operation (from Kwave to somewhere else) */
+    virtual void startDragging();
+
+    /** @see Qt XDND documentation */
+    virtual void dragEnterEvent(QDragEnterEvent* event);
+
+    /** @see Qt XDND documentation */
+    virtual void dragLeaveEvent(QDragLeaveEvent* event);
+
+    /** @see Qt XDND documentation */
+    virtual void dropEvent(QDropEvent* event);
+
+    /** @see Qt XDND documentation */
+    virtual void dragMoveEvent(QDragMoveEvent* event);
+
 protected slots:
 
     /**
@@ -308,7 +325,11 @@ private slots:
     void slotSelectionChanged(unsigned int offset, unsigned int length);
 
 
-    /* ### */
+    /**
+     * Updates the vertical line that represents the current playback
+     * position during playback.
+     * @param pos last played sample position [0...length-1]
+     */
     void updatePlaybackPointer(unsigned int pos);
 
     /* ### */

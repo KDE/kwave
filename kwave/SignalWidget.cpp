@@ -145,6 +145,8 @@ SignalWidget::SignalWidget(QWidget *parent)
     setBackgroundMode(NoBackground); // this avoids flicker :-)
     setMouseTracking(true);
 
+    setAcceptDrops(true); // enable drag&drop
+
     setZoom(0.0);
 //    debug("SignalWidget::SignalWidget(): done.");
 }
@@ -757,11 +759,23 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
     // ignore all mouse press events in playback mode
     if (m_signal_manager.playbackController().running()) return;
 
-    if (e->button() == LeftButton) {
-	int x = m_offset + pixels2samples(e->pos().x());
+    if ((e->button() & MouseButtonMask) == LeftButton) {
+	int mx = e->pos().x();
+	if (mx < 0) mx = 0;
+	if (mx >= m_width) mx = m_width-1;
+	unsigned int x = m_offset + pixels2samples(mx);
 	down = true;
-	(isSelectionBorder(e->pos().x())) ? m_selection->grep(x) :
-	                                    m_selection->set(x, x);
+
+	if ((e->state() & KeyButtonMask) == ShiftButton) {
+	    // expand the selection to "here"
+	    m_selection->grep(x);
+	    unsigned int len = m_selection->right() - m_selection->left() + 1;
+	    selectRange(m_selection->left(), len);
+	} else if ((e->state() & KeyButtonMask) == 0) {
+	    // start a new selection
+	    (isSelectionBorder(e->pos().x())) ?
+		m_selection->grep(x) : m_selection->set(x, x);
+	}
     }
 }
 
@@ -1651,6 +1665,36 @@ void SignalWidget::slotSamplesModified(unsigned int /*track*/,
 {
 //    debug("SignalWidget(): slotSamplesModified(%u, %u,%u)", track,
 //	offset, length);
+}
+
+//***************************************************************************
+void SignalWidget::startDragging()
+{
+    debug("SignalWidget::startDragging()");
+}
+
+//***************************************************************************
+void SignalWidget::dragEnterEvent(QDragEnterEvent* event)
+{
+    debug("SignalWidget::dragEnterEvent(...)");
+}
+
+//***************************************************************************
+void SignalWidget::dragLeaveEvent(QDragLeaveEvent* event)
+{
+    debug("SignalWidget::dragLeaveEvent(...)");
+}
+
+//***************************************************************************
+void SignalWidget::dropEvent(QDropEvent* event)
+{
+    debug("SignalWidget::dropEvent(...)");
+}
+
+//***************************************************************************
+void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
+{
+    // debug("SignalWidget::dragMoveEvent(...)");
 }
 
 //***************************************************************************

@@ -43,7 +43,7 @@
 #include "libkwave/FileFormat.h"
 #include "libkwave/Parser.h"
 #include "libkwave/Sample.h"
-#include "libkwave/SampleInputStream.h"
+#include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 
 #include "libgui/FileProgress.h"
@@ -1039,7 +1039,7 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 	length = file_rest/bytes_per_sample;
     }
 
-    QList<SampleInputStream> samples;
+    QList<SampleWriter> samples;
     samples.setAutoDelete(true);
 
     for (unsigned int track = 0; track < channels; track++) {
@@ -1050,7 +1050,7 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 	    return -ENOMEM;
 	}
 
-	SampleInputStream *s = m_signal.openInputStream(track, Overwrite);
+	SampleWriter *s = m_signal.openSampleWriter(track, Overwrite);
 	ASSERT(s);
 	if (!s) {
 	    KMessageBox::sorry(m_parent_widget, i18n("Out of Memory!"));
@@ -1101,7 +1101,7 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 	         channel < channels;
 	         channel++)
 	    {
-		SampleInputStream *stream = samples.at(channel);
+		SampleWriter *stream = samples.at(channel);
 		if (bytes == 1) {
 		    // 8-bit files are always unsigned !
 		    s = (*(buffer++) - 128) << shift;

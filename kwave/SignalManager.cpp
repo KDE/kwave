@@ -1009,6 +1009,11 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
     unsigned int max_samples = bufsize / bytes_per_sample;
     long int start_offset = sigfile.at();
 
+    debug("SignalManager::loadWavChunk(): offset     = %d", sigfile.at());
+    debug("SignalManager::loadWavChunk(): length     = %d samples", length);
+    debug("SignalManager::loadWavChunk(): tracks     = %d", channels);
+    debug("SignalManager::loadWavChunk(): resoultion = %d bits/sample", bits);
+
     ASSERT(bytes);
     ASSERT(channels);
     ASSERT(length);
@@ -1102,13 +1107,16 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 	         channel++)
 	    {
 		SampleWriter *stream = samples.at(channel);
+		
 		if (bytes == 1) {
 		    // 8-bit files are always unsigned !
 		    s = (*(buffer++) - 128) << shift;
 		} else {
 		    // >= 16 bits is signed
-		    for (register int byte = 0; byte < bytes; byte++)
+		    s = 0;
+		    for (register int byte = 0; byte < bytes; byte++) {
 			s |= *(buffer++) << ((byte << 3) + shift);
+		    }
 		    // sign correcture for negative values
 		    if ((unsigned int)s & sign)
 			s |= negative;

@@ -21,7 +21,7 @@ install clean distclean all:
 	list='$(dirs)'; for subdir in $$list; do \
 	target=`echo $@ | sed s/-recursive//`; \
 	echo "Making $$target in $$subdir"; \
-	(cd $$subdir && $(MAKE) $$target) \
+	(cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$target) \
 	|| case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
 	done && test -z "$$fail"
     

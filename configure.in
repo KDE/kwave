@@ -7,7 +7,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl You have to change this
-AM_INIT_AUTOMAKE(kwave, `cat ./VERSION`)
+AM_INIT_AUTOMAKE(kwave,`cat ./VERSION`)
 
 dnl make $KDEDIR the default for the installation
 AC_PREFIX_DEFAULT(${KDEDIR:-/usr/local/kde})
@@ -74,12 +74,45 @@ dnl output files
 topdir=`pwd`
 AC_SUBST(topdir)
 
+dnl get the fields of the spec file from the lsm file
+
+define(getlsm, $1=`bin/get_lsm_entry.sh kwave.lsm $2`)
+
+getlsm(RPM_DESCRIPTION, Description)
+getlsm(RPM_SUMMARY, Keywords)
+getlsm(RPM_NAME, Title)
+getlsm(RPM_COPYRIGHT, Copying-policy)
+getlsm(RPM_URL, Homepage)
+getlsm(RPM_VENDOR, Author)
+
+changequote(<<, >>)
+RPM_VERSION=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[1] }'`
+RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2]+0 }'`
+RPM_SOURCE0=<<kwave-%{version}.tgz>>
+RPM_GROUP=<<X11/Applications/Sound>>
+RPM_BUILDROOT=<</tmp/kwave-%{version}.root>>
+changequote([, ])
+
+dnl enter the variables for the spec file
+AC_SUBST(RPM_DESCRIPTION)
+AC_SUBST(RPM_SUMMARY)
+AC_SUBST(RPM_NAME)
+AC_SUBST(RPM_VERSION)
+AC_SUBST(RPM_RELEASE)
+AC_SUBST(RPM_SOURCE0)
+AC_SUBST(RPM_GROUP)
+AC_SUBST(RPM_COPYRIGHT)
+AC_SUBST(RPM_URL)
+AC_SUBST(RPM_VENDOR)
+AC_SUBST(RPM_BUILDROOT)
+
 dnl add here all your Makefiles
-AC_OUTPUT(Makefile kwave.spec \
+AC_OUTPUT(Makefile \
 	libgui/Makefile \
 	src/Makefile \
 	plugins/Makefile \
 	plugins/dialogs/Makefile \
 	plugins/dialogs/template/Makefile \
-	po/Makefile)
+	po/Makefile \
+	kwave.spec )
 

@@ -34,8 +34,8 @@ reallyclean: clean-generic distclean
 backup:
 	@ ${MAKE} reallyclean ; \
 	(cd ${srcdir}/..; \
-	tar -czh -f ${ARCHIVE_DIR}/kwave-${VERSION}.tar.gz ${SRC_PREFIX} ) && \
-	echo source backed up to kwave-${VERSION}.tar.gz
+	tar -czh -f ${ARCHIVE_DIR}/kwave-${VERSION}.tgz ${SRC_PREFIX} ) && \
+	echo source backed up to kwave-${VERSION}.tgz
 
 patch: backup
 	@ $(srcdir)/bin/make_patch.sh kwave `cat $(srcdir)/VERSION` \
@@ -53,3 +53,13 @@ messages:
 	/usr/bin/xgettext -C -ktranslate -x /opt/kde/include/kde.pot \
 	`find . -name \*.h -o -name \*.cpp` -o ./po/kwave.pot
 
+rpm: clean ${PACKAGE}.spec
+	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
+	mkdir -p /tmp/${PACKAGE}-@RPM_VERSION@
+	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_VERSION@ )
+	(cd /tmp/ ; \
+	tar -czh -f /usr/src/packages/SOURCES/kwave-@RPM_VERSION@.tgz \
+		${SRC_PREFIX}-@RPM_VERSION@ )
+	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
+		
+	rpm -ba ${PACKAGE}.spec

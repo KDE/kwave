@@ -1,78 +1,49 @@
-# Installs in /usr/X11R6/bin
-Summary: KDE Video4Linux Stream Capture Viewer
-Name: kwave
-Version: @VERSION@
-Release: 1
-Source0: kwave-%{version}.tgz
-Group: X11/Applications/Sound
-Copyright: GNU GENERAL PUBLIC LICENSE
-URL: ftp://ftp.kde.org/pub/kde/unstable/apps/multimedia/sound
-Vendor: Martin Wilz> <mwilz@ernie.mi.uni-koeln.de>
-BuildRoot: /tmp/kwave-%{version}.root
+%define ver @RPM_VERSION@
+%define release @RPM_RELEASE@
+%define filelist %{name}-%{ver}/file.list.%{name}
+
+Summary: @RPM_SUMMARY@
+Name: @RPM_NAME@
+Version: %{ver}
+Release: %{release}
+Source0: @RPM_SOURCE0@
+Group: @RPM_GROUP@
+Copyright: @RPM_COPYRIGHT@
+URL: @RPM_URL@
+Vendor: @RPM_VENDOR@
+BuildRoot: @RPM_BUILDROOT@
 
 %description
-A sound editor for KDE
+@RPM_DESCRIPTION@
 
 %prep
+
 %setup 
-./configure --with-install-root=$RPM_BUILD_ROOT
+rm -rf -v "$RPM_BUILD_ROOT"
+./configure --with-install-root=$RPM_BUILD_ROOT \
+	--enable-shared=yes --enable-static=no
 
 %build
-#CFLAGS="$RPM_OPT_FLAGS" ./configure
-make
+(cd libgui && make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="")
+(
+    export LD_LIBRARY_PATH="$RPM_BUILD_ROOT"/libgui/.libs:${LD_LIBRARY_PATH}
+    make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT=""
+)
 
 %install
-make R="$RPM_BUILD_ROOT" SUID_ROOT="" install
+rm -rf -v "$RPM_BUILD_ROOT"
+make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
+cd "$RPM_BUILD_ROOT"
+find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' > "$RPM_BUILD_DIR"/%{filelist}
+find . -type f | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
+find . -type l | sed 's,^\.,\%attr(-\,root\,root) \%dir ,' >> "$RPM_BUILD_DIR"/%{filelist}
 
-%files
-#binaries
-/opt/kde/bin/kwave
-%attr(755, root, root) /opt/kde/bin/kwave
-###icons
-##/opt/kde/share/apps/kwintv/pics/delete.xpm
-##/opt/kde/share/apps/kwintv/pics/down.xpm
-##/opt/kde/share/apps/kwintv/pics/editcut.xpm
-##/opt/kde/share/apps/kwintv/pics/editpaste.xpm
-##/opt/kde/share/apps/kwintv/pics/exit.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_16x16.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_24x24.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_48x48.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_capture.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_cs.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_mute.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_mute_off.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_mute_on.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_snap.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_title.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_vol_down.xpm
-##/opt/kde/share/apps/kwintv/pics/kwintv_vol_up.xpm
-##/opt/kde/share/apps/kwintv/pics/mix_bass.xpm
-##/opt/kde/share/apps/kwintv/pics/mix_treble.xpm
-##/opt/kde/share/apps/kwintv/pics/mix_volume.xpm
-##/opt/kde/share/apps/kwintv/pics/transform.xpm
-##/opt/kde/share/apps/kwintv/pics/up.xpm
-##/opt/kde/share/apps/kwintv/pics/viewmag.xpm
-### logo icons
-##/opt/kde/share/icons/kwintv_48x48.xpm
-##/opt/kde/share/icons/mini/kwintv_16x16.xpm
-###fonts
-##/usr/X11R6/lib/X11/fonts/kwintv/led-fixed.pcf
-##/usr/X11R6/lib/X11/fonts/kwintv/vtx10x12.vtxfont
-##/usr/X11R6/lib/X11/fonts/kwintv/vtx15x18.vtxfont
-##/usr/X11R6/lib/X11/fonts/kwintv/vtx20x24.vtxfont
-###application link (multimedia)
-##/opt/kde/share/applnk/Multimedia/kwintv.kdelnk
+%files -f file.list.%{name}
 
 %doc CHANGES README TODO kwave.lsm
 
 %post
-##[ -f /usr/sbin/chkfontpath ] && /usr/sbin/chkfontpath -q -a /usr/X11R6/lib/X11/fonts/kwintv
-##cd /usr/X11R6/lib/X11/fonts/kwintv
-##mkfontdir
-##xset fp rehash || true
+ldconfig
 
 %postun
-##if [ "$1" = "0" ]; then
-##        /usr/sbin/chkfontpath -q -r /usr/X11R6/lib/X11/fonts/kwintv
-##fi  
-
+ldconfig

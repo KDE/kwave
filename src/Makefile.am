@@ -24,7 +24,10 @@ INCLUDES= @all_includes@
 ####### This part is very kwave specific
 bin_PROGRAMS  = kwave
 
-
+# specifying the bindir is necessary in order to let make install
+# use the correct directory when building a binary rpm package
+# bindir=$(prefix)/bin
+bindir=@bindir@
 
 # conversion to modules to do for the following files:
 # mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h

@@ -19,6 +19,7 @@ AM_CONFIG_HEADER(config.h)
 AC_LANG([C])
 AC_LANG([C++])
 AC_CHECK_COMPILERS
+AM_PROG_AS
 AM_ENABLE_SHARED(yes)
 AM_ENABLE_STATIC(no)
 
@@ -188,6 +189,9 @@ AC_HEADER_DIRENT
 
 dnl check for other stdc headers. More traditional ;)
 AC_HEADER_STDC
+
+AC_CHECK_HEADER(sys/times.h, AC_DEFINE(HAVE_SYS_TIMES_H,1,
+    [we can include <sys/times.h>]))
 
 KDE_CHECK_HEADER(kdeversion.h, AC_DEFINE(HAVE_KDEVERSION_H,1,
     [we should have a file from which we can guess the KDE version]))
@@ -471,6 +475,21 @@ CPPFLAGS="$arts_check_saved_cppflags";
 
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
+
+AC_MSG_CHECKING([whether a target optimized memcpy() for $target_cpu is available])
+case $target_cpu in
+  i?86 | x86_64 | athlon | athlon-* | pentium | pentium-* )
+    AC_MSG_RESULT([yes])
+    AC_DEFINE(ARCH_X86,1,[use ix86 target optimizations (from xine)]) ;;
+  ppc )
+    AC_MSG_RESULT([yes])
+    AC_DEFINE(ARCH_PPC,1,[use ppc target optimizations (from xine)]) ;;
+  *)
+    AC_MSG_RESULT([no, sorry :-(]) ;;
+esac
+dnl we need this only for ix86 optimized memcpy for now,
+dnl possible others would be:
+dnl ARCH_ARMV4L, ARCH_SPARC, ARCH_ALPHA, ARCH_POWERPC, ARCH_SH4, ARCH_X86_64
 
 dnl output files
 topdir=`pwd`

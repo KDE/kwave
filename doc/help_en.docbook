@@ -30,8 +30,9 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2003-11-30</date>
-<releaseinfo>0.7.0-1</releaseinfo>
+<date>2003-12-07</date>
+<releaseinfo>0.7.1-pre1
+</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -81,6 +82,9 @@
 	    labeling of signals
 	</para></listitem> -->
     	<listitem><para>
+	    Recording functionality, including pre-recording
+	</para></listitem>
+    	<listitem><para>
 	    MP3 import
 	</para></listitem>
     	<listitem><para>
@@ -90,7 +94,7 @@
 	    some analysis functions such as Sonagram <!-- or Fourier Transformation -->
 	</para></listitem>
     	<listitem><para>
-	    internally uses 24 bit integer sample data
+	    internally uses 24 bit fixed precision for sample data
     	</para></listitem>
     	<listitem><para>
 	    free selectable sample rates
@@ -107,7 +111,7 @@
 	</para></listitem>
 	<listitem><para>
 	    import/export of other audio formats through
-	    <ulink url="http://oss.sgi.com/projects/audiofile/">libaudiofile</ulink>
+	    <ulink url="http://freeware.sgi.com/Installable/audiofile-0.2.3.html">audiofile</ulink>
 	</para></listitem>
 	</itemizedlist>
     </para>
@@ -185,6 +189,15 @@
 	 helper scripts -->
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
+        <listitem>
+            <para>0.7.1 [2004-??-??]</para>
+            <itemizedlist>
+                <listitem><para>
+                    removed our own copy of libmad from the source tree, now it
+                      should be available in all common distributions
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
         <listitem>
             <para>0.7.0 [2003-12-01]</para>
             <itemizedlist>
@@ -731,7 +744,7 @@
                 </para></listitem>
                 <listitem><para>
                     save the kwave.spec and include it into the source archive, this
-                      lets "rpm -ta kwave-x.x.x-x.tar.gz" work
+                      lets "rpmbuild -ta kwave-x.x.x-x.tar.gz" work
                 </para></listitem>
                 <listitem><para>
                     wrote a new README file, moved Martin's version to README.OLD
@@ -1412,23 +1425,32 @@
 	versions.
     </para>
 
-    <warning><para>
-	Maybe older versions of &kapp; are currently included in some
-	current linux distributions. We recommend not to use &kapp; versions
-	0.29 and older.
-	And please don't get confused by the version number,
-	"0.29" should actually mean "0.2.9" and was not consistent. The
-	current version numbering starts from 0.5.
-    </para></warning>
+    <para>
+	If you want to get a &kapp; release, you have the choice to visit
+	<ulink url="http://kwave.sourceforge.net/download.html"></ulink>
+	http://kwave.sourceforge.net/download.html and
+	<itemizedlist>
+	<listitem><para>
+	    download a binary package of the latest stable version, if 
+	    there is one for your distribution,
+	</para></listitem>
+	<listitem><para>
+	    download a source RPM package of the latest stable version,
+	</para></listitem>
+	<listitem><para>
+	    compile on your own, from a .tar.gz archive with the source code 
+	    of the latest stable version,
+	</para></listitem>
+	<listitem><para>
+	    compile on your own, from the latest CVS source.
+	</para></listitem>
+	</itemizedlist>
+    </para>
 
     <para>
-	If you want to get a &kapp; release, you should download a .tar.gz
-	archive with the source code of a stable or a development version
-	from the homepage above (or check it out from CVS) and compile it
-	on your own. Don't be afraid, this should be quite simple even if
-	you are not a programmer. If you need a rpm package, please let us
-	know or build it on your own like described in the following
-	chapters.
+	Don't be afraid, compiling Kwave should be quite simple even if
+	you are not a programmer. It just needs some developer packages
+	to be installed.
     </para>
 
     </sect1>
@@ -1454,37 +1476,42 @@
 		<emphasis>hear</emphasis> the result of your work?)
 	    </para></listitem>
 	    <listitem><para>
-		KDE-3.0.3 or higher (at least the libraries, if you are
+		KDE-3.1 or higher (at least the libraries, if you are
 		a gnome fan, you can also run &kapp; if the proper
 		libs are installed).
 	    </para></listitem>
 	    <listitem><para>
-		qt-3.0.5 or higher (normally comes with KDE3)
+		qt-3.1 or higher (normally comes with KDE3)
 	    </para></listitem>
 	    <listitem><para>
-		id3lib-3.8.1 or higher
+		id3lib-3.8.1 or higher (for ID3 tags)
 	    </para></listitem>
 	    <listitem><para>
-		about 25 MB memory for starting &kapp; (but this may
+		mad-0.15 or higher (for MP3 import)
+	    </para></listitem>
+	    <listitem><para>
+		about 32 MB memory for starting &kapp; (but this may
 		vary depending on your platform and configuration)
 	    </para></listitem>
 	</itemizedlist>
     </para>
-
+    
     <para>
 	For a more complete and up-to-date list, please consult the
 	README file that is included in the source distribution or
 	can be found here: <ulink
 	url="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">
-	"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README"</ulink>
+	"http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/kwave/kwave/README"</ulink>.
+	This file also contains some special hints for getting &kapp; running and/or
+	building &kapp; under some distributions.
     </para>
 
     <para>
-    	If you intend to compile &kapp; from the sources, you will also need:
+    	If you intend to compile &kapp; from the sources, you will need at least:
 	<itemizedlist>
 	    <listitem><para>
 		A C/C++ compiler. GCC-2.95.3 works fine, some older and any
-		newer version (like gcc-3.2) should work too.
+		newer version (like gcc-3.2 and newer) work too.
 	    </para></listitem>
 	    <listitem><para>
 		The glibc2 (libc-6) development environment. On SuSE systems
@@ -1501,6 +1528,9 @@
 	    </para></listitem>
 	    <listitem><para>
 		id3lib-devel-3.8.1 or higher
+	    </para></listitem>
+	    <listitem><para>
+		mad-devel-0.15 or higher
 	    </para></listitem>
 	    <listitem><para>
 		If you intend to use CVS, you will also need a current
@@ -1540,7 +1570,8 @@
 	them to the &kapp; <link linkend="mailing-list">mailing list</link>.
     </para>
     <note><para>
-	If you have a system with old Qt-1 or Qt-2 libraries you might get
+	If you have a system with old Qt-1 or Qt-2 libraries installed 
+	parallel to Qt-3.x, you might get
 	problems when compiling. Then you should set the following
 	environment variable to specify the correct paths of your
 	Qt installation and try again. For example:
@@ -1559,7 +1590,7 @@
     <title>Building RPM packages from tar.gz archives</title>
 
     <sect2 id="building_with_rpm_ta">
-    <title>With working rpm -ta</title>
+    <title>With working rpmbuild -ta</title>
 
     <para>
 	If you are runnig a system with RPM support, the preferred way to
@@ -1573,7 +1604,7 @@
     </para>
 
     <para>
-	If you have downloaded a tar-gz archives of &kapp;,
+	If you have downloaded a tar.gz archives of &kapp;,
 	create and install the RPMs just by doing the following steps
 	(where <replaceable>[arch]</replaceable> stands for the platform you
 	have built the package and might be something like
@@ -1586,7 +1617,7 @@
     <para>
     To build the &kapp; package and install it do:
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -ta <replaceable>kwave-XXX.tar.gz</replaceable></command>
+<prompt>% </prompt><command>rpmbuild -ta <replaceable>kwave-XXX.tar.gz</replaceable></command>
 <prompt>% </prompt><command>rpm -i <replaceable>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
     </para>
@@ -1608,10 +1639,10 @@
     </sect2>
 
     <sect2 id="rpm_build_with_broken_rpm">
-    <title>With broken rpm -ta support</title>
+    <title>With broken rpmbuild -ta support</title>
 
     <para><anchor id="manual_rpm_creation"/>
-	If you can't get <command>rpm -ta</command> working, here are
+	If you can't get <command>rpmbuild -ta</command> working, here are
 	the steps for making that manually (the hard way):
     </para>
 
@@ -1651,7 +1682,7 @@
 	    <literal>-ba</literal>, or just <literal>-bs</literal> to build
 	    only a source package.
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -ba SPECS/kwave.spec</command>
+<prompt>% </prompt><command>rpmbuild -ba SPECS/kwave.spec</command>
 </screen>
 	</para></listitem>
 
@@ -1663,7 +1694,7 @@
 	    <literal>-U</literal> instead
 	    of <literal>-i</literal> for upgrading instead of installing.
 <screen width="40" format="linespecific">
-<prompt>% </prompt><command>rpm -i BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
+<prompt>% </prompt><command>rpm -ivh BUILD/<replaceable>[arch]/kwave-XXX.[arch].rpm</replaceable></command>
 </screen>
 	</para></listitem>
 
@@ -1750,7 +1781,7 @@
     <para>
 	Building rpm package from a CVS snapshot is quite simple. The procedure
 	is nearly the same as described in the last section, so it unhappily also
-	has the same problem with the <command>rpm -ta</command> command
+	has the same problem with the <command>rpmbuild -ta</command> command
 	our method internally uses.
 	Like in the previous chapter, <replaceable>[arch]</replaceable> stands
 	for the platform you have Built the package and might be something
@@ -1894,9 +1925,9 @@
 	as compiler option and so
 	on, you might extend or adapt these to your own needs.
 	The settings apply to all of the sections before in all
-	places where <command>rpm -ta</command> is used or where a binary
+	places where <command>rpmbuild -ta</command> is used or where a binary
 	RPM is to be created out of a source rpm using
-	<command>rpm --rebuild</command>.
+	<command>rpmbuild --rebuild</command>.
     </para>
 
     <para>
@@ -2220,72 +2251,70 @@
 	    </screeninfo>
     	    <mediaobject>
 		<imageobject>
-	    	    <imagedata fileref="screenshot1.png" format="PNG"/>
+	    	    <imagedata fileref="kwave-main.png" format="PNG"/>
 		</imageobject>
 		<textobject>
-	    	    <phrase>Screenshot</phrase>
+	    	    <phrase>Screenshot of the Main Window</phrase>
 		</textobject>
 	    </mediaobject>
 	</screenshot>
     </para>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Clipboard                                             +++ -->
+<!-- +++ Section: Memory Setup                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-    <sect1 id="clipboard"><title>Clipboard</title>
+    <sect1 id="memory-setup"><title>Memory Setup</title>
 
     <para>
-    &kapp; unfortunately has to implement and use it's own clipboard. This
-    is due to the lack of support for formats other than text and bitmaps
-    in the KDE environment and might be solved in some future release.
+       When using &kapp; for the first time, you should go to the memory
+       setup dialog an modify the settings to be suitable for yor needs 
+       and the installed memory of your computer. You can reach it under
+       <menuchoice>
+       <guimenu>Options</guimenu><guimenuitem>Memory...</guimenuitem>
+       </menuchoice>.
     </para>
-
     <para>
-    However, this has some disadvantages. So if you want to exchange
-    data between two &kapp; instances through the clipboard, you will
-    find out that this is simply not possible. Each instance of &kapp;
-    uses it's own clipboard and so that can't work.
+	<screenshot>
+    	    <screeninfo>
+		Here's a screenshot of &kapp;'s memory setup dialog
+	    </screeninfo>
+    	    <mediaobject>
+		<imageobject>
+	    	    <imagedata fileref="kwave-memory-setup.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+	    	    <phrase>Screenshot of the Memory Setup Dialog</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
     </para>
-
     <para>
-    So if you want to make use of the clipboard in &kapp;, you should
-    only start <emphasis>one</emphasis> &kapp; instance and use
-    multiple &kapp; windows. That's the way it works!
+	&kapp; is able to use two types of memory: <emphasis>physical</emphasis>
+	and <emphasis>virtual</emphasis> memory. 
+    </para>
+    <para>
+	<emphasis>Physical memory</emphasis> is the memory (RAM) that is 
+	installed in your computer.
+	You should limit the usage of physical memory to some reasonable 
+	size, as a rule of thumb, half of the installed memory should be ok. 
+	If you set the limit too high, Linux will take memory from other 
+	applications, which means that it swaps out memory of other programs
+	to the harddisk (swap), which is rather slow. If you set the limit
+	too low, you might loose some performance when working with big files,
+	because you use less of the fast physical memory than you could.
+    </para>
+    <para>
+	If you enable <emphasis>virtual memory</emphasis>, &kapp; is able to
+	load and process files
+	that are bigger than the amount of real installed physical memory.
+	&kapp; does this by using temporary files in a configurable directory,
+	which is much faster and more cooperative to other applications than
+	using the operating system's swapping. The directory that you
+	configure should be on your local hard disk.
     </para>
 
     </sect1>
-
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- +++ Section: Drag and Drop                                         +++ -->
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-    <sect1 id="drag_and_drop"><title>Drag and Drop</title>
-
-    <para>
-    &kapp; supports the KDE Drag and Drop protocol. This enables you
-    to open files just by picking them up in a <command>konqueror</command>
-    window or the Desktop and let them drop into a window of &kapp;.
-    </para>
-
-    <para>
-    Please note that if you drop a file into a &kapp; window that already
-    contains an opened file, the currently opened file will be closed first
-    and then the file you dropped will be opened in it. If you don't want that,
-    you should open a new empty &kapp; window first.
-    </para>
-
-    <para>
-    You can also select a range of samples and drag or drop them into
-    a &kapp; window. Per default the drag operation is done in
-    <emphasis>move</emphasis> mode where the selected range is deleted
-    from the original place and inserted at the drop position.
-    By pressing the <keycap moreinfo="none">Ctrl</keycap> key you can
-    modify this and drag in <emphasis>copy</emphasis> mode instead.
-    </para>
-
-    </sect1>
-
+ 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Command Line                                          +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2419,7 +2448,7 @@
 
 	<listitem><para>
 	    Additionally &kapp; supports many other common formats through the
-	    <ulink url="http://oss.sgi.com/projects/audiofile/">audiofile</ulink>
+	    <ulink url="http://freeware.sgi.com/Installable/audiofile-0.2.3.html">audiofile</ulink>
 	    plugin. You can import files like <filename>*.au</filename> and
 	    <filename>*.snd</filename> (NeXT,Sun Audio),
 	    <filename>*.aiff</filename> (Audio Interchange Format) and
@@ -2439,9 +2468,10 @@
 	    The best way to work with formats other than those supported by
 	    &kapp; is to use an external converter program.
 	    A good set of tools for this is in the
-	    <ulink url="http://home.sprynet.com/~cbagwell/sox.html">SoX</ulink>
-	   package, they have also some nice documentation! Take a look at
-	   <ulink url="http://home.sprynet.com/~cbagwell/sox.html">http://home.sprynet.com/~cbagwell/sox.html</ulink>.
+	    <ulink url="http://sox.sourceforge.net/">SoX</ulink>
+	   package, they have also some nice documentation! 
+	   (The original homepage is located at
+	   <ulink url="http://www.spies.com/Sox/">http://www.spies.com/Sox/</ulink>.)
 	</para>
 
 	<para>
@@ -2528,6 +2558,325 @@
 
     </sect1>
 
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: New File                                              +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <sect1 id="newfile"><title>Creating a New File</title>
+
+    <para>
+       You can create a new and empty file menu under 
+       <menuchoice>
+       <guimenu>File</guimenu><guimenuitem>New...</guimenuitem>
+       </menuchoice>.
+    </para>
+    <para>
+	<screenshot>
+    	    <screeninfo>
+		Here's a screenshot of &kapp;'s new file dialog
+	    </screeninfo>
+    	    <mediaobject>
+		<imageobject>
+	    	    <imagedata fileref="kwave-newfile.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+	    	    <phrase>Screenshot of the File New Dialog</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
+    </para>
+    <para>
+        You can select the sample rate, resolution in bits per sample and
+	the number of tracks. Per default the file format will be ".wav",
+	but it can still be changed at the time when the file is saved.
+    </para>
+    <para>
+	The length of the new signal can be set by time (hours, minutes,
+	seconds) or by the number of samples. Additionally you can select
+	it relative to the highest possible length, which is limited by
+	the available memory and &kapp;'s internal limit (2 GB).
+    </para>
+
+    </sect1>
+    
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Recording                                             +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <sect1 id="recording"><title>Recording</title>
+
+    <para>
+        &kapp; is able to record audio data from various sources, with all
+	sample rates, sample formats and other modes that your sound 
+	hardware supports. Currently &kapp; records through the old OSS 
+	sound interface, later versions should also be able to record through
+	the newer and more powerful ALSA interface that is the preferred choice 
+	for linux kernel 2.6.
+    </para>
+    <para>
+       The recording can be reached from the menu under 
+       <menuchoice>
+       <guimenu>File</guimenu><guimenuitem>Record</guimenuitem>
+       </menuchoice>.
+    </para>
+    
+    <para>
+	Here is a screenshot of the &kapp; record dialog, showing the first
+	page with the recording controls during a running recording session. 
+	Like in most dialogs of &kapp; you can get some help or see tooltips
+	on the controls.
+    </para>
+    <para>
+	<screenshot>
+    	    <screeninfo>
+		Here's a screenshot of &kapp;'s record dialog
+	    </screeninfo>
+    	    <mediaobject>
+		<imageobject>
+	    	    <imagedata fileref="kwave-record.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+	    	    <phrase>Screenshot of the Record Dialog</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
+    </para>
+    
+    <para>
+	Here you have the following controls:
+	<itemizedlist>
+	<listitem><para>
+	    <guilabel>Pre-Record:</guilabel> If the pre-recording feature of
+	    &kapp; is enabled and the recording is startet, &kapp; records
+	    into an internal buffer which is some seconds long. If you
+	    press the <guibutton>Record</guibutton> (
+	    <inlinemediaobject>
+	    <imageobject>
+	    <imagedata fileref="krec_record.png" format="PNG"/>
+	    </imageobject>
+	    <textobject> <phrase>record button</phrase> </textobject>
+            </inlinemediaobject>
+	    ) button again, then the recording really starts, and also 
+	    keeps the already pre-recorded 
+	    data.
+	    This is useful for example if you want to record your favorite
+	    song from radio, but you recognize too late that the song has
+	    started. In this case you can still press the record button and
+	    get the start of the song from what &kapp; has already pre-recorded
+	    before, so that you will no longer miss a start.
+	</para></listitem>
+	<listitem><para>
+	    <guilabel>Record-Time:</guilabel> If the length of the recording
+	    should be limited to some time, you can activate this setting and
+	    select a time in hours, minutes, seconds for your recording. If 
+	    this option is not enabled, the recording runns until you press
+	    the <guibutton>Stop</guibutton> (<inlinemediaobject><imageobject>
+	    <imagedata fileref="record_stop.png" format="PNG"/>
+	    </imageobject><textobject><phrase>stop button</phrase></textobject>
+            </inlinemediaobject>) button.
+	</para></listitem>
+	<listitem><para>
+	    <guilabel>Record Trigger:</guilabel> If enabled, the recording
+	    starts only if the volume of the input goes over a certain limit,
+	    which can be defined from 0 to 100% of the highest possible
+	    input volume. This is useful if you do not want to record
+	    leading silence.
+	</para></listitem>
+	<listitem><para>
+	    The <guibutton>New</guibutton> (<inlinemediaobject><imageobject>
+	    <imagedata fileref="record_new.png" format="PNG"/>
+	    </imageobject><textobject><phrase>new button</phrase></textobject>
+            </inlinemediaobject>) button is active when the recording is not
+	    running or is finished, to discard the current file content and
+	    start again.
+	</para></listitem>
+	<listitem><para>
+	    The <guibutton>Stop</guibutton> (<inlinemediaobject><imageobject>
+	    <imagedata fileref="record_stop.png" format="PNG"/>
+	    </imageobject><textobject><phrase>stop button</phrase></textobject>
+            </inlinemediaobject>) button is active when the recording or pre-recording
+	    is running or &kapp; is waiting for the trigger. If pressed, the 
+	    current progress will be stopped.
+	</para></listitem>
+	<listitem><para>
+	    The <guibutton>Pause</guibutton> (<inlinemediaobject><imageobject>
+	    <imagedata fileref="record_pause.png" format="PNG"/>
+	    </imageobject><textobject><phrase>pause button</phrase></textobject>
+            </inlinemediaobject>) button is active when the recording or pre-recording
+	    is running. The first time you press it, the rcording will be halted and
+	    the button starts blinking. When you press it again the button will
+	    stop blinking and recording will continue immediately, without waiting
+	    for a trigger.
+	</para></listitem>
+	<listitem><para>
+	    The <guibutton>Record</guibutton> (<inlinemediaobject><imageobject>
+	    <imagedata fileref="krec_record.png" format="PNG"/>
+	    </imageobject><textobject><phrase>record button</phrase></textobject>
+            </inlinemediaobject>) button starts the recording and/or prerecording,
+	    depending on the features enabled above:
+	    <orderedlist>
+	    <listitem><para>
+	        If neither prerecording nor trigger level are
+	        used, the recording starts as soon as you press 
+		the record button.
+	    </para></listitem>
+	    <listitem><para>
+		If prerecording is not used and a trigger level is set, the 
+		first press will let &kapp; wait for the trigger level to be 
+		reached. While waiting for a trigger, you can force the 
+		recording to start immediately by pressing the record button again,
+		otherwise the recording will start automatically when the trigger
+		level has been reached.
+	    </para></listitem>
+	    <listitem><para>
+		If prerecording is enabled, the first press starts only the 
+		prerecording and the second press really starts the recording. 
+	    </para></listitem>
+	    </orderedlist>
+	</para></listitem>
+	</itemizedlist>
+    </para>
+    
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Playback                                              +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <sect1 id="playback"><title>Playback</title>
+
+    <para>
+        &kapp; is able to play sounds trough the KDE sound daemon aRts,
+	or through direct access to your sound card. However, in most
+	cases when you are using aRts for playback, direct access to
+	your sound card's playback device is locked by aRts and thus 
+	not available for &kapp;. So in most cases you will do playback
+	through aRts, only if you have configured aRts not to use your
+	soundcard or if your soundcard has an additional playback channel,
+	which is not used by aRts, you can play back through another
+	device.
+    </para>
+   
+    <para>
+        Before trying to play sounds, you should take a look on the
+	playback configuration dialog:
+    </para>
+    <para>
+	<screenshot>
+	    <screeninfo>
+		Here's a screenshot of &kapp;'s playback setup dialog
+	    </screeninfo>
+	    <mediaobject>
+		<imageobject>
+		    <imagedata fileref="kwave-playback-setup.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		    <phrase>Screenshot of the Playback Setup Dialog</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
+    </para>
+
+    <para>
+        Currently &kapp; supports only 8 and 16 bit playback, with mono or 
+	stereo output, which is a limitation of the OSS sound interface as
+	well as a limitation in the aRts sound system.
+    </para>
+    <para>
+	If your sound file uses more channels than the
+	playback allows, all channels will be mixed together during playback.
+	For example if you have a file with three channels and you use
+	stereo playback, the left channel will play channel 0 (upper)
+	and half of channel 1 (middle), the right channel will play
+	the half of channel 1 (middle) and channel 2 (lower).
+    </para>
+    <para>
+        For getting a smooth playback without interruptions, you should also
+	set the buffer size to an appropriate value. If you encounter 
+	problems with interrupted playback, you should increase the buffer
+	size here. But the bigger you set the buffer, the bigger is the
+	latency between the audible sound and the display of the playback
+	position in the signal display.
+    </para>
+    <para>
+        Once you have configured playback, you can use the playback controls
+        of the &kapp; main window or through the
+        <menuchoice><guimenu>Play</guimenu></menuchoice> menu or with
+        keyboard shortcuts:
+        <itemizedlist>
+        <listitem><para>
+	    <menuchoice>
+	    <shortcut><keycombo><keycap>P</keycap></keycombo></shortcut>
+	    <guimenu>Play</guimenu><guimenuitem>Start</guimenuitem>
+	    </menuchoice>: Start playback of the current selection from it's
+	    beginning or the whole file from the current cursor position 
+	    if nothing was selected. Play only once.
+        </para></listitem>
+        <listitem><para>
+	    <menuchoice>
+	    <guimenu>Play</guimenu><guimenuitem>Loop</guimenuitem>
+	    </menuchoice>: Like before, but repeat in a loop.
+        </para></listitem>
+        <listitem><para>
+	    <menuchoice>
+	    <shortcut><keycombo><keycap>Space</keycap></keycombo></shortcut>
+	    <guimenu>Play</guimenu><guimenuitem>Pause</guimenuitem>
+	    </menuchoice>: Pause the playback at the current position. Only
+	    available when the playback is running.
+        </para></listitem>
+        <listitem><para>
+	    <menuchoice>
+	    <shortcut><keycombo><keycap>Space</keycap></keycombo></shortcut>
+	    <guimenu>Play</guimenu><guimenuitem>Continue</guimenuitem>
+	    </menuchoice>: Continue the playback from the position where it
+	    has been paused. Only available if the playback is paused.
+        </para></listitem>
+        <listitem><para>
+	    <menuchoice>
+	    <shortcut><keycombo><keycap>Esc</keycap></keycombo></shortcut>
+	    <guimenu>Play</guimenu><guimenuitem>Stop</guimenuitem>
+	    </menuchoice>: Stop the playback, go back to the start of the 
+	                   selection.
+        </para></listitem>
+        </itemizedlist>
+    </para>
+    
+    </sect1>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: How to select                                         +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <sect1 id="fileinfo"><title>File Properties</title>
+
+    <para>
+	&kapp; is able to handle several meta information that is stored
+	within an audio file. It tries to import and export as much of
+	these informations as possible. For example, if you import an
+	MP3 file with ID3 tags, you can keep those informations when
+	exporting to a Wave file. If &kapp; would loose meta information
+	when saving, it shows a warning.
+    </para>
+    <para>
+        You can view and modify the meta information under 
+        <menuchoice>
+        <guimenu>Edit</guimenu><guimenuitem>File Properties...</guimenuitem>
+        </menuchoice>. There you can also change things like sample format,
+        resolution and compression.
+    </para>
+    <para>
+	<screenshot>
+	    <screeninfo>
+		Here's a screenshot of &kapp;'s file properties dialog
+	    </screeninfo>
+	    <mediaobject>
+		<imageobject>
+		    <imagedata fileref="kwave-fileinfo.png" format="PNG"/>
+		</imageobject>
+		<textobject>
+		    <phrase>Screenshot of the File Properties Dialog</phrase>
+		</textobject>
+	    </mediaobject>
+	</screenshot>
+    </para>
+
+    </sect1>
+    
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: How to select                                         +++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2673,6 +3022,62 @@
     </para>
 
     </sect2>
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Clipboard                                             +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="clipboard"><title>Clipboard</title>
+
+    <para>
+    &kapp; unfortunately has to implement and use it's own clipboard. This
+    is due to the lack of support for formats other than text and bitmaps
+    in the KDE environment and might be solved in some future release.
+    </para>
+
+    <para>
+    However, this has some disadvantages. So if you want to exchange
+    data between two &kapp; instances through the clipboard, you will
+    find out that this is simply not possible. Each instance of &kapp;
+    uses it's own clipboard and so that can't work.
+    </para>
+
+    <para>
+    So if you want to make use of the clipboard in &kapp;, you should
+    only start <emphasis>one</emphasis> &kapp; instance and use
+    multiple &kapp; windows. That's the way it works!
+    </para>
+
+    </sect1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Drag and Drop                                         +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <sect1 id="drag_and_drop"><title>Drag and Drop</title>
+
+    <para>
+    &kapp; supports the KDE Drag and Drop protocol. This enables you
+    to open files just by picking them up in a <command>konqueror</command>
+    window or the Desktop and let them drop into a window of &kapp;.
+    </para>
+
+    <para>
+    Please note that if you drop a file into a &kapp; window that already
+    contains an opened file, the currently opened file will be closed first
+    and then the file you dropped will be opened in it. If you don't want that,
+    you should open a new empty &kapp; window first.
+    </para>
+
+    <para>
+    You can also select a range of samples and drag or drop them into
+    a &kapp; window. Per default the drag operation is done in
+    <emphasis>move</emphasis> mode where the selected range is deleted
+    from the original place and inserted at the drop position.
+    By pressing the <keycap moreinfo="none">Ctrl</keycap> key you can
+    modify this and drag in <emphasis>copy</emphasis> mode instead.
+    </para>
 
     </sect1>
 
@@ -2905,7 +3310,8 @@
 		    &kapp; currently supports .wav files with 8, 16 and
 		    24 bits per sample, with any number of channels
 		    (of course including mono and stereo). Additionally it
-		    can import all file types that libaudiofile supports.
+		    can import all file types that libaudiofile supports
+		    and some other formats like Ogg/Vorbis and MP3 (read-only).
 		</para>
 	    </answer>
 	</qandaentry>
@@ -3117,7 +3523,7 @@
 	    	<para>
 		    Gilles Caulier
 		    <email>caulier.gilles@free.fr</email>
-		    (i18n, french translations, beta tester)
+		    (i18n, french translations, splashscreen, beta tester)
 		</para>
 	    </listitem>
 	    <listitem>
@@ -3175,7 +3581,7 @@
 		    </emphasis>
 		</para>
 	    </listitem>
-	    <listitem><para>my girlfriend Ximena González<emphasis> (for
+	    <listitem><para>my wife Ximena González<emphasis> (for
 	    her patience)</emphasis>
 	    </para></listitem>
 	    <listitem>
@@ -3189,8 +3595,9 @@
 	        <para>
 		    Robert Leslie
 		    <email>rob@mars.org</email>
-		    (author of the <ulink url="http://www.mars.org/home/rob/proj/mpeg/">
-		     mad</ulink> mp3 decoder library)
+		    (author of the 
+		     <ulink url="http://www.mars.org/home/rob/proj/mpeg/">mad</ulink>
+		     mp3 decoder library)
 		</para>
 	    </listitem>
 	    <listitem>
@@ -3198,8 +3605,8 @@
 		    Erik de Castro Lopo
 		    <email>erikd@zip.com.au</email>
 		    (author of the
-		     <ulink url="http://www.zip.com.au/~erikd/libsndfile/">sndfile
-		     </ulink> library)
+		    <ulink url="http://www.mega-nerd.com/libsndfile/">sndfile</ulink>
+		    library)
 		</para>
 	    </listitem>
 <!--    	    <listitem><para>Klaus Hendrik Lorenz</para></listitem> -->
@@ -3207,8 +3614,9 @@
 	        <para>
 		    Michael Pruett
 		    <email>mpruett@sgi.com</email>
-		    (author of the <ulink url="http://oss.sgi.com/projects/audiofile/">
-		     audiofile</ulink> library)
+		    (author of the
+		    <ulink url="http://freeware.sgi.com/Installable/audiofile-0.2.3.html">audiofile</ulink>
+		    library)
 		</para>
 	    </listitem>
 	</itemizedlist>

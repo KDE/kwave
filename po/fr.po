@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-10-30 07:23+0100\n"
-"PO-Revision-Date: 2002-11-01 15:11GMT\n"
+"PO-Revision-Date: 2002-11-03 12:15GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -252,7 +252,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:59
 msgid "Commisioned"
-msgstr "Commissionné"
+msgstr "Commissionné "
 
 #: libkwave/FileInfo.cpp:60
 msgid ""
@@ -362,7 +362,7 @@ msgstr "Nom du fichier ouvert"
 
 #: libkwave/FileInfo.cpp:100
 msgid "File Size"
-msgstr "taille du fichier"
+msgstr "Taille du fichier"
 
 #: libkwave/FileInfo.cpp:101
 msgid "Size of the file in bytes"
@@ -421,7 +421,7 @@ msgstr ""
 
 #: libkwave/FileInfo.cpp:124
 msgid "Medium"
-msgstr "Source d'origine"
+msgstr "Média d'origine"
 
 #: libkwave/FileInfo.cpp:125
 #, fuzzy
@@ -823,9 +823,8 @@ msgid "Punk"
 msgstr ""
 
 #: libkwave/GenreType.cpp:120
-#, fuzzy
 msgid "Space"
-msgstr "S&auvegarder"
+msgstr "Espace"
 
 #: libkwave/GenreType.cpp:121
 msgid "Meditative"
@@ -1189,7 +1188,7 @@ msgstr "Blackman"
 
 #: kwave/SignalManager.cpp:290
 msgid "Signal is empty, nothing to save !"
-msgstr "Le signal est vide, il n'y a rien à sauvegarder !"
+msgstr "Le signal est vide, il n'y a rien à enregistrer !"
 
 #: kwave/SignalManager.cpp:324
 #, ycp-format
@@ -1201,9 +1200,8 @@ msgid ""
 msgstr ""
 
 #: kwave/SignalManager.cpp:365
-#, fuzzy
 msgid "An error occurred while saving the file!"
-msgstr "Une erreur est apparue lors de la lecture du fichier !"
+msgstr "Une erreur est apparue lors de l'enregistrement du fichier !"
 
 #: kwave/SignalManager.cpp:374
 msgid "The file has been truncated and might be corrupted!"
@@ -1219,7 +1217,7 @@ msgstr "couper"
 
 #: kwave/SignalManager.cpp:598
 msgid "crop"
-msgstr "couper à la sélection"
+msgstr "couper la sélection"
 
 #: kwave/SignalManager.cpp:664
 msgid "paste"
@@ -1268,7 +1266,7 @@ msgstr "ouvrir un fichier déjà existant"
 
 #: kwave/TopWidget.cpp:260
 msgid "save the current file"
-msgstr "sauvegarder le fichier courrant"
+msgstr "enregistre le fichier courant"
 
 #: kwave/TopWidget.cpp:292
 msgid "cut the current selection and move it to the clipboard"
@@ -1359,7 +1357,7 @@ msgid ""
 "Do you want to save it?"
 msgstr ""
 "Ce fichier a été modifié.\n"
-"Voulez-vous le sauvegarder ?"
+"Voulez-vous l'enregistrer ?"
 
 #: kwave/TopWidget.cpp:873
 #, ycp-format
@@ -1382,18 +1380,16 @@ msgid "Mode: %0.3f kHz@%u bit"
 msgstr "Format : %0.3f kHz @ %u Bits"
 
 #: kwave/TopWidget.cpp:1041
-#, fuzzy
 msgid "Selected"
-msgstr "supprimer"
+msgstr "Sélectionné"
 
 #: kwave/TopWidget.cpp:1045
-#, fuzzy
 msgid "samples"
 msgstr "échantillons"
 
 #: kwave/TopWidget.cpp:1100
 msgid "U&ndo"
-msgstr "&Défaire"
+msgstr "An&nuler"
 
 #: kwave/TopWidget.cpp:1106
 msgid "R&edo"
@@ -1401,7 +1397,7 @@ msgstr "R&efaire"
 
 #: kwave/TopWidget.cpp:1300
 msgid " (modified)"
-msgstr " (modifier)"
+msgstr " (modifié)"
 
 #: kwave/UndoInsertAction.cpp:35
 msgid "insert"
@@ -1492,7 +1488,7 @@ msgstr "Sélection"
 
 #: kwave/SignalWidget.cpp:1786 kwave/SignalWidget.cpp:1825
 msgid "drag and drop"
-msgstr "tirer et lacher"
+msgstr "glisser - déposer"
 
 #: kwave/menus_config_i18n.cpp:13
 msgid "About &KDE"
@@ -1500,7 +1496,7 @@ msgstr "A propos de &KDE"
 
 #: kwave/menus_config_i18n.cpp:14
 msgid "&About Kwave"
-msgstr "&A propos de Kwave..."
+msgstr "&A propos de Kwave"
 
 #: kwave/menus_config_i18n.cpp:15
 #: plugins/fileinfo/KeywordWidgetBase.uic.cpp:44
@@ -1521,7 +1517,7 @@ msgstr "&Amplification"
 
 #: kwave/menus_config_i18n.cpp:19
 msgid "&As..."
-msgstr "&Dans..."
+msgstr "&Sous..."
 
 #: kwave/menus_config_i18n.cpp:20
 msgid "&Average spectrum"
@@ -1573,7 +1569,7 @@ msgstr "Créer un &type"
 
 #: kwave/menus_config_i18n.cpp:35
 msgid "&Crop"
-msgstr "&Couper à la sélection"
+msgstr "&Couper la sélection"
 
 #: kwave/menus_config_i18n.cpp:36
 msgid "Cu&t"
@@ -1627,7 +1623,7 @@ msgstr "Affaiblir pr&ogessivement"
 
 #: kwave/menus_config_i18n.cpp:51
 msgid "File &Properties..."
-msgstr ""
+msgstr "&Propriétés du fichier..."
 
 #: kwave/menus_config_i18n.cpp:52
 msgid "&Filter"
@@ -1727,7 +1723,7 @@ msgstr "&Bruit"
 
 #: kwave/menus_config_i18n.cpp:78
 msgid "&Nothing"
-msgstr "&Rien"
+msgstr "&Aucun"
 
 #: kwave/menus_config_i18n.cpp:79
 msgid "&Open"
@@ -1787,11 +1783,11 @@ msgstr "Inve&rser"
 
 #: kwave/menus_config_i18n.cpp:99
 msgid "Revert"
-msgstr "Revenir"
+msgstr "Rétablir"
 
 #: kwave/menus_config_i18n.cpp:101
 msgid "S&ave"
-msgstr "S&auvegarder"
+msgstr "E&nregistrer..."
 
 #: kwave/menus_config_i18n.cpp:102
 msgid "Scroll &left"
@@ -1891,7 +1887,7 @@ msgstr "&Rétrécir"
 
 #: kwave/menus_config_i18n.cpp:129
 msgid "Zoom to &Selection"
-msgstr "Zoomer à la &sélection"
+msgstr "Zoomer sur la &sélection"
 
 #: libgui/TimeLine.cpp:30
 msgid "as number of samples"
@@ -1907,7 +1903,7 @@ msgstr "en s"
 
 #: libgui/TimeLine.cpp:34
 msgid "in kb"
-msgstr "en Ko"
+msgstr "en ko"
 
 #: libgui/ConfirmCancelProxy.cpp:51
 msgid "Do you really want to abort the current action?"
@@ -1935,7 +1931,7 @@ msgstr "Interpolation"
 
 #: libgui/CurveWidget.cpp:101
 msgid "Transform"
-msgstr "Transformation"
+msgstr "Transformer"
 
 #: libgui/CurveWidget.cpp:103
 msgid "Fit In"
@@ -1947,7 +1943,7 @@ msgstr "Pré-réglages"
 
 #: libgui/CurveWidget.cpp:106
 msgid "Save Preset"
-msgstr "Sauvegarder les pré-réglages"
+msgstr "Enregistrer les pré-réglages"
 
 #: libgui/CurveWidget.cpp:108
 msgid "recently selected Point"
@@ -1955,19 +1951,19 @@ msgstr "Point récemment sélectionnés"
 
 #: libgui/CurveWidget.cpp:110
 msgid "every 2nd Point"
-msgstr "tous les 2 Points"
+msgstr "Tous les 2 points"
 
 #: libgui/FileProgress.cpp:79
 msgid "source: "
-msgstr "source : "
+msgstr "Source : "
 
 #: libgui/FileProgress.cpp:85
 msgid "length: "
-msgstr "longueur : "
+msgstr "Longueur : "
 
 #: libgui/FileProgress.cpp:92
 msgid "sample rate: "
-msgstr "taux d'échantillonnage : "
+msgstr "Taux d'échantillonnage : "
 
 #: libgui/FileProgress.cpp:93
 #, ycp-format
@@ -1976,7 +1972,7 @@ msgstr "%1 échantillons par secondes"
 
 #: libgui/FileProgress.cpp:97
 msgid "resolution: "
-msgstr "résolution : "
+msgstr "Résolution : "
 
 #: libgui/FileProgress.cpp:98
 #, ycp-format
@@ -1985,7 +1981,7 @@ msgstr "%1 bits par échantillon"
 
 #: libgui/FileProgress.cpp:102
 msgid "tracks: "
-msgstr "pistes :"
+msgstr "Pistes :"
 
 #: libgui/FileProgress.cpp:105
 msgid "1 (mono)"
@@ -1993,7 +1989,7 @@ msgstr "1 (mono)"
 
 #: libgui/FileProgress.cpp:108
 msgid "2 (stereo)"
-msgstr "2 (stereo)"
+msgstr "2 (stéréo)"
 
 #: libgui/FileProgress.cpp:111
 msgid "4 (quadro)"
@@ -2006,7 +2002,7 @@ msgstr "Voulez-vous réellement annuler l'operation ?"
 #: libgui/FileProgress.cpp:253
 #, ycp-format
 msgid "%1 KB/s (%2 remain)"
-msgstr "%1 Ko/s (%2 restant)"
+msgstr "%1 ko/s (%2 restant)"
 
 #: libgui/FileProgress.cpp:268
 #, ycp-format
@@ -2091,7 +2087,7 @@ msgstr ""
 
 #: plugins/codec_ogg/OggEncoder.cpp:213 plugins/codec_wav/WavEncoder.cpp:144
 msgid "Unable to open the file for saving!"
-msgstr "Impossible d'ouvrir le fichier pour le sauvegarder !"
+msgstr "Impossible d'ouvrir le fichier pour l'enregistrer !"
 
 #: plugins/codec_ogg/OggEncoder.cpp:223 plugins/codec_wav/WavEncoder.cpp:126
 msgid " for KDE "
@@ -2183,7 +2179,7 @@ msgstr "%1 bits par échantillon ne sont pas disponibles"
 
 #: plugins/playback/PlayBack-OSS.cpp:124
 msgid "stereo playback is not supported"
-msgstr "la lecture en stéréo n'est pas disponible"
+msgstr "La lecture en stéréo n'est pas disponible"
 
 #: plugins/playback/PlayBack-OSS.cpp:130
 #, ycp-format
@@ -2278,7 +2274,7 @@ msgstr ""
 
 #: plugins/playback/PlayBackDialog.cpp:209
 msgid "&stereo playback"
-msgstr "lecture en &stéréo"
+msgstr "Lecture en &stéréo"
 
 #: plugins/playback/PlayBackDialog.cpp:236
 msgid "&test settings"
@@ -2550,7 +2546,7 @@ msgstr ""
 
 #: plugins/memory/MemDlg.uic.cpp:89
 msgid "&Enable usage of virtual memory"
-msgstr "Activ&e l'usage de la mémoire virtuelle"
+msgstr "Activ&er l'usage de la mémoire virtuelle"
 
 #: plugins/memory/MemDlg.uic.cpp:95
 msgid "Directory:"
@@ -2733,13 +2729,12 @@ msgid "MPEG audio"
 msgstr "wav audio"
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:78
-#, fuzzy
 msgid ""
 "The file has an invalid checksum.\n"
 "Do you still want to continue?"
 msgstr ""
 "Ce fichier a été modifié.\n"
-"Voulez-vous le sauvegarder ?"
+"Voulez-vous l'enregistrer ?"
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:144
 #, ycp-format
@@ -2777,15 +2772,17 @@ msgid "unknown error 0x%X. damaged file?"
 msgstr ""
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:508
-#, fuzzy, ycp-format
+#, ycp-format
 msgid ""
 "An error occurred while decoding the file:\n"
 "'%1',\n"
 "at position %2.\n"
 "%3"
 msgstr ""
-"Une erreur est apparue lors de l'ouverture du fichier :\n"
-"«%1»"
+"Une erreur est apparue pendant le décodage du fichier :\n"
+"«%1»\n"
+"à la position %2.\n"
+"%3"
 
 #: plugins/decoder_mp3/MP3Decoder.cpp:513
 #, fuzzy
@@ -3140,14 +3137,12 @@ msgid "Set the date to today."
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:834
-#, fuzzy
 msgid "Content"
-msgstr "Commentaires"
+msgstr "Contenu"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1054
-#, fuzzy
 msgid "Author/Copyright"
-msgstr "Droits d'auteur"
+msgstr "Auteur / Droits d'auteur"
 
 #: plugins/fileinfo/SelectDateDlg.uic.cpp:264
 #, fuzzy
@@ -3185,14 +3180,14 @@ msgid "%1 bytes"
 msgstr ""
 
 #: plugins/fileinfo/FileInfoDialog.cpp:131
-#, fuzzy, ycp-format
+#, ycp-format
 msgid "%1 kB (%2 byte)"
-msgstr "%1 Ko/s (%2 restant)"
+msgstr "%1 ko/s (%2 restant)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:134
-#, fuzzy, ycp-format
+#, ycp-format
 msgid "%1 MB (%2 byte)"
-msgstr "%1 Ko/s (%2 restant)"
+msgstr "%1 ko/s (%2 restant)"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:165
 #, fuzzy
@@ -3503,8 +3498,8 @@ msgid ""
 "give the best results when processing the audio data."
 msgstr ""
 "<b>Résolution</b><br>Paramètre la résolution en bits pour laquelle le "
-"fichier sera sauvegardé. Cependant, Kwave utilise toujours 24 bits comme "
-"résolution interne pour obtenir les meilleurs résultats  quand il effectue "
+"fichier sera enregistré. Cependant, Kwave utilise toujours 24 bits comme "
+"résolution interne pour obtenir les meilleurs résultats quand il effectue "
 "des calculs sur des fichiers sonores."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:380

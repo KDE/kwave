@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-02-11 22:08+0100\n"
-"PO-Revision-Date: 2002-02-17 21:56GMT\n"
+"PO-Revision-Date: 2002-02-22 08:48GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1158,9 +1158,8 @@ msgid "%"
 msgstr "%"
 
 #: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:34
-#, fuzzy
 msgid "Amplify Free"
-msgstr "amplification libre"
+msgstr "Amplification libre"
 
 #: plugins/playback/PlayBack-OSS.cpp:85
 msgid ""
@@ -1488,14 +1487,12 @@ msgid "Directory:"
 msgstr "Repertoire :"
 
 #: plugins/memory/MemDlg.uic.cpp:37
-#, fuzzy
 msgid "Memory Settings"
-msgstr "paramétrages de &test"
+msgstr "Paramétrages de la mémoire"
 
 #: plugins/memory/MemDlg.uic.cpp:44
-#, fuzzy
 msgid "&Physical Memory"
-msgstr "&Mémoire"
+msgstr "&Mémoire physique"
 
 #: plugins/memory/MemDlg.uic.cpp:45
 msgid ""
@@ -1505,23 +1502,27 @@ msgid ""
 "your computer will be determined and used as limit. You cannot set a limit "
 "higher than the totally installed amount of memory."
 msgstr ""
+"<b>Limite l'usage de la mémoire physique (RAM).</b><br>\n"
+"\n"
+"Si vous ne fixer pas une limite, la taille de votre mémoire physique installée "
+"dans votre ordinateur sera utilisée comme valeur limite. Vous ne pouvez pas paramètrer "
+"une valeur limite supérieure à la taille de la mémoire installée dans votre ordinateur."
 
 #: plugins/memory/MemDlg.uic.cpp:57
 msgid "Limit &to"
-msgstr ""
+msgstr "Limi&tée à"
 
 #: plugins/memory/MemDlg.uic.cpp:72 plugins/memory/MemDlg.uic.cpp:137
 msgid " MB"
-msgstr ""
+msgstr " Mo"
 
 #: plugins/memory/MemDlg.uic.cpp:76
 msgid "megabytes of physical memory"
-msgstr ""
+msgstr "mégaoctets de la mémoire physique"
 
 #: plugins/memory/MemDlg.uic.cpp:81
-#, fuzzy
 msgid "&Virtual Memory"
-msgstr "&Mémoire"
+msgstr "Mémoire &virtuelle"
 
 #: plugins/memory/MemDlg.uic.cpp:82
 msgid ""
@@ -1534,35 +1535,42 @@ msgid ""
 "<br>\n"
 "    Of course you can also set a limit for the total size of the page files."
 msgstr ""
+"<b>Configure l'usage de la mémoire virtuelle (swap).</b><br>\n"
+"\n"
+"Si vous activez l'usage de la mémoire virtuelle, vous pouvez spécifier un répertoire où "
+"Kwave créera des fichiers temporaires qui seront utilisés comme extension à la mémoire "
+"physique. Cela permettra de travailler sur des fichiers sonores dont la taille est supérieure "
+"à votre mémoire physique.\n"
+"<br>\n"
+"    Bien sur vous pouvez aussi paramètrer une limite à la taille totale de votre mémoire virtuelle."
 
 #: plugins/memory/MemDlg.uic.cpp:96
 msgid "&Enable usage of virtual memory"
-msgstr ""
+msgstr "Activ&e l'usage de la mémoire virtuelle"
 
 #: plugins/memory/MemDlg.uic.cpp:107
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: plugins/memory/MemDlg.uic.cpp:108
 msgid "directory for storing swap files"
-msgstr ""
+msgstr "répertoire pour stocker les fichiers de la mémoire virtuelle"
 
 #: plugins/memory/MemDlg.uic.cpp:113
-#, fuzzy
 msgid "&Search..."
 msgstr "&Sélection..."
 
 #: plugins/memory/MemDlg.uic.cpp:114
 msgid "browse for a directory to hold page files"
-msgstr ""
+msgstr "Recherche d'un repertoire pour stocker les fichiers de la mémoire virtuelle"
 
 #: plugins/memory/MemDlg.uic.cpp:119
 msgid "&Limit to"
-msgstr ""
+msgstr "&Limitée à"
 
 #: plugins/memory/MemDlg.uic.cpp:142
 msgid "megabytes of virtual memory"
-msgstr ""
+msgstr "mégaoctets de la mémoire virtuelle"
 
 #: plugins/noise/NoisePlugin.cpp:49
 msgid "noise"
@@ -1798,96 +1806,94 @@ msgid "(Resulting file size: %1 MB)"
 msgstr "(Taille du fichier résultat : %1 MB)"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:39
-#, fuzzy
 msgid "Form1"
-msgstr "de"
+msgstr "Form1"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:45
-#, fuzzy
 msgid "Format"
-msgstr "de"
+msgstr "Format"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:55
 msgid "8000"
-msgstr ""
+msgstr "8000"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:56
 msgid "10000"
-msgstr ""
+msgstr "10000"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:57
 msgid "11025"
-msgstr ""
+msgstr "11025"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:58
 msgid "12000"
-msgstr ""
+msgstr "12000"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:59
 msgid "16000"
-msgstr ""
+msgstr "16000"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:60
 msgid "22050"
-msgstr ""
+msgstr "22050"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:61
 msgid "32000"
-msgstr ""
+msgstr "32000"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:62
 msgid "44100"
-msgstr ""
+msgstr "44100"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:63
 msgid "48000"
-msgstr ""
+msgstr "48000"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:64
 msgid "96000"
-msgstr ""
+msgstr "96000"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:67
 msgid ""
 "<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
 "sample rates or you can enter any sample rate on your own."
 msgstr ""
+"<b>Période d'échantillonnage</b><br>Vous pouvez ici sélectionner une des périodes "
+"d'échantillonnage prédéfinie ou entrer une période d'échantillonnage de votre choix."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:72
-#, fuzzy
 msgid "Sample Rate:"
-msgstr "taux d'échantillonnage : "
+msgstr "Période d'échantillonnage : "
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:87
-#, fuzzy
 msgid "samples per second"
-msgstr "%1 échantillons par secondes"
+msgstr "échantillons par seconde"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:95
-#, fuzzy
 msgid "Tracks:"
-msgstr "pistes :"
+msgstr "Pistes : "
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:100
-#, fuzzy
 msgid "Resolution:"
-msgstr "Résolution"
+msgstr "Résolution :"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:109
 msgid "bit"
-msgstr ""
+msgstr "bits"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:121
 #: plugins/newsignal/NewSigDlg.uic.cpp:290
-#, fuzzy, c-format, ycp-format
+#, c-format, ycp-format
 msgid "%1"
-msgstr "%"
+msgstr "%1"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:131
 msgid ""
 "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
 "you are not sure now, you can add or delete tracks later in the program."
 msgstr ""
+"<b>Nombre de Pistes sonores</b><br>Paramétre le nombre de pistes sonores pour un nouveau fichier. "
+" Si vous n'étes pas sur maintenant, vous pourrez ajouter ou supprimer une piste plus tard dans le programme."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:140
 msgid ""
@@ -1895,78 +1901,76 @@ msgid ""
 "saved. However, Kwave always uses 24 bits as it's own internal resolution to "
 "give the best results when processing the audio data."
 msgstr ""
+"<b>Résolution</b><br>Paramètre la résolution en bits pour laquelle le fichier sera sauvegardé. "
+" Cependant, Kwave utilise toujours 24 bits comme résolution internepour obtenir les meilleurs résultats "
+" quand il effectue des calculs sur des fichiers sonores.."
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:146
-#, fuzzy
 msgid "Length"
-msgstr "Taille : %1"
+msgstr "Taille"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:163
-#, fuzzy
 msgid "Time"
-msgstr "Temps :"
+msgstr "Temps"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:164
 msgid "select this to set the length of the file by time"
-msgstr ""
+msgstr "selectionnez ici la durée de votre fichier sonore"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:173
 msgid "Hours"
-msgstr ""
+msgstr "Heures"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:186
-#, fuzzy
 msgid "Minutes"
-msgstr "Sinusoïde"
+msgstr "Minutes"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:191
 msgid "Seconds"
-msgstr ""
+msgstr "Secondes"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:204
-#, fuzzy
 msgid "Samples"
-msgstr "%1 échantillons "
+msgstr "échantillons"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:205
 msgid "select this to enter the number of samples directly"
-msgstr ""
+msgstr "sélectionnez ici le nombre d'échantillons"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:227
 msgid "minimum"
-msgstr ""
+msgstr "minimum"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:234
 msgid "(file size)"
-msgstr ""
+msgstr "(taille du fichier)"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:241
-#, fuzzy
 msgid "maximum"
-msgstr "au &maximum"
+msgstr "maximum"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:254
 msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
+msgstr "paramètre la taille du fichier sonore par le pourcentage de sa taille maximale possible"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:262
-#, fuzzy, c-format
+#, c-format
 msgid "0%"
-msgstr "%"
+msgstr "0%"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:268
 #, c-format
 msgid "50%"
-msgstr ""
+msgstr "50%"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:274
 #, c-format
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 #: plugins/newsignal/NewSigDlg.uic.cpp:309
 msgid "O&K"
-msgstr ""
+msgstr "O&K"
 
 #: plugins/gap/module.cpp:23
 msgid "Set Length of Gap & Signal"
@@ -2016,3 +2020,4 @@ msgstr "silence"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Choisir la ligne de distorsion :"
+

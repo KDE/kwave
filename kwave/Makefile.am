@@ -14,7 +14,7 @@
 
 # just set the variable
 
-APPSDIR = $(kde_appsdir)/Utilities
+APPSDIR = $(kde_appsdir)/Multimedia
 PIXDIR = $(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
 INCLUDES= @all_includes@
@@ -27,12 +27,12 @@ bin_PROGRAMS  = kwave
 # Which sources should be compiled for kwave.
 kwave_SOURCES = signalview.cpp main.cpp sample.cpp mainwidget.cpp sampleio.cpp\
  dialogs.cpp about.cpp fftview.cpp gsl_fft.cpp faderwidget.cpp\
- curvewidget.cpp interpolation.cpp sampleedit.cpp filter.cpp\
+ curvewidget.cpp interpolation.cpp sampleedit.cpp filter.cpp scale.cpp\
  multistateimage.cpp addsynth.cpp functions.cpp sonagram.cpp markers.cpp\
  mmain.cpp mclasses.cpp msample.cpp mabout.cpp\
  maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
  mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp\
- mfilter.cpp
+ mfilter.cpp mscale.cpp
 
 # the library search path
 kwave_LDFLAGS = @all_libraries@
@@ -45,12 +45,12 @@ kwave_LDADD   = -lkfm -lkdeui -lkdecore -lqt -lX11 -lXext
 noinst_HEADERS =  classes.h sample.h main.h about.h fftview.h\
  gsl_fft.h faderwidget.h curvewidget.h interpolation.h\
  multistateimage.h dialogs.h addsynth.h functions.h\
- sonagram.h filter.h
+ sonagram.h filter.h scale.h
 
 # just to make sure, automake makes them 
 BUILTSOURCES =	mmain.cpp mclasses.cpp msample.cpp mabout.cpp\
  maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
- mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp
+ mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp mscale.cpp
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
@@ -114,4 +114,6 @@ mcurvewidget.cpp: curvewidget.h
 	$(MOC) -o mcurvewidget.cpp curvewidget.h
 mmultistateimage.cpp: multistateimage.h
 	$(MOC) -o mmultistateimage.cpp multistateimage.h 
+mscale.cpp: scale.h
+	$(MOC) -o mscale.cpp scale.h 
 

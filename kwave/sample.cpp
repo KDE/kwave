@@ -1,9 +1,8 @@
-#include <linux/unistd.h>
-#include <sched.h>
+#define _REENTRANT
+#include <pthread.h>
 #include "sample.h"
 #include <kmsgbox.h>
 #include <kprogress.h>
-#include <sys/ipc.h>
 #include <sys/shm.h>
 #include <limits.h>
 #include <time.h>
@@ -28,7 +27,6 @@ static int len;
 static int begin;
 
 static const char *NOMEM={"Not enough Memory for Operation !"};
-int start_thread(void (*fn)(), void *d1,void *d2,void *d3,void *d4=0,void *d5=0,void *d6=0,void *d7=0);
 //**********************************************************
 void MSignal::doRangeOp (int num)
 {
@@ -392,7 +390,7 @@ void MSignal::reverseChannelRange ()
 //**********************************************************
 void MSignal::fadeChannelOut (int curve) 
 {
-  int len=rmarker-lmarker;
+  //  int len=rmarker-lmarker;
   int i=0;
 
   if (curve==0)
@@ -433,7 +431,6 @@ void MSignal::fadeOut ()
 //**********************************************************
 void MSignal::fadeChannelIn (int curve)
 {
-  int len=rmarker-lmarker;
   int i=0;
 
   if (curve==0)
@@ -450,7 +447,6 @@ void MSignal::fadeChannelIn (int curve)
       sample[lmarker+i]=
 	(int)((double)sample[lmarker+i]*
 	      (1-log10(1+(curve*((double)len-i)/len))/log10(1+curve)));
-
 }
 //**********************************************************
 void MSignal::fadeIn ()
@@ -928,6 +924,7 @@ void distortThread (int *sample,int len,int *counter,Interpolation *interpolatio
 {
   int x;
   double oldy,y;
+  interpolation->incUsage();
   for (int i=0;i<len;i++)
     {
       x=sample[i];
@@ -941,6 +938,8 @@ void distortThread (int *sample,int len,int *counter,Interpolation *interpolatio
       *counter=i;
     }
   *counter=-1;
+  interpolation->decUsage();
+  if (interpolation->getUsage<=0) delete interpolation;
 }
 //*********************************************************
 void MSignal::distortChannel (Interpolation *interpolation)
@@ -951,7 +950,7 @@ void MSignal::distortChannel (Interpolation *interpolation)
       dialog->show ();
       connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
 
-      start_thread((void (*)())distortThread,&sample[begin],(void *)len,&msg[2],(void*)interpolation);
+      //      start_thread((void (*)())distortThread,&sample[begin],(void *)len,&msg[2],(void*)interpolation);
     }
 }
 //*********************************************************
@@ -1511,7 +1510,7 @@ void MSignal::replaceStutterChannel (int len1,int len2)
       dialog->show ();
       connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
 
-      start_thread((void (*)())replaceStutterThread,&sample[begin],(void *)len,&msg[2],(void*)len1,(void *)len2);
+      //      start_thread((void (*)())replaceStutterThread,&sample[begin],(void *)len,&msg[2],(void*)len1,(void *)len2);
     }
 }
 //*********************************************************
@@ -1533,8 +1532,12 @@ void MSignal::reQuantize ()
     }  
 }
 //*********************************************************
-void quantizeThread (int *sample,int len,int *counter,int bits)
+void quantizeThread (struct FXParams *params)
 {
+  int *sample=params->source;
+  int len=params->len;
+  int *counter=params->counter;
+  int bits=(int)params->data[0];
   double a;
   for (int j=0;j<len;j++)
     {
@@ -1545,11 +1548,28 @@ void quantizeThread (int *sample,int len,int *counter,int bits)
       *counter=j;
     }
   *counter=-1;   //signal progress that action is performed...
+  delete params;
+}
+//*********************************************************
+FXParams *MSignal::getFXParams (void *a,void *b,void *c,void *d,void *e,void *f)
+{
+  FXParams *fx=new FXParams;
+  fx->source=&sample[begin];
+  fx->len=len;
+  fx->counter=&msg[2];
+  fx->data[0]=a;
+  fx->data[1]=b;
+  fx->data[2]=c;
+  fx->data[3]=d;
+  fx->data[4]=e;
+  fx->data[5]=f;
+  return fx;
 }
 //*********************************************************
 void MSignal::quantizeChannel (int bits)
 {
   bits--; //really complex calculation is needed, to bend this variable into usable form
+  pthread_t thread;
 
   ProgressDialog *dialog=new ProgressDialog (len,&msg[2],"Quantizing channel");
   if (dialog)
@@ -1557,57 +1577,9 @@ void MSignal::quantizeChannel (int bits)
       dialog->show ();
       connect (dialog,SIGNAL(done()),parent,SLOT(refresh()));
 
-      start_thread((void (*)())quantizeThread,&sample[begin],(void *)len,&msg[2],(void*)bits);
+      //      start_thread((void (*)())quantizeThread,&sample[begin],(void *)len,&msg[2],(void*)bits);
+      //      pthread_create (&thread,0,(void *)quantizeThread,getFXParams(((void *)bits)));
     }
 }
 //**********************************************************************
-//Here comes the start_thread-function from an example of linus, found in a threading faq... seems to work for this purpose. would have been a whole lot easier, if there were not this crappy c++... I guess.
-#include <signal.h> 
-#define STACKSIZE 4096 //I hope this is enough...
 
-#define CSIGNAL         0x000000ff      /* signal mask to be sent at exit */
-#define CLONE_VM        0x00000100      /* set if VM shared between processes */
-#define CLONE_FS        0x00000200      /* set if fs info shared between processes */
-
-//*********************************************************
-int start_thread(void (*fn)(), void *d1,void *d2,void *d3,void *d4,void *d5,void *d6,void *d7)
-{
-  long retval;
-  void **newstack;
-
-  /*
-   * allocate new stack for subthread
-   */
-  newstack = (void **) malloc(STACKSIZE);
-  if (!newstack)
-    return -1;
-
-  /*
-   * Set up the stack for child function, put the (void *)
-   * argument on the stack.
-   */
-  newstack = (void **) (STACKSIZE + (char *) newstack);
-  *--newstack = d7; 
-  *--newstack = d6; 
-  *--newstack = d5; 
-
-  *--newstack = d4; 
-  *--newstack = d3; 
-  *--newstack = d2; 
-  *--newstack = d1; 
-  __asm__ __volatile__(
-		       "int $0x80\n\t"         /* Linux/i386 system call */
-		       "testl %0,%0\n\t"       /* check return value */
-		       "jne 1f\n\t"            /* jump if parent */
-		       "call *%3\n\t"          /* start subthread function */
-		       "movl %2,%0\n\t"
-		       "int $0x80\n"           /* exit system call: exit subthread */
-		       "1:\t"
-		       :"=a" (retval)
-		       :"0" (__NR_clone),"i" (__NR_exit),
-		       "r" (fn),
-		       "b" (CLONE_VM | CLONE_FS | CLONE_SIGHAND | SIGCHLD),
-		       "c" (newstack));
-
-  return retval;
-}                                         

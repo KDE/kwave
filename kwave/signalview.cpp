@@ -1,3 +1,4 @@
+#define _REENTRANT
 #include <qobject.h>
 #include <qpainter.h>
 #include <math.h>

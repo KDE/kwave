@@ -1,3 +1,4 @@
+#define _REENTRANT
 #include "main.h"
 #include "about.h"
 #include <unistd.h>

@@ -28,7 +28,7 @@ static const char *notetext[]=
   "C 7","C# 7","D 7","D# 7","E 7","F 7","F# 7","G 7","G# 7","A 7","A# 7","B 7",
   "C 8","C# 8","D 8","D# 8","E 8","F 8","F# 8","G 8","G# 8","A 8","A# 8","B 8",
   0
-}; 
+};
 float notefreq[]= //frequency in Hz for the above named notes...
 {
   16.4,  17.3,  18.4,  19.4,  20.6,  21.8,  23.1,  24.5,  26.0,  27.5,  29.1,  30.9,
@@ -873,6 +873,10 @@ DistortDialog::DistortDialog (QWidget *par): QDialog(par,0,true)
   curve= new CurveWidget (this);
   curve->setBackgroundColor	(QColor(black) );
 
+  xscale=new ScaleWidget (this);
+  yscale=new ScaleWidget (this);
+  corner=new CornerPatchWidget (this);
+
   int bsize=ok->sizeHint().height();
 
   setMinimumSize (320,bsize*8);
@@ -898,9 +902,13 @@ int DistortDialog::getType ()
 void DistortDialog::resizeEvent (QResizeEvent *)
 {
  int bsize=ok->sizeHint().height();
+ int h=height()-bsize*3;
 
- curve->setGeometry	(width()/20,0,width()*18/20,height()-bsize*5/2);  
- ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
+ curve->setGeometry	(8+bsize,0,width()-16-bsize,h);
+ xscale->setGeometry	(8+bsize,h,width()-16-bsize,bsize);  
+ corner->setGeometry	(8,h,bsize,bsize);   
+ yscale->setGeometry	(8,0,bsize,h);
+ ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);
  cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
 }
 //**********************************************************

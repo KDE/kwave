@@ -21,7 +21,16 @@
 #include "interpolation.h"
 
 #define	PROGRESS_SIZE	2*3*4*128    //2*3*4 to insure buffer is an multible of these for loading routines....
-
+//**********************************************************************
+struct FXParams
+{
+  int  *source;
+  int  *counter;
+  int  len;
+  int  *dest;      //in case a new sample was created...
+  void *data[6];     //6 individual Parameters to use
+};
+//**********************************************************************
 struct wavheader
 {
 	char		riffid[4];
@@ -36,7 +45,7 @@ struct wavheader
 	short int	BlockAlign;
 	short int	bitspersample;
 };
-
+//**********************************************************************
 class MSignal : public QObject
 {
  Q_OBJECT
@@ -148,6 +157,7 @@ class MSignal : public QObject
 
  protected:
 
+ FXParams *getFXParams (void *a=0,void *b=0,void *c=0,void *d=0,void *e=0,void *f=0);
  void	findDatainFile	(QFile *sigin);
  void	load8Bit	(QFile *sigin,int offset,int interleave);
  void	load16Bit	(QFile *sigin,int offset,int interleave);

@@ -95,6 +95,22 @@ Interpolation::Interpolation (int type)
   der=0;
   count=0;
   this->type=type;
+  usagecount=0;
+}
+//****************************************************************************
+void Interpolation::incUsage ()
+{
+  usagecount++;
+}
+//****************************************************************************
+void Interpolation::decUsage ()
+{
+  usagecount--;
+}
+//****************************************************************************
+int Interpolation::getUsage ()
+{
+  return usagecount;
 }
 //****************************************************************************
 Interpolation::~Interpolation ()

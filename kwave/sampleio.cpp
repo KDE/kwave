@@ -1,3 +1,4 @@
+#define _REENTRANT
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>

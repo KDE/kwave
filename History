@@ -1,6 +1,7 @@
 Version 0.29
 
-Improved ProgressDialog to allow multiple tasks
+First use of multiple threads
+Improved ProgressDialog and Interpolation class to allow multiple threads
 some minor bug fixes
 
 Version 0.28

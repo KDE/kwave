@@ -22,6 +22,7 @@
 #include "curvewidget.h"
 #include "functions.h"
 #include "fftview.h"
+#include "scale.h"
 
 #include <kapp.h>
 #include <kcolordlg.h>
@@ -245,6 +246,8 @@ class DistortDialog : public QDialog
 
  private:
 
+  ScaleWidget   *xscale,*yscale;
+  CornerPatchWidget *corner;
   QPushButton	*ok,*cancel;
   CurveWidget	*curve;
 };

@@ -17,6 +17,9 @@ class Interpolation
 
   Interpolation(int type);
   ~Interpolation();
+  void   incUsage ();
+  void   decUsage ();
+  int    getUsage ();
   double *getInterpolation    (QList<CPoint> *points,int);
   int    prepareInterpolation (QList<CPoint> *);
   double getSingleInterpolation  (double pos);
@@ -24,11 +27,12 @@ class Interpolation
   int    getCount ();
 
  private:
-  QList<CPoint> *points;
-  double *y_out;
-  double *x,*y,*der;
-  int type;
-  int count;
+  QList<CPoint> *points; // List of points to be interpolated
+  double *y_out;         // arrays
+  double *x,*y,*der;     // used for temporary purposes
+  int type;              // type of interpolation
+  int count;             // number of points
+  int usagecount;        // number of tasks using this interpolation
 };
 
 

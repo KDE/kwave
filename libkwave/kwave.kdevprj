@@ -1,0 +1,14 @@
+# KDE Config File
+[Workspace_1]
+openfiles=/usr/src/packages/multimedia/sound/libkwave-0.3.6/src/signal.cpp,
+show_outputview=false
+show_treeview=true
+header_file=/usr/src/packages/multimedia/sound/libkwave-0.3.6/src/kwavesignal.h
+[LFV Groups]
+GNU=AUTHORS,COPYING,ChangeLog,INSTALL,README,TODO,NEWS,
+Quellen=*.cpp,*.c,*.cc,*.C,*.cxx,*.ec,*.ecpp,*.lxx,*.l++,*.ll,*.l,
+Others=*,
+Dialoge=*.kdevdlg,
+groups=Headers,Quellen,Dialoge,Übersetzungen,GNU,Others,
+Übersetzungen=*.po,
+Headers=*.h,*.hxx,*.hpp,*.H,

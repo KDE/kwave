@@ -30,11 +30,12 @@ class KwaveSignal
 
   inline int 	*getSample  ()          {return sample;};
   inline int 	getRate	    ()          {return rate;};
+  inline int 	getBits     ()          {return bits;};
   inline int 	getLength   ()          {return length;};
   inline int 	getLMarker  ()          {return lmarker;};
   inline int 	getRMarker  ()          {return rmarker;};
-  inline int 	*getCounter ()        	{return &counter;};
   inline void 	setRate	    (int rate)  {this->rate=rate;};
+  inline void 	setBits	    (int bits)  {this->bits=bits;};
 
   int    getChannelMaximum   ();
 
@@ -80,6 +81,7 @@ class KwaveSignal
   int	 	*sample;               //samples, linear in memory
   int		length;                //number of samples
   int		rate;                  //sampling rate being used
+  int		bits;                  //bits per sample
   int		rmarker,lmarker;       //selection markers
   int           counter;
   int           begin,len;

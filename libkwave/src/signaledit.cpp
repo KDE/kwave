@@ -3,6 +3,8 @@
 #include <kprogress.h>
 #include <limits.h>
 #include "kwavesignal.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 //**********************************************************
 void KwaveSignal::noMemory ()
@@ -12,14 +14,14 @@ void KwaveSignal::noMemory ()
 //**********************************************************
 KwaveSignal *KwaveSignal::copyRange ()
 {
-  if (rmarker!=lmarker) //this function makes no sense if there is no Range is selected 
+  if (rmarker!=lmarker) //this function makes no sense if no Range is selected
     {
-      int len=rmarker-lmarker;
+      int len=rmarker-lmarker+1;
       int *newsam=new int [len];
 
       if (newsam)
 	{
-	  memcpy (newsam,&sample[lmarker],len*sizeof(int));
+	  memmove(newsam,sample+lmarker,len*sizeof(int));
 	  return new KwaveSignal (newsam,len,rate);
 	}
       else noMemory ();
@@ -27,23 +29,24 @@ KwaveSignal *KwaveSignal::copyRange ()
   return 0;
 }
 //**********************************************************
+// shouldn't this be "insert()" instead of "insertPaste()" ?
 void KwaveSignal::insertPaste (KwaveSignal *signal)
 {
-  int pastelength=signal->getLength ();
-  int *paste=signal->getSample();
+  int insertlength=signal->getLength ();
+  int *insert=signal->getSample();
 
-  if (paste)
+  if (insert && insertlength)
     {
-      int *newsam=new int [length+pastelength];
+      int newlength=length+insertlength;
+      int *newsam = (int *)realloc(sample, newlength*sizeof(int));
       if (newsam)
 	{
-	  memcpy (newsam,sample,lmarker*sizeof(int));
-	  memcpy (&newsam[lmarker],paste,pastelength*sizeof(int));
-	  memcpy (&newsam[pastelength+lmarker],&sample[rmarker],(length-rmarker)*sizeof(int));
+	  memmove (newsam+lmarker+insertlength,newsam+lmarker,
+	    (length-lmarker)*sizeof(int));
+	  memmove (newsam+lmarker,insert,insertlength*sizeof(int));
 
-	  delete []sample;
 	  sample=newsam;
-	  length=length+pastelength;
+	  length=newlength;
 	}
       else noMemory ();
     }
@@ -54,22 +57,28 @@ void KwaveSignal::overwritePaste (KwaveSignal *signal)
 {
   int pastelength=signal->getLength ();
   int *paste=signal->getSample();
-  int len=rmarker-lmarker;
-  if (len==0) len=length-rmarker;
-  if (len>pastelength) len=pastelength;
+  int marked = (lmarker!=rmarker) ? rmarker-lmarker+1 : length;
+  if (pastelength>marked) pastelength=marked;
+  if (lmarker+pastelength > length) pastelength=length-lmarker;
 
-  memcpy (&sample[lmarker],paste,len*sizeof(int));
+  memmove (sample+lmarker,paste,pastelength*sizeof(int));
 }
 //**********************************************************
 void KwaveSignal::mixPaste (KwaveSignal *signal)
 {
   int pastelength=signal->getLength ();
   int *paste=signal->getSample();
-  int len=rmarker-lmarker;
-  if (len==0) len=length-rmarker;
-  if (len>pastelength) len=pastelength;
+  int marked = (lmarker!=rmarker) ? rmarker-lmarker+1 : length;
+  if (pastelength>marked) pastelength=marked;
+  if (lmarker+pastelength > length) pastelength=length-lmarker;
 
-  for (int i=0;i<len;i++) sample[i+lmarker]=(sample[i+lmarker]+paste[i])/2;
+  int *sample=this->sample+lmarker;
+  while (pastelength--)
+    {
+      *sample=(*paste+*sample)>>1;
+      sample++;
+      paste++;
+    }
 }
 //**********************************************************
 KwaveSignal *KwaveSignal::cutRange ()
@@ -83,17 +92,47 @@ KwaveSignal *KwaveSignal::cutRange ()
 //**********************************************************
 void KwaveSignal::deleteRange ()
 {
-  int *newsam=new int [length-(rmarker-lmarker)];
-  if (newsam)
-    {
-      memcpy (newsam,sample,lmarker*sizeof(int));
-      memcpy (&newsam[lmarker],&sample[rmarker],(length-rmarker)*sizeof(int));
+  // example:
+  // sample = [01(23)45678], length = 9
+  // lmarker = 2, rmarker = 3
+  // -> selected = 3-2+1 = 2
+  // -> rest = 9-2 = 7
+  // -> left = [0..1] (length=2)
+  // -> right = [4..8] (length=9-3-1=5)
+  int selected = rmarker-lmarker+1; // selected samples
+  int rest = length - selected;     // rest after delete
 
-      delete []sample;
-      sample=newsam;
-      length-=(rmarker-lmarker);
+  if (rest && length && sample)
+    {
+      if (rmarker < length-1)
+	{
+	  // copy data after the right marker
+	  memmove(sample+lmarker, sample+rmarker+1,
+	    (length-rmarker-1)*sizeof(int));
+	}
+      int *newsam = (int *)realloc(sample, rest*sizeof(int));
+
+      if (newsam != 0)
+ 	{
+	    sample = newsam;
+	    length=rest;
+	}
+      else
+	{
+	  // oops, not enough memory !
+	  noMemory();
+	}
     }
-  else noMemory ();
+  else
+    {
+      // delete everything
+      if (sample != 0) delete []sample;
+      sample = 0;
+      length = 0;
+    }
+
+  // correct the right marker	
+  setMarkers(lmarker-1, lmarker-1);
 }
 //**********************************************************
 void KwaveSignal::cropRange ()
@@ -101,21 +140,22 @@ void KwaveSignal::cropRange ()
   if (rmarker!=lmarker)
     {
       int *newsam;
+      int newlength=rmarker-lmarker+1;
 
-      if (lmarker<0) lmarker=0;
-      if (rmarker>length) rmarker=length;
-	
-      newsam=getNewMem(rmarker-lmarker);
-      if (newsam)
-	{
-	  memcpy (newsam,&sample[lmarker],(rmarker-lmarker)*sizeof(int));
-	  getridof (sample);
-	  sample=newsam;
-	  length=rmarker-lmarker;
-	  rmarker=0;
-	  lmarker=0;
-	}
-      else noMemory ();
+      memmove(sample, sample+lmarker, newlength*sizeof(int));
+      length=newlength;
+
+      newsam = (int *)realloc(sample, newlength*sizeof(int));
+      if (newsam != 0) sample=newsam;
+      // NOTE: if the realloc failed, the old memory
+      // will remain allocated and only length will be
+      // reduced - so the user won't see that.
+      // The (dead) memory will be freed on the next operation
+      // that calls "delete sample".
     }
+
+    // correct the markers
+    setMarkers(lmarker, rmarker);
 }
 //**********************************************************
+

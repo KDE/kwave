@@ -147,58 +147,32 @@ double KwaveParser::toDouble ()
 int KwaveParser::countParams ()
 {
   int  cnt=ptr;
-  int  numpar=0;
-  int  bracket=0;
+  int  numbr=0;
+  int  paramcnt=0;
   while (str[cnt])
     {
       switch (str[cnt])
 	{
 	case '(':
-	  numpar++;
+	  numbr++;
+	  if (str[cnt+1]!=')') paramcnt++;
 	  break;
 	case ')':
-	  numpar--;
+	  numbr--;
 	  break;
 	case ';':
-	  if (numpar==0) return 0;
-	  if (numpar<0) printf ("parse error wrong number of brackets!\n");
+	  if (numbr==1) return 0;
+	  if (numbr!=1) printf ("parse error wrong number of brackets!\n");
 	  break;
 	case ',':
-	  if (numpar==0) bracket++; //increase number of parameters
+	  if (numbr==1) paramcnt++; //increase number of parameters if there
+                                    //not subcommand
 	default: 
 	  break;
 	}
       cnt++;
     }
-  return bracket;
-}
-//**********************************************************
-bool KwaveParser::hasParams ()
-{
-  //not that sophisticated but works for a quick check...
-  int  cnt=ptr;
-  bool inbracket=false;
-  while (str[cnt])
-    {
-      switch (str[cnt])
-	{
-	case '(':
-	  inbracket=true;
-	  break;
-	case ' ':  //nothing to do for this ones
-	case '\t': 
-	case '\n': 
-	  break;
-	case ';': //end of command, no params found yet....
-	  return false;
-	  break;
-	default: 
-	  //something between ( ) found, must be a parameter
-	  if (inbracket) return true;
-	}
-      cnt++;
-    }
-  return false;
+  return paramcnt;
 }
 //**********************************************************
 LineParser::LineParser (const char *init)

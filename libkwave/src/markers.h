@@ -27,16 +27,19 @@ class Marker
 //Marker Class is for marking positions in the signal
 {
  public:
-  Marker (int,MarkerType *,const char *name=0);
+  Marker (double,MarkerType *,const char *name=0);
+  Marker (const char *);
   ~Marker();
   void setName (const char *);
+  const char *getCommand ();
   inline const char *getName () {return name;};
   inline MarkerType *getType () {return type;};
 
-  int         pos;                         //position
+  double      pos;                         //position in ms
  private:
   char*       name;                        //pointer to name
   MarkerType *type;                        //pointer to type
+  char *comstr;
 };
 //***********************************************************
 class MarkerList:public QListT<Marker>

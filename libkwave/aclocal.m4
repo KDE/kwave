@@ -256,6 +256,7 @@ AC_PATH_QT_1_4
 AC_DEFUN(AC_PATH_KDE,
 [
 AC_REQUIRE([AC_PATH_QT])dnl
+
 AC_MSG_CHECKING([for KDE])
 if test "${prefix}" != NONE; then
   kde_libraries=${prefix}/lib

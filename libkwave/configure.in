@@ -1,7 +1,7 @@
 # Original Author was Kalle@kde.org
 # I lifted it in some mater. (Stephan Kulow)
 # I used much code from Janos Farkas
-# Only did slight changes Martin Wilz
+# Only did slight changes ... Martin Wilz
 
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(acinclude.m4) dnl a source file from your sub dir, but acinclude.m4 does the job

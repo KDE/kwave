@@ -9,7 +9,7 @@ class KwaveParser
   KwaveParser::KwaveParser   (const char *);
   KwaveParser::~KwaveParser  ();
 
-  inline bool        hasParams       ();
+         bool        hasParams       ();
   inline bool        isDone          () {return done;};
          int         countParams     ();
          const char *getCommand      ();

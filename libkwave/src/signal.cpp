@@ -56,6 +56,28 @@ void  KwaveSignal::getMaxMin (int &max,int &min,int begin,int len)
   int *sample=&(this->sample[begin]);
   min=INT_MAX;
   max=INT_MIN;
+
+  // check for read accesses that overlap the end of the signal
+  if (begin + len > length)
+    {
+      /*
+        example: [012(3)4]  length = 5, begin = 3, len = 123
+        -> len = 5-3 = 2 == length-begin
+      */
+      len = length - begin; // (might get negative if begin > length)
+
+      // even worse: begin is after signal
+      if (begin >= length)
+	{
+	  printf("signal.cpp:getMaxMin:begin=%d but length=%d\r\n",begin,length);
+	  min=0;
+	  max=0;
+	  return;
+	}
+
+      fprintf(stderr, "signal.cpp:getMaxMin:len reduced to %d\r\n",len);
+    }
+
   for (int i=0;i<len;i++)
     {
       c=sample[i];
@@ -114,7 +136,16 @@ int	KwaveSignal::getSingleSample (int offset) {return sample[offset];}
 //**********************************************************
 void KwaveSignal::setMarkers (int l,int r )
   //this one sets the internal markers, most operations use
+  // and does all of the necessary range checks
 {
+  if (l > r)
+    {
+      register int h = l;
+      l = r;
+      r = h;
+    }
+  if (l < 0) l = 0;
+  if (r >= length) r = length-1;
   lmarker=l;
   rmarker=r;
 }
@@ -451,14 +482,6 @@ bool KwaveSignal::command (TimeOperation *operation)
   const char *command=operation->getCommand();
 
   printf ("signal : %s\n",command);
-
-  if (lmarker<0) lmarker=0; //check markers for bounding
-  if (rmarker>length) lmarker=length; 
-
-  //the above is usually useless, or it introduces
-  //new bugs, or even better makes old bug worse to debug... 
-  //once the kwave seems to be bugfree, I will leave this out,
-  //let's see what happens ;-)
 
   len=rmarker-lmarker;
   begin=lmarker;

@@ -1,5 +1,12 @@
 newer Versions still to come
 
+Version 0.3.6
+
+fixed parser::countParams
+
+string constructor for marker class. Position now in stored in ms/double
+Messageport Class for communication from threads to main task
+
 Version 0.3.5
 
 filter, quantize, fadein, fadeout and envelope pluginized

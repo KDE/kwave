@@ -130,31 +130,31 @@ private slots:
     void blinkPause();
 
     /** toolbar: "file/new" */
-    inline void toolbarFileNew()    { executeCommand("dialog (newsignal) "); };
+    void toolbarFileNew()    { executeCommand("dialog (newsignal) "); };
 
     /** toolbar: "file/open" */
-    inline void toolbarFileOpen()   { executeCommand("open () "); };
+    void toolbarFileOpen()   { executeCommand("open () "); };
 
     /** toolbar: "file/save" */
-    inline void toolbarFileSave()   { executeCommand("save () "); };
+    void toolbarFileSave()   { executeCommand("save () "); };
 
     /** toolbar: "file/save as.." */
-    inline void toolbarFileSaveAs() { executeCommand("saveas () "); };
+    void toolbarFileSaveAs() { executeCommand("saveas () "); };
 
     /** toolbar: "edit/cut" */
-    inline void toolbarEditCut()    { executeCommand("cut () "); };
+    void toolbarEditCut()    { executeCommand("cut () "); };
 
     /** toolbar: "edit/copy" */
-    inline void toolbarEditCopy()   { executeCommand("copy () "); };
+    void toolbarEditCopy()   { executeCommand("copy () "); };
 
     /** toolbar: "edit/paste" */
-    inline void toolbarEditPaste()  { executeCommand("paste () "); };
+    void toolbarEditPaste()  { executeCommand("paste () "); };
 
     /** toolbar: "edit/erase" */
-    inline void toolbarEditErase()  { executeCommand("zero () "); };
+    void toolbarEditErase()  { executeCommand("zero () "); };
 
     /** toolbar: "edit/delete" */
-    inline void toolbarEditDelete() { executeCommand("delete () "); };
+    void toolbarEditDelete() { executeCommand("delete () "); };
 
 signals:
     /**
@@ -212,19 +212,14 @@ private:
     /** reference to the main kwave application */
     KwaveApp &m_app;
 
-    /** reference to the application's list of recent files */
-    // QStrList &recentFiles;
-
     /** our internal plugin manager */
-    PluginManager *plugin_manager;
-
-    QDir *saveDir;
+    PluginManager *m_plugin_manager;
 
     /**
      * the main widget with all views and controls (except menu and
      * toolbar)
      */
-    MainWidget *mainwidget;
+    MainWidget *m_main_widget;
 
     /** combo box for selection of the zoom factor */
     KComboBox *m_zoomselect;
@@ -235,16 +230,14 @@ private:
      */
     KToolBar *m_toolbar;
 
-    KDNDDropZone *dropZone;
-
     /** Name of the current signal or file. Zero-Length if nothing loaded */
-    QString signalName;
+    QString m_filename;
 
     /** menu manager for this window */
-    MenuManager *menu;
+    MenuManager *m_menu_manager;
 
     /** bits per sample to save with */
-    int bits;
+    int m_save_bits;
 
     /** Timer used to let the pause button blink... */
     QTimer *m_pause_timer;

@@ -1,3 +1,19 @@
+/***************************************************************************
+           KwaveApp.cpp  -  The Kwave main application
+                             -------------------
+    begin                : Wed Feb 28 2001
+    copyright            : (C) 2001 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "config.h"
 
@@ -27,8 +43,11 @@ playback_param_t KwaveApp::m_playback_params = {
 };
 
 //***************************************************************************
+// some static initializers
 static ClipBoard _clipboard;
 ClipBoard &KwaveApp::m_clipboard(_clipboard);
+QString KwaveApp::m_default_open_dir;
+QString KwaveApp::m_default_save_dir;
 
 //***************************************************************************
 KwaveApp::KwaveApp()
@@ -42,14 +61,7 @@ KwaveApp::KwaveApp()
 {
     KCrash::setCrashHandler(0); // ###
 
-    m_playback_params.rate = 44100;
-    m_playback_params.channels = 2;
-    m_playback_params.bits_per_sample = 16;
-    m_playback_params.device = "/dev/dsp";
-    m_playback_params.bufbase = 5;
-
     m_topwidget_list.setAutoDelete(false);
-
     readConfig();
 
     // load the list of plugins
@@ -114,10 +126,8 @@ bool KwaveApp::executeCommand(const QString &command)
 //***************************************************************************
 void KwaveApp::addRecentFile(const QString &newfile)
 {
-    QStringList::Iterator old = m_recent_files.find(newfile);
-
-    // remove old entry if present
-    if (old != 0) m_recent_files.remove(old);
+    // remove old entries if present
+    m_recent_files.remove(newfile);
 
     // shorten the list down to 19 entries
     while (m_recent_files.count() > 19)
@@ -187,6 +197,18 @@ bool KwaveApp::closeWindow(TopWidget *todel)
 }
 
 //***************************************************************************
+void KwaveApp::setDefaultOpenDir(const QString &dir)
+{
+    m_default_open_dir = dir;
+}
+
+//***************************************************************************
+void KwaveApp::setDefaultSaveDir(const QString &dir)
+{
+    m_default_save_dir = dir;
+}
+
+//***************************************************************************
 void KwaveApp::saveRecentFiles()
 {
     KConfig *cfg = KGlobal::config();
@@ -219,15 +241,10 @@ void KwaveApp::saveConfig()
     cfg->writeEntry("Device", m_playback_params.device);
     cfg->writeEntry("BufferBase", m_playback_params.bufbase);
 
-//    cfg->setGroup("Memory Settings");
-//    cfg->writeEntry("Mmap threshold", mmap_threshold);
-//    cfg->writeEntry("Mmap dir", mmap_dir);
-
-////    cfg->setGroup ("Labels");
-////    for (unsigned int i = 0 ; i < globals.markertypes.count(); i++) {
-////	snprintf(buf, sizeof(buf), "%dCommand", i);
-////	cfg->writeEntry (buf, globals.markertypes.at(i)->getCommand());
-////    }
+    // default directories
+    cfg->setGroup("Directories");
+    cfg->writeEntry("DefaultOpen", m_default_open_dir);
+    cfg->writeEntry("DefaultSave", m_default_save_dir);
 
     cfg->sync();
 
@@ -259,35 +276,22 @@ void KwaveApp::readConfig()
 
     // playback settings
     cfg->setGroup("Playback Settings");
-    result = cfg->readEntry("SampleRate");
-    m_playback_params.rate = !result.isNull() ? result.toInt() : 44100;
-    result = cfg->readEntry("Channels");
-    m_playback_params.channels = !result.isNull() ? result.toInt() : 2;
-    result = cfg->readEntry("BitsPerSample");
-    m_playback_params.bits_per_sample = !result.isNull() ? result.toInt() : 16;
-    result = cfg->readEntry("Device");
-	m_playback_params.device = (result.length() ? result : QString("/dev/dsp"));
-    result = cfg->readEntry("BufferBase");
-    m_playback_params.bufbase = !result.isNull() ? result.toInt() : 5;
+    m_playback_params.rate =
+	cfg->readUnsignedNumEntry("SampleRate", 44100);
+    m_playback_params.channels =
+	cfg->readUnsignedNumEntry("Channels", 2);
+    m_playback_params.bits_per_sample =
+	cfg->readUnsignedNumEntry("BitsPerSample", 16);
+    m_playback_params.device =
+	cfg->readEntry("Device", "/dev/dsp");
+    m_playback_params.bufbase =
+	cfg->readUnsignedNumEntry("BufferBase", 10);
     ASSERT(m_playback_params.device.length());
 
-//    cfg->setGroup ("Memory Settings");
-//    result = cfg->readEntry ("Mmap threshold");
-//    if (!result.isNull()) mmap_threshold = result.toInt();
-//    result = cfg->readEntry ("Mmap dir");
-//    if (!result.isNull()) mmap_dir = duplicateString(result.data());
-//    mmapallocdir = mmap_dir;
-
-////    cfg->setGroup ("Labels");
-////    for (unsigned int i = 0 ; i < 20; i++) {
-////	snprintf (buf, sizeof(buf), "%dCommand", i);
-////	QString name = cfg->readEntry (buf);
-////	if (!name.isEmpty()) {
-////	    LabelType *marker = new LabelType(name.data());
-////	    ASSERT(marker);
-////	    if (marker) globals.markertypes.append(marker);
-////	}
-////    }
+    // default directories
+    cfg->setGroup("Directories");
+    m_default_open_dir = cfg->readEntry("DefaultOpen", ".");
+    m_default_save_dir = cfg->readEntry("DefaultSave", ".");
 
 }
 

@@ -49,6 +49,11 @@ public:
     Stripe(unsigned int start, const QArray<sample_t> &samples);
 
     /**
+     * Destructor.
+     */
+    virtual ~Stripe();
+
+    /**
      * Returns a reference to alock for the whole stripe.
      */
     Mutex &mutex();

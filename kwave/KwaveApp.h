@@ -1,3 +1,19 @@
+/***************************************************************************
+             KwaveApp.h  -  The Kwave main application
+                             -------------------
+    begin                : Wed Feb 28 2001
+    copyright            : (C) 2001 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #ifndef _KWAVE_APP_H_
 #define _KWAVE_APP_H_
@@ -11,11 +27,16 @@
 #include "SignalManager.h" // for struct playback_param_t
 
 class ClipBoard;
-class Plugin;
-class QCloseEvent;
 class QString;
 class TopWidget;
 
+/**
+ * This is the main application class for Kwave. It contains functions
+ * for opening and saving files, opening new windows and holds global
+ * configuration data.
+ *
+ * @todo Not even one function is really threadsafe!
+ */
 class KwaveApp :public KApplication
 {
     Q_OBJECT
@@ -81,6 +102,35 @@ public:
     /** Returns a reference to Kwave's clipboard */
     static ClipBoard &clipboard();
 
+    /**
+     * Returns the default directory for opening files.
+     * @note This might be extended to contain a file category
+     *       in future.
+     */
+    static QString defaultOpenDir() {
+	return m_default_open_dir;
+    };
+
+    /**
+     * Returns the default directory for saving files.
+     * @see defaultOpenDir()
+     */
+    static QString defaultSaveDir() {
+	return m_default_save_dir;
+    };
+
+    /**
+     * Sets the default directory for opening files. This should be
+     * called whenever the user has loaded a file.
+     */
+    static void setDefaultOpenDir(const QString &dir);
+
+    /**
+     * Sets the default directory for saving files. This should be
+     * called whenever the user has saved a file.
+     */
+    static void setDefaultSaveDir(const QString &dir);
+
 signals:
     /**
      * Will be emitted if the list of recent files has changed. Can
@@ -131,6 +181,13 @@ private:
 
     /** Kwave's clipboard */
     static ClipBoard &m_clipboard;
+
+    /** Default directory for opening files */
+    static QString m_default_open_dir;
+
+    /** Default directory for saving files */
+    static QString m_default_save_dir;
+
 };
 
 #endif // _KWAVE_APP_H_

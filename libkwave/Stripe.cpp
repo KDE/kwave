@@ -40,6 +40,14 @@ Stripe::Stripe(unsigned int start, const QArray<sample_t> &samples)
 }
 
 //***************************************************************************
+Stripe::~Stripe()
+{
+    MutexGuard lock(m_lock_samples);
+    debug("Stripe::~Stripe()");
+    m_samples.resize(0);
+}
+
+//***************************************************************************
 Mutex &Stripe::mutex()
 {
     return m_lock;

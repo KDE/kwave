@@ -27,10 +27,10 @@ int main( int argc, char **argv )
     KAboutData about("Kwave",
 	"Kwave",
 	"0.5.99",
-	I18N_NOOP("sound editor for KDE2"),
+	"sound editor for KDE2",
 	KAboutData::License_GPL_V2,
-	I18N_NOOP("(c) 2001, Thomas Eschenbacher"),
-	I18N_NOOP("...text..."),
+	"(c) 2001, Thomas Eschenbacher",
+	"...text...",
 	"http://kwave.sourceforge.net",
 	"Thomas.Eschenbacher@gmx.de"
     );
@@ -47,6 +47,8 @@ int main( int argc, char **argv )
 
     KwaveApp app;
     app.exec();
+
+    exit(0);
 }
 
 //***************************************************************************

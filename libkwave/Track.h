@@ -44,6 +44,11 @@ public:
     Track(unsigned int length);
 
     /**
+     * Destructor.
+     */
+    virtual ~Track();
+
+    /**
      * Appends a new empty stripe to the end of the track.
      */
     Stripe *appendStripe(unsigned int length);

@@ -184,7 +184,7 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	case Append: {
 	    // create a new stripe
 	    unsigned int next_start = unlockedLength();
-	    Stripe *s = new Stripe(next_start);
+	    Stripe *s = newStripe(next_start, 0);
 	    ASSERT(s);
 	    if (!s) return 0;
 	
@@ -194,6 +194,8 @@ SampleWriter *Track::openSampleWriter(InsertMode mode,
 	
 	    // use new created stripe as start
 	    stripes.append(s);
+	    m_stripes.append(s);
+	    
 	    break;
 	}
 	case Overwrite:

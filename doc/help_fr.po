@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-30 23:46GMT\n"
+"PO-Revision-Date: 2002-02-01 00:05GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: index.docbook:24
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
-"Traduction Française : Gilles Caulier"
+"Traduction Française : Gilles CAULIER"
 "<affiliation> <address><email>caulier.gilles@free.fr</email></address> </affiliation> "
 
 #: index.docbook:28
@@ -1816,38 +1816,52 @@ msgid ""
 "A C/C++ compiler. GCC-2.95.3 works fine, some older and any newer version "
 "should work too. (Note: gcc-3.0 is not yet supported, it wil not work!)"
 msgstr ""
+"Un compilateur C/C++. GCC-2.95.3 fonctionne correctement, et quelques anciennes et "
+" nouvelles version fonctionnent également. (Nota : gcc-3.0 n'est pas encore complétement "
+"supporté. Il n'est pas encore utilisable !)"
 
 #: index.docbook:1329
 msgid ""
 "The glibc2 (libc-6) development environment. On SuSE systems the package is "
 "called \"libc\", on other systems it might be called \"libc-devel\"."
 msgstr ""
+"La bibliothéque de développement glibc2 (libc-6). Sur la distribution SuSE Linux, le paquetage "
+" s'appel \"libc\". Sur d'autres systèmes il peut s'appeler \"libc-devel\"."
 
 #: index.docbook:1329
 msgid ""
 "The KDE2 development environment: \"kdelibs-devel\", \"kdemultimedia-devel"
 "\", \"kdesdk-2\"."
 msgstr ""
+"L'environnement de développement de KDE2 : \"kdelibs-devel\", \"kdemultimedia-devel"
+"\", et \"kdesdk-2\"."
 
 #: index.docbook:1329
 msgid ""
 "The Qt development environment, the package is normally called \"qt-devel\" "
 "or similar."
 msgstr ""
+"L'environnement de developpemnt Qt. Le paquetage s'appel normalement \"qt-devel\" "
+"ou quelquechose de similaire."
 
 #: index.docbook:1329
 msgid "If you intend to use CVS, you will also need a current cvs package."
 msgstr ""
+"Si vous désirez utiliser CVS, il vous faut aussi la version courrante du paquetage "
+" correspondant à CVS."
 
 #: index.docbook:1363
 msgid "Manual Compilation and installation"
-msgstr ""
+msgstr "Le manuel de compilation et d'installation."
 
 #: index.docbook:1365
 msgid ""
 "In order to compile and install &kapp; on your system, type the following in "
 "the base directory of the source distribution:"
 msgstr ""
+"Dans l'ordre, pour compiler and installer &kapp; sur votre systeme, vous devez tapez les lignes "
+" de commande qui suivent dans le répertoire de base ou vous avez copié les sources du "
+" programme :"
 
 #: index.docbook:1365
 msgid ""
@@ -1857,6 +1871,11 @@ msgid ""
 "<prompt>% </prompt><command>make</command>\n"
 "<prompt>% </prompt><command>su root -c \"make install\"</command>"
 msgstr ""
+"<prompt>% </prompt><command>cd kwave</command>\n"
+"<prompt>% </prompt><command>make -f Makefile.dist</command>\n"
+"<prompt>% </prompt><command>./configure</command>\n"
+"<prompt>% </prompt><command>make</command>\n"
+"<prompt>% </prompt><command>su root -c \"make install\"</command>"
 
 #: index.docbook:1377
 msgid ""
@@ -1864,6 +1883,9 @@ msgid ""
 "it. Should you run into problems please report them to the &kapp; <link "
 "linkend=\"mailing-list\">mailing list</link>."
 msgstr ""
+"Depuis que &kapp; utilise autoconf et automake vous ne devez pas avoir de problémes "
+" particuliers lors de la compilation. Envoyer nous la liste de vos problèmes sur la compilation "
+" de &kapp; en nous contactant sur la <link linkend=\"mailing-list\">mailing list</link>."
 
 #: index.docbook:1382
 msgid ""
@@ -1871,14 +1893,18 @@ msgid ""
 "compiling. Then you should set the following environment variable to specify "
 "the correct paths of your Qt installation and try again:"
 msgstr ""
+"Si vous utilisé une ancienne version de QT sur votre système comme la bibliothéque Qt-1, vous aurrez "
+" problablement des problèmes lors de la compilation. Vous devrez certainement configurer "
+" les variables d'environnement pour spécifier les chemins d'accés corrects à la "
+" bibliothéque Qt :"
 
 #: index.docbook:1382
 msgid "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>"
-msgstr ""
+msgstr "<prompt>% </prompt><command>export QTDIR=/usr/lib/qt2</command>"
 
 #: index.docbook:1399
 msgid "Building RPM packages from tar.gz archives"
-msgstr ""
+msgstr "La construction du paquetage RPM à partir de l'archive tar.gz."
 
 #: index.docbook:1402
 msgid "With working rpm -ta"

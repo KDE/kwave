@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include <qlist.h>
+#include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qobject.h>
@@ -86,7 +87,8 @@ protected:
 private:
 
     /** adds an entry to m_known_chunks and to m_property_map */
-    void addProperty(const FileProperty property, const QCString &chunk_name);
+    void addPropertyChunk(const FileProperty property,
+                          const QCString &chunk_name);
 
 private:
 
@@ -100,7 +102,7 @@ private:
     QStringList m_known_chunks;
 
     /** map for translating chunk names to FileInfo properties */
-    QMap<FileProperty, QCString> m_property_map;
+    QMap<QCString, FileProperty> m_property_map;
 
 };
 

@@ -52,17 +52,17 @@ extern "C" {
 #define CHECK(cond) ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
 //***************************************************************************
-void WavDecoder::addProperty(const FileProperty property,
-                             const QCString &chunk_name)
+void WavDecoder::addPropertyChunk(const FileProperty property,
+                                  const QCString &chunk_name)
 {
     m_known_chunks.append(chunk_name);
-    m_property_map[property] = chunk_name;
+    m_property_map.insert(chunk_name, property);
 }
 
 //***************************************************************************
 WavDecoder::WavDecoder()
-    :Decoder(), m_source(0), m_src_adapter(0)/*, m_known_chunks(),
-     m_property_map()*/
+    :Decoder(), m_source(0), m_src_adapter(0), m_known_chunks(),
+     m_property_map()
 {
     LOAD_MIME_TYPES;
 
@@ -78,24 +78,23 @@ WavDecoder::WavDecoder()
     m_known_chunks.append("smpl"); /* Sampler */
 
     // some sub-chunks from the LIST chunk
-//    addProperty("IARL", INF_ARCHIVAL);
-    m_known_chunks.append("IARL"); // archival location
-    m_known_chunks.append("IART"); // artist
-    m_known_chunks.append("ICMS"); // commissioned
-    m_known_chunks.append("ICMT"); // comments
-    m_known_chunks.append("ICOP"); // copyright
-    m_known_chunks.append("ICRD"); // creation date (iso)
-    m_known_chunks.append("IENG"); // engineer
-    m_known_chunks.append("IGNR"); // genre
-    m_known_chunks.append("IKEY"); // keywords
-    m_known_chunks.append("IMED"); // medium
-    m_known_chunks.append("INAM"); // name
-    m_known_chunks.append("IPRD"); // product
-    m_known_chunks.append("ISFT"); // software
-    m_known_chunks.append("ISRC"); // source
-    m_known_chunks.append("ISRF"); // source form
-    m_known_chunks.append("ITCH"); // technican
-    m_known_chunks.append("ISBJ"); // subject
+    addPropertyChunk(INF_ARCHIVAL,      "IARL"); // archival location
+    addPropertyChunk(INF_ARTIST,        "IART"); // artist
+    addPropertyChunk(INF_COMMISSIONED,  "ICMS"); // commissioned
+    addPropertyChunk(INF_COMMENTS,      "ICMT"); // comments
+    addPropertyChunk(INF_COPYRIGHT,     "ICOP"); // copyright
+    addPropertyChunk(INF_CREATION_DATE, "ICRD"); // creation date (iso)
+    addPropertyChunk(INF_ENGINEER,      "IENG"); // engineer
+    addPropertyChunk(INF_GENRE,         "IGNR"); // genre
+    addPropertyChunk(INF_KEYWORDS,      "IKEY"); // keywords
+    addPropertyChunk(INF_MEDIUM,        "IMED"); // medium
+    addPropertyChunk(INF_NAME,          "INAM"); // name
+    addPropertyChunk(INF_PRODUCT,       "IPRD"); // product
+    addPropertyChunk(INF_SOFTWARE,      "ISFT"); // software
+    addPropertyChunk(INF_SOURCE,        "ISRC"); // source
+    addPropertyChunk(INF_SOURCE_FORM,   "ISRF"); // source form
+    addPropertyChunk(INF_TECHNICAN,     "ITCH"); // technican
+    addPropertyChunk(INF_SUBJECT,       "ISBJ"); // subject
 
     // some chunks known from AIFF format
     m_known_chunks.append("FVER");
@@ -378,19 +377,19 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     QString sample_format_name;
     switch (sample_format) {
 	case AF_SAMPFMT_TWOSCOMP:
-	    sample_format_name = "linear two's complement";
+	    sample_format_name = i18n("linear two's complement");
 	    break;
 	case AF_SAMPFMT_UNSIGNED:
-	    sample_format_name = "unsigned integer";
+	    sample_format_name = i18n("unsigned integer");
 	    break;
 	case AF_SAMPFMT_FLOAT:
-	    sample_format_name = "32-bit IEEE floating-point";
+	    sample_format_name = i18n("32-bit IEEE floating-point");
 	    break;
 	case AF_SAMPFMT_DOUBLE:
-	    sample_format_name = "64-bit IEEE double-precision floating-point";
+	    sample_format_name = i18n("64-bit IEEE double-precision floating-point");
 	    break;
 	default:
-	    sample_format_name = "(unknown)";
+	    sample_format_name = i18n("unknown");
     }
     if (static_cast<signed int>(bits) < 0) bits = 0;
 
@@ -400,6 +399,33 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info().setLength(length);
     info().set(INF_SAMPLE_FORMAT, sample_format);
     info().set(INF_SAMPLE_FORMAT_NAME, sample_format_name);
+
+    // read in all info from the LIST (INFO) chunk
+    RIFFChunk *info_chunk = parser.findChunk("/RIFF/LIST");
+    if (info_chunk && info_chunk->format() == "INFO") {
+	// found info chunk !
+	RIFFChunkList &list = info_chunk->subChunks();
+	QListIterator<RIFFChunk> it(list);
+	for (; it.current(); ++it) {
+	    RIFFChunk &chunk = (*it.current());
+	    if (!m_property_map.contains(chunk.name())) continue;
+	
+	    // read the content into a QString
+	    FileProperty prop = m_property_map[chunk.name()];
+	    unsigned int offset = chunk.dataStart();
+	    unsigned int length = chunk.dataLength();
+	    char *buffer = (char*)malloc(length);
+	    ASSERT(buffer);
+	    if (!buffer) continue;
+	
+	    src.at(offset);
+	    src.readBlock(buffer, length);
+	    QCString value(buffer);
+	    info().set(prop, value);
+	
+	    delete buffer;
+	}
+    }
 
     // set up libaudiofile to produce Kwave's internal sample format
 #if defined(IS_BIG_ENDIAN)

@@ -14,10 +14,7 @@
 SUFFIXES= .h .cpp .o .d .moc .dm .ui .cc .idl
 
 # set the include path for X, qt and KDE
-INCLUDES  = -I${topdir}
-INCLUDES += -I$(includedir)/arts
-INCLUDES += -I$(includedir)/artsc
-INCLUDES += @all_includes@
+INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@
 
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins

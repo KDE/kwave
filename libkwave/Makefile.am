@@ -1,5 +1,5 @@
 
-INCLUDES= @all_includes@ -I$(includedir)/arts
+INCLUDES= @all_includes@ @ARTS_INCLUDES@
 
 BUILTSOURCES=\
  KwaveDrag.moc.cpp\

@@ -90,6 +90,15 @@ AC_SUBST(KDE_VERSION_SPECIFIC_LIBS)
 
 AC_PATH_KDE
 
+dnl get the correct aRts include directories
+AC_MSG_CHECKING(for aRts includes)
+ac_arts_inc1="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include"
+ac_arts_inc2="`${ARTSCCONFIG} --cflags | sed s.//./.g`"
+ac_arts_inc3="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include/arts"
+eval "ARTS_INCLUDES=\"`echo ${ac_arts_inc1} ${ac_arts_inc2}  ${ac_arts_inc3}`\""
+AC_MSG_RESULT(${ARTS_INCLUDES})
+AC_SUBST(ARTS_INCLUDES)
+
 KDE_FIND_PATH(xml2pot, XML2POT, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(xml2pot)])
 AC_SUBST(XML2POT)
 
@@ -134,7 +143,7 @@ dnl   -fcheck-new -Wall -pedantic -W -Wpointer-arith -Wmissing-prototypes \
 dnl   -Wwrite-strings -Wno-long-long -Wnon-virtual-dtor -fno-builtin "
 
 dnl check if the c++ compiler is new enough to support references to functions
-AC_MSG_CHECKING("whether $CXX supports references to functions")
+AC_MSG_CHECKING(whether $CXX supports references to functions)
 AC_TRY_CPP([#include <sys/resource.h>
 ,
     typedef int(function_t)(int);
@@ -207,7 +216,7 @@ AC_CHECK_HEADERS( assert.h byteswap.h ctype.h dlfcn.h endian.h errno.h \
 
 dnl Check for memory info and see if we can determine
 dnl the total amount of installed memory
-AC_MSG_CHECKING("for memory info")
+AC_MSG_CHECKING(for memory info)
 AC_TRY_CPP([
 #include <sys/sysinfo.h>
 #include <linux/kernel.h>
@@ -226,7 +235,7 @@ AC_MSG_RESULT(present)
 ))
 
 dnl check for resource query functions
-AC_MSG_CHECKING("for resource usage")
+AC_MSG_CHECKING(for resource usage)
 AC_TRY_CPP([
 #include <sys/resource.h>
 ,

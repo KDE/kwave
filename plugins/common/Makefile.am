@@ -28,14 +28,14 @@ LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 
-ui_files	:= $(shell @FIND@ . -name \*.ui)
+ui_files	:= $(shell @FIND@ . -name \*.ui | @SORT@)
 uih_files	:= $(ui_files:.ui=.uih.h)
 uic_files	:= $(ui_files:.ui=.uic.cpp)
 	
-h_files		:= $(shell @FIND@ . ! -name \*.uih.h -name \*.h)
+h_files		:= $(shell @FIND@ . ! -name \*.uih.h -name \*.h | @SORT@)
 h_files   	+= ${uih_files}
-cpp_sources 	:= $(shell @FIND@ . ! -name \*.uic.cpp -name \*.cpp)
-idl_files	:= $(shell @FIND@ . -name \*.idl)
+cpp_sources 	:= $(shell @FIND@ . ! -name \*.uic.cpp -name \*.cpp | @SORT@)
+idl_files	:= $(shell @FIND@ . -name \*.idl | @SORT@)
 idl_header	:= $(idl_files:.idl=.h)
 idl_impl	:= $(idl_files:.idl=.cc)
 
@@ -108,7 +108,6 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 ${idl_header}: ${idl_files}
 ${idl_impl}:   ${idl_files}
 ${PLUGINDEP_FILES}:  ${uih_files} ${idl_header}
-${OUT_FILES}:  ${PLUGINDEP_FILES} ${moc_files}
 
 .depend: ${PLUGINDEP_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@
@@ -129,7 +128,7 @@ $(MODNAME): .depend ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
 	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
 
-all: ${uic_files} depend $(MODNAME)
+all: ${uic_files} ${moc_files} depend $(MODNAME)
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

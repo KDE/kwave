@@ -78,6 +78,9 @@ void CompressionType::fill()
     append(i++, OGG_VORBIS,
            i18n("Ogg/Vorbis"), 0);
 
+    append(i++, FLAC,
+           i18n("FLAC"), 0);
+
 }
 
 //***************************************************************************

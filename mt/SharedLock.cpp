@@ -41,11 +41,7 @@ void SharedLock::lock_exclusive()
     while (m_shared_count) {
 	// still locked for shared access, unlock again and
 	// wait for a change
-	m_lock_exclusive.unlock();
-	m_lock_changed.wait();
-
-	// lock exclusively, will be unlocked in unlock_exclusive()
-	m_lock_exclusive.lock();
+	m_lock_changed.wait(&m_lock_exclusive);
     }
 }
 
@@ -54,7 +50,7 @@ void SharedLock::unlock_exclusive()
 {
     // unlock from exclusive access and wake up all waiting threads
     m_lock_exclusive.unlock();
-    m_lock_changed.notifyAll();
+    m_lock_changed.wakeAll();
 }
 
 //***************************************************************************
@@ -84,7 +80,7 @@ void SharedLock::unlock_shared()
 
     // wake up all threads that are waiting for exclusive access
     // if this was the last active shared lock
-    if (!m_shared_count) m_lock_changed.notifyAll();
+    if (!m_shared_count) m_lock_changed.wakeAll();
 
     // unlock m_shared_count again and allow further lock attempts
     m_lock_exclusive.unlock();

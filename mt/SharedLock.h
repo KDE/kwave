@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qmutex.h>
-#include "mt/ThreadCondition.h"
+#include <qwaitcondition.h>
 
 /**
  * @class SharedLock
@@ -97,10 +97,10 @@ private:
     QMutex m_lock_exclusive;
 
     /**
-     * ThreadCondition for synchronization of threads that are waiting
+     * QWaitCondition for synchronization of threads that are waiting
      * for shared or exclusive access.
      */
-    ThreadCondition m_lock_changed;
+    QWaitCondition m_lock_changed;
 
 };
 

@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-13 21:27GMT\n"
-"Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
-"Language-Team: FRANCAIS <fr@li.org>\n"
+"PO-Revision-Date: 2002-01-14 17:45GMT\n"
+"Last-Translator: G caulier <caulier@drfc.cad.cea.fr>\n"
+"Language-Team: français <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -84,7 +84,9 @@ msgstr "Introduction"
 
 #: index.docbook:64
 msgid "This is \"&kapp;\", a simple sound editor for KDE2. Its features include:"
-msgstr "\"&kapp;\" est un éditeur de pistes sonores pour l'envirronnement de bureau KDE. Il inclu les fonctionnalités suivantes :"
+msgstr ""
+"\"&kapp;\" est un éditeur de pistes sonores pour l'envirronnement de bureau "
+"KDE. Il inclu les fonctionnalités suivantes :"
 
 #: index.docbook:64
 msgid "simple cut, copy and paste functions"
@@ -108,7 +110,9 @@ msgstr "le marquage des signaux"
 
 #: index.docbook:64
 msgid "some analysis functions such as Sonagram or Fourier Transformation"
-msgstr "quelques fonctions d'analyse tel que le Sonogramme et le Transformée de Fourier"
+msgstr ""
+"quelques fonctions d'analyse tel que le Sonogramme et le Transformée de "
+"Fourier"
 
 #: index.docbook:64
 msgid "internally uses 24 bit integer sample data"
@@ -126,7 +130,9 @@ msgstr "le support pour l'édition de fichiers sonores multicanaux"
 msgid ""
 "playback of multi-channel audio files (audio output will be mixed down to "
 "mono or stereo)"
-msgstr "la lecture de fichier sonores multicanaux (l'écoute des pistes audio est mixée en mono ou en stéreo)"
+msgstr ""
+"la lecture de fichier sonores multicanaux (l'écoute des pistes audio est "
+"mixée en mono ou en stéreo)"
 
 #: index.docbook:64
 msgid "extendible through an easy-to-use plugin interface"
@@ -139,10 +145,10 @@ msgid ""
 "included in the source package. Help and constructive critics are always "
 "welcome."
 msgstr ""
-"Si vous étes interressé par ce qui a été fait et par ce qui reste à faire, alors"
-"lisez les fichiers <filename>CHANGES</filename> et <filename>TODO</filename> "
-"inclus dans le pakage des sources. De l'aide et des remarques constructives sont toujours"
-"les bien venues."
+"Si vous étes interressé par ce qui a été fait et par ce qui reste à faire, "
+"alorslisez les fichiers <filename>CHANGES</filename> et <filename>TODO</"
+"filename> inclus dans le pakage des sources. De l'aide et des remarques "
+"constructives sont toujoursles bien venues."
 
 #: index.docbook:117
 msgid "&kapp; Resources"
@@ -154,9 +160,10 @@ msgid ""
 "on using &kapp;, submit patches, bug reports or other stuf, the following "
 "resources might be of interest for you:"
 msgstr ""
-"Si vous voulez prendre contact avec les développeurs, pour fournir de l'aide sur "
-"l'élaboration de &kapp;, soumettre des correctifs, rapporter des bogues ou des "
-"dysfonctionnements, les informations suivantes peuvent vous interresser :"
+"Si vous voulez prendre contact avec les développeurs, pour fournir de l'aide "
+"sur l'élaboration de &kapp;, soumettre des correctifs, rapporter des bogues "
+"ou des dysfonctionnements, les informations suivantes peuvent vous "
+"interresser :"
 
 #: index.docbook:125
 msgid "Project Homepage"
@@ -168,8 +175,9 @@ msgid ""
 "about this project, take a look at the <ulink url=\"http://kwave.sourceforge."
 "net/\">&kapp; homepage</ulink>"
 msgstr ""
-"Pour toutes informations sur les nouvelles mises à jour ou sur l'ensemble du projet, "
-"visitez l'URL <ulink url=\"http://kwave.sourceforge.net/\">la page WEB de &kapp;</ulink>"
+"Pour toutes informations sur les nouvelles mises à jour ou sur l'ensemble du "
+"projet, visitez l'URL <ulink url=\"http://kwave.sourceforge.net/\">la page "
+"WEB de &kapp;</ulink>"
 
 #: index.docbook:125
 msgid "Mailing List"
@@ -182,10 +190,11 @@ msgid ""
 "spinfo.uni-koeln.de</email> with the text \"<literal>subscribe kwave-list</"
 "literal>\" in the body."
 msgstr ""
-"Si vous désirez avoir de l'aide sur l'utilisation de &kapp; ou si vous voulez participer "
-"au dévelloppement, contacter la liste de diffusion par courrier électronique à <email>majordomo@fs."
-"spinfo.uni-koeln.de</email> avec le texte \"<literal>subscribe kwave-list</"
-"literal>\" dans le corps du message."
+"Si vous désirez avoir de l'aide sur l'utilisation de &kapp; ou si vous "
+"voulez participer au dévelloppement, contacter la liste de diffusion par "
+"courrier électronique à <email>majordomo@fs.spinfo.uni-koeln.de</email> avec "
+"le texte \"<literal>subscribe kwave-list</literal>\" dans le corps du "
+"message."
 
 #: index.docbook:125
 msgid "CVS Repository"
@@ -202,12 +211,13 @@ msgid ""
 "or just browse through the CVS tree through a nice web interface. "
 "<emphasis>Anonymous CVS access is allowed!</emphasis>"
 msgstr ""
-"Il y a également un dépot CVS, qui est hébergé par <ulink url=\"http://sourceforge.net"
-"\">SourceForge</ulink> ou vous pouvez télécharger les derniére version des sources "
-"du programme. Pour toutes information concernant la procédure d'accés au dépot CVS, "
-"lisez le chapitre <link linkend=\"building_rpm_from_cvs"
-"\">building from CVS</link> à ce propos, consultez l'URL <ulink url=\"http://sourceforge.net/"
-"cvs/?group_id=6478\">\"http://sourceforge.net/cvs/?group_id=6478\"</ulink>, ou visitez "
+"Il y a également un dépot CVS, qui est hébergé par <ulink url=\"http://"
+"sourceforge.net\">SourceForge</ulink> ou vous pouvez télécharger les "
+"derniére version des sources du programme. Pour toutes information "
+"concernant la procédure d'accés au dépot CVS, lisez le chapitre <link "
+"linkend=\"building_rpm_from_cvs\">building from CVS</link> à ce propos, "
+"consultez l'URL <ulink url=\"http://sourceforge.net/cvs/?group_id=6478\">"
+"\"http://sourceforge.net/cvs/?group_id=6478\"</ulink>, ou visitez "
 "l'arborescence CVS directement à travers votre navigateur internet. "
 "<emphasis>Un accés anonyme au dépot CVS est disponible !</emphasis>"
 
@@ -224,11 +234,12 @@ msgid ""
 "extended, rewritten or revised nearly every component of the program and "
 "spent much time on improving it."
 msgstr ""
-"Ce projet à débuter en été 1998 par Martin Wilz et a été developpé et amélioré par lui-même "
-"et quelques autres contributeurs. En novembre 1999 Thomas Eschenbacher a commencer à "
-"corriger quelques petits bogues et à s'investir progressivement dans l'ensemble du code "
-"source du programme. Jusqu'à aujourd'hui, il a ajouté, réécri et corrigé progressivement "
-"chaque partie du logiciel et a consacré beaucoup de temps pour les améliorer."
+"Ce projet à débuter en été 1998 par Martin Wilz et a été developpé et "
+"amélioré par lui-même et quelques autres contributeurs. En novembre 1999 "
+"Thomas Eschenbacher a commencer à corriger quelques petits bogues et à "
+"s'investir progressivement dans l'ensemble du code source du programme. "
+"Jusqu'à aujourd'hui, il a ajouté, réécri et corrigé progressivement chaque "
+"partie du logiciel et a consacré beaucoup de temps pour les améliorer."
 
 #: index.docbook:210
 msgid "0.6.3 [2002-??-??]"
@@ -236,61 +247,69 @@ msgstr "0.6.3 [2002-??-??]"
 
 #: index.docbook:210
 msgid "support for french and italian translation"
-msgstr "Ajout des traductions Française et Italienne"
+msgstr "Ajout des traductions Française et Italienne."
 
 #: index.docbook:210
 msgid "handling of \"signal modified\""
-msgstr ""
+msgstr "Traitement de \"signal modified\"."
 
 #: index.docbook:210
 msgid "shows error message and aborts if loading failed"
-msgstr ""
+msgstr "Affichage d'un message d'erreur et d'arrêt si un chargement échoue."
 
 #: index.docbook:210
 msgid "0.6.2 [2001-12-24]"
-msgstr ""
+msgstr "0.6.2 [2001-12-24]"
 
 #: index.docbook:210
 msgid "new plugin \"amplifyfree\""
-msgstr ""
+msgstr "Nouveau plugin \"amplifyfree\"."
 
 #: index.docbook:210
 msgid "new plugin \"noise\""
-msgstr ""
+msgstr "Nouveau plugin \"noise\"."
 
 #: index.docbook:210
 msgid ""
 "new aRts plugin adapter framework now Kwave is able to use existing aRts "
 "plugins in it's own plugins for sound processing"
 msgstr ""
+"Un nouveau plugin pour le serveur de sons aRts fonctionne maintenant avec Kwave "
+"et il est possible de l'utiliser pour jouer des pistes sonores."
 
 #: index.docbook:210
 msgid "changed documentation to XML / Docbook-4.1"
-msgstr ""
+msgstr "Changement du format de la documentation en XML / Docbook-4.1."
 
 #: index.docbook:210
 msgid ""
 "recovery of damaged files if non-zero file length but data length entry in "
 "the wav header is zero (e.g. happens when krecord crashes during recording)"
 msgstr ""
+"Récupération des fichiers endomagés si leur longueur n'est pas égale à zéro "
+"mais que les données d'entrées dans l'enête du fichier wav indique une valeur nulle "
+"(tel que lorqu'une application comme krecord s'arrête indésirablement pendant l'enregistrement "
+"d'une piste sonore)."
 
 #: index.docbook:210
 msgid "bugfix: freeing virtual memory fixed in MemoryManager"
-msgstr ""
+msgstr "Correction de bogue : libération de la mémoire virtuelle allouée dans le gestionnaire de mémoire."
 
 #: index.docbook:210
 msgid "bugfix: problem with TSS in TSS_Object cleanup"
-msgstr ""
+msgstr "Correction de bogue : probléme avec TSS dans la libération de TSS_Object."
 
 #: index.docbook:210
 msgid "0.6.1-1 [2001-09-01]"
-msgstr ""
+msgstr "0.6.1-1 [2001-09-01]"
 
 #: index.docbook:210
 msgid ""
 "bugfix: class Track made duplicate entry in stripe list when inserting "
 "signals into an empty track"
 msgstr ""
+"Correction de bogue : la classe Track contruit une entrée en double "
+"dans la liste des pistes quand on insére des signaux dans une piste sonore vide."
 
 #: index.docbook:210
 msgid ""

@@ -163,6 +163,17 @@ signals:
     void sigSamplesModified(Stripe &src, unsigned int offset,
                             unsigned int length);
 
+protected:
+
+    /**
+     * Resizes the internal storage.
+     * @param length the new length
+     * @return the length after the resize operation. Should be equal
+     *         to the length that has been given as parameter. If not,
+     *         something has failed.
+     */
+    unsigned int resizeStorage(unsigned int length);
+
 private:
 
     /** start position within the track */

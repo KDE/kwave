@@ -57,6 +57,7 @@ kwave_SOURCES =\
  KwaveApp.cpp\
  LabelManager.cpp\
  MainWidget.cpp\
+ MemoryManager.cpp\
  MouseMark.cpp\
  PitchContainer.cpp\
  PitchWidget.cpp\

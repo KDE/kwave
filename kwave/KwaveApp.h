@@ -25,6 +25,7 @@
 #include <kapp.h>
 
 class ClipBoard;
+class MemoryManager;
 class QString;
 class TopWidget;
 
@@ -93,6 +94,9 @@ public:
     /** Returns a reference to Kwave's clipboard */
     static ClipBoard &clipboard();
 
+    /** Returns a reference to Kwave's memory manager */
+    static MemoryManager &memoryManager();
+
 signals:
     /**
      * Will be emitted if the list of recent files has changed. Can
@@ -140,6 +144,9 @@ private:
 
     /** Kwave's clipboard */
     static ClipBoard &m_clipboard;
+
+    /** Kwave's memory manager */
+    static MemoryManager &m_memory_manager;
 
 };
 

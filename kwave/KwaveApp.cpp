@@ -29,6 +29,7 @@
 #include "libkwave/Parser.h"
 
 #include "ClipBoard.h"
+#include "MemoryManager.h"
 #include "PluginManager.h"
 #include "TopWidget.h"
 #include "KwaveApp.h"
@@ -37,8 +38,12 @@
 
 //***************************************************************************
 // some static initializers
+
 static ClipBoard _clipboard;
+static MemoryManager _memory_manager;
+
 ClipBoard &KwaveApp::m_clipboard(_clipboard);
+MemoryManager &KwaveApp::m_memory_manager(_memory_manager);
 
 //***************************************************************************
 KwaveApp::KwaveApp()
@@ -186,6 +191,12 @@ bool KwaveApp::closeWindow(TopWidget *todel)
 ClipBoard &KwaveApp::clipboard()
 {
     return m_clipboard;
+}
+
+//***************************************************************************
+MemoryManager &KwaveApp::memoryManager()
+{
+    return m_memory_manager;
 }
 
 //***************************************************************************

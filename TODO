@@ -8,12 +8,12 @@ o new abstraction layer: "class SampleStorage" that does not crash on
 
 o usage of virtual memory: "class MemoryManager"
 
-o configuration of virtual memory (usage of memory mapped files)
+o virtual memory: multiple swap directories
 
 o install a new_handler() for cases in which we run out of memory
 
 o when pressing cancel during save, ask if the file should be deleted
-  or fixed instead of only truncating
+  or fixed instead of only truncated
 
 o implementation of locking, see SampleLock
 
@@ -22,6 +22,9 @@ o detection of "file modified"
 o menu entries for playback control
 
 o ask user if he wants to save before closing a modified file
+
+o open file dialog: add a preview widget that shows info about the file
+  and maybe has "playback/pause/stop" buttons
 
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 
@@ -37,7 +40,7 @@ o Signal::resample should use lowpass interpolation instead of spline
 
 o TopWidget: re-enable drag&drop
 
-o check of all MessageBoxes
+o check of all MessageBoxes in SignalManager
 
 o MainWidget: re-enable accelerator keys for 0..9
 
@@ -120,6 +123,9 @@ o more complete documentation of the whole api
 
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width
+
+o in rpm update script: error messages when updating the default
+  language link of the online help
 
 o use some audio library, like libasound for import/export of other
   file formats

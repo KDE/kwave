@@ -18,6 +18,8 @@
 #include <string.h> // for some speed-ups like memmove, memcpy ...
 #include "mt/MutexGuard.h"
 #include "libkwave/Stripe.h"
+#include "kwave/KwaveApp.h"
+#include "kwave/MemoryManager.h"
 
 // define this for using only slow Qt array functions
 #undef STRICTLY_QT
@@ -36,15 +38,16 @@ Stripe::Stripe(unsigned int start)
 
 //***************************************************************************
 Stripe::Stripe(unsigned int start, const QArray<sample_t> &samples)
-    :m_start(start), m_samples(samples), m_lock_samples()
+    :m_start(start), m_samples(), m_lock_samples()
 {
+    if (samples.size()) append(samples, samples.size());
 }
 
 //***************************************************************************
 Stripe::~Stripe()
 {
     MutexGuard lock(m_lock_samples);
-    m_samples.resize(0);
+    resizeStorage(0);
 }
 
 //***************************************************************************
@@ -61,18 +64,67 @@ unsigned int Stripe::length()
     return m_samples.size();
 }
 
+
+//***************************************************************************
+unsigned int Stripe::resizeStorage(unsigned int length)
+{
+    if (m_samples.size() == length) return length; // nothing to do
+
+    MemoryManager &mem = KwaveApp::memoryManager();
+
+#ifndef STRICTLY_QT
+    if (m_samples.size() == 0) {
+	// allocate new storage
+	sample_t *newstorage = (sample_t *)mem.allocate(
+		length*sizeof(sample_t));
+	if (!newstorage) return 0;
+	
+	m_samples.setRawData(newstorage, length);
+	return length;
+    }
+
+    if (length == 0) {
+	// delete the array
+	sample_t *oldstorage = m_samples.data();
+	m_samples.resetRawData(oldstorage, m_samples.size());
+	mem.free(reinterpret_cast<void*>(oldstorage));
+	return 0;
+    }
+
+    // resize the array to another size
+    sample_t *storage = m_samples.data();
+    unsigned int oldlength = m_samples.size();
+    m_samples.resetRawData(storage, m_samples.size());
+
+    unsigned int newsize = mem.resize(
+	reinterpret_cast<void*>(storage), length*sizeof(sample_t));
+    if (newsize < length*sizeof(sample_t)) {
+	// resize failed
+	m_samples.setRawData(storage, oldlength);
+	return oldlength;
+    }
+    m_samples.setRawData(storage, length);
+    return length;
+
+#else
+    m_samples.resize(length);
+    return m_samples.size();
+
+#endif
+}
+
 //***************************************************************************
 unsigned int Stripe::resize(unsigned int length)
 {
     unsigned int old_length;
     {
 	MutexGuard lock(m_lock_samples);
-
+	
 	old_length = m_samples.size();
 	if (old_length == length) return old_length; // nothing to do
 
 //	debug("Stripe::resize() from %d to %d samples", old_length, length);
-	m_samples.resize(length);
+	resizeStorage(length);
 	ASSERT(length = m_samples.size());
 	if (length < m_samples.size()) {
 	    warning("Stripe::resize(%u) failed, out of memory ?", length);
@@ -124,7 +176,7 @@ unsigned int Stripe::append(const QArray<sample_t> &samples,
 
 	old_length = m_samples.size();
 	unsigned int newlength = old_length + count;
-	m_samples.resize(newlength);
+	resizeStorage(newlength);
 	ASSERT(m_samples.size() == newlength);
 	newlength = m_samples.size();
 
@@ -169,7 +221,7 @@ unsigned int Stripe::insert(const QArray<sample_t> &samples,
 	
 	old_length = m_samples.size();
 	unsigned int new_length = old_length + count;
-	m_samples.resize(new_length);
+	resizeStorage(new_length);
 	ASSERT(m_samples.size() == new_length);
 	new_length = m_samples.size();
 	
@@ -250,7 +302,7 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 #endif
 	
 	// resize the buffer to it's new size
-	m_samples.resize(size - length);
+	resizeStorage(size - length);
     }
 //
 //    if (length) emit sigSamplesDeleted(*this, offset, length);

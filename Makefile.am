@@ -1,5 +1,5 @@
 
-AUTOMAKE_OPTIONS = foreign
+AUTOMAKE_OPTIONS = 1.6.1   # Require Automake 1.6.1 or better.
 
 .PHONY: doc version-labels
 

@@ -2,32 +2,25 @@ dnl without this order in this file, autoconf will not work!
 dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
 
-AC_INIT(admin/acinclude.m4.in)
+AC_INIT(kwave,0.6.5)
+AC_CONFIG_SRCDIR([admin/acinclude.m4.in])
 AC_CONFIG_AUX_DIR(admin)
 AC_CONFIG_SUBDIRS(libmad)
-
-dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
-unset CDPATH
-
-dnl Checking host/target/build systems, for make, install etc.
-AC_CANONICAL_SYSTEM
-dnl Perform program name transformation
-AC_ARG_PROGRAM
-
-dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(kwave,0.6.5)
+unset CDPATH            dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
+AC_CANONICAL_TARGET([]) dnl Checking host/target/build systems, for make, install etc.
+AC_ARG_PROGRAM          dnl Perform program name transformation
+AM_INIT_AUTOMAKE(1.6.3) dnl Require Automake 1.6.3 or better.
 
 KDE_SET_PREFIX
 
 dnl generate the config header
 AM_CONFIG_HEADER(config.h)
 
-dnl Check for programs.
+AC_LANG([C])
+AC_LANG([C++])
 AC_CHECK_COMPILERS
-dnl AC_LANG_CPLUSPLUS
 AM_ENABLE_SHARED(yes)
 AM_ENABLE_STATIC(no)
-AC_PROG_CC
 
 AC_LIBTOOL_DLOPEN
 KDE_PROG_LIBTOOL
@@ -222,11 +215,11 @@ AC_HEADER_DIRENT
 dnl check for other stdc headers. More traditional ;)
 AC_HEADER_STDC
 
-dnl we should have a file from which we can guess the KDE version
-KDE_CHECK_HEADER(kdeversion.h, AC_DEFINE(HAVE_KDEVERSION_H))
+KDE_CHECK_HEADER(kdeversion.h, AC_DEFINE(HAVE_KDEVERSION_H,1,
+    [we should have a file from which we can guess the KDE version]))
 
-dnl name mangling would be fine, but not necessary
-AC_CHECK_HEADER(demangle.h, AC_DEFINE(HAVE_DEMANGLE_H))
+AC_CHECK_HEADER(demangle.h, AC_DEFINE(HAVE_DEMANGLE_H,1,
+    [name mangling would be fine, but not necessary]))
 
 dnl rtti/type info woulf be fine for debugging
 AC_CHECK_HEADERS(typeinfo)
@@ -340,7 +333,7 @@ AC_TRY_CPP([
     sysinfo(&info);
     total = info.totalram;
 ],
-AC_DEFINE(HAVE_MEMINFO)
+AC_DEFINE(HAVE_MEMINFO,1,[meminfo is needed for the memory manager])
 AC_MSG_RESULT(present)
 ,AC_MSG_WARN(FAILED!
 
@@ -358,13 +351,13 @@ AC_TRY_CPP([
     unsigned int ulimit = limit.rlim_cur >> 20;
     getrlimit(RLIMIT_AS, &limit);
 ],
-AC_DEFINE(HAVE_GETRLIMIT)
+AC_DEFINE(HAVE_GETRLIMIT, 1, [resource limits for the memory manager])
 AC_MSG_RESULT(present)
 ,AC_MSG_WARN(MISSING!))
 
-AC_CHECK_FUNC(geteuid, AC_DEFINE(HAVE_GETEUID))
-AC_CHECK_FUNC(mkstemp, AC_DEFINE(HAVE_MKSTEMP))
-AC_CHECK_FUNC(unlink,  AC_DEFINE(HAVE_UNLINK))
+dnl AC_CHECK_FUNC(geteuid, AC_DEFINE(HAVE_GETEUID, 1, [geteuid]))
+AC_CHECK_FUNC(mkstemp, AC_DEFINE(HAVE_MKSTEMP, 1, [used for creating swap files]))
+AC_CHECK_FUNC(unlink,  AC_DEFINE(HAVE_UNLINK, 1, [used for unlinking swap files]))
 
 dnl get the correct aRts include directories...
 AC_MSG_CHECKING(for aRts includes)
@@ -450,4 +443,5 @@ AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 
 dnl add here all your Makefiles
 dnl      (Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
-AC_OUTPUT(Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
+AC_CONFIG_FILES([Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec])
+AC_OUTPUT

@@ -86,8 +86,8 @@ mad.h: config.status config.h Makefile.am  \
 	echo "# endif") | cat -s >$@
 
 # libtool: $(LIBTOOL_DEPS)
-# 	$(SHELL) ./config.status --recheck
-# 
+#	$(SHELL) ./config.status --recheck
+#
 # .c.s:
 # 	$(COMPILE) -S $<
 # 

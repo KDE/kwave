@@ -20,25 +20,20 @@ dnl
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT
+AC_INIT(libmad, 0.14.2b)
 AC_CONFIG_SRCDIR([decoder.h])
 AM_CONFIG_HEADER(config.h)
 AC_CANONICAL_TARGET([])
-
-AM_INIT_AUTOMAKE(libmad, 0.14.2b)
+AM_INIT_AUTOMAKE(1.6.3) dnl Require Automake 1.6.3 or better.
 
 dnl Checks for programs.
 
 AC_PROG_CC
 
-dnl Support for libtool.
-
-AC_DISABLE_SHARED
-dnl AC_LIBTOOL_WIN32_DLL
-AM_PROG_LIBTOOL
-AM_PROG_AS
-
+AC_DISABLE_SHARED         dnl generate only static lib
+AM_PROG_LIBTOOL           dnl Support for libtool.
 AC_SUBST(LIBTOOL_DEPS)
+AM_PROG_AS                dnl GNU assembler
 
 dnl Compiler options.
 
@@ -101,7 +96,9 @@ then
     then
 	case "$host" in
 	    i386-*)           ;;
-	    i?86-*)           arch="-m486" ;;
+	    i586-*)           arch="-march=i586" ;;
+	    i686-*)           arch="-march=i686" ;;
+	    i?86-*)           arch="-march=i486" ;;
 	    arm*-empeg-*)     arch="-march=armv4 -mtune=strongarm1100" ;;
 	    armv4*-*)         arch="-march=armv4 -mtune=strongarm" ;;
 	    powerpc-*)        ;;
@@ -163,8 +160,8 @@ then
 fi
 
 case "$host" in
-    mips*-agenda-*)   AC_DEFINE(HAVE_MADD16_ASM) ;;
-    mips*-luxsonor-*) AC_DEFINE(HAVE_MADD_ASM)   ;;
+    mips*-agenda-*)   AC_DEFINE(HAVE_MADD16_ASM, 1, [having madd16.asm]) ;;
+    mips*-luxsonor-*) AC_DEFINE(HAVE_MADD_ASM, 1, [having madd.asm])   ;;
 esac
 
 dnl Checks for header files.
@@ -204,7 +201,7 @@ AC_ARG_ENABLE(speed,
     case "$enableval" in
 	yes)
 	    optimize_for="speed"
-	    AC_DEFINE(OPT_SPEED)
+	    AC_DEFINE(OPT_SPEED, 1, [optimizing for speed])
 	    ;;
     esac
 ])
@@ -219,7 +216,7 @@ AC_ARG_ENABLE(accuracy,
 	    else
 		optimize_for="accuracy"
 	    fi
-	    AC_DEFINE(OPT_ACCURACY)
+	    AC_DEFINE(OPT_ACCURACY, 1, [optimizing for accuracy])
 	    ;;
     esac
 ])
@@ -277,7 +274,7 @@ FPM="-DFPM_$FPM"
 AC_ARG_ENABLE(sso,
     [  --enable-sso            use subband synthesis optimization], [
     case "$enableval" in
-	yes) AC_DEFINE(OPT_SSO) ;;
+	yes) AC_DEFINE(OPT_SSO, 1, [use subband synthesis optimization]) ;;
     esac
 ])
 
@@ -311,7 +308,7 @@ AC_ARG_ENABLE(strict-iso,
     [  --enable-strict-iso     use strict ISO/IEC interpretations], [
     case "$enableval" in
 	yes)
-	    AC_DEFINE(OPT_STRICT)
+	    AC_DEFINE(OPT_STRICT, 1, [use strict ISO/IEC interpretations])
 	    interpretation="strict"
 	    ;;
     esac
@@ -333,7 +330,7 @@ AC_ARG_ENABLE(debugging,
   --disable-debugging     do not enable debugging and use more optimization], [
     case "$enableval" in
 	yes)
-	    AC_DEFINE(DEBUG)
+	    AC_DEFINE(DEBUG, 1, [enable diagnostic debugging support])
 	    optimize=""
 	    ;;
 	no)
@@ -342,7 +339,7 @@ AC_ARG_ENABLE(debugging,
     AC_MSG_ERROR(--enable-profiling and --disable-debugging are incompatible)
 	    fi
 
-	    AC_DEFINE(NDEBUG)
+	    AC_DEFINE(NDEBUG, 1, [disable diagnostic debugging support])
 	    debug=""
 	    if test "$GCC" = yes
 	    then
@@ -357,7 +354,7 @@ AC_MSG_CHECKING(whether to enable experimental code)
 AC_ARG_ENABLE(experimental,
     [  --enable-experimental   enable experimental code], [
     case "$enableval" in
-	yes) AC_DEFINE(EXPERIMENTAL) ;;
+	yes) AC_DEFINE(EXPERIMENTAL, 1, [enable experimental code]) ;;
     esac
 ])
 AC_MSG_RESULT(${enable_experimental-no})
@@ -369,7 +366,12 @@ test -n "$debug"    && CFLAGS="$CFLAGS $debug"
 test -n "$optimize" && CFLAGS="$CFLAGS $optimize"
 test -n "$profile"  && CFLAGS="$CFLAGS $profile" LDFLAGS="$LDFLAGS $profile"
 
-LTLIBOBJS=`echo "$LIBOBJS" | sed -e 's/\.o/.lo/g'`
+# This is necessary so that .o files in LIBOBJS are also built via
+# the ANSI2KNR-filtering rules.
+LIB@&t@OBJS=`echo "$LIB@&t@OBJS" |
+             sed 's,\.[[^.]]* ,$U&,g;s,\.[[^.]]*$,$U&,'`
+LTLIBOBJS=`echo "$LIB@&t@OBJS" |
+           sed 's,\.[[^.]]* ,.lo ,g;s,\.[[^.]]*$,.lo,'`
 AC_SUBST(LTLIBOBJS)
 
 AC_CONFIG_FILES([Makefile])

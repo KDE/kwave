@@ -453,8 +453,10 @@ void SonagramWindow::translatePixels2TF(const QPoint p, double *ms, double *f)
 
     if (f) {
 	// get the frequency coordinate
-	double y = ((m_points/2)-1) - p.y();
-	*f = y / (double)(m_points/2-1) * (m_rate/2);
+	double py = (m_points >= 2) ? (m_points / 2) - 1 : 0;
+	double y = py - p.y();
+	if (y < 0) y = 0;
+	*f = y / py * (m_rate/2.0);
     }
 }
 

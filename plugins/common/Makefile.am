@@ -28,12 +28,12 @@ SUFFIXES= .h .c .cpp .o .d .moc .dm .ui .cc .idl .cxx
 -include Makefile.plugin
 
 # set the include path for X, qt and KDE
-INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@
+INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@ @GSL_CFLAGS@
 
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(DESTDIR)$(kde_datadir)/$(PACKAGE)/plugins
 
-CXXFLAGS  = @CXXFLAGS@ -fPIC
+CXXFLAGS  = @CXXFLAGS@ @GSL_CFLAGS@ -fPIC
 LD_FLAGS  = -shared -fPIC -rdynamic
 
 MODDIR:=$(shell pwd)

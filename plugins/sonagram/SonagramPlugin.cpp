@@ -26,10 +26,13 @@
 #include <qstring.h>
 #include <qimage.h>
 
+#include <gsl/gsl_complex.h>
+#include <gsl/gsl_fft.h>
+#include <gsl/gsl_fft_complex.h>
+
 #include <kapp.h>
 
 #include "mt/SignalProxy.h"
-#include "libkwave/gsl_fft.h"
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
@@ -324,6 +327,9 @@ void SonagramPlugin::insertStripe()
 void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 	const unsigned int points, QByteArray &output)
 {
+    gsl_fft_complex_wavetable *wavetable = 0;
+    gsl_fft_complex_workspace *workspace = 0;
+
     // first initialize the output to zeroes in case of errors
     output.fill(0);
 
@@ -332,14 +338,21 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
     Q_ASSERT(windowfunction.count() == points);
     if (windowfunction.count() != points) return;
 
-    QMemArray<complex> input(points);
-    Q_ASSERT(input.size() == points);
-    if (input.size() < points) return;
+    QMemArray<double> input(2*points);
+    Q_ASSERT(input.size() == 2*points);
+    if (input.size() < 2*points) return;
 
     // initialize the table for fft
-    gsl_fft_complex_wavetable table;
-    gsl_fft_complex_wavetable_alloc(points, &table);
-    gsl_fft_complex_init(points, &table);
+    wavetable = gsl_fft_complex_wavetable_alloc(points);
+    Q_ASSERT(wavetable);
+    if (!wavetable) return;
+
+    workspace = gsl_fft_complex_workspace_alloc(points);
+    Q_ASSERT(workspace);
+    if (!workspace) {
+	gsl_fft_complex_wavetable_free(wavetable);
+	return;
+    }
 
     // copy signal data into complex array
     for (unsigned int j = 0; j < points; j++) {
@@ -356,12 +369,13 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 	    }
 	    value /= (double)(1<<23) * (double)count;
 	}
-	input[j].real = windowfunction[j] * value;
-	input[j].imag = 0;
+	input[j+j + 0] = windowfunction[j] * value;
+	input[j+j + 1] = 0;
     }
 
     // calculate the fft
-    gsl_fft_complex_forward(input.data(), points, &table);
+    gsl_fft_complex_forward(input.data(), 1, points,
+                            wavetable, workspace);
 
     double ima;
     double rea;
@@ -382,8 +396,8 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
     // norm all values to [0...255] and use them as pixel value
     if (max != 0) {
 	for (unsigned int j = 0; j < points/2; j++) {
-	    rea = input[j].real;
-	    ima = input[j].imag;
+	    rea = input[j+j + 0];
+	    ima = input[j+j + 1];
 	    rea = sqrt(rea * rea + ima * ima) / max;
 
 	    // get amplitude and scale to 1
@@ -394,7 +408,8 @@ void SonagramPlugin::calculateStripe(MultiTrackReader &source,
     }
 
     // free the intermediate array used for fft
-    gsl_fft_complex_wavetable_free(&table);
+    gsl_fft_complex_wavetable_free(wavetable);
+    gsl_fft_complex_workspace_free(workspace);
 }
 
 //***************************************************************************

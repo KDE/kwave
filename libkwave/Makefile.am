@@ -65,7 +65,6 @@ libkwave_la_SOURCES=\
  FileFormat.cpp\
  Functions.cpp\
  GenreType.cpp\
- gsl_fft.cpp\
  Interpolation.cpp\
  KwaveDrag.cpp\
  KwaveFilterPlugin.cpp\
@@ -92,7 +91,8 @@ libkwave_la_SOURCES=\
  VirtualAudioFile.cpp\
  WindowFunction.cpp
 
-libkwave_la_LDFLAGS = @LIBAUDIOFILE_LDFLAGS@ -version-info @LD_VERSION_INFO@ \
+libkwave_la_LDFLAGS = @LIBAUDIOFILE_LDFLAGS@ @GSL_LIBS@ \
+	-version-info @LD_VERSION_INFO@ \
 	--dynamic --export-dynamic
 
 libkwave_la_LIBADD = @LIBAUDIOFILE_LIBADD@ \

@@ -46,9 +46,6 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
         i18n(" (Using KDE %1)").arg(kde_version)+"</h2>";
     header->setText(header_text);
 
-    /* set the url of the kwave homepage */
-    kwave_url_label->setText(about_data->homepage());
-
     /* the frame containing the developer information */
     QValueList<KAboutPerson>::ConstIterator it;
     KAboutContainer* about = new KwaveAboutContainer(authorframe);
@@ -65,6 +62,12 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
         contrib->addPerson((*it).name(),(*it).emailAddress(),
             (*it).webAddress(),i18n((*it).task()));
     }
+
+    /* set the url of the kwave homepage */
+    kwave_url_label->setText(about_data->homepage());
+    kwave_url_label->setURL(about_data->homepage());
+    connect(kwave_url_label, SIGNAL(leftClickedURL(const QString &)),
+            about, SLOT(openURL(const QString &)));
 
     /* the frame containing the license */
     licenseframe->setText(about_data->license());

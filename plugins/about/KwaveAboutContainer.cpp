@@ -42,7 +42,7 @@ void KwaveAboutContainer::openURL(const QString &url)
 }
 
 //***************************************************************************
-void KwaveAboutContainer::sendMail(const QString &name,const QString &address)
+void KwaveAboutContainer::sendMail(const QString &,const QString &address)
 {
     kapp->invokeMailer(address, QString::null);
 }

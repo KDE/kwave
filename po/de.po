@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2003-06-26 23:07+0200\n"
+"POT-Creation-Date: 2003-06-26 08:23+0200\n"
 "PO-Revision-Date: 2003-06-25 21:39+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -2075,7 +2075,7 @@ msgstr "7-Polynom"
 msgid "sample and hold"
 msgstr "Sample + Hold"
 
-#: libkwave/KwaveFilterPlugin.cpp:163
+#: libkwave/KwaveFilterPlugin.cpp:166
 msgid "applying '%1' ..."
 msgstr "'%1' wird angewendet ..."
 

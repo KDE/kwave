@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-06-26 23:07+0200\n"
+"POT-Creation-Date: 2003-06-26 08:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1986,7 +1986,7 @@ msgstr ""
 msgid "sample and hold"
 msgstr ""
 
-#: libkwave/KwaveFilterPlugin.cpp:163
+#: libkwave/KwaveFilterPlugin.cpp:166
 msgid "applying '%1' ..."
 msgstr ""
 

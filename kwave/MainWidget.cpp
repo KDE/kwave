@@ -66,13 +66,11 @@
 #define MIN_PIXELS_PER_CHANNEL 50
 
 //***************************************************************************
-MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
-                       KStatusBar &status)
+MainWidget::MainWidget(QWidget *parent, MenuManager &manage)
     :QWidget(parent),
      keys(0),
      m_slider(0),
      m_signal_widget(0),
-     m_status(status),
      menu(manage),
      frmChannelControls(0),
      frmSignal(0),
@@ -214,13 +212,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     connect(m_signal_widget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(forwardCommand(const QString &)));
     connect(m_signal_widget, SIGNAL(selectedTimeInfo(double)),
-	    this, SLOT(setSelectedTimeInfo(double)));
-    connect(m_signal_widget, SIGNAL(rateInfo(int)),
-	    this, SLOT(setRateInfo(int)));
-    connect(m_signal_widget, SIGNAL(lengthInfo(int)),
-	    this, SLOT(setLengthInfo(int)));
-    connect(m_signal_widget, SIGNAL(timeInfo(double)),
-	    this, SLOT(setTimeInfo(double)));
+	    this, SLOT(forwardSelectedTimeInfo(double)));
     connect(m_signal_widget, SIGNAL(sigTrackInserted(unsigned int)),
 	    this, SLOT(slotTrackInserted(unsigned int)));
 
@@ -281,9 +273,7 @@ void MainWidget::scrollbarMoved(int newval)
 //***************************************************************************
 void MainWidget::slotTrackInserted(unsigned int /*track*/)
 {
-//    debug("MainWidget::slotTrackInserted(%u)", track); // ###
     if (tracks() == 1) {
-//	debug("MainWidget::slotTrackInserted(): first track -> zoomAll()");
 	zoomAll();
     }
 
@@ -350,36 +340,20 @@ void MainWidget::closeSignal()
     ASSERT(m_signal_widget);
     if (m_signal_widget) m_signal_widget->close();
 
-    setTimeInfo(0);
-    setSelectedTimeInfo(0);
-    setLengthInfo(0);
-    setRateInfo(0);
-
     refreshChannelControls();
     refreshControls();
-}
-
-//***************************************************************************
-void MainWidget::setRateInfo(int rate)
-{
-    char buf[128];
-    snprintf(buf, sizeof(buf), i18n("Rate: %d.%d kHz"), 
-	rate / 1000, (rate % 1000) / 100);
-    m_status.changeItem(buf, 2);
-}
-
-//***************************************************************************
-void MainWidget::setLengthInfo(int len)
-{
-    char buf[128];
-    snprintf(buf, sizeof(buf), i18n("Samples: %d"), len);
-    m_status.changeItem(buf, 3);
 }
 
 //***************************************************************************
 void MainWidget::forwardZoomChanged(double zoom)
 {
     emit sigZoomChanged(zoom);
+}
+
+//***************************************************************************
+void MainWidget::forwardSelectedTimeInfo(double ms)
+{
+    emit selectedTimeInfo(ms);
 }
 
 //***************************************************************************
@@ -393,16 +367,14 @@ void MainWidget::setZoom(double new_zoom)
 {
     if (m_signal_widget) {
 	if (m_signal_widget->zoom() == new_zoom) return; // nothing to do
-
 	m_signal_widget->setZoom(new_zoom);
-	m_signal_widget->refreshAllLayers();
     }
 }
 
 //***************************************************************************
-void MainWidget::zoomRange()
+void MainWidget::zoomSelection()
 {
-    if (m_signal_widget) m_signal_widget->zoomRange();
+    if (m_signal_widget) m_signal_widget->zoomSelection();
 }
 
 //***************************************************************************
@@ -465,8 +437,8 @@ bool MainWidget::executeCommand(const QString &command)
     Parser parser(command);
 
     if (false) {
-    CASE_COMMAND("zoomrange")
-	if (m_signal_widget) m_signal_widget->zoomRange();
+//    CASE_COMMAND("...")
+//	;
     } else {
 	if (parser.command() == "selectchannels")
 	    for (unsigned int i = 0; i < tracks(); i++)
@@ -479,24 +451,11 @@ bool MainWidget::executeCommand(const QString &command)
 	bool result = (m_signal_widget) ?
 		m_signal_widget->executeCommand(command)
 		: false;
-	if (m_signal_widget) m_signal_widget->refreshAllLayers();
+//	if (m_signal_widget) m_signal_widget->refreshAllLayers();
 	return result;
     }
 
     return true;
-}
-
-//***************************************************************************
-void MainWidget::setSelectedTimeInfo(double ms)
-{
-    m_status.changeItem(KwavePlugin::ms2string(ms), 4);
-}
-
-//***************************************************************************
-void MainWidget::setTimeInfo(double ms)
-{
-    m_status.changeItem(i18n("Length: %1").arg(
-    	KwavePlugin::ms2string(ms)), 1);
 }
 
 //***************************************************************************
@@ -636,10 +595,10 @@ unsigned int MainWidget::tracks()
 }
 
 //***************************************************************************
-int MainWidget::getBitsPerSample()
+unsigned int MainWidget::bits()
 {
     ASSERT(m_signal_widget);
-    return (m_signal_widget) ? m_signal_widget->getBitsPerSample() : 0;
+    return (m_signal_widget) ? m_signal_widget->bits() : 0;
 }
 
 //***************************************************************************

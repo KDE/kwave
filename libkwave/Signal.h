@@ -85,11 +85,11 @@ public:
 //    void getMaxMin ( int& max, int& min, int begin, int len);
 //    int getSingleSample (int offset);
 
-    inline int rate() {
+    inline unsigned int rate() {
 	return m_rate;
     };
 
-    inline int bits() {
+    inline unsigned int bits() {
 	return m_bits;
     };
 

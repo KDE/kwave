@@ -127,11 +127,11 @@ public:
     /**
      * Returns the current sample resolution in bits per sample
      */
-    int getBitsPerSample();
+    unsigned int bits();
 
     /** Returns the current sample rate in samples per second */
-    inline int getRate() {
-	return rate;
+    inline int rate() {
+	return m_rate;
     };
 
     /** Returns the current number of tracks */
@@ -216,6 +216,17 @@ public slots:
 signals:
 
     /**
+     * Emits status information of the signal if it has been changed
+     * or become valid.
+     * @param length number of samples
+     * @param tracks number of tracks
+     * @param rate sample rate [samples/second]
+     * @param bits resolution in bits
+     */
+    void sigStatusInfo(unsigned int length, unsigned int tracks,
+                       unsigned int rate, unsigned int bits);
+
+    /**
      * Emitted if the length of the signal has changed.
      * @param length new length of the signal
      */
@@ -249,6 +260,47 @@ signals:
 private slots:
 
     /**
+     * Connected to the signal's sigTrackInserted.
+     * @param track index of the inserted track
+     * @see Signal::trackInserted
+     * @internal
+     */
+    void slotTrackInserted(unsigned int index, Track &track);
+
+    /**
+     * Connected to the signal's sigSamplesInserted.
+     * @param track index of the source track [0...tracks-1]
+     * @param offset position from which the data was inserted
+     * @param length number of samples inserted
+     * @see Signal::sigSamplesInserted
+     * @internal
+     */
+    void slotSamplesInserted(unsigned int track, unsigned int offset,
+                             unsigned int length);
+
+    /**
+     * Connected to the signal's sigSamplesDeleted.
+     * @param track index of the source track [0...tracks-1]
+     * @param offset position from which the data was removed
+     * @param length number of samples deleted
+     * @see Signal::sigSamplesDeleted
+     * @internal
+     */
+    void slotSamplesDeleted(unsigned int track, unsigned int offset,
+                            unsigned int length);
+
+    /**
+     * Connected to the signal's sigSamplesModified
+     * @param track index of the source track [0...tracks-1]
+     * @param offset position from which the data was modified
+     * @param length number of samples modified
+     * @see Signal::sigSamplesModified
+     * @internal
+     */
+    void slotSamplesModified(unsigned int track, unsigned int offset,
+                             unsigned int length);
+
+    /**
      * Informs us that the last command of a plugin has completed.
      */
     void commandDone();
@@ -266,6 +318,9 @@ private slots:
     void forwardPlaybackDone();
 
 private:
+
+    /** Shortcut for emitting a sigStatusInfo */
+    void emitStatusInfo();
 
     /**
      * Try to find a chunk within a RIFF file. If the chunk
@@ -332,6 +387,8 @@ private:
     int writeWavChunk(FILE *sigout, unsigned int begin, unsigned int length,
                       int bits);
 
+private:
+
     /** Parent widget, used for showing messages */
     QWidget *m_parent_widget;
 
@@ -351,7 +408,7 @@ private:
     Selection m_selection;
 
     //sampling rate being used
-    int rate; // ###
+    int m_rate; // ###
 
     /**
      * Signal proxy that brings the current playback position

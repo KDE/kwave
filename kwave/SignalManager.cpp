@@ -1,5 +1,5 @@
 /***************************************************************************
-          SignalManager.cpp -  manager class for multi-channel signals
+       SignalManager.cpp -  manager class for multi-channel signals
 			     -------------------
     begin                : Sun Oct 15 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -81,11 +81,29 @@ SignalManager::SignalManager(QWidget *parent)
     m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
 {
     m_name = "";
-    rate = 0;
+    m_rate = 0;
 //    for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
 //	msg[i] = 0;
 
     m_spx_playback_pos.setLimit(32); // limit for the queue
+
+    // connect to the track's signals
+    Signal *sig = &m_signal;
+    connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
+            this, SLOT(slotTrackInserted(unsigned int, Track &)));
+    connect(sig, SIGNAL(sigSamplesDeleted(unsigned int, unsigned int,
+	unsigned int)),
+	this, SLOT(slotSamplesDeleted(unsigned int, unsigned int,
+	unsigned int)));
+    connect(sig, SIGNAL(sigSamplesInserted(unsigned int, unsigned int,
+	unsigned int)),
+	this, SLOT(slotSamplesInserted(unsigned int, unsigned int,
+	unsigned int)));
+    connect(sig, SIGNAL(sigSamplesModified(unsigned int, unsigned int,
+	unsigned int)),
+	this, SLOT(slotSamplesModified(unsigned int, unsigned int,
+	unsigned int)));
+
 }
 
 //***************************************************************************
@@ -115,6 +133,7 @@ void SignalManager::close()
     m_name = "";
     m_signal.close();
     m_closed = true;
+    emitStatusInfo();
 }
 
 //***************************************************************************
@@ -255,14 +274,9 @@ QBitmap *SignalManager::overview(unsigned int /*width*/, unsigned int /*height*/
 }
 
 //***************************************************************************
-int SignalManager::getBitsPerSample()
+unsigned int SignalManager::bits()
 {
-    int max_bps = 0;
-//    for (unsigned int i = 0; i < m_channels; i++) {
-//	int bps = (signal.at(i)) ? signal.at(i)->bits() : 0;
-//	if (bps > max_bps) max_bps = bps;
-//    }
-    return max_bps;
+    return m_signal.bits();
 }
 
 //***************************************************************************
@@ -510,6 +524,32 @@ void SignalManager::commandDone()
 }
 
 //***************************************************************************
+void SignalManager::slotTrackInserted(unsigned int index, Track &track)
+{
+    emitStatusInfo();
+}
+
+//***************************************************************************
+void SignalManager::slotSamplesInserted(unsigned int track, unsigned int offset,
+	unsigned int length)
+{
+    emitStatusInfo();
+}
+
+//***************************************************************************
+void SignalManager::slotSamplesDeleted(unsigned int track, unsigned int offset,
+	unsigned int length)
+{
+    emitStatusInfo();
+}
+
+//***************************************************************************
+void SignalManager::slotSamplesModified(unsigned int track,
+	unsigned int offset, unsigned int length)
+{
+}
+
+//***************************************************************************
 SignalManager::~SignalManager()
 {
     close();
@@ -591,6 +631,12 @@ int SignalManager::loadAscii()
 }
 
 //***************************************************************************
+void SignalManager::emitStatusInfo()
+{
+    emit sigStatusInfo(length(), tracks(), rate(), bits());
+}
+
+//***************************************************************************
 int SignalManager::loadWav()
 {
     wav_fmt_header_t fmt_header;
@@ -655,7 +701,9 @@ int SignalManager::loadWav()
 	    i18n("Sorry"), 2);
 	return -EMEDIUMTYPE;
     }
-    rate = fmt_header.rate;
+
+    m_rate = fmt_header.rate;
+    m_signal.setBits(fmt_header.bitspersample);
 
     // ------- search for the data chunk -------
     length = findChunk(sigfile, "data");
@@ -674,6 +722,7 @@ int SignalManager::loadWav()
 	    // currently the signal should be closed and empty
 	    // now make it opened but empty
 	    m_closed = false;
+	    emitStatusInfo();
 	    result = loadWavChunk(sigfile, length,
 				  fmt_header.channels,
 				  fmt_header.bitspersample);
@@ -1065,7 +1114,7 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 
     //prepare and show the progress dialog
     FileProgress *dialog = new FileProgress(m_parent_widget,
-	m_name, file_rest, length, rate, bits, channels);
+	m_name, file_rest, length, m_rate, bits, channels);
     ASSERT(dialog);
 
     // prepare the loader loop

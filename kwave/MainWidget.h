@@ -44,9 +44,8 @@ public:
      * Constructor.
      * @param parent parent widget
      * @param manage menu manager
-     * @param status status bar
      */
-    MainWidget (QWidget *parent, MenuManager &manage, KStatusBar &status);
+    MainWidget (QWidget *parent, MenuManager &manage);
 
     /**
      * Returns true if this instance was successfully initialized, or
@@ -82,7 +81,8 @@ public:
      */
     unsigned int tracks();
 
-    int getBitsPerSample();
+    /** Returns the resolution in bits per sample */
+    unsigned int bits();
 
     /** Returns the signal manager of the current signal */
     SignalManager *signalManager();
@@ -107,15 +107,8 @@ public slots:
     void forwardCommand(const QString &command);
 
     void resetChannels();
-    void setRateInfo (int);
-
-    void setLengthInfo(int);
-
-    void setTimeInfo(double ms);
 
     void parseKey(int key);
-
-    void setSelectedTimeInfo(double ms);
 
     /** returns the current zoom factor */
     double zoom();
@@ -123,8 +116,8 @@ public slots:
     /** calls setZoom() of the signal widget */
     void setZoom(double new_zoom);
 
-    /** calls zoomRange() of the signal widget */
-    void zoomRange();
+    /** calls zoomSelection() of the signal widget */
+    void zoomSelection();
 
     /** calls zoomIn() of the signal widget */
     void zoomIn();
@@ -145,6 +138,12 @@ private slots:
      * by emitting sigZoomChanged.
      */
     void forwardZoomChanged(double zoom);
+
+    /**
+     * Forwards the selectedTimeInfo signal of the internal view window
+     * by emitting selectedTimeInfo.
+     */
+    void forwardSelectedTimeInfo(double ms);
 
     /**
      * Called if a track has been added. Updates the display by
@@ -180,6 +179,9 @@ signals:
      */
     void sigZoomChanged(double zoom);
 
+    /** Emits the length of the current selection [milliseconds] */
+    void selectedTimeInfo(double ms);
+
     void sigCommand(const QString &command);
 
     void setOperation (int);
@@ -200,9 +202,6 @@ private:
 
     /** the widget that shows the signal */
     SignalWidget *m_signal_widget;
-
-    /** Our top widget's status bar */
-    KStatusBar &m_status;
 
     MenuManager &menu;
     QFrame *frmChannelControls;

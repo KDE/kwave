@@ -111,7 +111,7 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     connect(&m_playback_controller, SIGNAL(sigPlaybackPos(unsigned int)),
             this, SLOT(updatePlaybackPointer(unsigned int)));
 
-    // connect to the track's signals
+    // connect to the signal manager's signals
     Signal *sig = &(m_signal_manager.signal());
 
     connect(sig, SIGNAL(sigTrackInserted(unsigned int, Track &)),
@@ -240,8 +240,8 @@ bool SignalWidget::executeNavigationCommand(const QString &command)
 	zoomIn();
     CASE_COMMAND("zoomout")
 	zoomOut();
-    CASE_COMMAND("zoomrange")
-	zoomRange();
+    CASE_COMMAND("zoomselection")
+	zoomSelection();
     CASE_COMMAND("scrollright")
 	setOffset(m_offset + visible_samples / 10);
     CASE_COMMAND("scrollleft")
@@ -450,6 +450,9 @@ void SignalWidget::selectRange(unsigned int offset, unsigned int length)
     {
 	m_signal_manager.selectRange(offset, length);
 	refreshSelection();
+	
+	emit selectedTimeInfo(samples2ms(
+	    m_signal_manager.selection().length()));
     }
 }
 
@@ -466,11 +469,9 @@ int SignalWidget::tracks()
 }
 
 //***************************************************************************
-int SignalWidget::getBitsPerSample()
+unsigned int SignalWidget::bits()
 {
-//    ASSERT(signalmanage);
-//    return (signalmanage) ? signalmanage->getBitsPerSample() : 0;
-    return 16;
+    return m_signal_manager.bits();
 }
 
 //***************************************************************************
@@ -749,20 +750,17 @@ void SignalWidget::zoomIn()
 }
 
 //***************************************************************************
-void SignalWidget::zoomRange()
+void SignalWidget::zoomSelection()
 {
     InhibitRepaintGuard inhibit(*this);
 
-//    if (!signalmanage) return ;
-//
-//    int lmarker = signalmanage->getLMarker();
-//    int rmarker = signalmanage->getRMarker();
-//
-//    if (lmarker != rmarker) {
-//	setOffset(lmarker);
-//	setZoom(((double)(rmarker - lmarker)) / (double)(width - 1));
-//	refreshAllLayers();
-//    }
+    unsigned int ofs = m_signal_manager.selection().offset();
+    unsigned int len = m_signal_manager.selection().length();
+
+    if (len) {
+	m_offset = ofs;
+	setZoom(((double)len) / (double)(width - 1));
+    }
 }
 
 //***************************************************************************
@@ -810,11 +808,9 @@ void SignalWidget::refreshAllLayers()
 //    int length = m_signal_manager.getLength() : 0;
 //
 //    if (rate) emit timeInfo(samples2ms(length));
-//    if (rate) emit rateInfo(rate);
 //
 //    int maxofs = pixels2samples(width - 1) + 1;
 //    emit viewInfo(m_offset, maxofs, length);
-//    emit lengthInfo(length);
 //    emit zoomInfo(m_zoom);
 
     redraw = true;
@@ -1178,21 +1174,17 @@ void SignalWidget::paintEvent(QPaintEvent *)
 //float weighttable[AUTOKORRWIN];
 
 //***************************************************************************
-int SignalWidget::ms2samples(double /*ms*/)
+unsigned int SignalWidget::ms2samples(double ms)
 {
-//    ASSERT(signalmanage);
-//    if (!signalmanage) return 0;
-//
-//    return (int)(ms * signalmanage->getRate() / 1000.0);
-    return 0;
+    return (unsigned int)rint(ms * m_signal_manager.rate() / 1E3);
 }
 
 //***************************************************************************
-double SignalWidget::samples2ms(int /*samples*/)
+double SignalWidget::samples2ms(unsigned int samples)
 {
-//    if (!signalmanage) return 0.0;
-//    return (double)samples*1000.0 / (double)signalmanage->getRate();
-    return 0.0;
+    double rate = m_signal_manager.rate();
+    if (rate == 0.0) return 0.0;
+    return (double)samples * 1E3 / rate;
 }
 
 //***************************************************************************

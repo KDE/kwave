@@ -82,8 +82,8 @@ public:
     const QString &getSignalName();
 
     /**
-     * Parses a buffer that is intended to contain the content
-     * of a text file into lines with commands and executes all
+     * Parses a buffer (that is intended to contain the content
+     * of a text file) into lines with commands and executes all
      * parsed commands.
      * @param buffer the list of commands
      */
@@ -124,6 +124,23 @@ private slots:
      * @note This method can not be called to *set* a new zoom factor.
      */
     void setZoom(double zoom);
+
+    /**
+     * Called if the status information of the signal has been changed
+     * or become valid.
+     * @param length number of samples
+     * @param tracks number of tracks
+     * @param rate sample rate [samples/second]
+     * @param bits resolution in bits
+     */
+    void setStatusInfo(unsigned int length, unsigned int tracks,
+                       unsigned int rate, unsigned int bits);
+
+    /**
+     * Updates the number of selected samples in the status bar.
+     * @param ms length of the selected range [milliseconds]
+     */
+    void setSelectedTimeInfo(double ms);
 
     /** updates all elements in the toolbar */
     void updateToolbar();
@@ -295,7 +312,7 @@ private:
     int m_id_stop;
 
     /** member id of the "zoom to selection" toolbar button */
-    int m_id_zoomrange;
+    int m_id_zoomselection;
 
     /** member id of the "zoom in" toolbar button */
     int m_id_zoomin;

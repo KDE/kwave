@@ -114,7 +114,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_save_bits = 16;
     m_blink_on = false;
-    m_id_zoomrange = -1;
+    m_id_zoomselection = -1;
     m_id_zoomin = -1;
     m_id_zoomout = -1;
     m_id_zoomnormal = -1;
@@ -177,7 +177,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     updateRecentFiles();
 
-    m_main_widget = new MainWidget(this, *m_menu_manager, *status_bar);
+    m_main_widget = new MainWidget(this, *m_menu_manager);
     ASSERT(m_main_widget);
     if (!m_main_widget) return;
     if (!(m_main_widget->isOK())) {
@@ -187,8 +187,11 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	return;
     }
 
+    // connect the main widget
     connect(m_main_widget, SIGNAL(sigCommand(const QString &)),
 	    this, SLOT(executeCommand(const QString &)));
+    connect(m_main_widget, SIGNAL(selectedTimeInfo(double)),
+	    this, SLOT(setSelectedTimeInfo(double)));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -324,9 +327,9 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_toolbar->insertButton(
 	QPixmap(xpm_zoomrange), id, SIGNAL(clicked()),
-	m_main_widget, SLOT(zoomRange()), true,
+	m_main_widget, SLOT(zoomSelection()), true,
 	i18n("zoom to selection"));
-    m_id_zoomrange = id++;
+    m_id_zoomselection = id++;
 
     m_toolbar->insertButton(
 	QPixmap(xpm_zoomin), id, SIGNAL(clicked()),
@@ -383,6 +386,13 @@ TopWidget::TopWidget(KwaveApp &main_app)
             this, SLOT(playbackPaused()));
     connect(m_main_widget->playbackController(), SIGNAL(sigPlaybackStopped()),
             this, SLOT(updateToolbar()));
+
+    // connect the signal manager
+    SignalManager *sig_mgr = m_main_widget->signalManager();
+    connect(sig_mgr, SIGNAL(sigStatusInfo(unsigned int, unsigned int,
+        unsigned int, unsigned int)),
+        this, SLOT(setStatusInfo(unsigned int, unsigned int,
+        unsigned int, unsigned int)));
 
     // set the MainWidget as the main view
     setCentralWidget(m_main_widget);
@@ -553,7 +563,6 @@ SignalManager *TopWidget::signalManager()
 
 //***************************************************************************
 void TopWidget::parseCommands(const QByteArray &buffer)
-//parses a list a of commands separated by newlines
 {
     LineParser lineparser(buffer);
     QString line = lineparser.nextLine();
@@ -566,15 +575,8 @@ void TopWidget::parseCommands(const QByteArray &buffer)
 //***************************************************************************
 void TopWidget::revert()
 {
-    ASSERT(m_main_widget);
-    if (m_filename.length() && m_main_widget) {
-	if (!closeFile()) return;
-
-	m_main_widget->loadFile(m_filename);
-	m_save_bits = m_main_widget->getBitsPerSample();
-	updateMenu();
-	updateToolbar();
-    }
+    QString name = m_filename;
+    loadFile(name, WAV);
 }
 
 //***************************************************************************
@@ -631,7 +633,7 @@ int TopWidget::loadFile(const QString &filename, int type)
 
     setCaption(m_filename);
 
-    m_save_bits = m_main_widget->getBitsPerSample();
+    m_save_bits = m_main_widget->bits();
     updateMenu();
     updateToolbar();
 
@@ -777,6 +779,39 @@ void TopWidget::setZoom(double zoom)
 }
 
 //***************************************************************************
+void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
+                              unsigned int rate, unsigned int bits)
+{
+    ASSERT(statusBar());
+    if (!statusBar()) return;
+    double ms;
+    QString txt;
+
+    // length in milliseconds
+    txt = " "+i18n("Length: %1")+" ";
+    ms = (rate) ? (((double)length / (double)rate) * 1E3) : 0;
+    statusBar()->changeItem(txt.arg(KwavePlugin::ms2string(ms)), 1);
+
+    // sample rate and resolution
+    txt = " "+i18n("Mode: %u bit@%0.3f kHz")+" ";
+    statusBar()->changeItem(txt.sprintf(txt, bits, (double)rate *1E-3), 2);
+
+    // number of samples
+    txt = " "+i18n("Samples: %1")+" ";
+    statusBar()->changeItem(txt.arg(length), 3);
+}
+
+//***************************************************************************
+void TopWidget::setSelectedTimeInfo(double ms)
+{
+    ASSERT(statusBar());
+    if (!statusBar()) return;
+
+    QString txt = " "+i18n("Selected: %1")+" ";
+    statusBar()->changeItem(txt.arg(KwavePlugin::ms2string(ms)), 4);
+}
+
+//***************************************************************************
 void TopWidget::updateRecentFiles()
 {
     ASSERT(m_menu_manager);
@@ -830,7 +865,7 @@ void TopWidget::updateToolbar()
     m_toolbar->setItemEnabled(m_id_pause, have_signal && (playing || paused));
     m_toolbar->setItemEnabled(m_id_stop,  have_signal && (playing || paused));
 
-    m_toolbar->setItemEnabled(m_id_zoomrange, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomselection, have_signal);
     m_toolbar->setItemEnabled(m_id_zoomin, have_signal);
     m_toolbar->setItemEnabled(m_id_zoomout, have_signal);
     m_toolbar->setItemEnabled(m_id_zoomnormal, have_signal);

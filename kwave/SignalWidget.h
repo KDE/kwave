@@ -66,15 +66,15 @@ public:
      * @param ms time in milliseconds
      * @return number of samples (rounded)
      */
-    int ms2samples(double ms);
+    unsigned int ms2samples(double ms);
 
     /**
      * Converts a number of samples to a time in milliseconds, based on the
      * current signal rate.
-     * @param samples number of samples (negative values allowed)
+     * @param samples number of samples
      * @return time in milliseconds
      */
-    double samples2ms(int samples);
+    double samples2ms(unsigned int samples);
 
     /**
      * Closes the current signal and loads a new one
@@ -135,7 +135,7 @@ public:
     int tracks();
 
     /** returns the number of bits per sample of the current signal */
-    int getBitsPerSample();
+    unsigned int bits();
 
     /** returns the signal manager of the current signal */
     SignalManager &signalManager();
@@ -189,7 +189,7 @@ public slots:
     /**
      * Zooms into the selected range between the left and right marker.
      */
-    void zoomRange();
+    void zoomSelection();
 
     /**
      * Zooms the signal to be fully visible. Equivalent to
@@ -302,13 +302,11 @@ signals:
     void viewInfo(unsigned int offset, unsigned int width,
                   unsigned int length);
 
+    /** Emits the length of the current selection [milliseconds] */
     void selectedTimeInfo(double ms);
 
+    /** Emits the length of the whole signal [milliseconds] */
     void timeInfo(double ms);
-
-    void rateInfo(int);
-
-    void lengthInfo(int);
 
     /**
      * Emits a command to be processed by the next higher instance.

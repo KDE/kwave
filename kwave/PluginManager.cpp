@@ -325,7 +325,7 @@ unsigned int PluginManager::signalLength()
 unsigned int PluginManager::signalRate()
 {
     SignalManager *sig = m_top_widget.signalManager();
-    return ((sig) ? sig->getRate() : 0);
+    return ((sig) ? sig->rate() : 0);
 }
 
 //***************************************************************************

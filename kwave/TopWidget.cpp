@@ -912,7 +912,46 @@ int TopWidget::saveFileAs(bool selection)
 	}
 	
 	m_url = url;
-	res = m_main_widget->saveFile(m_url, selection);
+	
+	// maybe we now have a new mime type
+	QString previous_mimetype_name = signalManager().fileInfo().get(
+	    INF_MIMETYPE).toString();
+	
+	QString new_mimetype_name;
+	new_mimetype_name = KMimeType::findByURL(m_url)->name();
+	
+	if (new_mimetype_name != previous_mimetype_name) {
+	    // saving to a different mime type
+	    // now we have to do as if the mime type and file name
+	    // has already been selected to satisfy the fileinfo
+	    // plugin
+	    debug("TopWidget::saveAs(%s) - [%s] (previous:'%s')",
+		m_url.prettyURL().data(), new_mimetype_name.data(),
+		previous_mimetype_name.data() );
+	
+	    // set the new mimetype
+	    signalManager().fileInfo().set(INF_MIMETYPE,
+	        new_mimetype_name);
+	    // save the old filename and set the new one
+	    QString old_filename = signalManager().fileInfo().get(
+	        INF_FILENAME).toString();
+	    signalManager().fileInfo().set(INF_FILENAME,
+	        m_url.prettyURL());
+	
+	    // now call the fileinfo plugin with the new filename and
+	    // mimetype
+	    ASSERT(m_plugin_manager);
+	    res = (m_plugin_manager) ?
+	        res = m_plugin_manager->setupPlugin("fileinfo") : -1;
+	
+	    // restore the mime type and the filename
+	    signalManager().fileInfo().set(INF_MIMETYPE,
+	        previous_mimetype_name);
+	    signalManager().fileInfo().set(INF_FILENAME,
+	        m_url.prettyURL());
+	}
+	
+	if (!res) res = m_main_widget->saveFile(m_url, selection);
 	
 	updateCaption();
 	m_app.addRecentFile(signalName());

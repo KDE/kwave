@@ -411,7 +411,6 @@ static status ParseInfo (AFfilehandle file, AFvirtualfile *fp,
 static status ParsePlayList (AFfilehandle filehandle, AFvirtualfile *fp,
 	u_int32_t id, size_t size)
 {
-	_Instrument	*instrument;
 	u_int32_t	segmentCount;
 	int		segment;
 

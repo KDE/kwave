@@ -64,10 +64,6 @@ status _af_ircam_write_init (AFfilesetup setup, AFfilehandle handle)
 	u_int32_t	dataOffset;
 	u_int8_t	zeros[SIZEOF_BSD_HEADER];
 
-	float		maxAmp = 1.0;
-
-	bool		isSwapped, isLittleEndian;
-
 	assert(handle->fileFormat == AF_FILE_IRCAM);
 
 	if (_af_filesetup_make_handle(setup, handle) == AF_FAIL)
@@ -85,9 +81,9 @@ status _af_ircam_write_init (AFfilesetup setup, AFfilehandle handle)
 
 	/* Choose the magic number appropriate for the byte order. */
 #ifdef WORDS_BIGENDIAN
-	magic = ircam_sun_magic;
+	magic = (u_int8_t *)ircam_sun_magic;
 #else
-	magic = ircam_vax_magic;
+	magic = (u_int8_t *)ircam_vax_magic;
 #endif
 
 	channels = track->f.channelCount;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-27 23:23GMT\n"
+"PO-Revision-Date: 2002-01-29 00:13GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1466,31 +1466,40 @@ msgstr "0.29.4 [1998-03]"
 
 #: index.docbook:210
 msgid "removed a memory leak in playback"
-msgstr ""
+msgstr "Suppression d'une perte de mémoire dans la lecture audio."
 
 #: index.docbook:210
 msgid ""
 "triple-checked the missing Accelerators in the Menumanager. It seems to be a "
 "bug in qpopmenu, I'll wait for qt to be fixed, or until a workaround is known"
 msgstr ""
+"Tripe vérification de l'oubli des raccouçis clavier dans Menumanager. Cela semble "
+" être un bogue dans qpopmenu, j'attendrai que la librairie Qt soit corrigée, ou qu'une "
+" solution paliative soit trouvée."
 
 #: index.docbook:210
 msgid "recent Files are updated again, while the program is running"
 msgstr ""
+"La liste des fichiers récemment ouverts est constament mis à jour pendant "
+" l'exécution du programme."
 
 #: index.docbook:210
 msgid "kwave now keeps track of last directory saved to; for user convenience"
 msgstr ""
+"Pour une plus grande facilité, Kwave utilise le répertoire récemment utilisé pour "
+" l'ouverture un fichier."
 
 #: index.docbook:210
 msgid ""
 "reestablished selection mechanism to match versions before 0.29.3 and "
 "corrected some otherwise screwed-up behaviour"
 msgstr ""
+"Rétablissement des mécanismes de sélection pour rassembler les versions antérieures "
+"à la 0.29.3 et quelques corrections réçentes."
 
 #: index.docbook:210
 msgid "_now_ all parameters to destructors should have vanished"
-msgstr ""
+msgstr "_Maintenant_ tous les parametres des destructeurs doivent avoir disparu."
 
 #: index.docbook:210
 msgid "0.29.3 [1998-02]"
@@ -1502,30 +1511,37 @@ msgid ""
 "wished but since 0.29.2 has a destructor with parameters accidently left in, "
 "and so does not compile on all systems -> here we go again..."
 msgstr ""
+"Le développement à ralenti, et cette version n'est pas complète comme je le souhaitai "
+" depuis la 0.29.2. La modification de tous les destructeurs de classes à été mis de coté, "
+" et le programme ne se compile pas sur tous les sytème -> On y reviendra plus tard..."
 
 #: index.docbook:210
 msgid ""
 "reworked selection routines into a new class, code is still rather "
 "confusing, but seems to work"
 msgstr ""
+"Restructuration des routines de sélection dans les nouvelles classes. Le code est plus confus, "
+" mais il fonctionne."
 
 #: index.docbook:210
 msgid "added checkmark functionality again"
-msgstr ""
+msgstr "Ajout de marques de vérifications."
 
 #: index.docbook:210
 msgid "converted file-menus to new menu-scheme"
-msgstr ""
+msgstr "Conversion du menu Fichier dans la nouvelle arborescence des menus."
 
 #: index.docbook:210
 msgid ""
 "added gui to mix channels together, the needed functions for mixing are "
 "still missing"
 msgstr ""
+"Ajout d'une interface graphique pour mixé 2 canaux ensemble. Le besoin de fonctions pour "
+" le mixage sont toujours d'actualité."
 
 #: index.docbook:210
 msgid "Halt button by Gerhard Zintel"
-msgstr ""
+msgstr "Bouton d'arrêt par Gerhard Zintel."
 
 #: index.docbook:210
 msgid "0.29.2"
@@ -1533,15 +1549,17 @@ msgstr "0.29.2"
 
 #: index.docbook:210
 msgid "moved clipboard functionality to its own class"
-msgstr ""
+msgstr "Déplacement des fonctionnalité du presse-papier dans une classe dédiée."
 
 #: index.docbook:210
 msgid "dynamic allocation of menu entries used by all classes but TopWidget"
 msgstr ""
+"L'allocation dynamique des entrées des menus est utilisée par toutes les "
+" classes sauf TopWidget."
 
 #: index.docbook:210
 msgid "import of ascii data files"
-msgstr ""
+msgstr "Importation de fichier ASCII."
 
 #: index.docbook:210
 msgid "0.29.1"
@@ -1550,10 +1568,12 @@ msgstr "0.29.1"
 #: index.docbook:210
 msgid "Bugfix for multichannel save. Now the saved files should work with other prgs"
 msgstr ""
+"Correction de bogues pour la sauvegarde de canaux multiples. Maintenant, la sauvegarde de "
+" fichiers doit fonctionner avec d'autres programmes."
 
 #: index.docbook:210
 msgid "local snap to peak by Gerhard Zintel"
-msgstr ""
+msgstr "Fonctionnalité d'écrétage de pics par Gerhard Zintel."
 
 #: index.docbook:210
 msgid "0.29.0"
@@ -1565,42 +1585,47 @@ msgid ""
 "To Name Things\" from sunsite. The last digit will always mark be 0 for "
 "releases uploaded to ftp.kde.org."
 msgstr ""
+"Changement du numéro de version et de nom de fichiers comme suggéré par la version "
+" 1.1 du document \"How To Name Things\" sur le site WEB 'sunsite'. Le dernier nombre "
+" sera toujours marqué d'un 0 pour une version qui sera chargée sur ftp.kde.org."
 
 #: index.docbook:210
 msgid "added windowing (Hamming Hanning, Blackmann) functions"
 msgstr ""
+"Ajout des boîte de dialogues pour les fonctionnalités de fenêtrage (Hamming Hanning, "
+" Blackmann)."
 
 #: index.docbook:210
 msgid "contribution from Gerhard Zintel displaying notes in fftview"
-msgstr ""
+msgstr "Contribution de la part de Gerhard Zintel pour l'affichage d'information concernant fftview."
 
 #: index.docbook:210
 msgid "Added pitch display window"
-msgstr ""
+msgstr "Ajout d'une fenêtre pour la gestion du pitch."
 
 #: index.docbook:210
 msgid "implemented cursor and db scale for fft-view"
-msgstr ""
+msgstr "Implémenation du curseur et de l'échelle en db pour la vue sur les transformées de Fourrier."
 
 #: index.docbook:210
 msgid "added reselection and cursor change"
-msgstr ""
+msgstr "Ajout d'une fonctionnalité sur la réselection et du changement de place du curseur."
 
 #: index.docbook:210
 msgid "added possibility of different display modes in Frequency representation"
-msgstr ""
+msgstr "Ajout de différentes possibilité d'affichage en fonction de la réprésentation des fréquences."
 
 #: index.docbook:210
 msgid "fixed severe quantisation bug in saving 16Bit routine, reported by ?"
-msgstr ""
+msgstr "Correction d'un gros bogue concernant la sauvegarde en 16 bits."
 
 #: index.docbook:210
 msgid "mmaping support contributed by Juhana Kouhia"
-msgstr ""
+msgstr "support de mmaping par Juhana Kouhia."
 
 #: index.docbook:210
 msgid "added as new Possibility to generate Signals: pulse trains"
-msgstr ""
+msgstr "Ajout de nouvelles possibilités pour la génération de signaux : trains d'impulsions."
 
 #: index.docbook:210
 msgid ""
@@ -1608,42 +1633,45 @@ msgid ""
 "configure script (change Makefile for not linking libpthread and doing a "
 "define)"
 msgstr ""
+"Ajout d'un modèle pour les système qui ne gére pas les threads posix -> il sera necessaire "
+" de le déclarer dans le script de configuration (changement du Makefile pour ne pas avoir de "
+" linkage avec la bibliothéque libpthread)."
 
 #: index.docbook:210
 msgid "First use of multiple threads (pthreads) in some functions"
-msgstr ""
+msgstr "Premiére utilisation de multiples threads (pthreads) dans quelques fonctions."
 
 #: index.docbook:210
 msgid "Pitch generation now independent of additive synthesis"
-msgstr ""
+msgstr "La génération de pitchs est maintenant indépendante de la synthése additionnelle."
 
 #: index.docbook:210
 msgid "added import function for ascii files"
-msgstr ""
+msgstr "Ajout des fonctions d'importations via des fichiers ASCII."
 
 #: index.docbook:210
 msgid "Ascii label saving now also by frequency"
-msgstr ""
+msgstr "Les lablels ASCII sont également sauvegardés via la fréquence."
 
 #: index.docbook:210
 msgid "Label generation according to Period Detection (autocorellation)"
-msgstr ""
+msgstr "La génération de labels est accordée avec la détection de périodes (autocoréllation)."
 
 #: index.docbook:210
 msgid "Sonagram, FFTView and Distortion-Dialog now use ScaleWidgets"
-msgstr ""
+msgstr "Les classes Sonagram, FFTView et Distortion-Dialog utilise maintenant ScaleWidgets."
 
 #: index.docbook:210
 msgid "New ScaleWidget gives the user more information"
-msgstr ""
+msgstr "Nouvelle classe ScaleWidget qui donne plus d'informations à l'utilisateur."
 
 #: index.docbook:210
 msgid "Improved ProgressDialog and Interpolation class to allow multiple threads"
-msgstr ""
+msgstr "Ajout des classes ProgressDialog et Interpolation pour permettre le multithreading."
 
 #: index.docbook:210
 msgid "fixed some minor bugs"
-msgstr ""
+msgstr "Corrections de quelques bogues mineurs."
 
 #: index.docbook:210
 msgid "0.28 [1998-07-15]"
@@ -1651,27 +1679,27 @@ msgstr "0.28 [1998-07-15]"
 
 #: index.docbook:210
 msgid "changes in curvewidget (recent point has another pixmap)."
-msgstr ""
+msgstr "Changements dans la classe curvewidget."
 
 #: index.docbook:210
 msgid "sorting of labels now works without overwriting of QGList::compareItems."
-msgstr ""
+msgstr "Le tri des lablels fonctionne maintenant sans écraser les opérations de QGList::compareItems."
 
 #: index.docbook:210
 msgid "bug fix for saving selection."
-msgstr ""
+msgstr "Correction de bogues dans la sauvegarde d'une sélection."
 
 #: index.docbook:210
 msgid "save Block function added."
-msgstr ""
+msgstr "Ajout d'une fonctionde sauvegarde d'une sélection."
 
 #: index.docbook:210
 msgid "signal finding function in markers.cpp: gui improved."
-msgstr ""
+msgstr "Fonction de recherche de signaux dans markers.cpp : interface graphique."
 
 #: index.docbook:210
 msgid "some smaller bug fixes."
-msgstr ""
+msgstr "Quelques petites corrections de bogues."
 
 #: index.docbook:210
 msgid "0.27"
@@ -1679,15 +1707,15 @@ msgstr "0.27"
 
 #: index.docbook:210
 msgid "first release, but never uploaded, because ftp.kde.org was down."
-msgstr ""
+msgstr "Premiéres versions, qui n'a jamais été chargé sur ftp.kde.org (serveur FTP non opérationnel)."
 
 #: index.docbook:1256
 msgid "Installation"
-msgstr ""
+msgstr "Installation"
 
 #: index.docbook:1262
 msgid "How to obtain &kapp;"
-msgstr ""
+msgstr "Comment obtenir &kapp;"
 
 #: index.docbook:1264
 msgid ""

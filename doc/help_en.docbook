@@ -1067,7 +1067,7 @@
     	In order to successfully use &kapp;, you need:
 	<ITEMIZEDLIST>
 	    <LISTITEM><PARA>
-		a computer running linux (&kapp might also run under
+		a computer running Linux (&kapp might also run under
 		some other operating system, but we have never tested
 		this, please let us know if you get it working under
 		some other platform / operating system)
@@ -1273,7 +1273,7 @@
 	    install the &kapp; package itself. It goes the same way
 	    the creation and installation of libkwave did.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -ba SPECS/[arch>/kwave-XXX.spec</USERINPUT>
+<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -ba SPECS/kwave.spec</USERINPUT>
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i BUILD/[arch]]/kwave-XXX.[arch].rpm</USERINPUT>
 </SCREEN>
 	</PARA></LISTITEM>
@@ -1317,7 +1317,7 @@
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make -f Makefile.dist</USERINPUT>
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">./configure</USERINPUT>
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make rpm</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i /usr/src/redhat/BUILD/[arch]]/libkwave-XXX.[arch].rpm</USERINPUT>
+<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i /usr/src/redhat/BUILD/[arch]/libkwave-XXX.[arch].rpm</USERINPUT>
 </SCREEN>
 	</PARA></LISTITEM>
 
@@ -1328,7 +1328,7 @@
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make -f Makefile.dist</USERINPUT>
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">./configure</USERINPUT>
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">make rpm</USERINPUT>
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i /usr/src/redhat/BUILD/[arch]]/kwave-XXX.[arch].rpm</USERINPUT>
+<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i /usr/src/redhat/BUILD/[arch]/kwave-XXX.[arch].rpm</USERINPUT>
 </SCREEN>
 	</PARA></LISTITEM>
     </ORDEREDLIST>
@@ -1342,7 +1342,106 @@
 
     </SECT1>
 
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: Relocating RPM packages                               +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <SECT1 ID="RELOCATING_RPM">
+    <TITLE>Relocating the binary RPM packages</TITLE>
+
+    <PARA>
+	The binary rpm package of &kapp; 
+	is "<EMPHASIS>relocatable</EMPHASIS>". That means that you can
+	build the package any system with KDEDIR set to some standard
+	location and install it on an other system or into a different 
+	directory. This feature is very useful to install a package
+	compiled for SuSE under a RedHat system or vice-versa.
+    </PARA>
+    
+    <PARA>
+        For example: you got the binary rpm from a friend who has a 
+	RedHat system (where KDEDIR is /usr) and want to install it 
+	on a SuSE system (where KDEDIR is /opt/kde). Then just
+        give a different prefix when installing the rpm. Example:
+<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
+<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i --prefix=/opt/kde kwave-0.5.2-9.i586.rpm</USERINPUT>
+</SCREEN>
+    </PARA>
+
+    <PARA>
+	This modifies the path where the program is installed and 
+	it is strongly recommended that this is the same directory as 
+	specified in the KDEDIR environment variable, otherwise &kapp;
+	would be unable to find it's menu configuration, plugins, 
+	preset files and so on...
+    </PARA>
+
+    <NOTE><PARA>
+	The following should always work and install the desired 
+	package in the correct place - as long as the "KDEDIR" environment
+	variable is correctly set:
+<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
+<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i --prefix=${KDEDIR} kwave-0.5.2-9.i386.rpm</USERINPUT>
+</SCREEN>
+    </PARA></NOTE>
+    
+    </SECT1>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++ Section: RPM optimizations                                     +++ -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <SECT1 ID="RPM_OPTIMIZATIONS">
+    <TITLE>RPM optimizations</TITLE>
+
+    <PARA>
+	Yes, you can compile the RPM packages for pentium and pentium pro 
+	(or some other CPUs) by using some defines in your rpmrc file. 
+	You can either modify your system's /etc/rpmrc file or the 
+	.rpmrc file in your home directory. There you can specify option
+	lines like these:
+
+<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
+<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i386 -O2 -m486 -DNDEBUG</USERINPUT>
+<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</USERINPUT>
+<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</USERINPUT>
+</SCREEN>
+
+	(I found those nice tricks at 
+	<ULINK URL="http://www.keywarrior.net/duesti/rpmopt.de.html">
+	http://www.keywarrior.net/duesti/rpmopt.en.html</ULINK>.
+	Thanks to Matthias Düsterhöft!).
+    </PARA>
+    <!-- german version:
+	http://www.keywarrior.net/duesti/rpmopt.de.html
+    -->
+
+    <PARA>
+	This means that on an i586 architecture the rpm package will 
+	be compiled using "-march=pentium" as compiler option and so 
+	on, you might extend or adapt these to your own needs.
+	The settings apply to all of the sections before in all
+	places where "rpm -ta" is used or wher a binary RPM is to be
+	created out of a source rpm using "rpm --rebuild".
+    </PARA>
+
+    <NOTE><PARA>
+	The options specified here are set into the environment variable 
+	RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
+	environment and have to compile like described in the chapter
+	<LINK LINKEND="MANUAL_COMPILATION">Manual compilation</LINK>, you 
+	can set this variable manually and get the same effect.
+	For example:
+
+<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
+<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"</USERINPUT>
+</SCREEN>
+    </PARA></NOTE>
+    
+    </SECT1>
+
 </CHAPTER>
+
 
 <!-- ###################################################################### -->
 <!-- ### Chapter: Using Kwave                                           ### -->
@@ -1742,16 +1841,6 @@
 
 <CHAPTER ID="FAQ"><TITLE>Questions and Answers</TITLE>
 
-    <!-- (OPTIONAL but recommended) This chapter should include all of the silly
-    (and not-so-silly) newbie questions that fill up your mailbox. This chapter
-    should be reserved for BRIEF questions and answers! If one question uses more
-    than a page or so then it should probably be part of the
-    "Using this Application" chapter instead. You should use links to
-    cross-reference questions to the parts of your documentation that answer them.
-    This is also a great place to provide pointers to other FAQ's if your users
-    must do some complicated configuration on other programs in order for your
-    application work. -->
-
     <PARA></PARA>
     
     <QANDASET>
@@ -1765,7 +1854,7 @@
     	    <ANSWER>
 	    	<PARA>
 		    Read in the
-		    <LINK LINKEND="INSTALLATION">chapter</LINK>
+		    <LINK LINKEND="REQUIREMENTS">chapter</LINK>
 		    mentioned before. It compiles with
 		    gcc and egcs as well.
 		    Note that you will also need the libkwave package!
@@ -2005,6 +2094,24 @@
 	    </ANSWER>
 	</QANDAENTRY>
 
+    	<QANDAENTRY>
+	    <QUESTION>
+	    	<PARA>
+		    Why isn't libkwave included in the &kapp; package?
+		</PARA>
+	    </QUESTION>
+    	    <ANSWER>
+	    	<PARA>
+		    This is because the author (Martin Wilz) and maybe
+		    some others need this library in other projects too.
+		    Think of someone who has other packages that contain
+		    libkwave too, he would have multiple libs on his
+		    system. That would we a waste of diskspace and could
+		    cause confusion when compiling &kapp;.
+		</PARA>
+	    </ANSWER>
+	</QANDAENTRY>
+
 <!--
     	<QANDAENTRY>
 	    <QUESTION>
@@ -2097,6 +2204,14 @@
 	    <LISTITEM><PARA>Carsten Jacobi</PARA></LISTITEM>
     	    <LISTITEM><PARA>Frank Christian Stoffel</PARA></LISTITEM>
     	    <LISTITEM><PARA>Achim Dahlhaus</PARA></LISTITEM>
+	    <LISTITEM>
+		<PARA>
+		    Matthias Düsterhöft
+		    <EMAIL>duesti@gmx.de</EMAIL>
+		    <EMPHASIS> (for information about RPM optimization)
+		    </EMPHASIS>
+		</PARA>
+	    </LISTITEM>
     	    <LISTITEM><PARA>Klaus Hendrik Lorenz</PARA></LISTITEM>
 	    <LISTITEM><PARA>my girlfriend Ximena González <EMPHASIS>(who
 	    heart "just a few minutes, only want to fix this little

@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>RPM optimizations</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.54"><LINK
+REL="HOME"
+TITLE="The Kwave Handbook"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation"
+HREF="installation.html"><LINK
+REL="PREVIOUS"
+TITLE="Relocating the binary RPM packages"
+HREF="relocating_rpm.html"><LINK
+REL="NEXT"
+TITLE="Using Kwave"
+HREF="using-kapp.html"><META
+HTTP-EQUIV="Content-Style-Type"
+CONTENT="text/css"><LINK
+REL="stylesheet"
+HREF="common/kde-common.css"
+TYPE="text/css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=iso-8859-1"><META
+HTTP-EQUIV="Content-Language"
+CONTENT="en"><LINK
+REL="stylesheet"
+HREF="common/kde-localised.css"
+TYPE="text/css"
+TITLE="KDE-English"><LINK
+REL="stylesheet"
+HREF="common/kde-default.css"
+TYPE="text/css"
+TITLE="KDE-Default"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#aa0000"
+STYLE="font-family: sans-serif;"
+><A
+HREF="http://www.kde.org/"
+><IMG
+SRC="common/logotp3.png"
+BORDER="0"
+ALT="The K Desktop Environment"
+HEIGHT="62"
+WIDTH="229"></A
+><HR
+WIDTH="100%"
+SIZE="2"
+ALIGN="CENTER"
+NOSHADE="NOSHADE"><DIV
+ALIGN="RIGHT"
+CLASS="NAVBAR"
+><P
+><A
+HREF="using-kapp.html"
+>Next</A
+> <A
+HREF="relocating_rpm.html"
+>Prev</A
+> <A
+HREF="index.html"
+>Table of Contents</A
+></P
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="RPM_OPTIMIZATIONS"
+>2.7. RPM optimizations</A
+></H1
+><P
+>	Yes, you can compile the RPM packages for pentium and pentium pro 
+	(or some other CPUs) by using some defines in your rpmrc file. 
+	You can either modify your system's /etc/rpmrc file or the 
+	.rpmrc file in your home directory. There you can specify option
+	lines like these:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>optflags: i386 -O2 -m486 -DNDEBUG</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</B
+></TT
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+
+	(I found those nice tricks at 
+	<A
+HREF="http://www.keywarrior.net/duesti/rpmopt.de.html"
+TARGET="_top"
+>	http://www.keywarrior.net/duesti/rpmopt.en.html</A
+>.
+	Thanks to Matthias Düsterhöft!).
+    </P
+><P
+>	This means that on an i586 architecture the rpm package will 
+	be compiled using "-march=pentium" as compiler option and so 
+	on, you might extend or adapt these to your own needs.
+	The settings apply to all of the sections before in all
+	places where "rpm -ta" is used or wher a binary RPM is to be
+	created out of a source rpm using "rpm --rebuild".
+    </P
+><DIV
+CLASS="NOTE"
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/note.png"
+HSPACE="5"
+ALT="Note"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	The options specified here are set into the environment variable 
+	RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
+	environment and have to compile like described in the chapter
+	<A
+HREF="manual_compilation.html"
+>Manual compilation</A
+>, you 
+	can set this variable manually and get the same effect.
+	For example:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><TT
+CLASS="USERINPUT"
+><B
+>export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+ALIGN="RIGHT"
+CLASS="NAVBAR"
+><P
+><A
+HREF="using-kapp.html"
+>Next</A
+> <A
+HREF="relocating_rpm.html"
+>Prev</A
+> <A
+HREF="index.html"
+>Table of Contents</A
+></P
+></DIV
+><HR
+WIDTH="100%"
+SIZE="2"
+ALIGN="CENTER"
+NOSHADE="NOSHADE"></BODY
+></HTML
+>

@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>532</width>
+            <width>543</width>
             <height>349</height>
         </rect>
     </property>
@@ -75,7 +75,7 @@
                             </property>
                             <property name="sizePolicy">
                                 <sizepolicy>
-                                    <hsizetype>1</hsizetype>
+                                    <hsizetype>7</hsizetype>
                                     <vsizetype>5</vsizetype>
                                     <horstretch>0</horstretch>
                                     <verstretch>0</verstretch>
@@ -125,23 +125,6 @@
                                 <string>&lt;b&gt;Select...&lt;/b&gt;&lt;p&gt;Choose a device name on the harddisk, if your device is not already listed in the list of devices.&lt;/p&gt;</string>
                             </property>
                         </widget>
-                        <spacer>
-                            <property name="name">
-                                <cstring>spacer6_2</cstring>
-                            </property>
-                            <property name="orientation">
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property name="sizeType">
-                                <enum>Expanding</enum>
-                            </property>
-                            <property name="sizeHint">
-                                <size>
-                                    <width>0</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                        </spacer>
                     </hbox>
                 </widget>
                 <widget class="QLayoutWidget" row="0" column="1">
@@ -158,7 +141,7 @@
                             </property>
                             <property name="sizePolicy">
                                 <sizepolicy>
-                                    <hsizetype>1</hsizetype>
+                                    <hsizetype>7</hsizetype>
                                     <vsizetype>5</vsizetype>
                                     <horstretch>0</horstretch>
                                     <verstretch>0</verstretch>
@@ -181,23 +164,6 @@ playback. Depending on the compilation options you can select one of the followi
 &lt;p&gt;&lt;b&gt;&lt;i&gt;aRts (Analog Realtime Synthesizer)&lt;/i&gt;&lt;/b&gt;: The preferred way of douing playback in KDE, the sound server KDE uses itself. Multiple applications can play at the same time. Must be configured in KDE.&lt;/p&gt;</string>
                             </property>
                         </widget>
-                        <spacer>
-                            <property name="name">
-                                <cstring>spacer6</cstring>
-                            </property>
-                            <property name="orientation">
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property name="sizeType">
-                                <enum>Expanding</enum>
-                            </property>
-                            <property name="sizeHint">
-                                <size>
-                                    <width>0</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                        </spacer>
                     </hbox>
                 </widget>
                 <widget class="QLayoutWidget" row="4" column="1">

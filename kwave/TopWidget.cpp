@@ -1026,8 +1026,6 @@ void TopWidget::setUndoRedoInfo(const QString &undo, const QString &redo)
 void TopWidget::mouseChanged(int mode)
 {
     switch (static_cast<SignalWidget::MouseMode>(mode)) {
-	case (SignalWidget::MouseNormal) :
-	    break;
 	case (SignalWidget::MouseAtSelectionBorder) :
 	case (SignalWidget::MouseInSelection) :
 	{
@@ -1038,6 +1036,7 @@ void TopWidget::mouseChanged(int mode)
 	    setSelectedTimeInfo(samples, ms);
 	    break;
 	}
+	default: ;
     }
 }
 

@@ -19,6 +19,9 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <qdragobject.h>
+
+#include <kcursor.h>
 #include <kglobal.h>
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -76,7 +79,6 @@ SignalWidget::SignalWidget(QWidget *parent)
     m_mouse_mode(MouseNormal)
 {
 //    debug("SignalWidget::SignalWidget()");
-    down = false;
     m_height = 0;
     lastHeight = 0;
     lastplaypointer = -1;
@@ -433,7 +435,6 @@ void SignalWidget::close()
     m_track_pixmaps.setAutoDelete(true);
     m_track_pixmaps.clear();
 
-    down = false; // ###
     setZoom(0.0);
     setOffset(0);
 
@@ -579,13 +580,16 @@ void SignalWidget::setMouseMode(MouseMode mode)
     m_mouse_mode = mode;
     switch (mode) {
 	case MouseNormal:
-	    setCursor(arrowCursor);
+	    setCursor(KCursor::arrowCursor());
 	    break;
 	case MouseAtSelectionBorder:
-	    setCursor(sizeHorCursor);
+	    setCursor(KCursor::sizeHorCursor());
 	    break;
 	case MouseInSelection:
-	    setCursor(arrowCursor);
+	    setCursor(KCursor::arrowCursor());
+	    break;
+	case MouseSelect:
+	    setCursor(KCursor::sizeHorCursor());
 	    break;
     }
 
@@ -707,42 +711,49 @@ void SignalWidget::refreshLayer(int layer)
 }
 
 //***************************************************************************
-bool SignalWidget::isSelectionBorder(int x)
+SignalWidget::SelectionPos SignalWidget::selectionPosition(const int x)
 {
     ASSERT(m_selection);
-    if (!m_selection) return false;
+    if (!m_selection) return None;
 
-    // use 2 % of widget width [pixels] as tolerance
-    int tol = m_width / 50;
+    const int tol = 10;
+    const unsigned int first = m_signal_manager.selection().first();
+    const unsigned int last  = m_signal_manager.selection().last();
+    const unsigned int ofs   = m_offset;
+    ASSERT(first <= last);
 
-    unsigned int first = m_signal_manager.selection().first();
-    if ((first >= m_offset) && (x <= samples2pixels(first-m_offset)+tol) &&
-        (x+tol >= samples2pixels(first-m_offset))) return true;
+    // get pixel coordinates
+    const int l = (first >= ofs) ? samples2pixels(first-ofs) : -(2 * tol);
+    const int r = (last  >= ofs) ? samples2pixels(last-ofs)  : m_width+(2*tol);
+    const int ll = (l > tol) ? (l-tol) : 0;
+    const int lr = l + tol;
+    const int rl = (r > tol) ? (r-tol) : 0;
+    const int rr = r + tol;
 
-    unsigned int last = m_signal_manager.selection().last();
-    if ((last >= m_offset) && (x <= samples2pixels(last-m_offset)+tol) &&
-        (x+tol >= samples2pixels(last-m_offset))) return true;
+    // position is in the selection while left and right tolerance
+    // areas overlap or leave an area that is smaller than the
+    // tolerance ?
+    if ((rl-lr < tol) && (x >= l) && (x <= r)) return Selection;
 
-    return false;
+    // the simple cases...
+    if ((x >= ll) && (x <= lr)) return LeftBorder;
+    if ((x >= rl) && (x <= rr)) return RightBorder;
+    if ((x >= lr) && (x <= rl)) return Selection;
+
+    return None;
+}
+
+//***************************************************************************
+bool SignalWidget::isSelectionBorder(int x)
+{
+    SignalWidget::SelectionPos pos = selectionPosition(x);
+    return ((pos == LeftBorder) || (pos == RightBorder));
 }
 
 //***************************************************************************
 bool SignalWidget::isInSelection(int x)
 {
-    ASSERT(m_selection);
-    if (!m_selection) return false;
-
-    // use 2 % of widget width [pixels] as tolerance
-    int tol = m_width / 50;
-
-    unsigned int first = m_signal_manager.selection().first();
-    unsigned int last = m_signal_manager.selection().last();
-
-    ASSERT(first <= last);
-    if ((last >= m_offset) && (x <= samples2pixels(last-m_offset)+tol) &&
-        (x+tol >= samples2pixels(first-m_offset))) return true;
-
-    return false;
+    return (selectionPosition(x) == Selection);
 }
 
 //***************************************************************************
@@ -764,17 +775,30 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 	if (mx < 0) mx = 0;
 	if (mx >= m_width) mx = m_width-1;
 	unsigned int x = m_offset + pixels2samples(mx);
-	down = true;
-
-	if ((e->state() & KeyButtonMask) == ShiftButton) {
-	    // expand the selection to "here"
-	    m_selection->grep(x);
-	    unsigned int len = m_selection->right() - m_selection->left() + 1;
-	    selectRange(m_selection->left(), len);
-	} else if ((e->state() & KeyButtonMask) == 0) {
-	    // start a new selection
-	    (isSelectionBorder(e->pos().x())) ?
-		m_selection->grep(x) : m_selection->set(x, x);
+	
+	switch (e->state() & KeyButtonMask) {
+	    case ShiftButton: {
+		// expand the selection to "here"
+		m_selection->grep(x);
+		unsigned int len = m_selection->right() - m_selection->left() + 1;
+		selectRange(m_selection->left(), len);
+		setMouseMode(MouseSelect);
+	    }
+	    case 0: {
+		if (isInSelection(e->pos().x())) {
+		    // start a drag&drop operation, this does implicitely
+		    // change the mouse cursor
+		    startDragging();
+		} else if (isSelectionBorder(e->pos().x())) {
+		    // modify selection border
+		    m_selection->grep(x);
+		    setMouseMode(MouseSelect);
+		} else {
+		    // start a new selection
+		    m_selection->set(x, x);
+		    setMouseMode(MouseSelect);
+		}
+	    }
 	}
     }
 }
@@ -793,18 +817,23 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
     // ignore all mouse release events in playback mode
     if (m_signal_manager.playbackController().running()) return;
 
-    if (down) {
-	int x = e->pos().x();
-	if (x >= m_width) x = m_width - 1;    //check for some bounds
-	x = m_offset + pixels2samples(x);
-	if (x < 0) x = 0;
-	m_selection->update(x);
+    switch (m_mouse_mode) {
+	case MouseSelect: {
+	    int x = e->pos().x();
+	    if (x >= m_width) x = m_width - 1;    //check for some bounds
+	    x = m_offset + pixels2samples(x);
+	    if (x < 0) x = 0;
+	    m_selection->update(x);
 	
-	unsigned int len = m_selection->right() - m_selection->left() + 1;
-	selectRange(m_selection->left(), len);
+	    unsigned int len = m_selection->right() - m_selection->left() + 1;
+	    selectRange(m_selection->left(), len);
 	
-	down = false;
+	    setMouseMode(MouseNormal);
+	    break;
+	}
+	default: ;
     }
+
 }
 
 //***************************************************************************
@@ -820,29 +849,32 @@ void SignalWidget::mouseMoveEvent(QMouseEvent *e)
     // abort if no signal is loaded
     if (!m_signal_manager.length()) return;
 
-    if (down) {
-	// in move mode, a new selection was created or an old one grabbed
-	// this does the changes with every mouse move...
-	int mx = e->pos().x();
-	if (mx < 0) mx = 0;
-	if (mx >= m_width) mx = m_width-1;
+    switch (m_mouse_mode) {
+	case MouseSelect: {
+	    // in move mode, a new selection was created or an old one grabbed
+	    // this does the changes with every mouse move...
+	    int mx = e->pos().x();
+	    if (mx < 0) mx = 0;
+	    if (mx >= m_width) mx = m_width-1;
 	
-	unsigned int x = m_offset + pixels2samples(mx);
-	m_selection->update(x);
+	    unsigned int x = m_offset + pixels2samples(mx);
+	    m_selection->update(x);
 	
-	unsigned int len = m_selection->right() - m_selection->left() + 1;
-	selectRange(m_selection->left(), len);
-    } else {
-	// yes, this code gives the nifty cursor change....
-	int x = e->pos().x();
-	if (isSelectionBorder(x)) {
-	    setMouseMode(MouseAtSelectionBorder);
-	} else if (isInSelection(x)) {
-	    setMouseMode(MouseInSelection);
-	} else {
-	    setMouseMode(MouseNormal);
+	    unsigned int len = m_selection->right() - m_selection->left() + 1;
+	    selectRange(m_selection->left(), len);
+	    break;
 	}
-
+	default: {
+	    // yes, this code gives the nifty cursor change....
+	    int x = e->pos().x();
+	    if (isSelectionBorder(x)) {
+		setMouseMode(MouseAtSelectionBorder);
+	    } else if (isInSelection(x)) {
+		setMouseMode(MouseInSelection);
+	    } else {
+		setMouseMode(MouseNormal);
+	    }
+	}
     }
 }
 
@@ -1671,24 +1703,30 @@ void SignalWidget::slotSamplesModified(unsigned int /*track*/,
 void SignalWidget::startDragging()
 {
     debug("SignalWidget::startDragging()");
+    static QString text = "123";
+
+    QDragObject *d = new QTextDrag(text, this );
+    d->dragCopy();
 }
 
 //***************************************************************************
 void SignalWidget::dragEnterEvent(QDragEnterEvent* event)
 {
-    debug("SignalWidget::dragEnterEvent(...)");
+//    debug("SignalWidget::dragEnterEvent(...)");
 }
 
 //***************************************************************************
 void SignalWidget::dragLeaveEvent(QDragLeaveEvent* event)
 {
-    debug("SignalWidget::dragLeaveEvent(...)");
+//    debug("SignalWidget::dragLeaveEvent(...)");
+    setMouseMode(MouseNormal);
 }
 
 //***************************************************************************
 void SignalWidget::dropEvent(QDropEvent* event)
 {
-    debug("SignalWidget::dropEvent(...)");
+//    debug("SignalWidget::dropEvent(...)");
+    setMouseMode(MouseNormal);
 }
 
 //***************************************************************************

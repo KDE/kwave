@@ -52,7 +52,8 @@ public:
     enum MouseMode {
 	MouseNormal = 0,        /**< over the signal [default] */
 	MouseInSelection,       /**< within the selection */
-	MouseAtSelectionBorder  /**< near the border of a selection */
+	MouseAtSelectionBorder, /**< near the border of a selection */
+	MouseSelect             /**< during selection */
     };
 
     /** Constructor */
@@ -396,6 +397,17 @@ signals:
 protected:
 
     /**
+     * Relationship between a screen position and the current selection.
+     */
+    typedef enum { None=0, LeftBorder, Selection, RightBorder } SelectionPos;
+
+    /**
+     * Determines the relationship between a screen position and
+     * the current selection.
+     */
+    SelectionPos selectionPosition(const int x);
+
+    /**
      * Simple internal guard class for inhibiting and allowing
      * repaints in a SignalWidget.
      */
@@ -525,7 +537,6 @@ private:
     int m_height;            //of this widget
     int lastWidth;
     int lastHeight;
-    int down;                     //flags if mouse is pressed
 
     /** number of samples per pixel */
     double m_zoom;

@@ -1,20 +1,13 @@
-# this 10 paths are KDE specific. Use them:
-# kde_htmldir       Where your docs should go to. (contains lang subdirs)
-# kde_appsdir       Where your application file (.kdelnk) should go to. 
-# kde_icondir       Where your icon should go to.
-# kde_minidir       Where your mini icon should go to.
-# kde_datadir       Where you install application data. (Use a subdir)
-# kde_locale        Where translation files should go to.(contains lang subdirs)
-# kde_cgidir        Where cgi-bin executables should go to.
-# kde_confdir       Where config files should go to.
-# kde_mimedir       Where mimetypes should go to.
-# kde_toolbardir    Where general toolbar icons should go to.
-# kde_wallpaperdir  Where general wallpapers should go to.
+#
+# generic common Makefile.am for all Kwave plugins
+#
 
 SUFFIXES= .h .cpp .o .d .moc .dm .ui .cc .idl .cxx
 
 # produced errors with SuSE 8.0's automake ???
 # DISTCLEANFILES = Makefile.in Makefile
+
+-include Makefile.plugin
 
 # set the include path for X, qt and KDE
 INCLUDES  = -I${topdir} @all_includes@ @ARTS_INCLUDES@
@@ -124,7 +117,8 @@ dep depend: .depend
 
 $(MODNAME): ${OUT_FILES}
 	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
-	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
+	@ @CXX@ $(CXXFLAGS) ${OUT_FILES} ${LD_FLAGS} \
+	  ${EXTRA_LIBDIRS} ${EXTRA_LDFLAGS} -o ${MODNAME}
 
 right_order:
 	@ ${MAKE} -s ${GENERATED_FILES}
@@ -138,10 +132,10 @@ all: right_order
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = ${CLEANFILES} .deps/* `@FIND@ . -type l` *.moc *.moc.cxx
 
-install-data-local: 
+install-data-local:
 	$(mkinstalldirs) $(PLUGINDIR)
 	$(INSTALL) -m 755 $(MODNAME) $(PLUGINDIR)
 
-uninstall-local: 
+uninstall-local:
 	-rm -f $(PLUGINDIR)/$(MODNAME)
 	-rmdir -p --ignore-fail-on-non-empty $(PLUGINDIR) >/dev/null 2>&1

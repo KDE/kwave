@@ -85,9 +85,9 @@ cat configure.in | \
 	awk -v newver=$NEW_VERSION '{ 
 	split($0, a, "(") } {
 	if (a[1] == "AC_INIT") {
-	    printf("AC_INIT(kwave,%s)\n", newver)
+	    printf("AC_INIT([kwave],[%s])\n", newver)
 	} else if (a[1] == "AM_INIT_AUTOMAKE") {
-	    printf("AM_INIT_AUTOMAKE(kwave,%s)\n", newver)
+	    printf("AM_INIT_AUTOMAKE([kwave],[%s])\n", newver)
 	} else
 	    print $0
 	}' > configure.in.new

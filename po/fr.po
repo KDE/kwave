@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2003-07-23 12:02+0200\n"
-"PO-Revision-Date: 2003-08-25 23:14GMT\n"
-"Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
-"Language-Team: FRANCAIS <fr@li.org>\n"
+"POT-Creation-Date: 2003-08-26 08:46+0200\n"
+"PO-Revision-Date: 2003-08-26 09:52+0200\n"
+"Last-Translator: Gilles CAULIER <caulier.gilles@free.fr>\n"
+"Language-Team: Française <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -433,15 +433,15 @@ msgstr "&Rétrécir"
 msgid "Zoom to &Selection"
 msgstr "Zoomer sur la &sélection"
 
-#: kwave/PluginManager.cpp:195
+#: kwave/PluginManager.cpp:196
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Avertissement : le module externe « %1 » est inconnu ou non valable !"
 
-#: kwave/PluginManager.cpp:198 kwave/PluginManager.cpp:210
+#: kwave/PluginManager.cpp:199 kwave/PluginManager.cpp:211
 msgid "error on loading plugin"
 msgstr "Erreur pendant le chargement du module externe"
 
-#: kwave/PluginManager.cpp:206
+#: kwave/PluginManager.cpp:207
 msgid ""
 "unable to load the file \n"
 "'%1'\n"
@@ -451,16 +451,16 @@ msgstr ""
 "« %1 »\n"
 " qui contient le module externe « %2 » !"
 
-#: kwave/PluginManager.cpp:235 kwave/PluginManager.cpp:242
+#: kwave/PluginManager.cpp:229 kwave/PluginManager.cpp:236
 msgid "(unknown)"
 msgstr "(inconnu)"
 
-#: kwave/PluginManager.cpp:728
+#: kwave/PluginManager.cpp:767
 #, c-format
 msgid "%16s %5s written by %s"
 msgstr "%16s %5s écrit par %s"
 
-#: kwave/PluginManager.cpp:733
+#: kwave/PluginManager.cpp:772
 #, c-format
 msgid ""
 "error in '%s':\n"
@@ -469,7 +469,7 @@ msgstr ""
 "erreur dans « %s » :\n"
 "\t %s\n"
 
-#: kwave/PluginManager.cpp:740
+#: kwave/PluginManager.cpp:779
 #, c-format
 msgid ""
 "--- \n"
@@ -726,7 +726,8 @@ msgid ""
 "%1\n"
 "Do you still want to continue?"
 msgstr ""
-"L'enregistrement du fichier dans ce format fera perdre le(s) attribut(s) suivant(s):\n"
+"L'enregistrement du fichier dans ce format fera perdre le(s) attribut"
+"(s) suivant(s):\n"
 "%1\n"
 "Voulez vous continuer ?"
 
@@ -902,7 +903,7 @@ msgstr "%1 Mo de %2 Mo réalisés"
 msgid "(%1%) %2"
 msgstr "(%1%) %2"
 
-#: libgui/FileProgress.cpp:334
+#: libgui/FileProgress.cpp:334 plugins/record/RecordDlg.uic.cpp:795
 msgid "%1 samples"
 msgstr "%1 échantillons "
 
@@ -1359,6 +1360,7 @@ msgstr ""
 "Exemple : « Kwave v0.6.4-1 »."
 
 #: libkwave/FileInfo.cpp:177 plugins/fileinfo/FileInfoDlg.uic.cpp:1208
+#: plugins/record/RecordDlg.uic.cpp:792 plugins/record/RecordDlg.uic.cpp:797
 msgid "Source"
 msgstr "Source "
 
@@ -2129,7 +2131,7 @@ msgstr "polynôme de dégré 7"
 msgid "sample and hold"
 msgstr "échantillonné et bloqué"
 
-#: libkwave/KwaveFilterPlugin.cpp:166
+#: libkwave/KwaveFilterPlugin.cpp:163
 msgid "applying '%1' ..."
 msgstr "Traitement de « %1 » en cours..."
 
@@ -2671,67 +2673,80 @@ msgid "#"
 msgstr "#"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1115
+#: plugins/record/RecordDlg.uic.cpp:788
 #: plugins/newsignal/NewSigDlg.uic.cpp:545
 #: plugins/newsignal/NewSigDlg.uic.cpp:564
 msgid "%1"
 msgstr "%1"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1119
+#: plugins/record/RecordDlg.uic.cpp:787
 #: plugins/newsignal/NewSigDlg.uic.cpp:544
 msgid "bit"
 msgstr "bits"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1121
+#: plugins/record/RecordDlg.uic.cpp:771
 #: plugins/newsignal/NewSigDlg.uic.cpp:528
 msgid "8000"
 msgstr "8000"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1122
+#: plugins/record/RecordDlg.uic.cpp:772
 #: plugins/newsignal/NewSigDlg.uic.cpp:529
 msgid "10000"
 msgstr "10000"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1123
+#: plugins/record/RecordDlg.uic.cpp:773
 #: plugins/newsignal/NewSigDlg.uic.cpp:530
 msgid "11025"
 msgstr "11025"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1124
+#: plugins/record/RecordDlg.uic.cpp:774
 #: plugins/newsignal/NewSigDlg.uic.cpp:531
 msgid "12000"
 msgstr "12000"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1125
+#: plugins/record/RecordDlg.uic.cpp:775
 #: plugins/newsignal/NewSigDlg.uic.cpp:532
 msgid "16000"
 msgstr "16000"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1126
+#: plugins/record/RecordDlg.uic.cpp:776
 #: plugins/newsignal/NewSigDlg.uic.cpp:533
 msgid "22050"
 msgstr "22050"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1127
+#: plugins/record/RecordDlg.uic.cpp:777
 #: plugins/newsignal/NewSigDlg.uic.cpp:534
 msgid "32000"
 msgstr "32000"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1128
+#: plugins/record/RecordDlg.uic.cpp:778
 #: plugins/newsignal/NewSigDlg.uic.cpp:535
 msgid "44100"
 msgstr "44100"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1129
+#: plugins/record/RecordDlg.uic.cpp:779
 #: plugins/newsignal/NewSigDlg.uic.cpp:536
 msgid "48000"
 msgstr "48000"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1130
+#: plugins/record/RecordDlg.uic.cpp:780
 #: plugins/newsignal/NewSigDlg.uic.cpp:537
 msgid "96000"
 msgstr "96000"
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1132
+#: plugins/record/RecordDlg.uic.cpp:784
 #: plugins/newsignal/NewSigDlg.uic.cpp:541
 msgid "samples per second"
 msgstr "échantillons par seconde"
@@ -2942,6 +2957,7 @@ msgid "List of keywords."
 msgstr "Liste de mots clef."
 
 #: plugins/fileinfo/BitrateWidgetBase.uic.cpp:295
+#: plugins/record/RecordDlg.uic.cpp:743
 #: plugins/newsignal/NewSigDlg.uic.cpp:525
 msgid "Form1"
 msgstr "Nouveau fichier"
@@ -2998,6 +3014,7 @@ msgid "Nominal Bitrate"
 msgstr "Débit nominal"
 
 #: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
+#: plugins/record/RecordDlg.uic.cpp:756
 msgid " %"
 msgstr " %"
 
@@ -3322,8 +3339,8 @@ msgstr ""
 "<b>Configure l'usage de la mémoire virtuelle (SWAP).</b><br>\n"
 "\n"
 "Si vous activez l'usage de la mémoire virtuelle, vous pouvez spécifier un "
-"dossier où Kwave créera des fichiers temporaires qui seront utilisés "
-"comme extension à la mémoire physique. Cela permettra de travailler sur des "
+"dossier où Kwave créera des fichiers temporaires qui seront utilisés comme "
+"extension à la mémoire physique. Cela permettra de travailler sur des "
 "fichiers sonores dont la taille est supérieure à votre mémoire physique.\n"
 "<br>\n"
 "Bien sur vous pouvez aussi paramétrer une limite à la taille totale de votre "
@@ -3351,7 +3368,9 @@ msgstr "&Sélection..."
 
 #: plugins/memory/MemDlg.uic.cpp:185
 msgid "browse for a directory to hold page files"
-msgstr "Permet de choisir un dossier qui sera utilisé pour stocker les fichiers de la mémoire virtuelle"
+msgstr ""
+"Permet de choisir un dossier qui sera utilisé pour stocker les fichiers de "
+"la mémoire virtuelle"
 
 #: plugins/memory/MemDlg.uic.cpp:186
 msgid "&Limit to"
@@ -3365,7 +3384,172 @@ msgstr "La taille en méga-octets de la mémoire virtuelle"
 msgid "memory"
 msgstr "gestion de la mémoire"
 
-#: plugins/volume/VolumePlugin.cpp:115
+#: plugins/record/RecordDlg.uic.cpp:744
+msgid "Record Control"
+msgstr "Contrôle de l'enregistrement"
+
+#: plugins/record/RecordDlg.uic.cpp:745
+msgid "Pre-Record:"
+msgstr "Pré-enregistrement :"
+
+#: plugins/record/RecordDlg.uic.cpp:746
+msgid "Record Time:"
+msgstr "Durée de l'enregistrement :"
+
+#: plugins/record/RecordDlg.uic.cpp:747
+msgid "Record Trigger:"
+msgstr "Seuil d'enregistrement :"
+
+#: plugins/record/RecordDlg.uic.cpp:752
+msgid " h"
+msgstr " h"
+
+#: plugins/record/RecordDlg.uic.cpp:753
+msgid " min"
+msgstr " min"
+
+#: plugins/record/RecordDlg.uic.cpp:754 plugins/record/RecordDlg.uic.cpp:766
+#: plugins/record/RecordDlg.uic.cpp:767
+msgid " sec"
+msgstr " sec"
+
+#: plugins/record/RecordDlg.uic.cpp:755
+msgid " s"
+msgstr " s"
+
+#: plugins/record/RecordDlg.uic.cpp:757
+msgid "Recording"
+msgstr "Enregistrement en cours"
+
+#: plugins/record/RecordDlg.uic.cpp:758 plugins/record/RecordDlg.uic.cpp:768
+msgid "Level"
+msgstr "Niveau"
+
+#: plugins/record/RecordDlg.uic.cpp:759
+msgid "AGC:"
+msgstr "AGC :"
+
+#: plugins/record/RecordDlg.uic.cpp:760
+msgid "Amplify:"
+msgstr "Amplification :"
+
+#: plugins/record/RecordDlg.uic.cpp:761
+msgid " dB"
+msgstr " dB"
+
+#: plugins/record/RecordDlg.uic.cpp:762
+msgid " ms"
+msgstr " ms"
+
+#: plugins/record/RecordDlg.uic.cpp:763
+msgid "Fading"
+msgstr "Ajustement du volume"
+
+#: plugins/record/RecordDlg.uic.cpp:764
+msgid "Fade In"
+msgstr "Augmenter progressivement"
+
+#: plugins/record/RecordDlg.uic.cpp:765
+msgid "Fade Out"
+msgstr "Affaiblir progressivement"
+
+#: plugins/record/RecordDlg.uic.cpp:769 plugins/record/RecordDlg.uic.cpp:791
+#: plugins/newsignal/NewSigDlg.uic.cpp:526
+msgid "Format"
+msgstr "Format"
+
+#: plugins/record/RecordDlg.uic.cpp:782
+#: plugins/newsignal/NewSigDlg.uic.cpp:539
+msgid ""
+"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
+"sample rates or you can enter any sample rate on your own."
+msgstr ""
+"<b>Période d'échantillonnage</b><br>Vous pouvez ici sélectionner une des "
+"périodes d'échantillonnage prédéfinie ou saisissez une période "
+"d'échantillonnage de votre choix."
+
+#: plugins/record/RecordDlg.uic.cpp:783
+#: plugins/newsignal/NewSigDlg.uic.cpp:540
+msgid "Sample Rate:"
+msgstr "Période d'échantillonnage : "
+
+#: plugins/record/RecordDlg.uic.cpp:785
+#: plugins/newsignal/NewSigDlg.uic.cpp:542
+msgid "Tracks:"
+msgstr "Pistes : "
+
+#: plugins/record/RecordDlg.uic.cpp:786
+#: plugins/newsignal/NewSigDlg.uic.cpp:543
+msgid "Resolution:"
+msgstr "Résolution :"
+
+#: plugins/record/RecordDlg.uic.cpp:789
+#: plugins/newsignal/NewSigDlg.uic.cpp:546
+msgid ""
+"<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
+"you are not sure now, you can add or delete tracks later in the program."
+msgstr ""
+"<b>Nombre de Pistes sonores</b><br>Paramètre le nombre de pistes sonores "
+"pour un nouveau fichier. Si vous n'êtes pas sur maintenant, vous pourrez "
+"ajouter ou supprimer une piste plus tard dans le programme."
+
+#: plugins/record/RecordDlg.uic.cpp:790
+#: plugins/newsignal/NewSigDlg.uic.cpp:547
+msgid ""
+"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
+"saved. However, Kwave always uses 24 bits as it's own internal resolution to "
+"give the best results when processing the audio data."
+msgstr ""
+"<b>Résolution</b><br>Paramètre la résolution en bits pour laquelle le "
+"fichier sera enregistré. Cependant, Kwave utilise toujours 24 bits comme "
+"résolution interne pour obtenir les meilleurs résultats quand il effectue "
+"des calculs sur des fichiers sonores."
+
+#: plugins/record/RecordDlg.uic.cpp:793
+msgid "Device:"
+msgstr "Périphérique :"
+
+#: plugins/record/RecordDlg.uic.cpp:794
+msgid "Buffer Size:"
+msgstr "Taille de la mémoire tampon :"
+
+#: plugins/record/RecordDlg.uic.cpp:796
+msgid "Select..."
+msgstr "Sélectionner..."
+
+#: plugins/record/RecordDlg.uic.cpp:798
+msgid "Visualization"
+msgstr "Visualisation"
+
+#: plugins/record/RecordDlg.uic.cpp:799
+msgid "Level Meter"
+msgstr "Niveau du volume sonore"
+
+#: plugins/record/RecordDlg.uic.cpp:800
+msgid "Oscilloscope"
+msgstr "Oscilloscope"
+
+#: plugins/record/RecordDlg.uic.cpp:801
+msgid "FFT"
+msgstr "Transformée de Fourier rapide"
+
+#: plugins/record/RecordDlg.uic.cpp:802
+msgid "Overview"
+msgstr "Aperçu"
+
+#: plugins/record/RecordDlg.uic.cpp:803
+msgid "Display"
+msgstr "Affichage"
+
+#: plugins/record/RecordDlg.uic.cpp:804
+msgid "Level:"
+msgstr "Niveau :"
+
+#: plugins/record/RecordDlg.uic.cpp:805
+msgid "Buffer:"
+msgstr "Mémoire tampon :"
+
+#: plugins/volume/VolumePlugin.cpp:114
 msgid "volume"
 msgstr "volume"
 
@@ -3649,9 +3833,10 @@ msgid ""
 "This is the size of the buffer used for communication with the sound driver\n"
 "If your computer is rather slow select a big buffer"
 msgstr ""
-"Ceci est la taille de la mémoire tampon qui est utilisée pour la communication avec le\n"
-"périphérique audio. Si votre ordinateur est lent, sélectionnez une mémoire tampon de "
-"grande taille."
+"Ceci est la taille de la mémoire tampon qui est utilisée pour la "
+"communication avec le\n"
+"périphérique audio. Si votre ordinateur est lent, sélectionnez une mémoire "
+"tampon de grande taille."
 
 #: plugins/playback/PlayBackDialog.cpp:209
 msgid "&stereo playback"
@@ -3776,51 +3961,6 @@ msgstr ""
 "La fonction aRts requise n'est pas implantée. Peut être devez-vous installer "
 "une nouvelle version du serveur aRts ou du paquetage « kdelibs »."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:526
-msgid "Format"
-msgstr "Format"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:539
-msgid ""
-"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
-"sample rates or you can enter any sample rate on your own."
-msgstr ""
-"<b>Période d'échantillonnage</b><br>Vous pouvez ici sélectionner une des "
-"périodes d'échantillonnage prédéfinie ou saisissez une période "
-"d'échantillonnage de votre choix."
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:540
-msgid "Sample Rate:"
-msgstr "Période d'échantillonnage : "
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:542
-msgid "Tracks:"
-msgstr "Pistes : "
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:543
-msgid "Resolution:"
-msgstr "Résolution :"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:546
-msgid ""
-"<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
-"you are not sure now, you can add or delete tracks later in the program."
-msgstr ""
-"<b>Nombre de Pistes sonores</b><br>Paramètre le nombre de pistes sonores "
-"pour un nouveau fichier. Si vous n'êtes pas sur maintenant, vous pourrez "
-"ajouter ou supprimer une piste plus tard dans le programme."
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:547
-msgid ""
-"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
-"saved. However, Kwave always uses 24 bits as it's own internal resolution to "
-"give the best results when processing the audio data."
-msgstr ""
-"<b>Résolution</b><br>Paramètre la résolution en bits pour laquelle le "
-"fichier sera enregistré. Cependant, Kwave utilise toujours 24 bits comme "
-"résolution interne pour obtenir les meilleurs résultats quand il effectue "
-"des calculs sur des fichiers sonores."
-
 #: plugins/newsignal/NewSigDlg.uic.cpp:550
 msgid "Time"
 msgstr "Temps"
@@ -3886,9 +4026,6 @@ msgstr "nouveau signal audio"
 
 #~ msgid "in ms"
 #~ msgstr "en ms"
-
-#~ msgid "in s"
-#~ msgstr "en s"
 
 #~ msgid "in kb"
 #~ msgstr "en ko"
@@ -3964,9 +4101,6 @@ msgstr "nouveau signal audio"
 
 #~ msgid "e&numerate"
 #~ msgstr "é&numération"
-
-#~ msgid "&even"
-#~ msgstr "&Paire"
 
 #~ msgid "&prime"
 #~ msgstr "&premier"

@@ -130,7 +130,7 @@ Encoder *CodecManager::encoder(const QString &mimetype_name)
 QString CodecManager::encodingFilter()
 {
     QListIterator<Encoder> it(m_encoders);
-    QString list = "";
+    QStringList list;
     for (; it.current(); ++it) {
 	Encoder *e = it.current();
 	
@@ -142,28 +142,29 @@ QString CodecManager::encodingFilter()
 	    QString extensions = type->patterns().join("; ");
 	
 	    // skip if extensions are already known/present
-	    if (list.contains(extensions)) continue;
+	    if (list.join("\n").contains(extensions)) continue;
 
 	    // otherwise append to the list	
 	    QString entry = extensions;
 	    QString comment = type->comment().replace(QRegExp("/"), ",");
 	    entry += "|" + comment;
-	    if (list.length()) list += "\n";
-	    list += entry + " (" + extensions + ")";
+	    list.append(entry + " (" + extensions + ")");
 	}
     }
-    ASSERT(!list.contains('/'));
-    if (list.contains('/')) {
-	warning("CodecManager::encodingFilter() -> '%s'", list.data());
+    list.sort();
+    QString str_list = list.join("\n");
+    ASSERT(!str_list.contains('/'));
+    if (str_list.contains('/')) {
+	warning("CodecManager::encodingFilter() -> '%s'", str_list.data());
     }
 
-    return list;
+    return str_list;
 }
 /***************************************************************************/
 QString CodecManager::decodingFilter()
 {
     QListIterator<Decoder> it(m_decoders);
-    QString list = "";
+    QStringList list;
     for (; it.current(); ++it) {
 	Decoder *d = it.current();
 	
@@ -175,27 +176,23 @@ QString CodecManager::decodingFilter()
 	    QString extensions = type->patterns().join(" ");
 	
 	    // skip if extensions are already known/present
-	    if (list.contains(extensions)) continue;
+	    if (list.join("\n").contains(extensions)) continue;
 	
-//	    // remove all extensions from the list that we already have
-//	    QStringList patterns = type->patterns();
-//	
-//	    if (!extensions.length()) continue;
-
 	    // otherwise append to the list	
 	    QString entry = extensions;
 	    QString comment = type->comment().replace(QRegExp("/"), ",");
 	    entry += "|" + comment;
-	    if (list.length()) list += "\n";
-	    list += entry + " (" + extensions + ")";
+	    list.append(entry + " (" + extensions + ")");
 	}
     }
-    ASSERT(!list.contains('/'));
-    if (list.contains('/')) {
-	warning("CodecManager::decodingFilter() -> '%s'", list.data());
+    list.sort();
+    QString str_list = list.join("\n");
+    ASSERT(!str_list.contains('/'));
+    if (str_list.contains('/')) {
+	warning("CodecManager::decodingFilter() -> '%s'", str_list.data());
     }
 
-    return list;
+    return str_list;
 }
 
 /***************************************************************************/

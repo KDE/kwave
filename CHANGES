@@ -1,4 +1,8 @@
 
+0.6.5 [2002-09-xx]
+
+ * thrown away KDE2 compatibility
+
 0.6.4 [2002-06-30]
 
  * support for different file formats / integrated libaudiofile
@@ -10,8 +14,8 @@
  * using time instead of zoom factor (e.g. set zoom to "1 minute")
  * menu entries for playback control
  * some more icons in the menues
- * replaced KFileDialog with subclass KwaveFileDialog (fixes some
-   bugs in KDE)
+ * replaced KFileDialog with subclass KwaveFileDialog (fixes works
+   around some bugs in KDE)
  * added a little chapter about digital audio basics to online help
  * added "select range" plugin
 

@@ -418,6 +418,8 @@ bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
     ASSERT(fh);
     if (!fh) return false;
 
+    info().dump(); // ###
+
     unsigned int frame_size = (unsigned int)afGetVirtualFrameSize(fh,
 	AF_DEFAULT_TRACK, 1);
 

@@ -25,12 +25,6 @@
 class QString;
 class QWidget;
 
-#ifdef HAVE_KDEVERSION_H
-#include <kdeversion.h>
-#else
-#define KDE_VERSION_MAJOR 2
-#endif
-
 /**
  * @class IntValidatorProxy
  * Like a QIntValidator, but emits a signal valueChanged if the
@@ -45,11 +39,7 @@ public:
      * Constructor
      * @see QValidator
      */
-#if KDE_VERSION_MAJOR < 3
-    IntValidatorProxy(QWidget *parent, const char *name = 0);
-#else
     IntValidatorProxy(QObject *parent, const char *name = 0);
-#endif
 
     /** Destructor */
     virtual ~IntValidatorProxy();

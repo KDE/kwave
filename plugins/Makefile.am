@@ -1,11 +1,9 @@
 
 # make sure all subdirs get a makefile....
-# dirs=`@FIND@ . -type d | grep -v ./common | grep -v CVS | grep -v \\\.$$ | \
-#	@SED@ s°^\\\.\\\/°°g | @SORT@`
+dirs=`@FIND@ . -type d -mindepth 1 -maxdepth 1 -a ! -name common -a ! -name CVS | \
+	@SED@ s°^\\\.\\\/°°g | @SORT@`
 
 DISTCLEANFILES = Makefile.in Makefile
-
-dirs="about amplifyfree codec_audiofile codec_wav memory newsignal noise playback selectrange sonagram zero"
 
 distclean-generic:
 	-rm -fv `@FIND@ . -name \*.d -o -name \*.dm -o -name .depend`

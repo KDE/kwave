@@ -61,22 +61,22 @@ help_it.po: help_en.pot
 help_en-shifted.docbook: help_en.docbook
 	@CAT@ help_en.docbook | @EXPAND@ | @SED@ s/^[\ ]*// > help_en-shifted.docbook
 
-help_de.docbook: help_en.docbook help_en.pot
-	${MAKE} help_de.po help_en-shifted.docbook
+help_de.docbook: help_en.docbook help_de.po
+	${MAKE} help_en-shifted.docbook
 	@echo "converting german help"
 	@PO2XML@ help_en-shifted.docbook help_de.po | \
 	@SED@ s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g > $@
 	@CHECKXML@ $@
 
-help_fr.docbook: help_en.docbook help_en.pot
-	${MAKE} help_fr.po help_en-shifted.docbook
+help_fr.docbook: help_en.docbook help_fr.po
+	${MAKE} help_en-shifted.docbook
 	@echo "converting french help"
 	@PO2XML@ help_en-shifted.docbook help_fr.po | \
 	@SED@ s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ French\ /g > $@
 	@CHECKXML@ $@
 
-help_it.docbook: help_en.docbook help_en.pot
-	${MAKE} help_it.po help_en-shifted.docbook
+help_it.docbook: help_en.docbook help_it.po
+	${MAKE} help_en-shifted.docbook
 	@echo "converting italian help"
 	@PO2XML@ help_en-shifted.docbook help_it.po | \
 	@SED@ s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ Italian\ /g > $@

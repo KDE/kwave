@@ -87,12 +87,6 @@
 #include "toolbar/zoomnormal.xpm"
 #include "toolbar/zoomall.xpm"
 
-#ifdef HAVE_KDEVERSION_H
-#include <kdeversion.h>
-#else
-#define KDE_VERSION_MAJOR 2
-#endif
-
 #ifndef min
 #define min(x,y) (( (x) < (y) ) ? (x) : (y) )
 #endif
@@ -409,13 +403,9 @@ TopWidget::TopWidget(KwaveApp &main_app)
 	i18n("zoom to all"));
     m_id_zoomall = id++;
 
-#if KDE_VERSION_MAJOR >= 3
     // add a dummy placeholder, otherwise the minimum size will be wrong
     QStringList factors(m_zoom_factors);
     factors.append(" 99:99 min ");
-#else
-    QStringList &factors = m_zoom_factors;
-#endif
     m_id_zoomselect = id++;
     m_toolbar->insertCombo(factors, m_id_zoomselect,
 	true, SIGNAL(activated(int)),
@@ -427,16 +417,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
     ASSERT(m_zoomselect);
     if (!m_zoomselect) return;
 
-#if KDE_VERSION_MAJOR < 3
-    m_zoomselect->adjustSize();
     int h = m_zoomselect->sizeHint().height();
-    m_zoomselect->setFixedHeight(h);
-    m_zoomselect->setMinimumWidth(
-        max(m_zoomselect->sizeHint().width()+20,3*h));
-    m_zoomselect->setAutoResize(false);
-#else
-    int h = m_zoomselect->sizeHint().height();
-#endif
     m_zoomselect->setFocusPolicy(QWidget::NoFocus);
 
     m_toolbar->setMinimumHeight(max(m_zoomselect->sizeHint().height()+2,
@@ -529,10 +510,8 @@ TopWidget::TopWidget(KwaveApp &main_app)
     setTrackInfo(0);
     updateMenu();
 
-#if KDE_VERSION_MAJOR >= 3
     // layout is finished, remove dummy/placeholder zoom entry
     m_zoomselect->removeItem(m_zoomselect->count()-1);
-#endif
 }
 
 //***************************************************************************

@@ -25,6 +25,13 @@ FileInfo::FileInfo()
 }
 
 /***************************************************************************/
+FileInfo::FileInfo(const FileInfo &inf)
+    :m_length(inf.length()), m_rate(inf.rate()), m_bits(inf.bits()),
+     m_tracks(inf.tracks()), m_properties(inf.m_properties)
+{
+}
+
+/***************************************************************************/
 FileInfo::~FileInfo()
 {
 }
@@ -55,6 +62,25 @@ void FileInfo::clear()
     m_bits   = 0;
     m_tracks = 0;
     m_properties.clear();
+}
+
+/***************************************************************************/
+void FileInfo::dump()
+{
+    debug("--- dump of file info ---");
+    debug("default properties:");
+    debug("   length = %u samples", m_length);
+    debug("   rate   = %0.1gHz", m_rate);
+    debug("   bits   = %u", m_bits);
+    debug("   tracks = %u", m_tracks);
+    debug("other properties:");
+    QMap<QString, QVariant>::Iterator it;
+    for (it = m_properties.begin(); it != m_properties.end(); ++it) {
+        QString key = it.key();
+        QVariant val = it.data();
+        debug("   '%s' = '%s'", key.data(), val.toString().data());
+    }
+    debug("-------------------------");
 }
 
 /***************************************************************************/

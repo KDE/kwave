@@ -30,8 +30,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-06-29</date>
-<releaseinfo>0.6.4</releaseinfo>
+<date>2002-06-30</date>
+<releaseinfo>0.6.4-1</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
 
@@ -180,6 +180,14 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
+            <para>0.6.5 [2002-09-xx]</para>
+            <itemizedlist>
+                <listitem><para>
+                    thrown away KDE2 compatibility
+                </para></listitem>
+            </itemizedlist>
+        </listitem>
+        <listitem>
             <para>0.6.4 [2002-06-30]</para>
             <itemizedlist>
                 <listitem><para>
@@ -208,8 +216,8 @@
                     some more icons in the menues
                 </para></listitem>
                 <listitem><para>
-                    replaced KFileDialog with subclass KwaveFileDialog (fixes some
-                      bugs in KDE)
+                    replaced KFileDialog with subclass KwaveFileDialog (fixes works
+                      around some bugs in KDE)
                 </para></listitem>
                 <listitem><para>
                     added a little chapter about digital audio basics to online help

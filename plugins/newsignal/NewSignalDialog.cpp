@@ -35,12 +35,6 @@
 
 #include "NewSignalDialog.h"
 
-#ifdef HAVE_KDEVERSION_H
-#include <kdeversion.h>
-#else
-#define KDE_VERSION_MAJOR 2
-#endif
-
 //***************************************************************************
 NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 	unsigned int rate, unsigned int bits, unsigned int tracks,
@@ -63,11 +57,7 @@ NewSignalDialog::NewSignalDialog(QWidget *parent, unsigned int samples,
 
     if (!ok()) return;
 
-#if KDE_VERSION_MAJOR < 3
-    edSamples->setFormat("%0.0f");
-#else
     edSamples->setPrecision(0);
-#endif
     edSamples->setRange(0.0, (double)UINT_MAX, 1.0, false);
 
     // connect the timer for the sample edit

@@ -26,12 +26,6 @@
 #include "IntValidatorProxy.h"
 #include "SelectRangeDialog.h"
 
-#ifdef HAVE_KDEVERSION_H
-#include <kdeversion.h>
-#else
-#define KDE_VERSION_MAJOR 2
-#endif
-
 //***************************************************************************
 SelectRangeDialog::SelectRangeDialog(QWidget *widget,
     SelectRangePlugin::SelectionMode mode, double range, double sample_rate,
@@ -49,11 +43,7 @@ SelectRangeDialog::SelectRangeDialog(QWidget *widget,
     if (!m_length) m_length = 1;
 
     // set range of selection by sample
-#if KDE_VERSION_MAJOR < 3
-    edSamples->setFormat("%0.0f");
-#else
     edSamples->setPrecision(0);
-#endif
     edSamples->setRange(0.0, (double)(m_length-m_offset), 1.0, false);
 
     // set range of time controls

@@ -18,11 +18,7 @@
 #include "IntValidatorProxy.h"
 
 //***************************************************************************
-#if KDE_VERSION_MAJOR < 3
-IntValidatorProxy::IntValidatorProxy(QWidget *parent, const char *name)
-#else
 IntValidatorProxy::IntValidatorProxy(QObject *parent, const char *name)
-#endif
     :QIntValidator(parent, name)
 {
 }

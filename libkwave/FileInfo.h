@@ -23,6 +23,24 @@
 #include <qstring.h>
 #include <qvariant.h>
 
+/** name of the file */
+#define INF_FILENAME "filename"
+
+/** mime type describing the file format */
+#define INF_MIMETYPE "mimetype"
+
+/** name of the song, file or whatever */
+#define INF_NAME "name"
+
+/** name of the author/artist */
+#define INF_AUTHOR "author"
+
+/** copyright string */
+#define INF_COPYRIGHT "copyright"
+
+/** annotation/comment */
+#define INF_ANNOTATION "annotation"
+
 class FileInfo
 {
 public:
@@ -30,32 +48,40 @@ public:
     /** Constructor */
     FileInfo();
 
+    /** Copy constructor */
+    FileInfo(const FileInfo &inf);
+
     /** Destructor */
     virtual ~FileInfo();
 
     /** returns the number of samples */
-    inline unsigned int length() { return m_length; };
+    inline unsigned int length() const { return m_length; };
 
     /** Sets the length in samples */
     inline void setLength(unsigned int length) { m_length = length; };
 
     /** returns the sample rate [samples/second] */
-    inline double rate() { return m_rate; };
+    inline double rate() const { return m_rate; };
 
     /** sets a new sample rate */
     inline void setRate(double rate) { m_rate = rate; };
 
     /** returns the number of bits per sample */
-    inline unsigned int bits() { return m_bits; };
+    inline unsigned int bits() const { return m_bits; };
 
     /** sets a new resolution in bits per sample */
     inline void setBits(unsigned int bits) { m_bits = bits; };
 
     /** returns the number of tracks */
-    inline unsigned int tracks() { return m_tracks; };
+    inline unsigned int tracks() const { return m_tracks; };
 
     /** Sets the number of tracks */
     inline void setTracks(unsigned int tracks) { m_tracks = tracks; };
+
+    /** Returns true if the given property exists */
+    inline bool contains(const QString &name) {
+	return m_properties.contains(name);
+    };
 
     /**
      * Sets a property to a new value. If the property does not already
@@ -77,6 +103,9 @@ public:
     /** Clears the list of all properties. */
     virtual void clear();
 
+    /** dumps all properties to stdout, useful for debugging */
+    virtual void dump();
+
 protected:
 
     /** length in samples */
@@ -91,8 +120,11 @@ protected:
     /** number of tracks */
     unsigned int m_tracks;
 
+protected: /* needed by copy constructor */
+
     /** list of properties */
     QMap<QString, QVariant> m_properties;
+
 };
 
 #endif /* _FILE_INFO_H_ */

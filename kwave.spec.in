@@ -15,8 +15,8 @@ Vendor: 	@RPM_VENDOR@
 BuildRoot: 	@RPM_BUILDROOT@
 Prefix:   	@prefix@
 Provides:@RPM_NAME@
-Requires: 	libqt.so.2
-Requires: 	kdelibs >= 2.2.1
+Requires: 	libqt-mt.so.3
+Requires: 	kdelibs >= 3.0.1
 Conflicts: 	libkwave
 Obsoletes: 	libkwave
 

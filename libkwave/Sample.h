@@ -37,4 +37,18 @@ typedef int32_t sample_t;
 /** highest sample value */
 #define SAMPLE_MAX (+(1<<(SAMPLE_BITS-1))-1)
 
+/**
+ * Simple conversion from float to sample_t
+ */
+static inline sample_t float2sample(const float f) {
+    return (sample_t)(f * (float)(1 << (SAMPLE_BITS-1)));
+}
+
+/**
+ * Simple conversion from sample_t to float
+ */
+static inline float sample2float(const sample_t s) {
+    return (float)((float)s / float(1 << (SAMPLE_BITS-1)));
+}
+
 #endif /* _SAMPLE_H_ */

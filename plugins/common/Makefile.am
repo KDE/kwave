@@ -109,7 +109,7 @@ ${idl_header}: ${idl_files}
 
 ${idl_impl}: ${idl_files}
 
-.depend: ${DEP_FILES}
+.depend: ${uih_files} ${DEP_FILES}
 	@echo plugin \"$(MODNAME)\": merging dependencies into $@
 	@ cat $^ > $@
 

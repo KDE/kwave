@@ -69,19 +69,15 @@ void VolumeDialog::setMode(Mode mode)
     bool old_enable_updates = m_enable_updates;
     m_enable_updates = false;
 
-    rbFactor->setEnabled(false); // not implemented yet
-    
     switch (m_mode) {
 	case MODE_FACTOR: {
 	    rbFactor->setChecked(true);
-	    slider->setMinValue(-10);
-	    slider->setMaxValue(+10);
+	    slider->setMinValue(-9);
+	    slider->setMaxValue(+9);
 	    slider->setPageStep(1);
 	    slider->setTickInterval(1);
-//	    if (m_factor > 0) {
-//		spinbox->setMinValue(-100);
-//		spinbox->setMaxValue(+100);
-//	    }
+	    spinbox->setMinValue(-10);
+	    spinbox->setMaxValue(+10);
 	    break;
 	}
 	case MODE_PERCENT: {
@@ -130,67 +126,75 @@ void VolumeDialog::modeChanged(bool)
 //***************************************************************************
 void VolumeDialog::updateDisplay(double value)
 {
-    debug("VolumeDialog::updateDisplay(%f)", value); // ###
-    int new_value = 0;
+//    debug("VolumeDialog::updateDisplay(%f)", value); // ###
+    int new_spinbox_value = 0;
+    int new_slider_value = 0;
     bool old_enable_updates = m_enable_updates;
     m_enable_updates = false;
     m_factor = value;
 
     switch (m_mode) {
 	case MODE_FACTOR: {
-//	    if (value >= 1.0) {
-//		// greater or equal to one -> multiply
-//		int v = (int)rint(value);
-//
-//		slider->setValue(-1 * v);
-//		spinbox->setValue(v);
-//		spinbox->setPrefix("x ");
-//		spinbox->setSuffix("");
-//		spinbox->setValue(v);
-//		debug("VolumeDialog::updateDisplay(): factor = x%d", v); // ###
-//	    }
-//
-//	    if (value < 1.0) {
-//		// less than one -> divide
-//		int v = (int)ceil(1.0/value);
-//
-//		slider->setValue(-1 * v);
-//		spinbox->setValue(v);
-//		spinbox->setPrefix("1/");
-//		spinbox->setSuffix("");
-//		spinbox->setValue(v);
-//		debug("VolumeDialog::updateDisplay(): factor = 1/%d", v); // ###
-//	    }
+	    // -1 => /2
+	    //  0 => x1
+	    // +1 => x2
+	    if ((int)rint(m_factor) >= 1) {
+		// greater or equal to one -> multiply
+		int new_value = (int)rint(value);
+		spinbox->setPrefix("x ");
+		spinbox->setSuffix("");
+		
+		new_spinbox_value = new_value;
+		new_slider_value = new_value-1;
+		
+//		debug("VolumeDialog::updateDisplay(): factor = x%d", new_value); // ###
+	    } else {
+		// less than one -> divide
+		int new_value = (int)rint(-1.0 / value);
+		
+		spinbox->setPrefix("1/");
+		spinbox->setSuffix("");
+		
+		new_spinbox_value = -1*new_value;
+		new_slider_value  = (new_value+1);
+		
+//		debug("VolumeDialog::updateDisplay(): factor = 1/%d", -1*new_value); // ###
+	    }
+	    
+	    m_enable_updates = old_enable_updates;
 	    break;
+	    // return;
 	}
 	case MODE_PERCENT: {
 	    // factor 1.0 means 100%
-	    new_value = (int)rint(value * (double)100.0);
+	    new_spinbox_value = (int)rint(value * (double)100.0);
+	    new_slider_value = new_spinbox_value;
 	    spinbox->setPrefix("");
 	    spinbox->setSuffix("%");
-	    debug("VolumeDialog::updateDisplay(): percent = %d", new_value); // ###
+//	    debug("VolumeDialog::updateDisplay(): percent = %d", new_slider_value); // ###
 	    break;
 	}
 	case MODE_DECIBEL: {
 	    // factor 1.0 means 0dB
-	    new_value = (int)rint(20.0 * log10(value));
-	    if (new_value >= 0) {
-		spinbox->setPrefix(new_value ? "+" : "+/- ");
+	    new_slider_value = (int)rint(20.0 * log10(value));
+	    new_spinbox_value = new_slider_value;
+	    if (new_spinbox_value >= 0) {
+		spinbox->setPrefix(new_spinbox_value ? "+" : "+/- ");
 	    } else {
 		// negative value
 		spinbox->setPrefix("");
 	    }
 	    spinbox->setSuffix(" dB");
-	    debug("VolumeDialog::updateDisplay(): decibel = %d", new_value); // ###
+//	    debug("VolumeDialog::updateDisplay(): decibel = %d", new_spinbox_value); // ###
 	    break;
 	}
     }
 
     // update the spinbox    
-    if (spinbox->value() != new_value) spinbox->setValue(new_value);
+    if (spinbox->value() != new_spinbox_value) spinbox->setValue(new_spinbox_value);
 
     // update the slider, it's inverse => top=maximum, bottom=minimum !
-    int sv = slider->maxValue() + slider->minValue() - new_value;
+    int sv = slider->maxValue() + slider->minValue() - new_slider_value;
     if (slider->value() != sv) slider->setValue(sv);
 
     m_enable_updates = old_enable_updates;
@@ -202,8 +206,19 @@ void VolumeDialog::sliderChanged(int pos)
     if (!m_enable_updates) return;
     
     int sv = slider->maxValue() + slider->minValue() - pos;
+//    debug("sliderChanged(%d), sv=%d",pos,sv); // ###
     switch (m_mode) {
 	case MODE_FACTOR: {
+	    // -1 <=> /2
+	    //  0 <=> x1
+	    // +1 <=> x2
+	    if (sv >= 0) {
+		m_factor = (sv + 1);
+	    } else {
+		m_factor = (double)-1.0 / (double)(sv - 1);
+	    }
+//	    debug("factor=%g, sv=%d",m_factor, sv);
+	    updateDisplay(m_factor);
 	    break;
 	}
 	case MODE_PERCENT:
@@ -219,27 +234,36 @@ void VolumeDialog::sliderChanged(int pos)
 void VolumeDialog::spinboxChanged(int pos)
 {
     if (!m_enable_updates) return;
+//    debug("spinboxChanged(%d)",pos); // ###
 
+    int sv = spinbox->value();
     switch (m_mode) {
 	case MODE_FACTOR: {
+	    // multiply or divide by factor
+	    // -1 <=> /2
+	    //  0 <=> x1
+	    // +1 <=> x2
+	    if (m_factor >= 1) {
+		m_factor = sv ? sv : 0.5;
+	    } else {
+		if (!sv) sv = 1;
+		m_factor = (double)1.0 / (double)(sv);
+	    }
 	    break;
 	}
 	case MODE_PERCENT: {
 	    // percentage
 	    m_factor = (double)pos / (double)100.0;
-	    debug("VolumeDialog::spinboxChanged(%d), factor=%g",pos,m_factor);
-	    updateDisplay(m_factor);
 	    break;
 	}
 	case MODE_DECIBEL: {
-	    //
-	    // int db = (int)(20.0*log10(value));
-	    double m_factor = pow(10.0, pos / 20.0);
-	    debug("VolumeDialog::spinboxChanged(%d), factor=%g",pos,m_factor);
-	    updateDisplay(m_factor);
+	    // decibel
+	    m_factor = pow(10.0, pos / 20.0);
 	    break;
 	}
     }
+    
+    updateDisplay(m_factor);
 }
 
 //***************************************************************************

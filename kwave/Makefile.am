@@ -78,7 +78,7 @@ kwave_SOURCES =\
 
 # the library search path
 kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
-	@all_libraries@ -export-dynamic -dy
+	@ARTS_LIBS@ @all_libraries@ -export-dynamic -dy
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.

@@ -43,6 +43,10 @@
 #include "kwave/TopWidget.h"
 #include "kwave/SignalManager.h"
 
+#ifdef DEBUG
+#include <execinfo.h> // for backtrace()
+#endif
+
 //***************************************************************************
 KwavePlugin::KwavePlugin(PluginContext &c)
     :m_context(c), m_thread(0)
@@ -99,11 +103,20 @@ int KwavePlugin::start(QStringList &)
 //***************************************************************************
 int KwavePlugin::stop()
 {
-    if (m_thread && !pthread_equal(pthread_self(), m_thread->threadID())) {
+    if (m_thread && m_thread->running() &&
+	(pthread_self() == m_thread->threadID())) {
 	warning("KwavePlugin::stop(): plugin '%s' called stop() from "\
 	        "within it's own worker thread (from run() ?). "\
 	        "This would produce a deadlock, dear %s, PLEASE FIX THIS !",
 	        name().data(), author().data());
+
+#ifdef DEBUG
+	debug("pthread_self()=%08X, tid=%08X", (unsigned int)pthread_self(),
+	      (unsigned int)m_thread->threadID());
+	void *buf[256];
+	size_t n = backtrace(buf, 256);
+	backtrace_symbols_fd(buf, n, 2);
+#endif
 	return -EBUSY;
     }
 
@@ -114,7 +127,7 @@ int KwavePlugin::stop()
 	    if (m_thread->running()) m_thread->stop();
 	    if (m_thread->running()) m_thread->wait(1000);
 	    if (m_thread->running()) {
-		// show a message box
+		// unable to stop the thread
 		warning("KwavePlugin::stop(): stale thread !");
 	    }
 	    delete m_thread;
@@ -156,8 +169,8 @@ void KwavePlugin::run(QStringList)
 void KwavePlugin::close()
 {
     // only call stop() if we are NOT in the worker thread / run function !
-    if (m_thread && m_thread->running() && !pthread_equal(pthread_self(),
-        m_thread->threadID()))
+    if (m_thread && m_thread->running() &&
+        (pthread_self() != m_thread->threadID()) )
     {
 	stop();
     }

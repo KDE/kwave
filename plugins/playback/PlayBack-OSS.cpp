@@ -192,7 +192,7 @@ int PlayBackOSS::write(QArray<sample_t> &samples)
 void PlayBackOSS::flush()
 {
     if (!m_buffer_used) return; // nothing to do
-    ::write(m_handle, m_buffer.data(), m_buffer_used);
+    if (m_handle) ::write(m_handle, m_buffer.data(), m_buffer_used);
     m_buffer_used = 0;
 }
 

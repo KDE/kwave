@@ -44,14 +44,14 @@ ThreadsafeX11Guard::ThreadsafeX11Guard()
     :TSS_Object(), m_sem_x11_locked(), m_sem_x11_done(),
      m_sem_x11_unlocked(), m_spx_X11_request(this, SLOT(lockX11()))
 {
-    if (pthread_equal(m_pid_x11, pthread_self())) {
+    if (m_pid_x11 == pthread_self()) {
 	return;
     }
 
     // protect the "enter" scenario
     MutexGuard lock(m_lock_enter_leave);
 
-    if (pthread_equal(m_pid_owner, pthread_self())) {
+    if (m_pid_owner == pthread_self()) {
 	// recursive enter
 	m_recursion_level++;
 	return;
@@ -75,7 +75,7 @@ ThreadsafeX11Guard::ThreadsafeX11Guard()
 //***************************************************************************
 ThreadsafeX11Guard::~ThreadsafeX11Guard()
 {
-    if (pthread_equal(m_pid_x11, pthread_self())) {
+    if (m_pid_x11 == pthread_self()) {
 	return;
     }
 

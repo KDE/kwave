@@ -42,6 +42,7 @@
 #endif
 
 static const char *devicetext[] = {
+    "[aRts sound daemon]",
     "/dev/dsp",
     "/dev/audio",
     "/dev/adsp",

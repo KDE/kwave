@@ -45,6 +45,7 @@ dnl make $KDEDIR the default for the installation
 dnl AC_PREFIX_DEFAULT(${KDEDIR:-/usr})
 
 dnl Checks for programs.
+AC_PROG_INSTALL
 AC_PROG_LN_S
 
 dnl checks, if the debug code is wanted
@@ -143,9 +144,6 @@ dnl AC_SUBST(LIBSOCKET)
 dnl check X, Qt and KDE
 dnl ### AC_PATH_KDE
 
-dnl check for libkwave
-dnl ### AC_PATH_KWAVELIB
-
 AC_CHECK_LIB(compat, main, [LIBCOMPAT="-lcompat"]) dnl for FreeBSD
 AC_SUBST(LIBCOMPAT)
 
@@ -162,6 +160,131 @@ dnl AC_CHECK_FUNCS(socket vsnprintf)
 AC_CHECK_SETENV
 dnl AC_CHECK_FUNCS(getdomainname)
 AC_CHECK_KSIZE_T
+
+dnl **********************************
+dnl *** include special CSL macros ***
+dnl **********************************
+builtin(include, admin/ac_csl.m4)dnl
+#
+# Configure script for CSL
+#
+#AC_INIT(adapter/adapter_impl.h)
+#AM_CONFIG_HEADER(CSL_config.h)
+#AC_PREREQ(2.13)
+#
+#
+# CSL version numbers
+#
+#AC_DIVERT_PUSH(AC_DIVERSION_NOTICE)dnl
+#CSL_MAJOR_VERSION=0
+#CSL_MINOR_VERSION=1
+#CSL_MICRO_VERSION=1
+#CSL_INTERFACE_AGE=0
+#CSL_BINARY_AGE=0
+#CSL_VERSION=$CSL_MAJOR_VERSION.$CSL_MINOR_VERSION.$CSL_MICRO_VERSION
+#AC_DIVERT_POP()dnl
+#dnl#
+#dnl# Making releases:
+#dnl#   CSL_MICRO_VERSION += 1;
+#dnl#   CSL_INTERFACE_AGE += 1;
+#dnl#   CSL_BINARY_AGE += 1;
+#dnl# if any functions have been added, set CSL_INTERFACE_AGE to 0.
+#dnl# if backwards compatibility has been broken,
+#dnl# set CSL_BINARY_AGE _and_ CSL_INTERFACE_AGE to 0.
+#dnl#
+# CSL version numbers
+#AC_SUBST(CSL_MAJOR_VERSION)
+#AC_SUBST(CSL_MINOR_VERSION)
+#AC_SUBST(CSL_MICRO_VERSION)
+#AC_SUBST(CSL_INTERFACE_AGE)
+#AC_SUBST(CSL_BINARY_AGE)
+#AC_SUBST(CSL_VERSION)
+#
+# compute libtool versions
+#LT_RELEASE=$CSL_MAJOR_VERSION.$CSL_MINOR_VERSION
+#LT_CURRENT=`expr $CSL_MICRO_VERSION - $CSL_INTERFACE_AGE`
+#LT_REVISION=$CSL_INTERFACE_AGE
+#LT_AGE=`expr $CSL_BINARY_AGE - $CSL_INTERFACE_AGE`
+#AC_SUBST(LT_RELEASE)
+#AC_SUBST(LT_CURRENT)
+#AC_SUBST(LT_REVISION)
+#AC_SUBST(LT_AGE)
+#
+# Support program name conversion.
+#AC_ARG_PROGRAM
+#
+# Disable automatic maintainer mode.
+#AM_MAINTAINER_MODE
+#
+# We have subdirectories.
+#AC_PROG_MAKE_SET
+#
+# Make sure else configure stuff exists.
+#AC_CANONICAL_HOST
+
+
+dnl Foreign defaults:
+MC_IF_VAR_EQ(enable_static, yes, , enable_static=no)
+MC_IF_VAR_EQ(enable_shared, no, , enable_shared=yes)
+
+dnl
+dnl Define package requirements.
+dnl
+AC_DEFUN(AC_REQUIRE_ARTS,
+[
+    CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
+
+    dnl Need pkg-config first
+    AC_PATH_PROG(ARTSC_CONFIG, artsc-config, no)
+    if test x$ARTSC_CONFIG = xno ; then
+      AC_MSG_ERROR(Cannot find artsc-config - missing from path?)
+    fi
+
+    dnl Check for proper Arts version and retrive paths
+    REQUIRED=0.5.2
+    AC_MSG_CHECKING(for ARTS - version >= $REQUIRED)
+    ARTS_VERSION=[`$ARTSC_CONFIG --version | sed s/^[^0-9]*//g `]
+    MC_CHECK_VERSION($ARTS_VERSION, $REQUIRED,
+      AC_MSG_RESULT([yes ($ARTS_VERSION)])
+      ,
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR(CSL requires at least ARTS v$REQUIRED)
+    )
+
+    dnl setup variables
+    dnl ARTSDIR=[`$ARTSC_CONFIG --arts-prefix`]
+    ARTS_CFLAGS="-I$ARTSDIR/include/arts"
+    dnl ARTS_LIBS="-L$ARTSDIR/lib -lmcop"
+    ARTS_LIBS="`$ARTSC_CONFIG --libs`"
+
+    AC_SUBST(ARTSDIR)
+    AC_SUBST(ARTS_CFLAGS)
+    AC_SUBST(ARTS_LIBS)
+])
+
+# need aRts
+AC_REQUIRE_ARTS
+CFLAGS="$CFLAGS `$ARTSC_CONFIG --cflags`"
+LDLAGS="$LDLAGS `$ARTSC_CONFIG --libs`"
+
+# architecture information
+# AC_DEFINE_UNQUOTED(CSL_ARCH_NAME, "${host_alias}")
+#
+# check for bytesex stuff and export it
+#AC_C_BIGENDIAN
+#case xyes in
+#  x$ac_cv_c_bigendian)
+#    CSL_BYTE_ORDER=CSL_BIG_ENDIAN
+#    ;;
+#  *)
+#    CSL_BYTE_ORDER=CSL_LITTLE_ENDIAN
+#    ;;
+#esac
+#AC_SUBST(CSL_BYTE_ORDER)
+
+#####################################
+###########   CSL END    ############
+#####################################
 
 dnl output files
 topdir=`pwd`

@@ -1596,7 +1596,7 @@ install_location=
 type=HEADER
 
 [plugins/playback/Makefile.am]
-files=plugins/playback/PlayBackDialog.h,plugins/playback/PlayBackDialog.cpp,plugins/playback/PlayBackPlugin.h,plugins/playback/PlayBackPlugin.cpp,plugins/playback/PlayBackDevice.h,plugins/playback/PlayBack-OSS.h,plugins/playback/PlayBack-OSS.cpp
+files=plugins/playback/PlayBackDialog.h,plugins/playback/PlayBackDialog.cpp,plugins/playback/PlayBackPlugin.h,plugins/playback/PlayBackPlugin.cpp,plugins/playback/PlayBackDevice.h,plugins/playback/PlayBack-OSS.h,plugins/playback/PlayBack-OSS.cpp,plugins/playback/PlayBack-aRts.h,plugins/playback/PlayBack-aRts.cpp
 sub_dirs=
 type=static_library
 
@@ -1607,6 +1607,18 @@ install_location=
 type=SOURCE
 
 [plugins/playback/PlayBack-OSS.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/playback/PlayBack-aRts.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/playback/PlayBack-aRts.h]
 dist=true
 install=false
 install_location=

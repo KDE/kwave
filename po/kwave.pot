@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-07-04 21:31+0200\n"
+"POT-Creation-Date: 2001-07-06 20:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -354,16 +354,16 @@ msgstr ""
 msgid "selection"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:129
+#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:130
 msgid "1&6 Bit"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:138
+#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:139
 msgid "2&4 Bit"
 msgstr ""
 
-#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:119
-#: plugins/playback/PlayBackDialog.cpp:122
+#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:120
+#: plugins/playback/PlayBackDialog.cpp:123
 msgid "&8 Bit"
 msgstr ""
 
@@ -1059,82 +1059,86 @@ msgstr ""
 msgid "unusable buffer size: %1"
 msgstr ""
 
-#: plugins/playback/PlayBackPlugin.cpp:203
+#: plugins/playback/PlayBackPlugin.cpp:215
 #, ycp-format
 msgid "unable to open '%1'"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:54
+#: plugins/playback/PlayBackDialog.cpp:55
 #: plugins/sonagram/SonagramDialog.cpp:54
 msgid "sonagram"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:74
+#: plugins/playback/PlayBackDialog.cpp:75
 msgid "Playback Options :"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:102
 #: plugins/playback/PlayBackDialog.cpp:103
+#: plugins/playback/PlayBackDialog.cpp:104
 msgid "Resolution"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:126
+#: plugins/playback/PlayBackDialog.cpp:127
 msgid ""
 "Set Playback-Mode to 8 Bit (poor quality)\n"
 "should be supported by all sound hardware !"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:135
+#: plugins/playback/PlayBackDialog.cpp:136
 msgid ""
 "Set Playback-Mode to 16 Bit (CD-like quality)\n"
 "not supported by all sound hardware !"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:144
+#: plugins/playback/PlayBackDialog.cpp:145
 msgid ""
 "Set Playback-Mode to 24 Bit (high quality)\n"
 "only supported by some new sound hardware !"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:149
+#: plugins/playback/PlayBackDialog.cpp:150
 msgid "Playback Device :"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:171
+#: plugins/playback/PlayBackDialog.cpp:172
 msgid "se&lect..."
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:175
+#: plugins/playback/PlayBackDialog.cpp:176
 msgid ""
 "Select a playback device not listed\n"
 "in the standard selection.\n"
 "(sorry, not implemented yet!)"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:194
+#: plugins/playback/PlayBackDialog.cpp:195
 msgid ""
 "This is the size of the buffer used for communication with the sound driver\n"
 "If your computer is rather slow select a big buffer"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:203
+#: plugins/playback/PlayBackDialog.cpp:204
 msgid "&stereo playback"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:230
+#: plugins/playback/PlayBackDialog.cpp:231
 msgid "&test settings"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:234
+#: plugins/playback/PlayBackDialog.cpp:235
 msgid ""
 "Try to play a short sound\n"
 "using the current settings.\n"
 "(sorry, not implemented yet!)"
 msgstr ""
 
-#: plugins/playback/PlayBackDialog.cpp:305
+#: plugins/playback/PlayBackDialog.cpp:306
 #, c-format, ycp-format
 msgid "Buffer Size : %5d samples"
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:83
+msgid "unable to open aRts playback stream"
 msgstr ""
 
 #: plugins/filter/module.cpp:29

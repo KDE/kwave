@@ -45,6 +45,7 @@
 
 #include "PlayBackDevice.h"
 #include "PlayBack-OSS.h"
+#include "PlayBack-aRts.h"
 
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
@@ -52,10 +53,13 @@
 KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 
 /** Sets the number of screen refreshes per second when in playback mode */
-#define SCREEN_REFRESHES_PER_SECOND 15
+#define SCREEN_REFRESHES_PER_SECOND 8
 
-#define DEFAULT_PLAYBACK_DEVICE "/dev/dsp"
-// "[aRts sound daemon]"
+/** The default playback device if the current setting is invalid */
+#define DEFAULT_PLAYBACK_DEVICE "[aRts sound daemon]"
+
+/** Pattern for recognizing that aRts playback is selected */
+#define MAGIC_ARTS "aRts"
 
 //***************************************************************************
 PlayBackPlugin::PlayBackPlugin(PluginContext &context)
@@ -73,7 +77,7 @@ PlayBackPlugin::PlayBackPlugin(PluginContext &context)
     m_playback_params.device = DEFAULT_PLAYBACK_DEVICE;
     m_playback_params.bufbase = 10;
 
-    m_spx_playback_pos.setLimit(32); // limit for the queue
+    m_spx_playback_pos.setLimit(8); // limit for the queue
 }
 
 //***************************************************************************
@@ -81,6 +85,7 @@ PlayBackPlugin::~PlayBackPlugin()
 {
     // close the device now if it accidentally is still open
     MutexGuard lock_for_delete(m_lock_device);
+    m_stop = true;
     if (m_device) delete m_device;
     m_device = 0;
 }
@@ -173,7 +178,15 @@ void PlayBackPlugin::openDevice()
     }
 
     // create the playback device
-    m_device = new PlayBackOSS(); // currently only OSS support !
+
+    // here comes the switch for different playback devices...
+    if (m_playback_params.device.contains(MAGIC_ARTS)) {
+	m_device = new PlayBackArts();
+    } else {
+	// default is OSS or similar device
+	m_device = new PlayBackOSS();
+    }
+
     ASSERT(m_device);
     if (!m_device) {
 	warning("PlayBackPlugin::openDevice(): "\
@@ -234,12 +247,12 @@ void PlayBackPlugin::startDevicePlayBack()
 
     // determine first and last sample if not in paused mode
     if (!m_playback_controller.paused()) {
-	 unsigned int first;
+	unsigned int first;
 	unsigned int last;
 	selection(&first, &last);
 	if (first == last) {
 	    // nothing selected -> play everything
-	    first = 0;
+	    // first = current;
 	    last  = signalLength()-1;
 	}
 	m_playback_controller.setStartPos(first);
@@ -384,6 +397,7 @@ void PlayBackPlugin::run(QStringList)
 
     // playback is done
     playbackDone();
+    debug("PlayBackPlugin::run() done.");
 }
 
 //***************************************************************************

@@ -15,7 +15,7 @@ SUFFIXES= .h .cpp .o .d .moc .dm .ui
 
 # set the include path for X, qt and KDE
 
-INCLUDES= -I${topdir} @all_includes@
+INCLUDES= -I${topdir} `artsc-config --cflags` @all_includes@
 
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(kde_datadir)/kwave/plugins

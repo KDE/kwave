@@ -4794,3 +4794,7 @@ AC_DEFUN(AC_CHECK_WITH_INSURE,
 
  AC_MSG_RESULT($ac_use_insure);
 ])
+
+dnl Setup useful string and variable macros.
+
+

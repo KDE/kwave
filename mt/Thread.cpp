@@ -64,7 +64,7 @@ extern "C" void* C_thread_adapter(void* arg)
 
 //***************************************************************************
 Thread::Thread(int */*grpid*/, const long /*flags*/)
-    :TSS_Object(), m_tid(0), m_lock("thread"),
+    :TSS_Object(), m_tid(-1), m_lock("thread"),
     m_thread_running("thread_running")
 {
     MutexGuard lock(m_lock);

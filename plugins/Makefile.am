@@ -6,6 +6,7 @@
 dirs="about memory playback sonagram zero"
 
 distclean-generic:
+	-rm -fv `find . -name \*.d -o -name \*.dm -o -name .depend`
 	-rm -f $(CONFIG_CLEAN_FILES)
 	-rm -f stamp-h stamp-h[0-9]*
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)

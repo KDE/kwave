@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 "
 "21:27+0200PO-Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2001-07-04 21:31+0200\n"
-"PO-Revision-Date: 2001-07-04 21:30+GMT\n"
+"POT-Creation-Date: 2001-07-06 20:23+0200\n"
+"PO-Revision-Date: 2001-07-06 20:23+GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -361,16 +361,16 @@ msgstr "Samples ändern"
 msgid "selection"
 msgstr "Auswahl"
 
-#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:129
+#: kwave/menus_config_i18n.cpp:13 plugins/playback/PlayBackDialog.cpp:130
 msgid "1&6 Bit"
 msgstr "1&6 Bit"
 
-#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:138
+#: kwave/menus_config_i18n.cpp:14 plugins/playback/PlayBackDialog.cpp:139
 msgid "2&4 Bit"
 msgstr "2&4 Bit"
 
-#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:119
-#: plugins/playback/PlayBackDialog.cpp:122
+#: kwave/menus_config_i18n.cpp:15 plugins/playback/PlayBackDialog.cpp:120
+#: plugins/playback/PlayBackDialog.cpp:123
 msgid "&8 Bit"
 msgstr "&8 Bit"
 
@@ -1078,26 +1078,26 @@ msgstr "Wiedergabe-Rate %1 Hz wird nicht unterstützt"
 msgid "unusable buffer size: %1"
 msgstr "Puffer-Größe kann nicht verwendet werden: %1"
 
-#: plugins/playback/PlayBackPlugin.cpp:203
+#: plugins/playback/PlayBackPlugin.cpp:215
 #, ycp-format
 msgid "unable to open '%1'"
 msgstr "'%1' kann nicht geöffnet werden"
 
-#: plugins/playback/PlayBackDialog.cpp:54
+#: plugins/playback/PlayBackDialog.cpp:55
 #: plugins/sonagram/SonagramDialog.cpp:54
 msgid "sonagram"
 msgstr "Sonagramm"
 
-#: plugins/playback/PlayBackDialog.cpp:74
+#: plugins/playback/PlayBackDialog.cpp:75
 msgid "Playback Options :"
 msgstr "Wiedergabe-Einstellungen :"
 
-#: plugins/playback/PlayBackDialog.cpp:102
 #: plugins/playback/PlayBackDialog.cpp:103
+#: plugins/playback/PlayBackDialog.cpp:104
 msgid "Resolution"
 msgstr "Auflösung"
 
-#: plugins/playback/PlayBackDialog.cpp:126
+#: plugins/playback/PlayBackDialog.cpp:127
 msgid ""
 "Set Playback-Mode to 8 Bit (poor quality)\n"
 "should be supported by all sound hardware !"
@@ -1105,7 +1105,7 @@ msgstr ""
 "Setze Wiedergabe-Auflösung 8 Bit (geringe Qualität)\n"
 "Sollte von jeder Hardware unterstützt werden !"
 
-#: plugins/playback/PlayBackDialog.cpp:135
+#: plugins/playback/PlayBackDialog.cpp:136
 msgid ""
 "Set Playback-Mode to 16 Bit (CD-like quality)\n"
 "not supported by all sound hardware !"
@@ -1113,7 +1113,7 @@ msgstr ""
 "Setze Wiedergabe-Auflösung 16 Bit (CD-Qualit?)\n"
 "wird nicht von jeder Hardware unterstützt !"
 
-#: plugins/playback/PlayBackDialog.cpp:144
+#: plugins/playback/PlayBackDialog.cpp:145
 msgid ""
 "Set Playback-Mode to 24 Bit (high quality)\n"
 "only supported by some new sound hardware !"
@@ -1121,15 +1121,15 @@ msgstr ""
 "Setze Wiedergabe-Auflösung auf 24 Bit (hohe Qualität)\n"
 "wird nur von einiger neuer Hardware unterstützt !"
 
-#: plugins/playback/PlayBackDialog.cpp:149
+#: plugins/playback/PlayBackDialog.cpp:150
 msgid "Playback Device :"
 msgstr "Wiedergabegerät :"
 
-#: plugins/playback/PlayBackDialog.cpp:171
+#: plugins/playback/PlayBackDialog.cpp:172
 msgid "se&lect..."
 msgstr "Aus&wahl ..."
 
-#: plugins/playback/PlayBackDialog.cpp:175
+#: plugins/playback/PlayBackDialog.cpp:176
 msgid ""
 "Select a playback device not listed\n"
 "in the standard selection.\n"
@@ -1139,7 +1139,7 @@ msgstr ""
 "Standard-Auswahl enthalten ist.\n"
 "(Sorry, noch nicht implementiert!)"
 
-#: plugins/playback/PlayBackDialog.cpp:194
+#: plugins/playback/PlayBackDialog.cpp:195
 msgid ""
 "This is the size of the buffer used for communication with the sound driver\n"
 "If your computer is rather slow select a big buffer"
@@ -1149,15 +1149,15 @@ msgstr ""
 "(Verwenden Sie einen größeren Puffer wenn Sie einen langsamen\n"
 " Computer besitzen oder Aussetzer in der Wiedergabe hören.)"
 
-#: plugins/playback/PlayBackDialog.cpp:203
+#: plugins/playback/PlayBackDialog.cpp:204
 msgid "&stereo playback"
 msgstr "&Stereo-Wiedergabe"
 
-#: plugins/playback/PlayBackDialog.cpp:230
+#: plugins/playback/PlayBackDialog.cpp:231
 msgid "&test settings"
 msgstr "Einstellungen &testen"
 
-#: plugins/playback/PlayBackDialog.cpp:234
+#: plugins/playback/PlayBackDialog.cpp:235
 msgid ""
 "Try to play a short sound\n"
 "using the current settings.\n"
@@ -1167,10 +1167,14 @@ msgstr ""
 "aktuellen Einstellungen abzuspielen.\n"
 "Sorry, noch nicht implementiert!"
 
-#: plugins/playback/PlayBackDialog.cpp:305
+#: plugins/playback/PlayBackDialog.cpp:306
 #, c-format, ycp-format
 msgid "Buffer Size : %5d samples"
 msgstr "Buffer-Größe: %5d Samples"
+
+#: plugins/playback/PlayBack-aRts.cpp:83
+msgid "unable to open aRts playback stream"
+msgstr "aRts-Stream für Wiedergabe konnte nicht geöffnet werden"
 
 #: plugins/filter/module.cpp:29
 msgid "Choose filter parameters:"

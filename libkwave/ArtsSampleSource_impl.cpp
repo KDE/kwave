@@ -40,19 +40,18 @@ ArtsSampleSource_impl::ArtsSampleSource_impl(SampleReader *rdr)
 void ArtsSampleSource_impl::calculateBlock(unsigned long samples)
 {
     unsigned long i = 0;
-    sample_t sample = 0;
 
-    if (m_reader && !(m_reader->eof())) {
+    if (m_reader && !(m_reader->eof()) && samples) {
 	// fill the buffer with samples
-	for (i=0;i < samples;i++) {
-	    *m_reader >> sample;
-	    source[i] = sample2float(sample);
-	    if (m_reader->eof()) break;
-	}
+	QMemArray<sample_t> buffer(samples);
+	*m_reader >> buffer;
+	unsigned int read_samples = buffer.size();
+	for (i=0; i < read_samples; i++)
+	    source[i] = sample2float(buffer[i]);
     }
 
     // pad the rest with zeroes
-    while (i < samples) source[i++] = 0;
+    while (i < samples) source[i++] = 0.0;
 }
 
 //***************************************************************************

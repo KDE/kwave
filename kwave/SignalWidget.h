@@ -32,18 +32,22 @@ class MenuManager;
 class MouseMark;
 class QBitmap;
 class SignalManager;
-class ProgressDialog;
 class TimeOperation;
 class Track;
 class TrackPixmap;
 
 /**
- * This class is mainly responsible for displaying
- * signals in the time-domain
+ * The SignalWidget class is responsible for displaying a signal with
+ * multiple tracks. It provides control over selecton, zoom factor and
+ * the signal data itself by containing a SignalManager.
  */
 class SignalWidget : public QWidget
 {
     Q_OBJECT
+
+    class InhibitRepaintGuard;
+    friend class InhibitRepaintGuard;
+
 public:
     SignalWidget(QWidget *parent, MenuManager &menu_manage);
 
@@ -77,25 +81,24 @@ public:
      * from a file.
      * @param filename name of the .wav or .asc file
      * @param type one of WAV or ASCII
+     * @todo use QUrl instead of QString
      */
     void loadFile(const QString  &filename, int type);
 
+    /** @todo (re)implementation */
     void saveSignal (const char *filename, int bits,
 		     int type, bool selection = false);
+
+    /** @todo (re)implementation */
     void saveBlocks (int);
+
+    /** @todo (re)implementation */
     void setSignal (SignalManager *signal);
 
     /**
      * Closes the current signal
      */
     void close();
-
-    /**
-     * sets the display offset [samples], does not refresh the screen
-     * @param new_offset new value for the offset in samples, will be
-     *                   internally limited to [0...length-1]
-     */
-    void setOffset(int new_offset);
 
     /**
      * sets a new zoom factor [samples/pixel], does not refresh the screen
@@ -142,7 +145,12 @@ public:
 
 public slots:
 
-    void slot_setOffset(int new_offset);
+    /**
+     * Sets the display offset [samples] and refreshes the screen.
+     * @param new_offset new value for the offset in samples, will be
+     *                   internally limited to [0...length-1]
+     */
+    void setOffset(unsigned int new_offset);
 
     /**
      * Sets the left and right selection marker and promotes
@@ -211,6 +219,17 @@ public slots:
 
     void refreshAllLayers();
 
+protected slots:
+
+    /**
+     * Allows repainting of the display by decrementing the repaint
+     * inhibit counter. If the counter reaches zero, the widget
+     * will be refreshed.
+     * @see m_inhibit_repaint
+     * @see inhibitRepaint()
+     */
+    void allowRepaint();
+
 private slots:
 
     /**
@@ -272,7 +291,14 @@ private slots:
 
 signals:
 
-    void viewInfo (int, int, int);
+    /**
+     * Signals a change in the current visible area.
+     * @param offset index of the first visible sample [samples]
+     * @param width the width of the widget in [pixels]
+     * @param length size of the whole signal [samples]
+     */
+    void viewInfo(unsigned int offset, unsigned int width,
+                  unsigned int length);
 
     void selectedTimeInfo(double ms);
 
@@ -301,6 +327,30 @@ signals:
     void sigTrackInserted(unsigned int track);
 
 protected:
+
+    /**
+     * Simple internal guard class for inhibiting and allowing
+     * repaints in a SignalWidget.
+     */
+    class InhibitRepaintGuard
+    {
+    public:
+        /** Constructor, inhibits repaints */
+	InhibitRepaintGuard(SignalWidget &widget)
+	    :m_widget(widget)
+	{
+	    m_widget.inhibitRepaint();
+	};
+	
+	/** Destructor, allows repaints */
+	~InhibitRepaintGuard() {
+	    m_widget.allowRepaint();
+	};
+	
+	/** reference to our owner */
+	SignalWidget &m_widget;
+    };
+
     /**
      * Returns the zoom value that will be used to fit the whole signal
      * into the current window.
@@ -310,7 +360,7 @@ protected:
 
     void selectRange ();
 
-    void resizeEvent(QResizeEvent *e);
+    void resizeEvent(QResizeEvent *);
     void mousePressEvent (QMouseEvent *);
     void mouseReleaseEvent (QMouseEvent *);
     void mouseMoveEvent (QMouseEvent *);
@@ -332,8 +382,18 @@ protected:
 //    bool executeLabelCommand(const QString &command);
 //    bool executeNavigationCommand(const QString &command);
 
+    /**
+     * Inhibits repainting by increasing the repaint inhibit counter.
+     * @see m_inhibit_repaint
+     * @see allowRepaint()
+     */
+    void inhibitRepaint();
+
 private:
 
+    /**
+     * Refreshes a single display layer.
+     */
     void refreshLayer(int layer);
 
     /**
@@ -344,15 +404,16 @@ private:
 
     /**
      * Converts a sample index into a pixel offset using the current zoom
-     * value. Always rounds downwards.
+     * value. Always rounds up or downwards. If the number of pixels or the
+     * current zoom is less than zero, the return value will be zero.
      * @param pixels pixel offset
      * @return index of the sample
      */
-    int pixels2samples(int pixels);
+    unsigned int pixels2samples(int pixels);
 
     /**
      * Converts a pixel offset into a sample index using the current zoom
-     * value. Always rounds downwards.
+     * value. Always rounds op or downwards.
      * @param sample index of the sample
      * @return pixel offset
      */
@@ -365,6 +426,7 @@ private:
      */
     void fixZoomAndOffset();
 
+private:
     /** Pixmaps for buffering each layer */
     QPixmap *m_layer[3];
 
@@ -378,7 +440,7 @@ private:
      * Offset from which signal is beeing displayed. This is equal to
      * the index of the first visible sample.
      */
-    int m_offset;
+    unsigned int m_offset;
 
     int width, height;            //of this widget
     int lastWidth;
@@ -395,6 +457,14 @@ private:
 
     // flag for redrawing pixmap
     bool redraw;
+
+    /**
+     * Counter for inhibiting repaints. If not zero, repaints should
+     * be inhibited.
+     * @see allowRepaint()
+     * @see inhibitRepaint()
+     */
+    unsigned int m_inhibit_repaint;
 
     MouseMark *select;
 

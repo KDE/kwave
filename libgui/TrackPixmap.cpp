@@ -111,13 +111,13 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    warning("TrackPixmap::setOffset(): "\
 	    	"now I have to throw away the whole buffer :-((");
 ### */
-	    debug("TrackPixmap::setOffset(%u): "\
-		"misaligned->invalidating buffer", offset);
+//	    debug("TrackPixmap::setOffset(%u): "\
+//		"misaligned->invalidating buffer", offset);
 	    invalidateBuffer();
 	} else if (offset > m_offset) {
 	    // move left
 	    diff = samples2pixels(offset - m_offset);
-	    debug("TrackPixmap::setOffset(): moving left (min/max): %u",diff);
+//	    debug("TrackPixmap::setOffset(): moving left (min/max): %u",diff);
 	    ASSERT(diff);
 	    ASSERT(buflen);
 	    if (diff && buflen) {
@@ -131,7 +131,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	} else {
 	    // move right
 	    diff = samples2pixels(m_offset - offset);
-	    debug("TrackPixmap::setOffset(): moving right (min/max): %u",diff);
+//	    debug("TrackPixmap::setOffset(): moving right (min/max): %u",diff);
 	    ASSERT(diff);
 	    ASSERT(buflen);
 	    if (diff && buflen) {
@@ -151,7 +151,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	
 	if (offset > m_offset) {
 	    // move left
-	    debug("TrackPixmap::setOffset(): moving left (normal)"); // ###
+//	    debug("TrackPixmap::setOffset(): moving left (normal)"); // ###
 	    diff = offset - m_offset;
 	    for (src=diff, dst=0; src<buflen; ++dst, ++src) {
 		m_sample_buffer[dst] = m_sample_buffer[src];
@@ -160,7 +160,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    while (dst < buflen) m_valid[dst++] = 0;
 	} else {
 	    // move right
-	    debug("TrackPixmap::setOffset(): moving right (normal)"); // ###
+//	    debug("TrackPixmap::setOffset(): moving right (normal)"); // ###
 	    diff = m_offset - offset;
 	    ASSERT(buflen);
 	    if (buflen) {
@@ -204,15 +204,15 @@ void TrackPixmap::setZoom(double zoom)
 
     if (zoom == m_zoom) return; // no change
 
-    debug("TrackPixmap::setZoom(%0.3f)", zoom); // ###
+//    debug("TrackPixmap::setZoom(%0.3f)", zoom);
     if ((zoom > 1.0) && !m_minmax_mode) {
 	// switch to min/max mode
-	debug("TrackPixmap::setZoom(): switch to min/max mode");
+//	debug("TrackPixmap::setZoom(): switch to min/max mode");
 	invalidateBuffer();
 	m_minmax_mode = true;
     } else if ((zoom <= 1.0) && m_minmax_mode) {
 	// switch to normal mode
-	debug("TrackPixmap::setZoom(): switch to normal mode");
+//	debug("TrackPixmap::setZoom(): switch to normal mode");
 	invalidateBuffer();
 	m_minmax_mode = false;
     }
@@ -514,7 +514,7 @@ void TrackPixmap::drawInterpolatedSignal(QPainter &p, int width,
     int x;
     int buflen = m_valid.size();
 
-    debug("TrackPixmap::drawInterpolatedSignal()");
+//    debug("TrackPixmap::drawInterpolatedSignal()");
 
     ASSERT(m_zoom);
     if (m_zoom == 0.0) return;

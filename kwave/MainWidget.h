@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _KMAIN_WDIGET_H_
-#define _KMAIN_WIDGET_H_ 1
+#ifndef _MAIN_WDIGET_H_
+#define _MAIN_WIDGET_H_
 
 #include <qlist.h>
 #include <qwidget.h>
@@ -62,9 +62,13 @@ public:
      * from a file.
      * @param filename name of the .wav or .asc file
      * @param type one of WAV or ASCII
+     * @todo use QUrl instead of QString
      */
     void loadFile(const QString &filename, int type = 0);
 
+    /**
+     * @todo: re-implementation
+     */
     void saveSignal(const char *filename, int bits, int type, bool selection);
 
     /**
@@ -217,4 +221,4 @@ private:
     unsigned int lastChannels;
 
 };
-#endif // _KMAIN_WDIGET_H_
+#endif // _MAIN_WIDGET_H_

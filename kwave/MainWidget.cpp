@@ -201,10 +201,14 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     connect(scrollbar, SIGNAL(valueChanged(int)),
             this, SLOT(scrollbarMoved(int)));
-    connect(m_slider, SIGNAL(valueChanged(int)),
-	    m_signal_widget, SLOT(slot_setOffset(int)));
-    connect(m_signal_widget, SIGNAL(viewInfo(int, int, int)),
-	    m_slider, SLOT(setRange(int, int, int)));
+
+    connect(m_slider, SIGNAL(valueChanged(unsigned int)),
+	    m_signal_widget, SLOT(setOffset(unsigned int)));
+    connect(m_signal_widget, SIGNAL(viewInfo(unsigned int,
+	    unsigned int, unsigned int)),
+	    m_slider, SLOT(setRange(unsigned int, unsigned int,
+	    unsigned int)));
+
     connect(m_signal_widget, SIGNAL(zoomInfo(double)),
 	    this, SLOT(forwardZoomChanged(double)));
     connect(m_signal_widget, SIGNAL(sigCommand(const QString &)),

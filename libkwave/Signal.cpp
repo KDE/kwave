@@ -660,8 +660,11 @@ void Signal::slotSamplesInserted(Track &src, unsigned int offset,
 }
 
 //***************************************************************************
-void Signal::slotSamplesDeleted(Track &, unsigned int, unsigned int)
+void Signal::slotSamplesDeleted(Track &src, unsigned int offset,
+                                unsigned int length)
 {
+    unsigned int track = trackIndex(src);
+    emit sigSamplesDeleted(track, offset, length);
 }
 
 //***************************************************************************

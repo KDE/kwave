@@ -107,8 +107,6 @@ void FileInfo::PropertyTypesMap::fill()
              "intended for."
              "\nExample: 'Linux audio collection'"));
     append(INF_SAMPLE_FORMAT, FP_INTERNAL | FP_NO_LOAD_SAVE,
-             "sample_fmt", 0);
-    append(INF_SAMPLE_FORMAT_NAME, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Sample Format"),
         i18n("Format used for storing the digitized audio samples."
              "\nExample: '32-bit IEEE floating-point'"));

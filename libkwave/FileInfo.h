@@ -51,7 +51,6 @@ typedef enum {
     INF_NAME,                /**< name of the song or whatever */
     INF_PRODUCT,             /**< product */
     INF_SAMPLE_FORMAT,       /**< sample format (libaudiofile) */
-    INF_SAMPLE_FORMAT_NAME,  /**< verbose name of the sample format */
     INF_SOFTWARE,            /**< software */
     INF_SOURCE,              /**< source */
     INF_SOURCE_FORM,         /**< source form */

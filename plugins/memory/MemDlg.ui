@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>MemDlg</class>
 <comment>Setup of virtual memory and physical memory usage.</comment>
 <author>Thomas Eschenbacher &lt;Thomas.Eschenbacher@gmx.de&gt;</author>
@@ -403,5 +403,5 @@ If you enable the use of virtual memory, you can specify a directory where Kwave
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>
 </includes>
-<layoutdefaults spacing="6" margin="11"/>
+<layoutdefaults spacing="10" margin="10"/>
 </UI>

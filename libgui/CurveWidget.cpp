@@ -170,7 +170,7 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
 //****************************************************************************
 CurveWidget::~CurveWidget()
 {
-    if (presetDir) delete[] presetDir;
+    if (presetDir) delete presetDir;
     if (points) delete points;
     if (knob) delete knob;
     if (pixmap) delete pixmap;
@@ -234,7 +234,7 @@ void CurveWidget::loadPreset(int num)
     FileLoader loader (presetDir->absFilePath(name));
 
     if (points) delete points;
-    points = new Curve (loader.getMem());
+    points = new Curve(loader.getMem());
     ASSERT(points);
 
     repaint();

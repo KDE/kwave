@@ -25,6 +25,7 @@ void Dialog::accept()
 //    if (!modal) {
 	//call virtual function getcommand()
 	const char *c = getCommand();
+	debug("Dialog::accept: command='%s'", c); // ###
 	if (c) emit command(c);
 //	delete this;
 //    }
@@ -37,6 +38,7 @@ void Dialog::reject()
 {
     hide();
 //    if (!modal) delete this;
+    debug("Dialog::reject"); // ###
     setResult (false);
 }
 

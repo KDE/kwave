@@ -1,13 +1,13 @@
 %define ver 0.5.2
-%define release 11
+%define release 12
 %define filelist %{name}/files.list.%{name}
 %define rpm_opt_flags ${RPM_OPT_FLAGS}
 
 Summary:        KDE, Qt, WAV, Sound, FFT, Sonagram, Sample, Effects, 24 Bit
 Name:           kwave
 Version: 	0.5.2
-Release: 	11
-Source0: 	kwave-0.5.2-11.tar.gz
+Release: 	12
+Source0: 	kwave-0.5.2-12.tar.gz
 Group:  	X11/Applications/Sound
 Copyright:	 GPL
 URL:            http://fs.spinfo.uni-koeln.de/~kwave

@@ -5,10 +5,10 @@
 #include <qwidget.h>
 
 class QAccel;
-class QPushButton;
 class QComboBox;
-class KStatusBar;
+class QPushButton;
 class KButtonBox;
+class KStatusBar;
 class MenuManager;
 class MultiStateWidget;
 class SignalManager;

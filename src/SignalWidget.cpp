@@ -1387,7 +1387,7 @@ int lastHeight = 0;
 //****************************************************************************
 void SignalWidget::paintEvent(QPaintEvent *event)
 {
-    debug("SignalWidget::paintEvent()");
+//    debug("SignalWidget::paintEvent()");
 
 #ifdef DEBUG
     struct timeval t_start;
@@ -1397,6 +1397,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 #endif
 
     unsigned int channels = getChannelCount();
+    bool update_pixmap = false;
 
     layer_rop[LAYER_SIGNAL] = CopyROP;
     layer_rop[LAYER_SELECTION] = XorROP;
@@ -1404,7 +1405,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 
     width = QWidget::width();
     height = QWidget::height();
-    debug("SignalWidget::paintEvent(): width=%d, height=%d",width,height);
+//    debug("SignalWidget::paintEvent(): width=%d, height=%d",width,height);
 
     // --- detect size changes and refresh the whole display ---
     if ((width != lastWidth) || (height != lastHeight)) {
@@ -1416,6 +1417,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	}
 	if (!pixmap) delete pixmap;
 	pixmap = 0;
+	update_pixmap = true;
 	
 	lastWidth = width;
 	lastHeight = height;
@@ -1466,9 +1468,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	p.end();
 
 	update_layer[LAYER_SIGNAL] = false;
-	
-	if (pixmap) delete pixmap;
-	pixmap = 0;
+	update_pixmap = true;
     }
 
     // --- repaint of the markers layer ---
@@ -1489,9 +1489,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	p.end();
 	
 	update_layer[LAYER_MARKERS] = false;
-	
-	if (pixmap) delete pixmap;
-	pixmap = 0;
+	update_pixmap = true;
     }
 
     // --- repaint of the selection layer ---
@@ -1513,8 +1511,8 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	p.flush();
 	p.end();
 
-	if (pixmap) delete pixmap;
-	pixmap = 0;
+	update_layer[LAYER_SELECTION] = false;
+	update_pixmap = true;
     }
 
     // --- re-create the buffer pixmap if it has been deleted ---
@@ -1522,16 +1520,19 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	pixmap = new QPixmap(size());
 	ASSERT(pixmap);
 	if (!pixmap) return;
+	update_pixmap = true;
     }
 
-    // pixmap->fill (this, 0, 0);
-    for (int i=0; i < 3; i++) {
-	if (layer[i]) bitBlt(
-	    pixmap, 0, 0,
-	    layer[i], 0, 0,
-	    width, height, layer_rop[i]
-	);
+    if (update_pixmap) {
+	for (int i=0; i < 3; i++) {
+	    if (layer[i]) bitBlt(
+		pixmap, 0, 0,
+		layer[i], 0, 0,
+		width, height, layer_rop[i]
+	    );
+	}
     }
+
     bitBlt(this, 0, 0, pixmap, 0, 0, width, height, CopyROP);
 
 #ifdef DEBUG

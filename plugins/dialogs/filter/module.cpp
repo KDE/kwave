@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <qpushbutton.h>
 #include <qkeycode.h>
 #include <qfiledialog.h>

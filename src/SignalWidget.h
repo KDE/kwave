@@ -15,9 +15,11 @@ class MenuManager;
 ProgressDialog *createProgressDialog (TimeOperation *operation,
 				      const char *caption);
 
-//***********************************************************
+/**
+ * This class is mainly responsible for displaying
+ * signals in the time-domain
+ */
 class SignalWidget : public QWidget
-	    //this class is mainly responsible for displaying signals in the time-domain
 {
     Q_OBJECT
 public:

@@ -1,18 +1,24 @@
 
 o playback only for selected channels
 
-o resample signal before inserting into a signal with a different sample rate
+o evaluation of the enabled/disabled flag of the channels doesn't work
+
+o resample signal before inserting into a signal with a different sample 
+  rate (when doing copy/paste)
 
 o channel mixing dialog
+
+o amplifymax does not work
+
+o amplifyclip does not work
+
+o feature "pulse train" is not yet implemented
 
 o move label handling to class LabelManager
 
 o make the SonagramWindow work
 
 o find out how to get the "topdir" of rpm for "make rpm"
-
-o Review playback code in SignalManager: null pointers, memory leaks, 
-  thread handling?
 
 o look at CurveWidget::CurveWidget()
 o ProgressDialog::timedProgress()
@@ -38,7 +44,7 @@ o ClipBoard::appendChannel should append a _copy_ of the channel instead
 o resizing of the TopWidget if channels have been added
   -> adjust minimum window size
 
-o don't search for plugins and other files only in the global directory,
+o search for plugins and other files only in the global directory,
   use the .kde structure in the user's home directory too
 
 o bugfix: crash on "additive synthesis"
@@ -46,7 +52,10 @@ o bugfix: crash on "additive synthesis"
 o some commands do not work: fft, averagefft, sonagram, options/menu,
   options/memory, distort
 
-o error handling in SignalWidget/Manager needs complete rework !
+o bugfix: channel mixer dialog causes segmentation fault -> disabled
+
+o amplifyfree: interpolation type is ignored (by SignalManager ?), always
+  uses linear interpolation
 
 o load and automatically repair files recorded with "arecord"
 
@@ -58,11 +67,12 @@ o re-enable usage of memory mapped files
 
 o make a menu group for @SELECTION
 
-o remove all usages of KTopLevelWidget
+o remove all usages of KTopLevelWidget -> use KTMainWindow instead
 
 o import of multi-channel ASCII files
 
-o label handling doesn't work
+o label handling doesn't work (currently disabled), work on LabelManager
+  has started
 
 o the clipboard does not work between other kwave instances
 
@@ -97,6 +107,8 @@ o context menu for right mouse button in SignalWidget
 
 o a nice toolbar + icons for the buttons
 
+o macro recorder
+
 o positioning the cursor to start/end of the file with Pos1 / End
 
 o >>> COMPLETE DOCUMENTATION OF THE WHOLE API <<<
@@ -110,6 +122,9 @@ o use some audio library, like libasound for import/export of other
   file formats
 
 o plugins for import/export of different file formats (e.g. MP3)
+
+o error handling in SignalWidget/Manager needs complete rework !
+  -> see next issue "how to work with exceptions"
 
 o figure out how to work with exceptions:
   - works if ALL libraries use rtti and we compile with -frtti

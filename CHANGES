@@ -1,7 +1,16 @@
 this development version
 
+0.5.2-12 [2000-06-02]
+
+ * copied the AsyncSync class into libgui, should be used for threadsafe
+   usage of the qt library
+ * moved handling of the "selected" flag from class SignalManager 
+   to class Signal
+ * fixed selection of channels if appended or deleted
+
 0.5.2-11 [2000-05-28]
 
+ * included config.h in each source file (except the plugins)
  * export to ASCII for multi-channel signal (multic-channel import has 
    still to be done, currently only mono)
  * fixed many memory leaks and inconsistent delete operations (e.g. used
@@ -11,7 +20,7 @@ this development version
    -> thanks to ParaSoft Corporation for making this limited version of
       the tool available (http://www.parasoft.com)
  * SignalWidget uses three layers for drawing, speeds up the redraws
-   after mouse selection by approx. factor 14(!!!) on my system :-))
+   after mouse selection by about factor 14(!!!) on my system :-))
 
 0.5.2-10 [2000-05-21]
 

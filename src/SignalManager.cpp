@@ -66,7 +66,8 @@ SignalManager::SignalManager(Signal *sig)
     if (!sig) return;
 
     signal.append(sig);
-    selected.append(new bool(true));
+    signal.last()->select(true);
+
     this->channels = 1;
     this->rate = sig->getRate();
 }
@@ -86,7 +87,7 @@ SignalManager::SignalManager(unsigned int numsamples,
 	Signal *new_signal = new Signal(numsamples, rate);
 	ASSERT(new_signal);
 	signal.append(new_signal);
-	selected.append(new bool(true));
+	signal.last()->select(true);
     }
 }
 
@@ -122,9 +123,6 @@ void SignalManager::initialize()
     for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
 	msg[i] = 0;
 
-    selected.setAutoDelete(true);
-    selected.clear();
-
     signal.setAutoDelete(false);
     signal.clear();
 }
@@ -151,7 +149,6 @@ void SignalManager::getMaxMin(unsigned int channel, int &max, int &min,
 //**********************************************************
 unsigned int SignalManager::getLength()
 {
-    ASSERT(signal.count());
     if (!signal.count()) return 0;
     return signal.at(0) ? signal.at(0)->getLength() : 0;
 }
@@ -185,9 +182,6 @@ void SignalManager::deleteChannel(unsigned int channel)
     signal.remove(channel);
     signal.setAutoDelete(false);
 
-    selected.setAutoDelete(true);
-    selected.remove(channel);
-
     channels--;                 //decrease number of channels...
 
     emit sigChannelDeleted(channel);
@@ -208,11 +202,23 @@ void SignalManager::appendChannel(Signal *newsig)
     if (!newsig) return;
 
     signal.append(newsig);
-    selected.append(new bool(true));
     channels++;
 
     emit sigChannelAdded(signal.count()-1);
     emit signalChanged( -1, -1);
+}
+	
+//**********************************************************
+void SignalManager::toggleChannel(const unsigned int channel)
+{
+    ASSERT(channel < signal.count());
+    if (channel >= signal.count()) return;
+    ASSERT(signal.at(channel));
+    if (!signal.at(channel)) return;
+
+    signal.at(channel)->select(!signal.at(channel)->isSelected());
+    debug("SignalManager::toggleChannel(%d): selected=%d",
+	channel, signal.at(channel)->isSelected());
 }
 
 //**********************************************************
@@ -248,69 +254,90 @@ bool SignalManager::executeCommand(const char *command)
     debug("SignalManager::executeCommand(%s)", command);    // ###
 
     if (false) {
-//    CASE_COMMAND("copy")
-//	if (globals.clipboard) delete globals.clipboard;
-//	globals.clipboard = new ClipBoard();
-//	if (globals.clipboard) {
-//	    for (unsigned int i = 0; i < channels; i++)
-//		globals.clipboard->appendChannel(
-//			signal.at(i)->copyRange());
-//	}
-//    CASE_COMMAND("cut")
-//	if (globals.clipboard) delete globals.clipboard;
-//	globals.clipboard = new ClipBoard();
-//	if (globals.clipboard) {
-//	    for (unsigned int i = 0; i < channels; i++)
-//		globals.clipboard->appendChannel(
-//			signal.at(i)->cutRange());
-//	}
-//	emit signalChanged(getLMarker(), -1);
-//    CASE_COMMAND("crop")
-//	if (globals.clipboard) delete globals.clipboard;
-//	globals.clipboard = new ClipBoard();
-//	if (globals.clipboard) {
-//	    for (unsigned int i = 0; i < channels; i++)
-//		(signal.at(i)->cropRange());
-//	}
-//	emit signalChanged( -1, -1);
+    CASE_COMMAND("copy")
+	if (globals.clipboard) delete globals.clipboard;
+	globals.clipboard = new ClipBoard();
+	ASSERT(globals.clipboard);
+	if (globals.clipboard) {
+	    for (unsigned int i = 0; i < channels; i++) {
+		ASSERT(signal.at(i));
+		if (signal.at(i)) globals.clipboard->appendChannel(
+		    signal.at(i)->copyRange());
+	    }
+	}
+    CASE_COMMAND("cut")
+	if (globals.clipboard) delete globals.clipboard;
+	globals.clipboard = new ClipBoard();
+	ASSERT(globals.clipboard);
+	if (globals.clipboard) {
+	    for (unsigned int i = 0; i < channels; i++) {
+		ASSERT(signal.at(i));
+		if (signal.at(i)) globals.clipboard->appendChannel(
+		    signal.at(i)->cutRange());
+	    }
+	}
+	emit signalChanged(getLMarker(), -1);
+    CASE_COMMAND("crop")
+	if (globals.clipboard) delete globals.clipboard;
+	globals.clipboard = new ClipBoard();
+	ASSERT(globals.clipboard);
+	if (globals.clipboard) {
+	    for (unsigned int i = 0; i < channels; i++) {
+		ASSERT(signal.at(i));
+		if (signal.at(i)) (signal.at(i)->cropRange());
+	    }
+	}
+	emit signalChanged( -1, -1);
     CASE_COMMAND("delete")
 	for (unsigned int i = 0; i < channels; i++) {
 	    ASSERT(signal.at(i));
 	    if (signal.at(i)) signal.at(i)->deleteRange();
 	}
 	emit signalChanged(getLMarker(), -1);
-//    CASE_COMMAND("paste")
-//	if (globals.clipboard) {
-//	    SignalManager *toinsert = globals.clipboard->getSignal();
-//	    if (toinsert) {
-//		unsigned int clipchan = toinsert->getChannelCount();
-//		unsigned int sourcechan = 0;
-//
-//		for (unsigned int i = 0; i < channels; i++) {
-//		    signal.at(i)->insertPaste(
-//			toinsert->getSignal(sourcechan++)
-//		    );
-//		    sourcechan %= clipchan;
-//		}
-//	    }
-//	    emit signalChanged(getLMarker(), -1);
-//	}
-//    CASE_COMMAND("mixpaste")
-//	if (globals.clipboard) {
-//	    SignalManager *toinsert = globals.clipboard->getSignal();
-//	    if (toinsert) {
-//		unsigned int clipchan = toinsert->getChannelCount();
-//		unsigned int sourcechan = 0;
-//
-//		for (unsigned int i = 0; i < channels; i++) {
-//		    signal.at(i)->mixPaste(
-//			toinsert->getSignal(sourcechan++)
-//		    );
-//		    sourcechan %= clipchan;
-//		}
-//	    }
-//	    emit signalChanged(getLMarker(), -1);
-//	}
+    CASE_COMMAND("paste")
+	if (globals.clipboard) {
+	    SignalManager *toinsert = globals.clipboard->getSignal();
+	    if (toinsert) {
+		unsigned int clipchan = toinsert->getChannelCount();
+		unsigned int sourcechan = 0;
+
+		/* ### check if the signal has to be re-sampled ### */
+		
+		for (unsigned int i = 0; i < channels; i++) {
+		    ASSERT(signal.at(i));
+		    if (signal.at(i)) {
+			signal.at(i)->insertPaste(toinsert->getSignal(
+			    sourcechan)
+			);
+		    }
+		    sourcechan++;
+		    sourcechan %= clipchan;
+		}
+	    }
+	    emit signalChanged(getLMarker(), -1);
+	}
+    CASE_COMMAND("mixpaste")
+	if (globals.clipboard) {
+	    SignalManager *toinsert = globals.clipboard->getSignal();
+	    if (toinsert) {
+		unsigned int clipchan = toinsert->getChannelCount();
+		unsigned int sourcechan = 0;
+
+		/* ### check if the signal has to be re-sampled ### */
+
+		for (unsigned int i = 0; i < channels; i++) {
+		    ASSERT(signal.at(i));
+		    if (signal.at(i)) {
+			signal.at(i)->mixPaste(
+			    toinsert->getSignal(sourcechan)
+			);
+		    }
+		    sourcechan++;
+		    sourcechan %= clipchan;
+		}
+	    }
+	    emit signalChanged(getLMarker(), -1);
+	}
     CASE_COMMAND("addchannel")
 	addChannel();
     CASE_COMMAND("deletechannel")
@@ -319,10 +346,10 @@ bool SignalManager::executeCommand(const char *command)
 	deleteChannel(i);
     CASE_COMMAND("selectchannels")
 	for (unsigned int i = 0; i < channels; i++)
-	    *selected.at(i) = true;
+	    if (signal.at(i)) signal.at(i)->select(true);
     CASE_COMMAND("invertchannels")
 	for (unsigned int i = 0; i < channels; i++)
-	    *selected.at(i) = !(*selected.at(i));
+	    toggleChannel(i);
     } else {
 	bool result = promoteCommand(command);
 	emit signalChanged( -1, -1);
@@ -344,7 +371,7 @@ bool SignalManager::promoteCommand (const char *command)
         if (!signal.at(i)) continue;
 
 	// skip channel if not selected
-	if (!(*selected.at(i))) continue;
+	if (!signal.at(i)->isSelected()) continue;
 
 	int begin, len;
 	if (lmarker != rmarker) {
@@ -894,7 +921,7 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
 	}
 	signal.append(new_signal);
 	signal.at(channel)->setBits(bits);
-	selected.append(new bool(true));
+	signal.at(channel)->select(true);
 	sample[channel] = signal.at(channel)->getSample();
     }
 

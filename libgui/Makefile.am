@@ -17,6 +17,7 @@
 INCLUDES= @all_includes@
 
 BUILTSOURCES=\
+ AsyncSync.moc.cpp\
  TimeLine.moc.cpp\
  FloatLine.moc.cpp\
  MultiStateWidget.moc.cpp\
@@ -38,6 +39,7 @@ BUILTSOURCES=\
 
 # Which sources should be compiled for kwave.
 libkwavegui_la_SOURCES =\
+ AsyncSync.cpp\
  CurveWidget.cpp\
  FaderWidget.cpp\
  FFTWidget.cpp\
@@ -67,39 +69,43 @@ libkwavegui_la_LDFLAGS = -version-info @LD_VERSION_INFO@ \
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/*
 
-Dialog.moc.cpp: Dialog.h
-	$(MOC) $< -o $@
-MultiStateWidget.moc.cpp: MultiStateWidget.h
-	$(MOC) $< -o $@
-ScaleWidget.moc.cpp: ScaleWidget.h
+AsyncSync.moc.cpp: AsyncSync.h
+	${MOC} $< -o $@
+CurveWidget.moc.cpp: CurveWidget.h
 	$(MOC) $< -o $@
 CornerPatchWidget.moc.cpp: CornerPatchWidget.h
 	$(MOC) $< -o $@
-OverViewWidget.moc.cpp: OverViewWidget.h
-	$(MOC) $< -o $@
-FFTWidget.moc.cpp: FFTWidget.h
+Dialog.moc.cpp: Dialog.h
 	$(MOC) $< -o $@
 FaderWidget.moc.cpp: FaderWidget.h
 	$(MOC) $< -o $@
-CurveWidget.moc.cpp: CurveWidget.h
+FFTWidget.moc.cpp: FFTWidget.h
+	$(MOC) $< -o $@
+FloatLine.moc.cpp: FloatLine.h
 	$(MOC) $< -o $@
 FormantWidget.moc.cpp: FormantWidget.h
-	$(MOC) $< -o $@
-MenuNode.moc.cpp: MenuNode.h
 	$(MOC) $< -o $@
 MenuGroup.moc.cpp: MenuGroup.h
 	$(MOC) $< -o $@
 MenuItem.moc.cpp: MenuItem.h
 	$(MOC) $< -o $@
+MenuManager.moc.cpp: MenuManager.h
+	$(MOC) $< -o $@
+MenuNode.moc.cpp: MenuNode.h
+	$(MOC) $< -o $@
+MenuRoot.moc.cpp: MenuRoot.h
+	$(MOC) $< -o $@
 MenuSub.moc.cpp: MenuSub.h
 	$(MOC) $< -o $@
 MenuToplevel.moc.cpp: MenuToplevel.h
 	$(MOC) $< -o $@
-MenuRoot.moc.cpp: MenuRoot.h
+MultiStateWidget.moc.cpp: MultiStateWidget.h
 	$(MOC) $< -o $@
-MenuManager.moc.cpp: MenuManager.h
-	$(MOC) $< -o $@
-FloatLine.moc.cpp: FloatLine.h
+ScaleWidget.moc.cpp: ScaleWidget.h
 	$(MOC) $< -o $@
 TimeLine.moc.cpp: TimeLine.h
 	$(MOC) $< -o $@
+OverViewWidget.moc.cpp: OverViewWidget.h
+	$(MOC) $< -o $@
+
+# end of Makefile.am

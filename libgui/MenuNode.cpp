@@ -83,6 +83,7 @@ MenuNode::~MenuNode()
 //*****************************************************************************
 void MenuNode::emitCommand(const char *command)
 {
+    ASSERT(command);
     if (!command) return ;
 
     if (!getParentNode()) {
@@ -103,7 +104,9 @@ void MenuNode::actionSelected()
 }
 
 //*****************************************************************************
-void MenuNode::actionChildEnableChanged(int id, bool enable) {}
+void MenuNode::actionChildEnableChanged(int id, bool enable)
+{
+}
 
 //*****************************************************************************
 /*

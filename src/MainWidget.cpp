@@ -58,6 +58,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     minusbutton = 0;
     nozoombutton = 0;
     playbutton = 0;
+    plusbutton = 0;
     signalview = 0;
     slider = 0;
     zoomallbutton = 0;
@@ -106,7 +107,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 
     // -- buttons for playback and zoom --
 
-    buttons = new KButtonBox(this, KButtonBox::HORIZONTAL);
+    buttons = new KButtonBox(this,KButtonBox::HORIZONTAL);
     ASSERT(buttons);
     if (!buttons) return;
 
@@ -119,13 +120,13 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     buttons->addStretch();
 
     // [Play]
-    playbutton = buttons->addButton (i18n("Play"));
+    playbutton = buttons->addButton(i18n("Play"));
     ASSERT(playbutton);
     if (!playbutton) return;
     playbutton->setAccel(Key_Space);
 
     // [Loop]
-    loopbutton = buttons->addButton (i18n("&Loop"));
+    loopbutton = buttons->addButton(i18n("&Loop"));
     ASSERT(loopbutton);
     if (!loopbutton) return;
     loopbutton->setAccel(Key_L);
@@ -190,9 +191,7 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 	    signalview, SLOT(zoomAll()));
     connect(nozoombutton, SIGNAL(pressed()),
 	    signalview, SLOT(zoomNormal()));
-	
-    connect(lamps.at(0), SIGNAL(clicked(int)),
-	    signalview, SLOT(toggleChannel(int)));
+
     connect(slider, SIGNAL(valueChanged(int)),
 	    signalview, SLOT(slot_setOffset(int)));
     connect(zoomselect, SIGNAL(activated(int)),
@@ -379,6 +378,7 @@ void MainWidget::zoomSelected(int index)
 void MainWidget::slot_ZoomChanged(double zoom)
 {
     if (zoom <= 0.0) return;
+    if (!zoomselect) return;
 
     double percent = 100.0 / zoom;
     char buf[256];
@@ -398,7 +398,7 @@ void MainWidget::slot_ZoomChanged(double zoom)
     } else {
 	snprintf(buf, sizeof(buf), "x %d", (int)(percent / 100.0));
     }
-    zoomselect->setEditText(buf);
+    if (zoomselect) zoomselect->setEditText(buf);
 }
 
 //*****************************************************************************
@@ -603,12 +603,12 @@ void MainWidget::refreshChannelControls()
 //	parent->resize(width(), (channels + 4)*40);
 //    }
 
-    // move the lamps and speakers from the old array
+    // move the existing lamps and speakers to their new position
     for (unsigned int i = 0; (i < lastChannels) && (i < channels); i++) {
-        ASSERT(lamps.at(i));
-        ASSERT(speakers.at(i));
-        if (!lamps.at(i)) continue;
-        if (!speakers.at(i)) continue;
+	ASSERT(lamps.at(i));
+	ASSERT(speakers.at(i));
+	if (!lamps.at(i)) continue;
+	if (!speakers.at(i)) continue;
 
 	lamps.at(i)->setGeometry(0, i*(height() - bsize - 20) /
 	    channels, 20, 20);
@@ -626,9 +626,9 @@ void MainWidget::refreshChannelControls()
     // add lamps+speakers for new channels
     for (unsigned int i = lastChannels; i < channels; i++) {
 	int s[3];
-        MultiStateWidget *msw = new MultiStateWidget(this, i);
-        ASSERT(msw);
-        if (!msw) continue;
+	MultiStateWidget *msw = new MultiStateWidget(this, i);
+	ASSERT(msw);
+	if (!msw) continue;
 
 	lamps.append(msw);
 	ASSERT(lamps.at(i));
@@ -639,7 +639,7 @@ void MainWidget::refreshChannelControls()
 	    lamps.at(i), SIGNAL(clicked(int)),
 	    signalview, SLOT(toggleChannel(int))
 	);
-	lamps.at(i)->setStates (s);
+	lamps.at(i)->setStates(s);
 
         msw = new MultiStateWidget(this, 0, 3);
         ASSERT(msw);
@@ -652,11 +652,23 @@ void MainWidget::refreshChannelControls()
 	s[2] = speakers.at(i)->addPixmap("xspeaker.xpm");
 	speakers.at(i)->setStates(s);
 
-	lamps.at(i)->setGeometry(0, i*(height() - bsize - 20) / channels, 20, 20);
-	speakers.at(i)->setGeometry(0, i*(height() - bsize - 20) / channels + 20, 20, 20);
-
+	lamps.at(i)->setGeometry(0, i*(height() - bsize - 20) / channels,
+	                         20, 20);
+	speakers.at(i)->setGeometry(0, i*(height()-bsize-20) / channels + 20,
+	                            20, 20);
 	lamps.at(i)->show();
 	speakers.at(i)->show();
+    }
+
+    // set the updated identifiers of the widgets
+    for (unsigned int i = 0; i < channels; i++) {
+	ASSERT(lamps.at(i));
+	ASSERT(speakers.at(i));
+	if (!lamps.at(i)) continue;
+	if (!speakers.at(i)) continue;
+
+	lamps.at(i)->setNumber(i);
+	speakers.at(i)->setNumber(i);
     }
 
     lastChannels = channels;

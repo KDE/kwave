@@ -165,7 +165,7 @@ cd -
 #
 DIFF_ROOT=${SRC_DIR:0:$((${#SRC_DIR}-${#SRC_PREFIX}-1))}
 PATCH_FILE=$ARCHIVE_DIR/$PROJECT-$VERSION.diff.gz
-echo -e "\tmaking patch file "$PATCH_FILE
+echo -e "\tpatch file="$PATCH_FILE
 echo -e "\tpatch root="$DIFF_ROOT
 echo -e "\t\told="/tmp/$PROJECT-$PREV_VERSION/$SRC_PREFIX
 echo -e "\t\tnew="$DIFF_ROOT"/"$SRC_PREFIX

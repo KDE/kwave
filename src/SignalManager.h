@@ -33,7 +33,7 @@ class Signal;
 class TimeOperation;
 
 /**
- * The SignalManager class manages multi-channel signals,
+ * The SignalManager class manages multi-channel signals.
  */
 class SignalManager : public QObject
 {
@@ -113,9 +113,11 @@ public:
 
     bool promoteCommand (const char *command);
 
-    inline void toggleChannel(unsigned int c) {
-	*selected.at(c) = !(*selected.at(c));
-    };
+    /**
+     * Toggles the selection flag of a channel.
+     * @param channel index of the channel [0..N-1]
+     */
+    void toggleChannel(const unsigned int channel);
 
 signals:
 
@@ -232,9 +234,6 @@ private:
 
     /** list of all channels (signals) */
     QList<Signal> signal;
-
-    /** list of selection states of the channels */
-    QList<bool> selected;
 
     unsigned int lmarker;
     unsigned int rmarker;

@@ -38,6 +38,7 @@ BUILTSOURCES=\
  FFTContainer.moc.cpp\
  FFTWindow.moc.cpp\
  ImageView.moc.cpp\
+ LabelManager.moc.cpp\
  MouseMark.moc.cpp\
  KwaveApp.moc.cpp\
  MainWidget.moc.cpp\
@@ -58,6 +59,7 @@ kwave_SOURCES =\
  FFTWindow.cpp\
  ImageView.cpp\
  KwaveApp.cpp\
+ LabelManager.cpp\
  MainWidget.cpp\
  MouseMark.cpp\
  PitchContainer.cpp\
@@ -134,6 +136,8 @@ ImageView.moc.cpp: ImageView.h
 	$(MOC) -o ImageView.moc.cpp ImageView.h
 KwaveApp.moc.cpp: KwaveApp.h
 	$(MOC) -o KwaveApp.moc.cpp KwaveApp.h
+LabelManager.moc.cpp: LabelManager.h
+	$(MOC) -o LabelManager.moc.cpp LabelManager.h
 MainWidget.moc.cpp: MainWidget.h
 	$(MOC) -o MainWidget.moc.cpp MainWidget.h
 MouseMark.moc.cpp: MouseMark.h

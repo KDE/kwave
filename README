@@ -1,7 +1,7 @@
 0. PREFACE:
 ==========
 
-This is the "kwave" source distribution, a simple soundeditor for KDE.
+This is the "kwave" source distribution, a simple sound editor for KDE.
 
 Use kwave with care (save often), since not all components have left 
 the BETA-State yet!
@@ -32,7 +32,7 @@ make install
 ==============
 
 You can build nice binary and/or source rpm packages of kwave in one
-of the following ways. (Note: Either you do everything as root or you 
+of the following ways. Note: Either you do everything as root or you 
 must have write permissions in the following directories:
 
 * /tmp
@@ -147,8 +147,11 @@ known distributions / architectures:
 ------------------------------------
 
 * SuSE-6.2 / i386, i586 
-  [where I develop it]
-  
+  [where I started to develop it]
+
+* SuSE-6.4 / i386, i586 
+  [where I now develop it]
+
 * RedHat-6.1 (Halloween IV) / i386 
   [my second system, I'm testing it from time to time and before I make
   a new public release]

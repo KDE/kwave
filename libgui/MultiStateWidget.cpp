@@ -39,6 +39,12 @@ MultiStateWidget::MultiStateWidget(QWidget *parent, int num, int count)
 }
 
 //**********************************************************
+void MultiStateWidget::setNumber(int number)
+{
+    this->number = number;
+}
+
+//**********************************************************
 int MultiStateWidget::addPixmap(char *name)
 {
     KApplication *app = KApplication::getKApplication();
@@ -107,7 +113,7 @@ void MultiStateWidget::mouseReleaseEvent( QMouseEvent *e)
 
     if (e->button() == LeftButton) {
 	nextState ();
-	emit clicked (number);
+	emit clicked(number);
     }
 }
 

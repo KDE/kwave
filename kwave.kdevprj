@@ -36,6 +36,11 @@ show_treeview=true
 header_file=/usr/src/packages/multimedia/sound/kwave/libgui/Dialog.h
 cpp_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.cpp
 browser_file=file:/usr/X11/lib/qt/doc/html/qlist.html
+[src/LabelManager.cpp]
+install_location=
+dist=true
+install=false
+type=SOURCE
 [libgui/TimeLine.h]
 install_location=
 dist=true
@@ -87,7 +92,7 @@ dist=true
 install=false
 type=DATA
 [libgui/Makefile.am]
-files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FaderWidget.cpp,libgui/FaderWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/Menu.cpp,libgui/Menu.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/Slider.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/MenuToplevel.h,libgui/MenuToplevel.cpp,
+files=libgui/CurveWidget.cpp,libgui/CurveWidget.h,libgui/Dialog.cpp,libgui/Dialog.h,libgui/FaderWidget.cpp,libgui/FaderWidget.h,libgui/FFTWidget.cpp,libgui/FFTWidget.h,libgui/FloatLine.cpp,libgui/FloatLine.h,libgui/FormantWidget.cpp,libgui/FormantWidget.h,libgui/Menu.cpp,libgui/Menu.h,libgui/MenuManager.cpp,libgui/MenuManager.h,libgui/OverViewWidget.cpp,libgui/OverViewWidget.h,libgui/ScaleWidget.cpp,libgui/ScaleWidget.h,libgui/Slider.h,libgui/TimeLine.cpp,libgui/TimeLine.h,libgui/MenuNode.h,libgui/MenuNode.cpp,libgui/MenuSub.h,libgui/MenuSub.cpp,libgui/MenuItem.cpp,libgui/MenuItem.h,libgui/MenuRoot.cpp,libgui/MenuRoot.h,libgui/MultiStateWidget.cpp,libgui/MultiStateWidget.h,libgui/CornerPatchWidget.cpp,libgui/CornerPatchWidget.h,libgui/MenuGroup.cpp,libgui/MenuGroup.h,libgui/MenuToplevel.h,libgui/MenuToplevel.cpp,libgui/AsyncSync.cpp,libgui/AsyncSync.h,
 sub_dirs=
 type=static_library
 [README]
@@ -105,6 +110,11 @@ install_location=
 dist=true
 install=false
 type=SOURCE
+[libgui/AsyncSync.h]
+install_location=
+dist=true
+install=false
+type=HEADER
 [libgui/OverViewWidget.cpp]
 install_location=
 dist=true
@@ -281,7 +291,7 @@ dist=true
 install=false
 type=HEADER
 [src/Makefile.am]
-files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleop.h,src/SignalManager.h,src/SonagramContainer.cpp,src/SonagramContainer.h,src/SonagramWindow.cpp,src/SonagramWindow.h,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,src/kxt.h,src/SignalWidget.cpp,src/SignalWidget.h,
+files=src/ClipBoard.cpp,src/ClipBoard.h,src/FFTContainer.cpp,src/FFTContainer.h,src/FFTWindow.cpp,src/FFTWindow.h,src/ImageView.cpp,src/ImageView.h,src/KwaveApp.cpp,src/KwaveApp.h,src/main.cpp,src/MainWidget.cpp,src/MainWidget.h,src/MouseMark.cpp,src/MouseMark.h,src/PitchContainer.cpp,src/PitchContainer.h,src/PitchWidget.cpp,src/PitchWidget.h,src/PitchWindow.cpp,src/PitchWindow.h,src/ProgressDialog.cpp,src/ProgressDialog.h,src/SignalManager.cpp,src/sampleop.h,src/SignalManager.h,src/SonagramContainer.cpp,src/SonagramContainer.h,src/SonagramWindow.cpp,src/SonagramWindow.h,src/TopWidget.cpp,src/TopWidget.h,src/menus.config,src/kxt.h,src/SignalWidget.cpp,src/SignalWidget.h,src/LabelManager.h,src/LabelManager.cpp,
 sub_dirs=
 type=static_library
 [src/SignalWidget.h]
@@ -335,6 +345,11 @@ dist=true
 install=false
 type=DATA
 [libgui/MultiStateWidget.cpp]
+install_location=
+dist=true
+install=false
+type=SOURCE
+[libgui/AsyncSync.cpp]
 install_location=
 dist=true
 install=false
@@ -462,6 +477,11 @@ install_location=
 dist=true
 install=false
 type=SOURCE
+[src/LabelManager.h]
+install_location=
+dist=true
+install=false
+type=HEADER
 [libgui/Slider.h]
 install_location=
 dist=true

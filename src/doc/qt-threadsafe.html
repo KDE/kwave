@@ -1,0 +1,1359 @@
+<!doctype HTML public "-//W3C//DTD HTML 3.2//EN">
+<html><head>
+<title>Qt-interest Archive: "Qt thread safe?"</title>
+<meta name="robots" content="noarchive,noindex,nofollow">
+</head>
+<body bgcolor="#ffffff">
+<center><nobr>
+- <a href="/search.html">Search</a>
+- <a href="recent.html">Recent Threads</a>
+- <a href="threads.html">All Threads</a>
+- <a href="/qt/">Qt Documentation</a>
+- <a href="/">Home Page</a> -
+</nobr></center>
+<br><h1 align=center>
+Qt-interest Archive:<br>Qt thread safe?
+</h1></title>
+<br>
+Here are all the messages with subject
+"Qt thread safe?",
+and all replies to such messages.  Note that some of the links in the
+text may perhaps not work any more when you read this.
+<hr>
+<a name="aix7"></a><tt>
+Subject: <b>Qt thread safe?</b><br>
+From: Niku Kaitaniemi &lt;niksa@uta.fi&gt; - <a href="aix6.html">other postings</a><br>
+Date: Wed, 25 Jun 1997 00:21:22 +0300 (EET DST)<br>
+Message-ID: &lt;Pine.GSO.3.95.970625001421.11811A-100000@vuokko&gt;<br>
+</tt><br><pre>
+Since I haven't seen it mentioned anywhere, am I correctly assuming that
+Qt is not thread safe? Are there any plans about a thread safe version,
+possibly even using posix threads?
+
+Not directly related to Qt, but are there any thread safe X libraries
+other than &gt;=R6 Xlib and Xt?
+-- 
+ [ signature omitted ]
+
+</pre>
+<hr><a name="aix8"></a><tt>
+Subject: <b>Re: Qt thread safe?</b><br>
+From: "Brian P. Theodore" &lt;theodore@jpsd2.std.saic.com&gt; - <a href="adj4.html">other postings</a><br>
+Date: Wed, 25 Jun 1997 09:51:05 -0700<br>
+Message-ID: &lt;33B14C79.41C6@std.saic.com&gt;<br>
+</tt><br><pre>
+Niku Kaitaniemi wrote:
+&gt; 
+&gt; Since I haven't seen it mentioned anywhere, am I correctly assuming that
+&gt; Qt is not thread safe? Are there any plans about a thread safe version,
+&gt; possibly even using posix threads?
+&gt; 
+&gt; Not directly related to Qt, but are there any thread safe X libraries
+&gt; other than &gt;=R6 Xlib and Xt?
+&gt; --
+&gt; niksa@uta.fi
+
+The whole thread issue has come up several times now on this
+reflector.  If anyone is interested, I have some generic classes
+that allow for 100% safe synchronous/asynchronous programs using
+QT and threads.  It is an elegant solution that works for any
+X based applications.
+
+Since I'm assuming the answer will probably be yes, I will put
+together this class, and an example, and post it soon.  It took
+a while to figure out, but it is really simple, and totally 100%
+mt safe !
+
+-- 
+ [ signature omitted ]
+
+</pre>
+<hr><a name="aiy0"></a><tt>
+Subject: <b>Re: Qt thread safe?</b><br>
+From: Stefan Wille &lt;wille@netlife.de&gt; - <a href="aix9.html">other postings</a><br>
+Date: Wed, 25 Jun 1997 17:41:39 +0200 (MET DST)<br>
+Message-ID: &lt;Pine.GSO.3.95.970625174040.20473A-100000@vader.netlife.de&gt;<br>
+</tt><br><pre>
+On Wed, 25 Jun 1997, Brian P. Theodore wrote:
+&gt; 
+&gt; The whole thread issue has come up several times now on this
+&gt; reflector.  If anyone is interested, I have some generic classes
+&gt; that allow for 100% safe synchronous/asynchronous programs using
+&gt; QT and threads.  It is an elegant solution that works for any
+&gt; X based applications.
+&gt; 
+&gt; Since I'm assuming the answer will probably be yes, I will put
+&gt; together this class, and an example, and post it soon.  It took
+&gt; a while to figure out, but it is really simple, and totally 100%
+&gt; mt safe !
+
+yes, please do so
+
+Thank you
+Stefan
+
+</pre>
+<hr><a name="aiy1"></a><tt>
+Subject: <b>Here is the soltion to threads and X !</b><br>
+From: "Brian P. Theodore" &lt;theodore@jpsd2.std.saic.com&gt; - <a href="adj4.html">other postings</a><br>
+Date: Wed, 25 Jun 1997 12:07:03 -0700<br>
+Message-ID: &lt;33B16C57.167E@std.saic.com&gt;<br>
+</tt><br><pre>
+Stefan Wille wrote:
+&gt; 
+&gt; On Wed, 25 Jun 1997, Brian P. Theodore wrote:
+&gt; &gt;
+&gt; &gt; The whole thread issue has come up several times now on this
+&gt; &gt; reflector.  If anyone is interested, I have some generic classes
+&gt; &gt; that allow for 100% safe synchronous/asynchronous programs using
+&gt; &gt; QT and threads.  It is an elegant solution that works for any
+&gt; &gt; X based applications.
+&gt; &gt;
+&gt; &gt; Since I'm assuming the answer will probably be yes, I will put
+&gt; &gt; together this class, and an example, and post it soon.  It took
+&gt; &gt; a while to figure out, but it is really simple, and totally 100%
+&gt; &gt; mt safe !
+&gt; 
+&gt; yes, please do so
+&gt; 
+&gt; Thank you
+&gt; Stefan
+
+
+Here is some really usefull code to assist in synchronizing multiple
+threads all contending for one X event loop.  This code does nothing
+to synchronize the QT utility classes (e.g., QList or QQueue), this
+is left for an exercise for Troll Tech.  What I provide is a way that
+multiple threads can all update GUI related tasks using QT.  The
+solution
+is quite simple... here is the 20 second description of how this works.
+
+X works by watching asynchronous file descriptors and serializing the
+execution of their actions (e.g., watching for a mouse activity, etc.) 
+Well,
+fortunately, QT included a QSocketNotifier class which allows you to add
+your own file descriptor for the X server(under Xt, it is called
+XtAddInput())
+to watch and provide synchronous callbacks on when the state has
+changed (e.g., data ready to read).  Well, this is exactly what is used
+here.
+What would be the perfect file descriptor for X to watch ??? A file,
+socket,
+what ??  What ?, did someone say pipes ? Yes, pipes do have a use
+besides
+"tail -f" !  Simple to create, and easier to program with.  One call to
+create:
+
+  int fds[2];   // fds[0] is for read, and fds[1] is for write
+  ::pipe( fds );
+
+I start by having a QObject derived class called AsyncSync, which,
+upon construction creates a pipe (where fd[0] is for read, and
+fd[1]) is for write).  Also, upon construction, I create a
+QSocketNotifier
+the following way :
+
+  sn = new QSocketNotifier( fds[0], QSocketNotifier::Read );
+
+where the file descriptor given is the read one.  This
+means that when data is asynchronously written to the write fd, X is
+listening on the read side to synchronously notify me.  Okay, to
+complete
+this we need some signals and slots.  This class contains one protected
+slot
+SyncHandler(), one public slot AsyncHandler(), and one public signal
+Activated().  I connect the QSocketNotifier::activated() signal to my
+protected SyncHandler() slot.  So my protected SyncHandler() will be
+called
+by X (and in turn by the QSocketNotifier class) when data is written to
+the
+to the pipe.  So how do threads use this ?? Well, the public slot
+AsyncHandler() may be connected by any number of threads.
+
+Note: In my implementation, I assume that only one thread calls the
+AsyncHandler() slot, and that there is a synchronized message queue
+which
+dispatches the messages.  I'll include this code too.  I have a simple
+class called SimpleDB, which allows multiple threads to add new records
+to it (thus the addNewRecord method is thread safe).  And within this
+thread safe method is where the signal is emitted which connects to the
+AsyncHandler.  If you don't want to spend the time to architect a mt
+safe message queue and dispatcher, you can simply make AsyncHandler()
+mt safe (i.e., lock a mutex upon entereing the method, and unlock upon
+exiting it).  Both approaches have the same affect.  I use pthreads in
+my implementation.
+
+Anyways, my synchronized message queue handles getting requests from
+multiple threads, and synchronously calling the AsyncHandler().
+
+Note: In case you asking yourself why do you need all this
+pipe/SocketNotifier
+stuff anyhow if you already have a single mt safe synchronized method ??
+Well, the obvious answer is that this synchronized method, may be thread
+safe among multiple threads, but it still is executing on a seperate
+thread
+from X (noting that the thread running the X event dispatcher is blocked
+buy app.exec()).  I'm asuming that anyone who has tried this knows what
+the above means.  If you haven't, just take by word on it !!
+
+So when the AsyncHandler() gets called, that results in QSocketNotifier
+emitting its activated() signal, which in turn, is connected to my
+SyncHandler()
+slot ???  Here is the code for AsyncHander() :
+
+void AsyncSync::AsyncHandler( void )
+{
+  // Just send a single byte of data;
+  static const char *buf = "";
+  if ( ::write( fds[1], buf, 1 ) == -1 ) {
+    ::perror( "Writing to pipe" );
+  }
+}
+
+That's it !  It just writes one byte of data (two if you count the '\0'
+character) to the pipe (remember that fd[0] is the write file descriptor
+-
+"man 2 pipe").  This byte is all it takes for X to wake up and say, hey
+I'm listening to the read side, and there is data here !.  This, in
+turn,
+will call the SyncHandler() protected slot( protected, because no one
+outside the class will EVERY need to use this directly).  Now all the
+SyncHandler has to do is remove the data from the pipe, and handle
+updating
+GUI stuff. Note at this point, once inside the synchrounous callback,
+all X processing is stalled, which is exactly what we wanted
+to do.  Here is the code for SyncHandler() :
+
+void AsyncSync::SyncHandler( void )
+{
+  // First remove message from pipe ( the writer only wrote 1 byte )
+  static char buf;
+  if ( ::read( fds[0], &amp;buf, 1 ) == -1 ) {
+    ::perror( "Reading from pipe" );
+  }
+
+  // Now emit activated signal, and let user decide what to do
+  emit Activated();
+}
+
+There we go.  It removes the data from the pipe, and to keep it generic,
+just emits a signal for whoever cares.  In my case, the slot connected
+to this signal, grabs all the newly added messages from my synchronized
+message queue, and performs all GUI updates here.
+
+Hope that didn't take too long to read through, but looking at the code
+alone, might not make the point clear.  The point being that in a
+thread environment (i.e., asynchronous) when you want to have any thread
+update some GUI attribute, you MUST stall all X processing, otherwise
+all hell breaks loose, and you get random SEGSEGV, SIGBUS, and all other
+fun, and un-debuggable behaviours.
+
+------------------------
+
+I have included here, the AsyncSync.h and AsyncSync.cc files, and my
+SimpleDB.h and SimpleDB.cc, and the slot which is connected to the
+AsyncSync::Activated signal.  Hope is all makes sense, it should, as
+it is the only real solotion for doing asynchronous applications
+solutions
+using X.   I hope that this clears up any mt related issues with X(and
+QT).
+It is a tried and true way of doing it, and is portable to Windows too,
+as pipes are supported under Windows95/NT.
+
+Note, in the below code, you won't be able to use SimpleDB, because of
+other dependancies, but it should be clear.  Note that the
+AsyncSync::AsyncHandler() public slot is connected to the
+SimpleDB::NewClientAdded() signal.  The code isn't provided to show the
+connect, but the NewClientAdded() signal is emitted when a new record
+gets added by some thread.
+
+If there are any questions regarding the above dialog or the code below
+please email me.  I have spent a while working on this problem, and
+have a lot of "Lessons Learned" to offer regarding threads and X.
+
+
+============ file AsyncSync.h
+
+#ifndef _ASYNCSYNC_H_
+#define _ASYNCSYNC_H_
+
+//#==== Forward References
+class QSocketNotifier;
+
+
+class AsyncSync : public QObject
+{
+  Q_OBJECT
+
+  public :
+
+    // Default Constructor
+    AsyncSync( void );
+
+    // Default Destructor  
+    ~AsyncSync( void );
+
+  protected slots :
+
+    // Slot called synchronously by the X server in response to the
+    // asynchronous file descriptor it is watching having data ready.
+    void SyncHandler();
+
+  public slots :
+
+    // Slot to be called by asynchronous client.  This slot does not
+more
+    // than write to pipe, which will trigger the X server to respond
+    // to the file descriptor, and synchronously call the SyncHandler
+    void AsyncHandler();
+
+  signals :
+
+    // Signal emitted when the sync handler gets called
+    void Activated();
+
+  private :
+
+    // IPC pipe for async/sync communication with X server
+    int fds[2];
+
+    // Socket notifier to call slot when pipe has message to read
+    QSocketNotifier *sn;
+};
+
+//------ eof ------
+
+#endif
+
+
+============= file AsyncSync.cc
+
+
+//#==== System includes
+#include &lt;unistd.h&gt; // for pipe
+#include &lt;stdio.h&gt;
+
+//#==== QT includes
+#include &lt;qsocknot.h&gt;
+
+//#==== JBIIS includes
+#include "AsyncSync.h"
+
+// Default Constructor
+AsyncSync::AsyncSync( void )
+{
+  // Create IPC pipe for async/sync communication with X server
+  if ( ::pipe( fds ) == -1 ) {
+    perror( "Creating pipe" );
+    fds[0] = fds[1] = -1;
+  }
+
+  // Create new socket notifier to monitory when data is ready to be
+  // read from pipe
+  sn = new QSocketNotifier( fds[0], QSocketNotifier::Read );
+
+  // Connect up the socket notifier's activated routine to the dequeue
+  // any new clients added to Database
+  connect( sn, SIGNAL(activated(int)), SLOT(SyncHandler()) );
+}
+
+// Default Destructor  
+AsyncSync::~AsyncSync( void )
+{
+  // Delete socket notifier
+  delete sn;
+
+  // Close pipe file descriptors
+  if ( ::close( fds[0] ) == -1 ) {
+    perror( "Closing read file descriptor" );
+  }
+
+  if ( ::close( fds[1] ) == -1 ) {
+    perror( "Closing writing file descriptor" );
+  }
+}
+
+// Slot called synchronously by the X server in response to the
+// asynchronous file descriptor it is watching having data ready.
+void AsyncSync::SyncHandler( void )
+{
+  // First remove message from pipe ( the writer only wrote 1 byte )
+  static char buf;
+  if ( ::read( fds[0], &amp;buf, 1 ) == -1 ) {
+    ::perror( "Reading from pipe" );
+  }
+
+  // Now emit activated signal, and let user decide what to do
+  emit Activated();
+}
+
+// Slot to be called by asynchronous client.  This slot does not more
+// than write to pipe, which will trigger the X server to respond
+// to the file descriptor, and synchronously call the SyncHandler
+void AsyncSync::AsyncHandler( void )
+{
+  // Just send a single byte of data;
+  static const char *buf = "";
+  if ( ::write( fds[1], buf, 1 ) == -1 ) {
+    ::perror( "Writing to pipe" );
+  }
+}
+
+#include "AsyncSync.moc"
+
+//------ eof ------
+
+
+============== SimpleDB.h
+
+
+#ifndef _SIMPLEDB_H_
+#define _SIMPLEDB_H_
+
+//#==== System includes
+#include &lt;pthread.h&gt;
+
+//#==== QT includes
+#include &lt;qobject.h&gt;
+#include &lt;qdict.h&gt;
+#include &lt;qqueue.h&gt;
+
+//#==== JBIIS includes
+#include "ClientInfo.h"
+#include "Collection.h"
+#include "CollPath.h"
+
+//#==== Forward References
+class Broker;
+class QStrList;
+
+
+class SimpleDB : public QObject
+{
+  Q_OBJECT
+
+  public :
+
+    // Default constructor
+    SimpleDB( Broker *b );
+
+    // Default Destructor
+    ~SimpleDB( void );
+
+    // Returns the client info associated with the client name
+    ClientInfo* FindClientRecord( const char *clientName );
+
+    // Returns a collection from a client, given a path and client name.
+    // If the collection is currently cached, then entry from cache is
+returned
+    Collection* GetCollection( const char *clientName,
+			       const CollectionPath &amp;Path );
+
+    // Adds all messages in senders collections to receiver
+    bool AddMsgsToClient( const char *sndApp, const char *rcvApp,
+			  const CollectionPath &amp;sndPath,
+			  const CollectionPath &amp;rcvPath );
+
+    // Returns the number of clients in DB
+    int NumClients( void );
+
+    // Returns true if new clients in queue
+    bool NewClients( void );
+
+    // Returns next client from new client queue
+    ClientInfo* DequeueNewClients( void );
+
+  public slots :
+
+    // Adds new client info record to DB.  Store shallow copy only !!
+    void AddNewClientRecord(ClientInfo *);
+
+  signals :
+
+    // A new client added to DB
+    void NewClientAdded();
+
+  private :
+
+    Broker *broker;
+    QDict&lt;ClientInfo&gt; *clients;
+    QDict&lt;Collection&gt; *cache;
+    QQueue&lt;ClientInfo&gt; *newClients;
+    static pthread_mutex_t dbLock;
+};
+
+#endif // #ifndef _SIMPLEDB_H_
+
+
+//------ eof ------
+
+
+============== SimpleDB.cc
+
+
+//#==== C/C++ includes
+#include &lt;iostream.h&gt;
+
+//#==== QT includes
+#include &lt;qstring.h&gt;
+
+//#==== JBIIS includes
+#include "SimpleDB.h"
+#include "broker.h"
+
+//#==== Global (static) assignments
+pthread_mutex_t SimpleDB::dbLock = PTHREAD_MUTEX_INITIALIZER;
+
+// Default constructor
+SimpleDB::SimpleDB( Broker *b ) : broker ( b )
+{
+  // Create hash table for client info - key is client name.
+  clients = new QDict&lt;ClientInfo&gt;;
+  clients-&gt;setAutoDelete( false );
+
+  // Create hash table for a Collection cache - key is client and path
+name.
+  cache = new QDict&lt;Collection&gt;;
+  cache-&gt;setAutoDelete( true );
+
+  // Create queue for new clients
+  newClients = new QQueue&lt;ClientInfo&gt;;
+
+  if ( broker == NULL ) {
+    cerr &lt;&lt; "DB::DB() - FATAL ERROR : broker = NULL" &lt;&lt; endl;
+  }
+}
+
+// Default Destructor
+SimpleDB::~SimpleDB( void )
+{
+  delete clients;
+  delete cache;
+  delete newClients;
+}
+
+// Adds new client info record to DB.  Store shallow copy only !!
+void SimpleDB::AddNewClientRecord( ClientInfo *client )
+{
+  // Lock dictionary from other threads
+  pthread_mutex_lock ( &amp;dbLock );
+
+  if ( client == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return;
+  }
+
+  // Add client into database
+  clients-&gt;insert( client-&gt;getName(), client );
+
+  // Add client to new client queue
+  newClients-&gt;enqueue( client );
+
+  // Notify users that a new client has been added to database
+  emit NewClientAdded();
+
+  pthread_mutex_unlock ( &amp;dbLock );
+}
+
+// Returns true if new clients in queue
+bool SimpleDB::NewClients( void )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  bool retVal = ( newClients-&gt;count() ? true : false );
+
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return retVal;
+}
+
+// Returns next client from new client queue
+ClientInfo* SimpleDB::DequeueNewClients( void )
+{
+  // Lock database before we continue
+  pthread_mutex_lock ( &amp;dbLock );
+
+  // Will be set to a dequeued client, or NULL if queue is empty
+  ClientInfo *client = NULL;
+
+  if ( newClients-&gt;count() &gt; 0 ) {
+    client = newClients-&gt;dequeue();
+  }
+
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return client;
+}
+
+
+// Returns the client info associated with the client name
+ClientInfo* SimpleDB::FindClientRecord( const char *clientName )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  if ( clientName == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return NULL;
+  }
+  ClientInfo *info = NULL;
+  info = clients-&gt;find( clientName );
+
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return info;
+}
+
+// Returns a collection from a client, given a path and client name.
+// If the collection is currently cached, then entry from cache is
+returned
+Collection* SimpleDB::GetCollection( const char *clientName,
+				     const CollectionPath &amp;Path )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  if ( clientName == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return NULL;
+  }
+
+  // First, check the cache ... but convert clientName and path to a
+string.
+  // The str will look like this "clientName/tree/level 1/level
+2/.../level n"
+  QString str( clientName );
+  str += "/";
+  str += Path.HierarchyName();
+  int pathLen = Path.NumLevels();
+  for (int i=0; i&lt;pathLen; i++) {
+    str += "/";
+    str += ((CollectionPath&amp;)Path)[i];
+  };
+
+  Collection *coll = cache-&gt;find( (const char*)str );
+  if ( coll ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return coll;
+  }
+
+  // If not in cache, than ask broker for it
+  if ( broker == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return NULL;
+  }
+  coll = broker-&gt;GetFromClient( clientName, Path );
+  if ( coll == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return NULL;
+  }
+
+  // If the broker found Collection, add it to cache and return it
+  cache-&gt;insert( (const char*)str, coll );
+
+  // Unlock function
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return coll;
+}
+
+// Adds all messages in senders collections to receiver
+bool SimpleDB::AddMsgsToClient( const char *sndApp, const char *rcvApp,
+				const CollectionPath &amp;sndPath,
+				const CollectionPath &amp;rcvPath )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  bool retVal;
+  retVal = broker-&gt;CreateTransaction( sndApp, rcvApp, sndPath, rcvPath
+);
+
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return retVal;
+}
+
+// Returns the number of clients in DB
+int SimpleDB::NumClients( void )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  return clients-&gt;count();
+
+  pthread_mutex_unlock ( &amp;dbLock );
+}
+
+
+#include "SimpleDB.moc"
+
+//------ eof ------
+
+
+============= code showing the slot connected to AsyncHandler::Activated
+============= slot.
+
+
+// Called in response to database notifying me that a new record has
+been
+// added.  Note, this method is synchronized with X event dispatcher.
+
+id AppView::AddNewClient( void )  
+{
+  // Now dequeue all new client messages waiting in Database message
+queue
+  ClientInfo *client = NULL;
+  while ( (client = db-&gt;DequeueNewClients()) ) {
+    newClient( client );
+  } 
+}
+
+
+-- 
+ [ signature omitted ]
+
+</pre>
+<hr><a name="ake2"></a><tt>
+Subject: <b>Here is the soltion to threads and X ! (Fwd)</b><br>
+From: Richard Moore &lt;moorer@cs.man.ac.uk&gt; - <a href="aey8.html">other postings</a><br>
+Date: Thu, 31 Jul 1997 16:55:44 +0100 (BST)<br>
+Message-ID: &lt;Roam.SIMC.2.0.6.870364544.23863.moorer@cs.man.ac.uk&gt;<br>
+</tt><br><pre>
+Here is the usual message about how to do threads in Qt...
+
+Rich.
+
+&gt;----------------Begin Forwarded Message----------------&lt;
+
+Date: Wed, 25 Jun 1997 12:07:03 -0700
+From: "Brian P. Theodore" &lt;theodore@jpsd2.std.saic.com&gt;
+Subject: Here is the soltion to threads and X !
+To: "Stefan Wille" &lt;wille@netlife.de&gt;
+Cc: qt-interest@troll.no, qt-bugs@troll.no
+
+Stefan Wille wrote:
+&gt; 
+&gt; On Wed, 25 Jun 1997, Brian P. Theodore wrote:
+&gt; &gt;
+&gt; &gt; The whole thread issue has come up several times now on this
+&gt; &gt; reflector.  If anyone is interested, I have some generic classes
+&gt; &gt; that allow for 100% safe synchronous/asynchronous programs using
+&gt; &gt; QT and threads.  It is an elegant solution that works for any
+&gt; &gt; X based applications.
+&gt; &gt;
+&gt; &gt; Since I'm assuming the answer will probably be yes, I will put
+&gt; &gt; together this class, and an example, and post it soon.  It took
+&gt; &gt; a while to figure out, but it is really simple, and totally 100%
+&gt; &gt; mt safe !
+&gt; 
+&gt; yes, please do so
+&gt; 
+&gt; Thank you
+&gt; Stefan
+
+
+Here is some really usefull code to assist in synchronizing multiple
+threads all contending for one X event loop.  This code does nothing
+to synchronize the QT utility classes (e.g., QList or QQueue), this
+is left for an exercise for Troll Tech.  What I provide is a way that
+multiple threads can all update GUI related tasks using QT.  The
+solution
+is quite simple... here is the 20 second description of how this works.
+
+X works by watching asynchronous file descriptors and serializing the
+execution of their actions (e.g., watching for a mouse activity, etc.) 
+Well,
+fortunately, QT included a QSocketNotifier class which allows you to add
+your own file descriptor for the X server(under Xt, it is called
+XtAddInput())
+to watch and provide synchronous callbacks on when the state has
+changed (e.g., data ready to read).  Well, this is exactly what is used
+here.
+What would be the perfect file descriptor for X to watch ??? A file,
+socket,
+what ??  What ?, did someone say pipes ? Yes, pipes do have a use
+besides
+"tail -f" !  Simple to create, and easier to program with.  One call to
+create:
+
+  int fds[2];   // fds[0] is for read, and fds[1] is for write
+  ::pipe( fds );
+
+I start by having a QObject derived class called AsyncSync, which,
+upon construction creates a pipe (where fd[0] is for read, and
+fd[1]) is for write).  Also, upon construction, I create a
+QSocketNotifier
+the following way :
+
+  sn = new QSocketNotifier( fds[0], QSocketNotifier::Read );
+
+where the file descriptor given is the read one.  This
+means that when data is asynchronously written to the write fd, X is
+listening on the read side to synchronously notify me.  Okay, to
+complete
+this we need some signals and slots.  This class contains one protected
+slot
+SyncHandler(), one public slot AsyncHandler(), and one public signal
+Activated().  I connect the QSocketNotifier::activated() signal to my
+protected SyncHandler() slot.  So my protected SyncHandler() will be
+called
+by X (and in turn by the QSocketNotifier class) when data is written to
+the
+to the pipe.  So how do threads use this ?? Well, the public slot
+AsyncHandler() may be connected by any number of threads.
+
+Note: In my implementation, I assume that only one thread calls the
+AsyncHandler() slot, and that there is a synchronized message queue
+which
+dispatches the messages.  I'll include this code too.  I have a simple
+class called SimpleDB, which allows multiple threads to add new records
+to it (thus the addNewRecord method is thread safe).  And within this
+thread safe method is where the signal is emitted which connects to the
+AsyncHandler.  If you don't want to spend the time to architect a mt
+safe message queue and dispatcher, you can simply make AsyncHandler()
+mt safe (i.e., lock a mutex upon entereing the method, and unlock upon
+exiting it).  Both approaches have the same affect.  I use pthreads in
+my implementation.
+
+Anyways, my synchronized message queue handles getting requests from
+multiple threads, and synchronously calling the AsyncHandler().
+
+Note: In case you asking yourself why do you need all this
+pipe/SocketNotifier
+stuff anyhow if you already have a single mt safe synchronized method ??
+Well, the obvious answer is that this synchronized method, may be thread
+safe among multiple threads, but it still is executing on a seperate
+thread
+from X (noting that the thread running the X event dispatcher is blocked
+buy app.exec()).  I'm asuming that anyone who has tried this knows what
+the above means.  If you haven't, just take by word on it !!
+
+So when the AsyncHandler() gets called, that results in QSocketNotifier
+emitting its activated() signal, which in turn, is connected to my
+SyncHandler()
+slot ???  Here is the code for AsyncHander() :
+
+void AsyncSync::AsyncHandler( void )
+{
+  // Just send a single byte of data;
+  static const char *buf = "";
+  if ( ::write( fds[1], buf, 1 ) == -1 ) {
+    ::perror( "Writing to pipe" );
+  }
+}
+
+That's it !  It just writes one byte of data (two if you count the '\0'
+character) to the pipe (remember that fd[0] is the write file descriptor
+-
+"man 2 pipe").  This byte is all it takes for X to wake up and say, hey
+I'm listening to the read side, and there is data here !.  This, in
+turn,
+will call the SyncHandler() protected slot( protected, because no one
+outside the class will EVERY need to use this directly).  Now all the
+SyncHandler has to do is remove the data from the pipe, and handle
+updating
+GUI stuff. Note at this point, once inside the synchrounous callback,
+all X processing is stalled, which is exactly what we wanted
+to do.  Here is the code for SyncHandler() :
+
+void AsyncSync::SyncHandler( void )
+{
+  // First remove message from pipe ( the writer only wrote 1 byte )
+  static char buf;
+  if ( ::read( fds[0], &amp;buf, 1 ) == -1 ) {
+    ::perror( "Reading from pipe" );
+  }
+
+  // Now emit activated signal, and let user decide what to do
+  emit Activated();
+}
+
+There we go.  It removes the data from the pipe, and to keep it generic,
+just emits a signal for whoever cares.  In my case, the slot connected
+to this signal, grabs all the newly added messages from my synchronized
+message queue, and performs all GUI updates here.
+
+Hope that didn't take too long to read through, but looking at the code
+alone, might not make the point clear.  The point being that in a
+thread environment (i.e., asynchronous) when you want to have any thread
+update some GUI attribute, you MUST stall all X processing, otherwise
+all hell breaks loose, and you get random SEGSEGV, SIGBUS, and all other
+fun, and un-debuggable behaviours.
+
+------------------------
+
+I have included here, the AsyncSync.h and AsyncSync.cc files, and my
+SimpleDB.h and SimpleDB.cc, and the slot which is connected to the
+AsyncSync::Activated signal.  Hope is all makes sense, it should, as
+it is the only real solotion for doing asynchronous applications
+solutions
+using X.   I hope that this clears up any mt related issues with X(and
+QT).
+It is a tried and true way of doing it, and is portable to Windows too,
+as pipes are supported under Windows95/NT.
+
+Note, in the below code, you won't be able to use SimpleDB, because of
+other dependancies, but it should be clear.  Note that the
+AsyncSync::AsyncHandler() public slot is connected to the
+SimpleDB::NewClientAdded() signal.  The code isn't provided to show the
+connect, but the NewClientAdded() signal is emitted when a new record
+gets added by some thread.
+
+If there are any questions regarding the above dialog or the code below
+please email me.  I have spent a while working on this problem, and
+have a lot of "Lessons Learned" to offer regarding threads and X.
+
+
+============ file AsyncSync.h
+
+#ifndef _ASYNCSYNC_H_
+#define _ASYNCSYNC_H_
+
+//#==== Forward References
+class QSocketNotifier;
+
+
+class AsyncSync : public QObject
+{
+  Q_OBJECT
+
+  public :
+
+    // Default Constructor
+    AsyncSync( void );
+
+    // Default Destructor  
+    ~AsyncSync( void );
+
+  protected slots :
+
+    // Slot called synchronously by the X server in response to the
+    // asynchronous file descriptor it is watching having data ready.
+    void SyncHandler();
+
+  public slots :
+
+    // Slot to be called by asynchronous client.  This slot does not
+more
+    // than write to pipe, which will trigger the X server to respond
+    // to the file descriptor, and synchronously call the SyncHandler
+    void AsyncHandler();
+
+  signals :
+
+    // Signal emitted when the sync handler gets called
+    void Activated();
+
+  private :
+
+    // IPC pipe for async/sync communication with X server
+    int fds[2];
+
+    // Socket notifier to call slot when pipe has message to read
+    QSocketNotifier *sn;
+};
+
+//------ eof ------
+
+#endif
+
+
+============= file AsyncSync.cc
+
+
+//#==== System includes
+#include &lt;unistd.h&gt; // for pipe
+#include &lt;stdio.h&gt;
+
+//#==== QT includes
+#include &lt;qsocknot.h&gt;
+
+//#==== JBIIS includes
+#include "AsyncSync.h"
+
+// Default Constructor
+AsyncSync::AsyncSync( void )
+{
+  // Create IPC pipe for async/sync communication with X server
+  if ( ::pipe( fds ) == -1 ) {
+    perror( "Creating pipe" );
+    fds[0] = fds[1] = -1;
+  }
+
+  // Create new socket notifier to monitory when data is ready to be
+  // read from pipe
+  sn = new QSocketNotifier( fds[0], QSocketNotifier::Read );
+
+  // Connect up the socket notifier's activated routine to the dequeue
+  // any new clients added to Database
+  connect( sn, SIGNAL(activated(int)), SLOT(SyncHandler()) );
+}
+
+// Default Destructor  
+AsyncSync::~AsyncSync( void )
+{
+  // Delete socket notifier
+  delete sn;
+
+  // Close pipe file descriptors
+  if ( ::close( fds[0] ) == -1 ) {
+    perror( "Closing read file descriptor" );
+  }
+
+  if ( ::close( fds[1] ) == -1 ) {
+    perror( "Closing writing file descriptor" );
+  }
+}
+
+// Slot called synchronously by the X server in response to the
+// asynchronous file descriptor it is watching having data ready.
+void AsyncSync::SyncHandler( void )
+{
+  // First remove message from pipe ( the writer only wrote 1 byte )
+  static char buf;
+  if ( ::read( fds[0], &amp;buf, 1 ) == -1 ) {
+    ::perror( "Reading from pipe" );
+  }
+
+  // Now emit activated signal, and let user decide what to do
+  emit Activated();
+}
+
+// Slot to be called by asynchronous client.  This slot does not more
+// than write to pipe, which will trigger the X server to respond
+// to the file descriptor, and synchronously call the SyncHandler
+void AsyncSync::AsyncHandler( void )
+{
+  // Just send a single byte of data;
+  static const char *buf = "";
+  if ( ::write( fds[1], buf, 1 ) == -1 ) {
+    ::perror( "Writing to pipe" );
+  }
+}
+
+#include "AsyncSync.moc"
+
+//------ eof ------
+
+
+============== SimpleDB.h
+
+
+#ifndef _SIMPLEDB_H_
+#define _SIMPLEDB_H_
+
+//#==== System includes
+#include &lt;pthread.h&gt;
+
+//#==== QT includes
+#include &lt;qobject.h&gt;
+#include &lt;qdict.h&gt;
+#include &lt;qqueue.h&gt;
+
+//#==== JBIIS includes
+#include "ClientInfo.h"
+#include "Collection.h"
+#include "CollPath.h"
+
+//#==== Forward References
+class Broker;
+class QStrList;
+
+
+class SimpleDB : public QObject
+{
+  Q_OBJECT
+
+  public :
+
+    // Default constructor
+    SimpleDB( Broker *b );
+
+    // Default Destructor
+    ~SimpleDB( void );
+
+    // Returns the client info associated with the client name
+    ClientInfo* FindClientRecord( const char *clientName );
+
+    // Returns a collection from a client, given a path and client name.
+    // If the collection is currently cached, then entry from cache is
+returned
+    Collection* GetCollection( const char *clientName,
+			       const CollectionPath &amp;Path );
+
+    // Adds all messages in senders collections to receiver
+    bool AddMsgsToClient( const char *sndApp, const char *rcvApp,
+			  const CollectionPath &amp;sndPath,
+			  const CollectionPath &amp;rcvPath );
+
+    // Returns the number of clients in DB
+    int NumClients( void );
+
+    // Returns true if new clients in queue
+    bool NewClients( void );
+
+    // Returns next client from new client queue
+    ClientInfo* DequeueNewClients( void );
+
+  public slots :
+
+    // Adds new client info record to DB.  Store shallow copy only !!
+    void AddNewClientRecord(ClientInfo *);
+
+  signals :
+
+    // A new client added to DB
+    void NewClientAdded();
+
+  private :
+
+    Broker *broker;
+    QDict&lt;ClientInfo&gt; *clients;
+    QDict&lt;Collection&gt; *cache;
+    QQueue&lt;ClientInfo&gt; *newClients;
+    static pthread_mutex_t dbLock;
+};
+
+#endif // #ifndef _SIMPLEDB_H_
+
+
+//------ eof ------
+
+
+============== SimpleDB.cc
+
+
+//#==== C/C++ includes
+#include &lt;iostream.h&gt;
+
+//#==== QT includes
+#include &lt;qstring.h&gt;
+
+//#==== JBIIS includes
+#include "SimpleDB.h"
+#include "broker.h"
+
+//#==== Global (static) assignments
+pthread_mutex_t SimpleDB::dbLock = PTHREAD_MUTEX_INITIALIZER;
+
+// Default constructor
+SimpleDB::SimpleDB( Broker *b ) : broker ( b )
+{
+  // Create hash table for client info - key is client name.
+  clients = new QDict&lt;ClientInfo&gt;;
+  clients-&gt;setAutoDelete( false );
+
+  // Create hash table for a Collection cache - key is client and path
+name.
+  cache = new QDict&lt;Collection&gt;;
+  cache-&gt;setAutoDelete( true );
+
+  // Create queue for new clients
+  newClients = new QQueue&lt;ClientInfo&gt;;
+
+  if ( broker == NULL ) {
+    cerr &lt;&lt; "DB::DB() - FATAL ERROR : broker = NULL" &lt;&lt; endl;
+  }
+}
+
+// Default Destructor
+SimpleDB::~SimpleDB( void )
+{
+  delete clients;
+  delete cache;
+  delete newClients;
+}
+
+// Adds new client info record to DB.  Store shallow copy only !!
+void SimpleDB::AddNewClientRecord( ClientInfo *client )
+{
+  // Lock dictionary from other threads
+  pthread_mutex_lock ( &amp;dbLock );
+
+  if ( client == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return;
+  }
+
+  // Add client into database
+  clients-&gt;insert( client-&gt;getName(), client );
+
+  // Add client to new client queue
+  newClients-&gt;enqueue( client );
+
+  // Notify users that a new client has been added to database
+  emit NewClientAdded();
+
+  pthread_mutex_unlock ( &amp;dbLock );
+}
+
+// Returns true if new clients in queue
+bool SimpleDB::NewClients( void )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  bool retVal = ( newClients-&gt;count() ? true : false );
+
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return retVal;
+}
+
+// Returns next client from new client queue
+ClientInfo* SimpleDB::DequeueNewClients( void )
+{
+  // Lock database before we continue
+  pthread_mutex_lock ( &amp;dbLock );
+
+  // Will be set to a dequeued client, or NULL if queue is empty
+  ClientInfo *client = NULL;
+
+  if ( newClients-&gt;count() &gt; 0 ) {
+    client = newClients-&gt;dequeue();
+  }
+
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return client;
+}
+
+
+// Returns the client info associated with the client name
+ClientInfo* SimpleDB::FindClientRecord( const char *clientName )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  if ( clientName == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return NULL;
+  }
+  ClientInfo *info = NULL;
+  info = clients-&gt;find( clientName );
+
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return info;
+}
+
+// Returns a collection from a client, given a path and client name.
+// If the collection is currently cached, then entry from cache is
+returned
+Collection* SimpleDB::GetCollection( const char *clientName,
+				     const CollectionPath &amp;Path )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  if ( clientName == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return NULL;
+  }
+
+  // First, check the cache ... but convert clientName and path to a
+string.
+  // The str will look like this "clientName/tree/level 1/level
+2/.../level n"
+  QString str( clientName );
+  str += "/";
+  str += Path.HierarchyName();
+  int pathLen = Path.NumLevels();
+  for (int i=0; i&lt;pathLen; i++) {
+    str += "/";
+    str += ((CollectionPath&amp;)Path)[i];
+  };
+
+  Collection *coll = cache-&gt;find( (const char*)str );
+  if ( coll ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return coll;
+  }
+
+  // If not in cache, than ask broker for it
+  if ( broker == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return NULL;
+  }
+  coll = broker-&gt;GetFromClient( clientName, Path );
+  if ( coll == NULL ) {
+    pthread_mutex_unlock ( &amp;dbLock );
+    return NULL;
+  }
+
+  // If the broker found Collection, add it to cache and return it
+  cache-&gt;insert( (const char*)str, coll );
+
+  // Unlock function
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return coll;
+}
+
+// Adds all messages in senders collections to receiver
+bool SimpleDB::AddMsgsToClient( const char *sndApp, const char *rcvApp,
+				const CollectionPath &amp;sndPath,
+				const CollectionPath &amp;rcvPath )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  bool retVal;
+  retVal = broker-&gt;CreateTransaction( sndApp, rcvApp, sndPath, rcvPath
+);
+
+  pthread_mutex_unlock ( &amp;dbLock );
+
+  return retVal;
+}
+
+// Returns the number of clients in DB
+int SimpleDB::NumClients( void )
+{
+  pthread_mutex_lock ( &amp;dbLock );
+
+  return clients-&gt;count();
+
+  pthread_mutex_unlock ( &amp;dbLock );
+}
+
+
+#include "SimpleDB.moc"
+
+//------ eof ------
+
+
+============= code showing the slot connected to AsyncHandler::Activated
+============= slot.
+
+
+// Called in response to database notifying me that a new record has
+been
+// added.  Note, this method is synchronized with X event dispatcher.
+
+id AppView::AddNewClient( void )  
+{
+  // Now dequeue all new client messages waiting in Database message
+queue
+  ClientInfo *client = NULL;
+  while ( (client = db-&gt;DequeueNewClients()) ) {
+    newClient( client );
+  } 
+}
+
+
+-- 
+Brian Theodore
+Science Applications International Corp.
+Simulation Technology Division
+theodore@std.saic.com
+&gt;----------------End Forwarded Message----------------&lt;
+
+ _______________________________________________________________________ 
+| Richard Moore                         | Email: moorer@cs.man.ac.uk    |
+| IT301, Computer Science dept.,        | Phone: (0161) 438 0038 (home) |
+| University of Manchester, Oxford Rd., |        (0161) 275 6270 (work) |
+| Manchester, M13 9PL                   |        (0161) 275 6280 (fax)  |
+|_______________________________________|_______________________________|
+
+</pre>
+<hr><address>
+<a href="/copyright.html">Copyright</a> -
+<a href="/trademarks.html">Trademarks</a> -
+<a href="/site-map.html">Site Map</a> -
+<a href="http://www.troll.no/">Home Page</a><br>
+Automatically generated for the <a href="mailto:www@troll.no">webmaster</a>
+</address></body></html>

@@ -111,6 +111,16 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     connect(mainwidget, SIGNAL(sigCommand(const char*)),
 	    this, SLOT(executeCommand(const char*)));
 
+//    KToolBar *buttons = new KToolBar(this); // , i18n("playback"));
+//    ASSERT(buttons);
+//    if (!buttons) return;
+//    buttons->setBarPos(KToolBar::Bottom);
+//
+//    QPixmap *pix = new QPixmap("/opt/kde/share/toolbar/forward.xpm");
+//    /*playbutton = */buttons->insertButton(*pix, (int)0); // , i18n("Play"));
+//
+//    this->addToolBar(buttons);
+	
     setView(mainwidget);
     debug("TopWidget::TopWidget(): done.");
 }
@@ -155,7 +165,7 @@ TopWidget::~TopWidget()
     if (name) delete[] name;
     name=0;
 
-    if (saveDir) delete[] saveDir;
+    if (saveDir) delete saveDir;
     saveDir=0;
 
     if (status_bar) delete status_bar;
@@ -382,16 +392,16 @@ void TopWidget::saveFileAs(bool selection)
     QFileDialog *dialog;
 
     if (saveDir)
-	dialog = new QFileDialog (saveDir->absPath().data(), "*.wav", this, 0, true);
+	dialog = new QFileDialog(saveDir->absPath().data(), "*.wav", this, 0, true);
     else
-	dialog = new QFileDialog (this, 0, true);
+	dialog = new QFileDialog(this, 0, true);
     ASSERT(dialog);
 
     if (dialog) {
 	dialog->exec();
 	name = duplicateString (dialog->selectedFile());
 	if (name) {
-	    if (saveDir) delete[] saveDir;
+	    if (saveDir) delete saveDir;
 	    saveDir = new QDir(dialog->dirPath());
 	    ASSERT(saveDir);
 

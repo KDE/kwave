@@ -12,13 +12,24 @@ public:
 
     MultiStateWidget (QWidget *parent = 0, int = 0, int = 2);
     ~MultiStateWidget ();
+
+    /**
+     * Sets the number that will passed as argument to the
+     * "clicked" signal.
+     */
+    void setNumber(int number);
+
     int addPixmap (char *);
     void setStates (int *newstates);
     void setState (int newstate);
     void nextState ();
 signals:
 
-    void clicked (int);
+    /**
+     * Signals that the widget has changed it's state.
+     * @param number identifier of this widget's instance
+     */
+    void clicked(int number);
 
 public slots:
 

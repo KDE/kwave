@@ -298,6 +298,8 @@ static inline int decodeFrame(float **pcm, unsigned int size,
     for (track=0; track < tracks; track++) {
 	float *mono = pcm[track];
 	int bout = size;
+	unsigned int ofs = 0;
+	QArray<sample_t> buffer(size);
 
 	while (bout--) {
 	    // scale, use some primitive noise shaping
@@ -306,7 +308,7 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 
 	    // might as well guard against clipping
 	    if (s > SAMPLE_MAX) {
-		s = SAMPLE_MIN;
+		s = SAMPLE_MAX;
 		clipped = true;
 	    }
 	    if (s < SAMPLE_MIN) {
@@ -315,8 +317,11 @@ static inline int decodeFrame(float **pcm, unsigned int size,
 	    }
 
 	    // write the clipped sample to the stream
-	    *(dest[track]) << s;
+	    buffer[ofs++] = s;
 	}
+
+	// write the buffer to the stream
+	*(dest[track]) << buffer;
     }
 
 //    if (clipped) qDebug("Clipping in frame %ld", (long)(m_vd.sequence));

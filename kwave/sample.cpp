@@ -13,6 +13,7 @@
 #include "fftview.h"
 #include "sonagram.h"
 #include "faderwidget.h"
+#include "windowfunction.h"
 
 #define processid	0
 #define stopprocess	1
@@ -22,8 +23,8 @@
 //popping up a requester, when doing a fft
 
 #ifndef THREADS
-  //use a wrapper to use functions also on Systems with no thread support...
-  //seems to work...
+//use a wrapper to use functions also on Systems with no thread support...
+//seems to work...
 void pthread_create (pthread_t *,void *,void* (*jumpto)(void *),void *arg)
 {
   *(jumpto) (arg);
@@ -1253,14 +1254,14 @@ void MSignal::fft ()
       MSignal *tmp=this;
       while (tmp!=0)
 	{
-	  if (tmp->isSelected()) tmp->fftChannel ();
+	  if (tmp->isSelected()) tmp->fftChannel (0);
 	  tmp=tmp->getNext();
 	}
     }
   if (res==2) len+=reduce;
 }
 //*********************************************************
-void MSignal::fftChannel ()
+void MSignal::fftChannel (int windowtype)
 {
   complex *data=0;
 
@@ -1429,20 +1430,21 @@ void MSignal::sonagram ()
       if (dialog->exec())
 	{
 	  int points=dialog->getPoints();
+	  int windowtype=dialog->getWindowType();
 
 	  MSignal *tmp=this;
 	  while (tmp!=0)
 	    {
-	      if (tmp->isSelected()) tmp->sonagramChannel (points);
+	      if (tmp->isSelected()) tmp->sonagramChannel (points,windowtype);
 	      tmp=tmp->getNext();
 	    }
+	  emit sampleChanged();
 	}
-      emit sampleChanged();
       delete dialog; 
     }
 }
 //*********************************************************
-void MSignal::sonagramChannel (int points)
+void MSignal::sonagramChannel (int points,int windowtype)
 {
   int length=((len/(points/2))*points/2)+points/2; //round up length
   double *data=new double[length];
@@ -1454,11 +1456,11 @@ void MSignal::sonagramChannel (int points)
 	data[i]=((double)(sample[begin+i])/(1<<23));
       for (;i<length;i++) data[i]=0; //pad with zeros...
 
-      SonagramWindow *sonagramwindow=new SonagramWindow();
+      SonagramWindow *sonagramwindow=new SonagramWindow(name);
       if (sonagramwindow)
 	{
 	  sonagramwindow->show();
-	  sonagramwindow->setSignal (data,length,points,rate);
+	  sonagramwindow->setSignal (data,length,points,windowtype,rate);
 	} 
      delete data;
     }
@@ -1466,21 +1468,37 @@ void MSignal::sonagramChannel (int points)
 //*********************************************************
 void MSignal::averagefft ()
 {
-  MSignal *tmp=this;
-  while (tmp!=0)
+  AverageFFTDialog *dialog =new AverageFFTDialog (parent,len,rate);
+  if (dialog)
     {
-      if (tmp->isSelected()) tmp->averagefftChannel (1024);
-      tmp=tmp->getNext();
+      if (dialog->exec())
+	{
+	  int points=dialog->getPoints();
+	  int windowtype=dialog->getWindowType();
+
+	  MSignal *tmp=this;
+
+	  while (tmp!=0)
+	    {
+	      if (tmp->isSelected()) tmp->averagefftChannel (points,windowtype);
+	      tmp=tmp->getNext();
+	    }
+	  delete dialog;
+	}
     }
 }
 //*********************************************************
-void MSignal::averagefftChannel (int points)
+void MSignal::averagefftChannel (int points,int windowtype)
 {
   complex *data=new complex[points];
   complex *avgdata=new complex[points];
+  WindowFunction func(windowtype);
+
+  double *windowfunction=func.getFunction (points);
+
   int count=0;
 
-  if (data&&avgdata)
+  if (data&&avgdata&&windowfunction)
     {
       gsl_fft_complex_wavetable table;
       gsl_fft_complex_wavetable_alloc (points,&table);
@@ -1500,7 +1518,7 @@ void MSignal::averagefftChannel (int points)
 	  if (page+points<len)
 	    for (int i=0;i<points;i++)
 	      {
-		data[i].real=((double)(sample[begin+i])/(1<<23));
+		data[i].real=(windowfunction[i]*(double)(sample[begin+i])/(1<<23));
 		data[i].imag=0;
 	      }
 	  else 
@@ -1508,7 +1526,7 @@ void MSignal::averagefftChannel (int points)
 	      int i=0;
 	      for (;i<len-page;i++)
 		{
-		  data[i].real=((double)(sample[begin+i])/(1<<23));
+		  data[i].real=(windowfunction[i]*(double)(sample[begin+i])/(1<<23));
 		  data[i].imag=0;
 		}
 	      for (;i<points;i++)

@@ -77,9 +77,9 @@ class SonagramWindow : public KTopLevelWidget
 {
  Q_OBJECT
  public:
- 	SonagramWindow	();
+ 	SonagramWindow	(QString *);
  	~SonagramWindow	();
- void 	setSignal	(double*,int,int,int);
+ void 	setSignal	(double*,int,int,int,int);
 
  public slots:
 

@@ -31,6 +31,7 @@ class FFTWidget : public QWidget
  void 	setPhase		(complex *data,int size,int rate);
  void   refresh                 ();
  void   setAutoDelete           (int);
+ void   setFreqRange            (int,int);
  void   getMaxMin               ();
 
  public slots:
@@ -43,6 +44,9 @@ class FFTWidget : public QWidget
  void   phaseMode    ();
  void   dbMode       (int);
  void   percentMode  ();
+ void   findPeak     ();
+ void   findMaxPeak  ();
+ void   findMinimum  ();
 
  signals:
 
@@ -50,6 +54,7 @@ class FFTWidget : public QWidget
  void   phaseInfo (int,int);
  void   ampInfo   (int,int);
  void   dbInfo    (int,int);
+ void   noteInfo  (int,int);
 
  protected:
 
@@ -62,20 +67,23 @@ class FFTWidget : public QWidget
  void	drawOverviewPhase	();
 
  private:
- double  max;
- double  min;
-
- int     autodelete;     //flag if deleting data is correct
  complex *data;
  int	 fftsize,rate;
  int	 width,height;	 //of widget
+ double  max;           
+ double  min;
  double	 zoom;		 //number of samples represented by 1
 			 //vertical line on the screen
+ int     lmarker,rmarker;
+ int     oldcursor;      //position of cursor;
+ int     cursor;         //position of cursor;
  int     db;             //flag, if decibel scale is to be used
                          //if !false, range of scale in db
  bool    phaseview;      //flag for displaying phase instead of power spectrum
  bool	 redraw;	 //flag for redrawing pixmap
-
+ bool	 redrawcursor;	 //flag for fast redrawing of cursor
+ bool    autodelete;     //flag if deleting data is allowed
+ 
  QPainter p;
  QPixmap  *pixmap;	 //pixmap to be blitted to screen
 };
@@ -116,9 +124,11 @@ class FFTWindow : public KTopLevelWidget
  void	setAmpInfo   (int,int);
  void	setDBInfo    (int,int);
  void	setPhaseInfo (int,int);
+ void	setNoteInfo  (int,int);
  void   phaseMode    ();
  void   dbMode       (int);
  void   percentMode  ();
+ void   askFreqRange ();
 
  signals:
 

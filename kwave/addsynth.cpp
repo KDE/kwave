@@ -510,6 +510,9 @@ void AddSynthDialog::showPhase (const char *str)
   for (int i=0;i<num;i++) 
     if (strcmp(phaselabel[i]->text(),str)==0)
       {
+	tflag=true;
+	phase[i]->setValue (strtol(str,0,0));
+	tflag=false;
       }
   updateView ();
 }

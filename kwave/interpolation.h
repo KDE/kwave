@@ -3,13 +3,13 @@
 
 #include "curvewidget.h"
 
-#define LINEAR 0
-#define SPLINE 1
-#define NPOLYNOMIAL 2
-#define POLYNOMIAL3 3
-#define POLYNOMIAL5 4
-#define POLYNOMIAL7 5
-#define SAH         6
+#define INTPOL_LINEAR 0
+#define INTPOL_SPLINE 1
+#define INTPOL_NPOLYNOMIAL 2
+#define INTPOL_POLYNOMIAL3 3
+#define INTPOL_POLYNOMIAL5 4
+#define INTPOL_POLYNOMIAL7 5
+#define INTPOL_SAH         6
 
 class Interpolation
 {

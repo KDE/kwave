@@ -135,7 +135,7 @@ double Interpolation::getSingleInterpolation (double input)
   int degree=0;
   switch (type)
     {
-    case LINEAR:
+    case INTPOL_LINEAR:
       {
 	int i=1;      
 	while (x[i]<input) i++;
@@ -144,7 +144,7 @@ double Interpolation::getSingleInterpolation (double input)
 
 	return (y[i-1]+((y[i]-y[i-1])*dif2/dif1));
       }
-    case SPLINE:
+    case INTPOL_SPLINE:
       {
 	double a,b,diff;
 	int j=1;
@@ -156,24 +156,24 @@ double Interpolation::getSingleInterpolation (double input)
 
 	return (a*y[j-1] + b*y[j] + ((a*a*a-a)*der[j-1]+(b*b*b-b)*der[j])*(diff*diff)/6);
       }
-    case NPOLYNOMIAL:
+    case INTPOL_NPOLYNOMIAL:
       {
 	double ny=y[0];
 	for (int j=1;j<count;j++) ny=ny*(input-x[j])+y[j];
 	return ny;
       }
-    case SAH:   //Sample and hold
+    case INTPOL_SAH:   //Sample and hold
       {
 	int i=1; 
 	while (x[i]<input) i++;
       
 	return y[i-1];
       }
-    case POLYNOMIAL3:
+    case INTPOL_POLYNOMIAL3:
       if (!degree) degree=3;
-    case POLYNOMIAL5:
+    case INTPOL_POLYNOMIAL5:
       if (!degree) degree=5;
-    case POLYNOMIAL7:
+    case INTPOL_POLYNOMIAL7:
       {
 	if (!degree) degree=7;
 
@@ -219,10 +219,10 @@ int Interpolation::prepareInterpolation (QList<CPoint> *points)
 
       switch (type)
 	{
-	case NPOLYNOMIAL:
+	case INTPOL_NPOLYNOMIAL:
 	  createFullPolynom (points,x,y);
 	  break;
-	case SPLINE:
+	case INTPOL_SPLINE:
 	  if (der) delete der;
 	  der=new double [count+1];
 
@@ -254,7 +254,7 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 
   switch (type)
     {
-    case LINEAR:
+    case INTPOL_LINEAR:
       {
 	double x,y,lx,ly;
 	tmp=points->first();
@@ -284,7 +284,7 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 	  }
 	break;
       }
-    case SPLINE:
+    case INTPOL_SPLINE:
       {
 	int t=1;
 	int count=points->count();
@@ -329,11 +329,11 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 	  }
 	break;
       }
-    case POLYNOMIAL3:
+    case INTPOL_POLYNOMIAL3:
       if (!degree) degree=3;
-    case POLYNOMIAL5:
+    case INTPOL_POLYNOMIAL5:
       if (!degree) degree=5;
-    case POLYNOMIAL7:
+    case INTPOL_POLYNOMIAL7:
       {
 	if (!degree) degree=7;
 	int count=points->count();
@@ -363,7 +363,7 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 	  }
 	break;
       }
-    case NPOLYNOMIAL:
+    case INTPOL_NPOLYNOMIAL:
       {
 	double ny;
 	int count=points->count();
@@ -390,7 +390,7 @@ double *Interpolation::getInterpolation (QList<CPoint> *points,int len)
 	  }
 	break;
       }
-    case SAH:
+    case INTPOL_SAH:
       {
 	double lx,ly,x,y;
 

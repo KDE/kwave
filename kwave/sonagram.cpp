@@ -8,6 +8,7 @@
 #include "dialogs.h"
 #include "sample.h"
 #include "main.h"
+#include "windowfunction.h"
 
 extern KApplication *app;
 extern char *mstotimec (int ms); 
@@ -117,7 +118,7 @@ void SonagramContainer::resizeEvent	(QResizeEvent *)
     }
 }
 //****************************************************************************
-SonagramWindow::SonagramWindow () : KTopLevelWidget ()
+SonagramWindow::SonagramWindow (QString *name) : KTopLevelWidget ()
 {
   KMenuBar *bar=    new KMenuBar (this); 
   QPopupMenu *spectral= new QPopupMenu ();
@@ -157,8 +158,9 @@ SonagramWindow::SonagramWindow () : KTopLevelWidget ()
 
   setStatusBar (status);
   setMenu (bar);
+  QString *windowname=new QString (QString ("Sonagram of ")+QString(name->data()));
+  setCaption (windowname->data());
 
-  setCaption ("Sonagram :"); 
   resize (480,300);
 }
 //****************************************************************************
@@ -217,10 +219,10 @@ void SonagramWindow::load ()
     }
 }
 //****************************************************************************
-void SonagramWindow::setSignal (double *input,int size, int points,int rate)
+void SonagramWindow::setSignal (double *input,int size, int points,int windowtype,int rate)
 {
   double rea,ima;
-
+  //  printf ("size %d points %d windowtype %d\n",size,points,windowtype);
   this->length=size;
   this->x=(size/points);
   this->points=points;
@@ -230,8 +232,12 @@ void SonagramWindow::setSignal (double *input,int size, int points,int rate)
   xscale ->setMaxMin ((int)(((double)size)/rate*1000),0);
 
   data= new complex *[x];
+
+  WindowFunction func (windowtype);
   image=new QImage (x,points/2,8,256);
-  if ((data)&&(image))
+  double* windowfunction=func.getFunction(points);
+
+  if ((data)&&(image)&&windowfunction)
     {
       char buf [48];
       sprintf (buf,"doing %d %d-point mixed radix fft\'s\n",x,points);
@@ -253,7 +259,7 @@ void SonagramWindow::setSignal (double *input,int size, int points,int rate)
 		{
 		  for (int j=0;j<points;j++)
 		    {
-		      output[j].real=input[i*points+j]; //copy data into complex array
+		      output[j].real=windowfunction[j]*input[i*points+j]; //copy data into complex array
 		      output[j].imag=0;
 		    }
 

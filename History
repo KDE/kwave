@@ -1,8 +1,16 @@
-Version 0.29
+newer Versions still to come
 
-Added Pitch Display Window
+Version 0.2.9.0
 
-implemented db scale for fft-view
+changed version numbering and filename as suggested by Version 1.1 of "How To Name Things" from sunsite. The last digit will always mark be 0 for releases uploaded to ftp.kde.org.
+
+added windowing (Hamming Hanning, Blackmann) functions
+
+contribution from Gerhard Zintel displaying notes in fftview
+
+Added pitch display window
+
+implemented cursor and db scale for fft-view
 
 added reselection and cursor change
 

@@ -395,6 +395,7 @@ class SonagramDialog : public QDialog
  	SonagramDialog 	(QWidget *parent,int len,int=1024,char *name="Select # of Points");
  	~SonagramDialog 	();
  int	getPoints();
+ int	getWindowType();
 
  public slots:
    void setPoints (int);
@@ -405,11 +406,39 @@ class SonagramDialog : public QDialog
 
  private:
 
- QScrollBar	*pointslider;
+ QSlider	*pointslider;
  QLabel		*pointlabel;
  QLabel		*windowlabel;
  QLabel		*bitmaplabel;
+ QLabel		*windowtypelabel;
  QComboBox	*pointbox;
+ QComboBox	*windowtypebox;
+ QPushButton	*ok,*cancel;
+ int            length,rate;
+};
+//*****************************************************************************
+class AverageFFTDialog : public QDialog
+{
+ Q_OBJECT
+
+ public:
+
+ 	AverageFFTDialog 	(QWidget *parent,int len, int rate,char *name="Select window size and function");
+ 	~AverageFFTDialog 	();
+ int	getPoints();
+ int	getWindowType();
+
+ public slots:
+ protected:
+
+ void resizeEvent (QResizeEvent *);
+
+ private:
+
+ QLabel		*pointlabel;
+ QLabel		*windowtypelabel;
+ TimeLine	*points;
+ QComboBox	*windowtypebox;
  QPushButton	*ok,*cancel;
  int            length,rate;
 };

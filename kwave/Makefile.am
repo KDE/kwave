@@ -29,7 +29,7 @@ kwave_SOURCES = signalview.cpp main.cpp sample.cpp mainwidget.cpp sampleio.cpp\
  configdialogs.cpp dialogs.cpp about.cpp fftview.cpp gsl_fft.cpp mmap.cpp\
  curvewidget.cpp interpolation.cpp sampleedit.cpp filter.cpp scale.cpp\
  multistateimage.cpp addsynth.cpp functions.cpp sonagram.cpp markers.cpp\
- formantwidget.cpp faderwidget.cpp pitchwidget.cpp\
+ formantwidget.cpp faderwidget.cpp pitchwidget.cpp windowfunction.cpp\
  mmain.cpp mclasses.cpp msample.cpp mabout.cpp mconfigdialogs.cpp\
  mformantwidget.cpp maddsynth.cpp mdialogs.cpp mfftview.cpp msonagram.cpp\
  mfaderwidget.cpp mcurvewidget.cpp mmultistateimage.cpp\

@@ -118,7 +118,7 @@ CurveWidget::CurveWidget (QWidget *parent,const char *name,QList<CPoint> *init,i
   connect( interpolation, SIGNAL(activated(int)), SLOT(setType(int)) ); 
 
   act=0; //set active point to none
-  interpolationtype=LINEAR; //linear interpolation
+  interpolationtype=INTPOL_LINEAR; //linear interpolation
   
   if (knob==0)
     {

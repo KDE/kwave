@@ -4,6 +4,7 @@
 #include <math.h>
 #include <limits.h>
 #include <qcursor.h>
+#include <qkeycode.h>
 #include "dialogs.h"
 #include "formantwidget.h"
 #include "sample.h"
@@ -46,6 +47,8 @@ __inline void  getMaxMinPhase (complex *sample,int len,double &max,double &min)
 FFTWidget::FFTWidget (QWidget *parent)
  : QWidget (parent)
 {
+  cursor=-1;
+  oldcursor=-1;
   data=0;
   autodelete=true;
   fftsize=0;
@@ -65,7 +68,50 @@ FFTWidget::~FFTWidget (QWidget *parent,const char *name)
 //****************************************************************************
 void FFTWidget::setAutoDelete  (int tr)
 {
-   autodelete=tr;
+  autodelete=tr;
+}
+//****************************************************************************
+void FFTWidget::setFreqRange  (int min,int max)
+{
+}
+//****************************************************************************
+void FFTWidget::findPeak  ()
+  //left as an excersize...
+{
+}
+//****************************************************************************
+void FFTWidget::findMaxPeak  ()
+{
+  double max=0;
+  double rea,ima,c;
+
+  oldcursor=cursor;
+  for (int i=0;i<fftsize/2;i++)
+    {
+      rea=data[i].real;
+      ima=data[i].imag;
+      c=sqrt(rea*rea+ima*ima);
+      if (c>max) max=c,cursor=i; //set new maximum, set cursor
+    }
+  redrawcursor=true;
+  repaint (false);
+}
+//****************************************************************************
+void FFTWidget::findMinimum  ()
+{
+  double min=INT_MAX;
+  double rea,ima,c;
+  
+  oldcursor=cursor;
+  for (int i=0;i<fftsize/2;i++)
+    {
+      rea=data[i].real;
+      ima=data[i].imag;
+      c=sqrt(rea*rea+ima*ima);
+      if (c<min) min=c,cursor=i; //set new maximum, set cursor
+    }
+  redrawcursor=true;
+  repaint (false);
 }
 //****************************************************************************
 void FFTWidget::phaseMode  ()
@@ -292,8 +338,9 @@ void FFTWidget::iFFT()
     }
 }
 //****************************************************************************
-void FFTWidget::mousePressEvent( QMouseEvent *)
+void FFTWidget::mousePressEvent( QMouseEvent *e)
 {
+  mouseMoveEvent (e);
 }
 //****************************************************************************
 void FFTWidget::mouseReleaseEvent( QMouseEvent *)
@@ -307,13 +354,19 @@ void FFTWidget::mouseMoveEvent( QMouseEvent *e )
     {
       int y=e->pos().y();
 
-      emit freqInfo (rate/2*x/width+(rate/4)/width,(rate/4)/width);
-
       if (db)
 	  emit dbInfo ((height-y)*db/(height),0);
       else
       if ((y>=0)&&(y<height))
 	  emit ampInfo ((height-y)*100/(height),(int) floor(100/(double)height+.5));
+
+      if (cursor!=x) //update cursor
+	{
+	  oldcursor=cursor;
+	  cursor=(((long int) x)*fftsize/(2*width));
+	  redrawcursor=true;
+	  repaint (false);
+	}
     }
 }
 //****************************************************************************
@@ -328,7 +381,7 @@ void FFTWidget::drawOverviewPhase ()
 
 	for (int i=0;i<width;i++)
 	  {
-	    step=((int) zoom*i);
+	    step=(int) (zoom*i);
 	    getMaxMinPhase (&data[step],(int)((zoom)+1),max,min);
 	    max=(max)*height;
 	    min=(min)*height;
@@ -348,7 +401,7 @@ void FFTWidget::drawOverviewFFT ()
 
       for (int i=0;i<width;i++)
 	{
-	  step=((int) zoom*i);
+	  step=(int) (zoom*i);
 	  getMaxMinPower (&data[step],(int)((zoom)+1),&max,&min);
 	  max=(max)*height/this->max;
 	  min=(min)*height/this->max;
@@ -412,7 +465,7 @@ void FFTWidget::drawOverviewDB ()
 
       for (int i=0;i<width;i++)
 	{
-	  step=((int) zoom*i);
+	  step=(int) (zoom*i);
 	  getMaxMinPower (&data[step],(int)((zoom)+1),&stepmax,&stepmin);
 
 	  if (stepmax!=0) stepmax=getDB (max,stepmax,db);
@@ -488,7 +541,7 @@ void FFTWidget::drawInterpolatedFFT ()
 void FFTWidget::paintEvent  (QPaintEvent *)
 {
 
-  ///if pixmap has to be resized ...
+  ///if pixmap has to be resized or updated
   if ((rect().height()!=height)||(rect().width()!=width)||redraw)
     {
       redraw=false;
@@ -525,8 +578,28 @@ void FFTWidget::paintEvent  (QPaintEvent *)
 		  else drawInterpolatedFFT();
 		}
 	    }
+
 	}
       p.end();
+      oldcursor=-1;
+      redrawcursor=true;
+    }
+
+  if (redrawcursor&&cursor!=-1)
+    {
+      int x=(((long int)cursor)*width/(fftsize/2));
+      int oldx=(((long int)oldcursor)*width/(fftsize/2));
+      p.begin (pixmap);
+      p.translate (0,height);
+      p.setPen (green);
+      p.setRasterOp (XorROP);
+
+      if (oldcursor!=-1) p.drawLine (oldx,0,oldx,-height);
+      p.drawLine (x,0,x,-height);
+      p.end();
+      emit freqInfo ((cursor*rate)/fftsize,(rate/4)/width);
+      emit noteInfo ((cursor*rate)/fftsize,0);
+      redrawcursor=false;
     }
 
   //blit pixmap to window
@@ -566,6 +639,7 @@ FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
 {
   QPopupMenu *fft=	new QPopupMenu ();
   QPopupMenu *view=	new QPopupMenu ();
+  QPopupMenu *cursor=	new QPopupMenu ();
   QPopupMenu *edit=	new QPopupMenu ();
   QPopupMenu *dbmenu=	new QPopupMenu ();
   KMenuBar   *bar=	new KMenuBar (this); 
@@ -573,11 +647,13 @@ FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
   bar->insertItem	(klocale->translate("&Spectral Data"),fft);
   bar->insertItem	(klocale->translate("&Edit"),edit);
   bar->insertItem	(klocale->translate("&View"),view);
+  bar->insertItem	(klocale->translate("&Cursor"),cursor);
 
   status=new KStatusBar (this,"Frequencies Status Bar");
   status->insertItem ("Frequency:          0 Hz     ",1);
   status->insertItem ("Amplitude:    0 %      ",2);
   status->insertItem ("Phase:    0        ",3);  
+  status->insertItem ("Note:    0        ",4);  
 
   mainwidget=new FFTContainer (this);
 
@@ -593,8 +669,11 @@ FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
   edit->insertItem	(klocale->translate("Smooth"),fftview,SLOT(smooth()));
   edit->insertSeparator	();
   edit->insertItem	(klocale->translate("Kill phase"),fftview,SLOT(killPhase()));
-
+  cursor->insertItem	(klocale->translate("find Maximum"),fftview,SLOT(findMaxPeak()),Key_M);
+  cursor->insertItem	(klocale->translate("find Minimum"),fftview,SLOT(findMinimum()),SHIFT+Key_M);
+  //  cursor->insertItem	(klocale->translate("find nearest Peak"),fftview,SLOT(findPeak()),Key_Tab);
   fft->insertItem	(klocale->translate("Inverse FFT"),fftview,SLOT(iFFT()));
+
   view->insertItem	(klocale->translate("Amplitude in %"),this,SLOT(percentMode()));
   view->insertItem	(klocale->translate("Amplitude in dB"),dbmenu);
 
@@ -610,6 +689,7 @@ FFTWindow::FFTWindow (QString *name) : KTopLevelWidget (name->data())
 
   connect (fftview,SIGNAL(freqInfo(int,int)),this,SLOT(setFreqInfo(int,int)));
   connect (fftview,SIGNAL(ampInfo(int,int)),this,SLOT(setAmpInfo(int,int)));
+  connect (fftview,SIGNAL(noteInfo(int,int)),this,SLOT(setNoteInfo(int,int)));
   connect (fftview,SIGNAL(dbInfo(int,int)),this,SLOT(setDBInfo(int,int)));
   connect (fftview,SIGNAL(phaseInfo(int,int)),this,SLOT(setPhaseInfo(int,int)));
   setView (mainwidget);
@@ -649,6 +729,10 @@ void FFTWindow::setSignal (complex *data,double max,int size, int rate)
   xscale ->setMaxMin (rate/2,0); 
 }
 //****************************************************************************
+void FFTWindow::askFreqRange ()
+{
+}
+//****************************************************************************
 FFTWindow::~FFTWindow ()
 {
 }
@@ -683,7 +767,24 @@ void FFTWindow::setPhaseInfo  (int ph,int err)
   sprintf (buf,"Phase: %d +/- %d",ph,err);
   status->changeItem (buf,3);
 }
+//****************************************************************************
+//Note detection contributed by Gerhardt Zintel
+void FFTWindow::setNoteInfo  (int hz,int x)
+{
+  char buf[64];
+  float BaseNoteA = 440.0; //We should be able to set this in a menu
+  static char *notename[] = {
+     "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"
+  };
+  int octave, note; // note = round(45 + 12 * (log(hz) - log(440)) / log(2))
+  note = 45 + (int) (12.0*(log(hz)-log(BaseNoteA))/log(2)+0.5);
+  if (note < 0) note = 0;
+  octave = note / 12;
+  note = note % 12;
 
+  sprintf (buf,"Note: %s%d ",notename[note],octave);
+  status->changeItem (buf,4);
+}
 
 
 

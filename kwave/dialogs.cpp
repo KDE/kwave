@@ -6,6 +6,7 @@
 #include <qkeycode.h>
 #include "interpolation.h"
 #include "classes.h"
+#include "windowfunction.h"
 #include <kmsgbox.h>
 
 extern QList<MarkerType>*markertypes;
@@ -1005,8 +1006,70 @@ AverageDialog::~AverageDialog ()
 {
 }
 //**********************************************************
+AverageFFTDialog::AverageFFTDialog (QWidget *par,int len,int rate,char *name): QDialog(par, 0,true)
+{
+  WindowFunction w(0);
+  this->rate=rate;
+  this->length=len;
+  resize 	(320,200);
+  setCaption	(name);
+
+  pointlabel	=new QLabel	(klocale->translate("Length of window :"),this);
+  points	=new TimeLine (this);
+  points->setMs (100);
+
+  windowtypebox	=new QComboBox (true,this);
+  windowtypebox->insertStrList (w.getTypes(),w.getCount());
+  QToolTip::add(windowtypebox,klocale->translate("Choose windowing function here."));
+  
+  windowtypelabel=new QLabel	(klocale->translate("Window Function :"),this);
+
+  ok		=new QPushButton (OK,this);
+  cancel       	=new QPushButton (CANCEL,this);
+
+  int bsize=ok->sizeHint().height();
+
+  setMinimumSize (320,bsize*8);
+  resize (320,bsize*3);
+
+  ok->setAccel	(Key_Return);
+  cancel->setAccel(Key_Escape);
+  ok->setFocus	();
+  connect 	(ok	,SIGNAL(clicked()),SLOT (accept()));
+  connect 	(cancel	,SIGNAL(clicked()),SLOT (reject()));
+}
+//**********************************************************
+int AverageFFTDialog::getWindowType ()
+{
+  return windowtypebox->currentItem();
+}
+//**********************************************************
+int AverageFFTDialog::getPoints ()
+{
+  return points->getValue();
+}
+//**********************************************************
+void AverageFFTDialog::resizeEvent (QResizeEvent *)
+{
+  int bsize=ok->sizeHint().height();
+
+  pointlabel->setGeometry  (8,	bsize/2,width()/2-8,bsize);  
+  points->setGeometry      (width()/2,	bsize/2,width()*3/10,bsize);  
+
+  windowtypelabel->setGeometry(8,	bsize*3/2+8,width()/2-8,bsize);  
+  windowtypebox->setGeometry (width()/2,bsize*3/2+8,width()/2-8,bsize);  
+
+  ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
+  cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
+}
+//**********************************************************
+AverageFFTDialog::~AverageFFTDialog ()
+{
+}
+//**********************************************************
 SonagramDialog::SonagramDialog (QWidget *par,int len,int rate,char *name): QDialog(par, 0,true)
 {
+  WindowFunction w(0);
   this->rate=rate;
   this->length=len;
   resize 	(320,200);
@@ -1015,19 +1078,26 @@ SonagramDialog::SonagramDialog (QWidget *par,int len,int rate,char *name): QDial
   pointbox	=new QComboBox  (true,this);
   pointbox->insertStrList (FFT_Sizes,-1);
   QToolTip::add(pointbox,klocale->translate("Try to choose numbers with small prime-factors, if choosing big window sizes.\nThe computation will be much faster !"));
+
+  windowtypebox	=new QComboBox (true,this);
+  windowtypebox->insertStrList (w.getTypes(),w.getCount());
+  QToolTip::add(windowtypebox,klocale->translate("Choose windowing function here. If fourier transformation should stay reversible, use the type <none>"));
   
   windowlabel	=new QLabel	("",this);
   bitmaplabel	=new QLabel	("",this);
-  pointslider	=new QScrollBar (2,(len/16),1,5,50,QScrollBar::Horizontal,this);
+  pointslider	=new QSlider (2,(len/16),1,5,QSlider::Horizontal,this);
+  windowtypelabel=new QLabel	(klocale->translate("Window Function :"),this);
 
   setPoints (50);
+  setBoxPoints (0);
 
   ok		=new QPushButton (OK,this);
   cancel       	=new QPushButton (CANCEL,this);
 
   int bsize=ok->sizeHint().height();
 
-  setMinimumSize (320,bsize*5);
+  setMinimumSize (320,bsize*8);
+  resize (320,bsize*8);
 
   ok->setAccel	(Key_Return);
   cancel->setAccel(Key_Escape);
@@ -1038,9 +1108,14 @@ SonagramDialog::SonagramDialog (QWidget *par,int len,int rate,char *name): QDial
   connect	(pointbox,SIGNAL   (activated(int))   ,SLOT(setBoxPoints(int)));
 }
 //**********************************************************
+int SonagramDialog::getWindowType ()
+{
+  return windowtypebox->currentItem();
+}
+//**********************************************************
 int SonagramDialog::getPoints ()
 {
- return pointslider->value()*2;
+  return pointslider->value()*2;
 }
 //**********************************************************
 void SonagramDialog::setPoints (int points)
@@ -1067,12 +1142,13 @@ void SonagramDialog::resizeEvent (QResizeEvent *)
 {
  int bsize=ok->sizeHint().height();
 
- pointlabel->setGeometry (width()/10,	bsize/2,width()*4/10,bsize);  
- pointbox->setGeometry (width()/2,	bsize/2,width()*3/10,bsize);  
- windowlabel->setGeometry (width()/10,	bsize*3/2,width()*8/10,bsize);  
- bitmaplabel->setGeometry (width()/10,	bsize*5/2,width()*8/10,bsize);  
- pointslider->setGeometry(width()/10,	bsize*4,width()*8/10,bsize);  
-
+ pointlabel->setGeometry  (8,	bsize/2,width()/2-8,bsize);  
+ pointbox->setGeometry    (width()/2,	bsize/2,width()*3/10,bsize);  
+ windowlabel->setGeometry (8,	bsize*3/2,width()*8/10,bsize);  
+ bitmaplabel->setGeometry (8,	bsize*5/2,width()/2-8,bsize);  
+ pointslider->setGeometry (width()/2,	bsize*5/2,width()/2-8,bsize);  
+ windowtypelabel->setGeometry(8,	bsize*4,width()/2-8,bsize);  
+ windowtypebox->setGeometry (width()/2,	bsize*4,width()/2-8,bsize);  
  ok->setGeometry	(width()/10,height()-bsize*3/2,width()*3/10,bsize);  
  cancel->setGeometry	(width()*6/10,height()-bsize*3/2,width()*3/10,bsize);  
 }

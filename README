@@ -1,8 +1,7 @@
-Hello...
+Hello,
 
 This is the kwave source distribution, a simple soundeditor for KDE.
-
-Since this is an alpha version, don't expect to much ...
+Since last version kwave has become a little bit more stable. But still use it with care (save often), since it has not left ALPHA-State yet.
 
 This distribution uses the standard template for a kde app, kexample.
 

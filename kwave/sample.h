@@ -154,11 +154,11 @@ class MSignal : public QObject
  void	fft             ();
  void	reQuantize      ();
  void	quantizeChannel (int);
- void   fftChannel      ();
+ void   fftChannel      (int);
  void	averagefft      ();
- void   averagefftChannel(int);
+ void   averagefftChannel(int,int);
  void   sonagram        ();
- void   sonagramChannel      (int);
+ void   sonagramChannel      (int,int);
  void   filterCreate         ();
  void   lockRead             ();
  void   lockWrite            ();

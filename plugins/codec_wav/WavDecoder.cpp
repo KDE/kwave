@@ -160,7 +160,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     RIFFChunk *fmt_chunk  = parser.findChunk("/RIFF/fmt ");
     RIFFChunk *data_chunk = parser.findChunk("/RIFF/data");
 
-    if (!riff_chunk || !fmt_chunk || !data_chunk) {
+    if (!riff_chunk || !fmt_chunk || !data_chunk || !parser.isSane()) {
 	if (KMessageBox::warningContinueCancel(widget,
 	    i18n("The file has been structurally damaged or "
 	         "is no .wav file.\n"

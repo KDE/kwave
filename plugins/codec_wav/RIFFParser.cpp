@@ -423,6 +423,12 @@ void RIFFParser::dumpStructure()
 }
 
 //***************************************************************************
+bool RIFFParser::isSane()
+{
+    return m_root.isSane();
+}
+
+//***************************************************************************
 RIFFChunk *RIFFParser::findChunk(const QCString &path)
 {
     RIFFChunkList chunks;

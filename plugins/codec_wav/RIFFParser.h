@@ -68,6 +68,12 @@ public:
     bool parse(RIFFChunk *parent, u_int32_t offset, u_int32_t length);
 
     /**
+     * Returns true if the source contains no structural errors and
+     * no garbage or empty chunks.
+     */
+    bool isSane();
+
+    /**
      * Dumps the structure of all chunks, useful for debugging.
      */
     void dumpStructure();

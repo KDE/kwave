@@ -70,6 +70,12 @@ public:
     virtual ~RIFFChunk();
 
     /**
+     * Returns true if the file chunk no structural errors and
+     * no garbage or empty chunks.
+     */
+    bool isSane();
+
+    /**
      * Returns the type of the chunk.
      * @see ChunkType
      */

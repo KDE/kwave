@@ -38,6 +38,28 @@ RIFFChunk::~RIFFChunk()
 }
 
 //***************************************************************************
+#define CHECK(x) ASSERT(!(x)); if (x) return false;
+bool RIFFChunk::isSane()
+{
+    CHECK(m_type == Empty);
+    CHECK(m_type == Garbage);
+    CHECK(m_phys_length & 0x1); // size is not an even number
+    CHECK((m_type == Main) && m_sub_chunks.isEmpty());
+    CHECK((m_type == Root) && m_sub_chunks.isEmpty());
+
+    unsigned int datalen = dataLength();
+    if (m_type == Main) datalen += 4;
+    CHECK(datalen+1 <= m_phys_length);
+    CHECK(datalen > m_phys_length);
+
+    QListIterator<RIFFChunk> it(subChunks());
+    for (; it.current(); ++it) {
+	if (!it.current()->isSane()) return false;
+    }
+    return true;
+}
+
+//***************************************************************************
 u_int32_t RIFFChunk::physEnd()
 {
     u_int32_t end = m_phys_offset + m_phys_length;

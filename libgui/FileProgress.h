@@ -147,6 +147,8 @@ protected:
     /** last displayed percent value */
     int m_last_percent;
 
+    /** number of bits per sample */
+    unsigned int m_bits_per_sample;
 };
 
 #endif /* _FILE_PROGRESS_H_ */

@@ -48,7 +48,8 @@ FileProgress::FileProgress(QWidget *parent,
     m_stat_bytes(0),
     m_time(),
     m_cancelled(true),
-    m_last_percent(0)
+    m_last_percent(0),
+    m_bits_per_sample(bits)
 {
     QString text;
 
@@ -279,6 +280,9 @@ void FileProgress::updateStatistics(double rate, double rest,
 void FileProgress::setValue(unsigned int pos)
 {
     if (!m_progress) return;
+
+    // position is in samples, we need bytes
+    pos *= (m_bits_per_sample >> 3);
 
     // the easiest part: the progress bar and the caption
     int percent = (int)((double)pos / (double)m_size * 100.0);

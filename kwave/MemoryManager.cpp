@@ -261,29 +261,18 @@ void *MemoryManager::convertToVirtual(void *block, size_t old_size,
     Q_ASSERT(m_physical_size.find(block) != 0);
     if (m_physical_size.find(block) == 0) return 0;
 
-    size_t current_size = m_physical_size[block];
-    Q_ASSERT(current_size);
     SwapFile *new_swap = allocateVirtual(new_size);
     if (!new_swap) return 0;
 
-    void *dst = new_swap->map();
-    Q_ASSERT(dst);
-    if (!dst) {
-	delete new_swap;
-	return 0;
-    }
-
     // copy old stuff to new location
-    ::memcpy(dst, block, old_size);
-
-    // unmap the new swap space as soon as possible
-    new_swap->unmap();
+    new_swap->write(0, block, old_size);
 
     // remove old memory
-    m_physical_size[block] = 0;
-    void *b = block;
     m_physical_size.remove(block);
-    ::free(b);
+    ::free(block);
+
+    // register as a new unmapped swapfile
+    m_unmapped_swap.prepend(new_swap);
 
     return new_swap;
 }

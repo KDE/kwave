@@ -1,0 +1,7 @@
+// CurveStreamAdapter.idl
+
+#include <artsflow.idl>
+
+interface CurveStreamAdapter : Arts::SynthModule {
+	default out audio stream output;
+};

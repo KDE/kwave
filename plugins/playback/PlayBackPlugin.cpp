@@ -198,6 +198,7 @@ void PlayBackPlugin::openDevice()
 	ThreadsafeX11Guard x11_guard;
 
 	// if no mutex exists: make a new one, parent is the global app!
+	/** @todo this mutex is actually never deleted ! */
 	if (!g_arts_lock) g_arts_lock = new Mutex();
 	ASSERT(g_arts_lock);
 	

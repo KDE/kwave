@@ -29,6 +29,7 @@ public slots:
     void save();
     void load();
     void toSignal();
+    void setName(const QString &name);
     void setInfo(double, double);
     void setRange(int, int, int);
 

@@ -54,8 +54,12 @@ int SonagramPlugin::start(QStrList &params)
     sonagram_window = new SonagramWindow(getSignalName());
     ASSERT(sonagram_window);
     if (sonagram_window) {
+	
 	connect(sonagram_window, SIGNAL(destroyed()),
 	        this, SLOT(windowClosed()));
+
+        QObject::connect((QObject*)&(getManager()), SIGNAL(sigSignalNameChanged(const QString &)),
+                sonagram_window, SLOT(setName(const QString &)));
 
 	sonagram_window->show();
 	// delete sono;

@@ -110,4 +110,4 @@ private:
     TopWidget &top_widget;
 };
 
-#endif // _LABEL_MANAGER_H_
+#endif // _PLUGIN_MANAGER_H_

@@ -49,7 +49,7 @@ protected slots :
      * Slot called synchronously by the X server in response to the
      * asynchronous file descriptor it is watching having data ready.
      */
-    virtual void SyncHandler(QGList &params);
+    void SyncHandler();
 
 public slots :
 
@@ -58,14 +58,14 @@ public slots :
      * than write to pipe, which will trigger the X server to respond
      * to the file descriptor, and synchronously call the SyncHandler
      */
-    virtual void AsyncHandler(QGList &params);
+    void AsyncHandler();
 
 signals :
 
     /**
      * Signal emitted when the sync handler gets called
      */
-    void Activated(QGList &params);
+    void Activated();
 
 private :
 

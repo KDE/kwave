@@ -121,10 +121,7 @@ SonagramWindow::SonagramWindow(const QString &name)
     setStatusBar(status);
     setMenu(bar);
 
-    QString windowname(i18n("Sonagram of "));
-    windowname += name;
-
-    setCaption(windowname.data());
+    setName(name);
     resize (480, 300);
     debug("SonagramWindow::SonagramWindow(): end"); // ###
 }
@@ -373,6 +370,18 @@ SonagramWindow::~SonagramWindow()
 //	delete[] data;
 //    }
 //    if (image) delete image;
+}
+
+//****************************************************************************
+void SonagramWindow::setName(const QString &name)
+{
+    QString windowname("Kwave - ");
+    windowname += i18n("Sonagram of ");
+
+    setCaption(windowname.data());
+    windowname += name.length() ? name : QString(i18n("<nothing>"));
+
+    setCaption(windowname.data());
 }
 
 //****************************************************************************

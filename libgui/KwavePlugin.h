@@ -20,10 +20,11 @@
 
 #include <qobject.h>
 
-class QStrList;
+class PluginManager;
 class PluginContext;
 class KwavePlugin;
 class TopWidget;
+class QStrList;
 
 #define KWAVE_PLUGIN(class_name,plugin_name,author_name) \
     const char *version = "2.0"; \
@@ -88,6 +89,11 @@ public:
      *         was ok.
      */
     virtual int run(QStrList &params);
+
+    /**
+     * Returns a reference to the manager of this plugin.
+     */
+    PluginManager &getManager();
 
     /**
      * Returns the parent widget of the plugin. This normally should be
@@ -184,7 +190,7 @@ public slots:
      * manager and can as well be used from inside the plugin if it
      * wishes to close itself.
      */
-    void close();
+    virtual void close();
 
 private:
     PluginContext &context;

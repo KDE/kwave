@@ -82,6 +82,12 @@ void KwavePlugin::close()
 }
 
 //***************************************************************************
+PluginManager &KwavePlugin::getManager()
+{
+    return context.manager;
+}
+
+//***************************************************************************
 QWidget *KwavePlugin::getParentWidget()
 {
     return &(context.top_widget);

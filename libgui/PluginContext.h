@@ -19,6 +19,7 @@
 #define _PLUGIN_CONTEXT_H_
 
 class KwaveApp;
+class PluginManager;
 class MenuManager;
 class TopWidget;
 class SignalManager;
@@ -30,6 +31,7 @@ public:
     /** Constructor */
     PluginContext(
 	KwaveApp      &app,
+	PluginManager &plugin_mgr,
 	LabelManager  *label_mgr,
 	MenuManager   *menu_mgr,
 	TopWidget     &topwidget,
@@ -37,12 +39,15 @@ public:
 	void *mod_handle
     )
     :kwave_app(app),
+    manager(plugin_mgr),
     label_manager(label_mgr),
     menu_manager(menu_mgr),
     top_widget(topwidget),
     signal_manager(signal_mgr)
     {};
+
     KwaveApp      &kwave_app;
+    PluginManager &manager;
     LabelManager  *label_manager;
     MenuManager   *menu_manager;
     TopWidget     &top_widget;

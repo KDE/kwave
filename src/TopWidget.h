@@ -70,6 +70,11 @@ signals:
      */
     void sigCommand(const char *command);
 
+    /**
+     * Emitted it the name of the signal has changed.
+     */
+    void sigSignalNameChanged(const QString &name);
+
 protected:
 
     void updateMenu();

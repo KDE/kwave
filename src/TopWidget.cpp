@@ -76,6 +76,8 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     }
     connect(plugin_manager, SIGNAL(sigCommand(const char *)),
             this, SLOT(executeCommand(const char *)));
+    connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
+	    plugin_manager, SLOT(setSignalName(const QString &)));
 
     status_bar = new KStatusBar(this);
     ASSERT(status_bar);
@@ -392,6 +394,7 @@ bool TopWidget::closeFile()
 
     signalName = "";
     setCaption(0);
+    emit sigSignalNameChanged(signalName);
     updateMenu();
 
     return true;
@@ -408,6 +411,8 @@ int TopWidget::loadFile(const char *filename, int type)
     closeFile();    // close the previous file
 
     signalName = filename;
+    emit sigSignalNameChanged(signalName);
+
     if (mainwidget) mainwidget->setSignal(filename, type);
     app.addRecentFile(signalName);
     setCaption(duplicateString(signalName));
@@ -488,6 +493,8 @@ void TopWidget::saveFileAs(bool selection)
     if (dialog) {
 	dialog->exec();
 	signalName = dialog->selectedFile();
+	emit sigSignalNameChanged(signalName);
+	
 	if (signalName.length()) {
 	    if (saveDir) delete saveDir;
 	    saveDir = new QDir(dialog->dirPath());

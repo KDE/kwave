@@ -31,6 +31,7 @@
 
 #include "KwaveApp.h"
 #include "TopWidget.h"
+#include "libgui/AsyncSyncGuard.h"
 #include "libgui/KwavePlugin.h"
 #include "libgui/PluginContext.h"
 
@@ -55,6 +56,8 @@ bool PluginManager::isOK()
 //****************************************************************************
 PluginManager::~PluginManager()
 {
+    AsyncSyncGuard sync;
+
     // inform all plugins and client windows that we close now
     emit sigClosed();
 
@@ -133,6 +136,7 @@ void PluginManager::executePlugin(const char *name, QStrList *params)
     if (plugin_loader) {
 	PluginContext *context = new PluginContext(
             top_widget.getKwaveApp(),
+            *this,
 	    0, // LabelManager  *label_mgr,
 	    0, // MenuManager   *menu_mgr,
 	    top_widget,
@@ -267,39 +271,19 @@ void PluginManager::pluginClosed(KwavePlugin *p, bool remove)
 
 }
 
-//#include <stdarg.h>
-//template <class param1> PluginSignal<param1>::PluginSignal(
-//	QObject *plugin,
-//	QObject *sender, const char *signal,
-//	QObject *receiver, const char *slot)
-//{
-//    QObject::connect(sender, signal,
-//                     this, SLOT(AsyncHandler(...)));
-//
-//    QObject::connect(this, SIGNAL(SyncHandler(...)),
-//                     receiver, slot);
-//}
-//
-//template <class param1> PluginSignal<param1>::~PluginSignal()
-//{
-//}
-
 //****************************************************************************
 void PluginManager::connectPlugin(KwavePlugin *plugin)
 {
     ASSERT(plugin);
     if (!plugin) return;
 
-//    PluginSignal<void> *sig = new PluginSignal<void>(
-//    	plugin,
-//	this, SIGNAL(sigClosed()),
-//	plugin, SLOT(close())
-//    );
+    connect(this, SIGNAL(sigClosed()),
+	    plugin, SLOT(close()));
+    connect(this, SIGNAL(sigSignalNameChanged(const QString &)),
+            plugin, SLOT(setSignalName(const QString &)));
 
-    QObject::connect(this, SIGNAL(sigClosed()),
-	             plugin, SLOT(close()));
-    QObject::connect(plugin, SIGNAL(sigClosed(KwavePlugin *,bool)),
-		     this, SLOT(pluginClosed(KwavePlugin *,bool)));
+    connect(plugin, SIGNAL(sigClosed(KwavePlugin *,bool)),
+	    this, SLOT(pluginClosed(KwavePlugin *,bool)));
 
 }
 
@@ -309,17 +293,21 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
     ASSERT(plugin);
     if (!plugin) return;
 
-    disconnect(plugin, SIGNAL(sigClosed(KwavePlugin *,bool)),
-	       this, SLOT(pluginClosed(KwavePlugin *,bool)));
-
     disconnect(this, SIGNAL(sigClosed()),
 	       plugin, SLOT(close()));
+    disconnect(this, SIGNAL(sigSignalNameChanged(const QString &)),
+               plugin, SLOT(setSignalName(const QString &)));
+
+    disconnect(plugin, SIGNAL(sigClosed(KwavePlugin *,bool)),
+	       this, SLOT(pluginClosed(KwavePlugin *,bool)));
 
 }
 
 //****************************************************************************
 void PluginManager::setSignalName(const QString &name)
 {
+    AsyncSyncGuard sync;
+    debug("PluginManager::setSignalName(%s)",name.data());
     emit sigSignalNameChanged(name);
 }
 

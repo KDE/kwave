@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSION\n"
-"POT-Creation-Date: 2000-08-20 20:20+0200\n"
+"POT-Creation-Date: 2000-09-09 22:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,57 +166,57 @@ msgstr "%d Stimmen"
 msgid "Loading %d-Bit (%s) File :"
 msgstr "Lade %d-Bit-%s Datei :"
 
-#: src/SignalManager.cpp:1161
+#: src/SignalManager.cpp:1160
 msgid "playback problem"
 msgstr "Problem bei der Wiedergabe"
 
-#: src/SignalManager.cpp:1205
+#: src/SignalManager.cpp:1204
 #, fuzzy
 msgid "number of bits per samples not supported"
 msgstr "Anzahl der Bits/Sample wird nicht unterstützt!"
 
-#: src/SignalManager.cpp:1213
+#: src/SignalManager.cpp:1212
 msgid "stereo not supported"
 msgstr "Stereo wird nicht unterstützt"
 
-#: src/SignalManager.cpp:1220
+#: src/SignalManager.cpp:1219
 msgid "playback rate not supported"
 msgstr "Wiedergabe-Rate wird nicht unterstützt"
 
-#: src/SignalManager.cpp:1227
+#: src/SignalManager.cpp:1226
 msgid "unusable buffer size"
 msgstr "Puffer-Größe kann nicht verwendet werden"
 
-#: src/TopWidget.cpp:76
+#: src/TopWidget.cpp:86
 msgid "Length: 0 ms           "
 msgstr "Länge: 0ms             "
 
-#: src/TopWidget.cpp:77
+#: src/TopWidget.cpp:87
 msgid "Rate: 0 kHz         "
 msgstr "Rate: 0kHz          "
 
-#: src/TopWidget.cpp:78
+#: src/TopWidget.cpp:88
 msgid "Samples: 0             "
 msgstr "Samples: 0             "
 
-#: src/TopWidget.cpp:79
+#: src/TopWidget.cpp:89
 msgid "selected: 0 ms        "
 msgstr "ausgewählt: 0ms       "
 
-#: src/TopWidget.cpp:80
+#: src/TopWidget.cpp:90
 msgid "Clipboard: 0 ms      "
 msgstr "Zwischenablage: 0ms     "
 
-#: src/TopWidget.cpp:245
+#: src/PluginManager.cpp:97
 #, c-format
 msgid "oops, plugin '%s' is unknown !"
 msgstr "Hoppla, Plugin '%s' ist unbekannt !"
 
-#: src/TopWidget.cpp:247 src/TopWidget.cpp:265
+#: src/PluginManager.cpp:99 src/PluginManager.cpp:117
 msgid "error on loading plugin"
 msgstr "Fehler beim Laden des Plugins"
 
-#: src/TopWidget.cpp:261
+#: src/PluginManager.cpp:113
 #, c-format
 msgid ""
 "unable to load the file \n"
@@ -227,73 +227,47 @@ msgstr ""
 "%s\n"
 "die das Plugin '%s' enthält !"
 
-#: src/PitchWindow.cpp:35
-msgid "&Pitch"
-msgstr "&Frequenzverschiebung"
-
-#: src/PitchWindow.cpp:41
-msgid "Time:         0 ms      "
-msgstr "Zeit:         0ms      "
-
-#: src/PitchWindow.cpp:42
-msgid "Frequency:          0 Hz"
-msgstr "Frequenz:          0 Hz"
-
-#: src/PitchWindow.cpp:75
-msgid "Pitch of "
-msgstr "Verschiebung von"
-
-#: src/PitchWindow.cpp:98
-#, c-format
-msgid "Frequency : %.1f Hz\n"
-msgstr "Frequenz : %.1f Hz\n"
-
-#: src/PitchWindow.cpp:109
-#, c-format
-msgid "Time : %s\n"
-msgstr "Zeit : %s\n"
-
-#: src/MainWidget.cpp:178 src/MainWidget.cpp:679 src/MainWidget.cpp:699
+#: src/MainWidget.cpp:180 src/MainWidget.cpp:681 src/MainWidget.cpp:701
 msgid "Play"
 msgstr "Spielen"
 
-#: src/MainWidget.cpp:184 src/MainWidget.cpp:680 src/MainWidget.cpp:700
+#: src/MainWidget.cpp:186 src/MainWidget.cpp:682 src/MainWidget.cpp:702
 msgid "&Loop"
 msgstr "&Schleife"
 
-#: src/MainWidget.cpp:190
+#: src/MainWidget.cpp:192
 msgid "&Zoom"
 msgstr "&Zoom"
 
-#: src/MainWidget.cpp:208
+#: src/MainWidget.cpp:210
 #, fuzzy
 msgid "All"
 msgstr "&Alles"
 
-#: src/MainWidget.cpp:213
+#: src/MainWidget.cpp:215
 msgid "1:1"
 msgstr "1:1"
 
-#: src/MainWidget.cpp:500
+#: src/MainWidget.cpp:502
 #, c-format
 msgid "Rate: %d.%d kHz"
 msgstr "Rate: %d.%d kHz"
 
-#: src/MainWidget.cpp:509
+#: src/MainWidget.cpp:511
 #, c-format
 msgid "Samples: %d"
 msgstr "Samples: %d"
 
-#: src/MainWidget.cpp:647 src/MainWidget.cpp:664
+#: src/MainWidget.cpp:649 src/MainWidget.cpp:666
 msgid "Halt"
 msgstr "Halt"
 
-#: src/MainWidget.cpp:717
+#: src/MainWidget.cpp:719
 #, fuzzy, c-format
 msgid "selected: %s"
 msgstr "ausgewählt: %s"
 
-#: src/MainWidget.cpp:727
+#: src/MainWidget.cpp:729
 #, fuzzy, c-format
 msgid "Length: %s"
 msgstr "Länge: %s"
@@ -688,59 +662,6 @@ msgstr "Verkleinern"
 #: src/menus_config_i18n.cpp:121
 msgid "Zoom to &Selection"
 msgstr "Zoom auf &Auswahl"
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:71 src/FFTWindow.cpp:65
-msgid "&Spectral Data"
-msgstr "&Spektrale Daten"
-
-#: src/FFTWindow.cpp:68
-msgid "&Cursor"
-msgstr "&Cursor"
-
-#: src/FFTWindow.cpp:98
-msgid "Multiply with graph"
-msgstr "Mit Graphen multiplizieren"
-
-#: src/FFTWindow.cpp:100
-msgid "Multiply with formant pattern"
-msgstr "Mit Formantenmuster multiplizieren"
-
-#: src/FFTWindow.cpp:102
-msgid "Smooth"
-msgstr "Glätten"
-
-#: src/FFTWindow.cpp:105
-msgid "Kill phase"
-msgstr "Phase eleminieren"
-
-#: src/FFTWindow.cpp:107
-msgid "find Maximum"
-msgstr "finde Minimum"
-
-#: src/FFTWindow.cpp:109
-msgid "find Minimum"
-msgstr "finde Minimum"
-
-#: src/FFTWindow.cpp:111
-msgid "find nearest Peak"
-msgstr "finde nächste Spitze"
-
-#: src/FFTWindow.cpp:116
-msgid "Inverse FFT"
-msgstr "Inverse FFT"
-
-#: src/FFTWindow.cpp:118
-#, c-format
-msgid "Amplitude in %"
-msgstr "Amplitude in %"
-
-#: src/FFTWindow.cpp:119
-msgid "Amplitude in dB"
-msgstr "Amplitude in dB"
-
-#: src/FFTWindow.cpp:128
-msgid "Phase"
-msgstr "Phase"
 
 #: plugins/dialogs/amptolabel/module.cpp:29
 msgid "Choose labeling criteria"
@@ -1207,6 +1128,10 @@ msgstr "Wert eingeben"
 msgid "Length of pulse :"
 msgstr "Pulslänge :"
 
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:71
+msgid "&Spectral Data"
+msgstr "&Spektrale Daten"
+
 #: plugins/dialogs/sonagram/SonagramWindow.cpp:73
 msgid "&Import from Bitmap ..."
 msgstr "&Import von Bitmap ..."
@@ -1244,10 +1169,15 @@ msgstr "Amplitude:       0 %     "
 msgid "Phase:    0        "
 msgstr "Länge: 0ms             "
 
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:124
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:379
 #, fuzzy
 msgid "Sonagram of "
 msgstr "Sonagramm von "
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:382
+#, fuzzy
+msgid "<nothing>"
+msgstr "&Nichts"
 
 #: plugins/dialogs/sonagram/SonagramDialog.cpp:50
 #, fuzzy
@@ -1355,6 +1285,60 @@ msgstr "&Stimme %d :"
 #: plugins/dialogs/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
+
+#~ msgid "&Pitch"
+#~ msgstr "&Frequenzverschiebung"
+
+#~ msgid "Time:         0 ms      "
+#~ msgstr "Zeit:         0ms      "
+
+#~ msgid "Frequency:          0 Hz"
+#~ msgstr "Frequenz:          0 Hz"
+
+#~ msgid "Pitch of "
+#~ msgstr "Verschiebung von"
+
+#~ msgid "Frequency : %.1f Hz\n"
+#~ msgstr "Frequenz : %.1f Hz\n"
+
+#~ msgid "Time : %s\n"
+#~ msgstr "Zeit : %s\n"
+
+#~ msgid "&Cursor"
+#~ msgstr "&Cursor"
+
+#~ msgid "Multiply with graph"
+#~ msgstr "Mit Graphen multiplizieren"
+
+#~ msgid "Multiply with formant pattern"
+#~ msgstr "Mit Formantenmuster multiplizieren"
+
+#~ msgid "Smooth"
+#~ msgstr "Glätten"
+
+#~ msgid "Kill phase"
+#~ msgstr "Phase eleminieren"
+
+#~ msgid "find Maximum"
+#~ msgstr "finde Minimum"
+
+#~ msgid "find Minimum"
+#~ msgstr "finde Minimum"
+
+#~ msgid "find nearest Peak"
+#~ msgstr "finde nächste Spitze"
+
+#~ msgid "Inverse FFT"
+#~ msgstr "Inverse FFT"
+
+#~ msgid "Amplitude in %"
+#~ msgstr "Amplitude in %"
+
+#~ msgid "Amplitude in dB"
+#~ msgstr "Amplitude in dB"
+
+#~ msgid "Phase"
+#~ msgstr "Phase"
 
 #~ msgid "Bitmap must be %dx%d"
 #~ msgstr "Bitmap muss %dx%d sein"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-08-20 20:20+0200\n"
+"POT-Creation-Date: 2000-09-09 22:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -161,56 +161,56 @@ msgstr ""
 msgid "Loading %d-Bit (%s) File :"
 msgstr ""
 
-#: src/SignalManager.cpp:1161
+#: src/SignalManager.cpp:1160
 msgid "playback problem"
 msgstr ""
 
-#: src/SignalManager.cpp:1205
+#: src/SignalManager.cpp:1204
 msgid "number of bits per samples not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1213
+#: src/SignalManager.cpp:1212
 msgid "stereo not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1220
+#: src/SignalManager.cpp:1219
 msgid "playback rate not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1227
+#: src/SignalManager.cpp:1226
 msgid "unusable buffer size"
 msgstr ""
 
-#: src/TopWidget.cpp:76
+#: src/TopWidget.cpp:86
 msgid "Length: 0 ms           "
 msgstr ""
 
-#: src/TopWidget.cpp:77
+#: src/TopWidget.cpp:87
 msgid "Rate: 0 kHz         "
 msgstr ""
 
-#: src/TopWidget.cpp:78
+#: src/TopWidget.cpp:88
 msgid "Samples: 0             "
 msgstr ""
 
-#: src/TopWidget.cpp:79
+#: src/TopWidget.cpp:89
 msgid "selected: 0 ms        "
 msgstr ""
 
-#: src/TopWidget.cpp:80
+#: src/TopWidget.cpp:90
 msgid "Clipboard: 0 ms      "
 msgstr ""
 
-#: src/TopWidget.cpp:245
+#: src/PluginManager.cpp:97
 #, c-format
 msgid "oops, plugin '%s' is unknown !"
 msgstr ""
 
-#: src/TopWidget.cpp:247 src/TopWidget.cpp:265
+#: src/PluginManager.cpp:99 src/PluginManager.cpp:117
 msgid "error on loading plugin"
 msgstr ""
 
-#: src/TopWidget.cpp:261
+#: src/PluginManager.cpp:113
 #, c-format
 msgid ""
 "unable to load the file \n"
@@ -218,72 +218,46 @@ msgid ""
 " that contains the plugin '%s' !"
 msgstr ""
 
-#: src/PitchWindow.cpp:35
-msgid "&Pitch"
-msgstr ""
-
-#: src/PitchWindow.cpp:41
-msgid "Time:         0 ms      "
-msgstr ""
-
-#: src/PitchWindow.cpp:42
-msgid "Frequency:          0 Hz"
-msgstr ""
-
-#: src/PitchWindow.cpp:75
-msgid "Pitch of "
-msgstr ""
-
-#: src/PitchWindow.cpp:98
-#, c-format
-msgid "Frequency : %.1f Hz\n"
-msgstr ""
-
-#: src/PitchWindow.cpp:109
-#, c-format
-msgid "Time : %s\n"
-msgstr ""
-
-#: src/MainWidget.cpp:178 src/MainWidget.cpp:679 src/MainWidget.cpp:699
+#: src/MainWidget.cpp:180 src/MainWidget.cpp:681 src/MainWidget.cpp:701
 msgid "Play"
 msgstr ""
 
-#: src/MainWidget.cpp:184 src/MainWidget.cpp:680 src/MainWidget.cpp:700
+#: src/MainWidget.cpp:186 src/MainWidget.cpp:682 src/MainWidget.cpp:702
 msgid "&Loop"
 msgstr ""
 
-#: src/MainWidget.cpp:190
+#: src/MainWidget.cpp:192
 msgid "&Zoom"
 msgstr ""
 
-#: src/MainWidget.cpp:208
+#: src/MainWidget.cpp:210
 msgid "All"
 msgstr ""
 
-#: src/MainWidget.cpp:213
+#: src/MainWidget.cpp:215
 msgid "1:1"
 msgstr ""
 
-#: src/MainWidget.cpp:500
+#: src/MainWidget.cpp:502
 #, c-format
 msgid "Rate: %d.%d kHz"
 msgstr ""
 
-#: src/MainWidget.cpp:509
+#: src/MainWidget.cpp:511
 #, c-format
 msgid "Samples: %d"
 msgstr ""
 
-#: src/MainWidget.cpp:647 src/MainWidget.cpp:664
+#: src/MainWidget.cpp:649 src/MainWidget.cpp:666
 msgid "Halt"
 msgstr ""
 
-#: src/MainWidget.cpp:717
+#: src/MainWidget.cpp:719
 #, c-format
 msgid "selected: %s"
 msgstr ""
 
-#: src/MainWidget.cpp:727
+#: src/MainWidget.cpp:729
 #, c-format
 msgid "Length: %s"
 msgstr ""
@@ -667,59 +641,6 @@ msgstr ""
 
 #: src/menus_config_i18n.cpp:121
 msgid "Zoom to &Selection"
-msgstr ""
-
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:71 src/FFTWindow.cpp:65
-msgid "&Spectral Data"
-msgstr ""
-
-#: src/FFTWindow.cpp:68
-msgid "&Cursor"
-msgstr ""
-
-#: src/FFTWindow.cpp:98
-msgid "Multiply with graph"
-msgstr ""
-
-#: src/FFTWindow.cpp:100
-msgid "Multiply with formant pattern"
-msgstr ""
-
-#: src/FFTWindow.cpp:102
-msgid "Smooth"
-msgstr ""
-
-#: src/FFTWindow.cpp:105
-msgid "Kill phase"
-msgstr ""
-
-#: src/FFTWindow.cpp:107
-msgid "find Maximum"
-msgstr ""
-
-#: src/FFTWindow.cpp:109
-msgid "find Minimum"
-msgstr ""
-
-#: src/FFTWindow.cpp:111
-msgid "find nearest Peak"
-msgstr ""
-
-#: src/FFTWindow.cpp:116
-msgid "Inverse FFT"
-msgstr ""
-
-#: src/FFTWindow.cpp:118
-#, c-format
-msgid "Amplitude in %"
-msgstr ""
-
-#: src/FFTWindow.cpp:119
-msgid "Amplitude in dB"
-msgstr ""
-
-#: src/FFTWindow.cpp:128
-msgid "Phase"
 msgstr ""
 
 #: plugins/dialogs/amptolabel/module.cpp:29
@@ -1162,6 +1083,10 @@ msgstr ""
 msgid "Length of pulse :"
 msgstr ""
 
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:71
+msgid "&Spectral Data"
+msgstr ""
+
 #: plugins/dialogs/sonagram/SonagramWindow.cpp:73
 msgid "&Import from Bitmap ..."
 msgstr ""
@@ -1195,8 +1120,12 @@ msgstr ""
 msgid "Phase:    0        "
 msgstr ""
 
-#: plugins/dialogs/sonagram/SonagramWindow.cpp:124
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:379
 msgid "Sonagram of "
+msgstr ""
+
+#: plugins/dialogs/sonagram/SonagramWindow.cpp:382
+msgid "<nothing>"
 msgstr ""
 
 #: plugins/dialogs/sonagram/SonagramDialog.cpp:50

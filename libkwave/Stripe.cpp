@@ -21,25 +21,158 @@
 #include "kwave/MemoryManager.h"
 
 // define this for using only slow Qt array functions
-#undef STRICTLY_QT
+// #define STRICTLY_QT
 
 //***************************************************************************
+//***************************************************************************
+Stripe::MapStorageGuard::MapStorageGuard(Stripe &stripe)
+    :m_stripe(stripe), m_storage(0)
+{
+    m_storage = m_stripe.mapStorage();
+}
+
+//***************************************************************************
+Stripe::MapStorageGuard::~MapStorageGuard()
+{
+    m_stripe.unmapStorage();
+}
+
+//***************************************************************************
+sample_t *Stripe::MapStorageGuard::storage()
+{
+    return m_storage;
+}
+
+//***************************************************************************
+//***************************************************************************
+Stripe::MappedArray::MappedArray(Stripe &stripe, unsigned int length)
+    :m_guard(stripe), m_length(length)
+{
+    sample_t *samples = m_guard.storage();
+    Q_ASSERT(samples);
+    Q_ASSERT(m_length);
+    if (!samples) m_length = 0;
+
+    if (m_length) setRawData(samples, m_length);
+}
+
+//***************************************************************************
+Stripe::MappedArray::~MappedArray()
+{
+    if (m_length) resetRawData(m_guard.storage(), m_length);
+}
+
+//***************************************************************************
+unsigned int Stripe::MappedArray::copy(unsigned int dst, unsigned int src,
+                                       unsigned int cnt)
+{
+//  qDebug("    Stripe::MappedArray::copy(%u, %u, %u)", dst, src, cnt);
+    Q_ASSERT(m_length);
+    if (!m_length) return 0;
+
+#ifdef STRICTLY_QT
+    unsigned int rest = cnt;
+    while (rest--) {
+	(*this)[dst++] = (*this)[src++];
+    }
+#else
+    sample_t *_samples = m_guard.storage();
+    Q_ASSERT(_samples);
+    if (!_samples) return 0;
+    memmove(&(_samples[dst]), &(_samples[src]), cnt * sizeof(sample_t));
+#endif
+
+    return cnt;
+}
+
+//***************************************************************************
+unsigned int Stripe::MappedArray::copy(unsigned int dst,
+    const QMemArray<sample_t> &source, unsigned int offset,
+    unsigned int cnt)
+{
+//  qDebug("    Stripe::MappedArray::copy(%u, ... ,%u, %u)", dst,
+//         offset, cnt);
+
+    Q_ASSERT(m_length);
+    if (!m_length) return 0;
+
+#ifdef STRICTLY_QT
+    unsigned int rest = cnt;
+    while (rest--) {
+	(*this)[dst++] = source[offset++];
+    }
+#else
+    sample_t *_samples = m_guard.storage();
+    Q_ASSERT(_samples);
+    if (!_samples) return 0;
+
+    memmove(&(_samples[dst]), &(source[offset]),
+	    cnt * sizeof(sample_t));
+#endif
+
+    return cnt;
+}
+
+//***************************************************************************
+unsigned int Stripe::MappedArray::read(QMemArray<sample_t> &buffer,
+    unsigned int dstoff, unsigned int offset,  unsigned int length)
+{
+//  qDebug("    Stripe::MappedArray::read(..., %u, %u, %u)", dstoff,
+//         offset, length);
+
+    Q_ASSERT(m_length);
+    if (!m_length) return 0;
+
+#ifdef STRICTLY_QT
+    unsigned int cnt = length;
+    while (cnt--) {
+	buffer[dstoff++] = (*this)[offset++];
+    }
+#else
+    sample_t *_samples = m_guard.storage();
+    Q_ASSERT(_samples);
+    if (!_samples) return 0;
+
+    memmove(&(buffer[dstoff]), &(_samples[offset]),
+	    length * sizeof(sample_t));
+#endif
+    return length;
+}
+
+//***************************************************************************
+//***************************************************************************
 Stripe::Stripe()
-    :QObject(), m_start(0), m_samples(), m_lock_samples()
+    :QObject(), m_start(0), m_length(0), m_storage(0), m_lock_samples()
 {
 }
 
 //***************************************************************************
 Stripe::Stripe(unsigned int start)
-    :QObject(), m_start(start), m_samples(), m_lock_samples()
+    :QObject(), m_start(start), m_length(0), m_storage(0), m_lock_samples()
 {
 }
 
 //***************************************************************************
 Stripe::Stripe(unsigned int start, const QMemArray<sample_t> &samples)
-    :QObject(), m_start(start), m_samples(), m_lock_samples()
+    :QObject(), m_start(start), m_length(0), m_storage(0), m_lock_samples()
 {
-    if (samples.size()) append(samples, samples.size());
+    if (samples.size()) append(samples, 0, samples.size());
+}
+
+//***************************************************************************
+Stripe::Stripe(unsigned int start, Stripe &stripe, unsigned int offset)
+    :QObject(), m_start(start), m_length(0), m_storage(0), m_lock_samples()
+{
+    Q_ASSERT(offset < stripe.length());
+    if (offset >= stripe.length()) return;
+
+    unsigned int length = stripe.length() - offset;
+    if (resizeStorage(length) != length) return; // out of memory
+
+    if (length) {
+	MappedArray _samples(*this, m_length);
+	if (!stripe.read(_samples, 0, offset, length)) resize(0);
+    }
 }
 
 //***************************************************************************
@@ -57,95 +190,107 @@ unsigned int Stripe::start()
 }
 
 //***************************************************************************
+void Stripe::setStart(unsigned int start)
+{
+    MutexGuard lock(m_lock_samples);
+    m_start = start;
+}
+
+//***************************************************************************
 unsigned int Stripe::length()
 {
     MutexGuard lock(m_lock_samples);
-    return m_samples.size();
+    return m_length;
+}
+
+//***************************************************************************
+unsigned int Stripe::end()
+{
+    MutexGuard lock(m_lock_samples);
+    return m_start + ((m_length) ? (m_length - 1) : 0);
 }
 
 //***************************************************************************
 unsigned int Stripe::resizeStorage(unsigned int length)
 {
-    if (m_samples.size() == length) return length; // nothing to do
+    if (m_length == length) return length; // nothing to do
+//  qDebug("Stripe::resizeStorage(%u)", length);
 
-//    qDebug("Stripe::resizeStorage(%u)", length);
-
-#ifndef STRICTLY_QT
     MemoryManager &mem = MemoryManager::instance();
 
-    if (m_samples.size() == 0) {
+    if (!m_length || !m_storage) {
 	// allocate new storage
-	sample_t *newstorage = reinterpret_cast<sample_t*>(mem.allocate(
-		length*sizeof(sample_t)));
-	if (!newstorage) return 0;
-	
-	m_samples.setRawData(newstorage, length);
+	void *new_storage = mem.allocate(length * sizeof(sample_t));
+	if (!new_storage) {
+	    // allocation failed
+	    qWarning("Stripe::resizeStorage(%u) failed! (1)", length);
+	    return m_length;
+        }
+
+	m_storage = new_storage;
+	m_length  = length;
 	return length;
     }
 
     if (length == 0) {
 	// delete the array
-	void *oldstorage = m_samples.data();
-	m_samples.resetRawData(reinterpret_cast<sample_t *>(oldstorage), 
-	                       m_samples.size());
-	mem.free(oldstorage);
+	mem.free(m_storage);
+	m_storage = 0;
+	m_length  = 0;
 	return 0;
     }
 
     // resize the array to another size
-    sample_t *old_storage = m_samples.data();
-    unsigned int old_length = m_samples.size();
-    m_samples.resetRawData(old_storage, old_length);
-
-    sample_t *new_storage = reinterpret_cast<sample_t*>(mem.resize(
-	reinterpret_cast<void*>(old_storage), length*sizeof(sample_t)));
+    void *new_storage = mem.resize(m_storage, length * sizeof(sample_t));
     Q_ASSERT(new_storage);
     if (!new_storage) {
 	// resize failed
-	qWarning("Stripe::resizeStorage(%u) failed!", length);
-	m_samples.setRawData(old_storage, old_length);
-	return old_length;
+	qWarning("Stripe::resizeStorage(%u) failed! (2)", length);
+	return m_length;
     }
-    m_samples.setRawData(new_storage, length);
+    m_storage = new_storage;
+    m_length  = length;
+
     return length;
-
-#else
-    m_samples.resize(length);
-    return m_samples.size();
-
-#endif
 }
 
 //***************************************************************************
-unsigned int Stripe::resize(unsigned int length)
+unsigned int Stripe::resize(unsigned int length, bool initialize)
 {
-    unsigned int old_length;
+    unsigned int old_length = 0;
     {
 	MutexGuard lock(m_lock_samples);
-	
-	old_length = m_samples.size();
-	if (old_length == length) return old_length; // nothing to do
+
+	old_length = m_length;
+	if (m_length == length) return old_length; // nothing to do
 
 //	qDebug("Stripe::resize() from %d to %d samples", old_length, length);
-	resizeStorage(length);
-	Q_ASSERT(m_samples.size() >= length);
-	if (m_samples.size() < length) {
+	if (resizeStorage(length) != length) {
 	    qWarning("Stripe::resize(%u) failed, out of memory ?", length);
+	    return m_length;
 	}
-
-	length = m_samples.size();
 
 	// fill new samples with zero
-	unsigned int pos = old_length;
+	if (initialize) {
+	    unsigned int pos = old_length;
+
 #ifdef STRICTLY_QT
-	while (pos < length) {
-	    m_samples[pos++] = 0;
-	}
+	    MappedArray _samples(*this, m_length);
+	    if (_samples.size() != m_length) return 0;
+
+	    while (pos < length) {
+		_samples[pos++] = 0;
+	    }
 #else
-	if (pos < length) {
-	    memset(&(m_samples[pos]), 0, (length-pos)*sizeof(sample_t));
-	}
+	    MapStorageGuard _map(*this);
+	    sample_t *samples = _map.storage();
+	    Q_ASSERT(samples);
+	    if (!samples) return 0;
+	    if (pos < length) {
+		memset(&(samples[pos]), 0, (length-pos)*sizeof(sample_t));
+	    }
 #endif
+	}
     }
 
     if (length < old_length) {
@@ -163,42 +308,37 @@ unsigned int Stripe::resize(unsigned int length)
 
 //***************************************************************************
 unsigned int Stripe::append(const QMemArray<sample_t> &samples,
+	unsigned int offset,
 	unsigned int count)
 {
     unsigned int old_length;
     unsigned int appended = 0;
 
+    if (!count) return 0; // nothing to do
+
     {
 	MutexGuard lock(m_lock_samples);
 
-	if (!count || !samples.size()) return 0; // nothing to do
-	Q_ASSERT(count <= samples.size());
-	if (count > samples.size()) count = samples.size();
+	Q_ASSERT(offset + count <= samples.size());
+	if (offset + count > samples.size()) return 0;
 
-//	qDebug("Stripe::append: adding %d samples", count);
+	qDebug("Stripe::append: adding %d samples", count);
 
-	old_length = m_samples.size();
-	unsigned int newlength = old_length + count;
-	resizeStorage(newlength);
-	Q_ASSERT(m_samples.size() == newlength);
-	newlength = m_samples.size();
+	old_length = m_length;
+	unsigned int new_length = old_length + count;
+	if (resizeStorage(new_length) != new_length)
+	    return 0; // out of memory
 
 	// append to the end of the area
-	unsigned int pos = old_length;
-#ifdef STRICTLY_QT
-	while (pos < newlength) {
-	    m_samples[pos++] = samples[appended++];
+	{
+	    MappedArray _samples(*this, m_length);
+
+	    unsigned int cnt = new_length - old_length;
+	    appended = _samples.copy(old_length, samples, offset, cnt);
 	}
-#else
-	if (pos < newlength) {
-	    appended = newlength - pos;
-	    memmove(&(m_samples[pos]), &(samples[0]),
-	            appended*sizeof(sample_t));
-	}
-#endif
     }
 
-//  qDebug("Stripe::append(): resized to %d", m_samples.size());
+    qDebug("Stripe::append(): resized to %d", m_length);
 
     // something has been added to the end
     if (appended) emit sigSamplesInserted(*this, old_length, appended);
@@ -208,66 +348,43 @@ unsigned int Stripe::append(const QMemArray<sample_t> &samples,
 
 //***************************************************************************
 unsigned int Stripe::insert(const QMemArray<sample_t> &samples,
-	unsigned int offset, unsigned int count)
+                            unsigned int offset, unsigned int count)
 {
     unsigned int old_length;
     unsigned int inserted = 0;
 
     {
 	MutexGuard lock(m_lock_samples);
-	
-	if (!count || !samples.size()) return 0; // nothing to do
-	Q_ASSERT(count <= samples.size());
-	if (count > samples.size()) count = samples.size();
-	
-//	qDebug("Stripe::insert: inserting %d samples", count);
-	
-	old_length = m_samples.size();
+
+	if (!count || !m_length) return 0; // nothing to do
+	Q_ASSERT(offset + count <= samples.size());
+	if (offset + count > samples.size()) return 0;
+
+	qDebug("Stripe::insert: inserting %d samples", count);
+
+	old_length = m_length;
 	unsigned int new_length = old_length + count;
-	resizeStorage(new_length);
-	Q_ASSERT(m_samples.size() >= new_length);
-	if (m_samples.size() != new_length) {
-	    qWarning("Stripe::insert(): m_samples.size()=%u, old=%u, wanted=%u",
-		m_samples.size(), old_length, new_length);
+	if (resizeStorage(new_length) != new_length) {
+	    qWarning("Stripe::insert(): m_length=%u, old=%u, wanted=%u",
+		m_length, old_length, new_length);
 	    return 0;
 	}
-	new_length = m_samples.size();
-	
-	unsigned int src = old_length;
-	unsigned int dst = new_length;
-	unsigned int cnt;
-	
+
 	if (offset < old_length) {
 	    // move old samples right
-	    cnt = old_length - offset;
-#ifdef STRICTLY_QT
-	    while (cnt--) {
-		m_samples[--new_length] = m_samples[--old_length];
-	    }
-#else
-	    unsigned int src = old_length - cnt;
-	    unsigned int dst = new_length - cnt;
-	    memmove(&(m_samples[dst]), &(m_samples[src]),
-	            cnt*sizeof(sample_t));
-#endif
+	    MappedArray _samples(*this, m_length);
+
+	    unsigned int src = offset;
+	    unsigned int dst = offset + count;
+	    if (!_samples.copy(dst, src, old_length - offset)) return 0;
 	}
-	
-	// insert at the given offset
-	src = 0;
-	dst = offset;
-	cnt = count;
-#ifdef STRICTLY_QT
-	while (cnt--) {
-	    m_samples[dst++] = samples[src++];
-	}
-#else
-	memmove(&(m_samples[dst]), &(samples[src]), cnt * sizeof(sample_t));
-#endif
-	
-	inserted = count;
+
+	// insert the new samples at the given offset
+	MappedArray _samples(*this, m_length);
+	inserted = _samples.copy(offset, samples, 0, count);
     }
 
-//    qDebug("Stripe::insert(): resized to %d", m_samples.size());
+    qDebug("Stripe::insert(): resized to %d", m_length);
 
     // something has been inserted
     if (inserted) emit sigSamplesInserted(*this, offset, inserted);
@@ -278,39 +395,41 @@ unsigned int Stripe::insert(const QMemArray<sample_t> &samples,
 //***************************************************************************
 void Stripe::deleteRange(unsigned int offset, unsigned int length)
 {
+    qDebug("    Stripe::deleteRange(offset=%u, length=%u)", offset, length);
     if (!length) return; // nothing to do
+
     {
 	MutexGuard lock(m_lock_samples);
-	const unsigned int size = m_samples.size();
+
+	const unsigned int size = m_length;
 	if (!size) return;
-	
+
 	unsigned int first = offset;
 	unsigned int last  = offset + length - 1;
-	
-	if (first >= m_start+size) return;
-	if (last < m_start) return;
-	
+	qDebug("    Stripe::deleteRange, me=[%u ... %u] del=[%u ... %u]",
+	       m_start, m_start+size-1, m_start + first, m_start + last);
+
+	Q_ASSERT(first < size);
+	if (first >= size) return;
+
 	// put first/last into our area
-	if (first < m_start) first = m_start;
-	if (last >= m_start+size) last = m_start + size - 1;
+	if (last >= size) last = size - 1;
 	Q_ASSERT(last >= first);
 	if (last <= first) return;
-	
+
 	// move all samples after the deleted area to the left
 	unsigned int dst = first;
 	unsigned int src = last+1;
 	unsigned int len = size - src;
-	Q_ASSERT((src+len <= size) || (!len));
-	Q_ASSERT((dst+len <= size) || (!len));
-#ifdef STRICTLY_QT
-	while (len--) {
-	    m_samples[dst++] = m_samples[src++];
+	qDebug("    Stripe: deleting %u ... %u", dst, src-1);
+	if (len) {
+	    MappedArray _samples(*this, m_length);
+
+	    Q_ASSERT(src + len <= size);
+	    Q_ASSERT(dst + len <= size);
+	    if (!_samples.copy(dst, src, len)) return;
 	}
-#else
-	if (len) memmove(&(m_samples[dst]), &(m_samples[src]),
-	                 len*sizeof(sample_t));
-#endif
-	
+
 	// resize the buffer to it's new size
 	resizeStorage(size - length);
     }
@@ -320,64 +439,75 @@ void Stripe::deleteRange(unsigned int offset, unsigned int length)
 
 //***************************************************************************
 void Stripe::overwrite(unsigned int offset,
-	const QMemArray<sample_t> &samples,
+	const QMemArray<sample_t> &source,
 	unsigned int srcoff, unsigned int srclen)
 {
-    unsigned int count = 0;
+    unsigned int count = srclen;
     {
 	MutexGuard lock(m_lock_samples);
-	
-#ifdef STRICTLY_QT
-	unsigned int dst = offset;
-	while (srclen--) {
-	    m_samples[dst++] = samples[srcoff++];
-	    count++;
+	{
+	    MappedArray _samples(*this, m_length);
+	    count = _samples.copy(offset, source, srcoff, count);
 	}
-#else
-	unsigned int len = m_samples.size();
-	Q_ASSERT(offset+count <= len);
-	if (srclen) {
-	    count = srclen;
-	    memmove(&(m_samples[offset]), &(samples[srcoff]),
-	            count * sizeof(sample_t));
-	}
-#endif
     }
 
-    if (count) emit sigSamplesModified(*this, offset, count);
+    if (count) emit sigSamplesModified(m_start + offset, count);
 }
 
 //***************************************************************************
 unsigned int Stripe::read(QMemArray<sample_t> &buffer, unsigned int dstoff,
 	unsigned int offset, unsigned int length)
 {
+    Q_ASSERT(length);
+    if (!length) return 0; // nothing to do !?
 
     MutexGuard lock(m_lock_samples);
 
-    unsigned int len = m_samples.size();
-    if (offset > len) return 0;
-    if (offset+length > len) length = len - offset;
+//  for (unsigned int x=dstoff; (dstoff+x < length) && (x < buffer.size()); x++)
+//      buffer[x] = -(SAMPLE_MAX >> 2);
+
+//     qDebug("Stripe::read(), me=[%u ... %u] (size=%u), offset=%u, length=%u",
+//            m_start, m_start+m_length-1, m_length, offset, length);
+
+    Q_ASSERT(offset <= m_length);
+    if (offset > m_length) return 0;
+    if (offset+length > m_length) length = m_length - offset;
+    Q_ASSERT(length);
+    if (!length) qDebug("--- [%u ... %u] (%u), offset=%u",
+                        m_start, m_start+m_length-1, m_length, offset);
     if (!length) return 0;
 
-#ifdef STRICTLY_QT
-    unsigned int count = length;
-    while (length--) {
-	buffer[dstoff++] = m_samples[offset++];
+    {
+	MappedArray _samples(*this, m_length);
+	length = _samples.read(buffer, dstoff, offset, length);
     }
-    return count;
-#else
-    memmove(&(buffer[dstoff]), &(m_samples[offset]),
-	length * sizeof(sample_t));
+
+//  qDebug("read done, length=%u", length);
     return length;
-#endif
 }
 
 //***************************************************************************
 Stripe &Stripe::operator << (const QMemArray<sample_t> &samples)
 {
-    unsigned int appended = append(samples, samples.size());
+    unsigned int appended = append(samples, 0, samples.size());
     Q_ASSERT(appended == samples.size());
     return *this;
+}
+
+//***************************************************************************
+sample_t *Stripe::mapStorage()
+{
+//  qDebug("  Stripe::mapStorage()");
+    MemoryManager &mem = MemoryManager::instance();
+    return reinterpret_cast<sample_t*>(mem.map(m_storage));
+}
+
+//***************************************************************************
+void Stripe::unmapStorage()
+{
+//  qDebug("  Stripe::unmapStorage()");
+    MemoryManager &mem = MemoryManager::instance();
+    mem.unmap(m_storage);
 }
 
 //***************************************************************************

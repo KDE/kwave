@@ -162,32 +162,48 @@ class Kwave_SampleSink_impl
 {
 public:
 
-	void calculateBlock(unsigned long samples)
-	{
-		debug("Kwave_SampleSink_impl::calculateBlock(%lu)",samples);
-//		if(samples > maxsamples)
-//		{
-//			maxsamples = samples;
-//			if(outblock) delete[] outblock;
-//			outblock = new uchar[maxsamples * 4]; // 2 channels, 16 bit
-//		}
-//
-//		convert_stereo_2float_i16le(samples,left,right, outblock);
-//		fwrite(outblock, 1, 4 * samples,out);
-	}
+    Kwave_SampleSink_impl()
+	:Kwave_SampleSink_skel(), Arts::StdSynthModule(),
+	m_writer(0), m_done(false)
+    { }
 
-	/*
-	 * this is the most tricky part here - since we will run in a context
-	 * where no audio hardware will play the "give me more data role",
-	 * we'll have to request things ourselves (requireFlow() tells the
-	 * flowsystem that more signal flow should happen, so that
-	 * calculateBlock will get called
-	 */
-	void goOn()
-	{
-		_node()->requireFlow();
-	}
+    Kwave_SampleSink_impl(SampleWriter *writer)
+	:Kwave_SampleSink_skel(), Arts::StdSynthModule(),
+	m_writer(writer), m_done(false)
+    { }
 
+    void calculateBlock(unsigned long samples)
+    {
+	if (!m_writer) return;
+	
+	unsigned long i;
+	sample_t sample = 0;
+	
+	for(i=0;i < samples;i++) {
+	    sample = sample_t(sink[i] * (1 << 23));
+	    *m_writer << sample;
+	}
+	
+	debug("Kwave_SampleSink_impl::calculateBlock(%lu)",samples);
+    }
+
+    /*
+     * this is the most tricky part here - since we will run in a context
+     * where no audio hardware will play the "give me more data role",
+     * we'll have to request things ourselves (requireFlow() tells the
+     * flowsystem that more signal flow should happen, so that
+     * calculateBlock will get called
+     */
+    void goOn()
+    {
+	_node()->requireFlow();
+    }
+
+protected:
+
+    SampleWriter *m_writer;
+
+    bool m_done;
 };
 
 REGISTER_IMPLEMENTATION(Kwave_SampleSource_impl);
@@ -203,6 +219,7 @@ void AmplifyFreePlugin::run(QStringList)
     m_stop = false;
 
     MultiTrackReader source;
+    MultiTrackWriter sink;
 
     unsigned int input_length = selection(&first, &last);
     if (first == last) {
@@ -210,7 +227,9 @@ void AmplifyFreePlugin::run(QStringList)
 	first = 0;
 	last = input_length-1;
     }
+
     openMultiTrackReader(source, selectedTracks(), first, last);
+    manager().openMultiTrackWriter(sink, Overwrite);
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
     Arts::Dispatcher dispatcher;
@@ -219,6 +238,7 @@ void AmplifyFreePlugin::run(QStringList)
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
 //    for (track=0; track < tracks; track++) {
     SampleReader *reader = source.at(0);
+    SampleWriter *writer = sink.at(0);
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
     Kwave_SampleSource src_adapter = Kwave_SampleSource::_from_base(
@@ -226,7 +246,7 @@ void AmplifyFreePlugin::run(QStringList)
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
     Kwave_SampleSink dst_adapter = Kwave_SampleSink::_from_base(
-	new Kwave_SampleSink_impl());
+	new Kwave_SampleSink_impl(writer));
 
     fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
     Arts::connect(src_adapter, "source", dst_adapter, "sink");
@@ -241,8 +261,11 @@ void AmplifyFreePlugin::run(QStringList)
 	dst_adapter.goOn();
     }
 
-//    writers.setAutoDelete(true);
-//    writers.clear();
+    sink.setAutoDelete(true);
+    sink.clear();
+
+    source.setAutoDelete(true);
+    source.clear();
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
     dispatcher.unlock();

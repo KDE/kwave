@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-12 08:09+0200\n"
+"POT-Creation-Date: 2004-05-15 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -437,38 +437,38 @@ msgstr ""
 msgid "Zoom to &Selection"
 msgstr ""
 
-#: kwave/PluginManager.cpp:212
+#: kwave/PluginManager.cpp:211
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr ""
 
-#: kwave/PluginManager.cpp:215 kwave/PluginManager.cpp:227
+#: kwave/PluginManager.cpp:214 kwave/PluginManager.cpp:226
 msgid "error on loading plugin"
 msgstr ""
 
-#: kwave/PluginManager.cpp:223
+#: kwave/PluginManager.cpp:222
 msgid ""
 "unable to load the file \n"
 "'%1'\n"
 " that contains the plugin '%2' !"
 msgstr ""
 
-#: kwave/PluginManager.cpp:245 kwave/PluginManager.cpp:252
+#: kwave/PluginManager.cpp:244 kwave/PluginManager.cpp:251
 msgid "(unknown)"
 msgstr ""
 
-#: kwave/PluginManager.cpp:776
+#: kwave/PluginManager.cpp:775
 #, c-format
 msgid "%16s %5s written by %s"
 msgstr ""
 
-#: kwave/PluginManager.cpp:780
+#: kwave/PluginManager.cpp:779
 #, c-format
 msgid ""
 "error in '%s':\n"
 "\t %s"
 msgstr ""
 
-#: kwave/PluginManager.cpp:785
+#: kwave/PluginManager.cpp:784
 #, c-format
 msgid ""
 "--- \n"

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2003-12-07</date>
+<date>2004-05-15</date>
 <releaseinfo>0.7.1-pre1
 </releaseinfo>
 
@@ -190,11 +190,30 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.7.1 [2004-??-??]</para>
+            <para>0.7.1 [2004-05-??]</para>
             <itemizedlist>
                 <listitem><para>
                     removed our own copy of libmad from the source tree, now it
                       should be available in all common distributions
+                </para></listitem>
+                <listitem><para>
+                    implemented pre-recording
+                </para></listitem>
+                <listitem><para>
+                    implemented recording time limit
+                </para></listitem>
+                <listitem><para>
+                    bugfix: minor fault in the recording state machine
+                </para></listitem>
+                <listitem><para>
+                    bugfix: solved some layout issues in the about- and sonagram plugins
+                </para></listitem>
+                <listitem><para>
+                    update of the online documentation, many screenshots
+                </para></listitem>
+                <listitem><para>
+                    improved Makefile dependencies of the plugins, now parallel builds
+                      also work and speed up the creation of plugins
                 </para></listitem>
             </itemizedlist>
         </listitem>

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-12 18:17+0200\n"
+"POT-Creation-Date: 2004-05-15 12:48+0200\n"
 "PO-Revision-Date: 2004-05-12 18:16+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -437,15 +437,15 @@ msgstr "Ver&kleinern"
 msgid "Zoom to &Selection"
 msgstr "Zoom auf &Auswahl"
 
-#: kwave/PluginManager.cpp:212
+#: kwave/PluginManager.cpp:211
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Hoppla, Plugin '%1' ist unbekannt oder ungültig!"
 
-#: kwave/PluginManager.cpp:215 kwave/PluginManager.cpp:227
+#: kwave/PluginManager.cpp:214 kwave/PluginManager.cpp:226
 msgid "error on loading plugin"
 msgstr "Fehler beim Laden des Plugins"
 
-#: kwave/PluginManager.cpp:223
+#: kwave/PluginManager.cpp:222
 msgid ""
 "unable to load the file \n"
 "'%1'\n"
@@ -455,16 +455,16 @@ msgstr ""
 "mit dem Plugin '%2' \n"
 "konnte nicht geladen werden !"
 
-#: kwave/PluginManager.cpp:245 kwave/PluginManager.cpp:252
+#: kwave/PluginManager.cpp:244 kwave/PluginManager.cpp:251
 msgid "(unknown)"
 msgstr "(unbekannt)"
 
-#: kwave/PluginManager.cpp:776
+#: kwave/PluginManager.cpp:775
 #, c-format
 msgid "%16s %5s written by %s"
 msgstr "%16s %5s geschrieben von %s"
 
-#: kwave/PluginManager.cpp:780
+#: kwave/PluginManager.cpp:779
 #, c-format
 msgid ""
 "error in '%s':\n"
@@ -473,7 +473,7 @@ msgstr ""
 "Fehler in '%s':\n"
 "\t %s"
 
-#: kwave/PluginManager.cpp:785
+#: kwave/PluginManager.cpp:784
 #, c-format
 msgid ""
 "--- \n"

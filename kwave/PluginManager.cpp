@@ -89,7 +89,8 @@ PluginManager::~PluginManager()
     while (!m_loaded_plugins.isEmpty()) {
 	KwavePlugin *p = m_loaded_plugins.last();
 	if (p) {
-//	    debug("PluginManager::~PluginManager(): closing plugin(%p:%p)",p->getHandle(),p);
+	    debug("PluginManager::~PluginManager(): closing plugin(%s)",
+	           p->name().data());
 	    pluginClosed(p, true);
 	} else {
 	    debug("PluginManager::~PluginManager(): removing null plugin");
@@ -423,24 +424,10 @@ unsigned int PluginManager::selectionEnd()
 }
 
 //***************************************************************************
-int PluginManager::singleSample(unsigned int channel, unsigned int offset)
-{
-    return m_top_widget.signalManager().singleSample(channel, offset);
-}
-
-//***************************************************************************
-int PluginManager::averageSample(unsigned int offset,
-                                 const QArray<unsigned int> *channels)
-{
-    return m_top_widget.signalManager().averageSample(offset, channels);
-}
-
-//***************************************************************************
 QBitmap *PluginManager::overview(unsigned int width, unsigned int height,
                                  unsigned int offset, unsigned int length)
 {
-    return m_top_widget.signalManager().overview(width, height,
-                                                 offset, length);
+    return m_top_widget.signalManager().overview(width,height,offset,length);
 }
 
 //***************************************************************************

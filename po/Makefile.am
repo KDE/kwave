@@ -1,7 +1,8 @@
-POFILES = de.po 
+
+POFILES = de.po
 GMOFILES = $(POFILES:.po=.gmo)
 
-localedir = $(kde_locale)
+localedir = $(DESTDIR)$(kde_locale)
 
 MAINTAINERCLEANFILES = $(GMOFILES)
 
@@ -19,7 +20,7 @@ all-no:
 install: all
 	@catalogs='$(GMOFILES)'; \
 	for cat in $$catalogs; do \
-	destdir=$(DESTDIR)$(localedir); \
+	destdir=$(localedir); \
 	lang=`echo $$cat | sed 's/\.gmo//'`; \
 	name=$(PACKAGE).mo \
 	dir=$$destdir/$$lang/LC_MESSAGES; \

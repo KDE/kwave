@@ -26,6 +26,7 @@
 
 class QImage;
 class QStringList;
+class MultiTrackReader;
 class PluginContext;
 class SonagramWindow;
 class StripeInfoPrivate;
@@ -100,11 +101,11 @@ private:
     /**
      * Calculates the fft for one stripe. If the input data range runns
      * over the end of the signal or selection, zeroes will be used instead.
-     * @param start sample to start from [0...length-1]
+     * @param source a MultiTrackReader with the samples
      * @param points number of fft points
      * @param output reference to an array to receive the output
      */
-    void calculateStripe(const unsigned int start, const unsigned int points,
+    void calculateStripe(MultiTrackReader &source, const unsigned int points,
 	QByteArray &output);
 
     /** the main view of the plugin, a SonagramWindow */

@@ -29,6 +29,9 @@
 #include <kapp.h>
 
 #include "libkwave/gsl_fft.h"
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/Sample.h"
+#include "libkwave/SampleReader.h"
 #include "libkwave/WindowFunction.h"
 
 #include "libgui/KwavePlugin.h"
@@ -41,19 +44,19 @@
 
 KWAVE_PLUGIN(SonagramPlugin,"sonagram","Thomas Eschenbacher");
 
-#define MAX_QUEUE_USAGE 16
+#define MAX_QUEUE_USAGE 256
 
 /**
  * simple private container class for stripe number and data (TSS-safe)
  */
-class StripeInfoPrivate: public TSS_Object
+class StripeInfoPrivate
 {
 public:
-    StripeInfoPrivate(unsigned int nr, QByteArray data)
-	:TSS_Object(), m_nr(nr), m_data(data)
+    StripeInfoPrivate(unsigned int nr, const QByteArray &data)
+	:m_nr(nr), m_data(data)
 	{};
     StripeInfoPrivate(const StripeInfoPrivate &copy)
-	:TSS_Object(), m_nr(copy.nr()), m_data(copy.data())
+	:m_nr(copy.nr()), m_data(copy.data())
 	{};
     virtual ~StripeInfoPrivate() {} ;
     unsigned int nr() const { return m_nr; };
@@ -85,21 +88,25 @@ SonagramPlugin::SonagramPlugin(PluginContext &c)
 //***************************************************************************
 SonagramPlugin::~SonagramPlugin()
 {
+//    debug("SonagramPlugin::~SonagramPlugin()");
+
     if (m_sonagram_window) delete m_sonagram_window;
     m_sonagram_window = 0;
 
+//    debug("SonagramPlugin::~SonagramPlugin() --1--");
     if (m_spx_insert_stripe) delete m_spx_insert_stripe;
     m_spx_insert_stripe = 0;
+//    debug("SonagramPlugin::~SonagramPlugin() --2--");
 
     if (m_image) delete m_image;
     m_image = 0;
+//    debug("SonagramPlugin::~SonagramPlugin() done");
 }
 
 //***************************************************************************
 QStringList *SonagramPlugin::setup(QStringList &previous_params)
 {
     QStringList *result = 0;
-    debug("SonagramPlugin::setup()");
 
     // try to interprete the list of previous parameters, ignore errors
     if (previous_params.count()) interpreteParameters(previous_params);
@@ -120,7 +127,6 @@ QStringList *SonagramPlugin::setup(QStringList &previous_params)
     };
 
     delete dlg;
-    debug("SonagramPlugin::setup(): done.");
     return result;
 }
 
@@ -129,12 +135,11 @@ int SonagramPlugin::interpreteParameters(QStringList &params)
 {
     bool ok;
     QString param;
-    debug("SonagramPlugin::interpreteParameters()"); // ###
 
     // evaluate the parameter list
     ASSERT(params.count() == 5);
     if (params.count() != 5) {
-	debug("SonagramPlugin::interpreteParams(): params.count()=%d",
+	warning("SonagramPlugin::interpreteParams(): params.count()=%d",
 	      params.count());
 	return -EINVAL;
     }
@@ -166,15 +171,12 @@ int SonagramPlugin::interpreteParameters(QStringList &params)
     ASSERT(ok);
     if (!ok) return -EINVAL;
 
-    debug("SonagramPlugin::interpreteParameters(): done"); // ###
     return 0;
 }
 
 //***************************************************************************
 int SonagramPlugin::start(QStringList &params)
 {
-    debug("--- SonagramPlugin::start() ---");
-
     // interprete parameter list and abort if it contains invalid data
     int result = interpreteParameters(params);
     if (result) return result;
@@ -223,15 +225,12 @@ int SonagramPlugin::start(QStringList &params)
     }
 
     m_cmd_shutdown = false; // ###
-
-    debug("SonagramPlugin::start() done.");
     return 0;
 }
 
 //***************************************************************************
 int SonagramPlugin::stop()
 {
-   debug("int SonagramPlugin::stop()"); // ###
    m_cmd_shutdown = true;
    return KwavePlugin::stop();
 }
@@ -239,10 +238,15 @@ int SonagramPlugin::stop()
 //***************************************************************************
 void SonagramPlugin::run(QStringList /* params */)
 {
-    debug("SonagramPlugin::run()");
+//    debug("SonagramPlugin::run()");
 
     ASSERT(m_spx_insert_stripe);
     if (!m_spx_insert_stripe) return;
+
+    MultiTrackReader source;
+    openMultiTrackReader(source, selectedTracks(), m_first_sample,
+	m_last_sample);
+//    debug("SonagramPlugin::run(), first=%u, last=%u",m_first_sample,m_last_sample);
 
     while (!m_cmd_shutdown) {
 	QByteArray *stripe_data;
@@ -250,16 +254,15 @@ void SonagramPlugin::run(QStringList /* params */)
 	for (stripe_nr = 0; stripe_nr < m_stripes; stripe_nr++) {
 //	    debug("SonagramPlugin::run(): calculating stripe %d of %d",
 //	        stripe_nr,m_stripes);
-
+	
 	    // create a new stripe data array
 	    stripe_data = new QByteArray(m_fft_points/2);
 	    ASSERT(stripe_data);
 	    if (!stripe_data) continue;
-
+	
 	    // calculate one stripe
-	    calculateStripe(m_first_sample+stripe_nr*m_fft_points,
-	        m_fft_points, *stripe_data);
-
+	    calculateStripe(source, m_fft_points, *stripe_data);
+	
 	    StripeInfoPrivate *stripe_info = new
 		StripeInfoPrivate(stripe_nr, *stripe_data);
 
@@ -281,11 +284,11 @@ void SonagramPlugin::run(QStringList /* params */)
 	
 	    if (m_cmd_shutdown) break; // ###
 	}
-
+	
 	m_cmd_shutdown = true;
     }
 
-    debug("SonagramPlugin::run(): done.");
+//    debug("SonagramPlugin::run(): done.");
 }
 
 //***************************************************************************
@@ -312,44 +315,47 @@ void SonagramPlugin::insertStripe()
 }
 
 //***************************************************************************
-void SonagramPlugin::calculateStripe(const unsigned int start,
+void SonagramPlugin::calculateStripe(MultiTrackReader &source,
 	const unsigned int points, QByteArray &output)
 {
     // first initialize the output to zeroes in case of errors
     output.fill(0);
-
-    ASSERT(points);
-    if (!points) return;
 
     WindowFunction func(m_window_type);
     QArray<double> windowfunction = func.points(points);
     ASSERT(windowfunction.count() == points);
     if (windowfunction.count() != points) return;
 
-    complex *data = new complex[points];
-    ASSERT(data);
-    if (!data) return;
+    QArray<complex> input(points);
+    ASSERT(input.size() == points);
+    if (input.size() < points) return;
 
     // initialize the table for fft
     gsl_fft_complex_wavetable table;
     gsl_fft_complex_wavetable_alloc(points, &table);
     gsl_fft_complex_init(points, &table);
-    	
+
     // copy signal data into complex array
     for (unsigned int j = 0; j < points; j++) {
-	unsigned int sample_nr = start + j;
-	double value;
-
-	value = (sample_nr < m_last_sample) ?
-	    (double)averageSample(sample_nr,
-	    &m_selected_channels)/(double)(1<<23): 0.0;
-
-	data[j].real = windowfunction[j] * value;
-	data[j].imag = 0;
+	double value = 0.0;
+	if (!(source.eof())) {
+	    unsigned int count = source.count();
+	    unsigned int t;
+	    for (t=0; t < count; t++) {
+		sample_t s = 0;
+		SampleReader *reader = source.at(t);
+		ASSERT(reader);
+		if (reader) *reader >> s;
+		value += (double)s;
+	    }
+	    value /= (double)(1<<23) * (double)count;
+	}
+	input[j].real = windowfunction[j] * value;
+	input[j].imag = 0;
     }
 
     // calculate the fft
-    gsl_fft_complex_forward(data, points, &table);
+    gsl_fft_complex_forward(input.data(), points, &table);
 
     double ima;
     double rea;
@@ -370,13 +376,13 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
     // norm all values to [0...255] and use them as pixel value
     if (max != 0) {
 	for (unsigned int j = 0; j < points/2; j++) {
-	    rea = data[j].real;
-	    ima = data[j].imag;
+	    rea = input[j].real;
+	    ima = input[j].imag;
 	    rea = sqrt(rea * rea + ima * ima) / max;
-
+	
 	    // get amplitude and scale to 1
 	    rea = 1 - ((1 - rea) * (1 - rea));
-
+	
 	    output[j] = 0xFE - (int)(rea * 0xFE );
 	}
     }
@@ -389,7 +395,7 @@ void SonagramPlugin::calculateStripe(const unsigned int start,
 void SonagramPlugin::createNewImage(const unsigned int width,
 	const unsigned int height)
 {
-    debug("SonagramPlugin::createNewImage()");
+//    debug("SonagramPlugin::createNewImage()");
 
     // delete the previous image
     if (m_image) delete m_image;
@@ -405,7 +411,7 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     ASSERT(height <= 32767);
     if ((width >= 32767) || (height >= 32767)) return;
 
-    debug("SonagramPlugin::createNewImage(): settings ok, creating image");
+//    debug("SonagramPlugin::createNewImage(): settings ok, creating image");
 
     // create the new image object
     m_image = new QImage(width, height, 8, 256);
@@ -421,7 +427,7 @@ void SonagramPlugin::createNewImage(const unsigned int width,
     // fill the image with "empty"
     m_image->fill(0xFF);
 
-    debug("SonagramPlugin::createNewImage(): done.");
+//    debug("SonagramPlugin::createNewImage(): done.");
 }
 
 //***************************************************************************

@@ -83,6 +83,7 @@ SignalProxy1<T>::SignalProxy1(QObject *owner,
 template <class T>
 SignalProxy1<T>::~SignalProxy1()
 {
+    MutexGuard lock(m_lock);
     m_queue.setAutoDelete(true);
     m_queue.clear();
 }

@@ -197,25 +197,6 @@ public:
     virtual unsigned int selection(unsigned int *left=0,unsigned int *right=0);
 
     /**
-     * Returns the value of one single sample of a specified track.
-     * If the channel does not exist or the index of the sample is
-     * out of range the return value will be zero.
-     */
-    virtual int singleSample(unsigned int channel, unsigned int offset);
-
-    /**
-     * Returns the value of one single sample averaged over all active tracks.
-     * If no track does exist or the index of the sample is out of range the
-     * return value will be zero. If the optional list of channels is omitted,
-     * the sample will be averaged over all currently selected channels.
-     * @param offset sample offset [0...length-1]
-     * @param channels an array of channel numbers, optional
-     * @return value of the sample
-     */
-    virtual int averageSample(unsigned int offset,
-                              const QArray<unsigned int> *channels = 0);
-
-    /**
      * Returns a set of opened SampleReader objects for reading from
      * multiple tracks. The list of tracks may contain indices of tracks
      * in any order and even duplicate entries are allowed. One useful

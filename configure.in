@@ -23,6 +23,7 @@ dnl CFLAGS="${CFLAGS}     -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
 dnl CXXFLAGS="${CXXFLAGS} -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
 dnl CFLAGS="${CFLAGS}     -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
 dnl CXXFLAGS="${CXXFLAGS} -O2 -Wall -pedantic ${RPM_OPT_FLAGS}"
+dnl CXXFLAGS="$(CXXFLAGS) -fexceptions -g"
 
 dnl test for usage of insure++
 AC_CHECK_WITH_INSURE
@@ -113,6 +114,9 @@ dnl AC_CHECK_HEADERS(linux/soundcard.h)
 dnl name mangling would be fine, but not necessary
 AC_CHECK_HEADER(demangle.h)
 
+dnl rtti/type info woulf be fine for debugging
+AC_CHECK_HEADERS(typeinfo)
+
 dnl check for multithreading support
 AC_CHECK_HEADER(pthread.h,,AC_MSG_ERROR(""
 "    "
@@ -159,7 +163,7 @@ dnl Checks for library functions.
 dnl AC_CHECK_FUNCS(socket vsnprintf)
 AC_CHECK_SETENV
 dnl AC_CHECK_FUNCS(getdomainname)
-AC_CHECK_KSIZE_T
+dnl AC_CHECK_KSIZE_T
 
 dnl **********************************
 dnl *** include special CSL macros ***

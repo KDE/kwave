@@ -118,28 +118,6 @@ public:
     const QArray<unsigned int> allTracks();
 
     /**
-     * Returns the value of one single sample of a specified track.
-     * If the track does not exist or the index of the sample is
-     * out of range the return value will be zero.
-     * @param track index if the track [0...N-1]
-     * @param offset sample offset [0...length-1]
-     * @return value of the sample
-     */
-    int singleSample(unsigned int track, unsigned int offset);
-
-    /**
-     * Returns the value of one single sample averaged over all active tracks.
-     * If no tracks do exist or the index of the sample is out of range the
-     * return value will be zero. If the optional list of tracks is omitted,
-     * the sample will be averaged over all currently selected tracks.
-     * @param offset sample offset [0...length-1]
-     * @param tracks an array of track numbers, optional
-     * @return value of the sample
-     */
-    int averageSample(unsigned int offset,
-                      const QArray<unsigned int> *tracks = 0);
-
-    /**
      * Saves the signal to a file with a given resolution. If the file
      * already exists, it will be overwritten.
      * @param filename name of the file to be saved.

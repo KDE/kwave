@@ -33,6 +33,9 @@ public:
 
     virtual ~MultiTrackReader() {};
 
+    /** Returns true if one of the readers has reached eof() */
+    virtual bool eof();
+
 };
 
 #endif /* _MULTI_TRACK_READER_H_ */

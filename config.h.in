@@ -102,6 +102,9 @@
 /* Define if you have the <time.h> header file.  */
 #undef HAVE_TIME_H
 
+/* Define if you have the <typeinfo> header file.  */
+#undef HAVE_TYPEINFO
+
 /* Define if you have the <unistd.h> header file.  */
 #undef HAVE_UNISTD_H
 
@@ -147,8 +150,4 @@
 
 /* Define if you have unsetenv */
 #undef HAVE_FUNC_UNSETENV
-
-/* Define the type of the third argument for getsockname
- */
-#undef ksize_t
 

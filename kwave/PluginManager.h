@@ -120,25 +120,6 @@ public:
     inline TopWidget &topWidget() { return m_top_widget; };
 
     /**
-     * Returns the value of one single sample of a specified channel.
-     * If the channel does not exist or the index of the sample is
-     * out of range the return value will be zero.
-     */
-    int singleSample(unsigned int channel, unsigned int offset);
-
-    /**
-     * Returns the value of one single sample averaged over all active channels.
-     * If no channel do exist or the index of the sample is out of range the
-     * return value will be zero. If the optional list of channels is omitted,
-     * the sample will be averaged over all currently selected channels.
-     * @param offset sample offset [0...length-1]
-     * @param channels an array of channel numbers, optional
-     * @return value of the sample
-     */
-    int averageSample(unsigned int offset,
-                      const QArray<unsigned int> *channels = 0);
-
-    /**
      * Returns a QBitmap with an overview of all currently present
      * signals.
      */

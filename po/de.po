@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 "
 "21:27+0200PO-Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2001-07-06 20:23+0200\n"
+"POT-Creation-Date: 2001-07-14 19:56+0200\n"
 "PO-Revision-Date: 2001-07-06 20:23+GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
@@ -55,7 +55,7 @@ msgstr "Sägezahn"
 msgid "Inverse Sawtooth"
 msgstr "Umgekehrter Sägezahn"
 
-#: libkwave/Functions.cpp:100 libkwave/WindowFunction.cpp:48
+#: libkwave/Functions.cpp:100 libkwave/WindowFunction.cpp:58
 msgid "Triangular"
 msgstr "Dreieck"
 
@@ -71,96 +71,96 @@ msgstr "Sinus hoch 3"
 msgid "Zero"
 msgstr "Null"
 
-#: libkwave/WindowFunction.cpp:40
+#: libkwave/WindowFunction.cpp:54
 msgid "None"
 msgstr "Keine"
 
-#: libkwave/WindowFunction.cpp:42
+#: libkwave/WindowFunction.cpp:55
 msgid "Hamming"
 msgstr "Hamming"
 
-#: libkwave/WindowFunction.cpp:44
+#: libkwave/WindowFunction.cpp:56
 msgid "Hanning"
 msgstr "Hanning"
 
-#: libkwave/WindowFunction.cpp:46
+#: libkwave/WindowFunction.cpp:57
 msgid "Blackman"
 msgstr "Blackman"
 
-#: kwave/SignalManager.cpp:414
+#: kwave/SignalManager.cpp:373
 msgid "cut"
 msgstr "Ausschneiden"
 
-#: kwave/SignalManager.cpp:417
+#: kwave/SignalManager.cpp:376
 msgid "crop"
 msgstr "Zuschneiden"
 
-#: kwave/SignalManager.cpp:483
+#: kwave/SignalManager.cpp:442
 msgid "paste"
 msgstr "Einfügen"
 
-#: kwave/SignalManager.cpp:526
+#: kwave/SignalManager.cpp:485
 msgid "append track"
 msgstr "Track anhängen"
 
-#: kwave/SignalManager.cpp:533 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:492 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr "Track einfügen"
 
-#: kwave/SignalManager.cpp:568 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:527 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "Track löschen"
 
-#: kwave/SignalManager.cpp:645 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:604 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr "Löschen"
 
-#: kwave/SignalManager.cpp:783
+#: kwave/SignalManager.cpp:742
 msgid "File does not exist !"
 msgstr "Datei existiert nicht!"
 
-#: kwave/SignalManager.cpp:792
+#: kwave/SignalManager.cpp:751
 msgid "File is no RIFF File !"
 msgstr "Datei ist nicht im RIFF-Format!"
 
-#: kwave/SignalManager.cpp:796
+#: kwave/SignalManager.cpp:755
 msgid "File has incorrect length! (maybe truncated?)"
 msgstr "Datei hat ungültige Länge (wurde evtl. abgeschnitten?)"
 
-#: kwave/SignalManager.cpp:804
+#: kwave/SignalManager.cpp:763
 msgid "File is no WAVE File !"
 msgstr "Datei ist nicht im Wave Format!"
 
-#: kwave/SignalManager.cpp:815
+#: kwave/SignalManager.cpp:774
 msgid "File does not contain format information!"
 msgstr "Datei ist unvollständig!"
 
-#: kwave/SignalManager.cpp:830
+#: kwave/SignalManager.cpp:789
 msgid "File must be uncompressed (Mode 1) !"
 msgstr "Datei ist nicht im unkompimierten Modus (Mode 1) !"
 
-#: kwave/SignalManager.cpp:842
+#: kwave/SignalManager.cpp:801
 msgid "File does not contain data!"
 msgstr "Datei enthält keine Daten!"
 
-#: kwave/SignalManager.cpp:862 kwave/SignalManager.cpp:1118
+#: kwave/SignalManager.cpp:821 kwave/SignalManager.cpp:1077
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
 
-#: kwave/SignalManager.cpp:987 kwave/SignalManager.cpp:1232
-#: kwave/SignalManager.cpp:1239
+#: kwave/SignalManager.cpp:946 kwave/SignalManager.cpp:1183
+#: kwave/SignalManager.cpp:1190
 msgid "Out of Memory!"
 msgstr "Zu wenig Speicher!"
 
-#: kwave/SignalManager.cpp:1069
+#: kwave/SignalManager.cpp:1028
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: kwave/SignalManager.cpp:1076
+#: kwave/SignalManager.cpp:1035
 msgid "Opening the file for writing failed!"
 msgstr "Datei konnte nicht zum Schreiben geöffnet werden!"
 
-#: kwave/SignalManager.cpp:1219
+#: kwave/SignalManager.cpp:1170
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File will be truncated."
@@ -168,7 +168,7 @@ msgstr ""
 "Fehler in Eingabe: Datei ist kleiner als im Header angegeben. \n"
 "Datei wird abgeschnitten."
 
-#: kwave/SignalManager.cpp:1469
+#: kwave/SignalManager.cpp:1420
 #, ycp-format
 msgid ""
 "The operation '%1' requires more than %2 MB for storing undo data.\n"
@@ -178,41 +178,41 @@ msgstr ""
 "Wiederherstellungs-\n"
 "informationen. Dies würde das Limit von %3 MB überschreiten."
 
-#: kwave/SignalManager.cpp:1473
+#: kwave/SignalManager.cpp:1424
 msgid "You can now either press:"
 msgstr "Drücken Sie bitte:"
 
-#: kwave/SignalManager.cpp:1476
+#: kwave/SignalManager.cpp:1427
 msgid "Allow"
 msgstr "Erlauben"
 
-#: kwave/SignalManager.cpp:1477
+#: kwave/SignalManager.cpp:1428
 msgid "to continue without the possibility to undo, or"
 msgstr "um ohne Möglichkeit zur Wiederherstellung fortzusetzen, oder"
 
-#: kwave/SignalManager.cpp:1479
+#: kwave/SignalManager.cpp:1430
 msgid "Ignore"
 msgstr "Ignorieren"
 
-#: kwave/SignalManager.cpp:1480
+#: kwave/SignalManager.cpp:1431
 msgid "to continue, discard all previous undo data and ignore the memory limit"
 msgstr ""
 "um fortzusetzen, alle vorherigen Wiederherstellungsinformationen zu "
 "verwerfen und das Limit zu ignorieren"
 
-#: kwave/SignalManager.cpp:1486
+#: kwave/SignalManager.cpp:1437
 msgid "to abort the current operation."
 msgstr "um den aktuellen Vorgang abzubrechen."
 
-#: kwave/SignalManager.cpp:1501
+#: kwave/SignalManager.cpp:1452
 msgid "&Allow"
 msgstr "&Erlauben"
 
-#: kwave/SignalManager.cpp:1502
+#: kwave/SignalManager.cpp:1453
 msgid "&Ignore"
 msgstr "&Ignorieren"
 
-#: kwave/SignalManager.cpp:1617 kwave/SignalManager.cpp:1624
+#: kwave/SignalManager.cpp:1568 kwave/SignalManager.cpp:1575
 msgid "last action"
 msgstr "letzte Aktion"
 
@@ -329,16 +329,16 @@ msgstr "Wieder&herstellen"
 msgid "insert"
 msgstr "Einfügen"
 
-#: kwave/PluginManager.cpp:149
+#: kwave/PluginManager.cpp:150
 #, ycp-format
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Hoppla, Plugin '%1' ist unbekannt oder ungültig!"
 
-#: kwave/PluginManager.cpp:152 kwave/PluginManager.cpp:164
+#: kwave/PluginManager.cpp:153 kwave/PluginManager.cpp:165
 msgid "error on loading plugin"
 msgstr "Fehler beim Laden des Plugins"
 
-#: kwave/PluginManager.cpp:160
+#: kwave/PluginManager.cpp:161
 #, ycp-format
 msgid ""
 "unable to load the file \n"
@@ -349,7 +349,7 @@ msgstr ""
 "mit dem Plugin '%2' \n"
 "konnte nicht geladen werden !"
 
-#: kwave/PluginManager.cpp:188 kwave/PluginManager.cpp:195
+#: kwave/PluginManager.cpp:189 kwave/PluginManager.cpp:196
 msgid "(unknown)"
 msgstr "(unbekannt)"
 
@@ -1078,7 +1078,7 @@ msgstr "Wiedergabe-Rate %1 Hz wird nicht unterstützt"
 msgid "unusable buffer size: %1"
 msgstr "Puffer-Größe kann nicht verwendet werden: %1"
 
-#: plugins/playback/PlayBackPlugin.cpp:215
+#: plugins/playback/PlayBackPlugin.cpp:222
 #, ycp-format
 msgid "unable to open '%1'"
 msgstr "'%1' kann nicht geöffnet werden"
@@ -1172,7 +1172,7 @@ msgstr ""
 msgid "Buffer Size : %5d samples"
 msgstr "Buffer-Größe: %5d Samples"
 
-#: plugins/playback/PlayBack-aRts.cpp:83
+#: plugins/playback/PlayBack-aRts.cpp:89
 msgid "unable to open aRts playback stream"
 msgstr "aRts-Stream für Wiedergabe konnte nicht geöffnet werden"
 

@@ -49,7 +49,7 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
     }
 
 #ifdef HAVE_TYPEINFO
-    try {
+//    try {
 	TSS_Object *tssobj = (TSS_Object *)ptr;
 	const char *obj_name = typeid(*tssobj).name();
 
@@ -73,10 +73,10 @@ extern "C" void TSS_Object_cleanup_func(void *ptr)
 	}
 
 	if (tssobj) delete tssobj;
-    }
-    catch (...) {
-	warning("cleanup handler for %p failed", ptr);
-    }
+//    }
+//    catch (...) {
+//	warning("cleanup handler for %p failed", ptr);
+//    }
 #else // HAVE_TYPEINFO
 //    warning("cleanup handler for %p", ptr);
 

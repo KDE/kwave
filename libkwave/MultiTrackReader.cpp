@@ -17,11 +17,20 @@
  ***************************************************************************/
 
 #include "libkwave/MultiTrackReader.h"
+#include "libkwave/SampleReader.h"
 
 //***************************************************************************
-
-
-
+bool MultiTrackReader::eof()
+{
+    unsigned int c = this->count();
+    for (unsigned int r = 0; r < c; r++) {
+	SampleReader *reader = this->at(r);
+	ASSERT(reader);
+	if (!reader) continue;
+	if (reader->eof()) return true;
+    }
+    return false;
+}
 
 //***************************************************************************
 //***************************************************************************

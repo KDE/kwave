@@ -190,47 +190,6 @@ const QArray<unsigned int> SignalManager::allTracks()
     return list;
 }
 
-//***************************************************************************
-int SignalManager::singleSample(unsigned int /*channel*/, unsigned int /*offset*/)
-{
-//    ASSERT(channel < signal.count());
-//    if (channel >= signal.count()) return 0;
-//
-//    return signal.at(channel) ?
-//	   signal.at(channel)->getSingleSample(offset) : 0;
-    return 0;
-}
-
-//***************************************************************************
-int SignalManager::averageSample(unsigned int /*offset*/,
-                                 const QArray<unsigned int> */*channels*/)
-{
-//    unsigned int count = 0;
-//    unsigned int channel;
-//    double value = 0.0;
-//
-//    if (channels) {
-//	for (count=0; count < channels->size(); count++) {
-//	    channel = (*channels)[count];
-//	    Signal *sig = signal.at(channel);
-//	    if (!sig) continue;
-//	    value += sig->getSingleSample(offset);
-//	}
-//    } else {
-//	for (channel=0; channel < signal.count(); channel++) {
-//	    Signal *sig = signal.at(channel);
-//	    if (!sig) continue;
-//	    if (!sig->isSelected()) continue;
-//
-//	    value += sig->getSingleSample(offset);
-//	    count++;
-//	}
-//    }
-//
-//    return (count) ? (int)(value/(double)count) : 0;
-    return 0;
-}
-
 //****************************************************************************
 QBitmap *SignalManager::overview(unsigned int /*width*/, unsigned int /*height*/,
                                  unsigned int /*offset*/, unsigned int /*length*/)
@@ -1136,7 +1095,6 @@ __uint32_t SignalManager::findChunk(QFile &sigfile, const char *chunk,
 
     sigfile.at(offset);
     while (!sigfile.atEnd()) {
-	debug("findChunk('%s'): position=%u", chunk, sigfile.at());
 	// get name of the chunk
 	len = sigfile.readBlock((char*)(&current_name), 4);
 	if (len < 4) {
@@ -1155,15 +1113,8 @@ __uint32_t SignalManager::findChunk(QFile &sigfile, const char *chunk,
 	length = bswap_32(length);
 #endif
 
-	if (strncmp(chunk, current_name, 4) == 0) {
-	    // chunk found !
-	    debug("findChunk('%s'): found chunk with len=%d", chunk, length);
-	    return length;
-        } else {
-	    debug("findChunk('%s'): skipping '%c%c%c%c'",
-		chunk, current_name[0], current_name[1],
-		current_name[2], current_name[3]);
-        }
+	// chunk found !
+	if (strncmp(chunk, current_name, 4) == 0) return length;
 
 	// not found -> skip
 	sigfile.at(sigfile.at()+length);

@@ -37,15 +37,26 @@ window_function_t &operator++(window_function_t &f)
 WindowFunction::InitializedTypesMap::InitializedTypesMap()
 {
     append(WINDOW_FUNC_NONE,       WINDOW_FUNC_NONE,
-           "none", "None");          i18n("None");
+           "none", "None");
     append(WINDOW_FUNC_HAMMING,    WINDOW_FUNC_HAMMING,
-        "hamming", "Hamming");       i18n("Hamming");
+        "hamming", "Hamming");
     append(WINDOW_FUNC_HANNING,    WINDOW_FUNC_HANNING,
-        "hanning",  "Hanning");      i18n("Hanning");
+        "hanning",  "Hanning");
     append(WINDOW_FUNC_BLACKMAN,   WINDOW_FUNC_BLACKMAN,
-        "blackman",  "Blackman");    i18n("Blackman");
+        "blackman",  "Blackman");
     append(WINDOW_FUNC_TRIANGULAR, WINDOW_FUNC_TRIANGULAR,
-        "triangular", "Triangular"); i18n("Triangular");
+        "triangular", "Triangular");
+
+#undef NEVER_COMPILE_THIS
+#ifdef NEVER_COMPILE_THIS
+#error "this could produce problems in plugins and/or libs when \
+        loaded before the main application is up."
+    i18n("None");
+    i18n("Hamming");
+    i18n("Hanning");
+    i18n("Blackman");
+    i18n("Triangular");
+#endif
 }
 
 //***************************************************************************

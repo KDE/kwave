@@ -1,7 +1,17 @@
 
+o find out how to make a check for "artsmodules.h" in configure.in
+  without creating an endless loop
+
+o possible bug/problem: start of a plugin while another plugin is
+  still running -> deadlock ?
+
+o recording support
+
 o more precise handling of the playback pointer
 
 o function for "Edit/Selection/Insert at..." or a "goto position" function
+
+o add "All Files" to the file open type selection combo box
 
 o hourglass and process indicators for longer processes
 
@@ -40,8 +50,6 @@ o support for compressed wav files, like those found on www.montypython.net
   -> MPEG 3 is still not supported by libaudiofile
 
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
-
-o recording support
 
 o support for Spex codec: http://www.speex.org/
 

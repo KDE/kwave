@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2003-06-26 08:23+0200\n"
-"PO-Revision-Date: 2003-06-25 21:39+0200\n"
+"POT-Creation-Date: 2003-06-26 20:23+0200\n"
+"PO-Revision-Date: 2003-06-26 20:22+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgid "&About Kwave"
 msgstr "&Über Kwave"
 
 #: kwave/menus_config_i18n.cpp:15
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:80
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
 msgid "&Add"
 msgstr "&Hinzufügen"
 
@@ -456,11 +456,11 @@ msgstr "Einfügen"
 msgid "modify file information"
 msgstr "Datei-Information ändern"
 
-#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:833
+#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:832
 msgid "delete"
 msgstr "Löschen"
 
-#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:716
+#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:715
 msgid "insert track"
 msgstr "Track einfügen"
 
@@ -468,7 +468,19 @@ msgstr "Track einfügen"
 msgid "modify samples"
 msgstr "Samples ändern"
 
-#: kwave/SignalWidget.cpp:1793 kwave/SignalWidget.cpp:1832
+#: kwave/SignalWidget.cpp:425
+msgid "Out of memory"
+msgstr "Zu wenig Speicher"
+
+#: kwave/SignalWidget.cpp:428 plugins/playback/PlayBackPlugin.cpp:263
+msgid "unable to open '%1'"
+msgstr "'%1' kann nicht geöffnet werden"
+
+#: kwave/SignalWidget.cpp:431
+msgid "invalid or unknown file type: '%1'"
+msgstr "Ungültiger oder unbekannter Dateityp: '%1'"
+
+#: kwave/SignalWidget.cpp:1816 kwave/SignalWidget.cpp:1855
 msgid "drag and drop"
 msgstr "Drag & Drop"
 
@@ -671,11 +683,11 @@ msgstr " (geändert)"
 msgid "selection"
 msgstr "Auswahl"
 
-#: kwave/SignalManager.cpp:292
+#: kwave/SignalManager.cpp:291
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: kwave/SignalManager.cpp:326
+#: kwave/SignalManager.cpp:325
 msgid ""
 "Saving in this format will loose the following additional file attribute"
 "(s):\n"
@@ -687,116 +699,116 @@ msgstr ""
 "%1\n"
 "Wollen Sie trotzdem fortsetzen?"
 
-#: kwave/SignalManager.cpp:367
+#: kwave/SignalManager.cpp:366
 msgid "An error occurred while saving the file!"
 msgstr "Beim Speichern der Datei ist ein Fehler aufgetreten!"
 
-#: kwave/SignalManager.cpp:376
+#: kwave/SignalManager.cpp:375
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 "Die Datei wurde abgeschnitten und ist möglicherweise nicht mehr intakt!"
 
-#: kwave/SignalManager.cpp:383
+#: kwave/SignalManager.cpp:382
 msgid "Sorry, the file type is not supported!"
 msgstr "Sorry, dieser Datei-Typ wird nicht unterstützt!"
 
-#: kwave/SignalManager.cpp:597
+#: kwave/SignalManager.cpp:596
 msgid "cut"
 msgstr "Ausschneiden"
 
-#: kwave/SignalManager.cpp:600
+#: kwave/SignalManager.cpp:599
 msgid "crop"
 msgstr "Zuschneiden"
 
-#: kwave/SignalManager.cpp:666
+#: kwave/SignalManager.cpp:665
 msgid "paste"
 msgstr "Einfügen"
 
-#: kwave/SignalManager.cpp:709
+#: kwave/SignalManager.cpp:708
 msgid "append track"
 msgstr "Track anhängen"
 
-#: kwave/SignalManager.cpp:750 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:749 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr "Track löschen"
 
-#: kwave/SignalManager.cpp:1307 kwave/SignalManager.cpp:1314
+#: kwave/SignalManager.cpp:1306 kwave/SignalManager.cpp:1313
 msgid "last action"
 msgstr "letzte Aktion"
 
-#: kwave/SignalManager.cpp:1533
+#: kwave/SignalManager.cpp:1532
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:212
+#: libgui/SelectTimeWidgetBase.uic.cpp:213
 msgid "frmLength"
 msgstr "frmLength"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:213
+#: libgui/SelectTimeWidgetBase.uic.cpp:214
 #: plugins/fileinfo/FileInfoDialog.cpp:209
 #: plugins/newsignal/NewSigDlg.uic.cpp:548
 msgid "Length"
 msgstr "Länge"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:214
+#: libgui/SelectTimeWidgetBase.uic.cpp:215
 msgid "&Samples"
 msgstr "&Samples"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:215
+#: libgui/SelectTimeWidgetBase.uic.cpp:216
 msgid "select by number of samples"
 msgstr "Auswahl nach Anzahl der Samples"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:216
+#: libgui/SelectTimeWidgetBase.uic.cpp:217
 msgid "&Time"
 msgstr "&Zeit"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:217
+#: libgui/SelectTimeWidgetBase.uic.cpp:218
 msgid "select by time"
 msgstr "Auswahl nach Zeit"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:218
+#: libgui/SelectTimeWidgetBase.uic.cpp:219
 msgid "&Percent"
 msgstr "&Prozent"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:219
+#: libgui/SelectTimeWidgetBase.uic.cpp:220
 msgid "select by percentage of the signal's length"
 msgstr "Auswahl nach Prozentsatz der Länge des Signals"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:220
+#: libgui/SelectTimeWidgetBase.uic.cpp:221
 #: plugins/newsignal/NewSigDlg.uic.cpp:555
 msgid "Minutes"
 msgstr "Minuten"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:221
+#: libgui/SelectTimeWidgetBase.uic.cpp:222
 msgid "Milliseconds"
 msgstr "Millisekunden"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:222
+#: libgui/SelectTimeWidgetBase.uic.cpp:223
 #: plugins/newsignal/NewSigDlg.uic.cpp:554
 msgid "Seconds"
 msgstr "Sekunden"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:223
+#: libgui/SelectTimeWidgetBase.uic.cpp:224
 #: plugins/newsignal/NewSigDlg.uic.cpp:556
 msgid "Hours"
 msgstr "Stunden"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:224
+#: libgui/SelectTimeWidgetBase.uic.cpp:225
 #: plugins/newsignal/NewSigDlg.uic.cpp:561
 msgid "0%"
 msgstr "0%"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:225
+#: libgui/SelectTimeWidgetBase.uic.cpp:226
 #: plugins/newsignal/NewSigDlg.uic.cpp:562
 msgid "50%"
 msgstr "50%"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:226
+#: libgui/SelectTimeWidgetBase.uic.cpp:227
 #: plugins/newsignal/NewSigDlg.uic.cpp:563
 msgid "100%"
 msgstr "100%"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:227
+#: libgui/SelectTimeWidgetBase.uic.cpp:228
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "Setzt die Auswahl über den Prozentsatz der gesamten Signallänge"
 
@@ -1140,7 +1152,7 @@ msgstr ""
 "Numern siehe die ISRC-Einführungs-Seite unter:\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
-#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:78
+#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:79
 msgid "Keywords"
 msgstr "Schlüsselworte"
 
@@ -1381,7 +1393,7 @@ msgid "Track of the CD if the source was a CDROM."
 msgstr "Track der CD wenn die Quelle eine CDROM war."
 
 #: libkwave/FileInfo.cpp:199
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:403
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:404
 msgid "Base Quality"
 msgstr "Basis-Qualität"
 
@@ -2820,15 +2832,15 @@ msgstr "Inhalt"
 msgid "Author/Copyright"
 msgstr "Author/Copyright"
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
 msgid "A&uto"
 msgstr "&Automatisch"
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
 msgid "auto-generate keywords"
 msgstr "Schlüsselworte automatisch erzeugen"
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:84
 msgid ""
 "<b>Auto-Generate Keywords</b><br>\n"
 "Create a list of keywords by going through all present file informations and "
@@ -2838,28 +2850,28 @@ msgstr ""
 "Erzeugt die Liste durch Auswerten aller eingegebenen Datei-Informationen und "
 "vereint sie mit den bereits vorhandenen Schlüsselworten."
 
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:85
+#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:86
 msgid "List of keywords."
 msgstr "Liste von Schlüsselworten."
 
-#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:295
+#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:296
 #: plugins/newsignal/NewSigDlg.uic.cpp:525
 msgid "Form1"
 msgstr "Form1"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:387
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:388
 msgid "CompressionWidgetBase"
 msgstr "CompressionWidgetBase"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:389
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:390
 msgid "ABR:"
 msgstr "ABR:"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:390
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
 msgid "Average Bitrate Mode"
 msgstr "Mittlere Bitrate"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:392
 msgid ""
 "<b>Average Bitrate Mode</b><br>\n"
 "Bitrate is set to an average value, \n"
@@ -2869,20 +2881,20 @@ msgstr ""
 "Die Bitrate wird auf einen mittleren Wert festgelegt, \n"
 "mit einer optionalen Ober- und Untergrenze."
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:394
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:402
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:395
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:403
 msgid "lowest"
 msgstr "niedrigste"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:395
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
 msgid "VBR:"
 msgstr "VBR:"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
 msgid "Variable Bitrate Mode"
 msgstr "Variable Bitrate"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:398
 msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
@@ -2890,15 +2902,15 @@ msgstr ""
 "<b>Variable Bitrate</b><br>\n"
 "Auswahl der Bitrate über eine mittlere Qualität."
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:399
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
 msgid "highest"
 msgstr "höchste"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
 msgid "Nominal Bitrate"
 msgstr "Nominale Bitrate"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:402
 msgid " %"
 msgstr " %"
 
@@ -3329,31 +3341,35 @@ msgstr "Datei konnte nicht zum Speichern geöffnet werden!"
 msgid " for KDE "
 msgstr " für KDE "
 
-#: plugins/codec_ogg/OggDecoder.cpp:100
+#: plugins/codec_ogg/OggDecoder.cpp:94
+msgid "Ogg bitstream has zero-length."
+msgstr "Ogg-Bitstrom hat die Länge Null."
+
+#: plugins/codec_ogg/OggDecoder.cpp:106
 msgid "Input does not appear to be an Ogg bitstream."
 msgstr "Die Eingabe scheint nicht im Ogg-Format zu sein."
 
-#: plugins/codec_ogg/OggDecoder.cpp:120
+#: plugins/codec_ogg/OggDecoder.cpp:126
 msgid "Error reading first page of Ogg bitstream data."
 msgstr "Fehler beim Lesen des ersten Abschnitts des Ogg-Bitstroms."
 
-#: plugins/codec_ogg/OggDecoder.cpp:127
+#: plugins/codec_ogg/OggDecoder.cpp:133
 msgid "Error reading initial header packet."
 msgstr "Fehler beim Lesen des ersten Kopfdaten-Pakets."
 
-#: plugins/codec_ogg/OggDecoder.cpp:134
+#: plugins/codec_ogg/OggDecoder.cpp:140
 msgid "This Ogg bitstream does not contain Vorbis audio data."
 msgstr "Der Ogg-Bitstrom enthält keine Vorbis Audio-Daten."
 
-#: plugins/codec_ogg/OggDecoder.cpp:167
+#: plugins/codec_ogg/OggDecoder.cpp:173
 msgid "Corrupt secondary header. Exiting."
 msgstr "Beschädigter sekundärer Header. Vorgang wird abgebrochen."
 
-#: plugins/codec_ogg/OggDecoder.cpp:182
+#: plugins/codec_ogg/OggDecoder.cpp:187
 msgid "End of file before finding all Vorbis headers!"
 msgstr "Dateiende vor dem Einlesen aller Vorbis-Header!"
 
-#: plugins/codec_ogg/OggDecoder.cpp:341
+#: plugins/codec_ogg/OggDecoder.cpp:346
 msgid "Corrupt or missing data in bitstream; continuing..."
 msgstr ""
 "Beschädigte oder fehlende Daten im Bitstrom. Vorgang wird fortgesetzt..."
@@ -3558,10 +3574,6 @@ msgstr "Anderes Wiedergabegerät (*)"
 #: plugins/playback/PlayBackDialog.cpp:366
 msgid "Select Playback Device"
 msgstr "Auswahl des Wiedergabegeräts"
-
-#: plugins/playback/PlayBackPlugin.cpp:263
-msgid "unable to open '%1'"
-msgstr "'%1' kann nicht geöffnet werden"
 
 #: plugins/playback/PlayBack-OSS.cpp:86
 msgid ""

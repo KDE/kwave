@@ -1,7 +1,7 @@
 0. PREFACE:
 ==========
 
-This is the "kwave" source distribution, a simple sound editor for KDE.
+This is the "kwave" source distribution, a sound editor for KDE2.
 
  ----------------------------------------------------------------------------
 | It is now hosted on SourceForge, so you are welcome to visit               |
@@ -11,11 +11,8 @@ This is the "kwave" source distribution, a simple sound editor for KDE.
 | not have the possibility or do not like to read online.                    |
 |                                                                            |
 | Please also take a look at the Kwave handbook. It is available in html     |
-| and is also included in the source packages under "doc/en/html/index.html" |
+| and is also included in the source packages under "doc/en/index.html"      |
  ----------------------------------------------------------------------------
-
-Use kwave with care (save often), since not all components have left 
-the BETA-State yet!
 
 If you are interested what has been done and what has to be done, then
 look at the files "CHANGES" and "TODO" included in this package.
@@ -28,16 +25,19 @@ in the source package.
 =====================
 
 >>> NOTE: You don't have to do this on an rpm based system, you can
-          easily build an rpm package of Kwave. Please skip this and
+          easily build a rpm package of Kwave. Please skip this and
 	  advance to section 2.
 
-This is quite simple. First get the source archive, unpack it under your
+It's quite simple. First get the source archive, unpack it under your
 favorite source-code directory (or under /tmp), change to this directory
 and then type:
 
-./configure 
+./configure --with-qt-dir=/usr/lib/qt2 --prefix=/opt/kde2
 make
 make install
+
+(you might have to change the qt and kde paths above according
+to your distribution)
 
 2. RPM-SUPPORT:
 ==============
@@ -58,15 +58,17 @@ Installing the rpm package normally requires root permissions.
 2.1 Building a binary rpm from archive file:
 -------------------------------------------
 
-Simply get the source archive (for example kwave-0.5.2-9.tar.gz) and
+Simply get the source archive (for example kwave-0.6.0.tar.gz) and
 then type:
 
-rpm -ta kwave-0.5.2-9.tar.gz
+export QTDIR=/usr/lib/qt2
+export KDEDIR=/opt/kde2
+rpm -ta kwave-0.6.0.tar.gz
 
 If you want to build for a different architecture than your current, you
 might want to add the parameter "--target=...", for example:
 
-rpm -ta --target=i586 kwave-0.5.2-9.tar.gz
+rpm -ta --target=i586 kwave-0.6.0.tar.gz
 
 compiles for pentium architecture.
 
@@ -76,6 +78,8 @@ compiles for pentium architecture.
 Assuming that you already have unpacked the source archive in some
 directory you can simply type
 
+export QTDIR=/usr/lib/qt2
+export KDEDIR=/opt/kde2
 make -f Makefile.dist
 make src.rpm          (and you get only a source rpm)
 make rpm              (and you get both, a binary and a source rpm)
@@ -88,35 +92,38 @@ Kwave handbook and on the Kwave project homepage at SourceForge
 ============================
 
 The binary rpm package of kwave is "relocatable". This means that you can
-build the package on a system with KDEDIR set to /opt/kde and install it
-on an other system or into a different directory.
+build the package on a system with the KDE2 base directory set to some
+location (like for example /usr/local) and install it on an other system
+and/or into a different directory.
 
-For example: you got the binary rpm from a friend who has a RedHat system
-(where KDEDIR is /usr) and want to install it on a SuSE system. Then just
-give a different prefix when installing the rpm:
+For example: you got the binary rpm from a friend who has a SuSE system
+(where the KDE2 base dir is /opt/kde2) and want to install it on RedHat (where
+the KDE2 base dir is /usr). Then just give a different prefix when installing
+the rpm:
 
-rpm -i --prefix=/opt/kde kwave-0.5.6.i586.rpm
+rpm -ivh --prefix=/usr kwave-0.6.0.i386.rpm
 
 This modifies the path where the program is installed and it is strongly
-recommended that this is the same directory as specified in the KDEDIR
-environment variable, otherwise kwave would be unable to find it's menu
+recommended that this is a directory that is contained in the KDEDIRS
+environment variable, otherwise Kwave would be unable to find it's menu
 configuration, plugins, preset files and so on...
-
-("rpm -i --prefix=${KDEDIR} kwave-0.5.6.i586.rpm" should always work !)
 
 4. PENTIUM OPTIMIZATION:
 =======================
 
 Yes, you can compile the RPM packages for pentium and pentium pro by using
-some defines in your rpmrc file. You can either modify your system's
-/etc/rpmrc file or the .rpmrc file in your home directory. There you can
-specify option lines like these:
+some defines in your rpmrc file. There are also some instructions on how to
+build optimized for AMDs Athlon in the online documentation (The Kwave
+Handbook).
+
+You can either modify your system's /etc/rpmrc file or the .rpmrc file in
+your home directory. There you can specify option lines like these:
 
 optflags: i386 -O2 -m486 -DNDEBUG
 optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer
 optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer
 
-(found that at "http://www.keywarrior.net/duesti/rpmopt.de.html")
+(found that at "http://www.keywarrior.net/duesti/rpmopt.en.html")
 
 This means that on an i586 architecture the rpm package will be compiled
 using -march=pentium and so on, you might extend or adapt these to your
@@ -124,7 +131,7 @@ own needs.
 
 The options specified here are set into the environment variable 
 RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
-environment and have to compile like under (1) you can set this variable
+environment and have to compile like in (1) you can set this variable
 manually and get the same effect. For example:
 
 export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"
@@ -135,33 +142,58 @@ Then go to chapter 1 and do ./configure / make / make install...
 ===============
 
 For compilation you need a working autoconf/automake environment, a good
-C/C++ compiler, the qt and the kde libraries. I am currently developing 
-under a SuSE-6.4 distribution (i386 architecture) using the following 
-packages:
+C/C++ compiler, the qt2 and the kde2 libraries. I am currently developing
+under a SuSE-7.1 distribution (i386 architecture) using at least the
+following packages:
 
-* autoconf-2.13-113
-* automake-1.4-107
-* make-3.78.1-37
-* gcc-2.95.2-26                      (the C / C++ compiler)
-* libc-2.1.3-65                      (the GNU C library)
-* libgpp-2.95.2-26                   (C++ library, including STL)
-* qtlib-1.45-24 and qtdevel-1.45-24
+* autoconf-2.13-283
+* automake-1.4-278
+* make-3.79.1-80
+* gcc-2.95.3-73/gpp-2.95.3-73        (the C / C++ compiler)
+* libgpp-2.95.3-73                   (C++ library, including STL)
+* glibc-2.2-9                        (the GNU C library)
 * gettext-0.10.35-132                (for internationalization)
 * rpm-3.0.4-72                       (for rpm support)
 * sed-3.02, awk-3.0.4, bash-2.03     (used by some scripts)
 
+Nearly everything from ftp.kde.org, especially the following
+packets should be sufficient for building:
+
+* qt-2.3.0-13 + qt-devel-2.4.0-13    (the Qt-2 library)
+* qt-designer-2.3.0-10               (for designing new-style dialogue windows)
+* kdelibs-(devel-)2.1.2-0            (the KDE2 base libraries)
+* kdemultimedia-(devel-)2.1.1-6      (multimedia/aRts support)
+* kdesdk-2.1.1-7                     (some additional tools)
+
+And for generating the online help:
+
+* jade-1.2.1-6
+* docbook-dtd30-sgml-1.0-6
+* docbook-dtd40-sgml-1.0-6
+* docbook-dtd31-sgml-1.0-6
+* docbook-dtd41-sgml-1.0-6
+* docbook-dtd41-xml-1.0-3
+* docbook-utils-0.6.6-1
+* docbook-style-dsssl-1.61-1
+* jadetex-2.20-6
+* perl-SGMLSpm-1.03ii-3
+* sgml-common-0.6.1-1
+* sgmltool-1.0.9-278
+
 known distributions / architectures:
 ------------------------------------
 
-* SuSE-6.2 / i386, i586 
-  [where I started to develop it]
+* SuSE-7.1 / i386, i586
+  [where I currently develop]
 
-* SuSE-6.4 / i386, i586 
-  [where I now develop it, but needs an update of rpm]
+* SuSE-6.4 / i386, i586
+  [still tested, but needs an update of rpm]
+
+* SuSE-6.2 / i386, i586 
+  [where I started to develop it, now untested]
 
 * RedHat-6.1 (Halloween IV) / i386 
-  [my second system, I'm testing it from time to time and before I make
-  a new public release]
+  [tested v0.5.x with it, but now no longer tested]
 
 Compilation might also work on many other distributions and different 
 versions of compilers and libraries, or even on different architectures.
@@ -188,8 +220,10 @@ developed and improved by him an some other people. In November 1999 I started
 to fix some little bugs here and there and stepped into the source code of
 the program deeper and deeper. Up to today I have extended, rewritten or 
 revised nearly every component of the program and spend much time on it.
+Since summer 1999 I have taken over the project leadership and I am still
+working on it.
 
-So good luck, and if not, mail me about the bugs...
+So good luck, and if not, keep me informed about bugs and wishes...
 
    Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 

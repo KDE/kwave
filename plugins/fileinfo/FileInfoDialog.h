@@ -98,14 +98,24 @@ private:
 
     /** initialize the "Source" tab */
     void setupSourceTab();
-
+    
     /** initialize the "Miscellaneous" tab */
     void setupMiscellaneousTab();
 
+    /** initialize the "MPEG" tab */
+    void setupMpegTab();
+
+    /** initialize the "ID3 Tags" tab */
+    void setupID3Tab();
+    
 private:
 
     /** FileInfo to be edited */
     FileInfo m_info;
+
+    /** if true, we have an MPEG file */
+    bool m_is_mpeg;
+
 };
 
 #endif /* _FILE_INFO_DIALOG_H_ */

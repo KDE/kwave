@@ -23,6 +23,8 @@
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
+class Mp3_Headerinfo;
+
 class MP3Decoder: public Decoder
 {
 public:
@@ -59,6 +61,11 @@ public:
      */
     virtual void close();
 
+private:
+
+    /** parse MP3 headers */
+    bool parseMp3Header(const Mp3_Headerinfo &header, QWidget *widget);
+    
 private:
 
     /** source of the audio data */

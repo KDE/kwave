@@ -15,19 +15,23 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qcheckbox.h>
 #include <qdatetime.h>
 #include <qdialog.h>
 #include <qfileinfo.h>
 #include <qlabel.h>
 #include <qlineedit.h>
+#include <qlistbox.h>
 #include <qcombobox.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qstring.h>
 #include <qstringlist.h>
+#include <qtabwidget.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 
+#include <kcombobox.h>
 #include <kdatewidget.h>
 #include <klistbox.h>
 #include <knuminput.h>
@@ -45,10 +49,19 @@
 FileInfoDialog::FileInfoDialog(QWidget *parent, FileInfo &info)
     :FileInfoDlg(parent), m_info(info)
 {
+    QString mimetype = QVariant(m_info.get(INF_MIMETYPE)).toString();
+    m_is_mpeg = ((mimetype == "audio/x-mpga") ||
+        (mimetype == "audio/x-mp2") || (mimetype == "audio/x-mp3") ||
+        (mimetype == "audio/mpeg"));
+    debug("mimetype = %s",mimetype.data());
+
     setupFileInfoTab();
     setupContentTab();
     setupSourceTab();
     setupMiscellaneousTab();
+    setupMpegTab();
+    setupID3Tab();
+    
 }
 
 //***************************************************************************
@@ -165,6 +178,7 @@ void FileInfoDialog::setupFileInfoTab()
     cbSampleFormat->insertStringList(sample_formats.allNames());
     int sample_format = QVariant(m_info.get(INF_SAMPLE_FORMAT)).toInt();
     cbSampleFormat->setCurrentItem(sample_formats.findFromData(sample_format));
+    if (m_is_mpeg) cbSampleFormat->setEnabled(false);
 
     /* compression */
     CompressionType compressions;
@@ -172,6 +186,7 @@ void FileInfoDialog::setupFileInfoTab()
     cbCompression->insertStringList(compressions.allNames());
     int compression = QVariant(m_info.get(INF_COMPRESSION)).toInt();
     cbCompression->setCurrentItem(compressions.findFromData(compression));
+    if (m_is_mpeg) cbCompression->setEnabled(false);
 
 }
 
@@ -241,6 +256,113 @@ void FileInfoDialog::setupMiscellaneousTab()
     connect(lstKeywords, SIGNAL(autoGenerate()),
             this, SLOT(autoGenerateKeywords()));
 
+}
+
+//***************************************************************************
+void FileInfoDialog::setupMpegTab()
+{
+    // the whole tab is only enabled in mpeg mode
+    if (!m_is_mpeg) {
+	InfoTab->setCurrentPage(4);
+	QWidget *page = InfoTab->currentPage();
+	InfoTab->setTabEnabled(page, false);
+	InfoTab->setCurrentPage(0);
+	return;
+    }
+
+    /* MPEG layer */
+    initInfo(lblMpegLayer,   cbMpegLayer,    INF_MPEG_LAYER);
+    int layer = m_is_mpeg ? QVariant(m_info.get(INF_MPEG_LAYER)).toInt() : 0;
+    if (layer <= 0) {
+	cbMpegLayer->setEditable(true);
+	cbMpegLayer->clearEdit();
+	cbMpegLayer->setEnabled(false);
+    } else cbMpegLayer->setCurrentItem(layer-1);
+
+    /* MPEG version */    
+    initInfo(lblMpegVersion, cbMpegVersion,  INF_MPEG_VERSION);
+    int ver = m_is_mpeg ?
+        (int)(2.0 * QVariant(m_info.get(INF_MPEG_VERSION)).toDouble()) : 0;
+    // 0, 1, 2, 2.5 -> 0, 2, 4, 5
+    if (ver > 3) ver++; // 0, 2, 4, 6
+    ver >>= 1; // 0, 1, 2, 3
+    ver--; // -1, 0, 1, 2
+    if (ver < 0) {
+	cbMpegVersion->setEditable(true);
+	cbMpegVersion->clearEdit();
+	cbMpegVersion->setEnabled(false);
+    } else cbMpegVersion->setCurrentItem(ver);
+
+    /* Bitrate in bits/s */
+    initInfo(lblMpegBitrate, cbMpegBitrate,  INF_MPEG_BITRATE);
+    int bitrate = QVariant(m_info.get(INF_MPEG_BITRATE)).toInt();
+    if (bitrate) {
+	QString s;
+	s.setNum(bitrate / 1000);
+	s += "K";
+	s = i18n(s);
+	QListBoxItem *item = cbMpegBitrate->listBox()->findItem(s);
+	int index = cbMpegBitrate->listBox()->index(item);
+	cbMpegBitrate->setCurrentItem(index);
+    }
+
+    /* Mode extension */
+    initInfo(lblMpegModeExt, cbMpegModeExt, INF_MPEG_MODEEXT);
+    // only in "Joint Stereo" mode, then depends on Layer
+    //
+    // Layer I+II          |  Layer III
+    //                     |  Intensity stereo MS Stereo
+    //--------------------------------------------------
+    // 0 - bands  4 to 31  |  off              off  -> 4
+    // 1 - bands  8 to 31  |  on               off  -> 5
+    // 2 - bands 12 to 31  |  off              on   -> 6
+    // 3 - bands 16 to 31  |  on               on   -> 7
+    int modeext = QVariant(m_info.get(INF_MPEG_MODEEXT)).toInt();
+    if ((modeext >= 0) && (modeext <= 3)) {
+	cbMpegModeExt->insertItem(i18n("bands 0 to 31"));
+	cbMpegModeExt->insertItem(i18n("bands 8 to 31"));
+	cbMpegModeExt->insertItem(i18n("bands 12 to 31"));
+	cbMpegModeExt->insertItem(i18n("bands 16 to 31"));
+	cbMpegModeExt->setCurrentItem(modeext);
+	cbMpegIntensityStereo->setEnabled(false);
+	cbMpegMSStereo->setEnabled(false);
+    } else if ((modeext >= 4) && (modeext <= 7)) {
+	cbMpegModeExt->setEnabled(false);
+	cbMpegIntensityStereo->setChecked(modeext & 0x01);
+	cbMpegMSStereo->setChecked(modeext & 0x02);
+    } else {
+	cbMpegModeExt->setEnabled(false);
+	cbMpegIntensityStereo->setEnabled(false);
+	cbMpegMSStereo->setEnabled(false);
+    }
+
+    /* Emphasis */
+    initInfo(lblMpegEmphasis, cbMpegEmphasis, INF_MPEG_EMPHASIS);
+    int emphasis = QVariant(m_info.get(INF_MPEG_EMPHASIS)).toInt();
+    switch (emphasis) {
+	case 0: cbMpegEmphasis->setCurrentItem(0); break;
+	case 1: cbMpegEmphasis->setCurrentItem(1); break;
+	case 3: cbMpegEmphasis->setCurrentItem(2); break;
+	default: cbMpegEmphasis->setEnabled(false);
+    }
+    
+    /* Copyrighted */
+    initInfo(lblMpegCopyrighted, chkMpegCopyrighted, INF_COPYRIGHTED);
+    bool copyrighted = QVariant(m_info.get(INF_COPYRIGHTED)).toBool();
+    chkMpegCopyrighted->setChecked(copyrighted);
+    chkMpegCopyrighted->setText((copyrighted) ? i18n("yes") : i18n("no"));
+
+    /* Original */
+    initInfo(lblMpegOriginal, chkMpegOriginal, INF_ORIGINAL);
+    bool original = QVariant(m_info.get(INF_ORIGINAL)).toBool();
+    chkMpegOriginal->setChecked(original);
+    chkMpegOriginal->setText((original) ? i18n("yes") : i18n("no"));
+    
+}
+
+//***************************************************************************
+void FileInfoDialog::setupID3Tab()
+{
 }
 
 //***************************************************************************

@@ -25,6 +25,14 @@
 class CompressionType: public TypesMap<int, int>
 {
 public:
+
+    /** extended compression types, not from libaudiofile */
+    enum {
+	MPEG_LAYER_I = 600,
+	MPEG_LAYER_II,
+	MPEG_LAYER_III
+    };
+
     /** Constructor */
     CompressionType();
 

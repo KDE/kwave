@@ -69,6 +69,13 @@ void CompressionType::fill()
     append(i++, AF_COMPRESSION_MS_ADPCM,
            i18n("MS ADPCM"), 0);
 
+    append(i++, MPEG_LAYER_I,
+           i18n("MPEG Layer I"), 0);
+    append(i++, MPEG_LAYER_II,
+           i18n("MPEG Layer II"), 0);
+    append(i++, MPEG_LAYER_III,
+           i18n("MPEG Layer III"), 0);
+          
 }
 
 //***************************************************************************

@@ -41,7 +41,8 @@ typedef enum {
     INF_COMMISSIONED,        /**< commissioned */
     INF_COMMENTS,            /**< comments */
     INF_COMPRESSION,         /**< compression mode (libaudiofile) */
-    INF_COPYRIGHT,           /**< copyright */
+    INF_COPYRIGHT,           /**< copyright text */
+    INF_COPYRIGHTED,         /**< "copyright" flag */
     INF_CREATION_DATE,       /**< creation date */
     INF_ENGINEER,            /**< engineer */
     INF_FILENAME,            /**< name of the file */
@@ -50,7 +51,14 @@ typedef enum {
     INF_KEYWORDS,            /**< keywords */
     INF_MEDIUM,              /**< medium */
     INF_MIMETYPE,            /**< mime type of the file format */
+    INF_MPEG_BITRATE,        /**< MPEG bitrate */
+    INF_MPEG_EMPHASIS,       /**< MPEG emphasis mode */
+    INF_MPEG_LAYER,          /**< MPEG Layer, I/II/III */
+    INF_MPEG_MODEEXT,        /**< MPEG mode extension */
+    INF_MPEG_VERSION,        /**< MPEG version */
     INF_NAME,                /**< name of the song or whatever */
+    INF_ORIGINAL,            /**< true=original, false=copy */
+    INF_PRIVATE,             /**< "private" bit */
     INF_PRODUCT,             /**< product */
     INF_SAMPLE_FORMAT,       /**< sample format (libaudiofile) */
     INF_SOFTWARE,            /**< software */

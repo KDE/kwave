@@ -70,6 +70,10 @@ void FileInfo::PropertyTypesMap::fill()
              "multiple copyrights, separate them by a semicolon followed\n"
              "by a space."
              "\nExample: 'Copyright Linux community 2002'"));
+    append(INF_COPYRIGHTED, 0,
+        i18n("Copyrighted"),
+        i18n("Indicates whether the file is protected by "
+             "copyright or not."));
     append(INF_CREATION_DATE, 0,
         i18n("Date"),
         i18n("Specifies the date the subject of the file was created. "
@@ -101,10 +105,31 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_MIMETYPE, FP_READONLY,
         i18n("Mime Type"),
         i18n("Mime type of the file format"));
+    append(INF_MPEG_BITRATE, 0,
+        i18n("Bitrate"),
+        i18n("Bitrate of the MPEG stream in bits per second"));
+    append(INF_MPEG_EMPHASIS, 0,
+        i18n("Emphasis"),
+        i18n("Audio emphasis mode"));
+    append(INF_MPEG_LAYER, 0,
+        i18n("Layer"),
+        i18n("MPEG Layer, I, II or III"));
+    append(INF_MPEG_MODEEXT, 0,
+        i18n("Mode Extension"),
+        i18n("MPEG Mode Extension (only if Joint Stereo)"));
+    append(INF_MPEG_VERSION, 0,
+        i18n("Version"),
+        i18n("MPEG Version, 1, 2 or 2.5"));
     append(INF_NAME, 0,
         i18n("Name"),
         i18n("Stores the title of the subject of the file."
              "\nExample: 'Symphony No.6, Op.68 \"Pastoral\"'"));
+    append(INF_ORIGINAL, 0,
+        i18n("Original"),
+        i18n("Indicates whether the file is an original or a copy"));
+    append(INF_PRIVATE, 0,
+        i18n("Private"),
+        i18n("Indicates whether the subject is private"));
     append(INF_PRODUCT, 0,
         i18n("Product"),
         i18n("Specifies the name or the title the file was\n"

@@ -1,5 +1,6 @@
 <!DOCTYPE UI><UI>
 <class>KwaveAboutDialogBase</class>
+<include location="global">kurllabel.h</include>
 <include location="global">klocale.h</include>
 <widget>
     <class>QDialog</class>
@@ -12,7 +13,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>662</width>
+            <width>658</width>
             <height>557</height>
         </rect>
     </property>
@@ -192,6 +193,10 @@ and scroll capability.</string>
                                 <property stdset="1">
                                     <name>textFormat</name>
                                     <enum>RichText</enum>
+                                </property>
+                                <property stdset="1">
+                                    <name>alignment</name>
+                                    <set>AlignVCenter|AlignLeft</set>
                                 </property>
                                 <property>
                                     <name>hAlign</name>

@@ -23,12 +23,3 @@ libaudiofile_la_SOURCES = \
 libaudiofile_la_LIBADD = modules/libmodules.la
 
 libaudiofile_la_LDFLAGS = -version-info 0:2:0
-
-# include_HEADERS = audiofile.h aupvlist.h af_vfs.h
-
-# GNU gcc
-# AM_CFLAGS = -Wall -g
-# SGI MIPSpro cc
-# AM_CFLAGS = -fullwarn -g
-# No debugging.
-AM_CFLAGS = -DNDEBUG

@@ -68,10 +68,6 @@
 #include "UndoTransaction.h"
 #include "UndoTransactionGuard.h"
 
-#if __BYTE_ORDER==__BIG_ENDIAN
-#define IS_BIG_ENDIAN
-#endif
-
 #define min(x,y) (((x)<(y)) ? (x) : (y))
 #define max(x,y) (((x)>(y)) ? (x) : (y))
 

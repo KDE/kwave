@@ -45,8 +45,8 @@ logged:
 	autoheader
 	automake
 	autoconf
-	@ -touch -c doc/help_{de,fr,it}.po 2>/dev/null 1>/dev/null
-	@ -touch -c doc/help_{de,fr,it}.docbook 2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_{de,fr}.po 2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_{de,fr}.docbook 2>/dev/null 1>/dev/null
 	@ echo "" ; echo "your system uses:"
 	@ PATH=${PATH}:${KDEBINDIRS} kde-config --version
 	@ echo ""

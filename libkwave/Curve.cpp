@@ -95,7 +95,6 @@ QArray<double> Curve::interpolation(unsigned int points)
 //***************************************************************************
 void Curve::setInterpolationType(interpolation_t type)
 {
-    debug("Curve::setInterpolationType(%d)", (int)type);
     m_interpolation.setType(type);
 }
 

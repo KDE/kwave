@@ -2,7 +2,7 @@ dnl without this order in this file, autoconf will not work!
 dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
 
-AC_INIT([kwave],[0.6.5])
+AC_INIT(kwave,0.6.6)
 AC_CONFIG_SRCDIR([admin/acinclude.m4.in])
 AC_CONFIG_AUX_DIR(admin)
 unset CDPATH            dnl This ksh/zsh feature conflicts with `cd blah ; pwd`

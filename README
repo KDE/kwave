@@ -227,8 +227,8 @@ packets should be sufficient for building:
 known distributions / architectures:
 ------------------------------------
 
-* SuSE-8.1 / i386, i686, athlon, k7
-  [works for me]
+* SuSE-8.1 / i386, i686, athlon, k7 (with KDE-3.0 and KDE-3.1)
+  [works for me, needs libart_lgpl-devel for getting KDE-3.1 to work]
 
 * SuSE-8.0 / i386 (with KDE3 updated to v3.0.3)
   [works, with gcc-2.95.3, updated to automake-1.6.3/autoconf-2.53]
@@ -268,6 +268,36 @@ please let me know !
 If the program does NOT compile, please let me know too - and/or consider
 an update of your system if your packages are older than those mentioned
 above.
+
+currently not well supported distributions:
+-------------------------------------------
+
+I have currently installed some distributions for testing purposes and
+for getting an impression how Kwave builds/behaves on them. Here what I
+made running and what I had to install additionally:
+
+* Debian-3.01 (supported by Aurelien Jarno):
+         xlibs-dev, automake1.6, zlib1g, zlib1g-dev, libjpeg-mmx-dev
+         libqt3-dev, libqt3-mt-dev, kdelibs4-dev, poxml
+         (manual install of id3lib-3.8.2)
+
+* Gentoo-1.4_rc2:
+         patch, imagemagick, recode, kdemultimedia, kdesdk, media-libs
+         (manual install of id3lib >= 3.8.1)
+
+* RedHat-8.0:
+         ImageMagick, recode, id3lib, audiofile, audiofile-devel
+
+* Mandrake-9.0:
+         kdelibs, kdelibs-devel, libqt3, libqt3-devel, libarts, libarts-devel,
+         audiofile, libaudiofile0, libarts, libarts-devel, kdesdk, libalsa2,
+         libalsa2-devel, libpng3-devel, autoconf2.5, recode, ImageMagick,
+         gettext, XFree86-devel, id3lib-3.8.2-1, id3lib-3.8.2-1-devel,
+         libogg0, libogg0-devel, libvorbis0, libvorbis0-devel, libvorbisfile3,
+         libvorbisenc2
+
+(not finished yet: Slackware 8.1)
+
 
 7. KNOWN PROBLEMS:
 =================

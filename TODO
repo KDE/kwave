@@ -1,9 +1,9 @@
 
-o Ogg/Vorbis support
+o volume plugin: scale mode "factor"
 
 o more precise handling of the playback pointer
 
-o find out why the KDoubleNumInput controls use such a stipid format with
+o find out why the KDoubleNumInput controls use such a stupid format with
   spaces and get rid of them (newsignal and selectrange plugin)
 
 o selectrange: select also start time
@@ -15,8 +15,6 @@ o hourglass and process indicators for longer processes
 o ruler that shows the current cursor position as time
 
 o display of the current position in playback mode
-
-o display start and end time of the selection as time (status bar)
 
 o currently load/save uses the file extension to identify the mime type
   should be changed to an extra parameter with a KMimeType's name
@@ -47,11 +45,11 @@ o support for compressed wav files, like those found on www.montypython.net
 
 o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 
-o get Xt toolkit options working again (like -geometry)
-
 o recording support
 
 o fileinfo plugin: auto-generate filename from "track - title"
+
+o app crashes when closing main window while a file is loaded
 
 o Filter: class needs to be tested
 
@@ -64,6 +62,8 @@ o use a MenuManager in the plugins (e.g. sonagram)
 o resample signal before inserting into a signal with a different sample
   rate (when doing copy/paste)
 
+o optimized cut/paste, at zero-crossing
+  
 o channel mixing dialog
 
 o amplifymax does not work

@@ -220,11 +220,7 @@ void KwaveApp::saveRecentFiles()
 //***************************************************************************
 void KwaveApp::saveConfig()
 {
-    KConfig *cfg = KGlobal::config();
-    ASSERT(cfg);
-    if (!cfg) return;
-
-    // also save the list of recent files
+    // save the list of recent files
     saveRecentFiles();
 }
 

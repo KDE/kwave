@@ -1,4 +1,13 @@
 
+0.6.6 [2003-03-??]
+
+ * starting up with last window size
+ * Xt toolkit option for geometry works again, including workaround
+   for bug in KDE3's geometry management.
+   example: "kwave -geometry 800x600"
+ * bugfix: select to left selected one sample less then needed
+ * simple clipping in the volume plugin
+
 0.6.5 [2002-11-09]
 
  * MP3 import with ID3 tag support through id3lib and libmad

@@ -211,6 +211,9 @@ packets should be sufficient for building:
 * kdemultimedia-(devel-)2.2.2-2      (multimedia/aRts support)
 * kdesdk-2.2.2-5                     (some additional tools)
 * kdelibs-artsd-2.2.2-42             (aRts sound server support)
+* id3lib-3.8.0-2                     (for MP3 import)
+* libogg-1.0, libogg-devel           (for Ogg/Vorbis codec)
+* libvorbis-1.0, libvorbis-devel     (for Ogg/Vorbis codec)
 
 Depending on your distribution, one ore more components might require
 additional packages. For example if there is a package like

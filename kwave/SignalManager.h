@@ -491,6 +491,17 @@ protected:
     bool registerUndoAction(UndoAction *action);
 
     /**
+     * Saves undo data for deleting a range of samples from a list
+     * of tracks.
+     * @param track_list list of indices of tracks
+     * @param offset first sample position to delete
+     * @param length number of samples to delete
+     * @return true if successful, false if out of memory or aborted
+     */
+    bool saveUndoDelete(QArray<unsigned int> &track_list,
+                        unsigned int offset, unsigned int length);
+
+    /**
      * Aborts an undo transaction by deleting all of it's undo actions.
      */
     void abortUndoTransaction();

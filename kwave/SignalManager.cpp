@@ -408,31 +408,30 @@ bool SignalManager::executeCommand(const QString &command)
 	clip.copy(m_signal, selectedTracks(), offset, length);
     CASE_COMMAND("paste")
 	paste(KwaveApp::clipboard(), offset, length);
-//    CASE_COMMAND("cut")
-//	if (globals.clipboard) delete globals.clipboard;
-//	globals.clipboard = new ClipBoard();
-//	ASSERT(globals.clipboard);
-//	if (globals.clipboard) {
-//	    for (unsigned int i = 0; i < m_channels; i++) {
-//		ASSERT(signal.at(i));
-//		if (signal.at(i)) globals.clipboard->appendChannel(
-//		    signal.at(i)->cutRange());
-//	    }
-//	}
-//	rmarker = lmarker;
-//    CASE_COMMAND("crop")
-//	if (globals.clipboard) delete globals.clipboard;
-//	globals.clipboard = new ClipBoard();
-//	ASSERT(globals.clipboard);
-//	if (globals.clipboard) {
-//	    for (unsigned int i = 0; i < m_channels; i++) {
-//		ASSERT(signal.at(i));
-//		if (signal.at(i)) (signal.at(i)->cropRange());
-//	    }
-//	}
+    CASE_COMMAND("cut")
+	ClipBoard &clip = KwaveApp::clipboard();
+	clip.copy(m_signal, selectedTracks(), offset, length);
+	UndoTransactionGuard undo(*this, i18n("cut"));
+	deleteRange(offset, length);
+    CASE_COMMAND("crop")
+	UndoTransactionGuard undo(*this, i18n("crop"));
+	unsigned int rest = this->length() - offset;
+	rest = (rest > length) ? (rest-length) : 0;
+	QArray<unsigned int> tracks = selectedTracks();
+	if (saveUndoDelete(tracks, offset+length, rest) &&
+	    saveUndoDelete(tracks, 0, offset))
+	{
+	    unsigned int count = tracks.count();
+	    while (count--) {
+		m_signal.deleteRange(count, offset+length, rest);
+		m_signal.deleteRange(count, 0, offset);
+	    }
+	    selectRange(0, length);
+	} else {
+	    abortUndoTransaction();
+	}
     CASE_COMMAND("delete")
 	deleteRange(offset, length);
-
 //    CASE_COMMAND("mixpaste")
 //	if (globals.clipboard) {
 //	    SignalManager *toinsert = globals.clipboard->getSignal();
@@ -1467,7 +1466,8 @@ bool SignalManager::registerUndoAction(UndoAction *action)
 	int choice = KMessageBox::warningYesNoCancel(m_parent_widget,
 	    /* HTML version */
 	    QString("<HTML>"+
-	    i18n("The operation '%1' requires %2 MB for storing undo data.\n"\
+	    i18n("The operation '%1' requires more than %2 MB for "\
+	    "storing undo data.\n"\
 	    "This would exceed the limit of %3 MB.")+
 	    "<BR><BR>"+
 	    i18n("You can now either press:")+
@@ -1528,6 +1528,34 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     m_undo_transaction->append(action);
     action->store(*this);
 
+    return true;
+}
+
+//***************************************************************************
+bool SignalManager::saveUndoDelete(QArray<unsigned int> &track_list,
+                                   unsigned int offset, unsigned int length)
+{
+    if (!m_undo_enabled) return true;
+    if (track_list.isEmpty()) return true;
+
+    unsigned int count = track_list.count();
+    QList<UndoDeleteAction> undo_list;
+    undo_list.setAutoDelete(true);
+
+    // loop over all tracks
+    while (count--) {
+	unsigned int t = track_list[count];
+	UndoDeleteAction *action = new UndoDeleteAction(t, offset, length);
+	if (!registerUndoAction(action)) {
+	    // registration or creation failed
+	    undo_list.clear();
+	    return false;
+	}
+    };
+
+    // do not delete the actions from the list, so it's important
+    // disable the auto-delete feature now!
+    undo_list.setAutoDelete(false);
     return true;
 }
 

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2003-05-31</date>
+<date>2003-06-15</date>
 <releaseinfo>0.6.6</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -186,10 +186,23 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.6.7 [2003-xx-xx]</para>
+            <para>0.6.7 [2003-06-xx]</para>
             <itemizedlist>
                 <listitem><para>
+                    new plugin: "pitch_shift"
+                </para></listitem>
+                <listitem><para>
+                    included a bugfixed version of the synth_pitch_shift aRts plugin
+                </para></listitem>
+                <listitem><para>
+                    new feature: "pre-listen", first implementation in pitch_shift plugin
+                </para></listitem>
+                <listitem><para>
                     new plugin: "lowpass"
+                </para></listitem>
+                <listitem><para>
+                    ported to work with Qt-3.1 without Qt-2 compatibility,
+                      also compiles with -DQT_NO_COMPAT -DQT_CLEAN_NAMESPACE
                 </para></listitem>
             </itemizedlist>
         </listitem>

@@ -1,6 +1,4 @@
 
-o set cursor position to zero when doing revert of a .ogg file
-
 o more precise handling of the playback pointer
 
 o function for "Edit/Selection/Insert at..." or a "goto position" function
@@ -48,9 +46,15 @@ o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 
 o recording support
 
+o support for Spex codec: http://www.speex.org/
+
+o support for flac: http://flac.sourceforge.net/
+
 o fileinfo plugin: auto-generate filename from "track - title"
 
 o app crashes when closing main window while a file is loaded
+
+o app crashes when a plugin is still running
 
 o Filter: class needs to be tested
 
@@ -84,6 +88,11 @@ o SignalProxy1 implementation is very inefficient for simple data types
 o check at program startup: does the help directory exist? If not, show
   a message and make a symbolic link
 
+o document how to do an optimized build, for example:
+  make -f Makefile.dist RPM_OPT_FLAGS="-march=athlon-xp -mcpu=athlon-xp \
+  -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_ASCII_CAST \
+  -DQT_NO_COMPAT -DQT_NO_TRANSLATION"
+  
 o speed up MP3 import by blockwise operation
 
 o storage/handling of extra info "labels", "cue list"...
@@ -143,11 +152,6 @@ o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width
 
 o switch to use float as sample_t (requires much work...)
-
-o test for afOpenVirtualFile() in configure script and check if
-  the local system's libaudiofile can be used
-  -> wait until a newer version is released and commonly integrated
-     in the distributions
 
 o watch for new versions of Qt. maybe the Qt bug with submenues mentioned
   in libgui/MenuSub.cpp disappears somewhere in future...

@@ -23,7 +23,7 @@ author=Thomas Eschenbacher
 configure_args=--enable-debug=yes
 email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
-lfv_open_groups=
+lfv_open_groups=GNU
 make_options=\s-j1
 makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am,plugins/newsignal/Makefile.am,plugins/template/Makefile.am,plugins/amplifyfree/Makefile.am,plugins/noise/Makefile.am,plugins/codec_wav/Makefile.am,plugins/common/Makefile.am,plugins/codec_audiofile/Makefile.am,plugins/selectrange/Makefile.am,plugins/fileinfo/Makefile.am,plugins/decoder_mad/Makefile.am,plugins/decoder_mp3/Makefile.am,plugins/codec_ogg/Makefile.am,plugins/volume/Makefile.am,plugins/lowpass/Makefile.am,plugins/pitch_shift/Makefile.am,plugins/notch_filter/Makefile.am
 modifyMakefiles=false
@@ -1311,6 +1311,18 @@ install=false
 install_location=
 type=HEADER
 
+[libkwave/KwaveFilterPlugin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[libkwave/KwaveFilterPlugin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
 [libkwave/KwavePlugin.cpp]
 dist=true
 install=false
@@ -1318,6 +1330,12 @@ install_location=
 type=SOURCE
 
 [libkwave/KwavePlugin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[libkwave/KwavePluginSetupDialog.h]
 dist=true
 install=false
 install_location=
@@ -1373,11 +1391,11 @@ type=HEADER
 
 [libkwave/Makefile.am]
 dist=true
-files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp,libkwave/ArtsSampleSink.idl,libkwave/ArtsSampleSource.idl,libkwave/ArtsSampleSink_impl.cpp,libkwave/ArtsSampleSink_impl.h,libkwave/ArtsSampleSource_impl.h,libkwave/ArtsSampleSource_impl.cpp,libkwave/ArtsMultiTrackFilter.h,libkwave/ArtsMultiSource.h,libkwave/ArtsMultiSink.h,libkwave/ArtsMultiIO.h,libkwave/ArtsMultiTrackSink.h,libkwave/ArtsMultiTrackSource.h,libkwave/ArtsKwaveMultiTrackFilter.h,libkwave/ArtsNativeMultiTrackFilter.h,libkwave/CurveStreamAdapter_impl.h,libkwave/CurveStreamAdapter_impl.cpp,libkwave/KwaveDrag.h,libkwave/KwaveDrag.cpp,libkwave/FileFormat.cpp,libkwave/Encoder.h,libkwave/Decoder.h,libkwave/CodecBase.h,libkwave/CodecBase.cpp,libkwave/FileInfo.cpp,libkwave/FileInfo.h,libkwave/VirtualAudioFile.cpp,libkwave/VirtualAudioFile.h,libkwave/CompressionType.h,libkwave/CompressionType.cpp,libkwave/SampleFormat.h,libkwave/SampleFormat.cpp,libkwave/GenreType.h,libkwave/GenreType.cpp,libkwave/Decoder.cpp,libkwave/CurveStreamAdapter.idl,libkwave/KwavePlugin.h,libkwave/KwavePlugin.cpp,libkwave/PluginContext.h,libkwave/TransmissionFunction.h,libkwave/TransmissionFunction.cpp,libkwave/ArtsPlaybackSink.cpp,libkwave/ArtsMultiPlaybackSink.cpp,libkwave/ArtsMultiPlaybackSink.h,libkwave/ArtsPlaybackSink_impl.cpp,libkwave/ArtsPlaybackSink_impl.h,libkwave/ArtsPlaybackSink.idl,libkwave/PlayBackDevice.h,libkwave/PlaybackDeviceFactory.h
+files=libkwave/Curve.cpp,libkwave/Curve.h,libkwave/FileFormat.h,libkwave/WindowFunction.h,libkwave/WindowFunction.cpp,libkwave/TypesMap.h,libkwave/Triple.h,libkwave/Track.h,libkwave/Track.cpp,libkwave/Stripe.h,libkwave/Stripe.cpp,libkwave/Signal.h,libkwave/Signal.cpp,libkwave/Selection.h,libkwave/SampleWriter.h,libkwave/SampleWriter.cpp,libkwave/SampleReader.h,libkwave/SampleReader.cpp,libkwave/SampleLock.h,libkwave/SampleLock.cpp,libkwave/Sample.h,libkwave/Parser.h,libkwave/Parser.cpp,libkwave/Matrix.h,libkwave/Makefile.am,libkwave/LineParser.h,libkwave/LineParser.cpp,libkwave/LabelType.h,libkwave/LabelType.cpp,libkwave/LabelList.h,libkwave/LabelList.cpp,libkwave/Label.h,libkwave/Label.cpp,libkwave/Interpolation.h,libkwave/Interpolation.cpp,libkwave/InsertMode.h,libkwave/gsl_fft.h,libkwave/gsl_fft.cpp,libkwave/Functions.h,libkwave/Functions.cpp,libkwave/Filter.h,libkwave/Filter.cpp,libkwave/FileLoader.h,libkwave/FileLoader.cpp,libkwave/MultiTrackReader.h,libkwave/MultiTrackReader.cpp,libkwave/MultiTrackWriter.h,libkwave/MultiTrackWriter.cpp,libkwave/ArtsSampleSink.idl,libkwave/ArtsSampleSource.idl,libkwave/ArtsSampleSink_impl.cpp,libkwave/ArtsSampleSink_impl.h,libkwave/ArtsSampleSource_impl.h,libkwave/ArtsSampleSource_impl.cpp,libkwave/ArtsMultiTrackFilter.h,libkwave/ArtsMultiSource.h,libkwave/ArtsMultiSink.h,libkwave/ArtsMultiIO.h,libkwave/ArtsMultiTrackSink.h,libkwave/ArtsMultiTrackSource.h,libkwave/ArtsKwaveMultiTrackFilter.h,libkwave/ArtsNativeMultiTrackFilter.h,libkwave/CurveStreamAdapter_impl.h,libkwave/CurveStreamAdapter_impl.cpp,libkwave/KwaveDrag.h,libkwave/KwaveDrag.cpp,libkwave/FileFormat.cpp,libkwave/Encoder.h,libkwave/Decoder.h,libkwave/CodecBase.h,libkwave/CodecBase.cpp,libkwave/FileInfo.cpp,libkwave/FileInfo.h,libkwave/VirtualAudioFile.cpp,libkwave/VirtualAudioFile.h,libkwave/CompressionType.h,libkwave/CompressionType.cpp,libkwave/SampleFormat.h,libkwave/SampleFormat.cpp,libkwave/GenreType.h,libkwave/GenreType.cpp,libkwave/Decoder.cpp,libkwave/CurveStreamAdapter.idl,libkwave/KwavePlugin.h,libkwave/KwavePlugin.cpp,libkwave/PluginContext.h,libkwave/TransmissionFunction.h,libkwave/TransmissionFunction.cpp,libkwave/ArtsPlaybackSink.cpp,libkwave/ArtsMultiPlaybackSink.cpp,libkwave/ArtsMultiPlaybackSink.h,libkwave/ArtsPlaybackSink_impl.cpp,libkwave/ArtsPlaybackSink_impl.h,libkwave/ArtsPlaybackSink.idl,libkwave/PlayBackDevice.h,libkwave/PlaybackDeviceFactory.h,libkwave/KwavePluginSetupDialog.h,libkwave/KwaveFilterPlugin.h,libkwave/KwaveFilterPlugin.cpp
 install=false
 install_location=
 sub_dirs=
-type=DATA
+type=static_library
 
 [libkwave/Matrix.h]
 dist=true
@@ -2195,6 +2213,30 @@ install=false
 install_location=
 type=HEADER
 
+[plugins/fileinfo/BitrateWidgetBase.ui]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/fileinfo/CompressionWidget.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/fileinfo/CompressionWidget.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/fileinfo/CompressionWidgetBase.ui]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
 [plugins/fileinfo/FileInfoDialog.cpp]
 dist=true
 install=false
@@ -2250,7 +2292,7 @@ install_location=
 type=SOURCE
 
 [plugins/fileinfo/Makefile.am]
-files=plugins/fileinfo/FileInfoDialog.cpp,plugins/fileinfo/FileInfoDialog.h,plugins/fileinfo/FileInfoDlg.ui,plugins/fileinfo/FileInfoPlugin.cpp,plugins/fileinfo/FileInfoPlugin.h,plugins/fileinfo/SelectDateDialog.h,plugins/fileinfo/SelectDateDialog.cpp,plugins/fileinfo/SelectDateDlg.ui,plugins/fileinfo/KDatePickerAdapter.h,plugins/fileinfo/KeywordWidget.h,plugins/fileinfo/KeywordWidget.cpp,plugins/fileinfo/KeywordWidgetBase.ui,plugins/fileinfo/BitrateSpinBox.h,plugins/fileinfo/BitrateSpinBox.cpp,plugins/fileinfo/BitrateWidget.cpp,plugins/fileinfo/BitrateWidget.h
+files=plugins/fileinfo/FileInfoDialog.cpp,plugins/fileinfo/FileInfoDialog.h,plugins/fileinfo/FileInfoDlg.ui,plugins/fileinfo/FileInfoPlugin.cpp,plugins/fileinfo/FileInfoPlugin.h,plugins/fileinfo/SelectDateDialog.h,plugins/fileinfo/SelectDateDialog.cpp,plugins/fileinfo/SelectDateDlg.ui,plugins/fileinfo/KDatePickerAdapter.h,plugins/fileinfo/KeywordWidget.h,plugins/fileinfo/KeywordWidget.cpp,plugins/fileinfo/KeywordWidgetBase.ui,plugins/fileinfo/BitrateSpinBox.h,plugins/fileinfo/BitrateSpinBox.cpp,plugins/fileinfo/BitrateWidget.cpp,plugins/fileinfo/BitrateWidget.h,plugins/fileinfo/CompressionWidget.h,plugins/fileinfo/CompressionWidget.cpp,plugins/fileinfo/CompressionWidgetBase.ui,plugins/fileinfo/BitrateWidgetBase.ui
 sharedlib_LDFLAGS=-version-info 0:0:0
 sharedlib_rootname=fileinfo
 sub_dirs=
@@ -2462,7 +2504,7 @@ install_location=
 type=HEADER
 
 [plugins/pitch_shift/Makefile.am]
-files=plugins/pitch_shift/PitchShiftDialog.cpp,plugins/pitch_shift/PitchShiftDialog.h,plugins/pitch_shift/PitchShiftDlg.ui,plugins/pitch_shift/PitchShiftPlugin.cpp,plugins/pitch_shift/PitchShiftPlugin.h
+files=plugins/pitch_shift/PitchShiftDialog.cpp,plugins/pitch_shift/PitchShiftDialog.h,plugins/pitch_shift/PitchShiftDlg.ui,plugins/pitch_shift/PitchShiftPlugin.cpp,plugins/pitch_shift/PitchShiftPlugin.h,plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h,plugins/pitch_shift/synth_pitch_shift_bugfixed.idl
 sharedlib_LDFLAGS=-version-info 0:0:0
 sharedlib_rootname=pitch_shift
 sub_dirs=
@@ -2493,6 +2535,18 @@ install_location=
 type=SOURCE
 
 [plugins/pitch_shift/PitchShiftPlugin.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/pitch_shift/synth_pitch_shift_bugfixed.idl]
+dist=true
+install=false
+install_location=
+type=CORBA_SOURCE
+
+[plugins/pitch_shift/synth_pitch_shift_bugfixed_impl.h]
 dist=true
 install=false
 install_location=

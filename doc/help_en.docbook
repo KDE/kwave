@@ -1091,7 +1091,7 @@
                     kwave now keeps track of last directory saved to; for user convenience
                 </para></listitem>
                 <listitem><para>
-                    reestablished selection mechanism to match versions 
+                    reestablished selection mechanism to match versions
                       before 0.29.3 and corrected some otherwise screwed-up behaviour
                 </para></listitem>
                 <listitem><para>
@@ -1833,6 +1833,9 @@
     <para>
 	This chapter should give a short introduction about the basics of
 	digital audio processing, without going too much into details.
+	Of course this might be a bit incomplete, but if you have questions,
+	you can ask at the &kapp; mailing list or consult some further
+	literature.
     </para>
 
 <sect1 id="the-analogue-world"><title>The analogue world</title>
@@ -1845,9 +1848,18 @@
 	reversion of the way from analogue to digital, we only describe
 	the way from analogue to digital.
     </para>
+    <para>
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="audio-1.png" format="PNG"/>
+	</imageobject>
+	<textobject> <phrase>Conversion from sound to bits</phrase> </textobject>
+	</inlinemediaobject>
+    </para>
+    <para>Conversion from sound to bits</para>
 
     <para>
-	First of all, one must know that analogue audio has to be transformed
+	Before continuing, analogue audio has to be transformed
 	into electronic signals in order to find it's way into a computer.
 	The most common way to do this is by using a microphone and an
 	amplifier. This combination gets sound (changes of air pressure) at
@@ -1859,6 +1871,15 @@
 	"amplifier" can be the one that is integrated into your sound card,
 	where you can't see it.
     </para>
+    <para>
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="audio2signal.png" format="PNG"/>
+	</imageobject>
+	<textobject> <phrase>Conversion to electronic signal</phrase> </textobject>
+	</inlinemediaobject>
+    </para>
+    <para>Conversion to electronic signal</para>
 
     <para>
 	At this stage, the electrical signal has three limitations that one should
@@ -1913,16 +1934,27 @@
 	signal into a sequence of digital values.
     </para>
     <para>
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="signal2digital.png" format="PNG"/>
+	</imageobject>
+	<textobject> <phrase>Digitalization of the electronic signal</phrase> </textobject>
+	</inlinemediaobject>
+    </para>
+    <para>Digitalization of the electronic signal</para>
+
+    <para>
 	The conversion can be understood as a repetitive measurement of the
 	electonic signal's value at a certain time, so taking a
-	<emphasis>sample</emphasis> of the signal.
+	<emphasis>sample</emphasis> of the signal. The result is then encoded
+	as a digital value.
     </para>
     <para>
 	The sampling could be done in arbitrary distances or in constant
 	intervals. The later method is much easier to handle, and thus it
 	is normally used, with a constant rate - the so-called
 	<emphasis>sample rate</emphasis>. Usual sample rates are 8000,
-	11025, 22050, and 44100 samples/second.
+	11025, 22050, and 44100 samples per second.
     </para>
     <para>
 	The sample rate limts the
@@ -1933,6 +1965,15 @@
 	rule, your soundcard already has built-in filters that filter away
 	frequencies that are higher than half of the used sample rate.
     </para>
+    <para>
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="sinus2samples.png" format="PNG"/>
+	</imageobject>
+	<textobject> <phrase>Sampled signal</phrase> </textobject>
+	</inlinemediaobject>
+    </para>
+    <para>Sampled signal</para>
 
 </sect1>
 
@@ -1948,31 +1989,85 @@
 	one is <emphasis>linear</emphasis> encoding. This means that each sample's
 	value directly represents the analogue signal's value multiplied with a
 	constant factor. This is easy to handle, but has the disadvantage that
-	noise will be audibles especially on low amplitudes, where it disturbs
+	noise will be audibles especially on low amplitudes, where it disturbes
 	most, and less audible on high amplitudes, where it is less audible.
     </para>
     <para>
 	One way to reduce the influence of noise is <emphasis>non-linear</emphasis>
 	encoding. This means that lower amplitudes are amplified before processing
 	and higher amplitudes attenuated a bit. As lower amplitudes are amplified,
-	their distance from noise increases and the quality improves. (This method
-	is commonly known from telecommunication, ISDN uses this method.) The most
+	their distance from noise increases and the quality improves. The most
 	common methods for this are <emphasis>A-Law</emphasis> and
-	 <emphasis>U-Law</emphasis> encoding - some standardized amplification
-	 curves that are approximated by a set of linear curve segments.
+	<emphasis>U-Law</emphasis> encoding - some standardized logarithmic
+	amplification curves, used in digital telephony (ITU G.711 standard).
     </para>
+    <para>
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="nonlinear.png" format="PNG"/>
+	</imageobject>
+	<textobject> <phrase>Nonlinear encoding</phrase> </textobject>
+	</inlinemediaobject>
+    </para>
+    <para>Nonlinear Encoding</para>
 </sect1>
 
 <sect1 id="sample-formats"><title>Sample Formats</title>
 
     <para>
-	Sample formats: signed, unsigned, float
+	Samples can be stored in different formats and precisions. The most common
+	ones are integer (fixed-point) formats, that store values with
+	<emphasis>fixed	quantisations</emphasis>.
+	Depending on where the zero line is defined, it
+	has to be destinguished between <emphasis>unsigned</emphasis> (only positive
+	values, "zero line" is at half of the numeric range)
+	and <emphasis>signed</emphasis> (positive and negative values).
     </para>
     <para>
-	###
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="signed.png" format="PNG"/>
+	</imageobject>
+	<textobject> <phrase>Signed Format</phrase> </textobject>
+	</inlinemediaobject>
     </para>
-
+    <para>Signed Format</para>
+    <para>
+	<inlinemediaobject>
+	<imageobject>
+	    <imagedata fileref="unsigned.png" format="PNG"/>
+	</imageobject>
+	<textobject> <phrase>Unsigned Format</phrase> </textobject>
+	</inlinemediaobject>
+    </para>
+    <para>Unsigned Format</para>
+    <para>
+	As the
+	quantisation looses some accuracy, it produces noise, the so-called
+	<emphasis>quantisation noise</emphasis>. That kind of noise has more effect
+	on low amplitudes, so this method of storing samples is not optimal, but
+	quite easy and very fast to handle (computers are fast in calculating with
+	fixed point numbers).
+    </para>
+    <para>
+	The second way of encoding samples is with <emphasis>floating point</emphasis>
+	numbers. With floating point numbers, noise is spread nearly equal over
+	all ranges of amplitudes and has advantages especially on low ampliudes.
+	However, this format is much slower when used for processing (computers are
+	much slower on calculating with floating point values in comparison to
+	fixed point numbers).
+    </para>
+    <note><para>
+	&kapp; internally uses <emphasis>signed integer</emphasis> format with
+	24 bit precision, stored in 32 bit integers. This has the disadvantage
+	of higher memory consumption when processing files with lower precision
+	(e.g. 8 bits), but processing 32 bit numbers is very fast and also
+	leaves some reserves for internal calculations, as only 24 bits are
+	normally used.
+    </para></note>
 </sect1>
+
+<!-- TODO: some chapter about audio compression -->
 
 </chapter>
 
@@ -1981,28 +2076,10 @@
 <!-- ###################################################################### -->
 
 <chapter id="using-kwave"><title>Using &kapp;</title>
-
-<!--
-    <para>
-	<inlinemediaobject>
-	<imageobject>
-	    <imagedata fileref="under-construction.png" format="PNG"/>
-	</imageobject>
-	<textobject> <phrase>under construction</phrase> </textobject>
-	</inlinemediaobject>
-    </para>
-    <para>
-	... is quite simple. In addition to this I don't have enough time
-	to both improve the program itself <emphasis>and</emphasis> to
-	write some documentation.
-    </para>
--->
-
     <para>
 	Here is a little screenshot of the &kapp; main window, so that you
 	get an impression what &kapp; looks like...
     </para>
-
     <para>
 	<screenshot>
     	    <screeninfo>
@@ -2434,31 +2511,6 @@
     </sect2>
 
     </sect1>
-
-<!-- @@@ still to be done ... @@@
-    <sect1 id="kwave-features"><title>More Kapp features</title>
-
-    <para>
-    	The Squiggle Tool
-	<guiicon moreinfo="none">
-	<inlinemediaobject>
-	    <imageobject>
-	    	<imagedata FILEREF="squiggle.png" format="PNG"/>
-	    </imageobject>
-    	    <imageobject>
-	    	<imagedata FILEREF="squiggle.eps" format="EPS"/>
-	    </imageobject>
-    	    <textobject>
-	    	<phrase>Squiggle</phrase>
-	    </textobject>
-    	</inlinemediaobject>
-	</guiicon>
-
-	is used to draw squiggly lines all over
-    	the &kapp; main window. It's not a bug, it's a feature!
-    </para>
-    </sect1>
--->
 
 </chapter>
 

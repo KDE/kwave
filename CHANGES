@@ -1,5 +1,11 @@
 
+0.7.1 [2004-??-??]
+
+ * removed our own copy of libmad from the source tree, now it
+   should be available in all common distributions
+
 0.7.0 [2003-12-01]
+
  * first version with recording functionality (still alpha)
  * removed workaround for uic invocation
  * bugfix: handling of persistent and unique plugins was wrong,

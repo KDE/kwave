@@ -19,16 +19,10 @@
 #define _MP3_DECODER_H_
 
 #include "config.h"
+#include <mad.h>		// needs libmad-devel package
 #include <qstring.h>
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
-
-
-#ifdef USE_BUILTIN_LIBMAD
-#include "libmad/mad.h" // from Kwave's copy of libmad
-#else /* USE_BUILTIN_LIBMAD */
-#include <mad.h> //from system
-#endif /* USE_BUILTIN_LIBMAD */
 
 class Mp3_Headerinfo;
 class ID3_Frame;

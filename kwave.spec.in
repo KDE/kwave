@@ -21,7 +21,7 @@ Requires:	id3lib >= 3.8.1
 Requires:	libvorbis.so.0 >= 0.2.0
 Requires:	libvorbisenc.so.2 >= 2.0.0
 Requires:	libogg.so.0 >= 0.4.0
-@LIBMAD_REQUIRE@
+Requires:	mad > 0.14
 @LIBAUDIOFILE_REQUIRE@
 
 Conflicts: 	libkwave

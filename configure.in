@@ -231,35 +231,21 @@ AC_SUBST(LIBAUDIOFILE_SUBDIR)
 AC_SUBST(USE_BUILTIN_LIBAUDIOFILE)
 
 dnl check if the host system's libmad is usable
-AC_CHECK_LIB(mad, mad_decoder_init,
-     USE_BUILTIN_LIBMAD=0,
-     USE_BUILTIN_LIBMAD=1,
-     )
+AC_CHECK_LIB(mad, mad_decoder_init,,[AC_MSG_ERROR([
+
+        the mad package is missing.
+        please install the mad and the mad-devel package!
+
+])]
+)
 dnl if the system libmad is usable, check if the
 dnl corresponding header files are installed too
-if test "${USE_BUILTIN_LIBMAD}" = "0"; then
-    AC_CHECK_HEADER(mad.h,,[AC_MSG_ERROR([
+AC_CHECK_HEADER(mad.h,,[AC_MSG_ERROR([
 
-    the header files of libmad are missing.
-    please install the libmad-devel package!
-    
-    ])])
-fi
+    the header files of the mad package are missing.
+    please install the mad-devel package!
 
-if test "${USE_BUILTIN_LIBMAD}" = "1"; then
-    AC_DEFINE(USE_BUILTIN_LIBMAD,1,[use own copy of libmad])
-    LIBMAD_LDFLAGS="-Wl,-static -lmad -Wl,-dy"
-    LIBMAD_SUBDIR="libmad"
-else
-    LIBMAD_REQUIRE="Requires:	mad > 0.14"
-    LIBMAD_LDFLAGS="-lmad"
-    LIBMAD_SUBDIR=""
-fi
-
-AC_SUBST(LIBMAD_REQUIRE)
-AC_SUBST(LIBMAD_LDFLAGS)
-AC_SUBST(LIBMAD_SUBDIR)
-AC_SUBST(USE_BUILTIN_LIBMAD)
+])])
 
 dnl ************************************************
 dnl *** check for id3lib in a new enough version ***
@@ -492,10 +478,6 @@ AC_CONFIG_FILES(Makefile)
 if test "${USE_BUILTIN_LIBAUDIOFILE}" = "1"; then
     AC_CONFIG_FILES(libaudiofile/Makefile)
     AC_CONFIG_FILES(libaudiofile/modules/Makefile)
-fi
-
-if test "${USE_BUILTIN_LIBMAD}" = "1"; then
-    AC_CONFIG_SUBDIRS(libmad)
 fi
 
 AC_CONFIG_FILES(mt/Makefile)

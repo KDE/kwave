@@ -220,17 +220,18 @@ packets should be sufficient for building:
 * kdesdk3-3.0.4-5                    (some additional tools)
 * kdesdk3-translate-3.0.4-5          (for xml2pot and others)
 * arts-(devel)-1.0.4-4               (aRts sound server support)
-* id3lib-3.8.1                       (for MP3 tag import, see www.id3lib.org)
 * libogg-1.0, libogg-devel           (for Ogg/Vorbis codec)
 * libvorbis-1.0, libvorbis-devel     (for Ogg/Vorbis codec)
+* mad, mad-devel >= v0.14            (for MP3 import)
+* id3lib-3.8.1                       (for MP3 tag import, see www.id3lib.org)
 
 known distributions / architectures:
 ------------------------------------
 
-* SuSE-8.2 / i386, i586, athlon-xp (with KDE-3.1.2)
+* SuSE-9.0 / i386, i586, athlon-xp (with KDE-3.1.4)
   [works for me, my current development system]
 
-* SuSE-8.1 / i386, i686, athlon, k7 (with KDE-3.0 and KDE-3.1)
+* SuSE-8.1/8.2 / i386, i686, athlon, k7 (with KDE-3.0 and KDE-3.1)
   [should still work, needs libart_lgpl-devel for getting KDE-3.1 to work]
 
 * SuSE-8.0 / i386 (with KDE3 updated to v3.0.3)

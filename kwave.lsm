@@ -9,6 +9,6 @@ Maintained-by:  Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 Homepage:       http://kwave.sourceforge.net
 Primary-site:   ftp://kwave.sourceforge.net/pub/kwave
 Original-site:  ftp://kwave.sourceforge.net/pub/kwave
-Platform:       Linux, i386 and higher, maybe others, needs libqt >= 2.0, KDE-libs (v2.2.1)
+Platform:       Linux, i386 and higher, maybe others, needs libqt >= 2.0, KDE-libs >= 2.2.1
 Copying-policy: GPL
 End                      

@@ -30,9 +30,9 @@ o ruler that shows the current cursor position as time
 
 o use time instead of zoom factor (e.g. set zoom to "1 minute")
 
-o extend the selection with the shift-button
-
 o context menu for the SignalWidget with Copy/Paste etc.
+
+o fast playback mode, playback with facor 1.5x, 3x, 5x, 7x...
 
 o support for compressed wav files, like those found on www.montypython.net
 
@@ -41,6 +41,8 @@ o TrackPixmap: implement usage of "extra_samples" for interpolated mode
 o TrackPixmap: different color sets if selected/deselected
 
 o get Xt toolkit options working again (like -geometry)
+
+o recording support
 
 o Filter: class needs to be tested
 
@@ -125,6 +127,8 @@ o context menu for right mouse button in SignalWidget
 o macro recorder
 
 o more complete documentation of the whole api
+
+o navigation buttons on the overview widget
 
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width

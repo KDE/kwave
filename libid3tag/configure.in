@@ -21,14 +21,13 @@ AC_REVISION([$Id$])dnl
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(id3tag.h)
-AM_INIT_AUTOMAKE(libid3tag, 0.14.2b)
-
+AC_INIT
+AC_CONFIG_SRCDIR([id3tag.h])
+AC_CONFIG_AUX_DIR(../admin)
 AM_CONFIG_HEADER(config.h)
+AC_CANONICAL_TARGET([])
 
-dnl System type.
-
-AC_CANONICAL_HOST
+AM_INIT_AUTOMAKE(libid3tag, 0.14.2b)
 
 dnl Checks for programs.
 
@@ -39,6 +38,7 @@ dnl Support for libtool.
 AC_DISABLE_SHARED
 dnl AC_LIBTOOL_WIN32_DLL
 AM_PROG_LIBTOOL
+AM_PROG_AS
 
 AC_SUBST(LIBTOOL_DEPS)
 
@@ -156,4 +156,5 @@ test -n "$profile"  && CFLAGS="$CFLAGS $profile" LDFLAGS="$LDFLAGS $profile"
 LTLIBOBJS=`echo "$LIBOBJS" | sed -e 's/\.o/.lo/g'`
 AC_SUBST(LTLIBOBJS)
 
-AC_OUTPUT(Makefile)
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT

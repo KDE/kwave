@@ -27,20 +27,6 @@
  * Definitions selected automatically by `configure'                         *
  *****************************************************************************/
 
-/* Define to empty if the keyword does not work.  */
-#undef const
-
-/* Define if you have <sys/wait.h> that is POSIX.1 compatible.  */
-#undef HAVE_SYS_WAIT_H
-
-/* Define as __inline if that's what the C compiler calls it.  */
-#undef inline
-
-/* Define to `int' if <sys/types.h> doesn't define.  */
-#undef pid_t
-
-/* Define if you have the ANSI C header files.  */
-#undef STDC_HEADERS
 
 /* Define to optimize for speed over accuracy. */
 #undef OPT_SPEED
@@ -70,51 +56,91 @@
 /* Define to enable experimental code. */
 #undef EXPERIMENTAL
 
-/* The number of bytes in a int.  */
-#undef SIZEOF_INT
 
-/* The number of bytes in a long.  */
-#undef SIZEOF_LONG
-
-/* The number of bytes in a long long.  */
-#undef SIZEOF_LONG_LONG
-
-/* Define if you have the fcntl function.  */
-#undef HAVE_FCNTL
-
-/* Define if you have the fork function.  */
-#undef HAVE_FORK
-
-/* Define if you have the pipe function.  */
-#undef HAVE_PIPE
-
-/* Define if you have the waitpid function.  */
-#undef HAVE_WAITPID
-
-/* Define if you have the <assert.h> header file.  */
+/* Define if you have the <assert.h> header file. */
 #undef HAVE_ASSERT_H
 
-/* Define if you have the <errno.h> header file.  */
+/* Define if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define if you have the <errno.h> header file. */
 #undef HAVE_ERRNO_H
 
-/* Define if you have the <fcntl.h> header file.  */
+/* Define if you have the `fcntl' function. */
+#undef HAVE_FCNTL
+
+/* Define if you have the <fcntl.h> header file. */
 #undef HAVE_FCNTL_H
 
-/* Define if you have the <limits.h> header file.  */
+/* Define if you have the `fork' function. */
+#undef HAVE_FORK
+
+/* Define if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
 
-/* Define if you have the <sys/types.h> header file.  */
+/* Define if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define if you have the `pipe' function. */
+#undef HAVE_PIPE
+
+/* Define if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
 
-/* Define if you have the <unistd.h> header file.  */
+/* Define if you have <sys/wait.h> that is POSIX.1 compatible. */
+#undef HAVE_SYS_WAIT_H
+
+/* Define if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
+
+/* Define if you have the `waitpid' function. */
+#undef HAVE_WAITPID
 
 /* Name of package */
 #undef PACKAGE
 
+/* The size of a `int', as computed by sizeof. */
+#undef SIZEOF_INT
+
+/* The size of a `long', as computed by sizeof. */
+#undef SIZEOF_LONG
+
+/* The size of a `long long', as computed by sizeof. */
+#undef SIZEOF_LONG_LONG
+
+/* Define if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
 /* Version number of package */
 #undef VERSION
 
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
+
+/* Define as `__inline' if that's what the C compiler calls it, or to nothing
+   if it is not supported. */
+#undef inline
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef pid_t
 /*****************************************************************************
  * End of automatically configured definitions                               *
  *****************************************************************************/

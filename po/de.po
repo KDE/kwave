@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2003-07-06 16:19+0200\n"
+"POT-Creation-Date: 2003-07-09 12:14+0200\n"
 "PO-Revision-Date: 2003-06-26 20:22+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -501,7 +501,8 @@ msgid "creator of this dialog"
 msgstr "Ersteller dieses Dialogs"
 
 #: kwave/main.cpp:72
-msgid "french translations and splashscreen"
+#, fuzzy
+msgid "french translations, splashscreen, tests and bugsfix"
 msgstr "Französische Übersetzung und Begrüssungsbildschirm"
 
 #: kwave/main.cpp:76
@@ -2390,15 +2391,15 @@ msgstr "Amplitude: %d %%"
 msgid " (Using KDE %1)"
 msgstr " (für KDE-%1)"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:408
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:401
 msgid "About Kwave"
 msgstr "Über Kwave"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:409
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:402
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr "<h1>Kwave - Ein Sound-Editor für KDE</h1>"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:410
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:403
 msgid ""
 " <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
 "h2><br>\n"
@@ -2423,15 +2424,15 @@ msgstr ""
 "und eine graphische Ansicht mit ausgereiften Zoom- und "
 "Navigationsmöglichkeiten."
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:421
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:414
 msgid "Authors"
 msgstr "Autoren"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:422
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:415
 msgid "Thanks To"
 msgstr "Dank an"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:423
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:416
 msgid "License agreement"
 msgstr "Lizenzbestimmungen"
 

@@ -69,7 +69,7 @@ void addDataStrings(KAboutData& aboutdata)
                     "rwaspe@web.de",
                     0);
     aboutdata.addAuthor("Caulier Gilles",
-                     i18n("french translations and splashscreen"),
+                     i18n("french translations, splashscreen, tests and bugsfix"),
                      "caulier.gilles@free.fr",
                      "http://caulier.gilles.free.fr");
     aboutdata.addAuthor("Dave Flogeras",

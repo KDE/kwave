@@ -29,6 +29,7 @@
 #include "libkwave/MultiTrackReader.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
+#include "libkwave/Track.h"
 
 #include "kwave/SignalManager.h"
 
@@ -405,27 +406,33 @@ const QSize OverViewWidget::sizeHint()
 //*****************************************************************************
 void OverViewWidget::scaleUp()
 {
+    // calculate the new scale
     const unsigned int len = m_signal.length();
     unsigned int new_scale = static_cast<unsigned int>(
 	rint(ceil((double)len/(double)CACHE_SIZE)));
     if (!new_scale) new_scale = 1;
 
+    // get the shrink factor: "shrink" entries -> "1" entry
     const unsigned int shrink = static_cast<unsigned int>(
 	rint(ceil(new_scale / m_scale)));
 
+    // loop over all tracks
     for (unsigned int t=0; t < m_state.count(); ++t) {
 	unsigned int dst = 0;
 	unsigned int count = len / m_scale;
 	if (count > CACHE_SIZE) count = 0;
 	
+	// source pointers
 	char *smin = m_min.at(t)->data();
 	char *smax = m_max.at(t)->data();
 	CacheState *sstate = m_state.at(t)->data();
 	
+	// destination pointers
 	char *dmin = smin;
 	char *dmax = smax;
 	CacheState *dstate = sstate;
 	
+	// loop over all entries to be shrinked
 	while (dst < count) {
 	    char min = +127;
 	    char max = -127;
@@ -446,6 +453,8 @@ void OverViewWidget::scaleUp()
 	    ++dstate;
 	    ++dst;
 	}
+	
+	// the rest will be unused
 	while (dst++ < CACHE_SIZE) {
 	    *dstate = Unused;
 	    dstate++;
@@ -463,7 +472,6 @@ void OverViewWidget::scaleDown()
 	rint(ceil(len/CACHE_SIZE)));
     if (!new_scale) new_scale = 1;
     if (m_scale == new_scale) return;
-//    debug("OverViewWidget::scaleDown(), new scale = %u", new_scale);
 
     m_scale = new_scale;
     for (unsigned int track=0; track < m_state.count(); ++track) {
@@ -472,7 +480,7 @@ void OverViewWidget::scaleDown()
 }
 
 //*****************************************************************************
-void OverViewWidget::slotTrackInserted(unsigned int index, Track &)
+void OverViewWidget::slotTrackInserted(unsigned int index, Track &track)
 {
     MutexGuard lock(m_lock);
 
@@ -503,6 +511,9 @@ void OverViewWidget::slotTrackInserted(unsigned int index, Track &)
     m_min.insert(index, min);
     m_max.insert(index, max);
     m_state.insert(index, state);
+
+    // mark the new cache content as invalid
+    invalidateCache(index, 0, (track.length() / m_scale) - 1);
 
     refreshBitmap();
 }
@@ -541,7 +552,6 @@ void OverViewWidget::slotTrackDeleted(unsigned int index)
 void OverViewWidget::slotSamplesInserted(unsigned int track,
     unsigned int offset, unsigned int /*length*/)
 {
-//    debug("OverViewWidget::slotSamplesInserted(%u,%u,%u)",track,offset,length);
     MutexGuard lock(m_lock);
 
     if ((m_signal.length() / m_scale) > CACHE_SIZE)
@@ -558,7 +568,6 @@ void OverViewWidget::slotSamplesInserted(unsigned int track,
 void OverViewWidget::slotSamplesDeleted(unsigned int track,
     unsigned int offset, unsigned int /* length */)
 {
-//    debug("OverViewWidget::slotSamplesDeleted(%u,%u,%u)",track,offset,length);
     MutexGuard lock(m_lock);
 
     if ((m_signal.length() / m_scale) < (CACHE_SIZE/4))
@@ -575,7 +584,6 @@ void OverViewWidget::slotSamplesDeleted(unsigned int track,
 void OverViewWidget::slotSamplesModified(unsigned int track,
     unsigned int offset, unsigned int length)
 {
-//    debug("OverViewWidget::slotSamplesModified(%u,%u,%u)",track,offset,length);
     MutexGuard lock(m_lock);
 
     unsigned int first = offset / m_scale;
@@ -587,8 +595,6 @@ void OverViewWidget::slotSamplesModified(unsigned int track,
 //*****************************************************************************
 void OverViewWidget::refreshBitmap()
 {
-//    debug("OverViewWidget::refreshBitmap()");
-
     const unsigned int length = m_signal.length();
     MultiTrackReader src;
     m_signal.openMultiTrackReader(src, m_signal.allTracks(),
@@ -624,7 +630,6 @@ void OverViewWidget::refreshBitmap()
 	    min[ofs] = min_sample >> (SAMPLE_BITS - 8);
 	    max[ofs] = max_sample >> (SAMPLE_BITS - 8);
 	    state[ofs] = Valid;
-//	    debug("ofs=%d, min=%d, max=%d", ofs, min[ofs], max[ofs]);
 	}
     }
 
@@ -669,7 +674,6 @@ void OverViewWidget::refreshBitmap()
 		if (max[index] > maximum) maximum = max[index];
 	    }
 	}
-//	debug("x=%d, min=%d, max=%d", x, minimum, maximum);
 	
 	// update the bitmap
 	p.setPen(color0);

@@ -105,7 +105,7 @@ protected slots:
      * @see Signal::sigTrackInserted
      * @internal
      */
-    void slotTrackInserted(unsigned int index, Track &);
+    void slotTrackInserted(unsigned int index, Track &track);
 
     /**
      * Connected to the signal's sigTrackInserted.

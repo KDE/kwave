@@ -17,6 +17,7 @@
 
 #include "config.h"
 #include <klocale.h>
+#include <kmessagebox.h>
 #include <kmimetype.h>
 
 #include "libkwave/MultiTrackWriter.h"
@@ -24,32 +25,34 @@
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
 
+#include "RIFFChunk.h"
+#include "RIFFParser.h"
 #include "WavDecoder.h"
 #include "WavFileFormat.h"
 
 #define CHECK(cond) ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
-/***************************************************************************/
+//***************************************************************************
 WavDecoder::WavDecoder()
     :Decoder(), m_source(0)
 {
     LOAD_MIME_TYPES;
 }
 
-/***************************************************************************/
+//***************************************************************************
 WavDecoder::~WavDecoder()
 {
     if (m_source) close();
 }
 
-/***************************************************************************/
+//***************************************************************************
 Decoder *WavDecoder::instance()
 {
     return new WavDecoder();
 }
 
-/***************************************************************************/
-bool WavDecoder::open(QIODevice &src)
+//***************************************************************************
+bool WavDecoder::open(QWidget *widget, QIODevice &src)
 {
     info().clear();
     ASSERT(!m_source);
@@ -60,6 +63,12 @@ bool WavDecoder::open(QIODevice &src)
 	warning("failed to open source !");
 	return false;
     }
+
+    unsigned int pos=src.at();
+    RIFFParser parser(src);
+    QList<RIFFChunk> chunks;
+    parser.parse();
+    src.at(pos);
 
     // source successfully opened
     m_source = &src;
@@ -92,6 +101,18 @@ bool WavDecoder::open(QIODevice &src)
     bits = header.bitspersample;
     const unsigned int bytes = (bits >> 3);
 
+    if (src.size() != header.filelength+8) {
+	debug("WavDecoder::loadWavChunk: header=%d, rest of file=%d",
+	      header.filelength, src.size());
+	KMessageBox::error(widget,
+	    i18n("Error in input: file is smaller than stated "\
+	         "in the header. \nFile will be truncated."));
+	
+	datalen = src.size();
+	header.filelength = src.size()-8;
+	datalen = header.filelength - sizeof(wav_header_t);
+    }
+
     // some sanity checks
     CHECK(header.AvgBytesPerSec == rate * bytes * tracks);
     CHECK(static_cast<unsigned int>(header.BlockAlign) == bytes*tracks);
@@ -107,10 +128,11 @@ bool WavDecoder::open(QIODevice &src)
     c = src.getch(); CHECK(c == 'a');
     c = src.getch(); CHECK(c == 't');
     c = src.getch(); CHECK(c == 'a');
-    c = src.getch(); CHECK(c == static_cast<char>( datalen        & 0xFF));
-    c = src.getch(); CHECK(c == static_cast<char>((datalen >>  8) & 0xFF));
-    c = src.getch(); CHECK(c == static_cast<char>((datalen >> 16) & 0xFF));
-    c = src.getch(); CHECK(c == static_cast<char>((datalen >> 24) & 0xFF));
+    // todo: wav chunk size is currently ignored
+    c = src.getch(); //CHECK(c == static_cast<char>( datalen        & 0xFF));
+    c = src.getch(); //CHECK(c == static_cast<char>((datalen >>  8) & 0xFF));
+    c = src.getch(); //CHECK(c == static_cast<char>((datalen >> 16) & 0xFF));
+    c = src.getch(); //CHECK(c == static_cast<char>((datalen >> 24) & 0xFF));
 
     info().setRate(rate);
     info().setBits(bits);
@@ -120,7 +142,7 @@ bool WavDecoder::open(QIODevice &src)
     return true;
 }
 
-/***************************************************************************/
+//***************************************************************************
 bool WavDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
 {
     ASSERT(m_source);
@@ -168,7 +190,7 @@ bool WavDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
     return true;
 }
 
-/***************************************************************************/
+//***************************************************************************
 void WavDecoder::close()
 {
     m_source = 0;
@@ -240,18 +262,6 @@ int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
 	length = file_rest/bytes_per_sample;
     }
 
-    QList<SampleWriter> samples;
-    samples.setAutoDelete(true);
-
-    for (unsigned int pos = 0; pos < length; ) {
-	// break the loop if the user has pressed "cancel"
-	if (dialog && dialog->isCancelled()) break;
-	
-	// limit reading to end of wav chunk length
-	if ((pos + max_samples) > length) max_samples=length-pos;
-	
-	// debug("read %d samples", read_samples);
-	if (read_samples <= 0) {
 	    warning("SignalManager::loadWavChunk:EOF reached?"\
 		    " (at sample %ld, expected length=%d",
 		    sigfile.at() / bytes_per_sample - start_offset, length);
@@ -441,5 +451,5 @@ int SignalManager::loadWav()
 }
 ### */
 
-/***************************************************************************/
-/***************************************************************************/
+//***************************************************************************
+//***************************************************************************

@@ -46,10 +46,12 @@ public:
 
     /**
      * Opens the source and decodes the header information.
+     * @param widget a widget that can be used for displaying
+     *        message boxes or dialogs
      * @param source file or other source with a stream of bytes
      * @return true if succeeded, false on errors
      */
-    virtual bool open(QIODevice &source) = 0;
+    virtual bool open(QWidget *widget, QIODevice &source) = 0;
 
     /**
      * Decodes a stream of bytes into a signal

@@ -143,9 +143,8 @@ int SignalManager::loadFile(const KURL &url)
 	// open the source file
 	QString filename = url.path();
 	QFile src(filename);
-	if (!(decoder->open(m_parent_widget, src))) {
+	if (!(res = decoder->open(m_parent_widget, src))) {
 	    qWarning("unable to open source: '%s'", url.prettyURL().latin1());
-	    res = -EIO;
 	    break;
 	}
 	

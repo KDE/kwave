@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <errno.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -417,6 +418,28 @@ int SignalWidget::loadFile(const KURL &url)
     if (m_signal_manager.isClosed() || (res)) {
 	qWarning("SignalWidget::loadFile() failed:"\
 		" zero-length or out of memory?");
+		
+	QString reason;
+	switch (res) {
+	    case -ENOMEM:
+		reason = i18n("Out of memory");
+		break;
+	    case -EIO:
+		reason = i18n("unable to open '%1'").arg(url.prettyURL());
+		break;
+	    case -EMEDIUMTYPE:
+		reason = i18n("invalid or unknown file type: '%1'").arg(
+		              url.prettyURL());
+		break;
+	    default:
+		reason = "";
+	}
+
+        // show an error message box if the reason was known
+	if (reason.length()) {
+	    KMessageBox::error(this, reason);
+	}
+	
 	close();
     }
 

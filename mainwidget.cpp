@@ -1,7 +1,30 @@
 #include "classes.h"
 #include "sample.h"
+#include "qkeycode.h"
 
-const char *zoomtext[4]={"Fit","100 %","10 %","1 %"};
+const char *zoomtext[]={"100 %","33 %","10 %","3 %","1 %","0.1 %"};
+//*****************************************************************************************
+QString mstotime (int ms)
+{
+ char buf[32];
+
+ if (ms<10000)		sprintf (buf,"%d.%d ms",ms/10,ms%10);
+ else
+  {
+	ms/=10;
+ if (ms<60*1000)	sprintf (buf,"%d.%03d s",ms/1000,ms%1000);
+ else if (ms<60*60*1000)	sprintf (buf,"%d:%d.%d m",
+				ms/(60*1000),			//minutes
+				(ms%(60*1000))/1000,		//seconds
+				(ms%1000)/10);			//ms
+ else if (ms<24*60*60*1000)	sprintf (buf,"%d h %d:%d.%d m",
+				ms/(60*60*1000),		//hours
+				ms%(60*60*1000)/(60*1000),	//minutes
+				(ms%(60*1000))/1000,		//seconds
+				(ms%1000)/10);			//ms
+}
+ return (QString(buf));
+}
 //*****************************************************************************************
 MainWidget::MainWidget (QWidget *parent=0,const char *name,KStatusBar *status) :
 QWidget (parent,name)
@@ -19,7 +42,7 @@ QWidget (parent,name)
  signalviews->append (signalview);
 
  signalview->setBackgroundColor	(QColor(black) );
- zoomselect->insertStrList (zoomtext,4);
+ zoomselect->insertStrList (zoomtext,6);
  QObject::connect (slider,SIGNAL(valueChanged(int)),signalview,SLOT(setOffset(int)));
  QObject::connect	(signalview,SIGNAL(viewInfo(int,int,int)),
 			this,SLOT(getSliderInfo(int,int,int)));
@@ -39,13 +62,21 @@ QWidget (parent,name)
 			signalview,SLOT(setRangeOp(int)));
 
  buttons->addStretch	();
- this->connect	( playbutton=buttons->addButton	("&Play"),SIGNAL(pressed()),
+ this->connect	(playbutton=buttons->addButton	("&Play"),SIGNAL(pressed()),
 			  this,SLOT(play()));
- this->connect	( loopbutton=buttons->addButton	("&Loop"),SIGNAL(pressed()),
+ playbutton->setAccel (Key_Space);
+ this->connect	(loopbutton=buttons->addButton	("&Loop"),SIGNAL(pressed()),
 			  this,SLOT(loop()));
  buttons->addStretch		();
- plusbutton=buttons->addButton	("+");
- minusbutton=buttons->addButton	("-");
+ this->connect	( zoombutton=buttons->addButton	  ("Zoom"),SIGNAL(pressed()),
+			  signalview,SLOT(zoomRange()));
+ this->connect	( plusbutton=buttons->addButton	  ("+"),SIGNAL(pressed()),
+			  signalview,SLOT(zoomIn()));
+ this->connect	( minusbutton=buttons->addButton  ("-"),SIGNAL(pressed()),
+			  signalview,SLOT(zoomOut()));
+ this->connect	( nozoombutton=buttons->addButton("1:1"),SIGNAL(pressed()),
+			  signalview,SLOT(zoomNormal()));
+
  buttons->addStretch		();
 
  this->status=status;
@@ -53,23 +84,24 @@ QWidget (parent,name)
 //*****************************************************************************************
 void MainWidget::saveSignal  (QString *filename)
 {
-	filename[1]=0;
-//	signalview->saveSignal (filename);
+  signalview->saveSignal (filename);
 }
 //*****************************************************************************************
 void MainWidget::saveSelectedSignal  (QString *filename)
 {
-	filename[1]=0;
+  filename[1]=0;
 }
 //*****************************************************************************************
 void MainWidget::setSignal  (QString *filename)
 {
- signalview->setSignal (filename);
+ signalview->setSignal	(filename);
+ signalview->setZoom 	(100);
 }
 //*****************************************************************************************
 void MainWidget::setSignal  (MSignal *signal)
 {
- signalview->setSignal (signal);
+ signalview->setSignal	(signal);
+ signalview->setZoom 	(100);
 }
 //*****************************************************************************************
 void MainWidget::setRateInfo (int rate)
@@ -88,14 +120,13 @@ void MainWidget::setLengthInfo (int len)
 //*****************************************************************************************
 void MainWidget::selectedZoom (int num)
 {
- if (num<4)
-  {
-	if (num==1) signalview->setFit (TRUE);
-	else signalview->setZoom (strtod(zoomtext[num],0));
-  }
+ if (num<6) signalview->setZoom (strtod(zoomtext[num],0));
 }
 //*****************************************************************************************
-void MainWidget::setRangeOp 	(int op){emit setOperation (op);}
+void MainWidget::setRangeOp 	(int op)
+{
+  emit setOperation (op);
+}
 //*****************************************************************************************
 void MainWidget::loop		()
  {
@@ -134,30 +165,14 @@ void MainWidget::stop	()
 //*****************************************************************************************
 void MainWidget::setSelectedTimeInfo ( int ms)
 {
- char buf[64];
-
- if (ms<1000)
- sprintf (buf,"Selected :%d.%d ms",ms/10,ms%10);
- else if (ms<10000)
- sprintf (buf,"Selected :%d ms",ms/10);
- else if (ms<10000000)
- sprintf (buf,"Selected :%d.%d s",ms/100000,(ms%10000)/10);
-
- status->changeItem (buf,4);
- }
+ QString buf="selected :"+ mstotime (ms);
+ status->changeItem (buf.data(),4);
+}
 //*****************************************************************************************
 void MainWidget::setTimeInfo ( int ms)
 {
- char buf[64];
-
- printf ("Time :%d ms\n",ms);
-
- if (ms<1000)
- sprintf (buf,"Length :%d ms",ms);
- else
- sprintf (buf,"Length :%d.%d s",ms/1000,(ms/100)%10);
-
- status->changeItem (buf,1);
+ QString buf="Length :"+ mstotime (ms*10);
+ status->changeItem (buf.data(),1);
 }
 //*****************************************************************************************
 void MainWidget::getSliderInfo  (int offset,int step,int max)

@@ -21,10 +21,10 @@ class TopWidget : public KTopLevelWidget
 
  public slots:
 
- void 	inst_quit();
- void	file_new();
- void	inst_new();
+ void 	quitInstance();
+ void	newInstance();
  void	openFile();
+ void	revert();
  void	saveFile();
  void	saveFileas();
  void	saveSelection();
@@ -32,6 +32,7 @@ class TopWidget : public KTopLevelWidget
  void	cliptoNew();
  void	flushClip();
 
+ void	newOp();
  void	deleteOp();
  void	cutOp	();
  void	copyOp	();
@@ -39,6 +40,21 @@ class TopWidget : public KTopLevelWidget
  void	pasteOp	();
  void	cropOp	();
  void	flipOp	();
- void	reverseOp();
+ void	centerOp	();
+ void	selectRangeOp	();
+ void	selectAllOp	();
+ void	selectVisibleOp	();
+ void	selectNoneOp	();
+ void	reverseOp	();
+ void	fadeInlOp	();
+ void	fadeOutlOp	();
+ void	amplifyMaxOp	();
+ void	fadeInLogOp	();
+ void	fadeOutLogOp	();
+ void	noiseOp	();
+ void	delayOp	();
+ void	rateChangeOp	();
+ void	fftOp	();
+ void	playBackOp	();
 };
 

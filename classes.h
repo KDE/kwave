@@ -15,6 +15,7 @@
 #include <kmenubar.h>
 #include <kbuttonbox.h>
 #include <kstatusbar.h>  
+#include <qpixmap.h>
 #include <qtimer.h>
 #include "sample.h"
 
@@ -31,8 +32,8 @@ class SigWidget : public QWidget
  void 	saveSignal		(QString *filename);
  void 	saveSelectedSignal	(QString *filename);
  void 	setSignal		(MSignal *signal);
- void	setFit			(int);
  void	setZoom			(double);
+ void	setRange		(int,int);
 
  public slots:
 
@@ -40,6 +41,11 @@ class SigWidget : public QWidget
  void	setOffset	(int);
  void	setRangeOp	(int);
  void	time		();
+ void	zoomRange	();
+ void	zoomIn		();
+ void	zoomOut		();
+ void	zoomNormal	();
+
  signals:
 
  void playingfinished	();
@@ -54,20 +60,25 @@ class SigWidget : public QWidget
  void	paintEvent	(QPaintEvent *);
  void	deleteLastRange	();
  void	drawRange	();
- void	drawSignal	(MSignal *);
+ void	drawSignal	();
+ void	drawInterpolatedSignal	();
+ void	drawOverviewSignal	();
+ void	calcTimeInfo	();
 
  private:
  int	offset;
  int	width,height;		//of widget
  int	down,reset;		//flags for drawing
- int	fit;			//flag for fitting sample in window
- double	zoom;			//number of samples representen by 1
-				//Vline on the screen
+ double	zoom;			//number of samples represented by 1
+				//vertical line on the screen
  int	firstx,lastx,nextx;	//markers for mouse drag operation
  int	playpointer,lastplaypointer;	 
+ int	playing;		//flag if playing task is running...
  MSignal	*signal;
  QTimer		*timer;
  QPainter 	p;
+ int		redraw;		//flag for redrawing pixmap
+ QPixmap	*pixmap;	//pixmap to be blitted to screen
 };
 //***********************************************************
 class MainWidget : public QWidget
@@ -109,6 +120,7 @@ class MainWidget : public QWidget
  QScrollBar	*slider;
  SigWidget 	*signalview;
  QPushButton	*plusbutton,*minusbutton;
+ QPushButton	*zoombutton,*nozoombutton;
  QPushButton	*playbutton,*loopbutton;
  QComboBox	*zoomselect;
  KStatusBar	*status;

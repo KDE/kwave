@@ -37,6 +37,12 @@
  */
 #define PI 3.14159265358979323846264338327
 
+/**
+ * If the zoom factor is below this margin, an interpolation
+ * will be used.
+ */
+#define INTERPOLATION_ZOOM 0.10
+
 //***************************************************************************
 TrackPixmap::TrackPixmap(Track &track)
     :QPixmap(), m_track(track), m_offset(0), m_zoom(0.0),
@@ -83,8 +89,6 @@ void TrackPixmap::setOffset(unsigned int offset)
     unsigned int dst;
     unsigned int buflen = m_valid.size();
 
-    debug("TrackPixmap::setOffset(%u)", offset); // ###
-
     if (m_minmax_mode) {
 	// move content of min and max buffer
 	// one buffer element = one screen pixel
@@ -95,36 +99,50 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    debug("TrackPixmap::setOffset(): min_buffer : %u", m_min_buffer.size());
 	    debug("TrackPixmap::setOffset(): max_buffer : %u", m_max_buffer.size());
 	}
+	
+	// check for misaligned offset changes
+	if ((  offset % (unsigned int)ceil(m_zoom)) !=
+	    (m_offset % (unsigned int)ceil(m_zoom))) {
 
-	// check for misaligned offset
-	if (offset % pixels2samples(1)) {
-//	    warning("TrackPixmap::setOffset(): oh nooo, "\
-//	    	"offset %u is misaligned by %u sample(s), please fix this!",
-//	    	offset, offset % pixels2samples(1));
-//	    warning("TrackPixmap::setOffset(): "\
-//	    	"now I have to throw away the whole buffer :-((");
-	    debug("TrackPixmap::setOffset(): invalidating buffer"); // ###
+/* ### will become interesting later, with the offset/zoom optimizations
+	    warning("TrackPixmap::setOffset(): oh nooo, "\
+	    	"offset %u is misaligned by %u sample(s), please fix this!",
+	    	offset, offset % pixels2samples(1));
+	    warning("TrackPixmap::setOffset(): "\
+	    	"now I have to throw away the whole buffer :-((");
+### */
+	    debug("TrackPixmap::setOffset(%u): "\
+		"misaligned->invalidating buffer", offset);
 	    invalidateBuffer();
 	} else if (offset > m_offset) {
 	    // move left
-	    debug("TrackPixmap::setOffset(): moving left (min/max)"); // ###
 	    diff = samples2pixels(offset - m_offset);
-	    for (src = diff, dst = 0; src < buflen; ++dst, ++src) {
-		m_min_buffer[dst] = m_min_buffer[src];
-		m_max_buffer[dst] = m_max_buffer[src];
-		m_valid[dst] = m_valid[src];
+	    debug("TrackPixmap::setOffset(): moving left (min/max): %u",diff);
+	    ASSERT(diff);
+	    ASSERT(buflen);
+	    if (diff && buflen) {
+		for (src = diff, dst = 0; src < buflen; ++dst, ++src) {
+		    m_min_buffer[dst] = m_min_buffer[src];
+		    m_max_buffer[dst] = m_max_buffer[src];
+		    m_valid[dst] = m_valid[src];
+		}
+		while (dst < buflen) m_valid.clearBit(dst++);
 	    }
-	    while (dst < buflen) m_valid.clearBit(dst++);
 	} else {
 	    // move right
-	    debug("TrackPixmap::setOffset(): moving right (min/max)"); // ###
 	    diff = samples2pixels(m_offset - offset);
-	    for (dst = buflen-1, src = dst-diff; dst >= diff; --dst, --src) {
-		m_min_buffer[dst] = m_min_buffer[src];
-		m_max_buffer[dst] = m_max_buffer[src];
-		m_valid[dst] = m_valid[src];
+	    debug("TrackPixmap::setOffset(): moving right (min/max): %u",diff);
+	    ASSERT(diff);
+	    ASSERT(buflen);
+	    if (diff && buflen) {
+		for (dst=buflen-1, src=dst-diff; dst>=diff; --dst, --src) {
+		    m_min_buffer[dst] = m_min_buffer[src];
+		    m_max_buffer[dst] = m_max_buffer[src];
+		    m_valid[dst] = m_valid[src];
+		}
+		diff = dst+1;
+		while (diff--) m_valid.clearBit(dst--);
 	    }
-	    while (diff--) m_valid[dst--] = 0;
 	}
     } else {
 	// move content of sample buffer
@@ -135,7 +153,7 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    // move left
 	    debug("TrackPixmap::setOffset(): moving left (normal)"); // ###
 	    diff = offset - m_offset;
-	    for (src = diff, dst = 0; src < buflen; ++dst, ++src) {
+	    for (src=diff, dst=0; src<buflen; ++dst, ++src) {
 		m_sample_buffer[dst] = m_sample_buffer[src];
 		m_valid[dst] = m_valid[src];
 	    }
@@ -144,12 +162,15 @@ void TrackPixmap::setOffset(unsigned int offset)
 	    // move right
 	    debug("TrackPixmap::setOffset(): moving right (normal)"); // ###
 	    diff = m_offset - offset;
-	    for (dst=buflen-1, src = dst-diff; dst >= diff; --dst, --src) {
-		m_sample_buffer[dst] = m_sample_buffer[src];
-		m_valid[dst] = m_valid[src];
+	    ASSERT(buflen);
+	    if (buflen) {
+		for (dst=buflen-1, src=dst-diff; dst>=diff; --dst, --src) {
+		    m_sample_buffer[dst] = m_sample_buffer[src];
+		    m_valid[dst] = m_valid[src];
+		}
+		diff = dst+1;
+		while (diff--) m_valid.clearBit(dst--);
 	    }
-	    diff = dst+1;
-	    while (diff--) m_valid.clearBit(dst--);
 	}
     }
 
@@ -247,6 +268,12 @@ bool TrackPixmap::validateBuffer()
 	ASSERT(m_sample_buffer.size() == buflen);
     }
 
+    // ### FIXME:
+    // work-around for missing extra buffer, delete the whole buffer
+    // instead. this should not do any harm, in this mode we only
+    // have few samples and redrawing will be fast
+    if (m_zoom < INTERPOLATION_ZOOM) invalidateBuffer();
+
     while (first < buflen) {
 	// find the first invalid index
 	for (first=last; (first < buflen) && m_valid.testBit(first);
@@ -264,8 +291,13 @@ bool TrackPixmap::validateBuffer()
 	// fill our array(s) with fresh sample data
 	if (m_minmax_mode) {
 	    // indices are in pixels, convert to samples
-	    unsigned int s1 = m_offset + pixels2samples(first);
-	    unsigned int s2 = m_offset + pixels2samples(last) - 1;
+	
+	    // first sample in first pixel
+	    unsigned int s1 = m_offset +
+		(unsigned int)floor(first * m_zoom);
+	    // last sample of last pixel
+	    unsigned int s2 = m_offset +
+		(unsigned int)floor((last+1) * m_zoom)-1;
 
 	    // open a reader for the whole modified range	
 	    SampleReader *in = m_track.openSampleReader(s1, s2);
@@ -274,13 +306,13 @@ bool TrackPixmap::validateBuffer()
 	
 	    // allocate a buffer for one more sample (pixels2samples may
 	    // vary by +/-1 !
-	    QArray<sample_t> buffer(pixels2samples(1) + 1);
+	    QArray<sample_t> buffer(ceil(m_zoom)/*pixels2samples(1) + 1*/);
 	    sample_t min;
 	    sample_t max;
 	
 	    while (first <= last) {
 		// NOTE: s2 is exclusive!
-		s2 = m_offset + pixels2samples(first+1);
+		s2 = m_offset + (unsigned int)floor((first+1)*m_zoom);
 		
 		// get min/max for interval [s1...s2[
 		unsigned int count = in->read(buffer, 0, s2-s1);
@@ -363,7 +395,7 @@ void TrackPixmap::repaint()
 	if (m_minmax_mode) {
 	    drawOverview(p, h>>1, h, 0, w-1);
 	} else {
-	    if (m_zoom < 0.1) {
+	    if (m_zoom < INTERPOLATION_ZOOM) {
 		drawInterpolatedSignal(p, w, h>>1, h);
 	    } else {
 		drawPolyLineSignal(p, w, h>>1, h);

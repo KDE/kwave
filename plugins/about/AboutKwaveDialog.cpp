@@ -55,21 +55,24 @@ AboutKwaveDialog::AboutKwaveDialog(QWidget *parent)
 
     QValueList<KAboutPerson>::ConstIterator it;
     for (it = about_data->authors().begin();
-        it != about_data->authors().end();++it){
+        it != about_data->authors().end();++it)
+          {
             about->addPerson((*it).name(),(*it).emailAddress(),
             (*it).webAddress(),(*it).task());
-    }
+          }
     authorframe->setResizePolicy(QScrollView::AutoOneFit);
 
     /* the frame containing the thanks to .. */
     QHBox *thanks_layout = new QHBox(thanksframe->viewport());
     thanksframe->addChild(thanks_layout);
     KAboutContainer* contrib = new KwaveAboutContainer(thanks_layout);
+    
     for (it = about_data->credits().begin();
-        it != about_data->credits().end(); ++it){
+        it != about_data->credits().end(); ++it)
+        {
         contrib->addPerson((*it).name(),(*it).emailAddress(),
-            (*it).webAddress(),i18n((*it).task()));
-    }
+            (*it).webAddress(),(*it).task());
+        }
     thanksframe->setResizePolicy(QScrollView::AutoOneFit);
 
     /* set the url of the kwave homepage */

@@ -241,10 +241,10 @@ void TopWidget::executePlugin(const char *name, QStrList *params)
 
 #ifdef HAVE_CPLUS_MANGLE_OPNAME
     // would be fine, but needs libiberty
-    const char *sym=cplus_mangle_opname("load(PluginContext &)",0);
+    const char *sym=cplus_mangle_opname("load(PluginContext *)",0);
 #else
     // hardcoded, fails on some systems :-(
-    const char *sym = "load__FP13PluginContext";
+    const char *sym = "load__FR13PluginContext";
 #endif
 
     plugin_loader = (KwavePlugin *(*)(PluginContext *))dlsym(handle, sym);

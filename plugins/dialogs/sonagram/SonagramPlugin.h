@@ -12,7 +12,7 @@ class SonagramPlugin: public KwavePlugin
     Q_OBJECT
 public:
     /** Constructor */
-    SonagramPlugin(PluginContext *c);
+    SonagramPlugin(PluginContext &c);
     virtual QStrList *setup(QStrList *previous_params);
     virtual int start(QStrList &params);
 

@@ -8,7 +8,7 @@ SRC_DIR   	 = ${srcdir}
 SRC_PREFIX 	 = ${PACKAGE}
 SUBDIRS  	 = libgui src plugins po doc
 
-CLEANFILES       = *~ *.d *.dm *.moc *.moc.cpp *.ii \#*
+CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
 DISTCLEANFILES 	 = config.log
 
 configure.in: VERSION
@@ -19,10 +19,12 @@ clean-generic:
 	-rm -fv `find . -name \*.ii`
 	-rm -fv `find . -name \*.lo`
 	-rm -fv `find . -name \*.la`
-	-rm -fv `find . -name \*.moc.cpp`
+	-rm -fv `find . -name \*.moc.c??`
 	-rm -fv `find . -name \*.moc`
+	-rm -fv `find . -name \*.dep`
 	-rm -fv `find . -name \*.d`
 	-rm -fv `find . -name \*.dm`
+	-rm -fv `find . -name .depend`
 	-rm -rfv `find . -name .\* | grep -v "^\.\.$$" | grep -v "^\.$$"`
 
 distclean-generic: clean-generic

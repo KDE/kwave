@@ -15,7 +15,7 @@ dist:
 	 file2=`echo $$i | sed -e "s#\.po#\.gmo#"`; \
 	 msgfmt -o $$file2 $$i; \
 	done 
-	rm -f Makefile.dist
+#	rm -f Makefile.dist
 
 all:
 	aclocal

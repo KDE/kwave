@@ -13,7 +13,7 @@
 KWAVE_PLUGIN(SonagramPlugin,"sonagram","Martin Wilz");
 
 //***************************************************************************
-SonagramPlugin::SonagramPlugin(PluginContext *c)
+SonagramPlugin::SonagramPlugin(PluginContext &c)
     :KwavePlugin(c)
 {
     sonagram_window = 0;

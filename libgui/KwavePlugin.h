@@ -29,7 +29,7 @@ class TopWidget;
     const char *version = "2.0"; \
     const char *name = plugin_name; \
     const char *author = author_name; \
-    KwavePlugin *load(PluginContext *c) { \
+    KwavePlugin *load(PluginContext &c) { \
 	class_name *np = new class_name(c); \
 	return np; \
     }
@@ -49,7 +49,7 @@ public:
     /**
      * Constructor
      */
-    KwavePlugin(PluginContext *c);
+    KwavePlugin(PluginContext &c);
 
     /**
      * Destructor.

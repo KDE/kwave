@@ -11,7 +11,8 @@
 # kde_toolbardir    Where general toolbar icons should go to.
 # kde_wallpaperdir  Where general wallpapers should go to.
 
-# just set the variable
+
+SUFFIXES= .h .cpp .o .d .moc .dm
 
 # set the include path for X, qt and KDE
 
@@ -20,53 +21,73 @@ INCLUDES= @all_includes@ -I${topdir} -I${topdir}/libgui
 # Which sources should be compiled for kwave.
 PLUGINDIR=$(kde_datadir)/kwave/modules/dialogs
 
-CXXFLAGS  = @CXXFLAGS@ -shared -fPIC -rdynamic -nostartfiles -nostdlib
+CXXFLAGS  = @CXXFLAGS@ 
+LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles -nostdlib
 
 MODDIR:=$(shell pwd)
 MODNAME=$(shell basename $(MODDIR))
 
-SUFFIXES = .h .moc
-
-SOURCES		 = module.cpp module.moc
-
-CLEANFILES	 = *.d *.dm *.moc *.moc.cpp core *~ *.o ${MODNAME}
+CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm .depend
 
 cpp_sources 	:= $(shell find . -name \*.cpp)
 h_files		:= $(shell find . -name \*.h)
-moc_files	:= $(h_files:.h=.moc.cpp)
+moc_files	:= $(h_files:.h=.moc.cxx)
 
-ALL_CPP    	:= ${cpp_sources} ${moc_files}
-OUT_FILES	:= $(ALL_CPP:.cpp=.o)
+OUT_FILES	:= $(cpp_sources:.cpp=.o)
+OUT_FILES	+= $(h_files:.h=.moc.o)
 
-%o: %cpp
+DEP_FILES	:= $(cpp_sources:.cpp=.d) $(h_files:.h=.dm)
+
+%.o: %.cpp
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
 	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
 
-%d: %cpp
-	@echo plugin \"$(MODNAME)\": making dependencies for $<
-	@ $(SHELL) -ec '@CXX@ -MM ${INCLUDES} $(CXXFLAGS) $< \
-	| sed s^${notdir $*}o^$*d^g > $@; \
-	[ -s $@ ] || rm -f $@'
+%.moc.o: %.moc.cxx
+	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
+	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -x c++ -c $< -o $@
+	@ echo "" >> $@
 
-%dm: %moc
+%.d: %.cpp
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
-	@ $(SHELL) -ec '@CXX@ -x c++ -MM ${INCLUDES} $(CXXFLAGS) $< \
-	| sed s^${notdir $*}moc\.o^$*dm^g > $@; \
-	[ -s $@ ] || rm -f $@'
+	@ echo -n "$@ " > $@
+	@ @CXX@ -M ${INCLUDES} $(CXXFLAGS) $< >> $@
 
-%moc.cpp: %h
+%.dm: %.moc.cxx
+	@echo plugin \"$(MODNAME)\": making dependencies for $<
+	@ echo -n "$@ " > $@
+	@ @CXX@ -M ${INCLUDES} $(CXXFLAGS) -x c++ $< >> $@
+
+%.moc.cxx: %.h
 	@echo plugin \"$(MODNAME)\": extracting code with MOC for $<
 	@ @MOC@ $< -o $@
 
-$(MODNAME): ${OUT_FILES}
-	@echo plugin \"$(MODNAME)\": linking \"$^\" to \"$@\"
-	@ @CXX@ $(CXXFLAGS) ${OUT_FILES} -o ${MODNAME}
+        # make the right order: first build the .d/.dm files then the .o
+${OUT_FILES}: ${DEP_FILES}
+
+.depend: ${DEP_FILES}
+	@echo plugin \"$(MODNAME)\": merging dependencies into $@
+	@ cat $^ > $@
+
+#
+# include dependency file if it exists
+#
+## DO NOT DELETE THE LEADING SPACE IN FORNT OF THE FOLLOWIND THREE    !!
+## LINES. THIS WOULD PRODUCE AN ERROR WITH AUTOMAKE (endif not found) !!
+ ifneq ($(wildcard .depend),)
+ include .depend
+ endif
+
+dep depend: .depend
+
+$(MODNAME): .depend ${moc_files} ${OUT_FILES}
+	@echo plugin \"$(MODNAME)\": linking \"${OUT_FILES}\" to \"$@\"
+	@ @CXX@ $(CXXFLAGS) ${LD_FLAGS} ${OUT_FILES} -o ${MODNAME}
 
 all: $(MODNAME)
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES
-DISTCLEANFILES = ${CLEANFILES} .deps/* `find . -type l`
+DISTCLEANFILES = ${CLEANFILES} .deps/* `find . -type l` *.moc *.moc.cpp
 
 install-data-local: 
 	$(mkinstalldirs) $(PLUGINDIR)

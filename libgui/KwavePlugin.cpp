@@ -32,19 +32,27 @@
 #include "../src/SignalManager.h"
 
 //***************************************************************************
-KwavePlugin::KwavePlugin(PluginContext *c)
-    :context(*c)
+KwavePlugin::KwavePlugin(PluginContext &c)
+    :context(c)
 {
-    QObject::connect(context.top_widget, SIGNAL(sigClosed()),
-                     this, SLOT(close()));
+    if (context.top_widget) {
+	QObject::connect(context.top_widget, SIGNAL(sigClosed()),
+	                 this, SLOT(close()));
+    }
 }
 
 //***************************************************************************
 KwavePlugin::~KwavePlugin()
 {
     debug("KwavePlugin::~KwavePlugin()");
-    if (context.handle) dlclose(context.handle);
-    context.handle=0;
+
+    if (context.top_widget) {
+	QObject::disconnect(context.top_widget, SIGNAL(sigClosed()),
+	                    this, SLOT(close()));
+    }
+
+//    if (context.handle) dlclose(context.handle);
+//    context.handle=0;
     debug("KwavePlugin::~KwavePlugin(), done.");
 }
 

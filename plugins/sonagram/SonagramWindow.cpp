@@ -148,7 +148,7 @@ SonagramWindow::SonagramWindow(const QString &name)
     m_xscale->setFixedHeight(m_xscale->sizeHint().height());
     top_layout->addWidget(m_xscale, 1, 1);
 
-    m_yscale = new ScaleWidget(mainwidget, 100, 0, "Hz");
+    m_yscale = new ScaleWidget(mainwidget, 0, 100, "Hz");
     Q_ASSERT(m_yscale);
     if (!m_yscale) return ;
     m_yscale->setFixedWidth(m_yscale->sizeHint().width());
@@ -473,8 +473,8 @@ void SonagramWindow::updateScaleWidgets()
 
     translatePixels2TF(QPoint(m_image->width()-1, 0), &ms, &f);
 
-    m_xscale->setMinMax((int)rint(ms), 0);
-    m_yscale->setMinMax((int)rint(f), 0);
+    m_xscale->setMinMax(0, (int)rint(ms));
+    m_yscale->setMinMax(0, (int)rint(f));
 }
 
 //***************************************************************************

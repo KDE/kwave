@@ -50,7 +50,6 @@ clean-generic:
 	-rm -fv `find . -name .depend`
 	-rm -fv `find . -name \*.uih.h`
 	-rm -fv `find . -name \*.uic.cpp`
-	-rm -Rfv `find . -name \*.cache -o -name .deps`
 	-rm -Rf doc/api
 
 backup: ${PACKAGE}.spec
@@ -108,9 +107,9 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 		-o -name Makefile.in -o -name aclocal.m4 \
 		-o -name config.h.in -o -name config.h \
 		-o -name libtool -o -name stamp-h -o -name configure \
-		-o -name stamp-h1 -o -name \*.cache \
+		-o -name stamp-h1 -o -name \*.cache -o -name .depend \
 		-o -name QT-KDIR -o -name KDE-VERSION  \
-		-o -name config.status -o -name \*.log >> \
+		-o -name config.status -o -name .deps -o -name \*.log >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	echo "${SRC_PREFIX}-@RPM_FULL_VERSION@/doc/api" >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \

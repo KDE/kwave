@@ -45,8 +45,20 @@ protected slots:
     /** select a new record device */
     void changeDevice(const QString &dev);
 
+    /** select a new number of tracks (channels) */
+    void changeTracks(unsigned int new_tracks);
+
     /** select a new sample rate [samples/second] */
     void changeSampleRate(double new_rate);
+
+    /** change compression type */
+    void changeCompression(int new_compression);
+
+    /** select a new resolution [bits/sample] */
+    void changeBitsPerSample(unsigned int new_bits);
+
+    /** select a new sample format */
+    void changeSampleFormat(int new_format);
 
 private:
 

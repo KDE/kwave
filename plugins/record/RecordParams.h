@@ -62,10 +62,13 @@ public:
     bool fade_out_enabled;		/**< fade out: feature enabled */
     unsigned int fade_out_time;		/**< fade out: time in milliseconds */
 
-    double sample_rate;			/**< sample rate in samples/second */
-    unsigned int bits_per_sample;	/**< resolution in bits per sample */
-    unsigned int tracks;		/**< number of tracks */
     QString device_name;		/**< name of the input device */
+    unsigned int tracks;		/**< number of tracks */
+    double sample_rate;			/**< sample rate in samples/second */
+    int compression;			/**< compression index or -1 */
+    int sample_format;			/**< sample format index */
+    unsigned int bits_per_sample;	/**< resolution in bits per sample */
+
     unsigned int buffer_size;		/**< power of the record buffer size */
 
     bool display_level_meter;		/**< enable level meter display */

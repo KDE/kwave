@@ -48,10 +48,16 @@ public:
     virtual ~RecordDialog();
 
     /** Returns the list of record parameters, for the next time */
-    virtual RecordParams params() const;
+    RecordParams params() const;
 
     /** selects a new record device */
     void setDevice(const QString &dev);
+
+    /** sets the range of supported tracks */
+    void setSupportedTracks(unsigned int min, unsigned int max);
+
+    /** sets a new number of tracks */
+    void setTracks(unsigned int tracks);
 
     /** sets the list of supported sample rates */
     void setSupportedSampleRates(const QValueList<double> &rates);
@@ -62,13 +68,66 @@ public:
      */
     void setSampleRate(double new_rate);
 
+    /**
+     * sets the list of supported compressions
+     * @param comps list of supported compressions, can be empty
+     */
+    void setSupportedCompressions(const QValueList<int> &comps);
+
+    /**
+     * sets a new compression type
+     * @param compression type of the compression, numeric
+     * @see CompressionType
+     */
+    void setCompression(int compression);
+
+    /** sets a list of supported number of bits per sample */
+    void setSupportedBitsPerSample(const QValueList<unsigned int> &bits);
+
+    /** sets a new resolution in bits per sample */
+    void setBitsPerSample(unsigned int bits);
+
+    /**
+     * Convert a sample rate into a string, using current locale settings.
+     * Trailing zeroes and thousands separators are removed, the precision
+     * is set to three digits.
+     * @param rate sample rate [samples/second]
+     * @return the rate formatted as string
+     */
+    QString rate2string(double rate) const;
+
+    /**
+     * sets the list of supported sample formats
+     * @param comps list of supported sample formats, must not be empty
+     */
+    void setSupportedSampleFormats(const QValueList<int> &formats);
+
+    /**
+     * sets a new sample format
+     * @param sample_format format of the samples, like signed/unsigned
+     * @see SampleFormat
+     */
+    void setSampleFormat(int sample_format);
+
 signals:
 
     /** emitted when a new record device has been selected */
     void deviceChanged(const QString &device);
 
+    /** emitted when the number of tracks has changed */
+    void sigTracksChanged(unsigned int tracks);
+
     /** emitted when a new sample rate has been selected */
     void sampleRateChanged(double rate);
+
+    /** emitted when the compression has changed */
+    void sigCompressionChanged(int compression);
+
+    /** emitted when the resoluton in bits per sample changed */
+    void sigBitsPerSampleChanged(unsigned int bits);
+
+    /** emitted when the sample format has changed */
+    void sigSampleFormatChanged(int sample_format);
 
 private slots:
 
@@ -81,19 +140,22 @@ private slots:
     /** forwards a deviceChanged signal */
     void forwardDeviceChanged(const QString &dev);
 
+    /** forwards a sigTracksChanged signal */
+    void tracksChanged(int tracks);
+
     /** called when another sample rate has been selected */
-    void sampleRateChanged(const QString &);
+    void sampleRateChanged(const QString &rate);
+
+    /** called when a new compression type has been set */
+    void compressionChanged(const QString &name);
+
+    /** called when the resolution in bits per sample has changed */
+    void bitsPerSampleChanged(int bits);
+
+    /** called when a new sample format has been selected */
+    void sampleFormatChanged(const QString &name);
 
 private:
-
-    /**
-     * Convert a sample rate into a string, using current locale settings.
-     * Trailing zeroes and thousands separators are removed, the precision
-     * is set to three digits.
-     * @param rate sample rate [samples/second]
-     * @return the rate formatted as string
-     */
-    QString rate2string(double rate);
 
     /**
      * Convert a formated sample rate string back to a numeric sample
@@ -101,13 +163,15 @@ private:
      * @param rate the sample rate, formatted as string
      * @return the numeric sample rate [samples/second]
      */
-    double string2rate(const QString &rate);
+    double string2rate(const QString &rate) const;
 
 private:
 
-    /** List of parameters */
+    /** list of parameters */
     RecordParams m_params;
 
+    /** a list with supported bits per sample */
+    QValueList<unsigned int> m_supported_resolutions;
 };
 
 

@@ -29,6 +29,8 @@
 #include <kpushbutton.h>
 #include <knuminput.h>
 
+#include "libkwave/CompressionType.h"
+#include "libkwave/SampleFormat.h"
 #include "libgui/HMSTimeWidget.h"
 #include "libgui/KwaveFileDialog.h"
 
@@ -73,7 +75,7 @@ static const char *well_known_devices[] = {
 
 //***************************************************************************
 RecordDialog::RecordDialog(QWidget *parent, const RecordParams &params)
-    :RecordDlg(parent,0), m_params(params)
+    :RecordDlg(parent,0), m_params(params), m_supported_resolutions()
 {
     /* set the icons of the record control buttons */
     btNew->setIconSet(   QIconSet(QPixmap(xpm_filenew)));
@@ -105,13 +107,11 @@ RecordDialog::RecordDialog(QWidget *parent, const RecordParams &params)
     STD_SETUP(fade_out_enabled, fade_out_time, LevelFadeOut);
 
     // sample rate, bits per sample, track
-    QString s;
-    cbFormatSampleRate->setCurrentItem(s.setNum(m_params.sample_rate));
-    sbFormatResolution->setValue(m_params.bits_per_sample);
-    sbFormatTracks->setValue(m_params.tracks);
-
-    // device name
-    cbSourceDevice->setCurrentItem(m_params.device_name);
+    // -> will be initialized later, by the plugin
+//    QString s;
+//    cbFormatSampleRate->setCurrentItem(s.setNum(m_params.sample_rate), true);
+//    sbFormatResolution->setValue(m_params.bits_per_sample);
+//    sbFormatTracks->setValue(m_params.tracks);
 
     // power of buffer size
     slSourceBuffer->setValue(m_params.buffer_size);
@@ -145,10 +145,24 @@ RecordDialog::RecordDialog(QWidget *parent, const RecordParams &params)
             this, SLOT(forwardDeviceChanged(const QString &)));*/
     connect(cbSourceDevice, SIGNAL(textChanged(const QString &)),
             this, SLOT(forwardDeviceChanged(const QString &)));
+
     connect(cbFormatSampleRate, SIGNAL(textChanged(const QString &)),
             this, SLOT(sampleRateChanged(const QString &)));
     connect(cbFormatSampleRate, SIGNAL(activated(const QString &)),
             this, SLOT(sampleRateChanged(const QString &)));
+
+    connect(sbFormatTracks, SIGNAL(valueChanged(int)),
+            this, SLOT(tracksChanged(int)));
+
+    connect(cbFormatCompression, SIGNAL(activated(const QString &)),
+            this, SLOT(compressionChanged(const QString&)));
+
+    connect(sbFormatResolution, SIGNAL(valueChanged(int)),
+            this, SLOT(bitsPerSampleChanged(int)));
+
+    connect(cbFormatSampleFormat, SIGNAL(activated(const QString &)),
+            this, SLOT(sampleFormatChanged(const QString &)));
+
 }
 
 //***************************************************************************
@@ -216,7 +230,7 @@ void RecordDialog::setDevice(const QString &dev)
 }
 
 //***************************************************************************
-QString RecordDialog::rate2string(double rate)
+QString RecordDialog::rate2string(double rate) const
 {
     const KLocale *locale = KGlobal::locale();
     Q_ASSERT(locale);
@@ -243,7 +257,7 @@ QString RecordDialog::rate2string(double rate)
 }
 
 //***************************************************************************
-double RecordDialog::string2rate(const QString &rate)
+double RecordDialog::string2rate(const QString &rate) const
 {
     const KLocale *locale = KGlobal::locale();
     Q_ASSERT(locale);
@@ -261,6 +275,54 @@ double RecordDialog::string2rate(const QString &rate)
 }
 
 //***************************************************************************
+void RecordDialog::setSupportedTracks(unsigned int min, unsigned int max)
+{
+    Q_ASSERT(sbFormatTracks);
+    if (!sbFormatTracks) return;
+    if (sbFormatTracks->value() < sbFormatTracks->minValue()) {
+	sbFormatTracks->setMaxValue(max);
+	sbFormatTracks->setMinValue(min);
+    } else {
+	sbFormatTracks->setMinValue(min);
+	sbFormatTracks->setMaxValue(max);
+    }
+}
+
+//***************************************************************************
+void RecordDialog::setTracks(unsigned int tracks)
+{
+    m_params.tracks = tracks;
+
+    Q_ASSERT(sbFormatTracks);
+    if (!sbFormatTracks) return;
+
+    switch (tracks) {
+	case 1:
+	    lblTracksVerbose->setText(i18n("(Mono)"));
+	    break;
+	case 2:
+	    lblTracksVerbose->setText(i18n("(Stereo)"));
+	    break;
+	case 4:
+	    lblTracksVerbose->setText(i18n("(Quadro)"));
+	    break;
+	default:
+	    lblTracksVerbose->setText("");
+    }
+
+    sbFormatTracks->setValue(tracks);
+}
+
+//***************************************************************************
+void RecordDialog::tracksChanged(int tracks)
+{
+    if (tracks < 1) return; // no device
+    if (tracks == (int)m_params.tracks) return;
+
+    emit sigTracksChanged(tracks);
+}
+
+//***************************************************************************
 void RecordDialog::setSupportedSampleRates(const QValueList<double> &rates)
 {
     Q_ASSERT(cbFormatSampleRate);
@@ -275,19 +337,23 @@ void RecordDialog::setSupportedSampleRates(const QValueList<double> &rates)
 	QString rate = rate2string(*it);
 	Q_ASSERT(rate.length());
 	if (!rate.length()) continue; // string was zero?
-
 	cbFormatSampleRate->insertItem(rate);
     }
 
+    bool have_choice = (cbFormatSampleRate->count() > 1);
+    cbFormatSampleRate->setEnabled(have_choice);
 }
 
 //***************************************************************************
 void RecordDialog::setSampleRate(double new_rate)
 {
+    m_params.sample_rate = new_rate;
+
     Q_ASSERT(cbFormatSampleRate);
     if (!cbFormatSampleRate) return;
 
-    QString rate = rate2string(new_rate);
+    QString rate;
+    rate = rate2string(new_rate);
     cbFormatSampleRate->setCurrentItem(rate, true);
 }
 
@@ -298,8 +364,165 @@ void RecordDialog::sampleRateChanged(const QString &rate)
     double sample_rate = string2rate(rate);
     if (sample_rate == m_params.sample_rate) return;
 
-    m_params.sample_rate = sample_rate;
     emit sampleRateChanged(sample_rate);
+}
+
+//***************************************************************************
+void RecordDialog::setSupportedCompressions(const QValueList<int> &comps)
+{
+    Q_ASSERT(cbFormatCompression);
+    if (!cbFormatCompression) return;
+
+    cbFormatCompression->clear();
+    CompressionType types;
+
+    QValueList<int>::ConstIterator it;
+    if (comps.isEmpty()) {
+	// no compressions -> add "none" manually
+	cbFormatCompression->insertItem(types.name(0));
+    }
+
+    for (it=comps.begin(); it != comps.end(); ++it) {
+	int index = types.findFromData(*it);
+	cbFormatCompression->insertItem(types.name(index));
+    }
+
+    bool have_choice = (cbFormatCompression->count() > 1);
+    cbFormatCompression->setEnabled(have_choice);
+}
+
+//***************************************************************************
+void RecordDialog::setCompression(int compression)
+{
+    m_params.compression = compression;
+
+    Q_ASSERT(cbFormatCompression);
+    if (!cbFormatCompression) return;
+
+    CompressionType types;
+    int index = types.findFromData(compression);
+    cbFormatCompression->setCurrentItem(types.name(index), true);
+}
+
+//***************************************************************************
+void RecordDialog::compressionChanged(const QString &name)
+{
+    CompressionType types;
+    int index = types.findFromName(name);
+    int compression = types.data(index);
+    if (compression == m_params.compression) return;
+
+    emit sigCompressionChanged(compression);
+}
+
+//***************************************************************************
+void RecordDialog::setSupportedBitsPerSample(
+                   const QValueList<unsigned int> &bits)
+{
+    Q_ASSERT(sbFormatResolution);
+    if (!sbFormatResolution) return;
+
+    sbFormatResolution->setMinValue(bits.first());
+    sbFormatResolution->setMaxValue(bits.last());
+    m_supported_resolutions = bits;
+
+    // enable only if there is a choice
+    sbFormatResolution->setEnabled(bits.first() != bits.last());
+}
+
+//***************************************************************************
+void RecordDialog::setBitsPerSample(unsigned int bits)
+{
+    m_params.bits_per_sample = bits;
+
+    Q_ASSERT(sbFormatResolution);
+    if (!sbFormatResolution) return;
+
+    sbFormatResolution->setValue(bits);
+}
+
+//***************************************************************************
+void RecordDialog::bitsPerSampleChanged(int bits)
+{
+    if (bits < 1) return; // no device
+    if (bits == (int)m_params.bits_per_sample) return;
+
+    // round up or down to the next supported resolution in bits per sample
+    if (!m_supported_resolutions.isEmpty()) {
+	unsigned int last = m_params.bits_per_sample;
+	if (bits < (int)last) {
+	    // step up to the next supported value
+	    QValueList<unsigned int>::Iterator it;
+	    for (it=m_supported_resolutions.begin();
+	        (it != m_supported_resolutions.end());
+		++it)
+	    {
+		bits = *it;
+		if ((int)(*it) >= bits) break;
+	    }
+	} else {
+	    // step down to the next supported value
+	    QValueList<unsigned int>::Iterator it;
+	    for (it=m_supported_resolutions.end();
+	        (it != m_supported_resolutions.begin()); )
+	    {
+		--it;
+		bits = *it;
+		if ((int)(*it) <= bits) break;
+	    }
+	    if ((int)(*it) > bits) bits = m_supported_resolutions.first();
+	}
+    }
+
+    m_params.bits_per_sample = bits;
+
+    if (sbFormatResolution && (bits != sbFormatResolution->value()))
+        sbFormatResolution->setValue(bits);
+
+    emit sigBitsPerSampleChanged(bits);
+}
+
+//***************************************************************************
+void RecordDialog::setSupportedSampleFormats(const QValueList<int> &formats)
+{
+    Q_ASSERT(cbFormatSampleFormat);
+    if (!cbFormatSampleFormat) return;
+
+    cbFormatSampleFormat->clear();
+    SampleFormat types;
+
+    QValueList<int>::ConstIterator it;
+    for (it=formats.begin(); it != formats.end(); ++it) {
+	int index = types.findFromData(*it);
+	cbFormatSampleFormat->insertItem(types.name(index));
+    }
+
+    bool have_choice = (cbFormatSampleFormat->count() > 1);
+    cbFormatSampleFormat->setEnabled(have_choice);
+}
+
+//***************************************************************************
+void RecordDialog::setSampleFormat(int sample_format)
+{
+    m_params.sample_format = sample_format;
+
+    Q_ASSERT(cbFormatSampleFormat);
+    if (!cbFormatSampleFormat) return;
+
+    SampleFormat types;
+    int index = types.findFromData(sample_format);
+    cbFormatSampleFormat->setCurrentItem(types.name(index), true);
+}
+
+//***************************************************************************
+void RecordDialog::sampleFormatChanged(const QString &name)
+{
+    SampleFormat types;
+    int index = types.findFromName(name);
+    int format = types.data(index);
+    if (format == m_params.sample_format) return;
+
+    emit sigSampleFormatChanged(format);
 }
 
 //***************************************************************************

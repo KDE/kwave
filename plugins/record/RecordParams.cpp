@@ -53,7 +53,7 @@ int RecordParams::fromList(const QStringList &list)
 {
     bool ok;
 
-    if (list.size() != 23) return -EINVAL;
+    if (list.size() != 25) return -EINVAL;
 
     // pre-record
     GET( 0, pre_record_enabled, toUInt);
@@ -83,22 +83,24 @@ int RecordParams::fromList(const QStringList &list)
     GET(12, fade_out_enabled, toUInt);
     GET(13, fade_out_time, toUInt);
 
-    // sample rate, bits per sample, track
-    GET(14, sample_rate, toDouble);
-    GET(15, bits_per_sample, toUInt);
-    GET(16, tracks, toUInt);
-
     // device name
-    device_name = list[17];
+    device_name = list[14];
+
+    // tracks, sample rate, compression, sample format, bits per sample
+    GET(15, tracks, toUInt);
+    GET(16, sample_rate, toDouble);
+    GET(17, compression, toUInt);
+    GET(18, sample_format, toUInt);
+    GET(19, bits_per_sample, toUInt);
 
     // power of buffer size
-    GET(18, buffer_size, toUInt);
+    GET(20, buffer_size, toUInt);
 
     // various displays: level meter, oscilloscope, FFT, Overview
-    GET(19, display_level_meter, toUInt);
-    GET(20, display_oscilloscope, toUInt);
-    GET(21, display_fft, toUInt);
-    GET(22, display_overview, toUInt);
+    GET(21, display_level_meter, toUInt);
+    GET(22, display_oscilloscope, toUInt);
+    GET(23, display_fft, toUInt);
+    GET(24, display_overview, toUInt);
 
     return 0;
 }
@@ -139,13 +141,15 @@ QStringList RecordParams::toList() const
     PUT(fade_out_enabled);
     PUT(fade_out_time);
 
-    // sample rate, bits per sample, track
-    PUT(sample_rate);
-    PUT(bits_per_sample);
-    PUT(tracks);
-
     // device name
     list += device_name;
+
+    // tracks, sample rate, compression, sample format, bits per sample
+    PUT(tracks);
+    PUT(sample_rate);
+    PUT(compression);
+    PUT(sample_format);
+    PUT(bits_per_sample);
 
     // power of buffer size
     PUT(buffer_size);

@@ -28,9 +28,10 @@ BUILTSOURCES=\
  FormantWidget.moc.cpp\
  OverViewWidget.moc.cpp\
  MenuNode.moc.cpp\
- MenuRoot.moc.cpp\
  MenuItem.moc.cpp\
  MenuSub.moc.cpp\
+ MenuToplevel.moc.cpp\
+ MenuRoot.moc.cpp\
  MenuManager.moc.cpp
 
 # Which sources should be compiled for kwave.
@@ -42,9 +43,10 @@ libkwavegui_la_SOURCES =\
  FormantWidget.cpp\
  Dialog.cpp\
  MenuNode.cpp\
- MenuRoot.cpp\
  MenuItem.cpp\
  MenuSub.cpp\
+ MenuToplevel.cpp\
+ MenuRoot.cpp\
  MenuManager.cpp\
  MenuCommand.cpp\
  MultiStateImage.cpp\
@@ -78,11 +80,13 @@ FormantWidget.moc.cpp: FormantWidget.h
 	$(MOC) $< -o $@
 MenuNode.moc.cpp: MenuNode.h
 	$(MOC) $< -o $@
-MenuRoot.moc.cpp: MenuRoot.h
-	$(MOC) $< -o $@
 MenuItem.moc.cpp: MenuItem.h
 	$(MOC) $< -o $@
 MenuSub.moc.cpp: MenuSub.h
+	$(MOC) $< -o $@
+MenuToplevel.moc.cpp: MenuToplevel.h
+	$(MOC) $< -o $@
+MenuRoot.moc.cpp: MenuRoot.h
 	$(MOC) $< -o $@
 MenuManager.moc.cpp: MenuManager.h
 	$(MOC) $< -o $@

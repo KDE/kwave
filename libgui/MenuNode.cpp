@@ -2,8 +2,8 @@
                           MenuNode.cpp  -  description
                              -------------------
     begin                : Mon Jan 10 2000
-    copyright            : (C) 2000 by Martin Wilz
-    email                : mwilz@ernie.MI.Uni-Koeln.DE
+    copyright            : (C) 2000 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -359,3 +359,94 @@ int MenuNode::insertNode(MenuNode *node)
 
     return new_id;
 }
+
+/**
+ * Tries to find a child node by it's name and returns a pointer
+ * to it. If the child can't be found the return value will be 0.
+ * @param name the item's name (non-localized)
+ * @return pointer to the found child or 0
+ */
+MenuNode *MenuNode::findChild(const char *name)
+{
+    MenuNode *child = children.first();
+    while (child) {
+	if (strcmp(child->getName(),name)==0)
+	    return child;
+	child = children.next();
+    }
+    return 0;
+}
+
+MenuNode *MenuNode::insertBranch(char *name, const char *key, const char *uid)
+{
+    return 0;
+}
+
+int MenuNode::insertLeaf(const char *command, char *name,
+                         const char *key, const char *uid)
+{
+    return -1;
+}
+
+int MenuNode::insertNode(const char *command, char *name, char *position,
+                         const char *key, const char *uid)
+{
+    int result = -1;
+
+    debug("MenuNode::parseCommand: position='%s'", position); // ###
+
+    // at start of the parsing process ?
+    if ((name == 0) || (*name == 0)) {
+	// split off the first token, separated by a slash
+	name = position;
+	while ((*position) && (*position != '/'))
+	    position++;
+    }
+
+    debug("MenuNode::insertNode: name='%s', position='%s'", name, position);// ###
+
+    if ((position == 0) || (*position == 0)) {
+	// end of the tree
+	debug("MenuNode::insertNode: "); // ###
+	result = insertLeaf(command, name, key, uid);
+	debug("MenuNode::insertNode: "); // ###
+    } else {
+    	// somewhere in the tree
+    	MenuNode *sub;
+
+    	sub = findChild(name);
+	if (!sub) {
+	    debug("MenuNode::insertNode: inserting new branch..."); // ###
+	    sub = insertBranch(name, key, uid);
+	    debug("MenuNode::insertNode: branch inserted."); // ###
+	} else {
+	    debug("MenuNode::insertNode: child found."); // ###
+	}
+	
+	if (sub) {
+	    debug("MenuNode::insertNode: inserting new node..."); // ###
+	    sub->insertNode(command, name, position, key, uid);
+	    debug("MenuNode::insertNode: node inserted."); // ###
+	} else {
+	    debug("MenuNode::insertNode: branch failed!"); // ###
+	}
+    }
+
+/* ###
+	if (strcmp(position, "listmenu") == 0) {
+	    // insert a list menu
+	}
+	// "exclusive"
+	// "number"
+	// "separator"
+	// "checkable"
+	else
+	    result = insertNode(command, position, key, uid);
+    }
+*/
+
+    debug("MenuNode::parseCommand: returning with %d", result);
+    return result;
+}
+	
+/* end of MenuNode.cpp */

@@ -93,6 +93,10 @@ void MenuManager::setCommand (const char *command)
     tmp=parser.getNextParam();
     if (tmp) id=duplicateString(tmp);
 
+    ((MenuNode*)(&menu_root))->insertNode((const char*)com, (char*)0, pos,
+	(const char *)key, (const char *)id); // ###
+/* ###
+
     debug("com='%s', pos='%s', key='%s', id='%s'", com, pos, key, id); // ###
 
     MenuNode *parentmenu=0;
@@ -126,13 +130,13 @@ void MenuManager::setCommand (const char *command)
 // ###	      MenuNode::getIdRange(MENUMAX);
 	    }
 	  else
-/* ###	  if ((strcmp (&pos[begin],"exclusive")==0))
+/ * ###	  if ((strcmp (&pos[begin],"exclusive")==0))
 	    parentmenu->setCheckable ();
 	  else
 	  if ((strcmp (&pos[begin],"number")==0))
 	    parentmenu->setNumberable ();
 	  else
-*/
+* /
 	  if (strcmp (&pos[begin],"separator")==0)
 	    {
 // ###	      parentmenu->insertSeparator();
@@ -157,7 +161,7 @@ void MenuManager::setCommand (const char *command)
 		      int keycode=0;
 		      if (key) keycode=parseToKeyCode(key);
 
-/* ###
+/ * ###
 //		      debug("new entry='%s'", pos+begin); // ###
 		      int numeric_id = parentmenu->insertEntry(
 		        klocale->translate(&pos[begin]),
@@ -167,7 +171,7 @@ void MenuManager::setCommand (const char *command)
 		      MenuNode *entry = new MenuNode((const char *)0, numeric_id);
 		      entry->setParent(parentmenu);
 		      registerID(id, entry);
-*/		    }
+* /		    }
 		}
 	      else
 		newmenu=0; // ### parentmenu->findMenu(&pos[begin]);
@@ -218,6 +222,7 @@ void MenuManager::setCommand (const char *command)
 
 	parentmenu=newmenu;
     }
+*/
 
   if (com) deleteString(com);
   if (pos) deleteString(pos);

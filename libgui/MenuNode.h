@@ -2,8 +2,8 @@
                           MenuNode.h  -  description
                              -------------------
     begin                : Mon Jan 10 2000
-    copyright            : (C) 2000 by Martin Wilz
-    email                : mwilz@ernie.MI.Uni-Koeln.DE
+    copyright            : (C) 2000 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -91,8 +91,21 @@ public:
     /** Enables or disables an item of the current menu */
     virtual bool setItemEnabled(const int item, const bool enable);
 
-    /** Inserts a new child node into the current structure. */
+    /** Tries to find a child node by it's name */
+    MenuNode *findChild(const char *name);
+
+    virtual MenuNode *insertBranch(char *name, const char *key,
+                                   const char *uid);
+
+    virtual int insertLeaf(const char *command, char *name,
+                           const char *key, const char *uid);
+
+    /** Inserts a new child node into the current menu node. */
     virtual int insertNode(MenuNode *node);
+
+    /** Inserts a new child node into the structure (also children) */
+    virtual int insertNode(const char *command, char *name, char *position,
+	                   const char *key, const char *uid);
 
 signals: // Signals
 

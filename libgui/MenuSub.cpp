@@ -2,8 +2,8 @@
                           MenuSub.cpp  -  description
                              -------------------
     begin                : Mon Jan 10 2000
-    copyright            : (C) 2000 by Martin Wilz
-    email                : mwilz@ernie.MI.Uni-Koeln.DE
+    copyright            : (C) 2000 by Thomas Eschenbacher
+    email                : Thomas.Eschenbacher@gmx.de
  ***************************************************************************/
 
 /***************************************************************************

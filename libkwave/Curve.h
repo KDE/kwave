@@ -134,6 +134,14 @@ public:
      */
     Point *next(Point *p);
 
+
+    /**
+     * Sets a curve from a command string. Opposite of getCommand().
+     * @param command a string that contains the interpolation
+     *        type and pairs of x/y coordinates.
+     */
+    void fromCommand(const QString &command);
+
     /**
      * Returns a command string out of the curve points and
      * interpolation type.
@@ -178,7 +186,8 @@ private:
     Interpolation &m_interpolation;
 
     /** type of the interpolation, index [0...n-1] */
-    interpolation_t m_interpolationtype;
+    interpolation_t m_interpolation_type;
+
 };
 
 #endif /* _CURVE_H_ */

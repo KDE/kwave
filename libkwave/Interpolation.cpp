@@ -7,7 +7,7 @@
 //***************************************************************************
 //***************************************************************************
 
-interpolation_t& operator++(interpolation_t i)
+interpolation_t &operator ++(interpolation_t &i)
 {
     return (i = (i == INTPOL_SAH) ? INTPOL_LINEAR : interpolation_t(i+1) );
 }
@@ -16,38 +16,26 @@ interpolation_t& operator++(interpolation_t i)
 //***************************************************************************
 Interpolation::InterpolationMap::InterpolationMap()
 {
-    insert(INTPOL_LINEAR,      "linear");    i18n("linear");
-    insert(INTPOL_SPLINE,      "spline");    i18n("spline");
-    insert(INTPOL_NPOLYNOMIAL, "n-polynom"); i18n("n-polynom");
-    insert(INTPOL_POLYNOMIAL3, "3-polynom"); i18n("3-polynom");
-    insert(INTPOL_POLYNOMIAL5, "5-polynom"); i18n("5-polynom");
-    insert(INTPOL_POLYNOMIAL7, "5-polynom"); i18n("7-polynom");
-    insert(INTPOL_SAH,   "sample and hold"); i18n("sample and hold");
-}
+    append(INTPOL_LINEAR,      0, "linear",      "linear");
+    append(INTPOL_SPLINE,      1, "spline",      "spline");
+    append(INTPOL_NPOLYNOMIAL, 2, "n-polynom",   "polynom, nth degree");
+    append(INTPOL_POLYNOMIAL3, 3, "3-polynom",   "polynom, 3rd degree");
+    append(INTPOL_POLYNOMIAL5, 4, "5-polynom",   "polynom, 5th degree");
+    append(INTPOL_POLYNOMIAL7, 5, "5-polynom",   "polynom, 7th degree");
+    append(INTPOL_SAH,         6, "sample_hold", "sample and hold");
 
-//***************************************************************************
-interpolation_t Interpolation::InterpolationMap::find(const QString &name,
-	bool localized)
-{
-    InterpolationMap::Iterator it;
-    for (it = begin(); it != end(); ++it ) {
-	if (name == (localized ? QString(i18n(it.data())) : it.data() ) )
-	    return it.key();
-    }
-    ASSERT(false && "unknown interpolation type");
-    return INTPOL_LINEAR;
-}
-	
-//***************************************************************************
-QStringList Interpolation::InterpolationMap::names(bool localized)
-{
-    QStringList list;
-    InterpolationMap::Iterator it;
-    for (it = begin(); it != end(); ++it ) {
-	list.append(localized ? QString(i18n(it.data())) : it.data() );
-    }
-    list.sort();
-    return list;
+#undef NEVER_COMPILE_THIS
+#ifdef NEVER_COMPILE_THIS
+#error "this could produce problems in plugins and/or libs when \
+        loaded before the main application is up."
+    i18n("Linear");
+    i18n("spline");
+    i18n("n-polynom");
+    i18n("3-polynom");
+    i18n("5-polynom");
+    i18n("7-polynom");
+    i18n("sample and hold");
+#endif
 }
 
 //***************************************************************************
@@ -59,7 +47,7 @@ Interpolation::InterpolationMap Interpolation::m_interpolation_map;
 //***************************************************************************
 Interpolation::Interpolation(const QString &name)
   :m_curve(), m_x(), m_y(), m_der(),
-   m_type(m_interpolation_map.find(name, false))
+   m_type(m_interpolation_map.findFromName(name))
 {
 }
 
@@ -77,19 +65,26 @@ Interpolation::~Interpolation()
 //***************************************************************************
 interpolation_t Interpolation::find(const QString &name, bool localized)
 {
-    return m_interpolation_map.find(name, localized);
+    return m_interpolation_map.findFromDescription(name, localized);
 }
 
 //***************************************************************************
-QStringList Interpolation::names(bool localized)
+QStringList Interpolation::descriptions(bool localized)
 {
-    return m_interpolation_map.names(localized);
+    QStringList list;
+    unsigned int count = m_interpolation_map.count();
+    unsigned int i;
+    for (i=0; i < count; i++) {
+	interpolation_t index = m_interpolation_map.findFromData(i);
+	list.append(m_interpolation_map.description(index, localized));
+    }
+    return list;
 }
 
 //***************************************************************************
 QString Interpolation::name(interpolation_t type)
 {
-    return m_interpolation_map[type];
+    return m_interpolation_map.name(type);
 }
 
 //***************************************************************************
@@ -102,7 +97,7 @@ unsigned int Interpolation::count()
 double Interpolation::singleInterpolation(double input)
 {
     ASSERT(count());
-    if (!count()) return 0; // no data ?
+    if (!count()) return 0.0; // no data ?
 
     unsigned int degree = 0;
 

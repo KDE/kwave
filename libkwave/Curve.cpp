@@ -31,7 +31,7 @@
 Curve::Curve()
 :m_points(),
  m_interpolation(*(new Interpolation(INTPOL_LINEAR))),
- m_interpolationtype(INTPOL_LINEAR)
+ m_interpolation_type(INTPOL_LINEAR)
 {
     m_points.setAutoDelete(true);
 }
@@ -40,9 +40,17 @@ Curve::Curve()
 Curve::Curve(const QString &command)
 :m_points(),
  m_interpolation(*(new Interpolation(INTPOL_LINEAR))),
- m_interpolationtype(INTPOL_LINEAR)
+ m_interpolation_type(INTPOL_LINEAR)
 {
     m_points.setAutoDelete(true);
+    fromCommand(command);
+}
+
+//***************************************************************************
+void Curve::fromCommand(const QString &command)
+{
+    m_points.setAutoDelete(true);
+    m_points.clear();
 
     Parser parse(command);
     setInterpolationType(Interpolation::find(parse.firstParam(), false));
@@ -58,36 +66,37 @@ Curve::Curve(const QString &command)
 //***************************************************************************
 QString Curve::getCommand()
 {
-    QString cmd;
-    Point *tmp;
+    QString cmd = "curve(";
+    cmd += Interpolation::name(m_interpolation_type);
 
-    cmd = "curve(";
-    cmd += Interpolation::name(m_interpolationtype);
-
-    for (tmp = m_points.first(); tmp; tmp = m_points.next() ) {
-	cmd += cmd.sprintf(",%f,%f", tmp->x, tmp->y);
+    Point *p;
+    for (p = m_points.first(); (p); p = m_points.next() ) {
+	QString pt = pt.sprintf(",%f,%f", p->x, p->y);
+	cmd += pt;
     }
 
-    cmd += ")";
+    cmd += ")\n";
     return cmd;
 }
 
 //***************************************************************************
 QArray<double> Curve::interpolation(unsigned int points)
 {
+    m_interpolation.prepareInterpolation(this);
     return m_interpolation.interpolation(this, points);
 }
 
 //***************************************************************************
 void Curve::setInterpolationType(interpolation_t type)
 {
+    m_interpolation_type = type;
     m_interpolation.setType(type);
 }
 
 //***************************************************************************
 interpolation_t Curve::interpolationType()
 {
-    return m_interpolationtype;
+    return m_interpolation_type;
 }
 
 //***************************************************************************
@@ -222,7 +231,7 @@ void Curve::scaleFit(unsigned int range)
     double min = DBL_MAX;
     double max = DBL_MIN;
 
-    Interpolation interpolation(m_interpolationtype);
+    Interpolation interpolation(m_interpolation_type);
 
     QArray<double> y = interpolation.interpolation(this, range);
     for (unsigned int i = 0; i < range; i++) {

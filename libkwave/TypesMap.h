@@ -66,8 +66,8 @@ public:
     IDX findFromData(const DATA &data)
     {
 	IDX it = IDX(0);
-	unsigned int i = 0;
-	while (i++ < count()) {
+	unsigned int cnt = count();
+	while (cnt--) {
 	    if (m_list[it].first() == data) return it;
 	    ++it;
 	}
@@ -81,8 +81,8 @@ public:
     IDX findFromName(const QString &name)
     {
 	IDX it = IDX(0);
-	unsigned int i = 0;
-	while (i++ < count()) {
+	unsigned int cnt = count();
+	while (cnt--) {
 	    if (m_list[it].second() == name) return it;
 	    ++it;
 	}
@@ -102,8 +102,8 @@ public:
     {
 	IDX it = IDX(0);
 	QString dcr = (localized) ? i18n(description) : description;
-	unsigned int i = 0;
-	while (i++ < count()) {
+	unsigned int cnt = count();
+	while (cnt--) {
 	    if (localized) {
 		if (m_list[it].second() == description)
 		    return it;

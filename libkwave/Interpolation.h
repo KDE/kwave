@@ -13,11 +13,12 @@ typedef enum {
     INTPOL_SAH
 } interpolation_t;
 
-interpolation_t &operator++(interpolation_t &i);
+interpolation_t &operator ++(interpolation_t &i);
 
 #include <qarray.h>
-#include <qmap.h>
 #include <qstringlist.h>
+
+#include "libkwave/TypesMap.h"
 
 class Curve;
 
@@ -66,34 +67,34 @@ public:
     static QString name(interpolation_t type);
 
     /**
-     * Returns an alphabetically sorted list of
-     * interpolation type names.
+     * Returns an alphabetically sorted list of verbose
+     * interpolation type names, useful for providing a list
+     * of available types in the gui.
      * @param localized if true, the list will contain localized
      *        names (useful for filling combo boxes)
      */
-    static QStringList names(bool localized = false);
+    static QStringList descriptions(bool localized = false);
 
     /** Sets a new interpolation tpye */
     inline void setType (interpolation_t t) {
 	m_type = t;
     };
 
+    /** Translates an index in an interpolation type */
+    static inline interpolation_t findByIndex(int index) {
+	return m_interpolation_map.findFromData(index);
+    }
+
     /**
      * Little private class for initialized map. Used
      * to translate interpolation_t into verbose name
      * and vice-versa.
      */
-    class InterpolationMap: public QMap<interpolation_t, QString>
+    class InterpolationMap: public TypesMap<interpolation_t, int >
     {
     public:
 	/** Constructor for filling the map. */
 	InterpolationMap();
-	
-	/** Reverse Lookup, find an interpolation by name. */
-	interpolation_t find(const QString &name, bool localized);
-
-	/** Return a list of type names */
-	QStringList names(bool localized);
     };
 
 private:

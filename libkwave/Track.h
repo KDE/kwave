@@ -217,7 +217,13 @@ private:
      * @param offset the offset within the stripe, which becomes the first
      *               sample in the new stripe
      */
-    void Track::splitStripe(Stripe *stripe, unsigned int offset);
+    void splitStripe(Stripe *stripe, unsigned int offset);
+
+    /**
+     * dump the list of stripes, for debugging
+     * @internal for debugging only
+     */
+    void dump();
 
 protected:
 

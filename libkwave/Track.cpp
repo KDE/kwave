@@ -262,7 +262,10 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 	QPtrListIterator<Stripe> it(m_stripes);
 	unsigned int left  = offset;
 	unsigned int right = offset + length - 1;
-	qDebug("Track::deleteRange() [%u ... %u]", left, right);
+
+	qDebug("Track::deleteRange() [%u ... %u] (%u)",
+	       left, right, right - left + 1);
+
 	for (it.toLast(); it.current(); --it) {
 	    Stripe *s = it.current();
 	    unsigned int start  = s->start();
@@ -343,7 +346,6 @@ void Track::deleteRange(unsigned int offset, unsigned int length,
 		}
 	    }
 	}
-
     }
 
     emit sigSamplesDeleted(*this, offset, length);
@@ -679,6 +681,19 @@ void Track::writeSamples(InsertMode mode,
 	}
     }
 
+}
+
+//***************************************************************************
+void Track::dump()
+{
+    QPtrListIterator<Stripe> it(m_stripes);
+    qDebug("------------------------------------");
+    for (it.toFirst(); it.current(); ++it) {
+	Stripe *s = it.current();
+	qDebug("%p - [%10u - %10u] (%10u)",
+	       s, s->start(), s->end(), s->length());
+    }
+    qDebug("------------------------------------");
 }
 
 //***************************************************************************

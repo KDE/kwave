@@ -21,6 +21,7 @@
 #include "config.h"
 #include <qobject.h>
 #include <qspinbox.h>
+#include <qvaluelist.h>
 
 class BitrateSpinBox: public QSpinBox
 {

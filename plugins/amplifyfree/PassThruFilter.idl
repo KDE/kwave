@@ -1,8 +1,0 @@
-// PassThruFilter.idl
-
-#include <artsflow.idl>
-
-interface PassThruFilter : Arts::SynthModule {
-        default in  audio stream input;
-	default out audio stream output;
-};

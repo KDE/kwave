@@ -55,7 +55,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-12-01</DATE>
+    <DATE>2000-12-03</DATE>
     <RELEASEINFO>0.5.5</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -1163,7 +1163,7 @@
 
     <WARNING><PARA>
 	Maybe older versions of &kapp; are currently included in some 
-	current linux distributions. We recommend not to use kave versions
+	current linux distributions. We recommend not to use &kapp; versions
 	0.29 and older.
 	And please don't get confused by the version number,
 	"0.29" should actually mean "0.2.9" and was not consistent. The 
@@ -1236,7 +1236,7 @@
 		called "libc-devel".
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-		Qt qt development package, qt2 will be supported 2001.
+		Qt development package, qt2 will be supported 2001.
 		The package is called "qtdevel" or similar.
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
@@ -1269,7 +1269,7 @@
 <PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make install</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>su root -c "make install"</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>cd ..</COMMAND>
 </SCREEN>
     </PARA>
@@ -1282,7 +1282,7 @@
 <PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make install</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>su root -c "make install"</COMMAND>
 </SCREEN>
     </PARA>
     
@@ -2101,9 +2101,9 @@
 	<IMAGEOBJECT>
 	<IMAGEDATA fileref="common/light_off.png" format="png"> 
 	</IMAGEOBJECT>
-	<TEXTOBJECT> <PHRASE>gred lamb</PHRASE> </TEXTOBJECT>
+	<TEXTOBJECT> <PHRASE>red lamb</PHRASE> </TEXTOBJECT>
     </INLINEMEDIAOBJECT>
-    means "disabled".
+    a red lamb means "disabled".
     </PARA>
     
     <NOTE><PARA>
@@ -2403,7 +2403,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-12-01</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-12-03</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

@@ -38,7 +38,6 @@
 #include "SignalWidget.h"
 #include "SignalManager.h"
 #include "MouseMark.h"
-#include "ProgressDialog.h"
 #include "sampleop.h"
 
 #ifdef DEBUG
@@ -78,6 +77,7 @@
 //****************************************************************************
 SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     :QWidget(parent),
+    m_signal_manager(this),
     menu(menu_manager),
     m_playback_controller()
 {
@@ -164,6 +164,8 @@ SignalWidget::~SignalWidget()
 {
 //    debug("SignalWidget::~SignalWidget()");
 
+    close();
+
     if (timer) delete timer;
     timer = 0;
 
@@ -191,12 +193,11 @@ SignalWidget::~SignalWidget()
 void SignalWidget::saveSignal(const char *filename, int bits,
 			      int type, bool selection)
 {
-//    if (!signalmanage) return ;
-//    if (type == ASCII) {
-//	signalmanage->exportAscii(filename);
-//    } else {
-//	signalmanage->save(filename, bits, selection);
-//    }
+    if (type == ASCII) {
+	m_signal_manager.exportAscii(filename);
+    } else {
+	m_signal_manager.save(filename, bits, selection);
+    }
 }
 
 //****************************************************************************
@@ -456,12 +457,11 @@ void SignalWidget::selectRange(int left, int right)
 //    estimateRange(left, right);
 }
 
-//****************************************************************************
-void SignalWidget::connectSignal()
+//***************************************************************************
+void SignalWidget::connectSignalManager()
 {
-//    ASSERT(signalmanage);
+    debug("SignalWidget::connectSignalManager()");
     ASSERT(select);
-//    if (!signalmanage) return;
     if (!select) return;
 
 //    connect(signalmanage,SIGNAL(signalinserted(int,int)),
@@ -485,6 +485,12 @@ void SignalWidget::connectSignal()
 //    connect(signalmanage, SIGNAL(sigChannelDeleted(unsigned int)),
 //	    this, SLOT(forwardChannelDeleted(unsigned int)));
 
+}
+
+//***************************************************************************
+void SignalWidget::disconnectSignalManager()
+{
+    debug("SignalWidget::disconnectSignalManager()");
 }
 
 //****************************************************************************
@@ -512,9 +518,9 @@ void SignalWidget::forwardChannelDeleted(unsigned int channel)
 }
 
 //****************************************************************************
-int SignalWidget::getChannelCount()
+int SignalWidget::tracks()
 {
-    return 0; // (signalmanage) ? signalmanage->channels() : 0;
+    return m_signal_manager.tracks();
 }
 
 //****************************************************************************
@@ -587,24 +593,24 @@ void SignalWidget::setSignal(SignalManager *sigs)
 }
 
 //****************************************************************************
-void SignalWidget::setSignal(const QString &filename, int type)
+void SignalWidget::loadSignal(const QString &filename, int type)
 {
-    closeSignal();
-    offset = 0;
+    close();
 ////    ASSERT(labels);
 ////    if (labels) labels->clear();
 
     // load a new signal
-    debug("SignalWidget::setSignal(%s, %d)",filename.data(), type); // ###
+    debug("SignalWidget::loadSignal(%s, %d)",filename.data(), type); // ###
     m_signal_manager.loadFile(filename, type);
     ASSERT(m_signal_manager.length());
     if (m_signal_manager.length() <= 0) {
-	warning("SignalWidget::setSignal() failed:"\
+	warning("SignalWidget::loadSignal() failed:"\
 		" zero-length or out of memory?");
 	// signalmanage.clear(); ###
 	return ;
     }
-    connectSignal();
+
+    connectSignalManager();
     selectRange(0, 0);
     zoomAll();
 //    for (unsigned int i=0; i < m_signal_manager.channels(); i++)
@@ -612,17 +618,23 @@ void SignalWidget::setSignal(const QString &filename, int type)
 }
 
 //****************************************************************************
-void SignalWidget::closeSignal()
+void SignalWidget::close()
 {
+    // first stop playback
     m_playback_controller.playbackStop();
-
-//    if (signalmanage) delete signalmanage;
-//    signalmanage = 0;
-
     m_playback_controller.reset();
 
-    down = false;
+    // we are no longer interested in signals from our signal manager, this
+    // prevents us from superfluous gui redraws and thus saves time
+    disconnectSignalManager();
 
+    // close the signal manager
+    m_signal_manager.close();
+
+    down = false; // ###
+    offset = 0;
+
+    // reset the status, zoom and selection
     selectRange(0, 0);
     zoomAll();
     refreshAllLayers();

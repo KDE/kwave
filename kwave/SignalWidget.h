@@ -67,7 +67,14 @@ public:
      */
     double samples2ms(int samples);
 
-    void setSignal(const QString  &filename, int type);
+    /**
+     * Closes the current signal and loads a new one
+     * from a file.
+     * @param filename name of the .wav or .asc file
+     * @param type one of WAV or ASCII
+     */
+    void loadSignal(const QString  &filename, int type);
+
     void saveSignal (const char *filename, int bits,
 		     int type, bool selection = false);
     void saveBlocks (int);
@@ -76,7 +83,7 @@ public:
     /**
      * Closes the current signal
      */
-    void closeSignal();
+    void close();
 
     /**
      * sets the display offset [samples], does not refresh the screen
@@ -114,10 +121,10 @@ public:
     bool executeCommand(const QString &command);
 
     /**
-     * Returns the number of channels of the current signal or
+     * Returns the number of tracks of the current signal or
      * 0 if no signal is loaded.
      */
-    int getChannelCount();
+    int tracks();
 
     /** returns the number of bits per sample of the current signal */
     int getBitsPerSample ();
@@ -334,7 +341,21 @@ protected:
     void markPeriods (const char *);
     void savePeriods ();
     void createSignal (const char *);
-    void connectSignal ();
+
+    /**
+     * Connects all needed signals/slots from/to the signal manager.
+     * @see disconnectSignalManager
+     */
+    void connectSignalManager();
+
+    /**
+     * Disconnects all signals/slots from/to the signal manager. This
+     * is useful in order to prevent the gui to redraw too often if
+     * the signal changes many properties (e.g. when closing) and we
+     * are not interested.
+     */
+    void disconnectSignalManager();
+
 ////    void showDialog (const char *);
 
     bool executeLabelCommand(const QString &command);

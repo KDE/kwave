@@ -1009,8 +1009,8 @@ else
 fi
 
 
-CFLAGS="${CFLAGS}     -g3 -O0 -Wall -pedantic ${RPM_OPT_FLAGS}"
-CXXFLAGS="${CXXFLAGS} -g3 -O0 -Wall -pedantic ${RPM_OPT_FLAGS}"
+CFLAGS="${CFLAGS}     -g -O0 -Wall -pedantic ${RPM_OPT_FLAGS}"
+CXXFLAGS="${CXXFLAGS} -g -O0 -Wall -pedantic ${RPM_OPT_FLAGS}"
 
 
     ac_use_insure=no

@@ -112,6 +112,17 @@ Signal::~Signal()
 }
 
 //***************************************************************************
+void Signal::close()
+{
+    MutexGuard lock(m_lock_tracks);
+
+    m_tracks.setAutoDelete(true);
+    while (m_tracks.count()) {
+	m_tracks.remove(m_tracks.last());
+    }
+}
+
+//***************************************************************************
 Track *Signal::appendTrack(unsigned int length)
 {
     MutexGuard lock(m_lock_tracks);
@@ -139,6 +150,13 @@ SampleInputStream *Signal::openInputStream(unsigned int track,
 }
 
 //***************************************************************************
+unsigned int Signal::tracks()
+{
+    MutexGuard lock(m_lock_tracks);
+    return m_tracks.count();
+}
+
+//***************************************************************************
 unsigned int Signal::length()
 {
     MutexGuard lock(m_lock_tracks);
@@ -151,6 +169,7 @@ unsigned int Signal::length()
 	len = it.current()->length();
 	if (len > max) max = len;
     }
+    debug("Signal::length() = %d", max);
     return max;
 }
 

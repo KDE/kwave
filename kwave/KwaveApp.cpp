@@ -43,9 +43,7 @@ KwaveApp::KwaveApp()
     recentFiles(true),
     topwidgetlist()
 {
-//    KCrash::setCrashHandler(0);
-
-    debug("KwaveApp::KwaveApp() -- 1 --"); // ###
+    KCrash::setCrashHandler(0); // ###
 
     playback_params.rate = 44100;
     playback_params.channels = 2;
@@ -56,46 +54,35 @@ KwaveApp::KwaveApp()
     topwidgetlist.setAutoDelete(false);
     recentFiles.setAutoDelete(true);
 
-    debug("KwaveApp::KwaveApp() -- 2 --"); // ###
     readConfig();
 
     // load the list of plugins
     PluginManager::findPlugins();
-    debug("KwaveApp::KwaveApp() -- 3 --"); // ###
 
 #ifndef UNIQUE_APP
     newInstance();
 #endif
-    debug("KwaveApp::KwaveApp() -- 4 --"); // ###
 }
 
 //***************************************************************************
 int KwaveApp::newInstance()
 {
-    debug("KwaveApp::newInstance() -- 1 --"); // ###
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     unsigned int argc = (args) ? args->count() : 0;
 
     // only one parameter -> open with empty window
     if (argc == 0) {
-	debug("KwaveApp::newInstance() -- 2 --"); // ###
 	newWindow();
-	debug("KwaveApp::newInstance() -- 3 --"); // ###
     } else {
 	// open a window for each file specified in the
 	// command line an load it
 	QString filename;
 	for (unsigned int i = 0; i < argc; i++) {
-	debug("KwaveApp::newInstance() -- 4 --"); // ###
 	    filename = QFile::decodeName(args->arg(i));
-	    debug("KwaveApp:newInstance(): file=`%s`",filename.data());
 	    newWindow(&filename);
-	    debug("KwaveApp::newInstance() -- 5 --"); // ###
 	}
     }
-    debug("KwaveApp::newInstance() -- 6 --"); // ###
     if (args) args->clear();
-    debug("KwaveApp::newInstance() -- 7 --"); // ###
 
     return 0;
 }
@@ -155,19 +142,16 @@ void KwaveApp::addRecentFile(const QString &newfile)
 //*****************************************************************************
 bool KwaveApp::newWindow(const QString *filename)
 {
-    debug("KwaveApp::newWindow(const QString *filename) -- 1 --"); // ###
     TopWidget *new_top_widget = new TopWidget(*this, recentFiles);
     ASSERT(new_top_widget);
     if (!new_top_widget) return false;
 
-    debug("KwaveApp::newWindow(const QString *filename) -- 2 --"); // ###
     if ( !(new_top_widget->isOK()) ) {
-	debug("KwaveApp::newWindow() failed!");
+	warning("KwaveApp::newWindow() failed!");
 	delete new_top_widget;
 	return false;
     }
 
-    debug("KwaveApp::newWindow(const QString *filename) -- 3 --"); // ###
     if (topwidgetlist.isEmpty()) {
 	// the first widget is the main widget !
 	setMainWidget(new_top_widget); // sets geometry and other properties
@@ -179,19 +163,15 @@ bool KwaveApp::newWindow(const QString *filename)
 	// tnew->setGeometry(geom); // would overlap :-(
 	new_top_widget->resize(geom.width(), geom.height());
     }
-    debug("KwaveApp::newWindow(const QString *filename) -- 4 --"); // ###
 
     topwidgetlist.append(new_top_widget);
-    debug("KwaveApp::newWindow(const QString *filename) -- 5 --"); // ###
     new_top_widget->show();
 
     // inform the widget about changes in the list of recent files
     connect(this, SIGNAL(recentFilesChanged()),
             new_top_widget, SLOT(updateRecentFiles()));
 
-    debug("KwaveApp::newWindow(const QString *filename) -- 6 --"); // ###
-    if (filename) new_top_widget->setSignal(*filename);
-    debug("KwaveApp::newWindow(const QString *filename) -- 7 --"); // ###
+    if (filename) new_top_widget->loadFile(*filename);
 
     return true;
 }
@@ -266,21 +246,22 @@ void KwaveApp::saveConfig()
 // reads user config via KConfig, sets global variables accordingly
 void KwaveApp::readConfig()
 {
-    char *dummy = new char[256*1024];
-//    QString *leak = new QString(dummy);
-    int unitialized;
-    int x;
-    x=unitialized;
-    int unused_a;
-    int unsued_b;
-    int array[2];
-    for (int ii=0; ii < 4; ii++) { array[ii] = ii; };
-    dummy++;
-    dummy++;
-    dummy++;
-    dummy++;
-    dummy++;
-    // ###
+//    char *dummy = new char[256*1024];
+////    QString *leak = new QString(dummy);
+//    int uninitialized;
+//    int x;
+//    x=uninitialized;
+//    int unused_a;
+//    int unsued_b;
+//    int array[2];
+//    for (int ii=0; ii < 4000; ii++) { array[ii] = ii; };
+//    dummy++;
+//    dummy++;
+//    dummy++;
+//    dummy++;
+//    dummy++;
+//    debug("KwaveApp::readConfig(): x=%d, uninitialized=%d, %s",x,uninitialized,array);
+//    // ###
 
     QString result;
     char buf[64];

@@ -86,17 +86,37 @@ unsigned int Stripe::resize(unsigned int length)
 }
 
 //***************************************************************************
-void Stripe::operator << (const QArray<sample_t> &samples)
+unsigned int Stripe::append(const QArray<sample_t> &samples,
+	unsigned int count)
 {
-    if (!samples.count()) return; // nothing to do
+    if (!count || !samples.size()) return 0; // nothing to do
+    ASSERT(count <= samples.size());
+    if (count > samples.size()) count = samples.size();
 
     MutexGuard lock(m_lock_samples);
-    debug("Stripe::operator << : adding %d samples", samples.count());
+    debug("Stripe::append << : adding %d samples", samples.count());
 
-    unsigned int newlength = m_samples.size() + samples.count();
+    unsigned int old_size = m_samples.size();
+    unsigned int newlength = old_size + count;
     m_samples.resize(newlength);
-    ASSERT(newlength = m_samples.size());
+    ASSERT(m_samples.size() == newlength);
+    newlength = m_samples.size();
 
+    // append to the end of the area
+    unsigned int appended = 0;
+    while (old_size < newlength) {
+	m_samples[old_size++] = samples[appended++];
+    }
+
+    return appended;
+}
+
+//***************************************************************************
+Stripe &Stripe::operator << (const QArray<sample_t> &samples)
+{
+    unsigned int appended = append(samples, samples.size());
+    ASSERT(appended == samples.size());
+    return *this;
 }
 
 //***************************************************************************

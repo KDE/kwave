@@ -62,19 +62,24 @@ public:
     ~TopWidget();
 
     /**
+     * Loads a new file and updates the widget's title, menu, status bar
+     * and so on.
+     * @param filename path to the file to be loaded
+     * @param type format of the file (WAV or ASCII)
+     * @return 0 if successful
+     */
+    int loadFile(const QString &filename, int type = 0);
+
+    /**
      * Returns the reference to the Kwave application
      */
-    inline KwaveApp &getKwaveApp() { return app; };
-
-    void setSignal(const QString &name);
+    inline KwaveApp &getKwaveApp() { return m_app; };
 
     /**
      * Returns a reference to the current name of the signal. If no signal is
      * loaded the string is zero-length.
      */
     const QString &getSignalName();
-
-    void setSignal(SignalManager *);
 
     /**
      * Parses a buffer that is intended to contain the content
@@ -84,6 +89,11 @@ public:
      */
     void parseCommands(const QByteArray &buffer);
 
+    /**
+     * Loads a batch file into memory, parses and executes
+     * all commands in it.
+     * @param filename name of the batch file
+     */
     void loadBatch(const QString &filename);
 
     /**
@@ -163,15 +173,6 @@ protected:
     void updateMenu();
 
     /**
-     * Loads a new file and updates the widget's title, menu, status bar
-     * and so on.
-     * @param filename path to the file to be loaded
-     * @param type format of the file (WAV or ASCII)
-     * @return 0 if successful
-     */
-    int loadFile(const QString &filename, int type);
-
-    /**
      * Discards all changes to the current file and loads
      * it again.
      */
@@ -210,7 +211,7 @@ private:
     };
 
     /** reference to the main kwave application */
-    KwaveApp &app;
+    KwaveApp &m_app;
 
     /** reference to the application's list of recent files */
     QStrList &recentFiles;
@@ -219,7 +220,6 @@ private:
     PluginManager *plugin_manager;
 
     QDir *saveDir;
-    QDir *loadDir;
 
     /**
      * the main widget with all views and controls (except menu and

@@ -47,7 +47,6 @@ BUILTSOURCES=\
  PitchWindow.moc.cpp\
  PlaybackController.moc.cpp \
  PluginManager.moc.cpp\
- ProgressDialog.moc.cpp\
  SignalManager.moc.cpp\
  SignalWidget.moc.cpp\
  TopWidget.moc.cpp
@@ -67,7 +66,6 @@ kwave_SOURCES =\
  PitchWindow.cpp\
  PlaybackController.cpp\
  PluginManager.cpp\
- ProgressDialog.cpp\
  SignalManager.cpp\
  SignalWidget.cpp\
  TopWidget.cpp\

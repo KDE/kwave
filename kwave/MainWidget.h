@@ -40,6 +40,12 @@ class MainWidget : public QWidget
     Q_OBJECT
 public:
 
+    /**
+     * Constructor.
+     * @param parent parent widget
+     * @param manage menu manager
+     * @param status status bar
+     */
     MainWidget (QWidget *parent, MenuManager &manage, KStatusBar &status);
 
     /**
@@ -48,10 +54,18 @@ public:
      */
     virtual bool isOK();
 
-    ~MainWidget ();
-    void setSignal (const QString &filename, int type = 0);
-    void setSignal (SignalManager *);
-    void saveSignal (const char *filename, int bits, int type, bool selection);
+    /** Destructor. */
+    virtual ~MainWidget();
+
+    /**
+     * Closes the current signal and loads a new one
+     * from a file.
+     * @param filename name of the .wav or .asc file
+     * @param type one of WAV or ASCII
+     */
+    void loadSignal(const QString &filename, int type = 0);
+
+    void saveSignal(const char *filename, int bits, int type, bool selection);
 
     /**
      * Closes the current signal.
@@ -199,6 +213,5 @@ private:
     /** the last number of channels (for detecting changes) */
     unsigned int lastChannels;
 
-    int bsize;
 };
 #endif // _KMAIN_WDIGET_H_

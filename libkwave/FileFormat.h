@@ -1,8 +1,11 @@
 
+#ifndef _FILE_FORMAT_H_
+#define _FILE_FORMAT_H_
+
 #include <sys/types.h>
 
-struct wavheader
-	    // header format for reading wav files
+// header format for reading wav files
+typedef struct
 {
     int8_t riffid[4];
     u_int32_t filelength;
@@ -15,6 +18,18 @@ struct wavheader
     u_int32_t AvgBytesPerSec;
     int16_t BlockAlign;
     int16_t bitspersample;
-};
+}  wav_header_t;
+
+typedef struct
+{
+    int16_t mode;              // Format tag: 1 = PCM
+    int16_t channels;
+    u_int32_t rate;
+    u_int32_t AvgBytesPerSec;  // sample rate * block align
+    int16_t BlockAlign;        // channels * bits/sample / 8
+    int16_t bitspersample;
+} wav_fmt_header_t;
 
 #define sample_t int32_t
+
+#endif /* _FILE_FORMAT_H_ */

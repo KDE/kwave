@@ -104,10 +104,10 @@ TopWidget::ZoomListPrivate::ZoomListPrivate()
 /** list of predefined zoom factors */
 static TopWidget::ZoomListPrivate zoom_factors;
 
-//*****************************************************************************
+//***************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     :KMainWindow(),
-    app(main_app),
+    m_app(main_app),
     recentFiles(recent_files)
 {
     int id=1000; // id of toolbar items
@@ -122,7 +122,6 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     m_id_zoomnormal = -1;
     m_id_zoomall = -1;
     m_id_zoomselect = -1;
-    loadDir = 0;
     mainwidget = 0;
     menu = 0;
     m_pause_timer = 0;
@@ -383,7 +382,8 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     m_zoomselect->adjustSize();
     int h = m_zoomselect->sizeHint().height();
     m_zoomselect->setFixedHeight(h);
-    m_zoomselect->setMinimumWidth(max(m_zoomselect->sizeHint().width()+10, 3*h));
+    m_zoomselect->setMinimumWidth(
+        max(m_zoomselect->sizeHint().width()+10, 3*h));
     m_zoomselect->setAutoResize(false);
     m_zoomselect->setFocusPolicy(QWidget::NoFocus);
     m_toolbar->setMinimumHeight(max(m_zoomselect->sizeHint().height()+2,
@@ -431,7 +431,6 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 
     // set a nice initial size
     w = wmax;
-//    debug("TopWidget::TopWidget(): wmax = %d", wmax); // ###
     w = max(w, mainwidget->minimumSize().width());
     w = max(w, mainwidget->sizeHint().width());
     w = max(w, m_toolbar->sizeHint().width());
@@ -441,39 +440,31 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     debug("TopWidget::TopWidget(): done."); // ###
 }
 
-//*****************************************************************************
+//***************************************************************************
 bool TopWidget::isOK()
 {
     ASSERT(menu);
-    ASSERT(menuBar());
     ASSERT(mainwidget);
 //    ASSERT(dropZone);
     ASSERT(plugin_manager);
-    ASSERT(statusBar());
     ASSERT(m_toolbar);
     ASSERT(m_zoomselect);
 
-    return true;
-//    return ( menu && menu_bar && mainwidget /* ### && dropZone */ && plugin_manager &&
-//    	     status_bar && m_toolbar && m_zoomselect );
+    return ( menu && mainwidget /* ### && dropZone */ &&
+	plugin_manager && m_toolbar && m_zoomselect );
 }
 
-//*****************************************************************************
+//***************************************************************************
 TopWidget::~TopWidget()
 {
 //    debug("TopWidget::~TopWidget()");
 
-    // close the current file
+    // close the current file (no matter what the user wants)
     closeFile();
 
     // close all plugins and the plugin manager itself
     if (plugin_manager) delete plugin_manager;
     plugin_manager = 0;
-
-    setCaption(0);
-
-    if (loadDir) delete[] loadDir;
-    loadDir=0;
 
     if (m_pause_timer) delete m_pause_timer;
     m_pause_timer = 0;
@@ -484,17 +475,15 @@ TopWidget::~TopWidget()
     if (menu) delete menu;
     menu=0;
 
-    signalName = "";
-
     if (saveDir) delete saveDir;
     saveDir=0;
 
-    app.closeWindow(this);
+    m_app.closeWindow(this);
 
 //    debug("TopWidget::~TopWidget(): done.");
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::executeCommand(const QString &command)
 {
 //    debug("TopWidget::executeCommand(%s)", command.data()); // ###
@@ -503,7 +492,7 @@ void TopWidget::executeCommand(const QString &command)
 
     Parser parser(command);
 
-    if (app.executeCommand(command)) {
+    if (m_app.executeCommand(command)) {
 	return ;
     CASE_COMMAND("plugin")
 	QString name = parser.firstParam();
@@ -519,7 +508,8 @@ void TopWidget::executeCommand(const QString &command)
 		params->append(par);
 	    }
 	}
-	debug("TopWidget::executeCommand(): loading plugin '%s'", name.data());
+	debug("TopWidget::executeCommand(): loading plugin '%s'",
+            name.data());
 	debug("TopWidget::executeCommand(): with %d parameter(s)",
 		(params) ? params->count() : 0);
 	ASSERT(plugin_manager);
@@ -532,7 +522,8 @@ void TopWidget::executeCommand(const QString &command)
 	    params.append(parser.nextParam());
 	}
 	ASSERT(plugin_manager);
-	if (plugin_manager) plugin_manager->executePlugin(name.data(), &params);
+	if (plugin_manager) plugin_manager->executePlugin(
+            name.data(), &params);
     CASE_COMMAND("menu")
 	ASSERT(menu);
 	if (menu) menu->executeCommand(command);
@@ -569,7 +560,7 @@ void TopWidget::executeCommand(const QString &command)
 
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::loadBatch(const QString &str)
 {
     Parser parser(str);
@@ -577,13 +568,13 @@ void TopWidget::loadBatch(const QString &str)
     parseCommands(loader.buffer());
 }
 
-//*****************************************************************************
+//***************************************************************************
 SignalManager *TopWidget::getSignalManager()
 {
     return (mainwidget) ? mainwidget->getSignalManager() : 0;
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::parseCommands(const QByteArray &buffer)
 //parses a list a of commands separated by newlines
 {
@@ -595,19 +586,19 @@ void TopWidget::parseCommands(const QByteArray &buffer)
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::revert()
 {
     ASSERT(mainwidget);
     if (signalName.length() && mainwidget) {
-	mainwidget->setSignal(signalName);
+	mainwidget->loadSignal(signalName);
 	bits = mainwidget->getBitsPerSample();
 	updateMenu();
 	updateToolbar();
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::resolution(const QString &str)
 {
     Parser parser (str);
@@ -624,11 +615,15 @@ void TopWidget::resolution(const QString &str)
 bool TopWidget::closeFile()
 {
     ASSERT(mainwidget);
-    if (mainwidget) mainwidget->closeSignal();
+//    if (mainwidget) {
+//	// if this failed, the used pressed "cancel"
+//	if (!mainwidget->closeSignal()) return false;
+//    }
+    mainwidget->closeSignal();
 
     signalName = "";
     setCaption(0);
-    setZoom(1.0);
+    m_zoomselect->clearEdit();
     emit sigSignalNameChanged(signalName);
     updateMenu();
     updateToolbar();
@@ -636,7 +631,7 @@ bool TopWidget::closeFile()
     return true;
 }
 
-//*****************************************************************************
+//***************************************************************************
 int TopWidget::loadFile(const QString &filename, int type)
 {
     ASSERT(mainwidget);
@@ -646,13 +641,14 @@ int TopWidget::loadFile(const QString &filename, int type)
     ASSERT(filename.length());
     if (!filename.length()) return -1;
 
-    closeFile();    // close the previous file
+    // try to close the previous file
+    if (!closeFile()) return -1;
 
     signalName = filename;
     emit sigSignalNameChanged(signalName);
 
-    mainwidget->setSignal(filename, type);
-    app.addRecentFile(signalName);
+    mainwidget->loadSignal(filename, type);
+    m_app.addRecentFile(signalName);
 
     setCaption(signalName);
 
@@ -663,14 +659,14 @@ int TopWidget::loadFile(const QString &filename, int type)
     return 0;
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::openRecent(const QString &str)
 {
     Parser parser(str);
     loadFile(parser.firstParam(), WAV);
 }
 
-////*****************************************************************************
+////*************************************************************************
 //void TopWidget::dropEvent(KDNDDropZone *drop)
 //{
 //    ASSERT(drop);
@@ -685,7 +681,7 @@ void TopWidget::openRecent(const QString &str)
 //    }
 //}
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::openFile()
 {
     static QString openDir;
@@ -698,7 +694,7 @@ void TopWidget::openFile()
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::importAsciiFile()
 {
     static QString openDir;
@@ -711,7 +707,7 @@ void TopWidget::importAsciiFile()
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::exportAsciiFile()
 {
     QString name = KFileDialog::getSaveFileName(0, "*.asc", mainwidget);
@@ -720,7 +716,7 @@ void TopWidget::exportAsciiFile()
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::saveFile()
 {
     ASSERT(mainwidget);
@@ -733,7 +729,7 @@ void TopWidget::saveFile()
     } else saveFileAs (false);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::saveFileAs(bool selection)
 {
     KFileDialog *dialog;
@@ -756,35 +752,20 @@ void TopWidget::saveFileAs(bool selection)
 
 	    mainwidget->saveSignal(signalName, bits, 0, selection);
 	    setCaption(signalName);
-	    app.addRecentFile(signalName);
+	    m_app.addRecentFile(signalName);
 	    updateMenu();
 	}
 	delete dialog;
     }
 }
 
-//*****************************************************************************
-void TopWidget::setSignal(const QString &newname)
-{
-    loadFile(newname, WAV);
-}
-
-//*****************************************************************************
+//***************************************************************************
 const QString &TopWidget::getSignalName()
 {
     return signalName;
 }
 
-//*****************************************************************************
-void TopWidget::setSignal(SignalManager *signal)
-{
-    ASSERT(mainwidget);
-    if (!mainwidget) return;
-
-    mainwidget->setSignal(signal);
-}
-
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::selectZoom(int index)
 {
     ASSERT(mainwidget);
@@ -801,7 +782,7 @@ void TopWidget::selectZoom(int index)
     mainwidget->setZoom(new_zoom);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::setZoom(double zoom)
 {
 //    debug("void TopWidget::setZoom(%0.5f)", zoom);
@@ -824,7 +805,7 @@ void TopWidget::setZoom(double zoom)
     (strlen(buf)) ? m_zoomselect->setEditText(buf) : m_zoomselect->clearEdit();
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::updateRecentFiles()
 {
     ASSERT(menu);
@@ -836,7 +817,7 @@ void TopWidget::updateRecentFiles()
 	    recentFiles.at(i));
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::updateMenu()
 {
     ASSERT(menu);
@@ -848,7 +829,7 @@ void TopWidget::updateMenu()
     menu->selectItem("@BITS_PER_SAMPLE", (const char *)buffer);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::updateToolbar()
 {
     ASSERT(m_toolbar);
@@ -883,7 +864,7 @@ void TopWidget::updateToolbar()
     m_toolbar->setItemEnabled(m_id_zoomselect, have_signal);
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::playbackPaused()
 {
     updateToolbar();
@@ -901,7 +882,7 @@ void TopWidget::playbackPaused()
     }
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::blinkPause()
 {
     ASSERT(m_toolbar);
@@ -911,7 +892,7 @@ void TopWidget::blinkPause()
     m_blink_on = !m_blink_on;
 }
 
-//*****************************************************************************
+//***************************************************************************
 void TopWidget::pausePressed()
 {
     ASSERT(mainwidget);
@@ -931,5 +912,5 @@ void TopWidget::pausePressed()
 
 }
 
-//*****************************************************************************
-//*****************************************************************************
+//***************************************************************************
+//***************************************************************************

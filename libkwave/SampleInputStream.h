@@ -28,6 +28,14 @@
 class Stripe;
 class Track;
 
+/**
+ * \class SampleInputStream
+ * Input stream for transferring samples into a Track. Internally holds a
+ * list of locks for all affected stripes.
+ *
+ * THIS CLASS IS NOT THREADSAFE! It is intended to be owned by and used
+ * from only one thread.
+ */
 class SampleInputStream
 {
 public:
@@ -69,6 +77,8 @@ public:
     SampleInputStream &flush();
 
 private:
+    /** mode for input (insert, overwrite, ...) */
+    InsertMode m_mode;
 
     /** the track that receives our data */
     Track &m_track;
@@ -79,6 +89,9 @@ private:
     /** set of locks for our stripes */
     MutexSet m_locks;
 
+    /** current position within the track */
+    unsigned int m_position;
+
     /** intermediate buffer for the input data */
     QArray<sample_t> m_buffer;
 
@@ -86,7 +99,6 @@ private:
     unsigned int m_buffer_used;
 
 };
-
 
 /** modifier for flushing */
 SampleInputStream &flush(SampleInputStream &s);

@@ -76,7 +76,6 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
     int s[3];
     MultiStateWidget *msw;
 
-    bsize = 0;
     frmChannelControls = 0;
     frmSignal = 0;
     keys = 0;
@@ -324,22 +323,12 @@ void MainWidget::saveSignal(const char *filename, int bits,
 }
 
 //*****************************************************************************
-void MainWidget::setSignal (const QString &filename, int type)
+void MainWidget::loadSignal (const QString &filename, int type)
 {
     ASSERT(signalview);
     debug("MainWidget::setSignal(%s, %d)", filename.data(), type); // ##
     closeSignal();
-    if (signalview) signalview->setSignal(filename, type);
-    refreshControls();
-}
-
-//*****************************************************************************
-void MainWidget::setSignal(SignalManager *signal)
-{
-    ASSERT(signalview);
-
-    closeSignal();
-    if (signalview) signalview->setSignal(signal);
+    if (signalview) signalview->loadSignal(filename, type);
     refreshControls();
 }
 
@@ -347,8 +336,7 @@ void MainWidget::setSignal(SignalManager *signal)
 void MainWidget::closeSignal()
 {
     ASSERT(signalview);
-
-    if (signalview) signalview->closeSignal();
+    if (signalview) signalview->close();
 
     setTimeInfo(0);
     setSelectedTimeInfo(0);
@@ -661,7 +649,7 @@ void MainWidget::refreshChannelControls()
 unsigned int MainWidget::getChannelCount()
 {
     ASSERT(signalview);
-    return (signalview) ? signalview->getChannelCount() : 0;
+    return (signalview) ? signalview->tracks() : 0;
 }
 
 //*****************************************************************************

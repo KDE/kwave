@@ -1,5 +1,12 @@
 
 
+o warning before overwriting an existing file in SaveAs()
+
+o cancel button does not have any effect when saving
+
+o i18n for strings in main.cpp
+
+o get Xt toolkit options working again (like -geometry)
 
 o libkwave: Parser::getCommand() crashes on some malformed command 
   strings (without "()" )
@@ -11,8 +18,6 @@ o libkwave: use sample_t instead of int
 o Filter: class needs to be tested
 
 o Signal::resample should use lowpass interpolation instead of spline
-
-o DynamicLoader and PluginManager should become merged
 
 o playback: last buffer is sometimes played doubled after pressing "stop"
 

@@ -74,10 +74,18 @@ public:
     unsigned int resize(unsigned int length);
 
     /**
-     * Operator for appending a number of samples to the
+     * Appends an array of samples to the end of the stripe.
+     * @param samples array with the samples
+     * @param count number of samples in the array
+     * @return number of samples appended
+     */
+    unsigned int append(const QArray<sample_t> &samples, unsigned int count);
+
+    /**
+     * Operator for appending an array of samples to the
      * end of the stripe.
      */
-    void operator << (const QArray<sample_t> &samples);
+    Stripe &operator << (const QArray<sample_t> &samples);
 
 private:
 

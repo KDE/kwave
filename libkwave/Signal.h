@@ -44,6 +44,11 @@ public:
     ~Signal ();
 
     /**
+     * Closes the signal by removing all tracks.
+     */
+    void close();
+
+    /**
      * Appends a new track to the end of the tracks list
      * and returns a pointer to the created track. If the
      * length is omitted or zero, the track will not have
@@ -64,6 +69,11 @@ public:
      */
     SampleInputStream *openInputStream(unsigned int track, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
+
+    /**
+     * Returns the number of tracks.
+     */
+    unsigned int tracks();
 
 //    Signal *copyRange ();
 //    Signal *cutRange ();

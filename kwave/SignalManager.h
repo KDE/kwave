@@ -54,11 +54,17 @@ class SignalManager : public QObject
 
 public:
     /** Default constructor. */
-    SignalManager();
+    SignalManager(QWidget *parent);
 
+    /** Default destructor */
     virtual ~SignalManager();
 
     void loadFile(const QString &filename, int type = 0);
+
+    /**
+     * Closes the current signal.
+     */
+    void close();
 
     bool executeCommand(const QString &command);
 
@@ -112,10 +118,9 @@ public:
 	return rate;
     };
 
-    /** Returns the current number of channels */
-    inline unsigned int channels()
-    {
-	return m_channels;
+    /** Returns the current number of tracks */
+    inline unsigned int tracks() {
+	return m_signal.tracks();
     };
 
     /**
@@ -279,11 +284,16 @@ private:
                                          const char *caption);
 
     /**
-     * Searches for the wav data chunk in a wav file.
-     * @param sigin pointer to the already opened file
-     * @return the position of the data or 0 if failed
+     * Try to find a chunk within a RIFF file. If the chunk
+     * was found, the current position will be at the start
+     * of the chunk's data.
+     * @param sigfile file to read from
+     * @param chunk name of the chunk
+     * @param offset the file offset for start of the search
+     * @return the size of the chunk, 0 if not found
      */
-    int findWavChunk(FILE *sigin);
+    __uint32_t findChunk(FILE *sigfile, const char *chunk,
+	__uint32_t offset = 12);
 
     /**
      * Imports ascii file with one sample per line and only one
@@ -340,6 +350,9 @@ private:
     int writeWavChunk(FILE *sigout, unsigned int begin, unsigned int length,
                       int bits);
 
+    /** Parent widget, used for showing messages */
+    QWidget *m_parent_widget;
+
     /** name of the signal, normally equal to the filename */
     QString m_name;
 
@@ -348,7 +361,6 @@ private:
 
     unsigned int lmarker;
     unsigned int rmarker;
-    unsigned int m_channels;
     int rate;                    //sampling rate being used
 
     /**

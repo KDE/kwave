@@ -23,8 +23,10 @@
 
 #include "ArtsSampleSink.h"
 
+//***************************************************************************
 class SampleWriter;
 
+//***************************************************************************
 class ArtsSampleSink_impl
     :virtual public ArtsSampleSink_skel,
      virtual public Arts::StdSynthModule

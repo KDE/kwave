@@ -46,12 +46,11 @@ void ArtsSampleSink_impl::calculateBlock(unsigned long samples)
     unsigned long i;
     sample_t sample = 0;
 
+    // fill the sink with our input
     for(i=0;i < samples;i++) {
 	sample = sample_t(sink[i] * (1 << 23));
 	*m_writer << sample;
     }
-
-    debug("ArtsSampleSink_impl::calculateBlock(%lu)",samples);
 }
 
 //***************************************************************************

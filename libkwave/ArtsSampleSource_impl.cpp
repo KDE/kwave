@@ -44,26 +44,20 @@ void ArtsSampleSource_impl::calculateBlock(unsigned long samples)
     unsigned long i;
     sample_t sample = 0;
 	
-    debug("ArtsSampleSource_impl::calculateBlock(%lu), first=%lu, last=%lu, pos=%lu, eof=%d",
-    	samples, m_reader->first(), m_reader->last(), m_reader->pos(), m_reader->eof());
     if (m_reader && !(m_reader->eof())) {
+	// fill the buffer with samples sample
 	for (i=0;i < samples;i++) {
 	    *m_reader >> sample;
 	    source[i] = sample / double(1 << 23);
-	    if (m_reader->eof()) {
-		break;
-	    }
+	    if (m_reader->eof()) break;
 	}
     }
 
-    while (i < samples) {
-	source[i++] = 0;
-    }
-	
-    if ((!m_reader) || (m_reader->eof())) {
-	m_done = true;
-	debug("ArtsSampleSource_impl::calculateBlock is done");
-    }
+    // pad the rest with zeroes
+    while (i < samples) source[i++] = 0;
+
+    // detect eof()	
+    if ((!m_reader) || (m_reader->eof())) m_done = true;
 }
 
 //***************************************************************************

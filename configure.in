@@ -189,7 +189,9 @@ AC_CHECK_HEADER(sys/soundcard.h, [
 
 AC_CHECK_HEADER(alsa/asoundlib.h, [
     AC_DEFINE(HAVE_ALSA_SUPPORT,1,[support playback/recording via ALSA])
+    ALSA_LDFLAGS="-lasound"
     ])
+AC_SUBST(ALSA_LDFLAGS)
 
 dnl rtti/type info would be fine for debugging
 AC_CHECK_HEADERS(typeinfo)

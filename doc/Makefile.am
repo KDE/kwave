@@ -57,7 +57,7 @@ help_fr.po: help_en.pot
 	$(MSGMERGE) -o help_fr.po help_fr.po help_en.pot
 	# kbabel -nofork help_fr.po
 
-help_fr.it: help_en.pot
+help_it.po: help_en.pot
 	$(MSGMERGE) -o help_it.po help_it.po help_en.pot
 	# kbabel -nofork help_it.po
 

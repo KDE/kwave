@@ -789,8 +789,8 @@ void TopWidget::saveFileAs(bool selection)
 	KwaveApp::setDefaultSaveDir(path.dirPath());
 	
 	// add the extension .wav if necessary
-	if ((path.extension(false) != ".wav") &&
-	    (path.extension(false) != ".wav"))
+	if ((path.extension(false) != "wav") &&
+	    (path.extension(false) != "WAV"))
 	{
 	    name += ".wav";
 	    path = name;

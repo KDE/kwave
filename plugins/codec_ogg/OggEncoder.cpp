@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include <vorbis/codec.h>
+#include <vorbis/vorbisenc.h>
 
 #include "libkwave/FileInfo.h"
 #include "libkwave/MultiTrackReader.h"
@@ -36,6 +36,9 @@
 
 #include "OggCodecPlugin.h"
 #include "OggEncoder.h"
+
+/** bitrate to be used when no bitrate has been selected */
+#define DEFAULT_BITRATE 64000
 
 /***************************************************************************/
 static const struct {
@@ -57,6 +60,7 @@ static const struct {
 	{ INF_CONTACT,      "CONTACT" },
 	{ INF_ISRC,         "ISRC" },
 	{ INF_SOFTWARE,     "ENCODE" },
+	{ INF_CREATION_DATE,"DATE" },
 	{ INF_MIMETYPE,     0 }
 };
 
@@ -126,11 +130,32 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     vorbis_block     vb; // local working space for packet->PCM decode
 
     bool eos = false;
-    int ret;
+    int ret = -1;
 
-    // get info
+    // get info: tracks, sample rate, bitrate(s)
     const unsigned int tracks = info.tracks();
-    const long rate = (long)info.rate();
+    const long sample_rate = (long)info.rate();
+    unsigned int bitrate_nominal = info.contains(INF_BITRATE_NOMINAL) ?
+        QVariant(info.get(INF_BITRATE_NOMINAL)).toUInt() : 0;
+    unsigned int bitrate_lower = info.contains(INF_BITRATE_LOWER) ?
+        QVariant(info.get(INF_BITRATE_LOWER)).toInt() : bitrate_nominal;
+    unsigned int bitrate_upper = info.contains(INF_BITRATE_UPPER) ?
+        QVariant(info.get(INF_BITRATE_UPPER)).toUInt() : bitrate_nominal;
+
+    if (!bitrate_nominal || !(bitrate_lower && bitrate_upper)) {
+	// no bitrate given -> complain !
+	if (KMessageBox::warningContinueCancel(widget,
+	    i18n("You have not selected any bitrate for the encoding. "
+	         "Do you want to continue and encode with %1 kBit/s "
+	         "or cancel and choose a different bitrate?").arg(
+	         DEFAULT_BITRATE/1000)) !=
+	    KMessageBox::Continue)
+	return false; // <- Cancelled
+	
+	bitrate_nominal = DEFAULT_BITRATE;
+	bitrate_lower = bitrate_nominal;
+	bitrate_upper = bitrate_nominal;
+    }
     
     // some checks first
     ASSERT(tracks < 255);
@@ -139,9 +164,20 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
     /********** Encode setup ************/
     vorbis_info_init(&vi);
 
-    /* choose an encoding mode.  A few possibilities commented out, one
-       actually used: */
-
+    /** @todo encode using quality mode */
+    if (bitrate_lower != bitrate_upper) {
+	// Encoding using a VBR quality mode.
+	bitrate_nominal = (bitrate_upper + bitrate_lower) / 2;
+	ret = vorbis_encode_init(&vi, tracks, sample_rate,
+	                         bitrate_upper,
+	                         bitrate_nominal,
+	                         bitrate_lower);
+    } else {
+	// Encoding using an average bitrate mode (ABR).
+	ret = vorbis_encode_init(&vi, tracks, sample_rate,
+	                         -1, bitrate_nominal, -1);
+    }
+    
     /*********************************************************************
      Encoding using a VBR quality mode.  The usable range is -.1
      (lowest quality, smallest file) to 1. (highest quality, largest file).
@@ -151,14 +187,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
      ---------------------------------------------------------------------
 
-     Encoding using an average bitrate mode (ABR).
-     example: 44kHz stereo coupled, average 128kbps VBR
-
-     ret = vorbis_encode_init(&vi,2,44100,-1,128000,-1);
-
-     ---------------------------------------------------------------------
-
-     Encode using a qulity mode, but select that quality mode by asking for
+     Encode using a quality mode, but select that quality mode by asking for
      an approximate bitrate.  This is not ABR, it is true VBR, but selected
      using the bitrate interface, and then turning bitrate management off:
 
@@ -168,8 +197,6 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 
      *********************************************************************/
 
-    ret = vorbis_encode_init_vbr(&vi, tracks, rate, .5);
-
     /* do not continue if setup failed; this can happen if we ask for a
        mode that libVorbis does not support (eg, too low a bitrate, etc,
        will return 'OV_EIMPL') */
@@ -178,6 +205,36 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    "parameters are not supported. Please change the "
 	    "settings and try again..."));
 	return false;
+    }
+
+    // open the output device
+    if (!dst.open(IO_ReadWrite | IO_Truncate)) {
+	KMessageBox::error(widget,
+	    i18n("Unable to open the file for saving!"));
+	return false;
+    }
+    
+    // append some missing standard properties if they are missing
+    if (!info.contains(INF_SOFTWARE)) {
+        // add our Kwave Software tag
+	const KAboutData *about_data = KGlobal::instance()->aboutData();
+	QString software = about_data->programName() + "-" +
+	    about_data->version() +
+	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
+	QVariant value = software.utf8();
+	debug("OggEncoder: adding software tag: '%s'", software.data());
+	info.set(INF_SOFTWARE, value);
+    }
+
+    if (!info.contains(INF_CREATION_DATE)) {
+	// add a date tag
+	QDate now(QDate::currentDate());
+	QString date;
+	date = date.sprintf("%04d-%02d-%02d",
+	    now.year(), now.month(), now.day());
+	QVariant value = date.utf8();
+	debug("OggEncoder: adding date tag: '%s'", date.data());
+	info.set(INF_CREATION_DATE, value);
     }
 
     // add all supported properties as file comments
@@ -206,11 +263,12 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	ogg_packet header_comm;
 	ogg_packet header_code;
 	
-	vorbis_analysis_headerout(&vd,&vc,&header,&header_comm,&header_code);
-	ogg_stream_packetin(&os,&header); // automatically placed in its own
-					  // page
-	ogg_stream_packetin(&os,&header_comm);
-	ogg_stream_packetin(&os,&header_code);
+	vorbis_analysis_headerout(&vd, &vc, &header, &header_comm,
+	                          &header_code);
+	// automatically placed in its own page
+	ogg_stream_packetin(&os, &header);
+	ogg_stream_packetin(&os, &header_comm);
+	ogg_stream_packetin(&os, &header_code);
 
 	// This ensures the actual audio data will start on a
 	// new page, as per spec
@@ -238,7 +296,7 @@ bool OggEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	    for (pos=0; (pos < BUFFER_SIZE)  && !src.eof(); ++pos) {
 		for (unsigned int track = 0; (track < tracks); ++track) {
 		    *(src[track]) >> s;
-		    buffer[track][pos] = s;
+		    buffer[track][pos] = (float)s / (float)SAMPLE_MAX;
 		}
 	    }
 	    

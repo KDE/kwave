@@ -17,7 +17,6 @@
 
 #include "Signal.h"
 #include "Parser.h"
-#include "gsl_fft.h"
 #include "Interpolation.h"
 #include "Curve.h"
 #include "Filter.h"
@@ -64,11 +63,11 @@ Track *Signal::insertTrack(unsigned int index, unsigned int length)
     Track *t = 0;
     {
 	SharedLockGuard lock(m_lock_tracks, true);
-	
+
 	t = new Track(length);
 	Q_ASSERT(t);
 	if (!t) return 0;
-	
+
 	if (index < m_tracks.count()) {
 	    // insert into the list
 	    track_nr = index;
@@ -78,7 +77,7 @@ Track *Signal::insertTrack(unsigned int index, unsigned int length)
 	    track_nr = m_tracks.count();
 	    m_tracks.append(t);
 	}
-	
+
 	// connect to the track's signals
 	connect(t, SIGNAL(sigSamplesDeleted(Track&, unsigned int,
 	    unsigned int)),
@@ -114,7 +113,7 @@ void Signal::deleteTrack(unsigned int index)
     {
 	SharedLockGuard lock(m_lock_tracks, true);
 	if (index > m_tracks.count()) return; // bail out if not in range
-	
+
 	t = m_tracks.at(index);
 	m_tracks.setAutoDelete(false);
 	m_tracks.remove(index);
@@ -513,7 +512,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //
 //	} else {
 //	    // basically the same,but the loops go viceversa
-//	
+//
 //	    //slower routine because of check, needed only in this range...
 //	    for (unsigned int i = begin; i < begin + max; i++) {
 //		filter->setCoeff(tap, *move[i - begin]);
@@ -535,7 +534,7 @@ void Signal::selectTrack(unsigned int track, bool select)
 //
 //
 //	}
-//	
+//
 //	delete move;
 //    }
 //}

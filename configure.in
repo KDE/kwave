@@ -14,7 +14,7 @@ AM_INIT_AUTOMAKE(1.6.3) dnl Require Automake 1.6.3 or better.
 KDE_SET_PREFIX
 
 dnl generate the config header
-AM_CONFIG_HEADER(config.h)
+AM_CONFIG_HEADER([config.h])
 
 AC_LANG([C])
 AC_LANG([C++])
@@ -421,7 +421,30 @@ AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 dnl test for usage of insure++
 AC_CHECK_WITH_INSURE
 
-dnl add here all your Makefiles
-dnl             (Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
-AC_CONFIG_FILES([Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec])
+dnl
+dnl Instead of one single line with all files, I had to split this up 
+dnl into several lines with only one argument per call. Otherwise there
+dnl would be a strange problem with Debian-3.01 (woody). Like this:
+dnl
+dnl configure.in:428: error: m4_popdef: undefined macro: AC_Dest
+dnl autoconf/status.m4:844: AC_CONFIG_FILES is expanded from...
+dnl configure.in:74: the top level
+dnl autom4te: /usr/bin/m4 failed with exit status: 1
+dnl 
+
+AC_CONFIG_FILES(Makefile)
+AC_CONFIG_FILES(libaudiofile/Makefile)
+AC_CONFIG_FILES(libaudiofile/modules/Makefile)
+AC_CONFIG_FILES(mt/Makefile)
+AC_CONFIG_FILES(libkwave/Makefile)
+AC_CONFIG_FILES(libgui/Makefile)
+AC_CONFIG_FILES(kwave/Makefile)
+AC_CONFIG_FILES(plugins/Makefile)
+AC_CONFIG_FILES(plugins/common/Makefile)
+AC_CONFIG_FILES(po/Makefile)
+AC_CONFIG_FILES(doxy.cfg)
+AC_CONFIG_FILES(doc/Makefile)
+AC_CONFIG_FILES(kwave.spec)
+
 AC_OUTPUT
+

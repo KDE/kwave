@@ -9,8 +9,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>486</width>
-            <height>524</height>
+            <width>513</width>
+            <height>528</height>
         </rect>
     </property>
     <property name="caption">
@@ -198,6 +198,12 @@
                             <property name="sizeType">
                                 <enum>Expanding</enum>
                             </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
                         </spacer>
                     </hbox>
                 </widget>
@@ -249,6 +255,12 @@
                             <property name="sizeType">
                                 <enum>Expanding</enum>
                             </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
                         </spacer>
                     </hbox>
                 </widget>
@@ -283,6 +295,12 @@
                             </property>
                             <property name="sizeType">
                                 <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>0</height>
+                                </size>
                             </property>
                         </spacer>
                     </hbox>
@@ -340,7 +358,7 @@
                 <property name="spacing">
                     <number>6</number>
                 </property>
-                <widget class="QFrame">
+                <widget class="QButtonGroup">
                     <property name="name">
                         <cstring>Frame3</cstring>
                     </property>
@@ -349,6 +367,9 @@
                     </property>
                     <property name="frameShadow">
                         <enum>Raised</enum>
+                    </property>
+                    <property name="title">
+                        <string></string>
                     </property>
                     <grid>
                         <property name="name">
@@ -419,6 +440,9 @@
                             <property name="name">
                                 <cstring>sbSeconds</cstring>
                             </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
                             <property name="wrapping">
                                 <bool>true</bool>
                             </property>
@@ -435,6 +459,9 @@
                         <widget class="QSpinBox" row="1" column="2">
                             <property name="name">
                                 <cstring>sbMinutes</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
                             </property>
                             <property name="wrapping">
                                 <bool>true</bool>
@@ -460,6 +487,9 @@
                         <widget class="QSpinBox" row="1" column="1">
                             <property name="name">
                                 <cstring>sbHours</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
                             </property>
                         </widget>
                         <widget class="QLabel" row="0" column="1">
@@ -529,6 +559,12 @@
                             <property name="sizeType">
                                 <enum>Expanding</enum>
                             </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
                         </spacer>
                         <widget class="QLabel">
                             <property name="name">
@@ -552,6 +588,12 @@
                             </property>
                             <property name="sizeType">
                                 <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>0</height>
+                                </size>
                             </property>
                         </spacer>
                         <widget class="QLabel">
@@ -633,6 +675,12 @@
                             <property name="sizeType">
                                 <enum>Expanding</enum>
                             </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
                         </spacer>
                         <widget class="QLabel">
                             <property name="name">
@@ -651,6 +699,12 @@
                             </property>
                             <property name="sizeType">
                                 <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>0</height>
+                                </size>
                             </property>
                         </spacer>
                         <widget class="QLabel">
@@ -689,6 +743,12 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>0</height>
+                        </size>
+                    </property>
                 </spacer>
                 <widget class="QLayoutWidget">
                     <property name="name">
@@ -724,6 +784,12 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>0</height>
+                        </size>
+                    </property>
                 </spacer>
             </hbox>
         </widget>
@@ -736,6 +802,12 @@
             </property>
             <property name="sizeType">
                 <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>0</width>
+                    <height>20</height>
+                </size>
             </property>
         </spacer>
         <widget class="QLayoutWidget">
@@ -772,6 +844,12 @@
                     </property>
                     <property name="sizeType">
                         <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>0</height>
+                        </size>
                     </property>
                 </spacer>
                 <widget class="QPushButton">
@@ -833,12 +911,6 @@
         <signal>clicked()</signal>
         <receiver>NewSigDlg</receiver>
         <slot>accept()</slot>
-    </connection>
-    <connection>
-        <sender>rbSamples</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>NewSigDlg</receiver>
-        <slot>setEnabled(bool)</slot>
     </connection>
     <connection>
         <sender>rbTime</sender>

@@ -56,10 +56,10 @@ AudiofileDecoder::AudiofileDecoder()
     addMimeType("audio/x-aifc",
                 i18n("Compressed Audio Interchange Format"),
                 "*.aifc; *.AIFC");
-    addMimeType("audio/x-aif", /* included in KDE */
+    addMimeType("audio/x-aiff", /* included in KDE */
                 i18n("Audio Interchange Format"),
                 "*.aif; *.AIF; *.aiff; *.AIFF");
-    addMimeType("audio/ircam",
+    addMimeType("audio/x-ircam",
                 i18n("Berkeley,IRCAM,Carl Sound Format"),
                 "*.sf; *.SF");
 }

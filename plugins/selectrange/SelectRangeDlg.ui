@@ -45,7 +45,7 @@
             <number>10</number>
         </property>
         <widget>
-            <class>QGroupBox</class>
+            <class>QButtonGroup</class>
             <property stdset="1">
                 <name>name</name>
                 <cstring>GroupBox1</cstring>

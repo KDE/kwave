@@ -84,7 +84,9 @@
   <kdevfileview>
     <groups>
       <group pattern="*.h" name="Headers" />
-      <group pattern="*.c;*.cpp" name="Sources" />
+      <group pattern="*.cpp;*.c" name="Sources" />
+      <group pattern="README;*.lsm;TODO;INSTALL;Chang*" name="GNU files" />
+      <hidenonprojectfiles>true</hidenonprojectfiles>
     </groups>
   </kdevfileview>
   <kdevcvs>
@@ -108,6 +110,9 @@
       <automaticArgumentsHint>true</automaticArgumentsHint>
       <codeCompletionDelay>250</codeCompletionDelay>
       <argumentsHintDelay>400</argumentsHintDelay>
+      <automaticHeaderCompletion>true</automaticHeaderCompletion>
+      <headerCompletionDelay>250</headerCompletionDelay>
     </codecompletion>
+    <references/>
   </kdevcppsupport>
 </kdevelop>

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2003-09-14</date>
+<date>2003-10-26</date>
 <releaseinfo>0.6.7-3</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -186,10 +186,21 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.6.8 [2003-09-??]</para>
+            <para>0.7.0 [2003-11-??]</para>
             <itemizedlist>
                 <listitem><para>
                     added project files for kdevelop-3
+                </para></listitem>
+                <listitem><para>
+                    started work on recording plugin
+                </para></listitem>
+                <listitem><para>
+                    removed workaround for uic invocation
+                </para></listitem>
+                <listitem><para>
+                    bugfix: handling of persistent and unique plugins was wrong,
+                      which caused playback to work only in the first main window
+                      instance
                 </para></listitem>
             </itemizedlist>
         </listitem>

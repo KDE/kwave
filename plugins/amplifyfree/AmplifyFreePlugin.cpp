@@ -31,8 +31,10 @@
 
 #include "libkwave/InsertMode.h"
 #include "libkwave/MultiTrackWriter.h"
+#include "libkwave/MultiTrackReader.h"
 #include "libkwave/Parser.h"
 #include "libkwave/Sample.h" // ###
+#include "libkwave/SampleReader.h" // ###
 #include "libkwave/SampleWriter.h" // ###
 
 #include "kwave/PluginManager.h"
@@ -98,44 +100,112 @@ QStringList *AmplifyFreePlugin::setup(QStringList &previous_params)
 using namespace Arts;
 
 #include "kwave_sample_source.h"
+#include "kwave_sample_sink.h"
+#include <flowsystem.h>
 #include <stdsynthmodule.h>
 #include "libkwave/Sample.h" // ###
 #include "libkwave/SampleReader.h" // ###
 
 class Kwave_SampleSource_impl
-              :public Kwave_SampleSource_skel, Arts::StdSynthModule
+    :public Kwave_SampleSource_skel, Arts::StdSynthModule
 {
 public:
 
      Kwave_SampleSource_impl()
 	:Kwave_SampleSource_skel(), Arts::StdSynthModule(),
-	source(0)
+	reader(0)
      { }
 
-     Kwave_SampleSource_impl(SampleReader *src)
+     Kwave_SampleSource_impl(SampleReader *rdr)
 	:Kwave_SampleSource_skel(), Arts::StdSynthModule(),
-	source(src)
-     { }
+	reader(rdr)
+    { }
 
-     void calculateBlock(unsigned long samples)
-     {
-         unsigned long i;
-         for(i=0;i < samples;i++)
-             result[i] = (int)(double(i % 1024) * (double)((1 << 22) / 1024));
-     }
+    void calculateBlock(unsigned long samples)
+    {
+	unsigned long i;
+	sample_t sample = 0;
+	
+	if (reader && !(reader->eof())) {
+	    for(i=0;i < samples;i++) {
+		*reader >> sample;
+		source[i] = sample / double(1 << 23);
+		if (reader->eof()) {
+		    break;
+		}
+	    }
+	}
+	
+	for (; i < samples; i++) {
+	    source[i] = 0;
+	}
+	
+	if (!reader || reader->eof()) {
+//	    emit sigEof();
+	}
+    }
 
 protected:
-    SampleReader *source;
+    SampleReader *reader;
+
+};
+
+class Kwave_SampleSink_impl
+    :public Kwave_SampleSink_skel, Arts::StdSynthModule
+{
+public:
+
+	void calculateBlock(unsigned long samples)
+	{
+//		if(samples > maxsamples)
+//		{
+//			maxsamples = samples;
+//			if(outblock) delete[] outblock;
+//			outblock = new uchar[maxsamples * 4]; // 2 channels, 16 bit
+//		}
+//
+//		convert_stereo_2float_i16le(samples,left,right, outblock);
+//		fwrite(outblock, 1, 4 * samples,out);
+	}
+
+	/*
+	 * this is the most tricky part here - since we will run in a context
+	 * where no audio hardware will play the "give me more data role",
+	 * we'll have to request things ourselves (requireFlow() tells the
+	 * flowsystem that more signal flow should happen, so that
+	 * calculateBlock will get called
+	 */
+	void goOn()
+	{
+		_node()->requireFlow();
+	}
 
 };
 
 REGISTER_IMPLEMENTATION(Kwave_SampleSource_impl);
+REGISTER_IMPLEMENTATION(Kwave_SampleSink_impl);
+
 
 //***************************************************************************
 void AmplifyFreePlugin::run(QStringList)
 {
+    unsigned int first, last;
+
 //    UndoTransactionGuard undo_guard(*this, i18n("amplify free"));
     m_stop = false;
+
+    MultiTrackReader source;
+
+    unsigned int input_length = selection(&first, &last);
+    if (first == last) {
+	input_length = signalLength()-1;
+	first = 0;
+	last = input_length-1;
+    }
+    openMultiTrackReader(source, selectedTracks(), first, last);
+
+    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+
 //    QArray<sample_t> m_zeroes;
 //    unsigned int ZERO_COUNT = 65536;
 //
@@ -169,11 +239,18 @@ void AmplifyFreePlugin::run(QStringList)
 //	first += m_zeroes.count();
 //    }
 
+    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
     Arts::Dispatcher dispatcher;
     dispatcher.lock();
 
-    Kwave_SampleSource adapter = Kwave_SampleSource::_from_base(
-	new Kwave_SampleSource_impl((SampleReader*)0));
+    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+//    for (track=0; track < tracks; track++) {
+	SampleReader *reader = source.at(0);
+	
+    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+
+    Kwave_SampleSource src_adapter = Kwave_SampleSource::_from_base(
+	new Kwave_SampleSource_impl(reader));
 
     fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
 
@@ -185,11 +262,12 @@ void AmplifyFreePlugin::run(QStringList)
 //    Arts::connect(sin2, play, "invalue_right");
 
     fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
-    Arts::connect(adapter, play, "invalue_left");
+    Arts::connect(src_adapter, play, "invalue_left");
     fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
 
-    adapter.start();
+    src_adapter.start();
     play.start();
+
     dispatcher.run();
 
     fprintf(stderr, "---%s:%d\n",__FILE__, __LINE__);
@@ -197,8 +275,8 @@ void AmplifyFreePlugin::run(QStringList)
 //    writers.setAutoDelete(true);
 //    writers.clear();
 
-	fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
-	dispatcher.unlock();
+    fprintf(stderr, "---%s:%d---\n",__FILE__, __LINE__);
+    dispatcher.unlock();
 
     close();
 }

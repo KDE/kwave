@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-09-09 21:30+0200\n"
+"POT-Creation-Date: 2002-09-14 12:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1023,61 +1023,61 @@ msgstr ""
 msgid "Blackman"
 msgstr ""
 
-#: kwave/SignalManager.cpp:250
+#: kwave/SignalManager.cpp:290
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:279
+#: kwave/SignalManager.cpp:319
 msgid ""
 "Saving in this format will loose some additional file attributes. Do you "
 "still want to continue?"
 msgstr ""
 
-#: kwave/SignalManager.cpp:316
+#: kwave/SignalManager.cpp:356
 msgid "An error occurred while saving the file!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:325
+#: kwave/SignalManager.cpp:365
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:332
+#: kwave/SignalManager.cpp:372
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:546
+#: kwave/SignalManager.cpp:586
 msgid "cut"
 msgstr ""
 
-#: kwave/SignalManager.cpp:549
+#: kwave/SignalManager.cpp:589
 msgid "crop"
 msgstr ""
 
-#: kwave/SignalManager.cpp:615
+#: kwave/SignalManager.cpp:655
 msgid "paste"
 msgstr ""
 
-#: kwave/SignalManager.cpp:658
+#: kwave/SignalManager.cpp:698
 msgid "append track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:665 kwave/UndoInsertTrack.cpp:39
+#: kwave/SignalManager.cpp:705 kwave/UndoInsertTrack.cpp:39
 msgid "insert track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:699 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:739 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:782 kwave/UndoDeleteAction.cpp:36
+#: kwave/SignalManager.cpp:822 kwave/UndoDeleteAction.cpp:36
 msgid "delete"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1256 kwave/SignalManager.cpp:1263
+#: kwave/SignalManager.cpp:1296 kwave/SignalManager.cpp:1303
 msgid "last action"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1482
+#: kwave/SignalManager.cpp:1522
 msgid "modify file info"
 msgstr ""
 
@@ -1305,7 +1305,7 @@ msgstr ""
 msgid "selection"
 msgstr ""
 
-#: kwave/SignalWidget.cpp:1770 kwave/SignalWidget.cpp:1809
+#: kwave/SignalWidget.cpp:1786 kwave/SignalWidget.cpp:1825
 msgid "drag and drop"
 msgstr ""
 
@@ -1766,70 +1766,102 @@ msgstr ""
 msgid "every 2nd Point"
 msgstr ""
 
-#: libgui/FileProgress.cpp:76
+#: libgui/FileProgress.cpp:79
 msgid "source: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:82
+#: libgui/FileProgress.cpp:85
 msgid "length: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:90
-#, ycp-format
-msgid "%1 samples"
-msgstr ""
-
-#: libgui/FileProgress.cpp:95
+#: libgui/FileProgress.cpp:92
 msgid "sample rate: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:96
+#: libgui/FileProgress.cpp:93
 #, ycp-format
 msgid "%1 samples per second"
 msgstr ""
 
-#: libgui/FileProgress.cpp:100
+#: libgui/FileProgress.cpp:97
 msgid "resolution: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:101
+#: libgui/FileProgress.cpp:98
 #, ycp-format
 msgid "%1 bits per sample"
 msgstr ""
 
-#: libgui/FileProgress.cpp:105
+#: libgui/FileProgress.cpp:102
 msgid "tracks: "
 msgstr ""
 
-#: libgui/FileProgress.cpp:108
+#: libgui/FileProgress.cpp:105
 msgid "1 (mono)"
 msgstr ""
 
-#: libgui/FileProgress.cpp:111
+#: libgui/FileProgress.cpp:108
 msgid "2 (stereo)"
 msgstr ""
 
-#: libgui/FileProgress.cpp:114
+#: libgui/FileProgress.cpp:111
 msgid "4 (quadro)"
 msgstr ""
 
-#: libgui/FileProgress.cpp:187
+#: libgui/FileProgress.cpp:184
 msgid "Do you really want to abort the operation?"
 msgstr ""
 
-#: libgui/FileProgress.cpp:256
+#: libgui/FileProgress.cpp:253
 #, ycp-format
 msgid "%1 KB/s (%2 remain)"
 msgstr ""
 
-#: libgui/FileProgress.cpp:271
+#: libgui/FileProgress.cpp:268
 #, ycp-format
 msgid "%1 MB of %2 MB done"
 msgstr ""
 
-#: libgui/FileProgress.cpp:296
+#: libgui/FileProgress.cpp:297
 #, c-format
 msgid "(%1%) %2"
+msgstr ""
+
+#: libgui/FileProgress.cpp:334
+#, ycp-format
+msgid "%1 samples"
+msgstr ""
+
+#: plugins/codec_ogg/OggDecoder.cpp:84
+msgid "Input does not appear to be an Ogg bitstream."
+msgstr ""
+
+#: plugins/codec_ogg/OggDecoder.cpp:104
+msgid "Error reading first page of Ogg bitstream data."
+msgstr ""
+
+#: plugins/codec_ogg/OggDecoder.cpp:111
+msgid "Error reading initial header packet."
+msgstr ""
+
+#: plugins/codec_ogg/OggDecoder.cpp:118
+msgid "This Ogg bitstream does not contain Vorbis audio data."
+msgstr ""
+
+#: plugins/codec_ogg/OggDecoder.cpp:151
+msgid "Corrupt secondary header. Exiting."
+msgstr ""
+
+#: plugins/codec_ogg/OggDecoder.cpp:165
+msgid "End of file before finding all Vorbis headers!"
+msgstr ""
+
+#: plugins/codec_ogg/OggDecoder.cpp:283
+msgid "Corrupt or missing data in bitstream; continuing..."
+msgstr ""
+
+#: plugins/codec_ogg/OggCodecPlugin.h:59 plugins/codec_ogg/OggCodecPlugin.h:61
+msgid "Ogg, Vorbis audio"
 msgstr ""
 
 #: plugins/amplifyfree/AmplifyFreePlugin.cpp:112

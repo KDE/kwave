@@ -49,7 +49,8 @@ clean-generic:
 	-rm -fv `find . -name \*.dm`
 	-rm -fv `find . -name .depend`
 	-rm -fv `find . -name \*.uih.h`
-	-rm -fv `find . -name \*.uic.cpp`
+	-rm -fv `find . -name \.inslog\*`
+	-rm -fv `find . -name \.ix\*`
 	-rm -Rf doc/api
 
 backup: ${PACKAGE}.spec

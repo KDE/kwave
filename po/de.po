@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2003-02-25 21:02+0100\n"
+"POT-Creation-Date: 2003-02-26 09:32+0100\n"
 "PO-Revision-Date: 2003-02-25 21:02+0100\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -22,7 +22,6 @@ msgid "&About Kwave"
 msgstr "&Über Kwave"
 
 #: kwave/menus_config_i18n.cpp:15
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:80
 msgid "&Add"
 msgstr "&Hinzufügen"
 
@@ -712,75 +711,68 @@ msgstr "letzte Aktion"
 msgid "modify file info"
 msgstr "Datei-Information ändern"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:212
+#: libgui/SelectTimeWidgetBase.uic.cpp:33
 msgid "frmLength"
 msgstr "frmLength"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:213
+#: libgui/SelectTimeWidgetBase.uic.cpp:34
 #: plugins/fileinfo/FileInfoDialog.cpp:195
-#: plugins/newsignal/NewSigDlg.uic.cpp:548
 msgid "Length"
 msgstr "Länge"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:214
+#: libgui/SelectTimeWidgetBase.uic.cpp:39
 msgid "&Samples"
 msgstr "&Samples"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:215
+#: libgui/SelectTimeWidgetBase.uic.cpp:41
 msgid "select by number of samples"
 msgstr "Auswahl nach Anzahl der Samples"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:216
+#: libgui/SelectTimeWidgetBase.uic.cpp:47
 msgid "&Time"
 msgstr "&Zeit"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:217
+#: libgui/SelectTimeWidgetBase.uic.cpp:49
 msgid "select by time"
 msgstr "Auswahl nach Zeit"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:218
+#: libgui/SelectTimeWidgetBase.uic.cpp:58
 msgid "&Percent"
 msgstr "&Prozent"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:219
+#: libgui/SelectTimeWidgetBase.uic.cpp:60
 msgid "select by percentage of the signal's length"
 msgstr "Auswahl nach Prozentsatz der Länge des Signals"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:220
-#: plugins/newsignal/NewSigDlg.uic.cpp:555
+#: libgui/SelectTimeWidgetBase.uic.cpp:84
 msgid "Minutes"
 msgstr "Minuten"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:221
+#: libgui/SelectTimeWidgetBase.uic.cpp:100
 msgid "Milliseconds"
 msgstr "Millisekunden"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:222
-#: plugins/newsignal/NewSigDlg.uic.cpp:554
+#: libgui/SelectTimeWidgetBase.uic.cpp:107
 msgid "Seconds"
 msgstr "Sekunden"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:223
-#: plugins/newsignal/NewSigDlg.uic.cpp:556
+#: libgui/SelectTimeWidgetBase.uic.cpp:123
 msgid "Hours"
 msgstr "Stunden"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:224
-#: plugins/newsignal/NewSigDlg.uic.cpp:561
+#: libgui/SelectTimeWidgetBase.uic.cpp:149
 msgid "0%"
 msgstr "0%"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:225
-#: plugins/newsignal/NewSigDlg.uic.cpp:562
+#: libgui/SelectTimeWidgetBase.uic.cpp:156
 msgid "50%"
 msgstr "50%"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:226
-#: plugins/newsignal/NewSigDlg.uic.cpp:563
+#: libgui/SelectTimeWidgetBase.uic.cpp:163
 msgid "100%"
 msgstr "100%"
 
-#: libgui/SelectTimeWidgetBase.uic.cpp:227
+#: libgui/SelectTimeWidgetBase.uic.cpp:178
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "Setzt die Auswahl über den Prozentsatz der gesamten Signallänge"
 
@@ -1004,7 +996,7 @@ msgstr ""
 "der Datei. Bei mehrzeiligen Kommentaren sollte jede Zeile mit\n"
 "einem Punkt enden. Keine Zeilenumbrücke einfügen!"
 
-#: libkwave/FileInfo.cpp:69 plugins/fileinfo/FileInfoDlg.uic.cpp:1112
+#: libkwave/FileInfo.cpp:69
 msgid "Compression"
 msgstr "Kompression"
 
@@ -1124,7 +1116,7 @@ msgstr ""
 "Numern siehe die ISRC-Einführungs-Seite unter:\n"
 "http://www.ifpi.org/site-content/online/isrc_intro.html"
 
-#: libkwave/FileInfo.cpp:112 plugins/fileinfo/KeywordWidgetBase.uic.cpp:78
+#: libkwave/FileInfo.cpp:112
 msgid "Keywords"
 msgstr "Schlüsselworte"
 
@@ -1304,7 +1296,7 @@ msgstr ""
 "zur Erstellung der Datei verwendet wurde.\n"
 "Beispiel: 'Kwave v0.6.4-1'"
 
-#: libkwave/FileInfo.cpp:177 plugins/fileinfo/FileInfoDlg.uic.cpp:1182
+#: libkwave/FileInfo.cpp:177
 msgid "Source"
 msgstr "Quelle"
 
@@ -2006,7 +1998,7 @@ msgstr "Dance Hall"
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: libkwave/WindowFunction.cpp:54 plugins/fileinfo/FileInfoDlg.uic.cpp:1127
+#: libkwave/WindowFunction.cpp:54
 msgid "None"
 msgstr "Keine"
 
@@ -2201,15 +2193,15 @@ msgstr "Amplitude: %d %%"
 msgid " (Using KDE %1)"
 msgstr " (für KDE-%1)"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:410
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:299
 msgid "About Kwave"
 msgstr "Über Kwave"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:411
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:306
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr "<h1>Kwave - Ein Sound-Editor für KDE</h1>"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:412
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:336
 msgid ""
 " <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
 "h2><br>\n"
@@ -2234,15 +2226,15 @@ msgstr ""
 "und eine graphische Ansicht mit ausgereiften Zoom- und "
 "Navigationsmöglichkeiten."
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:423
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:363
 msgid "Authors"
 msgstr "Autoren"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:424
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:371
 msgid "Thanks To"
 msgstr "Dank an"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:425
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:378
 msgid "License agreement"
 msgstr "Lizenzbestimmungen"
 
@@ -2332,384 +2324,6 @@ msgstr "Wollen Sie trotzdem fortsetzen?"
 #: plugins/decoder_mp3/MP3Decoder.cpp:515
 msgid "Do you want to continue and ignore all following errors?"
 msgstr "Wollen Sie fortsetzen und alle weiteren Fehler ignorieren?"
-
-#: plugins/fileinfo/SelectDateDlg.uic.cpp:310
-msgid "Select Date"
-msgstr "Datum auswählen"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1069
-msgid "File Info"
-msgstr "Datei-Informationen"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1070
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1071
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1072
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1074
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1075
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1076
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1091
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1092
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1094
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1117
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1122
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1124
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1125
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1130
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1131
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1157
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1162
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1163
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1164
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1165
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1166
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1174
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1175
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1176
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1177
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1178
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1179
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1180
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1181
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1183
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1184
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1185
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1186
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1187
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1188
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1189
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1190
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1192
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1193
-msgid "#"
-msgstr "#"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1073
-#: plugins/newsignal/NewSigDlg.uic.cpp:545
-#: plugins/newsignal/NewSigDlg.uic.cpp:564
-msgid "%1"
-msgstr "%1"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1077
-#: plugins/newsignal/NewSigDlg.uic.cpp:544
-msgid "bit"
-msgstr "Bit"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1079
-#: plugins/newsignal/NewSigDlg.uic.cpp:528
-msgid "8000"
-msgstr "8000"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1080
-#: plugins/newsignal/NewSigDlg.uic.cpp:529
-msgid "10000"
-msgstr "10000"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1081
-#: plugins/newsignal/NewSigDlg.uic.cpp:530
-msgid "11025"
-msgstr "11025"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1082
-#: plugins/newsignal/NewSigDlg.uic.cpp:531
-msgid "12000"
-msgstr "12000"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1083
-#: plugins/newsignal/NewSigDlg.uic.cpp:532
-msgid "16000"
-msgstr "16000"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1084
-#: plugins/newsignal/NewSigDlg.uic.cpp:533
-msgid "22050"
-msgstr "22050"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1085
-#: plugins/newsignal/NewSigDlg.uic.cpp:534
-msgid "32000"
-msgstr "32000"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1086
-#: plugins/newsignal/NewSigDlg.uic.cpp:535
-msgid "44100"
-msgstr "44100"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1087
-#: plugins/newsignal/NewSigDlg.uic.cpp:536
-msgid "48000"
-msgstr "48000"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1088
-#: plugins/newsignal/NewSigDlg.uic.cpp:537
-msgid "96000"
-msgstr "96000"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1090
-#: plugins/newsignal/NewSigDlg.uic.cpp:541
-msgid "samples per second"
-msgstr "Samples pro Sekunde"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1095
-msgid "Encoding Mode:"
-msgstr "Codierungs-Methode:"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1097
-msgid "ABR:"
-msgstr "ABR:"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1098
-msgid "Average Bitrate Mode"
-msgstr "Mittlere Bitrate"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1099
-msgid ""
-"<b>Average Bitrate Mode</b><br>\n"
-"Bitrate is set to an average value, \n"
-"with optional upper and lower limit."
-msgstr ""
-"<b>Mittlere Bitrate</b><br>\n"
-"Die Bitrate wird auf einen mittleren Wert festgelegt, \n"
-"mit einer optionalen Ober- und Untergrenze."
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1102
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1111
-msgid "lowest"
-msgstr "niedrigste"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1103
-msgid "highest"
-msgstr "höchste"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1104
-msgid "Nominal Bitrate"
-msgstr "Nominate Bitrate"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1105
-msgid "VBR:"
-msgstr "VBR:"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1106
-msgid "Variable Bitrate Mode"
-msgstr "Variable Bitrate"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1107
-msgid ""
-"<b>Variable Bitrate Mode</b><br>\n"
-"The bitrate is selected by an average quality."
-msgstr ""
-"<b>Variable Bitrate</b><br>\n"
-"Auswahl der Bitrate über eine mittlere Qualität."
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1109
-msgid "Base Quality"
-msgstr "Basis-Qualität"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1110
-msgid " %"
-msgstr " %"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1114
-msgid "MPEG Version 1 (ISO/IEC 11172-3)"
-msgstr "MPEG Version 1 (ISO/IEC 11172-3)"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1115
-msgid "MPEG Version 2 (ISO/IEC 13818-3)"
-msgstr "MPEG Version 2 (ISO/IEC 13818-3)"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1116
-msgid "MPEG Version 2.5 (unofficial)"
-msgstr "MPEG Version 2.5 (inoffiziell)"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1119
-msgid "Layer I"
-msgstr "Layer I"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1120
-msgid "Layer II"
-msgstr "Layer II"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1121
-msgid "Layer III"
-msgstr "Layer III"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1123
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1160
-#: plugins/fileinfo/FileInfoDialog.cpp:411
-#: plugins/fileinfo/FileInfoDialog.cpp:417
-msgid "yes"
-msgstr "Ja"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1128
-msgid "50/15ms"
-msgstr "50/15ms"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1129
-msgid "CCIT J.17"
-msgstr "CCIT J.17"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1133
-msgid "(variable)"
-msgstr "(variabel)"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1134
-msgid "8K"
-msgstr "8K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1135
-msgid "16K"
-msgstr "16K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1136
-msgid "24K"
-msgstr "24K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1137
-msgid "32K"
-msgstr "32K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1138
-msgid "40K"
-msgstr "40K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1139
-msgid "56K"
-msgstr "56K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1140
-msgid "64K"
-msgstr "64K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1141
-msgid "80K"
-msgstr "80K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1142
-msgid "96K"
-msgstr "96K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1143
-msgid "112K"
-msgstr "112K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1144
-msgid "128K"
-msgstr "128K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1145
-msgid "144K"
-msgstr "144K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1146
-msgid "160K"
-msgstr "160K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1147
-msgid "176K"
-msgstr "176K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1148
-msgid "192K"
-msgstr "192K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1149
-msgid "224K"
-msgstr "224K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1150
-msgid "256K"
-msgstr "256K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1151
-msgid "288K"
-msgstr "288K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1152
-msgid "320K"
-msgstr "320K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1153
-msgid "352K"
-msgstr "352K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1154
-msgid "384K"
-msgstr "384K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1155
-msgid "416K"
-msgstr "416K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1156
-msgid "448K"
-msgstr "448K"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1158
-msgid "Intensity Stereo"
-msgstr "Stereo-Intensität"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1159
-msgid "MS Stereo"
-msgstr "MS Stereo"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1161
-msgid "MPEG"
-msgstr "MPEG"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1167
-msgid "&Select..."
-msgstr "Aus&wählen..."
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1168
-msgid "Select a date from the calendar."
-msgstr "Datum per Kalender auswählen."
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1169
-msgid "Opens a dialog for selecting a date from the calendar."
-msgstr "Öffnet einen Dialog um ein Datum von einem Kalender auszuwählen."
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1170
-msgid "&Today"
-msgstr "&Heute"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1171
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1172
-msgid "Set the date to today."
-msgstr "Setzt das Datum auf den heutigen Tag."
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1173
-msgid "Content"
-msgstr "Inhalt"
-
-#: plugins/fileinfo/FileInfoDlg.uic.cpp:1191
-msgid "Author/Copyright"
-msgstr "Author/Copyright"
-
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:81
-msgid "A&uto"
-msgstr "&Automatisch"
-
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:82
-msgid "auto-generate keywords"
-msgstr "Schlüsselworte automatisch erzeugen"
-
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:83
-msgid ""
-"<b>Auto-Generate Keywords</b><br>\n"
-"Create a list of keywords by going through all present file informations and "
-"merge them with the current list of keywords."
-msgstr ""
-"<b>Schlüsselworte automatisch erzeugen</b<br>\n"
-"Erzeugt die Liste durch Auswerten aller eingegebenen Datei-Informationen und "
-"vereint sie mit den bereits vorhandenen Schlüsselworten."
-
-#: plugins/fileinfo/KeywordWidgetBase.uic.cpp:85
-msgid "List of keywords."
-msgstr "Liste von Schlüsselworten."
-
-#: plugins/fileinfo/BitrateWidgetBase.uic.cpp:295
-#: plugins/newsignal/NewSigDlg.uic.cpp:525
-msgid "Form1"
-msgstr "Form1"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:129
 msgid "%1 bytes"
@@ -2803,6 +2417,11 @@ msgstr "Bänder 16 bis 31"
 
 #: plugins/fileinfo/FileInfoDialog.cpp:411
 #: plugins/fileinfo/FileInfoDialog.cpp:417
+msgid "yes"
+msgstr "Ja"
+
+#: plugins/fileinfo/FileInfoDialog.cpp:411
+#: plugins/fileinfo/FileInfoDialog.cpp:417
 msgid "no"
 msgstr "Nein"
 
@@ -2848,15 +2467,6 @@ msgstr "Start"
 #: plugins/selectrange/SelectRangePlugin.cpp:146
 msgid "select range"
 msgstr "Bereich auswählen"
-
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:320
-msgid "Select Range..."
-msgstr "Bereich auswählen..."
-
-#: plugins/selectrange/SelectRangeDlg.uic.cpp:322
-#: plugins/newsignal/NewSigDlg.uic.cpp:566
-msgid "O&K"
-msgstr "O&K"
 
 #: plugins/codec_audiofile/AudiofileDecoder.cpp:57
 msgid "NeXT,Sun Audio"
@@ -2925,149 +2535,13 @@ msgstr "%"
 msgid "amplify free"
 msgstr "Frei Verstärken"
 
-#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:132
+#: plugins/amplifyfree/AmplifyFreeDlg.uic.cpp:64
 msgid "Amplify Free"
 msgstr "Frei Verstärken"
-
-#: plugins/memory/MemDlg.uic.cpp:166
-msgid "Memory Settings"
-msgstr "Speicher Einstellungen"
-
-#: plugins/memory/MemDlg.uic.cpp:167
-msgid "&Physical Memory"
-msgstr "&Physikalischer Speicher"
-
-#: plugins/memory/MemDlg.uic.cpp:168
-msgid ""
-"<b>Limit the usage of physical memory (RAM).</b><br>\n"
-"\n"
-"If you do not set a limit, the size of the physically installed memory in "
-"your computer will be determined and used as limit. You cannot set a limit "
-"higher than the totally installed amount of memory."
-msgstr ""
-"<b>Begrenzt die Verwendung physikalischen Speichers (RAM)</b><br>\n"
-"\n"
-"Wenn Sie keine Begrenzung angeben, wird die Größe des installierten "
-"physikalischen Speichers in Ihrem Computer als Limit verwendet. Sie können "
-"kein Limit setzen das höher ist als die Menge des installierten Speichers."
-
-#: plugins/memory/MemDlg.uic.cpp:171
-msgid "Limit &to"
-msgstr "Begrenzen &auf"
-
-#: plugins/memory/MemDlg.uic.cpp:172 plugins/memory/MemDlg.uic.cpp:187
-msgid " MB"
-msgstr " MB"
-
-#: plugins/memory/MemDlg.uic.cpp:173
-msgid "megabytes of physical memory"
-msgstr "Megabytes physiklischer Speicher"
-
-#: plugins/memory/MemDlg.uic.cpp:174
-msgid "&Virtual Memory"
-msgstr "&Auslagerungsdateien"
-
-#: plugins/memory/MemDlg.uic.cpp:175
-msgid ""
-"<b>Configure the usage of virtual memory (swap files).</b><br>\n"
-"\n"
-"If you enable the use of virtual memory, you can specify a directory where "
-"Kwave creates temporary files that it can use as an extension to the "
-"physical memory. This enables you to process files that are much larger than "
-"your physical memory.\n"
-"<br>\n"
-"    Of course you can also set a limit for the total size of the page files."
-msgstr ""
-"<b>Konfiguration der Auslagerungsdateien.</b><br>\n"
-"\n"
-"Wenn Sie die Verwendung von Auslagerungsdateien aktivieren, können Sie ein "
-"Verzeichnis angeben in dem Kwave Auslagerungsdateien erstellt, die "
-"zusätzlich zu dem physikalischen Speicher (RAM) verwendet werden. Auf diese "
-"Art und Weise können Sie Dateien bearbeiten die größer sind als das Ihr "
-"physikalischer Speicher erlauben würde.\n"
-"<br>\n"
-"    Natürlich können Sie die Menge an Speicher in den Auslagerungsdateien "
-"auch begrenzen."
-
-#: plugins/memory/MemDlg.uic.cpp:180
-msgid "&Enable usage of virtual memory"
-msgstr "Auslagerungsdateien &aktivieren"
-
-#: plugins/memory/MemDlg.uic.cpp:181
-msgid "Directory:"
-msgstr "Verzeichnis:"
-
-#: plugins/memory/MemDlg.uic.cpp:182
-msgid "/tmp"
-msgstr "/tmp"
-
-#: plugins/memory/MemDlg.uic.cpp:183
-msgid "directory for storing swap files"
-msgstr "Verzeichnis für Auslagerungsdateien"
-
-#: plugins/memory/MemDlg.uic.cpp:184
-msgid "&Search..."
-msgstr "&Suchen..."
-
-#: plugins/memory/MemDlg.uic.cpp:185
-msgid "browse for a directory to hold page files"
-msgstr "Verzeichnis für Auslagerungsdateien wählen"
-
-#: plugins/memory/MemDlg.uic.cpp:186
-msgid "&Limit to"
-msgstr "&Begrenzen auf"
-
-#: plugins/memory/MemDlg.uic.cpp:188
-msgid "megabytes of virtual memory"
-msgstr "Megabytes in Auslagerungsdateien"
 
 #: plugins/volume/VolumePlugin.cpp:115
 msgid "volume"
 msgstr "Lautstärke"
-
-#: plugins/volume/VolumeDlg.uic.cpp:380 plugins/volume/VolumeDlg.uic.cpp:393
-msgid "Volume"
-msgstr "Lautstärke"
-
-#: plugins/volume/VolumeDlg.uic.cpp:383
-msgid "Mode"
-msgstr "Modus"
-
-#: plugins/volume/VolumeDlg.uic.cpp:384
-msgid "&Factor"
-msgstr "&Faktor"
-
-#: plugins/volume/VolumeDlg.uic.cpp:385
-msgid ""
-"Increments or decrements the volume by a factor. \n"
-"For example: \"x1\", \"x2\", \"/ 4\""
-msgstr ""
-"Erhöht oder senkt die Lautstärke über einen ganzzahligen Faktor. \n"
-"Zum Beispiel: \"x1\", \"x2\", \"/ 4\""
-
-#: plugins/volume/VolumeDlg.uic.cpp:387
-msgid "&Percentage"
-msgstr "&Prozent"
-
-#: plugins/volume/VolumeDlg.uic.cpp:388
-msgid ""
-"Sets the volume to a relative percentage of the original level. \n"
-"For example: \"50 %\", \"75%\" or \"125%\""
-msgstr ""
-"Setzt die Lautstärke auf einen Prozentsatz der ursprünglichen Lautstärke. \n"
-"Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
-
-#: plugins/volume/VolumeDlg.uic.cpp:390
-msgid "&Logarithmic"
-msgstr "&Logarithmisch"
-
-#: plugins/volume/VolumeDlg.uic.cpp:391
-msgid ""
-"Increments or decrements the volume in logarithmic scale (decibel). \n"
-"For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
-msgstr ""
-"Erhöht oder senkt die Lautstärke im logarithmischen Masstab (Dezibel). \n"
-"Zum Beispiel: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 
 #: plugins/codec_ogg/OggEncoder.cpp:148
 msgid ""
@@ -3414,85 +2888,435 @@ msgstr ""
 "versuchen, eine neuere Version von aRts zu installieren oder das kdelibs-"
 "Paket zu aktualisieren."
 
-#: plugins/newsignal/NewSigDlg.uic.cpp:526
-msgid "Format"
-msgstr "Format"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:539
-msgid ""
-"<b>Sample Rate</b><br>Here you can select one of the predefined well-known "
-"sample rates or you can enter any sample rate on your own."
-msgstr ""
-"<b>Sample-Rate</b><br>Hier können Sie eine der allgemein bekannten Sample-"
-"Raten auswählen oder direkt eine eigene Sample-Rate eingeben."
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:540
-msgid "Sample Rate:"
-msgstr "Abtastrate:"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:542
-msgid "Tracks:"
-msgstr "Tracks: "
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:543
-msgid "Resolution:"
-msgstr "Auflösung:"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:546
-msgid ""
-"<b>Number of Tracks</b><br>Select a number of tracks of the new signal. If "
-"you are not sure now, you can add or delete tracks later in the program."
-msgstr ""
-"<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks der neuen Datei."
-"Wenn Sie jetzt noch nicht sicher sind, dann können Sie im Programm jederzeit "
-"Tracks hinzufügen oder löschen."
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:547
-msgid ""
-"<b>Resolution</b><br>Select a resolution in bits in which the file will be "
-"saved. However, Kwave always uses 24 bits as it's own internal resolution to "
-"give the best results when processing the audio data."
-msgstr ""
-"<b>Auflösung</b><br>Wähen Sie hier eine Auflösung in Bits pro Sample in der "
-"die Datei gespeichert werden soll. Wie auch immer, Kwave verwendet intern 24 "
-"Bit um die besten Resultate bei der Bearbeitung der Audio-Daten zu erhalten."
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:550
-msgid "Time"
-msgstr "Zeit"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:551
-msgid "select this to set the length of the file by time"
-msgstr "wählen Sie dies um die Länge der Datei nach Zeit auszuwählen"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:552
-msgid "Samples"
-msgstr "Samples"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:553
-msgid "select this to enter the number of samples directly"
-msgstr "wählen Sie diese um die Anzahl der Samples direkt einzugeben"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:557
-msgid "minimum"
-msgstr "Minimum"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:558
-msgid "(file size)"
-msgstr "(Dateigröße)"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:559
-msgid "maximum"
-msgstr "Maximum"
-
-#: plugins/newsignal/NewSigDlg.uic.cpp:560
-msgid "sets the file size by the percentage of the possible maximum"
-msgstr ""
-"Setzt die Dateigröße über den Prozentsatz der maximal möglichen Dateigröße."
-
 #: plugins/newsignal/NewSignalDialog.cpp:349
 msgid "(Resulting file size: %1 MB)"
 msgstr "(Resultierende Dateigröße: %1 MB)"
+
+#~ msgid "Select Date"
+#~ msgstr "Datum auswählen"
+
+#~ msgid "File Info"
+#~ msgstr "Datei-Informationen"
+
+#~ msgid "#"
+#~ msgstr "#"
+
+#~ msgid "%1"
+#~ msgstr "%1"
+
+#~ msgid "bit"
+#~ msgstr "Bit"
+
+#~ msgid "8000"
+#~ msgstr "8000"
+
+#~ msgid "10000"
+#~ msgstr "10000"
+
+#~ msgid "11025"
+#~ msgstr "11025"
+
+#~ msgid "12000"
+#~ msgstr "12000"
+
+#~ msgid "16000"
+#~ msgstr "16000"
+
+#~ msgid "22050"
+#~ msgstr "22050"
+
+#~ msgid "32000"
+#~ msgstr "32000"
+
+#~ msgid "44100"
+#~ msgstr "44100"
+
+#~ msgid "48000"
+#~ msgstr "48000"
+
+#~ msgid "96000"
+#~ msgstr "96000"
+
+#~ msgid "samples per second"
+#~ msgstr "Samples pro Sekunde"
+
+#~ msgid "Encoding Mode:"
+#~ msgstr "Codierungs-Methode:"
+
+#~ msgid "ABR:"
+#~ msgstr "ABR:"
+
+#~ msgid "Average Bitrate Mode"
+#~ msgstr "Mittlere Bitrate"
+
+#~ msgid ""
+#~ "<b>Average Bitrate Mode</b><br>\n"
+#~ "Bitrate is set to an average value, \n"
+#~ "with optional upper and lower limit."
+#~ msgstr ""
+#~ "<b>Mittlere Bitrate</b><br>\n"
+#~ "Die Bitrate wird auf einen mittleren Wert festgelegt, \n"
+#~ "mit einer optionalen Ober- und Untergrenze."
+
+#~ msgid "lowest"
+#~ msgstr "niedrigste"
+
+#~ msgid "highest"
+#~ msgstr "höchste"
+
+#~ msgid "Nominal Bitrate"
+#~ msgstr "Nominate Bitrate"
+
+#~ msgid "VBR:"
+#~ msgstr "VBR:"
+
+#~ msgid "Variable Bitrate Mode"
+#~ msgstr "Variable Bitrate"
+
+#~ msgid ""
+#~ "<b>Variable Bitrate Mode</b><br>\n"
+#~ "The bitrate is selected by an average quality."
+#~ msgstr ""
+#~ "<b>Variable Bitrate</b><br>\n"
+#~ "Auswahl der Bitrate über eine mittlere Qualität."
+
+#~ msgid "Base Quality"
+#~ msgstr "Basis-Qualität"
+
+#~ msgid " %"
+#~ msgstr " %"
+
+#~ msgid "MPEG Version 1 (ISO/IEC 11172-3)"
+#~ msgstr "MPEG Version 1 (ISO/IEC 11172-3)"
+
+#~ msgid "MPEG Version 2 (ISO/IEC 13818-3)"
+#~ msgstr "MPEG Version 2 (ISO/IEC 13818-3)"
+
+#~ msgid "MPEG Version 2.5 (unofficial)"
+#~ msgstr "MPEG Version 2.5 (inoffiziell)"
+
+#~ msgid "Layer I"
+#~ msgstr "Layer I"
+
+#~ msgid "Layer II"
+#~ msgstr "Layer II"
+
+#~ msgid "Layer III"
+#~ msgstr "Layer III"
+
+#~ msgid "50/15ms"
+#~ msgstr "50/15ms"
+
+#~ msgid "CCIT J.17"
+#~ msgstr "CCIT J.17"
+
+#~ msgid "(variable)"
+#~ msgstr "(variabel)"
+
+#~ msgid "8K"
+#~ msgstr "8K"
+
+#~ msgid "16K"
+#~ msgstr "16K"
+
+#~ msgid "24K"
+#~ msgstr "24K"
+
+#~ msgid "32K"
+#~ msgstr "32K"
+
+#~ msgid "40K"
+#~ msgstr "40K"
+
+#~ msgid "56K"
+#~ msgstr "56K"
+
+#~ msgid "64K"
+#~ msgstr "64K"
+
+#~ msgid "80K"
+#~ msgstr "80K"
+
+#~ msgid "96K"
+#~ msgstr "96K"
+
+#~ msgid "112K"
+#~ msgstr "112K"
+
+#~ msgid "128K"
+#~ msgstr "128K"
+
+#~ msgid "144K"
+#~ msgstr "144K"
+
+#~ msgid "160K"
+#~ msgstr "160K"
+
+#~ msgid "176K"
+#~ msgstr "176K"
+
+#~ msgid "192K"
+#~ msgstr "192K"
+
+#~ msgid "224K"
+#~ msgstr "224K"
+
+#~ msgid "256K"
+#~ msgstr "256K"
+
+#~ msgid "288K"
+#~ msgstr "288K"
+
+#~ msgid "320K"
+#~ msgstr "320K"
+
+#~ msgid "352K"
+#~ msgstr "352K"
+
+#~ msgid "384K"
+#~ msgstr "384K"
+
+#~ msgid "416K"
+#~ msgstr "416K"
+
+#~ msgid "448K"
+#~ msgstr "448K"
+
+#~ msgid "Intensity Stereo"
+#~ msgstr "Stereo-Intensität"
+
+#~ msgid "MS Stereo"
+#~ msgstr "MS Stereo"
+
+#~ msgid "MPEG"
+#~ msgstr "MPEG"
+
+#~ msgid "&Select..."
+#~ msgstr "Aus&wählen..."
+
+#~ msgid "Select a date from the calendar."
+#~ msgstr "Datum per Kalender auswählen."
+
+#~ msgid "Opens a dialog for selecting a date from the calendar."
+#~ msgstr "Öffnet einen Dialog um ein Datum von einem Kalender auszuwählen."
+
+#~ msgid "&Today"
+#~ msgstr "&Heute"
+
+#~ msgid "Set the date to today."
+#~ msgstr "Setzt das Datum auf den heutigen Tag."
+
+#~ msgid "Content"
+#~ msgstr "Inhalt"
+
+#~ msgid "Author/Copyright"
+#~ msgstr "Author/Copyright"
+
+#~ msgid "A&uto"
+#~ msgstr "&Automatisch"
+
+#~ msgid "auto-generate keywords"
+#~ msgstr "Schlüsselworte automatisch erzeugen"
+
+#~ msgid ""
+#~ "<b>Auto-Generate Keywords</b><br>\n"
+#~ "Create a list of keywords by going through all present file informations "
+#~ "and merge them with the current list of keywords."
+#~ msgstr ""
+#~ "<b>Schlüsselworte automatisch erzeugen</b<br>\n"
+#~ "Erzeugt die Liste durch Auswerten aller eingegebenen Datei-Informationen "
+#~ "und vereint sie mit den bereits vorhandenen Schlüsselworten."
+
+#~ msgid "List of keywords."
+#~ msgstr "Liste von Schlüsselworten."
+
+#~ msgid "Form1"
+#~ msgstr "Form1"
+
+#~ msgid "Select Range..."
+#~ msgstr "Bereich auswählen..."
+
+#~ msgid "O&K"
+#~ msgstr "O&K"
+
+#~ msgid "Memory Settings"
+#~ msgstr "Speicher Einstellungen"
+
+#~ msgid "&Physical Memory"
+#~ msgstr "&Physikalischer Speicher"
+
+#~ msgid ""
+#~ "<b>Limit the usage of physical memory (RAM).</b><br>\n"
+#~ "\n"
+#~ "If you do not set a limit, the size of the physically installed memory in "
+#~ "your computer will be determined and used as limit. You cannot set a "
+#~ "limit higher than the totally installed amount of memory."
+#~ msgstr ""
+#~ "<b>Begrenzt die Verwendung physikalischen Speichers (RAM)</b><br>\n"
+#~ "\n"
+#~ "Wenn Sie keine Begrenzung angeben, wird die Größe des installierten "
+#~ "physikalischen Speichers in Ihrem Computer als Limit verwendet. Sie "
+#~ "können kein Limit setzen das höher ist als die Menge des installierten "
+#~ "Speichers."
+
+#~ msgid "Limit &to"
+#~ msgstr "Begrenzen &auf"
+
+#~ msgid " MB"
+#~ msgstr " MB"
+
+#~ msgid "megabytes of physical memory"
+#~ msgstr "Megabytes physiklischer Speicher"
+
+#~ msgid "&Virtual Memory"
+#~ msgstr "&Auslagerungsdateien"
+
+#~ msgid ""
+#~ "<b>Configure the usage of virtual memory (swap files).</b><br>\n"
+#~ "\n"
+#~ "If you enable the use of virtual memory, you can specify a directory "
+#~ "where Kwave creates temporary files that it can use as an extension to "
+#~ "the physical memory. This enables you to process files that are much "
+#~ "larger than your physical memory.\n"
+#~ "<br>\n"
+#~ "    Of course you can also set a limit for the total size of the page "
+#~ "files."
+#~ msgstr ""
+#~ "<b>Konfiguration der Auslagerungsdateien.</b><br>\n"
+#~ "\n"
+#~ "Wenn Sie die Verwendung von Auslagerungsdateien aktivieren, können Sie "
+#~ "ein Verzeichnis angeben in dem Kwave Auslagerungsdateien erstellt, die "
+#~ "zusätzlich zu dem physikalischen Speicher (RAM) verwendet werden. Auf "
+#~ "diese Art und Weise können Sie Dateien bearbeiten die größer sind als das "
+#~ "Ihr physikalischer Speicher erlauben würde.\n"
+#~ "<br>\n"
+#~ "    Natürlich können Sie die Menge an Speicher in den Auslagerungsdateien "
+#~ "auch begrenzen."
+
+#~ msgid "&Enable usage of virtual memory"
+#~ msgstr "Auslagerungsdateien &aktivieren"
+
+#~ msgid "Directory:"
+#~ msgstr "Verzeichnis:"
+
+#~ msgid "/tmp"
+#~ msgstr "/tmp"
+
+#~ msgid "directory for storing swap files"
+#~ msgstr "Verzeichnis für Auslagerungsdateien"
+
+#~ msgid "&Search..."
+#~ msgstr "&Suchen..."
+
+#~ msgid "browse for a directory to hold page files"
+#~ msgstr "Verzeichnis für Auslagerungsdateien wählen"
+
+#~ msgid "&Limit to"
+#~ msgstr "&Begrenzen auf"
+
+#~ msgid "megabytes of virtual memory"
+#~ msgstr "Megabytes in Auslagerungsdateien"
+
+#~ msgid "Volume"
+#~ msgstr "Lautstärke"
+
+#~ msgid "Mode"
+#~ msgstr "Modus"
+
+#~ msgid "&Factor"
+#~ msgstr "&Faktor"
+
+#~ msgid ""
+#~ "Increments or decrements the volume by a factor. \n"
+#~ "For example: \"x1\", \"x2\", \"/ 4\""
+#~ msgstr ""
+#~ "Erhöht oder senkt die Lautstärke über einen ganzzahligen Faktor. \n"
+#~ "Zum Beispiel: \"x1\", \"x2\", \"/ 4\""
+
+#~ msgid "&Percentage"
+#~ msgstr "&Prozent"
+
+#~ msgid ""
+#~ "Sets the volume to a relative percentage of the original level. \n"
+#~ "For example: \"50 %\", \"75%\" or \"125%\""
+#~ msgstr ""
+#~ "Setzt die Lautstärke auf einen Prozentsatz der ursprünglichen "
+#~ "Lautstärke. \n"
+#~ "Zum Beispiel: \"50 %\", \"75%\" oder \"125%\""
+
+#~ msgid "&Logarithmic"
+#~ msgstr "&Logarithmisch"
+
+#~ msgid ""
+#~ "Increments or decrements the volume in logarithmic scale (decibel). \n"
+#~ "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
+#~ msgstr ""
+#~ "Erhöht oder senkt die Lautstärke im logarithmischen Masstab (Dezibel). \n"
+#~ "Zum Beispiel: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
+
+#~ msgid "Format"
+#~ msgstr "Format"
+
+#~ msgid ""
+#~ "<b>Sample Rate</b><br>Here you can select one of the predefined well-"
+#~ "known sample rates or you can enter any sample rate on your own."
+#~ msgstr ""
+#~ "<b>Sample-Rate</b><br>Hier können Sie eine der allgemein bekannten Sample-"
+#~ "Raten auswählen oder direkt eine eigene Sample-Rate eingeben."
+
+#~ msgid "Sample Rate:"
+#~ msgstr "Abtastrate:"
+
+#~ msgid "Tracks:"
+#~ msgstr "Tracks: "
+
+#~ msgid "Resolution:"
+#~ msgstr "Auflösung:"
+
+#~ msgid ""
+#~ "<b>Number of Tracks</b><br>Select a number of tracks of the new signal. "
+#~ "If you are not sure now, you can add or delete tracks later in the "
+#~ "program."
+#~ msgstr ""
+#~ "<b>Anzahl der Tracks</b><br>Wählen Sie die Anzahl der Tracks der neuen "
+#~ "Datei.Wenn Sie jetzt noch nicht sicher sind, dann können Sie im Programm "
+#~ "jederzeit Tracks hinzufügen oder löschen."
+
+#~ msgid ""
+#~ "<b>Resolution</b><br>Select a resolution in bits in which the file will "
+#~ "be saved. However, Kwave always uses 24 bits as it's own internal "
+#~ "resolution to give the best results when processing the audio data."
+#~ msgstr ""
+#~ "<b>Auflösung</b><br>Wähen Sie hier eine Auflösung in Bits pro Sample in "
+#~ "der die Datei gespeichert werden soll. Wie auch immer, Kwave verwendet "
+#~ "intern 24 Bit um die besten Resultate bei der Bearbeitung der Audio-Daten "
+#~ "zu erhalten."
+
+#~ msgid "Time"
+#~ msgstr "Zeit"
+
+#~ msgid "select this to set the length of the file by time"
+#~ msgstr "wählen Sie dies um die Länge der Datei nach Zeit auszuwählen"
+
+#~ msgid "Samples"
+#~ msgstr "Samples"
+
+#~ msgid "select this to enter the number of samples directly"
+#~ msgstr "wählen Sie diese um die Anzahl der Samples direkt einzugeben"
+
+#~ msgid "minimum"
+#~ msgstr "Minimum"
+
+#~ msgid "(file size)"
+#~ msgstr "(Dateigröße)"
+
+#~ msgid "maximum"
+#~ msgstr "Maximum"
+
+#~ msgid "sets the file size by the percentage of the possible maximum"
+#~ msgstr ""
+#~ "Setzt die Dateigröße über den Prozentsatz der maximal möglichen "
+#~ "Dateigröße."
 
 #~ msgid "+"
 #~ msgstr "+"

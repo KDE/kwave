@@ -77,6 +77,9 @@ void FileInfo::PropertyTypesMap::fill()
     append(INF_FILENAME, FP_INTERNAL | FP_NO_LOAD_SAVE,
         i18n("Filename"),
         i18n("Name of the opened file"));
+    append(INF_FILESIZE, FP_INTERNAL | FP_NO_LOAD_SAVE,
+	i18n("File Size"),
+	i18n("Size of the file in bytes"));
     append(INF_GENRE, 0,
         i18n("Genre"),
         i18n("Describes the genre or style of the original work."

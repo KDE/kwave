@@ -43,6 +43,7 @@ typedef enum {
     INF_CREATION_DATE,       /**< creation date */
     INF_ENGINEER,            /**< engineer */
     INF_FILENAME,            /**< name of the file */
+    INF_FILESIZE,            /**< size of the file in bytes */
     INF_GENRE,               /**< genre */
     INF_KEYWORDS,            /**< keywords */
     INF_MEDIUM,              /**< medium */

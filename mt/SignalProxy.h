@@ -145,7 +145,7 @@ unsigned int SignalProxy1<T>::count()
 template <class T>
 void SignalProxy1<T>::setLimit(unsigned int limit)
 {
-    volatile MutexGuard lock(m_lock);
+    MutexGuard lock(m_lock);
     m_limit = limit;
 }
 

@@ -392,6 +392,7 @@ int PluginManager::setupPlugin(const QString &name)
     // if it has not already been detached and is not persistent
     if (!plugin->isPersistent()) pluginClosed(plugin, true);
 
+    return 0;
 }
 
 //***************************************************************************

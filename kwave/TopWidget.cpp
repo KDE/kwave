@@ -924,8 +924,6 @@ int TopWidget::saveFileAs(bool selection)
 int TopWidget::newSignal(unsigned int samples, double rate,
                          unsigned int bits, unsigned int tracks)
 {
-    int result = 0;
-
     // abort if the user pressed cancel
     if (!closeFile()) return -1;
 

@@ -116,7 +116,7 @@ protected:
      * @param layout the QGridLayout with the labels
      * @param text the content of the label, localized
      * @param row the row within the layout [0...rows-1]
-     * @param col the column within the layout [0...columns-1]
+     * @param column the column within the layout [0...columns-1]
      * @return the label if successful, 0 if failed
      * @internal
      */

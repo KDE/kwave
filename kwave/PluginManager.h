@@ -292,6 +292,12 @@ private slots:
      */
     void forwardCommand();
 
+    /** called when a plugin has started (running) it's worker thread */
+    void pluginStarted(KwavePlugin *p);
+
+    /** called when a plugin has finished it's worker thread */
+    void pluginDone(KwavePlugin *p);
+
 private:
 
     /**
@@ -327,7 +333,7 @@ private:
      * the plugin does not match the version number in the config file,
      * the return value will also be 0.
      * @param name the name of the plugin
-     * @param var the version number of the plugin
+     * @param version the version number of the plugin
      * @return list of strings
      */
     QStringList loadPluginDefaults(const QString &name,
@@ -339,8 +345,8 @@ private:
      * before saving the new settings in order to wipe out invalid
      * entries and settings that belong to an older version.
      * @param name the name of the plugin
-     * @param ver the version number of the plugin
-     * @param param a list of configuration strings
+     * @param version the version number of the plugin
+     * @param params a list of configuration strings
      */
     void savePluginDefaults(const QString &name, const QString &version,
                             QStringList &params);
@@ -365,6 +371,9 @@ private:
 
     /** global list of loaded plugins */
     static QPtrList<KwavePlugin> m_persistent_plugins;
+
+    /** list of currently running plugins */
+    QPtrList<KwavePlugin> m_running_plugins;
 
     /** reference to our parent toplevel widget */
     TopWidget &m_top_widget;

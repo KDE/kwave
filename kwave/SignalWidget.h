@@ -264,7 +264,8 @@ private slots:
 
     /**
      * Connected to the signal's sigTrackInserted.
-     * @param track index of the inserted track
+     * @param index numeric index of the inserted track
+     * @param track reference to the inserted track
      * @see Signal::sigTrackInserted
      * @internal
      */
@@ -272,7 +273,7 @@ private slots:
 
     /**
      * Connected to the signal's sigTrackDeleted.
-     * @param track index of the deleted track
+     * @param index numeric index of the deleted track
      * @see Signal::sigTrackInserted
      * @internal
      */
@@ -492,7 +493,7 @@ private:
     /**
      * Converts a pixel offset into a sample index using the current zoom
      * value. Always rounds op or downwards.
-     * @param sample index of the sample
+     * @param samples number of samples to be converted
      * @return pixel offset
      */
     int samples2pixels(int samples);

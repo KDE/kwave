@@ -35,7 +35,7 @@ public:
 
     /**
      * Constructor.
-     * @param pointer to the node's parent (might be 0)
+     * @param parent pointer to the node's parent (might be 0)
      * @param name the non-localized name of the node
      * @param command the command to be sent when the node is
      *                selected (optional, default=0)

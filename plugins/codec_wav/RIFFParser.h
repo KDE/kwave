@@ -164,7 +164,6 @@ protected:
      * @param phys_offset start of the chunk name in the source
      * @param phys_length length allocated in the source (file)
      * @param type chunk type, @see RIFFChunk::ChunkType
-     * @param RIFFChunk::RIFFChunk()
      * @return pointer to the new created chunk
      */
     RIFFChunk *addChunk(RIFFChunk *parent, const QCString &name,

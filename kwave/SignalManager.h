@@ -434,7 +434,8 @@ private slots:
 
     /**
      * Connected to the signal's sigTrackInserted.
-     * @param track index of the inserted track
+     * @param index numeric index of the inserted track
+     * @param track reference to the track that has been inserted
      * @see Signal::sigTrackInserted
      * @internal
      */
@@ -442,7 +443,7 @@ private slots:
 
     /**
      * Connected to the signal's sigTrackInserted.
-     * @param track index of the inserted track
+     * @param index numeric index of the inserted track
      * @see Signal::sigTrackDeleted
      * @internal
      */

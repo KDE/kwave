@@ -62,7 +62,7 @@ public:
 
     /**
      * Returns true if a decoder for the given mime type is known.
-     * @param mimetype name of the mime type
+     * @param mimetype_name name of the mime type
      * @return true if format is supported, false if not
      */
     static bool canDecode(const QString &mimetype_name);
@@ -83,14 +83,14 @@ public:
 
     /**
      * Same as above, but takes the mime info from a QMimeSource.
-     * @param src source with a mime type (null pointer is allowed)
+     * @param mime_source source with a mime type (null pointer is allowed)
      * @return a new decoder for the mime type or null if none found.
      */
     static Decoder *decoder(const QMimeSource *mime_source);
 
     /**
      * Tries to find an encoder that matches to a given mime type.
-     * @param mimetype name of the mime type of the destination
+     * @param mimetype_name name of the mime type of the destination
      * @return a new encoder for the mime type or null if none found.
      */
     static Encoder *encoder(const QString &mimetype_name);

@@ -85,7 +85,7 @@ protected slots:
 
     /**
      * Connected to the signal's sigTrackInserted.
-     * @param track index of the inserted track
+     * @param index the index of the inserted track
      * @see Signal::sigTrackDeleted
      * @internal
      */

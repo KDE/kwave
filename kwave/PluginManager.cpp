@@ -83,7 +83,8 @@ static QPtrList<PlaybackDeviceFactory> m_playback_factories;
 PluginManager::PluginManager(TopWidget &parent)
     :m_spx_name_changed(this, SLOT(emitNameChanged())),
      m_spx_command(this, SLOT(forwardCommand())),
-     m_loaded_plugins(), m_top_widget(parent)
+     m_loaded_plugins(), m_running_plugins(),
+     m_top_widget(parent)
 {
     // use all persistent plugins
     // this does nothing on the first instance, all other instances
@@ -214,18 +215,11 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     // get the loader function
     KwavePlugin *(*plugin_loader)(PluginContext *c) = 0;
 
-#ifdef HAVE_CPLUS_MANGLE_OPNAME
-    // would be fine, but needs libiberty
-    const char *sym_version = cplus_mangle_opname("const char *", 0);
-    const char *sym_author  = cplus_mangle_opname("author", 0);
-    const char *sym_loader  = cplus_mangle_opname("load(PluginContext *)",0);
-#else
     // hardcoded, should always work when the
     // symbols are declared as extern "C"
     const char *sym_version = "version";
     const char *sym_author  = "author";
     const char *sym_loader  = "load";
-#endif
 
     // get the plugin's author
     const char *author = "";
@@ -329,7 +323,10 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
     QString command;
     int result = 0;
 
-    // load the plugin
+    // synchronize: wait until any currently running plugins are done
+    sync();
+
+    // load the new plugin
     KwavePlugin *plugin = loadPlugin(name);
     if (!plugin) return -ENOMEM;
 
@@ -396,20 +393,22 @@ void PluginManager::sync()
 {
     bool one_is_running = true;
     while (one_is_running) {
-	{
-//	    MutexGuard lock_list(m_lock_plugin_list);
-	    QPtrListIterator<KwavePlugin> it(m_loaded_plugins);
-	    one_is_running = false;
-	    for (; it.current(); ++it) {
-		KwavePlugin *plugin = it.current();
-		if (plugin->isRunning()) {
-		    qDebug("waiting for plugin '%s'", plugin->name().latin1());
-		    one_is_running = true;
-		    break;
-		}
+	QPtrListIterator<KwavePlugin> it(m_loaded_plugins);
+	one_is_running = false;
+
+	for (; it.current(); ++it) {
+	    KwavePlugin *plugin = it.current();
+	    if (plugin->isRunning()) {
+		qDebug("waiting for plugin '%s'", plugin->name().latin1());
+		one_is_running = true;
+		break;
 	    }
 	}
-	if (one_is_running) qApp->processEvents();
+
+	if (one_is_running) {
+	    qApp->processEvents();
+	    sleep(1000);
+	}
     }
 }
 
@@ -605,7 +604,7 @@ ArtsMultiSink *PluginManager::openMultiTrackPlayback(unsigned int tracks,
     ArtsMultiSink *sink = new ArtsMultiPlaybackSink(tracks, device);
     Q_ASSERT(sink);
     if (!sink) return 0;
-    
+
     return sink;
 }
 
@@ -637,7 +636,7 @@ void PluginManager::pluginClosed(KwavePlugin *p)
     Q_ASSERT(p);
     Q_ASSERT(!m_loaded_plugins.isEmpty() || !m_persistent_plugins.isEmpty());
     if (!p) return;
-    
+
     // disconnect the signals to avoid recursion
     disconnectPlugin(p);
 
@@ -660,6 +659,34 @@ void PluginManager::pluginClosed(KwavePlugin *p)
 //    qDebug("PluginManager::pluginClosed(): done");
 }
 
+//***************************************************************************
+void PluginManager::pluginStarted(KwavePlugin *p)
+{
+    Q_ASSERT(p);
+    if (!p) return;
+
+    // the plugin is running -> increase the usage count in order to
+    // prevent our list from containing invalid entries
+    p->use();
+
+    // add the plugin to the list of running plugins
+    m_running_plugins.append(p);
+}
+
+//***************************************************************************
+void PluginManager::pluginDone(KwavePlugin *p)
+{
+    Q_ASSERT(p);
+    if (!p) return;
+
+    // remove the plugin from the list of running plugins
+    m_running_plugins.setAutoDelete(false);
+    m_running_plugins.removeRef(p);
+
+    // release the plugin, at least we do no longer need it
+    p->release();
+}
+
 //****************************************************************************
 void PluginManager::connectPlugin(KwavePlugin *plugin)
 {
@@ -671,6 +698,12 @@ void PluginManager::connectPlugin(KwavePlugin *plugin)
 
     connect(plugin, SIGNAL(sigClosed(KwavePlugin *)),
 	    this, SLOT(pluginClosed(KwavePlugin *)));
+
+    connect(plugin, SIGNAL(sigRunning(KwavePlugin *)),
+	    this, SLOT(pluginStarted(KwavePlugin *)));
+
+    connect(plugin, SIGNAL(sigDone(KwavePlugin *)),
+	    this, SLOT(pluginDone(KwavePlugin *)));
 }
 
 //****************************************************************************
@@ -678,6 +711,12 @@ void PluginManager::disconnectPlugin(KwavePlugin *plugin)
 {
     Q_ASSERT(plugin);
     if (!plugin) return;
+
+    disconnect(plugin, SIGNAL(sigDone(KwavePlugin *)),
+	       this, SLOT(pluginDone(KwavePlugin *)));
+
+    disconnect(plugin, SIGNAL(sigRunning(KwavePlugin *)),
+	       this, SLOT(pluginStarted(KwavePlugin *)));
 
     disconnect(this, SIGNAL(sigClosed()),
 	       plugin, SLOT(close()));

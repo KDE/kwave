@@ -85,7 +85,7 @@ public slots:
      * Sets new range parameters of the slider, using a scale that is calculated
      * out of the slider's maximum position. All parameters are given in the
      * user's coordinates/units (e.g. samples).
-     * @param new_val position of the slider (left or top of the bar)
+     * @param new_pos position of the slider (left or top of the bar)
      * @param new_width width of the slider (bar)
      * @param new_length size of the slider's area
      */

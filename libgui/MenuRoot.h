@@ -33,7 +33,7 @@ class MenuRoot : virtual public MenuNode
 {
     Q_OBJECT
 
-public:    // Public methods
+public:
 
     /**
      * Constructor.
@@ -46,7 +46,7 @@ public:    // Public methods
     /**
      * Returns the positional index of a child node, identified by
      * it's menu id.
-     * @param menu id of the child
+     * @param id the menu id of the child
      * @return index [0..n] or -1 f not found
      */
     virtual int getChildIndex(int id);

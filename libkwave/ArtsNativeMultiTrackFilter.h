@@ -37,6 +37,7 @@ public:
     /**
      * Constructor. Creates all filter objects.
      * @param tracks the number of tracks
+     * @param name the name of the aRts class
      */
     ArtsNativeMultiTrackFilter(unsigned int tracks, const std::string name)
 	:m_count(tracks), m_filter(tracks)

@@ -33,7 +33,8 @@ public:
     /**
      * Constructor.
      * @param parent the parent widget the dialog belongs to
-     * @param samples default sample rate
+     * @param samples default resolution in bits per sample
+     * @param rate default sample rate
      * @param bits default resolution
      * @param tracks default tracks
      * @param by_time if true: select by time, if false: select by samples

@@ -51,8 +51,8 @@ public:
      * over the passed 'built-ins'.
      * @param name the mime type's name
      * @param description verbose description
-     * @patterns list of file patterns, passed as a single string,
-     *           separated by "; "
+     * @param patterns list of file patterns, passed as a single string,
+     *                 separated by "; "
      */
     virtual void addMimeType(const QString &name,
                              const QString &description,

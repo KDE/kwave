@@ -72,7 +72,7 @@ public:
     };
 
     /** Set a new selection mode */
-    void setMode(Mode new_mode);
+    void setMode(SelectTimeWidget::Mode new_mode);
 
     /**
      * Returns the current start position (byTime, bySamples, byPercents)

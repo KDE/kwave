@@ -136,7 +136,7 @@ public:
     /**
      * Returns a point after a given point or null if the
      * given point was the first one.
-     * @param act the point before the one we look for
+     * @param p the point before the one we look for
      */
     Point *next(Point *p);
 

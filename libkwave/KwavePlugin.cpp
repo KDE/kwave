@@ -72,6 +72,7 @@ KwavePlugin::KwavePlugin(PluginContext &c)
      m_thread_lock(),
      m_usage_count(0),
      m_usage_lock(),
+     m_spx_running(this, SLOT(forwardSigRunning())),
      m_spx_done(this, SLOT(forwardSigDone()))
 {
     m_thread_lock.setName("KwavePlugin::m_thread_lock");
@@ -198,6 +199,10 @@ void KwavePlugin::run(QStringList)
 //***************************************************************************
 void KwavePlugin::run_wrapper(QStringList params)
 {
+    // signal that we are running
+    m_spx_running.AsyncHandler();
+
+    // call the plugin's run function in this worker thread context
     run(params);
 
     // emit the "done" signal
@@ -207,9 +212,15 @@ void KwavePlugin::run_wrapper(QStringList params)
 }
 
 //***************************************************************************
+void KwavePlugin::forwardSigRunning()
+{
+    emit sigRunning(this);
+}
+
+//***************************************************************************
 void KwavePlugin::forwardSigDone()
 {
-    emit sigDone();
+    emit sigDone(this);
 }
 
 //***************************************************************************

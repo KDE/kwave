@@ -50,6 +50,7 @@ public:
     /**
      * Appends a new type into the map.
      * @param index unique index within the map
+     * @param data the data associated with the entry
      * @param name string representation of the type, for
      *             internal usage in Kwave commands.
      * @param description text for the user interface
@@ -143,7 +144,7 @@ public:
     /**
      * Returns the description of a type.
      * @param type index of the type
-     * @param if true, the returned description is localized
+     * @param localized if true, the returned description is localized
      */
     QString description(IDX type, bool localized)
     {

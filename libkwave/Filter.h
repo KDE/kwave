@@ -94,7 +94,7 @@ public:
     /**
      * Sets a delay value to a new value.
      * @param index internal index [0...count-1]
-     * @param delay new delay value
+     * @param newval new delay value
      */
     void setDelay(unsigned int index, unsigned int newval);
 

@@ -36,7 +36,7 @@ public:
      *        something like a QProgressDialog. Can be null, in this
      *        case the signal parameter is ignored and the cancel()
      *        method has to be called manually.
-     * @param emitted signal, e.g. SIGNAL(cancelled())
+     * @param signal emitted signal, e.g. SIGNAL(cancelled())
      * @param receiver object that receives the cancel signal if
      *        a cancel has been received and the user confirmed
      * @param slot receiver's cancel slot, e.g. SLOT(cancel())

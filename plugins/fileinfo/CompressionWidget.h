@@ -87,8 +87,8 @@ public:
     /**
      * Returns the bitrate settings of ABR mode
      * @param nominal receives the nominal bitrate
-     * @param lower receives the lowest bitrate or null if unused
-     * @param upper receives the highest bitrate or null if unused
+     * @param lowest receives the lowest bitrate or null if unused
+     * @param highest receives the highest bitrate or null if unused
      */
     virtual void getABRrates(int &nominal, int &lowest, int &highest);
 

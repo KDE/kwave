@@ -51,14 +51,14 @@ public:
 
     /**
      * Sets the border values.
-     * @param low left/lower border value
-     * @param high right/upper border value
+     * @param min left/lower border value
+     * @param max right/upper border value
      */
     void setMinMax(int min, int max);
 
     /**
      * Set the text of the units.
-     * @param unit text of the units to show
+     * @param text the units to show
      */
     void setUnit(const QString &text);
 

@@ -49,12 +49,9 @@ KwaveFilterPlugin::KwaveFilterPlugin(PluginContext &context)
 //***************************************************************************
 KwaveFilterPlugin::~KwaveFilterPlugin()
 {
-    qApp->syncX();
-    
-    if (m_progress) m_progress->deleteLater();
-    m_progress = 0;
-    if (m_confirm_cancel) m_confirm_cancel->deleteLater();
-    m_confirm_cancel = 0;
+    if (m_spx_progress)   delete m_spx_progress;
+    if (m_confirm_cancel) delete m_confirm_cancel;
+    if (m_progress)       delete m_progress;
 }
 
 //***************************************************************************
@@ -75,7 +72,7 @@ QStringList *KwaveFilterPlugin::setup(QStringList &previous_params)
             this, SLOT(startPreListen()));
     connect(dlg, SIGNAL(stopPreListen()),
             this, SLOT(stopPreListen()));
-    connect(this, SIGNAL(sigDone()),
+    connect(this, SIGNAL(sigDone(KwavePlugin *)),
             dlg, SLOT(listenStopped()));
 
     if (!m_params.isEmpty()) setup_dialog->setParams(m_params);
@@ -154,9 +151,9 @@ void KwaveFilterPlugin::run(QStringList params)
     // create a progress dialog when in processing (not pre-listen) mode
     if (!m_listen) {
 	Q_ASSERT(!m_progress);
-//	Q_ASSERT(!m_confirm_cancel);
-//	m_progress = new QProgressDialog(parentWidget(), actionName(), true);
-//	Q_ASSERT(m_progress);
+	Q_ASSERT(!m_confirm_cancel);
+	m_progress = new QProgressDialog(parentWidget(), actionName(), true);
+	Q_ASSERT(m_progress);
 	if (m_progress) {
 	    m_progress->setMinimumDuration(1000);
 	    m_progress->setTotalSteps((last-first+1)*tracks);

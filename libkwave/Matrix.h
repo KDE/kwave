@@ -95,7 +95,7 @@ public:
      * Apply a function to each cell of a rectangular area of the matrix.
      * This can be done vertically or horizontally.
      * @param aFunction The function to apply.
-     * @param xFirst In which direction to work. If set to true
+     * @param colMajor In which direction to work. If set to true
      *               The matrix will be iterated in x direction.
      * @param x1, y1, x2, y2 Limits of the region to apply
      *        the function to. x2 and y2 are set to the right respective lower
@@ -104,7 +104,7 @@ public:
      * last call.
      */
     template < class F >
-    const F & apply(F & aFunction, bool colMajor = true,
+    const F & apply(F &aFunction, bool colMajor = true,
 		    unsigned x1 = 0, unsigned y1 = 0,
 		    unsigned x2 = 0, unsigned y2 = 0) {
 	x2 <= x1 ? (x2 = mX) : 0;
@@ -125,9 +125,9 @@ public:
     /**
      * Apply a function to each cell of a rectangular area of the matrix.
      * This can be done vertically or horizontally.
-     * @param aFunction The function to apply.
+     * @param aConstFunction The function to apply.
      * @param xFirst In which direction to work. If set to true
-     * The matrix will be iterated in x direction.
+     * the matrix will be iterated in x direction.
      * @param x1, y1, x2, y2 Limits of the region to apply
      * the function to. x2 and y2 are set to the right respective lower
      * border if they are smaller then x1 and y1.
@@ -135,7 +135,7 @@ public:
      * last call.
      */
     template < class F >
-    const F & scan(F & aConstFunction, bool xFirst = true,
+    const F & scan(F &aConstFunction, bool xFirst = true,
 		   unsigned x1 = 0, unsigned y1 = 0,
 		   unsigned x2 = 0, unsigned y2 = 0) const {
 	x2 <= x1 ? (x2 = mX) : 0;

@@ -45,13 +45,13 @@ template <class T>class Asynchronous_Object: public Thread
 public:
     typedef void (T::*PTMF) (void);
 
-    /*! Constructor.
-        \param object pointer to the object that should be made 
-	              asynchronously called
-	\param method pointer to a method within the object, will be made
-	              the thread's active function
-	\param respawn true=respawn the method after a crash
-    */
+    /**
+     * Constructor.
+     * @param object pointer to the object that should be made
+     *               asynchronously called
+     * @param method pointer to a method within the object, will be made
+     *               the thread's active function
+     */
     Asynchronous_Object (T* object, PTMF method)
 	:Thread(), o_(object), m_(method)
     {};

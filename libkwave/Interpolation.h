@@ -65,7 +65,7 @@ public:
 
     /**
      * Returns the name of an interpolation (non-localized).
-     * @param t type to get the name of
+     * @param type the type to get the name of
      */
     static QString name(interpolation_t type);
 

@@ -32,7 +32,10 @@ public:
     /**
      * Constructor.
      * @param parent the dialog's parent widget
+     * @param physical_limited determines if the physical memory is limited
      * @param physical_limit limit of physical memory [megabytes], 0=no limit
+     * @param virtual_enabled true if virtual memory is enabled
+     * @param virtual_limited determines if the virtual memory is limited
      * @param virtual_limit limit of virtual memory [megabytes],
      *        0=disabled, UINT_MAX = no limit
      * @param virtual_dir directory for virtual memory files

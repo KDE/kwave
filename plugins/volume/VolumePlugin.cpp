@@ -55,7 +55,6 @@ int VolumePlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    Q_ASSERT(params.count() == 2);
     if (params.count() != 2) return -EINVAL;
 
     param = params[0];

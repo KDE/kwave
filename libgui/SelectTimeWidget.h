@@ -39,19 +39,12 @@ public:
     /**
      * Constructor
      * @param widget pointer to the parent widget
-     * @param mode selectionMode: byTime, bySamples, byPercents
-     * @param range length of the selection in ms, samples or percent
-     * @param sample_rate number of samples per second, needed for
-     *                    converting between samples and time
-     * @param offset start of the selection [samples]
-     * @param signal_length length of the signal in samples, needed
-     *                      for converting samples to percentage
+     * @param name the name of the widget
      */
     SelectTimeWidget(QWidget *widget, const char *name);
 
     /**
      * Constructor
-     * @param widget pointer to the parent widget
      * @param mode selectionMode: byTime, bySamples, byPercents
      * @param range length of the selection in ms, samples or percent
      * @param sample_rate number of samples per second, needed for

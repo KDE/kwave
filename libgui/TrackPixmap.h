@@ -118,7 +118,7 @@ private slots:
      * @see Track::sigSamplesInserted
      * @internal
      */
-    void slotSamplesInserted(Track &, unsigned int offset,
+    void slotSamplesInserted(Track &src, unsigned int offset,
                              unsigned int length);
 
     /**
@@ -129,7 +129,7 @@ private slots:
      * @see Track::sigSamplesDeleted
      * @internal
      */
-    void slotSamplesDeleted(Track &, unsigned int offset,
+    void slotSamplesDeleted(Track &src, unsigned int offset,
                             unsigned int length);
 
     /**
@@ -140,7 +140,7 @@ private slots:
      * @see Track::sigSamplesModified
      * @internal
      */
-    void slotSamplesModified(Track &, unsigned int offset,
+    void slotSamplesModified(Track &src, unsigned int offset,
                              unsigned int length);
 
 private:

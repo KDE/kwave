@@ -128,7 +128,7 @@ public:
      * Is called from the main program before the run() function and can
      * be overwritten to show a window or initialize some things before
      * the run() function gets called.
-     * @param list of strings with parameters
+     * @param params list of strings with parameters
      * @return an error code if the execution failed or zero if everything
      *         was ok.
      */
@@ -143,7 +143,7 @@ public:
     /**
      * Gets called from the plugin's execute function and should be overwritten to
      * perform some action. This function runs in a separate thread!
-     * @param list of strings with parameters
+     * @param params list of strings with parameters
      * @see  sigDone
      */
     virtual void run(QStringList params);
@@ -261,7 +261,7 @@ protected:
 
     /**
      * Gets called to execute the plugin's run function in a separate thread.
-     * @param list of strings with parameters
+     * @params list of strings with parameters
      * @bug the return value is never evaluated
      */
     int execute(QStringList &params);
@@ -281,11 +281,17 @@ protected:
 signals:
 
     /**
+     * will be emitted when the "run" function starts
+     * @see run
+     */
+    void sigRunning(KwavePlugin *plugin);
+
+    /**
      * will be emitted when the "run" function has finished
      * @see run
      */
-    void sigDone();
-    
+    void sigDone(KwavePlugin *plugin);
+
     /** will be emitted in the plugin's destructor */
     void sigClosed(KwavePlugin *p);
 
@@ -307,11 +313,17 @@ public slots:
 private slots:
 
     /**
+     * emits sigRunning when emitted from run through m_spx_running
+     * @internal
+     */
+    void forwardSigRunning();
+
+    /**
      * emits sigDone when emitted from run through m_spx_done
      * @internal
      */
     void forwardSigDone();
-    
+
 private:
 
     /** Wrapper for run() that contains a call to release() */
@@ -340,9 +352,12 @@ private:
     /** Mutex for locking the usage counter */
     Mutex m_usage_lock;
 
+    /** SignalProxy for handling sigRunning */
+    SignalProxy<void> m_spx_running;
+
     /** SignalProxy for handling sigDone */
     SignalProxy<void> m_spx_done;
-    
+
 };
 
 #endif /* _KWAVE_PLUGIN_H_ */

@@ -147,7 +147,7 @@ public:
     /**
      * Returns the positional index of a child node, identified by
      * it's menu id.
-     * @param menu id of the child
+     * @param id the menu item id of the child
      * @return index [0..n] or -1 f not found
      */
     virtual int getChildIndex(int id);
@@ -188,7 +188,7 @@ public:
 
     /**
      * Sets or removes the checkmark from a menu node.
-     * @param id the item's menu id
+     * @param item the item's menu id
      * @param check true to set the mark, false to remove
      */
     virtual void setItemChecked(int item, bool check);
@@ -400,7 +400,6 @@ private slots:
     /**
      * Informs the node that the enabled state of it's parent might
      * have changed.
-     * @param enable true if the item has been enabled, false if disabled
      */
     void slotParentEnableChanged();
 

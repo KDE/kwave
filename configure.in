@@ -144,26 +144,6 @@ eval "KDE_POT_FILE=\"`echo ${includedir}/kde.pot`\""
 AC_SUBST(KDE_POT_FILE)
 AC_MSG_RESULT(${KDE_POT_FILE})
 
-dnl check if the uic is buggy or usable
-AC_MSG_CHECKING(whether uic is buggy)
-rm -f test-uic.*
-cat > test-uic.ui << 'EOF'
-<!DOCTYPE UI>
-<UI version="3.0" stdsetdef="1">
-    <widget class="QFrame">
-      <widget class="SomeCustomWidget">
-      </widget>
-    </widget>
-</UI>
-EOF
-if $UIC -o /dev/null -impl test-uic.h test-uic.ui 2>/dev/null 1>/dev/null; then {
-    AC_MSG_RESULT(no)
-} else {
-    AC_MSG_RESULT(yes - using workaround)
-    UIC="LD_PRELOAD=$kde_libdir/libkdecore.so $UIC"
-} fi;
-rm -f test-uic.*
-
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_TIME
 

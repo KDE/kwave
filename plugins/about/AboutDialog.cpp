@@ -68,7 +68,7 @@ tOpHEr lAfaTA\n\
 Nemosoft\n\
 Guido\n\
 Eero\n\
-Gilles CAULIER\n\
+Gilles CAULIER\n\n\
 \
 This program is free software; you can redistribute it and / or\n\
 modify it under the terms of the GNU General Public License\n\

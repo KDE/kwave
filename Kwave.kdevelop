@@ -7,13 +7,16 @@
     <projectmanagement>KDevCustomProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <ignoreparts>
-      <part>KDevClearCase</part>
-      <part>KDevFileView</part>
-      <part>KDevPerforce</part>
+      <part>ClearCase-Unterstützung (KDevelop)</part>
+      <part>Perforce-Unterstützung (KDevelop)</part>
     </ignoreparts>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
     <description/>
+    <secondaryLanguages>
+      <language>Bash</language>
+      <language>C</language>
+    </secondaryLanguages>
   </general>
   <kdevcustomproject>
     <run>
@@ -22,7 +25,7 @@
       <terminal>false</terminal>
       <envvars/>
       <directoryradio>executable</directoryradio>
-      <customdirectory/>
+      <customdirectory>/</customdirectory>
       <autocompile>true</autocompile>
     </run>
     <build>
@@ -37,6 +40,7 @@
       <environments>
         <default/>
       </environments>
+      <selectedenvironment>default</selectedenvironment>
     </make>
   </kdevcustomproject>
   <kdevdebugger>
@@ -48,6 +52,9 @@
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
+      <configGdbScript/>
+      <runShellScript/>
+      <runGdbScript/>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -59,14 +66,20 @@
     <useglobaltypes>
       <type ext="ui" />
       <type ext="cpp" />
+      <type ext="c" />
       <type ext="h" />
     </useglobaltypes>
   </kdevfilecreate>
   <kdevdoctreeview>
     <projectdoc>
-      <userdocDir>/usr/src/packages/multimedia/sound/kwave/doc/</userdocDir>
-      <apidocDir>/usr/src/packages/multimedia/sound/kwave/doc/api-doc/</apidocDir>
+      <userdocDir>doc/</userdocDir>
+      <apidocDir>doc/api-doc/</apidocDir>
     </projectdoc>
+    <ignoreqt_xml/>
+    <ignoredoxygen/>
+    <ignorekdocs/>
+    <ignoretocs/>
+    <ignoredevhelp/>
   </kdevdoctreeview>
   <cppsupportpart>
     <codecompletion/>
@@ -88,11 +101,13 @@
       <group pattern="*.h" name="Headers" />
       <group pattern="*.cpp;*.c" name="Sources" />
       <group pattern="README;*.lsm;TODO;INSTALL;Chang*" name="GNU files" />
-      <hidenonprojectfiles>true</hidenonprojectfiles>
+      <hidenonprojectfiles>false</hidenonprojectfiles>
+      <hidenonlocation>false</hidenonlocation>
     </groups>
     <tree>
       <hidepatterns>*.o,*.lo,CVS</hidepatterns>
       <hidenonprojectfiles>false</hidenonprojectfiles>
+      <showvcsfields>false</showvcsfields>
     </tree>
   </kdevfileview>
   <kdevcvs>
@@ -121,4 +136,11 @@
     </codecompletion>
     <references/>
   </kdevcppsupport>
+  <kdevcvsservice>
+    <recursivewhenupdate>true</recursivewhenupdate>
+    <prunedirswhenupdate>true</prunedirswhenupdate>
+    <createdirswhenupdate>true</createdirswhenupdate>
+    <recursivewhencommitremove>true</recursivewhencommitremove>
+    <revertoptions>-C</revertoptions>
+  </kdevcvsservice>
 </kdevelop>

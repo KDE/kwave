@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2002-11-03 22:08+0100\n"
-"PO-Revision-Date: 2002-11-05 16:37GMT\n"
+"PO-Revision-Date: 2002-11-05 16:42GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1363,7 +1363,7 @@ msgstr "Sélectionné"
 
 #: kwave/TopWidget.cpp:1045
 msgid "samples"
-msgstr "échantillons"
+msgstr "Echantillons"
 
 #: kwave/TopWidget.cpp:1100
 msgid "U&ndo"

@@ -22,15 +22,18 @@ class KwaveApp;
 class MenuManager;
 class TopWidget;
 class SignalManager;
+class LabelManager;
 
 class PluginContext
 {
 public:
-    class KwaveApp      *kwave_app;
-    class LabelManager  *label_manager;
-    class MenuManager   *menu_manager;
-    class TopWidget     *top_widget;
-    class SignalManager *signal_manager;
+    KwaveApp      *kwave_app;
+    LabelManager  *label_manager;
+    MenuManager   *menu_manager;
+    TopWidget     *top_widget;
+    SignalManager *signal_manager;
+
+    void *handle;
 };
 
  #endif // _PLUGIN_CONTEXT_H_

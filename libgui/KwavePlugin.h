@@ -23,6 +23,7 @@
 class QStrList;
 class PluginContext;
 class KwavePlugin;
+class TopWidget;
 
 #define KWAVE_PLUGIN(class_name,plugin_name,author_name) \
     const char *version = "2.0"; \
@@ -70,13 +71,23 @@ public:
     virtual QStrList *setup(QStrList *previous_params = 0);
 
     /**
-     * Gets called to execute the plugin and should be overwritten to
-     * perform some action.
+     * Is called from the main program before the run() function and can
+     * be overwritten to show a window or initialize some things before
+     * the run() function gets called.
      * @param list of strings with parameters
      * @return an error code if the execution failed or zero if everything
      *         was ok.
      */
-    virtual int execute(QStrList &params);
+    virtual int start(QStrList &params);
+
+    /**
+     * Gets called from the plugin's execute function and should be overwritten to
+     * perform some action. This function runs in a separate thread!
+     * @param list of strings with parameters
+     * @return an error code if the execution failed or zero if everything
+     *         was ok.
+     */
+    virtual int run(QStrList &params);
 
     /**
      * Returns the parent widget of the plugin. This normally should be
@@ -130,13 +141,27 @@ public:
      * upwards time is shown as "12:34" (like most CD players do).
      */
     static void ms2string(char *buf, unsigned int bufsize, double ms);
-	
+
+// protected:
+
+    /**
+     * Gets called to execute the plugin's run function in a separate thread.
+     * @param list of strings with parameters
+     * @return an error code if the execution failed or zero if everything
+     *         was ok.
+     */
+    friend class TopWidget;
+    int execute(QStrList &params);
+    	
 signals:
     void sigParentWidgetDestroyed();
 
     void sigDataChanged(int channel, unsigned int first, unsigned int last);
 
     void sigCommand(const char *command);
+
+public slots:
+    virtual void close();
 
 private:
     PluginContext &context;

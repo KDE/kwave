@@ -19,6 +19,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
+#include <dlfcn.h>
 
 #include <qwidget.h>
 
@@ -27,19 +28,24 @@
 #include <libgui/KwavePlugin.h>
 #include <libgui/PluginContext.h>
 
+#include "../src/TopWidget.h"
 #include "../src/SignalManager.h"
 
 //***************************************************************************
 KwavePlugin::KwavePlugin(PluginContext *c)
     :context(*c)
 {
-
+    QObject::connect(context.top_widget, SIGNAL(sigClosed()),
+                     this, SLOT(close()));
 }
 
 //***************************************************************************
 KwavePlugin::~KwavePlugin()
 {
-
+    debug("KwavePlugin::~KwavePlugin()");
+    if (context.handle) dlclose(context.handle);
+    context.handle=0;
+    debug("KwavePlugin::~KwavePlugin(), done.");
 }
 
 //***************************************************************************
@@ -51,9 +57,27 @@ QStrList *KwavePlugin::setup(QStrList *previous_params = 0)
 }
 
 //***************************************************************************
-int KwavePlugin::execute(QStrList &params)
+int KwavePlugin::start(QStrList &params)
 {
     return 0;
+}
+
+//***************************************************************************
+int KwavePlugin::execute(QStrList &params)
+{
+    return run(params);
+}
+
+//***************************************************************************
+int KwavePlugin::run(QStrList &params)
+{
+    return 0;
+}
+
+//***************************************************************************
+void KwavePlugin::close()
+{
+    debug("void KwavePlugin::close()");
 }
 
 //***************************************************************************

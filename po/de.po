@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSION\n"
-"POT-Creation-Date: 2000-08-02 23:09+0200\n"
+"POT-Creation-Date: 2000-08-05 12:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1071,7 +1071,7 @@ msgstr ""
 "aktuellen Einstellungen abzuspielen.\n"
 "Sorry, noch nicht implementiert!"
 
-#: plugins/dialogs/playback/module.cpp:325
+#: plugins/dialogs/playback/module.cpp:321
 #, fuzzy, c-format, ycp-format
 msgid "Buffer Size : %5d samples"
 msgstr "Buffer-Größe: %5d Samples"
@@ -1134,7 +1134,7 @@ msgid "Choose windowing function here."
 msgstr "Fensterfunktion wählen"
 
 #: plugins/dialogs/averagefft/module.cpp:39
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:80
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:85
 msgid "Window Function :"
 msgstr "Fensterfunktion :"
 
@@ -1293,16 +1293,16 @@ msgstr "Pulslänge :"
 msgid "sonagram"
 msgstr "&Sonagramm"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:60
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:61
 #, fuzzy
 msgid "Set FFT/time resolution parameter"
 msgstr "Parameter der FFT/Zeit-Ausflösungs"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:62
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:63
 msgid "Number of FFT points:"
 msgstr "Anzahl der FFT-Punkte:"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:66
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:67
 msgid ""
 "Try to choose numbers with small prime-factors, if choosing big window "
 "sizes.\n"
@@ -1311,18 +1311,20 @@ msgstr ""
 "Bei großen Fenstern wählen Sie bitte Zahlen mit kleinen Primfaktoren.\n"
 "Die Berechnung geht dadurch um einiges schneller !"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:74
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:79
 msgid ""
 "Choose windowing function here. If fourier transformation should stay "
 "reversible, use the type <none>"
 msgstr ""
+"Wählen Sie hier eine Fensterfunktion. Wenn die Transformation umkehrbar sein "
+"soll, wählen Sie den Typ <keine>"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:210
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:214
 #, c-format
 msgid "resulting window size: %s"
 msgstr "resultierende Fenstergröße: %s"
 
-#: plugins/dialogs/sonagram/SonagramDialog.cpp:212
+#: plugins/dialogs/sonagram/SonagramDialog.cpp:216
 #, c-format
 msgid "size of bitmap: %dx%d"
 msgstr "Größe der Bitmap: %dx%d"
@@ -1393,6 +1395,31 @@ msgstr "&Stimme %d :"
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
 
+#
+#~ msgid "None"
+#~ msgstr "Keine"
+
+#
+#~ msgid "Hamming"
+#~ msgstr "Hamming"
+
+#
+#~ msgid "Hanning"
+#~ msgstr "Hanning"
+
+#
+#~ msgid "Blackman"
+#~ msgstr "Blackman"
+
+#
+#~ msgid "Triangular"
+#~ msgstr "Dreieck"
+
+#
+#~ msgid "Rectangular"
+#~ msgstr "Rechteck"
+
+#
 #~ msgid "&About"
 #~ msgstr "Über"
 

@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2003-06-17 22:05+0200\n"
-"PO-Revision-Date: 2003-06-17 22:05+0200\n"
+"POT-Creation-Date: 2003-06-21 19:32+0200\n"
+"PO-Revision-Date: 2003-06-21 19:32+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -796,7 +796,7 @@ msgstr "100%"
 msgid "sets the selection by the percentage of the whole signal"
 msgstr "Setzt die Auswahl über den Prozentsatz der gesamten Signallänge"
 
-#: libgui/ConfirmCancelProxy.cpp:51
+#: libgui/ConfirmCancelProxy.cpp:50
 msgid "Do you really want to abort the current action?"
 msgstr "Wollen Sie den aktuellen Vorgang wirklich abbrechen?"
 
@@ -1377,7 +1377,7 @@ msgid "Track of the CD if the source was a CDROM."
 msgstr "Track der CD wenn die Quelle eine CDROM war."
 
 #: libkwave/FileInfo.cpp:199
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:404
 msgid "Base Quality"
 msgstr "Basis-Qualität"
 
@@ -2070,6 +2070,10 @@ msgstr "7-Polynom"
 #: libkwave/Interpolation.cpp:38
 msgid "sample and hold"
 msgstr "Sample + Hold"
+
+#: libkwave/KwaveFilterPlugin.cpp:161
+msgid "applying '%1' ..."
+msgstr "'%1' wird angewendet ..."
 
 #: plugins/zero/ZeroPlugin.cpp:40
 msgid "silence"
@@ -2817,19 +2821,19 @@ msgstr "Liste von Schlüsselworten."
 msgid "Form1"
 msgstr "Form1"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:384
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:388
 msgid "CompressionWidgetBase"
 msgstr "CompressionWidgetBase"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:386
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:390
 msgid "ABR:"
 msgstr "ABR:"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:387
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
 msgid "Average Bitrate Mode"
 msgstr "Mittlere Bitrate"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:388
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:392
 msgid ""
 "<b>Average Bitrate Mode</b><br>\n"
 "Bitrate is set to an average value, \n"
@@ -2839,20 +2843,20 @@ msgstr ""
 "Die Bitrate wird auf einen mittleren Wert festgelegt, \n"
 "mit einer optionalen Ober- und Untergrenze."
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:399
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:395
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:403
 msgid "lowest"
 msgstr "niedrigste"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:392
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
 msgid "VBR:"
 msgstr "VBR:"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:393
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
 msgid "Variable Bitrate Mode"
 msgstr "Variable Bitrate"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:394
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:398
 msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
@@ -2860,15 +2864,15 @@ msgstr ""
 "<b>Variable Bitrate</b><br>\n"
 "Auswahl der Bitrate über eine mittlere Qualität."
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
 msgid "highest"
 msgstr "höchste"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
 msgid "Nominal Bitrate"
 msgstr "Nominale Bitrate"
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:398
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:402
 msgid " %"
 msgstr " %"
 

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-06-15 10:53+0200\n"
+"POT-Creation-Date: 2003-06-21 19:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -455,11 +455,11 @@ msgstr ""
 msgid "modify file information"
 msgstr ""
 
-#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:828
+#: kwave/UndoDeleteAction.cpp:36 kwave/SignalManager.cpp:833
 msgid "delete"
 msgstr ""
 
-#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:711
+#: kwave/UndoInsertTrack.cpp:39 kwave/SignalManager.cpp:716
 msgid "insert track"
 msgstr ""
 
@@ -658,11 +658,11 @@ msgstr ""
 msgid "selection"
 msgstr ""
 
-#: kwave/SignalManager.cpp:287
+#: kwave/SignalManager.cpp:292
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: kwave/SignalManager.cpp:321
+#: kwave/SignalManager.cpp:326
 msgid ""
 "Saving in this format will loose the following additional file attribute"
 "(s):\n"
@@ -670,43 +670,43 @@ msgid ""
 "Do you still want to continue?"
 msgstr ""
 
-#: kwave/SignalManager.cpp:362
+#: kwave/SignalManager.cpp:367
 msgid "An error occurred while saving the file!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:371
+#: kwave/SignalManager.cpp:376
 msgid "The file has been truncated and might be corrupted!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:378
+#: kwave/SignalManager.cpp:383
 msgid "Sorry, the file type is not supported!"
 msgstr ""
 
-#: kwave/SignalManager.cpp:592
+#: kwave/SignalManager.cpp:597
 msgid "cut"
 msgstr ""
 
-#: kwave/SignalManager.cpp:595
+#: kwave/SignalManager.cpp:600
 msgid "crop"
 msgstr ""
 
-#: kwave/SignalManager.cpp:661
+#: kwave/SignalManager.cpp:666
 msgid "paste"
 msgstr ""
 
-#: kwave/SignalManager.cpp:704
+#: kwave/SignalManager.cpp:709
 msgid "append track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:745 kwave/UndoDeleteTrack.cpp:43
+#: kwave/SignalManager.cpp:750 kwave/UndoDeleteTrack.cpp:43
 msgid "delete track"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1302 kwave/SignalManager.cpp:1309
+#: kwave/SignalManager.cpp:1307 kwave/SignalManager.cpp:1314
 msgid "last action"
 msgstr ""
 
-#: kwave/SignalManager.cpp:1528
+#: kwave/SignalManager.cpp:1533
 msgid "modify file info"
 msgstr ""
 
@@ -715,7 +715,7 @@ msgid "frmLength"
 msgstr ""
 
 #: libgui/SelectTimeWidgetBase.uic.cpp:214
-#: plugins/fileinfo/FileInfoDialog.cpp:197
+#: plugins/fileinfo/FileInfoDialog.cpp:209
 #: plugins/newsignal/NewSigDlg.uic.cpp:548
 msgid "Length"
 msgstr ""
@@ -782,7 +782,7 @@ msgstr ""
 msgid "sets the selection by the percentage of the whole signal"
 msgstr ""
 
-#: libgui/ConfirmCancelProxy.cpp:51
+#: libgui/ConfirmCancelProxy.cpp:50
 msgid "Do you really want to abort the current action?"
 msgstr ""
 
@@ -1291,7 +1291,7 @@ msgid "Track of the CD if the source was a CDROM."
 msgstr ""
 
 #: libkwave/FileInfo.cpp:199
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:404
 msgid "Base Quality"
 msgstr ""
 
@@ -1982,6 +1982,10 @@ msgstr ""
 msgid "sample and hold"
 msgstr ""
 
+#: libkwave/KwaveFilterPlugin.cpp:161
+msgid "applying '%1' ..."
+msgstr ""
+
 #: plugins/zero/ZeroPlugin.cpp:40
 msgid "silence"
 msgstr ""
@@ -2369,11 +2373,6 @@ msgstr ""
 msgid "Select Date"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidget.cpp:61
-#: plugins/fileinfo/CompressionWidget.cpp:62
-msgid "no limit"
-msgstr ""
-
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1111
 msgid "File Info"
 msgstr ""
@@ -2516,8 +2515,8 @@ msgstr ""
 
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1149
 #: plugins/fileinfo/FileInfoDlg.uic.cpp:1186
-#: plugins/fileinfo/FileInfoDialog.cpp:378
-#: plugins/fileinfo/FileInfoDialog.cpp:384
+#: plugins/fileinfo/FileInfoDialog.cpp:400
+#: plugins/fileinfo/FileInfoDialog.cpp:406
 msgid "yes"
 msgstr ""
 
@@ -2690,147 +2689,147 @@ msgstr ""
 msgid "Form1"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:384
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:388
 msgid "CompressionWidgetBase"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:386
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:390
 msgid "ABR:"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:387
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
 msgid "Average Bitrate Mode"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:388
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:392
 msgid ""
 "<b>Average Bitrate Mode</b><br>\n"
 "Bitrate is set to an average value, \n"
 "with optional upper and lower limit."
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:391
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:399
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:395
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:403
 msgid "lowest"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:392
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
 msgid "VBR:"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:393
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
 msgid "Variable Bitrate Mode"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:394
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:398
 msgid ""
 "<b>Variable Bitrate Mode</b><br>\n"
 "The bitrate is selected by an average quality."
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:396
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:400
 msgid "highest"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:397
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:401
 msgid "Nominal Bitrate"
 msgstr ""
 
-#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:398
+#: plugins/fileinfo/CompressionWidgetBase.uic.cpp:402
 msgid " %"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:131
+#: plugins/fileinfo/FileInfoDialog.cpp:143
 msgid "%1 bytes"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:133
+#: plugins/fileinfo/FileInfoDialog.cpp:145
 msgid "%1 kB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:136
+#: plugins/fileinfo/FileInfoDialog.cpp:148
 msgid "%1 MB (%2 byte)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:167
+#: plugins/fileinfo/FileInfoDialog.cpp:179
 msgid "Sample Rate"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:170
+#: plugins/fileinfo/FileInfoDialog.cpp:182
 msgid ""
 "Here you can select one of the predefined\n"
 "well-known sample rates or you can enter\n"
 "any sample rate on your own."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:176
+#: plugins/fileinfo/FileInfoDialog.cpp:188
 #: plugins/playback/PlayBackDialog.cpp:109
 #: plugins/playback/PlayBackDialog.cpp:110
 msgid "Resolution"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:179
+#: plugins/fileinfo/FileInfoDialog.cpp:191
 msgid ""
 "Select a resolution in bits in which the file\n"
 "will be saved."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:184
+#: plugins/fileinfo/FileInfoDialog.cpp:196
 msgid "Tracks"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:187
+#: plugins/fileinfo/FileInfoDialog.cpp:199
 msgid ""
 "Shows the number of tracks of the signal.\n"
 "You can add or delete tracks via the Edit menu."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:200
+#: plugins/fileinfo/FileInfoDialog.cpp:212
 msgid ""
 "Shows the length of the file in samples\n"
 "and if possible as time."
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:206
+#: plugins/fileinfo/FileInfoDialog.cpp:218
 msgid "%1 (%2 samples)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:210
+#: plugins/fileinfo/FileInfoDialog.cpp:222
 msgid "%2 samples"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:347
+#: plugins/fileinfo/FileInfoDialog.cpp:369
 msgid "bands 0 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:348
+#: plugins/fileinfo/FileInfoDialog.cpp:370
 msgid "bands 8 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:349
+#: plugins/fileinfo/FileInfoDialog.cpp:371
 msgid "bands 12 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:350
+#: plugins/fileinfo/FileInfoDialog.cpp:372
 msgid "bands 16 to 31"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:378
-#: plugins/fileinfo/FileInfoDialog.cpp:384
+#: plugins/fileinfo/FileInfoDialog.cpp:400
+#: plugins/fileinfo/FileInfoDialog.cpp:406
 msgid "no"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:493
+#: plugins/fileinfo/FileInfoDialog.cpp:515
 #: plugins/newsignal/NewSignalDialog.cpp:318
 msgid "(Mono)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:496
+#: plugins/fileinfo/FileInfoDialog.cpp:518
 #: plugins/newsignal/NewSignalDialog.cpp:321
 msgid "(Stereo)"
 msgstr ""
 
-#: plugins/fileinfo/FileInfoDialog.cpp:499
+#: plugins/fileinfo/FileInfoDialog.cpp:521
 #: plugins/newsignal/NewSignalDialog.cpp:324
 msgid "(Quadro)"
 msgstr ""
@@ -3073,51 +3072,51 @@ msgid ""
 "For example: \"+3 dB\", \"+ 6 dB\", \"-3 dB\"."
 msgstr ""
 
-#: plugins/codec_ogg/OggEncoder.cpp:148
+#: plugins/codec_ogg/OggEncoder.cpp:159
 msgid ""
 "You have not selected any bitrate for the encoding. Do you want to continue "
 "and encode with %1 kBit/s or cancel and choose a different bitrate?"
 msgstr ""
 
-#: plugins/codec_ogg/OggEncoder.cpp:204
+#: plugins/codec_ogg/OggEncoder.cpp:231
 msgid ""
 "One or more encoding parameters are not supported. Please change the "
 "settings and try again..."
 msgstr ""
 
-#: plugins/codec_ogg/OggEncoder.cpp:213 plugins/codec_wav/WavEncoder.cpp:144
+#: plugins/codec_ogg/OggEncoder.cpp:240 plugins/codec_wav/WavEncoder.cpp:144
 msgid "Unable to open the file for saving!"
 msgstr ""
 
-#: plugins/codec_ogg/OggEncoder.cpp:223 plugins/codec_wav/WavEncoder.cpp:126
+#: plugins/codec_ogg/OggEncoder.cpp:250 plugins/codec_wav/WavEncoder.cpp:126
 msgid " for KDE "
 msgstr ""
 
-#: plugins/codec_ogg/OggDecoder.cpp:97
+#: plugins/codec_ogg/OggDecoder.cpp:100
 msgid "Input does not appear to be an Ogg bitstream."
 msgstr ""
 
-#: plugins/codec_ogg/OggDecoder.cpp:117
+#: plugins/codec_ogg/OggDecoder.cpp:120
 msgid "Error reading first page of Ogg bitstream data."
 msgstr ""
 
-#: plugins/codec_ogg/OggDecoder.cpp:124
+#: plugins/codec_ogg/OggDecoder.cpp:127
 msgid "Error reading initial header packet."
 msgstr ""
 
-#: plugins/codec_ogg/OggDecoder.cpp:131
+#: plugins/codec_ogg/OggDecoder.cpp:134
 msgid "This Ogg bitstream does not contain Vorbis audio data."
 msgstr ""
 
-#: plugins/codec_ogg/OggDecoder.cpp:164
+#: plugins/codec_ogg/OggDecoder.cpp:167
 msgid "Corrupt secondary header. Exiting."
 msgstr ""
 
-#: plugins/codec_ogg/OggDecoder.cpp:178
+#: plugins/codec_ogg/OggDecoder.cpp:182
 msgid "End of file before finding all Vorbis headers!"
 msgstr ""
 
-#: plugins/codec_ogg/OggDecoder.cpp:337
+#: plugins/codec_ogg/OggDecoder.cpp:341
 msgid "Corrupt or missing data in bitstream; continuing..."
 msgstr ""
 

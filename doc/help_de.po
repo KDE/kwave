@@ -4,12 +4,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: help_de\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2003-02-28 21:44+0100\n"
+"PO-Revision-Date: 2003-06-18 21:44+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 1.0.1\n"
 
 #: index.docbook:13
 #, no-c-format
@@ -290,29 +290,31 @@ msgstr ""
 "oder berarbeitet und eine Menge Zeit investiert um es zu verbessern."
 
 #: index.docbook:187
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "0.6.7 [2003-06-xx]"
-msgstr "0.6.6 [2003-03-29]"
+msgstr "0.6.7 [2003-06-xx]"
 
 #: index.docbook:187
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "new plugin: \"pitch_shift\""
-msgstr "neues Plugin \"noise\""
+msgstr "neues Plugin \"Tonverschiebung\""
 
 #: index.docbook:187
 #, no-c-format
 msgid "included a bugfixed version of the synth_pitch_shift aRts plugin"
 msgstr ""
+"enthält fehlerbereinigte Version der synth_pitch_shift Plugins von aRts"
 
 #: index.docbook:187
 #, no-c-format
 msgid "new feature: \"pre-listen\", first implementation in pitch_shift plugin"
 msgstr ""
+"neues Feature \"Vorhören\", erste Implementierung im pitch_shift-Plugin"
 
 #: index.docbook:187
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "new plugin: \"lowpass\""
-msgstr "neues Plugin \"noise\""
+msgstr "neues Plugin \"Tiefpass\""
 
 #: index.docbook:187
 #, no-c-format
@@ -320,6 +322,8 @@ msgid ""
 "ported to work with Qt-3.1 without Qt-2 compatibility, also compiles with -"
 "DQT_NO_COMPAT -DQT_CLEAN_NAMESPACE"
 msgstr ""
+"Portiert um mit Qt-3.2 ohne Qt-2 Kompatibilität zu übersetzen, funktioniert "
+"jetzt auch mit -DQT_NO_COMPAT und -DQT_CLEAN_NAMESPACE."
 
 #: index.docbook:187
 #, no-c-format

@@ -9,9 +9,6 @@ o ruler that shows the current cursor position as time
 
 o display of the current position in playback mode
 
-o currently load/save uses the file extension to identify the mime type
-  should be changed to an extra parameter with a KMimeType's name
-
 o audible/silent mode of tracks (speakers)
   speaker controls for "audible" mode
 
@@ -52,8 +49,6 @@ o support for flac: http://flac.sourceforge.net/
 
 o fileinfo plugin: auto-generate filename from "track - title"
 
-o app crashes when closing main window while a file is loaded
-
 o app crashes when a plugin is still running
 
 o Filter: class needs to be tested
@@ -90,8 +85,7 @@ o check at program startup: does the help directory exist? If not, show
 
 o document how to do an optimized build, for example:
   make -f Makefile.dist RPM_OPT_FLAGS="-march=athlon-xp -mcpu=athlon-xp \
-  -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_ASCII_CAST \
-  -DQT_NO_COMPAT -DQT_NO_TRANSLATION"
+  -O4 -Wall -pipe -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_TRANSLATION"
   
 o speed up MP3 import by blockwise operation
 
@@ -134,9 +128,6 @@ o use the KDE's clipboard
 o support for KDE's session management
 
 o fix bug in Fx->Periodic Silence (segmentation fault)
-
-o pluginize/ put into library  the following files in src/ :
-  mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h
 
 o macro recorder
 

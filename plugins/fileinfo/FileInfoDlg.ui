@@ -2875,20 +2875,57 @@
     <tabstop>InfoTab</tabstop>
     <tabstop>edFileName</tabstop>
     <tabstop>edFileSize</tabstop>
+    <tabstop>edFileFormat</tabstop>
     <tabstop>cbSampleRate</tabstop>
     <tabstop>sbResolution</tabstop>
     <tabstop>sbTracks</tabstop>
     <tabstop>txtLength</tabstop>
     <tabstop>cbSampleFormat</tabstop>
+    <tabstop>cbCompression</tabstop>
+    <tabstop>rbCompressionABR</tabstop>
+    <tabstop>KIntSpinBox5_2_2</tabstop>
+    <tabstop>Slider1_2_2</tabstop>
+    <tabstop>CheckBox9_3</tabstop>
+    <tabstop>KIntSpinBox5_3_2</tabstop>
+    <tabstop>Slider1_3_2</tabstop>
+    <tabstop>CheckBox9_2_2</tabstop>
+    <tabstop>KIntSpinBox5_4_2</tabstop>
+    <tabstop>Slider1_4_2</tabstop>
+    <tabstop>rbCompressionVBR</tabstop>
+    <tabstop>KIntSpinBox5_5</tabstop>
+    <tabstop>Slider1_5</tabstop>
+    <tabstop>cbMpegLayer</tabstop>
+    <tabstop>cbMpegVersion</tabstop>
+    <tabstop>cbMpegBitrate</tabstop>
+    <tabstop>cbMpegModeExt</tabstop>
+    <tabstop>cbMpegIntensityStereo</tabstop>
+    <tabstop>cbMpegMSStereo</tabstop>
+    <tabstop>cbMpegEmphasis</tabstop>
+    <tabstop>chkMpegCopyrighted</tabstop>
+    <tabstop>chkMpegOriginal</tabstop>
     <tabstop>edName</tabstop>
     <tabstop>edSubject</tabstop>
     <tabstop>edVersion</tabstop>
     <tabstop>edGenre</tabstop>
     <tabstop>btSelectDate</tabstop>
     <tabstop>btSelectDateNow</tabstop>
+    <tabstop>edSource</tabstop>
+    <tabstop>edSourceForm</tabstop>
+    <tabstop>edAlbum</tabstop>
+    <tabstop>sbCD</tabstop>
+    <tabstop>sbTrack</tabstop>
+    <tabstop>edSoftware</tabstop>
+    <tabstop>edEngineer</tabstop>
+    <tabstop>edTechnican</tabstop>
+    <tabstop>edAuthor</tabstop>
+    <tabstop>edOrganization</tabstop>
+    <tabstop>edCopyright</tabstop>
+    <tabstop>edLicense</tabstop>
+    <tabstop>edISRC</tabstop>
     <tabstop>edProduct</tabstop>
     <tabstop>edArchival</tabstop>
     <tabstop>edContact</tabstop>
+    <tabstop>edCommissioned</tabstop>
 </tabstops>
 <includes>
     <include location="global" impldecl="in declaration">klocale.h</include>

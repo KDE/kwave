@@ -31,9 +31,25 @@ help_de.po: help_en.pot
 help_de.docbook: help_de.po help_en.docbook
 	@echo "converting german help"
 	@echo "(this takes very very long, please be patient...)"
-	$(PO2XML) help_en.docbook help_de.po | \
+	@ $(PO2XML) help_en.docbook help_de.po | \
 	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g \
 	> help_de.docbook
+
+changes.docbook: ../CHANGES ../bin/changes-to-docbook.sh
+	cat ../CHANGES | sed s/\>\>\>//g | sed s/\<\<\<//g | \
+	../bin/changes-to-docbook.sh | recode lat1..utf-8 > changes.docbook
+
+help_en.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
+	cp help_en.docbook help_en.docbook.orig
+	cat help_en.docbook.orig | \
+	../bin/insert-changes.sh  changes.docbook | \
+	awk -v newval=`date --iso` \
+	'{ sub(/<DATE>.*<\/DATE>/, \
+	"<DATE>"newval"</DATE>", $$0); print; }' | \
+	awk -v newval=`cat ../VERSION` \
+	'{ sub(/<RELEASEINFO>.*<\/RELEASEINFO>/, \
+	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
+	help_en.docbook
 
 doc: help_de.docbook
 
@@ -55,10 +71,10 @@ install-data-local:
 	    $(INSTALL_DATA) $${lang}/*.png ${DOCDIR}/$${lang}/$(PACKAGE) ; \
 	    if test ! -e ${DOCDIR}/$${lang}/$(PACKAGE)/common ; then \
 	    rm -f ${DOCDIR}/$${lang}/$(PACKAGE)/common ; fi ; \
-	    ( cd ${DOCDIR}/$${lang}/${PACKAGE} ; ln -s ../common . ) ; \
+	    ( cd ${DOCDIR}/$${lang}/${PACKAGE} ; ln -sf ../common . ) ; \
 	}; done
 	cd ${DOCDIR} ; \
-	if test ! -e default/$(PACKAGE) -a -e default ; then ln -s ../en/$(PACKAGE) default; fi;
+	if test ! -e default/$(PACKAGE) -a -e default ; then ln -sf ../en/$(PACKAGE) default; fi;
 
 uninstall-local:
 	for lang in ${LANGUAGES}; do { \

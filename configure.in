@@ -2,7 +2,7 @@ dnl without this order in this file, autoconf will not work!
 dnl the argument is a source file out of your sources. But
 dnl acinclude.m4 makes the job for all programs ;-)
 
-AC_INIT(kwave,0.6.5)
+AC_INIT([kwave],[0.6.5])
 AC_CONFIG_SRCDIR([admin/acinclude.m4.in])
 AC_CONFIG_AUX_DIR(admin)
 AC_CONFIG_SUBDIRS(libmad)
@@ -70,35 +70,31 @@ AC_SUBST(FIND)
 KWAVE_NEEDS_PROGRAM(AWK,awk)
 AC_SUBST(AWK)
 
-dnl AC_DEFUN(AC_CHECK_WITH_INSURE,
-dnl [
-dnl     ac_use_insure=no
-dnl     AC_MSG_CHECKING(whether to use insure++);
-dnl
-dnl     AC_ARG_ENABLE(insure,
-dnl [  --enable-insure         enable support for insure++ debugging [default=no]],
-dnl    [
-dnl     if test $enableval = "no"; then
-dnl          ac_use_insure="no"
-dnl        else
-dnl          ac_use_insure="yes"
-dnl     fi
-dnl    ], [ac_use_insure="no"])
-dnl
-dnl  if test "$ac_use_insure" = "yes"; then
-dnl    CC=insure
-dnl    CPP=insure
-dnl    CXX=insure
-dnl    AC_SUBST(CC)
-dnl    AC_SUBST(CPP)
-dnl    AC_SUBST(CXX)
-dnl  fi
-dnl
-dnl  AC_MSG_RESULT($ac_use_insure);
-dnl ])
-dnl
-dnl test for usage of insure++
-dnl AC_CHECK_WITH_INSURE
+AC_DEFUN(AC_CHECK_WITH_INSURE,
+[
+    ac_use_insure=no
+    AC_MSG_CHECKING(whether to use insure++);
+    AC_ARG_ENABLE(insure,
+[  --enable-insure         enable support for insure++ debugging [default=no]],
+   [
+    if test $enableval = "no"; then
+         ac_use_insure="no"
+       else
+         ac_use_insure="yes"
+    fi
+   ], [ac_use_insure="no"])
+
+  if test "$ac_use_insure" = "yes"; then
+   CC=insure
+   CPP=insure
+   CXX=insure
+   AC_SUBST(CC)
+   AC_SUBST(CPP)
+   AC_SUBST(CXX)
+  fi
+
+ AC_MSG_RESULT($ac_use_insure);
+])
 
 KDEMAJOR=`$CAT ./KDE-VERSION`
 AC_MSG_CHECKING(which KDE/Qt to use)
@@ -421,6 +417,9 @@ AC_ARG_ENABLE(debug,
   *) AC_MSG_ERROR(bad value ${enableval} for --enable-debug) ;;
 esac],[debug=false])
 AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
+
+dnl test for usage of insure++
+AC_CHECK_WITH_INSURE
 
 dnl add here all your Makefiles
 dnl             (Makefile libaudiofile/Makefile libaudiofile/modules/Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/common/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)

@@ -42,6 +42,12 @@ MultiTrackWriter::MultiTrackWriter()
 }
 
 //***************************************************************************
+MultiTrackWriter::~MultiTrackWriter()
+{
+    clear();
+}
+
+//***************************************************************************
 MultiTrackWriter &MultiTrackWriter::operator << (
 	const MultiTrackReader &source)
 {
@@ -54,10 +60,10 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 
     if (src_tracks != dst_tracks) {
 	// create a mixer matrix and pass everything through
-	
+
 	// ### ALPHA: process sample per sample           ###
 	// ### still using the sampe code as in playback  ###
-	
+
 	// create a translation matrix for mixing up/down to the desired
 	// number of output channels
 	Matrix<double> matrix(src_tracks, dst_tracks);
@@ -66,24 +72,24 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 	    unsigned int m1, m2;
 	    m1 = y * src_tracks;
 	    m2 = (y+1) * src_tracks;
-	
+
 	    for (x=0; x < src_tracks; x++) {
 		unsigned int n1, n2;
 		n1 = x * dst_tracks;
 		n2 = n1 + dst_tracks;
-		
+
 		// get the common area of [n1..n2] and [m1..m2]
 		unsigned int l  = max(n1, m1);
 		unsigned int r = min(n2, m2);
-		
+
 		matrix[x][y] = (r > l) ?
 		    (double)(r-l) / (double)src_tracks : 0.0;
 	    }
 	}
-	
+
 	QMemArray<sample_t> in_samples(src_tracks);
 	QMemArray<sample_t> out_samples(dst_tracks);
-	
+
 	while (!(source.eof())) {
 	    // read input vector
 	    unsigned int x;
@@ -92,12 +98,12 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 		SampleReader *stream = source[x];
 		Q_ASSERT(stream);
 		if (!stream) continue;
-		
+
 		sample_t act;
 		(*stream) >> act;
 		in_samples[x] = act;
 	    }
-		
+
 	    // multiply matrix with input to get output
 	    unsigned int y;
 	    for (y=0; y < dst_tracks; y++) {
@@ -107,15 +113,15 @@ MultiTrackWriter &MultiTrackWriter::operator << (
 		}
 		out_samples[y] = (sample_t)sum;
 	    }
-	
+
 	    // write samples to the target stream
 	    for (y = 0; y < dst_tracks; y++) {
 		if (m_cancelled) break;
 		*at(y) << out_samples[y];
 	    }
-	
+
 	}
-	
+
     } else {
 	// process 1:1
 	unsigned int track;
@@ -142,9 +148,8 @@ void MultiTrackWriter::proceeded()
 {
     unsigned int pos = 0;
     unsigned int track;
-    const unsigned int tracks = count();
-    for (track=0; track < tracks; ++track) {
-	SampleWriter *w = (*this)[track];
+    for (track=0; track < count(); ++track) {
+	SampleWriter *w = at(track);
 	if (w) pos += (w->position() - w->first());
     }
     emit progress(pos);

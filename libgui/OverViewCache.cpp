@@ -72,11 +72,18 @@ OverViewCache::OverViewCache(SignalManager &signal, unsigned int src_offset,
 	}
     }
 
+    // set autodelete mode, for cleaner shutdown
+    m_state.setAutoDelete(true);
+    m_min.setAutoDelete(true);
+    m_max.setAutoDelete(true);
 }
 
 //*****************************************************************************
 OverViewCache::~OverViewCache()
 {
+    m_state.clear();
+    m_min.clear();
+    m_max.clear();
 }
 
 //*****************************************************************************

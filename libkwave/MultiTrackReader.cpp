@@ -27,6 +27,12 @@ MultiTrackReader::MultiTrackReader()
 }
 
 //***************************************************************************
+MultiTrackReader::~MultiTrackReader()
+{
+    clear();
+}
+
+//***************************************************************************
 bool MultiTrackReader::eof() const
 {
     unsigned int c = this->count();

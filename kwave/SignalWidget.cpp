@@ -214,6 +214,7 @@ SignalWidget::~SignalWidget()
     m_selection = 0;
 
     for (int i=0; i < 3; i++) {
+	if (m_layer[i]) delete m_layer[i];
 	m_layer[i] = 0;
     }
 }

@@ -562,11 +562,18 @@ void PluginManager::openMultiTrackWriter(MultiTrackWriter &writers,
 {
     SignalManager &manager = m_top_widget.signalManager();
     QMemArray<unsigned int> tracks = manager.selectedTracks();
-    unsigned int left  = selectionStart();
-    unsigned int right = selectionEnd();
-    if (left == right) {
-	left = 0;
-	right = signalLength()-1;
+    unsigned int left = 0;
+    unsigned int right = 0;
+
+    if (signalLength()) {
+	// default if signal is present: current selection
+	left  = selectionStart();
+	right = selectionEnd();
+	if (left == right) {
+	    // if no selection: whole signal
+	    left  = 0;
+	    right = signalLength();
+	}
     }
 
     openMultiTrackWriter(writers, tracks, mode, left, right);

@@ -20,6 +20,7 @@
 
 #include "config.h"
 #include "libkwave/Encoder.h"
+#include "WavPropertyMap.h"
 
 class QWidget;
 
@@ -46,6 +47,11 @@ public:
      */
     virtual bool encode(QWidget *widget, MultiTrackReader &src,
                         QIODevice &dst, FileInfo &info);
+
+private:
+
+    /** map for translating chunk names to FileInfo properties */
+    WavPropertyMap m_property_map;
 
 };
 

@@ -26,18 +26,6 @@ RepairVirtualAudioFile::RepairVirtualAudioFile(QIODevice &device,
     :VirtualAudioFile(device), m_position(0),
      m_repair_list(repair_list)
 {
-//    QFile file("/tmp/restored.wav");
-//    file.open(IO_WriteOnly);
-//
-//    char buffer[65536];
-//    unsigned int len;
-//
-//    do {
-//        len = sizeof(buffer);
-//        len = read(buffer, len);
-//        file.writeBlock(buffer, len);
-//    } while (len);
-//    file.close();
 }
 
 //***************************************************************************

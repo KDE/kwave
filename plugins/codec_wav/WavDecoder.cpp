@@ -52,14 +52,6 @@ extern "C" {
 #define CHECK(cond) ASSERT(cond); if (!(cond)) { src.close(); return false; }
 
 //***************************************************************************
-void WavDecoder::addPropertyChunk(const FileProperty property,
-                                  const QCString &chunk_name)
-{
-    m_known_chunks.append(chunk_name);
-    m_property_map.insert(chunk_name, property);
-}
-
-//***************************************************************************
 WavDecoder::WavDecoder()
     :Decoder(), m_source(0), m_src_adapter(0), m_known_chunks(),
      m_property_map()
@@ -77,24 +69,11 @@ WavDecoder::WavDecoder()
     m_known_chunks.append("plst"); /* Play List */
     m_known_chunks.append("smpl"); /* Sampler */
 
-    // some sub-chunks from the LIST chunk
-    addPropertyChunk(INF_ARCHIVAL,      "IARL"); // archival location
-    addPropertyChunk(INF_ARTIST,        "IART"); // artist
-    addPropertyChunk(INF_COMMISSIONED,  "ICMS"); // commissioned
-    addPropertyChunk(INF_COMMENTS,      "ICMT"); // comments
-    addPropertyChunk(INF_COPYRIGHT,     "ICOP"); // copyright
-    addPropertyChunk(INF_CREATION_DATE, "ICRD"); // creation date (iso)
-    addPropertyChunk(INF_ENGINEER,      "IENG"); // engineer
-    addPropertyChunk(INF_GENRE,         "IGNR"); // genre
-    addPropertyChunk(INF_KEYWORDS,      "IKEY"); // keywords
-    addPropertyChunk(INF_MEDIUM,        "IMED"); // medium
-    addPropertyChunk(INF_NAME,          "INAM"); // name
-    addPropertyChunk(INF_PRODUCT,       "IPRD"); // product
-    addPropertyChunk(INF_SOFTWARE,      "ISFT"); // software
-    addPropertyChunk(INF_SOURCE,        "ISRC"); // source
-    addPropertyChunk(INF_SOURCE_FORM,   "ISRF"); // source form
-    addPropertyChunk(INF_TECHNICAN,     "ITCH"); // technican
-    addPropertyChunk(INF_SUBJECT,       "ISBJ"); // subject
+    // add all sub-chunks of the LIST chunk (properties)
+    QMap<QCString, FileProperty>::Iterator it;
+    for (it=m_property_map.begin(); it!=m_property_map.end(); ++it) {
+	m_known_chunks.append( it.key() );
+    }
 
     // some chunks known from AIFF format
     m_known_chunks.append("FVER");
@@ -208,7 +187,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     }
 
     // not everything found -> need heavy repair actions !
-    if (!fmt_chunk || !data_chunk) {
+    if (!fmt_chunk || !data_chunk || need_repair) {
+	debug("doing heavy repair actions...");
 	parser.dumpStructure();
 	parser.repair();
 	parser.dumpStructure();
@@ -270,7 +250,6 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     // read the wave header
     wav_fmt_header_t header;
-    // readWavHeader(src, fmt_offset, fmt_size, &header);
 
     unsigned int rate = 0;
     unsigned int bits = 0;
@@ -326,7 +305,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     ASSERT(m_src_adapter);
     if (!m_src_adapter) return false;
 
-    m_src_adapter->open(m_src_adapter);
+    m_src_adapter->open(m_src_adapter, 0);
 
     AFfilehandle fh = m_src_adapter->handle();
     if (!fh || (m_src_adapter->lastError() >= 0)) {

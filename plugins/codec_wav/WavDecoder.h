@@ -26,6 +26,7 @@
 #include <qobject.h>
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
+#include "WavPropertyMap.h"
 
 class RecoverySource;
 class RIFFChunk;
@@ -102,7 +103,7 @@ private:
     QStringList m_known_chunks;
 
     /** map for translating chunk names to FileInfo properties */
-    QMap<QCString, FileProperty> m_property_map;
+    WavPropertyMap m_property_map;
 
 };
 

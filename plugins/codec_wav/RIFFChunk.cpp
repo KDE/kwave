@@ -43,9 +43,15 @@ bool RIFFChunk::isSane()
 {
     CHECK(m_type == Empty);
     CHECK(m_type == Garbage);
-    CHECK(m_phys_length & 0x1); // size is not an even number
     CHECK((m_type == Main) && m_sub_chunks.isEmpty());
     CHECK((m_type == Root) && m_sub_chunks.isEmpty());
+
+    if (m_phys_length & 0x1) {
+	// size is not an even number: no criterium for insanity
+	// but worth a warning
+	warning("%s: physical length is not an even number: %u",
+	        path().data(), m_phys_length);
+    }
 
     unsigned int datalen = dataLength();
     if (m_type == Main) datalen += 4;

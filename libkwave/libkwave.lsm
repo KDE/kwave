@@ -1,6 +1,6 @@
 Begin3
 Title:          kwavelib
-Version:        0.3.3
+Version:        0.3.4
 Entered-date:   Sunday, May 23 1999
 Description:    shared library for kwave, and other applications
 Keywords:       sound signal processing library, 24 Bit, window function,

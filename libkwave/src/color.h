@@ -6,8 +6,9 @@
 class Color:public QColor
 {
  public:
-  Color  ();
-  Color  (const char *);
+  Color  ();                 //zero constructor
+  Color  (int,int,int);      //true color version
+  Color  (const char *);     //construction via command string
   ~Color ();
 
          const char* getCommand           ();

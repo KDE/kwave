@@ -10,6 +10,11 @@ Color::Color ():QColor ()
   comstr=0;
 }
 //****************************************************************************
+Color::Color (int r,int g,int b):QColor (r,g,b)
+{
+  comstr=0;
+}
+//****************************************************************************
 Color::Color (const char *command):QColor ()
 {
   KwaveParser parser(command);

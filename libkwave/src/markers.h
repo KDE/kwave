@@ -1,9 +1,9 @@
 #ifndef _KWAVE_MARKERS_H_
 #define _KWAVE_MARKERS_H_ 1
 
-#include <qstring.h>
-#include <qcolor.h>
 #include <qlist.h>
+#include "color.h"
+
 
 class MarkerType
 //Type Information for Markers mainly information concerning the outlook
@@ -12,23 +12,26 @@ class MarkerType
   MarkerType ();
   MarkerType (const char *);
   ~MarkerType();
+  const char *getCommand ();
 
-  QString*name;         //pointer to name
-  QColor *color;        //color
-  bool    named;        //boolean if named
-  bool    selected;
+  const char* name;         //pointer to name
+  Color*      color;        //color
+  bool        named;        //boolean if named
+  bool        selected;
+ private:
+  char        *comstr;
 };
 //***********************************************************
 class Marker
 //Marker Class is for marking positions in the signal
 {
  public:
-  Marker();
+  Marker (int,MarkerType *,const char *name=0);
   ~Marker();
 
-  int     pos;                         //position
-  QString *name;                       //pointer to name
-  struct  MarkerType *type;            //pointer to type
+  int         pos;                         //position
+  char*       name;                        //pointer to name
+  MarkerType *type;                        //pointer to type
 };
 //***********************************************************
 class MarkerList:public QListT<Marker>

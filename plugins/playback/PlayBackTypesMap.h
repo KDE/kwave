@@ -21,6 +21,8 @@
 #include "libkwave/TypesMap.h"
 #include "PlayBackParam.h"
 
+#undef HAVE_ARTS_SUPPORT // ###
+
 class PlayBackTypesMap: public TypesMap<unsigned int, playback_method_t>
 {
 public:

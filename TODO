@@ -7,7 +7,10 @@ o possible bug/problem: start of a plugin while another plugin is
   PROBLEM: is this garantized to work with other threading packages
            than pthread under linux?
 
+o related to above: app crashes on shutdown when a plugin is still running
+
 o recording support
+  -> currently work in progress
 
 o more precise handling of the playback pointer
   -> use the delay information from aRts
@@ -70,8 +73,6 @@ o support for Spex codec: http://www.speex.org/
 o support for flac: http://flac.sourceforge.net/
 
 o fileinfo plugin: auto-generate filename from "track - title"
-
-o app crashes when a plugin is still running
 
 o Filter: class needs to be tested
 

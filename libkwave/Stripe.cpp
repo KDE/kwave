@@ -325,7 +325,7 @@ unsigned int Stripe::append(const QMemArray<sample_t> &samples,
 	Q_ASSERT(offset + count <= samples.size());
 	if (offset + count > samples.size()) return 0;
 
-	qDebug("Stripe::append: adding %d samples", count);
+// 	qDebug("Stripe::append: adding %d samples", count);
 
 	old_length = m_length;
 	unsigned int new_length = old_length + count;
@@ -333,15 +333,13 @@ unsigned int Stripe::append(const QMemArray<sample_t> &samples,
 	    return 0; // out of memory
 
 	// append to the end of the area
-	{
-	    MappedArray _samples(*this, m_length);
-
-	    unsigned int cnt = new_length - old_length;
-	    appended = _samples.copy(old_length, samples, offset, cnt);
-	}
+	unsigned int cnt = new_length - old_length;
+	appended = MemoryManager::instance().writeTo(m_storage,
+	    old_length * sizeof(sample_t),
+	    &samples[offset], cnt * sizeof(sample_t))
+	    / sizeof(sample_t);
     }
-
-    qDebug("Stripe::append(): resized to %d", m_length);
+//     qDebug("Stripe::append(): resized to %d", m_length);
 
     // something has been added to the end
     if (appended) emit sigSamplesInserted(*this, old_length, appended);
@@ -448,10 +446,10 @@ void Stripe::overwrite(unsigned int offset,
     unsigned int count = srclen;
     {
 	MutexGuard lock(m_lock_samples);
-	{
-	    MappedArray _samples(*this, m_length);
-	    count = _samples.copy(offset, source, srcoff, count);
-	}
+
+	count = MemoryManager::instance().writeTo(m_storage,
+	    offset * sizeof(sample_t),
+	    &source[srcoff], count * sizeof(sample_t)) / sizeof(sample_t);
     }
 
     if (count) emit sigSamplesModified(m_start + offset, count);
@@ -480,10 +478,10 @@ unsigned int Stripe::read(QMemArray<sample_t> &buffer, unsigned int dstoff,
                         m_start, m_start+m_length-1, m_length, offset);
     if (!length) return 0;
 
-    {
-	MappedArray _samples(*this, m_length);
-	length = _samples.read(buffer, dstoff, offset, length);
-    }
+    // read directly through the memory manager, fastest path
+    length = MemoryManager::instance().readFrom(m_storage,
+        offset * sizeof(sample_t),
+        &buffer[dstoff], length * sizeof(sample_t)) / sizeof(sample_t);
 
 //  qDebug("read done, length=%u", length);
     return length;

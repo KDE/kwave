@@ -19,7 +19,7 @@
 #include "mt/MutexGuard.h"
 #include "mt/MutexSet.h"
 
-#include "libkwave/SampleInputStream.h"
+#include "libkwave/SampleWriter.h"
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
 
@@ -95,40 +95,46 @@ unsigned int Track::unlockedLength()
 }
 
 //***************************************************************************
-SampleInputStream *Track::openInputStream(InsertMode mode,
+SampleWriter *Track::openSampleWriter(InsertMode mode,
 	unsigned int left, unsigned int right)
 {
     MutexGuard lock(m_lock_stripes);
-    MutexSet stripe_locks;
     QList<Stripe> stripes;
+    SampleLock * range_lock = 0;
 
     switch (mode) {
 	case Append: {
-//	    debug("Track::openInputStream(apppend)");
+//	    debug("Track::openSampleWriter(apppend)");
 	
 	    // create a new stripe
-	    Stripe *s = new Stripe(unlockedLength(), 0);
+	    unsigned int next_start = unlockedLength();
+	    Stripe *s = new Stripe(next_start);
 	    ASSERT(s);
 	    if (!s) return 0;
 	
 	    // append it to our stripes list and lock it
 	    m_stripes.append(s);
-	    stripe_locks.addLock(s->mutex());
-
+	    range_lock = new SampleLock(*this, next_start, 0,
+		SampleLock::WriteShared);
+	
 	    // use new created stripe as start
-            stripes.append(s);
+	    stripes.append(s);
 	    break;
 	}
 	case Insert:
-	    debug("Track::openInputStream(insert, %u)", left);
+	    debug("Track::openSampleWriter(insert, %u)", left);
 	    warning("--- NOT IMPLEMENTED YET ---"); // ###
+	    return 0;
 	    break;
 	case Overwrite:
 //	    debug("Track::openInputStream(overwrite, %u, %u)", left, right);
 	    if ((right == 0) || (right == left)) right = unlockedLength()-1;
 	
+	    // lock the needed range for shared writing
+	    range_lock = new SampleLock(*this, left, right-left+1,
+		SampleLock::WriteShared);
+	
 	    // add all stripes within the specified range to the list
-	    // and lock them
 	    QListIterator<Stripe> it(m_stripes);
 	    for (; it.current(); ++it) {
 		Stripe *s = it.current();
@@ -139,15 +145,58 @@ SampleInputStream *Track::openInputStream(InsertMode mode,
 		if (st > right) break; // ok, end reached
 		if (st+len-1 >= left) {
 		    // overlaps -> include to our list
-		    stripe_locks.addLock(s->mutex());
 		    stripes.append(s);
 		}
 	    }
+	
 	    break;
     }
 
-    return new SampleInputStream(*this, stripes,
-	stripe_locks, mode, left, right);
+    // no lock yet, that's not good...
+    ASSERT(range_lock);
+    if (!range_lock) return 0;
+
+    // create the input stream
+    SampleWriter *stream = new SampleWriter(*this, stripes,
+	range_lock, mode, left, right);
+    ASSERT(stream);
+    if (stream) return stream;
+
+    // stream creation failed, clean up
+    if (range_lock) delete range_lock;
+    return 0;
+}
+
+//***************************************************************************
+SampleReader *Track::openSampleReader(unsigned int left,
+	unsigned int right)
+{
+    MutexGuard lock(m_lock_stripes);
+    QList<Stripe> stripes;
+    SampleLock * range_lock = 0;
+
+
+    // lock the needed range for shared writing
+    range_lock = new SampleLock(*this, left, right-left+1,
+	SampleLock::WriteShared);
+	
+    // add all stripes within the specified range to the list
+    QListIterator<Stripe> it(m_stripes);
+    for (; it.current(); ++it) {
+	Stripe *s = it.current();
+	unsigned int st = s->start();
+	unsigned int len = s->length();
+	if (!len) continue; // skip zero-length tracks
+	
+	if (st > right) break; // ok, end reached
+	if (st+len-1 >= left) {
+	    // overlaps -> include to our list
+	    stripes.append(s);
+	}
+    }
+
+    if (range_lock) delete range_lock;
+    return 0;
 }
 
 //***************************************************************************

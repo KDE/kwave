@@ -123,7 +123,7 @@ Track *Signal::appendTrack(unsigned int length)
 }
 
 //***************************************************************************
-SampleInputStream *Signal::openInputStream(unsigned int track,
+SampleWriter *Signal::openSampleWriter(unsigned int track,
 	InsertMode mode, unsigned int left, unsigned int right)
 {
     MutexGuard lock(m_lock_tracks);
@@ -133,7 +133,7 @@ SampleInputStream *Signal::openInputStream(unsigned int track,
 	return 0; // track does not exist !
     }
 
-    return m_tracks.at(track)->openInputStream(mode, left, right);
+    return m_tracks.at(track)->openSampleWriter(mode, left, right);
 }
 
 //***************************************************************************

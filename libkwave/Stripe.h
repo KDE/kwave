@@ -55,11 +55,6 @@ public:
     virtual ~Stripe();
 
     /**
-     * Returns a reference to alock for the whole stripe.
-     */
-    Mutex &mutex();
-
-    /**
      * Returns the start position of the stripe within the track.
      */
     unsigned int start();
@@ -107,6 +102,8 @@ public:
      * @param dstoff offset within the destination array
      * @param dstlen length of the data in the destination array
      * @return number of samples read
+     * @warning this method is intended to be used only internally
+     *          and waives any error-checking in order to be fast!
      */
     unsigned int read(unsigned int offset, QArray<sample_t> &samples,
 	unsigned int dstoff, unsigned int dstlen);

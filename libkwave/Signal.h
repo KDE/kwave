@@ -13,7 +13,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"
 
-class SampleInputStream;
+class SampleReader;
+class SampleWriter;
 class Track;
 
 //**********************************************************************
@@ -65,7 +66,7 @@ public:
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleInputStream *openInputStream(unsigned int track, InsertMode mode,
+    SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
 
     /**

@@ -46,12 +46,6 @@ Stripe::~Stripe()
 }
 
 //***************************************************************************
-Mutex &Stripe::mutex()
-{
-    return m_lock;
-}
-
-//***************************************************************************
 unsigned int Stripe::start()
 {
     MutexGuard lock(m_lock_samples);
@@ -163,14 +157,14 @@ unsigned int Stripe::read(unsigned int offset, QArray<sample_t> &samples,
 	unsigned int dstoff, unsigned int dstlen)
 {
     unsigned int count = 0;
-    {
-	MutexGuard lock(m_lock_samples);
-	unsigned int pos = offset;
-	while (dstlen--) {
-	    samples[pos++] = m_samples[dstoff++];
-	    count++;
-	}
+
+    MutexGuard lock(m_lock_samples);
+    unsigned int pos = offset;
+    while (dstlen--) {
+	samples[pos++] = m_samples[dstoff++];
+	count++;
     }
+
     return count;
 }
 

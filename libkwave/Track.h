@@ -18,6 +18,7 @@
 #ifndef _TRACK_H_
 #define _TRACK_H_
 
+#include <limits.h>  // for ULONG_MAX
 #include <qobject.h>
 #include <qlist.h>
 
@@ -27,7 +28,8 @@
 #include "libkwave/SampleLock.h"
 #include "libkwave/Stripe.h"
 
-class SampleInputStream;
+class SampleWriter;
+class SampleReader;
 
 //***************************************************************************
 class Track: public QObject
@@ -63,26 +65,25 @@ public:
     unsigned int length();
 
     /**
-     * Opens an input stream for a track, starting at a specified sample
-     * position.
+     * Opens a stream for writing samples, starting at a
+     * sample position.
      * @param mode specifies where and how to insert
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)
      * @see InsertMode
      */
-    SampleInputStream *openInputStream(InsertMode mode,
+    SampleWriter *openSampleWriter(InsertMode mode,
 	unsigned int left = 0, unsigned int right = 0);
 
     /**
-     * Locks a range of samples for shared or exclusive access.
-     * @param offset index of the first sample
-     * @param length number of samples to be locked
-     * @param mode the mode of the lock
-     * @returns a lock object for the range
+     * Opens a stream for reading samples. If the the last position
+     * is omitted, the value MAXLONG will be used.
+     * @param left first offset to be read (default = 0)
+     * @param right last position to read (default = ULONG_MAX)
      */
-    SampleLock *lockRange(unsigned int offset, unsigned int length,
-	SampleLock::LockMode mode);
+    SampleReader *openSampleReader(unsigned int left = 0,
+	unsigned int right = ULONG_MAX);
 
 signals:
 

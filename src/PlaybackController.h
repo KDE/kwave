@@ -48,6 +48,9 @@ public:
 
 public:
 
+    /** resets start, current position, loop, pause and running flag */
+    void reset();
+
     /** returns the loop mode flag */
     bool loop();
 
@@ -103,6 +106,12 @@ public slots:
      */
     void playbackStop();
 
+    /** Updates the current playback position */
+    void updatePlaybackPos(unsigned int pos);
+
+    /** Updates the status if playback is done */
+    void playbackDone();
+
 signals:
 
     /**
@@ -129,6 +138,11 @@ signals:
      * Signals that playback has stopped.
      */
     void sigPlaybackStopped();
+
+    /**
+     * Emits the current position of the playback pointer
+     */
+    void sigPlaybackPos(unsigned int pos);
 
 private:
     /** if set to true, the playback will be done in loop mode */

@@ -1,11 +1,5 @@
 
-o crash with revers / zero() / cut/paste ?
-
-o selection is not properly updated after "delete"
-
-o selection is not properly updated after "paste"
-
-o playback: continue/pause
+o crash with reverse / zero() / cut/paste ?
 
 o playback: get error messages out of the thread
 
@@ -25,6 +19,11 @@ o amplifyclip does not work
 o feature "pulse train" is not yet implemented
 
 o move label handling to class LabelManager
+
+o SignalProxy1 and SignalProxy should be merged
+
+o SignalProxy1 implementation is very inefficient for simple data types
+  like bool, char, int etc. Uses to much new/delete.
 
 o links to the kwave help: do recursive cleanup in rpm's %postun section
 

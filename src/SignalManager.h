@@ -27,6 +27,8 @@
 #include <qlist.h>
 #include <stdio.h>
 
+#include "mt/SignalProxy.h"
+
 class ProgressDialog;
 class QBitmap;
 class Signal;
@@ -73,15 +75,6 @@ public:
                   unsigned int start, bool loop);
 
     /**
-     * Starts playback.
-     * @param start position where playback should start
-     * @param loop true: looping instead of single play
-     */
-    void play(unsigned int start, bool loop);
-
-    void stopplay();
-
-    /**
      * Determines the maximum and minimum values of a given range
      * of samples.
      * @param channel index of the channel
@@ -116,7 +109,7 @@ public:
     };
 
     /** Returns the current number of channels */
-    inline unsigned int getChannelCount()
+    inline unsigned int channels()
     {
 	return m_channels;
     };
@@ -143,14 +136,6 @@ public:
 	return rmarker;
     };
 
-    inline unsigned int getPlayPosition()
-    {
-	return msg[samplepointer];
-    };
-    inline bool isPlaying()
-    {
-	return msg[processid];
-    };
     inline Signal *getSignal (int channel)
     {
 	return signal.at(channel);
@@ -207,6 +192,20 @@ public:
      */
     void toggleChannel(const unsigned int channel);
 
+public slots:
+
+    /**
+     * Starts playback.
+     * @param start position where playback should start
+     * @param loop true: looping instead of single play
+     */
+    void startplay(unsigned int start, bool loop);
+
+    /**
+     * Stops playback.
+     */
+    void stopplay();
+
 signals:
 
     /**
@@ -238,6 +237,17 @@ signals:
      */
     void sigChannelDeleted(unsigned int channel);
 
+    /**
+     * Indicates a change in the position of the playback pointer
+     * during playback.
+     */
+    void sigPlaybackPos(unsigned int pos);
+
+    /**
+     * Indicates that playback is done.
+     */
+    void sigPlaybackDone();
+
 private slots:
 
     /**
@@ -245,6 +255,17 @@ private slots:
      */
     void commandDone();
 
+    /**
+     * Called from the playback thread to notify about a new
+     * playback pointer.
+     * \internal
+     */
+    void updatePlaybackPos();
+
+    /**
+     * emits sigPlaybackDone() at end of playback
+     */
+    void forwardPlaybackDone();
 
 private:
 
@@ -324,6 +345,18 @@ private:
     unsigned int rmarker;
     unsigned int m_channels;
     int rate;                    //sampling rate being used
+
+    /**
+     * Signal proxy that brings the current playback position
+     * out of the playback thread.
+     */
+    SignalProxy1<unsigned int> m_spx_playback_pos;
+
+    /**
+     * Signal proxy that signals the end of playback out
+     * of the playback thread.
+     */
+    SignalProxy<void> m_spx_playback_done;
 
     /** error string from the playback thread */
     const char *m_playback_error;

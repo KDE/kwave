@@ -174,10 +174,9 @@ public slots:
     void playbackStart();
 
     /**
-     * Stopps playback / loop. Like playbackPause(), but resets the
-     * playback pointer back to the start.
+     * Called if the playback has been stopped.
      */
-    void playbackStop();
+    void playbackStopped();
 
     /**
      * Returns the current number of pixels per sample
@@ -221,11 +220,12 @@ public slots:
 
 private slots:
 
+    void updatePlaybackPointer(unsigned int pos);
+
     void refreshSelection();
 
 signals:
 
-    void playingfinished ();
     void viewInfo (int, int, int);
 
     void selectedTimeInfo(double ms);

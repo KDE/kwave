@@ -130,8 +130,17 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     select = new MouseMark(this);
     ASSERT(select);
     if (!select) return;
+
+    connect(select, SIGNAL(selection(int, int)),
+	    this, SLOT(estimateRange(int, int)));
     connect(select, SIGNAL(refresh()),
             this, SLOT(refreshSelection()));
+    connect(&m_playback_controller, SIGNAL(sigStartPlayback()),
+            this, SLOT(playbackStart()));
+    connect(&m_playback_controller, SIGNAL(sigPlaybackStopped()),
+            this, SLOT(playbackStopped()));
+    connect(&m_playback_controller, SIGNAL(sigPlaybackPos(unsigned int)),
+            this, SLOT(updatePlaybackPointer(unsigned int)));
 
     labels = new LabelList();
     ASSERT(labels);
@@ -358,7 +367,7 @@ void SignalWidget::showDialog(const char *name)
     int channels = 0;
     if (signalmanage) length = signalmanage->getLength ();
     if (signalmanage) rate = signalmanage->getRate ();
-    if (signalmanage) channels = signalmanage->getChannelCount ();
+    if (signalmanage) channels = signalmanage->channels();
 
     DialogOperation *operation =
 	new DialogOperation(&globals, length, rate, channels, true);
@@ -392,6 +401,7 @@ void SignalWidget::showMessage(const char *caption, const char *text,
 //****************************************************************************
 void SignalWidget::playback_startTimer()
 {
+//    debug("void SignalWidget::playback_startTimer()");
     if (!signalmanage) return;
 
     if (timer == 0) {
@@ -404,7 +414,7 @@ void SignalWidget::playback_startTimer()
 	timer->stop();
     }
     if (!timer) return;
-		
+
     // start a timer that refreshes after each pixel
     int ms;
     double rate = signalmanage->getRate();
@@ -417,6 +427,8 @@ void SignalWidget::playback_startTimer()
     } else {
 	ms = 100;
     }
+
+    // start timer as single-shot
     timer->start(ms, true);
 }
 
@@ -461,7 +473,6 @@ void SignalWidget::selectRange(int left, int right)
 	    select->set(left, right);
     }
 
-    m_playback_controller.setStartPos(left);
     signalmanage->setRange(left, right);
     estimateRange(left, right);
 }
@@ -479,13 +490,12 @@ void SignalWidget::connectSignal()
 //    connect(signalmanage,SIGNAL(signaldeleted(int,int)),
 //            this, SLOT(signaldeleted(int,int)));
 
-    connect(&m_playback_controller, SIGNAL(sigStartPlayback()),
-            this, SLOT(playbackStart()));
+    connect(signalmanage, SIGNAL(sigPlaybackPos(unsigned int)),
+            &m_playback_controller, SLOT(updatePlaybackPos(unsigned int)));
+    connect(signalmanage, SIGNAL(sigPlaybackDone()),
+            &m_playback_controller, SLOT(playbackDone()));
     connect(&m_playback_controller, SIGNAL(sigStopPlayback()),
-            this, SLOT(playbackStop()));
-
-    connect(select, SIGNAL(selection(int, int)),
-	    this, SLOT(estimateRange(int, int)));
+            signalmanage, SLOT(stopplay()));
 
     connect(signalmanage, SIGNAL(sigCommand(const char*)),
 	    this, SLOT(forwardCommand(const char *)));
@@ -501,35 +511,31 @@ void SignalWidget::connectSignal()
 //****************************************************************************
 void SignalWidget::forwardCommand(const char *command)
 {
-//    debug("SignalWidget::forwardCommand(%s)", command);    // ###
     emit sigCommand(command);
 }
 
 //****************************************************************************
 void SignalWidget::forwardSignalChanged(int left, int right)
 {
-    debug("SignalWidget::forwardSignalChanged(%d,%d)", left, right);
     emit signalChanged(left, right);
 }
 
 //****************************************************************************
 void SignalWidget::forwardChannelAdded(unsigned int channel)
 {
-//    debug("SignalWidget::forwardChannelAdded(%u)", channel);
     emit sigChannelAdded(channel);
 }
 
 //****************************************************************************
 void SignalWidget::forwardChannelDeleted(unsigned int channel)
 {
-    debug("SignalWidget::forwardChannelDeleted(%u)", channel);
     emit sigChannelDeleted(channel);
 }
 
 //****************************************************************************
 int SignalWidget::getChannelCount()
 {
-    return (signalmanage) ? signalmanage->getChannelCount() : 0;
+    return (signalmanage) ? signalmanage->channels() : 0;
 }
 
 //****************************************************************************
@@ -579,7 +585,6 @@ void SignalWidget::createSignal(const char *str)
 //****************************************************************************
 void SignalWidget::estimateRange(int l, int r)
 {
-//    debug("SignalWidget::estimateRange(%d, %d)", l, r);
     emit selectedTimeInfo(samples2ms(r - l + 1));
 }
 
@@ -594,7 +599,7 @@ void SignalWidget::setSignal(SignalManager *sigs)
     if ((signalmanage) && (signalmanage->getLength())) {
 	connectSignal();
 	zoomAll();
-	for (unsigned int i=0; i < signalmanage->getChannelCount(); i++)
+	for (unsigned int i=0; i < signalmanage->channels(); i++)
 	    emit sigChannelAdded(i);
     }
 }
@@ -626,53 +631,25 @@ void SignalWidget::setSignal(const char *filename, int type)
     connectSignal();
     selectRange(0, 0);
     zoomAll();
-    for (unsigned int i=0; i < signalmanage->getChannelCount(); i++)
+    for (unsigned int i=0; i < signalmanage->channels(); i++)
 	emit sigChannelAdded(i);
 }
 
 //****************************************************************************
 void SignalWidget::closeSignal()
 {
-    if (!signalmanage) return ;
-    delete signalmanage;
+    m_playback_controller.playbackStop();
+
+    if (signalmanage) delete signalmanage;
     signalmanage = 0;
+
+    m_playback_controller.reset();
 
     down = false;
 
     selectRange(0, 0);
     zoomAll();
     refreshAllLayers();
-}
-
-//****************************************************************************
-void SignalWidget::playback_time()
-{
-//    debug("SignalWidget::playback_time()");
-    ASSERT(signalmanage);
-    ASSERT(m_zoom >= 0.0);
-    if (!signalmanage) return;
-    if (m_zoom<=0.0) return;
-
-    bool needRepaint = false;
-    playpointer = samples2pixels(signalmanage->getPlayPosition() - offset);
-
-    if ((playpointer < width) && (playpointer >= 0)) {
-	if (playpointer != lastplaypointer) {
-	    needRepaint = true;
-	}
-    }
-
-    if (!signalmanage->isPlaying()) {
-	playpointer = -1;
-	needRepaint = true;
-	emit playingfinished();
-    }
-
-    if (needRepaint) {
-	repaint(false);
-    } else {
-	playback_startTimer();
-    }
 }
 
 //****************************************************************************
@@ -750,13 +727,8 @@ void SignalWidget::fixZoomAndOffset()
 
 //    // adjust the zoom factor in order to make a whole number
 //    // of samples fit into the current window
-//    debug("SignalWidget::fixZoomAndOffset(): --1--: zoom=%0.5f",zoom); // ###
 //    int samples = pixels2samples(width) + 1;
-//
-//    debug("width=%d, samples=%d", width, samples);
-//
 //    zoom = (double)(samples) / (double)(width - 1);
-//    debug("SignalWidget::fixZoomAndOffset(): --2--: zoom=%0.5f",zoom); // ###
 
     // do some final range checking
     if (m_zoom < min_zoom) m_zoom = min_zoom;
@@ -895,7 +867,7 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
     if (!signalmanage) return;
 
     // ignore all mouse press event in playback mode
-    if (signalmanage->isPlaying()) return;
+    if (m_playback_controller.running()) return;
 
     if (e->button() == LeftButton) {
 	int x = offset + pixels2samples(e->pos().x());
@@ -918,7 +890,7 @@ void SignalWidget::mouseReleaseEvent(QMouseEvent *e)
     if (!signalmanage) return;
 
     // ignore all mouse release events in playback mode
-    if (signalmanage->isPlaying()) return;
+    if (m_playback_controller.running()) return;
 
     if (down) {
 	int x = offset + pixels2samples(e->pos().x());
@@ -1332,10 +1304,9 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 //	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
 	p.begin(layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, width, height, black);
-//	p.setPen (green);
-//	if (playpointer >= 0) {
-//	    p.drawLine (playpointer, -height / 2, playpointer, height);
-//	}
+	
+	// ### nothing to do yet
+	
 	p.flush();
 	p.end();
 	
@@ -1400,11 +1371,14 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 		width, height, layer_rop[i]
 	    );
 	}
-	lastplaypointer = -1;
+	lastplaypointer = -2;
     }
 
     // --- redraw the playpointer if a signal is present ---
-    if (channels && (lastplaypointer != playpointer)) {
+    playpointer = samples2pixels(
+	m_playback_controller.currentPos() - offset);
+
+    if (channels) {
 	p.begin(pixmap);
 	p.setPen(yellow);
 	p.setRasterOp(XorROP);
@@ -1412,10 +1386,16 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	if (lastplaypointer >= 0) p.drawLine(lastplaypointer, 0,
 	                                     lastplaypointer, height);
 
-	if (playpointer >= 0) p.drawLine(playpointer, 0,
-	                                 playpointer, height);
-
-	lastplaypointer = playpointer;
+	if ( (m_playback_controller.running() ||
+	      m_playback_controller.paused() ) &&
+	     ((playpointer >= 0) && (playpointer < width)) )
+	{
+	    p.drawLine(playpointer, 0, playpointer, height);
+	    lastplaypointer = playpointer;
+	} else {
+	    lastplaypointer = -1;
+	}
+	
 	p.flush();
 	p.end();
     }
@@ -1431,27 +1411,23 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 //	t_elapsed); // ###
 //#endif
 
-    if (signalmanage) {
-	// restart the timer for refreshing the playpointer
-	if (signalmanage->isPlaying()) playback_startTimer();
-    }
-
+    // restart the timer for refreshing the playpointer
+    if (m_playback_controller.running()) playback_startTimer();
 }
 
-
-//below are the methods of class SignalWidget that deal with labels
-#define AUTOKORRWIN 320
-//windowsize for autocorellation, propably a little bit too short for
-//lower frequencies, but this will get configurable somewhere in another
-//dimension or for those of you who can't zap to other dimensions, it will
-//be done in future
-
-int findNextRepeat (int *, int);
-int findNextRepeatOctave (int *, int, double = 1.005);
-int findFirstMark (int *, int);
-
-float autotable [AUTOKORRWIN];
-float weighttable[AUTOKORRWIN];
+////below are the methods of class SignalWidget that deal with labels
+//#define AUTOKORRWIN 320
+////windowsize for autocorellation, propably a little bit too short for
+////lower frequencies, but this will get configurable somewhere in another
+////dimension or for those of you who can't zap to other dimensions, it will
+////be done in future
+//
+//int findNextRepeat (int *, int);
+//int findNextRepeatOctave (int *, int, double = 1.005);
+//int findFirstMark (int *, int);
+//
+//float autotable [AUTOKORRWIN];
+//float weighttable[AUTOKORRWIN];
 
 //****************************************************************************
 int SignalWidget::ms2samples(double ms)
@@ -1910,11 +1886,11 @@ void SignalWidget::markPeriods (const char *str)
 //    }
 }
 
-//*****************************************************************************
-int findNextRepeat (int *sample, int high)
-//autocorellation of a windowed part of the sample
-//returns length of period, if found
-{
+////*****************************************************************************
+//int findNextRepeat (int *sample, int high)
+////autocorellation of a windowed part of the sample
+////returns length of period, if found
+//{
 //    int i, j;
 //    double gmax = 0, max, c;
 //    int maxpos = AUTOKORRWIN;
@@ -1938,14 +1914,13 @@ int findNextRepeat (int *sample, int high)
 //	i++;
 //    }
 //    return maxpos;
-    return 0;
-}
-
-//*****************************************************************************
-int findNextRepeatOctave (int *sample, int high, double adjust = 1.005)
-//autocorellation of a windowed part of the sample
-//same as above only with an adaptive weighting to decrease fast period changes
-{
+//}
+//
+////*****************************************************************************
+//int findNextRepeatOctave (int *sample, int high, double adjust = 1.005)
+////autocorellation of a windowed part of the sample
+////same as above only with an adaptive weighting to decrease fast period changes
+//{
 //    int i, j;
 //    double gmax = 0, max, c;
 //    int maxpos = AUTOKORRWIN;
@@ -1989,13 +1964,12 @@ int findNextRepeatOctave (int *sample, int high, double adjust = 1.005)
 //	}
 //
 //    return maxpos;
-   return 0;
-}
-
+//}
+//
 //*****************************************************************************
-int findFirstMark (int *sample, int len)
-//finds first sample that is non-zero, or one that preceeds a zero crossing
-{
+//int findFirstMark (int *sample, int len)
+////finds first sample that is non-zero, or one that preceeds a zero crossing
+//{
 //    int i = 1;
 //    int last = sample[0];
 //    int act = last;
@@ -2009,8 +1983,7 @@ int findFirstMark (int *sample, int len)
 //	    i++;
 //	}
 //    return i;
-   return 0;
-}
+//}
 
 //*****************************************************************************
 void SignalWidget::addLabelType (LabelType *marker)
@@ -2031,26 +2004,43 @@ void SignalWidget::playbackStart()
 {
     ASSERT(signalmanage);
     if (!signalmanage) return;
-    debug("SignalWidget::playbackStart()");
 
     unsigned int start = m_playback_controller.currentPos();
     bool loop = m_playback_controller.loop();
-    signalmanage->play(start, loop);
+    bool paused = m_playback_controller.paused();
+
+    if (!paused) {
+	unsigned int l = signalmanage->getLMarker();
+	unsigned int r = signalmanage->getRMarker();
+	
+	// start from left marker or zero if nothing selected
+	start = (l == r) ? 0 : l;
+	m_playback_controller.setStartPos(start);
+    }
+
+    signalmanage->startplay(start, loop);
     playback_startTimer();
 }
 
 //***************************************************************************
-void SignalWidget::playbackStop()
+void SignalWidget::playbackStopped()
 {
     ASSERT(signalmanage);
     if (!signalmanage) return;
-    debug("SignalWidget::playbackStop()");
-
-    signalmanage->stopplay();
-    ASSERT(timer);
     if (timer) timer->stop();
-    playpointer = -1;
     repaint(false);
+}
+
+//****************************************************************************
+void SignalWidget::playback_time()
+{
+    repaint(false);
+}
+
+//***************************************************************************
+void SignalWidget::updatePlaybackPointer(unsigned int pos)
+{
+    if (timer && !timer->isActive()) playback_startTimer();
 }
 
 /* end of src/SignalWidget.cpp */

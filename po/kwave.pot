@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-11-12 17:26+0100\n"
+"POT-Creation-Date: 2000-11-25 20:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,178 +78,174 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: src/SignalManager.cpp:100
+#: src/SignalManager.cpp:110
 msgid "noname"
 msgstr ""
 
-#: src/SignalManager.cpp:530
+#: src/SignalManager.cpp:508
 msgid " on channel "
 msgstr ""
 
-#: src/SignalManager.cpp:651 src/SignalManager.cpp:708
-#: src/SignalManager.cpp:739 src/SignalManager.cpp:762
-#: src/SignalManager.cpp:771 src/SignalManager.cpp:776
-#: src/SignalManager.cpp:781 src/SignalManager.cpp:1029
-#: src/SignalManager.cpp:1088
+#: src/SignalManager.cpp:630 src/SignalManager.cpp:687
+#: src/SignalManager.cpp:718 src/SignalManager.cpp:741
+#: src/SignalManager.cpp:750 src/SignalManager.cpp:755
+#: src/SignalManager.cpp:760 src/SignalManager.cpp:1008
+#: src/SignalManager.cpp:1067
 msgid "Info"
 msgstr ""
 
-#: src/SignalManager.cpp:651 src/SignalManager.cpp:708
+#: src/SignalManager.cpp:630 src/SignalManager.cpp:687
 msgid "File does not exist !"
 msgstr ""
 
-#: src/SignalManager.cpp:740
+#: src/SignalManager.cpp:719
 msgid "File has no data chunk!"
 msgstr ""
 
-#: src/SignalManager.cpp:763 src/SignalManager.cpp:1030
+#: src/SignalManager.cpp:742 src/SignalManager.cpp:1009
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr ""
 
-#: src/SignalManager.cpp:772
+#: src/SignalManager.cpp:751
 msgid "File must be uncompressed (Mode 1) !"
 msgstr ""
 
-#: src/SignalManager.cpp:777
+#: src/SignalManager.cpp:756
 msgid "File is no RIFF Wave File !"
 msgstr ""
 
-#: src/SignalManager.cpp:782
+#: src/SignalManager.cpp:761
 msgid "File does not contain enough data !"
 msgstr ""
 
-#: src/SignalManager.cpp:817 src/SignalManager.cpp:891
-#: src/SignalManager.cpp:1101
+#: src/SignalManager.cpp:796 src/SignalManager.cpp:870
+#: src/SignalManager.cpp:1080
 msgid "Mono"
 msgstr ""
 
-#: src/SignalManager.cpp:819 src/SignalManager.cpp:893
-#: src/SignalManager.cpp:1103
+#: src/SignalManager.cpp:798 src/SignalManager.cpp:872
+#: src/SignalManager.cpp:1082
 msgid "Stereo"
 msgstr ""
 
-#: src/SignalManager.cpp:823
+#: src/SignalManager.cpp:802
 #, c-format
 msgid "Exporting %s ASCII file :"
 msgstr ""
 
-#: src/SignalManager.cpp:915
+#: src/SignalManager.cpp:894
 msgid "empty channel detected, channel count reduced by one"
 msgstr ""
 
-#: src/SignalManager.cpp:987
+#: src/SignalManager.cpp:966
 msgid "info"
 msgstr ""
 
-#: src/SignalManager.cpp:988
+#: src/SignalManager.cpp:967
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: src/SignalManager.cpp:1077
+#: src/SignalManager.cpp:1056
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File has been truncated."
 msgstr ""
 
-#: src/SignalManager.cpp:1088
+#: src/SignalManager.cpp:1067
 msgid "Out of Memory!"
 msgstr ""
 
-#: src/SignalManager.cpp:1106
+#: src/SignalManager.cpp:1085
 #, c-format
 msgid "%d voices"
 msgstr ""
 
-#: src/SignalManager.cpp:1109
+#: src/SignalManager.cpp:1088
 #, c-format
 msgid "Loading %d-Bit (%s) File :"
 msgstr ""
 
-#: src/SignalManager.cpp:1301
-msgid "playback problem"
-msgstr ""
-
-#: src/SignalManager.cpp:1344
+#: src/SignalManager.cpp:1322
 msgid "number of bits per samples not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1351
+#: src/SignalManager.cpp:1329
 msgid "stereo not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1357
+#: src/SignalManager.cpp:1335
 msgid "playback rate not supported"
 msgstr ""
 
-#: src/SignalManager.cpp:1363
+#: src/SignalManager.cpp:1345
 msgid "unusable buffer size"
 msgstr ""
 
-#: src/TopWidget.cpp:164
+#: src/TopWidget.cpp:169
 msgid "Length: 0 ms           "
 msgstr ""
 
-#: src/TopWidget.cpp:165
+#: src/TopWidget.cpp:170
 msgid "Rate: 0 kHz         "
 msgstr ""
 
-#: src/TopWidget.cpp:166
+#: src/TopWidget.cpp:171
 msgid "Samples: 0             "
 msgstr ""
 
-#: src/TopWidget.cpp:167
+#: src/TopWidget.cpp:172
 msgid "selected: 0 ms        "
 msgstr ""
 
-#: src/TopWidget.cpp:168
+#: src/TopWidget.cpp:173
 msgid "Clipboard: 0 ms      "
 msgstr ""
 
-#: src/TopWidget.cpp:226
+#: src/TopWidget.cpp:224
 msgid "toolbar"
 msgstr ""
 
-#: src/TopWidget.cpp:239
+#: src/TopWidget.cpp:237
 msgid "create a new empty file"
 msgstr ""
 
-#: src/TopWidget.cpp:244
+#: src/TopWidget.cpp:242
 msgid "open an existing file"
 msgstr ""
 
-#: src/TopWidget.cpp:249
+#: src/TopWidget.cpp:247
 msgid "save the current file"
 msgstr ""
 
-#: src/TopWidget.cpp:254
+#: src/TopWidget.cpp:252
 msgid "save the current file under a different name"
 msgstr ""
 
-#: src/TopWidget.cpp:274
+#: src/TopWidget.cpp:272
 msgid "cut the current selection and move it to the clipboard"
 msgstr ""
 
-#: src/TopWidget.cpp:279
+#: src/TopWidget.cpp:277
 msgid "copy the current selection to the clipboard"
 msgstr ""
 
-#: src/TopWidget.cpp:284
+#: src/TopWidget.cpp:282
 msgid "insert the content of clipboard"
 msgstr ""
 
-#: src/TopWidget.cpp:289
+#: src/TopWidget.cpp:287
 msgid "mute the current selection"
 msgstr ""
 
-#: src/TopWidget.cpp:294
+#: src/TopWidget.cpp:292
 msgid "delete the current selection"
 msgstr ""
 
-#: src/TopWidget.cpp:318
+#: src/TopWidget.cpp:316
 msgid "start playback"
 msgstr ""
 
-#: src/TopWidget.cpp:323
+#: src/TopWidget.cpp:322
 msgid "start playback and loop"
 msgstr ""
 
@@ -257,32 +253,32 @@ msgstr ""
 msgid "pause playback"
 msgstr ""
 
-#: src/TopWidget.cpp:333
+#: src/TopWidget.cpp:334
 msgid "stop playback or loop"
 msgstr ""
 
-#: src/TopWidget.cpp:350
+#: src/TopWidget.cpp:352
 msgid "zoom to selection"
 msgstr ""
 
-#: src/TopWidget.cpp:355
+#: src/TopWidget.cpp:358
 msgid "zoom in"
 msgstr ""
 
-#: src/TopWidget.cpp:360
+#: src/TopWidget.cpp:364
 msgid "zoom out"
 msgstr ""
 
-#: src/TopWidget.cpp:365
+#: src/TopWidget.cpp:370
 #, c-format
 msgid "zoom to 100%"
 msgstr ""
 
-#: src/TopWidget.cpp:370
+#: src/TopWidget.cpp:376
 msgid "zoom to all"
 msgstr ""
 
-#: src/TopWidget.cpp:376
+#: src/TopWidget.cpp:383
 msgid "select zoom factor"
 msgstr ""
 
@@ -303,22 +299,22 @@ msgid ""
 " that contains the plugin '%s' !"
 msgstr ""
 
-#: src/MainWidget.cpp:428
+#: src/MainWidget.cpp:370
 #, c-format
 msgid "Rate: %d.%d kHz"
 msgstr ""
 
-#: src/MainWidget.cpp:437
+#: src/MainWidget.cpp:379
 #, c-format
 msgid "Samples: %d"
 msgstr ""
 
-#: src/MainWidget.cpp:655
+#: src/MainWidget.cpp:523
 #, c-format
 msgid "selected: %s"
 msgstr ""
 
-#: src/MainWidget.cpp:665
+#: src/MainWidget.cpp:533
 #, c-format
 msgid "Length: %s"
 msgstr ""
@@ -1050,7 +1046,7 @@ msgid "file %s does not exist!\n"
 msgstr ""
 
 #: plugins/dialogs/about/AboutDialog.cpp:106
-msgid "About KWave"
+msgid "About Kwave"
 msgstr ""
 
 #: plugins/dialogs/delay/module.cpp:24 plugins/dialogs/newsignal/module.cpp:21

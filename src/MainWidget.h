@@ -156,41 +156,6 @@ private slots:
      */
     void scrollbarMoved(int newval);
 
-//    /**
-//     * (Re-)starts the playback. If playback has successfully been
-//     * started, the signal sigPlaybackStarted() will be emitted.
-//     */
-//    void playbackStart();
-//
-//    /**
-//     * (Re-)starts the playback in loop mode (like with playbackStart().
-//     * Also emitts sigPlaybackStarted() if playback has successfully
-//     * been started.
-//     */
-//    void playbackLoop();
-//
-//    /**
-//     * Pauses the playback. Causes sigPlaybackDone() to be emitted if
-//     * the current buffer has played out. The current playback pointer
-//     * will stay at it's current position.
-//     */
-//    void playbackPause();
-//
-//    /**
-//     * Continues the playback at the position where it has been stopped
-//     * by the playbackPause() command. If the last playback pointer
-//     * has become invalid or is not available (less 0), this function
-//     * will do the same as playbackStart(). This also emits the
-//     * signal sigPlaybackStarted().
-//     */
-//    void playbackContinue();
-//
-//    /**
-//     * Stopps playback / loop. Like playbackPause(), but resets the
-//     * playback pointer back to the start.
-//     */
-//    void playbackStop();
-
 signals:
 
     /**
@@ -203,15 +168,6 @@ signals:
 
     void setOperation (int);
     void channelInfo (unsigned int);
-
-    /** Emitted if the playback has started */
-    void sigPlaybackStarted();
-
-    /** Emitted if the playback has been paused */
-    void sigPlaybackPaused();
-
-    /** Emitted if the playback has stopped or is done */
-    void sigPlaybackStopped();
 
 protected:
 

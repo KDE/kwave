@@ -36,7 +36,6 @@ PlaybackController::~PlaybackController()
 //***************************************************************************
 void PlaybackController::playbackStart()
 {
-    debug("PlaybackController::playbackStart()");
     if (m_playing) {
 	// first stop playback
 	emit sigStopPlayback();
@@ -45,11 +44,14 @@ void PlaybackController::playbackStart()
 
     // (re)start from beginning without loop mode
     m_playback_position = m_playback_start;
+    emit sigPlaybackPos(m_playback_position);
+
     m_loop_mode = false;
     m_paused = false;
     emit sigStartPlayback();
-    emit sigPlaybackStarted();
+
     m_playing = true;
+    emit sigPlaybackStarted();
 }
 
 //***************************************************************************
@@ -58,16 +60,20 @@ void PlaybackController::playbackLoop()
     if (m_playing) {
 	// first stop playback
 	emit sigStopPlayback();
+	m_playing = false;
 	emit sigPlaybackStopped();
     }
 
     // (re)start from beginning without loop mode
     m_playback_position = m_playback_start;
+    emit sigPlaybackPos(m_playback_position);
+
     m_loop_mode = true;
     m_paused = false;
     emit sigStartPlayback();
-    emit sigPlaybackStarted();
+
     m_playing = true;
+    emit sigPlaybackStarted();
 }
 
 //***************************************************************************
@@ -75,37 +81,74 @@ void PlaybackController::playbackPause()
 {
     if (!m_playing) return; // no effect if not playing
 
+    m_paused = true;
+
     // stop playback for now and set the paused flag
     emit sigStopPlayback();
-    emit sigPlaybackPaused();
-    m_paused = true;
-    m_playing = false;
 }
 
 //***************************************************************************
 void PlaybackController::playbackContinue()
 {
     // if not paused, do the same as start
-    if (!m_paused) playbackStart();
+    if (!m_paused) {
+	playbackStart();
+	return;
+    }
 
     // else reset the paused flag and start from current position
-    m_paused = false;
     emit sigStartPlayback();
-    emit sigPlaybackStarted();
+
+    m_paused = false;
     m_playing=true;
+
+    emit sigPlaybackStarted();
 }
 
 //***************************************************************************
 void PlaybackController::playbackStop()
 {
-    debug("PlaybackController::playbackStop()");
-    m_paused = false;
+    // stopped in pause state
+    if (m_paused) {
+	m_playing = false;
+	m_paused = false;
+	emit sigPlaybackStopped();
+    }
     if (!m_playing) return; // already stopped
-
     emit sigStopPlayback();
-    emit sigPlaybackStopped();
+}
+
+//***************************************************************************
+void PlaybackController::updatePlaybackPos(const unsigned int pos)
+{
+    m_playback_position = pos;
+    emit sigPlaybackPos(m_playback_position);
+}
+
+//***************************************************************************
+void PlaybackController::playbackDone()
+{
     m_playing = false;
-    m_playback_position = m_playback_start;
+    if (m_paused)
+	emit sigPlaybackPaused();
+    else {
+	m_playback_position = m_playback_start;
+	emit sigPlaybackPos(m_playback_position);
+	emit sigPlaybackStopped();
+    }
+}
+
+//***************************************************************************
+void PlaybackController::reset()
+{
+    m_playback_start = 0;
+    m_playback_position = 0;
+    m_loop_mode = false;
+    m_playing = false;
+    m_paused = false;
+
+    emit sigPlaybackPos(0);
+    emit sigPlaybackStopped();
 }
 
 //***************************************************************************

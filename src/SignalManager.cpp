@@ -51,6 +51,12 @@
 
 extern Global globals;
 
+/** use at least 2^8 = 256 bytes for playback buffer !!! */
+#define MIN_PLAYBACK_BUFFER 8
+
+/** use at most 2^16 = 65536 bytes for playback buffer !!! */
+#define MAX_PLAYBACK_BUFFER 16
+
 #if __BYTE_ORDER==__BIG_ENDIAN
 #define IS_BIG_ENDIAN
 #endif
@@ -77,7 +83,9 @@ void threadStub(TimeOperation *obj)
 
 //***************************************************************************
 SignalManager::SignalManager(Signal *sig)
-    :QObject()
+    :QObject(),
+    m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
+    m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
 {
     initialize();
     ASSERT(sig);
@@ -93,7 +101,9 @@ SignalManager::SignalManager(Signal *sig)
 //***************************************************************************
 SignalManager::SignalManager(unsigned int numsamples,
                              int rate, unsigned int channels)
-    :QObject()
+    :QObject(),
+    m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
+    m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
 {
     initialize();
     this->rate = rate;
@@ -109,7 +119,9 @@ SignalManager::SignalManager(unsigned int numsamples,
 
 //***************************************************************************
 SignalManager::SignalManager(const char *name, int type)
-    :QObject()
+    :QObject(),
+    m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
+    m_spx_playback_done(this, SLOT(forwardPlaybackDone()))
 {
     initialize();
     ASSERT(name);
@@ -138,6 +150,7 @@ void SignalManager::initialize()
     for (unsigned int i = 0; i < sizeof(msg) / sizeof(msg[0]); i++)
 	msg[i] = 0;
 
+    m_spx_playback_pos.setLimit(32); // limit for the queue
     signal.setAutoDelete(false);
     signal.clear();
 }
@@ -240,7 +253,7 @@ QBitmap *SignalManager::overview(unsigned int width, unsigned int height,
     unsigned int left;
     unsigned int right;
     unsigned int x;
-    unsigned int channels = getChannelCount();
+    unsigned int channels = m_channels;
     float samples_per_pixel = (float)(length-1) / (float)(width-1);
     int min;
     int max;
@@ -401,7 +414,7 @@ bool SignalManager::executeCommand(const char *command)
 	if (globals.clipboard) {
 	    SignalManager *toinsert = globals.clipboard->getSignal();
 	    if (toinsert) {
-		unsigned int clipchan = toinsert->getChannelCount();
+		unsigned int clipchan = toinsert->channels();
 		unsigned int sourcechan = 0;
 
 		/* ### check if the signal has to be re-sampled ### */
@@ -428,7 +441,7 @@ bool SignalManager::executeCommand(const char *command)
 	if (globals.clipboard) {
 	    SignalManager *toinsert = globals.clipboard->getSignal();
 	    if (toinsert) {
-		unsigned int clipchan = toinsert->getChannelCount();
+		unsigned int clipchan = toinsert->channels();
 		unsigned int sourcechan = 0;
 
 		/* ### check if the signal has to be re-sampled ### */
@@ -567,6 +580,7 @@ void SignalManager::commandDone()
 //***************************************************************************
 SignalManager::~SignalManager()
 {
+    stopplay();
     while (m_channels) deleteChannel(m_channels-1);
     if (name) delete[] name;
 }
@@ -1208,7 +1222,6 @@ void playThread(struct Play *par)
 	    }
 	}
 	close (device);
-	debug("SignalManager::playback(): ### playback done ###");
     } else {
 	warning("SignalManager::playback(): unable to open device");
     }
@@ -1217,11 +1230,12 @@ void playThread(struct Play *par)
     par->manage->msg[processid] = 0;
 
     if (par) delete par;
+
     return;
 }
 
 //***************************************************************************
-void SignalManager::play(unsigned int start, bool loop)
+void SignalManager::startplay(unsigned int start, bool loop)
 {
     msg[processid] = 1;
     msg[stopprocess] = false;
@@ -1244,19 +1258,16 @@ void SignalManager::stopplay()
 {
     msg[stopprocess] = true;          //set flag for stopping
 
-    debug("SignalManager::stopplay(): waiting for thread termination");
     QTimer timeout;
     timeout.start(5000, true);
     while (msg[processid] != 0) {
 	sched_yield();
-//	KApplication::getKApplication()->processOneEvent(); // ###
 	// wait for termination
 	if (!timeout.isActive()) {
 	    warning("SignalManager::stopplay(): TIMEOUT");
 	    break;
 	}
     }
-
     debug("SignalManager::stopplay(): threads stopped");
 }
 
@@ -1268,7 +1279,7 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
 //    const char *trouble = i18n("playback problem");
 
     debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\
-	"rate=%d, bufbase=%d", audio, bitspersample, channels,
+	"rate=%d, bufbase=%d)", audio, bitspersample, channels,
 	rate, bufbase);
 
 // ### under construction ###
@@ -1326,6 +1337,10 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
     }
 
     // buffer size
+    ASSERT(bufbase >= MIN_PLAYBACK_BUFFER);
+    ASSERT(bufbase <= MAX_PLAYBACK_BUFFER);
+    if (bufbase < MIN_PLAYBACK_BUFFER) bufbase = MIN_PLAYBACK_BUFFER;
+    if (bufbase > MAX_PLAYBACK_BUFFER) bufbase = MAX_PLAYBACK_BUFFER;
     if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
 	m_playback_error = i18n("unusable buffer size");
 	return 0;
@@ -1349,7 +1364,7 @@ void SignalManager::playback(int device, playback_param_t &param,
 
     unsigned int i;
     unsigned int active_channels = 0;
-    unsigned int in_channels = this->getChannelCount();
+    unsigned int in_channels = m_channels;
     unsigned int out_channels = param.channels;
     unsigned int active_channel[in_channels]; // list of active channels
 
@@ -1389,31 +1404,20 @@ void SignalManager::playback(int device, playback_param_t &param,
 	}
     }
 
-//    // debug output of the mixer matrix
-//    for (y=0; y<out_channels; y++) {
-//	printf("| ");
-//	for (x=0; x<active_channels; x++) {
-//	    printf("%3d", matrix[x][y]);
-//	}
-//	printf("|\r\n");
-//    }
-//    debug("active_channels=%d",active_channels);
-//    debug("out_channels=%d",out_channels);
-
     // loop until process is stopped
     // or run once if not in loop mode
-    do {
-	unsigned int &pointer = msg[samplepointer];
-	unsigned int last = rmarker;
-	unsigned int cnt = 0;
-	pointer = start;
-	int samples[active_channels];
+    unsigned int pointer = start;
+    unsigned int last = rmarker;
+    int samples[active_channels];
 
-	if (lmarker == rmarker) last = getLength()-1;
+    if (lmarker == rmarker) last = getLength()-1;
+    m_spx_playback_pos.enqueue(pointer);
+    do {
 
 	while ((pointer <= last) && !msg[stopprocess]) {
 	
 	    // fill the buffer with audio data
+	    unsigned int cnt;
 	    for (cnt = 0; (cnt < bufsize) && (pointer <= last); pointer++) {
                 unsigned int channel;
 
@@ -1460,12 +1464,42 @@ void SignalManager::playback(int device, playback_param_t &param,
 
 	    // write buffer to the playback device
 	    write(device, buffer, cnt);
+	    m_spx_playback_pos.enqueue(pointer);
 	}
 	
 	// maybe we loop. in this case the playback starts
 	// again from the left marker
-	pointer = lmarker;
+	if (loop && !msg[stopprocess]) pointer = lmarker;
+
     } while (loop && !msg[stopprocess]);
+
+    // playback is done
+    m_spx_playback_done.AsyncHandler();
+}
+
+//***************************************************************************
+void SignalManager::updatePlaybackPos()
+{
+    unsigned int count = m_spx_playback_pos.count();
+    unsigned int pos = 0;
+
+    // dequeue all pointers and keep the latest one
+    if (!count) return;
+    while (count--) {
+	unsigned int *ppos = m_spx_playback_pos.dequeue();
+	ASSERT(ppos);
+	if (!ppos) continue;
+	pos = *ppos;
+	delete ppos;
+    }
+
+    emit sigPlaybackPos(pos);
+}
+
+//***************************************************************************
+void SignalManager::forwardPlaybackDone()
+{
+    emit sigPlaybackDone();
 }
 
 //***************************************************************************

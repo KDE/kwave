@@ -103,7 +103,7 @@ AboutDialog::AboutDialog(QWidget *parent)
     if (!upper_hbox) return;
     top_layout->addLayout(upper_hbox, 1);
 
-    setCaption(i18n("About KWave"));
+    setCaption(i18n("About Kwave"));
 
     // animated logo on the left side
     m_logo = new LogoWidget(this);

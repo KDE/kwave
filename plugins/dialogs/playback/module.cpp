@@ -194,7 +194,7 @@ PlayBackDialog::PlayBackDialog(bool modal)
     //        OSS/Free only supports up to 16 bits :-(
 
     // -- buffer size --
-    buffersize = new Slider(4, 16, 1, 5, Slider::Horizontal, this);
+    buffersize = new Slider(8, 16, 1, 5, Slider::Horizontal, this);
     ASSERT(buffersize);
     if (!buffersize) return;
     buffersize->setValue(playback_params.bufbase);

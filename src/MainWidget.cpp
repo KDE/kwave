@@ -75,8 +75,6 @@ MainWidget::MainWidget(QWidget *parent, MenuManager &manage,
 {
     debug("MainWidget::MainWidget()");
     int s[3];
-    int w;
-    int h;
     MultiStateWidget *msw;
 
     bsize = 0;
@@ -684,51 +682,6 @@ SignalManager *MainWidget::getSignalManager()
 {
     return (signalview ? signalview->getSignalManager() : 0);
 }
-
-////*****************************************************************************
-//void MainWidget::playbackStart()
-//{
-//    ASSERT(signalview);
-//    if (!signalview) return;
-//    debug("void MainWidget::playbackStart()");
-//    signalview->playbackStart();
-//}
-//
-////*****************************************************************************
-//void MainWidget::playbackLoop()
-//{
-//    ASSERT(signalview);
-//    if (!signalview) return;
-//    debug("void MainWidget::playbackLoop()");
-//    signalview->playbackLoop();
-//}
-//
-////*****************************************************************************
-//void MainWidget::playbackPause()
-//{
-//    ASSERT(signalview);
-//    if (!signalview) return;
-//    debug("void MainWidget::playbackPause()");
-//    signalview->playbackPause();
-//}
-//
-////*****************************************************************************
-//void MainWidget::playbackContinue()
-//{
-//    ASSERT(signalview);
-//    if (!signalview) return;
-//    debug("void MainWidget::playbackContinue()");
-//    signalview->playbackContinue();
-//}
-//
-////*****************************************************************************
-//void MainWidget::playbackStop()
-//{
-//    ASSERT(signalview);
-//    if (!signalview) return;
-//    debug("void MainWidget::playbackStop()");
-//    signalview->playbackStop();
-//}
 
 //*****************************************************************************
 PlaybackController *MainWidget::playbackController()

@@ -62,6 +62,7 @@
 #include "toolbar/play.xpm"
 #include "toolbar/loop.xpm"
 #include "toolbar/pause.xpm"
+#include "toolbar/pause2.xpm"
 #include "toolbar/stop.xpm"
 
 #include "toolbar/zoomrange.xpm"
@@ -120,6 +121,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 
 //    debug("TopWidget::TopWidget()");
     bits = 16;
+    m_blink_on = false;
     caption = 0;
     dropZone = 0;
     m_id_zoomrange = -1;
@@ -132,7 +134,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     mainwidget = 0;
     menu = 0;
     menu_bar = 0;
-//    m_playback_paused = false;
+    m_pause_timer = 0;
     signalName = "";
     saveDir = 0;
     status_bar = 0;
@@ -211,13 +213,6 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 
     connect(mainwidget, SIGNAL(sigCommand(const char*)),
 	    this, SLOT(executeCommand(const char*)));
-
-    connect(mainwidget, SIGNAL(sigPlaybackStarted()),
-            this, SLOT(playbackStarted()));
-    connect(mainwidget, SIGNAL(sigPlaybackPaused()),
-            this, SLOT(playbackPaused()));
-    connect(mainwidget, SIGNAL(sigPlaybackStopped()),
-            this, SLOT(playbackStopped()));
 
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
@@ -329,7 +324,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 
     m_toolbar->insertButton(
 	QPixmap(xpm_pause), id, SIGNAL(clicked()),
-	mainwidget->playbackController(), SLOT(playbackPause()), true,
+	this, SLOT(pausePressed()), true,
 	i18n("pause playback"));
     m_id_pause = id++;
 
@@ -402,6 +397,15 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 	m_toolbar->sizeHint().height()));
 
     m_toolbar->insertSeparator(-1);
+    updateToolbar();
+
+    // connect the playback controller
+    connect(mainwidget->playbackController(), SIGNAL(sigPlaybackStarted()),
+            this, SLOT(updateToolbar()));
+    connect(mainwidget->playbackController(), SIGNAL(sigPlaybackPaused()),
+            this, SLOT(playbackPaused()));
+    connect(mainwidget->playbackController(), SIGNAL(sigPlaybackStopped()),
+            this, SLOT(updateToolbar()));
 
     // set the MainWidget as the main view
     setView(mainwidget);
@@ -474,6 +478,9 @@ TopWidget::~TopWidget()
 
     if (loadDir) delete[] loadDir;
     loadDir=0;
+
+    if (m_pause_timer) delete m_pause_timer;
+    m_pause_timer = 0;
 
     if (mainwidget) delete mainwidget;
     mainwidget=0;
@@ -808,7 +815,8 @@ void TopWidget::selectZoom(int index)
     if (!mainwidget) return;
 
     if (index < 0) return;
-    if (index >= zoom_factors.count()) index = zoom_factors.count()-1;
+    if ((unsigned int)index >= zoom_factors.count())
+	index = zoom_factors.count()-1;
 
     double new_zoom;
     const char *text = zoom_factors.at(index);
@@ -867,17 +875,27 @@ void TopWidget::updateMenu()
 //*****************************************************************************
 void TopWidget::updateToolbar()
 {
-    debug("TopWidget::updateToolbar()");
     ASSERT(m_toolbar);
+    ASSERT(mainwidget);
     if (!m_toolbar) return;
+    if (!mainwidget) return;
 
     bool have_signal = mainwidget && (mainwidget->getChannelCount());
+    bool playing = mainwidget->playbackController()->running();
+    bool paused  = mainwidget->playbackController()->paused();
+
+    if (m_pause_timer) {
+	m_pause_timer->stop();
+	delete m_pause_timer;
+	m_pause_timer = 0;
+	m_toolbar->setButtonPixmap(m_id_pause, xpm_pause);
+    }
 
     // enable/disable the buttons
-    m_toolbar->setItemEnabled(m_id_play, have_signal);
-    m_toolbar->setItemEnabled(m_id_loop, have_signal);
-    m_toolbar->setItemEnabled(m_id_pause, have_signal);
-    m_toolbar->setItemEnabled(m_id_stop, have_signal);
+    m_toolbar->setItemEnabled(m_id_play,  have_signal && !playing);
+    m_toolbar->setItemEnabled(m_id_loop,  have_signal && !playing);
+    m_toolbar->setItemEnabled(m_id_pause, have_signal && (playing || paused));
+    m_toolbar->setItemEnabled(m_id_stop,  have_signal && (playing || paused));
 
     m_toolbar->setItemEnabled(m_id_zoomrange, have_signal);
     m_toolbar->setItemEnabled(m_id_zoomin, have_signal);
@@ -888,24 +906,51 @@ void TopWidget::updateToolbar()
 }
 
 //*****************************************************************************
-void TopWidget::playbackStarted()
+void TopWidget::playbackPaused()
+{
+    updateToolbar();
+
+    if (!m_pause_timer) {
+	m_pause_timer = new QTimer(this);
+	ASSERT(m_pause_timer);
+	if (!m_pause_timer) return;
+
+	m_pause_timer->start(500, false);
+	connect(m_pause_timer, SIGNAL(timeout()),
+	        this, SLOT(blinkPause()));
+	m_toolbar->setButtonPixmap(m_id_pause, xpm_pause2);
+	m_blink_on = true;
+    }
+}
+
+//*****************************************************************************
+void TopWidget::blinkPause()
 {
     ASSERT(m_toolbar);
     if (!m_toolbar) return;
 
-    debug("TopWidget::playbackStarted()");
+    m_toolbar->setButtonPixmap(m_id_pause, m_blink_on ? xpm_pause2 : xpm_pause);
+    m_blink_on = !m_blink_on;
 }
 
 //*****************************************************************************
-void TopWidget::playbackPaused()
+void TopWidget::pausePressed()
 {
-    debug("TopWidget::playbackPaused()");
-}
+    ASSERT(mainwidget);
+    if (!mainwidget) return;
 
-//*****************************************************************************
-void TopWidget::playbackStopped()
-{
-    debug("TopWidget::playbackStopped()");
+    bool have_signal = mainwidget->getChannelCount();
+    bool playing = mainwidget->playbackController()->running();
+
+    if (!have_signal) return;
+    if (!mainwidget->playbackController()) return;
+
+    if (playing) {
+	mainwidget->playbackController()->playbackPause();
+    } else {
+	mainwidget->playbackController()->playbackContinue();
+    }
+
 }
 
 //*****************************************************************************

@@ -101,14 +101,14 @@ private slots:
     /** updates all elements in the toolbar */
     void updateToolbar();
 
-    /** called if the playback has started */
-    void playbackStarted();
-
     /** called if the playback has been paused */
     void playbackPaused();
 
-    /** called if the playback has been stopped or is done */
-    void playbackStopped();
+    /** connected to the clicked() signal of the pause button */
+    void pausePressed();
+
+    /** toggles the state of the pause button */
+    void blinkPause();
 
     /** toolbar: "file/new" */
     inline void toolbarFileNew()    { executeCommand("dialog (newsignal) "); };
@@ -243,17 +243,11 @@ private:
     /** bits per sample to save with */
     int bits;
 
-//    /**
-//     * Set to "true" to indicate that the playback has only been
-//     * paused and not stopped, so that the next press on the "play"
-//     * button calls "continue" instead of "play from start".
-//     */
-//    bool m_playback_paused;
-//
-//    /**
-//     * Timer used during playback to let some buttons blink..
-//     */
-//    QTimer *m_playback_timer;
+    /** Timer used to let the pause button blink... */
+    QTimer *m_pause_timer;
+
+    /** determines the state of blinking toolbar buttons */
+    bool m_blink_on;
 
     /** member id of the "start playback" toolbar button */
     int m_id_play;

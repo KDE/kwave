@@ -55,8 +55,8 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-11-18</DATE>
-    <RELEASEINFO>0.5.4-5</RELEASEINFO>
+    <DATE>2000-11-25</DATE>
+    <RELEASEINFO>0.5.4-6</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
     <ABSTRACT>
@@ -236,6 +236,14 @@
         <LISTITEM>
             <PARA>0.5.5 [not released yet]</PARA>
             <ITEMIZEDLIST>
+                <LISTITEM><PARA>
+                    new playback handling, allows pause/continue
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
+                    limited the playback buffer to be between 256 and 65536 bytes
+                      due to problems (system hang) with small playback buffers with
+                      16..64 bytes (might be a hardware problem)
+                </PARA></LISTITEM>
                 <LISTITEM><PARA>
                     introduced a toolbar for some standard operations
                 </PARA></LISTITEM>
@@ -2406,7 +2414,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-11-18</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-11-25</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

@@ -1,0 +1,2 @@
+
+EXTRA_LDFLAGS  	+= -lFLAC++ -lFLAC

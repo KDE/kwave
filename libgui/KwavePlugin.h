@@ -46,14 +46,6 @@ class QStringList;
 #define BUTTON_OK     i18n("&Ok")
 #define BUTTON_CANCEL i18n("&Cancel")
 
-#ifndef min
-#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
-#endif
-
-#ifndef max
-#define max(x,y) (( (x) > (y) ) ? (x) : (y) )
-#endif
-
 /**
  * Generic class that should be used for all types of Kwave plugins.
  * This interface is the only one that should be used, it provides

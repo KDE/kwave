@@ -105,7 +105,7 @@ AC_DEFUN(AC_CHECK_WITH_INSURE,
 ])
 
 KDEMAJOR=`$CAT ./KDE-VERSION`
-AC_MSG_CHECKING(which KDE/Qt to use)
+AC_MSG_CHECKING(KDE/Qt version)
 if test "$KDEMAJOR" = "2"; then {
     AC_MSG_ERROR([KDE 2.x / Qt 2.1 - this does no longer work since v0.6.5])
     KDE_USE_QT(2.1)
@@ -113,7 +113,7 @@ if test "$KDEMAJOR" = "2"; then {
                                -lkfile -lkdeui -lkdecore -lqt"
 } else {
     if test "$KDEMAJOR" = "3"; then {
-        AC_MSG_RESULT([KDE 3.x / Qt 3.1])
+        AC_MSG_RESULT([OK, (KDE 3.x / Qt 3.x)])
         KDE_USE_QT(3.0.1)
         KDE_VERSION_SPECIFIC_LIBS="-lartsc -lartsflow_idl -lartsflow -lmcop \
                                    -lkio -lkdeui -lkdecore -lqt-mt"

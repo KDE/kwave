@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 21:27+0200PO-"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2002-11-03 19:54+0100\n"
+"POT-Creation-Date: 2002-11-03 22:08+0100\n"
 "PO-Revision-Date: 2002-11-03 19:53+0100\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -2313,15 +2313,15 @@ msgstr ""
 "versuchen, eine neuere Version von aRts zu installieren oder das kdelibs-"
 "Paket zu aktualisieren."
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:70
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:300
 msgid "About Kwave"
 msgstr "Über Kwave"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:77
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:307
 msgid "<h1>Kwave - a sound editor for KDE</h1>"
 msgstr "<h1>Kwave - Ein Sound-Editor für KDE</h1>"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:107
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:337
 msgid ""
 " <h2>Kwave is a sound editor designed for the KDE-Desktop Environment. </"
 "h2><br>\n"
@@ -2346,19 +2346,19 @@ msgstr ""
 "und eine graphische Ansicht mit ausgereiften Zoom- und "
 "Navigationsmöglichkeiten."
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:136
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:364
 msgid "Authors"
 msgstr "Autoren"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:146
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:372
 msgid "Thanks To"
 msgstr "Dank an"
 
-#: plugins/about/KwaveAboutDialogBase.uic.cpp:153
+#: plugins/about/KwaveAboutDialogBase.uic.cpp:379
 msgid "License agreement"
 msgstr "Lizenzbestimmungen"
 
-#: plugins/about/AboutKwaveDialog.cpp:46
+#: plugins/about/AboutKwaveDialog.cpp:48
 msgid " (Using KDE %1)"
 msgstr " (für KDE-%1)"
 

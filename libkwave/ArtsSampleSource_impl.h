@@ -49,15 +49,12 @@ public:
     void calculateBlock(unsigned long samples);
 
     /** Returns true if no more input data is available */
-    inline bool done() { return m_done; };
+    inline bool done() { return ((!m_reader) || (m_reader->eof())); };
 
 protected:
 
     /** Source of samples from Kwave */
     SampleReader *m_reader;
-
-    /** true if m_reader has reached it's end */
-    bool m_done;
 
 };
 

@@ -26,15 +26,13 @@
 
 //***************************************************************************
 ArtsSampleSource_impl::ArtsSampleSource_impl()
-    :ArtsSampleSource_skel(), Arts::StdSynthModule(),
-     m_reader(0), m_done(false)
+    :ArtsSampleSource_skel(), Arts::StdSynthModule(), m_reader(0)
 {
 }
 
 //***************************************************************************
 ArtsSampleSource_impl::ArtsSampleSource_impl(SampleReader *rdr)
-    :ArtsSampleSource_skel(), Arts::StdSynthModule(),
-     m_reader(rdr), m_done(false)
+    :ArtsSampleSource_skel(), Arts::StdSynthModule(), m_reader(rdr)
 {
 }
 
@@ -43,7 +41,7 @@ void ArtsSampleSource_impl::calculateBlock(unsigned long samples)
 {
     unsigned long i = 0;
     sample_t sample = 0;
-	
+
     if (m_reader && !(m_reader->eof())) {
 	// fill the buffer with samples
 	for (i=0;i < samples;i++) {
@@ -55,9 +53,6 @@ void ArtsSampleSource_impl::calculateBlock(unsigned long samples)
 
     // pad the rest with zeroes
     while (i < samples) source[i++] = 0;
-
-    // detect eof()	
-    if ((!m_reader) || (m_reader->eof())) m_done = true;
 }
 
 //***************************************************************************

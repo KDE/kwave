@@ -132,7 +132,7 @@ right_order:
 	@ ${MAKE} -s ${OUT_FILES}
 	@ ${MAKE} -s $(MODNAME)
 
-all: ${uic_files} ${moc_files} .depend right_order
+all: right_order
 
 # if you "make distclean", this files get removed. If you want to remove
 # them while "make clean", use CLEANFILES

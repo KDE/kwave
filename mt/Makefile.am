@@ -31,7 +31,6 @@ libkwavemt_la_SOURCES=\
  MutexGuard.cpp \
  SharedLock.cpp \
  SharedLockGuard.cpp \
- Semaphore.cpp \
  Thread.cpp \
  ThreadCondition.cpp \
  ThreadsafeX11Guard.cpp \

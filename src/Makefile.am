@@ -48,8 +48,6 @@ BUILTSOURCES=\
  ProgressDialog.moc.cpp\
  SignalManager.moc.cpp\
  SignalWidget.moc.cpp\
- SonagramContainer.moc.cpp\
- SonagramWindow.moc.cpp\
  TopWidget.moc.cpp
 
 kwave_SOURCES =\
@@ -68,8 +66,6 @@ kwave_SOURCES =\
  ProgressDialog.cpp\
  SignalManager.cpp\
  SignalWidget.cpp\
- SonagramContainer.cpp\
- SonagramWindow.cpp\
  TopWidget.cpp\
  $(BUILTSOURCES)
 
@@ -124,38 +120,6 @@ uninstall-local:
 	-rm -f $(APPSDIR)/kwave.kdelnk
 	-rm -f $(kde_icondir)/kwave.xpm
 
-# add a dependency for every moc file to be full portable
-
-FFTWindow.moc.cpp: FFTWindow.h
-	$(MOC) -o FFTWindow.moc.cpp FFTWindow.h
-FFTContainer.moc.cpp: FFTContainer.h
-	$(MOC) -o FFTContainer.moc.cpp FFTContainer.h
-ImageView.moc.cpp: ImageView.h
-	$(MOC) -o ImageView.moc.cpp ImageView.h
-KwaveApp.moc.cpp: KwaveApp.h
-	$(MOC) -o KwaveApp.moc.cpp KwaveApp.h
-LabelManager.moc.cpp: LabelManager.h
-	$(MOC) -o LabelManager.moc.cpp LabelManager.h
-MainWidget.moc.cpp: MainWidget.h
-	$(MOC) -o MainWidget.moc.cpp MainWidget.h
-MouseMark.moc.cpp: MouseMark.h
-	$(MOC) -o MouseMark.moc.cpp MouseMark.h
-PitchWidget.moc.cpp: PitchWidget.h
-	$(MOC) -o PitchWidget.moc.cpp PitchWidget.h
-PitchContainer.moc.cpp: PitchContainer.h
-	$(MOC) -o PitchContainer.moc.cpp PitchContainer.h
-PitchWindow.moc.cpp: PitchWindow.h
-	$(MOC) -o PitchWindow.moc.cpp PitchWindow.h
-ProgressDialog.moc.cpp: ProgressDialog.h
-	$(MOC) -o ProgressDialog.moc.cpp ProgressDialog.h
-SignalWidget.moc.cpp: SignalWidget.h
-	$(MOC) -o SignalWidget.moc.cpp SignalWidget.h
-SignalManager.moc.cpp: SignalManager.h
-	$(MOC) -o SignalManager.moc.cpp SignalManager.h
-SonagramContainer.moc.cpp: SonagramContainer.h
-	$(MOC) -o SonagramContainer.moc.cpp SonagramContainer.h
-SonagramWindow.moc.cpp: SonagramWindow.h
-	$(MOC) -o SonagramWindow.moc.cpp SonagramWindow.h
-TopWidget.moc.cpp: TopWidget.h
-	$(MOC) -o TopWidget.moc.cpp TopWidget.h
-
+# dependencies for moc files
+%moc.cpp: %h
+	${MOC} -o $@ $<

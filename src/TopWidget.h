@@ -53,6 +53,11 @@ signals:
      */
     void sigCommand(const char *command);
 
+    /**
+     * Informs all plugins and client windows that this window has closed
+     */
+    void sigClosed();
+
 protected:
 
     void updateMenu();

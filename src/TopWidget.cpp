@@ -28,7 +28,6 @@
 #include "sampleop.h"
 
 #include "KwaveApp.h"
-#include "SonagramWindow.h"
 #include "ClipBoard.h"
 #include "MainWidget.h"
 #include "TopWidget.h"
@@ -156,6 +155,9 @@ TopWidget::~TopWidget()
 //    debug("TopWidget::~TopWidget()");
     ASSERT(KApplication::getKApplication());
 
+    // inform all plugins and client windows that we close now
+    emit sigClosed();
+
     closeFile();
 
     KTMainWindow::setCaption(0);
@@ -191,6 +193,8 @@ TopWidget::~TopWidget()
 //**********************************************************
 void TopWidget::executePlugin(const char *name, QStrList *params)
 {
+    QString command;
+
     /* find the plugin in the global plugin list */
     unsigned int index = 0;
     bool found = false;
@@ -256,20 +260,31 @@ void TopWidget::executePlugin(const char *name, QStrList *params)
 	    context->top_widget = this;
 	    context->signal_manager =
 		mainwidget ? mainwidget->getSignalManager() : 0;
+	    context->handle = handle;
 
 	    KwavePlugin *plugin = (*plugin_loader)(context);
 	    ASSERT(plugin);
-	
-	    // now the plugin is present and loaded
 	    if (plugin) {
+		// now the plugin is present and loaded
 		QStrList *last_params = 0;
 
 		if (params) {
 		    // parameters were specified -> call directly
 		    // without setup dialog
-		    plugin->execute(*params);
+		    debug("TopWidget: starting plugin"); // ###
+		    int result = plugin->start(*params);
+		    debug("TopWidget: result: %d", result);// ###
+		    if (result >= 0) {
+			debug("TopWidget: executing plugin"); // ###
+			plugin->execute(*params);
+			debug("TopWidget: execute plugin done"); // ###
 
-		    delete plugin;
+			// now it's the the task of the plugin's thread
+			// to clean up after execution
+			plugin = 0;
+			handle = 0;
+			context = 0;
+		    };
 		} else {
 	            // call the plugin's setup function
 		    params = plugin->setup(last_params);
@@ -285,26 +300,32 @@ void TopWidget::executePlugin(const char *name, QStrList *params)
 			// to record all function calls in the
 			// macro recorder
 			
-			QString command("plugin:execute(");
+			command = "plugin:execute(";
 			command += name;
-			for (unsigned int i=0; i<params->count(); i++) {
+			for (unsigned int i=0; i < params->count(); i++) {
 			    command += ", ";
 			    command += params->at(i);
 			}
 			delete params;
 			command += ")";
-			emit sigCommand(command);
+		    } else {
+			// aborted: delete the plugin
+			// (this also closes the handle, so set it to 0)
+			delete plugin;
+			handle = 0;
 		    }
-		    delete plugin;
 		}
 	    } else {
+		// plugin is null, out of memory or not found
 		warning("plugin = null");
 		delete context;
 	    }
 	}
     } else warning("%s", dlerror());
 
-    dlclose(handle);
+    if (handle) dlclose(handle);
+
+    if (!command.isNull()) emit sigCommand(command);
 }
 
 //*****************************************************************************
@@ -367,14 +388,6 @@ void TopWidget::executeCommand(const char *command)
 	resolution(command);
     CASE_COMMAND("revert")
 	revert();
-    CASE_COMMAND("sonagram")
-	QString n(name);
-	SonagramWindow *sono = new SonagramWindow(&n);
-	ASSERT(sono);
-	if (sono) {
-	    sono->show();
-	    // delete sono;
-	}
     CASE_COMMAND("importascii")
 	importAsciiFile();
     CASE_COMMAND("exportascii")

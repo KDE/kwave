@@ -19,20 +19,14 @@
 #define _SONAGRAM_DIALOG_H_
 
 #include "config.h"
-#include <qdialog.h>
 #include "libkwave/WindowFunction.h"
+#include "SonagramDlg.uih.h"
 
-class QSlider;
-class QCheckBox;
-class QComboBox;
-class QLabel;
-class QPushButton;
-class QRadioButton;
 class QStringList;
 class KwavePlugin;
 
 //*****************************************************************************
-class SonagramDialog : public QDialog 
+class SonagramDialog : public SonagramDlg
 {
     Q_OBJECT
 
@@ -70,21 +64,15 @@ public slots:
 
     void setBoxPoints(int num);
 
+    /** invoke the online help */
+    void invokeHelp();
+
 private:
-    QSlider *m_pointslider;
-    QLabel *m_pointlabel;
-    QLabel *m_windowlabel;
-    QLabel *m_bitmaplabel;
-    QLabel *m_windowtypelabel;
-    QComboBox *m_pointbox;
-    QComboBox *m_windowtypebox;
-    QRadioButton *m_rbGreyScale;
-    QRadioButton *m_rbColor;
-    QCheckBox *m_cbTrackChanges;
-    QCheckBox *m_cbFollowSelection;
-    QPushButton *m_ok;
-    QPushButton *m_cancel;
+
+    /** length of the selection */
     unsigned int m_length;
+
+    /** sample rate of the signal */
     double m_rate;
 };
 

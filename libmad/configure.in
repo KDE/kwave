@@ -43,7 +43,8 @@ optimize=""
 profile=""
 
 set -- $CFLAGS
-CFLAGS="-Wall"
+CFLAGS="-Wall -fPIC"
+LDFLAGS="-fPIC"
 
 if test "$GCC" = yes
 then

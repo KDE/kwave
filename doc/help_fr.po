@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-18 23:59GMT\n"
+"PO-Revision-Date: 2002-01-19 10:10GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -255,7 +255,7 @@ msgstr "Traitement de \"signal modified\"."
 
 #: index.docbook:210
 msgid "shows error message and aborts if loading failed"
-msgstr "Affichage d'un message d'erreur et d'arrêt si un chargement échoue."
+msgstr "Affichage d'un message d'erreur et d'arrêt si le chargement d'un fichier échoue."
 
 #: index.docbook:210
 msgid "0.6.2 [2001-12-24]"
@@ -263,11 +263,11 @@ msgstr "0.6.2 [2001-12-24]"
 
 #: index.docbook:210
 msgid "new plugin \"amplifyfree\""
-msgstr "Nouveau plugin \"amplifyfree\"."
+msgstr "Nouveau plugin \"amplification libre\"."
 
 #: index.docbook:210
 msgid "new plugin \"noise\""
-msgstr "Nouveau plugin \"noise\"."
+msgstr "Nouveau plugin \"bruit\"."
 
 #: index.docbook:210
 msgid ""
@@ -332,7 +332,7 @@ msgid ""
 "changed Makefiles: html docu stays in distribution due to too much trouble "
 "with the KDE documentation tools"
 msgstr ""
-"changement des Makefiles: la documentation html restant dans la distribution "
+"Changement des Makefiles: la documentation html restant dans la distribution "
 " de l'application provoque des dysfonctionnement avec les outils de contruction de "
 "la documention pour KDE."
 
@@ -341,27 +341,27 @@ msgid ""
 "when inserting from clipboard into a signal with a different number of "
 "tracks, the result will be mixed (still not optimized/slow)"
 msgstr ""
-"quand on insére des données issues du presse papier vers un nombre de "
+"Quand on insére des données issues du presse papier vers un nombre de "
 " pistes sonnores non cohérent, le résultat est mixé (opération non optimisée / lente)."
 
 #: index.docbook:210
 msgid "fixed compile problem with gcc-2.96 / gcc-3.0"
-msgstr "correction de problème pour la compilation avec gcc-2.96 / gcc-3.0."
+msgstr "Correction de problèmes pour la compilation avec gcc-2.96 / gcc-3.0."
 
 #: index.docbook:210
 msgid "fixed missing header file in NewSigDlg.ui"
-msgstr "correction de l'oubli d'un fichier d'entête dans NewSigDlg.ui."
+msgstr "Correction de l'oubli d'un fichier d'entête dans NewSigDlg.ui."
 
 #: index.docbook:210
 msgid "the RPM should be relocateable again"
-msgstr "le RPM doit pouvoir être relogeable lors de l'installation."
+msgstr "Le RPM doit pouvoir être relogeable lors de l'installation."
 
 #: index.docbook:210
 msgid ""
 "fixed bug in shutdown sequence, now clipboard is flushed before the "
 "application closes."
 msgstr ""
-"correction d'un bug dans les séquences de fermeture de l'application. "
+"Correction d'un bogue dans les séquences de fermeture de l'application. "
 " Le presse papier est alors vidé de son contenu."
 
 #: index.docbook:210
@@ -374,7 +374,7 @@ msgstr "PORTAGE VERS QT-2 ET KDE2"
 
 #: index.docbook:210
 msgid "completely new internal architecture"
-msgstr "architecture interne revue et corrigé complètement."
+msgstr "Architecture interne revue et corrigé complètement."
 
 #: index.docbook:210
 msgid "plugins can be located in a user directory"
@@ -388,11 +388,11 @@ msgstr "libkwave est inclue dans le programme alors qu'elle était avant un pack
 
 #: index.docbook:210
 msgid "playback via aRts"
-msgstr "écoute des pistes audios via le module sonore aRts."
+msgstr "Ecoute des pistes audios via le module sonore aRts."
 
 #: index.docbook:210
 msgid "many more bugfixes, too many to mention here..."
-msgstr "nombreuses correction de bogues."
+msgstr "Nombreuses correction de bogues."
 
 #: index.docbook:210
 msgid "0.5.5-1 [2001-02-23]"
@@ -400,14 +400,14 @@ msgstr "0.5.5-1 [2001-02-23]"
 
 #: index.docbook:210
 msgid "bugfix: selection across end of file no longer possible"
-msgstr "correction de bogues : impossible de sélectionner jusqu'à la fin des pistes sonores."
+msgstr "Correction de bogues : impossible de sélectionner jusqu'à la fin des pistes sonores."
 
 #: index.docbook:210
 msgid ""
 "bugfix: no overflow in wav header when saving large wav files above 268MB "
 "(bug reported by Sven-Steffen Arndt, ssa29@gmx.de )"
 msgstr ""
-"correction de bogues : plus de débordement mémoire dans le traitement des entêtes "
+"Correction de bogues : plus de débordement mémoire dans le traitement des entêtes "
 " wav lors de la sauvegarde de fichiers de plus de 268Mo (bogue reporté par "
 "Sven-Steffen Arndt, ssa29@gmx.de)."
 
@@ -417,7 +417,7 @@ msgstr "0.5.5 [2000-12-01]"
 
 #: index.docbook:210
 msgid "new playback handling, allows pause/continue"
-msgstr "nouvelle gestion de la lecture de pistes sonore avec les fonctions pause et continuer."
+msgstr "Nouvelle gestion de la lecture de pistes sonore avec les fonctions pause et continuer."
 
 #: index.docbook:210
 msgid ""
@@ -425,147 +425,160 @@ msgid ""
 "problems (system hang) with small playback buffers with 16..64 bytes (might "
 "be a hardware problem)"
 msgstr ""
-"limitation de la taille buffer de lecture à une valeur comprise entre 256 et 65536 octets. "
+"Limitation de la taille buffer de lecture à une valeur comprise entre 256 et 65536 octets. "
 " il ya avait quelques problèmes avec de petits buffers de lecture dont la taille était "
 " comprise entre 16 et 64 octets (peut être liés à des dysfonctionnements matèriels)."
 
 #: index.docbook:210
 msgid "introduced a toolbar for some standard operations"
-msgstr ""
+msgstr "Ajout d'une barre d'outils comme dans toute application standard."
 
 #: index.docbook:210
 msgid "fixed some bugs concerning selection with the mouse"
-msgstr ""
+msgstr "Correction de quelques bogues concernant les selections avec la souris."
 
 #: index.docbook:210
 msgid "rework of the overview widget (used in main window and sonagram)"
-msgstr ""
+msgstr "Reprise des widgets de l'IHM (utilisés dans la fenêtre principal et le sonogram)."
 
 #: index.docbook:210
 msgid "fixed menu command \"zoom selection\""
-msgstr ""
+msgstr "Correction de la commande \"zoomer à la selection\"."
 
 #: index.docbook:210
 msgid "sonagram: saving to file, auto-brightness adjust"
-msgstr ""
+msgstr "Sonogramme : sauvegarde dans un fichier et ajustement automatique de la brillance."
 
 #: index.docbook:210
 msgid "replaced QFileDialog with KFileDialog"
-msgstr ""
+msgstr "Remplacement de QFileDialog par KFileDialog."
 
 #: index.docbook:210
 msgid "tested with AMD Athlon-optimized compiler (patched pegcs)"
-msgstr ""
+msgstr "Tests des optimisations de compilation pour un processeur AMD Athlon (patch pour pegcs)."
 
 #: index.docbook:210
 msgid "some fixes for safer multithreading"
-msgstr ""
+msgstr "Correction de bogues pour un focntionnement correct du multithreading."
 
 #: index.docbook:210
 msgid ""
 "checking for much more header files at configure time (due to a problem "
 "reported by issiac@evcom.net )"
 msgstr ""
+"Vérification de quelques fichiers d'entête pour la séquence de configuration (Problèmes "
+"reportés par issiac@evcom.net)."
 
 #: index.docbook:210
 msgid "0.5.4-4 [2000-10-03]"
-msgstr ""
+msgstr "0.5.4-4 [2000-10-03]"
 
 #: index.docbook:210
 msgid "added classes Mutex and MutexGuard"
-msgstr ""
+msgstr "Ajout des classes Mutex et MutexGuard."
 
 #: index.docbook:210
 msgid "sonagram: set a transparent background for the image"
-msgstr ""
+msgstr "Sonagramme : ajout d'une image de fond transparente."
 
 #: index.docbook:210
 msgid "added sizeHint() and minimumSize() to ScaleWidget and OverViewWidget"
-msgstr ""
+msgstr "Ajout des fonctions sizeHint() et minimumSize() pour ScaleWidget et OverViewWidget"
 
 #: index.docbook:210
 msgid "sonagram: removed (need for) SonagramContainer, using QGridLayout instead"
-msgstr ""
+msgstr "Sonagramme : suppression de SonagramContainer, utilisé dans QGridLayout."
 
 #: index.docbook:210
 msgid "moved SignalProxy to the mt subdirectory"
-msgstr ""
+msgstr "Déplacement de SignalProxy dans le répertoire contenant les classes mt."
 
 #: index.docbook:210
 msgid "fixed X11 synchronzation problem with SignalProxy"
-msgstr ""
+msgstr "Correction de problèmes de synchronisation avec X11 concernant SignalProxy."
 
 #: index.docbook:210
 msgid "added TSS (thread-specific-storage) support to the mt classes"
-msgstr ""
+msgstr "Ajout du support de TSS (Thread-Specific-Storage) dans les classes mt."
 
 #: index.docbook:210
 msgid "added some multithreading support classes: Thread, AsynchObject, ..."
-msgstr ""
+msgstr "Ajout de quelques classes pour le multithreading : Thread, AsynchObject, ..."
 
 #: index.docbook:210
 msgid ""
 "removed the \"get\" prefix from all member functions. This is the new KDE/QT "
 "coding style."
 msgstr ""
+"Suppression du prefixe \"get\" de toutes les fonctions membres. Ceci est le nouveau style de "
+" codage pour KDE/QT."
 
 #: index.docbook:210
 msgid ""
 "updated the online documentation to point to the new Kwave homepage on "
 "http://kwave.sourceforge.net/"
 msgstr ""
+"Mise à jour de la documentation en ligne qui référence la nouvele page WEB de "
+" Kwave sur http://kwave.sourceforge.net/."
 
 #: index.docbook:210
 msgid "class ImageView: always repaints (maybe image data has changed)"
-msgstr ""
+msgstr "Classe ImageView : toujours redessiner (les images et les données peuvent changer)."
 
 #: index.docbook:210
 msgid "bugfix: selection and playpointer will not be drawn if no signal is loaded"
 msgstr ""
+"Correction de bogue : La selection et le curseur de lecture ne seront pas dessinés "
+" si aucun fichier n'est chargé."
 
 #: index.docbook:210
 msgid "0.5.4-3 [2000-09-09]"
-msgstr ""
+msgstr "0.5.4-3 [2000-09-09]"
 
 #: index.docbook:210
 msgid "the sonagram window updates it's title if the signal's name changed"
-msgstr ""
+msgstr "Le titre de la fenêtre du sonogramme est mise à jour si le nom du fichier a changé."
 
 #: index.docbook:210
 msgid ""
 "found a solution for the problem of synchronizing X11 and QT in a "
 "multithreaded environment"
 msgstr ""
+"Mise en place d'un solution au problème de synchronisation entre X11 et Qt "
+" dans l'envirronnement multithread."
 
 #: index.docbook:210
 msgid "fixed bug in the \"Halt\" function (playback)"
-msgstr ""
+msgstr "Correction de bogue dans la fonction \"Halt\" (lecture audio)."
 
 #: index.docbook:210
 msgid "0.5.4-2 [2000-08-20]"
-msgstr ""
+msgstr "0.5.4-2 [2000-08-20]"
 
 #: index.docbook:210
 msgid "geometry/layout management for the MainWidget"
-msgstr ""
+msgstr "Management de la géométrie et des positions des widgets de la fenêtre principale."
 
 #: index.docbook:210
 msgid ""
 "limited the displayed height of a signal. If not all signals fit onto the "
 "screen, a scrollbar appears on the right side of the signal."
 msgstr ""
+"Limitation de l'affichage de la largeur d'un fichier sonore. Si toutes les pistes sonores "
+" sorte en dehors de l'écran, une barre de défilement horizontale apparait sur le coté droit "
+" du fichier."
 
 #: index.docbook:210
 msgid "limited the size of the TopWidget to a reasonable minimum size"
-msgstr ""
+msgstr "Limitation à une taille raisonnable du TopWidget."
 
 #: index.docbook:210
 msgid "automatic dependencies for the plugins work again"
-msgstr ""
+msgstr "Dépendances automatiques pour le fonctionnement des plugins."
 
 #: index.docbook:210
 msgid "0.5.4-1 [2000-07-29]"
-msgstr ""
+msgstr "0.5.4-1 [2000-07-29]"
 
 #: index.docbook:210
 msgid "fixed layout of playback dialog"

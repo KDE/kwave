@@ -32,8 +32,6 @@ class TopWidget;
  * This is the main application class for Kwave. It contains functions
  * for opening and saving files, opening new windows and holds global
  * configuration data.
- *
- * @todo Not even one function is really threadsafe!
  */
 class KwaveApp :public KApplication
 {

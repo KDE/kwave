@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-07-14 20:23+0200\n"
+"POT-Creation-Date: 2001-07-16 20:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -293,31 +293,36 @@ msgstr ""
 msgid "Ready."
 msgstr ""
 
-#: kwave/TopWidget.cpp:860
+#: kwave/TopWidget.cpp:803
+#, ycp-format
+msgid "The file '%1' already exists. Do you really want to overwrite it?"
+msgstr ""
+
+#: kwave/TopWidget.cpp:879
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:860 kwave/TopWidget.cpp:886
+#: kwave/TopWidget.cpp:879 kwave/TopWidget.cpp:907
 #, ycp-format
 msgid "(%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:869
+#: kwave/TopWidget.cpp:888
 #, c-format
 msgid "Mode: %u bit@%0.3f kHz"
 msgstr ""
 
-#: kwave/TopWidget.cpp:881
+#: kwave/TopWidget.cpp:900
 #, c-format, ycp-format
 msgid "Selected: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:930
+#: kwave/TopWidget.cpp:951
 msgid "U&ndo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:936
+#: kwave/TopWidget.cpp:957
 msgid "R&edo"
 msgstr ""
 
@@ -1139,6 +1144,34 @@ msgstr ""
 
 #: plugins/playback/PlayBack-aRts.cpp:89
 msgid "unable to open aRts playback stream"
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:202
+msgid ""
+"Can't connect to aRts soundserver. Maybe it is not properly installed or not "
+"running."
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:206
+msgid ""
+"Loading the aRts backend library failed. This might be due to a problem with "
+"your aRts installation."
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:211
+msgid "The aRts output stream is invalid."
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:214
+msgid ""
+"aRts output is not available because the initialization of the aRts output "
+"has failed or not been done."
+msgstr ""
+
+#: plugins/playback/PlayBack-aRts.cpp:219
+msgid ""
+"The required aRts function is not yet implemented. Maybe you should get a "
+"newer version of aRts or upgrade the kdelibs package."
 msgstr ""
 
 #: plugins/filter/module.cpp:29

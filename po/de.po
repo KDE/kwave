@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 "
 "21:27+0200PO-Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2001-07-14 19:56+0200\n"
-"PO-Revision-Date: 2001-07-06 20:23+GMT\n"
+"POT-Creation-Date: 2001-07-16 20:09+0200\n"
+"PO-Revision-Date: 2001-07-16 20:09+GMT\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
@@ -297,31 +297,36 @@ msgstr "Fehler beim Laden des Plugins..."
 msgid "Ready."
 msgstr "Bereit."
 
-#: kwave/TopWidget.cpp:860
+#: kwave/TopWidget.cpp:803
+#, ycp-format
+msgid "The file '%1' already exists. Do you really want to overwrite it?"
+msgstr "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
+
+#: kwave/TopWidget.cpp:879
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr "Länge: %1"
 
-#: kwave/TopWidget.cpp:860 kwave/TopWidget.cpp:886
+#: kwave/TopWidget.cpp:879 kwave/TopWidget.cpp:907
 #, ycp-format
 msgid "(%2 samples)"
 msgstr "(%2 Samples)"
 
-#: kwave/TopWidget.cpp:869
+#: kwave/TopWidget.cpp:888
 #, c-format
 msgid "Mode: %u bit@%0.3f kHz"
 msgstr "Modus: %u Bit@%0.3f kHz"
 
-#: kwave/TopWidget.cpp:881
+#: kwave/TopWidget.cpp:900
 #, c-format, ycp-format
 msgid "Selected: %1"
 msgstr "ausgewählt: %1"
 
-#: kwave/TopWidget.cpp:930
+#: kwave/TopWidget.cpp:951
 msgid "U&ndo"
 msgstr "&Rückgängig"
 
-#: kwave/TopWidget.cpp:936
+#: kwave/TopWidget.cpp:957
 msgid "R&edo"
 msgstr "Wieder&herstellen"
 
@@ -1176,6 +1181,43 @@ msgstr "Buffer-Größe: %5d Samples"
 msgid "unable to open aRts playback stream"
 msgstr "aRts-Stream für Wiedergabe konnte nicht geöffnet werden"
 
+#: plugins/playback/PlayBack-aRts.cpp:202
+msgid ""
+"Can't connect to aRts soundserver. Maybe it is not properly installed or not "
+"running."
+msgstr ""
+"Die Verbindung zum aRst Sound-Server konnt nicht hergestellt werden. "
+"Möglicherweise ist dieser nicht richtig installiert oder er läuft nicht."
+
+#: plugins/playback/PlayBack-aRts.cpp:206
+msgid ""
+"Loading the aRts backend library failed. This might be due to a problem with "
+"your aRts installation."
+msgstr ""
+"Die aRts backend-Bibliothek konnte nicht geladen werden. Dies könnte "
+"einProblem mit Ihrer aRts-Installation sein."
+
+#: plugins/playback/PlayBack-aRts.cpp:211
+msgid "The aRts output stream is invalid."
+msgstr "Der aRts-Ausgabestrom ist ungültig."
+
+#: plugins/playback/PlayBack-aRts.cpp:214
+msgid ""
+"aRts output is not available because the initialization of the aRts output "
+"has failed or not been done."
+msgstr ""
+"Die aRts-Ausgabe ist nicht verfügbar weil die Initialisierung der "
+"aRts-Ausgabefehl schlug oder nicht durchgeführt wurde."
+
+#: plugins/playback/PlayBack-aRts.cpp:219
+msgid ""
+"The required aRts function is not yet implemented. Maybe you should get a "
+"newer version of aRts or upgrade the kdelibs package."
+msgstr ""
+"Eine erforderliche aRts-Funktion ist nicht implementiert. Sie sollten "
+"versuchen, eine neuere Version von aRts zu installieren oder das "
+"kdelibs-Paket zuaktualisieren."
+
 #: plugins/filter/module.cpp:29
 msgid "Choose filter parameters:"
 msgstr "Filter-Parameter wählen:"
@@ -1587,3 +1629,4 @@ msgstr "Stille"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
+

@@ -27,7 +27,7 @@ echo -e "\
  * at "`(LANG=en;date)`" -> DO NOT EDIT ! \n\
  */\n\
 \n\
-#include <kapp.h> // (for i18n macro) \n\
+#include <klocale.h> // (for i18n macro) \n\
 \n\
 static void dummy(const char *string_to_be_internationalized) { }\n\
 \n\

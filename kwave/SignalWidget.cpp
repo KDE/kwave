@@ -69,6 +69,12 @@
  */
 #define MINIMUM_SAMPLES_PER_SCREEN 5
 
+/**
+ * Default widht of the display in seconds when in streaming mode,
+ * where no initial length information is available
+ */
+#define DEFAULT_DISPLAY_TIME 60.0
+
 //***************************************************************************
 //***************************************************************************
 class KwaveFileDrag: public QUriDrag
@@ -477,14 +483,22 @@ void SignalWidget::setOffset(unsigned int new_offset)
 //***************************************************************************
 double SignalWidget::getFullZoom()
 {
-    if (!m_signal_manager.length()) return 0.0;    // no zoom if no signal
+    if (m_signal_manager.isEmpty()) return 0.0;    // no zoom if no signal
+
+    unsigned int length = m_signal_manager.length();
+    if (!length) {
+        // no length: streaming mode -> start with a default
+        // zoom, use one minute (just guessed)
+        length = (unsigned int)ceil(DEFAULT_DISPLAY_TIME *
+                                    m_signal_manager.rate());
+    }
 
     // example: width = 100 [pixels] and length = 3 [samples]
     //          -> samples should be at positions 0, 49.5 and 99
     //          -> 49.5 [pixels / sample]
     //          -> zoom = 1 / 49.5 [samples / pixel]
     // => full zoom [samples/pixel] = (length-1) / (width-1)
-    return (double)(m_signal_manager.length()-1) / (double)(QWidget::width()-1);
+    return (double)(length-1) / (double)(QWidget::width()-1);
 }
 
 //***************************************************************************
@@ -524,6 +538,10 @@ void SignalWidget::fixZoomAndOffset()
     unsigned int length;
 
     length = m_signal_manager.length();
+    if (!length) {
+	// in streaming mode we have to use a guessed length
+	length = (unsigned int)ceil(width() * getFullZoom());
+    }
 
     if (!m_width) return;
 
@@ -1679,10 +1697,8 @@ void SignalWidget::slotTrackInserted(unsigned int index, Track &track)
     m_track_pixmaps.insert(index, pix);
     if (!pix) return;
 
-    if (tracks() == 1) {
-	// first track, start with full zoom
-	zoomAll();
-    }
+    // first track: start with full zoom
+    if (tracks() == 1) zoomAll();
 
     // emit the signal sigTrackInserted now, so that the signal widget
     // gets resized if needed, but the new pixmap is still empty

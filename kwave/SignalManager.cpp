@@ -235,8 +235,6 @@ int SignalManager::loadFile(const KURL &url)
 	    writers.flush();
 	    unsigned int new_length = writers.last();
 	    if (new_length) new_length++;
-	    debug("SignalManager::loadFile(): stream length = %u samples",
-	        new_length);
 	    m_file_info.setLength(new_length);
 	}
 	

@@ -538,7 +538,7 @@ TopWidget::~TopWidget()
     if (m_menu_manager) delete m_menu_manager;
     m_menu_manager=0;
 
-    m_app.closeWindow(this);
+    if (m_app.closeWindow(this)) m_app.exit();
 }
 
 //***************************************************************************

@@ -606,7 +606,7 @@ void PluginManager::findPlugins()
 	    if (!*name || !*version || !*author) continue;
 	
 	    m_plugin_files.insert(*name, file);
-	    printf("%14s %5s written by %s", *name, *version, *author);
+	    printf("%16s %5s written by %s", *name, *version, *author);
 	
 	    dlclose (handle);
 	

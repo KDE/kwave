@@ -85,6 +85,8 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 	touch ${PACKAGE}-@RPM_FULL_VERSION@/doc/help_{de,fr}.docbook ; \
 	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name CVS > \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
+	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name \.\* -type d >> \
+		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name Makefile \
 		-o -name Makefile.in >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
@@ -94,8 +96,9 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 		--owner=root --group=root \
 		-chzf ${PACKAGE}-@RPM_FULL_VERSION@.tar.gz \
 		${SRC_PREFIX}-@RPM_FULL_VERSION@ ; \
-	rm -f /tmp/${PACKAGE}-tar-excludes.lst )
-	rm -R -f /tmp/${PACKAGE}-@RPM_FULL_VERSION@
+	 )
+	- rm -f /tmp/${PACKAGE}-tar-excludes.lst
+	- rm -R -f /tmp/${PACKAGE}-@RPM_FULL_VERSION@
 
 # does not work with original SuSE-6.4 rpm
 # you will need an update of the rpm package !

@@ -31,7 +31,7 @@
 
 #include "RecordDevice.h"
 
-#define MAX_CHANNELS 2
+#define MAX_CHANNELS 2 /**< highest available number of channels */
 
 //***************************************************************************
 RecordDevice::RecordDevice()
@@ -106,7 +106,7 @@ int RecordDevice::read(char *buffer, unsigned int length)
 	if (retval == -1) {
 	    if (errno == EINTR)
 		return -errno; // return without warning
-	
+
 	    qWarning("RecordDevice::read() - select() failed errno=%d (%s)",
 	             errno, strerror(errno));
 	    return -errno;
@@ -114,7 +114,7 @@ int RecordDevice::read(char *buffer, unsigned int length)
 	    int res = ::read(m_fd, buffer, length);
 	    if ((res == -1) && (errno == EINTR))
 		return -errno; // interrupted, return without warning
-		
+
 	    if ((res == -1) && (errno == EAGAIN))
 		continue;
 

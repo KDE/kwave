@@ -20,6 +20,7 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <math.h>
 #include <sys/soundcard.h>
 #include "RecordDevice.h"
 
@@ -105,12 +106,31 @@ QValueList<double> RecordDevice::detectSampleRates()
     for (unsigned int i=0; i < sizeof(known_rates)/sizeof(int); i++) {
 	int rate = known_rates[i];
 	int err = ioctl(m_fd, SNDCTL_DSP_SPEED, &rate);
-	if (err < 0) continue;
-	qDebug("found rate %d Hz", rate);
+	if (err < 0) {
+	    qDebug("sample rate %d Hz not supported", known_rates[i]);
+	    continue;
+	}
+	// qDebug("found rate %d Hz", rate);
 	list.append(rate);
     }
 
     return list;
+}
+
+//***************************************************************************
+int RecordDevice::setSampleRate(double &new_rate)
+{
+    Q_ASSERT(m_fd >= 0);
+    int rate = (int)rint(new_rate); // OSS supports only integer rates
+
+    // set the rate of the device (must already be opened)
+    int err = ioctl(m_fd, SNDCTL_DSP_SPEED, &rate);
+    if (err < 0) return err;
+
+    // return the sample rate if succeeded
+    new_rate = rate;
+
+    return 0;
 }
 
 //***************************************************************************

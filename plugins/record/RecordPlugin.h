@@ -21,9 +21,9 @@
 #include "config.h"
 #include "libkwave/KwavePlugin.h"
 #include "RecordParams.h"
-#include "RecordDevice.h"
 
 class QStringList;
+class RecordDevice;
 class RecordDialog;
 
 class RecordPlugin: public KwavePlugin
@@ -45,6 +45,9 @@ protected slots:
     /** select a new record device */
     void changeDevice(const QString &dev);
 
+    /** select a new sample rate [samples/second] */
+    void changeSampleRate(double new_rate);
+
 private:
 
     /** record control: pre-record enabled */
@@ -54,7 +57,7 @@ private:
     RecordParams m_params;
 
     /** device used for recording */
-    RecordDevice m_device;
+    RecordDevice *m_device;
 
     /** setup dialog */
     RecordDialog *m_dialog;

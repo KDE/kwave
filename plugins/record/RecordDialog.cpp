@@ -24,6 +24,8 @@
 #include <qslider.h>
 
 #include <kcombobox.h>
+#include <kglobal.h>
+#include <klocale.h>
 #include <kpushbutton.h>
 #include <knuminput.h>
 
@@ -143,7 +145,10 @@ RecordDialog::RecordDialog(QWidget *parent, const RecordParams &params)
             this, SLOT(forwardDeviceChanged(const QString &)));*/
     connect(cbSourceDevice, SIGNAL(textChanged(const QString &)),
             this, SLOT(forwardDeviceChanged(const QString &)));
-
+    connect(cbFormatSampleRate, SIGNAL(textChanged(const QString &)),
+            this, SLOT(sampleRateChanged(const QString &)));
+    connect(cbFormatSampleRate, SIGNAL(activated(const QString &)),
+            this, SLOT(sampleRateChanged(const QString &)));
 }
 
 //***************************************************************************
@@ -208,6 +213,93 @@ void RecordDialog::setDevice(const QString &dev)
 {
     m_params.device_name = dev;
     cbSourceDevice->setEditText(dev);
+}
+
+//***************************************************************************
+QString RecordDialog::rate2string(double rate)
+{
+    const KLocale *locale = KGlobal::locale();
+    Q_ASSERT(locale);
+
+    QString s;
+    if (!locale) return s.setNum(rate,'f', 3);
+
+    const QString dot  = locale->decimalSymbol();
+    const QString tsep = locale->thousandsSeparator();
+
+    // format number with 3 digits
+    s = locale->formatNumber(rate, 3);
+
+    // remove thousands separator (looks ugly)
+    s.remove(tsep);
+
+    // remove trailing zeroes
+    while (s.endsWith("0")) s.remove(s.length()-1, 1);
+
+    // remove decimal point if necessary
+    if (s.endsWith(dot)) s.remove(s.length()-1, 1);
+
+    return s;
+}
+
+//***************************************************************************
+double RecordDialog::string2rate(const QString &rate)
+{
+    const KLocale *locale = KGlobal::locale();
+    Q_ASSERT(locale);
+
+    const QString s = rate;
+    if (!locale) return s.toDouble();
+
+    double r;
+    bool ok;
+    r = locale->readNumber(rate, &ok);
+    Q_ASSERT(ok);
+    if (!ok) return s.toDouble();
+
+    return r;
+}
+
+//***************************************************************************
+void RecordDialog::setSupportedSampleRates(const QValueList<double> &rates)
+{
+    Q_ASSERT(cbFormatSampleRate);
+    if (!cbFormatSampleRate) return;
+
+    cbFormatSampleRate->clearEdit();
+    cbFormatSampleRate->setEditable(false);
+    cbFormatSampleRate->clear();
+
+    QValueList<double>::ConstIterator it;
+    for (it=rates.begin(); it != rates.end(); ++it) {
+	QString rate = rate2string(*it);
+	Q_ASSERT(rate.length());
+	if (!rate.length()) continue; // string was zero?
+
+	cbFormatSampleRate->insertItem(rate);
+    }
+
+}
+
+//***************************************************************************
+void RecordDialog::setSampleRate(double new_rate)
+{
+    Q_ASSERT(cbFormatSampleRate);
+    if (!cbFormatSampleRate) return;
+
+    QString rate = rate2string(new_rate);
+    cbFormatSampleRate->setCurrentItem(rate, true);
+}
+
+//***************************************************************************
+void RecordDialog::sampleRateChanged(const QString &rate)
+{
+    if (!rate.length()) return; // no rate selected, combo box clear
+    double sample_rate = string2rate(rate);
+    if (sample_rate == m_params.sample_rate) return;
+
+    m_params.sample_rate = sample_rate;
+    emit sampleRateChanged(sample_rate);
 }
 
 //***************************************************************************

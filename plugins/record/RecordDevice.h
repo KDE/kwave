@@ -45,6 +45,16 @@ public:
     /** get a list of supported sample rates */
     QValueList<double> detectSampleRates();
 
+    /**
+     * Try to set a new sample rate.
+     * @note the device must be open
+     * @param new_rate the sample rate to be set [samples/second], can
+     *        be modified and rounded up/down to the nearest supported
+     *        sample rate if the underlying driver supports that.
+     * @return zero on success, negative error code if failed
+     */
+    int setSampleRate(double &new_rate);
+
 private:
 
     /** file descriptor of the device or -1 if not open */

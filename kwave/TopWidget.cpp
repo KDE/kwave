@@ -195,13 +195,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
     status_bar->insertItem("", STATUS_ID_SELECTED);
     setStatusInfo(SAMPLE_MAX,99,196000,24); // affects the menu !
 
-//    //enable drop of local files onto kwave window
-//    dropZone = new KDNDDropZone( this , DndURL);
-//    ASSERT(dropZone);
-//    if (!dropZone) return;
-//    connect( dropZone, SIGNAL( dropAction( KDNDDropZone *)),
-//	     this, SLOT( dropEvent( KDNDDropZone *)));
-
     // load the menu from file
     QString menufile = locate("data", "kwave/menus.config");
     FileLoader loader(menufile);
@@ -1001,7 +994,6 @@ void TopWidget::setTrackInfo(unsigned int tracks)
     // enable/disable all items that depend on having a signal
     bool have_signal = (tracks != 0);
     m_menu_manager->setItemEnabled("@SIGNAL", have_signal);
-
 }
 
 //***************************************************************************
@@ -1113,7 +1105,7 @@ void TopWidget::updateMenu()
     QString bps = QString("ID_FILE_SAVE_RESOLUTION_%1").arg(m_save_bits);
     m_menu_manager->selectItem("@BITS_PER_SAMPLE", bps);
 
-    // enable/disable all items that depend on having a filel
+    // enable/disable all items that depend on having a file
     bool have_file = (signalName().length() != 0);
     m_menu_manager->setItemEnabled("@NOT_CLOSED", have_file);
 }
@@ -1154,7 +1146,16 @@ void TopWidget::updatePlaybackControls()
 	m_pause_timer->stop();
 	delete m_pause_timer;
 	m_pause_timer = 0;
-	m_toolbar->setButtonPixmap(m_id_pause, xpm_pause);
+	
+	// NOTE: working with toolbar->getButton is ugly and NOT
+	//       recommended, but the only way this works in KDE3 :-(
+	KToolBarButton *button = m_toolbar->getButton(m_id_pause);
+	ASSERT(button);
+	if (!button) return;
+	button->setDefaultPixmap(xpm_pause);
+	
+	// doesn't work with the damned buggy KDE3
+	// m_toolbar->setButtonPixmap(m_id_pause, xpm_pause);
     }
 
     // enable/disable the buttons

@@ -1,9 +1,9 @@
 
-0.7.2 [2004-12-??]
+0.7.2 [2004-12-31]
 
- * nearly complete rewrite of the internal streaming/storage
-   subsystem, support for multiple stripes.
-   should make big speedup when handling large files!
+ * big rework of the internal streaming/storage subsystem,
+   support for multiple stripes.
+   Makes a big speedup when handling large files!
    Creating an empty 512MB file before: over 350 sec,
    now: about 25 sec (on my system)
  * optimized versions of memcpy() for ix86 (using MMX, MMXEXT,
@@ -14,6 +14,8 @@
  * speedups: import of Ogg and MP3 files improved
  * removed code copied from the GSL library, link against the
    shared library instead
+ * added target "package-messages" to the toplevel Makefile,
+   for translators
 
 0.7.1 [2004-07-10]
 

@@ -1818,11 +1818,35 @@ sub_dirs=
 type=static_library
 
 [plugins/codec_wav/Makefile.am]
-files=plugins/codec_wav/WavCodecPlugin.cpp,plugins/codec_wav/WavCodecPlugin.h,plugins/codec_wav/WavDecoder.cpp,plugins/codec_wav/WavDecoder.h,plugins/codec_wav/WavEncoder.cpp,plugins/codec_wav/WavEncoder.h,plugins/codec_wav/WavFileFormat.h
+files=plugins/codec_wav/WavCodecPlugin.cpp,plugins/codec_wav/WavCodecPlugin.h,plugins/codec_wav/WavDecoder.cpp,plugins/codec_wav/WavDecoder.h,plugins/codec_wav/WavEncoder.cpp,plugins/codec_wav/WavEncoder.h,plugins/codec_wav/WavFileFormat.h,plugins/codec_wav/RIFFChunk.cpp,plugins/codec_wav/RIFFChunk.h,plugins/codec_wav/RIFFParser.cpp,plugins/codec_wav/RIFFParser.h
 sharedlib_LDFLAGS=-version-info 0:0:1
 sharedlib_rootname=codec_wav
 sub_dirs=
 type=static_library
+
+[plugins/codec_wav/RIFFChunk.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/codec_wav/RIFFChunk.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+
+[plugins/codec_wav/RIFFParser.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[plugins/codec_wav/RIFFParser.h]
+dist=true
+install=false
+install_location=
+type=HEADER
 
 [plugins/codec_wav/WavCodecPlugin.cpp]
 dist=true

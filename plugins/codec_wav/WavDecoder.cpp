@@ -54,7 +54,7 @@ Decoder *WavDecoder::instance()
 }
 
 //***************************************************************************
-bool WavDecoder::open(QWidget *widget, QIODevice &src)
+bool WavDecoder::open(QWidget *, QIODevice &src)
 {
     info().clear();
     ASSERT(!m_source);
@@ -66,7 +66,6 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	return false;
     }
 
-    unsigned int pos=src.at();
     QStringList main_chunks;
     main_chunks.append("RIFF"); /* RIFF, little-endian */
     main_chunks.append("RIFX"); /* RIFF, big-endian */
@@ -152,7 +151,6 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     unsigned int rate = 0;
     unsigned int bits = 0;
-    char c;
 
     src.at(fmt_offset);
 
@@ -161,13 +159,10 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     wav_fmt_header_t header;
     unsigned int datalen = src.size() - (sizeof(wav_header_t) + 8);
-    unsigned int src_pos = 0;
 
     // get the header
     src.readBlock((char *)&header, sizeof(wav_fmt_header_t));
 #if defined(IS_BIG_ENDIAN)
-//    header.filelength = bswap_32(header.filelength);
-//    header.fmtlength = bswap_32(header.fmtlength);
     header.mode = bswap_16(header.mode);
     header.channels = bswap_16(header.channels);
     header.rate = bswap_32(header.rate);
@@ -180,15 +175,18 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     bits = header.bitspersample;
     const unsigned int bytes = (bits >> 3);
 
+    debug("-------------------------");
+    debug("wav header:");
     debug("mode        = %d", header.mode);
     debug("channels    = %d", header.channels);
     debug("rate        = %u", header.rate);
     debug("bytes/s     = %u", header.AvgBytesPerSec);
     debug("block align = %d", header.BlockAlign);
     debug("bits/sample = %d", header.bitspersample);
+    debug("-------------------------");
 
 //    if (src.size() != header.filelength+8) {
-//	debug("WavDecoder::loadWavChunk: header=%d, rest of file=%d",
+//	debug("WavDecoder::open(), header=%d, rest of file=%d",
 //	      header.filelength, src.size());
 //	KMessageBox::error(widget,
 //	    i18n("Error in input: file is smaller than stated "\
@@ -202,23 +200,9 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     // some sanity checks
     CHECK(header.AvgBytesPerSec == rate * bytes * tracks);
     CHECK(static_cast<unsigned int>(header.BlockAlign) == bytes*tracks);
-//    CHECK(!strncmp((char*)&(header.riffid), "RIFF", 4));
-//    CHECK(!strncmp((char*)&(header.wavid), "WAVE", 4));
-//    CHECK(!strncmp((char*)&(header.fmtid), "fmt ", 4));
 //    CHECK(header.filelength == (datalen + sizeof(wav_header_t)));
 //    CHECK(header.fmtlength == 16);
     CHECK(header.mode == 1); /* currently only mode 1 is supported :-( */
-
-    src_pos += sizeof(wav_header_t);
-    c = src.getch(); CHECK(c == 'd');
-    c = src.getch(); CHECK(c == 'a');
-    c = src.getch(); CHECK(c == 't');
-    c = src.getch(); CHECK(c == 'a');
-    // todo: wav chunk size is currently ignored
-    c = src.getch(); //CHECK(c == static_cast<char>( datalen        & 0xFF));
-    c = src.getch(); //CHECK(c == static_cast<char>((datalen >>  8) & 0xFF));
-    c = src.getch(); //CHECK(c == static_cast<char>((datalen >> 16) & 0xFF));
-    c = src.getch(); //CHECK(c == static_cast<char>((datalen >> 24) & 0xFF));
 
     info().setRate(rate);
     info().setBits(bits);
@@ -226,7 +210,6 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info().setLength(datalen / bytes / tracks);
 
     src.at(data_offset);
-
     return true;
 }
 

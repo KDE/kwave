@@ -88,6 +88,7 @@ public:
 
     /**
      * Tries to repair the RIFF file by solving inconsistencies
+     * @see simplifyGarbage()
      * @see resolveOverlaps()
      * @see joinGarbage()
      * @see discardGarbage()
@@ -173,6 +174,12 @@ protected:
                                       u_int32_t length);
 
 private:
+
+    /**
+     * clear all main chunks that contain only garbage and
+     * convert them into garbage chunks
+     */
+    void simplifyGarbage();
 
     /** Resolves overlapping areas */
     void resolveOverlaps();

@@ -474,7 +474,28 @@ RIFFChunk *RIFFParser::findMissingChunk(const QCString &name)
 //***************************************************************************
 void RIFFParser::repair()
 {
-    // remove all main chunks that contain only garbage and convert them
+    // clear all main chunks that contain only garbage and convert them
+    // into garbage chunks
+    simplifyGarbage();
+
+    // resolve overlaps
+    resolveOverlaps();
+
+    // join garbage to truncated chunks
+    joinGarbage();
+
+    // crawl in garbage for known chunks
+    // crawlInGarbage();
+
+    // throw away all remaining garbage
+    discardGarbage();
+
+}
+
+//***************************************************************************
+void RIFFParser::simplifyGarbage()
+{
+    // clear all main chunks that contain only garbage and convert them
     // into garbage chunks
     bool start_over;
     do {
@@ -515,18 +536,6 @@ void RIFFParser::repair()
             }
         }
     } while (start_over);
-
-    // first pass: resolve overlaps
-    resolveOverlaps();
-
-    // second pass: join garbage to truncated chunks
-    joinGarbage();
-
-    // third pass: crawl in garbage for known chunks
-    // crawlInGarbage();
-
-    // fourth pass: throw away all remaining garbage
-    discardGarbage();
 }
 
 //***************************************************************************

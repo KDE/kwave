@@ -22,7 +22,6 @@
 #include <pthread.h>       // for POSIX threads, included in libc > 2.0
 #include <qmutex.h>
 #include <qobject.h>
-#include "mt/TSS_Object.h"
 
 class Thread : public QObject
 {

@@ -24,7 +24,6 @@
 
 #include "mt/SignalProxy.h"
 #include "mt/Semaphore.h"
-#include "mt/TSS_Object.h"
 
 /**
  * @class ThreadsafeX11Guard

@@ -31,6 +31,13 @@ RIFFChunk::RIFFChunk(RIFFChunk *parent, const QCString &name,
 }
 
 //***************************************************************************
+RIFFChunk::~RIFFChunk()
+{
+    m_sub_chunks.setAutoDelete(true);
+    m_sub_chunks.clear();
+}
+
+//***************************************************************************
 u_int32_t RIFFChunk::physEnd()
 {
     u_int32_t end = m_phys_offset + m_phys_length;

@@ -65,6 +65,9 @@ public:
               const QCString &format, u_int32_t length,
               u_int32_t phys_offset, u_int32_t phys_length);
 
+    /** Destructor */
+    virtual ~RIFFChunk();
+
     /**
      * Returns the type of the chunk.
      * @see ChunkType
@@ -84,7 +87,7 @@ public:
     inline const QCString &format() { return m_format; };
 
     /** Returns the pointer to the parent node */
-    inline const RIFFChunk *parent() { return m_parent; };
+    inline RIFFChunk *parent() { return m_parent; };
 
     /** Returns the full path of this node. */
     inline const QCString path() {

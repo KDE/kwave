@@ -86,13 +86,43 @@ public:
      */
     RIFFChunk *findMissingChunk(const QCString &name);
 
+    /**
+     * Tries to repair the RIFF file by solving inconsistencies
+     * @see resolveOverlaps()
+     * @see joinGarbage()
+     * @see discardGarbage()
+     */
+    void repair();
+
 protected:
+
+    /** Returns true if the given chunk name is valid */
+    bool isValidName(const char *name);
 
     /**
      * Tries to detect the endianness of the source. If successful, the
      * endianness will be set. If failed, will be set to "Unknown".
      */
     void detectEndianness();
+
+    /**
+     * Creates and adds a new chunk. Will be parented to the first
+     * non-garbage chunk.
+     * @param parent pointer to the parent node (or null if root node)
+     * @param name the 4-byte name of the chunk
+     * @param format the 4-byte format specifier, only valid for
+     *               main chunks, contains invalid data in sub-chunks
+     * @param length size of the chunk's data
+     * @param phys_offset start of the chunk name in the source
+     * @param phys_length length allocated in the source (file)
+     * @param type chunk type, @see RIFFChunk::ChunkType
+     * @param RIFFChunk::RIFFChunk()
+     * @return pointer to the new created chunk
+     */
+    RIFFChunk *addChunk(RIFFChunk *parent, const QCString &name,
+                        const QCString &format, u_int32_t length,
+                        u_int32_t phys_offset, u_int32_t phys_length,
+                        RIFFChunk::ChunkType type);
 
     /**
      * Adds a chunk that has no valid name and thus is not recognized.
@@ -143,6 +173,15 @@ protected:
                                       u_int32_t length);
 
 private:
+
+    /** Resolves overlapping areas */
+    void resolveOverlaps();
+
+    /** Joins garbage after truncated chunks to the chunk */
+    void joinGarbage();
+
+    /** Discards all garbage chunks */
+    void discardGarbage();
 
     /** I/O device with the source of the file */
     QIODevice &m_dev;

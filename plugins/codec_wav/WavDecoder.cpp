@@ -70,31 +70,53 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     QStringList main_chunks;
     main_chunks.append("RIFF"); /* RIFF, little-endian */
     main_chunks.append("RIFX"); /* RIFF, big-endian */
-    main_chunks.append("FORM"); /* used in AIFF, big-endian */
-    main_chunks.append("LIST"); /* additional information */
-    main_chunks.append("adtl"); /* Associated Data */
+    main_chunks.append("FORM"); /* used in AIFF, big-endian or IFF/.lbm */
+//    main_chunks.append("LIST"); /* additional information */
+//    main_chunks.append("adtl"); /* Associated Data */
 
     QStringList known_chunks;
-    // native WAVE chunk names
-    known_chunks.append("cue "); /* Markers */
+
+//    // native WAVE chunk names
+//    known_chunks.append("cue "); /* Markers */
     known_chunks.append("data"); /* Sound Data */
     known_chunks.append("fmt "); /* Format */
-    known_chunks.append("inst"); /* Instrument */
-    known_chunks.append("labl"); /* label */
-    known_chunks.append("ltxt"); /* labeled text */
-    known_chunks.append("note"); /* note chunk */
-    known_chunks.append("plst"); /* Play List */
-    known_chunks.append("smpl"); /* Sampler */
-    // some chunks known from AIFF format
-    known_chunks.append("FVER");
-    known_chunks.append("COMM");
-    known_chunks.append("wave");
-    known_chunks.append("SSND");
+//    known_chunks.append("inst"); /* Instrument */
+//    known_chunks.append("labl"); /* label */
+//    known_chunks.append("ltxt"); /* labeled text */
+//    known_chunks.append("note"); /* note chunk */
+//    known_chunks.append("plst"); /* Play List */
+//    known_chunks.append("smpl"); /* Sampler */
+//
+//    // some sub-chunks from the LIST chunk
+//    known_chunks.append("IART");
+//    known_chunks.append("ICMT");
+//    known_chunks.append("ICOP");
+//    known_chunks.append("IENG");
+//    known_chunks.append("IGNR");
+//    known_chunks.append("IKEY");
+//    known_chunks.append("IMED");
+//    known_chunks.append("INAM");
+//    known_chunks.append("ISRC");
+//    known_chunks.append("ITCH");
+//    known_chunks.append("ISBJ");
+//    known_chunks.append("ISRF");
+//
+//    // some chunks known from AIFF format
+//    known_chunks.append("FVER");
+//    known_chunks.append("COMM");
+//    known_chunks.append("wave");
+//    known_chunks.append("SSND");
+
+//    // chunks of .lbm image files, IFF format
+//    known_chunks.append("BMHD");
+//    known_chunks.append("CMAP");
+//    known_chunks.append("BODY");
 
     RIFFParser parser(src, main_chunks, known_chunks);
     parser.parse();
 //    parser.dumpStructure();
     debug("--- after first pass ---");
+    parser.dumpStructure();
 
     RIFFChunk *chunk;
 
@@ -105,16 +127,25 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
         chunk = parser.findMissingChunk("RIFF");
     } else debug("RIFF chunk found.");
 
-    if (!parser.findChunk("/RIFF/fmt ")) {
+    u_int32_t fmt_offset = 0;
+    if (!(chunk = parser.findChunk("/RIFF/fmt "))) {
         parser.findMissingChunk("fmt ");
+        chunk = parser.findChunk("/RIFF/fmt ");
     }
-    if (!parser.findChunk("/RIFF/data")) {
+    if (chunk) fmt_offset = chunk->dataStart();
+    debug("fmt chunk starts at 0x%08X", fmt_offset);
+
+    u_int32_t data_offset = 0;
+    if (!(chunk = parser.findChunk("/RIFF/data"))) {
         parser.findMissingChunk("data");
+        chunk = parser.findChunk("/RIFF/data");
     }
+    if (chunk) data_offset = chunk->dataStart();
+    debug("data chunk starts at 0x%08X", data_offset);
 
     parser.dumpStructure();
-    qApp->exit();
-    src.at(pos);
+    parser.repair();
+    parser.dumpStructure();
 
     // source successfully opened
     m_source = &src;
@@ -123,18 +154,20 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     unsigned int bits = 0;
     char c;
 
+    src.at(fmt_offset);
+
     // get the encoded block of data from the mime source
     CHECK(src.size() > sizeof(wav_header_t)+8);
 
-    wav_header_t header;
+    wav_fmt_header_t header;
     unsigned int datalen = src.size() - (sizeof(wav_header_t) + 8);
     unsigned int src_pos = 0;
 
     // get the header
-    src.readBlock((char *)&header, sizeof(wav_header_t));
+    src.readBlock((char *)&header, sizeof(wav_fmt_header_t));
 #if defined(IS_BIG_ENDIAN)
-    header.filelength = bswap_32(header.filelength);
-    header.fmtlength = bswap_32(header.fmtlength);
+//    header.filelength = bswap_32(header.filelength);
+//    header.fmtlength = bswap_32(header.fmtlength);
     header.mode = bswap_16(header.mode);
     header.channels = bswap_16(header.channels);
     header.rate = bswap_32(header.rate);
@@ -147,26 +180,33 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     bits = header.bitspersample;
     const unsigned int bytes = (bits >> 3);
 
-    if (src.size() != header.filelength+8) {
-	debug("WavDecoder::loadWavChunk: header=%d, rest of file=%d",
-	      header.filelength, src.size());
-	KMessageBox::error(widget,
-	    i18n("Error in input: file is smaller than stated "\
-	         "in the header. \nFile will be truncated."));
-	
-	datalen = src.size();
-	header.filelength = src.size()-8;
-	datalen = header.filelength - sizeof(wav_header_t);
-    }
+    debug("mode        = %d", header.mode);
+    debug("channels    = %d", header.channels);
+    debug("rate        = %u", header.rate);
+    debug("bytes/s     = %u", header.AvgBytesPerSec);
+    debug("block align = %d", header.BlockAlign);
+    debug("bits/sample = %d", header.bitspersample);
+
+//    if (src.size() != header.filelength+8) {
+//	debug("WavDecoder::loadWavChunk: header=%d, rest of file=%d",
+//	      header.filelength, src.size());
+//	KMessageBox::error(widget,
+//	    i18n("Error in input: file is smaller than stated "\
+//	         "in the header. \nFile will be truncated."));
+//	
+//	datalen = src.size();
+//	header.filelength = src.size()-8;
+//	datalen = header.filelength - sizeof(wav_header_t);
+//    }
 
     // some sanity checks
     CHECK(header.AvgBytesPerSec == rate * bytes * tracks);
     CHECK(static_cast<unsigned int>(header.BlockAlign) == bytes*tracks);
-    CHECK(!strncmp((char*)&(header.riffid), "RIFF", 4));
-    CHECK(!strncmp((char*)&(header.wavid), "WAVE", 4));
-    CHECK(!strncmp((char*)&(header.fmtid), "fmt ", 4));
-    CHECK(header.filelength == (datalen + sizeof(wav_header_t)));
-    CHECK(header.fmtlength == 16);
+//    CHECK(!strncmp((char*)&(header.riffid), "RIFF", 4));
+//    CHECK(!strncmp((char*)&(header.wavid), "WAVE", 4));
+//    CHECK(!strncmp((char*)&(header.fmtid), "fmt ", 4));
+//    CHECK(header.filelength == (datalen + sizeof(wav_header_t)));
+//    CHECK(header.fmtlength == 16);
     CHECK(header.mode == 1); /* currently only mode 1 is supported :-( */
 
     src_pos += sizeof(wav_header_t);
@@ -184,6 +224,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info().setBits(bits);
     info().setTracks(tracks);
     info().setLength(datalen / bytes / tracks);
+
+    src.at(data_offset);
 
     return true;
 }

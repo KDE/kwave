@@ -15,36 +15,17 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "libkwave/ArtsMultiTrackSink.h"
-#include "libkwave/ArtsMultiTrackFilter.h"
-#include "libkwave/ArtsMultiIO.h"
-#include "libkwave/ArtsMultiSource.h"
-#include "libkwave/ArtsMultiSink.h"
-
 #include "config.h"
-#include <errno.h>
-#include <string.h> // ###
-#include <stdio.h> // ###
 
-#include <qarray.h> // ###
 #include <qstringlist.h>
 #include <klocale.h>
 
-#include <arts/artsflow.h>
-#include <arts/connect.h>
-#include <arts/objectmanager.h> // ###
-#include <arts/stdsynthmodule.h> // ###
-
-#include "libkwave/InsertMode.h"
-#include "libkwave/MultiTrackWriter.h"
-#include "libkwave/MultiTrackReader.h"
 #include "libkwave/Parser.h"
-#include "libkwave/Sample.h" // ###
-#include "libkwave/SampleReader.h" // ###
-#include "libkwave/SampleWriter.h" // ###
 
-#include "libkwave/ArtsSampleSource_impl.h"
-#include "libkwave/ArtsSampleSink_impl.h"
+#include "libkwave/ArtsMultiTrackSink.h"
+#include "libkwave/ArtsMultiTrackSource.h"
+#include "libkwave/ArtsKwaveMultiTrackFilter.h"
+#include "libkwave/ArtsNativeMultiTrackFilter.h"
 
 #include "kwave/PluginManager.h"
 #include "kwave/UndoTransactionGuard.h"
@@ -122,10 +103,10 @@ public:
 	while (x < samples) {
 	    if (m_pos < 30000) {
 		output[x] = input[x] * ((double)m_pos / 30000.0);
-	    } else output[x] = input[x];
-	
-//	    } else if (m_pos & 1) output[x] = 1.0; // 1 << 23;
-//	    else output[x] = -1.0; // (1 << 23);
+//	    } else output[x] = input[x];
+//	
+	    } else if (m_pos & 1) output[x] = 1.0; // 1 << 23;
+	    else output[x] = -1.0; // (1 << 23);
 	
 	    m_pos++;
 	    x++;
@@ -139,37 +120,6 @@ public:
 protected:
     unsigned long m_pos;
 };
-
-//***************************************************************************
-//***************************************************************************
-
-typedef ArtsMultiIO< ArtsMultiSource, ArtsSampleSource, \
-    ArtsSampleSource_impl, MultiTrackReader > ArtsMultiTrackSource_base;
-
-class ArtsMultiTrackSource
-    :public ArtsMultiTrackSource_base
-{
-public:
-    ArtsMultiTrackSource(MultiTrackReader &reader)
-	:ArtsMultiTrackSource_base(reader) {};
-
-    virtual ~ArtsMultiTrackSource() {};
-
-    virtual bool done() {
-	unsigned int t;
-	for (t=0; t < m_count; ++t) {
-	    if (!m_ios[t]->done()) return false;
-	}
-	debug("ArtsMultiTrackSource()::done() -> reached eof !");
-	return true;
-    };
-};
-
-//***************************************************************************
-
-
-//***************************************************************************
-//***************************************************************************
 
 //***************************************************************************
 void AmplifyFreePlugin::run(QStringList)
@@ -196,20 +146,26 @@ void AmplifyFreePlugin::run(QStringList)
     dispatcher.lock();
 
     unsigned int tracks = selectedTracks().count();
-    ArtsMultiTrackFilter<PassThruFilter, PassThruFilter_impl> filter1(tracks);
-    ArtsMultiTrackFilter<PassThruFilter, PassThruFilter_impl> filter2(tracks);
+    ArtsKwaveMultiTrackFilter<PassThruFilter, PassThruFilter_impl> filter1(tracks);
+    ArtsKwaveMultiTrackFilter<PassThruFilter, PassThruFilter_impl> filter2(tracks);
+
+    ArtsNativeMultiTrackFilter mul(tracks, "Arts::Synth_MUL");
 
     ArtsMultiTrackSource arts_source(source);
     ArtsMultiTrackSink   arts_sink(sink);
 
     filter1.connectInput( arts_source, "source");
-    filter2.connectInput( filter1,     "output");
-    filter2.connectOutput(arts_sink,   "sink");
+    filter2.connectInput( arts_source, "source");
+    mul.connectInput(filter1, "output", "invalue1");
+    mul.connectInput(filter2, "output", "invalue2");
+    mul.connectOutput(arts_sink, "sink", "outvalue");
+
 
     arts_source.start();
     arts_sink.start();
     filter1.start();
     filter2.start();
+    mul.start();
 
     debug("AmplifyFreePlugin: filter started...");
     while (!m_stop && !(arts_source.done())) {
@@ -217,6 +173,7 @@ void AmplifyFreePlugin::run(QStringList)
     }
     debug("AmplifyFreePlugin: filter done.");
 
+    mul.stop();
     filter2.stop();
     filter1.stop();
     arts_sink.stop();

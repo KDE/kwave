@@ -219,6 +219,9 @@ void KwavePlugin::zoom2string(char *buf, unsigned int bufsize, double percent)
 //***************************************************************************
 void KwavePlugin::ms2string(char *buf, unsigned int bufsize, double ms)
 {
+    ASSERT(buf);
+    if (!buf) return;
+
     if (ms < 1.0) {
 	char format[128];
 	// limit to 6 digits, use 0.0 for exact zero

@@ -55,8 +55,8 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-11-25</DATE>
-    <RELEASEINFO>0.5.4-6</RELEASEINFO>
+    <DATE>2000-12-01</DATE>
+    <RELEASEINFO>0.5.5</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
     <ABSTRACT>
@@ -78,6 +78,7 @@
 	<KEYWORD>editor</KEYWORD>
 	<KEYWORD>sonagram</KEYWORD>
 	<KEYWORD>FFT</KEYWORD>
+	<KEYWORD>Linux</KEYWORD>
     </KEYWORDSET>
 </BOOKINFO>
 
@@ -110,7 +111,7 @@
 	    labeling of signals 
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    some analysis functions such as Fourier Transformation
+	    some analysis functions such as Sonagram or Fourier Transformation
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
 	    internally uses 24 bit integer sample data
@@ -126,7 +127,7 @@
 	    mixed down to mono or stereo)
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    extendable through an easy-to-use plugin interface
+	    extendible through an easy-to-use plugin interface
 	</PARA></LISTITEM>
     	</ITEMIZEDLIST>	    
     </PARA>
@@ -143,18 +144,6 @@
         The core application is considered to be quite stable, but some
 	of the plugins might be really buggy...
     </PARA></WARNING>
-
-    <PARA>
-        Sorry, there is not so much documentation available yet. If you 
-    	feel urgent need for information, please write to one of the developers
-	or to the kwave mailing list and we will help you. Of course I would be
-    	happy if you contribute Documentation, and will provide information, 
-    	if you need some. 
-    </PARA>
-	
-    <!-- Note that the revhistory tags apply to the documentation 
-    version and not to the app version. That is why we use an 
-    itemizedlist here. -->
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Kwave Resources                                       +++ -->
@@ -234,7 +223,7 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <PARA><ITEMIZEDLIST>
         <LISTITEM>
-            <PARA>0.5.5 [not released yet]</PARA>
+            <PARA>0.5.5 [2000-12-01]</PARA>
             <ITEMIZEDLIST>
                 <LISTITEM><PARA>
                     new playback handling, allows pause/continue
@@ -2414,7 +2403,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-11-25</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-12-01</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

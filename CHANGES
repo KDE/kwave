@@ -1,5 +1,5 @@
 
-0.5.5 [not released yet]
+0.5.5 [2000-12-01]
 
  * new playback handling, allows pause/continue
  * limited the playback buffer to be between 256 and 65536 bytes

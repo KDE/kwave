@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSION\n"
-"POT-Creation-Date: 2000-11-25 20:52+0100\n"
+"POT-Creation-Date: 2000-12-01 12:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,70 +83,70 @@ msgstr "Fortschritt"
 msgid "noname"
 msgstr "Keine"
 
-#: src/SignalManager.cpp:508
+#: src/SignalManager.cpp:511
 msgid " on channel "
 msgstr " auf Kanal "
 
-#: src/SignalManager.cpp:630 src/SignalManager.cpp:687
-#: src/SignalManager.cpp:718 src/SignalManager.cpp:741
-#: src/SignalManager.cpp:750 src/SignalManager.cpp:755
-#: src/SignalManager.cpp:760 src/SignalManager.cpp:1008
-#: src/SignalManager.cpp:1067
+#: src/SignalManager.cpp:641 src/SignalManager.cpp:698
+#: src/SignalManager.cpp:729 src/SignalManager.cpp:752
+#: src/SignalManager.cpp:761 src/SignalManager.cpp:766
+#: src/SignalManager.cpp:771 src/SignalManager.cpp:1019
+#: src/SignalManager.cpp:1078
 msgid "Info"
 msgstr "Info"
 
-#: src/SignalManager.cpp:630 src/SignalManager.cpp:687
+#: src/SignalManager.cpp:641 src/SignalManager.cpp:698
 msgid "File does not exist !"
 msgstr "Datei existiert nicht!"
 
-#: src/SignalManager.cpp:719
+#: src/SignalManager.cpp:730
 msgid "File has no data chunk!"
 msgstr "Datei enthält keine Daten!"
 
-#: src/SignalManager.cpp:742 src/SignalManager.cpp:1009
+#: src/SignalManager.cpp:753 src/SignalManager.cpp:1020
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr "Sorry, nur 8,16 und 24 Bits/Sample werden unterstützt!"
 
-#: src/SignalManager.cpp:751
+#: src/SignalManager.cpp:762
 msgid "File must be uncompressed (Mode 1) !"
 msgstr "Datei ist nicht im unkompimierten Modus (Mode 1)!"
 
-#: src/SignalManager.cpp:756
+#: src/SignalManager.cpp:767
 msgid "File is no RIFF Wave File !"
 msgstr "Datei ist nicht im RIFF Wave Format!"
 
-#: src/SignalManager.cpp:761
+#: src/SignalManager.cpp:772
 msgid "File does not contain enough data !"
 msgstr "Datei ist unvollständig!"
 
-#: src/SignalManager.cpp:796 src/SignalManager.cpp:870
-#: src/SignalManager.cpp:1080
+#: src/SignalManager.cpp:807 src/SignalManager.cpp:881
+#: src/SignalManager.cpp:1091
 msgid "Mono"
 msgstr "Mono"
 
-#: src/SignalManager.cpp:798 src/SignalManager.cpp:872
-#: src/SignalManager.cpp:1082
+#: src/SignalManager.cpp:809 src/SignalManager.cpp:883
+#: src/SignalManager.cpp:1093
 msgid "Stereo"
 msgstr "Stereo"
 
-#: src/SignalManager.cpp:802
+#: src/SignalManager.cpp:813
 #, c-format
 msgid "Exporting %s ASCII file :"
 msgstr "Exportiere %s ASCII-Datei :"
 
-#: src/SignalManager.cpp:894
+#: src/SignalManager.cpp:905
 msgid "empty channel detected, channel count reduced by one"
 msgstr "leere Stimme gefunden, Anzahl wird um 1 reduziert"
 
-#: src/SignalManager.cpp:966
+#: src/SignalManager.cpp:977
 msgid "info"
 msgstr "Info"
 
-#: src/SignalManager.cpp:967
+#: src/SignalManager.cpp:978
 msgid "Signal is empty, nothing to save !"
 msgstr "Signal ist leer, nichts zu speichern!"
 
-#: src/SignalManager.cpp:1056
+#: src/SignalManager.cpp:1067
 msgid ""
 "Error in input: file is smaller than stated in the header. \n"
 "File has been truncated."
@@ -154,33 +154,33 @@ msgstr ""
 "Fehler in Eingabe: Datei ist kleiner als im Header angegeben. \n"
 "Datei wurde abgeschnitten."
 
-#: src/SignalManager.cpp:1067
+#: src/SignalManager.cpp:1078
 msgid "Out of Memory!"
 msgstr "Zu wenig Speicher!"
 
-#: src/SignalManager.cpp:1085
+#: src/SignalManager.cpp:1096
 #, c-format
 msgid "%d voices"
 msgstr "%d Stimmen"
 
-#: src/SignalManager.cpp:1088
+#: src/SignalManager.cpp:1099
 #, c-format
 msgid "Loading %d-Bit (%s) File :"
 msgstr "Lade %d-Bit-%s Datei :"
 
-#: src/SignalManager.cpp:1322
+#: src/SignalManager.cpp:1333
 msgid "number of bits per samples not supported"
 msgstr "Anzahl der Bits/Sample wird nicht unterstützt!"
 
-#: src/SignalManager.cpp:1329
+#: src/SignalManager.cpp:1340
 msgid "stereo not supported"
 msgstr "Stereo wird nicht unterstützt"
 
-#: src/SignalManager.cpp:1335
+#: src/SignalManager.cpp:1346
 msgid "playback rate not supported"
 msgstr "Wiedergabe-Rate wird nicht unterstützt"
 
-#: src/SignalManager.cpp:1345
+#: src/SignalManager.cpp:1356
 msgid "unusable buffer size"
 msgstr "Puffer-Größe kann nicht verwendet werden"
 
@@ -391,8 +391,8 @@ msgid "&Choose type"
 msgstr "&Typ auswählen"
 
 #: src/menus_config_i18n.cpp:29
-msgid "&Clipboard"
-msgstr "&Zwischenablage"
+msgid "Clip&board"
+msgstr "Zwischenablage"
 
 #: src/menus_config_i18n.cpp:32
 msgid "&Convert label distance to pitch"
@@ -412,11 +412,11 @@ msgstr "Z&uschneiden"
 
 #: src/menus_config_i18n.cpp:37
 msgid "Cu&t"
-msgstr "Au&sschneiden"
+msgstr "&Ausschneiden"
 
 #: src/menus_config_i18n.cpp:38
 msgid "De&lay"
-msgstr "&Verzögerung"
+msgstr "Ver&zögerung"
 
 #: src/menus_config_i18n.cpp:40
 msgid "&Distort"
@@ -428,7 +428,7 @@ msgstr "&Befehl eingeben"
 
 #: src/menus_config_i18n.cpp:43
 msgid "&Envelope"
-msgstr "Hü&llkurve"
+msgstr "&Hüllkurve"
 
 #: src/menus_config_i18n.cpp:44
 msgid "E&xecute"
@@ -539,8 +539,8 @@ msgid "&New..."
 msgstr "&Neu..."
 
 #: src/menus_config_i18n.cpp:73
-msgid "&New &Window"
-msgstr "&Neues Fenster"
+msgid "New &Window"
+msgstr "Neues Fenster"
 
 #: src/menus_config_i18n.cpp:74
 msgid "&Next"
@@ -556,14 +556,14 @@ msgstr "&Rauschen"
 
 #: src/menus_config_i18n.cpp:77
 msgid "&Nothing"
-msgstr "&Nichts"
+msgstr "Nichts"
 
 #: src/menus_config_i18n.cpp:78
 msgid "&Open"
 msgstr "Ö&ffnen"
 
 #: src/menus_config_i18n.cpp:79
-msgid "&Open Recent"
+msgid "Open &Recent"
 msgstr "&Zuletzt geöffnete Dateien"
 
 #: src/menus_config_i18n.cpp:82
@@ -600,7 +600,7 @@ msgstr "&Bereich"
 
 #: src/menus_config_i18n.cpp:92
 msgid "Re&quantize"
-msgstr "Neu&abtasten"
+msgstr "&Neuabtasten"
 
 #: src/menus_config_i18n.cpp:93
 msgid "&Resample"
@@ -611,16 +611,16 @@ msgid "&Reverse"
 msgstr "&Umkehren"
 
 #: src/menus_config_i18n.cpp:95
-msgid "&Revert"
-msgstr "&Zurücksetzen"
+msgid "Revert"
+msgstr "Zurücksetzen"
 
 #: src/menus_config_i18n.cpp:97
 msgid "S&ave"
-msgstr "&Speichern"
+msgstr "S&peichern"
 
 #: src/menus_config_i18n.cpp:98
-msgid "Save &resolution"
-msgstr "Auflösung"
+msgid "Save resol&ution"
+msgstr "&Auflösung"
 
 #: src/menus_config_i18n.cpp:99
 msgid "Scroll &left"
@@ -636,7 +636,7 @@ msgstr "&Alles auswählen"
 
 #: src/menus_config_i18n.cpp:102
 msgid "&Selection"
-msgstr "Au&swahl"
+msgstr "Aus&wahl"
 
 #: src/menus_config_i18n.cpp:103
 msgid "&Selection..."
@@ -685,7 +685,7 @@ msgstr "bis zum Anfang"
 
 #: src/menus_config_i18n.cpp:114
 msgid "Tri&m"
-msgstr "Tri&mmen"
+msgstr "&Trimmen"
 
 #: src/menus_config_i18n.cpp:117
 msgid "&Visible area"
@@ -697,11 +697,11 @@ msgstr "mit &Zwischenablage"
 
 #: src/menus_config_i18n.cpp:119
 msgid "Zoom &In"
-msgstr "Vergrößern"
+msgstr "Ver&größern"
 
 #: src/menus_config_i18n.cpp:120
 msgid "Zoom &Out"
-msgstr "Verkleinern"
+msgstr "Ver&kleinern"
 
 #: src/menus_config_i18n.cpp:121
 msgid "Zoom to &Selection"
@@ -751,101 +751,101 @@ msgstr "Freq. in Hz"
 msgid "Ampl. in %"
 msgstr "Amplitude in %"
 
-#: plugins/dialogs/addsynth/module.cpp:135
+#: plugins/dialogs/addsynth/module.cpp:188
 msgid "&Power"
 msgstr "&Leistung"
 
-#: plugins/dialogs/addsynth/module.cpp:136
+#: plugins/dialogs/addsynth/module.cpp:189
 msgid "&Phase"
 msgstr "&Phase"
 
-#: plugins/dialogs/addsynth/module.cpp:137
+#: plugins/dialogs/addsynth/module.cpp:190
 msgid "&Multipliers"
 msgstr "&Multiplikatoren"
 
-#: plugins/dialogs/addsynth/module.cpp:138
+#: plugins/dialogs/addsynth/module.cpp:191
 msgid "e&numerate"
 msgstr "&nummerieren"
 
-#: plugins/dialogs/addsynth/module.cpp:139
+#: plugins/dialogs/addsynth/module.cpp:192
 msgid "&even"
 msgstr "&gerade"
 
-#: plugins/dialogs/addsynth/module.cpp:140
+#: plugins/dialogs/addsynth/module.cpp:193
 msgid "&odd"
 msgstr "&ungerade"
 
-#: plugins/dialogs/addsynth/module.cpp:141
+#: plugins/dialogs/addsynth/module.cpp:194
 msgid "&prime"
 msgstr "&prim"
 
-#: plugins/dialogs/addsynth/module.cpp:142
+#: plugins/dialogs/addsynth/module.cpp:195
 msgid "&fibonacci"
 msgstr "&Fibonacci"
 
-#: plugins/dialogs/addsynth/module.cpp:143
+#: plugins/dialogs/addsynth/module.cpp:196
 msgid "&max"
 msgstr "&max"
 
-#: plugins/dialogs/addsynth/module.cpp:144
+#: plugins/dialogs/addsynth/module.cpp:197
 msgid "&db/octave"
 msgstr "&dB/Oktave"
 
-#: plugins/dialogs/addsynth/module.cpp:145
+#: plugins/dialogs/addsynth/module.cpp:198
 msgid "&invert"
 msgstr "&invertieren"
 
-#: plugins/dialogs/addsynth/module.cpp:146
+#: plugins/dialogs/addsynth/module.cpp:199
 msgid "&Sinus"
 msgstr "&Sinus"
 
-#: plugins/dialogs/addsynth/module.cpp:147
-#: plugins/dialogs/addsynth/module.cpp:151
+#: plugins/dialogs/addsynth/module.cpp:200
+#: plugins/dialogs/addsynth/module.cpp:204
 msgid "&random"
 msgstr "&zufällig"
 
-#: plugins/dialogs/addsynth/module.cpp:148
+#: plugins/dialogs/addsynth/module.cpp:201
 msgid "&zero"
 msgstr "&null"
 
-#: plugins/dialogs/addsynth/module.cpp:149
+#: plugins/dialogs/addsynth/module.cpp:202
 msgid "&negate"
 msgstr "&negieren"
 
-#: plugins/dialogs/addsynth/module.cpp:150
+#: plugins/dialogs/addsynth/module.cpp:203
 msgid "&sinus"
 msgstr "&Sinus"
 
-#: plugins/dialogs/addsynth/module.cpp:153
+#: plugins/dialogs/addsynth/module.cpp:206
 msgid "&Reset all"
 msgstr "&Alles zurücksetzen"
 
-#: plugins/dialogs/addsynth/module.cpp:165
+#: plugins/dialogs/addsynth/module.cpp:226
 msgid "Multiply :"
 msgstr "Multiplizieren :"
 
-#: plugins/dialogs/addsynth/module.cpp:166
+#: plugins/dialogs/addsynth/module.cpp:230
 msgid "Phase in degree:"
 msgstr "Phase in Grad:"
 
-#: plugins/dialogs/addsynth/module.cpp:167
+#: plugins/dialogs/addsynth/module.cpp:234
 msgid "Power in %:"
 msgstr "Leistung in %:"
 
-#: plugins/dialogs/addsynth/module.cpp:169
+#: plugins/dialogs/addsynth/module.cpp:238
 msgid "Frequency"
 msgstr "&Frequenzen"
 
-#: plugins/dialogs/addsynth/module.cpp:170
+#: plugins/dialogs/addsynth/module.cpp:242
 msgid "Calculate"
 msgstr "&Berechne"
 
-#: plugins/dialogs/addsynth/module.cpp:185
+#: plugins/dialogs/addsynth/module.cpp:267
 #: plugins/dialogs/filter/module.cpp:70
 msgid "# of :"
 msgstr "# von :"
 
-#: plugins/dialogs/addsynth/module.cpp:349
+#: plugins/dialogs/addsynth/module.cpp:464
 msgid "Choose dB/octave"
 msgstr "Auswahl dB/Oktave"
 
@@ -1386,6 +1386,9 @@ msgstr "&Stimme %d :"
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
 
+#~ msgid "&Clipboard"
+#~ msgstr "&Zwischenablage"
+
 #~ msgid "playback problem"
 #~ msgstr "Problem bei der Wiedergabe"
 
@@ -1526,6 +1529,3 @@ msgstr "Störgerade wählen :"
 
 #~ msgid "%d-channel"
 #~ msgstr "%d-&Kanal"
-
-#~ msgid "Clipboard"
-#~ msgstr "Zwischenablage"

@@ -37,7 +37,7 @@ reallyclean: clean-generic distclean
 	-rm -f config.log
 	-rm -fv  `find . -type l`
 
-backup: kwave.spec
+backup: ${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
 	${MAKE} reallyclean ; \
 	mv ${PACKAGE}.spec.saved ${PACKAGE}.spec ; \
@@ -46,7 +46,7 @@ backup: kwave.spec
 	${SRC_PREFIX} ) && \
 	echo source backed up to ${PACKAGE}-${VERSION}-backup.tgz
 
-patch:
+patch:	${PACKAGE}.spec
 	@ cp ${PACKAGE}.spec ${PACKAGE}.spec.saved ; \
 	${MAKE} reallyclean ; \
 	mv ${PACKAGE}.spec.saved ${PACKAGE}.spec ; \

@@ -624,6 +624,7 @@ void TopWidget::revert()
 	mainwidget->setSignal(signalName);
 	bits = mainwidget->getBitsPerSample();
 	updateMenu();
+	updateToolbar();
     }
 }
 

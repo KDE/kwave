@@ -1,6 +1,4 @@
 
-o crash with reverse / zero() / cut/paste ?
-
 o playback: get error messages out of the thread
 
 o create a ThreadCondition class for synchronizing
@@ -115,9 +113,6 @@ o use some audio library, like libasound for import/export of other
   file formats
 
 o plugins for import/export of different file formats (e.g. MP3)
-
-o create a tool that converts the CHANGES file into sgml and updates the
-  index.sgml file
 
 o error handling in SignalWidget/Manager needs complete rework !
   -> see next issue "how to work with exceptions"

@@ -60,13 +60,14 @@ echo $NEW_VERSION > VERSION
 #
 # update the file kwave.lsm
 #
-cat kwave.lsm | awk -v newver=$NEW_VERSION -v newdate="$NEW_DATE" '{ 
+cat kwave.lsm | awk -v newver=$NEW_VERSION \
+	-v newdate=`date --date=$NEW_DATE +%d%b%Y` '{ 
 	split($0, a, ":") } {
 	if (a[1] == "Version") {
 	    printf("Version:\t%s\n", newver)
 	} else
 	if (a[1] == "Entered-date") {
-	    printf("Entered-date:\t%s\n", newdate)
+	    printf("Entered-date:\t%s\n", toupper(newdate))
 	} else 
 	    print $0
 	}' > kwave.lsm.new
@@ -77,19 +78,19 @@ mv kwave.lsm.new kwave.lsm
 # update plugins/dialogs/about/module.h
 #
 SHORT_DATE=`(LANG=en; date -d "$NEW_DATE" +"%b %d, %Y")`
-cat plugins/dialogs/about/module.h | \
+cat plugins/dialogs/about/AboutDialog.cpp | \
 	awk -v newver=$NEW_VERSION -v newdate="$SHORT_DATE" '{ 
 	split($0, a, " ") } {
-	if ((a[1] == "#define") && (a[2] == "VERSION")) {
-	    printf("#define VERSION \"%s\"\n", newver)
+	if ((a[1] == "#define") && (a[2] == "KWAVE_VERSION")) {
+	    printf("#define KWAVE_VERSION \"%s\"\n", newver)
 	} else 
-	if ((a[1] == "#define") && (a[2] == "VERSION_DATE")) {
-	    printf("#define VERSION_DATE \"%s\"\n", newdate)
+	if ((a[1] == "#define") && (a[2] == "KWAVE_VERSION_DATE")) {
+	    printf("#define KWAVE_VERSION_DATE \"%s\"\n", newdate)
 	} else
 	    print $0
-	}' > module.h.new
-mv plugins/dialogs/about/module.h /tmp/module.h.old
-mv module.h.new plugins/dialogs/about/module.h
+	}' > AboutDialog.cpp.new
+mv plugins/dialogs/about/AboutDialog.cpp /tmp/AboutDialog.cpp.old
+mv AboutDialog.cpp.new plugins/dialogs/about/AboutDialog.cpp
 
 echo "new version numbers set."
 

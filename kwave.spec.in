@@ -57,7 +57,7 @@ cat /tmp/files.lst.tmp | grep -v /default$ | \
 
 %files -f files.list.%{name}
 
-%doc GNU-LICENSE CHANGES README README.OLD TODO kwave.lsm
+%doc GNU-LICENSE CHANGES README TODO kwave.lsm
 
 %post
 ldconfig

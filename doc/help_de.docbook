@@ -56,7 +56,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2001-07-21</DATE>
+    <DATE>2001-07-22</DATE>
     <RELEASEINFO>0.5.99-6</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -96,11 +96,14 @@
     Basically a long version of the abstract. -->
 
     <PARA>
-    	Dies ist "&kapp;", ein einfacher Sound-Editor für KDE. 
+    	Dies ist "&kapp;", ein einfacher Sound-Editor für KDE2. 
 	Er enthält folgende Funktionalität:
 	<ITEMIZEDLIST>
     	<LISTITEM><PARA>
 	    einfaches Ausschneiden, Kopieren und Einfügen
+	</PARA></LISTITEM>
+    	<LISTITEM><PARA>
+	    Rückgängig/Wiederherstellen
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
 	    einfache Filter-Werkzeuge
@@ -118,7 +121,7 @@
 	    interne Benutzung von 24 Bit Integer Sample Daten	    
     	</PARA></LISTITEM>
     	<LISTITEM><PARA>
-	    freie Wahl der Sample-Raten
+	    freie einstellbare Sample-Raten
 	</PARA></LISTITEM>
     	<LISTITEM><PARA>
 	    Unterstützung für das Bearbeiten von Mehr-Kanal-Dateien
@@ -139,13 +142,6 @@
 	"TODO", die den Quelldateien beiligen. Hilfe und konstruktive
 	Kritik sind immer willkommen.
     </PARA>
-    <WARNING><PARA>
-    	Benutzen sie &kapp; mit Vorsicht
-        (oft speichern), weil noch nicht <EMPHASIS>alle</EMPHASIS> Komponenten
-	ihr BETA-Stadium verlassen haben.
-	Die Kern-Anwendung gilt als recht stabil, aber einige Plugins
-	dürften noch Fehler enthalten...
-    </PARA></WARNING>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- +++ Section: Kwave Resources                                       +++ -->
@@ -181,7 +177,7 @@
         </SEG>
 	<SEG><ANCHOR ID="FTP-SERVER">
 	    Sie können tar.gz Archive wie auch einige rpm-Packete
-	    vom FTP-Server mittels "anonymous ftp" von 
+	    vom FTP-Server mittels anonymen FTP von 
 	    <ULINK URL="ftp://kwave.sourceforge.net/pub/kwave/">
 	    ftp://kwave.sourceforge.net/pub/kwave/</ULINK> herunterladen.
 	</SEG>
@@ -1241,20 +1237,15 @@
 	    	Ergebnisse <EMPHASIS>anhören</EMPHASIS> kann?)
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-	    	KDE-1.1 oder höher (zumindest die Bibliotheken: &kapp
+	    	KDE-2.1 oder höher (zumindest die Bibliotheken: &kapp
 	    	läuft auch unter gnome, wenn die richtigen Libs
-	    	installiert sind). KDE2 wird 2001 unterstützt.
+	    	installiert sind).
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-	    	qt-1.44 oder höher (normalerweise bei KDE enthalten),
-	    	qt2 wird 2001 unterstützt.
+	    	qt-2.3 oder höher (normalerweise in KDE2 enthalten)
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-	    	libkwave-0.3.9-1 oder aktueller (zur Zeit nicht in &kapp
-	    	enthalten, wird als seperates Paket angeboten)
-	    </PARA></LISTITEM>
-	    <LISTITEM><PARA>
-	    	etwas mehr als 3 MB Speicher zum Starten von &kapp
+	    	etwas mehr als 10 MB Speicher zum Starten von &kapp
 	    	(dieses kann jedoch sehr stark von ihrer Plattform  und 
 	    	Konfiguration abhängen)
 	    </PARA></LISTITEM>
@@ -1266,7 +1257,7 @@
     	sie zusätzlich:
 	<ITEMIZEDLIST>
 	    <LISTITEM><PARA>
-	    	Einen C/C++ Compiler. GCC-2.95-3 wird empfohlen, einige
+	    	Einen C/C++ Compiler. GCC-2.95.3 wird empfohlen, einige
 	    	ältere und jede neuere Version sollte ebenfalls funktionieren.
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
@@ -1275,8 +1266,12 @@
 	    	"libc-devel" heißen.
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-	    	Das Qt Entwicklungs Paket, qt2 wird 2001 unterstützt.
-	    	Das Paket heißt "qtdevel" oder Ähnliches.
+		Die KDE2-Entwicklungsumgebung: "kdelibs-devel",
+		"kdemultimedia-devel", "kdesdk-2".
+	    </PARA></LISTITEM>
+	    <LISTITEM><PARA>
+	    	Die Qt-Entwicklungsumgebung,
+	    	das Paket heißt normalerweise "qt-devel" oder Ähnliches.
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
 	    	Falls sie beabsichtigen CVS zu benutzen, brauchen sie
@@ -1285,12 +1280,6 @@
 	</ITEMIZEDLIST>
     </PARA>
 
-    <PARA>
-    	Man findet das Programm &kapp; und die libkwave Bibliothek
-    	auf der &kapp; <LINK linkend="PROJECT-HOMEPAGE">Homepage</LINK>
-    	oder per "anonymous ftp" im <LINK linkend="CVS-REPOSITORY">CVS Archiv</LINK>.
-    </PARA>
-    
     </SECT1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1300,24 +1289,11 @@
     <SECT1 ID="MANUAL_COMPILATION"><TITLE>Compilierung und Installation</TITLE>
 
     <PARA>
-	Um libkwave auf ihrem System zu installieren, geben sie die
-	folgenden Befehle in dem libkwave-Quellen-Hauptverzeichnis
+	Um &kapp; auf ihrem System zu compiieren und zu installieren, geben 
+	sie die	folgenden Befehle in dem Hauptverzeichnis der &kapp;-Quellen
 	an:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cd libkwave</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>su root -c "make install"</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>cd ..</COMMAND>
-</SCREEN>
-    </PARA>
-    <PARA>
-    	Wenn libkwave erfolgreich installiert wurde, können sie mit der
-    	Compilierung und Installation von &kapp; fortfahren. Geben sie das
-    	folgendene im &kapp;-Quellen-Hauptverzeichnis ein:
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cd kwave</COMMAND>
+<PROMPT> % </PROMPT><COMMAND>cd kwave</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make</COMMAND>
@@ -1326,11 +1302,22 @@
     </PARA>
     
     <PARA>
-    	Seitdem libkwave und &kapp; autoconf und automake benutzen, sollten
+    	Da &kapp; autoconf und automake benutzt, sollten
     	sie keine Probleme mit der Compilierung haben. Falls sie Probleme
     	haben, berichten sie sie bitte 
     	der &kapp; <link linkend="MAILING-LIST">Mailing-Liste</link>.
     </PARA>
+    <NOTE><PARA>
+	Wenn Sie ein System mit Qt-1 und/oder KDE-1 besitzen, werden sie
+	möglicherweise auf Probleme beim Compilieren treffen. In diesem
+	Fall setzen sie bitte folgende Umgebungsvariablen um die korrekten
+	Pfade ihrer Qt- und KDE2-Installation zu setzen und versuchen Sie 
+	es erneut:
+<SCREEN WIDTH="30" FORMAT="LINESPECIFIC">
+<PROMPT> % </PROMPT><COMMAND>export QTDIR=/usr/lib/qt2</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>export KDEDIR=/opt/kde2</COMMAND>
+</SCREEN>
+    </PARA></NOTE>
     
     </SECT1>
 
@@ -1358,7 +1345,7 @@
     </PARA>
 
     <PARA>
-    	Wenn sie ein tar.gz Archiv von libkwave und &kapp; heruntergeladen
+    	Wenn sie ein tar.gz Archiv von &kapp; heruntergeladen
     	haben, erstellen und installieren sie die RPM's einfach, indem sie
     	den folgenden Schritten folgen (wobei <REPLACEABLE>[arch]</REPLACEABLE>
     	für die Plattform, für die sie das Packet erstellt haben, steht und
@@ -1367,24 +1354,13 @@
     	<REPLACEABLE>XXX</REPLACEABLE> steht für die Versionsnummer von &kapp;).
     </PARA>
     
-    <ORDEREDLIST>
-	<LISTITEM><PARA>
-	Als erstes erstellen sie das libkwave Paket und installieren es:
+    <PARA>
+	Erstellen sie das &kapp; Paket und installieren es wie folgt:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>rpm -ta <REPLACEABLE>libkwave-XXX.tar.gz</REPLACEABLE></COMMAND>
-<PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/RPMS/[arch]/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
-</SCREEN>
-	</PARA></LISTITEM>
-
-	<LISTITEM><PARA>
-	Dann erstellen sie das &kapp; Paket und installieren es ebenfalls:
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>rpm -ta <REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE></COMMAND>
+<PROMPT> % </PROMPT><COMMAND>rpm -ta <REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE></COMMAND>
 <PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
-	</PARA></LISTITEM>
-	
-    </ORDEREDLIST>
+    </PARA>
 
     <NOTE><PARA>
 	<EMPHASIS>Hinweis für SuSE Benutzer: </EMPHASIS>
@@ -1425,7 +1401,7 @@
 	<LISTITEM><PARA>
 	    Gehen sie zu ihrem RPM "Hauptverzeichnis", welches
 	    normalerweise <FILENAME>/usr/src/redhat</FILENAME>
-	    für die redhat Distribution oder
+	    für die Redhat Distribution oder
 	    <FILENAME>/usr/src/packages</FILENAME> für
 	    die SuSE Distribution ist.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
@@ -1438,52 +1414,39 @@
 	    (ersetzen sie "somewhere" durch das reale Verzeichnis, in dem die
 	    Dateien enthalten sind).
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cp <REPLACEABLE>/somewhere/libkwave-XXX.tar.gz</REPLACEABLE> SOURCES</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>cp <REPLACEABLE>/somewhere/kwave-XXX.tar.gz</REPLACEABLE> SOURCES</COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
-	    Entpacken sie die spec Dateien von den Archiven und fügen sie
-	    sie dem SPEC Unterverzeichnis hinzu.
+	    Extrahieren sie die spec-Dateie aus dem Archiven und fügen sie
+	    diese dem SPEC-Unterverzeichnis hinzu.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>tar -xOzf SOURCES/<REPLACEABLE>libkwave-XXX.tar.gz</REPLACEABLE> \*.spec > SPECS/libkwave.spec</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>tar -xOzf SOURCES/<REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE> \*.spec > SPECS/kwave.spec</COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
 	    Lassen sie rpm den Compiliervorgang und die Generierung des
-	    libkwave rpm ausführen. Wenn sie nur ein binary Paket erstellen
+	    &kapp; RPMs ausführen. Wenn sie nur ein binary Paket erstellen
 	    wollen, dann können sie <LITERAL>-bb</LITERAL> anstelle von
 	    <LITERAL>-ba</LITERAL> angeben, oder einfach <LITERAL>-bs</LITERAL>
 	    um nur ein Source Paket zu erstellen.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>rpm -ba SPECS/libkwave.spec</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -ba SPECS/kwave.spec</COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
 	<LISTITEM><PARA>
 	    Wenn alles fehlerfrei verlief, können sie das binary rpm
-	    von libkwave installieren, welches sich im BUILD Verzeichnis
-	    befindet. Wenn sie bereits eine Version von libkwave
+	    von &kapp; installieren, welches sich im BUILD Verzeichnis
+	    befindet. Wenn sie bereits eine Version von &kapp;
 	    installiert haben, dann entfernen sie diese zuerst oder
 	    benutzen den Parameter <LITERAL>-U</LITERAL> anstelle von
 	    <LITERAL>-i</LITERAL> für ein Uprade anstelle einer
 	    Installation.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>rpm -i BUILD/<REPLACEABLE>[arch]/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
-</SCREEN>
-	</PARA></LISTITEM>
-
-	<LISTITEM><PARA>	
-	    Wenn libkwave installiert ist, können sie mit der Erstellung
-	    und Installation vom &kapp; Paket selbst fortfahren. Es
-	    funktioniert genauso wie die Erstellung und Installation von
-	    libkwave.
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>rpm -ba SPECS/kwave.spec</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>rpm -i BUILD/<REPLACEABLE>[arch]]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -i BUILD/<REPLACEABLE>[arch]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
@@ -1503,7 +1466,7 @@
 
     <PARA>
     	Beim erstmaligen Abrufen der Quellen brauchen sie etwas 
-    	Festplattenspeicher (um 15 Megabytes) in einem Verzeichnis ihrer
+    	Festplattenspeicher (etwa 70 Megabytes) in einem Verzeichnis ihrer
     	Wahl, das cvs Paket ihrer bevorzugten Distribution und vollen
     	Zugang zum Internet. Wenn sie Fehlermeldungen über abgelehnte
     	Verbindungen erhalten, haben sie entweder etwas falsches
@@ -1514,28 +1477,21 @@
 
     <ORDEREDLIST>
     <LISTITEM><PARA>
-	Als erstes erstellen sie das Verzeichnis, welches die Unterverzeichnisse
-	von libkwave und kwave erhalten wird und wechseln in dieses:
+	Als erstes erstellen sie ein Verzeichnis, welches das Unterverzeichnis
+	der &kapp;-Quellen erhalten wird und wechseln in dieses:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>mkdir -p <REPLACEABLE>$HOME/src</REPLACEABLE></COMMAND>
+<PROMPT> % </PROMPT><COMMAND>mkdir -p <REPLACEABLE>$HOME/src</REPLACEABLE></COMMAND>
 <PROMPT>% </PROMPT><COMMAND>cd <REPLACEABLE>$HOME/src</REPLACEABLE></COMMAND>
 </SCREEN>
     </PARA></LISTITEM>
     <LISTITEM><PARA>
 	Dann loggen sie sich in den CVS Server ein. Ich vermutete, sie wollen
-	dies als normaler Benutzer tun, deshalb loggen sich sich als
-	anonymous ein:
+	dies als normaler Benutzer tun, melden sie sich dehalb anonym an:
 <SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave login</COMMAND>
 </SCREEN>
 	Dann fragt sie der Server nach einem Passwort. Da wir kein Passwort für
 	anonymen Zugriff haben, drücken sie einfach die Enter-Taste.
-    </PARA></LISTITEM>
-
-    <LISTITEM><PARA>
-<SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cvs -z3 -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave co libkwave</COMMAND>
-</SCREEN>
     </PARA></LISTITEM>
 
     <LISTITEM><PARA>
@@ -1547,10 +1503,10 @@
     </ORDEREDLIST>
 
     <WARNING><PARA>
-	Es sollte <EMPHASIS>kein</EMPHASIS> Verzeichnis mit dem Namen <FILENAME>libkwave</FILENAME>
-	oder <FILENAME>kwave</FILENAME> unter dem CVS-Verzeichnis existieren.
+	Es darf <EMPHASIS>kein</EMPHASIS> Verzeichnis mit dem Namen
+	<FILENAME>kwave</FILENAME> unter dem CVS-Verzeichnis existieren.
 	Ansonsten würde sich das cvs Programm über bereits existierende
-	Dateien beschweren und der Zugriff würde nicht funktionieren.
+	Dateien beschweren und das Abrufen würde nicht funktionieren.
     </PARA></WARNING>
 
     </SECT2>
@@ -1562,7 +1518,7 @@
 	einfacher. Wechseln sie einfach in das Verzeichnis, welches sie
 	aktualisieren wollen und machen sie folgendes:
 <SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>make distclean</COMMAND>
+<PROMPT> % </PROMPT><COMMAND>make clean</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>cvs update</COMMAND>
 </SCREEN>
 	Gehen sie dann zum nächsten Abschnitt über und compilieren wie gewöhnlich.
@@ -1572,8 +1528,8 @@
 
     <SECT2 ID="CVS_COMPILING"><TITLE>Compilieren</TITLE>
     <PARA>
-	Das Erstellen eines rpm Archives von einem CVS-Abbild ist recht einfach.
-	Die Prozedur ist beinahe die gleiche, wie im letzten Abschnitt beschrieben.
+	Das Erstellen eines rpm-Pakets aus einem CVS-Abbild ist recht einfach.
+	Die Prozedur ist beinahe die gleiche wie im letzten Abschnitt beschrieben.
 	Deshalb existiert unglücklicherweise auch das gleiche Problem mit dem
 	<COMMAND>rpm -ta</COMMAND> Befehl, den unsere Methode intern
 	benutzt.
@@ -1590,40 +1546,27 @@
 	anstelle von <FILENAME>/usr/src/redhat</FILENAME> angeben!
     </PARA></NOTE>
 
-    <ORDEREDLIST>
-	<LISTITEM><PARA>
-	    Zuerst erstellen und installieren sie das libkwave-Paket. Vorausgesetzt,
-	    sie befinden sich im Wurzelverzeichnis der CVS-Quellen, tun sie
-	    folgendes um eine Makefile und das libkwave Paket zu erstellen
-	    und zu installieren. Wenn sie bereits eine Version von libkwave
-	    installiert haben, entfernen sie diese zuerst oder benutzen
-	    <LITERAL>rpm -U</LITERAL> anstelle von <LITERAL>rpm -i</LITERAL>
-	    für die Aktualisierung anstelle einer Installation.
+    <PARA>
+	Vorausgesetzt
+	sie befinden sich im Wurzelverzeichnis der CVS-Quellen, tun sie
+	folgendes um eine Makefile und das kwave-Paket zu erstellen
+	und zu installieren. Wenn sie bereits eine Version von &kapp;
+	installiert haben, entfernen sie diese zuerst oder benutzen
+	<LITERAL>rpm -U</LITERAL> anstelle von <LITERAL>rpm -i</LITERAL>
+	für die Aktualisierung anstelle einer Installation.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cd libkwave</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>make rpm</COMMAND>
-<PROMPT>% </PROMPT><COMMAND>rpm -i /usr/src/redhat/BUILD/<REPLACEABLE>[arch]/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
-</SCREEN>
-	</PARA></LISTITEM>
-
-	<LISTITEM><PARA>
-	Tun sie dasselbe mit dem &kapp; Paket:
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>cd kwave</COMMAND>
+<PROMPT> % </PROMPT><COMMAND>cd kwave</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>./configure</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make rpm</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>rpm -i /usr/src/redhat/BUILD/<REPLACEABLE>[arch]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
-	</PARA></LISTITEM>
-    </ORDEREDLIST>
+	</PARA>
 
     <NOTE><PARA>
 	Wenn sie noch Probleme mit <COMMAND>make rpm</COMMAND> haben,
-	nehmen sie die tar.gz 
-	Archive, die unter <FILENAME>/tmp</FILENAME> erzeugt wurden.
+	nehmen sie das tar.gz-Archiv, das
+	in <FILENAME>/tmp</FILENAME> erzeugt wurden.
 	Bitte folgen sie den Anweisungen im
 	<LINK LINKEND="MANUAL_RPM_CREATION">vorherigen</LINK> Kapitel.
     </PARA></NOTE>
@@ -1640,42 +1583,33 @@
 
     <PARA>
 	Das Binary-rpm-Paket von &kapp;
-	ist "<EMPHASIS>verschiebbar</EMPHASIS>". Das heißt, dass sie
-	das Paket für jedes System mit gesetztem Standard-KDEDIR erzeugen
-	und es auf jedem anderen System oder in einem anderen Verzeichnis
-	installieren können. Diese Eigenschaft ist sehr nützlich um ein
-	für SuSE compiliertes Paket auf einem RedHat System zu installieren
-	und umgekehrt.
+	ist "<EMPHASIS>verschiebbar</EMPHASIS>". Das bedeudet, dass sie
+	das Paket auf einem System mit beliebigem Standard KDE2-Verzeichnis 
+	erzeugen und es auf einem anderen System und/oder in einem anderen 
+	Verzeichnis installieren können. Diese Eigenschaft ist sehr nützlich 
+	um ein für SuSE compiliertes Paket auf einem RedHat System zu 
+	installieren und umgekehrt.
     </PARA>
     
     <PARA>
     	Zum Beispiel: Sie haben ein Binary-rpm von einem Freund mit
-    einem RedHat System bekommen (wo <SYMBOL>KDEDIR</SYMBOL>
+    einem RedHat System bekommen (wo das KDE2-Verzeichnis
     <FILENAME>/usr</FILENAME> ist) und wollen es auf einem SuSE System
-    installieren (wo <SYMBOL>KDEDIR</SYMBOL> <FILENAME>/opt/kde</FILENAME> ist).
-    Dann geben sie einfach ein unterschiedliches Präfix bei der Installtion
+    installieren (wo das KDE2-Verzeichnis <FILENAME>/opt/kde2</FILENAME> ist).
+    Dann geben sie einfach ein unterschiedliches Prefix bei der Installtion
     des rpm an. Beispiel:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT>% </PROMPT><COMMAND>rpm -i --prefix=/opt/kde <REPLACEABLE>kwave-0.5.2-9.i586.rpm</REPLACEABLE></COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -ivh --prefix=/opt/kde2 <REPLACEABLE>kwave-0.6.0.i386.rpm</REPLACEABLE></COMMAND>
 </SCREEN>
     </PARA>
 
     <PARA>
 	Dies modifiziert den Pfad in dem das Programm installiert wird
-	und es wird dringend empfohlen dass dies das gleiche Verzeichnis
-	ist, wie es in der <SYMBOL>KDEDIR</SYMBOL> Umgebungsvariable spezifiziert
+	und es wird dringend empfohlen dass dies ein Verzeichnis
+	ist, das in der <SYMBOL>KDEDIRS</SYMBOL> Umgebungsvariable enthalten
 	ist. Ansonsten ist &kapp; nicht in der Lage seine Menü-Konfiguration,
-	Plugins, Standard-Dateien und so weiter zu finden.
+	Plugins, Vorlagen und so weiter zu finden.
     </PARA>
-
-    <NOTE><PARA>
-    Das folgende sollte immer funktionieren und das gewünschte Paket
-    an den korrekten Platz installieren - so lange die
-    <SYMBOL>KDEDIR</SYMBOL>-Umgebungsvariable richtig gesetzt ist:
-<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">rpm -i --prefix=${KDEDIR} kwave-0.5.2-9.i386.rpm</USERINPUT>
-</SCREEN>
-    </PARA></NOTE>
     
     </SECT1>
 
@@ -1687,14 +1621,14 @@
     <TITLE>RPM-Optimierungen</TITLE>
 
     <PARA>
-    Ja, sie können das RPM Paket für Pentium und Pentium Pro (oder
+    Ja, sie können das RPM Paket optimiert für Pentium und Pentium Pro (oder
     einige andere CPUs) compilieren indem sie einige Definitionen in
     ihrer rpmrc Datei benutzen. Sie können auch ihre systemweite
     /etc/rpmrc Datei oder die .rpmrc Datei in ihrem Home-Verzeichnis
     verändern. Dort können sie zum Beispiel folgende Options-Zeilen
     angeben:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
-<PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i386 -O2 -m486 -DNDEBUG</USERINPUT>
+<PROMPT MOREINFO="NONE"> % </PROMPT><USERINPUT MOREINFO="NONE">optflags: i386 -O2 -m486 -DNDEBUG</USERINPUT>
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i586 -O2 -march=pentium -DNDEBUG -fomit-frame-pointer</USERINPUT>
 <PROMPT MOREINFO="NONE">% </PROMPT><USERINPUT MOREINFO="NONE">optflags: i686 -O2 -march=pentiumpro -DNDEBUG -fomit-frame-pointer</USERINPUT>
 </SCREEN>
@@ -1711,7 +1645,7 @@
     <PARA>
     Das bedeutet, dass auf einer i586-Architektur (Pentium) das rpm Paket
     unter Benutzung von "-march=pentium" als Compiler Option
-    compiliert wird. Sie sollten dies für ihren eigenen Bedürfnisse
+    compiliert wird. Sie sollten dies für ihre eigenen Bedürfnisse
     erweitern oder anpassen. Die Einstellungen sind für alle
     vorhergehenden Sektionen anwendbar, wo ein "rpm -ta" benutzt wurde
     oder ein binary RPM mittels eines Source RPM unter Benutzung
@@ -2470,7 +2404,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2001-07-21</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2001-07-22</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 
@@ -2881,25 +2815,6 @@
 	    	<PARA>
 	    	Nicht im Moment, aber vielleicht schreibt uns jemand
 	    	ein Plugin für MP3 Import / Export?
-		</PARA>
-	    </ANSWER>
-	</QANDAENTRY>
-
-    	<QANDAENTRY>
-	    <QUESTION>
-	    	<PARA>
-	    	Warum ist die libkwave nicht im &kapp; Paket enthalten?
-		</PARA>
-	    </QUESTION>
-    	    <ANSWER>
-	    	<PARA>
-	    	Dies ist weil der Autor (Martin Wilz) und vielleicht
-	    	einige andere diese Bibliothek auch in anderen Projekten
-	    	brauchen. Denken sie an jemanden der andere Pakete hat,
-	    	die auch die libkwave enthalten. Er bräuchte mehrere
-	    	Bibliotheken auf seinem System und dies wäre eine Verschwendung
-	    	von Plattenspeicher und könnte zu Verwirrungen während der
-	    	Compilierung von &kapp; führen.
 		</PARA>
 	    </ANSWER>
 	</QANDAENTRY>

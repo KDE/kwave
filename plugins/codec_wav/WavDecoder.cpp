@@ -36,6 +36,7 @@ extern "C" {
 #include "libkwave/Sample.h"
 #include "libkwave/SampleWriter.h"
 #include "libkwave/Signal.h"
+#include "libkwave/VirtualAudioFile.h"
 #include "libgui/ConfirmCancelProxy.h"
 
 #include "RecoveryBuffer.h"
@@ -44,7 +45,6 @@ extern "C" {
 #include "RepairVirtualAudioFile.h"
 #include "RIFFChunk.h"
 #include "RIFFParser.h"
-#include "VirtualAudioFile.h"
 #include "WavDecoder.h"
 #include "WavFileFormat.h"
 #include "WavFormatMap.h"
@@ -377,7 +377,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    sample_format_name = "64-bit IEEE double-precision floating-point";
 	    break;
 	default:
-	    format_name = "(unknown)";
+	    sample_format_name = "(unknown)";
     }
     if (static_cast<signed int>(bits) < 0) bits = 0;
 

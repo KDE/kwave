@@ -20,7 +20,7 @@
 
 #include "config.h"
 #include <qlist.h>
-#include "VirtualAudioFile.h"
+#include "libkwave/VirtualAudioFile.h"
 
 class RecoverySource;
 class QIODevice;

@@ -49,6 +49,7 @@ libkwave_la_SOURCES=\
  SampleLock.cpp\
  Stripe.cpp\
  Track.cpp\
+ VirtualAudioFile.cpp\
  WindowFunction.cpp
 
 libkwave_la_LDFLAGS = -L../libaudiofile -version-info @LD_VERSION_INFO@ \

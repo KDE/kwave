@@ -17,7 +17,7 @@
 
 #include "config.h"
 #include <qiodevice.h>
-#include "VirtualAudioFile.h"
+#include "libkwave/VirtualAudioFile.h"
 
 /**
  * map for finding the corresponding VirtualAudioFile

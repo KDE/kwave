@@ -1,0 +1,26 @@
+
+- use one file per class
+
+- move all source out from module.h/module.cpp and remove them
+  afterwards
+
+- rename all member variables to start with "m_"
+
+- i18n macro has been moved:
+	old: #include <kapp.h>
+	new: #include <klocale.h>
+
+- use QString (+ const and/or &) instead of char*
+
+- prefer reference (&) instead of pointer (*)
+
+- use "const" when possible, for pointer and reference arguments
+
+- the base class "Dialog" does no longer exist, use "KDialog" instead
+
+- remove all references to include files in ../../src or similar, only
+  "mt/..." "libkwave/..." and "libgui/..." and "kwave/..." are allowed
+
+- do not include kwave header files with <...>, use "..." instead
+
+- remove the prefix "get" from the name of all methods that return a value

@@ -30,7 +30,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2002-10-25</date>
+<date>2002-11-02</date>
 <releaseinfo>0.6.5</releaseinfo>
 
 <abstract><para>&kapp; is a simple sound editor for KDE.</para></abstract>
@@ -186,13 +186,16 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.6.5 [2002-10-31]</para>
+            <para>0.6.5 [2002-11-09]</para>
             <itemizedlist>
                 <listitem><para>
                     MP3 import with ID3 tag support through id3lib and libmad
                 </para></listitem>
                 <listitem><para>
                     Ogg/Vorbis import and export (only ABR mode)
+                </para></listitem>
+                <listitem><para>
+                    new plugin "volume"
                 </para></listitem>
                 <listitem><para>
                     show selected range as time (feature requested by Christian Hollaender)
@@ -206,6 +209,15 @@
                 <listitem><para>
                     playback plugin: enabled the "select..." button for choosing
                       other playback devices (feature requested by Len Ovens)
+                </para></listitem>
+                <listitem><para>
+                    solved problem with name mangling in plugins and different gcc versions
+                </para></listitem>
+                <listitem><para>
+                    works with gcc-3.2 / solved __dso_handle problem
+                </para></listitem>
+                <listitem><para>
+                    stricter checks for programs in configure script
                 </para></listitem>
             </itemizedlist>
         </listitem>
@@ -3034,7 +3046,7 @@
 	    </listitem>
 	    <listitem>
 	    	<para>
-		    Caulier Gilles
+		    Gilles Caulier
 		    <email>caulier.gilles@free.fr</email>
 		    (french translation)
 		</para>

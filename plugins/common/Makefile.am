@@ -18,7 +18,7 @@
 # generic common Makefile.am for all Kwave plugins
 #
 
-SUFFIXES= .h .cpp .o .d .moc .dm .ui .cc .idl .cxx
+SUFFIXES= .h .c .cpp .o .d .moc .dm .ui .cc .idl .cxx
 
 # produced errors with SuSE 8.0's automake ???
 # DISTCLEANFILES = Makefile.in Makefile
@@ -44,6 +44,7 @@ uic_files	:= $(ui_files:.ui=.uic.cpp)
 h_files		:= $(shell @FIND@ . ! -name \*.uih.h -name \*.h | @SORT@)
 h_files   	+= ${uih_files}
 cpp_sources 	:= $(shell @FIND@ . ! -name \*.uic.cpp -name \*.cpp | @SORT@)
+c_sources 	:= $(shell @FIND@ . -name \*.c | @SORT@)
 idl_files	:= $(shell @FIND@ . -name \*.idl | @SORT@)
 idl_header	:= $(idl_files:.idl=.h)
 idl_impl	:= $(idl_files:.idl=.cc)
@@ -51,12 +52,14 @@ idl_impl	:= $(idl_files:.idl=.cc)
 moc_files	:= $(h_files:.h=.moc.cxx)
 
 OUT_FILES	:= $(cpp_sources:.cpp=.o)
+OUT_FILES	+= $(c_sources:.c=.o)
 OUT_FILES	+= $(uic_files:.uic.cpp=.uic.o)
 OUT_FILES	+= $(h_files:.h=.moc.o)
 OUT_FILES	+= $(idl_files:.idl=.o)
 
 PLUGINDEP_FILES	:= $(h_files:.h=.dm)
 PLUGINDEP_FILES	+= $(cpp_sources:.cpp=.d)
+PLUGINDEP_FILES	+= $(c_sources:.c=.d)
 PLUGINDEP_FILES	+= $(uic_sources:.cpp=.d)
 
 h_files  	+= ${idl_header}
@@ -74,6 +77,10 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 %.o: %.cpp
 	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
 	@ @CXX@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
+
+%.o: %.c
+	@echo plugin \"$(MODNAME)\": compiling "'"$<"'"
+	@ @CC@ $(CXXFLAGS) ${INCLUDES} -c $< -o $@
 
 %.o: %.cc
 	@echo plugin \"$(MODNAME)\": compiling idl implementation "'"$<"'"
@@ -104,6 +111,12 @@ CLEANFILES	 = core *~ *.o ${MODNAME} *.moc.cxx *.moc *.d *.dm \
 	@echo plugin \"$(MODNAME)\": making dependencies for $<
 	@ echo -n "$@ " > $@
 	@ @CXX@ -M ${INCLUDES} $(CXXFLAGS) $< >> $@
+	@ echo "" >> $@
+
+%.d: %.c
+	@echo plugin \"$(MODNAME)\": making dependencies for $<
+	@ echo -n "$@ " > $@
+	@ @CC@ -M ${INCLUDES} $(CXXFLAGS) $< >> $@
 	@ echo "" >> $@
 
 %.dm: %.moc.cxx

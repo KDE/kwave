@@ -23,7 +23,12 @@
 #include "libkwave/Decoder.h"
 #include "libkwave/FileInfo.h"
 
-#include "libmad/mad.h"
+
+#ifdef USE_BUILTIN_LIBMAD
+#include "libmad/mad.h" // from Kwave's copy of libmad
+#else /* USE_BUILTIN_LIBMAD */
+#include <mad.h> //from system
+#endif /* USE_BUILTIN_LIBMAD */
 
 class Mp3_Headerinfo;
 class ID3_Frame;

@@ -5,7 +5,6 @@ dnl acinclude.m4 makes the job for all programs ;-)
 AC_INIT([kwave],[0.6.5])
 AC_CONFIG_SRCDIR([admin/acinclude.m4.in])
 AC_CONFIG_AUX_DIR(admin)
-AC_CONFIG_SUBDIRS(libmad)
 unset CDPATH            dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 AC_CANONICAL_TARGET([]) dnl Checking host/target/build systems, for make, install etc.
 AC_ARG_PROGRAM          dnl Perform program name transformation
@@ -246,6 +245,35 @@ AC_SUBST(LIBAUDIOFILE_LIBADD)
 AC_SUBST(LIBAUDIOFILE_SUBDIR)
 AC_SUBST(USE_BUILTIN_LIBAUDIOFILE)
 
+dnl check if the host system's libmad is usable
+AC_CHECK_LIB(mad, mad_decoder_init,
+     USE_BUILTIN_LIBMAD=0,
+     USE_BUILTIN_LIBMAD=1,
+     )
+dnl if the system libmad is usable, check if the
+dnl corresponding header files are installed too
+if test "${USE_BUILTIN_LIBMAD}" = "0"; then
+    AC_CHECK_HEADER(mad.h,,[AC_MSG_ERROR([
+
+    the header files of libmad are missing.
+    please install the libmad-devel package!
+    
+    ])])
+fi
+
+if test "${USE_BUILTIN_LIBMAD}" = "1"; then
+    AC_DEFINE(USE_BUILTIN_LIBMAD,1,[use own copy of libmad])
+    LIBMAD_LDFLAGS="-Wl,-static -lmad -Wl,-dy"
+    LIBMAD_SUBDIR="libmad"
+else
+    LIBMAD_LDFLAGS="-lmad"
+    LIBMAD_SUBDIR=""
+fi
+
+AC_SUBST(LIBMAD_LDFLAGS)
+AC_SUBST(LIBMAD_SUBDIR)
+AC_SUBST(USE_BUILTIN_LIBMAD)
+
 dnl ************************************************
 dnl *** check for id3lib in a new enough version ***
 
@@ -474,6 +502,11 @@ if test "${USE_BUILTIN_LIBAUDIOFILE}" = "1"; then
     AC_CONFIG_FILES(libaudiofile/Makefile)
     AC_CONFIG_FILES(libaudiofile/modules/Makefile)
 fi
+
+if test "${USE_BUILTIN_LIBMAD}" = "1"; then
+    AC_CONFIG_SUBDIRS(libmad)
+fi
+
 AC_CONFIG_FILES(mt/Makefile)
 AC_CONFIG_FILES(libkwave/Makefile)
 AC_CONFIG_FILES(libgui/Makefile)

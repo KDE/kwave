@@ -154,7 +154,7 @@ void *SwapFile::map()
 {
 //  qDebug("    SwapFile::map() - m_size=%u", m_size);
     m_address = mmap(0, m_size,
-                     PROT_READ | PROT_WRITE, MAP_PRIVATE,
+                     PROT_READ | PROT_WRITE, MAP_SHARED,
                      m_file.handle(), 0);
     if (m_address == (void*)(-1)) m_address = 0;
 

@@ -1,17 +1,18 @@
 
-0.6.0-1 [2001-08-12]
+0.6.1 [2001-08-24]
 
- * work MemoryManager started
+ * changed Makefiles: html docu stays in distribution due to too much
+   trouble with the KDE documentation tools
+ * >>> USE OF VIRTUAL MEMORY <<<
  * fixed compile problem with gcc-2.96 / gcc-3.0
  * fixed missing header file in NewSigDlg.ui
- * cleanup for config.h
  * the RPM should be relocateable again
  * fixed bug in shutdown sequence, now clipboard is flushed before the
    application closes.
 
 0.6.0 [2001-07-29]
 
- * >>> PORTED TO QT-2.X AND KDE2 <<<
+ * >>> PORTED TO QT-2 AND KDE2 <<<
  * completely new internal architecture
  * plugins can be located in a user directory
  * libkwave is included and no longer supported (at least by me) as

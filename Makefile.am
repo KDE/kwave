@@ -10,7 +10,7 @@ SUBDIRS  	 = mt libgui libkwave kwave plugins po doc
 
 CLEANFILES       = *~ *.d *.dm *.dep *.moc *.moc.c?? .depend *.ii \#*
 DISTCLEANFILES 	 = config.cache config.log config.h Makefile.in Makefile \
-	stamp-h stamp-h[0-9]* aclocal.m4 config.h.in configure
+	stamp-h stamp-h[0-9]* aclocal.m4 configure
 
 .PHONY: doc version-labels
 
@@ -97,7 +97,7 @@ rpm: rpm_prep
 	rpm -ta /tmp/${PACKAGE}-@RPM_VERSION@.tar.gz
 
 src.rpm: rpm_prep
-	rpm -bs ${PACKAGE}.spec
+	rpm -ts /tmp/${PACKAGE}-@RPM_VERSION@.tar.gz
 
 doc:
 	(cd ./doc ; ${MAKE} all )

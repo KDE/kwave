@@ -35,24 +35,29 @@ help_de.docbook: changes.docbook ../bin/insert-changes.sh ../VERSION
 	"<RELEASEINFO>"newval"</RELEASEINFO>", $$0); print; }' > \
 	help_de.docbook
 
-doc.en:
+en/index.html: help_en.docbook
 	rm -f en/*.html
 	${JW} -o en -c ${SGMLDIR}/catalog \
 	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
 	help_en.docbook
 
-doc.de:
+de/index.html: help_de.docbook
 	rm -f de/*.html
 	${JW} -o de -c ${SGMLDIR}/catalog \
 	-d ${SGMLDIR}/stylesheets/kde.dsl\#html \
 	help_de.docbook
 
-doc.timestamp: help_en.docbook help_de.docbook
-	${MAKE} doc.en
-	${MAKE} doc.de
-	date > doc.timestamp
+doc.de: de/index.html
+
+doc.en: en/index.html
+
+doc.timestamp: de/index.html en/index.html
+	LC_ALL=en date > doc.timestamp
 
 all: doc.timestamp
+
+doc-clean:
+	for lang in ${LANGUAGES}; do { rm -fv $${lang}/*.html; }; done
 
 install-data-local:
 	echo installing docs in $(DOCDIR)

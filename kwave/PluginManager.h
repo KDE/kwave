@@ -21,19 +21,22 @@
 #include <qobject.h>
 #include <qarray.h>
 #include <qlist.h>
+#include <qvector.h>
 #include <qmap.h>
 
 #include "mt/SignalProxy.h"
+#include "libkwave/InsertMode.h"
 
 class KwavePlugin;
 class PlaybackController;
 class QBitmap;
 class QString;
 class QStringList;
+class SampleWriter;
 class TopWidget;
 
 /**
- * Manages the loding, initializing, starting, running and closing
+ * Manages the loading, initializing, starting, running and closing
  * of the plugins of kwave. Each instance of a TopWidget creates a
  * new instance of the PluginManager to be independent from other
  * toplevel widgets.
@@ -112,6 +115,9 @@ public:
      */
     unsigned int selectionEnd();
 
+    /** Returns a reference to our toplevel widget */
+    inline TopWidget &topWidget() { return m_top_widget; };
+
     /**
      * Returns the value of one single sample of a specified channel.
      * If the channel does not exist or the index of the sample is
@@ -138,6 +144,44 @@ public:
     QBitmap *overview(unsigned int width, unsigned int height,
                       unsigned int offset, unsigned int length);
 
+    /**
+     * Opens an input stream for a track, starting at a specified sample
+     * position. Also handles undo information.
+     * @param track index of the track. If the track does not exist, this
+     *        function will fail and return 0
+     * @param mode specifies where and how to insert
+     * @param left start of the input (only useful in insert and
+     *             overwrite mode)
+     * @param right end of the input (only useful with overwrite mode)
+     * @see InsertMode
+     */
+    SampleWriter *openSampleWriter(unsigned int track, InsertMode mode,
+	unsigned int left = 0, unsigned int right = 0);
+
+    /**
+     * Opens a set of SampleWriters and internally handles the creation of
+     * needed undo information. This is useful for multi-channel operations.
+     * @param writers reference to a vector that receives all writers.
+     * @param track_list list of indices of tracks to be modified.
+     * @param mode specifies where and how to insert
+     * @param left start of the input (only useful in insert and
+     *             overwrite mode)
+     * @param right end of the input (only useful with overwrite mode)
+     * @see InsertMode
+     */
+    void openSampleWriterSet(QVector<SampleWriter> &writers,
+	const QArray<unsigned int> &track_list, InsertMode mode,
+	unsigned int left, unsigned int right);
+
+    /**
+     * Opens a set of SampleWriters using the currently selected list of
+     * tracks and the current selection. If nothing is selected, the whole
+     * signal will be selected.
+     * @param writers reference to a vector that receives all writers.
+     * @param mode specifies where and how to insert
+     */
+    void openSampleWriterSet(QVector<SampleWriter> &writers,
+                             InsertMode mode);
 
     /**
      * Returns a reference to the current playback controller. This is

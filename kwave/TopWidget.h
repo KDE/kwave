@@ -195,7 +195,7 @@ private slots:
     void toolbarEditPaste()  { executeCommand("paste () "); };
 
     /** toolbar: "edit/erase" */
-    void toolbarEditErase()  { executeCommand("zero () "); };
+    void toolbarEditErase()  { executeCommand("plugin(zero)"); };
 
     /** toolbar: "edit/delete" */
     void toolbarEditDelete() { executeCommand("delete () "); };

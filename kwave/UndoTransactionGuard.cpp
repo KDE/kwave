@@ -17,7 +17,12 @@
  ***************************************************************************/
 
 #include <qstring.h>
+
+#include "libgui/KwavePlugin.h"
+
+#include "PluginManager.h"
 #include "SignalManager.h"
+#include "TopWidget.h"
 #include "UndoTransactionGuard.h"
 
 //***************************************************************************
@@ -26,6 +31,15 @@ UndoTransactionGuard::UndoTransactionGuard(SignalManager &manager,
     :TSS_Object(), m_manager(manager)
 {
     m_manager.startUndoTransaction(name);
+}
+
+//***************************************************************************
+UndoTransactionGuard::UndoTransactionGuard(KwavePlugin &plugin,
+                                           const QString &name)
+    :TSS_Object(), m_manager(plugin.manager().topWidget().signalManager())
+{
+    QString description = (name.length()) ? name : i18n(plugin.name());
+    m_manager.startUndoTransaction(description);
 }
 
 //***************************************************************************

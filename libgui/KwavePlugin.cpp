@@ -76,7 +76,6 @@ const QString &KwavePlugin::author()
 //***************************************************************************
 void KwavePlugin::load(QStringList &)
 {
-    debug("KwavePlugin(%s): load()", m_context.name.data());
 }
 
 //***************************************************************************

@@ -22,7 +22,7 @@ email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
 lfv_open_groups=Languages
 make_options=-w -j1
-makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am
+makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am
 modifyMakefiles=false
 project_name=Kwave
 project_type=normal_kde
@@ -1141,7 +1141,7 @@ dist=true
 files=plugins/Makefile.am
 install=false
 install_location=
-sub_dirs=dialogs,sonagram,playback
+sub_dirs=dialogs,sonagram,playback,zero
 type=DATA
 [plugins/about/AboutDialog.cpp]
 dist=true
@@ -1262,6 +1262,20 @@ install=false
 install_location=
 type=SOURCE
 [plugins/sonagram/SonagramWindow.h]
+dist=true
+install=false
+install_location=
+type=HEADER
+[plugins/zero/Makefile.am]
+files=plugins/zero/ZeroPlugin.cpp,plugins/zero/ZeroPlugin.h
+sub_dirs=
+type=static_library
+[plugins/zero/ZeroPlugin.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+[plugins/zero/ZeroPlugin.h]
 dist=true
 install=false
 install_location=

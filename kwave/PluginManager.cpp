@@ -27,6 +27,8 @@
 #include "libkwave/Parser.h"
 #include "libkwave/LineParser.h"
 #include "libkwave/FileLoader.h"
+#include "libkwave/SampleReader.h"
+#include "libkwave/SampleWriter.h"
 
 #include "mt/SignalProxy.h"
 
@@ -36,6 +38,9 @@
 #include "KwaveApp.h"
 #include "TopWidget.h"
 #include "SignalManager.h"
+#include "UndoAction.h"
+#include "UndoModifyAction.h"
+#include "UndoTransactionGuard.h"
 
 #include "PluginManager.h"
 
@@ -344,8 +349,6 @@ QStringList PluginManager::loadPluginDefaults(const QString &name,
 
     def_version = cfg->readEntry("version");
     if (!def_version.length()) {
-	debug("PluginManager::loadPluginDefaults: "\
-	      "plugin '%s': no defaults found", name.data());
 	return list;
     }
     if (!(def_version == version)) {
@@ -429,6 +432,111 @@ QBitmap *PluginManager::overview(unsigned int width, unsigned int height,
 {
     return m_top_widget.signalManager().overview(width, height,
                                                  offset, length);
+}
+
+//***************************************************************************
+SampleWriter *PluginManager::openSampleWriter(unsigned int track,
+	InsertMode mode, unsigned int left, unsigned int right)
+{
+    SignalManager &manager = m_top_widget.signalManager();
+    UndoTransactionGuard guard(manager, 0);
+
+    SampleWriter *writer = manager.openSampleWriter(
+	track, mode, left, right);
+
+    // skip all that undo stuff below if undo is not enabled
+    // or the writer creation has failed
+    if (!manager.undoEnabled() || !writer) return writer;
+
+    // get the real/effective left and right sample
+    left  = writer->first();
+    right = writer->last();
+
+    // enter a new undo transaction and let it close when the writer closes
+    debug("PluginManager::openSampleWriter(): starting undo transaction"); // ###
+    manager.startUndoTransaction();
+    debug("PluginManager::openSampleWriter(): connecting"); // ###
+    QObject::connect(writer, SIGNAL(destroyed()),
+                     &manager, SLOT(closeUndoTransaction()));
+
+    // create an undo action for the modification of the samples
+    debug("PluginManager::openSampleWriter(): creating undo action"); // ###
+    UndoAction *action = 0;
+    switch (mode) {
+	case Append:
+	    debug("PluginManager::openSampleWriter(): NO UNDO FOR APPEND YET !");
+	    break;
+	case Insert:
+	    debug("PluginManager::openSampleWriter(): NO UNDO FOR INSERT YET !");
+	    break;
+	case Overwrite:
+	    action = new UndoModifyAction(track, left, right-left+1);
+	    break;
+    }
+    ASSERT(action);
+
+    debug("PluginManager::openSampleWriter(): registering action"); // ###
+    if (!manager.registerUndoAction(action)) {
+	// creating/starting the action failed, so fail now.
+	// close the writer and return 0 -> abort the operation
+	debug("PluginManager::openSampleWriter(): register failed"); // ###
+	if (action) delete action;
+	delete writer;
+	return 0;
+    } else {
+	debug("PluginManager::openSampleWriter(): storing undo data"); // ###
+	action->store(manager);
+    }
+
+    debug("SignalManager::openSampleWriter(): done.");
+    // Everything was ok, the action now is owned by the current undo
+    // transaction. The transaction is owned by the SignalManager and
+    // will be closed when the writer gets closed.
+    return writer;
+}
+
+//***************************************************************************
+void PluginManager::openSampleWriterSet(QVector<SampleWriter> &writers,
+    const QArray<unsigned int> &track_list, InsertMode mode,
+    unsigned int left, unsigned int right)
+{
+    SignalManager &manager = m_top_widget.signalManager();
+    UndoTransactionGuard guard(manager, 0);
+
+    unsigned int count = track_list.count();
+    unsigned int track;
+    writers.setAutoDelete(true);
+    writers.clear();
+    writers.resize(count);
+
+    for (unsigned int i=0; i < count; i++) {
+	track = track_list[i];
+	SampleWriter *s = openSampleWriter(track, mode, left, right);
+	if (s) {
+	    writers.insert(i, s);
+	} else {
+	    // out of memory or aborted
+	    writers.clear();
+	    return;
+	}
+    }
+
+}
+
+//***************************************************************************
+void PluginManager::openSampleWriterSet(QVector<SampleWriter> &writers,
+                                        InsertMode mode)
+{
+    SignalManager &manager = m_top_widget.signalManager();
+    QArray<unsigned int> tracks = manager.selectedTracks();
+    unsigned int left  = selectionStart();
+    unsigned int right = selectionEnd();
+    if (left == right) {
+	left = 0;
+	right = signalLength()-1;
+    }
+
+    openSampleWriterSet(writers, tracks, mode, left, right);
 }
 
 //***************************************************************************

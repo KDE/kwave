@@ -23,6 +23,7 @@
 
 class QString;
 class SignalManager;
+class KwavePlugin;
 
 /**
  * @class UndoTransactionGuard
@@ -42,6 +43,17 @@ public:
      *        localized string. [optional]
      */
     UndoTransactionGuard(SignalManager &manager, const QString &name = 0);
+
+    /**
+     * Constructor for use from a plugin. Also determines the name of the
+     * transaction if it is the first of several nested transactions.
+     * @param plugin reference to the plugin (you should pass
+     *               <code>*this</code>.
+     * @param name the name of the transaction as a user-readable and
+     *        localized string. [optional] If you pass null or omit this
+     *        parameter, the name of the plugin will be used instead.
+     */
+    UndoTransactionGuard(KwavePlugin &plugin, const QString &name = 0);
 
     /** Destructor. */
     virtual ~UndoTransactionGuard();

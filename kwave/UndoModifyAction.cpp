@@ -64,7 +64,7 @@ void UndoModifyAction::store(SignalManager &manager)
 
     m_buffer.resize(m_length);
     SampleReader *reader = manager.openSampleReader(
-	0, m_offset, m_offset+m_length-1);
+	m_track, m_offset, m_offset+m_length-1);
     unsigned int ofs = 0;
     unsigned int len = m_length;
     while (reader && len--) {
@@ -82,9 +82,9 @@ UndoAction *UndoModifyAction::undo(SignalManager &manager)
 	m_offset, m_length);
 
     SampleWriter *writer = manager.openSampleWriter(
-	0, Overwrite, m_offset, m_offset+m_length-1);
+	m_track, Overwrite, m_offset, m_offset+m_length-1);
     SampleReader *reader = manager.openSampleReader(
-	0, m_offset, m_offset+m_length-1);
+	m_track, m_offset, m_offset+m_length-1);
     unsigned int ofs = 0;
     unsigned int len = m_length;
     sample_t s;

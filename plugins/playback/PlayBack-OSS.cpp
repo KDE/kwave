@@ -104,6 +104,11 @@ QString PlayBackOSS::open(const QString &device, unsigned int rate,
     // the device was opened in non-blocking mode to detect if it is
     // busy or not - but from now on we need blocking mode again
     ::fcntl(m_handle, F_SETFL, fcntl(m_handle, F_GETFL) & ~O_NONBLOCK);
+    if (fcntl(m_handle, F_GETFL) & O_NONBLOCK) {
+	// resetting O:NONBLOCK failed
+	return i18n("The device '%1' cannot be opened "\
+	            "in the correct mode.").arg(m_device_name);
+    }
 
     int format = (m_bits == 8) ? AFMT_U8 : AFMT_S16_LE;
 

@@ -351,9 +351,20 @@ private slots:
      */
     void closeUndoTransaction();
 
+    /**
+     * Determines the description of undo and redo actions and emits
+     * a sigUndoRedoInfo. If undo or redo is currently not available,
+     * the descriptions will be zero-length. If an action is available
+     * but does not have a description, the description will be set
+     * to "last action".
+     * @see sigUndoRedoInfo
+     */
+    void emitUndoRedoInfo();
+
 protected:
 
     friend class UndoTransactionGuard;
+    friend class PluginManager;
 
     /**
      * Tries to free memory for a new undo action and stores all needed
@@ -396,16 +407,6 @@ private:
 
     /** Shortcut for emitting a sigStatusInfo */
     void emitStatusInfo();
-
-    /**
-     * Determines the description of undo and redo actions and emits
-     * a sigUndoRedoInfo. If undo or redo is currently not available,
-     * the descriptions will be zero-length. If an action is available
-     * but does not have a description, the description will be set
-     * to "last action".
-     * @see sigUndoRedoInfo
-     */
-    void emitUndoRedoInfo();
 
     /**
      * Returns the amount of memory currently used for undo + redo.
@@ -517,6 +518,9 @@ private:
 
     /** mutex for locking undo transactions */
     Mutex m_undo_transaction_lock;
+
+    /** SignalProxy for emitting sigUndoRedoInfo thread-safe */
+    SignalProxy<void> m_spx_undo_redo;
 
     /** maximum memory for undo */
     unsigned int m_undo_limit;

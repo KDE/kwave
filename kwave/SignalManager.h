@@ -386,17 +386,6 @@ signals:
     void sigCommand(const QString &command);
 
     /**
-     * Indicates a change in the position of the playback pointer
-     * during playback.
-     */
-    void sigPlaybackPos(unsigned int pos);
-
-    /**
-     * Indicates that playback is done.
-     */
-    void sigPlaybackDone();
-
-    /**
      * Signals that a track has been selected or deselected.
      * @param track index of the track
      * @param select true if the track has been selected,

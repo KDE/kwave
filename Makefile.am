@@ -82,7 +82,7 @@ rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
 	mkdir -p /tmp/${PACKAGE}-@RPM_VERSION@
 	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_VERSION@ )
 	(cd /tmp/ ; \
-	touch ${PACKAGE}-@RPM_VERSION@/doc/help_{en,de,it}.docbook ; \
+	touch ${PACKAGE}-@RPM_VERSION@/doc/help_{de,fr}.docbook ; \
 	find ${SRC_PREFIX}-@RPM_VERSION@ -name CVS > \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	find ${SRC_PREFIX}-@RPM_VERSION@ -name Makefile \

@@ -78,6 +78,8 @@ PlayBackDialog::PlayBackDialog(KwavePlugin &p, const PlayBackParam &params)
     // order is: Method -> Device -> "Select..."-button
     // -> Channels -> Bits per Sample
     setMethod(m_playback_params.method);
+    setDevice(m_playback_params.device);
+    setBitsPerSample(m_playback_params.bits_per_sample);
 
     // buffer size is independend
     slBufferSize->setValue(m_playback_params.bufbase);
@@ -246,6 +248,7 @@ void PlayBackDialog::setBitsPerSample(unsigned int bits)
     Q_ASSERT(cbBitsPerSample);
     if (!cbBitsPerSample) return;
 
+//     qDebug("PlayBackDialog::setBitsPerSample(%u)", bits);
     if (bits != m_playback_params.bits_per_sample) {
 	m_playback_params.bits_per_sample = bits;
 	QString txt;

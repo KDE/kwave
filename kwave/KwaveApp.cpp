@@ -175,7 +175,6 @@ bool KwaveApp::newWindow(const KURL &url)
 //***************************************************************************
 bool KwaveApp::closeWindow(TopWidget *todel)
 {
-    debug("KwaveApp::closeWindow(TopWidget *todel)");
     ASSERT(todel);
 
     // save the configuration, including the list of recent files

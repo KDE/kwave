@@ -74,6 +74,11 @@ public:
     /** Set a new selection mode */
     void setMode(Mode new_mode);
 
+    /**
+     * Returns the current start position (byTime, bySamples, byPercents)
+     */
+    double start() { return select_start ? select_start->time() : 0.0; };
+
     /** Returns the number of ms, samples or percents */
     double range() { return select_range ? select_range->time() : 0.0; };
 

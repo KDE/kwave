@@ -66,11 +66,13 @@ QStringList *SelectRangePlugin::setup(QStringList &previous_params)
 	// user has pressed "OK"
 	*list << QString::number(dialog->startMode());
 	*list << QString::number(dialog->rangeMode());
+	*list << QString::number(dialog->start());
 	*list << QString::number(dialog->range());
 	
 	emitCommand("plugin:execute(selectrange,"+
 	    QString::number(dialog->startMode())+","+
 	    QString::number(dialog->rangeMode())+","+
+	    QString::number(dialog->start())+","+
 	    QString::number(dialog->range())+
 	    ")"
 	);
@@ -93,7 +95,25 @@ int SelectRangePlugin::start(QStringList &params)
 
     // get current offset of the signal
     unsigned int offset = 0;
-    selection(&offset, 0, false);
+    switch (m_start_mode) {
+	case SelectTimeWidget::byTime: {
+	    // convert from ms to samples
+	    double rate = signalRate();
+	    offset = (unsigned int)rint(m_start / 1E3 * rate);
+	    break;
+	}
+	case SelectTimeWidget::bySamples: {
+	    // simple case -> already in samples
+	    offset = (unsigned int)rint(m_start);
+	    break;
+	}
+	case SelectTimeWidget::byPercents: {
+	    // by percentage of whole signal
+	    unsigned sig_length = signalLength();
+	    offset = (unsigned int)rint((double)sig_length*(m_start/100.0));
+	    break;
+	}
+    }
 
     // transform into offset and length [samples]
     unsigned int length = 0;
@@ -138,7 +158,7 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
     int mode;
 
     // evaluate the parameter list
-    if (params.count() != 3) {
+    if (params.count() != 4) {
 	return -EINVAL;
     }
 
@@ -175,8 +195,14 @@ int SelectRangePlugin::interpreteParameters(QStringList &params)
     }
     m_range_mode = (SelectTimeWidget::Mode)mode;
 
-    // range in ms, samples or percent
+    // offset in ms, samples or percent
     param = params[2];
+    m_start = (unsigned int)param.toDouble(&ok);
+    ASSERT(ok);
+    if (!ok) return -EINVAL;
+
+    // range in ms, samples or percent
+    param = params[3];
     m_range = (unsigned int)param.toDouble(&ok);
     ASSERT(ok);
     if (!ok) return -EINVAL;

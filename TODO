@@ -1,10 +1,7 @@
 
+o set cursor position to zero when doing revert of a .ogg file
+
 o more precise handling of the playback pointer
-
-o find out why the KDoubleNumInput controls use such a stupid format with
-  spaces and get rid of them (newsignal and selectrange plugin)
-
-o selectrange: select also start time
 
 o function for "Edit/Selection/Insert at..." or a "goto position" function
 
@@ -19,6 +16,8 @@ o currently load/save uses the file extension to identify the mime type
 
 o audible/silent mode of tracks (speakers)
   speaker controls for "audible" mode
+
+o dithering/noise shaping when loading/saving
 
 o virtual memory: multiple swap directories
 
@@ -109,8 +108,6 @@ o import of multi-channel ASCII files
 o label handling doesn't work (currently disabled), work on LabelManager
   has not been started
 
-o naming of the struct elements in FileFormat.h is confusing
-
 o vertical zoom, maybe with right mouse button or zoom tool
 
 o use namespace "Kwave" for all Kwave components
@@ -140,6 +137,8 @@ o TrackPixmap: different color sets if selected/deselected
 
 o somewhere in far future: compile on architectures with a different
   size of int (not 32-bit), handle data in original data width
+
+o switch to use float as sample_t (requires much work...)
 
 o test for afOpenVirtualFile() in configure script and check if
   the local system's libaudiofile can be used

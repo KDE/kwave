@@ -66,7 +66,10 @@ private:
     /** selected mode for range: by time, samples, percentage */
     SelectTimeWidget::Mode m_range_mode;
 
-    /** selected milliseconds, samples or percents */
+    /** start in milliseconds, samples or percents */
+    double m_start;
+
+    /** range in milliseconds, samples or percents */
     double m_range;
 
 };

@@ -1,6 +1,8 @@
 
 0.6.6 [2003-03-??]
 
+ * many improvements on the build system. Now compiles under Debian,
+   Mandrake, RedHat, Gentoo and SuSE
  * starting up with last window size
  * Xt toolkit option for geometry works again, including workaround
    for bug in KDE3's geometry management.
@@ -8,6 +10,9 @@
  * bugfix: select to left selected one sample less then needed
  * volume plugin: simple clipping
  * volume plugin: mode for "multiply with /divide through factor"
+ * newsignal and selectrange plugin: got rid of KDoubleNumInput and
+   it's weird display and entry behaviour
+ * selectrange plugin: also select start position of selection
 
 0.6.5 [2002-11-09]
 

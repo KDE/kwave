@@ -405,7 +405,7 @@ void OverViewCache::slotSamplesModified(unsigned int track,
     if (!m_src_tracks.isEmpty() && !(m_src_tracks.contains(track))) return;
 
     // right out of our range -> out of interest
-    if (offset >= (m_src_offset + sourceLength())) return;
+    if (offset > (m_src_offset + sourceLength())) return;
 
     // completely left from us -> out of interest
     if (offset+length < m_src_offset) return;
@@ -418,9 +418,8 @@ void OverViewCache::slotSamplesModified(unsigned int track,
         last = m_src_offset+sourceLength()-1;
     first -= m_src_offset;
     last  -= m_src_offset;
-    first /= m_scale;
-    last  /= m_scale;
-    if (last != first) last--;
+    first = (unsigned int)floor(first / m_scale);
+    last  = (unsigned int)ceil(last / m_scale);
     invalidateCache(track, first, last);
     emit changed();
 }
@@ -519,8 +518,8 @@ QBitmap OverViewCache::getOverView(int width, int height)
 	
 	// update the bitmap
 	const int middle = (height>>1);
-	p.drawLine(x, middle + (minimum * height)/254,
-	           x, middle + (maximum * height)/254);
+	p.drawLine(x, middle - (minimum * height)/254,
+	           x, middle - (maximum * height)/254);
     }
 
     p.end();

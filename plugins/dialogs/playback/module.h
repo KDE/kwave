@@ -2,6 +2,7 @@
 #define _PLAYBACK_DIALOGS_H_ 1
 
 #include <qlabel.h>
+#include <qframe.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qradiobutton.h>
@@ -9,36 +10,39 @@
 
 #include "../../../libgui/Slider.h"
 #include "../../../libgui/Dialog.h"
+#include "../../../src/SignalManager.h"
+#include "../../../src/KwaveApp.h"
 #include <libkwave/DialogOperation.h>
+
 //*****************************************************************************
 class PlayBackDialog : public Dialog {
     Q_OBJECT
 
 public:
 
-    PlayBackDialog (bool);
+    PlayBackDialog(bool);
+    bool isOK();
     ~PlayBackDialog ();
     const char *getCommand ();
 
-public slots:
+private slots:
 
-    void setBufferSize (int);
+    void setBufferSize(int);
 
-protected:
-
-    void resizeEvent (QResizeEvent *);
+    void selectPlaybackDevice();
 
 private:
+    playback_param_t playback_params;
 
     QLabel *bufferlabel;
     Slider *buffersize;
     QLabel *devicelabel;
     QComboBox *devicebox;
     QCheckBox *stereo;
-    QLabel *label1, *label2;
     QButtonGroup *bg;
-    QRadioButton *b16, *b8;
-    QPushButton *ok, *cancel;
+    QRadioButton *b24, *b16, *b8;
+    QFrame *separator;
+    QPushButton *select_device, *test, *ok, *cancel;
     char *comstr;
 };
 //*****************************************************************************

@@ -32,6 +32,14 @@ class ProgressDialog;
 class Signal;
 class TimeOperation;
 
+typedef struct {
+    int rate;
+    int channels;
+    int bits_per_sample;
+    const char *device;
+    int bufbase;
+} playback_param_t;
+
 /**
  * The SignalManager class manages multi-channel signals.
  */
@@ -51,8 +59,16 @@ public:
     int setSoundParams(int audio, int bitspersample,
                        unsigned int channels, int rate, int bufbase);
 
-    void play8(bool);
-    void play16(bool);
+    /**
+     * Internally used for playback.
+     * @param device file descriptor of the opened playback device
+     * @param param parameters used for playback
+     * @param buffer pointer to a sample buffer used for playback
+     * @param bufsize size of the buffer in bytes
+     * @param loop true: looping instead of single play
+     */
+    void playback(int device, playback_param_t &param,
+                  unsigned char *buffer, unsigned int bufsize, bool loop);
 
     void getMaxMin(unsigned int channel, int &max, int& min,
                    unsigned int begin, unsigned int len);
@@ -85,7 +101,10 @@ public:
     {
 	return msg[samplepointer];
     };
-
+    inline bool isPlaying()
+    {
+	return msg[processid];
+    };
     inline Signal *getSignal (int channel)
     {
 	return signal.at(channel);
@@ -93,7 +112,7 @@ public:
 
     int getSingleSample(unsigned int channel, unsigned int offset);
 
-    void setOp(int);    //triggers function via given id
+    void playback_setOp(int);
 
     void save(const char *filename, int bits, bool selection);
 
@@ -164,7 +183,7 @@ private:
     ProgressDialog *createProgressDialog(TimeOperation *operation,
                                          const char *caption);
 
-    void play(bool);
+    void play(bool loop);
 
     void stopplay();
 
@@ -240,7 +259,8 @@ private:
     unsigned int channels;
     int rate;                    //sampling rate being used
 
-    /** buffer for communication with the sundcard access functions (play) */
+public:
+    /** buffer for communication with the soundcard access functions (play) */
     unsigned int msg[4];
 };
 

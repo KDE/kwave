@@ -34,9 +34,7 @@ MenuRoot::MenuRoot(KMenuBar &bar)
 //*****************************************************************************
 MenuRoot::~MenuRoot()
 {
-    debug("MenuRoot::~MenuRoot()");
     clear();
-    debug("MenuRoot::~MenuRoot(): done.");
 }
 
 //*****************************************************************************

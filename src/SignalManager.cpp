@@ -12,6 +12,7 @@
 #include <sys/ioctl.h>
 #include <linux/soundcard.h>
 
+#include <qtimer.h>
 #include <kmsgbox.h>
 
 #include <libkwave/Signal.h>
@@ -22,23 +23,21 @@
 #include <libkwave/Parser.h>
 #include <libkwave/FileFormat.h>
 
+#include "KwaveApp.h"
 #include "sampleop.h"
 #include "ClipBoard.h"
 #include "ProgressDialog.h"
 #include "SignalManager.h"
 #include "SignalWidget.h"
 
-extern int play16bit;
-extern int bufbase;
 extern Global globals;
 
 #if __BYTE_ORDER==__BIG_ENDIAN
 #define IS_BIG_ENDIAN
 #endif
 
-#define processid       0
-#define stopprocess     1
-#define samplepointer   2
+#define min(x,y) ((x<y) ? x : y)
+#define max(x,y) ((x>y) ? x : y)
 
 #define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
 
@@ -222,19 +221,17 @@ void SignalManager::toggleChannel(const unsigned int channel)
 }
 
 //**********************************************************
-void SignalManager::setOp(int id)
+void SignalManager::playback_setOp(int id)
 {
+    debug("SignalManager::playback_setOp(%d)",id);
     stopplay();           //every operation cancels playing...
 
-    //decode dynamical allocated menu id's
-    //into the ones used by the switch statement below
-
-    int loop = false;
     switch (id) {
 	case LOOP:
-	    loop = true;
+	    play(true);
+	    break;
 	case PLAY:
-	    play (loop);
+	    play(false);
 	    break;
     }
 
@@ -254,6 +251,16 @@ bool SignalManager::executeCommand(const char *command)
     debug("SignalManager::executeCommand(%s)", command);    // ###
 
     if (false) {
+    CASE_COMMAND("playback")
+	playback_param_t &params = KwaveApp::getPlaybackParams();
+	Parser parser(command);
+	
+	params.rate = parser.toInt();
+	params.channels = parser.toInt();
+	params.bits_per_sample = parser.toInt();
+	if (params.device) delete[] params.device;
+	params.device = duplicateString(parser.getNextParam());
+	params.bufbase = parser.toInt();
     CASE_COMMAND("copy")
 	if (globals.clipboard) delete globals.clipboard;
 	globals.clipboard = new ClipBoard();
@@ -898,6 +905,16 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
     unsigned int bufsize = 16 * 1024 * sizeof(int);
     unsigned char *loadbuffer = 0;
     sample_t **sample = 0;    // array of pointers to samples
+    int bytes = bits / 8;
+    unsigned int sign = 1 << (24-1);
+    unsigned int negative = ~(sign - 1);
+    unsigned int shift = 24-bits;
+    unsigned int bytes_per_sample = bytes * channels;
+    unsigned int max_samples = bufsize / bytes_per_sample;
+    long int start_offset = ftell(sigfile);
+
+    ASSERT(bytes);
+    ASSERT(channels);
 
     // try to allocate memory for the load buffer
     // if failed, try again with the half buffer size as long
@@ -911,11 +928,25 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
 	if (!loadbuffer) bufsize >>= 1;
     }
 
+    // check if the file is large enough for "length" samples
+    fseek(sigfile, 0, SEEK_END);
+    size_t file_rest = ftell(sigfile) - start_offset;
+    fseek(sigfile, start_offset, SEEK_SET);
+    if (length > file_rest/bytes_per_sample) {
+	debug("SignalManager::loadWavChunk: "\
+	      "length=%d, rest of file=%d",length,file_rest);
+	KMsgBox::message(0, i18n("Warning"),
+	    i18n("Error in input: file is smaller than stated "\
+	    "in the header. \n"\
+	    "File has been truncated."),2);
+	length = file_rest/bytes_per_sample;
+    }
+
     sample = new (sample_t*)[channels];
     for (unsigned int channel = 0; channel < channels; channel++) {
 	Signal *new_signal = new Signal(length, rate);
 	ASSERT(new_signal);
-	if (!new_signal) {
+	if (!new_signal || !new_signal->getSample()) {
 	    KMsgBox::message(0, i18n("Info"), i18n("Out of Memory!"), 2);
 	    return -ENOMEM;
 	}
@@ -947,20 +978,13 @@ int SignalManager::loadWavChunk(FILE *sigfile, unsigned int length,
 
     //prepare the load loop
     int percent_count = length / 1000;
-    int bytes = bits / 8;
-    unsigned int sign = 1 << (24-1);
-    unsigned int negative = ~(sign - 1);
-    unsigned int shift = 24-bits;
-    unsigned int bytes_per_sample = bytes * channels;
-    unsigned int max_samples = bufsize / bytes_per_sample;
-    long int start_offset = ftell(sigfile);
-
-    ASSERT(bytes);
-    ASSERT(channels);
 
     // debug("sign=%08X, negative=%08X, shift=%d",sign,negative,shift);
 
     for (unsigned int pos = 0; pos < length; ) {
+        // limit reading to end of wav chunk length
+        if ((pos + max_samples) > length) max_samples=length-pos;
+
 	int read_samples = fread((char *)loadbuffer, bytes_per_sample,
 				 max_samples, sigfile);
 	percent_count -= read_samples;
@@ -1039,18 +1063,11 @@ int SignalManager::findWavChunk(FILE *sigin)
 /***************************************************************************/
 //below  all methods of Class SignalManager that deal with sound playback
 
-#define processid       0
-#define stopprocess     1
-#define samplepointer   2
-
-int play16bit = false;
-int bufbase = 5;
-const char *sounddevice = {"/dev/dsp" };
-
 //**********************************************************
 //following are the playback routines
 struct Play {
     SignalManager *manage;
+    playback_param_t params;
     bool loop;
 };
 
@@ -1058,25 +1075,59 @@ struct Play {
 void *playThread(struct Play *par)
 {
     ASSERT(par);
-    if (!par) return (void*)-1;
+    if (!par) return 0;
     ASSERT(par->manage);
-    if (!par->manage) return (void*)-1;
+    if (!par->manage) return 0;
 
-    if (play16bit) par->manage->play16 (par->loop);
-    else par->manage->play8 (par->loop);
+    int device; // handle of the playback device
+    unsigned char *buffer = 0;
+    unsigned int bufsize;
 
-    delete par;
+    // prepeare for playback by opening the sound device
+    // and initializing with the proper settings
+    if ((device = open(par->params.device, O_WRONLY)) != -1 ) {
+	bufsize = par->manage->setSoundParams(device,
+	    par->params.bits_per_sample,
+	    par->params.channels,
+	    par->params.rate, par->params.bufbase);
+
+	if (bufsize) {
+	    buffer = new unsigned char[bufsize];
+	    ASSERT(buffer);
+	    if (buffer) {
+		par->manage->playback(device, par->params,
+		    buffer, bufsize, par->loop);
+	    }
+	}
+	close (device);
+	if (buffer) delete[] buffer;
+	debug("SignalManager::playback(): ### playback done ###");
+    } else {
+	warning("SignalManager::playback(): unable to open device");
+    }
+
+
+    par->manage->msg[stopprocess] = true;
+    par->manage->msg[samplepointer] = 0;
+    par->manage->msg[processid] = 0;
+
+    if (par) delete par;
     return 0;
 }
 
 //**********************************************************
 void SignalManager::play(bool loop)
 {
+    msg[processid] = 1;
+    msg[stopprocess] = false;
+
     Play *par = new Play;
     pthread_t thread;
 
     par->manage = this;
     par->loop = loop;
+    par->params = KwaveApp::getPlaybackParams();
+    par->params.rate = this->getRate();
 
     pthread_create(&thread, 0, (void * (*) (void *))playThread, par);
 }
@@ -1084,8 +1135,20 @@ void SignalManager::play(bool loop)
 //**********************************************************
 void SignalManager::stopplay()
 {
-    if (msg[processid] >= 0)    //if there is a process running
-	msg[stopprocess] = true;          //set flag for stopping
+    msg[stopprocess] = true;          //set flag for stopping
+
+    debug("SignalManager::stopplay(): waiting for thread termination");
+    QTimer timeout;
+    timeout.start(5000, true);
+    while (msg[processid]) {
+	// wait for termination
+	if (!timeout.isActive()) {
+	    warning("SignalManager::stopplay(): TIMEOUT");
+	    break;
+	}
+    }
+
+    debug("SignalManager::stopplay(): threads stopped");
 }
 
 //**********************************************************
@@ -1093,188 +1156,208 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
                                   unsigned int channels, int rate,
                                   int bufbase)
 {
-    if ( ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &bitspersample) != -1) {
-	if ( ioctl(audio, SNDCTL_DSP_STEREO, &channels) != -1) {
-	    if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) != -1) {
-		if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) != -1) {
-		    int size;
-		    ioctl(audio, SNDCTL_DSP_GETBLKSIZE, &size);
-		    return size;
-		} else warning("unusable buffer size");
-	    } else warning("unusable rate");
-	} else warning("wrong number of channels");
-    } else warning("number of bits per samples not supported");
-    return 0;
-}
+    const char *trouble = i18n("playback problem");
 
-//**********************************************************
-void SignalManager::play8(bool loop)
-{
-//    debug("SignalManager::play8 (%d)", loop);
+    debug("SignalManager::setSoundParams(fd=%d,bps=%d,channels=%d,"\
+	"rate=%d, bufbase=%d", audio, bitspersample, channels,
+	rate, bufbase);
 
-    int audio;                    //file handle for /dev/dsp
-    int act;
-    char *buffer = 0;
-    unsigned int bufsize;
+// ### under construction ###
 
-    msg[stopprocess] = false;
-    if ((audio = open(sounddevice, O_WRONLY)) != -1 ) {
-	bufsize = setSoundParams(audio, 8, 0, rate, bufbase);
+// from standard oss interface (linux/soundcard.h)
 
-	if (bufsize) {
-	    buffer = new char[bufsize];
-	    memset(buffer, 0, bufsize);
+///*	Audio data formats (Note! U8=8 and S16_LE=16 for compatibility) */
+//#define SNDCTL_DSP_GETFMTS		_SIOR ('P',11, int) /* Returns a mask */
+//#define SNDCTL_DSP_SETFMT		_SIOWR('P',5, int) /* Selects ONE fmt*/
+//#	define AFMT_QUERY		0x00000000	/* Return current fmt */
+//#	define AFMT_MU_LAW		0x00000001
+//#	define AFMT_A_LAW		0x00000002
+//#	define AFMT_IMA_ADPCM		0x00000004
+//#	define AFMT_U8			0x00000008
+//#	define AFMT_S16_LE		0x00000010	/* Little endian signed 16*/
+//#	define AFMT_S16_BE		0x00000020	/* Big endian signed 16 */
+//#	define AFMT_S8			0x00000040
+//#	define AFMT_U16_LE		0x00000080	/* Little endian U16 */
+//#	define AFMT_U16_BE		0x00000100	/* Big endian U16 */
+//#	define AFMT_MPEG		0x00000200	/* MPEG (2) audio */
 
-	    if (buffer) {
-		unsigned int &pointer = msg[samplepointer];
-		unsigned int last = rmarker;
-		unsigned int cnt = 0;
-		pointer = lmarker;
+// from ALSA interface (asound.h)
 
-		if (loop) {
-		    if (lmarker == rmarker) last = getLength();
+//#define SND_PCM_SFMT_S8			0
+//#define SND_PCM_SFMT_U8			1
+//#define SND_PCM_SFMT_S16		SND_PCM_SFMT_S16_LE
+//#define SND_PCM_SFMT_U16		SND_PCM_SFMT_U16_LE
+//#define SND_PCM_SFMT_S24		SND_PCM_SFMT_S24_LE
+//#define SND_PCM_SFMT_U24		SND_PCM_SFMT_U24_LE
+//#define SND_PCM_SFMT_S32		SND_PCM_SFMT_S32_LE
+//#define SND_PCM_SFMT_U32		SND_PCM_SFMT_U32_LE
+//#define SND_PCM_SFMT_FLOAT		SND_PCM_SFMT_FLOAT_LE
+//#define SND_PCM_SFMT_FLOAT64		SND_PCM_SFMT_FLOAT64_LE
+//#define SND_PCM_SFMT_IEC958_SUBFRAME	SND_PCM_SFMT_IEC958_SUBFRAME_LE
 
-		    while (msg[stopprocess] == false) {
-			for (cnt = 0; cnt < bufsize; cnt++) {
-			    if (pointer >= last) pointer = lmarker;
-			    act = 0;
-			    for (unsigned int i = 0; i < channels; i++)
-				act += signal.at(i)->getSingleSample(pointer);
-			    act /= channels;
-			    act += 1 << 23;
-			    buffer[cnt] = act >> 16;
-			    pointer++;
-			}
-			write (audio, buffer, bufsize);
-		    }
-		} else {
-		    if (last == pointer) last = getLength();
+    int format = (bitspersample == 8) ? AFMT_U8 : AFMT_S16_LE;
 
-		    while ((last - pointer > bufsize) && (!msg[stopprocess])) {
-			for (cnt = 0; cnt < bufsize; cnt++) {
-
-			    act = 0;
-			    for (unsigned int i = 0; i < channels; i++)
-				act += signal.at(i)->getSingleSample(pointer);
-
-			    act /= channels;
-			    act += 1 << 23;
-			    buffer[cnt] = act >> 16;
-			    pointer++;
-			}
-
-			write (audio, buffer, bufsize);
-		    }
-		    if (msg[stopprocess] == false) {
-			for (cnt = 0; cnt < last - pointer; cnt++) {
-			    act = 0;
-			    for (unsigned int i = 0; i < channels; i++)
-				act += signal.at(i)->getSingleSample(pointer);
-
-			    act /= channels;
-			    act += 1 << 23;
-			    buffer[cnt] = act >> 16;
-			    pointer++;
-			}
-			for (; cnt < bufsize; cnt++)
-			    buffer[cnt] = 128;    // fill up last buffer
-			write (audio, buffer, bufsize);
-		    }
-		}
-	    }
-	}
-
-	close (audio);
-	if (buffer) delete[] buffer;
-	msg[stopprocess] = false;
-	msg[samplepointer] = 0;
+    // number of bits per sample
+    if (ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &format) == -1) {
+	KMsgBox::message(0, trouble,
+           i18n("number of bits per samples not supported"), 2);
+	return 0;
     }
+
+    // mono/stereo selection
+    int stereo = (channels >= 2) ? 1 : 0;
+    if (ioctl(audio, SNDCTL_DSP_STEREO, &stereo) == -1) {
+	KMsgBox::message(0, trouble,
+           i18n("stereo not supported"), 2);
+	return 0;
+    }
+
+    // playback rate
+    if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) == -1) {
+	KMsgBox::message(0, trouble,
+           i18n("playback rate not supported"), 2);
+	return 0;
+    }
+
+    // buffer size
+    if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
+	KMsgBox::message(0, trouble,
+           i18n("unusable buffer size"), 2);
+	return 0;
+    }
+
+    // return the buffer size in bytes
+    int size;
+    ioctl(audio, SNDCTL_DSP_GETBLKSIZE, &size);
+    return size;
 }
 
 //**********************************************************
-void SignalManager::play16(bool loop)
+void SignalManager::playback(int device, playback_param_t &param,
+                             unsigned char *buffer, unsigned int bufsize,
+                             bool loop)
 {
-//    debug("SignalManager::play16 (%d)", loop);
+    ASSERT(buffer);
+    ASSERT(bufsize);
+    ASSERT(param.channels);
+    if (!buffer || !bufsize || !param.channels) return;
 
-    int audio;                    //file handle for /dev/dsp
-    unsigned char *buffer = 0;
-    unsigned int bufsize;
+    unsigned int i;
+    unsigned int active_channels = 0;
+    unsigned int in_channels = this->getChannelCount();
+    unsigned int out_channels = param.channels;
+    unsigned int active_channel[in_channels]; // list of active channels
 
-    msg[stopprocess] = false;
-    if ( (audio = open(sounddevice, O_WRONLY)) != -1 ) {
-	bufsize = setSoundParams(audio, 16, 0, rate, bufbase);
+    // get the number of channels with enabled playback
+    for (i=0; i < in_channels; i++) {
+	if (!signal.at(i)) continue;
+	// ### TODO: use state of play widget instead of "enabled" ###
+	if (!signal.at(i)->isSelected()) continue;
 
-	buffer = new unsigned char[bufsize];
-	// memset(buffer, 0, bufsize);
+	active_channel[active_channels++] = i;
+    }
 
-	if (buffer) {
-	    unsigned int &pointer = msg[samplepointer];
-	    unsigned int last = rmarker;
-	    unsigned int act, cnt = 0;
-	    pointer = lmarker;
-	    if (last == pointer) last = getLength();
+    // abort if no channels -> nothing to do
+    if (!active_channels) {
+	debug("SignalManager::playback(): no active channel, nothing to do");
+	msg[stopprocess] = true;
+    }
 
-	    if (loop) {
-		while (msg[stopprocess] == false) {
-		    for (cnt = 0; cnt < bufsize; ) {
-			if (pointer >= last) pointer = lmarker;
+    // set up the matrix for channel mixing
+    int matrix[active_channels][out_channels];
+    unsigned int x, y;
+    for (y=0; y < out_channels; y++) {
+	unsigned int m1, m2;
+	m1 = y * active_channels;
+	m2 = (y+1) * active_channels;
+	
+	for (x=0; x < active_channels; x++) {
+	    unsigned int n1, n2;
+	    n1 = x * out_channels;
+	    n2 = (x+1) * out_channels;
 
-			act = 0;
-			for (unsigned int i = 0; i < channels; i++)
-			    act += signal.at(i)->getSingleSample(pointer);
+	    // get the common area of [n1..n2] and [m1..m2]
+	    unsigned int left = max(n1, m1);
+	    unsigned int right = min(n2, m2);
 
-			act /= channels;
-			act += 1 << 23;
-			buffer[cnt++] = act >> 8;
-			buffer[cnt++] = (act >> 16) + 128;
-			pointer++;
+	    matrix[x][y] = (right > left) ? (right-left) : 0;
+	}
+    }
+
+//    // debug output of the mixer matrix
+//    for (y=0; y<out_channels; y++) {
+//	printf("| ");
+//	for (x=0; x<active_channels; x++) {
+//	    printf("%3d", matrix[x][y]);
+//	}
+//	printf("|\r\n");
+//    }
+//    debug("active_channels=%d",active_channels);
+//    debug("out_channels=%d",out_channels);
+
+    // loop until process is stopped
+    // or run once if not in loop mode
+    do {
+	unsigned int &pointer = msg[samplepointer];
+	unsigned int last = rmarker;
+	unsigned int cnt = 0;
+	pointer = lmarker;
+	int samples[active_channels];
+
+	if (lmarker == rmarker) last = getLength()-1;
+
+	while ((pointer <= last) && !msg[stopprocess]) {
+	
+	    // fill the buffer with audio data
+	    for (cnt = 0; (cnt < bufsize) && (pointer <= last); pointer++) {
+                unsigned int channel;
+
+		for (y=0; y < out_channels; y++) {
+		    double s = 0;
+		    for (x=0; x < active_channels; x++) {
+			s += signal.at(
+				active_channel[x])->getSingleSample(
+				pointer) * matrix[x][y];
 		    }
-		    write (audio, buffer, bufsize);
+		    samples[y] = (int)(s / active_channels);
 		}
-	    } else {
-		while ((last - pointer > bufsize) && (!msg[stopprocess])) {
-		    for (cnt = 0; cnt < bufsize; ) {
-			act = 0;
-			for (unsigned int i = 0; i < channels; i++)
-			    act += signal.at(i)->getSingleSample(pointer);
 
-			act /= channels;
-			act += 1 << 23;
-			buffer[cnt++] = act >> 8;
-			buffer[cnt++] = (act >> 16) + 128;
-			pointer++;
-		    }
-		    write (audio, buffer, bufsize);
-		}
+		for (channel=0; channel < out_channels; channel++) {
+		    int sample = samples[channel];
 		
-		// playing not aborted and still something left,
-		// so play the rest...
-		if (msg[stopprocess] == false) {
-		    for (cnt = 0; cnt < last - pointer; cnt++) {
-			act = 0;
-			for (unsigned int i = 0; i < channels; i++)
-			    act += signal.at(i)->getSingleSample(pointer);
+		    switch (param.bits_per_sample) {
+			case 8:
+			    sample += 1 << 23;
+			    buffer[cnt++] = sample >> 16;
+			    break;
+			case 16:
+			    sample += 1 << 23;
+			    buffer[cnt++] = sample >> 8;
+			    buffer[cnt++] = (sample >> 16) + 128;
+			    break;
+			case 24:
+			    // play in 32 bit format
+			    buffer[cnt++] = 0x00;
+			    buffer[cnt++] = sample & 0x0FF;
+			    buffer[cnt++] = sample >> 8;
+			    buffer[cnt++] = (sample >> 16) + 128;
 
-			act /= channels;
-			act += 1 << 23;
-			buffer[cnt++] = act >> 8;
-			buffer[cnt++] = (act >> 16) + 128;
-			pointer++;
+			    break;
+			default:
+			    // invalid bits per sample
+			    msg[stopprocess] = true;
+			    pointer = last;
+			    cnt = 0;
+			    break;
 		    }
-
-		    while (cnt < bufsize) {
-			buffer[cnt++] = 0x00;
-			buffer[cnt++] = 0x80;
-		    }
-		    write (audio, buffer, bufsize);
 		}
 	    }
+
+	    // write buffer to the playback device
+	    write(device, buffer, cnt);
 	}
-	close (audio);
-	if (buffer) delete[] buffer;
-	msg[stopprocess] = false;
-	msg[samplepointer] = 0;
-    }
+	
+    } while (loop && !msg[stopprocess]);
 }
 
 //**********************************************************

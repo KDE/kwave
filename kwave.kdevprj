@@ -30,12 +30,12 @@ dist=true
 install=false
 type=SOURCE
 [Workspace_1]
-openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.h,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.cpp,/usr/src/packages/multimedia/sound/kwave/src/main.cpp,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.cpp,/usr/src/packages/multimedia/sound/kwave/src/TopWidget.h,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalWidget.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/Dialog.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/Dialog.h,/usr/src/packages/multimedia/sound/kwave/libgui/MenuManager.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MultiStateWidget.cpp,/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.cpp,
+openfiles=Unbenannt.h,Unbenannt.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.h,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.cpp,/usr/src/packages/multimedia/sound/kwave/src/SignalManager.cpp,/usr/src/packages/multimedia/sound/kwave/src/KwaveApp.h,/usr/src/packages/multimedia/sound/kwave/src/SignalWidget.cpp,/usr/src/packages/multimedia/sound/kwave/plugins/dialogs/playback/module.cpp,
 show_outputview=false
 show_treeview=true
-header_file=/usr/src/packages/multimedia/sound/kwave/libgui/Dialog.h
-cpp_file=/usr/src/packages/multimedia/sound/kwave/libgui/MenuNode.cpp
-browser_file=file:/usr/X11/lib/qt/doc/html/qlist.html
+header_file=/usr/src/packages/multimedia/sound/kwave/src/SignalManager.h
+cpp_file=/usr/src/packages/multimedia/sound/kwave/plugins/dialogs/playback/module.cpp
+browser_file=file:/usr/X11/lib/qt/doc/html/pref-pref-cpp.html#QButtonGroup
 [src/LabelManager.cpp]
 install_location=
 dist=true
@@ -371,7 +371,7 @@ version_control=None
 project_type=normal_kde
 author=Martin Wilz
 sub_dir=kwave/
-lfv_open_groups=Sources,
+lfv_open_groups=Übersetzungen,Zusätzliche,Sources,
 workspace=1
 project_name=Kwave
 version=0.5.1

@@ -3,6 +3,7 @@
 
 #include <kapp.h>
 #include <qlist.h>
+#include "SignalManager.h"
 
 class QCloseEvent;
 class TopWidget;
@@ -29,10 +30,6 @@ public:
      */
     void addRecentFile(const char *filename);
 
-//    void updateRecentFiles();
-
-//    void parseCommands(const char *);
-
     /**
      * Opens a new toplevel window. If a filename is specified the will
      * will be opened (should be a .wav-file).
@@ -52,7 +49,15 @@ public:
      */
     bool closeWindow(TopWidget *todel);
 
-    inline QStrList &getRecentFiles() { return recentFiles; };
+    /** Returns a reference to the list of recent files */
+    inline QStrList &getRecentFiles() {
+	return recentFiles;
+    };
+
+    /** Returns a reference to the current playback parameters */
+    static inline playback_param_t &getPlaybackParams() {
+	return playback_params;
+    };
 
 signals:
     /**
@@ -67,6 +72,11 @@ protected:
     bool executeCommand(const char *str);
 
 protected:
+    /**
+     * Reads the configuration settings and the list of recent files,
+     * opposite of saveConfig().
+     * @see #saveConfig()
+     */
     void readConfig();
 
     /**
@@ -76,8 +86,8 @@ protected:
     void saveRecentFiles();
 
     /**
-     * Saves the current configuration of kwave to the configuration file.
-     * This also includes saving the list of recent files.
+     * Saves the current configuration of kwave to the configuration file,
+     * opposite of readConfig(). Also saves the list of recent files.
      * @see #saveRecentFiles()
      */
     void saveConfig();
@@ -98,7 +108,11 @@ private:
      */
     QStrList recentFiles;
 
+    /** list of toplevel widgets */
     QList<TopWidget> topwidgetlist;
+
+    /** parameters for audio playback */
+    static playback_param_t playback_params;
 };
 
 #endif // _KWAVE_APP_H

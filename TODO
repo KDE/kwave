@@ -1,8 +1,4 @@
 
-o playback only for selected channels
-
-o evaluation of the enabled/disabled flag of the channels doesn't work
-
 o resample signal before inserting into a signal with a different sample 
   rate (when doing copy/paste)
 
@@ -57,11 +53,9 @@ o bugfix: channel mixer dialog causes segmentation fault -> disabled
 o amplifyfree: interpolation type is ignored (by SignalManager ?), always
   uses linear interpolation
 
-o load and automatically repair files recorded with "arecord"
-
-o range checking in SignalManager::getMaxMin()
-
 o use standard KDE accelerators (see KStdAccel)
+
+o playback with 24 and 32 bit (or 18, 20 bits) -> maybe needs ALSA support
 
 o re-enable usage of memory mapped files
 

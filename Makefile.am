@@ -18,6 +18,7 @@ clean-generic:
 	-rm -fv `find . -name \*.moc`
 	-rm -fv `find . -name \*.d`
 	-rm -fv `find . -name \*.dm`
+	-rm -rfv `find . -name .\* | grep -v ".." | grep -v "."`
 
 distclean-generic:
 	-rm -f $(CONFIG_CLEAN_FILES)
@@ -34,7 +35,6 @@ reallyclean: clean-generic distclean
 	-rm -fv  `find . -name \*.dm`
 	-rm -fv  `find . -type l`
 	-rm -fv  `find . -name Makefile`
-	-rm -rfv `find . -name .\*`
 
 backup: kwave.spec
 	@ cp kwave.spec kwave.spec.saved ; \

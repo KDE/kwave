@@ -1,5 +1,20 @@
 this development version
 
+0.5.2-13 [2000-06-12]
+
+ * if a file with invalid size (e.g. recorded by "arecord") is loaded,
+   shows a message and truncates the input at the end of the file
+ * found out that we need ALSA support for 24 and 32 bits/sample
+ * >>> playback in stereo <<<
+ * selected channels (x) are mixed to the output device's channels (y)
+   at playback using a x:y translation matrix with linear scaling, all
+   values for x and y except zero are allowed
+ * playback only for selected channels
+ * rework of the settings/playback dialog (plugin)
+ * heavy reword on the playback code
+ * fixed severe bug in SignalManager::readWavChunk(), chrashed if there
+   was data after the wav chunk
+
 0.5.2-12 [2000-06-02]
 
  * copied the AsyncSync class into libgui, should be used for threadsafe

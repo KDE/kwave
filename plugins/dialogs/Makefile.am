@@ -1,5 +1,5 @@
 # make sure all subdirs get a makefile....
-dirs=`find . -type d | grep -v ./template | grep -v \\\.$$ | \
+dirs=`find . -type d | grep -v ./template | grep -v CVS | grep -v \\\.$$ | \
 	sed s°^\\\.\\\/°°g | sort`
 
 distclean-generic:

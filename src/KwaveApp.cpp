@@ -9,6 +9,7 @@
 #include <libkwave/Parser.h>
 #include <libkwave/DynamicLoader.h>
 
+#include "SignalManager.h"
 #include "TopWidget.h"
 #include "KwaveApp.h"
 
@@ -17,12 +18,19 @@
 
 struct Global globals;
 
-extern int play16bit;         //flag for playing 16 Bit
-extern int bufbase;           //log of bufferrsize for playback...
 //extern int mmap_threshold;    //threshold in MB for using mmapping
 //extern char *mmap_dir;        //storage of dir name
 ///* ### extern ### */
 //char *mmapallocdir;    //really used directory
+
+playback_param_t KwaveApp::playback_params = {
+    44100,
+    2,
+    16,
+    0,
+    5
+};
+
 
 //*****************************************************************************
 KwaveApp::KwaveApp(int argc, char **argv)
@@ -35,7 +43,13 @@ KwaveApp::KwaveApp(int argc, char **argv)
     globals.dialogplugins = 0;
     globals.filterDir = 0;
 
-    debug("KwaveApp::KwaveApp()");
+    playback_params.rate = 44100;
+    playback_params.channels = 2;
+    playback_params.bits_per_sample = 16;
+    playback_params.device = duplicateString("/dev/dsp");
+    playback_params.bufbase = 5;
+    ASSERT(playback_params.device);
+
     int file;
 
     // put directory pointers into Global structure
@@ -59,8 +73,6 @@ KwaveApp::KwaveApp(int argc, char **argv)
 	    newWindow(argv[file]);
 	}
     }
-
-    debug("KwaveApp::KwaveApp(): done.");
 }
 
 //*****************************************************************************
@@ -243,16 +255,19 @@ void KwaveApp::saveConfig()
     ASSERT(config);
     if (!config) return;
 
-    config->setGroup("Sound Settings");
-    config->writeEntry("16Bit", play16bit);
-    config->writeEntry("BufferSize", bufbase);
+    // playback settings
+    config->setGroup("Playback Settings");
+    config->writeEntry("SampleRate", playback_params.rate);
+    config->writeEntry("Channels", playback_params.channels);
+    config->writeEntry("BitsPerSample", playback_params.bits_per_sample);
+    config->writeEntry("Device", playback_params.device);
+    config->writeEntry("BufferBase", playback_params.bufbase);
 
 //    config->setGroup("Memory Settings");
 //    config->writeEntry("Mmap threshold", mmap_threshold);
 //    config->writeEntry("Mmap dir", mmap_dir);
 
     config->setGroup ("Labels");
-
     for (unsigned int i = 0 ; i < globals.markertypes.count(); i++) {
 	snprintf(buf, sizeof(buf), "%dCommand", i);
 	config->writeEntry (buf, globals.markertypes.at(i)->getCommand());
@@ -287,11 +302,22 @@ void KwaveApp::readConfig()
 	}
     }
 
-    config->setGroup ("Sound Settings");
-    result = config->readEntry ("16Bit");
-    if (!result.isNull()) play16bit = result.toInt();
-    result = config->readEntry ("BufferSize");
-    if (!result.isNull()) bufbase = result.toInt();
+    // playback settings
+    if (playback_params.device) delete[] playback_params.device;
+
+    config->setGroup("Playback Settings");
+    result = config->readEntry("SampleRate");
+    playback_params.rate = !result.isNull() ? result.toInt() : 44100;
+    result = config->readEntry("Channels");
+    playback_params.channels = !result.isNull() ? result.toInt() : 2;
+    result = config->readEntry("BitsPerSample");
+    playback_params.bits_per_sample = !result.isNull() ? result.toInt() : 16;
+    result = config->readEntry("Device");
+	playback_params.device = duplicateString(!result.isNull() ?
+	    result.data() : "/dev/dsp");
+    result = config->readEntry("BufferBase");
+    playback_params.bufbase = !result.isNull() ? result.toInt() : 5;
+    ASSERT(playback_params.device);
 
     config->setGroup ("Memory Settings");
 //    result = config->readEntry ("Mmap threshold");
@@ -316,7 +342,7 @@ void KwaveApp::readConfig()
 //*****************************************************************************
 KwaveApp::~KwaveApp()
 {
-    debug("KwaveApp::~KwaveApp()");
+//    debug("KwaveApp::~KwaveApp()");
     ASSERT(KApplication::getKApplication());
     saveConfig();
 
@@ -345,7 +371,10 @@ KwaveApp::~KwaveApp()
     if (globals.filterDir) delete[] globals.filterDir ;
     globals.filterDir = 0;
 
-    debug("KwaveApp::~KwaveApp(): done.");
+    if (playback_params.device) delete[] playback_params.device;
+    playback_params.device = 0;
+
+//    debug("KwaveApp::~KwaveApp(): done.");
 }
 
 //*****************************************************************************

@@ -39,7 +39,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     app(main_app),
     recentFiles(recent_files)
 {
-    debug("TopWidget::TopWidget()");
+//    debug("TopWidget::TopWidget()");
     bits = 16;
     caption = 0;
     dropZone = 0;
@@ -122,7 +122,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 //    this->addToolBar(buttons);
 	
     setView(mainwidget);
-    debug("TopWidget::TopWidget(): done.");
+//    debug("TopWidget::TopWidget(): done.");
 }
 
 //*****************************************************************************
@@ -141,7 +141,7 @@ bool TopWidget::isOK()
 //*****************************************************************************
 TopWidget::~TopWidget()
 {
-    debug("TopWidget::~TopWidget()");
+//    debug("TopWidget::~TopWidget()");
     ASSERT(KApplication::getKApplication());
 
     closeFile();
@@ -173,7 +173,7 @@ TopWidget::~TopWidget()
 
     app.closeWindow(this);
 
-    debug("TopWidget::~TopWidget(): done.");
+//    debug("TopWidget::~TopWidget(): done.");
 }
 
 //*****************************************************************************

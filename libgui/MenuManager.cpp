@@ -223,10 +223,8 @@ void MenuManager::setItemEnabled(const char *uid, bool enable)
 //*****************************************************************************
 MenuManager::~MenuManager()
 {
-    debug("MenuManager::~MenuManager()");
     ASSERT(menu_root);
     if (menu_root) delete menu_root;
-    debug("MenuManager::~MenuManager(): done.");
 }
 
 /* end of MenuManager.cpp */

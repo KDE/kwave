@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-06-02 17:13+0200\n"
+"POT-Creation-Date: 2000-06-12 17:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,81 +78,107 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: src/SignalManager.cpp:387
+#: src/SignalManager.cpp:394
 msgid " on channel "
 msgstr ""
 
-#: src/SignalManager.cpp:508 src/SignalManager.cpp:561
-#: src/SignalManager.cpp:592 src/SignalManager.cpp:617
-#: src/SignalManager.cpp:626 src/SignalManager.cpp:631
-#: src/SignalManager.cpp:636 src/SignalManager.cpp:884
-#: src/SignalManager.cpp:919
+#: src/SignalManager.cpp:515 src/SignalManager.cpp:568
+#: src/SignalManager.cpp:599 src/SignalManager.cpp:624
+#: src/SignalManager.cpp:633 src/SignalManager.cpp:638
+#: src/SignalManager.cpp:643 src/SignalManager.cpp:891
+#: src/SignalManager.cpp:950
 msgid "Info"
 msgstr ""
 
-#: src/SignalManager.cpp:508 src/SignalManager.cpp:561
+#: src/SignalManager.cpp:515 src/SignalManager.cpp:568
 msgid "File does not exist !"
 msgstr ""
 
-#: src/SignalManager.cpp:593
+#: src/SignalManager.cpp:600
 msgid "File has no data chunk!"
 msgstr ""
 
-#: src/SignalManager.cpp:618 src/SignalManager.cpp:885
+#: src/SignalManager.cpp:625 src/SignalManager.cpp:892
 msgid "Sorry only 8/16/24 Bits per Sample are supported !"
 msgstr ""
 
-#: src/SignalManager.cpp:627
+#: src/SignalManager.cpp:634
 msgid "File must be uncompressed (Mode 1) !"
 msgstr ""
 
-#: src/SignalManager.cpp:632
+#: src/SignalManager.cpp:639
 msgid "File is no RIFF Wave File !"
 msgstr ""
 
-#: src/SignalManager.cpp:637
+#: src/SignalManager.cpp:644
 msgid "File does not contain enough data !"
 msgstr ""
 
-#: src/SignalManager.cpp:672 src/SignalManager.cpp:746
-#: src/SignalManager.cpp:932
+#: src/SignalManager.cpp:679 src/SignalManager.cpp:753
+#: src/SignalManager.cpp:963
 msgid "Mono"
 msgstr ""
 
-#: src/SignalManager.cpp:674 src/SignalManager.cpp:748
-#: src/SignalManager.cpp:934
+#: src/SignalManager.cpp:681 src/SignalManager.cpp:755
+#: src/SignalManager.cpp:965
 msgid "Stereo"
 msgstr ""
 
-#: src/SignalManager.cpp:678
+#: src/SignalManager.cpp:685
 #, c-format
 msgid "Exporting %s ASCII file :"
 msgstr ""
 
-#: src/SignalManager.cpp:770
+#: src/SignalManager.cpp:777
 msgid "empty channel detected, channel count reduced by one"
 msgstr ""
 
-#: src/SignalManager.cpp:842
+#: src/SignalManager.cpp:849
 msgid "info"
 msgstr ""
 
-#: src/SignalManager.cpp:843
+#: src/SignalManager.cpp:850
 msgid "Signal is empty, nothing to save !"
 msgstr ""
 
-#: src/SignalManager.cpp:919
+#: src/SignalManager.cpp:939
+msgid ""
+"Error in input: file is smaller than stated in the header. \n"
+"File has been truncated."
+msgstr ""
+
+#: src/SignalManager.cpp:950
 msgid "Out of Memory!"
 msgstr ""
 
-#: src/SignalManager.cpp:937
+#: src/SignalManager.cpp:968
 #, c-format
 msgid "%d voices"
 msgstr ""
 
-#: src/SignalManager.cpp:940
+#: src/SignalManager.cpp:971
 #, c-format
 msgid "Loading %d-Bit (%s) File :"
+msgstr ""
+
+#: src/SignalManager.cpp:1159
+msgid "playback problem"
+msgstr ""
+
+#: src/SignalManager.cpp:1203
+msgid "number of bits per samples not supported"
+msgstr ""
+
+#: src/SignalManager.cpp:1211
+msgid "stereo not supported"
+msgstr ""
+
+#: src/SignalManager.cpp:1218
+msgid "playback rate not supported"
+msgstr ""
+
+#: src/SignalManager.cpp:1225
+msgid "unusable buffer size"
 msgstr ""
 
 #: src/TopWidget.cpp:66
@@ -278,32 +304,32 @@ msgstr ""
 msgid "Phase: %d degree"
 msgstr ""
 
-#: src/MainWidget.cpp:122 src/MainWidget.cpp:538 src/MainWidget.cpp:558
+#: src/MainWidget.cpp:123 src/MainWidget.cpp:538 src/MainWidget.cpp:558
 msgid "Play"
 msgstr ""
 
-#: src/MainWidget.cpp:128 src/MainWidget.cpp:539 src/MainWidget.cpp:559
+#: src/MainWidget.cpp:129 src/MainWidget.cpp:539 src/MainWidget.cpp:559
 msgid "&Loop"
 msgstr ""
 
-#: src/MainWidget.cpp:136
+#: src/MainWidget.cpp:137
 msgid "&Zoom"
 msgstr ""
 
-#: src/MainWidget.cpp:154
+#: src/MainWidget.cpp:155
 msgid "All"
 msgstr ""
 
-#: src/MainWidget.cpp:159
+#: src/MainWidget.cpp:160
 msgid "1:1"
 msgstr ""
 
-#: src/MainWidget.cpp:351
+#: src/MainWidget.cpp:350
 #, c-format
 msgid "Rate: %d.%d kHz"
 msgstr ""
 
-#: src/MainWidget.cpp:360
+#: src/MainWidget.cpp:359
 #, c-format
 msgid "Samples: %d"
 msgstr ""
@@ -322,64 +348,15 @@ msgstr ""
 msgid "Length: %0.1f ms"
 msgstr ""
 
-#: src/FFTWindow.cpp:68
-msgid "&Cursor"
-msgstr ""
-
-#: src/FFTWindow.cpp:98
-msgid "Multiply with graph"
-msgstr ""
-
-#: src/FFTWindow.cpp:100
-msgid "Multiply with formant pattern"
-msgstr ""
-
-#: src/FFTWindow.cpp:102
-msgid "Smooth"
-msgstr ""
-
-#: src/FFTWindow.cpp:105
-msgid "Kill phase"
-msgstr ""
-
-#: src/FFTWindow.cpp:107
-msgid "find Maximum"
-msgstr ""
-
-#: src/FFTWindow.cpp:109
-msgid "find Minimum"
-msgstr ""
-
-#: src/FFTWindow.cpp:111
-msgid "find nearest Peak"
-msgstr ""
-
-#: src/FFTWindow.cpp:116
-msgid "Inverse FFT"
-msgstr ""
-
-#: src/FFTWindow.cpp:118
-#, c-format
-msgid "Amplitude in %"
-msgstr ""
-
-#: src/FFTWindow.cpp:119
-msgid "Amplitude in dB"
-msgstr ""
-
-#: src/FFTWindow.cpp:128
-msgid "Phase"
-msgstr ""
-
-#: src/menus_config_i18n.cpp:13
+#: plugins/dialogs/playback/module.cpp:81 src/menus_config_i18n.cpp:13
 msgid "1&6 Bit"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:14
+#: plugins/dialogs/playback/module.cpp:90 src/menus_config_i18n.cpp:14
 msgid "2&4 Bit"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:15
+#: plugins/dialogs/playback/module.cpp:72 src/menus_config_i18n.cpp:15
 msgid "&8 Bit"
 msgstr ""
 
@@ -476,263 +453,328 @@ msgid "&Envelope"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:44
-msgid "&Expand to labels"
+msgid "E&xecute"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:45
-msgid "&Export to Ascii..."
+msgid "&Expand to labels"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:46
-msgid "Fade &In"
+msgid "&Export to Ascii..."
 msgstr ""
 
 #: src/menus_config_i18n.cpp:47
+msgid "Fade &In"
+msgstr ""
+
+#: src/menus_config_i18n.cpp:48
 msgid "Fade &Out"
 msgstr ""
 
-#: plugins/dialogs/filter/module.cpp:33 src/menus_config_i18n.cpp:49
+#: plugins/dialogs/filter/module.cpp:33 src/menus_config_i18n.cpp:50
 msgid "&Filter"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:50
+#: src/menus_config_i18n.cpp:51
 msgid "&Flip Phase"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:51
+#: src/menus_config_i18n.cpp:52
 msgid "&Flush"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:52
+#: src/menus_config_i18n.cpp:53
 msgid "&Free"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:53
+#: src/menus_config_i18n.cpp:54
 msgid "&Frequencies"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:54
+#: src/menus_config_i18n.cpp:55
 msgid "F&x"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:55
+#: src/menus_config_i18n.cpp:56
 msgid "&Generate"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:57
+#: src/menus_config_i18n.cpp:58
 msgid "&Import Ascii..."
 msgstr ""
 
-#: src/menus_config_i18n.cpp:58
+#: src/menus_config_i18n.cpp:59
 msgid "&Insert labels..."
 msgstr ""
 
-#: src/menus_config_i18n.cpp:59
+#: src/menus_config_i18n.cpp:60
 msgid "&Invert Selection"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:60
+#: src/menus_config_i18n.cpp:61
 msgid "Label by &Intensity"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:61
+#: src/menus_config_i18n.cpp:62
 msgid "Label by &Period"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:62
+#: src/menus_config_i18n.cpp:63
 msgid "&Labels"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:63
+#: src/menus_config_i18n.cpp:64
 msgid "Labels..."
 msgstr ""
 
-#: src/menus_config_i18n.cpp:64
+#: src/menus_config_i18n.cpp:65
 msgid "&Load labels..."
 msgstr ""
 
-#: src/menus_config_i18n.cpp:65
-msgid "&Memory"
-msgstr ""
-
 #: src/menus_config_i18n.cpp:66
-msgid "&Menus"
+msgid "&Macro"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:67
-msgid "&Mix"
+msgid "&Memory"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:68
-msgid "&Mix & Paste"
+msgid "&Menus"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:69
-msgid "&Moving Average"
+msgid "&Mix"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:70
-msgid "&New..."
+msgid "&Mix & Paste"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:71
-msgid "&New &Window"
+msgid "&Moving Average"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:72
-msgid "&Next"
+msgid "&New..."
 msgstr ""
 
 #: src/menus_config_i18n.cpp:73
-msgid "&Next Page"
+msgid "&New &Window"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:74
-msgid "&Noise"
+msgid "&Next"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:75
-msgid "&Nothing"
+msgid "&Next Page"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:76
-msgid "&Open"
+msgid "&Noise"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:77
+msgid "&Nothing"
+msgstr ""
+
+#: src/menus_config_i18n.cpp:78
+msgid "&Open"
+msgstr ""
+
+#: src/menus_config_i18n.cpp:79
 msgid "&Open Recent"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:80
+#: src/menus_config_i18n.cpp:82
 msgid "&Periodic Silence"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:81
+#: src/menus_config_i18n.cpp:83
 msgid "Periods..."
 msgstr ""
 
-#: src/menus_config_i18n.cpp:82
+#: src/menus_config_i18n.cpp:84
 msgid "&Playback"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:83
+#: src/menus_config_i18n.cpp:85
 msgid "&Presets"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:84
+#: src/menus_config_i18n.cpp:86
 msgid "&Previous"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:85
+#: src/menus_config_i18n.cpp:87
 msgid "&Previous Page"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:86
+#: src/menus_config_i18n.cpp:88
 msgid "&Pulse Train"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:88
+#: src/menus_config_i18n.cpp:90
 msgid "&Range"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:90
+#: src/menus_config_i18n.cpp:92
 msgid "Re&quantize"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:91
+#: src/menus_config_i18n.cpp:93
 msgid "&Resample"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:92
+#: src/menus_config_i18n.cpp:94
 msgid "&Reverse"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:93
+#: src/menus_config_i18n.cpp:95
 msgid "&Revert"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:95
+#: src/menus_config_i18n.cpp:97
 msgid "S&ave"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:96
+#: src/menus_config_i18n.cpp:98
 msgid "Save &resolution"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:97
+#: src/menus_config_i18n.cpp:99
 msgid "Scroll &left"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:98
+#: src/menus_config_i18n.cpp:100
 msgid "Scroll &right"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:99
+#: src/menus_config_i18n.cpp:101
 msgid "&Select all"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:100
+#: src/menus_config_i18n.cpp:102
 msgid "&Selection"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:101
+#: src/menus_config_i18n.cpp:103
 msgid "&Selection..."
 msgstr ""
 
-#: src/menus_config_i18n.cpp:102
+#: src/menus_config_i18n.cpp:104
 msgid "&Silence"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:103
+#: src/menus_config_i18n.cpp:105
 msgid "&Sonagram"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:104
+#: src/menus_config_i18n.cpp:106
 msgid "Spe&ctrum"
 msgstr ""
 
-#: src/menus_config_i18n.cpp:105
-msgid "to be done..."
-msgstr ""
-
-#: src/menus_config_i18n.cpp:106
-msgid "&to end"
-msgstr ""
-
 #: src/menus_config_i18n.cpp:107
-msgid "to &Maximum"
+msgid "&Start recording"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:108
-msgid "&to new Window"
+msgid "S&top recording"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:109
-msgid "&to start"
+msgid "to be done..."
 msgstr ""
 
 #: src/menus_config_i18n.cpp:110
-msgid "Tri&m"
+msgid "&to end"
+msgstr ""
+
+#: src/menus_config_i18n.cpp:111
+msgid "to &Maximum"
+msgstr ""
+
+#: src/menus_config_i18n.cpp:112
+msgid "&to new Window"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:113
-msgid "&Visible area"
+msgid "&to start"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:114
-msgid "with &Clipboard"
-msgstr ""
-
-#: src/menus_config_i18n.cpp:115
-msgid "Zoom &In"
-msgstr ""
-
-#: src/menus_config_i18n.cpp:116
-msgid "Zoom &Out"
+msgid "Tri&m"
 msgstr ""
 
 #: src/menus_config_i18n.cpp:117
+msgid "&Visible area"
+msgstr ""
+
+#: src/menus_config_i18n.cpp:118
+msgid "with &Clipboard"
+msgstr ""
+
+#: src/menus_config_i18n.cpp:119
+msgid "Zoom &In"
+msgstr ""
+
+#: src/menus_config_i18n.cpp:120
+msgid "Zoom &Out"
+msgstr ""
+
+#: src/menus_config_i18n.cpp:121
 msgid "Zoom to &Selection"
+msgstr ""
+
+#: src/FFTWindow.cpp:68
+msgid "&Cursor"
+msgstr ""
+
+#: src/FFTWindow.cpp:98
+msgid "Multiply with graph"
+msgstr ""
+
+#: src/FFTWindow.cpp:100
+msgid "Multiply with formant pattern"
+msgstr ""
+
+#: src/FFTWindow.cpp:102
+msgid "Smooth"
+msgstr ""
+
+#: src/FFTWindow.cpp:105
+msgid "Kill phase"
+msgstr ""
+
+#: src/FFTWindow.cpp:107
+msgid "find Maximum"
+msgstr ""
+
+#: src/FFTWindow.cpp:109
+msgid "find Minimum"
+msgstr ""
+
+#: src/FFTWindow.cpp:111
+msgid "find nearest Peak"
+msgstr ""
+
+#: src/FFTWindow.cpp:116
+msgid "Inverse FFT"
+msgstr ""
+
+#: src/FFTWindow.cpp:118
+#, c-format
+msgid "Amplitude in %"
+msgstr ""
+
+#: src/FFTWindow.cpp:119
+msgid "Amplitude in dB"
+msgstr ""
+
+#: src/FFTWindow.cpp:128
+msgid "Phase"
 msgstr ""
 
 #: plugins/dialogs/amptolabel/module.cpp:29
@@ -898,37 +940,71 @@ msgstr ""
 msgid "Choose Amplification Curve :"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:26
+#: plugins/dialogs/playback/module.cpp:65
 msgid "Playback Options :"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:28
-msgid "Playback Device :"
-msgstr ""
-
-#: plugins/dialogs/playback/module.cpp:34
+#: plugins/dialogs/playback/module.cpp:68
 msgid "Resolution"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:43
+#: plugins/dialogs/playback/module.cpp:78
 msgid ""
-"Set Playback-Mode to 16 Bit\n"
-"Note that not all sound hardware supports this mode !"
+"Set Playback-Mode to 8 Bit (poor quality)\n"
+"should be supported by all sound hardware !"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:55
+#: plugins/dialogs/playback/module.cpp:87
+msgid ""
+"Set Playback-Mode to 16 Bit (CD-like quality)\n"
+"not supported by all sound hardware !"
+msgstr ""
+
+#: plugins/dialogs/playback/module.cpp:96
+msgid ""
+"Set Playback-Mode to 24 Bit (high quality)\n"
+"only supported by some new sound hardware !"
+msgstr ""
+
+#: plugins/dialogs/playback/module.cpp:101
+msgid "Playback Device :"
+msgstr ""
+
+#: plugins/dialogs/playback/module.cpp:123
+msgid "se&lect..."
+msgstr ""
+
+#: plugins/dialogs/playback/module.cpp:128
+msgid ""
+"Select a playback device not listed\n"
+"in the standard selection.\n"
+"(sorry, not implemented yet!)"
+msgstr ""
+
+#: plugins/dialogs/playback/module.cpp:179
 msgid ""
 "This is the size of the buffer used for communication with the sound driver\n"
 "If your computer is rather slow select a big buffer"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:59
-msgid "enable stereo playback"
+#: plugins/dialogs/playback/module.cpp:188
+msgid "&stereo playback"
 msgstr ""
 
-#: plugins/dialogs/playback/module.cpp:86
-#, c-format
-msgid "Buffer Size : %d Samples"
+#: plugins/dialogs/playback/module.cpp:215
+msgid "&test settings"
+msgstr ""
+
+#: plugins/dialogs/playback/module.cpp:219
+msgid ""
+"Try to play a short sound\n"
+"using the current settings.\n"
+"(sorry, not implemented yet!)"
+msgstr ""
+
+#: plugins/dialogs/playback/module.cpp:318
+#, c-format, ycp-format
+msgid "Buffer Size : %5d samples"
 msgstr ""
 
 #: plugins/dialogs/filter/module.cpp:28

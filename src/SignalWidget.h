@@ -286,6 +286,12 @@ private:
     void refreshLayer(int layer);
 
     /**
+     * (re)starts the timer that is responsible for redrawing
+     * the playpointer if we are in playback mode.
+     */
+    void playback_startTimer();
+
+    /**
      * Converts a sample index into a pixel offset using the current zoom
      * value. Always rounds downwards.
      * @param pixels pixel offset
@@ -334,6 +340,8 @@ private:
 
     int offset;                    //offset from which signal is beeing displayed
     int width, height;            //of this widget
+    int lastWidth;
+    int lastHeight;
     int down;                     //flags if mouse is pressed
     double lasty;
     double zoomy;

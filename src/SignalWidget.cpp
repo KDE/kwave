@@ -84,13 +84,15 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     :QWidget(parent),
     menu(menu_manager)
 {
-    debug("SignalWidget::SignalWidget()");
+//    debug("SignalWidget::SignalWidget()");
     down = false;
     height = 0;
     interpolation_alpha = 0;
     interpolation_order = 0;
     labels = 0;
+    lastHeight = 0;
     lastplaypointer = -1;
+    lastWidth = 0;
     lasty = -1;
     markertype = 0;
     offset = 0;
@@ -136,7 +138,7 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
 
     zoomAll();
 
-    debug("SignalWidget::SignalWidget(): done.");
+//    debug("SignalWidget::SignalWidget(): done.");
 }
 
 //****************************************************************************
@@ -401,29 +403,55 @@ void SignalWidget::showMessage(const char *caption, const char *text,
 }
 
 //****************************************************************************
+void SignalWidget::playback_startTimer()
+{
+    if (!signalmanage) return;
+
+    if (timer == 0) {
+	timer = new QTimer(this);
+	ASSERT(timer);
+
+	if (timer) connect(timer, SIGNAL(timeout()),
+	                   this, SLOT(playback_time()));
+    } else {
+	timer->stop();
+    }
+    if (!timer) return;
+		
+    // start a timer that refreshes after each pixel
+    int ms;
+    double rate = signalmanage->getRate();
+    if (rate >= 0) {
+	double samples_per_pixel = pixels2samples(1);
+	double time_per_sample = (double)1.0/rate;
+	double time = samples_per_pixel * time_per_sample;
+	ms = (int)ceil(time*1000);
+	if (ms < 50) ms = 50;
+    } else {
+	ms = 100;
+    }
+    timer->start(ms, true);
+}
+
+//****************************************************************************
 void SignalWidget::playback_setOp(int op)
 {
     if (signalmanage) {
-	signalmanage->setOp(op);
+	signalmanage->playback_setOp(op);
 
 	switch (op) {
 	    case PLAY:
 	    case LOOP:
-		if (timer == 0) {
-		    timer = new QTimer(this);
-		    ASSERT(timer);
-		    if (timer) connect(timer, SIGNAL(timeout()),
-		                       this, SLOT(playback_time()));
-		}
 		playing = true;
-		if (timer) timer->start(200);
+		playback_startTimer();
 		break;
 	    case PSTOP:
 		ASSERT(timer);
 		if (timer) timer->stop();
 		playing = false;
 		playpointer = -1;
-		if (lastplaypointer >= 0) repaint(false);
+//		update_layer[LAYER_MARKERS] = true;
+		repaint(false);
 		break;
 	    case PHALT:    //halt by Gerhard Zintel
 		{
@@ -436,6 +464,8 @@ void SignalWidget::playback_setOp(int op)
 		    if (rmarker < lmarker) rmarker = lmarker;
 		    setRange(lmarker, rmarker);
 		    playpointer = -1;
+//		    update_layer[LAYER_MARKERS] = true;
+		    repaint(false);
 		    break;
 		}
 	}
@@ -639,27 +669,31 @@ void SignalWidget::closeSignal()
 //****************************************************************************
 void SignalWidget::playback_time()
 {
-    debug("SignalWidget::playback_time()");
+//    debug("SignalWidget::playback_time()");
     ASSERT(signalmanage);
-    ASSERT(zoom != 0.0);
+    ASSERT(zoom >= 0.0);
     if (!signalmanage) return;
-    if (zoom==0.0) return;
+    if (zoom<=0.0) return;
 
     bool needRepaint = false;
     playpointer = samples2pixels(signalmanage->getPlayPosition() - offset);
+
     if ((playpointer < width) && (playpointer >= 0)) {
 	if (playpointer != lastplaypointer) {
-	    lastplaypointer = playpointer;
 	    needRepaint = true;
 	}
     }
 
-    if (signalmanage->getPlayPosition() == 0)
+    if (!signalmanage->isPlaying()) {
+	playpointer = -1;
+	needRepaint = true;
 	emit playingfinished();
+    }
 
     if (needRepaint) {
-	update_layer[LAYER_MARKERS] = true;
 	repaint(false);
+    } else {
+	playback_startTimer();
     }
 }
 
@@ -1213,177 +1247,6 @@ void SignalWidget::drawPolyLineSignal(int channel, int middle, int height)
     delete points;
 }
 
-int lastWidth = 0;
-int lastHeight = 0;
-
-////****************************************************************************
-//void SignalWidget::paintEvent(QPaintEvent *event)
-//{
-//    debug("SignalWidget::paintEvent()");
-//
-//#ifdef DEBUG
-//    struct timeval t_start;
-//    struct timeval t_end;
-//    double t_elapsed;
-//    gettimeofday(&t_start,0);
-//#endif
-//
-//    int update[2] = { -1, -1};
-//    int updateall = false;
-//    // if pixmap has to be resized ... or is not yet allocated ...
-//    if ( (rect().height() != height) ||
-//	 (rect().width() != width) ||
-//	 (pixmap == 0) )
-//    {
-//	height = rect().height();
-//	width = rect().width();
-//
-//	if (pixmap) delete pixmap;
-//	pixmap = new QPixmap (size());
-//	pixmap->fill (this, 0, 0);
-//	updateall = true;
-//    }
-//    if (pixmap) { //final security check for the case of low memory (->rare thing)
-//	p.begin(pixmap);
-//	p.setPen (QPen(NoPen));
-//
-//	if (updateall || redraw) {
-//	    if (redraw) {
-//		p.fillRect(0, 0, width, height, black);
-//		redraw = false;
-//	    }
-//
-//	    p.setPen(white);
-//	    p.setRasterOp(CopyROP);
-//
-//	    unsigned int channels = getChannelCount();
-//	    if (channels) {
-//		int chanheight = height / channels;
-//		int begin = chanheight / 2;
-//
-//		//check and correct zoom and offset
-//		fixZoomAndOffset();
-//
-//		for (unsigned int i = 0; i < channels; i++) {
-//		    // skip non-existent signals
-//		    ASSERT(signalmanage);
-//		    if (!signalmanage) continue;
-//		    if (!signalmanage->getSignal(i)) continue;
-//
-//		    if (zoom < 0.1) {
-//			drawInterpolatedSignal(i, begin, chanheight);
-//		    } else if (zoom <= 1.0)
-//			drawPolyLineSignal(i, begin, chanheight);
-//		    else
-//			drawOverviewSignal(i, begin, chanheight,
-//			                   0, zoom*width);
-//
-//		    p.setPen(green);
-//		    p.drawLine(0, begin, width, begin);
-//		    p.setPen(white);
-//		    begin += chanheight;
-//		}
-//
-//		// show selected range ...
-//		select->drawSelection(&p, width, height);
-//		updateall = true;
-//	    }
-//	    lastplaypointer = -1;
-//
-//	    // --- show the labels ---
-//	    p.setRasterOp(CopyROP);
-//	    Label *act;
-//	    int lastpos = offset + pixels2samples(width);
-//	    ASSERT(labels);
-//	    for (act = labels->first(); act; act = labels->next()) {
-//		int pos = ms2samples(act->pos);
-//		if ((pos >= offset) && (pos < lastpos)) {
-//		    int x = (int)((pos - offset) / zoom);
-//		    // debug("%d %d %d %d\n",x,pos,offset,lastpos);
-//		    p.setPen (*(act->getType()->color));
-//		    p.drawLine (x, 0, x, height);
-//
-//		    if (act->getName()) {
-//			int w = p.fontMetrics().width (act->getName());
-//			int h = 8;
-//			h = p.fontMetrics().height();
-//
-//			p.fillRect(x - w / 2 - 1, 1, w + 2, h + 2,
-//			           QBrush(gray));
-//			p.setPen(white);
-//			p.drawLine(x - w / 2 - 2, 1,
-//			           x + w / 2 + 1, 1);
-//			p.drawLine(x - w / 2 - 2, 1,
-//			           x - w / 2 - 2, 1 + h);
-//			p.setPen(black);
-//			p.drawLine(x + w / 2 + 1, 1,
-//			           x + w / 2 + 1, 1 + h);
-//			p.drawText(x - w / 2, 3, w, h,
-//			           AlignCenter, act->getName());
-//		    }
-//		}
-//	    }
-//	} else {
-//	    //no full repaint needed...
-//	    //only the playing marker or the range labels gets updated
-//	    if ( (down) && (!playing) ) {
-//		p.setBrush (yellow);
-//		p.setPen (yellow);
-//		p.setRasterOp (XorROP);
-//
-//		updateall = true;
-//	    }
-//	}
-//
-//	if (playpointer >= 0) {
-//	    p.setRasterOp (XorROP);
-//	    p.setPen (green);
-//
-//	    if (lastplaypointer >= 0)
-//		p.drawLine(lastplaypointer, -height / 2,
-//		           lastplaypointer, height);
-//
-//	    p.drawLine (playpointer, -height / 2, playpointer, height);
-//	    update[1] = lastplaypointer;
-//	    lastplaypointer = playpointer;
-//	    update[0] = playpointer;
-//	    playpointer = -1;
-//	} else if (lastplaypointer >= 0) {
-//	    p.setRasterOp(XorROP);
-//	    p.setPen(green);
-//	    p.drawLine(lastplaypointer, -height / 2,
-//	               lastplaypointer, height);
-//	    update[0] = lastplaypointer;
-//	    lastplaypointer = -1;
-//	}
-//
-//	p.flush();
-//	p.end();
-//
-//	ASSERT(event);
-//	if (updateall || !event) {
-//	    bitBlt(this, 0, 0, pixmap);
-//	} else if (update[0] < 0) {
-//	    QRect pos = event->rect();
-//	    bitBlt (this, pos.topLeft(), pixmap, pos);
-//	}
-//
-//	if (update[0] != -1)
-//	    bitBlt (this, update[0], 0, pixmap, update[0], 0, 1, height);
-//	if (update[1] != -1)
-//	    bitBlt (this, update[1], 0, pixmap, update[1], 0, 1, height);
-//    }
-//
-//#ifdef DEBUG
-//    gettimeofday(&t_end,0);
-//    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
-//	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
-//
-//    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
-//	t_elapsed); // ###
-//#endif
-//}
-
 //****************************************************************************
 void SignalWidget::paintEvent(QPaintEvent *event)
 {
@@ -1430,7 +1293,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	ASSERT(layer[LAYER_SIGNAL]);
 	if (!layer[LAYER_SIGNAL]) return;
 	
-	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
+//	debug("SignalWidget::paintEvent(): - redraw of signal layer -");
 	p.begin(layer[LAYER_SIGNAL]);
 
 	p.setPen(white);
@@ -1458,6 +1321,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 		drawOverviewSignal(i, begin, chanheight,
 		                   0, zoom*width);
 
+	    // draw the baseline
 	    p.setPen(green);
 	    p.drawLine(0, begin, width, begin);
 	    p.setPen(white);
@@ -1481,10 +1345,10 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	debug("SignalWidget::paintEvent(): - redraw of markers layer -");
 	p.begin(layer[LAYER_MARKERS]);
 	p.fillRect(0, 0, width, height, black);
-	p.setPen (green);
-	if (playpointer >= 0) {
-	    p.drawLine (playpointer, -height / 2, playpointer, height);
-	}
+//	p.setPen (green);
+//	if (playpointer >= 0) {
+//	    p.drawLine (playpointer, -height / 2, playpointer, height);
+//	}
 	p.flush();
 	p.end();
 	
@@ -1499,7 +1363,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	ASSERT(layer[LAYER_SELECTION]);
 	if (!layer[LAYER_SELECTION]) return;
 
-	debug("SignalWidget::paintEvent(): - redraw of selection layer -");
+//	debug("SignalWidget::paintEvent(): - redraw of selection layer -");
 	p.begin(layer[LAYER_SELECTION]);
 
 	p.fillRect(0, 0, width, height, black);
@@ -1531,18 +1395,39 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 		width, height, layer_rop[i]
 	    );
 	}
+	lastplaypointer = -1;
+    }
+
+    // --- redraw the playpointer ---
+    if (lastplaypointer != playpointer) {
+	p.begin(pixmap);
+	p.setPen(yellow);
+	p.setRasterOp(XorROP);
+
+	if (lastplaypointer >= 0) p.drawLine(lastplaypointer, 0,
+	                                     lastplaypointer, height);
+
+	if (playpointer >= 0) p.drawLine(playpointer, 0,
+	                                 playpointer, height);
+
+	lastplaypointer = playpointer;
+	p.flush();
+	p.end();
     }
 
     bitBlt(this, 0, 0, pixmap, 0, 0, width, height, CopyROP);
 
 #ifdef DEBUG
     gettimeofday(&t_end,0);
-    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
-	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
-
-    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
-	t_elapsed); // ###
+//    t_elapsed = ((double)t_end.tv_sec*1.0E6+(double)t_end.tv_usec -
+//	((double)t_start.tv_sec*1.0E6+(double)t_start.tv_usec)) * 1E-3;
+//
+//    debug("SignalWidget::paintEvent() -- done, t=%0.3fms --",
+//	t_elapsed); // ###
 #endif
+
+    // restart the timer for refreshing the playpointer
+    if (playing) playback_startTimer();
 
 }
 

@@ -53,6 +53,10 @@ void FileInfo::PropertyTypesMap::fill()
              "the file. If the comment is several sentences long, end "
              "each sentence with a period. Do not include newline "
              "characters!"));
+    append(INF_COMPRESSION, FP_INTERNAL | FP_NO_LOAD_SAVE,
+        i18n("Compression"),
+        i18n("Sets a mode for compressing the audio data to reduce "
+             "disk space."));
     append(INF_COPYRIGHT, 0,
         i18n("Copyright"),
         i18n("Records the copyright information for the file. If there are "

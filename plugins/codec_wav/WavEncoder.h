@@ -48,6 +48,9 @@ public:
     virtual bool encode(QWidget *widget, MultiTrackReader &src,
                         QIODevice &dst, FileInfo &info);
 
+    /** Returns a list of supported file properties */
+    virtual QValueList<FileProperty> supportedProperties();
+
 private:
 
     /** map for translating chunk names to FileInfo properties */

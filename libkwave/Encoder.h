@@ -21,10 +21,11 @@
 #include "config.h"
 #include <qlist.h>
 #include <qobject.h>
+#include <qvaluelist.h>
 
-#include "CodecBase.h"
+#include "libkwave/CodecBase.h"
+#include "libkwave/FileInfo.h"
 
-class FileInfo;
 class MultiTrackReader;
 class QIODevice;
 class QWidget;
@@ -53,6 +54,12 @@ public:
      */
     virtual bool encode(QWidget *widget, MultiTrackReader &src,
                         QIODevice &dst, FileInfo &info) = 0;
+
+    /** Returns a list of supported file properties */
+    virtual QValueList<FileProperty> supportedProperties() {
+	QValueList<FileProperty> empty;
+	return empty;
+    };
 
 };
 

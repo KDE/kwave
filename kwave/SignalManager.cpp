@@ -253,6 +253,29 @@ int SignalManager::save(const KURL &url, unsigned int bits, bool selection)
 
     Encoder *encoder = CodecManager::encoder(mimetype_name);
     if (encoder) {
+	// check if we loose information and as the user if this would
+	// be acceptable if so
+	QValueList<FileProperty> supported = encoder->supportedProperties();
+	QMap<FileProperty, QVariant> properties(m_file_info.properties());
+	bool all_supported = true;
+	QMap<FileProperty, QVariant>::Iterator it;
+	for (it=properties.begin(); it!=properties.end(); ++it) {
+	    if ( (! supported.contains(it.key())) &&
+                 (m_file_info.canLoadSave(it.key())) )
+	    {
+		warning("SignalManager::save(): unsupported property '%s'",
+		    m_file_info.name(it.key()).data());
+		all_supported = false;
+	    }
+	}
+	if (!all_supported) {
+	    // show a warning to the user and ask him if he wants to continue
+	    if (KMessageBox::warningContinueCancel(m_parent_widget,
+		i18n("Saving in this format will loose some additional "
+		     "file attributes. Do you still want to continue?")
+		) != KMessageBox::Continue) return -1;
+	}
+
 	// open the destination file
 	QString filename = url.path();
 	QFile dst(filename);
@@ -285,7 +308,7 @@ int SignalManager::save(const KURL &url, unsigned int bits, bool selection)
 	// invoke the encoder...
 	if (!encoder->encode(m_parent_widget, src, dst, m_file_info)) {
 	    KMessageBox::error(m_parent_widget,
-	        i18n("An error occurred while reading the file!"));
+	        i18n("An error occurred while saving the file!"));
 	    res = -1;
 	}
 	

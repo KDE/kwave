@@ -353,6 +353,8 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     afGetVirtualSampleFormat(fh, AF_DEFAULT_TRACK, &sample_format,
 	(int *)(&bits));
 
+    int compression = afGetCompression(fh, AF_DEFAULT_TRACK);
+
     QString sample_format_name;
     switch (sample_format) {
 	case AF_SAMPFMT_TWOSCOMP:
@@ -378,6 +380,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info().setLength(length);
     info().set(INF_SAMPLE_FORMAT, sample_format);
     info().set(INF_SAMPLE_FORMAT_NAME, sample_format_name);
+    info().set(INF_COMPRESSION, compression);
 
     // read in all info from the LIST (INFO) chunk
     RIFFChunk *info_chunk = parser.findChunk("/RIFF/LIST");

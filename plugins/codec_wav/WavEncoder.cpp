@@ -54,6 +54,17 @@ Encoder *WavEncoder::instance()
 }
 
 /***************************************************************************/
+QValueList<FileProperty> WavEncoder::supportedProperties()
+{
+    QValueList<FileProperty> list;
+    QMap<QCString, FileProperty>::Iterator it;
+    for (it=m_property_map.begin(); it != m_property_map.end(); ++it) {
+        list.append(it.data());
+    }
+    return list;
+}
+
+/***************************************************************************/
 bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
                         QIODevice &dst, FileInfo &info)
 {
@@ -65,8 +76,8 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     int sample_format = info.contains(INF_SAMPLE_FORMAT) ?
                         info.get(INF_SAMPLE_FORMAT).toInt() :
                         AF_SAMPFMT_TWOSCOMP;
-    int compression = /* info.contains(INF_COMPRESSION) ?
-                      info.get(INF_COMPRESSION).toInt() : */
+    int compression = info.contains(INF_COMPRESSION) ?
+                      info.get(INF_COMPRESSION).toInt() :
                       AF_COMPRESSION_NONE;
 
     // use default bit resolution if missing
@@ -80,40 +91,33 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     ASSERT(src.count() == tracks);
     if (src.count() != tracks) return false;
 
-    // open the output device
-    if (!dst.open(IO_ReadWrite | IO_Truncate)) {
-	KMessageBox::error(widget,
-	    i18n("Unable to open the file for saving!"));
-	return false;
-    }
-
-    // find out if we have properties that would get lost
-    // and get a list of properties that we have to save
-    QMap<FileProperty, QVariant> properties(info.properties());
-    unsigned int used_properties = properties.count();
-    QMap<FileProperty, QVariant>::Iterator it;
-    for (it=properties.begin(); it!=properties.end(); ++it) {
-	if (! (m_property_map.containsProperty(it.key())) ) {
-	    // if it's only internal, we don't care...
-	    if (!info.canLoadSave(it.key())) used_properties--;
-	    else warning("WavEncoder: unsupported property '%s'",
-		info.name(it.key()).data());
-	
-	    // remove unsupported property
-	    properties.remove(it);
+    // check if the choosen compression mode is supported for saving
+    if ((compression != AF_COMPRESSION_NONE) &&
+        (compression != AF_COMPRESSION_G711_ULAW) &&
+        (compression != AF_COMPRESSION_G711_ALAW) )
+    {
+	warning("compression mode %d not supported!", compression);
+	int what_now = KMessageBox::warningYesNoCancel(widget,
+	    i18n("Sorry, the currently selected compression type can "
+	         "not be used for saving. Do you want to use "
+	         "G711 ULAW compression instead ?"), 0,
+	    KGuiItem(i18n("&Yes, use G711")),
+	    KGuiItem(i18n("&No, store uncompressed"))
+	);
+	switch (what_now) {
+	    case (KMessageBox::Yes):
+		compression = AF_COMPRESSION_G711_ULAW;
+		break;
+	    case (KMessageBox::No):
+		compression = AF_COMPRESSION_NONE;
+		break;
+	    default:
+		return false; // bye bye, save later...
 	}
     }
 
-    unsigned int supported_properties = properties.count();
-    if (supported_properties < used_properties) {
-	// show a warning to the user and ask him if he wants to continue
-	if (KMessageBox::warningContinueCancel(widget,
-	    i18n("Saving in this format will loose some additional "
-	         "file attributes. Do you still want to continue?")
-	    ) != KMessageBox::Continue) return false;
-    }
-
     // append some missing standard properties if they are missing
+    QMap<FileProperty, QVariant> properties(info.properties());
     if (!properties.contains(INF_SOFTWARE)) {
         // add our Kwave Software tag
 	const KAboutData *about_data = KGlobal::instance()->aboutData();
@@ -135,6 +139,12 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	properties.insert(INF_CREATION_DATE, value);
     }
 
+    // open the output device
+    if (!dst.open(IO_ReadWrite | IO_Truncate)) {
+	KMessageBox::error(widget,
+	    i18n("Unable to open the file for saving!"));
+	return false;
+    }
     AFfilesetup setup;
     setup = afNewFileSetup();
     afInitFileFormat(setup, AF_FILE_WAVE);
@@ -151,20 +161,20 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	QString reason;
 	
 	switch (outfile.lastError()) {
-//	    case AF_BAD_NOT_IMPLEMENTED:
-//	        reason = i18n("format or function is not implemented") +
-//		         "\n("+format_name+")";
-//	        break;
+	    case AF_BAD_NOT_IMPLEMENTED:
+	        reason = i18n("format or function is not implemented") /*+
+		         "\n("+format_name+")"*/;
+	        break;
 	    case AF_BAD_MALLOC:
 	        reason = i18n("out of memory");
 	        break;
 	    case AF_BAD_HEADER:
 	        reason = i18n("file header is damaged");
 	        break;
-//	    case AF_BAD_CODEC_TYPE:
-//	        reason = i18n("invalid codec type") +
-//		         "\n("+format_name+")";
-//	        break;
+	    case AF_BAD_CODEC_TYPE:
+	        reason = i18n("invalid codec type")/* +
+		         "\n("+format_name+")"*/;
+	        break;
 	    case AF_BAD_OPEN:
 	        reason = i18n("opening the file failed");
 	        break;
@@ -246,6 +256,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     // create a list of chunk names and properties for the INFO chunk
     QMap<QCString, QCString> info_chunks;
     unsigned int info_size = 0;
+    QMap<FileProperty, QVariant>::Iterator it;
     for (it=properties.begin(); it!=properties.end(); ++it) {
 	FileProperty property = it.key();
 	if (!m_property_map.containsProperty(property)) continue;

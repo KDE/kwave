@@ -38,6 +38,7 @@ typedef enum {
     INF_AUTHOR,              /**< name of the author/artist */
     INF_COMMISSIONED,        /**< commissioned */
     INF_COMMENTS,            /**< comments */
+    INF_COMPRESSION,         /**< compression mode (libaudiofile) */
     INF_COPYRIGHT,           /**< copyright */
     INF_CREATION_DATE,       /**< creation date */
     INF_ENGINEER,            /**< engineer */
@@ -48,7 +49,7 @@ typedef enum {
     INF_MIMETYPE,            /**< mime type of the file format */
     INF_NAME,                /**< name of the song or whatever */
     INF_PRODUCT,             /**< product */
-    INF_SAMPLE_FORMAT,       /**< sample format */
+    INF_SAMPLE_FORMAT,       /**< sample format (libaudiofile) */
     INF_SAMPLE_FORMAT_NAME,  /**< verbose name of the sample format */
     INF_SOFTWARE,            /**< software */
     INF_SOURCE,              /**< source */

@@ -22,8 +22,8 @@
 #include <qlist.h>
 #include <qobject.h>
 
-#include "CodecBase.h"
-#include "FileInfo.h"
+#include "libkwave/CodecBase.h"
+#include "libkwave/FileInfo.h"
 
 class FileInfo;
 class KMimeType;

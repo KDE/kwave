@@ -261,14 +261,27 @@ AC_CHECK_FUNC(geteuid, AC_DEFINE(HAVE_GETEUID))
 AC_CHECK_FUNC(mkstemp, AC_DEFINE(HAVE_MKSTEMP))
 AC_CHECK_FUNC(unlink,  AC_DEFINE(HAVE_UNLINK))
 
-dnl get the correct aRts include directories
+dnl get the correct aRts include directories...
 AC_MSG_CHECKING(for aRts includes)
 ac_arts_inc1="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include"
-ac_arts_inc2="`${ARTSCCONFIG} --cflags | sed s.//./.g`"
-ac_arts_inc3="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include/arts"
-eval "ARTS_INCLUDES=\"`echo ${ac_arts_inc1} ${ac_arts_inc2}  ${ac_arts_inc3}`\""
+ac_arts_inc2="-I`$ARTSCCONFIG --arts-prefix | sed s./\$..g`/include/arts"
+ac_arts_inc3="`${ARTSCCONFIG} --cflags      | sed s./\$..g`"
+ac_arts_inc4="`${ARTSCCONFIG} --cflags      | sed s./\$..g | sed s/artsc/arts/g `"
+
+dnl ...concatenate and eliminate duplicate entries...
+eval "ac_arts_includes=\"`echo -en ${ac_arts_inc1}\\\n${ac_arts_inc2}\\\n${ac_arts_inc3}\\\n${ac_arts_inc4} | sed s.//./.g  | sort | uniq`\""
+eval "ARTS_INCLUDES=\"`for dir in \`echo $ac_arts_includes\`; do { echo -n $dir " "; }; done `\""
 AC_MSG_RESULT(${ARTS_INCLUDES})
 AC_SUBST(ARTS_INCLUDES)
+
+dnl ...and check that the aRts headers are found from them
+arts_check_saved_cppflags="$CPPFLAGS"
+CPPFLAGS="$ARTS_INCLUDES $CPPFLAGS"
+AC_CHECK_HEADERS( artsflow.idl artsc.h, [arts_headers_found=1], [
+  AC_MSG_ERROR( ARTS headers not found - can't compile. )
+])
+CPPFLAGS="$arts_check_saved_cppflags";
+
 
 dnl Checks for libraries.
 

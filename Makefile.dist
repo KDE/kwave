@@ -97,9 +97,9 @@ logged:
 		cd $$dir; \
 		libtoolize --force --copy --automake ; \
 		aclocal ; \
-		autoheader ; \
+		autoheader${AUTOCONF_SUFFIX} ; \
 		automake --foreign --add-missing --copy --include-deps ; \
-		autoconf ; \
+		autoconf${AUTOCONF_SUFFIX} ; \
 		cd - ; \
 	}; done;
 	QTDIR=`cat ./QT-DIR` KDEDIR=${KDEDIR} \

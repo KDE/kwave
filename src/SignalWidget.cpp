@@ -368,7 +368,7 @@ void SignalWidget::connectSignal ()
   connect (select,SIGNAL(selection(int,int)),this,
   	   SLOT(estimateRange( int,int)));
 
-  signalmanage->info ();
+  signalmanage->refresh();
 }
 //****************************************************************************
 int SignalWidget::getSignalCount ()
@@ -602,6 +602,7 @@ void SignalWidget::mouseReleaseEvent( QMouseEvent *e)
       down=false;
     }
 }
+
 //****************************************************************************
 void SignalWidget::mouseMoveEvent( QMouseEvent *e )
 {
@@ -641,30 +642,40 @@ void SignalWidget::mouseMoveEvent( QMouseEvent *e )
     if (checkPosition (e->pos().x())) setCursor (sizeHorCursor);
     else  setCursor (arrowCursor);
 }
+
 //****************************************************************************
-void SignalWidget::drawOverviewSignal (int channel,int begin, int height)
+void SignalWidget::drawOverviewSignal (int channel,int middle, int height,
+	int first, int last)
 {
-  debug("SignalWidget::drawOverviewSignal(channel=%d,begin=%d,height=%d)",
-    channel, begin, height); // ###
-  int step,max=0,min=0;
-  int div=65536;
-  div=(int)((double)div/zoomy);
+    debug("SignalWidget::drawOverviewSignal(channel=%d,middle=%d,height=%d,"\
+	"first=%d, last=%d",
+	channel, middle, height,first,last); // ###
 
-  for (int i=0;i<width;i++)
-    {
-      step=((int) (((double)i)*zoom))+offset;
+    int step,max=0,min=0;
 
-      signalmanage->getMaxMin (channel,max,min,step,(int) zoom+2);
+    int div=65536;
+    div=(int)((double)div/zoomy); // == 65536/zoomy
+//  int scale_y = (int)(height*zoomy);
 
-      max=(max/256)*height/div;
-      min=(min/256)*height/div;
-      p.drawLine (i,begin+max,i,begin+min);
+    for (int i=0;i<width;i++) {
+	step=((int) (((double)i)*zoom))+offset;
+
+	signalmanage->getMaxMin (channel,max,min,step,(int) zoom+2);
+
+	max=(max/256)*height/div;
+	min=(min/256)*height/div;
+
+//      max=((max>>16)*scale_y) >> 8;
+//      min=((min>>16)*scale_y) >> 8;
+
+	p.drawLine (i,middle+max,i,middle+min);
     }
 }
+
 //****************************************************************************
 void SignalWidget::drawInterpolatedSignal (int channel,int begin, int height)
 {
-  debug("SignalWidget::drawOvdrawOverviewSignalerviewSignal(channel=%d,begin=%d,height=%d)",
+  debug("SignalWidget::drawInterpolatedSignal(channel=%d,begin=%d,height=%d)",
     channel, begin, height); // ###
   double f;
   int 	j,lx,x,x1,x2;
@@ -747,7 +758,7 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 		  if (zoom<=1)
 		    drawInterpolatedSignal(i,begin,chanheight);
 		  else if (zoom>1)
-		    drawOverviewSignal (i,begin,chanheight);
+		    drawOverviewSignal (i,begin,chanheight,0,zoom*width);
 
 		  p.setPen (green);
 		  p.drawLine (0,begin,width,begin);
@@ -855,7 +866,7 @@ void SignalWidget::paintEvent  (QPaintEvent *event)
 //below are the methods of class SignalWidget that deal with labels
 
 #define	AUTOKORRWIN 320 
-//windowsize for autocorellation, propably a little bit to short for
+//windowsize for autocorellation, propably a little bit too short for
 //lower frequencies, but this will get configurable somewhere in another
 //dimension or for those of you who can't zap to other dimensions, it will
 //be done in future

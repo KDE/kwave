@@ -78,8 +78,21 @@ class SignalWidget : public QWidget
  void	mouseReleaseEvent	(QMouseEvent *);  
  void	mouseMoveEvent		(QMouseEvent *);  
  void	paintEvent	        (QPaintEvent *);
+
+    /**
+     * Draws the signal as an overview with multiple samples per
+     * pixel.
+     * @param channel the index of the channel [0..channels-1]
+     * @param middle the y position of the zero line in the drawing
+     *               area [pixels]
+     * @param height the height of the drawing are [pixels]
+     * @param first the index of the first sample
+     * @param last the index of the last sample
+     */
+    void drawOverviewSignal(int channel, int middle, int height,
+	int first, int last);
+ 	
  void	drawInterpolatedSignal	(int,int,int);
- void	drawOverviewSignal	(int,int,int);
 
  void	calcTimeInfo	();
  void   loadLabel       ();

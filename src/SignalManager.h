@@ -23,7 +23,7 @@ class SignalManager
   	~SignalManager	();
 
  int    doCommand       (const char *);
- void   info ();
+ void   refresh();
 
  int    setSoundParams  (int audio,int bitspersample,int channels,int rate,int bufbase);
 

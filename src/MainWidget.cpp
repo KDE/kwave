@@ -93,15 +93,15 @@ MainWidget::MainWidget (QWidget *parent,MenuManager *manage,KStatusBar *status) 
 			 signalview,SLOT(setOp(int)));
 
   buttons->addStretch	();
-  this->connect	(playbutton=buttons->addButton	("Play"),SIGNAL(pressed()),
+  this->connect	(playbutton=buttons->addButton	(i18n("Play")),SIGNAL(pressed()),
 		 this,SLOT(play()));
   playbutton->setAccel (Key_Space);
 
-  this->connect	(loopbutton=buttons->addButton	("&Loop"),SIGNAL(pressed()),
+  this->connect	(loopbutton=buttons->addButton	(i18n("&Loop")),SIGNAL(pressed()),
 		 this,SLOT(loop()));
   loopbutton->setAccel (Key_L);
   buttons->addStretch		();
-  this->connect	( zoombutton=buttons->addButton ("&Zoom"),SIGNAL(pressed()),
+  this->connect	( zoombutton=buttons->addButton (i18n("&Zoom")),SIGNAL(pressed()),
 		  signalview,SLOT(zoomRange()));
   zoombutton->setAccel (Key_Z);
   this->connect	( plusbutton=buttons->addButton	  ("+"),SIGNAL(pressed()),
@@ -123,17 +123,6 @@ void MainWidget::updateMenu ()
   if (! manage) return;
 
   bool have_signal = (numsignals != 0);
-
-  /*
-  manage->setItemEnabled("ID_FILE_SAVE", have_signal);
-  manage->setItemEnabled("ID_FILE_SAVE_CURRENT", have_signal);
-  manage->setItemEnabled("ID_FILE_REVERT", have_signal);
-  manage->setItemEnabled("ID_VIEW", have_signal);
-  manage->setItemEnabled("ID_LABELS", have_signal);
-  manage->setItemEnabled("ID_FX", have_signal);
-  manage->setItemEnabled("ID_CALCULATE", have_signal);
-  */
-
   manage->setItemEnabled("@SIGNAL", have_signal);
 
 }
@@ -175,14 +164,14 @@ void MainWidget::setSignal  (SignalManager *signal)
 void MainWidget::setRateInfo (int rate)
 {
   char buf[64];
-  sprintf (buf,"Rate : %d.%d kHz",rate/1000,(rate%1000)/100);
+  sprintf (buf,i18n("Rate : %d.%d kHz"),rate/1000,(rate%1000)/100);
   status->changeItem (buf,2);
 }
 //*****************************************************************************
 void MainWidget::setLengthInfo (int len)
 {
   char buf[64];
-  sprintf (buf,"Samples :%d",len);
+  sprintf (buf,i18n("Samples :%d"),len);
   status->changeItem (buf,3);
 }
 //*****************************************************************************
@@ -255,8 +244,8 @@ int MainWidget::doCommand (const char *str)
 void MainWidget::loop()
 {
   emit setOperation	(LOOP);
-  playbutton->setText	("Stop");
-  loopbutton->setText   ("Halt");  // halt feature by gerhard Zint
+  playbutton->setText	(i18n("Stop"));
+  loopbutton->setText   (i18n("Halt"));  // halt feature by gerhard Zint
   this->disconnect      (playbutton,SIGNAL(pressed()),this,SLOT(play()));
   this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
   this->connect         (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
@@ -266,8 +255,8 @@ void MainWidget::loop()
 void MainWidget::play ()
 {
   emit setOperation 	(PLAY);
-  playbutton->setText	("Stop");
-  loopbutton->setText   ("Halt");  // halt feature by gerhard Zint
+  playbutton->setText	(i18n("Stop"));
+  loopbutton->setText   (i18n("Halt"));  // halt feature by gerhard Zint
   this->disconnect      (playbutton,SIGNAL(pressed()),this,SLOT(play()));
   this->disconnect      (loopbutton,SIGNAL(pressed()),this,SLOT(loop()));
   this->connect         (playbutton,SIGNAL(pressed()),this,SLOT(stop()));
@@ -276,8 +265,8 @@ void MainWidget::play ()
 //*****************************************************************************
 void MainWidget::halt   ()
 {
-  playbutton->setText ("Play");
-  loopbutton->setText ("&Loop");
+  playbutton->setText (i18n("Play"));
+  loopbutton->setText (i18n("&Loop"));
   loopbutton->setAccel (Key_L); //seems to neccessary
 
   emit setOperation (PHALT);
@@ -290,8 +279,8 @@ void MainWidget::halt   ()
 //*****************************************************************************
 void MainWidget::stop ()
 {
-  playbutton->setText ("Play");
-  loopbutton->setText ("&Loop");
+  playbutton->setText (i18n("Play"));
+  loopbutton->setText (i18n("&Loop"));
   loopbutton->setAccel (Key_L); //seems to be neccessary
 
   emit setOperation (PSTOP);
@@ -304,13 +293,13 @@ void MainWidget::stop ()
 //*****************************************************************************
 void MainWidget::setSelectedTimeInfo ( int ms)
 {
-  QString buf="selected :"+ mstotime (ms);
+  QString buf=i18n("selected :")+ mstotime (ms);
   status->changeItem (buf.data(),4);
 }
 //*****************************************************************************
 void MainWidget::setTimeInfo ( int ms)
 {
- QString buf="Length :"+ mstotime (ms);
+ QString buf=i18n("Length :")+ mstotime (ms);
  status->changeItem (buf.data(),1);
 }
 //*****************************************************************************

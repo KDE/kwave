@@ -70,6 +70,7 @@ int SignalManager::getBitsPerSample()
     }
   return max_bps;
 }
+
 //**********************************************************
 void SignalManager::deleteChannel (int channel)
 {
@@ -84,8 +85,9 @@ void SignalManager::deleteChannel (int channel)
   channels--;              //decrease number of channels...
 
   globals.port->putMessage ("refreshchannels()");
-  info ();                 //and let everybody know about it
+  refresh ();              //and let everybody know about it
 }
+
 //**********************************************************
 void SignalManager::addChannel ()
   //adds a channel with silence
@@ -93,15 +95,16 @@ void SignalManager::addChannel ()
   signal[channels]=new Signal (getLength(),rate);
   selected[channels]=true; //enable channel
   channels++;              //increase number of channels...
-  info ();                 //and let everybody know about it
+  refresh ();              //and let everybody know about it
 }
+
 //**********************************************************
 void SignalManager::appendChannel (Signal *newsig)
 {
   signal[channels]=newsig;
   selected[channels]=true; //enable channel
   channels++;
-  info ();
+  refresh ();
 }
 
 //**********************************************************
@@ -150,7 +153,7 @@ int SignalManager::doCommand (const char *str)
 	globals.clipboard=new ClipBoard ();
 	if (globals.clipboard)
 	  for (int i=0;i<channels;i++) globals.clipboard->appendChannel (signal[i]->cutRange());
-	info ();
+	refresh ();
       }
     else
     if (matchCommand(str,"crop"))
@@ -159,7 +162,7 @@ int SignalManager::doCommand (const char *str)
 	globals.clipboard=new ClipBoard ();
 	if (globals.clipboard)
 	  for (int i=0;i<channels;i++) (signal[i]->cropRange());
-	info ();
+	refresh ();
       }
     else
       if (matchCommand(str,"deletechannel"))
@@ -172,7 +175,7 @@ int SignalManager::doCommand (const char *str)
       if (matchCommand(str,"delete"))
 	{
 	  for (int i=0;i<channels;i++) signal[i]->deleteRange();
-	  info ();
+	  refresh ();
 	}
       else
 	if (matchCommand(str,"paste"))
@@ -193,7 +196,7 @@ int SignalManager::doCommand (const char *str)
 			sourcechan %= clipchan;
 		      }
 		  }
-		info ();
+		refresh ();
 	      }
 	  }
 	if (matchCommand(str,"mixpaste"))
@@ -214,7 +217,7 @@ int SignalManager::doCommand (const char *str)
 			sourcechan %= clipchan;
 		      }
 		  }
-		info ();
+		refresh ();
 	      }
 	  }
 	else
@@ -296,7 +299,7 @@ bool SignalManager::promoteCommand (const char *command)
   else return true;
 }
 //**********************************************************
-void SignalManager::info ()
+void SignalManager::refresh ()
 {
   globals.port->putMessage ("refreshchannels()");
   globals.port->putMessage ("refresh()");
@@ -366,7 +369,7 @@ void SignalManager::setRange (int l,int r )
       if (signal[i])
 	signal[i]->setMarkers (l,r);
       else
-	debug("WARNING: channel[%d] is null", i);
+	warning("WARNING: channel[%d] is null", i);
     }
   lmarker=signal[0]->getLMarker();
   rmarker=signal[0]->getRMarker();
@@ -534,22 +537,23 @@ void SignalManager::loadWav ()
 			  break;
 			default:
 			  KMsgBox::message
-			    (parent,"Info","Sorry only 8/16/24 Bits per Sample are supported !",2);
+			    (parent,"Info",
+			    i18n("Sorry only 8/16/24 Bits per Sample are supported !"),2);
 			  break;	
 			}
 		      channels=header.channels;
 
 		    }
 		}
-	      else KMsgBox::message (parent,"Info","File must be uncompressed (Mode 1) !",2);
+	      else KMsgBox::message (parent,"Info",i18n("File must be uncompressed (Mode 1) !"),2);
 	    }
-	  else  KMsgBox::message (parent,"Info","File is no RIFF Wave File !",2);
+	  else  KMsgBox::message (parent,"Info",i18n("File is no RIFF Wave File !"),2);
 
 	}
-      else  KMsgBox::message (parent,"Info","File does not contain enough data !",2);
+      else  KMsgBox::message (parent,"Info",i18n("File does not contain enough data !"),2);
       fclose(sigfile);
     }
-  else  KMsgBox::message (parent,"Info","File does not exist !",2);
+  else  KMsgBox::message (parent,"Info",i18n("File does not exist !"),2);
 }
 //**********************************************************
 // the following routines are for loading and saving in dataformats
@@ -597,10 +601,10 @@ void SignalManager::writeWavChunk(FILE *sigout,int begin,int length,int bits)
 
   // try to allocate memory for the save buffer
   // if failed, try again with the half buffer size as long
-  // as "0" is not reached (then we are really out of memory)
+  // as <1kB is not reached (then we are really out of memory)
   while (savebuffer==0)
     {
-      if (bufsize<=1024)
+      if (bufsize<1024)
 	{
 	  debug("SignalManager::writeWavSignal:not enough memory for buffer");
 	  return;
@@ -739,7 +743,7 @@ void  SignalManager::save (const char *filename,int bits,bool selection)
 	  break;
 	default:
 	  KMsgBox::message(parent,"Info",
-	    "Sorry only 8/16/24 Bits per Sample are supported !",2);
+	    i18n("Sorry only 8/16/24 Bits per Sample are supported !"),2);
 	  break;
 	}
 
@@ -766,10 +770,10 @@ void SignalManager::loadWavChunk(FILE *sigfile,int length,int channels,int bits)
 
   // try to allocate memory for the load buffer
   // if failed, try again with the half buffer size as long
-  // as "0" is not reached (then we are really out of memory)
+  // as <1kB is not reached (then we are really out of memory)
   while (loadbuffer==0)
     {
-      if (bufsize<=1024)
+      if (bufsize<1024)
 	{
 	  debug("SignalManager::loadWavSignal:not enough memory for buffer");
 	  return;
@@ -1144,42 +1148,3 @@ void SignalManager::play16 (bool loop)
     }
 }
 //**********************************************************
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

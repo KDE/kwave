@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MenuRoot.cpp  -  description
+                          MenuRoot.cpp  -  root node of a menu structure
                              -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -73,7 +73,7 @@ void MenuRoot::actionChildEnableChanged(int id, bool enable)
 {
     // do nothing, the child nodes of the toplevel menu have already
     // been enabled/disabled
-    // menu_bar.setItemEnabled(id, enable);
+    // we don't want to -> "menu_bar.setItemEnabled(id, enable);" !!!
 }
 
 /* end of MenuRoot.cpp */

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MenuGroup.h  -  description
+                          MenuGroup.h  -  controls a group of menu nodes
                              -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -53,7 +53,7 @@ public: // Public methods
     virtual void setEnabled(bool enable);
 
     /**
-     * Resets all checkmarks of the group members except from one member
+     * Resets all checkmarks of the group members except the one member
      * that will get the new selected one. If no new member id is given
      * no member will get selected. This method is useful for making
      * exclusive selections of menu items.

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MenuNode.h  -  description
+                          MenuNode.h  -  generic menu node type
                              -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher
@@ -163,9 +163,7 @@ public:
     virtual bool isChecked();
 
     /**
-     * Sets or removes the checkmark from a menu node. If the specified
-     * item is not a member of the current menu, this method will recursively
-     * call all of it's child nodes.
+     * Sets or removes the checkmark from a menu node.
      * @param id the item's menu id
      * @param check true to set the mark, false to remove
      */

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          MenuItem.h  -  description
+                          MenuItem.h  -  selectable and checkable menu item
                              -------------------
     begin                : Mon Jan 10 2000
     copyright            : (C) 2000 by Thomas Eschenbacher

@@ -40,9 +40,6 @@ KDEBINDIRS      := $(KDEBINDIRS)":/usr/kde/*/bin"
 KDEBINDIRS      := $(KDEBINDIRS)":/usr/bin"
 
 KDEDIR=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --prefix | sed s./$$..g)
-KDEVERSION=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --version | grep "KDE:" | \
-	cut -d ":" -f 2 | sed s-^\ --g)
-KDEMAJOR=$(shell echo "${KDEVERSION}" | cut -d "." -f 1)
 
 KDEQTVER=$(shell PATH=${KDEBINDIRS}:${PATH} kde-config --version | grep "Qt:" | \
 	cut -d ":" -f 2 | sed s-^\ --g)
@@ -70,7 +67,7 @@ logged:
 	    echo -n "  calling 'kde-config --prefix' currently returns: "; \
 	    kde-config || true; \
 	    echo "";\
-	    echo "- you have at least KDE version 2.2.1";\
+	    echo "- you have at least KDE version 3.1.x";\
 	    echo "";\
 	    echo "----------------------------------------";\
 	    echo "";\
@@ -87,9 +84,6 @@ logged:
 	@ echo "" ; echo "your system uses:"
 	@ PATH=${KDEBINDIRS}:${PATH} kde-config --version
 	@ echo ""
-	@ echo ">>> you are building for KDE-${KDEMAJOR} <<<"
-	@ echo ""
-	@ echo ${KDEMAJOR} > ./KDE-VERSION
 	@ rm -f ./QT-DIR;
 	@ echo "${QTDIR}" > ./QT-DIR
 	@ echo "QTDIR=${QTDIR}"

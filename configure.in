@@ -111,24 +111,10 @@ AC_DEFUN([AC_CHECK_WITH_INSURE],
  AC_MSG_RESULT($ac_use_insure);
 ])
 
-KDEMAJOR=`$CAT ./KDE-VERSION`
-AC_MSG_CHECKING(KDE/Qt version)
-if test "$KDEMAJOR" = "2"; then {
-    AC_MSG_ERROR([KDE 2.x / Qt 2.1 - this does no longer work since v0.6.5])
-    KDE_USE_QT(2.1)
-    KDE_VERSION_SPECIFIC_LIBS="-lartsc -lartsflow -lartsflow_idl -lmcop \
-                               -lkfile -lkdeui -lkdecore -lqt"
-} else {
-    if test "$KDEMAJOR" = "3"; then {
-        AC_MSG_RESULT([OK, (KDE 3.x / Qt 3.x)])
-        KDE_USE_QT(3.0.1)
-        KDE_VERSION_SPECIFIC_LIBS="-lartsc -lartsflow_idl -lartsflow -lmcop \
+dnl specify which KDE version we build for
+KDE_USE_QT(3.0.1)
+KDE_VERSION_SPECIFIC_LIBS="-lartsc -lartsflow_idl -lartsflow -lmcop \
                                    -lkio -lkdeui -lkdecore -lqt-mt"
-    } else {
-        AC_MSG_RESULT(unknown ?)
-        AC_MSG_ERROR([ unable to determine KDE/Qt versions ])
-    } fi
-} fi
 AC_SUBST(KDE_VERSION_SPECIFIC_LIBS)
 
 AC_PATH_KDE
@@ -196,8 +182,10 @@ AC_CHECK_HEADER(sys/times.h, AC_DEFINE(HAVE_SYS_TIMES_H,1,
 KDE_CHECK_HEADER(kdeversion.h, AC_DEFINE(HAVE_KDEVERSION_H,1,
     [we should have a file from which we can guess the KDE version]))
 
-AC_CHECK_HEADER(sys/soundcard.h, AC_DEFINE(HAVE_SYS_SOUNDCARD_H,1,
-    [needed for OSS playback and recording]))
+AC_CHECK_HEADER(sys/soundcard.h, [
+    AC_DEFINE(HAVE_SYS_SOUNDCARD_H,1,[needed for OSS playback and recording])
+    AC_DEFINE(HAVE_OSS_SUPPORT,1,[support playback/recording via OSS])
+    ])
 
 dnl rtti/type info would be fine for debugging
 AC_CHECK_HEADERS(typeinfo)
@@ -475,7 +463,11 @@ KDE_CHECK_HEADERS( artsc.h, [arts_headers_found=1], [
   AC_MSG_ERROR( ARTS headers not found - can't compile. )
 ])
 
-KDE_CHECK_HEADERS( artsmodules.h stdsynthmodule.h, [kdemultimedia_headers_found=1], [
+KDE_CHECK_HEADERS( artsmodules.h stdsynthmodule.h,
+  [
+  kdemultimedia_headers_found=1
+  AC_DEFINE(HAVE_ARTS_SUPPORT,1,[support playback via aRts])
+  ], [
   AC_MSG_ERROR( kdemultimedia-devel package is missing? )
 ])
 

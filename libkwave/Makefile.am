@@ -23,6 +23,7 @@ INCLUDES+=-I ../libaudiofile
 
 BUILTSOURCES=\
  KwaveDrag.moc.cpp\
+ KwaveFilterPlugin.moc.cpp\
  KwavePlugin.moc.cpp\
  MultiTrackReader.moc.cpp\
  MultiTrackWriter.moc.cpp\
@@ -66,6 +67,7 @@ libkwave_la_SOURCES=\
  gsl_fft.cpp\
  Interpolation.cpp\
  KwaveDrag.cpp\
+ KwaveFilterPlugin.cpp\
  KwavePlugin.cpp\
  Label.cpp\
  LabelType.cpp\

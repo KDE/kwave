@@ -120,7 +120,9 @@ logged:
 		cd - ; \
 	}; done;
 	QTDIR=`cat ./QT-DIR` KDEDIR=${KDEDIR} \
-	./configure --enable-debug=no ${CONFIGURE_OPTS} \
+	./configure --enable-debug=no --enable-final=yes \
+		--enable-static=no --enable-dynamic=yes \
+		${CONFIGURE_OPTS} \
 		CXXFLAGS="${RPM_OPT_FLAGS}" \
 		CFLAGS="${RPM_OPT_FLAGS}"
 	- @ ${MAKE} clean-generic 2>/dev/null 1>/dev/null

@@ -1,5 +1,19 @@
 this Development Version
 
+(19991219) [by Thomas.Eschenbacher@gmx.de]
+
+remade my modifications of some Makefiles and of the configure script that
+were lost during Martin's changes
+
+changed shortcut for mixpaste from CTRL-SHIFT-X to CTRL-SHIFT-C
+
+added the "crop" command to the edit menu
+
+made the "mixpaste" command work
+
+corrected the call of "delete", now really deletes instead of cutting
+and copying the selection to the clipboard (saves clipboard content)
+
 (19991218) [by mwilz@ernie.mi.uni-koeln.de]
 
 changed filenames to reflect class names

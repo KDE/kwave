@@ -137,6 +137,15 @@ int SignalManager::doCommand (const char *str)
 	info ();
       }
     else
+    if (matchCommand(str,"crop"))
+      {
+	if (globals.clipboard) delete globals.clipboard;
+	globals.clipboard=new ClipBoard ();
+	if (globals.clipboard)
+	  for (int i=0;i<channels;i++) (signal[i]->cropRange());
+	info ();
+      }
+    else
       if (matchCommand(str,"deletechannel"))
 	{
 	  Parser parser (str);
@@ -146,7 +155,7 @@ int SignalManager::doCommand (const char *str)
       else
       if (matchCommand(str,"delete"))
 	{
-	  for (int i=0;i<channels;i++) signal[i]->cutRange();
+	  for (int i=0;i<channels;i++) signal[i]->deleteRange();
 	  info ();
 	}
       else
@@ -162,9 +171,31 @@ int SignalManager::doCommand (const char *str)
 
 		    for (int i=0;i<channels;i++)
 		      {
-			signal[i]->insertPaste (toinsert->getSignal (sourcechan));
-			sourcechan++;
-			if (sourcechan<clipchan) sourcechan=0;
+			signal[i]->insertPaste(
+			  toinsert->getSignal(sourcechan++)
+			);
+			sourcechan %= clipchan;
+		      }
+		  }
+		info ();
+	      }
+	  }
+	if (matchCommand(str,"mixpaste"))
+	  {
+	    if (globals.clipboard)
+	      {
+		SignalManager *toinsert=globals.clipboard->getSignal();
+		if (toinsert)
+		  {
+		    int clipchan=toinsert->getChannelCount();
+		    int sourcechan=0;
+
+		    for (int i=0;i<channels;i++)
+		      {
+			signal[i]->mixPaste(
+			  toinsert->getSignal(sourcechan++)
+			);
+			sourcechan %= clipchan;
 		      }
 		  }
 		info ();
@@ -944,8 +975,8 @@ void SignalManager::play8 (bool loop)
 		      for (cnt=0;cnt<bufsize;cnt++)
 			{
 			  if (pointer>=last) pointer=lmarker;
-			  act=signal[0]->getSingleSample(pointer);
-			  for (int i=1;i<channels;i++)
+			  act=0;
+			  for (int i=0;i<channels;i++)
 			    act+=signal[i]->getSingleSample(pointer);
 			  act/=channels;
 			  act+=1<<23;
@@ -964,8 +995,8 @@ void SignalManager::play8 (bool loop)
 		      for (cnt=0;cnt<bufsize;cnt++)
 			{
 
-			  act=signal[0]->getSingleSample(pointer);
-			  for (int i=1;i<channels;i++)
+			  act=0;
+			  for (int i=0;i<channels;i++)
 			    act+=signal[i]->getSingleSample(pointer);
 
 			  act/=channels;
@@ -980,8 +1011,8 @@ void SignalManager::play8 (bool loop)
 		    {
 		      for (cnt=0;cnt<last-pointer;cnt++)
 			{
-			  act=signal[0]->getSingleSample(pointer);
-			  for (int i=1;i<channels;i++)
+			  act=0;
+			  for (int i=0;i<channels;i++)
 			    act+=signal[i]->getSingleSample(pointer);
 
 			  act/=channels;
@@ -1034,8 +1065,8 @@ void SignalManager::play16 (bool loop)
 		    {
 		      if (pointer>=last) pointer=lmarker;
 
-		      act=signal[0]->getSingleSample(pointer);
-		      for (int i=1;i<channels;i++)
+		      act=0;
+		      for (int i=0;i<channels;i++)
 			act+=signal[i]->getSingleSample(pointer);
 
 		      act/=channels;
@@ -1053,8 +1084,8 @@ void SignalManager::play16 (bool loop)
 		{
 		  for (cnt=0;cnt<bufsize;)
 		    {
-		      act=signal[0]->getSingleSample(pointer);
-		      for (int i=1;i<channels;i++)
+		      act=0;
+		      for (int i=0;i<channels;i++)
 			act+=signal[i]->getSingleSample(pointer);
 
 		      act/=channels;
@@ -1065,12 +1096,13 @@ void SignalManager::play16 (bool loop)
 		    }      
 		  write (audio,buffer,bufsize);
 		}
-	      if (msg[stopprocess]==false)  // playing not aborted and still something left, so play the rest...
+	      // playing not aborted and still something left, so play the rest...
+	      if (msg[stopprocess]==false)  
 		{
 		  for (cnt=0;cnt<last-pointer;cnt++)
 		    {
-		      act=signal[0]->getSingleSample(pointer);
-		      for (int i=1;i<channels;i++)
+		      act=0;
+		      for (int i=0;i<channels;i++)
 			act+=signal[i]->getSingleSample(pointer);
 
 		      act/=channels;
@@ -1080,7 +1112,7 @@ void SignalManager::play16 (bool loop)
 		      pointer++;
 		    }      
 
-		  for (;cnt<bufsize;)
+		  while (cnt<bufsize)
 		    {
 		      buffer[cnt++]=0;
 		      buffer[cnt++]=0;

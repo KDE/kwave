@@ -118,12 +118,12 @@ ICONS = \
 dist_pkgdata_DATA = $(ICONS)
 
 # the library search path
-kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
+kwave_LDFLAGS = -L../libkwave -L../libgui \
 	`$(ARTSCCONFIG) --libs` @all_libraries@ -export-dynamic -dy
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt \
+kwave_LDADD   =  -lkwavegui -lkwave \
 	@KDE_VERSION_SPECIFIC_LIBS@ \
 	-lX11 -lXext -lpthread -ldl -lm
 

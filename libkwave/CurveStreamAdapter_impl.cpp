@@ -23,7 +23,7 @@ CurveStreamAdapter_impl::CurveStreamAdapter_impl(Curve &curve,
     :m_position(0), m_length(length),
      m_interpolation(curve.interpolation())
 {
-};
+}
 
 /***************************************************************************/
 void CurveStreamAdapter_impl::calculateBlock(unsigned long samples)
@@ -40,12 +40,13 @@ void CurveStreamAdapter_impl::calculateBlock(unsigned long samples)
 	output[offset] = y;
 	m_position++;
     }
-};
+}
 
 /***************************************************************************/
-void CurveStreamAdapter_impl::streamInit() {
+void CurveStreamAdapter_impl::streamInit()
+{
     m_position = 0;
-};
+}
 
 /***************************************************************************/
 /***************************************************************************/

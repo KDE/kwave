@@ -19,7 +19,7 @@
 #include <qpainter.h>
 
 #include "mt/MutexGuard.h"
-#include "libkwave/SampleLock.h"
+#include "libkwave/SampleReader.h"
 #include "libkwave/Track.h"
 #include "libgui/TrackPixmap.h"
 
@@ -241,52 +241,71 @@ bool TrackPixmap::validateBuffer()
 	if (first >= buflen) return false; // buffer is already ok
 	
 	// find the last invalid index
-	for (last=first; (last < buflen) && !m_valid.testBit(last);
-		++last);
-	if (last != first) --last;
+	for (last=first; (last < buflen) && !m_valid[last]; ++last);
 	
-	unsigned int offset;
-	unsigned int length;
+	if ((last < buflen) && m_valid[last]) --last;
+	
+	// fill our array(s) with fresh sample data
 	if (m_minmax_mode) {
-	    // one index == one pixel
-	    offset = m_offset + pixels2samples(first);
-	    length = pixels2samples(last-first+1);
-	} else {
-	    // one index == one sample
-	    offset = m_offset + first;
-	    length = last-first+1;
-	}
-	
-	{   // lock the range that we need for shared read-only access
-	    SampleLock lock(m_track, offset, length,
-	                SampleLock::ReadShared);
+	    // indices are in pixels, convert to samples
+	    unsigned int s1 = m_offset + pixels2samples(first);
+	    unsigned int s2 = m_offset + pixels2samples(last) - 1;
 
-	    // fill our array(s) with fresh sample data
-	    // ###
-//	    debug("TrackPixmap::validateBuffer(): locked at %u, %u samples",
-//	    	offset, length);
-	    	
-	    if (m_minmax_mode) {
-	    } else {
-	    }
+	    // open a reader for the whole modified range	
+	    SampleReader *in = m_track.openSampleReader(s1, s2);
+	    ASSERT(in);
+	    if (!in) break;
 	
-	/* ### */
-	    unsigned int pos;
-	    for (pos = 0; pos < m_valid.size(); pos++) {
-		double v = (1 << 23) * sin((double)pos*2.0*3.1415926535 /
-			(double)m_valid.size());
-		if (m_minmax_mode) {
-		    m_min_buffer[pos] = (sample_t)(+v*0.99);
-		    m_max_buffer[pos] = (sample_t)(+v*0.50);
+	    // allocate a buffer for one more sample (pixels2samples may
+	    // vary by +/-1 !
+	    QArray<sample_t> buffer(pixels2samples(1) + 1);
+	    sample_t min;
+	    sample_t max;
+	
+	    while (first < last) {
+		// NOTE: s2 is exclusive!
+		s2 = m_offset + pixels2samples(first+1);
+		
+		// get min/max for interval [s1...s2[
+		unsigned int count = in->read(buffer, 0, s2-s1);
+		if (count) {
+		    unsigned int pos;
+		    min = SAMPLE_MAX;
+		    max = SAMPLE_MIN;
+		    for (pos=0; pos < count; pos++) {
+			register sample_t val = buffer[pos];
+			if (val < min) min = val;
+			if (val > max) max = val;
+		    }
 		} else {
-		    m_sample_buffer[pos] = (sample_t)v;
+		    // no data available, set zeroes
+		    min = max = 0;
 		}
+		
+		m_min_buffer[first] = min;
+		m_max_buffer[first] = max;
+		m_valid.setBit(first);
+		
+		// advance to the next position
+		++first;
+		s1 = s2;
 	    }
-	/* ### */
+
+	    delete in;
+	} else {
+	    // each index is one sample
+	    SampleReader *in = m_track.openSampleReader(first, last);
+	    ASSERT(in);
+	    if (!in) break;
 	
-	    // make the buffer valid
-	    for (;first<=last;m_valid.setBit(first++));
+	    // ###
+	
+	    delete in;
 	}
+	
+	// make sure the buffer content is valid and fill it with
+	// zeroes if necessary
+	ASSERT(first >= last);
 
         ++last;
     }
@@ -339,6 +358,7 @@ void TrackPixmap::drawOverview(int middle, int height, int first, int last)
     QPainter p(this);
     p.setPen(m_color_sample);
     for (int i = first; i <= last; i++) {
+	ASSERT(m_valid[i]);
 	max = (int)(m_max_buffer[i] * scale_y);
 	min = (int)(m_min_buffer[i] * scale_y);
 	p.drawLine(i, middle - max, i, middle - min);

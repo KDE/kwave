@@ -153,15 +153,15 @@ void Stripe::overwrite(unsigned int offset, const QArray<sample_t> &samples,
 }
 
 //***************************************************************************
-unsigned int Stripe::read(unsigned int offset, QArray<sample_t> &samples,
-	unsigned int dstoff, unsigned int dstlen)
+unsigned int Stripe::read(QArray<sample_t> &buffer, unsigned int dstoff,
+	unsigned int offset, unsigned int length)
 {
     unsigned int count = 0;
 
     MutexGuard lock(m_lock_samples);
-    unsigned int pos = offset;
-    while (dstlen--) {
-	samples[pos++] = m_samples[dstoff++];
+    while (length--) {
+//	debug("sample[%u] = %d", offset, m_samples[offset]); // ###
+	buffer[dstoff++] = m_samples[offset++];
 	count++;
     }
 

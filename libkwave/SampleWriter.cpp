@@ -89,9 +89,9 @@ SampleWriter &SampleWriter::flush()
 		unsigned int len = s->length();
 		if (!len) continue; // skip zero-length tracks
 		
-		if (m_position > st+len-1) break; // end of range reached
+		if (m_position >= st+len) break; // end of range reached
 		
-		if ((m_position >= st) && (m_position <= st+len-1)) {
+		if (m_position >= st) {
 		    unsigned int offset = m_position - st;
 		    unsigned int length = len - offset;
 		    if (length > m_buffer_used) length = m_buffer_used;

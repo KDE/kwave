@@ -44,9 +44,37 @@ public:
      * @see InsertMode
      */
     SampleReader(Track &track, QList<Stripe> &stripes,
-	SampleLock *lock, unsigned int left, unsigned int right) {};
+	SampleLock *lock, unsigned int left, unsigned int right);
 
+    /** Destructor */
     virtual ~SampleReader();
+
+    /**
+     * Reads samples into a buffer.
+     * @param buffer the destination buffer to receive the samples
+     * @param dstoff offset within the destination buffer
+     * @param length number of samples to read
+     * @return number of read samples
+     */
+    unsigned int read(QArray<sample_t> &buffer, unsigned int dstoff,
+	unsigned int length);
+
+private:
+
+    /** the track to which we belong */
+    Track &m_track;
+
+    /** list of stripes with sample data */
+    QList<Stripe> m_stripes;
+
+    /** lock for the needed range of samples */
+    SampleLock* m_lock;
+
+    /** current sample position */
+    unsigned int m_position;
+
+    /** last sample index */
+    unsigned int m_last;
 
 };
 

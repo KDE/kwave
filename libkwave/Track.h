@@ -18,7 +18,7 @@
 #ifndef _TRACK_H_
 #define _TRACK_H_
 
-#include <limits.h>  // for ULONG_MAX
+#include <limits.h>  // for UINT_MAX
 #include <qobject.h>
 #include <qlist.h>
 
@@ -78,12 +78,12 @@ public:
 
     /**
      * Opens a stream for reading samples. If the the last position
-     * is omitted, the value MAXLONG will be used.
+     * is omitted, the value UINT_MAX will be used.
      * @param left first offset to be read (default = 0)
-     * @param right last position to read (default = ULONG_MAX)
+     * @param right last position to read (default = UINT_MAX)
      */
     SampleReader *openSampleReader(unsigned int left = 0,
-	unsigned int right = ULONG_MAX);
+	unsigned int right = UINT_MAX);
 
 signals:
 

@@ -19,6 +19,14 @@
 #define _SAMPLE_H_
 
 //***************************************************************************
+
+/** Currently a "sample" is defined as a 32 bit integer with 24 valid bits */
 typedef int sample_t;
+
+/** lowest sample value */
+#define SAMPLE_MIN (-(1<<23))
+
+/** highest sample value */
+#define SAMPLE_MAX (+(1<<23))
 
 #endif /* _SAMPLE_H_ */

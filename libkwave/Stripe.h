@@ -97,16 +97,16 @@ public:
 
     /**
      * Reads out samples from the stripe into a buffer
+     * @param buffer array for samples to be read (destination)
+     * @param dstoff offset within the destination buffer
      * @param offset the offset within the stripe (source)
-     * @param samples array for samples to be read (destination)
-     * @param dstoff offset within the destination array
-     * @param dstlen length of the data in the destination array
+     * @param length number of samples to read
      * @return number of samples read
      * @warning this method is intended to be used only internally
      *          and waives any error-checking in order to be fast!
      */
-    unsigned int read(unsigned int offset, QArray<sample_t> &samples,
-	unsigned int dstoff, unsigned int dstlen);
+    unsigned int read(QArray<sample_t> &buffer, unsigned int dstoff,
+	unsigned int offset, unsigned int length);
 
     /**
      * Operator for appending an array of samples to the

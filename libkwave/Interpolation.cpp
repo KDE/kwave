@@ -58,28 +58,20 @@ Interpolation::InterpolationMap Interpolation::m_interpolation_map;
 
 //***************************************************************************
 Interpolation::Interpolation(const QString &name)
+  :m_curve(), m_x(), m_y(), m_der(),
+   m_type(m_interpolation_map.find(name, false))
 {
-    x = 0;
-    y = 0;
-    der = 0;
-    m_type = m_interpolation_map.find(name, false);
 }
 
 //***************************************************************************
 Interpolation::Interpolation(interpolation_t type)
+  :m_curve(), m_x(), m_y(), m_der(), m_type(type)
 {
-    x = 0;
-    y = 0;
-    der = 0;
-    m_type = type;
 }
 
 //***************************************************************************
 Interpolation::~Interpolation()
 {
-    if (x) delete x;
-    if (y) delete y;
-    if (der) delete[] der;
 }
 
 //***************************************************************************
@@ -119,39 +111,39 @@ double Interpolation::singleInterpolation(double input)
 	    {
 		unsigned int i = 1;
 		// ### range checking ???
-		while (x[i] < input) i++;
-		double dif1 = x[i] - x[i - 1];  //!=0 per definition
-		double dif2 = input - x[i - 1];
-
-		return (y[i -1] + ((y[i] - y[i - 1])*dif2 / dif1));
+		while (m_x[i] < input) i++;
+		double dif1 = m_x[i] - m_x[i-1];  //!=0 per definition
+		double dif2 = input - m_x[i-1];
+		
+		return (m_y[i-1] + ((m_y[i] - m_y[i-1])*dif2 / dif1));
 	    }
 	case INTPOL_SPLINE:
 	    {
 		double a, b, diff;
 		unsigned int j = 1;
 		// ### range checking ???
-		while (x[j] < input) j++;
-		diff = x[j] - x[j - 1];
+		while (m_x[j] < input) j++;
+		diff = m_x[j] - m_x[j-1];
 
-		a = (x[j] - input) / diff;    //div should not be 0
-		b = (input - x[j - 1]) / diff;
+		a = (m_x[j] - input) / diff;    //div should not be 0
+		b = (input - m_x[j-1]) / diff;
 
-		return (a*y[j - 1] + b*y[j] + ((a*a*a - a)*der[j - 1] +
-		       (b*b*b - b)*der[j])*(diff*diff) / 6);
+		return (a*m_y[j-1] + b*m_y[j] + ((a*a*a - a)*m_der[j - 1] +
+		       (b*b*b - b)*m_der[j])*(diff*diff) / 6);
 	    }
 	case INTPOL_NPOLYNOMIAL:
 	    {
-		double ny = y[0];
+		double ny = m_y[0];
 		for (unsigned int j = 1; j < count(); j++)
-		    ny = ny * (input - x[j]) + y[j];
+		    ny = ny * (input - m_x[j]) + m_y[j];
 		return ny;
 	    }
 	case INTPOL_SAH:     //Sample and hold
 	    {
 		int i = 1;
 		// ### range checking ???
-		while (x[i] < input) i++;
-		return y[i -1];
+		while (m_x[i] < input) i++;
+		return m_y[i-1];
 	    }
 	case INTPOL_POLYNOMIAL3:
 	    degree = 3;
@@ -166,13 +158,15 @@ double Interpolation::singleInterpolation(double input)
 	
     if (degree && (degree <= 7)) {
 	// use polynom
-	double ny, ax[7], ay[7];
-
+	double ny;
+	QArray<double> ax(7);
+	QArray<double> ay(7);
+	
 	int i = 1;
-	while (x[i] < input) i++;
-
-	createPolynom (m_curve, ax, ay, i - 1 - degree / 2, degree);
-
+	while (m_x[i] < input) i++;
+	
+	createPolynom(m_curve, ax, ay, i - 1 - degree/2, degree);
+	
 	ny = ay[0];
 	for (unsigned int j = 1; j < degree; j++)
 	    ny = ny * (input - ax[j]) + ay[j];
@@ -190,38 +184,25 @@ bool Interpolation::prepareInterpolation(Curve *points)
     ASSERT(count());
     if (!count()) return false; // no data ?
 
-    if (x)   delete [] x;
-    if (y)   delete [] y;
-    if (der) delete [] der;
-    der = 0;
-
-    x = new double[count() + 1];
-    ASSERT(x);
-    if (!x) return false;
-
-    y = new double[count() + 1];
-    ASSERT(y);
-    if (!y) return false;
+    m_x.resize(count()+1);
+    m_y.resize(count()+1);
+    m_der.resize(0);
 
     int c = 0;
     for (Point *p = points->first(); p; p = points->next(p)) {
-	x[c] = p->x;
-	y[c] = p->y;
+	m_x[c] = p->x;
+	m_y[c] = p->y;
 	c++;
     }
-    x[c] = y[c] = 0.0;
+    m_x[c] = m_y[c] = 0.0;
 
     switch (m_type) {
 	case INTPOL_NPOLYNOMIAL:
-	    createFullPolynom (points, x, y);
+	    createFullPolynom(m_curve, m_x, m_y);
 	    break;
 	case INTPOL_SPLINE:
-	    if (der) delete[] der;
-	    der = new double[count() + 1];
-	    ASSERT(der);
-	    if (!der) return false;
-
-	    get2Derivate(x, y, der, count());
+	    m_der.resize(count() + 1);
+	    get2Derivate(m_x, m_y, m_der, count());
 	    break;
 	default:
 	    ;
@@ -230,27 +211,19 @@ bool Interpolation::prepareInterpolation(Curve *points)
 }
 
 //***************************************************************************
-QArray<double> *Interpolation::limitedInterpolation(Curve *points,
+QArray<double> Interpolation::limitedInterpolation(Curve *points,
 	unsigned int len)
 {
-    ASSERT(points);
-    ASSERT(len);
-    if (!points) return false;
-    if (!len) return false;
-
-    QArray<double> *y = interpolation(points, len);
-    ASSERT(y);
-    if (!y) return 0;
-
+    QArray<double> y = interpolation(points, len);
     for (unsigned int i = 0; i < len; i++) {
-	if (*y[i] > 1) y[i] = 1;
-	if (*y[i] < 0) y[i] = 0;
+	if (y[i] > 1) y[i] = 1;
+	if (y[i] < 0) y[i] = 0;
     }
     return y;
 }
 
 //***************************************************************************
-QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
+QArray<double> Interpolation::interpolation(Curve *points, unsigned int len)
 {
     ASSERT(points);
     ASSERT(len);
@@ -260,13 +233,8 @@ QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
     Point *tmp;
     unsigned int degree = 0;
 
-    double *y_out = new double[len];
-    ASSERT(y_out);
-    if (!y_out) return 0;
-
-    for (unsigned int i=0; i<len; i++) {
-	y_out[i] = 0.0;
-    }
+    QArray<double> y_out(len);
+    for (unsigned int i=0; i < len; i++) y_out[i] = 0.0;
 
     switch (m_type) {
 	case INTPOL_LINEAR:
@@ -276,16 +244,16 @@ QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
 		if (tmp) {
 		    lx = tmp->x;
 		    ly = tmp->y;
-
+		
 		    for (tmp = points->next(tmp); tmp; tmp = points->next(tmp)) {
 			x = tmp->x;
 			y = tmp->y;
-
+		
 			double dify = (y - ly);
 			int difx = (int) ((x - lx) * len);
 			int min = (int)(lx * len);
 			double h;
-
+		
 			for (int i = (int)(lx * len); i < (int)(x*len); i++) {
 			    h = (double(i - min)) / difx;
 			    y_out[i] = ly + (h * dify);
@@ -300,11 +268,11 @@ QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
 	    {
 		int t = 1;
 		unsigned int count = points->count();
-
+		
 		double ny = 0;
-		double der[count + 1];
-		double x[count + 1];
-		double y[count + 1];
+		QArray<double> der(count + 1);
+		QArray<double> x(count + 1);
+		QArray<double> y(count + 1);
 
 		for (tmp = points->first(); tmp; tmp = points->next(tmp)) {
 		    x[t] = tmp->x;
@@ -312,7 +280,7 @@ QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
 		    t++;
 		}
 
-		get2Derivate (x, y, der, count);
+		get2Derivate(x, y, der, count);
 
 		int ent;
 		int start = (int) (x[1] * len);
@@ -322,18 +290,18 @@ QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
 		    for (int i = start; i < ent; i++) {
 			double xin = ((double) i) / len;
 			double h, b, a;
-
+			
 			h = x[j] - x[j - 1];
-
+			
 			if (h != 0) {
 			    a = (x[j] - xin) / h;
 			    b = (xin - x[j - 1]) / h;
-
+			
 			    ny = (a * y[j - 1] + b * y[j] +
 			         ((a * a * a - a) * der[j - 1] +
 			         (b * b * b - b) * der[j]) * (h * h) / 6.0);
 			}
-
+			
 			y_out[i] = ny;
 			start = ent;
 		    }
@@ -350,25 +318,27 @@ QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
 	    {
 		if (!degree) degree = 7;
 		unsigned int count = points->count();
-		double ny, x[7], y[7];
+		double ny;
+		QArray<double> x(7);
+		QArray<double> y(7);
 		double ent, start;
-
+		
 		tmp = points->first();
 		if (tmp) {
 		    for (unsigned int px = 0; px < count - 1; px++) {
 			createPolynom (points, x, y, px - degree / 2, degree);
 			start = points->at(px)->x;
-
+			
 			if (px >= count - degree / 2 + 1)
 			    ent = 1;
 			else
 			    ent = points->at(px + 1)->x;
-
+			
 			for (int i=(int)(start*len); i<(int)(ent*len); i++) {
 			    ny = y[0];
 			    for (unsigned int j = 1; j < degree; j++)
 				ny = ny * (((double)i) / len - x[j]) + y[j];
-
+			
 			    y_out[i] = ny;
 			}
 		    }
@@ -379,24 +349,24 @@ QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
 	    {
 		double ny;
 		int count = points->count();
-
+		
 		tmp = points->first();
 		if (tmp != 0) {
-		    double x[count + 1];
-		    double y[count + 1];
+		    QArray<double> x(count+1);
+		    QArray<double> y(count+1);
 		    double px;
-
-		    createFullPolynom (points, x, y);
-
+		
+		    createFullPolynom(points, x, y);
+		
 		    for (unsigned int i = 1; i < len; i++) {
 			px = (double)(i) / len;
-
+		
 			ny = y[0];
 			for (int j = 1; j < count; j++)
 			    ny = ny * (px - x[j]) + y[j];
-
+		
 			y_out[i] = ny;
-
+		
 		    }
 		}
 		break;
@@ -404,19 +374,19 @@ QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
 	case INTPOL_SAH:
 	    {
 		double lx, ly, x, y;
-
+		
 		tmp = points->first();
-		if (tmp != 0) {
+		if (tmp) {
 		    lx = tmp->x;
 		    ly = tmp->y;
-
+		
 		    for (tmp = points->next(tmp); tmp; tmp=points->next(tmp)) {
 			x = tmp->x;
 			y = tmp->y;
-
+			
 			for (int i = (int)(lx * len); i < (int)(x*len); i++)
 			    y_out[i] = ly;
-
+			
 			lx = x;
 			ly = y;
 		    }
@@ -424,73 +394,58 @@ QArray<double> *Interpolation::interpolation(Curve *points, unsigned int len)
 	    }
     }
 
-    QArray<double> *yo = new QArray<double>;
-    ASSERT(yo);
-    if (yo) yo->assign(y_out, len);
-    return yo;
+    return y_out;
 }
 
 //***************************************************************************
-void Interpolation::createFullPolynom (Curve *points, double *x, double *y)
+void Interpolation::createFullPolynom(Curve *points,
+	const QArray<double> &x, const QArray<double> &y)
 {
-    unsigned int count = 0;
-    Point *tmp;
-
     ASSERT(points);
     ASSERT(m_curve);
-    ASSERT(x);
-    ASSERT(y);
     if (!points) return;
     if (!m_curve) return;
-    if (!x) return;
-    if (!y) return;
 
     ASSERT(points->count() == m_curve->count());
-    if (points->count() == m_curve->count()) return;
+    if (points->count() != m_curve->count()) return;
 
-    for (tmp = points->first(); tmp; tmp = points->next(tmp)) {
+    unsigned int count = 0;
+    Point *tmp;
+    for (tmp = points->first(); (tmp); tmp = points->next(tmp)) {
 	x[count] = tmp->x;
 	y[count] = tmp->y;
 	count++;
     }
 
     for (unsigned int k = 0; k < count; k++)
-	for (unsigned int j = k; j != 0; )
-	{
+	for (unsigned int j = k; j; ) {
 	    j--;
-	    y[j] = (y[j] - y[j + 1]) / (x[j] - x[k]);
+	    y[j] = (y[j] - y[j+1]) / (x[j] - x[k]);
 	}
 }
 
 //***************************************************************************
-void Interpolation::get2Derivate(const double *x, const double *y,
-	double *ab, int n)
+void Interpolation::get2Derivate(const QArray<double> &x,
+	const QArray<double> &y, QArray<double> &ab, unsigned int n)
 {
-    ASSERT(x);
-    ASSERT(y);
-    ASSERT(ab);
     ASSERT(n);
-    if (!x) return;
-    if (!y) return;
-    if (!ab) return;
     if (!n) return;
 
-    int i, k;
+    unsigned int i, k;
     double p, qn, sig, un;
 
-    double *u = new double[n];
-    ASSERT(u);
-    if (!u) return;
+    QArray<double> u(n);
 
     ab[0] = ab[1] = 0;
     u[0] = u[1] = 0;
 
     for (i = 2; i < n; i++) {
-	sig = (x[i] - x[i - 1]) / (x[i + 1]-x[i - 1]);
-	p = sig * ab[i - 1] + 2;
-	ab[i] = (sig - 1) / p;
-	u[i] = (y[i + 1]-y[i]) / (x[i + 1]-x[i]) - (y[i] - y[i - 1]) / (x[i] - x[i - 1]);
-	u[i] = (6 * u[i] / (x[i + 1]-x[i - 1]) - sig * u[i - 1]) / p;
+	sig = (x[i] - x[i-1]) / (x[i+1] - x[i-1]);
+	p = sig * ab[i-1] + 2;
+	ab[i] = (sig-1) / p;
+	u[i] = (y[i+1] - y[i])   / (x[i+1] - x[i])
+	     - (y[i]   - y[i-1]) / (x[i]   - x[i-1]);
+	u[i] = (6 * u[i] / (x[i+1] - x[i-1]) - sig * u[i-1]) / p;
     }
 
     qn = 0;
@@ -500,34 +455,32 @@ void Interpolation::get2Derivate(const double *x, const double *y,
     for (k = n - 1; k > 0; k--)
 	ab[k] = ab[k] * ab[k + 1] + u[k];
 
-    delete [] u;
 }
 
 //***************************************************************************
-void Interpolation::createPolynom (Curve *points, double x[], double y[],
-	int pos, int degree)
+void Interpolation::createPolynom(Curve *points, QArray<double> &x,
+	QArray<double> &y, int pos, unsigned int degree)
 {
-    Point *tmp;
-    int count = 0;
+    unsigned int count = 0;
 
     if (pos < 0) {
 	switch (pos) {
-	   case - 3:
+	   case -3:
 		x[count] = -1.5;
 		y[count++] = points->first()->y;
 		pos++;
-	   case - 2:
+	   case -2:
 		x[count] = -1;
 		y[count++] = points->first()->y;
 		pos++;
-	   case - 1:
+	   case -1:
 		x[count] = -.5;
 		y[count++] = points->first()->y;
-		pos = 0;
+		pos++;
 	}
     }
 
-    tmp = points->first();
+    Point *tmp = points->first();;
     for (int i = 0; i < pos; i++) tmp = points->next(tmp);
 
     for (; (count < degree) && (tmp); tmp = points->next(tmp)) {
@@ -536,14 +489,16 @@ void Interpolation::createPolynom (Curve *points, double x[], double y[],
     }
 
     int i = 1;
-    for (; count < degree; count++) {
-	x[count] = 1 + .5 * (i++);
-	y[count] = points->last()->y;
+    while (count < degree) {
+	x[count] = 1.0 + 0.5 * (i++);
+	y[count++] = points->last()->y;
     }
 
-    for (int k = 0; k < degree; k++)  //create coefficients in y[i] and x[i];
+    // create coefficients in y[i] and x[i];
+    for (unsigned int k = 0; k < degree; k++)
 	for (int j = k - 1; j >= 0; j--)
 	    y[j] = (y[j] - y[j + 1]) / (x[j] - x[k]);
+
 }
 
 //***************************************************************************

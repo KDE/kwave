@@ -32,8 +32,8 @@
 
 
 //****************************************************************************
-CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
-    :QWidget(parent)
+CurveWidget::CurveWidget(QWidget *parent, const char *name)
+    :QWidget(parent, name)
 {
     act = 0;
     down = false;
@@ -49,11 +49,9 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
     points = 0;
     selectedknob = 0;
     width = 0;
-
-    this->keepborder = keepborder;
-
-    if (init) points = new Curve(init);
-    else points = new Curve("curve (linear,0,0,1,1)");
+    keepborder = false;
+debug("CurveWidget::CurveWidget() --1--"); // ###
+    points = new Curve("curve (linear,0,0,1,1)");
     ASSERT(points);
     if (!points) return;
 
@@ -117,6 +115,7 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
     del->insertItem(i18n("every 2nd Point"),
 	            this, SLOT(deleteSecond()));
 
+debug("CurveWidget::CurveWidget() --2--"); // ###
     /** get a list of presets */
     QStringList files = KGlobal::dirs()->findAllResources("data",
 	    "kwave/presets/curves/*.curve", false, true);
@@ -127,6 +126,7 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
     }
     connect( presets, SIGNAL(activated(int)), SLOT(loadPreset(int)) );
 
+debug("CurveWidget::CurveWidget() --3--"); // ###
     QStringList names = Interpolation::names(true);
     for (QStringList::Iterator it = names.begin(); it != names.end(); ++it ) {
 	interpolation->insertItem(*it);
@@ -144,6 +144,7 @@ CurveWidget::CurveWidget(QWidget *parent, const char *init, int keepborder)
     delkey->connectItem(delkey->insertItem(Key_Delete),
                         this, SLOT (deleteLast()));
 
+debug("CurveWidget::CurveWidget() --4--"); // ###
 }
 
 //****************************************************************************
@@ -407,19 +408,19 @@ void CurveWidget::paintEvent(QPaintEvent *)
     int kh = (knob) ? knob->height() : 0;
     int lx, ly, ay;
 
-    QArray<double> *y = points->interpolation(width);
-    ASSERT(y);
-    if (!y) {
-	warning("CurveWidget: could not get Interpolation !\n");
+    QArray<double> y = points->interpolation(width);
+    ASSERT(static_cast<int>(y.count()) == width);
+    if (static_cast<int>(y.count()) < width) {
+	warning("CurveWidget: could not get Interpolation !");
 	return;
     }
 
     p.begin (this);
     p.setPen (white);
-    ly = height - (int)(*y[0] * height);
+    ly = height - (int)(y[0] * height);
 
     for (int i = 1; i < width; i++) {
-	ay = height - (int)(*y[i] * height);
+	ay = height - (int)(y[i] * height);
 	p.drawLine (i - 1, ly, i, ay);
 	ly = ay;
     }
@@ -436,7 +437,6 @@ void CurveWidget::paintEvent(QPaintEvent *)
     }
     p.end();
 
-    if (y) delete y;
 }
 
 //****************************************************************************

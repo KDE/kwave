@@ -42,7 +42,7 @@ Curve::Curve()
 }
 
 //***************************************************************************
-Curve::Curve(const char *command)
+Curve::Curve(const QString &command)
 :m_points(),
  m_interpolation(*(new Interpolation(INTPOL_LINEAR))),
  m_interpolationtype(INTPOL_LINEAR)
@@ -81,7 +81,7 @@ QString Curve::getCommand()
 }
 
 //***************************************************************************
-QArray<double> *Curve::interpolation(unsigned int points)
+QArray<double> Curve::interpolation(unsigned int points)
 {
     return m_interpolation.interpolation(this, points);
 }
@@ -246,7 +246,7 @@ void Curve::HFlip()
 }
 
 //***************************************************************************
-void Curve::scaleFit(int range)
+void Curve::scaleFit(unsigned int range)
 {
     struct Point *tmp;
     double min = DBL_MAX;
@@ -257,12 +257,12 @@ void Curve::scaleFit(int range)
 
     Interpolation interpolation(m_interpolationtype);
 
-    QArray<double> *y = interpolation.interpolation(this, range);
-    ASSERT(y);
-    if (y) {
-	for (int i = 0; i < range; i++) {
-	    if (*y[i] > max) max = *y[i];
-	    if (*y[i] < min) min = *y[i];
+    QArray<double> y = interpolation.interpolation(this, range);
+    ASSERT(y.count() == range);
+    if (y.count() >= range) {
+	for (unsigned int i = 0; i < range; i++) {
+	    if (y[i] > max) max = y[i];
+	    if (y[i] < min) min = y[i];
 	}
     }
 
@@ -272,7 +272,6 @@ void Curve::scaleFit(int range)
 	else tmp->y=min;
     }
 
-    if (y) delete y;
 }
 
 //***************************************************************************

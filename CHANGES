@@ -1,8 +1,14 @@
 
-0.6.2 [2001-09-01]
+0.6.2 [2001-??-??]
+
+ * ?
+
+0.6.1-1 [2001-09-01]
 
  * bugfix: class Track made duplicate entry in stripe list when inserting
    signals into an empty track
+ * fixed that weird layout behavior in dialogs, seems that Qt has 
+   problems with complex nested layouts :(
 
 0.6.1 [2001-08-24]
 

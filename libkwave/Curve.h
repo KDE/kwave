@@ -38,7 +38,7 @@ public:
      * Constructor, creates a curve from a command string.
      * @param command string with parameters
      */
-    Curve (const char *command);
+    Curve (const QString &command);
 
     /** Destructor */
     virtual ~Curve ();
@@ -77,7 +77,7 @@ public:
      * on the y-axis.
      * @param range
      */
-    void scaleFit(int range = 1024);
+    void scaleFit(unsigned int range = 1024);
 
     /**
      * Creates a new point and inserts it into the curve. The new
@@ -178,7 +178,7 @@ public:
      * @return Array of interpolated values or null if the
      *         number of points was zero.
      */
-    QArray<double> *interpolation(unsigned int points);
+    QArray<double> interpolation(unsigned int points);
 
 private:
 

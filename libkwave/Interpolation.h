@@ -31,14 +31,17 @@ public:
     Interpolation(const QString &name);
 
     /** Destructor. */
-    ~Interpolation ();
+    virtual ~Interpolation ();
 
     bool prepareInterpolation(Curve *points);
 
-    QArray<double> *interpolation(Curve *points, unsigned int len);
+    QArray<double> interpolation(Curve *points, unsigned int len);
 
-    QArray<double> *limitedInterpolation(Curve *points, unsigned int len);
+    QArray<double> limitedInterpolation(Curve *points, unsigned int len);
 
+    /**
+     * Returns a single point of the interpolation.
+     */
     double singleInterpolation(double pos);
 
     /**
@@ -104,7 +107,8 @@ private:
      * @param x receives all x coordinates ???
      * @param y receives all y coordinates ???
      */
-    void createFullPolynom(Curve *points, double *x, double *y);
+    void createFullPolynom(Curve *points, const QArray<double> &x,
+	const QArray<double> &y);
 
     /**
      * ???
@@ -113,7 +117,8 @@ private:
      * @param ab array for return values
      * @param n ???
      */
-    void get2Derivate (const double *x, const double *y, double *ab, int n);
+    void get2Derivate(const QArray<double> &x, const QArray<double> &y,
+                      QArray<double> &ab, unsigned int n);
 
     /**
      * ???
@@ -123,22 +128,22 @@ private:
      * @param pos ???
      * @param degree ???
      */
-    void createPolynom (Curve *points, double x[], double y[],
-	int pos, int degree);
+    void createPolynom (Curve *points, QArray<double> &x, QArray<double> &y,
+	int pos, unsigned int degree);
+
+private:
 
     /**  List of points to be interpolated. */
     Curve *m_curve;
 
     /** ??? used for temporary purposes */
-    double *x;
+    QArray<double> m_x;
 
     /** ??? used for temporary purposes */
-    double *y;
+    QArray<double> m_y;
 
     /** ??? used for temporary purposes */
-    double *der;
-
-private:
+    QArray<double> m_der;
 
     /** Map with type and name of interpolations */
     static InterpolationMap m_interpolation_map;

@@ -7,7 +7,7 @@ AC_CONFIG_AUX_DIR(admin)
 
 AC_CANONICAL_SYSTEM  
 AC_ARG_PROGRAM
-AM_INIT_AUTOMAKE(kwave,0.6.1-1)
+AM_INIT_AUTOMAKE(kwave,0.6.0)
 AC_LIBTOOL_DLOPEN
 KDE_PROG_LIBTOOL
 KDE_SET_PREFIX
@@ -340,4 +340,3 @@ AC_SUBST(LD_VERSION_INFO)
 dnl add here all your Makefiles
 dnl      (Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
 AC_OUTPUT(Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
-

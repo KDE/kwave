@@ -34,7 +34,7 @@ and then type:
 
 export KDEDIR=/opt/kde2
 export QTDIR=/usr/lib/qt2
-./configure
+make -f Makefile.dist
 make
 make install
 
@@ -82,14 +82,20 @@ directory you can simply type
 
 export QTDIR=/usr/lib/qt2
 export KDEDIR=/opt/kde2
-make -f admin/Makefile.common
-./configure
+make -f Makefile.dist
 make src.rpm          (and you get only a source rpm)
+***OR***
 make rpm              (and you get both, a binary and a source rpm)
 
 Instructions on how to get the sources via CVS can be found in the
 Kwave handbook and on the Kwave project homepage at SourceForge
 (see "http://sourceforge.net/cvs/?group_id=6478").
+
+Please note that the online documentation in not included in CVS, so you
+have to go to the "doc" subdirectory, remove the file "changes.docbook"
+and type "make" there. This requires a working docbook/sgml environment
+that is sometimes problematic (see below).
+
 
 3. RELOCATING THE BINARY RPM:
 ============================
@@ -132,7 +138,7 @@ This means that on an i586 architecture the rpm package will be compiled
 using -march=pentium and so on, you might extend or adapt these to your
 own needs.
 
-The options specified here are set into the environment variable 
+The options specified here are set into the environment variable
 RPM_OPT_FLAGS during compilation, so if you don't have an rpm based
 environment and have to compile like in (1) you can set this variable
 manually and get the same effect. For example:
@@ -141,21 +147,25 @@ export RPM_OPT_FLAGS="-O2 -march=pentium -fomit-frame-pointer"
 
 Then go to chapter 1 and do ./configure / make / make install...
 
-5. REQUIREMENTS FOR THE ONLINE HELP:
-===================================
+5. REQUIREMENTS FOR BUILDING THE ONLINE HELP:
+============================================
+
+(NOTE: you don't have to do this if you have the sources from a
+tar.gz archive or source RPM - but it is the only way to get the
+online help if you checked out via CVS)
 
 First of all, read the instructions there:
 "http://i18n.kde.org/doc/install/index.html"
 
-for SuSE 7.2:
--------------
+for SuSE 7.2 you might need:
+----------------------------
 
 * sgml-skel
 * sp
 * sp_libs
 * jade_dsl
 * sgmltool
-* docbook-utils (contains jw)
+* docbook-utils (this one contains the "jw")
 * docbktls
 * docbook-dsssl-stylesheets
 * docbook-xsl-stylesheets
@@ -164,11 +174,12 @@ for SuSE 7.2:
 * html-dtd
 * iso_ent
 
-rpm -Uvh docbook-dtd31-sgml-1.0-6.noarch.rpm
-rpm -Uvh sgml-common-0.6.1-1.noarch.rpm
-rpm -Uvh docbook-dtd31-sgml-1.0-6.noarch.rpm
-rpm -Uvh docbook-utils-0.6.6-1.noarch.rpm
-rpm -Uvh docbook-style-dsssl-1.61-1.noarch.rpm
+I got it working with those packages (order is important!!!):
+rpm -Uvh --force --nodeps docbook-dtd31-sgml-1.0-6.noarch.rpm
+rpm -Uvh --force --nodeps sgml-common-0.6.1-1.noarch.rpm
+rpm -Uvh --force --nodeps docbook-dtd31-sgml-1.0-6.noarch.rpm
+rpm -Uvh --force --nodeps docbook-utils-0.6.6-1.noarch.rpm
+rpm -Uvh --force --nodeps docbook-style-dsssl-1.61-1.noarch.rpm
 
 all other distributions:
 ------------------------
@@ -216,22 +227,28 @@ packets should be sufficient for building:
 known distributions / architectures:
 ------------------------------------
 
-* SuSE-7.1 / i386, i586
+* SuSE-7.2 / i386, i686
   [where I currently develop]
+
+* SuSE-7.1 / i386, i586
+  [no longer explictely supported, but should work the same as SuSE-7.1]
+
+* SuSE-7.0 / i386, i586
+  [nearly the same as SuSE-6.4]
 
 * SuSE-6.4 / i386, i586
   [still tested, but needs an update of rpm]
 
-* SuSE-6.2 / i386, i586 
+* SuSE-6.2 / i386, i586
   [where I started to develop it, now untested]
 
-* RedHat-6.1 (Halloween IV) / i386 
+* RedHat-6.1 (Halloween IV) / i386
   [tested v0.5.x with it, but now no longer tested]
 
-Compilation might also work on many other distributions and different 
+Compilation might also work on many other distributions and different
 versions of compilers and libraries, or even on different architectures.
 
-So if you have success in compiling and using kwave under a different system, 
+So if you have success in compiling and using kwave under a different system,
 please let me know !
 
 If the program does NOT compile, please let me know too - and/or consider
@@ -241,9 +258,6 @@ above.
 You need at least glibc > 2.07 for pthreads support - earlier versions of
 libpthread (included in glibc) seem to crash...
 
-Not tested is libc5 with linuxthreads, if someone succeeds with this
-combination please notify me !
-(Note that linuxthreads has requirements for specific libc versions)
 
 7. SOME HISTORY:
 ===============
@@ -256,7 +270,7 @@ revised nearly every component of the program and spend much time on it.
 Since summer 1999 I have taken over the project leadership and I am still
 working on it.
 
-So good luck, and if not, keep me informed about bugs and wishes...
+So good luck, and feel free to keep me informed about bugs and wishes...
 
    Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>
 

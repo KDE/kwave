@@ -1,5 +1,6 @@
+
 #ifndef _CURVE_WIDGET_H_
-#define _CURVE_WIDGET_H_ 1
+#define _CURVE_WIDGET_H_
 
 #include <qstring.h>
 #include <qstrlist.h>
@@ -16,14 +17,16 @@ class Point;
 class QPixmap;
 class QDir;
 
-class CurveWidget : public QWidget
+class CurveWidget: public QWidget
 {
     Q_OBJECT
-
 public:
 
-    CurveWidget(QWidget *parent = 0, const char *init = 0, int = false);
-    ~CurveWidget();
+    /** Constructor */
+    CurveWidget(QWidget *parent, const char *name);
+
+    /** Destructor */
+    virtual ~CurveWidget();
 
     QString getCommand();
     void setCurve(const char *);
@@ -62,7 +65,7 @@ private:
 
     int width, height;            //of widget
     int interpolationtype;         //type of interpolation
-    int keepborder;                //flag denying acces to first and last point...e
+    bool keepborder;                //flag denying acces to first and last point...
     double x[7], y[7];            //buffer for polynomial coefficients
 
     Curve *points;        //Points set by User

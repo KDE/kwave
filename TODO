@@ -1,8 +1,7 @@
 
-o sometimes the file/new or options/playback dialog gets the wrong width ?
-  - only if a wav file was specified on the command line?
-  - not so often if Help/About was called before?
-  - sizeHint() gives weird values
+o plugin interface for aRts support
+
+o plugins for import/export of different file formats (e.g. MP3)
 
 o audible/silent mode of tracks (speakers)
 
@@ -73,7 +72,7 @@ o rework of the FFTWidget
 
 o bugfix: crash on "additive synthesis"
 
-o some commands do not work: fft, averagefft, options/menu, distort
+o some commands do not work: fft, averagefft, distort
 
 o bugfix: channel mixer dialog causes segmentation fault -> disabled
 
@@ -121,10 +120,6 @@ o in rpm update script: error messages when updating the default
 
 o use some audio library, like libasound for import/export of other
   file formats
-
-o plugin interface for aRts support
-
-o plugins for import/export of different file formats (e.g. MP3)
 
 o figure out how to work with exceptions:
   - works if ALL libraries use rtti and we compile with -frtti

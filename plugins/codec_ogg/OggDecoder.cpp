@@ -88,6 +88,12 @@ int OggDecoder::parseHeader(QWidget *widget)
     if (!m_buffer) return -1;
     
     unsigned int bytes = m_source->readBlock(m_buffer,4096);
+    Q_ASSERT(bytes);
+    if (!bytes) {
+	KMessageBox::error(widget, i18n(
+	    "Ogg bitstream has zero-length."));
+	return -1;
+    }
     ogg_sync_wrote(&m_oy, bytes);
 
     // Get the first page.
@@ -168,7 +174,6 @@ int OggDecoder::parseHeader(QWidget *widget)
 			return -1;
 		    }
 		    vorbis_synthesis_headerin(&m_vi, &m_vc, &m_op);
-		    qDebug("counter=%d, bitrate=%ld",counter,m_vi.bitrate_nominal); // ###
 		    counter++;
 		}
 	    }

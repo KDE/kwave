@@ -25,10 +25,9 @@
 //*****************************************************************************
 MenuSub::MenuSub(MenuNode *parent, char *name, char *command,
                  int key, char *uid)
-    :MenuNode(parent, name, command, key, uid)
+    :MenuItem(parent, name, command, key, uid)
 {
     menu = new QPopupMenu(0, klocale->translate(name));
-
     QObject::connect(menu,SIGNAL(activated(int)),
 	this,SLOT(slotSelected(int)));
 }
@@ -46,9 +45,10 @@ QPopupMenu *MenuSub::getPopupMenu()
 }
 
 //*****************************************************************************
-MenuNode *MenuSub::insertBranch(char *name, int key, char *uid, int index)
+MenuNode *MenuSub::insertBranch(char *name, char *command, int key,
+                                char *uid, int index)
 {
-    MenuSub *node = new MenuSub(this, name, 0, key, uid);
+    MenuSub *node = new MenuSub(this, name, command, key, uid);
     if (menu) {
 	int new_id = registerChild(node);
 	menu->insertItem(klocale->translate(node->getName()),
@@ -77,32 +77,25 @@ MenuNode *MenuSub::insertLeaf(char *name, char *command, int key,
 //*****************************************************************************
 void MenuSub::removeChild(int id)
 {
-    MenuNode::removeChild(id);
+    MenuItem::removeChild(id);
     menu->removeItem(id);
 }
 
 //*****************************************************************************
 bool MenuSub::specialCommand(const char *command)
 {
-
-    if (strcmp(command, "listmenu") == 0) {
-	// insert an empty submenu for the list items
-    	debug("MenuSub(%s) >> listmenu <<", getName());
+    if (strcmp(command, "#exclusive") == 0) {
+    	// debug("MenuSub(%s) >> exclusive <<", getName());
 	return true;
-    } else if (strcmp(command, "exclusive") == 0) {
-	//
-    	debug("MenuSub(%s) >> exclusive <<", getName());
+    } else if (strcmp(command, "#number") == 0) {
+    	// debug("MenuSub(%s) >> number <<", getName());
 	return true;
-    } else if (strcmp(command, "number") == 0) {
-	//
-    	debug("MenuSub(%s) >> number <<", getName());
-	return true;
-    } else if (strcmp(command, "separator") == 0) {
+    } else if (strcmp(command, "#separator") == 0) {
 	menu->insertSeparator(-1);
     	return true;
     }
 
-    return false;
+    return MenuItem::specialCommand(command);
 }
 
 //*****************************************************************************
@@ -117,6 +110,12 @@ void MenuSub::slotSelected(int id)
 }
 
 //*****************************************************************************
+void MenuSub::setItemIcon(int id, const QPixmap &icon)
+{
+    if (menu) menu->changeItem(icon, menu->text(id), id);
+}
+
+//*****************************************************************************
 bool MenuSub::setItemEnabled(int id, bool enable)
 {
     if ((!menu) || (!menu->findItem(id))) return false;
@@ -125,9 +124,17 @@ bool MenuSub::setItemEnabled(int id, bool enable)
 }
 
 //*****************************************************************************
+bool MenuSub::setItemChecked(int id, bool enable)
+{
+    if ((!menu) || (!menu->findItem(id))) return false;
+    menu->setItemChecked(id, enable);
+    return true;
+}
+
+//*****************************************************************************
 void MenuSub::setEnabled(bool enable)
 {
-    MenuNode::setEnabled(enable);
+    MenuItem::setEnabled(enable);
     MenuNode *parent = getParentNode();
     if (parent)	parent->setItemEnabled(getId(), enable);
 }

@@ -21,7 +21,6 @@
 #include <libkwave/Global.h>
 #include <libkwave/MessagePort.h>
 #include <kapp.h>
-#include "MenuCommand.h"
 #include "MenuNode.h"
 
 extern struct Global globals;
@@ -36,6 +35,7 @@ MenuNode::MenuNode(MenuNode *parent, char *name, char *command,
     this->name = duplicateString (name);
     this->command = duplicateString(command);
     this->key = key;
+    this->icon = 0;
     this->uid = duplicateString(uid);
     this->enabled = true;
     this->checked = false;
@@ -101,6 +101,7 @@ void MenuNode::clear()
     MenuNode *child;
     while ( (child=children.first()) != 0 ) {
 	child->clear();
+	removeChild(child->getId());
 	children.remove(child);
     }
 }
@@ -115,6 +116,26 @@ int MenuNode::getChildIndex(int id)
 MenuNode *MenuNode::getParentNode()
 {
     return parentNode;
+}
+
+//*****************************************************************************
+const QPixmap *MenuNode::getIcon()
+{
+    return icon;
+}
+
+//*****************************************************************************
+void MenuNode::setIcon(const QPixmap &icon)
+{
+    this->icon = &icon;
+    if (parentNode) parentNode->setItemIcon(id, icon);
+    else warning("MenuNode(%s)->parentNode == NULL!!!");
+}
+
+//*****************************************************************************
+void MenuNode::setItemIcon(int id, const QPixmap &icon)
+{
+    debug("MenuNode(%s)::setItemIcon(%d, %p)", getName(), id, &icon);
 }
 
 //*****************************************************************************
@@ -144,20 +165,6 @@ bool MenuNode::isChecked()
 //*****************************************************************************
 bool MenuNode::setItemChecked(int id, bool check)
 {
-    if (id == getId()) {
-	// check/uncheck myself
-	return (parentNode) ?
-	    parentNode->setItemChecked(getId(), check) :
-	    false;
-    } else {
-	// go through all children
-	MenuNode *child = children.first();
-	while (child) {
-	    if (child->setItemChecked(id, check))
-		return true;
-	    child = children.next();
-	}
-    }
     return false;
 }
 
@@ -247,7 +254,8 @@ void MenuNode::removeChild(int id)
 }
 
 //*****************************************************************************
-MenuNode *MenuNode::insertBranch(char *name, int key, char *uid, int index)
+MenuNode *MenuNode::insertBranch(char *name, char *command, int key,
+                                 char *uid, int index)
 {
     debug("!!! MenuNode(%s): insertBranch(%s) !!!", this->name, name);
     return 0;
@@ -279,43 +287,40 @@ int MenuNode::insertNode(char *name, char *position, char *command,
 	while ((*position) && (*position != '/'))
 	    position++;
     }
-    if ((position) && (*position == '/'))
-	*(position++)=0;
+    if ((position) && (*position == '/')) *(position++)=0;
 
-    // --- parse special commands first ---
-    if (specialCommand(name)) return 0;
+    if ((name) && (specialCommand(name))) {
+	// no new branch, only a special command
+	return 0;
+    }
 
-    if ((position == 0) || (*position == 0)) {
+    if ((position == 0) || (*position == 0) || (*position == '#')) {
 	// end of the tree
 	MenuNode *sub = findChild(name);
 	if (sub) {
 	    // a leaf with this name already exists
 	    if (key) sub->setKey(key);
 	    if (strlen(uid)) sub->setUID(uid);
+	
+	    if (*position == '#') sub->specialCommand(position);
 	    return sub->getId();
 	} else {
 	    // insert a new leaf
 	    MenuNode *leaf = insertLeaf(name, command, key, uid);
-	    return (leaf) ? leaf->getId() : -1;
+	    if (!leaf) return -1;
+	
+	    if (*position == '#') leaf->specialCommand(position);
+	    return leaf->getId();
 	}
     } else {
     	// somewhere in the tree
-    	MenuNode *sub;
-
-    	sub = findChild(name);
+	MenuNode *sub = findChild(name);
 	if (!sub) {
-	    sub = insertBranch(name, key, uid);
-	} else if (! sub->isBranch()) {
+	    sub = insertBranch(name, command, key, uid);
+	} else if ( !sub->isBranch() && (*position != '#')) {
 	    // remove the "leaf" and insert a branch with
 	    // the same properties
-	    int index     = sub->getIndex();
-	    int old_key   = sub->getKey();
-	    char *old_uid = sub->getUID();
-	    int old_id    = sub->getId();
-	
-	    removeChild(old_id);
-	    sub = insertBranch(name, old_key, old_uid, index);
-
+	    sub = leafToBranch(sub);
 	} else {
 	    // branch already exists (maybe we want to set new properties)
 	    if (key) sub->setKey(key);
@@ -330,6 +335,34 @@ int MenuNode::insertNode(char *name, char *position, char *command,
     }
 
     return result;
+}
+
+//*****************************************************************************
+MenuNode *MenuNode::leafToBranch(MenuNode *node)
+{
+    MenuNode *sub = node;
+
+    // get the old properties
+    int index               = sub->getIndex();
+    int old_key             = sub->getKey();
+    char *old_uid           = sub->getUID();
+    int old_id              = sub->getId();
+    const QPixmap *old_icon = sub->getIcon();
+    char *name              = duplicateString(node->getName());
+    char *command           = duplicateString(node->getCommand());
+
+    debug("replace leaf->branch: %s", name); // ###
+    // remove the old child node
+    removeChild(old_id);
+
+    // insert the new branch
+    sub = insertBranch(name, command, old_key, old_uid, index);
+
+    delete name;
+    delete command;
+    if ((sub) && (old_icon)) sub->setIcon(*old_icon);
+
+    return sub;
 }
 
 //*****************************************************************************

@@ -103,6 +103,7 @@ install-data-local:
 	$(INSTALL_DATA) images/rspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) images/lspeaker.xpm $(PIXDIR)
 	$(INSTALL_DATA) images/font.xpm $(PIXDIR)
+	$(INSTALL_DATA) images/filesave.xpm $(PIXDIR)
 	$(mkinstalldirs) $(CONFDIR)
 	$(INSTALL_DATA) menus.config $(CONFDIR)
 	$(mkinstalldirs) $(kde_htmldir)/default/$(PACKAGE)

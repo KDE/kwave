@@ -119,63 +119,56 @@ void MenuManager::setCommand (const char *command)
 }
 
 //*****************************************************************************
-void MenuManager::clearNumberedMenu (const char *name)
+void MenuManager::clearNumberedMenu (const char *uid)
 {
-    MenuNode *node = menu_root->findUID(name);
+    MenuNode *node = menu_root->findUID(uid);
     if (node) node->clear();
 }
 
 //*****************************************************************************
-void MenuManager::addNumberedMenuEntry (const char *name, char *entry)
+void MenuManager::addNumberedMenuEntry (const char *uid, char *entry)
 {
-    MenuNode *node = menu_root->findUID(name);
-    if (node) node->insertLeaf(entry, 0, 0, 0, -1);
-    else debug ("could not find numbered Menu %s\n",name);
+    MenuNode *node = menu_root->findUID(uid);
+    if (node) {
+	const char *cmd  = node->getCommand();
+	char *command = new char[strlen(cmd)+strlen(entry)];
+        if (!command) {
+	    warning("unable to add entry '%s', out of memory ?");
+	    return;
+        }
+	sprintf(command, cmd, entry);
+	node->insertLeaf(entry, command, 0, 0, -1);
+	delete command;
+    } else debug ("MenuManager: could not find numbered Menu '%s'", uid);
 }
 
 //*****************************************************************************
 void MenuManager::selectItemChecked(const char *uid)
 {
-/* ###
-  debug("MenuManager::selectItemChecked('%s')", id);
-  MenuNode *menu = menuIDs.find(id);
-  if (menu)
-    {
-      MenuNode *parent = menu->getParent();
-      if (parent) parent->checkEntry(menu->getId());
-    }
-*/
+    debug("MenuManager::setItemChecked('%s')", uid);
+    MenuNode *node = menu_root->findUID(uid);
+    if (node) node->setChecked(true);
 }
 
 //*****************************************************************************
 void MenuManager::setItemChecked(const char *uid, bool check)
 {
-/* ###
-  debug("MenuManager::setItemChecked('%s', %d)", id, check);
-  MenuNode *menu = menuIDs.find(id);
-  if (menu)
-    {
-      MenuNode *parent = menu->getParent();
-      if (parent) parent->checkEntry(menu->getId(), check);
-    }
-*/
+    debug("MenuManager::setItemChecked('%s', %d)", uid, check);
+    MenuNode *node = menu_root->findUID(uid);
+    if (node) node->setChecked(check);
 }
 
 //*****************************************************************************
 void MenuManager::setItemEnabled(const char *uid, bool enable)
 {
-  debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
-  MenuNode *node = menu_root->findUID(uid);
-  if (node) node->setEnabled(enable);
+    // debug("MenuManager::setItemEnabled('%s', %d)", uid, enable);
+    MenuNode *node = menu_root->findUID(uid);
+    if (node) node->setEnabled(enable);
 }
 
 //*****************************************************************************
 MenuManager::~MenuManager ()
 {
-// ###  toplevelmenus.clear();
-// ###  numberedMenus.clear();
-// ###  menuIDs.clear();
-// ###    menu_root->clear();
     delete menu_root;
 }
 

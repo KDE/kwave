@@ -25,7 +25,8 @@
 #include "TopWidget.h"
 
 extern Global globals;
-QStrList           recentFiles; 
+QStrList           recentFiles;
+
 //*****************************************************************************
 void TopWidget::setOp (const char *str)
 {
@@ -146,24 +147,18 @@ void TopWidget::resolution (const char *str)
 //*****************************************************************************
 void TopWidget::openRecent (const char *str)
 {
-  Parser parser (str);
-  int cnt=parser.toInt();
+    Parser parser (str);
+    const char *filename = parser.getFirstParam();
 
-  if ((cnt>=0)&&(cnt<20))
-    {
-      QString name=recentFiles.at(cnt);
-
-      if (name)
-	{
-	  if (this->name) deleteString (this->name);
-	  this->name=duplicateString (name.data());
-	  mainwidget->setSignal (this->name);
-	  setCaption (this->name);
-	  bits = mainwidget->getBitsPerSample();
-	  updateMenu();
-	}
-    }
-  else debug ("out of range\n");
+    if (filename) {
+	if (this->name) deleteString (this->name);
+	this->name=duplicateString(filename);
+	mainwidget->setSignal (this->name);
+	globals.app->addRecentFile (this->name);
+	setCaption (this->name);
+	bits = mainwidget->getBitsPerSample();
+	updateMenu();
+    } else warning("TopWidget::openRecent(%s) failed, filename==0 !?");
 }
 //*****************************************************************************
 void TopWidget::dropEvent (KDNDDropZone *drop)
@@ -192,8 +187,8 @@ void TopWidget::openFile ()
   if (!name.isNull())
     {
       this->name=duplicateString (name.data());
-      globals.app->addRecentFile (this->name);
       mainwidget->setSignal (this->name);
+      globals.app->addRecentFile (name.data());
       setCaption (this->name);
       bits = mainwidget->getBitsPerSample();
       updateMenu();

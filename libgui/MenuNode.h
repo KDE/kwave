@@ -21,6 +21,7 @@
 #include <qobject.h>
 #include <qlist.h>
 
+class QPixmap;
 class MenuSub;
 
 /**
@@ -57,7 +58,12 @@ public:
     /**
      * Returns the (non-localized) name of the node.
      */
-    inline const char *getName() const {return name;};
+    inline const char *getName() {return name;};
+
+    /**
+     * Returns the command of the node.
+     */
+    inline const char *getCommand() {return command;};
 
     /**
      * Returns the menu id of the node.
@@ -83,6 +89,24 @@ public:
      * Sets the bitmask of the keyboard shortcut.
      */
     virtual void setKey(int key) { this->key = key; };
+
+    /**
+     * Returns a reference to the menu node's icon.
+     */
+    virtual const QPixmap *getIcon();
+
+    /**
+     * Sets a new icon of a menu node.
+     * @param icon reference to the QPixmap with the icon
+     */
+    virtual void setIcon(const QPixmap &icon);
+
+    /**
+     * Sets a new icon of a menu node's child node
+     * @param id the node's menu id
+     * @param icon reference to the QPixmap with the icon
+     */
+    virtual void setItemIcon(int id, const QPixmap &icon);
 
     /**
      * Sets the menu id of a node.
@@ -150,7 +174,7 @@ public:
     virtual bool isChecked();
 
     /**
-     * Sets or removes the checkmark from a menu node . If the specified
+     * Sets or removes the checkmark from a menu node. If the specified
      * item is not a member of the current menu, this method will recursively
      * call all of it's child nodes.
      * @param id the item's menu id
@@ -198,6 +222,13 @@ public:
      * Inserts a new branch node into the menu structure. The new node
      * normally is (derived from) MenuSub.
      * @param name non-localized name of the node
+     * @param command the command template used for creating commands of
+     *                submenus (leafes) that don't have an own command
+     *                but contain data for their parent's command.
+     *                Should contain a %s that will be replaced by some
+     *                data from a child entry. (this is used for
+     *                menus with data selection lists like "recent files)
+     *                If not used, pass 0.
      * @param key bitmask of the keyboard shortcut (see "qkeycode.h"),
      *            0 if unused
      * @param uid unique id string (might be 0)
@@ -205,7 +236,7 @@ public:
      *              from 0 or -1 for appending (optional, default=-1)
      * @return pointer to the new branch node
      */
-    virtual MenuNode *insertBranch(char *name, int key,
+    virtual MenuNode *insertBranch(char *name, char *command, int key,
                                    char *uid, int index=-1);
 
     /**
@@ -227,7 +258,7 @@ public:
     /**
      * Registers a node as a child of the current node.
      * @param node pointer to the child node
-     * @return the unique id of the node
+     * @return the id of the node
      */
     virtual int registerChild(MenuNode *node);
 
@@ -246,6 +277,15 @@ public:
      */
     virtual int insertNode(char *name, char *position, char *command,
 	                   int key, char *uid);
+
+    /**
+     * Converts a child node from leaf to branch type by removing
+     * the leaf and inserting a branch with the same properties
+     * instead.
+     * @param node the child node to be converted
+     * @return pointer to the new branch node
+     */
+    virtual MenuNode *leafToBranch(MenuNode *node);
 
     /**
      * Handles/interpretes special menu commands.
@@ -279,6 +319,9 @@ private:
 
     /** command to be sent when the node is activated (optional) */
     char *command;
+
+    /** icon of the node (optional) */
+    const QPixmap *icon;
 
     /** parent of this entry */
     MenuNode* parentNode;

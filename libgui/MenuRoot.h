@@ -37,7 +37,7 @@ public: // Public methods
 
     virtual int getChildIndex(int id);
 
-    virtual MenuNode *insertBranch(char *name, int key,
+    virtual MenuNode *insertBranch(char *name, char *command, int key,
                                    char *uid, int index=-1);
 
     virtual MenuNode *insertLeaf(char *name, char *command,

@@ -38,10 +38,10 @@ int MenuRoot::getChildIndex(int id)
 }
 
 //*****************************************************************************
-MenuNode *MenuRoot::insertBranch(char *name, int key,
+MenuNode *MenuRoot::insertBranch(char *name, char *command, int key,
                                  char *uid, int index)
 {
-    MenuToplevel *node = new MenuToplevel(this, name, 0, key, uid);
+    MenuToplevel *node = new MenuToplevel(this, name, command, key, uid);
     int new_id = registerChild(node);
     menu_bar.insertItem(klocale->translate(name),
 	node->getPopupMenu(), new_id, index);

@@ -18,8 +18,9 @@
 #ifndef _MENU_SUB_H_
 #define _MENU_SUB_H_ 1
 
-#include "MenuNode.h"
+#include "MenuItem.h"
 
+class QPixmap;
 class QPopupMenu;
 
 /**
@@ -27,7 +28,7 @@ class QPopupMenu;
  * root menu node, a toplevel menu or an other submenu.
  * @author Thomas Eschenbacher
  */
-class MenuSub : public MenuNode
+class MenuSub : public MenuItem
 {
   Q_OBJECT
 
@@ -38,7 +39,7 @@ public: // Public methods
     virtual int getChildIndex(int id);
     virtual bool isBranch() {return true;};
 
-    virtual MenuNode *insertBranch(char *name, int key,
+    virtual MenuNode *insertBranch(char *name, char *command, int key,
                                    char *uid, int index=-1);
 
     virtual MenuNode *insertLeaf(char *name, char *command,
@@ -51,15 +52,18 @@ public: // Public methods
 
     virtual bool specialCommand(const char *command);
 
+    virtual void setItemIcon(int id, const QPixmap &icon);
+
     virtual void setEnabled(bool enable);
 
     virtual bool setItemEnabled(int id, bool enable);
+
+    virtual bool setItemChecked(int id, bool check);
 
 public slots:
 
 //    void slotChecked(int);
     void slotSelected(int);
-//    void slotHilighted(int);
 
 private:
     QPopupMenu *menu;

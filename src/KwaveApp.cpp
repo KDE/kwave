@@ -115,14 +115,17 @@ void KwaveApp::setOp (const char* str)
 //****************************************************************************
 void KwaveApp::addRecentFile (char* newfile)
 {
-  if (recentFiles.find(newfile) != -1) return;
+  int old = recentFiles.find(newfile);
 
-  if (recentFiles.count() < 20) recentFiles.insert(0,newfile);
-  else
-    {
+  // remove old entry if present
+  if (old != -1) recentFiles.remove(old);
+
+  // shorten the list down to 19 entries
+  while (recentFiles.count() > 19)
       recentFiles.remove(19);
-      recentFiles.insert(0,newfile);
-    }
+
+  // insert the new entry at top
+  recentFiles.insert(0,newfile);
 
   // save the list of recent files
   saveRecentFiles();
@@ -218,7 +221,7 @@ void KwaveApp::saveConfig()
 void KwaveApp::readConfig()
 {
   QString result;
-  char  buf[64];
+  char  buf[8];
   
   KConfig *config=getConfig();
 
@@ -227,13 +230,14 @@ void KwaveApp::readConfig()
   for (unsigned int i =0 ; i < 20; i++)
     {
       sprintf (buf,"%d",i);           //generate number 
-      result=config->readEntry (buf); //and read coresponding entry
+      result=config->readEntry (buf); //and read corresponding entry
 
       if (!result.isNull())
 	{
 	  QFile file(result.data());
-	  if (file.exists())          //check if file exists and insert it
-	  recentFiles.append (result.data());
+          //check if file exists and insert it if not already present
+	  if (file.exists() && (recentFiles.find(result.data()) == -1))
+	    recentFiles.append(result.data());
 	}
     }
 

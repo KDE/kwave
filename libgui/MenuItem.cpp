@@ -15,7 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qpixmap.h>
 #include <kapp.h>
+#include <kiconloader.h>
+
+#include "libkwave/Parser.h"
 
 #include "MenuNode.h"
 #include "MenuItem.h"
@@ -32,6 +36,30 @@ int MenuItem::getIndex()
 {
     MenuNode *parent = getParentNode();
     return (parent) ? parent->getChildIndex(getId()) : -1;
+}
+
+//*****************************************************************************
+bool MenuItem::specialCommand(const char *command)
+{
+    if (strncmp(command, "#icon(", 6) == 0) {
+	// --- give the item an icon ---
+	Parser parser(command);
+	const char *filename = parser.getFirstParam();
+	if (filename) {
+	    setIcon(Icon(filename));
+	}
+	return true;
+    } else if (strcmp(command, "#listmenu") == 0) {
+	// insert an empty submenu for the list items
+    	debug("MenuItem(%s) >> listmenu <<", getName());
+    	
+    	MenuNode *parent = getParentNode();
+    	if (parent) parent->leafToBranch(this);
+    	
+	return true;
+    }
+
+    return (MenuNode::specialCommand(command));
 }
 
 //*****************************************************************************

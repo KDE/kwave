@@ -1,5 +1,22 @@
 this Development Version
 
+many cleanups in the header-Files in src and libgui
+
+the menu management has completely been rewritten:
+- Menu, NumberedMenu and MenuCommand classes are deleted
+- new classes: MenuNode, MenuItem, MenuSub, MenuToplevel and MenuRoot
+
+menu items can have icons
+
+menu nodes can have unique string ids
+
+special menu commands start with a "#"
+
+first attempts for internationalization
+
+list of recent files is sorted by time of last usage
+
+
 0.5.0-1 [by Thomas.Eschenbacher@gmx.de]
 
 moved my modifications from the Makefiles to Makefile.am

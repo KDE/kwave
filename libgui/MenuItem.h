@@ -33,6 +33,7 @@ public: // Public methods
     MenuItem(MenuNode *parent, char *name, char *command=0,
              int key=0, char *uid=0);
     virtual int getIndex();
+    virtual bool specialCommand(const char *command);
     virtual void setEnabled(bool enable);
 
 };

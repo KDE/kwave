@@ -49,7 +49,6 @@ libkwavegui_la_SOURCES =\
  MenuToplevel.cpp\
  MenuRoot.cpp\
  MenuManager.cpp\
- MenuCommand.cpp\
  MultiStateWidget.cpp\
  OverViewWidget.cpp\
  ScaleWidget.cpp\

@@ -354,24 +354,6 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	(int *)(&bits));
 
     int compression = afGetCompression(fh, AF_DEFAULT_TRACK);
-
-    QString sample_format_name;
-    switch (sample_format) {
-	case AF_SAMPFMT_TWOSCOMP:
-	    sample_format_name = i18n("linear two's complement");
-	    break;
-	case AF_SAMPFMT_UNSIGNED:
-	    sample_format_name = i18n("unsigned integer");
-	    break;
-	case AF_SAMPFMT_FLOAT:
-	    sample_format_name = i18n("32-bit IEEE floating-point");
-	    break;
-	case AF_SAMPFMT_DOUBLE:
-	    sample_format_name = i18n("64-bit IEEE double-precision floating-point");
-	    break;
-	default:
-	    sample_format_name = i18n("unknown");
-    }
     if (static_cast<signed int>(bits) < 0) bits = 0;
 
     info().setRate(rate);
@@ -379,7 +361,6 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
     info().setTracks(tracks);
     info().setLength(length);
     info().set(INF_SAMPLE_FORMAT, sample_format);
-    info().set(INF_SAMPLE_FORMAT_NAME, sample_format_name);
     info().set(INF_COMPRESSION, compression);
 
     // read in all info from the LIST (INFO) chunk

@@ -19,13 +19,18 @@
 #define _PLAY_BACK_PLUGIN_H_
 
 #include <qstring.h>
+
+#include <mt/Mutex.h>
 #include <mt/SignalProxy.h>
+
 #include <libkwave/PlayBackParam.h> // for struct playback_param_t
+
 #include <libgui/KwavePlugin.h>
 
 class QStringList;
 class PlaybackController;
 class PluginContext;
+class PlayBackDevice;
 
 class PlayBackPlugin: public KwavePlugin
 {
@@ -34,6 +39,9 @@ public:
 
     /** Constructor */
     PlayBackPlugin(PluginContext &c);
+
+    /** Destructor */
+    virtual ~PlayBackPlugin();
 
     /**
      * Gets called when the plugin is first loaded and connects itself
@@ -93,21 +101,30 @@ protected:
      */
     void playbackDone();
 
-private:
+    /**
+     * Opens and initializes the playback device. If the initialization
+     * worked, m_device holds a valid pointer. On any errors m_device
+     * will be 0. If a device was open before, it will be closed.
+     * @see m_device
+     * @see class PlayBackDevice
+     */
+    void openDevice();
 
     /**
-     * Internally used for setting up the OSS playback device.
-     * @param audio file descriptor of the opened playback device
-     * @param channels number of output channels
-     * @param rate playback rate [bits/second]
-     * @param bufbase exponent of playback buffer size (buffer size
-     *        will be (2 ^ bufbase)
-     * @return size of the playback buffer if successful, zero on errors
+     * Closes the playback device, deletes the instance of the
+     * PlayBackDevice and sets m_device to 0.
+     * @see m_device
+     * @see classPlayBackDevice
      */
-    int setSoundParams(int audio, int bitspersample, unsigned int channels,
-	int rate, int bufbase);
+    void closeDevice();
 
 private:
+
+    /** The playback device used for playback */
+    PlayBackDevice *m_device;
+
+    /** Mutex for locking acces to the playback device */
+    Mutex m_lock_device;
 
     /** the parameters used for playback */
     playback_param_t m_playback_params;

@@ -22,27 +22,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include <sys/ioctl.h>
-#include <linux/soundcard.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
 
 #include <qarray.h>
 #include <qvector.h>
 #include <qstring.h>
 
 #include <kapp.h>
+#include <kmessagebox.h>
 
-#include <libkwave/Matrix.h>
-#include <libkwave/Sample.h>
-#include <libkwave/SampleReader.h>
+#include "mt/Mutex.h"
 
-#include <libgui/KwavePlugin.h>
+#include "libkwave/Matrix.h"
+#include "libkwave/Sample.h"
+#include "libkwave/SampleReader.h"
 
-#include <kwave/PlaybackController.h>
-#include <kwave/PluginManager.h>
-#include <kwave/SignalManager.h>
+#include "libgui/KwavePlugin.h"
+
+#include "kwave/PlaybackController.h"
+#include "kwave/PluginManager.h"
+#include "kwave/SignalManager.h"
+
+#include "PlayBackDevice.h"
+#include "PlayBack-OSS.h"
 
 #include "PlayBackDialog.h"
 #include "PlayBackPlugin.h"
@@ -55,15 +56,11 @@ KWAVE_PLUGIN(PlayBackPlugin,"playback","Thomas Eschenbacher");
 #define DEFAULT_PLAYBACK_DEVICE "/dev/dsp"
 // "[aRts sound daemon]"
 
-/** use at least 2^8 = 256 bytes for playback buffer !!! */
-#define MIN_PLAYBACK_BUFFER 8
-
-/** use at most 2^16 = 65536 bytes for playback buffer !!! */
-#define MAX_PLAYBACK_BUFFER 16
-
 //***************************************************************************
 PlayBackPlugin::PlayBackPlugin(PluginContext &context)
     :KwavePlugin(context),
+    m_device(0),
+    m_lock_device(),
     m_playback_controller(manager().playbackController()),
     m_spx_playback_done(&m_playback_controller, SLOT(playbackDone())),
     m_spx_playback_pos(this, SLOT(updatePlaybackPos())),
@@ -76,6 +73,15 @@ PlayBackPlugin::PlayBackPlugin(PluginContext &context)
     m_playback_params.bufbase = 10;
 
     m_spx_playback_pos.setLimit(32); // limit for the queue
+}
+
+//***************************************************************************
+PlayBackPlugin::~PlayBackPlugin()
+{
+    // close the device now if it accidentally is still open
+    MutexGuard lock_for_delete(m_lock_device);
+    if (m_device) delete m_device;
+    m_device = 0;
 }
 
 //***************************************************************************
@@ -155,13 +161,79 @@ QStringList *PlayBackPlugin::setup(QStringList &previous_params)
 }
 
 //***************************************************************************
+void PlayBackPlugin::openDevice()
+{
+    MutexGuard lock_for_delete(m_lock_device);
+
+    // remove the old device if still one exists
+    if (m_device) {
+	warning("PlayBackPlugin::openDevice(): removing stale instance");
+	delete m_device;
+    }
+
+    // create the playback device
+    m_device = new PlayBackOSS(); // currently only OSS support !
+    ASSERT(m_device);
+    if (!m_device) {
+	warning("PlayBackPlugin::openDevice(): "\
+		"creating device failed.");
+	return;
+    }
+
+    // open and initialize the device
+    QString result = m_device->open(
+	m_playback_params.device,
+	m_playback_params.rate,
+	m_playback_params.channels,
+	m_playback_params.bits_per_sample,
+	m_playback_params.bufbase
+    );
+    ASSERT(!result.length());
+    if (result.length()) {
+	warning("PlayBackPlugin::openDevice(): "\
+	        "opening the device failed.");
+	
+	// delete the device if it did not open
+	delete m_device;
+	m_device = 0;
+	
+	// show an error message box
+	KMessageBox::error(parentWidget(), result,
+	    i18n("unable to open '%1'").arg(
+	    m_playback_params.device));
+	return;
+    }
+}
+
+//***************************************************************************
+void PlayBackPlugin::closeDevice()
+{
+    MutexGuard lock_for_delete(m_lock_device);
+
+    if (!m_device) return; // already closed
+    if (m_device) delete m_device;
+    m_device = 0;
+}
+
+//***************************************************************************
 void PlayBackPlugin::startDevicePlayBack()
 {
+    // set the real sample rate for playback from the signal itself
+    m_playback_params.rate = signalRate();
+
+    // open the device and abort if not possible
+    openDevice();
+    if (!m_device) {
+	// simulate a "playback done" on errors
+	playbackDone();
+	return;
+    }
+
     static QStringList empty_list;
 
     // determine first and last sample if not in paused mode
     if (!m_playback_controller.paused()) {
-	unsigned int first;
+	 unsigned int first;
 	unsigned int last;
 	selection(&first, &last);
 	if (first == last) {
@@ -174,9 +246,6 @@ void PlayBackPlugin::startDevicePlayBack()
 	m_playback_controller.updatePlaybackPos(first);
     }
 
-    // set the real sample rate for playback from the signal itself
-    m_playback_params.rate = signalRate();
-
     m_stop = false;
     execute(empty_list);
 }
@@ -185,59 +254,14 @@ void PlayBackPlugin::startDevicePlayBack()
 void PlayBackPlugin::stopDevicePlayBack()
 {
     m_stop = true;
-}
-
-//***************************************************************************
-int PlayBackPlugin::setSoundParams(int audio, int bitspersample,
-                                   unsigned int channels, int rate,
-                                   int bufbase)
-{
-    QString m_playback_error; // ### dummy
-
-    debug("PlayBackPlugin::setSoundParams(fd=%d,bps=%d,channels=%d,"\
-	"rate=%d, bufbase=%d)", audio, bitspersample, channels,
-	rate, bufbase);
-
-    int format = (bitspersample == 8) ? AFMT_U8 : AFMT_S16_LE;
-
-    // number of bits per sample
-    if (ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &format) == -1) {
-	m_playback_error = i18n("number of bits per samples not supported");
-	return 0;
-    }
-
-    // mono/stereo selection
-    int stereo = (channels >= 2) ? 1 : 0;
-    if (ioctl(audio, SNDCTL_DSP_STEREO, &stereo) == -1) {
-	m_playback_error = i18n("stereo not supported");
-	return 0;
-    }
-
-    // playback rate
-    if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) == -1) {
-	m_playback_error = i18n("playback rate not supported");
-	return 0;
-    }
-
-    // buffer size
-    ASSERT(bufbase >= MIN_PLAYBACK_BUFFER);
-    ASSERT(bufbase <= MAX_PLAYBACK_BUFFER);
-    if (bufbase < MIN_PLAYBACK_BUFFER) bufbase = MIN_PLAYBACK_BUFFER;
-    if (bufbase > MAX_PLAYBACK_BUFFER) bufbase = MAX_PLAYBACK_BUFFER;
-    if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
-	m_playback_error = i18n("unusable buffer size");
-	return 0;
-    }
-
-    // return the buffer size in bytes
-    int size;
-    ioctl(audio, SNDCTL_DSP_GETBLKSIZE, &size);
-    return size;
+    closeDevice();
 }
 
 //***************************************************************************
 void PlayBackPlugin::run(QStringList)
 {
+    MutexGuard lock(m_lock_device);
+
     unsigned int first = m_playback_controller.startPos();
     unsigned int last  = m_playback_controller.endPos();
     unsigned int out_channels = m_playback_params.channels;
@@ -279,112 +303,64 @@ void PlayBackPlugin::run(QStringList)
 	}
     }
 
-    // prepeare for playback by opening the sound device
-    // and initializing with the proper settings
-    int device;
-    unsigned int bufsize = 0;
-    if ((device = open(m_playback_params.device, O_WRONLY)) != -1 ) {
-	bufsize = setSoundParams(device,
-	    m_playback_params.bits_per_sample,
-	    m_playback_params.channels,
-	    m_playback_params.rate,
-	    m_playback_params.bufbase
-	);
-    }
-
-    QByteArray buffer(bufsize);
-
     // loop until process is stopped
     // or run once if not in loop mode
     QArray<sample_t> in_samples(audible_count);
     QArray<sample_t> out_samples(out_channels);
-    unsigned int pointer = m_playback_controller.currentPos();
+    unsigned int pos = m_playback_controller.currentPos();
 
     // counter for refresh of the playback position
     unsigned int pos_countdown = 0;
 
-    m_spx_playback_pos.enqueue(pointer);
+    m_spx_playback_pos.enqueue(pos);
     do {
 
 	// if current position is after start -> skip the passed
 	// samples (this happens when resuming after a pause)
-	if (pointer > first) {
+	if (pos > first) {
 	    for (x=0; x < audible_count; x++) {
 		SampleReader *stream = input[x];
-		if (stream) stream->skip(pointer-first);
+		if (stream) stream->skip(pos-first);
 	    }
 	}
 	
-	while ((pointer <= last) && !m_stop) {
-	    // fill the buffer with audio data
-	    unsigned int cnt;
-	    for (cnt = 0; (cnt < bufsize) && (pointer <= last); pointer++) {
-		// read vector with input samples
-		unsigned int x;
+	while ((pos++ <= last) && !m_stop) {
+	    unsigned int x;
+	    for (x=0; x < audible_count; x++) {
+		in_samples[x] = 0;
+		SampleReader *stream = input[x];
+		ASSERT(stream);
+		if (!stream) continue;
+		
+		sample_t act;
+		(*stream) >> act;
+		in_samples[x] = act;
+	    }
+		
+	    // multiply matrix with input to get output
+	    unsigned int y;
+	    for (y=0; y < out_channels; y++) {
+		double sum = 0;
 		for (x=0; x < audible_count; x++) {
-		    in_samples[x] = 0;
-		    SampleReader *stream = input[x];
-		    ASSERT(stream);
-		    if (!stream) continue;
-		
-		    sample_t act;
-		    (*stream) >> act;
-		    in_samples[x] = act;
+		    sum += (double)in_samples[x] * matrix[x][y];
 		}
-		
-		// multiply matrix with input to get output
-		unsigned int y;
-		for (y=0; y < out_channels; y++) {
-		    double sum = 0;
-		    for (x=0; x < audible_count; x++) {
-			sum += (double)in_samples[x] * matrix[x][y];
-		    }
-		    out_samples[y] = (sample_t)sum;
-		}
-		
-		// convert into byte stream
-		unsigned int channel;
-		for (channel=0; channel < out_channels; channel++) {
-		    sample_t sample = out_samples[channel];
-		
-		    switch (m_playback_params.bits_per_sample) {
-			case 8:
-			    sample += 1 << 23;
-			    buffer[cnt++] = sample >> 16;
-			    break;
-			case 16:
-			    sample += 1 << 23;
-			    buffer[cnt++] = sample >> 8;
-			    buffer[cnt++] = (sample >> 16) + 128;
-			    break;
-			case 24:
-			    // play in 32 bit format
-			    buffer[cnt++] = 0x00;
-			    buffer[cnt++] = sample & 0x0FF;
-			    buffer[cnt++] = sample >> 8;
-			    buffer[cnt++] = (sample >> 16) + 128;
-			    break;
-			default:
-			    // invalid bits per sample
-			    m_stop = true;
-			    pointer = last;
-			    cnt = 0;
-			    break;
-		    }
-		}
+		out_samples[y] = (sample_t)sum;
 	    }
 	
-	    // write buffer to the playback device
-	    write(device, buffer.data(), cnt);
+	    // write samples to the playback device
+	    int result = m_device->write(out_samples);
+	    if (result) {
+		m_stop = true;
+		pos = last;
+	    }
 	
 	    // update the playback position if timer elapsed
-	    if (pos_countdown < cnt) {
-		pos_countdown = m_playback_params.rate *
-		    out_channels * (m_playback_params.bits_per_sample >> 3)
-		    / SCREEN_REFRESHES_PER_SECOND;
-		m_spx_playback_pos.enqueue(pointer);
+	    if (!pos_countdown) {
+		pos_countdown = m_playback_params.rate /
+			SCREEN_REFRESHES_PER_SECOND;
+		m_spx_playback_pos.enqueue(pos);
 	    } else {
-		pos_countdown -= cnt;
+		--pos_countdown;
 	    }
 	}
 	
@@ -395,20 +371,17 @@ void PlayBackPlugin::run(QStringList)
 		SampleReader *stream = input[x];
 		if (stream) stream->reset();
 	    }
-	    pointer = m_playback_controller.startPos();
+	    pos = m_playback_controller.startPos();
 	}
 
     } while (m_playback_controller.loop() && !m_stop);
 
-    // finish the output
-    ::close(device);
-
-    // the playback buffer MUST NOT be freed while the playback (device) is
-    // still using it, so resize it right here, after closing the device.
-    buffer.resize(0);
+    // we are done, so close the output device
+    m_device->close();
+    delete m_device;
+    m_device = 0;
 
     // playback is done
-    debug("PlayBackPlugin::run(): playback done");
     playbackDone();
 }
 

@@ -64,7 +64,7 @@ function print_version(ver) {
 	n_items++;
 	printi(3,"<listitem><para>");
 	printi(4,line);
-    } else if (match($0, "\\ \\ \\ -\ ") == 1) {
+    } else if (match($0, "\\ \\ \\ -\\ ") == 1) {
 	#
 	# sub-item
 	#

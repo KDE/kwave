@@ -211,9 +211,7 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
     }
 
     // call the loader function to create an instance
-    debug("PluginManager: loading plugin instance"); // ###
     KwavePlugin *plugin = (*plugin_loader)(context);
-    debug("PluginManager: loading plugin instance done."); // ###
     ASSERT(plugin);
     if (!plugin) {
 	warning("PluginManager::loadPlugin(): out of memory");
@@ -359,8 +357,6 @@ QStringList PluginManager::loadPluginDefaults(const QString &name,
     }
 
     list = cfg->readListEntry("defaults", ',');
-    debug("PluginManager::loadPluginDefaults: list with %d entries loaded",
-	  list.count() );
     return list;
 }
 

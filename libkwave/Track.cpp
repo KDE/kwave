@@ -42,7 +42,6 @@ Track::~Track()
 {
     MutexGuard lock(m_lock_stripes);
 
-    debug("Track::~Track()");
     m_stripes.setAutoDelete(true);
     while (m_stripes.count()) {
 	m_stripes.remove(m_stripes.last());

@@ -80,7 +80,6 @@ void Signal::close()
 {
     MutexGuard lock(m_lock_tracks);
 
-    debug("Signal::close()");
     m_tracks.setAutoDelete(true);
     while (m_tracks.count()) {
 	m_tracks.remove(m_tracks.last());

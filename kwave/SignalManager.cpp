@@ -111,7 +111,6 @@ void SignalManager::loadFile(const QString &filename, int type)
 //***************************************************************************
 void SignalManager::close()
 {
-    debug("SignalManager::close()");
     m_empty = true;
     m_name = "";
     m_signal.close();

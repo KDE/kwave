@@ -45,7 +45,6 @@ KwavePlugin::KwavePlugin(PluginContext &c)
     :m_context(c), m_thread(0)
 {
     m_thread_lock.setName("KwavePlugin");
-    debug("KwavePlugin::KwavePlugin");
 }
 
 //***************************************************************************
@@ -54,7 +53,6 @@ KwavePlugin::~KwavePlugin()
     // inform our owner that we close. This allows the plugin to
     // delete itself
     close();
-    debug("KwavePlugin::~KwavePlugin(), done.");
 }
 
 //***************************************************************************
@@ -100,7 +98,6 @@ int KwavePlugin::start(QStringList &)
 int KwavePlugin::stop()
 {
     MutexGuard lock(m_thread_lock);
-    debug("KwavePlugin::stop()");
     if (m_thread) {
 	if (m_thread->running()) m_thread->wait(5000);
 	if (m_thread->running()) m_thread->stop();
@@ -109,9 +106,7 @@ int KwavePlugin::stop()
 	    // show a message box
 	    warning("KwavePlugin::stop(): stale thread !");
 	}
-	debug("KwavePlugin::stop(): deleting thread");
 	delete m_thread;
-	debug("KwavePlugin::stop(): thread deleted");
 	m_thread = 0;
     }
     return 0;
@@ -127,15 +122,13 @@ int KwavePlugin::execute(QStringList &params)
     ASSERT(m_thread);
     if (!m_thread) return -ENOMEM;
 
-    debug("KwavePlugin::execute(): activating thread");
+    // start the thread, this executes run()
     m_thread->start();
-    debug("KwavePlugin::execute(): thread activated.");
 
     // sometimes the signal proxies remain blocked until an initial
     // X11 event occurs and thus might block the thread :-(
     QApplication::syncX();
 
-    debug("KwavePlugin::execute(): done.");
     return 0;
 }
 
@@ -148,7 +141,6 @@ void KwavePlugin::run(QStringList)
 //***************************************************************************
 void KwavePlugin::close()
 {
-    debug("KwavePlugin::close() [slot]");
     stop();
     emit sigClosed(this, true);
 }

@@ -14,6 +14,8 @@
 #include "libkwave/Sample.h"
 #include "libkwave/WindowFunction.h"
 
+class MultiTrackReader;
+class MultiTrackWriter;
 class SampleReader;
 class SampleWriter;
 class Track;
@@ -74,6 +76,11 @@ public:
     void deleteTrack(unsigned int index);
 
     /**
+     * Returns an array of indices of all present tracks.
+     */
+    const QArray<unsigned int> allTracks();
+
+    /**
      * Opens an input stream for a track, starting at a specified sample
      * position.
      * @param track index of the track. If the track does not exist, this
@@ -97,6 +104,39 @@ public:
      */
     SampleReader *openSampleReader(unsigned int track, unsigned int left = 0,
 	unsigned int right = UINT_MAX);
+
+    /**
+     * Returns a set of opened SampleReader objects for reading from
+     * multiple tracks. The list of tracks may contain indices of tracks
+     * in any order and even duplicate entries are allowed. One useful
+     * application is passing the output of selectedTracks() in order
+     * to read from only from selected tracks.
+     * @param readers reference to the MultiTrackReader to be filled.
+     * @note the returned vector has set "autoDelete" to true, so you
+     *       don't have to care about cleaning up
+     * @param track_list array of indices of tracks for reading
+     * @param first index of the first sample
+     * @param last index of the last sample
+     * @see SampleReader
+     */
+    void openMultiTrackReader(MultiTrackReader &readers,
+	const QArray<unsigned int> &track_list,
+	unsigned int first, unsigned int last);
+
+    /**
+     * Opens a set of SampleWriters and internally handles the creation of
+     * needed undo information. This is useful for multi-channel operations.
+     * @param writers reference to a vector that receives all writers.
+     * @param track_list list of indices of tracks to be modified.
+     * @param mode specifies where and how to insert
+     * @param left start of the input (only useful in insert and
+     *             overwrite mode)
+     * @param right end of the input (only useful with overwrite mode)
+     * @see InsertMode
+     */
+    void openMultiTrackWriter(MultiTrackWriter &writers,
+	const QArray<unsigned int> &track_list, InsertMode mode,
+	unsigned int left, unsigned int right);
 
     /**
      * Returns the number of tracks.

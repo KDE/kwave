@@ -35,7 +35,6 @@
 #endif
 
 //***************************************************************************
-
 MultiTrackWriter &MultiTrackWriter::operator << (
 	const MultiTrackReader &source)
 {

@@ -726,11 +726,12 @@ int SignalWidget::selectionPosition(const int x)
     const unsigned int first = m_signal_manager.selection().first();
     const unsigned int last  = m_signal_manager.selection().last();
     const unsigned int ofs   = m_offset;
+    const unsigned int w     = pixels2samples(w);
     ASSERT(first <= last);
 
     // get pixel coordinates
-    const int l = (first >= ofs) ? samples2pixels(first-ofs) : -(2 * tol);
-    const int r = (last  >= ofs) ? samples2pixels(last-ofs)  : m_width+(2*tol);
+    const int l = (first <= ofs) ? -(2*tol) : (samples2pixels(first-ofs));
+    const int r = (last  <= ofs) ? -(2*tol) : (samples2pixels(last-ofs));
     const int ll = (l > tol) ? (l-tol) : 0;
     const int lr = l + tol;
     const int rl = (r > tol) ? (r-tol) : 0;
@@ -784,24 +785,29 @@ void SignalWidget::mousePressEvent(QMouseEvent *e)
 	if (mx < 0) mx = 0;
 	if (mx >= m_width) mx = m_width-1;
 	unsigned int x = m_offset + pixels2samples(mx);
+	unsigned int len = m_selection->right() - m_selection->left() + 1;
 	
 	switch (e->state() & KeyButtonMask) {
 	    case ShiftButton: {
 		// expand the selection to "here"
 		m_selection->grep(x);
-		unsigned int len = m_selection->right() - m_selection->left() + 1;
 		selectRange(m_selection->left(), len);
 		setMouseMode(MouseSelect);
+	    }
+	    case ControlButton: {
+		if (isInSelection(e->pos().x()) && (len > 1)) {
+		    // start a drag&drop operation in "copy" mode
+		    startDragging(QDragObject::DragCopy);
+		}
 	    }
 	    case 0: {
 		if (isSelectionBorder(e->pos().x())) {
 		    // modify selection border
 		    m_selection->grep(x);
 		    setMouseMode(MouseSelect);
-		} else if (isInSelection(e->pos().x())) {
-		    // start a drag&drop operation, this does implicitely
-		    // change the mouse cursor
-		    startDragging();
+		} else if (isInSelection(e->pos().x()) && (len > 1)) {
+		    // start a drag&drop operation in "move" mode
+		    startDragging(QDragObject::DragMove);
 		} else {
 		    // start a new selection
 		    m_selection->set(x, x);
@@ -1709,7 +1715,7 @@ void SignalWidget::slotSamplesModified(unsigned int /*track*/,
 }
 
 //***************************************************************************
-void SignalWidget::startDragging()
+void SignalWidget::startDragging(QDragObject::DragMode mode)
 {
     const unsigned int length = m_signal_manager.selection().length();
     if (!length) return;
@@ -1731,7 +1737,7 @@ void SignalWidget::startDragging()
 	return;
     }
 
-    d->dragCopy();
+    (mode == QDragObject::DragMove) ? (void)d->dragMove() : d->dragCopy();
 }
 
 //***************************************************************************
@@ -1752,16 +1758,25 @@ void SignalWidget::dropEvent(QDropEvent* event)
     debug("SignalWidget::dropEvent(%s)", event->format(0));
 
     if (KwaveDrag::canDecode(event)) {
-	UndoTransactionGuard undo(m_signal_manager, "drag and drop");
+	UndoTransactionGuard undo(m_signal_manager, i18n("drag and drop"));
 	MultiTrackReader src;
 	MultiTrackWriter dst;
+	Signal sig;
 	unsigned int rate = 0;
 	unsigned int bits = 0;
 	
-	if (KwaveDrag::decode(event, rate, bits, src)) {
+	if (KwaveDrag::decode(event, sig, rate, bits)) {
+	    unsigned int pos = m_offset + pixels2samples(event->pos().x());
+	    unsigned int len = sig.length();
+	    sig.openMultiTrackReader(src, sig.allTracks(), 0, len-1);
+	    m_signal_manager.openMultiTrackWriter(dst,
+		m_signal_manager.selectedTracks(), Insert,
+		pos, pos+len-1);
 	    dst << src;
+	
+	    // set selection to the new area where the drop was done
+	    selectRange(pos, len);
 	} else {
-	    // m_signal_manager.abortUndoTransaction();
 	    debug("SignalWidget::dropEvent(%s): failed !", event->format(0));
 	}
     }
@@ -1772,12 +1787,34 @@ void SignalWidget::dropEvent(QDropEvent* event)
 //***************************************************************************
 void SignalWidget::dragMoveEvent(QDragMoveEvent* event)
 {
-    if (!KwaveDrag::canDecode(event)) return;
+    if (!event) return;
 
     int x = event->pos().x();
+    unsigned int left  = m_signal_manager.selection().first();
+    unsigned int right = m_signal_manager.selection().last();
+    unsigned int w = pixels2samples(m_width);
+    QRect r(this->rect());
+
     if ((event->source() == this) && isInSelection(x)) {
-	event->ignore();
-    } else {
+	// disable drag&drop into the selection itself
+	// this would be nonsense
+	
+	// crop selection to widget borders
+	if (left < m_offset) left = m_offset;
+	if (right > m_offset+w) right = m_offset+w-1;
+	
+	// transform to pixel coordinates
+	left  = samples2pixels(left - m_offset);
+	right = samples2pixels(right - m_offset);
+	if (right >= (unsigned int)(m_width)) right=m_width-1;
+	if (left > right) left = right;
+
+	r.setLeft(left);
+	r.setRight(right);
+	event->ignore(r);
+    } else if (KwaveDrag::canDecode(event)) {
+	// accept if it is decodeable within the
+	// current range (if it's outside our own selection)
 	event->accept();
     }
 }

@@ -104,6 +104,8 @@ o import of multi-channel ASCII files
 o label handling doesn't work (currently disabled), work on LabelManager
   has not been started
 
+o naming of the struct elements in FileFormat.h is confusing
+
 o use namespace "Kwave" for all Kwave components
 
 o splitting of i18n for kwave and each plugin

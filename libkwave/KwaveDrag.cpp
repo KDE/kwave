@@ -24,21 +24,25 @@
 #include "libkwave/KwaveDrag.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
+#include "libkwave/SampleWriter.h"
+#include "libkwave/Signal.h"
 #include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
 
 // RFC 2361:
 #define WAVE_FORMAT_PCM "audio/vnd.wave; codec=001"
 
+#define CHECK(cond) ASSERT(cond); if (!(cond)) return false;
+
 //***************************************************************************
 KwaveDrag::KwaveDrag(QWidget *dragSource, const char *name)
-    :QDragObject(dragSource, name), data(0)
+    :QDragObject(dragSource, name), data()
 {
 }
 
 //***************************************************************************
 KwaveDrag::~KwaveDrag()
 {
-    data.resize(0);
 }
 
 //***************************************************************************
@@ -54,8 +58,9 @@ const char *KwaveDrag::format(int i) const
 //***************************************************************************
 QByteArray KwaveDrag::encodedData(const char *format) const
 {
+    debug("KwaveDrag::encodedData(%s)", format);
     if (QCString(WAVE_FORMAT_PCM) == QCString(format)) return data;
-    return 0;
+    return QByteArray();
 }
 
 //***************************************************************************
@@ -69,10 +74,11 @@ bool KwaveDrag::encode(unsigned int rate, unsigned int bits,
                        MultiTrackReader &src)
 {
     debug("KwaveDrag::encode(...)");
+    data = QByteArray();
 
     /* first get and check some header information */
     const unsigned int tracks = src.count();
-    if (!tracks) return false;
+    CHECK(tracks);
 
     const unsigned int length = src[0]->last() - src[0]->first() + 1;
     wav_header_t header;
@@ -157,9 +163,9 @@ bool KwaveDrag::encode(unsigned int rate, unsigned int bits,
 	}
     }
 
-//    /* this produces a correct file !? */
-//    /* but saving clipboard content to file fails !!! */
-//    QFile f("/tmp/test.wav");
+    /* this produces a correct file !? */
+    /* but saving clipboard content to file fails !!! */
+//    QFile f("/tmp/test-1.wav");
 //    f.open(IO_WriteOnly);
 //    f.writeBlock(data);
 //    f.close();
@@ -168,24 +174,49 @@ bool KwaveDrag::encode(unsigned int rate, unsigned int bits,
     return true;
 }
 
-#define CHECK(cond) ASSERT(cond); if (!(cond)) return false;
+//class WavCodec: public ArtsMultiSource
+//{
+//public:
+//    WavCodec() {};
+//    virtual ~WavCodec() {};
+//};
+//
+//class WavPCMCodec: public WavCodec
+//{
+//public:
+//    WavPCMCodec(QByteArray data, unsigned int src_pos, unsigned int track,
+//	unsigned int tracks, unsigned int rate, unsigned int bits);
+//    virtual ~WavPCMCodec() {};
+//protected:
+//    QByteArray m_data;
+//    unsigned int m_offset;
+//    unsigned int m_track;
+//    unsigned int m_tracks;
+//    unsigned int m_rate;
+//    unsigned int m_bits;
+//};
+//
+//WavPCMCodec::WavPCMCodec(QByteArray data, unsigned int src_pos,
+//                         unsigned int track, unsigned int tracks,
+//                         unsigned int rate, unsigned int bits)
+//{
+//    ;
+//}
 
 //***************************************************************************
-bool KwaveDrag::decode(const QMimeSource *e, unsigned int &rate,
-                              unsigned int &bits, MultiTrackReader &src)
+bool KwaveDrag::decode(const QMimeSource *e, Signal &sig,
+                       unsigned int &rate, unsigned int &bits)
 {
-    QByteArray data;
-
     if (!KwaveDrag::canDecode(e)) return false;
     debug("KwaveDrag::decode(...)");
 
     // get the encoded block of data from the mime source
-    data = e->encodedData(e->format());
-    if (data.isEmpty()) return false;
-    if (data.size() <= sizeof(wav_header_t)) return false;
+    QByteArray data(e->encodedData(e->format()));
+    CHECK(!data.isEmpty());
+    CHECK(data.size() > sizeof(wav_header_t)+8);
 
     wav_header_t header;
-    unsigned int datalen = data.size() - sizeof(wav_header_t);
+    unsigned int datalen = data.size() - (sizeof(wav_header_t) + 8);
     unsigned int src_pos = 0;
 
     // get the header
@@ -211,24 +242,77 @@ bool KwaveDrag::decode(const QMimeSource *e, unsigned int &rate,
     CHECK(!strncmp((char*)&(header.riffid), "RIFF", 4));
     CHECK(!strncmp((char*)&(header.wavid), "WAVE", 4));
     CHECK(!strncmp((char*)&(header.fmtid), "fmt ", 4));
-    CHECK(header.filelength == datalen + sizeof(wav_header_t));
+    CHECK(header.filelength == (datalen + sizeof(wav_header_t)));
     CHECK(header.fmtlength == 16);
     CHECK(header.mode == 1);
 
     src_pos += sizeof(wav_header_t);
-    CHECK(data[src_pos++] == 'd');
-    CHECK(data[src_pos++] == 'a');
-    CHECK(data[src_pos++] == 't');
-    CHECK(data[src_pos++] == 'a');
-    CHECK(data[src_pos++] == static_cast<char>( datalen        & 0xFF));
-    CHECK(data[src_pos++] == static_cast<char>((datalen >>  8) & 0xFF));
-    CHECK(data[src_pos++] == static_cast<char>((datalen >> 16) & 0xFF));
-    CHECK(data[src_pos++] == static_cast<char>((datalen >> 24) & 0xFF));
+    CHECK(data[src_pos+0] == 'd');
+    CHECK(data[src_pos+1] == 'a');
+    CHECK(data[src_pos+2] == 't');
+    CHECK(data[src_pos+3] == 'a');
+    CHECK(data[src_pos+4] == static_cast<char>( datalen        & 0xFF));
+    CHECK(data[src_pos+5] == static_cast<char>((datalen >>  8) & 0xFF));
+    CHECK(data[src_pos+6] == static_cast<char>((datalen >> 16) & 0xFF));
+    CHECK(data[src_pos+7] == static_cast<char>((datalen >> 24) & 0xFF));
+    src_pos += 8;
 
-    // create decoder objects
-    // @todo create decoders compatible with the SampleReader class
+    // create a signal
+    unsigned int track;
+    unsigned int length = datalen / bytes / tracks;
+    for (track=0; track < tracks; track++) {
+	if (!sig.appendTrack(length)) {
+	    // out of memory
+	    debug("KwaveDrag::decode: creating signal failed");
+	    sig.close();
+	    return false;
+	}
+    }
 
-    // return with a valid MultiTrackReader
+    // open writers
+    MultiTrackWriter dst;
+    sig.openMultiTrackWriter(dst, sig.allTracks(), Overwrite, 0, length-1);
+    sig.setBits(bits);
+    sig.setRate(rate);
+    if (sig.tracks() != tracks) {
+	debug("KwaveDrag::decode: creating writers failed");
+	sig.close();
+	return false;
+    }
+
+    // fill the signal with data
+    const __uint32_t sign = 1 << (24-1);
+    const unsigned int negative = ~(sign - 1);
+    const unsigned int shift = 24-bits;
+
+    while (src_pos < data.size()) {
+	__uint32_t s = 0; // raw 32bit value
+	for (track = 0; track < tracks; track++) {
+	    SampleWriter *stream = dst.at(track);
+	
+	    if (bytes == 1) {
+		// 8-bit files are always unsigned !
+		s = (static_cast<__uint8_t>(data[src_pos++]) - 128)
+		    << shift;
+	    } else {
+		// >= 16 bits is signed
+		s = 0;
+		for (register unsigned int byte = 0; byte < bytes; byte++) {
+		    s |= (static_cast<__uint8_t>(data[src_pos++])
+		        << ((byte << 3) + shift));
+		}
+		// sign correcture for negative values
+		if (s & sign) s |= negative;
+	    }
+	
+	    // the following cast is only necessary if
+	    // sample_t is not equal to a 32bit int
+	    sample_t sample = static_cast<sample_t>(s);
+	    *stream << sample;
+	}
+    }
+
+    // return with a valid Signal
     return true;
 }
 

@@ -229,14 +229,7 @@ const QArray<unsigned int> SignalManager::selectedTracks()
 //***************************************************************************
 const QArray<unsigned int> SignalManager::allTracks()
 {
-    unsigned int track;
-    QArray<unsigned int> list(tracks());
-
-    for (track=0; track < list.count(); track++) {
-	list[track] = track;
-    }
-
-    return list;
+    return m_signal.allTracks();
 }
 
 //****************************************************************************
@@ -358,19 +351,7 @@ void SignalManager::openMultiTrackReader(MultiTrackReader &readers,
     const QArray<unsigned int> &track_list,
     unsigned int first, unsigned int last)
 {
-    unsigned int count = track_list.count();
-    unsigned int track;
-    readers.setAutoDelete(true);
-    readers.clear();
-    readers.resize(count);
-
-    for (unsigned int i=0; i < count; i++) {
-	track = track_list[i];
-	SampleReader *s = openSampleReader(track, first, last);
-	ASSERT(s);
-	readers.insert(i, s);
-    }
-
+    m_signal.openMultiTrackReader(readers, track_list, first, last);
 }
 
 //***************************************************************************
@@ -379,7 +360,6 @@ void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
     unsigned int left, unsigned int right)
 {
     UndoTransactionGuard guard(*this, 0);
-
     unsigned int count = track_list.count();
     unsigned int track;
     writers.setAutoDelete(true);
@@ -388,18 +368,19 @@ void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
 
     for (unsigned int i=0; i < count; i++) {
 	track = track_list[i];
+	// NOTE: this function is *nearly* identical to the one in the
+	//       Signal class, except for undo support
 	SampleWriter *s = openSampleWriter(track, mode, left, right, true);
 	if (s) {
 	    writers.insert(i, s);
 	} else {
 	    // out of memory or aborted
-	    debug("SignalManager::openMultiTrackWriter: "\
+	    debug("Signal::openMultiTrackWriter: "\
 	          "out of memory or aborted");
 	    writers.clear();
 	    return;
 	}
     }
-
 }
 
 //***************************************************************************

@@ -72,7 +72,6 @@ SampleWriter &SampleWriter::operator << (SampleReader &reader)
 
     // transfer data, using our internal buffer
     unsigned int buflen = m_buffer.size();
-
     while (!reader.eof() && (m_position <= m_last)) {
 	if (m_position+buflen-1 > m_last) buflen = (m_last-m_position)+1;
 	

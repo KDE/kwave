@@ -18,6 +18,7 @@
 #ifndef _SIGNAL_WIDGET_H_
 #define _SIGNAL_WIDGET_H_
 
+#include <qdragobject.h>
 #include <qlist.h>
 #include <qtimer.h>
 #include <qpainter.h>
@@ -242,7 +243,7 @@ public slots:
 protected:
 
     /** Starts a drag & drop operation (from Kwave to somewhere else) */
-    virtual void startDragging();
+    virtual void startDragging(QDragObject::DragMode mode);
 
     /** @see Qt XDND documentation */
     virtual void dragEnterEvent(QDragEnterEvent *event);
@@ -446,8 +447,6 @@ protected:
      * @return zoom value [samples/pixel]
      */
     double getFullZoom();
-
-    void selectRange ();
 
     void resizeEvent(QResizeEvent *);
     void mousePressEvent(QMouseEvent *);

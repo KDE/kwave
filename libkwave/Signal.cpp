@@ -12,18 +12,20 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 
+#include "libkwave/MultiTrackReader.h"
+#include "libkwave/MultiTrackWriter.h"
+#include "libkwave/Track.h"
+#include "libkwave/WindowFunction.h"
+
 #include "Signal.h"
 #include "Parser.h"
 #include "gsl_fft.h"
-#include "libkwave/WindowFunction.h"
 #include "Interpolation.h"
 #include "Curve.h"
 #include "Filter.h"
 #include "FileFormat.h"
 
 #include "mt/SharedLockGuard.h"
-
-#include "libkwave/Track.h"
 
 #define MAXPRIME 512
 
@@ -185,6 +187,65 @@ SampleReader *Signal::openSampleReader(unsigned int track,
     Track *t = m_tracks.at(track);
     ASSERT(t);
     return (t) ? t->openSampleReader(left, right) : 0;
+}
+
+//***************************************************************************
+void Signal::openMultiTrackReader(MultiTrackReader &readers,
+    const QArray<unsigned int> &track_list,
+    unsigned int first, unsigned int last)
+{
+    unsigned int count = track_list.count();
+    unsigned int track;
+    readers.setAutoDelete(true);
+    readers.clear();
+    readers.resize(count);
+
+    for (unsigned int i=0; i < count; i++) {
+	track = track_list[i];
+	SampleReader *s = openSampleReader(track, first, last);
+	ASSERT(s);
+	readers.insert(i, s);
+    }
+
+}
+
+//***************************************************************************
+void Signal::openMultiTrackWriter(MultiTrackWriter &writers,
+    const QArray<unsigned int> &track_list, InsertMode mode,
+    unsigned int left, unsigned int right)
+{
+    unsigned int count = track_list.count();
+    unsigned int track;
+    writers.setAutoDelete(true);
+    writers.clear();
+    writers.resize(count);
+
+    for (unsigned int i=0; i < count; i++) {
+	track = track_list[i];
+	SampleWriter *s = openSampleWriter(track, mode, left, right);
+	if (s) {
+	    writers.insert(i, s);
+	} else {
+	    // out of memory or aborted
+	    debug("Signal::openMultiTrackWriter: "\
+	          "out of memory or aborted");
+	    writers.clear();
+	    return;
+	}
+    }
+}
+
+//***************************************************************************
+const QArray<unsigned int> Signal::allTracks()
+{
+    unsigned int track;
+    QArray<unsigned int> list(tracks());
+
+    for (track=0; track < list.count(); track++) {
+	list[track] = track;
+    }
+
+    return list;
 }
 
 //***************************************************************************

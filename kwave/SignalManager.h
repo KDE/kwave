@@ -256,6 +256,7 @@ public:
      * @param last index of the last sample
      * @see SampleReader
      * @see selectedTracks()
+     * @see Signal::openMultiTrackWriter
      */
     void openMultiTrackReader(MultiTrackReader &readers,
 	const QArray<unsigned int> &track_list,
@@ -270,7 +271,7 @@ public:
      * @param left start of the input (only useful in insert and
      *             overwrite mode)
      * @param right end of the input (only useful with overwrite mode)
-     * @see InsertMode
+     * @see Signal::openMultiTrackWriter
      */
     void openMultiTrackWriter(MultiTrackWriter &writers,
 	const QArray<unsigned int> &track_list, InsertMode mode,

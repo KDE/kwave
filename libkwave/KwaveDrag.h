@@ -28,7 +28,14 @@ class QMimeSource;
 class QWidget;
 
 class MultiTrackReader;
+class Signal;
 
+/**
+ * Simple class for drag & drop of wav data.
+ * @todo support for several codecs
+ * @todo the current storage mechanism is straight-forward and stupid, it
+ *       should be extended to use virtual memory
+ */
 class Q_EXPORT KwaveDrag: public QDragObject
 {
     Q_OBJECT
@@ -50,6 +57,11 @@ public:
      */
     virtual const char *format(int i) const;
 
+    /**
+     * Returns the encoded data as a byte array.
+     * @param format the mime type of the required data
+     * @return byte array with wav encoded data
+     */
     virtual QByteArray encodedData(const char *format) const;
 
     /**
@@ -70,11 +82,11 @@ public:
      * Decodes the encoded byte data of the given mime source and
      * initializes a MultiTrackReader.
      * @param rate receives the sample rate of the signal [samples/sec]
+     * @param sig signal that receives the mime data
      * @param bits receives resolution [bits per sample]
-     * @param src source with of the decoded sample stream
      */
-    static bool decode(const QMimeSource *e, unsigned int &rate,
-                       unsigned int &bits, MultiTrackReader &src);
+    static bool decode(const QMimeSource *e, Signal &sig, unsigned int &rate,
+                       unsigned int &bits);
 
 private:
 

@@ -1201,8 +1201,18 @@ void TopWidget::blinkPause()
     ASSERT(m_toolbar);
     if (!m_toolbar) return;
 
-    m_toolbar->setButtonPixmap(m_id_pause,
-	m_blink_on ? xpm_pause2 : xpm_pause);
+    // NOTE: working with toolbar->getButton is ugly and NOT
+    //       recommended, but the only way this works in KDE3 :-(
+    KToolBarButton *button = m_toolbar->getButton(m_id_pause);
+    ASSERT(button);
+    if (!button) return;
+    button->setDefaultPixmap(m_blink_on ? xpm_pause2 : xpm_pause);
+
+    // this would be the correct way, but KDE-3.0.1 is too buggy
+    // to let it work...
+    //    m_toolbar->setButtonPixmap(m_id_pause,
+    //        m_blink_on ? xpm_pause2 : xpm_pause);
+
     m_blink_on = !m_blink_on;
 }
 

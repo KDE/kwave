@@ -440,7 +440,6 @@ libkwave/CodecBase.h
 libkwave/CompressionType.cpp
 libkwave/CompressionType.cpp.rej
 libkwave/CompressionType.h
-libkwave/config.log
 libkwave/Curve.cpp
 libkwave/Curve.h
 libkwave/CurveStreamAdapter.idl

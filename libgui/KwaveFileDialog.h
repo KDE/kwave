@@ -39,7 +39,8 @@ public:
      * @see KFileFialog
      */
     KwaveFileDialog(const QString& startDir, const QString& filter,
-                    QWidget *parent, const char *name, bool modal);
+                    QWidget *parent, const char *name, bool modal,
+                    const QString last_url = 0, const QString last_ext = 0);
 
     /**
      * Returns the last used extension, including "*."

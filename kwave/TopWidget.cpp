@@ -814,7 +814,7 @@ int TopWidget::openRecent(const QString &str)
 int TopWidget::openFile()
 {
     KwaveFileDialog dlg(":<kwave_open_dir>", CodecManager::decodingFilter(),
-        this, "Kwave open file", true);
+        this, "Kwave open file", true, 0, "*.wav");
     dlg.setMode(static_cast<KFile::Mode>(KFile::File | KFile::ExistingOnly));
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Open"));
@@ -847,7 +847,7 @@ int TopWidget::saveFileAs(bool selection)
     if (!m_main_widget) return -EINVAL;
 
     KwaveFileDialog dlg(":<kwave_save_dir>", CodecManager::encodingFilter(),
-        this, "Kwave save file", true);
+        this, "Kwave save file", true, 0, "*.wav");
     dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Saving);
     dlg.setCaption(i18n("Save As"));

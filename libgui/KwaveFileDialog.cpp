@@ -27,9 +27,10 @@
 
 //***************************************************************************
 KwaveFileDialog::KwaveFileDialog(const QString &startDir,
-    const QString &filter, QWidget *parent, const char *name, bool modal)
+    const QString &filter, QWidget *parent, const char *name, bool modal,
+    const QString last_url, const QString last_ext)
     :KFileDialog(startDir, filter, parent, name, modal),
-     m_config_group(0), m_last_url(0), m_last_ext(0)
+     m_config_group(0), m_last_url(last_url), m_last_ext(last_ext)
 {
     if ( (startDir.startsWith(":<") || startDir.startsWith("::<")) &&
 	 (startDir.right(1) == ">"))
@@ -78,8 +79,8 @@ void KwaveFileDialog::loadConfig(const QString &section)
 
     cfg->setGroup(section);
     m_config_group = section;
-    m_last_url = cfg->readEntry("last_url", "");
-    m_last_ext = cfg->readEntry("last_ext", "");
+    m_last_url = cfg->readEntry("last_url", m_last_url);
+    m_last_ext = cfg->readEntry("last_ext", m_last_ext);
 }
 
 //***************************************************************************

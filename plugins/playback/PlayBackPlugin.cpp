@@ -111,12 +111,7 @@ int PlayBackPlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    ASSERT(params.count() == 4);
-    if (params.count() != 4) {
-	debug("PlayBackPlugin::interpreteParams(): params.count()=%d",
-	      params.count());
-	return -EINVAL;
-    }
+    if (params.count() != 4) return -EINVAL;
 
     // parameter #0: number of channels [1 | 2]
     param = params[0];

@@ -48,12 +48,7 @@ int MemoryPlugin::interpreteParameters(QStringList &params)
     QString param;
 
     // evaluate the parameter list
-    ASSERT(params.count() == 6);
-    if (params.count() != 6) {
-	debug("MemoryPlugin::interpreteParams(): params.count()=%d",
-	      params.count());
-	return -EINVAL;
-    }
+    if (params.count() != 6) return -EINVAL;
 
     // parameter #0: physical memory is limited ?
     param = params[0];

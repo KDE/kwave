@@ -360,7 +360,7 @@ void PlayBackDialog::selectPlaybackDevice()
     filter += QString("\n*|") + i18n("Any device (*)");
 
     KwaveFileDialog dlg(":<kwave_playback_device>", filter, this,
-	"Kwave select playback device", true);
+	"Kwave select playback device", true, "file:/dev");
     dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Select Playback Device"));

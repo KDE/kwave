@@ -261,6 +261,7 @@ protected:
     /**
      * Gets called to execute the plugin's run function in a separate thread.
      * @param list of strings with parameters
+     * @bug the return value is never evaluated
      */
     int execute(QStringList &params);
 

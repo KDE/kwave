@@ -23,7 +23,7 @@
 #include "libkwave/Stripe.h"
 #include "libkwave/Track.h"
 
-#define BUFFER_SIZE (64*1024)
+#define BUFFER_SIZE (256*1024)
 
 //***************************************************************************
 SampleWriter::SampleWriter(Track &track, QList<Stripe> &stripes,

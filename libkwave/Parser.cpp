@@ -66,11 +66,6 @@ Parser::Parser (const QString &init)
 		level--;
 		param += c;
 		break;
-	    case ';':
-		if (!level) {
-		    // next command in the list
-		    debug("--- next command ---");
-		}
 	    default:
 		param += c;
 	}

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-24 19:25+0200\n"
+"POT-Creation-Date: 2002-06-28 20:58+0200\n"
 "PO-Revision-Date: 2002-06-23 23:30GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
@@ -138,84 +138,84 @@ msgstr "supprimer"
 msgid "last action"
 msgstr "derniére action"
 
-#: kwave/TopWidget.cpp:108
+#: kwave/TopWidget.cpp:114
 msgid "New File"
 msgstr "Nouveau fichier"
 
-#: kwave/TopWidget.cpp:248
+#: kwave/TopWidget.cpp:254
 msgid "create a new empty file"
 msgstr "créer un nouveu fichier vide"
 
-#: kwave/TopWidget.cpp:254
+#: kwave/TopWidget.cpp:260
 msgid "open an existing file"
 msgstr "ouvrir un fichier déjà existant"
 
-#: kwave/TopWidget.cpp:260
+#: kwave/TopWidget.cpp:266
 msgid "save the current file"
 msgstr "sauvegarder le fichier courrant"
 
-#: kwave/TopWidget.cpp:292
+#: kwave/TopWidget.cpp:298
 msgid "cut the current selection and move it to the clipboard"
 msgstr "couper la selection courante et la déplacer dans le presse papier"
 
-#: kwave/TopWidget.cpp:298
+#: kwave/TopWidget.cpp:304
 msgid "copy the current selection to the clipboard"
 msgstr "copier la selection courante et la placer dans le presse papier"
 
-#: kwave/TopWidget.cpp:304
+#: kwave/TopWidget.cpp:310
 msgid "insert the content of clipboard"
 msgstr "insérer le contenu du presse papier"
 
-#: kwave/TopWidget.cpp:310
+#: kwave/TopWidget.cpp:316
 msgid "mute the current selection"
 msgstr "assourdir la selection courante"
 
-#: kwave/TopWidget.cpp:316
+#: kwave/TopWidget.cpp:322
 msgid "delete the current selection"
 msgstr "supprime la selection courante"
 
-#: kwave/TopWidget.cpp:341
+#: kwave/TopWidget.cpp:347
 msgid "start playback"
 msgstr "Démarre la lecture"
 
-#: kwave/TopWidget.cpp:347
+#: kwave/TopWidget.cpp:353
 msgid "start playback and loop"
 msgstr "Démarre la lecture en boucle"
 
-#: kwave/TopWidget.cpp:353
+#: kwave/TopWidget.cpp:359
 msgid "pause playback"
 msgstr "met en pause la lecture"
 
-#: kwave/TopWidget.cpp:359
+#: kwave/TopWidget.cpp:365
 msgid "stop playback or loop"
 msgstr "arrête la lecture"
 
-#: kwave/TopWidget.cpp:377
+#: kwave/TopWidget.cpp:383
 msgid "zoom to selection"
 msgstr "zoome la selection"
 
-#: kwave/TopWidget.cpp:384
+#: kwave/TopWidget.cpp:390
 msgid "zoom in"
 msgstr "Aggrandir"
 
-#: kwave/TopWidget.cpp:391
+#: kwave/TopWidget.cpp:397
 msgid "zoom out"
 msgstr "rétrécir"
 
-#: kwave/TopWidget.cpp:397
+#: kwave/TopWidget.cpp:403
 #, c-format
 msgid "zoom to 100%"
 msgstr "zoome à 100%"
 
-#: kwave/TopWidget.cpp:403
+#: kwave/TopWidget.cpp:409
 msgid "zoom to all"
 msgstr "zoome à l'ensemble de la piste"
 
-#: kwave/TopWidget.cpp:410
+#: kwave/TopWidget.cpp:416
 msgid "select zoom factor"
 msgstr "selectionner le facteur de zoom"
 
-#: kwave/TopWidget.cpp:495
+#: kwave/TopWidget.cpp:506
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -229,15 +229,15 @@ msgstr ""
 "KDE ou à l'URL <a href=http://www.arts-project.org>http://www.arts-project."
 "org</a>."
 
-#: kwave/TopWidget.cpp:508
+#: kwave/TopWidget.cpp:519
 msgid "Loading plugins..."
 msgstr "Chargement des plugins..."
 
-#: kwave/TopWidget.cpp:510
+#: kwave/TopWidget.cpp:521
 msgid "Ready."
 msgstr "Prêt."
 
-#: kwave/TopWidget.cpp:722
+#: kwave/TopWidget.cpp:779
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -245,40 +245,40 @@ msgstr ""
 "Ce fichier a été modifié.\n"
 "Voulez-vous le sauvegarder ?"
 
-#: kwave/TopWidget.cpp:847
+#: kwave/TopWidget.cpp:905
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr "Le fichier '%1' existe déjà. Voulez-vous réellement l'écraser ?"
 
-#: kwave/TopWidget.cpp:964
+#: kwave/TopWidget.cpp:1026
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr "Taille : %1"
 
-#: kwave/TopWidget.cpp:964
+#: kwave/TopWidget.cpp:1026
 #, ycp-format
 msgid "(%2 samples)"
 msgstr "(%2 échantillons)"
 
-#: kwave/TopWidget.cpp:973
+#: kwave/TopWidget.cpp:1035
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr "Format : %0.3f kHz @ %u bits"
 
-#: kwave/TopWidget.cpp:1007
+#: kwave/TopWidget.cpp:1068
 #, ycp-format
 msgid "Selected: %1 (%2 samples)"
 msgstr "Sélection %1 (%2 échantillons)"
 
-#: kwave/TopWidget.cpp:1054
+#: kwave/TopWidget.cpp:1115
 msgid "U&ndo"
 msgstr "&Défaire"
 
-#: kwave/TopWidget.cpp:1060
+#: kwave/TopWidget.cpp:1121
 msgid "R&edo"
 msgstr "R&efaire"
 
-#: kwave/TopWidget.cpp:1258
+#: kwave/TopWidget.cpp:1319
 msgid " (modified)"
 msgstr " (modifier)"
 
@@ -286,16 +286,16 @@ msgstr " (modifier)"
 msgid "insert"
 msgstr "insérer"
 
-#: kwave/PluginManager.cpp:177
+#: kwave/PluginManager.cpp:178
 #, ycp-format
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "oops, le plugin '%1' est inconnu ou invalide !"
 
-#: kwave/PluginManager.cpp:180 kwave/PluginManager.cpp:192
+#: kwave/PluginManager.cpp:181 kwave/PluginManager.cpp:193
 msgid "error on loading plugin"
 msgstr "erreur pendant le chargement du plugin"
 
-#: kwave/PluginManager.cpp:188
+#: kwave/PluginManager.cpp:189
 #, ycp-format
 msgid ""
 "unable to load the file \n"
@@ -306,7 +306,7 @@ msgstr ""
 "'%1'\n"
 " qui contient le plugin '%2' !"
 
-#: kwave/PluginManager.cpp:216 kwave/PluginManager.cpp:223
+#: kwave/PluginManager.cpp:217 kwave/PluginManager.cpp:224
 msgid "(unknown)"
 msgstr "(inconnu)"
 
@@ -1352,7 +1352,7 @@ msgstr "le fichier %s n'existe pas !\n"
 #: plugins/about/AboutKwaveDialog.cpp:46
 #, ycp-format
 msgid " (Using KDE %1)"
-msgstr " (Utilise KDE %1)"
+msgstr " (dans KDE %1)"
 
 #: plugins/delay/module.cpp:24
 msgid "Choose Length and Rate :"
@@ -1805,6 +1805,14 @@ msgstr "silence"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Choisir la ligne de distorsion :"
+
+#, fuzzy
+#~ msgid "Fade Intro"
+#~ msgstr "Augmenter progress&ivement"
+
+#, fuzzy
+#~ msgid "Fade Leadout"
+#~ msgstr "Affaiblir pr&ogessivement"
 
 #~ msgid "Amplify Free"
 #~ msgstr "Amplification libre"

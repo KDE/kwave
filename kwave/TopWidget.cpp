@@ -87,6 +87,12 @@
 #include "toolbar/zoomnormal.xpm"
 #include "toolbar/zoomall.xpm"
 
+#ifdef HAVE_KDEVERSION_H
+#include <kdeversion.h>
+#else
+#define KDE_VERSION_MAJOR 2
+#endif
+
 #ifndef min
 #define min(x,y) (( (x) < (y) ) ? (x) : (y) )
 #endif
@@ -416,15 +422,20 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     m_zoomselect->adjustSize();
     int h = m_zoomselect->sizeHint().height();
+#if KDE_VERSION_MAJOR < 3
     m_zoomselect->setFixedHeight(h);
     m_zoomselect->setMinimumWidth(
-        max(m_zoomselect->sizeHint().width()+20, 3*h));
+        max(m_zoomselect->sizeHint().width()+20,3*h));
     m_zoomselect->setAutoResize(false);
+#else
+    m_zoomselect->setAutoResize(true);
+#endif
     m_zoomselect->setFocusPolicy(QWidget::NoFocus);
     m_toolbar->setMinimumHeight(max(m_zoomselect->sizeHint().height()+2,
 	m_toolbar->sizeHint().height()));
 
     m_toolbar->insertSeparator(-1);
+
     updateToolbar();
 
     // connect the playback controller
@@ -558,20 +569,23 @@ int TopWidget::executeCommand(const QString &line)
     bool use_recorder = true;
     QString command = line;
 
-    debug("TopWidget::executeCommand(%s)", command.data()); // ###
-    if (!command.length()) return 0;
+//    debug("TopWidget::executeCommand(%s)", command.data()); // ###
+    if (!command.length()) return 0; // empty line -> nothing to do
     if (command.stripWhiteSpace().startsWith("#")) return 0; // only a comment
-
-    Parser parser(command);
 
     // special case: if the command contains ";" it is a list of
     // commands -> macro !
-    if (parser.hasMultipleCommands()) {
-	QStringList macro = parser.commandList();
+    Parser parse_list(command);
+    if (parse_list.hasMultipleCommands()) {
+	QStringList macro = parse_list.commandList();
 	for (QStringList::Iterator it=macro.begin(); it!=macro.end(); ++it) {
 	    result = executeCommand("nomacro:"+(*it));
 	    ASSERT(!result);
-	    if (result) return result; // macro failed :-(
+	    if (result) {
+		warning("macro execution of '%s' failed: %d",
+		        (*it).data(), result);
+		return result; // macro failed :-(
+	    }
 	
 	    // wait until the command has completed !
 	    ASSERT(m_plugin_manager);
@@ -586,8 +600,11 @@ int TopWidget::executeCommand(const QString &line)
 	command = command.mid(QString("nomacro:").length());
     }
 
-    if (result = m_app.executeCommand(command)) {
-	return result;
+    // parse one single command
+    Parser parser(command);
+
+    if (m_app.executeCommand(command)) {
+	return 0;
     CASE_COMMAND("plugin")
 	QString name = parser.firstParam();
 	QStringList *params = 0;
@@ -616,7 +633,8 @@ int TopWidget::executeCommand(const QString &line)
 	    params.append(parser.nextParam());
 	}
 	ASSERT(m_plugin_manager);
-	if (m_plugin_manager) m_plugin_manager->executePlugin(name, &params);
+	result = (m_plugin_manager) ?
+	          m_plugin_manager->executePlugin(name, &params) : -ENOMEM;
     CASE_COMMAND("plugin:setup")
 	QString name(parser.firstParam());
 	ASSERT(m_plugin_manager);
@@ -642,7 +660,7 @@ int TopWidget::executeCommand(const QString &line)
     CASE_COMMAND("openrecent")
 	result = openRecent(command);
     CASE_COMMAND("playback")
-	result = executePlaybackCommand(parser.firstParam());
+	result = executePlaybackCommand(parser.firstParam()) ? 0 : -1;
     CASE_COMMAND("save")
 	result = saveFile();
     CASE_COMMAND("close")
@@ -661,8 +679,8 @@ int TopWidget::executeCommand(const QString &line)
 	result = close();
     } else {
 	ASSERT(m_main_widget);
-	result = (m_main_widget) ?
-	    m_main_widget->executeCommand(command) : -1;
+	result = (m_main_widget &&
+	    m_main_widget->executeCommand(command)) ? 0 : -1;
     }
 
     if (use_recorder) {

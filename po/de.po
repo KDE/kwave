@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwave VERSIONPOT-Creation-Date: 2001-05-20 21:27+0200PO-"
 "Revision-Date: 2001-05-21 18:58+GMT\n"
-"POT-Creation-Date: 2002-06-24 19:25+0200\n"
-"PO-Revision-Date: 2002-06-16 15:46GMT\n"
+"POT-Creation-Date: 2002-06-28 20:58+0200\n"
+"PO-Revision-Date: 2002-06-28 20:50+0200\n"
 "Last-Translator: Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>\n"
-"Language-Team:  <de@li.org>\n"
+"Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.5\n"
+"X-Generator: KBabel 0.9.6\n"
 
 #: libkwave/Interpolation.cpp:32
 msgid "linear"
@@ -136,84 +136,84 @@ msgstr "Löschen"
 msgid "last action"
 msgstr "letzte Aktion"
 
-#: kwave/TopWidget.cpp:108
+#: kwave/TopWidget.cpp:114
 msgid "New File"
 msgstr "Neue Datei"
 
-#: kwave/TopWidget.cpp:248
+#: kwave/TopWidget.cpp:254
 msgid "create a new empty file"
 msgstr "neue leere Datei erzeugen"
 
-#: kwave/TopWidget.cpp:254
+#: kwave/TopWidget.cpp:260
 msgid "open an existing file"
 msgstr "existierende Datei öffnen"
 
-#: kwave/TopWidget.cpp:260
+#: kwave/TopWidget.cpp:266
 msgid "save the current file"
 msgstr "aktuelle Datei speichern"
 
-#: kwave/TopWidget.cpp:292
+#: kwave/TopWidget.cpp:298
 msgid "cut the current selection and move it to the clipboard"
 msgstr "Auswahl ausschneiden und in Zwischenablage speichern"
 
-#: kwave/TopWidget.cpp:298
+#: kwave/TopWidget.cpp:304
 msgid "copy the current selection to the clipboard"
 msgstr "Auswahl in die Zwischenablage kopieren"
 
-#: kwave/TopWidget.cpp:304
+#: kwave/TopWidget.cpp:310
 msgid "insert the content of clipboard"
 msgstr "Inhalt der Zwischenablage einfügen"
 
-#: kwave/TopWidget.cpp:310
+#: kwave/TopWidget.cpp:316
 msgid "mute the current selection"
 msgstr "Auswahl auf Null setzen"
 
-#: kwave/TopWidget.cpp:316
+#: kwave/TopWidget.cpp:322
 msgid "delete the current selection"
 msgstr "Auswahl löschen"
 
-#: kwave/TopWidget.cpp:341
+#: kwave/TopWidget.cpp:347
 msgid "start playback"
 msgstr "Wiedergabe starten"
 
-#: kwave/TopWidget.cpp:347
+#: kwave/TopWidget.cpp:353
 msgid "start playback and loop"
 msgstr "Wiedergabe mit Wiederholung"
 
-#: kwave/TopWidget.cpp:353
+#: kwave/TopWidget.cpp:359
 msgid "pause playback"
 msgstr "Wiedergabe anhalten"
 
-#: kwave/TopWidget.cpp:359
+#: kwave/TopWidget.cpp:365
 msgid "stop playback or loop"
 msgstr "Wiedergabe beenden"
 
-#: kwave/TopWidget.cpp:377
+#: kwave/TopWidget.cpp:383
 msgid "zoom to selection"
 msgstr "auf Auswahl vergrößern"
 
-#: kwave/TopWidget.cpp:384
+#: kwave/TopWidget.cpp:390
 msgid "zoom in"
 msgstr "Vergrößern"
 
-#: kwave/TopWidget.cpp:391
+#: kwave/TopWidget.cpp:397
 msgid "zoom out"
 msgstr "Verkleinern"
 
-#: kwave/TopWidget.cpp:397
+#: kwave/TopWidget.cpp:403
 #, c-format
 msgid "zoom to 100%"
 msgstr "auf 100% vergrößern"
 
-#: kwave/TopWidget.cpp:403
+#: kwave/TopWidget.cpp:409
 msgid "zoom to all"
 msgstr "auf gesamtes Signal vergrößern"
 
-#: kwave/TopWidget.cpp:410
+#: kwave/TopWidget.cpp:416
 msgid "select zoom factor"
 msgstr "Vergrößerungsfaktor auswählen"
 
-#: kwave/TopWidget.cpp:495
+#: kwave/TopWidget.cpp:506
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -226,15 +226,15 @@ msgstr ""
 "mitgelieferte Dokumentation oder besuchen Sie <a href=http://www.arts-"
 "project.org> http://www.arts-project.org</a>."
 
-#: kwave/TopWidget.cpp:508
+#: kwave/TopWidget.cpp:519
 msgid "Loading plugins..."
 msgstr "Lade Plugins..."
 
-#: kwave/TopWidget.cpp:510
+#: kwave/TopWidget.cpp:521
 msgid "Ready."
 msgstr "Bereit."
 
-#: kwave/TopWidget.cpp:722
+#: kwave/TopWidget.cpp:779
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
@@ -242,41 +242,41 @@ msgstr ""
 "Diese Datei wurde verändert.\n"
 "Wollen Sie sie speichern?"
 
-#: kwave/TopWidget.cpp:847
+#: kwave/TopWidget.cpp:905
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 "Die Datei '%1' existiert bereits. Wollen Sie diese wirklich überschreiben?"
 
-#: kwave/TopWidget.cpp:964
+#: kwave/TopWidget.cpp:1026
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr "Länge: %1"
 
-#: kwave/TopWidget.cpp:964
+#: kwave/TopWidget.cpp:1026
 #, ycp-format
 msgid "(%2 samples)"
 msgstr "(%2 Samples)"
 
-#: kwave/TopWidget.cpp:973
+#: kwave/TopWidget.cpp:1035
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr "Modus: %0.3f kHz@%u Bit"
 
-#: kwave/TopWidget.cpp:1007
+#: kwave/TopWidget.cpp:1068
 #, ycp-format
 msgid "Selected: %1 (%2 samples)"
 msgstr "Ausgewählt: %1 (%2 Samples)"
 
-#: kwave/TopWidget.cpp:1054
+#: kwave/TopWidget.cpp:1115
 msgid "U&ndo"
 msgstr "&Rückgängig"
 
-#: kwave/TopWidget.cpp:1060
+#: kwave/TopWidget.cpp:1121
 msgid "R&edo"
 msgstr "Wieder&herstellen"
 
-#: kwave/TopWidget.cpp:1258
+#: kwave/TopWidget.cpp:1319
 msgid " (modified)"
 msgstr " (geändert)"
 
@@ -284,16 +284,16 @@ msgstr " (geändert)"
 msgid "insert"
 msgstr "Einfügen"
 
-#: kwave/PluginManager.cpp:177
+#: kwave/PluginManager.cpp:178
 #, ycp-format
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr "Hoppla, Plugin '%1' ist unbekannt oder ungültig!"
 
-#: kwave/PluginManager.cpp:180 kwave/PluginManager.cpp:192
+#: kwave/PluginManager.cpp:181 kwave/PluginManager.cpp:193
 msgid "error on loading plugin"
 msgstr "Fehler beim Laden des Plugins"
 
-#: kwave/PluginManager.cpp:188
+#: kwave/PluginManager.cpp:189
 #, ycp-format
 msgid ""
 "unable to load the file \n"
@@ -304,7 +304,7 @@ msgstr ""
 "mit dem Plugin '%2' \n"
 "konnte nicht geladen werden !"
 
-#: kwave/PluginManager.cpp:216 kwave/PluginManager.cpp:223
+#: kwave/PluginManager.cpp:217 kwave/PluginManager.cpp:224
 msgid "(unknown)"
 msgstr "(unbekannt)"
 
@@ -1355,7 +1355,7 @@ msgstr "Datei %s existiert nicht!\n"
 #: plugins/about/AboutKwaveDialog.cpp:46
 #, ycp-format
 msgid " (Using KDE %1)"
-msgstr "(KDE-%1 verwenden)"
+msgstr " (unter KDE-%1)"
 
 #: plugins/delay/module.cpp:24
 msgid "Choose Length and Rate :"
@@ -1804,3 +1804,11 @@ msgstr "Stille"
 #: plugins/distort/module.cpp:23
 msgid "Choose Line of distortion :"
 msgstr "Störgerade wählen :"
+
+#, fuzzy
+#~ msgid "Fade Intro"
+#~ msgstr "&Einblenden"
+
+#, fuzzy
+#~ msgid "Fade Leadout"
+#~ msgstr "&Ausblenden"

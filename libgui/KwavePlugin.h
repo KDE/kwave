@@ -99,6 +99,11 @@ public:
     virtual bool isPersistent() { return false; };
 
     /**
+     * Returns true if the plugin has a running thread.
+     */
+    bool isRunning();
+
+    /**
      * Called after the plugin has been loaded into memory. This is
      * useful for plugins that don't use start() and execute(),
      * maybe for some persistent plugins like playback and record.

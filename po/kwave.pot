@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-06-24 19:25+0200\n"
+"POT-Creation-Date: 2002-06-28 20:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,84 +138,84 @@ msgstr ""
 msgid "last action"
 msgstr ""
 
-#: kwave/TopWidget.cpp:108
+#: kwave/TopWidget.cpp:114
 msgid "New File"
 msgstr ""
 
-#: kwave/TopWidget.cpp:248
+#: kwave/TopWidget.cpp:254
 msgid "create a new empty file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:254
+#: kwave/TopWidget.cpp:260
 msgid "open an existing file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:260
+#: kwave/TopWidget.cpp:266
 msgid "save the current file"
 msgstr ""
 
-#: kwave/TopWidget.cpp:292
+#: kwave/TopWidget.cpp:298
 msgid "cut the current selection and move it to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:298
+#: kwave/TopWidget.cpp:304
 msgid "copy the current selection to the clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:304
+#: kwave/TopWidget.cpp:310
 msgid "insert the content of clipboard"
 msgstr ""
 
-#: kwave/TopWidget.cpp:310
+#: kwave/TopWidget.cpp:316
 msgid "mute the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:316
+#: kwave/TopWidget.cpp:322
 msgid "delete the current selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:341
+#: kwave/TopWidget.cpp:347
 msgid "start playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:347
+#: kwave/TopWidget.cpp:353
 msgid "start playback and loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:353
+#: kwave/TopWidget.cpp:359
 msgid "pause playback"
 msgstr ""
 
-#: kwave/TopWidget.cpp:359
+#: kwave/TopWidget.cpp:365
 msgid "stop playback or loop"
 msgstr ""
 
-#: kwave/TopWidget.cpp:377
+#: kwave/TopWidget.cpp:383
 msgid "zoom to selection"
 msgstr ""
 
-#: kwave/TopWidget.cpp:384
+#: kwave/TopWidget.cpp:390
 msgid "zoom in"
 msgstr ""
 
-#: kwave/TopWidget.cpp:391
+#: kwave/TopWidget.cpp:397
 msgid "zoom out"
 msgstr ""
 
-#: kwave/TopWidget.cpp:397
+#: kwave/TopWidget.cpp:403
 #, c-format
 msgid "zoom to 100%"
 msgstr ""
 
-#: kwave/TopWidget.cpp:403
+#: kwave/TopWidget.cpp:409
 msgid "zoom to all"
 msgstr ""
 
-#: kwave/TopWidget.cpp:410
+#: kwave/TopWidget.cpp:416
 msgid "select zoom factor"
 msgstr ""
 
-#: kwave/TopWidget.cpp:495
+#: kwave/TopWidget.cpp:506
 msgid ""
 "<b>Sorry, but since version 0.6.2 you need a running aRts sound server for "
 "using kwave.</b><br>You can setup aRts through the KDE control panel. For "
@@ -223,54 +223,54 @@ msgid ""
 "href=http://www.arts-project.org>http://www.arts-project.org</a>."
 msgstr ""
 
-#: kwave/TopWidget.cpp:508
+#: kwave/TopWidget.cpp:519
 msgid "Loading plugins..."
 msgstr ""
 
-#: kwave/TopWidget.cpp:510
+#: kwave/TopWidget.cpp:521
 msgid "Ready."
 msgstr ""
 
-#: kwave/TopWidget.cpp:722
+#: kwave/TopWidget.cpp:779
 msgid ""
 "This file has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:847
+#: kwave/TopWidget.cpp:905
 #, ycp-format
 msgid "The file '%1' already exists. Do you really want to overwrite it?"
 msgstr ""
 
-#: kwave/TopWidget.cpp:964
+#: kwave/TopWidget.cpp:1026
 #, c-format, ycp-format
 msgid "Length: %1"
 msgstr ""
 
-#: kwave/TopWidget.cpp:964
+#: kwave/TopWidget.cpp:1026
 #, ycp-format
 msgid "(%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:973
+#: kwave/TopWidget.cpp:1035
 #, c-format
 msgid "Mode: %0.3f kHz@%u bit"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1007
+#: kwave/TopWidget.cpp:1068
 #, ycp-format
 msgid "Selected: %1 (%2 samples)"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1054
+#: kwave/TopWidget.cpp:1115
 msgid "U&ndo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1060
+#: kwave/TopWidget.cpp:1121
 msgid "R&edo"
 msgstr ""
 
-#: kwave/TopWidget.cpp:1258
+#: kwave/TopWidget.cpp:1319
 msgid " (modified)"
 msgstr ""
 
@@ -278,16 +278,16 @@ msgstr ""
 msgid "insert"
 msgstr ""
 
-#: kwave/PluginManager.cpp:177
+#: kwave/PluginManager.cpp:178
 #, ycp-format
 msgid "oops, plugin '%1' is unknown or invalid!"
 msgstr ""
 
-#: kwave/PluginManager.cpp:180 kwave/PluginManager.cpp:192
+#: kwave/PluginManager.cpp:181 kwave/PluginManager.cpp:193
 msgid "error on loading plugin"
 msgstr ""
 
-#: kwave/PluginManager.cpp:188
+#: kwave/PluginManager.cpp:189
 #, ycp-format
 msgid ""
 "unable to load the file \n"
@@ -295,7 +295,7 @@ msgid ""
 " that contains the plugin '%2' !"
 msgstr ""
 
-#: kwave/PluginManager.cpp:216 kwave/PluginManager.cpp:223
+#: kwave/PluginManager.cpp:217 kwave/PluginManager.cpp:224
 msgid "(unknown)"
 msgstr ""
 

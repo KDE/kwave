@@ -283,7 +283,7 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
     int result = 0;
 
     // load the plugin
-    KwavePlugin* plugin = loadPlugin(name);
+    KwavePlugin *plugin = loadPlugin(name);
     if (!plugin) return -ENOMEM;
 
     if (params) {
@@ -350,7 +350,23 @@ int PluginManager::executePlugin(const QString &name, QStringList *params)
 //***************************************************************************
 void PluginManager::sync()
 {
-    // ###
+    bool one_is_running = true;
+    while (one_is_running) {
+	{
+//	    MutexGuard lock_list(m_lock_plugin_list);
+	    QListIterator<KwavePlugin> it(m_loaded_plugins);
+	    one_is_running = false;
+	    for (; it.current(); ++it) {
+		KwavePlugin *plugin = it.current();
+		if (plugin->isRunning()) {
+		    debug("waiting for plugin '%s'", plugin->name().data());
+		    one_is_running = true;
+		    break;
+		}
+	    }
+	}
+	if (one_is_running) qApp->processEvents();
+    }
 }
 
 //***************************************************************************

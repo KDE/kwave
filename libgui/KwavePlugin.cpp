@@ -162,6 +162,12 @@ int KwavePlugin::execute(QStringList &params)
 }
 
 //***************************************************************************
+bool KwavePlugin::isRunning()
+{
+    return m_thread && m_thread->running();
+}
+
+//***************************************************************************
 void KwavePlugin::run(QStringList)
 {
 }

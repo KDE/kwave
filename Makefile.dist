@@ -8,9 +8,8 @@
 
 .PHONY: all all-logged
 
-KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s:::g | sed s:/bin/:g )
-KDEDIR=$(shell PATH=${PATH}:${KDEBINDIRS} kde-config --prefix | sed s/$$g)
-LANGS="de,fr"
+KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s°::°:°g | sed s°:°/bin/:°g )
+KDEDIR=$(shell PATH=${PATH}:${KDEBINDIRS} kde-config --prefix | sed s°/$$°°g)
 
 default: all
 
@@ -46,8 +45,10 @@ logged:
 	autoheader
 	automake
 	autoconf
-	@ -touch -c doc/help_{$LANGS}.po 2>/dev/null 1>/dev/null
-	@ -touch -c doc/help_{$LANGS}.docbook 2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_de.po 2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_fr.po 2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_de.docbook 2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_fr.docbook 2>/dev/null 1>/dev/null
 	@ echo "" ; echo "your system uses:"
 	@ PATH=${PATH}:${KDEBINDIRS} kde-config --version
 	@ echo ""

@@ -95,7 +95,7 @@ protected slots:
     /** Stop the pre-listening */
     void stopPreListen();
     
-protected:    
+private:    
     /** List of parameters */
     QStringList m_params;
 

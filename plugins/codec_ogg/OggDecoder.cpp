@@ -89,7 +89,7 @@ int OggDecoder::parseHeader(QWidget *widget)
     
     unsigned int bytes = m_source->readBlock(m_buffer,4096);
     Q_ASSERT(bytes);
-    if (!bytes) {
+    if (!bytes && (!m_source->at())) {
 	KMessageBox::error(widget, i18n(
 	    "Ogg bitstream has zero-length."));
 	return -1;

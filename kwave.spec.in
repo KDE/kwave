@@ -1,13 +1,13 @@
-%define ver @RPM_VERSION@
+%define ver @RPM_SHORT_VERSION@
 %define release @RPM_RELEASE@
-%define filelist %{name}-@RPM_VERSION@/files.list.%{name}
+%define filelist %{name}-@RPM_FULL_VERSION@/files.list.%{name}
 %define rpm_opt_flags ${RPM_OPT_FLAGS}
 
 Summary: @RPM_SUMMARY@
 Name: @RPM_NAME@
-Version: 	@RPM_VERSION@
+Version: 	@RPM_SHORT_VERSION@
 Release: 	@RPM_RELEASE@
-Source0: 	kwave-@RPM_VERSION@.tar.gz
+Source0: 	kwave-@RPM_FULL_VERSION@.tar.gz
 Group:  	@RPM_GROUP@
 Copyright:	@RPM_COPYRIGHT@
 URL:     @RPM_URL@
@@ -25,7 +25,7 @@ Obsoletes: 	libkwave
 
 %prep
 
-%setup -n kwave-@RPM_VERSION@
+%setup -n kwave-@RPM_FULL_VERSION@
 rm -rf "$RPM_BUILD_ROOT"
 DESTDIR=""
 unset DESTDIR
@@ -33,12 +33,12 @@ CONFIGURE_OPTS="--with-install-root=$RPM_BUILD_ROOT \
 	--enable-static=no --enable-shared=yes "
 make -f Makefile.dist 
 
-%build -n kwave-@RPM_VERSION@
+%build -n kwave-@RPM_FULL_VERSION@
 DESTDIR=""
 unset DESTDIR
 make $MAKE_FLAGS
 
-%install -n kwave-@RPM_VERSION@
+%install -n kwave-@RPM_FULL_VERSION@
 rm -rf "$RPM_BUILD_ROOT"
 make DESTDIR="$RPM_BUILD_ROOT" SUID_ROOT="" install
 

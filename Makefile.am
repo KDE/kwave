@@ -78,32 +78,32 @@ messages:
 	(cd po ; ${MAKE} merge )
 
 rpm_prep: doc clean distclean-generic ${PACKAGE}.spec
-	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
-	mkdir -p /tmp/${PACKAGE}-@RPM_VERSION@
-	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_VERSION@ )
-	(cd /tmp/ ; chmod -R a+rwX ${PACKAGE}-@RPM_VERSION@ ; \
-	touch ${PACKAGE}-@RPM_VERSION@/doc/help_{de,fr}.docbook ; \
-	find ${SRC_PREFIX}-@RPM_VERSION@ -name CVS > \
+	rm -R -f /tmp/${PACKAGE}-@RPM_FULL_VERSION@
+	mkdir -p /tmp/${PACKAGE}-@RPM_FULL_VERSION@
+	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_FULL_VERSION@ )
+	(cd /tmp/ ; chmod -R a+rwX ${PACKAGE}-@RPM_FULL_VERSION@ ; \
+	touch ${PACKAGE}-@RPM_FULL_VERSION@/doc/help_{de,fr}.docbook ; \
+	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name CVS > \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
-	find ${SRC_PREFIX}-@RPM_VERSION@ -name Makefile \
+	find ${SRC_PREFIX}-@RPM_FULL_VERSION@ -name Makefile \
 		-o -name Makefile.in >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
-	echo "${SRC_PREFIX}-@RPM_VERSION@/doc/api" >> \
+	echo "${SRC_PREFIX}-@RPM_FULL_VERSION@/doc/api" >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	tar --exclude-from=/tmp/${PACKAGE}-tar-excludes.lst \
 		--owner=root --group=root \
-		-chzf ${PACKAGE}-@RPM_VERSION@.tar.gz \
-		${SRC_PREFIX}-@RPM_VERSION@ ; \
+		-chzf ${PACKAGE}-@RPM_FULL_VERSION@.tar.gz \
+		${SRC_PREFIX}-@RPM_FULL_VERSION@ ; \
 	rm -f /tmp/${PACKAGE}-tar-excludes.lst )
-	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
+	rm -R -f /tmp/${PACKAGE}-@RPM_FULL_VERSION@
 
 # does not work with original SuSE-6.4 rpm
 # you will need an update of the rpm package !
 rpm: rpm_prep
-	rpm -ta /tmp/${PACKAGE}-@RPM_VERSION@.tar.gz
+	rpm -ta /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
 
 src.rpm: rpm_prep
-	rpm -ts /tmp/${PACKAGE}-@RPM_VERSION@.tar.gz
+	rpm -ts /tmp/${PACKAGE}-@RPM_FULL_VERSION@.tar.gz
 
 doc:
 	(cd ./doc ; ${MAKE} all )

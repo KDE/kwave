@@ -15,7 +15,7 @@ dnl Perform program name transformation
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(kwave,0.6.4)
+AM_INIT_AUTOMAKE(kwave,0.6.5-cvs)
 
 KDE_SET_PREFIX
 
@@ -396,8 +396,9 @@ dnl getlsm(RPM_VENDOR, Author)
 RPM_VENDOR="Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>"
 
 changequote(<<, >>)
-RPM_VERSION=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[1] }'`
-RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2]+0 }'`
+RPM_SHORT_VERSION=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[1] }'`
+RPM_FULL_VERSION=`cat ./VERSION`
+RPM_RELEASE=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[2] }'`
 RPM_GROUP=<<X11/Applications/Sound>>
 RPM_BUILDROOT=<</tmp/kwave-%{version}.root>>
 LD_VERSION_INFO=<<`cat ./VERSION | awk '{split($0, a, ".")} \
@@ -410,7 +411,8 @@ dnl enter the variables for the spec file
 AC_SUBST(RPM_DESCRIPTION)
 AC_SUBST(RPM_SUMMARY)
 AC_SUBST(RPM_NAME)
-AC_SUBST(RPM_VERSION)
+AC_SUBST(RPM_SHORT_VERSION)
+AC_SUBST(RPM_FULL_VERSION)
 AC_SUBST(RPM_RELEASE)
 AC_SUBST(RPM_GROUP)
 AC_SUBST(RPM_COPYRIGHT)

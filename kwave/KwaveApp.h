@@ -131,6 +131,9 @@ protected:
      * @see #saveRecentFiles()
      */
     void saveConfig();
+    
+    /** Initialises the aRts daemon */
+    void initArts();
 
 private:
 

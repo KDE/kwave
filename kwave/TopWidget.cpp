@@ -18,8 +18,6 @@
 
 #include "config.h"
 
-#include <sys/types.h>
-#include <sys/wait.h>
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>
@@ -46,8 +44,6 @@
 #include <kstatusbar.h>
 #include <kstddirs.h>
 #include <ktoolbarbutton.h>
-
-#include <artsc/artsc.h> // for arts_init()
 
 #include "libkwave/KwavePlugin.h" // for some helper functions
 #include "libkwave/FileLoader.h"
@@ -112,44 +108,6 @@
 #define NEW_FILENAME i18n("New File")
 
 //***************************************************************************
-//***************************************************************************
-
-/* fork2() -- like fork, but the new process is immediately orphaned
- *            (won't leave a zombie when it exits)
- * Returns 1 to the parent, not any meaningful pid.
- * The parent cannot wait() for the new process (it's unrelated).
- */
-int fork2(void)
-{
-    pid_t pid;
-    int rc;
-    int status;
-
-    if (!(pid = fork())) {
-        switch (fork())
-        {
-            case 0:  return 0;
-            case -1: _exit(errno);    /* assumes all errnos are <256 */
-            default: _exit(0);
-        }
-    }
-
-    if (pid < 0 || waitpid(pid,&status,0) < 0)
-        return -1;
-
-    if (WIFEXITED(status)) {
-        if (WEXITSTATUS(status) == 0) {
-            return 1;
-        } else {
-            errno = WEXITSTATUS(status);
-        }
-    } else {
-        errno = EINTR;  /* well, sort of :-) */
-    }
-
-    return -1;
-}
-
 //***************************************************************************
 TopWidget::ZoomListPrivate::ZoomListPrivate()
     :QStringList(), m_milliseconds()
@@ -537,7 +495,7 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // check if the aRts dispatcher is functional. if not, we better
     // should exit now, as most of the plugins would not work
-    if (!initArts()) {
+    if (!m_plugin_manager->artsDispatcher()) {
 	warning("no aRts dispatcher found -> exit !!!");
 	KMessageBox::error(this, i18n(
 	    "<b>Sorry, but since version 0.6.2 you need a running "\
@@ -577,71 +535,6 @@ TopWidget::TopWidget(KwaveApp &main_app)
 
     // enable saving of window size and position for next startup
     setAutoSaveSettings();
-}
-
-//***************************************************************************
-bool TopWidget::initArts()
-{
-    arts_init();
-
-    if (!m_plugin_manager->artsDispatcher()) { 
-	warning("aRts daemon isn't running. Starting it...");
-
-	// aRts seems not to be running, let's try to run it
-	// First, let's read the configuration as in kcmarts
-	KConfig config("kcmartsrc");
-	QCString artsdpath, artsdargs;
-	
-	config.setGroup("Arts");
-	
-	bool rt = config.readBoolEntry("StartRealtime",false);
-	bool x11Comm = config.readBoolEntry("X11GlobalComm",false);
-
-	// put the value of x11Comm into .mcoprc
-	KConfig X11CommConfig(QDir::homeDirPath()+"/.mcoprc");
-	
-	X11CommConfig.writeEntry("GlobalComm", (x11Comm) ?
-	    "Arts::X11GlobalComm" : "Arts::TmpGlobalComm");
-	
-	X11CommConfig.sync();
-	
-        if (rt)
-	artsdpath = QFile::encodeName(KStandardDirs::findExe(
-		QString::fromLatin1(
-		rt ? "artswrapper" : "artsd"))) + '\0';
-	
-	artsdargs = config.readEntry(
-		"Arguments","-F 10 -S 4096 -s 60 -m artsmessage -l 3 -f"
-		).utf8() + '\0';
-	
-	switch(fork2()) {
-	    case -1:
-		warning("fork error");
-		exit(EXIT_FAILURE);
-		break;
-	    case 0:
-		break;
-	    default:
-		const char *argv[4];
-		argv[0] = artsdpath;
-		argv[1] = artsdargs;
-		argv[2] = NULL;
-		execvp((const char*) artsdpath, (char *const *) argv);
-		exit(EXIT_FAILURE);
-		break;
-        }
-
-	int time = 0;
-	do {
-	    ::sleep(time/2);
-	    arts_init();
-	    // every time it fails, we should wait a little longer
-	    // between tries
-	    time++;
-	} while (time < 6 && !m_plugin_manager->artsDispatcher());
-    }
-   
-    return m_plugin_manager->artsDispatcher();
 }
 
 //***************************************************************************

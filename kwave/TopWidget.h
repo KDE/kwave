@@ -291,9 +291,6 @@ protected:
     /** handle playback commands, like play/stop/pause etc... */
     int executePlaybackCommand(const QString &command);
 
-    /** Initialises the aRts daemon */
-    bool initArts();
-
 private:
 
     /**

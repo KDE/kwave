@@ -17,14 +17,25 @@
 
 #include "config.h"
 
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <errno.h>
+
 #include <qfile.h>
 #include <qlist.h>
 #include <qstring.h>
+#include <qstringlist.h>
 
 #include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <kcrash.h>
 #include <kglobal.h>
+#include <kstandarddirs.h>
+
+#include <artsc/artsc.h> // for arts_init()
+#include <kstandarddirs.h>
+
+#include <artsc/artsc.h> // for arts_init()
 
 #include "libkwave/Parser.h"
 
@@ -46,6 +57,44 @@ ClipBoard &KwaveApp::m_clipboard(_clipboard);
 MemoryManager &KwaveApp::m_memory_manager(_memory_manager);
 
 //***************************************************************************
+/* fork2() -- like fork, but the new process is immediately orphaned
+ *            (won't leave a zombie when it exits)
+ * Returns 1 to the parent, not any meaningful pid.
+ * The parent cannot wait() for the new process (it's unrelated).
+ */
+int fork2(void)
+{
+    pid_t pid;
+    int rc;
+    int status;
+
+    if (!(pid = fork())) {
+        switch (fork())
+        {
+            case 0:  return 0;
+            case -1: _exit(errno);    /* assumes all errnos are <256 */
+            default: _exit(0);
+        }
+    }
+
+    if (pid < 0 || waitpid(pid,&status,0) < 0)
+        return -1;
+
+    if (WIFEXITED(status)) {
+        if (WEXITSTATUS(status) == 0) {
+            return 1;
+        } else {
+            errno = WEXITSTATUS(status);
+        }
+    } else {
+        errno = EINTR;  /* well, sort of :-) */
+    }
+
+    return -1;
+}
+
+
+//***************************************************************************
 KwaveApp::KwaveApp()
 #ifdef UNIQUE_APP
    :KUniqueApplication(),
@@ -57,6 +106,9 @@ KwaveApp::KwaveApp()
 {
     m_topwidget_list.setAutoDelete(false);
     readConfig();
+
+    // initialize the aRts daemon, start him if necessary
+    initArts();
 
     // load the list of plugins
     PluginManager::findPlugins();
@@ -262,6 +314,35 @@ KwaveApp::~KwaveApp()
     m_clipboard.clear();
     m_recent_files.clear();
     m_memory_manager.close();
+}
+
+//***************************************************************************
+void KwaveApp::initArts()
+{
+    arts_init();
+
+    if (!Arts::Dispatcher::the()) { 
+	warning("aRts daemon isn't running. Starting it...");
+
+	QString path;
+	QStringList args;
+	
+	path = QFile::encodeName(KStandardDirs::findExe(
+	 	       		 QString::fromLatin1("kcminit")));
+	
+	args.append(QString::fromLatin1("arts"));
+
+	kdeinitExec(path, args);
+
+	int time = 0;
+	do {
+	    ::sleep(time/2);
+	    arts_init();
+	    // every time it fails, we should wait a little longer
+	    // between tries
+	    time++;
+	} while (time < 6 && !Arts::Dispatcher::the());
+    }
 }
 
 //***************************************************************************

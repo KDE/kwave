@@ -29,7 +29,6 @@
 #include <klocale.h>
 #include <kcmdlineargs.h>
 
-#include <artsc/artsc.h> // for arts_init()
 #include <arts/artsflow.h>
 
 #include "KwaveApp.h"

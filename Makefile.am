@@ -76,7 +76,7 @@ messages:
 	`find . -name \*.h -o -name \*.cpp` -o ./po/${PACKAGE}.pot
 	(cd po ; ${MAKE} merge )
 
-rpm_prep: distclean-generic ${PACKAGE}.spec
+rpm_prep: clean distclean-generic ${PACKAGE}.spec
 	rm -R -f /tmp/${PACKAGE}-@RPM_VERSION@
 	mkdir -p /tmp/${PACKAGE}-@RPM_VERSION@
 	(cd ${srcdir} ; cp -R -a ./* /tmp/${PACKAGE}-@RPM_VERSION@ )
@@ -85,6 +85,7 @@ rpm_prep: distclean-generic ${PACKAGE}.spec
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
 	echo "${SRC_PREFIX}-@RPM_VERSION@/doc/api" >> \
 		/tmp/${PACKAGE}-tar-excludes.lst ; \
+	echo "Makefile" >> /tmp/${PACKAGE}-tar-excludes.lst ; \
 	tar --exclude-from=/tmp/${PACKAGE}-tar-excludes.lst \
 		-chzf ${PACKAGE}-@RPM_VERSION@.tar.gz \
 		${SRC_PREFIX}-@RPM_VERSION@ ; \

@@ -57,7 +57,7 @@
     (Major.minor.lesser), it could be used by automation scripts -->
 	
     <DATE>2001-09-01</DATE>
-    <RELEASEINFO>0.6.1</RELEASEINFO>
+    <RELEASEINFO>0.6.1-1</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
     <ABSTRACT>

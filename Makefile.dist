@@ -12,6 +12,7 @@ all:
 	-rm -f config.h
 	-rm -f config.cache
 	-rm -f config.status
+	-rm -fv `find . -name Makefile.in -o -name Makefile`
 	-touch doc/changes.docbook
 	-touch -c doc/{en,de}/index.html
 	-touch -c doc/help_{en,de}.docbook

@@ -165,7 +165,7 @@ SonagramWindow::SonagramWindow(const QString &name)
 	    this, SLOT(cursorPosChanged(const QPoint)));
     connect(&m_refresh_timer, SIGNAL(timeout()),
             this, SLOT(refresh_view()));
-		
+
     setName(name);
 
     top_layout->setRowStretch(0, 100);
@@ -301,11 +301,11 @@ void SonagramWindow::insertStripe(const unsigned int stripe_nr,
     unsigned int size = stripe.size();
     for (y=0; y < size; y++) {
     	unsigned char p;
-    	
+
     	// remove the current pixel from the histogram
     	p = m_image->pixelIndex(stripe_nr, y);
 	m_histogram[p]--;
-	
+
 	// set the new pixel value
 	p = (unsigned char)stripe[size-y-1];
 	m_image->setPixel(stripe_nr, y, p);
@@ -497,10 +497,10 @@ void SonagramWindow::setColorMode(int mode)
 //***************************************************************************
 void SonagramWindow::setName(const QString &name)
 {
-    QString windowname("Kwave - ");
+    QString windowname;
     windowname += i18n("Sonagram of ");
 
-    setCaption(windowname.latin1());
+    setCaption(windowname);
     windowname += name.length() ? name : QString(i18n("<nothing>"));
 
     setCaption(windowname.latin1());

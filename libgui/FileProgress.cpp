@@ -46,7 +46,8 @@ FileProgress::FileProgress(QWidget *parent,
     m_stat_transfer(0),
     m_stat_bytes(0),
     m_time(),
-    m_cancelled(true)
+    m_cancelled(true),
+    m_last_percent(0)
 {
     QString text;
 
@@ -280,6 +281,11 @@ void FileProgress::setValue(unsigned int pos)
 
     // the easiest part: the progress bar and the caption
     int percent = (int)((double)pos / (double)m_size * 100.0);
+
+    // not enough progress not worth showing ?
+    if (percent <= m_last_percent) return;
+    m_last_percent = percent;
+
     if (m_progress->value() != percent) {
 	QString newcap;
 	newcap = i18n("(%1%) %2");

@@ -143,6 +143,9 @@ protected:
     /** true if the dialog is unusable or canceled by the user */
     bool m_cancelled;
 
+    /** last displayed percent value */
+    int m_last_percent;
+
 };
 
 #endif /* _FILE_PROGRESS_H_ */

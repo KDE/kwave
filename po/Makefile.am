@@ -62,7 +62,7 @@ merge:
 	for cat in $$catalogs; do \
 	name=$(PACKAGE).pot ; \
 	echo $$cat $$name; \
-	msgmerge $$cat $$name > $$cat.new ; \
+	$(MSGMERGE) $$cat $$name > $$cat.new ; \
 	if diff $$cat $$cat.new; then \
 		rm $$cat.new;  \
 	else  \

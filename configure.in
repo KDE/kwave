@@ -7,13 +7,13 @@ AC_CONFIG_AUX_DIR(admin)
 
 AC_CANONICAL_SYSTEM  
 AC_ARG_PROGRAM
-AM_INIT_AUTOMAKE(kwave,0.6.0)
+AM_INIT_AUTOMAKE(kwave,0.6.2)
 AC_LIBTOOL_DLOPEN
 KDE_PROG_LIBTOOL
 KDE_SET_PREFIX
 AM_CONFIG_HEADER(config.h)
 AM_ENABLE_SHARED(yes)
-AM_ENABLE_STATIC(yes)
+AM_ENABLE_STATIC(no)
 
 dnl CXXFLAGS="$(CXXFLAGS) -fno-check-new"
 dnl CFLAGS="${CFLAGS}     -g -Wall -pedantic --no-rtti ${RPM_OPT_FLAGS}"
@@ -66,9 +66,20 @@ AM_KDE_WITH_NLS(yes)
 AC_PATH_KDE
 AC_ARG_PROGRAM
 
+KDE_FIND_PATH(xml2pot, XML2POT, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(xml2pot)])
+AC_SUBST(XML2POT)
+
+KDE_FIND_PATH(po2xml, PO2XML, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(po2xml)])
+AC_SUBST(PO2XML)
+
+KDE_FIND_PATH(meinproc, MEINPROC, [$kde_default_bindirs], [KDE_MISSING_PROG_ERROR(meinproc)])
+AC_SUBST(MEINPROC)
+
 dnl Checks for programs.
 AC_PROG_INSTALL
 AC_PROG_LN_S
+AC_PATH_PROG(CONVERT,convert)
+AC_PATH_PROG(MSGMERGE, msgmerge)
 
 dnl checks, if the debug code is wanted
 dnl ### AC_CHECK_FLAGS

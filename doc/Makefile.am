@@ -9,29 +9,29 @@ SGMLDIR=$(kde_datadir)/ksgmltools2
 DOCDIR = $(DESTDIR)${kde_htmldir}
 
 de/index.html: help_de.docbook
-	cd de ; meinproc --check ../help_de.docbook
+	cd de ; $(MEINPROC) --check ../help_de.docbook
 	rm -Rf de/common
 	mkdir -p de/common
 	cp -R ${DOCDIR}/de/common/* de/common/
 
 en/index.html: help_en.docbook
-	cd en ; meinproc --check ../help_en.docbook
+	cd en ; $(MEINPROC) --check ../help_en.docbook
 	rm -Rf en/common
 	mkdir -p en/common
 	cp -R ${DOCDIR}/en/common/* en/common/
 	cd en/common ; mv gpl-license.html gpl-translated.html
 
 help_en.pot: help_en.docbook
-	xml2pot help_en.docbook > help_en.pot
+	$(XML2POT) help_en.docbook > help_en.pot
 
 help_de.po: help_en.pot
-	msgmerge -o help_de.po help_de.po help_en.pot
-	kbabel help_de.po
+	$(MSGMERGE) -o help_de.po help_de.po help_en.pot
+	-kbabel help_de.po
 
 help_de.docbook: help_de.po help_en.docbook
 	@echo "converting german help"
 	@echo "(this takes very very long, please be patient...)"
-	po2xml help_en.docbook help_de.po | \
+	$(PO2XML) help_en.docbook help_de.po | \
 	sed s/^\ \ \<\!ENTITY\ %\ English\ /\ \ \<\!ENTITY\ %\ German\ /g \
 	> help_de.docbook
 

@@ -6,9 +6,37 @@
 # make -f Makefile.dist
 #
 
+.PHONY: all all-logged
+
+KDEBINDIRS=$(shell echo ${KDEDIRS}: | sed s°::°:°g | sed s°:°/bin/:°g )
+KDEDIR=$(shell PATH=${PATH}:${KDEBINDIRS} kde-config --prefix)
+
 default: all
 
-all:
+logged:
+	@ (PATH=${PATH}:${KDEBINDIRS} kde-config --prefix 2>/dev/null) || ( \
+	    echo "----------------------------------------";\
+	    echo ""; \
+	    echo "";\
+	    echo "sorry, but I cannot detect your KDE base directory."; \
+	    echo "";\
+	    echo "please make sure that either";\
+	    echo "";\
+	    echo -n "- the environment variable KDEDIRS is set and contains ";\
+	    echo      "your KDE directory," ; \
+	    echo "  (current setting: KDEDIRS=${KDEDIRS})";\
+	    echo "";\
+	    echo "- the program 'kde-config' is in your PATH";\
+	    echo "  (current setting: PATH=${PATH})";\
+	    echo -n "  calling 'kde-config --prefix' currently returns: "; \
+	    kde-config || true; \
+	    echo "";\
+	    echo "- you have at least KDE version 2.2.1";\
+	    echo "";\
+	    echo "----------------------------------------";\
+	    echo "";\
+	    exit -1; \
+	);
 	-rm -f config.h
 	-rm -f config.cache
 	-rm -f config.status
@@ -17,7 +45,25 @@ all:
 	autoheader
 	automake
 	autoconf
-	-touch -c doc/help_de.po
-	-touch -c doc/help_de.docbook
-	KDEDIR=$(shell kde-config --prefix) ./configure ${CONFIGURE_OPTS} --enable-debug=yes
-	# now you can run "make"
+	@ -touch -c doc/help_de.po 2>/dev/null 1>/dev/null
+	@ -touch -c doc/help_de.docbook 2>/dev/null 1>/dev/null
+	@ echo "" ; echo "compiling with:"
+	@ PATH=${PATH}:${KDEBINDIRS} kde-config --version
+	@ echo ""
+	KDEDIR=${KDEDIR} ./configure ${CONFIGURE_OPTS} --enable-debug=yes
+	# now we run "make"
+	make
+
+all:
+	-rm -f make.log
+	@ ( ${MAKE} -f Makefile.dist logged 2>&1 | tee make.log) || ( \
+	    echo "";\
+	    echo "======================================================";\
+	    echo "make failed. if you are not successful in solving the"; \
+	    echo "problem on your own, please write a e-mail to the";\
+	    echo "author(s) and include the file 'make.log' that has";\
+	    echo "been created.";\
+	    echo "======================================================";\
+	    echo "";\
+	    exit -1; \
+	);

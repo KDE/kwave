@@ -23,7 +23,7 @@ author=Thomas Eschenbacher
 configure_args=--enable-debug=yes
 email=Thomas.Eschenbacher@gmx.de
 kdevprj_version=1.0beta2
-lfv_open_groups=Dialoge,Languages
+lfv_open_groups=Dialoge,Headers,Languages
 make_options=-w -j1
 makefiles=Makefile.am,kwave/Makefile.am,kwave/docs/Makefile.am,kwave/docs/en/Makefile.am,po/Makefile.am,kwave/Makefile.am,libgui/Makefile.am,bin/Makefile.am,plugins/dialogs/sonagram/Makefile.am,plugins/dialogs/Makefile.am,plugins/Makefile.am,plugins/dialogs/playback/Makefile.am,mt/Makefile.am,plugins/about/Makefile.am,kwave/toolbar/Makefile.am,doc/Makefile.am,libkwave/src/Makefile.am,libkwave/Makefile.am,libkwave/Makefile.am,plugins/sonagram/Makefile.am,kwave/libgui/Makefile.am,plugins/playback/Makefile.am,kwave/pics/Makefile.am,plugins/zero/Makefile.am,plugins/memory/Makefile.am
 modifyMakefiles=false
@@ -284,7 +284,7 @@ dist=true
 files=kwave/MouseMark.cpp,kwave/menus.config,kwave/Makefile.am,kwave/ClipBoard.cpp,kwave/ClipBoard.h,kwave/FFTContainer.cpp,kwave/FFTContainer.h,kwave/TopWidget.h,kwave/TopWidget.cpp,kwave/SignalWidget.h,kwave/SignalWidget.cpp,kwave/SignalManager.h,kwave/SignalManager.cpp,kwave/FFTWindow.cpp,kwave/PluginManager.h,kwave/PluginManager.cpp,kwave/PlaybackController.h,kwave/PlaybackController.cpp,kwave/PitchWindow.h,kwave/PitchWindow.cpp,kwave/PitchWidget.h,kwave/PitchWidget.cpp,kwave/PitchContainer.h,kwave/PitchContainer.cpp,kwave/MouseMark.h,kwave/MainWidget.h,kwave/MainWidget.cpp,kwave/main.cpp,kwave/LabelManager.h,kwave/LabelManager.cpp,kwave/KwaveApp.h,kwave/KwaveApp.cpp,kwave/ImageView.h,kwave/ImageView.cpp,kwave/FFTWindow.h,kwave/UndoAction.h,kwave/UndoTransaction.h,kwave/UndoTransaction.cpp,kwave/UndoModifyAction.h,kwave/UndoModifyAction.cpp,kwave/UndoTransactionGuard.h,kwave/UndoTransactionGuard.cpp,kwave/UndoSelection.h,kwave/UndoSelection.cpp,kwave/UndoDeleteAction.h,kwave/UndoDeleteAction.cpp,kwave/UndoInsertAction.h,kwave/UndoInsertAction.cpp,kwave/UndoInsertTrack.cpp,kwave/UndoInsertTrack.h,kwave/UndoDeleteTrack.h,kwave/UndoDeleteTrack.cpp
 install=false
 install_location=
-sub_dirs=libgui,pics
+sub_dirs=libgui,pics,toolbar
 type=static_library
 
 [kwave/MouseMark.cpp]
@@ -529,9 +529,15 @@ install_location=
 type=DATA
 
 [kwave/pics/Makefile.am]
-files=kwave/pics/exit.xpm,kwave/pics/filesave.xpm,kwave/pics/font.xpm,kwave/pics/knob.xpm,kwave/pics/kwave.xpm,kwave/pics/light_off.xpm,kwave/pics/light_on.xpm,kwave/pics/logo.xpm,kwave/pics/lspeaker.xpm,kwave/pics/minifont.xpm,kwave/pics/rspeaker.xpm,kwave/pics/selectedknob.xpm,kwave/pics/xspeaker.xpm
+files=kwave/pics/exit.xpm,kwave/pics/filesave.xpm,kwave/pics/font.xpm,kwave/pics/knob.xpm,kwave/pics/kwave.xpm,kwave/pics/light_off.xpm,kwave/pics/light_on.xpm,kwave/pics/logo.xpm,kwave/pics/lspeaker.xpm,kwave/pics/minifont.xpm,kwave/pics/rspeaker.xpm,kwave/pics/selectedknob.xpm,kwave/pics/xspeaker.xpm,kwave/pics/delete.xpm,kwave/pics/knife.xpm
 sub_dirs=
 type=normal
+
+[kwave/pics/delete.xpm]
+dist=true
+install=false
+install_location=
+type=DATA
 
 [kwave/pics/exit.xpm]
 dist=true
@@ -546,6 +552,12 @@ install_location=
 type=DATA
 
 [kwave/pics/font.xpm]
+dist=true
+install=false
+install_location=
+type=DATA
+
+[kwave/pics/knife.xpm]
 dist=true
 install=false
 install_location=
@@ -618,7 +630,7 @@ install_location=
 type=HEADER
 
 [kwave/toolbar/Makefile.am]
-files=kwave/toolbar/delete.xpm,kwave/toolbar/editcopy.xpm,kwave/toolbar/editcut.xpm,kwave/toolbar/editpaste.xpm,kwave/toolbar/eraser.xpm,kwave/toolbar/exit.xpm,kwave/toolbar/filefloppy.xpm,kwave/toolbar/filenew.xpm,kwave/toolbar/fileopen.xpm,kwave/toolbar/filesaveas.xpm,kwave/toolbar/help.xpm,kwave/toolbar/loop.xpm,kwave/toolbar/pause.xpm,kwave/toolbar/play.xpm,kwave/toolbar/redo.xpm,kwave/toolbar/reload.xpm,kwave/toolbar/stop.xpm,kwave/toolbar/undo.xpm,kwave/toolbar/viewmag+.xpm,kwave/toolbar/zoomall.xpm,kwave/toolbar/zoomin.xpm,kwave/toolbar/zoomnormal.xpm,kwave/toolbar/zoomout.xpm,kwave/toolbar/zoomrange.xpm,
+files=kwave/toolbar/delete.xpm,kwave/toolbar/editcopy.xpm,kwave/toolbar/editcut.xpm,kwave/toolbar/editpaste.xpm,kwave/toolbar/eraser.xpm,kwave/toolbar/exit.xpm,kwave/toolbar/filefloppy.xpm,kwave/toolbar/filenew.xpm,kwave/toolbar/fileopen.xpm,kwave/toolbar/filesaveas.xpm,kwave/toolbar/help.xpm,kwave/toolbar/loop.xpm,kwave/toolbar/pause.xpm,kwave/toolbar/play.xpm,kwave/toolbar/redo.xpm,kwave/toolbar/reload.xpm,kwave/toolbar/stop.xpm,kwave/toolbar/undo.xpm,kwave/toolbar/viewmag+.xpm,kwave/toolbar/zoomall.xpm,kwave/toolbar/zoomin.xpm,kwave/toolbar/zoomnormal.xpm,kwave/toolbar/zoomout.xpm,kwave/toolbar/zoomrange.xpm,kwave/toolbar/pause2.xpm
 sub_dirs=
 type=normal
 
@@ -695,6 +707,12 @@ install_location=
 type=DATA
 
 [kwave/toolbar/pause.xpm]
+dist=true
+install=false
+install_location=
+type=DATA
+
+[kwave/toolbar/pause2.xpm]
 dist=true
 install=false
 install_location=

@@ -299,7 +299,8 @@ getlsm(RPM_SUMMARY, Keywords)
 getlsm(RPM_NAME, Title)
 getlsm(RPM_COPYRIGHT, Copying-policy)
 getlsm(RPM_URL, Homepage)
-getlsm(RPM_VENDOR, Author)
+dnl getlsm(RPM_VENDOR, Author)
+RPM_VENDOR="Thomas Eschenbacher <Thomas.Eschenbacher@gmx.de>"
 
 changequote(<<, >>)
 RPM_VERSION=`cat ./VERSION | awk '{ split($0, a, "-") } END { print a[1] }'`
@@ -327,4 +328,4 @@ AC_SUBST(LD_VERSION_INFO)
 
 dnl add here all your Makefiles
 dnl      (Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
-AC_OUTPUT(Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
+AC_OUTPUT(Makefile kwave/Makefile kwave/docs/Makefile kwave/docs/en/Makefile po/Makefile kwave/Makefile libgui/Makefile bin/Makefile plugins/dialogs/sonagram/Makefile plugins/dialogs/Makefile plugins/Makefile plugins/dialogs/playback/Makefile mt/Makefile plugins/about/Makefile kwave/toolbar/Makefile doc/Makefile libkwave/src/Makefile libkwave/Makefile libkwave/Makefile plugins/sonagram/Makefile kwave/libgui/Makefile plugins/playback/Makefile kwave/pics/Makefile plugins/zero/Makefile plugins/memory/Makefile )

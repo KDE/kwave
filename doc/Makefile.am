@@ -55,17 +55,17 @@ install-data-local:
 	{ \
 	    $(mkinstalldirs) ${DOCDIR}/$${lang}/$(PACKAGE); \
 	    $(INSTALL_DATA) help_$${lang}.docbook ${DOCDIR}/$${lang}/$(PACKAGE)/index.docbook; \
+	    $(mkinstalldirs) ${DOCDIR}/$${lang}/$(PACKAGE) ; \
+	    $(INSTALL_DATA) $${lang}/*.html ${DOCDIR}/$${lang}/$(PACKAGE) ; \
 	    $(mkinstalldirs) ${DOCDIR}/$${lang}/$(PACKAGE)/common ; \
 	    $(INSTALL_DATA) $${lang}/common/*.png ${DOCDIR}/$${lang}/$(PACKAGE)/common ; \
 	}; done
 	cd ${DOCDIR} ; \
-	if test ! -e default/$(PACKAGE); then ln -s ../en/$(PACKAGE) default; fi;
+	if test ! -e default/$(PACKAGE) -a -e default ; then ln -s ../en/$(PACKAGE) default; fi;
 
 uninstall-local:
-	for lang in ${LANGUAGES}; do \
-	{ \
+	for lang in ${LANGUAGES}; do { \
 	    rm -R -f ${DOCDIR}/$${lang}/${PACKAGE} ; \
-	    cd ${DOCDIR} ; \
-	    if test -L default/$(PACKAGE); then rm -f default/$(PACKAGE); fi; \
+	    rmdir -p --ignore-fail-on-non-empty $(DOCDIR)/$$lang >/dev/null 2>&1; \
+	    if test -L ${DOCDIR}/default/$(PACKAGE); then rm -f ${DOCDIR}/default/$(PACKAGE); fi; \
 	}; done
-

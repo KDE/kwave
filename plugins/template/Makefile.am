@@ -18,7 +18,7 @@ SUFFIXES= .h .cpp .o .d .moc .dm .ui
 INCLUDES= -I${topdir} `artsc-config --cflags` @all_includes@
 
 # Which sources should be compiled for kwave.
-PLUGINDIR=$(DESTDIR)$(kde_datadir)/kwave/plugins
+PLUGINDIR=$(kde_datadir)/$(PACKAGE)/plugins
 
 CXXFLAGS  = @CXXFLAGS@ 
 LD_FLAGS  = -shared -fPIC -rdynamic -nostartfiles -nostdlib
@@ -109,4 +109,4 @@ install-data-local:
 
 uninstall-local: 
 	-rm -f $(PLUGINDIR)/$(MODNAME)
-	-rmdir $(PLUGINDIR)
+	-rmdir -p --ignore-fail-on-non-empty $(PLUGINDIR) >/dev/null 2>&1

@@ -13,18 +13,18 @@
 
 # just set the variable
 
-APPSDIR= $(kde_appsdir)/Multimedia
-CONFDIR= $(kde_datadir)/$(PACKAGE)
-PIXDIR = $(kde_datadir)/$(PACKAGE)/pics
+APPSDIR= $(DESTDIR)$(kde_appsdir)/Multimedia
+CONFDIR= $(DESTDIR)$(kde_datadir)/$(PACKAGE)
+PIXDIR = $(DESTDIR)$(kde_datadir)/$(PACKAGE)/pics
 # set the include path for X, qt and KDE
 INCLUDES= -I${topdir} @all_includes@
+ICONDIR = $(DESTDIR)$(kde_icondir)
 
 bin_PROGRAMS  = kwave
 
 # specifying the bindir is necessary in order to let make install
 # use the correct directory when building a binary rpm package
 bindir=$(prefix)/bin
-# bindir=@bindir@ <- does not work, why ???
 
 # conversion to modules to do for the following files:
 # mdialog_sweep.cpp mdialog_frequency.cpp mdialog_fixedfreq.cpp addsynth.h
@@ -76,6 +76,29 @@ kwave_SOURCES =\
  UndoTransactionGuard.cpp\
  $(BUILTSOURCES)
 
+# extra data, icons etc
+ICONS = \
+ pics/$(PACKAGE)-16x16.png \
+ pics/$(PACKAGE)-22x22.png \
+ pics/$(PACKAGE)-32x32.png \
+ pics/$(PACKAGE)-48x48.png
+
+# some pixmaps to be installed in the data dir
+PIXMAPS=\
+ delete.xpm\
+ light_on.xpm\
+ light_off.xpm\
+ logo.xpm\
+ knife.xpm\
+ knob.xpm\
+ selectedknob.xpm\
+ xspeaker.xpm\
+ rspeaker.xpm\
+ lspeaker.xpm\
+ font.xpm\
+ exit.xpm\
+ filesave.xpm
+
 # the library search path
 kwave_LDFLAGS = -L../mt -L../libkwave -L../libgui \
 	@ARTS_LIBS@ @all_libraries@ -export-dynamic -dy
@@ -89,6 +112,8 @@ kwave_LDADD   =  -lkwavegui -lkwave -lkwavemt -lkfile -lkdeui -lkdecore -lqt \
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = $(BUILTSOURCES) core *~ .deps/* doc/*~
 
+$(APPSDIR)/kwave.desktop:
+
 # holds the content of menus.config for internationalization
 menus_config_i18n.cpp: menus.config
 	${topdir}/bin/menusconfig2cpp.sh menus.config menus_config_i18n.cpp
@@ -97,37 +122,56 @@ menus_config_i18n.cpp: menus.config
 messages:
 	$(XGETTEXT) -C -ktranslate $(kwave_SOURCES)
 
+#
+# Rules for re-creating all icons in their various sizes
+
+pics/$(PACKAGE)-16x16.png: pics/$(PACKAGE).xpm
+	convert -geometry 16x16 $< $@
+
+pics/$(PACKAGE)-22x22.png: pics/$(PACKAGE).xpm
+	convert -geometry 22x22 $< $@
+
+pics/$(PACKAGE)-32x32.png: pics/$(PACKAGE).xpm
+	convert -geometry 32x32 $< $@
+
+pics/$(PACKAGE)-48x48.png: pics/$(PACKAGE).xpm
+	convert -geometry 48x48 $< $@
+
 # just install datas here. Use install-exec-data for scripts and etc.
 # the binary itself is already installed from automake
 # use mkinstalldirs, not "install -d"
 # don't install a list of file. Just one file per install.
 # if you have more of them, create a subdirectory with an extra Makefile 
-install-data-local: 
+
+install-data-local: $(ICONS)
 	$(mkinstalldirs) $(APPSDIR)
-	$(INSTALL_DATA) kwave.kdelnk $(APPSDIR)
-	$(mkinstalldirs) $(kde_icondir)
-	$(INSTALL_DATA) pics/kwave.xpm $(kde_icondir)
+	$(INSTALL_DATA) kwave.desktop $(APPSDIR)/kwave.desktop
 	$(mkinstalldirs) $(PIXDIR)
-	$(INSTALL_DATA) pics/delete.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/light_on.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/light_off.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/logo.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/knife.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/knob.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/selectedknob.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/xspeaker.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/rspeaker.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/lspeaker.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/font.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/exit.xpm $(PIXDIR)
-	$(INSTALL_DATA) pics/filesave.xpm $(PIXDIR)
+	for pix in $(PIXMAPS); do { $(INSTALL_DATA) pics/$$pix $(PIXDIR) ; }; done;
 	$(mkinstalldirs) $(CONFDIR)
-	$(INSTALL_DATA) menus.config $(CONFDIR)
+	$(INSTALL_DATA) menus.config $(CONFDIR)/menus.config
+	for col in locolor hicolor; do { \
+	  for dim in 16x16 22x22 32x32 48x48; do { \
+	    $(mkinstalldirs) $(ICONDIR)/$$col/$$dim/apps/; \
+	    $(INSTALL_DATA) pics/${PACKAGE}-$$dim.png $(ICONDIR)/$$col/$$dim/apps/$(PACKAGE).png; \
+	  }; done; \
+	}; done;
 
 # remove ALL you have installed in install-data-local or install-exec-local
 uninstall-local:
-	-rm -f $(APPSDIR)/kwave.kdelnk
-	-rm -f $(kde_icondir)/kwave.xpm
+	for col in locolor hicolor; do { \
+	  for dim in 16x16 22x22 32x32 48x48; do { \
+	    rm -f $(ICONDIR)/$$col/$$dim/apps/$(PACKAGE).png || true; \
+	    (rmdir -p --ignore-fail-on-non-empty $(ICONDIR)/$$col/$$dim/apps/ >/dev/null 2>&1); \
+	  }; done; \
+	}; done;
+	for pix in $(PIXMAPS); do { rm -fv $(PIXDIR)/$$pix ; }; done;
+	-rm -f $(APPSDIR)/kwave.desktop
+	-rm -f $(CONFDIR)/menus.config
+	-rmdir -p --ignore-fail-on-non-empty $(APPSDIR) >/dev/null 2>&1
+	-rmdir -p --ignore-fail-on-non-empty $(CONFDIR) >/dev/null 2>&1
+	-rmdir -p --ignore-fail-on-non-empty $(PIXDIR) >/dev/null 2>&1
+	-rmdir -p --ignore-fail-on-non-empty $(DESTDIR)$(bindir) >/dev/null 2>&1
 
 # dependencies for moc files
 %moc.cpp: %h

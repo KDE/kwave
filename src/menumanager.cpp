@@ -6,7 +6,7 @@
 #include <kapp.h>
 #include <klocale.h>
 
-#define BUG
+//#define BUG
 
 NumberedMenu::NumberedMenu (const char *name)
 {
@@ -133,7 +133,7 @@ void MenuManager::setCommand (const char *command)
   if (bar)
     {
       printf  ("%s\n",command);
-      //      KwaveParser parser(command);
+      KwaveParser parser(command);
 
       const char *tmp;
       char *pos=0;

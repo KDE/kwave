@@ -23,6 +23,17 @@
 // now some helper functions... somewhere in c-lib there should be something
 // compareable. But as long the reinvented wheel works there is no need for
 // change 
+static inline unsigned int swapEndian (unsigned int s)
+  //yes you guessed it only for sizeof(int)==4 this
+  //works as it should do ...
+{
+ return ((s&0xff)<<24)|((s&0xff00)<<8)|((s&0xff0000)>>8)|((s%0xff000000)>>24);
+}
+
+//**********************************************************
+// now some helper functions... somewhere in c-lib there should be something
+// compareable. But as long the reinvented wheel works there is no need for
+// change 
 static inline int swapEndian (int s)
   //yes you guessed it only for sizeof(int)==4 this
   //works as it should do ...

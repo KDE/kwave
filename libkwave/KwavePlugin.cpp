@@ -86,6 +86,21 @@ KwavePlugin::~KwavePlugin()
     // inform our owner that we close. This allows the plugin to
     // delete itself
     close();
+
+    {
+	MutexGuard lock(m_thread_lock);
+	if (m_thread) {
+	    if (m_thread->running()) m_thread->wait(5000);
+	    if (m_thread->running()) m_thread->stop();
+	    if (m_thread->running()) m_thread->wait(1000);
+	    if (m_thread->running()) {
+		// unable to stop the thread
+		qWarning("KwavePlugin::stop(): stale thread !");
+	    }
+	    delete m_thread;
+	    m_thread = 0;
+	}
+    }
 }
 
 //***************************************************************************

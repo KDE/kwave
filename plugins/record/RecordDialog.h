@@ -171,6 +171,9 @@ private slots:
     /** forwards a deviceChanged signal */
     void forwardDeviceChanged(const QString &dev);
 
+    /** called when the user finished editing the device name */
+    void forwardDeviceEditFinished();
+
     /** forwards a sigTracksChanged signal */
     void tracksChanged(int tracks);
 

@@ -2,7 +2,7 @@
                cputest.h -  defines with CPU capabilites
                      -------------------
     begin                : Mon Dec 06 2004
-    copyright            : (C) 2001 by Thomas Eschenbacher
+    copyright            : (C) 2004 by Thomas Eschenbacher
     email                : Thomas Eschenbacher <thomas.eschenbacher@gmx.de>
  ***************************************************************************/
 

@@ -51,7 +51,7 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-07-30</DATE>
+    <DATE>2000-08-02</DATE>
     <RELEASEINFO>0.5.4-2</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
@@ -231,16 +231,19 @@
             <PARA>0.5.4-1 [2000-07-29]</PARA>
             <ITEMIZEDLIST>
                 <LISTITEM><PARA>
+                    fixed layout of playback dialog
+                </PARA></LISTITEM>
+                <LISTITEM><PARA>
                     started to implement a new plugin interface
                 </PARA></LISTITEM>
                 <LISTITEM><PARA>
-                    geometry management for the sonagram settings dialog
+                    geometry/layout management for the sonagram settings dialog
                 </PARA></LISTITEM>
                 <LISTITEM><PARA>
                     formatting of selection and file time (KwavePlugin::ms2string)
                 </PARA></LISTITEM>
                 <LISTITEM><PARA>
-                    plugins can now consist of multiple files
+                    plugins can now consist of multiple source files
                 </PARA></LISTITEM>
             </ITEMIZEDLIST>
         </LISTITEM>
@@ -1772,7 +1775,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-07-30</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-08-02</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

@@ -51,7 +51,7 @@ QStrList *KwavePlugin::setup(QStrList *previous_params = 0)
 }
 
 //***************************************************************************
-int KwavePlugin::execute(QStrList *params = 0)
+int KwavePlugin::execute(QStrList &params)
 {
     return 0;
 }
@@ -117,8 +117,8 @@ void KwavePlugin::ms2string(char *buf, unsigned int bufsize, double ms)
     } else if (ms < 1000.0) {
 	snprintf(buf, bufsize, "%0.1f ms", ms);
     } else {
-	long s = round(ms / 1000);
-	long m = floor(s / 60);
+	int s = (int)round(ms / 1000);
+	int m = (int)floor(s / 60);
 	
 	if (m < 1) {
 	    char format[128];

@@ -76,7 +76,7 @@ public:
      * @return an error code if the execution failed or zero if everything
      *         was ok.
      */
-    virtual int execute(QStrList *params = 0);
+    virtual int execute(QStrList &params);
 
     /**
      * Returns the parent widget of the plugin. This normally should be

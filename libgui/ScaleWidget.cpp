@@ -35,7 +35,7 @@ ScaleWidget::ScaleWidget(QWidget *parent, const char *name)
      m_unittext("%")
 {
     KIconLoader icon_loader;
-    m_scalefont = icon_loader.loadIcon("font.xpm", KIcon::Small);
+    m_scalefont = icon_loader.loadIcon("minifont.xpm", KIcon::Small);
 }
 
 //***************************************************************************
@@ -45,7 +45,7 @@ ScaleWidget::ScaleWidget(QWidget *parent, int low, int high,
      m_unittext(unit)
 {
     KIconLoader icon_loader;
-    m_scalefont = icon_loader.loadIcon("font.xpm", KIcon::Small);
+    m_scalefont = icon_loader.loadIcon("minifont.xpm", KIcon::Small);
 }
 
 //***************************************************************************
@@ -91,14 +91,19 @@ void ScaleWidget::paintText(QPainter &p, int x, int y, int ofs,
 	int c = text.at(pos).latin1();
 
 	pos = 40; // default = space	
-	if ((c > 64) && (c < 91))  pos = c-65;    // letter
-	if ((c > 96) && (c < 123)) pos = c-97;    // letter
-	if ((c > 47) && (c < 58))  pos = c-48+26; // number
-	if (c == '°')              pos = 38;
-	if (c == '.')              pos = 39;
-	if (c == ' ')              pos = 40;
-	if (c == '%')              pos = 41;
-	if (c == '-')              pos = 42;
+	switch (c) {
+	    case '\'':  pos = 36; break;
+	    case '"':   pos = 37; break;
+	    case '°':   pos = 38; break;
+	    case '.':   pos = 39; break;
+	    case ' ':   pos = 40; break;
+	    case '%':   pos = 41; break;
+	    case '-':   pos = 42; break;
+	    default:
+		if ((c > 64) && (c < 91))  pos = c-65;    // letter
+		if ((c > 96) && (c < 123)) pos = c-97;    // letter
+		if ((c > 47) && (c < 58))  pos = c-48+26; // number
+	}
 	
 	p.drawPixmap(x, y, m_scalefont, pos*FONTSIZE, 0, FONTSIZE, FONTSIZE);
 	

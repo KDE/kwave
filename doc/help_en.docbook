@@ -176,10 +176,13 @@
     <!-- AUTO_GENERATED_CHANGES_LIST_START -->
     <para><itemizedlist>
         <listitem>
-            <para>0.6.3 [2002-??-??]</para>
+            <para>0.6.3 [2002-02-24]</para>
             <itemizedlist>
                 <listitem><para>
-                    support for french and italian translation
+                    simple drag and drop
+                </para></listitem>
+                <listitem><para>
+                    french translation
                 </para></listitem>
                 <listitem><para>
                     handling of "signal modified"

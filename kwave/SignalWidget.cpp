@@ -204,7 +204,7 @@ SignalWidget::~SignalWidget()
 {
     close();
 
-    if (m_pixmap == 0) delete m_pixmap;
+    if (m_pixmap) delete m_pixmap;
     m_pixmap = 0;
 
 ////    if (labels) delete labels;

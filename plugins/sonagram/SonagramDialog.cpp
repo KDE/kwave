@@ -343,17 +343,17 @@ SonagramDialog::SonagramDialog(KwavePlugin &p)
     // try to make the image's aspect ratio (a) = sqrt(2)
     //
     // samples: s
-    // fft_points: p
-    // image_width: w = s / p
-    // image_height: h = p / 2
-    // a = w / h = 2*s / (p^2)
-    // => p = sqrt( 2 * s / a) )
+    // fft_points: np
+    // image_width: w = s / np
+    // image_height: h = np / 2
+    // a = w / h = 2*s / (np^2)
+    // => np = sqrt( 2 * s / a) )
     const double aspect_ratio = sqrt(2);
-    double p = sqrt(2.0*(double)m_length/aspect_ratio);
+    double np = sqrt(2.0*(double)m_length/aspect_ratio);
 
     // round down to an exponent of 2, this makes the image more
     // wide than heigh and gives a fast calculation
-    int bits = (int)floor(log(p) / log(2));
+    int bits = (int)floor(log(np) / log(2));
     if (bits < 2) bits = 2;
     if (bits > 16) bits = 16;
     setPoints(1 << (bits-1));

@@ -173,33 +173,6 @@ builtin(include, admin/ac_csl.m4)dnl
 #AC_PREREQ(2.13)
 #
 #
-# CSL version numbers
-#
-#AC_DIVERT_PUSH(AC_DIVERSION_NOTICE)dnl
-#CSL_MAJOR_VERSION=0
-#CSL_MINOR_VERSION=1
-#CSL_MICRO_VERSION=1
-#CSL_INTERFACE_AGE=0
-#CSL_BINARY_AGE=0
-#CSL_VERSION=$CSL_MAJOR_VERSION.$CSL_MINOR_VERSION.$CSL_MICRO_VERSION
-#AC_DIVERT_POP()dnl
-#dnl#
-#dnl# Making releases:
-#dnl#   CSL_MICRO_VERSION += 1;
-#dnl#   CSL_INTERFACE_AGE += 1;
-#dnl#   CSL_BINARY_AGE += 1;
-#dnl# if any functions have been added, set CSL_INTERFACE_AGE to 0.
-#dnl# if backwards compatibility has been broken,
-#dnl# set CSL_BINARY_AGE _and_ CSL_INTERFACE_AGE to 0.
-#dnl#
-# CSL version numbers
-#AC_SUBST(CSL_MAJOR_VERSION)
-#AC_SUBST(CSL_MINOR_VERSION)
-#AC_SUBST(CSL_MICRO_VERSION)
-#AC_SUBST(CSL_INTERFACE_AGE)
-#AC_SUBST(CSL_BINARY_AGE)
-#AC_SUBST(CSL_VERSION)
-#
 # compute libtool versions
 #LT_RELEASE=$CSL_MAJOR_VERSION.$CSL_MINOR_VERSION
 #LT_CURRENT=`expr $CSL_MICRO_VERSION - $CSL_INTERFACE_AGE`
@@ -210,18 +183,11 @@ builtin(include, admin/ac_csl.m4)dnl
 #AC_SUBST(LT_REVISION)
 #AC_SUBST(LT_AGE)
 #
-# Support program name conversion.
-#AC_ARG_PROGRAM
-#
-# Disable automatic maintainer mode.
-#AM_MAINTAINER_MODE
-#
 # We have subdirectories.
 #AC_PROG_MAKE_SET
 #
 # Make sure else configure stuff exists.
 #AC_CANONICAL_HOST
-
 
 dnl Foreign defaults:
 MC_IF_VAR_EQ(enable_static, yes, , enable_static=no)
@@ -328,4 +294,4 @@ AC_SUBST(LD_VERSION_INFO)
 
 dnl add here all your Makefiles
 dnl      (Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)
-AC_OUTPUT(Makefile kwave/Makefile kwave/docs/Makefile kwave/docs/en/Makefile po/Makefile kwave/Makefile libgui/Makefile bin/Makefile plugins/dialogs/sonagram/Makefile plugins/dialogs/Makefile plugins/Makefile plugins/dialogs/playback/Makefile mt/Makefile plugins/about/Makefile kwave/toolbar/Makefile doc/Makefile libkwave/src/Makefile libkwave/Makefile libkwave/Makefile plugins/sonagram/Makefile kwave/libgui/Makefile plugins/playback/Makefile kwave/pics/Makefile plugins/zero/Makefile plugins/memory/Makefile )
+AC_OUTPUT(Makefile mt/Makefile libkwave/Makefile libgui/Makefile kwave/Makefile plugins/Makefile plugins/template/Makefile po/Makefile doxy.cfg doc/Makefile kwave.spec)

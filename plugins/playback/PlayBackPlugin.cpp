@@ -253,7 +253,7 @@ void PlayBackPlugin::startDevicePlayBack()
 
     unsigned int first;
     unsigned int last;
-    selection(&first, &last);
+    selection(&first, &last, false);
 
     if (m_playback_controller.paused()) {
 	// continue after pause
@@ -279,9 +279,9 @@ void PlayBackPlugin::startDevicePlayBack()
 	    }
 	}
     } else {
-	// determine first and last sample if not in paused mode
+	// determine first and last sample if not in paused mode"
 	if (first == last) {
-	    // nothing selected -> play everything
+	    // nothing selected -> play from cursor position
 	    m_playback_controller.setStartPos(first);
 	    m_playback_controller.setEndPos(signalLength()-1);
 	} else {

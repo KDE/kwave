@@ -24,14 +24,26 @@
 
 #include "libkwave/ArtsPlaybackSink.h"
 
+class ArtsMultiPlaybackSink;
+
 class ArtsPlaybackSink_impl
     :virtual public ArtsPlaybackSink_skel,
      virtual public Arts::StdSynthModule
 {
 public:
 
-    /** Constructor */
+    /**
+     * Default constructor
+     */
     ArtsPlaybackSink_impl();
+
+    /**
+     * Constructor
+     * @param pb_sink a ArtsMultiPlaybackSink that receives the samples
+     * @param track index of the corresponding track [0...tracks-1]
+     */
+    ArtsPlaybackSink_impl(ArtsMultiPlaybackSink *pb_sink,
+                          unsigned int track);
 
     /** Destructor */
     virtual ~ArtsPlaybackSink_impl();
@@ -40,7 +52,7 @@ public:
      * Receiver and data processing function.
      * @see aRts/MCOP documentation
      */
-    void calculateBlock(unsigned long samples);
+    virtual void calculateBlock(unsigned long samples);
 
     /**
      * This is the most tricky part here - since we will run in a context
@@ -49,11 +61,29 @@ public:
      * flowsystem that more signal flow should happen, so that
      * calculateBlock will get called)
      */
-    void goOn();
+    virtual void goOn();
 
     /** Signals end of the stream */
-    bool done();
-    
+    virtual bool done();
+
+    /** @see Arts::StdSynthModule::start() */
+    virtual void start() {
+	Arts::StdSynthModule::start();
+    };
+
+    /** @see Arts::StdSynthModule::stop() */
+    virtual void stop() {
+	Arts::StdSynthModule::stop();
+    };
+
+protected:
+
+    /** ArtsMultiPlaybackSink that receives the samples */
+    ArtsMultiPlaybackSink *m_multi_sink;
+
+    /** index of the corresponding track */
+    unsigned int m_track;
+
 };
 
 #endif /* _ARTS_PLAYBACK_SINK_IMPL_H_ */

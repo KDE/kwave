@@ -16,18 +16,28 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "ArtsPlaybackSink_impl.h"
 
 #include <arts/connect.h>
 #include <arts/objectmanager.h>
 #include <arts/flowsystem.h>
 #include <arts/stdsynthmodule.h>
-
 #include <qglobal.h>
+
+#include "libkwave/ArtsPlaybackSink_impl.h"
+#include "libkwave/ArtsMultiPlaybackSink.h"
 
 //***************************************************************************
 ArtsPlaybackSink_impl::ArtsPlaybackSink_impl()
-    :ArtsPlaybackSink_skel(), Arts::StdSynthModule()
+    :ArtsPlaybackSink_skel(), Arts::StdSynthModule(),
+     m_multi_sink(0), m_track(0)
+{
+}
+
+//***************************************************************************
+ArtsPlaybackSink_impl::ArtsPlaybackSink_impl(ArtsMultiPlaybackSink *pb_sink,
+                                             unsigned int track)
+    :ArtsPlaybackSink_skel(), Arts::StdSynthModule(),
+     m_multi_sink(pb_sink), m_track(track)
 {
 }
 
@@ -39,18 +49,7 @@ ArtsPlaybackSink_impl::~ArtsPlaybackSink_impl()
 //***************************************************************************
 void ArtsPlaybackSink_impl::calculateBlock(unsigned long samples)
 {
-//    debug("ArtsPlaybackSink_impl::calculateBlock(%lu)", samples);
-//    unsigned long i = 0;
-//    sample_t sample = 0;
-//
-//    if (m_reader && !(m_reader->eof())) {
-//	// fill the buffer with samples
-//	for (i=0;i < samples;i++) {
-//	    *m_reader >> sample;
-//	    source[i] = sample / double(1 << 23);
-//	    if (m_reader->eof()) break;
-//	}
-//    }
+    m_multi_sink->playback(m_track, sink, samples);
 }
 
 //***************************************************************************
@@ -62,8 +61,7 @@ void ArtsPlaybackSink_impl::goOn()
 //***************************************************************************
 bool ArtsPlaybackSink_impl::done()
 {
-    debug("ArtsPlaybackSink_impl::done()");
-    return false;
+    return (m_multi_sink);
 }
 
 //***************************************************************************

@@ -19,17 +19,21 @@
 #define _ARTS_MULTI_PLAYBACK_SINK_H_
 
 #include "config.h"
-#include <qvector.h>
+#include <math.h>
+#include <qbitarray.h>
+#include <qmemarray.h>
+#include <qptrvector.h>
 #include <arts/artsflow.h>
 
 #include "libkwave/ArtsMultiSink.h"
 #include "libkwave/ArtsPlaybackSink.h"
 #include "libkwave/ArtsPlaybackSink_impl.h"
+#include "libkwave/Sample.h"
 
 class Arts::Object;
-class PlaybackDevice;
+class PlayBackDevice;
 
-class ArtsMultiPlaybackSink:public ArtsMultiSink
+class ArtsMultiPlaybackSink: public ArtsMultiSink
 {
 public:
 
@@ -39,7 +43,7 @@ public:
      * the initialization will be aborted and the count of
      * objects will be reduced.
      */
-    ArtsMultiPlaybackSink(unsigned int tracks, PlaybackDevice *device);
+    ArtsMultiPlaybackSink(unsigned int tracks, PlayBackDevice *device);
 
     /**
      * Destructor.
@@ -79,9 +83,18 @@ public:
     virtual bool done();
 
 protected:
+    friend class ArtsPlaybackSink_impl;
+
+    /**
+     * Collects data from a track and does the playback when enough
+     * data is available.
+     */
+    void playback(int track, float *buffer, unsigned long samples);
+    
+protected:
 
     /** device used for playback */
-    PlaybackDevice *m_device;
+    PlayBackDevice *m_device;
 
     /**
      * number of tracks, should be the same as the number of elements
@@ -92,11 +105,20 @@ protected:
     /**
      * List of ArtsPlayback sinks
      */
-    QVector<ArtsPlaybackSink> m_sinks;
+    QPtrVector<ArtsPlaybackSink> m_sinks;
 
     /** used for signalling a cancel or abort, can be queried with done() */
     bool m_done;
 
+    /** list of input buffers */
+    QPtrVector< QMemArray<float> > m_in_buffer;
+
+    /** "filled"-flags for input buffers */
+    QBitArray m_in_buffer_filled;
+
+    /** output buffer for all samples */
+    QMemArray<sample_t> m_out_buffer;
+    
 };
 
 #endif /* _ARTS_MULTI_PLAYBACK_SINK_H_ */

@@ -94,7 +94,7 @@ SignalManager::SignalManager(QWidget *parent)
     m_undo_transaction_level(0),
     m_undo_transaction_lock(),
     m_spx_undo_redo(this, SLOT(emitUndoRedoInfo())),
-    m_undo_limit(10*1024*1024) // 10 MB (for testing) ###
+    m_undo_limit(64*1024*1024) // 64 MB (for testing) ###
     /** @todo the undo memory limit should be user-configurable. */
 {
     // connect to the track's signals
@@ -133,7 +133,7 @@ int SignalManager::loadFile(const KURL &url)
 
     QString mimetype = KMimeType::findByURL(url)->name();
     debug("SignalManager::loadFile(%s) - [%s]", url.prettyURL().data(),
-          mimetype.data()); // ###
+          mimetype.data());
     Decoder *decoder = CodecManager::decoder(mimetype);
     while (decoder) {
 	// be sure that the current signal is really closed
@@ -1105,7 +1105,7 @@ void SignalManager::flushUndoBuffers()
     m_undo_transaction_level = 0;
 
     // if the signal was modified, it will stay in this state, it is
-    // not possible it to "non-modified" state through undo
+    // not possible to change to "non-modified" state through undo
     if ((!m_undo_buffer.isEmpty()) && (m_modified)) {
 	enableModifiedChange(false);
     }
@@ -1147,78 +1147,33 @@ bool SignalManager::registerUndoAction(UndoAction *action)
     // if undo is not enabled, return a faked "ok"
     if (!m_undo_enabled) return true;
 
-    ASSERT(m_undo_transaction);
-    if (!m_undo_transaction) return false;
-
     unsigned int needed_size  = action->undoSize();
     unsigned int needed_mb = needed_size  >> 20;
     unsigned int limit_mb  = m_undo_limit >> 20;
 
-    // Print a warning if the needed memory exceeds the limit for undo.
-    // The user should have the chance to decide between:
-    // a) abort the current operation
-    // b) permit the operation, but continue without undo
-    // c) ignore the memory limit and store undo data nevertheless
     if (needed_mb > limit_mb) {
-	ThreadsafeX11Guard x11_guard;
-	int choice = KMessageBox::warningYesNoCancel(m_parent_widget,
-	    /* HTML version */
-	    QString("<HTML>"+
-	    i18n("The operation '%1' requires more than %2 MB for "\
-	    "storing undo data.\n"\
-	    "This would exceed the limit of %3 MB.")+
-	    "<BR><BR>"+
-	    i18n("You can now either press:")+
-	    "<TABLE NOBORDER><TR>"\
-	    "<TD><B>"+
-	    i18n("Allow")+"</B></TD><TD>"+
-	    i18n("to continue without the possibility to undo, or")+
-	    "</TD></TR><TR>"\
-	    "<TD><B>"+i18n("Ignore")+"</B></TD><TD>"+
-	    i18n("to continue, discard all previous undo data "\
-	                    "and ignore the memory limit")+
-	    "</TD></TR><TR>"\
-	    "<td><B>"+
-	    i18n("Cancel")+
-	    "</B></TD><TD>"+
-	    i18n("to abort the current operation.")+
-	    "</td></TR></TABLE></HTML>").arg(
-	    m_undo_transaction->description()).arg(needed_mb).arg(limit_mb),
+	// Allow: discard buffers and omit undo
+	m_undo_buffer.clear();
+	m_redo_buffer.clear();
 	
-	    /* plain text version
-	    i18n("The command '%1' requires %2 MB for storing undo data.\n"\
-	    "This would exceed the limit of %3 MB. \n\n"\
-	    "You can now either press:\n"\
-	    "* <Allow>  to continue without the possibility to undo, or\n"\
-	    "* <Ignore> to continue and ignore the memory limit, or\n"\
-	    "* <Cancel> to abort the current operation.").arg(
-	    m_undo_transaction->description()).arg(needed_mb).arg(limit_mb),
-	    */
+	// close the current transaction
+	if (m_undo_transaction) delete m_undo_transaction;
+	m_undo_transaction = 0;
 	
-	    QString::null,
-	    i18n("&Allow"),
-	    i18n("&Ignore"),
-	    true
-	);
-	
-	switch (choice) {
-	    case KMessageBox::Yes:
-		// Allow: discard buffers and omit undo
-		m_undo_buffer.clear();
-		m_redo_buffer.clear();
-		return true;
-	    case KMessageBox::No:
-		// Ignore: discard buffers and ignore limit
-		m_undo_buffer.clear();
-		m_redo_buffer.clear();
-		break;
-	    default:
-		// Cancel: abort the action
-		return false;
+	// if the signal was modified, it will stay in this state, it is
+	// not possible to change to "non-modified" state through undo
+	if ((!m_undo_buffer.isEmpty()) && (m_modified)) {
+	    enableModifiedChange(false);
 	}
+	
+	m_spx_undo_redo.AsyncHandler();
+	return true;
     }
 
-    // now make room...
+    // undo has been aborted before ?
+    if (!m_undo_transaction) return true;
+
+    // make room...
     freeUndoMemory(needed_size);
 
     // now we have enough place to append the undo action
@@ -1287,7 +1242,7 @@ void SignalManager::freeUndoMemory(unsigned int needed)
 	m_undo_buffer.removeFirst();
 
 	// if the signal was modified, it will stay in this state, it is
-	// not possible it to "non-modified" state through undo
+	// not possible to change to "non-modified" state through undo
 	if ((!m_undo_buffer.isEmpty()) && (m_modified)) {
 	    enableModifiedChange(false);
 	}

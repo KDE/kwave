@@ -341,7 +341,8 @@ int SignalManager::save(const KURL &url, bool selection)
 	
 	//prepare and show the progress dialog
 	FileProgress *dialog = new FileProgress(m_parent_widget,
-	    filename, m_file_info.tracks()*m_file_info.length(),
+	    filename, m_file_info.tracks()*m_file_info.length()*
+	    (m_file_info.bits() >> 3),
 	    m_file_info.length(), m_file_info.rate(), m_file_info.bits(),
 	    m_file_info.tracks());
 	ASSERT(dialog);

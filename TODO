@@ -1,4 +1,8 @@
 
+o playback: continue/pause
+
+o playback: get error messages out of the thread
+
 o create a ThreadCondition class for synchronizing
 
 o use a MenuManager in the plugins (e.g. sonagram)

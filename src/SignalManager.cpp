@@ -96,9 +96,6 @@ SignalManager::SignalManager(unsigned int numsamples,
     :QObject()
 {
     initialize();
-
-//    if (channels > MAXCHANNELS) channels = MAXCHANNELS;
-//    this->channels = channels;    //store how many channels are linked to this
     this->rate = rate;
 
     for (unsigned int i = 0; i < channels; i++) {
@@ -339,25 +336,38 @@ void SignalManager::toggleChannel(const unsigned int channel)
 }
 
 //***************************************************************************
-void SignalManager::playback_setOp(int id)
+void SignalManager::playbackStart()
 {
-    debug("SignalManager::playback_setOp(%d)",id);
-    stopplay();           //every operation cancels playing...
+    debug("SignalManager::playbackStart()");
+    stopplay();
+    play(false);
+}
 
-    switch (id) {
-	case LOOP:
-	    play(true);
-	    break;
-	case PLAY:
-	    play(false);
-	    break;
-    }
+//***************************************************************************
+void SignalManager::playbackLoop()
+{
+    debug("SignalManager::playbackLoop()");
+    stopplay();
+    play(true);
+}
 
-    // chaos is about to come
-    // check for ranges of id that have to be decoded into a parameter
+//***************************************************************************
+void SignalManager::playbackPause()
+{
+    debug("SignalManager::playbackPause()");
+}
 
-    if ((id >= TOGGLECHANNEL) && (id < TOGGLECHANNEL + 10))
-	toggleChannel (id - TOGGLECHANNEL);
+//***************************************************************************
+void SignalManager::playbackContinue()
+{
+    debug("SignalManager::playbackContinue()");
+}
+
+//***************************************************************************
+void SignalManager::playbackStop()
+{
+    debug("SignalManager::playbackStop()");
+    stopplay();
 }
 
 //***************************************************************************
@@ -726,8 +736,6 @@ int SignalManager::loadWav()
 #if defined(IS_BIG_ENDIAN)
 		    length = bswap_32(length);
 #endif
-//		    debug("SignalManager::loadWav():length is %d,res is %d",
-//			  length, res);
 
 		    length = (length/(header.bitspersample/8))/header.channels;
 		    switch (header.bitspersample) {
@@ -1190,12 +1198,15 @@ struct Play {
 };
 
 //***************************************************************************
-void *playThread(struct Play *par)
+void playThread(struct Play *par)
 {
     ASSERT(par);
-    if (!par) return 0;
+    if (!par) return;
     ASSERT(par->manage);
-    if (!par->manage) return 0;
+    if (!par->manage) {
+	delete par;
+	return;
+    }
 
     int device; // handle of the playback device
     unsigned char *buffer = 0;
@@ -1215,21 +1226,20 @@ void *playThread(struct Play *par)
 	    if (buffer) {
 		par->manage->playback(device, par->params,
 		    buffer, bufsize, par->loop);
+		delete[] buffer;
 	    }
 	}
 	close (device);
-	if (buffer) delete[] buffer;
 	debug("SignalManager::playback(): ### playback done ###");
     } else {
 	warning("SignalManager::playback(): unable to open device");
     }
 
-
     par->manage->msg[stopprocess] = true;
     par->manage->msg[processid] = 0;
 
     if (par) delete par;
-    return 0;
+    return;
 }
 
 //***************************************************************************
@@ -1246,6 +1256,7 @@ void SignalManager::play(bool loop)
     par->params = KwaveApp::getPlaybackParams();
     par->params.rate = this->getRate();
 
+    m_playback_error = 0;
     pthread_create(&thread, 0, (void * (*) (void *))playThread, par);
 }
 
@@ -1259,6 +1270,7 @@ void SignalManager::stopplay()
     timeout.start(5000, true);
     while (msg[processid] != 0) {
 	sched_yield();
+//	KApplication::getKApplication()->processOneEvent(); // ###
 	// wait for termination
 	if (!timeout.isActive()) {
 	    warning("SignalManager::stopplay(): TIMEOUT");
@@ -1317,30 +1329,26 @@ int SignalManager::setSoundParams(int audio, int bitspersample,
 
     // number of bits per sample
     if (ioctl(audio, SNDCTL_DSP_SAMPLESIZE, &format) == -1) {
-	KMsgBox::message(0, trouble,
-           i18n("number of bits per samples not supported"), 2);
+	m_playback_error = i18n("number of bits per samples not supported");
 	return 0;
     }
 
     // mono/stereo selection
     int stereo = (channels >= 2) ? 1 : 0;
     if (ioctl(audio, SNDCTL_DSP_STEREO, &stereo) == -1) {
-	KMsgBox::message(0, trouble,
-           i18n("stereo not supported"), 2);
+	m_playback_error = i18n("stereo not supported");
 	return 0;
     }
 
     // playback rate
     if (ioctl(audio, SNDCTL_DSP_SPEED, &rate) == -1) {
-	KMsgBox::message(0, trouble,
-           i18n("playback rate not supported"), 2);
+	m_playback_error = i18n("playback rate not supported");
 	return 0;
     }
 
     // buffer size
     if (ioctl(audio, SNDCTL_DSP_SETFRAGMENT, &bufbase) == -1) {
-	KMsgBox::message(0, trouble,
-           i18n("unusable buffer size"), 2);
+	m_playback_error = i18n("unusable buffer size");
 	return 0;
     }
 

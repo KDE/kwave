@@ -1,10 +1,28 @@
+/***************************************************************************
+           TopWidget.cpp  -  Toplevel widget of Kwave
+			     -------------------
+    begin                : 1999
+    copyright            : (C) 1999 by Martin Wilz
+    email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "config.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <kapp.h>
 #include <qkeycode.h>
+#include <qcombobox.h>
 #include <qdir.h>
+#include <qframe.h>
 #include <drag.h>
 
 #include <kmsgbox.h>
@@ -20,7 +38,7 @@
 
 #include "libgui/Dialog.h"
 #include "libgui/MenuManager.h"
-
+#include "libgui/KwavePlugin.h" // for some helper functions
 #include "sampleop.h"
 
 #include "KwaveApp.h"
@@ -29,16 +47,56 @@
 #include "TopWidget.h"
 #include "PluginManager.h"
 
+#include "toolbar/play.xpm"
+#include "toolbar/loop.xpm"
+#include "toolbar/pause.xpm"
+#include "toolbar/stop.xpm"
+
+#include "toolbar/zoomrange.xpm"
+#include "toolbar/zoomin.xpm"
+#include "toolbar/zoomout.xpm"
+#include "toolbar/zoomnormal.xpm"
+#include "toolbar/zoomall.xpm"
+
 extern Global globals;
 
+#ifndef min
+#define min(x,y) (( (x) < (y) ) ? (x) : (y) )
+#endif
+
 #ifndef max
-#define max(x,y) (( x > y ) ? x : y )
+#define max(x,y) (( (x) > (y) ) ? (x) : (y) )
 #endif
 
 /**
  * useful macro for command parsing
  */
 #define CASE_COMMAND(x) } else if (matchCommand(command, x)) {
+
+/**
+ * Primitive class that holds a list of predefined zoom
+ * factors.
+ */
+class ZoomListPrivate: public QStrList
+{
+public:
+    ZoomListPrivate()
+	:QStrList(false)
+    {
+	clear();
+	append("400 %");
+	append("200 %");
+	append("100 %");
+	append("33 %");
+	append("10 %");
+	append("3 %");
+	append("1 %");
+	append("0.1 %");
+    };
+};
+
+/** list of predefined zoom factors */
+static ZoomListPrivate zoom_factors;
 
 //*****************************************************************************
 TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
@@ -50,13 +108,22 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     bits = 16;
     caption = 0;
     dropZone = 0;
+    m_id_zoomrange = -1;
+    m_id_zoomin = -1;
+    m_id_zoomout = -1;
+    m_id_zoomnormal = -1;
+    m_id_zoomall = -1;
+    m_id_zoomselect = -1;
     loadDir = 0;
     mainwidget = 0;
     menu = 0;
     menu_bar = 0;
+//    m_playback_paused = false;
     signalName = "";
     saveDir = 0;
     status_bar = 0;
+    m_toolbar = 0;
+    m_zoomselect = 0;
 
     menu_bar = new KMenuBar(this);
     ASSERT(menu_bar);
@@ -131,33 +198,118 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
     connect(mainwidget, SIGNAL(sigCommand(const char*)),
 	    this, SLOT(executeCommand(const char*)));
 
+    connect(mainwidget, SIGNAL(sigPlaybackStarted()),
+            this, SLOT(playbackStarted()));
+    connect(mainwidget, SIGNAL(sigPlaybackPaused()),
+            this, SLOT(playbackPaused()));
+    connect(mainwidget, SIGNAL(sigPlaybackStopped()),
+            this, SLOT(playbackStopped()));
+
     // connect the sigCommand signal to ourself, this is needed
     // for the plugins
     connect(this, SIGNAL(sigCommand(const char *)),
 	    this, SLOT(executeCommand(const char *)));
 
-//    KToolBar *buttons = new KToolBar(this); // , i18n("playback"));
-//    ASSERT(buttons);
-//    if (!buttons) return;
-//    buttons->setBarPos(KToolBar::Bottom);
-//
-//    QPixmap *pix = new QPixmap("/opt/kde/share/toolbar/forward.xpm");
-//    /*playbutton = */buttons->insertButton(*pix, (int)0); // , i18n("Play"));
-//
-//    this->addToolBar(buttons);
+    // --- set up the playback toolbar ---
+
+    m_toolbar = new KToolBar(this, i18n("toolbar"));
+    ASSERT(m_toolbar);
+    if (!m_toolbar) return;
+    m_toolbar->setBarPos(KToolBar::Bottom);
+    m_toolbar->setFullWidth(false);
+    this->addToolBar(m_toolbar);
+    m_toolbar->insertSeparator(-1);
+
+    m_id_play = m_toolbar->insertButton(
+	QPixmap(xpm_play), -1, SIGNAL(pressed()),
+	mainwidget, SLOT(playbackStart()), true,
+	i18n("start playback"));
+
+    m_id_loop = m_toolbar->insertButton(
+	QPixmap(xpm_loop), -1, SIGNAL(pressed()),
+	mainwidget, SLOT(playbackLoop()), true,
+	i18n("start playback and loop"));
+
+    m_id_pause = m_toolbar->insertButton(
+	QPixmap(xpm_pause), -1, SIGNAL(pressed()),
+	mainwidget, SLOT(playbackPause()), true,
+	i18n("pause playback"));
+
+    m_id_stop = m_toolbar->insertButton(
+	QPixmap(xpm_stop), -1, SIGNAL(pressed()),
+	mainwidget, SLOT(playbackStop()), true,
+	i18n("stop playback or loop"));
+
+    // separator between playback and zoom
+    QFrame *separator = new QFrame(m_toolbar, "separator line");
+    ASSERT(separator);
+    if (!separator) return;
+    separator->setFrameStyle(QFrame::VLine | QFrame::Sunken);
+    separator->setFixedWidth(separator->sizeHint().width());
+    m_toolbar->insertSeparator(-1);
+    m_toolbar->insertWidget(0, separator->sizeHint().width(), separator);
+    m_toolbar->insertSeparator(-1);
+
+    // --- set up the zoom toolbar ---
+    m_id_zoomrange = m_toolbar->insertButton(
+	QPixmap(xpm_zoomrange), -1, SIGNAL(pressed()),
+	mainwidget, SLOT(zoomRange()), true,
+	i18n("zoom to selection"));
+
+    m_id_zoomin = m_toolbar->insertButton(
+	QPixmap(xpm_zoomin), -1, SIGNAL(pressed()),
+	mainwidget, SLOT(zoomIn()), true,
+	i18n("zoom in"));
+
+    m_id_zoomout = m_toolbar->insertButton(
+	QPixmap(xpm_zoomout), -1, SIGNAL(pressed()),
+	mainwidget, SLOT(zoomOut()), true,
+	i18n("zoom out"));
+
+    m_id_zoomnormal = m_toolbar->insertButton(
+	QPixmap(xpm_zoomnormal), -1, SIGNAL(pressed()),
+	mainwidget, SLOT(zoomNormal()), true,
+	i18n("zoom to 100%"));
+
+    m_id_zoomall = m_toolbar->insertButton(
+	QPixmap(xpm_zoomall), -1, SIGNAL(pressed()),
+	mainwidget, SLOT(zoomAll()), true,
+	i18n("zoom to all"));
+	
+    m_id_zoomselect = 1;
+    m_toolbar->insertCombo(&zoom_factors, m_id_zoomselect,
+	true, SIGNAL(activated(int)),
+	this, SLOT(selectZoom(int)), true,
+	i18n("select zoom factor"));
+    connect(mainwidget, SIGNAL(sigZoomChanged(double)),
+            this, SLOT(setZoom(double)));
+    m_zoomselect = m_toolbar->getCombo(m_id_zoomselect);
+    ASSERT(m_zoomselect);
+    if (!m_zoomselect) return;
+
+    m_zoomselect->adjustSize();
+    int h = m_zoomselect->sizeHint().height();
+    m_zoomselect->setFixedHeight(h);
+    m_zoomselect->setMinimumWidth(max(m_zoomselect->sizeHint().width()+10, 3*h));
+    m_zoomselect->setAutoResize(false);
+    m_zoomselect->setFocusPolicy(QWidget::NoFocus);
+    m_toolbar->setMinimumHeight(max(m_zoomselect->sizeHint().height()+2,
+	m_toolbar->sizeHint().height()));
+
+    m_toolbar->insertSeparator(-1);
 
     // set the MainWidget as the main view
     setView(mainwidget);
 
     // limit the window to a reasonable minimum size
     int w = mainwidget->minimumSize().width();
-    int h = max(mainwidget->minimumSize().height(), 150);
+    h = max(mainwidget->minimumSize().height(), 150);
     setMinimumSize(w, h);
 
     // Find out the width for which the menu bar would only use
-    // one line. This is tricky because sizeHint().width() just
-    // returns -1 :-(     -> just try and find out...
-    int wmax = w*10;
+    // one line. This is tricky because sizeHint().width() always
+    // returns -1  :-((     -> just try and find out...
+    int wmax = max(w,100) * 10;
     int wmin = w;
     int hmin = menu_bar->heightForWidth(wmax);
     while (wmax-wmin > 5) {
@@ -173,6 +325,7 @@ TopWidget::TopWidget(KwaveApp &main_app, QStrList &recent_files)
 
     // set a nice initial size
     w = wmax;
+    debug("TopWidget::TopWidget(): wmax = %d", wmax); // ###
     w = max(w, mainwidget->minimumSize().width());
     w = max(w, mainwidget->sizeHint().width());
     h = max(mainwidget->sizeHint().height(), w*6/10);
@@ -190,9 +343,11 @@ bool TopWidget::isOK()
     ASSERT(dropZone);
     ASSERT(plugin_manager);
     ASSERT(status_bar);
+    ASSERT(m_toolbar);
+    ASSERT(m_zoomselect);
 
-    return ( menu && menu_bar && mainwidget &&
-             dropZone && plugin_manager && status_bar );
+    return ( menu && menu_bar && mainwidget && dropZone && plugin_manager &&
+    	     status_bar && m_toolbar && m_zoomselect );
 }
 
 //*****************************************************************************
@@ -400,8 +555,10 @@ bool TopWidget::closeFile()
 
     signalName = "";
     setCaption(0);
+    setZoom(1.0);
     emit sigSignalNameChanged(signalName);
     updateMenu();
+    updateToolbar();
 
     return true;
 }
@@ -425,6 +582,7 @@ int TopWidget::loadFile(const char *filename, int type)
 
     bits = (mainwidget) ? mainwidget->getBitsPerSample() : 0;
     updateMenu();
+    updateToolbar();
 
     return 0;
 }
@@ -539,6 +697,45 @@ void TopWidget::setSignal(SignalManager *signal)
 }
 
 //*****************************************************************************
+void TopWidget::selectZoom(int index)
+{
+    ASSERT(mainwidget);
+    if (!mainwidget) return;
+
+    if (index < 0) return;
+    if (index >= zoom_factors.count()) index = zoom_factors.count()-1;
+
+    double new_zoom;
+    const char *text = zoom_factors.at(index);
+    new_zoom = strtod(text, 0);
+    if (new_zoom != 0.0) new_zoom = (100.0 / new_zoom);
+    mainwidget->setZoom(new_zoom);
+}
+
+//*****************************************************************************
+void TopWidget::setZoom(double zoom)
+{
+//    debug("void TopWidget::setZoom(%0.5f)", zoom);
+    ASSERT(zoom > 0);
+    ASSERT(m_zoomselect);
+
+    if (zoom <= 0.0) return; // makes no sense
+    if (!m_zoomselect) return;
+
+    double percent = (double)100.0 / zoom;
+    char buf[256];
+    buf[0] = 0;
+
+    if (mainwidget) {
+	if (mainwidget->getChannelCount() != 0)
+	    KwavePlugin::zoom2string(buf,sizeof(buf),percent);
+
+	mainwidget->setZoom(zoom);
+    }
+    (strlen(buf)) ? m_zoomselect->setText(buf) : m_zoomselect->clearEdit();
+}
+
+//*****************************************************************************
 void TopWidget::updateRecentFiles()
 {
     ASSERT(menu);
@@ -560,6 +757,49 @@ void TopWidget::updateMenu()
     const char *format = "ID_FILE_SAVE_RESOLUTION_%d";
     snprintf(buffer, sizeof(buffer), format, bits);
     menu->selectItem("@BITS_PER_SAMPLE", (const char *)buffer);
+}
+
+//*****************************************************************************
+void TopWidget::updateToolbar()
+{
+    ASSERT(m_toolbar);
+    if (!m_toolbar) return;
+
+    bool have_signal = mainwidget && (mainwidget->getChannelCount());
+
+    // enable/disable the buttons
+    m_toolbar->setItemEnabled(m_id_play, have_signal);
+    m_toolbar->setItemEnabled(m_id_loop, have_signal);
+    m_toolbar->setItemEnabled(m_id_pause, have_signal);
+    m_toolbar->setItemEnabled(m_id_stop, have_signal);
+
+    m_toolbar->setItemEnabled(m_id_zoomrange, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomin, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomout, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomnormal, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomall, have_signal);
+    m_toolbar->setItemEnabled(m_id_zoomselect, have_signal);
+}
+
+//*****************************************************************************
+void TopWidget::playbackStarted()
+{
+    ASSERT(m_toolbar);
+    if (!m_toolbar) return;
+
+    debug("TopWidget::playbackStarted()");
+}
+
+//*****************************************************************************
+void TopWidget::playbackPaused()
+{
+    debug("TopWidget::playbackPaused()");
+}
+
+//*****************************************************************************
+void TopWidget::playbackStopped()
+{
+    debug("TopWidget::playbackStopped()");
 }
 
 //*****************************************************************************

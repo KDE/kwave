@@ -26,7 +26,7 @@ class QComboBox;
 class QFrame;
 class QPushButton;
 class QScrollBar;
-class QHBoxLayout;
+//class QHBoxLayout;
 class KButtonBox;
 class KStatusBar;
 class MenuManager;
@@ -98,11 +98,31 @@ public slots:
 
     void setSelectedTimeInfo(double ms);
 
-    void play ();
-    void stop ();
-    void halt ();
-    void loop ();
-    void slot_ZoomChanged (double zoom);
+//    void play ();
+//    void stop ();
+//    void halt ();
+//    void loop ();
+
+    /** returns the current zoom factor */
+    double zoom();
+
+    /** calls setZoom() of the signal widget */
+    void setZoom(double new_zoom);
+
+    /** calls zoomRange() of the signal widget */
+    void zoomRange();
+
+    /** calls zoomIn() of the signal widget */
+    void zoomIn();
+
+    /** calls zoomOut() of the signal widget */
+    void zoomOut();
+
+    /** calls zoomAll() of the signal widget */
+    void zoomAll();
+
+    /** calls zoomNormal() of the signal widget */
+    void zoomNormal();
 
     /** Connected to the signal widget's signalChanged() signal */
     void slot_SignalChanged(int left,int right);
@@ -110,11 +130,10 @@ public slots:
 private slots:
 
     /**
-     * Called if a zoom factor has been selected out of the list
-     * of predefined zoom factors.
-     * @param index the index within the list [0...N-1]
+     * Forwards the zoomChanged signal of the iternal view window
+     * by emitting sigZoomChanged.
      */
-    void zoomSelected(int index);
+    void forwardZoomChanged(double zoom);
 
     /**
      * Called if a channel has been added. Updates the display by
@@ -141,12 +160,62 @@ private slots:
      */
     void scrollbarMoved(int newval);
 
+    /**
+     * (Re-)starts the playback. If playback has successfully been
+     * started, the signal sigPlaybackStarted() will be emitted.
+     */
+    void playbackStart();
+
+    /**
+     * (Re-)starts the playback in loop mode (like with playbackStart().
+     * Also emitts sigPlaybackStarted() if playback has successfully
+     * been started.
+     */
+    void playbackLoop();
+
+    /**
+     * Pauses the playback. Causes sigPlaybackDone() to be emitted if
+     * the current buffer has played out. The current playback pointer
+     * will stay at it's current position.
+     */
+    void playbackPause();
+
+    /**
+     * Continues the playback at the position where it has been stopped
+     * by the playbackPause() command. If the last playback pointer
+     * has become invalid or is not available (less 0), this function
+     * will do the same as playbackStart(). This also emits the
+     * signal sigPlaybackStarted().
+     */
+    void playbackContinue();
+
+    /**
+     * Stopps playback / loop. Like playbackPause(), but resets the
+     * playback pointer back to the start.
+     */
+    void playbackStop();
+
 signals:
+
+    /**
+     * Will be emitted if the zoom factor of the
+     * view has changed.
+     */
+    void sigZoomChanged(double zoom);
 
     void sigCommand(const char *command);
 
     void setOperation (int);
     void channelInfo (unsigned int);
+
+    /** Emitted if the playback has started */
+    void sigPlaybackStarted();
+
+    /** Emitted if the playback has been paused */
+    void sigPlaybackPaused();
+
+    /** Emitted if the playback has stopped or is done */
+    void sigPlaybackStopped();
 
 protected:
 
@@ -159,21 +228,15 @@ protected:
 private:
 
     QAccel *keys;
-    QHBoxLayout *buttons;
+//    QHBoxLayout *buttons;
     OverViewWidget *m_slider;
     SignalWidget *signalview;
-    QPushButton *plusbutton;
-    QPushButton *minusbutton;
-    QPushButton *zoombutton;
-    QPushButton *nozoombutton;
-    QPushButton *zoomallbutton;
-    QPushButton *playbutton;
-    QPushButton *loopbutton;
-    QComboBox *zoomselect;
     KStatusBar &status;
     MenuManager &menu;
     QFrame *frmChannelControls;
     QFrame *frmSignal;
+
+    /** vertical scrollbar, only visible if channels do not fit vertically */
     QScrollBar *scrollbar;
 
     /** array of lamps, one for each channel */

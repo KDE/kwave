@@ -55,8 +55,8 @@
     Please respect the format of the date (DD/MM/YYYY) and of the version
     (Major.minor.lesser), it could be used by automation scripts -->
 	
-    <DATE>2000-10-25</DATE>
-    <RELEASEINFO>0.5.4-4</RELEASEINFO>
+    <DATE>2000-11-11</DATE>
+    <RELEASEINFO>0.5.4-5</RELEASEINFO>
 
     <!-- Abstract about this handbook -->
     <ABSTRACT>
@@ -198,10 +198,12 @@
 	    There also is a CVS repository, hosted by
 	    <ULINK URL="http://sourceforge.net">SourceForge</ULINK> where
 	    you can get the sources of the latest development version.
-	    For instructions on how to get access to the repository or 
-	    just to browse the CVS tree through a nice web interface, look
-	    at <ULINK URL="http://sourceforge.net/cvs/?group_id=6478"><!--
-	    -->"http://sourceforge.net/cvs/?group_id=6478"</ULINK>.
+	    For instructions on how to get access to the repository, read
+	    in the chapter 
+	    about <LINK LINKEND="BUILDING_RPM_FROM_CVS">building from CVS</LINK>, 
+	    look at <ULINK URL="http://sourceforge.net/cvs/?group_id=6478"><!--
+	    -->"http://sourceforge.net/cvs/?group_id=6478"</ULINK>, or just
+	    browse through the CVS tree through a nice web interface.
 	    <EMPHASIS>Anonymous CVS access is allowed!</EMPHASIS>
         </SEG>
         </SEGLISTITEM>
@@ -1201,10 +1203,11 @@
 	    <LISTITEM><PARA>
 		KDE-1.1 or greater (at least the libraries, if you are
 		a gnome fan, you can also run &kapp if the proper
-		libs are installed)
+		libs are installed). KDE2 will be supported 2001.
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
-		qt-1.44 or greater (normally comes with KDE)
+		qt-1.44 or greater (normally comes with KDE), qt2 will
+		be supported 2001.
 	    </PARA></LISTITEM>
 	    <LISTITEM><PARA>
 		libkwave-0.3.9-1 or newer (currently not included in &kapp
@@ -1215,7 +1218,29 @@
 		vary depending on your platform and configuration)
 	    </PARA></LISTITEM>
 	</ITEMIZEDLIST>
+    </PARA>
 
+    <PARA>
+    	If you intend to compile &kapp; from the sources, you will also need:
+	<ITEMIZEDLIST>
+	    <LISTITEM><PARA>
+		A C/C++ compiler. GCC-2.95-3 works fine, some older and any
+		newer version should work too.
+	    </PARA></LISTITEM>
+	    <LISTITEM><PARA>
+		The glibc2 (libc-6) development environment. On SuSE systems
+		the package is called "libc", on other systems it might be
+		called "libc-devel".
+	    </PARA></LISTITEM>
+	    <LISTITEM><PARA>
+		Qt qt development package, qt2 will be supported 2001.
+		The package is called "qtdevel" or similar.
+	    </PARA></LISTITEM>
+	    <LISTITEM><PARA>
+		If you intend to use CVS, you will also need a current
+		cvs package.
+	    </PARA></LISTITEM>
+	</ITEMIZEDLIST>
     </PARA>
 
     <PARA>
@@ -1273,6 +1298,9 @@
     <SECT1 ID="BUILDING_RPM_FROM_TARGZ">
     <TITLE>Building RPM packages from tar.gz archives</TITLE>
 
+    <SECT2 ID="BUILDING_WITH_RPM_TA">
+    <TITLE>With working rpm -ta</TITLE>
+
     <PARA>
 	If you are runnig a system with RPM support, the preferred way to 
 	install &kapp on your system will be the creation of a nice RPM
@@ -1280,19 +1308,20 @@
 	as a tar.gz archive from the
 	<LINK LINKEND="FTP-SERVER">&kapp; anonymous ftp server</LINK> or
 	check out an up-to-date copy via
-	<LINK LINKEND="CVS-REPOSITORY">anonymous CVS</LINK> and read the
+	<LINK LINKEND="CVS-REPOSITORY">anonymous CVS</LINK> (like described in
+	the <LINK LINKEND="CVS_CHECKOUT">chapter about CVS</LINK>) and read the
 	<LINK LINKEND="BUILDING_RPM_FROM_CVS">next</LINK> chapter.
     </PARA>
 
     <PARA>
 	If you have downloaded a tar-gz archives of libkwave and &kapp;, 
-	create and install the RPMs just by doing the following steps:
-	(<REPLACEABLE>[arch]</REPLACEABLE> stands for the platform you
+	create and install the RPMs just by doing the following steps
+	(where <REPLACEABLE>[arch]</REPLACEABLE> stands for the platform you
 	have built the package and might be something like 
 	<LITERAL>i386</LITERAL>, <LITERAL>i586</LITERAL>, 
 	<LITERAL>sparc</LITERAL> or whatever,
 	<REPLACEABLE>XXX</REPLACEABLE> stands for the version number 
-	you have downloaded.)
+	you have downloaded).
     </PARA>
     
     <ORDEREDLIST>
@@ -1300,7 +1329,7 @@
 	First build the libkwave package and install it:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>rpm -ta <REPLACEABLE>libkwave-XXX.tar.gz</REPLACEABLE></COMMAND>
-<PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/RPMS/[arch]/libkwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 
@@ -1308,7 +1337,7 @@
 	Then build the &kapp; package and install it too:
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>rpm -ta <REPLACEABLE>kwave-XXX.tar.gz</REPLACEABLE></COMMAND>
-<PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
+<PROMPT>% </PROMPT><COMMAND>rpm -i <REPLACEABLE>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</REPLACEABLE></COMMAND>
 </SCREEN>
 	</PARA></LISTITEM>
 	
@@ -1336,6 +1365,11 @@
 	<ULINK URL="ftp://ftp.suse.com/pub/suse_update/"><!--
 	-->the SuSE ftp server</ULINK>.
     </PARA></CAUTION>
+
+    </SECT2>
+
+    <SECT2 ID="RPM_BUILD_WITH_BROKEN_RPM">
+    <TITLE>With broken rpm -ta support</TITLE>
 
     <PARA><ANCHOR ID="MANUAL_RPM_CREATION">
 	If you can't get <COMMAND>rpm -ta</COMMAND> working, here are 
@@ -1408,6 +1442,7 @@
 
     </ORDEREDLIST>
 
+    </SECT2>
     </SECT1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1417,6 +1452,73 @@
     <SECT1 ID="BUILDING_RPM_FROM_CVS">
     <TITLE>Building RPM packages from CVS</TITLE>
 
+    <SECT2 ID="CVS_CHECKOUT"><TITLE>Checking out the sources</TITLE>
+
+    <PARA>
+	For initially checking out the sources you will need some disk space
+	(about 15 megabytes) in a directory of your choice, the cvs package
+	of your favorite distribution and full access to the internet. If you 
+	get error messages about rejected connections you either have typed
+	something wrong or your provider doesn't give you full access.
+	A good place for the source files will be <FILENAME>"$HOME/src"</FILENAME>.
+    </PARA>
+
+    <ORDEREDLIST>
+    <LISTITEM><PARA>
+	First create the directory that will receive the subdirectoy with
+	libkwave and kwave and change into it:
+<SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
+<PROMPT>% </PROMPT><COMMAND>mkdir -p <REPLACEABLE>$HOME/src</REPLACEABLE></COMMAND>
+<PROMPT>% </PROMPT><COMMAND>cd <REPLACEABLE>$HOME/src</REPLACEABLE></COMMAND>
+</SCREEN>
+    </PARA></LISTITEM>
+    <LISTITEM><PARA>
+	Then log in into the CVS server. As I guess that you want to do that
+	as normal user, you log in as anonymous:
+<SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
+<PROMPT>% </PROMPT><COMMAND>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/libkwave login</COMMAND>
+</SCREEN>
+	Then the server asks you for a password. Simply press enter, as we
+	do not have a password for anonymous access.
+    </PARA></LISTITEM>
+
+    <LISTITEM><PARA>
+<SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
+<PROMPT>% </PROMPT><COMMAND>cvs -z3 -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave co libkwave</COMMAND>
+</SCREEN>
+    </PARA></LISTITEM>
+
+    <LISTITEM><PARA>
+	Repeat the two steps above with kwave instead of libkwave.
+    </PARA></LISTITEM>
+
+    </ORDEREDLIST>
+
+    <WARNING><PARA>
+	There <EMPHASIS>must not</EMPHASIS> be a directory named 
+	<FILENAME>libkwave</FILENAME> or <FILENAME>kwave</FILENAME> under 
+	the directory you want to check out. Otherwise the cvs program will
+	complain about already existing files and the checkout will
+	not work.
+    </PARA></WARNING>
+
+    </SECT2>
+
+    <SECT2 ID="CVS_UPDATE"><TITLE>Updating sources from CVS</TITLE>
+    <PARA>
+	The procedure described in the previous section is only necessary
+	once. For further updates it is much easier. Just change into the
+	directory you want to update and do the following:
+<SCREEN WIDTH="75" FORMAT="LINESPECIFIC">
+<PROMPT>% </PROMPT><COMMAND>make distclean</COMMAND>
+<PROMPT>% </PROMPT><COMMAND>cvs update</COMMAND>
+</SCREEN>
+	Then go on to the next section and compile as usual.
+    </PARA>
+    </SECT2>
+
+
+    <SECT2 ID="CVS_COMPILING"><TITLE>Compiling</TITLE>
     <PARA>
 	Building rpm archives from a CVS snapshot is quite simple. The procedure 
 	is nearly the same as described in the last section, so it unhappily also 
@@ -1443,9 +1545,8 @@
 	    you are in the root of where you checked out from CVS, do the 
 	    following to create a Makefile, the libkwave package and 
 	    install it. If you already have a version of libkwave installed,
-	    please remove it first or use the 
-	    parameter <LITERAL>-U</LITERAL> instead
-	    of <LITERAL>-i</LITERAL> for upgrading instead of installing.
+	    please remove it first or use <LITERAL>rpm -U</LITERAL> instead
+	    of <LITERAL>rpm -i</LITERAL> for updating instead of installing.
 <SCREEN WIDTH="40" FORMAT="LINESPECIFIC">
 <PROMPT>% </PROMPT><COMMAND>cd libkwave</COMMAND>
 <PROMPT>% </PROMPT><COMMAND>make -f Makefile.dist</COMMAND>
@@ -1470,11 +1571,12 @@
     <NOTE><PARA>
 	If you still have problems with <COMMAND>make rpm</COMMAND>, 
 	you will find the tar.gz
-	archives that call has produced under <FILENAME>/tmp</FILENAME>. 
+	archives that were produced under <FILENAME>/tmp</FILENAME>.
 	Please follow the instructions in the
 	<LINK LINKEND="MANUAL_RPM_CREATION">previous</LINK> chapter.
     </PARA></NOTE>
 
+    </SECT2>
     </SECT1>
 
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -2296,7 +2398,7 @@
     	</REFNAMEDIV>
 
     	<REFSYNOPSISDIV>
-	    <REFSYNOPSISDIVINFO><DATE>2000-10-25</DATE></REFSYNOPSISDIVINFO>
+	    <REFSYNOPSISDIVINFO><DATE>2000-11-11</DATE></REFSYNOPSISDIVINFO>
     	    <SYNOPSIS FORMAT="LINESPECIFIC">
     	    	void XtUnmanageChildren(
 		    <REPLACEABLE CLASS="PARAMETER">children</REPLACEABLE>, 

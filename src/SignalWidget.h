@@ -133,14 +133,47 @@ public slots:
 
     void toggleChannel(int);
 
-    /**
-     * Catches all functions from mainwidget and topwidget that
-     * should not be delivered to SignalManage.
-     * @param op ID of an operation: PLAY, LOOP, PSTOP or PHALT
-     */
-    void playback_setOp(int op);
-
     void playback_time();
+
+    /**
+     * (Re-)starts the playback. If playback has successfully been
+     * started, the signal sigPlaybackStarted() will be emitted.
+     */
+    void playbackStart();
+
+    /**
+     * (Re-)starts the playback in loop mode (like with playbackStart().
+     * Also emitts sigPlaybackStarted() if playback has successfully
+     * been started.
+     */
+    void playbackLoop();
+
+    /**
+     * Pauses the playback. Causes sigPlaybackDone() to be emitted if
+     * the current buffer has played out. The current playback pointer
+     * will stay at it's current position.
+     */
+    void playbackPause();
+
+    /**
+     * Continues the playback at the position where it has been stopped
+     * by the playbackPause() command. If the last playback pointer
+     * has become invalid or is not available (less 0), this function
+     * will do the same as playbackStart(). This also emits the
+     * signal sigPlaybackStarted().
+     */
+    void playbackContinue();
+
+    /**
+     * Stopps playback / loop. Like playbackPause(), but resets the
+     * playback pointer back to the start.
+     */
+    void playbackStop();
+
+    /**
+     * Returns the current number of pixels per sample
+     */
+    inline double zoom() { return m_zoom; };
 
     /**
      * Zooms into the selected range between the left and right marker.
@@ -367,7 +400,10 @@ private:
     int down;                     //flags if mouse is pressed
     double lasty;
     double zoomy;
-    double zoom;                     //number of samples represented by 1
+
+    /** number of samples per pixel */
+    double m_zoom;
+
     //vertical line on the screen
     int playpointer, lastplaypointer;
     int redraw;                           //flag for redrawing pixmap

@@ -76,6 +76,14 @@ CLASS="SECT1"
 NAME="BUILDING_RPM_FROM_TARGZ"
 >2.4. Building RPM packages from tar.gz archives</A
 ></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="BUILDING_WITH_RPM_TA"
+>2.4.1. With working rpm -ta</A
+></H2
 ><P
 >	If you are runnig a system with RPM support, the preferred way to 
 	install <SPAN
@@ -98,7 +106,11 @@ CLASS="APPLICATION"
 	<A
 HREF="introduction.html#CVS-REPOSITORY"
 >anonymous CVS</A
-> and read the
+> (like described in
+	the <A
+HREF="building_rpm_from_cvs.html#CVS_CHECKOUT"
+>chapter about CVS</A
+>) and read the
 	<A
 HREF="building_rpm_from_cvs.html"
 >next</A
@@ -109,8 +121,8 @@ HREF="building_rpm_from_cvs.html"
 CLASS="APPLICATION"
 >Kwave</SPAN
 >, 
-	create and install the RPMs just by doing the following steps:
-	(<TT
+	create and install the RPMs just by doing the following steps
+	(where <TT
 CLASS="REPLACEABLE"
 ><I
 >[arch]</I
@@ -134,7 +146,7 @@ CLASS="REPLACEABLE"
 >XXX</I
 ></TT
 > stands for the version number 
-	you have downloaded.)
+	you have downloaded).
     </P
 ><OL
 TYPE="1"
@@ -169,7 +181,7 @@ CLASS="COMMAND"
 >rpm -i <TT
 CLASS="REPLACEABLE"
 ><I
->/usr/src/redhat/libkwave-XXX.[arch].rpm</I
+>/usr/src/redhat/RPMS/[arch]/libkwave-XXX.[arch].rpm</I
 ></TT
 ></B
 ></PRE
@@ -213,7 +225,7 @@ CLASS="COMMAND"
 >rpm -i <TT
 CLASS="REPLACEABLE"
 ><I
->/usr/src/redhat/kwave-XXX.[arch].rpm</I
+>/usr/src/redhat/RPMS/[arch]/kwave-XXX.[arch].rpm</I
 ></TT
 ></B
 ></PRE
@@ -303,6 +315,15 @@ TARGET="_top"
 ></TR
 ></TABLE
 ></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="RPM_BUILD_WITH_BROKEN_RPM"
+>2.4.2. With broken rpm -ta support</A
+></H2
 ><P
 ><A
 NAME="MANUAL_RPM_CREATION"
@@ -559,6 +580,7 @@ CLASS="REPLACEABLE"
 	</P
 ></LI
 ></OL
+></DIV
 ></DIV
 ><DIV
 ALIGN="RIGHT"

@@ -1,5 +1,19 @@
-//methods for SignalWidget the view for MSignal objects.
-//methods concerning markers may be found in markers.cpp
+/***************************************************************************
+             SignalWidget.cpp  -  Widget for displaying the signal
+			     -------------------
+    begin                : 1999
+    copyright            : (C) 1999 by Martin Wilz
+    email                : Martin Wilz <mwilz@ernie.mi.uni-koeln.de>
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "config.h"
 #include <math.h>
@@ -103,7 +117,7 @@ SignalWidget::SignalWidget(QWidget *parent, MenuManager &menu_manager)
     signalmanage = 0;
     timer = 0;
     width = 0;
-    zoom = 1.0;
+    m_zoom = 1.0;
     zoomy = 1;
 
     for (int i=0; i < 3; i++) {
@@ -414,44 +428,6 @@ void SignalWidget::playback_startTimer()
 }
 
 //****************************************************************************
-void SignalWidget::playback_setOp(int op)
-{
-    if (signalmanage) {
-	signalmanage->playback_setOp(op);
-
-	switch (op) {
-	    case PLAY:
-	    case LOOP:
-		playback_startTimer();
-		break;
-	    case PSTOP:
-		ASSERT(timer);
-		if (timer) timer->stop();
-		playpointer = -1;
-//		update_layer[LAYER_MARKERS] = true;
-		repaint(false);
-		break;
-	    case PHALT:    //halt by Gerhard Zintel
-		{
-		    ASSERT(timer);
-		    if (timer) timer->stop();
-		
-		    int lmarker = signalmanage->getPlayPosition();
-		    int rmarker = signalmanage->getRMarker();
-		    debug("SignalWidget::playback_setOp: l=%d, r=%d", lmarker,rmarker);
-		    if (rmarker < lmarker) rmarker = lmarker;
-		    setRange(lmarker, rmarker);
-		
-		    playpointer = -1;
-//		    update_layer[LAYER_MARKERS] = true;
-		    repaint(false);
-		    break;
-		}
-	}
-    }
-}
-
-//****************************************************************************
 void SignalWidget::selectRange()
 {
     ASSERT(signalmanage);
@@ -556,22 +532,22 @@ SignalManager *SignalWidget::getSignalManager()
 //****************************************************************************
 void SignalWidget::createSignal(const char *str)
 {
-//    Parser parser (str);
-//
-//    int rate = parser.toInt();
-//    double ms = parser.toDouble();
-//
-//    int numsamples = (int)(ms * rate / 1000);
-//
-//    if (signalmanage) delete signalmanage;
-//    labels->clear ();
-//
-//    signalmanage = new SignalManager(numsamples, rate, 1);
-//    if (signalmanage) {
-//	connectSignal();
-//	emit sigChannelAdded(0);;
-//	zoomAll();
-//    }
+    Parser parser (str);
+
+    int rate = parser.toInt();
+    double ms = parser.toDouble();
+
+    int numsamples = (int)(ms * rate / 1000);
+
+    if (signalmanage) delete signalmanage;
+    labels->clear ();
+
+    signalmanage = new SignalManager(numsamples, rate, 1);
+    if (signalmanage) {
+	connectSignal();
+	emit sigChannelAdded(0);;
+	zoomAll();
+    }
 }
 
 //****************************************************************************
@@ -588,9 +564,9 @@ void SignalWidget::setRange(int l, int r, bool set)
     if (!signalmanage) return;
 
     ASSERT(select);
-    ASSERT(zoom);
-    if (set && select && zoom) {
-	select->set(((l - offset) / zoom), ((r - offset) / zoom));
+    ASSERT(m_zoom);
+    if (set && select && m_zoom) {
+	select->set(((l - offset) / m_zoom), ((r - offset) / m_zoom));
     }
 
     signalmanage->setRange(l, r);
@@ -663,9 +639,9 @@ void SignalWidget::playback_time()
 {
 //    debug("SignalWidget::playback_time()");
     ASSERT(signalmanage);
-    ASSERT(zoom >= 0.0);
+    ASSERT(m_zoom >= 0.0);
     if (!signalmanage) return;
-    if (zoom<=0.0) return;
+    if (m_zoom<=0.0) return;
 
     bool needRepaint = false;
     playpointer = samples2pixels(signalmanage->getPlayPosition() - offset);
@@ -712,7 +688,7 @@ double SignalWidget::getFullZoom()
 //****************************************************************************
 void SignalWidget::setZoom(double new_zoom)
 {
-    zoom = new_zoom;
+    m_zoom = new_zoom;
 }
 
 //****************************************************************************
@@ -721,7 +697,7 @@ void SignalWidget::fixZoomAndOffset()
     double max_zoom;
     double min_zoom;
     int length;
-    double last_zoom = zoom;
+    double last_zoom = m_zoom;
     unsigned int last_offset = offset;
 
     if (!signalmanage) return ;
@@ -737,8 +713,8 @@ void SignalWidget::fixZoomAndOffset()
     // ensure that the zoom is in a proper range
     max_zoom = getFullZoom();
     min_zoom = (double)MINIMUM_SAMPLES_PER_SCREEN / (double)width;
-    if (zoom < min_zoom) zoom = min_zoom;
-    if (zoom > max_zoom) zoom = max_zoom;
+    if (m_zoom < min_zoom) m_zoom = min_zoom;
+    if (m_zoom > max_zoom) m_zoom = max_zoom;
 
     // try to correct the offset if there is not enough data to fill
     // the current window
@@ -759,7 +735,7 @@ void SignalWidget::fixZoomAndOffset()
     if (pixels2samples(width - 1) + 1 > length - offset) {
 	// there is still space after the signal -> zoom in
 	// (this should never happen as the zoom has been limited before)
-	zoom = max_zoom;
+	m_zoom = max_zoom;
     }
 
 //    // adjust the zoom factor in order to make a whole number
@@ -773,10 +749,11 @@ void SignalWidget::fixZoomAndOffset()
 //    debug("SignalWidget::fixZoomAndOffset(): --2--: zoom=%0.5f",zoom); // ###
 
     // do some final range checking
-    if (zoom < min_zoom) zoom = min_zoom;
-    if (zoom > max_zoom) zoom = max_zoom;
+    if (m_zoom < min_zoom) m_zoom = min_zoom;
+    if (m_zoom > max_zoom) m_zoom = max_zoom;
 
-    if ((zoom != last_zoom) || (offset != last_offset)) emit zoomInfo(zoom);
+    if ((m_zoom != last_zoom) || (offset != last_offset))
+	emit zoomInfo(m_zoom);
 }
 
 //****************************************************************************
@@ -801,7 +778,7 @@ void SignalWidget::zoomNormal()
 void SignalWidget::zoomOut()
 {
     setOffset(offset + pixels2samples(width) / 2);
-    setZoom(zoom*3);
+    setZoom(m_zoom*3);
     setOffset(offset - pixels2samples(width) / 2);
     refreshAllLayers();
 }
@@ -810,7 +787,7 @@ void SignalWidget::zoomOut()
 void SignalWidget::zoomIn()
 {
     setOffset(offset + pixels2samples(width) / 2);
-    setZoom(zoom / 3);
+    setZoom(m_zoom / 3);
     setOffset(offset - pixels2samples(width) / 2);
     refreshAllLayers();
 }
@@ -855,7 +832,7 @@ void SignalWidget::refreshAllLayers()
     if (select) {
 	select->setOffset(offset);
 	select->setLength(length);
-	select->setZoom(zoom);
+	select->setZoom(m_zoom);
     }
 
     if (rate) emit timeInfo(samples2ms(length));
@@ -864,7 +841,7 @@ void SignalWidget::refreshAllLayers()
     int maxofs = pixels2samples(width - 1) + 1;
     emit viewInfo(offset, maxofs, length);
     emit lengthInfo(length);
-    emit zoomInfo(zoom);
+    emit zoomInfo(m_zoom);
 
     redraw = true;
     repaint(false);
@@ -1037,20 +1014,20 @@ void SignalWidget::calculateInterpolation()
 	interpolation_alpha = 0;
     }
 
-    ASSERT(zoom != 0.0);
-    if (zoom == 0.0) return;
+    ASSERT(m_zoom != 0.0);
+    if (m_zoom == 0.0) return;
 
     // offset: index of first visible sample (left) [0...length-1]
-    // zoom: number of samples / pixel
+    // m_zoom: number of samples / pixel
 
     // approximate the 3dB frequency of the low pass as
     // Fg = f_g / f_a
     // f_a: current "sample rate" of display (pixels) = 1.0
-    // f_g: signal rate = (zoom/2)
-    Fg = zoom / 2;
+    // f_g: signal rate = (m_zoom/2)
+    Fg = m_zoom / 2;
 
-    // N: order of the filter, at least 2 * (1/zoom)
-    N = (int)(INTERPOLATION_PRECISION / zoom);
+    // N: order of the filter, at least 2 * (1/m_zoom)
+    N = (int)(INTERPOLATION_PRECISION / m_zoom);
     N |= 0x01;    // make N an odd number !
 
     // allocate a buffer for the coefficients
@@ -1073,8 +1050,8 @@ void SignalWidget::calculateInterpolation()
 	interpolation_alpha[k] *= (0.54 - 0.46 * cos(2 * k * PI / N));
 	f += interpolation_alpha[k];
     }
-    // norm the coefficients to 1.0 / zoom
-    f *= zoom;
+    // norm the coefficients to 1.0 / m_zoom
+    f *= m_zoom;
     for (k = 0; k <= N; k++)
 	interpolation_alpha[k] /= f;
 
@@ -1104,7 +1081,7 @@ void SignalWidget::drawInterpolatedSignal(int channel, int middle, int height)
     // scale_y: pixels per unit
     scale_y = height * zoomy / (1 << 24);
 
-    // N: order of the filter, at least 2 * (1/zoom)
+    // N: order of the filter, at least 2 * (1/m_zoom)
     N = INTERPOLATION_PRECISION * samples2pixels(1);
     N |= 0x01;    // make N an odd number !
 
@@ -1306,7 +1283,7 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	p.setRasterOp(CopyROP);
 	p.fillRect(0, 0, width, height, black);
 
-	//check and correct zoom and offset
+	//check and correct m_zoom and offset
 	fixZoomAndOffset();
 
 	int chanheight = (channels) ? (height / channels) : 0;
@@ -1319,13 +1296,13 @@ void SignalWidget::paintEvent(QPaintEvent *event)
 	    ASSERT(signalmanage->getSignal(i));
 	    if (!signalmanage->getSignal(i)) continue;
 
-	    if (zoom < 0.1) {
+	    if (m_zoom < 0.1) {
 		drawInterpolatedSignal(i, begin, chanheight);
-	    } else if (zoom <= 1.0)
+	    } else if (m_zoom <= 1.0)
 		drawPolyLineSignal(i, begin, chanheight);
 	    else
 		drawOverviewSignal(i, begin, chanheight,
-		                   0, zoom*width);
+		                   0, m_zoom*width);
 
 	    // draw the baseline
 	    p.setPen(green);
@@ -1473,15 +1450,15 @@ double SignalWidget::samples2ms(int samples)
 //****************************************************************************
 int SignalWidget::pixels2samples(int pixels)
 {
-    return (int)(pixels*zoom);
+    return (int)(pixels*m_zoom);
 }
 
 //****************************************************************************
 int SignalWidget::samples2pixels(int samples)
 {
-    ASSERT(zoom);
-    if (zoom==0) return 0;
-    return (int)(samples / zoom);
+    ASSERT(m_zoom);
+    if (m_zoom==0) return 0;
+    return (int)(samples / m_zoom);
 }
 
 //****************************************************************************
@@ -2025,6 +2002,64 @@ void SignalWidget::addLabelType (const char *str)
 {
 //    LabelType *marker = new LabelType(str);
 //    if (marker) addLabelType (marker);
+}
+
+//***************************************************************************
+void SignalWidget::playbackStart()
+{
+    ASSERT(signalmanage);
+    if (!signalmanage) return;
+    debug("SignalWidget::playbackStart()");
+
+    signalmanage->playbackStart();
+    playback_startTimer();
+}
+
+//***************************************************************************
+void SignalWidget::playbackLoop()
+{
+    ASSERT(signalmanage);
+    if (!signalmanage) return;
+    debug("SignalWidget::playbackLoop()");
+
+    signalmanage->playbackLoop();
+    playback_startTimer();
+}
+
+//***************************************************************************
+void SignalWidget::playbackPause()
+{
+    ASSERT(signalmanage);
+    if (!signalmanage) return;
+    debug("SignalWidget::playbackPause()");
+
+    signalmanage->playbackStop();
+    ASSERT(timer);
+    if (timer) timer->stop();
+    playpointer = -1;
+    repaint(false);
+}
+
+//***************************************************************************
+void SignalWidget::playbackContinue()
+{
+    ASSERT(signalmanage);
+    if (!signalmanage) return;
+    debug("SignalWidget::playbackContinue()");
+}
+
+//***************************************************************************
+void SignalWidget::playbackStop()
+{
+    ASSERT(signalmanage);
+    if (!signalmanage) return;
+    debug("SignalWidget::playbackStop()");
+
+    signalmanage->playbackStop();
+    ASSERT(timer);
+    if (timer) timer->stop();
+    playpointer = -1;
+    repaint(false);
 }
 
 /* end of src/SignalWidget.cpp */

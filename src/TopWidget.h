@@ -6,12 +6,15 @@
 
 class QCloseEvent;
 class QStrList;
+class QTimer;
+class KCombo;
+class KDNDDropZone;
+class KToolBar;
+class KStatusBar;
 class MenuManager;
 class MainWidget;
 class PluginManager;
 class SignalManager;
-class KDNDDropZone;
-class KStatusBar;
 class KwaveApp;
 
 class TopWidget : public KTMainWindow
@@ -69,6 +72,26 @@ public slots:
     void dropEvent (KDNDDropZone *);
 
     void updateRecentFiles();
+
+private slots:
+
+    /** called on changes in the zoom selection combo box */
+    void selectZoom(int index);
+
+    /** called to set a new zoom factor */
+    void setZoom(double zoom);
+
+    /** updates all elements in the toolbar */
+    void updateToolbar();
+
+    /** called if the playback has started */
+    void playbackStarted();
+
+    /** called if the playback has been paused */
+    void playbackPaused();
+
+    /** called if the playback has been stopped or is done */
+    void playbackStopped();
 
 signals:
     /**
@@ -137,7 +160,21 @@ private:
 
     QDir *saveDir;
     QDir *loadDir;
+
+    /**
+     * the main widget with all views and controls (except menu and
+     * toolbar)
+     */
     MainWidget *mainwidget;
+
+    /** combo box for selection of the zoom factor */
+    KCombo *m_zoomselect;
+
+    /**
+     * toolbar for controlling file operations, copy&paste,
+     * playback and zoom
+     */
+    KToolBar *m_toolbar;
 
     /** reference to the main window's status bar */
     KStatusBar *status_bar;
@@ -153,7 +190,51 @@ private:
     /** menu manager for this window */
     MenuManager *menu;
 
-    int bits;            //bit resolution to save with
+    /** bits per sample to save with */
+    int bits;
+
+//    /**
+//     * Set to "true" to indicate that the playback has only been
+//     * paused and not stopped, so that the next press on the "play"
+//     * button calls "continue" instead of "play from start".
+//     */
+//    bool m_playback_paused;
+//
+//    /**
+//     * Timer used during playback to let some buttons blink..
+//     */
+//    QTimer *m_playback_timer;
+
+    /** member id of the "start playback" toolbar button */
+    int m_id_play;
+
+    /** member id of the "start playback and loop" toolbar button */
+    int m_id_loop;
+
+    /** member id of the "pause playback" toolbar button */
+    int m_id_pause;
+
+    /** member id of the "stop playback" toolbar button */
+    int m_id_stop;
+
+    /** member id of the "zoom to selection" toolbar button */
+    int m_id_zoomrange;
+
+    /** member id of the "zoom in" toolbar button */
+    int m_id_zoomin;
+
+    /** member id of the "zoom out" toolbar button */
+    int m_id_zoomout;
+
+    /** member id of the "zoom to 100%" toolbar button */
+    int m_id_zoomnormal;
+
+    /** member id of the "zoom to all" toolbar button */
+    int m_id_zoomall;
+
+    /** member id of the "zoom factor" combobox in the toolbar */
+    int m_id_zoomselect;
+
 }
 ;
 

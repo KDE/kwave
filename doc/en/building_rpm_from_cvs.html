@@ -76,6 +76,213 @@ CLASS="SECT1"
 NAME="BUILDING_RPM_FROM_CVS"
 >2.5. Building RPM packages from CVS</A
 ></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CVS_CHECKOUT"
+>2.5.1. Checking out the sources</A
+></H2
+><P
+>	For initially checking out the sources you will need some disk space
+	(about 15 megabytes) in a directory of your choice, the cvs package
+	of your favorite distribution and full access to the internet. If you 
+	get error messages about rejected connections you either have typed
+	something wrong or your provider doesn't give you full access.
+	A good place for the source files will be <TT
+CLASS="FILENAME"
+>"$HOME/src"</TT
+>.
+    </P
+><OL
+TYPE="1"
+><LI
+><P
+>	First create the directory that will receive the subdirectoy with
+	libkwave and kwave and change into it:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>mkdir -p <TT
+CLASS="REPLACEABLE"
+><I
+>$HOME/src</I
+></TT
+></B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cd <TT
+CLASS="REPLACEABLE"
+><I
+>$HOME/src</I
+></TT
+></B
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></LI
+><LI
+><P
+>	Then log in into the CVS server. As I guess that you want to do that
+	as normal user, you log in as anonymous:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cvs -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/libkwave login</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	Then the server asks you for a password. Simply press enter, as we
+	do not have a password for anonymous access.
+    </P
+></LI
+><LI
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cvs -z3 -d:pserver:anonymous@cvs.kwave.sourceforge.net:/cvsroot/kwave co libkwave</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></LI
+><LI
+><P
+>	Repeat the two steps above with kwave instead of libkwave.
+    </P
+></LI
+></OL
+><DIV
+CLASS="WARNING"
+><TABLE
+CLASS="WARNING"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="common/warning.png"
+HSPACE="5"
+ALT="Warning"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>	There <I
+CLASS="EMPHASIS"
+>must not</I
+> be a directory named 
+	<TT
+CLASS="FILENAME"
+>libkwave</TT
+> or <TT
+CLASS="FILENAME"
+>kwave</TT
+> under 
+	the directory you want to check out. Otherwise the cvs program will
+	complain about already existing files and the checkout will
+	not work.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CVS_UPDATE"
+>2.5.2. Updating sources from CVS</A
+></H2
+><P
+>	The procedure described in the previous section is only necessary
+	once. For further updates it is much easier. Just change into the
+	directory you want to update and do the following:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+> <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>make distclean</B
+>
+ <TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>cvs update</B
+></PRE
+></TD
+></TR
+></TABLE
+>
+	Then go on to the next section and compile as usual.
+    </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CVS_COMPILING"
+>2.5.3. Compiling</A
+></H2
 ><P
 >	Building rpm archives from a CVS snapshot is quite simple. The procedure 
 	is nearly the same as described in the last section, so it unhappily also 
@@ -155,15 +362,14 @@ TYPE="1"
 	    you are in the root of where you checked out from CVS, do the 
 	    following to create a Makefile, the libkwave package and 
 	    install it. If you already have a version of libkwave installed,
-	    please remove it first or use the 
-	    parameter <TT
+	    please remove it first or use <TT
 CLASS="LITERAL"
->-U</TT
+>rpm -U</TT
 > instead
 	    of <TT
 CLASS="LITERAL"
->-i</TT
-> for upgrading instead of installing.
+>rpm -i</TT
+> for updating instead of installing.
 <TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
@@ -303,10 +509,10 @@ CLASS="COMMAND"
 >make rpm</B
 >, 
 	you will find the tar.gz
-	archives that call has produced under <TT
+	archives that were produced under <TT
 CLASS="FILENAME"
 >/tmp</TT
->. 
+>.
 	Please follow the instructions in the
 	<A
 HREF="building_rpm_from_targz.html#MANUAL_RPM_CREATION"
@@ -316,6 +522,7 @@ HREF="building_rpm_from_targz.html#MANUAL_RPM_CREATION"
 ></TD
 ></TR
 ></TABLE
+></DIV
 ></DIV
 ></DIV
 ><DIV

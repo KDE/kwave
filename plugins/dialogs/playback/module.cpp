@@ -123,8 +123,10 @@ PlayBackDialog::PlayBackDialog(bool modal)
     bitsBoxLayout->addSpacing(bg->fontMetrics().height() );
 
     QHBoxLayout *bitsLayout = new QHBoxLayout();
-    bitsLayout->addSpacing(bg->fontMetrics().height() );
+    ASSERT(bitsLayout);
+    if (!bitsLayout) return;
     bitsBoxLayout->addLayout(bitsLayout);
+    bitsLayout->addSpacing(bg->fontMetrics().height() );
 
     b8 = new QRadioButton(i18n("&8 Bit"), bg);
     ASSERT(b8);
@@ -186,6 +188,7 @@ PlayBackDialog::PlayBackDialog(bool modal)
 	     "in the standard selection.\n"\
 	     "(sorry, not implemented yet!)"));
     select_device->setEnabled(false);
+    select_device->setFixedWidth(select_device->sizeHint().width());
     // ### not implemented yet ###
     //     -> needs support for ALSA,
     //        OSS/Free only supports up to 16 bits :-(

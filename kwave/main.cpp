@@ -108,21 +108,6 @@ void addDataStrings(KAboutData& aboutdata)
 //***************************************************************************
 int main( int argc, char **argv )
 {
-    /*
-     * This is a work-around to avoid problems/crashes with the aRts
-     * dispatcher. Maybe this can be removed when it gets possible
-     * to create/delete Arts::Dispatcher objects without crashing in
-     * Arts::GlobalX11Comm.  (maybe in KDE-3 ?)
-     *
-     * Meanwhile we avoid the creation of new new dispatchers and only
-     * use the one that is created implicitely by this call to the artsc
-     * interface.
-     */
-    int errorcode = arts_init();
-    if (errorcode < 0) {
-	warning("arts_init error: %s", arts_error_text(errorcode));
-    }
-
     KAboutData about(
 	PACKAGE,
 	"Kwave",

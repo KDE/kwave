@@ -39,7 +39,10 @@ public:
     TypesMap() {};
 
     /** Destructor */
-    virtual ~TypesMap() {};
+    virtual ~TypesMap()
+    {
+	m_list.clear();
+    };
 
     /**
      * This function is abstract and must be overwritten to
@@ -58,10 +61,8 @@ public:
     virtual void append(IDX index, DATA data,
 	const QString &name, const QString &description)
     {
-	Triple<DATA, QString, QString> *triple;
-	triple = new Triple<DATA, QString, QString>(data, name, description);
-	Q_ASSERT(triple);
-	if (triple) m_list.insert(index, *triple);
+	Triple<DATA, QString, QString> triple(data, name, description);
+	m_list.insert(index, triple);
     };
 
     /** Returns the number of types. */

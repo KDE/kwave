@@ -309,7 +309,7 @@ bool TrackPixmap::validateBuffer()
 	
 	    // allocate a buffer for one more sample (pixels2samples may
 	    // vary by +/-1 !
-	    QArray<sample_t> buffer(ceil(m_zoom)/*pixels2samples(1) + 1*/);
+	    QArray<sample_t> buffer((int)ceil(m_zoom)/*pixels2samples(1) + 1*/);
 	    sample_t min;
 	    sample_t max;
 	

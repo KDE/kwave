@@ -345,7 +345,7 @@ signals:
      * @param bits resolution in bits
      */
     void sigStatusInfo(unsigned int length, unsigned int tracks,
-                       unsigned int rate, unsigned int bits);
+                       double rate, unsigned int bits);
 
     /**
      * Emitted if samples have been inserted into a track. This implies

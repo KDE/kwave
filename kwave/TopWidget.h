@@ -144,7 +144,7 @@ private slots:
      * @param bits resolution in bits
      */
     void setStatusInfo(unsigned int length, unsigned int tracks,
-                       unsigned int rate, unsigned int bits);
+                       double rate, unsigned int bits);
 
     /**
      * Called if the number of tracks has changed and updates

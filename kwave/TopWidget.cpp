@@ -439,9 +439,9 @@ TopWidget::TopWidget(KwaveApp &main_app)
     // connect the signal manager
     SignalManager *signal_manager = &(m_main_widget->signalManager());
     connect(signal_manager, SIGNAL(sigStatusInfo(unsigned int, unsigned int,
-	unsigned int, unsigned int)),
+	double, unsigned int)),
 	this, SLOT(setStatusInfo(unsigned int, unsigned int,
-	unsigned int, unsigned int)));
+	double, unsigned int)));
     connect(signal_manager, SIGNAL(sigUndoRedoInfo(const QString&,
 	const QString&)),
 	this, SLOT(setUndoRedoInfo(const QString&, const QString&)));
@@ -978,7 +978,7 @@ void TopWidget::setZoomInfo(double zoom)
 
 //***************************************************************************
 void TopWidget::setStatusInfo(unsigned int length, unsigned int /*tracks*/,
-                              unsigned int rate, unsigned int bits)
+                              double rate, unsigned int bits)
 {
     ASSERT(statusBar());
     ASSERT(m_menu_manager);

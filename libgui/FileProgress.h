@@ -47,7 +47,7 @@ public:
      */
     FileProgress(QWidget *parent,
 	const QUrl &url, unsigned int size,
-	unsigned int samples, unsigned int rate, unsigned int bits,
+	unsigned int samples, double rate, unsigned int bits,
 	unsigned int tracks);
 
     /**

@@ -397,7 +397,7 @@ void MainWidget::refreshChannelControls()
 	min = 0;
 	max = h-m_signal_frame.height();
 	m_scrollbar->setRange(min, max);
-	m_scrollbar->setValue(floor(val * (double)max));
+	m_scrollbar->setValue((int)floor(val * (double)max));
 	m_scrollbar->setSteps(1, m_signal_frame.height());
     }
 

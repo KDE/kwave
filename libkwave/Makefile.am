@@ -35,6 +35,7 @@ libkwave_la_SOURCES=\
  FileLoader.cpp\
  FileFormat.cpp\
  Functions.cpp\
+ GenreType.cpp\
  gsl_fft.cpp\
  Interpolation.cpp\
  KwaveDrag.cpp\

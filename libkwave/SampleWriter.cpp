@@ -15,6 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "libkwave/memcpy.h"
 #include "libkwave/InsertMode.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
@@ -48,13 +49,22 @@ SampleWriter::~SampleWriter()
 //***************************************************************************
 SampleWriter &SampleWriter::operator << (const QMemArray<sample_t> &samples)
 {
-    // first flush the single-sample buffer before doing block operation
-    if (m_buffer_used) flush();
-
-    // now flush the block that we received as parameter (pass-through)
     unsigned int count = samples.size();
-    flush(samples, count);
-    Q_ASSERT(!count);
+
+    if (m_buffer_used + count < m_buffer.size()) {
+	// append to the internal buffer if there is still some room
+	MEMCPY(&(m_buffer[m_buffer_used]), &(samples[0]),
+	       count *sizeof(sample_t));
+	m_buffer_used += count;
+	if (m_buffer_used >= m_buffer.size()) flush();
+    } else {
+	// first flush the single-sample buffer before doing block operation
+	if (m_buffer_used) flush();
+
+	// now flush the block that we received as parameter (pass-through)
+	flush(samples, count);
+	Q_ASSERT(!count);
+    }
 
     return *this;
 }

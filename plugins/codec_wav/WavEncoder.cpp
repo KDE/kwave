@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "config.h"
+#include <byteswap.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmimetype.h>
@@ -80,7 +81,7 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     if (src.count() != tracks) return false;
 
     // open the output device
-    if (!dst.open(IO_WriteOnly)) {
+    if (!dst.open(IO_ReadWrite | IO_Truncate)) {
 	KMessageBox::error(widget,
 	    i18n("Unable to open the file for saving!"));
 	return false;
@@ -92,23 +93,25 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
     unsigned int used_properties = properties.count();
     QMap<FileProperty, QVariant>::Iterator it;
     for (it=properties.begin(); it!=properties.end(); ++it) {
-	if (!m_property_map.contains(it.key())) {
+	if (! (m_property_map.containsProperty(it.key())) ) {
 	    // if it's only internal, we don't care...
-	    if (info.isInternal(it.key())) used_properties--;
+	    if (!info.canLoadSave(it.key())) used_properties--;
+	    else warning("WavEncoder: unsupported property '%s'",
+		info.name(it.key()).data());
 	
 	    // remove unsupported property
 	    properties.remove(it);
 	}
     }
 
-//    unsigned int supported_properties = properties.count();
-//    if (supported_properties < used_properties) {
-//	// show a warning to the user and ask him if he wants to continue
-//	if (KMessageBox::warningContinueCancel(widget,
-//	    i18n("Saving in this format will loose some additional "
-//	         "file attributes. Do you still want to continue?")
-//	    ) != KMessageBox::Continue) return false;
-//    }
+    unsigned int supported_properties = properties.count();
+    if (supported_properties < used_properties) {
+	// show a warning to the user and ask him if he wants to continue
+	if (KMessageBox::warningContinueCancel(widget,
+	    i18n("Saving in this format will loose some additional "
+	         "file attributes. Do you still want to continue?")
+	    ) != KMessageBox::Continue) return false;
+    }
 
     // append some missing standard properties if they are missing
     if (!properties.contains(INF_SOFTWARE)) {
@@ -116,8 +119,10 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	const KAboutData *about_data = KGlobal::instance()->aboutData();
 	QString software = about_data->programName() + "-" +
 	    about_data->version() +
-	    " for KDE " + QString::fromLatin1(KDE_VERSION_STRING);
-	properties.insert(INF_SOFTWARE, QVariant(software.utf8()));
+	    i18n(" for KDE ") + i18n(QString::fromLatin1(KDE_VERSION_STRING));
+	QVariant value = software.utf8();
+	debug("WavEncoder: adding software tag: '%s'", software.data());
+	properties.insert(INF_SOFTWARE, value);
     }
     if (!properties.contains(INF_CREATION_DATE)) {
 	// add a date tag
@@ -125,7 +130,9 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	QString date;
 	date = date.sprintf("%04d-%02d-%02d",
 	    now.year(), now.month(), now.day());
-	properties.insert(INF_CREATION_DATE, QVariant(date.utf8()));
+	QVariant value = date.utf8();
+	debug("WavEncoder: adding date tag: '%s'", date.data());
+	properties.insert(INF_CREATION_DATE, value);
     }
 
     AFfilesetup setup;
@@ -177,19 +184,6 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	
 	return false;
     }
-
-    // if there are properties to save, create a LIST chunk
-    // void afInitMiscIDs (AFfilesetup setup, int *ids, int nids)
-    // int afWriteMisc (AFfilehandle file, int miscellaneousid, void *buf, int bytes)
-    // afInitMiscIDs(setup, miscids, 2);
-    // afInitMiscType(setup, 1, AF_MISC_COPY);
-    // afInitMiscType(setup, 2, AF_MISC_NAME);
-    // afInitMiscSize(setup, 1, strlen(copyright));
-    // afInitMiscSize(setup, 2, strlen(name));
-//    for (it=properties.begin(); it!=properties.end(); ++it) {
-//	QString id = "";
-//	debug("misc data, id='%s'", id);
-//    }
 
     // set up libaudiofile to produce Kwave's internal sample format
 #if defined(IS_BIG_ENDIAN)
@@ -243,6 +237,72 @@ bool WavEncoder::encode(QWidget *widget, MultiTrackReader &src,
 	// abort if the user pressed cancel
 	// --> this would leave a corrupted file !!!
 	if (src.isCancelled()) break;
+    }
+
+    // close the audiofile stuff, we need control over the
+    // fixed-up file on our own
+    outfile.close();
+
+    // create a list of chunk names and properties for the INFO chunk
+    QMap<QCString, QCString> info_chunks;
+    unsigned int info_size = 0;
+    for (it=properties.begin(); it!=properties.end(); ++it) {
+	FileProperty property = it.key();
+	if (!m_property_map.containsProperty(property)) continue;
+	
+	QCString chunk_id = m_property_map.findProperty(property);
+	QCString value = QVariant(properties[property]).asString().utf8();
+	info_chunks.insert(chunk_id, value);
+	info_size += 4 + 4 + value.length();
+	if (value.length() & 0x01) info_size++;
+    }
+
+    // if there are properties to save, create a LIST chunk
+    if (!info_chunks.isEmpty()) {
+	u_int32_t size;
+	
+	// enlarge the main RIFF chunk by the size of the LIST chunk
+	info_size += 4 + 4 + 4; // add the size of LIST(INFO)
+	dst.at(4);
+	dst.readBlock((char*)&size, 4);
+#if defined(IS_BIG_ENDIAN)
+	size = bswap_32(bswap_32(size) + info_size);
+#else
+	size += info_size;
+#endif
+	dst.at(4);
+	dst.writeBlock((char*)&size, 4);
+	
+	// add the LIST(INFO) chunk itself
+	dst.at(dst.size());
+	dst.writeBlock("LIST", 4);
+#if defined(IS_BIG_ENDIAN)
+	size = bswap_32(info_size - 8);
+#else
+	size = info_size - 8;
+#endif
+	dst.writeBlock((char*)&size, 4);
+	dst.writeBlock("INFO", 4);
+	
+	// append the chunks to the end of the file
+	QMap<QCString, QCString>::Iterator it;
+	for (it=info_chunks.begin(); it != info_chunks.end(); ++it) {
+	    QCString name  = it.key();
+	    QCString value = it.data();
+	
+	    dst.writeBlock(name.data(), 4); // chunk name
+	    u_int32_t size = value.length(); // length of the chunk
+	    if (size & 0x01) size++;
+#if defined(IS_BIG_ENDIAN)
+	    size = bswap_32(size);
+#endif
+	    dst.writeBlock((char*)&size, 4);
+	    dst.writeBlock(value.data(), value.length());
+	    if (value.length() & 0x01) {
+		const char zero = 0;
+		dst.writeBlock(&zero, 1);
+	    }
+	}
     }
 
     // clean up the sample buffer

@@ -393,12 +393,13 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 	    FileProperty prop = m_property_map[chunk.name()];
 	    unsigned int offset = chunk.dataStart();
 	    unsigned int length = chunk.dataLength();
-	    char *buffer = (char*)malloc(length);
+	    char *buffer = (char*)malloc(length+1);
 	    ASSERT(buffer);
 	    if (!buffer) continue;
 	
 	    src.at(offset);
 	    src.readBlock(buffer, length);
+	    buffer[length] = 0;
 	    QCString value(buffer);
 	    info().set(prop, value);
 	

@@ -82,14 +82,19 @@ public:
     /**
      * Executes a plugin in the context of a given parent widget.
      */
-    void executePlugin(const QString &name, QStringList *params);
+    int executePlugin(const QString &name, QStringList *params);
+
+    /**
+     * Waits until all currently running acions have completed.
+     */
+    void sync();
 
     /**
      * Loads a plugin, calls it's setup function and then closes
      * it again. The parameters will be loaded before the setup
      * and saved if the setup has not been aborted.
      */
-    void setupPlugin(const QString &name);
+    int setupPlugin(const QString &name);
 
     /**
      * Returns the length of the current signal in samples.

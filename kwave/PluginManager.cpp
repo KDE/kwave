@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include <dlfcn.h>
+#include <errno.h>
 #include <pthread.h>
 
 #include "qobject.h"
@@ -276,18 +277,19 @@ KwavePlugin *PluginManager::loadPlugin(const QString &name)
 }
 
 //***************************************************************************
-void PluginManager::executePlugin(const QString &name, QStringList *params)
+int PluginManager::executePlugin(const QString &name, QStringList *params)
 {
     QString command;
+    int result = 0;
 
     // load the plugin
     KwavePlugin* plugin = loadPlugin(name);
-    if (!plugin) return;
+    if (!plugin) return -ENOMEM;
 
     if (params) {
 	// parameters were specified -> call directly
 	// without setup dialog
-	int result = plugin->start(*params);
+	result = plugin->start(*params);
 	
 	// maybe the start() function has called close() ?
 	if (m_loaded_plugins.findRef(plugin) == -1) {
@@ -341,14 +343,22 @@ void PluginManager::executePlugin(const QString &name, QStringList *params)
     // emit a command, let the toplevel window (and macro recorder) get
     // it and call us again later...
     if (command.length()) emit sigCommand(command);
+
+    return result;
 }
 
 //***************************************************************************
-void PluginManager::setupPlugin(const QString &name)
+void PluginManager::sync()
+{
+    // ###
+}
+
+//***************************************************************************
+int PluginManager::setupPlugin(const QString &name)
 {
     // load the plugin
     KwavePlugin* plugin = loadPlugin(name);
-    if (!plugin) return;
+    if (!plugin) return -ENOMEM;
 
     // now the plugin is present and loaded
     QStringList last_params = loadPluginDefaults(name, plugin->version());
@@ -360,7 +370,7 @@ void PluginManager::setupPlugin(const QString &name)
 	// the setup function has not been aborted.
 	savePluginDefaults(name, plugin->version(), *params);
 	delete params;
-    }
+    } else return -1;
 
     // now the plugin is no longer needed here, so delete it
     // if it has not already been detached and is not persistent

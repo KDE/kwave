@@ -552,16 +552,42 @@ TopWidget::~TopWidget()
 }
 
 //***************************************************************************
-void TopWidget::executeCommand(const QString &command)
+int TopWidget::executeCommand(const QString &line)
 {
-//    debug("TopWidget::executeCommand(%s)", command.data()); // ###
-    if (!command.length()) return;
-    if (command.stripWhiteSpace().startsWith("#")) return; // only a comment
+    int result = 0;
+    bool use_recorder = true;
+    QString command = line;
+
+    debug("TopWidget::executeCommand(%s)", command.data()); // ###
+    if (!command.length()) return 0;
+    if (command.stripWhiteSpace().startsWith("#")) return 0; // only a comment
 
     Parser parser(command);
 
-    if (m_app.executeCommand(command)) {
-	return ;
+    // special case: if the command contains ";" it is a list of
+    // commands -> macro !
+    if (parser.hasMultipleCommands()) {
+	QStringList macro = parser.commandList();
+	for (QStringList::Iterator it=macro.begin(); it!=macro.end(); ++it) {
+	    result = executeCommand("nomacro:"+(*it));
+	    ASSERT(!result);
+	    if (result) return result; // macro failed :-(
+	
+	    // wait until the command has completed !
+	    ASSERT(m_plugin_manager);
+	    if (m_plugin_manager) m_plugin_manager->sync();
+	}
+	return result;
+    }
+
+    // check if the macro recorder has to be disabled for this command
+    if (command.startsWith("nomacro:")) {
+	use_recorder = false;
+	command = command.mid(QString("nomacro:").length());
+    }
+
+    if (result = m_app.executeCommand(command)) {
+	return result;
     CASE_COMMAND("plugin")
 	QString name = parser.firstParam();
 	QStringList *params = 0;
@@ -580,7 +606,8 @@ void TopWidget::executeCommand(const QString &command)
 	debug("TopWidget::executeCommand(): with %d parameter(s)",
 		(params) ? params->count() : 0);
 	ASSERT(m_plugin_manager);
-	if (m_plugin_manager) m_plugin_manager->executePlugin(name, params);
+	if (m_plugin_manager)
+	    result = m_plugin_manager->executePlugin(name, params);
     CASE_COMMAND("plugin:execute")
 	QStringList params;
 	int cnt = parser.count();
@@ -589,72 +616,76 @@ void TopWidget::executeCommand(const QString &command)
 	    params.append(parser.nextParam());
 	}
 	ASSERT(m_plugin_manager);
-	if (m_plugin_manager) m_plugin_manager->executePlugin(
-            name, &params);
+	if (m_plugin_manager) m_plugin_manager->executePlugin(name, &params);
     CASE_COMMAND("plugin:setup")
 	QString name(parser.firstParam());
 	ASSERT(m_plugin_manager);
-	if (m_plugin_manager) m_plugin_manager->setupPlugin(name);
+	if (m_plugin_manager) result = m_plugin_manager->setupPlugin(name);
     CASE_COMMAND("menu")
 	ASSERT(m_menu_manager);
-	if (m_menu_manager) m_menu_manager->executeCommand(command);
+	if (m_menu_manager) /*result = */m_menu_manager->executeCommand(command);
     CASE_COMMAND("newsignal");
 	unsigned int samples = parser.toUInt();
 	double       rate    = parser.toDouble();
 	unsigned int bits    = parser.toUInt();
 	unsigned int tracks  = parser.toUInt();
-	newSignal(samples, rate, bits, tracks);
+	result = newSignal(samples, rate, bits, tracks);
     CASE_COMMAND("open")
 	QString filename = parser.nextParam();
 	if (!filename.isEmpty()) {
 	    // open the selected file
-	    loadFile(filename);
+	    result = loadFile(filename);
 	} else {
 	    // show file open dialog
-	    openFile();
+	    result = openFile();
 	}
     CASE_COMMAND("openrecent")
-	openRecent(command);
+	result = openRecent(command);
     CASE_COMMAND("playback")
-	executePlaybackCommand(parser.firstParam());
+	result = executePlaybackCommand(parser.firstParam());
     CASE_COMMAND("save")
-	saveFile();
+	result = saveFile();
     CASE_COMMAND("close")
-	closeFile();
+	result = closeFile();
     CASE_COMMAND("resolution")
-	resolution(command);
+	result = resolution(command);
     CASE_COMMAND("revert")
-	revert();
+	result = revert();
     CASE_COMMAND("saveas")
-	saveFileAs(false);
+	result = saveFileAs(false);
     CASE_COMMAND("loadbatch")
-	loadBatch(command);
+	result = loadBatch(command);
     CASE_COMMAND("saveselect")
-	saveFileAs(true);
+	result = saveFileAs(true);
     CASE_COMMAND("quit")
-	close();
+	result = close();
     } else {
 	ASSERT(m_main_widget);
-	if ((m_main_widget) && (m_main_widget->executeCommand(command))) {
-	    return ;
-	}
+	result = (m_main_widget) ?
+	    m_main_widget->executeCommand(command) : -1;
     }
 
+    if (use_recorder) {
+	// append the command to the macro recorder
+        // @TODO macro recording...
+    }
+
+    return result;
 }
 
 //***************************************************************************
-void TopWidget::loadBatch(const QString &str)
+int TopWidget::loadBatch(const QString &str)
 {
     Parser parser(str);
     FileLoader loader(parser.firstParam());
-    parseCommands(loader.buffer());
+    return parseCommands(loader.buffer());
 }
 
 //***************************************************************************
-void TopWidget::executePlaybackCommand(const QString &command)
+int TopWidget::executePlaybackCommand(const QString &command)
 {
     ASSERT(m_main_widget);
-    if (!m_main_widget) return;
+    if (!m_main_widget) return -1;
 
     PlaybackController &controller = m_main_widget->playbackController();
     if (command == "start") {
@@ -667,8 +698,10 @@ void TopWidget::executePlaybackCommand(const QString &command)
 	pausePressed();
     } else if (command == "continue") {
 	pausePressed();
+    } else {
+	return -EINVAL;
     }
-
+    return 0;
 }
 
 //***************************************************************************
@@ -679,36 +712,42 @@ SignalManager &TopWidget::signalManager()
 }
 
 //***************************************************************************
-void TopWidget::parseCommands(const QByteArray &buffer)
+int TopWidget::parseCommands(const QByteArray &buffer)
 {
+    int result = 0;
+
     LineParser lineparser(buffer);
     QString line = lineparser.nextLine();
-    while (line.length()) {
-	executeCommand(line);
+    while (line.length() && !result) {
+	result = executeCommand(line);
 	line = lineparser.nextLine();
     }
+    return result;
 }
 
 //***************************************************************************
-void TopWidget::revert()
+int TopWidget::revert()
 {
     ASSERT(m_url.isValid() && !m_url.isMalformed());
-    if (!m_url.isValid() || m_url.isMalformed()) return;
+    if (!m_url.isValid() || m_url.isMalformed()) return -EINVAL;
 
     KURL url(m_url);
-    loadFile(url);
+    return loadFile(url);
 }
 
 //***************************************************************************
-void TopWidget::resolution(const QString &str)
+int TopWidget::resolution(const QString &str)
 {
     Parser parser (str);
     int bps = parser.toInt();
 
     if ( (bps >= 0) && (bps <= 24) && (bps % 8 == 0)) {
 	m_save_bits = bps;
+	return 0;
+    } else {
+	warning("out of range");
+	return -EINVAL;
     }
-    else warning("out of range");
 }
 
 //***************************************************************************
@@ -775,21 +814,22 @@ int TopWidget::loadFile(const KURL &url)
 }
 
 //***************************************************************************
-void TopWidget::openRecent(const QString &str)
+int TopWidget::openRecent(const QString &str)
 {
     Parser parser(str);
-    loadFile(parser.firstParam());
+    return loadFile(parser.firstParam());
 }
 
 //***************************************************************************
-void TopWidget::openFile()
+int TopWidget::openFile()
 {
     KwaveFileDialog dlg(":<kwave_open_dir>", CodecManager::decodingFilter(),
         this, "Kwave open file", true);
     dlg.setMode(static_cast<KFile::Mode>(KFile::File | KFile::ExistingOnly));
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Open"));
-    if (dlg.exec() == QDialog::Accepted) loadFile(dlg.selectedURL());
+    if (dlg.exec() == QDialog::Accepted) return loadFile(dlg.selectedURL());
+    return -1;
 }
 
 //***************************************************************************
@@ -863,11 +903,13 @@ int TopWidget::saveFileAs(bool selection)
 }
 
 //***************************************************************************
-void TopWidget::newSignal(unsigned int samples, double rate,
-                          unsigned int bits, unsigned int tracks)
+int TopWidget::newSignal(unsigned int samples, double rate,
+                         unsigned int bits, unsigned int tracks)
 {
+    int result = 0;
+
     // abort if the user pressed cancel
-    if (!closeFile()) return;
+    if (!closeFile()) return -1;
 
     m_url = "file:"+NEW_FILENAME;
     emit sigSignalNameChanged(signalName());
@@ -878,6 +920,8 @@ void TopWidget::newSignal(unsigned int samples, double rate,
     m_save_bits = bits;
     updateMenu();
     updateToolbar();
+
+    return 0;
 }
 
 //***************************************************************************

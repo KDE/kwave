@@ -51,6 +51,14 @@ public:
 	return (m_param.count() != 0);
     };
 
+    /** Returns true if a list of commands was parsed */
+    inline bool hasMultipleCommands() {
+	return (m_commands.count() > 1);
+    }
+
+    /** Returns the list of commands */
+    inline QStringList commandList() { return m_commands; };
+
     /** Returns true if the end of the parameter list has been reached. */
     inline bool isDone () {
 	return (m_current >= m_param.count());
@@ -111,6 +119,11 @@ public:
      */
     double toDouble();
 
+protected:
+
+    /** Splits a line into a list of commands */
+    QStringList splitCommands(QString &line);
+
 private:
     /** the command part of the line */
     QString m_command;
@@ -120,6 +133,10 @@ private:
 
     /** number of the "current" parameter */
     unsigned int m_current;
+
+    /** if it has multiple commands, the list of command strings */
+    QStringList m_commands;
+
 };
 
 #endif /* _PARSER_H_ */

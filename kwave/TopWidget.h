@@ -92,14 +92,14 @@ public:
      * parsed commands.
      * @param buffer the list of commands
      */
-    void parseCommands(const QByteArray &buffer);
+    int parseCommands(const QByteArray &buffer);
 
     /**
      * Loads a batch file into memory, parses and executes
      * all commands in it.
      * @param filename name of the batch file
      */
-    void loadBatch(const QString &filename);
+    int loadBatch(const QString &filename);
 
     /**
      * Returns a pointer to the current signal manager.
@@ -108,7 +108,7 @@ public:
 
 public slots:
 
-    void executeCommand(const QString &command);
+    int executeCommand(const QString &command);
 
     /**
      * Updates the list of recent files in the menu, maybe some other
@@ -240,13 +240,13 @@ protected:
      * Discards all changes to the current file and loads
      * it again.
      */
-    void revert();
+    int revert();
 
     /**
      * Shows an "open file" dialog and opens the .wav file the
      * user has selected.
      */
-    void openFile();
+    int openFile();
 
     /**
      * Closes the current file and updates the menu and other controls.
@@ -274,26 +274,26 @@ protected:
      * @param bits number of bits per sample
      * @param tracks number of tracks
      */
-    void newSignal(unsigned int samples, double rate,
-                   unsigned int bits, unsigned int tracks);
+    int newSignal(unsigned int samples, double rate,
+                  unsigned int bits, unsigned int tracks);
 
     /**
      * Opens a file contained in the list of recent files.
      * @param str the entry contained in the list
      */
-    void openRecent (const QString &str);
+    int openRecent(const QString &str);
 
     /**
      * Sets a new resolution for saving in bits per sample.
      * @param str str the resolution in string representation
      */
-    void resolution (const QString &str);
+    int resolution(const QString &str);
 
     /** Updates the caption with the filename */
     void updateCaption();
 
     /** handle playback commands, like play/stop/pause etc... */
-    void executePlaybackCommand(const QString &command);
+    int executePlaybackCommand(const QString &command);
 
 private:
 

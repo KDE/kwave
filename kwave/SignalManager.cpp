@@ -487,7 +487,7 @@ void SignalManager::openMultiTrackWriter(MultiTrackWriter &writers,
 //***************************************************************************
 bool SignalManager::executeCommand(const QString &command)
 {
-    debug("SignalManager::executeCommand(%s)", command.data());    // ###
+//    debug("SignalManager::executeCommand(%s)", command.data());    // ###
 
     unsigned int offset = m_selection.offset();
     unsigned int length = m_selection.length();

@@ -21,10 +21,14 @@
 
 //***************************************************************************
 Parser::Parser (const QString &init)
-    :m_command(""), m_param(), m_current(0)
+    :m_command(""), m_param(), m_current(0), m_commands()
 {
     QString line = init.stripWhiteSpace();
+    unsigned int level = 0;
     int pos;
+
+    m_commands = splitCommands(line);
+    line = m_commands.first();
 
     // --- parse the command ---
     pos = line.find('(');
@@ -37,7 +41,6 @@ Parser::Parser (const QString &init)
     }
 
     // --- parse the list of parameters ---
-    unsigned int level = 0;
     QString param = "";
     while (line.length()) {
 	QChar c = line[0];
@@ -45,7 +48,7 @@ Parser::Parser (const QString &init)
 
 	switch (c) {
 	    case ',':
-		if (level == 0) {
+		if (!level) {
 		    m_param.append(param.stripWhiteSpace());
 		    param = "";
 	        } else param += c;
@@ -63,6 +66,11 @@ Parser::Parser (const QString &init)
 		level--;
 		param += c;
 		break;
+	    case ';':
+		if (!level) {
+		    // next command in the list
+		    debug("--- next command ---");
+		}
 	    default:
 		param += c;
 	}
@@ -77,6 +85,46 @@ Parser::Parser (const QString &init)
 //***************************************************************************
 Parser::~Parser ()
 {
+}
+
+//***************************************************************************
+QStringList Parser::splitCommands(QString &line)
+{
+    // split a line into commands
+    unsigned int level = 0;
+    int pos;
+    QString cmd = "";
+    QStringList commands;
+
+    while (line.length()) {
+	QChar c = line[0];
+	line.remove(0,1);
+	switch (c) {
+	    case ';':
+		if (!level) {
+		    // next command in the list
+		    commands.append(cmd.stripWhiteSpace());
+		    cmd = "";
+	        } else cmd += c;
+	        break;
+	    case '(':
+		level++;
+		cmd += c;
+		break;
+	    case ')':
+		level--;
+		cmd += c;
+		break;
+	    default:
+		cmd += c;
+	}
+    }
+
+    if (cmd.length()) {
+	commands.append(cmd.stripWhiteSpace());
+    }
+
+    return commands;
 }
 
 //***************************************************************************

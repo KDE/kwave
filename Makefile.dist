@@ -43,7 +43,7 @@ logged:
 	-rm -fv `find . -name Makefile.in -o -name Makefile`
 	aclocal
 	autoheader
-	automake
+	automake --add-missing --gnu --include-deps --verbose
 	autoconf
 	@ -touch -c doc/help_{de,fr}.po 2>/dev/null 1>/dev/null
 	@ -touch -c doc/help_{de,fr}.docbook 2>/dev/null 1>/dev/null

@@ -24,6 +24,7 @@
 #include <qpixmap.h>
 #include <qprogressbar.h>
 #include <qslider.h>
+#include <qtabwidget.h>
 
 #include <kapplication.h> // for invokeHelp
 #include <kcombobox.h>
@@ -226,6 +227,13 @@ RecordDialog::RecordDialog(QWidget *parent, QStringList &params,
 
     // set the initial state of the dialog to "Reset/Empty"
     setState(REC_EMPTY);
+
+    // disable the "level" tab, it it not implemented yet
+    tabRecord->setCurrentPage(1);
+    QWidget *page = tabRecord->currentPage();
+    tabRecord->setCurrentPage(0);
+    if (page) delete page;
+
 }
 
 //***************************************************************************

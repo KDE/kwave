@@ -1,5 +1,5 @@
 /***************************************************************************
-     ThreadsafX11Guard.h -  guard for using X11 from a worker thread
+    ThreadsafeX11Guard.h -  guard for using X11 from a worker thread
 			     -------------------
     begin                : Sun Jun 03 2001
     copyright            : (C) 2001 by Thomas Eschenbacher
@@ -29,6 +29,11 @@
  * e.g. for doing some drawing or showing windows or dialog boxes, the
  * main thread has to be suspended until X11 output is done. This is
  * needed because <b>X11 currently is not threadsafe!</b>.
+ *
+ * @note This guard can be used multiple times in different contexts, it
+ *       is able to handle recursion within the same thread. So you can
+ *       use it as often as you want without having the danger of a
+ *       deadlock.
  *
  * @warning Doing X11 output without this using this guard class normally
  *          leads to incomprehensible program crahes like bus errors or
@@ -61,6 +66,21 @@ private:
 
     /** the global/unique lock for X11 */
     static Mutex m_lock_X11;
+
+    /**
+     * the mutex for entering/leaving a protected area, used in our
+     * constructor and destructor.
+     */
+    static Mutex m_lock_enter_leave;
+
+    /** thread id of the thread that is currently holding the X11 lock */
+    static pthread_t m_pid_owner;
+
+    /** thread id of the X11 thread (main thread) */
+    static pthread_t m_pid_x11;
+
+    /** counter for recursive X11 locks. */
+    static unsigned int m_recursion_level;
 
     /**
      * Semaphore set by lockX11() to signal that X11 has been locked and

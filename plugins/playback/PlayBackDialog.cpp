@@ -364,7 +364,10 @@ void PlayBackDialog::selectPlaybackDevice()
     dlg.setKeepLocation(true);
     dlg.setOperationMode(KFileDialog::Opening);
     dlg.setCaption(i18n("Select Playback Device"));
-    dlg.setURL("file:"+m_playback_params.device);
+    if (m_playback_params.device[0] != '[')
+        dlg.setURL("file:"+m_playback_params.device);
+    else
+        dlg.setURL("file:/dev/*");
     if (dlg.exec() != QDialog::Accepted) return;
 
     QString new_device = dlg.selectedFile();

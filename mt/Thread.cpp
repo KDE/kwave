@@ -38,9 +38,9 @@
 
 #include "config.h"
 #include <errno.h>
-#include <error.h>        // for strerror()
-#include <time.h>         // for clock()
-#include <qapplication.h> // for warning()
+#include <error.h>   // for strerror()
+#include <time.h>    // for clock()
+#include <qglobal.h> // for warning()
 
 #include "mt/TSS_Object.h"
 #include "mt/MutexGuard.h"

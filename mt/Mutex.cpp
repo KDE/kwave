@@ -19,7 +19,8 @@
 #include <pthread.h>
 #include <errno.h>
 #include <error.h>
-#include <qapplication.h> // for warning()
+#include <string.h>  // for strerror()
+#include <qglobal.h> // for warning()
 
 #ifdef DEBUG
 #include <execinfo.h> // for backtrace()

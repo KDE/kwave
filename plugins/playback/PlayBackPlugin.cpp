@@ -35,6 +35,7 @@
 
 #include "libkwave/KwavePlugin.h"
 #include "libkwave/Matrix.h"
+#include "libkwave/PlayBackDevice.h"
 #include "libkwave/Sample.h"
 #include "libkwave/SampleReader.h"
 #include "libkwave/MultiTrackReader.h"
@@ -43,7 +44,6 @@
 #include "kwave/PluginManager.h"
 #include "kwave/SignalManager.h"
 
-#include "PlayBackDevice.h"
 #include "PlayBack-OSS.h"
 #include "PlayBack-aRts.h"
 

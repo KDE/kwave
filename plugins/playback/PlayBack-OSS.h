@@ -22,7 +22,7 @@
 #include <qobject.h>
 #include <qstring.h>
 
-#include "PlayBackDevice.h"
+#include "libkwave/PlayBackDevice.h"
 
 class PlayBackOSS: public PlayBackDevice
 {

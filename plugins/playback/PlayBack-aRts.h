@@ -24,7 +24,7 @@
 #include <artsc.h>
 
 #include "mt/Mutex.h"
-#include "PlayBackDevice.h"
+#include "libkwave/PlayBackDevice.h"
 
 class PlayBackArts: public PlayBackDevice
 {

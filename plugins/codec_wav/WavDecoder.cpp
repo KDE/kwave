@@ -66,8 +66,24 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 
     unsigned int pos=src.at();
     RIFFParser parser(src);
-    QList<RIFFChunk> chunks;
     parser.parse();
+//    parser.dumpStructure();
+    debug("--- after first pass ---");
+
+    RIFFChunk *chunk;
+
+    // check if there is a RIFF chunk at all...
+    chunk = parser.findChunk("/RIFF");
+    if (!chunk) {
+        warning("RIFF chunk not found");
+        chunk = parser.findMissingChunk("RIFF");
+    } else debug("RIFF chunk found.");
+
+//    parser.findChunk("/RIFF/WAVE");
+//    parser.findChunk("/RIFF/WAVE/fmt ");
+//    parser.findChunk("/RIFF/WAVE/data");
+
+    parser.dumpStructure();
     src.at(pos);
 
     // source successfully opened
@@ -143,7 +159,7 @@ bool WavDecoder::open(QWidget *widget, QIODevice &src)
 }
 
 //***************************************************************************
-bool WavDecoder::decode(QWidget *widget, MultiTrackWriter &dst)
+bool WavDecoder::decode(QWidget */*widget*/, MultiTrackWriter &dst)
 {
     ASSERT(m_source);
     if (!m_source) return false;
@@ -200,47 +216,6 @@ void WavDecoder::close()
 
 below comes some old code from the SignalManager. It's features should
 get merged into the new code again...
-
-__uint32_t SignalManager::findChunk(QFile &sigfile, const char *chunk,
-	__uint32_t offset)
-{
-    char current_name[16];
-    __uint32_t length = 0;
-    int len;
-
-    ASSERT(sizeof(length) == 4);
-    ASSERT(sizeof(int) == 4);
-
-    sigfile.at(offset);
-    while (!sigfile.atEnd()) {
-	// get name of the chunk
-	len = sigfile.readBlock((char*)(&current_name), 4);
-	if (len < 4) {
-	    debug("findChunk('%s'): not found, reached EOF while reading name",
-	    	chunk);
-	    return 0; // reached EOF
-	}
-
-	// get length of the chunk
-	len = sigfile.readBlock((char*)(&length), sizeof(length));
-	if (len < 4) {
-	    debug("findChunk('%s'): not found, reached EOF :-(", chunk);
-	    return 0; // reached EOF
-	}
-#ifdef IS_BIG_ENDIAN
-	length = bswap_32(length);
-#endif
-
-	// chunk found !
-	if (strncmp(chunk, current_name, 4) == 0) return length;
-
-	// not found -> skip
-	sigfile.at(sigfile.at()+length);
-    };
-
-    debug("findChunk('%s'): not found :-(", chunk);
-    return 0;
-}
 
 int SignalManager::loadWavChunk(QFile &sigfile, unsigned int length,
                                 unsigned int channels, int bits)

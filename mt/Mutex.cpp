@@ -15,10 +15,16 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "config.h"
 #include <pthread.h>
 #include <errno.h>
 #include <error.h>
 #include <qapplication.h> // for warning()
+
+#ifdef DEBUG
+#include <execinfo.h> // for backtrace()
+#endif
+
 #include "mt/Mutex.h"
 
 //***************************************************************************
@@ -35,6 +41,14 @@ Mutex::~Mutex()
 {
     if (locked()) {
 	warning("Mutex::~Mutex(): destroying locked mutex!");
+	
+#ifdef DEBUG
+	debug("pthread_self()=%08X", (unsigned int)pthread_self());
+	void *buf[256];
+	size_t n = backtrace(buf, 256);
+	backtrace_symbols_fd(buf, n, 2);
+#endif
+	
 	unlock();
     }
 
@@ -46,9 +60,21 @@ Mutex::~Mutex()
 //***************************************************************************
 int Mutex::lock()
 {
+    if (pthread_self() == m_locked_by) {
+	warning("Mutex::lock() RECURSIVE CALL => DANGER OF DEADLOCK !!!");
+#ifdef DEBUG
+	debug("pthread_self()=%08X", (unsigned int)pthread_self());
+	void *buf[256];
+	size_t n = backtrace(buf, 256);
+	backtrace_symbols_fd(buf, n, 2);
+#endif
+	return -EBUSY;
+    }
+
     int ret = pthread_mutex_lock(&m_mutex);
     if (ret) warning("Mutex::lock(): lock of mutex failed: %s",
 	strerror(ret));
+    m_locked_by = pthread_self();
     return ret;
 }
 
@@ -58,6 +84,7 @@ int Mutex::unlock()
     int ret = pthread_mutex_unlock(&m_mutex);
     if (ret) warning("Mutex::unlock(): unlock of mutex failed: %s",
 	strerror(ret));
+    m_locked_by = (pthread_t)-1;
     return ret;
 }
 

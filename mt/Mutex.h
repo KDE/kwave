@@ -72,11 +72,16 @@ public:
     const char *name();
 
 private:
-    /** the mutex handle internally used */
+
+    /** The mutex handle internally used */
     pthread_mutex_t m_mutex;
 
-    /** name of the mutex, optional but fine for debugging */
+    /** Name of the mutex, optional but fine for debugging */
     const char *m_name;
+
+    /** ID of the thread that currently owns the mutex */
+    pthread_t m_locked_by;
+
 };
 
 #endif /* _MUTEX_H_ */

@@ -47,6 +47,8 @@
 #include "libgui/MenuManager.h"
 #include "libgui/KwavePlugin.h" // for some helper functions
 
+#include "mt/ThreadsafeX11Guard.h"
+
 #include "KwaveApp.h"
 #include "ClipBoard.h"
 #include "MainWidget.h"
@@ -500,6 +502,8 @@ bool TopWidget::isOK()
 //***************************************************************************
 TopWidget::~TopWidget()
 {
+    ThreadsafeX11Guard x11_guard;
+
     // close the current file (no matter what the user wants)
     closeFile();
 
@@ -653,6 +657,8 @@ void TopWidget::resolution(const QString &str)
 //***************************************************************************
 bool TopWidget::closeFile()
 {
+    ThreadsafeX11Guard x11_guard;
+
     ASSERT(m_main_widget);
 //    if (m_main_widget) {
 //	// if this failed, the used pressed "cancel"

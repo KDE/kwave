@@ -1575,7 +1575,6 @@ void SignalManager::freeUndoMemory(unsigned int needed)
 	size = (size >= s) ? (size - s) : 0;
 	m_redo_buffer.removeLast();
     }
-
 }
 
 //***************************************************************************
@@ -1614,6 +1613,7 @@ void SignalManager::undo()
     MutexGuard lock(m_undo_transaction_lock);
 
     // get the last undo transaction and abort if none present
+    if (m_undo_buffer.isEmpty()) return;
     UndoTransaction *undo_transaction = m_undo_buffer.last();
     ASSERT(undo_transaction);
     if (!undo_transaction) return;
@@ -1703,6 +1703,7 @@ void SignalManager::redo()
     MutexGuard lock(m_undo_transaction_lock);
 
     // get the last redo transaction and abort if none present
+    if (m_redo_buffer.isEmpty()) return;
     UndoTransaction *redo_transaction = m_redo_buffer.first();
     if (!redo_transaction) return;
 

@@ -9,11 +9,20 @@
 /* Define if you can safely include both <sys/time.h> and <time.h>.  */
 #undef TIME_WITH_SYS_TIME
 
+/* check for geteuid */
+#undef HAVE_GETEUID
+
 /* check for sys/resource.h and getrlimit */
 #undef HAVE_GETRLIMIT
 
+/* check for ability to create temporary files with mkstemp(...) */
+#undef HAVE_MKSTEMP
+
 /* check for sysinfo to query total ram */
 #undef HAVE_MEMINFO
+
+/* check for unlink */
+#undef HAVE_UNLINK
 
 /* The number of bytes in a char.  */
 #undef SIZEOF_CHAR

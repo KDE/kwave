@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-09 01:25+0100\n"
-"PO-Revision-Date: 2002-01-27 09:46GMT\n"
+"PO-Revision-Date: 2002-01-27 23:23GMT\n"
 "Last-Translator: CAULIER Gilles <caulier.gilles@free.fr>\n"
 "Language-Team: FRANCAIS <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1215,15 +1215,15 @@ msgstr "1999-12-18 (par mwilz@ernie.mi.uni-koeln.de)"
 
 #: index.docbook:210
 msgid "changed filenames to reflect class names"
-msgstr ""
+msgstr "Changement des noms de fichiers en correspondance avec les noms des classes."
 
 #: index.docbook:210
 msgid "one class per file is now the standard"
-msgstr ""
+msgstr "Une classe par fichier est maintenant le standard."
 
 #: index.docbook:210
 msgid "stripped leading \"Kwave\" in Classnames for most Classes"
-msgstr ""
+msgstr "Ajout à plusieurs noms de classes du suffixe \"Kwave\"."
 
 #: index.docbook:210
 msgid "1999-12-10 (by Thomas.Eschenbacher@gmx.de)"
@@ -1231,13 +1231,15 @@ msgstr "1999-12-10 (par Thomas.Eschenbacher@gmx.de)"
 
 #: index.docbook:210
 msgid "removed -Werror compiler option (caused trouble with configure script)"
-msgstr ""
+msgstr "Suppression de l'option de compilation -Werror (problème avec le script de configuration)."
 
 #: index.docbook:210
 msgid ""
 "fixed a nasty bug in SignalManager::save that caused crashes on several "
 "positions in the program and libstdc++"
 msgstr ""
+"Correction d'un bogue complexe dans SignalManager::save qui plante violement l'application "
+" et la libstdc++."
 
 #: index.docbook:210
 msgid "1999-12-09 (by Thomas.Eschenbacher@gmx.de)"
@@ -1248,18 +1250,22 @@ msgid ""
 "gave the destructor of SignalManager some code, this fixes a huge memory "
 "leak !"
 msgstr ""
+"Correction d'un bogue de perte de mémoire concernant le destructeur de la "
+" classe SignalManager."
 
 #: index.docbook:210
 msgid "added a TODO file"
-msgstr ""
+msgstr "Ajout d'un fichier TODO."
 
 #: index.docbook:210
 msgid "added -Werror to the c++ compiler options when debuging enabled"
 msgstr ""
+"Ajout de l'option de compilation -Werror pour le compilateur c++ lorsque les options "
+" de débuggage sont activés."
 
 #: index.docbook:210
 msgid "some include file cleanups in libgui"
-msgstr ""
+msgstr "Nettoyage de quelques fichiers d'entête dans libgui."
 
 #: index.docbook:210
 msgid "1999-12-07 (by Thomas.Eschenbacher@gmx.de)"
@@ -1268,26 +1274,32 @@ msgstr "1999-12-07 (par Thomas.Eschenbacher@gmx.de)"
 #: index.docbook:210
 msgid "SignalManager::writeWavChunk uses buffers for writing (much faster!)"
 msgstr ""
+"La fonction SignalManager::writeWavChunk utilise mainteant un buffer pour "
+" l'écriture (plus rapide !)."
 
 #: index.docbook:210
 msgid "bugfix: caption of main window changes after \"SaveAs\""
-msgstr ""
+msgstr "Correction de bogue : le titre de la fenêtre principal change aprés un \"Sauvegarder Dans\"."
 
 #: index.docbook:210
 msgid "bugfix: selected resolution takes effect"
-msgstr ""
+msgstr "Correction de bogue : la sélection d'une résolution fonctionne maintenant."
 
 #: index.docbook:210
 msgid ""
 "bugfix: SignalManager::writeWavChunk now doesn't destroy the signal's data "
 "while saving"
 msgstr ""
+"Correction de bogue : la fonction SignalManager::writeWavChunk ne détruit plus les données "
+" du fichier sonore avant de l'avoir sauvé."
 
 #: index.docbook:210
 msgid ""
 "make distclean in the projekt root directory also removes zero-length files, "
 "*.orig, *.rej and *~ (just makes cleaner than before)"
 msgstr ""
+"Un make distclean dans la racine du projet supprime aussi les fichiers vide, "
+" *.orig, *.rej and *~."
 
 #: index.docbook:210
 msgid ""
@@ -1296,26 +1308,28 @@ msgid ""
 "\" (changes in the referenced Makefiles in the template directory will not "
 "be reflected thousand times when creating a patch with diff)"
 msgstr ""
+"Les liens symboliques vers Makefile, Makefile.in et Makefile.am dans les répertoires "
+" des plugins sont supprimés avec \"make distclean\" et reconstruit par \"make\"."
 
 #: index.docbook:210
 msgid "cleanups, removed some old backup files"
-msgstr ""
+msgstr "Nettoyage : suppression de quelques anciens fichiers de sauvegarde."
 
 #: index.docbook:210
 msgid "improved support for debugging accessible through"
-msgstr ""
+msgstr "Le support du débuggage est maintenant facile à utiliser."
 
 #: index.docbook:210
 msgid "\"configure --enable-debug=yes\" (-g and -DDEBUG compiler flags)"
-msgstr ""
+msgstr "\"configure --enable-debug=yes\" (options de compilation -g et -DDEBUG)."
 
 #: index.docbook:210
 msgid "rewritten big parts of Makefile.in for the plugins"
-msgstr ""
+msgstr "Réécriture d'une grande partie de Makefile.in pour les plugins."
 
 #: index.docbook:210
 msgid "added -O2 compiler optimization"
-msgstr ""
+msgstr "Ajout de l'option de compilation -O2."
 
 #: index.docbook:210
 msgid "1999-12-03 (by Thomas.Eschenbacher@gmx.de)"
@@ -1323,7 +1337,7 @@ msgstr "1999-12-03 (par Thomas.Eschenbacher@gmx.de)"
 
 #: index.docbook:210
 msgid "merged with Martin Wilz's version"
-msgstr ""
+msgstr "Fusion avec la version de Martin Wilz's."
 
 #: index.docbook:210
 msgid "1999-11"
@@ -1331,25 +1345,29 @@ msgstr "1999-11"
 
 #: index.docbook:210
 msgid "version numbering script donated by Thomas Eschenbacher"
-msgstr ""
+msgstr "Script de Thomas Eschenbacher pour la numérotation des versions."
 
 #: index.docbook:210
 msgid "now using KTMainwindow for top level widgets"
-msgstr ""
+msgstr "KTMainwindow est maintenant utilisée pour les widgets de haut niveau."
 
 #: index.docbook:210
 msgid ""
 "using timer to check message port -> alternative (threadsafe) message "
 "passing instead of signal/slot"
 msgstr ""
+"Utilisation d'un timer pour vérifier les messages systémes -> le message alternatif "
+" (threadsafe) passe à la place d'un signal ou d'un slot."
 
 #: index.docbook:210
 msgid "labelling code rewritten, now incompatible with old releases"
 msgstr ""
+"Les sources pour les fonctions de marquage ont été réécrites et sont maintenant "
+" incompatibles avec les anciennes versions."
 
 #: index.docbook:210
 msgid "batch loading routines"
-msgstr ""
+msgstr "Regroupement des routines de chargement."
 
 #: index.docbook:210
 msgid "1999-10"
@@ -1357,59 +1375,63 @@ msgstr "1999-10"
 
 #: index.docbook:210
 msgid "deleting channels works again"
-msgstr ""
+msgstr "La suppression des canaux fonctionne."
 
 #: index.docbook:210
 msgid "fixed savelabel dialog"
-msgstr ""
+msgstr "Correction de la boîte de dialogue pour la sauvegarde du marquage."
 
 #: index.docbook:210
 msgid "corrected envelope dialog, string handling"
-msgstr ""
+msgstr "Correction de la boîte de dialogue pour la modification de l'enveloppe d'un signal."
 
 #: index.docbook:210
 msgid "connected many functions via the new string-based way of invocation"
-msgstr ""
+msgstr "Raccordement de plusieurs fonctions par une chaîne de carractères commune."
 
 #: index.docbook:210
 msgid ""
 "fixed some dependencies between old code and new classes (there's still more "
 "to do !)"
 msgstr ""
+"Correction de quelques dépendances entre l'ancien code et les nouvelles "
+" classes (il reste encore des choses à faire !)."
 
 #: index.docbook:210
 msgid "saving should now work again"
-msgstr ""
+msgstr "La sauvegarde d'un fichier sonore fonctionne."
 
 #: index.docbook:210
 msgid "trimmed down Clipboard class"
-msgstr ""
+msgstr "Correction de la classe Clipboard."
 
 #: index.docbook:210
 msgid "Color class as wrapper to QColor (may become independent later)"
-msgstr ""
+msgstr "La classe Color a été changée en QColor (elle pourra devenir indépendante plus tard)."
 
 #: index.docbook:210
 msgid ""
 "reworking Curve Class for creation via string, interpolation now uses curve "
 "objects"
 msgstr ""
+"Restructuration de la classe Curve pour la création de chaîne. L'interpolation est maintenant "
+" utilisée par les objets de cette classe."
 
 #: index.docbook:210
 msgid "moved gui functions into a new library (libkwavegui)"
-msgstr ""
+msgstr "Déplacement des fontions graphiques dans une nouvelle librarie (libkwavegui)."
 
 #: index.docbook:210
 msgid "new Classes: Parser DynamicLoader Filter (prevously was a struct)"
-msgstr ""
+msgstr "Nouvelles classes : Parser, DynamicLoader, et Filter (elles étaient précédemment des structures)."
 
 #: index.docbook:210
 msgid "moved gui-independent functions into a library (libkwave)"
-msgstr ""
+msgstr "Déplacement de donctions graphique indépendante dans une nouvelle librairies (libkwave)."
 
 #: index.docbook:210
 msgid "rework of dialogs into single files and single plugins"
-msgstr ""
+msgstr "Regroupement des boîtes de dialogue dans des fichiers uniques et dans des simples plugins."
 
 #: index.docbook:210
 msgid ""
@@ -1418,14 +1440,17 @@ msgid ""
 "has to be passed and gets expanded into the needed set of parameters in each "
 "thread"
 msgstr ""
+"Nouveau schéma d'appel via des lignes de commandes. Cela permettera des appel par "
+" des scripts et la définition de macros. Les enchainements sont construis plus facilement, car "
+" par une seule chaine de carractères sont passés tous les paramétres."
 
 #: index.docbook:210
 msgid "io functions and playback adapted to SignalManager"
-msgstr ""
+msgstr "Les fonctions d'entrées/sorties et de lecture sont adaptées à SignalManager."
 
 #: index.docbook:210
 msgid "Introduction of SignalManager class for multiple channel management"
-msgstr ""
+msgstr "Ajout de la classe SignalManager pour la gestion de plusieurs canaux."
 
 #: index.docbook:210
 msgid "0.29.5 [1998-04]"
@@ -1433,7 +1458,7 @@ msgstr "0.29.5 [1998-04]"
 
 #: index.docbook:210
 msgid "Just a fix for an annoying bug while zooming out"
-msgstr ""
+msgstr "Juste la correction d'un bogue concernant le zoom arriére."
 
 #: index.docbook:210
 msgid "0.29.4 [1998-03]"

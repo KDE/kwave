@@ -286,8 +286,8 @@ protected:
      */
     void resolution (const QString &str);
 
-private:
-
+/** needs to be public since gcc-3.0 ! */
+public:
     /**
      * Primitive class that holds a list of predefined zoom
      * factors.
@@ -299,6 +299,7 @@ private:
 	virtual ~ZoomListPrivate() {};
     };
 
+private:
     /** reference to the main kwave application */
     KwaveApp &m_app;
 

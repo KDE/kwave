@@ -75,6 +75,26 @@ public:
 	m_type = t;
     };
 
+/** needs to be public since gcc-3.0 ! */
+public:
+    /**
+     * Little private class for initialized map. Used
+     * to translate interpolation_t into verbose name
+     * and vice-versa.
+     */
+    class InterpolationMap: public QMap<interpolation_t, QString>
+    {
+    public:
+	/** Constructor for filling the map. */
+	InterpolationMap();
+	
+	/** Reverse Lookup, find an interpolation by name. */
+	interpolation_t find(const QString &name, bool localized);
+
+	/** Return a list of type names */
+	QStringList names(bool localized);
+    };
+
 private:
 
     /** Returns the number of points **/
@@ -120,29 +140,13 @@ private:
     /** ??? used for temporary purposes */
     double *der;
 
-    /** Type of the interpolation. */
-    interpolation_t m_type;
-
-    /**
-     * Little private class for initialized map. Used
-     * to translate interpolation_t into verbose name
-     * and vice-versa.
-     */
-    class InterpolationMap: public QMap<interpolation_t, QString>
-    {
-    public:
-	/** Constructor for filling the map. */
-	InterpolationMap();
-	
-	/** Reverse Lookup, find an interpolation by name. */
-	interpolation_t find(const QString &name, bool localized);
-
-	/** Return a list of type names */
-	QStringList names(bool localized);
-    };
+private:
 
     /** Map with type and name of interpolations */
     static InterpolationMap m_interpolation_map;
+
+    /** Type of the interpolation. */
+    interpolation_t m_type;
 
 };
 

@@ -125,7 +125,7 @@ public:
 	return m_types_map.count();
     };
 
-private:
+public:
     /**
      * This map will be initialized with all known window functions.
      */
@@ -135,6 +135,8 @@ private:
 	/** Contstructor, initializes the map. */
 	InitializedTypesMap();
     };
+
+private:
 
     /** id of the window function */
     window_function_t m_type;

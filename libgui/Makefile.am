@@ -27,6 +27,7 @@ BUILTSOURCES=\
  FileProgress.moc.cpp\
  FrequencyResponseWidget.moc.cpp\
  IntValidatorProxy.moc.cpp\
+ InvertableSpinBox.moc.cpp\
  KwaveFileDialog.moc.cpp\
  OverViewCache.moc.cpp\
  OverViewWidget.moc.cpp\
@@ -47,6 +48,7 @@ libkwavegui_la_SOURCES =\
  FileProgress.cpp\
  FrequencyResponseWidget.cpp\
  IntValidatorProxy.cpp\
+ InvertableSpinBox.cpp\
  KwaveFileDialog.cpp\
  MenuNode.cpp\
  MenuGroup.cpp \

@@ -97,7 +97,7 @@ bool AudiofileDecoder::open(QWidget *widget, QIODevice &src)
     ASSERT(m_src_adapter);
     if (!m_src_adapter) return false;
 
-    m_src_adapter->open(m_src_adapter);
+    m_src_adapter->open(m_src_adapter, 0);
 
     AFfilehandle fh = m_src_adapter->handle();
     if (!fh || (m_src_adapter->lastError() >= 0)) {

@@ -1,8 +1,15 @@
 
-0.7.1 [2004-??-??]
+0.7.1 [2004-05-??]
 
  * removed our own copy of libmad from the source tree, now it
    should be available in all common distributions
+ * implemented pre-recording
+ * implemented recording time limit
+ * bugfix: minor fault in the recording state machine
+ * bugfix: solved some layout issues in the about- and sonagram plugins
+ * update of the online documentation, many screenshots
+ * improved Makefile dependencies of the plugins, now parallel builds
+   also work and speed up the creation of plugins
 
 0.7.0 [2003-12-01]
 
